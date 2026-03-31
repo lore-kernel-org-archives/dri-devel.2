@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07681FF60CF
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F06DFF60D9
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:40:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62FD810E8B6;
-	Tue, 31 Mar 2026 07:31:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE5D210E8CE;
+	Tue, 31 Mar 2026 07:40:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Bk+G/VD4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rs5Vpcy5";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA4CF10E8B6
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:31:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1774942314;
- bh=0Dcz6zVA6PKIwhW4Tsb1JO6a1ZraRnp80v262+5hZ2k=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Bk+G/VD430PhNxWJYCvXTflAsPGbhrLSdPyZksxcr++Dhat+4YSx1pLiOybf015s9
- cvPxoH7BywoRD2ePLmDKm+Sr6Tlcf7xn/5E82zjutjB2o5BYxpe9J9SuS3ZyAUf0M9
- 2uxrWYTqQbLI6bNn+Jhkukx3N7aYl7fyWYcSXv/ZCPtjTLNDfFaPJJbyh4ZQpJubWo
- SGQecNvAT1WM6AYg/ucuKt2lR9sLZuUyx3sSoIwZ+mvo/yAOpoDpfFboOaS9DLIET1
- 7caYWnusIGgDFynuyP5qXWgaUuiYRG3FCqBIhx1CcEPBZYtDpsgsJKp8pcGvlN2XqR
- DTZj9N2nS29LA==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BDDF917E5AFF;
- Tue, 31 Mar 2026 09:31:53 +0200 (CEST)
-Date: Tue, 31 Mar 2026 09:31:49 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
- <adrian.larumbe@collabora.com>, dri-devel@lists.freedesktop.org, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Akash Goel
- <akash.goel@arm.com>, Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul
- <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen
- <akhilpo@oss.qualcomm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Dmitry Osipenko
- <dmitry.osipenko@collabora.com>, Chris Diamand <chris.diamand@arm.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
- <thomas.hellstrom@linux.intel.com>, Alice Ryhl <aliceryhl@google.com>,
- Chia-I Wu <olvaffe@gmail.com>, kernel@collabora.com
-Subject: Re: [PATCH v6 0/9] drm/panthor: Add a GEM shrinker
-Message-ID: <20260331093149.20c28332@fedora>
-In-Reply-To: <8b2b65a3-3db8-469f-90ae-6abccdb3c71a@arm.com>
-References: <20260330094848.2169422-1-boris.brezillon@collabora.com>
- <8b2b65a3-3db8-469f-90ae-6abccdb3c71a@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4773010E8D0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:40:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0053E43E2C;
+ Tue, 31 Mar 2026 07:40:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BF8C19423;
+ Tue, 31 Mar 2026 07:40:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774942845;
+ bh=WfNIlN+YWXq+c3+ums6HBPz4V6uK2YIWBCQNTjTM5hw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Rs5Vpcy5pcfHOE9A+KXyG8zgxaFKfO14AkzL8qri2il77QqmbXPjVdJe2E6Lq/wLm
+ XyRXBds7lZRpM5IpkJl/IPXzKeFs1hIKgkOeGekcVK8YHodie2TzYRBTYf13LgzYLt
+ AWGf4LYfanZtqa9aM7SDkUFe3T7OxsjTGQMosB2hiQDl6hYHjxIusBsWuW0scn2f5n
+ PilzkO6wkuONcP8Pgbw3CxYU2ZuVkOZLSVxxK9voyYvblGSSEhE3jh0sczag1iBhPW
+ UuhjNNhptW8oOjWbV2gWTXxVm+TYpLnXg948mLw972EHSB9sCA7MbPFrYGIuHz8myY
+ sluOS9Ua9+u6g==
+Date: Tue, 31 Mar 2026 09:40:42 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Albert Esteve <aesteve@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v2] dma/contiguous: Fix broken build
+Message-ID: <20260331-kind-therapeutic-buzzard-8fc55e@houat>
+References: <CGME20260330154021eucas1p1ddf347acd21646c96fda4b266ddfc03b@eucas1p1.samsung.com>
+ <20260330-dma-build-fix-v2-1-26d844575815@kernel.org>
+ <a097600b-0860-495f-b918-adef327bdaec@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="vfivc7udtfzcg6f5"
+Content-Disposition: inline
+In-Reply-To: <a097600b-0860-495f-b918-adef327bdaec@samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,97 +68,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 30 Mar 2026 11:39:00 +0100
-Steven Price <steven.price@arm.com> wrote:
 
-> Hi Boris,
-> 
-> On 30/03/2026 10:48, Boris Brezillon wrote:
-> > Hello,
-> > 
-> > This is an attempt at adding a GEM shrinker to panthor so the system
-> > can finally reclaim GPU memory.
-> > 
-> > This implementation is losely based on the MSM shrinker (which is why
-> > I added the MSM maintainers in Cc), and it's relying on the drm_gpuvm
-> > eviction/validation infrastructure.
-> > 
-> > I've only done very basic IGT-based [1] and chromium-based (opening
-> > a lot of tabs on Aquarium until the system starts reclaiming+swapping
-> > out GPU buffers) testing, but I'm posting this early so I can get
-> > preliminary feedback on the implementation. If someone knows about
-> > better tools/ways to test the shrinker, please let me know.  
-> 
-> I did my own pretty basic testing (glmark with memhog) and managed to hit this:
-> 
-> [  265.053172] ============================================
-> [  265.053667] WARNING: possible recursive locking detected
-> [  265.054159] 7.0.0-rc3-00694-gadfa5ca08767 #1 Not tainted
-> [  265.054655] --------------------------------------------
-> [  265.055143] glmark2-es2-drm/443 is trying to acquire lock:
-> [  265.055651] ffff0001194011a8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: drm_gpuvm_bo_deferred_cleanup+0x100/0x2c0 [drm_gpuvm]
-> [  265.056738] 
-> [  265.056738] but task is already holding lock:
-> [  265.057278] ffff80008b7c79e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
-> [  265.058324] 
-> [  265.058324] other info that might help us debug this:
-> [  265.058927]  Possible unsafe locking scenario:
-> [  265.058927] 
-> [  265.059475]        CPU0
-> [  265.059706]        ----
-> [  265.059939]   lock(reservation_ww_class_mutex);
-> [  265.060365]   lock(reservation_ww_class_mutex);
-> [  265.060788] 
-> [  265.060788]  *** DEADLOCK ***
-> [  265.060788] 
-> [  265.061338]  May be due to missing lock nesting notation
-> [  265.061338] 
-> [  265.061964] 3 locks held by glmark2-es2-drm/443:
-> [  265.062395]  #0: ffff80008493c458 (drm_unplug_srcu){.+.+}-{0:0}, at: drm_dev_enter+0x0/0x140
-> [  265.063188]  #1: ffff80008b7c79c0 (reservation_ww_class_acquire){+.+.}-{0:0}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
-> [  265.064288]  #2: ffff80008b7c79e8 (reservation_ww_class_mutex){+.+.}-{4:4}, at: panthor_ioctl_group_submit+0x424/0x560 [panthor]
-> [  265.065370] 
-> [  265.065370] stack backtrace:
-> [  265.065780] CPU: 4 UID: 1000 PID: 443 Comm: glmark2-es2-drm Not tainted 7.0.0-rc3-00694-gadfa5ca08767 #1 PREEMPT 
-> [  265.065787] Hardware name: Radxa ROCK 5B (DT)
-> [  265.065791] Call trace:
-> [  265.065793]  show_stack+0x18/0x24 (C)
-> [  265.065802]  dump_stack_lvl+0x6c/0x94
-> [  265.065810]  dump_stack+0x1c/0x28
-> [  265.065815]  print_deadlock_bug+0x224/0x238
-> [  265.065822]  __lock_acquire+0xe54/0x1600
-> [  265.065829]  lock_acquire+0x3cc/0x420
-> [  265.065834]  __ww_mutex_lock.constprop.0+0x1fc/0x2c40
-> [  265.065844]  ww_mutex_lock+0x50/0x168
-> [  265.065850]  drm_gpuvm_bo_deferred_cleanup+0x100/0x2c0 [drm_gpuvm]
-> [  265.065862]  panthor_vm_cleanup_op_ctx+0x188/0x270 [panthor]
-> [  265.065881]  panthor_vm_bo_validate+0x404/0x758 [panthor]
-> [  265.065898]  drm_gpuvm_validate+0x28c/0xf50 [drm_gpuvm]
-> [  265.065907]  panthor_vm_prepare_mapped_bos_resvs+0x64/0x80 [panthor]
-> [  265.065925]  panthor_ioctl_group_submit+0x418/0x560 [panthor]
-> [  265.065942]  drm_ioctl_kernel+0x15c/0x2c0
-> [  265.065947]  drm_ioctl+0x56c/0xb1c
-> [  265.065952]  __arm64_sys_ioctl+0x124/0x1a4
-> [  265.065961]  invoke_syscall+0x70/0x260
-> [  265.065967]  el0_svc_common.constprop.0+0xac/0x230
-> [  265.065972]  do_el0_svc+0x40/0x58
-> [  265.065976]  el0_svc+0x4c/0x210
-> [  265.065981]  el0t_64_sync_handler+0xa0/0xe4
-> [  265.065986]  el0t_64_sync+0x198/0x19c
-> 
+--vfivc7udtfzcg6f5
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] dma/contiguous: Fix broken build
+MIME-Version: 1.0
 
-Nice catch! I've fixed it by skipping the
-drm_gpuvm_bo_deferred_cleanup() call in panthor_vm_cleanup_op_ctx()
-when the operation is a VMA repopulation. In that case, the VM resv
-lock will be held (because the SUBMIT logic acquires it), and the very
-same lock is taken in drm_gpuvm_bo_deferred_cleanup(). We could have
-added a drm_gpuvm_bo_deferred_cleanup_locked() variant, but in
-practice, the VMA repopulation never calls drm_gpuvm_bo_put_deferred(),
-so there's nothing for us to cleanup, and the only reason we were going
-past the if (!bo_defer) test in drm_gpuvm_bo_deferred_cleanup() is
-because other threads can race with the VMA repopulation and queue
-vm_bos to the deferred cleanup list.
+Hi Marek,
 
-TLDR; this should be sorted out in v7, which I plan to post soon (I'd
-like to maximize the time this patch series spends in linux-next so we
-can detect issues early and fix them before it hits Linus' tree).
+On Mon, Mar 30, 2026 at 07:49:26PM +0200, Marek Szyprowski wrote:
+> On 30.03.2026 17:40, Maxime Ripard wrote:
+> > Commit 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic
+> > around") didn't remove one last call to dma_heap_cma_register_heap()
+> > that it removed, thus breaking the build.
+> >
+> > That last call is in dma_contiguous_reserve(), to handle the
+> > registration of the default CMA region heap instance.
+> >
+> > The default CMA region instance is already somewhat handled by
+> > retrieving it through the dev_get_cma_area() call in the CMA heap
+> > driver. However, since commit 854acbe75ff4 ("dma-buf: heaps: Give
+> > default CMA heap a fixed name"), we will create two heap instances for
+> > the CMA default region.
+> >
+> > The first one is always called "default_cma_region", and is the one
+> > handled by the call to dev_get_cma_area() mentioned earlier. The second
+> > one is the name it used to have prior to that last commit for backward
+> > compatibility.
+> >
+> > In the case where the default CMA region is defined in the DT, then that
+> > region is registered through rmem_cma_setup() and that region is added
+> > to the list of CMA regions to create a CMA heap instance for.
+> >
+> > In the case where the default CMA region is not defined in the DT
+> > though used to be the case covered by the now removed
+> > dma_heap_cma_register_heap() in dma_contiguous_reserve(). If we only
+> > remove the call to dma_heap_cma_register_heap(), then the legacy name of
+> > the CMA heap will not be registered anymore. We thus need to replace
+> > that call with a call to rmem_cma_insert_area() to make sure we queue
+> > this instance, if created, to create a heap instance.
+> >
+> > Once that call to dma_heap_cma_register_heap() replaced, we can also
+> > remove the now unused function definition, its now empty header, and all
+> > includes of this header.
+> >
+> > Fixes: 3a236f6a5cf2 ("dma: contiguous: Turn heap registration logic aro=
+und")
+> > Reported-by: Mark Brown <broonie@kernel.org>
+> > Closes: https://lore.kernel.org/linux-next/acbjaDJ1a-YQC64d@sirena.co.u=
+k/
+> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> > ---
+> > Changes in v2:
+> > - Fix creation of the CMA heap instance with the legacy name when not
+> >   declared in the DT.=20
+> > - Link to v1: https://lore.kernel.org/r/20260330-dma-build-fix-v1-1-748=
+b64f0d8af@kernel.org
+> > ---
+> >  drivers/dma-buf/heaps/cma_heap.c  |  1 -
+> >  include/linux/dma-buf/heaps/cma.h | 16 ----------------
+> >  kernel/dma/contiguous.c           | 14 +++++++++++---
+> >  3 files changed, 11 insertions(+), 20 deletions(-)
+> >
+> > diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/c=
+ma_heap.c
+> > index 7216a14262b04bb6130ddf26b7d009f7d15b03fd..9a8b36bc929f6daa483a013=
+9a2919d95127e0d23 100644
+> > --- a/drivers/dma-buf/heaps/cma_heap.c
+> > +++ b/drivers/dma-buf/heaps/cma_heap.c
+> > @@ -12,11 +12,10 @@
+> > =20
+> >  #define pr_fmt(fmt) "cma_heap: " fmt
+> > =20
+> >  #include <linux/cma.h>
+> >  #include <linux/dma-buf.h>
+> > -#include <linux/dma-buf/heaps/cma.h>
+> >  #include <linux/dma-heap.h>
+> >  #include <linux/dma-map-ops.h>
+> >  #include <linux/err.h>
+> >  #include <linux/highmem.h>
+> >  #include <linux/io.h>
+> > diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-buf/=
+heaps/cma.h
+> > deleted file mode 100644
+> > index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..00000000000000000000000=
+00000000000000000
+> > --- a/include/linux/dma-buf/heaps/cma.h
+> > +++ /dev/null
+> > @@ -1,16 +0,0 @@
+> > -/* SPDX-License-Identifier: GPL-2.0 */
+> > -#ifndef DMA_BUF_HEAP_CMA_H_
+> > -#define DMA_BUF_HEAP_CMA_H_
+> > -
+> > -struct cma;
+> > -
+> > -#ifdef CONFIG_DMABUF_HEAPS_CMA
+> > -int dma_heap_cma_register_heap(struct cma *cma);
+> > -#else
+> > -static inline int dma_heap_cma_register_heap(struct cma *cma)
+> > -{
+> > -	return 0;
+> > -}
+> > -#endif // CONFIG_DMABUF_HEAPS_CMA
+> > -
+> > -#endif // DMA_BUF_HEAP_CMA_H_
+> > diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+> > index ad50512d71d3088a73e4b1ac02d6e6122374888e..d5d15983060c5c54744d6a6=
+3f2b591e1a3455b86 100644
+> > --- a/kernel/dma/contiguous.c
+> > +++ b/kernel/dma/contiguous.c
+> > @@ -40,11 +40,10 @@
+> >  #include <asm/page.h>
+> > =20
+> >  #include <linux/memblock.h>
+> >  #include <linux/err.h>
+> >  #include <linux/sizes.h>
+> > -#include <linux/dma-buf/heaps/cma.h>
+> >  #include <linux/dma-map-ops.h>
+> >  #include <linux/cma.h>
+> >  #include <linux/nospec.h>
+> > =20
+> >  #ifdef CONFIG_CMA_SIZE_MBYTES
+> > @@ -217,10 +216,19 @@ static void __init dma_numa_cma_reserve(void)
+> >  static inline void __init dma_numa_cma_reserve(void)
+> >  {
+> >  }
+> >  #endif
+> > =20
+> > +#ifdef CONFIG_OF_RESERVED_MEM
+> > +static int rmem_cma_insert_area(struct cma *cma);
+> > +#else
+> > +static inline int rmem_cma_insert_area(struct cma *cma)
+> > +{
+> > +	return 0;
+> > +}
+> > +#endif
+> > +
+> >  /**
+> >   * dma_contiguous_reserve() - reserve area(s) for contiguous memory ha=
+ndling
+> >   * @limit: End address of the reserved memory (optional, 0 for any).
+> >   *
+> >   * This function reserves memory from early allocator. It should be
+> > @@ -271,13 +279,13 @@ void __init dma_contiguous_reserve(phys_addr_t li=
+mit)
+> >  						  &dma_contiguous_default_area,
+> >  						  fixed);
+> >  		if (ret)
+> >  			return;
+> > =20
+> > -		ret =3D dma_heap_cma_register_heap(dma_contiguous_default_area);
+> > +		ret =3D rmem_cma_insert_area(dma_contiguous_default_area);
+> >  		if (ret)
+> > -			pr_warn("Couldn't register default CMA heap.");
+> > +			pr_warn("Couldn't queue default CMA region for heap creation.");
+> >  	}
+> >  }
+> > =20
+> >  void __weak
+> >  dma_contiguous_early_fixup(phys_addr_t base, unsigned long size)
+> >
+> > ---
+>=20
+> Huh, this is still not the correct fix to restore the old behavior.
+> When !CONFIG_OF_RESERVED_MEM the default cma area should be still
+> registered as the default cma dma-buf heap.
+
+You're right, but it feels that it's a fundamental flaw in the original
+patch rather than a quick fix for the build now. Can you drop the
+patches you applied entirely? If so, I'll send a new version of that
+series.
+
+Maxime
+
+--vfivc7udtfzcg6f5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCact6dgAKCRAnX84Zoj2+
+dkK2AX0T71T9W5H9rKycxqlZXiCIF0NEd806PwYEHIE/zOkXO6hIGltmDtf4qdac
+ytoY5BwBgMAFkT+z6VfjqmnqMRHx4EOhYUO6b5q3ilMX/TG+byYvn1YL7bp0KDwM
+S+/ujnBT0g==
+=U/Fp
+-----END PGP SIGNATURE-----
+
+--vfivc7udtfzcg6f5--
