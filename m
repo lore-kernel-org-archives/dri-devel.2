@@ -4,70 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5191210F92F9
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 19:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B3FFF60D5
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 19:57:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B61B210EB20;
-	Tue, 31 Mar 2026 19:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CA4010EB3C;
+	Tue, 31 Mar 2026 19:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KA1Q0myu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aiDuP4PS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F19710EAF3;
- Tue, 31 Mar 2026 19:52:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774986771; x=1806522771;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=nbUNWnhxtD9uSl+kq+z3SJo1UKV3e6wBk/X6kxEHQeI=;
- b=KA1Q0myuVimi2olWP8/6kDwP2AyjZf8QSDPgan3uH3eSwS2JW8U7+vWA
- DozGbRn8mnixKlhaMFfXm3Qjw586O2wWZz9QHfOriYnKmJzaOie1q136S
- xSP/Vewrz5FoFPlmMpws/9UE+qYynsiym0QAGihYjVj/DRp7Df4PHsZXP
- IdLUnlp22s9zDjfrx01zYbz6Ob4q6otAP1eWiiR369cg84Vl8Rw1C2ly2
- U7MnQ5y5lyek7CT9aEZUfVS/WXOQ1XWu7vfrR5B5mV8o+hH/lbfqOwGYx
- NbscFBc9NCPs0zwzXBsO6DlT9pxTBW85iPwPetXr5iVch8h5FH3iqS+TF w==;
-X-CSE-ConnectionGUID: Qwy2Py7XRKWmhOgohICkkw==
-X-CSE-MsgGUID: dDf2B6muS3mSPRFUzjOERw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="86627320"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="86627320"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 12:52:51 -0700
-X-CSE-ConnectionGUID: 4wP6lwCxTUSbpUETu8DyVg==
-X-CSE-MsgGUID: /K6c4WzVTHGmpaA0jZ9tfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="225461106"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.244.28])
- ([10.245.244.28])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 12:52:46 -0700
-Message-ID: <bd45632be1a5bcd2ce34834b45a35254e23f7679.camel@linux.intel.com>
-Subject: Re: [PATCH 2/5] drm/msm: Remove abuse of drm_exec internals
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: rob.clark@oss.qualcomm.com
-Cc: intel-xe@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,  David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst	
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,  Alice Ryhl
- <aliceryhl@google.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar	
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean
- Paul	 <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
-Date: Tue, 31 Mar 2026 21:52:43 +0200
-In-Reply-To: <CACSVV03FFvi0c4XMEShmH5ou4OKKZcvvni2j=0DBoYnuT55ecQ@mail.gmail.com>
-References: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
- <20260331092023.81616-3-thomas.hellstrom@linux.intel.com>
- <CACSVV03FFvi0c4XMEShmH5ou4OKKZcvvni2j=0DBoYnuT55ecQ@mail.gmail.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010038.outbound.protection.outlook.com [52.101.61.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B98FD10EB3C;
+ Tue, 31 Mar 2026 19:57:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hm5voHgWwrlo7ssp2rJLtFnOWs1gvRkCRrc6MK/cezcCaCuwFVGFBY1VgWTP13zEYF6lQVcs/+TEMJpkwx2HWwxh2PDpmO0eI0gw+DliHMZl3fQt4phovhQyw+OctVrVm71IPgTCmZjAlWgsA2WSJ9MuF+ij1nr2oZMh+wbbrGrHrRyB+LLDbNp2KC4IyLYWOsreLstdAx68PVfYdVyr5Wkz1oxaLAssxCy2AOn2M3PW9gGLgJBkxxtJajBSgo4pBOOKNjNg/EIMKhSQDONuVvYH0F0C5xW0izKEIegfrs8Qu+aQyD0XLgBcqY1+xtEa9yLHZwTDt7eRbdGPQM9OfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v2J1Q75wpDET7sltz6H28h1eOlt2e9gJQZO5cKxbN98=;
+ b=Rl4Dn2eGnws1DhWpxwQhU5SupH3OzyhPxgyJdwqS1fqHYTEsrJD5dWTYLt4hafSjgg5zxS5SLLxgvbDWiDh8w+6JFihhiVElwhpavz/z4FXoEThD86fIO0QPWDj7QNKdBB4+uFl2Z7IKxnAyLvvzIjdkW3qbQdoXv3k8CA72UfLUJYJu/5mfZaz1eY2fADPsfsOKP5C/VtPkRHPLvCJHkLctRK0tzJGekEU9pBm1WyncBKnjsIob/GrhmhcUih2BCcvvV3IJ+qXFRHuWoePPT/rEPEcfAG4R+YjpaxyOXXGpjgvhuQUQVLunRKiDk23WFuIavrfkRIPCVqz7Y7RApQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v2J1Q75wpDET7sltz6H28h1eOlt2e9gJQZO5cKxbN98=;
+ b=aiDuP4PSDMzTG9gby9KJutNdJgud0j5fX2uEhvVTHON/Ojs1gRbFnrOjtruroGnf8QJ9QILaGgI3NDOSEpP0RgWtHpYpM4CIidlDlJml0yQpHNZG2PPy0RfNh/HA9HyQ8R6NivLB0N21oMGsDbgo+kVJml5LPItmDAKqjL66v/8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB5213.namprd12.prod.outlook.com (2603:10b6:5:394::16)
+ by SN7PR12MB8146.namprd12.prod.outlook.com (2603:10b6:806:323::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 31 Mar
+ 2026 19:57:40 +0000
+Received: from DM4PR12MB5213.namprd12.prod.outlook.com
+ ([fe80::5d60:577:358f:89c4]) by DM4PR12MB5213.namprd12.prod.outlook.com
+ ([fe80::5d60:577:358f:89c4%6]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 19:57:40 +0000
+Message-ID: <acabf03c-aad6-47b1-9f91-e6ea8e710636@amd.com>
+Date: Tue, 31 Mar 2026 15:57:37 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
+ back to dithering
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>,
+ "Kovac, Krunoslav" <Krunoslav.Kovac@amd.com>
+Cc: "Cyr, Aric" <Aric.Cyr@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+ <DM4PR12MB521342239D4CF694B4A68E0AE64AA@DM4PR12MB5213.namprd12.prod.outlook.com>
+ <CAEsyxyiCN6KmyDBGZBJYKv+wt6w6j5QdUfTa1zJojAQ20V84xg@mail.gmail.com>
+ <d6e190eb-4843-43ab-9706-fadabde9cbce@mailbox.org>
+ <78da9dfc-561f-487c-8b68-0ea408819225@amd.com>
+ <3d669989-fcb2-44b4-9c17-9ae3db0b6f14@mailbox.org>
+Content-Language: en-US
+From: "Kovac, Krunoslav" <kkovac@amd.com>
+In-Reply-To: <3d669989-fcb2-44b4-9c17-9ae3db0b6f14@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4P288CA0027.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d3::6) To DM4PR12MB5213.namprd12.prod.outlook.com
+ (2603:10b6:5:394::16)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5213:EE_|SN7PR12MB8146:EE_
+X-MS-Office365-Filtering-Correlation-Id: c210d33b-df15-4091-029f-08de8f5fc338
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: k48+ALWUk8a+HM9NdGNaRE2KqK+aDaIB7GTNvzS/6A6wwQIBZkkcoyHIspDRSjDlha8pxeuYEXYwNB1JHM8eVp6u7gSpeW5cE/1gn9/v1/umleQRjCpkMlZGGaD1wFXzi0PhbNgJ1EWbmZu6eP+S2MsXEzrgR2iKmdx9Oy/2K1s4CiSzxOQR8JJ31kCObG4yQ251n4COWFRAzfkQzGX8b/K4gDVTY79XBZpX4AqLUGjsZ/QLcNuhsWCgArvsP2qtDyjzveFOR4eZFG4PS97qwJUCnreLBhw4mntRkAqKBjvU/1yZA7wk9iYDsP/pY6g816VKgRPQcAG+Pr/HTkDJ6VkbWMOhV2CrIIgiXwMKrNtEEhg2dbspGzb1yu172ZEDVVLXtJYZqKCN+Yi3ez9JidXVS35FSHptHDoxbYY08lYD/mjis71TPx5WvGcQtSmOzV9MgbN12MEj/U8wwS/w4pIhBJ+vCWoT9jdtuNglhoJfxeHzofTpZo4xjvnERW6t3GdFnaGwmQk3AIs6VJjv9b6vnC49qutKPkMqksLRxCwHZEQAKhabsdDxRim7pZXotwX/c6YoN2ZUHlDV03vHdewOszCbt9UZtnE/K8G1mnOtjw8jerkxQu0f5TSJmXbPqCy5C9fTl5zaqcR7uqSG0Zg9020AJkmQapyCNTEjjaffGdrLiosR4FuZ/nYRTVImHKVZ2g//0V/sJsx5uqAqiJGYQvYwDIzFroGf70u3BDY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5213.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ty9IVCtOci9YWlBYbzc2UlM5K1VmM1A5WFdwbzRmZWNwdW1WbitldTNud3N5?=
+ =?utf-8?B?Q0pMN29zM1U4MG9pTmRrSG8zU2xYYkFpUWd3K2JOSjZnbWcyb1dYUXp0WkdL?=
+ =?utf-8?B?UHhiT1BsTCt2MjZoN29WYXhYcXdIL0NFcC8weE5rbmdtejQ5cTgwM1RqVGFS?=
+ =?utf-8?B?UnpSbUkwLzU4NGNLTE9tZzVFWUNIQ3g4ZGY1Z1lJNWt2S1ZGVWFFaXBGeWk3?=
+ =?utf-8?B?d0NuYmFwVWFHL01wQzJTTHBUOHpGbFZhVkZWU1Nhci95SGpGL095K2J4dENx?=
+ =?utf-8?B?bXlIUmlhb01PQkRUQmdGSHFGdHg2MGVzSWdockgzRk5BYjFGOFhNTFVYY1Fo?=
+ =?utf-8?B?aklRWDloZEZQbGN4QkdCcFU4RjZpME9SRkJIVEEyM0swZ2FnTVAxaG4yQXNE?=
+ =?utf-8?B?YmN1aERLQTVnWldGMjIxS1lwdDRsNE1zU0RIRk9zeFcxWUNhcDlFdUlqWTV2?=
+ =?utf-8?B?d25Ub1hGR01UOW45aXpYSHhybGZIL3FjV0l0c0l2MWgyN3B5TlpNbVJyRS9p?=
+ =?utf-8?B?R21hNmduektRTHFTY1BmUU1nYUdGaGxqc2N2YlV2ekZoZmU5eUgwak5IdVZQ?=
+ =?utf-8?B?TFBJalF5SVh4dURpaEFEWXVUMGh3QWZJMThxSDhQMkR3UjBZZjRBMUJEcjc1?=
+ =?utf-8?B?R3U2MXJOUGZTQ2ZxVmZGQTA5dC85WEFrdFNTRDYzNUNNc2Q2UjF1RDZteGlR?=
+ =?utf-8?B?RzZTQ1dydzBoM3NjdHY3SDlSblZZK3NFTHhHdk1pVnF2aXUwWnZkZTh1eUQy?=
+ =?utf-8?B?VWdMb3U5QWlvRmtvOGc0c3BtRklkYkdRUllVaE1nYitId001TTBrUWlzdVdQ?=
+ =?utf-8?B?N3RUeEFqL0tiUXZTTUptS215RWdNZkdZbk9EZncrQlJDNjBNU3pzL1hxbFM2?=
+ =?utf-8?B?a3IraUVzTGJVbXZtdEVGbjdjRHFHeUFYa3RObXlOS1NkYzY2bUt3cmZ0NlRY?=
+ =?utf-8?B?d0J1ZnJQcVE2b0FxMVBLRk1wc3ROdUJQUjJBdDdOendmMU9oVGQwSWVnSEJy?=
+ =?utf-8?B?VzFaeU9Wd0lBWEdNRTJsQVBRU1YyNWFHdzdvTG5lM1VFdDFhdnE0T2U4cGRu?=
+ =?utf-8?B?SFAvUFZ5RmUyRk5kcUxaNkluMkc0TTI1VERPU3ZycCs2TEc5Ukp3NTQySkhq?=
+ =?utf-8?B?NFMzeGN0elpTdGh4M2svUDJoMlZ3NjNjOUtJZjFhZW9YYmViUDB1RGxuR2VZ?=
+ =?utf-8?B?VkdIWTNUaDNtdklGdURtODJEMlpzRkFVNG56eG5objArUFN4cWIzWWI2S00v?=
+ =?utf-8?B?TjJKSWtHZEhHMkswemh3bFNrelpFdFhnc2FLTlIxY2lYS1hWYnNEN0U2S3hO?=
+ =?utf-8?B?V09kVWtMNUcxaGhnRjlaOS9FZUVCQ0xkbEZxVTlLWk92T1J3L3lwSTU5d0RH?=
+ =?utf-8?B?MCtFRHozYjVBTnJzZEpYYUw1Sll5byttMXpYVXRUWjYzY3ZNblplOXp0cVl6?=
+ =?utf-8?B?bVlpTFJoS0ExdEZjWXFGdlowUzFiZ1paVVZWOTFxYTlnVTJSMHlNaWU0OW9j?=
+ =?utf-8?B?NmQ2ZG1wUHJ5dm5jVGxIdVU1YTBmRzl4d0lhanBMcktFRXl5RjRPVGcrZU5h?=
+ =?utf-8?B?Z05GaXpjc1YzTFd5TGgyOHZybm9jVGxlbkNqWmh3dFlHSHdHUEozTjlhQ1dU?=
+ =?utf-8?B?YzZTcitWSUFUVStwQ0ptdkJQVW9sZzluNHhiN2t3bWQ4dVpNQWxXWTdNN3NT?=
+ =?utf-8?B?VGVFY1hqT2w1VmE5MHNReHhSRDZXcVJQUHl3cGRKYURBYm4zemowR1l2bnhz?=
+ =?utf-8?B?Tzg5R1NsVlhUb3RXMmZoMnFOZmNqUldTcmt1eG91T2wrL3Budk1PKzh4OWhy?=
+ =?utf-8?B?RUtmNG5BMDlac3ZHQWR0UXNIY05xaE1PdW5DWGFYRWFTVDQrQnJ4RUxvOFE0?=
+ =?utf-8?B?WWtyMDRxVE0vVlhLUitYa2dOdmtsaVdZRzRtU1diWjJZWGJ4K3hDWnRTWWQ0?=
+ =?utf-8?B?R2ZvVEtILytUVlFJTkQvb25mUzA0dVZaMHpjZDNRT0JsMDN1c0R6TmZRSUYz?=
+ =?utf-8?B?UENwVHEzMUh2a0lTcW9Jbjl2dHFINUVVRWo1eDI0NTRIK1VqanFhcS9pZjE2?=
+ =?utf-8?B?T0JYVUFtdVhlSlpKbE5MZHNUK1d4NnZMSGdwN0tpU3gvTzU2QSswT0xVTHVo?=
+ =?utf-8?B?S2N1emwvdnpnOU5TcUUyYlRhajFpWEZpMFAxbFFUVkhvbW5NRUhxQ3Bjc25w?=
+ =?utf-8?B?OURLZjlEUXBRY0tuNFFQUGxsWGJham1henVFalZ3YVlyK2o0NVhEZUYxREt6?=
+ =?utf-8?B?MjdVeDBBZlo5WTlQOEphb1I2ODZPemxtcjVIMGhFYmtkazRTdHlrVm94NXpR?=
+ =?utf-8?Q?US9gf5kgenorlrt58Y?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c210d33b-df15-4091-029f-08de8f5fc338
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5213.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 19:57:40.3629 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pMyCgxdrb7WH4r0ea69m5ESQi6JaAcWzDRpVd/paTWBolGHjk+LnlGnNCY4usvsT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8146
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,103 +146,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2026-03-31 at 12:08 -0700, Rob Clark wrote:
-> On Tue, Mar 31, 2026 at 2:21=E2=80=AFAM Thomas Hellstr=C3=B6m
-> <thomas.hellstrom@linux.intel.com> wrote:
-> >=20
-> > The code was reading drm_exec internal state to determine whether
-> > the drm_exec structure had been initialized or not, and therefore
-> > needed cleaning up, relying on undocumented behaviour.
-> >=20
-> > Instead add a bool to struct msm_gem_submit to indicate whether
-> > drm_exec cleaning up is needed.
-> >=20
-> > Signed-off-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
->=20
-> Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
->=20
-> This is pretty stand-alone, so I can pick it up for v7.1.=C2=A0 Or ack fo=
-r
-> landing it via drm-misc with the rest of the series if that is easier
-> for you.=C2=A0 It shouldn't conflict with anything in flight.
+On 3/31/2026 03:16, Michel Dänzer wrote:
+> On 3/30/26 19:36, Harry Wentland wrote:
+>> On 2026-03-30 12:20, Michel Dänzer wrote:
+>>> On 3/24/26 20:20, Mario Kleiner wrote:
+>>>> On Sun, Mar 22, 2026 at 7:11 PM Kovac, Krunoslav <Krunoslav.Kovac@amd.com <mailto:Krunoslav.Kovac@amd.com>> wrote:
+>>
+>>>>>      I believe we don't have surface info in that code, but one way to work around it would be to use spatial dithering for FP16/ARGB16 and rounding for 10 bits. But if we just switch to spatial, some of the earlier complaints about 10-bit output having one-off bit errors will be coming back.
+>>>>
+>>>> Looking at all callers of resource_build_bit_depth_reduction_params(), they all have access to the associated "struct pipe_ctx", which should give access to pipe_ctx ->plane_state->format of an associated display plane. I could prepare a patch that passes the pipe_ctx from each caller into resource_build_bit_depth_reduction_params() and that function could check if a 16 bpc framebuffer is in use and switch to spatial dithering down-to-10-bpc in this case, and leave the rounding/truncation to 10 bpc otherwise.
+>>>
+>>> That doesn't really make sense, the output of the display HW colour pipeline has more than 10 bpc regardless of framebuffer format.
+>>>
+>>
+>> The output will be determined by the link bandwidth, display-advertised supported bpc, and userspace-selected "max bpc" on a drm_connector. This could very well be 10 bpc, 8 bpc, even 6 bpc. Or are you referring to the internal DCN HW representation of the values?
+> 
+> I am indeed.
+> 
+>> They're higher, but that's somewhat irrelevant.
+> 
+> How so? Surely dithering is applied to those values, not to the original values sampled from the framebuffer. 
 
-Thanks Rob. Please pick it up and I'll exclude it from the next
-iteration of the series.
+Our internal precision is higher than 12, but since we first "trim" to 12bpc and then dither to 10bpc, bypass case is actually ok in practice even with dithering.
 
-Thanks,
-Thomas
+Normally for this case where we want 10bpc to go out as-is we would put HW color pipeline blocks to bypass. There are some exceptions however, and unfortunately one of them is not that uncommon. It's the multi-plane case where linear blending is desired, which is the norm for HDR. In this case, we do degamma, blend, regamma.
+Degamma+regamma can be set in a way that makes them true inverses at 10bpc precision for common EOTFs, but not with dithering.
+It's pretty hard to notice difference between dithering and rounding at 10bpc even with a colorimeter, and since we had complaints about 10-bit one-off errors, we went with rounding. I still think it's a preferred option for 10bpc surfaces.
 
->=20
-> BR,
-> -R
->=20
-> > ---
-> > =C2=A0drivers/gpu/drm/msm/msm_gem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 1 +
-> > =C2=A0drivers/gpu/drm/msm/msm_gem_submit.c | 4 +++-
-> > =C2=A02 files changed, 4 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/msm/msm_gem.h
-> > b/drivers/gpu/drm/msm/msm_gem.h
-> > index cb32093fda47..762e546d25ef 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem.h
-> > +++ b/drivers/gpu/drm/msm/msm_gem.h
-> > @@ -452,6 +452,7 @@ struct msm_gem_submit {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool bos_pinned : 1;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool fault_dumped:1;/* Limit=
- devcoredump dumping to one per
-> > submit */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool in_rb : 1;=C2=A0=C2=A0=
-=C2=A0=C2=A0 /* "sudo" mode, copy cmds into RB */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bool has_exec : 1;=C2=A0 /* @exec=
- is initialized. */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct msm_ringbuffer *ring;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_cmds;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int nr_bos;
-> > diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > index 75d9f3574370..26ea8a28be47 100644
-> > --- a/drivers/gpu/drm/msm/msm_gem_submit.c
-> > +++ b/drivers/gpu/drm/msm/msm_gem_submit.c
-> > @@ -278,6 +278,7 @@ static int submit_lock_objects_vmbind(struct
-> > msm_gem_submit *submit)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int ret =3D 0;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_init(&submit->exec,=
- flags, submit->nr_bos);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 submit->has_exec =3D true;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_until_all_locked (&=
-submit->exec) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ret =3D drm_gpuvm_prepare_vm(submit->vm, exec, 1);
-> > @@ -304,6 +305,7 @@ static int submit_lock_objects(struct
-> > msm_gem_submit *submit)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return submit_lock_objects_vmbind(submit);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_init(&submit->exec,=
- flags, submit->nr_bos);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 submit->has_exec =3D true;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_exec_until_all_locked (&=
-submit->exec) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 ret =3D drm_exec_lock_obj(&submit->exec,
-> > @@ -523,7 +525,7 @@ static void submit_cleanup(struct
-> > msm_gem_submit *submit, bool error)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (error)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 submit_unpin_objects(submit);
-> >=20
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (submit->exec.objects)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (submit->has_exec)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 drm_exec_fini(&submit->exec);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* if job wasn't enqueued to=
- scheduler, early retirement:
-> > */
-> > --
-> > 2.53.0
-> >=20
