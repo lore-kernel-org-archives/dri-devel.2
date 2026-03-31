@@ -4,143 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9752E7E34C
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF010E7E350
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF83810F42A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A7B310F41D;
 	Fri,  3 Apr 2026 08:59:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="glWDpCM+";
+	dkim=pass (2048-bit key; unprotected) header.d=mandrillapp.com header.i=@mandrillapp.com header.b="Bq7yUCFM";
+	dkim=pass (2048-bit key; unprotected) header.d=vates.tech header.i=teddy.astie@vates.tech header.b="Bkj9YPnV";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013055.outbound.protection.outlook.com
- [40.107.162.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F09A10EA8A
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:04:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aKzzgiLywBpM3tVVHgKKZ05ziIZAeO2vSRA7v6apuE0O0xxdwHUgrw8SA8/Cm7yIBULSchMlnKhZTJKF8iHjwx10SL4l6aErJvcU8sc4EiZztYvSYbrlUv03FAk+B2F/UxGWagC2VeCVzbZ8vbK3z93ulv0UTVkuXs5M+QBRoeXB22no7hHrdLJSW9Hiklrns2dcsAUUS1brr7a09pm3jIwYbBGi7h1HcE4vVEc/7FA71ZhBQ5UIF3nYchnyq28i7Kxp1fEAKoZkVyUqEbUTlu3mGWqYiIAVS5rJqy9Cki21yLDN8OEUqJ3RoWHqeNeBRb+iHen0rAEsJYFlTnr4Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HBDSYEvqKCo62+0+uAl3NHVtIqAIea0rHV+2fdWl+04=;
- b=RxtNwYYRNWOoVcOQutvtqiViwpZIyRX0Kxyu5jlNuJLiecn9/3FA6Mzb81RMlh0/33DvCvI/QWBHOuayDjNqqInQPQasQJvE5ZU/CSYyBe/AkatBG/abyCHigMgekDvr1XZFa0Mhpe2bZNYm0CvJELqdWruWyHdT/K11lU7g701rsgldJFSiZi6ttlrB205V43yUlO78o2LizxTZTBwV2Ww2Q66YrNMU30Ety7AMyTchPNPfuYPXbeuJKZGK+DGXqvJXGb9aG4nWIKCt7iz4sQWQq7/D4V5XNF2YGjNijGWvaJXpTAZ03eaVxUwpXVDLeA+AXuGLLX9feSecaq76Yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HBDSYEvqKCo62+0+uAl3NHVtIqAIea0rHV+2fdWl+04=;
- b=glWDpCM+FADB7XDbwfTJiRLs+0DAZImRhsCTGUbnEznzL4yhL6PWt+T1XDTqB4/XsUQXpXY0XHUeC2fFIZhIiiHt0isGN3TQIuVmjKDujxyxqPb0o1MaHe6YFJbpfAhkZLro3pB8yxUYH6fvL/xMiRTgMuAM+gclUc+iSM1JyrSjoh3PMvL14rExKDKoJZfeYc5ZbX6HcPQobeU9fu/NHRyW5L5G+aARRcwryMwDaMz8lKDOf4Xhp5F+vDZI2HFZBYdZFgl7828W6hTAWC0UmHHYlsr9XJeOJYSr32EwcblbM/K6KH7l0RHpsWXJvwnvsUa/TWH0sdWXpiwje15n/Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com (2603:10a6:208:c0::29)
- by AS8PR04MB8309.eurprd04.prod.outlook.com (2603:10a6:20b:3fe::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
- 2026 10:04:16 +0000
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f]) by AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f%5]) with mapi id 15.20.9632.017; Tue, 31 Mar 2026
- 10:04:16 +0000
-From: Guangliu Ding <guangliu.ding@nxp.com>
-Date: Tue, 31 Mar 2026 18:12:38 +0800
-Subject: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
- support
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-master-v1-1-65c8e318d462@nxp.com>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
-In-Reply-To: <20260331-master-v1-0-65c8e318d462@nxp.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Guangliu Ding <guangliu.ding@nxp.com>, 
- Jiyu Yang <jiyu.yang@nxp.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774951984; l=946;
- i=guangliu.ding@nxp.com; s=20260331; h=from:subject:message-id;
- bh=wKPyV+K6brlK8Mytebjk+QjOTFx4lxICPSqMDkA/eZI=;
- b=j5EM1YXO9neUjZ5TGmcyFrpeGdvz1dCNzzyVk2PGqno3jySAfqCm5IQUfz6Tf/b4kkDbXnWer
- ONjzu+jAIqlDYbcCKjPcaohFBrUW2euJT072pQpj9zJjC/KRQOJRxWA
-X-Developer-Key: i=guangliu.ding@nxp.com; a=ed25519;
- pk=Ozo8o/sk09NyO6URvn0eD0v0uVHduT/yJzVGTAJ9gxw=
-X-ClientProxiedBy: MA5PR01CA0112.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d1::17) To AM0PR04MB4707.eurprd04.prod.outlook.com
- (2603:10a6:208:c0::29)
+X-Greylist: delayed 917 seconds by postgrey-1.36 at gabe;
+ Tue, 31 Mar 2026 09:57:40 UTC
+Received: from mail132-14.atl131.mandrillapp.com
+ (mail132-14.atl131.mandrillapp.com [198.2.132.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B01010E9E8
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 09:57:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+ s=mte1; t=1774950142; x=1775220142;
+ bh=3QgvblZRN6364QSNdN+5EIl2FiHO33eGJxLYGl+92ks=;
+ h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+ Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+ Subject:From;
+ b=Bq7yUCFM20kCL6CPQJXf611Un+GYwgGR5ewS4M2DIEZwvof3LGMpO3PCjY3YyExxy
+ kmmiTHcMw13gmlGN5uX82wB6H+GqKBFcW+DB48AnlQ4fZE4IIHAT2dFLOuT81i0dML
+ sh5EUEka6mzEOEZZNUGqgZ2GpDNU7PBC/5uZMijvsEIVVlzxI4BP9DFEjMy4Dq+Pf4
+ 4KgX4DOSErbuyp2HoD4iZazXKwCkPhm3dyg0ZFYE9IVYqZvcwJpPGd24mWHC9TG8YV
+ Cx1E5mOIGFTzBQ8tSCb228J/MT6ZathvYbqsuy6q9Pn6TaP57HDaqVEsSwHlmn2pn4
+ faow1I7tVh8pw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+ t=1774950142; x=1775210642; i=teddy.astie@vates.tech;
+ bh=3QgvblZRN6364QSNdN+5EIl2FiHO33eGJxLYGl+92ks=;
+ h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+ Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+ Subject:From;
+ b=Bkj9YPnV0mnLac8LZvCOR926I4LR5uj7ZVUiphokpu1hDmgiCjvRdrL1qxKVn69Oy
+ dS4mQk3B8EWV3+dsvX4D7tKPnYtRZcdBmdZ7xYB+HDAK6J7G4cMiXbu0iJXL2auGPo
+ nmhiWyhHYJvKiUkYFXNX2BZ/tSUC7jd7yOBGsAU8++5QoP16R9ARUhPbpi5U5CHR9x
+ xUTcDRFTlMqOw6+X4eSekQoSlgIUl3+oWSWPug5iGUPL44F1uC7Km0/V/pZ3h0uh0N
+ 3c9a1QItU/aRSh4y5bxxepXp5K24FZgZMfWfAPhbTcygTKiHTmE+gtaFdNzWQZgYrV
+ eZSvinDiyAgmQ==
+Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail132-14.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4flNSZ1Db6z8XS1HM
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 09:42:22 +0000 (GMT)
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20Why=20memory=20lending=20is=20needed=20for=20GPU=20acceleration?=
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4f187afdaea84cb6acbf6d2261240173; Tue, 31 Mar 2026 09:42:22 +0000
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1774950140736
+Message-Id: <1de15ce0-9f7e-4253-80a7-ecd94caa4325@vates.tech>
+To: "Val Packett" <val@invisiblethingslab.com>,
+ "Demi Marie Obenour" <demiobenour@gmail.com>,
+ "Xen developer discussion" <xen-devel@lists.xenproject.org>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ "Ariadne Conill" <ariadne@ariadne.space>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+ <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
+ <0bbf0349-1006-485f-a2db-6c8b795b4242@invisiblethingslab.com>
+In-Reply-To: <0bbf0349-1006-485f-a2db-6c8b795b4242@invisiblethingslab.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,
+ =20including=20all=20headers,
+ =20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4f187afdaea84cb6acbf6d2261240173?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260331:md
+Date: Tue, 31 Mar 2026 09:42:22 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4707:EE_|AS8PR04MB8309:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f989b08-88a2-4dc7-2576-08de8f0cde2f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|52116014|1800799024|19092799006|366016|38350700014|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: Lm3/NjQEruorZKFMeHYIEWFQCzSKU4rbfIRwW3m5FW/OL4UfPOHR5r1RyanOtQfBC2hhC3w10v0ritYXLVSFVfk2stodm6xMY2sjpciMkUoDc47lGUnx6GmZmdRz5JFTDl2/fJj1FD2lpyEAOKTevTZVCVcnkUb+TKgD9qiD1ZBsHBOx2bEt0KJVJ+2gFMxoEK4bYh/agoQYdQLHfLYvFodrSL52r4XucvPlO2F1PnbG3H9MvV5cTUUfoDgeeVIH2aLqVbV0g5gFAvcQkHfm+I603yXZLVBvhCAprMNJIMDIdQ7wWHX/32QCIRHi78YUuvZQdDRtY5jwSzHjQzxPMjvDFpksYf9+KGUV4QuuB8TekWwP7in9FHma5xIZ99LM/SuD3VaTHx4Tr9CuiP26cTmmTq/Wzo3wcveVZqAi/tmfDjnM3uCR9nf02osoVnQD/hOkRZm3Q7pwMz6ApSVvAZZmZQQdEtODdeW53Erw3v9OzeEOvRuTpF8sRxtrx4s+MWph9rzdJKyGNNuhFydGSmKfoKXhdOMVKWI8NpvpjtMy0aCQDNiQaZEY68xWIKymx5HIF4IW0Gl0uVVLNiAmk68kfBrnsCwawJkM4pJdoMMOgAuF0eIkn4JUFi9Mc2Uk8Ucl1SCbw2/xKrQDxgLZys8m0d+espbxdi7Trzm3QtmIK/bus1EWqxmCH+qiVkep3M6MaAAIlMkmk1Aa6BwCkNWZbzzel8qMcgcJ3lPp+yl+1/6UjvjlFxLpCci1HaNyRyR5FEUmsp/Tek6bVb42u9FVy/aZWICxySgP2BB5clgsQ+GL00dS2ZzR8jzZcFMU
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR04MB4707.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(52116014)(1800799024)(19092799006)(366016)(38350700014)(921020)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S3FaSklxNTB1Rkp2M1JTOWZUd0F1QjBvc01BRXR6VWZ4ZWhiRHFDYkFJbTNo?=
- =?utf-8?B?V3VTdW9xd0hjbWkwMnMxSkwzUTMvYjNyeTJzb2FoZXBKS3d5UW45UUNQbHZq?=
- =?utf-8?B?d1VPbXJGODd3a1RGSDFiY0M1a25IKytPeWNqREhSM1lLRGVIb1NYUmcrbWhC?=
- =?utf-8?B?bnB6dVRObk90Z1B4Unl5WWlHZnhXOFNrMy9yMGk3TVZBd3RMbnhrQmlMMnls?=
- =?utf-8?B?eVdzdkEyWE1vSlBsaEo0dHdlZTVSL2pncWhWZ0V1QlozYTYxQ08wSitxOUts?=
- =?utf-8?B?Qms0bHRLWFMya3I1MDlqVllGUE04Z0NoUUt1K1pFaFROdm8zL2ViMlBJM3Vk?=
- =?utf-8?B?ZTd3cEdtbzNOMWdDNDZjb2V1WWpYZnJDUm9aNFRMV1p2MUltN25DMmRNaFhx?=
- =?utf-8?B?amdNV3RQNzRObzExN0pIaUdjcGFVK1BleHhuazBVcFV1VEtOZnY3SHNJRmV4?=
- =?utf-8?B?eTNuS2Q2cGFRQ1BMd2dKbGRkR2VKSW4zMG5iSEpaaVpGZFR6bGZaMmsxMjBV?=
- =?utf-8?B?MXo0by85cDJBOHlSQjlwQVBQQll6U1dKblFPZHRlMnFGS1g4NW1Wbnc2d2ZQ?=
- =?utf-8?B?NSs1Tk1qVmlFOGRVWC9NZnliNVBDTHpEbnJReVRBc1hwVUlPSGdWRlNuaVBh?=
- =?utf-8?B?R25pTFlOQ3lmT0RxZ0Y0aitYT0VHWWFhWlJ2eUlVNzd3dkMxeDRCQno2MkJR?=
- =?utf-8?B?b0cra3hKaFZHK2hLRE1oZ0J6S0JEd0wrR0N0OEJJbzZUR2l1RFl0ODgzYmor?=
- =?utf-8?B?TGdVbldoSERFNW9CZ25NcEl5QjNvRDg5MW92Z21LZURtMTZYQitYYmE2Yy9H?=
- =?utf-8?B?RTEwVUJEK2NmRXBSblNIazQwYmF2TmIxTE1objlOVko5QzNNM09qVVRRVTNM?=
- =?utf-8?B?dE55MEhIdURpRmZKU01xOGkyZFBRY2dVazJDZk9HOW5vWEExSlJsOVJaOEdt?=
- =?utf-8?B?QTR3L3B6M0RDVkUySzBzUTJOYzh3UFZUS0tYVlB6SVA4dTZnYzNRK0g5ZWll?=
- =?utf-8?B?eTZyN1p1bzlzM1E1TUVhdlBvZ3hyWldmdUNyaG9FZmZsRlg2N2g2bnJxclo4?=
- =?utf-8?B?L1pjWU1XV0s1Yy83WENLd3Nwa2RaYnczaUpyRTh5Vm9jUWF6M1VrenM4bndY?=
- =?utf-8?B?ajd6MldicmxSZE1jTW5KelJ0YnI3M292NnpyamJ4RVBTMnJYT2Z1V20vaTVP?=
- =?utf-8?B?OFg1U0tOeEVNU0FHalRQVzh4U2dCQ1libUZaUzc0eVg2M0U4ak4wbldES2xu?=
- =?utf-8?B?akwwazFvaWNvUUVhZHRVTlhUWERVVEpHZWpiK1hlVCs0bnRPdVoyOUFPdmhv?=
- =?utf-8?B?TnRERHVPVzZ1VCswenlsd2dUd3lJUzltY0pZM3daOWJGOG5ZQ0RER2g3MWpX?=
- =?utf-8?B?eS9Oc0tGRUJGWktmcU04aVNyTmxiUVE0Y0kwYVdFNWY3YnIyY0Z5Vk5Pd2ZJ?=
- =?utf-8?B?YXN1ZDNRdDFKdWNpN2IxcFNvOGhBOTZCeUc2OGIxYTViYkIrOHI0NkIrSU95?=
- =?utf-8?B?SStZSGYrM09TY1lTdWNVVG1xUnlURWxIVHN6RTROV0ZrbmphNk5UT2hMUFdw?=
- =?utf-8?B?VHF5OWFlRFhwaVdML0RzcmJvcEJ0NTY4em9ONDF5R2ZtQU5NT3VMbjAybEdm?=
- =?utf-8?B?QjI4OEsxOGRFVGFqR0tjOXNqQTdmTDNTNVRQeG9pMkZEYUZTck53Lzh6d2M2?=
- =?utf-8?B?VXZINGpRUXdEeWZXS0s1TEtsYUpvZGFSQzR3MTl5SmMyMUtRcmJJTlRXdDlh?=
- =?utf-8?B?OXFJNWptaC9FVytsckExaEhrWXBSQW1OdEJlNUJaSTVBYTlmU3RjUjN0NFhJ?=
- =?utf-8?B?eks4VDAxR1g3K003R3cvRE91Y3lWd3h3djN6U2VLWkdIN3YrcnJzWGF5eW5K?=
- =?utf-8?B?MzU5TnFuanNqbzkyVHQ0Q0taSTVrZ0FueWwzTFAvelM4WGFjczBGelBvTFVz?=
- =?utf-8?B?bUZTclV4VURlR0lWN0hGNFJoVXBPazgvQzgxUE9mdktVb2hpSkNjZ3NxQytO?=
- =?utf-8?B?ZHNTNlA2YS9teVR0eStrdXY0TVlwVFlwbzl6eS9VMndLUGxoMmRYSzJyK3BJ?=
- =?utf-8?B?ak81REhaa0xEa3Z0cWRYaGlvVjhpMVMvWFJVcFNROEgxbU5pNjduNEtDZFNP?=
- =?utf-8?B?SUJmV2RQakkyZjNSeklIcHdvUFQvOFVTYXJXTVR1aXJwaitWVmd1UWxWdlRh?=
- =?utf-8?B?aURhQ0JkMjVSRldYK1kvSjRMS2Q3cFBWdXhibFVjNXdHaHRNV0R2akIrU2ky?=
- =?utf-8?B?ME5ZU2tBNlJnL3FsUUJ0TkJCZkJJa2NydVdWaytRNjc4N2w3alBUK1Z5NU5V?=
- =?utf-8?B?VDF3aXRjRER3SC81TGNhYVVXa3dibzdsTGFoWHkzbW1IRGdKbnNCZz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f989b08-88a2-4dc7-2576-08de8f0cde2f
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4707.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 10:04:16.4274 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rF5PrHfrtjh5fz14BG7gX4K0PrKwrKmdwNQBMGrJiMKZpAvpYKxO5Q0PtsbwxQoRZERvWHo2n9ofxdyz87wi6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8309
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 03 Apr 2026 08:59:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -157,27 +90,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add compatible string of Mali G310 GPU on i.MX952 board.
+Le 30/03/2026 =C3=A0 22:13, Val Packett a =C3=A9crit=C2=A0:
+> Hi,
+> 
+> On 3/29/26 2:32 PM, Demi Marie Obenour wrote:
+>> On 3/24/26 10:17, Demi Marie Obenour wrote:
+>>> Here is a proposed design document for supporting mapping GPU VRAM
+>>> and/or file-backed memory into other domains.=C2=A0 It's not in the for=
+m of
+>>> a patch because the leading + characters would just make it harder to
+>>> read for no particular gain, and because this is still RFC right now.
+>>> Once it is ready to merge, I'll send a proper patch.=C2=A0 Nevertheless=
+,
+>>> you can consider this to be
+>>>
+>>> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+>>>
+>>> This approach is very different from the "frontend-allocates"
+>>> approach used elsewhere in Xen.=C2=A0 It is very much Linux-centric,
+>>> rather than Xen-centric.=C2=A0 In fact, MMU notifiers were invented for
+>>> KVM, and this approach is exactly the same as the one KVM implements.
+>>> However, to the best of my understanding, the design described here is
+>>> the only viable one.=C2=A0 Linux MM and GPU drivers require it, and cha=
+nges
+>>> to either to relax this requirement will not be accepted upstream.
+>> Teddy Astie (CCd) proposed a couple of alternatives on Matrix:
+>>
+>> 1. Create dma-bufs for guest pages and import them into the host.
+>>
+>> =C2=A0=C2=A0=C2=A0 This is a win not only for Xen, but also for KVM.=C2=
+=A0 Right now, shared
+>> =C2=A0=C2=A0=C2=A0 (CPU) memory buffers must be copied from the guest to=
+ the host,
+>> =C2=A0=C2=A0=C2=A0 which is pointless.=C2=A0 So fixing that is a good th=
+ing!=C2=A0 That said,
+>> =C2=A0=C2=A0=C2=A0 I'm still concerned about triggering GPU driver code-=
+paths that
+>> =C2=A0=C2=A0=C2=A0 are not tested on bare metal.
+> 
+> To expand on this: the reason cross-domain Wayland proxies have been 
+> doing this SHM copy dance was a deficiency in Linux UAPI. Basically, 
+> applications allocate shared memory using local mechanisms like memfd 
+> (and good old unlink-of-regular-file, ugh) which weren't compatible with 
+> cross-VM sharing. However udmabuf should basically solve it, at least 
+> for memfds. (I haven't yet investigated what happens with "unlinked 
+> regular files" yet but I don't expect anything good there, welp.)
+> 
+> But I have landed a patch in Linux that removes a silly restriction that 
+> tied dmabuf import into virtgpu to KMS-only mode:
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/ 
+> commit/?id=3Ddf4dc947c46bb9f80038f52c6e38cb2d40c10e50
+> 
+> And I have experimented with it and got a KVM-based VMM to successfully 
+> access and print guest memfd contents that were passed to the host via 
+> this mechanism. (Time to actually properly implement it into the full 
+> system..)
+> 
+>> 2. Use PASID and 2-stage translation so that the GPU can operate in
+>> =C2=A0=C2=A0=C2=A0 guest physical memory.
+>> =C2=A0=C2=A0=C2=A0 This is also a win.=C2=A0 AMD XDNA absolutely require=
+s PASID support,
+>> =C2=A0=C2=A0=C2=A0 and apparently AMD GPUs can also use PASID.=C2=A0 So =
+being able to use
+>> =C2=A0=C2=A0=C2=A0 PASID is certainly helpful.
+>>
+>> However, I don't think either approach is sufficient for two reasons.
+>>
+>> First, discrete GPUs have dedicated VRAM, which Xen knows nothing about.
+>> Only dom0's GPU drivers can manage VRAM, and they will insist on being
+>> able to migrate it between the CPU and the GPU.=C2=A0 Furthermore, VRAM
+>> can only be allocated using GPU driver ioctls, which will allocate
+>> it from dom0-owned memory.
+>>
+>> Second, Certain Wayland protocols, such as screencapture, require 
+>> programs
+>> to be able to import dmabufs.=C2=A0 Both of the above solutions would
+>> require that the pages be pinned.=C2=A0 I don't think this is an option,
+>> as IIUC pin_user_pages() fails on mappings of these dmabufs.=C2=A0 It's =
+why
+>> direct I/O to dmabufs doesn't work.
+>>
+>> To the best of my knowledge, these problems mean that lending memory
+>> is the only way to get robust GPU acceleration for both graphics and
+>> compute workloads under Xen.=C2=A0 Simpler approaches might work for pur=
+e
+>> compute workloads, for iGPUs, or for drivers that have Xen-specific
+>> changes.=C2=A0 None of them, however, support graphics workloads on dGPU=
+s
+>> while using the GPU driver the same way bare metal workloads do.
+>> [=E2=80=A6]
+> To recap, how virtio-gpu Host3d memory currently works with KVM is:
+> 
+> - the VMM/virtgpu receives a dmabuf over a socket (Wayland/D-Bus/ 
+> whatever) and registers it internally with some resource ID that's 
+> passed to the guest;
+> - When the guest imports that resource, it calls 
+> VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB to get a PRIME buffer that can be 
+> turned into a dmabuf fd;
+> - the VMM's handler for VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB (referencing 
+> libkrun here) literally just calls mmap() on the host dmabuf, using the 
+> MAP_FIXED flag to place it correctly inside of the VMM process's guest- 
+> exposed VA region (configured via KVM_SET_USER_MEMORY_REGION);
+> - so any resource imported by the guest, even before guest userspace 
+> does mmap(), is mapped (as VM_PFNMAP|VM_IO) until the guest releases it.
+> 
+> So the generic kernel MM is out of the way, these mappings can't be 
+> paged out to swap etc. But accessing them may fault, as the comment for 
+> drm_gem_mmap_obj says:
+> 
+>  =C2=A0* Depending on their requirements, GEM objects can either
+>  =C2=A0* provide a fault handler in their vm_ops (in which case any acces=
+ses to
+>  =C2=A0* the object will be trapped, to perform migration, GTT binding, s=
+urface
+>  =C2=A0* register allocation, or performance monitoring), or mmap the buf=
+fer 
+> memory
+>  =C2=A0* synchronously after calling drm_gem_mmap_obj
+> 
+> It all "just works" in KVM because KVM's resolution of the guest's 
+> memory accesses tries to be literally equivalent to what's mapped into 
+> the userspace VMM process: hva_to_pfn_remapped explicitly calls 
+> fixup_user_fault and eventually gets to the GPU driver's fault handler.
+> 
+> Now for Xen this would be=E2=80=A6 painful,
+> 
 
-Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
-Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
----
- Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml | 1 +
- 1 file changed, 1 insertion(+)
+indeed
 
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-index 8eccd4338a2b..6a10843a26e2 100644
---- a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-@@ -20,6 +20,7 @@ properties:
-           - enum:
-               - mediatek,mt8196-mali
-               - nxp,imx95-mali            # G310
-+              - nxp,imx952-mali           # G310
-               - rockchip,rk3588-mali
-           - const: arm,mali-valhall-csf   # Mali Valhall GPU model/revision is fully discoverable
- 
+> but,
+> 
+> we have no need to replicate what KVM does. That's far from the only 
+> thing that can be done with a dmabuf.
+> 
+> The import-export machinery on the other hand actually does pin the 
+> buffers on the driver level, importers are not obligated to support 
+> movable buffers (move_notify in dma_buf_attach_ops=C2=A0is entirely optio=
+nal).
+> 
 
--- 
-2.34.1
+dma-buf is by concept non-movable if actively used (otherwise, it would 
+break DMA). It's just a foreign buffer, and from device standpoint, just 
+plain RAM that needs to be mapped.
+
+> Interestingly, there is already XEN_GNTDEV_DMABUF=E2=80=A6
+> 
+> Wait, do we even have any reason at all to suspect 
+> that=C2=A0XEN_GNTDEV_DMABUF doesn't already satisfy all of our buffer-sha=
+ring 
+> requirements?
+> 
+
+XEN_GNTDEV_DMABUF has been designed for GPU use-cases, and more 
+precisely for paravirtualizing a display. The only issue I would have 
+with it is that grants are not scalable for GPU 3D use cases (with 
+hundreds of MB to share).
+But we can still keep the concept of a structured guest-owned memory 
+that is shared with Dom0 (but for larger quantities), I have some ideas 
+regarding improving that area in Xen.
+
+The only issue with changing the memory sharing model is that you would 
+need to adjust the virtio-gpu aspect, but the rest can stay the same.
+
+The biggest concern regarding driver compatibility is more about :
+- can dma-buf be used as general buffers : probably yes (even with 
+OpenGL/Vulkan); exception may be proprietary Nvidia drivers that lacks 
+the feature; maybe very old hardware may struggle more with it
+- can guest UMD work without access to vram : yes (apparently), AMDGPU 
+has a special case where VRAM is not visible (e.g too small PCI BAR), 
+there is vram size vs "vram visible size" (which could be 0); you could 
+fallback vram-guest-visible with ram mapped on device
+- can it be defined in Vulkan terms (from driver) : You can have 
+device_local memory without having it host-visible (i.e memory exists, 
+but can't be added in the guest). You would probably just lose some 
+zero-copy paths with VRAM. Though you still have RAM shared with GPU 
+(GTT in AMDGPU) if that matters.
+
+Worth noting that if you're on integration graphics, you don't have VRAM 
+and everything is RAM anyway.
+
+> 
+> Thanks,
+> ~val
+> 
+> P.S. while I have everyone's attention, can I get some eyes on:
+> https://lore.kernel.org/all/20251126062124.117425-1- 
+> val@invisiblethingslab.com/ ?
+> 
+> 
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
