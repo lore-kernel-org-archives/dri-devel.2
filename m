@@ -4,127 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 280B6FF60ED
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 08:53:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0757FF60EE
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 09:05:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1E710E8D7;
-	Tue, 31 Mar 2026 08:53:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0762A10E93D;
+	Tue, 31 Mar 2026 09:05:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="E1t27CJl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lFR9K8+1";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010026.outbound.protection.outlook.com [52.101.201.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AE5610E8D7
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:53:20 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010045.outbound.protection.outlook.com
+ [52.101.193.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F67D10E93D;
+ Tue, 31 Mar 2026 09:05:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uf8xB61kU2/Y2p6jH8ml7dbFDcZOcppKwqp3EibndmH8zTQA9FSZ1nFIkFxOO1R35Q80H5ftFiP65LFf5OKBeOokvmm2o5o9tA0yn74FGgdfTZJ/sZd+7RGhY5OYiUuYAyNyTxGnCXgX+C1jIXg97QrOUPSlHQuF6heQ0US0nASCqqX7iFK+NoqseZVZr2OymDH74Ujs3FU1Pk326vsaJXJ1RQsxRm+n5MVcP75ROz8KnLCGngkAoWkh8eMd3VHcHXzsZHn4yzf1AvbcFq0b7UKUZNgqxXOFS2BFlOipFOAfZcr8o51Syy6XqDMK+yiemmeDvbDz8imBtd0mCLNGWQ==
+ b=sesuHxv19SD+3aWV0sYl5/gnGzFTNbtDyPrAERt5xbHPENhqNQWBl1NCVxM1pS6MZjc0aJtuFDFqY7k8ijei8a6CcSpFXXWscGFGISDETtNAJ+nyI1btFtoJduBDHMmYbE7Ha0ecEWGA5tIoIX57XKsuBZqzBLDfnz9cfY4BgpTw8lZQELF20/+sOkSt55R+lf4D34IDLkwEq5VEK+yBaNsKhQTuGc0tWEhXZXTF8oSKmK9/hFgdGaAGSgTCXBnEHYH0pFDUDQ5Fm0dg/HVcLEcuIt4LyRdb7/9RIfaLB44INsdnpzXFmN6e5VLwUDQUMGXcdkueOrY52Wngv6RVbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HxOdWp6/wXKPGDHPF0J/yFuuDk2+PXrdIYFhCvjHkNQ=;
- b=m/F76ANLCcpNSgK02rMRYflv779QkAzJYof9P7zJF+cHDjFyxg0iOEHsyuKVJKv9WA+hKEDahwCY0eTgdW8paWhoAmS4TQ4H4nwOQ9pTovBM075wZGrHVeE/1JKPRoRFFIbQK1IA011Ycb98yxgk5JTowe/7VQu8dg66lS+vd6wXYtAhhS0V91Ut6aCgqOi1dZxnJ4xiQ2Dr8f2pcsGvem6MU8yak0J+ZJJOcPBolkhw4XNCCstehDD3pgpUUxdeO/rVUMoJORiczxA+9+ky66+n5JRDI6jaKz4aPI/2kQzilkx1qL7xvIN25AqcqVMziKUbD0aNB43KbaAZkHDqRw==
+ bh=7tsQv44uw1tKIt9gwK+zyAvxI89JSwJTq9KXLzENmRg=;
+ b=lhaWoYGiWMuJngkMr8mGC3AyOo7c0+BmiBFfJTB+OCFp4U5oupGBAsR3wWoAmi2yUJ641D7QicIpEamHWCvP4dzlpR+ciew8nAwC2Cf9xsaNz7k9CnSciPocM9WI6MkIF3HaHwEGvYQTJ/k0+0+EYZnNyRR2NDlMwLahGyw5LYNQzugTF3GJWH3fnDXavp356ex4bFEqIkx41XTy1MUN7/+dK0f9/QrSq3q6M8YshCa+PlzgaWxwamf2kGxAVB0Ixu6GrWOAetbI41sKgysWA8hjgMLcJQDKBKNRnRJEzlBR0HRh3tNzX6zTxuxB9kQ561UMAmpmW4cK9kaFICZ3zA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HxOdWp6/wXKPGDHPF0J/yFuuDk2+PXrdIYFhCvjHkNQ=;
- b=E1t27CJlHFHk4GW4wSSVMCHmOrhdDKL0fjC4xakHl9PaLt2MYYdKt9+bjopdNwsraWEjEBd5AdwwEplxsZNkuTG74ZGo2iviEUIadRV5LGZ3fxPgLovEEuZOxiSlA4ax/sEttxowO0xxmF+eiZ/BwkBvZpp8sf64n96jbI5H/LfpzTdY/cfuSwZnjeAEbod4CvO9yvNAd3fCy3sP00j7YJay2HCs4VoqUCuBZ76EfLQvlYFRZbSJoFUE9Pw0enRsVnVD+k7P3yBfAOajg3AaJ7z1cHHoHUQbSHYXQ3XjSNXxLfvpraR4GglRkZ59mttFldXNGl68TCoZrg7GRkClgw==
+ bh=7tsQv44uw1tKIt9gwK+zyAvxI89JSwJTq9KXLzENmRg=;
+ b=lFR9K8+1TmfOSVMmjt6U988OJ53at/zriClGUrt3TAy7t/ipQP9bxsC30g8eFZ7I6J8XGaXGbuGLViPfIe9VricfQe2ViW8aN+mTI8gaf42dIilk2sw3EJVc7bNuqtHcIsAPbX2vkUn0+sqqpnm4LZh7bbxM8e3N0CLbpFoG2p4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7277.namprd12.prod.outlook.com (2603:10b6:510:223::13)
- by SA1PR12MB7444.namprd12.prod.outlook.com (2603:10b6:806:2b3::16)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB8740.namprd12.prod.outlook.com (2603:10b6:a03:53f::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Tue, 31 Mar
- 2026 08:53:12 +0000
-Received: from PH8PR12MB7277.namprd12.prod.outlook.com
- ([fe80::2920:e6d9:4461:e2b4]) by PH8PR12MB7277.namprd12.prod.outlook.com
- ([fe80::2920:e6d9:4461:e2b4%5]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 08:53:12 +0000
-Message-ID: <59e7882f-2fbb-4e8d-9986-e0f70d902d44@nvidia.com>
-Date: Tue, 31 Mar 2026 19:53:07 +1100
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
+ 2026 09:05:36 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
+ 09:05:36 +0000
+Message-ID: <b25b23e8-2854-4f4d-b838-1924185fdd9b@amd.com>
+Date: Tue, 31 Mar 2026 11:05:32 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] lib: test_hmm: Implement a device release method
-To: Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org
-Cc: zenghui.yu@linux.dev, Liam.Howlett@oracle.com, akpm@linux-foundation.org, 
- david@kernel.org, jgg@ziepe.ca, leon@kernel.org,
- linux-kernel@vger.kernel.org, ljs@kernel.org, mhocko@suse.com,
- rppt@kernel.org, surenb@google.com, vbabka@kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260331063445.3551404-1-apopple@nvidia.com>
- <20260331063445.3551404-4-apopple@nvidia.com>
+Subject: Re: [PATCH v2 1/2] drm/amdgpu: fix sleeping allocation under spinlock
+ in PASID IDR
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Eric Huang <jinhuieric.huang@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+References: <20260330053025.19203-1-mikhail.v.gavrilov@gmail.com>
+ <20260330053025.19203-2-mikhail.v.gavrilov@gmail.com>
 Content-Language: en-US
-From: Balbir Singh <balbirs@nvidia.com>
-In-Reply-To: <20260331063445.3551404-4-apopple@nvidia.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260330053025.19203-2-mikhail.v.gavrilov@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR05CA0042.namprd05.prod.outlook.com
- (2603:10b6:a03:74::19) To PH8PR12MB7277.namprd12.prod.outlook.com
- (2603:10b6:510:223::13)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0001.namprd03.prod.outlook.com
+ (2603:10b6:208:32b::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7277:EE_|SA1PR12MB7444:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09ebce38-01d3-4e5c-f1a5-08de8f02f0ae
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8740:EE_
+X-MS-Office365-Filtering-Correlation-Id: 870c9eb3-b3cd-45c4-938f-08de8f04ac55
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: HyhYd6Zfrp9uICCQHTwkgR8+HY1131TDlXisyXlaNHb5aIHfAENmArUN85kO4B4rzj9lFVXiOQm+Vtxr9wLSnGzfOwMxIgQzsP3V47vne4nuQwRldgVneyHaZpqlQPXmeheztW79+RwX/dK39v5fu0B+TIi0z8aOysF01P2mZE11Jk3QrKjadW9+2nigKM4faXsrKRnLnlZANF9ce/JrqIMm/L3E7cndcoM99CsL/b9MG4RWVrepX+6joky7GYbpqutj6ynSuTHolLgKY9nZk05a2+gbW8c6Lg4iCFNdZdWvJ2Q41H7Z9muIhl8HBESb+b7vBpcyDXJrldwb/tQuTo2KafqKB/BCvNARPzlVtsxTNDGbjhhtPZMBV7Cu1/vJYBjMsVZb0xY2GcXeVtDkAcoqlUOTWnb44MJ43901VutqOIUFg7VwRXUUkfle+CZPbyzP6AV0OmBWbSfM9Gm7N8oFJmCFqhQ3GNN6DZUw3n7pB7hB17d8nJFKPfbjhnamnagLLwTp+329NT0j/MZDU4hRvj5jbvyPo6iHS8cuomaCNk+s2qGrTgLZ47NiF3F7LT2k1BmKeUeqxOulWX6c2wS8XA4w+v/j5x94x/hHAlzS24c4r0orrbWfut+PqlwFybRxVkgybOpITTtkNlBQ7/Utr83zOdBDoEiKZJX+PaO7nKqQpirxTRn5Ofrzkh7a+2MAMr/S3khXx8UIUQWNM9cHQC4EAvcohyDEuFqGzv4=
+ ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: wsbfCpg1C19kYBwXyKoogauDP3dzneYIeK8zHcc1dS9A6U51PV9AMXdhb26rt2glk3JR0mi7kE+xIW3ydJO0Xbp1OTkmXCVfYgeB8Mw/Vmo6lBTDqn904FdjQDskMp+iAhEg8Rh87AXMw5kNbIxvvVcsh2Py9d+2jkAJG4SKFt+pAB1waYcg6G/ja7aRqiWVvco/8B6/3DjjiABx8WkSVyXgJ3sZ7UhO9m+Qg3HSUcgiwnQJrWPQuLo43mdtPgOy7ZOy3r30gJoUR8YkiDIMGvicKDFWIMVIGEzFdFWbhKHDolitXnql0RUVlj9GgvMnYCb69WYIkxBu3qoljAS9EteCNaITo/Gr9sIGAicdC98M49ywfgsEX7WdyjiPTRLH0PHX7NsS874ps8H22fiYkpbsSEqVlawUhm2yZG+bedgyOa3AFkGloz0nAQfkH0X5tRGeD/xVpG5KjkKggOKwrwlSv0pT8Ly78NMe/4PDHTm87D+Fhh1XaaAkBf/F2WJg+58C1eZ6tX8QKjR8y++KGYxpvB/KevhSk80xSeUSqAbpjQn8j5OLNCp1uKS3GzckBeo7NYnajhbME51VNtJ5Eu/GnFGkLbISzYBIiHVIErqFVTfHxTam40z5GfnNrHYmmA47RjCJp28yB9IuP/T2Igxe+m3ihotEHTgpaLWhtyM2amPyNLtW0iGA5Uq/gA6W5iRY+iN0fdGNjul+a1MGuYXojEL1aBGJq3EafKiT9mo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB7277.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(22082099003)(56012099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDRIc2xvOGhBM1ROc01YN3dlNE80N0F1cHNXMExsc2xOK2dJTEhBWFRITEhB?=
- =?utf-8?B?Q3hjZ01PR0VHQlliNlBSQWdoWkpsOWZma2F3L1ZuUFNLRmJEZU1EdW9md2p5?=
- =?utf-8?B?Nm5VNVJwclE1dUlFTUpBUTlod0kvNFc3UUlLbE5Kbmh1RXljVXgycy9kVk10?=
- =?utf-8?B?UFM2SVJYK1dXQlJFY0tJcEF3SEVlbUVIOFg3UXJTalBXMWFBNHM1aHJoZmpr?=
- =?utf-8?B?c1NJS3BVRTc5R3B2Ty9Jd3BUWW90a2VNMDNXR01BR0hLbG1pdXpxVkRXN2VV?=
- =?utf-8?B?d3VUYlZtTWl2L1FmNEpRamRlTnZlaTF6QXN0Lzh3SW16cEpWSWFiT3M3dkw1?=
- =?utf-8?B?dzlGN01NVTNPY28weW9aUXdTc2ZmSDNBd2FNeHdQWDF2enNHQmxybXlMdDRF?=
- =?utf-8?B?WkN5TWJiYURDdVArdlVRa0ZiSjNvak1iWkhyM0ljK1pUbVNBdU1udVpScWJN?=
- =?utf-8?B?M2gvYmtOcS82MVhkalJiSUEvKzlNR29wRmh2MC96bDM4bk5zZTdMZ2JianZT?=
- =?utf-8?B?VTNmM1hqQXIrZ3RrS0xqL1dDZEZKeEgzUXpZRmE4YWFUOVQweG9mY0dTWC9i?=
- =?utf-8?B?Z3AvZkFhY3dHcWVSbHY4SnpDVHNlYjI3WmNGOWRHQ2NxeDYyV2NjSlB2SmdQ?=
- =?utf-8?B?bmJBRG9RUEp4MVMxMGxWSDNvVEFYbW1KTmNETmczRmpMY1hqdVhoOXBlWXpa?=
- =?utf-8?B?WmI4Y2ZJdDNLMzYyWFFLVmtiOEVwSXFtdUp0SldoelQwc28zajJ1NW5yRW04?=
- =?utf-8?B?Nld0Q2RQWUxxWlVwQURQMUN3TWtEeTdRemRJRkFleFNFajgrMm1qS2JWU25q?=
- =?utf-8?B?dVIzTHVGODluNXFCbGgxY01JallCcDhUNzVHaTZoZTFlbFBQYjhGYXUyamJO?=
- =?utf-8?B?YzRPcnN5ZUhPVUVhM2EzelV0akNyaGIrKy9SN3Zpc0VsdXg3TE1BNjFWSW93?=
- =?utf-8?B?enVmUGNGWkovbzlHYThsam83QkhRZ0FSN245NFlUb3RIVXdNV1FTc2dtaVhQ?=
- =?utf-8?B?UDRhaVFuUXNIeUFCL1lqYU5lSXN3OWhpYWZuWit6S1NrdjJKaG9XU2YyRGNa?=
- =?utf-8?B?NVBCNXRZODAzbUU3QWpGekVHaCtldW9OTFBUZG1JcUUxcFhwZ3phVzZyWm9E?=
- =?utf-8?B?cjgzN1N6OFd6SU9wK3crRjdNZG9PZDhYM3lFT1lxNzgzRGFTR0t3Mlc3blZk?=
- =?utf-8?B?cHdscElrUkJCZmhndDJaVTkyMVdBeDdseWNLQVg1dkJlMVl6ZytCdS82VFZx?=
- =?utf-8?B?THNvNGlPbHQzNkVuOTlNc05GS2ZXd0RvT1dyUTBYWDV1V3hiT3VxWndtSUs4?=
- =?utf-8?B?ZVVqZ0QxWjd4TEI1cVdhdnBBVzU4cW1UZ091OGdlMEtUMitVS2NpSGNBQVhv?=
- =?utf-8?B?KzVRZWlxU3JpNTRZRmlQK3g2S0pRWnhiSjJLSDZaekxWcndCRzdsZTRKYy9N?=
- =?utf-8?B?SnZ4Wk5sMU1uSE5XQzZVYWhPSjhqOWRVb3Z1amk5Ky9QNVBlOTRrUitwYVVq?=
- =?utf-8?B?dCtOcm9sWHN1Tlc0ekZ1eWI4TmhlNm02b1c5YjU0VDllQmVEZE9JQVkzU0d4?=
- =?utf-8?B?NSthZjZBbUJTMmJmZjBxTnFYdkZKeE9rQ1dYSkpmMjV1ZzEzekVadDZ0bm1s?=
- =?utf-8?B?dStyZ3VXaklsbFhteUVIVDJTanZzczBObjhXbWMybDREUVNiM3pHUXM1bjV4?=
- =?utf-8?B?MjgxbE80R211Rm52RVFoU0NiTzkxOTlXZmMzV1UweFM5cnhJUjFtejYzbjJa?=
- =?utf-8?B?WklOOTdyYUljcjFTVFc3eTQwV2tBTEpnR3BocCtWRUhtSUZ5RzFsOStINlM2?=
- =?utf-8?B?MjlEN012OUc1cVVHN0ZGTWJPN1pJeVdZVWJXaUhvR3N3dkNweGhDcWtLcitV?=
- =?utf-8?B?d0FzTHJDVG8vVEEyKzhUT1NtRDREVlc5cmhXMHBSMWhBdzkwbW9ZdDBPRG1J?=
- =?utf-8?B?akZ6UFpua29xWitsb3ZkTTk4bnVpUGduV3lZcmI1S0x3NnpkOWlOdld0R2ti?=
- =?utf-8?B?MFRJV0xKL0kwWmhUandaM2Vramg0R1dtcUdVa2J5c0dQZ2JoamxwT1FRb1Jw?=
- =?utf-8?B?UDVISXZtUitxbmhFQUhTWGtqNmFaS3hlTWNKdmVwSE5YTjBLK0tjOWxob0dE?=
- =?utf-8?B?R1BhTkNyOFBLeFloaE5IR1VZL0JZMUZhZ0psdTVUZ1FSbk1SOXhmOU9CblE0?=
- =?utf-8?B?RWw0UlN2enBuNEN4VmQ4dzlzUGZzUjBqU2dmRitKUW5qSUxEd1Y0TVBIRTI3?=
- =?utf-8?B?blE5cS9NOS9nY0hRTTlyZXl4RzNlUlRWa09jd1NJUW5JTnBaTnJZVUtHQy9p?=
- =?utf-8?B?NHpiNW5jdFpBdlV1YVRYNityOHFlT05yZEJHbE4xYmEwTDdjclJTQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09ebce38-01d3-4e5c-f1a5-08de8f02f0ae
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7277.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RjQyUEhaaXhoczVPMmp3OXVNbmR2bkN4R3pPU21SRGdkb0xyb1FhNGRQQlh2?=
+ =?utf-8?B?b0JaTzl3a0VwR2ZtVnNwTmFQOXdLc1JrRkRWOU1HWkt6Q1dxZm1jVzg2UFJ3?=
+ =?utf-8?B?WkNYUXRxOGphVU9vVm1VSUYvUTc2STdLK3RjYWdVcG1tamxBZGJHNCtyNTdP?=
+ =?utf-8?B?QmQ2UWVDTE5mZU5VdXkxRlFmNXIzOTgrbEFHRVk4dWFQLzVJQjlCNDJPMUp1?=
+ =?utf-8?B?QUZvKzdQdy9PVElDNU9wWmViN1YvbUp3WkVsWGo3RGZPOUZ5U0d4WGY1Wm5E?=
+ =?utf-8?B?RnpqckFEM2tDcmZINkVob3JSa0xBRDZXeUY2VzIzdnQ0RmRmVm4xTHJ4T3pn?=
+ =?utf-8?B?V0F4cTA1OW5SUWdqdVRCZ2lqQ3JOcExuQ3N0c1pUTTVlaVcrR05Ld0RmRVI4?=
+ =?utf-8?B?MEMwbTBTaktiazBkOUdiNkVjb21xSVVneDdRek9aOEg0MmNNQ3hLYy8rckxO?=
+ =?utf-8?B?cFc5NmoyaCtybzFGTmdBK0l4NEpWVDh5S1VncVpKNGpzZEpLVWh4WTZpM09S?=
+ =?utf-8?B?N3JmYnJOZlpzenFnSlFaUzl4RzdRTVArVjZLWWQramNuTGVVaE9Bb2pVUTA3?=
+ =?utf-8?B?QjJ5eTVCL2dhRHhQMHZ4TmlrSnFzUHJ2QXhTcitwUFVYZEptUVllQjdVNjZD?=
+ =?utf-8?B?WFgyRlRQUExiZG94Z3N3ajBhaGFxMUZ4ZUFwdlI4blVCWVh0ZWd6WlhUTmFq?=
+ =?utf-8?B?YkZlVWNQcEY2U25odlVBOTRHbGt5bnZhenYyemlWZmZLRWlhQWtUeTFDRFM1?=
+ =?utf-8?B?WmRmcDZzZmtOOUtKdHVLSFgrRTRmRTR2Z0w5Q3k0VUsrdERYdnJKNlh5a0Zr?=
+ =?utf-8?B?bVVsUHlKbEcwOTV6MUdCT1lIajJxZGZEamlqNi8vMExVT09WcGYyWEo0cWRT?=
+ =?utf-8?B?RkdvZkZ1UGtUcm11cTVhMVMxQUsvbE11ZlAvK3BrekVCOE9xcTlDN25iYTlx?=
+ =?utf-8?B?aU01MllnSzRaTkk4ZE5zdHNGTzRqK0F3NFc2blhCOU52bnl4Nm1za1lXZVhZ?=
+ =?utf-8?B?OWZtbFliRExWbEYxazBsTHI0SmR1c0JlUnJ4RTNBaGhUS0JnRHZFR3NNRDEv?=
+ =?utf-8?B?SWtaL29SUTVkeXdXK0IySXozU2JCc0RhSnR3bkkzWkhZK3VmdmNuU1BrbzBp?=
+ =?utf-8?B?STBidUUvM3oyUXZTa3V3V01TM2VzNkREK08raDhmVy9udUJSOWVUT0pCcnlE?=
+ =?utf-8?B?cFlER2c0c25Kdkc1L2NkSlMrZDY3djl6ckpVejN5T1V5dm1TVlNCV0dRUnNr?=
+ =?utf-8?B?QXBDWXZXOUhUa0lpMWhmZ2doQ1lyRDc0QWFvTVpMS1VUMVE3RXlrL1hMUGxh?=
+ =?utf-8?B?T25xNGhuQlhYbnZ3UGxMZDdRblBuWlhxMjBhNkNZNHBhRFg0Ykd0VUFGdVVB?=
+ =?utf-8?B?U1F1WTlFNVArK0pXM2puSXg5eG1wNzVvQWNtTkoxbmxZdFpYREtYMzd6ZXpR?=
+ =?utf-8?B?eUxaTlFGWmRvRk9HcmJDZGNGU2dET2NZeHZORXB0NUVFTnZTaTM5VlB2dWwz?=
+ =?utf-8?B?SXhTL0YrUG5keU4xa25TcGNIcGVDUUFKUW5VZE1OcExFTTJKK2dRb3AvOGlN?=
+ =?utf-8?B?N2YyN3V3amYvSGJTelNHZEZqKzhaU3dDVDhhK25XZVhoNnA1VDFObk92cHFD?=
+ =?utf-8?B?REVNMDMzUkZJVnY0dzZMNm43bXZId3d5OXQ2K244QUQ2eHRnbEJpN0JEam53?=
+ =?utf-8?B?V05mSng3bWtpdEorVnJYUXMzS3Y5TVpWTHBkWWpkL3pxU04rOGJhaDhGeXZx?=
+ =?utf-8?B?WUppSG0rUU1wRXJ2eEE4S01tWnk4WDhac3ZMRXgvaUlzRk94V2M1cXJqc2RH?=
+ =?utf-8?B?SU1CL0JTSEE4WFNZNFR6UVYyU2pSZ1p5Q0pLVktTcTFDRUhXRUM5VlZHWGlY?=
+ =?utf-8?B?NWtodEV5UGZMa3VQTjQxNlpyTVBTTHRnWktxYWNFM3pTQndNK3FmZk1pcWk4?=
+ =?utf-8?B?UEhpV2pzMC9vam5FZGZjUVFFSjZEczJlZnNKZ1NnRkRMNnZvYStDT2ZibG5o?=
+ =?utf-8?B?TE5FOE43bnVrTkMvUFF4Q3JKVVhJenBqdWoxL3JYMGVPNm4rODZpRS9XSGxJ?=
+ =?utf-8?B?WU9mMWtEbSs5THNtUk4za1pxRTQyNVlMS3pjL21sdGRoVkxBOGFpNXZSOU01?=
+ =?utf-8?B?OERIQkFXTVFIdnRNYTR4SFpBNnNheHhRRFkrMzlNTko4YVljSDBOT0xHNVhw?=
+ =?utf-8?B?dVpSTnBGQ3JyNk9xdGlLdXR2WU1TQktpS05GYmhSdmhudXhqVGNDVTl4c3Ax?=
+ =?utf-8?B?VlVHRVdoTk83TC8yTFhKVmxzRlZjTlpjMmsveUQ5MmZPKzJnZDN0Q1lhc1Jj?=
+ =?utf-8?Q?CsAs6BrjGseZ6iOCD7?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 870c9eb3-b3cd-45c4-938f-08de8f04ac55
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 08:53:12.4730 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 09:05:36.8230 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uNlkB7DFZudelzK2micN0kCjq57Wga3x9Nt8NkmLlU4D2bZtLhhDvJssqZwb6qTwn5YQKAnLgjnafxjUy1c/6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7444
+X-MS-Exchange-CrossTenant-UserPrincipalName: s/dvNfuREigghxyyU09Z6OuqrfQ0LnhjoYNK5N7ozgfZMOy4yHJBMzbtbdEazbfR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8740
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,61 +140,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/26 17:34, Alistair Popple wrote:
-> Unloading the HMM test module produces the following warning:
+On 3/30/26 07:30, Mikhail Gavrilov wrote:
+> Commit 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
+> switched from ida to idr_alloc_cyclic() protected by a spinlock, but
+> passes GFP_KERNEL to the allocator.  idr_alloc_cyclic() may need to
+> allocate radix-tree nodes, which with GFP_KERNEL can sleep — illegal
+> under a spinlock that disables preemption.  With CONFIG_PREEMPT or
+> lockdep enabled this triggers:
 > 
-> [ 3782.224783] ------------[ cut here ]------------
-> [ 3782.226323] Device 'hmm_dmirror0' does not have a release() function, it is broken and must be fixed. See Documentation/core-api/kobject.rst.
-> [ 3782.230570] WARNING: drivers/base/core.c:2567 at device_release+0x185/0x210, CPU#20: rmmod/1924
-> [ 3782.233949] Modules linked in: test_hmm(-) nvidia_uvm(O) nvidia(O)
-> [ 3782.236321] CPU: 20 UID: 0 PID: 1924 Comm: rmmod Tainted: G           O        7.0.0-rc1+ #374 PREEMPT(full)
-> [ 3782.240226] Tainted: [O]=OOT_MODULE
-> [ 3782.241639] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-> [ 3782.246193] RIP: 0010:device_release+0x185/0x210
-> [ 3782.247860] Code: 00 00 fc ff df 48 8d 7b 50 48 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 86 00 00 00 48 8b 73 50 48 85 f6 74 11 48 8d 3d db 25 29 03 <67> 48 0f b9 3a e9 0d ff ff ff 48 b8 00 00 00 00 00 fc ff df 48 89
-> [ 3782.254211] RSP: 0018:ffff888126577d98 EFLAGS: 00010246
-> [ 3782.256054] RAX: dffffc0000000000 RBX: ffffffffc2b70310 RCX: ffffffff8fe61ba1
-> [ 3782.258512] RDX: 1ffffffff856e062 RSI: ffff88811341eea0 RDI: ffffffff91bbacb0
-> [ 3782.261041] RBP: ffff888111475000 R08: 0000000000000001 R09: fffffbfff856e069
-> [ 3782.263471] R10: ffffffffc2b7034b R11: 00000000ffffffff R12: 0000000000000000
-> [ 3782.265983] R13: dffffc0000000000 R14: ffff88811341eea0 R15: 0000000000000000
-> [ 3782.268443] FS:  00007fd5a3689040(0000) GS:ffff88842c8d0000(0000) knlGS:0000000000000000
-> [ 3782.271236] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [ 3782.273251] CR2: 00007fd5a36d2c10 CR3: 00000001242b8000 CR4: 00000000000006f0
-> [ 3782.275362] Call Trace:
-> [ 3782.276071]  <TASK>
-> [ 3782.276678]  kobject_put+0x146/0x270
-> [ 3782.277731]  hmm_dmirror_exit+0x7a/0x130 [test_hmm]
-> [ 3782.279135]  __do_sys_delete_module+0x341/0x510
-> [ 3782.280438]  ? module_flags+0x300/0x300
-> [ 3782.281547]  do_syscall_64+0x111/0x670
-> [ 3782.282620]  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-> [ 3782.284091] RIP: 0033:0x7fd5a3793b37
-> [ 3782.285303] Code: 73 01 c3 48 8b 0d c9 82 0c 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 b8 b0 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 99 82 0c 00 f7 d8 64 89 01 48
-> [ 3782.290708] RSP: 002b:00007ffd68b7dc68 EFLAGS: 00000206 ORIG_RAX: 00000000000000b0
-> [ 3782.292817] RAX: ffffffffffffffda RBX: 000055e3c0d1c770 RCX: 00007fd5a3793b37
-> [ 3782.294735] RDX: 0000000000000000 RSI: 0000000000000800 RDI: 000055e3c0d1c7d8
-> [ 3782.296661] RBP: 0000000000000000 R08: 1999999999999999 R09: 0000000000000000
-> [ 3782.298622] R10: 00007fd5a3806ac0 R11: 0000000000000206 R12: 00007ffd68b7deb0
-> [ 3782.300576] R13: 00007ffd68b7e781 R14: 000055e3c0d1b2a0 R15: 00007ffd68b7deb8
-> [ 3782.301963]  </TASK>
-> [ 3782.302371] irq event stamp: 5019
-> [ 3782.302987] hardirqs last  enabled at (5027): [<ffffffff8cf1f062>] __up_console_sem+0x52/0x60
-> [ 3782.304507] hardirqs last disabled at (5036): [<ffffffff8cf1f047>] __up_console_sem+0x37/0x60
-> [ 3782.306086] softirqs last  enabled at (4940): [<ffffffff8cd9a4b0>] __irq_exit_rcu+0xc0/0xf0
-> [ 3782.307567] softirqs last disabled at (4929): [<ffffffff8cd9a4b0>] __irq_exit_rcu+0xc0/0xf0
-> [ 3782.309105] ---[ end trace 0000000000000000 ]---
+>   BUG: sleeping function called from invalid context at
+>        ./include/linux/sched/mm.h:323
+>   in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 570
+>   ...
+>   #1: ffffffffc2cd24f8 (amdgpu_pasid_idr_lock){+.+.}-{3:3},
+>       at: amdgpu_pasid_alloc+0x24/0x210 [amdgpu]
+>   ...
+>   kmem_cache_alloc_noprof+0x41d/0x780
+>   radix_tree_node_alloc.constprop.0+0x56/0x3a0
+>   idr_get_free+0x330/0x830
+>   idr_alloc_u32+0x14a/0x2e0
+>   idr_alloc_cyclic+0xd3/0x1d0
+>   amdgpu_pasid_alloc+0x51/0x210 [amdgpu]
 > 
-> This is because the test module doesn't have a device.release method. In
-> this case one probably isn't needed for correctness - the device structs
-> are in a static array so don't need freeing when the final reference
-> goes away.
+> A mutex is not an option because amdgpu_pasid_free() is reachable from
+> dma-fence callbacks (amdgpu_pasid_free_cb) which may run in IRQ context.
 > 
-> However some device state is freed on exit, so to ensure this happens at
-> the right time and to silence the warning move the deinitialisation to
-> a release method and assign that as the device release callback. Whilst
-> here also fix a minor error handling bug where cdev_device_del() wasn't
-> being called if allocation failed.
+> Use idr_preload(GFP_KERNEL) before taking the spinlock to pre-allocate
+> radix-tree nodes, then pass GFP_NOWAIT inside the critical section so
+> the allocator draws from the preloaded pool and never sleeps.  This is
+> the standard kernel pattern for IDR allocation under a spinlock.
 > 
-> Signed-off-by: Alistair Popple <apopple@nvidia.com>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
+> Fixes: 14b81abe7bdc ("drm/amdgpu: prevent immediate PASID reuse case")
+> Cc: stable@vger.kernel.org
+
+The patch introducing this was never released to any stable kernel as far as I know.
+
+> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> index d88523568b62..515775eab2ef 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+> @@ -67,10 +67,12 @@ int amdgpu_pasid_alloc(unsigned int bits)
+>  	if (bits == 0)
+>  		return -EINVAL;
+>  
+> +	idr_preload(GFP_KERNEL);
+>  	spin_lock(&amdgpu_pasid_idr_lock);
+>  	pasid = idr_alloc_cyclic(&amdgpu_pasid_idr, NULL, 1,
+> -				 1U << bits, GFP_KERNEL);
+> +				 1U << bits, GFP_NOWAIT);
+
+That needs to be GFP_ATOMIC and not GFP_NOWAIT.
+
+Regards,
+Christian.
+
+>  	spin_unlock(&amdgpu_pasid_idr_lock);
+> +	idr_preload_end();
+>  
+>  	if (pasid >= 0)
+>  		trace_amdgpu_pasid_allocated(pasid);
+
