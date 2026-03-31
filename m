@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AC621061B26
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:00:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D8CFFF60EF
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B745B10EA00;
-	Tue, 31 Mar 2026 10:00:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C762710EA09;
+	Tue, 31 Mar 2026 10:00:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pWOBMbVZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TPB5Vr9q";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7CC910E9FB
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:00:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30F4F10EA09
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:00:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C131B43AF7;
- Tue, 31 Mar 2026 10:00:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CAA6C19423;
- Tue, 31 Mar 2026 10:00:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8737260133;
+ Tue, 31 Mar 2026 10:00:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA56C19423;
+ Tue, 31 Mar 2026 10:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774951227;
- bh=HViJ3A2FjlDEklvSisEqyQ3MoBEs84TC4OJD6vWGvCU=;
+ s=k20201202; t=1774951236;
+ bh=xA8iRNbldwAg/IWB0t2FyV0TtMeqN3qjpeDuNnBZW50=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pWOBMbVZv+nHWUv6rnOHekogJLNlvQSUhgs8kiDRIVR4rb9hs6nzcs9z32W5KqUSx
- jxGAJCaQOrRjegiJHCr6ThMqNcbBZvZw2yQQNAn+z8rwClG72e+aZRicYRFw/86EfY
- kcpt00GzP4E0wABRNZr3nSZM9zbjE21lWfsOOfbQ2j6KHQiFemBCvxEkzfMADhlym4
- hMrdpY/Sd/4r14/IJzWd2v1qVcFoNffqZaobMz2sHgTQCwiixND4wVHTkPvuCELveg
- DcKPabGsZ3PW8ZDxD0PPNKheRO99RhsFLuY6ZIP2RY0TwgwW3e1aQnQxuR8TIqCn3P
- Hyzmhs4UMbZ+A==
+ b=TPB5Vr9qWbumeBuwOxgrV3ajCVGtfgSc04MSZoTzT+N+Ky/SJO7mY400stC8X+YJE
+ zSuozt9uNtYKA5a8FG+ckBKsq4Kqph/USj9t7jAhBSHAllzf7JfpI88qTYUSTv+qgb
+ 0md2i+/s6b7xeUV66zkeskIhyGVNndjnX7ggvITFVp0vZ5DyYwYKuXvlFvI23ZWPdD
+ YC9+/VUNcAcCrRMiAnSF8o0zC3DOyjBcW28uUYyd9jWj8H4tltwGYCvV4jxmqyzX6N
+ jwD2sWy8nLEQ6KKpE41NFqxWX6Z0gpHOwzVrhzu6SRQQlrrbVAVtryF8yaMQK4BAbO
+ F5TuUhIiispzw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 31 Mar 2026 12:00:11 +0200
-Subject: [PATCH v4 2/8] dma: contiguous: Make dev_get_cma_area() a proper
- function
+Date: Tue, 31 Mar 2026 12:00:14 +0200
+Subject: [PATCH v4 5/8] mm: cma: Export cma_alloc(), cma_release() and
+ cma_get_name()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-dma-buf-heaps-as-modules-v4-2-e18fda504419@kernel.org>
+Message-Id: <20260331-dma-buf-heaps-as-modules-v4-5-e18fda504419@kernel.org>
 References: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
 In-Reply-To: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>, 
@@ -58,12 +58,12 @@ Cc: Albert Esteve <aesteve@redhat.com>, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org, iommu@lists.linux.dev, linux-mm@kvack.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2404; i=mripard@kernel.org;
- h=from:subject:message-id; bh=HViJ3A2FjlDEklvSisEqyQ3MoBEs84TC4OJD6vWGvCU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZ+srzBZWUjrEa3fu2IUTV3l+3Pyqejiwi/mKUVuvx
- /9je98d6pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATsZ3BWB/kd67z+pUXtTGW
- h1sCIzZvmPJDbYKbcWmbJsvjppVXzMqeXZRy+tB68e/zt3Pknx3+qMDY8O5/7p6p2rZvbY82FMU
- caGgs2sBsqsXk9lA5WNn6cqf57Z9KEkyuq/KPLJH8LPlwVe0sAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1725; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=xA8iRNbldwAg/IWB0t2FyV0TtMeqN3qjpeDuNnBZW50=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZxsI6Xe+TK9UnDHRLtbgwJbFopPP/dhVv+PAg01Wv
+ KlqiklLOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBF8hgbtnx+F7ySsWL5NZ33
+ X77yzKwUuPSl8MmbK3lWiivUzr24rTGP/7vkh/jCec+bJpT4bAq6yFjv1Wq+fqdSUluwTsHjJ6I
+ O8u82se9i1/E6V3NMN+GgkFtuqU6d+a/K4162Bs6vj2RwXwYA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -81,68 +81,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As we try to enable dma-buf heaps, and the CMA one in particular, to
-compile as modules, we need to export dev_get_cma_area(). It's currently
-implemented as an inline function that returns either the content of
-device->cma_area or dma_contiguous_default_area.
+The CMA dma-buf heap uses cma_alloc() and cma_release() to allocate and
+free, respectively, its CMA buffers, and cma_get_name() to get the name
+of the heap instance it's going to create.
 
-Thus, it means we need to export dma_contiguous_default_area, which
-isn't really something we want any module to have access to.
+However, these functions are not exported. Since we want to turn the CMA
+heap into a module, let's export them both.
 
-Instead, let's make dev_get_cma_area() a proper function we will be able
-to export so we can avoid exporting dma_contiguous_default_area.
-
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- include/linux/dma-map-ops.h | 7 +------
- kernel/dma/contiguous.c     | 8 ++++++++
- 2 files changed, 9 insertions(+), 6 deletions(-)
+ mm/cma.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
-index c4c93c72ff6ff3ff5c59b7161970805422e9dccb..8604106c0c01b6a9dadc45263f3b1d9ecfacd4aa 100644
---- a/include/linux/dma-map-ops.h
-+++ b/include/linux/dma-map-ops.h
-@@ -91,16 +91,11 @@ static inline void set_dma_ops(struct device *dev,
- #endif /* CONFIG_ARCH_HAS_DMA_OPS */
+diff --git a/mm/cma.c b/mm/cma.c
+index 94b5da468a7d719e5144d33b06bcc7619c0fbcc9..550effb9c4e01cc488b5744fe61d55a5b70a6d6c 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -50,10 +50,11 @@ unsigned long cma_get_size(const struct cma *cma)
  
- #ifdef CONFIG_DMA_CMA
- extern struct cma *dma_contiguous_default_area;
- 
--static inline struct cma *dev_get_cma_area(struct device *dev)
--{
--	if (dev && dev->cma_area)
--		return dev->cma_area;
--	return dma_contiguous_default_area;
--}
-+struct cma *dev_get_cma_area(struct device *dev);
- struct cma *dma_contiguous_get_area_by_idx(unsigned int idx);
- 
- void dma_contiguous_reserve(phys_addr_t addr_limit);
- int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
- 		phys_addr_t limit, struct cma **res_cma, bool fixed);
-diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
-index afa9fd31304051d200cd4396dec26dd50becc375..40a0ead24979cfdf25e4779545536a5438e26356 100644
---- a/kernel/dma/contiguous.c
-+++ b/kernel/dma/contiguous.c
-@@ -129,10 +129,18 @@ early_param("cma", early_cma);
- bool __init cma_skip_dt_default_reserved_mem(void)
+ const char *cma_get_name(const struct cma *cma)
  {
- 	return size_cmdline != -1;
+ 	return cma->name;
  }
++EXPORT_SYMBOL_GPL(cma_get_name);
  
-+struct cma *dev_get_cma_area(struct device *dev)
-+{
-+	if (dev && dev->cma_area)
-+		return dev->cma_area;
-+
-+	return dma_contiguous_default_area;
-+}
-+
- #ifdef CONFIG_DMA_NUMA_CMA
+ static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
+ 					     unsigned int align_order)
+ {
+ 	if (align_order <= cma->order_per_bit)
+@@ -949,10 +950,11 @@ struct page *cma_alloc(struct cma *cma, unsigned long count,
+ 	if (page)
+ 		set_pages_refcounted(page, count);
  
- static struct cma *dma_contiguous_numa_area[MAX_NUMNODES];
- static phys_addr_t numa_cma_size[MAX_NUMNODES] __initdata;
- static struct cma *dma_contiguous_pernuma_area[MAX_NUMNODES];
+ 	return page;
+ }
++EXPORT_SYMBOL_GPL(cma_alloc);
+ 
+ static struct cma_memrange *find_cma_memrange(struct cma *cma,
+ 		const struct page *pages, unsigned long count)
+ {
+ 	struct cma_memrange *cmr = NULL;
+@@ -1025,10 +1027,11 @@ bool cma_release(struct cma *cma, const struct page *pages,
+ 
+ 	__cma_release_frozen(cma, cmr, pages, count);
+ 
+ 	return true;
+ }
++EXPORT_SYMBOL_GPL(cma_release);
+ 
+ bool cma_release_frozen(struct cma *cma, const struct page *pages,
+ 		unsigned long count)
+ {
+ 	struct cma_memrange *cmr;
 
 -- 
 2.53.0
