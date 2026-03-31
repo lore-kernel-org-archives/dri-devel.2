@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81830FF60EF
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6D3FF60FF
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E69CA10EA0A;
-	Tue, 31 Mar 2026 10:00:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A6310EA28;
+	Tue, 31 Mar 2026 10:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Up1CxMKO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="s/s6p71L";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 466FE10EA0A
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:00:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADFCB10EA0A
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:00:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 213C24099A;
- Tue, 31 Mar 2026 10:00:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6FDDC19423;
- Tue, 31 Mar 2026 10:00:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 305A460120;
+ Tue, 31 Mar 2026 10:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85040C2BCB0;
+ Tue, 31 Mar 2026 10:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774951242;
- bh=XD1ohQhO9zZA1+h5cJdCf8noqsv9utcIYdzdurGWIrY=;
+ s=k20201202; t=1774951244;
+ bh=oNUPt44D7xewgXiELSrkzONvN2UIFpJB+B1908QRT5k=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Up1CxMKOAyN1rLwyQza8/sAk+vuTStw21qVWIaeT0nv7/i2FS4hW1rDu2o22IyXEN
- KKa5Vg1LLUbpLbvjhb8zh9awLQxhplAE1M+xTJ8L4nCdl3cjQ2uhrO36q6X6Buto1Y
- tfUcsp3l4j89be0q9tm1gQnuH5PromlrCiPR4/nrg67weWLfiN0M+uaYpQNacjCkh+
- g+G29chbogcDCTSGyLBYn2A0b5DGmhrxkNzYIfWxzmKDL0c96m5+Ia5YlCSC/kw39e
- C+SDDZTbdOUeTGc95q0Rbc2mPncZYH6jGbvfdwKsAke6Qi0IxqrllwEc+J1jHuMPBs
- vpQqXEfrI7rgw==
+ b=s/s6p71LxMqFQbl4akadLuhcwdZW9aya2yBfpNfo+H/No5t7G1dhY9pZ4066sLYDx
+ q5mvU+6WAMCW4CsRm+5zBophaRKt7pmtDCVaK5M4hOq8oaTj+rBpWeEcz3xJxP6Ff5
+ 8WmRsbGsNNVZDIhPERKDwsfcsRCpVT6bFinWEEWmnFPTDeSInt+0KOikVNdXc0epxd
+ zbyBBB9nqQyEpDoFbnshN1tdI/iudjbEXKgMATw54G2PeJQ3sjUaAHCWp6R6oEEpEN
+ c/ZDiGaHirJjyEzHO5lV8L2BLWWerUvA0a2U1H7q51T0hZDAuwAWqrjxeo8tsgpTzg
+ oqKxai1WQyI7A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 31 Mar 2026 12:00:16 +0200
-Subject: [PATCH v4 7/8] dma-buf: heaps: cma: Turn the heap into a module
+Date: Tue, 31 Mar 2026 12:00:17 +0200
+Subject: [PATCH v4 8/8] dma-buf: heaps: system: Turn the heap into a module
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-dma-buf-heaps-as-modules-v4-7-e18fda504419@kernel.org>
+Message-Id: <20260331-dma-buf-heaps-as-modules-v4-8-e18fda504419@kernel.org>
 References: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
 In-Reply-To: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>, 
@@ -57,12 +57,12 @@ Cc: Albert Esteve <aesteve@redhat.com>, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org, iommu@lists.linux.dev, linux-mm@kvack.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1869; i=mripard@kernel.org;
- h=from:subject:message-id; bh=XD1ohQhO9zZA1+h5cJdCf8noqsv9utcIYdzdurGWIrY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZxt2/QrhDmEWnJyuEZ53bFn8sXkc/fdfaT1zvGv9R
- LA4sj+hYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAExkoTZjw5nbW9wPGX2XvzCp
- NnIfb9ta1a19Tar+HziFhd6HPjo/df3qyE3LS7byVlas//HX8DaHKmN9uOtdhR0Ge1ts2rp1L+r
- Psrpy+l3A5P2zWGvPxGWffLW7YLeUjuTjde96utSmCZ7/spcJAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1645; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=oNUPt44D7xewgXiELSrkzONvN2UIFpJB+B1908QRT5k=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZxt66SQ2vj7w7OYxd5vfvxkLJORYhFqY/HbXJbDdK
+ v0z90F9x1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZhI/C/GhrO/OBSVxPf72jHa
+ mqf+O2h2+15d1FXZjJ8vGirXCGp+m7aO99LpcvaZp94m27jmScz5xljv7O6//3xn08Wbkp+Y896
+ eNHlgelTtfQn/8vj63oZQx2U71J0Ox/lpHp4pkcoWf+LK8cMA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,9 +80,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that all the symbols used by the CMA heap are exported, turning the
-CMA heap into a module becomes pretty easy: we just need to add the
-usual MODULE_* macros, import the proper namespaces and change the
+The system heap can be easily turned into a module by adding the usual
+MODULE_* macros, importing the proper namespaces and changing the
 Kconfig symbol to a tristate.
 
 This heap won't be able to unload though, since we're missing a lot of
@@ -91,37 +90,35 @@ infrastructure to make it safe.
 Reviewed-by: T.J. Mercier <tjmercier@google.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/dma-buf/heaps/Kconfig    | 2 +-
- drivers/dma-buf/heaps/cma_heap.c | 3 +++
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/dma-buf/heaps/Kconfig       | 2 +-
+ drivers/dma-buf/heaps/system_heap.c | 5 +++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/dma-buf/heaps/Kconfig b/drivers/dma-buf/heaps/Kconfig
-index a5eef06c422644e8aadaf5aff2bd9a33c49c1ba3..aed0b9b4febf388376cfc41be9843980d010c4e8 100644
+index aed0b9b4febf388376cfc41be9843980d010c4e8..e273fb18feca091ccd9b406e68f86c12efb339e9 100644
 --- a/drivers/dma-buf/heaps/Kconfig
 +++ b/drivers/dma-buf/heaps/Kconfig
-@@ -4,11 +4,11 @@ config DMABUF_HEAPS_SYSTEM
+@@ -1,7 +1,7 @@
+ config DMABUF_HEAPS_SYSTEM
+-	bool "DMA-BUF System Heap"
++	tristate "DMA-BUF System Heap"
+ 	depends on DMABUF_HEAPS
  	help
  	  Choose this option to enable the system dmabuf heap. The system heap
  	  is backed by pages from the buddy allocator. If in doubt, say Y.
  
- config DMABUF_HEAPS_CMA
--	bool "DMA-BUF CMA Heap"
-+	tristate "DMA-BUF CMA Heap"
- 	depends on DMABUF_HEAPS && DMA_CMA
- 	help
- 	  Choose this option to enable dma-buf CMA heap. This heap is backed
- 	  by the Contiguous Memory Allocator (CMA). If your system has these
- 	  regions, you should say Y here.
-diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
-index 33cac626da1198e3c4a1cdcd562223c1924b6ceb..0ed519a19da455df7441396c96934a107fd72ffb 100644
---- a/drivers/dma-buf/heaps/cma_heap.c
-+++ b/drivers/dma-buf/heaps/cma_heap.c
-@@ -421,5 +421,8 @@ static int __init add_cma_heaps(void)
+diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
+index b3650d8fd6511a4a755612cfe3a9d9fee796f80e..1957403b0f2ae5e82ab39f5945dfe82808e93964 100644
+--- a/drivers/dma-buf/heaps/system_heap.c
++++ b/drivers/dma-buf/heaps/system_heap.c
+@@ -442,5 +442,10 @@ static int __init system_heap_create(void)
+ 		return PTR_ERR(sys_heap);
  
  	return 0;
  }
- module_init(add_cma_heaps);
- MODULE_DESCRIPTION("DMA-BUF CMA Heap");
+ module_init(system_heap_create);
++
++MODULE_DESCRIPTION("DMA-BUF System Heap");
 +MODULE_LICENSE("GPL");
 +MODULE_IMPORT_NS("DMA_BUF");
 +MODULE_IMPORT_NS("DMA_BUF_HEAP");
