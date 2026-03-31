@@ -4,75 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83AE51061B28
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 00:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6723A1061B2B
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 01:19:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D498510E02D;
-	Tue, 31 Mar 2026 00:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A40F710E7CF;
+	Tue, 31 Mar 2026 01:19:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xd2hbLht";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="YVcT+Qbw";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F3910E02D
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 00:24:16 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-1271195d2a7so2295185c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 17:24:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774916655; x=1775521455; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=x6KkVZ6avnq5JZYkKR1K26BH30WGfxU6tLWicybER9M=;
- b=Xd2hbLht+chHb/V/t0ZflhJkHShukCN2PY/BIFJkuBgRi+CDkjOP0DVW9AmUrkgSgr
- gXWQVG/CD1Erq5YLn+Bq+VyLPIwDt/nEXs7xOFG0h4cKL6VqW/THZuqmS5NqYKNUCZ13
- fljp7MSm4sY/HxsI7zdEu5Ztxm4dcMt4A2fV45+kSZ2TpHataX455RhfgF/DxkbhC0IV
- B7hJW5VtUmJijyyFWP5LXeFvSeeGL5XZLIG/Cp2br9A/WQy9rwPBuQ5UGAn0oY29p1Hd
- J3jHbSiDmUedGKzdDOVgduSjgjpX5rbK5DG8VyfIFgBrpwwY/t+Pr+sK18A0w52b1o2I
- Cjew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774916655; x=1775521455;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=x6KkVZ6avnq5JZYkKR1K26BH30WGfxU6tLWicybER9M=;
- b=BgV5pFvaC09RatDZx9hSHl5wO533d/8vKsdlCTHBtHKKY7czgWvhwJVY8SzvYFTB9v
- mJ1uQjclFEO4WRgWrxPpXifoyFrY+g2NVoLlQJ48MslA1sZKG+vyDo0mrmV/ytxjfs8w
- sLYWMkVExI0fTxvfyzXXr4jPtSo/6DfMh7X8JDGMcnImr5c6gilr0YHuexwWavQuJ1lj
- NTwNawD/HHkkLseDThc219TQ2iRvrKuSYh11wlL8NxfaDuUf8805fH5E1lzG3zbQaOZB
- FkH9UgRXRWK1jslimk13yGdzWXzVZwP4ZgeKG3igIiTZb5rmpqG6GpFOty6zWqPQj6lG
- mbPA==
-X-Gm-Message-State: AOJu0YxUhp5fkwHAEg9Nrx5btDmQNRWtY5j3glc+NvWiCPR35L+nVIkZ
- RyvwIWq1co8usNQcOTlewUC6/1GQ1WoXo796CfCyZWK7Yz/Y6l5wTLtyuG62+A7j
-X-Gm-Gg: ATEYQzx6ydCrzAw9xERWckS+1A7CcEnzYTItwRevW7wUiZ2vOIp/ZJ9HAj1O1sq6wHA
- I7+dQ9Nh77+Y3yz8wlsCe4uDq5lpLFWPBcv/A2VbPVZlF7xgjlwBT6HpffiC/beqR9W/XdnOKfy
- o4x8Cns+aORSzqIGh7D2QuvVdsifQEwLsjeOuXTvbEGgqPuj5xpHzA94XCmSNyFucWHxr1jKvrP
- ZlWbPmBZGjE3DEWmlpoQSb0A1bvInbbI4U1/1aUJayZCHVSy/paD5DImKfAO3H2VxquiTRZLANy
- N6sbE9QcSGzfxf0i84+EJ8M/iEHFFozcUw4Dox0DY078HrEJIDeByp8gmLY+Tq/bLOnMmsShZLI
- 7mNWLV8KqDcW+psn4G7c9Z/PRkkcHOSmpMGcCYmpQqHSUaBhcA35Ir8QTo+rTpP76PIGZkVBQLd
- 2jU1DgmQylrHULBc8hJgWaMGaP5L8YBeLeabfug4RrFUSNnfBmbHstKIw=
-X-Received: by 2002:a05:7022:2221:b0:128:d2a5:709c with SMTP id
- a92af1059eb24-12ab28f3331mr8407522c88.33.1774916655278; 
- Mon, 30 Mar 2026 17:24:15 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12ab983f9f3sm13195709c88.10.2026.03.30.17.24.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 17:24:14 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-mediatek@lists.infradead.org (moderated list:DRM DRIVERS FOR MEDIATEK), 
- linux-kernel@vger.kernel.org (open list:ARM/Mediatek SoC support),
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support)
-Subject: [PATCH] drm/mediatek: simplify mtk_crtc allocation
-Date: Mon, 30 Mar 2026 17:23:57 -0700
-Message-ID: <20260331002357.7995-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0015610E7CF
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 01:19:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1774919919;
+ bh=0owlCERj6gBEP9bncwJSFnotM1/dSDt0HIHcpsl1dUE=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=YVcT+QbwDdC00rcSr+a8kFqiqRzTPKYBuDu5NTUCiA0zUJoGruoFPCMAp7nanz8FY
+ sX1OTi6JrZqmq886kMVpQzSmDBzCFMplJJKVS7Vi1e9pCLWQZpU26W7rE7q4wY9+Z2
+ Rd7Ky1O0tUaP4OnM0vYb/57cUniHqGUJ3bsDXc74=
+X-QQ-mid: zesmtpsz6t1774919917t48c7f87e
+X-QQ-Originating-IP: 73VvFKCdPCWg6XgecUK7wdpE0n5+tLRhYX+nOTNzZcQ=
+Received: from [172.16.12.51] ( [58.22.7.114]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 31 Mar 2026 09:18:33 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10548730784965286243
+Message-ID: <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
+Date: Tue, 31 Mar 2026 09:18:32 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
+ Rockchip platforms
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ kernel@collabora.com
+References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
+ <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
+ <acphlgK6ZmBitGJL@venus>
+Content-Language: en-US
+From: Chaoyi Chen <kernel@airkyi.com>
+In-Reply-To: <acphlgK6ZmBitGJL@venus>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NUTz4BkILuKLAqpNKFPHbFLgq2niF47NiSVqRtUS4oK4g8ZpaJ2hN2CN
+ WdbHwkUTBDaLWG+RrW97tXB1Q2epQPyoq/A6Dx2McVtnlu/bimEHZwBAPBL0NVR8YAlWpKR
+ Ma9nt0JW7MNnNwI7vIaqhK2W5xKlCK1z4FlsuIafWDGmYo0V+7QVui+3atfq9K/o53YxaUJ
+ B9nkNArZaEndwSldx6qADtXedmiqK/1UMJ2l2SmkPA0NPXEg7AB/SxHeqIaQcsjqM+aw6g8
+ mzGpsCEgix492U8c20dJJ/8INbx4TpDw9872I6F+D6sP9y8sK3v5tsC6w4EEwzwgff2xgB/
+ uexNoKpAMVHhpxnitOgTzHdnItKty3aa5LJy/nuIi8wslyxM+CTJk2r7zboT6lX1PIxidq9
+ Lv3fYqVWOAzNaisAYxV3WYxaHISXaCgg+QgACx7gAftHqYDmz/Ja46XPl/Qt6D1rylGecmL
+ /cg1dcIUTHRQAbA4zqFkh2Xte18RoTu3iTjUIHVsunBs6wOTWEPdu49Bmr2zjAmVm8pSGup
+ uPUoIPsY2lXChb5S0kS0RW0KmXxoP8++ODFLZg0rWiGqP7NIygxJgNZterSmLbKUNNyb91j
+ vjmorO59eeJ4WVDeYgUMEJ3hn4Ehkjnfb3OhyAwbUvssbSXO3EvIvGkQ4t+pHfzMGxIsZ1n
+ LdbDRSj8NlXwcgD77Fw+O8PST27qqr/4CWeppTtkKEd1/U64lQ8OER0CoJmmbDbOTxHRXae
+ rEThcjqr2zJa1byry3j4fZ0SR4J1yHPELJOp9LnFJ/6Z8lq7YLdUeLkMN1wHja8DtNchpMW
+ jbgO5TzTEluG0QgAjvqqVbPhlbnDkqNdxCiSqHCoCnTdsTszRsMTk/JWu81ITGmM1L1S+aj
+ enOG14vrCM4mbQ4QKEnAUILavz0EPZe3G0dJmfTdH7k34I9rpVMXyklevCXqs79JZI88M0p
+ tQ4IoPJ2FRYD1A+mYVk6Z4H1+ufLJ6sc99qmAXQthT68RT8C4U2Vtkje4
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,55 +92,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use a flexible array member to combine allocations.
+Hello Sebastian,
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/gpu/drm/mediatek/mtk_crtc.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
+> Hello Chaoyi,
+> 
+> On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
+>>> There are two parts, which possibly need some discussion:
+>>>
+>>>  1. I added a dedicated bridge callback for out-of-band hotplug events,
+>>>     which is separate from the hotplug_notify. I have a feeling, that
+>>>     there might be a better solution, but haven't found it.
+>>
+>> Could you explain what an out-of-band hotplug event is?
+>>
+>> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
+>> hot-plug events? Thank you.
+> 
+> That is what generates the out-of-band hotplug event in the first
+> place via drm_connector_oob_hotplug_event(). The oob in that call
+> means out of band.
+> 
+> If you look at that function it calls oob_hotplug_event() callback
+> on the DRM connector, which is then implemented by
+> drm_bridge_connector_oob_hotplug_event(). This function calls uses
+> the normal hpd handling (shared by in-band and out-of-band) and I'm
+> patching it, so that the bridges are aware of hpd explicitly being
+> provided out-of-band.
+> 
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index fcb16f3f7b23..914841d2396e 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -62,7 +62,6 @@ struct mtk_crtc {
- 	struct device			*dma_dev;
- 	struct mtk_mutex		*mutex;
- 	unsigned int			ddp_comp_nr;
--	struct mtk_ddp_comp		**ddp_comp;
- 	unsigned int			num_conn_routes;
- 	const struct mtk_drm_route	*conn_routes;
- 
-@@ -71,6 +70,8 @@ struct mtk_crtc {
- 	bool				config_updating;
- 	/* lock for config_updating to cmd buffer */
- 	spinlock_t			config_lock;
-+
-+	struct mtk_ddp_comp		*ddp_comp[];
- };
- 
- struct mtk_crtc_state {
-@@ -1048,18 +1049,12 @@ int mtk_crtc_create(struct drm_device *drm_dev, const unsigned int *path,
- 		}
- 	}
- 
--	mtk_crtc = devm_kzalloc(dev, sizeof(*mtk_crtc), GFP_KERNEL);
-+	mtk_crtc = devm_kzalloc(dev, struct_size(mtk_crtc, ddp_comp, path_len + (conn_routes ? 1 : 0)), GFP_KERNEL);
- 	if (!mtk_crtc)
- 		return -ENOMEM;
- 
--	mtk_crtc->mmsys_dev = priv->mmsys_dev;
- 	mtk_crtc->ddp_comp_nr = path_len;
--	mtk_crtc->ddp_comp = devm_kcalloc(dev,
--					  mtk_crtc->ddp_comp_nr + (conn_routes ? 1 : 0),
--					  sizeof(*mtk_crtc->ddp_comp),
--					  GFP_KERNEL);
--	if (!mtk_crtc->ddp_comp)
--		return -ENOMEM;
-+	mtk_crtc->mmsys_dev = priv->mmsys_dev;
- 
- 	mtk_crtc->mutex = mtk_mutex_get(priv->mutex_dev);
- 	if (IS_ERR(mtk_crtc->mutex)) {
+Ah, I'm actually more concerned with the specific types of events.
+For example, the "explicitly" provided HPD you mentioned here. 
+Isn't drm_connector_oob_hotplug_event able to provide those?
+
+I assume you’re looking for an oob event that is propagated along the
+bridge chain, rather than at the connector. Is that so? Thank you.
+
+> Greetings,
+> 
+> -- Sebastian
+
 -- 
-2.53.0
+Best, 
+Chaoyi
 
