@@ -4,123 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 327F7FF60EE
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 09:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3856CFF60EE
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 09:20:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 973AB10EA1B;
-	Tue, 31 Mar 2026 09:19:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC6310EA21;
+	Tue, 31 Mar 2026 09:20:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eRKIiYb7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LSqVvFyE";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010009.outbound.protection.outlook.com [52.101.201.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF93910EA1B
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 09:19:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m78rCI/Dm/7ILO8SLWAIzwpCYLV/qX+t3ZDjkp/BHhOIOGn9bL7WRWsDZiQsRrFk/2TDe1BrSXgFcZkQiLPZcPHA3IA+rw1Rgis9tYOBqQNPlqDqwax1SVurawWSNaVAinuls+ZtyWQEpQNa2G268aObeiG/SzrtrlWO6DU/oiFEowjFxdVZIbFYE+Fq2mpIYxwjmIpDXVQ/cuOAeyaA7WkTjywF4X/wLomB9GS5dyS3CvM+Jr7tZO4oZIIsVnyMlQkw5B+uefJDfRVCwLTqNFaXpW4A+4qKSFenZCuxANJOvdOc1dsCuYlXW0OdkscliBgGpp0PNhjeJMjQqVzeZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8uRDj9ZJSeo61OSR7kE63DPMeClXfmvzISg+YAdnjU0=;
- b=pwT4CHQPI9OTqZ2QgxF57HBfk9O2n2ZLg9QiSyJPyUSBS8G9+rUoeucDwwfVKdjHQg3a6KSessIDK+TKUk/BCwdUsUw2EmIb3CjuT6Qfc95HxKrSJ+cQVs40F++FbyIvXQM5t6U1Lxc5jx9GYAvz9/RNH13l5yy4h7UHZlcYpLTMrkGwkhgiksdRHwkvLsdG6B1NrUPu7dU5VHzXWr9qvzW24ry5rK2ENaQEbiC46ZFfvMlsGvBRbRqGf5qnKI0f5x9X6DdN1q0yUjN6aiOhpJdqlHN6CliinfypyS8JMBx+m6DLkdeJYh+kjlEeOW/YTV81FJzkfGg3B6rHNGikDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8uRDj9ZJSeo61OSR7kE63DPMeClXfmvzISg+YAdnjU0=;
- b=eRKIiYb7z/ggAcQ/zbTH0vRwV6VvqoC8u5OH/2ZJUyEGE3m8g1xGvXv94RAe0dLEInRVGqjp5WtlLuLScg/opCUVrVxMUV+ABEXh1lJPxSs2MP02Ph8v6kyRvin3ym+CQZBo/5rTQtG7eIpuSHTHd6pJZh6i6vW5XnX0nDMvnn8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB7040.namprd12.prod.outlook.com (2603:10b6:806:24f::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 09:19:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 09:19:13 +0000
-Message-ID: <d3e186a8-d807-4e4f-ac63-806aefea2b68@amd.com>
-Date: Tue, 31 Mar 2026 11:19:08 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-fence: Move signalling tracepoint to before ops detach
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Philipp Stanner <phasta@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260330133623.17704-1-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260330133623.17704-1-tvrtko.ursulin@igalia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 319DF10EA21;
+ Tue, 31 Mar 2026 09:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774948850; x=1806484850;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=VZ6UZpRCisDZ0WrxY1YID/gtq9IPO92Nbhk/YRRgjAE=;
+ b=LSqVvFyETniaQUyeV4ES8EEqh+7uPh0cJX1d4ZLKOYGsA9jix8eYYuv9
+ DnClljOCY/nELcuWQuMqZ+h4Tu/TbF+RzXpayjEzQDoa9/k28ZfpPt2zF
+ I18jONDpwDKKM7OdQ09pCY90QlYuRVPgsDcJDAR0KXch/i9mH5utPKJQx
+ 8tRi6+iGxejZaiXYOtUFBsaaIFLgnwP4nwIsFsDS7weIL/WURukZ1gEPt
+ 5zGtHIK92eWX/4laWI+nN7udmpXPH/w+wlMkaKiupR1nZR/kQY8+9euX0
+ ja1mThD7+EptkZRiJeACPqryK0KTf7VlNHd7hIYGF9dFELr76frzyIuSA w==;
+X-CSE-ConnectionGUID: vkT3vER2RaW3jJpCEwxi5Q==
+X-CSE-MsgGUID: Zup7A+0tRVGhkWTf/oKdCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="74988488"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="74988488"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 02:20:49 -0700
+X-CSE-ConnectionGUID: Q+og3cpcR76uQamTbuu8iQ==
+X-CSE-MsgGUID: FjVXI9zhQQ2Rk63Ki5ODOQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="226288492"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.28])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 02:20:45 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Alice Ryhl <aliceryhl@google.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Subject: [PATCH 0/5] drm/exec: drm_exec polishing
+Date: Tue, 31 Mar 2026 11:20:18 +0200
+Message-ID: <20260331092023.81616-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR11CA0013.namprd11.prod.outlook.com
- (2603:10b6:208:23b::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB7040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 828ba407-1eeb-4e2c-c689-08de8f0692c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 6tFJC6ekD+D3FNC4UUuP5oD9lE/ekWV5JZq/P2YpXirA5qN2VYQZ+/Vdq7ZagwuXD6+K/kZth5GTM62KRvZ9Th66+dRCqr3bdpWkUPBYL8Qm+Znq59fxBJBNbxJX1X8BP+adLW/SofSqshdHcw7HIwJ6FyRPnaBlmWia5HRDJZv5P0pVsKLqbs/V2URa4+5htkiY1/nYwJXX+5+fpAdKxRH1OCrBm8cHbNEeWGENdWX01SVlfOhGj1WljC+k8dcsS6iFl2MOmAem/CT3qUzJYwW2utiCbabWKdsP/mw/4DGiF2UzUWDSgR3F5qA9cI+cOUTObbfemmClh8r6u9ktXFoFwc9FAr2xefXkJn0cREK86I1d0IewxFUy0kOvyJwG+EC5cW3R9K+uxgcYq0X6oR6csj66rt2rYhLf4b9wVQ4L/Sa87RgMqXqwF5g6pQadMbdLwCqxMvHBOpgOi0+iOr2IDiUkbV4n8GZ3klIn36UW/smkSVXBqcobj7uGKjH4qbAVtPbkzXmKmpYupC5yfTXhIjK/gzs6seYsvrQ83DBqukEBA5QEFo6933DLnye2NOIR0Xx+gYoEQWLzXPM6UWMLfL4K2uOioDpA9wW3y75y2pJGlOJxNfayp9cNqIWDsi0ls6aVoF6CEv56lqKDeuCrkds2NDNQEb9t8IxKx2Us5KE6znsPR/TNL279Zb0Pi8YOVWz/W9AJr61F6Jn2MUovWsiAGUJXDdUC60kC83k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dnp5bWFhcDBWQmxjc0FOWmxqNHJXT3ZJbjE2K21uUm5ZYmp1YTVOY04wanBM?=
- =?utf-8?B?YVB3UWZoREtLdVIwOGlVQXcrTEYzbVBzaFdqU3BMSWxIaVlPbm95ZDR3Sndn?=
- =?utf-8?B?MllxS1kwV3V1cFZhY2ZwNjJHWXN5V0xyMktRMWt2a1BUdnVVbjJmTWhEZ0Iz?=
- =?utf-8?B?RCs2aWd0TmtrSUI0d2VXSHRTQi9sYjNZWUJDUVhPT1Yzc0pNVkE0aThKSTdl?=
- =?utf-8?B?NWs2dXAzbDhnL0dJWGdhb2FTL09ZWCtDYkpOQlBvU3V4TW44NzRtSFVlRzdR?=
- =?utf-8?B?Wk8yZE01UFpxQzNLN3h4Y1ZCdDkzREJpNjQxdnhEOU5IOXNhcUNJbkI4N2t4?=
- =?utf-8?B?d04vVUY0UlY2VEJRRmhFc0MyZFdSaXdxdTgwYWwwUEU5eUhuMTdJQ0c0ZW5O?=
- =?utf-8?B?TDk5SVRRVFNDeXFhSkVDbmFjYkVHWVRvSzZPOVp6V2pkSzgyL3Q2ZTI1OSt6?=
- =?utf-8?B?UmttUTlTRWkwaEJNODM0ZzV0dnIzUVJTTXJiTE9xdnoyNFNtWWRzUkZ6RUxD?=
- =?utf-8?B?VCtvOUtwYlJlMWo0eGhCTG8xd1dBeDlGYmJjTUZUQnlCYVR5aFJlcnM3VlJY?=
- =?utf-8?B?S1c4SENqU0Z6cEs1bmd2UVRiUDR0QTdZM3E1b2p4VFBBNisxWmFMOEE3Yk9u?=
- =?utf-8?B?bVFMZHpPaEdFZkZ2TWlDL0ZtY1Zzb3JsZTdhQ1N5SFVZc1hjWmxGYnZPWjFH?=
- =?utf-8?B?WmQyT1JveldQcHEzSXRvai8wL1QzZmxDVTJ3UW4yN2lpWTZIbXBLbnVGRE53?=
- =?utf-8?B?bUVZcU5OcFpyT29nbmRsejBHWllIRFVsOVpqWVVTQ3lZN0p3VnUyT01IM1Ru?=
- =?utf-8?B?N1E0UnluVVEwK2VhMitYYUZiNFJtU2h4VVBJeUVjWWRZNjFoSU9LUDVkTTBP?=
- =?utf-8?B?cisvYmJLVEY1TTBTTTlWOWNEcXFocFVYY3lRbHRjZDY4WlhIa1NBSlduTGhv?=
- =?utf-8?B?dXJUYURoVEwxVndvakg3Vk9SWGZEcUo4YVphTTFwS2V4MWtnc0tqaGlJRXpa?=
- =?utf-8?B?ZHB4V201UjBNTExxdmtsWHhGU0c5VTQ3QkpPUVRaNzl4dndqWmtZMTVDeisv?=
- =?utf-8?B?KzRqd0hTQ1MvRTJBSlZ0K0YvSUcvOTZiUW5MNkpDeUV3MUpBdjNMSUc0SU9L?=
- =?utf-8?B?RDEwVGZPNVY3dlZVK1FzWHNES2U5SVdhRytCaGIwK05MbnZiK3Bla21LYVZL?=
- =?utf-8?B?WkI3US9Zb21CS0pURkxPdjM1dVFNaGxKU20wKzZXYmFJZ3ZramFDSVZ5QnJk?=
- =?utf-8?B?bnh2S01sWTJzcDlIaXV6dHZ0czFNSERmWWdvbUFlalZNeCs0TXAwMTJSM0ky?=
- =?utf-8?B?TU5NZXlDQ290bXVpcDUzclhuNi9YQnhTNXlyNGVIRkI5V2I5em5QeUNNQ2xw?=
- =?utf-8?B?RldWVG9oUlJiS2VNcmNTaUdtR2kvVGFaRFhZS2tsajBIMzhDaHFCR2ZEV2pw?=
- =?utf-8?B?NW0wVkZHcTc1Zk1TZjRtWUtrZ21VeG50YzJ2cXpjdUc5N1pncHA2TkU3UTZU?=
- =?utf-8?B?cHJFRGg2R2NVeWY3ZWdMdFltUFRBb1FWOWpFb1RLeHhvVDN5dUZMN3VqS3R2?=
- =?utf-8?B?VzVtSkJXSkhCZDZ2bnB6OFZQTk5INmVYbzdhNnZ6Y1NLVm1BdWVQRnUvdkk1?=
- =?utf-8?B?NHhCMUFwMFVLVlQ0eVd6YmVVQjVKeHhpbkIyT3gxSDVEbGpJUHdDeVFCZ2dh?=
- =?utf-8?B?MzJTOFdISk9WT3BMR3ZNTldKbU1ZcDFPbnRXSmM2RzFKWGo4TUNSYkNRbThu?=
- =?utf-8?B?RW93VjM4WkgyQTJXRzB4R010RXVxQTBJM0RFZjZnUm00RXJVUHFxV0FiZVM5?=
- =?utf-8?B?WHE0NitjTm53TCtPaGFwemkvRmljUXlBWDZwZmdNMDdsTmtGUmFDU0xCQTE1?=
- =?utf-8?B?and4M3ovSjdDV1NUTmpQenNRUTd2NlA4eUpZb2RhUE9PQ0VhYlNuNUlhMnJO?=
- =?utf-8?B?RkpZUzVKZjNMTUtiSThmbGFUeHJsVzhWem9aM2lQRXB0TGJHWVR3OXlzTUds?=
- =?utf-8?B?VENpMjFBbGp4WVlxZWlaamNhNnVJRkpCWW1FVTh5c3pNU0ZTVjF4S1hhMXVu?=
- =?utf-8?B?ZmtDY1VMVkNrM3ZWakJYMXdnU2NwRVRPbFdHczRObm9JbU1xRitTZ1pCRk9Y?=
- =?utf-8?B?VlVuVnUrMEFUL082YkxMbFBJR05BbVlOYWdkdHY3Y01nZWhjOXlJaWhiUEZC?=
- =?utf-8?B?d08xY29kNmc3N0xDcTkxVjZvQ210dld1ZnE2emZjMkRYRTRYYkk0QjM2N013?=
- =?utf-8?B?bGlVRUxiQi81UzJWRWNVMEQzdmQxTE1DaTNSYU1KRG8ybmE2dWwvSUpFSDZq?=
- =?utf-8?Q?gLdPavmV1acY6oXA1W?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 828ba407-1eeb-4e2c-c689-08de8f0692c1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 09:19:12.9226 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9hwC83UvFQCD4d3eFz1Zxm5FB60bDn+ZLHvR/we032aGtyEyv1UGwNPO4pPgsOr/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7040
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,47 +83,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/30/26 15:36, Tvrtko Ursulin wrote:
-> Move the signalling tracepoint to before fence->ops are reset otherwise
-> tracepoint will dereference a null pointer.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Boris Brezillon <boris.brezillon@collabora.com>
-> Cc: linux-media@vger.kernel.org
-> Cc: linaro-mm-sig@lists.linaro.org
+During the work towards enabling exhaustive eviction using full
+ww locking in TTM, Christian indicated that the path for the
+drm_exec moving forward was to be a full drm_exec helper with
+things like userptr validation rather than a WW transaction
+abstraction. The idea was then briefly discussed to craft a
+WW transaction helper and then subclass that with drm_exec
+with the idea that the WW transaction helper could be used in
+TTM for eviction and for other uses that didn't mandate a full
+exec sequence.
 
-Good catch. I just silently assumed that the fence is not signaled when we traced signaling.
+Regardless whether that actually happens or not, this series
+aims to clean up abuses of drm_exec internals in drivers
+so that future development of drm_exec isn't blocked by
+such driver usage.
 
-Going to take another look since there might be more problems, but for now:
+Except for patch 3 which is a small cleanup only.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Thomas Hellström (5):
+  drm/exec: Remove the index parameter from
+    drm_exec_for_each_locked_obj[_reverse]
+  drm/msm: Remove abuse of drm_exec internals
+  drm/exec: Make the drm_exec_until_all_locked() macro more readable
+  drm/exec, drm/xe: Avoid abusing the drm_exec retry pointer
+  drm/exec, drm/xe, drm/amdgpu: Add an accessor for struct
+    drm_exec::ticket
 
-> ---
->  drivers/dma-buf/dma-fence.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index 1826ba73094c..1c1eaecaf1b0 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->  				      &fence->flags)))
->  		return;
->  
-> +	trace_dma_fence_signaled(fence);
-> +
->  	/*
->  	 * When neither a release nor a wait operation is specified set the ops
->  	 * pointer to NULL to allow the fence structure to become independent
-> @@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->  
->  	fence->timestamp = timestamp;
->  	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
-> -	trace_dma_fence_signaled(fence);
->  
->  	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
->  		INIT_LIST_HEAD(&cur->node);
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        | 15 ++---
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  3 +-
+ drivers/gpu/drm/drm_exec.c                    |  6 +-
+ drivers/gpu/drm/drm_gpuvm.c                   |  3 +-
+ drivers/gpu/drm/msm/msm_gem.h                 |  1 +
+ drivers/gpu/drm/msm/msm_gem_submit.c          |  4 +-
+ drivers/gpu/drm/xe/xe_validation.c            |  4 +-
+ drivers/gpu/drm/xe/xe_validation.h            |  2 +-
+ drivers/gpu/drm/xe/xe_vm.c                    |  3 +-
+ include/drm/drm_exec.h                        | 55 +++++++++++++------
+ 11 files changed, 58 insertions(+), 42 deletions(-)
+
+-- 
+2.53.0
 
