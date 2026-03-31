@@ -4,62 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE01FF60CF
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 06:16:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C52FF60CF
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 06:17:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A422B10E852;
-	Tue, 31 Mar 2026 06:16:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF4F510E85C;
+	Tue, 31 Mar 2026 06:17:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PD7LWBeK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KYjl3cbi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B331810E852;
- Tue, 31 Mar 2026 06:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774937809; x=1806473809;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=jJKYUJrYVIu1eA0fB9t9rxYy+ZTk7KuuC3vh77Xdkuo=;
- b=PD7LWBeKcYmpSaCZl1Km1InijGin5olyrb6qkNYoI2dOEBHmqC/wAjEj
- QxkiRvI3qFl62XIwaAGk8EJzERiQ7aBjz3A1tmf7nOBCeRhaS4d6oMson
- +HPFbnCa49tVPjfF0lKxSOUtMNrP3Fe7XXH7ntT+jX64cNVscogVCkBD5
- 4W+wj7kkGdOhIx7gVQ5QeXRWO5I4++kCVZdhr20t44tDudNFHq+zHrhGA
- qqNDQgm1sj8MJuM2G3ES04KELGpj4qYSVQwb+TASHTrsm1JTb4uvwbAzI
- Pcf0V7A6KSXbyoGvqFH0+03h6sxIvYVUSBtnbgb1cXJYocEyQ0Oexh0o/ g==;
-X-CSE-ConnectionGUID: YgolRwn+R4++5sYx1y4XVA==
-X-CSE-MsgGUID: lcNBnuaaRuq0hb0COP2iIg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="76001055"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="76001055"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 23:16:49 -0700
-X-CSE-ConnectionGUID: ojNXwX4GSzm3lw6Th/o6ng==
-X-CSE-MsgGUID: b0rc3eIqQt6z9NfAL2hexg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="264202813"
-Received: from ksatya-dev.iind.intel.com ([10.190.229.161])
- by orviesa001.jf.intel.com with ESMTP; 30 Mar 2026 23:16:46 -0700
-From: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
- Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Piotr=20Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
- Dunajski Bartosz <bartosz.dunajski@intel.com>,
- Ashutosh Dixit <ashutosh.dixit@intel.com>, dri-devel@lists.freedesktop.org
-Subject: [RFC v7 1/1] drm/xe/pf: Restrict device query responses in admin-only
- PF mode
-Date: Tue, 31 Mar 2026 06:17:36 +0000
-Message-ID: <20260331061736.1218962-2-satyanarayana.k.v.p@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260331061736.1218962-1-satyanarayana.k.v.p@intel.com>
-References: <20260331061736.1218962-1-satyanarayana.k.v.p@intel.com>
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com
+ [209.85.208.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF0AF10E862
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 06:17:03 +0000 (UTC)
+Received: by mail-lj1-f182.google.com with SMTP id
+ 38308e7fff4ca-38bd60d7a2cso50420861fa.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 23:17:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774937822; x=1775542622; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=slrIynpsyCDGbw/DVJ139y58tD8HDF7VkYtGZ4Dd10U=;
+ b=KYjl3cbiqXD1V2LSE3rOHTotoq21mJE1uC9i75jAQR5DiaJ6jKLxz37NqEPPJLmJIZ
+ wBq2gKPt6GU++CO0UwpC5R/YQrRTExuTr2wfVney9QRwz/zVKU8hmJL7MMtrDWlOm+L5
+ l6jSv7Bp3/VRw4nSoQej3HvvI7lEsPyNhG0iMk/477Q+SQWVvsIcDH4VkLSyOdp1RSNr
+ 9Hsq1Cse/NGH2A04E0uFTUxvDeVvZNT2rZ4ep+zRRB8cYS3Ep9xrDJkC+ON1Rsy/vrGA
+ 9+mVfq5LG1RgQdO/j07CagTFJOrfC7ITefkmZWPFrGmFg9UK+K1yXGgL0YhUwYu4CEBM
+ fzLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774937822; x=1775542622;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=slrIynpsyCDGbw/DVJ139y58tD8HDF7VkYtGZ4Dd10U=;
+ b=Dgjw0lmHgotViuFUbA+EMxyjRKsiJVVnL7TiYWSwcr2IypgC+x6XTf2JoQutVjfQ78
+ aEPGZtoxynWAlpTtWyCQ4YfcdphJX0rEteSZcoX2YwfbamjLMj93RsylsDn02L9XjSMI
+ +YVRKdpkojv5wie0uRt2Qp9CP5FPSCgKY+c6jIkZByKa17urBAYJaw6Dqv9iIOipkhLz
+ UAslcFArwJGR1u3siVKKKYZoW/aKih90dRwYX5MpJunszCnoDRe6x4bxzDqGMiMEclKO
+ oAB0Z+aGNUuO2kv/9Vjp/5+lFuIFl2exmqaRb76WKon21v8Myi325HZYL4TRTyhJVe23
+ Gypw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWeDm9vqS0/DCizAqVjPNc2aqc3LVZshCIZ7P/TXPYmQAp7y+WVsThc/RApFQUbRgEBdpYQ3uhgatc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+xNhf6aobEPwQCjJtPKdi0hgRsFVbFQuDLoIS68AC+zwKHuZj
+ MksJe1Tjw/U0hody2PauOl2M3dGAjIL+pmNgS71nRWzmJNFlfmvGMZT9
+X-Gm-Gg: ATEYQzy4xh1c4b8FJRfVsoTWS7DlvJAJxdp/TnrO/cxfMKjkKo2ws8006RNwCuliiL9
+ MoGoaVAHYJH7RHETc0JrNlg+gn19vO1iThTyrRsaRrKRd/AKUckvN92XmLR4mRGX81dQEoAMDNH
+ TK1NUIj6QPh7RPNbveCpy4px9kya3ghGKRiE2g4iPX2LQFj9Apf2ZWk3UG1CmIwyLhuKFEnOuDc
+ iFPtGQM5yF73VVSITfe8MqFr9QlKJ/bp7yGUsB0rTRIGcWyZpQfBARSmyLvfGEip6wvrjVanzDt
+ ERN4lHcXHCuyXiQXH6PDhT9qYcjqw3MXY2kqS4CASaG+VCwG1YK+4FXWUlb+4f7NEcDufXwiwrP
+ W4qZ3te++KqdagQSpjrRtTFcOrfWV52yp+QJtdOtz2Xv/FZthTPZFBNSOfG8EV1LE5WC6mm9TzR
+ mo5kebGatEGSbCckBpMwHZnS3tzJlrJOPy7Q==
+X-Received: by 2002:a05:6512:3b2c:b0:5a2:b3fc:b877 with SMTP id
+ 2adb3069b0e04-5a2b3fcbaacmr2578412e87.25.1774937821564; 
+ Mon, 30 Mar 2026 23:17:01 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2b1455e14sm2145277e87.64.2026.03.30.23.17.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 23:17:00 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: kraxel@redhat.com,
+	vivek.kasireddy@intel.com
+Cc: sumit.semwal@linaro.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v2] dma-buf/udmabuf: skip redundant cpu sync to fix cacheline
+ EEXIST warning
+Date: Tue, 31 Mar 2026 11:16:57 +0500
+Message-ID: <20260331061657.79983-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,217 +89,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When a PF is configured in admin-only mode, it is intended for management
-only and must not expose workload-facing capabilities to userspace.
+When CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM
+driver (e.g. amdgpu for video playback in GNOME Videos / Showtime)
+triggers a spurious warning:
 
-Limit the exposed ioctl set in admin-only PF mode to XE_DEVICE_QUERY, and
-suppress capability-bearing query payloads so that the userspace cannot
-discover execution-related device details in this mode.
+  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \
+      overlapping mappings aren't supported
+  WARNING: kernel/dma/debug.c:619 at add_dma_entry+0x473/0x5f0
 
-Enable admin-only mode with:
-echo <B:D:F> | sudo tee /sys/bus/pci/drivers/xe/unbind
-sudo mkdir /sys/kernel/config/xe/<B:D:F>
-echo yes | sudo tee /sys/kernel/config/xe/<B:D:F>/sriov/admin_only_pf
-echo <B:D:F> | sudo tee /sys/bus/pci/drivers/xe/bind
+The call chain is:
 
-Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Piotr Piórkowski <piotr.piorkowski@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Michał Winiarski <michal.winiarski@intel.com>
-Cc: Dunajski Bartosz <bartosz.dunajski@intel.com>
-Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+  amdgpu_cs_ioctl
+   -> amdgpu_ttm_backend_bind
+    -> dma_buf_map_attachment
+     -> [udmabuf] map_udmabuf -> get_sg_table
+      -> dma_map_sgtable(dev, sg, direction, 0)  // attrs=0
+       -> debug_dma_map_sg -> add_dma_entry -> EEXIST
 
+This happens because udmabuf builds a per-page scatter-gather list via
+sg_set_folio().  When begin_cpu_udmabuf() has already created an sg
+table mapped for the misc device, and an importer such as amdgpu maps
+the same pages for its own device via map_udmabuf(), the DMA debug
+infrastructure sees two active mappings whose physical addresses share
+cacheline boundaries and warns about the overlap.
+
+The DMA_ATTR_SKIP_CPU_SYNC flag suppresses this check in
+add_dma_entry() because it signals that no CPU cache maintenance is
+performed at map/unmap time, making the cacheline overlap harmless.
+
+All other major dma-buf exporters already pass this flag:
+  - drm_gem_map_dma_buf() passes DMA_ATTR_SKIP_CPU_SYNC
+  - amdgpu_dma_buf_map() passes DMA_ATTR_SKIP_CPU_SYNC
+
+The CPU sync at map/unmap time is also redundant for udmabuf:
+begin_cpu_udmabuf() and end_cpu_udmabuf() already perform explicit
+cache synchronization via dma_sync_sgtable_for_cpu/device() when CPU
+access is requested through the dma-buf interface.
+
+Pass DMA_ATTR_SKIP_CPU_SYNC to dma_map_sgtable() and
+dma_unmap_sgtable() in udmabuf to suppress the spurious warning and
+skip the redundant sync.
+
+Fixes: 284562e1f348 ("udmabuf: implement begin_cpu_access/end_cpu_access hooks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 ---
-V6 -> V7:
-- Allowed xe_observation_ioctl as well with admin-only PF (Ashutosh,
-Michal).
-- Updated commit message with steps to enable admin-only mode (Rodrigo).
 
-V5 -> V6:
-- Updated commit message.
-- Return number of engines and memory regions as zero instead of
-returning query size as zero (Michal Wajdeczko).
-- Allow all other query IOCTLs excepts query_engines and
-query_mem_regions (Michal Wajdeczko).
+v1 -> v2:
+  - Rebased on drm-tip to resolve conflict with folio conversion
+    patches. No code change, same two-line fix.
 
-V4 -> V5:
-- Updated commit message (Matt B).
-- Introduced new driver_admin_only_pf structure (Michal Wajdeczko).
-- Updated all query configs (Michal Wajdeczko).
-- Renamed xe_device_is_admin_only() to xe_device_is_admin_only_pf()
-- Fixed other review comments (Michal Wajdeczko).
+v1: https://lore.kernel.org/all/20260317053653.28888-1-mikhail.v.gavrilov@gmail.com/
 
-V3 -> V4:
-- Suppressed device capabilities in admin-only PF mode. (Wajdeczko)
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-V2 -> V3:
-- Introduced new helper function xe_debugfs_create_files() to create
-debugfs entries based on admin_only_pf mode or normal mode.
-
-V1 -> V2:
-- Rebased to latest drm-tip.
-- Update update_minor_dev() to debugfs_minor_dev().
----
- drivers/gpu/drm/xe/xe_device.c | 61 +++++++++++++++++++++++++++++++---
- drivers/gpu/drm/xe/xe_device.h |  1 +
- drivers/gpu/drm/xe/xe_query.c  |  6 ++++
- 3 files changed, 64 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
-index cbce1d0ffe48..910a0aa4c3d0 100644
---- a/drivers/gpu/drm/xe/xe_device.c
-+++ b/drivers/gpu/drm/xe/xe_device.c
-@@ -25,6 +25,7 @@
- #include "regs/xe_regs.h"
- #include "xe_bo.h"
- #include "xe_bo_evict.h"
-+#include "xe_configfs.h"
- #include "xe_debugfs.h"
- #include "xe_defaults.h"
- #include "xe_devcoredump.h"
-@@ -216,6 +217,11 @@ static const struct drm_ioctl_desc xe_ioctls[] = {
- 			  DRM_RENDER_ALLOW),
- };
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 94b26ea706a3..bced421c0d65 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -145,7 +145,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ 	if (ret < 0)
+ 		goto err_alloc;
  
-+static const struct drm_ioctl_desc xe_ioctls_admin_only[] = {
-+	DRM_IOCTL_DEF_DRV(XE_DEVICE_QUERY, xe_query_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(XE_OBSERVATION, xe_observation_ioctl, DRM_RENDER_ALLOW),
-+};
-+
- static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+-	ret = dma_map_sgtable(dev, sg, direction, 0);
++	ret = dma_map_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
+ 	if (ret < 0)
+ 		goto err_map;
+ 	return sg;
+@@ -160,7 +160,7 @@ static struct sg_table *get_sg_table(struct device *dev, struct dma_buf *buf,
+ static void put_sg_table(struct device *dev, struct sg_table *sg,
+ 			 enum dma_data_direction direction)
  {
- 	struct drm_file *file_priv = file->private_data;
-@@ -390,7 +396,7 @@ bool xe_is_xe_file(const struct file *file)
- 	return file->f_op == &xe_driver_fops;
+-	dma_unmap_sgtable(dev, sg, direction, 0);
++	dma_unmap_sgtable(dev, sg, direction, DMA_ATTR_SKIP_CPU_SYNC);
+ 	sg_free_table(sg);
+ 	kfree(sg);
  }
- 
--static struct drm_driver driver = {
-+static struct drm_driver regular_driver = {
- 	.driver_features =
- 	    DRIVER_GEM |
- 	    DRIVER_RENDER | DRIVER_SYNCOBJ |
-@@ -415,6 +421,40 @@ static struct drm_driver driver = {
- 	.patchlevel = DRIVER_PATCHLEVEL,
- };
- 
-+static struct drm_driver admin_only_driver = {
-+	.driver_features =
-+	    DRIVER_GEM | DRIVER_RENDER | DRIVER_GEM_GPUVA,
-+	.open = xe_file_open,
-+	.postclose = xe_file_close,
-+
-+	.gem_prime_import = xe_gem_prime_import,
-+
-+	.dumb_create = xe_bo_dumb_create,
-+	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
-+#ifdef CONFIG_PROC_FS
-+	.show_fdinfo = xe_drm_client_fdinfo,
-+#endif
-+	.ioctls = xe_ioctls_admin_only,
-+	.num_ioctls = ARRAY_SIZE(xe_ioctls_admin_only),
-+	.fops = &xe_driver_fops,
-+	.name = DRIVER_NAME,
-+	.desc = DRIVER_DESC,
-+	.major = DRIVER_MAJOR,
-+	.minor = DRIVER_MINOR,
-+	.patchlevel = DRIVER_PATCHLEVEL,
-+};
-+
-+/**
-+ * xe_device_is_admin_only() - Check whether device is admin only or not.
-+ * @xe: the &xe_device to check
-+ *
-+ * Return: true if the device is admin only, false otherwise.
-+ */
-+bool xe_device_is_admin_only(const struct xe_device *xe)
-+{
-+	return xe->drm.driver == &admin_only_driver;
-+}
-+
- static void xe_device_destroy(struct drm_device *dev, void *dummy)
- {
- 	struct xe_device *xe = to_xe_device(dev);
-@@ -439,16 +479,24 @@ static void xe_device_destroy(struct drm_device *dev, void *dummy)
- struct xe_device *xe_device_create(struct pci_dev *pdev,
- 				   const struct pci_device_id *ent)
- {
-+	struct drm_driver *driver = &regular_driver;
- 	struct xe_device *xe;
- 	int err;
- 
--	xe_display_driver_set_hooks(&driver);
-+	/*
-+	 * Since XE device is not initialized yet, read from configfs
-+	 * directly to decide whether we are in admin-only PF mode or not.
-+	 */
-+	if (xe_configfs_admin_only_pf(pdev))
-+		driver = &admin_only_driver;
-+
-+	xe_display_driver_set_hooks(driver);
- 
--	err = aperture_remove_conflicting_pci_devices(pdev, driver.name);
-+	err = aperture_remove_conflicting_pci_devices(pdev, driver->name);
- 	if (err)
- 		return ERR_PTR(err);
- 
--	xe = devm_drm_dev_alloc(&pdev->dev, &driver, struct xe_device, drm);
-+	xe = devm_drm_dev_alloc(&pdev->dev, driver, struct xe_device, drm);
- 	if (IS_ERR(xe))
- 		return xe;
- 
-@@ -708,6 +756,11 @@ int xe_device_probe_early(struct xe_device *xe)
- 
- 	xe_sriov_probe_early(xe);
- 
-+	if (xe_configfs_admin_only_pf(to_pci_dev(xe->drm.dev)) && !IS_SRIOV_PF(xe)) {
-+		drm_err(&xe->drm, "Admin-only PF mode is enabled in non PF mode\n");
-+		return -ENODEV;
-+	}
-+
- 	if (IS_SRIOV_VF(xe))
- 		vf_update_device_info(xe);
- 
-diff --git a/drivers/gpu/drm/xe/xe_device.h b/drivers/gpu/drm/xe/xe_device.h
-index e4b9de8d8e95..c220f2f1352f 100644
---- a/drivers/gpu/drm/xe/xe_device.h
-+++ b/drivers/gpu/drm/xe/xe_device.h
-@@ -43,6 +43,7 @@ static inline struct xe_device *ttm_to_xe_device(struct ttm_device *ttm)
- 	return container_of(ttm, struct xe_device, ttm);
- }
- 
-+bool xe_device_is_admin_only(const struct xe_device *xe);
- struct xe_device *xe_device_create(struct pci_dev *pdev,
- 				   const struct pci_device_id *ent);
- int xe_device_probe_early(struct xe_device *xe);
-diff --git a/drivers/gpu/drm/xe/xe_query.c b/drivers/gpu/drm/xe/xe_query.c
-index d84d6a422c45..40c7ab9fecf8 100644
---- a/drivers/gpu/drm/xe/xe_query.c
-+++ b/drivers/gpu/drm/xe/xe_query.c
-@@ -217,6 +217,9 @@ static int query_engines(struct xe_device *xe,
- 
- 	engines->num_engines = i;
- 
-+	if (xe_device_is_admin_only(xe))
-+		memset(engines, 0, size);
-+
- 	if (copy_to_user(query_ptr, engines, size)) {
- 		kfree(engines);
- 		return -EFAULT;
-@@ -297,6 +300,9 @@ static int query_mem_regions(struct xe_device *xe,
- 		}
- 	}
- 
-+	if (xe_device_is_admin_only(xe))
-+		memset(mem_regions, 0, size);
-+
- 	if (!copy_to_user(query_ptr, mem_regions, size))
- 		ret = 0;
- 	else
 -- 
-2.43.0
+2.53.0
 
