@@ -4,138 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7536FFF60CE
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 06:27:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E76C6FF60C6
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 06:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D796810E86E;
-	Tue, 31 Mar 2026 06:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4364510E873;
+	Tue, 31 Mar 2026 06:32:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="v/lAwbIC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PKqHkUWP";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="v/lAwbIC";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PKqHkUWP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GWMZBcs2";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042A410E86E
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 06:27:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A487E5BE93;
- Tue, 31 Mar 2026 06:27:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774938432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
- b=v/lAwbICLIZvEMjQ/bFibQnGLCTKrriY2Sz2U1CdMpzOPVkH3xmakmeVdxKjBnOytngq+R
- jN9pKp2serFmxXqMOBRYAmXFF72iQc0sEie2uumqDv0JVPyu69mu2NCeHRu3cvpfhV36ZB
- AvySCGHp3kzu+1xT0UBWSgX/C1GIbAc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774938432;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
- b=PKqHkUWPrxZ/0QDxv1YCXf5gWyO9XO0FGzvUndBbEioC4ZjUfdbfPg4nds2WLTYxqaFVoN
- qBrHApRLnKgFsqCA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="v/lAwbIC";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PKqHkUWP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1774938432; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
- b=v/lAwbICLIZvEMjQ/bFibQnGLCTKrriY2Sz2U1CdMpzOPVkH3xmakmeVdxKjBnOytngq+R
- jN9pKp2serFmxXqMOBRYAmXFF72iQc0sEie2uumqDv0JVPyu69mu2NCeHRu3cvpfhV36ZB
- AvySCGHp3kzu+1xT0UBWSgX/C1GIbAc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1774938432;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=hhP7i2cWQDIIFHNdX6ILKwrN6C18zchEHCGzRCfvmbs=;
- b=PKqHkUWPrxZ/0QDxv1YCXf5gWyO9XO0FGzvUndBbEioC4ZjUfdbfPg4nds2WLTYxqaFVoN
- qBrHApRLnKgFsqCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6ADE84A0A2;
- Tue, 31 Mar 2026 06:27:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id yoqfGEBpy2klGgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 31 Mar 2026 06:27:12 +0000
-Message-ID: <21479f6d-80c1-4f46-8a41-e50a2d564a94@suse.de>
-Date: Tue, 31 Mar 2026 08:27:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH drm-misc-next v4 0/4] drm: verisilicon: convert drm_format
- to vs_format in atomic_check
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Icenowy Zheng <uwu@icenowy.me>
-References: <20260331060126.1291966-1-zhengxingda@iscas.ac.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260331060126.1291966-1-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[iscas.ac.cn,linux.intel.com,kernel.org,gmail.com,ffwll.ch]; 
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_SEVEN(0.00)[8]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: A487E5BE93
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6786610E873;
+ Tue, 31 Mar 2026 06:32:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774938774; x=1806474774;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=sPlSQ2mb8Fzb8QPE7XCLwnxep1fQJ4XM/xAPtDtUqMA=;
+ b=GWMZBcs2HWz+lF3yp+vlagFTkJyliB//SFFsj12VSoaU7nQ9yW++nlnA
+ MpIzEFsNfMuDDiVfEjvGaOPryQR+g0MomBcU12KEuSK0FxdzMWisMHaS0
+ vlRFZyWHWUJFjB+lAy8FMgXqU9Ub2CWjpgFMr9MG80UoU31RCEIHx3amB
+ 3EXMmCjTSDqOjD7v59yUaGY2MofxTYcsJjvnWGHQhPtk1Yv4R58FS0oiQ
+ q7+oUdD17H/y+bKQnZg6BMA5gYlyVxvjYQZ3fUSX9FxsqT+QIvOCwmQAW
+ 82/DBeRUetgLYfvGemUivUdJPjMlAWYAT0NlmOEFXmQ9v1WWyVtRYzAPN Q==;
+X-CSE-ConnectionGUID: HED5WAB3TCKrk8+i8PCCcg==
+X-CSE-MsgGUID: vvJCiFF7QJiOKjq6fIdeQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="98549528"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="98549528"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 23:32:53 -0700
+X-CSE-ConnectionGUID: WHAR/UWqTDCDymRGajFnhg==
+X-CSE-MsgGUID: Z+/hPUsUQLet5ugUymD84A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="264208261"
+Received: from btannenx-mobl.amr.corp.intel.com (HELO adixit-MOBL3.intel.com)
+ ([10.125.41.43])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 23:32:53 -0700
+Date: Mon, 30 Mar 2026 23:32:51 -0700
+Message-ID: <87wlysy0do.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+Cc: <intel-xe@lists.freedesktop.org>,	Michal Wajdeczko
+ <michal.wajdeczko@intel.com>,	Rodrigo Vivi <rodrigo.vivi@intel.com>,	Piotr
+ =?ISO-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>,
+ "Matthew\ Brost" <matthew.brost@intel.com>,	Thomas =?ISO-8859-1?Q?Hellstr?=
+ =?ISO-8859-1?Q?=F6m?= <thomas.hellstrom@linux.intel.com>,
+ =?ISO-8859-2?Q?Micha=B3?= Winiarski <michal.winiarski@intel.com>,	Dunajski
+ Bartosz <bartosz.dunajski@intel.com>,<dri-devel@lists.freedesktop.org>
+Subject: Re: [RFC v7 1/1] drm/xe/pf: Restrict device query responses in
+ admin-only PF mode
+In-Reply-To: <20260331061736.1218962-2-satyanarayana.k.v.p@intel.com>
+References: <20260331061736.1218962-1-satyanarayana.k.v.p@intel.com>
+ <20260331061736.1218962-2-satyanarayana.k.v.p@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,43 +79,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-I only looked briefly over the update, but it seems good now.
-
-Best regards
-Thomas
-
-
-Am 31.03.26 um 08:01 schrieb Icenowy Zheng:
-> This patchset tries to move the process of converting drm_format to
-> vs_format into plane's atomic_check callback (instead of the
-> atomic_commit one, which the process currently sits) for more proper
-> error handling (because atomic_commit cannot fail).
+On Mon, 30 Mar 2026 23:17:36 -0700, Satyanarayana K V P wrote:
 >
-> In addition, because of the original flow of primary plane's
-> atomic_check seems to be flawed, it's also updated before filling
-> vs_format is added there.
+> When a PF is configured in admin-only mode, it is intended for management
+> only and must not expose workload-facing capabilities to userspace.
 >
-> Icenowy Zheng (4):
->    drm: verisilicon: make vs_format conversion function return int
->    drm: verisilicon: subclass drm_plane_state
->    drm: verisilicon: call atomic helper's plane state check even if no
->      CRTC
->    drm: verisilicon: fill plane's vs_format in atomic_check
+> Limit the exposed ioctl set in admin-only PF mode to XE_DEVICE_QUERY, and
+
+Maybe mention XE_OBSERVATION here too. With that:
+
+Acked-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+
+> suppress capability-bearing query payloads so that the userspace cannot
+> discover execution-related device details in this mode.
 >
->   drivers/gpu/drm/verisilicon/vs_plane.c        | 54 ++++++++++++++++++-
->   drivers/gpu/drm/verisilicon/vs_plane.h        | 18 ++++++-
->   .../gpu/drm/verisilicon/vs_primary_plane.c    | 48 ++++++++++-------
->   3 files changed, 98 insertions(+), 22 deletions(-)
+> Enable admin-only mode with:
+> echo <B:D:F> | sudo tee /sys/bus/pci/drivers/xe/unbind
+> sudo mkdir /sys/kernel/config/xe/<B:D:F>
+> echo yes | sudo tee /sys/kernel/config/xe/<B:D:F>/sriov/admin_only_pf
+> echo <B:D:F> | sudo tee /sys/bus/pci/drivers/xe/bind
 >
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+> Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+> Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Piotr Pi=F3rkowski <piotr.piorkowski@intel.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>
+> Cc: Micha=B3 Winiarski <michal.winiarski@intel.com>
+> Cc: Dunajski Bartosz <bartosz.dunajski@intel.com>
+> Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>
+> ---
+> V6 -> V7:
+> - Allowed xe_observation_ioctl as well with admin-only PF (Ashutosh,
+> Michal).
+> - Updated commit message with steps to enable admin-only mode (Rodrigo).
+>
+> V5 -> V6:
+> - Updated commit message.
+> - Return number of engines and memory regions as zero instead of
+> returning query size as zero (Michal Wajdeczko).
+> - Allow all other query IOCTLs excepts query_engines and
+> query_mem_regions (Michal Wajdeczko).
+>
+> V4 -> V5:
+> - Updated commit message (Matt B).
+> - Introduced new driver_admin_only_pf structure (Michal Wajdeczko).
+> - Updated all query configs (Michal Wajdeczko).
+> - Renamed xe_device_is_admin_only() to xe_device_is_admin_only_pf()
+> - Fixed other review comments (Michal Wajdeczko).
+>
+> V3 -> V4:
+> - Suppressed device capabilities in admin-only PF mode. (Wajdeczko)
+>
+> V2 -> V3:
+> - Introduced new helper function xe_debugfs_create_files() to create
+> debugfs entries based on admin_only_pf mode or normal mode.
+>
+> V1 -> V2:
+> - Rebased to latest drm-tip.
+> - Update update_minor_dev() to debugfs_minor_dev().
+> ---
+>  drivers/gpu/drm/xe/xe_device.c | 61 +++++++++++++++++++++++++++++++---
+>  drivers/gpu/drm/xe/xe_device.h |  1 +
+>  drivers/gpu/drm/xe/xe_query.c  |  6 ++++
+>  3 files changed, 64 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
+e.c
+> index cbce1d0ffe48..910a0aa4c3d0 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -25,6 +25,7 @@
+>  #include "regs/xe_regs.h"
+>  #include "xe_bo.h"
+>  #include "xe_bo_evict.h"
+> +#include "xe_configfs.h"
+>  #include "xe_debugfs.h"
+>  #include "xe_defaults.h"
+>  #include "xe_devcoredump.h"
+> @@ -216,6 +217,11 @@ static const struct drm_ioctl_desc xe_ioctls[] =3D {
+>			  DRM_RENDER_ALLOW),
+>  };
+>
+> +static const struct drm_ioctl_desc xe_ioctls_admin_only[] =3D {
+> +	DRM_IOCTL_DEF_DRV(XE_DEVICE_QUERY, xe_query_ioctl, DRM_RENDER_ALLOW),
+> +	DRM_IOCTL_DEF_DRV(XE_OBSERVATION, xe_observation_ioctl, DRM_RENDER_ALLO=
+W),
+> +};
+> +
+>  static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned l=
+ong arg)
+>  {
+>	struct drm_file *file_priv =3D file->private_data;
+> @@ -390,7 +396,7 @@ bool xe_is_xe_file(const struct file *file)
+>	return file->f_op =3D=3D &xe_driver_fops;
+>  }
+>
+> -static struct drm_driver driver =3D {
+> +static struct drm_driver regular_driver =3D {
+>	.driver_features =3D
+>	    DRIVER_GEM |
+>	    DRIVER_RENDER | DRIVER_SYNCOBJ |
+> @@ -415,6 +421,40 @@ static struct drm_driver driver =3D {
+>	.patchlevel =3D DRIVER_PATCHLEVEL,
+>  };
+>
+> +static struct drm_driver admin_only_driver =3D {
+> +	.driver_features =3D
+> +	    DRIVER_GEM | DRIVER_RENDER | DRIVER_GEM_GPUVA,
+> +	.open =3D xe_file_open,
+> +	.postclose =3D xe_file_close,
+> +
+> +	.gem_prime_import =3D xe_gem_prime_import,
+> +
+> +	.dumb_create =3D xe_bo_dumb_create,
+> +	.dumb_map_offset =3D drm_gem_ttm_dumb_map_offset,
+> +#ifdef CONFIG_PROC_FS
+> +	.show_fdinfo =3D xe_drm_client_fdinfo,
+> +#endif
+> +	.ioctls =3D xe_ioctls_admin_only,
+> +	.num_ioctls =3D ARRAY_SIZE(xe_ioctls_admin_only),
+> +	.fops =3D &xe_driver_fops,
+> +	.name =3D DRIVER_NAME,
+> +	.desc =3D DRIVER_DESC,
+> +	.major =3D DRIVER_MAJOR,
+> +	.minor =3D DRIVER_MINOR,
+> +	.patchlevel =3D DRIVER_PATCHLEVEL,
+> +};
+> +
+> +/**
+> + * xe_device_is_admin_only() - Check whether device is admin only or not.
+> + * @xe: the &xe_device to check
+> + *
+> + * Return: true if the device is admin only, false otherwise.
+> + */
+> +bool xe_device_is_admin_only(const struct xe_device *xe)
+> +{
+> +	return xe->drm.driver =3D=3D &admin_only_driver;
+> +}
+> +
+>  static void xe_device_destroy(struct drm_device *dev, void *dummy)
+>  {
+>	struct xe_device *xe =3D to_xe_device(dev);
+> @@ -439,16 +479,24 @@ static void xe_device_destroy(struct drm_device *de=
+v, void *dummy)
+>  struct xe_device *xe_device_create(struct pci_dev *pdev,
+>				   const struct pci_device_id *ent)
+>  {
+> +	struct drm_driver *driver =3D &regular_driver;
+>	struct xe_device *xe;
+>	int err;
+>
+> -	xe_display_driver_set_hooks(&driver);
+> +	/*
+> +	 * Since XE device is not initialized yet, read from configfs
+> +	 * directly to decide whether we are in admin-only PF mode or not.
+> +	 */
+> +	if (xe_configfs_admin_only_pf(pdev))
+> +		driver =3D &admin_only_driver;
+> +
+> +	xe_display_driver_set_hooks(driver);
+>
+> -	err =3D aperture_remove_conflicting_pci_devices(pdev, driver.name);
+> +	err =3D aperture_remove_conflicting_pci_devices(pdev, driver->name);
+>	if (err)
+>		return ERR_PTR(err);
+>
+> -	xe =3D devm_drm_dev_alloc(&pdev->dev, &driver, struct xe_device, drm);
+> +	xe =3D devm_drm_dev_alloc(&pdev->dev, driver, struct xe_device, drm);
+>	if (IS_ERR(xe))
+>		return xe;
+>
+> @@ -708,6 +756,11 @@ int xe_device_probe_early(struct xe_device *xe)
+>
+>	xe_sriov_probe_early(xe);
+>
+> +	if (xe_configfs_admin_only_pf(to_pci_dev(xe->drm.dev)) && !IS_SRIOV_PF(=
+xe)) {
+> +		drm_err(&xe->drm, "Admin-only PF mode is enabled in non PF mode\n");
+> +		return -ENODEV;
+> +	}
+> +
+>	if (IS_SRIOV_VF(xe))
+>		vf_update_device_info(xe);
+>
+> diff --git a/drivers/gpu/drm/xe/xe_device.h b/drivers/gpu/drm/xe/xe_devic=
+e.h
+> index e4b9de8d8e95..c220f2f1352f 100644
+> --- a/drivers/gpu/drm/xe/xe_device.h
+> +++ b/drivers/gpu/drm/xe/xe_device.h
+> @@ -43,6 +43,7 @@ static inline struct xe_device *ttm_to_xe_device(struct=
+ ttm_device *ttm)
+>	return container_of(ttm, struct xe_device, ttm);
+>  }
+>
+> +bool xe_device_is_admin_only(const struct xe_device *xe);
+>  struct xe_device *xe_device_create(struct pci_dev *pdev,
+>				   const struct pci_device_id *ent);
+>  int xe_device_probe_early(struct xe_device *xe);
+> diff --git a/drivers/gpu/drm/xe/xe_query.c b/drivers/gpu/drm/xe/xe_query.c
+> index d84d6a422c45..40c7ab9fecf8 100644
+> --- a/drivers/gpu/drm/xe/xe_query.c
+> +++ b/drivers/gpu/drm/xe/xe_query.c
+> @@ -217,6 +217,9 @@ static int query_engines(struct xe_device *xe,
+>
+>	engines->num_engines =3D i;
+>
+> +	if (xe_device_is_admin_only(xe))
+> +		memset(engines, 0, size);
+> +
+>	if (copy_to_user(query_ptr, engines, size)) {
+>		kfree(engines);
+>		return -EFAULT;
+> @@ -297,6 +300,9 @@ static int query_mem_regions(struct xe_device *xe,
+>		}
+>	}
+>
+> +	if (xe_device_is_admin_only(xe))
+> +		memset(mem_regions, 0, size);
+> +
+>	if (!copy_to_user(query_ptr, mem_regions, size))
+>		ret =3D 0;
+>	else
+> --
+> 2.43.0
+>
