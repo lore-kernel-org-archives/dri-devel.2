@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A09BFF60EF
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:00:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B44E1061B21
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 10:00:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6DD710E9FA;
-	Tue, 31 Mar 2026 10:00:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11B510E9FB;
+	Tue, 31 Mar 2026 10:00:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ss2nXoTT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KSo3fkb1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5ADD10E9FA
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:00:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A0B710E9FB
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:00:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C4B8760121;
- Tue, 31 Mar 2026 10:00:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3DBC2BCB0;
- Tue, 31 Mar 2026 10:00:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CA85C4405D;
+ Tue, 31 Mar 2026 10:00:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58671C2BCB1;
+ Tue, 31 Mar 2026 10:00:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774951221;
- bh=NmPYacRlRMgDK6wlfQdVkWEvsfihThv4t5CQJjQ7Y7I=;
- h=From:Subject:Date:To:Cc:From;
- b=Ss2nXoTTqQTPpFf+vd8KL2TOHaj3gYelQORnJjYSaDskPaCsG/ahwxR5wQyo09pev
- QyEsyS4gOFfegOmiVrVX41jQ1kJ8mXgEz1yDMzeH+1LykYYKx4+klu1Dxmxho07FAZ
- one1+BWa39lVLE8FS9yHz48EUzN+8WFCQGli65jzK4ESyd09ULQ/ayN+8J1Zgr6s22
- Hq1dL/OncUCyQuhVYvy/MACSqKFlizO2SoIp9uFCRVxm6cyOdM5dZ6CrIxwWwaazWW
- iARNOAknbGwHy+620T97BwjBbRtB6vLJ3XFlG2X/w88YFvkuNwrGQ9E57OpsA48hGP
- sDSIXDEMWJb/g==
+ s=k20201202; t=1774951224;
+ bh=2RziEouTjtQzhvFU7nMRdzuP59YmynilgplJsjF6ais=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=KSo3fkb1PtQO8hBEs29qrPHni57waTli1pc16dvDGP+vruzJBqN1b/Mh3z2gbXY4b
+ pLynpkymbHiKKFVCBpy3ReB0qBGpkKz3SdgJs/Z5Nvqw51SWTwsR+7U9rOA7CqAvKq
+ 3p7+6dOMFrCx74lnn681dpIGoKxRac5Fgu35SxSCUbGcY1jluS/ORRA7Q/A4axey+Q
+ dyJfE6Wy+10LeISxd2Ookz/wYd8yyj38bOM3lpdjooExi7ctWdqCIc9i9mxSOXQvHc
+ U/Epv9rqd1WhzIiG6IIgc0rKuty0xmv8ycqx8pEnOvXHAInamKZsyHhXAXdzbimkzu
+ zaDi7jI+kaXFQ==
 From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v4 0/8] dma-buf: heaps: Turn heaps into modules
-Date: Tue, 31 Mar 2026 12:00:09 +0200
-Message-Id: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
+Date: Tue, 31 Mar 2026 12:00:10 +0200
+Subject: [PATCH v4 1/8] dma: contiguous: Turn heap registration logic
+ around
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwQ6CMAwG4FcxO1vTdQPEk+9hPIxRZFGBbEI0h
- Hd3cFFjYjz+Tf+vHUVg7ziI3WoUngcXXNvEoNcrYWvTnBhcGbMgpBSJEiivBoq+gppNF8AEuLZ
- lf+EAEpUuFNu8IiNivfNcuftCH44x1y7cWv9YLg1ynv6BDhIQSGIetwzmWO7P7Bu+bFp/ErM60
- LuU/ZAoSjrRhjljTK39ktRLUqh+SGr+SSutt5JshtmHNE3TE6FYwwtVAQAA
-X-Change-ID: 20260225-dma-buf-heaps-as-modules-1034b3ec9f2a
+Message-Id: <20260331-dma-buf-heaps-as-modules-v4-1-e18fda504419@kernel.org>
+References: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
+In-Reply-To: <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
@@ -60,12 +58,12 @@ Cc: Albert Esteve <aesteve@redhat.com>, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org, iommu@lists.linux.dev, linux-mm@kvack.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2731; i=mripard@kernel.org;
- h=from:subject:message-id; bh=NmPYacRlRMgDK6wlfQdVkWEvsfihThv4t5CQJjQ7Y7I=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZ+vtyny391ST68fupKZOXg+LP5MLLv56Wdf4VfGRu
- aKiLp9Sx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjI7jjGhjMPOeZ5mJ7+U1+7
- xX37xEN5MWZqs+/M9C8X8bm0z/FoLz9j0KvsW/Pit7Gqf5wid2nGZsaGyfNf758uxcDkcvtFq+j
- R52FKkjJPNM+bFbHOO2xhN0OHoWLtsnPrFVSuunzRmHlE9U0nAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7747; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=2RziEouTjtQzhvFU7nMRdzuP59YmynilgplJsjF6ais=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmnZ+tdXmoVdl/5vPUvF1WllgixQGGdU26r9Q6cajC+7
+ pGo5MLXMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZyiJWxTlf828uPbVLSm25/
+ KUw7ffPbI8kanqSHr15/z2SOEAhVzy6+dlsmQVfox95dW30u6ptlM9anXzkuncl0x2mu4sHTHN8
+ OPqyQP6NkIMtv/2GV8Ubtur95G6LKXpsWNqyKTJSdwy+vYQUA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,72 +81,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The CMA heap instantiation was initially developed by having the
+contiguous DMA code call into the CMA heap to create a new instance
+every time a reserved memory area is probed.
 
-The recent introduction of heaps in the optee driver [1] made possible
-the creation of heaps as modules.
+Turning the CMA heap into a module would create a dependency of the
+kernel on a module, which doesn't work.
 
-It's generally a good idea if possible, including for the already
-existing system and CMA heaps.
-
-The system one is pretty trivial, the CMA one is a bit more involved,
-especially since we have a call from kernel/dma/contiguous.c to the CMA
-heap code. This was solved by turning the logic around and making the
-CMA heap call into the contiguous DMA code.
-
-Let me know what you think,
-Maxime
-
-1: https://lore.kernel.org/dri-devel/20250911135007.1275833-4-jens.wiklander@linaro.org/
+Let's turn the logic around and do the opposite: store all the reserved
+memory CMA regions into the contiguous DMA code, and provide an iterator
+for the heap to use when it probes.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
-Changes in v4:
-- Fix compilation failure
-- Rework to take into account OF_RESERVED_MEM
-- Fix regression making the default CMA area disappear if not created
-  through the DT
-- Added some documentation and comments
-- Link to v3: https://lore.kernel.org/r/20260303-dma-buf-heaps-as-modules-v3-0-24344812c707@kernel.org
+ drivers/dma-buf/heaps/cma_heap.c  | 19 ++------------
+ include/linux/dma-buf/heaps/cma.h | 16 ------------
+ include/linux/dma-map-ops.h       |  5 ++++
+ kernel/dma/contiguous.c           | 55 +++++++++++++++++++++++++++++++++++----
+ 4 files changed, 57 insertions(+), 38 deletions(-)
 
-Changes in v3:
-- Squashed cma_get_name and cma_alloc/release patches
-- Fixed typo in Export dev_get_cma_area commit title
-- Fixed compilation failure with DMA_CMA but not OF_RESERVED_MEM
-- Link to v2: https://lore.kernel.org/r/20260227-dma-buf-heaps-as-modules-v2-0-454aee7e06cc@kernel.org
+diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
+index bd3370b9a3f6d4e18885a1d0e8ba3f659b85ef47..33cac626da1198e3c4a1cdcd562223c1924b6ceb 100644
+--- a/drivers/dma-buf/heaps/cma_heap.c
++++ b/drivers/dma-buf/heaps/cma_heap.c
+@@ -12,11 +12,10 @@
+ 
+ #define pr_fmt(fmt) "cma_heap: " fmt
+ 
+ #include <linux/cma.h>
+ #include <linux/dma-buf.h>
+-#include <linux/dma-buf/heaps/cma.h>
+ #include <linux/dma-heap.h>
+ #include <linux/dma-map-ops.h>
+ #include <linux/err.h>
+ #include <linux/highmem.h>
+ #include <linux/io.h>
+@@ -28,23 +27,10 @@
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
+ 
+ #define DEFAULT_CMA_NAME "default_cma_region"
+ 
+-static struct cma *dma_areas[MAX_CMA_AREAS] __initdata;
+-static unsigned int dma_areas_num __initdata;
+-
+-int __init dma_heap_cma_register_heap(struct cma *cma)
+-{
+-	if (dma_areas_num >= ARRAY_SIZE(dma_areas))
+-		return -EINVAL;
+-
+-	dma_areas[dma_areas_num++] = cma;
+-
+-	return 0;
+-}
+-
+ struct cma_heap {
+ 	struct dma_heap *heap;
+ 	struct cma *cma;
+ };
+ 
+@@ -412,22 +398,21 @@ static int __init __add_cma_heap(struct cma *cma, const char *name)
+ }
+ 
+ static int __init add_cma_heaps(void)
+ {
+ 	struct cma *default_cma = dev_get_cma_area(NULL);
++	struct cma *cma;
+ 	unsigned int i;
+ 	int ret;
+ 
+ 	if (default_cma) {
+ 		ret = __add_cma_heap(default_cma, DEFAULT_CMA_NAME);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+-	for (i = 0; i < dma_areas_num; i++) {
+-		struct cma *cma = dma_areas[i];
+-
++	for (i = 0; (cma = dma_contiguous_get_area_by_idx(i)) != NULL; i++) {
+ 		ret = __add_cma_heap(cma, cma_get_name(cma));
+ 		if (ret) {
+ 			pr_warn("Failed to add CMA heap %s", cma_get_name(cma));
+ 			continue;
+ 		}
+diff --git a/include/linux/dma-buf/heaps/cma.h b/include/linux/dma-buf/heaps/cma.h
+deleted file mode 100644
+index e751479e21e703e24a5f799b4a7fc8bd0df3c1c4..0000000000000000000000000000000000000000
+--- a/include/linux/dma-buf/heaps/cma.h
++++ /dev/null
+@@ -1,16 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef DMA_BUF_HEAP_CMA_H_
+-#define DMA_BUF_HEAP_CMA_H_
+-
+-struct cma;
+-
+-#ifdef CONFIG_DMABUF_HEAPS_CMA
+-int dma_heap_cma_register_heap(struct cma *cma);
+-#else
+-static inline int dma_heap_cma_register_heap(struct cma *cma)
+-{
+-	return 0;
+-}
+-#endif // CONFIG_DMABUF_HEAPS_CMA
+-
+-#endif // DMA_BUF_HEAP_CMA_H_
+diff --git a/include/linux/dma-map-ops.h b/include/linux/dma-map-ops.h
+index 60b63756df821d839436618f1fca2bfa3eabe075..c4c93c72ff6ff3ff5c59b7161970805422e9dccb 100644
+--- a/include/linux/dma-map-ops.h
++++ b/include/linux/dma-map-ops.h
+@@ -97,10 +97,11 @@ static inline struct cma *dev_get_cma_area(struct device *dev)
+ {
+ 	if (dev && dev->cma_area)
+ 		return dev->cma_area;
+ 	return dma_contiguous_default_area;
+ }
++struct cma *dma_contiguous_get_area_by_idx(unsigned int idx);
+ 
+ void dma_contiguous_reserve(phys_addr_t addr_limit);
+ int __init dma_contiguous_reserve_area(phys_addr_t size, phys_addr_t base,
+ 		phys_addr_t limit, struct cma **res_cma, bool fixed);
+ 
+@@ -115,10 +116,14 @@ void dma_contiguous_early_fixup(phys_addr_t base, unsigned long size);
+ #else /* CONFIG_DMA_CMA */
+ static inline struct cma *dev_get_cma_area(struct device *dev)
+ {
+ 	return NULL;
+ }
++static inline struct cma *dma_contiguous_get_area_by_idx(unsigned int idx)
++{
++	return NULL;
++}
+ static inline void dma_contiguous_reserve(phys_addr_t limit)
+ {
+ }
+ static inline int dma_contiguous_reserve_area(phys_addr_t size,
+ 		phys_addr_t base, phys_addr_t limit, struct cma **res_cma,
+diff --git a/kernel/dma/contiguous.c b/kernel/dma/contiguous.c
+index c56004d314dc2e436cddf3b20a4ee6ce8178bee4..afa9fd31304051d200cd4396dec26dd50becc375 100644
+--- a/kernel/dma/contiguous.c
++++ b/kernel/dma/contiguous.c
+@@ -40,21 +40,51 @@
+ #include <asm/page.h>
+ 
+ #include <linux/memblock.h>
+ #include <linux/err.h>
+ #include <linux/sizes.h>
+-#include <linux/dma-buf/heaps/cma.h>
+ #include <linux/dma-map-ops.h>
+ #include <linux/cma.h>
+ #include <linux/nospec.h>
+ 
+ #ifdef CONFIG_CMA_SIZE_MBYTES
+ #define CMA_SIZE_MBYTES CONFIG_CMA_SIZE_MBYTES
+ #else
+ #define CMA_SIZE_MBYTES 0
+ #endif
+ 
++static struct cma *dma_contiguous_areas[MAX_CMA_AREAS];
++static unsigned int dma_contiguous_areas_num;
++
++static int dma_contiguous_insert_area(struct cma *cma)
++{
++	if (dma_contiguous_areas_num >= ARRAY_SIZE(dma_contiguous_areas))
++		return -EINVAL;
++
++	dma_contiguous_areas[dma_contiguous_areas_num++] = cma;
++
++	return 0;
++}
++
++/**
++ * dma_contiguous_get_area_by_idx() - Get contiguous area at given index
++ * @idx: index of the area we query
++ *
++ * Queries for the contiguous area located at index @idx.
++ *
++ * Returns:
++ * A pointer to the requested contiguous area, or NULL otherwise.
++ */
++struct cma *dma_contiguous_get_area_by_idx(unsigned int idx)
++{
++	if (idx >= dma_contiguous_areas_num)
++		return NULL;
++
++	return dma_contiguous_areas[idx];
++}
++EXPORT_SYMBOL_GPL(dma_contiguous_get_area_by_idx);
++
+ struct cma *dma_contiguous_default_area;
+ 
+ /*
+  * Default global CMA area size can be defined in kernel's .config.
+  * This is useful mainly for distro maintainers to create a kernel
+@@ -262,13 +292,28 @@ void __init dma_contiguous_reserve(phys_addr_t limit)
+ 						  &dma_contiguous_default_area,
+ 						  fixed);
+ 		if (ret)
+ 			return;
+ 
+-		ret = dma_heap_cma_register_heap(dma_contiguous_default_area);
++		/*
++		 * We need to insert the new area in our list to avoid
++		 * any inconsistencies between having the default area
++		 * listed in the DT or not.
++		 *
++		 * The DT case is handled by rmem_cma_setup() and will
++		 * always insert all its areas in our list. However, if
++		 * it didn't run (because OF_RESERVED_MEM isn't set, or
++		 * there's no DT region specified), then we don't have a
++		 * default area yet, and no area in our list.
++		 *
++		 * This block creates the default area in such a case,
++		 * but we also need to insert it in our list to avoid
++		 * having a default area but an empty list.
++		 */
++		ret = dma_contiguous_insert_area(dma_contiguous_default_area);
+ 		if (ret)
+-			pr_warn("Couldn't register default CMA heap.");
++			pr_warn("Couldn't queue default CMA region for heap creation.");
+ 	}
+ }
+ 
+ void __weak
+ dma_contiguous_early_fixup(phys_addr_t base, unsigned long size)
+@@ -504,13 +549,13 @@ static int __init rmem_cma_setup(struct reserved_mem *rmem)
+ 	rmem->priv = cma;
+ 
+ 	pr_info("Reserved memory: created CMA memory pool at %pa, size %ld MiB\n",
+ 		&rmem->base, (unsigned long)rmem->size / SZ_1M);
+ 
+-	err = dma_heap_cma_register_heap(cma);
++	err = dma_contiguous_insert_area(cma);
+ 	if (err)
+-		pr_warn("Couldn't register CMA heap.");
++		pr_warn("Couldn't store CMA reserved area.");
+ 
+ 	return 0;
+ }
+ RESERVEDMEM_OF_DECLARE(cma, "shared-dma-pool", rmem_cma_setup);
+ #endif
 
-Changes in v2:
-- Collect tags
-- Don't export dma_contiguous_default_area anymore, but export
-  dev_get_cma_area instead
-- Mentioned that heap modules can't be removed
-- Link to v1: https://lore.kernel.org/r/20260225-dma-buf-heaps-as-modules-v1-0-2109225a090d@kernel.org
-
----
-Maxime Ripard (8):
-      dma: contiguous: Turn heap registration logic around
-      dma: contiguous: Make dev_get_cma_area() a proper function
-      dma: contiguous: Make dma_contiguous_default_area static
-      dma: contiguous: Export dev_get_cma_area()
-      mm: cma: Export cma_alloc(), cma_release() and cma_get_name()
-      dma-buf: heaps: Export mem_accounting parameter
-      dma-buf: heaps: cma: Turn the heap into a module
-      dma-buf: heaps: system: Turn the heap into a module
-
- drivers/dma-buf/dma-heap.c          |  1 +
- drivers/dma-buf/heaps/Kconfig       |  4 +--
- drivers/dma-buf/heaps/cma_heap.c    | 22 +++----------
- drivers/dma-buf/heaps/system_heap.c |  5 +++
- include/linux/dma-buf/heaps/cma.h   | 16 ---------
- include/linux/dma-map-ops.h         | 14 ++++----
- kernel/dma/contiguous.c             | 66 +++++++++++++++++++++++++++++++++----
- mm/cma.c                            |  3 ++
- 8 files changed, 82 insertions(+), 49 deletions(-)
----
-base-commit: c081b71f11732ad2c443f170ab19c3ebe8a1a422
-change-id: 20260225-dma-buf-heaps-as-modules-1034b3ec9f2a
-
-Best regards,
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.53.0
 
