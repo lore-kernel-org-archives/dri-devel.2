@@ -4,82 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 955FA1061B21
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 03:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE981061B2D
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 03:21:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A125F10E84F;
-	Tue, 31 Mar 2026 03:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EEA310E850;
+	Tue, 31 Mar 2026 03:21:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="ZSzIpFVo";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="jOA5CxKH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LmeYPgu7";
 	dkim-atps=neutral
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.74.132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1468A10E1CF
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1774926993;
- bh=po6cgYQUd6uza9we04cCL9P4GtuOUVSmelm9ecj8dPk=;
- h=Message-ID:Date:MIME-Version:Subject:To:From;
- b=ZSzIpFVo8hCJIqbhCSr28w/6i3p6jKzyf7Wq1mlNofx6JnEC3G3mX+flKWc3XYOfg
- N83SUmJQ+KY+Gc4i7Dvt9z1FaTFnBLjh0GXF9+BaYmWmBDPBFUhtrVFmxxtMJAdZxQ
- +i3xbV5vHkiQHch//N+/P8FlpiFMaWHjSmsVBRSk=
-X-QQ-mid: esmtpsz19t1774926991t0fd6fece
-X-QQ-Originating-IP: B/7X6/YjpZwXkACn5sUy6oA7OR2oOjx+LTF2eQ6PFnI=
-Received: from [172.16.12.51] ( [58.22.7.114]) by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 31 Mar 2026 11:16:28 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3341022901969366898
-Message-ID: <1801CF6805B8DD32+0afb49ab-a03c-40f0-92bd-d0b332f8f28e@airkyi.com>
-Date: Tue, 31 Mar 2026 11:16:26 +0800
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA55910E850
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:21:36 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62UL4GgF1842632
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:21:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=/6hTUIUuvrbheX/Urbiq81lb23LEfZHvDxd
+ xPJ4VLuo=; b=jOA5CxKHtH8mpMgK9FkWN1sUUXCHt6E5FferrwxoCPtzo5OYpWy
+ hgBH8QVmqMhAkq0h/bth34fC4ImWxTvCVrt2JoTn9ULANkI1AOcHVA0iL9dohYHw
+ 8KQa1WN3k238LPa/ujnB39NdJxX8YGNr/JEXIqFAJmp2cb6Xn2SVZ1TaPotGAhK8
+ TzmnN3EyCcwx/pDrFwtpaj5DP9Slo7uHK0Ygshsc8av2olxT0W5A873i8Mllo8up
+ Ubk0bL/8oONk1bUyuebDeQppeLXHRnIP5dVenlEfKa+Wis1/A7Nz0t5gBlBak+4n
+ oumUwSE4hzfXKtepFPaLkPF/vqayQ8Dig7Q==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d80rsh14p-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:21:35 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b0c30b51bfso139663355ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 20:21:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774927295; x=1775532095;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/6hTUIUuvrbheX/Urbiq81lb23LEfZHvDxdxPJ4VLuo=;
+ b=LmeYPgu7W1t66RMHhP0pekSYz6m8FoeLHISlF03lOHdVxSly3xaGLDP+Tjg3SK+b4p
+ mU57HAvC1kjcq/E8IPx/Rx/htL8xR0+hLSBGUcKRg1prExCJ92QakfhqlONkRbgvoqKS
+ KYdYl+zrhqTElo591z0+wfyAIqqv4wlQMZNT/Kkv4ZMpFXGZDWLTv8r11O2FPtCjB70U
+ SP8XfIWInsJmiIVASKECYpTO9ZrRhkc8KRkMK8d3QF1M8MNi06yxqp6JsRUa7f9SdfJ/
+ MLsnAqZbA32PrO1wn9J6c6SrSPgdyqUSdxgkwZfStCKvt5ZveZVtTgjii4Fdljmb8ZUe
+ nQsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774927295; x=1775532095;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/6hTUIUuvrbheX/Urbiq81lb23LEfZHvDxdxPJ4VLuo=;
+ b=mHNKGK4TCL7gKQVU7vancvlWMzcQX6gbcXrzAhxZeXMzhpBOhIXSP9md4UqSpEVhDS
+ S3lqeHsqgipro7HClRzYmdLSd8nzULOQo3vbveWDJRslfN/8WQCXf+hfce2fNhkWu2ts
+ nNOiM0xYrgD2YTS/PKEFRrGN/JiIn73ojPhSGqfTR6/IAJ5dqRjXnYmOXSBKquB1xVuB
+ 9Z+5KRpjhEOqB6KzvVbhA7aX/EakxmgFYGxh4mKID27Edt3xxNKYTlW2gVoKr8aPSYkq
+ ySqKOcB8yhIBMWsOVfwvGHaLS1AuGdpWfxH6Ie012IdP2EOS6kyuCmaq1X8J+5kKvSY4
+ G2XQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX6kexFh+1dB6eQ1Cb4CpgOwZgeO7FgE7EutmuVufq1xqN6eEVIK/DYSliIMVPRAxfzMfyIcnmNX2g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyKTSetRRGAh7FLlPEiC2XYiFq8LLasoODeFG3WxBymoHxV16w0
+ oJVD8COVj3lUE3Ze8VD+hGtnGyL9jARhjq/SWNwVJzg/6ijisf11i9vkIsdeQzb2ZFjPvgqA8xk
+ 7syh1aIadcNVj2WO4u6LXQXxxshgnwS7mvYpcb8wy9zBsTkJD/mY78oAbYR12br2yyIzl610=
+X-Gm-Gg: ATEYQzyd7ECVYDbHZmMFhXA129GCzvmJy4BkFhwud5JAwB3gq6+4f6gqU7XOhtNCXrV
+ CXs7AnJC/LS+g/9dRDHoMX3c9vttU138xz4cHWg5VBczQeCcsK7xS6iLTROSWfzlEM5lbY2G4Tc
+ ZVAQbvXf9FcGSr/OuE0cNlvJASByPzchzXkQKt9tWhLpjnpMAXfB8TjTHUB2+5NpFg4EEm0DnQ2
+ ognWEHeC8vMOxxYTJ4jltszAo7NdUzii8SwoRdLzOeBU6avUPv/e6tPeW0M+c0Daj0vVi9CuVpW
+ 5PUvxmr6qgw5mDuWcgg/9CoxiNV9i2NJf0nfN9gdalrCgqYjY9n/XCVdzgpFWXAnXZJ3SxVWDPE
+ AInS112DMgLjqHqPhF4u3o3lejmzXVdSNh/63z4NzC+6NUkOdZyrIaPU2Sp9OYndZVa71L15U9U
+ gYAwOd35XvIybzrE8WHPAauiqRUQM/94iIwLc2
+X-Received: by 2002:a17:903:41ce:b0:2b2:470d:6d0d with SMTP id
+ d9443c01a7336-2b2470d6f7cmr104282495ad.9.1774927294755; 
+ Mon, 30 Mar 2026 20:21:34 -0700 (PDT)
+X-Received: by 2002:a17:903:41ce:b0:2b2:470d:6d0d with SMTP id
+ d9443c01a7336-2b2470d6f7cmr104282165ad.9.1774927294267; 
+ Mon, 30 Mar 2026 20:21:34 -0700 (PDT)
+Received: from hu-sibis-blr.qualcomm.com
+ (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b25ca51aefsm21104875ad.16.2026.03.30.20.21.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2026 20:21:33 -0700 (PDT)
+From: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+To: gregkh@linuxfoundation.org, robh@kernel.org, srini@kernel.org,
+ amahesh@qti.qualcomm.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH V7] dt-bindings: misc: qcom, fastrpc: Add compatible for Glymur
+Date: Tue, 31 Mar 2026 08:51:21 +0530
+Message-Id: <20260331032121.1279203-1-sibi.sankar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Damon Ding <damon.ding@rock-chips.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- kernel@collabora.com
-References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
- <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
- <acphlgK6ZmBitGJL@venus>
- <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
- <acsoT_i-LfoMoIy_@venus>
-Content-Language: en-US
-From: Chaoyi Chen <kernel@airkyi.com>
-In-Reply-To: <acsoT_i-LfoMoIy_@venus>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MX+1SEN3H+wAprBSZyZpYvedrMS6yPzCfm5hndPD+3dzYT5XYLnSa84T
- JI5/ask68pqN1TfcA5VzCkqX/w3gxWk9mms37P08J4aeux9HO04NK06PBSuXvka64HUSx0F
- 1+DbAUaEQWMNFDwbeo4ZDa/ug7EAo1fWSFnlpS0BbQ8iRUD7NQA3MiwiRruLlD/9eRnpiLu
- q5MmKxG8Z6hsn07gUa99XFdgtBknAH9CoQpyLO8NxmknEAwqYzAznBhP3DWw41mjpq1XX0D
- osMPBQ9VBaWmlNEL7u0lSYIMS22MWHHAOx9P5gRGytcRQWljwalW5FdvuGLkPE41X6V6aZc
- At10WBbJzwN3DsBZlxMSJ0ATpZKsqAfmCx3WSiLzIIOfMuNQ56QpoPPOY0gmjorkUKm4fV4
- 16FLUFpNQNlSm5DoUW8vfh4X41e3RZRmHxhTD9hC7gV3eeCh8fgbIOdnSZ3DoCqiCk6F5uF
- bTrxuT8mrcwHWxYUqu17mUQ95bnNyat2NVK1ayyRmK8HXTLrODBfrBKkZjVNPa+Qa4kuTPQ
- 8Lc7PqnaN9vp8j89WLDly4LX5kXizeBQUexxBwEQwPwB89NgSXrG+B2vF0uPs+GSF1gfsj3
- DnT4BzSPrggUzCxxEW4ZSAAhnC9rySzHUH/UPC43EwLynLG5EtKy18xU8csEOxlerh8q7MY
- tMTnnUbfdNMkVhE2wmZ0mTjRKkCLrRDzYmjZ35fUVQ+B3U6AEaShTUMfwiOBi2Fdvp6aUq3
- U01zMNhvIHnLIw7h5WpjgU+2mxUmEWkbKCIsw6ym+A136cf+8ECeO1sRE6LPvda46HPzKHU
- tNozP9S7LgMHWldWSROGFD97A3WJtes6jiqSkzwlcMZgCCV2OUjnoRpfJYHjO4zvzAbjddB
- iaFOyWi4GlNCe8A7ffRz78BUpRvC/5PloAap47uDRs1bTsDFgoVCrupnnCWXhEiGLJaVpjU
- t8eCpKaRKTezgtXi9wiSyIGazgG64OKxeCVQmQS/mzjIUePZqj5Sey2t2LzMccUcmIZtDom
- mSfOQerVQGAcuJ2gvu
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+X-Proofpoint-GUID: K5xQ0NGFX1O0HSaW0BuhvxM-yKAFcyUf
+X-Authority-Analysis: v=2.4 cv=VInQXtPX c=1 sm=1 tr=0 ts=69cb3dbf cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=nXg5SIL9QfFqj7ZtGcoA:9 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: K5xQ0NGFX1O0HSaW0BuhvxM-yKAFcyUf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDAyOSBTYWx0ZWRfX9RA1U1zDox6q
+ mB1rABS0nKoJUGc2QKpMZWSw+8XxvC6cXlV6XcTrNBKyMuXrjQw2H2lgxb33jiNNddkFnJj58A7
+ 4FHBfDjwfUzsCZJGcgnwLrt8re9w5rX/Ul/LlwUbkMCgZwHuzb8Chc8frxOE6AkBUBHBHU8qinP
+ GDm8MQGHya6MWccTWvN2eyBvf5uMQjmnckGye1WGPc6hp2gx61lWqNzZVp5DrZF6f9SybocnAep
+ JRQGDiOd23kK8IfOX440HjfLOiQCFCsFDjqOYy7z38u3+nPesOxFdNiH6fmJDfY+dEJC3n0gTK0
+ 6TDP1r3Up5HYsiyDEpEaExjSG4kMJ3dxbO2I65/nTTVkPogrl892rvdnCjcljB3kSxGOAQ1SigY
+ dBMrQMq4bG2qpxKYf26syJmJ/Ew88R7B5BHPyHgVnxZx0j0YbXgOdVcBsdTPs3bVrA5LG9QO8um
+ 1dt+uHCDjR96I92h3Zg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-30_02,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603310029
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,93 +137,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Sebastian,
+Document compatible for Qualcomm Glymur fastrpc which is fully compatible
+with Qualcomm Kaanapali fastrpc.
 
-On 3/31/2026 10:09 AM, Sebastian Reichel wrote:
-> Hi,
-> 
-> On Tue, Mar 31, 2026 at 09:18:32AM +0800, Chaoyi Chen wrote:
->> On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
->>> On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
->>>>> There are two parts, which possibly need some discussion:
->>>>>
->>>>>  1. I added a dedicated bridge callback for out-of-band hotplug events,
->>>>>     which is separate from the hotplug_notify. I have a feeling, that
->>>>>     there might be a better solution, but haven't found it.
->>>>
->>>> Could you explain what an out-of-band hotplug event is?
->>>>
->>>> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
->>>> hot-plug events? Thank you.
->>>
->>> That is what generates the out-of-band hotplug event in the first
->>> place via drm_connector_oob_hotplug_event(). The oob in that call
->>> means out of band.
->>>
->>> If you look at that function it calls oob_hotplug_event() callback
->>> on the DRM connector, which is then implemented by
->>> drm_bridge_connector_oob_hotplug_event(). This function calls uses
->>> the normal hpd handling (shared by in-band and out-of-band) and I'm
->>> patching it, so that the bridges are aware of hpd explicitly being
->>> provided out-of-band.
->>>
->>
->> Ah, I'm actually more concerned with the specific types of events.
->> For example, the "explicitly" provided HPD you mentioned here. 
->> Isn't drm_connector_oob_hotplug_event able to provide those?
->>
->> I assume you’re looking for an oob event that is propagated along the
->> bridge chain, rather than at the connector. Is that so? Thank you.
-> 
-> The connector has a dedicated hotplug oob event callback, but I obviously
-> need the event on the bridge, since the DP controller is implemented as
-> bridge. The existing infrastructure propages it down to the bridge chain
-> via drm_bridge_hpd_notify(), which can be received by the DP controller
-> via the .hpd_notify callback in struct drm_bridge_funcs.
-> 
-> The problem is, that this receives events for in-band AND
-> out-of-band hotplug events. That's why I added a new bridge
-> callback, which hooks into the existing framework, but only delivers
-> out-of-band events and no in-band events.
-> 
+Signed-off-by: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
 
-How to distinguish between in-band and out-of-band events? In your patch4:
+Greg if you are still picking up patches can you please this
+as well.
 
-@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
+Changes in v7:
+- Rebased on the latest Linux-next
+- Split patch series so that Greg can pick this one up so that
+  the dt changes can be picked up by Bjorn.
+- Link to v6: https://lore.kernel.org/lkml/20260325035338.1393287-1-sibi.sankar@oss.qualcomm.com/
+
+Changes in v6:
+- Pick the audio series up. [Srini]
+- Pickup Rbs from the list.
+- Rebase on top of the lastest linux-next.
+- Fix up address size and other misc fixes. [Konrad]
+- Fix the ordering the various audio nodes. [Sibi]
+- Link to v5: https://lore.kernel.org/lkml/20260313120814.1312410-1-sibi.sankar@oss.qualcomm.com/
+- Link to v0 audio series: https://lore.kernel.org/lkml/20260311124230.2241781-1-srinivas.kandagatla@oss.qualcomm.com/
+
+Changes in v5:
+- Fix commit messages (patch 1/2) to accurately describe compatibility [Krzysztof]
+- Link to v4: https://lore.kernel.org/lkml/20260310033617.3108675-1-sibi.sankar@oss.qualcomm.com/
+
+Changes in v4:
+- Fix SID used in ADSP/CDSP for correctness [Konrad]
+- Link to v3: https://lore.kernel.org/lkml/20260129001358.770053-1-sibi.sankar@oss.qualcomm.com/
+
+Changes in v3:
+- A few variants of the SoC are expected to run Linux at EL1 hence the
+  iommus properties are left optional.
+- Add fastrpc bindings and nodes.
+- Link to v2: https://lore.kernel.org/all/20251029-knp-remoteproc-v2-0-6c81993b52ea@oss.qualcomm.com/
+
+Changes in v2:
+- Combined into Kaanapali series since they are fully compatible.
+- Link to v1: https://lore.kernel.org/all/20250924183726.509202-1-sibi.sankar@oss.qualcomm.com/
+
+ .../devicetree/bindings/misc/qcom,fastrpc.yaml        | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+index d8e47db677cc..ca830dd06de2 100644
+--- a/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
++++ b/Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml
+@@ -18,9 +18,14 @@ description: |
  
-+	/* Notify all bridges in the pipeline of hotplug events. */
-+	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
-+		if (bridge->funcs->oob_notify)
-+			bridge->funcs->oob_notify(bridge, connector, status);
-+	}
-+
- 	drm_bridge_connector_handle_hpd(bridge_connector, status);
+ properties:
+   compatible:
+-    enum:
+-      - qcom,kaanapali-fastrpc
+-      - qcom,fastrpc
++    oneOf:
++      - enum:
++          - qcom,kaanapali-fastrpc
++          - qcom,fastrpc
++      - items:
++          - enum:
++              - qcom,glymur-fastrpc
++          - const: qcom,kaanapali-fastrpc
+ 
+   label:
+     enum:
 
-
-Here, drm_bridge_connector_handle_hpd() will eventually call:
-
-	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
-		if (bridge->funcs->hpd_notify)
-			bridge->funcs->hpd_notify(bridge, connector, status);
-	}
-
-Therefore, for the bridge chain, you will call hpd_notify and
-oob_notify separately.
-
-This looks redundant, how do you distinguish between them?
-
-> The problem with receiving in-band in addition to out-of-band is
-> that the out-of-band signal should set the hotplug pin accordingly,
-> but the in-band detection also checks the actual DP link. If the OOB
-> hotplug signal says "nothing plugged", the hotplug pin should be
-> forced off, but if the DP link detection fails, the hotplug pin
-> should not be force disabled, as that makes any further detection
-> tries useless.
-> 
-
+base-commit: cf7c3c02fdd0dfccf4d6611714273dcb538af2cb
 -- 
-Best, 
-Chaoyi
+2.34.1
 
