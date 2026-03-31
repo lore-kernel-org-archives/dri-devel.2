@@ -4,70 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42321109B462
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 12:56:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 847A8109B461
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 13:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA0E310EC4A;
-	Tue, 31 Mar 2026 12:56:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D810E10ED29;
+	Tue, 31 Mar 2026 13:00:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="gg70urw6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D1GvVZwr";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE1710EC4A;
- Tue, 31 Mar 2026 12:56:34 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4flSmY5yvWz9txF;
- Tue, 31 Mar 2026 14:56:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1774961789;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fR4tNqzFAaNjfM1ALkgthuV0izYT7IoG9clnVyc5I2Y=;
- b=gg70urw6KJnGO60ZcSCVK5vpTyL8rdBLOZc/+S7EZ2NQ83hfI5P4Zo6kfr7gUgQu5X/0/7
- 5eGZIQKSzvEKUIuCtG8AsDN2t5ktDffSmyGeBQ1ZsbU48iS7Lz53bgBCbm2CmuE+4+qZDt
- 4kazYhJxV+Ryl60Dcxelngt6izjc5bTbN3NtgjfAAsg0JUsaxD0TMsSnNgVk8tQxg++j1R
- 2PgT1hF0DcPrbg9dTIfte2wWzde53GyqpmskFWpD+CXu7h4zWNFpIhEd6oJIfVJSFGeI2n
- tG8zPxG/IvHOUUgVIAFHPQUTwZYvudawTaIiNzlhR7CImGycEecNJCgono8Law==
-Message-ID: <d9abba15-382d-4bc1-a58a-71bb8413eeac@mailbox.org>
-Date: Tue, 31 Mar 2026 14:56:22 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7D710E9B2
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 13:00:10 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id EB443434D9;
+ Tue, 31 Mar 2026 13:00:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5715FC19423;
+ Tue, 31 Mar 2026 13:00:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774962009;
+ bh=Aid6A4kU1rFuiXFfYoqlUcE12Y1zwl4OGNPuijYgxwQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=D1GvVZwrBJF+RmNmadu1Zd61sTNOaNDCVjyCiMVFWQWQUMH+6Zzw1Hz9oznH2f3ks
+ ljnsOTeYS0CRUSQrFS62kxo3o64EI2TpzBCxN9YSxtR1BxnimRdrdbRJ8y+vT/5pXU
+ 6ieoDwrOo6tkLAJP7hqhT7bXIx4yxGfg/E4FdIipIi1mejoJD0XpfZrs6bQnMwQFfB
+ uiHpGijKiTtJ/HdI8OxLMiqKha8jj/0Mbfxjx5oCFIwRfLoyLosrSvvdg42a1BQ87h
+ ASGO07Q6376XU49mwx6thSd118eOZPEc3avvWEdnznnVHDetxJ5BpVRMlfQAqSb+Dz
+ 9S//mLmMysm2g==
+Date: Tue, 31 Mar 2026 07:00:07 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Zhiping Zhang <zhipingz@meta.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Bjorn Helgaas <bhelgaas@google.com>, linux-rdma@vger.kernel.org,
+ linux-pci@vger.kernel.org, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Bjorn Helgaas <helgaas@kernel.org>
+Subject: Re: [RFC v2 1/2] vfio: add callback to get tph info for dmabuf
+Message-ID: <acvFV8c5QVxnt3Em@kbusch-mbp>
+References: <20260324234615.3731237-1-zhipingz@meta.com>
+ <20260324234615.3731237-2-zhipingz@meta.com>
+ <20260325082534.GN814676@unreal> <acW2BwQKaUbS3eL9@kbusch-mbp>
+ <20260331083758.GA814676@unreal>
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8676926.T7Z3S40VBb@workhorse>
- <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <20260326155305.736b4e64@fluorite>
- <47325395-3790-4cb4-8efd-84a3d8ddb80c@mailbox.org>
- <20260331153805.376486e2@fluorite>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <20260331153805.376486e2@fluorite>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 3ea22b55c6cef5a3c0b
-X-MBO-RS-META: ru88ojqwgmnp6kdirxom5z1d59n5o6gg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260331083758.GA814676@unreal>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,54 +63,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/26 14:38, Pekka Paalanen wrote:
-> On Tue, 31 Mar 2026 10:01:59 +0200
-> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
->> On 3/26/26 14:53, Pekka Paalanen wrote:
->>> On Tue, 24 Mar 2026 17:44:21 +0100
->>> Michel Dänzer <michel.daenzer@mailbox.org> wrote:
->>>   
->>>> * There's no clear use case.
->>>>
->>>> This is generally a requirement for new KMS UAPI.
->>>>
->>>> The practical usefulness of the corresponding weston MR is dubious
->>>> per the concern above.  
->>>
->>> I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc
->>> rather than RGB 8 bpc is an excellent use case.  
->>
->> This series and the corresponding Weston MR aren't enough to address
->> that use case though, are they? All they achieve is logging a
->> potentially misleading warning.
->>
->> It might make sense to combine this series and the Weston MR with
->> whatever else is needed for that use case.
+On Tue, Mar 31, 2026 at 11:37:58AM +0300, Leon Romanovsky wrote:
+> On Thu, Mar 26, 2026 at 04:41:11PM -0600, Keith Busch wrote:
+> > 
+> > You're suggesting that Ziping append the new fields to the end of this
+> > struct? I don't think we can modify the layout of a uapi.
 > 
-> What do you believe is missing?
+> He needs to add before flex array. This struct is submitted by the user
+> and kernel can easily calculate the position of that array.
 
-For the stated use case, e.g. a mechanism to control RGB vs YCbCr?
-
-
-> Informing the user that the display quality may not be as expected is
-> the point.
-
-The warning implies that the "link bpc" value is expected to match the "max bpc" value, which generally isn't the case.
-
-
->>> I had another use case in
->>> https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#note_3115686  
->>
->> That would need to take dithering into account as well?
+No, you can't just do that. Existing applications would break when they
+compile against the updated kernel header. They don't know about this
+new "tph" supplied flag, but they'll all accidently use the new
+dma_ranges offset. 
+ 
+> Something like this:
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index b1d658b8f7b51..d78d915992232 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -237,7 +237,11 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>         if (get_dma_buf.region_index >= VFIO_PCI_ROM_REGION_INDEX)
+>                 return -ENODEV;
 > 
-> Yes, dithering could be an adverse effect or not sufficient. Hence the
-> 'link bpc' property should not consider any kind of dithering, to be on
-> the safe side. I fully expect dithering to become explicitly
-> controllable, as policy belongs in userspace.
-
-I agree that would be ideal, alas it's not current reality.
-
-
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+> -       dma_ranges = memdup_array_user(&arg->dma_ranges, get_dma_buf.nr_ranges,
+> +       if (!tph_supplied)
+> +               dma_ranges = memdup_array_user(old_dma_ranges_pos, get_dma_buf.nr_ranges,
+> +                                      sizeof(*dma_ranges));
+> +       else
+> +               dma_ranges = memdup_array_user(&arg->dma_ranges, get_dma_buf.nr_ranges,
+>                                        sizeof(*dma_ranges));
+>         if (IS_ERR(dma_ranges))
+>                 return PTR_ERR(dma_ranges);
+> ~
