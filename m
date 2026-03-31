@@ -4,85 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59A061061B21
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 03:11:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 955FA1061B21
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 03:17:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C29B310E84C;
-	Tue, 31 Mar 2026 03:11:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A125F10E84F;
+	Tue, 31 Mar 2026 03:17:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="eEOKtRJT";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EAc36jsH";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="ZSzIpFVo";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2539710E84C
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:11:54 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4flCp04Cl5z9v7j;
- Tue, 31 Mar 2026 05:11:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1774926712;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5b0E8jNb5u3Q+Hgd6Ymy+a7KhoG8hKcQuq1aRU89kZw=;
- b=eEOKtRJTsx60J3em/LdVvUZUYyaV9INnIpi8xRHPpVnQjS6PtHhzz/RI02UZiHsqyKGXvo
- Kq22zIPpmwCk+6MOCghf8ZCnQxRXqSgW6nnaUXiLwBqxiPPjXCpYuLwyIZIHVGvqd/7XKf
- 7dajFrxFufZWChJaE+L21VjvAv8eKMKTowRNS2LwPxtNVPZgfyVBCkxst9fot5Im8GuW/F
- 1yRCfIqbtbhQ32bOZTD7InHtnIlipXpIB5vOO1XOyVAevGY16asCFwKyL40RLJFc9kqoru
- WVxvqXfEXylQFL01HH0GtTAmSK293vCBAVjTbAuz4ZaSowzJENnPaFm3gVNRYQ==
-Authentication-Results: outgoing_mbo_mout;
- dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=EAc36jsH;
- spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates
- 2001:67c:2050:b231:465::2 as permitted sender)
- smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <982c4d97-695f-46b0-b819-a0b3d016b12b@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1774926711;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=5b0E8jNb5u3Q+Hgd6Ymy+a7KhoG8hKcQuq1aRU89kZw=;
- b=EAc36jsH0XykxzW6m0HcWUu8WqDfihs+SO/GB71bu79ayqd0Z7lcuRe2AWXKnsXb+c4dsE
- i9/mAznX9k77/Zqccl7LFMU6RbhSgFlOhVTmekcfZSMGyo5z7bo0l6KGD69cQCj0GGVJ2T
- wXr6gDlvLKUBwhHl+y30+h99zlch9F3J9Y8/1jlsf9Z5NWVavWHvngyIlB3LJTr6pKIX5u
- oAjkKDnyzXb9YaXaOAHduaGk0NODni5GCRL8yPK8wdVjDZhTegI9+I++Ji+pKS68phc4aM
- 8+E8KXyd+D27n/LA4qFUqMqTxZfI6ltf++XAiInj8nAWgAULoU62KivyojbzWw==
-Date: Tue, 31 Mar 2026 05:11:43 +0200
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.74.132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1468A10E1CF
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:17:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+ s=altu2504; t=1774926993;
+ bh=po6cgYQUd6uza9we04cCL9P4GtuOUVSmelm9ecj8dPk=;
+ h=Message-ID:Date:MIME-Version:Subject:To:From;
+ b=ZSzIpFVo8hCJIqbhCSr28w/6i3p6jKzyf7Wq1mlNofx6JnEC3G3mX+flKWc3XYOfg
+ N83SUmJQ+KY+Gc4i7Dvt9z1FaTFnBLjh0GXF9+BaYmWmBDPBFUhtrVFmxxtMJAdZxQ
+ +i3xbV5vHkiQHch//N+/P8FlpiFMaWHjSmsVBRSk=
+X-QQ-mid: esmtpsz19t1774926991t0fd6fece
+X-QQ-Originating-IP: B/7X6/YjpZwXkACn5sUy6oA7OR2oOjx+LTF2eQ6PFnI=
+Received: from [172.16.12.51] ( [58.22.7.114]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 31 Mar 2026 11:16:28 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 3341022901969366898
+Message-ID: <1801CF6805B8DD32+0afb49ab-a03c-40f0-92bd-d0b332f8f28e@airkyi.com>
+Date: Tue, 31 Mar 2026 11:16:26 +0800
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/4] drm/panel: simple: add Waveshare LCD panels
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
+ Rockchip platforms
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Thierry Reding
- <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Joseph Guo <qijian.guo@nxp.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260330-ws-lcd-v1-0-309834a435c0@oss.qualcomm.com>
- <a13f5d5a-76aa-420e-a724-9b4714b51ccd@mailbox.org>
- <CAO9ioeUFfjr3Dh58TQ8EB7H3NgUX04N24OXXYijiigRZ8Kkh0A@mail.gmail.com>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Damon Ding <damon.ding@rock-chips.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Alexey Charkov <alchark@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ kernel@collabora.com
+References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
+ <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
+ <acphlgK6ZmBitGJL@venus>
+ <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
+ <acsoT_i-LfoMoIy_@venus>
 Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAO9ioeUFfjr3Dh58TQ8EB7H3NgUX04N24OXXYijiigRZ8Kkh0A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 78c283372b980213c76
-X-MBO-RS-META: i9nhbihupwadqgcp4yejhwsnrjmgjoo9
-X-Rspamd-Queue-Id: 4flCp04Cl5z9v7j
+From: Chaoyi Chen <kernel@airkyi.com>
+In-Reply-To: <acsoT_i-LfoMoIy_@venus>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MX+1SEN3H+wAprBSZyZpYvedrMS6yPzCfm5hndPD+3dzYT5XYLnSa84T
+ JI5/ask68pqN1TfcA5VzCkqX/w3gxWk9mms37P08J4aeux9HO04NK06PBSuXvka64HUSx0F
+ 1+DbAUaEQWMNFDwbeo4ZDa/ug7EAo1fWSFnlpS0BbQ8iRUD7NQA3MiwiRruLlD/9eRnpiLu
+ q5MmKxG8Z6hsn07gUa99XFdgtBknAH9CoQpyLO8NxmknEAwqYzAznBhP3DWw41mjpq1XX0D
+ osMPBQ9VBaWmlNEL7u0lSYIMS22MWHHAOx9P5gRGytcRQWljwalW5FdvuGLkPE41X6V6aZc
+ At10WBbJzwN3DsBZlxMSJ0ATpZKsqAfmCx3WSiLzIIOfMuNQ56QpoPPOY0gmjorkUKm4fV4
+ 16FLUFpNQNlSm5DoUW8vfh4X41e3RZRmHxhTD9hC7gV3eeCh8fgbIOdnSZ3DoCqiCk6F5uF
+ bTrxuT8mrcwHWxYUqu17mUQ95bnNyat2NVK1ayyRmK8HXTLrODBfrBKkZjVNPa+Qa4kuTPQ
+ 8Lc7PqnaN9vp8j89WLDly4LX5kXizeBQUexxBwEQwPwB89NgSXrG+B2vF0uPs+GSF1gfsj3
+ DnT4BzSPrggUzCxxEW4ZSAAhnC9rySzHUH/UPC43EwLynLG5EtKy18xU8csEOxlerh8q7MY
+ tMTnnUbfdNMkVhE2wmZ0mTjRKkCLrRDzYmjZ35fUVQ+B3U6AEaShTUMfwiOBi2Fdvp6aUq3
+ U01zMNhvIHnLIw7h5WpjgU+2mxUmEWkbKCIsw6ym+A136cf+8ECeO1sRE6LPvda46HPzKHU
+ tNozP9S7LgMHWldWSROGFD97A3WJtes6jiqSkzwlcMZgCCV2OUjnoRpfJYHjO4zvzAbjddB
+ iaFOyWi4GlNCe8A7ffRz78BUpRvC/5PloAap47uDRs1bTsDFgoVCrupnnCWXhEiGLJaVpjU
+ t8eCpKaRKTezgtXi9wiSyIGazgG64OKxeCVQmQS/mzjIUePZqj5Sey2t2LzMccUcmIZtDom
+ mSfOQerVQGAcuJ2gvu
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,29 +95,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/26 3:22 AM, Dmitry Baryshkov wrote:
-> On Tue, 31 Mar 2026 at 00:07, Marek Vasut <marek.vasut@mailbox.org> wrote:
->>
->> On 3/30/26 3:25 PM, Dmitry Baryshkov wrote:
->>> Waveshare have a serie of DSI panel kits with the DPI or LVDS panel
->>> being attached to the DSI2DPI or DSI2LVDS bridge. Commit 80b0eb11f8e0
->>> ("dt-bindings: display: panel: Add waveshare DPI panel support")
->>> described two of them in the bindings and commit 46be11b678e0
->>> ("drm/panel: simple: Add Waveshare 13.3" panel support") added
->>> definitions for one of those panels. Add support for the rest of them.
->> Can we by any chance use the icn6211 driver in tree for this ?
-> 
-> As far as I can see, no. Waveshare kits have an extra ASIC in front of
-> ICN6211 / ICN6202, which completely hides all programming. So far the
-> interface is really better expressed by the waveshare,dsi2dpi /
-> dsi2lvds: this way, even if they decide to change the actual
-> implementation (like they did for DPI -> LVDS), we won't have to worry
-> about it for as long as their programming interface remains stable.
-Hmmm, I've seen this before, but I don't think this is extra ASIC. The 
-ICN6211 pulls its register settings from EEPROM, does it not ?
+Hello Sebastian,
 
-But no matter how the ICN loads its configuration, this is not waveshare 
-specific. I have another display from another manufacturer here which is 
-also ICN6211 that is preprogrammed. Can we instead have some generic-dsi 
-display , because I don't think these proprogrammed DSI displays are 
-going to be only ICN6211 based and only made by waveshare ?
+On 3/31/2026 10:09 AM, Sebastian Reichel wrote:
+> Hi,
+> 
+> On Tue, Mar 31, 2026 at 09:18:32AM +0800, Chaoyi Chen wrote:
+>> On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
+>>> On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
+>>>>> There are two parts, which possibly need some discussion:
+>>>>>
+>>>>>  1. I added a dedicated bridge callback for out-of-band hotplug events,
+>>>>>     which is separate from the hotplug_notify. I have a feeling, that
+>>>>>     there might be a better solution, but haven't found it.
+>>>>
+>>>> Could you explain what an out-of-band hotplug event is?
+>>>>
+>>>> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
+>>>> hot-plug events? Thank you.
+>>>
+>>> That is what generates the out-of-band hotplug event in the first
+>>> place via drm_connector_oob_hotplug_event(). The oob in that call
+>>> means out of band.
+>>>
+>>> If you look at that function it calls oob_hotplug_event() callback
+>>> on the DRM connector, which is then implemented by
+>>> drm_bridge_connector_oob_hotplug_event(). This function calls uses
+>>> the normal hpd handling (shared by in-band and out-of-band) and I'm
+>>> patching it, so that the bridges are aware of hpd explicitly being
+>>> provided out-of-band.
+>>>
+>>
+>> Ah, I'm actually more concerned with the specific types of events.
+>> For example, the "explicitly" provided HPD you mentioned here. 
+>> Isn't drm_connector_oob_hotplug_event able to provide those?
+>>
+>> I assume you’re looking for an oob event that is propagated along the
+>> bridge chain, rather than at the connector. Is that so? Thank you.
+> 
+> The connector has a dedicated hotplug oob event callback, but I obviously
+> need the event on the bridge, since the DP controller is implemented as
+> bridge. The existing infrastructure propages it down to the bridge chain
+> via drm_bridge_hpd_notify(), which can be received by the DP controller
+> via the .hpd_notify callback in struct drm_bridge_funcs.
+> 
+> The problem is, that this receives events for in-band AND
+> out-of-band hotplug events. That's why I added a new bridge
+> callback, which hooks into the existing framework, but only delivers
+> out-of-band events and no in-band events.
+> 
+
+How to distinguish between in-band and out-of-band events? In your patch4:
+
+@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
+ 	struct drm_bridge_connector *bridge_connector =
+ 		to_drm_bridge_connector(connector);
+ 
++	/* Notify all bridges in the pipeline of hotplug events. */
++	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
++		if (bridge->funcs->oob_notify)
++			bridge->funcs->oob_notify(bridge, connector, status);
++	}
++
+ 	drm_bridge_connector_handle_hpd(bridge_connector, status);
+
+
+Here, drm_bridge_connector_handle_hpd() will eventually call:
+
+	drm_for_each_bridge_in_chain_scoped(bridge_connector->encoder, bridge) {
+		if (bridge->funcs->hpd_notify)
+			bridge->funcs->hpd_notify(bridge, connector, status);
+	}
+
+Therefore, for the bridge chain, you will call hpd_notify and
+oob_notify separately.
+
+This looks redundant, how do you distinguish between them?
+
+> The problem with receiving in-band in addition to out-of-band is
+> that the out-of-band signal should set the hotplug pin accordingly,
+> but the in-band detection also checks the actual DP link. If the OOB
+> hotplug signal says "nothing plugged", the hotplug pin should be
+> forced off, but if the DP link detection fails, the hotplug pin
+> should not be force disabled, as that makes any further detection
+> tries useless.
+> 
+
+-- 
+Best, 
+Chaoyi
+
