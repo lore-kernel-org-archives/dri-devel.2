@@ -4,62 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DFD3109B46F
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 14:44:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E658109B477
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 14:50:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C785710E140;
-	Tue, 31 Mar 2026 14:44:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 750FF10E8BD;
+	Tue, 31 Mar 2026 14:50:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rj6yay0F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OCENolOC";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9509110E140
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 14:44:39 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9F4566024D;
- Tue, 31 Mar 2026 14:44:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D34BC19423;
- Tue, 31 Mar 2026 14:44:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774968278;
- bh=3Jhe3TYvRFJkGv7Zr9SSw2NSWBUOqC4UfBtpEzkNAq4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rj6yay0F8xnQmb2P+v/FnkDjrmuTOcOJYfOxuiibrcXSN9gjxUZ4lLxVRJbEbUYcS
- JN7r1VaXkvKla+H4EMfP13kjj5KfmKUrTosQUkMKLfJkQYOVXJwf1rs9/Qh5DQQJry
- ymJfWPTgj8DhkiErhAymB7y3E3e5qJLlgB66V/NM86KxvwDSkxvRgERA4O2T8AFwOU
- RDyfZ4Rs4dxSJOF36eVqZyClMR5Z1okIXEgkQ4hAts6VxccPH8hoCBK2CcfORUMbem
- q97xkpxD0/oWeQnKHq+ajwsKw9BWSA0PVbpuTEzR0lhadJ75DkuojegAu/+PCiYayh
- 5u3BksmTnqH8g==
-Date: Tue, 31 Mar 2026 15:44:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: =?iso-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>,
- Nicolas Saenz Julienne <nsaenz@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Stefan Wahren <wahrenst@gmx.net>,
- Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
- Iago Toral Quiroga <itoral@igalia.com>,
- Chema Casanova <jmcasanova@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-clk@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- kernel-dev@igalia.com
-Subject: Re: [PATCH v7 1/5] clk: bcm: rpi: Manage clock rate in
- prepare/unprepare callbacks
-Message-ID: <8a3c104f-9259-46a9-a6d2-a907d699e49c@sirena.org.uk>
-References: <20260312-v3d-power-management-v7-0-9f006a1d4c55@igalia.com>
- <20260312-v3d-power-management-v7-1-9f006a1d4c55@igalia.com>
- <5f0bec08-f458-4fba-8bf3-06817a100c4c@sirena.org.uk>
- <d251c380-f2f5-4daf-9661-bbb6dc6c959e@igalia.com>
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
+ [209.85.217.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D05510E8BD
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 14:49:59 +0000 (UTC)
+Received: by mail-vs1-f49.google.com with SMTP id
+ ada2fe7eead31-6050ff27b0dso183806137.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:49:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774968598; cv=none;
+ d=google.com; s=arc-20240605;
+ b=KtVtEjWp4VJJDZXmzRBVClQsZdFTirz3GHIySPVVIVUZ19sDTXzo4cdIuao8FxsYzp
+ H5+ogf1/MqM5watIKfjUOBneEYGe46jlFWiraWt7c3/T3Sk1B/jU6MXYnJ2jOQSRR7i+
+ kmVMdJ1uENWHSVhxYLCSVxuuStaxfCj4oHXVsrGrHpvsqDfTQxByY2nyA2lXhAAIXeJC
+ sv9gFATSePaA9fe+2H+CTftFWEBsKzihURLweI1Pf9FwtI0WRCLLagilAF2CDdLD8V3X
+ GLP7jyGmAtrWi3oC5AQOPhHyxUMTp3BWJR1Vy+7y95RBkL7xS9wOIREH677qVLAxgsDR
+ Kxgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Mkf0OB5moQvG4GasAeHoQXSqm+bAnxXSlhG9Kzvrg38=;
+ fh=2+pDEpsBbjQ461PiL8EJwTuoXdMO30MhwOxQGNKanHU=;
+ b=I00+RiKx/41KCl3P55o8QfRCPe9RIc+gH+b4Tgv1cU3IPqXPUZ1Fw7Igt1pAWuItqw
+ teb4FVYlWW9YvhIAJ1zGskMzHMFay2TIgSh9Fcv5ab7fGCcaLDd7kRiqq+qPhlmHYqCG
+ o35SmxlMbZdi1NE53YsNK97q7z/AQRCqosHHkOR5sqpKS7pu+wxu6YcGJ7K/iTb70HP+
+ iwkDAgGgA4sbtap2Mh39JLzxAiEQS+ZCtJgNZugfeDf4Ck3E5TY/lJvfowKpvnVQQ/zX
+ hYQexkrOW+GcfHLuI2MCaplnjIhI7SADM+9tndXC9/2ggYU9rw6HZ9ZeSIrdg5P7zzdV
+ qAGg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774968598; x=1775573398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Mkf0OB5moQvG4GasAeHoQXSqm+bAnxXSlhG9Kzvrg38=;
+ b=OCENolOC1qkuPXCbKr16/Pq86HcJe9udimBfAC3OFEA0OjTgnEPh3teI2hSXEraYTU
+ X9yWnV9N8r4hRfq8gEpzyHxwvvSWjCDUb7QHxy37hYzdUEDYVpsKXZ+vRKdz7IaGSYLG
+ 0MN6nHkzkvfdr1dnWb7TrkcJk2Y6nkTHM29K/ddLTzKsf/W4PkKOykpagIEbH36TjVsD
+ 6GKV8M5Eqt3746huvXEFSqIJziVLiIKBAj59f5Yo9zxcKSn/bSYgSLD5jOBWMLQ9uT8/
+ 0KTZQX9oxOQCNMdUU3rDP9yA9IwByD1ca0sk1bP5/wGsGTQuSSyuAHOONO+chYEZWtm1
+ cqGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774968598; x=1775573398;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Mkf0OB5moQvG4GasAeHoQXSqm+bAnxXSlhG9Kzvrg38=;
+ b=sZkA84V3bb9BkqtsvU3q7QiCs4mtqSmbta6R+T4l1ppwbvE/m0c8rcL8r90p5Da6dg
+ 1hcUxPC7JOunQ+HOLp5AD8UWCPUm92Xk3lUqSRR8pDiabdhz4ZQwGm2drb/2+fKIGp7h
+ /andvRqu+GYL0gz0nYAqPz245jOEJR1fYkw4P0CBa0xC3ukl8t7FdH0H9YRGknO/kUUZ
+ 1yJ5NNrkHuVsK4mel9c7MGyD0jTUfMTSbeBO7ah57kJU77YUCU3TNdUPTnU0YTItoKaJ
+ Vo+eocQjhIj37Dy6hB3HyHKm8L+tsKnjxrvqsrHtB4iD3lCxWkyn35nC9SUZePKjH9U5
+ kSfQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUqH4GmBfhOzBB22GuCV7+v/Wbqn2zXGeR4ZSGYJ0igDWNVNEHdfgn1GQe3Tv4g0+GQDPKC5jHvDXI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwY05y37ukK07eCPn4Pjhs2jgAeRIxzaEGYqCh2qXL+jGoQIPNS
+ yj6j2cHCJZVk8DNxwHE9KpmI5Yid1lGX7g7F1hpfh90NAGTT/UlpCRv6KK3RVFl8lGSmwx4TqSG
+ tPtHAxbMBhKWxtf/WEImjP+OvZxkfs7s=
+X-Gm-Gg: ATEYQzywpFMGHuFlbNVkQX2b34Fszt6kB9wynZ//HxVgC/lKVzu6rXCRFp5BmDMaChX
+ yqt/iV9DXc54lWMPbrDpehlQ88LdV3JwJ1g6nk4Rm1QrEIR9E58KD2/gNLDfpl6VrgD80tYD2Qx
+ f0ltpgwO+SNyHP17HyGcueGWL249jmH1jdtoPsSWX9629qsB/FRAoHaYcvXEq50CkMVZLrOlwvy
+ Tlr1Xn6E9awopeD2s4SUtqMgthk1VN0dcsuHbf27KvF9EwUesL8ImVIBuZN5gxiZ3qHZWrAlF+k
+ AAEx2ytGcZw/pcN6ahQtB938580lKYg4tvceHvnhCucHt9x3nR/z5lQlR1L8WGzlQ9XfTA==
+X-Received: by 2002:a05:6102:21b2:b0:5e4:9fd:5a3 with SMTP id
+ ada2fe7eead31-604f9296099mr2321940137.6.1774968597941; Tue, 31 Mar 2026
+ 07:49:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mw1gwsm7ZbtolsXc"
-Content-Disposition: inline
-In-Reply-To: <d251c380-f2f5-4daf-9661-bbb6dc6c959e@igalia.com>
-X-Cookie: I just had a NOSE JOB!!
+References: <20251224144708.61167-1-marco.crivellari@suse.com>
+ <20251224144708.61167-5-marco.crivellari@suse.com>
+In-Reply-To: <20251224144708.61167-5-marco.crivellari@suse.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 31 Mar 2026 10:49:45 -0400
+X-Gm-Features: AQROBzDb5lfPIwy7SKyX75mQJqwLgD-PcWyA8-4y-kCD_P3pLCRi3gfxi94tegc
+Message-ID: <CADnq5_P3ogoLiFumJieeLBQ6zktLO37=EwOaNtc=ROEK6Bt05w@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] drm/radeon: add WQ_PERCPU to alloc_workqueue users
+To: Marco Crivellari <marco.crivellari@suse.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Philip Yang <yangp@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,69 +113,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
---mw1gwsm7ZbtolsXc
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Alex
 
-On Tue, Mar 31, 2026 at 11:32:07AM -0300, Ma=EDra Canal wrote:
-> On 31/03/26 09:49, Mark Brown wrote:
-> > On Thu, Mar 12, 2026 at 06:34:23PM -0300, Ma=EDra Canal wrote:
-
-> > > Rather than pushing rate management to clock consumers, handle it
-> > > directly in the clock framework's prepare/unprepare callbacks. In
-> > > unprepare, set the rate to the minimum before disabling the clock.
-> > > In prepare, for clocks marked with `maximize` (currently v3d),
-> > > restore the rate to the maximum after enabling.
-
-> > I'm seeing boot regressions in -next with NFS root on Raspberry Pi 3B+
-> > which bisect to this commit.  We get a likely unrelated oops from the
-> > firmware interface and the boot grinds to a halt some time later since
-> > the ethernet never comes up:
-
-> I've managed to address this issue locally with the following diff:
-
-> diff --git a/drivers/clk/bcm/clk-raspberrypi.c
-> b/drivers/clk/bcm/clk-raspberrypi.c
-> index df2d246eb6ef..ef5ae3b4adca 100644
-> --- a/drivers/clk/bcm/clk-raspberrypi.c
-> +++ b/drivers/clk/bcm/clk-raspberrypi.c
-> @@ -160,6 +160,7 @@ raspberrypi_clk_variants[RPI_FIRMWARE_NUM_CLK_ID] =3D=
- {
->         [RPI_FIRMWARE_VEC_CLK_ID] =3D {
->                 .export =3D true,
->                 .minimize =3D true,
-> +               .flags =3D CLK_IGNORE_UNUSED,
->         },
->         [RPI_FIRMWARE_DISP_CLK_ID] =3D {
->                 .export =3D true,
-
-> It looks like the VEC_CLK can't be disabled at boot time. Otherwise, a
-> bus lookup will happen (similar what happens to other RPi firmware
-> clocks).
-
-> Is it possible for me to test this change in LAVA CI before sending it
-> to the list? Just to double check that this patch indeed fixes the
-> issue on your side as well.
-
-I can give you access to submit jobs easily enough, if you're already
-familiar with LAVA and have somewhere to host the binaries that'd work.
-It might be more straightforward for me to just test it.
-
---mw1gwsm7ZbtolsXc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnL3c8ACgkQJNaLcl1U
-h9DMywf/c7JBjgSLiPt0az2ROBbBsrilMJsPqSNTsDXA7X5NknfUFp72tFaotahG
-8vusN+z69oaPzUBfSXNsdkuURtbFw+lfZvxE4POlhNUeCVHgMtV2d3ZMkOp08tXW
-gsRgIsUPBRLUmJ1tbBJ2gLJefotLzW2GMgl9p2jn/fX9K7JGzb3WEE0mlGz+cEi5
-hhbYGyU5uEgI4inXmDrG5zb68H+yhuYSAFcmKVhGjPs+8C0UNLX8cD8sOYo64KR0
-6dYyMlGKUGrQyleLJ9kvD/k+enQTS043Vz81Iu0dGsn+RUM9J114a4jOg0R+0V4I
-JdWePwdWTSYwrYz1SOACpRqaYrMVEQ==
-=AW0Y
------END PGP SIGNATURE-----
-
---mw1gwsm7ZbtolsXc--
+On Wed, Dec 24, 2025 at 10:26=E2=80=AFAM Marco Crivellari
+<marco.crivellari@suse.com> wrote:
+>
+> This continues the effort to refactor workqueue APIs, which began with
+> the introduction of new workqueues and a new alloc_workqueue flag in:
+>
+>    commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_w=
+q")
+>    commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
+>
+> The refactoring is going to alter the default behavior of
+> alloc_workqueue() to be unbound by default.
+>
+> With the introduction of the WQ_PERCPU flag (equivalent to !WQ_UNBOUND),
+> any alloc_workqueue() caller that doesn=E2=80=99t explicitly specify WQ_U=
+NBOUND
+> must now use WQ_PERCPU. For more details see the Link tag below.
+>
+> In order to keep alloc_workqueue() behavior identical, explicitly request
+> WQ_PERCPU.
+>
+> Suggested-by: Tejun Heo <tj@kernel.org>
+> Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_display.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/ra=
+deon/radeon_display.c
+> index 35fb99bcd9a7..99a3e4c480c1 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -685,7 +685,8 @@ static void radeon_crtc_init(struct drm_device *dev, =
+int index)
+>         if (radeon_crtc =3D=3D NULL)
+>                 return;
+>
+> -       radeon_crtc->flip_queue =3D alloc_workqueue("radeon-crtc", WQ_HIG=
+HPRI, 0);
+> +       radeon_crtc->flip_queue =3D alloc_workqueue("radeon-crtc",
+> +                                                 WQ_HIGHPRI | WQ_PERCPU,=
+ 0);
+>         if (!radeon_crtc->flip_queue) {
+>                 kfree(radeon_crtc);
+>                 return;
+> --
+> 2.52.0
+>
