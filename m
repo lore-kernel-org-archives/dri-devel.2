@@ -4,58 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5DE51061B2B
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 03:06:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59A061061B21
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 03:11:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A1CA10E1D3;
-	Tue, 31 Mar 2026 03:06:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C29B310E84C;
+	Tue, 31 Mar 2026 03:11:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="OD2I7o/k";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="eEOKtRJT";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="EAc36jsH";
 	dkim-atps=neutral
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AB0610E1D3
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:06:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D7CD4112865; Tue, 31 Mar 2026 05:06:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1774926405;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=mgMBTD9z6x6OAJbl8sZRaF9Qn7eVIlVpcZc5WYtqUoE=;
- b=OD2I7o/kdydIm4eYzKrEiv/Q5++qFkip8hBr5lxiJ3zA+4wdF7rHHmphP5cz8XMnIlBjgT
- Tuzn2tLAk6GtCGxeaw8rAcSOWKn5VSq5wazTky1An1Bd5yNOtBXE52PyfXKZLX2z+BFm4E
- qpt/9dNtclfUUYxmKgB2ugzJ7S0j77YaXYM9fe02SaxgjPA5wnUqW185ujwj8MkD+kxf+U
- +P9Jyhi9O7xtOZ4UIJwMCuId29XFJ1VSofTOfIompluoeDcvaVGgYmhH17jrm3nOGh0f9G
- zoI3nzMLDQWyOCDmTyN3Pos7ETu3ia8dD4WT58gwqHpOX+OGLa6SekA+jqojbw==
-Message-ID: <bc7d5955-600a-48eb-b897-3928ace275a5@nabladev.com>
-Date: Tue, 31 Mar 2026 01:22:19 +0200
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2539710E84C
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 03:11:54 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4flCp04Cl5z9v7j;
+ Tue, 31 Mar 2026 05:11:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1774926712;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5b0E8jNb5u3Q+Hgd6Ymy+a7KhoG8hKcQuq1aRU89kZw=;
+ b=eEOKtRJTsx60J3em/LdVvUZUYyaV9INnIpi8xRHPpVnQjS6PtHhzz/RI02UZiHsqyKGXvo
+ Kq22zIPpmwCk+6MOCghf8ZCnQxRXqSgW6nnaUXiLwBqxiPPjXCpYuLwyIZIHVGvqd/7XKf
+ 7dajFrxFufZWChJaE+L21VjvAv8eKMKTowRNS2LwPxtNVPZgfyVBCkxst9fot5Im8GuW/F
+ 1yRCfIqbtbhQ32bOZTD7InHtnIlipXpIB5vOO1XOyVAevGY16asCFwKyL40RLJFc9kqoru
+ WVxvqXfEXylQFL01HH0GtTAmSK293vCBAVjTbAuz4ZaSowzJENnPaFm3gVNRYQ==
+Authentication-Results: outgoing_mbo_mout;
+ dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=EAc36jsH;
+ spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates
+ 2001:67c:2050:b231:465::2 as permitted sender)
+ smtp.mailfrom=marek.vasut@mailbox.org
+Message-ID: <982c4d97-695f-46b0-b819-a0b3d016b12b@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1774926711;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5b0E8jNb5u3Q+Hgd6Ymy+a7KhoG8hKcQuq1aRU89kZw=;
+ b=EAc36jsH0XykxzW6m0HcWUu8WqDfihs+SO/GB71bu79ayqd0Z7lcuRe2AWXKnsXb+c4dsE
+ i9/mAznX9k77/Zqccl7LFMU6RbhSgFlOhVTmekcfZSMGyo5z7bo0l6KGD69cQCj0GGVJ2T
+ wXr6gDlvLKUBwhHl+y30+h99zlch9F3J9Y8/1jlsf9Z5NWVavWHvngyIlB3LJTr6pKIX5u
+ oAjkKDnyzXb9YaXaOAHduaGk0NODni5GCRL8yPK8wdVjDZhTegI9+I++Ji+pKS68phc4aM
+ 8+E8KXyd+D27n/LA4qFUqMqTxZfI6ltf++XAiInj8nAWgAULoU62KivyojbzWw==
+Date: Tue, 31 Mar 2026 05:11:43 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: display: bridge: ldb: Require reg property
- only for i.MX6SX/8MP LDBs
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Subject: Re: [PATCH 0/4] drm/panel: simple: add Waveshare LCD panels
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Conor Dooley <conor+dt@kernel.org>, Thierry Reding
+ <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Joseph Guo <qijian.guo@nxp.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260329-fsl_ldb_schema_fix-v1-1-351372754bc0@nxp.com>
- <crqzju5cqhvmy5msxvuquydmnpb2ft2t3gsyr6qsre6ccqjvzz@46gfcrelczsr>
- <0d7c7403-4b77-42f3-82d6-eaf2be8e5b1e@nabladev.com>
- <excxf6kxwx44kepc22smvvnirptc4kxpubioxoto7nqleqhoiq@ymch4y6dd5n5>
+References: <20260330-ws-lcd-v1-0-309834a435c0@oss.qualcomm.com>
+ <a13f5d5a-76aa-420e-a724-9b4714b51ccd@mailbox.org>
+ <CAO9ioeUFfjr3Dh58TQ8EB7H3NgUX04N24OXXYijiigRZ8Kkh0A@mail.gmail.com>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <excxf6kxwx44kepc22smvvnirptc4kxpubioxoto7nqleqhoiq@ymch4y6dd5n5>
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <CAO9ioeUFfjr3Dh58TQ8EB7H3NgUX04N24OXXYijiigRZ8Kkh0A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 78c283372b980213c76
+X-MBO-RS-META: i9nhbihupwadqgcp4yejhwsnrjmgjoo9
+X-Rspamd-Queue-Id: 4flCp04Cl5z9v7j
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,37 +98,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/30/26 8:29 AM, Marco Felsch wrote:
-
-Hello Marco,
-
->>> On 26-03-29, Liu Ying wrote:
->>>> LDB's parent device could be a syscon which doesn't allow a reg property
->>>> to be present in it's child devices, e.g., NXP i.MX93 Media blk-ctrl
->>>> has a child device NXP i.MX93 Parallel Display Format Configuration(PDFC)
->>>> without a reg property(LDB is also a child device of the Media blk-ctrl).
->>>> To make the LDB schema be able to describe LDBs without the reg property
->>>> like i.MX93 LDB, require the reg property only for i.MX6SX/8MP LDBs.
->>>
->>> NACK, we want to describe the HW and from HW PoV the LDB is and was
->>> always part of a syscon. This is the case for all SoCs i.MX6SX/8MP/93.
->>>
->>>> Fixes: 8aa2f0ac08d3 ("dt-bindings: display: bridge: ldb: Add check for reg and reg-names")
->>>
->>> Therefore I would just revert this patch completely.
->> Last time, I pointed out the hardware is part of syscon, but as a subnode
->> and therefore with reg properties. What is the problem there ?
+On 3/31/26 3:22 AM, Dmitry Baryshkov wrote:
+> On Tue, 31 Mar 2026 at 00:07, Marek Vasut <marek.vasut@mailbox.org> wrote:
+>>
+>> On 3/30/26 3:25 PM, Dmitry Baryshkov wrote:
+>>> Waveshare have a serie of DSI panel kits with the DPI or LVDS panel
+>>> being attached to the DSI2DPI or DSI2LVDS bridge. Commit 80b0eb11f8e0
+>>> ("dt-bindings: display: panel: Add waveshare DPI panel support")
+>>> described two of them in the bindings and commit 46be11b678e0
+>>> ("drm/panel: simple: Add Waveshare 13.3" panel support") added
+>>> definitions for one of those panels. Add support for the rest of them.
+>> Can we by any chance use the icn6211 driver in tree for this ?
 > 
-> To quote the DT spec here:
-> 
-> """
-> The reg property describes the address of the device’s resources within
-> the address space defined by its parent bus.
-> """
+> As far as I can see, no. Waveshare kits have an extra ASIC in front of
+> ICN6211 / ICN6202, which completely hides all programming. So far the
+> interface is really better expressed by the waveshare,dsi2dpi /
+> dsi2lvds: this way, even if they decide to change the actual
+> implementation (like they did for DPI -> LVDS), we won't have to worry
+> about it for as long as their programming interface remains stable.
+Hmmm, I've seen this before, but I don't think this is extra ASIC. The 
+ICN6211 pulls its register settings from EEPROM, does it not ?
 
-That parent bus would be the syscon, wouldn't it.
-
-> The parent bus is not the parent iomuxc (i.MX6X) nor the blk-ctrl
-> (i.MX8MP/93) device. Therefore this is wrong IMHO and should be dropped.
-
-How so ? What is the parent bus ?
+But no matter how the ICN loads its configuration, this is not waveshare 
+specific. I have another display from another manufacturer here which is 
+also ICN6211 that is preprogrammed. Can we instead have some generic-dsi 
+display , because I don't think these proprogrammed DSI displays are 
+going to be only ICN6211 based and only made by waveshare ?
