@@ -4,80 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3C35FF60D8
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:23:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B454FF60D8
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 07:24:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95C4810E897;
-	Tue, 31 Mar 2026 07:23:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF90510E8A6;
+	Tue, 31 Mar 2026 07:24:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="La4IRbCP";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="SOssxE5s";
 	dkim-atps=neutral
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
- [209.85.222.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6C9010E7D4
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 01:52:36 +0000 (UTC)
-Received: by mail-ua1-f46.google.com with SMTP id
- a1e0cc1a2514c-94de68feaf4so3093760241.0
- for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 18:52:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1774921955; x=1775526755; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GAXZ+JVlQDzpRClVg4fHLc14WbopBlWfTMLP+TpCKYM=;
- b=La4IRbCPWnB6kVUMlKlbsw1AkcW3KHNyFFDPMgY/S+5ByNqxc3BJRYMWUKfVvAMdZZ
- GltSLbVMg2hasOKwXHL3hsZeTRh4PWCTrExX5PwGS7aCGj7k93d3JUTo0sPTBKpeSm9Q
- 0cdoJUwGFSO8IqGrvd5FHjQVDWPB29BEpRooD++KsevuhCFFBYb/BFJFxrD9Ktmt/Gwt
- 9EO8EG5rmw0lY6xQ4//wPbALr4GUHiE7Mle5EuWMisHeJ0ubROHU2Ax17ZlYA8ZvixaJ
- QwoucI5/hkWvJqNRLteMsToFVX5b+uI9ZIRzSk0eV2zMgQuiO0ED5VGHHzbA+PTqgt86
- EfZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774921955; x=1775526755;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=GAXZ+JVlQDzpRClVg4fHLc14WbopBlWfTMLP+TpCKYM=;
- b=RMhCYFcpabX1JnzYZPbycRjwas1AJZB/JXtcALOaubD9QYdwLroPy+oMIe1sm7l5Rd
- WZ9bBk8VRPndMs9hgnNXUMXQzyrSXThKCrREPl4FyKd2/hJmdcblM84znCXIcu1H8Ex0
- qWA8S7zE2lKPCcDzcr1K/S8GwT0DNHhlH+CnidOcrtqVVCUd7Q9szHUCAEw2twrcDRfl
- biT9L7HjjBoGgEwgRfWgaGyj3k5GZVNifKXS3BQLdPY3QIY3GZnPiXg2dDER9OaRbTsO
- uNZAXZ9cEr92e4eobHDeSvK17WBvNAS5rSdXb69tx0sJxkewwfIKSrQfM2kli/ZNUQ/o
- Ml3g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU0bMTz40VQg8P88QZpM06C6oidXmDVORqL9Vt2+Yoraro4ViXMrI9wTGSVwt6sw0cZl1+1cXrQg1A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGW5x/gO3F+MIUSlPNQbKuROc4HwU9NfTanj2Nvv9oyRwbItWh
- 40ar0g0Rv0WcEcZT4ST+10X2qlQAzem3iLQF2boJRFmihFw5Y/vtjwCAA5Fo+UbVOPk=
-X-Gm-Gg: ATEYQzzduqTSC8WY9YZDPFFoaOCyf7lSOVAUb/CXnFaMkrz1a8Ay5YvLumm1EqZzJgW
- pS86yztoFi7gM+bnd4MEx6U92aR5GiCmd0YNvRNvyf7naxMFmhHpX4zpZSkZmuV9FYuGhHnFzxM
- 5BCWfGkmOMtxZZy4MwMxiL9zuLbt5hp5wdqc8YNLPzoXUXmCFPzzFL5zbnCMJKrj+N6I9gy9+39
- D7HfWMzEGdQo9mAkXUti/L56vFJxaoC3UHeMv0D50ZtCrfUPebKD4Bn1UN2G8GZ0g2ePR2r0Mv4
- IQ7TnmSxKNZ51bkCLdx5uDfvPX68JfnBmOGkfGbsRMoh3GOGWXoo0BE+W76XIiP6s+HTDzAvYWz
- KMTt6rR3KA8l2KNMs2y4zb3gLNUuAwaCTuhMdyeI3egFWIMwD2l70Jvlap4OiTH4FXfjbl+iR2u
- tgIjvESymvNM91uHOs7YJ9YQGEwjaJ4ELjIu/LdkvaRpF594znZA+Iv0ZFOearL+8pud+6XRClY
- xfSVFm4OfkYSZkNkl/5ajZtUMm+2rV+xmaRZgFeF4lP3uLEMkPBbpkpzOuE
-X-Received: by 2002:a05:6102:5486:b0:605:26eb:cc15 with SMTP id
- ada2fe7eead31-60526ebcf5cmr3513492137.32.1774921954840; 
- Mon, 30 Mar 2026 18:52:34 -0700 (PDT)
-Received: from gui-host.Dlink ([177.33.104.190])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-605129b8347sm10852730137.3.2026.03.30.18.52.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2026 18:52:34 -0700 (PDT)
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-To: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: guilherme.bozi@usp.br, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v3] drm/amd/display: Deduplicate DCN DDC register assignment
-Date: Mon, 30 Mar 2026 22:52:02 -0300
-Message-ID: <20260331015202.51017-1-guilherme.bozi@usp.br>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAJgF-xs=3fbKQO5Mj=coPMXq0ecWmV0bJDNFN44coEHV3WS=wg@mail.gmail.com>
-References: <CAJgF-xs=3fbKQO5Mj=coPMXq0ecWmV0bJDNFN44coEHV3WS=wg@mail.gmail.com>
+Received: from mail-m49221.qiye.163.com (mail-m49221.qiye.163.com
+ [45.254.49.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B524610E8A6
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 07:24:18 +0000 (UTC)
+Received: from [172.16.12.43] (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 38f46a9a4;
+ Tue, 31 Mar 2026 15:24:13 +0800 (GMT+08:00)
+Message-ID: <26af9f46-a831-425f-89b8-c6e66a937b26@rock-chips.com>
+Date: Tue, 31 Mar 2026 15:24:13 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 31 Mar 2026 07:23:33 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/10] drm/bridge: dw-hdmi: move next_bridge lookup to
+ attach time
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-7-c7f2af536a24@bootlin.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20260330-drm-lcdif-dbanc-v2-7-c7f2af536a24@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9d42c7556e03a3kunmef6e2820a6aebe
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGUJKH1ZOGhlOQkxDTR9MQkxWFRQJFh
+ oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
+ pVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=SOssxE5suj5ZNsuWbIy+7Xf44htCzfzHoDzFo/VhGeZ+2K2xJGxUp8Qe/bk2B8eeiRFXXBBjPNj8WGF+reXTb9bNrmGb5iZazSq4V85svyX1U9z5f0KkZDL5q3Kxd/kAD5cnNbus1AYR/PEaEH/yFB5mvdB3LEdTvO34OpXgMcc=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=maTtoLZ6eXqdqKa68USyYKNJj/9x0MED6DQWvxrTcj8=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,353 +96,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Several DCN generations implement identical define_ddc_registers()
-functions to assign DDC register, shift and mask pointers based on
-GPIO ID.
+On 3/31/2026 3:25 AM, Luca Ceresoli wrote:
+> This driver looks up the next_bridge at probe time and stores it in
+> hdmi->bridge.next_bridge, but only uses the stored value when attaching,
+> and only in the DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
+> 
+> This will be problematic with an upcoming change, adding an hdmi-connector
+> using a device tree overlay when not present. That change is in turn
+> necessary to migrate the i.MX LCDIF driver to the bridge-connector.
+> 
+> The problem is that, adding the hdmi-connector via an overlay, devlink
+> considers hdmi-connector a consumer of the dw-hdmi device, generating a
+> chicken-egg problem:
+> 
+>   * hdmi-connector probe won't be tried until dw-hdmi is probed (devlink)
+>   * dw-hdmi probe will defer until it finds the next_bridge (the
+>     hdmi-connector wrapper bridge)
+> 
+> In preparation for those changes, move the next_bridge lookup from probe to
+> attach, when it is actually used. This allows dw-hdmi to probe, so that the
+> hdmi-connector can probe as well.
+> 
+> Also avoid storing the pointer in hdmi->bridge.next_bridge: the value is
+> computed when needed, thus a local variable is enough.
+> 
+> Finally, this also allows to slightly improve the code by not doing any DT
+> lookup in the !DRM_BRIDGE_ATTACH_NO_CONNECTOR case.
+> 
+> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> ---
+> 
+> Changes in v2:
+> - Fix returned error codes
+> - Added missing cleanup.h include
+> ---
+>   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 45 +++++++++++--------------------
+>   1 file changed, 16 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index ab1a6a8783cd..f4a1ebb79716 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -6,6 +6,8 @@
+>    * Copyright (C) 2011-2013 Freescale Semiconductor, Inc.
+>    * Copyright (C) 2010, Guennadi Liakhovetski <g.liakhovetski@gmx.de>
+>    */
+> +
+> +#include <linux/cleanup.h>
+>   #include <linux/clk.h>
+>   #include <linux/delay.h>
+>   #include <linux/err.h>
+> @@ -2914,9 +2916,20 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
+>   	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
+>   		return -EINVAL;
+>   
+> -	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
+> -		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
+> -					 bridge, flags);
+> +	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+> +		struct device_node *remote __free(device_node) =
+> +			of_graph_get_remote_node(hdmi->dev->of_node,
+> +						 hdmi->plat_data->output_port, -1);
+> +		if (!remote)
+> +			return -ENODEV;
+> +
+> +		struct drm_bridge *next_bridge __free(drm_bridge_put) =
+> +			of_drm_find_and_get_bridge(remote);
+> +		if (!next_bridge)
+> +			return -EPROBE_DEFER;
+> +
+> +		return drm_bridge_attach(encoder, next_bridge, bridge, flags);
+> +	}
+>   
+>   	return dw_hdmi_connector_create(hdmi);
+>   }
+> @@ -3307,28 +3320,6 @@ static void dw_hdmi_init_hw(struct dw_hdmi *hdmi)
+>    * Probe/remove API, used from platforms based on the DRM bridge API.
+>    */
+>   
+> -static int dw_hdmi_parse_dt(struct dw_hdmi *hdmi)
+> -{
+> -	struct device_node *remote;
+> -
+> -	if (!hdmi->plat_data->output_port)
+> -		return 0;
+> -
+> -
+> -	remote = of_graph_get_remote_node(hdmi->dev->of_node,
+> -					  hdmi->plat_data->output_port,
+> -					  -1);
+> -	if (!remote)
+> -		return -ENODEV;
+> -
+> -	hdmi->bridge.next_bridge = of_drm_find_and_get_bridge(remote);
+> -	of_node_put(remote);
+> -	if (!hdmi->bridge.next_bridge)
+> -		return -EPROBE_DEFER;
+> -
+> -	return 0;
+> -}
+> -
+>   bool dw_hdmi_bus_fmt_is_420(struct dw_hdmi *hdmi)
+>   {
+>   	return hdmi_bus_fmt_is_yuv420(hdmi->hdmi_data.enc_out_bus_format);
+> @@ -3373,10 +3364,6 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+>   	mutex_init(&hdmi->cec_notifier_mutex);
+>   	spin_lock_init(&hdmi->audio_lock);
+>   
+> -	ret = dw_hdmi_parse_dt(hdmi);
+> -	if (ret < 0)
+> -		return ERR_PTR(ret);
+> -
+>   	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
+>   	if (ddc_node) {
+>   		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
+> 
 
-Introduce a shared inline helper,
-dcn_define_ddc_registers_common(), and convert all DCN
-implementations to use it.
+Tested-by: Damon Ding <damon.ding@rock-chips.com> (on rk3399)
 
-This reduces duplication and improves maintainability without
-changing behavior.
-
-No functional changes intended.
-
-Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
----
-
-v2:
-	- Corrected type mismatch (ddc_shift - ddc_sh_mask)
-
-v3:
-	- Fix threading (previous version was not sent as reply)
-	- Squashed fix to avoid build breakage
-
- .../display/dc/gpio/dcn20/hw_factory_dcn20.c  | 27 ++++---------
- .../display/dc/gpio/dcn21/hw_factory_dcn21.c  | 27 ++++---------
- .../display/dc/gpio/dcn30/hw_factory_dcn30.c  | 27 ++++---------
- .../dc/gpio/dcn315/hw_factory_dcn315.c        | 27 ++++---------
- .../display/dc/gpio/dcn32/hw_factory_dcn32.c  | 27 ++++---------
- .../dc/gpio/dcn401/hw_factory_dcn401.c        | 26 ++++---------
- .../amd/display/dc/gpio/hw_factory_dcn_ddc.h  | 39 +++++++++++++++++++
- 7 files changed, 86 insertions(+), 114 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-index e0bd0c722e00..905d14079b91 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn20/hw_factory_dcn20.c
-@@ -32,6 +32,8 @@
- #include "../hw_hpd.h"
- #include "../hw_generic.h"
- 
-+#include "../hw_factory_dcn_ddc.h"
-+
- #include "hw_factory_dcn20.h"
- 
- 
-@@ -182,25 +184,12 @@ static void define_ddc_registers(
- 		struct hw_gpio_pin *pin,
- 		uint32_t en)
- {
--	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
--
--	switch (pin->id) {
--	case GPIO_ID_DDC_DATA:
--		ddc->regs = &ddc_data_regs_dcn[en];
--		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
--		break;
--	case GPIO_ID_DDC_CLOCK:
--		ddc->regs = &ddc_clk_regs_dcn[en];
--		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
--		break;
--	default:
--		ASSERT_CRITICAL(false);
--		return;
--	}
--
--	ddc->shifts = &ddc_shift[en];
--	ddc->masks = &ddc_mask[en];
--
-+	dcn_define_ddc_registers_common(
-+		pin, en,
-+		ddc_data_regs_dcn,
-+		ddc_clk_regs_dcn,
-+		ddc_shift,
-+		ddc_mask);
- }
- 
- static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-index 2f57ee6deabc..f347b8c7e2b6 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn21/hw_factory_dcn21.c
-@@ -32,6 +32,8 @@
- #include "../hw_hpd.h"
- #include "../hw_generic.h"
- 
-+#include "../hw_factory_dcn_ddc.h"
-+
- #include "hw_factory_dcn21.h"
- 
- #include "dcn/dcn_2_1_0_offset.h"
-@@ -170,25 +172,12 @@ static void define_ddc_registers(
- 		struct hw_gpio_pin *pin,
- 		uint32_t en)
- {
--	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
--
--	switch (pin->id) {
--	case GPIO_ID_DDC_DATA:
--		ddc->regs = &ddc_data_regs_dcn[en];
--		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
--		break;
--	case GPIO_ID_DDC_CLOCK:
--		ddc->regs = &ddc_clk_regs_dcn[en];
--		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
--		break;
--	default:
--		ASSERT_CRITICAL(false);
--		return;
--	}
--
--	ddc->shifts = &ddc_shift[en];
--	ddc->masks = &ddc_mask[en];
--
-+	dcn_define_ddc_registers_common(
-+		pin, en,
-+		ddc_data_regs_dcn,
-+		ddc_clk_regs_dcn,
-+		ddc_shift,
-+		ddc_mask);
- }
- 
- static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-index 36a5736c58c9..25eef1ee10fe 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
-@@ -32,6 +32,8 @@
- #include "../hw_hpd.h"
- #include "../hw_generic.h"
- 
-+#include "../hw_factory_dcn_ddc.h"
-+
- #include "hw_factory_dcn30.h"
- 
- 
-@@ -199,25 +201,12 @@ static void define_ddc_registers(
- 		struct hw_gpio_pin *pin,
- 		uint32_t en)
- {
--	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
--
--	switch (pin->id) {
--	case GPIO_ID_DDC_DATA:
--		ddc->regs = &ddc_data_regs_dcn[en];
--		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
--		break;
--	case GPIO_ID_DDC_CLOCK:
--		ddc->regs = &ddc_clk_regs_dcn[en];
--		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
--		break;
--	default:
--		ASSERT_CRITICAL(false);
--		return;
--	}
--
--	ddc->shifts = &ddc_shift[en];
--	ddc->masks = &ddc_mask[en];
--
-+	dcn_define_ddc_registers_common(
-+		pin, en,
-+		ddc_data_regs_dcn,
-+		ddc_clk_regs_dcn,
-+		ddc_shift,
-+		ddc_mask);
- }
- 
- static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
-index 5feebb3b95ca..571a6f1b0cf9 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn315/hw_factory_dcn315.c
-@@ -32,6 +32,8 @@
- #include "../hw_hpd.h"
- #include "../hw_generic.h"
- 
-+#include "../hw_factory_dcn_ddc.h"
-+
- #include "hw_factory_dcn315.h"
- 
- #include "dcn/dcn_3_1_5_offset.h"
-@@ -191,25 +193,12 @@ static void define_ddc_registers(
- 		struct hw_gpio_pin *pin,
- 		uint32_t en)
- {
--	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
--
--	switch (pin->id) {
--	case GPIO_ID_DDC_DATA:
--		ddc->regs = &ddc_data_regs_dcn[en];
--		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
--		break;
--	case GPIO_ID_DDC_CLOCK:
--		ddc->regs = &ddc_clk_regs_dcn[en];
--		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
--		break;
--	default:
--		ASSERT_CRITICAL(false);
--		return;
--	}
--
--	ddc->shifts = &ddc_shift[en];
--	ddc->masks = &ddc_mask[en];
--
-+	dcn_define_ddc_registers_common(
-+		pin, en,
-+		ddc_data_regs_dcn,
-+		ddc_clk_regs_dcn,
-+		ddc_shift,
-+		ddc_mask);
- }
- 
- static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
-index 985f10b39750..d6e97b246bae 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn32/hw_factory_dcn32.c
-@@ -32,6 +32,8 @@
- #include "../hw_hpd.h"
- #include "../hw_generic.h"
- 
-+#include "../hw_factory_dcn_ddc.h"
-+
- #include "hw_factory_dcn32.h"
- 
- #include "dcn/dcn_3_2_0_offset.h"
-@@ -203,25 +205,12 @@ static void define_ddc_registers(
- 		struct hw_gpio_pin *pin,
- 		uint32_t en)
- {
--	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
--
--	switch (pin->id) {
--	case GPIO_ID_DDC_DATA:
--		ddc->regs = &ddc_data_regs_dcn[en];
--		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
--		break;
--	case GPIO_ID_DDC_CLOCK:
--		ddc->regs = &ddc_clk_regs_dcn[en];
--		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
--		break;
--	default:
--		ASSERT_CRITICAL(false);
--		return;
--	}
--
--	ddc->shifts = &ddc_shift[en];
--	ddc->masks = &ddc_mask[en];
--
-+	dcn_define_ddc_registers_common(
-+		pin, en,
-+		ddc_data_regs_dcn,
-+		ddc_clk_regs_dcn,
-+		ddc_shift,
-+		ddc_mask);
- }
- 
- static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
-index 928abca18a18..06a4d7a8a1ac 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn401/hw_factory_dcn401.c
-@@ -12,6 +12,7 @@
- #include "../hw_hpd.h"
- #include "../hw_generic.h"
- 
-+#include "../hw_factory_dcn_ddc.h"
- 
- #include "dcn/dcn_4_1_0_offset.h"
- #include "dcn/dcn_4_1_0_sh_mask.h"
-@@ -195,25 +196,12 @@ static void define_ddc_registers(
- 		struct hw_gpio_pin *pin,
- 		uint32_t en)
- {
--	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
--
--	switch (pin->id) {
--	case GPIO_ID_DDC_DATA:
--		ddc->regs = &ddc_data_regs_dcn[en];
--		ddc->base.regs = &ddc_data_regs_dcn[en].gpio;
--		break;
--	case GPIO_ID_DDC_CLOCK:
--		ddc->regs = &ddc_clk_regs_dcn[en];
--		ddc->base.regs = &ddc_clk_regs_dcn[en].gpio;
--		break;
--	default:
--		ASSERT_CRITICAL(false);
--		return;
--	}
--
--	ddc->shifts = &ddc_shift[en];
--	ddc->masks = &ddc_mask[en];
--
-+	dcn_define_ddc_registers_common(
-+		pin, en,
-+		ddc_data_regs_dcn,
-+		ddc_clk_regs_dcn,
-+		ddc_shift,
-+		ddc_mask);
- }
- 
- static void define_hpd_registers(struct hw_gpio_pin *pin, uint32_t en)
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-new file mode 100644
-index 000000000000..863177cf67e8
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory_dcn_ddc.h
-@@ -0,0 +1,39 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2024 Advanced Micro Devices, Inc.
-+ */
-+
-+#ifndef __DAL_HW_FACTORY_DCN_DDC_H__
-+#define __DAL_HW_FACTORY_DCN_DDC_H__
-+
-+static inline void dcn_define_ddc_registers_common(
-+		struct hw_gpio_pin *pin,
-+		uint32_t en,
-+		const struct ddc_registers *data_regs,
-+		const struct ddc_registers *clk_regs,
-+		const struct ddc_sh_mask *shift,
-+		const struct ddc_sh_mask *mask)
-+{
-+	struct hw_ddc *ddc = HW_DDC_FROM_BASE(pin);
-+
-+	switch (pin->id) {
-+	case GPIO_ID_DDC_DATA:
-+		ddc->regs = &data_regs[en];
-+		ddc->base.regs = &data_regs[en].gpio;
-+		break;
-+
-+	case GPIO_ID_DDC_CLOCK:
-+		ddc->regs = &clk_regs[en];
-+		ddc->base.regs = &clk_regs[en].gpio;
-+		break;
-+
-+	default:
-+		ASSERT_CRITICAL(false);
-+		return;
-+	}
-+
-+	ddc->shifts = &shift[en];
-+	ddc->masks = &mask[en];
-+}
-+
-+#endif /* __DAL_HW_FACTORY_DCN_DDC_H__ */
--- 
-2.47.3
+Best regards,
+Damon
 
