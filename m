@@ -4,142 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B60AE7E345
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD12E7E34C
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55D4010F410;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 303F310F411;
 	Fri,  3 Apr 2026 08:59:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="GejdybBY";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="NgpBhtFm";
 	dkim-atps=neutral
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011011.outbound.protection.outlook.com
- [40.107.130.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2825A10E19F
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 10:04:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JjNnMaFiKssF+tYNCR4U8Wi2hMm0qUt87Y/k7fxfrAZ9YUvnU3YltoV/kKETjQiMCTFlTo3u6O8HX7zxEBS3t07BkQiP+QpMJzier553gmmjgtLXDCcjqkuEUVVS6kfC23oAQ0enXXSUXB2Xv7i3APHPTL84unO4Y3OVLLxbuCLWRiGuxt3RFRUcvXTlNuGvb8JreA5P08ze83BxCUhsKiO2DBWjoqGR3TVJRdCFh5wmZWX2dImiaToJZxI7WqPyWKWP1AdDB5BgXdDM1eTNUxZKuBETu2lTpfI/pIVLnYVFytc4D5NzFMTx4B3eBnJBMQ6dE2WI4jy8dvk2jVOZGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hEvjpS6UPBfktZ/1tRgSyrvAfADprBii2uGYFu8MfX8=;
- b=L/eiUTbyzLt7oE8uSs9gS/FbBrN3YuJsJZXf9JNw5/FoU+nNiT5m9KLQho/Qc8fjCdf7ZcNCwfogiQTkFxCr3APKL0XFfC16zUbzt99LvFlslqZDtU7rdXWSrB66kQU21ziQxyshzmhOXJ4GS6/qqcDhPj1EFuaj879N6XskKRROxw6958FXlwjWRwGeGiURTSZD4XWSLul2jrMDlSKroqraBXwIxoicT32XS0fT7wTxoFJyrSlfzLWS4wZBZwhioYbi+jZVwGNyHc9yxqDh8tNHzbGRotls4xzYH99Foq4eGLydmW98Q8Emt3TLj9krBw619yjbMXNF0l82cZxZSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hEvjpS6UPBfktZ/1tRgSyrvAfADprBii2uGYFu8MfX8=;
- b=GejdybBYjBC+oeNxEorEBf8LzvMWL0cI4W06HMchbhP86kUrHrtcJEoyA4ECLK452na95EDDszso2jG6xg5I0ZIamMz5hqm2IV6iwsQOvG4VxfVliAm5RlFQG5gbqlvtdklw5qQMvU0fp0xB9IDiUbcG9QAUm7w0YA5Wc1QrlIhoQgCcz0taLBiTIoR8twf73eFNXGb867frqiYDsuV1iM5ItTRvk5blnaJvUKLLEWQ7mKdt0qRMLU7RtnC56ylEtfFW+0HIOn7lvRdvAimwsBt8RzPMJLqdVyNoBZLaRXE2+f8vIc8AYAov7pEzkVqydtZhfe9TXMDEJLyn3aHj1g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com (2603:10a6:208:c0::29)
- by AS8PR04MB8309.eurprd04.prod.outlook.com (2603:10a6:20b:3fe::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
- 2026 10:04:23 +0000
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f]) by AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f%5]) with mapi id 15.20.9632.017; Tue, 31 Mar 2026
- 10:04:23 +0000
-From: Guangliu Ding <guangliu.ding@nxp.com>
-Date: Tue, 31 Mar 2026 18:12:39 +0800
-Subject: [PATCH 2/2] arm64: dts: imx952: Describe Mali G310 GPU
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260331-master-v1-2-65c8e318d462@nxp.com>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
-In-Reply-To: <20260331-master-v1-0-65c8e318d462@nxp.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Guangliu Ding <guangliu.ding@nxp.com>, 
- Jiyu Yang <jiyu.yang@nxp.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774951984; l=1928;
- i=guangliu.ding@nxp.com; s=20260331; h=from:subject:message-id;
- bh=thkFkag55OK6rhNhz9WUUkmf0JKTjNO2q/irVhMiMh4=;
- b=+L0HfmjEBM/t2IFC4vV/G+i+t66C6YEWij8iGc2uE91L6RGZpjWGamfrvR/1+s5ObvRwpXCl6
- u/b6X0QLM0/CZahUnYOHaMmvk3QYm5lFMd5G7SS+UNtnPjyPuOl/1Wi
-X-Developer-Key: i=guangliu.ding@nxp.com; a=ed25519;
- pk=Ozo8o/sk09NyO6URvn0eD0v0uVHduT/yJzVGTAJ9gxw=
-X-ClientProxiedBy: MA5PR01CA0112.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d1::17) To AM0PR04MB4707.eurprd04.prod.outlook.com
- (2603:10a6:208:c0::29)
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8248610E270
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 15:24:24 +0000 (UTC)
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62ULIC9K3706628
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:24:23 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=rVzD9RZ8DOj+OZScnURt3JaaKOoh5Y6w5keNNJrEDEk=; b=NgpBhtFmItDM
+ CNbcwb/E9DkdCKHJ/+HXG5nYnUCSAGdnK0J1DywzsfubqT3zoyDOiorROwlve6f5
+ Fabj2p7OS4l9/vDda/nt1iaWFhmj/dD7ikbmlCSU9C3dxHoD/BW1829WKG1gSNUo
+ bvhspgCJNM7QlFoJ6rz3LBSz57IF68o48IZ5V4B4vXaE0cFVG0Wx1twzhAphguZA
+ x2QO4KynACOL7v8zMEgjTg34ybae8h4kqqcSIVWunaNwvXNvzVjB0rqBMikZSh7r
+ g5YEFzd1SPUtzJOBJK+aZ0ehLdWWfxZnd/kXQFeHL1MALxrPKcsgO9HqIAQQZ7ex
+ Zwkn3t7Umw==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
+ [209.85.160.72])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4d6y3rna43-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:24:23 -0700 (PDT)
+Received: by mail-oa1-f72.google.com with SMTP id
+ 586e51a60fabf-41c08879ba3so24581791fac.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:24:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774970663; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ZjdL7JZdLqFArM1J+dJ4wA0dmlayuV5ggLckO2V3TnKN6XmLtwAhTfzmvbMHXbMRAU
+ KBAgIjlIAYl2fzJfSarxJDHC6sH0OOwiVfnh6fgUBao4pdRcuklUEIvANkfIRr3O04ZM
+ mLjnz+6fqSDmDbs73/8rWhCimgd2C5sN5ZVZYinDGheqZG53EtubM2z5+pVRjs4ulAc8
+ KieQPWxup2d9lKhkzhGYwV9NCRyqlL/jYmbzvtyKsU3dTYQdrLQBdBYWrVr6S69+neHP
+ 3IkEswZrGyFXR//JbgEHpy+rudSaZvLPYFecZ0RSEN81DDxyaoF7aWLiA/yElChDh7ca
+ rKIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version;
+ bh=rVzD9RZ8DOj+OZScnURt3JaaKOoh5Y6w5keNNJrEDEk=;
+ fh=fs6hsuJqUymRFaY68g7SrM82h8LW2Y21oYfBcRALuQc=;
+ b=NKYXU7K/LpG9k93CHUU2sHG6MIDqK4vsV3RLhU3az+5srzPwZm6dUC+ff6I9VU2tig
+ vSuENNvw2IvQz4zwU858KqXz/SmK7rjSZQIuzhS60ISMXSlqWxIcQQIsx1heBIVoKF5E
+ WQnW8zu6XtkBAA2wOVkKNmc1BDALz4VWSpoWPlrusMbzcZlU0p9XfNFXumVmqhdlw348
+ hWCVEWB95iMqab7PYIfpJjH97/1i1o7ygmGqYhOWdXCRPkzYovRHSmibBlPd6MsHOYF9
+ xkGi+uCJC+Y4uXMPj5J1pSdXmtpbYySB8NYwQ5W6Fjv9xQ/g5nA0SQ7YBO0OV23mkF9m
+ rIag==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774970663; x=1775575463;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=rVzD9RZ8DOj+OZScnURt3JaaKOoh5Y6w5keNNJrEDEk=;
+ b=Y4QWiYmT/6xBqsWASvqGXhqvJNrREmYHJXBxjEhTAF85zmgLICE5bFKNHsw82OQOsH
+ /9cAsRMvuNVKcBj4p2+OvYBMUvXjqXGxWD9EFLQZhgAKxQEw/FNem/DbmwKTAP/UFymD
+ rePuojr4vrxZsYZiCxAxVu8KDPwesZ/flmHQpRliAnyEpIOQwsV41XA4L7qrgU4lzC6P
+ c4trVG3jogKzxMWHVN1njbR9SFT4MsLzJ3rD6NNccZCC7T/MH+lJ9dLYTzL7W2Pu1lXo
+ seCs2xcc6su0n/h+LKiNUVf/BdsajXWKQwVHfLY8giKkecVRA2hdVkT52CfVB6Y1G/5I
+ 5wGg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXVlB2noYsNGCtPtJGFXpY/3SYQEx38LOf/DWxCFRKE5B631LhddMvRHDqTWe+Qnb/7WjL3nQBwVJQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNn5sXv3JhLfr5OAMPdeiss9mV1h2aXegBdm2QDM4kSkT++Ee8
+ fpkwShSdQUSCQ6G2aNmL2b88YLMCAeGdMkvBBN5zxnv2VEmLmEEkD8B8Qj0SjUgQS14aSNnwnMJ
+ C6Sy+RyURFDICRp/u261T0EICSl6MUwFvkDq3Z8wdpmepj3x7c3tCxiX1pGbzSCeYO2v8VUtjDa
+ QwGpj2kWQlO1LEosqVRomDVsC6zGESA7Z/a4To4PSkK6I=
+X-Gm-Gg: ATEYQzwGBVqMCiOQoDpG9hfBnnE5cIEe4gV1UuvrhGSa+7o3O5n7sV5IeOWKYZ/oTUR
+ KkLqOgL4O7XUPdqCYiofCTH+w+83+Bj6yL2hvKr8VZg9jKftwUBVYG+ZkvxifmsQoR0G+SrZBpq
+ jfmY4Mr5CY7Ma9GOQMtAYJztv4xBWmiLJof0BXE67UmRqjiRT/oubSqtfXOueDJA==
+X-Received: by 2002:a05:6820:2901:b0:67f:31e3:81a with SMTP id
+ 006d021491bc7-67f31e31008mr367469eaf.2.1774970662812; 
+ Tue, 31 Mar 2026 08:24:22 -0700 (PDT)
+X-Received: by 2002:a05:6820:2901:b0:67f:31e3:81a with SMTP id
+ 006d021491bc7-67f31e31008mr367434eaf.2.1774970662327; Tue, 31 Mar 2026
+ 08:24:22 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4707:EE_|AS8PR04MB8309:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bcd6a4f-0f75-477d-805b-08de8f0ce237
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|52116014|1800799024|19092799006|366016|38350700014|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: oGngS9L8jUGkFnY9VheQsGbiIg1wDbdoCY0Cna0XRNZ2/5qLqLThI6k82U8JzTsNKwI1jG3+J6lq/DNlxpADNIdgQL1LdcD8sPYEGcGAMEwaO8+IEPk3yOgyl+rNtcqi3RLxQzjv/YnGq3HMsLBOmFns5k1ML9Jn/WFDsKgU8qiI7GdjDA2Mh5ryVpj/YdMDHmTDEbAs3lhu9s4Ex7sKWm82gy454cZh/ehvdoORZxdCN1gM0vKdc1FobxpWnbuJymJPtv8lT2lFHplWIa1NU7hlxbhDkhEc6y1fOD0RblkAV1HNkwee5MKZWxpkUMK3e0PqoPnWB4/aWNZABRiIbeWIFFCiDjYk5NJEEDyOND2DqDoimjCRYknwGIxlBLQv1gL2YQEJt03YHPQMyFoJ3PbpBnBf476aV6QSqwpaYBqIvikTEma6LRH83uS2ECobkZzikYPtRaNa6iMHJ0q7waMiQHFngVbBgRtHIPuMxZviYxAE2b/X4EWrL4joqOr0BowfbLo1xqZHNFuZ8/vqJMmrZXAvglTj542UDcgjtm0jIvcG093FOuZHO7udMhUQDKDHy4jZ3h4yGUahoAb+4UimneGECr1m6PpmSOlDSYVwNEtxJ+8vdwzJycl2uKGxNip74YtrMps88yOAFsEGJQ4GEhw+a/5YC5C28f9LgNROQ/2AWqHbVx6kvODPZIV+ZWtlmTbiKRXhnfYryK1whZxeS8C2AiFbyCyxEWc1kYx7ntU18Jx8x7GCypz+EttX5Ud6trl3uzXbL5AYLSY/sTt80J4ziQ+8rZpslg3cIS++fht6xLNqsP9whtAMWqcv
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR04MB4707.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(52116014)(1800799024)(19092799006)(366016)(38350700014)(921020)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDMxTHV2T3Jwb3hvb24ycFcyRm1HTmVlMnRLK3JKOEdEdEszUGhWYy8weUs1?=
- =?utf-8?B?RHFmUEpOamF1bzdjSGd0d25nazdVTzlFYisxRzBESSs0Z21BMC9CU25LNFl4?=
- =?utf-8?B?YW5tNXRQcVNKc1BHSWRndUxEZG1velE0VVZlUHZIQWtjeDV6Snl3MmFiVVZI?=
- =?utf-8?B?T2UrbnFvMmlmRHRCUXpIN2huQXFuZ1lMWjN4YTBRSHVlSjBJV0dsL1Jxckcy?=
- =?utf-8?B?OXh6SkVseHdkOFlIcW9RT0UvK3A4UEtTbzR0WVBqV0I1aEpGb1dnOHJ4NTBt?=
- =?utf-8?B?dkwySCtVaE9YTi84eTljSURRTkk5b2wrTi9ZYzFySU5yVlFiTzBsUFlTR0to?=
- =?utf-8?B?ZjgvaHRoRVdBMDBFcGxDcnJxSWJOaU56OUNLUm9MNWpXMzFyZXZldkszSDhz?=
- =?utf-8?B?NTEvbHcrRHU1dzU5amlJb2phYVFqS0lsQUxHa1E5VXZ3dWFuRHJva1VmdkNC?=
- =?utf-8?B?ZDRtcWYxeHk3bkNxNXkwVXkwL1k2YWI2alpFYkxzM3FKY0U1aUV2bWV5NExv?=
- =?utf-8?B?a1hwTktiUkRLTzdIdFNkZEVDQWI5YmR1VzZxMkFxLzdubk9CekV6eVhHZ3RP?=
- =?utf-8?B?YVh2VDBseC9WL0xLT3EweDl2cGpac250TGJySkFXVlpxa3Y0eTVEYWI0M0VV?=
- =?utf-8?B?Q0hrS0pvbzg1L20wQVc4Ky9iMHUwOEZhNXVjMTJJZ2U1K1Z3YnJhblZRdGRT?=
- =?utf-8?B?UkRudU1ZdVl0czA0a1piK3lMUVIwMUZvS0pjcmYydVVWUHhVcU1hTS9ReWNU?=
- =?utf-8?B?Tk9RSFk2RGUzcHUwbHVieWhhOU1HYXMzT2dYeTRBZjFXbG5hT1RHYXpwcm5j?=
- =?utf-8?B?RTF1Ny9ja1RKV0xIakd3KzIzOXRubUVDbzNBcERkZVR2YThUZXNtNVg2bzZG?=
- =?utf-8?B?MTNyMWtXd2N4TC9jSzZXT0RiSXF5a1lvTnRJRDgvT1RwKzdneHpxcG1hcGt3?=
- =?utf-8?B?RHBhMDU5RkNUOTVlTWdGblhVNFZTNCtJQ2pMZ0lVeXpnVmlkcC9tbCtUcnNn?=
- =?utf-8?B?Q0VJSkVxck9WYzFzZWoyK202c0JZQTg3SVp0Q3M1T0Ezd0Q2KzlTNnhRMnZN?=
- =?utf-8?B?Yy9sTkpGRnM5RkR6a0ZMaG9PSkg5VUVIdk9lcHo4YUwvVmd5WGszd3ZmRk9D?=
- =?utf-8?B?NC9OenJiVDIrOHljRUozdU5WYStHQ1RIdGtiOFlYOVFqWHZyc1Q4MTQyYnhY?=
- =?utf-8?B?akFSZnptczc5L1YzcWRLMFVJSjhTTEZBa2ZvcFBVRnhjVFJ3b3Y3WWhqNEtj?=
- =?utf-8?B?Q3VMY3VSUUcrc3k5Wk1HdUl1Y2t0MFpKSXBHQ0RrNGhUNG1obnRYVlhxS3ly?=
- =?utf-8?B?OFcrRmRZeGYvcTdRNGR4RXZsOXplNC9UcXRMdlRpeXF1b0lMQUpCeVZtTXhi?=
- =?utf-8?B?U0VpT0NhbTh3ZTRrM0daQVM4STJ0MlkxRkx3U2ticTN2YUE0c1ByYkMzNEJV?=
- =?utf-8?B?eDZQZGZhTnloNithaWJ4czBpVDhNczNKR1l5akxIeGl4a1hpZTlvTCtFckx2?=
- =?utf-8?B?OXh6YlQrMWhhTGMyWGZ5ZStPVFJCc2RBTm8wZkExcEVuS1dBZGVnb1pXdndi?=
- =?utf-8?B?ZStWUVV6TmxRVXV3b0UySjBWcVhQVERwRzExaElQZGwzQUdHdXZhQWFlMVl3?=
- =?utf-8?B?b3NGMTJPTG1ZUk5NTFU1OFVqKy9rT2ROQWNaRnMyZnhJZTQ5enpMS1VwYi9h?=
- =?utf-8?B?Y2p2UEp6WHovUTdDQ1RDZkdqZVIrUnl0Nis2Uzd0bTcrTnVZRE9yQnZoZnhV?=
- =?utf-8?B?V2g4UGFibWtDU2RFcjJqUlFVNmVRWVpidE5PaDFXMTVyNThKRFZON2RJRm5z?=
- =?utf-8?B?cnJsdXNjR1RnVUF6VWpCZkFzSms4bDhNUG4vUFNRZTBkaWFVRjZUZHROVmx3?=
- =?utf-8?B?ZXZQcDNDQktkblIyWTA0WWdDQ0VnRENrK0VRV2lFYjBja0s5Qi91bzA5VnE3?=
- =?utf-8?B?QzVNZk1CbUhBUlhlb1RtTjhVUFlGeUFmb1Y3T2NpUEJJcE41SUlBT0twa3dJ?=
- =?utf-8?B?WjJMOHpYTlJxV2NsYlpUaHJ6RS9FY01JS0VhZ1BSZzQvOEhRVGZSdGpGVTFz?=
- =?utf-8?B?Q1RzM09TVU5ZOXcyUkhvb3BXdGlTd25xS0hMZWJSUFpsYWNjZVRDcEMyeXlP?=
- =?utf-8?B?ZDZ0WCsrUjJyaTBDZ2M1YmNVY1FYa3NBL2VhdGlOSEx6cmljZjdyaHNZK256?=
- =?utf-8?B?T0c0aDJCckorQUcwL2NVU0huTURjQjBCdmN4S0hFYm52dVNKczE0bFpzMXRO?=
- =?utf-8?B?S3Y2N3R2K3dMNHpJd2Y4NVRidE5OOTZpR0xrTm1SNC9pMXNDSlVEWmlDQ3dh?=
- =?utf-8?B?bmYrblB1cml2OFY5enBUT285N3pSYUQ3dUJud0VZeXIya2I4UG1FQT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bcd6a4f-0f75-477d-805b-08de8f0ce237
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4707.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 10:04:23.1962 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MDw7VfGnvcQjLoTe19Eqz488qykHmLUjJHCW/RtuaceXwFX3+NRVnypRaeiWeI7VAW+hEGUq1uc0gKjzhZn7Tw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8309
+References: <20260312184613.3710705-1-mattev@meta.com>
+ <20260312184613.3710705-10-mattev@meta.com>
+ <20260330133336.GT310919@nvidia.com>
+In-Reply-To: <20260330133336.GT310919@nvidia.com>
+From: Matt Evans <mattev@meta.com>
+Date: Tue, 31 Mar 2026 16:24:11 +0100
+X-Gm-Features: AQROBzBjz_Oa24Ou_FBmQkKdtClzBrzQA9IDx3XIRw5UCOwDpX9lbYyqY3Y5W8c
+Message-ID: <CAFzAbJHqnuV2vA-LPQy3xo1KesLUxJOCtS4FigsaZtaZEi19jQ@mail.gmail.com>
+Subject: Re: [RFC v2 PATCH 09/10] vfio/pci: Add mmap() attributes to DMABUF
+ feature
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Alex Mastro <amastro@fb.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDE0OCBTYWx0ZWRfXxBZjxJ7v3IQY
+ X2qtC+s0BEKosMfuXlLbnNmSo1vyk01d66Ga7PVeXmXhLJMRIJuAm7cuSU46Qg3obJZ0aSYo+oy
+ lFUJb/dJLcgivCky5MNQRTivrsle1P9mvoqSGBa6zfbfT3ronMuBa56Nl0PMRD+OTBM4fsgALsg
+ 3D7NC0TBo/AE7JP6YkFkPT37BDOtfGBcBYOC6wA5mYhOAFF/TuQsbDPQz5b9t3o6118d32790vd
+ wQud0hg9dovqTQax32YlcXYk0TP0duRJbfzVp8aUN7PdZkqDd1oSy9UAmfEyTqlvbf/hPMgDIko
+ lXE6NsLz2yHD/eNz5bgNOFwuxfvA3/hrRwQg/dZufJUE2tXGfXeaqa2pr/BXxvi085Flvxet+1V
+ PpRIUS+Sd4rr29jjiC7qvQbX9QFNHjjp+8Yl7r3xvVDYIFPDhtFp2uWbHmCoHfCRZsJl+AtJl2Y
+ ZjCRxMYayAGUIdODTPA==
+X-Proofpoint-GUID: mkG-4Z15iKp53-ecEjefi8W3iey-y34F
+X-Proofpoint-ORIG-GUID: mkG-4Z15iKp53-ecEjefi8W3iey-y34F
+X-Authority-Analysis: v=2.4 cv=f/5FxeyM c=1 sm=1 tr=0 ts=69cbe727 cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=8elwO82fXORLTBIkMd32:22
+ a=Ikd4Dj_1AAAA:8 a=scxTcjKw9OI2Du0FDOwA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=eBU8X_Hb5SQ8N-bgNfv4:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-31_03,2026-03-31_02,2025-10-01_01
 X-Mailman-Approved-At: Fri, 03 Apr 2026 08:59:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -156,69 +147,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Support Mali G310 GPU on i.MX952 board. Describe this GPU in the DT.
-Include dummy GPU voltage regulator and OPP tables.
+HI Jason,
 
-Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
-Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx952.dtsi | 36 +++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+On Mon, Mar 30, 2026 at 2:33=E2=80=AFPM Jason Gunthorpe <jgg@nvidia.com> wr=
+ote:
+>
+> On Thu, Mar 12, 2026 at 11:46:07AM -0700, Matt Evans wrote:
+> > A new field is reserved in vfio_device_feature_dma_buf.flags to
+> > request CPU-facing memory type attributes for mmap()s of the buffer.
+> > Add a flag VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC, which results in WC
+> > PTEs for the DMABUF's BAR region.
+>
+> This seems very straightforward, I like it
+>
+> Did I get it right that the idea is the user would request a dmabuf
+> with these flags and then mmap the dmabuf?
 
-diff --git a/arch/arm64/boot/dts/freescale/imx952.dtsi b/arch/arm64/boot/dts/freescale/imx952.dtsi
-index 91fe4916ac04..0bd3e7fc0674 100644
---- a/arch/arm64/boot/dts/freescale/imx952.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx952.dtsi
-@@ -318,6 +318,28 @@ usbphynop2: usbphynop2 {
- 		clock-names = "main_clk";
- 	};
- 
-+	gpu_opp_table: opp-table {
-+		compatible = "operating-points-v2";
-+
-+		opp-500000000 {
-+			opp-hz = /bits/ 64 <500000000>;
-+			opp-hz-real = /bits/ 64 <500000000>;
-+			opp-microvolt = <920000>;
-+		};
-+
-+		opp-800000000 {
-+			opp-hz = /bits/ 64 <800000000>;
-+			opp-hz-real = /bits/ 64 <800000000>;
-+			opp-microvolt = <920000>;
-+		};
-+
-+		opp-1000000000 {
-+			opp-hz = /bits/ 64 <1000000000>;
-+			opp-hz-real = /bits/ 64 <1000000000>;
-+			opp-microvolt = <920000>;
-+		};
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		#address-cells = <2>;
-@@ -1262,5 +1284,19 @@ usbmisc2: usbmisc@4c200200 {
- 			reg = <0x0 0x4c200200 0x0 0x200>,
- 			      <0x0 0x4c010014 0x0 0x4>;
- 		};
-+
-+		gpu: gpu@4d900000 {
-+			compatible = "nxp,imx952-mali", "arm,mali-valhall-csf";
-+			reg = <0 0x4d900000 0 0x480000>;
-+			interrupts = <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 289 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "gpu", "job", "mmu";
-+			clocks = <&scmi_clk IMX952_CLK_GPU>;
-+			clock-names = "core";
-+			power-domains = <&scmi_devpd IMX952_PD_GPU>;
-+			operating-points-v2 = <&gpu_opp_table>;
-+			dynamic-power-coefficient = <1013>;
-+		};
- 	};
- };
+Right, export it with a requested attribute (as possibly some
+sub-slice(s) of a larger BAR if you like) and then map it (no
+attributes need to be specified at mmap() time).
 
--- 
-2.34.1
+Thanks,
 
+Matt
