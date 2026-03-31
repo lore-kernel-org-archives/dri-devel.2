@@ -4,75 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F351061B2B
-	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 02:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E92E81061B2B
+	for <dri-devel@archiver.kernel.org>; Tue, 31 Mar 2026 02:30:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5161010E82C;
-	Tue, 31 Mar 2026 02:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5025010E112;
+	Tue, 31 Mar 2026 02:30:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="CuS522qa";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Y83y0m39";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2376510E82C
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 02:09:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774922983; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Mq49b4yEp39YKrhqmwHQRs/CeXAdK5GjIboI26aie2PTIZsZo6rJAY8Yg7wFkZZFyI3TVqKrw8q5Ghu9qrQj8sLfhtc+5rfTyBhVEIjktT0p+OCS5EXlxBk+qInLovHNae5hLB8O/mmdsO1bHnwe7bgSU7O9vF7ySlUJ7ZS8McI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774922983;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=IEuGrUysFVxeLUPGjMChGPVnPmXoL/wPeAu7zXo5F9o=; 
- b=RmFnn0nE4eipNnLvfX1n4ioD/gyvTyx1sPrBCEFKclLHhi3QMa1uN+/MmE6q9g1BhuQZDmTgC7AosNArPDBlf/D2a1YbhWoMD2TtQajwiUO/9ZCrUPa1Ogykt9+jcieze3e8u5lgc5YmAlJg83i3BGpRKtYw5tHoU28llPzDeG0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774922983; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=IEuGrUysFVxeLUPGjMChGPVnPmXoL/wPeAu7zXo5F9o=;
- b=CuS522qaYmc5tOdAU/F2Cr3D6pHPTCISKXRhmZ6LJFRPwNqaLYjM5lScnxv78/wh
- jUV3obk4qlUv528jiHoJPJlfR9nhVpfLRDv2JuQjMIIWfhnhaUh8kw6x7zSqN5OTO9X
- 28kN2gaDlhQQF8u971l8Kpxol0kBVzVswzbYfI1k=
-Received: by mx.zohomail.com with SMTPS id 1774922981566898.5670100894222;
- Mon, 30 Mar 2026 19:09:41 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id 403B9181F55; Tue, 31 Mar 2026 04:09:35 +0200 (CEST)
-Date: Tue, 31 Mar 2026 04:09:35 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <kernel@airkyi.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Message-ID: <acsoT_i-LfoMoIy_@venus>
-References: <20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com>
- <FE1BFB774BE13241+54b8a8ce-5a8c-495d-a53f-65a2440924fb@airkyi.com>
- <acphlgK6ZmBitGJL@venus>
- <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61C3C10E112
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 02:30:43 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2b0c12be0ecso55685ad.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 30 Mar 2026 19:30:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774924243; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Y0/J7RGlDbup8DqCsorCatDDS8aWKk34+K6p+Muuhq9e4ZyTOU8/TOEOFKEFdiAdpU
+ t+C+7+5//ONy5U97ZwCDw0S0jXnU0x/q6GU9ETuFSYo7eeaWx8KDzL7F8GB17EmfBIJK
+ IKBFszUrwy/QJBUGM5DUPV5EblMJGXzrACYsT3+fD8beOyvsZjMauqFT4tEzeamw7qgu
+ rYpnz3QQ6Gi24W6VlAuH0uQrGuKPIsPTPppYal/R18MRV7lm6nwtuUAMh5fH5IQJUyK+
+ QQigRSjwZcHFHAsVktGR3DlrWw0+pll+0vYlSGaZFbovL3kJ5nYtKEvJ49l77dte5Qp4
+ KQBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=CxEMwE7XhRFVwtUnHZD0iqEi0s+7BCCjt74dKY4n/78=;
+ fh=ZJLQcuhgR39Us5cR0Q5ORadUNR0I98arFiZ9f5V5lbs=;
+ b=VxFuraQub2U+bzWABRH/NBD2rEzX/clySk3N9nnhjy1L2pe13xBRQu0IQ1S+Wj1fG7
+ YsTAwJp6AlUbh6HlNP0rYyUicLsRMwcnO7DXNzjYiJD6hgZCFXN8tFCZ2oO0xXe944G5
+ Vv9iGbyvZzUqQkuLN4fjoHMnrBP3R8qI0iwtQlma7JEfeRSTG1QEE+r5K+13yZkJle5w
+ VR03qHsYG3qZQRz7aoA22zJRbDs6CeRqSdj8MH6WBuF0XKRt91Pe8/amGUERlj0eeagh
+ y6Jw3cvNrFT1Y9eGGiHx+6R4Y5U96XoO/5GWUVbxEqfAvWl7spmZQmWKVCigD2oC1rme
+ ZNkQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1774924243; x=1775529043;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CxEMwE7XhRFVwtUnHZD0iqEi0s+7BCCjt74dKY4n/78=;
+ b=Y83y0m39WecmcMutV1iLTG453vV/TjK6odmBXso89nxOm4Z3VlPsBN4KJnLhIiPRLP
+ v2gEWHrNtNfxZrLsGUsu6peqiN422x//BxZ2PBpWyPF/wC/t22mFz8gNcvV6GvEO5Ty3
+ Tgs+Zg+ZSAFOJIf5Zwa5drmSbxR+RfxU1X8CLQtNuKS7GERO8hKTuqXC9m2C8cs/lIj8
+ sPwRrKMn1sGjPlZ5osJ4t7rFGroChEZeXSiXrypwLfHbDWKspNlIi1o7DBVOP2ZArbtN
+ 8kViy940JpdIV1fzynEz3rwcW0iZyrpC5tb+Sc+uo/SlqH4kcSaaEZJg5lJyXZwfrjCr
+ 41wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774924243; x=1775529043;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=CxEMwE7XhRFVwtUnHZD0iqEi0s+7BCCjt74dKY4n/78=;
+ b=XCWEVF75GJGOPT+l4c58EsUoAKRCBTp5FwBFkwCiv89pvaYL8u1fJX+N9krSCruNt1
+ V90Dohgpd21kZUj7WwzNWsed2Ha0n//6N3pgLfHnqJd4OicSA6htgTp9JKFOxSntWgyu
+ WAGIWPLnFvzvBnel7htvgxDv5ZUCkDjuLweBhwx0Ys056haYxYqzYh/WMI1zx8XEqTm9
+ 1eBOT099olXRFAP9Grb5/cUXs8xc9UY8ADUchbPnNKt21CHyW24dael/AQp0V7YkFjRM
+ Je3fchkpMghaAwbVKWu1BUhcMCyJ6fdBH7ROMxxQkrS65mhueLivmzOBPVOpqWQ1ZZMl
+ r/Pw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVfG4+ZKlAmxh03mnW+vfE8QqXc9ttNkFL5og+1evx2uT2mj6qvIKz8v6dwwOrVmY0SrANDizRwMr4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAHyHlOJ3nnBRLAZxkGJye26o8OgY6KP0jFLRzsLTyRs9ZXYNo
+ ILMGQVJc5e2CoEfrvln694uT6jz9VMGQZ/evzOfIBtHWdxxWO06z+dU5N6GkgAWB1LDeRZ6ca0T
+ UcxkzwPVLFkU8Fk/Ngnkzr6lB1tsgwmWPl0TRu5NW
+X-Gm-Gg: ATEYQzzeTKNNRbd7bE7oBvUNyahpWdtPyaV7Yfmys5Yt1vys7MtP7EIHVvnIlbpOk4u
+ qZEVAYwZofPaoca2ZLT0AIaLewWAf7SgQdQ4MVznZdSkqEVD8U0zKCMp/+rg5BrhYffjO46ZwXb
+ WmIp6DDWbSdJ8irURCWj9bh4y39UfHw38+Brz0TT2E28LhBZHN9VkXqR8BlBRj03tOrkI/Kaiti
+ CMVo8gTLx2nNWJ3tO7spw/Fdd4H7EADRgoxcXvq5uqULM5lSjyb3saywrx3CUzJ/+aAvrTDCyhf
+ 0xfisgts8ThU9LMqLy4=
+X-Received: by 2002:a17:903:4b04:b0:2a8:ffed:4663 with SMTP id
+ d9443c01a7336-2b25f7e1e32mr2002305ad.12.1774924242081; Mon, 30 Mar 2026
+ 19:30:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="yaujaqtrdlo2vvms"
-Content-Disposition: inline
-In-Reply-To: <AFAEA46A791878B0+9fe68e46-8d8f-44f1-80e3-dfad2de51832@airkyi.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/274.894.35
-X-ZohoMailClient: External
+References: <20260324163159.2425461-1-lizhi.hou@amd.com>
+ <1e573513-b281-4ae3-9140-7a87ee9dab08@amd.com>
+ <45bc86ee-cc0f-2b99-f876-9e8861be365e@amd.com>
+In-Reply-To: <45bc86ee-cc0f-2b99-f876-9e8861be365e@amd.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 30 Mar 2026 19:30:30 -0700
+X-Gm-Features: AQROBzDU0-cKOCBMRHhVZ8CqXZdjaby5Txt2fmg0-hRqPl67nKIIzlqK3g0pp3Q
+Message-ID: <CAP-5=fWFnuZt5CvF--qLfsp6eKkCSUHttCVzp_pzEqT57ZupDw@mail.gmail.com>
+Subject: Re: [PATCH V1] accel/amdxdna: Add per-process BO memory usage query
+ support
+To: Lizhi Hou <lizhi.hou@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, ogabbay@kernel.org,
+ quic_jhugo@quicinc.com, 
+ dri-devel@lists.freedesktop.org, maciej.falkowski@linux.intel.com, 
+ Max Zhen <max.zhen@amd.com>, linux-kernel@vger.kernel.org, sonal.santan@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,93 +111,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
---yaujaqtrdlo2vvms
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 00/10] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-MIME-Version: 1.0
-
-Hi,
-
-On Tue, Mar 31, 2026 at 09:18:32AM +0800, Chaoyi Chen wrote:
-> On 3/30/2026 7:50 PM, Sebastian Reichel wrote:
-> > On Mon, Mar 30, 2026 at 09:34:15AM +0800, Chaoyi Chen wrote:
-> >>> There are two parts, which possibly need some discussion:
-> >>>
-> >>>  1. I added a dedicated bridge callback for out-of-band hotplug event=
-s,
-> >>>     which is separate from the hotplug_notify. I have a feeling, that
-> >>>     there might be a better solution, but haven't found it.
+On Wed, Mar 25, 2026 at 11:47=E2=80=AFAM Lizhi Hou <lizhi.hou@amd.com> wrot=
+e:
+>
+> Applied to drm-misc-next.
+>
+> On 3/24/26 10:01, Mario Limonciello wrote:
+> >
+> >
+> > On 3/24/26 11:31, Lizhi Hou wrote:
+> >> From: Max Zhen <max.zhen@amd.com>
 > >>
-> >> Could you explain what an out-of-band hotplug event is?
+> >> Add support for querying per-process buffer object (BO) memory
+> >> usage through the amdxdna GET_ARRAY UAPI.
 > >>
-> >> Can't the drivers/usb/typec/altmodes/displayport.c respond to these
-> >> hot-plug events? Thank you.
-> >=20
-> > That is what generates the out-of-band hotplug event in the first
-> > place via drm_connector_oob_hotplug_event(). The oob in that call
-> > means out of band.
-> >=20
-> > If you look at that function it calls oob_hotplug_event() callback
-> > on the DRM connector, which is then implemented by
-> > drm_bridge_connector_oob_hotplug_event(). This function calls uses
-> > the normal hpd handling (shared by in-band and out-of-band) and I'm
-> > patching it, so that the bridges are aware of hpd explicitly being
-> > provided out-of-band.
-> >=20
->=20
-> Ah, I'm actually more concerned with the specific types of events.
-> For example, the "explicitly" provided HPD you mentioned here.=20
-> Isn't drm_connector_oob_hotplug_event able to provide those?
->=20
-> I assume you=E2=80=99re looking for an oob event that is propagated along=
- the
-> bridge chain, rather than at the connector. Is that so? Thank you.
+> >> Introduce a new query type, DRM_AMDXDNA_BO_USAGE, along with
+> >> struct amdxdna_drm_bo_usage to report BO memory usage statistics,
+> >> including heap, total, and internal usage.
+> >>
+> >> Track BO memory usage on a per-client basis by maintaining counters
+> >> in GEM open/close and heap allocation/free paths. This ensures the
+> >> reported statistics reflect the current memory footprint of each
+> >> process.
+> >>
+> >> Wire the new query into the GET_ARRAY implementation to expose
+> >> the usage information to userspace.
+> >>
+> >> Signed-off-by: Max Zhen <max.zhen@amd.com>
+> >> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+> >> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> > I'm assuming you also have userspace side ready for this too right?
+> > If you have a link handy can you please include it when committing.
 
-The connector has a dedicated hotplug oob event callback, but I obviously
-need the event on the bridge, since the DP controller is implemented as
-bridge. The existing infrastructure propages it down to the bridge chain
-via drm_bridge_hpd_notify(), which can be received by the DP controller
-via the .hpd_notify callback in struct drm_bridge_funcs.
+Sorry for a naive question, would support in procfs be possible?
+There's support in perf for displaying DRM usage stat data from there
+[1], for example:
+```
+$ perf list drm-
 
-The problem is, that this receives events for in-band AND
-out-of-band hotplug events. That's why I added a new bridge
-callback, which hooks into the existing framework, but only delivers
-out-of-band events and no in-band events.
+List of pre-defined events (to be used in -e or -M):
 
-The problem with receiving in-band in addition to out-of-band is
-that the out-of-band signal should set the hotplug pin accordingly,
-but the in-band detection also checks the actual DP link. If the OOB
-hotplug signal says "nothing plugged", the hotplug pin should be
-forced off, but if the DP link detection fails, the hotplug pin
-should not be force disabled, as that makes any further detection
-tries useless.
 
-Greetings,
+drm:
+ drm-active-stolen-system0
+      [Total memory active in one or more engines. Unit: drm_i915]
+ drm-active-system0
+      [Total memory active in one or more engines. Unit: drm_i915]
+ drm-engine-capacity-video
+      [Engine capacity. Unit: drm_i915]
+ drm-engine-copy
+      [Utilization in ns. Unit: drm_i915]
+ drm-engine-render
+      [Utilization in ns. Unit: drm_i915]
+ drm-engine-video
+      [Utilization in ns. Unit: drm_i915]
+ drm-engine-video-enhance
+      [Utilization in ns. Unit: drm_i915]
+ drm-purgeable-stolen-system0
+      [Size of resident and purgeable memory buffers. Unit: drm_i915]
+ drm-purgeable-system0
+      [Size of resident and purgeable memory buffers. Unit: drm_i915]
+ drm-resident-stolen-system0
+      [Size of resident memory buffers. Unit: drm_i915]
+ drm-resident-system0
+      [Size of resident memory buffers. Unit: drm_i915]
+ drm-shared-stolen-system0
+      [Size of shared memory buffers. Unit: drm_i915]
+ drm-shared-system0
+      [Size of shared memory buffers. Unit: drm_i915]
+ drm-total-stolen-system0
+      [Size of shared and private memory. Unit: drm_i915]
+ drm-total-system0
+      [Size of shared and private memory. Unit: drm_i915]
 
--- Sebastian
 
---yaujaqtrdlo2vvms
-Content-Type: application/pgp-signature; name="signature.asc"
+$ perf stat -e drm-engine-render -a sleep 1
 
------BEGIN PGP SIGNATURE-----
+Performance counter stats for 'system wide':
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmnLLNsACgkQ2O7X88g7
-+prmkhAAjDm4M4nMr7eRb8BBJebGTWT4fZ5RCqQUQp2qlPxp2H7ejOzNdsIScKOy
-Fg4Bkkn3ROZ7G6svVSjkAf/pN3fAZoUJd7LPILYJgemGN9mvQvR1g/WDf+L1aYqR
-oPTeJkV3v5hcOpkYEPYH2nibSA8RqwUfxxGC2VLo7Sdzx6rFLMpvctM8BH4iZIfa
-nKdyqVBuu+QHMIwMbdQDngjHYHxFKEtKibzShG3sL/sGwD3kMUX+QliB6PRr0B0O
-BY3+aIlqWoAxBc1HKanTwYP2Syo6uRUNb1YJwZ7JG8BdQgtxSWhc+wyMMncyZead
-4R+2Hdr+egKMcxpd4ISADDtsr1KjeKvA5p5AoXQKZfngCB/glGu+kTH+CG555zAr
-g/vYXTs4inZfBollzyHgcqVqY/2rcNtHhD1K7I8gq8i7cAeSo5BFe4G+bnpDHE3s
-kiyOfKokqgCg0Ql++qf4/Vause/0KaOY9e9VauD8FMNDzsiQ19YGihRsI1VSzeG8
-UCAVauBMt7xBKSTEVS7PmUtZXa20DuhtQqwIGpGnPXuk72gmdxIDDlUM1Wva9eyt
-niRqdC6KyOqrf3Dc8U1JhwPb1fxAJ7iLw3xGXIlEaFjd+yqcEVvPhKNJ2iVUNrup
-GF8lP5Po5r4LXBio3AACey2f1nc6z6jBaSya5T1jmalppj+LnDU=
-=iO8H
------END PGP SIGNATURE-----
+  557,542,732,344 ns   drm-engine-render
 
---yaujaqtrdlo2vvms--
+      1.001575975 seconds time elapsed
+```
+
+Thanks,
+Ian
+
+[1] https://lore.kernel.org/lkml/20250403202439.57791-1-irogers@google.com/
