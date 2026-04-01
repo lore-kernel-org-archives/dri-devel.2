@@ -4,159 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E784D1076365
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 05:00:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FB6E1076365
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 05:19:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47F7210EC18;
-	Wed,  1 Apr 2026 05:00:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC86310EC36;
+	Wed,  1 Apr 2026 05:19:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kaiB+mk4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HEQm82+s";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D82BD10EC18
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 05:00:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6995310EC36
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 05:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775019640; x=1806555640;
+ t=1775020794; x=1806556794;
  h=date:from:to:cc:subject:message-id:references:
  content-transfer-encoding:in-reply-to:mime-version;
- bh=t0z5p6McdmwhUUqN+eJfX/05F5gN3Jpi72HFKhDbpJs=;
- b=kaiB+mk4+Ti9sQkrYlRBatwMjrwFnqUcAZIP/frIe9sE2f3m/E33UcXH
- ZePE/S3yUNjGckFTcY+HFRbxiD8LIvPOmZDrww5ofAPzXdXd74fUOzDY7
- +ulXE881dboAWBeC3MTudgek+3nh56KJlVbrYyHqK71qZUrCnevtd/3Mn
- OJqAndhNFtFVwkJXxHJWxqUzPyHZ3NDabdFADqmV/NDebhG8XBPBh9NU/
- T6rJVItKMHblP2e184hCZEiHFkP8duoZBQS1KAvcN1+omXh/JOBv5Ht25
- FfmsZKBe8usTp/bn4HHtBbSw+OtYVaGevavYDlJwycNBCZntQ3EDF86+5 g==;
-X-CSE-ConnectionGUID: fsTaNROKT3eg6sJnQNk7BA==
-X-CSE-MsgGUID: JwOAL78FQ1SerkxK+GxCnw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="87506934"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="87506934"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 22:00:39 -0700
-X-CSE-ConnectionGUID: 0C0z3WuESMqaSwt46QZZmg==
-X-CSE-MsgGUID: xKDQlp5xSjKmJnjf21SK3Q==
+ bh=4EuBglrsK1+RTn8r4z1MVMeIuguyGB9r9tfaOL3F/RQ=;
+ b=HEQm82+sWU+v+mN/oXs1ycl5SRoF9ODzUPCndfHH2iKB/1lQya4dIqj4
+ 3Ak2g1wum8a4YqLjhkBtHqmlHaviflucSG0z30sHcJLIVpl76qdSW/+Vr
+ vHLTYEzc39p4CR2Z2TQeFf1asua6JHVes7FCkEYeG+J6dS+C+CF9+6p3I
+ cX+gy5PdmQgFmsxghlPBd9X2+sKDi+kXEBdhwGfnSZi98i/8+5FFeXyJP
+ Hkum3kBuOBrCK6P1pRXFzhjBlbmm3N2zokiwPECA0JG404P9ruQ5meXwF
+ sdx3lw/H1Jo6V0wb85ZlKxzWs8nE+Ip13d7fqo1jfeqYt/1bVM564VWsM w==;
+X-CSE-ConnectionGUID: opgnobBAThiXrmfpovaWcA==
+X-CSE-MsgGUID: n3yLuq/hSvGU9ouU92pAQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="76061560"
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="76061560"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 22:19:53 -0700
+X-CSE-ConnectionGUID: /hL54sdsSBup8SpPGShPlQ==
+X-CSE-MsgGUID: oE5BTgRiSe+Ms0+kRaS+kA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="226442524"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 22:00:39 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="219916534"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 22:19:52 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 22:00:38 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ 15.2.2562.37; Tue, 31 Mar 2026 22:19:51 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 31 Mar 2026 22:00:38 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.48) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ 15.2.2562.37 via Frontend Transport; Tue, 31 Mar 2026 22:19:51 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.70) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 22:00:38 -0700
+ 15.2.2562.37; Tue, 31 Mar 2026 22:19:50 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C758O2LU14vQo8djJw/Dm5AxhjL5d/czUeXsk2M6+m6oCmnVOSPW33emWDoxTzfS4NrTZ33wg3qJcjP+beQfXgbMexV0Sx7O0pd/zZ1DROeFfZV63xFkarL05Xx3g7Mobgblah5fA0gZ91qR3C2gThJ0WH3cc55Gf404dwCe9lavIJvde4iJhLAYOrvEdi9Capn06C4pErD/WKFXTEiC04EJL+GD9HKt+6AdjsiTBOh5TpNosEBr7R/CGZZN1MQPfTrkctVXfoxiqBuodSGk5In04oU5et2s5KH/xs0/Jc92GWaClIzeOHMG+dqoz+lubfJh53b4VssVoV38HxBkTQ==
+ b=UiyAWFsDTV0VCqICbXV2hNWVb5sT5tgCD+wmJIfqUSPeO92nKBnqjIpr1bFn+yVPQcOCpuHc+1K2spNRlC0fN6cTYNdxIxLbx0EA2S/a3n4/ytrCeZmQvXZI20qwepk3chOpUPOej3arMgTQKJNpGM4iZ+8vuOWEumttGALqJqV3dDbYViCxpliJntUCR/GzyUvrMuZ+4r928UJ1vLcjnphN6g2KkV9Ot1o+YBIN+XMqGgxQa5IDyXnjqhWtr271EvQncF45ZDYal6z9as/mYsCIlJadbSP/M69yU8zFAo1obClyfld7XEiLpfkw6z+Hl3pj+JmUrpPB26c5ETMfHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pkTjT/yE6NXa9dwgMvtICOP3GgyQEilQABm4gVlFI44=;
- b=n24MjzOeKiKWmux26QKpvoY0DmR9lLxy+9XWkHFmHjjKufeJCYQSFLm2EnLLoHGAW/fb42F0fwpO93g+37qz2UsC6xXl9kY1XS8vuyhBClA1DhKRbELmUopdQIOnrn0Nkw4thKc6kPev4y2rbehnqwBxSnGljVbNl2ienyfl1BKFMnwHX2NCCSQK2NLODjw6SxL8MUuvijP6puFg7VGL1oPqXhQ12ESBwmuHSlwxCp5UoX3/mvmS/8eSbim5Yb/8COOsg/dZnv5C8lNzBPgz4ZVKHSA8Q8pppRbAlhON1UzihbSag6oL5K8Hz/ZY2F++h58au/MKtxQS1Tgvz4x8QQ==
+ bh=KV02XT5yrjVo2YBR2XmiU7QzHjJ0p8DowmYyKgbdPcQ=;
+ b=hju1vtkX/XKr+vrUlndkSvrS8xBQuryI/abyZ67Wwyl7DXWlhE40TrQA54mSYmGPglT35rpMZyjQ6/ODGeADQBsWJewbc7/5cq1octGQAXYfjKQlFG8mcmLUy7FspBP6R+BjWYMs+TEoBAsCXxIZzCWJyE/UTmMea2GU6njv+aYB3k/OJ6gvvbfLyZSLfLWaA67OCX90zaUP8ObH+obL8rMRrdClpl1YMIn8bz60f7PbdmOFtg5Ue6Ebk6XDA8epApzQcLWkbBTFjukytGn0OupcOi0t6ujzXzloD+3UXB71hltEYmW4scAbY3kvCYeY3lekQfwXXFJUNW7/87A89w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
 Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
- by SJ0PR11MB4800.namprd11.prod.outlook.com (2603:10b6:a03:2af::14)
+ by MN2PR11MB4759.namprd11.prod.outlook.com (2603:10b6:208:26a::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Wed, 1 Apr
- 2026 05:00:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 1 Apr
+ 2026 05:19:48 +0000
 Received: from BL3PR11MB6508.namprd11.prod.outlook.com
  ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
  ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
- 05:00:36 +0000
-Date: Tue, 31 Mar 2026 22:00:33 -0700
+ 05:19:48 +0000
+Date: Tue, 31 Mar 2026 22:19:44 -0700
 From: Matthew Brost <matthew.brost@intel.com>
-To: Lizhi Hou <lizhi.hou@amd.com>
-CC: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <maciej.falkowski@linux.intel.com>, Max Zhen <max.zhen@amd.com>,
- <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-Subject: Re: [PATCH V2] accel/amdxdna: Support read-only user-pointer BO
- mappings
-Message-ID: <acymcah+Wlt/T4sL@gsse-cloud1.jf.intel.com>
-References: <20260331172635.3275296-1-lizhi.hou@amd.com>
- <acylqAdORtJs4cgO@gsse-cloud1.jf.intel.com>
+To: Alistair Popple <apopple@nvidia.com>
+CC: <linux-mm@kvack.org>, <zenghui.yu@linux.dev>, <Liam.Howlett@oracle.com>,
+ <akpm@linux-foundation.org>, <david@kernel.org>, <jgg@ziepe.ca>,
+ <leon@kernel.org>, <linux-kernel@vger.kernel.org>, <ljs@kernel.org>,
+ <mhocko@suse.com>, <rppt@kernel.org>, <surenb@google.com>,
+ <vbabka@kernel.org>, <dri-devel@lists.freedesktop.org>, <balbirs@nvidia.com>
+Subject: Re: [PATCH 2/3] selftests/mm: hmm-tests: don't hardcode THP size to
+ 2MB
+Message-ID: <acyq8B7/Uwowj+kl@gsse-cloud1.jf.intel.com>
+References: <20260331063445.3551404-1-apopple@nvidia.com>
+ <20260331063445.3551404-3-apopple@nvidia.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <acylqAdORtJs4cgO@gsse-cloud1.jf.intel.com>
-X-ClientProxiedBy: MW4PR03CA0158.namprd03.prod.outlook.com
- (2603:10b6:303:8d::13) To BL3PR11MB6508.namprd11.prod.outlook.com
+In-Reply-To: <20260331063445.3551404-3-apopple@nvidia.com>
+X-ClientProxiedBy: MW4PR04CA0222.namprd04.prod.outlook.com
+ (2603:10b6:303:87::17) To BL3PR11MB6508.namprd11.prod.outlook.com
  (2603:10b6:208:38f::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|SJ0PR11MB4800:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38a133f6-af60-42c0-7de5-08de8fab9ca0
+X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|MN2PR11MB4759:EE_
+X-MS-Office365-Filtering-Correlation-Id: b63a8535-f320-42e9-b758-08de8fae4b27
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: rsH9Gp93XwEp9/X0c8KBYXYVoc01D0LiA4ckrfZO6RpJw7ZPc9YmQEeKSPputqufdBiFkWE7qBbXGJeU+SKRojrOE7fNHZOqED2NUhCdZ42O669TAUaLGqhqL/CMEU0Ua1mT6zDmu+tJC6O5jM/rALge6mLMyAU45Ai2D6yEsK68g7k6bFY1d+L2np7Lx3m3IhQKQnpGMTc6e2ksgZCs7mqZ43PRRo7Qr0WnzeFAAQvyYKQ4CJQi5wofS8WBiuYbqG3zikJ6roh4Nj5SV8tqhgrC1NosBqPOjB0yVG89CbXkmPXSZOuj2qrNp3Q0lpBai8EQgEgyK6+Oz58O+D1XkxDG7Fcz5TR7iBsngLLHZbjvXqEzpy4w/9UF0YFH+O4kxRJ49+L+HDeE7qIeHJX9Uf3qqYB7YjT2xXRbo7U40vYK847TeH3/hEzoClw2Jb5RMAfhDc1v1Cs9QA4JhhCKmtsvD0yNrVnv2UEzNDtVY4CyswINWF76cAde5+Jm7Ywinn6t0KUVZB+xuQIJ0SFxEgZosV4fbqAEAHM9/TE68JM1YafKndSDx20C8C4QUOxzxyMiEedUnk6szTeRm/fqoyNOWFZMRwBS9A6CMYLLIFD43Lq2BQPHmN+wHyYTbDpQj3Hvd8X2/sqVVpQ2UtyzGiR/XAKsqMoLhELjYBlR2b5Vk4/YkunYxqFKN7SrU7Z21eQLQTSRMupBN4rWAWFH5yNfAt+dNoLqwB7F5GM57yE=
+ ARA:13230040|1800799024|376014|7416014|366016|56012099003|22082099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: OJesxqDEmnITQ87XmtHS4x/TiX6ezeOjHwxHkowpudBKmZSSd7gis3kDb4uWa9doWo9DQlwvRRNM7vQlxTFXGjr0qxp4ycqc2VjypyjmZog6R98T7n/HNpthyjGqP6ShJpgbPiUxcf8o4GS3jr0rsbed0YQfFYwHPBYkDf0q2axEA4vI39KVuQuBkvJRTiUnaqm3cZ+/lTg5bE47x+bKMUp9pd1Lu00zVlfSPY2Sz+0keHRSXk1CPx/mAUUiLz45mo/fGyc+MioT7xHbm5duaymAYJ26IvtXSsNkosEpCKdUDWAn/nlUYmP/JanuCSfh8mdnN+W/3IzZ5DDByI/0KBnnMJaNWpDGQJDJCJRayGmu3WyktAUwPmFgBtlH+xD9dwsY5tBOm4rb+TTfwpGjv3vgKi05WJZwANdlxPyeYzrpy/pF90Atwn4mMwayJJaZC61UkYdnDZ4g1cAMwyqzcslZFmj14bBkpr1gcE8x9+AKY3w35ESDfm73jaOvJeMU9+CminS0p6wv/MxXQZY6j57vYVXnvybGzUoA0lTpEQ4MBlHS2XWx7a5q52Q88an7nz/i3Wj7btsQMFqByfHCxyPl44vCENenUOznAKXdCY8CTgUkIRpuPyjEPx95qTRp/fHAA594u0YW0W4eWNjNw6L/DiADVbizIVdO9Xr5Xdugd8dqvSjaYn/TTPsNgA1E
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(56012099003)(18002099003);
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(22082099003)(18002099003)(13003099007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YkVDeGVJdmQ3VUJqZWZ1cGtmZjZkbUNXbFI0U0J1NWNyMm5vQ01TRkwwTzZY?=
- =?utf-8?B?VnRuQWt4STVWTG5hNktIY0xVdGFaa0lCQTJCUmhoS0RUL1VSOUgxaytod3Ry?=
- =?utf-8?B?RkZnOU45YlFYYWFsZ0lQU0E1c0RSTDVrK091amxYT1N2dGk0OC8wdzJXZTJs?=
- =?utf-8?B?N0J3dEtnTjRwWHBocU5QOFNQa3V5MHNlcVNDQ2ZaTDA5RXNrT1hacGhpQ2ND?=
- =?utf-8?B?NFVyMVRMNFdlcjBJZmlxa2NPSFJrY09PS0J5NnVhdG16QUxMUE9CTmRTYlJm?=
- =?utf-8?B?d0dlUWJPYVlQZE96UzhpdnBoVUhzYWNKOEdmaHVlcGhnVlNqdzZrZjk5N2E3?=
- =?utf-8?B?cUtoNnZpNG5OM3VQRDQ0aXcwYUZqRWhVS0JxdVpXelF2cnA2Zkx0RG1aRWRN?=
- =?utf-8?B?dkQ2ZzdjZzZkaEhDdFRrZ2Y5Q0lmemJGRENXYi9TMTVVZFJvOUwzeTJiMnlP?=
- =?utf-8?B?dHNVRC9zZStUZXhQRGg5anJQUHZZTUVjMWg5N2hVbzMxYkNVUGxkRngvdHRF?=
- =?utf-8?B?SEhZM1g2dVZtOTFaaTZwK21maXJKdERKMmFMNGlQcHBxNnBWYlVTaFhFR3hz?=
- =?utf-8?B?QzVrYjBPb2Evdnp4TUxBU3J4d09kYWEvUHBOTGlZK1g4NTF1a1VibHF4U3Nx?=
- =?utf-8?B?NlhNMlV0WVlJZVZMOE1XSnRaTzI4QWdQc1l2ZWVNMlNxd2xMMURzN0hZTjRr?=
- =?utf-8?B?ckVXNGRiZE9HZWlsdG1OVlJnZXoyK1h6Q2Z2TmxnUm1CY0RBeUFqS2NXVmpp?=
- =?utf-8?B?Mjh6eG5venZIRW14b0xSeDBSMUlnRnYreVJDNTJYU2FTbVp6OVZWZ3FrYWNx?=
- =?utf-8?B?cmxrbTJra3RRMG16dnVldElqViswL0RlVVFoZUtJWUhOWE5HRkpYbXhRTkk2?=
- =?utf-8?B?cGNpOG03SFFqK3gxdzBUSFhhQzZ1MVhDUkIwNktLZG5TSFlIYmRRNDlTNDZD?=
- =?utf-8?B?dU1CcEQwUFpjYXcwVzg1Vk9BMDBzNW1oWGt3azNNZ3RnVlNHbS80Q2hJWEJW?=
- =?utf-8?B?eE1QejhpNHREdktwMXUyYTNLSkxRUm53UTBXa1Zpa1R3WEpMa0FxRXFQUUJ3?=
- =?utf-8?B?MTcxcHNxR2U5SnYvdllCbzgvQ2hBVlRYWldDSThxM0poaFVRcUNZMFVVWEtq?=
- =?utf-8?B?NVNzK1VnbjVOVkR0YnlrdU5TRE1Mdkc5cDJ5SWtyMUtvU0hydnFkUHFRd1hT?=
- =?utf-8?B?eDVFUXIrdmlCR1hrZzRQOVprN1hod1cycnFQS0k3cFB2MVpwb2U0UGpjRlhH?=
- =?utf-8?B?TGNvZnpIbk90QlhZV0NTL2JQUVJZMDd3bzhzOGpOdy9zUUJFRmxhblR0cUo4?=
- =?utf-8?B?TTl1QVBxMldPekdBbzhnMjlTNCtXbVZCMTR0WGhHSVkwNlJ5eDdMaHYwbEsy?=
- =?utf-8?B?bVRVKzE4NEdUNU0xL0hhL2tYVWZhVHhaMWJOa1gyZndGMld0UTloV3R3cWlB?=
- =?utf-8?B?alJpYkhyQlk1QmdMNm9QNzdyUVRwazM2N1FDd0F1SzRrV2lxeWxmNFYyV3Nr?=
- =?utf-8?B?NHp4Z0I0ZFV5OHFHalZjNENaZjIzcTM2ZDRrbzdQbXBRQXcwR0YycUlVeXlY?=
- =?utf-8?B?L29PSlpCM1M5cVJRM2plRmZWWVYzR1hoc0FSVTNYdVZTZlJwV1VoeWEzNS9m?=
- =?utf-8?B?czMydEJDQVJqeGpvMWh6SEVXNmV6ZXV1SEdLaDJiVXNIcEVucFBEamh2VXJW?=
- =?utf-8?B?enA2d0hwM3lrVGNBcGNIZWRrSHZxZmJnd2I0bWlZUGVQZnRVTXVyclM5anhC?=
- =?utf-8?B?ZXRRcU1EeWFzalBhaGZYcGEvWjl5KzFuTVJOaHdma0ozaXFJOG01OG1oVjlQ?=
- =?utf-8?B?SXFqRWlXdUtPaEEza1FrTnR6TkxrV3BVTkJrc08wd0tqMlpFbGFiOFdmK1RG?=
- =?utf-8?B?WmZTUjkyeWo0MjZyT0pKTERNZXFEMTU3RFY3N1RpR0RySTIyQ3hkQTR6Qk1y?=
- =?utf-8?B?V0k0N3NKOFhRMk9VOG9jL1h5RUZPNG9iU2FrYUpXQmhTUFV3VnEzSGtkd001?=
- =?utf-8?B?cTlQN0NzUlRFTFV1ZEUrQ0RyQkhHWjM5anVSMUd3VmhUTnM3WDJRdWdGbStO?=
- =?utf-8?B?N1ZOTUViQk5pS0tLS0N4Q2RlT3ZhclFpL0UvQlZCUXJCdUhrei82MWJoRWh3?=
- =?utf-8?B?clF1R2I5M3RWbzVQL3BZWkJES0JhOEhCZTZnamoycWVCSER2MUREd09KTjdr?=
- =?utf-8?B?ZG05QXZSMERDbW5LdVRLVGR3NjJtbUcwRmFsZzNIUklvb3lWbUFXeFZ0SzFj?=
- =?utf-8?B?WldkYStzemo3dS9KVVFNWStvbk5Fb3piN2RHOGpzMGFLeURUc0Y5bGVPaXl1?=
- =?utf-8?B?S3Z2UmgzVHFCRFYyYnBuVnIzLytCMCtpbXAyVmNrOVIwb3VIQ3pBRWR2aXAv?=
- =?utf-8?Q?mopcrJnJIzwa3kPw=3D?=
-X-Exchange-RoutingPolicyChecked: eFdUkIm/UTrVE39NZN6iuFmdEeMPyXVJ6pdtKYoQsEGVCUKSYCsU82mnZ+7+O1GEJIHq1xXNJ1l8xckS6pGtRYi5rDJ72NM6RFQxxwx06Em6UjJt3ddLb/kE7AE0Sd9M8iPZXWSNNMetWCf2GP1AWgv1YYITnwbTO/Bbfc3lqOmtzP7ENX/Mzv7M4bgLW9bt2XeTUOwHo3BHdtcOefnYtH+Wjim8d/oJKPOOLGxmln6auShW3E3N4HxkXzPhhIV7Wrg7/MbF1yQoD1fJslziKdjWRl3dT7xS3R7DI4mD6qUUNu/AjSLMH7SV1In2RB/atZG8aGqsC5LHiVtTweG2Sg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38a133f6-af60-42c0-7de5-08de8fab9ca0
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEhRc1pNZVN6bDVBT0dRVm9jem51Y3pxQ0NSVFh3ZnY3dFFQNkZMczgwSk1F?=
+ =?utf-8?B?TW4wVWlQb3JWZUVYY3RHTjdHZUtlQXAvMWx4MTlyY25WYzlGOWtqUzVnQ3Nu?=
+ =?utf-8?B?QVJDZUYyZjZsYk12S0ZBQ3REeEVFM3grY1lTWDVMOHlKNnN6bTVyTHNnSXFy?=
+ =?utf-8?B?d0FMdlZnYTQwTFZBdWpBYkZ0VkQ3b2l3dVFQQ09STW9MWWRkYkYzeGRlZERm?=
+ =?utf-8?B?OGFkRGdsa0szcWh3QnpuZ1RKUGRDNDNyT2ZsL2JSdFQ0bjdnaWlrbzFVK2h2?=
+ =?utf-8?B?OTRScXdvTFl0WnFqTjg5emFnU0xxZmJKZDVVMVlPcEpQdExIaktQNHlVRmJE?=
+ =?utf-8?B?UzVVKzFtNUR6RldLM3ZhZ09Zejd3TlZEcXFLeWxCT081b1lHdXM5UkkzMnZn?=
+ =?utf-8?B?aWtZOHdPNjBDTlcyN09RTFJrVXhnNkV3MjJDeEZ4OFo0MW80WXNOaGQvQmZD?=
+ =?utf-8?B?a3VIUDAyVWtVMVNabWwzSGc3bVdVaGhYZnJkQWFHZ2V1VFVYRjF1akQwYXdZ?=
+ =?utf-8?B?UnIrSzEwTWRsNHFSM0tVVC9IN01NMHp0dXhsRjZaemoyaFVza1k3Y2ZJaEVi?=
+ =?utf-8?B?Zk1kVTFJRlJYZFdJK0h2T0hZMklvR213akpnSWlmYmhobU5qUHk1NHF2SDhE?=
+ =?utf-8?B?T0VqSVR0aVMvKzBOREE0ajB5Z3hmNzN6MG5nOHJjYTNSNSs2dVVtbWdoUXJi?=
+ =?utf-8?B?OWFhbXpsa1A5dCt4U3BwQUlSa0krNTdwc0dwcEp0WFBhTnUzaFYya0Mzd2U3?=
+ =?utf-8?B?Ync5bDZuR1JzaVVTa1hVSlpOYkFJM2EvWkNlMmpDN04vOFd3YXJLYVIzeGNo?=
+ =?utf-8?B?S0cydUEvMGo5TCtFQmxnanRyZEJHcmVOTFlhU2ZpTXNQcnIwazRuZ3dIc0Nk?=
+ =?utf-8?B?V2JTU3pxK2VqNkQ2YW1EOHNvakVacVFQV2FPSTRPbUVXSGovZ2ZTYW5OTmM2?=
+ =?utf-8?B?dEg0S21pVXdQM0JFZTJtcWpYSDNjY3ZKd0FlRzdVQWtsUEVsMkRibTRUV0pS?=
+ =?utf-8?B?Q1RCd1lkVGk0ZG0zQWNVYmdJaE1NMks5aWt1OUhoRmtNb3RhcmI0cExjSTNS?=
+ =?utf-8?B?RWErY3lNb1NvNFYwakNGTEhGTVZaK0V3QkxMUksxVHhFVmROK05WRVlUL3Jt?=
+ =?utf-8?B?cW1wa2R6aDRHdzJiUzRxbk1pUEtiR0Qwdis3NWxqZFYwcEYzbC9rMmpFM09K?=
+ =?utf-8?B?ZDRXcDR5c1hkdUFlOEVrajd3TGxoRDdyZWoyK3lIN3drZURqbnBsR0M5Rk9D?=
+ =?utf-8?B?MXFnVDRxRnJ1bXltbHNxUVRXM3BXclpXR2VFNFJrZ3dzL1RxL1ptcSs3NGQ3?=
+ =?utf-8?B?cjA5V3VKdVp1cEx2SEUxZmN4ZDY0TzNLZ0ovQkZlSGtEQUtlSjR6ZUxXTDBG?=
+ =?utf-8?B?aW5NUi9Bb1dDUGFtTko3RVExZjhFVlFxNENJeGVLd1F2TEZIWlFlb2tIR2Iy?=
+ =?utf-8?B?dXFIeWNHT0Job1BzWFlISXVFbS85bzRZK3UxU2tBQ0dLUC9SMnpUazF2cFNF?=
+ =?utf-8?B?VDZ1T0xoOGFGN1lhYnFkMGRtU1ZFZjJLaE5BZWFCUmhOMWNzRjhZM2tzcVRl?=
+ =?utf-8?B?MStIVEVxYnhQZkNuZVROdkJQZUtVa1RrZkR3TDJVLzg0UlJ2QlZoYXFMeUsx?=
+ =?utf-8?B?Sk8zYjZ5STRxaVBMaVAzcXpXR0UyUEVvelRUSmgrT3VqNi9Sc29aR1llQzJZ?=
+ =?utf-8?B?aENvS2x0cmZjSHZQbEV3R0NXMktIY2I5UW5Pdzg5UGtrUGNXZ2VPOSswZ3Fx?=
+ =?utf-8?B?VU9xV2xDM3hyak9BWHdPbTdNbXJDNmNRbTJpcFFZQldyS0NmdzJhQzZRcEhm?=
+ =?utf-8?B?c0pCZlE0MjV2d2JiQzdYWjVqa0R2QytvK2c0MkZXbGR5MW4yM0kzTmhpcmps?=
+ =?utf-8?B?WFNLSWdOUnZIcnR3UFEyUllxZ1h5dTNDajBCMW5SM1BrcGJXOGVqRi9lSGVE?=
+ =?utf-8?B?bFF2NU9yMk9BYU1ib1Rqc0N0RUx5bFF0Y01OdU1Jc3Nsdm9EaytXZXl2L0V0?=
+ =?utf-8?B?L3RuRFpZL3BCZDJLbm0yK2RUemhqOEV5V0JGcVk2VjJoSUpINjFFVWhpb1Mz?=
+ =?utf-8?B?clRGSldFcFJ3MGp0OXJpVk9STFF0UGJzdXVrb09LdEUyRWg0ekRCSisweHpE?=
+ =?utf-8?B?RGpBVmZJZG5SeWNBWEJaOWlTR0lvY1hnRlZXeHEzNGsvYi80MkxZUW9hQ3ZD?=
+ =?utf-8?B?M2xVZ2NJTUpEUlFpbS9lUHlPSFFTL1FtUE1nNmdwaU40dW1KWit2Mzlidzdm?=
+ =?utf-8?B?Tlc2cDFsdTNZcDFOK2pTMHdYOUFhNStScEQ0ZXA4eU5NUzhrekRwUVVkekpZ?=
+ =?utf-8?B?TTBMdDBUajlSclFkUFBDN0hzRGVaVUg0Z2hIUU5kRGg5d0Nhekxydz09?=
+X-Exchange-RoutingPolicyChecked: ifjhXbUVHEjW+8ZwapfEECxLZGNmmV9Pnkpjh63S7NJH80pYml/DLPOstFiUoM1dSMhffPb2wEm1EmwqLeVmPaP/JttKlAenVoCnXN8SME0hfZPDS7+QGHzdc86SGDYzNAxHTXAE2fWLOBi5LZO7LX3UsZV8NNwjcZy590wjM6dYX1+vIY6WgTgPBuOaLwhptHg1bavxhVnNcnae7htIqvGre2olwVkRFjFza+jKXlFT3mIOVtTaMYWa8JnXZ3CgrNLv2wPuQeC0PROZia+FjJbfep29H0P7w55FIslm4BCRibVABdOQK3Bmx1dXkWUdLUBT7J90WOB4RnTqdQWP9g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b63a8535-f320-42e9-b758-08de8fae4b27
 X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 05:00:36.4038 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 05:19:48.2245 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ho3h5oCRWJkwyAubEW45WGWFqe4ij1U3WGPDqi8Tb9f1MXq8VVrP5xsQYUHP5DTFBai5Bsfo7u2jWuLP9dYb9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB4800
+X-MS-Exchange-CrossTenant-UserPrincipalName: YDC1FcK3CdOZf/MtE82aK+L22S9+fQ+Utw27wCQQsXfzbe34Yd/OZ0MOJVIamzSOeIy2N78uUah8yWOqNl+S2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4759
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -173,127 +173,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 31, 2026 at 09:57:12PM -0700, Matthew Brost wrote:
-> On Tue, Mar 31, 2026 at 10:26:35AM -0700, Lizhi Hou wrote:
-> > From: Max Zhen <max.zhen@amd.com>
-> > 
-> > Update the amdxdna user-pointer (ubuf) BO path to support creating buffer
-> > objects from read-only user mappings.
-> > 
-> > Detect read-only VMAs by checking VMA permissions across all user virtual
-> > address ranges associated with the BO. When all entries are read-only, pin
-> > user pages without FOLL_WRITE and export the resulting dmabuf as read-only
-> > (O_RDONLY).
-> > 
-> > This allows userptr BOs backed by read-only mappings to be safely imported
-> > and used without requiring write access, which was previously rejected due
-> > to unconditional FOLL_WRITE usage.
-> > 
-> > Signed-off-by: Max Zhen <max.zhen@amd.com>
-> > Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> > ---
-> >  drivers/accel/amdxdna/amdxdna_ubuf.c | 29 ++++++++++++++++++++++++++--
-> >  1 file changed, 27 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
-> > index 4c0647057759..3769210c55cc 100644
-> > --- a/drivers/accel/amdxdna/amdxdna_ubuf.c
-> > +++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
-> > @@ -125,6 +125,26 @@ static const struct dma_buf_ops amdxdna_ubuf_dmabuf_ops = {
-> >  	.vunmap = amdxdna_ubuf_vunmap,
-> >  };
-> >  
-> > +static int readonly_va_entry(struct amdxdna_drm_va_entry *va_ent)
-> > +{
-> > +	struct mm_struct *mm = current->mm;
-> > +	struct vm_area_struct *vma;
-> > +	int ret;
-> > +
-> > +	mmap_read_lock(mm);
-> > +
-> > +	vma = find_vma(mm, va_ent->vaddr);
-> > +	if (!vma ||
-> > +	    vma->vm_start > va_ent->vaddr ||
-> > +	    vma->vm_end - va_ent->vaddr < va_ent->len)
-> > +		ret = -ENOENT;
-> > +	else
-> > +		ret = vma->vm_flags & VM_WRITE ? 0 : 1;
-> > +
-> > +	mmap_read_unlock(mm);
-> 
-> 
-> This looks highly questionable. Drivers should be reaching into the core
+On Tue, Mar 31, 2026 at 05:34:44PM +1100, Alistair Popple wrote:
+> Several HMM tests hardcode TWOMEG as the THP size. This is wrong on
+> architectures where the PMD size is not 2MB such as arm64 with 64K base
 
-s/should/shouldn't
++1
+
+But one question…
+
+Can’t the THP size be derived via HPAGE_PMD_ORDER?
+
+If not, then some DRM common code I’ve written will break on arm64.
 
 Matt
 
-> MM to create primitives.
+> pages where THP is 512MB. Fix this by using read_pmd_pagesize() from
+> vm_util instead.
 > 
-> I also glanced at the userptr implementation here — it’s quite
-> questionable as well, especially regarding whether notifier locking /
-> hmm_range_fault interaction is needed on the driver side.
+> While here also replace the custom file_read_ulong() helper used to
+> parse the default hugetlbfs page size from /proc/meminfo with the
+> existing default_huge_page_size() from vm_util.
 > 
-> I’m fairly certain that, with a bit of thought and some extensions to
-> DRM GPUSVM, amdxdna could build userptr on that layer (Xe does this
-> wihtout SVM). That would isolate core MM interactions to the common DRM
-> layer, which I believe the core MM folks would appreciate.
+> [1] https://lore.kernel.org/linux-mm/8bd0396a-8997-4d2e-a13f-5aac033083d7@linux.dev/
 > 
-> The biggest issue I see is that get_pages() in GPUSVM also performs a
-> DMA map, which amdxdna doesn’t appear to need. That should be easy
-> enough to split out. But amdxdna does need locking semantics, notifiers,
-> etc., which GPUSVM already provides.
+> Fixes: fee9f6d1b8df ("mm/hmm/test: add selftests for HMM")
+> Fixes: 519071529d2a ("selftests/mm/hmm-tests: new tests for zone device THP migration")
+> Reported-by: Zenghui Yu <zenghui.yu@linux.dev>
+> Closes: https://lore.kernel.org/linux-mm/8bd0396a-8997-4d2e-a13f-5aac033083d7@linux.dev/
+> Signed-off-by: Alistair Popple <apopple@nvidia.com>
+> ---
+>  tools/testing/selftests/mm/hmm-tests.c | 83 +++++---------------------
+>  1 file changed, 16 insertions(+), 67 deletions(-)
 > 
-> I’d rather see GPUSVM expanded for the amdxdna use case so future
-> drivers can use it as well.
+> diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
+> index e8328c89d855..788689497e92 100644
+> --- a/tools/testing/selftests/mm/hmm-tests.c
+> +++ b/tools/testing/selftests/mm/hmm-tests.c
+> @@ -34,6 +34,7 @@
+>   */
+>  #include <lib/test_hmm_uapi.h>
+>  #include <mm/gup_test.h>
+> +#include <mm/vm_util.h>
+>  
+>  struct hmm_buffer {
+>  	void		*ptr;
+> @@ -548,7 +549,7 @@ TEST_F(hmm, anon_write_child)
+>  
+>  	for (migrate = 0; migrate < 2; ++migrate) {
+>  		for (use_thp = 0; use_thp < 2; ++use_thp) {
+> -			npages = ALIGN(use_thp ? TWOMEG : HMM_BUFFER_SIZE,
+> +			npages = ALIGN(use_thp ? read_pmd_pagesize() : HMM_BUFFER_SIZE,
+>  				       self->page_size) >> self->page_shift;
+>  			ASSERT_NE(npages, 0);
+>  			size = npages << self->page_shift;
+> @@ -728,7 +729,7 @@ TEST_F(hmm, anon_write_huge)
+>  	int *ptr;
+>  	int ret;
+>  
+> -	size = 2 * TWOMEG;
+> +	size = 2 * read_pmd_pagesize();
+>  
+>  	buffer = malloc(sizeof(*buffer));
+>  	ASSERT_NE(buffer, NULL);
+> @@ -744,7 +745,7 @@ TEST_F(hmm, anon_write_huge)
+>  			   buffer->fd, 0);
+>  	ASSERT_NE(buffer->ptr, MAP_FAILED);
+>  
+> -	size = TWOMEG;
+> +	size /= 2;
+>  	npages = size >> self->page_shift;
+>  	map = (void *)ALIGN((uintptr_t)buffer->ptr, size);
+>  	ret = madvise(map, size, MADV_HUGEPAGE);
+> @@ -770,54 +771,6 @@ TEST_F(hmm, anon_write_huge)
+>  	hmm_buffer_free(buffer);
+>  }
+>  
+> -/*
+> - * Read numeric data from raw and tagged kernel status files.  Used to read
+> - * /proc and /sys data (without a tag) and from /proc/meminfo (with a tag).
+> - */
+> -static long file_read_ulong(char *file, const char *tag)
+> -{
+> -	int fd;
+> -	char buf[2048];
+> -	int len;
+> -	char *p, *q;
+> -	long val;
+> -
+> -	fd = open(file, O_RDONLY);
+> -	if (fd < 0) {
+> -		/* Error opening the file */
+> -		return -1;
+> -	}
+> -
+> -	len = read(fd, buf, sizeof(buf));
+> -	close(fd);
+> -	if (len < 0) {
+> -		/* Error in reading the file */
+> -		return -1;
+> -	}
+> -	if (len == sizeof(buf)) {
+> -		/* Error file is too large */
+> -		return -1;
+> -	}
+> -	buf[len] = '\0';
+> -
+> -	/* Search for a tag if provided */
+> -	if (tag) {
+> -		p = strstr(buf, tag);
+> -		if (!p)
+> -			return -1; /* looks like the line we want isn't there */
+> -		p += strlen(tag);
+> -	} else
+> -		p = buf;
+> -
+> -	val = strtol(p, &q, 0);
+> -	if (*q != ' ') {
+> -		/* Error parsing the file */
+> -		return -1;
+> -	}
+> -
+> -	return val;
+> -}
+> -
+>  /*
+>   * Write huge TLBFS page.
+>   */
+> @@ -826,15 +779,13 @@ TEST_F(hmm, anon_write_hugetlbfs)
+>  	struct hmm_buffer *buffer;
+>  	unsigned long npages;
+>  	unsigned long size;
+> -	unsigned long default_hsize;
+> +	unsigned long default_hsize = default_huge_page_size();
+>  	unsigned long i;
+>  	int *ptr;
+>  	int ret;
+>  
+> -	default_hsize = file_read_ulong("/proc/meminfo", "Hugepagesize:");
+> -	if (default_hsize < 0 || default_hsize*1024 < default_hsize)
+> +	if (!default_hsize)
+>  		SKIP(return, "Huge page size could not be determined");
+> -	default_hsize = default_hsize*1024; /* KB to B */
+>  
+>  	size = ALIGN(TWOMEG, default_hsize);
+>  	npages = size >> self->page_shift;
+> @@ -1606,7 +1557,7 @@ TEST_F(hmm, compound)
+>  	struct hmm_buffer *buffer;
+>  	unsigned long npages;
+>  	unsigned long size;
+> -	unsigned long default_hsize;
+> +	unsigned long default_hsize = default_huge_page_size();
+>  	int *ptr;
+>  	unsigned char *m;
+>  	int ret;
+> @@ -1614,10 +1565,8 @@ TEST_F(hmm, compound)
+>  
+>  	/* Skip test if we can't allocate a hugetlbfs page. */
+>  
+> -	default_hsize = file_read_ulong("/proc/meminfo", "Hugepagesize:");
+> -	if (default_hsize < 0 || default_hsize*1024 < default_hsize)
+> +	if (!default_hsize)
+>  		SKIP(return, "Huge page size could not be determined");
+> -	default_hsize = default_hsize*1024; /* KB to B */
+>  
+>  	size = ALIGN(TWOMEG, default_hsize);
+>  	npages = size >> self->page_shift;
+> @@ -2106,7 +2055,7 @@ TEST_F(hmm, migrate_anon_huge_empty)
+>  	int *ptr;
+>  	int ret;
+>  
+> -	size = TWOMEG;
+> +	size = read_pmd_pagesize();
+>  
+>  	buffer = malloc(sizeof(*buffer));
+>  	ASSERT_NE(buffer, NULL);
+> @@ -2158,7 +2107,7 @@ TEST_F(hmm, migrate_anon_huge_zero)
+>  	int ret;
+>  	int val;
+>  
+> -	size = TWOMEG;
+> +	size = read_pmd_pagesize();
+>  
+>  	buffer = malloc(sizeof(*buffer));
+>  	ASSERT_NE(buffer, NULL);
+> @@ -2221,7 +2170,7 @@ TEST_F(hmm, migrate_anon_huge_free)
+>  	int *ptr;
+>  	int ret;
+>  
+> -	size = TWOMEG;
+> +	size = read_pmd_pagesize();
+>  
+>  	buffer = malloc(sizeof(*buffer));
+>  	ASSERT_NE(buffer, NULL);
+> @@ -2280,7 +2229,7 @@ TEST_F(hmm, migrate_anon_huge_fault)
+>  	int *ptr;
+>  	int ret;
+>  
+> -	size = TWOMEG;
+> +	size = read_pmd_pagesize();
+>  
+>  	buffer = malloc(sizeof(*buffer));
+>  	ASSERT_NE(buffer, NULL);
+> @@ -2332,7 +2281,7 @@ TEST_F(hmm, migrate_partial_unmap_fault)
+>  {
+>  	struct hmm_buffer *buffer;
+>  	unsigned long npages;
+> -	unsigned long size = TWOMEG;
+> +	unsigned long size = read_pmd_pagesize();
+>  	unsigned long i;
+>  	void *old_ptr;
+>  	void *map;
+> @@ -2398,7 +2347,7 @@ TEST_F(hmm, migrate_remap_fault)
+>  {
+>  	struct hmm_buffer *buffer;
+>  	unsigned long npages;
+> -	unsigned long size = TWOMEG;
+> +	unsigned long size = read_pmd_pagesize();
+>  	unsigned long i;
+>  	void *old_ptr, *new_ptr = NULL;
+>  	void *map;
+> @@ -2498,7 +2447,7 @@ TEST_F(hmm, migrate_anon_huge_err)
+>  	int *ptr;
+>  	int ret;
+>  
+> -	size = TWOMEG;
+> +	size = read_pmd_pagesize();
+>  
+>  	buffer = malloc(sizeof(*buffer));
+>  	ASSERT_NE(buffer, NULL);
+> @@ -2593,7 +2542,7 @@ TEST_F(hmm, migrate_anon_huge_zero_err)
+>  	int *ptr;
+>  	int ret;
+>  
+> -	size = TWOMEG;
+> +	size = read_pmd_pagesize();
+>  
+>  	buffer = malloc(sizeof(*buffer));
+>  	ASSERT_NE(buffer, NULL);
+> -- 
+> 2.53.0
 > 
-> Happy to work with you on this.
-> 
-> Matt
-> 
-> > +	return ret;
-> > +}
-> > +
-> >  struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
-> >  				 u32 num_entries, void __user *va_entries)
-> >  {
-> > @@ -134,6 +154,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
-> >  	struct amdxdna_ubuf_priv *ubuf;
-> >  	u32 npages, start = 0;
-> >  	struct dma_buf *dbuf;
-> > +	bool readonly = true;
-> >  	int i, ret;
-> >  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
-> >  
-> > @@ -172,6 +193,10 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
-> >  			ret = -EINVAL;
-> >  			goto free_ent;
-> >  		}
-> > +
-> > +		/* Pin pages as writable as long as not all entries are read-only. */
-> > +		if (readonly && readonly_va_entry(&va_ent[i]) != 1)
-> > +			readonly = false;
-> >  	}
-> >  
-> >  	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
-> > @@ -194,7 +219,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
-> >  		npages = va_ent[i].len >> PAGE_SHIFT;
-> >  
-> >  		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
-> > -					  FOLL_WRITE | FOLL_LONGTERM,
-> > +					  (readonly ? 0 : FOLL_WRITE) | FOLL_LONGTERM,
-> >  					  &ubuf->pages[start]);
-> >  		if (ret >= 0) {
-> >  			start += ret;
-> > @@ -211,7 +236,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
-> >  
-> >  	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
-> >  	exp_info.priv = ubuf;
-> > -	exp_info.flags = O_RDWR | O_CLOEXEC;
-> > +	exp_info.flags = (readonly ? O_RDONLY : O_RDWR) | O_CLOEXEC;
-> >  
-> >  	dbuf = dma_buf_export(&exp_info);
-> >  	if (IS_ERR(dbuf)) {
-> > -- 
-> > 2.34.1
-> > 
