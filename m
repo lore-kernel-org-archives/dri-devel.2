@@ -4,149 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE85107637D
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 14:18:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2310107637D
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 14:18:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0AB10E5EC;
-	Wed,  1 Apr 2026 14:18:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D0A310EDD3;
+	Wed,  1 Apr 2026 14:18:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="D4SdYS5y";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="J4Ev+OP0";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021122.outbound.protection.outlook.com [52.101.100.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2CBF10EDD3;
- Wed,  1 Apr 2026 14:18:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EDCW/jzcMAHQdPWLXT5Jl1nK3P0fFTJ1MYVkLmpl0rZAHZj3CE5MRR+CZkIsnjhLVwd3XaXWNKHTy5YO/QSKpM2LKriWtSdXhQSDwWjsj2ykojjgfhMNB//P1rHUg80wHbRdOWIbaU+zPpgAyzqQT0N8iK2zIfkUwRobXmv5FQLIavfG6f9lVo8zSXtRQCUYtFrrpj+6O9CsPLLuB7uugdG+fvwVws+mHsExE3vUJUolZT2xzAzYqAz4G9jKCs5phKGWuA+qlbx7MrL30g6vTTr3a92bORQ9v1CdW9NKmwOl3tyw7lEtO9x628D25GdwH5XIWoyokPoaWTd37Wi/OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BAMvE2QoED5iAgDx/VxI4LBZlWbNprhR8PoRpJ/45pI=;
- b=Jr5+dK1fTYCKkfQGxmhwv/Pb8vwu9AZuqL1JPXGhQcUUi78D4nwvojAD8vOtvn3zzhRRRM32YyYflka48/nUMJ4f9oIvG00VzIDjHvzcmDFpeoLxYniaornmLG0jBmMZOx/Wsri1C6udzx5dbw/bRnYuUrBOHUMKtN0uKP9RpMXUOgQrl89yh6sTxljlWRCj56m41lsGMmHTbA4zhduotL4WyLtEbpvj+WBnySTuXyevKtqDtwG6n5x78HihYifg6Lp0kzK6gYch5wR57mF2Mw9qJdNVmzqELk0WmO3IhfScuZRd7e9JvPZQatytOenv2jGq+/hfbSIO/LGvltNc8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BAMvE2QoED5iAgDx/VxI4LBZlWbNprhR8PoRpJ/45pI=;
- b=D4SdYS5yvZc+HuWglM1ponIKoZ+M2RHkVjBP1MHlx/sKyoKRgmplflLzbJi58sJ5houct8vhIJG0AKp81ek3xbXAwFlWQ7lNfW5FqvDbpWYcwQIlneQ9FhqElrD62xVt4Zipb2MgS/fMlv51XWYwwvcBdN7BZQY39qnFrmQ/RSA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO9P265MB7843.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a0::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 14:18:04 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
- 14:18:04 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 01 Apr 2026 15:18:03 +0100
-Message-Id: <DHHVSX66206Y.3E7I9QUNTCJ8I@garyguo.net>
-To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
- <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
- Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Jonathan Corbet" <corbet@lwn.net>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- <rust-for-linux@vger.kernel.org>, <linux-kbuild@vger.kernel.org>, "Lorenzo
- Stoakes" <lorenzo.stoakes@oracle.com>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- "Uladzislau Rezki" <urezki@gmail.com>, <linux-block@vger.kernel.org>,
- "moderated for non-subscribers" <linux-arm-kernel@lists.infradead.org>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
- Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, "Nick Desaulniers"
- <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 12/33] rust: macros: update `extract_if` MSRV TODO comment
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-13-ojeda@kernel.org>
-In-Reply-To: <20260401114540.30108-13-ojeda@kernel.org>
-X-ClientProxiedBy: LO4P123CA0647.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:296::22) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
+ [74.125.224.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A52A10ED7D
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 14:18:11 +0000 (UTC)
+Received: by mail-yx1-f41.google.com with SMTP id
+ 956f58d0204a3-6501e465a8eso1504396d50.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 07:18:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775053090; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Yw+JcAIu6ZZzO9d9yBWjkNxlDRbSSLK5BV4tFxYQk62H9IK80yPdrvToCHdm+uzsbf
+ 7cBIGxeXhsSXkMIdvzDmAL0kn7ZDZcktgYf/0Si+Kb6fXk5pf06Zf1X3WxDYiRBcsxX+
+ 8w7Bl++swtvAC2rc9IZ9vUEEdjFQRKb6Mx5DAm4XQUrcwM99pQh6luagh0bcotM+zifF
+ KhJa+J9+EGUoPKn5CC8cal5nXRHwNaQz33cDrDT6Y5+w1daeiG8Zoo+NMQOlZn76K0Gg
+ 3ncQuCdfATNKpB3KKDT1NZhwWXdZoXZNuSweHQvtPJsLipBAJ5CKzNShfQaB9Rnt20VK
+ LUpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=S8Tzy9p65X+mMpYvFYQPPcRz7RB7Jp7ad2p90YGsMbw=;
+ fh=7p9MVdKLBmvX6eraUoUISFlLzs77ObtG5/uxT9VBpT0=;
+ b=JkXOUnXc75KGc/x8s/DXTTDLmvyPGKmf7dUl1LU2DdF/STJdqICKWSfqhqAYydC++z
+ EUfWA7+vx4QTlAIuNZwPXjp402ALPVnQb8VHNuvHbFORzTNnjbBgK53KDcaaR/GhAVbf
+ n0i7f7cO+MCYE5GecabtMTjyglkXoM7bTocZcWYpYJl633IXEh5YerInGKpGG4X6NDG1
+ W8TBcZIpxAZjLUycEbkl53rvC6X3mO8wSPfaY9ScQpqD1VGR5uR8YNMAfARCKIcDDR+0
+ V5VdMTLUUeUSWYSdAIUmd552nZn3zvw/eUK7F88vK0YtDWFpgKICn5nZesDgUSZ8oz/J
+ MKUg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1775053090; x=1775657890;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=S8Tzy9p65X+mMpYvFYQPPcRz7RB7Jp7ad2p90YGsMbw=;
+ b=J4Ev+OP0vQD5sQTHTbC7JDxR/qgDIb7I+jHaq42sgAr3GHwwBPzufJM7id8MiNecDi
+ 61D1/up/BltwTGsvUOUTffRWIhXGWbgaTGkpUS5Fd7cb9ywfTgsVG2WbU1oAVg77zhvJ
+ PuRyvyNrrYnYP8W4CR3my9OkrhbuTQ5pS5A5RuoLc9nhMkN/kzCwaXJ71raRAkessgoE
+ 8YZ1iuqSKjV3dvBY6yUCINX/TjXdKmF24WuBqDBBUvzXGjQIN7aLSEoq5XaQbwZYCCou
+ /GDnYNUfFInj2Fdz6wzBzj1i1bIUz93e3hH7Kbhvt8m/QxBNHkKj7O1pol+hd0FfpLiq
+ oCSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775053090; x=1775657890;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=S8Tzy9p65X+mMpYvFYQPPcRz7RB7Jp7ad2p90YGsMbw=;
+ b=eQlYGcc2LgtiP8WuoWW37Bdzwba5ASAfKVrmhn1/SmQ+PM5ZLSPE/7qimB8oRr2Xec
+ pSkP47GwzJgUyKVkwvLs94TxakzOqgccCU1eRC3PKzDJCX8Ui1dM7fDxV2pmG/Zax/NX
+ 54+vODWDe7gOCNJqddoVme6vr63x02N0hUrA6Kws1dL9CpxMoYPn7o8yZ4EeLj+EU9Jy
+ 82FrBgN8e0aB8jA5UN2b8i8XNJPDP8nV1DEXJ9jMf0TKOmeDeNjmkEyv1OKK2HO9QAf4
+ +XUlUtqr7WzzIlE7WuO+RRvGL7Fbkk0drI4zttGlWi92jq7sFtfnCzjH5X/dWR/ud0wI
+ YzNw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXgM7+hZXUCvPr9RIhD3e1NDi6lVU42a/syE/A4zLTzDh2uJVNqJpMYeuEKWS+QfeqxfRqJoCfOkZk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YziaiCiwajRpr6DtO+Hw0ZWVcnBbPoTLDukerevQuGAfujwR5XJ
+ crjga6ddcWPDmcruwNzCxxjuuK8LdicbAt7MO/yZ65ghls4gJ1EFNe7hiVVhxOVunQAZYtG29Mf
+ lSOg5ZiWtXAI2/KPC5KFmboOsCFDXR4ZUF4+Uh3MFWg==
+X-Gm-Gg: ATEYQzx7QsyjV3s8moRxt0FbpR0JMt3e7IjeB6WlIbOKB+ns+h6ChhW+p+5lh/+5xSB
+ I/3lwDKhMwfRjnVZ2bO655LcWIjTJOZGNXhhQlQmvhOLH3iKob1uESw7EnEDDMwbt6S4r/CNLf1
+ TQQtFCn53Mdnpmp8sTrH2ssCYFTFwjGDRnKgXlAD/1NoaO415/Rz8AYafGTwqpgIX/v/vECtXM3
+ RhDG2rRMG+sFeXD+B0DFCT+HyHOhYBDqkASYByVQVN+iwWaBfA3eLPH5jgtOiTAKIroWV8SZqGr
+ mlENgV97bbsJvWs=
+X-Received: by 2002:a53:e312:0:b0:64e:ef3b:3bd8 with SMTP id
+ 956f58d0204a3-65026785cffmr6540304d50.25.1775053090128; Wed, 01 Apr 2026
+ 07:18:10 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO9P265MB7843:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f272f27-5956-45fe-68b4-08de8ff97d49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|7416014|376014|366016|921020|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: qajhMNOwurwD6X7vL+RZ5MwuHioIwBNF7Us/MzXI1oTT8jgwt1nU0EorWNwlb1ZWYwyBW15Zivv4l8Q/GqUJ2uQNr3yp2oFevp5Hftik8lg8/Bkv57ocvFj+hM7amep2RG5XwUaUWtZKuz7E9IrvC1pyR9hkAueSDv5JQmrjSEsYcCI6UCJnG0HGSztWTLC6Eb3XAz2iyXf6Gc+k67B3Dt8/U/ERhvW+m01NI+FarEVEw/gKNCz6uk5b0DZVWaZdbJCaod3V8aC468FgJQi+KbBuyZt1bNlherUnaDeSi0F1iqqs1q2WL1h192KZ0wNENEuRDz876NTpDdtqeUiuXNf+rBtolKcxV7uNBWwfK/Lbs3GQXlsxvhWhU68o2P0jWbrpqIZ2Lh5p7jper7LIL+KCBrsW5fgiDWfD7ovHd2FwPXySMXeuyjkEiC10/k8hZKrKrL22MrfKNUV3rCy1ln77ngtVsWoYE5bK4aqhNlJ1MQZuTuf37K15Ste5sRaZOgFUz3skSBUuAnw5RzjhY+SNP8JRThIlphd7sRk8Kjdv/CWHQkduN44Pdd6gjNgTcjetcekUuIOMWupNU5XEiCyXWUKvadG5PzwSGz1aglPhhpKQN72/y6SVEO/KWwDAEKIKKQFU7oraQzMbmgoDaXGiVKa5cKPc5c+OzwahrYfXkF4Cnrm/bppXtwSWEJbMp4TTy1ZZWHfHGy0mc9zwAa1xTE5f3HSWlwzxMGlixNVaT9eM1V6EpdwndXqBHnOYEmMWYdMeHNAgto4eYPzevw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(366016)(921020)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2xSRHZYeS9JbTRVMEhFK0pZT0ZPRm1sQ3E4emZQOVcvZmFsOHJQdG9hSENB?=
- =?utf-8?B?V2ZnY2I3ampRU29ETzA0bHlnaEh5R2xhZHRlODNjcWE4RlVpZXI5WDNQVFlk?=
- =?utf-8?B?aC9VWGtVLzN3M3dBcmJKb2xKSkxKSm8yQzB1UW1jeVNRUTNCOHZtTk90WTBh?=
- =?utf-8?B?cjhaYldIaGw1YSsxT1RNRnZGUjV6aXlZQlNrTWZrQ0IzZlFwalBOOS81Qy9r?=
- =?utf-8?B?R1pDNGJwZlR0dEVZSUJ3bm5Ma2JTRCtjajFNOWRQdGtBS1Vqd3NnNE81RCtD?=
- =?utf-8?B?cUNpSzJETC9IVGxTUjk0OHRPcDg2eWtBWVUvVTZKOVFzMFV1d0RZV0p0RFB2?=
- =?utf-8?B?RENydHhiamQ2ajhJRzJOM2QyRjhPU21FRnhic2NwTnFyNHJEU3pQalptd2R4?=
- =?utf-8?B?S0wvY3liZHp0ZXluRWdYUUpwNys2cTdGV241bmNndGRFY0hiYU4vSlFtVnB0?=
- =?utf-8?B?ZmZiS3NZd29oTEZ0d2dBeXFZd1Y4dzIxVFM0TG9sZ2UxdzZ1WnZOS3c0ZktZ?=
- =?utf-8?B?UWRBUDhReEp3UzBoWjkzSHJsdU1tZ3dXNDFQcnZRMHNqS3NUMVJUcnZROWU3?=
- =?utf-8?B?OGhPQmVlbTJlZ2VpaDlRemU2NHZJMUtualFabnRiTFZYN1VUckFkVlkrcmto?=
- =?utf-8?B?Qnl2Vi8wanpmWUwrb0wxYm9qbHROQng2R29sVmtIOXMvbjF2R1doalZaNTh1?=
- =?utf-8?B?bFVFU3NvYW5zUjVoZE92S0RMZ3R6RTlsQ2J4QmlqTzYwYWg1bXdjZG1YU2hI?=
- =?utf-8?B?ZGJUcUdHYXl1MDlPUExSMy9LczJuZHZ0Q3JNTEpsMDFTSER4ckpod09tMjlp?=
- =?utf-8?B?cDQwS2pSMW0zbWk4V3loSzlrc2xabjNOZXlYTm4wWG5nTXAxTTJPRUIvYlhB?=
- =?utf-8?B?NVpFeTdXQ0hpdHhxK1dkL0FkeHlOMEVJN0pjamhUQTZHdXg1VUZtOXA1NjNa?=
- =?utf-8?B?SXg3TStUVWM0OFVHT3B2Zjh4Y3UyejFldWJqMEJsblhWTTBva2FNTG1haWUy?=
- =?utf-8?B?UnFsdmJxL0lEb3VDZVNWMjNGTEVvRVNOOStBMWN4anFZUXRKWGZRVjkreFZ4?=
- =?utf-8?B?NHpwN1hEdE9lcEpoN0ZtdmdmbXRHdnJndlJiWitXeldlbUNLY2MxZmRWT2ZJ?=
- =?utf-8?B?Q2E1ZTZoT2txYW1Xa1BUT1FDNDFvYUFHWTY0MGZJRXhVRWFNNzJSL281M0Jh?=
- =?utf-8?B?MHlkMU1yR3hQUFRJQy8zR1hRVlRBZ0t4QkUxemZ2dzhwdWJhKzlZM0VtdWpl?=
- =?utf-8?B?S3RLZWJBLzU1ZnBCZGV4WDg2aXA3aHViSGVhSnhvaWh1R3p5UDVnVTBhVVhw?=
- =?utf-8?B?Y1dwSjhUZ283V3g0cnRySTFoUzQyRnBIWWtqeEQxclR1NWVqTHF5Q3IvQ2pj?=
- =?utf-8?B?SW9sZzVmaFR6Nk5oYUZRY2tKQ09oTXRZTzhJc0w4YVJYd2htNWlSM0VrSzl4?=
- =?utf-8?B?dG4rZGpaU2pNNmtwQ1BHVml6WFhTcWZiUHNFNVRuUk9mNnJJaDFXZGIwV01q?=
- =?utf-8?B?eldNRGIrTC9XOHdHSzc1bXQya2VseHczVkNqRi9KclowWEMyUmNZNGdmRHlI?=
- =?utf-8?B?MnBScEd2eUpTUU42WWgxMkxzcmsxQmtiek5wZ1Jnc2xSdXpkaEM5YnczejdO?=
- =?utf-8?B?UitZQjhJWGRRUmJ1cktCeTlsOGhMdTZEQm0wSTExbllqTngrVmxNVnA5TXJB?=
- =?utf-8?B?cGpabi9jVDMxWUNWSno3ZmI2TVRoMTZrcFgxdTBYa0pLVTlaL0RJSmJDRUkw?=
- =?utf-8?B?NnpiQklKdXZRRk9xVy9NTEoySWpKN2ZXMWNmWGZBcVZXNmFXc28rT3UzTzF6?=
- =?utf-8?B?UzVWd1BkNS9uRTFTVFlIcFRyVlpVOEFRMkZieVhtd3EyYUlrNW5lTTRmNk1l?=
- =?utf-8?B?OVIxUU5jN0w0UUx6d1czNkJrd3duY3l3RGdTMUJWSFpMRTRyNFF4ampRWFRQ?=
- =?utf-8?B?QnhEY000TExpOFZEZ3FLb0VUcmttQUl0bzROWDUxVENhb3RqdEtRajVpcm5k?=
- =?utf-8?B?WkZBUDVEMjZzcWUwY25HQStPaURyRlJ6d09QRjcrcWZoSFN2c1dXb2N4UWpi?=
- =?utf-8?B?NTdmN0pFVnlFcEUvMlNsRHovbkpCbEx1MUNQam5NTHhZWU1lM0MvL2RsNkUr?=
- =?utf-8?B?dGlVaklQL2lwRXFnYTNhekIzVFA4SzZpNGN6L3dqOGl2clltaHptZ1NnN1ZS?=
- =?utf-8?B?YS9SZGJOV2diSzhJcVRjbE1pVWNEdDhqQngvK3RWbTgrVC9iZlB5SFdicE9x?=
- =?utf-8?B?bUo3YVlhMTVEWmFMS29WWEtnaGZ4Y1JUMGU0NDVyRFhXM3ZTRFNkN2hCaGI0?=
- =?utf-8?B?OHVsU01wbnUzYW0xdGovNjNuNTRRa0wrTzVnN2tjK1NXWFBDaUhpUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f272f27-5956-45fe-68b4-08de8ff97d49
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 14:18:04.5551 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A/9ttGVpoxDGKgU6NRg2HY0gGDlRZsjtjgKPwUac6j8HpTBErW+2HMoG57Vz/LXTvb3ynXN/OuiTsGahuduMRQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7843
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <5416161.aeNJFYEL58@workhorse>
+ <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+ <20260331155028.71246d7a@fluorite>
+ <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+ <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
+ <ac0kP-SWXrBwrN5C@intel.com>
+In-Reply-To: <ac0kP-SWXrBwrN5C@intel.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 1 Apr 2026 15:17:57 +0100
+X-Gm-Features: AQROBzD4B_Lr6xyBp4FYMWC4emgyzUnkdo4rM9x9i8ve778cUGxmkNRuKAQF9Bo
+Message-ID: <CAPj87rNfJCCUFYqD+p6OM5XDE8CA75anmA7+ezrCTSZXBSDgTQ@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,78 +130,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 1, 2026 at 12:45 PM BST, Miguel Ojeda wrote:
-> `feature(extract_if)` was stabilized in Rust 1.87.0 [1].
+On Wed, 1 Apr 2026 at 14:58, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+> I've been musing about userspace being able to provide some kind of
+> relative quality weights for each output. The driver could then use
+> those to figure out how to balance the final bpc and compression
+> between the outputs. Something like this would let userspace express
+> its preference while still allowing the driver to decide how to
+> actually get there.
 >
-> Thus update the comment to reflect that.
+> Simple 'desired bpc' seem somewhat insufficient because I would
+> imagine userspace just sets that to max for everything at the start,
+> so the driver might not be able to tell which outputs can be degraded
+> harder than others.
 >
-> Alternatively, we could use it unstably already.
->
-> Link: https://github.com/rust-lang/rust/pull/137109 [1]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-> ---
->  rust/macros/kunit.rs | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/rust/macros/kunit.rs b/rust/macros/kunit.rs
-> index 6be880d634e2..6f6d746b8dbb 100644
-> --- a/rust/macros/kunit.rs
-> +++ b/rust/macros/kunit.rs
-> @@ -87,7 +87,7 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module=
-: ItemMod) -> Result<Toke
->              continue;
->          };
-> =20
-> -        // TODO: Replace below with `extract_if` when MSRV is bumped abo=
-ve 1.85.
-> +        // TODO: Replace with `extract_if` when MSRV is >=3D 1.87.0.
->          let before_len =3D f.attrs.len();
->          f.attrs.retain(|attr| !attr.path().is_ident("test"));
->          if f.attrs.len() =3D=3D before_len {
+> I suppose a desired+min bpc might work, but would potentially force
+> userspace to tweak the parameters in some semi random fashion and
+> try again if the end result isn't appealing. And exactly what to
+> tweak is really hard for userspace to figure out since it has no
+> idea of the possibly complex internal/tbt/mst topologies, power
+> costs, etc.
 
-When I write the comment the intention is to enable the unstable feature an=
-d
-switch.
+I agree with everything you've written, apart from 'I would imagine
+userspace just sets that to max for everything at the start'.
 
-Best,
-Gary
+I've taken it as axiomatic that all of these things should have an
+'auto' value, and have it as their default setting. Userspace _may_
+know better than the IHV, but it's only going to know on a situational
+basis.
 
-diff --git a/rust/macros/kunit.rs b/rust/macros/kunit.rs
-index 6be880d634e2..ae20ed6768f1 100644
---- a/rust/macros/kunit.rs
-+++ b/rust/macros/kunit.rs
-@@ -87,10 +87,11 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module=
-: ItemMod) -> Result<Toke
-             continue;
-         };
-=20
--        // TODO: Replace below with `extract_if` when MSRV is bumped above=
- 1.85.
--        let before_len =3D f.attrs.len();
--        f.attrs.retain(|attr| !attr.path().is_ident("test"));
--        if f.attrs.len() =3D=3D before_len {
-+        if f.attrs
-+            .extract_if(.., |attr| attr.path().is_ident("test"))
-+            .count()
-+            =3D=3D 0
-+        {
-             processed_items.push(Item::Fn(f));
-             continue;
-         }
-diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-index 0c36194d9971..2cfd59e0f9e7 100644
---- a/rust/macros/lib.rs
-+++ b/rust/macros/lib.rs
-@@ -6,6 +6,9 @@
- // and thus add a dependency on `include/config/RUSTC_VERSION_TEXT`, which=
- is
- // touched by Kconfig when the version string from the compiler changes.
-=20
-+// Stable since Rust 1.87.0.
-+#![feature(extract_if)]
-+//
- // Stable since Rust 1.88.0 under a different name, `proc_macro_span_file`=
-,
- // which was added in Rust 1.88.0. This is why `cfg_attr` is used here, i.=
-e.
- // to avoid depending on the full `proc_macro_span` on Rust >=3D 1.88.0.
+Compositors blindly setting random tuneables to MAX_AWESOME_POWER
+would be just as stupid as distros shipping ye olde Option
+"AGPFastWrite" and Option "AGPMode" "8" by default. I'd expect any
+userspace which blindly did that to immediately get as many bug
+reports as they have users, and for them to fix it accordingly.
+
+By analogy, we allow userspace to ignore EDID and set whatever cool
+awesome mode it wants to. But it doesn't do that unless it has a very
+very good reason to override the driver, and 99 times out of 100, that
+reason is 'the user has figured out that this is required'.
+
+Does that help?
+
+Cheers,
+Daniel
