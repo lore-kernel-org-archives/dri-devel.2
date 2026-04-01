@@ -4,128 +4,113 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9AD4D3515F
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 08:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19FBAD3515E
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 08:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9EF10E96F;
-	Wed,  1 Apr 2026 08:39:57 +0000 (UTC)
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11023123.outbound.protection.outlook.com [52.101.127.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 887EC10E398
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:39:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jsoolBYDEr4VgHR7fpuVb8scJ7vfxmL053EmRAkFxXpl3ri2c0ZkSQSQ78w+XvoAsL54SWSjtODfyUF3rl641UweVcnR/4x3dpWT/oJRYSPTb6D7GMgPkJ5TzDv+Ev7+YlfqMhEbXdPJY0D3Jo+8WL27kMxxNrFH/AZgndZn7ZSNv1GnayPKUbeAZnIk/kRD2/jg+lTVmEfKRmqV4MV+cvooabgtiZKoJbyIBDPUPqA2HmioX4qkk49/okCksXnyle9ZJqNoxYVWOJNEJ0HL+kp2O4t2t2EcNLPmjj1IGlSHGgtqIfModxoc4TRvhvhIGmRe+zYxyqRPKVebMNCelQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PAYgSed3tuckkwJEbX8YkrOdWN/rm5DGAnFwZpDAj7I=;
- b=nSxUxPxNecBGB9c6c1WIx+Q6Yeip52aMd4bpPf/piqvAcD6yu2eGaY5hCxwVHRT4K4YokqlT4RAvV+/0CMHYr3mHy8f+pVABAjJyECS9icJ3pcLr4WGMeO68S02eIggF6Ab9W18zfBaVnZcPLft+JMbEudpj8wzRyQnCokdkU0rqjveHq6jqsH7SyMTXRvFqTSwj9J2g+rGrMhOmZTwSX+UmLJhDx1Nx6yL813h8viBr8uJWmO+wwlVvjIZATN3RcsUO9bwZ7EqjOUmBMYy960geHZBrxdVPMtVO9FJ51gqNljU52AfPfSmjNdZF1nZJ+4iLkl1AGHKzjZ8Ik865TA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=linumiz.com; dmarc=pass action=none header.from=linumiz.com;
- dkim=pass header.d=linumiz.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=linumiz.com;
-Received: from TYZPR06MB6935.apcprd06.prod.outlook.com (2603:1096:405:3c::9)
- by SI2PR06MB5041.apcprd06.prod.outlook.com (2603:1096:4:1a4::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 08:39:48 +0000
-Received: from TYZPR06MB6935.apcprd06.prod.outlook.com
- ([fe80::30b6:5b0d:1b00:5a01]) by TYZPR06MB6935.apcprd06.prod.outlook.com
- ([fe80::30b6:5b0d:1b00:5a01%6]) with mapi id 15.20.9745.027; Wed, 1 Apr 2026
- 08:39:48 +0000
-Message-ID: <1027afd7-dec6-4ff3-85eb-2d9a1646ada6@linumiz.com>
-Date: Wed, 1 Apr 2026 10:39:42 +0200
-User-Agent: Mozilla Thunderbird
-Cc: parthiban@linumiz.com, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- paulk@sys-base.io
-Subject: Re: [PATCH v3 0/6] drm/sun4i: Support LVDS on D1s/T113 combo D-PHY
-To: =?UTF-8?Q?Kuba_Szczodrzy=C5=84ski?= <kuba@szczodrzynski.pl>,
- Maxime Ripard <mripard@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Chen-Yu Tsai <wens@csie.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-References: <20250221161751.1278049-1-kuba@szczodrzynski.pl>
- <20251116134609.447043-1-kuba@szczodrzynski.pl>
- <a5f6aeb1-b038-462e-8989-c4da65966134@linumiz.com>
-Content-Language: en-US
-From: Parthiban <parthiban@linumiz.com>
-Organization: Linumiz
-In-Reply-To: <a5f6aeb1-b038-462e-8989-c4da65966134@linumiz.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BM1PR01CA0147.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:b00:68::17) To TYZPR06MB6935.apcprd06.prod.outlook.com
- (2603:1096:405:3c::9)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D33810E9E3;
+	Wed,  1 Apr 2026 08:40:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="k/7yP6sm";
+	dkim-atps=neutral
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36C6610EA06
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:40:28 +0000 (UTC)
+Received: by mail-qt1-f177.google.com with SMTP id
+ d75a77b69052e-50335b926c2so54192991cf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 01:40:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775032827; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bAY3ZUPsKLCq29dFvW6h6e1kSyoSGzBHDIlFkqqh2vanzmBzGeqEM+qgdid7ncO7UN
+ Fcd1jZzuxILPfVwoCRLOYF275c05HNK8UZK9ae6sS3tTpV2GZZE+dGW0NTuS2uP+45wa
+ chW5dYydS/lEbmio+jPKuem1aBHKBO4PdXZLeWsddtzhuRfNDQQo6f0vXmlIEpY4AvPB
+ zWq+Jm1RYmC4UF4h31DDwTzeu/0/f3TIELA6n+eyW77YnYHUoxyKJ3cUrSt3GRPk3diW
+ E4k9CFP9taOTFublJgpAcesxvl+LxpujkgJVJZqaDWyhXldWWHV2LFrPsiKAa4I3h2tR
+ Ajog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=KVkWfYwigbSi5JawcIs2zqvmQDqD12f5F9gL5XSu3Zs=;
+ fh=FPbwkQu0wdYJZ8833FhJe7YguUlm5MMH6WzCNGW0LUE=;
+ b=P9JXjhUqwLGQncBHAKDJN/tShnu/k4eqY3SCG655hMSpIGT0AE5DEGnGYuEXDI5igQ
+ T9CAAWNzJyr68tzIZbSi5pWH6EXxydkcZRkgGXAvT7yDueimjc6FYXHbTywSOIGs1O7B
+ oIQg8HjvANXSUFMQsxi14+0QGbOfDIUIRW0fdkrLzLiWl2HAQNIAhIO9P3z5JDhtV2pX
+ rcFVlh6Z6ffig2SmrAJuToINK3YV5+8QR06FpShCn9IzhrUxrGCaVaK2TIu8fRNIlEla
+ no//OGnPCKY1P21w9qXFIL1uPHBUZLN8xK3ebnqekbqMAm19zYlE5h2EwsE/VpOR28l0
+ F5hw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1775032827; x=1775637627;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=KVkWfYwigbSi5JawcIs2zqvmQDqD12f5F9gL5XSu3Zs=;
+ b=k/7yP6smEJO5CTO8ueC9esUTldgJR8zUQzOuvXveEkcSbhKszTldHTVxczfu6l/ExE
+ 6B3D31tALOKnbB8DRr0V4O/XxYpP2wS+Kg8V1dZoqsI20BUNsxczSAbE15CupRdZD2Pp
+ nr6I8Rg5kOShXRJKR3ZeoQu4PDyHNQlJMvzk3a7abQqJbVEGI4XG2JrYXkEUOaT/bV0x
+ DccglVZ21zG/dhV5+34WkmIiGDYsCzSJuC9v1JhyZAc1ql6IKe8uco9JG4YnNSe++LIA
+ J5VUF0fcTVrGzDYe0noUxLg9WmDHc/s1HdBcb/ITSoMzWIHsgEKuSF1fU+7Vzg8i0lik
+ QhLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775032827; x=1775637627;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KVkWfYwigbSi5JawcIs2zqvmQDqD12f5F9gL5XSu3Zs=;
+ b=DNCY5gPCgOq5ybQ7jC5obN5juSi42Ilx4jc4zuCbp04r9/ndrDf4fzfGX+ujWNYcAa
+ Ncm/Gd99e3lYc3iSHiD303X7Odfns5vUxJmGptMdHdFPGG9p0ogqx7+d7hMVR2ELkaHJ
+ RGx2bBAYZybW8mscaPoQALnJDzhWlG7MOh2HNMCOYhBuLi3gekurDpcnZNE1vGaIb+ut
+ v9q6TNlihbjPva2KD7oXpdAwuoRt3F162HvfAWg2ITMvoVpc3rPxQgR0RWLuhj4lzPI7
+ X50CzDV+W930UpiB8gSZfZImAU3qRuS/X2+EOeXxWeHefAxXZbdsYgrU1HvDbn+ctcU2
+ oDDA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWaMAnIwesSA8/t5P0RmkkVkH9k6KpwnIFXoMaXBUWVnAk5bmRNToXkXuT0GmkHJK/j3cCmOixdnLg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzuAEI7/R3d7Q+RrbSI13y3NJnLjVxDebchbNStatavuVHPNDPk
+ 3jiWkZsHCW6LINuZ0EwGbN8KkVzJbdYUlaHhf/YABYk/Gvz21Z9FUmob216105qRT+LQgSQO88d
+ z/SYQO79zbAGbmcmtCsB4f8RolvBR9L6ptXesY0WjtQ==
+X-Gm-Gg: ATEYQzy+Iw3bJw0++zvChW44TqMuMwYkYVbrSW2eAHj8dH0ANtWx+la74MCh30XylHu
+ ZAD8Kh9WdMY6a36nJRM2mMvMSnw4UNtT1w28q/9Vt5f2VbEuLR2tXxavDnP+gxjkvf8atBDyTgi
+ kUMLgfOJFI3s6xTKAUxjbI8sY6uE3Wdu32M5ggB0yz4OHTh2TjueGLYEGr0iBSF+1O28Chx7SZq
+ 5eLJFcC+w7/DZwyC+suX64BP2/vw7pUA2KenyBSqTM+mhSitr9XWiA5g5MiXyVBBzMrVEaj5ewo
+ QZkdv/hJUCPk7ekyR0vWlkIEbAzkkHuv/AlEKuIsAQ==
+X-Received: by 2002:a05:622a:1f0b:b0:50b:444c:e268 with SMTP id
+ d75a77b69052e-50d3bc0fdc0mr37850221cf.19.1775032827063; Wed, 01 Apr 2026
+ 01:40:27 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR06MB6935:EE_|SI2PR06MB5041:EE_
-X-MS-Office365-Filtering-Correlation-Id: af6a17a9-e457-4b76-3096-08de8fca3beb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|921020|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ys9d78rSYkMkhr5KZr3X9FORLPqmp9FbJ/FqaZoMzn1wd2DN+UX+I8W13taY2mWm1uzyGyvLPntRNFKoIhu81fe8y9aoQa9nnChC3Y2rbTRSl+1p6lwDfb7aHxQhzRtqvYChaxshBkkHr73oCmHlsX53eXuPfx1ewH4s7A4/JF3Y/QYCNNeNt5YRl/2bGBYn/1rxNG/fbIzJZAgSOZJVZ4JPxySFTK2YCN/PqDmfP9YylC78w/GIFRYxB3G/uzxV26mHkI/RbIzrIsgikwhvMJVYgDaxY1gVtNgBSpZOAZe16v7SxQbPL5EquRFi0wNn4lAOKPDnbf5hyK2duECtRaWdYWYsMtCfXSrDvzSmP0wfgoO/qnndmkAxJsCTvNNnVrl7sO/4Ge3Eix2GdtPwd1HP9ohvjnSUeBQNVKaEvOm1sKAJODAthUYgLaaG2gychOd/DwgjllX0AroPT+s7sg4Am3m/FaNlAsO4LQTXloIfN9jncA4RobeROohlj1tNsO/Y/Xxf2OiffWPhVUigN0MXeC1ctRaEdDabS9b3YQl+JRbsjMMlhZu/ZWyaaDCRs04wkkQLC1UDQzJQHeUQzpyBV1bTRcrj29Vulo6DEjWA1Er0RFvsdY1HeVRqadunkQ4iPFaBEuwiiuS7cXwFA1fbXUcvL5iFAFywhgPIJHZZvb7gPao895+HdberY+AdhZlBZYTeeThUgABwoswHlQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYZPR06MB6935.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVo5OFQ1V0VGWHhJWHFnWklEU3ZvdTVrUW56cG1xSk50RHR5QmYxKy91Q1ov?=
- =?utf-8?B?T3Z4YnplbTgrY1RYdDFzbzF5L1N2dEl4S3M0cExrZXlyWElqalBVUjNVTkNU?=
- =?utf-8?B?RHVodVFRenNOVjRJVzNFMmNpZ25RK3pJdUJIRWRERkxha0VmRHZaKzk1S0Qy?=
- =?utf-8?B?K3NnUWQ0UmRPdHdzeHBUZUZ1Zlp0SXhDT1hrZ1ovNExNNnB2Y0Evd2pDWkdB?=
- =?utf-8?B?d3RSbEE4bFZnY2JkZWhESmEvWnI0Y1lKMGllM1Z1U3EydXJkZ0pCTDQzbzJl?=
- =?utf-8?B?SGRGVzdTTnN5YXlUdXMrMWtlRWlRajBuZWtXZVd1dW51bXJYejlQaC90Mys1?=
- =?utf-8?B?YStCZDhNRXhyeC82a3hXYlhDUWt5bWhWNFV0NnVtWnNvU2lEWENta1hZUkpH?=
- =?utf-8?B?NkxSWStLZVM3SGxHdy9PVEJzbDRxYUl3djIzSE1qME5yV3MwL0lJaVBSdGRx?=
- =?utf-8?B?Z05QVjJELy9IRUE0MW0xcHBsSzl6UHRlV05DYVlnamdOUmQvZW5sZ2dLVFZH?=
- =?utf-8?B?OGtEV1FneFFkdURsL1FxU3NoY0s2SVZ4MjE0S0RwNEh0dWNrMERsek1hbGVt?=
- =?utf-8?B?d1ZXTGlXZDhlODNxdCtkZEZZOGg3ZUllRHdGQVRaaG13Qk81T3g2RmprZFBh?=
- =?utf-8?B?bDZ1TGswNzRhM3hvdktQZFFoNUdJcWxZVTQrL0p6MC9HU1U3U3ZtSGpITEds?=
- =?utf-8?B?cHVPb1pTV3J0QXBYZHREZ3NOOGVKejFTSHB6dGh6djYzRUt6dTFrQ01Vd0FH?=
- =?utf-8?B?NDRNYmFQRmsyeUMvWDBrNTllV21xSmJRTkl5ZW5aYVFRb0dScFh0OXZranMr?=
- =?utf-8?B?RUt4UCtQak1uN2Z1S3R0cFpVVUdSaDZKTHZRNzV1NFMvblAyemw2eWwrM2pH?=
- =?utf-8?B?TFVRRU5ncFZZdnZGa3lTMUhvZFVnYWh5UWZ6RER5Y0QrZWJFVy9vZmpBNjVp?=
- =?utf-8?B?WUdNTllqWlJtUXVuYjZYSW96T2tiRWdXcWwxNkt4MWVwMzVxYlVmWHpsaERi?=
- =?utf-8?B?UnpGQ1AwMmdQVnJTTEdJL01PVG9CL3N1VTZpaUJrclVLRkVtbStrVFljaSt2?=
- =?utf-8?B?Wm5HUmVCMlVCbnB1SEJyaXRpdkdqQmNOc1ExZVJ5YmNBVnJrWEl0dlhnOGNC?=
- =?utf-8?B?N2c5Z0F3ZDlIdHdJb3lHRk9lYlJPb09hY3MxTk5qYThCd29idG5KRndaZXJC?=
- =?utf-8?B?eEFQbkJDb29sVE5MYWRaQjV6RTlwUzFQb1ZQZTJ3NG1ydDJrN0ZQdm9MUWRx?=
- =?utf-8?B?b0NqR2lJOE1EVFNRZmp5UEI0N2pzaWRjM3E2T1V2bGxFUWhrUGdlRXFsMDMz?=
- =?utf-8?B?SUhjODhyNm5GNEVLcVBnTSthekprc3lKN1U3NXExeXFsY0QwRkZJYng2ajEr?=
- =?utf-8?B?UC9sdG1MSkllbHUxREdsWDNvcE5pMjVTWWdpellOd0hNN0RTRE9RekE3OGtw?=
- =?utf-8?B?ajJaWkJtdHdub0ZGbW5kL1NPWXpjZ01UZEJuS1pGYWgzejgzNHJlTFRpbjJC?=
- =?utf-8?B?ekxtc1FJc0hEODYyYVVaNzJsRlBGWmh0U0dZOFY0Vi9UdTk0alE1NnVWWkZ4?=
- =?utf-8?B?SGs4cUZrVm9DVUVqUG5qVWtKN05QczhmMGxVQnZlWko1czZSYytmNTl0MWp4?=
- =?utf-8?B?ZzA5TWxYaHBEQ1BZcStUTzVWcEtidnYrYS9acjQ4YUIxQ2dnUlNvaVFyaFhG?=
- =?utf-8?B?R0xmQmk0ekErMjRSNFlSYnpnYkZ2MjhpRDVnMHU3OWNiVmpMQnJWTDcxUmto?=
- =?utf-8?B?aE5vbG1tZUszQkpHYVAxQng4aUdTUnFTeks3RXEzeWN4SDVpUFhSMDFSS29D?=
- =?utf-8?B?UThmUTE4Vk12UFF1VFVxNm9qUklkK1EvK2Z1cDUzblQ5cU12N1pmSTlENFl1?=
- =?utf-8?B?MjZxQjNweEZOeEszM1pRWWdaTkxYOEszaVpvVDFtR3RWcHh5ODAwZXJVZHpo?=
- =?utf-8?B?WmhERnhOMVlmSlAxakhIU0JzYkNocFhOai9iUUIrMzJjUUV3WUNtYUZtbWNU?=
- =?utf-8?B?Nk5sTllIb2M5R01xalJBWnB3NkpCZElqOVlYb0M1QWc3QU9TUldoOGRka3lB?=
- =?utf-8?B?clh4S3V2dXR6MDVSdG9KV2NhOHhKZ0NmOXNIY3ljT0wxT0xzVnlHck5uck1i?=
- =?utf-8?B?bkVkSXlFQmE0NWZYWkU1OWhzczdMcFZzOHBmMDNZRlNlemw2ajM3OFo0VGtG?=
- =?utf-8?B?S2tvWHo1ZVU3YWhxMndqWWIyanFSY0JJdW1yYnFnaVlocnRYd1REL1VWNE9H?=
- =?utf-8?B?WHBRUXpJU3BoTjgzVXlmeFVRWXdENHBWME9mZC9nSWlCZzVmL3djSU9SeU1X?=
- =?utf-8?B?bk5IYzV6WTh4TytSNzFnbVl1bXV6ZHVibCs5MnoreWFaMlhyckpmbGlsZXgw?=
- =?utf-8?Q?kFnE/PBJnhHyecCM=3D?=
-X-OriginatorOrg: linumiz.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af6a17a9-e457-4b76-3096-08de8fca3beb
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR06MB6935.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 08:39:48.6999 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 808466aa-232a-41f4-ac23-289e3a6840d4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V1QjUKnUeUHjsl822KJKj4j2ol12qPIUCWuaBc56h2xFhh8EBc/23E2bHjy9s7b9HTYJdbaAZbgInYE8w7C3iQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR06MB5041
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <5416161.aeNJFYEL58@workhorse>
+ <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+ <20260331155028.71246d7a@fluorite>
+ <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+In-Reply-To: <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 1 Apr 2026 09:40:15 +0100
+X-Gm-Features: AQROBzB1PHiXawIDg-k-EvjY_Ig5CvrhgA9fAjKFUy7Kp_xFd8_Bve5qhcz-7W4
+Message-ID: <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,27 +126,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dear Kuba,
+Hi Harry,
 
-On 2/7/26 2:34 PM, Parthiban wrote:
-> On 11/16/25 2:46 PM, Kuba Szczodrzyński wrote:
->> Some Allwinner chips (notably the D1s/T113 and the A100) have a "combo
->> MIPI DSI D-PHY" which is required when using single-link LVDS0. The same
->> PD0..PD9 pins are used for either DSI or LVDS.
->>
->> Other than having to use the combo D-PHY, LVDS output is configured in
->> the same way as on older chips.
->>
->> This series enables the sun6i MIPI D-PHY to also work in LVDS mode. It
->> is then configured by the LCD TCON, which allows connecting a
->> single-link LVDS display panel.
+On Tue, 31 Mar 2026 at 18:47, Harry Wentland <harry.wentland@amd.com> wrote:
+> On 2026-03-31 08:50, Pekka Paalanen wrote:
+> > People who care about the picture quality down to these levels will
+> > likely want to know and learn about these techniques. They may also
+> > want to explicitly control them.
+> >
+> > In time, when these have been used enough in the wild, compositor
+> > developers will learn what makes a difference and what does not, so
+> > they will adjust their reporting to end users. The most important thing
+> > for the kernel is it offer an unambiguous and stable UAPI for these.
+> >
+> > Policy belongs in userspace.
+>
+> I don't like this as a blanket statement. There is a lot of policy that
+> intersects with HW nuances, whether it comes to power or otherwise.
+> Taking away driver vendor's abilities to optimize will hurt the Linux
+> ecosystem in the long run.
+>
+> IMO this needs to be evaluated on a case by case basis. There are
+> many places where it does make sense to give userspace a greater
+> say on policy, but we don't want to push driver (HW specific) logic
+> up into userspace.
 
-Now I also have the MIPI and LVDS working together on A133. Can I pick your
-changes and post a combined series for the display support for A133? This will
-also address D1s/T114 as well. 
+It's not something that's _just_ specific to a particular
+display-controller manufacturer or a particular IP generation though.
+It very much depends on the usecase.
 
---
-Thanks,
-Parthiban
-https://linumiz.com
-https://www.linkedin.com/company/linumiz
+If you have a laptop and you're trying to give a presentation,
+applying dithering and/or DSC makes a lot of sense: you don't want
+your battery to die, and the projector's probably going to obliterate
+half the colour anyway, so might as well as go for the most efficient
+thing.
+
+If your laptop is plugged into your big display at home to write code,
+applying DSC to cram the highest possible resolution + refresh in
+would make sense. But if dithering only results in a marginal power
+saving, and your laptop is charging anyway - why bother degrading
+visual acuity?
+
+If you're a media player, then you're in a good position to know what
+would be good to go over the wire, because you know (& are possibly in
+control of) the format over what comes in in the first place.
+
+But everyone's tradeoffs are different, which is why sometimes the
+best choice is to ultimately leave it up to the user. If you dig into
+any media playback device (STBs running Android TV, Apple TV, Fire TV,
+et al), you'll see that all of them ultimately allow overrides for bpc
+/ colour model / subsampling / etc. Those aren't just there for fun,
+but because they are usable to real people, and it's not possible for
+Amlogic or MediaTek or Rockchip or whoever to statically decide that a
+certain configuration is going to be best everywhere.
+
+Right now we have drivers making magic per-vendor/SKU decisions,
+without even so much as a feedback mechanism to userspace (unless you
+count debugfs, maybe) so it can even figure out what's going on, let
+alone control it. To properly support some of those usecases,
+userspace needs to be able to control what goes out on the wire, but
+as a first step, it just wants to be informed of what the driver even
+did with the properties we gave it.
+
+The end game of this isn't Weston logging something to stdout, it's to
+surface things to userspace so it can guide the kernel into making a
+good decision for usecases that may not be ones the silicon vendor
+decided was 'probably the best thing' however many years ago.
+
+Cheers,
+Daniel
