@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECDA91112242
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:01:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E2D1112240
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:01:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4643A10EF71;
-	Wed,  1 Apr 2026 23:01:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D90C410EFB2;
+	Wed,  1 Apr 2026 23:01:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OqBr1Jat";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b+P4xKOI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5361C10EF8F;
- Wed,  1 Apr 2026 23:01:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2F7910EFB2;
+ Wed,  1 Apr 2026 23:01:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 38036434F8;
+ by tor.source.kernel.org (Postfix) with ESMTP id 764D26013C;
+ Wed,  1 Apr 2026 23:01:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F05C4CEF7;
  Wed,  1 Apr 2026 23:01:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E053C116C6;
- Wed,  1 Apr 2026 23:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775084492;
- bh=eMEeyEmMsSEJqm/VBl3vGWpBMChoVMgzinIBBgfTPlE=;
+ s=k20201202; t=1775084497;
+ bh=RA9AY2T7mVYiT1QmYiaR63Kmx/C/myQ45rJJ7MBbsDY=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
- b=OqBr1JatdiUb2SuylVZI06g081Th5A5y+SBKA3HDmkQQ97vI3JEwhrSxvGwmRYfcT
- gIgZiBk86U6zFl2xeAM5XAcNIndwN1BmcEoaR5ZvJYM7rqzMFz+1YsE+cz7axIJl2F
- X039vepaYXzaeHv3h/+ZjOkTeUE+OJDVFelUi2CljqpO1nCMphf/t+AimoE63wwItA
- oicrQfUBsr7nzOMQMl4np1MASYv6HNnj7KFB/AEG/OmevrCXcdXrzdV6/QynJ6W0qp
- YB9ROCeUG7CfHzwZ7tLmPMeRsXJJ6hXMQDecGejA+SExP6VmmpiJ41ojKql7BZVzvj
- qYYbOof6fOpDg==
+ b=b+P4xKOIyko3WWJnIYJ8bI4W3dAIUeSADYc1CtoxAYohAjbtUpCM+F8kOdFfxZKKO
+ sKtCiL0N0/I/hhMG9tSPK8eLcdclKVmFAmqphjjRs64lczzUsYFXLSrVx0o1ANBjbA
+ PbMgmXdW64lIPpiSS5apdOGrwLFbf/sdj3jK8v79AsQQCqhZ2+UDs0xMKHbB0T+jVZ
+ pLDv1Ey/utUtJq7DWrEa9I+r+fSckCS2v9ym/rg/yPSw1uFXr+JGyOalgAFUoFqwVa
+ S22IWI21qZsPP3SimeuLhGqA1ycVVG1dgW1QmvLjJyIAme4x0KlKjOt7MTnABWpVyd
+ ShLMS1qUDPGYA==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 26/33] docs: rust: quick-start: remove Gentoo "testing"
- note
+Subject: Re: [PATCH 27/33] docs: rust: quick-start: remove Nix "unstable
+ channel" note
 From: Tamir Duberstein <tamird@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -66,18 +66,18 @@ Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-In-Reply-To: <20260401114540.30108-27-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-28-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-27-ojeda@kernel.org>
+ <20260401114540.30108-28-ojeda@kernel.org>
 Date: Wed, 01 Apr 2026 18:59:04 -0400
-Message-Id: <177508434468.73816.14590171380654521174.b4-review@b4>
+Message-Id: <177508434469.73816.1901858850945168226.b4-review@b4>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=345; i=tamird@kernel.org;
- h=from:subject:message-id; bh=eMEeyEmMsSEJqm/VBl3vGWpBMChoVMgzinIBBgfTPlE=;
- b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnF7uuLFn5ysG844m+YOzU32yT5q2ddFFGwjjYK7z0s
- IHllYmrOyayMIhxMViKKbIkih7am556e49s5rvjMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
- oZGOgY4xAxenAEx1cxYjw/WVXWtWXt19ZdneHTnhLd/eMl7yEJ8655tqxfdHppWHvysx/PdbySo
- az7fibtaeiJbGk/N2qotN1tyw6K2c2vSuyp4IYx4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=352; i=tamird@kernel.org;
+ h=from:subject:message-id; bh=RA9AY2T7mVYiT1QmYiaR63Kmx/C/myQ45rJJ7MBbsDY=;
+ b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnF7vyr5hm9V0/abVJ2uNHjxWjGhKvpydNmi2seGWam
+ OiVJj31joksDGJcDJZiiiyJoof2pqfe3iOb+e44zBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ aKRjoGPMwMUpAFMdHsXwP2Dt4lu9uvlf/ENv7+GrKJzyWPj4JL1Td13lw681ME/a6svIMGHtDbW
+ Hc6vi0/gEvt/n71IVU5sz7WhmpbvD//JX+9XesAIA
 X-Developer-Key: i=tamird@kernel.org; a=openpgp;
  fpr=5A6714204D41EC844C50273C19D6FF6092365380
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,9 +95,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 13:45:33 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
-> Gentoo does not need the "testing" note, since its packages are recent
-> enough even in the stable branch [1][2].
+On Wed, 01 Apr 2026 13:45:34 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
+> Nix does not need the "unstable channel" note, since its packages are
+> recent enough even in the stable channel [1][2].
 > 
 > Thus remove it to simplify the documentation.
 
