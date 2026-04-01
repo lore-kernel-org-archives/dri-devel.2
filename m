@@ -4,104 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23B810F6FD9
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 15:25:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C48C10F6FD9
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 15:27:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D35710EE13;
-	Wed,  1 Apr 2026 15:25:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3AE210EE29;
+	Wed,  1 Apr 2026 15:27:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=szczodrzynski.pl header.i=@szczodrzynski.pl header.b="dTapjwhl";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="FYsvhxnn";
 	dkim-atps=neutral
-X-Greylist: delayed 1196 seconds by postgrey-1.36 at gabe;
- Wed, 01 Apr 2026 15:25:49 UTC
-Received: from s2.avantea.pl (s2.avantea.pl [46.242.128.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F5D410EE13
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 15:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=szczodrzynski.pl; s=x; h=Content-Transfer-Encoding:Content-Type:In-Reply-To
- :From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Yfl/w1ij3MgpyEqu5acDmeSHKzp1JdcGMEvJsVUioeI=; b=dTapjwhlsakHuG9/ro3lz63N01
- XdRqX6PAtHDsv/Hqx89CpF904TiwsjZnD8ckUY/929k3Kqh6zJWEV/bZwHUToTvKGf9yVJ6uGH3ls
- 8Kwrz9WhU0B/zKeitP6JlW0f7htpsvS6bhNBxQXHc1qf9f77rtkXHumMFFi0polKAmpE1zRkNzspa
- fHCxnwx+tD75qpHwxRukvdgbcqzqhSja9xlzKE8/AnrpaVpvoBqytXXymP5r5Ao7xRd6gc1mYVTR8
- 2QTy+ybeTSBCzaSl9bns7x65+O5sMF5eXEPOAWZiSq47yrUdD32xbkhLxziC+Rkra+/azUmpQMB6A
- ZJ/I/QVg==;
-Received: from d100-78.icpnet.pl ([77.65.100.78] helo=[192.168.0.120])
- by s2.avantea.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.98.1) (envelope-from <kuba@szczodrzynski.pl>)
- id 1w7x8q-0000000Ajrx-2VZg; Wed, 01 Apr 2026 17:06:00 +0200
-Message-ID: <5e9f5f0c-1ff0-4b6c-ad2d-ccf6fafbef30@szczodrzynski.pl>
-Date: Wed, 1 Apr 2026 17:04:48 +0200
+Received: from CWXP265CU008.outbound.protection.outlook.com
+ (mail-ukwestazon11020112.outbound.protection.outlook.com [52.101.195.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4B410EE1B;
+ Wed,  1 Apr 2026 15:27:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wYi/ttZM5bI9TCo+N0C/HY+vtddRNUPbVQrG8NDQFNNUxSy03SKSMLfRwwTGwcIHgeJsWoaDtSp50fo21e1rDHLQtXArVaUcNW6r68C8f6pHOXVB8Vh+4iOYLrx3udaNmSdfokI68t5aN9B2wupVMPY65o3s3cuZrhbU+NQO1DNx2PdUnVwZAHGKEGMWxyJf2TRH/AS+JOypeUhot1SwC7Ku4bzXpNnvPTneZcso6NECuFPLUJ9UeYU/cr20aT8Z0D62b5SkNC+Ew8tlMs/aWgjuUwOZ4n/uGBiYPHsFETQlJ0sGnbHAGFO2/+ZEQMPXOz1rMi11dCJ9+gq0kCMpjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8SG4SgTHst3JVz/66fctd4JjpYSHzcf9xgWFqCXhZWg=;
+ b=E2PuLcBfkFr3zoBitxXOa+ROIBbAAEaHi7BL0o+vVK2dmiiOB+q4SBnl69e34rldPZ5OxCAGORFtzs5flaqzNngL0+F3IenayIqBq85da6lyTQ7Erslkmz0UU7QJMQJKKveegawJ0rT5fEd6OuV6xa/0YX+s8gbcZXw1UMbFKzbkGtZvIobSqjWX5nAto4fjmVxvWr82dDLd7yttDMDEByzJve3PoZm/o11Vlwt8RbFSf6FmC6sAur0bM+ayWF/YcUTIxnp6nHckEk6Iv/5OCAlzM0L8v+AGGbjmJqkNFH+fZiQjlc3zKDuSpuGpG3dVif9Y8hG+By0DmXqKgB4BWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8SG4SgTHst3JVz/66fctd4JjpYSHzcf9xgWFqCXhZWg=;
+ b=FYsvhxnnHbS7Nnu2L8TRcVXemtiNMXplZrYuTG2jTehPnvXUyxjqSPCh22Z2UUjtkZqpqiAqbjUmZaHa3ySFLCdbljNtbCqF3ggYjfYVxoUVpnMFpnevD+5HDl34zzbvsQvZpBE3aj/hHBXv0KPArom4vX4r4qr8GuyT0v2Bkdc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LOBP265MB8993.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:483::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
+ 2026 15:26:58 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
+ 15:26:58 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 01 Apr 2026 16:26:57 +0100
+Message-Id: <DHHX9O7V06VZ.G0N1CQ7BUKFO@garyguo.net>
+Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ <rust-for-linux@vger.kernel.org>, <linux-kbuild@vger.kernel.org>, "Lorenzo
+ Stoakes" <lorenzo.stoakes@oracle.com>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ "Uladzislau Rezki" <urezki@gmail.com>, <linux-block@vger.kernel.org>,
+ "moderated for non-subscribers" <linux-arm-kernel@lists.infradead.org>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
+ Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, "Nick Desaulniers"
+ <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH 32/33] rust: kbuild: support global per-version flags
+From: "Gary Guo" <gary@garyguo.net>
+To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
+ <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
+ <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
+ Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Jonathan Corbet" <corbet@lwn.net>
+X-Mailer: aerc 0.21.0
+References: <20260401114540.30108-1-ojeda@kernel.org>
+ <20260401114540.30108-33-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-33-ojeda@kernel.org>
+X-ClientProxiedBy: LO4P123CA0095.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] drm/sun4i: Support LVDS on D1s/T113 combo D-PHY
-To: Parthiban <parthiban@linumiz.com>, Maxime Ripard <mripard@kernel.org>,
- Samuel Holland <samuel@sholland.org>, Chen-Yu Tsai <wens@csie.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, paulk@sys-base.io
-References: <20250221161751.1278049-1-kuba@szczodrzynski.pl>
- <20251116134609.447043-1-kuba@szczodrzynski.pl>
- <a5f6aeb1-b038-462e-8989-c4da65966134@linumiz.com>
- <1027afd7-dec6-4ff3-85eb-2d9a1646ada6@linumiz.com>
-Content-Language: pl
-From: =?UTF-8?Q?Kuba_Szczodrzy=C5=84ski?= <kuba@szczodrzynski.pl>
-Autocrypt: addr=kuba@szczodrzynski.pl; keydata=
- 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
-In-Reply-To: <1027afd7-dec6-4ff3-85eb-2d9a1646ada6@linumiz.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: kuba@szczodrzynski.pl
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOBP265MB8993:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bc1ba07-80d5-4c25-0374-08de90031d2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|10070799003|366016|921020|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: DF2UNII4ZFi/RgCxQhYQ+gwwh/1PW/w53wzlIWcI+N2yxr3oJaJptYiazNKgSPFLM+cjA5++QtsLPobEyBTvPhirEjIcA+PH6CuOzbssNTWD3yg5F6DOwq10cQo9K3d5TxtV1Fs/mBMJ4yGRhuyW2jgoyTmw++0xxGACin752T4OUtuoNSAOA7L+viCI+Qmzv6GQHgwZGK8AX4/IG9Tzo69cmd3lvv30jbyEyGMe0to50ZdjZCjTmYhDk0yAEpNRS2W4ZAOa3qIPuooO6xoFZOL2QldM3ccYWJeyU28ttk+egaAyhVXOy/88HbvpBXxADwzGF9nU5Vs7pZU8xNDswp/tQrT3Bt0iEX1hOYfFjzc+ghgnY2mFT+iTvP5og593uYtkjXNnoJlxfpU8Ed+mPEINelOLfCI8QBKVx3GHgEr9EFTSg2C5pSQB8K5yeF9LUhoTNX7j0nhKd89J1XSZMJXT1ZVe5JU74YlwRr5kcm+Z15GlYDlnbB1QeW5BlV9u1YBA5QvfU7pWdDkbdlqrKfpDPlOgNOeiCPn39Y3Vs7PpbQKtEnyDRggReYE1JbLbP9cfDneg70iDA4iKep8/feEx4Eh93taIpFrCkMVKYdj4p6IIKD0LbTJUJR13FhTvKPMx/XByj9OWCZjY1gSuS+/oY0vOHveKZ1QCshqc8aHP4lyXzbghINvHCwe9QdllorVdYbzCh/GMm4pm8ig/gg/y7YEKIvwviEbzGM8H4pE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(921020)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0R3NjVIeERUb0VmYVZFcDRyUWtBL0w3bndKZnJsaWw2NXcwaHJZWU5wZDNp?=
+ =?utf-8?B?QitZbTBPeGhoOWRaYnpwMmNsOEpnWVZzL29nc1lRYkMydmduYm9KZzdwK0gy?=
+ =?utf-8?B?RktnTnlacFJQY2w4eHl5djFhYUVqUnBtN1d5NFh6eEI3dU05alZYY2RiajVU?=
+ =?utf-8?B?eFgxeE16WjdzbGZpdjFOWEwybzgxYVJZVGF6RDZkZXZWeEhndGFqWG1CSThv?=
+ =?utf-8?B?bHA5T3BjVVB4dlJVd0hJYnU2MlExZ1NGd2MzcmZ6OXg2d09OOFI1SkNYd1N2?=
+ =?utf-8?B?bFcvVmRRYkFDZ0VoTmJJclU3c2pvb2p0RW01VjU3ZEgwRnltRG9YODljMmRt?=
+ =?utf-8?B?NXZMenZOT3A1Rm5pOGFsa2lJM2krTmtBbjZiYk9BcXFGNm12eTdBaUZ5U1FG?=
+ =?utf-8?B?ZVQxZFo2Z2owbzNObS9Nbkt6V20yamtGMUFFMUZPWXluNmZtbVJIczhnaWJw?=
+ =?utf-8?B?M3JvVllFVlNIQW8rYTFLOTFaZTB2ejhPTFJta2lISlhvMytJS2hHRDRhY0JG?=
+ =?utf-8?B?TjI0Ykd0dWpPVzA5QzRYZGk2ZitxTk8vNEJybXJETGZreTcxaDAyNHNLM3Nr?=
+ =?utf-8?B?RVl3UTNCdWEzbHZ2cElnK2ZPZ2lTNDVGa21MOFo3Q2NGa0dHZXQ5ajQxSmRJ?=
+ =?utf-8?B?QWgzMG9yMHlnVFdoOVBqRGVIbW9kNVNJdEhDa0I4ZE1FazRvVmRydXp4VFJB?=
+ =?utf-8?B?MFdJTUp0TzdZTFMzS2JHdEUxcCtSVGlaNkR2WVdwcEZUcmpzZHh6cUNXcjJM?=
+ =?utf-8?B?Q1BjUkE3MkorVU1CU3laTkloTDFvaC9vS3AxK2Nyd2wzOHdKVVQwSGRxZTV3?=
+ =?utf-8?B?QmEwODdzNXJBMGlLcTZhNjNkdDNmRzV3S241WE5HRlljdGNySDVTdEU2RE9o?=
+ =?utf-8?B?eDNMWDEwQkpwQUJKMVRkYmZuR2NGSTd0WS9RZWV3bkF3RVV6S3NVRTF3WWhY?=
+ =?utf-8?B?ekJtN2djOEhnQk9ZcTQzcFpXaGkwZVp1RllEZEliZXQ4Wk9rb3NQYzJNNDVh?=
+ =?utf-8?B?RlNaUlAzQ2lTbGlsVE1Na2ZzOGJsTDI0bnRYenRNcDFOSFo2MlQyREgzd0VQ?=
+ =?utf-8?B?TFl4SDVGK3FHSFF3UG0wVC9STmo4WFlFSThGUzBwR3AzVzNaRDlmYmVQaEZH?=
+ =?utf-8?B?a2kzSkNEY25ESWxQU09RazMzbGpNQnpFVW0vOG1BV3NwUnNMN3FnbGNCT0Rq?=
+ =?utf-8?B?NHlxQys2WHZzRm9pTlc3QWk3NjR4c3A3bXROdlpFNjJXdTBvSWg0TE5iZUZM?=
+ =?utf-8?B?RWNMcUsvMlNXWG9wU2Q2ZXIwUG52WjFLS016bkxCWDI0NHkvRlJsdDhiWVVB?=
+ =?utf-8?B?cmxPTythVUNoTUUzaUh3WjdaQlpPQUVhMEhFbjQ5OUpCUE1WRkxnZG1FL1Iy?=
+ =?utf-8?B?RldzaEtGYkJ0aDFsblFIL2RUbnhpcjRsM1lmKzB0K2k2YzJ5YTI4UFlETTJh?=
+ =?utf-8?B?dzRMWk40VXVDaCtIZmV5dVJTWloxU09IR1J1Rk5Fd29INys5QVdFdld1ZUZR?=
+ =?utf-8?B?bElEdHkwZzMybEd1NjU0VkZVTm5aS2E2MHI0MVRzSDVRMnNvOFpzdEVYSTdM?=
+ =?utf-8?B?OS8yNGsvcDJXcDBkckloZEpqMmFKckZrRHZhbjQ4UTNFMm9KZi9tQWhaTGJs?=
+ =?utf-8?B?dkliWnRmeXhzZDRoaHF3SzRtTDZDTDNQM1N4UjFCTE9JM3FBL3NaTEh5Rzcy?=
+ =?utf-8?B?cGdZNWEzMkc5b3ZSNjMxV3paYnJhNzNkY1ZlN1JHcE5OYWt1Z3l3aXpqNzhJ?=
+ =?utf-8?B?TS9CUXVGWWIzeUtvZzVjaHh0NlgrNDRoWGc5RHdPRHFZK05NWnpWQUpoa3k5?=
+ =?utf-8?B?ZG03MHNXNjZKdXpJVmZOTkpsM0ladFVwYjFzb3h5ajlOUDY3ZmI5VFZtdzlz?=
+ =?utf-8?B?clVaeVN5NVZ2emQrdm81QUtqQTRnOWJ3VUs3Y2liUXVZdzNCOXNkb2Rmbjlr?=
+ =?utf-8?B?VElHYlhZYWEzUFY3LzBSd0pPZmZWVXh6MkJEdzk1aHJFWUs3ckI1L2Q3YXUx?=
+ =?utf-8?B?VVFTVUp4bzdSWDVSQTdSZmY0RHFtVTFycWRmTHFQUm1CNUVkdTJseGhialNG?=
+ =?utf-8?B?cjE0RFhUaEZiV2tuOE1QMFZ4WEF0aWVxOTBHd2IzcVZPWjFFTy9WRmN5M0NU?=
+ =?utf-8?B?VjdJbTdNM2ttNE1vRFRUSzdCTzVYRVdBUDVGbUZqaWI2RlcxUXg1NHlHU3hZ?=
+ =?utf-8?B?YVlmUm9RdjlPaGtVRUZDTzNoTExSQ2ZIL3ZkR1lRVnl2NC9pbUZZMkd5UGI4?=
+ =?utf-8?B?MWdRNFhMV0lmdFdVa0dWQ2cxbVZ6ZEEvZ1BHN00wOUw0ZWdLN0ZUYTAveTRH?=
+ =?utf-8?B?dFI4UG0xQVlQNFBzK0FIRkdDODFQR2VIN1ZOdW5WeHRRZ0dyTU00Zz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bc1ba07-80d5-4c25-0374-08de90031d2a
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 15:26:58.2479 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: InTfKgZ+3iBRhBf6RHR41UCwL6BeLK2zKjj2QmTbfuUyeD9uNi6ibJFAK8hUj1ftRFzmPYvvfDUpFJ4s+qhOfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB8993
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,35 +162,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-W dniu 2026-04-01 o 10:39:42, Parthiban pisze:
-
-> Dear Kuba,
+On Wed Apr 1, 2026 at 12:45 PM BST, Miguel Ojeda wrote:
+> Sometimes it is useful to gate global Rust flags per compiler version.
+> For instance, we may want to disable a lint that has false positives in
+> a single version [1].
 >
-> On 2/7/26 2:34 PM, Parthiban wrote:
->> On 11/16/25 2:46 PM, Kuba Szczodrzyński wrote:
->>> Some Allwinner chips (notably the D1s/T113 and the A100) have a "combo
->>> MIPI DSI D-PHY" which is required when using single-link LVDS0. The same
->>> PD0..PD9 pins are used for either DSI or LVDS.
->>>
->>> Other than having to use the combo D-PHY, LVDS output is configured in
->>> the same way as on older chips.
->>>
->>> This series enables the sun6i MIPI D-PHY to also work in LVDS mode. It
->>> is then configured by the LCD TCON, which allows connecting a
->>> single-link LVDS display panel.
-> Now I also have the MIPI and LVDS working together on A133. Can I pick your
-> changes and post a combined series for the display support for A133? This will
-> also address D1s/T114 as well.
+> We already had helpers like `rustc-min-version` for that, which we use
+> elsewhere, but we cannot currently use them for `rust_common_flags`,
+> which contains the global flags for all Rust code (kernel and host),
+> because `rustc-min-version` depends on `CONFIG_RUSTC_VERSION`, which
+> does not exist when `rust_common_flags` is defined.
+>
+> Thus, to support that, introduce `rust_common_flags_per_version`,
+> defined after the `include/config/auto.conf` inclusion (where
+> `CONFIG_RUSTC_VERSION` becomes available), and append it to
+> `rust_common_flags`, `KBUILD_HOSTRUSTFLAGS` and `KBUILD_RUSTFLAGS`.
+>
+> An alternative is moving all those three down, but that would mean
+> separating them from the other `KBUILD_*` variables.
 
-I guess it's been waiting for too long anyway - so yes, if you know how 
-to push it further, then please do so.
+I think I would prefer moving these down.
 
-Regards Kuba
+The current approach append the flags to all variables, which will cause th=
+e
+following equivalence to stop holding after the flag update.
 
-> --
-> Thanks,
-> Parthiban
-> https://linumiz.com
-> https://www.linkedin.com/company/linumiz
+KBUILD_HOSTRUSTFLAGS :=3D $(rust_common_flags) -O -Cstrip=3Ddebuginfo \
+			-Zallow-features=3D $(HOSTRUSTFLAGS)
+
+(Per version flags doesn't go before -O anymore, it comes after HOSTRUSTFLA=
+GS).
+
+Best,
+Gary
+
+>
+> Link: https://lore.kernel.org/rust-for-linux/CANiq72mWdFU11GcCZRchzhy0Gi1=
+QZShvZtyRkHV2O+WA2uTdVQ@mail.gmail.com/ [1]
+> Link: https://patch.msgid.link/20260307170929.153892-1-ojeda@kernel.org
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+> ---
+>  Makefile | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/Makefile b/Makefile
+> index 1a219bf1c771..20c8179d96ee 100644
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -834,6 +834,14 @@ endif # CONFIG_TRACEPOINTS
+> =20
+>  export WARN_ON_UNUSED_TRACEPOINTS
+> =20
+> +# Per-version Rust flags. These are like `rust_common_flags`, but may
+> +# depend on the Rust compiler version (e.g. using `rustc-min-version`).
+> +rust_common_flags_per_version :=3D
+> +
+> +rust_common_flags +=3D $(rust_common_flags_per_version)
+> +KBUILD_HOSTRUSTFLAGS +=3D $(rust_common_flags_per_version)
+> +KBUILD_RUSTFLAGS +=3D $(rust_common_flags_per_version)
+> +
+>  include $(srctree)/arch/$(SRCARCH)/Makefile
+> =20
+>  ifdef need-config
+
