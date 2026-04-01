@@ -4,141 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B07D35144
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 06:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC348D35144
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 06:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2BD10EC19;
-	Wed,  1 Apr 2026 06:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9C0610ED28;
+	Wed,  1 Apr 2026 06:58:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kkAs45Bi";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZLLrGMmt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aCST89Q0";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53FEA10EC19
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 06:55:40 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6316NeNb3104026
- for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 06:55:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- WQQBKnTeuxvZFrzaqYE4weQC+7shJLwzkpMeciVeR2c=; b=kkAs45BixoDdaqYD
- m5zsRRk5FPMRMUuN/wmaYH2UnhTIRI7ScnjOHA+i0PQn7TFDfC0qDMz3765iAtyX
- iUlKmPk3t9IFYtOLlTwyofF71TYu71kSSICrAC6aAhbc8NAuD6sy54fSpL30bnkD
- LocEabT0ljT0ApYU5reQdl3TQPdHss2Xu3NTUlHb8h8ze8ZpS7fY+DRoYNQgI6zD
- bJv6+l2P2svSfjriEORkUgxKWcFD16lyoorkQuBWOuKBxHMH+O/3g4arOdDcUIDJ
- Xx+ObbBZSViwoGG5ftgfn2fw3upOrN5wwfCTysHThtY8varxpWaPrmUD3n2FJJEe
- 4dwBjw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8js22y48-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 06:55:39 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2b242cbb97aso36809155ad.1
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 23:55:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775026539; x=1775631339;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=WQQBKnTeuxvZFrzaqYE4weQC+7shJLwzkpMeciVeR2c=;
- b=ZLLrGMmtE324ZsPZg/MssEw4YeIRqzqw9KBzBSdMLyUiRNXOQDEMhKrbnQnmAOqEd0
- p0Gboj4g981MM6oG7l8yNLOlT/fFqdJ+q5epuxf01W+maiEuMuKcXxPpTA2hcC2iuucC
- wrf2VOks+bCpoh2ZGM4r3NzZQlV5JtRw1n9bp+0K9JYt2xzmFovglkHod10X5lbZruJ+
- Mew6wobpoq2P4S04s6uGIOMlz+LcWacylll6g3onEg0ZEuXxVN8SRXtODNXGW8Y9LbW2
- 4kgdNtcavlMkO55ZD1JQUlMvWpAm/X1dvXkICvL9fidi8g7mwFopfqVgVNEENHQwc/6C
- T94w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775026539; x=1775631339;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=WQQBKnTeuxvZFrzaqYE4weQC+7shJLwzkpMeciVeR2c=;
- b=EoJr5gaudjXA9RMc+YeFTRtK6JSzU2/1cgXYqtWs/JE1kXlrUW+04yFs7Y256pu9pC
- C/ZdxWXLf+8Y34G4gJ+Hp5u3T/IqSLl05gXRAvF8Y5zbyFe6ZjeTa9u5G4zmexMKUqAT
- usy5dSIL0QEfcHqgnzQ4wbjPjZ7LuLaIAgizLFCqwQsJhmFuJ3c046kcOjgg682f4TF9
- gq/j+TaC8rm7mCgYvhJBmz3U/z5zDICdvqEXHGZ6heidr0dAJG93w58hxZ0xcsoH972M
- ATlJysdjk2PsZjWg7q8W43bsGK88b44+j+X67v9eBZpwi+HWXqGS5nYk2260hmF8AXAf
- 1KbA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW1TYNZqZd9rzBdSM7OwXei0lVQruEAQU1Ei9+cCO68HCPF7znKPbKB30NfaRYDQAg9vN7KeTw/2Ms=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzjqX3DKMlP4+tOFwtcK9UTb3Wk33+mdJlY7Jb2p3EmKfXX0IhT
- TuVvY2+/MlRb3HgO2dSs+gyyqncro2o7UmRHStXYKjGo3VQ1DpecPAdcPUwWLz2tcAwyLHcW0/0
- z6J7l8m9oi5MyNYXsW1utvsIPgB/OIchw1/ozFENFc4qkWHJmKuJjZ6NA9BWzQPrd3LxqB8Q=
-X-Gm-Gg: ATEYQzxHB7wDMMr2ITRvZ8VEdn0vx5lwjaLUpiSgE6y5PB90NWY8pDwrsEEp9Col71I
- Gk8Iqk4Y8/8sh3MYM6nrBC9LSqUtD5QE6gAwlc1oghBjseEs1o5QgRy2DT/+nAhaYA0RngPRBHK
- TbHkBBxk7hql3NXk2SBN7F5qqh+PwRsaRW4EC8G7AN52GzcTW8qXbShlqJHoKzpY4LOXor0Vghw
- TGQ2KlWDuZQlsf7oAAFJBJ0RaxXf/i7sJM9C2NcXcSdab/BD5sep+O+XET/w55WMMQFyUKEICqr
- 2tYQRO8+eV5WMc19j5l3F5t7mkMY8j+MLcXY9aTfgMe3ZtnELJm8blT1X1oDvOcpSMnG/apywxm
- 1IYcDdJ2sLNQpS+J6wiX2m9XrRsBChsKiwitwVBIXeq0KWuy8P9c6PjRAoNQ/e19numAlu+Nj8a
- gfiRtTkzl1zOSs9a744g==
-X-Received: by 2002:a17:903:3c2b:b0:2b0:5968:a6d5 with SMTP id
- d9443c01a7336-2b269ab5ffamr23059225ad.18.1775026539047; 
- Tue, 31 Mar 2026 23:55:39 -0700 (PDT)
-X-Received: by 2002:a17:903:3c2b:b0:2b0:5968:a6d5 with SMTP id
- d9443c01a7336-2b269ab5ffamr23059055ad.18.1775026538539; 
- Tue, 31 Mar 2026 23:55:38 -0700 (PDT)
-Received: from [10.133.33.140] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b24ddc0afbsm137964415ad.64.2026.03.31.23.55.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 23:55:38 -0700 (PDT)
-Message-ID: <fbca1547-d54d-4bab-89b9-404d97c3c08c@oss.qualcomm.com>
-Date: Wed, 1 Apr 2026 14:55:32 +0800
-MIME-Version: 1.0
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010059.outbound.protection.outlook.com [52.101.201.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C87410EC45;
+ Wed,  1 Apr 2026 06:58:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cERja+nDBbLAT8Omg0I4v62s9shOG3Pq0DeAzVqdTekh1vTZOSRba6nuLZymldPmhszZrBsW6cJhMUfLGH6mB6iEjZbZFXv2yGId/XDE2Y6RY6Zd1wwwTV5YWndjoUmc+Wa5nndD9XqJaVa9xpChP8lAJ2XrIiCcz5ZcwyFK8s/dJhV++3tIJ/V8JmuvyLsuN3D4Hs9crP7aXnm8Y2sxGOM8fWuvyE28Ur9BgcEqAgJruBbvjt3HMsbKqDXbeAH+SWFNIuQbbVmK2tTMycyr1oTCa8rv7xSls6pxihc/S37d10S7sPNnvfZuESv7MpKv+3P6/iWOpJ8zFwAKG4uVeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xQTw2PINn5BlyXaIFgRSway5r0aHy1OSYZYRYdiT5Hs=;
+ b=mWfmgS0Vh9lT7914VHHc7oiCHeSySWm+r/lGwjv6BdBRwW5FVBtQeQO8SQPhoSZEzW11kJoq9Eruola01NeouyrmT+rJmd9X4g7IaKjHz6H/mbB202lXqj5LERVdUZyBWx6XT3qAdJfRwJxXJcu1h1jrZikloCJYxorsm1sZIHQH87xDBuWMK3uiD/4uC9D2bW4LwGcMBv9gFAMI238dAL3Ce37NMS7Dxvwg41zNaQBj5u7XXG1YeRudDU8FLrnNUita9ITrEiNaxi5jHm8mHQd5tVtvVnFWYrWnZp5cwmPrUG56hNcpP7CrBoOEQ824ftI5tA8zqRyUYMwK/Wp6yQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xQTw2PINn5BlyXaIFgRSway5r0aHy1OSYZYRYdiT5Hs=;
+ b=aCST89Q0wwZINbE2gt1BGc8UCLdjKXYdPwF5mKbObYeKbX7kP/c0KXao7jVrVc3pHTvw3Ck4U4WZl8ZPTrZPbOoiL8+fzUIsnOR/EQXgi3m4cRIwbWnnNZzCL9Oto9sioMN01oYd4cggx9HqzSKBsq87eTVv8r+zPSy0paDP6J0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by IA0PR12MB8931.namprd12.prod.outlook.com (2603:10b6:208:48a::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.14; Wed, 1 Apr
+ 2026 06:58:17 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
+ 06:58:17 +0000
+Message-ID: <11e4daaa-0f1e-4fd4-b435-d2fa9d058869@amd.com>
+Date: Wed, 1 Apr 2026 12:28:09 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/38] drm/msm/dp: add support to send ACT packets for
- MST
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-17-01faacfcdedd@oss.qualcomm.com>
- <mtli7kelybfot6ai3lqjagy6hahnpkimqjnjbk26shaoekqoht@cbycvfsmry4o>
- <46d97aec-9f46-42bd-8725-2c236ffd13ba@oss.qualcomm.com>
- <4cb29e7a-9a75-4f8a-9036-c96e9190b7b0@oss.qualcomm.com>
+Subject: Re: [PATCH] drm/amdgpu: deduplicate register access and helper
+ routines
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Gabriel Almeida <gabrielsousa230@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260330224503.548284-1-gabrielsousa230@gmail.com>
+ <01989c65-1e1e-4f78-ac88-a1c76961b3c3@amd.com>
+ <CADnq5_N6bzHTQJjS6__-Fmp15fASUw3C5DG1uNvZgkxCRtFkcw@mail.gmail.com>
+ <CALsHKmUeB3=H9=Nq=+jOvtmwXxSg=wtHrASZNvVVPQwpyem2ug@mail.gmail.com>
+ <CADnq5_Pf841oeJAwhLp=1Y_tOWmEX+gyhDW06Z=qr+FR4x4JEw@mail.gmail.com>
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <4cb29e7a-9a75-4f8a-9036-c96e9190b7b0@oss.qualcomm.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <CADnq5_Pf841oeJAwhLp=1Y_tOWmEX+gyhDW06Z=qr+FR4x4JEw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: yVFqnVHaEQ5Y2542mYqRBWQdDJG1lJUG
-X-Authority-Analysis: v=2.4 cv=XfqEDY55 c=1 sm=1 tr=0 ts=69ccc16b cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=FT7dueq81gZMvNQLzlUA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA2MCBTYWx0ZWRfX88mK0Iw0ATIx
- oFyV4IEeHRx9C6VqdlVR7GjF3x9PCjNxzGQOXB4Wq5/I2o+Jzwxpj0EOqxfYaNju6neJjTvN1Ct
- 7PV+mQQ171WmZ7ZAUcj2JXKc3mHr7JOQ9anVFFhg0Ypd83O2TsWhWhkVeGz+VuqO2SQgH8pC3xa
- UBuyp0kG4JOD0uARWHYtKPCNs5s1lAk+MMrcaGevAxyEzG9+UpHsV/iQT62zg6WL7W1PRQfWGB9
- m7XnwWhdqrSbp4VRDmCJ5TBzLi+YTT0I8qwFWY6Phuc5YPXsCHbAuSVo6NVHZ6SaAzZubMFMgRp
- 2+6+AVBQzd0AX8w7v5Mpw2IDwdBtBpLQANn+sZWtv6Wt8SMLdANBpR9pGRaUF6j2rhMA+9wBDeV
- rls35vo/9PNGw3ZvvtgV8xXz8EOHTGfbc/iJP+iUXve9giajSgqUnNo7xQ+DroN0md7lE1dvlFg
- 1cvTIQnJywKL2gyGTtQ==
-X-Proofpoint-GUID: yVFqnVHaEQ5Y2542mYqRBWQdDJG1lJUG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_02,2026-03-31_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604010060
+X-ClientProxiedBy: MA1PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:d::12) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA0PR12MB8931:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6fffe23-d40a-4f29-3b9f-08de8fbc0cdf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: CtN2Md/Ur7C+tfrmA2SXNJ2SXY4tPAqWO6+vSAZ9eapUEdVXqWn3UAxIBgBK58ZzXYRJX7wYtVn82IpuJ+ID9Qsc3RvM7chwRe/MtyUFfA2zzyOSu1mqYZRigqQxkz7jfVf4pMUJqYBU8xO+CesY6eUMHVtZnw3gXnn43f5aTOdGXRNEtvvMaXQikX83Uvh2S7OK9IDk9YgN8MZlNZTNw7f3Hxo5p6GJNA026WlGVLxnbWDBP0bVAamEEcHRVzKxJHAIZf5kHibQ0GUIXupUYRCjnOUlcLc5krfjx0J4sS8yEJsS1Symd/aP6/jVD7cBjQowHuS74iFXF93TNPmlSaesDN6c+XqxglfvrmnC2014nWWIofVGWB+tQmcrXvpudTkYoyrIybGrgTOR5FfJ+bUvSdxGtDHRNU8H5sVGW7aRWIhszZCZIr5gOlnDOPM4zEkxEBnOHNhseXPo0CrbsfrYuQ6a/EldWfw76wtIDBsgYJAeUgF8Okf0rrTlpiv+MomSDJWlXGTalJuIfVnbcw4q4lIWMKTiqJPoQc7/GBWypqyMHSKCqL0qFFt411Vndu0whrY4T9ZgZDIKkAAAeJUlxCJ48XDLfguy/q5qISd+iF157UwXA8WGMj6FOWb5PzN8i8r3xkYdhfQip4zzj2vj+zp0ny//ACZ8Y4PBwhzrco9Ght540HyGMDIRwpvt7V03SubRgAKs4BSY2AezMC6mDMSG/Zt1G9IyHXnK0nc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUdkNGtGZjlrNnpBRFIycVZJVlpReFJ2Y3ErOS9mb2QwR2dvT011YzNTU3dP?=
+ =?utf-8?B?NmNkbG1vRncrbXlHZjVZUFo3b2pMZWMzbHY0UlJCbTR3V29GVFA3N0VSYml1?=
+ =?utf-8?B?eDhXZmRpWFUrc0drbDg5aEYzODNRaHh0aGM1YTQzMkxWYzhUWW1paEJzZ2Ir?=
+ =?utf-8?B?eEVhN1ZlQ1dHam5RRzZVUWZpZUdOdzlSaXQ4eWRKOVFoZWJSRWJwbDNUVTVG?=
+ =?utf-8?B?WlpCOG9HbWc1MU0wR0NtdUsrS3AvN0JzL1d3MHQvOEo4THIxVGQwRXA3ZVhm?=
+ =?utf-8?B?QUs0MXl3OSs0UVFxeE1GMlZYMlUyMzN0NlFvK1grQWt5RmtvbXZabDJYSUNn?=
+ =?utf-8?B?eTZtMmZCSFBkRE15UXVyNXNQdFg2a3RzMFAzNHV2MkR5Z3BCNEN6bzBpNklr?=
+ =?utf-8?B?N1YxUkdLVWlNaHVJL2VoMVpubzhuZjNLQXU5WFg0ZVhZaGJGTGpWdk1DMFRF?=
+ =?utf-8?B?TzBuRDIyZDdtR20yWHM0T01jTGNsYVIvNUNuZDFwL2s0WjZlWGJLZ0lpMGM3?=
+ =?utf-8?B?bjNjc3BtUzdvSDBqRHg3c1BTam1mM2RsQW43UXVjdUdZb3M5emNHeTVxL0lu?=
+ =?utf-8?B?SUFWMmxsYUxSVjI2Q0hYYWZjMTFKbFVrMlNRVXBkR2UxZUJrQmJEVkdzdmdq?=
+ =?utf-8?B?VzM5Z0l5aFZybWZnY3pXUDRnbnNML0htWFdvc0pjVW5ldnZXL0FETUtPSkZT?=
+ =?utf-8?B?Nkt6RG5jY1Izd3k5NWZXZGI4czJsTkVpN3I1TUNzMllWanJOcU8zNWJXNkts?=
+ =?utf-8?B?V3g0WlBsUWllK3RpSmZGK1lrbnAvSUdveDZmWk4zU2I5NWhhdEl6VTNiMUFa?=
+ =?utf-8?B?UDVaenVTY1h1bWF6ZjR2b2pvY2VIRk15WHdBd1FtVVlwWWM5MTZkUzVJZHZ0?=
+ =?utf-8?B?UFBJaVZsdDVGcDFHWXVOQk45dUZSa1lPc2oydEFKM1dOOXo2MHdjTVl4TE9p?=
+ =?utf-8?B?bUpGZTk2Q3VyN3p4SlNXcUNEUEtlUXlqVHY4UDlSaGNOSkMxejFlQ3E2eWpL?=
+ =?utf-8?B?b0J2dVp5b08reDhZSjZFME9lM0tyQ3llTDg1bklCRmt5eWNCTVp1VjVacnJN?=
+ =?utf-8?B?dmlHNzNuQ0syU05jRTNxRVloa0FUYWp0RUJ0bGorOE5tQXNnZ0VoYXNmNFdG?=
+ =?utf-8?B?b1JZdzZaTWo5VXg5QnE1K0FkY2dTK3ZFaWdSa2MwSE9PMndXSnNFTm5XbW5h?=
+ =?utf-8?B?eFltWXJoRDJFYzVTSmhRbE1MRXN4ekliN2E3a1F5OXEwUHRJYnErSDYvRGVS?=
+ =?utf-8?B?cERHeTh5ZWpJWDVwMUlnbmtMbFFFYTNoeExnWGFQdmxBckc5ejQvNEtZU2N3?=
+ =?utf-8?B?QXdlTFhjTWxQZGVrQzNmcDZpeUIrNktKckxnVVRoYXNFYjhkMWpSVCt6SXBk?=
+ =?utf-8?B?Y3lyNHBxVGNqYXovS1c4WVVGT1JJUlhGS3FBTzRjNmw2UkZjYnEvbmdYQUVt?=
+ =?utf-8?B?YTZwQ2xjMVhpZndVSGNoUTVmeXNPOXF5eTBPRFdHMlpoQnNNQnExb2ZzNkNm?=
+ =?utf-8?B?NHI4ditXVjh6cDJ5eGdEcmVuR1U4eHptU3NiN2xJNDRpOTFiSEJOWTRsZDA4?=
+ =?utf-8?B?dWRtNXpjblJEcUhBYmhGbUxQNHFWeDRvWU8rZW9GZldRdndxcldwUE5ZZW8z?=
+ =?utf-8?B?MUFlbW9JdjMyQzlOY1luYVlUV21qb2wwNENFMXBkWGRTb2hjMHhQWXpmS2JF?=
+ =?utf-8?B?dE91TXp0WDhWVkMzZUFhRUNRUDlMaUdjbkJQRXViNUlQVUZDYlFNQlJTdG9D?=
+ =?utf-8?B?MXdFcWZ6K2xXM1FGcXNkVXJmZWhLTjNWdFoxVW0xcnJwYzJFd0RyMDl4RytD?=
+ =?utf-8?B?Z3dqbXBNU0dmc3hRaDZMWCthNUNGdkFWT0JRYjA1MFVObGpIZXNNK0dmdWRM?=
+ =?utf-8?B?Nzh4alVaWkVoemo5WFpvTHYrZExRQnFVNHN6NFpLeU44d0NFV09NaUM3dFZh?=
+ =?utf-8?B?Q0NRQSt3bFhSWXFvNmlnTHlDYk1jUVZlcFdnSEUvemJ6RFliM1kya0hNRlNT?=
+ =?utf-8?B?ZjVhNXFyQStwcmZYaW0wWk0wL3lkUjNCMG5YbXEyR0J5NlYvWTFrWTNFdU0x?=
+ =?utf-8?B?RkZCY2NXSkNsR256ODZxSDRXQlF3S1pHU0l2aUQyK05CRlZJT2ZoL0cwQ082?=
+ =?utf-8?B?R3owUnpHQUtnYnZKYk92ellMMHFKQWZTM3MvUXJ2L2xQU240cXpqdVlGU3Uv?=
+ =?utf-8?B?alIvUnlWL0dNNGdXdHd2eHVrd1M3VEFvWGFrSnF0R1lUdU11Mm9OOVltdG51?=
+ =?utf-8?B?YmxzclNldkhVNWVkOXBETHdPNjZiTldLRSsyVDAvRi9aSE51V2JIWmxtR1Uv?=
+ =?utf-8?B?MEJvRTJkREtpMGhMbk5USzEwd1BLdFV3RkZDVGdvVSttdWxGQ1Z5UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6fffe23-d40a-4f29-3b9f-08de8fbc0cdf
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 06:58:16.8932 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7WdyLxIl7Mg8+RdIiDD5PI+YSxAhWtdAzeR6576lzWSLnaCqCT4L/4TIHsbKiI1L
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8931
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,88 +145,541 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 4/1/2026 2:47 PM, Dmitry Baryshkov wrote:
-> On 01/04/2026 09:44, Yongxing Mou wrote:
+On 01-Apr-26 2:51 AM, Alex Deucher wrote:
+> On Tue, Mar 31, 2026 at 5:07 PM Gabriel Almeida
+> <gabrielsousa230@gmail.com> wrote:
+>>
+>> Hi Christian and Alex,
+>>
+>> Thank you both for your feedback.
+>>
+>> I understand that there can be differences between these functions due to
+>> different macro values across hardware generations. I admit that I didn’t
+>> fully take that into account in this patch.
+>>
+>> Among the functions I modified, `program_aspm` and `common_sw_init` seem
+>> to have identical behavior regardless of those macros, so I thought they
+>> could be good candidates for shared helper functions. That said,
+>> `common_sw_init` is currently only identical across NV, SOC21 and SOC24,
+>> so I’m not sure if you would consider it generic enough for such use.
+>>
+>> Regarding `read_indexed_register`, I’m still uncertain due to the use of
+>> the `RREG32` macro. From what I’ve seen so far, it appears to behave
+>> consistently across these implementations, but I may be missing some
+>> subtleties.
+> 
+> You are correct.  the RREG32 and WREG32 macros are the same on all chips.
+> 
+>>
+>> Also, when Christian mentioned “move them a layer up”, do you mean moving
+>> these helpers into an existing common file such as `amdgpu_device.c`
+>> instead of introducing a new file like `amdgpu_common.c/h`? I can rework
+>> the patch accordingly and drop the new files if that is the preferred
+>> approach.
+> 
+> I think something like  amdgpu_common_helpers.c is fine, although
+> thinking about it more, I think the program_aspm() function should
+> probably end up in amdgpu_nbio.c as something like
+> amdgpu_nbio_program_aspm().  read_indexed_register() could probably go
+> in amdgpu_device.c as amdgpu_device_read_indexed_register_helper().
+
+For the grbm register access one, consider keeping it in amdgpu_reg_access.c
+
+Thanks,
+Lijo
+
+> And finally I'm not sure it's worth breaking out common_sw_init() as a
+> separate function.  Maybe drop that change.
+> 
+> Alex
+> 
+>>
+>> I can also incorporate Alex’s suggestions regarding naming and licensing.
+>>
+>> Given these points, I’d like to better understand which direction you
+>> would prefer for this change.
+>>
+>> Thanks again for your time and guidance.
+>>
+>> Best regards,
+>> Gabriel Almeida
 >>
 >>
->> On 8/26/2025 5:10 AM, Dmitry Baryshkov wrote:
->>> On Mon, Aug 25, 2025 at 10:16:03PM +0800, Yongxing Mou wrote:
->>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>
->>>> Whenever virtual channel slot allocation changes, the DP
->>>> source must send the action control trigger sequence to notify
->>>> the sink about the same. This would be applicable during the
->>>> start and stop of the pixel stream. Add the infrastructure
->>>> to be able to send ACT packets for the DP controller when
->>>> operating in MST mode.
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>> ---
->>>>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 39 +++++++++++++++++++++++++ 
->>>> + +++++++++--
->>>>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  4 ++--
->>>>   drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
->>>>   drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->>>>   drivers/gpu/drm/msm/dp/dp_reg.h     |  2 ++
->>>>   5 files changed, 44 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/ 
->>>> dp/dp_ctrl.c
->>>> index 
->>>> 608a1a077301b2ef3c77c271d873bb4364abe779..16e5ed58e791971d5dca3077cbb77bfcc186505a 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>>> @@ -142,6 +142,7 @@ struct msm_dp_ctrl_private {
->>>>       bool core_clks_on;
->>>>       bool link_clks_on;
->>>>       bool stream_clks_on[DP_STREAM_MAX];
->>>> +    bool mst_active;
->>>>   };
->>>>   static inline u32 msm_dp_read_ahb(const struct msm_dp_ctrl_private 
->>>> *ctrl, u32 offset)
->>>> @@ -227,6 +228,32 @@ static int msm_dp_aux_link_configure(struct 
->>>> drm_dp_aux *aux,
->>>>       return 0;
->>>>   }
->>>> +void msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm_dp_ctrl)
->>>> +{
->>>> +    struct msm_dp_ctrl_private *ctrl;
->>>> +    bool act_complete;
->>>> +
->>>> +    ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, 
->>>> msm_dp_ctrl);
->>>> +
->>>> +    if (!ctrl->mst_active)
->>>> +        return;
->>>> +
->>>> +    msm_dp_write_link(ctrl, REG_DP_MST_ACT, 0x1);
->>>> +    /* make sure ACT signal is performed */
->>>> +    wmb();
->>>> +
->>>> +    msleep(20); /* needs 1 frame time */
->>>> +
->>>> +    act_complete = msm_dp_read_link(ctrl, REG_DP_MST_ACT);
->>>> +
->>>> +    if (!act_complete)
->>>> +        drm_dbg_dp(ctrl->drm_dev, "mst ACT trigger complete 
->>>> SUCCESS\n");
->>>> +    else
->>>> +        drm_dbg_dp(ctrl->drm_dev, "mst ACT trigger complete 
->>>> failed\n");
+>> Em ter., 31 de mar. de 2026 às 10:31, Alex Deucher
+>> <alexdeucher@gmail.com> escreveu:
 >>>
->>> Shouldn't it return an error if the register dind't latch? Also,
->>> shouldn't we set mst_active only if the write went through?
+>>> On Tue, Mar 31, 2026 at 7:34 AM Christian König
+>>> <christian.koenig@amd.com> wrote:
+>>>>
+>>>> On 3/31/26 00:45, Gabriel Almeida wrote:
+>>>>> Some helper functions are implemented multiple times with identical
+>>>>> logic across different source files.
+>>>>
+>>>> And that is at least sometimes completely intentional.
+>>>>
+>>>> Background is that different headers are included which define macros with different values for each HW generation.
+>>>>
+>>>>>
+>>>>> Extract these implementations into a shared helper file
+>>>>> (amdgpu_common.c) and update existing code to reuse them.
+>>>>
+>>>> Please don't when they are functional identical then move them a layer up instead of messing up the backends.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> This simplifies the codebase and avoids duplication without
+>>>>> changing behavior.
+>>>>>
+>>>>> No functional changes intended.
+>>>>>
+>>>>> Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/Makefile        |  2 ++
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_common.c | 42 ++++++++++++++++++++++
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_common.h | 12 +++++++
 >>>
->> In some cases, MST still works correctly even when the ACT trigger 
->> fails; here refer to the downstream implementation.
-> 
-> I don't think it is a good idea. It would be better to signal this to 
-> the user and rollback the MST configuration (as in the case of any other 
-> error).
-> 
-> I will change my mind if you point out i915, amdgpu or nouveau drivers 
-> ignoring the ACT issues.
-> 
-Sure. Until I can find more convincing evidence, I will make the changes 
-as requested.
+>>> I think amdgpu_common_helper.c/h would be better.
+>>>
+>>>>>   drivers/gpu/drm/amd/amdgpu/nv.c            | 38 +++-----------------
+>>>>>   drivers/gpu/drm/amd/amdgpu/soc15.c         | 31 ++--------------
+>>>>>   drivers/gpu/drm/amd/amdgpu/soc21.c         | 38 +++-----------------
+>>>>>   drivers/gpu/drm/amd/amdgpu/soc24.c         | 29 ++-------------
+>>>>>   drivers/gpu/drm/amd/amdgpu/soc_v1_0.c      | 21 ++---------
+>>>>>   8 files changed, 72 insertions(+), 141 deletions(-)
+>>>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
+>>>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+>>>>> index 6a7e9bfec..84cce03d7 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+>>>>> @@ -69,6 +69,8 @@ amdgpu-y += amdgpu_device.o amdgpu_reg_access.o amdgpu_doorbell_mgr.o amdgpu_kms
+>>>>>          amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.o amdgpu_dev_coredump.o \
+>>>>>          amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.o amdgpu_ip.o
+>>>>>
+>>>>> +amdgpu-y += amdgpu_common.o
+>>>>> +
+>>>>>   amdgpu-$(CONFIG_PROC_FS) += amdgpu_fdinfo.o
+>>>>>
+>>>>>   amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
+>>>>> new file mode 100644
+>>>>> index 000000000..34ade6f63
+>>>>> --- /dev/null
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
+>>>>> @@ -0,0 +1,42 @@
+>>>>> +// SPDX-License-Identifier: GPL-2.0
+>>>
+>>> This should be MIT
+>>>
+>>>>> +#include <linux/module.h>
+>>>>> +
+>>>>> +#include "amdgpu.h"
+>>>>> +#include "amdgpu_common.h"
+>>>>> +#include "mxgpu_nv.h"
+>>>>> +
+>>>>> +uint32_t read_indexed_register(struct amdgpu_device *adev,
+>>>>> +                              u32 se_num, u32 sh_num, u32 reg_offset)
+>>>>> +{
+>>>>> +       uint32_t val;
+>>>>> +
+>>>>> +       mutex_lock(&adev->grbm_idx_mutex);
+>>>>> +       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> +               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
+>>>>> +
+>>>>> +       val = RREG32(reg_offset);
+>>>>> +
+>>>>> +       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> +               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
+>>>>> +       mutex_unlock(&adev->grbm_idx_mutex);
+>>>>> +       return val;
+>>>>> +}
+>>>>> +
+>>>>> +void program_aspm(struct amdgpu_device *adev)
+>>>>> +{
+>>>>> +       if (!amdgpu_device_should_use_aspm(adev))
+>>>>> +               return;
+>>>>> +
+>>>>> +       if (adev->nbio.funcs->program_aspm)
+>>>>> +               adev->nbio.funcs->program_aspm(adev);
+>>>>> +}
+>>>>> +
+>>>>> +int common_sw_init(struct amdgpu_ip_block *ip_block)
+>>>
+>>> Please prefix each of these functions with amdgpu_common_helper_
+>>>
+>>>>> +{
+>>>>> +       struct amdgpu_device *adev = ip_block->adev;
+>>>>> +
+>>>>> +       if (amdgpu_sriov_vf(adev))
+>>>>> +               xgpu_nv_mailbox_add_irq_id(adev);
+>>>>> +
+>>>>> +       return 0;
+>>>>> +}
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
+>>>>> new file mode 100644
+>>>>> index 000000000..314b3506b
+>>>>> --- /dev/null
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
+>>>>> @@ -0,0 +1,12 @@
+>>>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>>
+>>> This should be MIT
+>>>
+>>> Alex
+>>>
+>>>>> +#ifndef __AMDGPU_COMMON_H__
+>>>>> +#define __AMDGPU_COMMON_H__
+>>>>> +
+>>>>> +uint32_t read_indexed_register(struct amdgpu_device *adev,
+>>>>> +                              u32 se_num, u32 sh_num, u32 reg_offset);
+>>>>> +
+>>>>> +void program_aspm(struct amdgpu_device *adev);
+>>>>> +
+>>>>> +int common_sw_init(struct amdgpu_ip_block *ip_block);
+>>>>> +
+>>>>> +#endif
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>>> index 7ce1a1b95..cf8052c73 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+>>>>> @@ -29,6 +29,7 @@
+>>>>>
+>>>>>   #include "amdgpu.h"
+>>>>>   #include "amdgpu_atombios.h"
+>>>>> +#include "amdgpu_common.h"
+>>>>>   #include "amdgpu_ih.h"
+>>>>>   #include "amdgpu_uvd.h"
+>>>>>   #include "amdgpu_vce.h"
+>>>>> @@ -354,29 +355,13 @@ static struct soc15_allowed_register_entry nv_allowed_read_registers[] = {
+>>>>>          { SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
+>>>>>   };
+>>>>>
+>>>>> -static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
+>>>>> -                                        u32 sh_num, u32 reg_offset)
+>>>>> -{
+>>>>> -       uint32_t val;
+>>>>> -
+>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
+>>>>> -
+>>>>> -       val = RREG32(reg_offset);
+>>>>> -
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
+>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
+>>>>> -       return val;
+>>>>> -}
+>>>>>
+>>>>>   static uint32_t nv_get_register_value(struct amdgpu_device *adev,
+>>>>>                                        bool indexed, u32 se_num,
+>>>>>                                        u32 sh_num, u32 reg_offset)
+>>>>>   {
+>>>>>          if (indexed) {
+>>>>> -               return nv_read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>>          } else {
+>>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
+>>>>>                          return adev->gfx.config.gb_addr_config;
+>>>>> @@ -511,16 +496,6 @@ static int nv_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk)
+>>>>>          return 0;
+>>>>>   }
+>>>>>
+>>>>> -static void nv_program_aspm(struct amdgpu_device *adev)
+>>>>> -{
+>>>>> -       if (!amdgpu_device_should_use_aspm(adev))
+>>>>> -               return;
+>>>>> -
+>>>>> -       if (adev->nbio.funcs->program_aspm)
+>>>>> -               adev->nbio.funcs->program_aspm(adev);
+>>>>> -
+>>>>> -}
+>>>>> -
+>>>>>   const struct amdgpu_ip_block_version nv_common_ip_block = {
+>>>>>          .type = AMD_IP_BLOCK_TYPE_COMMON,
+>>>>>          .major = 1,
+>>>>> @@ -965,12 +940,7 @@ static int nv_common_late_init(struct amdgpu_ip_block *ip_block)
+>>>>>
+>>>>>   static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
+>>>>>   {
+>>>>> -       struct amdgpu_device *adev = ip_block->adev;
+>>>>> -
+>>>>> -       if (amdgpu_sriov_vf(adev))
+>>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
+>>>>> -
+>>>>> -       return 0;
+>>>>> +       return common_sw_init(ip_block);
+>>>>>   }
+>>>>>
+>>>>>   static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
+>>>>> @@ -984,7 +954,7 @@ static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
+>>>>>                  adev->nbio.funcs->apply_l1_link_width_reconfig_wa(adev);
+>>>>>
+>>>>>          /* enable aspm */
+>>>>> -       nv_program_aspm(adev);
+>>>>> +       program_aspm(adev);
+>>>>>          /* setup nbio registers */
+>>>>>          adev->nbio.funcs->init_registers(adev);
+>>>>>          /* remap HDP registers to a hole in mmio space,
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>>> index b456e4541..a6b91363d 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+>>>>> @@ -28,6 +28,7 @@
+>>>>>   #include <drm/amdgpu_drm.h>
+>>>>>
+>>>>>   #include "amdgpu.h"
+>>>>> +#include "amdgpu_common.h"
+>>>>>   #include "amdgpu_ih.h"
+>>>>>   #include "amdgpu_uvd.h"
+>>>>>   #include "amdgpu_vce.h"
+>>>>> @@ -401,29 +402,12 @@ static struct soc15_allowed_register_entry soc15_allowed_read_registers[] = {
+>>>>>          { SOC15_REG_ENTRY(GC, 0, mmDB_DEBUG2)},
+>>>>>   };
+>>>>>
+>>>>> -static uint32_t soc15_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
+>>>>> -                                        u32 sh_num, u32 reg_offset)
+>>>>> -{
+>>>>> -       uint32_t val;
+>>>>> -
+>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
+>>>>> -
+>>>>> -       val = RREG32(reg_offset);
+>>>>> -
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
+>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
+>>>>> -       return val;
+>>>>> -}
+>>>>> -
+>>>>>   static uint32_t soc15_get_register_value(struct amdgpu_device *adev,
+>>>>>                                           bool indexed, u32 se_num,
+>>>>>                                           u32 sh_num, u32 reg_offset)
+>>>>>   {
+>>>>>          if (indexed) {
+>>>>> -               return soc15_read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>>          } else {
+>>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, mmGB_ADDR_CONFIG))
+>>>>>                          return adev->gfx.config.gb_addr_config;
+>>>>> @@ -695,15 +679,6 @@ static int soc15_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
+>>>>>          return 0;
+>>>>>   }
+>>>>>
+>>>>> -static void soc15_program_aspm(struct amdgpu_device *adev)
+>>>>> -{
+>>>>> -       if (!amdgpu_device_should_use_aspm(adev))
+>>>>> -               return;
+>>>>> -
+>>>>> -       if (adev->nbio.funcs->program_aspm)
+>>>>> -               adev->nbio.funcs->program_aspm(adev);
+>>>>> -}
+>>>>> -
+>>>>>   const struct amdgpu_ip_block_version vega10_common_ip_block =
+>>>>>   {
+>>>>>          .type = AMD_IP_BLOCK_TYPE_COMMON,
+>>>>> @@ -1284,7 +1259,7 @@ static int soc15_common_hw_init(struct amdgpu_ip_block *ip_block)
+>>>>>          struct amdgpu_device *adev = ip_block->adev;
+>>>>>
+>>>>>          /* enable aspm */
+>>>>> -       soc15_program_aspm(adev);
+>>>>> +       program_aspm(adev);
+>>>>>          /* setup nbio registers */
+>>>>>          adev->nbio.funcs->init_registers(adev);
+>>>>>          /* remap HDP registers to a hole in mmio space,
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
+>>>>> index fbd1d97f3..586d62202 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+>>>>> @@ -27,6 +27,7 @@
+>>>>>
+>>>>>   #include "amdgpu.h"
+>>>>>   #include "amdgpu_atombios.h"
+>>>>> +#include "amdgpu_common.h"
+>>>>>   #include "amdgpu_ih.h"
+>>>>>   #include "amdgpu_uvd.h"
+>>>>>   #include "amdgpu_vce.h"
+>>>>> @@ -306,29 +307,12 @@ static struct soc15_allowed_register_entry soc21_allowed_read_registers[] = {
+>>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
+>>>>>   };
+>>>>>
+>>>>> -static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev, u32 se_num,
+>>>>> -                                        u32 sh_num, u32 reg_offset)
+>>>>> -{
+>>>>> -       uint32_t val;
+>>>>> -
+>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
+>>>>> -
+>>>>> -       val = RREG32(reg_offset);
+>>>>> -
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
+>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
+>>>>> -       return val;
+>>>>> -}
+>>>>> -
+>>>>>   static uint32_t soc21_get_register_value(struct amdgpu_device *adev,
+>>>>>                                        bool indexed, u32 se_num,
+>>>>>                                        u32 sh_num, u32 reg_offset)
+>>>>>   {
+>>>>>          if (indexed) {
+>>>>> -               return soc21_read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>>          } else {
+>>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) && adev->gfx.config.gb_addr_config)
+>>>>>                          return adev->gfx.config.gb_addr_config;
+>>>>> @@ -470,15 +454,6 @@ static int soc21_set_vce_clocks(struct amdgpu_device *adev, u32 evclk, u32 ecclk
+>>>>>          return 0;
+>>>>>   }
+>>>>>
+>>>>> -static void soc21_program_aspm(struct amdgpu_device *adev)
+>>>>> -{
+>>>>> -       if (!amdgpu_device_should_use_aspm(adev))
+>>>>> -               return;
+>>>>> -
+>>>>> -       if (adev->nbio.funcs->program_aspm)
+>>>>> -               adev->nbio.funcs->program_aspm(adev);
+>>>>> -}
+>>>>> -
+>>>>>   const struct amdgpu_ip_block_version soc21_common_ip_block = {
+>>>>>          .type = AMD_IP_BLOCK_TYPE_COMMON,
+>>>>>          .major = 1,
+>>>>> @@ -912,12 +887,7 @@ static int soc21_common_late_init(struct amdgpu_ip_block *ip_block)
+>>>>>
+>>>>>   static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block)
+>>>>>   {
+>>>>> -       struct amdgpu_device *adev = ip_block->adev;
+>>>>> -
+>>>>> -       if (amdgpu_sriov_vf(adev))
+>>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
+>>>>> -
+>>>>> -       return 0;
+>>>>> +       return common_sw_init(ip_block);
+>>>>>   }
+>>>>>
+>>>>>   static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
+>>>>> @@ -925,7 +895,7 @@ static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block)
+>>>>>          struct amdgpu_device *adev = ip_block->adev;
+>>>>>
+>>>>>          /* enable aspm */
+>>>>> -       soc21_program_aspm(adev);
+>>>>> +       program_aspm(adev);
+>>>>>          /* setup nbio registers */
+>>>>>          adev->nbio.funcs->init_registers(adev);
+>>>>>          /* remap HDP registers to a hole in mmio space,
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+>>>>> index d1adf19a5..f9341c0e4 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+>>>>> @@ -26,6 +26,7 @@
+>>>>>   #include <linux/pci.h>
+>>>>>
+>>>>>   #include "amdgpu.h"
+>>>>> +#include "amdgpu_common.h"
+>>>>>   #include "amdgpu_ih.h"
+>>>>>   #include "amdgpu_uvd.h"
+>>>>>   #include "amdgpu_vce.h"
+>>>>> @@ -132,31 +133,12 @@ static struct soc15_allowed_register_entry soc24_allowed_read_registers[] = {
+>>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
+>>>>>   };
+>>>>>
+>>>>> -static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev,
+>>>>> -                                           u32 se_num,
+>>>>> -                                           u32 sh_num,
+>>>>> -                                           u32 reg_offset)
+>>>>> -{
+>>>>> -       uint32_t val;
+>>>>> -
+>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
+>>>>> -
+>>>>> -       val = RREG32(reg_offset);
+>>>>> -
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
+>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
+>>>>> -       return val;
+>>>>> -}
+>>>>> -
+>>>>>   static uint32_t soc24_get_register_value(struct amdgpu_device *adev,
+>>>>>                                           bool indexed, u32 se_num,
+>>>>>                                           u32 sh_num, u32 reg_offset)
+>>>>>   {
+>>>>>          if (indexed) {
+>>>>> -               return soc24_read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>>          } else {
+>>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG) &&
+>>>>>                      adev->gfx.config.gb_addr_config)
+>>>>> @@ -455,12 +437,7 @@ static int soc24_common_late_init(struct amdgpu_ip_block *ip_block)
+>>>>>
+>>>>>   static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block)
+>>>>>   {
+>>>>> -       struct amdgpu_device *adev = ip_block->adev;
+>>>>> -
+>>>>> -       if (amdgpu_sriov_vf(adev))
+>>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
+>>>>> -
+>>>>> -       return 0;
+>>>>> +       return common_sw_init(ip_block);
+>>>>>   }
+>>>>>
+>>>>>   static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+>>>>> index 709b1669b..2f77fb0b6 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+>>>>> @@ -21,6 +21,7 @@
+>>>>>    *
+>>>>>    */
+>>>>>   #include "amdgpu.h"
+>>>>> +#include "amdgpu_common.h"
+>>>>>   #include "soc15.h"
+>>>>>   #include "soc15_common.h"
+>>>>>   #include "soc_v1_0.h"
+>>>>> @@ -184,31 +185,13 @@ static struct soc15_allowed_register_entry soc_v1_0_allowed_read_registers[] = {
+>>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG_1) },
+>>>>>   };
+>>>>>
+>>>>> -static uint32_t soc_v1_0_read_indexed_register(struct amdgpu_device *adev,
+>>>>> -                                              u32 se_num,
+>>>>> -                                              u32 sh_num,
+>>>>> -                                              u32 reg_offset)
+>>>>> -{
+>>>>> -       uint32_t val;
+>>>>> -
+>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xffffffff, 0);
+>>>>> -
+>>>>> -       val = RREG32(reg_offset);
+>>>>> -
+>>>>> -       if (se_num != 0xffffffff || sh_num != 0xffffffff)
+>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, 0);
+>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
+>>>>> -       return val;
+>>>>> -}
+>>>>>
+>>>>>   static uint32_t soc_v1_0_get_register_value(struct amdgpu_device *adev,
+>>>>>                                              bool indexed, u32 se_num,
+>>>>>                                              u32 sh_num, u32 reg_offset)
+>>>>>   {
+>>>>>          if (indexed) {
+>>>>> -               return soc_v1_0_read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>> +               return read_indexed_register(adev, se_num, sh_num, reg_offset);
+>>>>>          } else {
+>>>>>                  if (reg_offset == SOC15_REG_OFFSET(GC, 0, regGB_ADDR_CONFIG_1) &&
+>>>>>                      adev->gfx.config.gb_addr_config)
+>>>>> --
+>>>>> 2.43.0
+>>>>>
+>>>>
+
