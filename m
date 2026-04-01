@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D52FD1112243
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:00:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B7C41112240
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34FF410ED83;
-	Wed,  1 Apr 2026 23:00:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0099510EF02;
+	Wed,  1 Apr 2026 23:00:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rfevY7C1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mUaAEYoJ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C63F510ED83;
- Wed,  1 Apr 2026 23:00:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 080D610EF0A;
+ Wed,  1 Apr 2026 23:00:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id F305661842;
+ by sea.source.kernel.org (Postfix) with ESMTP id E131A40863;
+ Wed,  1 Apr 2026 23:00:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB953C2BC9E;
  Wed,  1 Apr 2026 23:00:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A1AC2BCB2;
- Wed,  1 Apr 2026 22:59:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775084404;
- bh=oOFcElemP5A7wKciwQSJtcDjY7nR2WhKiKPxc1QU1AE=;
+ s=k20201202; t=1775084409;
+ bh=1iz62QypXqDZ6Uq/htYWT3N9Li/93jBUNlp6qi9VPHE=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
- b=rfevY7C1b5TrlF3FJhGmdswzRil6yigf3cumL5j7c2Yi/75Zo/Oc+JEx+z2RPd8Xh
- hxUy3OwtZ0si2kHEQ+t+aFj86IJkz616rQvvphqmHWBYUSl95h+F3dbGEdVw7jB6Gf
- z/fVRMVbCh+bReJhMbmMOPAOG0Jn+77dz4FxvgMtQfPbuW17nMwiP3s9/L+M8EFygA
- 8loKiM2+bAT04zCjFNhKIijsUYh2raA/4A9NUw0DQrsgrIvjQncm5jjSxF6tOSJoiT
- K0AhRukOzBZLNH4BYWCOVdK6Z9r4yzVV+TLBpYfwEgBaA81laNLmee8pl34GozLiV8
- U8Ei3ddqh50Bg==
+ b=mUaAEYoJhbmY5abcaeYHM2XYQ10K6icPKigUs5kpruvFn2YFe/BqX3zoVgPghP604
+ aDA6lhbLJgFApSmwY8IGphI59Yqe+RMslzbnd20CViMeUm8136UunKT7hCfk2onc31
+ FlScIOCI9Ly5rBYtFuSq03LYjXjorF9zcxY5quF3RxnaoQxUcFyitaMEcF1pyQxwGx
+ Cgpq4F6bmE7tEViLAimYZfcmwdYcEt5GVx8avgWKFPRBDHQDEgi2oYaVe5gBlRZdwl
+ 0/Ua4kDkXIjiOHPxOfveO4BK/cEtKGWvrICHH0KWNRs1trRKCutSrrqwNiLDaaDwxd
+ 3wPi2LGeECEDw==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 09/33] rust: kbuild: make `--remap-path-prefix`
- workaround conditional
+Subject: Re: [PATCH 10/33] rust: transmute: simplify code with Rust 1.80.0
+ `split_at_*checked()`
 From: Tamir Duberstein <tamird@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -66,18 +66,18 @@ Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-In-Reply-To: <20260401114540.30108-10-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-11-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-10-ojeda@kernel.org>
+ <20260401114540.30108-11-ojeda@kernel.org>
 Date: Wed, 01 Apr 2026 18:59:04 -0400
-Message-Id: <177508434441.73816.15326490215165782904.b4-review@b4>
+Message-Id: <177508434443.73816.5437391869400189147.b4-review@b4>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=486; i=tamird@kernel.org;
- h=from:subject:message-id; bh=oOFcElemP5A7wKciwQSJtcDjY7nR2WhKiKPxc1QU1AE=;
- b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFzuxWc8K3b29/8DJlgcp1w4JF/jIF93QPNXv/NrPx
- /zAyXi2joksDGJcDJZiiiyJoof2pqfe3iOb+e44zBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
- aKRjoGPMwMUpAFN9vIThv+Prwmmi3lJMAVNWcD55r9/MzOFr79wi3rvX+8zbxbpNwQz/Q/rXnZF
- 91W6rmuz4+O6+l9d1Vt/6WMDWt8ZLbelc31YnXgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=361; i=tamird@kernel.org;
+ h=from:subject:message-id; bh=1iz62QypXqDZ6Uq/htYWT3N9Li/93jBUNlp6qi9VPHE=;
+ b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFztbJcctdE9j2rPGLCHZ08Nt1bLMixIH7jW9YPW43
+ ntydv+OjoksDGJcDJZiiiyJoof2pqfe3iOb+e44zBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
+ aKRjoGPMwMUpAFP9I4Dhr8T9OTc3x1ZN11mnq/14z9/K+4/nRv7envO/JfZySn2o/QaGP1ynnIr
+ mTyrPOvCvdEGUwIO9Zd4XNHcc/Cow/+GGbVPqchkB
 X-Developer-Key: i=tamird@kernel.org; a=openpgp;
  fpr=5A6714204D41EC844C50273C19D6FF6092365380
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,17 +95,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 13:45:16 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
-> The Internal Compiler Error that the comment mentions [1] was fixed in
-> Rust 1.87.0 [2]. And, for other workarounds, we plan on limiting where
-> we apply them [3].
-> 
-> Thus limit the ICE one too.
-> 
-> This will help to make sure the workaround is not needed anymore on
-> newer versions.
-> 
-> [...]
+On Wed, 01 Apr 2026 13:45:17 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
+> `feature(split_at_checked)` [1] has been stabilized in Rust 1.80.0 [2],
+> which is beyond our new minimum Rust version (Rust 1.85.0).
+
+"beyond" is probably not the right word here?
 
 Reviewed-by: Tamir Duberstein <tamird@kernel.org>
 
