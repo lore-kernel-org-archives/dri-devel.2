@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9006ED3517A
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:51:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D699D3517A
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E959810F088;
-	Wed,  1 Apr 2026 11:51:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ACBF10F094;
+	Wed,  1 Apr 2026 11:51:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rzw1kaCE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a2tJ6c9W";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD4F910F088;
- Wed,  1 Apr 2026 11:51:46 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EC7E10F0A4;
+ Wed,  1 Apr 2026 11:51:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 60A056013F;
+ by sea.source.kernel.org (Postfix) with ESMTP id 04B9C408B9;
+ Wed,  1 Apr 2026 11:51:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C070C4CEF7;
  Wed,  1 Apr 2026 11:51:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC33FC4CEF7;
- Wed,  1 Apr 2026 11:51:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775044306;
- bh=hwrpFVeGAL5GC09atZjTVNJE6Ow3imO9X2morwqR56Y=;
+ s=k20201202; t=1775044317;
+ bh=aZ7CkV02m73TgymHW6id2ohHebQcMp+UooNV/WCpxYw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Rzw1kaCEQHUMV8e2JhQRZ0slowyGy7FMm4tP6h9JKv2f1/pjKA/CgbLPmqJSfwYW9
- XpjqdVAQSA7tGhxbEGXHSOp/b4ykgFgY9+afWac2nDN+7rfydkcDZpWR8hxb/XS02j
- LNBRkTa0ZCJ8Ct7VSdEoSy0AjoAeVUdW2NIf9cHqHXqPRJVw10D2vW/WD8KAcd4+X9
- adeYuW0+L8tLudnViZX5MEfIqqFc301C2pW4Ki+5taOqHHUTBnQwc2GJaFeET7o+/8
- HquRyfA0XF2MWJo5hgtDXCWTUfmcnrUxW/us7Td3H6gTg1P4obsqnA35gxHSgJmIa7
- NPNA/tvRJKfsA==
+ b=a2tJ6c9W9iABHNjYNfL/0mBtFgGwAUtGo9jT4oJbjkTLOc0Yo+AEpPKIParMZ1LNj
+ 0sANrmLte5HVlY/RSowfUU1n6HJVpsbzGcrRxFYwfBYM+mr5AsX8sQv1gk5sj4H7wt
+ Dw7M4GzLoUzHr41RJA4HSozfVBTZlvmb01WCmT7Cpg4oqA0MoM9u8F3rYEJ84ZlHa/
+ l6ZHQwkSMoXTmsP6WHnxky2MzbKxBsA9VRTh/QtS8r/wLVDjLYI1nc1ywv3yacbrWe
+ OUhyb3YotIxHBUCZq8fmNmrB8uzKk1sfz69jzjTz+KCMR7GzlinoB3zsZ7EklUMIKY
+ cppDn06YQZSHg==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -62,10 +62,9 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 29/33] docs: rust: general-information: simplify Kconfig
- example
-Date: Wed,  1 Apr 2026 13:45:36 +0200
-Message-ID: <20260401114540.30108-30-ojeda@kernel.org>
+Subject: [PATCH 30/33] docs: rust: general-information: use real example
+Date: Wed,  1 Apr 2026 13:45:37 +0200
+Message-ID: <20260401114540.30108-31-ojeda@kernel.org>
 In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -85,29 +84,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There is no need to use `def_bool y if <expr>` -- one can simply write
-`def_bool <expr>`.
+Currently the example in the documentation shows a version-based name
+for the Kconfig example:
 
-In fact, the simpler form is how we actually use them in practice in
-`init/Kconfig`.
+    RUSTC_VERSION_MIN_107900
 
-Thus simplify the example.
+The reason behind it was to possibly avoid repetition in case several
+features used the same minimum.
+
+However, we ended up preferring to give them a descriptive name for each
+feature added even if that could lead to some repetition. In practice,
+the repetition has not happened so far, and even if it does at some point,
+it is not a big deal.
+
+Thus replace the example in the documentation with one of our current
+examples (after removing previous ones from the bump), to show how they
+actually look like, and in case someone `grep`s for it.
+
+In addition, it has the advantage that it shows the `RUSTC_HAS_*`
+pattern we follow in `init/Kconfig`, similar to the C side.
 
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- Documentation/rust/general-information.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/rust/general-information.rst | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/rust/general-information.rst b/Documentation/rust/general-information.rst
-index 6146b49b6a98..91535b2306ed 100644
+index 91535b2306ed..09234bed272c 100644
 --- a/Documentation/rust/general-information.rst
 +++ b/Documentation/rust/general-information.rst
-@@ -158,4 +158,4 @@ numerical comparisons, one may define a new Kconfig symbol:
+@@ -157,5 +157,5 @@ numerical comparisons, one may define a new Kconfig symbol:
+ 
  .. code-block:: kconfig
  
- 	config RUSTC_VERSION_MIN_107900
--		def_bool y if RUSTC_VERSION >= 107900
-+		def_bool RUSTC_VERSION >= 107900
+-	config RUSTC_VERSION_MIN_107900
+-		def_bool RUSTC_VERSION >= 107900
++	config RUSTC_HAS_SPAN_FILE
++		def_bool RUSTC_VERSION >= 108800
 -- 
 2.53.0
 
