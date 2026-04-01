@@ -4,128 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25904D3517F
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 20:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E82BD35154
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 20:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC45210E90D;
-	Wed,  1 Apr 2026 20:01:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B67AE10E8E7;
+	Wed,  1 Apr 2026 20:09:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dF9Y1AwL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OFWPATC6";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011031.outbound.protection.outlook.com [40.107.208.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD8B210E5CD;
- Wed,  1 Apr 2026 20:01:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED43510E5ED
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 20:09:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775074174; x=1806610174;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=o9dX8atNYnKOHVGjC+GGrtzs3Eybv0hsAKIbY/V4X4Q=;
+ b=OFWPATC6aAGomHoGd9WhQnjGUflQGDmgQFvFTUFb063hapqxAPI8limD
+ N/eRq9+cNDDyMnHD2+mTr8fcfRFyE+ZxVExOvKXAWvUZaofXLV1otbG5+
+ q+R4o2iDv4c7joPLQm6zpP77eQjhfSFGSjPE5TJ7GmMd6r+c7ARPGIJ5p
+ I15SFhkRqluFlXYpGnAMBRUUST5EM2WJrD2yntNcFRcCte+8V2uJo70+u
+ zEYa1tmZt69sIX0BrC0eyQRyHmKG4VA7jZmGdm4WAEwcwz1K5maNAHP++
+ NXnOXuL2rHV8DtAzs4K5Y/MDTU9gQh1efV6WoKqawxtb+Eq0cpRlw+eZW Q==;
+X-CSE-ConnectionGUID: cieg1p4dRu6OwYA9wu7utQ==
+X-CSE-MsgGUID: PgsItyFDRLOqWrABx0D4HA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="75300342"
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="75300342"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 13:09:34 -0700
+X-CSE-ConnectionGUID: /a6fYG+2RgapQHykCvQgrA==
+X-CSE-MsgGUID: 7YHGOSxwTqO0Okmc624DPA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="228384685"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 13:09:33 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 1 Apr 2026 13:09:32 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 1 Apr 2026 13:09:32 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.56) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 1 Apr 2026 13:09:30 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CnBxc2XwFKZBO/pm0GBwVVhrmv7yliMCz3Q8gKPhoSDn1x10xEZc0lUzJKU2SL4TlSMEvKy4Y6x3zDaClYEIPl4Yv9Xf8H3raJV310kn8B72MV4r+QrXbyLEr0BvMEFTu1vUcX91wKPg7a1yJNdDCJZu0UNYd5rpUc91u+FxlqS32Uk8OcS0nlYmFuHDhj1emAJniGVBEj8HTK92zWV93G6pKwkfVAW7enznw/1iOB/Cjko+tpuxVBsH8W7ZbXMUSyWf3t8TwzZ/sXvzOj87wrEaZtwYcAs9XsjBnoz+olJfvcSa5gVaFhKHrvwgYppj5xLBQnzoGPXdZCm6T7aNnw==
+ b=GBDbPBjcDT+TCPkEm/YZ0/GhxRKgFnb6EEhffKOJm8UjAFR6m0tXdGdagjE5OdY7NEsHjSMW1h4uG+N9XaJs1nKhDuJ+Q0iB+01Z03v093CVVXWRlzFX3TOK2vWl0JTH3IPYhgiBpIVZaRGxdDFF1YRLGJpsO6iBezYuUKqkyiMzYs22NayNWljiBxYVp3Sdr59kCRyGbuJU/XhI8vPzviI/NoGk+4VXJYle+lPB64RQEPlWcjjHhwBT3rbLM9gofZmN936SWHstqyys7cwSiIRG+xkBhxFXd7FpKWRRaOaFHuTN/wsK6aJgYSfRsJuers3jPFyd9Euo9CLPIFU7+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KsBJT/Em8skk6q552ZPA8UnfgSb1z7Ed2IUmXbFTv3k=;
- b=udUZI+XctFX7wOZwh/9Qw+YfhIWZXuDUOo8o0Z/Mkvwn+Pj9A+7IVYD0pITnTQnWgwbuUn1URIHNHJHJFjYs8zaSzI5iq55SqfeSgle9XFABgcUIArEw9g3aj8Fu3qtzBUUgotPMoBeP2/StA5rXgtcewI2k4EnSGRoIBNWd0jwMkFR6kS0634jbXcWaqiSkqLXI3Vkdt2ZTVi9DkpxUEuNhdqPtur9LfsEWKsg2ggvmjKcvYPAKinq4ExRPP2+zpwdLe3E3hE5+HBYCWGN1vdnAqJgQNEY+udC0gLf1MphWi0TH8gDKUMwbfiMzM8x21H1y4QWdVelMD4hprYV4zQ==
+ bh=y8z9BWeuBuIZYRi3BYIqDqR1+TQklhIrh2/sUMG27JA=;
+ b=asq9yJck+x4hRVN9B9ZapfsacVCybaNxkXsFGtlJ01ctok04PYtaEnyYO/gNxQ+6IBMNXSFKZpw0A6KFSI0Q4nBwuIDS0gNhhg3qRX2YPSl8AIcq+abjaansnbvOzCoF4m1CbJRZD81CZ95PyLCGJdau3TrhMZyYn9T0MRj7KqfaPo6gFqls8BNRn7yBcyCpZdm20pgIVbIUYaBwTv5KN8i55rxtPd0p4/aFdAvkdDXfolo5G3XUrneQHPykTIeJGBTLa2XqH1ZeABwCIBWjwCm6Z50sIoa1Dc441gHKgBLUxB12M6SFa2utWCdoI/Kq6eFwSbi3hW6Z8rySd86mUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KsBJT/Em8skk6q552ZPA8UnfgSb1z7Ed2IUmXbFTv3k=;
- b=dF9Y1AwLvvvplvkI3QUjH+pqyhR+TukSFQOuD8ISHVWQ0tQnQa6IJWrVyrIl4tSZ1kVRTk4olt6Xlb8VSaHx2k+flPLjFymZ6uZ5lUd3q1/ua/6lsPfqnhxXgQfYdrwxrC2wvE/N021rsO9+vN3s4vpZdLoCndjTHq7wuOjCfVY=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
- by IA0PR12MB8228.namprd12.prod.outlook.com (2603:10b6:208:402::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 20:01:10 +0000
-Received: from MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::715:65fb:c3fa:9c26]) by MW4PR12MB5667.namprd12.prod.outlook.com
- ([fe80::715:65fb:c3fa:9c26%5]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
- 20:01:10 +0000
-Message-ID: <9ed0f453-23ad-49c0-9ad9-c14f1999dba2@amd.com>
-Date: Wed, 1 Apr 2026 16:01:05 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/29] Fair(er) DRM scheduler
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Leo Liu <Leo.Liu@amd.com>, Lucas Stach <l.stach@pengutronix.de>,
- Matthew Brost <matthew.brost@intel.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-References: <20260306163445.97243-1-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: vitaly prosyak <vprosyak@amd.com>
-In-Reply-To: <20260306163445.97243-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
+ by DS7PR11MB7806.namprd11.prod.outlook.com (2603:10b6:8:db::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Wed, 1 Apr
+ 2026 20:09:28 +0000
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
+ 20:09:27 +0000
+Date: Wed, 1 Apr 2026 13:09:24 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Lizhi Hou <lizhi.hou@amd.com>
+CC: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <maciej.falkowski@linux.intel.com>, Max Zhen <max.zhen@amd.com>,
+ <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+Subject: Re: [PATCH V2] accel/amdxdna: Support read-only user-pointer BO
+ mappings
+Message-ID: <ac17dHiluekQgmLd@gsse-cloud1.jf.intel.com>
+References: <20260331172635.3275296-1-lizhi.hou@amd.com>
+ <acylqAdORtJs4cgO@gsse-cloud1.jf.intel.com>
+ <1f3bc6c6-86cc-dcc0-82dd-6dfc512bd9c7@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0423.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10b::7) To MW4PR12MB5667.namprd12.prod.outlook.com
- (2603:10b6:303:18a::10)
+In-Reply-To: <1f3bc6c6-86cc-dcc0-82dd-6dfc512bd9c7@amd.com>
+X-ClientProxiedBy: MW4PR04CA0273.namprd04.prod.outlook.com
+ (2603:10b6:303:89::8) To BL3PR11MB6508.namprd11.prod.outlook.com
+ (2603:10b6:208:38f::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|IA0PR12MB8228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 664fe0a0-40ba-4bd9-1a35-08de90296b1d
+X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|DS7PR11MB7806:EE_
+X-MS-Office365-Filtering-Correlation-Id: c68b61c1-a8bd-451e-eb4d-08de902a93f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: y6HV8PQZeg37HpH84h+lEK9DSVCGQm2u4DdOZDxyeYYRADVihvgMVYmZxG+lu32O4EQ6HXELXmA4NNmhY0fhmlTo5JDlAb490D3fvFwQe9YEW4NeLxn3YCY61nNsNsHqdZ5IN5RtUXmWx4EUGfBO4cQXWxeyUL0qXBXhu2E8pXZqd2kyBPoMA6KgAUfa+MncOjIiYPfhi3Eo32fIE3cmiXkH2x1SBfXEB8J+/NZrPGbHUHEAgIECZfB3G55bXv3SJ2tLqmVmgMcJVgm1a2GtlDjYNscCF0WvCPhSoJjp7P97Q8QummhdBtLCttziiobiRX06iyIgFUnXLtTwu1I9bqgu4pmEs8YddOIXLXb0qQOEnvgLcuoQfMalBbKKYoyt64bPVQ5k1iOhu3WDEn885NeBkJiMNv14xvbdk+vfuLzAybJfe34OvmrosFlEwkqBVd9EZpWIDCW78gzUMkt7I1xdzB0ksZy3IJR+6Zg3MK9Tuv0qkEgBIIH6IGNOyHenOAyBAK9iu/wmymLXJiptVLbVUjogFm6mjwIXlSIdT/1ORlGwepdJR219Z1mUoJnoiA6YsjQgWPQ+cHRx1iVj58ekXyNd2lFSpDmd/q306x3gkrkbvpuTkrNDpj0nHjAOtuCm2W4bIAIhCJ5/eQfKsZWztwebeVfFOb4aaUA2SPQtc4KLLVkdTS5R/EEAsrnZ
+ ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: SW3CssSHrinHdiRXvqC+XhU5VjXxmmFQI98oSgKueM7QX/bSwOwZKOnqMnZUqZq5l4zVX9sm8/flyGsQB7iEHJpnALESlsRcqGh6HdnJx56W+BjORJBbWWB34sMejzNY0wRmgSj3NF5PHDhMXo1GpEimrPbAJDKCQavJvvoIkF0HFgZJqw2W/Le33j8dfcLQ8Zqq+1EiTi3euzbU/pVX7uLVRmh0cQCceBIzMlyyQcDxKG7eXwyce7l/YUZrts/YjmfG3EMy9jHafq/em4ZM57khPIJQqZrFqGagKckjgJiMQAwFZM2So3mdaC2A9SjL1Wn9/Dn3thVbn4U64doOkeVYuiHVpJdlgx+AnEEBv7BcerdVgmFXgKRryl8KedETYOZXkMC9bsl0sj4oBCpcQL3b/lzV287VqThoPj1uaOycv2QsO1yy8YWqAfBKbKSaGgLoqEl8e+FfNmTunxos6lu8K3J2nwP++6A9GWpHSxpiqwQ0MdbagnWEe/tXM5kNmQVQL0BK/LvOyrhMg1S5YsB8Bmryr/Sbc5LnjQjtVzFoUI7QbtMI6nvsPOJ0yVk3oiqWUlWnI0WgfkHN7MYPStMqnezcXSWPUzLBhMdbhmtJ+XETvPlclSI6VGxx4nd2SeqQOBRYKfeWP4tqRlkrZwz45a0pgCfFkNwHDLZGWSy99/xDMAOXp+ZK7sCl4FefX6+IdDCLyiqSNhPAPs8MgU/f7D6F6Yx5qPCQi7Rw38U=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bENaSjVadGxmYTZIcmY0N2tQNklpOHhLdTRRb1FoU2ZTb2JyWDRJcDRJVWxm?=
- =?utf-8?B?cDJJWU5leUhINmI4YVd6TVJXcW1GM3ZrSDhZclMzRm14TVgyTmNDY2JiZVJj?=
- =?utf-8?B?QVNTU1M0UGQ5VHZpSk16Vm0vSFpMQU03L3IvUDhtRzdFbVNxZXUzMjZnRE5G?=
- =?utf-8?B?MFhqams1cE1tZHd2MzQxTVQ5YlZPZjRYaVZoL1RPTFF0c2IvNm5Xd1A4YTdE?=
- =?utf-8?B?QkhkZkxaUUg3Wit2OUpwMEdESVNWY2w5TU5xcmxVc0M0U1BWZ3lROHdnZkxw?=
- =?utf-8?B?Y1ZHdlptcEk2bVg1TUR2RWRBbzhyeWYxdjN4MHZmdUJNYVJBVzJubnNiRjJu?=
- =?utf-8?B?VjloT0lpeHNsREtvbnN1bTFWaG5FNk9BbGN0TjAwcTdOdU5URFZ5SkxzS0hH?=
- =?utf-8?B?TGJvMnlOeE1VN0JTblNWNE8rQXhmOEhhK01tVXpLOHI5ZzRJUFNBUW9TbGE4?=
- =?utf-8?B?TjFKVFN1MHE5N3QrNWFrT2lzNzBaOVkwVkJlbTBBRjUwZHNLR3BrV3RYTHNY?=
- =?utf-8?B?UHdVQVErMVZKUjZMR2dUWUVLeTdRNWNjbVdKTUo0cHB5QXlyYnF4Q0daak1p?=
- =?utf-8?B?aVJ6b2J4VGFDREZONExGUzkzWndERTdYdUJvTTM5MW9mM3hjTzB3VDNORzhI?=
- =?utf-8?B?Vm1XSTFkcFNMWlc0bGFxMC9YcTkwZ2F1RVJzR1VCU25XV1UvWFFHNlFUSzNH?=
- =?utf-8?B?ajV4UkJEa2NiVS9aMUVoejI0QktYcmlZd2phd3NzZit0RnN6MVV1TkRrNnhp?=
- =?utf-8?B?ckhlWGFUUmMwUllQcnpVVE5XbmQzVlFnWEpRdHVMY2Y1NnErNUVxODVZVVh2?=
- =?utf-8?B?ZGFFVXB0VEROViswdzAxQmJrVW1OV2V3VlFIRkZ0V0hzVStPM1R1U0FWMGg5?=
- =?utf-8?B?eEl1Q1R2ZS9GL0ZCT3FubVkycURFYlhrRjhGN1ZZMTlCMDVxempYMFZNVkNq?=
- =?utf-8?B?NnJlVFBjNEdvTUFUN3NmbEdZYmx2ZnEwenBDMVNQMHNYOGRuN1FMN09NZ2Y1?=
- =?utf-8?B?VnQxb3BDbjZ5SEpKY3BSWHcvc05NUkFMSmJkbVBYbDhRbXd5aXh4dUdjRFZk?=
- =?utf-8?B?V0w3Zkt4bWdCS0VuTUNzU0pBNlYycVhWZXV0T0pWeDZCcjdsamV2Y3MzREFT?=
- =?utf-8?B?T0FKSjRveFBUU3V2Z3NEYkV5VDdKUlUxWlRmMDlZWlpZMkR4UkhaeXYxdkhJ?=
- =?utf-8?B?UnNmTkFzY3BFbnhhbS9hSG9tZkJRTHIvckNlaE8wV2xhNmt4YWkvbFZHWnJy?=
- =?utf-8?B?SlNuL0hnRS81WWNaQndsSytrR2xTTVlVMkdtYTNnZjJuSW1pRDdXSDdKK1Jl?=
- =?utf-8?B?aktpaWhlYzNRb0hqS1Vka1RWZWhLb2VZZFRQQ3dRaFhmY0VKSGJPc0ZNNlda?=
- =?utf-8?B?VXpBS3ZJR0VVQXBOMjBxTGxjQ3NsMmNDMEp6SWRxWmRaVkhJNHpXUmNpK2Vz?=
- =?utf-8?B?aldvQ0xlNTVwcEZkZzhNbmxLblYyTkJiOEw4OUk5UDFoZ1VaYkJkVFliSkRP?=
- =?utf-8?B?alNmWVgva0dzZVlmZzc5QkxCaWZKcUtCWlFFNzlFSHJHZTFKU3FuY3dWa1lG?=
- =?utf-8?B?RE1oTlh2YXU0MWhMWjhLUGN5MUVZcm9ZazNVcXk0cDVnYUgyODBBN1pFSGF0?=
- =?utf-8?B?VU9Hcm0raUpkVGJtYTZSa0tkNHJYSFpyVXpFRXZ3OXljQjBGT0dWYmhxM0pD?=
- =?utf-8?B?SGtzMThJdFhydFZaSTlCejk5THBnWmdGUHFsRktyaEpMcUhDaGdYNS8yZ0J4?=
- =?utf-8?B?NmdmTHZXVlhWRlU3Vmp2T1RxL3JUSXRDandkLyt4MkZ1NDI0cWQ3c0FNS3Vo?=
- =?utf-8?B?TmIxd0dzUFBqRFQvcTZnS2RVVEZqc1ZFRTRlNEFDeEVRK0hjeVpOdlpxVlk2?=
- =?utf-8?B?YmVLWG9UeUNiU0laTWEyUzAwYmtRTEl1MWJ6d2U4dWVtOFN0Um1VbCtrNlhj?=
- =?utf-8?B?MkpOVVlpeGhxTkQyakZneU1xN3FCNEVsUXFRL3lFK21odlNsaHJTRkJQMkRp?=
- =?utf-8?B?UjNVZjZwL1lPdThwTm5oK1U4ZUNOUzh4MVdMOEdMcFZlSnlNbUdmR0FMamRS?=
- =?utf-8?B?VnIrMFNYbEFBb1c1NXRBRFpvdEh4VVpqNGJBN2h2UDg5Qy9JK0RCTkpqYXBK?=
- =?utf-8?B?TjdpY1ZOdEtHQ0JDT2Q2L2RwZFI3MjAxYzA3SWZpLzJvTFd4VlZSN3p4YmtB?=
- =?utf-8?B?eXIzQXJwK2NvbTV1endHbXdZaGdMRXh0dXFudStWazU1QnJPWkpUUmVzY29n?=
- =?utf-8?B?aTJrZnhwWGQ2Qk5hSmt6czNvdGR5dmVxRFRZWXRwRTR1SG11OXNaekl1ak5P?=
- =?utf-8?B?cElZOWFoRGtBNkFzcjhqay8yV2xoUXo0cXVKQm4yeWsvN1Z4bXBWZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 664fe0a0-40ba-4bd9-1a35-08de90296b1d
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SmU0RlQvak5tZENicTBXVmJ2WjFQS1I2eVFlWjFDWjRJcGVFRHIyVWY4ajh2?=
+ =?utf-8?B?blR2WnlCR1BLWXNPcnZsSXA3azljNjcyYWRsaHJ0a0s0dDVRcWhGcTFQYVBJ?=
+ =?utf-8?B?NExmcURGSGhGczIzYjltQmo5OEtoNnR3Sm5GOUdpYjBXM1J4YndXQ0ZPSkow?=
+ =?utf-8?B?KzNRT2ZxUDZkVTJUN0FncTBCVWhxcUhpc3FXRHYxeGZraWZoRWdqQTVKWWtG?=
+ =?utf-8?B?UndMOWtqYmlSK05ZcEhrMTVnU2MrTTh6TDgxSWNsbVVMeHJlQVBCRUJ6eldV?=
+ =?utf-8?B?N1pkSmZYM2hXQy9ENlJqQTMxQUtRVEhSOHFZd1l1T3NxcXRqM096NTBnSUkr?=
+ =?utf-8?B?dlZLdDFsNDUxaVJ1engvOGQzdWZzc2NzVHNoQ0lJSkpLQVBPWHM4QmtKd0lx?=
+ =?utf-8?B?WUhYbmIwRlZ1TllObEZxclFQR2Z3MmN0K0xId1djVkhJN01SSUV4cndleFcr?=
+ =?utf-8?B?amlhZDRjcGF3MmJGbDBkQ2lsQmlFWmJCYy9HVmg4TCsyOTYydUc4VzhWaVI4?=
+ =?utf-8?B?eFhCeVZkYW0yS3V6NWNXVCtsRkVyUDhJV0ljY1lXU1lzWWRXbCswTUJIdUg3?=
+ =?utf-8?B?UHRydmJYRjJodHFVYVpJUm05QkI2QjNxV0dTUnZ1VStSa0xHaTU4dEVrcXZS?=
+ =?utf-8?B?MitKWjk5UStJN21RRzFkNzZUUnZCSDhsQTdLS2I5UDZFeGErRkIvL2EzYTRy?=
+ =?utf-8?B?c0VIRGJXME45bVZybjBsRXpER0kyVVhvQ3Bad2JiYW9BNG1QSld4L0ErQ2tj?=
+ =?utf-8?B?aXBsY2NBcVNCWnFqaVQxTTJPV1hCYnliWUN2WGFUR1JyM3JUMWNoWDJsdTZB?=
+ =?utf-8?B?SlhtaUI1dTFrNGx2L3VYUzFZREdPZTZGUUs3SHlEWE52Qnh3M3NuaGtZR3lh?=
+ =?utf-8?B?UHdXc0wvR3M5aEdhaVFOSkFnVFVJVTJYdEwyMHd3dWNyZlFqNEU5Q0RFUEpP?=
+ =?utf-8?B?eXZPcWVSRjJPL216Z05xaDNOSGNiNXVpc3piTDJoU0kxcnNnckRZOFFMYkZp?=
+ =?utf-8?B?MEcyZkt2YXhLc3VjK3c4aVgyUzE4WldRbUkyVys5TVVpVDkxdGRmaFhXRXRX?=
+ =?utf-8?B?ZkdOTi9iZFlYRTFiNjNDMzVQK3FEZUs3MnNJNjZkcGZkN2RLZkpxWW52V2xM?=
+ =?utf-8?B?S2VveXJrcytrU0J0Lzc3NWJCUVYwamIrTnFnck1Qb24wa2tsbVR0Z2hWRUVV?=
+ =?utf-8?B?MDBXeHBleStqVXFsVW1lQkMxTXRjeG80QTNLS294RzlyYWIwUW9PVFhRRnVI?=
+ =?utf-8?B?cW0vckE5RGlERmUzVnIvcmxZQlJoSWdzNTVUakcySE83blVhZlNHTFB1R2c0?=
+ =?utf-8?B?ZmZyN0VLWXVBQ1kvd3F3NlJrUzVENmdXN3FYUXFUaTVqSkE4RERxMTNJZ1Nr?=
+ =?utf-8?B?T1FrK0gxTHpRdEVpTXI2alUyRkEyNXJNUE5id0ZyUVVPRTdOQ0NLMnNFRFk3?=
+ =?utf-8?B?Y1BOTHpJMEI2NWlQU3grUS9NT0U1WTdRb1djZnRSM3BNUXZ2WExyNWk0OWor?=
+ =?utf-8?B?a3o2Q28rYTRKYmFwQzRLY215TmNHOGNVRjJWVTN0alpPcFlyUng0MGpLaFNZ?=
+ =?utf-8?B?TWZQcWJVOGNpYW1kanI1d2lRZGJlUWVtWnlGWFBFRytZTDk2aXpmKzdlRytS?=
+ =?utf-8?B?bnE0T2M1OVZ3S2Y5cEtObnliVFlDeHo4bUMwcFYwU0ZuNEVTRjR5Tzl4RnRY?=
+ =?utf-8?B?VS9mOHhyU0M2OHR6WEN2NEFZa3R1aTNNN2lGZE5aODFVMmY3Z1BFMTFlUkVV?=
+ =?utf-8?B?NjJGN2p5bE9SazlyY2c1Mis1c2ZuYjJUcmZKVHJDM3JDeVBXVTI3Y2h3WVNt?=
+ =?utf-8?B?ZlNrdGMzelVXZHRTMjB0Ty92RVJNSTdVeFJYTzAvOXorUzAzSkEraXBUQkZz?=
+ =?utf-8?B?bWduS2YvL3ArMTY5QjBBQUlFbW5LQnB3VjlTR2ltVjVwb1M4em13Ym5oYUto?=
+ =?utf-8?B?Q3pyM3JRQ2dFZmU5SkYvaWdpTlNOaERNUzUrSXp4TWJxbFRLR08yWHpycjZR?=
+ =?utf-8?B?S2RHbmw1VTFHQWlHQXNVbEFHS29pYUcvQTlOd0NkOUFDNm15VmhYQnZwT2pF?=
+ =?utf-8?B?aFNJZnZtOFY1TVFoY3ZtNUdkb1ozTVlRVXBiUERXRDhTcnJpZkhtWWdPRFBw?=
+ =?utf-8?B?R250THI1cHVkdDVzL3lYTVNJTEx6RmVzV2ZDb25sM1VQeE8xTFRQa2FzN0Zl?=
+ =?utf-8?B?bXo3WkxTRm5wQTVtRVhvT0FqM1RWYUFibjZpUjFLMStEZG5GS3hxVVJXVmxV?=
+ =?utf-8?B?eHNQTFN6NWRxVzg4ZXhnVkI1dDFJNVN6OXh4UGtDRk8vVURVbm93WDUrRTFv?=
+ =?utf-8?B?WU1hdlFGaDdRTDVaSWlBYkNGdDIrK215S0ZDdnloSkNBZDQ5b2c2NndmVC9r?=
+ =?utf-8?Q?DwDWkEsli7KIUYp8=3D?=
+X-Exchange-RoutingPolicyChecked: LoP1QhQ4NjIRyj3y3uCp4/8WJMXd65RHOdVA3po4Dmklqc75rl1Uf6sJAvcRLAiWzmIl/tKzj6bHKVZ6WGGdej98709YAxXn9EeJ4EtrlaMAOPnWQxEKukcPXt+OhynQ2+NTbPC9rYeSFoBA15ExjFWsvGAaMib6X9a+SxfcT9RBQQMhpulTXBObaVym7LhtFVEo4zXA59ODBOZTEnrdh4B+77nHlm2eB9ZelUnRZ+3YHSevbY4oQTPG54EqkxwBTVYvuCa/UVK+/NfNJQ4/Z0qHaqjGbBmhi+PKq3XQ93j+v0BDaf471uPGgx+qZ6dd9Y9TBnBDvhDAdjO+N1S2fw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c68b61c1-a8bd-451e-eb4d-08de902a93f1
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 20:01:10.0761 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 20:09:27.9446 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 237jFsobhwm5aFf20YgzXbPyOk7fIqtyI7nlbubSPIiUSEF9jJJxxv6Rugy2EHfKxhrswVbJyRg8/5BLqmtlOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8228
+X-MS-Exchange-CrossTenant-UserPrincipalName: CZrEc9aDcuRpV42RuDH2zUeFUSZSG0wEhsks/iL9HaoL46OC9N/pasXLGE6cxsoOEAa/81G/4YiFekUymdRKhw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB7806
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,348 +174,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Tested-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+On Wed, Apr 01, 2026 at 09:51:39AM -0700, Lizhi Hou wrote:
+> 
+> On 3/31/26 21:57, Matthew Brost wrote:
+> > On Tue, Mar 31, 2026 at 10:26:35AM -0700, Lizhi Hou wrote:
+> > > From: Max Zhen <max.zhen@amd.com>
+> > > 
+> > > Update the amdxdna user-pointer (ubuf) BO path to support creating buffer
+> > > objects from read-only user mappings.
+> > > 
+> > > Detect read-only VMAs by checking VMA permissions across all user virtual
+> > > address ranges associated with the BO. When all entries are read-only, pin
+> > > user pages without FOLL_WRITE and export the resulting dmabuf as read-only
+> > > (O_RDONLY).
+> > > 
+> > > This allows userptr BOs backed by read-only mappings to be safely imported
+> > > and used without requiring write access, which was previously rejected due
+> > > to unconditional FOLL_WRITE usage.
+> > > 
+> > > Signed-off-by: Max Zhen <max.zhen@amd.com>
+> > > Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> > > ---
+> > >   drivers/accel/amdxdna/amdxdna_ubuf.c | 29 ++++++++++++++++++++++++++--
+> > >   1 file changed, 27 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> > > index 4c0647057759..3769210c55cc 100644
+> > > --- a/drivers/accel/amdxdna/amdxdna_ubuf.c
+> > > +++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
+> > > @@ -125,6 +125,26 @@ static const struct dma_buf_ops amdxdna_ubuf_dmabuf_ops = {
+> > >   	.vunmap = amdxdna_ubuf_vunmap,
+> > >   };
+> > > +static int readonly_va_entry(struct amdxdna_drm_va_entry *va_ent)
+> > > +{
+> > > +	struct mm_struct *mm = current->mm;
+> > > +	struct vm_area_struct *vma;
+> > > +	int ret;
+> > > +
+> > > +	mmap_read_lock(mm);
+> > > +
+> > > +	vma = find_vma(mm, va_ent->vaddr);
+> > > +	if (!vma ||
+> > > +	    vma->vm_start > va_ent->vaddr ||
+> > > +	    vma->vm_end - va_ent->vaddr < va_ent->len)
+> > > +		ret = -ENOENT;
+> > > +	else
+> > > +		ret = vma->vm_flags & VM_WRITE ? 0 : 1;
+> > > +
+> > > +	mmap_read_unlock(mm);
+> > 
+> > This looks highly questionable. Drivers should be reaching into the core
+> > MM to create primitives.
+> > 
+> > I also glanced at the userptr implementation here — it’s quite
+> > questionable as well, especially regarding whether notifier locking /
+> > hmm_range_fault interaction is needed on the driver side.
+> 
+> We implemented hmm_range_fault and notifier logic in amdxdna driver.
+> 
+> https://github.com/torvalds/linux/blob/master/drivers/accel/amdxdna/aie2_ctx.c#L921
+> 
+> The code in amdxdna_ubuf.c is just getting the pages from user allocated
+> buffer. The buffer pointer will not be used for device access.
+> 
+> Instead, user space will do a mmap to get a different buffer pointer and
+> register to notifier for device access.
+> 
+> > 
+> > I’m fairly certain that, with a bit of thought and some extensions to
+> > DRM GPUSVM, amdxdna could build userptr on that layer (Xe does this
+> > wihtout SVM). That would isolate core MM interactions to the common DRM
+> > layer, which I believe the core MM folks would appreciate.
+> > 
+> > The biggest issue I see is that get_pages() in GPUSVM also performs a
+> > DMA map, which amdxdna doesn’t appear to need. That should be easy
+> > enough to split out. But amdxdna does need locking semantics, notifiers,
+> > etc., which GPUSVM already provides.
+> > 
+> > I’d rather see GPUSVM expanded for the amdxdna use case so future
+> > drivers can use it as well.
+> > 
+> > Happy to work with you on this.
+> 
+> It is wonderful to use a common drm layer to handle all the similar
+> requests. It will simplify the driver for sure. I will start to work on
+> switching to GPUSVM. It might be taking some time.
+> 
+> In the meanwhile, are you ok to merge this patch for now? This is a required
+> feature for our product.
+> 
 
-Tested the 29-patch scheduler series on our CI; no issues were found.
+It’s not my intent to hold up merging anything required for your driver
+or product timelines — rather, I want the DRM driver/accel stack to
+converge on a common implementation for SVM/userptr, since this is a
+really tricky area to get right.
 
-Thanks,
-Vitaly
+I’m sure we’re still missing some pieces in GPUSVM to make this feasible
+for all drivers, but we’re very open to refactors that would enable it.
+For example, AMDGPU is also looking into using this framework, and we’ve
+already discussed some refactoring there.
 
-On 2026-03-06 11:34, Tvrtko Ursulin wrote:
-> [disclaimer]
-> Please note that as this series includes patches which touch a good number of
-> drivers, I did not copy everyone on everything. Assumption is people are
-> subscribed to dri-devel and for context can look at the whole series there.
-> [/disclaimer]
->
-> As a summary, the new scheduling algorithm is insipired by the original Linux
-> CFS and so far no scheduling regressions have been found relative to FIFO.
-> There are improvements in fairness and scheduling of interactive clients when
-> running in parallel with a heavy GPU load (for example Pierre-Eric has one
-> viewperf medical test which shows a nice improvement with amdgpu).
->
-> On the high level main advantages of the series are:
->
->  1. Scheduling quality - schedules better than FIFO, solves priority starvation.
->  2. Code simplification - no more multiple run queues and multiple algorithms.
->  3. Virtual GPU time based scheduling enables relatively simple addition
->     of a scheduling cgroup controller in the future.
->
-> There is a little bit more detailed write up on the motivation and results in
-> the form of a blog post which may be easier to read:
-> https://blogs.igalia.com/tursulin/fair-er-drm-gpu-scheduler/
->
-> First patches add some unit tests which allow for easy evaluation of scheduling
-> behaviour against different client submission patterns. From there onwards it is
-> hopefully a natural progression of cleanups, enablers, adding the fair policy,
-> and finally removing FIFO and RR and simplifying the code base due no more need
-> for multiple run queues.
->
-> Series is structured in a way where we could apply the first 12 patches (up to
-> and including "drm/sched: Switch default policy to fair") in one kernel release
-> and then follow up with the rest of the cleanups after a release or two if
-> things will be looking fine. Until the remainder of the series would be merged
-> it would be easy to flip the default algorithm back.
->
-> Onto the performance evaluation. As a headline result I have tested three
-> simultaneous clients on the Steam Deck:
->
-> One instance of a deferredmultisampling Vulkan demo running with low priority,
-> one normal priority instance of the same demo, and the Unigine Heaven benchmark.
->
-> With the FIFO scheduler we can see that the low priority client is completely
-> starved and the GPU time distribution between the other two clients is uneven:
->
-> https://people.igalia.com/tursulin/drm-sched-fair/fifo-starvation.png
->
-> Switching to the fair scheduler, GPU time distribution is almost equal and the
-> low priority client does get a small share of the GPU:
->
-> https://people.igalia.com/tursulin/drm-sched-fair/fair-no-starvation.png
->
-> Moving onto the synthetic submission patterns, they are about two simultaneous
-> clients which broadly cover the following categories:
->
->  * Deep queue clients
->  * Hogs versus interactive
->  * Priority handling
->
-> Lets look at the results:
->
-> 1. Two normal priority deep queue clients.
->
-> These ones submit one second worth of 8ms jobs. As fast as they can, no
-> dependencies etc. There is no difference in runtime between FIFO and fair but
-> the latter allows both clients to progress with work more evenly:
->
-> https://people.igalia.com/tursulin/drm-sched-fair/normal-normal.png
->
-> (X axis is time, Y is submitted queue-depth, hence lowering of qd corresponds
->   with work progress for both clients, tested with both schedulers separately.)
->
-> Round-robin is the same as fair here.
->
-> 2. Same two clients but one is now low priority.
->
-> https://people.igalia.com/tursulin/drm-sched-fair/normal-low.png
->
-> Normal priority client is a solid line, low priority dotted. We can see how FIFO
-> completely starves the low priority client until the normal priority is fully
-> done. Only then the low priority client gets any GPU time.
->
-> In constrast, fair scheduler allows some GPU time to the low priority client.
->
-> Here round-robin flavours are the same as FIFO (same starvation issue).
->
-> 3. Same clients but now high versus normal priority.
->
-> Similar behaviour as in the previous one with normal a bit less de-prioritised
-> relative to high, than low was against normal.
->
-> https://people.igalia.com/tursulin/drm-sched-fair/high-normal.png
->
-> And again round-robin flavours are the same as FIFO.
->
-> 4. Heavy load vs interactive client.
->
-> Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed by a
-> 2.5ms wait. Interactive client emits a 10% GPU load in the format of 1x 1ms job
-> followed by a 9ms wait.
->
-> This simulates an interactive graphical client used on top of a relatively heavy
-> background load but no GPU oversubscription.
->
-> Graphs show the interactive client only and from now on, instead of looking at
-> the client's queue depth, we look at its "fps".
->
-> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-heavy-vs-interactive.png
->
-> Here round-robin and round-robin rewritten on top of FIFO are best, with the
-> fair algorithm being very close. FIFO is clearly the worst.
->
-> 5. An even heavier load vs interactive client.
->
-> This one is oversubscribing the GPU by submitting 4x 50ms jobs and waiting for
-> only one microsecond before repeating the cycle. Interactive client is the same
-> 10% as above.
->
-> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-very-heavy-vs-interactive.png
->
-> Here FIFO is even worse and fair is again almost as good as the two round-robin
-> flavours.
->
-> 6. Low priority GPU hog versus heavy-interactive.
->
-> Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
-> Interactive client: 1x 0.5ms job followed by a 10ms wait.
->
-> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-low-hog-vs-interactive.png
->
-> All schedulers appear to handle this almost equally well but FIFO could still be
-> the last while fair has a slight lead.
->
-> As before, I am looking for feedback, ideas for what other kinds of submission
-> scenarios to test, testing on different GPUs and of course reviews.
->
-> v2:
->  * Fixed many rebase errors.
->  * Added some new patches.
->  * Dropped single shot dependecy handling.
->
-> v3:
->  * Added scheduling quality unit tests.
->  * Refined a tiny bit by adding some fairness.
->  * Dropped a few patches for now.
->
-> v4:
->  * Replaced deadline with fair!
->  * Refined scheduling quality unit tests.
->  * Pulled one cleanup patch earlier.
->  * Fixed "drm/sched: Avoid double re-lock on the job free path".
->
-> v5:
->  * Rebase on top of latest upstream DRM scheduler changes.
->  * Kerneldoc fixup.
->  * Improve commit message justification for one patch. (Philipp)
->  * Add comment in drm_sched_alloc_wq. (Christian)
->
-> v6:
->  * Rebase for "drm/sched: De-clutter drm_sched_init" getting merged.
->  * Avoid NULL rq dereference from a bad rebase. (Maira)
->  * Added some kerneldoc throughout. (Maira)
->  * Removed some lockdep annotations not belonging to one patch. (Maira)
->  * Use dma_fence_is_signaled in "drm/sched: Avoid double re-lock on the job free path". (Maira, Philipp)
->
-> v7:
->  * Rebase for some prep patches getting merged.
->  * Dropped submit all ready jobs patch.
->  * Fixed 64-bit division in unit tests.
->  * Fixed some more rebase and patch re-ordering mistakes.
->  * Preserve entity RR order when re-entering the queue.
->  * Fine tuned the queue re-enter logic for better behaviour with interactive
->    clients.
->  * Removed some static inlines.
->  * Added more kerneldoc.
->  * Done some benchmarks in the round-robin scheduling modes.
->
-> v8:
->  * Rebased for upstream changes.
->  * Added assert for reverse numerical order of DRM_SCHED_PRIORITY enums.
->  * Fixed head of rq priority updates.
->
-> *** RFC -> PATCH change log version reset. ***
->
-> v9 / v1:
->  * RFC -> PATCH for the series as agreed during the XDC.
->  * Updated interactive benchmark graphs.
->  * Improved handling of interactive clients by replacing the random noise on tie
->    approach with the average job duration statistics.
->  * Document in code why we track entity GPU stats in a reference counted structures.
->  * Document the new structure fields added by the fair policy.
->  * Undo some tab vs spaces damage.
->  * More accurate wording in the fair policy commit message.
->  * Default to fair policy in a separate patch.
->  * Renamed drm_sched_rq_select_entity to drm_sched_select_entity and make it only take sched.
->  * Fixed kerneldoc after removing scheduling policies and renaming the rq.
->  * Reversed arguments of drm_sched_rq_init and cleanup callers. (New patch)
->  * Removed unused num_rqs from struct drm_sched_args. (New patches)
->  * Unit tests:
->    * Added wait duration comments.
->    * Data structure comments.
->    * Better name for a local variable.
->    * Added comment to the short job duration assert.
->    * Added comment for cond_resched().
->    * Tweaked some comments
->    * Added client_done() helper and documented the READ_ONCE.
->    * Clarified cycles per second calculation.
->
-> v2:
->  * Dropped the sched_rq_init() argument re-order patch.
->  * Pulled run queue management consolidation patches to start of the series.
->  * Drm_sched_rq_get_rr_ts() renamed to drm_sched_rq_next_rr_ts().
->  * Added DRM_SCHED_PRIORITY_INVALID local define.
->  * Added locking around the ktime_t vruntime read.
->  * Expanded comment relating to the unlocked entity->priority read.
->  * Expanded comment relating to the unlocked scheduler average job duration read.
->  * Various kerneldoc tweaks.
->  * Undo some tab vs spaces damage harder.
->  * Undo one empty line rebase damage.
->  * Reworded commit message for the FIFO and RR removal patch.
->  * Various commit message spelling, grammar and typo fixes.
->  * Unit tests:
->    * Various style changes.
->    * More descriptive test names.
->    * Print legend for measured metrics.
->    * Check for memory allocation failures.
->
-> v3:
->  * Marked fair policy as default in the correct patch.
->  * Further improved comment in drm_sched_rq_update_prio().
->  * Moved DRM_SCHED_PRIORITY_INVALID to gpu_scheduler.h.
->  * Added description of the GPU time to vruntime scaling factors.
->  * Recorded more collected acks.
->
-> v4:
->  * Rebased, collect ackes and r-b-s receives so far.
->  * New patch in the series for handling the new ethosu accel driver.
->  * Bump lower priorities lower down in the run queue when they re-join, in order
->    to penalize them a bit more than simply making them second in the line to
->    run as it was in v3.
->
-> v5:
->  * Rebased, collect ackes and r-b-s received so far.
->  * Fix lost return statement introduced in v2 refactoring.
->  * Use virtual runtime based on average job durations when placing the re-
->    joining lower priority entity in the run-queue.
->
-> v6:
->  * Renamed drm_sched_entity_stats_alloc to drm_sched_entity_stats_new.
->  * Moved drm_sched_entity_stats_job_add_gpu_time to sched_entity.c.
->  * Improved kerneldoc for struct drm_sched_entity_stats.
->  * Explained GPU accounting placement in the respective commit text.
->  * Removed duplicated sched list assignment int the embedding the run-queue
->    patch.
->
-> v7:
->  * Rebased to catchup with upstream changes.
->  * Dropped the two amdgpu dependencies from the series - they have been merged
->    and have propagated to drm-next and drm-tip.
->  * Applied acks/reviews received since v6.
->
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> CC: Leo Liu <Leo.Liu@amd.com>
-> Cc: Lucas Stach <l.stach@pengutronix.de>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
->
-> Tvrtko Ursulin (29):
->   drm/sched: Disallow initializing entities with no schedulers
->   drm/sched: Consolidate entity run queue management
->   drm/sched: Move run queue related code into a separate file
->   drm/sched: Add some scheduling quality unit tests
->   drm/sched: Add some more scheduling quality unit tests
->   drm/sched: Implement RR via FIFO
->   drm/sched: Free all finished jobs at once
->   drm/sched: Account entity GPU time
->   drm/sched: Remove idle entity from tree
->   drm/sched: Add fair scheduling policy
->   drm/sched: Favour interactive clients slightly
->   drm/sched: Switch default policy to fair
->   drm/sched: Remove FIFO and RR and simplify to a single run queue
->   drm/sched: Embed run queue singleton into the scheduler
->   accel/amdxdna: Remove drm_sched_init_args->num_rqs usage
->   accel/rocket: Remove drm_sched_init_args->num_rqs usage
->   accel/ethosu: Remove drm_sched_init_args->num_rqs usage
->   drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
->   drm/etnaviv: Remove drm_sched_init_args->num_rqs usage
->   drm/imagination: Remove drm_sched_init_args->num_rqs usage
->   drm/lima: Remove drm_sched_init_args->num_rqs usage
->   drm/msm: Remove drm_sched_init_args->num_rqs usage
->   drm/nouveau: Remove drm_sched_init_args->num_rqs usage
->   drm/panfrost: Remove drm_sched_init_args->num_rqs usage
->   drm/panthor: Remove drm_sched_init_args->num_rqs usage
->   drm/sched: Remove drm_sched_init_args->num_rqs usage
->   drm/v3d: Remove drm_sched_init_args->num_rqs usage
->   drm/xe: Remove drm_sched_init_args->num_rqs usage
->   drm/sched: Remove drm_sched_init_args->num_rqs
->
->  drivers/accel/amdxdna/aie2_ctx.c              |   1 -
->  drivers/accel/ethosu/ethosu_job.c             |   1 -
->  drivers/accel/rocket/rocket_job.c             |   1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
->  drivers/gpu/drm/etnaviv/etnaviv_sched.c       |   1 -
->  drivers/gpu/drm/imagination/pvr_queue.c       |   1 -
->  drivers/gpu/drm/lima/lima_sched.c             |   1 -
->  drivers/gpu/drm/msm/msm_gem_vma.c             |   1 -
->  drivers/gpu/drm/msm/msm_ringbuffer.c          |   1 -
->  drivers/gpu/drm/nouveau/nouveau_sched.c       |   1 -
->  drivers/gpu/drm/panfrost/panfrost_job.c       |   1 -
->  drivers/gpu/drm/panthor/panthor_mmu.c         |   1 -
->  drivers/gpu/drm/panthor/panthor_sched.c       |   1 -
->  drivers/gpu/drm/scheduler/Makefile            |   2 +-
->  drivers/gpu/drm/scheduler/sched_entity.c      | 163 ++--
->  drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
->  drivers/gpu/drm/scheduler/sched_internal.h    |  70 +-
->  drivers/gpu/drm/scheduler/sched_main.c        | 351 +------
->  drivers/gpu/drm/scheduler/sched_rq.c          | 379 ++++++++
->  drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
->  .../gpu/drm/scheduler/tests/mock_scheduler.c  |   1 -
->  .../gpu/drm/scheduler/tests/tests_scheduler.c | 884 ++++++++++++++++++
->  drivers/gpu/drm/v3d/v3d_sched.c               |   1 -
->  drivers/gpu/drm/xe/xe_dep_scheduler.c         |   1 -
->  drivers/gpu/drm/xe/xe_execlist.c              |   1 -
->  drivers/gpu/drm/xe/xe_gpu_scheduler.c         |   1 -
->  include/drm/gpu_scheduler.h                   |  44 +-
->  33 files changed, 1497 insertions(+), 481 deletions(-)
->  create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
->  create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
->
+Let me know if you have any questions about GPUSVM or about the
+refactors your driver would need to make use of it.
+
+Matt
+
+> 
+> Thanks,
+> 
+> Lizhi
+> 
+> > 
+> > Matt
+> > 
+> > > +	return ret;
+> > > +}
+> > > +
+> > >   struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+> > >   				 u32 num_entries, void __user *va_entries)
+> > >   {
+> > > @@ -134,6 +154,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+> > >   	struct amdxdna_ubuf_priv *ubuf;
+> > >   	u32 npages, start = 0;
+> > >   	struct dma_buf *dbuf;
+> > > +	bool readonly = true;
+> > >   	int i, ret;
+> > >   	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+> > > @@ -172,6 +193,10 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+> > >   			ret = -EINVAL;
+> > >   			goto free_ent;
+> > >   		}
+> > > +
+> > > +		/* Pin pages as writable as long as not all entries are read-only. */
+> > > +		if (readonly && readonly_va_entry(&va_ent[i]) != 1)
+> > > +			readonly = false;
+> > >   	}
+> > >   	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
+> > > @@ -194,7 +219,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+> > >   		npages = va_ent[i].len >> PAGE_SHIFT;
+> > >   		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
+> > > -					  FOLL_WRITE | FOLL_LONGTERM,
+> > > +					  (readonly ? 0 : FOLL_WRITE) | FOLL_LONGTERM,
+> > >   					  &ubuf->pages[start]);
+> > >   		if (ret >= 0) {
+> > >   			start += ret;
+> > > @@ -211,7 +236,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
+> > >   	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
+> > >   	exp_info.priv = ubuf;
+> > > -	exp_info.flags = O_RDWR | O_CLOEXEC;
+> > > +	exp_info.flags = (readonly ? O_RDONLY : O_RDWR) | O_CLOEXEC;
+> > >   	dbuf = dma_buf_export(&exp_info);
+> > >   	if (IS_ERR(dbuf)) {
+> > > -- 
+> > > 2.34.1
+> > > 
