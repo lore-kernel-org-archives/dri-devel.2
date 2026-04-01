@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0689210F9313
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 00:39:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41F6E10F9311
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 00:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D37D89E33;
-	Wed,  1 Apr 2026 00:39:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 779F810EAB0;
+	Wed,  1 Apr 2026 00:39:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="amV5trs4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lVz8z4zj";
 	dkim-atps=neutral
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6392389E33
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:31 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-2c18af885c0so7241367eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:31 -0700 (PDT)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1679B10EAB0
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:33 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-2c7d8bbad06so1463852eec.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775003970; x=1775608770; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1775003972; x=1775608772; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
- b=amV5trs41cBIoa9sgg4ccHpmbD85vSuh/xrztmrbhVNRFBcOpt3d52z8cO1c+riGa8
- QVtf9IpfhPD04Y5ywNwWqNrHu7hZKOmW0NKRhHZSOI4pMfU/46apL/GRMEMlOrL/x4U6
- 6HBFF2fWRgLiBs05AHlQO6izkd+/fZ6a8Ot8jpZtx7k/LXzo3lWdTHaGf/c7aT9f3xkF
- PM+8KqlPcxLzvOLXUhzISXOn/fuosJmmFZbHBS3MaxAtUq7bPUj/2Zj7zxEr58l65A51
- Uf4+YEOMkLGLjMgBg9AG2LcZEdy4TCqeqZGfaUhyCsS7xHqYsUQBIfmIEuxFQl6TNi2T
- M4Bw==
+ bh=mqMdpDaaRiGg+2ZN9NqktjEbPVOkWurGFYKafkS7Z0Q=;
+ b=lVz8z4zjjB+ZcYb+2Vn1OzHNGdN6rWjMUC1A2iZRmFSEcGH6UsLWpqJbXIY4eD7E56
+ D5afH6XDH4rVrTd4e2Rd91BBVakYA6jTTVa15dBnCbiiACTZHlnXWCOZ1ePzd3jBNKGh
+ rLlsto09d+Tpy2hceki4Su2mheaiqrqVVc0W4HJBVDrEMpdxUGx/tPWW+d32LsgfRABx
+ PFwNHmebC/AADeD6RC6g6NAYV4Gzh4qBY3xd/fwOCczrPMi/IJXlH3LNzzhMGJPnYd9h
+ z9TDv8TqJp9LGOQy/2Ej1kR0MOygV/sUWKQ3FZJBfVtpdZ9nma2SijYVFCiHCDBfq4pf
+ zdtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775003971; x=1775608771;
+ d=1e100.net; s=20251104; t=1775003972; x=1775608772;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
- b=bZ18kc6fwm06eRWzjF/7au4Ycc39ipU061Vq9RPgJkE6QTSAv0JRgyydbg2bpHbnbt
- 9lkWLQm0ESCyiOoTnvqBf+bOQxSyAHEVLWv4x+GNZ9j9d6L7RzKDTxB+uAlKWPbl2A6h
- 8xspt/iLc6lTYgUUt1vhzvbdVDXDhGYN8MNFMfIFDFgkpwjBS/t5QyMncXQk+gVfaRVq
- uiugXwaH9dJor+EhtO5jqLfrtijXQv2LL09eRoEmEbzqrYWW4WGJQwyj4aczXEf5y/t7
- /jashetZGWwYheED9bO5K16PQciT0sxDYymcBroG1pIthgVuAmLTYeShtkgavuRR1Dz9
- FhPQ==
+ bh=mqMdpDaaRiGg+2ZN9NqktjEbPVOkWurGFYKafkS7Z0Q=;
+ b=VtmUxbjapUG76SI862EEdl6dUaOHcRePVzmvGgbEvooNadROpiifZ/RFvF5sfLotKD
+ BiiM+zysQmSOolNLvIF5B0p28eJJ6Aka/Fag6jfzFMgses1suGkGGinb0QpYoWWEBBt0
+ zk8DLIRKg9dLvE1mf3CR0/wGd9keKiSIP2R44KIz6HZb/XIQPTYtq4uBNSWzq8EZozkQ
+ /9FcmFkSri+bFK7ahlsACG5TzBvqfboYKKbE1Wo4fkqejDsntPKI48lGR1lsvYJnXyQ7
+ dKmQYnEwKLwlUwTyNmfxisJW/IXgEadZZeN0bhlbeVUm3mwjhZpwXTOrrIUyyFfGU5Ym
+ JF7Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVvwniYiuUD4nzZZgrenkaVda75qyzsTPC1MK9YmdSdqaHXXWkXVadfIW/Un+8yqEokos1QDvCaNEc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwxJUqABJ8YEx5S3pE0ijk7Jk+73qdin3aFhz7YR+ohv2uIKsJp
- v/k3OHkIfahe0zM249eaFYXb6z/UlSZtYqusvR6b77RnpSCRtKtdD16W
-X-Gm-Gg: ATEYQzw/slA5yyHzGSno3QkHLKH9L7sqrOLU9fkOkVNPQ3VQ/o2jbFJ4GBAAtPGJ31J
- 3oa/VHdG86xOEPUmIpjZQ3LOIih0QWvbNL3cD5ijA0Rdx7SlCRSjclxt8s3Wb3RyR/WLnjSL4hv
- ooZ3qewkz74Yd+CNx1GBM+cJFaaJGJDAGFyQOEVDO5TfS/vEEnuBgDTBrOMcntBd2LWgfLvx7B6
- YFu5BK/4a31DwvqB+XCesMQhyo9nBel/tVKU852tZp08rSttCKXDxAtgmpytI75HREkwhbs3DuN
- cU/3pd9zwsCUzPMee7XVjkp9o3AZwcau60YWDGi6B8xcjGPFdaSslQbJdRPNg4sUYaDdl53hLR7
- 73ROW+h8XS4m/hwodWa98XNZ4utH2pF602tgrUm4LanKgo0esnqrFJ3I6G+1KZhO53XCvzpUzb3
- 4qnCZnryAAmmPJXPEqKqTXdw43l6Wo0lPaavBxLk8Farw5JJ/wDeB8q8Q=
-X-Received: by 2002:a05:7300:8626:b0:2c0:cc90:a71 with SMTP id
- 5a478bee46e88-2c930e6a365mr1054199eec.8.1775003970551; 
- Tue, 31 Mar 2026 17:39:30 -0700 (PDT)
+ AJvYcCVdmM9iehPcdpU+Vpv3nbSjvSWvWqpyWaQsdYZFDOLSv22u3NPTR4ezpsOy+HJMCd4IprQLus3EDQ8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5EpwDSdVS6t4qaKlS2+6sDtYvuczR2P30tPGhJ2RMmYCEA2P8
+ t5VIMjgWA5lhh5EcXlo2aWi6bw0d1WjdI1IgKoolydJ4RXciMChZv0Xe
+X-Gm-Gg: ATEYQzxrVPyKjQgzhQyzwERiw+T/Bm1yw8wQpJPj4Lh66bvE5JFXbg+6dQrMFtbbuaB
+ oo6BbbWllD6RtT80YJShzRDe3T/WWsDO9XzWYIz+mvxmdvvKqMAiD0nY0W7Ff1fRjicH1r3M3OX
+ OxKe2NDd6/Xu/P5S9/ls/UIfCyvWWUAUYbPELtqR2/bNUyUjO/LMPJxPiImkYfb4WgCGviHskwZ
+ jPJshuHNYPEVH7fCGqU+d1pYzUcbYItyQR68ejZbgbyRRSc/GYbnwQtH/Qesfoyw9T/wK6yQ1m7
+ kU8KxZXnhSSWU7Nd0tp9d9iM0tbWmrYu+bl0ZHVFhtXQ8dJh87ZjRiVZVN2aru/2gptpDtRtwwv
+ cFY5enY/xc4LiF47uaH/dPlTrpb0cEMJYMvWH4hayNEHxD1S/0E3U4+f2ObsjacKBAiv7WmhjX+
+ LJ5xD7ZUYZPGvRq2BjO/BBvi+U9ccDVHSBkfWH/5Sddi/zo8CipAvVLnE=
+X-Received: by 2002:a05:7300:3205:b0:2be:837d:cc4d with SMTP id
+ 5a478bee46e88-2c9309851dfmr1044767eec.5.1775003972186; 
+ Tue, 31 Mar 2026 17:39:32 -0700 (PDT)
 Received: from ryzen ([2601:644:8000:5b5d::8bd])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.28
+ 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Mar 2026 17:39:29 -0700 (PDT)
+ Tue, 31 Mar 2026 17:39:31 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: stable@vger.kernel.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
@@ -78,9 +78,10 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2 for 6.12 01/10] drm/amd/amdgpu: decouple ASPM with pcie dpm
-Date: Tue, 31 Mar 2026 17:38:59 -0700
-Message-ID: <20260401003908.3438-2-rosenp@gmail.com>
+Subject: [PATCHv2 for 6.12 02/10] drm/amd/amdgpu: disable ASPM in some
+ situations
+Date: Tue, 31 Mar 2026 17:39:00 -0700
+Message-ID: <20260401003908.3438-3-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260401003908.3438-1-rosenp@gmail.com>
 References: <20260401003908.3438-1-rosenp@gmail.com>
@@ -103,29 +104,73 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Kenneth Feng <kenneth.feng@amd.com>
 
-[ Upstream commit df0e722fbdbedb6f2b682dc2fad9e0c221e3622d ]
+[ Upstream commit c770ef19673fb1defcbde2ee2b91c3c89bfcf164 ]
 
-ASPM doesn't need to be disabled if pcie dpm is disabled.
-So ASPM can be independantly enabled.
+disable ASPM with some ASICs on some specific platforms.
+required from PCIe controller owner.
 
 Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
 Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 32 ++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d5e6d5ec69c8..dbee43c58741 100644
+index dbee43c58741..eb3c6bfe2e6c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1782,8 +1782,6 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+@@ -84,6 +84,7 @@
+ 
+ #if IS_ENABLED(CONFIG_X86)
+ #include <asm/intel-family.h>
++#include <asm/cpu_device_id.h>
+ #endif
+ 
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+@@ -1758,6 +1759,35 @@ static bool amdgpu_device_pcie_dynamic_switching_supported(struct amdgpu_device
+ 	return true;
+ }
+ 
++static bool amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
++{
++#if IS_ENABLED(CONFIG_X86)
++	struct cpuinfo_x86 *c = &cpu_data(0);
++
++	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 0) ||
++		  amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 0, 1)))
++		return false;
++
++	if (c->x86 == 6 &&
++		adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN5) {
++		switch (c->x86_model) {
++		case VFM_MODEL(INTEL_ALDERLAKE):
++		case VFM_MODEL(INTEL_ALDERLAKE_L):
++		case VFM_MODEL(INTEL_RAPTORLAKE):
++		case VFM_MODEL(INTEL_RAPTORLAKE_P):
++		case VFM_MODEL(INTEL_RAPTORLAKE_S):
++			return true;
++		default:
++			return false;
++		}
++	} else {
++		return false;
++	}
++#else
++	return false;
++#endif
++}
++
+ /**
+  * amdgpu_device_should_use_aspm - check if the device should program ASPM
+  *
+@@ -1782,6 +1812,8 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
  	}
  	if (adev->flags & AMD_IS_APU)
  		return false;
--	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK))
--		return false;
++	if (amdgpu_device_aspm_support_quirk(adev))
++		return false;
  	return pcie_aspm_enabled(adev->pdev);
  }
  
