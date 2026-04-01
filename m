@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F32DBD35173
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 15:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 931D910F6FBF
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 15:40:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47D8C10EE71;
-	Wed,  1 Apr 2026 15:39:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5F3110ECA2;
+	Wed,  1 Apr 2026 15:40:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qr3SSI6o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XtWc7kSB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA62910EE71;
- Wed,  1 Apr 2026 15:39:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3C7B10ECA2;
+ Wed,  1 Apr 2026 15:40:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 14B4940C25;
- Wed,  1 Apr 2026 15:39:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46536C4CEF7;
- Wed,  1 Apr 2026 15:38:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B6D3840D5B;
+ Wed,  1 Apr 2026 15:40:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2904BC4CEF7;
+ Wed,  1 Apr 2026 15:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775057940;
- bh=fJdFksYvhu2QBW2xM51tNuc3BCiB5YiBhlwDrUJiUZk=;
+ s=k20201202; t=1775058000;
+ bh=qluaTkvREC5+yG58ljxsV6cqHwaNZiO+EKP753RRYcg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=qr3SSI6oBvZ+JpJTYcUXaAZU4g6rvIYySeCjiEK8in3tDiXKQOwN9w9IL7MV0KfHr
- VDj7jDg2y+ZEbMEPm58bDK0HBWdunouxBWnX/uEhokekEjMfPAfx/mgiAYSs361378
- vesh0G4OfMCBIJSWzUZP190/CSoWuGdO/ZLsZovBbn5oGwM56T7tGXH1I2+YiQEGv9
- 7RALUg9V6caWS7Z1FWU8E+XllK8kNKPYaZaRLpq42UvvjNXEvxqdhZQhqVHotZNlvd
- qCKhuASrauwkg82oTq6DRtUHC0wtKP145B0lkKILpqf6FQdYOVSEf0A2873+txIRkd
- olz30NccPaUEw==
-Message-ID: <1f88e7ff-eb91-4601-a549-cddcb06b87e7@kernel.org>
-Date: Wed, 1 Apr 2026 17:38:50 +0200
+ b=XtWc7kSBpczDhOeDzctojUGhjkDX9yLOncrss4xMBiCV/aNAFElErs7mbZxhOzBFj
+ IjIntWeGJXpFhKhS/f3AB+fYVKP1SKYagi5+a2LPJgthzcivJeg5Rz9GV4Rw4eFXw7
+ fIPUmcXhywGnFMLSWkC3nbdoxcr1E/+qjOIUMtmLmnJBEAZi4KMImfvb1v0eym+x2e
+ 9qqygeFi0bxup5RxJ5c78WULUV35EpKtPMYapo3WLjNS865aTrEt2qKUl6WScPk4JE
+ NEJW+MxF0alErQ/CFCZjckq9jlMzUYvZTb0k9w4o2IO9WAfLDuQWKDcTRbseeV3Jom
+ THPMVL/ytMNMQ==
+Message-ID: <51bffefb-395f-4ece-90ba-588b2bdadaac@kernel.org>
+Date: Wed, 1 Apr 2026 17:39:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/33] rust: remove `RUSTC_HAS_COERCE_POINTEE` and
- simplify code
+Subject: Re: [PATCH 02/33] rust: bump Clippy's MSRV and clean
+ `incompatible_msrv` allows
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
  Andreas Hindborg <a.hindborg@kernel.org>,
@@ -66,10 +66,10 @@ Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
 References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-6-ojeda@kernel.org>
+ <20260401114540.30108-3-ojeda@kernel.org>
 From: Danilo Krummrich <dakr@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20260401114540.30108-6-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-3-ojeda@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,6 +88,6 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 4/1/26 1:45 PM, Miguel Ojeda wrote:
->  rust/kernel/alloc/kbox.rs | 29 ++---------------------------
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 6 +-----
 
 Acked-by: Danilo Krummrich <dakr@kernel.org>
