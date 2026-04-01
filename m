@@ -4,128 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C003D3514F
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F7DD35157
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 08:06:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2DDC10E184;
-	Wed,  1 Apr 2026 07:58:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A2110EA51;
+	Wed,  1 Apr 2026 08:06:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="1u3371jQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YmAbCiY7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1u3371jQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YmAbCiY7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rqJKg0V1";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7974010E184
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:58:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 322AD5BD4E;
- Wed,  1 Apr 2026 07:58:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775030301; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GUbCXixotbLJQvKhnmalg+wDZ35b+WqTf1PV/5s4pQY=;
- b=1u3371jQTR3AJaG5fpgatzyLFS7tio30mVNMoihZL1cu92WBcsucabuSZcuFi+rGjjZiuQ
- RdfMHnx+AViGqFrVVEnmWCofnGAWaqUgk0zFuQ96ppciIba8RxpvBVTXhCIq85Fth2tQdt
- F9cyQji9OUxbbl55B1yI16wjdfXZwko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775030301;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GUbCXixotbLJQvKhnmalg+wDZ35b+WqTf1PV/5s4pQY=;
- b=YmAbCiY7IJxSY1jWCNXdDCQRJKKsIc38fZXjiSiQ3J+66zKuqg//PuZs6TwxzNvvSkkbFd
- 9sNsSd+KoTHUVfDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775030301; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GUbCXixotbLJQvKhnmalg+wDZ35b+WqTf1PV/5s4pQY=;
- b=1u3371jQTR3AJaG5fpgatzyLFS7tio30mVNMoihZL1cu92WBcsucabuSZcuFi+rGjjZiuQ
- RdfMHnx+AViGqFrVVEnmWCofnGAWaqUgk0zFuQ96ppciIba8RxpvBVTXhCIq85Fth2tQdt
- F9cyQji9OUxbbl55B1yI16wjdfXZwko=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775030301;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=GUbCXixotbLJQvKhnmalg+wDZ35b+WqTf1PV/5s4pQY=;
- b=YmAbCiY7IJxSY1jWCNXdDCQRJKKsIc38fZXjiSiQ3J+66zKuqg//PuZs6TwxzNvvSkkbFd
- 9sNsSd+KoTHUVfDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E8A7C4A0B0;
- Wed,  1 Apr 2026 07:58:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mLGbNxzQzGk2ZgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 01 Apr 2026 07:58:20 +0000
-Message-ID: <a2b5aa02-2566-409f-960d-4ecb1419cbd5@suse.de>
-Date: Wed, 1 Apr 2026 09:58:20 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6356C10EA51
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:06:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6A936600AD;
+ Wed,  1 Apr 2026 08:06:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F8CC2BC9E;
+ Wed,  1 Apr 2026 08:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775030764;
+ bh=vCdXcNhvfsQLq7T5BRej3phIPgo6NGFMKQMcuPzGOwQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=rqJKg0V1L04Q3f38fKKOlIWP+9kJ7b9nPh/7SkiTWIFS5HV2ZmN4WBl1p7IWmMdpj
+ ozbqsG5VzM4xt9qwCtV8Lcg0Lfv31XkuUWJxO6UuEAB9rT+kyqIeAUdBi0Iqc2r9M2
+ XzMoJo+T19GRNpNB+5UA4Ies9Bfdt2aZwaeIVXQDscP+OmcNYEoKkV9SedZ+6L8IKQ
+ CT3KK/ci1Vi7Lxa+YgcOcm3UkKdiaKDm9Nkw9G8IuFcGnagw1P/upc0jH57Cd7O4eE
+ 8iCQYg380dUf5Xpo3W4aBb1l4T6efuIN4USC1acqxTznac7+2CtR8tyh5Jxrf68iUW
+ tdo8P/vvB+4dg==
+Date: Wed, 1 Apr 2026 10:06:01 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Robert Foss <rfoss@kernel.org>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH v2 1/2] drm: Rename drm_atomic_state
+Message-ID: <20260401-imperial-tan-emu-0a1ab4@houat>
+References: <20260331-drm-drm-atomic-update-v2-0-7e8fe6ddcd32@kernel.org>
+ <20260331-drm-drm-atomic-update-v2-1-7e8fe6ddcd32@kernel.org>
+ <316d8ab8-78d0-4169-9264-e4da5424b5d6@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/10] lib/fonts: Clean up Makefile
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org,
- simona@ffwll.ch, sam@ravnborg.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org
-References: <20260327130431.59481-1-tzimmermann@suse.de>
- <20260327130431.59481-5-tzimmermann@suse.de>
- <CAMuHMdX1vUuKq-Q1-zA5tC5+LWap4osFJMqQ5pRJ373z++KQLQ@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAMuHMdX1vUuKq-Q1-zA5tC5+LWap4osFJMqQ5pRJ373z++KQLQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_CC(0.00)[gmx.de,linuxfoundation.org,kernel.org,ffwll.ch,ravnborg.org,vger.kernel.org,lists.freedesktop.org];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_SEVEN(0.00)[10];
- MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:mid,suse.de:email]
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="cii5lvz5tahfk45i"
+Content-Disposition: inline
+In-Reply-To: <316d8ab8-78d0-4169-9264-e4da5424b5d6@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,81 +73,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 01.04.26 um 09:48 schrieb Geert Uytterhoeven:
-> Hi Thomas,
->
-> On Fri, 27 Mar 2026 at 14:05, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Simplify the Makefile. Drop font-obj-y and sort the fonts by dictionary
->> order. Done in preparation for supporting optional font rotation.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Thanks for your patch, which is now commit 3f90ea78f5fe9495
-> ("lib/fonts: Clean up Makefile") in fbdev/for-next.
->
->> --- a/lib/fonts/Makefile
->> +++ b/lib/fonts/Makefile
->> @@ -1,23 +1,22 @@
->>   # SPDX-License-Identifier: GPL-2.0
->>   # Font handling
->>
->> -font-objs := fonts.o
->> +font-y := fonts.o
->>
->> -font-objs-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
->> -font-objs-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
->> -font-objs-$(CONFIG_FONT_8x8)       += font_8x8.o
->> -font-objs-$(CONFIG_FONT_8x16)      += font_8x16.o
->> -font-objs-$(CONFIG_FONT_6x11)      += font_6x11.o
->> -font-objs-$(CONFIG_FONT_7x14)      += font_7x14.o
->> -font-objs-$(CONFIG_FONT_10x18)     += font_10x18.o
->> -font-objs-$(CONFIG_FONT_PEARL_8x8) += font_pearl_8x8.o
->> -font-objs-$(CONFIG_FONT_ACORN_8x8) += font_acorn_8x8.o
->> -font-objs-$(CONFIG_FONT_MINI_4x6)  += font_mini_4x6.o
->> -font-objs-$(CONFIG_FONT_6x10)      += font_6x10.o
->> -font-objs-$(CONFIG_FONT_TER10x18)  += font_ter10x18.o
->> -font-objs-$(CONFIG_FONT_TER16x32)  += font_ter16x32.o
->> -font-objs-$(CONFIG_FONT_6x8)       += font_6x8.o
->> +# Built-in fonts
->> +font-$(CONFIG_FONT_10x18)     += font_10x18.o
->> +font-$(CONFIG_FONT_6x10)      += font_6x10.o
->> +font-$(CONFIG_FONT_6x11)      += font_6x11.o
->> +font-$(CONFIG_FONT_6x8)       += font_6x8.o
->> +font-$(CONFIG_FONT_7x14)      += font_7x14.o
->> +font-$(CONFIG_FONT_8x16)      += font_8x16.o
->> +font-$(CONFIG_FONT_8x8)       += font_8x8.o
-> Please sort the anonymous entries by increasing font size.
+--cii5lvz5tahfk45i
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/2] drm: Rename drm_atomic_state
+MIME-Version: 1.0
 
-Makes sense. I'll also leave a comment on the sorting order.
+Hi Thomas,
 
-Best regards
-Thomas
+On Wed, Apr 01, 2026 at 08:05:12AM +0200, Thomas Zimmermann wrote:
+> Am 31.03.26 um 16:41 schrieb Maxime Ripard:
+> > The KMS framework uses two slightly different definitions for the state
+> > concept. For a given object (plane, CRTC, encoder, etc., so
+> > drm_$OBJECT_state), the state is the entire state of that object.
+> > However, at the device level, drm_atomic_state refers to a state update
+> > for a limited number of objects.
+> >=20
+> > Thus, drm_atomic_state isn't the entire device state, but only the full
+> > state of some objects in that device. This has been an endless source of
+> > confusion and thus bugs.
+> >=20
+> > We can rename drm_atomic_state to drm_atomic_commit to make it less
+> > confusing.
+>=20
+> Nit: The subject should already spell out the new name.
+>=20
+> >=20
+> > This patch was created using:
+> >=20
+> > rg -l drm_atomic_state | \
+> > 	xargs sed -i 's/drm_atomic_state/drm_atomic_commit/g; s/drm_atomic_com=
+mit_helper/drm_atomic_state_helper/g'
+> > mv drivers/gpu/drm/tests/drm_atomic_state_test.c drivers/gpu/drm/tests/=
+drm_atomic_commit_test.c
+>=20
+> We now have many places that read like "struct drm_atomic_commit *state',
+> which mixes up terminology. Is there a way of transforming this
+> automatically to use 'commit' for the variable's name?
 
->
->> +font-$(CONFIG_FONT_ACORN_8x8) += font_acorn_8x8.o
->> +font-$(CONFIG_FONT_MINI_4x6)  += font_mini_4x6.o
->> +font-$(CONFIG_FONT_PEARL_8x8) += font_pearl_8x8.o
->> +font-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
->> +font-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
->> +font-$(CONFIG_FONT_TER10x18)  += font_ter10x18.o
->> +font-$(CONFIG_FONT_TER16x32)  += font_ter16x32.o
->>
->> -font-objs += $(font-objs-y)
->> -
->> -obj-$(CONFIG_FONT_SUPPORT)         += font.o
->> +obj-$(CONFIG_FONT_SUPPORT) += font.o
-> Gr{oetje,eeting}s,
->
->                          Geert
->
+I know what you're saying, but it would be much more intrusive and I'm
+not sure I feel comfortable doing it in one go. I had a try this morning
+to come up with a coccinelle script and it looks like it chokes up a bit
+on it too.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+I'm sure we could blame my coccinelle skills, but how about we do this
+driver by driver later on? I can do it if you want me to, and we don't
+really need to have that one big commit, it can be split into smaller
+units that would be easier to test and merge.
 
+Maxime
 
+--cii5lvz5tahfk45i
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaczR6AAKCRAnX84Zoj2+
+diwJAX4uy/nV3NPKiK3qmQeMnzfxOpb6SoFRToie/uY1bnwzT4DvI1PBDpupJ2b7
+1TPui7YBf0tYnfE8f570AUNIYHDpDbX7FlYZwmcTtk0dNFPKYel3cDoxReDbmNAk
+0gu5asfI9w==
+=BLVN
+-----END PGP SIGNATURE-----
+
+--cii5lvz5tahfk45i--
