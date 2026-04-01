@@ -4,72 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E07ED3517A
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:52:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A3ADD35177
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:57:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0E2410F0BB;
-	Wed,  1 Apr 2026 11:52:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9004710F0B2;
+	Wed,  1 Apr 2026 11:57:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P4KiRkYx";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="kmTDpPzd";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC9B710F0BE;
- Wed,  1 Apr 2026 11:52:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C15FF40914;
- Wed,  1 Apr 2026 11:52:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D18AC116C6;
- Wed,  1 Apr 2026 11:52:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775044353;
- bh=63eNaBb7HhBHNGZHs2ck4m5j8n+byLJscGHPx3NKsmQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=P4KiRkYx+9pR8FcDn58eZ58Tl+l8DaXIaKnBFFMxFh3P+IXQUnqgEGZH8vAunNvs4
- BLd1TybjNwHbXADCPR4z7Vj6dtmKy7ji1oU2bzwWLnPbbnFVZYCEMjSB2UQpls/Ouo
- pYPJfGFA7EPUSZecOxj+EVb7CtgpF1zN5Tw8IewblUNyc/Ie7LYX5Lt+C5FMZplSJ6
- xbIWlfeyv6YRSlqqa7C9IoWKbjP/NbQH9T4QOWe/CgvypooqpdHo0TWO2wHyf2zcvI
- RVJtUt/y5WBbMgeocVhCwVhlVD3aiintQfQGjzicRa8XTpUjFXmucwr/KWim4JVpaV
- E6XIy24XYnOiA==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Courbot <acourbot@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>,
- Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Vlastimil Babka <vbabka@kernel.org>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- Uladzislau Rezki <urezki@gmail.com>, linux-block@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org (moderated for non-subscribers),
- Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Rae Moar <raemoar63@gmail.com>, linux-kselftest@vger.kernel.org,
- kunit-dev@googlegroups.com,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 33/33] rust: kbuild: allow `clippy::precedence` for Rust <
- 1.86.0
-Date: Wed,  1 Apr 2026 13:45:40 +0200
-Message-ID: <20260401114540.30108-34-ojeda@kernel.org>
-In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
-References: <20260401114540.30108-1-ojeda@kernel.org>
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2BD10F0B7
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 11:57:23 +0000 (UTC)
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com
+ [74.125.224.48]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 1DF20327F73
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 12:57:21 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1775044641; bh=4uVC0aEYxjaQTuwalpCxtrvLnrNOwwa3Rtte4QhHBaU=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=kmTDpPzdnZocJ3AAU9nGKH3TvjRuQ03QfSox30SizVXApcMbr5C9q/fTv9Ew/gqZm
+ 20AJF7HAftyEUv2Ckrj9zKxJXCRljRApIiVsgAKW3/PaWqwnMItAmUeatsR1NT+/w9
+ KqwVL+sRddC+5m0enXAodov9/Anvwz0JRCkPYV4D6eHA5JEY4Ih9GoP1d0L1704bu+
+ IzBrFYAr/ZtsWhXGIDWwvyqf1ozXZ/Ghp1xyaH4ctNPXs5ZaFsx9AdrtMfGtE3axDT
+ poxYQTtGa5CmOg2yyvhPABYyOTKezcEK5w3PxFvMTvsnBAPHOFsxieaVy4aPMj8uXX
+ X4Q0ANYOTd3NA==
+Received: by mail-yx1-f48.google.com with SMTP id
+ 956f58d0204a3-64d5a7926cfso9888323d50.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 04:57:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWEnPDkBVHsFfZ932/3Q6QhWiakEFMzSyu0ZAICA+jGa0bqQ6LtOpGzFyXug3CLsc33YGk+RLMHcQ4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsjhWaVky4n0dW6g4VMaQw828Qx2EV01fqqzz8rVTVzA1U3Bhw
+ xWhb/AVUTtrHCwj20w7dHLtU/FUT3KdqAizHPaaWH52NMvN05cOBmHNUEzicTRsFU5ZbqZVM5hz
+ plTQ2Gg/bOfqHBuaC4WERgYYfwyI21Pc=
+X-Received: by 2002:a53:d6c6:0:b0:64f:ff90:4d56 with SMTP id
+ 956f58d0204a3-6502fe7bfe7mr2471092d50.61.1775044639847; Wed, 01 Apr 2026
+ 04:57:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+In-Reply-To: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Wed, 1 Apr 2026 13:57:08 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
+X-Gm-Features: AQROBzB1fVLxlzjejIYl_P8C5IorU1scQP8jhea66UlykTztcno2mlXZQEtFuOY
+Message-ID: <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>, wayland-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,84 +81,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Clippy `precedence` lint was extended in Rust 1.85.0 to include
-bitmasking and shift operations [1]. However, because it generated
-many hits, in Rust 1.86.0 it was split into a new `precedence_bits`
-lint which is not enabled by default [2].
+Am Do., 19. M=C3=A4rz 2026 um 13:28 Uhr schrieb Nicolas Frattaroli
+<nicolas.frattaroli@collabora.com>:
+>
+> This series adds a new "link bpc" DRM property. It reflects the display
+> link's actual achieved output bits per component, considering any
+> degradation of the bit depth done by drivers for bandwidth or other
+> reasons. The property's value is updated during an atomic commit, which
+> is also when it fires an uevent if it changed to let userspace know.
 
-In other words, only Rust 1.85 has a different behavior. For instance,
-it reports:
+Hi,
+I think it's a really good idea to have a property for knowing the
+actual bpc of the link... however, I do have one big concern with this
+API specifically: It only gives me this information after a modeset.
 
-    warning: operator precedence can trip the unwary
-      --> drivers/gpu/nova-core/fb/hal/ga100.rs:16:5
-       |
-    16 | /     u64::from(regs::NV_PFB_NISO_FLUSH_SYSMEM_ADDR::read(bar).adr_39_08()) << FLUSH_SYSMEM_ADDR_SHIFT
-    17 | |         | u64::from(regs::NV_PFB_NISO_FLUSH_SYSMEM_ADDR_HI::read(bar).adr_63_40())
-    18 | |             << FLUSH_SYSMEM_ADDR_SHIFT_HI
-       | |_________________________________________^
-       |
-       = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#precedence
-       = note: `-W clippy::precedence` implied by `-W clippy::all`
-       = help: to override `-W clippy::all` add `#[allow(clippy::precedence)]`
-    help: consider parenthesizing your expression
-       |
-    16 ~     (u64::from(regs::NV_PFB_NISO_FLUSH_SYSMEM_ADDR::read(bar).adr_39_08()) << FLUSH_SYSMEM_ADDR_SHIFT) | (u64::from(regs::NV_PFB_NISO_FLUSH_SYSMEM_ADDR_HI::read(bar).adr_63_40())
-    17 +             << FLUSH_SYSMEM_ADDR_SHIFT_HI)
-       |
+With this limitation, I can at most show the user which bpc was chosen
+after the apply display settings and have the end user manually test
+and figure things out, but I cannot show in the UI which bpc will be
+chosen with some configuration before they apply it, and I cannot do
+atomic tests to find a desired tradeoff automatically on the
+compositor side.
 
-    warning: operator precedence can trip the unwary
-       --> drivers/gpu/nova-core/vbios.rs:511:17
-        |
-    511 | /                 u32::from(data[29]) << 24
-    512 | |                     | u32::from(data[28]) << 16
-    513 | |                     | u32::from(data[27]) << 8
-        | |______________________________________________^
-        |
-        = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#precedence
-    help: consider parenthesizing your expression
-        |
-    511 ~                 u32::from(data[29]) << 24
-    512 +                     | u32::from(data[28]) << 16 | (u32::from(data[27]) << 8)
-        |
+As a side note, for future patches relevant for compositors, please cc
+wayland-devel. It really shouldn't be up to chance whether or not
+compositor developers that would later use the API find out about it
+before it's merged, and keeping track of all of dri-devel is way too
+much to ask from userspace developers.
 
-    warning: operator precedence can trip the unwary
-       --> drivers/gpu/nova-core/vbios.rs:511:17
-        |
-    511 | /                 u32::from(data[29]) << 24
-    512 | |                     | u32::from(data[28]) << 16
-        | |_______________________________________________^ help: consider parenthesizing your expression: `(u32::from(data[29]) << 24) | (u32::from(data[28]) << 16)`
-        |
-        = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#precedence
-
-While so far we try our best to keep all versions Clippy-clean, the
-minimum (which is now Rust 1.85.0 after the bump) and the latest stable
-are the most important ones; and this may be considered "false positives"
-with respect to the behavior in other versions.
-
-Thus allow this lint for this version using the per-version flags
-mechanism introduced in the previous commit.
-
-Link: https://github.com/rust-lang/rust-clippy/issues/14097 [1]
-Link: https://github.com/rust-lang/rust-clippy/pull/14115 [2]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
----
- Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/Makefile b/Makefile
-index 20c8179d96ee..a0d6ed050c8a 100644
---- a/Makefile
-+++ b/Makefile
-@@ -836,7 +836,8 @@ export WARN_ON_UNUSED_TRACEPOINTS
- 
- # Per-version Rust flags. These are like `rust_common_flags`, but may
- # depend on the Rust compiler version (e.g. using `rustc-min-version`).
--rust_common_flags_per_version :=
-+rust_common_flags_per_version := \
-+    $(if $(call rustc-min-version,108600),,-Aclippy::precedence)
- 
- rust_common_flags += $(rust_common_flags_per_version)
- KBUILD_HOSTRUSTFLAGS += $(rust_common_flags_per_version)
--- 
-2.53.0
-
+- Xaver
