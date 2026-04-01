@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD659D3517B
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:51:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9006ED3517A
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E8B10F085;
-	Wed,  1 Apr 2026 11:51:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E959810F088;
+	Wed,  1 Apr 2026 11:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qt9hgTLa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rzw1kaCE";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5F4910F085;
- Wed,  1 Apr 2026 11:51:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD4F910F088;
+ Wed,  1 Apr 2026 11:51:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 67CD4404D6;
+ by tor.source.kernel.org (Postfix) with ESMTP id 60A056013F;
+ Wed,  1 Apr 2026 11:51:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC33FC4CEF7;
  Wed,  1 Apr 2026 11:51:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D57C116C6;
- Wed,  1 Apr 2026 11:51:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775044294;
- bh=yKvVVQSsm3ADeF9w4UcOYUs55+Yf5zunUU3xGxiWVJk=;
+ s=k20201202; t=1775044306;
+ bh=hwrpFVeGAL5GC09atZjTVNJE6Ow3imO9X2morwqR56Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=qt9hgTLa2Us6ZAkjaDuidhhjBEvQbNdulZHZKXQzC+eR8wTzSc77xJJ4dkBB9WzzC
- 56So1K8x2lvFO5CwxaplRlWHIiDYAL2Mi584X4uRylEkZluCLgYJv7XA2Ib5lu3mp9
- /0rASa7YRY69ivi92iRCKMtbZ8gRaxDbRECSS/jsbMr266RSERosPt+9kyn9IYS6PO
- /jrkgOh8JThQ7n5bruoE5xHV1QuoewRsBnEwccKdY1YZRxh5s2PfRgQiU1MSTkVgtN
- rJ2E7yTdsHe1fmPWtL3F7NSZDISppgJS77qEymsIzNL65GsE84OdkUOCPCwIz7gUv8
- Z7Ygn1YR5NvuA==
+ b=Rzw1kaCEQHUMV8e2JhQRZ0slowyGy7FMm4tP6h9JKv2f1/pjKA/CgbLPmqJSfwYW9
+ XpjqdVAQSA7tGhxbEGXHSOp/b4ykgFgY9+afWac2nDN+7rfydkcDZpWR8hxb/XS02j
+ LNBRkTa0ZCJ8Ct7VSdEoSy0AjoAeVUdW2NIf9cHqHXqPRJVw10D2vW/WD8KAcd4+X9
+ adeYuW0+L8tLudnViZX5MEfIqqFc301C2pW4Ki+5taOqHHUTBnQwc2GJaFeET7o+/8
+ HquRyfA0XF2MWJo5hgtDXCWTUfmcnrUxW/us7Td3H6gTg1P4obsqnA35gxHSgJmIa7
+ NPNA/tvRJKfsA==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -62,9 +62,10 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 28/33] docs: rust: quick-start: remove GDB/Binutils mention
-Date: Wed,  1 Apr 2026 13:45:35 +0200
-Message-ID: <20260401114540.30108-29-ojeda@kernel.org>
+Subject: [PATCH 29/33] docs: rust: general-information: simplify Kconfig
+ example
+Date: Wed,  1 Apr 2026 13:45:36 +0200
+Message-ID: <20260401114540.30108-30-ojeda@kernel.org>
 In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -84,44 +85,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The versions provided nowadays by even a distribution like Debian Stable
-(and Debian Old Stable) are newer than those mentioned [1].
+There is no need to use `def_bool y if <expr>` -- one can simply write
+`def_bool <expr>`.
 
-Thus remove the workaround.
+In fact, the simpler form is how we actually use them in practice in
+`init/Kconfig`.
 
-Note that the minimum binutils version in the kernel is still 2.30, so
-one could argue part of the note is still relevant, but it is unlikely
-a kernel developer using such an old binutils is enabling Rust on a
-modern kernel, especially when using distribution toolchains, e.g. the
-Rust minimum version is not satisfied by Debian Old Stable.
+Thus simplify the example.
 
-So we are at the point where keeping the docs short and relevant for
-essentially everyone is probably the better trade-off.
-
-Link: https://packages.debian.org/search?suite=all&searchon=names&keywords=binutils [1]
-Link: https://lore.kernel.org/all/CANiq72mCpc9=2TN_zC4NeDMpFQtPXAFvyiP+gRApg2vzspPWmw@mail.gmail.com/
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- Documentation/rust/quick-start.rst | 9 ---------
- 1 file changed, 9 deletions(-)
+ Documentation/rust/general-information.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/rust/quick-start.rst b/Documentation/rust/quick-start.rst
-index 5bbe059a8fa3..a6ec3fa94d33 100644
---- a/Documentation/rust/quick-start.rst
-+++ b/Documentation/rust/quick-start.rst
-@@ -352,12 +352,3 @@ Hacking
- To dive deeper, take a look at the source code of the samples
- at ``samples/rust/``, the Rust support code under ``rust/`` and
- the ``Rust hacking`` menu under ``Kernel hacking``.
--
--If GDB/Binutils is used and Rust symbols are not getting demangled, the reason
--is the toolchain does not support Rust's new v0 mangling scheme yet.
--There are a few ways out:
--
--- Install a newer release (GDB >= 10.2, Binutils >= 2.36).
--
--- Some versions of GDB (e.g. vanilla GDB 10.1) are able to use
--  the pre-demangled names embedded in the debug info (``CONFIG_DEBUG_INFO``).
+diff --git a/Documentation/rust/general-information.rst b/Documentation/rust/general-information.rst
+index 6146b49b6a98..91535b2306ed 100644
+--- a/Documentation/rust/general-information.rst
++++ b/Documentation/rust/general-information.rst
+@@ -158,4 +158,4 @@ numerical comparisons, one may define a new Kconfig symbol:
+ .. code-block:: kconfig
+ 
+ 	config RUSTC_VERSION_MIN_107900
+-		def_bool y if RUSTC_VERSION >= 107900
++		def_bool RUSTC_VERSION >= 107900
 -- 
 2.53.0
 
