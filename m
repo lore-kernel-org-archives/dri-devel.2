@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B855AD35177
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:46:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C78D35177
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:46:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20A6510ED76;
-	Wed,  1 Apr 2026 11:46:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EE4C10EF77;
+	Wed,  1 Apr 2026 11:46:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KRqDupu+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hL4sHbvE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCEC610ED76;
- Wed,  1 Apr 2026 11:46:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84CB410EF77;
+ Wed,  1 Apr 2026 11:46:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 96607402E0;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6868440912;
+ Wed,  1 Apr 2026 11:46:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065A7C4CEF7;
  Wed,  1 Apr 2026 11:46:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314CBC4CEF7;
- Wed,  1 Apr 2026 11:46:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775043975;
- bh=ee9ui+LCdpJHl0TldbW+Hj1cIbucU9apUqrPLbY+gwA=;
+ s=k20201202; t=1775043987;
+ bh=bANzQfGdC4IAbhvKXuBQNZWwfHWEIkonTSD/l3eSFWo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KRqDupu+DKvNmwW+4j5ymsnMQyV8FjWKLKLMuRfJUaFNjjRl8TChFt1O49A4LriR4
- aCxNadQPRYWuZCjWbo1G44JNcreCgipEpTp25HG8+WRGEQpYq7kENnhi95ZvkothfB
- 1r+PascAFPeFUZ3UdnavVyKxTrY5sFckDghBLAV95wFV/7g0t8aY2T6Fli7cVnPYN5
- rkQQwfKcvN45XkZT1HU8FQsC/R0ookEadJs+Fu2CukxnkXqGoBe7jjSw5pUxfGmltp
- jaO17kwZAxx2dXVmEEDxPcOzWr8F1PnIUzJ/2t3S/iYg3yjijoVzP0yNPKxQ0FAq8T
- OxPArPyTGQbbQ==
+ b=hL4sHbvEsNWJiay38u1aNlo7H43VBJ1sQkn95Zz3Zvo78hQs4urrxoY3PVbkzKt0l
+ lwmTMIaJi+qiU2KMGU6vLKoGsiBAHAkiLOEOtbt9u9OHlSIILM04QabgoVY8JAqGM2
+ ktOh+LvLdSPlD4TAGMErsb3sfuWdamUxchSdksVBIJ38zHPuP7Z3j73xQdW7tKiEjL
+ 3P1B2oMo9xQQOERf8nSXdYHlAeXuO4SJJzjQaIXxzPUJD3XBzD1RAtErQhOQJcGTnV
+ k195Z2x0u87K/wOQvxUzbhoRq0DOWDo6GjE0Ys09MiK0M4d5vrYQEjsZvmtaKni/FB
+ Nn2gr6YtVmP8w==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -62,10 +62,10 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 01/33] rust: bump Rust minimum supported version to 1.85.0
- (Debian Trixie)
-Date: Wed,  1 Apr 2026 13:45:08 +0200
-Message-ID: <20260401114540.30108-2-ojeda@kernel.org>
+Subject: [PATCH 02/33] rust: bump Clippy's MSRV and clean `incompatible_msrv`
+ allows
+Date: Wed,  1 Apr 2026 13:45:09 +0200
+Message-ID: <20260401114540.30108-3-ojeda@kernel.org>
 In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -85,71 +85,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
-we are going to follow Debian Stable's Rust versions as our minimum
-supported version.
+Following the Rust compiler bump, we can now update Clippy's MSRV we
+set in the configuration, which will improve the diagnostics it generates.
 
-Debian Trixie was released with a Rust 1.85.0 toolchain [2], which it
-still uses to this day [3] (i.e. no update to Rust 1.85.1).
+Thus do so and clean a few of the `allow`s that are not needed anymore.
 
-Debian Trixie's release happened on 2025-08-09 [4], which means that a
-fair amount of time has passed since its release for kernel developers
-to upgrade.
-
-Thus bump the minimum to the new version.
-
-Then, in later commits, clean up most of the workarounds and other bits
-that this upgrade of the minimum allows us.
-
-pin-init was left as-is since the patches come from upstream. And the
-vendored crates are unmodified, since we do not want to change those.
-
-Note that the minimum LLVM major version for Rust 1.85.0 is LLVM 18 (the
-Rust upstream binaries use LLVM 19.1.7), thus e.g. `RUSTC_LLVM_VERSION`
-tests can also be updated, but there are no suitable ones to simplify.
-
-Ubuntu 25.10 also has a recent enough Rust toolchain [5], and they also
-provide versioned packages with a Rust 1.85.1 toolchain even back to
-Ubuntu 22.04 LTS [6].
-
-Link: https://lwn.net/Articles/1050174/ [1]
-Link: https://www.debian.org/releases/trixie/release-notes/whats-new.en.html#desktops-and-well-known-packages [2]
-Link: https://packages.debian.org/trixie/rustc [3]
-Link: https://www.debian.org/releases/trixie/ [4]
-Link: https://packages.ubuntu.com/search?suite=all&searchon=names&keywords=rustc [5]
-Link: https://launchpad.net/ubuntu/+source/rustc-1.85 [6]
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- Documentation/process/changes.rst | 2 +-
- scripts/min-tool-version.sh       | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ .clippy.toml                      | 2 +-
+ drivers/gpu/nova-core/gsp/cmdq.rs | 6 +-----
+ rust/kernel/ptr.rs                | 1 -
+ rust/kernel/transmute.rs          | 2 --
+ 4 files changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
-index 6b373e193548..474594bd4831 100644
---- a/Documentation/process/changes.rst
-+++ b/Documentation/process/changes.rst
-@@ -31,7 +31,7 @@ you probably needn't concern yourself with pcmciautils.
- ====================== ===============  ========================================
- GNU C                  8.1              gcc --version
- Clang/LLVM (optional)  15.0.0           clang --version
--Rust (optional)        1.78.0           rustc --version
-+Rust (optional)        1.85.0           rustc --version
- bindgen (optional)     0.65.1           bindgen --version
- GNU make               4.0              make --version
- bash                   4.2              bash --version
-diff --git a/scripts/min-tool-version.sh b/scripts/min-tool-version.sh
-index 99b5575c1ef7..a270ec761f64 100755
---- a/scripts/min-tool-version.sh
-+++ b/scripts/min-tool-version.sh
-@@ -31,7 +31,7 @@ llvm)
- 	fi
- 	;;
- rustc)
--	echo 1.78.0
-+	echo 1.85.0
- 	;;
- bindgen)
- 	echo 0.65.1
+diff --git a/.clippy.toml b/.clippy.toml
+index a51de9a46380..b0a78cc8be20 100644
+--- a/.clippy.toml
++++ b/.clippy.toml
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-msrv = "1.78.0"
++msrv = "1.85.0"
+ 
+ check-private-items = true
+ 
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 46819a82a51a..d9f69366642a 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -281,7 +281,6 @@ fn allocate_command(&mut self, size: usize) -> Result<GspCommand<'_>> {
+         let (slice_1, slice_2) = {
+             let (slice_1, slice_2) = self.driver_write_area();
+ 
+-            #[allow(clippy::incompatible_msrv)]
+             (slice_1.as_flattened_mut(), slice_2.as_flattened_mut())
+         };
+ 
+@@ -572,10 +571,7 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+             Delta::from_millis(1),
+             timeout,
+         )
+-        .map(|(slice_1, slice_2)| {
+-            #[allow(clippy::incompatible_msrv)]
+-            (slice_1.as_flattened(), slice_2.as_flattened())
+-        })?;
++        .map(|(slice_1, slice_2)| (slice_1.as_flattened(), slice_2.as_flattened()))?;
+ 
+         // Extract the `GspMsgElement`.
+         let (header, slice_1) = GspMsgElement::from_bytes_prefix(slice_1).ok_or(EIO)?;
+diff --git a/rust/kernel/ptr.rs b/rust/kernel/ptr.rs
+index 512e2eabe3ad..bd669e74e1cc 100644
+--- a/rust/kernel/ptr.rs
++++ b/rust/kernel/ptr.rs
+@@ -81,7 +81,6 @@ pub const fn new_checked(align: usize) -> Option<Self> {
+     /// This is equivalent to [`align_of`], but with the return value provided as an [`Alignment`].
+     #[inline(always)]
+     pub const fn of<T>() -> Self {
+-        #![allow(clippy::incompatible_msrv)]
+         // This cannot panic since alignments are always powers of two.
+         //
+         // We unfortunately cannot use `new` as it would require the `generic_const_exprs` feature.
+diff --git a/rust/kernel/transmute.rs b/rust/kernel/transmute.rs
+index 5711580c9f9b..b9e6eadc08f5 100644
+--- a/rust/kernel/transmute.rs
++++ b/rust/kernel/transmute.rs
+@@ -49,7 +49,6 @@ fn from_bytes(bytes: &[u8]) -> Option<&Self>
+         let slice_ptr = bytes.as_ptr().cast::<Self>();
+         let size = size_of::<Self>();
+ 
+-        #[allow(clippy::incompatible_msrv)]
+         if bytes.len() == size && slice_ptr.is_aligned() {
+             // SAFETY: Size and alignment were just checked.
+             unsafe { Some(&*slice_ptr) }
+@@ -92,7 +91,6 @@ fn from_bytes_mut(bytes: &mut [u8]) -> Option<&mut Self>
+         let slice_ptr = bytes.as_mut_ptr().cast::<Self>();
+         let size = size_of::<Self>();
+ 
+-        #[allow(clippy::incompatible_msrv)]
+         if bytes.len() == size && slice_ptr.is_aligned() {
+             // SAFETY: Size and alignment were just checked.
+             unsafe { Some(&mut *slice_ptr) }
 -- 
 2.53.0
 
