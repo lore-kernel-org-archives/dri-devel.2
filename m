@@ -4,113 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 418E0D35175
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 10:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ADDFD35173
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 10:49:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DF1010F01E;
-	Wed,  1 Apr 2026 10:39:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0425110F04F;
+	Wed,  1 Apr 2026 10:49:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K7DG3XbO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EFiIGYeP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D465010F01E
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 10:39:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 75EEF40806;
- Wed,  1 Apr 2026 10:39:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98EF3C2BC9E;
- Wed,  1 Apr 2026 10:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775039948;
- bh=gypXeCIau+T31ayAMYAkx5DFD3q4gUaQNSeKpKpkNlQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=K7DG3XbOUuYMx5zD4tf0w/zNrZEISuaOkl0y9bsZ4ZF+eqvqQ0/krCyVMIfchfDNf
- 7Xuk5gafjgRfYkVK39mhBM2PDIsE/ixN1liAk/eRoKmQyUGy7ZRj1enOA4NQefzUhI
- GLjiOnzc4Y9Zei2bor3Xg2dVwcLdWJOepFwM7wBYVvd6VJCg8PPuvvxNBtxRTTj29Y
- r/jcLZLUpgF2HxBl3qkmT9U5xv+UaKmhWqfZ7wP821m87phAJNBAnqkabTP3HN5ohF
- rtkX5shCv/WaBxEtGFpPtzvO3eboX0+Vzx+RlGHVegISQ8lNsbFVElduYjqr1+Mwkf
- H5tWHI+WMrmkw==
-Message-ID: <2f4c4063-daf6-48f2-b830-9f58dc7af80d@kernel.org>
-Date: Wed, 1 Apr 2026 12:38:56 +0200
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF29D10E1DB
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 10:49:06 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-38cb7ce7fd4so16898211fa.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 03:49:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775040545; x=1775645345; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=F9UYWTpgkmHiwl2xz9cys6shKpNNbnLAJljb0/zu468=;
+ b=EFiIGYeP0Hk7AMRcb0pW4wgp1LJHGADzNUctGzg9xceKh676OFZ++EwYu4y0xV5kwT
+ TjC6WCaXc6oDzVBSLcp3JdMBUEtiUE83iGppcl4K5HIzjWvG+jRakxKsc0h2tvvdlfjM
+ YCCuU+3ZtKBXBjVPcnotysmvBjUcKewPsUru7nHOCHDI4xpkUIcpeuAQsmvDEEikFTeA
+ 0ZxVDQP2yl8vjK00M8tgXdNq+RNIsFBC4cQ674bs+WjT55S3Pcn9BIBwcowl9d9i+dWS
+ ac9jEz7G1VsLwtnvcciG2P2sU+gDQXe5/V8EK0Byr64Vk7zBuh0vAktjBBYDZ3YEeBm/
+ ZE+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775040545; x=1775645345;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=F9UYWTpgkmHiwl2xz9cys6shKpNNbnLAJljb0/zu468=;
+ b=Z1J4Hs4r8xA4zyLyvJOS2dVZMAMqU3L5rHufgtVwtPT5SROKwjBwmojr2ABDK8HFL/
+ aeS2NrF/uMemqpE6l2zvFtgCUshoyq9UCPAXJJ+TUP/MnuQYRWXuX61Gvp/8rrmtXGHR
+ bum0ZNID3vSOMz2SW/3SubgY1vz4fEdiWKd36banK2SBqhpg4RsuZyJXrdXVzAE0SYO/
+ d7bD9OvFS3jpnr1mpsm4eV4jC3GoSVLU8G3k6JfK2Relk8/Bg14V7+6h+FJRhnGaXbAj
+ rLqfE+3zEHUI3G14NnKOR5bbCsMbQQV5pe5ilkez8P2WvvGLT8hIzoQlZLMDujLfXin8
+ 8rPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVm2feqLPJOZ96/gibFADXBAJrOoijE7f7ZJUMiBqKBlF41N4gcI3ZrEIxOp9nHhNBiEACVYQK3xl0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyUm2GFYo8hWTBUxXcEzJTwUAIxBUQ4+vbonALqs6MWVubNZK/v
+ TpTyOaNmiJGAajaKwpH8M3FnZWvvJa7CxyQSsSqnEtstsbUR8/Xgadcx
+X-Gm-Gg: ATEYQzywvJvqSiA+NFFqt2owYHLYsFGpmBGhbzmU4opqIniWkzEcJicFpouGk4Hkp4x
+ Vq3qQsrJk8oYV+egNlTc7frLA19UQ9YyZ4s4BStchR+77a86l8GoG/f2JkoGbW02YXB/7dXhREt
+ KCSfXkeeXHIntc15WKMmQIlUgQERugfAF5yTUkwVdJwkzE4hWcXmRV66u07RMeuS9fIrNgfsBMV
+ PZyFWBgcozwMNR4fTwhm0DAbK9ZPbxHqlchaO/c1g1AUL8CM5x/TosjcxLLECd38+sZsMJVXu65
+ JVevVLBgJDwIa3LLBDq//OmJ9XJMHey0EwYrOd2y8oZ125+iQ6hNoBZj9qcI8CwktzciLuzSqGX
+ W74cDDZeBlgMoTNg0VVGSJ+aH2MGVaootOpJumu8xI5BaGAu1elT/6YyGYp2UUkd3ttiJm9+p91
+ MuLKkJBQuaL0B42XCHdnlSSF98KjIcxjZRGw==
+X-Received: by 2002:a05:651c:41c6:b0:38b:f632:e0fc with SMTP id
+ 38308e7fff4ca-38cc2f199a2mr11399581fa.1.1775040544787; 
+ Wed, 01 Apr 2026 03:49:04 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38cc97315bcsm2632721fa.38.2026.04.01.03.49.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Apr 2026 03:49:04 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v2] drm/amdgpu: use IRQ-safe xarray API for PASID management
+Date: Wed,  1 Apr 2026 15:48:59 +0500
+Message-ID: <20260401104859.36990-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
- support
-To: Guangliu Ding <guangliu.ding@nxp.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
- <20260331-master-v1-1-65c8e318d462@nxp.com> <acva1Xt8V4k9-uG8@e142607>
- <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
- <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
- <aczv0R0aQRmHKdvt@e142607>
- <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,29 +89,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01/04/2026 12:31, Guangliu Ding wrote:
->> Either add the patch(es) that use the compatible to this series in v2, or put a
->> comment in the commit message on where we can see the driver changes.
->>
-> 
-> According to discussions with the GPU vendor, this is a hardware limitation 
-> of Mali-G310 rather than a hardware bug, and it has been addressed in newer
-> Mali GPU families.
-> 
-> In addition, ipa_counters are not enabled in the current Panthor driver. We observed
-> this issue with the private Mali DDK where ipa_counters were enabled.
-> Therefore, keeping the compatible string is necessary to allow for future divergence.
+xa_alloc_cyclic() and xa_erase() use plain xa_lock()/xa_unlock()
+regardless of XA_FLAGS_LOCK_IRQ — the flag only affects lockdep
+annotations, not runtime locking.
 
-No one discusses here whether you need separate compatible string.
-writing bindings and all my talks are (e.g. DTS 101) are clearly
-expecting you.
+Switch amdgpu_pasid_alloc() to xa_alloc_cyclic_irq() which uses
+xa_lock_irq/xa_unlock_irq internally.
 
-We discuss only the lack of compatibility in terms of DT, how DT sees
-compatible devices.
+For amdgpu_pasid_free(), use explicit xa_lock_irqsave/__xa_erase/
+xa_unlock_irqrestore since this function can be called from hardirq
+context via amdgpu_pasid_free_cb, where xa_erase_irq()'s
+xa_lock_irq/xa_unlock_irq would prematurely re-enable interrupts.
 
-And lack of driver code is clear indication that devices are compatible
-in terms how DT understands it. Feel encouraged to bring actual
-arguments in commit msgs in the future.
+Fixes: a3c0ee978e16 ("drm/amdgpu: replace PASID IDR with XArray")
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
 
-Best regards,
-Krzysztof
+v2: Use xa_lock_irqsave/__xa_erase/xa_unlock_irqrestore for
+    amdgpu_pasid_free() instead of xa_erase_irq(), since it can
+    be called from hardirq context where xa_unlock_irq would
+    prematurely re-enable interrupts. (Christian König)
+v1: https://lore.kernel.org/all/20260401073632.101796-1-mikhail.v.gavrilov@gmail.com/
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index a6ac3b4ce0df..6fc6859d9329 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -68,7 +68,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
+ 	if (bits == 0)
+ 		return -EINVAL;
+ 
+-	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
++	r = xa_alloc_cyclic_irq(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
+ 			    XA_LIMIT(1, (1U << bits) - 1),
+ 			    &amdgpu_pasid_xa_next, GFP_KERNEL);
+ 	if (r < 0)
+@@ -84,8 +84,19 @@ int amdgpu_pasid_alloc(unsigned int bits)
+  */
+ void amdgpu_pasid_free(u32 pasid)
+ {
++	unsigned long flags;
++
+ 	trace_amdgpu_pasid_freed(pasid);
+-	xa_erase(&amdgpu_pasid_xa, pasid);
++
++	/*
++	 * Use irqsave because this can be called from IRQ context
++	 * via amdgpu_pasid_free_cb.  xa_erase_irq() is insufficient
++	 * as it uses xa_lock_irq which can prematurely re-enable
++	 * interrupts in hardirq context.
++	 */
++	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
++	__xa_erase(&amdgpu_pasid_xa, pasid);
++	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
+ }
+ 
+ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+-- 
+2.53.0
+
