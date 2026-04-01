@@ -4,74 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7AED3514A
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB61AD35159
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:51:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A892910EC14;
-	Wed,  1 Apr 2026 07:49:06 +0000 (UTC)
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com
- [209.85.221.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96D3B10EC14
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:49:05 +0000 (UTC)
-Received: by mail-vk1-f174.google.com with SMTP id
- 71dfb90a1353d-56a86f0a23bso5428504e0c.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:49:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775029744; x=1775634544;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QViiKnClzREegw/7Mfy/6jKSPqR75a0GyutQdyIknIY=;
- b=BmhTuU4Ru+VXDITLlW6AaZ+X6Y7oz337Tkn24V74mkWFroQLdjZZQVxe2rt9+E9GZ2
- 8bxjUaZibWf6OvXmdsR4p4nr92yCYHhZ0lmMbQ7oNJ7WfyAuQdF2YOdrwJnQXz0MiVV8
- b3mB3QV3zyM9MeQ3SjfQlkPz1BkIRDenscunZy8ksD2pF3ZeD9JH0TrwHfjACvM8ZPh5
- /Soy63YyW/y1fm5QXtFYNSXg990AW5YzZxVFb/yv98eGUDcsEmdjVr9+DM9Mau+uENJl
- dwJJQ6X4AxoeOz/hVZy6CM51UUtiuY2QCeD/trayuMoyngo/cxxf6bJaVDUOb8BzmOaR
- aDiA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUvhbvxJLJB06y1tdsNJx0lVKPwcoEVTJq1Q+VUnljB9dDJpievyJOhm71eTIFgGmWbMxKPhEyWbGs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwN74pLpXPialDtsi6Mv/f1KM5Abu5+xx9UlftgLrwdJm8n8Ppb
- ZyWRa+ugbbhPshIIwWdDOrHl+/GfIPH5v6nuQh/G93KHHF/ePu3dee4DsSv4l8tk
-X-Gm-Gg: ATEYQzzyowsWiqumhcRS6ximoS9BjOyVC4Afe3/JZKYCvLo7uU1c38jQkY5rGVDOy/q
- zXqZquivwNRf/MsUjGwm5c09j8PDwBLBVQ2q3pjNLuVllstCGd4yw4Me6mQB2kQAfCdX/vFfNsZ
- aV9XjQ3nK6FNL8pOr4wOMZ/2n/kEubRPF9mLkVDOaKb2RixAy8/7uf3g6H2MLVY8oNIrelG1PmM
- 7u57VlZm4Mb2LGUiPhqPNdWjzLm2t163Qbdee+fTk3wAZZdPWFyQLKBmn13O+Ed1kkYnCpP5Ba2
- ewBHCthWeNoRDJUEgUc2dEaHZ86I76NV2+pgAJYkSLlUQfzdOo0cuFR1dgzLnyjDS8tA4yzAN5o
- 5NnXenPr2dVMmq0ZELlckVzrwAXOS2tWipq/MH1drWWFtYd9XAycYWqZlQfSI8X10Unv8uAxFRT
- eRvCuqfO45K1j2EVOeaLIyq47n5zn9zib2gqook8kFJjPBPjHiv7tFmZSNnCpM
-X-Received: by 2002:a05:6122:3214:b0:56b:7d4d:4d11 with SMTP id
- 71dfb90a1353d-56d8a7dbf8cmr1238606e0c.1.1775029744305; 
- Wed, 01 Apr 2026 00:49:04 -0700 (PDT)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com.
- [209.85.217.48]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-56d589fa657sm15235309e0c.11.2026.04.01.00.49.03
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 00:49:03 -0700 (PDT)
-Received: by mail-vs1-f48.google.com with SMTP id
- ada2fe7eead31-604f1bfed92so5001887137.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:49:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWFzT03iPJ5+ugLva8lRKXDAgfFrH6GPnTguid213O9xqf45mlGiJ2VEntHiejTKTOueODalB2sN3w=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:390e:b0:604:dfe1:39a7 with SMTP id
- ada2fe7eead31-60567e18859mr845568137.11.1775029743600; Wed, 01 Apr 2026
- 00:49:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260327130431.59481-1-tzimmermann@suse.de>
- <20260327130431.59481-5-tzimmermann@suse.de>
-In-Reply-To: <20260327130431.59481-5-tzimmermann@suse.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 1 Apr 2026 09:48:52 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX1vUuKq-Q1-zA5tC5+LWap4osFJMqQ5pRJ373z++KQLQ@mail.gmail.com>
-X-Gm-Features: AQROBzAbUUOUvvD9qjb80We-Rv00f545IFsCToqLfb7seW_x9Ac2xM40zkpv4T4
-Message-ID: <CAMuHMdX1vUuKq-Q1-zA5tC5+LWap4osFJMqQ5pRJ373z++KQLQ@mail.gmail.com>
-Subject: Re: [PATCH 04/10] lib/fonts: Clean up Makefile
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: deller@gmx.de, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
- simona@ffwll.ch, sam@ravnborg.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5017610E077;
+	Wed,  1 Apr 2026 07:51:52 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jWk6Fnxj";
+	dkim-atps=neutral
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C807F10E077
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:51:50 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 15C8A4E42894;
+ Wed,  1 Apr 2026 07:51:49 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D6800602BF;
+ Wed,  1 Apr 2026 07:51:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 48FAD104512AE; 
+ Wed,  1 Apr 2026 09:51:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1775029906; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=uT7sfHLuVPP3pEA5gLyzkA2Moxay1BQG8R6pq63tpdQ=;
+ b=jWk6FnxjhGu2HcFc6zGL1OGj6IL5Zs7/Fl2Q686nDDtC28o/cBxZ0B5lnUgMb37DGCL/Uk
+ rAjgfnUYQptI93q8MJ004w4xbAb0+iSNuMQn9BXWLFmJ0E+TwO5ks3CpK3aS4oCSxnCKRU
+ QXYU3b5/LY3B0NwZS5vOTSmfYsZ2wWNaStVw9fQjBhfWXkjntmhhB5fsLoGxV9ESHBvuX4
+ CJxuDmkRLmRKssspV9E+L5j8UlAdYdS0YRJjLFpjzXOjdxfqUwFKGxr09Kpv1Y0sAvTKxM
+ aadA789/nx2gmTp7hmC5i/xOnlgXKhPoYHWGW6hvDd7p6XHfczcQNgIyNyDbzg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 01 Apr 2026 09:51:32 +0200
+Message-Id: <DHHNKZK3NYI0.34BT204KH2VLS@bootlin.com>
+Subject: Re: [PATCH 7/8] drm/bridge: imx8mp-hdmi-tx: add an hdmi-connector
+ when missing using a DT overlay at boot time
+Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, "Hui Pu"
+ <Hui.Pu@gehealthcare.com>, "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>,
+ <dri-devel@lists.freedesktop.org>, <imx@lists.linux.dev>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, "Adam Ford" <aford173@gmail.com>, "Alexander
+ Stein" <alexander.stein@ew.tq-group.com>, "Anson Huang"
+ <Anson.Huang@nxp.com>, "Christopher Obbard"
+ <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Joao Paulo Goncalves"
+ <joao.goncalves@toradex.com>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Philippe Schenker" <philippe.schenker@toradex.com>, "Richard Hu"
+ <richard.hu@technexion.com>, "Shengjiu Wang" <shengjiu.wang@nxp.com>,
+ "Stefan Eichenberger" <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
+ Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com>
+ <20260320-drm-lcdif-dbanc-v1-7-479a04133e70@bootlin.com>
+ <544112ab-8ca0-4622-b680-233457198e3e@nxp.com>
+ <DHDNA5HLQPIB.3F21G9QPBUQG8@bootlin.com>
+ <5f06ea5a-5388-440f-91d6-cebb0bee0a88@nxp.com>
+ <DHG8G8FMXA6C.U6LU563OZ8NR@bootlin.com>
+ <9a6e74ed-d4ab-4f11-ab17-25e1a2b64b2d@nxp.com>
+ <DHGWUIUIKETI.1F1636GUBB3VI@bootlin.com>
+ <246ca728-1be6-4dd9-b228-7d99f28e1abe@nxp.com>
+In-Reply-To: <246ca728-1be6-4dd9-b228-7d99f28e1abe@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,71 +104,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hello Liu,
 
-On Fri, 27 Mar 2026 at 14:05, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Simplify the Makefile. Drop font-obj-y and sort the fonts by dictionary
-> order. Done in preparation for supporting optional font rotation.
+On Wed Apr 1, 2026 at 8:45 AM CEST, Liu Ying wrote:
+>>>>>> Boards with a different connector should describe the connector in t=
+he
+>>>>>> device tree, if they need to instantiate the exact type.
+>>>>
+>>>> I think this is the only valid solution. It's very easy to do, nothing=
+ new
+>>>> to invent.
+>>>>
+>>>> Maybe on top of that we could add a warning when the overlay is applie=
+d,
+>>>> e.g. "imx8mp-hdmi-tx used without a connector described in device tree=
+;
+>>>> adding a type A connector as a fallback; please add a valid descriptio=
+n to
+>>>> your device tree".
+>>>
+>>> I'd say this doesn't sound a bad idea but I hope the message is clear a=
+nd
+>>> short.
+>>
+>> What about:
+>>
+>>   Connector description not found in device tree, please add one. Fallin=
+g back to Type A.
 >
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-Thanks for your patch, which is now commit 3f90ea78f5fe9495
-("lib/fonts: Clean up Makefile") in fbdev/for-next.
-
-> --- a/lib/fonts/Makefile
-> +++ b/lib/fonts/Makefile
-> @@ -1,23 +1,22 @@
->  # SPDX-License-Identifier: GPL-2.0
->  # Font handling
+> Maybe:
+> Please add a hdmi-connector DT node for imx8mp-hdmi-tx. A fixup node in t=
+ype a is added for now.
 >
-> -font-objs := fonts.o
-> +font-y := fonts.o
+>>
+>>>> Maybe pointing to a TODO entry in the documentation.
+>>>
+>>> To parameterize the HDMI connector type?  If so, I'm okay with that.
+>>
+>> I was meaning a TODO entry to suggest people to add a connector descript=
+ion
+>> to the dts. E.g., expanding on the above suggested warning:
+>>
+>>   Connector description not found in device tree, please add one. See ht=
+tps://docs.kernel.org/gpu/todo.html#<...>
+>>
+>> And of course adding a TODO entry describing what one needs to do (add a=
+n
+>> hdmi-connector node and link it to port@1 of the hdmi-tx).
+>>
+>> The drawback of the TODO is that items in todo.rst are supposed to be
+>> removed eventually when done in the code, but this one cannot be removed
+>> until some kernels printing the above logging message will be around,
+>> i.e. potentially for decades.
 >
-> -font-objs-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
-> -font-objs-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
-> -font-objs-$(CONFIG_FONT_8x8)       += font_8x8.o
-> -font-objs-$(CONFIG_FONT_8x16)      += font_8x16.o
-> -font-objs-$(CONFIG_FONT_6x11)      += font_6x11.o
-> -font-objs-$(CONFIG_FONT_7x14)      += font_7x14.o
-> -font-objs-$(CONFIG_FONT_10x18)     += font_10x18.o
-> -font-objs-$(CONFIG_FONT_PEARL_8x8) += font_pearl_8x8.o
-> -font-objs-$(CONFIG_FONT_ACORN_8x8) += font_acorn_8x8.o
-> -font-objs-$(CONFIG_FONT_MINI_4x6)  += font_mini_4x6.o
-> -font-objs-$(CONFIG_FONT_6x10)      += font_6x10.o
-> -font-objs-$(CONFIG_FONT_TER10x18)  += font_ter10x18.o
-> -font-objs-$(CONFIG_FONT_TER16x32)  += font_ter16x32.o
-> -font-objs-$(CONFIG_FONT_6x8)       += font_6x8.o
-> +# Built-in fonts
-> +font-$(CONFIG_FONT_10x18)     += font_10x18.o
-> +font-$(CONFIG_FONT_6x10)      += font_6x10.o
-> +font-$(CONFIG_FONT_6x11)      += font_6x11.o
-> +font-$(CONFIG_FONT_6x8)       += font_6x8.o
-> +font-$(CONFIG_FONT_7x14)      += font_7x14.o
-> +font-$(CONFIG_FONT_8x16)      += font_8x16.o
-> +font-$(CONFIG_FONT_8x8)       += font_8x8.o
-
-Please sort the anonymous entries by increasing font size.
-
-> +font-$(CONFIG_FONT_ACORN_8x8) += font_acorn_8x8.o
-> +font-$(CONFIG_FONT_MINI_4x6)  += font_mini_4x6.o
-> +font-$(CONFIG_FONT_PEARL_8x8) += font_pearl_8x8.o
-> +font-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
-> +font-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
-> +font-$(CONFIG_FONT_TER10x18)  += font_ter10x18.o
-> +font-$(CONFIG_FONT_TER16x32)  += font_ter16x32.o
+> Not a big fan of adding a TODO entry, because those DT blobs without a
+> hdmi-connector node could be out there forever, meaning the added TODO
+> entry can never be removed.
 >
-> -font-objs += $(font-objs-y)
-> -
-> -obj-$(CONFIG_FONT_SUPPORT)         += font.o
-> +obj-$(CONFIG_FONT_SUPPORT) += font.o
+>>
+>> So maybe the simplest solution is just the first warning message + a
+>> comment in the code right before the warning line, so it easily found wi=
+th
+>> grep or a web search by who sees the warning.
+>
+> +1.
 
-Gr{oetje,eeting}s,
+Agreed. I've already sent v2, so I'll queue this for v3.
 
-                        Geert
+Luca
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
