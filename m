@@ -4,113 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19FBAD3515E
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 08:40:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499D8D3515F
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 08:40:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D33810E9E3;
-	Wed,  1 Apr 2026 08:40:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 964F410EAF3;
+	Wed,  1 Apr 2026 08:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="k/7yP6sm";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AfWyphj5";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dloq4KPR";
 	dkim-atps=neutral
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C6610EA06
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:40:28 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id
- d75a77b69052e-50335b926c2so54192991cf.2
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 01:40:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775032827; cv=none;
- d=google.com; s=arc-20240605;
- b=bAY3ZUPsKLCq29dFvW6h6e1kSyoSGzBHDIlFkqqh2vanzmBzGeqEM+qgdid7ncO7UN
- Fcd1jZzuxILPfVwoCRLOYF275c05HNK8UZK9ae6sS3tTpV2GZZE+dGW0NTuS2uP+45wa
- chW5dYydS/lEbmio+jPKuem1aBHKBO4PdXZLeWsddtzhuRfNDQQo6f0vXmlIEpY4AvPB
- zWq+Jm1RYmC4UF4h31DDwTzeu/0/f3TIELA6n+eyW77YnYHUoxyKJ3cUrSt3GRPk3diW
- E4k9CFP9taOTFublJgpAcesxvl+LxpujkgJVJZqaDWyhXldWWHV2LFrPsiKAa4I3h2tR
- Ajog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=KVkWfYwigbSi5JawcIs2zqvmQDqD12f5F9gL5XSu3Zs=;
- fh=FPbwkQu0wdYJZ8833FhJe7YguUlm5MMH6WzCNGW0LUE=;
- b=P9JXjhUqwLGQncBHAKDJN/tShnu/k4eqY3SCG655hMSpIGT0AE5DEGnGYuEXDI5igQ
- T9CAAWNzJyr68tzIZbSi5pWH6EXxydkcZRkgGXAvT7yDueimjc6FYXHbTywSOIGs1O7B
- oIQg8HjvANXSUFMQsxi14+0QGbOfDIUIRW0fdkrLzLiWl2HAQNIAhIO9P3z5JDhtV2pX
- rcFVlh6Z6ffig2SmrAJuToINK3YV5+8QR06FpShCn9IzhrUxrGCaVaK2TIu8fRNIlEla
- no//OGnPCKY1P21w9qXFIL1uPHBUZLN8xK3ebnqekbqMAm19zYlE5h2EwsE/VpOR28l0
- F5hw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A2410EAF3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:40:48 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6314Ga5o1579367
+ for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 08:40:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ BDagwufMCUS3ui7Czr00qwvBpE5LW4lU/kv1dVv43gY=; b=AfWyphj5jGRKJdU2
+ mIUbel0nlnEeEn9iIhQxbQ8Ti4Ondjh2ic3+AY4Uxt83fAeYuoGriKN+LYiiWSrK
+ mXtnfyddpHqjsWBv/sMpRMfXIG6zjc9qYSt2pi7nU2If+qF1Qy4YuPzswFSSuJTf
+ 7Onu2mNftjqFrzpPss9pQehWhyPTncW6EQx/pkFm1B6AbTZxtHyrxhUlwidb6YJF
+ tbPLAwl2Uau+ajY9fDfJdv2BEWFiFnq7ns/AhgWjCOE9st983BdZZL1ozdzLqRQe
+ CRLLnzRodzZWPyxrOqPwo+VlTdSVouWy0yHjrywM7StnXfdBj6x8400O+6CxkMK1
+ ygp1hg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8mr2tmf1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 08:40:47 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-89f48d009c8so13620636d6.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 01:40:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1775032827; x=1775637627;
+ d=oss.qualcomm.com; s=google; t=1775032847; x=1775637647;
  darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=KVkWfYwigbSi5JawcIs2zqvmQDqD12f5F9gL5XSu3Zs=;
- b=k/7yP6smEJO5CTO8ueC9esUTldgJR8zUQzOuvXveEkcSbhKszTldHTVxczfu6l/ExE
- 6B3D31tALOKnbB8DRr0V4O/XxYpP2wS+Kg8V1dZoqsI20BUNsxczSAbE15CupRdZD2Pp
- nr6I8Rg5kOShXRJKR3ZeoQu4PDyHNQlJMvzk3a7abQqJbVEGI4XG2JrYXkEUOaT/bV0x
- DccglVZ21zG/dhV5+34WkmIiGDYsCzSJuC9v1JhyZAc1ql6IKe8uco9JG4YnNSe++LIA
- J5VUF0fcTVrGzDYe0noUxLg9WmDHc/s1HdBcb/ITSoMzWIHsgEKuSF1fU+7Vzg8i0lik
- QhLA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BDagwufMCUS3ui7Czr00qwvBpE5LW4lU/kv1dVv43gY=;
+ b=Dloq4KPReJoJCo1V8DyuDPRnkcvldVy3qwZHNit8KFzub1AGEBOFmPrgXimOCgikXL
+ Kz2djYAOenHFIXho5Ldl3vIKv8nM/T4E45Z/XKNtBdXULe7u0nLS0KVk/nwS2HRFJ2Jg
+ QKBWGG8//7ynhflPCQop1JBU0ge80hWsRanfE40EvEqWhvuJ7U6pV/XZOO3c/fRXa1nk
+ geC+m8BteHlQ92E6RcJXQG3jblVEYFLBAVLnTIczdY6e9PtVw0mLfnAiOzH21Y9cEpjL
+ +Tp9lUmBcP5WTHLpffvL5cavGoZosOJivi5HIsHxx8Rjyrs+85FcAvqbAV1ihSHn8n6I
+ zA1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775032827; x=1775637627;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KVkWfYwigbSi5JawcIs2zqvmQDqD12f5F9gL5XSu3Zs=;
- b=DNCY5gPCgOq5ybQ7jC5obN5juSi42Ilx4jc4zuCbp04r9/ndrDf4fzfGX+ujWNYcAa
- Ncm/Gd99e3lYc3iSHiD303X7Odfns5vUxJmGptMdHdFPGG9p0ogqx7+d7hMVR2ELkaHJ
- RGx2bBAYZybW8mscaPoQALnJDzhWlG7MOh2HNMCOYhBuLi3gekurDpcnZNE1vGaIb+ut
- v9q6TNlihbjPva2KD7oXpdAwuoRt3F162HvfAWg2ITMvoVpc3rPxQgR0RWLuhj4lzPI7
- X50CzDV+W930UpiB8gSZfZImAU3qRuS/X2+EOeXxWeHefAxXZbdsYgrU1HvDbn+ctcU2
- oDDA==
+ d=1e100.net; s=20251104; t=1775032847; x=1775637647;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BDagwufMCUS3ui7Czr00qwvBpE5LW4lU/kv1dVv43gY=;
+ b=BsUJr31BT63d6WeQqMtQzSkmnQNEJqVlN86CJ8tCg3S/n8d3/R+AO47ZXeiLMbK2zR
+ 4IoeeHx93HqLHfLBCyhqEv4KjbOxgSeKvChkAmBeA9ynGHZm/dNrY4EIfy4U4JijxOIP
+ BpXuHm34MtbX0MK70yYexAVWF91NUQAC4KcDx4BIiequI/1twlbimMagyASdRZIOWNBP
+ f/ATM/Tt9DCyo2C1QJ0mLs3PX2Qho+fpWmNH7FnWxxVBJMgc5/RCVhSdkI6vd2fPgk1U
+ Zl+JdKIqpCh2NlTuhdAcjbvM1cxOsznzN1dnkPl/ufi/x9TblvBRyzSpFuntaWN8gR6E
+ r9Fw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWaMAnIwesSA8/t5P0RmkkVkH9k6KpwnIFXoMaXBUWVnAk5bmRNToXkXuT0GmkHJK/j3cCmOixdnLg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzuAEI7/R3d7Q+RrbSI13y3NJnLjVxDebchbNStatavuVHPNDPk
- 3jiWkZsHCW6LINuZ0EwGbN8KkVzJbdYUlaHhf/YABYk/Gvz21Z9FUmob216105qRT+LQgSQO88d
- z/SYQO79zbAGbmcmtCsB4f8RolvBR9L6ptXesY0WjtQ==
-X-Gm-Gg: ATEYQzy+Iw3bJw0++zvChW44TqMuMwYkYVbrSW2eAHj8dH0ANtWx+la74MCh30XylHu
- ZAD8Kh9WdMY6a36nJRM2mMvMSnw4UNtT1w28q/9Vt5f2VbEuLR2tXxavDnP+gxjkvf8atBDyTgi
- kUMLgfOJFI3s6xTKAUxjbI8sY6uE3Wdu32M5ggB0yz4OHTh2TjueGLYEGr0iBSF+1O28Chx7SZq
- 5eLJFcC+w7/DZwyC+suX64BP2/vw7pUA2KenyBSqTM+mhSitr9XWiA5g5MiXyVBBzMrVEaj5ewo
- QZkdv/hJUCPk7ekyR0vWlkIEbAzkkHuv/AlEKuIsAQ==
-X-Received: by 2002:a05:622a:1f0b:b0:50b:444c:e268 with SMTP id
- d75a77b69052e-50d3bc0fdc0mr37850221cf.19.1775032827063; Wed, 01 Apr 2026
- 01:40:27 -0700 (PDT)
+ AJvYcCUw9/zr/Qjz5Isn674dEegjbOKfLoz1865bnfnRS1fOhr0O210cgk07PePolSoVtGiT9gWk0pl7StY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YySsikfEnkL9yA3ABpWu71P8F6f6oOv6uJwtmioFllKDEi/lNHF
+ AnzDCZzCvY/K7ZJil8ToZcAYWekhYzTr7+9QUWgoIiYS0tw/D9lABERRjw8InMOPJqBFNBcViLW
+ kgBcsdcXkgtLYJMSG5VVOWy7jwde9fv19trOzpqq8hNPhC7tg09/7TsDSmWkt134UgIY31xY=
+X-Gm-Gg: ATEYQzzcQoWXFAi/PckTn7N17h7P1OmOIx8jd4U+KntUkueBepy0I4kdlNHY9idxYkd
+ VvvZ9EnQY1wynQsb/mCDG8lesMYHS3BcSTXulE3F9AqzwHrSfPqkxL9r89/xFDwJExuJS7J3cIl
+ QkS3R1xHnlotH2xUfCD+p7f+RDosMUCS9Qn/AxfijQP51aYX4x3uFwULYOcVa1E6vR2Ciz3/vZ4
+ KWRj4HUTDAGHWrnYDCjMvs9QO6ZdyFmZBCGw4Kp006I7wHH7ynchR8TVwcp+uSnG1Bfn6W1URsJ
+ 6Fduu7AIKEMjjJ4jPeUuzH7O9R/z6alewkxVZEKm9G8zTaXl8NkhzAmqFM0hA7Fw3rnZ+EGLKHO
+ x65/OngsmHXHKkOw5RKdCArmrD0DAeFOk06rEheuxeo7/N3SPrXPC3nM1DKHBBUyTfG7GI+vIjQ
+ Lw+TQ=
+X-Received: by 2002:a05:6214:4012:b0:89c:cc08:c56 with SMTP id
+ 6a1803df08f44-8a438dd0481mr28226196d6.3.1775032847054; 
+ Wed, 01 Apr 2026 01:40:47 -0700 (PDT)
+X-Received: by 2002:a05:6214:4012:b0:89c:cc08:c56 with SMTP id
+ 6a1803df08f44-8a438dd0481mr28225896d6.3.1775032846552; 
+ Wed, 01 Apr 2026 01:40:46 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9b7b1a5dddsm506284866b.35.2026.04.01.01.40.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Apr 2026 01:40:45 -0700 (PDT)
+Message-ID: <e1d05708-a812-4fa6-8985-ff6995350da9@oss.qualcomm.com>
+Date: Wed, 1 Apr 2026 10:40:41 +0200
 MIME-Version: 1.0
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <5416161.aeNJFYEL58@workhorse>
- <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
- <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
- <20260331155028.71246d7a@fluorite>
- <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
-In-Reply-To: <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 1 Apr 2026 09:40:15 +0100
-X-Gm-Features: AQROBzB1PHiXawIDg-k-EvjY_Ig5CvrhgA9fAjKFUy7Kp_xFd8_Bve5qhcz-7W4
-Message-ID: <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>, 
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] drm/msm/adreno: rename llc_mmio to cx_mmio
+To: Alexander Koskovich <akoskovich@pm.me>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Daniel Stone <daniels@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
- Marius Vlad <marius.vlad@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me>
+ <20260331-adreno-810-v1-2-725801dbb12b@pm.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260331-adreno-810-v1-2-725801dbb12b@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=B+O0EetM c=1 sm=1 tr=0 ts=69ccda0f cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EWmrOR-qnjryNtOcuEoA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: OPQ7XzIcWMONHbK195uYJ8yVhuopxv6-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA3NyBTYWx0ZWRfX7gHOOisfE8HQ
+ yQGtCqaiKHIbRQE0ZQ+mOBhDE//MelwaDd+UD1NMqSRlQoclZAmnj2zspInge3upP5Z5dB4Lo90
+ j2HSAQgjjzmvMFWT2/PP+aC23pUWDUJTAe+JVCekgEeaQhS3WhKJNLCMAEKo983ygrPncMg63+z
+ DIkAPw3+Ml5TM1tl1oCdOElGuiwgUpCmMB58ALQtPowe44jW+FlYdM8mHKqzAoBztkwGwcVPSwJ
+ 7+tbcwTkEz4ZoWBqryywOhOwDP7VTOtlBmc3S+oIX8zM44KFmQ2tKEsSs7Mfxm6DndYCpHrlOKO
+ dU2FGLf7J1cT3x11qYF9cw5O0/sigcmZFHFHoYX9brP+JA6wkln2D3Cl63KCssqKeNjW8flQ24p
+ +q0YnFDwdELwX81JQ6F5JlYgkQ6Jh1O1NdQ38fg8OpJdHbqSVDAeD/FOkJ2ShkOGVOmWO8c+CCC
+ pwTbH/lqDQUIZQA2NJw==
+X-Proofpoint-GUID: OPQ7XzIcWMONHbK195uYJ8yVhuopxv6-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604010077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,72 +156,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Harry,
+On 4/1/26 4:17 AM, Alexander Koskovich wrote:
+> This region is used for more than just LLCC, it also provides access to
+> software fuse values (raytracing, etc).
+> 
+> Rename relevant symbols from _llc to _cx for use in a follow up change
+> that decouples this from LLCC.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
 
-On Tue, 31 Mar 2026 at 18:47, Harry Wentland <harry.wentland@amd.com> wrote:
-> On 2026-03-31 08:50, Pekka Paalanen wrote:
-> > People who care about the picture quality down to these levels will
-> > likely want to know and learn about these techniques. They may also
-> > want to explicitly control them.
-> >
-> > In time, when these have been used enough in the wild, compositor
-> > developers will learn what makes a difference and what does not, so
-> > they will adjust their reporting to end users. The most important thing
-> > for the kernel is it offer an unambiguous and stable UAPI for these.
-> >
-> > Policy belongs in userspace.
->
-> I don't like this as a blanket statement. There is a lot of policy that
-> intersects with HW nuances, whether it comes to power or otherwise.
-> Taking away driver vendor's abilities to optimize will hurt the Linux
-> ecosystem in the long run.
->
-> IMO this needs to be evaluated on a case by case basis. There are
-> many places where it does make sense to give userspace a greater
-> say on policy, but we don't want to push driver (HW specific) logic
-> up into userspace.
+I think this would be better named 'cx_misc', but maybe Akhil or Rob have
+a preference.
 
-It's not something that's _just_ specific to a particular
-display-controller manufacturer or a particular IP generation though.
-It very much depends on the usecase.
+(VDD_)CX is name of the power rail that powers most non-multimedia parts
+of the SoC and in the Adreno team's lingo that roughly refers to
+GPU-adjacent HW that does not need the VDD_GX ("Graphics") rail to be on
 
-If you have a laptop and you're trying to give a presentation,
-applying dithering and/or DSC makes a lot of sense: you don't want
-your battery to die, and the projector's probably going to obliterate
-half the colour anyway, so might as well as go for the most efficient
-thing.
+CX_MISC is a specific region within the GPUSS
 
-If your laptop is plugged into your big display at home to write code,
-applying DSC to cram the highest possible resolution + refresh in
-would make sense. But if dithering only results in a marginal power
-saving, and your laptop is charging anyway - why bother degrading
-visual acuity?
-
-If you're a media player, then you're in a good position to know what
-would be good to go over the wire, because you know (& are possibly in
-control of) the format over what comes in in the first place.
-
-But everyone's tradeoffs are different, which is why sometimes the
-best choice is to ultimately leave it up to the user. If you dig into
-any media playback device (STBs running Android TV, Apple TV, Fire TV,
-et al), you'll see that all of them ultimately allow overrides for bpc
-/ colour model / subsampling / etc. Those aren't just there for fun,
-but because they are usable to real people, and it's not possible for
-Amlogic or MediaTek or Rockchip or whoever to statically decide that a
-certain configuration is going to be best everywhere.
-
-Right now we have drivers making magic per-vendor/SKU decisions,
-without even so much as a feedback mechanism to userspace (unless you
-count debugfs, maybe) so it can even figure out what's going on, let
-alone control it. To properly support some of those usecases,
-userspace needs to be able to control what goes out on the wire, but
-as a first step, it just wants to be informed of what the driver even
-did with the properties we gave it.
-
-The end game of this isn't Weston logging something to stdout, it's to
-surface things to userspace so it can guide the kernel into making a
-good decision for usecases that may not be ones the silicon vendor
-decided was 'probably the best thing' however many years ago.
-
-Cheers,
-Daniel
+Konrad
