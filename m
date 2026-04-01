@@ -4,54 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14EF81076370
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 05:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B96D41076374
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 06:12:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F26510E2F4;
-	Wed,  1 Apr 2026 05:48:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2956A10EC3C;
+	Wed,  1 Apr 2026 06:12:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="d3M2pXji";
+	dkim=pass (1024-bit key; unprotected) header.d=mediatek.com header.i=@mediatek.com header.b="r7LMFFwo";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9894910E2F4
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 05:48:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1775022492;
- bh=1zqNQlzQvZgzONTUlDEXkk0XrQwfQYtDkTgTaMTLRR4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=d3M2pXjiJYXYd1/0Tec3q9sH/Agd8E4CE77T0c+ZHD1bEyHZ0GpDVB0yy/tLAVCzl
- IFX6hrj1O4JqTo3p/WCAj6JhJhpEb5kUpN6mfVeqfpzxelWZ2Lao1csZjus0Z1bakP
- CTWbhjkLGeTGmjqN2612QUsL8zaLJipy2xN7QN478ymIuktlfGfovBKx5ew0Cx+GX6
- OiHRy5LxnlMTZvfGFSmXh45GTHXD2Rlqtg4Y8m5WqkcZ5T/WlfVN1FtNTCnIFrVLPf
- aVnhxp6k8dkuCtCHJinAXO1QLa0BE6HSmsIPtCWRz2++cBHCifl+SqKBXOypyS0Wbh
- lBgsYgLVUJtQA==
-Received: from [192.168.50.190] (unknown [171.76.80.25])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E327D17E72C1;
- Wed,  1 Apr 2026 07:48:09 +0200 (CEST)
-Message-ID: <107b1aca-40be-4555-9541-e2a9d56f0b3f@collabora.com>
-Date: Wed, 1 Apr 2026 11:18:03 +0530
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A74510EC3C
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 06:12:49 +0000 (UTC)
+X-UUID: caea3e462d9111f19a16598d5ca7f8ec-20260401
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From;
+ bh=2W14g40vqxna88foZFfsDI/an1hpSc2sZgoHE3Dhm/0=; 
+ b=r7LMFFwoZbYg1nBnVhoTIOKmmqNq91f6VF/rSCRbOXnXtiJ4IXpIXYRKrT73+SXE9awog/iGGw58jV3ivWOBPY5wZdHvqWzeWimh6FaGbw4bGem8wLDM9hz93yHWkPNaWZeQQNXCSrkOJrdT3GuC8dnvI94e7s3BrOyZoPgUSmM=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:60da354d-eeaa-436a-a70c-e3453edb1a46, IP:0,
+ U
+ RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:e7bac3a, CLOUDID:c1c15fd5-060f-4ecc-9ee0-121eeeb4a682,
+ B
+ ulkID:nil,BulkQuantity:0,Recheck:0,SF:102|836|888|898,TC:-5,Content:0|15|5
+ 0,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA
+ :0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: caea3e462d9111f19a16598d5ca7f8ec-20260401
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by
+ mailgw02.mediatek.com (envelope-from <morris.pan@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 110947584; Wed, 01 Apr 2026 14:12:42 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 1 Apr 2026 14:12:41 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 1 Apr 2026 14:12:41 +0800
+From: Morris Pan <morris.pan@mediatek.com>
+To: <airlied@redhat.com>, <kraxel@redhat.com>, <dmitry.osipenko@collabora.com>
+CC: <srv_heupstream@mediatek.com>, <gurchetansingh@chromium.org>,
+ <olvaffe@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <simona@ffwll.ch>,
+ <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>, Morris
+ Pan <morris.pan@mediatek.com>
+Subject: [PATCH] drm/virtgpu: Add PM support for suspend/resume
+Date: Wed, 1 Apr 2026 14:10:50 +0800
+Message-ID: <20260401061050.1035881-1-morris.pan@mediatek.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/ci: add sc7180-trogdor-wormdingler-rev1-boe
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
- helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch,
- lumag@kernel.org, robdclark@gmail.com, robin.clark@oss.qualcomm.com,
- guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
- valentine.burley@collabora.com, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260224081036.220820-1-vignesh.raman@collabora.com>
- <hnlupswfdkrzv45y6jl5x5u25zp2k642z6ordzthqbdw4azhxb@6gz5hx4dcujc>
- <fs6nbg44r2ralxrkuc7slciapnufyyw6derolzlwzt7hjxlx62@vftuo2vmfpom>
-Content-Language: en-US
-From: Vignesh Raman <vignesh.raman@collabora.com>
-In-Reply-To: <fs6nbg44r2ralxrkuc7slciapnufyyw6derolzlwzt7hjxlx62@vftuo2vmfpom>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,60 +77,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Add freeze/restore callbacks to handle system suspend/resume.
+During freeze, delete virtqueues and reset device.
+During restore, reinitialize virtqueues and mark device ready.
 
-On 24/03/26 00:56, Dmitry Baryshkov wrote:
-> On Sun, Mar 01, 2026 at 02:23:40PM +0200, Dmitry Baryshkov wrote:
->> On Tue, Feb 24, 2026 at 01:40:34PM +0530, Vignesh Raman wrote:
->>> Add job that executes the IGT test suite for
->>> sc7180-trogdor-wormdingler-rev1-boe.
->>>
->>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
->>> ---
->>>
->>> v1:
->>>    - https://gitlab.freedesktop.org/drm/msm/-/merge_requests/221
->>>    - Depends on https://lore.kernel.org/dri-devel/20260210071138.2256773-1-vignesh.raman@collabora.com/
->>>
->>> ---
->>>   drivers/gpu/drm/ci/arm64.config               |  4 +++
->>>   drivers/gpu/drm/ci/build.sh                   |  1 +
->>>   drivers/gpu/drm/ci/test.yml                   | 10 +++++++
->>>   ...180-trogdor-wormdingler-rev1-boe-fails.txt | 23 ++++++++++++++
->>>   ...180-trogdor-wormdingler-rev1-boe-skips.txt | 30 +++++++++++++++++++
->>>   5 files changed, 68 insertions(+)
->>>   create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
->>>   create mode 100644 drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-skips.txt
->>>
->>> diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
->>> new file mode 100644
->>> index 000000000000..4af93eeeaf99
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-wormdingler-rev1-boe-fails.txt
->>> @@ -0,0 +1,23 @@
->>> +core_setmaster@master-drop-set-user,Fail
->>> +kms_color@ctm-0-25,Fail
->>> +kms_color@ctm-0-50,Fail
->>> +kms_color@ctm-0-75,Fail
->>> +kms_color@ctm-blue-to-red,Fail
->>> +kms_color@ctm-green-to-red,Fail
->>> +kms_color@ctm-negative,Fail
->>> +kms_color@ctm-red-to-blue,Fail
->>> +kms_color@ctm-signed,Fail
->>> +kms_color@gamma,Fail
->>> +kms_color@legacy-gamma,Fail
->>> +kms_cursor_legacy@cursor-vs-flip-toggle,Fail
->>> +kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
->>> +kms_flip@flip-vs-modeset-vs-hang,Fail
->>> +kms_flip@flip-vs-panning-vs-hang,Fail
->>> +kms_invalid_mode@overflow-vrefresh,Fail
->>
->> I don't see this failure in the logs. If it is removed, then all three
->> failure lists (and all three skip lists) are the same.
-> 
-> Any updates?
+Signed-off-by: Morris Pan <morris.pan@mediatek.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_drv.c | 40 +++++++++++++++++++++++++++-
+ 1 file changed, 39 insertions(+), 1 deletion(-)
 
-I will review this again this week and update.
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
+index a5ce96fb8a1d..fbca0a82958c 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.c
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
+@@ -145,6 +145,40 @@ static void virtio_gpu_config_changed(struct virtio_device *vdev)
+ 	schedule_work(&vgdev->config_changed_work);
+ }
+ 
++#ifdef CONFIG_PM_SLEEP
++static int virtgpu_freeze(struct virtio_device *vdev)
++{
++	vdev->config->del_vqs(vdev);
++	virtio_reset_device(vdev);
++
++	return 0;
++}
++
++static int virtgpu_restore(struct virtio_device *vdev)
++{
++	int ret;
++	struct virtqueue *vqs[2];
++	struct drm_device *dev = vdev->priv;
++	struct virtio_gpu_device *vgdev = dev->dev_private;
++	struct virtqueue_info vqs_info[] = {
++		{ "control", virtio_gpu_ctrl_ack },
++		{ "cursor", virtio_gpu_cursor_ack },
++	};
++
++	ret = virtio_find_vqs(vdev, 2, vqs, vqs_info, NULL);
++	if (ret) {
++		DRM_ERROR("failed to find virtio queues\n");
++		return ret;
++	}
++
++	vgdev->ctrlq.vq = vqs[0];
++	vgdev->cursorq.vq = vqs[1];
++	virtio_device_ready(vdev);
++
++	return 0;
++}
++#endif
++
+ static struct virtio_device_id id_table[] = {
+ 	{ VIRTIO_ID_GPU, VIRTIO_DEV_ANY_ID },
+ 	{ 0 },
+@@ -172,7 +206,11 @@ static struct virtio_driver virtio_gpu_driver = {
+ 	.probe = virtio_gpu_probe,
+ 	.remove = virtio_gpu_remove,
+ 	.shutdown = virtio_gpu_shutdown,
+-	.config_changed = virtio_gpu_config_changed
++	.config_changed = virtio_gpu_config_changed,
++#ifdef CONFIG_PM_SLEEP
++	.freeze = virtgpu_freeze,
++	.restore = virtgpu_restore
++#endif
+ };
+ 
+ static int __init virtio_gpu_driver_init(void)
+-- 
+2.45.2
 
-Regards,
-Vignesh
