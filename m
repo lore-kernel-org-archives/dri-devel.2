@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 532CD1112241
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 22:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 487381112241
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 22:59:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A415710E7FD;
-	Wed,  1 Apr 2026 22:59:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1F8310EEF1;
+	Wed,  1 Apr 2026 22:59:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lj4nBT0e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AInBcHCO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 482B410EED9;
- Wed,  1 Apr 2026 22:59:49 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDD2610EF08;
+ Wed,  1 Apr 2026 22:59:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id BED7760120;
+ by sea.source.kernel.org (Postfix) with ESMTP id B263343F93;
+ Wed,  1 Apr 2026 22:59:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A75C4CEF7;
  Wed,  1 Apr 2026 22:59:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A034AC2BCB0;
- Wed,  1 Apr 2026 22:59:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775084388;
- bh=WZ5qlOiZ6DtdReWxkBeDsr3wuo/Bvi7L1yh3PtqlfGM=;
+ s=k20201202; t=1775084393;
+ bh=xq9NcCud+LpB0atoCb11q9Wd2+LfbKDNAZgfYlibXt4=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
- b=lj4nBT0evc7OrDUu1Sj5pkvDmswJqxEKepIZIBO1UHRNy+tyNRi0vMBV8ZZQo5u9K
- zkZwz7JRQC3e7zWKVrxTkRvM6UpJExohp8FMDOwBtRLaCvDN8SeZbiBLsCDevcX8Ul
- 6NlNNBwShlnIwtwf8Zd866rDCnrkFis4xJGCPjt9mEA0AFxN7KK1edKbNndIrNfJwh
- U8aXZsRecZpgmnNQpJeqrLXLyxzsJ6ViMkCj4XCLPZHq8E07HU6hZou56/6D9D3gOS
- ghFil1DcIXuZYVoeidWghi82IqoEOW2AFWEHetEpT7AKJJcQJ9H4tPUoE4cXqMxYFk
- A6teV82CTXgAg==
+ b=AInBcHCOb6slZkVW3sn4yoBhwFNl5NlNG6FRxcOcIgbbEkjdrWTvy+wLlDWdNljcc
+ vk4SDzjYy6ZR3ZjdWJhBV2ccdBdnaQCwXJPz5Yi0tg45+MPA61hDBoLRIoTN4QvGxC
+ 44aHSoDRJmSVpgbQHlXqD6c/CH53DMmvO7Q27cV7SRH799uEQrs0IUUfAUC3xvcSfc
+ HJj3S3JF4Rz5M7mt9X4oNWU03EttVxsgI9eMoA7Rv84vHKGz6jiEL4Zcrano0XnD79
+ RGUY+op3WG++YeUETBS3kAl5j78KT3CoatR+1yaVIVR8silujNcQMpHiLSrolxpScn
+ YBJyUoPe/kkSA==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 06/33] rust: kbuild: remove skipping of
- `-Wrustdoc::unescaped_backticks`
+Subject: Re: [PATCH 07/33] rust: kbuild: remove `feature(...)`s that are
+ now stable
 From: Tamir Duberstein <tamird@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -66,18 +66,18 @@ Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-In-Reply-To: <20260401114540.30108-7-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-8-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-7-ojeda@kernel.org>
+ <20260401114540.30108-8-ojeda@kernel.org>
 Date: Wed, 01 Apr 2026 18:59:04 -0400
-Message-Id: <177508434437.73816.5644451547890468339.b4-review@b4>
+Message-Id: <177508434438.73816.15311163307401795216.b4-review@b4>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=408; i=tamird@kernel.org;
- h=from:subject:message-id; bh=WZ5qlOiZ6DtdReWxkBeDsr3wuo/Bvi7L1yh3PtqlfGM=;
- b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFztdX5tp0KRwJ2PVmq5Hcku55gruzdjM0eW5uV1bX
- FJ05YXGjoksDGJcDJZiiiyJoof2pqfe3iOb+e44zBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
- aKRjoGPMwMUpAFPtbMPw38l7nuwEDWEbr/48+WV+R59qr/vZJJXZ+pHv3jZh/achkYwMd50PyAR
- 9fSXtYTpN0bRg+44XD7qnrzt/66mfYkT4lm/MLAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=313; i=tamird@kernel.org;
+ h=from:subject:message-id; bh=xq9NcCud+LpB0atoCb11q9Wd2+LfbKDNAZgfYlibXt4=;
+ b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFzspLpTbOycju58p6Jb3ZLOTu+M754m9/iawQLs9w
+ erJzAPzOiayMIhxMViKKbIkih7am556e49s5rvjMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ oZGOgY4xAxenAEx19zGG/0FezPN/HDOfzHe+bNJvl0z7Rx0bKgOunZEp7JeLPBIyT5+RYZfYni7
+ GH+9rH6cZM1tXqnm23i9Nv9+0+PeGNO+Zi4rv8QMA
 X-Developer-Key: i=tamird@kernel.org; a=openpgp;
  fpr=5A6714204D41EC844C50273C19D6FF6092365380
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,11 +95,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 13:45:13 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
-> Back in Rust 1.82.0, I cleaned the `rustdoc::unescaped_backticks` lint in
-> upstream Rust and added tests so that hopefully it would not regress [1].
+On Wed, 01 Apr 2026 13:45:14 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
+> Now that the Rust minimum version is 1.85.0, there is no need to enable
+> certain features that are stable.
 > 
-> Thus we can remove it from our side given the Rust minimum version bump.
+> Thus clean them up.
 
 Reviewed-by: Tamir Duberstein <tamird@kernel.org>
 
