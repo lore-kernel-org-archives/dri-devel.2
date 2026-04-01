@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7F2D35177
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:47:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8F45D35177
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:47:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F7D10EFF6;
-	Wed,  1 Apr 2026 11:47:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 508D610EFF9;
+	Wed,  1 Apr 2026 11:47:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ht/pJf8b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GlBQ6KPS";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D16D10EFF9;
- Wed,  1 Apr 2026 11:47:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CB1910EFF9;
+ Wed,  1 Apr 2026 11:47:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C4DB160142;
+ by tor.source.kernel.org (Postfix) with ESMTP id 947E360142;
+ Wed,  1 Apr 2026 11:47:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118C5C2BCB2;
  Wed,  1 Apr 2026 11:47:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439C6C4CEF7;
- Wed,  1 Apr 2026 11:47:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775044034;
- bh=4gM8Ng4dI5voGspd2MW/G8qAzYExygP7OS8buaoRZDg=;
+ s=k20201202; t=1775044046;
+ bh=iwZQRTkxE8SQciPkkFIQK+sANJEDd5bGQ1OGAUaLfG4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ht/pJf8bo8MwxgismJjbcH0DxRn7Lj//fl6ay0HnlmCjRYtIgG8EVgO1pndmfJvmX
- knXYuXYh9VlrrWlM4STAZn3sQOBumFGD85l8NUcLqK6B4M8x67BxO2fXILzhN4B2BU
- awW9tkXIImmGo6T6kf3CMLsydwKRFrCShSbshmJZdMTwdZlS8hx070+c6T0k/sjoJA
- qrli+3YzdEjOuYYWmi7/eX+fS3nR0X9qLxqa7lkA0sqbxR7ZpQRP16hFBijOa7+Glw
- UKfSOaXg7JBTS7dRCgMgcJxLilLRa8EraZkF2TMfGDuB2LngUIWnuMKHmQ5S0tMkkv
- QSVzdTlSUbKJw==
+ b=GlBQ6KPSTWHT4VISiYn97ivYhVXKefSUh2Q6bRU8+77PgyLwWn4NjnF93DIByady8
+ 9SycbuA1ixu1mts+5r+nkNfbaww5zykSVdLdjv0lucrgKWqE4LAJ/QBIU+Cn4gwg0z
+ bCuzNQUeDVBg3CE437u5n2f4ONxdL5gjciyeyJ3Mv40G41XzXthovIXxTWAenLWWh0
+ dfBE9IaiPg3o/GFFlOAh2uMAxZCD1G5wgyJMXmyO54m6lEhFY+P8aMpO3le2CgbKCU
+ lSBH/R9RSHx/v6cF2EdoL2fKcEK9jg29eFoS1fliq8sw58kmNUYk+Y6sTjQIl0q2Mr
+ LdUgb8hbudc9A==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -62,10 +62,9 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 06/33] rust: kbuild: remove skipping of
- `-Wrustdoc::unescaped_backticks`
-Date: Wed,  1 Apr 2026 13:45:13 +0200
-Message-ID: <20260401114540.30108-7-ojeda@kernel.org>
+Subject: [PATCH 07/33] rust: kbuild: remove `feature(...)`s that are now stable
+Date: Wed,  1 Apr 2026 13:45:14 +0200
+Message-ID: <20260401114540.30108-8-ojeda@kernel.org>
 In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -85,40 +84,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Back in Rust 1.82.0, I cleaned the `rustdoc::unescaped_backticks` lint in
-upstream Rust and added tests so that hopefully it would not regress [1].
+Now that the Rust minimum version is 1.85.0, there is no need to enable
+certain features that are stable.
 
-Thus we can remove it from our side given the Rust minimum version bump.
+Thus clean them up.
 
-Link: https://github.com/rust-lang/rust/pull/128307 [1]
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- rust/Makefile | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ rust/Makefile          |  2 --
+ rust/kernel/lib.rs     | 21 ---------------------
+ scripts/Makefile.build |  6 +-----
+ 3 files changed, 1 insertion(+), 28 deletions(-)
 
 diff --git a/rust/Makefile b/rust/Makefile
-index 5eca6a817966..212759b5eb7d 100644
+index 212759b5eb7d..193cf06eea64 100644
 --- a/rust/Makefile
 +++ b/rust/Makefile
-@@ -75,8 +75,7 @@ core-edition := $(if $(call rustc-min-version,108700),2024,2021)
+@@ -86,10 +86,8 @@ proc_macro2-cfgs := \
+     wrap_proc_macro \
+     $(if $(call rustc-min-version,108800),proc_macro_span_file proc_macro_span_location)
  
- core-skip_flags := \
-     --edition=2021 \
--    -Wunreachable_pub \
--    -Wrustdoc::unescaped_backticks
-+    -Wunreachable_pub
+-# Stable since Rust 1.79.0: `feature(proc_macro_byte_character,proc_macro_c_str_literals)`.
+ proc_macro2-flags := \
+     --cap-lints=allow \
+-    -Zcrate-attr='feature(proc_macro_byte_character,proc_macro_c_str_literals)' \
+     $(call cfgs-to-flags,$(proc_macro2-cfgs))
  
- core-flags := \
-     --edition=$(core-edition) \
-@@ -213,8 +212,6 @@ rustdoc-macros: $(src)/macros/lib.rs rustdoc-clean rustdoc-proc_macro2 \
-     rustdoc-quote rustdoc-syn FORCE
- 	+$(call if_changed,rustdoc)
+ quote-cfgs := \
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 66a09d77a2c4..b48221a5b4ec 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -16,27 +16,6 @@
+ // Please see https://github.com/Rust-for-Linux/linux/issues/2 for details on
+ // the unstable features in use.
+ //
+-// Stable since Rust 1.79.0.
+-#![feature(generic_nonzero)]
+-#![feature(inline_const)]
+-#![feature(pointer_is_aligned)]
+-//
+-// Stable since Rust 1.80.0.
+-#![feature(slice_flatten)]
+-//
+-// Stable since Rust 1.81.0.
+-#![feature(lint_reasons)]
+-//
+-// Stable since Rust 1.82.0.
+-#![feature(raw_ref_op)]
+-//
+-// Stable since Rust 1.83.0.
+-#![feature(const_maybe_uninit_as_mut_ptr)]
+-#![feature(const_mut_refs)]
+-#![feature(const_option)]
+-#![feature(const_ptr_write)]
+-#![feature(const_refs_to_cell)]
+-//
+ // Expected to become stable.
+ #![feature(arbitrary_self_types)]
+ #![feature(derive_coerce_pointee)]
+diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+index a6d1a2b210aa..d71193a45e1c 100644
+--- a/scripts/Makefile.build
++++ b/scripts/Makefile.build
+@@ -310,17 +310,13 @@ $(obj)/%.lst: $(obj)/%.c FORCE
  
--# Starting with Rust 1.82.0, skipping `-Wrustdoc::unescaped_backticks` should
--# not be needed -- see https://github.com/rust-lang/rust/pull/128307.
- rustdoc-core: private skip_flags = $(core-skip_flags)
- rustdoc-core: private rustc_target_flags = $(core-flags)
- rustdoc-core: $(RUST_LIB_SRC)/core/src/lib.rs rustdoc-clean FORCE
+ # The features in this list are the ones allowed for non-`rust/` code.
+ #
+-#   - Stable since Rust 1.79.0: `feature(inline_const)`.
+-#   - Stable since Rust 1.81.0: `feature(lint_reasons)`.
+-#   - Stable since Rust 1.82.0: `feature(asm_const)`,
+-#     `feature(offset_of_nested)`, `feature(raw_ref_op)`.
+ #   - Stable since Rust 1.87.0: `feature(asm_goto)`.
+ #   - Expected to become stable: `feature(arbitrary_self_types)`.
+ #   - To be determined: `feature(used_with_arg)`.
+ #
+ # Please see https://github.com/Rust-for-Linux/linux/issues/2 for details on
+ # the unstable features in use.
+-rust_allowed_features := asm_const,asm_goto,arbitrary_self_types,inline_const,lint_reasons,offset_of_nested,raw_ref_op,used_with_arg
++rust_allowed_features := arbitrary_self_types,asm_goto,used_with_arg
+ 
+ # `--out-dir` is required to avoid temporaries being created by `rustc` in the
+ # current working directory, which may be not accessible in the out-of-tree
 -- 
 2.53.0
 
