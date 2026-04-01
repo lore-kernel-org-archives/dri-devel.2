@@ -4,110 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 622FE10FCACE
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 20:30:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3BA710FCAE6
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 21:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF2F910EE76;
-	Wed,  1 Apr 2026 20:30:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 406F910ED38;
+	Wed,  1 Apr 2026 21:19:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RRCwf+HJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HG6A0XHg";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BlVv7odo";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0153A10EE76
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 20:30:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aGL+40g+BQkLaM3fSqtQirKMtOCnMm9jfZBHYnj+kGfee2iHlmM8T23N4NS+Edh6Yz7Ppnhoyi1m8ksXvW1BXxDMmTfDsEALZ4NmNNTqbozDGSlvMj/Fa21aZRHsmMOSMhvxZS4WZJLMOhPkC4wFHUgdBpuvUKvzDpImulxTkNSzZG6EPcrpe3IJuMCMr5iTIr3+VCFnfRprszMwwKJmn8O2WXmyKTXfanAZP20pM+sBfRIJKpLpv6Vo9GRGpB/BHySFTwoToMRsGHb/dItWJEU7wBd10u0RjywzA2Tn8UPsd8IRdx54olPKS2O8XOdqJnVI9zIXaDJqN24xrlC6xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XKAXTe4vhb8lPXQjrFxjIzNRwFi1pt9Bih/e0LpiZiA=;
- b=dh+jTHspH+7su0nui5qrY4aQwUOGrXjdRVTigroUgjoo/0ql8sVTcfwk4QMIWH/5xsXrLMIfyySbDr2WGoDyrAVXYoH63ejPqvH6H3eJFuSd2P59TffjJ6MQ6rKVuqaJNXwfWe8c5NYlD0mv8uwVKEuzaFbF72KWdh6fmG4AQykxwsB4D5j1ZXUemxjkX82us/BT0niQCHmNcFNl1VaX01Tn5eI5NtY1PvM+0zKOdGaXWlqHM0zqgvYLKCW504gfGm9dPWXP6/8vghIKw7Hjntso2rlVmJFh1waIvJcU7fhBI6Luk6H4x2xboAiM+ft0IIft0S/xL9fduVyUBwKrkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XKAXTe4vhb8lPXQjrFxjIzNRwFi1pt9Bih/e0LpiZiA=;
- b=RRCwf+HJdVELYKzagOb/5ni1BZ2Td0W25UadM2wCfhj9Gp+i5auqjyv2Oc6d/v86Yizc+ort0Q5tXfWDBo9cN56JXVGu9clElMN44kF2QNWEeBq7uT4OXJhF+C7cAzcRQxrEUOV6PENeuMv3OwwkDpzktM+ScdT7s6CTdLTYbug=
-Received: from DM6PR04CA0014.namprd04.prod.outlook.com (2603:10b6:5:334::19)
- by MN0PR12MB5884.namprd12.prod.outlook.com (2603:10b6:208:37c::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 20:30:37 +0000
-Received: from DS2PEPF00003445.namprd04.prod.outlook.com
- (2603:10b6:5:334:cafe::15) by DM6PR04CA0014.outlook.office365.com
- (2603:10b6:5:334::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.30 via Frontend Transport; Wed,
- 1 Apr 2026 20:30:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 1 Apr 2026 20:30:37 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 1 Apr
- 2026 15:30:36 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 1 Apr
- 2026 13:30:36 -0700
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 1 Apr 2026 15:30:35 -0500
-Message-ID: <93bf2720-ec34-82a9-fdf1-c67c1466cdd5@amd.com>
-Date: Wed, 1 Apr 2026 13:30:35 -0700
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B8B610ED38
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 21:19:08 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 631J6tIu1045902
+ for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 21:19:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ MFIuY4/3MQgVWulfNuG870ap3FwBWrkYASAoWuf76ww=; b=HG6A0XHgM4NikeWw
+ iuQ4XvQ/3a2P3x1LZcqrAKSUezJhEAH4I3qnlwSeX924GFzDH9XVZiBSyKJg7hOc
+ 6t+47w1hJXPxqtN6QPksN5ErCpENlVZ9YkxPwk82hHPMGDk+K+9zaJ3HlPGX0XCY
+ ZMD4ggJ1YIxSyKQ7cypdcYMMF/Vz+PQpzrFED2CCNWUzc/EjWuYh8ssFWVWg9DVo
+ oEJVKezHZOUl49KssKIVDmjTfPqtf+6jWG0A2BlOZ596OslQsxqaDtRSfCm+A1vX
+ 9CrDqpK6Y6vKOuVfYR0wC7OFCQBc6kgxt8pA9erR8vjTWqP4RoHoVS4BE2X5bVrm
+ PJctWQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d95119nbq-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 21:19:07 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-82c8768a704so90704b3a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 14:19:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775078346; x=1775683146;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MFIuY4/3MQgVWulfNuG870ap3FwBWrkYASAoWuf76ww=;
+ b=BlVv7odo1dUhUleaDIZek1wd8rsMDAcFCEUqAigkeX6+E449TROqCrBkU3UnLc/k9g
+ v6U6/FchBeZQBIJxYZ5EwcRwvBn7xcPVm6Zr5SYjmullmhBioOkfeqBEPm0TvxIpT8MC
+ dKz8QTG4TmDPh0pEsKGHUHaw31ljuTtUoshqB+hY1AdutGnDxTDAkp+WXZzDbul/imjr
+ H4640KYs+miFm8BZLyPkdDbDrNt+/+DTC2QtnqAEHO/xwiN1AdohEfmndkF31l/vw0Iq
+ wkgMUY+DAkR3t5abwSkxP1FOfWl0d93PxK5VYEUBZyDw6oCUl2nKN/0VAkTvTfGflFT9
+ BCPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775078346; x=1775683146;
+ h=content-transfer-encoding:in-reply-to:content-language:from
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MFIuY4/3MQgVWulfNuG870ap3FwBWrkYASAoWuf76ww=;
+ b=Qh/a9txZVvKwujw559WyHVFnihHg/Lf59yoQKgCcxEROaj6gU1ll+r/4lbWCtWCUUF
+ CoSpImroMq5SWKaIMi/x3WssOZivnLYgIS0oYfi1KOIZ0DBhPdNz+onSRhQSkvYqagMb
+ S6831GqlBab1NRi4Ves8Ys1i897S369Ch9aFQUGl9DigTUq9wbbIzJJI20GkjgXsYS54
+ 3spn7QJHt7RP0INNi29xB5FFCNcLaWKI2U4ZwNwQW56onyH7TXfzP8o6bdP68LAKOYbq
+ dryREsjG7b/k10N+Xy4R7WTfBZBkm0WWdkln/ulNFM+YukoJtSDxaHxNiEHWT6pay5Dk
+ 4VjA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUhHG6S/zaS4cRhuFh5m7Wd6ABg6z9ayH1Sb9fGtS8F7EBIpGbmTa75fkVSdXr2MsQtCoep218YfMo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyI50aOQRfm4OmsBTBg3A3xs/qXAA353tWTmGNZqoQmQopaXnia
+ WYyVQX4KItmImVsjP2o9t7yT6SZaVzC5T3SIYAsxaiFb0rYhSKLmi52bpHjg4fEVG7cML+p8Qja
+ rZA2/9iVV8JmrTrd/7Te3P6YgSf0ySO2Q3mQB1ePQ1UuWBb3+kgGT7BNpGiRDaDXbXvXxq/Q=
+X-Gm-Gg: ATEYQzwzr5Rei4sX7kk+uwlpOFwckwxg1hjDRFo3Gs+jC3QV3qKx2gsmT/SpdWWeCam
+ wwd+tTFmIYNwon6FhetbD2J2ieC9tHfW1/ffKXIn0jODeNqwdAGekTEV1Nhpyd2kRo5z1qjV1zU
+ IfrJ35o5qIvok3sznqdwGr9IeZKRpfgq1MDc/byl8su+7JkPrQCDYq8tGiDqv8i01eMkTQ1ljfZ
+ lZWwDQ2rakfieDTXs08BX1Kyd4aHreVvwpWQGTcfUUK84b3kB9IYwDxODJSja2z2SuirYrhjzcw
+ VmAmRq7LjBea4hTOMS341iHDTTL3JVfQUZSDhB+id/Y1gzrAtswju+4dJg/ZjG9dQl1SJTQovuY
+ /ICWwo+dcAK5YE6r5I6z625m0bno1ClXrKCH3Zlzsv5FIgw==
+X-Received: by 2002:a05:6a00:2d98:b0:829:8942:2ca4 with SMTP id
+ d2e1a72fcca58-82ce890ea64mr4893849b3a.19.1775078346177; 
+ Wed, 01 Apr 2026 14:19:06 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d98:b0:829:8942:2ca4 with SMTP id
+ d2e1a72fcca58-82ce890ea64mr4893811b3a.19.1775078345645; 
+ Wed, 01 Apr 2026 14:19:05 -0700 (PDT)
+Received: from [192.168.1.9] ([106.222.231.116])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82cf9c41b8dsm776662b3a.34.2026.04.01.14.18.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Apr 2026 14:19:05 -0700 (PDT)
+Message-ID: <6a3eb07c-4771-4e4c-a4eb-9bdab874c0ad@oss.qualcomm.com>
+Date: Thu, 2 Apr 2026 02:48:55 +0530
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V2] accel/amdxdna: Support read-only user-pointer BO
- mappings
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/4] Support for Adreno 612 GPU - Respin
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Jie Zhang <jie.zhang@oss.qualcomm.com>,
+ Qingqing Zhou <quic_qqzhou@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Jie Zhang <quic_jiezh@quicinc.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+References: <20260312-qcs615-spin-2-v8-0-fca38edcd6e6@oss.qualcomm.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 Content-Language: en-US
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <maciej.falkowski@linux.intel.com>, Max Zhen <max.zhen@amd.com>,
- <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
-References: <20260331172635.3275296-1-lizhi.hou@amd.com>
- <acylqAdORtJs4cgO@gsse-cloud1.jf.intel.com>
- <1f3bc6c6-86cc-dcc0-82dd-6dfc512bd9c7@amd.com>
- <ac17dHiluekQgmLd@gsse-cloud1.jf.intel.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <ac17dHiluekQgmLd@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|MN0PR12MB5884:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6429f5d-5f4d-44d3-3d59-08de902d8882
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|82310400026|13003099007|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Q7cLLPdwkwzDqThJcxDvH7EIBlsvR6AROuR+5u6t1BH090RcrYKpud0sRG9Gh+QQCuPtROVWftUMpWrSuwoO1FE54FLGFeG0CIi3qCYX2hgxUoZQidrhLCOoBw+egSXYTo+cVVaV9hkxaxJlBfVs/QVpEI9NEQNcwWy4T+J1DeJbJac7/mv87xY3mjQMB8qg2vFazwHc0PWjB21P0zYyWNEF1PHSiiPb9huPWqOzfHjBgos6hAl89hqAo9vBS823UvlYiJ8PMP13Rv3afE18lIOoMkwY3RxpTKqw1G5Br9diPoub1JRcLCEaM+H40MOUanl7gnw3on14E4VedinBRgO8eXPb7c0mkKHxcO3t3/2NcPPWWdwjzO127LuJABPY8XueEw2/ysbmY5bQDf1sv4db31RyNUHCDVTRAspci4fNaXavEvcJxq90hwpn5p4sbRdBQ4ZurFqx7NgqP+BE0aUtzwKVCyLK/4npBR8KG/z0FBopsBgo91MI8ksW6NrvW3jUDhv3N65wBlk/SmYSMRJ7hw6SZ4MTE05/A/9SzHdiw7C8zT94ENJW9o9vi9jFlb8lJddcl9Z+rO2NbV6aYhnWm6bYU/VERCEXVTVgkWOe+iGGf1r0L7FTb0ft5BxM8ePWJBcXzvK8r9b7V1EOXQPr6s62kuuTCgIy0zpMn0cSHFGju7AgeD3VEINKU9s2mvjlXwDBzrDzBtC2dv6GNPxzcrozU8zUIPl3O6BZ4IoZxmpFHNojneqPoJUqFr8rsREaKHLSXBSv7LK6YWwA/Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(13003099007)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: q+Ft9PywUx/bFVU8b671KPu/ODBrKcLOv/qcZPBMUdCyD5PLR937TbU+TZLV+EphkuTs+smY14437m4EZL9x+ArkZ+fv94zdC25HRycdYaaKktAQINged2dNPCxjv67PtUAkB7uXESJDXwjVNx0jrMW64rWOSILYdj/hpsc06tHN9JYhq1T3OIgUT52bJjDNIOyN0ptBWfHhRVSoE5eZZBsIIWMrLl2yzQCLPxf6HVdpR3npXdZ+1oS3zcUmT/LFdrNTh8zLVlhVjYgbZsNE/E4Xp6zigwb7+cSoCiK3vUkF5p2Kf7G4z4rcIAoBhqvgTJUU5o6GoYJkJZodN0Gv6c5UoFMdPsGQHk9hx0Pp0U+fpQtnivSTSM4lJO9sEGdKJ241XrsKx39Zp7eBQWS0v2hlwlq0oKiHyFbr4p1e6J5iPANrUDpvQbHkpIV00XyI
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 20:30:37.0889 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6429f5d-5f4d-44d3-3d59-08de902d8882
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003445.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5884
+In-Reply-To: <20260312-qcs615-spin-2-v8-0-fca38edcd6e6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDIwMCBTYWx0ZWRfX8umSpFnyzXRM
+ YlZh50wuCmLgqDlu/rpJk6WWUMi59vVfOa8psSagU0mRbEstbyILA5qRdF+TJoe6ngO+mOj5OIK
+ Azx+rxMUvF8oAYM00fD0LB19mllXNf3V5T/DLcAw0rizYMi6+tJmisWn3o5m/TN+lSRk31sWhTp
+ SuiMJ3B/21ETE5fZbn2ME6q+JXWfMQjUz5oI0WqPwc2XzPdT40K0BbiFdXhYxrhBRHXOXcEOAmL
+ ZBBDNfzhGu5j9ubBrA7o1XwBCXheMlD1jQiOjaEoRPlPh05v3JYPgY6TptSE1ySbH+8vcOOV/wt
+ MqgVxw7Xdo0j4W7ISW2HiOnNcJw8XFbhpaUv9VwCKExHdyZLKWTP4Q/rDEHUI5oGbR40hSbipQS
+ FgmvYo+HK73uEI+xbykqBwzeB5ti7HgBs76sXXCePvAm6KrVzfMXtOSv/koU/EEkeKATKi6rpJT
+ kWVrrUgceK4JA/BXxJw==
+X-Proofpoint-GUID: me1-bwqqQWMfmIUvBeeiktXxe6AB86Zo
+X-Proofpoint-ORIG-GUID: me1-bwqqQWMfmIUvBeeiktXxe6AB86Zo
+X-Authority-Analysis: v=2.4 cv=F8pat6hN c=1 sm=1 tr=0 ts=69cd8bcb cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=YUf46QchBRIYdusOZX0V1g==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=kFibZDKCZPP84u6MAsYA:9
+ a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_04,2026-04-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 suspectscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010200
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,157 +158,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 3/12/2026 4:39 AM, Akhil P Oommen wrote:
+> This is a respin of an old series [1] that aimed to add support for
+> Adreno 612 GPU found in SM6150/QCS615 chipsets. In this version, we
+> have consolidated the previously separate series for DT and driver
+> support, along with some significant rework.
+> 
+> Regarding A612 GPU, it falls under ADRENO_6XX_GEN1 family and is a cut
+> down version of A615 GPU. A612 has a new IP called Reduced Graphics
+> Management Unit or RGMU, a small state machine which helps to toggle
+> GX GDSC (connected to CX rail) to implement the IFPC feature. Unlike a
+> full-fledged GMU, the RGMU does not support features such as clock
+> control, resource voting via RPMh, HFI etc. Therefore, we require linux
+> clock driver support similar to gmu-wrapper implementations to control
+> gpu core clock and GX GDSC.
+> 
+> In this series, the description of RGMU hardware in devicetree is more
+> complete than in previous version. However, the RGMU core is not
+> initialized from the driver as there is currently no need for it. We do
+> perform a dummy load of RGMU firmware (now available in linux-firmware)
+> to ensure that enabling RGMU core in the future won't break backward
+> compatibility for users.
+> 
+> Bjorn, I have rebased the pending DT patches on top of arm64-for-7.1
+> branch to make it convenient for you to pick them.
 
-On 4/1/26 13:09, Matthew Brost wrote:
-> On Wed, Apr 01, 2026 at 09:51:39AM -0700, Lizhi Hou wrote:
->> On 3/31/26 21:57, Matthew Brost wrote:
->>> On Tue, Mar 31, 2026 at 10:26:35AM -0700, Lizhi Hou wrote:
->>>> From: Max Zhen <max.zhen@amd.com>
->>>>
->>>> Update the amdxdna user-pointer (ubuf) BO path to support creating buffer
->>>> objects from read-only user mappings.
->>>>
->>>> Detect read-only VMAs by checking VMA permissions across all user virtual
->>>> address ranges associated with the BO. When all entries are read-only, pin
->>>> user pages without FOLL_WRITE and export the resulting dmabuf as read-only
->>>> (O_RDONLY).
->>>>
->>>> This allows userptr BOs backed by read-only mappings to be safely imported
->>>> and used without requiring write access, which was previously rejected due
->>>> to unconditional FOLL_WRITE usage.
->>>>
->>>> Signed-off-by: Max Zhen <max.zhen@amd.com>
->>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->>>> ---
->>>>    drivers/accel/amdxdna/amdxdna_ubuf.c | 29 ++++++++++++++++++++++++++--
->>>>    1 file changed, 27 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_ubuf.c b/drivers/accel/amdxdna/amdxdna_ubuf.c
->>>> index 4c0647057759..3769210c55cc 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_ubuf.c
->>>> +++ b/drivers/accel/amdxdna/amdxdna_ubuf.c
->>>> @@ -125,6 +125,26 @@ static const struct dma_buf_ops amdxdna_ubuf_dmabuf_ops = {
->>>>    	.vunmap = amdxdna_ubuf_vunmap,
->>>>    };
->>>> +static int readonly_va_entry(struct amdxdna_drm_va_entry *va_ent)
->>>> +{
->>>> +	struct mm_struct *mm = current->mm;
->>>> +	struct vm_area_struct *vma;
->>>> +	int ret;
->>>> +
->>>> +	mmap_read_lock(mm);
->>>> +
->>>> +	vma = find_vma(mm, va_ent->vaddr);
->>>> +	if (!vma ||
->>>> +	    vma->vm_start > va_ent->vaddr ||
->>>> +	    vma->vm_end - va_ent->vaddr < va_ent->len)
->>>> +		ret = -ENOENT;
->>>> +	else
->>>> +		ret = vma->vm_flags & VM_WRITE ? 0 : 1;
->>>> +
->>>> +	mmap_read_unlock(mm);
->>> This looks highly questionable. Drivers should be reaching into the core
->>> MM to create primitives.
->>>
->>> I also glanced at the userptr implementation here — it’s quite
->>> questionable as well, especially regarding whether notifier locking /
->>> hmm_range_fault interaction is needed on the driver side.
->> We implemented hmm_range_fault and notifier logic in amdxdna driver.
->>
->> https://github.com/torvalds/linux/blob/master/drivers/accel/amdxdna/aie2_ctx.c#L921
->>
->> The code in amdxdna_ubuf.c is just getting the pages from user allocated
->> buffer. The buffer pointer will not be used for device access.
->>
->> Instead, user space will do a mmap to get a different buffer pointer and
->> register to notifier for device access.
->>
->>> I’m fairly certain that, with a bit of thought and some extensions to
->>> DRM GPUSVM, amdxdna could build userptr on that layer (Xe does this
->>> wihtout SVM). That would isolate core MM interactions to the common DRM
->>> layer, which I believe the core MM folks would appreciate.
->>>
->>> The biggest issue I see is that get_pages() in GPUSVM also performs a
->>> DMA map, which amdxdna doesn’t appear to need. That should be easy
->>> enough to split out. But amdxdna does need locking semantics, notifiers,
->>> etc., which GPUSVM already provides.
->>>
->>> I’d rather see GPUSVM expanded for the amdxdna use case so future
->>> drivers can use it as well.
->>>
->>> Happy to work with you on this.
->> It is wonderful to use a common drm layer to handle all the similar
->> requests. It will simplify the driver for sure. I will start to work on
->> switching to GPUSVM. It might be taking some time.
->>
->> In the meanwhile, are you ok to merge this patch for now? This is a required
->> feature for our product.
->>
-> It’s not my intent to hold up merging anything required for your driver
-> or product timelines — rather, I want the DRM driver/accel stack to
-> converge on a common implementation for SVM/userptr, since this is a
-> really tricky area to get right.
->
-> I’m sure we’re still missing some pieces in GPUSVM to make this feasible
-> for all drivers, but we’re very open to refactors that would enable it.
-> For example, AMDGPU is also looking into using this framework, and we’ve
-> already discussed some refactoring there.
->
-> Let me know if you have any questions about GPUSVM or about the
-> refactors your driver would need to make use of it.
+Hi Bjorn, Gentle reminder to pick up the last few pending dt patches in
+this series for v7.1.
 
-Cool. Thanks a lot. :) Yes, it is tricky area and glad to know it would 
-be handled in drm layer.
+-Akhil
 
-Lizhi
+> 
+> [1] Driver: https://lore.kernel.org/lkml/20241213-a612-gpu-support-v3-1-0e9b25570a69@quicinc.com/
+>     Devicetree: https://lore.kernel.org/lkml/fu4rayftf3i4arf6l6bzqyzsctomglhpiniljkeuj74ftvzlpo@vklca2giwjlw/
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+> Changes in v8:
+> - Rebased on top of arm64-for-7.1
+> - Link to v7: https://lore.kernel.org/r/20260121-qcs615-spin-2-v7-0-52419b263e92@oss.qualcomm.com
+> 
+> Changes in v7:
+> - Drop msm driver and dt binding doc patches as they got picked up by Rob Clark
+> - Update interrupt property to use 4 cells
+> - Rebase on top of arm64-for-6.20 branch in Bjorn's tree
+> - Capture trailers
+> - Link to v6: https://lore.kernel.org/r/20251231-qcs615-spin-2-v6-0-da87debf6883@oss.qualcomm.com
+> 
+> Changes in v6:
+> - Move the rgmu register range update from patch#8 to patch#6.
+> - Capture trailers
+> - Link to v5: https://lore.kernel.org/r/20251226-qcs615-spin-2-v5-0-354d86460ccb@oss.qualcomm.com
+> 
+> Changes in v5:
+> - Rebase on v6.19-rc2
+> - Make the reg list in A612 GPU's binding doc stricter (Krzysztof)
+> - Link to v4: https://lore.kernel.org/r/20251204-qcs615-spin-2-v4-0-f5a00c5b663f@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Rebased on top of next-20251204 tag
+> - Added a new patch to simplify gpu dt schema (Krzysztof)
+> - Added a new patch for GPU cooling support (Gaurav)
+> - Updated the gpu/gmu register range in DT to be more accurate
+> - Remove 290Mhz corner for GPU as that is not present in downstream
+> - Link to v3: https://lore.kernel.org/r/20251122-qcs615-spin-2-v3-0-9f4d4c87f51d@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Rebased on top of next-20251121 tag
+> - Drop a612 driver support patch as it got picked up
+> - Rename rgmu.yaml -> qcom,adreno-rgmu.yaml (Krzysztof)
+> - Remove reg-names property for rgmu node (Krzysztof)
+> - Use 'gmu' instead of 'rgmu' as node name (Krzysztof)
+> - Describe cx_mem and cx_dgc register ranges (Krzysztof)
+> - A new patch to retrieve gmu core reg resource by id
+> - Link to v2: https://lore.kernel.org/r/20251107-qcs615-spin-2-v2-0-a2d7c4fbf6e6@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Rebased on next-20251105
+> - Fix hwcg configuration (Dan)
+> - Reuse a few gmu-wrapper routines (Konrad)
+> - Split out rgmu dt schema (Krzysztof/Dmitry)
+> - Fixes for GPU dt binding doc (Krzysztof)
+> - Removed VDD_CX from rgmu dt node. Will post a separate series to
+> address the gpucc changes (Konrad)
+> - Fix the reg range size for adreno smmu node and reorder the properties (Konrad)
+> - Link to v1: https://lore.kernel.org/r/20251017-qcs615-spin-2-v1-0-0baa44f80905@oss.qualcomm.com
+> 
+> ---
+> Gaurav Kohli (1):
+>       arm64: dts: qcom: talos: Add GPU cooling
+> 
+> Jie Zhang (2):
+>       arm64: dts: qcom: talos: Add gpu and rgmu nodes
+>       arm64: dts: qcom: qcs615-ride: Enable Adreno 612 GPU
+> 
+> Qingqing Zhou (1):
+>       arm64: dts: qcom: talos: add the GPU SMMU node
+> 
+>  arch/arm64/boot/dts/qcom/qcs615-ride.dts |   8 ++
+>  arch/arm64/boot/dts/qcom/talos.dtsi      | 149 +++++++++++++++++++++++++++++++
+>  2 files changed, 157 insertions(+)
+> ---
+> base-commit: bb4d28e377cf04fbee8a01322059fa14808cdfe9
+> change-id: 20251015-qcs615-spin-2-ed45b0deb998
+> 
+> Best regards,
 
->
-> Matt
->
->> Thanks,
->>
->> Lizhi
->>
->>> Matt
->>>
->>>> +	return ret;
->>>> +}
->>>> +
->>>>    struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
->>>>    				 u32 num_entries, void __user *va_entries)
->>>>    {
->>>> @@ -134,6 +154,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
->>>>    	struct amdxdna_ubuf_priv *ubuf;
->>>>    	u32 npages, start = 0;
->>>>    	struct dma_buf *dbuf;
->>>> +	bool readonly = true;
->>>>    	int i, ret;
->>>>    	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
->>>> @@ -172,6 +193,10 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
->>>>    			ret = -EINVAL;
->>>>    			goto free_ent;
->>>>    		}
->>>> +
->>>> +		/* Pin pages as writable as long as not all entries are read-only. */
->>>> +		if (readonly && readonly_va_entry(&va_ent[i]) != 1)
->>>> +			readonly = false;
->>>>    	}
->>>>    	ubuf->nr_pages = exp_info.size >> PAGE_SHIFT;
->>>> @@ -194,7 +219,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
->>>>    		npages = va_ent[i].len >> PAGE_SHIFT;
->>>>    		ret = pin_user_pages_fast(va_ent[i].vaddr, npages,
->>>> -					  FOLL_WRITE | FOLL_LONGTERM,
->>>> +					  (readonly ? 0 : FOLL_WRITE) | FOLL_LONGTERM,
->>>>    					  &ubuf->pages[start]);
->>>>    		if (ret >= 0) {
->>>>    			start += ret;
->>>> @@ -211,7 +236,7 @@ struct dma_buf *amdxdna_get_ubuf(struct drm_device *dev,
->>>>    	exp_info.ops = &amdxdna_ubuf_dmabuf_ops;
->>>>    	exp_info.priv = ubuf;
->>>> -	exp_info.flags = O_RDWR | O_CLOEXEC;
->>>> +	exp_info.flags = (readonly ? O_RDONLY : O_RDWR) | O_CLOEXEC;
->>>>    	dbuf = dma_buf_export(&exp_info);
->>>>    	if (IS_ERR(dbuf)) {
->>>> -- 
->>>> 2.34.1
->>>>
