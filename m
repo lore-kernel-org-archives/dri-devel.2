@@ -4,82 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8743B1112243
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:02:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E33B1112240
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:02:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E49B010EFFD;
-	Wed,  1 Apr 2026 23:02:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D709D10EE57;
+	Wed,  1 Apr 2026 23:02:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZXyGeWKi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Znm24/ug";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31C1310EFFD;
- Wed,  1 Apr 2026 23:02:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 02BF3443C9;
- Wed,  1 Apr 2026 23:02:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BBFC2BCB0;
- Wed,  1 Apr 2026 23:01:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775084522;
- bh=mIoLqdGB6FEaivDOYbSVC5sMk8eFMcAZ8xp8MdTnV0k=;
- h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
- b=ZXyGeWKi13Ct8X9D0547XxKoA9LfoDtpV+LhRj3iXOQd+bnjQ22veAr1KWQzEnIDA
- kCTGsTKkVr/gscyEmrZwOvWOWJ7En260oBqHLZzHIzEAlkTuiEm6eUc5UILdqgZy+H
- HXAequvu6ZpIY4U3LMW8wzpcshrEKczrtsPGEnHRqS7XkcXKcwcDDz47C4fWwDAXKO
- OIQVKkdK/nf9H0jRFaReCDhlcyWz4+4QQtQPnKMye0CMmsL4cTMnrf7NbrpD+fnPzG
- ktDfNcL8YfxyQiu9pd7SwNmlkrwL9bKsRyvSsH9EF8GOZzd/XyeyosIPxWhon0MbUH
- E+D3sywT0mp+Q==
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C318610EE57
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 23:02:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775084544; x=1806620544;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=fsBbzqnEl6gFV+3RfOuWjFM82jmsJj+r5gr9ogAizvI=;
+ b=Znm24/ugdHdVTBDjrGKeruFHeFIYt8zNDEygcMW+4YpknpPIdtzOOLrD
+ jREpl1tunVobFrguV6E62AudhRuCXta30UeRiLSoHFj7Nrlj6Si67Qhz+
+ Tpe8hqpwQUwBQma49jf9uFqmxvae2FOvEAhAkSpW9IpxdRYM7mec2+sRH
+ Ik5F03M2sXfrfl6V0l/5zZbjM5g5nH7CpNEMZG8MBCAsuoZDJwT3crRq7
+ 7u5G+Ho8xlFeZyxDbLVYVqytsEKote0O1d2/Ze0b7M+V5siIMJC1RxZ5Q
+ +8VOdAeDf3GOeO9llsqnEVFGM/daSPRvX7D6uXfFj866H3Hsy05hVOvkv Q==;
+X-CSE-ConnectionGUID: l2d/BM+6Q42ccXH7vcxZxw==
+X-CSE-MsgGUID: fDNOcIaoR/6S3cxlrOULZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="75312055"
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="75312055"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 16:02:23 -0700
+X-CSE-ConnectionGUID: kgSz1AvqQPucEfdhrj8dBw==
+X-CSE-MsgGUID: NiQgB3yATF+EeMpZt9Onjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="231220941"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 16:02:22 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 1 Apr 2026 16:02:21 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 1 Apr 2026 16:02:21 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.16) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 1 Apr 2026 16:01:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q4rwFL3iJ2PeJlnVn9J5nVzsddUwWpszWCWyOHnZFMxHdafINTA9AISWrMnzC7V4p91tcAFtGAAqWIg3pPQ34VhwyOFg/rXSTnf0Xo79BFmO6bwukNKLmCnyKH4DdBO9Vt0/+dpt/Kp5BoyiJK1dkJrPvG4OEOAARyepzYoUcd1riZJLB1gVMEJVK+WxImeheZ9P65Edo05fscBq7fhSwMTSuMLXMRcPmrruxZjimLP2k5w2/8FGQQxOySxcIk8o2dmqPyQW/tIqjSHNb2JpXVFEWcEyOTtXKG2yJGibIQ62YSkFPsHFZ8YXhknlngTNOOmmpFmhek4N/veGVPcyJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=g4Ue+D8vxzS5NAMrnCtbXTjzsF/CD1slnPrtX9HdHvg=;
+ b=lp0EEwBw8s9lQxvRspuMlXTCS5tm7cesPiOKcd7HpqQ9cz1tPYn6rrBC3/pK8/MKYGE61nE9pNxPMP605RzDyufabAfwDewTdk8jRjMoBvJ2j2pVmm6MdDaMsdn7f9WCTVvuFznQhXs7w+5wU0GrlT4gjHD8GjCYz7Siqp6MlA6BrbnUdeSA8nn67+q7Zb4mpmapYp3UbY0G7NZ5mSSvX2RUGWKjpD6z0OqgBv6e/eDqd2yy3aKAklG7fTAAxQwp+XASTFlmA+7/yskmvQB6bsSNK/yDRM+DDRA4WVtuP7m3H2RGJ3K62s3QlV1pCB/M9J6dlHEZE3VXTue/5Jm5Cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
+ by DS0PR11MB7904.namprd11.prod.outlook.com (2603:10b6:8:f8::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17; Wed, 1 Apr 2026 23:01:56 +0000
+Received: from BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
+ ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
+ 23:01:56 +0000
+Date: Wed, 1 Apr 2026 16:01:52 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Alistair Popple <apopple@nvidia.com>
+CC: <linux-mm@kvack.org>, <zenghui.yu@linux.dev>, <Liam.Howlett@oracle.com>,
+ <akpm@linux-foundation.org>, <david@kernel.org>, <jgg@ziepe.ca>,
+ <leon@kernel.org>, <linux-kernel@vger.kernel.org>, <ljs@kernel.org>,
+ <mhocko@suse.com>, <rppt@kernel.org>, <surenb@google.com>,
+ <vbabka@kernel.org>, <dri-devel@lists.freedesktop.org>, <balbirs@nvidia.com>
+Subject: Re: [PATCH 2/3] selftests/mm: hmm-tests: don't hardcode THP size to
+ 2MB
+Message-ID: <ac2j4BLA/jY01rgl@gsse-cloud1.jf.intel.com>
+References: <20260331063445.3551404-1-apopple@nvidia.com>
+ <20260331063445.3551404-3-apopple@nvidia.com>
+ <acyq8B7/Uwowj+kl@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 33/33] rust: kbuild: allow `clippy::precedence` for
- Rust < 1.86.0
-From: Tamir Duberstein <tamird@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Courbot <acourbot@nvidia.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
- Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>, 
- Jonathan Corbet <corbet@lwn.net>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>, 
- "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
- Uladzislau Rezki <urezki@gmail.com>, linux-block@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Alexandre Ghiti <alex@ghiti.fr>, 
- linux-riscv@lists.infradead.org, nouveau@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Rae Moar <raemoar63@gmail.com>, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-In-Reply-To: <20260401114540.30108-34-ojeda@kernel.org>
-References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-34-ojeda@kernel.org>
-Date: Wed, 01 Apr 2026 18:59:04 -0400
-Message-Id: <177508434476.73816.11744805605122440072.b4-review@b4>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=490; i=tamird@kernel.org;
- h=from:subject:message-id; bh=mIoLqdGB6FEaivDOYbSVC5sMk8eFMcAZ8xp8MdTnV0k=;
- b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnF7s6hUfb+jyd9vbK0ZWKNtIml3vZzdZu5eWV+2r4r
- rMtuaq8YyILgxgXg6WYIkui6KG96am398hmvjsOM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
- GukY6BgzcHEKwFSr3mdk+LXi1KaghwuXvXvryuIh3xizmzukzafohmvWRgutvqoD3IwMq9NSuvc
- +cVOd5nUvf9cfyV0no/Naz6wyyv7a/lP08aU4HgA=
-X-Developer-Key: i=tamird@kernel.org; a=openpgp;
- fpr=5A6714204D41EC844C50273C19D6FF6092365380
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <acyq8B7/Uwowj+kl@gsse-cloud1.jf.intel.com>
+X-ClientProxiedBy: MW4PR03CA0244.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::9) To BL3PR11MB6508.namprd11.prod.outlook.com
+ (2603:10b6:208:38f::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|DS0PR11MB7904:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2bf37a9-31b5-45dd-8d6d-08de9042abe5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|13003099007|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: YuhbtK7g1rJTXyUPuFge77IuBkfkPZv6XF+1wOZlF9FAtQcscHYt7dZHBvCBE5t6k+2M1LpODQitG9l+IQW6s28zQm86mSi7qBbGaTBwkbImNf9EdnUmUuJZBvWMygi0oHxWW3J9J/+dCdXyTaMMz8csGpKjyhBqOHR3IEJA7c2bvvfzEkDpcD2TLRkQSwb+17XhsgY09cSq8W7N0eLOcRfCt8jcc05Da0YSevc33HS14Fa/z15GWOxc0YOSPPfzecjlo3QA9kt2kyn5/qUlBkKdU2x5xoPwknp3E1KaC0Y7o2G35Iozrf6cVgga2giRUU6J8jg6zmrAwyusGORVHO0ckWBfu2XcvIOjhzzREz3SSFRzLGJ5pbhdOCOjfobtG9G4rYsNCyjgLaWB2iFVnrHgSbFmkd1d0HxZHhDVwUmgymCILiavOuSs/AdaojMOR1hqmd8p2tR0opWJGmO/v1wHaMd3z7Mr40egTfY2p2uuQ2BXC85898mAOqmEsJ+6yGW5UPhc+LmU+eyGo4u5eqvc1EdGh1lha1RldYzw/5kUstesgWztOLqE0FdFyLf5eRikv3643GNxTsjhIkJ/PBNZtXbVP8A4oIRMQDow8LaijzQqwXR8kAR43iUmcoC6EVUFWDPz9xay4EcpUG2R1vo5bMeRngjaUOLuQgwAOvm6U0LYpIw2oWiXkNOmpzcZ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(13003099007)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUxtVUczWGpKUG1LVlprSXF4aHdqRU1sblVqWDloR3lkSzU4TGdzWWxDckcy?=
+ =?utf-8?B?ai93clJBcE9EcUZFd0JGaFpsMENBaGM1cERQS1BVVnJjS29sSk1HTHgxcjB4?=
+ =?utf-8?B?citWeVJTc09FRHF5SXVFT2VuZy8wNWQvVDNVUzZYZ3lFZmVNY25mcWZQdzE0?=
+ =?utf-8?B?TGllZkRYWHVPVkdlZmFVdmZ6bzN3dlhNNy85ZmNQcldGaVFhMkNhL1pXTlEw?=
+ =?utf-8?B?YzFhMkJ0NEFXTHdRM3VRbXNqSUp1YVNSYXBHQnZaTnlyMU9jYytCWEdsdGdv?=
+ =?utf-8?B?NitQMDF0NVlZc1NLc1VNMk1FamRSQTEvRU9wcVlWMHhPaUk3eWlQbXZYYlgr?=
+ =?utf-8?B?dndvaTlpMzU5Zy8vOFpQbisvRVVKbUdIYWZ2TFAvaTdqeHRQRHlVaURyR2lX?=
+ =?utf-8?B?MjloSVVaZEk3L0tYQk1RNlJzMUs4N2tGT2hyckI5T0RXdzRuUUpYTDZCb253?=
+ =?utf-8?B?VGdDSC9LUXdiakVjR3Y5Q2d5OEs3YklFRFExem1zNHQ2Z2JJajBJUTlubGFW?=
+ =?utf-8?B?ZkhlZ2RwbjhZdDk0T2t2bXFmZ2Y0M0FrL3d0SE5OT3VudFFMNWRpQWNrczAx?=
+ =?utf-8?B?dDlXTTREWEVBMjRKdnVUNkJuNVJtbElFVDIrVG12QkFUTFBkNDc1QVN6RytN?=
+ =?utf-8?B?WHQ2SkZyaHgrV1NyMFJ5WjArY2duZitxaFZOZHdDY2xNMDkvVlZpc0ZVM1Rk?=
+ =?utf-8?B?QS9rRndqb2dKaml2aXBpS2U5ei9CYW11OEJCMERFUU1WRWY5bjhIRTA0T216?=
+ =?utf-8?B?UVFLTzAvcm1xRks5di9SRFlSSHZvQmM0Q1NxQ0hGUi9NYlgyMmpmM3hBRVlM?=
+ =?utf-8?B?dVJ5aHhHb0lrWTFzVUVzVHhjUk5IRVBMdVJiVER0a1RGOUJhd1ROTWgxMkZT?=
+ =?utf-8?B?Q0RkcWsyRm43KzJzVnp0MkpxN1BLRk5PdDlkL2pWTVZ5WFJ4dVFMUVlJUlZE?=
+ =?utf-8?B?OC9kWXliUkRBQzZuUjZYVmJsWU5xYlhCUmJ5ZUpkdkRPTnpvVWY1MjFyalEy?=
+ =?utf-8?B?RHBBSUJ4YVAyL1RZMHlHQUpsS1Bod0wxNnQxdFdpR1VaSVhxN0tnWlZuK1Z3?=
+ =?utf-8?B?cDlncThsMmI3SlpHQmxGRDNHaXA4S2NaNXVKUkloQmZaSHlwNUhxRWlnRytu?=
+ =?utf-8?B?ZndWNHE5Zkpwb1VVRWpqenFLQlFjdmtYWjZTNVRtcDJIckJEQ1Z0U0tmakcz?=
+ =?utf-8?B?aFRkOHdLaXh0V1ZJVVlZRWdra251V3RQa0g1RmtBcm0rS3FNTlh1UWtXUlpG?=
+ =?utf-8?B?RkFIdlZnZ1ZaUHM2Nyt5VS9LSUdQWlMxTVNscHVMbTFlcTc1ekIzc1RzVDZI?=
+ =?utf-8?B?Rks3WWYyMEJ0b2NUNnBsV0tRWFN2alVzZUM0ayt4RG51Ymx3TEtYbGpLTE5Q?=
+ =?utf-8?B?VG5lc3d2WkpRWDdZRVduNTBjdDgzRmJwbHZuZHlJRE5UNGVDVWtVNTdFVXpa?=
+ =?utf-8?B?NDRENGEza2lKKzZJT3JYWlY2RmtMT2loWDY2RlNFSU9vbTRvQ1BXYk5GanJX?=
+ =?utf-8?B?RnJTWVdGbTVNL002c1liTTVCVzlwdXdFK1lZU1JUOWtwZ2VhRy9tZnlXZWt5?=
+ =?utf-8?B?dytiVlArTERaSXBQV1ZVSTJEOHp5OTBaSitta0lpSDJSa3k0cHBEVGs3aGJn?=
+ =?utf-8?B?eEdjWExxbW56RXpFV2duclZXdmJ1cDBEeHNCejZPYTZIa0t3SUlYalJzelNo?=
+ =?utf-8?B?bGFlOWh4d2VlajdpNzEzbzM2VWUrYTlJNTZmUzgxRU1xZldvaEFac2tkVFVQ?=
+ =?utf-8?B?OXplcG1mMXJjdXV6QXlKczlFVk9kak1Ea2RCY1JHQkpENUNrNFUrbUVUR2RS?=
+ =?utf-8?B?RGpEWkU3aC9vMlJnSlNIZzFDREFvUWF1c013Qzc2YkMrRXp6NEpUcFhDcVVN?=
+ =?utf-8?B?SWFseVRadk8xWWFLU3Y1bG52bkNVR0RpM0FhKzhKU012K2RjTk00VnpMLy94?=
+ =?utf-8?B?MWRkTHNJMTcvWnd1aUNORHZFUTR5dDlVdUszQzRoNGYxUGpaMlpFckZMMlpG?=
+ =?utf-8?B?d3JtZnBMYy91L0pPYUNrOTFUcWl1K2grd2pWUkJHdUl1WWw2SHFkUGdpbFUv?=
+ =?utf-8?B?YlN5aDhOblBzSVBBaGg4MWFjMzhxRVBiTGxUWC9xTE9HeTA3NDI4OFVpUkM4?=
+ =?utf-8?B?cFhsazNULzliODRHcXIrMng3S3pXaEU3Y3o0NEorYm1QR244dFFHTXc5Z0hv?=
+ =?utf-8?B?aW9rdFNKakhYblRTd3J1QjFFMkJKRzVyYzl5SEdnQTY5R0lNbjg2NlBpU2FG?=
+ =?utf-8?B?TGpPTUVxVlVnb0RtVXo2NUdXOFRlNlMvRnpzREpxaVpodFEza0h6UE02dzN4?=
+ =?utf-8?B?Nm1EOHUyVmVtM05yeXNPQWR3U1NjWVQ0U1VnbmoweTcrYWpMQ1J0eW91Ui8y?=
+ =?utf-8?Q?tgKyyL4esO8TFjUM=3D?=
+X-Exchange-RoutingPolicyChecked: LT/Rdxqw4kU/vEHp4jQ20vkzSSu95Hw42LTDtf/6CEn1UWnkjwiQakvgo4Q3lViNMPOIgnJEBI9FQ0yqVY9/aN11Yx2uIQBtIivnvT5OAZ9d33obxxQea1BNr3p9R1os4mWn8LSHYJpwyQ+MyBXWp6IPJaZNc4KdfTWtlpKUeHleFyIfkxKxVaGvpwKcjtFXRZCGl885kzU+67Tpcax55VnvZ/82SVurrmsokMiWV78wbpmFIo0JE3n2cWBb8vA+e43SKG5z4O2b0GL8x6uO9/r9WxFIQkFK3TuEFVGmqsKWDstbgd1hDAcD1VXd4tNAEdhSahQefQi8XsO4JKWf4g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2bf37a9-31b5-45dd-8d6d-08de9042abe5
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 23:01:56.1042 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bNgzqDrM+70YBLPv7GMKQWHC7gfF0CJN95cGsnRZHoQzfEvu7dy3GKB+kL9gt9infFQNv0c6AYY6x7Bo2KiWCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7904
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,15 +175,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 13:45:40 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
-> The Clippy `precedence` lint was extended in Rust 1.85.0 to include
-> bitmasking and shift operations [1]. However, because it generated
-> many hits, in Rust 1.86.0 it was split into a new `precedence_bits`
-> lint which is not enabled by default [2].
+On Tue, Mar 31, 2026 at 10:19:44PM -0700, Matthew Brost wrote:
+> On Tue, Mar 31, 2026 at 05:34:44PM +1100, Alistair Popple wrote:
+> > Several HMM tests hardcode TWOMEG as the THP size. This is wrong on
+> > architectures where the PMD size is not 2MB such as arm64 with 64K base
+> 
+> +1
+> 
+> But one question…
+> 
+> Can’t the THP size be derived via HPAGE_PMD_ORDER?
+> 
+> If not, then some DRM common code I’ve written will break on arm64.
+> 
 
-Might be good to retain some of this in a code comment.
+Ignore this I seemly forgot we are in userspace here.
 
-Reviewed-by: Tamir Duberstein <tamird@kernel.org>
+Matt
 
--- 
-Tamir Duberstein <tamird@kernel.org>
+> Matt
+> 
+> > pages where THP is 512MB. Fix this by using read_pmd_pagesize() from
+> > vm_util instead.
+> > 
+> > While here also replace the custom file_read_ulong() helper used to
+> > parse the default hugetlbfs page size from /proc/meminfo with the
+> > existing default_huge_page_size() from vm_util.
+> > 
+> > [1] https://lore.kernel.org/linux-mm/8bd0396a-8997-4d2e-a13f-5aac033083d7@linux.dev/
+> > 
+> > Fixes: fee9f6d1b8df ("mm/hmm/test: add selftests for HMM")
+> > Fixes: 519071529d2a ("selftests/mm/hmm-tests: new tests for zone device THP migration")
+> > Reported-by: Zenghui Yu <zenghui.yu@linux.dev>
+> > Closes: https://lore.kernel.org/linux-mm/8bd0396a-8997-4d2e-a13f-5aac033083d7@linux.dev/
+> > Signed-off-by: Alistair Popple <apopple@nvidia.com>
+> > ---
+> >  tools/testing/selftests/mm/hmm-tests.c | 83 +++++---------------------
+> >  1 file changed, 16 insertions(+), 67 deletions(-)
+> > 
+> > diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
+> > index e8328c89d855..788689497e92 100644
+> > --- a/tools/testing/selftests/mm/hmm-tests.c
+> > +++ b/tools/testing/selftests/mm/hmm-tests.c
+> > @@ -34,6 +34,7 @@
+> >   */
+> >  #include <lib/test_hmm_uapi.h>
+> >  #include <mm/gup_test.h>
+> > +#include <mm/vm_util.h>
+> >  
+> >  struct hmm_buffer {
+> >  	void		*ptr;
+> > @@ -548,7 +549,7 @@ TEST_F(hmm, anon_write_child)
+> >  
+> >  	for (migrate = 0; migrate < 2; ++migrate) {
+> >  		for (use_thp = 0; use_thp < 2; ++use_thp) {
+> > -			npages = ALIGN(use_thp ? TWOMEG : HMM_BUFFER_SIZE,
+> > +			npages = ALIGN(use_thp ? read_pmd_pagesize() : HMM_BUFFER_SIZE,
+> >  				       self->page_size) >> self->page_shift;
+> >  			ASSERT_NE(npages, 0);
+> >  			size = npages << self->page_shift;
+> > @@ -728,7 +729,7 @@ TEST_F(hmm, anon_write_huge)
+> >  	int *ptr;
+> >  	int ret;
+> >  
+> > -	size = 2 * TWOMEG;
+> > +	size = 2 * read_pmd_pagesize();
+> >  
+> >  	buffer = malloc(sizeof(*buffer));
+> >  	ASSERT_NE(buffer, NULL);
+> > @@ -744,7 +745,7 @@ TEST_F(hmm, anon_write_huge)
+> >  			   buffer->fd, 0);
+> >  	ASSERT_NE(buffer->ptr, MAP_FAILED);
+> >  
+> > -	size = TWOMEG;
+> > +	size /= 2;
+> >  	npages = size >> self->page_shift;
+> >  	map = (void *)ALIGN((uintptr_t)buffer->ptr, size);
+> >  	ret = madvise(map, size, MADV_HUGEPAGE);
+> > @@ -770,54 +771,6 @@ TEST_F(hmm, anon_write_huge)
+> >  	hmm_buffer_free(buffer);
+> >  }
+> >  
+> > -/*
+> > - * Read numeric data from raw and tagged kernel status files.  Used to read
+> > - * /proc and /sys data (without a tag) and from /proc/meminfo (with a tag).
+> > - */
+> > -static long file_read_ulong(char *file, const char *tag)
+> > -{
+> > -	int fd;
+> > -	char buf[2048];
+> > -	int len;
+> > -	char *p, *q;
+> > -	long val;
+> > -
+> > -	fd = open(file, O_RDONLY);
+> > -	if (fd < 0) {
+> > -		/* Error opening the file */
+> > -		return -1;
+> > -	}
+> > -
+> > -	len = read(fd, buf, sizeof(buf));
+> > -	close(fd);
+> > -	if (len < 0) {
+> > -		/* Error in reading the file */
+> > -		return -1;
+> > -	}
+> > -	if (len == sizeof(buf)) {
+> > -		/* Error file is too large */
+> > -		return -1;
+> > -	}
+> > -	buf[len] = '\0';
+> > -
+> > -	/* Search for a tag if provided */
+> > -	if (tag) {
+> > -		p = strstr(buf, tag);
+> > -		if (!p)
+> > -			return -1; /* looks like the line we want isn't there */
+> > -		p += strlen(tag);
+> > -	} else
+> > -		p = buf;
+> > -
+> > -	val = strtol(p, &q, 0);
+> > -	if (*q != ' ') {
+> > -		/* Error parsing the file */
+> > -		return -1;
+> > -	}
+> > -
+> > -	return val;
+> > -}
+> > -
+> >  /*
+> >   * Write huge TLBFS page.
+> >   */
+> > @@ -826,15 +779,13 @@ TEST_F(hmm, anon_write_hugetlbfs)
+> >  	struct hmm_buffer *buffer;
+> >  	unsigned long npages;
+> >  	unsigned long size;
+> > -	unsigned long default_hsize;
+> > +	unsigned long default_hsize = default_huge_page_size();
+> >  	unsigned long i;
+> >  	int *ptr;
+> >  	int ret;
+> >  
+> > -	default_hsize = file_read_ulong("/proc/meminfo", "Hugepagesize:");
+> > -	if (default_hsize < 0 || default_hsize*1024 < default_hsize)
+> > +	if (!default_hsize)
+> >  		SKIP(return, "Huge page size could not be determined");
+> > -	default_hsize = default_hsize*1024; /* KB to B */
+> >  
+> >  	size = ALIGN(TWOMEG, default_hsize);
+> >  	npages = size >> self->page_shift;
+> > @@ -1606,7 +1557,7 @@ TEST_F(hmm, compound)
+> >  	struct hmm_buffer *buffer;
+> >  	unsigned long npages;
+> >  	unsigned long size;
+> > -	unsigned long default_hsize;
+> > +	unsigned long default_hsize = default_huge_page_size();
+> >  	int *ptr;
+> >  	unsigned char *m;
+> >  	int ret;
+> > @@ -1614,10 +1565,8 @@ TEST_F(hmm, compound)
+> >  
+> >  	/* Skip test if we can't allocate a hugetlbfs page. */
+> >  
+> > -	default_hsize = file_read_ulong("/proc/meminfo", "Hugepagesize:");
+> > -	if (default_hsize < 0 || default_hsize*1024 < default_hsize)
+> > +	if (!default_hsize)
+> >  		SKIP(return, "Huge page size could not be determined");
+> > -	default_hsize = default_hsize*1024; /* KB to B */
+> >  
+> >  	size = ALIGN(TWOMEG, default_hsize);
+> >  	npages = size >> self->page_shift;
+> > @@ -2106,7 +2055,7 @@ TEST_F(hmm, migrate_anon_huge_empty)
+> >  	int *ptr;
+> >  	int ret;
+> >  
+> > -	size = TWOMEG;
+> > +	size = read_pmd_pagesize();
+> >  
+> >  	buffer = malloc(sizeof(*buffer));
+> >  	ASSERT_NE(buffer, NULL);
+> > @@ -2158,7 +2107,7 @@ TEST_F(hmm, migrate_anon_huge_zero)
+> >  	int ret;
+> >  	int val;
+> >  
+> > -	size = TWOMEG;
+> > +	size = read_pmd_pagesize();
+> >  
+> >  	buffer = malloc(sizeof(*buffer));
+> >  	ASSERT_NE(buffer, NULL);
+> > @@ -2221,7 +2170,7 @@ TEST_F(hmm, migrate_anon_huge_free)
+> >  	int *ptr;
+> >  	int ret;
+> >  
+> > -	size = TWOMEG;
+> > +	size = read_pmd_pagesize();
+> >  
+> >  	buffer = malloc(sizeof(*buffer));
+> >  	ASSERT_NE(buffer, NULL);
+> > @@ -2280,7 +2229,7 @@ TEST_F(hmm, migrate_anon_huge_fault)
+> >  	int *ptr;
+> >  	int ret;
+> >  
+> > -	size = TWOMEG;
+> > +	size = read_pmd_pagesize();
+> >  
+> >  	buffer = malloc(sizeof(*buffer));
+> >  	ASSERT_NE(buffer, NULL);
+> > @@ -2332,7 +2281,7 @@ TEST_F(hmm, migrate_partial_unmap_fault)
+> >  {
+> >  	struct hmm_buffer *buffer;
+> >  	unsigned long npages;
+> > -	unsigned long size = TWOMEG;
+> > +	unsigned long size = read_pmd_pagesize();
+> >  	unsigned long i;
+> >  	void *old_ptr;
+> >  	void *map;
+> > @@ -2398,7 +2347,7 @@ TEST_F(hmm, migrate_remap_fault)
+> >  {
+> >  	struct hmm_buffer *buffer;
+> >  	unsigned long npages;
+> > -	unsigned long size = TWOMEG;
+> > +	unsigned long size = read_pmd_pagesize();
+> >  	unsigned long i;
+> >  	void *old_ptr, *new_ptr = NULL;
+> >  	void *map;
+> > @@ -2498,7 +2447,7 @@ TEST_F(hmm, migrate_anon_huge_err)
+> >  	int *ptr;
+> >  	int ret;
+> >  
+> > -	size = TWOMEG;
+> > +	size = read_pmd_pagesize();
+> >  
+> >  	buffer = malloc(sizeof(*buffer));
+> >  	ASSERT_NE(buffer, NULL);
+> > @@ -2593,7 +2542,7 @@ TEST_F(hmm, migrate_anon_huge_zero_err)
+> >  	int *ptr;
+> >  	int ret;
+> >  
+> > -	size = TWOMEG;
+> > +	size = read_pmd_pagesize();
+> >  
+> >  	buffer = malloc(sizeof(*buffer));
+> >  	ASSERT_NE(buffer, NULL);
+> > -- 
+> > 2.53.0
+> > 
