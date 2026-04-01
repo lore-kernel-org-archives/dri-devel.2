@@ -4,96 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DFDD35179
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 12:25:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24309D35179
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 12:25:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1874810E14E;
-	Wed,  1 Apr 2026 12:25:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88F4010E16B;
+	Wed,  1 Apr 2026 12:25:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="O0cib2iU";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="DCGm6z+t";
 	dkim-atps=neutral
-Received: from mail-ej1-f73.google.com (mail-ej1-f73.google.com
- [209.85.218.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4095B10E16B
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 12:24:59 +0000 (UTC)
-Received: by mail-ej1-f73.google.com with SMTP id
- a640c23a62f3a-b940da8ec09so583749266b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 05:24:59 -0700 (PDT)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13BDA10ED2B
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 12:25:45 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8a3b0242631so19130896d6.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 05:25:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775046344; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PkAdtCdKqXd5vlB93lg0oVVr5WP2iF+3YyGLEzbleBKYw+TsPXHfySPc5p57FAHmSW
+ afO/I0aQApusVYayAcnhPNk+qtEiwPWS2rpLXV8FQOdUybKLVOOaS0Yl6DClTPQEIoLM
+ m3tPW3i4TFZ+7McswpygyH30+GBWwBT/WtZXqYr8KboRq3SrXc/mpgZIXClazff7i9JL
+ WAeeSghiYj/XwAR11s25jVPBsGqMWi92GhtmLT5rAgtWErkmAw9CjUMTQc1qXla1M716
+ XHf7Q4a3JoAtZHoVSgyYDyOdZCXcmZP+6TgWWLCwEsyU/I8moqe6UxrO5Vl7wAR44JQL
+ EUgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=eU+zz3OLuWk12Q4NR58R8+sU9sxDECloo/YZ57DpO3s=;
+ fh=/+s2O3szDcT0xBV46dFpTilO246fA9QR5bB6FrGrHOM=;
+ b=K+xjxHX/AiNR+VBMzhwHuIV4EQUg/IXH/wSqxdJ+b8y7n53x9/ozZEtsyzteubFt3/
+ DUcDQM8ktlAeClSKkxNuRxAdx3hOZTLmMlFFs8f2t5/U+U/pMgT/buFZUhptJAdqpKOR
+ wrN1oQBdrP303rwE1JCzWFCn+IL0pK0P7hD5FV4ZDBSepUs+CrZgmEHnwxhZqmP0HT72
+ uBtUVUpr0XdyxL6+S3ZVZWrpMevWHK9ueXRuKKM8Kg7kxc/femZvE3Ub4TfsZloC+ME5
+ 1O+AgkIk6ZFj++LLyM3Fn7HUYxf2Cufz7GObDzj7lpooQGVjCqL1wXnXCNg3ik4a9ahM
+ s3kw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1775046298; x=1775651098;
+ d=fooishbar.org; s=google; t=1775046344; x=1775651144;
  darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=Ycc6WMg7OLshR/yyfU2jpKKLPa+z0xOJ3hTWvecsxRM=;
- b=O0cib2iUns1i7aeALI3yM5HuCcMm9iAfsh4QTvG4hwHU7p16PPAqn9Ir23k3NDn1A2
- vdAM4Afuc0uVe8Kvx0nXpBsx/8TXk84DlAhcQ4Byj9dIYZHEpu5DmYkJNjAF5FwU39fJ
- 85Rfjuqedxp1l3Q+bz95BSEsoQEIXpSI+cO9xRXYyJeNOLdQShw/jjmD3gu+cyMrxneA
- 7JP7fKEzFFDGqFgbLf5uPO4acsSnLTdy83JLpsx8CGgqu/DGVd4o30QOa54SX7UBS5W4
- qoUpY32E2A18eQdwAk+47/nlQdfFXDe0yqNawflXUlhOzQL2L3Rtry0TRmu5R82V4DJs
- Ycug==
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eU+zz3OLuWk12Q4NR58R8+sU9sxDECloo/YZ57DpO3s=;
+ b=DCGm6z+tWZ0eKNsiMDB79pgYQYgh2/2vdLsDddGBiUsoLSbtPrWlcMaWxqCQZgYxDd
+ e/EFxocRise1qVgiGowofwd+xifsP0QTYJypEJeGUEt1r6Phqin5HRN2+gH+Ai8o238/
+ 5NvU32BjaElWeYKEilDNLTshhSys+K18KFwuhIGS6MZf7RnksCBAKDH5q4ZHGG1aeBkF
+ 0QWMybdQG0eo7H+ZrpIQ6UZ08ifgbaXBqfh/Mcy05fUzywU4V0JTaKQDwkACw9iljdFk
+ kUFJz8SmpcA1cj9zA4Qt/TRn3AeV2eNCGs/xntM6ycuseeUS8YszTwz9F7vbSKmFJPax
+ qcWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775046298; x=1775651098;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Ycc6WMg7OLshR/yyfU2jpKKLPa+z0xOJ3hTWvecsxRM=;
- b=Cc0xjYr6LxzRIGCA8r2nQu7Iz9kyQf79uFiCPgIT4Ui43ne8h9tNSO1qd/qSrS906x
- dyWWi6qEmtW4gRGK5ouz7gHpJnChWjNIrPght/THR8xVIwGyYxMXYlIoo4Ye+8/JvMpJ
- kg1v2WSilXUMVUD2vND2jdQN1+n5a1bWox1Y8QxNdk1pwl9dzSRuZw1wByGeMfXEBtcd
- QivNXr1skPruYnWQPBpHOuLR+PDrQo5kqw6ReY2sT8lm+Xc3Jr422SAKn4hadJ4X7L7z
- hZwz/ftVfHmnD1uKl0tht7JLZ9rG1PWbo3EMQMN8KSrW6fT2p2wb0fwyHARE8vIUJvKY
- POEw==
+ d=1e100.net; s=20251104; t=1775046344; x=1775651144;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=eU+zz3OLuWk12Q4NR58R8+sU9sxDECloo/YZ57DpO3s=;
+ b=IxNo8f4IrJeXq02jmYn1e6AFXRDwjy+KumFYmV4P0hX3De16poCHHbJzsSbBIIQKCE
+ eQgbSzpxWCCfbcd3Z7FYpz8POBYgdycOD4SD6BnqnBQNbOkkvi0Ip9gHlAYdIyOwUSBn
+ tNI8Jwpc22Wgn+h6v5wM8/oRmIhwlAq0Znve2WIkRvL2EWnoAS+eA60PeDgUaLKyefwr
+ Kdju6nKruHQs5iLIPUHBCEc4XG1Fizt9W0b0k/bC2uBN/F0MWha8RqJ6OV5qiVIEyiqh
+ IG1XNgmthpTE3K3sCrjn/8KoC4WUAazVsmOZ8B0uMYnBlTOeU34p74ssnmpm2o2eSj3V
+ e1jg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXY1ooNc3Rz1a8XCIAHY/pFV+Euitcm3gcTmYWlYf+YXod5J/SJcmHzu9EwpTtSDZKqHPSKmL+EpjI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywfv0rTjU4JawmEpPoZ2AVpa/WhtphHjtR9Uhlo7MNUEYOFLibl
- UifjN0AZzvhcwqhP+g5TyrCXTgCje8TFl5H2augQS/XQSaeFW9TUyJC7EeQh5nOZsFfVkCB260G
- Ox+AokXSyEurS9acKxg==
-X-Received: from ejcbp3.prod.google.com ([2002:a17:907:26c3:b0:b9b:54ac:688a])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:c448:b0:b99:5f69:9ee2 with SMTP id
- a640c23a62f3a-b9c13cf93e8mr221111666b.52.1775046297024; 
- Wed, 01 Apr 2026 05:24:57 -0700 (PDT)
-Date: Wed, 1 Apr 2026 12:24:55 +0000
-In-Reply-To: <20260401114540.30108-2-ojeda@kernel.org>
-Mime-Version: 1.0
-References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-2-ojeda@kernel.org>
-Message-ID: <ac0Ol1PaRTWNK6O9@google.com>
-Subject: Re: [PATCH 01/33] rust: bump Rust minimum supported version to 1.85.0
- (Debian Trixie)
-From: Alice Ryhl <aliceryhl@google.com>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ AJvYcCV8rFAzfHuiGTMp1nfTfe6/0v8pbavxD6le5+uZP9h2aU+esUBGaF//sx5pbFcDksgROagpg6jOZqc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/KaIXUla9KWKvJ5T+JOhxh31lncFMxuKy18etF9K4K1FECWal
+ vsXj9ExYnZfwpTlPAM3shYofF7tV8dDOvtkEAV0+AnF9reJdXUgcoYD3AQUi4hBmHMvMf/9pV/R
+ JrXMooS0UEoqTxUQgTt72jZnZNbZ9SDKCcp21j1+x2A==
+X-Gm-Gg: ATEYQzxC9lvUD2ljRGb5t9nZvoCg1tQhJHjR4JjE7KidyfXYNiUTeNJSTXU2GNxeNOq
+ CBAPZSV/ezHomwO9/Wj06ifZ4rO0zZraC9KMXdvgwuV/gtYnyvyA93uZrMvoVPAC2UELzw9EgpG
+ 4DScVi2778HLjQItVuoY70un5Z5LwQJf1Fk+T2flsemRC+Vz8B44PMbRW9m76bWaz6LXO/fxa54
+ hNzgVBFgKUfxa3KTx0yyg01zFzmT6bcM5dagl2I0iEy4iUURzAKKz/LhdSctG6XKwZr2Okjl7pe
+ e70yF3altcg2hS02PUT9RMdnSMZxM5/hmGYfML6Dgw==
+X-Received: by 2002:a05:6214:dac:b0:89c:e7d8:989a with SMTP id
+ 6a1803df08f44-8a43a27285emr46661276d6.35.1775046343938; Wed, 01 Apr 2026
+ 05:25:43 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
+ <ac0LYoemprz5-dDq@intel.com>
+In-Reply-To: <ac0LYoemprz5-dDq@intel.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 1 Apr 2026 13:25:31 +0100
+X-Gm-Features: AQROBzCCN0NAl8sVFUTNdPlCD4ae-2ORt2gK2m_u_f-UZ_1uO6MvhoYtxuTB6QM
+Message-ID: <CAPj87rN6v8qsdRkALZXjxj+zSXdo-BnFcX8tM2M4-xawkn=Xyw@mail.gmail.com>
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Xaver Hugl <xaver.hugl@kde.org>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>,
- Todd Kjos <tkjos@android.com>, 
- Christian Brauner <christian@brauner.io>, Carlos Llamas <cmllamas@google.com>, 
- Jonathan Corbet <corbet@lwn.net>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- "=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, rust-for-linux@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
- Uladzislau Rezki <urezki@gmail.com>, linux-block@vger.kernel.org, 
- moderated for non-subscribers <linux-arm-kernel@lists.infradead.org>,
- Alexandre Ghiti <alex@ghiti.fr>, 
- linux-riscv@lists.infradead.org, nouveau@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Rae Moar <raemoar63@gmail.com>, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, 
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Stone <daniels@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ kernel@collabora.com, Derek Foreman <derek.foreman@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>, wayland-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,45 +122,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 01, 2026 at 01:45:08PM +0200, Miguel Ojeda wrote:
-> As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
-> we are going to follow Debian Stable's Rust versions as our minimum
-> supported version.
-> 
-> Debian Trixie was released with a Rust 1.85.0 toolchain [2], which it
-> still uses to this day [3] (i.e. no update to Rust 1.85.1).
+On Wed, 1 Apr 2026 at 13:11, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+> I think the idea of some kind of feedback properties in the atomic
+> commit has come up before, but no one has ever tried to implement them.
 
-Debian really *should* pick up 1.85.1. It contains bugfixes serious
-enough that the Rust team decided it was reasonble to release a point
-release.
+Yeah, if you're looking for context on these, the last place I
+remember it coming up was wanting to know which other objects would
+potentially be dragged into a commit. For example, on ye olde (?)
+Intel platforms, if programming a different mode is actually
+stop-the-world where all other CRTCs get affected by a CDCLK change,
+being able to know that those other CRTCs would be affected before it
+happens, rather than random -EBUSY after the fact.
 
-> Debian Trixie's release happened on 2025-08-09 [4], which means that a
-> fair amount of time has passed since its release for kernel developers
-> to upgrade.
-> 
-> Thus bump the minimum to the new version.
-> 
-> Then, in later commits, clean up most of the workarounds and other bits
-> that this upgrade of the minimum allows us.
-> 
-> pin-init was left as-is since the patches come from upstream. And the
-> vendored crates are unmodified, since we do not want to change those.
-> 
-> Note that the minimum LLVM major version for Rust 1.85.0 is LLVM 18 (the
-> Rust upstream binaries use LLVM 19.1.7), thus e.g. `RUSTC_LLVM_VERSION`
-> tests can also be updated, but there are no suitable ones to simplify.
-> 
-> Ubuntu 25.10 also has a recent enough Rust toolchain [5], and they also
-> provide versioned packages with a Rust 1.85.1 toolchain even back to
-> Ubuntu 22.04 LTS [6].
-> 
-> Link: https://lwn.net/Articles/1050174/ [1]
-> Link: https://www.debian.org/releases/trixie/release-notes/whats-new.en.html#desktops-and-well-known-packages [2]
-> Link: https://packages.debian.org/trixie/rustc [3]
-> Link: https://www.debian.org/releases/trixie/ [4]
-> Link: https://packages.ubuntu.com/search?suite=all&searchon=names&keywords=rustc [5]
-> Link: https://launchpad.net/ubuntu/+source/rustc-1.85 [6]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-
-Acked-by: Alice Ryhl <aliceryhl@google.com>
-
+Cheers,
+Daniel
