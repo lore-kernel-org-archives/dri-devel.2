@@ -4,149 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C48C10F6FD9
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 15:27:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 688DA10F6FD9
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 15:27:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3AE210EE29;
-	Wed,  1 Apr 2026 15:27:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5CC110EE32;
+	Wed,  1 Apr 2026 15:27:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="FYsvhxnn";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="BmKhNCzH";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020112.outbound.protection.outlook.com [52.101.195.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4B410EE1B;
- Wed,  1 Apr 2026 15:27:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wYi/ttZM5bI9TCo+N0C/HY+vtddRNUPbVQrG8NDQFNNUxSy03SKSMLfRwwTGwcIHgeJsWoaDtSp50fo21e1rDHLQtXArVaUcNW6r68C8f6pHOXVB8Vh+4iOYLrx3udaNmSdfokI68t5aN9B2wupVMPY65o3s3cuZrhbU+NQO1DNx2PdUnVwZAHGKEGMWxyJf2TRH/AS+JOypeUhot1SwC7Ku4bzXpNnvPTneZcso6NECuFPLUJ9UeYU/cr20aT8Z0D62b5SkNC+Ew8tlMs/aWgjuUwOZ4n/uGBiYPHsFETQlJ0sGnbHAGFO2/+ZEQMPXOz1rMi11dCJ9+gq0kCMpjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8SG4SgTHst3JVz/66fctd4JjpYSHzcf9xgWFqCXhZWg=;
- b=E2PuLcBfkFr3zoBitxXOa+ROIBbAAEaHi7BL0o+vVK2dmiiOB+q4SBnl69e34rldPZ5OxCAGORFtzs5flaqzNngL0+F3IenayIqBq85da6lyTQ7Erslkmz0UU7QJMQJKKveegawJ0rT5fEd6OuV6xa/0YX+s8gbcZXw1UMbFKzbkGtZvIobSqjWX5nAto4fjmVxvWr82dDLd7yttDMDEByzJve3PoZm/o11Vlwt8RbFSf6FmC6sAur0bM+ayWF/YcUTIxnp6nHckEk6Iv/5OCAlzM0L8v+AGGbjmJqkNFH+fZiQjlc3zKDuSpuGpG3dVif9Y8hG+By0DmXqKgB4BWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8SG4SgTHst3JVz/66fctd4JjpYSHzcf9xgWFqCXhZWg=;
- b=FYsvhxnnHbS7Nnu2L8TRcVXemtiNMXplZrYuTG2jTehPnvXUyxjqSPCh22Z2UUjtkZqpqiAqbjUmZaHa3ySFLCdbljNtbCqF3ggYjfYVxoUVpnMFpnevD+5HDl34zzbvsQvZpBE3aj/hHBXv0KPArom4vX4r4qr8GuyT0v2Bkdc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOBP265MB8993.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:483::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 15:26:58 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
- 15:26:58 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 01 Apr 2026 16:26:57 +0100
-Message-Id: <DHHX9O7V06VZ.G0N1CQ7BUKFO@garyguo.net>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- <rust-for-linux@vger.kernel.org>, <linux-kbuild@vger.kernel.org>, "Lorenzo
- Stoakes" <lorenzo.stoakes@oracle.com>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- "Uladzislau Rezki" <urezki@gmail.com>, <linux-block@vger.kernel.org>,
- "moderated for non-subscribers" <linux-arm-kernel@lists.infradead.org>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
- Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, "Nick Desaulniers"
- <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 32/33] rust: kbuild: support global per-version flags
-From: "Gary Guo" <gary@garyguo.net>
-To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
- <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
- Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Jonathan Corbet" <corbet@lwn.net>
-X-Mailer: aerc 0.21.0
-References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-33-ojeda@kernel.org>
-In-Reply-To: <20260401114540.30108-33-ojeda@kernel.org>
-X-ClientProxiedBy: LO4P123CA0095.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2AC8510EE32
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 15:27:12 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ACAB11F91
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:27:05 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 477183F641
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:27:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1775057231; bh=y+MhPjsu8qOsmSPWBWTYc0aedsaAPB/kfVjv0IQGfi4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BmKhNCzH9XJo6G/ecpfLQutKgLco/O2KvTJ8iB3gyEnGMM7vnRTxzG8TzxZtuB+vQ
+ GK7+yH6gADv5lJCOw7lsU9YzZwahsOglSwVtbNetylQAQFORCwWJ7WygVnSSI60WNy
+ Wg6NJO4cymGUBg/PisXNt0UP6EOQA29FRkt/FCes=
+Date: Wed, 1 Apr 2026 16:26:50 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Guangliu Ding <guangliu.ding@nxp.com>
+Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ Jiyu Yang <jiyu.yang@nxp.com>
+Subject: Re: Re: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document
+ i.MX952 support
+Message-ID: <ac05OpEMjKMd8CXy@e142607>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com>
+ <acva1Xt8V4k9-uG8@e142607>
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
+ <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <aczv0R0aQRmHKdvt@e142607>
+ <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOBP265MB8993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0bc1ba07-80d5-4c25-0374-08de90031d2a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|10070799003|366016|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: DF2UNII4ZFi/RgCxQhYQ+gwwh/1PW/w53wzlIWcI+N2yxr3oJaJptYiazNKgSPFLM+cjA5++QtsLPobEyBTvPhirEjIcA+PH6CuOzbssNTWD3yg5F6DOwq10cQo9K3d5TxtV1Fs/mBMJ4yGRhuyW2jgoyTmw++0xxGACin752T4OUtuoNSAOA7L+viCI+Qmzv6GQHgwZGK8AX4/IG9Tzo69cmd3lvv30jbyEyGMe0to50ZdjZCjTmYhDk0yAEpNRS2W4ZAOa3qIPuooO6xoFZOL2QldM3ccYWJeyU28ttk+egaAyhVXOy/88HbvpBXxADwzGF9nU5Vs7pZU8xNDswp/tQrT3Bt0iEX1hOYfFjzc+ghgnY2mFT+iTvP5og593uYtkjXNnoJlxfpU8Ed+mPEINelOLfCI8QBKVx3GHgEr9EFTSg2C5pSQB8K5yeF9LUhoTNX7j0nhKd89J1XSZMJXT1ZVe5JU74YlwRr5kcm+Z15GlYDlnbB1QeW5BlV9u1YBA5QvfU7pWdDkbdlqrKfpDPlOgNOeiCPn39Y3Vs7PpbQKtEnyDRggReYE1JbLbP9cfDneg70iDA4iKep8/feEx4Eh93taIpFrCkMVKYdj4p6IIKD0LbTJUJR13FhTvKPMx/XByj9OWCZjY1gSuS+/oY0vOHveKZ1QCshqc8aHP4lyXzbghINvHCwe9QdllorVdYbzCh/GMm4pm8ig/gg/y7YEKIvwviEbzGM8H4pE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(921020)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0R3NjVIeERUb0VmYVZFcDRyUWtBL0w3bndKZnJsaWw2NXcwaHJZWU5wZDNp?=
- =?utf-8?B?QitZbTBPeGhoOWRaYnpwMmNsOEpnWVZzL29nc1lRYkMydmduYm9KZzdwK0gy?=
- =?utf-8?B?RktnTnlacFJQY2w4eHl5djFhYUVqUnBtN1d5NFh6eEI3dU05alZYY2RiajVU?=
- =?utf-8?B?eFgxeE16WjdzbGZpdjFOWEwybzgxYVJZVGF6RDZkZXZWeEhndGFqWG1CSThv?=
- =?utf-8?B?bHA5T3BjVVB4dlJVd0hJYnU2MlExZ1NGd2MzcmZ6OXg2d09OOFI1SkNYd1N2?=
- =?utf-8?B?bFcvVmRRYkFDZ0VoTmJJclU3c2pvb2p0RW01VjU3ZEgwRnltRG9YODljMmRt?=
- =?utf-8?B?NXZMenZOT3A1Rm5pOGFsa2lJM2krTmtBbjZiYk9BcXFGNm12eTdBaUZ5U1FG?=
- =?utf-8?B?ZVQxZFo2Z2owbzNObS9Nbkt6V20yamtGMUFFMUZPWXluNmZtbVJIczhnaWJw?=
- =?utf-8?B?M3JvVllFVlNIQW8rYTFLOTFaZTB2ejhPTFJta2lISlhvMytJS2hHRDRhY0JG?=
- =?utf-8?B?TjI0Ykd0dWpPVzA5QzRYZGk2ZitxTk8vNEJybXJETGZreTcxaDAyNHNLM3Nr?=
- =?utf-8?B?RVl3UTNCdWEzbHZ2cElnK2ZPZ2lTNDVGa21MOFo3Q2NGa0dHZXQ5ajQxSmRJ?=
- =?utf-8?B?QWgzMG9yMHlnVFdoOVBqRGVIbW9kNVNJdEhDa0I4ZE1FazRvVmRydXp4VFJB?=
- =?utf-8?B?MFdJTUp0TzdZTFMzS2JHdEUxcCtSVGlaNkR2WVdwcEZUcmpzZHh6cUNXcjJM?=
- =?utf-8?B?Q1BjUkE3MkorVU1CU3laTkloTDFvaC9vS3AxK2Nyd2wzOHdKVVQwSGRxZTV3?=
- =?utf-8?B?QmEwODdzNXJBMGlLcTZhNjNkdDNmRzV3S241WE5HRlljdGNySDVTdEU2RE9o?=
- =?utf-8?B?eDNMWDEwQkpwQUJKMVRkYmZuR2NGSTd0WS9RZWV3bkF3RVV6S3NVRTF3WWhY?=
- =?utf-8?B?ekJtN2djOEhnQk9ZcTQzcFpXaGkwZVp1RllEZEliZXQ4Wk9rb3NQYzJNNDVh?=
- =?utf-8?B?RlNaUlAzQ2lTbGlsVE1Na2ZzOGJsTDI0bnRYenRNcDFOSFo2MlQyREgzd0VQ?=
- =?utf-8?B?TFl4SDVGK3FHSFF3UG0wVC9STmo4WFlFSThGUzBwR3AzVzNaRDlmYmVQaEZH?=
- =?utf-8?B?a2kzSkNEY25ESWxQU09RazMzbGpNQnpFVW0vOG1BV3NwUnNMN3FnbGNCT0Rq?=
- =?utf-8?B?NHlxQys2WHZzRm9pTlc3QWk3NjR4c3A3bXROdlpFNjJXdTBvSWg0TE5iZUZM?=
- =?utf-8?B?RWNMcUsvMlNXWG9wU2Q2ZXIwUG52WjFLS016bkxCWDI0NHkvRlJsdDhiWVVB?=
- =?utf-8?B?cmxPTythVUNoTUUzaUh3WjdaQlpPQUVhMEhFbjQ5OUpCUE1WRkxnZG1FL1Iy?=
- =?utf-8?B?RldzaEtGYkJ0aDFsblFIL2RUbnhpcjRsM1lmKzB0K2k2YzJ5YTI4UFlETTJh?=
- =?utf-8?B?dzRMWk40VXVDaCtIZmV5dVJTWloxU09IR1J1Rk5Fd29INys5QVdFdld1ZUZR?=
- =?utf-8?B?bElEdHkwZzMybEd1NjU0VkZVTm5aS2E2MHI0MVRzSDVRMnNvOFpzdEVYSTdM?=
- =?utf-8?B?OS8yNGsvcDJXcDBkckloZEpqMmFKckZrRHZhbjQ4UTNFMm9KZi9tQWhaTGJs?=
- =?utf-8?B?dkliWnRmeXhzZDRoaHF3SzRtTDZDTDNQM1N4UjFCTE9JM3FBL3NaTEh5Rzcy?=
- =?utf-8?B?cGdZNWEzMkc5b3ZSNjMxV3paYnJhNzNkY1ZlN1JHcE5OYWt1Z3l3aXpqNzhJ?=
- =?utf-8?B?TS9CUXVGWWIzeUtvZzVjaHh0NlgrNDRoWGc5RHdPRHFZK05NWnpWQUpoa3k5?=
- =?utf-8?B?ZG03MHNXNjZKdXpJVmZOTkpsM0ladFVwYjFzb3h5ajlOUDY3ZmI5VFZtdzlz?=
- =?utf-8?B?clVaeVN5NVZ2emQrdm81QUtqQTRnOWJ3VUs3Y2liUXVZdzNCOXNkb2Rmbjlr?=
- =?utf-8?B?VElHYlhZYWEzUFY3LzBSd0pPZmZWVXh6MkJEdzk1aHJFWUs3ckI1L2Q3YXUx?=
- =?utf-8?B?VVFTVUp4bzdSWDVSQTdSZmY0RHFtVTFycWRmTHFQUm1CNUVkdTJseGhialNG?=
- =?utf-8?B?cjE0RFhUaEZiV2tuOE1QMFZ4WEF0aWVxOTBHd2IzcVZPWjFFTy9WRmN5M0NU?=
- =?utf-8?B?VjdJbTdNM2ttNE1vRFRUSzdCTzVYRVdBUDVGbUZqaWI2RlcxUXg1NHlHU3hZ?=
- =?utf-8?B?YVlmUm9RdjlPaGtVRUZDTzNoTExSQ2ZIL3ZkR1lRVnl2NC9pbUZZMkd5UGI4?=
- =?utf-8?B?MWdRNFhMV0lmdFdVa0dWQ2cxbVZ6ZEEvZ1BHN00wOUw0ZWdLN0ZUYTAveTRH?=
- =?utf-8?B?dFI4UG0xQVlQNFBzK0FIRkdDODFQR2VIN1ZOdW5WeHRRZ0dyTU00Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0bc1ba07-80d5-4c25-0374-08de90031d2a
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 15:26:58.2479 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: InTfKgZ+3iBRhBf6RHR41UCwL6BeLK2zKjj2QmTbfuUyeD9uNi6ibJFAK8hUj1ftRFzmPYvvfDUpFJ4s+qhOfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOBP265MB8993
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,66 +82,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 1, 2026 at 12:45 PM BST, Miguel Ojeda wrote:
-> Sometimes it is useful to gate global Rust flags per compiler version.
-> For instance, we may want to disable a lint that has false positives in
-> a single version [1].
->
-> We already had helpers like `rustc-min-version` for that, which we use
-> elsewhere, but we cannot currently use them for `rust_common_flags`,
-> which contains the global flags for all Rust code (kernel and host),
-> because `rustc-min-version` depends on `CONFIG_RUSTC_VERSION`, which
-> does not exist when `rust_common_flags` is defined.
->
-> Thus, to support that, introduce `rust_common_flags_per_version`,
-> defined after the `include/config/auto.conf` inclusion (where
-> `CONFIG_RUSTC_VERSION` becomes available), and append it to
-> `rust_common_flags`, `KBUILD_HOSTRUSTFLAGS` and `KBUILD_RUSTFLAGS`.
->
-> An alternative is moving all those three down, but that would mean
-> separating them from the other `KBUILD_*` variables.
+On Wed, Apr 01, 2026 at 10:31:01AM +0000, Guangliu Ding wrote:
+> Hi Liviu
+> 
+> > On Wed, Apr 01, 2026 at 09:43:12AM +0000, Guangliu Ding wrote:
+> > > Hi Daniel
+> > >
+> > > > On 4/1/26 11:48, Guangliu Ding wrote:
+> > > > > [You don't often get email from guangliu.ding@nxp.com. Learn why
+> > > > > this is important at https://aka.ms/LearnAboutSenderIdentification
+> > > > > ]
+> > > > >
+> > > > > Hi Liviu
+> > > > >
+> > > > > Thanks for your review. Please refer to my comments below:
+> > > > >
+> > > > >> On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
+> > > > >>> Add compatible string of Mali G310 GPU on i.MX952 board.
+> > > > >>>
+> > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+> > > > >>> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
+> > > > >>> ---
+> > > > >>>  Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
+> > > > >>> | 1
+> > > > >>> +
+> > > > >>>  1 file changed, 1 insertion(+)
+> > > > >>>
+> > > > >>> diff --git
+> > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yam
+> > > > >>> l
+> > > > >> b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
+> > > > >>> index 8eccd4338a2b..6a10843a26e2 100644
+> > > > >>> ---
+> > > > >>> a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yam
+> > > > >>> l
+> > > > >>> +++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf
+> > > > >>> +++ .yam
+> > > > >>> +++ l
+> > > > >>> @@ -20,6 +20,7 @@ properties:
+> > > > >>>            - enum:
+> > > > >>>                - mediatek,mt8196-mali
+> > > > >>>                - nxp,imx95-mali            # G310
+> > > > >>> +              - nxp,imx952-mali           # G310
+> > > > >> Can you explain why this is needed? Can it not be covered by the
+> > > > >> existing compatible?
+> > > > > There are functional differences in GPU module (GPUMIX) between
+> > > > > i.MX95 and i.MX952. So they cannot be fully covered by a single existing
+> > compatible.
+> > > > > On i.MX952, The GPU clock is controlled by hardware GPU auto
+> > > > > clock-gating mechanism, while the GPU clock is managed explicitly
+> > > > > by the
+> > > > driver on i.MX95.
+> > > > > Because of these behavioral differences, separate compatible
+> > > > > strings "nxp,imx95-mali" and "nxp,imx952-mali" are needed to allow
+> > > > > the driver to handle the two variants independently and to keep
+> > > > > room for future
+> > > > divergence.
+> > > >
+> > > >
+> > > > This information should be added in the commit message explaining
+> > > > why
+> > > >
+> > > > the change is needed.
+> > > >
+> > > >
+> > > > But then where is the driver code taking care of these diferences?
+> > > >
+> > >
+> > > Yes. Currently the driver does not require "nxp,imx952-mali" string.
+> > > However, when GPU ipa_counters are enabled to calculate the GPU
+> > > busy_time/idle_time for GPU DVFS feature, they will conflict with the
+> > > hardware GPU auto clock‑gating mechanism, causing GPU clock to remain
+> > always on.
+> > > In such cases, ipa_counters need to be disabled so that the GPU auto
+> > > clock‑gating mechanism can operate normally, using "nxp,imx952-mali"
+> > string.
+> > 
+> > OK, I understand that you're following guidance from some other senior
+> > people on how to upstream patches so you've tried to create the smallest
+> > patchset to ensure that it gets reviewed and accepted, but in this case we need
+> > to see the other patches as well to decide if your approach is the right one and
+> > we do need a separate compatible string.
+> > 
+> > If enabling GPU ipa_counters causes the clocks to get stuck active, that feels
+> > like a hardware bug, so figuring out how to handle that is more important than
+> > adding a compatible string.
+> > 
+> > Either add the patch(es) that use the compatible to this series in v2, or put a
+> > comment in the commit message on where we can see the driver changes.
+> > 
+> 
+> According to discussions with the GPU vendor, this is a hardware limitation 
+> of Mali-G310 rather than a hardware bug, and it has been addressed in newer
+> Mali GPU families.
 
-I think I would prefer moving these down.
+I represent the said GPU vendor and I think I know what you're talking about, but you're
+taking the wrong approach. All G310s have a problem where in order to enable access to
+the ipa_counters the automatic clock gating gets disabled. So the solution that needs
+to be implemented when we add support for IPA_COUNTERs will apply to all GPUs, not just
+MX952.
 
-The current approach append the flags to all variables, which will cause th=
-e
-following equivalence to stop holding after the flag update.
+> 
+> In addition, ipa_counters are not enabled in the current Panthor driver. We observed
+> this issue with the private Mali DDK where ipa_counters were enabled.
+> Therefore, keeping the compatible string is necessary to allow for future divergence.
 
-KBUILD_HOSTRUSTFLAGS :=3D $(rust_common_flags) -O -Cstrip=3Ddebuginfo \
-			-Zallow-features=3D $(HOSTRUSTFLAGS)
+This is not an MX952 issue only. You might be aware of it on your SoC, but it's not just
+for it.
 
-(Per version flags doesn't go before -O anymore, it comes after HOSTRUSTFLA=
-GS).
+Best regards,
+Liviu
 
-Best,
-Gary
-
->
-> Link: https://lore.kernel.org/rust-for-linux/CANiq72mWdFU11GcCZRchzhy0Gi1=
-QZShvZtyRkHV2O+WA2uTdVQ@mail.gmail.com/ [1]
-> Link: https://patch.msgid.link/20260307170929.153892-1-ojeda@kernel.org
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-> ---
->  Makefile | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/Makefile b/Makefile
-> index 1a219bf1c771..20c8179d96ee 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -834,6 +834,14 @@ endif # CONFIG_TRACEPOINTS
-> =20
->  export WARN_ON_UNUSED_TRACEPOINTS
-> =20
-> +# Per-version Rust flags. These are like `rust_common_flags`, but may
-> +# depend on the Rust compiler version (e.g. using `rustc-min-version`).
-> +rust_common_flags_per_version :=3D
-> +
-> +rust_common_flags +=3D $(rust_common_flags_per_version)
-> +KBUILD_HOSTRUSTFLAGS +=3D $(rust_common_flags_per_version)
-> +KBUILD_RUSTFLAGS +=3D $(rust_common_flags_per_version)
-> +
->  include $(srctree)/arch/$(SRCARCH)/Makefile
-> =20
->  ifdef need-config
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
