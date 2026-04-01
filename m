@@ -4,67 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FE0ED3517D
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 12:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 554EBD3517B
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 12:45:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 942F710E335;
-	Wed,  1 Apr 2026 12:41:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CFA310E345;
+	Wed,  1 Apr 2026 12:45:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SZa1h0nA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lkCX4spe";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C06710E335
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 12:41:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3311B10E345
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 12:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775047313; x=1806583313;
+ t=1775047507; x=1806583507;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=nobZSEnqo+L+S7OzWYBTUmcg7e/MZWKH0QayPPPMmVE=;
- b=SZa1h0nAyuW1ucnuBqarsU93xDrQ9NwM5QMCG/sPckbzwSnLDCG7d3Ib
- vlMJ+MEyf+i97qxhLnXexgyvbaKTV/LmfX477IBbuFv4FH1syyohrirub
- IOM5jYVmF3nXvTTreDUk52994XYn6adX9fqUJI6gJPB2HsQZTkGtHzhN8
- kIaAyRu/+pHUm92dAYJ4yESn/bdDFRbMqOGDEjVMHPoltjidTEzZJUZ4Z
- tRewlm5eEiUurLqJ7iRH4bHgTfotdI8K0GgLRGPtvbgplw5+twG+3SZ5d
- bBOKH1UIH77VGDhCn0E9GqMgUUj0uuqJ6TTXPmA1VMHeT6bAV+z3FT+nI w==;
-X-CSE-ConnectionGUID: Ys4q2O/WTs+d9geicihRdA==
-X-CSE-MsgGUID: TYBlFBThRbqC7PrBejVy+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="75795517"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="75795517"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 05:41:52 -0700
-X-CSE-ConnectionGUID: J2WEWAyYRUOr0AUL25nXaQ==
-X-CSE-MsgGUID: 4rLF1uHfT2iVcTTJ0KOmZQ==
+ bh=Dlm8u1M9Y25VFWBj4wxzmFiwOI2m8boBhF6KqF1/Csc=;
+ b=lkCX4speR13G5adySTkkupLRRXEwEgww3/RKuuWyOGJB9PU5735DBCMF
+ 5/lOI+aySOSPsbEeIfOpeuHNn9LZHPKWX7NEuy42+Ga/IOPRGULmIBbU6
+ Cls7S2h8Ie+39L8l+h/Nj0SqAU9aCn2WmleqjI6F3TwZ9H7Zg50YQ4ruR
+ PwrW3g2v4HqAf/8x+pWA/D0moKX4fPrdOtlUD2wwN/RBicsDsxfKH9Mc5
+ 1Ffv9UN4YFlfEWOYveNgX4B3C+I93WmD6otkYrYUuG2cOzU+LvwG1uGrG
+ 1zc1mj/BhkSgDlwaZpNcucUK1NvH+ZlQAV8pmiqh+EDSJgpoEmQAR5dct A==;
+X-CSE-ConnectionGUID: DwtFWW1HRZq8WJL9jse+6A==
+X-CSE-MsgGUID: cBQA0mPBRCaf+CwMFz3h+A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="75963176"
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="75963176"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 05:45:06 -0700
+X-CSE-ConnectionGUID: yNEaq/s1SI2BIt62UL8L2w==
+X-CSE-MsgGUID: RBJEc1KBQYmduxzbAf9YsA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="225827329"
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="220013842"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.246.152])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 05:41:44 -0700
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 05:45:03 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alex
- Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, Simona
- Vetter <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH v2 0/2] drm: Rename drm_atomic_state
-In-Reply-To: <20260331-drm-drm-atomic-update-v2-0-7e8fe6ddcd32@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>, John Paul Adrian Glaubitz
+ <glaubitz@physik.fu-berlin.de>, ysato@users.sourceforge.jp,
+ dalias@libc.org, arnd@arndb.de
+Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] arch/sh: Drop CONFIG_FIRMWARE_EDID from defconfig files
+In-Reply-To: <808dcd39-ed04-4288-9b21-55b47354de17@suse.de>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260331-drm-drm-atomic-update-v2-0-7e8fe6ddcd32@kernel.org>
-Date: Wed, 01 Apr 2026 15:41:42 +0300
-Message-ID: <5b2b2ff534b1994a3299be1daa7b4ec9db81ffbb@intel.com>
+References: <20260401083242.214492-1-tzimmermann@suse.de>
+ <b7c978f9728c1a1197e90a98bcec5e8e4dc7e7ec.camel@physik.fu-berlin.de>
+ <808dcd39-ed04-4288-9b21-55b47354de17@suse.de>
+Date: Wed, 01 Apr 2026 15:45:00 +0300
+Message-ID: <8a7e78415ac5d83ae220125b32fd68a4e629eca4@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,25 +74,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 31 Mar 2026, Maxime Ripard <mripard@kernel.org> wrote:
-> We've been discussing for a long time about renaming drm_atomic_state
-> to a better suited name, since the current one is a source of confusion
-> and bugs.
+On Wed, 01 Apr 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+> Am 01.04.26 um 10:46 schrieb John Paul Adrian Glaubitz:
+>> My SH7785LCR board does have a DVI output as well as a Silicon Motion SM-501 video
+>> chip though, so I think it should be able to perform EDID in general. Or is the
+>> protocol actually tied to the x86 architecture? What about monitors on a PowerPC
+>> workstation, for example? Does EDID not work there at all?
 >
-> To minimize the impact, this should probably go through drm-next
-> directly.
->
-> Let me know what you think,
+> Yes, your system can fetch the EDID via the Linux driver. But 
+> FIRMWARE_EDID is a special feature where the EDID gets delivered by the 
+> boot loader. This has always only been possible on x86 or with EFI.
 
-I don't really have strong opinions on this one, except I agree this
-should go directly through drm-next before the merge window so everyone
-can backmerge it. Otherwise it's going to be a conflicts galore.
+And then there's the completely separate CONFIG_DRM_LOAD_EDID_FIRMWARE
+config to allow loading the EDID through the kernel firmware loader. Not
+confusing or misleading at all. ;D
 
-IMO drivers can do the variable renames afterwards at leisure.
+BR,
+Jani.
 
-For the i915 parts,
-
-Acked-by: Jani Nikula <jani.nikula@intel.com>
 
 -- 
 Jani Nikula, Intel
