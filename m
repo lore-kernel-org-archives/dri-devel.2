@@ -4,65 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D8E810F6FB5
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 14:45:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1108D10F6FB7
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 14:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF6810ED7D;
-	Wed,  1 Apr 2026 14:45:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 638D710E323;
+	Wed,  1 Apr 2026 14:57:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LGtBesoG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mUKes+mM";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C456410EC64
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 14:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1775054703;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nu3JX908+DZivEhR1Qo778ajL4Zr8FlXHd0LFNZDhgo=;
- b=LGtBesoGIhQSAQ17g/6bFoyZtUJTLjZWqzrjGmORk2WGppkudJ3Df40CVfQUClTGrIHY0M
- /EVqKd0qsShlHlY9CX74JTUjWQ6j8vf7FSJXiSZZHWdQt3DyubMrHG9wHsXbS3meitw93n
- n2hqFUTn7NwKw0+OiCAyQcXXYruNuN8=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-528-ozGMpuNYNjKpjw6mNPMoXA-1; Wed,
- 01 Apr 2026 10:44:59 -0400
-X-MC-Unique: ozGMpuNYNjKpjw6mNPMoXA-1
-X-Mimecast-MFC-AGG-ID: ozGMpuNYNjKpjw6mNPMoXA_1775054697
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C1E3119560BA; Wed,  1 Apr 2026 14:44:57 +0000 (UTC)
-Received: from [10.22.81.104] (unknown [10.22.81.104])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 48DFE180075B; Wed,  1 Apr 2026 14:44:56 +0000 (UTC)
-Message-ID: <8eaf9c5e-70fc-4d68-a919-df371bb38283@redhat.com>
-Date: Wed, 1 Apr 2026 10:44:55 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] workqueue: Add pool_workqueue to pending_pwqs list
- when unplugging multiple inactive works
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
- stable@vger.kernel.org, Tejun Heo <tj@kernel.org>,
- Lai Jiangshan <jiangshanlai@gmail.com>
-References: <20260401010739.1053192-1-matthew.brost@intel.com>
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20260401010739.1053192-1-matthew.brost@intel.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: 6tj5Rwxkboq7FjpKNbiSLVgv_yYvQ_WU2uR2uiTjsnk_1775054697
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C22F10E323;
+ Wed,  1 Apr 2026 14:57:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B0A3060132;
+ Wed,  1 Apr 2026 14:57:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74290C19421;
+ Wed,  1 Apr 2026 14:57:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775055455;
+ bh=8e2oNK+RNa0NzKd4ZlabYjd8IqP/GM5sHzXlyJGAd+w=;
+ h=Date:Cc:Subject:From:To:References:In-Reply-To:From;
+ b=mUKes+mMPs5iX2Viqpl9YEl86lcLJksX1Gm+Yr6B8QPMTf30lx89O2N4j4uuRrsBt
+ /WvZPEZXGvjv5HHYWLRMgt89uNfXGP2JoNEUA5+6vWs31qT6KXWzmOepYAC6w3/ykq
+ 65Mfexkf/2wemcaMM77IqDmD9DJaj3yY175CnUJa1sC+ANoroZ4twvbzpIYHfpWSOs
+ 2Zjfn4ErkryA82DEigqSFP4d/XQVInePh1+SDffXkjaaFz1OU76sLVrNgbh2ehMITL
+ vuBN0C9PQLVQShwJWA4kjUmjBbYNtiYIsifnmGW7kksVSKd/ea83EEwhf/sQ9cN1MW
+ b64kr4qjr5Q1w==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 01 Apr 2026 16:57:24 +0200
+Message-Id: <DHHWN1TBVAZS.2EAX0F648ULPU@kernel.org>
+Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Trevor Gross"
+ <tmgross@umich.edu>, <rust-for-linux@vger.kernel.org>,
+ <linux-kbuild@vger.kernel.org>, "Lorenzo Stoakes"
+ <lorenzo.stoakes@oracle.com>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam
+ R . Howlett" <Liam.Howlett@oracle.com>, "Uladzislau Rezki"
+ <urezki@gmail.com>, <linux-block@vger.kernel.org>, "moderated for
+ non-subscribers" <linux-arm-kernel@lists.infradead.org>, "Alexandre Ghiti"
+ <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
+ Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, "Nick Desaulniers"
+ <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH 01/33] rust: bump Rust minimum supported version to
+ 1.85.0 (Debian Trixie)
+From: "Benno Lossin" <lossin@kernel.org>
+To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
+ <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
+ <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
+ Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Jonathan Corbet" <corbet@lwn.net>
+X-Mailer: aerc 0.21.0
+References: <20260401114540.30108-1-ojeda@kernel.org>
+ <20260401114540.30108-2-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-2-ojeda@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,129 +86,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/26 9:07 PM, Matthew Brost wrote:
-> In unplug_oldest_pwq(), the first inactive work item on the
-> pool_workqueue is activated correctly. However, if multiple inactive
-> works exist on the same pool_workqueue, subsequent works fail to
-> activate because wq_node_nr_active.pending_pwqs is empty — the list
-> insertion is skipped when the pool_workqueue is plugged.
+On Wed Apr 1, 2026 at 1:45 PM CEST, Miguel Ojeda wrote:
+> As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
+> we are going to follow Debian Stable's Rust versions as our minimum
+> supported version.
 >
-> Fix this by checking for additional inactive works in
-> unplug_oldest_pwq() and updating wq_node_nr_active.pending_pwqs
-> accordingly.
+> Debian Trixie was released with a Rust 1.85.0 toolchain [2], which it
+> still uses to this day [3] (i.e. no update to Rust 1.85.1).
 >
-> v2:
->   - Use pwq_activate_first_inactive(pwq, false) rather than open coding
->     list operations (Tejun)
+> Debian Trixie's release happened on 2025-08-09 [4], which means that a
+> fair amount of time has passed since its release for kernel developers
+> to upgrade.
 >
-> Cc: Carlos Santa <carlos.santa@intel.com>
-> Cc: Ryan Neph <ryanneph@google.com>
-> Cc: stable@vger.kernel.org
-> Cc: Tejun Heo <tj@kernel.org>
-> Cc: Lai Jiangshan <jiangshanlai@gmail.com>
-> Cc: Waiman Long <longman@redhat.com>
-> Cc: linux-kernel@vger.kernel.org
-> Fixes: 4c065dbce1e8 ("workqueue: Enable unbound cpumask update on ordered workqueues")
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Thus bump the minimum to the new version.
 >
+> Then, in later commits, clean up most of the workarounds and other bits
+> that this upgrade of the minimum allows us.
+>
+> pin-init was left as-is since the patches come from upstream. And the
+> vendored crates are unmodified, since we do not want to change those.
+>
+> Note that the minimum LLVM major version for Rust 1.85.0 is LLVM 18 (the
+> Rust upstream binaries use LLVM 19.1.7), thus e.g. `RUSTC_LLVM_VERSION`
+> tests can also be updated, but there are no suitable ones to simplify.
+>
+> Ubuntu 25.10 also has a recent enough Rust toolchain [5], and they also
+> provide versioned packages with a Rust 1.85.1 toolchain even back to
+> Ubuntu 22.04 LTS [6].
+>
+> Link: https://lwn.net/Articles/1050174/ [1]
+> Link: https://www.debian.org/releases/trixie/release-notes/whats-new.en.h=
+tml#desktops-and-well-known-packages [2]
+> Link: https://packages.debian.org/trixie/rustc [3]
+> Link: https://www.debian.org/releases/trixie/ [4]
+> Link: https://packages.ubuntu.com/search?suite=3Dall&searchon=3Dnames&key=
+words=3Drustc [5]
+> Link: https://launchpad.net/ubuntu/+source/rustc-1.85 [6]
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+
+Very happy to see this!
+
+Acked-by: Benno Lossin <lossin@kernel.org>
+
+Cheers,
+Benno
+
 > ---
->
-> This bug was first reported by Google, where the Xe driver appeared to
-> hang due to a fencing signal not completing. We traced the issue to work
-> items not being scheduled, and it can be trivially reproduced on drm-tip
-> with the following commands:
->
-> shell0:
-> for i in {1..100}; do echo "Run $i"; xe_exec_threads --r \
-> threads-rebind-bindexecqueue; done
->
-> shell1:
-> for i in {1..1000}; do echo "toggle $i"; echo f > \
-> /sys/devices/virtual/workqueue/cpumask; echo ff > \
-> /sys/devices/virtual/workqueue/cpumask; echo fff > \
-> /sys/devices/virtual/workqueue/cpumask ; echo ffff > \
-> /sys/devices/virtual/workqueue/cpumask; sleep .1; done
-> ---
->   kernel/workqueue.c | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
->
-> diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-> index b77119d71641..bee3f37fffde 100644
-> --- a/kernel/workqueue.c
-> +++ b/kernel/workqueue.c
-> @@ -1849,8 +1849,17 @@ static void unplug_oldest_pwq(struct workqueue_struct *wq)
->   	raw_spin_lock_irq(&pwq->pool->lock);
->   	if (pwq->plugged) {
->   		pwq->plugged = false;
-> -		if (pwq_activate_first_inactive(pwq, true))
-> +		if (pwq_activate_first_inactive(pwq, true)) {
-> +			/*
-> +			 * pwq is unbound. Additional inactive work_items need
-> +			 * to reinsert the pwq into nna->pending_pwqs, which
-> +			 * was skipped while pwq->plugged was true. See
-> +			 * pwq_tryinc_nr_active() for additional details.
-> +			 */
-> +			pwq_activate_first_inactive(pwq, false);
-> +
->   			kick_pool(pwq->pool);
-> +		}
->   	}
->   	raw_spin_unlock_irq(&pwq->pool->lock);
->   }
-
-Thanks for fixing this bug. However, calling pwq_activate_first_inactive 
-twice can be a bit hard to understand. Will modifying 
-pwq_tryinc_nr_active() like the following works?
-
-Thanks,
-Longman
-
-diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index b77119d71641..b35e6e62e474 100644
---- a/kernel/workqueue.c
-+++ b/kernel/workqueue.c
-@@ -1738,9 +1738,6 @@ static bool pwq_tryinc_nr_active(struct pool_workqueue *pwq, bool fill)
-                 goto out;
-         }
-  
--       if (unlikely(pwq->plugged))
--               return false;
--
-         /*
-          * Unbound workqueue uses per-node shared nr_active $nna. If @pwq is
-          * already waiting on $nna, pwq_dec_nr_active() will maintain the
-@@ -1749,13 +1746,19 @@ static bool pwq_tryinc_nr_active(struct pool_workqueue *pwq, bool fill)
-          * We need to ignore the pending test after max_active has increased as
-          * pwq_dec_nr_active() can only maintain the concurrency level but not
-          * increase it. This is indicated by @fill.
-+        *
-+        * If @pwq is plugged, we need to make sure that it is linked to a
-+        * pending_pwqs of a $nna.
-+        *
-          */
--       if (!list_empty(&pwq->pending_node) && likely(!fill))
-+       if (!list_empty(&pwq->pending_node) && likely(!fill || pwq->plugged))
-                 goto out;
-  
--       obtained = tryinc_node_nr_active(nna);
--       if (obtained)
--               goto out;
-+       if (likely(!pwq->plugged)) {
-+               obtained = tryinc_node_nr_active(nna);
-+               if (obtained)
-+                       goto out;
-+       }
-  
-         /*
-          * Lockless acquisition failed. Lock, add ourself to $nna->pending_pwqs
-@@ -1773,7 +1776,8 @@ static bool pwq_tryinc_nr_active(struct pool_workqueue *pwq, bool fill)
-  
-         smp_mb();
-  
--       obtained = tryinc_node_nr_active(nna);
-+       if (likely(!pwq->plugged))
-+               obtained = tryinc_node_nr_active(nna);
-  
-         /*
-          * If @fill, @pwq might have already been pending. Being spuriously
-
+>  Documentation/process/changes.rst | 2 +-
+>  scripts/min-tool-version.sh       | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
