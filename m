@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7314107637B
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C069B107637E
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:49:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEDB810EB47;
-	Wed,  1 Apr 2026 13:49:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91B2E10EB72;
+	Wed,  1 Apr 2026 13:49:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RxYkkkhb";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="T/tO11i3";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4336510EB2E
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 13:49:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC9910EB47
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 13:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1775051351;
- bh=O4uVWzVvouPrCEq6DWBw3fBKfWp79EdKtuKN5iWO0Uc=;
+ s=mail; t=1775051352;
+ bh=D0+vxNd2UTjT/ex+9bIfi55vZCnJmbRQwLZR07CGlk4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RxYkkkhbYrvcoP8o7ccxb8tc/XlssKEetC4xtD6bp/Jdr8XCaqCPHWW+L/r+WAwtT
- 5x5gh9vuqYZvaz9cI+LhNeoryJeE4I4N8HTkq4Me0ozZDGOwmEc7V6GCFrNRyBSL7u
- 8VWOJXiiBTUSQFG0YQYTl/E48/UUR5nm8oxdJT7rQqW19AwFBdPhGLHZXuOGiYh0jl
- K0ixKW4E/tBgCDx3ztGM9A/0NkcvFOaCPHIMpFVFffZfahsBsglSVh9Ojh8qbDh0w9
- nboGzCnS6nt8AZAbbyK6UxbevsLdW64FuNbCpi5QOhBDIOTOVQ4Jc+4qODVnW2G/1z
- run4QsIA0t1/w==
+ b=T/tO11i3xvYYpcV7fhxPnxt+WzeszOmZPo/CbmFv7nIFIKv5NaTWxnVuj+kkBsDDi
+ TgbxArihZYBagxqtv/f0p/KvCAcAsJJDAWvIol4wVuocmT83e0D0ABz5suomaaVkVl
+ QBaX5AUPYeQ9KW30JxlqD9pGhdLxTu2c5kEu6el53Pc/xa4ojdP6ozVtOwmz/XcrYG
+ MZ5O2etON8blbhjDTBMTMU4Jx+N42R/8oZsbp8xpCIHCNAkkBPtsPIG3te7czLoTkO
+ RIs4SDogUsJNbkP/8j8H6fyQK51RRxaLqL/xVwOt4E2CpRG3F3pb2m2rL6l7GjKsBB
+ B6gOk+srrjaGg==
 Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4AECE17E75B8;
- Wed,  1 Apr 2026 15:49:10 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 1B76B17E75DE;
+ Wed,  1 Apr 2026 15:49:12 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
@@ -50,10 +50,9 @@ Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>,
  kernel@collabora.com
-Subject: [PATCH v7 05/10] drm/panthor: Don't call drm_gpuvm_bo_extobj_add() if
- the object is private
-Date: Wed,  1 Apr 2026 15:48:49 +0200
-Message-ID: <20260401134854.2275433-6-boris.brezillon@collabora.com>
+Subject: [PATCH v7 07/10] drm/panthor: Lazily allocate pages on mmap()
+Date: Wed,  1 Apr 2026 15:48:51 +0200
+Message-ID: <20260401134854.2275433-8-boris.brezillon@collabora.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260401134854.2275433-1-boris.brezillon@collabora.com>
 References: <20260401134854.2275433-1-boris.brezillon@collabora.com>
@@ -74,21 +73,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gpuvm_bo_extobj_add() is a NOP if the object is private, but it
-forces us to take/release the VM resv lock, so let's do that only when
-we know the object can be shared.
+Defer pages allocation until their first access.
+
+v2:
+- Don't deal with FAULT_FLAG_INTERRUPTIBLE
+- Make sure bo->backing.pages is never an ERR_PTR()
+- Drop a useless vm_fault_t local var
+- Fix comment in panthor_gem_fault()
 
 v3:
-- New commit
+- Collect R-bs
 
 v4:
-- Collect R-bs
+- No changes
 
 v5:
 - No changes
 
 v6:
-- No changes
+- Fix huge_fault handling
 
 v7:
 - No changes
@@ -97,27 +100,171 @@ Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panthor/panthor_gem.c | 118 ++++++++++++++++----------
+ 1 file changed, 75 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index ab67286e3a6e..ac11c8c6a863 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -1278,9 +1278,11 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index 0723a0dc0127..d9c3a71da29b 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -604,15 +604,6 @@ static int panthor_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *v
+ 	if (is_cow_mapping(vma->vm_flags))
+ 		return -EINVAL;
+ 
+-	dma_resv_lock(obj->resv, NULL);
+-	ret = panthor_gem_backing_get_pages_locked(bo);
+-	if (!ret)
+-		ret = panthor_gem_prep_for_cpu_map_locked(bo);
+-	dma_resv_unlock(obj->resv);
+-
+-	if (ret)
+-		return ret;
+-
+ 	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
+ 	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
+ 	if (should_map_wc(bo))
+@@ -653,35 +644,95 @@ static vm_fault_t insert_page(struct vm_fault *vmf, unsigned int order, struct p
+ 	return VM_FAULT_FALLBACK;
+ }
+ 
++static vm_fault_t nonblocking_page_setup(struct vm_fault *vmf,
++					 unsigned int order,
++					 pgoff_t page_offset)
++{
++	struct vm_area_struct *vma = vmf->vma;
++	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
++	vm_fault_t ret;
++
++	if (!dma_resv_trylock(bo->base.resv))
++		return VM_FAULT_RETRY;
++
++	if (bo->backing.pages)
++		ret = insert_page(vmf, order, bo->backing.pages[page_offset]);
++	else
++		ret = VM_FAULT_RETRY;
++
++	dma_resv_unlock(bo->base.resv);
++	return ret;
++}
++
++static vm_fault_t blocking_page_setup(struct vm_fault *vmf, unsigned int order,
++				      struct panthor_gem_object *bo,
++				      pgoff_t page_offset, bool mmap_lock_held)
++{
++	vm_fault_t ret;
++	int err;
++
++	err = dma_resv_lock_interruptible(bo->base.resv, NULL);
++	if (err)
++		return mmap_lock_held ? VM_FAULT_NOPAGE : VM_FAULT_RETRY;
++
++	err = panthor_gem_backing_get_pages_locked(bo);
++	if (!err)
++		err = panthor_gem_prep_for_cpu_map_locked(bo);
++
++	if (err) {
++		ret = mmap_lock_held ? VM_FAULT_SIGBUS : VM_FAULT_RETRY;
++	} else {
++		struct page *page = bo->backing.pages[page_offset];
++
++		if (mmap_lock_held)
++			ret = insert_page(vmf, order, page);
++		else
++			ret = VM_FAULT_RETRY;
++	}
++
++	dma_resv_unlock(bo->base.resv);
++
++	return ret;
++}
++
+ static vm_fault_t panthor_gem_any_fault(struct vm_fault *vmf, unsigned int order)
+ {
+ 	struct vm_area_struct *vma = vmf->vma;
+-	struct drm_gem_object *obj = vma->vm_private_data;
+ 	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
+-	loff_t num_pages = obj->size >> PAGE_SHIFT;
+-	vm_fault_t ret;
++	loff_t num_pages = bo->base.size >> PAGE_SHIFT;
+ 	pgoff_t page_offset;
++	vm_fault_t ret;
+ 
+ 	if (order && order != PMD_ORDER)
+ 		return VM_FAULT_FALLBACK;
+ 
+ 	/* Offset to faulty address in the VMA. */
+ 	page_offset = vmf->pgoff - vma->vm_pgoff;
++	if (page_offset >= num_pages)
++		return VM_FAULT_SIGBUS;
+ 
+-	dma_resv_lock(bo->base.resv, NULL);
++	ret = nonblocking_page_setup(vmf, order, page_offset);
++	if (ret != VM_FAULT_RETRY)
++		return ret;
+ 
+-	if (page_offset >= num_pages ||
+-	    drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages)) {
+-		ret = VM_FAULT_SIGBUS;
+-		goto out;
++	/* Check if we're allowed to retry. */
++	if (fault_flag_allow_retry_first(vmf->flags)) {
++		/* If we're allowed to retry but not wait here, return
++		 * immediately, the wait will be done when the fault
++		 * handler is called again, with the mmap_lock held.
++		 */
++		if (vmf->flags & FAULT_FLAG_RETRY_NOWAIT)
++			return VM_FAULT_RETRY;
++
++		/* Wait with the mmap lock released, if we're allowed to. */
++		drm_gem_object_get(&bo->base);
++		mmap_read_unlock(vmf->vma->vm_mm);
++		ret = blocking_page_setup(vmf, order, bo, page_offset, false);
++		drm_gem_object_put(&bo->base);
++		return ret;
  	}
  
- 	/* Insert BO into the extobj list last, when we know nothing can fail. */
--	dma_resv_lock(panthor_vm_resv(vm), NULL);
--	drm_gpuvm_bo_extobj_add(op_ctx->map.vm_bo);
--	dma_resv_unlock(panthor_vm_resv(vm));
-+	if (bo->base.base.resv != panthor_vm_resv(vm)) {
-+		dma_resv_lock(panthor_vm_resv(vm), NULL);
-+		drm_gpuvm_bo_extobj_add(op_ctx->map.vm_bo);
-+		dma_resv_unlock(panthor_vm_resv(vm));
-+	}
+-	ret = insert_page(vmf, order, bo->backing.pages[page_offset]);
+-
+- out:
+-	dma_resv_unlock(bo->base.resv);
+-
+-	return ret;
++	return blocking_page_setup(vmf, order, bo, page_offset, true);
+ }
  
- 	return 0;
+ static vm_fault_t panthor_gem_fault(struct vm_fault *vmf)
+@@ -689,31 +740,12 @@ static vm_fault_t panthor_gem_fault(struct vm_fault *vmf)
+ 	return panthor_gem_any_fault(vmf, 0);
+ }
+ 
+-static void panthor_gem_vm_open(struct vm_area_struct *vma)
+-{
+-	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
+-
+-	drm_WARN_ON(bo->base.dev, drm_gem_is_imported(&bo->base));
+-
+-	dma_resv_lock(bo->base.resv, NULL);
+-
+-	/* We should have already pinned the pages when the buffer was first
+-	 * mmap'd, vm_open() just grabs an additional reference for the new
+-	 * mm the vma is getting copied into (ie. on fork()).
+-	 */
+-	drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages);
+-
+-	dma_resv_unlock(bo->base.resv);
+-
+-	drm_gem_vm_open(vma);
+-}
+-
+ static const struct vm_operations_struct panthor_gem_vm_ops = {
+ 	.fault = panthor_gem_fault,
+ #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+ 	.huge_fault = panthor_gem_any_fault,
+ #endif
+-	.open = panthor_gem_vm_open,
++	.open = drm_gem_vm_open,
+ 	.close = drm_gem_vm_close,
+ };
  
 -- 
 2.53.0
