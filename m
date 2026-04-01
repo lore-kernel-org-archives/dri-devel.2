@@ -4,62 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 140FCD35177
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:23:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44452D35171
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D9110EB51;
-	Wed,  1 Apr 2026 11:23:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92CA310E1A7;
+	Wed,  1 Apr 2026 11:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VYkqpHNP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VZHDWHEg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E08F910EB44;
- Wed,  1 Apr 2026 11:23:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775042632; x=1806578632;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=W+T33+IRm7vdKPwhoCLSI6f9zBvxdvjCKpEdk2NZB2A=;
- b=VYkqpHNPMQhsKf5oy9q7o1PGMRYw4vPmr1r9fR/FimGipxAfRg84LQD+
- 7SSp7V3zsRYN11y7ajwyOQC+LopPd0WjVlLIpYQynFbsKWN1BddbHNFRE
- 6VRdDv2a/MsX+7mFwoVDsaE6pvIkrnQZIVy5KDUDOE3MdunT1Bb9EzpwO
- BvDlI0AsWkijObThsGCFH1ChGQFOjJzJddVS3QsnDRJhHemmx/EgzAHM4
- Ff/n/iFjsp2NT9Zo43G5Z7SEuIptrPkCTMUKQ8ZFlZIuvhIroMWP32MJe
- 76BLQr3os3BkGw88/vGTeS55Xmv2c8gb11O1BsqToSkR6h56cT5KYChtT A==;
-X-CSE-ConnectionGUID: tzZTHggtTB+O6MyyNMgBaA==
-X-CSE-MsgGUID: R0IBGkmTT8eUQRn1N6EabQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="86380173"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="86380173"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 04:23:52 -0700
-X-CSE-ConnectionGUID: 7GQYh0CHQuandRJdHV3cPQ==
-X-CSE-MsgGUID: X8kU+saVRKKmFcyLIIbD0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="226512302"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.199])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 04:23:50 -0700
-Date: Wed, 1 Apr 2026 14:23:47 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jerome Tollet <jerome.tollet@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- ankit.k.nautiyal@intel.com
-Subject: Re: [RESEND] drm/i915/hdmi: Poll for 200 msec for
- TMDS_Scrambler_Status
-Message-ID: <ac0AQ_74Tukshr__@intel.com>
-References: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
- <20260326054112.51287-1-jtollet@cisco.com>
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com
+ [209.85.167.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE4F610E1A7
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 11:25:48 +0000 (UTC)
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5a2beddab48so1729874e87.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 04:25:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775042747; x=1775647547; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8xyKCWGX2L2w0vRQ4XMQooKM1IF5VXY9md7usUI5pIA=;
+ b=VZHDWHEgXszYdPqqA4vxoHNMLd+6IG+Y4RlnU/TN8XhnmuEgZW5+0dHmtH4hnUrRQG
+ 8FQl2BltLdMPxR/tsaOs7IuQGqv90mjU2V7/6gHcgWME+a41iuCpvWsTa3U0V1laEIN3
+ OzC27GRIzm4t4F2bT8tO/XCjcZIkVWfqspM+NXnyqSdW+8UvcZmx+gL6L+MJFXxAZ4Om
+ MC2kgbL6FRmrbmXRVedTXysY9PtUsRfAUpD58aVDiQpp5rCB6G6PqFbsHE2tJZd27nf9
+ jwUVNZgp2sV3ai/oDANktjUinOfTHMHpvQWsVewJXhWBZYZPQ+kQj+I/9Z7cZb210KcI
+ TQZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775042747; x=1775647547;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8xyKCWGX2L2w0vRQ4XMQooKM1IF5VXY9md7usUI5pIA=;
+ b=ZaJdW6ffr163LPGXciquPvzFfuZJBxm88UHNje/d3r3sRVXGXTiEwRbvNLCddcKum5
+ Rqiue4U5TB0smcw3kHYIe0JhEfeRDpeOAM9YQxrZaZiq166ttA2AaZ7bT7sh28Dgg0Q9
+ 9GtgZxKAiu34GiMGH0LMoXbxHDi9pKerx28oFavIlX8+nuXazwJNvF1VMTotfGDMCDLy
+ kSaG36NpryHoq9kGv4UcOSPtobEiwPVM/3hwazzUUlXYL8YKvdJuNlsVNfdwVBUdWV5h
+ 1t5MKWYNjnQ+hNM74z41YKLTNqI8VvKjSW5upMixDZVaBJvhR4JCeenj7rMHuvY6VNov
+ xgUQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVot1TUQepryRywqHhENW5UcI5czeFPZaieZqBroKXbM24uTj9Ur1EG8l9s9hA0/ObKuanGnYomLY8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzu2+GmfbWkBKhJw0OX+YrnTVIuxw3GfS6k41ZjJ2Nd7lHJG8SD
+ CgNBjuWXJPy9zSpPeIS+lJVColkJJbuzOsq1fzhIEiGSmkAEPIFkvP/I
+X-Gm-Gg: ATEYQzx/IKLvzjQdDKZHTixe68YqxvJP1T3N2qyv6y+mTDuFhY5Lq71cdcCgdpZp/Fo
+ 4ZnDkRG8qW5WB+xZEtWp16M6zQpJX/mq8vGllJlwjMrE0emxhDn6llsA/dHTu+4JVw+uOo8gPzA
+ Wk+hQmKEXHBkMENZ5OXCHhj10xJ1xLt74YCwBZ2TMwMwlK/L8Er+96zIxvk5gx2aNZFCGgk6owr
+ 2xlqHsTVXVKycOaGBX+DxwSY4Mdd5qlKQ9Yo92ikD2/+wWw5SZ4OTtSaQRI8elEmS+3eTAEAVDK
+ Cd4eoBG71pVjatMi3tym8i0aJiOmf2khYkSZ5Stt3VOwnrPZIx0Zr5CwobBl3pdZqRy1wRB4K4W
+ HXCUVdrtEbUSM5lHjQHXIADk13atGanqAJMfaMk+jDMfA+9B43K64wfa9RW0ROA3ZScntlu2wo7
+ 2gKMITJSRzM1FQuqTfQPr1eEjq7qxviW5+5w==
+X-Received: by 2002:a05:6512:3049:b0:5a2:b884:153f with SMTP id
+ 2adb3069b0e04-5a2c1ee87f3mr1190860e87.1.1775042746683; 
+ Wed, 01 Apr 2026 04:25:46 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2b13b13bbsm3256191e87.0.2026.04.01.04.25.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Apr 2026 04:25:45 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v3] drm/amdgpu: use IRQ-safe xarray API for PASID management
+Date: Wed,  1 Apr 2026 16:25:40 +0500
+Message-ID: <20260401112540.451773-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260326054112.51287-1-jtollet@cisco.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,34 +89,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Mar 26, 2026 at 06:41:12AM +0100, Jerome Tollet wrote:
-> From: Jerome Tollet <jerome.tollet@gmail.com>
-> 
-> Hi Ankit, Ville,
-> 
-> Following up on this patch.
-> 
-> As previously reported, the SCDC polling approach fixes the 4K@60Hz HDMI
-> issue on my Alder Lake-N (N100) + Cisco Desk Pro setup, and I have not
-> seen regressions in testing.
-> 
-> Ville, do you see any remaining concern with this approach, or is there
-> anything else you would like me to test to help move this forward?
+xa_alloc_cyclic() and xa_erase() use plain xa_lock()/xa_unlock()
+regardless of XA_FLAGS_LOCK_IRQ â€” the flag only affects lockdep
+annotations, not runtime locking.
 
-My main concern is having the synchronous polling appear to fix
-something now, and if we later make it asynchronous the original
-problem may re-appear.
+Switch amdgpu_pasid_alloc() to xa_alloc_cyclic_irq() which uses
+xa_lock_irq/xa_unlock_irq internally.
 
-That said, after perusing the spec a bit, it looks to me that sinks
-should be able sync up after at most two video fields. I suppose
-having effectively two extra vblank waits in a full modeset sequence
-isn't the end of world. The extra complexity of asynchronous polling
-might not even be worth the hassle.
+For amdgpu_pasid_free(), use explicit xa_lock_irqsave/__xa_erase/
+xa_unlock_irqrestore since this function can be called from hardirq
+context via amdgpu_pasid_free_cb, where xa_erase_irq()'s
+xa_lock_irq/xa_unlock_irq would prematurely re-enable interrupts.
 
-But the commit message should still highlight that (AFAICS) synchronous
-polling is not required by the spec, and thus the fact that this fixes
-some monitors is sort of an accidental byproduct.
+Fixes: a3c0ee978e16 ("drm/amdgpu: replace PASID IDR with XArray")
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
 
+v3: Shortened comment per Christian KÃ¶nig.
+v2: Use xa_lock_irqsave/__xa_erase/xa_unlock_irqrestore for
+    amdgpu_pasid_free() instead of xa_erase_irq(). (Christian KÃ¶nig)
+    https://lore.kernel.org/all/20260401104859.36990-1-mikhail.v.gavrilov@gmail.com/
+v1: https://lore.kernel.org/all/20260401073632.101796-1-mikhail.v.gavrilov@gmail.com/
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index a6ac3b4ce0df..a1f72f5d31d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -68,7 +68,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
+ 	if (bits == 0)
+ 		return -EINVAL;
+ 
+-	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
++	r = xa_alloc_cyclic_irq(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
+ 			    XA_LIMIT(1, (1U << bits) - 1),
+ 			    &amdgpu_pasid_xa_next, GFP_KERNEL);
+ 	if (r < 0)
+@@ -84,8 +84,14 @@ int amdgpu_pasid_alloc(unsigned int bits)
+  */
+ void amdgpu_pasid_free(u32 pasid)
+ {
++	unsigned long flags;
++
+ 	trace_amdgpu_pasid_freed(pasid);
+-	xa_erase(&amdgpu_pasid_xa, pasid);
++
++	/* Called from IRQ via amdgpu_pasid_free_cb, needs irqsave */
++	xa_lock_irqsave(&amdgpu_pasid_xa, flags);
++	__xa_erase(&amdgpu_pasid_xa, pasid);
++	xa_unlock_irqrestore(&amdgpu_pasid_xa, flags);
+ }
+ 
+ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
 -- 
-Ville Syrjälä
-Intel
+2.53.0
+
