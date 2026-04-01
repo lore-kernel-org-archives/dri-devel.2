@@ -4,140 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C026DD3514A
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:29:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D8AD35153
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:35:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC7D10E06E;
-	Wed,  1 Apr 2026 07:29:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D78210ECB2;
+	Wed,  1 Apr 2026 07:35:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NPcE9R+s";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O+EQEj3w";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h/efW/6A";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C836B10E2DA
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:29:37 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6312U9Km719069
- for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 07:29:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qbS9+v2BBjG7zRi/OvSLkU/Ie2NFTC6i8v/tksgC6LY=; b=NPcE9R+sxT492Isa
- i5OQBCTbMTtO9lcB1zpvrVxBSX0P+f8FmzR0VjMiYhZTpwmS2pkjsq9Ue9systaC
- q6v2BAWitGZDIYjEbvx+hHVBK5jNCNm4z7A3PkN56LUmGbiODLSDXNdc49rzMf2n
- XJnaai8imJcrkEQg6Qst0M5I92ot7pLI+PoC4+cL2hY3kIN3cT0Iwuq5AEK2HEnt
- qZ+j68auShAi7HHvBihu8ZZzzAmviRU4tduhKUKilO3sj1wvXBq4hfS5B4o1PK/n
- oxOs1lIeetNdTo97b2qZTsETtWB6FKsEMEYL9WDMfWyR9+O0Uv3rIdve2BWdUPXK
- sKfgDA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8kcsttgw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 07:29:36 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50b52a2d70cso197053421cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:29:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775028576; x=1775633376;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qbS9+v2BBjG7zRi/OvSLkU/Ie2NFTC6i8v/tksgC6LY=;
- b=O+EQEj3wG7bNQjCcvpHBteFaWTMd+tNer4IhOzyf5s7X1M3MIjFvS1JRaZ15lj7IkA
- sI8alqY+vWK2MmiEc+VFUJxmgE4hbJfSxeeVw6pzOHHpgmiuphPlLGvRwRb64HqUT3L2
- s0NHaucaT8e7SCfe3t2D7b82UTygsxoopztMeWKUm9awNkQV/xyHsLFXpVNYmdveltHc
- Dx2IbmmTrW1xOXYtkjFG91HvstllHRNq1yE32fUdR+9dlgkgh8C3GK6fIDOkGOwzfF4q
- Kx0j+Z0A8OSmrOqQ2+pBA/mVn4UpbaCTmAcahPoxdUHfSIhjEDpoCGyv0fqPh4+pEwx0
- 4upw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775028576; x=1775633376;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qbS9+v2BBjG7zRi/OvSLkU/Ie2NFTC6i8v/tksgC6LY=;
- b=L13u09JfGjBKlXhAxt6Tc/aUsJp+oyloF5xscuU4WVRW3851a/lJTUgHMlMroJ+xku
- O5i9WEHLA85waoZVd4n4mMkj1yKvJy0qBPakH+AIbyoOeh+yTVLhNVgwxGbzKBCjL6PB
- fjwXUHw/l2XykPEIaLnX7i7LZKXpA+FsG87FEDtcintxvx3OykJ4WXelvY9FeVXAYjtx
- AcWC2hzMenuDma3i5KXspL9t8RwQK4QmnTa2NcCyj5RIT9y7kPupQ6CpYLZV9eFaSsI8
- fZ1i0VpuzzTA+MJ8jCfab7pBd68KmzAiOWWH7Ash0JKo9nf6e8GPSMwn1as7vrPyeqkG
- BtUA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUT3SNFwKYaAROZgFSF8ejy7XazmhTkYBtDMo/C92vTShoE4L+50U3weCJK8FdIngtdeRaN36n5/fo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwvbedGFGXrFmZWKeoO4HEWQU8rxZLOgv6rbA6aptfzByEL9s70
- hgp6kUztDJy31uuXSY0yeHsFFS0bA8AIhvMOMlqusK+VBrnkpmiyjPzoZoAKazbLa5K1rTeDsSk
- zpupaen64jOZTEMbW977zJGESZKyWkEnfcUYYAGpizPRcQYDqoPz1V0LqOy5VcxLzvCBCd30=
-X-Gm-Gg: ATEYQzxgSjHsFTa5EDxpWzU+o+tc0dxVaHE6BExkeKimVyhUl+JZPZv9i7UX7k63kD0
- Y7EHDVXGqTd6MT8hdxJgDkwiegK8HuTIXUp+KUbbgySjEv3l9eM3r8Gjl9FMk1xZ6YcE/iMTq5Q
- ar6brujDsuXO2R5mzOnDkEmW5vYN3+44WXE04OhXubGVXdBteVQOpRuUGubhNtbuJzDhy8uiafU
- DTO98KjNJhIT9UOw3oEg6L5C24ln5LiukgdaQQ95IGwSdCRZeyvPDUql4MsZ1B6wIZsnldrumwN
- A3b1AHfFk9QEso6WIfFUMJEm2+mBhWwGI6tYrQ3dW+nKPBN9xltJt8y0N8dkTnWu/w+fshikjp0
- 5BfKhyqhUQUItLW0j7sI67yhk/Axw/KwNNILq50taA5mnpVF9p5Ba4KuLygXhRIq7GEJZNPBifh
- /DU6Uip4ts94189gyT48Ty1Xsm
-X-Received: by 2002:a05:622a:259a:b0:509:379b:d4e with SMTP id
- d75a77b69052e-50d3bcd2630mr38914991cf.32.1775028576212; 
- Wed, 01 Apr 2026 00:29:36 -0700 (PDT)
-X-Received: by 2002:a05:622a:259a:b0:509:379b:d4e with SMTP id
- d75a77b69052e-50d3bcd2630mr38914671cf.32.1775028575723; 
- Wed, 01 Apr 2026 00:29:35 -0700 (PDT)
-Received: from ?IPV6:2001:14ba:a073:af00::4c9?
- (2001-14ba-a073-af00--4c9.rev.dnainternet.fi. [2001:14ba:a073:af00::4c9])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2c3d32cd0sm388804e87.8.2026.04.01.00.29.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 00:29:34 -0700 (PDT)
-Message-ID: <0009a801-8f58-487c-b5c6-5b264393ef25@oss.qualcomm.com>
-Date: Wed, 1 Apr 2026 10:29:33 +0300
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6E610EC14;
+ Wed,  1 Apr 2026 07:35:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775028919; x=1806564919;
+ h=message-id:subject:from:to:date:in-reply-to:references:
+ content-transfer-encoding:mime-version;
+ bh=UShkxGbZBvCAklGuAw6grxLarMRD/zVv8+t4PIEnxp0=;
+ b=h/efW/6AnBmhOqeZq+p8N+izbhdRaBJ9u6mt9FZxnLebTR3hE5z8aLJa
+ b1NZraADAPs1h0Ye+q2kAHDCvOY2Yl8jhOB1szdTYU54uWT2m7iuFyD+4
+ G5JqeAEs4ZEhi48SLUeMTQyEdo17ip8oeW+sjcUtAWLAesIW8ytU7OwtF
+ 3dPOmelqRzqKKaao2H9CqUaoJoqp5PM4ApdHDJHOfh/Cx06OpGtSWiXbt
+ bahsmxDYRmsAK5+0OKrRUnjznL6TM5ZgSDymNPNrA0vaiYdtMtKcVvO9i
+ ccqrHVfF9beb1s+xT3UdLk58MaqOWumfT4SHYgMpyRxYjVCv3RRnw/cSx A==;
+X-CSE-ConnectionGUID: 7HGjprlVSt62AzT8tvKyCw==
+X-CSE-MsgGUID: ji/AmQvNRdi4Q1dW7z+usA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="63609985"
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="63609985"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 00:35:18 -0700
+X-CSE-ConnectionGUID: eP86OlHwQ6iJeRVCW6/85Q==
+X-CSE-MsgGUID: 3WO6hVcfT86c0k0wFVLwvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="226472662"
+Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.244.137])
+ ([10.245.244.137])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2026 00:35:14 -0700
+Message-ID: <b8c138314252a31ab6f88ebc824c7c9cf22b3d52.camel@linux.intel.com>
+Subject: Re: [RFC PATCH] Limit reclaim to avoid TTM desktop stutter under
+ mem pressure
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Daniel Colascione <dancol@dancol.org>, dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, Christian Koenig
+ <christian.koenig@amd.com>,  Huang Rui <ray.huang@amd.com>, Matthew Auld
+ <matthew.auld@intel.com>, Matthew Brost	 <matthew.brost@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+Date: Wed, 01 Apr 2026 09:35:12 +0200
+In-Reply-To: <87341fsa85.fsf@dancol.org>
+References: <87341fsa85.fsf@dancol.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 28/38] drm/msm/dp: add dp_mst_drm to manage DP MST
- bridge operations
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-28-01faacfcdedd@oss.qualcomm.com>
- <h22zh2zcgdcv2k3mxc5rslpfd3xnerjfailehtaw3wbtpnisy3@s56vudwvoh4q>
- <cdb5b1e6-baaf-41e8-9133-6889b5e686f6@oss.qualcomm.com>
-Content-Language: en-US
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <cdb5b1e6-baaf-41e8-9133-6889b5e686f6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA2NCBTYWx0ZWRfX/QSCIET0Gxwm
- 9XqaCXdCUmPwseD6eBUbL5wxRd0kRqw/AFt8hww42NbDnU+mOLr7qpViYkLsW3LSe79e/fivrFZ
- 5BYXTnisiKyVj/eew9M7yL6U0CvaMOEbz9OK50tRpytKqRRareoPdEFJF7xORUi9puQ4OdcULQw
- y4SIVlS34f5EYGh9wXhsqoBMdOLpQnUqIFotHVj41IzZfiHZJsET+adQc/EbYSbfupj2gUHugf8
- qX8rcYHu5z8DxSTpn1C7huTH2MNfF6mBL+fDB50QjzOPzpIOfqG1QrT8ZJT8A6yI4B0YPkP9dC9
- W5K+iyYwB07Txn4728rxEl9CimjdJb9d39kODM7thkMgOT2spWrFHMdWdfWeDFjSPllKSh2S3ws
- XNl3sH0qCqonCIMsKkfF9lLd5PRHDijQqLTiQ/QcVHdYjrIU/nybus6L0TvyUJVR9kNZwFSQUv6
- sa0vlcGvhSzOO7xhhng==
-X-Authority-Analysis: v=2.4 cv=KNlXzVFo c=1 sm=1 tr=0 ts=69ccc960 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=nlcTEVPeAIpjwhky54wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: sJKEGwYFdNOg9gwidSL4HJAyqEILED7t
-X-Proofpoint-GUID: sJKEGwYFdNOg9gwidSL4HJAyqEILED7t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0 malwarescore=0
- suspectscore=0 clxscore=1015 phishscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010064
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,103 +77,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01/04/2026 10:07, Yongxing Mou wrote:
-> 
-> 
-> On 8/27/2025 1:36 AM, Dmitry Baryshkov wrote:
->> On Mon, Aug 25, 2025 at 10:16:14PM +0800, Yongxing Mou wrote:
->>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>
->>> Add a new file dp_mst_drm to manage the DP MST bridge operations
->>> similar to the dp_drm file which manages the SST bridge operations.
->>> Each MST encoder creates one bridge and each bridge is bound to its
->>> own dp_panel abstraction to manage the operations of its pipeline.
->>>
->>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>> ---
->>>   drivers/gpu/drm/msm/Makefile        |   3 +-
->>>   drivers/gpu/drm/msm/dp/dp_display.h |   3 +
->>>   drivers/gpu/drm/msm/dp/dp_mst_drm.c | 556 +++++++++++++++++++++++++ 
->>> +++++++++++
->>>   drivers/gpu/drm/msm/dp/dp_mst_drm.h |  86 ++++++
->>>   4 files changed, 647 insertions(+), 1 deletion(-)
->>>
+On Tue, 2026-03-31 at 22:08 -0400, Daniel Colascione wrote:
+> TTM seems to be too eager to kick off reclaim while kwin is drawing
+>=20
+> I've noticed that in 7.0-rc6, and since at least 6.17, kwin_wayland
+> stalls in DRM ioctls to xe when the system is under memory pressure,
+> causing missed frames, cursor-movement stutter, and general
+> sluggishness. The root cause seems to be synchronous and asynchronous
+> reclaim in ttm_pool_alloc_page as TTM tries, and fails, to allocate
+> progressively lower-order pages in response to pool-cache misses when
+> allocating graphics buffers.
+>=20
+> Memory is fragmented enough that the compaction fails (as I can see
+> in
+> compact_fail and compact_stall in /proc/vmstat; extfrag says the
+> normal
+> pool is unusable for large allocations too). Additionally, compaction
+> seems to be emptying the ttm pool, since page_pool in TTM debugfs
+> reports all the buckets are empty while I'm seeing the
+> kwin_wayland sluggishness.
+>=20
+> In profiles, I see time dominated by copy_pages and clear_pages in
+> the
+> TTM paging code. kswapd runs constantly despite the system as a whole
+> having plenty of free memory.
+>=20
+> I can reproduce the problem on my 32GB-RAM X1C Gen 13 by booting with
+> kernelcore=3D8G (not needed, but makes the repro happen sooner),
+> running a
+> find / >/dev/null (to fragment memory), and doing general web
+> browsing. The stalls seem self-perpetuating once it gets started; it
+> persists even after killing the find. I've noticed this stall in
+> ordinary use too, even without the kernelcore=3D zone tweak, but
+> without
+> kernelcore, it usually takes a while (hours?) after boot for memory
+> to
+> become fragmented enough that higher-order allocations fail.
+>=20
+> The patch below fixes the issue for me. TBC, I'm not sure it's the
+> _right_ fix, but it works for me. I'm guessing that even if the
+> approach
+> is right, a new module parameter isn't warranted.
+>=20
+> With the patch below, when I set my new max_reclaim_order ttm module
+> parameter to zero, the kwin_wayland stalls under memory pressure
+> stop. (TBC, this setting inhibits sync or async reclaim except for
+> order-zero pages.)=C2=A0 TTM allocation occurs in latency-critical paths
+> (e.g. Wayland frame commit): do you think we _should_ reclaim here?
 
->>> +
->>> +struct msm_dp_mst_bridge {
->>> +    struct drm_bridge base;
->>> +    struct drm_private_obj obj;
->>> +    u32 id;
->>> +
->>> +    bool in_use;
->>
->> What does it mean? In use currently for one of outputs?
->>
->>> +
->>> +    struct msm_dp *display;
->>> +    struct drm_encoder *encoder;
->>> +
->>> +    struct drm_connector *connector;
->>
->> Why do you have connector both as a part of the bridge and bridge state?
->>
->> Please describe design decisions in the commit mesage or as comments.
->>
-> Emm. i go through the msm_dp_mst_bridge_state and msm_dp_mst_bridge.. 
-> Can we just drop msm_dp_mst_bridge_state? just track connector and 
-> anything else on bridge.
-
-If something is being handled by atomic helpers or being computed by 
-atomic_check() for later use, it should be a state. If not, it can be a 
-part of the single bridge struct. The most obvious mistake is to set 
-globals or object data in atomic_check().
-
->>> +    struct msm_dp_panel *msm_dp_panel;
->>> +};
->>> +
->>> +struct msm_dp_mst_bridge_state {
->>> +    struct drm_private_state base;
->>> +    struct drm_connector *connector;
->>> +    struct msm_dp_panel *msm_dp_panel;
->>> +
->>> +    int vcpi;
->>> +    int pbn;
->>> +    int num_slots;
->>> +    int start_slot;
->>
->> I'd definitely prefer to have payload pointer here, if that's also a
->> part of the state.
->>
->>> +};
->>> +
->>> +struct msm_dp_mst {
->>> +    struct drm_dp_mst_topology_mgr mst_mgr;
->>> +    struct msm_dp_mst_bridge *mst_bridge[DP_STREAM_MAX];
->>> +    struct msm_dp *msm_dp;
->>> +    u32 max_streams;
->>> +    struct mutex mst_lock;
->>> +};
->>> +
->>> +struct msm_dp_mst_connector {
->>> +    struct drm_connector connector;
->>> +    struct drm_dp_mst_port *mst_port;
->>> +    struct msm_dp *msm_dp;
->>> +    struct msm_dp_panel *dp_panel;
->>> +};
->>> +
->>> +int msm_dp_mst_drm_bridge_init(struct msm_dp *dp, struct drm_encoder 
->>> *encoder);
->>> +
->>> +#endif /* _DP_MST_DRM_H_ */
->>>
->>> -- 
->>> 2.34.1
->>>
->>
-> 
+Could you elaborate on what exactly fixes this. You say that if you set
+max_reclaim_order to 0 kwin_wayland stalls, but OTOH the default is 0
+and you also say it fixes the issue?
 
 
--- 
-With best wishes
-Dmitry
+>=20
+> BTW, I also tried having xe pass a beneficial order of 9, but it
+> didn't
+> help: we end up doing a lot of compaction work below this order
+> anyway.
+>=20
+> Signed-off-by: Daniel Colascione <dancol@dancol.org>
+
+Interesting. The xe bo shrinker is actually splitting pages to avoid
+dipping too far into the kernel reserves when swapping stuff out,
+perhaps contributing to the fragmentation. Could you check what happens
+if you turn that shrinker off by disabling swap? Does that improve on
+the situation?
+
+sudo /sbin/swapoff -a
+
+Another thing that appears bad is that if compaction fails, and starts
+shrinking the lower order pools, we might end up in a pathological
+situation where lower-order WC allocation split higher order pages and
+those are immediately reclaimed.
+
+It sounds like we also need to investigate why buffer object
+allocations are made in latency-critical paths.
+
+Thanks,
+Thomas
+
+
+
+>=20
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
+> b/drivers/gpu/drm/ttm/ttm_pool.c
+> index c0d95559197c..fd255914c0d3 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -115,9 +115,13 @@ struct ttm_pool_tt_restore {
+> =C2=A0};
+> =C2=A0
+> =C2=A0static unsigned long page_pool_size;
+> +static unsigned int max_reclaim_order;
+> =C2=A0
+> =C2=A0MODULE_PARM_DESC(page_pool_size, "Number of pages in the WC/UC/DMA
+> pool");
+> =C2=A0module_param(page_pool_size, ulong, 0644);
+> +MODULE_PARM_DESC(max_reclaim_order,
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "Maximum order that keeps upstream reclaim
+> behavior");
+> +module_param(max_reclaim_order, uint, 0644);
+> =C2=A0
+> =C2=A0static atomic_long_t allocated_pages;
+> =C2=A0
+> @@ -146,16 +150,14 @@ static struct page *ttm_pool_alloc_page(struct
+> ttm_pool *pool, gfp_t gfp_flags,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Mapping pages directly=
+ into an userspace process and
+> calling
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * put_page() on a TTM al=
+located page is illegal.
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (order)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (order) {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 gfp_flags |=3D __GFP_NOMEMALLOC | __GFP_NORETRY |
+> __GFP_NOWARN |
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __GFP_TH=
+ISNODE;
+> -
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Do not add latency to the a=
+llocation path for allocations
+> orders
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * device tolds us do not brin=
+g them additional performance
+> gains.
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (beneficial_order && order > ben=
+eficial_order)
+> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 gfp_flags &=3D ~__GFP_DIRECT_RECLAIM;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 if (beneficial_order && order > beneficial_order)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gfp_flags &=3D=
+ ~__GFP_DIRECT_RECLAIM;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 if (order > max_reclaim_order)
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gfp_flags &=3D=
+ ~__GFP_RECLAIM;
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!ttm_pool_uses_dma_alloc(p=
+ool)) {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 p =3D alloc_pages_node(pool->nid, gfp_flags, order);
