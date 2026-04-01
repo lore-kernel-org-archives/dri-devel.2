@@ -4,124 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DB09D3516C
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 10:14:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84E71D35170
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 10:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BBA810ED00;
-	Wed,  1 Apr 2026 10:14:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D36DD10ED2E;
+	Wed,  1 Apr 2026 10:16:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EcQjUpHd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DYSx0CBs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h/7+wfUe";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D677710ED00
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 10:14:04 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6314Ikkp3363195
- for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 10:14:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=EnaTxDzY/SHS22gfoLDFYPunIIYegtMK3o1
- Q5/kWemM=; b=EcQjUpHdFbEXKNQ/vGfUKZ1KOJKi+aE+2oC3k1CVSMeewo+2ORy
- 20/hBfCvCAR0AsJf1BRHeHHeyU/6Q9FkUxS48BKl3Gs4WWFNeQDrUxbWyLeOjTjm
- w3GNLs5dSUtyNn66o4BOGO32CjS47lJQMZhphely4uU79bVwKxqy773iaqCSNrbv
- oIw1OVk5qLJlYrj29TXp9TvseLr5eAZvZYHpadqwpDeWOhM90dzssrl/BOxgrMbw
- 8RLFkyR+p/KOuPkU29cD+zUzT891yXFOMeHS1iY56enkVPWOHJ8MpnHrbUgeNPaJ
- lZ7XG9Cgj7puJExfi8mPEhT8nibUZDvbeIQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8nddjubj-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 10:14:03 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2a90510a6d1so6990075ad.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 03:14:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775038443; x=1775643243;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=EnaTxDzY/SHS22gfoLDFYPunIIYegtMK3o1Q5/kWemM=;
- b=DYSx0CBsdn3ufRfHHJ6BMhoNm8E2ZcWDWAngQWHkQOGUDS9aW/4p08HP39mo6FJeYM
- dsVGIOBBiHES1pVuSUf4nq7608kFbLHeVHX5Apsu6dKTE/NOJ85RiXojx550/HVR7y5i
- gMsPEYlt85jQnzcbDdyoM8UHnMUNoXmaMKjzzmkLckEnVdtsWXYhDQJwc1f1LVVtpTLi
- YbZ/xA38Xv0jqxZ8pW0A5mwsAR/aQPO7D0R0J7gltcZaDlcxM+NkOYIWYjVzJUNo0tXk
- ACgQVkuhIziGIKGx/g90mpGBXdwEJMEaGtb8m85XUSL/58VPVNMEjE9KYu9d7TgUBw8T
- u6LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775038443; x=1775643243;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EnaTxDzY/SHS22gfoLDFYPunIIYegtMK3o1Q5/kWemM=;
- b=QFhj5B3Izn0at51OD0zZ/hHsNv97VBhNgzfMrw+oeuW+1NkqCwZl5xTf952QZwPEKK
- QVvOpIVORuKucT16q3XNG8hD/H9VJasJXZni8dceHyVwTBFAbNF5aLgh/mDuz/CE1ZWf
- /hoGbdOrpe810ILwo+PKyFduO2iydN1vm6vj+RJY5Voh6zdjjLmwX1OueHbUu72dTpPI
- YGGCELEgtMVjyGSCRhkLwuKI9vlsUegmdEnWo7fHGAkON3v7L7Dv4DPPfwKb+VXavYIw
- ZmlBE9aNH4IJePk6ig6sBbBKurNbYP8OkGOASj+043lPTvipDCSlb28iZZB5Zld8xXAp
- pSLA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWZGqI3IUO1cJqCzGJYcHxr/akPCT9PXBmtR+9DqYtup74AygXVkudp5QErRU0ZYnAwI24KZehMbnE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhuAwaXENaKAXNQVtzRoxlku+jr4THgl9v0GU0cihdHlpeBC8a
- cHzcMZu/SshKQYleLBYd6OXCeX5osnOYjX4QvyWFF2oAjsTqtpqojfGryUVtc/1ldSBdZw4qEXI
- NdAqRkJ7gy0Hdsz/kqPa9NR3z33kqTK0pOGdl/Mm1krmlGaqGOt0rUyCICJGmZsuDDR5StPl8HM
- FP2YRigQ==
-X-Gm-Gg: ATEYQzwaYbrCHhKx/YZ1DiZTr4TcEDvvjs/e5yXiLIhx5stO/3PsTEJmG7gTJnIFxSc
- tOB5mJzljrmYuA6r4g707NIK3NsfuHoPghO6Bvd5D15QWcaxoL/6h9FbUq/3geVFrS4t1LDUyWz
- 4yj1opDTgmNbFPcwhismjyHMbWcIJ9Fn6i0VASpoPLP91+F1bcPkG+l63A8ALhb8Ay894sV+/kH
- 8d0ZhYEyJ0/DBOdTkgtHjOg++Zx6yHT35SJWTCa04LJki/igStZCQ2JTTorCClGxTzvs6DCDAn8
- vyzqSyv9e0ddZYXBoRTy949VcsHeunHxz7LqWrwQR2qO/etBjEydlYSpzyjDIXiJ+lHATeZ4m0r
- eV2Ozmo059MNJwTuyU/3yz+rCkTtNo2THvXK/DP1ZgKWt1C0P/LUtlwrU
-X-Received: by 2002:a17:903:1b6b:b0:2ae:5346:d4e6 with SMTP id
- d9443c01a7336-2b25efabff3mr60943125ad.28.1775038442601; 
- Wed, 01 Apr 2026 03:14:02 -0700 (PDT)
-X-Received: by 2002:a17:903:1b6b:b0:2ae:5346:d4e6 with SMTP id
- d9443c01a7336-2b25efabff3mr60942995ad.28.1775038442085; 
- Wed, 01 Apr 2026 03:14:02 -0700 (PDT)
-Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b2427c5f5bsm148503885ad.82.2026.04.01.03.13.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2026 03:14:01 -0700 (PDT)
-From: Aniket Randive <aniket.randive@oss.qualcomm.com>
-To: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
- andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- naresh.maramaina@oss.qualcomm.com, aniket.randive@oss.qualcomm.com
-Subject: [PATCH V2] i2c: qcom-geni: Avoid extra TX DMA TRE for single read
- message in GPI mode
-Date: Wed,  1 Apr 2026 15:43:52 +0530
-Message-Id: <20260401101352.4065798-1-aniket.randive@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011024.outbound.protection.outlook.com [40.107.208.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02EC710E404;
+ Wed,  1 Apr 2026 10:16:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EtWOwvW5bb+i8fHpDtc6s19v8/G7DHs6zxoE9lBKZniWDZPxhgLOM25guAp8lIMiuTJ6oGW2Se12ZV2ulD6qpzJy3nJaIrZAZ/TsNB7/WmwNjYTtjU97Mb8QyuC8/G8+jLLiHBbli5/62XkC8cilM8NSU6qJqSHpkfIvA10GwSm2r/IBlAI1SJWheoLbfadtXOvDDsDwMe7uXnHZl5FE84xmxlVPqh0Q5Aurl339ctznCVI7QffbostNwF6fpKUrOTiHBkaF360Unl5QERDnPDdanfhdw4A+aShQwTGz0q956qvAC1kRrVtAZLuS9nwIbndjqIXWzOsFFRradIavRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TqwEbyFPka5c/Sb3msPGNg8KiIv4M5pb2vgm7VMzIJc=;
+ b=dvLTvgzyipE7fEq/vRy5aE+43n+n05DXaum6XZp36zjjQPbZILVetIDd0TTXzg4vPdV7es89wJZl2DD/Z2kGyMzoNNnCTBMmCot5mUB4JdejWU459gQLiHVU2lrGxI5LzkcmX2cE8mKPuFzRHmW3utk3XqnlE9COqlkk8BpSzEYY/03IYzpyemB5+cgGz+LfMdzmuTv/Lby1ZjvPA1ST9wCs3k5apRx2JMgez+hDq1aRZRe2bTir6Y21qOXRvwaJbAl5UoFO0yQjRLp4UP92Oz+mkug/gN6OYsfKn9qeOgl/+nVYsGj5zxeVqG9eSIfnCLxSxgbMkqUhIMswXm2cSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TqwEbyFPka5c/Sb3msPGNg8KiIv4M5pb2vgm7VMzIJc=;
+ b=h/7+wfUeIOgff+1TUbPreGqeiUCmIcwAbZmAug5kkrY864cLec/X06byIbiR8Yr/KZX6QHz8VL7Mpvl9EgaV+5hHnBKcAcgbJO9ix49QmgQHoXTkCBrtlHiS4PT351M0MeGFpPDPYgIAIyhbEbkl4jDA9vvZ6hZr01vnyRx6s90=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by SA3PR12MB9225.namprd12.prod.outlook.com (2603:10b6:806:39e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
+ 2026 10:16:26 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
+ 10:16:26 +0000
+Message-ID: <c326316a-d5c4-48c4-aed7-c019b5181d41@amd.com>
+Date: Wed, 1 Apr 2026 12:16:21 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] Limit reclaim to avoid TTM desktop stutter under mem
+ pressure
+To: Daniel Colascione <dancol@dancol.org>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ linux-kernel@vger.kernel.org
+References: <87341fsa85.fsf@dancol.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <87341fsa85.fsf@dancol.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0153.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ba::14) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=ZfUQ98VA c=1 sm=1 tr=0 ts=69ccefeb cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=qPv6kJ6rrmvbaMxWJaQA:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: C2c0Ay7EgmBNFxNxvNbWVo0dguWlGmyz
-X-Proofpoint-ORIG-GUID: C2c0Ay7EgmBNFxNxvNbWVo0dguWlGmyz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA5MiBTYWx0ZWRfX8QiUSk7reNlv
- M2FriOFeTzSAWQIV2Z0YhlyEk+6n9rISfcp1VAW0xeVp23oJEHlwkaiocOmJpzOMu1dUVJMGjaF
- Cp2DvoqOKjHhA35/TSmVUoB2Igbl+VI+EPqwss/3JqVtc8O64nyhGQ+1I1AQDty4ffCwfqxKg4l
- /w2kxkOSW8ne7A+4EynQUr8pa/iufEkkCRyArP8GLay9OeHDELw4Hgg1a+uHfUQaWAHGc3WNKwC
- xsNaleGfKeVIeN+xW7CWZzsvpK9xBD1OMwVa5hC3iDZnzWuNd69UhtbeXMNEbll4uTFHDI17pSi
- A+xsoTElq2FRa5jrRyInuuSaFo23F1ae3hYgRWudWselyhtuQvEP/Uxf9+OsqcJGm68Qzc4shW6
- lzQqELJdd3RO0S1j3bxpwGqueRjk5KQyh8Be38HdLprRkoRIII58M1zc8Qqz4IgINPN47lD8bw2
- qQ75vAIG9EquQnewinQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-01_03,2026-04-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 spamscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010092
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|SA3PR12MB9225:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8f1ab43-4f8f-448c-7148-08de8fd7bbbe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|1800799024|376014|921020|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 09Ppe/KMNjhxrmGoly0gfYqkmbbBrsKzZ2O1dowfWahzc17+p1M1sNbTxVjPjGgdAZiuTwxStp6AiwdKsluhLD3dpgA8tPYvsqIbBmu0I8Wcqi1z/uqdj7wp5DjO1ZxEhYGrJNv17PxAQopRSQRf7WWIZzI9yCcQt46+HNb4GVlDxjwQCCiDxBjKKJTAV7hrI0di5M/xowBkGFAZ/4U8vq9DUwwfPmCg+17wgfA4pCor/6kUcusytaILWZNQ+8WD7JCtVIndjD1ts3wkf1T6PGn9XY2bbDGk/bJK8HEvEVHHhkYCpYQ8KRoVBPj9PHwCsy/umUlUrhNn1O8HKCgl2mK2crsTudsiRrPwM3QyR/sqM4Jkw8ntgJcXBlUdnnjusJP6//yA4I/XR9x3nUTA1GFN1L6bhfpl28853id8eOA/pGIb7wDOqx++o0rLvSiErghrLeWLxKfVQiJgvO9iSO2ckdcijfnNqlOQA4nIW/C1yM6hLvyOlNUnLVWXbpBmDtYmHBpXNmNCnYYhqFCoqPQq5yv7J59AAec2QDAQVIwRO8rtTj6pvUWyk8HEvQ0+sS8I5P5KfpFu3bzYfChfdw2C/tAsuE4mWy3fXr1OGpMvL0R29suCEIy/7p3E2gF/SEUZCEkp1RdKME7MhRz1Bp/vpEolQ1D3zsBViJG5DN0xKHpQs5WOnwv99rLEWRE8pzOVpo0Q9rZJONJOrW7mDheGaVS5bVljlP4/mq43uk6RPMTueanqKbGuwzS6HRS9boXdqs/bK9RCKpHrMUj2LA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(1800799024)(376014)(921020)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXU1MlIrZkhnZnFuWWtRT3Zmd0dBMldJRVZLdTFJcG96amdBeGZDUjZvempa?=
+ =?utf-8?B?ZGhTUHl6WFZNd1RQdTNWYjZmYmZhZHpJRTB2MXdhN3FaMUYzbXdJRkg2K3kr?=
+ =?utf-8?B?YVoxYmEvcDR4SmdyV1l4SFZYUkF1U3pYdU9TZXNGbW1LRldWYVhhNmIwUEpN?=
+ =?utf-8?B?NkNOcCswMFk5MW50RHZ0aVRtYm9XOWlXYWRzTlhSVm80Uk5mY1ExbTBBQXM3?=
+ =?utf-8?B?NGFDVGRvOHFhb0VrY0RyTHFsVTNqak1BcVZtdHYwRU5GK1Z6cUI4WVl1ZnRF?=
+ =?utf-8?B?bzlzVDYydHV1VWM5L29IaXkyNzF1cnhvdVNYTy9FSG1tRExTNkhYVXhZM3pT?=
+ =?utf-8?B?K01ZRTBQbHI3M1gvRG5xZkVVaWhobVp1anlTak5LZVJFYnhwbkRMb2lhekdH?=
+ =?utf-8?B?bWJzRThValFxMHRSRHFtWU1xWWE3Rk9RTEJwUDA3bTJJZkMwODczME1wemRI?=
+ =?utf-8?B?T3ladmYyNTVQb1hhUmxnVmdOcUtxeHIvNXpDVXNYazhNalBDSGM2VUNYUi95?=
+ =?utf-8?B?QXFGN2pNVEthekY2QkYwRkRsSzhKM1ZqSzRRWEQySFJRblVNZHdvbTNnMDBy?=
+ =?utf-8?B?ZGpRTDQ1bCtUM1ZKRnhIVFRyOTdwOWRrYVhocXE1cjdHQ2hTRG5jVjRUa3d2?=
+ =?utf-8?B?amJnaXF0L0lnMnpzazdHeW9MQVVMZEgvNjYvY05Rd2IzN3hhMjZONm5YVzBF?=
+ =?utf-8?B?cllFWjVxRUVhNytVVEpFOSsyTG8zQnRPWHkvUjRPU1J6MzlRRGRLV01hYzhm?=
+ =?utf-8?B?dXdzbzNybkt3cVZjcElBd3ZydlZwMmRCTURZWVhsU3NVNUpQTmhORWg4dWZT?=
+ =?utf-8?B?MmpXVDNLbEZMRXV2MXRXb2QvTlpxamU0ZzZZak9EaXNsbVR5SmliTHFtYnhJ?=
+ =?utf-8?B?QVlDMHNOSmxCQTFpcWswRkJiclRPUVBDWkExZXc2bTMrRCt4dTJoZDFqOG5V?=
+ =?utf-8?B?OGtSaXNTZm5GOHl6YURYS0tVYkpNNS9rL2pMek4yTXdvbFdMZnRQM2NNTytp?=
+ =?utf-8?B?dkZybWxDOXBZUE9hbmhTdHhxd0IrVUtDbzczdE5aVlpNZkh3M2tTUVl4Mldv?=
+ =?utf-8?B?MEFIMDYxM0NxMHAyRE9MUFBXR3R3Wm9zSEhwNDF3aDQ1Y1JXOVBJeFFvWVZl?=
+ =?utf-8?B?M3dnVTk4UGFXOWlGdGZ5ajRHN2dJT044bHgyUXArdTM2RnZHNlZiTzdJdVB0?=
+ =?utf-8?B?U0pJZjVxMU0rTHA0alBhdEV3VTkybWJOMUkyWWt3b0lESVMwMHdEdlVTMnJF?=
+ =?utf-8?B?Um9BeE84aGJwZ0NWVSsxYjZhajA3clBGYmRPK3dZZmpqVmZmV0JUcDlRaGIy?=
+ =?utf-8?B?clg0YzZKb2FIQ3pHMXYzSWJMU2VRNlA0R0svZU9qWTBSYUVKaTNQMEpzNW5p?=
+ =?utf-8?B?ZlhSZFdJK3dwTmVTSGFKakE3VmxRNHRjOXdvTnFCMGZKMVFiR2FHU2lRVWZx?=
+ =?utf-8?B?cGUySVpiS0ZKaGVXU21uYW5xTnBQYmtjRlRjaVNtbVhyZHk4aHJsckwzS1ll?=
+ =?utf-8?B?bEgxeWRhK0VUVkJPTDd3aVdIUDBZNk5SeHI3WjU3VmpMZHl5d1NlWEpoNFgx?=
+ =?utf-8?B?cXJYTEM4QWh1TlBXS0tGbjVQWFF0T1VJSldra1h6TDNWSllGaitLbVZsZnV5?=
+ =?utf-8?B?bmtlTmRabld1TWlyNW9KOW5mM0prU2ZOZDd5MnV2SjhQUXRWZkw2eURydFA4?=
+ =?utf-8?B?a1RBNlc4cTZvVUx1RWF3aDRheVFwZzhLNkdSYnFBam1YcWdWWHBvRDNUZ1RI?=
+ =?utf-8?B?a1d1SHlCdUtDQzVoMkxoRldCczJEdHdpVzRMTXVXcWR5MGlqQ0Jyakp1Njho?=
+ =?utf-8?B?MmJ4VEh2YXJhUW8rV003UTlubWZjbnBpdGhmZnJHNlliR1NLR2RuMitGcGVi?=
+ =?utf-8?B?eXBwYXRheUd0dnJXN2VDMU1xN1Irem1pcU5mRnMwSXY5cG1rTmErZWR5M2NP?=
+ =?utf-8?B?MnJYLzgwZTdadEprS2p3VGpudGd3N2REUXBOUW9CZ3drNzhDdCsxYTIzakVC?=
+ =?utf-8?B?Sy9NMVY2clc3bXUvVU5rOGhKeFNxRjBtM1BjSUpYWUMvekZQbFprVW9HS2Q4?=
+ =?utf-8?B?ZHdxOXJMTG9ZY25ML0J0dU5Ba3BuKytycFFKQ2xXYVhzY2RMZTVsdlBxZU9v?=
+ =?utf-8?B?N2ZqRk95UmhUdCtlWnpLbnU1ODN1cVd2aEF4QnZRbmR1YUxya2k3Z2NNR1RY?=
+ =?utf-8?B?K3dEYjcvcnhLMUtpcC9zQmlnNTBNMWVCU3IxMEY4S0Q2U1RyaSs4R0FPOEdY?=
+ =?utf-8?B?VisvT1hLQm93NXVEaklqUVdnUkhaUkw2bTJUanlOQXorZ3FrMkZMWmh6V3JZ?=
+ =?utf-8?Q?PexumepTycrfTB8eML?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8f1ab43-4f8f-448c-7148-08de8fd7bbbe
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 10:16:26.6331 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4NmCeKQIZueKDb4hWglDW/cuBVd6LJNGxWPdHoN/SY7CzDhIddRzrDqmiIUZy6rI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9225
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,80 +142,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In GPI mode, the I2C GENI driver programs an extra TX DMA transfer
-descriptor (TRE) on the TX channel when handling a single read message.
-This results in an unintended write phase being issued on the I2C bus,
-even though a read transaction does not require any TX data.
+On 4/1/26 04:08, Daniel Colascione wrote:
+> TTM seems to be too eager to kick off reclaim while kwin is drawing
+> 
+> I've noticed that in 7.0-rc6, and since at least 6.17, kwin_wayland
+> stalls in DRM ioctls to xe when the system is under memory pressure,
+> causing missed frames, cursor-movement stutter, and general
+> sluggishness. The root cause seems to be synchronous and asynchronous
+> reclaim in ttm_pool_alloc_page as TTM tries, and fails, to allocate
+> progressively lower-order pages in response to pool-cache misses when
+> allocating graphics buffers.
+> 
+> Memory is fragmented enough that the compaction fails (as I can see in
+> compact_fail and compact_stall in /proc/vmstat; extfrag says the normal
+> pool is unusable for large allocations too). Additionally, compaction
+> seems to be emptying the ttm pool, since page_pool in TTM debugfs
+> reports all the buckets are empty while I'm seeing the
+> kwin_wayland sluggishness.
+> 
+> In profiles, I see time dominated by copy_pages and clear_pages in the
+> TTM paging code. kswapd runs constantly despite the system as a whole
+> having plenty of free memory.
+> 
+> I can reproduce the problem on my 32GB-RAM X1C Gen 13 by booting with
+> kernelcore=8G (not needed, but makes the repro happen sooner), running a
+> find / >/dev/null (to fragment memory), and doing general web
+> browsing. The stalls seem self-perpetuating once it gets started; it
+> persists even after killing the find. I've noticed this stall in
+> ordinary use too, even without the kernelcore= zone tweak, but without
+> kernelcore, it usually takes a while (hours?) after boot for memory to
+> become fragmented enough that higher-order allocations fail.
+> 
+> The patch below fixes the issue for me. TBC, I'm not sure it's the
+> _right_ fix, but it works for me. I'm guessing that even if the approach
+> is right, a new module parameter isn't warranted.
 
-For a single-byte read, the correct hardware sequence consists of the
-CONFIG and GO commands followed by a single RX DMA TRE. Programming an
-additional TX DMA TRE is redundant, causes unnecessary DMA buffer
-mapping on the TX channel, and may lead to incorrect bus behavior.
+Yeah the module parameter is probably good for testing but really won't fly.
 
-Update the transfer logic to avoid programming a TX DMA TRE for single
-read messages in GPI mode.
+> 
+> With the patch below, when I set my new max_reclaim_order ttm module
+> parameter to zero, the kwin_wayland stalls under memory pressure
+> stop. (TBC, this setting inhibits sync or async reclaim except for
+> order-zero pages.)  TTM allocation occurs in latency-critical paths
+> (e.g. Wayland frame commit): do you think we _should_ reclaim here?
+> 
+> BTW, I also tried having xe pass a beneficial order of 9, but it didn't
+> help: we end up doing a lot of compaction work below this order anyway.
 
-Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
----
+Well as far as I can tell that allocation behavior is completely intentional and just the lesser evil.
 
-Changes in v2:
-  - Updated the commit message.
+I can't say much for Intel HW, but for AMD HW the difference between higher order pages (2MiB) and anything below usually comes with a 20-30% performance drop. So falling back to anything below 2MiB is actually only the last resort to avoid the OOM killer.
 
- drivers/i2c/busses/i2c-qcom-geni.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+The real question is where is that heavy fragmentation and sluggishness coming from? Even when the find / > /dev/null creates a lot of 4KiB allocations the kernel should be able to reclaim them to create larger pages again.
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index a4acb78fafb6..2706309bbebb 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- {
- 	struct gpi_i2c_config *peripheral;
- 	unsigned int flags;
--	void *dma_buf;
--	dma_addr_t addr;
-+	void *dma_buf = NULL;
-+	dma_addr_t addr = 0;
- 	enum dma_data_direction map_dirn;
- 	enum dma_transfer_direction dma_dirn;
- 	struct dma_async_tx_descriptor *desc;
-@@ -639,6 +639,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	gi2c_gpi_xfer = &gi2c->i2c_multi_desc_config;
- 	msg_idx = gi2c_gpi_xfer->msg_idx_cnt;
- 
-+	if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
-+		peripheral->multi_msg = true;
-+		goto skip_dma;
-+	}
-+
- 	dma_buf = i2c_get_dma_safe_msg_buf(&msgs[msg_idx], 1);
- 	if (!dma_buf) {
- 		ret = -ENOMEM;
-@@ -668,6 +673,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 		flags = DMA_PREP_INTERRUPT | DMA_CTRL_ACK;
- 	}
- 
-+skip_dma:
- 	/* set the length as message for rx txn */
- 	peripheral->rx_len = msgs[msg_idx].len;
- 	peripheral->op = op;
-@@ -740,9 +746,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	return 0;
- 
- err_config:
--	dma_unmap_single(gi2c->se.dev->parent, addr,
--			 msgs[msg_idx].len, map_dirn);
--	i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-+	if (op == I2C_WRITE && (msgs[msg_idx].flags & I2C_M_RD)) {
-+		dma_unmap_single(gi2c->se.dev->parent, addr,
-+				 msgs[msg_idx].len, map_dirn);
-+		i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-+	}
- 
- out:
- 	gi2c->err = ret;
--- 
-2.34.1
+And then finally I agree with Thomas that userspace shouldn't make that many allocations on a normal desktop. That should also be a good place to start investigating what happens here.
+
+Regards,
+Christian.
+
+
+> 
+> Signed-off-by: Daniel Colascione <dancol@dancol.org>
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+> index c0d95559197c..fd255914c0d3 100644
+> --- a/drivers/gpu/drm/ttm/ttm_pool.c
+> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
+> @@ -115,9 +115,13 @@ struct ttm_pool_tt_restore {
+>  };
+> 
+>  static unsigned long page_pool_size;
+> +static unsigned int max_reclaim_order;
+> 
+>  MODULE_PARM_DESC(page_pool_size, "Number of pages in the WC/UC/DMA pool");
+>  module_param(page_pool_size, ulong, 0644);
+> +MODULE_PARM_DESC(max_reclaim_order,
+> +                "Maximum order that keeps upstream reclaim behavior");
+> +module_param(max_reclaim_order, uint, 0644);
+> 
+>  static atomic_long_t allocated_pages;
+> 
+> @@ -146,16 +150,14 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+>          * Mapping pages directly into an userspace process and calling
+>          * put_page() on a TTM allocated page is illegal.
+>          */
+> -       if (order)
+> +       if (order) {
+>                 gfp_flags |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN |
+>                         __GFP_THISNODE;
+> -
+> -       /*
+> -        * Do not add latency to the allocation path for allocations orders
+> -        * device tolds us do not bring them additional performance gains.
+> -        */
+> -       if (beneficial_order && order > beneficial_order)
+> -               gfp_flags &= ~__GFP_DIRECT_RECLAIM;
+> +               if (beneficial_order && order > beneficial_order)
+> +                       gfp_flags &= ~__GFP_DIRECT_RECLAIM;
+> +               if (order > max_reclaim_order)
+> +                       gfp_flags &= ~__GFP_RECLAIM;
+> +       }
+> 
+>         if (!ttm_pool_uses_dma_alloc(pool)) {
+>                 p = alloc_pages_node(pool->nid, gfp_flags, order);
 
