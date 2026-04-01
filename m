@@ -4,150 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A3DFD2ED0A
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:44:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B35CD2ED08
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:49:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF2B610E540;
-	Wed,  1 Apr 2026 13:44:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DFB310E198;
+	Wed,  1 Apr 2026 13:49:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="unY+yv52";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="c4vICUQ4";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021077.outbound.protection.outlook.com [52.101.100.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9485010E590;
- Wed,  1 Apr 2026 13:44:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hhYBqqc625m2MuxcNUcCm1EE2jjthg5Z79o2zG7+8OkeiqOuxnos7hfOyJw9xp9IuD8qrn0zo6a0+BAtL+4jl1CzAfuM6DCz469W6g+qqp/1LYLOSriIlGtfa/zSR8c1QKuitkI4jnWo6ve/gU2zQnukfcdYKpXd5sivXsUeWcp6WEMbQ4uiR+6gcrUK1iTNeNH73iwiCcAkJOpEe7xq0G47U2KOgq86XVh7WEOc1kvnfzPvHPUgnQw+pwiqx6M9Fx0YVgxoNJMurR6qMdQgBQYnYw0CLW+77EuRdLrWa+RsR2hVakL8RkdfpNFDFfQ0U4ibIdvGmPgYmSKoG3ssdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cjQ03GN1cGoxVTQiR37x/WF81BNH9NkMfAVaF/ln54E=;
- b=M/DA0nqB06nvRay7yukT5JJ5s0MXT0JOz7/x3uJwteExaKmPkGG/L16ApoEiaSYHaASbMMkaPPPewJXAthXkHJpM8iMKrokx1os9kGY37OkedL/xJla2RcZN8lWDvijpPE311U+XIUvJeVH0t/lSHctuxdfvZwn4aGBWwtiA+4Z2Ak/Pmlb7Oxs0CrIL5dy7nRFJFiE2JhRmc0Tbbz40e01kJnKDhgm+j5Gu+5KbN276f6NwbNKBqgtjgOKZJDjAujzXQxW48ZivWeek5oWQl9hsTXHiKtftyZTfzOFobMZbdClczTMHrhVUiIkUnF23ClHv5IduRjepqpWN9y4jUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cjQ03GN1cGoxVTQiR37x/WF81BNH9NkMfAVaF/ln54E=;
- b=unY+yv52v8x0pKHs5oExakc0Y/jKIhJeIy3vV1uB0fvee5oVzQZIdEWt05AqNVwIFtJJGB9qe8HW0GDVfNdTN55L09arGlk9QdZfmjFPYuJCAG7h4WYkoe0g80vegd/SILGSZi5RfFhPUrbBTNQWSIYnmt+RaMr6hYgR96WVJeU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB5811.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:265::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 13:44:41 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
- 13:44:41 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 01 Apr 2026 14:44:40 +0100
-Message-Id: <DHHV3D4H9Y0W.22GPYL889NZ4K@garyguo.net>
-To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
- <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
- Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Jonathan Corbet" <corbet@lwn.net>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- <rust-for-linux@vger.kernel.org>, <linux-kbuild@vger.kernel.org>, "Lorenzo
- Stoakes" <lorenzo.stoakes@oracle.com>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- "Uladzislau Rezki" <urezki@gmail.com>, <linux-block@vger.kernel.org>,
- "moderated for non-subscribers" <linux-arm-kernel@lists.infradead.org>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
- Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, "Nick Desaulniers"
- <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 06/33] rust: kbuild: remove skipping of
- `-Wrustdoc::unescaped_backticks`
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-7-ojeda@kernel.org>
-In-Reply-To: <20260401114540.30108-7-ojeda@kernel.org>
-X-ClientProxiedBy: LO4P265CA0158.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c7::17) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9628210E198
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 13:49:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1775051346;
+ bh=OHO+OKhsULLNuQdxo4AVizMofpb6KtmB13E5DX4BBWc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=c4vICUQ4fgkS6oG6euj6OXaDO7b4Q+jQAd/dDiJqEaZljXrqoiu8NcFzLBsoChaZP
+ sDJ/e8w49c5lAL1joqXBbOAK8b1+AtBGqhtzjYKpzsFp9L9Aj0U6iWra/gJV/MNK+T
+ FugZS+zOvGQtd5o8Qmg634XeUOMTYOpwfDvx01o57c5vOVY3XVwePGo681MbNaLkYM
+ 81Ruq0ugjgxoDFLYVCJOo3KcklWBvoPSPjmKYShE2iJlFlGDRRqWQhxGVCQsmBBScn
+ inPAeVy4dHj9j+ZKBG9zFE5RI+KLD2FSPmziyZbpFcZv4/devu9FZPAWu5c0wAq+HC
+ WPzREkHpehd7Q==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:a2a7:f53:ebb0:945e])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C526A17E74AB;
+ Wed,  1 Apr 2026 15:49:05 +0200 (CEST)
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Chris Diamand <chris.diamand@arm.com>, Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>,
+ kernel@collabora.com
+Subject: [PATCH v7 00/10] drm/panthor: Add a GEM shrinker
+Date: Wed,  1 Apr 2026 15:48:44 +0200
+Message-ID: <20260401134854.2275433-1-boris.brezillon@collabora.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB5811:EE_
-X-MS-Office365-Filtering-Correlation-Id: eba49220-1b3c-4171-7cce-08de8ff4d37c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|10070799003|366016|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: i40V8I5W8QazNsIi0ZpFRwWH1cv+AhNVn9DwazbnE7QXOaNiGSwljACMcYtYPGRhkj4quWyZU9Lz/Xj+gIrzXRJSfmyyl72vO5mViJmR+ur+E9Oy8GwAJoM33imAlavpqxJQp1aKbI0iAGKG1OXKYYBubQR2b8MFjfKyHFwERxCXY4/rUgtwBg7hpqoxFi90LYXAf36S9Fi7dO5HvLPMg8H5MoVzo1Gi0Kr3l1Nc+dQYVgGgiAcA7vr3NcpcBCiVEu/YhfIZ1C0CI9vaBvjix0R0E5jifYr+FniwqiaIuCT4hn0xizcg701MOgBx6lSt1eT7pSDe6dtPKuJfDG+LMqq0SyxYM9tyJrSmBbHjfWRy7B27iESxMquIngfHWxI6Bgt149gCFrrPI9zw8xG6YOgvilv5uRBoyEI5mnnC2t9PXjsPvOUWOKJH4YL+OguF1B3EAlYMOUh32ZitYLQA/7hHHZLYARL93nxm7hGmn8rrUMOhJSKr4YMn6MYJmbGeabd1+uGAQ40/3MBCcMpaP4ihy/Y0HJr4uq2rHDOHs7rGveFcKjeGFyrV8cvEwYiSHEnggBNA41Gj1AuII9lUfgs2IYKGGWqasahq+hb6FZ86FTUWnzToQPsAN8OqvCdUH2ohlnPjnY/bHryIM7CBmAbr6EEe3qn9ntjvZUA+LWenX0IdAaUFN38fpNuh8UMwOHIvH6yacX2h9QhzBTLuVXdy4cOD/QFNpBukANa8M8hXF0TFDZmsHfGcXYE0f3PB/DVpo9+3gjrHKFEYp0wdUg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(921020)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGpSN1ZRZVV0K0xuR3hGT1MwN2t5aUJScjUxcENPaGFxQmFvN2xDMmFoT05z?=
- =?utf-8?B?bE0xbS85bjF2cXNWOVgvZFJLQmpkK1c4cUVDVGtGVkJ4Y1phZ3ZOcEQ5WENN?=
- =?utf-8?B?ZE5EMHhGU1FVUGVHTUl1NWtTZHllTXVHTGtsNlFUa21PY3lnOG80T3lpRm1h?=
- =?utf-8?B?VS9KTkRlZ1BRdDh6ZDh1NUpaTW1KU21kczZOcW9aUTZZbk53RVNTeTk5U2wx?=
- =?utf-8?B?MlFyRk96THJZRS8rdTQyTkhXdm15Q0hmS0RKTzFZSzFYTjVPUlJUYUM2MTh2?=
- =?utf-8?B?aXlGZitaRmkzbzBHWEszWVZnNXJOcWlCS2pFWmdoNWJQUXpTdnQwOFRMKzkx?=
- =?utf-8?B?NHNvdWhpMk5BeDZBN1BHdHAxc3V0NDQxcXA4ZVNsYTZ2bVM4eFA5bGZJbUNX?=
- =?utf-8?B?L3ZZMnVOQnBObEhsd0piSjNjcDhvQ2RVSGxSWklxUEc2VHhrdDJqd3pHRGpM?=
- =?utf-8?B?STJOUG9VSzFrWllZdTNRUkFPNlVFVzR1bWw2dkdKVTluaHF1T2VnUlU4WWRH?=
- =?utf-8?B?TE1Ybi9Hb3JRblg4WnhhUXdDc0ZzQzFnU0FvRUpMUHp6NXZSRG1yazdORmxF?=
- =?utf-8?B?STMvMGQrOStBMmdCS1BxWElicVEzVDk4MWQxa2Z2M2c4Z1JzYzc3aUI1cUNl?=
- =?utf-8?B?VEpZclBRWmFGeUpnU1FSK2M4RFF3eFpSYmVvRVdWeDRnNXkvdVRYaGtTbGNM?=
- =?utf-8?B?ZmdnVFphaVBOUjFFeUF2Wm5ubWM5eEtjVWFqejc1VWlCSmJOb3g2NlVwcVZp?=
- =?utf-8?B?YjVCVGdRRzl0RStxQ1RmU2haV0RKWFlNUDNlcXEyOUpmNkZ3QnNEekU0RWVU?=
- =?utf-8?B?aGw5MGFIV2xNNGtUTFhzR1pXUVdEczJsR1kwWXpVaEZkaDlwRWRnNk5Ca0Fl?=
- =?utf-8?B?aUxRSnI0R0RQcmRmSE5vcFZ4OFBHT1NhemtlbDJXNGdQRkIrNWh1UnYrRHNI?=
- =?utf-8?B?c2JsdGVxZVBWamg1MXhzb1AxMGdhbExDeUxHaytiNmVIWUpDamRsaitNUzl0?=
- =?utf-8?B?NzAxRncwZWtERC9VZGw3ZklpNjVMRHdodHJoa1BtR2RqNEx0NCtOdC81SFRY?=
- =?utf-8?B?UVVnSkE1NUlpQk9OTnFMcE9xV2k3Smh1QXdGN01ueTdRUGMyTktLRzhBb0d0?=
- =?utf-8?B?a2g0SGRpUUNYeCtlMHFuVldMZUJyRHgvT0lmRXdya0dsRjdIZ3Zwckt1TUtn?=
- =?utf-8?B?SjFKc2VheWVHc3hUQngydlZVaHRGcXB4ZmUxRE1ZWHBDcEJZYXYrZ0ZMUGQ3?=
- =?utf-8?B?aFRWdHpnbnkvdXdQTkl6Vm1ZYXdycFFjZnRobzZqWkJqRDdyUk5ubGh1ZjU2?=
- =?utf-8?B?eHN0dnFuWlZzVVl4dVI1M1lDNjd6bXcxc3pSL2phY1o1SDIzeDg2MDFBWXhR?=
- =?utf-8?B?T2JjNmpOM21ENCtKVjZ6WlNlelpLZXU3K3ZmVUlFaFVXUG0zSndmaGJhWkc3?=
- =?utf-8?B?RUk5SjI1UzVwYllMOWtLNCs5cmpTSDBrWEJCYXYrU3FmaUVabHNpNlpjR2ov?=
- =?utf-8?B?ZTEwbDJ0RW1JdGVLWkF1NGxHZEVKUTlwcXM0aXNEVndPUmFvSjNkWTNkL3FL?=
- =?utf-8?B?WGR2Q2dPSHVFYzh1ZlE2dUMzVmJ0RUVGY2p2WnlhbFozOHNDbTkxMWJpbXdK?=
- =?utf-8?B?aEdodVdCVnEwU3FURUp5MWl4a3dGL3BLOG44elJZeGpnUVFvSXc2RmZJN2V2?=
- =?utf-8?B?R0V3cFpEcUdVcnZRdE95b0JuRnhHVURzcGZkRGQrd3RpRlJpQTh5MVE4MTBF?=
- =?utf-8?B?aVkrSDFKWjNidVVUOC83WFVNMTZ4SCs2cDZPckxEZHFtbmxLWnRpbDkrbjhn?=
- =?utf-8?B?MUZ5K2hUQmJKaTQrR3pOSkR3Rk04VU1pS3VjV2pDSi9aT1Fnc1BXTlBUR3cw?=
- =?utf-8?B?dnZXYkxERWRvU09yZDlqOEFrZHpOakJzVDhDTGRPNVIzOEF2bDhITjRhWGNN?=
- =?utf-8?B?N1hMQkxBWCtxdy9yYTA5TkJzdUNpeU9KYkxYQ0w3MEhyM3E0U01VTEVRZEJs?=
- =?utf-8?B?TnhwN1R2N2kxYlJQbmNRSGVJT1k3c2VKWlJQQTFIUDB6MmFTS0lBNmplYmg3?=
- =?utf-8?B?eUo3VmdiTHU3bCtQKzJYSFFJcG5INGxUSkJydE85dkFmdFNQcDJ3eHYwMjQ1?=
- =?utf-8?B?bXNxaUtvK21MWjQ0RDVVSG43R3dZUXN5NHluNVhxWXhxcmI1WElPdlIwbmhT?=
- =?utf-8?B?bFJoYjRDRjUvVm80d0o3N05odHR3eUVvcm1xV3hnVWZsNU51SUxTeGtIUGlH?=
- =?utf-8?B?QTErT2pZVW4vVENPVHloR0VFVzJiQ3FPZlRtZjlIRE0yeDI5cVRDL0pldkJN?=
- =?utf-8?B?eUZyc1IwRjRISnBXTUhScUFldDdNdENzL0RXeFpyT2VFelBscTBUQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: eba49220-1b3c-4171-7cce-08de8ff4d37c
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 13:44:41.6949 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 87lJJSuAg7hy8Nq3Qzj4KnBP2l/3dhgMlEkT4f9mODpVoArZ8PR8d0c1clwKyhtIYfkYrjgMD3h7MK9jePdLuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5811
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,18 +71,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 1, 2026 at 12:45 PM BST, Miguel Ojeda wrote:
-> Back in Rust 1.82.0, I cleaned the `rustdoc::unescaped_backticks` lint in
-> upstream Rust and added tests so that hopefully it would not regress [1].
->=20
-> Thus we can remove it from our side given the Rust minimum version bump.
->=20
-> Link: https://github.com/rust-lang/rust/pull/128307 [1]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Hello,
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+This is an attempt at adding a GEM shrinker to panthor so the system
+can finally reclaim GPU memory.
 
-> ---
->  rust/Makefile | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
+This implementation is losely based on the MSM shrinker (which is why
+I added the MSM maintainers in Cc), and it's relying on the drm_gpuvm
+eviction/validation infrastructure.
+
+I've only done very basic IGT-based [1] and chromium-based (opening
+a lot of tabs on Aquarium until the system starts reclaiming+swapping
+out GPU buffers) testing, but I'm posting this early so I can get
+preliminary feedback on the implementation. If someone knows about
+better tools/ways to test the shrinker, please let me know.
+
+A few words about some design/implementation choices:
+- No MADVISE support because I want to see if we can live with just
+  transparent reclaim
+- We considered basing this implementation on the generic shrinker work
+  started by Dmitry [2], but
+  1. with the activeness/idleness tracking happening at the VM
+     granularity, having per-BO LRUs would caused a lot of
+     list_move()s that are not really needed (the VM as a whole
+     become active/idle, we can track individual BOs)
+  2. Thomas Zimmermann recently suggested that we should have our
+     own GEM implementation instead of trying to add this extra reclaim
+     complexity to gem-shmem. There are some plans to create a
+     gem-uma (Unified Memory Architecture) lib that would do more
+     than gem-shmem but in a way that doesn't force all its users
+     to pay the overhead (size overhead of the gem object, mostly)
+     for features they don't use. Patch "Part ways with
+     drm_gem_shmem_object" is showing what this component-based lib
+     API could look like if it were to be extracted
+- At the moment we only support swapout, but we could add an
+  extra flag to specify when buffer content doesn't need to be
+  preserved to avoid the swapout/swapin dance. First candidate for
+  this DISCARD_ON_RECLAIM flag would probably be the tiler heap chunks.
+- Reclaim uses _try_lock() all the way because of the various lock order
+  inversions between the reclaim path and submission paths. That means
+  we don't try very hard to reclaim hot GPU buffers, but the locking is
+  such a mess that I don't really see a better option to be honest.
+
+
+Changes in v2:
+- No fundamental changes in this v2, since the feedback I got were more
+  focused on bugs than the overall approach. Check the changelog in each
+  patch for more details.
+
+Changes in v3:
+- Mostly fixes (see the changelog in each patch)
+
+Changes in v4:
+- Only fixes (see the changelog in each patch)
+
+Changes in v5:
+- Only fixes (see the changelog in each patch)
+
+Changes in v6:
+- Fix huge fault handling and various other things reported by Adrian
+  and the review bot (see the changelog in each patch for more)
+
+Changes in v7:
+- Fix a deadlock reported by lockdep
+- Add a commit to remove an unused field
+
+Regards,
+
+Boris
+
+[1]https://gitlab.freedesktop.org/bbrezillon/igt-gpu-tools/-/commit/fc76934a5579767d2aabe787d40e38a17c3f4ea4
+[2]https://lkml.org/lkml/2024/1/5/665
+
+Akash Goel (1):
+  drm/panthor: Add a GEM shrinker
+
+Boris Brezillon (9):
+  drm/gem: Consider GEM object reclaimable if shrinking fails
+  drm/panthor: Remove unused panthor_vm_op_ctx::map::new_vma field
+  drm/panthor: Move panthor_gems_debugfs_init() to panthor_gem.c
+  drm/panthor: Group panthor_kernel_bo_xxx() helpers
+  drm/panthor: Don't call drm_gpuvm_bo_extobj_add() if the object is
+    private
+  drm/panthor: Part ways with drm_gem_shmem_object
+  drm/panthor: Lazily allocate pages on mmap()
+  drm/panthor: Split panthor_vm_prepare_map_op_ctx() to prepare for
+    reclaim
+  drm/panthor: Track the number of mmap on a BO
+
+ drivers/gpu/drm/drm_gem.c                |   10 +
+ drivers/gpu/drm/panthor/Kconfig          |    1 -
+ drivers/gpu/drm/panthor/panthor_device.c |   11 +-
+ drivers/gpu/drm/panthor/panthor_device.h |   73 ++
+ drivers/gpu/drm/panthor/panthor_drv.c    |   33 +-
+ drivers/gpu/drm/panthor/panthor_fw.c     |   16 +-
+ drivers/gpu/drm/panthor/panthor_gem.c    | 1453 ++++++++++++++++++----
+ drivers/gpu/drm/panthor/panthor_gem.h    |  136 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c    |  512 ++++++--
+ drivers/gpu/drm/panthor/panthor_mmu.h    |    8 +
+ drivers/gpu/drm/panthor/panthor_sched.c  |    9 +-
+ 11 files changed, 1923 insertions(+), 339 deletions(-)
+
+-- 
+2.53.0
 
