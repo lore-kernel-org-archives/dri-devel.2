@@ -4,57 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2853D3517E
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD13ED3517D
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 508E610EDC8;
-	Wed,  1 Apr 2026 13:25:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 203E010E168;
+	Wed,  1 Apr 2026 13:28:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="X8S2YI3y";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="NcWiwd7V";
 	dkim-atps=neutral
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
- [130.133.4.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5960510ECD7
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 13:25:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
- Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
- Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
- References; bh=ZFLBXUnA3OsuD71wnhgNFssmPRJAe8/52pzXm/xCyyI=; t=1775049922;
- x=1775654722; b=X8S2YI3yNCoh2QI4f/Ph4NBeqDrxUV9qFGQRaihziNA45AbFkfcGF05nAz/w6
- ckalo2bEco/kjEvUZOAFgO7nmoQR1BQSymARqjqUuXpRyMGcISt8e1p+O3DI+A7sjLwyFxB6wA6n8
- 3HRRjbXOKWveBASBer5IdA9f6CqbAdt8YdhHVz33jj28C8SWvzNde79DWeTA0bsb1HXbstzHvveF6
- qJ7xWBHabf/x03MWNOl9DF99d/Yn6wblZVf3bv+2gYkyKNsfBg3vOprSMU/kr/SxEdnIxd62apEqF
- OJX0FG4tLbaGlmBZ2/ajaklKiXSW3H30b6zyf+g8l5UJC2yEcA==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.99) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1w7vZQ-000000009d8-2cN7; Wed, 01 Apr 2026 15:25:20 +0200
-Received: from dynamic-077-191-137-043.77.191.pool.telefonica.de
- ([77.191.137.43] helo=suse-laptop.fritz.box)
- by inpost2.zedat.fu-berlin.de (Exim 4.99) with esmtpsa (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1w7vZQ-0000000063U-1iS0; Wed, 01 Apr 2026 15:25:20 +0200
-Message-ID: <5c20b5c8315b77e014fc60bacbbe7a73c6fe29da.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] arch/sh: Drop CONFIG_FIRMWARE_EDID from defconfig files
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Thomas Zimmermann <tzimmermann@suse.de>, ysato@users.sourceforge.jp, 
- dalias@libc.org, arnd@arndb.de
-Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org
-Date: Wed, 01 Apr 2026 15:25:19 +0200
-In-Reply-To: <20260401083242.214492-1-tzimmermann@suse.de>
-References: <20260401083242.214492-1-tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021097.outbound.protection.outlook.com [52.101.95.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFF5310E168;
+ Wed,  1 Apr 2026 13:28:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ONAMzrYdTF5D1mj99HKr6E5VWiTeq5eJkeNOHm1RfHuZ+OhDTcTk3TCkWCkd7oZTKDluRRdtv7pYJQiup4kcpzdloUG/0K99jR1UuQhmU6VFy6+ztWofq7Vrs8/fOHrDGGw6SnhToDJR2wu1dI9GrYAiuFPztm18K0HXkotOdV63Jo48zueZju7L1LXbcAJTzBTenpWusEOCpO14/2KQAY0Pd2CJtj3YuHFQwUyIVFuwdqHMZZGDQamP4toq2u7MipI/hd6gkfGu0QoMXYX5pAkUO/OrLGdyatOtpuXpItn9Qo8IKMYWpfMVxMm5eaPk98OW8lBB5yczKZUYDnu1Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bD5QxgfQNuk28UyZBunkjD2cuPT3HwKYLpY8sumN+QU=;
+ b=gYrmmxUsoIBlbxn126wOnqJes0NnKE0iJCUqfbYYIXcyieo9BU8cMlZJ6Gvrz/px/Gi7JHtGXYXKHiAtkd3mc/QLxjM4Rexw5kMKcs0NlF2Yem1ZCM1J4EfLev4eH3mJWBrvUe/46AUEyIN9bwvlePxmql1nh/5PpBhLaZ4L9ct+6TdTh1ZzKv6r46WKoFHVxW3pf8oHmfq9EcEm0XUtr2G8IdyRLqoj2UzsiqGhA/jVhnggad144YR95je1mzJ95E4DVoQwv6QiXaAle/toOBZtGLNZ72AHwgO6fIv6Q8aaIHpEdTi7bwsZQ9g6E/UgbvrckLfXyFE8Zus1ILbmOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bD5QxgfQNuk28UyZBunkjD2cuPT3HwKYLpY8sumN+QU=;
+ b=NcWiwd7VAVl74dMjp/EemsevBNIMM4qz7iS1Cy37qfVXkPkwCJH63jPRRetxlI6bx4a4hh6ZP7CiLwfB+n/7sTMkG0oJszGuycXyoLu3BsWuMXGQD12Jj7PJ4iWE0bNceG5Oc6nY7v4O1dsx/bgHLcmNEvccM/ZBNmBRwOy7l8Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO4P265MB6837.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:34b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
+ 2026 13:28:14 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
+ 13:28:14 +0000
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 01 Apr 2026 14:28:12 +0100
+Message-Id: <DHHUQRB9ZL54.VQZ7OUZNSYDS@garyguo.net>
+Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ <rust-for-linux@vger.kernel.org>, <linux-kbuild@vger.kernel.org>, "Lorenzo
+ Stoakes" <lorenzo.stoakes@oracle.com>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ "Uladzislau Rezki" <urezki@gmail.com>, <linux-block@vger.kernel.org>,
+ "moderated for non-subscribers" <linux-arm-kernel@lists.infradead.org>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
+ Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, "Nick Desaulniers"
+ <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH 01/33] rust: bump Rust minimum supported version to
+ 1.85.0 (Debian Trixie)
+From: "Gary Guo" <gary@garyguo.net>
+To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
+ Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
+ <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
+ <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
+ Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Jonathan Corbet" <corbet@lwn.net>
+X-Mailer: aerc 0.21.0
+References: <20260401114540.30108-1-ojeda@kernel.org>
+ <20260401114540.30108-2-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-2-ojeda@kernel.org>
+X-ClientProxiedBy: LO4P123CA0520.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:272::16) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-Originating-IP: 77.191.137.43
-X-ZEDAT-Hint: PO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB6837:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7052c31-f176-4839-abee-08de8ff286bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|10070799003|366016|1800799024|22082099003|921020|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 3IV4a9u4tY+Sm6e3Bc9NS2Cl1vDT3wtenBA97zbBmC16TLVc/WCSZkRWAqLj+Aodz/iKqnpwFIdTv9R9pUkB/n4RRrz8yjWa3tolZ7+GGa6XB5jpciz7GJtd/Z3lxR9DkbPMOALT5/lvyRM4IKMAdDUywq+kyG4ncrOCRa2zh/ZgLWFsm3CGyWJssSUrdzJCd6EJhhSUFVwdItTGXs7kfKmRRSrTHkmxKFH2pOWEUakGkku1aLBHhBxKhg53f3Yn+rAUrhHWaYm7Dt4OWBv4iKPMojW0uBMewHWi+X7HaDe152Mdq4GyVh0c21bjZKkcWV+J88t12UJiONsd83U4f0TbyoKNcTocNRlfJI1kRlKF1UkFEzRAtgoSifpYzgOWUbYQKzTMMHs3Qak9UEOZCONWriVp29dU6Q2Se9xKuy9wmBmuXzzUfuqxeFsgCo19P5Jd8gbEg88W1sVx+HSOMGToQCMvKD/uSu1pxosQUnilMKE3GXBceVe1n2sv3/b3GFue9zevHi/002RmeChr4NbRAnPXfeZM7g30/9XI7cNan77wyxbI2d5Kvrcj+eKAj0r4tMV7+syoy/5I/a9ICFMPxKbEyc6W8rqVy6hvU2XGkUiRJxn+icqtUW6dZzt/srt6Py3QJbmPG0vxhTyPsUW420UGhBnqTc6Ki9zsaohPFzNcpxd6GrLLW+WslWhLUJbdpEMpoKriaTbWVmuh8d2eg9JYzk3GJFVqCEIuC5o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024)(22082099003)(921020)(18002099003)(56012099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXJyczc5MmFhVzFyaFhlYVNYMlFDa1p3WlNaRStHT0lrVllEUVlVZHlXNDNI?=
+ =?utf-8?B?V1hhWWRxdSt6Y3ZZemFGTGNsamdqeDlRSk5BeURzZFUxTFp3Vi8wdnlBOE1U?=
+ =?utf-8?B?WFlFdk9wQXowdUNRTTBybGowV3hsemhYc1orWFl4WXlVWWxFTmR4dG0rbUNY?=
+ =?utf-8?B?bG5LWFN2VEFIQlZnNEFodWRUM2NvVHNlL1BZYk5OejJ0TnVrWlZSUmx4aDdO?=
+ =?utf-8?B?OHVSUVZiSVZIaXdXUUlJcVVwc1ZOY1hMeWI0RUNPTVdQTVdxNDVrVVlBb2o5?=
+ =?utf-8?B?TFRUWWdCSmFRdDRJSEZJN0xBMExlL1Jkd2Jwd2tNb0F4MEJOdll5SHUxT243?=
+ =?utf-8?B?NnJTblhxdnFuVWs1c3NRRmlBakM3TStIUWZaR2prT3BQNDZBR0o5blBjNU0y?=
+ =?utf-8?B?aS84RGd2cXdVMmFuRVpBeU9VSjhWcGU0ZFFOSTVtckE4eGFLM05NczVpNXpY?=
+ =?utf-8?B?bTFhZkwveTJsVFp3ZlVPaUoyWHZQOW5tSzd2Z0Z2QjI2dllGUGRLeTJvSXFo?=
+ =?utf-8?B?Wkp4MjNGOWl1RFRMajd3c1dVUkd5SU1GWHFseWJIU1BkMVFTNksvQ0U1Y2pk?=
+ =?utf-8?B?QldzQXUzdnZqOHQrbUtyRUg2R1pXOGl2dVZVd1NWcjZWdEFZRThTUjR5UXdD?=
+ =?utf-8?B?UmE2REl2akxhb0I1UHBFdUI3dkhWa2JHNVc5QlZJQ21ZaFZ4UEZsK0JOSjJm?=
+ =?utf-8?B?ZE1aaEllN1d5QmlZSEFzeUtiUXRqV0dxbjhzMVFKc242QVR3MTB1bmQ0QXBK?=
+ =?utf-8?B?aHFzSTdkRDllbG1aWWgvZlluSDN3RTlFYTcrNXNvRWhrSTJhYlFRNjVLVDFu?=
+ =?utf-8?B?ZC9QVnJaTDBiVjZlK3g3dW9pMXJRVU8rWXlKR0lPRjJrNnlzeVREVWFqK2lK?=
+ =?utf-8?B?LzNQVThBMUNURWVJQWNQbFFzTlBRbWxNNy8zVFRwaVNaVnd0Wms0UGpaY1VC?=
+ =?utf-8?B?aUhFMlNVdVM3WnVWcVZaN3RyZ0JqMENkQzRGWG0ybjVIVHp6a0psblRzbzhR?=
+ =?utf-8?B?M21kUDJidHJlRkxud0dGdU5Ic3F4YTg2YUhNNkN2dVlQK0VOYU1zbXF2VVpG?=
+ =?utf-8?B?UnJUUjBPblNJT0JxRm8xM095OXEwcFZHR1h2RFZ6M0xna0dKN041OUpXUk9P?=
+ =?utf-8?B?aVh2bWVIc3B5SW8xR1lnQkhhK1VuNGtuNjYxYzVMZWlacTIrQmlJUktuRDcz?=
+ =?utf-8?B?MGx2OG9FRksraFNyelpjVkNBWU5KRnlpajA1b1lBbUdQWEQyaE5ZbDJ3c0ZY?=
+ =?utf-8?B?UGwwcHhHbFBYaVJ4WENBWUZYM2dVOEdqaTR4OU80RStoU3gzaDhMaTJoQ0pj?=
+ =?utf-8?B?eHpBQjBkZXhtTWpralQ0bGpaTE5CZy81Q0VnOHpZRmR2Yi9rOGNnSDJlT3FQ?=
+ =?utf-8?B?ZXhURmQySkZyMVRkRFJRZC9DSTJUVHFoZk96ai9rWG9WSmRKVnRndCtyclhU?=
+ =?utf-8?B?NWk5eUdrYW9HeXd3QU1vTHNuRHdIaG9FZDdJTVNnWXlhL3luR1RaRmpRZVRC?=
+ =?utf-8?B?N1ArOHFaMHZLRjJOcEF1cm4yN3pZcVZGcGFMQ1p4TVZHOU5DZ2FKS0VVY3FC?=
+ =?utf-8?B?Tlhxb2tTWmxXTFRwc0VoL2grY0M1YTJVWmwxb3h4QUo4SDVKTW00cHg3anZX?=
+ =?utf-8?B?NWh0c1M5Z09rNGRzY3VybHZ6ajFqTEdqM2RERldtVTNUSXhwYVR1aGcwMmVR?=
+ =?utf-8?B?L2ZSS2U5WmdvM0lSdDhEQUxTTDBLQWkxTlVBai82eWFwWlYyL25NTEI5ekpG?=
+ =?utf-8?B?K2xLMnR0eWVRQ1l6UWlGSmJtQlhLYW1BUG92c0JmNi94c0ZIaG5CU2NxelV6?=
+ =?utf-8?B?TnZ6YktxWnhZR0xtaTFTQTFhY2RtY2syWkdqZ1daRW40V1NJSXR5N3ZGNHBw?=
+ =?utf-8?B?SGFOeXY1L2Q3UEpIMHpmMlZkdXFRdm1SRkJhRWR1Tm9XYlZjUTd6YjNYTjJ1?=
+ =?utf-8?B?NmZhVndodzE5Tks3VWNXWlJRWGpTV0tDMDdTWCtNbjZFYlQ4bGh6TTdPcFhl?=
+ =?utf-8?B?Vy8wR21GUTFmSDMzWURxOXE0SUowRUtCT0FnWVZWR2RCdGR1RDRqbzlYVzd3?=
+ =?utf-8?B?d0w3ajJGUUhNbW9FVjdLTktqSjJOT3RWajZaR016NU15SnNlYzBlNHVRK2V3?=
+ =?utf-8?B?bjh2aW52MHdWeTZBRjhGYzNPNEJ6d2tGbyttT01laFJnZTBiWmZyUjM0dlF5?=
+ =?utf-8?B?SFJRUFlJT3crZVVDbFB2Z3k4SDliUU90eW9ZanQ5bmRqVitFTXAyRkZLUzRk?=
+ =?utf-8?B?V24zcStldG5yT2JISnh1VGRVWjhiMHp3Y1c3MW1pdTdRVFRmeWtsQmowTnI3?=
+ =?utf-8?B?Q1Y5RnBkeWIzRjZFSGZTaUlYaE5KTjNSU2JQaWZUeStJdGNUMUVzZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7052c31-f176-4839-abee-08de8ff286bd
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 13:28:13.9409 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NH7Z09LyQ6eDsKc5pS2JBl++0iejE+oFHhupkoHi53BqIVHONGa0erT2BaLIi2lK/vgqE9FxUiOuwrlo+W2JCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB6837
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,79 +163,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-04-01 at 10:32 +0200, Thomas Zimmermann wrote:
-> CONFIG_FIRMWARE_EDID=3Dy depends on X86 or EFI_GENERIC_STUB. Neither is
-> true here, so drop the lines from the defconfig files.
->=20
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On Wed Apr 1, 2026 at 12:45 PM BST, Miguel Ojeda wrote:
+> As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
+> we are going to follow Debian Stable's Rust versions as our minimum
+> supported version.
+>
+> Debian Trixie was released with a Rust 1.85.0 toolchain [2], which it
+> still uses to this day [3] (i.e. no update to Rust 1.85.1).
+>
+> Debian Trixie's release happened on 2025-08-09 [4], which means that a
+> fair amount of time has passed since its release for kernel developers
+> to upgrade.
+>
+> Thus bump the minimum to the new version.
+>
+> Then, in later commits, clean up most of the workarounds and other bits
+> that this upgrade of the minimum allows us.
+>
+> pin-init was left as-is since the patches come from upstream. And the
+> vendored crates are unmodified, since we do not want to change those.
+>
+> Note that the minimum LLVM major version for Rust 1.85.0 is LLVM 18 (the
+> Rust upstream binaries use LLVM 19.1.7), thus e.g. `RUSTC_LLVM_VERSION`
+> tests can also be updated, but there are no suitable ones to simplify.
+>
+> Ubuntu 25.10 also has a recent enough Rust toolchain [5], and they also
+> provide versioned packages with a Rust 1.85.1 toolchain even back to
+> Ubuntu 22.04 LTS [6].
+>
+> Link: https://lwn.net/Articles/1050174/ [1]
+> Link: https://www.debian.org/releases/trixie/release-notes/whats-new.en.h=
+tml#desktops-and-well-known-packages [2]
+> Link: https://packages.debian.org/trixie/rustc [3]
+> Link: https://www.debian.org/releases/trixie/ [4]
+> Link: https://packages.ubuntu.com/search?suite=3Dall&searchon=3Dnames&key=
+words=3Drustc [5]
+> Link: https://launchpad.net/ubuntu/+source/rustc-1.85 [6]
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 > ---
->  arch/sh/configs/dreamcast_defconfig | 1 -
->  arch/sh/configs/hp6xx_defconfig     | 1 -
->  arch/sh/configs/se7343_defconfig    | 1 -
->  arch/sh/configs/se7780_defconfig    | 1 -
->  4 files changed, 4 deletions(-)
->=20
-> diff --git a/arch/sh/configs/dreamcast_defconfig b/arch/sh/configs/dreamc=
-ast_defconfig
-> index dd58797e8298..b31bf17fe112 100644
-> --- a/arch/sh/configs/dreamcast_defconfig
-> +++ b/arch/sh/configs/dreamcast_defconfig
-> @@ -50,7 +50,6 @@ CONFIG_HW_RANDOM=3Dy
->  CONFIG_WATCHDOG=3Dy
->  CONFIG_SH_WDT=3Dy
->  CONFIG_FB=3Dy
-> -CONFIG_FIRMWARE_EDID=3Dy
->  CONFIG_FB_PVR2=3Dy
->  CONFIG_FRAMEBUFFER_CONSOLE=3Dy
->  CONFIG_FONTS=3Dy
-> diff --git a/arch/sh/configs/hp6xx_defconfig b/arch/sh/configs/hp6xx_defc=
-onfig
-> index 04a9fcb4342a..b6116a203a27 100644
-> --- a/arch/sh/configs/hp6xx_defconfig
-> +++ b/arch/sh/configs/hp6xx_defconfig
-> @@ -35,7 +35,6 @@ CONFIG_SERIAL_SH_SCI_CONSOLE=3Dy
->  CONFIG_LEGACY_PTY_COUNT=3D64
->  # CONFIG_HWMON is not set
->  CONFIG_FB=3Dy
-> -CONFIG_FIRMWARE_EDID=3Dy
->  CONFIG_FB_HIT=3Dy
->  CONFIG_FB_SH_MOBILE_LCDC=3Dy
->  CONFIG_FRAMEBUFFER_CONSOLE=3Dy
-> diff --git a/arch/sh/configs/se7343_defconfig b/arch/sh/configs/se7343_de=
-fconfig
-> index 2d4d1f974f14..b3ce8a502787 100644
-> --- a/arch/sh/configs/se7343_defconfig
-> +++ b/arch/sh/configs/se7343_defconfig
-> @@ -57,7 +57,6 @@ CONFIG_I2C=3Dy
->  CONFIG_I2C_SH_MOBILE=3Dy
->  # CONFIG_HWMON is not set
->  CONFIG_FB=3Dy
-> -CONFIG_FIRMWARE_EDID=3Dy
->  CONFIG_FB_SH_MOBILE_LCDC=3Dm
->  CONFIG_SOUND=3Dy
->  CONFIG_SND=3Dy
-> diff --git a/arch/sh/configs/se7780_defconfig b/arch/sh/configs/se7780_de=
-fconfig
-> index 13fa6a59b8f1..9e96b000cb99 100644
-> --- a/arch/sh/configs/se7780_defconfig
-> +++ b/arch/sh/configs/se7780_defconfig
-> @@ -60,7 +60,6 @@ CONFIG_SERIAL_SH_SCI_CONSOLE=3Dy
->  # CONFIG_HW_RANDOM is not set
->  CONFIG_THERMAL=3Dy
->  CONFIG_FB=3Dy
-> -CONFIG_FIRMWARE_EDID=3Dy
->  CONFIG_FB_SH_MOBILE_LCDC=3Dm
->  CONFIG_FRAMEBUFFER_CONSOLE=3Dy
->  CONFIG_LOGO=3Dy
+>  Documentation/process/changes.rst | 2 +-
+>  scripts/min-tool-version.sh       | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/Documentation/process/changes.rst b/Documentation/process/ch=
+anges.rst
+> index 6b373e193548..474594bd4831 100644
+> --- a/Documentation/process/changes.rst
+> +++ b/Documentation/process/changes.rst
 
-Looks good to me.
+This diff fails to apply on linux-next, due to conflict with ece7e57afd51
+("docs: changes.rst and ver_linux: sort the lists").
 
-Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Best,
+Gary
 
-Adrian
+> @@ -31,7 +31,7 @@ you probably needn't concern yourself with pcmciautils.
+>  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D =3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D
+>  GNU C                  8.1              gcc --version
+>  Clang/LLVM (optional)  15.0.0           clang --version
+> -Rust (optional)        1.78.0           rustc --version
+> +Rust (optional)        1.85.0           rustc --version
+>  bindgen (optional)     0.65.1           bindgen --version
+>  GNU make               4.0              make --version
+>  bash                   4.2              bash --version
+> diff --git a/scripts/min-tool-version.sh b/scripts/min-tool-version.sh
+> index 99b5575c1ef7..a270ec761f64 100755
+> --- a/scripts/min-tool-version.sh
+> +++ b/scripts/min-tool-version.sh
+> @@ -31,7 +31,7 @@ llvm)
+>  	fi
+>  	;;
+>  rustc)
+> -	echo 1.78.0
+> +	echo 1.85.0
+>  	;;
+>  bindgen)
+>  	echo 0.65.1
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
