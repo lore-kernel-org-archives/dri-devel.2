@@ -4,64 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D8AD35153
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:35:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62330D35153
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:36:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D78210ECB2;
-	Wed,  1 Apr 2026 07:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 993EF10EDD4;
+	Wed,  1 Apr 2026 07:36:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h/efW/6A";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bXNn8vX/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6E610EC14;
- Wed,  1 Apr 2026 07:35:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775028919; x=1806564919;
- h=message-id:subject:from:to:date:in-reply-to:references:
- content-transfer-encoding:mime-version;
- bh=UShkxGbZBvCAklGuAw6grxLarMRD/zVv8+t4PIEnxp0=;
- b=h/efW/6AnBmhOqeZq+p8N+izbhdRaBJ9u6mt9FZxnLebTR3hE5z8aLJa
- b1NZraADAPs1h0Ye+q2kAHDCvOY2Yl8jhOB1szdTYU54uWT2m7iuFyD+4
- G5JqeAEs4ZEhi48SLUeMTQyEdo17ip8oeW+sjcUtAWLAesIW8ytU7OwtF
- 3dPOmelqRzqKKaao2H9CqUaoJoqp5PM4ApdHDJHOfh/Cx06OpGtSWiXbt
- bahsmxDYRmsAK5+0OKrRUnjznL6TM5ZgSDymNPNrA0vaiYdtMtKcVvO9i
- ccqrHVfF9beb1s+xT3UdLk58MaqOWumfT4SHYgMpyRxYjVCv3RRnw/cSx A==;
-X-CSE-ConnectionGUID: 7HGjprlVSt62AzT8tvKyCw==
-X-CSE-MsgGUID: ji/AmQvNRdi4Q1dW7z+usA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="63609985"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="63609985"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 00:35:18 -0700
-X-CSE-ConnectionGUID: eP86OlHwQ6iJeRVCW6/85Q==
-X-CSE-MsgGUID: 3WO6hVcfT86c0k0wFVLwvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="226472662"
-Received: from abityuts-desk.ger.corp.intel.com (HELO [10.245.244.137])
- ([10.245.244.137])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 00:35:14 -0700
-Message-ID: <b8c138314252a31ab6f88ebc824c7c9cf22b3d52.camel@linux.intel.com>
-Subject: Re: [RFC PATCH] Limit reclaim to avoid TTM desktop stutter under
- mem pressure
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Daniel Colascione <dancol@dancol.org>, dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, Christian Koenig
- <christian.koenig@amd.com>,  Huang Rui <ray.huang@amd.com>, Matthew Auld
- <matthew.auld@intel.com>, Matthew Brost	 <matthew.brost@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Date: Wed, 01 Apr 2026 09:35:12 +0200
-In-Reply-To: <87341fsa85.fsf@dancol.org>
-References: <87341fsa85.fsf@dancol.org>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 965F110EDD4
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:36:45 +0000 (UTC)
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-38c68e6b62cso46641441fa.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:36:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775029004; x=1775633804; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QcdqkcoFWcnZRoFYPOodBex3IYIVOtQ1sm2KoOI9YB0=;
+ b=bXNn8vX/xmaS2XLddn+JuqGbwsjANMBJ1KjF4q2LUvi4ANsfqAshYz0CVAxaMDNDM9
+ 6YikUGH2spl5oBhQvPK2vdP92PTAf/4nElanpalFzCTpdMrr/eVrl4Kdf7JCts5FhiSa
+ j75e6p95RizKQPvZ8Skhp96oJCcoF7hiMdikulKPN6W3tawosijyZz+OgVvC2x7alHgF
+ wdYq4KKfBxufoAuATE/oDSlm5UACKBmLqW+j4dMdcOyMP4R3ExZ79HHyr3VwxMlXhCJX
+ VPZ+w+iAlF+OxIwG+Pg7nfqoh7vF+IJA5pYQ4jR3V+sQYcn+ao1rGExotFPauNEDxd4y
+ J1LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775029004; x=1775633804;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QcdqkcoFWcnZRoFYPOodBex3IYIVOtQ1sm2KoOI9YB0=;
+ b=UiEWZDtdXPG7wpvH5zLnRnFNdpYev6oJ+6mwj6O9ie0moS1pQFbNeIO+SOoiqFIkEr
+ O3XqyvR+64BpC0rBd/3MeiQxcrSuTuxGMki6mYPgbZcDG486hKFXe2UGoq+l9b5nG0VE
+ GMt7C2IQZv8fETvWub0C+yGMl+BGBYYYMay7rjkI0ibQNJJ8orLzo6/CiR68Oc8tkMwm
+ cNsLlfmNWGUYrlfKJWZ08KAB4kfC6JJUfLeV+VtRJqWIPuGd4yiPV1qJU+nTq8FVgaX5
+ tF4m09tyUZW2srlUgaZOntuv+KHlI4GG/ouu/GJMXpP8/I1j8AZnAc6VVO/3xxXIJw9m
+ 4qDw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVqlQPdc1gnVJanivGGmjB9J0o9rL36DAClrGrLHaUvWawrkRJZhTiSlxjJ11seOnVB1w6Fh9AKQZk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3XRBWozXfGj4LFlJyGoEcwvykDkeXXSBS2aC6zL8QhewhMhig
+ 1YT4hStnbtz71hZzVu+NXESYgEAKsAnOex5eAxCxJOOVqL4k1jqk0eWF
+X-Gm-Gg: ATEYQzzgvQG+0Ydi4P5C+ffQfoAgFoLGBwZX6fg0Z7Yg49cby5pzH70dfSStq1eoRrB
+ 9y2Eihh5cVjQ5G99OOiFxctd17Cm4L0v7NejnNpoRe6PKfxsUxI8mUqksP9mGpIyilhDTJAvDRz
+ QEoZj+G/FMOy9z244X0Zb18w1AA7BtTqmknxrb/5gThjCr6jicvhJKgTlPX6ZPPDWBYWcc5Q7ip
+ tibkdCNfDfgo1BUZqiF0wKM8TOK+Up2BY4Kk9sotTdC6q19suoAMKxHzE4O4NKWfbWcQHjhD5tW
+ /bGVPtDu0Xya8d8PEu0Hn8rP7h4ysQRZH2weqBmu93SVVjgEMH9P0A9n0HOjr/kGVlzh3H02LGO
+ EC0o6A1Ec01KbQ0QBK2RYPSqqY9tNXtOTyXsxWpGBUCkarHLwXqRj2ZV0eKY4yFK0fKiiR2hGSn
+ dIeVPVN5ht0BbYpXio+1wqhNjyEIDDbjK3Sg==
+X-Received: by 2002:a05:6512:1152:b0:5a2:7d1a:4043 with SMTP id
+ 2adb3069b0e04-5a2c1f1972amr911388e87.20.1775029003339; 
+ Wed, 01 Apr 2026 00:36:43 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a2b1443f23sm3230048e87.42.2026.04.01.00.36.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Apr 2026 00:36:42 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: lijo.lazar@amd.com, Eric Huang <jinhuieric.huang@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH] drm/amdgpu: use IRQ-safe xarray API for PASID management
+Date: Wed,  1 Apr 2026 12:36:32 +0500
+Message-ID: <20260401073632.101796-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,153 +89,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 2026-03-31 at 22:08 -0400, Daniel Colascione wrote:
-> TTM seems to be too eager to kick off reclaim while kwin is drawing
->=20
-> I've noticed that in 7.0-rc6, and since at least 6.17, kwin_wayland
-> stalls in DRM ioctls to xe when the system is under memory pressure,
-> causing missed frames, cursor-movement stutter, and general
-> sluggishness. The root cause seems to be synchronous and asynchronous
-> reclaim in ttm_pool_alloc_page as TTM tries, and fails, to allocate
-> progressively lower-order pages in response to pool-cache misses when
-> allocating graphics buffers.
->=20
-> Memory is fragmented enough that the compaction fails (as I can see
-> in
-> compact_fail and compact_stall in /proc/vmstat; extfrag says the
-> normal
-> pool is unusable for large allocations too). Additionally, compaction
-> seems to be emptying the ttm pool, since page_pool in TTM debugfs
-> reports all the buckets are empty while I'm seeing the
-> kwin_wayland sluggishness.
->=20
-> In profiles, I see time dominated by copy_pages and clear_pages in
-> the
-> TTM paging code. kswapd runs constantly despite the system as a whole
-> having plenty of free memory.
->=20
-> I can reproduce the problem on my 32GB-RAM X1C Gen 13 by booting with
-> kernelcore=3D8G (not needed, but makes the repro happen sooner),
-> running a
-> find / >/dev/null (to fragment memory), and doing general web
-> browsing. The stalls seem self-perpetuating once it gets started; it
-> persists even after killing the find. I've noticed this stall in
-> ordinary use too, even without the kernelcore=3D zone tweak, but
-> without
-> kernelcore, it usually takes a while (hours?) after boot for memory
-> to
-> become fragmented enough that higher-order allocations fail.
->=20
-> The patch below fixes the issue for me. TBC, I'm not sure it's the
-> _right_ fix, but it works for me. I'm guessing that even if the
-> approach
-> is right, a new module parameter isn't warranted.
->=20
-> With the patch below, when I set my new max_reclaim_order ttm module
-> parameter to zero, the kwin_wayland stalls under memory pressure
-> stop. (TBC, this setting inhibits sync or async reclaim except for
-> order-zero pages.)=C2=A0 TTM allocation occurs in latency-critical paths
-> (e.g. Wayland frame commit): do you think we _should_ reclaim here?
+xa_alloc_cyclic() and xa_erase() use plain xa_lock()/xa_unlock()
+regardless of XA_FLAGS_LOCK_IRQ — the flag only affects lockdep
+annotations, not runtime locking.
 
-Could you elaborate on what exactly fixes this. You say that if you set
-max_reclaim_order to 0 kwin_wayland stalls, but OTOH the default is 0
-and you also say it fixes the issue?
+Switch to xa_alloc_cyclic_irq() and xa_erase_irq() which use
+xa_lock_irq/xa_unlock_irq internally, fixing the IRQ safety issue
+for amdgpu_pasid_free() called from hardirq via fence callbacks.
 
+Fixes: a3c0ee978e16 ("drm/amdgpu: replace PASID IDR with XArray")
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
->=20
-> BTW, I also tried having xe pass a beneficial order of 9, but it
-> didn't
-> help: we end up doing a lot of compaction work below this order
-> anyway.
->=20
-> Signed-off-by: Daniel Colascione <dancol@dancol.org>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index a6ac3b4ce0df..64d0da28441f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -68,7 +68,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
+ 	if (bits == 0)
+ 		return -EINVAL;
+ 
+-	r = xa_alloc_cyclic(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
++	r = xa_alloc_cyclic_irq(&amdgpu_pasid_xa, &pasid, xa_mk_value(0),
+ 			    XA_LIMIT(1, (1U << bits) - 1),
+ 			    &amdgpu_pasid_xa_next, GFP_KERNEL);
+ 	if (r < 0)
+@@ -85,7 +85,7 @@ int amdgpu_pasid_alloc(unsigned int bits)
+ void amdgpu_pasid_free(u32 pasid)
+ {
+ 	trace_amdgpu_pasid_freed(pasid);
+-	xa_erase(&amdgpu_pasid_xa, pasid);
++	xa_erase_irq(&amdgpu_pasid_xa, pasid);
+ }
+ 
+ static void amdgpu_pasid_free_cb(struct dma_fence *fence,
+-- 
+2.53.0
 
-Interesting. The xe bo shrinker is actually splitting pages to avoid
-dipping too far into the kernel reserves when swapping stuff out,
-perhaps contributing to the fragmentation. Could you check what happens
-if you turn that shrinker off by disabling swap? Does that improve on
-the situation?
-
-sudo /sbin/swapoff -a
-
-Another thing that appears bad is that if compaction fails, and starts
-shrinking the lower order pools, we might end up in a pathological
-situation where lower-order WC allocation split higher order pages and
-those are immediately reclaimed.
-
-It sounds like we also need to investigate why buffer object
-allocations are made in latency-critical paths.
-
-Thanks,
-Thomas
-
-
-
->=20
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c
-> b/drivers/gpu/drm/ttm/ttm_pool.c
-> index c0d95559197c..fd255914c0d3 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -115,9 +115,13 @@ struct ttm_pool_tt_restore {
-> =C2=A0};
-> =C2=A0
-> =C2=A0static unsigned long page_pool_size;
-> +static unsigned int max_reclaim_order;
-> =C2=A0
-> =C2=A0MODULE_PARM_DESC(page_pool_size, "Number of pages in the WC/UC/DMA
-> pool");
-> =C2=A0module_param(page_pool_size, ulong, 0644);
-> +MODULE_PARM_DESC(max_reclaim_order,
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 "Maximum order that keeps upstream reclaim
-> behavior");
-> +module_param(max_reclaim_order, uint, 0644);
-> =C2=A0
-> =C2=A0static atomic_long_t allocated_pages;
-> =C2=A0
-> @@ -146,16 +150,14 @@ static struct page *ttm_pool_alloc_page(struct
-> ttm_pool *pool, gfp_t gfp_flags,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Mapping pages directly=
- into an userspace process and
-> calling
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * put_page() on a TTM al=
-located page is illegal.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (order)
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (order) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 gfp_flags |=3D __GFP_NOMEMALLOC | __GFP_NORETRY |
-> __GFP_NOWARN |
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __GFP_TH=
-ISNODE;
-> -
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Do not add latency to the a=
-llocation path for allocations
-> orders
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * device tolds us do not brin=
-g them additional performance
-> gains.
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (beneficial_order && order > ben=
-eficial_order)
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 gfp_flags &=3D ~__GFP_DIRECT_RECLAIM;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 if (beneficial_order && order > beneficial_order)
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gfp_flags &=3D=
- ~__GFP_DIRECT_RECLAIM;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 if (order > max_reclaim_order)
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gfp_flags &=3D=
- ~__GFP_RECLAIM;
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> =C2=A0
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!ttm_pool_uses_dma_alloc(p=
-ool)) {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 p =3D alloc_pages_node(pool->nid, gfp_flags, order);
