@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A4BCD35153
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:40:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A8BD35153
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98CBA10EF81;
-	Wed,  1 Apr 2026 07:40:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RbRLgtYF";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F68310EF99
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:40:23 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0AA2140571;
- Wed,  1 Apr 2026 07:40:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C1B8C4CEF7;
- Wed,  1 Apr 2026 07:40:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775029222;
- bh=CaHe2VUsZZDWm6ErzNKL9G35yXKCVCCCSuUqA9E9iog=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RbRLgtYFvPHl043mICoGZscSr/N7MotX+SGIZUfXePNNzlfCYjC1vieeJmjL13L1v
- XHTOIE+lSdhB2HULMm42hT+KYQuRvNBuavSIW9yPgf8EX2zaU1zxC/XHxr/YVLAduK
- L+Xp14uT7oOuS0CV8sSwdR1auQq40uHaUs7QEFGmKlrUa9MNfwOxXOVNbbvHEgw+DR
- 0ja7heziqQtqnoLP04qTWrQEr+BrbzQK7kzcj1aIz85GJK1EqHSkpEuoHwyRM+TiA7
- 2OU+9/G77nACau3rxtBHs8T4UIMvZ/Ve9pIvYV0XynYU8MxrCWUd7S0cTVm08M3aCT
- jpU0c0LKOk8/w==
-Date: Wed, 1 Apr 2026 09:40:20 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Guangliu Ding <guangliu.ding@nxp.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, Jiyu Yang <jiyu.yang@nxp.com>
-Subject: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
- support
-Message-ID: <20260401-weightless-mule-of-opportunity-57f45e@quoll>
-References: <20260331-master-v1-0-65c8e318d462@nxp.com>
- <20260331-master-v1-1-65c8e318d462@nxp.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1C6C10EFCA;
+	Wed,  1 Apr 2026 07:42:25 +0000 (UTC)
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com
+ [209.85.210.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB0FC10EFB2
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:42:24 +0000 (UTC)
+Received: by mail-ot1-f69.google.com with SMTP id
+ 46e09a7af769-7d73e009a3dso18623298a34.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:42:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775029344; x=1775634144;
+ h=to:from:subject:message-id:date:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=R80x/G29SSy7bdd40P4eDIc501YaqsDSwQOYo/0ob+Q=;
+ b=m51UV72fikNszPLFqmboVbuxoNhYKH4uPdutbPNIcTaH9TyyNZ4yPdm/MgHxwhW+au
+ Cpy+LYnqyZ8baPgSnc3xFNEc+hTVh3sPeiRj8eqHOFEt+8n8SFXelMAdBpDGvoHxOjoh
+ GDXOMKree0V1j/JB2AszlZgb7yiyMPI6taZS7QBhFVUpJueUaxI9hJwufjmTMdWVUAqf
+ sKQctquJmegMIh/71NkskxqqJy+NOOq3nBR3E2N8CSNx9vVZlIteUStNfw4xmU/9o4fp
+ jwaeQxhqC18TtDncqj+n2ZBmvALfUUpqId1YJdUJm6Rs+CGJu9NleRxHnQcqKRnwtqIn
+ mVWg==
+X-Gm-Message-State: AOJu0Yytz0ss9WvPxYfinrtTqGKuiTRZIgTdtMLQ0WB/d8pUW+9EOhFI
+ hfXZqbdi2EwHMUyMuc/cYuwu8PBArYxbq433+m7/7HIXUBHET2VGFZabmYKQ8LG3hMxq2ZT/o5J
+ tQIPM8oiweq7CjljsvHVfwf2cwTGhmT/svIrqRNGuKYRvvOVJfPyv0ljeYfA=
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260331-master-v1-1-65c8e318d462@nxp.com>
+X-Received: by 2002:a05:6820:f029:b0:67b:b554:3922 with SMTP id
+ 006d021491bc7-67fabc07c84mr1458301eaf.18.1775029343778; Wed, 01 Apr 2026
+ 00:42:23 -0700 (PDT)
+Date: Wed, 01 Apr 2026 00:42:23 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <69cccc5f.050a0220.183828.003c.GAE@google.com>
+Subject: [syzbot] Monthly dri report (Apr 2026)
+From: syzbot <syzbot+list536de1e56a6284439088@syzkaller.appspotmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,18 +58,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 31, 2026 at 06:12:38PM +0800, Guangliu Ding wrote:
-> Add compatible string of Mali G310 GPU on i.MX952 board.
+Hello dri maintainers/developers,
 
-We see this from the diff. Say something useful.
+This is a 31-day syzbot report for the dri subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dri
 
-> 
-> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
-> Reviewed-by: Jiyu Yang <jiyu.yang@nxp.com>
+During the period, 2 new issues were detected and 0 were fixed.
+In total, 12 issues are still open and 34 have already been fixed.
 
-And the review should tell you that. Did that review even happen? That's
-a v1 and a single liner patch, so how basics could be missed?
+Some of the still happening issues:
 
-Best regards,
-Krzysztof
+Ref Crashes Repro Title
+<1> 3547    Yes   WARNING in drm_syncobj_array_find
+                  https://syzkaller.appspot.com/bug?extid=95416f957d84e858b377
+<2> 3341    Yes   WARNING in drm_crtc_wait_one_vblank
+                  https://syzkaller.appspot.com/bug?extid=c9f3062e1f1e68af836a
+<3> 2486    Yes   WARNING in trace_suspend_resume
+                  https://syzkaller.appspot.com/bug?extid=99d4fec338b62b703891
+<4> 300     Yes   WARNING in drm_atomic_helper_wait_for_vblanks (5)
+                  https://syzkaller.appspot.com/bug?extid=fcede535e7eb57cf5b43
+<5> 10      No    KASAN: slab-use-after-free Read in dma_buf_fd
+                  https://syzkaller.appspot.com/bug?extid=7f4987d0afb97dd090cb
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
