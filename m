@@ -4,150 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EF2AD35145
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:18:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12BD8D3517D
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 13:24:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F04210F102;
-	Wed,  1 Apr 2026 13:18:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7307410EC88;
+	Wed,  1 Apr 2026 13:24:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="MavsocaM";
+	dkim=pass (2048-bit key; unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="VVyBzuIQ";
 	dkim-atps=neutral
-Received: from LO3P265CU004.outbound.protection.outlook.com
- (mail-uksouthazon11020133.outbound.protection.outlook.com [52.101.196.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B698E10F102;
- Wed,  1 Apr 2026 13:18:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bc/ZQ9afvyZW5Xu/1TwwrN96ttjK3qbo4hbkSNRQTEeoaX5ZIs9+ME3lli08BAU3AhBaH5IdVaz6VT5O40eCM+svL1LxPgro1D7IcRqIU3xIDhfHmHS7ESB28lebEbg5LMW2h/wqBRl29XAYnQcOZ3Mf3pMRVQkK+X0aPo8341Fzk0ZsajeEnqqXhMbg0Ho/mppi3DhnMD5QUFG38Nbtp8zAzogSQMxvhO+Rbumb4xkgtiYGmvdZS9ThhrlswerwTJU3ZTu34Ie5H2CZRhw8euWq3pXL5Cnrfez8wfs10BsuFSQuOxjiN2IWRmDrGtaz7vdiVNvUNpavhDiyiy2vRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kQ4NfFHgcekBbX16iaW90Rs39I0/P19I92XrA6UoFx8=;
- b=MRK0F+MAkcTpEzRsQH7myCeBvJxfEE14HloEOSoyld6hK7Qo6QeXaNrn4IVSuSlJttej3tAAyYTuLwVYVL/txdIKYzyH6sQyHGxoZ9MZBG0/OeatIzaaYv6u9i8Rh8DsK66JtwlTwSfrodsT9UqL96wGIZo81jf4zZbFMyYklKSOPdy3bKep+FGRX+KzCOCe8w93l0JF73wA04v1sAy9dfXL0QOQ7h49kIYtPE2fDpb2LhVyfNBFjpng+e3uDiCV4107HCM6a6uhDh1ifbSPdzYcUmxagDhK7PxSRE2I7jHPz/CaNoi6LuNI2lN+Gck9xiEiIGIkzYD1dUtgkgcm4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kQ4NfFHgcekBbX16iaW90Rs39I0/P19I92XrA6UoFx8=;
- b=MavsocaMT1DLghXdDnnm08FVjyT+Sq0B+Q2LGlXElLPA8LNqK7YGuJAlX64J0r++71vO2QlKh/KetYBCXVF0CHAamN3a5M9Y5inS5QmiCEpfeXzHOyKqhd067axfXXskC2DV6sUvw7rE/6BV2SI3PBJuN/FkzSLCagy5JXFiI8U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB5572.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:274::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 13:18:38 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
- 13:18:38 +0000
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
+ [130.133.4.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5693C10EC88
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 13:24:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+ Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+ Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+ References; bh=NzJUnPeIU9yROEt0tAey+LBgtzBXy8jsAIcZJhY4GiI=; t=1775049844;
+ x=1775654644; b=VVyBzuIQs6OJ8mdb/Crmoac3Kslg6Ad+xQVqxkvLkuvrNdFOeTMr3qgGpzBoS
+ qdh9Yjs0kxI3Pzdmn6xeShBLnvHXKXtOmzsnbZNCrE2Mt+Ou2OzHXNLEWLG+JehINGD6pB0O5ii82
+ z1UPuRQU/tzBkAD4lHPVYX3eTa2vjaJBNgNxV0T/FnJN1LRFJH2KyBFaF8v95njW0qT7L71WLvZeY
+ WBD3KSGruCpMvqbILJZhOQJdIAufmCqqLTwlubxp0Ni77bUTPpwSiIxrO7gTBL6TSPFYwYgv5ZV9x
+ d3evUhG75YN3H9R86jUW6lTL+MxJBRi7M1l/eLbaMEKa0Cj3/A==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.99) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1w7vY9-000000008mq-0ul0; Wed, 01 Apr 2026 15:24:01 +0200
+Received: from dynamic-077-191-137-043.77.191.pool.telefonica.de
+ ([77.191.137.43] helo=suse-laptop.fritz.box)
+ by inpost2.zedat.fu-berlin.de (Exim 4.99) with esmtpsa (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1w7vY9-000000005jL-00f2; Wed, 01 Apr 2026 15:24:01 +0200
+Message-ID: <22ef0587b559e2578248a8d19b10cc04c04c4f7a.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH] arch/sh: Drop CONFIG_FIRMWARE_EDID from defconfig files
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Thomas Zimmermann <tzimmermann@suse.de>, ysato@users.sourceforge.jp, 
+ dalias@libc.org, arnd@arndb.de
+Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+Date: Wed, 01 Apr 2026 15:24:00 +0200
+In-Reply-To: <808dcd39-ed04-4288-9b21-55b47354de17@suse.de>
+References: <20260401083242.214492-1-tzimmermann@suse.de>
+ <b7c978f9728c1a1197e90a98bcec5e8e4dc7e7ec.camel@physik.fu-berlin.de>
+ <808dcd39-ed04-4288-9b21-55b47354de17@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 01 Apr 2026 14:18:37 +0100
-Message-Id: <DHHUJF4R0YBA.1SN13R4WRTBUE@garyguo.net>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- <rust-for-linux@vger.kernel.org>, <linux-kbuild@vger.kernel.org>, "Lorenzo
- Stoakes" <lorenzo.stoakes@oracle.com>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- "Uladzislau Rezki" <urezki@gmail.com>, <linux-block@vger.kernel.org>,
- "moderated for non-subscribers" <linux-arm-kernel@lists.infradead.org>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
- Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, "Nick Desaulniers"
- <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 04/33] rust: remove `RUSTC_HAS_SLICE_AS_FLATTENED` and
- simplify code
-From: "Gary Guo" <gary@garyguo.net>
-To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
- <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
- Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Jonathan Corbet" <corbet@lwn.net>
-X-Mailer: aerc 0.21.0
-References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-5-ojeda@kernel.org>
-In-Reply-To: <20260401114540.30108-5-ojeda@kernel.org>
-X-ClientProxiedBy: LO4P265CA0300.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:391::10) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB5572:EE_
-X-MS-Office365-Filtering-Correlation-Id: 851d6403-873e-4c26-2ada-08de8ff12fee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|366016|1800799024|22082099003|921020|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 1uyspV4XV9zrGbQH5nzrQowgVVKI5rWFA3HWqIYdwhUOwQqks0FC35g4cRbPcuUYGri38KqPN9hNGBFrmFJHSExEboV5UY0rssb/ZGfrolotaAsHXHRGSNrDfOK+dzG+v2zk6etrbwAI+wXtBme8bp7QZRYTygWLsPRTVmmPn78+f3hB8kcpMX5uVC5B7/8Kq4tv2HpLoBUsXQzppGr4o+Bzvs2faPJAOvsHFtYGHAudLPNZfxAX9iG2CxHZ6KACUXs8kWMrpkjTzb4s+lCZ6VzTIQunc21r1UhZEDTfV9GTYDiVQ/MDTR6S/L0gYIOARP5ly7jsybqRNIJ/qq0vn2oObI/fm6atSW67tz6eqFliCbc1E9WOLWz5PSXKR45THTz0JmOkZ3RLKAHZ+20c89SsBZcq99fW34CCLn7pXwmiNMrK03jrY71rYuEJ3C/gkHa3bjtVwtquAbIT/EBwkCB1uwNfjOyHFxo0erFFRxsEqcUpwrRIaQPPEtWd8K3o6l6ESpcihNf7VVTsJS3bmnmudL8Bic4OrOF5pIRZzaPzgnd6eraqY4+a6IKohfsdXNVtuHheDVs7WsXQyYaXBnQQkCDnGfE5RMkYUVdWMNT3CWW2qRnxH8L9mvtJVuV2gjQx/wBNvabI0c6FrCvs2FLUeOxuVmJUCllo13++BgjzgaB0nn+umAyoBH+VeYJRhnP0MjdBxnpWr3927k+gB/CU4XxBvEyeAm8e+j/4xemCKTZWQIP6up19RJjg/dPB72jISZJXqjEmYWyicGZHCw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024)(22082099003)(921020)(18002099003)(56012099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnlHNU5neHFRa3pxWXFYaXdMcmtCU0EwR3c5R2N3M3lSdjQ0Z2xkb3ltRGxv?=
- =?utf-8?B?L2NpMnVteFA3U05zNmE0aUYrYXpaREdPNHh2NTN4N2QrYXY0Z0FENmhoZWJp?=
- =?utf-8?B?K0d0b2tzdFVJZTZ4T2NidFVuMDRnYmFnTGFEb2JIaU44WUlyYUVxaEVGRUJ1?=
- =?utf-8?B?bTlTdWc0R0RFRUROeTdaV1pJcWVwVHRWTFRjd2w0SjVOalU2RzIrbVE1amlO?=
- =?utf-8?B?WDVvTGZIcVRRbnYvQitFRExOMkgwZDFvNFRFbklzUHA3WDFoQXV2d0ZPbkY4?=
- =?utf-8?B?SjlTcVYvUmhPUkxZZWlWbm9kMkdySjJ6VEFqOHpuRUcyK1orR3JMOUtlWXE2?=
- =?utf-8?B?VUFWbVZDeE14NWRRUTlzckFJVDFPTG9FZTNSdVFkNGR5N3pKR1dhaHkzalJW?=
- =?utf-8?B?OE5hZXBIRTJka0lzamswR01VVmtWYVB4c3V2eWowaGJLSkUxUkZTRkpiVVEz?=
- =?utf-8?B?OUltQmNjZmFUYVdHNE94MURCVHpaczc2SkhBdlQ5WWoxc0R5VC9oVHJrSTI4?=
- =?utf-8?B?SkNuSkJ6cnQzYStiQkoxaXRyempsUS8yMFNSc1JSa2s4aXc1VmlzL0dKMjY1?=
- =?utf-8?B?bENUTFFYUTdDZkIyREtzTnFHTU1VMlhzbWw3cVBhakpJVGdLV3ZndmtYZ0RY?=
- =?utf-8?B?bHE4RE9yR3cxTEt0bG1hZFBlbTVFUS9FczI3MEtsYUdORzNBQW1SVWdDQnV0?=
- =?utf-8?B?NHhRdW1aK21vd2RGZnB3cXJudHBiQjZvejk1dU9BNDBwSDQrUlI0bjhxYlo2?=
- =?utf-8?B?eWYxcy9XSTNDVWtzdlFxRUREMXhzLzJydU9IU1ovUU9TZTVhVVRuRy8wSUpo?=
- =?utf-8?B?Q3VvbjFtS2VMVVBGbWJEUmhwQjE5TGc3NlRzMkRoWExsT0dZQzY3bWdpU1px?=
- =?utf-8?B?TENkWDNFVkxzb2tLUUl0QmNuTmRna0NoU3JoZTZPeExLM3gvamZHWko5Wld4?=
- =?utf-8?B?S0NlMjQ4MmE4Y2k0YkRjd2gwTG5yRUZaeTNQOFhPR01RTEVYK1FRdXV0a1N5?=
- =?utf-8?B?enVLYUhyY0FiajVURWFNaitlUHU2KzIvNGRFajRaUHo1a21rRzVGa1B2dm9u?=
- =?utf-8?B?Qjc2MXdXdXNaZXc2VXAyYmFsREhhZHpjU1J0VWlzSFRIVFA1Wk1MT21hTHNs?=
- =?utf-8?B?QzFjL2lNcFJSaXpTczZPaHhyWU00VWQ2VWkvVW5aZVZWZTZ1WG1lZ1R5TFdQ?=
- =?utf-8?B?d1hHaGJYVjNmQngzNTA0bCtXSkVoL2VpcFh2cUJuUTlhcmsyQTMzVkluVHg4?=
- =?utf-8?B?MVBVK1lwQUZZRzM0emg1LzB1MlJnU1h2UWhIbzVxQ2pEY2lUN1hqV3VHbzgw?=
- =?utf-8?B?bDVMQjNBWkt5a25pM1BvUERzdTJwdnNnbDNqempsRzRRd0JsRDFCTEdQZC9Z?=
- =?utf-8?B?emZITi9qaUZUeWpzRlEvVXh3NmN5Y2ptMzFoeENmWHF2TkNqWS85azJtMk9J?=
- =?utf-8?B?cTM4QUxMSFJROTZIeWFGdFdPL1ZvOTRzOVg0N2lQL2NhcjY1TDJCQW5saVpM?=
- =?utf-8?B?OEpQUG9wMVkvdXN1L05Yako4WU9Qa2tReHY2THJJbTlKVzM4c0FiOGt4NzRp?=
- =?utf-8?B?OS9kOHBCRkIxaUN5NDREZTUxYTBUZHhPVFpaeW9OM056U3RiUUl2NTg0amRD?=
- =?utf-8?B?ZkprZXlldm9LVHBrU214bThJR05ScW4xVEk1U09ON2ZEUzdUMCtMQ1VhWGov?=
- =?utf-8?B?RkU3NkhRdFU2eFJZYklhMHBHekVsU0oweTJHcUtKNGsyMkx3MmhDcEE1Vzk3?=
- =?utf-8?B?QnUydDlzVFViSkpVTXV4K3FRMi9nNmdleTg1VTZpT0IrMFJGanlhRkJCdUVn?=
- =?utf-8?B?V0pxQUlJR1FseWxTbUQ2K2FEWGpWbGJUU3diVjJIVU54YSt5aGN3SVBFeWpy?=
- =?utf-8?B?M2x0ZWliYXBBMk9Jb0dReENGSUVtOStrRVFmb3lTUWM0azRtcU9IUWNEMndp?=
- =?utf-8?B?d0laWmx1MFN6S001MGYxdGdjOG5BSEpPTHRJK084eE1GK29iZ04rSkJGVDdN?=
- =?utf-8?B?djBDMUNBM2xvZkxMUFp0VkNHUndmUjNKUjVRdW05M3k4Qlc3VWdyMkR4SEVu?=
- =?utf-8?B?MnlvVmNQakZkb0dacUp5S3pXY2NETnN3MGJYNW8ranQ5dXhxcWR6VVdiM01p?=
- =?utf-8?B?Vjk0Vnp4WXRnUXFZYWhvOXJ4Q0hXRVpMbVczUVA4V1NrMytFSHh0akdUZEkr?=
- =?utf-8?B?WHdnbllOYnF0bXFxbTlUZEkySEw5eUtFTjVlQlozVHdlbTc0eGVHYWh4UFpa?=
- =?utf-8?B?Z2F3NHhvYkNjV043WVRub3F5cU12TVUrc0I0K1FDR0FLSDRVdWs4S2c4NjVv?=
- =?utf-8?B?WWVrTVg5alpKK0FFdE4yZ0E4ZnV4L1JUbW1qUndrNGpxaFlMdGhCUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 851d6403-873e-4c26-2ada-08de8ff12fee
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 13:18:38.7974 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y+wDEMd1QVjfLxes2tOj/x080c8nxr+U1lMVV1V1aG/MRT/0yRnT9BHBu7Ul4dld2oyEJHc5bEYcG08X21rzVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB5572
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 77.191.137.43
+X-ZEDAT-Hint: PO
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,25 +72,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 1, 2026 at 12:45 PM BST, Miguel Ojeda wrote:
-> With the Rust version bump in place, the `RUSTC_HAS_SLICE_AS_FLATTENED`
-> Kconfig (automatic) option is always true.
->=20
-> Thus remove the option and simplify the code.
->=20
-> In particular, this includes removing the `slice` module which contained
-> the temporary slice helpers, i.e. the `AsFlattened` extension trait and
-> its `impl`s.
->=20
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Hi Thomas,
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+On Wed, 2026-04-01 at 10:53 +0200, Thomas Zimmermann wrote:
+> Hi
+>=20
+> Am 01.04.26 um 10:46 schrieb John Paul Adrian Glaubitz:
+> > Hi Thomas,
+> >=20
+> > On Wed, 2026-04-01 at 10:32 +0200, Thomas Zimmermann wrote:
+> > > CONFIG_FIRMWARE_EDID=3Dy depends on X86 or EFI_GENERIC_STUB. Neither =
+is
+> > > true here, so drop the lines from the defconfig files.
+> > >=20
+> > > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > > ---
+> > >   arch/sh/configs/dreamcast_defconfig | 1 -
+> > >   arch/sh/configs/hp6xx_defconfig     | 1 -
+> > >   arch/sh/configs/se7343_defconfig    | 1 -
+> > >   arch/sh/configs/se7780_defconfig    | 1 -
+> > >   4 files changed, 4 deletions(-)
+> > >=20
+> > > diff --git a/arch/sh/configs/dreamcast_defconfig b/arch/sh/configs/dr=
+eamcast_defconfig
+> > > index dd58797e8298..b31bf17fe112 100644
+> > > --- a/arch/sh/configs/dreamcast_defconfig
+> > > +++ b/arch/sh/configs/dreamcast_defconfig
+> > > @@ -50,7 +50,6 @@ CONFIG_HW_RANDOM=3Dy
+> > >   CONFIG_WATCHDOG=3Dy
+> > >   CONFIG_SH_WDT=3Dy
+> > >   CONFIG_FB=3Dy
+> > > -CONFIG_FIRMWARE_EDID=3Dy
+> > >   CONFIG_FB_PVR2=3Dy
+> > >   CONFIG_FRAMEBUFFER_CONSOLE=3Dy
+> > >   CONFIG_FONTS=3Dy
+> > > diff --git a/arch/sh/configs/hp6xx_defconfig b/arch/sh/configs/hp6xx_=
+defconfig
+> > > index 04a9fcb4342a..b6116a203a27 100644
+> > > --- a/arch/sh/configs/hp6xx_defconfig
+> > > +++ b/arch/sh/configs/hp6xx_defconfig
+> > > @@ -35,7 +35,6 @@ CONFIG_SERIAL_SH_SCI_CONSOLE=3Dy
+> > >   CONFIG_LEGACY_PTY_COUNT=3D64
+> > >   # CONFIG_HWMON is not set
+> > >   CONFIG_FB=3Dy
+> > > -CONFIG_FIRMWARE_EDID=3Dy
+> > >   CONFIG_FB_HIT=3Dy
+> > >   CONFIG_FB_SH_MOBILE_LCDC=3Dy
+> > >   CONFIG_FRAMEBUFFER_CONSOLE=3Dy
+> > > diff --git a/arch/sh/configs/se7343_defconfig b/arch/sh/configs/se734=
+3_defconfig
+> > > index 2d4d1f974f14..b3ce8a502787 100644
+> > > --- a/arch/sh/configs/se7343_defconfig
+> > > +++ b/arch/sh/configs/se7343_defconfig
+> > > @@ -57,7 +57,6 @@ CONFIG_I2C=3Dy
+> > >   CONFIG_I2C_SH_MOBILE=3Dy
+> > >   # CONFIG_HWMON is not set
+> > >   CONFIG_FB=3Dy
+> > > -CONFIG_FIRMWARE_EDID=3Dy
+> > >   CONFIG_FB_SH_MOBILE_LCDC=3Dm
+> > >   CONFIG_SOUND=3Dy
+> > >   CONFIG_SND=3Dy
+> > > diff --git a/arch/sh/configs/se7780_defconfig b/arch/sh/configs/se778=
+0_defconfig
+> > > index 13fa6a59b8f1..9e96b000cb99 100644
+> > > --- a/arch/sh/configs/se7780_defconfig
+> > > +++ b/arch/sh/configs/se7780_defconfig
+> > > @@ -60,7 +60,6 @@ CONFIG_SERIAL_SH_SCI_CONSOLE=3Dy
+> > >   # CONFIG_HW_RANDOM is not set
+> > >   CONFIG_THERMAL=3Dy
+> > >   CONFIG_FB=3Dy
+> > > -CONFIG_FIRMWARE_EDID=3Dy
+> > >   CONFIG_FB_SH_MOBILE_LCDC=3Dm
+> > >   CONFIG_FRAMEBUFFER_CONSOLE=3Dy
+> > >   CONFIG_LOGO=3Dy
+> > Thanks for catching this! I wonder where this configuration entry comes=
+ from though.
+> >=20
+> > My SH7785LCR board does have a DVI output as well as a Silicon Motion S=
+M-501 video
+> > chip though, so I think it should be able to perform EDID in general. O=
+r is the
+> > protocol actually tied to the x86 architecture? What about monitors on =
+a PowerPC
+> > workstation, for example? Does EDID not work there at all?
+>=20
+> Yes, your system can fetch the EDID via the Linux driver. But=20
+> FIRMWARE_EDID is a special feature where the EDID gets delivered by the=
+=20
+> boot loader. This has always only been possible on x86 or with EFI.
 
-> ---
->  init/Kconfig           |  3 ---
->  rust/kernel/lib.rs     |  1 -
->  rust/kernel/prelude.rs |  3 ---
->  rust/kernel/slice.rs   | 49 ------------------------------------------
->  4 files changed, 56 deletions(-)
->  delete mode 100644 rust/kernel/slice.rs
+Ah, thanks. I wasn't aware of that feature. Let me add my RB then.
 
+I'll try to merge some patches this week.
+
+Adrian
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
