@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BED53D3517B
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD659D3517B
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 233E210F077;
-	Wed,  1 Apr 2026 11:51:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E8B10F085;
+	Wed,  1 Apr 2026 11:51:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iITjMsfh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qt9hgTLa";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5A7A10F077;
- Wed,  1 Apr 2026 11:51:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5F4910F085;
+ Wed,  1 Apr 2026 11:51:34 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A71D404D6;
+ by sea.source.kernel.org (Postfix) with ESMTP id 67CD4404D6;
+ Wed,  1 Apr 2026 11:51:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D57C116C6;
  Wed,  1 Apr 2026 11:51:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AAF0C116C6;
- Wed,  1 Apr 2026 11:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775044282;
- bh=zBRgkfbt3hF9WvqxM8XN0aG8ALClzrJ4tfRHlURA+/8=;
+ s=k20201202; t=1775044294;
+ bh=yKvVVQSsm3ADeF9w4UcOYUs55+Yf5zunUU3xGxiWVJk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iITjMsfhfcTYUWXW6qoQkraYuvMY0slG34Cknkq2VHyvat3oaJRuW0fZ+/koONznL
- SPdU99XrlrEP5k8CChuk0LAjmH1IitsUhLZv2gSSl2RW0XxgMpM2bkRAYRJAr4LAca
- lwlWeeG0+4pPPo3E5MWDbDXuJv07Vcm+IFEzC12fdTyQYiMlmOdOIBZyVwEYiVs+T0
- mvSRJh8CrjRcRnyHxBcF/zH6E1feLSaQUx3OPc8l5NRdZGdjusjdGfUPQF6ij/n0KC
- eeR+DlUNUhIyF+MboRGXbUUdBuglvWFtU/G4DG9cD0Wrr6a6k9Twbor59rqsvwp1T4
- 2MDeXpey3+CMA==
+ b=qt9hgTLa2Us6ZAkjaDuidhhjBEvQbNdulZHZKXQzC+eR8wTzSc77xJJ4dkBB9WzzC
+ 56So1K8x2lvFO5CwxaplRlWHIiDYAL2Mi584X4uRylEkZluCLgYJv7XA2Ib5lu3mp9
+ /0rASa7YRY69ivi92iRCKMtbZ8gRaxDbRECSS/jsbMr266RSERosPt+9kyn9IYS6PO
+ /jrkgOh8JThQ7n5bruoE5xHV1QuoewRsBnEwccKdY1YZRxh5s2PfRgQiU1MSTkVgtN
+ rJ2E7yTdsHe1fmPWtL3F7NSZDISppgJS77qEymsIzNL65GsE84OdkUOCPCwIz7gUv8
+ Z7Ygn1YR5NvuA==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -62,10 +62,9 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 27/33] docs: rust: quick-start: remove Nix "unstable channel"
- note
-Date: Wed,  1 Apr 2026 13:45:34 +0200
-Message-ID: <20260401114540.30108-28-ojeda@kernel.org>
+Subject: [PATCH 28/33] docs: rust: quick-start: remove GDB/Binutils mention
+Date: Wed,  1 Apr 2026 13:45:35 +0200
+Message-ID: <20260401114540.30108-29-ojeda@kernel.org>
 In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -85,33 +84,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Nix does not need the "unstable channel" note, since its packages are
-recent enough even in the stable channel [1][2].
+The versions provided nowadays by even a distribution like Debian Stable
+(and Debian Old Stable) are newer than those mentioned [1].
 
-Thus remove it to simplify the documentation.
+Thus remove the workaround.
 
-Link: https://search.nixos.org/packages?channel=25.11&query=rust [1]
-Link: https://search.nixos.org/packages?channel=25.11&query=bindgen [2]
+Note that the minimum binutils version in the kernel is still 2.30, so
+one could argue part of the note is still relevant, but it is unlikely
+a kernel developer using such an old binutils is enabling Rust on a
+modern kernel, especially when using distribution toolchains, e.g. the
+Rust minimum version is not satisfied by Debian Old Stable.
+
+So we are at the point where keeping the docs short and relevant for
+essentially everyone is probably the better trade-off.
+
+Link: https://packages.debian.org/search?suite=all&searchon=names&keywords=binutils [1]
+Link: https://lore.kernel.org/all/CANiq72mCpc9=2TN_zC4NeDMpFQtPXAFvyiP+gRApg2vzspPWmw@mail.gmail.com/
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- Documentation/rust/quick-start.rst | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/rust/quick-start.rst | 9 ---------
+ 1 file changed, 9 deletions(-)
 
 diff --git a/Documentation/rust/quick-start.rst b/Documentation/rust/quick-start.rst
-index 1518367324fe..5bbe059a8fa3 100644
+index 5bbe059a8fa3..a6ec3fa94d33 100644
 --- a/Documentation/rust/quick-start.rst
 +++ b/Documentation/rust/quick-start.rst
-@@ -68,8 +68,8 @@ of the box, e.g.::
- Nix
- ***
- 
--Nix (unstable channel) provides recent Rust releases and thus it should
--generally work out of the box, e.g.::
-+Nix provides recent Rust releases and thus it should generally work out of the
-+box, e.g.::
- 
- 	{ pkgs ? import <nixpkgs> {} }:
- 	pkgs.mkShell {
+@@ -352,12 +352,3 @@ Hacking
+ To dive deeper, take a look at the source code of the samples
+ at ``samples/rust/``, the Rust support code under ``rust/`` and
+ the ``Rust hacking`` menu under ``Kernel hacking``.
+-
+-If GDB/Binutils is used and Rust symbols are not getting demangled, the reason
+-is the toolchain does not support Rust's new v0 mangling scheme yet.
+-There are a few ways out:
+-
+-- Install a newer release (GDB >= 10.2, Binutils >= 2.36).
+-
+-- Some versions of GDB (e.g. vanilla GDB 10.1) are able to use
+-  the pre-demangled names embedded in the debug info (``CONFIG_DEBUG_INFO``).
 -- 
 2.53.0
 
