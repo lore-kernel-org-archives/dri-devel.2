@@ -4,162 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E33B1112240
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:02:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEFAB1112244
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D709D10EE57;
-	Wed,  1 Apr 2026 23:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 144BF10EEA1;
+	Wed,  1 Apr 2026 23:23:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Znm24/ug";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z4TAopWQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C318610EE57
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 23:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775084544; x=1806620544;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=fsBbzqnEl6gFV+3RfOuWjFM82jmsJj+r5gr9ogAizvI=;
- b=Znm24/ugdHdVTBDjrGKeruFHeFIYt8zNDEygcMW+4YpknpPIdtzOOLrD
- jREpl1tunVobFrguV6E62AudhRuCXta30UeRiLSoHFj7Nrlj6Si67Qhz+
- Tpe8hqpwQUwBQma49jf9uFqmxvae2FOvEAhAkSpW9IpxdRYM7mec2+sRH
- Ik5F03M2sXfrfl6V0l/5zZbjM5g5nH7CpNEMZG8MBCAsuoZDJwT3crRq7
- 7u5G+Ho8xlFeZyxDbLVYVqytsEKote0O1d2/Ze0b7M+V5siIMJC1RxZ5Q
- +8VOdAeDf3GOeO9llsqnEVFGM/daSPRvX7D6uXfFj866H3Hsy05hVOvkv Q==;
-X-CSE-ConnectionGUID: l2d/BM+6Q42ccXH7vcxZxw==
-X-CSE-MsgGUID: fDNOcIaoR/6S3cxlrOULZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="75312055"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="75312055"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 16:02:23 -0700
-X-CSE-ConnectionGUID: kgSz1AvqQPucEfdhrj8dBw==
-X-CSE-MsgGUID: NiQgB3yATF+EeMpZt9Onjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="231220941"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 16:02:22 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 1 Apr 2026 16:02:21 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 1 Apr 2026 16:02:21 -0700
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.16) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 1 Apr 2026 16:01:58 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012043.outbound.protection.outlook.com [52.101.48.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6CA010EEA1;
+ Wed,  1 Apr 2026 23:23:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q4rwFL3iJ2PeJlnVn9J5nVzsddUwWpszWCWyOHnZFMxHdafINTA9AISWrMnzC7V4p91tcAFtGAAqWIg3pPQ34VhwyOFg/rXSTnf0Xo79BFmO6bwukNKLmCnyKH4DdBO9Vt0/+dpt/Kp5BoyiJK1dkJrPvG4OEOAARyepzYoUcd1riZJLB1gVMEJVK+WxImeheZ9P65Edo05fscBq7fhSwMTSuMLXMRcPmrruxZjimLP2k5w2/8FGQQxOySxcIk8o2dmqPyQW/tIqjSHNb2JpXVFEWcEyOTtXKG2yJGibIQ62YSkFPsHFZ8YXhknlngTNOOmmpFmhek4N/veGVPcyJA==
+ b=gkztkta7/Z55Q1//A7vqDCP+MNQMG6qJIFxKdCuKWqStlxUYhywQJTSCgmEIvs9Xu6ZLCtv8qBKhDXQ71215toVj8lvKpnbxDrKPX+FRl92KSmGafaCEGzlg1vvkO+1PN5vAf53UevlUiyJg9szRvg71fHQF5XLxSIaZ1gbBRdL1bqepNqXTLr4zkf40Mfa4o7g75D0w2C5znOosYGqJEr1zqO18Bslc0zqvn82amsZRPecvRHoWrrq1IDG9eGo7/5NSCCORgoJVNeRFRT0SKOk02s6WOdDDVDHhB3zV/n3cr6Ur+QJEje6Rzc6MfAxrtS0/wTq8QN8rTRKeAN8erA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g4Ue+D8vxzS5NAMrnCtbXTjzsF/CD1slnPrtX9HdHvg=;
- b=lp0EEwBw8s9lQxvRspuMlXTCS5tm7cesPiOKcd7HpqQ9cz1tPYn6rrBC3/pK8/MKYGE61nE9pNxPMP605RzDyufabAfwDewTdk8jRjMoBvJ2j2pVmm6MdDaMsdn7f9WCTVvuFznQhXs7w+5wU0GrlT4gjHD8GjCYz7Siqp6MlA6BrbnUdeSA8nn67+q7Zb4mpmapYp3UbY0G7NZ5mSSvX2RUGWKjpD6z0OqgBv6e/eDqd2yy3aKAklG7fTAAxQwp+XASTFlmA+7/yskmvQB6bsSNK/yDRM+DDRA4WVtuP7m3H2RGJ3K62s3QlV1pCB/M9J6dlHEZE3VXTue/5Jm5Cw==
+ bh=lsvZ8jJ0K/QhcqQMbwAG5tkKCRMqPrZm23OhozMTBjQ=;
+ b=gU3KY1EREAaE0sKB/fIxatNduOkPYgp7g+I+31LB90DLp6MUN+0y4WdOWa9/P5UzZLM8IUKniax4kg1ExTS61GnPYaUemZlk9ijeld5cR07gkrmEh/Pabc/4XV56pC6vgCG4p9pDHdyLCPU2LU8Voxbzoy/+y8xD+vlPaaB2u7TwmiXexns1w9kUNalC7WhZc+rcHl6z4EU6AzGj04YrLl9Z7ZVxSm0TFnZomiwg6Kj6AizT0Xj3Lyr6eVp1BYBxEMDXt3X2v5hDOCvnnNfAIcg5bCRjyG9kv+rEgXU1MKeaHqFaBXN3i6zLxJ70Iah5+XRF7SpUPP2Fu4kgVO0vgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lsvZ8jJ0K/QhcqQMbwAG5tkKCRMqPrZm23OhozMTBjQ=;
+ b=Z4TAopWQ6+2GPxwIDiuSJZdSVQbDyXZuP6s6+vVVGF68UNsMr7myyiTvN1IE0oXtZ0SmzhHLpeXRwpaOGGBdaOGQst3QhOIzxvEstPdLIM/zfIHt8KmscOetiZvEKq/WNKTFneFF5gKiVKHSY26rP1DesPnL0kXbUaX+S0YgurHZ17q7lD+shL3qUK5mZEkm0l9F0fpXilk27eHamKM7WZ7nf+kI+5tubTQDBdXNP405myZzOplcVMDmZhwuonJt8fz7Mjs4s1/Wf+FxusR8UPQHv1ITBQfYm7o1eVYfi4ktldFE4i7+HVLnwSvQPo3g2eJ/wYOi5MVs2mjde+Tnyg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
- by DS0PR11MB7904.namprd11.prod.outlook.com (2603:10b6:8:f8::8) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ IA0PR12MB7530.namprd12.prod.outlook.com (2603:10b6:208:440::5) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17; Wed, 1 Apr 2026 23:01:56 +0000
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
- 23:01:56 +0000
-Date: Wed, 1 Apr 2026 16:01:52 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Alistair Popple <apopple@nvidia.com>
-CC: <linux-mm@kvack.org>, <zenghui.yu@linux.dev>, <Liam.Howlett@oracle.com>,
- <akpm@linux-foundation.org>, <david@kernel.org>, <jgg@ziepe.ca>,
- <leon@kernel.org>, <linux-kernel@vger.kernel.org>, <ljs@kernel.org>,
- <mhocko@suse.com>, <rppt@kernel.org>, <surenb@google.com>,
- <vbabka@kernel.org>, <dri-devel@lists.freedesktop.org>, <balbirs@nvidia.com>
-Subject: Re: [PATCH 2/3] selftests/mm: hmm-tests: don't hardcode THP size to
- 2MB
-Message-ID: <ac2j4BLA/jY01rgl@gsse-cloud1.jf.intel.com>
-References: <20260331063445.3551404-1-apopple@nvidia.com>
- <20260331063445.3551404-3-apopple@nvidia.com>
- <acyq8B7/Uwowj+kl@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset="utf-8"
+ 15.20.9769.18; Wed, 1 Apr 2026 23:23:11 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
+ 23:23:11 +0000
+Date: Wed, 1 Apr 2026 19:23:08 -0400
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ joel@joelfernandes.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v9 04/23] gpu: nova-core: gsp: Extract usable FB region
+ from GSP
+Message-ID: <20260401232308.GA1557837@joelbox2>
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260311004008.2208806-5-joelagnelf@nvidia.com>
+ <DH1GK30TUB4V.2GR6ANXIZDFFQ@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <acyq8B7/Uwowj+kl@gsse-cloud1.jf.intel.com>
-X-ClientProxiedBy: MW4PR03CA0244.namprd03.prod.outlook.com
- (2603:10b6:303:b4::9) To BL3PR11MB6508.namprd11.prod.outlook.com
- (2603:10b6:208:38f::5)
+In-Reply-To: <DH1GK30TUB4V.2GR6ANXIZDFFQ@nvidia.com>
+X-ClientProxiedBy: BLAP220CA0023.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:32c::28) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|DS0PR11MB7904:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2bf37a9-31b5-45dd-8d6d-08de9042abe5
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA0PR12MB7530:EE_
+X-MS-Office365-Filtering-Correlation-Id: 822913e6-b60f-4243-d9c1-08de9045a37f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|13003099007|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: YuhbtK7g1rJTXyUPuFge77IuBkfkPZv6XF+1wOZlF9FAtQcscHYt7dZHBvCBE5t6k+2M1LpODQitG9l+IQW6s28zQm86mSi7qBbGaTBwkbImNf9EdnUmUuJZBvWMygi0oHxWW3J9J/+dCdXyTaMMz8csGpKjyhBqOHR3IEJA7c2bvvfzEkDpcD2TLRkQSwb+17XhsgY09cSq8W7N0eLOcRfCt8jcc05Da0YSevc33HS14Fa/z15GWOxc0YOSPPfzecjlo3QA9kt2kyn5/qUlBkKdU2x5xoPwknp3E1KaC0Y7o2G35Iozrf6cVgga2giRUU6J8jg6zmrAwyusGORVHO0ckWBfu2XcvIOjhzzREz3SSFRzLGJ5pbhdOCOjfobtG9G4rYsNCyjgLaWB2iFVnrHgSbFmkd1d0HxZHhDVwUmgymCILiavOuSs/AdaojMOR1hqmd8p2tR0opWJGmO/v1wHaMd3z7Mr40egTfY2p2uuQ2BXC85898mAOqmEsJ+6yGW5UPhc+LmU+eyGo4u5eqvc1EdGh1lha1RldYzw/5kUstesgWztOLqE0FdFyLf5eRikv3643GNxTsjhIkJ/PBNZtXbVP8A4oIRMQDow8LaijzQqwXR8kAR43iUmcoC6EVUFWDPz9xay4EcpUG2R1vo5bMeRngjaUOLuQgwAOvm6U0LYpIw2oWiXkNOmpzcZ
+ ARA:13230040|1800799024|366016|7416014|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: nrPBq57/6XeufFQNdR605zlBCY5MjaMDUfBcffgPyMijdsdCO/89PFlXehHMDJcTqQLrZqWcxdphzLvkQSXKE8V7O5TAu5/hFv3jlq+uIWcRZSR+TUkczRyXUxB7gsHs0nz9PfZ1ZV2N9tE3dkxHWXvf13Fjmyu80lj0/BW+bFKWD/7AiP5wV0+7aO2Sh6A2LZ82Yg2hK9E6M4WXJac/dhgG8tZ6F8QfRRkghc2003eyAxr00oXY5m/A75L5WoICD42fSBAUTOj5y9GdkAdvoAhsESWrpZtQ8As6M/FeCBJCFmJN80lr6N1Wcp5f05/xgsllDkAbfy15TjsKwra1pMdE90u9Pya2QPkW6JmEAA8tLPfZM8Rvxuds286eSsrvbH9EnaMiENmESMyMuWB68bRCUjVDqZVKtR/20CdP84V42bDslcNY6fr5BtFp1dRiOJP1G6GZWkQDouHh3CdPgyhNOnOQJyO7cbyH1TVHFdpE6D9MXQu7z//2GJuIWHWYwlyCGGx+PaViIs9t9e33SrMR+argMmDdnWE87p0FyEu2bwTvmvT3hRwY+39m0Y0BoRpPAUQLZxdavELT0ocmFr0x3IwHqxTqjg28olYUg7XiflDqMujnZwGDP6VDVMoxPbVDfnfnBZJNdm+i70PDSXOZSEZzyXfc1wFXe2k1dWve+Cxp4TcLTEy9wFfYyYUJHKFtAoo1McxovwpgzLeYYOEjPyQV/girH1PdDLzNzeo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(13003099007)(22082099003)(18002099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUxtVUczWGpKUG1LVlprSXF4aHdqRU1sblVqWDloR3lkSzU4TGdzWWxDckcy?=
- =?utf-8?B?ai93clJBcE9EcUZFd0JGaFpsMENBaGM1cERQS1BVVnJjS29sSk1HTHgxcjB4?=
- =?utf-8?B?citWeVJTc09FRHF5SXVFT2VuZy8wNWQvVDNVUzZYZ3lFZmVNY25mcWZQdzE0?=
- =?utf-8?B?TGllZkRYWHVPVkdlZmFVdmZ6bzN3dlhNNy85ZmNQcldGaVFhMkNhL1pXTlEw?=
- =?utf-8?B?YzFhMkJ0NEFXTHdRM3VRbXNqSUp1YVNSYXBHQnZaTnlyMU9jYytCWEdsdGdv?=
- =?utf-8?B?NitQMDF0NVlZc1NLc1VNMk1FamRSQTEvRU9wcVlWMHhPaUk3eWlQbXZYYlgr?=
- =?utf-8?B?dndvaTlpMzU5Zy8vOFpQbisvRVVKbUdIYWZ2TFAvaTdqeHRQRHlVaURyR2lX?=
- =?utf-8?B?MjloSVVaZEk3L0tYQk1RNlJzMUs4N2tGT2hyckI5T0RXdzRuUUpYTDZCb253?=
- =?utf-8?B?VGdDSC9LUXdiakVjR3Y5Q2d5OEs3YklFRFExem1zNHQ2Z2JJajBJUTlubGFW?=
- =?utf-8?B?ZkhlZ2RwbjhZdDk0T2t2bXFmZ2Y0M0FrL3d0SE5OT3VudFFMNWRpQWNrczAx?=
- =?utf-8?B?dDlXTTREWEVBMjRKdnVUNkJuNVJtbElFVDIrVG12QkFUTFBkNDc1QVN6RytN?=
- =?utf-8?B?WHQ2SkZyaHgrV1NyMFJ5WjArY2duZitxaFZOZHdDY2xNMDkvVlZpc0ZVM1Rk?=
- =?utf-8?B?QS9rRndqb2dKaml2aXBpS2U5ei9CYW11OEJCMERFUU1WRWY5bjhIRTA0T216?=
- =?utf-8?B?UVFLTzAvcm1xRks5di9SRFlSSHZvQmM0Q1NxQ0hGUi9NYlgyMmpmM3hBRVlM?=
- =?utf-8?B?dVJ5aHhHb0lrWTFzVUVzVHhjUk5IRVBMdVJiVER0a1RGOUJhd1ROTWgxMkZT?=
- =?utf-8?B?Q0RkcWsyRm43KzJzVnp0MkpxN1BLRk5PdDlkL2pWTVZ5WFJ4dVFMUVlJUlZE?=
- =?utf-8?B?OC9kWXliUkRBQzZuUjZYVmJsWU5xYlhCUmJ5ZUpkdkRPTnpvVWY1MjFyalEy?=
- =?utf-8?B?RHBBSUJ4YVAyL1RZMHlHQUpsS1Bod0wxNnQxdFdpR1VaSVhxN0tnWlZuK1Z3?=
- =?utf-8?B?cDlncThsMmI3SlpHQmxGRDNHaXA4S2NaNXVKUkloQmZaSHlwNUhxRWlnRytu?=
- =?utf-8?B?ZndWNHE5Zkpwb1VVRWpqenFLQlFjdmtYWjZTNVRtcDJIckJEQ1Z0U0tmakcz?=
- =?utf-8?B?aFRkOHdLaXh0V1ZJVVlZRWdra251V3RQa0g1RmtBcm0rS3FNTlh1UWtXUlpG?=
- =?utf-8?B?RkFIdlZnZ1ZaUHM2Nyt5VS9LSUdQWlMxTVNscHVMbTFlcTc1ekIzc1RzVDZI?=
- =?utf-8?B?Rks3WWYyMEJ0b2NUNnBsV0tRWFN2alVzZUM0ayt4RG51Ymx3TEtYbGpLTE5Q?=
- =?utf-8?B?VG5lc3d2WkpRWDdZRVduNTBjdDgzRmJwbHZuZHlJRE5UNGVDVWtVNTdFVXpa?=
- =?utf-8?B?NDRENGEza2lKKzZJT3JYWlY2RmtMT2loWDY2RlNFSU9vbTRvQ1BXYk5GanJX?=
- =?utf-8?B?RnJTWVdGbTVNL002c1liTTVCVzlwdXdFK1lZU1JUOWtwZ2VhRy9tZnlXZWt5?=
- =?utf-8?B?dytiVlArTERaSXBQV1ZVSTJEOHp5OTBaSitta0lpSDJSa3k0cHBEVGs3aGJn?=
- =?utf-8?B?eEdjWExxbW56RXpFV2duclZXdmJ1cDBEeHNCejZPYTZIa0t3SUlYalJzelNo?=
- =?utf-8?B?bGFlOWh4d2VlajdpNzEzbzM2VWUrYTlJNTZmUzgxRU1xZldvaEFac2tkVFVQ?=
- =?utf-8?B?OXplcG1mMXJjdXV6QXlKczlFVk9kak1Ea2RCY1JHQkpENUNrNFUrbUVUR2RS?=
- =?utf-8?B?RGpEWkU3aC9vMlJnSlNIZzFDREFvUWF1c013Qzc2YkMrRXp6NEpUcFhDcVVN?=
- =?utf-8?B?SWFseVRadk8xWWFLU3Y1bG52bkNVR0RpM0FhKzhKU012K2RjTk00VnpMLy94?=
- =?utf-8?B?MWRkTHNJMTcvWnd1aUNORHZFUTR5dDlVdUszQzRoNGYxUGpaMlpFckZMMlpG?=
- =?utf-8?B?d3JtZnBMYy91L0pPYUNrOTFUcWl1K2grd2pWUkJHdUl1WWw2SHFkUGdpbFUv?=
- =?utf-8?B?YlN5aDhOblBzSVBBaGg4MWFjMzhxRVBiTGxUWC9xTE9HeTA3NDI4OFVpUkM4?=
- =?utf-8?B?cFhsazNULzliODRHcXIrMng3S3pXaEU3Y3o0NEorYm1QR244dFFHTXc5Z0hv?=
- =?utf-8?B?aW9rdFNKakhYblRTd3J1QjFFMkJKRzVyYzl5SEdnQTY5R0lNbjg2NlBpU2FG?=
- =?utf-8?B?TGpPTUVxVlVnb0RtVXo2NUdXOFRlNlMvRnpzREpxaVpodFEza0h6UE02dzN4?=
- =?utf-8?B?Nm1EOHUyVmVtM05yeXNPQWR3U1NjWVQ0U1VnbmoweTcrYWpMQ1J0eW91Ui8y?=
- =?utf-8?Q?tgKyyL4esO8TFjUM=3D?=
-X-Exchange-RoutingPolicyChecked: LT/Rdxqw4kU/vEHp4jQ20vkzSSu95Hw42LTDtf/6CEn1UWnkjwiQakvgo4Q3lViNMPOIgnJEBI9FQ0yqVY9/aN11Yx2uIQBtIivnvT5OAZ9d33obxxQea1BNr3p9R1os4mWn8LSHYJpwyQ+MyBXWp6IPJaZNc4KdfTWtlpKUeHleFyIfkxKxVaGvpwKcjtFXRZCGl885kzU+67Tpcax55VnvZ/82SVurrmsokMiWV78wbpmFIo0JE3n2cWBb8vA+e43SKG5z4O2b0GL8x6uO9/r9WxFIQkFK3TuEFVGmqsKWDstbgd1hDAcD1VXd4tNAEdhSahQefQi8XsO4JKWf4g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2bf37a9-31b5-45dd-8d6d-08de9042abe5
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?KbaUFYUAgF1pGpR0F7/KpfuqBFQvid5OalVa97jK8OgOs7b6hVYF46GRo+G+?=
+ =?us-ascii?Q?PMombIWFTdxsJrWvXE1BVRCqgsix51AP+UcPa3cgyxwjPsoyGZPANQBTu38U?=
+ =?us-ascii?Q?UwDfJjd2IEXg85tC++FgE54yxzfUAt8QpfVTADX55QXEfra/N4LPvVHTO3Kg?=
+ =?us-ascii?Q?9Yf+oZ21IyacCJyF1em+T7+198dpISd0wq+qkBKIvMmPcvKPgiumvk/w/87+?=
+ =?us-ascii?Q?gNLqhbdKCdHOPykulPA3DUb85MGzSCADBroFAg09x82o1XymPcfb3TLM/js6?=
+ =?us-ascii?Q?yzujWDBt4k8nptZWzUL7Z9qjQrQnvVI72MNVC57xOhOwIYkWXjoQpfwN89t0?=
+ =?us-ascii?Q?xqwFFhn72rEyzACX5QIH9LJ1mD08T2yAunykBMH7rvVPTbHHvMw/uJ6XMtg+?=
+ =?us-ascii?Q?FZIQJNd9U9CeYn2JMvZqCOK9lGCX4xQsg/VQmNbAtnPzfpR4LyISrUBReECi?=
+ =?us-ascii?Q?ZGG6ZIk3+LZ7Q4bnzn+KyK1hxBJtjp5IDT+SZo2FftNfiy8TiKeI/DSydnzE?=
+ =?us-ascii?Q?lt0cSaOd+tlGE8eZCxtiDKuQT4JFjUshVcjg7YUXIUdkFdblGgweujueRU+y?=
+ =?us-ascii?Q?C0VFSoUCPx59yWugBPJn/LY69MUDz2kPMEnF3I7EOC3mt/Mw9xGSx0zmDWzf?=
+ =?us-ascii?Q?tH7iUx/HmGqoxDPsA7elHZuno92J8KH3HHx9uLOajVsk4mrPz5NgZvkjsihC?=
+ =?us-ascii?Q?MPkveG1zl9I+pztxqkqnkdswO1la2kjIXFzgxEEEKhLRtc1rKcD40cWDkA95?=
+ =?us-ascii?Q?DCpIU874yOy/V7jdxmzWG8BH97TUOe1zzAgbXgD03wB6WKf8eA5JPlYxUP/w?=
+ =?us-ascii?Q?t28kBvsKgSxQU9kKYks2F1nI9ljNvclIR5uGigA0NHQgbkNcSp2bvikYdvWn?=
+ =?us-ascii?Q?jv2qSRTFvnQiO5n2vHjUjBotd+N9auCKuXuhvPpIxyJq7VYUUGyIC5qV2EA0?=
+ =?us-ascii?Q?b9XT+KNkoDLirLu7CcH65mYJHcrVf2FYDrVlMxRPW6jz6iBlDdnrZvBnItPu?=
+ =?us-ascii?Q?nxvPdIdq4g1MzmnU1+wh5vV1fDvuX7enPYfU2MmtJrzGpmexKoyvs6U4Kqfs?=
+ =?us-ascii?Q?sOqmxYqKEkotV2MwNPqVBDj5D2eQRYVedwJl29IpTxTRUOg6mlH2EYP5KINR?=
+ =?us-ascii?Q?Bgu5I0GwNYnuXjtwPECaN+GvHM8txfrRQkMAsJhnjjJ6B2zPtFOCFhAa0Rek?=
+ =?us-ascii?Q?fkIYOZX/f25nRNDFTUQLRCnXH4ZT913Y3CXzXQ/v7YtkSmU14ceQP5mPuRld?=
+ =?us-ascii?Q?dl5ofhq8NO56B0lfd0dn9N7u7BZvMn9khGzsxlXG9g9Pll1bO6VXfERIV7Q5?=
+ =?us-ascii?Q?YMpd8N8K8ERflmlQdsoGm5Wg3ZMTlC8Rf2atjUM71IG171+rcjOJFbVXsSRl?=
+ =?us-ascii?Q?wZYLV7BINcZWd4W4MGnyuJTWdCJfYuy0eF377orNOGJFtC4Pn65KTFy0kzxD?=
+ =?us-ascii?Q?+e1oH/zunx2+hcwSOLNUYJYxvq/VER3ZNB9fmSc+iIbblxOTVjyTUWJGF2Pa?=
+ =?us-ascii?Q?puZcV3eiz8l3VT6idH+oPH6S/k26a63gjhThSwjucXTU87bnUIWPXL8FZ8y7?=
+ =?us-ascii?Q?2vcBSPukbwskIOWobCIkdDINR7LpY896z+8B+EWepMZbUo4OWCZb6L4f+UBB?=
+ =?us-ascii?Q?Nl/vEpJ3p4B+Gb/lC6zLNiehSOYhOGwhzfmSX8rYaq8An+DZUJMPWoCHxePX?=
+ =?us-ascii?Q?PzXEAEBoWxwFfRWJ9PbM1rX4XmakStRPwPJ+eUU+hwsP7opdb0wTsozBOOmJ?=
+ =?us-ascii?Q?AqfluQ4qtQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 822913e6-b60f-4243-d9c1-08de9045a37f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 23:01:56.1042 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 23:23:10.8817 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bNgzqDrM+70YBLPv7GMKQWHC7gfF0CJN95cGsnRZHoQzfEvu7dy3GKB+kL9gt9infFQNv0c6AYY6x7Bo2KiWCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7904
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: ty3LHj7Usr7+rrUhfg4AXl8vEsr1xChC2Eiw0zADBsi6cVJjVMIy8gDmZVbKsUKCIoFHm7d8sZ8C4XYgH/adBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7530
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,249 +162,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 31, 2026 at 10:19:44PM -0700, Matthew Brost wrote:
-> On Tue, Mar 31, 2026 at 05:34:44PM +1100, Alistair Popple wrote:
-> > Several HMM tests hardcode TWOMEG as the THP size. This is wrong on
-> > architectures where the PMD size is not 2MB such as arm64 with 64K base
-> 
-> +1
-> 
-> But one question…
-> 
-> Can’t the THP size be derived via HPAGE_PMD_ORDER?
-> 
-> If not, then some DRM common code I’ve written will break on arm64.
-> 
-
-Ignore this I seemly forgot we are in userspace here.
-
-Matt
-
-> Matt
-> 
-> > pages where THP is 512MB. Fix this by using read_pmd_pagesize() from
-> > vm_util instead.
-> > 
-> > While here also replace the custom file_read_ulong() helper used to
-> > parse the default hugetlbfs page size from /proc/meminfo with the
-> > existing default_huge_page_size() from vm_util.
-> > 
-> > [1] https://lore.kernel.org/linux-mm/8bd0396a-8997-4d2e-a13f-5aac033083d7@linux.dev/
-> > 
-> > Fixes: fee9f6d1b8df ("mm/hmm/test: add selftests for HMM")
-> > Fixes: 519071529d2a ("selftests/mm/hmm-tests: new tests for zone device THP migration")
-> > Reported-by: Zenghui Yu <zenghui.yu@linux.dev>
-> > Closes: https://lore.kernel.org/linux-mm/8bd0396a-8997-4d2e-a13f-5aac033083d7@linux.dev/
-> > Signed-off-by: Alistair Popple <apopple@nvidia.com>
+On Fri, Mar 13, 2026 at 03:58:35PM +0900, Eliot Courtney wrote:
+> On Wed Mar 11, 2026 at 9:39 AM JST, Joel Fernandes wrote:
+> > Add first_usable_fb_region() to GspStaticConfigInfo to extract the first
+> > usable FB region from GSP's fbRegionInfoParams. Usable regions are those
+> > that are not reserved or protected.
+> >
+> > The extracted region is stored in GetGspStaticInfoReply and exposed via
+> > usable_fb_region() API for use by the memory subsystem.
+> >
+> > Cc: Nikola Djukic <ndjukic@nvidia.com>
+> > Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 > > ---
-> >  tools/testing/selftests/mm/hmm-tests.c | 83 +++++---------------------
-> >  1 file changed, 16 insertions(+), 67 deletions(-)
-> > 
-> > diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
-> > index e8328c89d855..788689497e92 100644
-> > --- a/tools/testing/selftests/mm/hmm-tests.c
-> > +++ b/tools/testing/selftests/mm/hmm-tests.c
-> > @@ -34,6 +34,7 @@
-> >   */
-> >  #include <lib/test_hmm_uapi.h>
-> >  #include <mm/gup_test.h>
-> > +#include <mm/vm_util.h>
+> >  drivers/gpu/nova-core/gsp/commands.rs    | 11 ++++++--
+> >  drivers/gpu/nova-core/gsp/fw/commands.rs | 32 ++++++++++++++++++++++++
+> >  2 files changed, 41 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+> > index 8f270eca33be..8d5780d9cace 100644
+> > --- a/drivers/gpu/nova-core/gsp/commands.rs
+> > +++ b/drivers/gpu/nova-core/gsp/commands.rs
+> > @@ -4,6 +4,7 @@
+> >      array,
+> >      convert::Infallible,
+> >      ffi::FromBytesUntilNulError,
+> > +    ops::Range,
+> >      str::Utf8Error, //
+> >  };
 > >  
-> >  struct hmm_buffer {
-> >  	void		*ptr;
-> > @@ -548,7 +549,7 @@ TEST_F(hmm, anon_write_child)
-> >  
-> >  	for (migrate = 0; migrate < 2; ++migrate) {
-> >  		for (use_thp = 0; use_thp < 2; ++use_thp) {
-> > -			npages = ALIGN(use_thp ? TWOMEG : HMM_BUFFER_SIZE,
-> > +			npages = ALIGN(use_thp ? read_pmd_pagesize() : HMM_BUFFER_SIZE,
-> >  				       self->page_size) >> self->page_shift;
-> >  			ASSERT_NE(npages, 0);
-> >  			size = npages << self->page_shift;
-> > @@ -728,7 +729,7 @@ TEST_F(hmm, anon_write_huge)
-> >  	int *ptr;
-> >  	int ret;
-> >  
-> > -	size = 2 * TWOMEG;
-> > +	size = 2 * read_pmd_pagesize();
-> >  
-> >  	buffer = malloc(sizeof(*buffer));
-> >  	ASSERT_NE(buffer, NULL);
-> > @@ -744,7 +745,7 @@ TEST_F(hmm, anon_write_huge)
-> >  			   buffer->fd, 0);
-> >  	ASSERT_NE(buffer->ptr, MAP_FAILED);
-> >  
-> > -	size = TWOMEG;
-> > +	size /= 2;
-> >  	npages = size >> self->page_shift;
-> >  	map = (void *)ALIGN((uintptr_t)buffer->ptr, size);
-> >  	ret = madvise(map, size, MADV_HUGEPAGE);
-> > @@ -770,54 +771,6 @@ TEST_F(hmm, anon_write_huge)
-> >  	hmm_buffer_free(buffer);
+> > @@ -186,22 +187,28 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+> >      }
 > >  }
 > >  
-> > -/*
-> > - * Read numeric data from raw and tagged kernel status files.  Used to read
-> > - * /proc and /sys data (without a tag) and from /proc/meminfo (with a tag).
-> > - */
-> > -static long file_read_ulong(char *file, const char *tag)
-> > -{
-> > -	int fd;
-> > -	char buf[2048];
-> > -	int len;
-> > -	char *p, *q;
-> > -	long val;
-> > -
-> > -	fd = open(file, O_RDONLY);
-> > -	if (fd < 0) {
-> > -		/* Error opening the file */
-> > -		return -1;
-> > -	}
-> > -
-> > -	len = read(fd, buf, sizeof(buf));
-> > -	close(fd);
-> > -	if (len < 0) {
-> > -		/* Error in reading the file */
-> > -		return -1;
-> > -	}
-> > -	if (len == sizeof(buf)) {
-> > -		/* Error file is too large */
-> > -		return -1;
-> > -	}
-> > -	buf[len] = '\0';
-> > -
-> > -	/* Search for a tag if provided */
-> > -	if (tag) {
-> > -		p = strstr(buf, tag);
-> > -		if (!p)
-> > -			return -1; /* looks like the line we want isn't there */
-> > -		p += strlen(tag);
-> > -	} else
-> > -		p = buf;
-> > -
-> > -	val = strtol(p, &q, 0);
-> > -	if (*q != ' ') {
-> > -		/* Error parsing the file */
-> > -		return -1;
-> > -	}
-> > -
-> > -	return val;
-> > -}
-> > -
-> >  /*
-> >   * Write huge TLBFS page.
-> >   */
-> > @@ -826,15 +779,13 @@ TEST_F(hmm, anon_write_hugetlbfs)
-> >  	struct hmm_buffer *buffer;
-> >  	unsigned long npages;
-> >  	unsigned long size;
-> > -	unsigned long default_hsize;
-> > +	unsigned long default_hsize = default_huge_page_size();
-> >  	unsigned long i;
-> >  	int *ptr;
-> >  	int ret;
+> > -/// The reply from the GSP to the [`GetGspInfo`] command.
+> > +/// The reply from the GSP to the [`GetGspStaticInfo`] command.
+> >  pub(crate) struct GetGspStaticInfoReply {
+> >      gpu_name: [u8; 64],
+> > +    /// Usable FB (VRAM) region for driver memory allocation.
+> > +    #[expect(dead_code)]
+> > +    pub(crate) usable_fb_region: Range<u64>,
+> >  }
 > >  
-> > -	default_hsize = file_read_ulong("/proc/meminfo", "Hugepagesize:");
-> > -	if (default_hsize < 0 || default_hsize*1024 < default_hsize)
-> > +	if (!default_hsize)
-> >  		SKIP(return, "Huge page size could not be determined");
-> > -	default_hsize = default_hsize*1024; /* KB to B */
+> >  impl MessageFromGsp for GetGspStaticInfoReply {
+> >      const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+> >      type Message = GspStaticConfigInfo;
+> > -    type InitError = Infallible;
+> > +    type InitError = Error;
 > >  
-> >  	size = ALIGN(TWOMEG, default_hsize);
-> >  	npages = size >> self->page_shift;
-> > @@ -1606,7 +1557,7 @@ TEST_F(hmm, compound)
-> >  	struct hmm_buffer *buffer;
-> >  	unsigned long npages;
-> >  	unsigned long size;
-> > -	unsigned long default_hsize;
-> > +	unsigned long default_hsize = default_huge_page_size();
-> >  	int *ptr;
-> >  	unsigned char *m;
-> >  	int ret;
-> > @@ -1614,10 +1565,8 @@ TEST_F(hmm, compound)
+> >      fn read(
+> >          msg: &Self::Message,
+> >          _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+> >      ) -> Result<Self, Self::InitError> {
+> > +        let (base, size) = msg.first_usable_fb_region().ok_or(ENODEV)?;
+> > +
+> >          Ok(GetGspStaticInfoReply {
+> >              gpu_name: msg.gpu_name_str(),
+> > +            usable_fb_region: base..base.saturating_add(size),
+> 
+> We already return a Result here, so why not use checked_add?:
+> `base..base.checked_add(size).ok_or(EOVERFLOW)?`
+
+Hmm, I think I was trying to play it safe and handle any situation of a
+corrupted size. But granted, it may be better to error out.
+
+> 
+> >          })
+> >      }
+> >  }
+> > diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
+> > index 67f44421fcc3..cef86cab8a12 100644
+> > --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
+> > +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+> > @@ -5,6 +5,7 @@
+> >  use kernel::{device, pci};
 > >  
-> >  	/* Skip test if we can't allocate a hugetlbfs page. */
+> >  use crate::gsp::GSP_PAGE_SIZE;
+> > +use crate::num::IntoSafeCast;
 > >  
-> > -	default_hsize = file_read_ulong("/proc/meminfo", "Hugepagesize:");
-> > -	if (default_hsize < 0 || default_hsize*1024 < default_hsize)
-> > +	if (!default_hsize)
-> >  		SKIP(return, "Huge page size could not be determined");
-> > -	default_hsize = default_hsize*1024; /* KB to B */
+> >  use super::bindings;
 > >  
-> >  	size = ALIGN(TWOMEG, default_hsize);
-> >  	npages = size >> self->page_shift;
-> > @@ -2106,7 +2055,7 @@ TEST_F(hmm, migrate_anon_huge_empty)
-> >  	int *ptr;
-> >  	int ret;
-> >  
-> > -	size = TWOMEG;
-> > +	size = read_pmd_pagesize();
-> >  
-> >  	buffer = malloc(sizeof(*buffer));
-> >  	ASSERT_NE(buffer, NULL);
-> > @@ -2158,7 +2107,7 @@ TEST_F(hmm, migrate_anon_huge_zero)
-> >  	int ret;
-> >  	int val;
-> >  
-> > -	size = TWOMEG;
-> > +	size = read_pmd_pagesize();
-> >  
-> >  	buffer = malloc(sizeof(*buffer));
-> >  	ASSERT_NE(buffer, NULL);
-> > @@ -2221,7 +2170,7 @@ TEST_F(hmm, migrate_anon_huge_free)
-> >  	int *ptr;
-> >  	int ret;
-> >  
-> > -	size = TWOMEG;
-> > +	size = read_pmd_pagesize();
-> >  
-> >  	buffer = malloc(sizeof(*buffer));
-> >  	ASSERT_NE(buffer, NULL);
-> > @@ -2280,7 +2229,7 @@ TEST_F(hmm, migrate_anon_huge_fault)
-> >  	int *ptr;
-> >  	int ret;
-> >  
-> > -	size = TWOMEG;
-> > +	size = read_pmd_pagesize();
-> >  
-> >  	buffer = malloc(sizeof(*buffer));
-> >  	ASSERT_NE(buffer, NULL);
-> > @@ -2332,7 +2281,7 @@ TEST_F(hmm, migrate_partial_unmap_fault)
-> >  {
-> >  	struct hmm_buffer *buffer;
-> >  	unsigned long npages;
-> > -	unsigned long size = TWOMEG;
-> > +	unsigned long size = read_pmd_pagesize();
-> >  	unsigned long i;
-> >  	void *old_ptr;
-> >  	void *map;
-> > @@ -2398,7 +2347,7 @@ TEST_F(hmm, migrate_remap_fault)
-> >  {
-> >  	struct hmm_buffer *buffer;
-> >  	unsigned long npages;
-> > -	unsigned long size = TWOMEG;
-> > +	unsigned long size = read_pmd_pagesize();
-> >  	unsigned long i;
-> >  	void *old_ptr, *new_ptr = NULL;
-> >  	void *map;
-> > @@ -2498,7 +2447,7 @@ TEST_F(hmm, migrate_anon_huge_err)
-> >  	int *ptr;
-> >  	int ret;
-> >  
-> > -	size = TWOMEG;
-> > +	size = read_pmd_pagesize();
-> >  
-> >  	buffer = malloc(sizeof(*buffer));
-> >  	ASSERT_NE(buffer, NULL);
-> > @@ -2593,7 +2542,7 @@ TEST_F(hmm, migrate_anon_huge_zero_err)
-> >  	int *ptr;
-> >  	int ret;
-> >  
-> > -	size = TWOMEG;
-> > +	size = read_pmd_pagesize();
-> >  
-> >  	buffer = malloc(sizeof(*buffer));
-> >  	ASSERT_NE(buffer, NULL);
-> > -- 
-> > 2.53.0
-> > 
+> > @@ -115,6 +116,37 @@ impl GspStaticConfigInfo {
+> >      pub(crate) fn gpu_name_str(&self) -> [u8; 64] {
+> >          self.0.gpuNameString
+> >      }
+> > +
+> > +    /// Extract the first usable FB region from GSP firmware data.
+> > +    ///
+> > +    /// Returns the first region suitable for driver memory allocation as a `(base, size)` tuple.
+> > +    /// Usable regions are those that:
+> > +    /// - Are not reserved for firmware internal use.
+> > +    /// - Are not protected (hardware-enforced access restrictions).
+> > +    /// - Support compression (can use GPU memory compression for bandwidth).
+> > +    /// - Support ISO (isochronous memory for display requiring guaranteed bandwidth).
+> 
+> Are the above conditions all required (AND) or any required (OR)?
+> Might be worth clarifying in the doc.
+
+I am not sure if any clarification is needed there but I will
+reword to 'Usable regions are those that satisfy all of the following:'.
+
+> 
+> > +    pub(crate) fn first_usable_fb_region(&self) -> Option<(u64, u64)> {
+> > +        let fb_info = &self.0.fbRegionInfoParams;
+> > +        for i in 0..fb_info.numFBRegions.into_safe_cast() {
+> > +            if let Some(reg) = fb_info.fbRegion.get(i) {
+> > +                // Skip malformed regions where limit < base.
+> 
+> Is it normal that it returns a bunch of broken regions?
+
+Not really. The aim was to make the code robust at a time when I was studying
+the FB regions. I will change the comment, and/or drop the check. Thanks for
+pointing it out.
+
+> > +                if reg.limit < reg.base {
+> > +                    continue;
+> > +                }
+> > +
+> > +                // Filter: not reserved, not protected, supports compression and ISO.
+> > +                if reg.reserved == 0
+> > +                    && reg.bProtected == 0
+> > +                    && reg.supportCompressed != 0
+> > +                    && reg.supportISO != 0
+> > +                {
+> > +                    let size = reg.limit - reg.base + 1;
+> > +                    return Some((reg.base, size));
+> 
+> This is identifying a range, so how about returning Option<Range<u64>>
+> instead? It gets immediately converted into a range anyway.
+
+Sure, that works.
+
+--
+Joel Fernandes
+
