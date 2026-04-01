@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F7351112242
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 841AF1112242
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEC8310EE18;
-	Wed,  1 Apr 2026 23:00:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2AB910EEB5;
+	Wed,  1 Apr 2026 23:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oWdOCY6x";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t6cIwTon";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3D5F10EE18;
- Wed,  1 Apr 2026 23:00:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB9D10EEC8;
+ Wed,  1 Apr 2026 23:00:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 453B56013C;
+ by sea.source.kernel.org (Postfix) with ESMTP id 36F3344385;
+ Wed,  1 Apr 2026 23:00:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8FAC2BC9E;
  Wed,  1 Apr 2026 23:00:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F50EC116C6;
- Wed,  1 Apr 2026 23:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775084415;
- bh=ia5mGWpgejay0TUoFhZWSGjPJlCIjCy7gnhJSD9JF6Q=;
+ s=k20201202; t=1775084420;
+ bh=mVg6WY7C1fvXHAbLZBkR9DIEo/9TufTw8UKTpB/DRsA=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
- b=oWdOCY6xhFFRq21639GOywl5mcK+3l2bcc/AdHZPPYO6CRTwcz96vqxvC+KTvE5ZX
- krjDtv05WjJwIOmMxt5/X5E3aUbo7NPZLUhECXRbhCX2WuZOC4CBt0EuBdlmaQZs5/
- gN2+t4Oz31J5PUxyGyzowwR/Vbt4laFgc21dnxb7OIGWE8SY2IDDteRBlv7DvNTZaf
- ztSAxYpCQItFlyOLdRSjZCA42hg9cS3w6tGLK9fpQFGQL6OHHwcSPNtmKIS1A/IwMB
- XASAS2QZagyeAGlUdw49EUuloCHZv4iUn5ycn2HLFRAbB6+Z6JTAboFozDAt285/TL
- qUneNo60Yk0GA==
+ b=t6cIwTonIQqv6/0lOH/xY8JcUQFMyUNQbNR6FUyE+Z76Ku/+2iF8YghHEMBgFfr4N
+ yjr5KSSGH7iI3B8LIOdR7bGwxKBBtfzu8YOJ48mgOUV3t19tvb4iQAfpqvemEbeP2O
+ eegFgVh8eC3mlphv7vkwrZVTUaeR03H3J5OiJvRcJ0TVYfYEObKvRC9Ygx6E1DGx8X
+ wZ4tHeJeOURHotjXZZ2KlD87ya+KWAG74tOthti8DyfXCNoylDP/2q6t/2cth+bRzn
+ 1b9ODoXF2Z7nXbZxtZZkzxHxnKZLlJD7CSj6Fk5xBR04GSur2yZyVHuyzA4KOTYV70
+ XZw98YIcLql/w==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 11/33] rust: alloc: simplify with `NonNull::add()` now
- that it is stable
+Subject: Re: [PATCH 12/33] rust: macros: update `extract_if` MSRV TODO comment
 From: Tamir Duberstein <tamird@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -66,18 +65,18 @@ Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-In-Reply-To: <20260401114540.30108-12-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-13-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-12-ojeda@kernel.org>
+ <20260401114540.30108-13-ojeda@kernel.org>
 Date: Wed, 01 Apr 2026 18:59:04 -0400
-Message-Id: <177508434445.73816.7873322235592463050.b4-review@b4>
+Message-Id: <177508434448.73816.3909694795109888546.b4-review@b4>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=691; i=tamird@kernel.org;
- h=from:subject:message-id; bh=ia5mGWpgejay0TUoFhZWSGjPJlCIjCy7gnhJSD9JF6Q=;
- b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFzvPuHEjKvFO5+VrNduvOUh+UWvVz6xhvRQbWe3eK
- jmV4RtXx0QWBjEuBksxRZZE0UN701Nv75HNfHccZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
- NNIx0DFm4OIUgKk+0c3wP3DK1NZ9J2X0vh53N4r9cO6ijvPRY2WpSV4Hgy+fyihnTWb47znt+rS
- Ytk06m2W2Pu7xLbnZePUbY3xIs8yBz5mdSutX8wMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=431; i=tamird@kernel.org;
+ h=from:subject:message-id; bh=mVg6WY7C1fvXHAbLZBkR9DIEo/9TufTw8UKTpB/DRsA=;
+ b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFztvWC+6zePID9NFF5pd8r78FdQ1rL7NGHF122szL
+ /WVLLqxHRNZGMS4GCzFFFkSRQ/tTU+9vUc2891xmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHQMeYgYtTAKb6WyjD/6glGpZvRXvYxNjUg4vT+1YybT56SeUW57tfxgKHAwLldzP8U5UI2HB
+ q0oc/y2r3cH/m9PV2zd55JaGLlbHJ2CPk6H9ZFgA=
 X-Developer-Key: i=tamird@kernel.org; a=openpgp;
  fpr=5A6714204D41EC844C50273C19D6FF6092365380
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,17 +94,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 13:45:18 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
-> Currently we need to go through raw pointers and then re-create the
-> `NonNull` from the result of offsetting the raw pointer.
+On Wed, 01 Apr 2026 13:45:19 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
+> `feature(extract_if)` was stabilized in Rust 1.87.0 [1].
 > 
-> Thus, now that we bump the Rust minimum version, simplify using
-> `NonNull::add()` and clean the TODO note.
+> Thus update the comment to reflect that.
+> 
+> Alternatively, we could use it unstably already.
 
-This description is inconsistent with the previous one which had
-citations for both the feature (function in this case) and the feature
-in which it became stable (available in this case). I don't prefer
-either style in particular, just that things are consistent.
+Perhaps the TODO could mention this alternative. Would probably make a
+good first issue.
 
 Reviewed-by: Tamir Duberstein <tamird@kernel.org>
 
