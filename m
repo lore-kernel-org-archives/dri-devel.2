@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D38E1112240
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF3DB1112242
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:00:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 077D610EF09;
-	Wed,  1 Apr 2026 23:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F56810EF28;
+	Wed,  1 Apr 2026 23:00:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oQYA3r0d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AiWfjHCn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D04A10EF09;
- Wed,  1 Apr 2026 23:00:31 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88CA210EF2E;
+ Wed,  1 Apr 2026 23:00:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7C78161344;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6CDD744310;
+ Wed,  1 Apr 2026 23:00:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76429C4CEF7;
  Wed,  1 Apr 2026 23:00:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65AE7C116C6;
- Wed,  1 Apr 2026 23:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775084430;
- bh=07RYmc68kwWSWXlQHk2byVEKgYJe5lGIx1f5DfAeNR8=;
+ s=k20201202; t=1775084435;
+ bh=5jL6Cgr9B/cQDMKe8W8Oi3jZLGmF290jWZfZNh8UAco=;
  h=Subject:From:To:Cc:In-Reply-To:References:Date:From;
- b=oQYA3r0dixjm9P3ZtxnbQd5Qm7hyROO+WINura1cRHdUPhRA7R3yadcP3RfFPj8/C
- VxdVfpNuao1M98yeOweVob0wX7hSjpdZnAkdUUSMxxZHq7/Ho4aEEbvHXx2NzbMw+r
- ngeKEPtWKPoglM5x3QXxyZd2FilyiQMxvUqGET4JqdEgDwemFUKon6+OPpCVN3k1st
- YYX9c0Fz4JJUjLgctF+IxiuBaFUIVSWCpmCHfBib/EzS1ySslb1waFcGTPEvkZu72B
- Sc69/XHEhnunRgcEBsXdBvhB/7Bfax8vnWVBXIMvKmUoDyhqrFUDNM1BZwqGd5tGym
- 78v5bJAkafldQ==
+ b=AiWfjHCn0LbePkx8weJeF9kybFxpL7pbvGk7oPwZXpKGkPrQ4kVSeWNHWcI0JO0jP
+ VkEUq4sqCcJ68V1LuUiXPlb60tp2YQquyYgRRygRNazcZTvr0E7d/IjjbsvS/R3nwh
+ lZpFhTh5oC/RhsggJmruJU8Cs+RtdKfproaVRGYUVaAhjli8JhnK3sSTfGJ/4ACjL9
+ U3co6kXCh8yCE9mZvmUiNxiHmps35D2g7Q8vHjGHumvlKSHcjbux0H0SaiByW83HPp
+ rxn+rMtn2ep3UDCC6ksCw0QOFXajSQOW4O/E06nlj3BOVRh5RWHRFQgMsOKIP9PReZ
+ HYTSK6V2Nmx2w==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 14/33] rust: bump `bindgen` minimum supported version
- to 0.71.1 (Debian Trixie)
+Subject: Re: [PATCH 15/33] rust: rust_is_available: remove warning for
+ 0.66.[01] buggy versions
 From: Tamir Duberstein <tamird@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
@@ -66,18 +66,18 @@ Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-In-Reply-To: <20260401114540.30108-15-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-16-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-15-ojeda@kernel.org>
+ <20260401114540.30108-16-ojeda@kernel.org>
 Date: Wed, 01 Apr 2026 18:59:04 -0400
-Message-Id: <177508434452.73816.1986421844891352038.b4-review@b4>
+Message-Id: <177508434452.73816.14314388454595627623.b4-review@b4>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=455; i=tamird@kernel.org;
- h=from:subject:message-id; bh=07RYmc68kwWSWXlQHk2byVEKgYJe5lGIx1f5DfAeNR8=;
- b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFzuHGq5eNNeDNfy/YX5tXUT8+rxFB1c9WKVtk9V+6
- 59d8PcNHRNZGMS4GCzFFFkSRQ/tTU+9vUc2891xmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
- 0EjHQMeYgYtTAKZa8zDDP/WDMQ2dy+9seaB/Ozs88+d6jkCrt8I5tjybTXZznZ2vacHw38l5SlM
- qh5u4yn6brzm9hmd1kk5d3H3k2ad/9kWHPKKX8gMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=376; i=tamird@kernel.org;
+ h=from:subject:message-id; bh=5jL6Cgr9B/cQDMKe8W8Oi3jZLGmF290jWZfZNh8UAco=;
+ b=owGbwMvMwCV2wYdPVfy60HTG02pJDJlnFzv/lShpUW158d9cz9w6+6hZQugUYTWHw7lRvP2Vz
+ /81PVPomMjCIMbFYCmmyJIoemhveurtPbKZ747DzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
+ RjoGOsYMXJwCMNWvdzD84Vzx+Of69/ESu2PD3Dpf9B++ujJ5e3q1gVVUX00TQ1WHBiPDRvFJCTr
+ C5U9cxIJnu7z80Og5c7pg5fk+ll+yD7+c6nvDCgA=
 X-Developer-Key: i=tamird@kernel.org; a=openpgp;
  fpr=5A6714204D41EC844C50273C19D6FF6092365380
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -95,17 +95,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 13:45:21 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
-> As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
-> we are going to follow Debian Stable's `bindgen` versions as our minimum
-> supported version.
+On Wed, 01 Apr 2026 13:45:22 +0200, Miguel Ojeda <ojeda@kernel.org> wrote:
+> It is not possible anymore to fall into the issue that this warning was
+> alerting about given the `bindgen` version bump.
 > 
-> Debian Trixie was released with `bindgen` 0.71.1, which it still uses
-> to this day [2].
-> 
-> [...]
+> Thus simplify by removing the machinery behind it, including tests.
 
-Acked-by: Tamir Duberstein <tamird@kernel.org>
+Reviewed-by: Tamir Duberstein <tamird@kernel.org>
 
 -- 
 Tamir Duberstein <tamird@kernel.org>
