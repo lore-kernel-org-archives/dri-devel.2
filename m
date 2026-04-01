@@ -4,45 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C8E5D3515F
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 09:08:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBBED35160
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 09:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C28C10EC35;
-	Wed,  1 Apr 2026 09:07:59 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 174BE10EC35
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 09:07:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D77010F004;
+	Wed,  1 Apr 2026 09:09:52 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sQAItTGJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CBEPxWBB";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sQAItTGJ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CBEPxWBB";
+	dkim-atps=neutral
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE1CE10EFC0
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 09:09:50 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E9B195BD44;
- Wed,  1 Apr 2026 09:07:56 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
-	none
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 762744D2B6;
+ Wed,  1 Apr 2026 09:09:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775034589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
+ b=sQAItTGJuaW7pkWJDFb0kUIXNploqGYxSi3ps0139xpN/NzPWoV/HwOqv8YAcDseoYwRbk
+ Bv55QgOnSPNqive09F2I4TSvV9WxzgWClADpxUXkcfRdxfFw3zCVMgK4MgRbVBnqqsG55B
+ BlfyS+wPLhMN6s113NDU7fb9a4bs+iY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775034589;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
+ b=CBEPxWBBDRAt+I4joMn6KdI/HvH5jqdedrFWwggW18DnuqNT1LK+33nNSoTlcywGZ0jdUv
+ aXfKEN6I429NTVDQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=sQAItTGJ;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CBEPxWBB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775034589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
+ b=sQAItTGJuaW7pkWJDFb0kUIXNploqGYxSi3ps0139xpN/NzPWoV/HwOqv8YAcDseoYwRbk
+ Bv55QgOnSPNqive09F2I4TSvV9WxzgWClADpxUXkcfRdxfFw3zCVMgK4MgRbVBnqqsG55B
+ BlfyS+wPLhMN6s113NDU7fb9a4bs+iY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775034589;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
+ b=CBEPxWBBDRAt+I4joMn6KdI/HvH5jqdedrFWwggW18DnuqNT1LK+33nNSoTlcywGZ0jdUv
+ aXfKEN6I429NTVDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 976D04A0B0;
- Wed,  1 Apr 2026 09:07:56 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 363E04A0B0;
+ Wed,  1 Apr 2026 09:09:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NhNPI2zgzGm1LwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 01 Apr 2026 09:07:56 +0000
-Message-ID: <786390ea-e42c-4d9f-be55-09093cf09918@suse.de>
-Date: Wed, 1 Apr 2026 11:07:56 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id bGvOC93gzGnNMQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 01 Apr 2026 09:09:49 +0000
+Message-ID: <0840b122-89cf-46e5-a35c-37d77d828e20@suse.de>
+Date: Wed, 1 Apr 2026 11:09:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arch/sh: Drop CONFIG_FIRMWARE_EDID from defconfig files
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: ysato@users.sourceforge.jp, dalias@libc.org,
- glaubitz@physik.fu-berlin.de, arnd@arndb.de, linux-sh@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, linux-mips@vger.kernel.org
-References: <20260401083242.214492-1-tzimmermann@suse.de>
- <CAMuHMdX5B6LpZ5ffaOc0Et0PK+G=_c8yD5K8JynRwu5T8rHfsw@mail.gmail.com>
+Subject: Re: [PATCH 04/10] lib/fonts: Clean up Makefile
+To: Jiri Slaby <jirislaby@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: deller@gmx.de, gregkh@linuxfoundation.org, simona@ffwll.ch,
+ sam@ravnborg.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org
+References: <20260327130431.59481-1-tzimmermann@suse.de>
+ <20260327130431.59481-5-tzimmermann@suse.de>
+ <CAMuHMdX1vUuKq-Q1-zA5tC5+LWap4osFJMqQ5pRJ373z++KQLQ@mail.gmail.com>
+ <a2b5aa02-2566-409f-960d-4ecb1419cbd5@suse.de>
+ <7eaf55fd-1ec9-4c30-877f-12961e8f9532@kernel.org>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -69,18 +115,33 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAMuHMdX5B6LpZ5ffaOc0Et0PK+G=_c8yD5K8JynRwu5T8rHfsw@mail.gmail.com>
+In-Reply-To: <7eaf55fd-1ec9-4c30-877f-12961e8f9532@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: E9B195BD44
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_CC(0.00)[gmx.de,linuxfoundation.org,ffwll.ch,ravnborg.org,vger.kernel.org,lists.freedesktop.org];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RCPT_COUNT_SEVEN(0.00)[10]; MID_RHS_MATCH_FROM(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns, suse.com:url]
+X-Rspamd-Queue-Id: 762744D2B6
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,56 +157,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert
+Hi
 
-Am 01.04.26 um 10:55 schrieb Geert Uytterhoeven:
-> Hi Thomas,
->
-> CC arm/mips/ppc, as you sent similar patches for these arches.
->
-> On Wed, 1 Apr 2026 at 10:40, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> CONFIG_FIRMWARE_EDID=y depends on X86 or EFI_GENERIC_STUB. Neither is
->> true here, so drop the lines from the defconfig files.
+Am 01.04.26 um 10:58 schrieb Jiri Slaby:
+> On 01. 04. 26, 9:58, Thomas Zimmermann wrote:
+>>>> -font-objs-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
+>>>> -font-objs-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
+>>>> -font-objs-$(CONFIG_FONT_8x8)       += font_8x8.o
+>>>> -font-objs-$(CONFIG_FONT_8x16)      += font_8x16.o
+>>>> -font-objs-$(CONFIG_FONT_6x11)      += font_6x11.o
+>>>> -font-objs-$(CONFIG_FONT_7x14)      += font_7x14.o
+>>>> -font-objs-$(CONFIG_FONT_10x18)     += font_10x18.o
+>>>> -font-objs-$(CONFIG_FONT_PEARL_8x8) += font_pearl_8x8.o
+>>>> -font-objs-$(CONFIG_FONT_ACORN_8x8) += font_acorn_8x8.o
+>>>> -font-objs-$(CONFIG_FONT_MINI_4x6)  += font_mini_4x6.o
+>>>> -font-objs-$(CONFIG_FONT_6x10)      += font_6x10.o
+>>>> -font-objs-$(CONFIG_FONT_TER10x18)  += font_ter10x18.o
+>>>> -font-objs-$(CONFIG_FONT_TER16x32)  += font_ter16x32.o
+>>>> -font-objs-$(CONFIG_FONT_6x8)       += font_6x8.o
+>>>> +# Built-in fonts
+>>>> +font-$(CONFIG_FONT_10x18)     += font_10x18.o
+>>>> +font-$(CONFIG_FONT_6x10)      += font_6x10.o
+>>>> +font-$(CONFIG_FONT_6x11)      += font_6x11.o
+>>>> +font-$(CONFIG_FONT_6x8)       += font_6x8.o
+>>>> +font-$(CONFIG_FONT_7x14)      += font_7x14.o
+>>>> +font-$(CONFIG_FONT_8x16)      += font_8x16.o
+>>>> +font-$(CONFIG_FONT_8x8)       += font_8x8.o
+>>> Please sort the anonymous entries by increasing font size.
 >>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Thanks for your patch!
+>> Makes sense. I'll also leave a comment on the sorting order.
 >
-> Upon first look, your changes match the (current) dependencies
-> of FIRMWARE_EDID.  The dependency on X86 was added in commit
-> 7e35fc7ab433683f ("video: Make CONFIG_FIRMWARE_EDID generally
-> available") in v6.17-rc1.
-> However, CONFIG_FIRMWARE_EDID also protects fb_firmware_edid(),
-> which seems to extract the EDID from the PCI ROM, and is thus not
-
-The PCI code in the function tests whether the BIOS ROM has been 
-shadowed into system memory. That's a common way of testing if the PCI 
-device is the primary graphics card. The provided EDID is only for the 
-primary device.
-
-The test shouldn't actually be there any more. We now have 
-video_is_primary_device() for this.
-
-> x86-specific?  That function is only ever called by three fbdev drivers
-> (i810, nv, savagefb), though.
-
-I know. But IDK why it hasn't been more prominently featured in fbdev.  
-Nowadays, we use the firmware EDID with DRM's generic drivers on any 
-hardware.
-
+>>>> +font-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
+>>>> +font-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
 >
-> I assume none of these work on SuperH, so
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> I'd sort even the non-anonymous ^^.
 
-Thanks
+My plan is now to sort by font-family, then by font height, then by font 
+width. Each in ascending order.
 
 Best regards
 Thomas
 
 >
-> Gr{oetje,eeting}s,
->
->                          Geert
->
+> thanks,
 
 -- 
 --
