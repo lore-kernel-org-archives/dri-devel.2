@@ -4,96 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B06FFD3514B
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:27:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C7F5D3514C
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:27:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0627810EE52;
-	Wed,  1 Apr 2026 07:27:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86FC710EEED;
+	Wed,  1 Apr 2026 07:27:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SWSYUkAu";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FaX5DPkx";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XqV4iPUS";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ja93qslu";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 058A810EE52
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:27:04 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8BCC10EE9D
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:27:06 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6317Eqsp4106747
- for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 07:27:03 GMT
+ 6313VTer1459610
+ for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 07:27:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- uPvf5EWvzzVSfIl7A8SP9LZt+9mVSFeky29ji3hSV58=; b=SWSYUkAu9iUQyFwy
- SfcEMwE2sonQQIWk1aoD2UmwOa7p8Ss4yo/Nwd8UJrmqcg4l+5AkE4n1Ki6VfWCO
- U12loDQp9YLUwrNkCLQs/HC99LBwO9bNGVladA9hhtGB9t9UpDJa8uY9Jw7BBzjO
- pYBHy/hQD4m/LivZbTSvgOL1iy/uf7/hHsmMt0OTG0zBKNZylVQbLgfoNO9joNf3
- bI8RQznsD6XdS2EYG/ENYpgULgsn9fLdtUtR5khn4CMAOWvpkWEkGkUEVha0lJ7n
- AjngFlQG2etS5AH76tkl2tQCS898fJh6FtriScpkrONTq0x9A52i2TtLTWb34zR9
- wGQ2vw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8xt901pr-1
+ XYgkyJPQYnM/gelnCPu4vbxoPThepd6pRjAGrQkZhJE=; b=XqV4iPUSpsD+anTu
+ IYck91RTks0ZooYyW1QSXoXMWdi4fbUD10dwLwIu54kAMFbZ0u+qlPv9tKBEAW2a
+ 7y9Zb7FPiKBbjCFHIPt5tDILTR5s3EuVx58iKSyy1EmEzXxFa6g8z+XTvymBcJhZ
+ tlX8YSbquq2AjoWwUNSVxWYY+FAGgY/qcGOSmKWMfzuZRxYV7WPRMzdyBz2EBDdA
+ 2cfeR6Cej4JD6VQZ8+1x1A6nSGpGsRFunB8hAA7lJAET1mtZjgb67ZqH56Av9Syh
+ ng7D7iOPglhgWNSurV5w6/FcBgkTszQa0pe9ITZ02xflLahnS/RLfDni+1bM+Njw
+ 87Xn/w==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8uhg0uuq-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 07:27:03 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50917996cfaso82323971cf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:27:03 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 07:27:05 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-509219f94b0so80213951cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:27:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775028422; x=1775633222;
+ d=oss.qualcomm.com; s=google; t=1775028424; x=1775633224;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=uPvf5EWvzzVSfIl7A8SP9LZt+9mVSFeky29ji3hSV58=;
- b=FaX5DPkxbMv1Ia3LD0uh3I0ZQ2h/J+CxAsA08X5AK8zynZPtAgZK0+UACz0usAWLRl
- XzqrwEM9/J+NFpsoli/y2B7/nEGK9/rwh9JbR0fK4YzjxP5kpd0ePw3SJzdR+YOafV8A
- nZSRi12f16M0bizjIy/65nOshuWvAONTxYsh54hBnQt93Zz3+OvPNyKXl++8UEaGJlaP
- FAt+JDAzeNOAj50HONOtFb6v7fqP85Za4GpbBCdohXIzqqoK4iAVECDadX/VkIa5mdsL
- vGDKyCo1xJezBXErxfIq1tVyMhrBpDyQeFvIsTpuilWlbU2h/zsCUZAioozYU1ZITrET
- EA6g==
+ :reply-to; bh=XYgkyJPQYnM/gelnCPu4vbxoPThepd6pRjAGrQkZhJE=;
+ b=Ja93qslu5V7P1nZ2B+dG7Y07BLic1dGbz0X2X3FgnHbLuWqckY8nRBJBCmPdfixBHF
+ +XX4I8A5/dzdg4PY1eek0UhWTiQZeEqPibI8iQv8Bozlh/1carZ5I23aK/5du8v4ajdH
+ dJLMNWTS7O1/MiThVY43CxRO2gCDRI8oBkKh6Jbc+PXnTI4wtmPetz6+LSHubjpIr1RA
+ NxNhb42JdGTFtNNCa36mu9FJttiJSWTdGPy8CK5CPKHlMSCw5W3Cr2AeSWhUeoDht5yY
+ swLgSw1Mnn+6B5WUBh2szjhgzYX6QpyhG/P60Tq1zlxGRg0F00wNTfb9s8aCXM3JwnrS
+ YEBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775028422; x=1775633222;
+ d=1e100.net; s=20251104; t=1775028424; x=1775633224;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=uPvf5EWvzzVSfIl7A8SP9LZt+9mVSFeky29ji3hSV58=;
- b=FkyJpSedrIrsYQ3lDFSkXOvBIkkZTdRRR2ON5baVpSCRdXEv0fLiQEbIW4zZOwJhwa
- nvoiOv/A0A9b9JsZgANScyOe961WzkBgkZ9GcgTdxrJvt1AMIsXCo9erWfARVgGUMhfq
- gopW5xSFukoMJb5aMA+UU8Je12K1p+omIi80I/t423CXVPCg4uokgBUt+Adw/CnQZCx8
- T6IKg9E2aT2tIc+CX04YDdDtUNHK5PBQ4WCn9Q4IbnncFc49ABeidD4IZ2aAeclENru1
- Pv0AH8kRY3PpKHPAVUExZs7BWUcafYv6IsrjRQmsu0QaVX6GbnO5X9ESZa2WDigwM97d
- rPtA==
-X-Gm-Message-State: AOJu0YxdCOuRspav1Rb0dk4T2WYFeNgWq1CQw7dIUOBatXswzu3xlyJH
- o1O6417ygdu36xA9weqGS+Jqp6dNpDwxxdb0XsyD274bSQLI/bXErefLulZGKWzWimlF2o6j7hJ
- l92/INxffU8yD2CoEV8hJ2Zhc2Bo1wyzNDcqwYB6KkZ4nBtdJGqEuiFdsczIzgFSnnp3qIYc=
-X-Gm-Gg: ATEYQzxCDA9pwM2glPMDBRsKim+oicYdADNpPML/+xiyxVeQedjP/83bAmkMIECJkGR
- AUa75uRzk7dwxTb19tFqIIWPp9lrm9YPlJzScsxJXlF7R+xMzkdTVXiIkIDR4KTGFAeYKf75f/A
- VAfWnN9DdCBk8D50f00SeB8Yo9nZLih9Q1PSGunchFU0mZ0cUtmz8nhIt2thsr61gzrHesV945N
- gRMP2HEWTe1DaZrQkjqNz5ClHNOhmB0nVg52MprOXf+hy8+EbjoHo1tal+uXfQuHMN2lzvb8uuY
- 3ykwfIW+NvIe4CxzvwXlwrMiKlqkp/6z7dDQPkp08JtuB692RnoPTn9GuQaUHtRX3j/kHSHhRN4
- t72Fj7eSVeY+L4t44LQIElhz5qA56W01KdD9mqIzneI7It89DopdUpK+PPU7E7ezUtbDXuBNkHb
- NtR4qe53wQ1nXyfq0ha7AJoyd18tiVmvG3pOU=
-X-Received: by 2002:ac8:7d0a:0:b0:50b:45f5:a93a with SMTP id
- d75a77b69052e-50d3bb62479mr33282471cf.6.1775028422176; 
- Wed, 01 Apr 2026 00:27:02 -0700 (PDT)
-X-Received: by 2002:ac8:7d0a:0:b0:50b:45f5:a93a with SMTP id
- d75a77b69052e-50d3bb62479mr33282151cf.6.1775028421579; 
- Wed, 01 Apr 2026 00:27:01 -0700 (PDT)
+ bh=XYgkyJPQYnM/gelnCPu4vbxoPThepd6pRjAGrQkZhJE=;
+ b=mg5fCqYUBJqFrczmlFqfMitnPfXT8VXylz1qiZeELMpU3r4J8+qvvGjl80lOt4r0Bk
+ ICPxstPepuozreKE65xbqNXX/TrDAKpeSNy+KNeYaAadTNhkHdAfJOuMIkICtcbJpaiJ
+ TQsxTORepNIiIHKiTSLwVbvwVlyIV/4Q1CxGsC7TGPPN6oBNyNMQJHSJsO/tFOtKMC/D
+ rJ1/MSDXAz776MKBr42TlxpvpVYzJnxeCYBtHdIaAv95xlpCE3Hn1Ix4ELm4x+O8xO4e
+ MTSSe4IAwq9P3mOOZn0JbctMRgRsm7TzmPJYTJcQeJU66gypCUXrxOrOEOs3vx67zeXt
+ wQoQ==
+X-Gm-Message-State: AOJu0Yxmc/eeTJt9abcB+KiBo6e+kn3I+lq8sHEviWuzyyfSuUuOZF4C
+ uFOzmbQWfLhxqSe7LHtQPqxvvWajxUX/Mh+posf1BJ2EGqaF3+tdbj/elVF+tPwqq34MbIxWZW7
+ h8maHUDzPw3cCpzW29FyiTCYRVEUxUwHE9GKjKOG5OA9WDIbWS8qD4Xu8godgR+r4+wyeQuw=
+X-Gm-Gg: ATEYQzwgCTB0l3bzAa652AF+ANyTc9apT2JkCsm1wa7oklF2/0+8ipU2k9nZqdV5ook
+ AKDw+b5S/qcnYHs408aWzSPTloZ1dBWNDM8DK3kYDcwEBgBQrWx7SZSEIXwP/BHuZFv5CXofP9o
+ xQhxKbUbjQrAfJAZvancUs69jwl6WYtJSi1lLSSNHpgWOAbS51YFdFv+BYgpihtI9KWDzpnsrq3
+ FJpcpkqOx7oQvVvpBOTyGwx67C+PQiqvbpjkiD/2DiQ2UzKBxMcihWLU0JmIbWVN5HC2NO8m6AV
+ UqkSlvx145xhHHRdMcNe3E9hDQiV8dJc2rsTiDJDSzVIyh3lE9+54pNXoQTn4hYMzu2qM2LNGkt
+ TyvIEUB9s0csOSBzatt0Nw9keUmTSJHDIcnOqs+MFY3Vfbc4+QzanaYk7HiIIc89OZsALo7thy0
+ bES5vkasAuA3AA72lASTLDaE/0VDTIieN77io=
+X-Received: by 2002:a05:622a:1f92:b0:50b:4226:9250 with SMTP id
+ d75a77b69052e-50d3bca3ef9mr33564811cf.44.1775028424023; 
+ Wed, 01 Apr 2026 00:27:04 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f92:b0:50b:4226:9250 with SMTP id
+ d75a77b69052e-50d3bca3ef9mr33564381cf.44.1775028423522; 
+ Wed, 01 Apr 2026 00:27:03 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38cb9f31972sm8638421fa.12.2026.04.01.00.26.59
+ 38308e7fff4ca-38cb9f31972sm8638421fa.12.2026.04.01.00.27.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2026 00:26:59 -0700 (PDT)
+ Wed, 01 Apr 2026 00:27:02 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 01 Apr 2026 10:26:29 +0300
-Subject: [PATCH 10/19] drm/panel: himax-hx8394: support Waveshare DSI
- panels
+Date: Wed, 01 Apr 2026 10:26:30 +0300
+Subject: [PATCH 11/19] drm/panel: jadard-jd9365da-h3: use
+ drm_connector_helper_get_modes_fixed
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260401-waveshare-dsi-touch-v1-10-5e9119b5a014@oss.qualcomm.com>
+Message-Id: <20260401-waveshare-dsi-touch-v1-11-5e9119b5a014@oss.qualcomm.com>
 References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
 In-Reply-To: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -112,39 +112,39 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11382;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2222;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=lO0fno0E364AvSeT99FeqGkbVL+ztqzXRDHADiw/wdU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpzMisklho0D3vESkQ4fmS068Knq50uBtpiLe3I
- snn5kz2xCGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaczIrAAKCRCLPIo+Aiko
- 1XIqB/9zql2lMw6YAkmcCaiKJND4sAmnxVxt+fmPveVP3wLcmBeS7zO5+fD4d/H9Q3upXFx/pyl
- Uw/EKDwEg9Cesr9W61V7r1RR20T5L3Nn2PG3A7MUpUqF896kziTzlhxWCho7Jg7HZtdZC/GxEcK
- Q9X0dfppZtmzDmzCbjJfmB58Mx4O8Em5OhxGPNYoP2O/+OnKtMw6D2oMBbyDULzUiVaxCalN43a
- uWo7fBsDlwoqVAzL3vAFXkZKeLtlyHzNyfiflpzZPKWKbKFmfyPUzkzP7dI42xRcfrUdsECEiin
- o9XpVcgkwpQ+IRfFyNhVrkDNrTzno99ytBInxDGNlcAii4Fa
+ bh=8tZscVF4LDTph0agFYVE6JixtCC92BuTMt6rtWJ2nVU=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ+aZE2ueBWfYLpmo2dTDwR3qESfD9bzvyo/9cS8Wf3qu7
+ viqqntXJ6MxCwMjF4OsmCKLT0HL1JhNyWEfdkythxnEygQyhYGLUwAmYr6H/X85Z73Aa2WN3/zG
+ V2VUbntaLtG5fLpR7MXSo7+eej3Js2SPDVRhnG8Uyy0kuqD99EoLpqYmkZUFnHUnVjio2XTaXWZ
+ bFl6xwjGhZOutTuYbIemNTvtvFnosF+364WugcLS6bYfoxqyE1rbzHHkp8ydVsnxUVg7dtvSKVE
+ 9LseqhY+HiDfFB9oFP87O6I4M/XDQ+/XNb8+w717/pXvMo5DHOeD/vfdAlW7cVgUsLQtMKbbwL/
+ tndm7jHzfq6W2rfqptbP2VM7ZK/pTkzvtUurUxb1yAx7OlrVqezmREBZe8nZR5/NPvgg8nbDTok
+ dmzLqndyPMf3k13KNeXlP7lpd48vWlJrIBHAWWv4TDUWAA==
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-GUID: 0MamxN8-BVyVtPl2S8Y9iaiVf0vE_wgB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA2NCBTYWx0ZWRfX9Bwx34Q/I1ED
- ZUEUFqgpNdCgumaoF2aB3kUyAcziR/qYZfsk+0axjQy1Bjjp0aGtZtaIExWShzKKNT3ZtXbCK7W
- MgSROucHdFIL+DEET/welITOX5jLX+LlhTsiNcrA9/cJqbDdzjBq5Xxr1qWktzr6PxvoD5ovQ3q
- Pt3XgUd7iPo7kkt8FvDWS2RhNTpvF3gj4g8m14E9dIW3dv1X2ubS9UCgoCJmTFso66MRzBnx9+i
- cUBR8UzxRHK+uQT3JLAdcsz2ipXWhVMwQm7bFax74em7b9OXCapW6HJr3Nf2D5l0Y2GP8wt29hD
- hUWRQj4zJGOyFWj+m+FRWkK4tCO+ix3xw79tFg7uWvVlhvWZ7kQQq04dDulI3hxhyAxDmITU8hU
- sODxsIHqe8w2Erxw9tnLi75fZc5I+pz/ps48E6Seqm1Giua3iBloEUw9y+ieFSAOMKYzLI5EFZp
- gnTPcxoH8WbLZpyLkOw==
-X-Proofpoint-ORIG-GUID: 0MamxN8-BVyVtPl2S8Y9iaiVf0vE_wgB
-X-Authority-Analysis: v=2.4 cv=PoGergM3 c=1 sm=1 tr=0 ts=69ccc8c7 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA2NCBTYWx0ZWRfX+6bpaJFV9vWC
+ lGqM3xlf6GhK2DXsWciY3/tH9VRABxVBiXxHB3F4Gr6wjPg1yaorgrgsoEi0MooVW1oNnQQKcxA
+ qf5r+RFV56sm/6DqS5TUVeZNwJgjLfCj5aPovHkVvNbT2IA/GXSLDK5Nz38d901viBLO5fwK96s
+ cMb6PDscgXR7oaF/ZvKnI2rR0ivaFGxs2qSv9Pez7w0nTVh8biYLjn0u2v1N9bgXwTYUnozCMx4
+ vzaBWXTuOLiKDq5vejvzMVl0YnOzj7p9htUwvgQW2NUeHcocVT5xZW6DQgoZv+wJdckUSPysBuF
+ HJVC7hJbCrX93Alu3G5U+sUWjqFO2w1TKbi61xYNhE0nXbPWdLKZ+iLNPTW1hthHSRBMTZnjsKw
+ Q9WX1UrFalLGnE61omxuEHRvjaMggdpC/CNiM6zNHXmQM2pHbspSCn9FPqqU6jZPj+JiO3d1hmn
+ +FOr5nIoPtgknTKAkCg==
+X-Authority-Analysis: v=2.4 cv=YcawJgRf c=1 sm=1 tr=0 ts=69ccc8ca cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=8LC8iulc4pHAooHhkrkA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=51Y2UJ0wBrkUc3uRPtwA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-GUID: A78iYME2rMmYjv-L85L_GGFz1mA1riAN
+X-Proofpoint-ORIG-GUID: A78iYME2rMmYjv-L85L_GGFz1mA1riAN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 adultscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015 suspectscore=0
+ malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010064
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -162,282 +162,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable support for Waveshare 5.0" and 5.5" DSI TOUCH-A panels.
+Use existing helper instead of manually coding it.
 
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/panel/panel-himax-hx8394.c | 244 +++++++++++++++++++++++++++++
- 1 file changed, 244 insertions(+)
+ drivers/gpu/drm/panel/Kconfig                    |  1 +
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 19 ++-----------------
+ 2 files changed, 3 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-himax-hx8394.c b/drivers/gpu/drm/panel/panel-himax-hx8394.c
-index 1f23c50b6661..bf80354567df 100644
---- a/drivers/gpu/drm/panel/panel-himax-hx8394.c
-+++ b/drivers/gpu/drm/panel/panel-himax-hx8394.c
-@@ -44,6 +44,7 @@
- #define HX8394_CMD_SETID	  0xc3
- #define HX8394_CMD_SETDDB	  0xc4
- #define HX8394_CMD_UNKNOWN2	  0xc6
-+#define HX8394_CMD_UNKNOWN6	  0xc7
- #define HX8394_CMD_SETCABC	  0xc9
- #define HX8394_CMD_SETCABCGAIN	  0xca
- #define HX8394_CMD_SETPANEL	  0xcc
-@@ -618,6 +619,247 @@ static const struct hx8394_panel_desc hl055fhav028c_desc = {
- 	.init_sequence = hl055fhav028c_init_sequence,
- };
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index d6863b28ddc5..ba527b4d7737 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -337,6 +337,7 @@ config DRM_PANEL_JADARD_JD9365DA_H3
+ 	depends on OF
+ 	depends on DRM_MIPI_DSI
+ 	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_KMS_HELPER
+ 	help
+ 	  Say Y here if you want to enable support for Jadard JD9365DA-H3
+ 	  WXGA MIPI DSI panel. The panel support TFT dot matrix LCD with
+diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+index c33c611e03c0..1884ad2404cd 100644
+--- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
++++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_modes.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
  
-+static void waveshare_5_0_inch_a_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	/* 5.19.8 SETEXTC: Set extension command (B9h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETEXTC,
-+				     0xff, 0x83, 0x94);
-+
-+	/* 5.19.2 SETPOWER: Set power (B1h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETPOWER,
-+				     0x48, 0x0a, 0x6a, 0x09, 0x33, 0x54, 0x71, 0x71, 0x2e, 0x45);
-+
-+	/* 5.19.9 SETMIPI: Set MIPI control (BAh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETMIPI,
-+				     0x61, 0x03, 0x68, 0x6b, 0xb2, 0xc0);
-+
-+	/* 5.19.3 SETDISP: Set display related register (B2h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETDISP,
-+				     0x00, 0x80, 0x64, 0x0c, 0x06, 0x2f);
-+
-+	/* 5.19.4 SETCYC: Set display waveform cycles (B4h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETCYC,
-+				     0x1c, 0x78, 0x1c, 0x78, 0x1c, 0x78, 0x01, 0x0c, 0x86, 0x75,
-+				     0x00, 0x3f, 0x1c, 0x78, 0x1c, 0x78, 0x1c, 0x78, 0x01, 0x0c,
-+				     0x86);
-+
-+	/* 5.19.19 SETGIP0: Set GIP Option0 (D3h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGIP0,
-+				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x08, 0x32, 0x10,
-+				     0x05, 0x00, 0x05, 0x32, 0x13, 0xc1, 0x00, 0x01, 0x32, 0x10,
-+				     0x08, 0x00, 0x00, 0x37, 0x03, 0x07, 0x07, 0x37, 0x05, 0x05,
-+				     0x37, 0x0c, 0x40);
-+
-+	/* 5.19.20 Set GIP Option1 (D5h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGIP1,
-+				     0x18, 0x18, 0x18, 0x18, 0x22, 0x23, 0x20, 0x21, 0x04, 0x05,
-+				     0x06, 0x07, 0x00, 0x01, 0x02, 0x03, 0x18, 0x18, 0x18, 0x18,
-+				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18,
-+				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18,
-+				     0x19, 0x19, 0x19, 0x19);
-+
-+	/* 5.19.21 Set GIP Option2 (D6h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGIP2,
-+				     0x18, 0x18, 0x19, 0x19, 0x21, 0x20, 0x23, 0x22, 0x03, 0x02,
-+				     0x01, 0x00, 0x07, 0x06, 0x05, 0x04, 0x18, 0x18, 0x18, 0x18,
-+				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18,
-+				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18,
-+				     0x19, 0x19, 0x18, 0x18);
-+
-+	/* 5.19.25 SETGAMMA: Set gamma curve related setting (E0h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGAMMA,
-+				     0x07, 0x08, 0x09, 0x0d, 0x10, 0x14, 0x16, 0x13, 0x24, 0x36,
-+				     0x48, 0x4a, 0x58, 0x6f, 0x76, 0x80, 0x97, 0xa5, 0xa8, 0xb5,
-+				     0xc6, 0x62, 0x63, 0x68, 0x6f, 0x72, 0x78, 0x7f, 0x7f, 0x00,
-+				     0x02, 0x08, 0x0d, 0x0c, 0x0e, 0x0f, 0x10, 0x24, 0x36, 0x48,
-+				     0x4a, 0x58, 0x6f, 0x78, 0x82, 0x99, 0xa4, 0xa0, 0xb1, 0xc0,
-+				     0x5e, 0x5e, 0x64, 0x6b, 0x6c, 0x73, 0x7f, 0x7f);
-+
-+	/* 5.19.17 SETPANEL (CCh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETPANEL,
-+				     0x0b);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN1,
-+				     0x1f, 0x73);
-+
-+	/* 5.19.5 SETVCOM: Set VCOM voltage (B6h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETVCOM,
-+				     0x6b, 0x6b);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN3,
-+				     0x02);
-+
-+	/* 5.19.11 Set register bank (BDh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETREGBANK,
-+				     0x01);
-+
-+	/* 5.19.2 SETPOWER: Set power (B1h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETPOWER,
-+				     0x00);
-+
-+	/* 5.19.11 Set register bank (BDh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETREGBANK,
-+				     0x00);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN5,
-+				     0x40, 0x81, 0x50, 0x00, 0x1a, 0xfc, 0x01);
-+};
-+
-+static const struct drm_display_mode waveshare_5_0_inch_a_mode = {
-+	.clock = 70000,
-+	.hdisplay = 720,
-+	.hsync_start = 720 + 40,
-+	.hsync_end = 720 + 40 + 20,
-+	.htotal = 720 + 40 + 20 + 20,
-+	.vdisplay = 1280,
-+	.vsync_start = 1280 + 30,
-+	.vsync_end = 1280 + 30 + 10,
-+	.vtotal = 1280 + 30 + 10 + 4,
-+	.width_mm = 62,
-+	.height_mm = 110,
-+};
-+
-+static const struct hx8394_panel_desc waveshare_5_0_inch_a_desc = {
-+	.mode = &waveshare_5_0_inch_a_mode,
-+	.lanes = 2,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_VIDEO |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.init_sequence = waveshare_5_0_inch_a_init_sequence,
-+};
-+
-+static const struct drm_display_mode waveshare_5_5_inch_a_mode = {
-+	.clock = 65000,
-+	.hdisplay = 720,
-+	.hsync_start = 720 + 50,
-+	.hsync_end = 720 + 50 + 50,
-+	.htotal = 720 + 50 + 50 + 10,
-+	.vdisplay = 1280,
-+	.vsync_start = 1280 + 15,
-+	.vsync_end = 1280 + 15 + 12,
-+	.vtotal = 1280 + 15 + 12 + 4,
-+	.width_mm = 62,
-+	.height_mm = 110,
-+};
-+
-+static void waveshare_5_5_inch_a_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	/* 5.19.8 SETEXTC: Set extension command (B9h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETEXTC,
-+				     0xff, 0x83, 0x94);
-+
-+	/* 5.19.9 SETMIPI: Set MIPI control (BAh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETMIPI,
-+				     0x61, 0x03, 0x68, 0x6b, 0xb2, 0xc0);
-+
-+	/* 5.19.2 SETPOWER: Set power (B1h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETPOWER,
-+				     0x48, 0x12, 0x72, 0x09, 0x32, 0x54, 0x71, 0x71, 0x57, 0x47);
-+
-+	/* 5.19.3 SETDISP: Set display related register (B2h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETDISP,
-+				     0x00, 0x80, 0x64, 0x0c, 0x0d, 0x2f);
-+
-+	/* 5.19.4 SETCYC: Set display waveform cycles (B4h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETCYC,
-+				     0x73, 0x74, 0x73, 0x74, 0x73, 0x74, 0x01, 0x0c, 0x86, 0x75,
-+				     0x00, 0x3f, 0x73, 0x74, 0x73, 0x74, 0x73, 0x74, 0x01, 0x0c,
-+				     0x86);
-+
-+	/* 5.19.5 SETVCOM: Set VCOM voltage (B6h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETVCOM,
-+				     0x86, 0x86);
-+
-+	/* 5.19.19 SETGIP0: Set GIP Option0 (D3h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGIP0,
-+				     0x00, 0x00, 0x07, 0x07, 0x40, 0x07, 0x0c, 0x00, 0x08, 0x10,
-+				     0x08, 0x00, 0x08, 0x54, 0x15, 0x0a, 0x05, 0x0a, 0x02, 0x15,
-+				     0x06, 0x05, 0x06, 0x47, 0x44, 0x0a, 0x0a, 0x4b, 0x10, 0x07,
-+				     0x07, 0x0c, 0x40);
-+
-+	/* 5.19.20 Set GIP Option1 (D5h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGIP1,
-+				     0x1c, 0x1c, 0x1d, 0x1d, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05,
-+				     0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x24, 0x25, 0x18, 0x18,
-+				     0x26, 0x27, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18,
-+				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x20, 0x21,
-+				     0x18, 0x18, 0x18, 0x18);
-+
-+	/* 5.19.21 Set GIP Option2 (D6h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGIP2,
-+				     0x1c, 0x1c, 0x1d, 0x1d, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02,
-+				     0x01, 0x00, 0x0b, 0x0a, 0x09, 0x08, 0x21, 0x20, 0x18, 0x18,
-+				     0x27, 0x26, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18,
-+				     0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x18, 0x25, 0x24,
-+				     0x18, 0x18, 0x18, 0x18);
-+
-+	/* 5.19.25 SETGAMMA: Set gamma curve related setting (E0h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETGAMMA,
-+				     0x00, 0x13, 0x21, 0x28, 0x2b, 0x2e, 0x32, 0x2f, 0x61, 0x6e,
-+				     0x7e, 0x7b, 0x80, 0x8f, 0x91, 0x93, 0x9d, 0x9d, 0x97, 0xa4,
-+				     0xb1, 0x57, 0x55, 0x58, 0x5d, 0x60, 0x67, 0x74, 0x7f, 0x00,
-+				     0x13, 0x21, 0x28, 0x2b, 0x2e, 0x32, 0x2f, 0x61, 0x6e, 0x7d,
-+				     0x7b, 0x7f, 0x8e, 0x90, 0x93, 0x9c, 0x9d, 0x98, 0xa4, 0xb1,
-+				     0x58, 0x55, 0x59, 0x5e, 0x61, 0x68, 0x76, 0x7f);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN1,
-+				     0x1f, 0x31);
-+
-+	/* 5.19.17 SETPANEL (CCh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETPANEL,
-+				     0x07);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN3,
-+				     0x02);
-+
-+	/* 5.19.11 Set register bank (BDh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETREGBANK,
-+				     0x02);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN4,
-+				     0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-+				     0xff, 0xff);
-+
-+	/* 5.19.11 Set register bank (BDh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETREGBANK,
-+				     0x00);
-+
-+	/* 5.19.11 Set register bank (BDh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETREGBANK,
-+				     0x01);
-+
-+	/* 5.19.2 SETPOWER: Set power (B1h) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETPOWER,
-+				     0x00);
-+
-+	/* 5.19.11 Set register bank (BDh) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_SETREGBANK,
-+				     0x00);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN2,
-+				     0xed);
-+
-+	/* Unknown command, not listed in the HX8394-F datasheet */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, HX8394_CMD_UNKNOWN6,
-+				     0x00, 0xc0);
-+};
-+
-+static const struct hx8394_panel_desc waveshare_5_5_inch_a_desc = {
-+	.mode = &waveshare_5_5_inch_a_mode,
-+	.lanes = 2,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_VIDEO |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.init_sequence = waveshare_5_5_inch_a_init_sequence,
-+};
-+
- static int hx8394_disable(struct drm_panel *panel)
+ #include <linux/gpio/consumer.h>
+ #include <linux/delay.h>
+@@ -149,24 +150,8 @@ static int jadard_get_modes(struct drm_panel *panel,
+ 			    struct drm_connector *connector)
  {
- 	struct hx8394 *ctx = panel_to_hx8394(panel);
-@@ -815,6 +1057,8 @@ static const struct of_device_id hx8394_of_match[] = {
- 	{ .compatible = "huiling,hl055fhav028c", .data = &hl055fhav028c_desc },
- 	{ .compatible = "powkiddy,x55-panel", .data = &powkiddy_x55_desc },
- 	{ .compatible = "microchip,ac40t08a-mipi-panel", .data = &mchp_ac40t08a_desc },
-+	{ .compatible = "waveshare,5.0-dsi-touch-a", .data = &waveshare_5_0_inch_a_desc },
-+	{ .compatible = "waveshare,5.5-dsi-touch-a", .data = &waveshare_5_5_inch_a_desc },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, hx8394_of_match);
+ 	struct jadard *jadard = panel_to_jadard(panel);
+-	const struct drm_display_mode *desc_mode = &jadard->desc->mode;
+-	struct drm_display_mode *mode;
+-
+-	mode = drm_mode_duplicate(connector->dev, desc_mode);
+-	if (!mode) {
+-		DRM_DEV_ERROR(&jadard->dsi->dev, "failed to add mode %ux%ux@%u\n",
+-			      desc_mode->hdisplay, desc_mode->vdisplay,
+-			      drm_mode_vrefresh(desc_mode));
+-		return -ENOMEM;
+-	}
+-
+-	drm_mode_set_name(mode);
+-	drm_mode_probed_add(connector, mode);
+-
+-	connector->display_info.width_mm = mode->width_mm;
+-	connector->display_info.height_mm = mode->height_mm;
+ 
+-	return 1;
++	return drm_connector_helper_get_modes_fixed(connector, &jadard->desc->mode);
+ }
+ 
+ static enum drm_panel_orientation jadard_panel_get_orientation(struct drm_panel *panel)
 
 -- 
 2.47.3
