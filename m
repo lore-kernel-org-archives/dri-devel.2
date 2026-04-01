@@ -4,54 +4,115 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B53110F6FD9
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 15:44:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA3A810F6FBF
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 16:07:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA0FD10ECAF;
-	Wed,  1 Apr 2026 15:44:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56DDA10E5BD;
+	Wed,  1 Apr 2026 16:07:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mo/fACUX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UD1ISEYc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04F9F10ECAF
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 15:44:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D41C810E5BD
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 16:07:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3E6826183C;
- Wed,  1 Apr 2026 15:44:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37DCDC4CEF7;
- Wed,  1 Apr 2026 15:44:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A27FA40DD3;
+ Wed,  1 Apr 2026 16:07:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710CBC19421;
+ Wed,  1 Apr 2026 16:07:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775058262;
- bh=ZRDfHt+Ok+eRdwZHF1aFyAbSlAu2IdH5At0jrTj5QAE=;
+ s=k20201202; t=1775059650;
+ bh=EFiVz7oTsJZh6ZU1Ng7jCh+8Psy0EZFpu1yBCNbbNEo=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mo/fACUXQKKCXDhElfBvQNsilYluxvtR2tifOwSA7ZyDKpSZuKPrqb8LUX5IY5z1u
- PPZZIind/7kYlY0Dc3eL3tU3mUO11aPNxczfTv6Ikxh5XHKr57VqQolpce8sQENCcA
- bHbh/7kCzpkVCW6DDsL7gbjnjkSPq9wZauzVc+5UbpW579wxOi+Y5F7/AgOJ7doNT8
- XEpXik9qbaHZnqLi8EsTmqeu/DnoDR1FQ3p8a98HE75zHhDLMgfExQaVqdBUWaq0Wz
- dxEyN8lJN3mu0nJkqTCkEYNNurK7LbplCSs+fTN0a5Ij9Ka3G6++Y0P4/yzDt7QARV
- a2llbRXYLHZSA==
-Message-ID: <96e7ec53-9b98-4203-a011-77241c95ac88@kernel.org>
-Date: Wed, 1 Apr 2026 17:44:18 +0200
+ b=UD1ISEYcsmSYDhlb01nvZDFtlQlbSemlnr7iXtgCk104YW1Q5UxqwsolERk5ylFHv
+ Vt1PY4i4FHRYcP8dnxS8Q8eBRTzYywTPGKUZtWQdZdpoNe99VW6H7iQQqNCm1jw8Bz
+ n86Z36xJ4BZ5cWRXG6m9oIgvPhCmBpLh1ki9W4JudWmC9EHmPhTbLAGUU6e+kwqm7L
+ 8KuEJ4EPuD9AWV1PsnVAcs+Tn1B/bI/YO5n1g500VM71HHkbnXXbOF29Vr0SwSACPQ
+ /K0VJ66vzfau79yssDUdidY/ndCcqyKFplWKKQok3R8Tvn+pWIvzT4D5nxYoFCDUqY
+ ZUo5E5dWU/p+Q==
+Message-ID: <562530e9-a607-4dae-9b43-786a3946f795@kernel.org>
+Date: Wed, 1 Apr 2026 18:07:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] gpu: nova-core: bitfield: fix broken Default
- implementation
-To: Gary Guo <gary@garyguo.net>
-Cc: Alexandre Courbot <acourbot@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Lyude Paul
- <lyude@redhat.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Joel Fernandes
- <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260401-fix-bitfield-v2-1-2fa68c98114a@nvidia.com>
- <DHHJ82YDW7FP.2ZFKZUQUZZ2H7@nvidia.com>
- <DHHXFZ05SBVH.2MK50Q9PMTVDZ@garyguo.net>
-From: Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: gpu: mali-valhall-csf: Document i.MX952
+ support
+To: Guangliu Ding <guangliu.ding@nxp.com>, Liviu Dudau <liviu.dudau@arm.com>
+Cc: "Daniel Baluta (OSS)" <daniel.baluta@oss.nxp.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <frank.li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "imx@lists.linux.dev" <imx@lists.linux.dev>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, Jiyu Yang <jiyu.yang@nxp.com>
+References: <20260331-master-v1-0-65c8e318d462@nxp.com>
+ <20260331-master-v1-1-65c8e318d462@nxp.com> <acva1Xt8V4k9-uG8@e142607>
+ <AM0PR04MB47073E9E8B5C704BCF5D9F72F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <99a1da55-d6e5-4d11-abaa-8c85283ab5f2@oss.nxp.com>
+ <AM0PR04MB4707B3E37DFE7AEE587DBA2AF350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <aczv0R0aQRmHKdvt@e142607>
+ <AM0PR04MB4707335CC7035232D44E6ED9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <2f4c4063-daf6-48f2-b830-9f58dc7af80d@kernel.org>
+ <AM0PR04MB4707D758EC8B08C6D42F3A82F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+ <253608f3-8b47-428d-a703-97dcd9731628@kernel.org>
+ <AM0PR04MB47075AF2C5863FC665285CA9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <DHHXFZ05SBVH.2MK50Q9PMTVDZ@garyguo.net>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <AM0PR04MB47075AF2C5863FC665285CA9F350A@AM0PR04MB4707.eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -69,9 +130,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/1/26 5:35 PM, Gary Guo wrote:
-> This could go via drm-rust-fixes?
+On 01/04/2026 13:27, Guangliu Ding wrote:
+>>>>
+>>>> We discuss only the lack of compatibility in terms of DT, how DT sees
+>>>> compatible devices.
+>>>>
+>>>> And lack of driver code is clear indication that devices are
+>>>> compatible in terms how DT understands it. Feel encouraged to bring
+>>>> actual arguments in commit msgs in the future.
+>>>>
+>>>> Best regards,
+>>>> Krzysztof
+>>>
+>>> So the best approach is only reserve "arm,mali-valhall-csf" for now,
+>>> since currently there is no need for an additional compatible entry from a DT
+>> compatibility perspective.
+>>> We can introduce "nxp,imx952-mali" in future commits if hardware or
+>>> driver differences actually require it, and include more detailed justification
+>> in the commit message. Right?
+>>
+>> So does that mean you decided not to read writing bindings document?
+> 
+> Actually, I followed the compatible string of gpu node in imx952.dtsi during
+> code work since they share the same GPU IP.
+>          gpu: gpu@4d900000 {
+>              compatible = "nxp,imx95-mali", "arm,mali-valhall-csf"; > 
+> 
+> Is this line in writing bindings document that you want to mention about?
+> Could you please share more suggestions about the patch optimization?
+> 		DO add new compatibles in case there are new features or bugs.
 
-It seems there's nothing actually broken due to that, so no need to take it
-through -fixes. But we can pick it up before drm-rust-next opens for new
-features as I will send another -next PR for the unsoundness fix anyways.
+Please read entire file. I feel like you avoid doing this and just ask
+me to give you shortcut.
+
+There is more than one point from that trivial writing bindings file
+which applies here.
+
+Best regards,
+Krzysztof
