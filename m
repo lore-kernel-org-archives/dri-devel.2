@@ -4,58 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02BB8D35165
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 09:36:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 726C0D35163
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 09:43:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C96710F057;
-	Wed,  1 Apr 2026 09:36:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD42610F063;
+	Wed,  1 Apr 2026 09:43:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="cZa4qLsU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Itml+h1i";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HhvxZs4w";
 	dkim-atps=neutral
-Received: from mail-m32113.qiye.163.com (mail-m32113.qiye.163.com
- [220.197.32.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 646C510F057
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 09:36:02 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 392496b77;
- Wed, 1 Apr 2026 17:35:57 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, victor.liu@nxp.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, inki.dae@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org,
- jingoohan1@gmail.com, p.zabel@pengutronix.de, hjc@rock-chips.com,
- heiko@sntech.de, andy.yan@rock-chips.com
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, kernel@pengutronix.de, festevam@gmail.com,
- alim.akhtar@samsung.com, dmitry.baryshkov@oss.qualcomm.com,
- luca.ceresoli@bootlin.com, nicolas.frattaroli@collabora.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v12 17/17] drm/bridge: analogix_dp: Apply panel_bridge helper
-Date: Wed,  1 Apr 2026 17:35:47 +0800
-Message-Id: <20260401093547.25840-4-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260401093547.25840-1-damon.ding@rock-chips.com>
-References: <20260401091454.25730-1-damon.ding@rock-chips.com>
- <20260401093547.25840-1-damon.ding@rock-chips.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72D2710EA53
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 09:43:56 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6317jtT61004266
+ for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 09:43:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ q5zEIap66Dc7OLWAsu4xghw/A+bEZV1aEWioMMAJ35c=; b=Itml+h1iZo/qp9DQ
+ VIUN62PT66x3t2V79LOG0TzdAQZM9qTbcUimbLPA9Jz8t2XIvdxO1B7B6FrQ6cz2
+ KeYOCCVk3+0gVxD7Gp8aYOPC0YB55Q9+wXWPjKftxtDeht7qjFhsAbVQ9u5wf2VC
+ 6tp1ykNSzDRBx6KNFWqvd6K2v9J3BG9aYSm5EHjEpM+TqHX7kbmOzfXSNoPgqLhg
+ g1U0xR9NK/GKYKTGvBvAak+iBIG5HXu0J9Wf4RDJ08n9Tvs17itmWge58zU4fMXF
+ zlfTrRe8UFhzxd72V6XTJBJYV61PIbaRSzP2uG9WrIJuNJ3Dd6mzVBYNfDwqIPQ5
+ wZGNtQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8tfjhp4n-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 09:43:55 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-c70f19f0f37so512006a12.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 02:43:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775036635; x=1775641435;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=q5zEIap66Dc7OLWAsu4xghw/A+bEZV1aEWioMMAJ35c=;
+ b=HhvxZs4wLJZIIDe6n7ayIxl/aSgf7Cd1fECFW0ReH/zjXFXmdNb6eNQ45R1m2OLsHB
+ /2gzwiKJo98iTeBnGrDQKOrdT2339pPe7/wQQFResh7RFO+u1LE6dqxKpf0IghuSDs76
+ C0KbjQI9gN+y756ycRBWUfIfkFip7mytwkiBa/b4/0dTabL8dlkcuxAHkkK6TIIln/HV
+ vP8/lntLJ5EekIQlRcgJn3ebfcTz5WwEpaQhs6pCZEGjBzUOXNAPXpZV2LSb5nJqRHub
+ kG+8Seg+fYmmpiY2lBe1LqN0Is5/6JnZ+lZAFp2sWa7BGGhnXe1AY7JieSPhwxyO4Gp4
+ oDxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775036635; x=1775641435;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=q5zEIap66Dc7OLWAsu4xghw/A+bEZV1aEWioMMAJ35c=;
+ b=B0Mpshu60yGusTAU4ZrQF/R0G39aUrPzpLniew68nbtAIvzaT5PiWCfDTMvtvYJaX8
+ INDMdkF/k5NcYeU1pzTjubHd8FE68Kcr4nRbVLIEawnkEg84qF9Y4CZg7e2hBhSa8Luc
+ XVR2RZynv4Okr/NSwyCmQoDIUwgpi7fuiqwoladJ+mwNZkiSxuW/Ker5u/iqhBArw/Dc
+ BMKCJFuIAJ3oP3U/A4nRpn5bSbySJQSK5KByCiRTGKeRrdLDM/m4IJNttYGpzlpZevNo
+ upA2SNYGpqnKHD+vH1NbzzUyf0hpi1C26FkJnb8FVaRcUbz1T69iEIG7E16GB4sS7UnU
+ jWfg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUVpqPnQTX6S1kn+JmZiMRPTyDTZXAN3kMgc51tq42HKP9LP7woq82F0a6D3198hVZtECjmMURq2tc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOiQdOdkESbpkkuPhDZ06LcRam+NNPK1em8Lmg0uIN/Lt6qSVM
+ pwzkZv5dS2HKRxWFzCZubql41bSEbmVODlvYlKj2Cze8mxo6JfGJkdfQn6A+DT7XPpHXGs/qapX
+ 0vu8x9l36TDUIXXmPHW05SkurXQMwE7SlUdi8AeyV1N5Sx1zaSpbo33aoRy7inCbBlO3tz9E=
+X-Gm-Gg: ATEYQzx2yUdx9tX0GmK6pohDskgX9UDb2Icm44NvyNnpnQ6FiKjuhB+D6ghXvISfKHi
+ 3WHsqooCBQKXnJ5HdayTYp4eKVHLwzfxquEmPFXB7o38nlfsUAUpbuKYxu6YbBJhGR7dCb3W3Zd
+ OTYVCASjZTek5bRgNX8LrEHV1WpulOM/jBbSfVBrqdRhGLqLCfs7W+mQQxcYLvS6P2tcU4tpvf1
+ /pfmf/ggy4sUabSvbsPd0quC3mNLoJnJvrrhj6Q138vzTy0gCJSFbGwdSOTwSoIlD7ni8u75QRo
+ z1KdpQ9sr3VETq1yzGCCQl9C3F38oSsbkHd5GqkupjvhHe9rRAsQUNEiqFhIvbYFqE+adWi35QR
+ giaD1+lrygioJWvSbM/lVXX3FBtUQFlBDphd3C3Keq3i4AsBzKjyc74pYu+OPPWckL8g3U5M2bS
+ 6V65NrLFY1KbsSeh5g1g==
+X-Received: by 2002:a05:6a20:9329:b0:39b:84c9:3861 with SMTP id
+ adf61e73a8af0-39ef6d8e95dmr2018585637.14.1775036635141; 
+ Wed, 01 Apr 2026 02:43:55 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9329:b0:39b:84c9:3861 with SMTP id
+ adf61e73a8af0-39ef6d8e95dmr2018549637.14.1775036634466; 
+ Wed, 01 Apr 2026 02:43:54 -0700 (PDT)
+Received: from [10.133.33.140] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c76916baa53sm11599580a12.5.2026.04.01.02.43.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Apr 2026 02:43:54 -0700 (PDT)
+Message-ID: <1698c35d-cefd-48b8-8776-c7deee000afc@oss.qualcomm.com>
+Date: Wed, 1 Apr 2026 17:43:48 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d48664f7e03a3kunm1fbc9b38b36f2f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGU9LS1YfTExKS0NCGUlDHRlWFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- 1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=cZa4qLsUvjrNN/AY1zvpBPABsGLYLalTGFrkm/Kd66edNxQtMBTRVusSxtxuPCQ+ObZh6reQC0wkYSYxVvmF7oa0rFx+4tkFIG7DZDUBL+FQcuiaGTK5nbdf25AfN0sfYuZAs3R3CXzbq9yV4fAfQnkHy64MGbujrg3p0OYZDYo=;
- c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
- bh=UBM7dL1OUA4VGkwXGmpRQ7M0XsEe3xz5uWZVRc/9PSw=;
- h=date:mime-version:subject:message-id:from;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 27/38] drm/msm/dp: add dp_display_get_panel() to
+ initialize DP panel
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-27-01faacfcdedd@oss.qualcomm.com>
+ <smvfckejheyi7oehubdkhnh6pxokn7yugvlrynraypsu6kssj3@6vinswn4yku4>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <smvfckejheyi7oehubdkhnh6pxokn7yugvlrynraypsu6kssj3@6vinswn4yku4>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: K0cmL4_MW-lG_mLvtCRpzQzn2zlQ5qSC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA4NyBTYWx0ZWRfX9JExluBrrfEr
+ wQvFcvMDASF7Km6KYqRM3sKbObxgaGXt2XNtMYUbRbdMXj/pVwdbia7s1yx7KON4BIZeg2abc/a
+ INtzfTFfHJY3i8wbokP7ONVgHP/VuJAuduFVR9O6f6uvUNcSlTrkpqo9xyFkoWydiPl1lXC++gp
+ xSzlqG7Si9T51kY6SmGk2ZP0iotXQ0ZE3UU5BQbSA4l2Tw0jrMvQiF+C1cFGTcFteApY9NtGx3W
+ Cl59/caxfrQoEgDO388v2CWk7FEiJc4HMRz4t8T9X9Ghj/lJbmv6zSC/EA7IuczPMKaxJ/5nmu+
+ SK8B0lsDdbaBUu3sjTa+cfWxz29ypEeZIgoI4ITDKQNiUS7G0umMIazNSqDyP7pX7/3QXCQQpaY
+ TOz/Pf3IY9bjY8a5CCqBeW0IKO7ypHfm0EOmgwcTnEnZ2oC/hVDhfkcexyffAiHmW58nV4jSJZb
+ tjBQat2Iq2AWAWzcV7w==
+X-Authority-Analysis: v=2.4 cv=fJc0HJae c=1 sm=1 tr=0 ts=69cce8db cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=hAwsQ9a-qRDmXk3_GycA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: K0cmL4_MW-lG_mLvtCRpzQzn2zlQ5qSC
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_03,2026-04-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604010087
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,159 +151,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to unify the handling of the panel and bridge, apply
-panel_bridge helpers for Analogix DP driver. With this patch, the
-bridge support will also become available.
 
-The following changes have ben made:
-- Apply plane_bridge helper to wrap the panel as the bridge.
-- Remove the explicit panel APIs calls, which can be replaced with
-  the automic bridge APIs calls wrapped by the panel.
-- Remove the unnecessary analogix_dp_bridge_get_modes().
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Tested-by: Heiko Stuebner <heiko@sntech.de> (on rk3588)
+On 8/27/2025 12:33 AM, Dmitry Baryshkov wrote:
+> On Mon, Aug 25, 2025 at 10:16:13PM +0800, Yongxing Mou wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> Add an API dp_display_get_panel() to initialize and return a DP
+>> panel to be used by DP MST module. Since some of the fields of
+>> DP panel are private, dp_display module needs to initialize these
+>> parts and return the panel back.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_display.c | 23 +++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/dp/dp_display.h |  2 ++
+>>   2 files changed, 25 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+>> index 84df34306fb557341bea288ea8c13b0c81b11919..abcab3ed43b6da5ef898355cf9b7561cd9fe0404 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+>> @@ -632,6 +632,29 @@ static int msm_dp_irq_hpd_handle(struct msm_dp_display_private *dp, u32 data)
+>>   	return 0;
+>>   }
+>>   
+>> +struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_display)
+>> +{
+>> +	struct msm_dp_display_private *dp;
+>> +	struct msm_dp_panel *dp_panel;
+>> +
+>> +	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
+>> +
+>> +	dp_panel = msm_dp_panel_get(&dp->msm_dp_display.pdev->dev, dp->aux, dp->link,
+>> +			       dp->link_base, dp->mst2link_base, dp->mst3link_base,
+>> +			       dp->pixel_base);
+>> +
+>> +	if (IS_ERR(dp->panel)) {
+>> +		DRM_ERROR("failed to initialize panel\n");
+>> +		return NULL;
+>> +	}
+>> +
+>> +	memcpy(dp_panel->dpcd, dp->panel->dpcd, DP_RECEIVER_CAP_SIZE);
+>> +	memcpy(&dp_panel->link_info, &dp->panel->link_info,
+>> +	       sizeof(dp->panel->link_info));
+> 
+> Both these lines show that link_info and dpcd belong to msm_dp_display
+> rather than the panel. The panel should only be describing properties of
+> the particular sink.
+> 
+I agree with your point.
 
----
+This would require a larger cleanup of the panel abstraction, which
+seems out of scope for this series. Could we address it in a separate 
+refactoring series?
 
-Changes in v4:
-- Rename the &analogix_dp_plat_data.bridge to
-  &analogix_dp_plat_data.next_bridge.
-
-Changes in v5:
-- Move panel_bridge addition a little forward.
-- Move next_bridge attachment from Analogix side to Rockchip/Exynos
-  side.
-
-Changes in v6
-- Remove the unnecessary analogix_dp_bridge_get_modes().
-- Not to set DRM_BRIDGE_OP_MODES if the next is a panel.
-- Squash [PATCH v5 15/17]drm/bridge: analogix_dp: Remove panel
-  disabling and enabling in analogix_dp_set_bridge() into this
-  commit.
-- Fix the &drm_bridge->ops to DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT.
-
-Changes in v9:
-- Add Tested-by tag.
----
- .../drm/bridge/analogix/analogix_dp_core.c    | 41 +++++--------------
- 1 file changed, 11 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 8bb248e44c26..fe7158d9edde 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -749,9 +749,6 @@ static int analogix_dp_commit(struct analogix_dp_device *dp)
- {
- 	int ret;
- 
--	/* Keep the panel disabled while we configure video */
--	drm_panel_disable(dp->plat_data->panel);
--
- 	ret = analogix_dp_train_link(dp);
- 	if (ret) {
- 		dev_err(dp->dev, "unable to do link train, ret=%d\n", ret);
-@@ -771,9 +768,6 @@ static int analogix_dp_commit(struct analogix_dp_device *dp)
- 		return ret;
- 	}
- 
--	/* Safe to enable the panel now */
--	drm_panel_enable(dp->plat_data->panel);
--
- 	/* Check whether panel supports fast training */
- 	ret = analogix_dp_fast_link_train_detection(dp);
- 	if (ret)
-@@ -858,17 +852,6 @@ static int analogix_dp_disable_psr(struct analogix_dp_device *dp)
- 	return analogix_dp_send_psr_spd(dp, &psr_vsc, true);
- }
- 
--static int analogix_dp_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *connector)
--{
--	struct analogix_dp_device *dp = to_dp(bridge);
--	int num_modes = 0;
--
--	if (dp->plat_data->panel)
--		num_modes += drm_panel_get_modes(dp->plat_data->panel, connector);
--
--	return num_modes;
--}
--
- static const struct drm_edid *analogix_dp_bridge_edid_read(struct drm_bridge *bridge,
- 							   struct drm_connector *connector)
- {
-@@ -909,7 +892,7 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
- 	struct analogix_dp_device *dp = to_dp(bridge);
- 	enum drm_connector_status status = connector_status_disconnected;
- 
--	if (dp->plat_data->panel || dp->plat_data->next_bridge)
-+	if (dp->plat_data->next_bridge)
- 		return connector_status_connected;
- 
- 	if (!analogix_dp_detect_hpd(dp))
-@@ -995,8 +978,6 @@ static void analogix_dp_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	/* Don't touch the panel if we're coming back from PSR */
- 	if (old_crtc_state && old_crtc_state->self_refresh_active)
- 		return;
--
--	drm_panel_prepare(dp->plat_data->panel);
- }
- 
- static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
-@@ -1168,16 +1149,12 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
- 	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
- 		return;
- 
--	drm_panel_disable(dp->plat_data->panel);
--
- 	disable_irq(dp->irq);
- 
- 	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
- 
- 	pm_runtime_put_sync(dp->dev);
- 
--	drm_panel_unprepare(dp->plat_data->panel);
--
- 	dp->fast_train_enable = false;
- 	dp->psr_supported = false;
- 	dp->dpms_mode = DRM_MODE_DPMS_OFF;
-@@ -1252,7 +1229,6 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
- 	.atomic_post_disable = analogix_dp_bridge_atomic_post_disable,
- 	.atomic_check = analogix_dp_bridge_atomic_check,
- 	.attach = analogix_dp_bridge_attach,
--	.get_modes = analogix_dp_bridge_get_modes,
- 	.edid_read = analogix_dp_bridge_edid_read,
- 	.detect = analogix_dp_bridge_detect,
- };
-@@ -1498,17 +1474,22 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
- 		return ret;
- 	}
- 
--	if (dp->plat_data->panel)
--		bridge->ops = DRM_BRIDGE_OP_MODES | DRM_BRIDGE_OP_DETECT;
--	else
--		bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
--
-+	bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
- 	bridge->of_node = dp->dev->of_node;
- 	bridge->type = DRM_MODE_CONNECTOR_eDP;
- 	ret = devm_drm_bridge_add(dp->dev, &dp->bridge);
- 	if (ret)
- 		goto err_unregister_aux;
- 
-+	if (dp->plat_data->panel) {
-+		dp->plat_data->next_bridge = devm_drm_panel_bridge_add(dp->dev,
-+								       dp->plat_data->panel);
-+		if (IS_ERR(dp->plat_data->next_bridge)) {
-+			ret = PTR_ERR(bridge);
-+			goto err_unregister_aux;
-+		}
-+	}
-+
- 	ret = drm_bridge_attach(dp->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret) {
- 		DRM_ERROR("failed to create bridge (%d)\n", ret);
--- 
-2.34.1
+>> +
+>> +	return dp_panel;
+>> +}
+>> +
+>>   static void msm_dp_display_deinit_sub_modules(struct msm_dp_display_private *dp)
+>>   {
+>>   	msm_dp_audio_put(dp->audio);
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+>> index b1ea027438d952c94f3ae80725c92e46c631bdb2..d5889b801d190b6f33b180ead898c1e4ebcbf8f3 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>> @@ -65,4 +65,6 @@ void msm_dp_display_unprepare(struct msm_dp *dp);
+>>   
+>>   int msm_dp_display_get_active_stream_cnt(struct msm_dp *msm_dp_display);
+>>   
+>> +struct msm_dp_panel *msm_dp_display_get_panel(struct msm_dp *msm_dp_display);
+>> +
+>>   #endif /* _DP_DISPLAY_H_ */
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
