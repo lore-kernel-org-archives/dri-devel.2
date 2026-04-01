@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1825E10F9311
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 00:39:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED13210F9313
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 00:39:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74FEA10EB2D;
-	Wed,  1 Apr 2026 00:39:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D27810EB00;
+	Wed,  1 Apr 2026 00:39:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tB2B+0J+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C9P5ziqi";
 	dkim-atps=neutral
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B021A10EB2C
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:36 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-2bd9a485bd6so12339478eec.1
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:36 -0700 (PDT)
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62FA110EB2C
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:38 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-2c54c68db4dso5251219eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775003976; x=1775608776; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1775003978; x=1775608778; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fYskpQzDXhxM4+9VM9RgZDo2+o/dM3+zNnNFKoGgds4=;
- b=tB2B+0J+LLgv7+v4n/ZFEXTp824+JDr3GjsKflPg59NvIGxHhGhJhYNFH1ChpkVzSG
- szxazt922eGEjqkx8AukMOz416JUk8lJuk7FhNcadg6AnYYnhx98QtocEM+2h7PTWjiy
- 6DDrF4m6+bv1IaxUWNa1zwXaj+kUslwiGKFR8g6A7dBpHohgwKBkVM3Pe2vxqfI1w5v5
- Dc327DUYcZ+X/8DmoYVvFiAui7cQ4JD8T/6vM2Nx6NRZ6AJF3OMGaQWM7T0/7bvT9Fep
- VO9LywTEfktqmGbeuMIiG+rO3U7MLmFck3VRm40RsZ3thBBJfrsO2M4hfFSPYB/5Rqzj
- ii5A==
+ bh=R5FyONZ8Ftg8PcUrjhCTmSRITsVvMq+p91xq+TbWIsM=;
+ b=C9P5ziqi3GGQvlORl+Ko0RX6eFmn/QOtAJo8qQnqHIK/v9vazmX4mGxMMmYA/98EIc
+ 5e8h+RQcqDGUxI3B+iG4bwVsL2GOOUeJuoYYZd/++Yf0lfMaKK6JOhjgN8hH9QPlwasm
+ jUcYf9d8M4mzYI6tj08WmWhHswmhOrDtMbzfhPfvVB2r0R7zEWxSarDS9Ymr8ggkR4Or
+ gT4VRMc83GKH4JVOIVvbNEjXs0jsfSz7JBLnv3NAALvxpL9T69fhU6YF7z/MQSkGdEt4
+ 3b4QK2VmWOdYsrLyQgtJylQp+EOEArGNoiWpQJfC6Ry7Tw73VIKJj+BAtEJJ2FgdvOWN
+ PRuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775003976; x=1775608776;
+ d=1e100.net; s=20251104; t=1775003978; x=1775608778;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=fYskpQzDXhxM4+9VM9RgZDo2+o/dM3+zNnNFKoGgds4=;
- b=E/eKoDf3DLCisVTMR4Gw01Iq1Vp8A7wqzKiWpNd++gpYclfd765ckiMUWrxQLiz7sR
- jZbc2lPkjzFZ34rAlzb4xS1RVosES43QSOfrvWSn77D2TV9lHb/iReZZKxWQMwGcRjvO
- V+zmAJKWBFakfArgelFvyhZ1V721E5EB5DAMK2J+iSoN3hTmF5WaV2N1Ri1UgDpzD3PR
- bu6oRvi4dh8MgU3z40zgjnvqlWKahAl1EMMYzKOxxPtFZ/WQKdM2zkcakMlKS3MMB4FK
- AKd37jqkewbc40eQ/w2pTNBS2Yx7U60s30NdIfiRQUuIV48C/ozi9Jo0+a0K8w6nCSJ3
- L2wQ==
+ bh=R5FyONZ8Ftg8PcUrjhCTmSRITsVvMq+p91xq+TbWIsM=;
+ b=V8R3Uh6i0wb49JQAkmBYROnTbPnkeSvLcvfr2oyOq/z9CJ20FuDewY7ZT9qK88gQxd
+ SL90WPJDSr5gXHwIuD7nmeVrWwt7IlBmNdg/VROyPzIwHHrHvW+2QwGhsWBNjnp1u+56
+ Zwl8mtaEAsWRiSSuIbdS8JvNZB9iTBBtmWG4+SeRrT2l3MSJcSTozWeBoiztqrgXyk2o
+ mPdKpKmHZHmgWYcFzxijWmD4TLF9EGcIFFAMpICRAErjKatNALM5eAMfVpLZdH4/w9Jq
+ ZaEGrrEgfPHvVycu3EF5XMKkefI+SYpkwsEwswCpDAyiWXSbWbMet9f93Mr648BHOux9
+ +DcQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXwr6JREI2jbBNz+/3RROGy7E7WgB/SOI0Z1l6NgOq7EDNXDuIQK8PHMi9unC1XY+sJ8mUJuqSFFyQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHLMoKXz0Ge8hjbjooPZfYIG4BbbSp4eUVjPQr76DVeNDLHCOQ
- b7ret/oUJUwIQOGyKZ2wp1XLZoJte7vK3QDKIaogQXYpHjhoLmp/AefE
-X-Gm-Gg: ATEYQzzGHhMoUVq1o1MSOX3zOo10ntULdzGulW/ZrFzkc96IUOpUEkDQirOyIHw8n3W
- 6G27CI7C53pYRsJu6kqv8cVzBJBPuH3ho1W+A+EvgaNzddaJpa2zfK1+6dfaBlz6Uif4cdraS6V
- xd715yR2eU0eoRUlYh0/cjWFjSUht4lc7qvHlXWmc0uif4mk9hNWDuAiVwpxlyceMexVLx0ZtmI
- NeNZPDsMIES70pNMsdIaDfa23GoqLBdHfMHPwhOCRO8z9WTmYR18dUmZS5T+n1ToNQpmvZT6Hvn
- vwNg7cthDgV5hhvH+/s4fjQAo0ZYl4vOAbx/krpJOVGYdUYdWHoPUbwWLRvgjC3Cv97b6kbNmVY
- 3Lyitt3RJYeNA00OzeStO7IzNTQkW5ZTc2VtJI6bGXrxa56kUcJd9TWsOf88SaEphufOXJrIvMb
- ecAjiFNz5us37fvvpso6d6VM2Qs2Q+ZScnrgZDiC9nKSu7K7uW+Umx0u0=
-X-Received: by 2002:a05:7300:ed0e:b0:2b9:80c1:bb5 with SMTP id
- 5a478bee46e88-2c9337a0ef3mr1033986eec.33.1775003975796; 
- Tue, 31 Mar 2026 17:39:35 -0700 (PDT)
+ AJvYcCW6TCOD8GrvZCzkTDdUpa7jHzLY1xqrQx7bu1b3+/yEF3Gu63AbEaFHSapE/pr2aoOpmUn/JbrRtg0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDzT9fraSPlfXMgQccSs9CHJWfA0bsVHNffMMQ3NPLtLK26YLf
+ ZS5rN12HK4h0NoWfkCzKb7DEFcdSZ1cCzzVTxnnFRdIYdPYRCOVuU1fG
+X-Gm-Gg: ATEYQzwrT7rgbrI2r27Eb55XFccj4ioye3vQpNBDLWZT5+kAFd7RoXNs0qbQGtP8c0z
+ TcOPU+KqSNYpGrN7h9hFGN8MitidtL6U+fQkgfpqp+pTnkmdyTj26zKLzFACMIv4Wc+9HYjTOIx
+ mW1tSx3LM+vnVuWGUlWz7rzMTeKffIA5yE+iohVEpYwk09wOxlErLUZMjzhuxDhxOnuJd068biX
+ tzrrhm03NeSwbVcz6MxYicB/0JdyDF8D1pl95udZgc/ycDVyFj5Mtp0vDP3SQ9Oz0TDpE5GTxfQ
+ ewVkbckaN3gVB1vSSHzY7/eOxN9O323Uks9ueO1jOfn7giWOgCK+zwl8H2/Vucgj6WOzToG8ayG
+ 1RJY38dHXpNJYwstRw60xSzvy4O1SmwhFpr8Cvq+jtj6wXIbn1ayoHUZnZ8p9B8DwI61eq35TFI
+ LRLJRBLYGpuqwFK7u3jBjCQXaua7e6CpVVpjpQ+aA16Ly56fxlAhFfNk4H3NG4cvj2kw==
+X-Received: by 2002:a05:7300:cc1b:b0:2c4:a862:2368 with SMTP id
+ 5a478bee46e88-2c930c76802mr929306eec.2.1775003977555; 
+ Tue, 31 Mar 2026 17:39:37 -0700 (PDT)
 Received: from ryzen ([2601:644:8000:5b5d::8bd])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.34
+ 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Mar 2026 17:39:35 -0700 (PDT)
+ Tue, 31 Mar 2026 17:39:37 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: stable@vger.kernel.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
@@ -78,10 +78,10 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2 for 6.12 04/10] drm/amd/display: Reject modes with too high
- pixel clock on DCE6-10
-Date: Tue, 31 Mar 2026 17:39:02 -0700
-Message-ID: <20260401003908.3438-5-rosenp@gmail.com>
+Subject: [PATCHv2 for 6.12 05/10] drm/amd/display: Keep PLL0 running on DCE
+ 6.0 and 6.4
+Date: Tue, 31 Mar 2026 17:39:03 -0700
+Message-ID: <20260401003908.3438-6-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260401003908.3438-1-rosenp@gmail.com>
 References: <20260401003908.3438-1-rosenp@gmail.com>
@@ -105,163 +105,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit 118800b0797a046adaa2a8e9dee9b971b78802a7 ]
+[ Upstream commit 0449726b58ea64ec96b95f95944f0a3650204059 ]
 
-Reject modes with a pixel clock higher than the maximum display
-clock. Use 400 MHz as a fallback value when the maximum display
-clock is not known. Pixel clocks that are higher than the display
-clock just won't work and are not supported.
+DC can turn off the display clock when no displays are connected
+or when all displays are off, for reference see:
+- dce*_validate_bandwidth
 
-With the addition of the YUV422	fallback, DC can now accidentally
-select a mode requiring higher pixel clock than actually supported
-when the DP version supports the required bandwidth but the clock
-is otherwise too high for the display engine. DCE 6-10 don't
-support these modes but they don't have a bandwidth calculation
-to reject them properly.
+DC also assumes that the DP clock is always on and never powers
+it down, for reference see:
+- dce110_clock_source_power_down
 
-Fixes: db291ed1732e ("drm/amd/display: Add fallback path for YCBCR422")
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+In case of DCE 6.0 and 6.4, PLL0 is the clock source for both
+the engine clock and DP clock, for reference see:
+- radeon_atom_pick_pll
+- atombios_crtc_set_disp_eng_pll
+
+Therefore, PLL0 should be always kept running on DCE 6.0 and 6.4.
+This commit achieves that by ensuring that by setting the display
+clock to the corresponding value in low power state instead of
+zero.
+
+This fixes a page flip timeout on SI with DC which happens when
+all connected displays are blanked.
+
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c    |  3 +++
- .../drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c   |  5 +++++
- drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c  | 10 +++++++++-
- .../amd/display/dc/resource/dce100/dce100_resource.c   | 10 +++++++++-
- .../drm/amd/display/dc/resource/dce80/dce80_resource.c | 10 +++++++++-
- 5 files changed, 35 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-index b268c367c27c..a2e100aa3cba 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -460,6 +460,9 @@ void dce_clk_mgr_construct(
- 		clk_mgr->max_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
- 	clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_INVALID;
- 
-+	base->clks.max_supported_dispclk_khz =
-+		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
-+
- 	dce_clock_read_integrated_info(clk_mgr);
- 	dce_clock_read_ss_info(clk_mgr);
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
-index a39641a0ff09..69dd80d9f738 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
-@@ -147,6 +147,8 @@ void dce60_clk_mgr_construct(
- 		struct dc_context *ctx,
- 		struct clk_mgr_internal *clk_mgr)
- {
-+	struct clk_mgr *base = &clk_mgr->base;
-+
- 	dce_clk_mgr_construct(ctx, clk_mgr);
- 
- 	memcpy(clk_mgr->max_clks_by_state,
-@@ -157,5 +159,8 @@ void dce60_clk_mgr_construct(
- 	clk_mgr->clk_mgr_shift = &disp_clk_shift;
- 	clk_mgr->clk_mgr_mask = &disp_clk_mask;
- 	clk_mgr->base.funcs = &dce60_funcs;
-+
-+	base->clks.max_supported_dispclk_khz =
-+		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
- }
- 
 diff --git a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-index 8db9f7514466..7886a2a55caf 100644
+index 7886a2a55caf..c4d7fa60d654 100644
 --- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-@@ -34,6 +34,7 @@
- #include "stream_encoder.h"
- 
- #include "resource.h"
-+#include "clk_mgr.h"
- #include "include/irq_service_interface.h"
- #include "irq/dce60/irq_service_dce60.h"
- #include "dce110/dce110_timing_generator.h"
-@@ -870,10 +871,17 @@ static bool dce60_validate_bandwidth(
- {
- 	int i;
- 	bool at_least_one_pipe = false;
-+	struct dc_stream_state *stream = NULL;
-+	const uint32_t max_pix_clk_khz = max(dc->clk_mgr->clks.max_supported_dispclk_khz, 400000);
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
--		if (context->res_ctx.pipe_ctx[i].stream)
-+		stream = context->res_ctx.pipe_ctx[i].stream;
-+		if (stream) {
- 			at_least_one_pipe = true;
+@@ -889,7 +889,16 @@ static bool dce60_validate_bandwidth(
+ 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
+ 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
+ 	} else {
+-		context->bw_ctx.bw.dce.dispclk_khz = 0;
++		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
++		 * the DP clock, and shouldn't be turned off. Just select the display
++		 * clock value from its low power mode.
++		 */
++		if (dc->ctx->dce_version == DCE_VERSION_6_0 ||
++			dc->ctx->dce_version == DCE_VERSION_6_4)
++			context->bw_ctx.bw.dce.dispclk_khz = 352000;
++		else
++			context->bw_ctx.bw.dce.dispclk_khz = 0;
 +
-+			if (stream->timing.pix_clk_100hz >= max_pix_clk_khz * 10)
-+				return DC_FAIL_BANDWIDTH_VALIDATE;
-+		}
+ 		context->bw_ctx.bw.dce.yclk_khz = 0;
  	}
  
- 	if (at_least_one_pipe) {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-index 53a5f4cb648c..6717ed84a032 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-@@ -29,6 +29,7 @@
- #include "stream_encoder.h"
- 
- #include "resource.h"
-+#include "clk_mgr.h"
- #include "include/irq_service_interface.h"
- #include "virtual/virtual_stream_encoder.h"
- #include "dce110/dce110_resource.h"
-@@ -843,10 +844,17 @@ static bool dce100_validate_bandwidth(
- {
- 	int i;
- 	bool at_least_one_pipe = false;
-+	struct dc_stream_state *stream = NULL;
-+	const uint32_t max_pix_clk_khz = max(dc->clk_mgr->clks.max_supported_dispclk_khz, 400000);
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
--		if (context->res_ctx.pipe_ctx[i].stream)
-+		stream = context->res_ctx.pipe_ctx[i].stream;
-+		if (stream) {
- 			at_least_one_pipe = true;
-+
-+			if (stream->timing.pix_clk_100hz >= max_pix_clk_khz * 10)
-+				return DC_FAIL_BANDWIDTH_VALIDATE;
-+		}
- 	}
- 
- 	if (at_least_one_pipe) {
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
-index a73d3c6ef425..af4a45718c7c 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
-@@ -32,6 +32,7 @@
- #include "stream_encoder.h"
- 
- #include "resource.h"
-+#include "clk_mgr.h"
- #include "include/irq_service_interface.h"
- #include "irq/dce80/irq_service_dce80.h"
- #include "dce110/dce110_timing_generator.h"
-@@ -876,10 +877,17 @@ static bool dce80_validate_bandwidth(
- {
- 	int i;
- 	bool at_least_one_pipe = false;
-+	struct dc_stream_state *stream = NULL;
-+	const uint32_t max_pix_clk_khz = max(dc->clk_mgr->clks.max_supported_dispclk_khz, 400000);
- 
- 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
--		if (context->res_ctx.pipe_ctx[i].stream)
-+		stream = context->res_ctx.pipe_ctx[i].stream;
-+		if (stream) {
- 			at_least_one_pipe = true;
-+
-+			if (stream->timing.pix_clk_100hz >= max_pix_clk_khz * 10)
-+				return DC_FAIL_BANDWIDTH_VALIDATE;
-+		}
- 	}
- 
- 	if (at_least_one_pipe) {
 -- 
 2.53.0
 
