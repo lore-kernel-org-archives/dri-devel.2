@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DA26D35162
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:48:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90617D35177
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F1D10F043;
-	Wed,  1 Apr 2026 11:48:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0159E10F061;
+	Wed,  1 Apr 2026 11:48:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GoxIk+02";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D7CRYS4I";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6102310F043;
- Wed,  1 Apr 2026 11:48:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEC1310F061;
+ Wed,  1 Apr 2026 11:48:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 48326408F5;
+ by tor.source.kernel.org (Postfix) with ESMTP id 36E8760142;
+ Wed,  1 Apr 2026 11:48:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE8FC4CEF7;
  Wed,  1 Apr 2026 11:48:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04AFC4CEF7;
- Wed,  1 Apr 2026 11:48:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775044105;
- bh=oCOOGcyyszcaXC31455V0be0QqdPMZoxWheuEK3ZCSA=;
+ s=k20201202; t=1775044116;
+ bh=ljnXuX5HwPO9n952btUletHJHOtBVyk1Xf5y47SLQh0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GoxIk+02vJe18xjAgrD81txVK4wtRlTfUWrhHLGDRSQiV+me/fjnLC+7phHDlesuL
- J7Hq1xhTdOPfCfF8DlMkdOt8rrbVHMirjmXItItYHfBPD25cX4fMo/GBYwdrbRu7fZ
- 0AkU4tct54K8WMu16YFOTGOQcGE3qx2fKQnsmkDzl/vyf61S0QPF9vcb0C1gkRPnMR
- e+5uOE14VQelGq2Cq0xHw4LUMkQ9WlkXANUH0HKCMdNXt3l1xPhuNuUmuYpg9lJb/A
- TRD5Link8UuZH9tLBuJ6KDPuIvaQ52PV5omvSLGJvk5BLHki1ajJnBJ5vuJsGi1ltQ
- c73r0TDlYXWnA==
+ b=D7CRYS4IETw0CEZ0NBFJ9NJ7Srw9Q9SJGBqB5dx9NagMuyqc8NAQ7QI2LNuDqTtsU
+ cXTdniFrOXotXLNiYoIzv8/FMc6rjp6Y9iXHw6ytzNYDyy7kY3i5pz5PnDeYZJ42+q
+ k2jEvdGxqyQrAlfbok54A0BLe7rt8A0yaS6MmErdKMwP/VqrnqKQrd3eneqJSPBmjc
+ I22A+exN4GmReO/dkLfFCgCVorndbUnr4Y8X3K18TdefNFRwsg0z/MSWzMqqu0Ugjm
+ 4uwsza3aByQxj2gKMRIC+jyTTFP8zqXpD23dJHCcbI0oNlhL7k6OePQoJ+l2j/j1NC
+ vn7gNIS5m0nxg==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -62,9 +62,10 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 12/33] rust: macros: update `extract_if` MSRV TODO comment
-Date: Wed,  1 Apr 2026 13:45:19 +0200
-Message-ID: <20260401114540.30108-13-ojeda@kernel.org>
+Subject: [PATCH 13/33] rust: block: update `const_refs_to_static` MSRV TODO
+ comment
+Date: Wed,  1 Apr 2026 13:45:20 +0200
+Message-ID: <20260401114540.30108-14-ojeda@kernel.org>
 In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
 References: <20260401114540.30108-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -84,31 +85,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`feature(extract_if)` was stabilized in Rust 1.87.0 [1].
+`feature(const_refs_to_static)` was stabilized in Rust 1.83.0 [1].
 
 Thus update the comment to reflect that.
 
-Alternatively, we could use it unstably already.
-
-Link: https://github.com/rust-lang/rust/pull/137109 [1]
+Link: https://github.com/rust-lang/rust/pull/129759 [1]
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- rust/macros/kunit.rs | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ rust/kernel/block/mq/gen_disk.rs | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/rust/macros/kunit.rs b/rust/macros/kunit.rs
-index 6be880d634e2..6f6d746b8dbb 100644
---- a/rust/macros/kunit.rs
-+++ b/rust/macros/kunit.rs
-@@ -87,7 +87,7 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
-             continue;
-         };
- 
--        // TODO: Replace below with `extract_if` when MSRV is bumped above 1.85.
-+        // TODO: Replace with `extract_if` when MSRV is >= 1.87.0.
-         let before_len = f.attrs.len();
-         f.attrs.retain(|attr| !attr.path().is_ident("test"));
-         if f.attrs.len() == before_len {
+diff --git a/rust/kernel/block/mq/gen_disk.rs b/rust/kernel/block/mq/gen_disk.rs
+index c8b0ecb17082..912cb805caf5 100644
+--- a/rust/kernel/block/mq/gen_disk.rs
++++ b/rust/kernel/block/mq/gen_disk.rs
+@@ -140,9 +140,7 @@ pub fn build<T: Operations>(
+             devnode: None,
+             alternative_gpt_sector: None,
+             get_unique_id: None,
+-            // TODO: Set to THIS_MODULE. Waiting for const_refs_to_static feature to
+-            // be merged (unstable in rustc 1.78 which is staged for linux 6.10)
+-            // <https://github.com/rust-lang/rust/issues/119618>
++            // TODO: Set to `THIS_MODULE`.
+             owner: core::ptr::null_mut(),
+             pr_ops: core::ptr::null_mut(),
+             free_disk: None,
 -- 
 2.53.0
 
