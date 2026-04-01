@@ -4,133 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD12E7E34C
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2D18E7E350
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 303F310F411;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2105D10F43A;
 	Fri,  3 Apr 2026 08:59:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="NgpBhtFm";
+	dkim=pass (2048-bit key; secure) header.d=dancol.org header.i=@dancol.org header.b="Y7/BUZ6o";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8248610E270
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 15:24:24 +0000 (UTC)
-Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62ULIC9K3706628
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:24:23 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=rVzD9RZ8DOj+OZScnURt3JaaKOoh5Y6w5keNNJrEDEk=; b=NgpBhtFmItDM
- CNbcwb/E9DkdCKHJ/+HXG5nYnUCSAGdnK0J1DywzsfubqT3zoyDOiorROwlve6f5
- Fabj2p7OS4l9/vDda/nt1iaWFhmj/dD7ikbmlCSU9C3dxHoD/BW1829WKG1gSNUo
- bvhspgCJNM7QlFoJ6rz3LBSz57IF68o48IZ5V4B4vXaE0cFVG0Wx1twzhAphguZA
- x2QO4KynACOL7v8zMEgjTg34ybae8h4kqqcSIVWunaNwvXNvzVjB0rqBMikZSh7r
- g5YEFzd1SPUtzJOBJK+aZ0ehLdWWfxZnd/kXQFeHL1MALxrPKcsgO9HqIAQQZ7ex
- Zwkn3t7Umw==
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
- [209.85.160.72])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4d6y3rna43-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:24:23 -0700 (PDT)
-Received: by mail-oa1-f72.google.com with SMTP id
- 586e51a60fabf-41c08879ba3so24581791fac.0
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 08:24:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774970663; cv=none;
- d=google.com; s=arc-20240605;
- b=ZjdL7JZdLqFArM1J+dJ4wA0dmlayuV5ggLckO2V3TnKN6XmLtwAhTfzmvbMHXbMRAU
- KBAgIjlIAYl2fzJfSarxJDHC6sH0OOwiVfnh6fgUBao4pdRcuklUEIvANkfIRr3O04ZM
- mLjnz+6fqSDmDbs73/8rWhCimgd2C5sN5ZVZYinDGheqZG53EtubM2z5+pVRjs4ulAc8
- KieQPWxup2d9lKhkzhGYwV9NCRyqlL/jYmbzvtyKsU3dTYQdrLQBdBYWrVr6S69+neHP
- 3IkEswZrGyFXR//JbgEHpy+rudSaZvLPYFecZ0RSEN81DDxyaoF7aWLiA/yElChDh7ca
- rKIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=rVzD9RZ8DOj+OZScnURt3JaaKOoh5Y6w5keNNJrEDEk=;
- fh=fs6hsuJqUymRFaY68g7SrM82h8LW2Y21oYfBcRALuQc=;
- b=NKYXU7K/LpG9k93CHUU2sHG6MIDqK4vsV3RLhU3az+5srzPwZm6dUC+ff6I9VU2tig
- vSuENNvw2IvQz4zwU858KqXz/SmK7rjSZQIuzhS60ISMXSlqWxIcQQIsx1heBIVoKF5E
- WQnW8zu6XtkBAA2wOVkKNmc1BDALz4VWSpoWPlrusMbzcZlU0p9XfNFXumVmqhdlw348
- hWCVEWB95iMqab7PYIfpJjH97/1i1o7ygmGqYhOWdXCRPkzYovRHSmibBlPd6MsHOYF9
- xkGi+uCJC+Y4uXMPj5J1pSdXmtpbYySB8NYwQ5W6Fjv9xQ/g5nA0SQ7YBO0OV23mkF9m
- rIag==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774970663; x=1775575463;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rVzD9RZ8DOj+OZScnURt3JaaKOoh5Y6w5keNNJrEDEk=;
- b=Y4QWiYmT/6xBqsWASvqGXhqvJNrREmYHJXBxjEhTAF85zmgLICE5bFKNHsw82OQOsH
- /9cAsRMvuNVKcBj4p2+OvYBMUvXjqXGxWD9EFLQZhgAKxQEw/FNem/DbmwKTAP/UFymD
- rePuojr4vrxZsYZiCxAxVu8KDPwesZ/flmHQpRliAnyEpIOQwsV41XA4L7qrgU4lzC6P
- c4trVG3jogKzxMWHVN1njbR9SFT4MsLzJ3rD6NNccZCC7T/MH+lJ9dLYTzL7W2Pu1lXo
- seCs2xcc6su0n/h+LKiNUVf/BdsajXWKQwVHfLY8giKkecVRA2hdVkT52CfVB6Y1G/5I
- 5wGg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXVlB2noYsNGCtPtJGFXpY/3SYQEx38LOf/DWxCFRKE5B631LhddMvRHDqTWe+Qnb/7WjL3nQBwVJQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNn5sXv3JhLfr5OAMPdeiss9mV1h2aXegBdm2QDM4kSkT++Ee8
- fpkwShSdQUSCQ6G2aNmL2b88YLMCAeGdMkvBBN5zxnv2VEmLmEEkD8B8Qj0SjUgQS14aSNnwnMJ
- C6Sy+RyURFDICRp/u261T0EICSl6MUwFvkDq3Z8wdpmepj3x7c3tCxiX1pGbzSCeYO2v8VUtjDa
- QwGpj2kWQlO1LEosqVRomDVsC6zGESA7Z/a4To4PSkK6I=
-X-Gm-Gg: ATEYQzwGBVqMCiOQoDpG9hfBnnE5cIEe4gV1UuvrhGSa+7o3O5n7sV5IeOWKYZ/oTUR
- KkLqOgL4O7XUPdqCYiofCTH+w+83+Bj6yL2hvKr8VZg9jKftwUBVYG+ZkvxifmsQoR0G+SrZBpq
- jfmY4Mr5CY7Ma9GOQMtAYJztv4xBWmiLJof0BXE67UmRqjiRT/oubSqtfXOueDJA==
-X-Received: by 2002:a05:6820:2901:b0:67f:31e3:81a with SMTP id
- 006d021491bc7-67f31e31008mr367469eaf.2.1774970662812; 
- Tue, 31 Mar 2026 08:24:22 -0700 (PDT)
-X-Received: by 2002:a05:6820:2901:b0:67f:31e3:81a with SMTP id
- 006d021491bc7-67f31e31008mr367434eaf.2.1774970662327; Tue, 31 Mar 2026
- 08:24:22 -0700 (PDT)
+X-Greylist: delayed 2149 seconds by postgrey-1.36 at gabe;
+ Wed, 01 Apr 2026 02:44:51 UTC
+Received: from dancol.org (dancol.org [96.126.100.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C7F010EB50;
+ Wed,  1 Apr 2026 02:44:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=dancol.org; 
+ s=x;
+ h=Content-Type:MIME-Version:Message-ID:Date:Subject:To:From; 
+ bh=9e7RQVAOjBjxxSPR5no5ag7Pa/vfgF7hX1+alac3HRQ=; b=Y7/BUZ6oXyUCgFlffwjsTLvwlO
+ PT2u6prSXUcZwEW3T+FyXiA8impPgouWhBx9nIRHyUAAmKjH5MWViqsQuxqFUVMDSEA9YypkdCorK
+ 4BEIhoLCWMaOiFh20h2LT+FY2IEI1JV2wZwQ3cbcC98K9l04mtF/KpBbQKrp0uC0AZleW0htDlFKe
+ qSjd5dZ/3zmJvCrbDR4AmqQ+g7UR9WiaWE0iUPascAlx0f2CuDlPlFgTUGCFxRz+i/jD8TGu/PmGW
+ T1dN28EU61m8a00QM1pr1OQ20toeeudePcWQwI4wGBKwjdllE/AQmNXVDG+GQIqUtsK6lik+KDJ+U
+ FlD8y7ag==;
+Received: from 2603-900b-c400-2854-4cc1-9500-c07a-5906.inf6.spectrum.com
+ ([2603:900b:c400:2854:4cc1:9500:c07a:5906]:58092 helo=localhost)
+ by dancol.org with utf8esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <dancol@dancol.org>) id 1w7l0u-00000001Nk7-0VLT;
+ Tue, 31 Mar 2026 22:09:00 -0400
+From: Daniel Colascione <dancol@dancol.org>
+To: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] Limit reclaim to avoid TTM desktop stutter under mem
+ pressure
+User-Agent: mu4e 1.14.0-pre1; emacs 31.0.50
+Date: Tue, 31 Mar 2026 22:08:58 -0400
+Message-ID: <87341fsa85.fsf@dancol.org>
 MIME-Version: 1.0
-References: <20260312184613.3710705-1-mattev@meta.com>
- <20260312184613.3710705-10-mattev@meta.com>
- <20260330133336.GT310919@nvidia.com>
-In-Reply-To: <20260330133336.GT310919@nvidia.com>
-From: Matt Evans <mattev@meta.com>
-Date: Tue, 31 Mar 2026 16:24:11 +0100
-X-Gm-Features: AQROBzBjz_Oa24Ou_FBmQkKdtClzBrzQA9IDx3XIRw5UCOwDpX9lbYyqY3Y5W8c
-Message-ID: <CAFzAbJHqnuV2vA-LPQy3xo1KesLUxJOCtS4FigsaZtaZEi19jQ@mail.gmail.com>
-Subject: Re: [RFC v2 PATCH 09/10] vfio/pci: Add mmap() attributes to DMABUF
- feature
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Alex Mastro <amastro@fb.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
- Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDE0OCBTYWx0ZWRfXxBZjxJ7v3IQY
- X2qtC+s0BEKosMfuXlLbnNmSo1vyk01d66Ga7PVeXmXhLJMRIJuAm7cuSU46Qg3obJZ0aSYo+oy
- lFUJb/dJLcgivCky5MNQRTivrsle1P9mvoqSGBa6zfbfT3ronMuBa56Nl0PMRD+OTBM4fsgALsg
- 3D7NC0TBo/AE7JP6YkFkPT37BDOtfGBcBYOC6wA5mYhOAFF/TuQsbDPQz5b9t3o6118d32790vd
- wQud0hg9dovqTQax32YlcXYk0TP0duRJbfzVp8aUN7PdZkqDd1oSy9UAmfEyTqlvbf/hPMgDIko
- lXE6NsLz2yHD/eNz5bgNOFwuxfvA3/hrRwQg/dZufJUE2tXGfXeaqa2pr/BXxvi085Flvxet+1V
- PpRIUS+Sd4rr29jjiC7qvQbX9QFNHjjp+8Yl7r3xvVDYIFPDhtFp2uWbHmCoHfCRZsJl+AtJl2Y
- ZjCRxMYayAGUIdODTPA==
-X-Proofpoint-GUID: mkG-4Z15iKp53-ecEjefi8W3iey-y34F
-X-Proofpoint-ORIG-GUID: mkG-4Z15iKp53-ecEjefi8W3iey-y34F
-X-Authority-Analysis: v=2.4 cv=f/5FxeyM c=1 sm=1 tr=0 ts=69cbe727 cx=c_pps
- a=Z3eh007fzM5o9awBa1HkYQ==:117 a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=8elwO82fXORLTBIkMd32:22
- a=Ikd4Dj_1AAAA:8 a=scxTcjKw9OI2Du0FDOwA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=eBU8X_Hb5SQ8N-bgNfv4:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-31_03,2026-03-31_02,2025-10-01_01
+Content-Type: text/plain
 X-Mailman-Approved-At: Fri, 03 Apr 2026 08:59:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,26 +65,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HI Jason,
+TTM seems to be too eager to kick off reclaim while kwin is drawing
 
-On Mon, Mar 30, 2026 at 2:33=E2=80=AFPM Jason Gunthorpe <jgg@nvidia.com> wr=
-ote:
->
-> On Thu, Mar 12, 2026 at 11:46:07AM -0700, Matt Evans wrote:
-> > A new field is reserved in vfio_device_feature_dma_buf.flags to
-> > request CPU-facing memory type attributes for mmap()s of the buffer.
-> > Add a flag VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC, which results in WC
-> > PTEs for the DMABUF's BAR region.
->
-> This seems very straightforward, I like it
->
-> Did I get it right that the idea is the user would request a dmabuf
-> with these flags and then mmap the dmabuf?
+I've noticed that in 7.0-rc6, and since at least 6.17, kwin_wayland
+stalls in DRM ioctls to xe when the system is under memory pressure,
+causing missed frames, cursor-movement stutter, and general
+sluggishness. The root cause seems to be synchronous and asynchronous
+reclaim in ttm_pool_alloc_page as TTM tries, and fails, to allocate
+progressively lower-order pages in response to pool-cache misses when
+allocating graphics buffers.
 
-Right, export it with a requested attribute (as possibly some
-sub-slice(s) of a larger BAR if you like) and then map it (no
-attributes need to be specified at mmap() time).
+Memory is fragmented enough that the compaction fails (as I can see in
+compact_fail and compact_stall in /proc/vmstat; extfrag says the normal
+pool is unusable for large allocations too). Additionally, compaction
+seems to be emptying the ttm pool, since page_pool in TTM debugfs
+reports all the buckets are empty while I'm seeing the
+kwin_wayland sluggishness.
 
-Thanks,
+In profiles, I see time dominated by copy_pages and clear_pages in the
+TTM paging code. kswapd runs constantly despite the system as a whole
+having plenty of free memory.
 
-Matt
+I can reproduce the problem on my 32GB-RAM X1C Gen 13 by booting with
+kernelcore=8G (not needed, but makes the repro happen sooner), running a
+find / >/dev/null (to fragment memory), and doing general web
+browsing. The stalls seem self-perpetuating once it gets started; it
+persists even after killing the find. I've noticed this stall in
+ordinary use too, even without the kernelcore= zone tweak, but without
+kernelcore, it usually takes a while (hours?) after boot for memory to
+become fragmented enough that higher-order allocations fail.
+
+The patch below fixes the issue for me. TBC, I'm not sure it's the
+_right_ fix, but it works for me. I'm guessing that even if the approach
+is right, a new module parameter isn't warranted.
+
+With the patch below, when I set my new max_reclaim_order ttm module
+parameter to zero, the kwin_wayland stalls under memory pressure
+stop. (TBC, this setting inhibits sync or async reclaim except for
+order-zero pages.)  TTM allocation occurs in latency-critical paths
+(e.g. Wayland frame commit): do you think we _should_ reclaim here?
+
+BTW, I also tried having xe pass a beneficial order of 9, but it didn't
+help: we end up doing a lot of compaction work below this order anyway.
+
+Signed-off-by: Daniel Colascione <dancol@dancol.org>
+
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index c0d95559197c..fd255914c0d3 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -115,9 +115,13 @@ struct ttm_pool_tt_restore {
+ };
+ 
+ static unsigned long page_pool_size;
++static unsigned int max_reclaim_order;
+ 
+ MODULE_PARM_DESC(page_pool_size, "Number of pages in the WC/UC/DMA pool");
+ module_param(page_pool_size, ulong, 0644);
++MODULE_PARM_DESC(max_reclaim_order,
++                "Maximum order that keeps upstream reclaim behavior");
++module_param(max_reclaim_order, uint, 0644);
+ 
+ static atomic_long_t allocated_pages;
+ 
+@@ -146,16 +150,14 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+         * Mapping pages directly into an userspace process and calling
+         * put_page() on a TTM allocated page is illegal.
+         */
+-       if (order)
++       if (order) {
+                gfp_flags |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN |
+                        __GFP_THISNODE;
+-
+-       /*
+-        * Do not add latency to the allocation path for allocations orders
+-        * device tolds us do not bring them additional performance gains.
+-        */
+-       if (beneficial_order && order > beneficial_order)
+-               gfp_flags &= ~__GFP_DIRECT_RECLAIM;
++               if (beneficial_order && order > beneficial_order)
++                       gfp_flags &= ~__GFP_DIRECT_RECLAIM;
++               if (order > max_reclaim_order)
++                       gfp_flags &= ~__GFP_RECLAIM;
++       }
+ 
+        if (!ttm_pool_uses_dma_alloc(pool)) {
+                p = alloc_pages_node(pool->nid, gfp_flags, order);
