@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5595510F9311
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 00:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0689210F9313
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 00:39:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3FE710E20C;
-	Wed,  1 Apr 2026 00:39:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D37D89E33;
+	Wed,  1 Apr 2026 00:39:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ze0yHTiA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="amV5trs4";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B396F10EA1C
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:29 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-2c56aa62931so3207466eec.0
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:29 -0700 (PDT)
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
+ [74.125.82.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6392389E33
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 00:39:31 +0000 (UTC)
+Received: by mail-dy1-f179.google.com with SMTP id
+ 5a478bee46e88-2c18af885c0so7241367eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 17:39:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775003969; x=1775608769; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Ojh5tnUEiYmVdPjcqv3/1ea9VGb3tz1tyyEb2cwTcr4=;
- b=Ze0yHTiAb0pHTWMutm6hgyImF2Vpduv7Xt5bivkg0m9tKokaGooFqpO1QK6FRoRLXL
- Z4VU7Hi7UI/re6mS2dLVrtUBT33bE6WHHOpo830JOksLkioiFwH9iCRfWcMklq3kuEQt
- AvrNlDQ8D1MaGncimywEzXq2sFEKM5zlA6aOfl2KOUM21tnKWmx2WhbogpQabCow9SAe
- gg4cCocldmTK6uoebFSZuLQ/ZuacJoRX00TbOuaxsBFy4A24iCtcmKmKc/5m6x+RICDV
- PD8BJe2dXLBf4f+8nCE/3AZHoyXmyjPJkSdRDSIEd6WKNKBbc9qSz8Km0qX7xKKEBE2x
- 3xFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775003969; x=1775608769;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1775003970; x=1775608770; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ojh5tnUEiYmVdPjcqv3/1ea9VGb3tz1tyyEb2cwTcr4=;
- b=p2zec3NSdMFdSLbwhnEHbvm3TmTqLOGyThw3FyPezojO/pabxVhuVPKChsNY0c0wgO
- WQpVhGeb8TjL4gxwzaKDH0FV0t57Tb31MO1TqzrkLooUS27+78g6D1ryKiWV7t+1lrKa
- B3fwwQvZkbmKo4+GUNFvRrp+Ar72DUe3ngARHVtp6S0hmEtgdrWoOkM6wK39zJEEJ1vy
- SV66NeUyn73pqFrB1iW8qkG8BNLNgQecJE4l50xEtyejsdpYy+IXXSQlHmYTZhxsHtrJ
- Vl4MkQ82vTatQuN9oIb/LExQkNAzQV6sNH2Dm2GQF4pS6JcCYt3A6zqeTL1Wp+3DDOVa
- q8BA==
+ bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
+ b=amV5trs41cBIoa9sgg4ccHpmbD85vSuh/xrztmrbhVNRFBcOpt3d52z8cO1c+riGa8
+ QVtf9IpfhPD04Y5ywNwWqNrHu7hZKOmW0NKRhHZSOI4pMfU/46apL/GRMEMlOrL/x4U6
+ 6HBFF2fWRgLiBs05AHlQO6izkd+/fZ6a8Ot8jpZtx7k/LXzo3lWdTHaGf/c7aT9f3xkF
+ PM+8KqlPcxLzvOLXUhzISXOn/fuosJmmFZbHBS3MaxAtUq7bPUj/2Zj7zxEr58l65A51
+ Uf4+YEOMkLGLjMgBg9AG2LcZEdy4TCqeqZGfaUhyCsS7xHqYsUQBIfmIEuxFQl6TNi2T
+ M4Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775003971; x=1775608771;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=jlXNZ6YErxvr6V0/1Nzao8eMwm0DA+edMLaU07KmQkY=;
+ b=bZ18kc6fwm06eRWzjF/7au4Ycc39ipU061Vq9RPgJkE6QTSAv0JRgyydbg2bpHbnbt
+ 9lkWLQm0ESCyiOoTnvqBf+bOQxSyAHEVLWv4x+GNZ9j9d6L7RzKDTxB+uAlKWPbl2A6h
+ 8xspt/iLc6lTYgUUt1vhzvbdVDXDhGYN8MNFMfIFDFgkpwjBS/t5QyMncXQk+gVfaRVq
+ uiugXwaH9dJor+EhtO5jqLfrtijXQv2LL09eRoEmEbzqrYWW4WGJQwyj4aczXEf5y/t7
+ /jashetZGWwYheED9bO5K16PQciT0sxDYymcBroG1pIthgVuAmLTYeShtkgavuRR1Dz9
+ FhPQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXUWOQvSPP+ICS7AAuaa2F03yt9OdAPkg//1K8UsigwIp7seN8fUqeVPauk1/+tBE5XZKBiM2yYusI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YywIaJtcTCYomAnxQAKoE72LN5h4fv5ccSGpVaJAHD/+iSOIRnc
- aYaI6bmAO8nGrGCY5yk+S6dZQcV+glaRF4TmzjpLFxbS/4PmTGQU9uCn
-X-Gm-Gg: ATEYQzwUGFW3/oCJoyiXWZkSKgxejA8IVx5g3hb5EA1eSxYdmw52pSzJOR/rwwJrf/H
- l+zDV09Kfit5H4x/RjfJYzuyAft+hj9enAVQIvg1679yNeoxa0FVQgDJdp5GEbACI+HTo2pmHd5
- 5vVMkudEDJW7s5rbESkvwl3hS13KHPZj3i9HNUpf8xagAuy4GnTtam+MHOoFS6+R4G7VeZ1+C8i
- GamNFqYD2RwmGDXl+SaDPtUJ2F+QfIiW+fzasQzWE1/uFCpYrHAJDf6sRGLQfBhuDxB9JtR8rbr
- +/pEBqT4F9tuYEX6ZZONj0YMfLNNKlGAJihJo3UoUL/zAASooxCUCB48ee49TEI1s4MYvMnFT3v
- 78YNvW/aEgJX0N+zxuCuZZsa6Y85pQP2ar+huNzZAwIjyy1D6SflXZDRyjArH3QBMWoceuRdo1o
- bCYIi41VdK0QjbSbuG2+FDtA2/oNcJril4saa4pgc4UhfER2mqYVnaIgU=
-X-Received: by 2002:a05:7300:4309:b0:2c5:b23e:48a5 with SMTP id
- 5a478bee46e88-2c9309866f8mr836144eec.1.1775003967392; 
- Tue, 31 Mar 2026 17:39:27 -0700 (PDT)
+ AJvYcCVvwniYiuUD4nzZZgrenkaVda75qyzsTPC1MK9YmdSdqaHXXWkXVadfIW/Un+8yqEokos1QDvCaNEc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwxJUqABJ8YEx5S3pE0ijk7Jk+73qdin3aFhz7YR+ohv2uIKsJp
+ v/k3OHkIfahe0zM249eaFYXb6z/UlSZtYqusvR6b77RnpSCRtKtdD16W
+X-Gm-Gg: ATEYQzw/slA5yyHzGSno3QkHLKH9L7sqrOLU9fkOkVNPQ3VQ/o2jbFJ4GBAAtPGJ31J
+ 3oa/VHdG86xOEPUmIpjZQ3LOIih0QWvbNL3cD5ijA0Rdx7SlCRSjclxt8s3Wb3RyR/WLnjSL4hv
+ ooZ3qewkz74Yd+CNx1GBM+cJFaaJGJDAGFyQOEVDO5TfS/vEEnuBgDTBrOMcntBd2LWgfLvx7B6
+ YFu5BK/4a31DwvqB+XCesMQhyo9nBel/tVKU852tZp08rSttCKXDxAtgmpytI75HREkwhbs3DuN
+ cU/3pd9zwsCUzPMee7XVjkp9o3AZwcau60YWDGi6B8xcjGPFdaSslQbJdRPNg4sUYaDdl53hLR7
+ 73ROW+h8XS4m/hwodWa98XNZ4utH2pF602tgrUm4LanKgo0esnqrFJ3I6G+1KZhO53XCvzpUzb3
+ 4qnCZnryAAmmPJXPEqKqTXdw43l6Wo0lPaavBxLk8Farw5JJ/wDeB8q8Q=
+X-Received: by 2002:a05:7300:8626:b0:2c0:cc90:a71 with SMTP id
+ 5a478bee46e88-2c930e6a365mr1054199eec.8.1775003970551; 
+ Tue, 31 Mar 2026 17:39:30 -0700 (PDT)
 Received: from ryzen ([2601:644:8000:5b5d::8bd])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.25
+ 5a478bee46e88-2c3c3bd9894sm11543019eec.4.2026.03.31.17.39.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Mar 2026 17:39:26 -0700 (PDT)
+ Tue, 31 Mar 2026 17:39:29 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: stable@vger.kernel.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
@@ -77,12 +78,13 @@ Cc: Alex Deucher <alexander.deucher@amd.com>,
  amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2 for 6.12 00/10] drm: amdgpu: backport suspend fixes for CI
-Date: Tue, 31 Mar 2026 17:38:58 -0700
-Message-ID: <20260401003908.3438-1-rosenp@gmail.com>
+Subject: [PATCHv2 for 6.12 01/10] drm/amd/amdgpu: decouple ASPM with pcie dpm
+Date: Tue, 31 Mar 2026 17:38:59 -0700
+Message-ID: <20260401003908.3438-2-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260401003908.3438-1-rosenp@gmail.com>
+References: <20260401003908.3438-1-rosenp@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,44 +101,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Work that completed in kernel 6.18 resulted in working suspend with DC
-on old hardware. This series aims to backport it to 6.12 to have working
-suspend there as well.
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-All commits were applied with git cherry-pick, the only changes being
-adding upstream commit, and signing off.
+[ Upstream commit df0e722fbdbedb6f2b682dc2fad9e0c221e3622d ]
 
-Tested on AMD HD7750 with:
-radeon.si_support=0 amdgpu.si_support=1 amdgpu.dc=1
-on Arch Linux.
+ASPM doesn't need to be disabled if pcie dpm is disabled.
+So ASPM can be independantly enabled.
 
-v2: add extra upstream fix.
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-Charlene Liu (1):
-  drm/amd/display: Correct logic check error for fastboot
-
-Kenneth Feng (2):
-  drm/amd/amdgpu: decouple ASPM with pcie dpm
-  drm/amd/amdgpu: disable ASPM in some situations
-
-Timur Kristóf (7):
-  drm/amd/display: Disable fastboot on DCE 6 too
-  drm/amd/display: Reject modes with too high pixel clock on DCE6-10
-  drm/amd/display: Keep PLL0 running on DCE 6.0 and 6.4
-  drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
-  drm/amd/display: Adjust DCE 8-10 clock, don't overclock by 15%
-  drm/amd/display: Disable scaling on DCE6 for now
-  drm/amd: Disable ASPM on SI
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 39 +++++++++++-
- .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   | 20 ++++---
- .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  |  5 ++
- .../drm/amd/display/dc/dce60/dce60_resource.c | 59 +++++++++++++------
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c |  6 +-
- .../dc/resource/dce100/dce100_resource.c      | 10 +++-
- .../dc/resource/dce80/dce80_resource.c        | 10 +++-
- 7 files changed, 117 insertions(+), 32 deletions(-)
-
---
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index d5e6d5ec69c8..dbee43c58741 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1782,8 +1782,6 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)
+ 	}
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
+-	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK))
+-		return false;
+ 	return pcie_aspm_enabled(adev->pdev);
+ }
+ 
+-- 
 2.53.0
 
