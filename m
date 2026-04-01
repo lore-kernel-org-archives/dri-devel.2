@@ -4,124 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B18310F6FDC
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 17:46:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95CC5107638D
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 17:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B34FE10ED0C;
-	Wed,  1 Apr 2026 17:46:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCAEF10EDA0;
+	Wed,  1 Apr 2026 17:47:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+QTrxR2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hVvk6adK";
 	dkim-atps=neutral
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3A8F10EDF9
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 17:46:00 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-2bda3b4318dso5603eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 10:46:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775065560; cv=none;
- d=google.com; s=arc-20240605;
- b=IPZxfRYdb172x6SR0Yf+6ES0dRKTYLhI1llFRaNp74fmszcuOOmkYEc6fuA/VSlkgI
- PA8uzow4TK5LJ7gzOE3ymJtXaK3p0lOTRiwF3HSmCiFJiZ9enwNprxSLKSyyxDQ+ePjC
- jDYlsEC4fq/doy4BF3O86UAouev3Jr1sWFP1id38pYIcDUwpAsj98IxMM0y8f4PiXxO0
- xoOylQdiAWDbi6ZV1hNriJmm7MtcOq3ejhAsVL+o2dOgULia510cZtGe6JCHvaYUMhxS
- zr7Q5vOcaq37jEyrjfE2cvFvnBOyn7bXO3/ascedCxll+1zctxBzSia0gnIzYvDcUcAm
- g+5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=QI4ZvYmbpYFMS5F4DxWr2Qtcv3EtByJoEsfGF8Isxow=;
- fh=LSe5mioQjLshGXRb2/vCV1M5FtfEpcJYuDKTmZ0e/Ls=;
- b=eMV1Xi38f9pDpnmna6SzVmZDbXSWJDDpME3szsxyROJ0cttvwnTyWYQhjkpQ/nWrtt
- T+mcuvL3KhCDYf3FHdlJK0D1sUMWsDenJfyv83FfD0R6BFFceurDp7RJQqZXSMzDHSze
- NITN68PsVftUCJ0mnJb+pWBQ8wJOOVBE2pwmn0az7fXYjZeKXCMaE5B9A0slSadcK7Ex
- GsnYb+h0hnxrWWO3jOPcMJ4F4MaaS7ttpgh5KSI5xed/AbMb4U1h9VBJb3QzMY+Qt8wV
- vr1KES//eiCnRGBQb7j5UBxsBBru0fMzpIHSB8Wm8VgZ6kfr0LNNMwja3bV9eOhiNuEq
- Bqjg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775065560; x=1775670360; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=QI4ZvYmbpYFMS5F4DxWr2Qtcv3EtByJoEsfGF8Isxow=;
- b=i+QTrxR2ibLygyMbFwPywMnTpGGfsmKgVDqE5IYcTLU5m39zJYHlS2WxvjL7xyWrNt
- 7AyZcQKGdvVcoFzU3F4TMjsngOyIfHyu+BsZfvYBScbPsvWOdnIL0hpeK3EZBOz3nTS2
- vMg8UrT3c629+/6zn9ekV0x7yExMozRswzggVIgESvnsZ152U4CGb0B2pH6WmUnybhf/
- mSNkgiC7zXUVq52KUaMWxvSGA85E2BdlcVWTyoeiyjmdWFQzYOn10CALMcSNTICPb8g1
- oOzp5DJSkPJ0umciz15hc4QVlBY6j7P9WlVR+nX8ehTuwPU2/wSacUDMHNwnJaQh9hjC
- 4kKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775065560; x=1775670360;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=QI4ZvYmbpYFMS5F4DxWr2Qtcv3EtByJoEsfGF8Isxow=;
- b=j9rs4Xy0QfXkZrqY1ATfqGeNgeDjqbbOqYibdxIQtPtYiCNGH/V1VDX22gPKfVDH5h
- e+8enJy3FdoBGiYEwsCJvARbUe0K43mk8I9F381Wb1U4cxS9sUQHfGkiwWhSQQpMssf5
- KyX6YdH4lCixwYOSvfMlTlOtlrTfrrgoGfYdYMyB1eMFXO4Rl12qsICGYgj0qjUwinoS
- hGsM/ZE72ganEr5yI9DVj5Fw8FmZW766Ztqnj2kZZ8JRFKX7WdYBLtafu1aA1jkWgCgs
- d/BF0pT6i6hVfHEixPJjXDptZIYpJxAcYEgeJXLoyalwPz2yCskrXk0tyfEnTyzPTXvc
- R7lQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXUhc1KN8z/5fOb2/3EAnKMwNOF7P7U4HCrugs0uUnTr51wSMIQehXREOj+yClk8ZoY1JEb46vtaSY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzOOKjuocJ2CnzKahViCZ3QpDjsUmBoP8g24F/YwNNeMQFZ+Lt3
- mV9odZG2fapP2j8sVfLVow5gdfGVgH4C0180QtVmCN8fXCjj8Hs/SvySNpZ8b07dSYTb9tyt9dF
- cwO1qjOLx2Z+8GE9bsdN2RNn6JHQkSZo=
-X-Gm-Gg: ATEYQzw9GfIimqJ/Co847r7krT9e3w6So+6ASkJQIGwr0rik9p72zpDby9W9CYlwkiR
- GH7cJCaM2vlmJh6eHi0rljBXMNM8doqNQ6v8uxtD/JOs41+Mk4wj2ZuRbCxMi4ysGLbzuU7nR1t
- mMqSQyhMf2ke9QumQDxtB0lrj4LWYhelnBqtqflbY7Va2DYxwn55TYYpB4gR/Gpcz/vXLIWep/0
- ApH2Ru6glQfHOdtHt2cyjmQFLe//L7NOHlzGJYsTl+W8hDNJBrRmJ7rPSaZsNPQ+Vw+ksSoP5yA
- oUsUfORb/uFLFovQDRdxsKyaDFf/yzV0ZYobnQTgAX4w8ZqVfhwZhjreIH/6rbVUMYFjQHTjEGS
- o+r9IPx4I9DFf/ASAtoYg2GpN9iExIo+Abg==
-X-Received: by 2002:a05:7301:2c05:b0:2c6:7f49:a840 with SMTP id
- 5a478bee46e88-2c930798a4dmr1033595eec.1.1775065559731; Wed, 01 Apr 2026
- 10:45:59 -0700 (PDT)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012070.outbound.protection.outlook.com [40.107.209.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02E5E10E355;
+ Wed,  1 Apr 2026 17:47:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YHx1Iidsk9ScRiqSqMNMIeSMZmptkZi/5Ay9WDOb8WbpHAqqURNWjSAK1wv1YdO58pHa6osbPJeK1WTnINJukJy6K7yb4xgkhaXt240VEQo83AJU1FnyqZAbdPM04jl5Gwsj4WkdCUFemBO0GwT16zzYPyRmEE7R9/wafVpZpiga2mD3u2u0LaxoFSjuBZiZLVMqjxnVDum7j8qN79PzZZSy4TlaNvLSbfBsOeRyWUTy1OUb6esxp+K9a07jpoclp3LQy4aErPDCgJbdp67mQ1UPvGjwzMXiGb2AWu27Ny1A0ydCOUTEwBqxfhD+e+9CO9TanUfi/rwTg6ZaLwbong==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wqEepFIHhIFFnHk7ivnDPYSOHT/0yzuzBHv+S/KsR/8=;
+ b=FH72Tg+Oih9Z8Y7h6+XarJOm3KtuhtD3bRvgLB5bA1J4KTiEkxuSQqPGkWRnLYLz9259jgBtbIjJZpsksd9svioqmVknPrTeEkKL7ZjD4++yyctDePfvPsJK5kPtvPZ0yP7v8zSbOFzQNuz0Dqm3weGf/pKX4vz5LolGYIayI4zIIkC7LYmpjxEC4Ozg0isuZWIkeELgNwkkvD7qIpfuUQ554NlaQGBDYyzWkKrt96i9K0xNcZ7F2QP6JXYB96mEJA1Yj6x3ybBDRaADasz8QI+jzO8X3ogKWS1RHW3QFzDmtrZ0yScB5B9uWrFKaKfpOBOSVH55RhhxxVxTMIZQwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wqEepFIHhIFFnHk7ivnDPYSOHT/0yzuzBHv+S/KsR/8=;
+ b=hVvk6adKLXmJHGKGByKgn9Q6I8T7tR7LeS8OieiQTkuYQmW1SVPKscq4N4pYF9LJIyXFqTtqkxyHAstFCPhpYQYs3TqZ7IMpnDLUc+aATxwn3Mpg1n5IIu5vk8LFhqHyqfq2Ms0qQHKKwei71PB3YhJCkJ6oyZt6ZxGv2vNgMB8=
+Received: from BN9PR03CA0089.namprd03.prod.outlook.com (2603:10b6:408:fc::34)
+ by DM4PR12MB5796.namprd12.prod.outlook.com (2603:10b6:8:63::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
+ 2026 17:47:45 +0000
+Received: from BN1PEPF00004684.namprd03.prod.outlook.com
+ (2603:10b6:408:fc:cafe::99) by BN9PR03CA0089.outlook.office365.com
+ (2603:10b6:408:fc::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.30 via Frontend Transport; Wed,
+ 1 Apr 2026 17:47:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 1 Apr 2026 17:47:45 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 1 Apr
+ 2026 12:47:44 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 1 Apr 2026 12:47:44 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.0
+Date: Wed, 1 Apr 2026 13:47:31 -0400
+Message-ID: <20260401174731.3576021-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-13-ojeda@kernel.org>
- <DHHVSX66206Y.3E7I9QUNTCJ8I@garyguo.net>
-In-Reply-To: <DHHVSX66206Y.3E7I9QUNTCJ8I@garyguo.net>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 1 Apr 2026 19:45:44 +0200
-X-Gm-Features: AQROBzDasvNfwm3irNcxLclKgLrVzocIHNQudR_c4deB-93-CSbalwIa-aYY_TU
-Message-ID: <CANiq72=8eVKk0gqyvgWM_-VSsRZY1s2e7gx9AbAg+q0dRRYO=Q@mail.gmail.com>
-Subject: Re: [PATCH 12/33] rust: macros: update `extract_if` MSRV TODO comment
-To: Gary Guo <gary@garyguo.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
- Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>, 
- Jonathan Corbet <corbet@lwn.net>, Boqun Feng <boqun@kernel.org>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- rust-for-linux@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
- Uladzislau Rezki <urezki@gmail.com>, linux-block@vger.kernel.org, 
- moderated for non-subscribers <linux-arm-kernel@lists.infradead.org>,
- Alexandre Ghiti <alex@ghiti.fr>, 
- linux-riscv@lists.infradead.org, nouveau@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, Rae Moar <raemoar63@gmail.com>, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, 
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|DM4PR12MB5796:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5df1562-a9d5-4dbe-4018-08de9016c802
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: PtB+feVPf0Ji0jy9Cs5wxwSWLMXHYQBQHCuOArl/xkk0KWN61sEZv0BaQjRBK6pWAuHF0Mdm2jZw/LL5fMWEyy/Ilj+qRuYg+Sow9ROLfn8S4guTwCjX1UTNPYXL1hwIpO08Jex7tc1hLqyLVcJTD/rl4FXZg8iroqVCWJx7UfBzgBfrFkvy6OoRfYhyeZNdwYNBaZjytm30lAV2BvT3W1a2HyiM0A6qNvVVn7ivA00g2X7UUgDfELTtJQdcKcEfh1GmM9kY8agxRxvrO9GPGqAKZUMve9yiw5YorE8SwZAsD2DR3DMaSjal+aOMnLHPomCBkHrpeLZrLAax9iaqSof5gRPl2DuSKKPgfZk+1/hXnpUyDLrYaIhp0XDzJuA5HqYb3kAT/NZsbbznL8+OX5yoWovz3hIWYdM3O+Dh0WgtZikJLIvCz2bcRuzrbWYwabWC6pZvba9CLcAqp67LHCM+Gc9NIoHtIO0yjmOP/JgynFamN3ySHHlainEF7Xtq8Kl3OrI6G+AgbLi9+rQrN5oSBoIPQe1om5N4OfLWJ/lSC/15FE3zUlIh1n900R/VBTPpbSCf/ZZcRaJe4nxmUxQXSqkvhcrGqk7I4xCAMCjhASn9Bxi0yOOAlj5YOFcYVeGNFLLp737AyREkGdu8azolykfxxZ2arFfBX6rJdwrrsH19WT1cGBXz1X2OEPb/5J/GAYO5XTJQa90Nz+/VNqnVrBcFdU0mY755SBj5kN4=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: QZ9pQcWTD8IBEowl1DabVe99FjyPBK/vmeLKkqtZy4ofxXNMxOZvbW8a+zGbGfPAdn0+4XbGu3d6c1GnBkR0NUHc1gXpteWZ7nB1W85PE/aZw7+lD5+QLxcDILJOyItF48iUAToEfu+95XY9x9fl/w5sZvB1Xvh3iDzttk/1zTUu0rleh3CkEDWfLacHFXEVOPpf5oPNTT/zocdyb/e88OnvTR1jdYCzm8KxXP9JgdPYMpV9WrawWE7emddwFiqGSsQgfpvR8IzCZnHrVTU2W91/ScHCK6RBukgzw/13UagfKRmmQZTQCb8VX1QE1kd0Kwck5XTI+yk0OyXrxrxhpAuaQEjMvPI3Twwtz7j1i0tJAmzwVe2ZAxaUN4uy9z45Q6t1Ow47HClAMOfOjs+DoFoqFI2YZi+fRNMK40oFxKfI905SfSKdGg/wr46trGLH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 17:47:45.2032 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5df1562-a9d5-4dbe-4018-08de9016c802
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004684.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5796
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,19 +109,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 1, 2026 at 4:18=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->
-> When I write the comment the intention is to enable the unstable feature =
-and
-> switch.
+Hi Dave, Simona,
 
-Yeah, that is what I meant as the alternative in the commit message.
+Fixes for 7.0.
 
-I am OK with either.
+The following changes since commit 7aaa8047eafd0bd628065b15757d9b48c5f9c07d:
 
-(By the way, I wondered why you mentioned 1.85 in the comment, I guess
-it was supposed to be 1.86 instead originally, i.e. "above" as in >
-1.86)
+  Linux 7.0-rc6 (2026-03-29 15:40:00 -0700)
 
-Cheers,
-Miguel
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.0-2026-04-01
+
+for you to fetch changes up to 78746a474e92fc7aaed12219bec7c78ae1bd6156:
+
+  drm/amdkfd: Fix queue preemption/eviction failures by aligning control stack size to GPU page size (2026-03-30 16:22:44 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-7.0-2026-04-01:
+
+amdgpu:
+- UserQ fixes
+- PASID handling fix
+- S4 fix for smu11 chips
+- Misc small fixes
+
+amdkfd:
+- Non-4K page fixes
+
+----------------------------------------------------------------
+Alex Deucher (1):
+      drm/amdgpu/pm: drop SMU driver if version not matched messages
+
+Donet Tom (4):
+      drm/amdkfd: Align expected_queue_size to PAGE_SIZE
+      drm/amd: Fix MQD and control stack alignment for non-4K
+      drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE to 64KB
+      drm/amdkfd: Fix queue preemption/eviction failures by aligning control stack size to GPU page size
+
+Junrui Luo (2):
+      drm/amdgpu: validate doorbell_offset in user queue creation
+      drm/amdgpu/userq: fix memory leak in MQD creation error paths
+
+Lijo Lazar (1):
+      drm/amdgpu: Fix wait after reset sequence in S4
+
+Prike Liang (1):
+      drm/amdgpu: fix the idr allocation flags
+
+Srinivasan Shanmugam (1):
+      drm/amd/display: Fix NULL pointer dereference in dcn401_init_hw()
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  8 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           | 44 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h           |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 16 ++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  7 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         | 16 ++++++--
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c             |  3 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    | 23 +++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             | 11 +++---
+ .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  | 17 ++++++---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |  1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |  1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     |  1 -
+ 16 files changed, 115 insertions(+), 46 deletions(-)
