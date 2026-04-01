@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11BFBD35177
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B855AD35177
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 11:46:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2B410ED5E;
-	Wed,  1 Apr 2026 11:46:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20A6510ED76;
+	Wed,  1 Apr 2026 11:46:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UKtBIcp6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KRqDupu+";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CB6D10ED53;
- Wed,  1 Apr 2026 11:46:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCEC610ED76;
+ Wed,  1 Apr 2026 11:46:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C0ED740508;
+ by sea.source.kernel.org (Postfix) with ESMTP id 96607402E0;
+ Wed,  1 Apr 2026 11:46:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314CBC4CEF7;
  Wed,  1 Apr 2026 11:46:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3116EC116C6;
- Wed,  1 Apr 2026 11:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775043963;
- bh=apDv3G69tLYZxT0bsmSXFtUS1fsRBTuuV0MdIXy1tSE=;
- h=From:To:Cc:Subject:Date:From;
- b=UKtBIcp6XElrr1armeetFGSTEl8V4WONvd6rK4wvltL6YwavS1wFRnN7GpYLEHceN
- 1WbY+wtKHDLemajvmizAsRcZNLu6IBBbkMjRD+ZxpQHOYdzxmcTRqUrQPNLkHG9G1I
- JhbACz6m0h9hIYsdf6/u0BqrMh/IzmOVno+iZyKwE9XuciKRg3kRCdpMGJRHL+z75U
- gf+thvdBUY8rXoqFg5PKG9M0+8tFcZiB9pPlGXEEBqnrgJTFOZevdkklUbnUWAQbOW
- A3Okudgp0+6IACGDs+Fy3Mfyl2ug75BV8kmRZaKVtZzx9GCX2MnTESl/o9lq/ct0OO
- wSZvnFKBbOrQQ==
+ s=k20201202; t=1775043975;
+ bh=ee9ui+LCdpJHl0TldbW+Hj1cIbucU9apUqrPLbY+gwA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=KRqDupu+DKvNmwW+4j5ymsnMQyV8FjWKLKLMuRfJUaFNjjRl8TChFt1O49A4LriR4
+ aCxNadQPRYWuZCjWbo1G44JNcreCgipEpTp25HG8+WRGEQpYq7kENnhi95ZvkothfB
+ 1r+PascAFPeFUZ3UdnavVyKxTrY5sFckDghBLAV95wFV/7g0t8aY2T6Fli7cVnPYN5
+ rkQQwfKcvN45XkZT1HU8FQsC/R0ookEadJs+Fu2CukxnkXqGoBe7jjSw5pUxfGmltp
+ jaO17kwZAxx2dXVmEEDxPcOzWr8F1PnIUzJ/2t3S/iYg3yjijoVzP0yNPKxQ0FAq8T
+ OxPArPyTGQbbQ==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -62,9 +62,12 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
-Subject: [PATCH 00/33] rust: bump minimum Rust and `bindgen` versions
-Date: Wed,  1 Apr 2026 13:45:07 +0200
-Message-ID: <20260401114540.30108-1-ojeda@kernel.org>
+Subject: [PATCH 01/33] rust: bump Rust minimum supported version to 1.85.0
+ (Debian Trixie)
+Date: Wed,  1 Apr 2026 13:45:08 +0200
+Message-ID: <20260401114540.30108-2-ojeda@kernel.org>
+In-Reply-To: <20260401114540.30108-1-ojeda@kernel.org>
+References: <20260401114540.30108-1-ojeda@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -89,130 +92,64 @@ supported version.
 Debian Trixie was released with a Rust 1.85.0 toolchain [2], which it
 still uses to this day [3] (i.e. no update to Rust 1.85.1).
 
-Debian Trixie was released with `bindgen` 0.71.1, which it also still
-uses to this day [4].
-
-Debian Trixie's release happened on 2025-08-09 [5], which means that a
+Debian Trixie's release happened on 2025-08-09 [4], which means that a
 fair amount of time has passed since its release for kernel developers
 to upgrade.
 
-Thus bump the minimum to the new versions, i.e.
+Thus bump the minimum to the new version.
 
-  - Rust: 1.78.0 -> 1.85.0
-  - bindgen: 0.65.1 -> 0.71.1
+Then, in later commits, clean up most of the workarounds and other bits
+that this upgrade of the minimum allows us.
 
-There are a few main parts to the series, in this order:
+pin-init was left as-is since the patches come from upstream. And the
+vendored crates are unmodified, since we do not want to change those.
 
-  - The Rust bump (and cleanups).
-  - The bindgen bump (and cleanups).
-  - Documentation updates.
-  - The `cfi_encoding` patch, added here, which needs the bump.
-  - The per-version flags support and a Clippy cleanup on top.
+Note that the minimum LLVM major version for Rust 1.85.0 is LLVM 18 (the
+Rust upstream binaries use LLVM 19.1.7), thus e.g. `RUSTC_LLVM_VERSION`
+tests can also be updated, but there are no suitable ones to simplify.
+
+Ubuntu 25.10 also has a recent enough Rust toolchain [5], and they also
+provide versioned packages with a Rust 1.85.1 toolchain even back to
+Ubuntu 22.04 LTS [6].
 
 Link: https://lwn.net/Articles/1050174/ [1]
 Link: https://www.debian.org/releases/trixie/release-notes/whats-new.en.html#desktops-and-well-known-packages [2]
 Link: https://packages.debian.org/trixie/rustc [3]
-Link: https://packages.debian.org/trixie/bindgen [4]
-Link: https://www.debian.org/releases/trixie/ [5]
+Link: https://www.debian.org/releases/trixie/ [4]
+Link: https://packages.ubuntu.com/search?suite=all&searchon=names&keywords=rustc [5]
+Link: https://launchpad.net/ubuntu/+source/rustc-1.85 [6]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
-The cleanups should cover most of it -- there may be more we can do
-later e.g. in linux-next.
+ Documentation/process/changes.rst | 2 +-
+ scripts/min-tool-version.sh       | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Most patches are optional, so if there are concerns with any, they can
-be dropped or be done later. Most are straightforward, though, and e.g.
-a couple of them update TODO comments to keep the series even simpler.
-
-The patches have been split as much as possible to be able to add as
-much context as possible and to make it easier to review and to drop any
-if needed.
-
-All in all, it is a nice `--stat` of deletions I think :)
-
-Alice Ryhl (1):
-  rust: declare cfi_encoding for lru_status
-
-Miguel Ojeda (32):
-  rust: bump Rust minimum supported version to 1.85.0 (Debian Trixie)
-  rust: bump Clippy's MSRV and clean `incompatible_msrv` allows
-  rust: simplify `RUSTC_VERSION` Kconfig conditions
-  rust: remove `RUSTC_HAS_SLICE_AS_FLATTENED` and simplify code
-  rust: remove `RUSTC_HAS_COERCE_POINTEE` and simplify code
-  rust: kbuild: remove skipping of `-Wrustdoc::unescaped_backticks`
-  rust: kbuild: remove `feature(...)`s that are now stable
-  rust: kbuild: simplify `--remap-path-prefix` workaround
-  rust: kbuild: make `--remap-path-prefix` workaround conditional
-  rust: transmute: simplify code with Rust 1.80.0 `split_at_*checked()`
-  rust: alloc: simplify with `NonNull::add()` now that it is stable
-  rust: macros: update `extract_if` MSRV TODO comment
-  rust: block: update `const_refs_to_static` MSRV TODO comment
-  rust: bump `bindgen` minimum supported version to 0.71.1 (Debian
-    Trixie)
-  rust: rust_is_available: remove warning for 0.66.[01] buggy versions
-  rust: rust_is_available: remove warning for < 0.69.5 && libclang >=
-    19.1
-  rust: kbuild: update `bindgen --rust-target` version and replace
-    comment
-  rust: kbuild: remove "dummy parameter" workaround for `bindgen` <
-    0.71.1
-  rust: kbuild: remove "`try` keyword" workaround for `bindgen` < 0.59.2
-  rust: kbuild: remove unneeded old `allow`s for generated layout tests
-  gpu: nova-core: bindings: remove unneeded `cfg_attr`
-  docs: rust: quick-start: openSUSE provides `rust-src` package nowadays
-  docs: rust: quick-start: update Ubuntu versioned packages
-  docs: rust: quick-start: update minimum Ubuntu version
-  docs: rust: quick-start: add Ubuntu 26.04 LTS and remove subsection
-    title
-  docs: rust: quick-start: remove Gentoo "testing" note
-  docs: rust: quick-start: remove Nix "unstable channel" note
-  docs: rust: quick-start: remove GDB/Binutils mention
-  docs: rust: general-information: simplify Kconfig example
-  docs: rust: general-information: use real example
-  rust: kbuild: support global per-version flags
-  rust: kbuild: allow `clippy::precedence` for Rust < 1.86.0
-
- .clippy.toml                                  |  2 +-
- Documentation/process/changes.rst             |  4 +-
- Documentation/rust/general-information.rst    |  4 +-
- Documentation/rust/quick-start.rst            | 52 +++++++----------
- Makefile                                      |  9 +++
- arch/Kconfig                                  |  3 +-
- arch/arm64/Kconfig                            |  8 ---
- arch/riscv/Kconfig                            |  3 -
- drivers/android/binder/Makefile               |  3 +-
- drivers/android/binder/page_range.rs          |  6 +-
- drivers/android/binder/page_range_helper.c    | 24 --------
- drivers/android/binder/page_range_helper.h    | 15 -----
- drivers/gpu/nova-core/gsp/cmdq.rs             |  6 +-
- drivers/gpu/nova-core/gsp/fw/r570_144.rs      |  3 -
- init/Kconfig                                  | 15 +----
- rust/Makefile                                 | 36 ++++--------
- rust/bindgen_parameters                       |  8 +--
- rust/bindings/bindings_helper.h               |  1 -
- rust/bindings/lib.rs                          |  5 +-
- rust/kernel/alloc/allocator/iter.rs           |  8 +--
- rust/kernel/alloc/kbox.rs                     | 29 +---------
- rust/kernel/block/mq/gen_disk.rs              |  4 +-
- rust/kernel/lib.rs                            | 30 +---------
- rust/kernel/list/arc.rs                       | 22 +------
- rust/kernel/prelude.rs                        |  3 -
- rust/kernel/ptr.rs                            |  1 -
- rust/kernel/slice.rs                          | 49 ----------------
- rust/kernel/sync/arc.rs                       | 21 +------
- rust/kernel/transmute.rs                      | 35 ++---------
- rust/macros/kunit.rs                          |  2 +-
- rust/uapi/lib.rs                              |  5 +-
- scripts/Makefile.build                        |  6 +-
- scripts/min-tool-version.sh                   |  4 +-
- scripts/rust_is_available.sh                  | 36 +-----------
- scripts/rust_is_available_bindgen_0_66.h      |  2 -
- ...ust_is_available_bindgen_libclang_concat.h |  3 -
- scripts/rust_is_available_test.py             | 58 +------------------
- 37 files changed, 79 insertions(+), 446 deletions(-)
- delete mode 100644 drivers/android/binder/page_range_helper.c
- delete mode 100644 drivers/android/binder/page_range_helper.h
- delete mode 100644 rust/kernel/slice.rs
- delete mode 100644 scripts/rust_is_available_bindgen_0_66.h
- delete mode 100644 scripts/rust_is_available_bindgen_libclang_concat.h
-
---
+diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+index 6b373e193548..474594bd4831 100644
+--- a/Documentation/process/changes.rst
++++ b/Documentation/process/changes.rst
+@@ -31,7 +31,7 @@ you probably needn't concern yourself with pcmciautils.
+ ====================== ===============  ========================================
+ GNU C                  8.1              gcc --version
+ Clang/LLVM (optional)  15.0.0           clang --version
+-Rust (optional)        1.78.0           rustc --version
++Rust (optional)        1.85.0           rustc --version
+ bindgen (optional)     0.65.1           bindgen --version
+ GNU make               4.0              make --version
+ bash                   4.2              bash --version
+diff --git a/scripts/min-tool-version.sh b/scripts/min-tool-version.sh
+index 99b5575c1ef7..a270ec761f64 100755
+--- a/scripts/min-tool-version.sh
++++ b/scripts/min-tool-version.sh
+@@ -31,7 +31,7 @@ llvm)
+ 	fi
+ 	;;
+ rustc)
+-	echo 1.78.0
++	echo 1.85.0
+ 	;;
+ bindgen)
+ 	echo 0.65.1
+-- 
 2.53.0
+
