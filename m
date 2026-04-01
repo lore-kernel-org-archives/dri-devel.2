@@ -4,144 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BBBED35160
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 09:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73DA7D3515E
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 09:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D77010F004;
-	Wed,  1 Apr 2026 09:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3E5310F011;
+	Wed,  1 Apr 2026 09:15:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sQAItTGJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CBEPxWBB";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sQAItTGJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CBEPxWBB";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="jMTfE32e";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE1CE10EFC0
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 09:09:50 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 762744D2B6;
- Wed,  1 Apr 2026 09:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775034589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
- b=sQAItTGJuaW7pkWJDFb0kUIXNploqGYxSi3ps0139xpN/NzPWoV/HwOqv8YAcDseoYwRbk
- Bv55QgOnSPNqive09F2I4TSvV9WxzgWClADpxUXkcfRdxfFw3zCVMgK4MgRbVBnqqsG55B
- BlfyS+wPLhMN6s113NDU7fb9a4bs+iY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775034589;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
- b=CBEPxWBBDRAt+I4joMn6KdI/HvH5jqdedrFWwggW18DnuqNT1LK+33nNSoTlcywGZ0jdUv
- aXfKEN6I429NTVDQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=sQAItTGJ;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CBEPxWBB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775034589; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
- b=sQAItTGJuaW7pkWJDFb0kUIXNploqGYxSi3ps0139xpN/NzPWoV/HwOqv8YAcDseoYwRbk
- Bv55QgOnSPNqive09F2I4TSvV9WxzgWClADpxUXkcfRdxfFw3zCVMgK4MgRbVBnqqsG55B
- BlfyS+wPLhMN6s113NDU7fb9a4bs+iY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775034589;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=X2kHwcaaTizQUXb3Cp0D/jRqbWryLrHJHafaNs9/YmA=;
- b=CBEPxWBBDRAt+I4joMn6KdI/HvH5jqdedrFWwggW18DnuqNT1LK+33nNSoTlcywGZ0jdUv
- aXfKEN6I429NTVDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 363E04A0B0;
- Wed,  1 Apr 2026 09:09:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id bGvOC93gzGnNMQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 01 Apr 2026 09:09:49 +0000
-Message-ID: <0840b122-89cf-46e5-a35c-37d77d828e20@suse.de>
-Date: Wed, 1 Apr 2026 11:09:48 +0200
+Received: from mail-m49241.qiye.163.com (mail-m49241.qiye.163.com
+ [45.254.49.241])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE0D410F011
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 09:15:27 +0000 (UTC)
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 3923a2f78;
+ Wed, 1 Apr 2026 17:15:22 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, victor.liu@nxp.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, inki.dae@samsung.com,
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org,
+ jingoohan1@gmail.com, p.zabel@pengutronix.de, hjc@rock-chips.com,
+ heiko@sntech.de, andy.yan@rock-chips.com
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, kernel@pengutronix.de, festevam@gmail.com,
+ alim.akhtar@samsung.com, dmitry.baryshkov@oss.qualcomm.com,
+ luca.ceresoli@bootlin.com, nicolas.frattaroli@collabora.com,
+ dianders@chromium.org, m.szyprowski@samsung.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v12 00/17] Apply drm_bridge_connector and panel_bridge helper
+ for the Analogix DP driver
+Date: Wed,  1 Apr 2026 17:14:37 +0800
+Message-Id: <20260401091454.25730-1-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/10] lib/fonts: Clean up Makefile
-To: Jiri Slaby <jirislaby@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: deller@gmx.de, gregkh@linuxfoundation.org, simona@ffwll.ch,
- sam@ravnborg.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org
-References: <20260327130431.59481-1-tzimmermann@suse.de>
- <20260327130431.59481-5-tzimmermann@suse.de>
- <CAMuHMdX1vUuKq-Q1-zA5tC5+LWap4osFJMqQ5pRJ373z++KQLQ@mail.gmail.com>
- <a2b5aa02-2566-409f-960d-4ecb1419cbd5@suse.de>
- <7eaf55fd-1ec9-4c30-877f-12961e8f9532@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7eaf55fd-1ec9-4c30-877f-12961e8f9532@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmx.de];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_CC(0.00)[gmx.de,linuxfoundation.org,ffwll.ch,ravnborg.org,vger.kernel.org,lists.freedesktop.org];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[10]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns, suse.com:url]
-X-Rspamd-Queue-Id: 762744D2B6
+X-HM-Tid: 0a9d4853775e03a3kunm479af8c3b32d05
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ0kdHlZDHkseTU9PHh0eSkhWFRQJFh
+ oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
+ 1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=jMTfE32eJhdUeX+kv5Gi76uK5SSJvOJDjo4prrScWRDUT+Ecy8oRl8Fgw41+lyRsKdJOH34ExqXXCLlBhfTcncSsF1hkDTLZk6zYo6J6MDKB7l0TPcRer0xfYIYV3HAKv0U8TaLlOn/rRSVYKX3DUAx+mU605QvMshA0iuvz2pk=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=ZBY6rsTKa3hsladSYkc9H7xbcEPG4WaHRLRqn2Mrqw0=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,56 +69,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+PATCH 1 is to add a new parameter to store the point of next bridge.
+PATCH 2 is to make legacy bridge driver more universal.
+PATCH 3-10 are preparations for apply drm_bridge_connector helper.
+PATCH 11 is to apply the drm_bridge_connector helper.
+PATCH 12-14 are to move the panel/bridge parsing to the Analogix side.
+PATCH 15 is to attach the next bridge on Analogix side uniformly.
+PATCH 16-17 are to apply the panel_bridge helper.
 
-Am 01.04.26 um 10:58 schrieb Jiri Slaby:
-> On 01. 04. 26, 9:58, Thomas Zimmermann wrote:
->>>> -font-objs-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
->>>> -font-objs-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
->>>> -font-objs-$(CONFIG_FONT_8x8)       += font_8x8.o
->>>> -font-objs-$(CONFIG_FONT_8x16)      += font_8x16.o
->>>> -font-objs-$(CONFIG_FONT_6x11)      += font_6x11.o
->>>> -font-objs-$(CONFIG_FONT_7x14)      += font_7x14.o
->>>> -font-objs-$(CONFIG_FONT_10x18)     += font_10x18.o
->>>> -font-objs-$(CONFIG_FONT_PEARL_8x8) += font_pearl_8x8.o
->>>> -font-objs-$(CONFIG_FONT_ACORN_8x8) += font_acorn_8x8.o
->>>> -font-objs-$(CONFIG_FONT_MINI_4x6)  += font_mini_4x6.o
->>>> -font-objs-$(CONFIG_FONT_6x10)      += font_6x10.o
->>>> -font-objs-$(CONFIG_FONT_TER10x18)  += font_ter10x18.o
->>>> -font-objs-$(CONFIG_FONT_TER16x32)  += font_ter16x32.o
->>>> -font-objs-$(CONFIG_FONT_6x8)       += font_6x8.o
->>>> +# Built-in fonts
->>>> +font-$(CONFIG_FONT_10x18)     += font_10x18.o
->>>> +font-$(CONFIG_FONT_6x10)      += font_6x10.o
->>>> +font-$(CONFIG_FONT_6x11)      += font_6x11.o
->>>> +font-$(CONFIG_FONT_6x8)       += font_6x8.o
->>>> +font-$(CONFIG_FONT_7x14)      += font_7x14.o
->>>> +font-$(CONFIG_FONT_8x16)      += font_8x16.o
->>>> +font-$(CONFIG_FONT_8x8)       += font_8x8.o
->>> Please sort the anonymous entries by increasing font size.
->>
->> Makes sense. I'll also leave a comment on the sorting order.
->
->>>> +font-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
->>>> +font-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
->
-> I'd sort even the non-anonymous ^^.
+Damon Ding (17):
+  drm/bridge: analogix_dp: Add &analogix_dp_plat_data.next_bridge
+  drm/bridge: Move legacy bridge driver out of imx directory for
+    multi-platform use
+  drm/exynos: exynos_dp: Remove &exynos_dp_device.ptn_bridge
+  drm/exynos: exynos_dp: Remove unused &exynos_dp_device.connector
+  drm/exynos: exynos_dp: Apply of-display-mode-bridge to parse the
+    display-timings node
+  drm/bridge: analogix_dp: Remove redundant
+    &analogix_dp_plat_data.skip_connector
+  drm/bridge: analogix_dp: Move the color format check to
+    .atomic_check() for Rockchip platforms
+  drm/bridge: analogix_dp: Remove unused
+    &analogix_dp_plat_data.get_modes()
+  drm/bridge: analogix_dp: Remove unused struct drm_connector* for
+    &analogix_dp_plat_data.attach()
+  drm/bridge: analogix_dp: Pass struct drm_atomic_state* for
+    analogix_dp_bridge_mode_set()
+  drm/bridge: analogix_dp: Apply drm_bridge_connector helper
+  drm/bridge: analogix_dp: Add new API analogix_dp_finish_probe()
+  drm/rockchip: analogix_dp: Apply analogix_dp_finish_probe()
+  drm/exynos: exynos_dp: Apply analogix_dp_finish_probe()
+  drm/bridge: analogix_dp: Attach the next bridge in
+    analogix_dp_bridge_attach()
+  drm/bridge: analogix_dp: Remove bridge disabing and panel unpreparing
+    in analogix_dp_unbind()
+  drm/bridge: analogix_dp: Apply panel_bridge helper
 
-My plan is now to sort by font-family, then by font height, then by font 
-width. Each in ascending order.
+ drivers/gpu/drm/bridge/Kconfig                |  10 +
+ drivers/gpu/drm/bridge/Makefile               |   1 +
+ drivers/gpu/drm/bridge/analogix/Kconfig       |   1 +
+ .../drm/bridge/analogix/analogix_dp_core.c    | 236 +++++++++---------
+ .../drm/bridge/analogix/analogix_dp_core.h    |   1 -
+ drivers/gpu/drm/bridge/imx/Kconfig            |  10 -
+ drivers/gpu/drm/bridge/imx/Makefile           |   1 -
+ .../gpu/drm/bridge/imx/imx-legacy-bridge.c    |  91 -------
+ .../gpu/drm/bridge/of-display-mode-bridge.c   |  93 +++++++
+ drivers/gpu/drm/exynos/Kconfig                |   2 +
+ drivers/gpu/drm/exynos/exynos_dp.c            | 110 ++------
+ drivers/gpu/drm/imx/ipuv3/Kconfig             |   4 +-
+ drivers/gpu/drm/imx/ipuv3/imx-ldb.c           |   6 +-
+ drivers/gpu/drm/imx/ipuv3/parallel-display.c  |   5 +-
+ drivers/gpu/drm/rockchip/Kconfig              |   1 +
+ .../gpu/drm/rockchip/analogix_dp-rockchip.c   |  67 +----
+ include/drm/bridge/analogix_dp.h              |   8 +-
+ include/drm/bridge/imx.h                      |  17 --
+ include/drm/bridge/of-display-mode-bridge.h   |  17 ++
+ 19 files changed, 295 insertions(+), 386 deletions(-)
+ delete mode 100644 drivers/gpu/drm/bridge/imx/imx-legacy-bridge.c
+ create mode 100644 drivers/gpu/drm/bridge/of-display-mode-bridge.c
+ delete mode 100644 include/drm/bridge/imx.h
+ create mode 100644 include/drm/bridge/of-display-mode-bridge.h
 
-Best regards
-Thomas
+---
 
->
-> thanks,
+Changes in v2:
+- Update Exynos DP driver synchronously.
+- Move the panel/bridge parsing to the Analogix side.
+
+Changes in v3:
+- Rebase for the existing devm_drm_bridge_alloc() applying commit.
+- Fix the typographical error of panel/bridge check in exynos_dp_bind().
+- Squash all commits related to skip_connector deletion in both Exynos and
+  Analogix code into one.
+- Apply panel_bridge helper to make the codes more concise.
+- Fix the handing of bridge in analogix_dp_bridge_get_modes().
+- Remove unnecessary parameter struct drm_connector* for callback
+  &analogix_dp_plat_data.attach().
+- In order to decouple the connector driver and the bridge driver, move
+  the bridge connector initilization to the Rockchip and Exynos sides.
+
+Changes in v4:
+- Rebase for the applied &drm_bridge_funcs.detect() modification commit.
+- Rename analogix_dp_find_panel_or_bridge() to analogix_dp_finish_probe().
+- Drop the drmm_encoder_init() modification commit.
+- Rename the &analogix_dp_plat_data.bridge to
+  &analogix_dp_plat_data.next_bridge.
+
+Changes in v5:
+- Add legacy bridge to parse the display-timings node under the dp node
+  for Exynos side.
+- Move color format check to &drm_connector_helper_funcs.atomic_check()
+  in order to get rid of &analogix_dp_plat_data.get_modes().
+- Remove unused callback &analogix_dp_plat_data.get_modes().
+- Distinguish the &drm_bridge->ops of Analogix bridge based on whether
+  the downstream device is a panel, a bridge or neither.
+- Select DRM_DISPLAY_DP_AUX_BUS for DRM_ANALOGIX_DP, and remove it for
+  ROCKCHIP_ANALOGIX_DP.
+- Apply rockchip_dp_attach() to support the next bridge attachment for
+  the Rockchip side.
+- Move next_bridge attachment from Analogix side to Rockchip/Exynos sides.
+
+Changes in v6:
+- Move legacy bridge driver out of imx directory for multi-platform use.
+- Apply DRM legacy bridge to parse display timings intead of implementing
+  the same codes only for Exynos DP.
+- Ensure last bridge determines EDID/modes detection capabilities in DRM
+  bridge_connector driver.
+- Remove unnecessary drm_bridge_get_modes() in
+  analogix_dp_bridge_get_modes().
+- Simplify analogix_dp_bridge_edid_read().
+- If the next is a bridge, set DRM_BRIDGE_OP_DETECT and return
+  connector_status_connected in analogix_dp_bridge_detect().
+- Set flag DRM_BRIDGE_ATTACH_NO_CONNECTOR for bridge attachment while
+  binding. Meanwhile, make DRM_BRIDGE_ATTACH_NO_CONNECTOR unsuppported
+  in analogix_dp_bridge_attach().
+- Move the next bridge attachment to the Analogix side rather than
+  scattered on Rockchip and Exynos sides.
+- Remove the unnecessary analogix_dp_bridge_get_modes().
+- Squash [PATCH v5 15/17] into [PATCH v5 17/17].
+- Fix the &drm_bridge->ops to DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT.
+
+Changes in v7:
+- As Luca suggested, simplify the code and related comment for bridge_connector
+  modifications. Additionally, move the commit related to bridge_connector to
+  the top of this patch series.
+- Rename legacy-bridge driver to of-display-mode-bridge driver.
+- Remove unnecessary API drm_bridge_is_legacy() and apply a temporary flag
+  &exynos_dp_device.has_of_bridge instead, which will be removed finally.
+- Remove exynos_dp_legacy_bridge_init() and inline API
+  devm_drm_of_display_mode_bridge().
+
+Changes in v8:
+- Adapt the related modifications to the newest bridge_connector driver.
+
+Changes in v9:
+- Fix the Kconfig help text for CONFIG_DRM_OF_DISPLAY_MODE_BRIDGE.
+- Add Tested-by tag from Heiko.
+
+Changes in v10:
+- Fix to use dev_err_probe() in newly added API analogix_dp_finish_probe().
+- Expaned commit message for [PATCH v9 9/15] and [PATCH v9 10/15].
+- Split [PATCH v9 9/15] into serval smaller commits.
+- Add Reviewed-by tags from Luca.
+
+Changes in v11:
+- Merge [PATCH v10 12/18] into [PATCH v10 11/18].
+- Fix the bridge flag to 'flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR' in
+  [PATCH v10 11/18].
+- Add Reviewed-by tags from Luca.
+
+Changes in v12:
+- Restore accidentally removed DRM_BRIDGE_CONNECTOR Kconfig in v10.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
