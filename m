@@ -4,88 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F042D3514F
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 08:28:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A33D35159
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 08:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9E310F024;
-	Wed,  1 Apr 2026 08:28:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 074D110E202;
+	Wed,  1 Apr 2026 08:32:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="yiVwdVRb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gAou2kim";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yiVwdVRb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="gAou2kim";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SzoQNGff";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F262510F024
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:28:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BE4464D2B4;
- Wed,  1 Apr 2026 08:28:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775032090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=b6rf6yLk5C2Xs6Db3RHdZP73Kvw90+UjkT/ZJ6nbnps=;
- b=yiVwdVRbxVBMNMvYT1PtN16ta2oYoCehXnYISnmK8PNl7+w5NLHfDuuif3ap4KSC6a+WBo
- uJgnqJ4CCcq1PjMsqoU4f9J0XrtHP1aOvHggL4evkN7FqlxWzM9kOjM1EavAUMWRWwTnGL
- nwRTtg7bnxmTIvi4fDdLBiucK8wpqgM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775032090;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=b6rf6yLk5C2Xs6Db3RHdZP73Kvw90+UjkT/ZJ6nbnps=;
- b=gAou2kimX0o1rwu3H8rAWkHbHuXUkMGiMP0AkaMqILQ3/qiJeOHXkS8IcmD2qGEy/Zk2nY
- cZ1w5yAwFyt9xDBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775032090; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=b6rf6yLk5C2Xs6Db3RHdZP73Kvw90+UjkT/ZJ6nbnps=;
- b=yiVwdVRbxVBMNMvYT1PtN16ta2oYoCehXnYISnmK8PNl7+w5NLHfDuuif3ap4KSC6a+WBo
- uJgnqJ4CCcq1PjMsqoU4f9J0XrtHP1aOvHggL4evkN7FqlxWzM9kOjM1EavAUMWRWwTnGL
- nwRTtg7bnxmTIvi4fDdLBiucK8wpqgM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775032090;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=b6rf6yLk5C2Xs6Db3RHdZP73Kvw90+UjkT/ZJ6nbnps=;
- b=gAou2kimX0o1rwu3H8rAWkHbHuXUkMGiMP0AkaMqILQ3/qiJeOHXkS8IcmD2qGEy/Zk2nY
- cZ1w5yAwFyt9xDBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83D9F4A0B0;
- Wed,  1 Apr 2026 08:28:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Zey2HhrXzGmzBgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 01 Apr 2026 08:28:10 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: tsbogend@alpha.franken.de,
-	arnd@arndb.de
-Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH] arch/mips: Drop CONFIG_FIRMWARE_EDID from defconfig files
-Date: Wed,  1 Apr 2026 10:27:57 +0200
-Message-ID: <20260401082805.214198-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3702A10E202
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:32:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0BC8140677
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:32:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E01F5C2BCB3
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 08:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775032324;
+ bh=4Wn5tEbtc3je2I8Hxpe11G224Bu8p0i5bFhg7sSW1kc=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=SzoQNGfflECJKnACf8AWqv5+so0Jkp+EFvl28jnn1A3/wZT/jUlF+ft/HVISiqSLO
+ v88lF8NCAa2XLlco0BhjlnYbIfvkFh9JMGmjUxKJbCQ3I5VoM1spnANuHvBgE+7pRY
+ zqMi3o7kR7RTwMICq7xEU0NTxyhRY6lPCh3lS4xgB8yxRc//diXO+WlXsjmUOfgilU
+ kHsWotT3SAiBCntDFdw/lf2DcHQmZOtBiMYNmp8VDVXP5k2iMA4yCZyjD08g6fa2Yv
+ vaSPzCYich3FZJVnNRbUeg9ZAVSI5Rh58tJIXYglgTr0JomxRwdEWA+tn2aiJWj8p7
+ Q02uAREk1hX9g==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id D42E5C41614; Wed,  1 Apr 2026 08:32:04 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221297] AMDGPU SMU driver interface version mismatch on R9700 -
+ fan control broken under load
+Date: Wed, 01 Apr 2026 08:32:04 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: aros@gmx.com
+X-Bugzilla-Status: RESOLVED
+X-Bugzilla-Resolution: ANSWERED
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: 
+Message-ID: <bug-221297-2300-CehQuoJ5Vv@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221297-2300@https.bugzilla.kernel.org/>
+References: <bug-221297-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_SEVEN(0.00)[7];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,104 +75,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CONFIG_FIRMWARE_EDID=y depends on X86 or EFI_GENERIC_STUB. Neither is
-true here, so drop the lines from the defconfig files.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221297
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- arch/mips/configs/ip32_defconfig            | 1 -
- arch/mips/configs/lemote2f_defconfig        | 1 -
- arch/mips/configs/malta_qemu_32r6_defconfig | 1 -
- arch/mips/configs/maltaaprp_defconfig       | 1 -
- arch/mips/configs/maltasmvp_defconfig       | 1 -
- arch/mips/configs/maltasmvp_eva_defconfig   | 1 -
- arch/mips/configs/maltaup_defconfig         | 1 -
- 7 files changed, 7 deletions(-)
+--- Comment #3 from Artem S. Tashkinov (aros@gmx.com) ---
+This bugzilla is generally NOT monitored by AMD employees.
 
-diff --git a/arch/mips/configs/ip32_defconfig b/arch/mips/configs/ip32_defconfig
-index 7568838eb08b..ad60c11dd660 100644
---- a/arch/mips/configs/ip32_defconfig
-+++ b/arch/mips/configs/ip32_defconfig
-@@ -71,7 +71,6 @@ CONFIG_SERIAL_8250_CONSOLE=y
- CONFIG_HW_RANDOM=y
- CONFIG_WATCHDOG=y
- CONFIG_FB=y
--CONFIG_FIRMWARE_EDID=y
- CONFIG_FB_GBE=y
- # CONFIG_VGA_CONSOLE is not set
- CONFIG_FRAMEBUFFER_CONSOLE=y
-diff --git a/arch/mips/configs/lemote2f_defconfig b/arch/mips/configs/lemote2f_defconfig
-index 8d3f20ed19b5..7eed322a986f 100644
---- a/arch/mips/configs/lemote2f_defconfig
-+++ b/arch/mips/configs/lemote2f_defconfig
-@@ -136,7 +136,6 @@ CONFIG_FB_SIS_300=y
- CONFIG_FB_SIS_315=y
- CONFIG_FB_SIMPLE=y
- CONFIG_FB_SM712=y
--CONFIG_FIRMWARE_EDID=y
- CONFIG_FB_MODE_HELPERS=y
- CONFIG_FB_TILEBLITTING=y
- CONFIG_BACKLIGHT_CLASS_DEVICE=y
-diff --git a/arch/mips/configs/malta_qemu_32r6_defconfig b/arch/mips/configs/malta_qemu_32r6_defconfig
-index accb471a1d93..4bc5ea492a94 100644
---- a/arch/mips/configs/malta_qemu_32r6_defconfig
-+++ b/arch/mips/configs/malta_qemu_32r6_defconfig
-@@ -129,7 +129,6 @@ CONFIG_POWER_RESET_PIIX4_POWEROFF=y
- CONFIG_POWER_RESET_SYSCON=y
- # CONFIG_HWMON is not set
- CONFIG_FB=y
--CONFIG_FIRMWARE_EDID=y
- CONFIG_FB_MATROX=y
- CONFIG_FB_MATROX_G=y
- CONFIG_USB=y
-diff --git a/arch/mips/configs/maltaaprp_defconfig b/arch/mips/configs/maltaaprp_defconfig
-index 6bda67c5f68f..3fc0bfff9795 100644
---- a/arch/mips/configs/maltaaprp_defconfig
-+++ b/arch/mips/configs/maltaaprp_defconfig
-@@ -130,7 +130,6 @@ CONFIG_POWER_RESET_PIIX4_POWEROFF=y
- CONFIG_POWER_RESET_SYSCON=y
- # CONFIG_HWMON is not set
- CONFIG_FB=y
--CONFIG_FIRMWARE_EDID=y
- CONFIG_FB_MATROX=y
- CONFIG_FB_MATROX_G=y
- CONFIG_USB=y
-diff --git a/arch/mips/configs/maltasmvp_defconfig b/arch/mips/configs/maltasmvp_defconfig
-index e4082537f80f..eefaa45defb5 100644
---- a/arch/mips/configs/maltasmvp_defconfig
-+++ b/arch/mips/configs/maltasmvp_defconfig
-@@ -130,7 +130,6 @@ CONFIG_POWER_RESET_PIIX4_POWEROFF=y
- CONFIG_POWER_RESET_SYSCON=y
- # CONFIG_HWMON is not set
- CONFIG_FB=y
--CONFIG_FIRMWARE_EDID=y
- CONFIG_FB_MATROX=y
- CONFIG_FB_MATROX_G=y
- CONFIG_USB=y
-diff --git a/arch/mips/configs/maltasmvp_eva_defconfig b/arch/mips/configs/maltasmvp_eva_defconfig
-index 58f5af45fa98..691356ef2983 100644
---- a/arch/mips/configs/maltasmvp_eva_defconfig
-+++ b/arch/mips/configs/maltasmvp_eva_defconfig
-@@ -133,7 +133,6 @@ CONFIG_POWER_RESET_PIIX4_POWEROFF=y
- CONFIG_POWER_RESET_SYSCON=y
- # CONFIG_HWMON is not set
- CONFIG_FB=y
--CONFIG_FIRMWARE_EDID=y
- CONFIG_FB_MATROX=y
- CONFIG_FB_MATROX_G=y
- CONFIG_USB=y
-diff --git a/arch/mips/configs/maltaup_defconfig b/arch/mips/configs/maltaup_defconfig
-index 9bfef7de0d1c..0d02e26ef6f5 100644
---- a/arch/mips/configs/maltaup_defconfig
-+++ b/arch/mips/configs/maltaup_defconfig
-@@ -129,7 +129,6 @@ CONFIG_POWER_RESET_PIIX4_POWEROFF=y
- CONFIG_POWER_RESET_SYSCON=y
- # CONFIG_HWMON is not set
- CONFIG_FB=y
--CONFIG_FIRMWARE_EDID=y
- CONFIG_FB_MATROX=y
- CONFIG_FB_MATROX_G=y
- CONFIG_USB=y
--- 
-2.53.0
+--=20
+You may reply to this email to add a comment.
 
+You are receiving this mail because:
+You are watching the assignee of the bug.=
