@@ -4,81 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF2810FCAE6
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 21:22:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0073410F6FDB
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 22:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 429C210E7E7;
-	Wed,  1 Apr 2026 21:22:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 660F810E056;
+	Wed,  1 Apr 2026 22:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Nrbwr01w";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="owZatc1a";
 	dkim-atps=neutral
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E359910E7E7
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 21:22:29 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-b9bfcbaa81eso28000266b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 14:22:29 -0700 (PDT)
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7518110E056
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 22:07:02 +0000 (UTC)
+Received: by mail-dl1-f43.google.com with SMTP id
+ a92af1059eb24-128b9b7e3edso790647c88.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 15:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1775078547; x=1775683347;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oDXL+tWAaeLKiYVautvlWKkmnxZljqgnepO1JJNEfIM=;
- b=Nrbwr01wp1FmScnWzcR2nPyTIZlS9j0eDndpmuCEMUyJAUaBUqLM5coNwfgfhtKPPy
- sKcVEx5wf83UPJlBTaL4XODC2l1UgHLYPi5OFFBA/MdEXv1siRgC5CO5/kUVXVPybPaE
- CihxlFhJJ8M/vPOOjGFTFRHQ9hG+lK7uqp07o=
+ d=gmail.com; s=20251104; t=1775081222; x=1775686022; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=rRronI06lIok0fDejOYVVuN665UjtkDK5qK1tzC967Q=;
+ b=owZatc1a5OSkaRU5gTA2rQgHBqXTeScVi5YVcDHxMa4w+/K1DXV6xXq4alpbw5XgB/
+ PUZzRJptGISQByBGdI3uPvfbR08BXim6DY13sKXAGTS+ePWCZ/ghada9Zo6u9XeHBFZ4
+ xB4m6WSG0wAKzVJuQOkDMM39vuEjBJsLJs4TmMNRLE0l2lWOvug6OkwlQ4wT6m2mYkxw
+ KhEhYGH6pCLGjoMYEPpKQ8YW7J3LH7sDM8VvPnGHwaPc75MAxmFJQyIqzzacTzRNrui1
+ KOtwVyKDpFKmpA8CfDXCfwiFPLw3+tFH0HPlu0VXe/RUpIdTXHWPQHU1h53af3EHn55I
+ L6rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775078547; x=1775683347;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=oDXL+tWAaeLKiYVautvlWKkmnxZljqgnepO1JJNEfIM=;
- b=Bp4Atc8DFObDhkJFWtEDoxKSoRle+dnU8qDDmS1BFXXSJalPWLJoPQG6RmsHz7Iy7R
- fRHlqTn7xIrnG0MXgydqnc53Ky6x/Q2u1y2dtSjoKxEgHmBdyDHRhvHKRA4p5b74+jVv
- nO/6HmDvHBsrRj5DaZubnt6qhahOsAfSmzoyq10VAynOLMsm5Ggz3W8zVIxpdcDQOBen
- UpkM9a8214Q3apmE7tGWpXZVn82M9Ty9GSYLtJCDzqpJOLXFerj3QHbjnie6MWTKR2pA
- HgKbvvMgBXY3Uo3odynXNb7r+009ZFfmfz2Ip5gGii9xjAPDVdsqxIN7/jZ3f0gzONtB
- 9Iwg==
-X-Gm-Message-State: AOJu0YzbPd0pPtbFEba9uf+/32RqYNccI1g+ztoz4uRrpgbWuHM4oDYh
- jexogJRExJlsN3tSiVo843mNaYb2iRAs5P5rbNcxROU2g+4r33Bgy0KN4anVRtDL7VQspV7kryi
- Hd3QtBw==
-X-Gm-Gg: ATEYQzyEIC64swxaT1QDtSAmlB52Pdf1cAXrOmxCLV2vLOjdeyRIIoHEuJLBB0xYlOE
- BUKo/X7y4381e5oggHvFcMXcTOgObQTjlfy1ZYxBpyp2hUBBjwlivCWdLZlm37FPwn1ADgSFidY
- dCE0i6C3UvTP/SWPXw2jJZZuJXHQZX6U/YSX74uweivQzcQ0ZoNhVV944MdIL9u6wTliNf5Oqvt
- 85KZK1azQdDi2hKquDbh/MznH4DUEyhKeM/5ltd+fLFWlPw4Itp1Vw3fXtP+zKPKGqHZOdzickh
- iuYUNJF/ALcz7tA/TV+KW8y1YJw51xsGxPDD6tHNs3INI+8ZS0u8gu0AkJla34ZCd30GFpxxDeK
- klurg57paxcJl+caDZMnwEDeQydS7l62rC97ZcID/34xgiMLSamPSsnwiJzQwHdjRpbgCVuwCt6
- 7rwYxaavCgQuMLibj7cpSe8+xzw2Cxr96ZkjXkuh0ccrsFB1bnjD2rWtw0h/98AQ==
-X-Received: by 2002:a17:907:608e:b0:b9c:1a5:acc1 with SMTP id
- a640c23a62f3a-b9c13b182bcmr345696366b.28.1775078546586; 
- Wed, 01 Apr 2026 14:22:26 -0700 (PDT)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com.
- [209.85.221.42]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9c3ca9a145sm26517266b.25.2026.04.01.14.22.22
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 14:22:22 -0700 (PDT)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-43b95e5b3afso126802f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 14:22:22 -0700 (PDT)
-X-Received: by 2002:a5d:5f53:0:b0:43d:613:33d8 with SMTP id
- ffacd0b85a97d-43d150dc486mr9979954f8f.29.1775078541499; Wed, 01 Apr 2026
- 14:22:21 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1775081222; x=1775686022;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rRronI06lIok0fDejOYVVuN665UjtkDK5qK1tzC967Q=;
+ b=HzAZDyVt+z9OSz6ttXQbb9vYd49Tk9YOxyhv/DyPvx3wZzuc0ZQSwg2LD6xnp7j1MU
+ IsWumigoH9VicOztuxT9gh/IPrr4LwXG/rc/d1mnJb+34timjYCt03aKZYS92INJ/eLj
+ 2DjLKTCI8BA45rJ/JHrFha/RmYCTi/VkctFk+aSgvbs2JPA5mBn2wJ3K0ixJZC0koE9j
+ nyVtMyTCeqnVLDbXytBkJS4/F5s8UkNma6qsTy0O601CP3Yt2bQAYojPuYLdVhSe1L5S
+ kDK1NKzSs7J4AZUrrrPVvqfnB2llICfUwuJYC/TV9wPIoLsdGn6wYkQ7TjNkcD2cLHNt
+ 7azA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU4vzJOs3xXRNE+BMTKdTce9tssmrElOV1E2eFN9T4EUjnJmuS9UQMcpWrCFBq4CTrbZLXSsWhrOyE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwiedxKlyHp76OR6prW6GTN8HQqPYv7TyoCCvbFj8bBhGqsdbk8
+ OFmixplF1e3dNe+ObjAQnFxZH0q5EkXrXieBW3m2T9+t0CmPAfohfOfJ
+X-Gm-Gg: ATEYQzzFzbF2UWhdE4MZ6qS75tOjd2xkjgXimpNGPSck5K9HiS02o13b1Tkz8gNLSGR
+ 4fCUJyMQ405YFuSaUtNcUQeU9JjCVjDtizaBYyUseEn5sox+XCKyqyiypqO2OVIP9ieuMbxhlxL
+ xdFYUhm03Z+7+9z4Gc61k2w80dz9+Xpr54o+7C9+6MsU5leu6KtTwvsxDgRvzxbwG9yVi9dPen/
+ UDwS4GodlBJ+8PrfJtZhMiZXQIyL/27BrnfmPXTOERmh9anA5M+dPg2qZRkHPJcJgbE69q30/uf
+ stDrf/geDFK4w0LThqkzeZywvMK57x1cJr43WDCPj57CBC4iS0bwycFisqOXJGHQ0VllfTcBlrq
+ lSh9VV2ddik2YAc28JyvVF06IihRmJUyoOlPmVKzDcNAgJyYYns2C3vLV8BOSel0Go38t6z6KHV
+ VIFc5JtCl2+k6AAzasgFTeQBjODzxo3ZotPtu6XJEHCbsgJY7TpQI4EvEA3dD+OVjVCg==
+X-Received: by 2002:a05:7022:698b:b0:12a:7165:7405 with SMTP id
+ a92af1059eb24-12be640d75amr3359834c88.8.1775081221588; 
+ Wed, 01 Apr 2026 15:07:01 -0700 (PDT)
+Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-12bede54ba8sm1605984c88.10.2026.04.01.15.07.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Apr 2026 15:07:01 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-arm-msm@vger.kernel.org
+Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ dri-devel@lists.freedesktop.org (open list:QUALCOMM CLOUD AI (QAIC) DRIVER),
+ linux-kernel@vger.kernel.org (open list),
+ linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by
+ other areas):Keyword:\b__counted_by(_le|_be)?\b)
+Subject: [PATCHv2] accel/qaic: kcalloc + kzalloc to kzalloc
+Date: Wed,  1 Apr 2026 15:06:43 -0700
+Message-ID: <20260401220643.12802-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260401090334.2329270-1-alvin1.chen@lcfc.corp-partner.google.com>
-In-Reply-To: <20260401090334.2329270-1-alvin1.chen@lcfc.corp-partner.google.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 1 Apr 2026 14:22:10 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VOL56zaLUGNzDUWcvbSENiHbDvNjD5dmkCgcHqUBL4QA@mail.gmail.com>
-X-Gm-Features: AQROBzCff3_mic6kdtdG3NCK5-lSNuNEnN6IR-P_WLrPr1U24_9dvZFRLWc99fE
-Message-ID: <CAD=FV=VOL56zaLUGNzDUWcvbSENiHbDvNjD5dmkCgcHqUBL4QA@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: Change BOE NV153WUM-N42 enable timings
-To: Alvin1 Chen <alvin1.chen@lcfc.corp-partner.google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,61 +91,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Consolidate the two-element allocation into a single allocation using a
+flexible array member. This reduces memory fragmentation and simplifies
+the error path by eliminating the need to check for allocation failure
+between the two allocations.
 
-On Wed, Apr 1, 2026 at 2:03=E2=80=AFAM Alvin1 Chen
-<alvin1.chen@lcfc.corp-partner.google.com> wrote:
->
-> BOE: NV153WUM-N42
-> 00 ff ff ff ff ff ff 00 09 e5 b3 0d 00 00 00 00
-> 11 23 01 04 a5 21 15 78 03 af e5 97 5e 58 92 28
-> 1f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 9c 3e 80 c8 70 b0 3c 40 30 20
-> 36 00 49 ce 10 00 00 1a 00 00 00 fd 00 28 3c 4c
-> 4c 10 01 0a 20 20 20 20 20 20 00 00 00 fe 00 42
-> 4f 45 20 43 51 0a 20 20 20 20 20 20 00 00 00 fc
-> 00 4e 56 31 35 33 57 55 4d 2d 4e 34 32 0a 01 92
->
-> 70 20 79 02 00 81 00 15 74 1a 00 00 03 01 28 3c
-> 00 00 60 49 60 49 3c 00 00 00 00 80 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 cb 90
+Add __counted_by for runtime bounds checking.
 
-NOTE: EDID is only needed here if it's different from the EDID that
-was provided when the panel was first added.
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: use macro for number of elements. reword commit message.
+ drivers/accel/qaic/qaic.h     | 4 ++--
+ drivers/accel/qaic/qaic_drv.c | 8 +++-----
+ 2 files changed, 5 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
+index fa7a8155658c..e237020f6aa9 100644
+--- a/drivers/accel/qaic/qaic.h
++++ b/drivers/accel/qaic/qaic.h
+@@ -152,8 +152,6 @@ struct qaic_device {
+ 	struct list_head	cntl_xfer_list;
+ 	/* Synchronizes MHI control device transactions and its xfer list */
+ 	struct mutex		cntl_mutex;
+-	/* Array of DBC struct of this device */
+-	struct dma_bridge_chan	*dbc;
+ 	/* Work queue for tasks related to MHI control device */
+ 	struct workqueue_struct	*cntl_wq;
+ 	/* Synchronizes all the users of device during cleanup */
+@@ -206,6 +204,8 @@ struct qaic_device {
+ 	void			*ssr_mhi_buf;
+ 	/* DBC which is under SSR. Sentinel U32_MAX would mean that no SSR in progress */
+ 	u32			ssr_dbc;
++	/* Array of DBC struct of this device */
++	struct dma_bridge_chan	dbc[] __counted_by(num_dbc);
+ };
 
-> The default 80ms enable delay (T8) for the BOE NV153WUM-N42 panel
-> has been found to be insufficient for certain hardware units,
-> leading to intermittent display initialization failures and
-> "drmSetMaster failed with -1" errors during VT2 switching.
->
-> Through extensive stress testing, increasing the '.enable' delay
-> to 200ms provides a **significant improvement** in synchronization
-> reliability. While this adjustment may not completely eliminate
-> failures on marginal hardware units, it substantially reduces the
-> failure rate and provides a more robust timing margin for the
-> DRM driver to complete initialization.
->
-> Validation:
-> On a previously failing unit, the 200ms delay demonstrated a
-> marked improvement in stability, successfully passing over 1,200
-> cold boot cycles before a failure was observed. This is a
-> significant leap in reliability compared to the original 80ms
-> generic setting.
+ struct qaic_drm_device {
+diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+index 63fb8c7b4abc..1dda8dfea5a4 100644
+--- a/drivers/accel/qaic/qaic_drv.c
++++ b/drivers/accel/qaic/qaic_drv.c
+@@ -43,6 +43,7 @@ MODULE_IMPORT_NS("DMA_BUF");
+ #define QAIC_DESC			"Qualcomm Cloud AI Accelerators"
+ #define CNTL_MAJOR			5
+ #define CNTL_MINOR			0
++#define DBC_NUM				16
 
-I'm really not a fan. Is there a way to determine the deeper root
-cause here? Have you asked BOE about what's going on here? Do they
-understand why the panel needs this extra delay, and why even with the
-extra delay it still doesn't always work? Is the problem truly related
-to the panel, or somehow about how it's hooked up to the board? I'm
-just worried that this is papering over the real bug by pushing around
-timings and the bug will come back again at some random time in the
-future.
+ struct qaic_device_config {
+ 	/* Indicates the AIC family the device belongs to */
+@@ -405,15 +406,12 @@ static struct qaic_device *create_qdev(struct pci_dev *pdev,
+ 	struct drm_device *drm;
+ 	int i, ret;
 
+-	qdev = devm_kzalloc(dev, sizeof(*qdev), GFP_KERNEL);
++	qdev = devm_kzalloc(dev, struct_size(qdev, dbc, DBC_NUM), GFP_KERNEL);
+ 	if (!qdev)
+ 		return NULL;
 
--Doug
++	qdev->num_dbc = DBC_NUM;
+ 	qdev->dev_state = QAIC_OFFLINE;
+-	qdev->num_dbc = 16;
+-	qdev->dbc = devm_kcalloc(dev, qdev->num_dbc, sizeof(*qdev->dbc), GFP_KERNEL);
+-	if (!qdev->dbc)
+-		return NULL;
+
+ 	qddev = devm_drm_dev_alloc(&pdev->dev, &qaic_accel_driver, struct qaic_drm_device, drm);
+ 	if (IS_ERR(qddev))
+--
+2.53.0
+
