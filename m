@@ -4,126 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA134107639C
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 19:32:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25904D3517F
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 20:01:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1030F10EB11;
-	Wed,  1 Apr 2026 19:32:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC45210E90D;
+	Wed,  1 Apr 2026 20:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rY8UrzBI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dF9Y1AwL";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010010.outbound.protection.outlook.com [52.101.46.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB9AF10E35A;
- Wed,  1 Apr 2026 19:32:51 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011031.outbound.protection.outlook.com [40.107.208.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD8B210E5CD;
+ Wed,  1 Apr 2026 20:01:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mRGXEwWnfgxDMX+3nED14nNDQrHWSy8b4ugUh2kTKZ7ONvrzbIM24CIJLRrz0vWlp1OpYpu8T/bwIKGXs56sdIjTHDI5drRKYvjqbd9+eN6w8oxqyOP9FomO9jf6b1PJv3bWPX2a1OM2xkhOqhZvl9rEMfk29dYarxLx/gSNWs6pmtmL7zI05RzPyYs6R7grG4GiSosI2h0VR/b0vHzmYcZ1VolA6+C1fHeZ72fqAfNUW+gD5wALHkYkwioKsfN6k3TclH03Egvi0E8dcThdaXPrfkVZWqOiNIwQ/oqpZx9xP5G4SbNVtqnenIAWNuP/wNpo3ppBQkHnhYU3ZVdpJg==
+ b=CnBxc2XwFKZBO/pm0GBwVVhrmv7yliMCz3Q8gKPhoSDn1x10xEZc0lUzJKU2SL4TlSMEvKy4Y6x3zDaClYEIPl4Yv9Xf8H3raJV310kn8B72MV4r+QrXbyLEr0BvMEFTu1vUcX91wKPg7a1yJNdDCJZu0UNYd5rpUc91u+FxlqS32Uk8OcS0nlYmFuHDhj1emAJniGVBEj8HTK92zWV93G6pKwkfVAW7enznw/1iOB/Cjko+tpuxVBsH8W7ZbXMUSyWf3t8TwzZ/sXvzOj87wrEaZtwYcAs9XsjBnoz+olJfvcSa5gVaFhKHrvwgYppj5xLBQnzoGPXdZCm6T7aNnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+kPNfJxiQu3a4OiAZXCtk3U88dZf+4g/kcPZM0zEb04=;
- b=qZqOXC2y6uRllSepyUNS5m+zYWSM6hmqSuYooaZFQBvMIzBsAvP/0uzkY9+6aYu7WAW4/2Tg5v6QGLPwTq6Rr15mjQaSOyFDxAQkN5o2abzgqug62NbKcw3XO9vcOnuJjA5cTB58B10ThblaiWAuvwVhWK24E5YwHa3rAB8Fxz6DoLI8G8gFWr/XTMyXJuuSe0NuHzQAuNzlVDIts9oGv3s7BYLFEEXO09BSmcQzeYlxYsPGN5y72SnQirtAnaTUEjy0k2RhqvZaA/IpP1CfcE41PAZVd2e2Vjjq/igypzyqqYl08CLOQH29VLpNuX+B0ljEU+rvmBvcbl89EjLBiQ==
+ bh=KsBJT/Em8skk6q552ZPA8UnfgSb1z7Ed2IUmXbFTv3k=;
+ b=udUZI+XctFX7wOZwh/9Qw+YfhIWZXuDUOo8o0Z/Mkvwn+Pj9A+7IVYD0pITnTQnWgwbuUn1URIHNHJHJFjYs8zaSzI5iq55SqfeSgle9XFABgcUIArEw9g3aj8Fu3qtzBUUgotPMoBeP2/StA5rXgtcewI2k4EnSGRoIBNWd0jwMkFR6kS0634jbXcWaqiSkqLXI3Vkdt2ZTVi9DkpxUEuNhdqPtur9LfsEWKsg2ggvmjKcvYPAKinq4ExRPP2+zpwdLe3E3hE5+HBYCWGN1vdnAqJgQNEY+udC0gLf1MphWi0TH8gDKUMwbfiMzM8x21H1y4QWdVelMD4hprYV4zQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+kPNfJxiQu3a4OiAZXCtk3U88dZf+4g/kcPZM0zEb04=;
- b=rY8UrzBIQI541HOrr6DYppZPjsuGfnf5GgqmFNS4tr+qNycLYm2gicYwDe/UZ9mnxglD13dH58A25RvJUHZpbXqAhhqKgzXF6pjMRsiOlqogxjOwb2DU1lCZI8xLLyoTEwrvgWOOZ/0DrrDHV7OTgwgPH46/YWqQMGcJ0UAJ2u4=
+ bh=KsBJT/Em8skk6q552ZPA8UnfgSb1z7Ed2IUmXbFTv3k=;
+ b=dF9Y1AwLvvvplvkI3QUjH+pqyhR+TukSFQOuD8ISHVWQ0tQnQa6IJWrVyrIl4tSZ1kVRTk4olt6Xlb8VSaHx2k+flPLjFymZ6uZ5lUd3q1/ua/6lsPfqnhxXgQfYdrwxrC2wvE/N021rsO9+vN3s4vpZdLoCndjTHq7wuOjCfVY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
- by MN2PR12MB4342.namprd12.prod.outlook.com (2603:10b6:208:264::7)
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com (2603:10b6:303:18a::10)
+ by IA0PR12MB8228.namprd12.prod.outlook.com (2603:10b6:208:402::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 1 Apr
- 2026 19:32:48 +0000
-Received: from BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
- ([fe80::c3e7:1bc5:2b91:1cfe%6]) with mapi id 15.20.9769.017; Wed, 1 Apr 2026
- 19:32:48 +0000
-Message-ID: <f4861fc9-a602-44b9-b5c3-6b9c7f233b15@amd.com>
-Date: Wed, 1 Apr 2026 15:32:45 -0400
+ 2026 20:01:10 +0000
+Received: from MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::715:65fb:c3fa:9c26]) by MW4PR12MB5667.namprd12.prod.outlook.com
+ ([fe80::715:65fb:c3fa:9c26%5]) with mapi id 15.20.9769.016; Wed, 1 Apr 2026
+ 20:01:10 +0000
+Message-ID: <9ed0f453-23ad-49c0-9ad9-c14f1999dba2@amd.com>
+Date: Wed, 1 Apr 2026 16:01:05 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
- back to dithering
-To: Mario Kleiner <mario.kleiner.de@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Aric Cyr <aric.cyr@amd.com>, Anthony Koo <anthony.koo@amd.com>,
- Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Krunoslav Kovac <krunoslav.kovac@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+Subject: Re: [PATCH v7 00/29] Fair(er) DRM scheduler
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, intel-xe@lists.freedesktop.org,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Leo Liu <Leo.Liu@amd.com>, Lucas Stach <l.stach@pengutronix.de>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+References: <20260306163445.97243-1-tvrtko.ursulin@igalia.com>
 Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
+From: vitaly prosyak <vprosyak@amd.com>
+In-Reply-To: <20260306163445.97243-1-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0135.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:83::32) To BL1PR12MB5126.namprd12.prod.outlook.com
- (2603:10b6:208:312::8)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0423.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10b::7) To MW4PR12MB5667.namprd12.prod.outlook.com
+ (2603:10b6:303:18a::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|MN2PR12MB4342:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1988bee3-ed7a-4786-9f9e-08de902574d8
+X-MS-TrafficTypeDiagnostic: MW4PR12MB5667:EE_|IA0PR12MB8228:EE_
+X-MS-Office365-Filtering-Correlation-Id: 664fe0a0-40ba-4bd9-1a35-08de90296b1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: 8V7dqDGH1UO1mgci0jIYxDjuQ7Z1VsSkVboU+6NgRdAAM2uGxN2W1CE0WPVK7ltc5VqRF0l6JiBjbZZHnNAfKAXmWKjb1FN/NLq6VA/h/0igUpEhljgdqrP7p15SzFUrOX6xcoQImHLOYBPfpd173bEdOU1cXeAHlSf9s3YFOfxcTg7RwVx4TIly31+VRbDH/AaJ8Tsr5PHAhGqZYkja8vvpfgQHaP46si+CzsQD3naLy6//rMZn0IvgUMOWOnsFTEC7BkNfN/vy/U0PppbORk1bSBAopKUmE3G342TFeks1hxuf/qGROlNVnNsN+APVEs9m9iXGOnOISsV/6a/Y7y5ZclsP+MguI3M961BlrWDuE1Rj5+TrCwAwQ4jgaSzykAn7XTYJHQtWVZwq7pgo0qshE1YNftgzKQRPZrIo7wuEMedgexGuvWDO1Q8IsYLrQinblsiXct9862hOdgHKuIf1mtm+pof+ZTfvvdKPE+Tu3bwTbJXCKMIQEgwfZLK1fnN4KgZJNbn7DXiY7i/a9dGo7IDzA/FF9C2UDpwOVfOz5iqrQawAjZ2BCrFfjzrkAl8TxXyk30hzlRt3ppTfsMR5/Lk/y+gZrs4kpSQu1mhYIIHyLsVAcgVPlh3mCYHg+JyvhUFF3ymRGLi33Zt9K7oxKKM7pZ4BxKe3YOSSUO9KzlG5NDVYFRbJB3stYFuo8Qt3x4i9upTyCLSYLQ56fuaBb6QNP/Z1x+1khM8uILQ=
+ ARA:13230040|366016|7416014|376014|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: y6HV8PQZeg37HpH84h+lEK9DSVCGQm2u4DdOZDxyeYYRADVihvgMVYmZxG+lu32O4EQ6HXELXmA4NNmhY0fhmlTo5JDlAb490D3fvFwQe9YEW4NeLxn3YCY61nNsNsHqdZ5IN5RtUXmWx4EUGfBO4cQXWxeyUL0qXBXhu2E8pXZqd2kyBPoMA6KgAUfa+MncOjIiYPfhi3Eo32fIE3cmiXkH2x1SBfXEB8J+/NZrPGbHUHEAgIECZfB3G55bXv3SJ2tLqmVmgMcJVgm1a2GtlDjYNscCF0WvCPhSoJjp7P97Q8QummhdBtLCttziiobiRX06iyIgFUnXLtTwu1I9bqgu4pmEs8YddOIXLXb0qQOEnvgLcuoQfMalBbKKYoyt64bPVQ5k1iOhu3WDEn885NeBkJiMNv14xvbdk+vfuLzAybJfe34OvmrosFlEwkqBVd9EZpWIDCW78gzUMkt7I1xdzB0ksZy3IJR+6Zg3MK9Tuv0qkEgBIIH6IGNOyHenOAyBAK9iu/wmymLXJiptVLbVUjogFm6mjwIXlSIdT/1ORlGwepdJR219Z1mUoJnoiA6YsjQgWPQ+cHRx1iVj58ekXyNd2lFSpDmd/q306x3gkrkbvpuTkrNDpj0nHjAOtuCm2W4bIAIhCJ5/eQfKsZWztwebeVfFOb4aaUA2SPQtc4KLLVkdTS5R/EEAsrnZ
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB5667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YU9keXQwRGFQWVoyaUdaVWdNODB3NWZYSTcyY0pYK201Y0RVYU9KLzduTnBU?=
- =?utf-8?B?QWZpSmg3R3hZQ3JPMzVYWGx4UWNXM3pkR0VzZGE3YkdiVWZRZk1EQ2YxY1dE?=
- =?utf-8?B?c0J3cHhrMm93VmIyaG15MXgwSlNyaTNZeTQyc0ZPNG1vWm1CVWZEODhxWlJv?=
- =?utf-8?B?ZVdLVTdlVWpjNVREdDNSbTRvbW0waHd4NitSak1RM2tFRUhYeCtvNk5SV1hF?=
- =?utf-8?B?TERERVkyVFVZcG9rakI1ZERIMUlKR0hLN1FJVlV6Z0FkK0JDb1JsU1V2OVNS?=
- =?utf-8?B?bTdVam5xdWMrMTN1QVgvbEZrMnBIcGhJSDBnakdtaVNYVU5iTVR1TE8wdE1R?=
- =?utf-8?B?eU1maGgrWHlYZVlnVFA3cCtlcWFISTRoZXNZSDVaVjRVSVBnZm9RaEZveERN?=
- =?utf-8?B?cXcrczdIVm0vQ3dmVmlaZjRsWHdqQVNQOFdzWTg2N3BCb2VhaDV6djdNSllw?=
- =?utf-8?B?ZEZKT2o3VGRra1pEWEFQRUg5aGZMVWpvTFV2VHpPSWNUWWxGTGg3WTZjVzIy?=
- =?utf-8?B?Y0ZsSmtSNHNSdmF2bnk5bDl0d0ZseEhiNUQ3azVTMk5Kczg5ZDkvNElPVFA5?=
- =?utf-8?B?Tk1OaW0veXRPejBnNUE0MFBaWlowK0ZlVm10NERYUVkvcjQxa1gxTWx0QU1W?=
- =?utf-8?B?Q3c1RDNHTUFpMEZyRVF3c2ZyNmZkRW5ZcE1Wc1FNZ1JVUGJLZnBoRVE1Qi81?=
- =?utf-8?B?WEN6VzV1bW5aZ0pEanNKNVJia2ptaXNzWUEyWXpsK3pvYi96VDVHSlVBMmtw?=
- =?utf-8?B?Q0VkbVgyeTR5akNodWlkTWUzRmxaTzBXMGEySkxjUVhxd2NRUTJ1TWhSS1lk?=
- =?utf-8?B?ZjJkK0FpS0JrbWJENFgxR29OR1JiSUVIMHI0YkxsM2t6QXNLQytKUkl2ZkNa?=
- =?utf-8?B?WHdzd2RjVS8xVXFEOHVpZFlKMHhmUHdibGVyQklReE54ZW5IOEVndHdaQlRU?=
- =?utf-8?B?TzY5WGZsYW1SMWdqSEFnUWZZL3VOZU5yekN4ZWtaY29MM2xybWlGZFVUcU5N?=
- =?utf-8?B?NU5Gc3Urci95bm41NEV3L21NWmd5dXlLWVdBUDhRUmNqT3NCUUlEV0ZtNmtq?=
- =?utf-8?B?UzdWeXpCTXRGbmhkTVNyTG9LK3RJYUxONk9nR2h1NkFmblFmWFZJc2ZEQ2wv?=
- =?utf-8?B?R2JOQmE3Q2hVT3VnVDIxc0ZJbkx2Tnc1ZEI3ZytHSDNNcUV2VkVMZ1dYbUlj?=
- =?utf-8?B?L01DVHhLbkhXSnVNaEZ3M2VwdXF2ei85M2hjZFVyUTI2UWN3cVZURHUyQjRP?=
- =?utf-8?B?NUJLelBDZDdSVFdxUVhUb250NnBMRnpZQ1YyUGxEYVRlWEhvV0pOb0FiWFNx?=
- =?utf-8?B?Wm1zbmpwVHd5dkIxV3kwNERXZitYcGFMeUluVVFFeXd4Q1Z4dWpPdE81b25n?=
- =?utf-8?B?S050VHlRRFI5clZHR0RaZkpSUld4ekRyVS8wSkNHQzcwY0xmRnZNSXNPNFZI?=
- =?utf-8?B?MWFMaW56ZzgzOTEvTnBpcUNodzVHUVRCVFBFWGtKdytLTWdFV1hUSnVhSjNW?=
- =?utf-8?B?ZUdBa1RGRHpObkIxYjdmZzMwaXNsU1YrV04xNFJxN2R2NFBCdzQwdUR5ZXY1?=
- =?utf-8?B?M0NCWk5Ec1c0WFlBTDV0V3EzWVRLRHFydCsxSHA2RWd5RFBFNHF6M1hEd1JE?=
- =?utf-8?B?ZXY3RWloeEIzdk1OZEhPVGhScXo5QVB6MFdxb2tocVFWaXZQdkRyMkxWdEJF?=
- =?utf-8?B?ZlIzY1hON2dGMHRDVG05cGN2cVl0VmZIdmtnT3NDQ1FnbkhLRVdEdnNOdUJM?=
- =?utf-8?B?M0IxTjJ5VVdXV3RsQVZDZER4T1ZZVVBSY3RmUEg5alAybmlabWlFRjZ6RnJp?=
- =?utf-8?B?Qm4wU3Z3WkJqSy83OCtRVVFzdE9sUnFmUk5FNVJ5QkdaSytvanB0VmtJSnUz?=
- =?utf-8?B?ZTFjZ3N6Zm1nc2V3N0taVGZaSFo1MVRoR0d0aEF5WVExNXJIRFRsTmtDaU8z?=
- =?utf-8?B?dWRhQy9QR0NTSHlSMWRHYVpYeXF3TXNqcSs4dlhLNjFMb1lYd3Q0MkJJZ2hD?=
- =?utf-8?B?MitkUkw4N2h4dTJqOU1jUktKZnhUUHQxNEtMbFg1eXhBajlubVpSM2lpeDZv?=
- =?utf-8?B?VGR1SWNiYy80d1Zoc2lVckplWFRxTnQyK3QwdFpWQlVWWlppbTc5VG5pbVM0?=
- =?utf-8?B?UFBvSldIS1VYb3ArNzFQamJvTG1nd0F5dUswdkpTd29SSUVtRDE1SnFrQ0Ni?=
- =?utf-8?B?dWk4MDBMVTNMQlhxUzBRY2VRQ0JzTUREQmJGYVZCWVhpUjFOclNHOTE5RzVH?=
- =?utf-8?B?WldqUlFaM0poc0RKTm8xUS9VQ2d6TGQ4WnVUSGVKVGQ0ZEJKWmo5dlBtSEdN?=
- =?utf-8?B?QmVKcXFmWWFSWlBvOWNGZFIzVFpnZ0JUZktoYWJuelB3RlE2UzRyUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bENaSjVadGxmYTZIcmY0N2tQNklpOHhLdTRRb1FoU2ZTb2JyWDRJcDRJVWxm?=
+ =?utf-8?B?cDJJWU5leUhINmI4YVd6TVJXcW1GM3ZrSDhZclMzRm14TVgyTmNDY2JiZVJj?=
+ =?utf-8?B?QVNTU1M0UGQ5VHZpSk16Vm0vSFpMQU03L3IvUDhtRzdFbVNxZXUzMjZnRE5G?=
+ =?utf-8?B?MFhqams1cE1tZHd2MzQxTVQ5YlZPZjRYaVZoL1RPTFF0c2IvNm5Xd1A4YTdE?=
+ =?utf-8?B?QkhkZkxaUUg3Wit2OUpwMEdESVNWY2w5TU5xcmxVc0M0U1BWZ3lROHdnZkxw?=
+ =?utf-8?B?Y1ZHdlptcEk2bVg1TUR2RWRBbzhyeWYxdjN4MHZmdUJNYVJBVzJubnNiRjJu?=
+ =?utf-8?B?VjloT0lpeHNsREtvbnN1bTFWaG5FNk9BbGN0TjAwcTdOdU5URFZ5SkxzS0hH?=
+ =?utf-8?B?TGJvMnlOeE1VN0JTblNWNE8rQXhmOEhhK01tVXpLOHI5ZzRJUFNBUW9TbGE4?=
+ =?utf-8?B?TjFKVFN1MHE5N3QrNWFrT2lzNzBaOVkwVkJlbTBBRjUwZHNLR3BrV3RYTHNY?=
+ =?utf-8?B?UHdVQVErMVZKUjZMR2dUWUVLeTdRNWNjbVdKTUo0cHB5QXlyYnF4Q0daak1p?=
+ =?utf-8?B?aVJ6b2J4VGFDREZONExGUzkzWndERTdYdUJvTTM5MW9mM3hjTzB3VDNORzhI?=
+ =?utf-8?B?Vm1XSTFkcFNMWlc0bGFxMC9YcTkwZ2F1RVJzR1VCU25XV1UvWFFHNlFUSzNH?=
+ =?utf-8?B?ajV4UkJEa2NiVS9aMUVoejI0QktYcmlZd2phd3NzZit0RnN6MVV1TkRrNnhp?=
+ =?utf-8?B?ckhlWGFUUmMwUllQcnpVVE5XbmQzVlFnWEpRdHVMY2Y1NnErNUVxODVZVVh2?=
+ =?utf-8?B?ZGFFVXB0VEROViswdzAxQmJrVW1OV2V3VlFIRkZ0V0hzVStPM1R1U0FWMGg5?=
+ =?utf-8?B?eEl1Q1R2ZS9GL0ZCT3FubVkycURFYlhrRjhGN1ZZMTlCMDVxempYMFZNVkNq?=
+ =?utf-8?B?NnJlVFBjNEdvTUFUN3NmbEdZYmx2ZnEwenBDMVNQMHNYOGRuN1FMN09NZ2Y1?=
+ =?utf-8?B?VnQxb3BDbjZ5SEpKY3BSWHcvc05NUkFMSmJkbVBYbDhRbXd5aXh4dUdjRFZk?=
+ =?utf-8?B?V0w3Zkt4bWdCS0VuTUNzU0pBNlYycVhWZXV0T0pWeDZCcjdsamV2Y3MzREFT?=
+ =?utf-8?B?T0FKSjRveFBUU3V2Z3NEYkV5VDdKUlUxWlRmMDlZWlpZMkR4UkhaeXYxdkhJ?=
+ =?utf-8?B?UnNmTkFzY3BFbnhhbS9hSG9tZkJRTHIvckNlaE8wV2xhNmt4YWkvbFZHWnJy?=
+ =?utf-8?B?SlNuL0hnRS81WWNaQndsSytrR2xTTVlVMkdtYTNnZjJuSW1pRDdXSDdKK1Jl?=
+ =?utf-8?B?aktpaWhlYzNRb0hqS1Vka1RWZWhLb2VZZFRQQ3dRaFhmY0VKSGJPc0ZNNlda?=
+ =?utf-8?B?VXpBS3ZJR0VVQXBOMjBxTGxjQ3NsMmNDMEp6SWRxWmRaVkhJNHpXUmNpK2Vz?=
+ =?utf-8?B?aldvQ0xlNTVwcEZkZzhNbmxLblYyTkJiOEw4OUk5UDFoZ1VaYkJkVFliSkRP?=
+ =?utf-8?B?alNmWVgva0dzZVlmZzc5QkxCaWZKcUtCWlFFNzlFSHJHZTFKU3FuY3dWa1lG?=
+ =?utf-8?B?RE1oTlh2YXU0MWhMWjhLUGN5MUVZcm9ZazNVcXk0cDVnYUgyODBBN1pFSGF0?=
+ =?utf-8?B?VU9Hcm0raUpkVGJtYTZSa0tkNHJYSFpyVXpFRXZ3OXljQjBGT0dWYmhxM0pD?=
+ =?utf-8?B?SGtzMThJdFhydFZaSTlCejk5THBnWmdGUHFsRktyaEpMcUhDaGdYNS8yZ0J4?=
+ =?utf-8?B?NmdmTHZXVlhWRlU3Vmp2T1RxL3JUSXRDandkLyt4MkZ1NDI0cWQ3c0FNS3Vo?=
+ =?utf-8?B?TmIxd0dzUFBqRFQvcTZnS2RVVEZqc1ZFRTRlNEFDeEVRK0hjeVpOdlpxVlk2?=
+ =?utf-8?B?YmVLWG9UeUNiU0laTWEyUzAwYmtRTEl1MWJ6d2U4dWVtOFN0Um1VbCtrNlhj?=
+ =?utf-8?B?MkpOVVlpeGhxTkQyakZneU1xN3FCNEVsUXFRL3lFK21odlNsaHJTRkJQMkRp?=
+ =?utf-8?B?UjNVZjZwL1lPdThwTm5oK1U4ZUNOUzh4MVdMOEdMcFZlSnlNbUdmR0FMamRS?=
+ =?utf-8?B?VnIrMFNYbEFBb1c1NXRBRFpvdEh4VVpqNGJBN2h2UDg5Qy9JK0RCTkpqYXBK?=
+ =?utf-8?B?TjdpY1ZOdEtHQ0JDT2Q2L2RwZFI3MjAxYzA3SWZpLzJvTFd4VlZSN3p4YmtB?=
+ =?utf-8?B?eXIzQXJwK2NvbTV1endHbXdZaGdMRXh0dXFudStWazU1QnJPWkpUUmVzY29n?=
+ =?utf-8?B?aTJrZnhwWGQ2Qk5hSmt6czNvdGR5dmVxRFRZWXRwRTR1SG11OXNaekl1ak5P?=
+ =?utf-8?B?cElZOWFoRGtBNkFzcjhqay8yV2xoUXo0cXVKQm4yeWsvN1Z4bXBWZz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1988bee3-ed7a-4786-9f9e-08de902574d8
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 664fe0a0-40ba-4bd9-1a35-08de90296b1d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB5667.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 19:32:48.3118 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 20:01:10.0761 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0sbT8kPKSZzhBnZ0/8mTQ2P+/m5j2qNVqBV9VpoWtrB+OdErfSNPwXRh/l8s+lO7SorBIF4KURvsp7aaoaRHqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4342
+X-MS-Exchange-CrossTenant-UserPrincipalName: 237jFsobhwm5aFf20YgzXbPyOk7fIqtyI7nlbubSPIiUSEF9jJJxxv6Rugy2EHfKxhrswVbJyRg8/5BLqmtlOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8228
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,97 +141,348 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Tested-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
+Tested the 29-patch scheduler series on our CI; no issues were found.
 
-On 2026-03-21 01:20, Mario Kleiner wrote:
-> Commit d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to
-> round") degraded display of 12 bpc color precision output to 10 bpc sinks
-> by switching 10 bpc output from dithering to "truncate to 10 bpc".
-> 
-> I don't find the argumentation in that commit convincing, but the
-> consequences highly unfortunate, especially for applications that
-> require effective > 10 bpc precision output of > 10 bpc framebuffers.
-> 
-> The argument wasn't something strong like "there are hardware design
-> defects or limitations which require us to work around broken dithering
-> to 10 bpc", or "there are some special use cases which do require
-> truncation to 10 bpc", but essentially "at some point in the past we
-> used truncation in Polaris/Vega times and it looks like it got
-> inadvertently changed for Navi, so let's do that again". I couldn't find
-> evidence for that in the git commit logs for this. The commit message also
-> acknowledges that using dithering "...makes some sense for FP16...
-> ...but not for ARGB2101010 surfaces..."
-> 
-> The problem with this is that it makes fp16 surfaces, and especially
-> rgba16 fixed point surfaces, less useful. These are now well
-> supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by
-> OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Wayland,
-> and they used to provide more than 10 bpc effective precision at the
-> output.
-> 
-> Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuffer,
-> e.g., gamma tables, CTM, can be used for color correction and will
-> benefit from an effective > 10 bpc output precision via dithering,
-> retaining some precision that would get lost on the way through the
-> pipeline, e.g., due to non-linear gamma functions.
-> 
-> Scientific apps rely on this for > 10 bpc display precision. Truncating
-> to 10 bpc, instead of dithering the pipeline internal 12 bpc precision
-> down to 10 bpc, causes a serious loss of precision. This also creates the
-> undesirable and slightly absurd situation that using a cheap monitor
-> with only 8 bpc input and display panel will yield roughly 12 bpc
-> precision via dithering from 12 -> 8 bpc, whereas investment into a
-> more expensive monitor with 10 bpc input and native 10 bpc display will
-> only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a properly
-> set up color pipeline (gamma tables, CTM's etc. with more than 10 bpc out
-> precision) would allow effective 12 bpc precision output.
-> 
-> Therefore this patch proposes reverting that commit and going back to
-> dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8 bpc
-> output.
-> 
-> Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 with
-> a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer and
-> measuring resulting color precision with a photometer. No apparent visual
-> artifacts or problems were observed, and effective precision was measured
-> to be 12 bpc again, as expected.
-> 
-> Fixes: d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc to round")
-> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> Cc: stable@vger.kernel.org
-> Cc: Aric Cyr <aric.cyr@amd.com>
-> Cc: Anthony Koo <anthony.koo@amd.com>
-> Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-> Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
+Thanks,
+Vitaly
 
-Kruno and I chatted a bit more about this and the best way forward
-seems to be to re-enable SPATIAL10 dither and then override that
-when needed in our Windows driver.
-
-Patches is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-
-Will pull it in today.
-
-Harry
-
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> index c9fbb64d706a..29db5404c4a0 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -5056,7 +5056,7 @@ void resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
->  			option = DITHER_OPTION_SPATIAL8;
->  			break;
->  		case COLOR_DEPTH_101010:
-> -			option = DITHER_OPTION_TRUN10;
-> +			option = DITHER_OPTION_SPATIAL10;
->  			break;
->  		default:
->  			option = DITHER_OPTION_DISABLE;
-
+On 2026-03-06 11:34, Tvrtko Ursulin wrote:
+> [disclaimer]
+> Please note that as this series includes patches which touch a good number of
+> drivers, I did not copy everyone on everything. Assumption is people are
+> subscribed to dri-devel and for context can look at the whole series there.
+> [/disclaimer]
+>
+> As a summary, the new scheduling algorithm is insipired by the original Linux
+> CFS and so far no scheduling regressions have been found relative to FIFO.
+> There are improvements in fairness and scheduling of interactive clients when
+> running in parallel with a heavy GPU load (for example Pierre-Eric has one
+> viewperf medical test which shows a nice improvement with amdgpu).
+>
+> On the high level main advantages of the series are:
+>
+>  1. Scheduling quality - schedules better than FIFO, solves priority starvation.
+>  2. Code simplification - no more multiple run queues and multiple algorithms.
+>  3. Virtual GPU time based scheduling enables relatively simple addition
+>     of a scheduling cgroup controller in the future.
+>
+> There is a little bit more detailed write up on the motivation and results in
+> the form of a blog post which may be easier to read:
+> https://blogs.igalia.com/tursulin/fair-er-drm-gpu-scheduler/
+>
+> First patches add some unit tests which allow for easy evaluation of scheduling
+> behaviour against different client submission patterns. From there onwards it is
+> hopefully a natural progression of cleanups, enablers, adding the fair policy,
+> and finally removing FIFO and RR and simplifying the code base due no more need
+> for multiple run queues.
+>
+> Series is structured in a way where we could apply the first 12 patches (up to
+> and including "drm/sched: Switch default policy to fair") in one kernel release
+> and then follow up with the rest of the cleanups after a release or two if
+> things will be looking fine. Until the remainder of the series would be merged
+> it would be easy to flip the default algorithm back.
+>
+> Onto the performance evaluation. As a headline result I have tested three
+> simultaneous clients on the Steam Deck:
+>
+> One instance of a deferredmultisampling Vulkan demo running with low priority,
+> one normal priority instance of the same demo, and the Unigine Heaven benchmark.
+>
+> With the FIFO scheduler we can see that the low priority client is completely
+> starved and the GPU time distribution between the other two clients is uneven:
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/fifo-starvation.png
+>
+> Switching to the fair scheduler, GPU time distribution is almost equal and the
+> low priority client does get a small share of the GPU:
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/fair-no-starvation.png
+>
+> Moving onto the synthetic submission patterns, they are about two simultaneous
+> clients which broadly cover the following categories:
+>
+>  * Deep queue clients
+>  * Hogs versus interactive
+>  * Priority handling
+>
+> Lets look at the results:
+>
+> 1. Two normal priority deep queue clients.
+>
+> These ones submit one second worth of 8ms jobs. As fast as they can, no
+> dependencies etc. There is no difference in runtime between FIFO and fair but
+> the latter allows both clients to progress with work more evenly:
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/normal-normal.png
+>
+> (X axis is time, Y is submitted queue-depth, hence lowering of qd corresponds
+>   with work progress for both clients, tested with both schedulers separately.)
+>
+> Round-robin is the same as fair here.
+>
+> 2. Same two clients but one is now low priority.
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/normal-low.png
+>
+> Normal priority client is a solid line, low priority dotted. We can see how FIFO
+> completely starves the low priority client until the normal priority is fully
+> done. Only then the low priority client gets any GPU time.
+>
+> In constrast, fair scheduler allows some GPU time to the low priority client.
+>
+> Here round-robin flavours are the same as FIFO (same starvation issue).
+>
+> 3. Same clients but now high versus normal priority.
+>
+> Similar behaviour as in the previous one with normal a bit less de-prioritised
+> relative to high, than low was against normal.
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/high-normal.png
+>
+> And again round-robin flavours are the same as FIFO.
+>
+> 4. Heavy load vs interactive client.
+>
+> Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed by a
+> 2.5ms wait. Interactive client emits a 10% GPU load in the format of 1x 1ms job
+> followed by a 9ms wait.
+>
+> This simulates an interactive graphical client used on top of a relatively heavy
+> background load but no GPU oversubscription.
+>
+> Graphs show the interactive client only and from now on, instead of looking at
+> the client's queue depth, we look at its "fps".
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-heavy-vs-interactive.png
+>
+> Here round-robin and round-robin rewritten on top of FIFO are best, with the
+> fair algorithm being very close. FIFO is clearly the worst.
+>
+> 5. An even heavier load vs interactive client.
+>
+> This one is oversubscribing the GPU by submitting 4x 50ms jobs and waiting for
+> only one microsecond before repeating the cycle. Interactive client is the same
+> 10% as above.
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-very-heavy-vs-interactive.png
+>
+> Here FIFO is even worse and fair is again almost as good as the two round-robin
+> flavours.
+>
+> 6. Low priority GPU hog versus heavy-interactive.
+>
+> Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
+> Interactive client: 1x 0.5ms job followed by a 10ms wait.
+>
+> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-low-hog-vs-interactive.png
+>
+> All schedulers appear to handle this almost equally well but FIFO could still be
+> the last while fair has a slight lead.
+>
+> As before, I am looking for feedback, ideas for what other kinds of submission
+> scenarios to test, testing on different GPUs and of course reviews.
+>
+> v2:
+>  * Fixed many rebase errors.
+>  * Added some new patches.
+>  * Dropped single shot dependecy handling.
+>
+> v3:
+>  * Added scheduling quality unit tests.
+>  * Refined a tiny bit by adding some fairness.
+>  * Dropped a few patches for now.
+>
+> v4:
+>  * Replaced deadline with fair!
+>  * Refined scheduling quality unit tests.
+>  * Pulled one cleanup patch earlier.
+>  * Fixed "drm/sched: Avoid double re-lock on the job free path".
+>
+> v5:
+>  * Rebase on top of latest upstream DRM scheduler changes.
+>  * Kerneldoc fixup.
+>  * Improve commit message justification for one patch. (Philipp)
+>  * Add comment in drm_sched_alloc_wq. (Christian)
+>
+> v6:
+>  * Rebase for "drm/sched: De-clutter drm_sched_init" getting merged.
+>  * Avoid NULL rq dereference from a bad rebase. (Maira)
+>  * Added some kerneldoc throughout. (Maira)
+>  * Removed some lockdep annotations not belonging to one patch. (Maira)
+>  * Use dma_fence_is_signaled in "drm/sched: Avoid double re-lock on the job free path". (Maira, Philipp)
+>
+> v7:
+>  * Rebase for some prep patches getting merged.
+>  * Dropped submit all ready jobs patch.
+>  * Fixed 64-bit division in unit tests.
+>  * Fixed some more rebase and patch re-ordering mistakes.
+>  * Preserve entity RR order when re-entering the queue.
+>  * Fine tuned the queue re-enter logic for better behaviour with interactive
+>    clients.
+>  * Removed some static inlines.
+>  * Added more kerneldoc.
+>  * Done some benchmarks in the round-robin scheduling modes.
+>
+> v8:
+>  * Rebased for upstream changes.
+>  * Added assert for reverse numerical order of DRM_SCHED_PRIORITY enums.
+>  * Fixed head of rq priority updates.
+>
+> *** RFC -> PATCH change log version reset. ***
+>
+> v9 / v1:
+>  * RFC -> PATCH for the series as agreed during the XDC.
+>  * Updated interactive benchmark graphs.
+>  * Improved handling of interactive clients by replacing the random noise on tie
+>    approach with the average job duration statistics.
+>  * Document in code why we track entity GPU stats in a reference counted structures.
+>  * Document the new structure fields added by the fair policy.
+>  * Undo some tab vs spaces damage.
+>  * More accurate wording in the fair policy commit message.
+>  * Default to fair policy in a separate patch.
+>  * Renamed drm_sched_rq_select_entity to drm_sched_select_entity and make it only take sched.
+>  * Fixed kerneldoc after removing scheduling policies and renaming the rq.
+>  * Reversed arguments of drm_sched_rq_init and cleanup callers. (New patch)
+>  * Removed unused num_rqs from struct drm_sched_args. (New patches)
+>  * Unit tests:
+>    * Added wait duration comments.
+>    * Data structure comments.
+>    * Better name for a local variable.
+>    * Added comment to the short job duration assert.
+>    * Added comment for cond_resched().
+>    * Tweaked some comments
+>    * Added client_done() helper and documented the READ_ONCE.
+>    * Clarified cycles per second calculation.
+>
+> v2:
+>  * Dropped the sched_rq_init() argument re-order patch.
+>  * Pulled run queue management consolidation patches to start of the series.
+>  * Drm_sched_rq_get_rr_ts() renamed to drm_sched_rq_next_rr_ts().
+>  * Added DRM_SCHED_PRIORITY_INVALID local define.
+>  * Added locking around the ktime_t vruntime read.
+>  * Expanded comment relating to the unlocked entity->priority read.
+>  * Expanded comment relating to the unlocked scheduler average job duration read.
+>  * Various kerneldoc tweaks.
+>  * Undo some tab vs spaces damage harder.
+>  * Undo one empty line rebase damage.
+>  * Reworded commit message for the FIFO and RR removal patch.
+>  * Various commit message spelling, grammar and typo fixes.
+>  * Unit tests:
+>    * Various style changes.
+>    * More descriptive test names.
+>    * Print legend for measured metrics.
+>    * Check for memory allocation failures.
+>
+> v3:
+>  * Marked fair policy as default in the correct patch.
+>  * Further improved comment in drm_sched_rq_update_prio().
+>  * Moved DRM_SCHED_PRIORITY_INVALID to gpu_scheduler.h.
+>  * Added description of the GPU time to vruntime scaling factors.
+>  * Recorded more collected acks.
+>
+> v4:
+>  * Rebased, collect ackes and r-b-s receives so far.
+>  * New patch in the series for handling the new ethosu accel driver.
+>  * Bump lower priorities lower down in the run queue when they re-join, in order
+>    to penalize them a bit more than simply making them second in the line to
+>    run as it was in v3.
+>
+> v5:
+>  * Rebased, collect ackes and r-b-s received so far.
+>  * Fix lost return statement introduced in v2 refactoring.
+>  * Use virtual runtime based on average job durations when placing the re-
+>    joining lower priority entity in the run-queue.
+>
+> v6:
+>  * Renamed drm_sched_entity_stats_alloc to drm_sched_entity_stats_new.
+>  * Moved drm_sched_entity_stats_job_add_gpu_time to sched_entity.c.
+>  * Improved kerneldoc for struct drm_sched_entity_stats.
+>  * Explained GPU accounting placement in the respective commit text.
+>  * Removed duplicated sched list assignment int the embedding the run-queue
+>    patch.
+>
+> v7:
+>  * Rebased to catchup with upstream changes.
+>  * Dropped the two amdgpu dependencies from the series - they have been merged
+>    and have propagated to drm-next and drm-tip.
+>  * Applied acks/reviews received since v6.
+>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> CC: Leo Liu <Leo.Liu@amd.com>
+> Cc: Lucas Stach <l.stach@pengutronix.de>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
+>
+> Tvrtko Ursulin (29):
+>   drm/sched: Disallow initializing entities with no schedulers
+>   drm/sched: Consolidate entity run queue management
+>   drm/sched: Move run queue related code into a separate file
+>   drm/sched: Add some scheduling quality unit tests
+>   drm/sched: Add some more scheduling quality unit tests
+>   drm/sched: Implement RR via FIFO
+>   drm/sched: Free all finished jobs at once
+>   drm/sched: Account entity GPU time
+>   drm/sched: Remove idle entity from tree
+>   drm/sched: Add fair scheduling policy
+>   drm/sched: Favour interactive clients slightly
+>   drm/sched: Switch default policy to fair
+>   drm/sched: Remove FIFO and RR and simplify to a single run queue
+>   drm/sched: Embed run queue singleton into the scheduler
+>   accel/amdxdna: Remove drm_sched_init_args->num_rqs usage
+>   accel/rocket: Remove drm_sched_init_args->num_rqs usage
+>   accel/ethosu: Remove drm_sched_init_args->num_rqs usage
+>   drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+>   drm/etnaviv: Remove drm_sched_init_args->num_rqs usage
+>   drm/imagination: Remove drm_sched_init_args->num_rqs usage
+>   drm/lima: Remove drm_sched_init_args->num_rqs usage
+>   drm/msm: Remove drm_sched_init_args->num_rqs usage
+>   drm/nouveau: Remove drm_sched_init_args->num_rqs usage
+>   drm/panfrost: Remove drm_sched_init_args->num_rqs usage
+>   drm/panthor: Remove drm_sched_init_args->num_rqs usage
+>   drm/sched: Remove drm_sched_init_args->num_rqs usage
+>   drm/v3d: Remove drm_sched_init_args->num_rqs usage
+>   drm/xe: Remove drm_sched_init_args->num_rqs usage
+>   drm/sched: Remove drm_sched_init_args->num_rqs
+>
+>  drivers/accel/amdxdna/aie2_ctx.c              |   1 -
+>  drivers/accel/ethosu/ethosu_job.c             |   1 -
+>  drivers/accel/rocket/rocket_job.c             |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
+>  drivers/gpu/drm/etnaviv/etnaviv_sched.c       |   1 -
+>  drivers/gpu/drm/imagination/pvr_queue.c       |   1 -
+>  drivers/gpu/drm/lima/lima_sched.c             |   1 -
+>  drivers/gpu/drm/msm/msm_gem_vma.c             |   1 -
+>  drivers/gpu/drm/msm/msm_ringbuffer.c          |   1 -
+>  drivers/gpu/drm/nouveau/nouveau_sched.c       |   1 -
+>  drivers/gpu/drm/panfrost/panfrost_job.c       |   1 -
+>  drivers/gpu/drm/panthor/panthor_mmu.c         |   1 -
+>  drivers/gpu/drm/panthor/panthor_sched.c       |   1 -
+>  drivers/gpu/drm/scheduler/Makefile            |   2 +-
+>  drivers/gpu/drm/scheduler/sched_entity.c      | 163 ++--
+>  drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
+>  drivers/gpu/drm/scheduler/sched_internal.h    |  70 +-
+>  drivers/gpu/drm/scheduler/sched_main.c        | 351 +------
+>  drivers/gpu/drm/scheduler/sched_rq.c          | 379 ++++++++
+>  drivers/gpu/drm/scheduler/tests/Makefile      |   3 +-
+>  .../gpu/drm/scheduler/tests/mock_scheduler.c  |   1 -
+>  .../gpu/drm/scheduler/tests/tests_scheduler.c | 884 ++++++++++++++++++
+>  drivers/gpu/drm/v3d/v3d_sched.c               |   1 -
+>  drivers/gpu/drm/xe/xe_dep_scheduler.c         |   1 -
+>  drivers/gpu/drm/xe/xe_execlist.c              |   1 -
+>  drivers/gpu/drm/xe/xe_gpu_scheduler.c         |   1 -
+>  include/drm/gpu_scheduler.h                   |  44 +-
+>  33 files changed, 1497 insertions(+), 481 deletions(-)
+>  create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
+>  create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>
