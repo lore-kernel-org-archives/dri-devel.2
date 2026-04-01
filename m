@@ -4,129 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD30FD3514A
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:24:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD26D3514B
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 07:26:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D30610EC86;
-	Wed,  1 Apr 2026 07:24:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56FB710EC9F;
+	Wed,  1 Apr 2026 07:26:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VquHuVrp";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="AFTt2puW";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GQKjN3ul";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010048.outbound.protection.outlook.com
- [40.93.198.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 511D110EC45;
- Wed,  1 Apr 2026 07:24:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JQKZXFnlhnYt/k5Txaa9fbgl6Kdj+XFQf2R2RBO1rh0nfSVopPrWYkV3tzJ58WxHgpAvlvLEuUV6HMN5z6LGE4LNBSA7OsjUXhyUy0lFSI7a7WFBt/PsZiDdwcyiq//ragoWE/SfC1nYwGGC8VgxUb+yBay3kqC1XobZCj/mTsnwv5Lukohs2LRveRiN9fe0ocx7n6XIFG5AEPkplbfYlvjOo875OaHQ0HPyu4wMoC7JG735RprKsfRDmp3QxEjPhwU9L43U4+kcEaRZV13QsQ/HaEbLw8r6XR6AY/nCEtB3yymD/k1bi+G0PsAcmZrQNinqpgXp9XLNR/jqjIrnxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sv9cdViS9CXcHoOOoAe62au0uQxm7SoUiy/smewy8Qk=;
- b=yAZwJJUzrQFoNPHqKW3LPCiAbvhc392z6SMPH758R1tT8D8R4I7aVvWitFlBKjV6oSGHXBLQ/eJslBZOZu38BnVxRZhvIK6xHNWWxMOmTh06ZO1+cMp1yBVywwIBldVBR3dBxU7zCUX+eUuegNV5fIHJS1LSylQGYTUrWwpKvlCpu8fvN2Oo01qXwjdnCvvyYHufZIHZsdTwnp3RSq+9D3YHtfi8TeNX3RF45JJ1fotsBPeHB0/UyGN0JyiqDdbzubboSWQNI0o8WydNU+zYtuiaFGU6+w7hpRND5U4xOWYTMa+xUCV1f346w0UZBTPdXqu3BT1tcGAJf74MqtJXPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sv9cdViS9CXcHoOOoAe62au0uQxm7SoUiy/smewy8Qk=;
- b=VquHuVrplmH7h6mXneHXaXWbtdPGepSx9JOUaxE1B9ihmHeO85k0T2C4nTav6/gvyONYcVHq/xHQfuP7F01fTle0OvpcILefXZvQDazUsw0ADBqgHs/exBaAnN7Em4kynTTGKzmPunySZxX3bLIREGjy72uYjdLoI/bbefHisQk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB7443.namprd12.prod.outlook.com (2603:10b6:806:2b7::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Wed, 1 Apr
- 2026 07:24:03 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.014; Wed, 1 Apr 2026
- 07:24:02 +0000
-Message-ID: <d37e1e34-8a9b-49dc-ace5-76f23c0375e3@amd.com>
-Date: Wed, 1 Apr 2026 09:23:58 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] drm/amdgpu: replace PASID IDR with XArray
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, lijo.lazar@amd.com,
- Eric Huang <jinhuieric.huang@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260331142127.52796-1-mikhail.v.gavrilov@gmail.com>
- <845af7e1-3ca7-483b-a3b1-0840d9c98596@amd.com>
- <CADnq5_M-iwCHKJ+cnU1TQSc-aGJC465dwzWGQkhaZoSPz7Wu5g@mail.gmail.com>
- <CABXGCsNcRQnQmsZJAhfJPsR71HXU5+CG4URJiX03xkPJD+f7SA@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CABXGCsNcRQnQmsZJAhfJPsR71HXU5+CG4URJiX03xkPJD+f7SA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR02CA0036.namprd02.prod.outlook.com
- (2603:10b6:208:fc::49) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 716EA10EC9F
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 07:26:42 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6317NADP3081342
+ for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 07:26:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=Zx/6+DXla+EZMiXJy/SeCR
+ kIOHRL6ZlK26xm52LAe2Q=; b=AFTt2puWDVAQAv+JjOfPfO/T+H00SM+SofdIAm
+ s+IWJTp4TNSKDdAOTYfkCYJQPhmKq4gTOxPCjieCIthdxyp4zcQ0wcT5xbCoOEC+
+ zy2uRY3CeUXbc3zNc+HZafZEd/65yc0CB+ejVa+Tw3lO1zGUFxMg4xs2lmdiJk4i
+ q0XU+n2dSLUKZ0YBAefHogPz/T5uql4dUKQSwn1KSu+xUVLAENAsvxKl3AjOLggh
+ EQi7fztYz7MO/BTnj9/4SdKX6aB47bPoRV+c62LoUhegN/soY7gSteHAJf9eVLA2
+ dYCm73da68jgoak9Pv7Dd7isFcfGMIEA5J/3k7azd8lHFRpA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8kdkttp9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 07:26:41 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50937cf66b5so336838591cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 00:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775028400; x=1775633200;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Zx/6+DXla+EZMiXJy/SeCRkIOHRL6ZlK26xm52LAe2Q=;
+ b=GQKjN3ulFp2SBZ8pCBnOjSHaRnXO9O59E5DYxDwrwgnx3qbiT1iEtatl92aJymOuZx
+ a+mVi1t+S+5bISZf11VmeeLA5QeKrePY1DvmshHF/UqgPLfLUFi/9WpSPF/d46fhi9tm
+ 8hPVityQIwsL62hfMk5N83ZkKwARYljXxaI5y8uS4sp/GV05P4vv1jC4AnMwnJj3FND7
+ d3WeGHBP5G0RsjEnZCo5oOMNqlXsE6byWvX+/bnnZ50290xXBBRF85ztqK2IFGvVNox/
+ g6u3wOFyc1cnxJt9jfWUJbxdF4TrOtPO45qyO+8d0rSIBcU0TQeOHrgaXWAaMAZzq8jt
+ 5pTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775028400; x=1775633200;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Zx/6+DXla+EZMiXJy/SeCRkIOHRL6ZlK26xm52LAe2Q=;
+ b=ipU+Fsq3vA1F/Z1dXUvSF8tEiFmMfh9CmU3qlwIatpBGZJ4kHYi5bsoD/17sl9Vxhn
+ 4EZHALcjQv4Y/VZhuOvYkmjgF+F4efBFy8VfmHckPMvLeHKxb8OxttBQRwp5ZzU9iAY4
+ CBd8xAQIRsZqtPzV7ggVZvAGLdznCvmxUyiQu6z/aCsGZy4prK2J8zy1bJzO2yU68ns1
+ wGZcGE8Eybg6HWL8MyO3R4/YYiiYj2eRvReCfvHBruwCkWsPMoIe+gwX1pAt70hEuDFJ
+ hfYvozAJzuSEzVePEZpEm7L26k86uSNMRhOiwQz1CtqbLQkYHj/V0hQWdbIGBsJUkYFI
+ unYg==
+X-Gm-Message-State: AOJu0YzeKvKGrbbQiXkAeMfNm5Dxp9Go7LcYxdB4+1QCNCGVjahR5Aek
+ GnfJR9hrUf9HlX730REIHVuHvC2CAA24FGCL9snx0BY43Lic71+PMjYlihPNY31XkjLYNmRoazS
+ M+VlPZqUWZKxn+77E8DggCE3vRk9yP41jSv5qmtKG7H3o9DZUwsDBD/0B8iWH5wm1pHUiqGA=
+X-Gm-Gg: ATEYQzzkp4LOzvKMcyWaxig++bJWdcSaJwaz1avbb7RU9X4If+XVFKLcKQXUljnRAi6
+ 1lTIqEto3FSgtdZYeMjCQk1uLRO4wtumGWqIwv2b0wWfN+OmB2gI2KnzgBkPad4SNoOYg+zHOoX
+ Yy5w7OHdUfGUHXwDXUURe9remJntdQ7EwIMrqVrTWtg79RfEuHtfm97B90madS7ZH4UpgkxeZbO
+ 1LQP3pDCDBTdf2qwy7NFd5Lt4EXKHi+YJRgEWuPp8viWpZbLiBAq0qQ4frmxepT3x5Y7x4TqrkT
+ w0mFGlb/DVvxV9bGHlrsg8bx8qGDdTKhpi27DIw2tZeC4ITmvNKuCvfHgpUsaVWhnuHRLnPhLx3
+ Dhvb9P9rwEY09V+THhSGz0VT1S53BQpnNVfyW2b1esyUX9yAmzKMTlt7tsggYqBQZaE3IbQlv9l
+ rJnqLOTdfNFHNEvowp1IUf4iJeqnLVhqhWHtU=
+X-Received: by 2002:a05:622a:18a4:b0:50b:3ff3:f4a7 with SMTP id
+ d75a77b69052e-50d3bc8cd7bmr35884581cf.35.1775028400352; 
+ Wed, 01 Apr 2026 00:26:40 -0700 (PDT)
+X-Received: by 2002:a05:622a:18a4:b0:50b:3ff3:f4a7 with SMTP id
+ d75a77b69052e-50d3bc8cd7bmr35884241cf.35.1775028399937; 
+ Wed, 01 Apr 2026 00:26:39 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38cb9f31972sm8638421fa.12.2026.04.01.00.26.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Apr 2026 00:26:38 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 00/19] drm/panel: support Waveshare DSI TOUCH kits
+Date: Wed, 01 Apr 2026 10:26:19 +0300
+Message-Id: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB7443:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4426f3ba-34f8-40e8-cc38-08de8fbfa659
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: T60jR7QounJy2K0rCqqlRKBbR4VGevxmKUIZRhxf9in7iZOhBP8PX3cs747llRqaMfvI6dJ0lrXAvxabjsCRvC0s1F+sRiwNfFvCQsPZP9ynJn0PxHt9OgQTaEkLVHLg6XNrVj2mu4xjNnGulrVrRyBnoFTxO0EInCDlGcwyDmHoDz9A3J9oCuqKZCzXBWiQUJjYuhzNeUy08vcraApbvuQhyILm0Owj2QWXpuHq3lP5HyFy3O08trBJKgoYeel4HNHe6TTVAEZuSSOXGUAYxLwaZ/ST3HYX0NEYOjQ2rIBGCYA8+RrsecSRlPm6zKNf5/70jiphrchW7gGmLQNav47bLkt3MaH14QbN8Vw3oxkAYUZ+hKQL9ce+ifLQpv4WJfc6Eg1sDXv5M1NxUwH5F3ib4yHhKj/POcTOEHfIQll142Bq0zcdnYE5sRMmp6qsVrIgezmGi80tVkGS5BlF8ATK9QbzXX9R86mDiDpBZ5QyAhXHCm+GdxOQuow0V6oWIX9E9VOkwv6/b0LOxEfxmj+NtupieKKd/aadkE3JKE/RZXYII6mr/rhqefloJyeSQkAwUtm9BvNPmFhFomZd9nQiTYe+3an6a00ViX2AvRoPjoMx/GvNoNtDLfk3+B/ott03UORH9MLDYlr0N4WjrbyAjuPmmjEWyObqdOc9PIPN/HtfCw/1xuZ8tneMFFrshZ9F7ICISzQEWzr9vZQ0shRMjFO0PEc4r1HH+M9rjb4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmZWc1lqQ3l4N29wUHl4bkJkQ2ZQZkV6SVJtUUg4RCtNaE42dldaNlZpckZH?=
- =?utf-8?B?Ymk3MFhhRnpyMTlyOVVrOGhhWG4zUUErYlp4WHdCUGNYRE1ZQjRDZHBCRTF3?=
- =?utf-8?B?aVRNc0RIeFJxWVBaTHljckZCNHhNZkVjMHJYeWd4b01Rb3hJbEozTHZlZEhB?=
- =?utf-8?B?RFBQOTVwSTFZYVNSQkJCakdKaGM1VXFIZUx1ZGF1Z3Y2YVgwY1Yzd1VZaUFL?=
- =?utf-8?B?RExjdW5kaTI1aFZvUjRYZU8vYXdPYUpMa1pPNnBsMDN4UWdtUnBFV0JFeWwv?=
- =?utf-8?B?blQzTjVkaUhOVk5Ra2ovRXBmb3kzL1lkY1F5M21LREl3a1V3NzdsMzVISDd0?=
- =?utf-8?B?STk0ZXBDVzBzc2VxVi94Qm51UjNxTHhMcnlsWXhMS0VjVmNVbUIxd1VSWUlZ?=
- =?utf-8?B?Q3JsUE1YNUFVdWs5bUJISEJsRlYrMUVDNHliS1BoYlY1eWhDb1l5YmdvWGVW?=
- =?utf-8?B?QnYzWXB5WDI2MGloS2Q1czlmM0FNalBudDduYWFQUEdhV001OEpUTWRkWkt3?=
- =?utf-8?B?ZGJOeWdjeU5RNVFjUW5HcjQvUUs1OC8xR3lGTFB4OThoTmVRUDJkTzcyQkxq?=
- =?utf-8?B?c0dNRndpNkFrZmVRMVlrSU5xa2ZmUG1oRGowWU9nSkdaTG9UL2pHVUd2a1FO?=
- =?utf-8?B?TmI1VGRsRlZXSUpIUnJSUHlnYk8zdTNtUnA1NzF0UFRRNTVhczZ0V1dua3dL?=
- =?utf-8?B?M05qTVc4a1MvTGNJNkw2ZTludmZhdXhMelBCY3EvUjVQSGRPSDVUOXBWUVEr?=
- =?utf-8?B?NXZORWFqZzNaVGNJNS8rOE9oMVoyUVZJRGhweXlCRTdQa2FNRkFveFpmUjl2?=
- =?utf-8?B?cW9Ic2JVWEluSFl3NGJKaG5zanN6OWtzQ3VzNDBHRVg2OFFYajF0M1hMcE1M?=
- =?utf-8?B?TFZQNURWQVZwTlBsL3R4UFFFYlVibkNqOE9YbithbmxPYnBxZ0JnQXhtYlhM?=
- =?utf-8?B?L2pydXhVNkNoQVVvbnJ6VHc4V1hvR2xOS2tuSW84R0s2NEw3YTQvRUdCSEN4?=
- =?utf-8?B?T2dxWkpzeC8ycGlNTGN5TmtBU0pTVEx3bnpuc3lhMkJXQi9BRXBNSE5KU0tt?=
- =?utf-8?B?cDVONXhKSDIyWWdHNS83N1JVeHVNZS9MeEdiV3RnY0d1L2RhR3MwK3JXcVVO?=
- =?utf-8?B?QnRkQzZZdlJGRHFDMnNvK0VxVFh1dDNEZGpFSmFLTGZGcEdlSTRLcDhhVFFh?=
- =?utf-8?B?NmM5SXRjeTdmMG9YWEdTRUNrZnE2dWJFdHNhVzMyQm5xUXFjZ2ZLMUhSajRr?=
- =?utf-8?B?VFl3QVlUMmJoeFY3UTgySlNrK1pUR1RTM0hPN3l3b2pvcVo3Q0RsakZyVUN1?=
- =?utf-8?B?RDRjU2hNS243OUlHWmU3NFFrRUIxdjl6Q0pZS0JPeVZNT0RHdEFDNVRkVmZB?=
- =?utf-8?B?aHh0d0VsN3FZMGlxa3gyeE8xVWF0cmpueFZ1L1IyNFFSTkJuZW9jVGR1MWxP?=
- =?utf-8?B?ejJrVXhiTnRTVnB5Z3R5bSs0M1lrbkhUSkgyUkdQZ21DMDlubUxvY3c0RGZP?=
- =?utf-8?B?Vm43Umg0K3VIb3pSczB2SWw4WDJTYitzUlNrZnFteTRqMjNwd3lyWkJrRTZP?=
- =?utf-8?B?c2dnNHpFSkpxM1E1YWhzaFBVRzc0L2pqRVVKVDF2aEM3VHFJYjJwUStIaFRs?=
- =?utf-8?B?b2NIemx6VzY4bURhSDFkM3B5ZkVJZDY4NkpjcTZjWitXQ09uM3pwUWwyTzhF?=
- =?utf-8?B?WUpxQ20wZnV5NU9vZjJCdjV1OEdLczgvNCtxSlJtNjVqK3I5SmlFMSt3ZEV3?=
- =?utf-8?B?SE9ubjNoL3M3eHQzWVZuWERvRWhiV2xwTjdZWjBuRjlHbVBWS24zcHF1QWxu?=
- =?utf-8?B?QWs4L3lxWmx4NXY5RG0xVTY4THFHdkwwZXQzOVlFb09pQkoyWGc0MEZVNmxk?=
- =?utf-8?B?MjBVYTFQcTZCTk5ZY0x5SStoV3NSTlBxWDJLTHlMTlJJdzY0cmtqNFhiQVkv?=
- =?utf-8?B?aU5LcGtLT3JWMmJQMnM5amFPMEVKM1J1NlpsbS8zaFFmTDAwdXYyempTb3Ni?=
- =?utf-8?B?VHpuQ2ZtcERINzRwNU0xWXNwQmlxZ0FnM1JJa2R5b1FMRzRNMDArekZDTWlp?=
- =?utf-8?B?YzFnMm5CN240LzFuOTR6SkovQTZRY2N3UXlBVzR2S0g4UW5La01KbWpuRzNW?=
- =?utf-8?B?b2c2SFpmR1NRVGV4cVJ3eGZWM25aOFE3NUhFUmdHajR3Q0lZeHlDSVBuaThY?=
- =?utf-8?B?Unh5bkZiRHBUV3NmTWM2MVdGWEpkV1FjSUdTYjVIeEY4dmdkUFk4eWZOcTMv?=
- =?utf-8?B?dDBuQSt5UTFEVnBId3VYVEQ3T0JGaWgwYVJyMTFJb1N3cXNzQXJjcC8vT1Y2?=
- =?utf-8?Q?qd1X2uKEy6/9aF3L8F?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4426f3ba-34f8-40e8-cc38-08de8fbfa659
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 07:24:02.7304 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Vb913LPaFxV3j0rj6HM+ibhlfSWaKnQbQRaBEHFGnskDNpJ+NV7t+OH4sPNN4uJF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7443
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJvIzGkC/yXMywqDMBBG4VeRWXcgI6Lgq0gXafzTTBdaMl4K4
+ rs3rctvcc5Bhqww6quDMjY1nacCuVUUkp+eYB2LqXZ16xonvPsNlnwGj6a8zGtIDOmk8xJjaBy
+ V8p0R9fO/DvfLtj5eCMtvRef5BaR0hFN3AAAA
+X-Change-ID: 20260401-waveshare-dsi-touch-e1717a1ffc40
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+ Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>,
+ Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3192;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=uu9o8NADvdeOLd4A6s7eBAhwO4ogsE0lTg/OwWLwDas=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBpzMiq4WFJ8Dxjp+4X36YIJ0NK5WmevadjdTtez
+ mPpKMNySpmJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaczIqgAKCRCLPIo+Aiko
+ 1XN9B/sFhT31k096LM2EitmHCAK6iB+rQZ9+q+KIbQlE7eMcVgUawYSfZXcEWHZat9vqjZXG85X
+ Im1vKtAv/D+u8I/Piox9p1Y1hpQj17t9E9vxt2DA+EsaFEu0/vgO5iZTAP3PT8GvULu49//KhtN
+ U6ygVHhWqZ0jEqQl35w6xelxdiVVpFWrfqCUN7SpLCf4vLQe5tEV9aQccPjBAeiUEwhnx3MUlv6
+ lMY70G2cq0BqoNwlO2ZDr1Bt29wqCYXy7V4stL+X6k7F2ha5WdLvVa+Hc7yKD4kd75fTr0UPVLg
+ 0R0feqyLQypesJK0gdmRUym9YzNhFopyPvP5oY7tJvOTj/G+
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA2NCBTYWx0ZWRfXwkaGfrUxhMlE
+ cnZsc4DtajP852j/OKgS2nHw6n92aNOtWsTHbw6CKNhGBwe8ssrjl4l/RrZWdC/EoZiQml9HXGB
+ pmuEmtqElmbNiggwWalrrO9e6myoUqj5ESGCXPF86zLzgumhn+mvIxfN94g2LvTA3i6mRufeRGd
+ sby5YqK1yx6lbIJpoA383F0o3C0+u+zZWUG2KKkGQ48R8lBeW2jLtfq4cxLThboK4pSS2OUoMJx
+ 1cRR7ZM678BGVF84/Tl/wIxmugnXpwy2+wBgTMwxRhVxCgG+T9XqT6I+FYfwtN3k1Oirae+9ZXc
+ QFdIHqNpcKHYcaExZ+oNj0ikqA6xCnscA8iMrUAsO3VawM6XuSoS+PfQFi91RiLQ1iUty4JLPgD
+ 1C7xZW7eTFe1U90eKrCbrQOCXC1MVHxYGNsVCqFI68nRY3qasZmbOR0pm6gSyhU5FgX64IshkQl
+ jMA7ZRwOKd+T1sz8LIA==
+X-Proofpoint-GUID: j71-kW5VD2MEnQUEmOiDNXwiBSQoHHds
+X-Authority-Analysis: v=2.4 cv=YsQChoYX c=1 sm=1 tr=0 ts=69ccc8b1 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=oOvrkLZsNLQ3oAnAngEA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: j71-kW5VD2MEnQUEmOiDNXwiBSQoHHds
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-01_02,2026-04-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 bulkscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604010064
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,46 +163,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/31/26 19:12, Mikhail Gavrilov wrote:
-> On Tue, Mar 31, 2026 at 7:38 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->>
->> Applied.  Thanks!
->>
-> 
-> Hi Christian, Alex,
-> 
-> While testing v7, I noticed that xa_erase() and xa_alloc_cyclic()
-> use plain xa_lock()/xa_unlock() regardless of XA_FLAGS_LOCK_IRQ —
-> the flag only affects lockdep annotations, not runtime locking.
-> 
-> The XArray API provides separate _irq variants for this:
-> xa_alloc_cyclic_irq() and xa_erase_irq(), both defined as inlines
-> in include/linux/xarray.h using xa_lock_irq/xa_unlock_irq.
+The Waveshare DSI TOUCH family of DSI panel kits feature different DSI
+video-mode panels, bundled with the separate controlling circuit,
+produing necessary voltages from the 3.3V and 5V supplies. Extend panel
+drivers to support those Waveshare panels and also add GPIO driver for
+the onboard control circuitry.
 
-Ah, crap I wanted to double check exactly that but then had no time for it.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (19):
+      dt-bindings: display/panel: himax,hx83102: describe Waveshare panel
+      dt-bindings: display/panel: himax,hx8394: describe Waveshare panel
+      dt-bindings: display/panel: jadard,jd9365da-h3: describe Waveshare panel
+      dt-bindings: display/panel: ilitek,ili9881c: describe Waveshare panel
+      dt-bindings: dipslay/panel: describe panels using Focaltech OTA7290B
+      drm/of: add helper to count data-lanes on a remote endpoint
+      drm/panel: himax-hx83102: support Waveshare 12.3" DSI panel
+      drm/panel: himax-hx8394: set prepare_prev_first
+      drm/panel: himax-hx8394: simplify hx8394_enable()
+      drm/panel: himax-hx8394: support Waveshare DSI panels
+      drm/panel: jadard-jd9365da-h3: use drm_connector_helper_get_modes_fixed
+      drm/panel: jadard-jd9365da-h3: support variable DSI configuration
+      drm/panel: jadard-jd9365da-h3: set prepare_prev_first
+      drm/panel: jadard-jd9365da-h3: support Waveshare DSI panels
+      drm/panel: ilitek-ili9881c: support Waveshare 7.0" DSI panel
+      drm/panel: add devm_drm_panel_add() helper
+      drm/panel: add driver for Waveshare 8.8" DSI TOUCH-A panel
+      dt-bindings: gpio: describe Waveshare GPIO controller
+      gpio: add GPIO controller found on Waveshare DSI TOUCH panels
 
-> 
-> I confirmed this by hitting the same lockdep WARNING with v6
-> (which has the same locking), and by reading lib/xarray.c:
-> 
->   void *xa_erase(struct xarray *xa, unsigned long index)
->   {
->       xa_lock(xa);              // plain spin_lock, not _irq
->       entry = __xa_erase(xa, index);
->       xa_unlock(xa);
->       return entry;
->   }
-> 
-> Should I send a v8 using xa_alloc_cyclic_irq() and xa_erase_irq()?
+ .../bindings/display/panel/focaltech,ota7290b.yaml |   70 +
+ .../bindings/display/panel/himax,hx83102.yaml      |    2 +
+ .../bindings/display/panel/himax,hx8394.yaml       |    2 +
+ .../bindings/display/panel/ilitek,ili9881c.yaml    |    2 +
+ .../bindings/display/panel/jadard,jd9365da-h3.yaml |    6 +
+ .../bindings/gpio/waveshare,dsi-touch-gpio.yaml    |  100 ++
+ drivers/gpio/Kconfig                               |   10 +
+ drivers/gpio/Makefile                              |    1 +
+ drivers/gpio/gpio-waveshare-dsi.c                  |  220 +++
+ drivers/gpu/drm/drm_of.c                           |   34 +
+ drivers/gpu/drm/drm_panel.c                        |   23 +
+ drivers/gpu/drm/panel/Kconfig                      |   13 +
+ drivers/gpu/drm/panel/Makefile                     |    1 +
+ drivers/gpu/drm/panel/panel-focaltech-ota7290b.c   |  208 +++
+ drivers/gpu/drm/panel/panel-himax-hx83102.c        |  144 +-
+ drivers/gpu/drm/panel/panel-himax-hx8394.c         |  279 +++-
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c      |  251 +++-
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c   | 1563 ++++++++++++++++++--
+ include/drm/drm_of.h                               |   13 +
+ include/drm/drm_panel.h                            |    1 +
+ 20 files changed, 2813 insertions(+), 130 deletions(-)
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260401-waveshare-dsi-touch-e1717a1ffc40
 
-Alex already applied the v7 so it would probably be best if you provide a delta patch on top of that.
-
-It's then up to Alex if he can squash the patches together before upstreaming.
-
-Regards,
-Christian.
-
-> 
-> Thanks,
-> Mikhail
+Best regards,
+--  
+With best wishes
+Dmitry
 
