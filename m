@@ -4,97 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72635D35144
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 06:47:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DDF1D3514A
+	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 06:49:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCE7B10ED02;
-	Wed,  1 Apr 2026 06:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85C6610EC72;
+	Wed,  1 Apr 2026 06:49:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fcvXp+nI";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KTMReWEY";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OGSgGsSa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xlqa2cjt";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DE2310EC5D
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 06:47:27 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF49B10E3A9
+ for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 06:49:26 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6310D83e3240035
- for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 06:47:27 GMT
+ 6314GajS1579367
+ for <dri-devel@lists.freedesktop.org>; Wed, 1 Apr 2026 06:49:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- QqJzznn7Jynr9ThiDh/BQmWbeg+9dCozPKVtRFqAuV0=; b=fcvXp+nIkCZV7eQP
- 2U6Z+OXf5E0JLgERCFCTw/Z3YKRQp47VJpBWg7jCn8oGwt3S3Uob9Oc+RkyEYoaH
- BtmEThIzPnCZ58GIS4MaEvy9NHxBreyM/xwynN15dFwC86gE7czPyOsjzcZRashf
- JGRrWKO2keq2SOn62kAlhsOAu25nitsna0fMWr+QIZrg0MSbcQjWMCG1+j4BGmKO
- Ocaue5q13FEXqeFnqa4zjJQRzQssQ6xgj75rr7ZoiPfRKhfAs4yk+ayp1hOKO/YN
- dmTXGQnkdDgvAqE/NlAFiMV8ziPiG/SrAaM/F+6P8TxXj5rd7ohQb8SJHC++kukh
- HCRD9A==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8b1yw4xt-1
+ kaSZtLO1O6dHgdsj6HMqLMbEQ2wzIJZCOsaKSTu39v4=; b=OGSgGsSa9xKJAaOw
+ eiGzLuUwYlHDPFurD2a5lT9AO5s54lv48gc+p0ws41/EQ868kUA1Y/I7RLjRvmlu
+ WETWfxzzVmLo6w0u9zpUH1sfyJJN0g4iNSVcEdraJTZR9Xk4cdegViB9r+LcMmac
+ FHj4Bc+WPKm0cjT/CjTeXYEXHwDV9/BwR3hXa5uz2x7DgSsotWrQhS5IPZhY9r6J
+ yhraGtVek0HnC/Upb8cL0cfrzAfmeaPZXtgXZ04TACCgo0jZlUYKzLrfSD4oVLBP
+ EyEK1DC0Y36YHrn/h6pRVCi3Ih7GmEVItr8j/j3p+vke8PkGfqkmOVkv4wjS/6QF
+ FNSMgA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8mr2t6m5-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 06:47:26 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50b6f869676so139617351cf.2
- for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 23:47:26 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 06:49:25 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50b2cbe7223so212435371cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 31 Mar 2026 23:49:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775026046; x=1775630846;
+ d=oss.qualcomm.com; s=google; t=1775026165; x=1775630965;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=QqJzznn7Jynr9ThiDh/BQmWbeg+9dCozPKVtRFqAuV0=;
- b=KTMReWEYMTp1dNx3viaALQN7QJkDpFwu0Tiu8YAU5qoe+Rf09CScUYkMZ1S27PNbhp
- IV83CBWY+qW2GsQx8pvKeU5znYynN12NsLpNtnlbhj757VgtFGM+im50ww2VcBkPBni4
- WkGlgTwPHz6EUuh2PTGZAwmJ9yDuinzSOQSaUa4/fu27CWFYB3VSuzBT7AFOc9vI9FVQ
- IgExwqW3+xY4SskUmU01Eu44+jVqURFO9jxieF+h/uaremqdOJhe4alA5hjWSooWUngv
- 8fb7qeBl8X5KQy1IDGvjl+NPrAKXluMZuXMSO/z1uksv3u0IVy9nmt1H7SVgGOsHxB++
- exsA==
+ bh=kaSZtLO1O6dHgdsj6HMqLMbEQ2wzIJZCOsaKSTu39v4=;
+ b=Xlqa2cjtUbAgdj40UXRl75CyfXhNwGF+we7xjasqu3bt3gVVSKxwmXxNbV/8RAl2qq
+ 3+c8HcBLXDR8s8Wsyi3OL7wS7aDYFnR08s7Vvv7sINw+S6orBLViHXZZDlm+p6MvkuRP
+ FbuoBxQ0HR0RdMT/jm1Rnq+TCOR76E8+h0qQQxy6Rec6r/I5IgE+FplM+nMqYl2raHkl
+ ldWXDEOQiHG/a45iYliQwNebwyTGh1OxybomjVXGgjqkgYuflgd+JPBK11GVJq++5hjs
+ D/aJ08IfgEJuq+glv2I/R/0WH+QqVFLegW2OuEMg/YbuEo0A3pULhNcp/Jyx1tjRcMWE
+ JzNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775026046; x=1775630846;
+ d=1e100.net; s=20251104; t=1775026165; x=1775630965;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=QqJzznn7Jynr9ThiDh/BQmWbeg+9dCozPKVtRFqAuV0=;
- b=V3F6WBZufricxKdjPlBxgPWvlubphk/d87FaEcLqnmn3FK0reEiZTqpYnBuA1BR7IX
- Vv0EeWlhZvr4PyjtUTj/cxmIjpIe6bzlQ8i55AJ6vzNIi0NyQXgwuKC9kqqngc2Q++XM
- Lox2coITZWBc51hGjEmI8w3a8UdX+s4mx2xU5CyeKPufBt4xE+fXLExiMO6OjvqB0A1H
- XaaC6XmZVaLSOYGA8vYkK+teihmI/dPMOOggRrFIreLogooGbb4MrYbrhHoqhGkZR+np
- X5erVElbRNYi364EqfsDrLjTdPeSMDLhBaF/H0/5AQ0fo55COZ47qvNGRiZlOCeshyds
- K92g==
+ bh=kaSZtLO1O6dHgdsj6HMqLMbEQ2wzIJZCOsaKSTu39v4=;
+ b=DQxylrvwkvgG3ku1qJWM5DKoFH5OP6giX2/Bf+u77w6g0dWtnKG4HZOgh3zQps2hxX
+ 3HROddmnEdRsoYjqbBRqSOGxyLVm5m2vGJ8bi48PFSRC6r12WJhP/jlh88R0tPDZ+1E5
+ 5jfDukJuK23c/IeIa+PVgDZXEFUQS/31OKYjKEz/8Lnnd+9l0MRj4NKM526aCQdnmF6G
+ nwTQSRVFxFrphSTx6T5AOQBhvO+swYpqh+eORRYn44J6T6LwBBS4fJ9OPhZQafqmhN5C
+ vPShcGTPYigt1u5lGU8V3eQr3gDrRa4FvBridelPpt4sFjHkXinV8lo/3B3bOBDGlbK8
+ S0tA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWWetCitr/fFbeLgDEwX8wD2gI67XR54Lm+/kq5uWdlmrlniBEHv1GZWFbKP8Eyoybv+3w3MSFkIqw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwgsuPRbqMRdDNT8pfZd04yl401eSNZMbn/dAhBMkSTTjImzth9
- nQcRTLDFddynY1pfSqjAG/ue9gOHxwjOn1k9fa90YAPMgpQpGngj3SrHQctTM3+FSHGkYYaHcSH
- cn0sow+lsHjcvhOHZko95a0QoP6mCQ7zfB7eEomoJl/huPgbzkQep4qsZ30Mdeq2IikYiCcA=
-X-Gm-Gg: ATEYQzzZOgJrQNuk5AEyNjkEv5Rc8UJIS61mDr09U9071Gwu0h8dD8cx0PfK29HW3UP
- c0pHckb/xf2JlN1W6mjIjM8kd+oUDUMCU3HIXdB5u1Q9TcQ9cH1av8k9E5VOtGpSd5SRAG+DTwn
- vKY5Kg6ZBs+s1ZN4GcKgO5/DCPjEtfZ9or/b3sawhiPVM8qbN4pqDnPIBN2zjqUqnMNgA7hOeyo
- GYcqKdumYEYRug8wuF83viyzdLWt1WKPP9yDqHcCvKfRAf9MBs5eJNqLJR4wE6BORkdO67uob/e
- BP94gI2rHrCs0/ro1fRCbRgcY4I0CsrZ20ENoXQGUMSomKUIIZefE/E5a8/hwzxGUQRqKW8hDWk
- 6VEIGZUGdU4Ug1mvwh5TR1Dkl3iR+qWErbmq7Znkmw1Zspgyqt/nMIvhQR0Su+4noIQclQV8MuR
- pFGBcZXVX1u3wd7rmCu/3rddSd
-X-Received: by 2002:a05:622a:256:b0:50b:6b39:4df9 with SMTP id
- d75a77b69052e-50d3bbfd9f2mr34036261cf.30.1775026046229; 
- Tue, 31 Mar 2026 23:47:26 -0700 (PDT)
-X-Received: by 2002:a05:622a:256:b0:50b:6b39:4df9 with SMTP id
- d75a77b69052e-50d3bbfd9f2mr34035991cf.30.1775026045796; 
- Tue, 31 Mar 2026 23:47:25 -0700 (PDT)
+ AJvYcCUlinF3LcaqF/MPUYI7zJCYtMHGE/J/VwF9SwYQy5fG/9XSizCtS6Bf9996NBAYocClaB3z6+9M48Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxiVPlQz4Now2h1J1EhvvSahUKhI9utk00Zmq5wu5gcrFzwVzj4
+ Z+9KSKPVmQQVGhjv7tdALIZBKM24s8HzKixTwIeNNHab/htF9X3e7/HlW6yqScNp/kXW1hKBWus
+ fQ85ixQ0zZ5X/TUzt/vc3loYhDmK7HLI/QkJaZqUiVJdU336K1cfK0FWcn0kKF3OMA8hsTFg=
+X-Gm-Gg: ATEYQzwdGpbOXFDsNr3Iy/fhUiqqatZJZRp8h+u/eLJuHdCgyVPAKZpQkCdbH9HXePy
+ S6T9usN/VEgg5PrXrm4ie3bvmHQHnSw+kCfjPrWbLKCPQHnaGNW3uZHooMfTd8JAaiSHDJfLAyu
+ xXkK3x5M4nLnIF0okcrI5RrFgwglSJbYBB5LihfDNjzcyMqtWyWqPJg1Tx/da/AznR3IyW5rugs
+ OHX2tRwArBwjSVi/MFMJU/7naEvB9gpXqAxV/CSCqFO9aZhuA7sEOoLjtxt1w/vwc2hVANxNsB4
+ WQx+QBDn7gnbxWVCEda+avQLnTTJyHTrv1Ekqbr/DWJiVYAMAZpDshqUuBRIV629Y2stkPHjn01
+ CP8eZa9WeK4M01evip29lKfcelmJrqJFrS6VlNkPW0EK5mKIE64VU+CozsFGlAQUmDOi+QyQlnq
+ 6Q0qvfROxKqZtaVyrV0J9CXrvk
+X-Received: by 2002:a05:622a:488a:b0:50b:50f5:b8e0 with SMTP id
+ d75a77b69052e-50d3bc3dfffmr36132011cf.28.1775026165029; 
+ Tue, 31 Mar 2026 23:49:25 -0700 (PDT)
+X-Received: by 2002:a05:622a:488a:b0:50b:50f5:b8e0 with SMTP id
+ d75a77b69052e-50d3bc3dfffmr36131801cf.28.1775026164639; 
+ Tue, 31 Mar 2026 23:49:24 -0700 (PDT)
 Received: from ?IPV6:2001:14ba:a073:af00::4c9?
  (2001-14ba-a073-af00--4c9.rev.dnainternet.fi. [2001:14ba:a073:af00::4c9])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2c43b3597sm173211e87.23.2026.03.31.23.47.23
+ 2adb3069b0e04-5a2b1403cb6sm3076261e87.27.2026.03.31.23.49.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 23:47:24 -0700 (PDT)
-Message-ID: <4cb29e7a-9a75-4f8a-9036-c96e9190b7b0@oss.qualcomm.com>
-Date: Wed, 1 Apr 2026 09:47:22 +0300
+ Tue, 31 Mar 2026 23:49:23 -0700 (PDT)
+Message-ID: <b154111d-46b7-4bc8-abea-d133e929c6b4@oss.qualcomm.com>
+Date: Wed, 1 Apr 2026 09:49:20 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/38] drm/msm/dp: add support to send ACT packets for
- MST
+Subject: Re: [PATCH v3 18/38] drm/msm/dp: Add support to enable MST in
+ mainlink control
 To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
@@ -106,38 +106,38 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Abhinav Kumar <quic_abhinavk@quicinc.com>
 References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-17-01faacfcdedd@oss.qualcomm.com>
- <mtli7kelybfot6ai3lqjagy6hahnpkimqjnjbk26shaoekqoht@cbycvfsmry4o>
- <46d97aec-9f46-42bd-8725-2c236ffd13ba@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-18-01faacfcdedd@oss.qualcomm.com>
+ <ahgabnh7e2zszqjakexr4755orihk6afvqlyw3lvcffyvr5muw@hmy6kf3ociku>
+ <49dae108-ad9d-4931-a10e-810de5766790@oss.qualcomm.com>
 Content-Language: en-US
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <46d97aec-9f46-42bd-8725-2c236ffd13ba@oss.qualcomm.com>
+In-Reply-To: <49dae108-ad9d-4931-a10e-810de5766790@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: -9l2mZyhP6JWHQTGJdcPzm9uQX1Ou95M
-X-Proofpoint-ORIG-GUID: -9l2mZyhP6JWHQTGJdcPzm9uQX1Ou95M
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA1OCBTYWx0ZWRfX/r+PyllVkBHi
- TKUYdAXEv1sTsaaAPEI7wOINaqknZM54ma1+/1Q5xhTyJGWPaJTMNyVqR6h6FOCW3QOOsl5l5Mp
- RbR3HirK1gN5zpkiYE4sGypbrho2nie3S4RKkwMo8NIAl36tZy4zaipRniAu+Pj5PKwSIHdffu/
- 2k/I42xhsCqHFnZEQTgDBMQs++pwygDYOJ2as/452dvfsM2n3WvDgkgfUV33ucNw1+OPtDHP5r0
- V2mz6JGMjifcZCM6gimMUxqg6dqfkFMinkJDzhBcgyJW/Nf7KAvqRTAFeoNgLBenQ0Mag7wwdG/
- GmeCe3LBa/SjbA4ZuZLSjUc2KT7L31wM/kTRMs3GV8JsenQ++CaULG6y6LMz2pxt/P+7FlzBu0T
- D6IPUMF+R67P8/nc7JNXJo+/CNEuIX03dJrJL1vBb8Nauy+hl1jI8oc42D2y0eySVUd7n28KKHQ
- lHzXR8iaoL/1oTzk+tA==
-X-Authority-Analysis: v=2.4 cv=aJT9aL9m c=1 sm=1 tr=0 ts=69ccbf7e cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=B+O0EetM c=1 sm=1 tr=0 ts=69ccbff5 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=COk6AnOGAAAA:8
- a=EUspDBNiAAAA:8 a=hEYASa3n4XitINDXwYgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=TjNXssC_j7lpFel5tvFf:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=COk6AnOGAAAA:8
+ a=EUspDBNiAAAA:8 a=lP0j4_6gZTFRyBZCz58A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: vvzVzayEMs93VqArAfdT9raWg86yerAk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAxMDA1OCBTYWx0ZWRfXw56TnfoHWRZd
+ 4Vg2FxzTPeTebnCgrqFAAA3m/tQ6dJSWSZkNjwsaUaVYFtKpxnbTGpcDgA6XZussJ/44TpB3+Fa
+ B6WzRWBIn8syRofc//EENegP3LirpCRjGaKpP68tw9u/0eFDB69ZtKIIvw9wpdOvWYIUfVOSm8j
+ QzZAH3GHj0dwu1y9MWbStHg22h7DZy7igZr4v9RSjWsGqkQU3U7eoAYz9cEsnqoALoqdqJR/8Hb
+ 8NdT1SCujTEicMrK6/VngZEy5r7E0ophY2SqM88ljf3ph8M7pGpagzhCUSS0VtmRVtf1c4lTwy0
+ nZVLQyPPJ8aBktrt3c9Rm9mtccIk8kvwIlnW8/vgu7u/K3w+wqHllVhtM8IXsrjxYUrZATRqhz7
+ 0MedXaKYs5KMOZi7Uy5BWHzwhKKHEd43KUt3oa3M/nuZRmqqLeLCJALOfqk16iyGxOekzTsMLEe
+ qMnaV6OVDH4v/kvUCLQ==
+X-Proofpoint-GUID: vvzVzayEMs93VqArAfdT9raWg86yerAk
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-01_02,2026-03-31_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 lowpriorityscore=0 clxscore=1015
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
  definitions=main-2604010058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,86 +154,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 01/04/2026 09:44, Yongxing Mou wrote:
+On 01/04/2026 09:46, Yongxing Mou wrote:
 > 
 > 
-> On 8/26/2025 5:10 AM, Dmitry Baryshkov wrote:
->> On Mon, Aug 25, 2025 at 10:16:03PM +0800, Yongxing Mou wrote:
+> On 8/26/2025 5:24 AM, Dmitry Baryshkov wrote:
+>> On Mon, Aug 25, 2025 at 10:16:04PM +0800, Yongxing Mou wrote:
 >>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
 >>>
->>> Whenever virtual channel slot allocation changes, the DP
->>> source must send the action control trigger sequence to notify
->>> the sink about the same. This would be applicable during the
->>> start and stop of the pixel stream. Add the infrastructure
->>> to be able to send ACT packets for the DP controller when
->>> operating in MST mode.
+>>> Add support to program the MST enable bit in the mainlink control
+>>> register when an MST session is active or being disabled.
 >>>
 >>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
 >>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 >>> ---
->>>   drivers/gpu/drm/msm/dp/dp_ctrl.c    | 39 ++++++++++++++++++++++++++ 
->>> +++++++++--
->>>   drivers/gpu/drm/msm/dp/dp_ctrl.h    |  4 ++--
->>>   drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
->>>   drivers/gpu/drm/msm/dp/dp_display.h |  1 +
->>>   drivers/gpu/drm/msm/dp/dp_reg.h     |  2 ++
->>>   5 files changed, 44 insertions(+), 5 deletions(-)
+>>>   drivers/gpu/drm/msm/dp/dp_ctrl.c | 17 +++++++++++++++++
+>>>   drivers/gpu/drm/msm/dp/dp_reg.h  |  1 +
+>>>   2 files changed, 18 insertions(+)
 >>>
->>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/ 
->>> dp/dp_ctrl.c
+>>> diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/ 
+>>> dp/dp_reg.h
 >>> index 
->>> 608a1a077301b2ef3c77c271d873bb4364abe779..16e5ed58e791971d5dca3077cbb77bfcc186505a 100644
->>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
->>> @@ -142,6 +142,7 @@ struct msm_dp_ctrl_private {
->>>       bool core_clks_on;
->>>       bool link_clks_on;
->>>       bool stream_clks_on[DP_STREAM_MAX];
->>> +    bool mst_active;
->>>   };
->>>   static inline u32 msm_dp_read_ahb(const struct msm_dp_ctrl_private 
->>> *ctrl, u32 offset)
->>> @@ -227,6 +228,32 @@ static int msm_dp_aux_link_configure(struct 
->>> drm_dp_aux *aux,
->>>       return 0;
->>>   }
->>> +void msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm_dp_ctrl)
->>> +{
->>> +    struct msm_dp_ctrl_private *ctrl;
->>> +    bool act_complete;
->>> +
->>> +    ctrl = container_of(msm_dp_ctrl, struct msm_dp_ctrl_private, 
->>> msm_dp_ctrl);
->>> +
->>> +    if (!ctrl->mst_active)
->>> +        return;
->>> +
->>> +    msm_dp_write_link(ctrl, REG_DP_MST_ACT, 0x1);
->>> +    /* make sure ACT signal is performed */
->>> +    wmb();
->>> +
->>> +    msleep(20); /* needs 1 frame time */
->>> +
->>> +    act_complete = msm_dp_read_link(ctrl, REG_DP_MST_ACT);
->>> +
->>> +    if (!act_complete)
->>> +        drm_dbg_dp(ctrl->drm_dev, "mst ACT trigger complete 
->>> SUCCESS\n");
->>> +    else
->>> +        drm_dbg_dp(ctrl->drm_dev, "mst ACT trigger complete failed\n");
+>>> de3d0b8b52c269fd7575edf3f4096a4284ad0b8d..fda847b33f8d0d6ec4d2589586b5a3d6c9b1ccf3 100644
+>>> --- a/drivers/gpu/drm/msm/dp/dp_reg.h
+>>> +++ b/drivers/gpu/drm/msm/dp/dp_reg.h
+>>> @@ -128,6 +128,7 @@
+>>>   #define DP_MAINLINK_FLUSH_MODE_UPDATE_SDP    
+>>> FIELD_PREP(DP_MAINLINK_CTRL_FLUSH_MODE_MASK, 1)
+>>>   #define DP_MAINLINK_FLUSH_MODE_SDE_PERIPH_UPDATE    
+>>> FIELD_PREP(DP_MAINLINK_CTRL_FLUSH_MODE_MASK, 3)
+>>>   #define DP_MAINLINK_FB_BOUNDARY_SEL        (0x02000000)
+>>> +#define DP_MAINLINK_CTRL_MST_EN            (0x04000100)
 >>
->> Shouldn't it return an error if the register dind't latch? Also,
->> shouldn't we set mst_active only if the write went through?
+>> Why are there two bits?
 >>
-> In some cases, MST still works correctly even when the ACT trigger 
-> fails; here refer to the downstream implementation.
+> Bit 8 enables MST, and bit 26 was set to select the required ECF 
+> endianness.
+> 
+> 27:26    ECF_MODE        MST ECF Endianness
+> 
+>                                    0x0: [63:56], [55:48], ... [7:0]
+> 
+>                                    0x1: [7:0], [15:8], ... [63:56]
+> 
+>                                    0x2: [56:63], [48:55], ... [0:7]
+> 
+>                                    0x3: [0:7], [8:15], ... [56:63]
+> 
+> 8    MST_EN        Multi Stream Enable
 
-I don't think it is a good idea. It would be better to signal this to 
-the user and rollback the MST configuration (as in the case of any other 
-error).
+You can guess, #define them separately (and the ECF should be the GENMASK).
 
-I will change my mind if you point out i915, amdgpu or nouveau drivers 
-ignoring the ACT issues.
+>>>   #define REG_DP_STATE_CTRL            (0x00000004)
+>>>   #define DP_STATE_CTRL_LINK_TRAINING_PATTERN1    (0x00000001)
+>>>
+>>> -- 
+>>> 2.34.1
+>>>
+>>
+> 
+
 
 -- 
 With best wishes
