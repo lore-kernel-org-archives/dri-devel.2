@@ -4,138 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E4D3CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3789CC6B36
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B87710F1C6;
-	Thu,  2 Apr 2026 08:51:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C78410F1BB;
+	Thu,  2 Apr 2026 08:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mD/s6PGg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H31fYFHy";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010070.outbound.protection.outlook.com [52.101.201.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D98D510F1C6
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 08:51:38 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013035.outbound.protection.outlook.com
+ [40.93.201.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A81A10F1BB
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 08:53:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nbQ63ABYxRqX1j8GXSY+O5sSK9wMtyBS15vhpAxx+KV5FT+Cmw0wn+ClvwiUoO0SYPRnQWS/GuHDxJDuUYt/x8HxOpFbq+ptbZkC6im8XvxCY0yGHSXiQCtIL03FEdzeHmGopoxaB1bjLGmH5eS6k27lYRlWXH16U60amCp5ejt8CBwptUtyREnzAClkYydCX4crR7tSW6ZaKp+tIauCqloFDuIV6j5g/24CB0uGh27kgqO3hUjxWp0s2cDFaUsJFkmocyzMpZR4LkLGWIS3rjF0JZAL+pA44czPl5072sfMf9pGxaP5stuklR+tf4v0sVylBhqiKPXOVNXcL+jJjg==
+ b=Sg+gTAxwnv6RMJiO9Rlk+TT/a5umkrtN2ELUW2CtaMynTXWBHY9mBhiixh8EJLToEQKz0I4jzvuTwwvRh3OW/fLVIh5uEkg+8kOZIEyWhMniFJusJHQ1laI1WlEeww8RtpzRTLDsXJezTOFHq9A4Z2YMYZgG8CoIZ5gptaMY4oGFLp1r9cZILY211eQRKxyG814I7lw4kgRFaIMPRrShrENbAAa36NZF2IVXcvfIUpk1uZly5uG5I/TwPmTEKBld5gv9UefJg9hH4dLaNpHgOrHYfrIPE5LImaQpk9K4BkbkpWfQpXEVjuSDTE5I/wsGSjBW9YQj1NxSCD4NPUrf0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UfYFd+OYL6X+fIJMKO6wCt+DP0m7OAFnvn6SbXDBQIc=;
- b=TkzXtOs+7cIDj6pTggZi1QTJ7E3I2L7qN68kQ6Ds5b53VpmMrtzGnLmV33St/8ZUPNQVif1B+QUVdkqT4qpXnE35fLfd3PWGbsxRQgFCQODHR9Zs2XItdtNS1DO9ktJWX1l1Y8tW+1W2v50adkgT3T6j3tD1P1z0B5Vcpberh4fCKQa+JVQC4hMEAiNiMjTOphHudQRai+ZA91P8P/81w7RqSThvsZmLSRhOcleCweiVwNVUHLwt1rvIajtcAmAYJ4BL+roHOTXwcXvWIS1G2fvFfOi2U4KEZdH/WZbtgBuwG1XRJobQSy+8YjPMUg2Iw9Uyr2Oou1eioxTRHxl1sw==
+ bh=+mdOcQCPiycgqDKqq0tu1BAXsh05p7h8sYV35sPyGt8=;
+ b=JV7Xj1Hv2/W3/vt/yeRnDipIUnCRkCAruwzWhPuPiDK5vN7W/ajhJU3jNFMheJ80gU52sIV9zzRnD4NzwaV3VKwkG7KHFoX8GAvDClZyyfPwEI4CsIooaQqnuLcMSCDzKCWAWDppl8dFSLehWn/h8KI2qE7K2BKZr73tO4uErHON8QKPOF+ZLJ06c3+i7wg7AUmtxV2qvU52iCAO9FlcLyELer5kxGaMfwti5uVfrHxSEAUakXqnCy/ZTRrJJ6FAZT9mkmeg2YVSO8PcIiNU84GrYMOZEJCLp/L8KC3Da1ECDykDubL9+SSeBhpVYGzCbUjldx1vyi6qdf2EnReLBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UfYFd+OYL6X+fIJMKO6wCt+DP0m7OAFnvn6SbXDBQIc=;
- b=mD/s6PGgUAjbFq/zc676GJKTozEsgR3fuIChSSfT89tQd8824o6vloigYun+iWYKQbLYufWChrFwDpEUW2jMNMLg/eV9wZsGn+omvGxJxubRszrjJ//W8sYkTyl/vQ80bpYNdXcAZl/K63HVFvSRZ7W2iE9kUR3Bxbf02OzMNh0=
+ bh=+mdOcQCPiycgqDKqq0tu1BAXsh05p7h8sYV35sPyGt8=;
+ b=H31fYFHyZF058dVhEUjDOkXEbwJG5p1Uk2z/HG/0RfrEPDoyRz9gy73Bkn0yxTT+fcHJJ4vEzGMwrXXokRZ0rnDLT9WCaDjmioXTxDHoBxGteuNwT8Vv9dB84xZ0i+PYM04Z6K/yHzxfPL1teS+3z5iACIWA25HGBDqqFiv0xgk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
  by SA3PR12MB8809.namprd12.prod.outlook.com (2603:10b6:806:31f::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Thu, 2 Apr
- 2026 08:51:33 +0000
+ 2026 08:53:12 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
- 08:51:33 +0000
-Message-ID: <9c1545d0-6a5d-4260-b921-e8b1d3525f33@amd.com>
-Date: Thu, 2 Apr 2026 10:51:26 +0200
+ 08:53:12 +0000
+Message-ID: <42bd47fb-c5f6-4adb-aec3-c4037a075e81@amd.com>
+Date: Thu, 2 Apr 2026 10:53:09 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 12/18] accel/qda: Add PRIME dma-buf import support
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>
-References: <20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com>
- <20260224-qda-firstpost-v1-12-fe46a9c1a046@oss.qualcomm.com>
- <e87c0c1d-82f1-4a03-9a56-9bf3e03273cf@amd.com>
- <29f9bb45-5c3f-4847-a629-21cef540f38b@oss.qualcomm.com>
- <998ce121-e027-441d-a3f4-2f3e41e10830@oss.qualcomm.com>
+Subject: Re: [PATCH] drm/doc: document DRM_IOCTL_SYNCOBJ_EVENTFD
+To: Simon Ser <contact@emersion.fr>, dri-devel@lists.freedesktop.org
+Cc: Simona Vetter <simona@ffwll.ch>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Daniel Stone <daniel@fooishbar.org>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+References: <20260327171812.128290-1-contact@emersion.fr>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <998ce121-e027-441d-a3f4-2f3e41e10830@oss.qualcomm.com>
+In-Reply-To: <20260327171812.128290-1-contact@emersion.fr>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0320.namprd13.prod.outlook.com
- (2603:10b6:208:2c1::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1PR13CA0321.namprd13.prod.outlook.com
+ (2603:10b6:208:2c1::26) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB8809:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4162e61e-251b-4917-f30a-08de90950a46
+X-MS-Office365-Filtering-Correlation-Id: 082c8fe8-ef53-4454-6a05-08de9095457c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|921020|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: B7Mx2G/D/bguQBr7wYKmKlgw7h/ymHSBxi6DbEESlZR1PPZjacbgfrQbdgTobkq97Ph5aYK/Wrstgcm7OAstI8fY8ghm9m0qcIHwYVS+MdhcrQhlXpUpWM0CnK825iaXCB4JxGmWRRWTxA9vWdQcG1p+l6arBpHYkdJIbwPMdaseSbJ8mOBWBJbPZHe5orXHWap7DZxWSley1POhsElLTNSyaKg3oYYh9rbcb5WUc/2gwxY6dJiEZZnZ6pbID9TUtv3gUC2LkFIxJzj4AG62qlaa3sIEGC+aKwp2HjEVydSSj7Lsv5dzQrIEE3H8Dynk91x+NQULbOAIKPgX1Jj4EskRLG7gbaDYB4Xd9sk9az1LGoiElz9kmetzF8D8OwsDkK8s95LIbHq7v3F4fgeVCj+0tVsi7RBoPMBitWws4KsgZ7BQfSYvGAccHoojRLi5jtLFkJ0PvyUo4HM00H7dvKPODk84ebSsEzCdetEsaNC3iDr89gM3YCgVTqcPs5yeEJLCxLtPZeqNUi47QUFUKfBNLE2jA2Ge2Wga3kYQujeepTQH76CN7/7zOVELp9+WTjpzJnr+WTVCgZcWwZag+FPs/yGvdyZJ2M9jkzMti+mX6Z92sjP5tNMCiZrlaO3hJ4ISaCNAiPGlpSYTybpdxmf6jZ3dwStaMHwaPNLztovB5J8/LBkmXiCF7T9Wqk9ba1mZ1Oo26GpgjzkL3IeWtZfbRcOhrnMnDzuM/ffHkF8=
+ ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: HDoI4ZGRcLQFVlcYvYXX66wbep97/7M/uV6DF4mn6exvd/LG8H0857ePxMrnFCcfcKWd8sTAIZP+aa6ZY6eHkcJf4pA+zIOi+Gpt+WoSHKKkA5KhQ9gCxKS4fJXWCZFl3tvY54MYwv4ANmX2vk8BDmS1o4Eon4AEJ4BJ8wfr5OXOEyN+L/yOvwKwKnUXUXZL0a56LtAJxGDCg2j97jjh0+WYlI+Iie5rWlOpM32YJJSGlVI5U7vzFwIuSb6w0gOVzNU/Orf6anWmQTF7X3eDoVJaqHbKdCfaUjodVLwV4i257bQp33Fsyes4PNmXBRaHQW87UIjFZ+MqYyyoDAPOOfq4VziaGK/xUQRsUU5K7sfXJvWWtQ3SW2faL7AusI3tu7+ci/cOqBlMk8ExgK9qYaEglPgiG6Q87yss2EkcgTYbhl5TTc1RYVWa0BnBFmYlhdNjunrPjkN28TYHQGRBcxMZnygvuhEaLTsC+nqvrq2iNkwvQFreOqcERt/VND1Rg3fi8i6+LuS+y9DZGLWb2MHzKAqX6g7J05oLduZoFWlSrPglMTKWUfldlOdKavLwvClT7y3gCwu+gcccaJXmXZlu49U2bTcEAuDU87IYbR+kHh60dHFhEXtT8KTpM1U5Y2lGVStbvtMAFYDkXMY+z//ujaUH2bTPPSNgKUb9XD0Yv6TEd5Q9n9us1HBWeE2N6X2j8+i2DkVCiHJNTNzNjV8MFE3yJDczZ8ylS66KssQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020)(22082099003)(56012099003)(18002099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VDdoTjZSVFRTSk9IK1BPdkxDTis0dE1YcDFZMTJQbGZDMnQ5UkhmV0NVV3JV?=
- =?utf-8?B?cTVqb0N4eFkvRkk3RzY1N1Vxenk2NkZ4NkhNdk9kR0VDMHJqRmo4eHVFcWpM?=
- =?utf-8?B?WlMweXJObUg5Z3ZXclNmMVZjSEYySE4yUDdncGZWOUQ5T2dXNFlIdGFReDh4?=
- =?utf-8?B?K1pFb2FFY3oyVndDNm4yVzllTDhnTTZXV0FoaklteWZpYjdpYXNhbStnd1cy?=
- =?utf-8?B?Mnk0dGZvZ3RQNXVmYTBXR2txMEc4WUVCVlordG5rcTdWRmliQlExbUZaRTZK?=
- =?utf-8?B?bmhjSlJPMDYzUnpobGx0aVdXcmtza3UxRVZsWjV1RXBMMndKSkgyTER4RHZ3?=
- =?utf-8?B?eGRDanVnZnlkRWE0K2k2ZEVHWVFrMXhyWld4clFmbk11RUlYbzJld3BIaWkr?=
- =?utf-8?B?YTQwcEIyS2pyb1JYR3lEaUdyZUdkZkZYZGtqNTJTdmRHQ09rMlA1RjRrVVpR?=
- =?utf-8?B?Q3RiUmJvMC9ySnNvRkhuNGtac2ZWeXhpOXV2T2dZMzNqU1hhRWFpYm1RZm85?=
- =?utf-8?B?ZDJNd1NEbGljWi8vOFo0OHZqL01LMEUwRUNKS2ZjVnFLNzNnNW8zYmlXdHJ0?=
- =?utf-8?B?NDBKeHpyOGpTSUU3Qno5eFE0TndGU0k5WGxDL1FITndWNXhFdkxpSjNkZTZK?=
- =?utf-8?B?cjcwVFZ6QXlCeXFEaHA4M084ZUNZMnh6L29MZHQ1VmpLeEpJYmU0MWtGZkdY?=
- =?utf-8?B?OVVpQUpHZU4vcWpHOHJsbm5iOTU1NWIzM2dvZkZSRmZmSXBwQXJHRGZsR0J5?=
- =?utf-8?B?YjVjOWtwQ0VwdHBJZm5YUzM0aEZmdHQyN1RvWUJvWXhEdGZyazR1Q0lNdkNU?=
- =?utf-8?B?UFkzY09Gb3VpNzlTcTZwZ3FIS1IxV3BvUEZaTDZCSUlQUkRnUGhBN2VjeG4v?=
- =?utf-8?B?bnpVcDdlSXlDQjlvOFp4OVJCcHFTMVgwbWUxK1duOWNaUlJDSmZtNG9SVC80?=
- =?utf-8?B?M2FzUTdDT09aUjRUNjlSRjJGdVB1QmRXWnE2SzJHOFEzWmxBRGtROUhXUERR?=
- =?utf-8?B?RFZCMmdzUlM5K21KZERYL2JiMDg4MERONVZBUUduc2g0NHVmR0pvREhxSi9u?=
- =?utf-8?B?Uy80S2thMU85OEhBMzBUeFpMYUE4VFpaeDFRQ3pvc2JMZVA3cDJyVFRDTlBu?=
- =?utf-8?B?WHZuTmNNeUZYZVdNZEtQTnlvMU9NNko0QS9RTDFnUzBoZUdVclVRd0RMZ2lX?=
- =?utf-8?B?SVgyeVRXWXp2R1Vtb1lBaU04ZDVCbGsxSWdrbktHdm9mWUVOaUllMjYrUUVJ?=
- =?utf-8?B?NDc3bkh3NVUvME40RVRpbktyQ0NrZVFndmlYZGhQWUk3aGtLU1pYZTN5Y1pL?=
- =?utf-8?B?KzYxb1FKVGhVb2s5TlJkN2ZhbjRiVkpLNVN5aVRBSlUrWmxlSTNlbGlCdGIz?=
- =?utf-8?B?SHlnR3NVRkp3b2hvZHRzT0szQWo1ZTFjY3VCeHMvU2RCajF0S3VyVFFrYlhC?=
- =?utf-8?B?NmJLcStBc1hBSUtqSGY4dWh6Q2VRL0VUNjdmdVhHdmdLM21LK0FmZ2JpeEVn?=
- =?utf-8?B?Nkk3ekpaWW5qcXhuUmtWVDFZL3hJV0RxMnhIbFYwN1Q2NFZGaXZ0YWpCdHBw?=
- =?utf-8?B?NzdFdHJBNVNHQnZDemFXR1VjV3BvWktEM1dWMDA2M0FKVW0xYStSSjRPNUYv?=
- =?utf-8?B?THlld0U2cjNOcTUwTVF4M1lWMVQ4VlhCbkJTWEQzYXB2bVBsT2pvQVBPczl1?=
- =?utf-8?B?TWYzcjR1RW15V0dYQUpKcFVwdTZObmw3K1JnZ0pncFdnc05lK1czU0g1bWJk?=
- =?utf-8?B?REpqWTF2SjVFSlNNdG5od1V2V090SDRXRHdjMUVJeHdaUXhrSDMvYnBudENs?=
- =?utf-8?B?VGd6NWhDRDJ6VnUrTFlWRGsyc09wbkIrbnpVUjMvMUEvaHI2WThvem13aWc0?=
- =?utf-8?B?YStYYUpCSzcvQldEdjVHM3N1ZERmOEJxVmJjaDhKOGU2MXIzOGdWRVkxSGF0?=
- =?utf-8?B?NVpzc1FKYzRSNnp6eHVXQWxWRnVhaTVmQUVjd1JwY09TTlZFU1kwOGp4WGJ6?=
- =?utf-8?B?eENwZ05qWTBpRE5DV2JTbHFRTXlaZGljV3VJNFYyU0ZBek9TODF6Wmw2VmRI?=
- =?utf-8?B?UWZUQ2s1blMrRWhIbkxsQVpFVTZiR1JEaVh5VWZzd2lUYWxpemtCS0Z4N2pa?=
- =?utf-8?B?TERMVFQybFlxVS8yalZLMWNpQ24rR0VtUlVqNkRESC9KMlpCY29zQm9VeHN5?=
- =?utf-8?B?ZXdjVmUzZCs2VXJrQXVjSWh0d1kvaXF1MzFWb1o1R3Z4enZlOHV5OWVkRWRG?=
- =?utf-8?B?bGVNLzBHcHZSVkEvbjZLT2tVekw1R3oxckNlbENBTUdOWFZVUWhQN1VRNTRC?=
- =?utf-8?Q?4/CE1y1oxCy4eB6hTz?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnFGTTE5c0FpdlQvZ1lwRHl0cFRhRkp2cEh5NUNJUkcxNCtmY29zb0MwZU1r?=
+ =?utf-8?B?QXlQLzR6UlpLaGdCazl4dEMrbFBUU0lPeTh6VFNiVFR1ZVRlc3doMjZvUTEz?=
+ =?utf-8?B?a2R6ZXhyRWZGRThYRWtvQUI2OVNDZkxHcC9Cdnk4WXVMaDVSaEVFWVRjbGs3?=
+ =?utf-8?B?S0lHY1VNeUhjOEd5bzJYeWRqZUNGMWR4V2EwS3hPa1JzR05PQmtHUUM1d3RB?=
+ =?utf-8?B?M0RhUzNXdUc4ZEdxUUlmNFNFbjdjbjJYNnR2amR4STRIdDFMR0lRUTVhL21C?=
+ =?utf-8?B?WWJ2cldyMEd4V3BoelpSQWlHVGptM0x6MkwzZG52dENDSU53R2Y1Y1R0WjBX?=
+ =?utf-8?B?N1VYUmIzU0dzRWw3V3lWMXBRTXEvdEpVc2NEd3NkQVo5SW5Cd1RINHVyMVEy?=
+ =?utf-8?B?S2p6eHlSOTA5d014ZUJvdDQzU3llZ3ZQbE9BdDQ4ZitIZ3JJYWgxNFkxMk14?=
+ =?utf-8?B?b1Z0dGNlQ3k1Z0U1YTY4SWtUaEhEZERMK1o4QlVPTE53TDA4SVRGd0I4cVdr?=
+ =?utf-8?B?NXV5QU9DMGtEcXJQNWtYSDlkRGNjNGJRblQ5OU1hRlp3Z3h3UERnUDUzWCts?=
+ =?utf-8?B?SUNDTU4rZkZEeWhBT1ZhL1FJOWpPS2dyQzRyUGlCN2hrdndGc3ZqbmxaUG5K?=
+ =?utf-8?B?RUpNODJjb0Y1M3EweDVLdGs4UnB2bWVDVEZpOUpOSERpRzU0azRRTDBmVThB?=
+ =?utf-8?B?YXFnWlRaeEdwcENZZWJKQUlJNlJoNDVWd1FWK3ZyVTlMTDNNMU90MVRnQ3Vv?=
+ =?utf-8?B?cHpwdG9Zc2pXR3hCdDM2Qk42QWRPZTJRU1oxdXI4REJ2Zi84VncwS2tlRHZL?=
+ =?utf-8?B?bmcyWlNGODJ5amxQejhUcHVaWmR1TUpPRXpjRTZ4UGNVSEJVRVh6S0hmSnp3?=
+ =?utf-8?B?YmNPa2hkN1VOWXFsT0J5NUFvWmVQOWF6Rzl2TUVVcE9LcENZR0NNMjFxbGQ0?=
+ =?utf-8?B?VE5raFNDU0tUb2d4YjA2L1VRQUlnK2xHZXJkNUxTWVZ3ZzFsNHpmQkI5dDRn?=
+ =?utf-8?B?dXZQWmNNZlg4RS9wbjRmdXJObGxUN3lRRS9SN0Z1K0RURmJqUHlYRzJWL1h4?=
+ =?utf-8?B?Y3FiTng3clZCOHNtWTFld1V5bGZMemFuKzRnVXlNY1NUNVdKUnI1Smpvd0V4?=
+ =?utf-8?B?MCtMODFJb1lSSE91U0lvUEtmUjJXQ2psdld4SzQwNVFFQllFQXlUNmRxTytW?=
+ =?utf-8?B?ek56T0RWUVhZM2ljK1lvVXdKcFdMNzltczIyM2dlQmpsbnJmejR4RFRlYmR2?=
+ =?utf-8?B?YVNSNW1Odi9MUXdrOGFjSzRBTjJaZGlEdGRqa0V0RFJPWnVyeC9nM3FSMm5o?=
+ =?utf-8?B?ZlRLUHF1RjNXaStJSzJVNzIxTEVWMnNvS3N3RkdDczVwVmdwUEQ0NjRxT05N?=
+ =?utf-8?B?RzBXL3BCQUVsTnRYQytGMzlOMko3NWUvTS9rVFczK3Nzd3RCcWFwQzZGaUVP?=
+ =?utf-8?B?RUY0cnpSUmRzQUxiN29pelFRMWc3bG9hZWhQZTZ6Vks0UG5ha0NxRGdsdEZJ?=
+ =?utf-8?B?L2NTMHVySGl1TUZRdE5mSXhzMjZQZiswZUhyeHoxKzhyT1VseTg2UTRWY0Fv?=
+ =?utf-8?B?R3ZnQ2RMclp4U3p4MXlQcXVPYXhmRk1uYUYwditsK21hNjNvZyt4T2pRWmdG?=
+ =?utf-8?B?dFBncTZvNTN1cTVGbnExQXZtNW1BWmJVZ1IxbVM3djZEbC9hVnV5NXFkTVAr?=
+ =?utf-8?B?YkJyczJSZVAzL1VtbW5aMCthUUZ5RjVudnc1RTcwYjA0cXFuT01FY29XRkd6?=
+ =?utf-8?B?L2V6UlhYY2ZCZE9ETWY1RXFFQXBhZ2c3SWplOTU1UFJtazMyZW5LTmZjeGhF?=
+ =?utf-8?B?ODNwWjk2dDc1SzFrYlVvSUlITFRzc3RQQ1VvYUsxT3grb3BYSjNaeFhDVzFQ?=
+ =?utf-8?B?blkvQlE5MTJrOVV5VytFYWxNRTZCQkw5WlZtS0ZJWDdidGxOaDJPNnZraTh0?=
+ =?utf-8?B?ZXRKWGpUc0oxMFpLY1k4d0RwM1pvcFlvNHFoTVJjMDc4N3NkUFB3OTFGWjdL?=
+ =?utf-8?B?QXViV0VzZlFGOHZGeGVYbWNLV1pPaVhVb2dHVzBuMloxdWRuUG1NaXQ4dERH?=
+ =?utf-8?B?eFBjaUZLMTV6cE1nSlQwZzUxSnVWZnpqdWhWL0JqbXlNNXhMaDlmTTh0cnVF?=
+ =?utf-8?B?Y3RPakUxNlM4QnFCTXlkdVJDc2pIdmxxVDJvOGc1b212U2Y1Q0FkUi9OWXQ4?=
+ =?utf-8?B?eUZrZGRJN245S3gzU0tqNE81Q01jMXo2dUM2V0ZOcW9tNDJsQ2lILzVQN0s5?=
+ =?utf-8?B?NDR4eHhkVXhaRGtmYlhIQ1NPTjIwbzY5OU55RFpodnZEcW9ic3JwQmwxMmkv?=
+ =?utf-8?Q?mxheGxUKDuFg316Fk3?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4162e61e-251b-4917-f30a-08de90950a46
+X-MS-Exchange-CrossTenant-Network-Message-Id: 082c8fe8-ef53-4454-6a05-08de9095457c
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 08:51:33.1571 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 08:53:12.6129 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2/XRxMWkAvpNNl8Q7G6CWyWR0PZDVl21g6ICTR65EiOfwpP5VHY4vM/3zqPQ8YdL
+X-MS-Exchange-CrossTenant-UserPrincipalName: MjKF8PfrylKakcux7uystEYRs5G4Kgl1/deXJHW1G2gSlMT6Qy1O6CgEuftsIueX
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8809
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -152,122 +138,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/2/26 10:36, Ekansh Gupta wrote:
-> On 3/9/2026 12:29 PM, Ekansh Gupta wrote:
->>
->> On 2/24/2026 2:42 PM, Christian König wrote:
->>> On 2/23/26 20:09, Ekansh Gupta wrote:
->>>> [Sie erhalten nicht häufig E-Mails von ekansh.gupta@oss.qualcomm.com. Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnAboutSenderIdentification ]
->>>>
->>>> Add PRIME dma-buf import support for QDA GEM buffer objects and integrate
->>>> it with the existing per-process memory manager and IOMMU device model.
->>>>
->>>> The implementation extends qda_gem_obj to represent imported dma-bufs,
->>>> including dma_buf references, attachment state, scatter-gather tables
->>>> and an imported DMA address used for DSP-facing book-keeping. The
->>>> qda_gem_prime_import() path handles reimports of buffers originally
->>>> exported by QDA as well as imports of external dma-bufs, attaching them
->>>> to the assigned IOMMU device
->>> That is usually an absolutely clear NO-GO for DMA-bufs. Where exactly in the code is that?
->> dma_buf_attach* to comute-cb iommu devices are critical for DSPs to access the buffer.
->> This is needed if the buffer is exported by anyone other than QDA(say system heap). If this is not
->> the correct way, what should be the right way here? On the current fastrpc driver also,
->> the DMABUF is getting attached with iommu device[1] due to the same requirement.
->>
->> [1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/misc/fastrpc.c#n779
+On 3/27/26 18:18, Simon Ser wrote:
+> struct drm_syncobj_eventfd was documented, but
+> DRM_IOCTL_SYNCOBJ_EVENTFD was not. This prevents references to this
+> define from being properly linkified in docs.
 > 
-> Hi Christian,
-> 
-> Do you have any suggestions for the shared requirements?
+> Signed-off-by: Simon Ser <contact@emersion.fr>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+> Cc: Daniel Stone <daniel@fooishbar.org>
+> Cc: Michel Dänzer <michel.daenzer@mailbox.org>
+> Cc: Christian König <christian.koenig@amd.com>
 
-Well I don't fully understand what you are trying to do with the iommu. Usually it is the job of the exporter to provide the importer with DMA addresses which are valid for its device structure, that includes IOMMU mapping.
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Can you iterate what exactly this iommu group is and why you have to attach the imported buffers to it, how that attachment works and how lifetime is managed?
-
-Regards,
-Christian.
-
+> ---
+>  include/uapi/drm/drm.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> I'm reworking on the next version and currently I don't see any other way
-> to handle dma_buf_attach* cases.
-> 
-> //Ekansh
-> 
->>>> and mapping them through the memory manager
->>>> for DSP access. The GEM free path is updated to unmap and detach
->>>> imported buffers while preserving the existing behaviour for locally
->>>> allocated memory.
->>>>
->>>> The PRIME fd-to-handle path is implemented in qda_prime_fd_to_handle(),
->>>> which records the calling drm_file in a driver-private import context
->>>> before invoking the core DRM helpers. The GEM import callback retrieves
->>>> this context to ensure that an IOMMU device is assigned to the process
->>>> and that imported buffers follow the same per-process IOMMU selection
->>>> rules as natively allocated GEM objects.
->>>>
->>>> This patch prepares the driver for interoperable buffer sharing between
->>>> QDA and other dma-buf capable subsystems while keeping IOMMU mapping and
->>>> lifetime handling consistent with the existing GEM allocation flow.
->>>>
->>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
->>> ...
->>>
->>>> @@ -15,23 +16,29 @@ static int validate_gem_obj_for_mmap(struct qda_gem_obj *qda_gem_obj)
->>>>                 qda_err(NULL, "Invalid GEM object size\n");
->>>>                 return -EINVAL;
->>>>         }
->>>> -       if (!qda_gem_obj->iommu_dev || !qda_gem_obj->iommu_dev->dev) {
->>>> -               qda_err(NULL, "Allocated buffer missing IOMMU device\n");
->>>> -               return -EINVAL;
->>>> -       }
->>>> -       if (!qda_gem_obj->iommu_dev->dev) {
->>>> -               qda_err(NULL, "Allocated buffer missing IOMMU device\n");
->>>> -               return -EINVAL;
->>>> -       }
->>>> -       if (!qda_gem_obj->virt) {
->>>> -               qda_err(NULL, "Allocated buffer missing virtual address\n");
->>>> -               return -EINVAL;
->>>> -       }
->>>> -       if (qda_gem_obj->dma_addr == 0) {
->>>> -               qda_err(NULL, "Allocated buffer missing DMA address\n");
->>>> -               return -EINVAL;
->>>> +       if (qda_gem_obj->is_imported) {
->>> Absolutely clear NAK to that. Imported buffers *can't* be mmaped through the importer!
->>>
->>> Userspace needs to mmap() them through the exporter.
->>>
->>> If you absolutely have to map them through the importer for uAPI backward compatibility then there is dma_buf_mmap() for that, but this is clearly not the case here.
->>>
->>> ...
->> Okay, the requirement is slightly different here. Any buffer which is not allocated using the
->> QDA GEM interface needs to be attached to the iommu device for that particular process to
->> enable DSP for the access. I should not call it `mmap` instead it should be called importing the
->> buffer to a particular iommu context bank. With this definition, is it fine to keep it this way? Or
->> should the dma_buf_attach* calls be moved to some other place?
->>>> +static int qda_memory_manager_map_imported(struct qda_memory_manager *mem_mgr,
->>>> +                                          struct qda_gem_obj *gem_obj,
->>>> +                                          struct qda_iommu_device *iommu_dev)
->>>> +{
->>>> +       struct scatterlist *sg;
->>>> +       dma_addr_t dma_addr;
->>>> +       int ret = 0;
->>>> +
->>>> +       if (!gem_obj->is_imported || !gem_obj->sgt || !iommu_dev) {
->>>> +               qda_err(NULL, "Invalid parameters for imported buffer mapping\n");
->>>> +               return -EINVAL;
->>>> +       }
->>>> +
->>>> +       gem_obj->iommu_dev = iommu_dev;
->>>> +
->>>> +       sg = gem_obj->sgt->sgl;
->>>> +       if (sg) {
->>>> +               dma_addr = sg_dma_address(sg);
->>>> +               dma_addr += ((u64)iommu_dev->sid << 32);
->>>> +
->>>> +               gem_obj->imported_dma_addr = dma_addr;
->>> Well that looks like you are only using the first DMA address from the imported sgt. What about the others?
->> I might have a proper appach for this now, will update in the next spin.
->>> Regards,
->>> Christian.
-> 
+> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+> index 27cc159c1d27..495462e44a17 100644
+> --- a/include/uapi/drm/drm.h
+> +++ b/include/uapi/drm/drm.h
+> @@ -1323,6 +1323,13 @@ extern "C" {
+>   */
+>  #define DRM_IOCTL_MODE_GETFB2		DRM_IOWR(0xCE, struct drm_mode_fb_cmd2)
+>  
+> +/**
+> + * DRM_IOCTL_SYNCOBJ_EVENTFD - Register an eventfd to be signalled by a syncobj.
+> + *
+> + * This can be used to integrate a syncobj in an event loop.
+> + *
+> + * The IOCTL argument is a struct drm_syncobj_eventfd.
+> + */
+>  #define DRM_IOCTL_SYNCOBJ_EVENTFD	DRM_IOWR(0xCF, struct drm_syncobj_eventfd)
+>  
+>  /**
 
