@@ -4,141 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8FA8D6AB16
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 21:59:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63A0D6AB10
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 22:07:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15F1710F671;
-	Thu,  2 Apr 2026 21:59:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E529C10F64B;
+	Thu,  2 Apr 2026 22:07:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="l7oEl4F5";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="EC45r/FD";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010068.outbound.protection.outlook.com [52.101.61.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88C7310F671
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 21:59:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zc/ewUHAKWEU5mXGoasltpe30VuCNn7rJk7COk09MCTFae8yeFV1Lw9n+XPJu8I1N457v63QMHR/vSTvOA1CWQBg/uNMono7K5BYaB/wnzenlg05uh4ZFc3hVHq9o/LzOGMd3I6G2MVdmbJot84e5+mai1k5knrteU+LQsselzrevYjTNb3hYpnSwhwgWeass6XVEEYCwaeOENwKyQiDVtcQ7RHGbA7SCaZ9Q+T1pGft9WVgffie7NuFpXI9ytQ9P2M4FmMaJrvQA42nSgmb0L4EftwdF8PqWpQ0fNAbZggh3iTU7pHslpjO5mRRIG4cL+pz9ghLR6CjIZH16W7uvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QYNNiUYlPGTJ1aTpjbFbGrazACCoO0swJzbLzdLx6Lo=;
- b=mBqAbWEAhEO982kM/suw9qLN1n5mEMYPCgT/g8/dU4aiuDGD4slAWtvZW2zkyULCHCDUeLEw/y4SxJG5UWtcf5nAdM8wTf5sJBTWbMFL03cmciy8prHKBbQMc8wbPrXCpDcw0BvmwKK5eCTGCj/t2TtAAIkXsgp8f4YKr2Ec7254nXTbL515e4dVglfFEUD4ObcFU216siPIyVj/xcNat5q/WqOCxKFvVw+jJkgRQG27FCAWVtsW68VbnhGCqA/kq+uEz/m9Y12FXPWcl8bBe5QVf64zkhZ8nMEFnnXQ8S4aur1JTTPVBACmVV7emv14XP6pqIt7zI+PGJ/sfYQTaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QYNNiUYlPGTJ1aTpjbFbGrazACCoO0swJzbLzdLx6Lo=;
- b=l7oEl4F5kFnNhFQsShzQ5S8qDzaCgzhZleLykC/ufUlr5iCmZ8V48AFdWrfh33qLtwLZeUz7CB0g9nu/axtduuDGKG3Cn9s8PdvvhiVuA+wip/Ujzv3V209k8hpr6E06taPgUk8g56fDm2i/IF3dbXHW5UHXsgtuYGA0KoRrhvZrl0DAB57M2pTKRKsx9ww/Qu+WhjEq+6Ftvfzuj0s/rk4Ei4ddpvLHvHQLQTY1p4FI5E7qGUvo1awybqvTPeVhFHfVXMpTHToTLGkjhVmT9w03h+HT0rGIeMia7gLrL2rzVEfkK08Sy+EsRDun+1IrJxBdxsqocASC7DfSiBMhlg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- MW4PR12MB7030.namprd12.prod.outlook.com (2603:10b6:303:20a::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17; Thu, 2 Apr 2026 21:59:34 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Thu, 2 Apr 2026
- 21:59:33 +0000
-Message-ID: <5a2688ca-3cb5-4f64-a51a-8b65dcd3487f@nvidia.com>
-Date: Thu, 2 Apr 2026 17:59:30 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] gpu: nova-core: fix wrong use of barriers in GSP code
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Alan Stern <stern@rowland.harvard.edu>,
- Andrea Parri <parri.andrea@gmail.com>, Will Deacon <will@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Nicholas Piggin <npiggin@gmail.com>,
- David Howells <dhowells@redhat.com>, Jade Alglave <j.alglave@ucl.ac.uk>,
- Luc Maranget <luc.maranget@inria.fr>, "Paul E. McKenney"
- <paulmck@kernel.org>, Akira Yokosawa <akiyks@gmail.com>,
- Daniel Lustig <dlustig@nvidia.com>, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- lkmm@lists.linux.dev, dri-devel@lists.freedesktop.org,
- John Hubbard <jhubbard@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>
-References: <20260402152443.1059634-2-gary@kernel.org>
- <20260402152443.1059634-5-gary@kernel.org>
- <dc9c3448-d82f-4cec-97f9-7ea3387d8296@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <dc9c3448-d82f-4cec-97f9-7ea3387d8296@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: IA1P220CA0023.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:464::7) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC72F10F64B
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 22:07:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775167648; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=MlJ8hwnnHo/KDrN2J5Nf7vssfFthG5XdbBjwmRJCYpBPn/gDK6EFrpzSDE8QpbNhc/VwpgSDXLpsj/m61w8+h7nCmTdhrLNcRCPD682HVezaLxIgU3hRyk7kj5waflHKnVp+GXTWIq97Je7UnvGYaZP1zGcR9SI+CJuZ9A52A+Y=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1775167648;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=cMEa7SRLCUREa2uh8r3RWORfmgqlL3NGjKSuIimH92M=; 
+ b=EhNYFwkGjxNwbcM4sNEQvnc2jr5PA6O8ga8M92NoEdZR4NHskOgK9dqsf8GRU0NYgWVR8IrZNHx21yoqK7QjJQ29VHEPBWNHNZSvZJ/jcTl8hcOD0V0vzA1ivmEAWO1N6eSk9Mz//Iv7YsqCyWPdrhb9SIjPbpHLT4T8PKWtNuo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775167648; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=cMEa7SRLCUREa2uh8r3RWORfmgqlL3NGjKSuIimH92M=;
+ b=EC45r/FDEVHSHRU17hJETwbT+CesTQ5sH2seWl8T3jAQ5+a9iarMrT/uB0VmO7zP
+ phXcBwsxPxYn5koKbc7SuviyMMgUQ0h+hvjXcebwIztWv3gFPs3XUzpkVYB6MI3hIoA
+ 6G6z38B97jQUK/i+En/PJwZsxc7z+WNbNZccZP6k=
+Received: by mx.zohomail.com with SMTPS id 177516764656655.417004690233284;
+ Thu, 2 Apr 2026 15:07:26 -0700 (PDT)
+Date: Thu, 2 Apr 2026 15:07:25 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ Boqun Feng <boqun@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Dirk Behme <dirk.behme@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>
+Subject: Re: [PATCH v3 00/12] drm/tyr: Use register! macro
+Message-ID: <ac7onXQLlj_aCc4D@um790>
+References: <20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com>
+ <CAH5fLghWAQOkH0bDw3vC5UZaCJyXaXn16D_2K8wWOraBcktg3A@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|MW4PR12MB7030:EE_
-X-MS-Office365-Filtering-Correlation-Id: 658600cd-21c1-49ca-2d37-08de91031f98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: xFzgkv9BqSi4v1Y1e23YdSlvIV+9JtHJUROJCPiF9dBe7+8ao53csxJCLIn2lVZNpsjeArDBfKo2GBYZmcm6LjbKXz89Zkb+GUIZ5fzS2TNox4qTTjU0nAnhH79LWyhgyY0Z1Aa2ueUHI7q9VCkxbCsoaOlww/+Yw2hIUKHseCZXK3xCRRxhXNHTcC45cO2N0PSX311Z5chtXR2BkgdSc8mhrGVF78nIPvGUUBqSdW0rTiWwfKjYq4oNEorm6ThHUNePV8DPF8dnF+Tg1MSlz0i7Y/9Ns1uLUmX+aFHYhF8rJ51JMg3VIhBfAhWJ6dVI2SjGK7UqPIhLWaS4KhTOP+k4OST7FFjUuSji7Gwe2fOvuEaR1RZjpRX+9+bcDRHsef5D+oy7O7v2NWPUjOI/i0VzkN5cYFQ6xEMIGs5Ou/3bxs4BYU5swE2E2kRSuxrzGSD30FvL+qVq1uNpCAJf/5O7ThMqyrDuKOGuBT2dsawt7zHEiIo5JGB1KL9H1zcwx9D9a5NfmvRFG9RNQf10QMPKy2qXdzGqURhKUZjR0DMbKfmK5qT02QBK0W/c6phTSsVCuVGEHyhwizy8Rz1DaqQeB7RsSS9Al6Lu2lYG3bG2RMTeXoPzHyxzz90cXQ+FvuNpwhPkA9rpt14Yrw+4CyhZzbEABhMQ7UNVGzSbdCCM43+NaWolYoFAm99EecmHhMyWoimro4NEXZVo2nMtaRGRL5+wKvnKyLtKYKU4gDhqY1BBM5jrznRVOOHT74UZLrJA3q+gD8pFtNF5CmBHHg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(921020)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aHJjcHEwQlMyNFJ1V1BSc2tPcTZKSkx5bFZ2S0ZlZmMyTGkxYnRmN0ZoZmpY?=
- =?utf-8?B?QUdCa3VXeldwTmp0OUV6c3g3TlNETGVUcFpkS3d6cHlPMktTb3p5NEQrRVZw?=
- =?utf-8?B?YzVJZ2FrM252RXpka1JDaXRuUXpwZm50dkc5U1R3S21MS3NuMUtNNmpkTStL?=
- =?utf-8?B?bWFnQ0pVWlZZVENZd1UrMHdmZ1c3RHRGZzd0WHA2OC84T0JRRmpOcnM4c1VQ?=
- =?utf-8?B?Z1krMytPUFlUYXBIQkxQLzRJRVhBdmxnakpicWVZcS8rM2VFUGNkQlIxRFlF?=
- =?utf-8?B?NjRLZlNnSDIvUkRYVFJETFpOOFBha2hYams0MzR4SjZENWdoVFVSY1J5c1pI?=
- =?utf-8?B?RzE3MkY0UDN3T2xtb3pXV1A3T2tvYnVUMDF5ay9XbDJDNkwrdEtSZis2Y2Jv?=
- =?utf-8?B?TWZsc2N3R0dCalF5bmYvY2Vxa1NjQzNsNXhYL28rZ3lyYzhQUmpSYUVVOGlO?=
- =?utf-8?B?MllMd0dQS1NwV2lSS0hGc2wwQ1ZNR0FVVGpBQ01RNkNIdWZieDdJMjJvWjRu?=
- =?utf-8?B?bm9PMWw2UnJ0THpuaHdBcGxxZ1NuWjcxaEVzNE9EeENZZ3VKKzA4VzR0eUhk?=
- =?utf-8?B?dDY0eitEaEt6U2VEeDRrNjVSOFhOZ2tmU2dycXl4VThRNVVLdmJUWHdoeFBx?=
- =?utf-8?B?dWRsZHRTWS9mYzhWR0h0R2xRWk5qKzRwSFR3cEJNUlBBYitvZnpGT2p4S1My?=
- =?utf-8?B?dThWVWtmVTlpUlhCWXhzV0gyVkhzTXg5ZlRxNG15c3FyRjhKVm9BY1NNOFJa?=
- =?utf-8?B?c0VkTUI1UU5mR1VRTkxzL2xDa2VGMkdVaDlWZjZDc0M1V3o3VnYrcHpFM3pv?=
- =?utf-8?B?T3JkcUxabDNtUVZmYWZaRm9xVzNYdW90V2RjclFNMmhZejJ6ejk2enRDczEy?=
- =?utf-8?B?Y3VCaVgvOHUyU2J1Rm15WWtNU0xtRWxXa201OXlLODBIL2o0ek93L1dwQ05Y?=
- =?utf-8?B?QkxXendpS3pPT0hhZ3BWdmEwT0J4b0dtSjAyVjM1TTROL1RjcVR4dklMdWdZ?=
- =?utf-8?B?MnkreDhjUDJicUZWWjhuMWJzUDZ5empheEJsRG0zYjVpYzJ2Y3I5eUJHRUlB?=
- =?utf-8?B?cE11QjV6LzVhUzFTU0xWWjN1VmpNbmJlMHlqOGR4Zk9MSHd0M3c0RmtZU2JZ?=
- =?utf-8?B?bzdGbjhGNlZReDRqVTVQaFpGd0loMmZhQnhZSmlrMXZCSTdwc25VKzBtRFZ3?=
- =?utf-8?B?Q3JtMFhGMUs1ZTlWWlhMcE9NNW9rbXVzNjdYU3dRQ3VaTElzV25sK1BIMTll?=
- =?utf-8?B?MUJMeTFkOHlENE1nb2RNc3NmQ3ptbnJyZlJyMzBoSFNNTk51d1h2d1dNZ2tk?=
- =?utf-8?B?akUwUnpQd1RXdUlkRFRoWmJmRjhLdDZpZTV4MlJlblVrc01BOE5jUkFpTlBs?=
- =?utf-8?B?YzQ4QWVMOTNhZmgwUi9ucyt4TmFYV1ZTODMyaUZnZldEOVkzVTUzKzdXS1Zq?=
- =?utf-8?B?UjVVa2ZVQ3FIeVNxL0l3SUluMHdMWkhUUThiTW8wRG1rN3lYMWJqWU9VTTFB?=
- =?utf-8?B?Q1MxaEc2c0pXN2sxSzhCUWRkVlNjaWRKbm9tTkpEZ25tUzRUUDlpeWpWb3Yy?=
- =?utf-8?B?SDNMeXhrcGdKTGVmZGdtU29IQmJQOUJieks0THVrdjJ4U1AvYmc1NVJvamxV?=
- =?utf-8?B?dGsrK05CVEZTWnMzZjBKcVR2VnE5bVFnZWlnWjlDMnJHZlhpMHQ1MWFQNzRJ?=
- =?utf-8?B?TERJcHRzd2tzcTZ0aWx0U0xkZmFrL3RpNDVadDVyYjJkaXhsa1lyREJocW1p?=
- =?utf-8?B?eUVlMmJPSGpjMXhBUGU3b0lRMkxmZndTMnRGcEdhMC90NVRYUEdnWGJXM2Fa?=
- =?utf-8?B?bDFOdEZjSmxyQ2ZWQ0ExblUwZnpIb3YzZEp6MHZRQlZDcStvUmxTSTlqSHVV?=
- =?utf-8?B?SER1cytESWE4eDVwN1dHMlpCSy9zZHh5K0p6cDZSZWpLbXkrQU9HS0NpcWdB?=
- =?utf-8?B?ckFVekVXTlZzTDlpbzZGbXJOUFJDR3U4Z1VDRmVQV21vTzhaeE5CSDlCdE92?=
- =?utf-8?B?enBma0JsQm0yaGltQklkbCtWZmtDdEd4c3hTeHJyOFJYaUViTW9VWEw1T2Zt?=
- =?utf-8?B?b1lMTW9hUTg5a3JFUzJFVEEvQ1phVlBBWWppSGw3eWNzM2VHTWxuNzlZcGZ5?=
- =?utf-8?B?aVpXQWJYVUJXVldMdlpOZFp6Q1NwZ0RvR203enYwM0orbU1tbDhKSzJSaEl2?=
- =?utf-8?B?TFNIVUdUaHIwc0VBZHZlbGZ2d0luRGorMmRHMndka09ySjFmQXRzbUkrVmZU?=
- =?utf-8?B?OFRsWE0yQnE0RllLV2pvYWsydENNdHlpV0tGMWdFSmEwOFlVU2xNNzhDY2F0?=
- =?utf-8?B?T3V6WXlYK0pnMm5lNlZ0YXhIYXVTTUpJTEJtOXA5U3RUTlhxR3d5dz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 658600cd-21c1-49ca-2d37-08de91031f98
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 21:59:33.8231 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wzd6C6BhGu8tddfETwKf2ilJm6r6skLHvwQr5UNAg8VPmk7h4xHeP7t0UyNb+xyrJJmvPA/wnTpWFx05OVbYQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7030
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAH5fLghWAQOkH0bDw3vC5UZaCJyXaXn16D_2K8wWOraBcktg3A@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,151 +77,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Btw, nouveau@ list has issues at the moment, I suggest CC Nvidia nova folks
-directly. Adding some ++ and dropping Nouveau. In case my reply didn't make it,
-it is below.
+On Tue, Mar 24, 2026 at 11:58:36AM +0100, Alice Ryhl wrote:
+> On Tue, Mar 24, 2026 at 1:18 AM Deborah Brouwer
+> <deborah.brouwer@collabora.com> wrote:
+> >
+> > This series changes the Tyr driver to use the kernel's register! macro
+> > for hardware register access, replacing manual bit manipulation and custom
+> > register structures with a more type-safe and maintainable approach.
+> 
+> Please double check the AI review:
+> https://sashiko.dev/#/patchset/20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701%40collabora.com
+> 
+> There are some concerns regarding clock cleanup on patch 3 that seem valid.
 
-On 4/2/2026 5:56 PM, Joel Fernandes wrote:
-> Hi Gary,
-> 
-> On 4/2/2026 11:24 AM, Gary Guo wrote:
->> From: Gary Guo <gary@garyguo.net>
->>
->> Currently, in the GSP->CPU messaging path, the current code misses a read
->> barrier before data read. The barrier after read is updated to a DMA
->> barrier (with release ordering desired), instead of the existing (Rust)
->> SeqCst SMP barrier; the location of barrier is also moved to the beginning
->> of function, because the barrier is needed to synchronizing between data
->> and ring-buffer pointer, the RMW operation does not internally need a
->> barrier (nor it has to be atomic, as CPU pointers are updated by CPU only).
->>
->> In the CPU->GSP messaging path, the current code misses a write barrier
->> after data write and before updating the CPU write pointer. Barrier is not
->> needed before data write due to control dependency, this fact is documented
->> explicitly. This could be replaced with an acquire barrier if needed.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> ---
->>  drivers/gpu/nova-core/gsp/cmdq.rs | 19 +++++++++++++++++++
->>  drivers/gpu/nova-core/gsp/fw.rs   | 12 ------------
->>  2 files changed, 19 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
->> index 2224896ccc89..7e4315b13984 100644
->> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
->> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
->> @@ -19,6 +19,12 @@
->>      prelude::*,
->>      sync::{
->>          aref::ARef,
->> +        barrier::{
->> +            dma_mb,
->> +            Read,
->> +            Release,
->> +            Write, //
->> +        },
->>          Mutex, //
->>      },
->>      time::Delta,
->> @@ -258,6 +264,9 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
->>          let tx = self.cpu_write_ptr() as usize;
->>          let rx = self.gsp_read_ptr() as usize;
->>  
->> +        // ORDERING: control dependency provides necessary LOAD->STORE ordering.
->> +        // `dma_mb(Acquire)` may be used here if we don't want to rely on control dependency.
-> 
-> Just checking, does control dependency on CPU side really apply to ordering for
-> IO (what the device perceives?). IOW, the loads are stores might be ordered on
-> the CPU side, but the device might be seeing these operations out of order. If
-> that is the case, perhaps the control dependency comment is misleading.
-> 
-> 
->> +
->>          // SAFETY:
->>          // - We will only access the driver-owned part of the shared memory.
->>          // - Per the safety statement of the function, no concurrent access will be performed.
->> @@ -311,6 +320,9 @@ fn driver_write_area_size(&self) -> usize {
->>          let tx = self.gsp_write_ptr() as usize;
->>          let rx = self.cpu_read_ptr() as usize;
->>  
->> +        // ORDERING: Ensure data load is ordered after load of GSP write pointer.
->> +        dma_mb(Read);
->> +
-> 
-> I suggest taking it on a case by case basis, and splitting the patch for each
-> case, for easier review. There are many patterns AFAICS, load-store, store-store
-> etc.
-> 
-> I do acknowledge the issue you find here though. thanks,
-> 
-> --
-> Joel Fernandes
-> 
-> 
-> 
->>          // SAFETY:
->>          // - We will only access the driver-owned part of the shared memory.
->>          // - Per the safety statement of the function, no concurrent access will be performed.
->> @@ -408,6 +420,10 @@ fn cpu_read_ptr(&self) -> u32 {
->>  
->>      // Informs the GSP that it can send `elem_count` new pages into the message queue.
->>      fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
->> +        // ORDERING: Ensure read pointer is properly ordered.
->> +        //
->> +        dma_mb(Release);
->> +
->>          super::fw::gsp_mem::advance_cpu_read_ptr(&self.0, elem_count)
->>      }
->>  
->> @@ -422,6 +438,9 @@ fn cpu_write_ptr(&self) -> u32 {
->>  
->>      // Informs the GSP that it can process `elem_count` new pages from the command queue.
->>      fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
->> +        // ORDERING: Ensure all command data is visible before updateing ring buffer pointer.
->> +        dma_mb(Write);
->> +
->>          super::fw::gsp_mem::advance_cpu_write_ptr(&self.0, elem_count)
->>      }
->>  }
->> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
->> index 0c8a74f0e8ac..62c2cf1b030c 100644
->> --- a/drivers/gpu/nova-core/gsp/fw.rs
->> +++ b/drivers/gpu/nova-core/gsp/fw.rs
->> @@ -42,11 +42,6 @@
->>  
->>  // TODO: Replace with `IoView` projections once available.
->>  pub(super) mod gsp_mem {
->> -    use core::sync::atomic::{
->> -        fence,
->> -        Ordering, //
->> -    };
->> -
->>      use kernel::{
->>          dma::Coherent,
->>          dma_read,
->> @@ -72,10 +67,6 @@ pub(in crate::gsp) fn cpu_read_ptr(qs: &Coherent<GspMem>) -> u32 {
->>  
->>      pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &Coherent<GspMem>, count: u32) {
->>          let rptr = cpu_read_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
->> -
->> -        // Ensure read pointer is properly ordered.
->> -        fence(Ordering::SeqCst);
->> -
->>          dma_write!(qs, .cpuq.rx.0.readPtr, rptr);
->>      }
->>  
->> @@ -87,9 +78,6 @@ pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Coherent<GspMem>, count: u32) {
->>          let wptr = cpu_write_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
->>  
->>          dma_write!(qs, .cpuq.tx.0.writePtr, wptr);
->> -
->> -        // Ensure all command data is visible before triggering the GSP read.
->> -        fence(Ordering::SeqCst);
->>      }
->>  }
->>  
-> 
+Yes, I'm going to just drop patch 3, it opened up more problems than I
+expected.
 
--- 
-Joel Fernandes
+The comments about the 32-bit accesses for the _LO and _HI are valid and
+I am fixing them.
 
+The comment about discarding unmapped faults from MmuExceptionType
+doesn't seem right because the spec lists the faults exhaustively.
+Maybe this comes from comparing panthor's enum "drm_panthor_exception_type"
+but those are for more than just MmuExceptionType.
+
+> 
+> Alice
