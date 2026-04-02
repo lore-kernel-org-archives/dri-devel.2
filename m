@@ -4,82 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30CF8CC6B33
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 09:15:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 683E0CC6B3D
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 09:23:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96F8010F0BA;
-	Thu,  2 Apr 2026 09:15:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA8310F1C4;
+	Thu,  2 Apr 2026 09:23:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="hwYGHIkS";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="gsm5A9Ww";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="E+OksCf8";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gsm5A9Ww";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="E+OksCf8";
 	dkim-atps=neutral
-Received: from mail-m1973178.qiye.163.com (mail-m1973178.qiye.163.com
- [220.197.31.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 616BB10F0BA
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 09:14:58 +0000 (UTC)
-Received: from [172.16.12.43] (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 394c8157d;
- Thu, 2 Apr 2026 17:14:53 +0800 (GMT+08:00)
-Content-Type: multipart/mixed; boundary="------------pA08w6av2CYGH1v5Vjy6t1NO"
-Message-ID: <d9b5c826-e0eb-4c0a-989b-48aa12fdbaef@rock-chips.com>
-Date: Thu, 2 Apr 2026 17:14:53 +0800
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358A310F114
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 09:23:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A0F135BD6C;
+ Thu,  2 Apr 2026 09:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775121790; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kSnvgggqRkoalA14gFVa+si+vwQUWHJ4fW14t/f7Flc=;
+ b=gsm5A9WwczrN8KBvtiNgHReeh6vzRdEDmvSkijVERMrM96Lrh6k+dyva2m3YxaelxhrbVJ
+ KmhYowDyFSzzrxzl1OCQcxRSJIP4/VTXKA7fgnVL0rPfVQf2b6vPsCCk6n+DCc9xF6dLed
+ n/+MIHFlpnr1oXZMTTwA7SkzEcD3ot8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775121790;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kSnvgggqRkoalA14gFVa+si+vwQUWHJ4fW14t/f7Flc=;
+ b=E+OksCf8Wp6yroWxHqGqPDGC0Wa+UhIKpl9J5/QANWV+4vcCfsixYIPCh8etEBI6NDxiIE
+ Egm7Jn5mWLpqyeBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775121790; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kSnvgggqRkoalA14gFVa+si+vwQUWHJ4fW14t/f7Flc=;
+ b=gsm5A9WwczrN8KBvtiNgHReeh6vzRdEDmvSkijVERMrM96Lrh6k+dyva2m3YxaelxhrbVJ
+ KmhYowDyFSzzrxzl1OCQcxRSJIP4/VTXKA7fgnVL0rPfVQf2b6vPsCCk6n+DCc9xF6dLed
+ n/+MIHFlpnr1oXZMTTwA7SkzEcD3ot8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775121790;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=kSnvgggqRkoalA14gFVa+si+vwQUWHJ4fW14t/f7Flc=;
+ b=E+OksCf8Wp6yroWxHqGqPDGC0Wa+UhIKpl9J5/QANWV+4vcCfsixYIPCh8etEBI6NDxiIE
+ Egm7Jn5mWLpqyeBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 07D344A0B0;
+ Thu,  2 Apr 2026 09:23:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id SQWwAH41zmlVYAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 02 Apr 2026 09:23:10 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, arnd@arndb.de, ardb@kernel.org,
+ ilias.apalodimas@linaro.org, chenhuacai@kernel.org, kernel@xen0n.name,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, kys@microsoft.com, haiyangz@microsoft.com,
+ wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
+ deller@gmx.de
+Cc: linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+ linux-efi@vger.kernel.org, linux-riscv@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/8] firmware: sysfb: Consolidate config/code wrt.
+ sysfb_primary_screen
+Date: Thu,  2 Apr 2026 11:09:14 +0200
+Message-ID: <20260402092305.208728-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/10] drm/bridge: dw-hdmi: warn on unsupported attach
- combination
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>
-Cc: "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Martyn Welch <martyn.welch@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
- <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260330-drm-lcdif-dbanc-v2-6-c7f2af536a24@bootlin.com>
-X-HM-Tid: 0a9d4d795e9303a3kunme69324b095241
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZQ0pNT1YeT00dQxkaTUgaShhWFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJNS0
- pVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
- b=hwYGHIkSikuofpTSHFwebC8Z6feWaoUJ3dbqqnt9MZuAJBUbRzjDoxXGvxcOn4j9NkNUUDiNbucKPIduKZrvAmo8ZgTvnE+WmB9N+e3tldsjk8dwC5SwWopcFHloVqwkfPXzAgbjILPvIGv1x74neMWR2lXN4dpR+i+rgG7KmPs=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=2uJAsa6K7YXQMIGwXKQObtdIlbK0ldqP5sBHg2+Uhn0=;
- h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.996];
+ MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[redhat.com,arndb.de,kernel.org,linaro.org,xen0n.name,linux.intel.com,gmail.com,ffwll.ch,microsoft.com,gmx.de];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_TWELVE(0.00)[24];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,141 +110,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------pA08w6av2CYGH1v5Vjy6t1NO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+The global state sysfb_primary_screen holds information about the
+framebuffer provided by EFI/BIOS systems. It is part of the sysfb
+module, but used in several places without direct connection to
+sysfb. Fix this by making users of sysfb_primary_screen depend on
+CONFIG_SYSFB. Fix a few issues in the process.
 
-Hi Luca,
+Patches 1 and 2 fix general errors in the Kconfig rules. In any case,
+these patches should be considered even without the rest of the series.
 
-On 3/31/2026 3:25 AM, Luca Ceresoli wrote:
-> dw-hdmi can operate in two different modes, depending on the platform data
-> as set by the driver:
-> 
->   A. hdmi->plat_data->output_port = 0:
->      the HDMI output (port@1) in device tree is not used
-> 
->   B. hdmi->plat_data->output_port = 1:
->      the HDMI output (port@1) is parsed to find the next bridge
-> 
-> Only case B is supported when the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag is
-> passed to the attach callback. Emit a warning when this is violated. Also
-> return -EINVAL which would be returned by drm_bridge_attach() right after
-> anyway.
-> 
-> Reviewed-by: Liu Ying <victor.liu@nxp.com>
-> Tested-by: Martyn Welch <martyn.welch@collabora.com>
-> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
-> Note: Returning when the warning triggers does not change the functional
-> behaviour of this function. It is not strictly necessary in this patch but
-> it will have to be done anyway in the following patch.
-> ---
->   drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> index 0296e110ce65..ab1a6a8783cd 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -2910,6 +2910,10 @@ static int dw_hdmi_bridge_attach(struct drm_bridge *bridge,
->   {
->   	struct dw_hdmi *hdmi = bridge->driver_private;
->   
-> +	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the next bridge */
-> +	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->output_port))
-> +		return -EINVAL;
-> +
->   	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
->   		return drm_bridge_attach(encoder, hdmi->bridge.next_bridge,
->   					 bridge, flags);
-> 
+Patch 3 makes CONFIG_SYSFB a user-controlled option, which gives users
+more control over the configuration.
 
-Since many older Rockchip platforms (RK3288, RK3399, etc.) lack a 
-hdmi-connector node linked to the HDMI DT node, which corresponds to 
-case A. Could we relax this restriction and treat cases where 
-DRM_BRIDGE_ATTACH_NO_CONNECTOR is set but hdmi->plat_data->output_port = 
-0 as a new case C?
+Patches 4 to 6 slightly refactor the sysfb code. The PCI helpers are
+now in a separate source file. Support for relocating the PCI framebuffer
+is now located in sysfb, where it belongs.
 
-For Rockchip platforms, the HDMI driver invokes dw_hdmi_bind() to attach 
-the Synopsys bridge. This sequence differs from that on the XNP 
-platform, but is similar to the Allwinner implementation.
+Patches 7 and 8 make earlycon and the firmware EDID depend on sysfb. Both
+rely on sysfb_primary_display to work correctly.
 
-If we treat the case where DRM_BRIDGE_ATTACH_NO_CONNECTOR is set and 
-hdmi->plat_data->output_port = 0 as -EINVAL, I will have to modify the 
-HDMI DT configuration for all Rockchip platforms when adapting to the 
-bridge-connector framework.
+Smoke-tested with bochs on qemu. Built with/without CONFIG_SYSFB enabled.
 
-The patch that adapts to the bridge-connector framework and has been 
-verified OK on RK3399 is attached.
+Note: vgaarb still guards sysfb_primary_display with CONFIG_X86 instead
+of CONFIG_SYSFB. That works reliably and is left in place, as a change to
+guard with SYSFB_SYSFB might affect non-x86 systems in unknown ways.
 
-Best regards,
-Damon
+Thomas Zimmermann (8):
+  hv: Select CONFIG_SYSFB only for CONFIG_HYPERV_VMBUS
+  firmware: efi: Never declare sysfb_primary_display on x86
+  firmware: sysfb: Make CONFIG_SYSFB a user-selectable option
+  firmware: sysfb: Split sysfb.c into sysfb_primary.c and sysfb_pci.c
+  firmware: sysfb: Implement screen_info relocation for primary display
+  firmware: sysfb: Avoid forward-declaring sysfb_parent_dev()
+  firmware: efi: Make CONFIG_EFI_EARLYCON depend on CONFIG_SYSFB; clean
+    up
+  firmware: sysfb: Move CONFIG_FIRMWARE_EDID to firmware options
 
---------------pA08w6av2CYGH1v5Vjy6t1NO
-Content-Type: text/plain; charset=UTF-8;
- name="dw_hdmi-rockchip_test_env_20260402.patch"
-Content-Disposition: attachment;
- filename="dw_hdmi-rockchip_test_env_20260402.patch"
-Content-Transfer-Encoding: base64
+ arch/arm64/kernel/image-vars.h                |   2 +-
+ arch/loongarch/configs/loongson32_defconfig   |   1 +
+ arch/loongarch/configs/loongson64_defconfig   |   1 +
+ arch/loongarch/kernel/efi.c                   |   4 +-
+ arch/loongarch/kernel/image-vars.h            |   2 +-
+ arch/riscv/kernel/image-vars.h                |   2 +-
+ drivers/firmware/Kconfig                      |  38 ++++-
+ drivers/firmware/Makefile                     |   7 +-
+ drivers/firmware/efi/Kconfig                  |   3 +-
+ drivers/firmware/efi/efi-init.c               |   6 +-
+ drivers/firmware/efi/libstub/efi-stub-entry.c |   4 +-
+ drivers/firmware/sysfb.h                      |  24 ++++
+ drivers/firmware/sysfb_pci.c                  | 132 ++++++++++++++++++
+ drivers/firmware/{sysfb.c => sysfb_primary.c} |  70 ++++------
+ drivers/gpu/drm/sysfb/Kconfig                 |   4 +-
+ drivers/hv/Kconfig                            |   2 +-
+ drivers/video/Kconfig                         |  19 ---
+ drivers/video/fbdev/Kconfig                   |   5 +-
+ drivers/video/screen_info_pci.c               | 110 ---------------
+ include/linux/screen_info.h                   |   3 -
+ 20 files changed, 241 insertions(+), 198 deletions(-)
+ create mode 100644 drivers/firmware/sysfb.h
+ create mode 100644 drivers/firmware/sysfb_pci.c
+ rename drivers/firmware/{sysfb.c => sysfb_primary.c} (90%)
 
-ZGlmZiAtLWdpdCBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1p
-bmQuZHRzIGIvYXJjaC9hcm02NC9ib290L2R0cy9yb2NrY2hpcC9yazMzOTktZXZiLWluZC5k
-dHMKaW5kZXggNzBhZWUxYWI5MDRjLi41YTc4ZTc0MWYxMTMgMTAwNjQ0Ci0tLSBhL2FyY2gv
-YXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1pbmQuZHRzCisrKyBiL2FyY2gv
-YXJtNjQvYm9vdC9kdHMvcm9ja2NoaXAvcmszMzk5LWV2Yi1pbmQuZHRzCkBAIC0xNyw2ICsx
-Nyw3IEBAIGFsaWFzZXMgewogCiAJY2hvc2VuIHsKIAkJc3Rkb3V0LXBhdGggPSAic2VyaWFs
-MjoxNTAwMDAwbjgiOworCQlib290YXJncyA9ICJyb290PVBBUlRVVUlEPTYxNGUwMDAwLTAw
-MDAgcm9vdHdhaXQiOwogCX07CiAKIAl2Y2M1djBfc3lzOiByZWd1bGF0b3ItdmNjNXYwLXN5
-cyB7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhk
-bWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jCmluZGV4
-IGFkYTQ1ZThiM2UyYy4uMGU5N2UxODNhOGIzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhkbWkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJp
-ZGdlL3N5bm9wc3lzL2R3LWhkbWkuYwpAQCAtMjkxNCw3ICsyOTE0LDcgQEAgc3RhdGljIGlu
-dCBkd19oZG1pX2JyaWRnZV9hdHRhY2goc3RydWN0IGRybV9icmlkZ2UgKmJyaWRnZSwKIAog
-CS8qIERSTV9CUklER0VfQVRUQUNIX05PX0NPTk5FQ1RPUiByZXF1aXJlcyBhIHJlbW90ZS1l
-bmRwb2ludCB0byB0aGUgbmV4dCBicmlkZ2UgKi8KIAlpZiAoV0FSTl9PTigoZmxhZ3MgJiBE
-Uk1fQlJJREdFX0FUVEFDSF9OT19DT05ORUNUT1IpICYmICFoZG1pLT5wbGF0X2RhdGEtPm91
-dHB1dF9wb3J0KSkKLQkJcmV0dXJuIC1FSU5WQUw7CisJCXJldHVybiAwOwogCiAJaWYgKGZs
-YWdzICYgRFJNX0JSSURHRV9BVFRBQ0hfTk9fQ09OTkVDVE9SKSB7CiAJCXN0cnVjdCBkZXZp
-Y2Vfbm9kZSAqcmVtb3RlIF9fZnJlZShkZXZpY2Vfbm9kZSkgPQpAQCAtMzYyOCw3ICszNjI4
-LDcgQEAgc3RydWN0IGR3X2hkbWkgKmR3X2hkbWlfYmluZChzdHJ1Y3QgcGxhdGZvcm1fZGV2
-aWNlICpwZGV2LAogCWlmIChJU19FUlIoaGRtaSkpCiAJCXJldHVybiBoZG1pOwogCi0JcmV0
-ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgJmhkbWktPmJyaWRnZSwgTlVMTCwgMCk7
-CisJcmV0ID0gZHJtX2JyaWRnZV9hdHRhY2goZW5jb2RlciwgJmhkbWktPmJyaWRnZSwgTlVM
-TCwgRFJNX0JSSURHRV9BVFRBQ0hfTk9fQ09OTkVDVE9SKTsKIAlpZiAocmV0KSB7CiAJCWR3
-X2hkbWlfcmVtb3ZlKGhkbWkpOwogCQlyZXR1cm4gRVJSX1BUUihyZXQpOwpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcgYi9kcml2ZXJzL2dwdS9kcm0v
-cm9ja2NoaXAvS2NvbmZpZwppbmRleCBlN2Y0OWZlODQ1ZWEuLjY5YjgzMmQwYzhjNCAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL3JvY2tjaGlwL0tjb25maWcKQEAgLTc2LDYgKzc2LDcgQEAgY29uZmlnIFJP
-Q0tDSElQX0RXX0RQCiAKIGNvbmZpZyBST0NLQ0hJUF9EV19IRE1JCiAJYm9vbCAiUm9ja2No
-aXAgc3BlY2lmaWMgZXh0ZW5zaW9ucyBmb3IgU3lub3BzeXMgRFcgSERNSSIKKwlzZWxlY3Qg
-RFJNX0JSSURHRV9DT05ORUNUT1IKIAloZWxwCiAJICBUaGlzIHNlbGVjdHMgc3VwcG9ydCBm
-b3IgUm9ja2NoaXAgU29DIHNwZWNpZmljIGV4dGVuc2lvbnMKIAkgIGZvciB0aGUgU3lub3Bz
-eXMgRGVzaWduV2FyZSBIRE1JIGRyaXZlci4gSWYgeW91IHdhbnQgdG8KZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19oZG1pLXJvY2tjaGlwLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vcm9ja2NoaXAvZHdfaGRtaS1yb2NrY2hpcC5jCmluZGV4IDBkYzFlYjVkMmFl
-My4uMTc0YTEwYzFkN2MyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAv
-ZHdfaGRtaS1yb2NrY2hpcC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9kd19o
-ZG1pLXJvY2tjaGlwLmMKQEAgLTEzLDYgKzEzLDcgQEAKICNpbmNsdWRlIDxsaW51eC9yZWd1
-bGF0b3IvY29uc3VtZXIuaD4KIAogI2luY2x1ZGUgPGRybS9icmlkZ2UvZHdfaGRtaS5oPgor
-I2luY2x1ZGUgPGRybS9kcm1fYnJpZGdlX2Nvbm5lY3Rvci5oPgogI2luY2x1ZGUgPGRybS9k
-cm1fZWRpZC5oPgogI2luY2x1ZGUgPGRybS9kcm1fb2YuaD4KICNpbmNsdWRlIDxkcm0vZHJt
-X3Byb2JlX2hlbHBlci5oPgpAQCAtNTQyLDYgKzU0Myw3IEBAIHN0YXRpYyBpbnQgZHdfaGRt
-aV9yb2NrY2hpcF9iaW5kKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IGRldmljZSAqbWFz
-dGVyLAogCXN0cnVjdCBkcm1fZGV2aWNlICpkcm0gPSBkYXRhOwogCXN0cnVjdCBkcm1fZW5j
-b2RlciAqZW5jb2RlcjsKIAlzdHJ1Y3Qgcm9ja2NoaXBfaGRtaSAqaGRtaTsKKwlzdHJ1Y3Qg
-ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yOwogCWludCByZXQ7CiAKIAlpZiAoIXBkZXYtPmRl
-di5vZl9ub2RlKQpAQCAtNjE5LDcgKzYyMSwxNCBAQCBzdGF0aWMgaW50IGR3X2hkbWlfcm9j
-a2NoaXBfYmluZChzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2UgKm1hc3RlciwK
-IAkJZ290byBlcnJfYmluZDsKIAl9CiAKLQlyZXR1cm4gMDsKKwljb25uZWN0b3IgPSBkcm1f
-YnJpZGdlX2Nvbm5lY3Rvcl9pbml0KGRybSwgZW5jb2Rlcik7CisJaWYgKElTX0VSUihjb25u
-ZWN0b3IpKSB7CisJCXJldCA9IFBUUl9FUlIoY29ubmVjdG9yKTsKKwkJZGV2X2VycihoZG1p
-LT5kZXYsICJGYWlsZWQgdG8gaW5pdGlhbGl6ZSBicmlkZ2VfY29ubmVjdG9yXG4iKTsKKwkJ
-Z290byBlcnJfYmluZDsKKwl9CisKKwlyZXR1cm4gZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5j
-b2Rlcihjb25uZWN0b3IsIGVuY29kZXIpOwogCiBlcnJfYmluZDoKIAlkcm1fZW5jb2Rlcl9j
-bGVhbnVwKGVuY29kZXIpOwo=
 
---------------pA08w6av2CYGH1v5Vjy6t1NO--
+base-commit: 5d36e6d54e963f0c1137aaf2249d2baa781f08c2
+-- 
+2.53.0
+
