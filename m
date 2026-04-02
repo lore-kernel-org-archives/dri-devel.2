@@ -4,103 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00EB4CC6B1E
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 07:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7795BCC6B1D
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 596C310F16D;
-	Thu,  2 Apr 2026 07:57:21 +0000 (UTC)
-Received: from MEUPR01CU001.outbound.protection.outlook.com
- (mail-australiasoutheastazon11020080.outbound.protection.outlook.com
- [52.101.152.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 098A410F16D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 07:57:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fGBaDSBGg2mc+wvY5tXJGPM9g88vsc8/Vd3YgWkiIbVlv8IC+Kit+PRA6qNDxCUWkgcGPryLLyrOUzpTTothIt7ENjxV308scdilsC8cOo/6X7odOZyoVN/rjag+g4TIaO4djsBrBIqgyuLuR8Typb397Y9zOiZZbnpkfuOihhCBYPAYiTZDr4ZEC5nV30IsL9fDDqOJu1cWjxDRDihKA07xBcSmUZUZ2b7M2kdDuirkpQLaeJtESW0tRWdUHwzC/4bb1yXneTTsBZXbogzSB0q5bd35axYf8N3ZU0IYosvM+rSR2tzrioAJUPhfOMMzfeflyjSQedU0pku0WlLcMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pM+Cp73eM0b4DeVMewe5Pbwyr0nhCEFAgw+Ffoedf+Y=;
- b=ftIDIpPaEqd84uE0A06/8DCztjdOUnWwAIhkJrzS9oe9B1CYSGguGKSjVObbE9o0bd1Err/2K6If3pjsQ7A0ajfnXugQ+YXueCaBLHjm/0mBcQfc8VghiD2ME2eaTOUgsCbmjJu/lACsokUnTVHDCz8L9CTNsbINGYzOrIR+tTXlSC+Dv7s9bgzAJM0VSXbZDilg/sYtEnkOj1zCstp6qzRolMv4esiVgXRVPElCgteLIHgpV+CfknyC+gfm1lRYMNb5Bmi/dfx7JyptNEcgZH7c+AbLEWYBdSo2W1e0ANbjvDuhj041blgPHYkegO1i1Z5nvNr31MbsPMJkatRfRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
- dkim=pass header.d=heitbaum.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=heitbaum.com;
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
- by SY8P282MB5001.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:2b9::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Thu, 2 Apr
- 2026 07:57:17 +0000
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd%5]) with mapi id 15.20.9745.031; Thu, 2 Apr 2026
- 07:57:17 +0000
-Date: Thu, 2 Apr 2026 07:57:03 +0000
-From: Rudi Heitbaum <rudi@heitbaum.com>
-To: dri-devel@lists.freedesktop.org
-Cc: rudi@heitbaum.com
-Subject: [PATCH libdrm 2/2] amdgpu: fix discards 'const' qualifier from
- pointer target type
-Message-ID: <ac4hTyaeUHRTfTi2@b22fc13bbf9b>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6A8010F110;
+	Thu,  2 Apr 2026 08:17:02 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aT6zBjWV";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED1BA10F09C;
+ Thu,  2 Apr 2026 08:17:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775117821; x=1806653821;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/K4KSBGJKLh1E6i7z3ecuB004elFmRgsg2MEWaWlZsg=;
+ b=aT6zBjWVK36kgBlBWlEBr2Jl31x24IwNB/xiHFkJVu0j7zE4HPF7urHq
+ yLgNlHRD5alT24ijcMt6Ie7NoNsGw1tUA/RQb7x0o3OCKuiAqNNMa3iFa
+ nptt6lKiDZP4+IMKSGs2pKNfPxF2mZuBFwLxIVP2Es38QSnfE9u9V5o23
+ J49zVZ+jhBmm9hONR0fb94DP91ZnRDmcByR79geAzBbel8T2ByBrgLOTW
+ x/+oDCXe3+qR7BR4pc7G7jOnogXNwOo7w53aBRLl0QerB2ePFj/lcaX+C
+ VStk0cYNQTjjbL6f/9X+WDBuXQXRZe+3kxFN30IvPM2F7pLNOvqhSMTAD g==;
+X-CSE-ConnectionGUID: oepKUOJ7QaqvoC3ftSl3eg==
+X-CSE-MsgGUID: 7+FZt3giS8mVLCAG83XZlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="78764145"
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="78764145"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Apr 2026 01:17:00 -0700
+X-CSE-ConnectionGUID: rXz/U5RQSAOR6Y6PRiTznw==
+X-CSE-MsgGUID: sJcUnaEfTUmfM/oTPNhc1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="250122959"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Apr 2026 01:16:57 -0700
+Date: Thu, 2 Apr 2026 10:16:54 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com, andrealmeid@igalia.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona.vetter@ffwll.ch,
+ mripard@kernel.org, anshuman.gupta@intel.com,
+ badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com
+Subject: Re: [PATCH v2 3/5] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET
+ recovery method
+Message-ID: <ac4l9rpozGzrIrGP@black.igk.intel.com>
+References: <20260318064016.374656-7-mallesh.koujalagi@intel.com>
+ <20260318064016.374656-10-mallesh.koujalagi@intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-ClientProxiedBy: MEAPR01CA0064.ausprd01.prod.outlook.com
- (2603:10c6:201:30::28) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:279::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|SY8P282MB5001:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9340a5cc-1fb1-4a11-27b4-08de908d75b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: zDVI3X48k+1nWJsTTAxSvjjiPU1s1lLowCkfdcdj2Lk41S30/ZyyCffym+Xx5RxeNhRqVGy/j4z63PohJ+1stLQPONU9hmKO3bzq1BMF3GlcCsQWN6agMB+ZMmiogigCCsSBN9aMUnh4325VlNORCkFqu4ypvuFBbQqW3VCzFgnom9GtuNMhxkn0U0S48vS6v8xsnAe1v+3AUNaqovx/goaxFQz6to9i2VlLxqwHSM/BQbXmAsmBFYRjbKPCpyng0nyFhKwOWN7u+7xybjl5bdTSfaaZGnWrpGrLGsqI2bzYYBQcaYrnyiKybh7hu8iKpLgfSBmUVBF0dHLRDQknz7j4nl8sC8D6rlEBD2X21sI06R+XBZOgogmDHOXbBey/dWkJS4rRVH1OlZS0QDCw/7IlexILiptxGJagJViCyR6oiYpOPo8K5chwY2it9SZ///hlkA7/yzImBo2UdOMXSjgq7o3wPE4XwXMXHO6/VIA8M3gAr2ZJ6/Cme+86PUjReZXMrGKz23PH6VQBjgLyKLcqlvTsRTYP0y7TYsaLC5ouZkkl9F9twMR0Rc1BhJELdFnzfqN9vqLVWBvJ2+Uef81pLTy6o9aZI107ncOC1vIZM0Znp7DuXPXdOdBQNqK0+jUa6wJu+T0ohgySUuIFeMuwEebR6kdrP8Ra7/4MdpZWoBE3jPOxKXXWNxc+lKYOdlGI1ILe+UOC+HW14+ei0hMIhmdUEex94lcEaiWjFy8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003); DIR:OUT;
- SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?u2Rd/h5spAqVfw+Um+5f3XoeJvOB0Gmn3zC3kjiqa+J4eT5WFUbDIqLFKDLR?=
- =?us-ascii?Q?Td1UeoGqCqVRsINFza7QpF0HVwVSzpLBEBErCSP9dBzNFJbgf8udgN70sPKE?=
- =?us-ascii?Q?tEJAwgxqXoHwUPZbAGfGzetuEW0YfRkgXXyo7M+FgvW/KSnZbmVeQVEEbe6O?=
- =?us-ascii?Q?DTZS/j5ktMN081MYmtodzOgCx0eOu1dbvEQDbDjgjGDz23MbmHjl9gqUos2Y?=
- =?us-ascii?Q?4BvVkJiuOd3yl6ZKkruKcq72WtFjHd4lKq2PQiL31fWr8eXhhlVUSG4xl0hn?=
- =?us-ascii?Q?aGxR1Q/HdJojy5qv8Mea0wDzh4/lqyGs57sX2g2DrXna8TpnojPEA5YUDhUl?=
- =?us-ascii?Q?ez/qjFLCxHjGd5nrXdk3UM8BrBPpgiYY7lAXwSjCLY2rd317eToE+zQuxgO3?=
- =?us-ascii?Q?lb22iZtKYl91DieFSwirlqrrPhgUNARV9l3mx4QfxFi6bQvQmEZztUtf8oA2?=
- =?us-ascii?Q?4nlpKBXXVBA+YQWZW+Zvps1JZIGolfWJ1JC+bg/E/BKTOvAMO28KPpJKNTH3?=
- =?us-ascii?Q?abyxu93dQuZHcNkllHTkAhsbJf7EKgqPWg0Fou7rOrjw0jSVDGIlEcP/Ilvi?=
- =?us-ascii?Q?ufcAi7ZpIhyzGha/MOb9LwABtXTsLZyXE1jAXjmPhXKgxE4NwfPfiivtuPRL?=
- =?us-ascii?Q?8qgRvOf+oVI4wwJuv48J2RgR8ely53Mh+9eNQjaOocgGTlG08ybEBFkUgUOP?=
- =?us-ascii?Q?/8oOcwrz6XjQ5l/zW40FFa61yVKUjXjngS/EkmcFgaS7M2pt39cqx6wBY6C3?=
- =?us-ascii?Q?dsjLeeUb1QBfQHPeUUxGM4cTTgzJgwY6UOk51wr/gRR+QgTUCVuD4A0huByR?=
- =?us-ascii?Q?Sal4HrUyDJGzOdPR9rxKsOo148sL7KC1/Kod7T2W+KJ5BQ0N+a0WTxYURI68?=
- =?us-ascii?Q?ycyXS55kP+MeU2ZYLGcYWmlhCtr5aYOXkQdXsv5S2snGCCX16hAo630jQx4P?=
- =?us-ascii?Q?LczGA7OBtTsw3mbhgZYJ36Ii3dvXENXEqmPwNBXxirSoz9JhrKzeQnxZu6Sx?=
- =?us-ascii?Q?sWD4RPluicdh1xaGpXKt5M/Jf/b2fNwhkESMoiUTEcSfBR0hE8Rwz8T1YYe3?=
- =?us-ascii?Q?cGBPjrFsaq5kc2To/AObf9QmP40Fc+v04JgDJzyYLvMt/0zR0OkM6nr3pbvv?=
- =?us-ascii?Q?Oy+u6H6t8WPrAQwia83oZ4bsuwjYlF5bFDBV2y/VFVij7QJOvyvhOPlOVYBY?=
- =?us-ascii?Q?S0wZ7UuaMKtHPySX12NzWzhux3KIZOVXzhuugNfK2LNYFblU8ozKkcC1q+Su?=
- =?us-ascii?Q?dSSaHkutaN9YeNj0RflGflMge0viFkeS209CG88TEJe2bIgQaLKHruY2rFaQ?=
- =?us-ascii?Q?2RMKYaEd0oaKIidibujyVv2dqAHNMZsT8WAQgHwBl5hYldWJz8PBy28j6E/I?=
- =?us-ascii?Q?UJfDwnGASqWScLNuHI28uBRCs1Qa8NltIj+5YptuS8cpRS8sxDv/khzsh2Bg?=
- =?us-ascii?Q?W6Idkvhr/dbfDehY4LIsmm8+K7FN0RM0glPKNDleSyIhiAmDFQffmfkCadpY?=
- =?us-ascii?Q?VJI47+sWKilZmceapq9Oa7r2y2B+5aXE8T5EBUSAshi3CozfDmP8flbgMuNh?=
- =?us-ascii?Q?sRYsfE8rV6ihqWwPo47eCdUQpauO7sl4qMIdLn/4NfSmpN/pAYsrekzZtFyx?=
- =?us-ascii?Q?EzUmL+K8yDlfFnglTuQqwUH0QwxMbl7pF+Rf/Iz66xTn8GMm6kgLoUv4JXPF?=
- =?us-ascii?Q?DDrFKZx5GntG0zCkyc38uVlHKplTcmECUDHFpMU19SnKtFJkY0qKTS/ncWrg?=
- =?us-ascii?Q?PkBVJySifA=3D=3D?=
-X-OriginatorOrg: heitbaum.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9340a5cc-1fb1-4a11-27b4-08de908d75b0
-X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 07:57:17.3215 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3Rb9Fr80bRaj69Rm18YGvWJ28aaUSbHMLMgo0RSDZud+FWsFyepxCAs4KLbQqwOItxdvK9lx2ZNsUojZnjPrVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY8P282MB5001
+In-Reply-To: <20260318064016.374656-10-mallesh.koujalagi@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,38 +74,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since glibc-2.43:
+On Wed, Mar 18, 2026 at 12:10:20PM +0530, Mallesh Koujalagi wrote:
+> Add documentation for the DRM_WEDGE_RECOVERY_COLD_RESET recovery
+> method introduced for handling power management unit errors. This method is
+> designated for severe errors that compromise core device functionality
+> and are unrecoverable via recovery mechanisms such as driver reload or PCIe
+> bus reset. The documentation clarifies when this recovery method should be
+> used and its implications for userspace applications.
 
-For ISO C23, the functions bsearch, memchr, strchr, strpbrk, strrchr,
-strstr, wcschr, wcspbrk, wcsrchr, wcsstr and wmemchr that return pointers
-into their input arrays now have definitions as macros that return a
-pointer to a const-qualified type when the input argument is a pointer
-to a const-qualified type.
+Aesthetic nit: We usually try to utilize the full 75 character space where
+possible (in all patches).
 
-fixes:
-    amdgpu/amdgpu_asic_id.c: In function 'find_asic_id_table':
-    amdgpu/amdgpu_asic_id.c:249:19: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
-      249 |         file_name = strrchr(AMDGPU_ASIC_ID_TABLE, '/');
-          |                   ^
+> v2:
+> - Add several instead of number to avoid update. (Jani)
+> 
+> Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+> ---
+>  Documentation/gpu/drm-uapi.rst | 73 +++++++++++++++++++++++++++++++++-
+>  1 file changed, 72 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+> index d98428a592f1..5b63f1c17b9b 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+> @@ -418,7 +418,7 @@ needed.
+>  Recovery
+>  --------
+>  
+> -Current implementation defines four recovery methods, out of which, drivers
+> +Current implementation defines several recovery methods, out of which, drivers
+>  can use any one, multiple or none. Method(s) of choice will be sent in the
+>  uevent environment as ``WEDGED=<method1>[,..,<methodN>]`` in order of less to
+>  more side-effects. See the section `Vendor Specific Recovery`_
+> @@ -435,6 +435,7 @@ following expectations.
+>      rebind          unbind + bind driver
+>      bus-reset       unbind + bus reset/re-enumeration + bind
+>      vendor-specific vendor specific recovery method
+> +    cold-reset      full device cold reset required
 
-Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
----
- amdgpu/amdgpu_asic_id.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Does this work without unbind + bind?
 
-diff --git a/amdgpu/amdgpu_asic_id.c b/amdgpu/amdgpu_asic_id.c
-index cd8ee596..fed3a531 100644
---- a/amdgpu/amdgpu_asic_id.c
-+++ b/amdgpu/amdgpu_asic_id.c
-@@ -238,7 +238,7 @@ static char *find_asic_id_table(void)
- {
- 	// first check the paths in AMDGPU_ASIC_ID_TABLE_PATHS environment variable
- 	const char *amdgpu_asic_id_table_paths = secure_getenv("AMDGPU_ASIC_ID_TABLE_PATHS");
--	char *file_name = NULL;
-+	const char *file_name = NULL;
- 	char *found_path = NULL;
- 	char **paths = NULL;
- 
--- 
-2.53.0
+>      unknown         consumer policy
+>      =============== ========================================
+>  
+> @@ -446,6 +447,27 @@ telemetry information (devcoredump, syslog). This is useful because the first
+>  hang is usually the most critical one which can result in consequential hangs or
+>  complete wedging.
+>  
+> +Cold Reset Recovery
+> +-------------------
+> +
+> +The ``WEDGED=cold-reset`` event indicates that the device has encountered
+> +power management unit errors that affect core functionality that cannot be
+> +resolved through recovery mechanisms.
 
+Here cold-reset itself is introduced as a recovery method, so this could
+use better phrasing. Also, we try to be consistent with terminologies
+already in place so that the document is easy to follow.
+
+> +This recovery method is reserved for power management unit error conditions where the
+> +device state cannot be restored via:
+> +
+> +- Driver unbind/rebind operations
+> +- PCIe bus reset and re-enumeration
+> +- Device Function Level Reset (FLR)
+> +- Warm device resets
+
+These are already documented so not sure if it's worth repeating them.
+
+> +Such power management unit error state typically persists across all software-based
+> +recovery attempts. Only a complete device power cycle can restore
+> +normal operation.
+> +
+> +Upon receiving a ``WEDGED=cold-reset`` event, userspace should initiate
+> +a full cold reset of the affected device to restore functionality.
+
+This is already covered in consumer expectations so can be dropped.
+
+AI assistance is useful at times but we'd want to make sure that things
+remain objective and translatable ;)
+
+Raag
+
+>  Vendor Specific Recovery
+>  ------------------------
+> @@ -524,6 +546,55 @@ Recovery script::
+>      echo -n $DEVICE > $DRIVER/unbind
+>      echo -n $DEVICE > $DRIVER/bind
+>  
+> +Example - cold-reset
+> +--------------------
+> +
+> +Udev rule::
+> +
+> +    SUBSYSTEM=="drm", ENV{WEDGED}=="cold-reset", DEVPATH=="*/drm/card[0-9]",
+> +    RUN+="/path/to/cold-reset.sh $env{DEVPATH}"
+> +
+> +Recovery script::
+> +
+> +    #!/bin/sh
+> +
+> +    [ -z "$1" ] && echo "Usage: $0 <device-path>" && exit 1
+> +
+> +    # Get device
+> +    DEVPATH=$(readlink -f /sys/$1/device 2>/dev/null || readlink -f /sys/$1)
+> +    DEVICE=$(basename $DEVPATH)
+> +
+> +    echo "Cold reset: $DEVICE"
+> +
+> +    # Try slot power reset first
+> +    SLOT=$(find /sys/bus/pci/slots/ -type l 2>/dev/null | while read slot; do
+> +	    ADDR=$(cat "$slot" 2>/dev/null)
+> +	    [ -n "$ADDR" ] && echo "$DEVICE" | grep -q "^$ADDR" && basename $(dirname "$slot") && break
+> +    done)
+> +
+> +    if [ -n "$SLOT" ]; then
+> +	echo "Using slot $SLOT"
+> +
+> +	# Unbind driver
+> +	[ -e "/sys/bus/pci/devices/$DEVICE/driver" ] && \
+> +	echo "$DEVICE" > /sys/bus/pci/devices/$DEVICE/driver/unbind 2>/dev/null
+> +
+> +	# Remove device
+> +	echo 1 > /sys/bus/pci/devices/$DEVICE/remove
+> +
+> +	# Power cycle slot
+> +	echo 0 > /sys/bus/pci/slots/$SLOT/power
+> +	sleep 2
+> +	echo 1 > /sys/bus/pci/slots/$SLOT/power
+> +	sleep 1
+> +
+> +	# Rescan
+> +	echo 1 > /sys/bus/pci/rescan
+> +	echo "Done!"
+> +    else
+> +	echo "No slot found"
+> +    fi
+> +
+>  Customization
+>  -------------
+>  
+> -- 
+> 2.34.1
+> 
