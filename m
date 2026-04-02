@@ -4,90 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46EBDD3941B
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 12:03:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7076D3941D
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 12:12:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DCA210E448;
-	Thu,  2 Apr 2026 12:02:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38FC010EC13;
+	Thu,  2 Apr 2026 12:12:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="YMPXLDYu";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="z+hnucde";
 	dkim-atps=neutral
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2F6C10E448
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 12:02:57 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-50904a8f421so7928091cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 05:02:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1775131377; x=1775736177; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=+KtTbuhHgiuHy+YXQS2vChspL032vn/9QRxOV9xDd6Q=;
- b=YMPXLDYuvsRvHABo+TX5CplkjDbDjH1Ut4xWplHrekqJzXq0t9MRmJAv4p6JBbGCQK
- vsvZs3Rzt3GwStpFtsjxlVvsmRMY6dkQDpasgeDsOfmAhTI7IHZN1lwkpH50TkgnHAgN
- ErqJMhvkJVUwsG4xAIcJJ5fAgHoNf58OW/WvA8pXtt7/CDUAJfZryEKvAyUV212eTG0Z
- fnCTqtNazVBNggZkKYIlIGOERxgNRpsSd6KZASZilGsE7nIYg6OEbrvquMvG6T9eNMqc
- dBWW1jKxfdcDPtN2aqi1SImLPZE0Iy1//HTu1KXHN0smrddhbf36YwTcCBC1sCqW8jPF
- Jfog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775131377; x=1775736177;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=+KtTbuhHgiuHy+YXQS2vChspL032vn/9QRxOV9xDd6Q=;
- b=Flm+29U6Lqcd1Vti4SaYHO90uWRVOo8qZCAVAaWUAhdQIm4QSKg0SYaeOt2PyxluyZ
- rsS1Lwh1wZTqWkke5wuFWUPodrazHZ3KxYCF8knHIwYXlEWyOmtj+3DnzScmJUZZWluV
- 7Pq7zyexK9RoIpv+LMQ8tLRyrSPlTcKVHGoFXT9oWMTtLIyCLbuMH2MuOjA7v229PIQP
- A8Lu9Gt1PpvQtYCiOSD2RcIi7MaxRvIx6nTnZsBJRPR09IfUpd02ys7pNuSl/rbpOq74
- XDRpJIYxi45bP992W3Xay/iZaE0XL9iXdBVhb+t5PX81JuAiO1qKvQhik19S694PxHot
- CVgA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXUHitctXoPtdrEvlaeDQjvyMMtD0pA+u6fyVcccNK/FqWap9SIqFkG0UbFF6Be4ATxFbsVT2JZ2zo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzmg3/XUoMnw+4GpQ5zi+LJXkbaeeAgCTptkxpV5CNaqfHMBdR/
- 1Q+CWEzWYypgEya9qTzVmLclSr4G0tz0hHwbkmOY3p58T9afTDdolSTxvu0tMChVrT8=
-X-Gm-Gg: ATEYQzzx7odfVXx1TzLog4eASYPjroCKZLOAeNVCJrX/ntNyJWJWjObyJveQbiPyiuk
- ywSbshDgu6Kd01L8MK0s5ld87OqrynsLxB2VKmpTjsRBh0WCpgIDSImnkLfsLljhTOra6bDHMRc
- ucCW3D7KDT2CJSPv8cd1GJBDXvy7FXDsIfll6RDlryrdKCflsJPaIrZS0Dp7IvyMUpzI2x5zWaU
- 8RJnXRX4P7/Baila5YBH2Ok5zUDfaHnWXM82btTprsunT+sFV+IMVOvuzHsP1zJnyfB8M2gXfzb
- FERhqAEEnkNo+fGqC+j3j8D9JNKx/lbb4negoRb2f10z6DNLS016kOi+jsbgtudHDiwFOF2kKVg
- JPiAiw+RFuiXJVO3OA0JL0gEPS2vsRH4hygF5MY15HstlhiR670bglUfzRgqVZUgXjbbwPVo7Uy
- 45+bJYILnt/UA99hbDGiE+7P5jZXGz9vdL0wHoUSVnAOVVMq/LbP40xEWwtbRFmv64Cj+OQQ==
-X-Received: by 2002:a05:622a:a18b:b0:50b:538e:93b1 with SMTP id
- d75a77b69052e-50d3bb64108mr80844141cf.5.1775131376396; 
- Thu, 02 Apr 2026 05:02:56 -0700 (PDT)
-Received: from ziepe.ca
- (mctnnbsa70w-159-2-73-22.dhcp-dynamic.fibreop.nb.bellaliant.net.
- [159.2.73.22]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50d4b8da5cbsm20265321cf.31.2026.04.02.05.02.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Apr 2026 05:02:55 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1w8GlC-0000000Bm0s-1xCy;
- Thu, 02 Apr 2026 09:02:54 -0300
-Date: Thu, 2 Apr 2026 09:02:54 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Brian Starkey <brian.starkey@arm.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, sumit.semwal@linaro.org,
- benjamin.gaignard@collabora.com, jstultz@google.com,
- tjmercier@google.com, christian.koenig@amd.com,
- m.szyprowski@samsung.com, robin.murphy@arm.com, leon@kernel.org,
- sean.anderson@linux.dev, ptesarik@suse.com, catalin.marinas@arm.com,
- aneesh.kumar@kernel.org, suzuki.poulose@arm.com,
- steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com,
- ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
- linux-coco@lists.linux.dev, nd@arm.com
-Subject: Re: [PATCH v5 0/2] dma-buf: heaps: system: add an option to allocate
- explicitly shared/decrypted memory
-Message-ID: <20260402120254.GB2551565@ziepe.ca>
-References: <20260325192352.437608-1-jiri@resnulli.us>
- <4s75rtsmdfrze4rscbqzyrjyrko7n6sehe7agrngqag2cna5bz@eflmf4kwjocj>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 852AF10EC13
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 12:12:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3206740182;
+ Thu,  2 Apr 2026 12:12:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8F24C19423;
+ Thu,  2 Apr 2026 12:12:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1775131940;
+ bh=mI9VFZsuhgPGi6KsENAPjVx/BbS778vsmGw3e5R4AeA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=z+hnucdeXxE0kPbk7CkEzSWGZNnUgpSEM55vmH1f+nisBxT7FED/yUwORM2f2uofU
+ R8On16u+jJ0q3ogDwfU2wM1Y6qfhGLX+SbS/EALV3IvFXR3sWhr9d/oYeH+MGM3TPd
+ /sFC3svWk+oPrg7/lEgZfjr/uaDg5CTTuJuUhi4I=
+Date: Thu, 2 Apr 2026 14:12:17 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Matt Fagnani <matt.fagnani@bell.net>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>
+Subject: Re: Warnings and errors in drm_mode_config_cleanup when booting
+ 6.19.10 and 7.0-rc5
+Message-ID: <2026040259-glacial-reversal-9a75@gregkh>
+References: <a8f058b3-ea2c-4af1-a19b-9ae2db46754c@bell.net>
+ <9652ce0b-bb4c-489d-9e32-89c5af5c8101@leemhuis.info>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <4s75rtsmdfrze4rscbqzyrjyrko7n6sehe7agrngqag2cna5bz@eflmf4kwjocj>
+In-Reply-To: <9652ce0b-bb4c-489d-9e32-89c5af5c8101@leemhuis.info>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,17 +57,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 02, 2026 at 10:52:34AM +0100, Brian Starkey wrote:
-> I'm not clear why the heap depends on !CONFIG_HIGHMEM, but I also
-> don't know anything about SEV/TDX.
+On Sat, Mar 28, 2026 at 11:52:48AM +0100, Thorsten Leemhuis wrote:
+> Matt, thx for the report.
+> 
+> On 3/28/26 11:30, Matt Fagnani wrote:
+> > I could try to bisect. The commit
+> > e493c135980f90c20308d1a98f2e0d1223951e94 drm: Fix use-after-free on
+> > framebuffers and property blobs when calling drm_dev_unplug was included
+> > in 6.19.10 and changed drm_mode_config_cleanup https://git.kernel.org/
+> > pub/scm/linux/kernel/git/stable/linux.git/commit/?
+> > h=linux-6.19.y&id=e493c135980f90c20308d1a98f2e0d1223951e94
+> 
+> Did a quick search. Turns out this is mainline commit 6bee098b914176
+> ("drm: Fix use-after-free on framebuffers and property blobs when
+> calling drm_dev_unplug") -- and when searching for that (FWIW, this is
+> not widely known, but that is really helpful in case like this, as the
+> mainline commit id is way more relevant) is turns out that is in the
+> process of getting reverted:
+> 
+> See https://lore.kernel.org/all/20260326082217.39941-2-dev@lankhorst.se/
+> or 45ebe43ea00d6b ("Revert "drm: Fix use-after-free on framebuffers and
+> property blobs when calling drm_dev_unplug"") [next-20260327
+> (pending-fixes)].
+> 
+> Sasha and Greg: you might want to make sure to pick this up.
 
-It is because the CC apis, set_memory_decrypted()/etc are slightly
-mis-designed. They take in a vaddr to represent the address instead of
-a phys_addr_t or a page *
+When it shows up in a Linus-released kernel, can someone remind us?
 
-This means the user has to use page_address() and then the whole thing
-is incompatible with highmem.
+thanks,
 
-Which is fine, highmem and CC are never turned on together.
-
-Jason
+greg k-h
