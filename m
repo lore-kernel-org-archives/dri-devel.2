@@ -4,58 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22D46D6AB17
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 23:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00983D6AB18
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 23:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6668D10F71D;
-	Thu,  2 Apr 2026 23:10:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D5C10F786;
+	Thu,  2 Apr 2026 23:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="IeWz7FqG";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="BODeN5nK";
 	dkim-atps=neutral
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
- [79.135.106.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53A7210F71D;
- Thu,  2 Apr 2026 23:10:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
- s=protonmail3; t=1775171400; x=1775430600;
- bh=WX4bPOMZSjt2irRYBq1HhZPC4wVrbp8qxCI5kJ/KmAc=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=IeWz7FqGPAXE3HXFWFA2Eo+KaR2q+tPjNW1yyMMJ2wgeVMlhcBKX+kh6nEQV2ZQs+
- WeCMjhsHmjaSLOyIbb0jPOzA6pFdqM4/2JUsQHgf5OWtObx99y0xMNIfElVxNviMed
- Cyq1GM51aFC47g0AwQHuq9ZeM/YcstaRHT0yPFjSZCmb9xy5IlwJrK459ehVBen0ry
- MFiC5O6O9iGXbUFbTX+HBL/jSS8kSPHO6jNweO0UhkgzB/9dtSgt5DNPwidOzxFJSD
- K2b5Zl8phZ+EjFMDkI4WOM1yMn9U83DBZFZaNGluKieE/aMBTsuGU7vhTGX7Crne5n
- ACkTmid1Xg4wA==
-Date: Thu, 02 Apr 2026 23:09:52 +0000
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alexander Koskovich <akoskovich@pm.me>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH RFC v2 6/6] arm64: dts: qcom: milos: Add Adreno 810 GPU and
- GMU nodes
-Message-ID: <20260402-adreno-810-v2-6-ce337ca87a9e@pm.me>
-In-Reply-To: <20260402-adreno-810-v2-0-ce337ca87a9e@pm.me>
-References: <20260402-adreno-810-v2-0-ce337ca87a9e@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: f2b20852a3778c6a910be6250dd8432973ede2dd
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF40D10F76C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 23:35:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775172951; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=LMJtOACO99DVYa3Zy0ZtWgDgYKygwTzTDYrv+WGwJTHqrP28QnTIzPD+7uClxLQ/oiWTvgHmxN6PwLtBaxu7BP6ZkZU1YPwMOMcjR8H15Diajfl2++dhrhLCw9PaprptZAU5AtDwuawSc5diplN5F2bzRKsfMyPGWrLsiFu3JSw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1775172951;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=xLQ7jPWMosmzvuLTBcsWWp0XdEuXwKiP64qZpiJezZs=; 
+ b=E81A0ySWahGV9ZGUsX/M0HsIfQjuW8gOzteoz5iAQd45SvAp1ACck3ze3DmL/bUFOb13zg7lpI2pbgpoHZiiS5L1zm/J5WQUAmX8uAp62HZkXo1hWzlbs3+TIJyVXJ7dMVw/aS7Og++gGx0Q2JTACC1mNdB3e0pJcf3nuNImYDg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775172951; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=xLQ7jPWMosmzvuLTBcsWWp0XdEuXwKiP64qZpiJezZs=;
+ b=BODeN5nK61LFWzM1v85Xu4V6Yro4O0cB0v4+yuPoJjFjpdkqYFv749yIURRtVB7K
+ dZNOSaT74Z5VHHXJlg2T7AQDVb59FF4BF2dz+rn2hO01U4YwlAziV7pWcX9BayBQJGo
+ R5mKdY2S3Rnn3x3n0dEcf0TsvfKh/hPRB5w9ZY04=
+Received: by mx.zohomail.com with SMTPS id 1775172950255126.6962243263522;
+ Thu, 2 Apr 2026 16:35:50 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Subject: [PATCH v4 0/6] drm/tyr: Use register! macro
+Date: Thu, 02 Apr 2026 16:35:30 -0700
+Message-Id: <20260402-tyr-use-register-macro-v4-v4-0-96a8d42f8bd1@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MPQqAMAxA4atIZgNtqQpeRRyqjZrBHxIVRby7x
+ fEb3ntASZgU6uwBoZOV1yXB5xn0U1hGQo7J4IwrjTcO91vwUEKhkXUnwTn0suLpsbMx2mLwlQ0
+ BUr8JDXz976Z93w9IUFh0awAAAA==
+X-Change-ID: 20260402-tyr-use-register-macro-v4-b1dd15f471aa
+To: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ Boqun Feng <boqun@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Steven Price <steven.price@arm.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Dirk Behme <dirk.behme@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>, 
+ Boqun Feng <boqun@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2871;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=6DwD6IinKIIx0Gt0bJ1Ll0TLA4MGUxDv2mPPQh3wHbA=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDJnn/oaWhaznaDE6vNJq+/Fy6WnHvafYPFk4zWKupMjUp
+ rRnqd5/O0pZGMS4GGTFFFnO2hv1iFe9N9Kd/78ZZg4rE8gQBi5OAZhI5SGG/zW/uH6xb1z9yeZg
+ 8stfN1bYHdh2rTNBP9F627sI88d+XpmMDG82iJzNdpk1VfpaqITnqis2B/9+/V58nvvLNM2+PS1
+ tGXwA
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,189 +88,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add GPU and GMU devicetree nodes for the Adreno 810 GPU found on
-Qualcomm SM7635 (Milos) based devices.
+This series changes the Tyr driver to use the kernel's register! macro
+for hardware register access, replacing manual bit manipulation and custom
+register structures with a more type-safe and maintainable approach.
 
-The qcom,kaanapali-gxclkctl.h header can be reused here because
-Milos uses the same driver and the GX_CLKCTL_GX_GDSC definition
-is identical.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
 ---
- arch/arm64/boot/dts/qcom/milos.dtsi | 148 ++++++++++++++++++++++++++++++++=
-++++
- 1 file changed, 148 insertions(+)
+This series applies on drm-rust-next
+tag: drm-rust-next-2026-03-30
+base commit: 7c50d748b4a6
 
-diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom=
-/milos.dtsi
-index 621f05820826..095c58515117 100644
---- a/arch/arm64/boot/dts/qcom/milos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2025, Luca Weiss <luca.weiss@fairphone.com>
-  */
-=20
-+#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
- #include <dt-bindings/clock/qcom,milos-camcc.h>
- #include <dt-bindings/clock/qcom,milos-dispcc.h>
- #include <dt-bindings/clock/qcom,milos-gcc.h>
-@@ -1224,6 +1225,153 @@ lpass_ag_noc: interconnect@3c40000 {
- =09=09=09qcom,bcm-voters =3D <&apps_bcm_voter>;
- =09=09};
-=20
-+=09=09gpu: gpu@3d00000 {
-+=09=09=09compatible =3D "qcom,adreno-44010000", "qcom,adreno";
-+=09=09=09reg =3D <0x0 0x03d00000 0x0 0x40000>,
-+=09=09=09      <0x0 0x03d9e000 0x0 0x2000>,
-+=09=09=09      <0x0 0x03d61000 0x0 0x800>;
-+=09=09=09reg-names =3D "kgsl_3d0_reg_memory",
-+=09=09=09=09    "cx_mem",
-+=09=09=09=09    "cx_dbgc";
-+
-+=09=09=09interrupts =3D <GIC_SPI 300 IRQ_TYPE_LEVEL_HIGH 0>;
-+
-+=09=09=09iommus =3D <&adreno_smmu 0 0x0>;
-+
-+=09=09=09operating-points-v2 =3D <&gpu_opp_table>;
-+
-+=09=09=09qcom,gmu =3D <&gmu>;
-+=09=09=09#cooling-cells =3D <2>;
-+
-+=09=09=09interconnects =3D <&gem_noc MASTER_GFX3D QCOM_ICC_TAG_ALWAYS
-+=09=09=09=09=09 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+=09=09=09interconnect-names =3D "gfx-mem";
-+
-+=09=09=09status =3D "disabled";
-+
-+=09=09=09gpu_zap_shader: zap-shader {
-+=09=09=09=09memory-region =3D <&gpu_microcode_mem>;
-+=09=09=09};
-+
-+=09=09=09gpu_opp_table: opp-table {
-+=09=09=09=09compatible =3D "operating-points-v2-adreno",
-+=09=09=09=09=09     "operating-points-v2";
-+
-+=09=09=09=09opp-264000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <264000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS_D1>;
-+=09=09=09=09=09opp-peak-kBps =3D <2136718>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xc8295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-362000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <362000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+=09=09=09=09=09opp-peak-kBps =3D <2136718>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xc02c5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-510000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <510000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
-+=09=09=09=09=09opp-peak-kBps =3D <3972656>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882b5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-644000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <644000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <5285156>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-688000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <688000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS_L2>;
-+=09=09=09=09=09opp-peak-kBps =3D <6074218>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x882a5ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-763000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <763000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM>;
-+=09=09=09=09=09opp-peak-kBps =3D <6671875>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xa8295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-895000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <895000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_NOM_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <8171875>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x88295ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-960000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <960000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO>;
-+=09=09=09=09=09opp-peak-kBps =3D <8171875>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0xa8285ffd>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-1050000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <1050000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_TURBO_L1>;
-+=09=09=09=09=09opp-peak-kBps =3D <18597656>;
-+=09=09=09=09=09qcom,opp-acd-level =3D <0x88285ffd>;
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+
-+=09=09gmu: gmu@3d37000 {
-+=09=09=09compatible =3D "qcom,adreno-gmu-810.0", "qcom,adreno-gmu";
-+=09=09=09reg =3D <0x0 0x03d37000 0x0 0x68000>;
-+=09=09=09reg-names =3D "gmu";
-+
-+=09=09=09interrupts =3D <GIC_SPI 304 IRQ_TYPE_LEVEL_HIGH 0>,
-+=09=09=09=09     <GIC_SPI 305 IRQ_TYPE_LEVEL_HIGH 0>;
-+=09=09=09interrupt-names =3D "hfi", "gmu";
-+
-+=09=09=09clocks =3D <&gpucc GPU_CC_AHB_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_CX_GMU_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_CXO_CLK>,
-+=09=09=09=09 <&gcc GCC_DDRSS_GPU_AXI_CLK>,
-+=09=09=09=09 <&gcc GCC_GPU_MEMNOC_GFX_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_HUB_CX_INT_CLK>,
-+=09=09=09=09 <&gpucc GPU_CC_DEMET_CLK>;
-+=09=09=09clock-names =3D "ahb",
-+=09=09=09=09      "gmu",
-+=09=09=09=09      "cxo",
-+=09=09=09=09      "axi",
-+=09=09=09=09      "memnoc",
-+=09=09=09=09      "hub",
-+=09=09=09=09      "demet";
-+
-+=09=09=09power-domains =3D <&gpucc GPU_CC_CX_GDSC>,
-+=09=09=09=09=09<&gxclkctl GX_CLKCTL_GX_GDSC>;
-+=09=09=09power-domain-names =3D "cx",
-+=09=09=09=09=09     "gx";
-+
-+=09=09=09iommus =3D <&adreno_smmu 5 0x0>;
-+
-+=09=09=09qcom,qmp =3D <&aoss_qmp>;
-+
-+=09=09=09operating-points-v2 =3D <&gmu_opp_table>;
-+
-+=09=09=09gmu_opp_table: opp-table {
-+=09=09=09=09compatible =3D "operating-points-v2";
-+
-+=09=09=09=09opp-350000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <350000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_LOW_SVS>;
-+=09=09=09=09};
-+
-+=09=09=09=09opp-650000000 {
-+=09=09=09=09=09opp-hz =3D /bits/ 64 <650000000>;
-+=09=09=09=09=09opp-level =3D <RPMH_REGULATOR_LEVEL_SVS>;
-+=09=09=09=09};
-+=09=09=09};
-+=09=09};
-+
- =09=09gxclkctl: clock-controller@3d64000 {
- =09=09=09compatible =3D "qcom,milos-gxclkctl";
- =09=09=09reg =3D <0x0 0x03d64000 0x0 0x6000>;
+Changes in v4:
+ - Add PartialEq to all enums so they can be used in comparisons.
+ - Replace u64 registers with u32 LO/HI pairs and helper functions to read them.
+ - Combine all MMU register definitions into one patch.
+ - Drop [PATCH v3 03/12] drm/tyr: Set interconnect coherency during probe
+   to avoid possible leaks/data corruption.
+ - Pick up Ab, Rb tags
 
---=20
-2.53.0
+ - Link to v3: https://lore.kernel.org/r/20260323-b4-tyr-use-register-macro-v3-v3-0-a87daf9e4701@collabora.com
+    
+Changes in v3:
+ - Update write_val() with write_reg() from API change.
+ - Replace const values with enums and use => ?=> syntax.
+ - Convert 1-bit fields to bool.
+ - Change module visibility from pub(super) to pub(crate).
+ - Add new commits to define mmu address registers.
+ - Add new commit exposing hardware DOORBELLS.
+ - Pick up Reviewed-by tags.
+    
+ There are also change logs per patch.
+    
+ - Link to v2: https://lore.kernel.org/r/20260311-b4-tyr-use-register-macro-v2-v2-0-b936d9eb8f51@collabora.com
+        
+Changes in v2:
+ - Rebase on v8 of register! macro series;
+ - Add documentation;
+ - Remove manual functions to get address bits;
+ - Revise gpu_info() to use macro;
+ - Remove manual functions to get address bits;
+ - Revise gpu_info() to use macro;
+ - Revise l2_power_on() to use macro;
+ - Set interconnect coherency protocol with macro;
+ - Separate commits for each register page;
+ - Replace HI/LO pairs with 64bit registers
+ - Order registers by address;
+ - Remove doorbell clear field from GPU_IRQ_CLEAR;
+ - GPU command is redesigned to accommodate multiple layouts;
+ - MMU register bits corrected;
+ - Use UPPERCASE for register names;
+ - Move the consts to impl block for registers;
 
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+
+---
+Daniel Almeida (1):
+      drm/tyr: Use register! macro for GPU_CONTROL
+
+Deborah Brouwer (5):
+      drm/tyr: Print GPU_ID without filtering
+      drm/tyr: Use register! macro for JOB_CONTROL
+      drm/tyr: Use register! macro for MMU_CONTROL
+      drm/tyr: Remove custom register struct
+      drm/tyr: Add DOORBELL_BLOCK registers
+
+ drivers/gpu/drm/tyr/driver.rs |   24 +-
+ drivers/gpu/drm/tyr/gpu.rs    |  232 +++---
+ drivers/gpu/drm/tyr/regs.rs   | 1744 ++++++++++++++++++++++++++++++++++++++---
+ 3 files changed, 1761 insertions(+), 239 deletions(-)
+---
+base-commit: 7c50d748b4a635bc39802ea3f6b120e66b1b9067
+change-id: 20260402-tyr-use-register-macro-v4-b1dd15f471aa
+
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
