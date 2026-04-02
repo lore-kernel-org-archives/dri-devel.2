@@ -4,155 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6707BCC6B04
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 05:49:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30A75CC6B03
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 05:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD3010EF9C;
-	Thu,  2 Apr 2026 05:49:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9343E10F060;
+	Thu,  2 Apr 2026 05:49:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nhiwkx0y";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Je6fmDaN";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bv6nAzKR";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012061.outbound.protection.outlook.com [52.101.43.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64D5F10E2CF;
- Thu,  2 Apr 2026 05:49:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YnlpghtqwNG8G311j6JLiYjcqVr4BnzDdDG8VhulOE2Dpnp7OsvswfNPmguhTXz3ihBIlPC6o6c+0v/SdDH6XKsN2Ff1bVKAfKhjIFWCP7ZshNT4Yc6tYxJRVeRlqTMn01vaJyqVduAql4rGUZ4BxKNQOfPXgnWj8unjo4MaI9mvri9V0UxQUBi4GSjIUS+B7eSsFjJMs4xKSDWPtIR0ZVNSYrRXyxnDt/ut1EGNtHcQCXDzdJFA57BribNUC8b87dWP0ziwaFhevXr+5+lC6oDA6eiyOgpH2mIlAbZEvIl5ObUs2vLC8NFzIZ5eobX4SqszbbgWpmvEexR3Tf2fYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VdcaTsCymqLPvhHZEpkID9rndTXucwkDtAVin1AzcEA=;
- b=UKDboEVdo2k3xc4QfeuDozdFmZNSXEU/LyUBAI1cUKIlYYPos7Fko2ayOZ3RMsNdE/oy56i8iaHpXiD7yFVB7su6YL2c6H3KpLkSDkd3tYqjMCuzSqWC2gDTARNPU6gtQVREnQj3kNDpKsPGjffXD+u3cT+Nbn0DcfvtnsxqvZBvvorrdoxGAkUoFEfsfdaacGsBQmPc483fr1ubo4qEmres47UdkYiUW8kY2CP+QxBS49BUMiGtE7W+qLocMlmrtrw5ViofEnhFxoV8BblzI9OsHG/D47OHeG88cJN9J3SblEYc+2iKWT4QO5ktt/HknWJvaEyIkMlohOQxc6IiRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VdcaTsCymqLPvhHZEpkID9rndTXucwkDtAVin1AzcEA=;
- b=nhiwkx0ybrGWkcDJXgg+io8K/S4JH9lNTHb8MLxPf0q9M3EmhnyxREPkI3WEaRu7XxgCaG4GefwwWKK5YgzEsnEqnv6eK6Y7L9x8c0JXNdCGNkGR5sPA72FByZsq8dQ0EvfdvCwYFBZaxsgsTqJNKOjh1y/QeVZ2VFA574NLBCQ41lOa/wVnVxSHzxaVeg4TCGQbY6audxKzcIzosmYophq1803PuC+D7aU3BtyoITXzxCI308D7s0jMflPi6vhL3g/S/ipHfSy9OFNgegOlh7tJKJzP7KAILiNqnWs9FQNlQ/UXXvK/6t84uZ+nQB9q9UIolf457pfXf2vYePeokQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by SJ5PPF1394451C7.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::98b) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.10; Thu, 2 Apr
- 2026 05:49:09 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9769.017; Thu, 2 Apr 2026
- 05:49:09 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 02 Apr 2026 14:49:05 +0900
-Message-Id: <DHIFLRYSRR3Z.34IFDA1592HCW@nvidia.com>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>, <linux-kernel@vger.kernel.org>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, "Bjorn Roy Baron"
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Dave Airlie" <airlied@redhat.com>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Koen Koning"
- <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, "Nikola Djukic" <ndjukic@nvidia.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan
- Corbet" <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
- "Christian Koenig" <christian.koenig@amd.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
- "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
- "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>, "Helge Deller"
- <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng"
- <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
- <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea
- Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
- <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v10 07/21] gpu: nova-core: mm: Add TLB flush support
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-8-joelagnelf@nvidia.com>
-In-Reply-To: <20260331212048.2229260-8-joelagnelf@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0090.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:369::17) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA7C10F060
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 05:49:30 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 631M4IYO2799332
+ for <dri-devel@lists.freedesktop.org>; Thu, 2 Apr 2026 05:49:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=ioNl/pbmY50Wz8O6AM4CCucRvI07piSCemk
+ mE1yMrHs=; b=Je6fmDaNLeT7seeNLbvjIUiNWqzDY3swDA9r4z2vZknpE9ZL38C
+ PZesqM1onMWhFrcbIVJq6Sl1NBqI70NxgPyuZVCWOnZMx/BxzhAYEtZfWesRgYer
+ hWNggZg7OTvrZD68jL47A2I70OhkpUFBvT34EayelhzQYQJ8Gj7mbh5naRXqosxw
+ ZniHKeefRddvbFlcMB/3tBZL3/5mVtVboox+J3eHxnzWFRh1XkT2Fmk9N5puBI8O
+ eecdMgMycZDyzGon1gN/o5Fa0CU/O/eDvy8zeH8p4CMnwKG2aIEstbkmovNmrmTj
+ Lynk4vwd9zGRFAVXIHTNYHx9UXStRWwcKdQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d96hk2fb3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 05:49:29 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2b24611696eso3198295ad.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 22:49:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775108969; x=1775713769;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ioNl/pbmY50Wz8O6AM4CCucRvI07piSCemkmE1yMrHs=;
+ b=bv6nAzKRae7M0dYukFifgSXK2ozpgCPBHxabPV8+J4xZF2o8Al3zxZRNbmosBHj5ih
+ tuXuq69jfc4rVMsPSeMYPZQqQafnObkJpZIaiEAZSOpdwnwlU2ruuyrCuhUTM4XUddAs
+ o3ZUs1zZjxk2SGAsI6IWdyv+jeAOV4Qpz9eKrZ8On8PJNTEdDL6QoCWV1KFNaEUoSfGh
+ RzLRi7DDb+vsk0pTyCL0kQ9RSWwNzR9/AePrv1QMbR+PkHg+zwKbnkZGtxYC1Hil93QS
+ +XydaYyIrid/5SxHpk3YOeDL63z+XVhuQhjUZbT1cBPVQpVOg0C01Yu3L42iIoZ5DpcJ
+ PH1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775108969; x=1775713769;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ioNl/pbmY50Wz8O6AM4CCucRvI07piSCemkmE1yMrHs=;
+ b=oIGEM2qvXpWAtSijFdZs4GybuEx76CV+xQj+ke8KIcyLL+K5iWGt00l444r6Xtq/c3
+ V2p+ClzSzVBUm/qxbdH21I4Dnwm3xzy1WQXOaIV3PoCD4RoXnbWGmXloQFMJyWbsK2ed
+ FJcl4nGit2EeJFAKxbRmLaKEgo/I7boufBLk5AI4dEKY86BViz4OfdmfxMoECQxZHtnO
+ 9ksiiDpaBpEb4QLPNtf85dwglLzM9T5URiFHtfWWuIRCPpyEuENBzlUs2TybhWCE6Ify
+ lXv07cZ2o31HWzM1+2g1FlFaVu19jFb0R+WG5MhdD77Y67uZaZF2v0CrAIeNVbSDUFiF
+ o/xA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUWnHN2W8+vZEYtXVEkd47pMc3lHQYWSWj8eu/6g6ovTIeG8DIOWhWK51CMN3U2TRsw5v6oBvYDOfw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwPZT9ayzifRuLEiikqfOqG4iD2o647zNR2c8QLrptJmaDZDkVk
+ 9DquFK6+3o/OAkTSWYWYnzLy1J+0SCAx7TVJSWUU4Hk7pPAptSHjeY0Em/mbdq/9zY5ZcnDMlOc
+ BrAfvl21oIFqkACj0EwLU9Zl8q/7/Zv/OlJGPE/E9uasFOi4l/9G2XaPFWGg/vJL7rgyk1V4=
+X-Gm-Gg: ATEYQzznyIHQgu0X59+euITzVlugEq+nVEglIRkVbbQambqdMPwaduIE4gldlwKtT80
+ nKsjansGRXvMHkjTaStkiYre9t9dfI54nTWcJtZolfpk5mZhSc42OKWdOV0hcud7c/JwqIOnQKC
+ swzecmWc/O2xJqeGKJUHEefiI1siK0N240TSX72xuyvB9uBl2MyXZcufEjmktwn8dmg5DKtZY8Q
+ e116yZa8EsFznI9Dnszzp/U6GthjhjGsBKxG0AOEjvyUlXEOwmBSW/74Am9iob2yOx+LCFwfBgU
+ iAWIegEen/Km8IHtXfshidM9FsI2lnZ1fhlPSPTzSgbqLk4xPPjhvRZNGv9tf3deFbEC8irgpKr
+ QqUVCq9e8bqbgTnWn6jDBw/NlyDCnLK8lvC5FDkbRcIq30R5fwIOdaw==
+X-Received: by 2002:a05:6a20:9392:b0:39b:cbab:63d6 with SMTP id
+ adf61e73a8af0-39ef71fb5b0mr6193179637.3.1775108968823; 
+ Wed, 01 Apr 2026 22:49:28 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9392:b0:39b:cbab:63d6 with SMTP id
+ adf61e73a8af0-39ef71fb5b0mr6193159637.3.1775108968326; 
+ Wed, 01 Apr 2026 22:49:28 -0700 (PDT)
+Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82cf9b5fb22sm2167747b3a.26.2026.04.01.22.49.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Apr 2026 22:49:27 -0700 (PDT)
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+To: srini@kernel.org, linux-arm-msm@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de,
+ dmitry.baryshkov@oss.qualcomm.com, andersson@kernel.org,
+ konrad.dybcio@oss.qualcomm.com
+Subject: [PATCH v7 0/4] misc: fastrpc: Add polling mode support
+Date: Thu,  2 Apr 2026 11:19:19 +0530
+Message-Id: <20260402054923.3061925-1-ekansh.gupta@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SJ5PPF1394451C7:EE_
-X-MS-Office365-Filtering-Correlation-Id: e319db6f-c4ac-4f2d-3b64-08de907b8f63
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|7416014|10070799003|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: CKb0EVyVRn80rTZsaAGEe/GHA9l9UXF7bJpRkUd4P1Hu/LnpFPqJZ0MvqssLfltr6SxEqot+3INLTBObjgkVCBiA0SckhzTjwR0W0/CEvxkIYEkTz26f4FQXlGaVFCC1cLSV1DgyF7MGZ4kPFGRVN2jGg/bJ6pDHTF5HaglrcXJnZrOhD6XSV1iy9rvOIRoMGX3Xsra7NsqUWaRe50vRUlNOHzaAnQOtJXn2niGjiU93fAUMUW1wM394BqjsOJY9vX9A285xF0PE2QkR7+iCjXFWw812A6zCrKXVq4NCso9N0XsdEVyLSANpPN+lysUfNZCmWJaGbA+79137SkD2vvrQyd68rogb9jYoq24aXAGKX+Kg/uuzOHK5KTVvkC4HKDxKwkiWiq5bbzm6pCLUP9zFjR/rSx5rx+fW7MkBridLj81Igwm/cxFuXYjmALKqLRlbsSVZ8WGRMN8LdJOH7CL+NzYfbEijPJerfG11R7WEXqvp3KOfx80R6uT0EJ+hQasOyas0Nof6cQN8v1ulmWdmAKamOOylzl3lSd9Y9HO5ICtxAFOQqQ4swsZx8h6wywePVsou9WLMR6hSxjulgUpNybebDDNvmZsaGAky7ElBkvqEvKYefXwq/flIdyLnwyVGfMGsaKdQJ7UAeAwhuk0uGPt9nI1jhZx9Dll3AIvm9P7G4xaxTt/4KJpHBuokzluAtf+TMBjyfWgQCH1RksOC5FS8pbGUAxsbuaSt4nM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(7416014)(10070799003)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WndLb3RPdEFjV0d3dFlkSDN4TzlVVDU0M0g4dXVxZEpJamo1Snk5Y0lsTjhF?=
- =?utf-8?B?WW9BNnNRWkE0VGRoeVBzdVpKeU9QbDFuc2dZbCtMMmV6UTVpZE5YQ25hdTh1?=
- =?utf-8?B?QXozMHV5Qm9VMFRVcHFTSEdFaW93dmRzeVNqVHBsSGFMamxWZTluWVhHbml5?=
- =?utf-8?B?aWhYQldTVCtqdlNlaUlqN1doT3NFOGViS1RJWVE2UFluMWVYcmtwTWRvbm5y?=
- =?utf-8?B?UnM2cGllVjlMY1JJQ1BobS96M0JjcXRSaENsQ2NRdkR3VGtLd21lMFVJVTQ0?=
- =?utf-8?B?OVRpUW5ndmEvNXJ6cFpkV1AvcW9wb0hjM1ZQNzRHc2NQZ0RKd3BxK2RjeVNV?=
- =?utf-8?B?R3phQnIyOWZVNEZPNDlPRldIYTRmdWhwZmFQZlhPVDRmOW5nc1Z6S0x6MVJt?=
- =?utf-8?B?YUdrUEZqSGVqNHJrbkIxTmgyTFZhemxseHVuQnJmem55TGc0U2ZSRFozVUZL?=
- =?utf-8?B?SnhHSnB1dy9QcnphdHBSWDJYb0Rwdk1yYXZZdmhPTVU4TjBXdTltQjRaU3Ra?=
- =?utf-8?B?QlNkTmJLY3B4OXJTckZibGlWbzN1K2loTm9Fck80b0dsaEVpWFhoZXI4eVkx?=
- =?utf-8?B?cjdPaittNW9zQVZHcTNJQWxhYWhhdHFOc1lEOGdLS0FiREdtSWY1OGtLU0NF?=
- =?utf-8?B?eVgrOGJLamRxZ2RFQ2dqamQxa1paOTFkaTZUWFJRRG5jZ0ZORHAyQzM5bWtK?=
- =?utf-8?B?b1BLVHg1bnpYWmtBVk1rWXYvWHNSYTBmamQrSXNUbjZjdzBDTEFpdU5MSmdt?=
- =?utf-8?B?Ukk1WnltU041R2RYcHNZYjlXZ2x1dlhzTFVCWmlrMkZCTC9Tdjg5Y0hDc2h5?=
- =?utf-8?B?RkVaUEt2UTZUUktacVFlbGRyNThQWmhEck1TNmprSWMrZGhCaGJMSWl2SlFY?=
- =?utf-8?B?OVRxbnJ0RU91Qk80NVVxR2RFMDlSRDM4TCtlMEpBODgxWlozWklNR2ljSHF1?=
- =?utf-8?B?UExraDdHSXdKYVlybXY1RlRJYmc1Vm5RY1o1aHR0S011SXAzQUpBNVN4N1dY?=
- =?utf-8?B?cWJPbVdVWlJvVmlmbXkvU21TZ1AvTG1vZkRPaEpIT3Zqd3NvNFlkM3BvRFBQ?=
- =?utf-8?B?SGt5OHdtcmt6c2g4ZXRQZG1OQ1VCcUdtWkl3MW1iU082SGlEdEdJc3RFZjdz?=
- =?utf-8?B?eE5HdnpDczhrUUd5NG1rSjhCRFdPNUtIY01HbnZqWkJDc2VvRDk0NG4vRDVE?=
- =?utf-8?B?anBHQitwQy9mcnp4aXBtMmhHemEvUm85eUlHTzlvL0NYenZOcUpvTmV5bU80?=
- =?utf-8?B?ZXplYVVMcDhzY1EvMjIvNDRETmMvT0pGTElVTWVRVUtZNXZtT1ZiN20vRkRZ?=
- =?utf-8?B?ZGNlcDlOMlFPUm9EZjRFMnkyTUZYT1Z2dmdKK21yeEY5bHQrMytvcGx2M2xp?=
- =?utf-8?B?dC9RbEwvSUtiV0JrNzBpVEpXSkUrSk5FRWpXV3dHVDV0VkFrbFM2cEdWdSs2?=
- =?utf-8?B?UDk0azBhRjAwcTcyR2UrZHdlZXl5V3lnRS81SzB4R1JaM0gwUzRDc0pXNkRv?=
- =?utf-8?B?UCtRanhUQXNLbXZKSisrWVB0YWppOEwwMTFEYS9QMEVUTVFoVzdXaTFHNjRQ?=
- =?utf-8?B?TWQ3YnRkUnZiTUZVTEloQmY4YTBwOHJVVmVma3NQQVFYanR1MGtUcXhwL0s2?=
- =?utf-8?B?MFVEM2RuTGZnQk1nVUtkS2x5aHVFQWJESU1CZ3Z0Q2R0TmNuQTlJenk5aHZP?=
- =?utf-8?B?cjVYVXh3WXNCVGxSUFlxbVhSSlJJeVVac2dRaVNiNkZwOEsyY0U3Um1yVzhk?=
- =?utf-8?B?eFltOEZmWGJLT3ZORGYwai8xbFdWN256UDlWTGVrZ3JvaFhiSVpVaEVraXBk?=
- =?utf-8?B?SGNCYVhzaDBFR094SXpqMjRFNVBTY2FSY2xDRjlxYlU1c2tiTUN3S1NuK3U2?=
- =?utf-8?B?aE1NRkNBMHJHdHRDUFAvTHdZY3M2U2FFdU9UazYycG14c3g2T3NWdE1NVFJI?=
- =?utf-8?B?b2hoZkQ1RUpCcWU4M0REcjFHbHpwZjE0VUlJaFBxa0wwbFZsRmVVdmpHK1JE?=
- =?utf-8?B?VVZ5ZjNBa0lYT0EwMGV3Qy9jalczWExObytVTVZqbXlDYmw0Yjg2ejJjTlJ2?=
- =?utf-8?B?WGdWR3BNd3E3WEpkM0tSQjB4cUhQYTVhSmdOcEo0aEJTOFNrOUxqMEFteXZK?=
- =?utf-8?B?TnBKTG13enlXWWtvS1V3K2RmZ210ZzJicEhDUy9RRkNhOW9tbHJFVys3V2cx?=
- =?utf-8?B?OGF3ai8ySXRhY0U2cHBqTGVhZTZVK2JXQkFZWVYyTFpJYTRtVDNMQUpadjl2?=
- =?utf-8?B?bWc3MDRqODJpN2dzMEpQM0pRUlJ1VFljcXRra3RDYzlYOUJpNXA3VUtmSWtR?=
- =?utf-8?B?Wm9YTnIxSTJjakZyMnVpYkoxTXBoeHUrWFYxczhBWXdhd3J1aHEvRWRkRkNN?=
- =?utf-8?Q?6JJWs1NkgjPXKBsWj4CmJCiQMV+uwwYxiY51WIKOQh5Kn?=
-X-MS-Exchange-AntiSpam-MessageData-1: VX0B/K/OWbs/vw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e319db6f-c4ac-4f2d-3b64-08de907b8f63
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 05:49:09.5574 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gLo+58pZ3sPozsiz2byNFRa9C5CGVR+ziH7VtoQ1tqoqc8GJ8Fs6p+kXwNVftEBn+4PwLhUIQcHIXgAqDJOP9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF1394451C7
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA0OCBTYWx0ZWRfXwTGhz4lmgWNf
+ Jz3HMwphEoAhY4ZrmqKpSnpOmCuV0vDKi7gW3YWTuObPactea9DDSyDSZf4uHLYOboqr+dIhhBT
+ vnXpYzGdQA1Zwqbcw3hUt/0YEZMG3JX9LfPKxSet7518VPLzgtizELK0/iykuDKMBFZQaY1zgVS
+ qm/SP6T2A7UmRPYtkvYnC78povQxku2EAlkcVkb+CZVx02pOt9AKrAY7a/D4i06v7U+5TKcEM7f
+ eckgRsSvhhlLRR2aGpPjbhsReDQY6ew//O7OnKueT8APo5whm6bsrLNq+koq2oSWLC/Ov9554x+
+ eyvrfgGGiljSrZc2FFDFELLEkh2PalYFEzgVGhlfqhuIxYflhz3kR36qgZw7hkF4rnazgpsKsrl
+ s7en7zvT/jxY4OKmWD5fBq0QqDRYypuX9AaILBcFSxGLxAS5nFwYOqS0tpVWzy9r8TveskA5OF1
+ krIpPqMfS+XHWwqfezg==
+X-Proofpoint-GUID: l3MnACFCXYSi3YBFHN37QOrir5L3MDIj
+X-Proofpoint-ORIG-GUID: l3MnACFCXYSi3YBFHN37QOrir5L3MDIj
+X-Authority-Analysis: v=2.4 cv=e9ULiKp/ c=1 sm=1 tr=0 ts=69ce0369 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FeUw2I9XaFYL6OdlDaEA:9
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-02_01,2026-04-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 phishscore=0 bulkscore=0 malwarescore=0
+ clxscore=1011 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604020048
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,161 +136,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 1, 2026 at 6:20 AM JST, Joel Fernandes wrote:
-> Add TLB (Translation Lookaside Buffer) flush support for GPU MMU.
->
-> After modifying page table entries, the GPU's TLB must be invalidated
-> to ensure the new mappings take effect. The Tlb struct provides flush
-> functionality through BAR0 registers.
->
-> The flush operation writes the page directory base address and triggers
-> an invalidation, polling for completion with a 2 second timeout matching
-> the Nouveau driver.
->
-> Cc: Nikola Djukic <ndjukic@nvidia.com>
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> ---
->  drivers/gpu/nova-core/mm.rs     |  1 +
->  drivers/gpu/nova-core/mm/tlb.rs | 95 +++++++++++++++++++++++++++++++++
->  drivers/gpu/nova-core/regs.rs   | 42 +++++++++++++++
->  3 files changed, 138 insertions(+)
->  create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
->
-> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-> index 8f3089a5fa88..cfe9cbe11d57 100644
-> --- a/drivers/gpu/nova-core/mm.rs
-> +++ b/drivers/gpu/nova-core/mm.rs
-> @@ -5,6 +5,7 @@
->  #![expect(dead_code)]
-> =20
->  pub(crate) mod pramin;
-> +pub(crate) mod tlb;
-> =20
->  use kernel::sizes::SZ_4K;
-> =20
-> diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/t=
-lb.rs
-> new file mode 100644
-> index 000000000000..cd3cbcf4c739
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/mm/tlb.rs
-> @@ -0,0 +1,95 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! TLB (Translation Lookaside Buffer) flush support for GPU MMU.
-> +//!
-> +//! After modifying page table entries, the GPU's TLB must be flushed to
-> +//! ensure the new mappings take effect. This module provides TLB flush
-> +//! functionality for virtual memory managers.
-> +//!
-> +//! # Example
-> +//!
-> +//! ```ignore
-> +//! use crate::mm::tlb::Tlb;
-> +//!
-> +//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()>=
- {
-> +//!     // ... modify page tables ...
-> +//!
-> +//!     // Flush TLB to make changes visible (polls for completion).
-> +//!     tlb.flush(pdb_addr)?;
-> +//!
-> +//!     Ok(())
-> +//! }
-> +//! ```
-> +
-> +use kernel::{
-> +    devres::Devres,
-> +    io::poll::read_poll_timeout,
-> +    io::Io,
-> +    new_mutex,
-> +    prelude::*,
-> +    sync::{
-> +        Arc,
-> +        Mutex, //
-> +    },
-> +    time::Delta, //
-> +};
-> +
-> +use crate::{
-> +    driver::Bar0,
-> +    mm::VramAddress,
-> +    regs, //
-> +};
-> +
-> +/// TLB manager for GPU translation buffer operations.
-> +#[pin_data]
-> +pub(crate) struct Tlb {
-> +    bar: Arc<Devres<Bar0>>,
-> +    /// TLB flush serialization lock: This lock is acquired during the
-> +    /// DMA fence signalling critical path. It must NEVER be held across=
- any
-> +    /// reclaimable CPU memory allocations because the memory reclaim pa=
-th can
-> +    /// call `dma_fence_wait()`, which would deadlock with this lock hel=
-d.
-> +    #[pin]
+This patch series adds polling mode feature that have been missing in
+upstream FastRPC driver.
 
-This comment says that the lock is acquired during the DMA fence
-signalling critical path, but IIUC we don't have anything like that
-right now. Is this based on future yet to be done work? Can we reword
-this in a way so it makes sense in the current state?
+- Add changes to move fdlist to ctx structure to avoid code duplicacy.
+- Update context mask to support polling mode.
+- Add changes to support polling feature.
 
-> +    lock: Mutex<()>,
-> +}
-> +
-> +impl Tlb {
-> +    /// Create a new TLB manager.
-> +    pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
-> +        pin_init!(Self {
-> +            bar,
-> +            lock <- new_mutex!((), "tlb_flush"),
-> +        })
-> +    }
-> +
-> +    /// Flush the GPU TLB for a specific page directory base.
-> +    ///
-> +    /// This invalidates all TLB entries associated with the given PDB a=
-ddress.
-> +    /// Must be called after modifying page table entries to ensure the =
-GPU sees
-> +    /// the updated mappings.
+Userspace change: https://github.com/qualcomm/fastrpc/pull/258
+Patch [v6]: https://lore.kernel.org/all/20260215182136.3995111-1-ekansh.gupta@oss.qualcomm.com/
 
-If this must be called after every operation like that, I wonder if we
-can change the design to require a guard like pattern something to
-ensure flush is called. WDYT?
+Changes in v6:
+  - Fixed warnings.
+  - Fixed commit text.
+  - Addressed clean-up comments.
 
-> +    pub(crate) fn flush(&self, pdb_addr: VramAddress) -> Result {
+Changes in v5:
+  - Fixed poll memory calculation.
+  - Added few formatting changes.
 
-Hopefully we don't need to be calling flush() from anywhere in the
-entire crate. Can you tighten the visibility here and in other places?
-Many things seem to be pub(crate) that don't need to be.
+Changes in v5:
+  - Add more details in commit text.
 
-> +        let _guard =3D self.lock.lock();
-> +
-> +        let bar =3D self.bar.try_access().ok_or(ENODEV)?;
-> +
-> +        // Write PDB address.
-> +        bar.write_reg(regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.=
-raw_u64()));
-> +        bar.write_reg(regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.=
-raw_u64()));
-> +
-> +        // Trigger flush: invalidate all pages and enable.
-> +        bar.write_reg(
-> +            regs::NV_TLB_FLUSH_CTRL::zeroed()
-> +                .with_page_all(true)
-> +                .with_enable(true),
-> +        );
-> +
-> +        // Poll for completion - enable bit clears when flush is done.
-> +        read_poll_timeout(
-> +            || Ok(bar.read(regs::NV_TLB_FLUSH_CTRL)),
-> +            |ctrl: &regs::NV_TLB_FLUSH_CTRL| !ctrl.enable(),
-> +            Delta::ZERO,
-> +            Delta::from_secs(2),
-> +        )?;
+Changes in v4:
+  - Replace hardcoded ctxid mask with GENMASK.
+  - Fixed commit text.
 
-This has zero delay on the read_poll_timeout - what about adding a small
-delay of a microsecond or so?
+Changes in v3:
+  - Resolve compilation warning.
+
+Changes in v2:
+  - Added comments and fixed commit text.
+  - Defined context id position as a macro.
+  - Added new IOCTL to control polling mode as always enabling
+    it might cause excess power consumption.
+  - Cleaned up polling mode implementation.
+
+Ekansh Gupta (4):
+  misc: fastrpc: Move fdlist to invoke context structure
+  misc: fastrpc: Replace hardcoded ctxid mask with GENMASK
+  misc: fastrpc: Expand context ID mask for DSP polling mode support
+  misc: fastrpc: Add polling mode support for fastRPC driver
+
+ drivers/misc/fastrpc.c      | 154 +++++++++++++++++++++++++++++++-----
+ include/uapi/misc/fastrpc.h |  10 +++
+ 2 files changed, 144 insertions(+), 20 deletions(-)
+
+-- 
+2.34.1
 
