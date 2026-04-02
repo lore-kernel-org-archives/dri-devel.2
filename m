@@ -4,107 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EA81D6AAEC
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 16:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EA96D6AAF5
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 16:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B7E210F201;
-	Thu,  2 Apr 2026 16:49:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="SbNsQGJr";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="jekHnRJI";
-	dkim-atps=neutral
-Received: from fhigh-b5-smtp.messagingengine.com
- (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6326810F244
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:49:13 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfhigh.stl.internal (Postfix) with ESMTP id F0B3C7A00DC;
- Thu,  2 Apr 2026 12:49:11 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
- by phl-compute-04.internal (MEProxy); Thu, 02 Apr 2026 12:49:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1775148551;
- x=1775234951; bh=lYV/HE/eaLjj4haLdqZX1D55ej4Hm/J5ZQp8Ipwz81U=; b=
- SbNsQGJrGjnB8ek6JMQE3rHUQ2eUZ2jW9OQWsaMHhAu3T8VI5iSevjK4RHN3QMKD
- /kjRkhCWK7n6krz5Y5jUWRRobjA+NsF+nMuB8Jb3+gNaX/jWelDwsEInvt4JxRSv
- sLX1i72t3HMmj+kjDeWBHol2RF4kFmJJYjLcOSilVLOoyMLrWBp7m03iF/MWqrlR
- UmhV9T97QFqNQGogOFD9CRI85tnJEOgaJSGr4F0R5o8fHrhnkhdaOyTsNmcIQbdp
- kj41b6kGgeK/K2S7uWRHV2iXi+9kUz8TIhmoDkAjLzBnpZWciM6atk51S5QC2CwO
- f6ilWCBh6l8kEHQVfmXC0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1775148551; x=
- 1775234951; bh=lYV/HE/eaLjj4haLdqZX1D55ej4Hm/J5ZQp8Ipwz81U=; b=j
- ekHnRJIb57zb6LNOJw/r5P4rlGsJAg3yyh9+jR8fDFI3oMOD4JBygyuuyKyhE8FL
- LIieQ5o8+IapaBHO8Kfv10zCNuLkTlagAYq6qpFi61cuv54UXNpUic6uR4ZlYRRc
- 61vOt+0wa/qbp6RufGXIfm8lggh9zOUC2+XO4Oh336G7NcN5O5aIB72koZKkdxFr
- DWbVXav9gZgiQAQThSVmbmtzlGczE+qqFyouqpYWnOReOOYqe1OT++8ORlsunYws
- r79VWh6bCXLiK08tza93I3YRq/bk9LfdIl7MssNZWGv5kqRbhgDmXdX2Vul9ftlk
- ChEIlBFRarXY8yq+mrJOA==
-X-ME-Sender: <xms:B57Oaah1IAVM1MpqVucregry5V56_mF6D_tfVj0QyHv3UO9mypWXSQ>
- <xme:B57OaV3c9VoVWeV8baNic297CVGm1HWc3HargMvcEsE5WTlW8umiBCVlgCSHWlBuq
- 6gvBHj2nKSaoztXPOPqff5CZH8oSnPjesjCD5X4vLXFn_c1pVXrH7N5>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeiheehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
- lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
- epofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedftehrnhguuceu
- vghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrthhtvghrnh
- ephfdthfdvtdefhedukeetgefggffhjeeggeetfefggfevudegudevledvkefhvdeinecu
- vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprghrnhguse
- grrhhnuggsrdguvgdpnhgspghrtghpthhtohepvdefpdhmohguvgepshhmthhpohhuthdp
- rhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghirhhlih
- gvugesghhmrghilhdrtghomhdprhgtphhtthhopeguvghllhgvrhesghhmgidruggvpdhr
- tghpthhtoheprghruggssehkvghrnhgvlhdrohhrghdprhgtphhtthhopegthhgvnhhhuh
- grtggriheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhhrihhprghrugeskhgvrhhn
- vghlrdhorhhgpdhrtghpthhtohepfigvihdrlhhiuheskhgvrhhnvghlrdhorhhgpdhrtg
- hpthhtohepihhlihgrshdrrghprghlohguihhmrghssehlihhnrghrohdrohhrghdprhgt
- phhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrd
- gtohhm
-X-ME-Proxy: <xmx:B57OaXq7Fq8tP7x6l5dBAWWWbFxGc72eT4nZc1Ez2R9yelqsIbe0iw>
- <xmx:B57OadGA3pgF6EIjYalsXy3pJ2CMHaefryWrCjjpq2PpqIhrBWtQFA>
- <xmx:B57OaS7FFU3NE9O5REXDd6c-ZPeED_eMbfTPjk8ySEwf_duLCEL7kA>
- <xmx:B57OaYB3dmTgiRgVub4R4xNil6GrnUqBFP0V5-YXn9cE-BSTBYwEqA>
- <xmx:B57OaVNHy5qQPJxXUY3g2qeqnNDg8D1RrXtmnTXvVchJ2_tkVfjYL5Pz>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id EE7BE700065; Thu,  2 Apr 2026 12:49:10 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	by gabe.freedesktop.org (Postfix) with ESMTP id 971D510E493;
+	Thu,  2 Apr 2026 16:50:55 +0000 (UTC)
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C78A10E493
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:50:53 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id 403AD1F8005C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:50:47 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id CD928B40125; Thu,  2 Apr 2026 16:50:32 +0000 (UTC)
+Received: from shepard (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id 14645B4011E;
+ Thu,  2 Apr 2026 16:50:26 +0000 (UTC)
+Date: Thu, 2 Apr 2026 18:50:09 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>,
+ Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
+Subject: Re: [PATCH 3/3] drm: lcdif: Wait for vblank before disabling DMA
+Message-ID: <ac6eQcDS8lr-A4ia@shepard>
+References: <20260330224619.2620782-1-paulk@sys-base.io>
+ <20260330224619.2620782-4-paulk@sys-base.io>
+ <m3y0j8mhoz.fsf@t19.piap.pl>
 MIME-Version: 1.0
-X-ThreadId: ATYY62_w4Fts
-Date: Thu, 02 Apr 2026 18:47:01 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Javier Martinez Canillas" <javierm@redhat.com>,
- "Ard Biesheuvel" <ardb@kernel.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Huacai Chen" <chenhuacai@kernel.org>, "WANG Xuerui" <kernel@xen0n.name>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>, "Dave Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "K. Y. Srinivasan" <kys@microsoft.com>,
- "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
- "Dexuan Cui" <decui@microsoft.com>, longli@microsoft.com,
- "Helge Deller" <deller@gmx.de>
-Cc: linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-efi@vger.kernel.org, linux-riscv@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Message-Id: <295a43ce-92fb-435d-a82f-d1cfa8f4f28d@app.fastmail.com>
-In-Reply-To: <001efe27-9cbb-4a89-8d2d-a1f3ae15e505@suse.de>
-References: <20260402092305.208728-1-tzimmermann@suse.de>
- <20260402092305.208728-4-tzimmermann@suse.de>
- <78f76717-8f1e-41d6-92f7-261df96b84b6@app.fastmail.com>
- <3e466158-c2e5-4e23-934f-dcdbb71ad41f@suse.de>
- <d3d7c545-3b07-4881-a16d-45b6f039de19@app.fastmail.com>
- <001efe27-9cbb-4a89-8d2d-a1f3ae15e505@suse.de>
-Subject: Re: [PATCH 3/8] firmware: sysfb: Make CONFIG_SYSFB a user-selectable
- option
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="a2mfjKByZ2U6+wpv"
+Content-Disposition: inline
+In-Reply-To: <m3y0j8mhoz.fsf@t19.piap.pl>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,126 +59,265 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 2, 2026, at 17:27, Thomas Zimmermann wrote:
-> Am 02.04.26 um 16:59 schrieb Arnd Bergmann:
->> On Thu, Apr 2, 2026, at 16:10, Thomas Zimmermann wrote:
->>> Am 02.04.26 um 15:08 schrieb Arnd Bergmann:
->>>> On Thu, Apr 2, 2026, at 11:09, Thomas Zimmermann wrote:
->>>> I don't really like this part of the series and would prefer
->>>> to keep CONFIG_SYSFB hidden as much as possible as an x86
->>>> (and EFI) specific implementation detail, with the hope
->>>> of eventually seperating out the x86 bits from the EFI ones.
->>> You mean, you want to use the EFI-provided framebuffers without the
->>> intermediate step of going through sysfb_primary_display?
->>>
->>> In that case, CONFIG_SYSFB would become an x86-internal thing, right?
->> The part that is still needed from sysfb is the arbitration
->> between DRM_EFI and the PCI device driver for the same hardware,
->> so I think some part of sysfb is clearly needed, in particular
->> the sysfb_disable() function that removes the EFI framebuffer
->> when there is a conflicting simpledrm or hardware specific
->> driver.
->
-> We do most of that in the aperture-helper module. (see 
-> <linux/aperture.h>). Calling sysfb_disable() from there is a workaround 
-> for some corner cases. We can have an EFI-specific function that does 
-> the same.
 
-That sounds good, yes. The same change would need to go into
-of_platform_default_populate_init() then.
+--a2mfjKByZ2U6+wpv
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> BTW, simpledrm-on-EFI/VESA is considered obsolete and should preferably 
-> be removed from that driver. Simpledrm should become a driver for 
-> Devicetree nodes of type simple-framebuffer (as it originally has been 
-> intended).
+Hi Krzysztof,
 
-Sure, I was only thinking of the case where there are both
-sysfb (from Arm/riscv UEFI) and simpledrm (from devicetree)
-objects referring to the same one, not the simpledrm
-device created by sysfb_simplefb.
+On Tue 31 Mar 26, 12:11, Krzysztof Ha=C5=82asa wrote:
+> Paul Kocialkowski writes:
+> > It is necessary to wait for the full frame to finish streaming
+> > through the DMA engine before we can safely disable it by removing
+> > the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
+> > hardware confused and unable to resume streaming for the next frame.
+> >
+> > This causes the FIFO underrun and empty status bits to be set and
+> > a single solid color to be shown on the display, coming from one of
+> > the pixels of the previous frame. The issue occurs sporadically when
+> > a new mode is set, which triggers the crtc disable and enable paths.
+> >
+> > Setting the shadow load bit and waiting for it to be cleared by the
+> > DMA engine allows waiting for completion.
+> >
+> > The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
+>=20
+> ...or "addressed" in the previous version :-)
+>=20
+> Test results: it works for me: at 1080p60 and 2160p30. I.e. it fixed the
+> underrun problem. It's interesting how a CRTC shutdown can affect it's
+> subsequent start following an SW_RESET.
 
->> The parts that I want to keep out of that is anything
->> related to the x86 boot protocol, non-EFI framebuffers,
->> text console, and kexec handoff, which we don't need on
->> non-x86 UEFI systems.
->>
->> I don't mind the idea of having a sysfb_primary_display
->> in the EFI code if that helps keep EFI sane on x86,
->> but it would be good to make that local to
->> drivers/firmware/efi and (eventually) detached from
->> include/uapi/linux/screen_info.h.
->
-> Efidrm retrieves the framebuffer settings from the contained struct 
-> screen_info. Disconnecting from screen_info would require separate 
-> graphics drivers for x86 and non-x86. If we split off EFI from sysfb, 
-> we'd likely need a sysfbdrm driver of some sort. Just saying.
+Thanks for confirming! Indeed it's a bit surprising. I'm not sure what SW_R=
+ESET
+does exactly but it may not concern the DMA part. I've tried using it in the
+irq handler when the underrun is reported and it didn't do anything at all.
 
-Yes, I saw that as well and don't have an immediate idea for how
-to best do it. I saw that you already abstracted the access to
-the screen_info members in drm_sysfb_screen_info.c, which I think
-is a step in that direction.
+> Or... perhaps it has something to do with the clocks? Also see below.
+> If somehow the DMA engine was "running" with it's clock disabled, it
+> would result in an underrun, or worse.
 
-I also noticed that efidrm is mostly a subset of vesadrm, so
-in theory they could be merged back into an x86 drm driver
-along with the drm_sysfb_screen_info helpers, and have a non-x86
-driver that constructs a drm_sysfb_device directly from the
-EFI structures.
+Interestingly I tried to keep the clocks always on as an experiment and it
+had the opposite effect: the DMA engine would get confused every time after=
+ the
+first mode set and disable. So for some reason the disabling of the clocks =
+seems
+to mitigate the issue rather than aggravate it.
 
-> I think we'd also have to duplicate the framebuffer-relocation code that 
-> currently works on anything using struct screen_info (see patch 5).
+I think the issue probably boils down to a corrupted internal state of the =
+DMA
+engine if it is disabled while streaming pixels. This is more or less what =
+the
+comment from NXP suggests.
 
-You mean the code from include/linux/screen_info.h? I think
-it would make sense to have an x86 specific version of that
-to operate on the x86 screen_info, and a simpler version
-that just updates the resource for the efirdrm driver, but
-that could also be done one level higher or lower.
+> BTW apparently something converted your tab characters into spaces.
 
->>>> In general, I am always in favor of properly using Kconfig
->>>> dependencies over 'select' statements, for the same reasons
->>>> you describe, but I don't want the the x86 logic for
->>>> the legacy VESA and VGA console handling to leak into more
->>>> architectures than necessary.
->>>>
->>>> Do you think we could instead move the sysfb_init()
->>>> function into the same two places that contain the
->>>> sysfb_primary_display definition (arch/x86/kernel/setup.c,
->>>> drivers/firmware/efi/efi-init.c) and simplify the efi version
->>>> to take out the x86 bits? That would reduce the rest
->>>> of sysfb-primary.c to the logic to unregister the device,
->>>> and that could then be selected by both x86 and EFI.
->>> No, I'm more than happy that sysfb finally consolidates all the
->>> init-framebuffer setup and detection that floated around in the kernel.
->>> I would not want it to be duplicated again.
->>>
->>> For now, we could certainly keep CONFIG_SYSFB hidden and autoselected.
->>> Although I think this will require soem sort of solution at a later point.
->> Can you clarify which problem you are trying to solve
->> with that?
->
-> One thing is that some users simply what control over their kernel build.
->
-> I also think that there might be systems that want to use 
-> sysfb_primary_display (plus the relocation feature), but not create the 
-> framebuffer device. Say for efi-earlycon. It needs user-control over the 
-> SYSFB option to do that.
+Ah good to know, thanks!
 
-I'm still not following, sorry. efi-earlycon doesn't require
-CONFIG_SYSFB today, and I don't see why that would need to change,
-or why it couldn't just 'select SYSFB' if it it does change.
+> > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > @@ -393,6 +393,22 @@ static void lcdif_disable_controller(struct lcdif_=
+drm_private *lcdif)
+> >         if (ret)
+> >                 drm_err(lcdif->drm, "Failed to disable controller!\n");
+> >
+> > +       /*
+> > +        * It is necessary to wait for the full frame to finish streami=
+ng
+> > +        * through the DMA engine before we can safely disable it by re=
+moving
+> > +        * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave =
+the
+> > +        * hardware confused and unable to resume streaming for the nex=
+t frame.
+> > +        */
+> > +       reg =3D readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
+> > +       reg |=3D CTRLDESCL0_5_SHADOW_LOAD_EN;
+> > +       writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
+> > +
+> > +       ret =3D readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
+> > +                                reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_=
+EN),
+> > +                                0, 36000);     /* Wait ~2 frame times =
+max */
+>=20
+> I guess this comment is not necessarily correct - at 2160p30 one frame =3D
+> ca. 33 ms. Still works, though (I guess anything more than one frame is
+> enough). I don't know how long a frame on HDMI (or LVDS, MIPI etc.) can
+> take. 30 FPS on 2160p is common because the i.MX8MP can't display 2160p60.
 
-> As a side-effect, user-configurable SYSFB gives us a nice place to put 
-> SYSFB_SIMPLEFB and FIRMWARE_EDID; two options that currently float 
-> around in the config somewhat arbitrarily.
+Honestly I think we're good assuming 30 fps (33 ms) is a lower bound.
+And the current 36 ms goes even beyond, so I think it's fine.
 
-You said that SYSFB_SIMPLEFB should get phased out in the future,
-right?
+> Also, found an issue. Perhaps unrelated? Powered the board without HDMI
+> connected. Then connected 1080p60 display. It came in 1024x768, console
+> 64x24 :-)
 
-I'm also missing your plan for CONFIG_FIRMWARE_EDID. I only
-see three legacy drivers using the old fb_firmware_edid()
-interface, so I assume this is not what you are interested in. 
+That looks more related to a failure to fetch the EDID from the monitor.
+1024x768 is the default fallback that is used in this situation.
+Maybe check if there is something wrong with the DDC lines from the hdmi
+controller, maybe pinmux etc.
 
-For the global copy that is filled by x86 and efi, and
-consumed by vesadrm and efidrm, does that even need to
-be a configuration option rather than get always enabled?
+> Run weston. Pressed ctrl-alt-backspace. It deadlocked. Sysrq (serial
+> console, show blocked state) showed (with *lcdif* in it):
+> task:systemd-logind  state:D stack:0     pid:253   tgid:253   ppid:1     =
+ task_flags:0x400100 flags:0x00000800
+> Call trace:
+>  ...
+>  schedule+0x34/0x118
+>  rpm_resume+0x188/0x678
+>  __pm_runtime_resume+0x4c/0x98
+>  clk_pm_runtime_get.part.0.isra.0+0x1c/0x94
+>  clk_core_set_rate_nolock+0xd0/0x2fc
+>  clk_set_rate+0x38/0x158
+>  lcdif_crtc_atomic_enable+0x74/0x8d0
+>  drm_atomic_helper_commit_crtc_enable+0xac/0x104
+>  drm_atomic_helper_commit_tail_rpm+0x68/0xd8
+>  commit_tail+0xa4/0x1a4
+>  drm_atomic_helper_commit+0x178/0x1a0
+>  drm_atomic_commit+0x8c/0xcc
+>  drm_client_modeset_commit_atomic+0x1f8/0x25c
+>  drm_client_modeset_commit_locked+0x60/0x17c
+>  __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x2c/0x8c
+>  drm_fb_helper_set_par+0x5c/0x78
+>  fb_set_var+0x190/0x35c
+>  fbcon_blank+0x178/0x24c
+>  do_unblank_screen+0xa8/0x19c
+>  vt_ioctl+0x4fc/0x14c0
+>  tty_ioctl+0x228/0xb88
+>  __arm64_sys_ioctl+0x90/0xe4
+>  ...
+>=20
+> This is reproducible, though not always.
 
-       Arnd
+That seems to be in the enable path and related to runtime pm.
+I don't think it is related to my patch at all.
+
+> It seems it locks on some mutex - the shell works until I do 'cat
+> log.txt' or similar. Now (with std output/error redirection?), weston
+> doesn't even start.
+>=20
+> dmesg doesn't show anything of interest.
+> weston: 14.0.2
+> using /dev/dri/card1
+> DRM: supports atomic modesetting
+> DRM: supports GBM modifiers
+> DRM: does not support Atomic async page flip
+> DRM: supports picture aspect ratio
+> Loading module '/usr/lib64/libweston-14/gl-renderer.so'
+> Using rendering device: /dev/dri/renderD128
+> EGL version: 1.5
+> EGL vendor: Mesa Project
+> EGL client APIs: OpenGL OpenGL_ES
+> ...
+> Registered plugin API 'weston_drm_output_api_v1' of size 40
+> Registered plugin API 'weston_drm_virtual_output_api_v2' of size 48
+> Color manager: no-op
+>   protocol support: no
+> Output 'HDMI-A-1' attempts EOTF mode SDR and colorimetry mode default.
+> Output 'HDMI-A-1' using color profile: stock sRGB color profile
+> Chosen EGL config details: id:  17 rgba: 8 8 8 0 buf: 24 dep:  0 stcl: 0 =
+int: 1-1 type: win vis_id: XRGB8
+> )
+> Output HDMI-A-1 (crtc 37) video modes:
+> 1920x1080@60.0, preferred, current, 148.5 MHz
+>=20
+> Output 'HDMI-A-1' enabled with head(s) HDMI-A-1
+> Loading module '/usr/lib64/weston/desktop-shell.so'
+> launching '/usr/libexec/weston-keyboard'
+> launching '/usr/libexec/weston-desktop-shell'
+> Warning: computed repaint delay for output [HDMI-A-1] is abnormal: -69164=
+ msec (happens always)
+>=20
+> could not load cursor 'dnd-copy'
+> could not load cursor 'dnd-copy'
+> could not load cursor 'dnd-none'
+> could not load cursor 'dnd-none'
+>=20
+> Why all these clk* mutexes? Perhaps something didn't work out as it
+> should there? clk_set_rate isn't supposed to take much time, is it?
+
+Maybe something to do with the clock driver.
+It seems pretty much unrelated to the lcdif driver.
+
+All the best,
+
+Paul
+
+> $ grep clk /tmp/minicom.cap -C1
+> [  728.310054]  __pm_runtime_resume+0x4c/0x98
+> [  728.310059]  clk_pm_runtime_get.part.0.isra.0+0x1c/0x94
+> [  728.310065]  clk_core_set_rate_nolock+0xd0/0x2fc
+> [  728.310071]  clk_set_rate+0x38/0x158
+> [  728.310076]  lcdif_crtc_atomic_enable+0x74/0x8d0
+> --
+> [  728.310210]  mutex_lock+0x48/0x58
+> [  728.310216]  clk_prepare_lock+0x80/0xc0
+> [  728.310223]  clk_unprepare+0x28/0x44
+> [  728.310227]  fsl_samsung_hdmi_phy_suspend+0x24/0x40
+> --
+> [  728.310344]  mutex_lock+0x48/0x58
+> [  728.310350]  clk_prepare_lock+0x80/0xc0
+> [  728.310359]  clk_unprepare+0x28/0x44
+> [  728.310364]  etnaviv_gpu_clk_disable.isra.0+0x28/0x80
+> [  728.310372]  etnaviv_gpu_rpm_suspend+0x78/0x1dc
+> --
+> [  728.310494]  mutex_lock+0x48/0x58
+> [  728.310499]  clk_prepare_lock+0x80/0xc0
+> [  728.310506]  clk_unprepare+0x28/0x44
+> [  728.310512]  sdhci_esdhc_runtime_suspend+0x7c/0x198
+> --
+> [  728.310627]  mutex_lock+0x48/0x58
+> [  728.310632]  clk_prepare_lock+0x80/0xc0
+> [  728.310639]  clk_round_rate+0x38/0x1d8
+> [  728.310646]  dev_pm_opp_set_rate+0xe4/0x2e0
+> --
+> [  728.310760]  mutex_lock+0x48/0x58
+> [  728.310765]  clk_prepare_lock+0x80/0xc0
+> [  728.310771]  clk_prepare+0x1c/0x50
+> [  728.310778]  sdhci_esdhc_runtime_resume+0x34/0x180
+> --
+> [  728.311286]  mutex_lock+0x48/0x58
+> [  728.311292]  clk_prepare_lock+0x80/0xc0
+> [  728.311298]  clk_prepare+0x1c/0x50
+> [  728.311303]  sdhci_esdhc_runtime_resume+0x34/0x180
+>=20
+> Something fishy here.
+> --
+> Krzysztof "Chris" Ha=C5=82asa
+>=20
+> Sie=C4=87 Badawcza =C5=81ukasiewicz
+> Przemys=C5=82owy Instytut Automatyki i Pomiar=C3=B3w PIAP
+> Al. Jerozolimskie 202, 02-486 Warszawa
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--a2mfjKByZ2U6+wpv
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnOnkEACgkQhP3B6o/u
+lQymaA/8Cu27/yyOshfCvqQopelEL+8j4/DcmCUAm138wEi8rWc/EG+eZ5P9Falz
+x3trgpduIM3oiIPxLR47PGUGiUTSLcs+XnlZVTYUp/Tu3iFG47n6JY6SiQUev43L
+bEFjXvIvzMew71be3QyVRKNDOxSXDvONIK5Qtx+/dDyok55iYEm8kWrZDnwbAbE6
+yfr0Iqo+FEiLcHqT8RhB/jesQPRS1PiCxkJlMEQMEN4mKXQqm2uPCZ1dMmMD1GXQ
+jDj7NaqhnSVQfpsOa/PpoeBgUjtlisku3ypcC1/e8mC+ZmNFZseTfXaUIceOwBTw
+LmJc8UFyt4peZfJilrj4kWDbVpn8P3zL9Tj9+JsPbGZW4/klJZ5LSYCLbZCQT4n5
+LkxGxSjqNCO4A/fUvBhIClyp0+WpDrC+guIUk+pg5WrIsN4hLxWXpO0lxjDT+qyp
+IsDeUcDEqHA95gP9LogZzy0H0yhq5HTBhXx7EDs4pXGKf4nTrfB8JLrIGhQO6QFH
+g1VEEkRq8XvByVCGaByNcPIUh1uWqYDx9ybHsc1+/5GF+qzhXpPGTDRGjj8L0GMs
+WQ8NaGNVPSeEEMWbqghtb5lTdqTdPndFhyJXJWY73o60oAGZiE+wW8fZpcvY8DK7
+N231m3Ihf/BmRWl5jujv95ju1zvIsqs9UEDwUUpJwKdrnjSPbeE=
+=87Mt
+-----END PGP SIGNATURE-----
+
+--a2mfjKByZ2U6+wpv--
