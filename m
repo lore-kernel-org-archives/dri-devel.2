@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E73D6AAE9
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 16:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48845D6AAEE
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 16:14:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B349410F2EB;
-	Thu,  2 Apr 2026 16:09:10 +0000 (UTC)
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C31A10F2EB
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:09:09 +0000 (UTC)
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
- by leonov.paulk.fr (Postfix) with ESMTPS id 2F2801F8005D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:09:02 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
- id 74DB2B40124; Thu,  2 Apr 2026 16:09:00 +0000 (UTC)
-Received: from shepard (unknown [192.168.1.1])
- by laika.paulk.fr (Postfix) with ESMTPSA id C045FB40114;
- Thu,  2 Apr 2026 16:08:58 +0000 (UTC)
-Date: Thu, 2 Apr 2026 18:08:56 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Lucas Stach <l.stach@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>,
- Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
-Subject: Re: [PATCH 2/3] drm: lcdif: Use dedicated set/clr registers for
- polarity/edge
-Message-ID: <ac6UmHl86ax5eSVv@shepard>
-References: <20260330224619.2620782-1-paulk@sys-base.io>
- <20260330224619.2620782-3-paulk@sys-base.io>
- <f5b628f50def756da356184ff6febb11cc9aaa68.camel@pengutronix.de>
- <acvllbRTHyVFTgmS@collins>
- <3b221a4997c367df716bf107a7e98ce10cd6860b.camel@pengutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC3C410F301;
+	Thu,  2 Apr 2026 16:14:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="clPT0Vw0";
+	dkim-atps=neutral
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6039A10F2FF;
+ Thu,  2 Apr 2026 16:14:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1775146443;
+ bh=s2CUUZ2Fms9wFK5hdhsvbXU3XIA1Je2RIT4u1Pft+uE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=clPT0Vw0/RzZzt7CNm3lc332c+BAA/Otm2qxkUnvJsXyTGUJVIhpoNCSKAFR4ml4P
+ t64SYMHpfIjAuSfd6pu9lafh9w0LAgUcQrGUj/1Sxnj3vViBgzUlhqAbsjd+jEysNy
+ VnA7G7VB0Nzv3G1L7Z06eFi9snO9tAcMk27oUbR/Yzuqtz2RArYhsFv+912X1kmLyH
+ 6ODxTb+7y7VMZm4A5QpI75IEMiUMQX+JOybSCTy1llLCLcwOQl8gC3D8jNX2+b14wb
+ N6fUjipa2shETiUWr5AbLLAL4qP9q5Dst6PJMv6fXMVhUQMfVMZl9jTiFGn64ymrkP
+ zTORrt+UlpVBg==
+Message-ID: <59096db1-aac5-4b3c-9689-43fbc29c5911@lankhorst.se>
+Date: Thu, 2 Apr 2026 18:14:03 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="er1C6Ur3KOqFT3zW"
-Content-Disposition: inline
-In-Reply-To: <3b221a4997c367df716bf107a7e98ce10cd6860b.camel@pengutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 1/3] drm/display: Add drm helper to check pr
+ optimization support
+To: Animesh Manna <animesh.manna@intel.com>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Imre Deak <imre.deak@intel.com>
+References: <20260330133620.3750559-1-animesh.manna@intel.com>
+ <20260330133620.3750559-2-animesh.manna@intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <20260330133620.3750559-2-animesh.manna@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,101 +57,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hey,
 
---er1C6Ur3KOqFT3zW
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Den 2026-03-30 kl. 15:36, skrev Animesh Manna:
+> Add api to check panel replay optimization supported or not to
+> drm-core DP tunneling framework which can be used by other driver
+> as well.
+> 
+> v2: Split generic drm changes from Intel specific changes. [Jouni]
+> 
+> Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+> Suggested-by: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Acked-by: Maarten Lankhorst <dev@lankhorst.se>
 
-Hi Lucas,
+> ---
+>  drivers/gpu/drm/display/drm_dp_tunnel.c | 17 +++++++++++++++++
+>  include/drm/display/drm_dp_tunnel.h     |  6 ++++++
+>  2 files changed, 23 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
+> index 6519b4244728..08dc5d26b2c5 100644
+> --- a/drivers/gpu/drm/display/drm_dp_tunnel.c
+> +++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
+> @@ -149,6 +149,7 @@ struct drm_dp_tunnel {
+>  	bool bw_alloc_enabled:1;
+>  	bool has_io_error:1;
+>  	bool destroyed:1;
+> +	bool pr_optimization_support:1;
+>  };
+>  
+>  struct drm_dp_tunnel_group_state;
+> @@ -508,6 +509,8 @@ create_tunnel(struct drm_dp_tunnel_mgr *mgr,
+>  
+>  	tunnel->bw_alloc_supported = tunnel_reg_bw_alloc_supported(regs);
+>  	tunnel->bw_alloc_enabled = tunnel_reg_bw_alloc_enabled(regs);
+> +	tunnel->pr_optimization_support = tunnel_reg(regs, DP_TUNNELING_CAPABILITIES) &
+> +					  DP_PANEL_REPLAY_OPTIMIZATION_SUPPORT;
+>  
+>  	if (!add_tunnel_to_group(mgr, drv_group_id, tunnel)) {
+>  		kfree(tunnel);
+> @@ -1036,6 +1039,20 @@ bool drm_dp_tunnel_bw_alloc_is_enabled(const struct drm_dp_tunnel *tunnel)
+>  }
+>  EXPORT_SYMBOL(drm_dp_tunnel_bw_alloc_is_enabled);
+>  
+> +/**
+> + * drm_dp_tunnel_pr_optimization_supported - Query the PR BW optimization support
+> + * @tunnel: Tunnel object
+> + *
+> + * Query if the PR BW optimization is supported for @tunnel.
+> + *
+> + * Returns %true if the PR BW optimiation is supported for @tunnel.
+> + */
+> +bool drm_dp_tunnel_pr_optimization_supported(const struct drm_dp_tunnel *tunnel)
+> +{
+> +	return tunnel && tunnel->pr_optimization_support;
+> +}
+> +EXPORT_SYMBOL(drm_dp_tunnel_pr_optimization_supported);
+> +
+>  static int clear_bw_req_state(struct drm_dp_aux *aux)
+>  {
+>  	u8 bw_req_mask = DP_BW_REQUEST_SUCCEEDED | DP_BW_REQUEST_FAILED;
+> diff --git a/include/drm/display/drm_dp_tunnel.h b/include/drm/display/drm_dp_tunnel.h
+> index 87212c847915..4aa3ce9fd829 100644
+> --- a/include/drm/display/drm_dp_tunnel.h
+> +++ b/include/drm/display/drm_dp_tunnel.h
+> @@ -53,6 +53,7 @@ int drm_dp_tunnel_destroy(struct drm_dp_tunnel *tunnel);
+>  int drm_dp_tunnel_enable_bw_alloc(struct drm_dp_tunnel *tunnel);
+>  int drm_dp_tunnel_disable_bw_alloc(struct drm_dp_tunnel *tunnel);
+>  bool drm_dp_tunnel_bw_alloc_is_enabled(const struct drm_dp_tunnel *tunnel);
+> +bool drm_dp_tunnel_pr_optimization_supported(const struct drm_dp_tunnel *tunnel);
+>  int drm_dp_tunnel_alloc_bw(struct drm_dp_tunnel *tunnel, int bw);
+>  int drm_dp_tunnel_get_allocated_bw(struct drm_dp_tunnel *tunnel);
+>  int drm_dp_tunnel_update_state(struct drm_dp_tunnel *tunnel);
+> @@ -140,6 +141,11 @@ static inline bool drm_dp_tunnel_bw_alloc_is_enabled(const struct drm_dp_tunnel
+>  	return false;
+>  }
+>  
+> +static inline bool drm_dp_tunnel_pr_optimization_supported(const struct drm_dp_tunnel *tunnel)
+> +{
+> +	return false;
+> +}
+> +
+>  static inline int
+>  drm_dp_tunnel_alloc_bw(struct drm_dp_tunnel *tunnel, int bw)
+>  {
 
-On Tue 31 Mar 26, 18:04, Lucas Stach wrote:
-> Am Dienstag, dem 31.03.2026 um 17:17 +0200 schrieb Paul Kocialkowski:
-> > Le Tue 31 Mar 26, 11:09, Lucas Stach a =C3=A9crit :
-> > > Am Dienstag, dem 31.03.2026 um 00:46 +0200 schrieb Paul Kocialkowski:
-> > > > The lcdif v3 hardware comes with dedicated registers to set and cle=
-ar
-> > > > polarity bits in the CTRL register. It is unclear if there is a
-> > > > difference with writing to the CTRL register directly.
-> > > >=20
-> > > > Follow the NXP BSP reference by using these registers, in case ther=
-e is
-> > > > a subtle difference caused by using them.
-> > > >=20
-> > > I don't really like that patch, as it blows up what is currently a
-> > > single register access to three separate ones. If there is no clear
-> > > benefit (as in it has been shown to fix any issue), I would prefer th=
-is
-> > > code to stay as-is.
-> >=20
-> > Well I guess the cost of a few writes vs a single one is rather
-> > negligible.
-> >=20
-> Yea, a few writes don't really hurt. But I don't think there is a very
-> good reason to set this register this way, see below.
->=20
-> > I'm rather worried that there might be an undocumented
-> > reason why these registers exist in the first place and why they are
-> > used in the BSP.
-> >=20
-> > But yes this is only speculation and I could not witness any actual
-> > issue. My setup (lcdif3 with hdmi) uses all positive polarities which is
-> > the default state, so not a good way to check.
-> >=20
-> > It would be great if somebody from NXP could confirm whether this is
-> > needed or not. In the meantime I guess we can drop the patch. It'll stay
-> > on the list in case someone has polarity issues later :)
->=20
-> The separate clr/set registers are a rather common design feat found on
-> Freescale/NXP IP blocks from the MXS era. On some of those IP blocks
-> _all_ registers are presented as a base/clr/set triplet in the
-> registers space.
-
-Ah yes I vaguely remember seeing this with units used in the imx6.
-
-> As far as I can tell they are mostly useful when you
-> want to set/clear individual bits from a register without having to
-> remember or executing a readback of the current state.
->=20
-> In cases like the one changed in this patch, where the full register
-> state is set in one go, directly writing to the base register is the
-> right thing to do.
-
-Okay then if you're confident these registers are just here for
-convenience purposes we can continue writing the full register value.
-
-I'll drop this patch in the next iteration.
-
-All the best,
-
-Paul
-
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---er1C6Ur3KOqFT3zW
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnOlJgACgkQhP3B6o/u
-lQwjGBAAgtXGu1cSXbuSJ7KwVOiUjwsE8Gah6EoF7+WVg7J7uIvfKh3riBOJIhBS
-yfzd2AJAH6Wl254sb0XyM78TVShcsTHJxDj8nixyiTUK3IoKeA3pqptePsmcBpp4
-gLMLJA6P7f952A2e1Zydtru5y2h9J+mDiIxi2Oy04bahk10xiCC3PeYksX4brVDn
-gwXiqQr3CHipcPJ3dSC4LEv5IUnrsuuVfa3q+zCUEmTWKnapjyLhUoilpZWQMW/a
-nuOcWeubp2NjdWeJJqFup1F7v2hr5/mwqCzkrF8gvS2QaQGwn9zlDoaZdvieX5I5
-Lu/kvYxDAcDEASaU+woFh6aBJZqOTgIHPp35386Ia2sJh88uYyO7ZDsvUvIv69tl
-WaWmRqrfjEkORxEOUnXM1cj+Zs5VRIHRbGG1zVCuId0xMKCVSNoDIy0BE7deI2j8
-Xilddjk6pV/0Y0NCc7aErn9CMf6DdkiAr+YxzDSxe7UzR93nXxmqXs0Yr1iP0Ben
-B0aSIAG+TTxUwOou7VH1qVs1ElFe1E9EnUcJdnpVXiqij2J8kGVaFDBkyES0nuxw
-CTGtSFgWCAIQWu3HBgATw1v299f0yVoFpZAzV2JxqWDhszqusdxerv5ccrj+qrA4
-e+TSkc/ogX7+e7bMSZro1wozZ1endJJmc+C072FaVLBC98OWUdA=
-=gk11
------END PGP SIGNATURE-----
-
---er1C6Ur3KOqFT3zW--
