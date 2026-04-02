@@ -4,58 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BF39D3942E
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 14:33:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46983CC6B02
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 15:00:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A613110F09D;
-	Thu,  2 Apr 2026 14:33:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F7910F0AD;
+	Thu,  2 Apr 2026 15:00:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="noEDZXn6";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="Emkb4mKQ";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="CxcCtsyC";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4FF6610F09D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 14:33:27 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B36032E3
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 07:33:21 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- A8D6F3F915
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 07:33:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1775140406; bh=O5slVANPt6W2mpvvYbiWT3lAI/ec8GE2WPzxjG/B80g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=noEDZXn6YU/3xbN5g+1TBgyL9fATnH8LgPjnG1C+Mh3u0WhXHvRx2QakeDPbc18q9
- R0MyfD8UfgFZ6ZfP1K1T0tJPn6HrFbOhdHBLxthN5AEx9sIQI8fFSN+WksiPY50Dpr
- BwIN24oiAv9/terU4xKgq7x6o9k+adRcufRjZV68=
-Date: Thu, 2 Apr 2026 15:33:23 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
- =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
- dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Chris Diamand <chris.diamand@arm.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>, Chia-I Wu <olvaffe@gmail.com>,
- kernel@collabora.com
-Subject: Re: [PATCH v7 09/10] drm/panthor: Track the number of mmap on a BO
-Message-ID: <ac5-MzyyweAt9TMK@e142607>
-References: <20260401134854.2275433-1-boris.brezillon@collabora.com>
- <20260401134854.2275433-10-boris.brezillon@collabora.com>
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1920610F0AD
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 15:00:17 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfout.stl.internal (Postfix) with ESMTP id 7CEE01D00338;
+ Thu,  2 Apr 2026 11:00:15 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+ by phl-compute-04.internal (MEProxy); Thu, 02 Apr 2026 11:00:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1775142015;
+ x=1775228415; bh=pssyYGpmcMDITeJql5XIx2lmyOqjHKa/++zlF/mlDic=; b=
+ Emkb4mKQv2pBI4JjvrWZmiej12xItuHlLguR/vqsF4ZTCFG+djscA3RwnCCa6Oqk
+ mGq6fP5v8RB+XNo2yCiZtaZyF9pdoImGBOBrlzdZdotMsP1B/W618wH3iVEht3tg
+ pfldlySalgH49WUOfN0Q6hTFQQIDgbB1jNhjyb4+dXVIc8J8DXorSY19ghMUps3K
+ 3kchYP8VyAPPUGc5kXGo6epZiHgin6VNHMLkxVuF4CA7uB91zcKG4uhphBy1PRRo
+ ke3mM2WS7CfJWguxEgdXPixE3XPFC8NPXIzBERszpCagJJruBe4okwqe1PQ7n92R
+ 8onul8jeFbhj4WK4ZTjUjw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1775142015; x=
+ 1775228415; bh=pssyYGpmcMDITeJql5XIx2lmyOqjHKa/++zlF/mlDic=; b=C
+ xcCtsyCWad0b7tPGSOFsqplJcE+HquTY9fiRDyog1ZnP0RyEOe0OJ81j7OSXV9n3
+ kElz8MHnjGtOnS/XPHVSdEtBpBm2GNvdJHYaKSTHocYKAMN1gPR/FCjEfJgtMSWM
+ tTxTzGKApYmnDRp0e3PLjH1kiXNDcRE5+G0PmFNSQ6WJFziv7NTfYaWLX7+btrMf
+ iNWrMlPa1WnH0g1tycJ35gyJbiWxamhwRlUQ049ufwlYKgMpjxV61BUwkTyufeDB
+ aAx7LCLWSOZvQv9sujkCYIkaNj0k+XBWUD9aZl8SQEfEMVq+EyzuOQWGI/W6YgEa
+ Z0igxAbFbCfOd1yIruPwg==
+X-ME-Sender: <xms:foTOaY4Fm_g3QZ76mmsBynPE7SHBsfNuP_mBmkqQHJ_OxQPDpbq85g>
+ <xme:foTOaUvFdT8O7_sqcjzTqLdJltwAxnPTR7_wo2iIgrU1y8ImVSFZ1EZqLeiCs_pWf
+ fPxZl6tlHrmjSMnIJiSHdk6bXAxurcbakCjWmAeFw15DH6MBLXwqNPy>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeifeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+ lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+ epofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedftehrnhguuceu
+ vghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrthhtvghrnh
+ ephfdthfdvtdefhedukeetgefggffhjeeggeetfefggfevudegudevledvkefhvdeinecu
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprghrnhguse
+ grrhhnuggsrdguvgdpnhgspghrtghpthhtohepvdefpdhmohguvgepshhmthhpohhuthdp
+ rhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghirhhlih
+ gvugesghhmrghilhdrtghomhdprhgtphhtthhopeguvghllhgvrhesghhmgidruggvpdhr
+ tghpthhtoheprghruggssehkvghrnhgvlhdrohhrghdprhgtphhtthhopegthhgvnhhhuh
+ grtggriheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhhrihhprghrugeskhgvrhhn
+ vghlrdhorhhgpdhrtghpthhtohepfigvihdrlhhiuheskhgvrhhnvghlrdhorhhgpdhrtg
+ hpthhtohepihhlihgrshdrrghprghlohguihhmrghssehlihhnrghrohdrohhrghdprhgt
+ phhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrd
+ gtohhm
+X-ME-Proxy: <xmx:foTOaQDgmwNtb_d4pYFIDoo1CNK_HkrBIx2bnzxua9Ubpn-pkWS5Aw>
+ <xmx:foTOad9x5xOAq8wlo-iVzSKVbQXvcB5bEsoVBAaM3TSZyL34wd15fQ>
+ <xmx:foTOaST8XhWPRBAMq1wJvzYiMwtgZG2XOBcrN8e9eNNOYcm4DwBVHA>
+ <xmx:foTOaT7iy3G9XhuHXObB1084AYWscFLTcO4XzqiJYBJtrX3l2Saj-Q>
+ <xmx:f4TOacnM7-O8MPwR8jWy0xn0FAt4orE8mfhFCSjxO3ToReT2gITeUJro>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 38C8970006A; Thu,  2 Apr 2026 11:00:14 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260401134854.2275433-10-boris.brezillon@collabora.com>
+X-ThreadId: ATYY62_w4Fts
+Date: Thu, 02 Apr 2026 16:59:52 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Javier Martinez Canillas" <javierm@redhat.com>,
+ "Ard Biesheuvel" <ardb@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Huacai Chen" <chenhuacai@kernel.org>, "WANG Xuerui" <kernel@xen0n.name>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>, "Dave Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
+ "Dexuan Cui" <decui@microsoft.com>, longli@microsoft.com,
+ "Helge Deller" <deller@gmx.de>
+Cc: linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+ linux-efi@vger.kernel.org, linux-riscv@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Message-Id: <d3d7c545-3b07-4881-a16d-45b6f039de19@app.fastmail.com>
+In-Reply-To: <3e466158-c2e5-4e23-934f-dcdbb71ad41f@suse.de>
+References: <20260402092305.208728-1-tzimmermann@suse.de>
+ <20260402092305.208728-4-tzimmermann@suse.de>
+ <78f76717-8f1e-41d6-92f7-261df96b84b6@app.fastmail.com>
+ <3e466158-c2e5-4e23-934f-dcdbb71ad41f@suse.de>
+Subject: Re: [PATCH 3/8] firmware: sysfb: Make CONFIG_SYSFB a user-selectable
+ option
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,138 +118,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 01, 2026 at 03:48:53PM +0200, Boris Brezillon wrote:
-> This will be used to order things by reclaimability.
-> 
-> v2:
-> - Fix refcounting
-> 
-> v3:
-> - Fix refcounting (again)
-> 
-> v4:
-> - Collect R-b
-> 
-> v5:
-> - Collect R-b
-> 
-> v6:
-> - Warn on is_imported() (not supposed to happen since mmap is
->   redirected to the dmabuf layer) instead of adding a conditional
->   in panthor_gem_vm_open()
-> 
-> v7:
-> - No changes
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Steven Price <steven.price@arm.com>
+On Thu, Apr 2, 2026, at 16:10, Thomas Zimmermann wrote:
+> Am 02.04.26 um 15:08 schrieb Arnd Bergmann:
+>> On Thu, Apr 2, 2026, at 11:09, Thomas Zimmermann wrote:
+>> I don't really like this part of the series and would prefer
+>> to keep CONFIG_SYSFB hidden as much as possible as an x86
+>> (and EFI) specific implementation detail, with the hope
+>> of eventually seperating out the x86 bits from the EFI ones.
+>
+> You mean, you want to use the EFI-provided framebuffers without the 
+> intermediate step of going through sysfb_primary_display?
+>
+> In that case, CONFIG_SYSFB would become an x86-internal thing, right?
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+The part that is still needed from sysfb is the arbitration
+between DRM_EFI and the PCI device driver for the same hardware,
+so I think some part of sysfb is clearly needed, in particular
+the sysfb_disable() function that removes the EFI framebuffer
+when there is a conflicting simpledrm or hardware specific
+driver.
 
-Best regards,
-Liviu
+The parts that I want to keep out of that is anything
+related to the x86 boot protocol, non-EFI framebuffers,
+text console, and kexec handoff, which we don't need on
+non-x86 UEFI systems.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_gem.c | 42 +++++++++++++++++++++++++--
->  drivers/gpu/drm/panthor/panthor_gem.h |  3 ++
->  2 files changed, 43 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index d9c3a71da29b..eb139759beda 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -488,6 +488,7 @@ static void panthor_gem_print_info(struct drm_printer *p, unsigned int indent,
->  	drm_printf_indent(p, indent, "vmap_use_count=%u\n",
->  			  refcount_read(&bo->cmap.vaddr_use_count));
->  	drm_printf_indent(p, indent, "vaddr=%p\n", bo->cmap.vaddr);
-> +	drm_printf_indent(p, indent, "mmap_count=%u\n", refcount_read(&bo->cmap.mmap_count));
->  }
->  
->  static int panthor_gem_pin_locked(struct drm_gem_object *obj)
-> @@ -604,6 +605,13 @@ static int panthor_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *v
->  	if (is_cow_mapping(vma->vm_flags))
->  		return -EINVAL;
->  
-> +	if (!refcount_inc_not_zero(&bo->cmap.mmap_count)) {
-> +		dma_resv_lock(obj->resv, NULL);
-> +		if (!refcount_inc_not_zero(&bo->cmap.mmap_count))
-> +			refcount_set(&bo->cmap.mmap_count, 1);
-> +		dma_resv_unlock(obj->resv);
-> +	}
-> +
->  	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
->  	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
->  	if (should_map_wc(bo))
-> @@ -740,13 +748,43 @@ static vm_fault_t panthor_gem_fault(struct vm_fault *vmf)
->  	return panthor_gem_any_fault(vmf, 0);
->  }
->  
-> +static void panthor_gem_vm_open(struct vm_area_struct *vma)
-> +{
-> +	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
-> +
-> +	drm_WARN_ON(bo->base.dev, drm_gem_is_imported(&bo->base));
-> +	drm_WARN_ON(bo->base.dev, !refcount_inc_not_zero(&bo->cmap.mmap_count));
-> +
-> +	drm_gem_vm_open(vma);
-> +}
-> +
-> +static void panthor_gem_vm_close(struct vm_area_struct *vma)
-> +{
-> +	struct panthor_gem_object *bo = to_panthor_bo(vma->vm_private_data);
-> +
-> +	if (drm_gem_is_imported(&bo->base))
-> +		goto out;
-> +
-> +	if (refcount_dec_not_one(&bo->cmap.mmap_count))
-> +		goto out;
-> +
-> +	dma_resv_lock(bo->base.resv, NULL);
-> +	if (refcount_dec_and_test(&bo->cmap.mmap_count)) {
-> +		/* Nothing to do, pages are reclaimed lazily. */
-> +	}
-> +	dma_resv_unlock(bo->base.resv);
-> +
-> +out:
-> +	drm_gem_object_put(&bo->base);
-> +}
-> +
->  static const struct vm_operations_struct panthor_gem_vm_ops = {
->  	.fault = panthor_gem_fault,
->  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
->  	.huge_fault = panthor_gem_any_fault,
->  #endif
-> -	.open = drm_gem_vm_open,
-> -	.close = drm_gem_vm_close,
-> +	.open = panthor_gem_vm_open,
-> +	.close = panthor_gem_vm_close,
->  };
->  
->  static const struct drm_gem_object_funcs panthor_gem_funcs = {
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-> index b66478c9590c..c0a18dca732c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
-> @@ -80,6 +80,9 @@ struct panthor_gem_cpu_map {
->  
->  	/** @vaddr_use_count: Number of active vmap() requests on this GEM */
->  	refcount_t vaddr_use_count;
-> +
-> +	/** @mmap_count: Number of active mmap() requests on this GEM */
-> +	refcount_t mmap_count;
->  };
->  
->  /**
-> -- 
-> 2.53.0
-> 
+I don't mind the idea of having a sysfb_primary_display
+in the EFI code if that helps keep EFI sane on x86,
+but it would be good to make that local to
+drivers/firmware/efi and (eventually) detached from
+include/uapi/linux/screen_info.h.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+>> In general, I am always in favor of properly using Kconfig
+>> dependencies over 'select' statements, for the same reasons
+>> you describe, but I don't want the the x86 logic for
+>> the legacy VESA and VGA console handling to leak into more
+>> architectures than necessary.
+>>
+>> Do you think we could instead move the sysfb_init()
+>> function into the same two places that contain the
+>> sysfb_primary_display definition (arch/x86/kernel/setup.c,
+>> drivers/firmware/efi/efi-init.c) and simplify the efi version
+>> to take out the x86 bits? That would reduce the rest
+>> of sysfb-primary.c to the logic to unregister the device,
+>> and that could then be selected by both x86 and EFI.
+>
+> No, I'm more than happy that sysfb finally consolidates all the 
+> init-framebuffer setup and detection that floated around in the kernel. 
+> I would not want it to be duplicated again.
+>
+> For now, we could certainly keep CONFIG_SYSFB hidden and autoselected. 
+> Although I think this will require soem sort of solution at a later point.
+
+Can you clarify which problem you are trying to solve
+with that?
+
+     Arnd
