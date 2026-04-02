@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27777D6AAEC
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 18:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26907D6AAF8
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 18:36:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8274210F298;
-	Thu,  2 Apr 2026 18:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8450810F2FE;
+	Thu,  2 Apr 2026 18:36:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="obb4PxBU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="kXf027pk";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7141C10F28D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:36:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02B4110F299
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:36:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
- Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=THlaSA5OmYOZEw7LkxE/2XGE1ySfYk56ZsQnrhlg4/w=; b=obb4PxBUhTBsEbXNZKOEmnF+k9
- TtkQmr7rDxwAJuaucmN7yaZODelwX2cV0CGA8tJdFWr3brlrdO1FmNlCI9ZsAGynTGjYt/HfLp1jW
- Jzs82Few7mtGlQQaWVCJnD/q7JTQAXOQGBZAPSGSoBRt+AZ+RaTBPfAEnhm0SSzq3PQTk0/kYXhyh
- O88gK7yUjAFbkeTPxgxLNdBm6uMp//SKNRISoSd38vG2AtK7nKnZTgD1H/ANtYJv2bHlmxMWi6vpP
- HaBIVUlsH8lJlWmUdEL7IOO4quia9GLROOmLUsHC4VRFHnOQA5a2+UTlLV4rnAe1rMTr2KOKmOJvW
- dcj7qZgQ==;
+ s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+ Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+ :Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8J72/GC3bjpthkyLqkQs5BnrwE5BSkMX2Hd4JRdm7uw=; b=kXf027pkMr5TP81ECKo7xCuAkW
+ WHLWJkbUk4CNP+A4PcEpwSuA7fl2ciMnb4ztPMmSiVyuAZlZ8a4zEda6Ueu6x8gy32BYmzTfl29/s
+ dEpNDdKsuSM0oJJRKv0/5Kn+X0EEmoBU4H+zm38pgrQLxD3Ykr/kMRGiFWuQSiQb+p+4rcNfxAaaU
+ QsCw+iMs/O2esYSZ60QkqFYKqQa/p/NWZ1aRmxF4FfjT8OF2+httweP7+Hauf1eCM8ZhP5sH4ZpoH
+ blekkg/ws11agQ5QRa0blyTSY1jshTnuhgt3DLagZVBhpQmsW3++3OIA1urk/BCHXxxxUijyz3TnI
+ trH9NM7Q==;
 Received: from [189.7.87.169] (helo=[10.0.0.1])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1w8Mto-00AaZZ-U2; Thu, 02 Apr 2026 20:36:13 +0200
+ id 1w8Mtw-00AaZZ-Cs; Thu, 02 Apr 2026 20:36:20 +0200
 From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: [PATCH v2 0/7] drm/vc4: Switch to DRM GPU scheduler
-Date: Thu, 02 Apr 2026 15:36:00 -0300
-Message-Id: <20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com>
+Date: Thu, 02 Apr 2026 15:36:02 -0300
+Subject: [PATCH v2 2/7] drm/vc4: Add DRM GPU scheduler infrastructure and
+ job structures
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4XM2jFtwWJc+R+GBUwHmISHabXRk
- P67Fbcuz0nuuRsE9sIBLsUGnqMEWZcM5lAAje0yMIrLDEYZq7TRGKlC52cMNLJ7TuxRleTOtlZ
- d2VvIu7vnXl5789ZkHiU8Vv/eL6L+2l/NqNOfWtSokKyuq97VXUf6KkM7SXukdYYmpfQBMxbXv
- 7MAAAA=
-X-Change-ID: 20260121-vc4-drm-scheduler-03cd8670b3f6
+Message-Id: <20260402-vc4-drm-scheduler-v2-2-d84afd35c602@igalia.com>
+References: <20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com>
+In-Reply-To: <20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com>
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
  Melissa Wen <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -54,15 +51,15 @@ To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5664; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=9uUip30M9q0ZK9RHkj5fW+dO6g104OeTpfc9f0MOqZI=;
- b=owGbwMvMwMVo/5mvq6zj1yrG02pJDJnntovIaRw48/bZ7/uhkxMiWXS98gtOFYd71vI/LjX7Z
- dFxfVJrJ6MxCwMjF4OsmCLLjyextYxi5eyay8ovwgxiZQKZwsDFKQAT4drB/j88cHlmer5caH8u
- s0bFDnf2hccjd05cxeW2qEN0rZWETVta2Z1pE8rDA5gyHWbP+/dKa47jh5xb8Wd1UyqtxK0eNFj
- pPVTYvOTxo+de5uvcWo6Zm1T1qM8SK5lf/vJE9OYXv52XFZvkfFO2rOjb+s/OqJt/ubhh+rvc16
- xNZsWmX7iiddIvv/6zqOmMgWLcnkWN7+ce3Kv619lr3SLNd2ZlJQl7f7fK3Cp/rMvSNvV41GJBl
- a9uSUI8H1uUVWRydFrLzpQ/kl3u9W2OutyKMAM3iW4fnr28u6Jyb/+KiVL4H5vns/3CIv9itXPH
- dXlZ53cxfemNrmmrmBH1qpBpu2Z6h6T86ffRC+23sM0CAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=19391; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=CguWFLJwrEqYNJq2uof2n5jnckAWzsV8srcs0oNEAEM=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBpzrcYZW3F3hp7fVjq8/LZAdNA8y566wI1u17rW
+ BP513l18ueJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCac63GAAKCRA/8w6Kdoj6
+ qpD4CACgkYUaqatwpCq940P1FxqLmVfJT/+KXsbgld3oTrqj+9GDoGsrZCADKTHUQqmAfzy2Rll
+ Vm26rXfwMUvvWoRJex0hU3g5knO+HWxXddGO3LhU+3QaLcTGoqO0XPz7ziG8Jowi/Ok7nvDSEeO
+ 6KppbNaprrRIASGitTi+1QAZnhIh3c1J9YHc3gjzsllTev9E+g2L6nnd+4xtt+v2UYXc75sTLMV
+ 4gkg0/WtmnWe1K1kR67MsG3AiMq+y55anboOJpn19SUj1v/bW15Easx9YaravPSxNRz220+M7fU
+ VtlpSsURudAJaLgdtjrVEWBumXLStNOie/zDWMw88ocliNL8
 X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
  fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -80,118 +77,679 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Introduce `struct vc4_job` as the new base structure for GPU jobs, with
+`vc4_bin_job` and `vc4_render_job` as specialized variants for BIN and
+RENDER jobs, respectively. These structures embed `struct drm_sched_job`
+and will be used with the DRM GPU scheduler. The `vc4_exec_info` struct
+now holds pointers to these job structs, allowing the existing validation
+code to populate job fields during command list processing.
 
-Since its introduction, the vc4 driver schedules its jobs and tracks the
-dependencies in between them using its own internal job queue
-implementation. This internal implementation is based in job lists, wait
-queues and hand-rolled seqnos. Although job scheduling worked most of
-the time, in more GPU intensive scenarios, many GPU hangs were reported
-[1][2].
+Add the core scheduler infrastructure in the new file "vc4_sched.c",
+which implements scheduler operations for BIN and RENDER queues, timeout
+handling, and job cleanup. Each queue has its own scheduler instance.
 
-After investigating several GPU hangs, I noticed that job dependencies
-weren't being tracked correctly, which could lead to synchronization
-issues and GPU resets. Also, the GPU reset path had issues related to
-job resubmission.
+This design is largely inspired by the v3d driver.
 
-Considering the many issues related to the internal job queue
-implementation, this series proposes switching to the DRM GPU scheduler,
-which is a well-established implementation used by multiple DRM drivers.
-
-This has many advantages:
-
-1. Using common code: Instead of relying on a custom implementation, use
-   a trusted common framework. This helps with maintainability of the
-   vc4 driver. It also makes the code more readable.
-
-2. Synchronization issues are gone: With this series, applications can
-   work reliably on RPi 3. Many users reported that they weren't able to
-   open applications like emulators on the device. Now, it's possible to
-   play several retro games without issues.
-
-3. GPU resets are recoverable: Even if a timeout happens, the GPU is able
-   to recover successfully with minimal impact to the user.
-
-4. PM actually works: Before this series, the GPU was active during the 
-   entire runtime. After this series, the GPU is able to autosuspend and
-   resume when needed.
-
-In order to improve reviewability of the patches, I introduced piece by
-piece of the new infrastructure without actually plugging it in. The
-actual switchover only happens in the patch "drm/vc4: Switch to DRM GPU
-scheduler".
-
-For this second version, I moved all the fixes patches to a different
-series [3] with the goal to make this series more focused on the
-scheduler changes.
-
-This series was mostly based on the design of the v3d driver as the two
-drivers are very similar.
-
-[1] https://github.com/raspberrypi/linux/issues/5780
-[2] https://github.com/raspberrypi/linux/issues/3221
-[3] https://lore.kernel.org/dri-devel/20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com/T/
-
-Best regards,
-- Maíra
-
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
-v1 -> v2: https://lore.kernel.org/r/20260205-vc4-drm-scheduler-v1-0-c6174fd7bbc1@igalia.com
+ drivers/gpu/drm/vc4/vc4_drv.c   |  24 +++
+ drivers/gpu/drm/vc4/vc4_drv.h   | 117 +++++++++++++-
+ drivers/gpu/drm/vc4/vc4_fence.c |  18 +++
+ drivers/gpu/drm/vc4/vc4_gem.c   |   8 +-
+ drivers/gpu/drm/vc4/vc4_sched.c | 337 ++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 502 insertions(+), 2 deletions(-)
 
-- Moved all miscellaneous fixes and improvements to a separate series:
-  https://lore.kernel.org/dri-devel/20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com/T/
-- [1/7] Add Melissa's R-b (Melissa Wen)
-- [2/7] Squash "[PATCH 04/11] drm/vc4: Introduce vc4_job structures for DRM
-  scheduler integration" and "[PATCH 05/11] drm/vc4: Add DRM GPU scheduler
-  infrastructure" (Tvrtko Ursulin)
-- [2/7] Centralize the initialization of queues in vc4_sched_init() (Melissa Wen)
-- [2/7] Handle error when vc4_fence_create() fails (Melissa Wen)
-- [2/7] Protect vc4->render_job when updating the pointer in `run_job()` (Melissa Wen)
-- [2/7] Handle error when drm_sched_entity_init() fails (Tvrtko Ursulin)
-- [2/7] Clarify comment in sched_lock (Tvrtko Ursulin)
-- [2/7] Remove fence_lock as dma-fences now support a built-in lock (Tvrtko Ursulin)
-- [2/7] Use spin_(un)lock_irq in `run_job()` callbacks (Tvrtko Ursulin)
-- [3/7] Add a comment explaining why we don't need to unreference BOs in
-  case of failure in vc4_lookup_bos()
-- [3/7] Several stylistic adjustments to vc4_get_bcl() (Tvrtko Ursulin)
-- [3/7] s/kvmalloc_array/kvmalloc in vc4_get_bcl() (Tvrtko Ursulin)
-- [3/7] Remove all error messages related to allocation failures (Tvrtko Ursulin)
-- [3/7] Rename vc4_job_init() to vc4_job_alloc() (Tvrtko Ursulin)
-- [3/7] Address cases in which in_sync or out_sync <= 0 (Tvrtko Ursulin)
-- [3/7] Replace vc4_attach_fences_and_unlock_reservation() with
-  vc4_attach_fences() + drm_exec_fini() (Tvrtko Ursulin)
-- [3/7] Don't clean-up the BIN job if it has already been pushed.
-- [4/7] NEW PATCH: "drm/vc4: Refcount vc4_file for safe access by jobs" (Tvrtko Ursulin)
-- [5/7] Use vc4_file refcount to get a fd reference.
-- [5/7] Add comment explaining why we use dma_fence_get_rcu() in
-  vc4_wait_seqno_ioctl() (Tvrtko Ursulin)  
-- [7/7] Return "unknown" instead of NULL when the fence type is unknown (Tvrtko Ursulin)
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+index 616caf9d9915b9ed7f614d6f0339fa6ee2cb80e3..cacd4cb942593b44f2210b7738bd964ebc34522d 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.c
++++ b/drivers/gpu/drm/vc4/vc4_drv.c
+@@ -145,7 +145,10 @@ static int vc4_get_param_ioctl(struct drm_device *dev, void *data,
+ static int vc4_open(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
++	struct drm_gpu_scheduler *sched;
+ 	struct vc4_file *vc4file;
++	enum vc4_queue q;
++	int ret;
+ 
+ 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+ 		return -ENODEV;
+@@ -155,15 +158,33 @@ static int vc4_open(struct drm_device *dev, struct drm_file *file)
+ 		return -ENOMEM;
+ 	vc4file->dev = vc4;
+ 
++	for (q = 0; q < VC4_MAX_QUEUES; q++) {
++		sched = &vc4->queue[q].sched;
++		ret = drm_sched_entity_init(&vc4file->sched_entity[q],
++					    DRM_SCHED_PRIORITY_NORMAL, &sched,
++					    1, NULL);
++		if (ret)
++			goto err_sched;
++	}
++
+ 	vc4_perfmon_open_file(vc4file);
+ 	file->driver_priv = vc4file;
++
+ 	return 0;
++
++err_sched:
++	for (q--; q >= 0; q--)
++		drm_sched_entity_destroy(&vc4file->sched_entity[q]);
++	kfree(vc4file);
++	return ret;
++
+ }
+ 
+ static void vc4_close(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+ 	struct vc4_file *vc4file = file->driver_priv;
++	enum vc4_queue q;
+ 
+ 	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
+ 		return;
+@@ -171,6 +192,9 @@ static void vc4_close(struct drm_device *dev, struct drm_file *file)
+ 	if (vc4file->bin_bo_used)
+ 		vc4_v3d_bin_bo_put(vc4);
+ 
++	for (q = 0; q < VC4_MAX_QUEUES; q++)
++		drm_sched_entity_destroy(&vc4file->sched_entity[q]);
++
+ 	vc4_perfmon_close_file(vc4file);
+ 	kfree(vc4file);
+ }
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index 0f2fb035fef177dd446ff8322da2413c861ecfd3..b828c56f98965944b94a330e6c4e5ff95c9ab8f8 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -20,6 +20,7 @@
+ #include <drm/drm_managed.h>
+ #include <drm/drm_mm.h>
+ #include <drm/drm_modeset_lock.h>
++#include <drm/gpu_scheduler.h>
+ 
+ #include <kunit/test-bug.h>
+ 
+@@ -31,6 +32,19 @@ struct drm_gem_object;
+ extern const struct drm_driver vc4_drm_driver;
+ extern const struct drm_driver vc5_drm_driver;
+ 
++enum vc4_queue {
++	VC4_BIN,
++	VC4_RENDER,
++	VC4_MAX_QUEUES,
++};
++
++struct vc4_queue_state {
++	struct drm_gpu_scheduler sched;
++
++	u64 fence_context;
++	u64 emit_seqno;
++};
++
+ /* Don't forget to update vc4_bo.c: bo_type_names[] when adding to
+  * this.
+  */
+@@ -152,6 +166,12 @@ struct vc4_dev {
+ 	 */
+ 	uint64_t emit_seqno;
+ 
++	struct vc4_queue_state queue[VC4_MAX_QUEUES];
++
++	struct vc4_bin_job *bin_job;
++
++	struct vc4_render_job *render_job;
++
+ 	/* Sequence number for the last completed job on the GPU.
+ 	 * Starts at 0 (no jobs completed).
+ 	 */
+@@ -174,6 +194,18 @@ struct vc4_dev {
+ 	 * job_done_work.
+ 	 */
+ 	struct list_head job_done_list;
++
++	/* Lock taken when resetting the GPU, to keep multiple
++	 * processes from trying to park the scheduler threads and
++	 * reset at once.
++	 */
++	struct mutex reset_lock;
++
++	/* Lock taken when creating and pushing the GPU scheduler
++	 * jobs. This lock protects the DRM scheduler arm + push pair.
++	 */
++	struct mutex sched_lock;
++
+ 	/* Spinlock used to synchronize the job_list and seqno
+ 	 * accesses between the IRQ handler and GEM ioctls.
+ 	 */
+@@ -282,8 +314,8 @@ struct vc4_bo {
+ struct vc4_fence {
+ 	struct dma_fence base;
+ 	struct drm_device *dev;
+-	/* vc4 seqno for signaled() test */
+ 	uint64_t seqno;
++	enum vc4_queue queue;
+ };
+ 
+ #define to_vc4_fence(_fence)					\
+@@ -668,9 +700,84 @@ struct vc4_crtc_state {
+ 
+ #define VC4_REG32(reg) { .name = #reg, .offset = reg }
+ 
++struct vc4_job {
++	struct drm_sched_job base;
++
++	struct kref refcount;
++
++	struct vc4_dev *vc4;
++
++	/* Fence to be signaled by IRQ handler when the job is complete. */
++	struct dma_fence *irq_fence;
++
++	/* Scheduler fence for when the job is considered complete and
++	 * the BO reservations can be released.
++	 */
++	struct dma_fence *done_fence;
++
++	/* Last current and return addresses the hardware was processing when
++	 * the job timedout.
++	 */
++	u32 timedout_ctca, timedout_ctra;
++
++	/* Pointer to a performance monitor object if the user requested it,
++	 * NULL otherwise.
++	 */
++	struct vc4_perfmon *perfmon;
++
++	/* Callback for the freeing of the job on refcount going to 0. */
++	void (*free)(struct kref *ref);
++};
++
++struct vc4_bin_job {
++	struct vc4_job base;
++
++	uint32_t ct0ca, ct0ea;
++
++	/* Corresponding render job, for attaching our overflow memory. */
++	struct vc4_render_job *render;
++
++	/* Whether the exec has taken a reference to the binner BO, which should
++	 * happen with a VC4_PACKET_TILE_BINNING_MODE_CONFIG packet.
++	 */
++	bool bin_bo_used;
++};
++
++struct vc4_render_job {
++	struct vc4_job base;
++
++	uint32_t ct1ca, ct1ea;
++
++	/* This is the array of BOs that were looked up at the start of submission.
++	 * Command validation will use indices into this array.
++	 */
++	struct drm_gem_object **bo;
++	u32 bo_count;
++
++	/* List of other BOs used in the job that need to be released
++	 * once the job is complete.
++	 */
++	struct list_head unref_list;
++
++	/* List of BOs that are being written by the RCL. Other than
++	 * the binner temporary storage, this is all the BOs written
++	 * by the job.
++	 */
++	struct drm_gem_dma_object *rcl_write_bo[4];
++	uint32_t rcl_write_bo_count;
++
++	/* Bitmask of which binner slots are freed when this job completes.
++	 * Must remain allocated until the render job completes.
++	 */
++	uint32_t bin_slots;
++};
++
+ struct vc4_exec_info {
+ 	struct vc4_dev *dev;
+ 
++	struct vc4_bin_job *bin;
++	struct vc4_render_job *render;
++
+ 	/* Sequence number for this bin/render job. */
+ 	uint64_t seqno;
+ 
+@@ -793,6 +900,8 @@ struct vc4_file {
+ 
+ 	struct xarray perfmons;
+ 
++	struct drm_sched_entity sched_entity[VC4_MAX_QUEUES];
++
+ 	bool bin_bo_used;
+ };
+ 
+@@ -985,6 +1094,7 @@ extern struct platform_driver vc4_dsi_driver;
+ 
+ /* vc4_fence.c */
+ extern const struct dma_fence_ops vc4_fence_ops;
++struct dma_fence *vc4_fence_create(struct vc4_dev *vc4, enum vc4_queue queue);
+ 
+ /* vc4_gem.c */
+ int vc4_gem_init(struct drm_device *dev);
+@@ -1000,6 +1110,7 @@ int vc4_wait_for_seqno(struct drm_device *dev, uint64_t seqno,
+ void vc4_job_handle_completed(struct vc4_dev *vc4);
+ int vc4_gem_madvise_ioctl(struct drm_device *dev, void *data,
+ 			  struct drm_file *file_priv);
++void vc4_save_hang_state(struct drm_device *dev);
+ 
+ /* vc4_hdmi.c */
+ extern struct platform_driver vc4_hdmi_driver;
+@@ -1098,4 +1209,8 @@ int vc4_perfmon_destroy_ioctl(struct drm_device *dev, void *data,
+ int vc4_perfmon_get_values_ioctl(struct drm_device *dev, void *data,
+ 				 struct drm_file *file_priv);
+ 
++/* vc4_sched.c */
++int vc4_sched_init(struct vc4_dev *vc4);
++void vc4_sched_fini(struct vc4_dev *vc4);
++
+ #endif /* _VC4_DRV_H_ */
+diff --git a/drivers/gpu/drm/vc4/vc4_fence.c b/drivers/gpu/drm/vc4/vc4_fence.c
+index 580214e2158c7dcf39253f2148dea478ffe20e68..18e8c53563d62a3f7a725c1552c3ffe3cced77cc 100644
+--- a/drivers/gpu/drm/vc4/vc4_fence.c
++++ b/drivers/gpu/drm/vc4/vc4_fence.c
+@@ -23,6 +23,24 @@
+ 
+ #include "vc4_drv.h"
+ 
++struct dma_fence *vc4_fence_create(struct vc4_dev *vc4, enum vc4_queue q)
++{
++	struct vc4_queue_state *queue = &vc4->queue[q];
++	struct vc4_fence *fence;
++
++	fence = kzalloc_obj(*fence);
++	if (!fence)
++		return ERR_PTR(-ENOMEM);
++
++	fence->dev = &vc4->base;
++	fence->queue = q;
++	fence->seqno = ++queue->emit_seqno;
++	dma_fence_init(&fence->base, &vc4_fence_ops, NULL, queue->fence_context,
++		       fence->seqno);
++
++	return &fence->base;
++}
++
+ static const char *vc4_fence_get_driver_name(struct dma_fence *fence)
+ {
+ 	return "vc4";
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index 614a2db245636c39855bc10727b62c00a6374f45..5af4386f4b39c7da9041c0a2ae49c91632412e72 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -149,7 +149,7 @@ vc4_get_hang_state_ioctl(struct drm_device *dev, void *data,
+ 	return ret;
+ }
+ 
+-static void
++void
+ vc4_save_hang_state(struct drm_device *dev)
+ {
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+@@ -1135,6 +1135,12 @@ int vc4_gem_init(struct drm_device *dev)
+ 	INIT_LIST_HEAD(&vc4->render_job_list);
+ 	INIT_LIST_HEAD(&vc4->job_done_list);
+ 	spin_lock_init(&vc4->job_lock);
++	ret = drmm_mutex_init(dev, &vc4->reset_lock);
++	if (ret)
++		return ret;
++	ret = drmm_mutex_init(dev, &vc4->sched_lock);
++	if (ret)
++		return ret;
+ 
+ 	INIT_WORK(&vc4->hangcheck.reset_work, vc4_reset_work);
+ 	timer_setup(&vc4->hangcheck.timer, vc4_hangcheck_elapsed, 0);
+diff --git a/drivers/gpu/drm/vc4/vc4_sched.c b/drivers/gpu/drm/vc4/vc4_sched.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..5c41c83a92aaf9b0bb9eb23ba93062337cb41011
+--- /dev/null
++++ b/drivers/gpu/drm/vc4/vc4_sched.c
+@@ -0,0 +1,337 @@
++// SPDX-License-Identifier: GPL-2.0+
++/* Copyright (C) 2026 Raspberry Pi */
++
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++
++#include <drm/drm_print.h>
++
++#include "vc4_drv.h"
++#include "vc4_regs.h"
++#include "vc4_trace.h"
++
++static struct vc4_job *
++to_vc4_job(struct drm_sched_job *sched_job)
++{
++	return container_of(sched_job, struct vc4_job, base);
++}
++
++static struct vc4_bin_job *
++to_bin_job(struct drm_sched_job *sched_job)
++{
++	return container_of(sched_job, struct vc4_bin_job, base.base);
++}
++
++static struct vc4_render_job *
++to_render_job(struct drm_sched_job *sched_job)
++{
++	return container_of(sched_job, struct vc4_render_job, base.base);
++}
++
++static void
++vc4_flush_caches(struct drm_device *dev)
++{
++	struct vc4_dev *vc4 = to_vc4_dev(dev);
++
++	/* Flush the GPU L2 caches.  These caches sit on top of system
++	 * L3 (the 128kb or so shared with the CPU), and are
++	 * non-allocating in the L3.
++	 */
++	V3D_WRITE(V3D_L2CACTL, V3D_L2CACTL_L2CCLR);
++
++	V3D_WRITE(V3D_SLCACTL,
++		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T1CC) |
++		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T0CC) |
++		  VC4_SET_FIELD(0xf, V3D_SLCACTL_UCC) |
++		  VC4_SET_FIELD(0xf, V3D_SLCACTL_ICC));
++}
++
++static void
++vc4_flush_texture_caches(struct drm_device *dev)
++{
++	struct vc4_dev *vc4 = to_vc4_dev(dev);
++
++	V3D_WRITE(V3D_L2CACTL, V3D_L2CACTL_L2CCLR);
++
++	V3D_WRITE(V3D_SLCACTL,
++		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T1CC) |
++		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T0CC));
++}
++
++static void
++vc4_sched_job_free(struct drm_sched_job *sched_job)
++{
++	struct vc4_job *job = to_vc4_job(sched_job);
++
++	vc4_job_cleanup(job);
++}
++
++static void
++vc4_switch_perfmon(struct vc4_dev *vc4, struct vc4_job *job)
++{
++	if (vc4->active_perfmon && vc4->active_perfmon != job->perfmon)
++		vc4_perfmon_stop(vc4, vc4->active_perfmon, true);
++
++	if (job->perfmon && vc4->active_perfmon != job->perfmon)
++		vc4_perfmon_start(vc4, job->perfmon);
++}
++
++static struct dma_fence *vc4_bin_job_run(struct drm_sched_job *sched_job)
++{
++	struct vc4_bin_job *job = to_bin_job(sched_job);
++	struct vc4_dev *vc4 = job->base.vc4;
++	struct drm_device *dev = &vc4->base;
++	struct dma_fence *fence;
++
++	if (unlikely(job->base.base.s_fence->finished.error))
++		goto err_clean_bin_job;
++
++	/* Lock required around bin_job update vs vc4_overflow_mem_work(). */
++	spin_lock_irq(&vc4->job_lock);
++	vc4->bin_job = job;
++
++	/* Reset the overflow allocation registers to prevent the binner from
++	 * writing to a slot that a concurrent render job might free. The first
++	 * OUTOMEM interrupt will allocate a fresh slot.
++	 */
++	V3D_WRITE(V3D_BPOA, 0);
++	V3D_WRITE(V3D_BPOS, 0);
++	spin_unlock_irq(&vc4->job_lock);
++
++	vc4_flush_caches(dev);
++
++	fence = vc4_fence_create(vc4, VC4_BIN);
++	if (IS_ERR(fence))
++		goto err_clean_bin_job;
++
++	/* Release the previous fence if the scheduler is resubmitting this
++	 * job after a GPU reset.
++	 */
++	if (job->base.irq_fence)
++		dma_fence_put(job->base.irq_fence);
++	job->base.irq_fence = dma_fence_get(fence);
++
++	trace_vc4_submit_cl(dev, false, to_vc4_fence(fence)->seqno,
++			    job->ct0ca, job->ct0ea);
++
++	vc4_switch_perfmon(vc4, &job->base);
++
++	V3D_WRITE(V3D_CTNCA(0), job->ct0ca);
++	V3D_WRITE(V3D_CTNEA(0), job->ct0ea);
++
++	return fence;
++
++err_clean_bin_job:
++	spin_lock_irq(&vc4->job_lock);
++	vc4->bin_job = NULL;
++	spin_unlock_irq(&vc4->job_lock);
++	return NULL;
++}
++
++static struct dma_fence *vc4_render_job_run(struct drm_sched_job *sched_job)
++{
++	struct vc4_render_job *job = to_render_job(sched_job);
++	struct vc4_dev *vc4 = job->base.vc4;
++	struct drm_device *dev = &vc4->base;
++	struct dma_fence *fence;
++
++	if (unlikely(job->base.base.s_fence->finished.error))
++		goto err_clean_render_job;
++
++	vc4->render_job = job;
++
++	/* A previous RCL may have written to one of our textures, and
++	 * our full cache flush at bin time may have occurred before
++	 * that RCL completed. Flush the texture cache now, but not
++	 * the instructions or uniforms (since we don't write those
++	 * from an RCL).
++	 */
++	vc4_flush_texture_caches(dev);
++
++	fence = vc4_fence_create(vc4, VC4_RENDER);
++	if (IS_ERR(fence))
++		goto err_clean_render_job;
++
++	/* Release the previous fence if the scheduler is resubmitting this
++	 * job after a GPU reset.
++	 */
++	if (job->base.irq_fence)
++		dma_fence_put(job->base.irq_fence);
++	job->base.irq_fence = dma_fence_get(fence);
++
++	trace_vc4_submit_cl(dev, true, to_vc4_fence(fence)->seqno,
++			    job->ct1ca, job->ct1ea);
++
++	vc4_switch_perfmon(vc4, &job->base);
++
++	V3D_WRITE(V3D_CTNCA(1), job->ct1ca);
++	V3D_WRITE(V3D_CTNEA(1), job->ct1ea);
++
++	return fence;
++
++err_clean_render_job:
++	spin_lock_irq(&vc4->job_lock);
++	vc4->render_job = NULL;
++	spin_unlock_irq(&vc4->job_lock);
++	return NULL;
++}
++
++static void
++vc4_reset(struct drm_device *dev)
++{
++	struct vc4_dev *vc4 = to_vc4_dev(dev);
++
++	drm_err(dev, "Resetting GPU.\n");
++
++	mutex_lock(&vc4->power_lock);
++	if (vc4->power_refcount) {
++		/* Power the device off and back on the by dropping the
++		 * reference on runtime PM.
++		 */
++		pm_runtime_put_sync_suspend(&vc4->v3d->pdev->dev);
++		pm_runtime_get_sync(&vc4->v3d->pdev->dev);
++	}
++	mutex_unlock(&vc4->power_lock);
++
++	vc4_irq_reset(dev);
++}
++
++static enum drm_gpu_sched_stat
++vc4_gpu_reset_for_timeout(struct vc4_dev *vc4, struct drm_sched_job *sched_job)
++{
++	enum vc4_queue q;
++
++	mutex_lock(&vc4->reset_lock);
++
++	/* block scheduler */
++	for (q = 0; q < VC4_MAX_QUEUES; q++)
++		drm_sched_stop(&vc4->queue[q].sched, sched_job);
++
++	if (sched_job) {
++		drm_sched_increase_karma(sched_job);
++
++		/* If the guilty job is a BIN job, also increase the karma
++		 * of its paired render job. Otherwise, the RENDER job would
++		 * be submitted to the GPU without binner output.
++		 */
++		if (sched_job->sched == &vc4->queue[VC4_BIN].sched) {
++			struct vc4_bin_job *bin = to_bin_job(sched_job);
++
++			drm_sched_increase_karma(&bin->render->base.base);
++		}
++	}
++
++	vc4_save_hang_state(&vc4->base);
++
++	/* get the GPU back into the init state */
++	vc4_reset(&vc4->base);
++
++	for (q = 0; q < VC4_MAX_QUEUES; q++)
++		drm_sched_resubmit_jobs(&vc4->queue[q].sched);
++
++	/* Unblock schedulers and restart their jobs. */
++	for (q = 0; q < VC4_MAX_QUEUES; q++)
++		drm_sched_start(&vc4->queue[q].sched, 0);
++
++	mutex_unlock(&vc4->reset_lock);
++
++	return DRM_GPU_SCHED_STAT_RESET;
++}
++
++static enum drm_gpu_sched_stat
++vc4_cl_job_timedout(struct drm_sched_job *sched_job, enum vc4_queue q)
++{
++	struct vc4_job *job = to_vc4_job(sched_job);
++	struct vc4_dev *vc4 = job->vc4;
++	u32 ctca = V3D_READ(V3D_CTNCA(q));
++	u32 ctra = V3D_READ(V3D_CTNRA0(q));
++
++	/* If the current address or return address have changed, then the GPU
++	 * has probably made progress and we should delay the reset. This could
++	 * fail if the GPU got in an infinite loop in the CL, but that is pretty
++	 * unlikely outside of an i-g-t testcase.
++	 */
++	if (job->timedout_ctca != ctca || job->timedout_ctra != ctra) {
++		job->timedout_ctca = ctca;
++		job->timedout_ctra = ctra;
++
++		return DRM_GPU_SCHED_STAT_NO_HANG;
++	}
++
++	return vc4_gpu_reset_for_timeout(vc4, sched_job);
++}
++
++static enum drm_gpu_sched_stat
++vc4_bin_job_timedout(struct drm_sched_job *sched_job)
++{
++	return vc4_cl_job_timedout(sched_job, VC4_BIN);
++}
++
++static enum drm_gpu_sched_stat
++vc4_render_job_timedout(struct drm_sched_job *sched_job)
++{
++	return vc4_cl_job_timedout(sched_job, VC4_RENDER);
++}
++
++static const struct drm_sched_backend_ops vc4_bin_sched_ops = {
++	.run_job = vc4_bin_job_run,
++	.timedout_job = vc4_bin_job_timedout,
++	.free_job = vc4_sched_job_free,
++};
++
++static const struct drm_sched_backend_ops vc4_render_sched_ops = {
++	.run_job = vc4_render_job_run,
++	.timedout_job = vc4_render_job_timedout,
++	.free_job = vc4_sched_job_free,
++};
++
++static int
++vc4_queue_sched_init(struct vc4_dev *vc4, const struct drm_sched_backend_ops *ops,
++		     enum vc4_queue queue, const char *name)
++{
++	struct drm_sched_init_args args = {
++		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
++		.credit_limit = 1,
++		.timeout = msecs_to_jiffies(500),
++		.dev = vc4->base.dev,
++	};
++
++	args.ops = ops;
++	args.name = name;
++
++	return drm_sched_init(&vc4->queue[queue].sched, &args);
++}
++
++int
++vc4_sched_init(struct vc4_dev *vc4)
++{
++	int ret;
++
++	for (int i = 0; i < VC4_MAX_QUEUES; i++)
++		vc4->queue[i].fence_context = dma_fence_context_alloc(1);
++
++	ret = vc4_queue_sched_init(vc4, &vc4_bin_sched_ops,
++				   VC4_BIN, "vc4_bin");
++	if (ret)
++		return ret;
++
++	ret = vc4_queue_sched_init(vc4, &vc4_render_sched_ops,
++				   VC4_RENDER, "vc4_render");
++	if (ret) {
++		vc4_sched_fini(vc4);
++		return ret;
++	}
++
++	return 0;
++}
++
++void
++vc4_sched_fini(struct vc4_dev *vc4)
++{
++	enum vc4_queue q;
++
++	for (q = 0; q < VC4_MAX_QUEUES; q++) {
++		if (vc4->queue[q].sched.ready)
++			drm_sched_fini(&vc4->queue[q].sched);
++	}
++}
 
----
-Maíra Canal (7):
-      drm/vc4: Move vc4_wait_bo_ioctl() to vc4_bo.c
-      drm/vc4: Add DRM GPU scheduler infrastructure and job structures
-      drm/vc4: Add new job submission implementation
-      drm/vc4: Refcount vc4_file for safe access by jobs
-      drm/vc4: Add per-file descriptor seqno tracking
-      drm/vc4: Switch to DRM GPU scheduler
-      drm/vc4: Use unique fence timeline names per queue
-
- drivers/gpu/drm/vc4/Kconfig         |   1 +
- drivers/gpu/drm/vc4/Makefile        |   2 +
- drivers/gpu/drm/vc4/vc4_bo.c        |  33 ++
- drivers/gpu/drm/vc4/vc4_drv.c       |  49 +-
- drivers/gpu/drm/vc4/vc4_drv.h       | 234 ++++-----
- drivers/gpu/drm/vc4/vc4_fence.c     |  34 +-
- drivers/gpu/drm/vc4/vc4_gem.c       | 961 ++----------------------------------
- drivers/gpu/drm/vc4/vc4_irq.c       | 132 +----
- drivers/gpu/drm/vc4/vc4_render_cl.c |  17 +-
- drivers/gpu/drm/vc4/vc4_sched.c     | 337 +++++++++++++
- drivers/gpu/drm/vc4/vc4_submit.c    | 581 ++++++++++++++++++++++
- drivers/gpu/drm/vc4/vc4_v3d.c       |  24 +-
- drivers/gpu/drm/vc4/vc4_validate.c  |  21 +-
- 13 files changed, 1243 insertions(+), 1183 deletions(-)
----
-base-commit: 4b9c36c83b34f710da9573291404f6a2246251c1
-change-id: 20260121-vc4-drm-scheduler-03cd8670b3f6
+-- 
+2.53.0
 
