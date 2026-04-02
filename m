@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABF1FCC6B2D
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC1D6CC6B30
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DF3A10F134;
-	Thu,  2 Apr 2026 08:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 120BD10F13E;
+	Thu,  2 Apr 2026 08:20:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JpbYY4Gs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hcHGj3ar";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E36710F13B;
- Thu,  2 Apr 2026 08:19:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 377C2444C6;
- Thu,  2 Apr 2026 08:19:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DBFBC2BC9E;
- Thu,  2 Apr 2026 08:19:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775117997;
- bh=kCHRqLos+Q7aRM5Obmyyx2+3neVvE8bbS+yXZO5QXaI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JpbYY4GsdWnQNH+hxsL0E06CXFI0GS5Jlnl0vfOST9wjRCJhbxis8W2jEZC9IJURC
- tTzyjrTrQCmT9GbM/ly5SKpLFztZXZzqtYoxCvDVvDos8ulCQPyOL/G7FAfQKkSVNz
- lW+aWJ8YHvhxYGvMcmxkF5DkIvcNdxvc6khakROr8p0RqKVD1gdQ8eWveRjDLPo7Lu
- 38CQDjwnxLhFuN1IYXIpaOqIL1SPp8fj7Rk8WfGLjP3RIwNgFRgt4z/IJDJnP9uT2E
- jUgHdBLDHEani32GAjVqiphSTFASm/w/AlMWhgJH6/BjIOKRQ368fWJBTRJx0NYV6J
- yw9zOE8vGJ9GA==
-Date: Thu, 2 Apr 2026 10:19:54 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Bjorn Andersson <andersson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6/6] arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU
- nodes
-Message-ID: <20260402-military-arrogant-woodpecker-4ab9b5@quoll>
-References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me>
- <20260331-adreno-810-v1-6-725801dbb12b@pm.me>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7439E10F134;
+ Thu,  2 Apr 2026 08:19:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775117998; x=1806653998;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=nf8WAhFRjrXSJczf0JGGdCY4zEQ0DRamdGY5GYUihYM=;
+ b=hcHGj3ar1ZSWqT2H/77vjMULMxxC7eADIA7RxJVbahCGNg0TvnwYnO64
+ c9U3Ij3lpSQKyW85YR8z6CfWnIVTuq5rRD45nJb35ajXTtN7CJgO5xnRN
+ y2TjpSpKNYnCDIWs3UZrveNkSWGGJml8gagEUqUJQj4DZEj0SgZJeY1Em
+ HiPbdyq5mQAXoGHfDBLN82WfN+2sr2f8+unOwezrXadFiNAT9vVBicJWV
+ 0wAqA2EGGTyrgIXPIoA025VRzcX4Wo1a3h2oEoJq4LGddBlrZinBnmWo8
+ Aym17hh51XtO8d+MwHFqo0jlrCKZG7oEvf66DQYXu7LmFjS7qdICFW+OV Q==;
+X-CSE-ConnectionGUID: QsafCHd7QUqKqzlYy/H59g==
+X-CSE-MsgGUID: zCPYeel3R32oO7ETqAS97w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="80060483"
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="80060483"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Apr 2026 01:19:58 -0700
+X-CSE-ConnectionGUID: SGPiDiEGTfa3K8nC79nMEA==
+X-CSE-MsgGUID: iVU90riiT6qrsuP5oFjUSA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="226776131"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Apr 2026 01:19:56 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
+ animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 09/23] drm/i915/dp: Add a helper to decide if AS SDP can be
+ used
+Date: Thu,  2 Apr 2026 13:34:09 +0530
+Message-ID: <20260402080425.548702-10-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260402080425.548702-1-ankit.k.nautiyal@intel.com>
+References: <20260402080425.548702-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260331-adreno-810-v1-6-725801dbb12b@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,30 +71,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 01, 2026 at 02:17:44AM +0000, Alexander Koskovich wrote:
-> Add GPU and GMU devicetree nodes for the Adreno 810 GPU found on
-> Qualcomm SM7635 (Milos) based devices.
-> 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
->  arch/arm64/boot/dts/qcom/milos.dtsi | 148 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 148 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts/qcom/milos.dtsi
-> index 621f05820826..a8feb0339804 100644
-> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
-> @@ -7,6 +7,7 @@
->  #include <dt-bindings/clock/qcom,milos-dispcc.h>
->  #include <dt-bindings/clock/qcom,milos-gcc.h>
->  #include <dt-bindings/clock/qcom,milos-gpucc.h>
-> +#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
+Add a helper that determines whether AS SDP can be used for the
+current DP configuration. For now this is true only when the sink
+supports AS SDP and VRR is enabled, but more conditions may be added
+later.
 
-Why? My next from 27th Match does not have Milos in that binding. Was it
-added? It's worth mentioning in commit msg.
+v2:
+ - Rename to intel_dp_needs_as_sdp(). (Ville)
+ - Add a #FIXME documenting non-atomic of DP SDP updates. (Ville)
 
-Also, please keep alphabetical sort of the includes, k < m.
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 499850c2abcf..3d0ea074e610 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3124,6 +3124,15 @@ static void intel_dp_compute_vsc_colorimetry(const struct intel_crtc_state *crtc
+ 	vsc->content_type = DP_CONTENT_TYPE_NOT_DEFINED;
+ }
+ 
++static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
++				  struct intel_crtc_state *crtc_state)
++{
++	if (!intel_dp->as_sdp_supported)
++		return false;
++
++	return crtc_state->vrr.enable;
++}
++
+ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 				    struct intel_crtc_state *crtc_state)
+ {
+@@ -3131,7 +3140,12 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
+ 
+-	if (!crtc_state->vrr.enable || !intel_dp->as_sdp_supported)
++	/*
++	 * #FIXME: SDP/infoframe updates aren’t truly atomic, and with the new
++	 * cdclk->tc clock crossing we may transiently send a corrupted packet
++	 * if the update lands mid‑transmission.
++	 */
++	if (!intel_dp_needs_as_sdp(intel_dp, crtc_state))
+ 		return;
+ 
+ 	crtc_state->infoframes.enable |= intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC);
+-- 
+2.45.2
 
