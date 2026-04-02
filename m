@@ -4,68 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23DF4CC6B00
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 05:35:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4EF7CC6B04
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 05:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871E410EDDE;
-	Thu,  2 Apr 2026 05:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 056D310EF5C;
+	Thu,  2 Apr 2026 05:38:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="p8XIiW60";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="NxKOMbw3";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3CAC10EDDE
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 05:35:32 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260402053531euoutp01701f36c7e36e7ffcbba4b90af5f52533~ic3C0Vwoh1326513265euoutp01G
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 05:35:31 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260402053531euoutp01701f36c7e36e7ffcbba4b90af5f52533~ic3C0Vwoh1326513265euoutp01G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1775108131;
- bh=a2ALkW+kbFi61LCOo/jIn51RH7T6kZmUYLT9OKC04kY=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=p8XIiW60yygB4duGaUeoZzDfligbEwHtpLxRKPqjeP2cqMQWJ+aTAA2Z0f9PB4ogv
- WDtvy6XPjlMBFeX6dzvhvNPWVy42IetKV0iqUCf17GbTcsP+CcfJqQS7K4Q0Ue+mmb
- 7tV4tDH1JCgqUAho30DqQ2/fTx8iM0loupZzjumw=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260402053530eucas1p1f0754eb1edb4acdb0d52b31d9ff6c4f9~ic3B75IsG1210612106eucas1p1C;
- Thu,  2 Apr 2026 05:35:30 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260402053528eusmtip1ac753cbaaed704e10d0c4a64bfd0adad~ic3A3bQA60232302323eusmtip1d;
- Thu,  2 Apr 2026 05:35:28 +0000 (GMT)
-Message-ID: <f6de2c2d-132c-4344-9b58-6e6ef1eb15a6@samsung.com>
-Date: Thu, 2 Apr 2026 07:35:28 +0200
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012057.outbound.protection.outlook.com
+ [40.107.200.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11CC410EEBB;
+ Thu,  2 Apr 2026 05:38:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xRnV5kHLpL567MsnbGT2ysSQtInp/iEDNc0RzUnP5oWjAO+mxcCzl5h63U+Us6UGY+O9ZbAv7GDA4ZBBVXoWKF3UHzlnCOnVgaUZPO0QHiH79DSZuk7Syi21jGfg3a5CfpcOj6KU4lYufMJEHewwCVyRFTeiDhBIrmjyJW0o96CvDNACxGCvwULT/t3QZuUiAjaGpFxqGfsYlr7nft/TBsGiWojvDg2f1zpvcxeYxnTWHfsXJ/x8SU+VHe2WRIYVQpDSZTWxNAm9SnMmpw1xycSfdWhSDKYku3siGeuGYEM/1+6tZ1NGIRCbXEFQrr1lQcDOYoUSr/DUXtLmVO0FNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P7DAPd/f3vu7lPJGmIW/2+xrDwuxwXn+vQD1ja9z4Wo=;
+ b=Vtifb+4mT6hbxalUbUS/Ysb/jvaZGcFEXNX8oI8ffW0lQhRVA8VouE1ayTbJV+0WNe9hDNfn03it1F2MAXRND+JacJhAXEuItU9V5jeRngAE1t0OOuWxJvaFpTbjHP0oLuybk0QSUZV6xNmbvnntNBgN4n//skZFiyD0SN+8TOFwtwjAKbijyJX+6BCzDD1CTqex09CpM2pxHbdZxpqSYHagBNGWtdgHeGjCfuteJZ9B+VI1evOcdgndt4jvoUwwXdY/TjPR7kuRDu52+tlXhbdRbR1FZgdf368v1VOldcJGTDD/wxy4lPuP3WgJglEv+4ZrZQJFYAHgsi39/PVIgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P7DAPd/f3vu7lPJGmIW/2+xrDwuxwXn+vQD1ja9z4Wo=;
+ b=NxKOMbw3LMk5SvipzBdU9MP9t7tA7jABIbKWUs/x0MpOkFiUzBazBvlRwWivSCCATM5OQC4yE5D2/1LUkVwrLKpUd4nwGlih5bb+9kM0/6HsBOTeugQg91zgn+AtbQdNmNxV5QVHvPLno5x3OhayY6EMgeQDQTVBufQliVCL1X0/1xQLNXpAKuH7Y/qAnJq1AW/96X37ZtiF58codhnURZPvG32J+J9WUbxqkJ+0jHvM5SymOGkB6xCNUaE3CGvl7jW2AQzthha/4mPDph+NBc1hqCieFCs1ylaMy+PeJR257Z9dnusmK0ZZbNvUypJo9HBBb4X08MJ68al63wZAKA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by DM4PR12MB6302.namprd12.prod.outlook.com (2603:10b6:8:a4::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Thu, 2 Apr
+ 2026 05:37:56 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9769.017; Thu, 2 Apr 2026
+ 05:37:56 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Apr 2026 14:37:52 +0900
+Message-Id: <DHIFD6N7QSU1.1RGEN0APPDHD8@nvidia.com>
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>, <linux-kernel@vger.kernel.org>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, "Bjorn Roy Baron"
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Dave Airlie" <airlied@redhat.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Koen Koning"
+ <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, "Nikola Djukic" <ndjukic@nvidia.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ "Christian Koenig" <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>, "Helge Deller"
+ <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng"
+ <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
+ <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea
+ Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
+ <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
+ <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v10 03/21] gpu: nova-core: gsp: Expose total physical
+ VRAM end from FB region info
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-4-joelagnelf@nvidia.com>
+In-Reply-To: <20260331212048.2229260-4-joelagnelf@nvidia.com>
+X-ClientProxiedBy: TYCPR01CA0172.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b2::9) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v5 0/2] dma-buf: heaps: system: add an option to
- allocate explicitly shared/decrypted memory
-To: Sumit Semwal <sumit.semwal@linaro.org>, Jiri Pirko <jiri@resnulli.us>
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
- tjmercier@google.com, christian.koenig@amd.com, robin.murphy@arm.com,
- jgg@ziepe.ca, leon@kernel.org, sean.anderson@linux.dev, ptesarik@suse.com,
- catalin.marinas@arm.com, aneesh.kumar@kernel.org, suzuki.poulose@arm.com,
- steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com,
- ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
- linux-coco@lists.linux.dev
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <CAO_48GEUXpcFBiyJAMgTcGPSq56-mZ0qnO3FrFRM2LoGd8W6HA@mail.gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260402053530eucas1p1f0754eb1edb4acdb0d52b31d9ff6c4f9
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260402044147eucas1p25971b90eb6aa1ef03a2a1136d812f039
-X-EPHeader: CA
-X-CMS-RootMailID: 20260402044147eucas1p25971b90eb6aa1ef03a2a1136d812f039
-References: <20260325192352.437608-1-jiri@resnulli.us>
- <CGME20260402044147eucas1p25971b90eb6aa1ef03a2a1136d812f039@eucas1p2.samsung.com>
- <CAO_48GEUXpcFBiyJAMgTcGPSq56-mZ0qnO3FrFRM2LoGd8W6HA@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|DM4PR12MB6302:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1d06e31-16b8-4d00-baf6-08de9079fe09
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|366016|7416014|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: L8H9Hl7+p/p1tCH3DLJ3S89ZOKE9D0UurGvU0/SWrFJcsL0L29Rwj/nAyP+I2+sXYOaP6HoWv3RzY85F+JPdgnjyvJFVR+SuemYRUpJif1NrGtfCiu0UTIqk/wwPAq9VYOQGiWgyAKDqWTJfPrHNsIdVjwOI6tdshCiw1LlcEN6N2Q7PojrN66uCIno6hRLKkMXjaCrDwGaL3Hm3XfWy39OoCNF2QapNtz/P1Qe1rLKiSEaghtyxZ2o1XJEK3oZ2ky8uxsE4G7fi1vpEt3fssIWb5pQrMUowykN99Q9ZFJK+2ycriY5RjXfNMJEWiNcm5VeJ5vXQgNWyRUTaYLbmJLf1Y44a+v93xbCjPL5J8gTBBURecUZSYnkAP8S7aTeSdX/myhs1IS2j5351rDA/XYRyPpshUS+i1sqBah4u6qH0frDubLXLIvEqwniHy2v3/70FmUHNCenGbyRrwNsnMmApQytIEslqVcvjbTRbmlUomf7vCwYq2597hWhLBbc6LIGXI4Dp6Bhtm5JvXPBCz4ynnaHe0Y3HD98htkxnMkqptPNjj1bJNcmtShoITcF2KcY8UlkwTqmQy4HK5lEKwdk97Tz3DeQfe+y8SqO3GPtfXb0ZT23kl8Ov2qpclFwRGvQf4ipO84AoD2lD3ITN/9tm/OW7yU7uJixhTXxMVBrPAJ3tg6pJH0gdU3y5kO2FmOPS4NpMC18vluZwV63lyIiqLdJ3Wb2ZMItJn291O2o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(366016)(7416014)(376014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVAzZ0p3Ung4OFlvZmEybnBLbjN6ZXArRlBIUEtuSmxBaFJMQnBYejQ0d0VJ?=
+ =?utf-8?B?UFZtZ1hjNXI4ZWMvb1JjYkFMek1qYnFYOXhBYlpnRjFuZTBkMTg4OTRTY1By?=
+ =?utf-8?B?OHQyWFprUkNmb0NxbUNKN1Z1ZTNuUUZPVk5PWFE5VHhCalNlOEZxMDFCVHlu?=
+ =?utf-8?B?T2V0UkFydTZZbElVRzZpTHBSSzZoNmpzZ2l3K01EYzJOa1dsbFdBcEwwNi90?=
+ =?utf-8?B?QzRSWkx3aFUyRzlyNVZ1SmVZM1FtTXZlYlovQ3J5YmkxSnJFZFB4aWFQeXFB?=
+ =?utf-8?B?cTg3VU1tMlI4UEluYW13Ly95VWZzNElZR2VQbmJWeE9MaFBXMEFFckFmWkJH?=
+ =?utf-8?B?RkdjVUtyd2ZqWE0rMXJObklRbGFpcStTVWhuQVpMNXpYZW5GVVZOSnpQMUZG?=
+ =?utf-8?B?MllmK1d1amw0SnF5SDIwdWw2THVOVkE0TmM1SVR6ZU5zcVpiWHBybWNpMTVn?=
+ =?utf-8?B?ODNBc1A1ZEJqYzRYY25vZDN5WS9ZVnNUUDhSS3NUd0FmeEd4UTJLY2YxcU9C?=
+ =?utf-8?B?MmkvdUlIcGNYa1lIaUJ4NFI5SUxrL3hYbWRoS0JSZG9nZk5UM2QwNHdrWGww?=
+ =?utf-8?B?ZnNpZWJybGRXZ0JBdmRnNlo3Z1JPRVRtdnptR0dMSittcWJUSGxiY2hQYStI?=
+ =?utf-8?B?djEzTkxuS0p2RFpabTk4aHVuMGgvRXJydWVJM1FhaTM4elExTzltOVVod2Z4?=
+ =?utf-8?B?K3pKdGdTM1ZlVTZPTTY2K00wRndxR3B2dGRpNEMvaE9VQ0JvaG1ObWlrbXdq?=
+ =?utf-8?B?QlZtRG9VOEx4L1c0TFpNdndyYWRyOFJGTVZFeXkvb1JycHJVa1Z2SVJibzAz?=
+ =?utf-8?B?M1VicHVpL2pja1pGL1ZaLzQ0NGpaOGV4WWVPWVhmRHN0RUFOSXFubzFta3do?=
+ =?utf-8?B?bndOd085VFg3MzY0SE9BalUzcFlsbGhzWU80YUU1N3RxSllkLzRQS0tIejFC?=
+ =?utf-8?B?NVFLRVVtNlFKYW5sUkVIcDZ2ZER4d1l4NlFMa0crUWh5ZUlIL2tKSVBHVFI2?=
+ =?utf-8?B?UGl4Wk1PVnNBQWxvUVF6NllMd0hlQk51QjhPcWJGUVFYYXJoaVVSSVFmWUcw?=
+ =?utf-8?B?aE5CMEhyNVM4RFZkUUlJdGJvNlk3L2ZMYlR3ZmFxMW9CdHR5UzV1bzRmL21u?=
+ =?utf-8?B?OW1TMWVTMyswSTFRd2F6T0hKK2xEUmdSWi9wWlJGQ1ZvN2hUVzhTZThLUjBw?=
+ =?utf-8?B?U2dBczFKSldkaDBtMjZiRUVxcVJObTc1cjU2MzM2azdlbC82L1JoNkNkeUhG?=
+ =?utf-8?B?bTFlOU1iaHBkSzBBZGFMcTdDMkhzc3UwbjhUTi9qa1R4Y3JRa0xSN3poNlVT?=
+ =?utf-8?B?eUVqVXZoZklYQnd2SUpIMmJDUFMrMjVON3NpUndkMjliZTZyVmJ6OW5TajZK?=
+ =?utf-8?B?MHJNNHBna0xjYmtMN3hOLzExci91QmZyTFJkOHYxTHpBeER6cHluZlpBMGxU?=
+ =?utf-8?B?eXU4OGtaMCt6SEYrWEx6bkhjSEg5dlpSSTVhSDVEa3R2WTJ5TU1RemZjNnd2?=
+ =?utf-8?B?dDd4WWg5VExha1ZlRDVaMTI4OXNnci8weEFLTXlqem1TVUZrb2IzVkxldTNn?=
+ =?utf-8?B?bzJIK2RkTnVzWGZXc1J6WGlIUUNYN0tqY3FiYjNuVllFVFZXOGFjd010VzFP?=
+ =?utf-8?B?cDM3MVVLUHJLeWZBaE9ycmR0T3o2K3V2cVh6a0ZuTXhGSm80RW1qa2hPbkF0?=
+ =?utf-8?B?akNDRkZ6Q3VzVDU4SmJ6V3NOOW10WW9IMGpWdEFFQVVrYzJpSHJVZ2F6bWJX?=
+ =?utf-8?B?c1VNbHNvb3h6N0JQb2VEQVkrMXlFRk5LeFZwT3UrMzd3d09EVEdnY3BtZGtp?=
+ =?utf-8?B?L1JZbFM4QmdycTc2bEV2RU5iS2lSK1hZU3BPVzFKTDFJZXhjYnMyK3BWcnNU?=
+ =?utf-8?B?dkFWWGhBODVXWkFndlZ3RGJCM1Y3alJvcC9iQmdqZVlsbE0xTldWcndMaDdh?=
+ =?utf-8?B?eWt1L0lBRWZjazlkUFZweS9XMkRXbWxqVVpiT2tKWG9kdDRpWno1RGRRZUsz?=
+ =?utf-8?B?WU12TEhnK0VDZXVzLytGd0FETEVFVVdydHUyQ1NJRUp2YzEva3RqRzdaWUxV?=
+ =?utf-8?B?YThkektxS2JBVGY1MXRJa2NHL0RDVVBIZ045czVaem1UN2UzbklsZHNVMU56?=
+ =?utf-8?B?N1YzeDRUdzJqS3BGM2h0T0c2UFE2ZXdFd1hIMEd4ZENBdWRiV0IxT3kvVXBR?=
+ =?utf-8?B?bjFwb3MwalZoeHA0a0c3RjU0UzNxQUQrQm9IaVh2Uk4xckxXRkllM21SS3hB?=
+ =?utf-8?B?U3JjZVYxSzEyNVluWlExN05ZL3dTdGl0amZCWlQ2TVBQM09nNzh1aG5lcFNU?=
+ =?utf-8?B?ZmQ4SEFpRE1rV3Zib2xqSjlXU3A2YWZURmk5bXhWbFgrb3YwRVNHb1EyV0tO?=
+ =?utf-8?Q?NtxNCUFU4PAOzHj7X11dNLhcCit1YEsOm5Ph3sOdxgukP?=
+X-MS-Exchange-AntiSpam-MessageData-1: XYf128piNP87zA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1d06e31-16b8-4d00-baf6-08de9079fe09
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 05:37:56.2799 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PvQPuRHWD1LRDVsrN5lN+ZSVc4PKNIiFnDVe10wtZlEEw1EFBkediapafoWOX2sXFHyjDXxrkQMQfaDb3+903Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6302
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,40 +170,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 02.04.2026 06:41, Sumit Semwal wrote:
-> On Thu, 26 Mar 2026 at 00:53, Jiri Pirko <jiri@resnulli.us> wrote:
->> From: Jiri Pirko <jiri@nvidia.com>
->>
->> Confidential computing (CoCo) VMs/guests, such as AMD SEV and Intel TDX,
->> run with private/encrypted memory which creates a challenge
->> for devices that do not support DMA to it (no TDISP support).
->>
->> For kernel-only DMA operations, swiotlb bounce buffering provides a
->> transparent solution by copying data through shared memory.
->> However, the only way to get this memory into userspace is via the DMA
->> API's dma_alloc_pages()/dma_mmap_pages() type interfaces which limits
->> the use of the memory to a single DMA device, and is incompatible with
->> pin_user_pages().
->>
->> These limitations are particularly problematic for the RDMA subsystem
->> which makes heavy use of pin_user_pages() and expects flexible memory
->> usage between many different DMA devices.
->>
->> This patch series enables userspace to explicitly request shared
->> (decrypted) memory allocations from new dma-buf system_cc_shared heap.
->> Userspace can mmap this memory and pass the dma-buf fd to other
->> existing importers such as RDMA or DRM devices to access the
->> memory. The DMA API is improved to allow the dma heap exporter to DMA
->> map the shared memory to each importing device.
-> Thank you for the patch series, it looks good to me.
+On Wed Apr 1, 2026 at 6:20 AM JST, Joel Fernandes wrote:
+> Add `total_fb_end()` to `GspStaticConfigInfo` that computes the
+> exclusive end address of the highest valid FB region covering both
+> usable and GSP-reserved areas.
 >
-> Marek, if you are ok, please could you take it through your tree, with my
-> Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+> This allows callers to know the full physical VRAM extent, not just
+> the allocatable portion.
+>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/gsp/commands.rs    | 6 ++++++
+>  drivers/gpu/nova-core/gsp/fw/commands.rs | 7 +++++++
+>  2 files changed, 13 insertions(+)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-cor=
+e/gsp/commands.rs
+> index 41742c1633c8..5e0649024637 100644
+> --- a/drivers/gpu/nova-core/gsp/commands.rs
+> +++ b/drivers/gpu/nova-core/gsp/commands.rs
+> @@ -196,6 +196,9 @@ pub(crate) struct GetGspStaticInfoReply {
+>      /// Usable FB (VRAM) region for driver memory allocation.
+>      #[expect(dead_code)]
+>      pub(crate) usable_fb_region: Range<u64>,
+> +    /// End of VRAM.
+> +    #[expect(dead_code)]
+> +    pub(crate) total_fb_end: u64,
+>  }
+> =20
+>  impl MessageFromGsp for GetGspStaticInfoReply {
+> @@ -209,9 +212,12 @@ fn read(
+>      ) -> Result<Self, Self::InitError> {
+>          let (base, size) =3D msg.first_usable_fb_region().ok_or(ENODEV)?=
+;
+> =20
+> +        let total_fb_end =3D msg.total_fb_end().ok_or(ENODEV)?;
+> +
+>          Ok(GetGspStaticInfoReply {
+>              gpu_name: msg.gpu_name_str(),
+>              usable_fb_region: base..base.saturating_add(size),
+> +            total_fb_end,
+>          })
+>      }
+>  }
+> diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-=
+core/gsp/fw/commands.rs
+> index 9fffa74d03f9..46932d5c8c1d 100644
+> --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
+> +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+> @@ -163,6 +163,13 @@ pub(crate) fn first_usable_fb_region(&self) -> Optio=
+n<(u64, u64)> {
+>              }
+>          })
+>      }
+> +
+> +    /// Compute the end of physical VRAM from all FB regions.
+> +    pub(crate) fn total_fb_end(&self) -> Option<u64> {
+> +        self.fb_regions()
+> +            .map(|reg| reg.limit.saturating_add(1))
 
-I've applied both patches to dma-mapping-for-next. Thanks!
+I think it would be better to used checked_add here.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+> +            .max()
+> +    }
+>  }
+> =20
+>  // SAFETY: Padding is explicit and will not contain uninitialized data.
 
