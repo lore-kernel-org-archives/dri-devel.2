@@ -4,62 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35AF2D6AAEE
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 16:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACEF5D6AAF0
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 16:36:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9696210F111;
-	Thu,  2 Apr 2026 16:27:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21A5810E3DA;
+	Thu,  2 Apr 2026 16:36:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RgQaQsPz";
+	dkim=pass (2048-bit key; secure) header.d=pm.me header.i=@pm.me header.b="ZjGc7gPJ";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C5310F24F
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:27:50 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 9A653C59F45;
- Thu,  2 Apr 2026 16:28:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1A9DE602CD;
- Thu,  2 Apr 2026 16:27:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5021910450295; 
- Thu,  2 Apr 2026 18:27:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775147267; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=gw9IiX9wHuJVqEPWrO12es2autsBEVAbQ9Q/0yqHv7s=;
- b=RgQaQsPzK15bu3MyXO1lc4O1Seil08CyL4AFtMHWNWNSkpT48ND8fPW/DOUiqtWOUUDssZ
- /xWUDeo86E8F8nbNFVNaz8UhM8pV9IRrEoW4QRyGQOhHuf7bGYdyKBRvJWssEfzkvvVStJ
- /4RV/dHGufPf+SjapeYH61SZ0StucBf4FTUswz0/F/xoEgnI4M6X33OwbwFIQSb5GgnaFu
- p3imtV3vetF6wY9SRPo4w0UdgAj7u9qV53f55fK/1C4TwRB7u+u9rKUMhVUnBMIYL8lld+
- RMDx8D19SqM5H3nGNaf7eRL4juSclmBKQ4wdKXC+Zc9I5ANnj63nJfUUBc2ycQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 02 Apr 2026 18:27:20 +0200
-Subject: [PATCH v4 4/4] drm/omap: dss: convert to of_drm_find_and_get_bridge()
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C240810E3D0;
+ Thu,  2 Apr 2026 16:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+ s=protonmail3; t=1775147777; x=1775406977;
+ bh=7A5KjAmYV7XjxwFzAz+Gu1zpdCKkT5ACIwBJxXrfzmU=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=ZjGc7gPJQwjhROunTaMcWSkai0CpMs053PXGNoKZLTeOykC5fYp/CPEQOcicDzK09
+ bcqIszQTneJiFQHdaVtJaJ00VpOSxTwV/hSewDU5d60ohbSsOA4RCWWvVSAP/litwm
+ C+obpeBdVrL8oPoS2hMabZrAG6gq5ky+J2ABuN0FN7jUiQdfXRpSVQA/TMeFfbm/d6
+ +E6sqITdoXkEcz3c4E+5vP+kgnCIBKHCTg7Es8czklUvX29OYfDLwpTVEwEVayYwh0
+ mVaqp6hk/h5pQlxW5n36MaZ1VcfvO2jyrSrsQqlOoXCX9YiOf/5y+H+kG0VlIH9xKu
+ ljCUJqgSXiM/g==
+Date: Thu, 02 Apr 2026 16:36:10 +0000
+To: Krzysztof Kozlowski <krzk@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/6] arm64: dts: qcom: milos: Add Adreno 810 GPU and GMU
+ nodes
+Message-ID: <_oKtywl2hPElduEp5xQuU-pvfR8_24TNztuXf3Il3DaaddUmg04Z27u2uYnUtox8G44_zuniSoDZTSJMMW44-HNTXLFJkKCjslAeEe96u9Y=@pm.me>
+In-Reply-To: <182d58c1-21fb-4cab-8ce7-26f07d63d246@kernel.org>
+References: <20260331-adreno-810-v1-0-725801dbb12b@pm.me>
+ <20260331-adreno-810-v1-6-725801dbb12b@pm.me>
+ <20260402-military-arrogant-woodpecker-4ab9b5@quoll>
+ <182d58c1-21fb-4cab-8ce7-26f07d63d246@kernel.org>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 64f2696b295c5bd3bf39079b8ba9b6a975e446ee
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-4-421781c8c061@bootlin.com>
-References: <20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-0-421781c8c061@bootlin.com>
-In-Reply-To: <20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-0-421781c8c061@bootlin.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Linus Walleij <linusw@kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.15.1
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,79 +73,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-of_drm_find_bridge() is deprecated. Move to its replacement
-of_drm_find_and_get_bridge() which gets a bridge reference, and ensure it
-is put when done.
+On Thursday, April 2nd, 2026 at 4:22 AM, Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
 
-omapdss_device_init_output() can take one bridge pointer in out->bridge or
-two pointers in out->bridge and out->next_bridge. Ensure each has a
-corresponding drm_bridge_get() and add drm_bridge_put() calls in the
-cleanup code.
+> On 02/04/2026 10:19, Krzysztof Kozlowski wrote:
+> > On Wed, Apr 01, 2026 at 02:17:44AM +0000, Alexander Koskovich wrote:
+> >> Add GPU and GMU devicetree nodes for the Adreno 810 GPU found on
+> >> Qualcomm SM7635 (Milos) based devices.
+> >>
+> >> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> >> ---
+> >>  arch/arm64/boot/dts/qcom/milos.dtsi | 148 +++++++++++++++++++++++++++=
++++++++++
+> >>  1 file changed, 148 insertions(+)
+> >>
+> >> diff --git a/arch/arm64/boot/dts/qcom/milos.dtsi b/arch/arm64/boot/dts=
+/qcom/milos.dtsi
+> >> index 621f05820826..a8feb0339804 100644
+> >> --- a/arch/arm64/boot/dts/qcom/milos.dtsi
+> >> +++ b/arch/arm64/boot/dts/qcom/milos.dtsi
+> >> @@ -7,6 +7,7 @@
+> >>  #include <dt-bindings/clock/qcom,milos-dispcc.h>
+> >>  #include <dt-bindings/clock/qcom,milos-gcc.h>
+> >>  #include <dt-bindings/clock/qcom,milos-gpucc.h>
+> >> +#include <dt-bindings/clock/qcom,kaanapali-gxclkctl.h>
+> >
+> > Why? My next from 27th Match does not have Milos in that binding. Was i=
+t
+> > added? It's worth mentioning in commit msg.
+> >
+>=20
+> Now I checked in the cover letter - that patch was rejected. You cannot
+> depend on rejected patch and still claim that this patchset is ready for
+> merging. This patchset should be somehow marked that it depends on stuff
+> which is wrong, usually I recommend marking it as RFC with explanation
+> in cover letter WHY this is RFC (because it cannot be merged).
 
-Also slightly change the initial code assigning out->panel and out->bridge
-to ensure and clarify that either out->panel or out->bridge is set in the
-function prologue, not both. If both were set, the 'if (out->panel){...}'
-code that follows would overwrite out->bridge without having put the
-reference.
+I don't see where the gxclkctl milos patch was rejected, there were some mi=
+nor
+comments that need to be addressed in a v2 though, is that what you mean by=
+ it
+being rejected?
 
-Finally, take a reference in case a panel_bridge is added using
-drm_panel_bridge_add(). This ensures we always need to put a reference,
-which came either from of_drm_find_and_get_bridge() or by the
-drm_panel_bridge_add+drm_bridge_get() branch.
+Will just mark v2 of this series as RFC.
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/omapdrm/dss/output.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/output.c b/drivers/gpu/drm/omapdrm/dss/output.c
-index 7378e855c278..ca891aba3820 100644
---- a/drivers/gpu/drm/omapdrm/dss/output.c
-+++ b/drivers/gpu/drm/omapdrm/dss/output.c
-@@ -30,11 +30,13 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 		return 0;
- 	}
- 
--	out->bridge = of_drm_find_bridge(remote_node);
- 	out->panel = of_drm_find_panel(remote_node);
- 	if (IS_ERR(out->panel))
- 		out->panel = NULL;
- 
-+	if (!out->panel)
-+		out->bridge = of_drm_find_and_get_bridge(remote_node);
-+
- 	of_node_put(remote_node);
- 
- 	if (out->panel) {
-@@ -49,7 +51,7 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 			goto error;
- 		}
- 
--		out->bridge = bridge;
-+		out->bridge = drm_bridge_get(bridge);
- 	}
- 
- 	if (local_bridge) {
-@@ -59,7 +61,7 @@ int omapdss_device_init_output(struct omap_dss_device *out,
- 		}
- 
- 		out->next_bridge = out->bridge;
--		out->bridge = local_bridge;
-+		out->bridge = drm_bridge_get(local_bridge);
- 	}
- 
- 	if (!out->bridge) {
-@@ -79,6 +81,9 @@ void omapdss_device_cleanup_output(struct omap_dss_device *out)
- 	if (out->bridge && out->panel)
- 		drm_panel_bridge_remove(out->next_bridge ?
- 					out->next_bridge : out->bridge);
-+
-+	drm_bridge_put(out->next_bridge);
-+	drm_bridge_put(out->bridge);
- }
- 
- void dss_mgr_set_timings(struct omap_dss_device *dssdev,
-
--- 
-2.53.0
-
+Thanks,
+Alex
