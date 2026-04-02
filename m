@@ -4,72 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E54F5CC6B03
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 06:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AFE2CC6B03
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 06:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D21F10E2DF;
-	Thu,  2 Apr 2026 06:52:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B00B10E00C;
+	Thu,  2 Apr 2026 06:57:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="c7KoBj+H";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="NW5P9GMq";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="m8t7gZoX";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VcvBv5ue";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="V0E+9UKv";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA91F10E2DF
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 06:52:43 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260402065241euoutp0280f019741d8ace8798636a6591bfcbc6~id6brI7490115801158euoutp02w
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 06:52:41 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260402065241euoutp0280f019741d8ace8798636a6591bfcbc6~id6brI7490115801158euoutp02w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1775112761;
- bh=JqJnKEECHMM1x06qmTO+uD6JrQrf2ZS4nGeqK+WTZzo=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=c7KoBj+HLoJ9sWu1hkYtLUUIevwDXI6D3RK20LI8rvG29JUKJiiiahbBwF5EWYT81
- YYsa2S2U6wfC9v9jKmDjGDjAFUqu4hVrc1o0CJnhBLOgrBBNI4u98esBReAXz7NbdN
- 5HZRhHlKS0NnclWLjqBiY2m961MOpr6oaC9+k1Eo=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260402065241eucas1p26fe08801bf816ff198a0361e0e00aa7d~id6bQM3u42082120821eucas1p2Q;
- Thu,  2 Apr 2026 06:52:41 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260402065238eusmtip2465f475377dc393f8274ea72cd5e5991~id6YxQUhd3266432664eusmtip2A;
- Thu,  2 Apr 2026 06:52:38 +0000 (GMT)
-Message-ID: <7fc83a05-b392-4fc9-8ddb-1c169c698870@samsung.com>
-Date: Thu, 2 Apr 2026 08:52:37 +0200
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B34D10E00C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 06:57:36 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E770B5BD0E;
+ Thu,  2 Apr 2026 06:57:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775113055; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=VKK2dWXNZlxYT7xsvj0ClflZDGXEbf/zWhpm+J/ofsQ=;
+ b=NW5P9GMqu5JTBpxlkHgj54XujS1cG9lzeq/mILPmNodfItSGQ4zi/MrrzCgw5DN+05jNml
+ +QnOlYhe/EDg43nzfjbug1Ab+g1/uxT1TK6nGPfL9QHX5PZApbFxpxWVLFCkanYDL9N8Ml
+ MuAGXQTCNiJuEPMrRCxDZDDZ/m0xtMA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775113055;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=VKK2dWXNZlxYT7xsvj0ClflZDGXEbf/zWhpm+J/ofsQ=;
+ b=m8t7gZoXp0adYvoF+D1RoyzqsEQHVRunL5PTa1wQUEDuaWlDQwoc14AcNznK388TWUhlNj
+ li5d9HgGZAqaBtDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775113054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=VKK2dWXNZlxYT7xsvj0ClflZDGXEbf/zWhpm+J/ofsQ=;
+ b=VcvBv5ueDXqLYjwWwRvjjlrBeF+2qSuR2ZKMEzYrhRq8xhBh6SjkY1e3UGzJiiO90G4Ucs
+ x95uYxTEatNtwkwvTqmYnItzVICeU9Ghuws6fBeg7hYEtfbzY3cJEG3fwV0u0XgNseKcZw
+ ph9yIEZoPdXNkYbFzhkF1pg7qX8PaQ0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775113054;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=VKK2dWXNZlxYT7xsvj0ClflZDGXEbf/zWhpm+J/ofsQ=;
+ b=V0E+9UKvkwkXdd08o0f4//SBhUTlArjaQyWnd+AelwhsUwW2+/9YxRaPDpjIha5wKqIN7F
+ oq963QBQEtk++DDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A8D764A0B0;
+ Thu,  2 Apr 2026 06:57:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6iYwJ14Tzmk6TgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 02 Apr 2026 06:57:34 +0000
+Message-ID: <4a75f29e-0e55-4350-a16d-d35fb9d6ca3b@suse.de>
+Date: Thu, 2 Apr 2026 08:57:34 +0200
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 5/6] dma-buf: heaps: Add Coherent heap to dmabuf heaps
-To: Maxime Ripard <mripard@redhat.com>, Andrew Davis <afd@ti.com>
-Cc: Albert Esteve <aesteve@redhat.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Robin Murphy
- <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, Saravana Kannan
- <saravanak@kernel.org>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- devicetree@vger.kernel.org, echanude@redhat.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/ioc32: stop speculation on the drm_compat_ioctl path
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, stable <stable@kernel.org>
+References: <2026032451-playing-rummage-8fa2@gregkh>
+ <3f43bc40-58a9-43b2-b21d-7487fb180b57@suse.de>
+ <2026040200-cuddly-macaw-8474@gregkh>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260316-cherubic-eel-of-philosophy-10ef2b@houat>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <2026040200-cuddly-macaw-8474@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260402065241eucas1p26fe08801bf816ff198a0361e0e00aa7d
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260316120911eucas1p26492fa73abe29d02bb7f5da73f047abc
-X-EPHeader: CA
-X-CMS-RootMailID: 20260316120911eucas1p26492fa73abe29d02bb7f5da73f047abc
-References: <20260306-b4-dmabuf-heap-coherent-rmem-v3-0-3d00d36c9bc4@redhat.com>
- <20260306-b4-dmabuf-heap-coherent-rmem-v3-5-3d00d36c9bc4@redhat.com>
- <e8dd476f-1be8-46fa-bf56-65fe0bfe29a1@ti.com>
- <CADSE00+-SQr3wGdgBmLowHPWE5bGxoyO4o20jZs4ma-71aOxUA@mail.gmail.com>
- <1afc696a-9afb-48af-887d-2a209680784e@ti.com>
- <CGME20260316120911eucas1p26492fa73abe29d02bb7f5da73f047abc@eucas1p2.samsung.com>
- <20260316-cherubic-eel-of-philosophy-10ef2b@houat>
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[8]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, intel.com:email,
+ imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,93 +142,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 16.03.2026 13:08, Maxime Ripard wrote:
-> On Wed, Mar 11, 2026 at 08:18:28AM -0500, Andrew Davis wrote:
->> On 3/11/26 5:19 AM, Albert Esteve wrote:
->>> On Tue, Mar 10, 2026 at 4:34 PM Andrew Davis <afd@ti.com> wrote:
->>>> On 3/6/26 4:36 AM, Albert Esteve wrote:
->>>>> Expose DT coherent reserved-memory pools ("shared-dma-pool"
->>>>> without "reusable") as dma-buf heaps, creating one heap per
->>>>> region so userspace can allocate from the exact device-local
->>>>> pool intended for coherent DMA.
->>>>>
->>>>> This is a missing backend in the long-term effort to steer
->>>>> userspace buffer allocations (DRM, v4l2, dma-buf heaps)
->>>>> through heaps for clearer cgroup accounting. CMA and system
->>>>> heaps already exist; non-reusable coherent reserved memory
->>>>> did not.
->>>>>
->>>>> The heap binds the heap device to each memory region so
->>>>> coherent allocations use the correct dev->dma_mem, and
->>>>> it defers registration until module_init when normal
->>>>> allocators are available.
->>>>>
->>>>> Signed-off-by: Albert Esteve <aesteve@redhat.com>
->>>>> ---
->>>>>     drivers/dma-buf/heaps/Kconfig         |   9 +
->>>>>     drivers/dma-buf/heaps/Makefile        |   1 +
->>>>>     drivers/dma-buf/heaps/coherent_heap.c | 414 ++++++++++++++++++++++++++++++++++
->>>>>     3 files changed, 424 insertions(+)
->>>>>
->>>>> (...)
->>>> You are doing this DMA allocation using a non-DMA pseudo-device (heap_dev).
->>>> This is why you need to do that dma_coerce_mask_and_coherent(64) nonsense, you
->>>> are doing a DMA alloc for the CPU itself. This might still work, but only if
->>>> dma_map_sgtable() can handle swiotlb/iommu for all attaching devices at map
->>>> time.
->>> The concern is valid. We're allocating via a synthetic device, which
->>> ties the allocation to that device's DMA domain. I looked deeper into
->>> this trying to address the concern.
->>>
->>> The approach works because dma_map_sgtable() handles both
->>> dma_map_direct and use_dma_iommu cases in __dma_map_sg_attrs(). For
->>> each physical address in the sg_table (extracted via sg_phys()), it
->>> creates device-specific DMA mappings:
->>> - For direct mapping: it checks if the address is directly accessible
->>> (dma_capable()), and if not, it falls back to swiotlb.
->>> - For IOMMU: it creates mappings that allow the device to access
->>> physical addresses.
->>>
->>> This means every attached device gets its own device-specific DMA
->>> mapping, properly handling cases where the physical addresses are
->>> inaccessible or have DMA constraints.
->>>
->> While this means it might still "work" it won't always be ideal. Take
->> the case where the consuming device(s) have a 32bit address restriction,
->> if the allocation was done using the real devices then the backing buffer
->> itself would be allocated in <32bit mem. Whereas here the allocation
->> could end up in >32bit mem, as the CPU/synthetic device supports that.
->> Then each mapping device would instead get a bounce buffer.
->>
->> (this example might not be great as we usually know the address of
->> carveout/reserved memory regions, but substitute in whatever restriction
->> makes more sense)
->>
->> These non-reusable carveouts tend to be made for some specific device, and
->> they are made specifically because that device has some memory restriction.
->> So we might run into the situation above more than one would expect.
->>
->> Not a blocker here, but just something worth thinking on.
-> As I detailed in the previous version [1] the main idea behind that work
-> is to allow to get rid of dma_alloc_attrs for framework and drivers to
-> allocate from the heaps instead.
->
-> Robin was saying he wasn't comfortable with exposing this heap to
-> userspace, and we're saying here that maybe this might not always work
-> anyway (or at least that we couldn't test it fully).
->
-> Maybe the best thing is to defer this series until we are at a point
-> where we can start enabling the "heap allocations" in frameworks then?
-> Hopefully we will have hardware to test it with by then, and we might
-> not even need to expose it to userspace at all but only to the kernel.
->
-> What do you think?
 
-IMHO a good idea. Maybe in-kernel heap for the coherent allocations will 
-be just enough.
 
-Best regards
+Am 02.04.26 um 08:32 schrieb Greg Kroah-Hartman:
+> On Thu, Apr 02, 2026 at 08:20:27AM +0200, Thomas Zimmermann wrote:
+>>
+>> Am 24.03.26 um 17:42 schrieb Greg Kroah-Hartman:
+>>> The drm compat ioctl path takes a user controlled pointer, and then
+>>> dereferences it into a table of function pointers, the signature method
+>>> of spectre problems.  Fix this up by calling array_index_nospec() on the
+>>> index to the function pointer list.
+>>>
+>>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>>> Cc: David Airlie <airlied@gmail.com>
+>>> Cc: Simona Vetter <simona@ffwll.ch>
+>>> Cc: stable <stable@kernel.org>
+>>> Assisted-by: gkh_clanker_2000
+>>> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>> Also acked by Sima and Maxime via IRC
+>>
+>> https://people.freedesktop.org/~cbrill/dri-log/?channel=dri-devel&highlight_names=&date=2026-04-01&show_html=true
+>>
+>> Acked-by: Maxime Ripard <mripard@kernel.org>
+>> Reviewed-by: Simona Vetter <simona@ffwll.ch>
+> Great, thanks, I'm assuming some drm developer can pick this up then?
+
+Already done. It should show up in the next -rc
+
+>
+> greg k-h
+
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
