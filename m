@@ -4,23 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA0ECC6B1D
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 07:54:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00EB4CC6B1E
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 07:57:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2C6410EF76;
-	Thu,  2 Apr 2026 07:54:35 +0000 (UTC)
-Received: from SY8PR01CU002.outbound.protection.outlook.com
- (mail-australiaeastazon11020122.outbound.protection.outlook.com
- [52.101.150.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D575A10EF76
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 07:54:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 596C310F16D;
+	Thu,  2 Apr 2026 07:57:21 +0000 (UTC)
+Received: from MEUPR01CU001.outbound.protection.outlook.com
+ (mail-australiasoutheastazon11020080.outbound.protection.outlook.com
+ [52.101.152.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 098A410F16D
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 07:57:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QHgwB8jsgrDYsiZtQ6r+PtfgA4KHSnZlUHMLBG1Lz79smnsK5EbPlV0u+RBuSu2UG1aPuAoyz8c/iuHw6i0LhvYSToufIAHzyZ0MZRcMA+PNmtU2U2cfUMUgDiXilndl9Qw1BmsD8JCmBU1red4b6UE3LpzVISMZno6YAW7GHoR1KaHxSFeF4WEoSgFQt/tEyLsQQzyy2nxN3DGWkChWgcIoGE0qi3NAPuEWypjvxe7FiKgyrj/kEsZ8zx6rJp1jAkilq8PCBxF8as2/FUK5SmmybT7J6y2ycSwy61UJXAjYlKtXSe+cZVATV6Dv4NJe0xjKwaaC8/0DXEOjUxBKIw==
+ b=fGBaDSBGg2mc+wvY5tXJGPM9g88vsc8/Vd3YgWkiIbVlv8IC+Kit+PRA6qNDxCUWkgcGPryLLyrOUzpTTothIt7ENjxV308scdilsC8cOo/6X7odOZyoVN/rjag+g4TIaO4djsBrBIqgyuLuR8Typb397Y9zOiZZbnpkfuOihhCBYPAYiTZDr4ZEC5nV30IsL9fDDqOJu1cWjxDRDihKA07xBcSmUZUZ2b7M2kdDuirkpQLaeJtESW0tRWdUHwzC/4bb1yXneTTsBZXbogzSB0q5bd35axYf8N3ZU0IYosvM+rSR2tzrioAJUPhfOMMzfeflyjSQedU0pku0WlLcMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lotcbDZVLVnJhc7lHaMtgvpwpqhKKo99EZa+/5k2BLU=;
- b=wtA7S+mrTXhTUQYnjmxpghdJyf1u8tx6Z1whEvOCKtHFG8oF2HNR8XZb0WNO7NhpmIalMJJoEy0WNOmkt0FKMXir/wXl8A3XnGh8YXhAODdgNKaTivsisS6cII1Q0jyIkBzAtFO3nZGRPgGdIITYx2p7rkByXpxG3+mMoM8rYC8NKo6VuUNTWiercZqS4JtFgJVOv3DTnqKNj4tTuqcnE/HRgY+HjOxuyQKC7tiCK13MgNFXHPT52Vv4fKQZNObT2mpxZ2hXPVeoU/ZCd+PlxbdqY2T7MEZ8ycwJ6Esffq+qKLptr8DTXC28ZBn1b+oInQwWgkVOBgKEwwSYT3rSXw==
+ bh=pM+Cp73eM0b4DeVMewe5Pbwyr0nhCEFAgw+Ffoedf+Y=;
+ b=ftIDIpPaEqd84uE0A06/8DCztjdOUnWwAIhkJrzS9oe9B1CYSGguGKSjVObbE9o0bd1Err/2K6If3pjsQ7A0ajfnXugQ+YXueCaBLHjm/0mBcQfc8VghiD2ME2eaTOUgsCbmjJu/lACsokUnTVHDCz8L9CTNsbINGYzOrIR+tTXlSC+Dv7s9bgzAJM0VSXbZDilg/sYtEnkOj1zCstp6qzRolMv4esiVgXRVPElCgteLIHgpV+CfknyC+gfm1lRYMNb5Bmi/dfx7JyptNEcgZH7c+AbLEWYBdSo2W1e0ANbjvDuhj041blgPHYkegO1i1Z5nvNr31MbsPMJkatRfRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
  dkim=pass header.d=heitbaum.com; arc=none
@@ -30,76 +30,76 @@ Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
  by SY8P282MB5001.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:2b9::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Thu, 2 Apr
- 2026 07:54:27 +0000
+ 2026 07:57:17 +0000
 Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
  ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
  ([fe80::21b6:91f8:614d:1fdd%5]) with mapi id 15.20.9745.031; Thu, 2 Apr 2026
- 07:54:27 +0000
-Date: Thu, 2 Apr 2026 07:54:13 +0000
+ 07:57:17 +0000
+Date: Thu, 2 Apr 2026 07:57:03 +0000
 From: Rudi Heitbaum <rudi@heitbaum.com>
 To: dri-devel@lists.freedesktop.org
 Cc: rudi@heitbaum.com
-Subject: [PATCH libdrm 1/2] modetest: fix discards 'const' qualifier from
+Subject: [PATCH libdrm 2/2] amdgpu: fix discards 'const' qualifier from
  pointer target type
-Message-ID: <ac4gpTvlnCiZJKN5@b22fc13bbf9b>
+Message-ID: <ac4hTyaeUHRTfTi2@b22fc13bbf9b>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-X-ClientProxiedBy: ME3P282CA0058.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:220:f3::9) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+X-ClientProxiedBy: MEAPR01CA0064.ausprd01.prod.outlook.com
+ (2603:10c6:201:30::28) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
  (2603:10c6:10:279::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|SY8P282MB5001:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd7f8f42-2f7b-408b-68bb-08de908d1042
+X-MS-Office365-Filtering-Correlation-Id: 9340a5cc-1fb1-4a11-27b4-08de908d75b0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|366016|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: zC7y5PFr3O0QHpc+bJkr+vHFjqaupIPnMHlQJlu0fFfJUfa9SgKz6NSocRtd0qc7qpYoZatOJBc9FSeYzkYsCAoIlmptW70HEHGfkw6KhZXehXTQCcd4WzrPmFSpRGt2wm8LRV5g4RYw6SKl6hOpRzW7X8Ffj6rN4EXF9Tg9Xij697f3wzg4fWECQ/okQJHDE8ZInW+nzWgfD1Rwx0AtM2PNVEK2X9mnxOoHuKBHPAq91zlxVOLrH/yeUbcU1+DJx0rHOjYwGWRNbxeywZ6W7Sp+Jl85ged/RL4CaYbbP06mU8xvG5fLqNK0+RoCAf6PMuCMkQ1nc7GsMh4KxR7b4vlDezDrqbn0PLQ3iapPENYUS7i4MNAWBiBK3z78PY+1XpfnjuT3J8HXsDwmsKJeMoB+ijSgxKz9zHO+UwJg87pcVbhoqz6dLZezcFduQgjjbaJyOmzn9eFMjAJa+TzGfcE4CNYj0Epwz4otVz3VO++rcaNM0QL0AaHY7NiIU5pAnJJjcPfUg+pq0BVtw0rTv7Bh+b+0Di5voGTmKT8hp5BMUAv2+imOKUU3lyx0jr68JTyQCL58IX7rfmC/ax2sd3BXStwVlRpFGQgXl7mv24TOa/VYHjuqlAeatrGlc0TWpgMvTVl506aWxgO22bobYphX84QUj/rUKgsOd8BIKNOMqyftsYcRIcg+JTVg0OW60lRHtP+nxm82ZnKJslL+luwy+bR9ZHf+HoU5lergWy8=
+X-Microsoft-Antispam-Message-Info: zDVI3X48k+1nWJsTTAxSvjjiPU1s1lLowCkfdcdj2Lk41S30/ZyyCffym+Xx5RxeNhRqVGy/j4z63PohJ+1stLQPONU9hmKO3bzq1BMF3GlcCsQWN6agMB+ZMmiogigCCsSBN9aMUnh4325VlNORCkFqu4ypvuFBbQqW3VCzFgnom9GtuNMhxkn0U0S48vS6v8xsnAe1v+3AUNaqovx/goaxFQz6to9i2VlLxqwHSM/BQbXmAsmBFYRjbKPCpyng0nyFhKwOWN7u+7xybjl5bdTSfaaZGnWrpGrLGsqI2bzYYBQcaYrnyiKybh7hu8iKpLgfSBmUVBF0dHLRDQknz7j4nl8sC8D6rlEBD2X21sI06R+XBZOgogmDHOXbBey/dWkJS4rRVH1OlZS0QDCw/7IlexILiptxGJagJViCyR6oiYpOPo8K5chwY2it9SZ///hlkA7/yzImBo2UdOMXSjgq7o3wPE4XwXMXHO6/VIA8M3gAr2ZJ6/Cme+86PUjReZXMrGKz23PH6VQBjgLyKLcqlvTsRTYP0y7TYsaLC5ouZkkl9F9twMR0Rc1BhJELdFnzfqN9vqLVWBvJ2+Uef81pLTy6o9aZI107ncOC1vIZM0Znp7DuXPXdOdBQNqK0+jUa6wJu+T0ohgySUuIFeMuwEebR6kdrP8Ra7/4MdpZWoBE3jPOxKXXWNxc+lKYOdlGI1ILe+UOC+HW14+ei0hMIhmdUEex94lcEaiWjFy8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003); DIR:OUT;
  SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XlWXNq6y4Xf9sDlcrvu+9et8bzGxjYVUUn1yFyn3MZNZ84kVCEirHJHoAoNC?=
- =?us-ascii?Q?P6L7uM35/zo1j3p8kncqWTLphXomJ08t6KUDyUm3Lg7X+4uxd5pw9wSg9OPM?=
- =?us-ascii?Q?3U4Ix51vJDzvBrdku8MfFts8S776gIfNPonFITgg6QuwChpZTXOayt3LrutP?=
- =?us-ascii?Q?j9WIeAPVav1Ld/fYMCaAGA96qeVUgdYCKlsXFHsPeJdU1rGOm+ulZffKOwGy?=
- =?us-ascii?Q?uF989W1Hb/sf0jraIp/s5jzn2wICcB/PULo+wyRROYdv3c+s2l8QDNiPjSHV?=
- =?us-ascii?Q?Tsuwt/d9D72UQby0gtsvYw7RdRq+9zB2FTPJC2VshRSdeZMsVizz4QaM2m6p?=
- =?us-ascii?Q?O6wEB5adDPzkQny4oBdN0W2PSXKuuD/FUs4jYjsYVlh5hs0MvJ1SOnyyHpk4?=
- =?us-ascii?Q?plZSDYYMNxeqV9+9NlLFuRuaNDKLCBBWUOp0foFHCx6NzU5vb6UMkKrKP08l?=
- =?us-ascii?Q?1qsQL6kwZQ8FWZyu1BJaVJ+/DRpXJ/2qH8jyPKnzCBWxQE55ltc0voNzQGSE?=
- =?us-ascii?Q?6oQY8UgRWl6hS58FZ0Uty2b6pmT237BFaz5zmrGJ4Zfu6DHZaalPprxv2n/M?=
- =?us-ascii?Q?LePBGMzPwKZ98FEVSDMDt6TtFzb2CTxmZ0MUmE4+AN7gzt3EG6F0Mt7FvlnE?=
- =?us-ascii?Q?BBc4ZqbVvvHuzBsW4LmAaE+PGtK94e5kDLddy+O/f4Lhe92X8Y/6RzRaeiIG?=
- =?us-ascii?Q?fwYtj86vGCySt7lmTZRmViptv/ZZtSRG31R+b5IdWRXNoyW292RNZH4Q3iFo?=
- =?us-ascii?Q?suNoOzEtsbLyOvJx7hl4OLJ1IXqqLD5to/xwtqfwJWdaU3LBlbWUqN7zkmjx?=
- =?us-ascii?Q?Fjum4Cip8QhouFnRzTXMoINYzg/pB25CMJ+A/R5m5w7sA3f6qp0AJqH0gG+Q?=
- =?us-ascii?Q?5bt6dREBB08LSTwkn3GWJ8Rxk+fE+17fTWOEiC7pCRUB8gujpjOpaQjDJtzi?=
- =?us-ascii?Q?HJh/1QENYTFY/PJX5YWCIKc9yxkJZ9JS9wWiBoCn9rpdgqmBtoUr0YcbEeZq?=
- =?us-ascii?Q?Dxn6L9gNmSoB5O4ielEko9uLwh6BZOZvYPj1gDOoFCbZuKsBi2DNziwzF43b?=
- =?us-ascii?Q?Rj1SGIPdVuI/Rh4+AmxxPvk9a+b5D/bbF9SYb10PxEuqAXyRLTrQatcFaQxF?=
- =?us-ascii?Q?txWVIjNVlT/0pYJK+PkP4zUJ4e92tEK6QSL+V00jPeVZ/ELAofLtNEga/+DN?=
- =?us-ascii?Q?87TbxzDEBkwVYwlNcHBd/6Y6ve7s+o2b1qTCZzOiSRf/Emt4028qTypcUDg4?=
- =?us-ascii?Q?YfCmKfINgtd9Nmk43E6wFIfcOFG9ksJGsi60Vv0+bItHmD7Vt73kRvWk5prZ?=
- =?us-ascii?Q?kSnAc4rmPodXsKZkAcmf+6Xn5SE2TNk82BJnbhNJtkvPaKpqkij3PssfHbMM?=
- =?us-ascii?Q?L34O0USKevT13MV6dlopo7INrjL+CIG+pHxO/m3y+7jyRcT8g+KN2kEyqOjb?=
- =?us-ascii?Q?XcZIQvz5DsEJWaInSLtHE8rd2CUmHeqlQPPfss0oKUCXltFtwsae3Ny562R+?=
- =?us-ascii?Q?L16CPPrfif/qVPW1I1rz2GaRTBKJ+kHjj/p4Ib+0L/yCgV0eIMq6FjtKGC1g?=
- =?us-ascii?Q?YnBhtQqyDPbqXLcFlnREi++8S6abeB7WhXmnwD143xTNG0iYV2w7bCUrO1jZ?=
- =?us-ascii?Q?eovkIV1K3xU6GkTA4nRqcsEREyvA5tT5XHheaRB3hNzXJN2XCLhuT6HVfiKE?=
- =?us-ascii?Q?vu2Q+U+HcfIucq2FTII7JcuSBJFUSriUTk2vL+bIxLySG+dd1Qxt26Mj5Bhq?=
- =?us-ascii?Q?O/9waF07EA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?u2Rd/h5spAqVfw+Um+5f3XoeJvOB0Gmn3zC3kjiqa+J4eT5WFUbDIqLFKDLR?=
+ =?us-ascii?Q?Td1UeoGqCqVRsINFza7QpF0HVwVSzpLBEBErCSP9dBzNFJbgf8udgN70sPKE?=
+ =?us-ascii?Q?tEJAwgxqXoHwUPZbAGfGzetuEW0YfRkgXXyo7M+FgvW/KSnZbmVeQVEEbe6O?=
+ =?us-ascii?Q?DTZS/j5ktMN081MYmtodzOgCx0eOu1dbvEQDbDjgjGDz23MbmHjl9gqUos2Y?=
+ =?us-ascii?Q?4BvVkJiuOd3yl6ZKkruKcq72WtFjHd4lKq2PQiL31fWr8eXhhlVUSG4xl0hn?=
+ =?us-ascii?Q?aGxR1Q/HdJojy5qv8Mea0wDzh4/lqyGs57sX2g2DrXna8TpnojPEA5YUDhUl?=
+ =?us-ascii?Q?ez/qjFLCxHjGd5nrXdk3UM8BrBPpgiYY7lAXwSjCLY2rd317eToE+zQuxgO3?=
+ =?us-ascii?Q?lb22iZtKYl91DieFSwirlqrrPhgUNARV9l3mx4QfxFi6bQvQmEZztUtf8oA2?=
+ =?us-ascii?Q?4nlpKBXXVBA+YQWZW+Zvps1JZIGolfWJ1JC+bg/E/BKTOvAMO28KPpJKNTH3?=
+ =?us-ascii?Q?abyxu93dQuZHcNkllHTkAhsbJf7EKgqPWg0Fou7rOrjw0jSVDGIlEcP/Ilvi?=
+ =?us-ascii?Q?ufcAi7ZpIhyzGha/MOb9LwABtXTsLZyXE1jAXjmPhXKgxE4NwfPfiivtuPRL?=
+ =?us-ascii?Q?8qgRvOf+oVI4wwJuv48J2RgR8ely53Mh+9eNQjaOocgGTlG08ybEBFkUgUOP?=
+ =?us-ascii?Q?/8oOcwrz6XjQ5l/zW40FFa61yVKUjXjngS/EkmcFgaS7M2pt39cqx6wBY6C3?=
+ =?us-ascii?Q?dsjLeeUb1QBfQHPeUUxGM4cTTgzJgwY6UOk51wr/gRR+QgTUCVuD4A0huByR?=
+ =?us-ascii?Q?Sal4HrUyDJGzOdPR9rxKsOo148sL7KC1/Kod7T2W+KJ5BQ0N+a0WTxYURI68?=
+ =?us-ascii?Q?ycyXS55kP+MeU2ZYLGcYWmlhCtr5aYOXkQdXsv5S2snGCCX16hAo630jQx4P?=
+ =?us-ascii?Q?LczGA7OBtTsw3mbhgZYJ36Ii3dvXENXEqmPwNBXxirSoz9JhrKzeQnxZu6Sx?=
+ =?us-ascii?Q?sWD4RPluicdh1xaGpXKt5M/Jf/b2fNwhkESMoiUTEcSfBR0hE8Rwz8T1YYe3?=
+ =?us-ascii?Q?cGBPjrFsaq5kc2To/AObf9QmP40Fc+v04JgDJzyYLvMt/0zR0OkM6nr3pbvv?=
+ =?us-ascii?Q?Oy+u6H6t8WPrAQwia83oZ4bsuwjYlF5bFDBV2y/VFVij7QJOvyvhOPlOVYBY?=
+ =?us-ascii?Q?S0wZ7UuaMKtHPySX12NzWzhux3KIZOVXzhuugNfK2LNYFblU8ozKkcC1q+Su?=
+ =?us-ascii?Q?dSSaHkutaN9YeNj0RflGflMge0viFkeS209CG88TEJe2bIgQaLKHruY2rFaQ?=
+ =?us-ascii?Q?2RMKYaEd0oaKIidibujyVv2dqAHNMZsT8WAQgHwBl5hYldWJz8PBy28j6E/I?=
+ =?us-ascii?Q?UJfDwnGASqWScLNuHI28uBRCs1Qa8NltIj+5YptuS8cpRS8sxDv/khzsh2Bg?=
+ =?us-ascii?Q?W6Idkvhr/dbfDehY4LIsmm8+K7FN0RM0glPKNDleSyIhiAmDFQffmfkCadpY?=
+ =?us-ascii?Q?VJI47+sWKilZmceapq9Oa7r2y2B+5aXE8T5EBUSAshi3CozfDmP8flbgMuNh?=
+ =?us-ascii?Q?sRYsfE8rV6ihqWwPo47eCdUQpauO7sl4qMIdLn/4NfSmpN/pAYsrekzZtFyx?=
+ =?us-ascii?Q?EzUmL+K8yDlfFnglTuQqwUH0QwxMbl7pF+Rf/Iz66xTn8GMm6kgLoUv4JXPF?=
+ =?us-ascii?Q?DDrFKZx5GntG0zCkyc38uVlHKplTcmECUDHFpMU19SnKtFJkY0qKTS/ncWrg?=
+ =?us-ascii?Q?PkBVJySifA=3D=3D?=
 X-OriginatorOrg: heitbaum.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd7f8f42-2f7b-408b-68bb-08de908d1042
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9340a5cc-1fb1-4a11-27b4-08de908d75b0
 X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 07:54:27.1584 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 07:57:17.3215 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U5T9GG75T4q/b63XzCVCaotYYi9i7tkoNTN7TVEnxKiOET0qCXy7a36rufz5aLneZqB22bHNBI/+S4V2U6x3Og==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3Rb9Fr80bRaj69Rm18YGvWJ28aaUSbHMLMgo0RSDZud+FWsFyepxCAs4KLbQqwOItxdvK9lx2ZNsUojZnjPrVw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY8P282MB5001
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,51 +125,29 @@ pointer to a const-qualified type when the input argument is a pointer
 to a const-qualified type.
 
 fixes:
-    tests/modetest/modetest.c: In function 'parse_connector':
-    tests/modetest/modetest.c:1997:22: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
-     1997 |                 endp = strpbrk(p, ",@:");
-          |                      ^
+    amdgpu/amdgpu_asic_id.c: In function 'find_asic_id_table':
+    amdgpu/amdgpu_asic_id.c:249:19: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+      249 |         file_name = strrchr(AMDGPU_ASIC_ID_TABLE, '/');
+          |                   ^
 
 Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
 ---
- tests/modetest/modetest.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ amdgpu/amdgpu_asic_id.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tests/modetest/modetest.c b/tests/modetest/modetest.c
-index 24c0e2dc..3c0a8803 100644
---- a/tests/modetest/modetest.c
-+++ b/tests/modetest/modetest.c
-@@ -1974,7 +1974,8 @@ static int parse_connector(struct pipe_arg *pipe, const char *arg)
- 	unsigned int len;
- 	unsigned int i;
- 	const char *p;
--	char *endp;
-+	const char *endp;
-+	char *endp_tok;
+diff --git a/amdgpu/amdgpu_asic_id.c b/amdgpu/amdgpu_asic_id.c
+index cd8ee596..fed3a531 100644
+--- a/amdgpu/amdgpu_asic_id.c
++++ b/amdgpu/amdgpu_asic_id.c
+@@ -238,7 +238,7 @@ static char *find_asic_id_table(void)
+ {
+ 	// first check the paths in AMDGPU_ASIC_ID_TABLE_PATHS environment variable
+ 	const char *amdgpu_asic_id_table_paths = secure_getenv("AMDGPU_ASIC_ID_TABLE_PATHS");
+-	char *file_name = NULL;
++	const char *file_name = NULL;
+ 	char *found_path = NULL;
+ 	char **paths = NULL;
  
- 	pipe->vrefresh = 0;
- 	pipe->crtc_id = (uint32_t)-1;
-@@ -2012,7 +2013,8 @@ static int parse_connector(struct pipe_arg *pipe, const char *arg)
- 		return -1;
- 	if (*endp == '@') {
- 		arg = endp + 1;
--		pipe->crtc_id = strtoul(arg, &endp, 10);
-+		pipe->crtc_id = strtoul(arg, &endp_tok, 10);
-+		endp = endp_tok;
- 	}
- 	if (*endp != ':')
- 		return -1;
-@@ -2028,8 +2030,8 @@ static int parse_connector(struct pipe_arg *pipe, const char *arg)
- 	pipe->mode_str[len] = '\0';
- 
- 	if (*p == '-') {
--		pipe->vrefresh = strtof(p + 1, &endp);
--		p = endp;
-+		pipe->vrefresh = strtof(p + 1, &endp_tok);
-+		p = endp_tok;
- 	}
- 
- 	if (*p == '@') {
 -- 
 2.53.0
 
