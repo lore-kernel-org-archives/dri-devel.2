@@ -4,150 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90D1ED39410
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 11:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3652D39410
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 11:56:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E266A10E4BB;
-	Thu,  2 Apr 2026 11:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F223810E032;
+	Thu,  2 Apr 2026 11:56:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="C5r57TnH";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A1fs9GBD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HQUPySn4";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86AC210E4AB
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 11:54:43 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 632723Hl1424210
- for <dri-devel@lists.freedesktop.org>; Thu, 2 Apr 2026 11:54:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=s5/sP5nLpSm
- lFWIWb0dtTmTRZPj9KiV8hkWLXy5fgck=; b=C5r57TnHlVM+6H8LoMR9CbM+65C
- AHhHZ/ssT5/0TnD0jjIwbv2Q/zDnBnZzp6BHTnY0cIrSXFSd+szUycDWqQhoS3cu
- mKfK8MvyDKLo8yymF0FvPYB19xVqOv12no21LU0XZgCvwMgDMYU4PEPYvH7/FHq+
- BQtnrUFC0xh165aLr/g9Z8YqmZTmmvQiKEjkBH4nAg9+FK3keUrmynKcvm3eB9qg
- 368QmW/aMtARwqQiEnH5cgT/vXQSsAJhitCCOuE6j02MykkRykC1xpbNUmLZIlc3
- Lq7gkzzB6/C4llbtImatV338EStkTuAcUREGdNsG9VzNnSz1tchDNLCBK1A==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9511cjxj-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 11:54:42 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50d5d1c2289so1773141cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 04:54:42 -0700 (PDT)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C21210E032
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 11:56:41 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so6352305e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 04:56:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775130882; x=1775735682;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1775131000; x=1775735800; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=s5/sP5nLpSmlFWIWb0dtTmTRZPj9KiV8hkWLXy5fgck=;
- b=A1fs9GBDVrGrovt6nVDDhYzNKhNwOnSdKhKAoYEiMD/YLN6nmTatOIsB4YnLbPYxf7
- ApzRvc/SN9e4Q8PoQ7xlZ+bscpy5uffJBmt19v6pHVaRs6PrCyhDK4o4BjnOGigxEs+k
- 8PqtAcHmfRBI023wcT5ds5lpv+sYYfcY99lEEMjaZWG7+tI9bPepRlliJrMANL/QIxSv
- LtzkEtB7rbhG/1sf2yQI4ZHn1dFpeFHrBkAFRmByftXkN9tBGYBoPw244oM8MuPgS9zG
- IrlE9Y8t8iSjtRAcz//vdG0mqeM2lAp32l+xYkBQ8sOuTdiS3kqiHBSoC9WWLevwENv+
- 3JUw==
+ bh=8YctibcwBaos343EPy20tcq2y4ZWpcBKe/QemXdR+Sw=;
+ b=HQUPySn4s6og3VOgezdYBwnIKi81uytpoyxxkpmEprQvW6zLQEliiMN9mpwaE6nbtk
+ 5hVW8Fs6Slm1ZBsJPliatvan8abgLIaEhftG9UNPFYkZV0K8sC7P9pd2ZChk8qntVlST
+ HSsuLVNUK9pkH237nJgG75RFsugIlilFpXnwNNimL0l3yxFMvEphxx+QH+9vXhJNgs42
+ d4ocdEupaKlRFS+suy1QCuVeZbPD3I6MrLrSdlwli5xu3VWKEQOSWUGutKHY68Wn4JoI
+ 6UpC4dJRQZLcV7WWQitfUsdce72AYoxSS1epAlsoCaFXOv1o4mNvbvwtq+COW9kgGLEC
+ jD6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775130882; x=1775735682;
+ d=1e100.net; s=20251104; t=1775131000; x=1775735800;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=s5/sP5nLpSmlFWIWb0dtTmTRZPj9KiV8hkWLXy5fgck=;
- b=rcrTuclb9YZ81sI68JIsHCR7Bv8JcCrGLS+DJ4V+VNEqWjr6j5nZwlrwNBm0gvq2D1
- RVS+QIP4HX8lCkhXhHY4Tc7Q8mk2H4DUTnMfunaJp9NV6/wwvCdyXulRWWceTCpOWGPL
- NrtoHWReeY4Ccy0iyzlgXN6gjznVpG0oB2h/wLsXntWPIyOcPkoK7BAme3fQxEMftwj+
- HtLMaKe8BQvX8ktvoSKlKQwspl9bcwb+XxpoFRezkIsbkohksq7JZ3FwULdMGyhFl+Dn
- 0IZXbJPY3n8R4pN4k/AkjYOwuqdzI9ehJDLeaKOjJrBJa1uhEVrgIIY6AFoZBVWSbe9r
- vbZQ==
+ bh=8YctibcwBaos343EPy20tcq2y4ZWpcBKe/QemXdR+Sw=;
+ b=YFLLip8UzZMyBKy9EG+cCac72gTQHYdB9MlJBdArJNIfwt+nkyQpxAPp7LGSDgKj8F
+ SKy7k3/v16aawnM3eoqgZYOmuvsluTlVAIO73ZbKArrn7pf26FgILFjxN9AMbjd+K25S
+ JgYM233CAGjuWtPxA7+J+ZI4X2sFLKE/DyHOAjsZ4AjD6Dg3xNraaNSCUqzWt2fCn56q
+ cYCHK7nTQIgT6LEDLDICiN/WiURU0FHMuE9BW9wsPPzooJquVwTj9XkYEbPEc8jxjOI6
+ H5PGC4As6oXljm6gw61bvM0RcVjRMpImkGzaTTB0gx2yUuZ3JE0aTGVruPj/vcU0zIU6
+ bWMA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVQnyPTnYPXhL+xH/0EDk1WJn2SVnuwulGUirVzr/ltq7ZqRM10PCjXyUeWyLRy4sB3xNOhy1OlIW4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvTMeuUSL7ASW9+S+wQoy3DE+DzdFX6vGnvyOzTIf+G6H5Dowx
- HTKNSGE1FDamhJjMyRnYbR/La/rvctX18ZQFqNCTc0eTItEihK82GYltjjmyJ6Xy4AVMVqR95Rq
- hfveOMNMQofb2MZlykJHYvCXyH74uPsdrsdbrzuvwLRUXPMQFICOf8RAAxUu7/iELe+W2JbU=
-X-Gm-Gg: ATEYQzww0ntVd7LZojeeopk+O72YmqjNORDtkwvOz7M9/2zBpLv+TCi5PY8c15YPVAP
- l7HsVoOYUPrN1iPC2DDU3/wKi9FeUTn6ybNL7AxKlKVdrQJEuQeAHHb6OMZ4aoKFRKivc0XV8T3
- IiO6+J1dXH0iKNlzyhDfs2NpGfUalXzQ9Bd77gk1YhuJAucJKX/jevq4VYm8cPSYZRF5njX52I4
- mJLxsYamTOEcKb86bg3UKxjpKdMd6ys+WXLoI+DqAyHErmh05pe8P6mFKtBgZ+EAJXJOsfUNB6u
- udH/DTV4NQSonGQ94oBwLBvmqEOQopydbgrOGOUjgixOkBD1YL0q/RPk1fDTVfgpjGlomqLwhGp
- /7Ox+53qPtvpQDaHzwWgktI8LDo+I73thUeq8
-X-Received: by 2002:a05:622a:1243:b0:50b:4e60:93b7 with SMTP id
- d75a77b69052e-50d3bcd3797mr93570641cf.43.1775130881963; 
- Thu, 02 Apr 2026 04:54:41 -0700 (PDT)
-X-Received: by 2002:a05:622a:1243:b0:50b:4e60:93b7 with SMTP id
- d75a77b69052e-50d3bcd3797mr93570291cf.43.1775130881452; 
- Thu, 02 Apr 2026 04:54:41 -0700 (PDT)
-Received: from quoll ([178.197.219.94]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887c8bc9dcsm111501545e9.6.2026.04.02.04.54.39
+ AJvYcCXrK6XnKDul9MvzMfammwUIPlTFUCvJBrUnDeWTVdkDjmosoVl5osBuKTeNC9SbRfnOj/+BkU3I6ik=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy74b1SW+D4ALhX5OHjXWE2P6Un33MER8BVsfByEfHK5axzeTxt
+ YzeFASlyb/QzTz3Rq7usbGHDHaMUe5zIkRrgzckk6CGQlOx0XpGRefk6
+X-Gm-Gg: ATEYQzwPzg5Fzlv7AokFnrPcBn6GJxwwSItqjKco+z0Tn1rjfDv9TzqSuDI2Lxwxzfh
+ 3NDcavt7XWZT0lrFU+GI7sa+hlIBshyprz5kNlzg0qrK3LR4JpLTJeC0sp1Dt7fs64pX63tbhxo
+ 0qPQ10b1QdMrGmVLpM/O9KqI1o0em37Gankel42eBNyxAywqt0GsJDYkdSn+kjByxzo1aS2mueT
+ ZQdFFihv+5jFzK0E3Cq4CxOTk/yrTg+h+eOFpgUy1JIstTsXQ+FEnApCi6o9AJmIA9U2SXokHXz
+ ckwIzyWR41VgsW6qFDPdHUxOcepF0QpBSSJwr9xo5EBWQFjbVkZ59Lx/B+sCnCuvtHPc6Fxyln9
+ /RF+SDrwZBFL7JXToYbVAbYkpGSkz97hMCNVYfeA3hs3YEOSc/zVCW98ie10HQHQI40KcRdm0FB
+ f+Tzz3+UgHRMlmLJjl5q1gTH+W6VlTgEnTttyuVQ4eCsEvsN7xtAaiwjVWkynaNoC1Q3XVv1Qb
+X-Received: by 2002:a05:600c:8209:b0:485:5c6e:8a38 with SMTP id
+ 5b1f17b1804b1-48883591d6amr141270405e9.17.1775130999396; 
+ Thu, 02 Apr 2026 04:56:39 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1BC26F.dsl.pool.telekom.hu.
+ [94.27.194.111]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4888a65635fsm65554775e9.6.2026.04.02.04.56.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Apr 2026 04:54:40 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH 8/7] dt-bindings: display/msm: qcom,
- eliza-mdss: Correct DPU and DP ranges in example
-Date: Thu,  2 Apr 2026 13:54:30 +0200
-Message-ID: <20260402115429.100365-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com>
-References: <20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com>
+ Thu, 02 Apr 2026 04:56:38 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Rosen Penev <rosenp@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Bin Lan <bin.lan.cn@windriver.com>, He Zhe <zhe.he@windriver.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
+ Mauro Rossi <issor.oruam@gmail.com>,
+ "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH for 6.12 3/9] drm/amd/display: Disable fastboot on DCE 6
+ too
+Date: Thu, 02 Apr 2026 13:56:35 +0200
+Message-ID: <2257770.9o76ZdvQCi@timur-hyperion>
+In-Reply-To: <2026033157-trifocals-swerve-d18f@gregkh>
+References: <20260326234716.16723-1-rosenp@gmail.com>
+ <CAKxU2N-CRua=kMVm8gdf2AnbCFyLsLTbf=-9NZHAkhL3sJC-tw@mail.gmail.com>
+ <2026033157-trifocals-swerve-d18f@gregkh>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2740;
- i=krzysztof.kozlowski@oss.qualcomm.com; 
- h=from:subject; bh=NEf+HxWDRsWfK9c9KQZCsERDb83KXrF9wLodgfVBeN4=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpzlj1/WZN9obM8xHyJscHB07EsJnP15xwOD5rG
- p3ZNsns+u6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCac5Y9QAKCRDBN2bmhouD
- 1wqZD/0QEB7FL+7msgmMtu27RNQw9D6QuBXN9x+EJBNV03f7D5y1Z00sDOmh7kILklCpfIVrjfU
- yNiFSJc0ULwCFZuK/cKq3ob8ElN6/8nKKgQyT99wvE4fvrvwOrer8dYtV3MEHnMQuKbYUYLIQJo
- ragbbWnUV9tKf86DGBAmbWQZfMljbKQVihuZFSkVwNhlbizLWrYloBiX+hXUqY+ESTBR+qaSHpP
- zACGMaoXk0xngVpLMCclRZpVLMwVPSVGjol7PGrB+uJwIS/U2Q32n1f8W1le4nmYb/rkDfbQ7hu
- 6R988SxfsMI3m2LdUvM+AF0jm0DAUJQ87F+AfIb3nWffTkdmlad7sVQG/incSvU+xyHug4m9ooR
- JVe16dspxQ7dkIWlFJ1szkXbfYBO4EF7UAkC4boCM/mhfYv70tEBPS8ySjTQtTCfl1z8Etdh3aN
- IbdfG1tTGEdbhy3pXAlw2S9PFMfoDd83kgKk41P4iojiDO5go/K/5l+pz64LwD+WamihC53ZwuN
- 8FTVgYbIQEtvwEz04hL00mTaC3U84KpSPU43hCYkPNQJgJcUlw7nu8y9PtU3QE1RWe+/Z/WdeBo
- irl4Kr4nf1t/9/05RYfOHkJuv3rYKKsYO2HQB0wWQxrEDnlKzXx2Lh33A95iwifS3sWaDBi0zOB
- hM/rFqfnW9ogUWQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDEwNiBTYWx0ZWRfX83n/12oIe4f0
- PQheVMrWXPRXY0A4UbFrWWyeHnbN9RDIQWHG3Msb5L27NfB7rujOMw3fxeCMCN91q3Jf/QrH+eF
- HLWYGkeW5C0QL2GIpPhbGTU28Bgt1AyEEDQwYAsXRNeWEKSyr4m9FSyBJN7PWt9iJYemXR70q1o
- jGZVM9fJnARgTnLcn9UtjGH1EcIuZZW3ysJupxe+4AvhfHuRNw0jtqoJqrreTvC0oAPi0XBV5VU
- fgt8fjLbgBFlQPh8QP9ujTFnpbs9DDAfv2EbD3WuOrFxozHyp15MCI0Y1L8c0KfsmLDt+X1fatI
- 3FQQpRw4jtSRN/HV9vVPX8B94Q9YzZhY6eqt3jgGLatMvcqgPNfTGph4gGK+Hj6FuUKe2PgqEv1
- PW0nf1//5zFDQs8ZW1EFjYPEI6q8JYxoa0gr1NdEwYDcmvQ/xhXSPb9aZ7WEGwBqOg9Ra72jxTD
- 87RCdayKp6oMq7wNHHw==
-X-Proofpoint-GUID: pVIl40Vnb-oVDNHu1TzpTiOM2yp5FaxD
-X-Proofpoint-ORIG-GUID: pVIl40Vnb-oVDNHu1TzpTiOM2yp5FaxD
-X-Authority-Analysis: v=2.4 cv=F8pat6hN c=1 sm=1 tr=0 ts=69ce5902 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=2E8fMljBJZ0eQ63lGZAA:9 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-02_01,2026-04-02_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 adultscore=0
- clxscore=1015 suspectscore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604020106
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,73 +106,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-VBIF register range is 0x3000 long.  DisplayPort block has few too short
-ranges and misses four more address spaces.  Similarly first part of DSI
-space should be 0x300 long.
+On Tuesday, March 31, 2026 1:03:34=E2=80=AFPM Central European Summer Time =
+Greg Kroah-
+Hartman wrote:
+> On Mon, Mar 30, 2026 at 02:38:35PM -0700, Rosen Penev wrote:
+> > On Mon, Mar 30, 2026 at 7:21=E2=80=AFAM Timur Krist=C3=B3f <timur.krist=
+of@gmail.com>=20
+wrote:
+> > > On Monday, March 30, 2026 3:55:55=E2=80=AFPM Central European Summer =
+Time
+> > > Christian
+> > >=20
+> > > K=C3=B6nig wrote:
+> > > > On 3/30/26 15:16, Timur Krist=C3=B3f wrote:
+> > > > > On Friday, March 27, 2026 12:47:10=E2=80=AFAM Central European Su=
+mmer Time
+> > > > > Rosen
+> > > > > Penev>
+> > > > >=20
+> > > > > wrote:
+> > > > >> From: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > > >>=20
+> > > > >> [ Upstream commit 7495962cbceb967e095233a5673ea71f3bcdee7e ]
+> > > > >>=20
+> > > > >> It already didn't work on DCE 8,
+> > > > >> so there is no reason to assume it would on DCE 6.
+> > > > >>=20
+> > > > >> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > > > >> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+> > > > >> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > >> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> > > > >> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > >> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > > >=20
+> > > > > This patch is incorrect and should not be backported.
+> > > > >=20
+> > > > > (Note that the error is already fixed upstream. For stable kernels
+> > > > > IMO
+> > > > > it's
+> > > > > best to drop this one.)
+> > > >=20
+> > > > Is there some alternative which needs to be backported or should the
+> > > > old
+> > > > kernel just work out of the box because we never enabled some featu=
+re
+> > > > there?
+> > > >=20
+> > > > Apart from that the patch set looks good to me.
+> > >=20
+> > > This patch had a typo and does the opposite of what it should, ie. it
+> > > disables eDP fastboot on DCE10 and newer instead of disabling it on
+> > > DCE8 and older.
+> > >=20
+> > > The upstream fix is here:
+> > > https://lists.freedesktop.org/archives/amd-gfx/2026-February/138577.h=
+tml
+> > > which disables eDP fastboot on DCE10 and older.
+> >=20
+> > Not sure what the process is here. I make sure everything can be git
+> > cherry-pick ed. In that case, both should be present.
+>=20
+> I agree, I don't understand the problem here.  Just take the commits
+> that are upstream including "fixes for the fixes".
+>=20
+> Timur, what specifically do you want to see happen here?
 
-No practical impact, except when existing code is being re-used in new
-contributions.
+Hi Greg,
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
+It's up to you how you prefer to address this. I just wanted to call Rosen'=
+s=20
+attention to the above issue to avoid regressing the stable kernels.
+I'm happy with either dropping the patch or backporting the patch together=
+=20
+with its fix.
 
-I forgot about this one, so patch numbering is a bit odd 8/7 :)
+Thanks,
+Timur
 
- .../bindings/display/msm/qcom,eliza-mdss.yaml | 20 +++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,eliza-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,eliza-mdss.yaml
-index 47938d13d1ca..bd4ba91a171f 100644
---- a/Documentation/devicetree/bindings/display/msm/qcom,eliza-mdss.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,eliza-mdss.yaml
-@@ -119,7 +119,7 @@ examples:
-         mdss_mdp: display-controller@ae01000 {
-             compatible = "qcom,eliza-dpu";
-             reg = <0x0ae01000 0x93000>,
--                  <0x0aeb0000 0x2008>;
-+                  <0x0aeb0000 0x3000>;
-             reg-names = "mdp",
-                         "vbif";
- 
-@@ -304,7 +304,7 @@ examples:
-         mdss_dsi0_phy: phy@ae95000 {
-             compatible = "qcom,eliza-dsi-phy-4nm", "qcom,sm8650-dsi-phy-4nm";
-             reg = <0x0ae95000 0x200>,
--                  <0x0ae95200 0x280>,
-+                  <0x0ae95200 0x300>,
-                   <0x0ae95500 0x400>;
-             reg-names = "dsi_phy",
-                         "dsi_phy_lane",
-@@ -388,7 +388,7 @@ examples:
-         mdss_dsi1_phy: phy@ae97000 {
-             compatible = "qcom,eliza-dsi-phy-4nm", "qcom,sm8650-dsi-phy-4nm";
-             reg = <0x0ae97000 0x200>,
--                  <0x0ae97200 0x280>,
-+                  <0x0ae97200 0x300>,
-                   <0x0ae97500 0x400>;
-             reg-names = "dsi_phy",
-                         "dsi_phy_lane",
-@@ -407,11 +407,15 @@ examples:
- 
-         displayport-controller@af54000 {
-             compatible = "qcom,eliza-dp", "qcom,sm8650-dp";
--            reg = <0xaf54000 0x104>,
--                  <0xaf54200 0xc0>,
--                  <0xaf55000 0x770>,
--                  <0xaf56000 0x9c>,
--                  <0xaf57000 0x9c>;
-+            reg = <0x0af54000 0x200>,
-+                  <0x0af54200 0x200>,
-+                  <0x0af55000 0xc00>,
-+                  <0x0af56000 0x400>,
-+                  <0x0af57000 0x400>,
-+                  <0x0af58000 0x400>,
-+                  <0x0af59000 0x400>,
-+                  <0x0af5a000 0x600>,
-+                  <0x0af5b000 0x600>;
- 
-             interrupts-extended = <&mdss 12>;
- 
--- 
-2.51.0
 
