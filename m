@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 609EFD6AAEC
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 18:35:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D156D6AAEC
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 18:36:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C969B10F289;
-	Thu,  2 Apr 2026 18:35:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 021E310F28C;
+	Thu,  2 Apr 2026 18:36:19 +0000 (UTC)
 Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9B510F289
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:35:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2197B10F28C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:36:18 +0000 (UTC)
 Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
- by leonov.paulk.fr (Postfix) with ESMTPS id 9A2481F8004A
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:35:19 +0000 (UTC)
+ by leonov.paulk.fr (Postfix) with ESMTPS id 663401F8004A
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:36:16 +0000 (UTC)
 Received: by laika.paulk.fr (Postfix, from userid 65534)
- id 2CFC8B40126; Thu,  2 Apr 2026 18:35:19 +0000 (UTC)
+ id 7ED83B40129; Thu,  2 Apr 2026 18:36:15 +0000 (UTC)
 Received: from shepard (unknown [192.168.1.65])
- by laika.paulk.fr (Postfix) with ESMTP id 869C1B40127;
+ by laika.paulk.fr (Postfix) with ESMTP id F1C86B40128;
  Thu,  2 Apr 2026 18:33:52 +0000 (UTC)
 From: Paul Kocialkowski <paulk@sys-base.io>
 To: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
@@ -34,9 +34,9 @@ Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
  =?UTF-8?q?Krzysztof=20Ha=C5=82asa?= <khalasa@piap.pl>,
  Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>,
  Paul Kocialkowski <paulk@sys-base.io>
-Subject: [PATCH v2 1/2] drm: lcdif: Set undocumented bit to clear FIFO at vsync
-Date: Thu,  2 Apr 2026 20:33:50 +0200
-Message-ID: <20260402183351.3281123-2-paulk@sys-base.io>
+Subject: [PATCH v2 2/2] drm: lcdif: Wait for vblank before disabling DMA
+Date: Thu,  2 Apr 2026 20:33:51 +0200
+Message-ID: <20260402183351.3281123-3-paulk@sys-base.io>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260402183351.3281123-1-paulk@sys-base.io>
 References: <20260402183351.3281123-1-paulk@sys-base.io>
@@ -57,43 +57,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There is an undocumented bit used in the NXP BSP to clear the FIFO
-systematically at vsync. In normal operation, the FIFO should already
-be empty but it doesn't hurt to add it as an extra safety measure.
+It is necessary to wait for the full frame to finish streaming
+through the DMA engine before we can safely disable it by removing
+the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
+hardware confused and unable to resume streaming for the next frame.
 
+This causes the FIFO underrun and empty status bits to be set and
+a single solid color to be shown on the display, coming from one of
+the pixels of the previous frame. The issue occurs sporadically when
+a new mode is set, which triggers the crtc disable and enable paths.
+
+Setting the shadow load bit and waiting for it to be cleared by the
+DMA engine allows waiting for completion.
+
+The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
+
+Fixes: 9db35bb349a0 ("drm: lcdif: Add support for i.MX8MP LCDIF variant")
 Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
-Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
+Co-developed-by: Lucas Stach <l.stach@pengutronix.de>
 ---
- drivers/gpu/drm/mxsfb/lcdif_kms.c  | 3 ++-
- drivers/gpu/drm/mxsfb/lcdif_regs.h | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/mxsfb/lcdif_kms.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-index ef3250a5c54f..a00c4f6d63f4 100644
+index a00c4f6d63f4..0d04a0028671 100644
 --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
 +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-@@ -338,7 +338,8 @@ static void lcdif_set_mode(struct lcdif_drm_private *lcdif, u32 bus_flags)
- 	 * Downstream set it to 256B burst size to improve the memory
- 	 * efficiency so set it here too.
- 	 */
--	ctrl = CTRLDESCL0_3_P_SIZE(2) | CTRLDESCL0_3_T_SIZE(2) |
-+	ctrl = CTRLDESCL0_3_STATE_CLEAR_VSYNC |
-+	       CTRLDESCL0_3_P_SIZE(2) | CTRLDESCL0_3_T_SIZE(2) |
- 	       CTRLDESCL0_3_PITCH(lcdif->crtc.primary->state->fb->pitches[0]);
- 	writel(ctrl, lcdif->base + LCDC_V8_CTRLDESCL0_3);
- }
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_regs.h b/drivers/gpu/drm/mxsfb/lcdif_regs.h
-index c55dfb236c1d..17882c593d27 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_regs.h
-+++ b/drivers/gpu/drm/mxsfb/lcdif_regs.h
-@@ -190,6 +190,7 @@
- #define CTRLDESCL0_1_WIDTH(n)		((n) & 0xffff)
- #define CTRLDESCL0_1_WIDTH_MASK		GENMASK(15, 0)
+@@ -375,14 +375,23 @@ static void lcdif_disable_controller(struct lcdif_drm_private *lcdif)
+ 	int ret;
  
-+#define CTRLDESCL0_3_STATE_CLEAR_VSYNC	BIT(23)
- #define CTRLDESCL0_3_P_SIZE(n)		(((n) << 20) & CTRLDESCL0_3_P_SIZE_MASK)
- #define CTRLDESCL0_3_P_SIZE_MASK	GENMASK(22, 20)
- #define CTRLDESCL0_3_T_SIZE(n)		(((n) << 16) & CTRLDESCL0_3_T_SIZE_MASK)
+ 	reg = readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
++	/* Disable the layer for DMA. */
+ 	reg &= ~CTRLDESCL0_5_EN;
++	/*
++	 * It is necessary to wait for the full frame to finish streaming
++	 * through the DMA engine before we can safely disable it by removing
++	 * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
++	 * hardware confused and unable to resume streaming for the next frame.
++	 */
++	reg |= CTRLDESCL0_5_SHADOW_LOAD_EN;
+ 	writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
+ 
++	/* Wait for the frame to finish or timeout after 50 ms. */
+ 	ret = readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
+-				 reg, !(reg & CTRLDESCL0_5_EN),
+-				 0, 36000);	/* Wait ~2 frame times max */
++				 reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_EN),
++				 200, 50000);
+ 	if (ret)
+-		drm_err(lcdif->drm, "Failed to disable controller!\n");
++		drm_err(lcdif->drm, "Timed out waiting for final vblank!\n");
+ 
+ 	reg = readl(lcdif->base + LCDC_V8_DISP_PARA);
+ 	reg &= ~DISP_PARA_DISP_ON;
 -- 
 2.53.0
 
