@@ -4,103 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BC2FD39415
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 11:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B9CD39415
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 11:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9A8310F220;
-	Thu,  2 Apr 2026 11:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D454010F239;
+	Thu,  2 Apr 2026 11:48:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PdXx0zCQ";
+	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="W5a1lv0S";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F107710F21C;
- Thu,  2 Apr 2026 11:47:28 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D03EC6187D;
- Thu,  2 Apr 2026 11:47:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6DAC2BC9E;
- Thu,  2 Apr 2026 11:47:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775130447;
- bh=99VAfdHl+Bj5bZ3pxhunI8A11tobs0LZ/P7zVPnOdwo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=PdXx0zCQJHqYQtBueLXmbldvCaIK9pwrfTslNiOpL4tMDnaqOeveVImWfpd67w+YP
- YIU+l0lbGkc4RcuqU070eaarkr3ijBDBQrBKLVRNYXu5aQ9WZZeTfiiZSVQmDpTqoh
- twYlE2bQ5/kPf/In/V2xNReevXHpDq+JvJ6178LjuK71cOjVprtCk6WzhK0PyTPK2B
- gNQfakP4XuEY0j3FR3YKc4I7EriNfYFtPAzhj6OBTfGldNz/x3lZFWTbvZat07Q1w9
- nWmn3jEJVZrkjWsi9PZWLVZfyuiQQHqGEn5/sDBnCrseChsgrZa9C0LVfLeWdJKI/x
- 9oB7UWjlyb7ew==
-Message-ID: <4f7e45c8-d2fd-4d59-9298-9ac464d07009@kernel.org>
-Date: Thu, 2 Apr 2026 13:47:19 +0200
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C94010F240
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 11:48:24 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6326kx2h1128979; Thu, 2 Apr 2026 11:48:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ xpG6Cu6x0DLbK2fCQlZY8r8FMGd7+Z5GDMsj5vEk7Fs=; b=W5a1lv0SmlVzi5Y1
+ VgGEK88zsvOdKcDaZUwjI8J8kVj3zFkgmwwflQxF8H/FyCNHWDmuuiVBonJNzQRw
+ cp/QdAGgQDZBPmTijs9HAOFHYPDLQfDaPiFbbip44MCIQbHNK6lMqbwg47guKl/N
+ 7mrmKVZhmqNKaOm5MoRDRijIHbLH+bvB9WZZVLgedPuKUapxReM7Uji62+CI7oeE
+ zkVruHevcu/xzr7WDqP4xHUE3z+OLv4aG5Yyws5ea1r30TGNuNPHmFf3KQ6JUE8r
+ 1PXCrxgJ6n7/6KPqq7w7aSZ8vjbHO7mYUTz4Y1KksL1t5fqGSCKSNEOc0tDT1PCI
+ u0uJWg==
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d96k9bvg3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Apr 2026 11:48:19 +0000 (GMT)
+Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
+ [10.45.79.139])
+ by NASANPPMTA05.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTPS id 632BmIrB028841
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 2 Apr 2026 11:48:18 GMT
+Received: from [10.217.219.207] (10.80.80.8) by nasanex01c.na.qualcomm.com
+ (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 2 Apr
+ 2026 04:48:13 -0700
+Message-ID: <cd4b91f5-65b6-4506-b14f-735b68e63c37@quicinc.com>
+Date: Thu, 2 Apr 2026 17:18:10 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] qcom: display / dts: Few corrections of address
- spaces.
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH V2] i2c: qcom-geni: Avoid extra TX DMA TRE for single read
+ message in GPI mode
+To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
+ <mukesh.savaliya@oss.qualcomm.com>, <viken.dadhaniya@oss.qualcomm.com>,
+ <andi.shyti@kernel.org>, <sumit.semwal@linaro.org>,
+ <christian.koenig@amd.com>
+CC: <linux-i2c@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+ <naresh.maramaina@oss.qualcomm.com>
+References: <20260401101352.4065798-1-aniket.randive@oss.qualcomm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
+In-Reply-To: <20260401101352.4065798-1-aniket.randive@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01c.na.qualcomm.com (10.45.79.139)
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=doLWylg4 c=1 sm=1 tr=0 ts=69ce5783 cx=c_pps
+ a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=mJbE5N3llsyo5S9VNswA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 4k3cJ72lzlLULyTLEjCrCmKTKtrhyLVl
+X-Proofpoint-GUID: 4k3cJ72lzlLULyTLEjCrCmKTKtrhyLVl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDEwNSBTYWx0ZWRfX/OxJpWeVtSoM
+ u9MvPJlVhrAHHllJ8Q2GY0woVikA7g6IJS0/tSiJ52ZJQ/LdwUDavyDkEawIEAkAOFpIhGH5oLE
+ I1rQkCva0+dvHpO6fRpTV0MVX/9HGcmonxd+s2yQf6xg6XLP5/uiCX2vCCnCwKA/ErW6uCa2wzj
+ TEQf8X3dDwRyPiyXx8KsXqxuJX9LrzGlLmUfp6onqDPlV2/eZgAj6wtt9+zqn7msIEq83Sdf2Oo
+ Uh9qhpCPyS0vIOEK8hqSwlMFzzVoIZ4nEXgsCQTqbWXLCaMyhPpq30e98damxUukCakLYeiZZ1v
+ YgHAwX/XLsFbvEMPrd+ACOE2MeuMl+q0VybfUkxwZYtyL5NqSwk6I5unuSSvrerJjOOak+kUG/1
+ Wj3zs9R0oWAhYGGfAUJs7zBGJRO+c+Vq4gTwucpUr3sEPlA3t/WYOl3oFBd2YtFlLom2tSwCG4O
+ zot/a5W12ezcD/o/CeQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-02_01,2026-04-02_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 impostorscore=0 spamscore=0 suspectscore=0
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604020105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,26 +106,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 02/04/2026 13:45, Krzysztof Kozlowski wrote:
-> These do not have practical impact currently, but make hardware
-> description correct.
+
+
+On 4/1/2026 3:43 PM, Aniket Randive wrote:
+> In GPI mode, the I2C GENI driver programs an extra TX DMA transfer
+> descriptor (TRE) on the TX channel when handling a single read message.
+> This results in an unintended write phase being issued on the I2C bus,
+> even though a read transaction does not require any TX data.
 > 
-> Patchset can go via separate trees, but DTS should wait for bindings to
-> avoid new dtbs_check warnings.
+> For a single-byte read, the correct hardware sequence consists of the
+> CONFIG and GO commands followed by a single RX DMA TRE. Programming an
+> additional TX DMA TRE is redundant, causes unnecessary DMA buffer
+> mapping on the TX channel, and may lead to incorrect bus behavior.
 > 
-> Best regards,
-> Krzysztof
+> Update the transfer logic to avoid programming a TX DMA TRE for single
+> read messages in GPI mode.
 > 
+> Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
+> Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
+> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
 > ---
-> Krzysztof Kozlowski (7):
->       dt-bindings: display/msm: dp-controller: Correct SM8650 IO range
->       dt-bindings: display/msm: dp-controller: Allow DAI on SM8650
->       dt-bindings: display/msm: sm8650: Correct VBIF range in example
->       dt-bindings: display/msm: qcom,sm8750-mdss: Correct DPU and DP ranges in example
+> 
+> Changes in v2:
+>    - Updated the commit message.
+> 
+>   drivers/i2c/busses/i2c-qcom-geni.c | 18 +++++++++++++-----
+>   1 file changed, 13 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
+> index a4acb78fafb6..2706309bbebb 100644
+> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+> @@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
+>   {
+>   	struct gpi_i2c_config *peripheral;
+>   	unsigned int flags;
+> -	void *dma_buf;
+> -	dma_addr_t addr;
+> +	void *dma_buf = NULL;
+> +	dma_addr_t addr = 0;
+>   	enum dma_data_direction map_dirn;
+>   	enum dma_transfer_direction dma_dirn;
+>   	struct dma_async_tx_descriptor *desc;
+> @@ -639,6 +639,11 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
+>   	gi2c_gpi_xfer = &gi2c->i2c_multi_desc_config;
+>   	msg_idx = gi2c_gpi_xfer->msg_idx_cnt;
+>   
+Add an explicit comment explaining this condition.
+e.g. Read message causing write operation. something like that which 
+justifies the condition.
+> +	if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
+> +		peripheral->multi_msg = true;
+> +		goto skip_dma;
+> +	}
+> +
 
+[...]
 
-Uh, 2 seconds after hitting send I understood I forgot about Eliza
-bindings which were merged. <crapity crapity crap>
+>   err_config:
+> -	dma_unmap_single(gi2c->se.dev->parent, addr,
+> -			 msgs[msg_idx].len, map_dirn);
+> -	i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
 
-Best regards,
-Krzysztof
+same as above
+> +	if (op == I2C_WRITE && (msgs[msg_idx].flags & I2C_M_RD)) {
+> +		dma_unmap_single(gi2c->se.dev->parent, addr,
+> +				 msgs[msg_idx].len, map_dirn);
+> +		i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
+> +	}
+>   
+>   out:
+>   	gi2c->err = ret;
+
