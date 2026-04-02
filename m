@@ -4,152 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F9BCC6B33
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:41:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D2F8CC6B33
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C84A010EFFA;
-	Thu,  2 Apr 2026 08:41:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8B6610F1B4;
+	Thu,  2 Apr 2026 08:47:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BJt44dr/";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C3mpkmjJ";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Y3nDwJQq";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F64A10EFFA
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 08:41:54 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6326qrRZ4009749
- for <dri-devel@lists.freedesktop.org>; Thu, 2 Apr 2026 08:41:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 0IbQWlYWo+noHc0aenssJgU60HYSp3RE6rMEPE72jcg=; b=BJt44dr/mmxhctc2
- iVXAVEtKBlF+i/g+M9vvEmNxo4Z91vH1GAOtvUGvc+9Ap1pgGiHArCj3JhSU4tdO
- 1LbBr8Uzc/86RUIaUXhjZKdvo2UV8AucXHW6EsWOWa56WnYxoygbCyeZ9fX/U2+f
- RVEeX7qEcWBsRhef46gCHcLxnHmYrEJ73umyG6Oz/p5Ic2te8BKSNGId9hbClOoj
- IMw99rg+ZDanloFIP1H5A+RiDcfBkLPgsKoMu89veT/gvq+Arpuot8W35yhMhTcr
- 5x075IQ/Ny3eqx4ahGfKvTVIp0SvCCRwQoWLObPsjLtc9D6HwwXc2aqF1n+g2fkJ
- 80Lfng==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d97e032vb-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 08:41:53 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2b24e45271cso6303255ad.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 01:41:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775119313; x=1775724113;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0IbQWlYWo+noHc0aenssJgU60HYSp3RE6rMEPE72jcg=;
- b=C3mpkmjJc8zvsmiGUtSSIdHLhCIzAvLS0flfk57xWPt9m9fNk8t+yyJb0OFMLSK8T+
- bjPhAvEpvjIuqg9TLNw8dAR7MsiYxQOgjpJF4Y+AhBRLcmH2gI0wOTIjBwVOwhPt0y9T
- A4oir04aTbm5N4EBZD7rvzx9hQv7LkFxq1RN+Vwcm7eofQ+RaLJX/TtGoY5KJ0r0/37X
- QRQ3EEUm1ujlVYH1fCL7sOUjQHd9REQ3z5+JMOmuSFOeYyjjJzfCXsjG9DV+M/HYQ5Ml
- 3rmTVRHfpWWihel09yS5czXCOkINCw/878bFsHCH3d/PsD/Rf3yi9l7D/+Zv35qnBuS8
- 7VLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775119313; x=1775724113;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=0IbQWlYWo+noHc0aenssJgU60HYSp3RE6rMEPE72jcg=;
- b=IUnc1TgqX7CIlINAv3d/LSPQGqwhkixiK5MHbCaMyQmMWx3XoA6V70AJxh1i5jn01b
- H2wqni3anx9RIyUXEBjk3J2P9/DTnfUPwivCfW1JAtqBrdY3lN6NOuEiTd3l3FrOUm1I
- azVVvvCGXdwJvzViT8y0l2GmjNXI4NnLNMCmjUTQ9h+Ddk7ZurkIvQOI5bME2jaTOvLi
- RvxitCf/pyDYwwkd7MpLPjQTOnjv1lm5uIu31y8ZzcSdHyXisUi5giJjlmk9uL88j+yf
- 4vj8QS7ClIqZLGoQjuCgy/pX0PjOHgCd51FyyhyuUN1oWEi4UPW1A4HyoKwr0z9i2SBG
- ll4w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXmkTZx0K6mb3xd2ox+znPy0tRLdbkXU6EiH3W+JUemF8TYbTemB87PPdGlPqVm4mOdF/KaVb/1mKY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxVjqVgRd+N+YCwGJLzI5zUeUsVkP9onS7zEJd88lg4DL0wzLUq
- W7HLdmV+47kYdCkFsX3/WfujOyaUvGLGitWHGeZ9H0sWX8+D7dLUCvKMM4ArfWOTL54M4wFe4AT
- qlo83nijZR2e1QnSaWnV6Ilzw7MKkv//28BQAzSLGs8/87yESp30Qv+PfaiyX+78uZGSYVuw=
-X-Gm-Gg: ATEYQzyhpuyMMF5nPP6JlyZNE+W2X0k/yyfz6yJSiNo58FxokP2Vl+34O2FrIpkwvtd
- zLLPmcAVop7iIBWmWrq8f+ZPv/arPzjSCgtfdNxJq1/CEDLk8UcaMakwiMizfSQOP4gVEaSiMQX
- xlvL621OZl6vuvR2rjkCHyL+R0pql1N7VVkKpjaqMHPo7BIXDtZ+WnI1+sv4PYI1CeBac2y46PQ
- fqZc5RnKqw9MXRjHoFzzimhcGuqgt1bT4OBT4C74w3rzmlXY9yXSBDH9J2K3yJOs9g8aBDARfZY
- JkakeBfn1GwrVh9RYYZVQs2oMUrfPs0dDjbHp7Q1kmVJ5JTo5R4ZH+PREAlok7E3Rnnq5Xqn3CQ
- gZjAL4hT9BtY53xeq8ns7ZbRWkiyayMB2eHow57w2hpjKHrk1DeII
-X-Received: by 2002:a05:6a21:32a4:b0:398:ab13:b990 with SMTP id
- adf61e73a8af0-39f10c7c014mr2804459637.34.1775119312660; 
- Thu, 02 Apr 2026 01:41:52 -0700 (PDT)
-X-Received: by 2002:a05:6a21:32a4:b0:398:ab13:b990 with SMTP id
- adf61e73a8af0-39f10c7c014mr2804434637.34.1775119312125; 
- Thu, 02 Apr 2026 01:41:52 -0700 (PDT)
-Received: from [192.168.1.14] ([110.225.167.58])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c76c65a3f08sm2076441a12.31.2026.04.02.01.41.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Apr 2026 01:41:51 -0700 (PDT)
-Message-ID: <7f349ca9-60d4-46bf-acec-84ded1da29c9@oss.qualcomm.com>
-Date: Thu, 2 Apr 2026 14:11:43 +0530
+X-Greylist: delayed 447 seconds by postgrey-1.36 at gabe;
+ Thu, 02 Apr 2026 08:47:49 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [185.244.194.184])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C69F10F1B4;
+ Thu,  2 Apr 2026 08:47:49 +0000 (UTC)
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+ by relay01-mors.netcup.net (Postfix) with ESMTPS id 4fmb041Nyyz99lM;
+ Thu,  2 Apr 2026 10:40:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1775119220;
+ bh=b7IYk2CCpldXfIysblUswTo2KkLaHsOSsojnuIXRDP0=;
+ h=Date:From:Subject:To:References:Cc:In-Reply-To:From;
+ b=Y3nDwJQqb+LeqhNodKwJx3cPwINl8MpTKS9WDx7UZXP4TDJm+v9/iGpio6vAOzOp7
+ eQ3yc/uPTkZxWAg8ljxJHCulaxNuo7qK46UV3ZNVJjL+7ViKKfIwXCjs3GZ4d1uc4i
+ KXNWa+6CJjQiIf3YSsodVF5/jMkeUkSAL7BINgyJOX586Kt7mJrBPZ28zJQFuTVCI6
+ JgwcBf0HdKocK485Lkr1uWC1jb4E+DkvUEDMYnq1P+vHhrVLk1tJOlojApPhGp6aAW
+ 9Io7o4zDDioGh8qVZrcQbXuPje0Z+owOLJpARfTCzW2dKXlB2a+ooBUDOTXXfjo1xG
+ ApKeRXAQVr+5A==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by relay01-mors.netcup.net (Postfix) with ESMTPS id 4fmb040gSnz7wYj;
+ Thu,  2 Apr 2026 10:40:20 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4fmb01579bz8sbl;
+ Thu,  2 Apr 2026 10:40:17 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 01A3E635B4;
+ Thu,  2 Apr 2026 10:40:16 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <47c508c3-3424-4e8a-a63c-1f29d13b6ebe@leemhuis.info>
+Date: Thu, 2 Apr 2026 10:40:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 01/18] accel/qda: Add Qualcomm QDA DSP accelerator
- driver docs
-To: Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>
-References: <20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com>
- <20260224-qda-firstpost-v1-1-fe46a9c1a046@oss.qualcomm.com>
- <e94ce683-d47c-4c8e-8b26-cd327c891cc8@oss.qualcomm.com>
- <5a278b02-f2ad-408b-b0ad-f2297817bd7e@oss.qualcomm.com>
- <opjniedtfhkv7vlb57g3xyikcfkxelthx3lmspmypws4vxz4oc@4uypmmf4t6fb>
- <4e4b50fe-1091-451e-b854-f7b061ebd88d@oss.qualcomm.com>
- <jmv4jkwku5x5acxno3vyar4cozl3makdz6vzdyjsitf2vtyhp6@cxtl7zmaayvq>
- <3f06453a-ac7e-46e0-8d37-e0f9980b438d@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <3f06453a-ac7e-46e0-8d37-e0f9980b438d@oss.qualcomm.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Regression fix for audio issues with pre-DCN401 chips (was: Re:
+ [pull] amdgpu, amdkfd drm-next-7.1)
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ airlied@gmail.com, simona.vetter@ffwll.ch
+References: <20260401184456.3576660-1-alexander.deucher@amd.com>
+Content-Language: de-DE, en-US
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260401184456.3576660-1-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fdGgCkQF c=1 sm=1 tr=0 ts=69ce2bd1 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=GstQyB7T1i92F5dDEt+vJw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=Ny-Kw3UXgnDAMZ4gig0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: zyQtRso3bVK0ncgclRSDhSi36-fZxPjN
-X-Proofpoint-GUID: zyQtRso3bVK0ncgclRSDhSi36-fZxPjN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA3NyBTYWx0ZWRfX9jwQj31rum/S
- +92YOcx+b2mJHox42sgOneUT1Hww50WPwGxLggdf5YuGr3BnlIvjaeMJHcVs6bno1IHaLAtIm23
- 8ad2rPA7e9JuGHQ5pzQqJFdYR1Aqp0RtMtejNabj9FrbSWvBcV/Zd0msOFn739U969oao0siBu/
- puLUmi0qPBoHpG1ZXNRPTtZhHVux3q7MXefEShoE5WKaqcfGNdm5EbURgf1/Hp/Hcgg/IMrcKq/
- riz9nqZMTVEgwwGWBBXXFjncE6QfAvGJ9fhiyExmfOH42iYdayNqL4vJPAYBsil8PZ+AkQFU8cq
- cBJxKX1Jaor7FJhS/XR1NfsDOUySpE52F8EsDMekOwDak4F3WqtPlHr6s6NGctQMiGg1qDv4hwY
- erXxOdebR1bCirl5IUsTM8td8FccvWIinDF5jriE3jnbjm7sNtr0aa0wTcXt4BVN2ImC5t0FRSV
- z1mPugKVZ/46arWiT6A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-02_01,2026-04-02_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- malwarescore=0 impostorscore=0 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604020077
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <177511921734.1118730.14775591535665344992@mxe9fb.netcup.net>
+X-NC-CID: HXD6nnGI0L3eL6adBXj/cKAE12weFgoTISz9rOMsO/HdM7XzJFI=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,105 +84,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Lo! Me again, sorry for pestering you folks about workflow issues again
+after doing so just a few weeks ago. :-/
 
+On 4/1/26 20:44, Alex Deucher wrote:
+> 
+> More stuff for 7.1.
+> 
+> The following changes since commit a51973c5dff8a0f01cc7d1b2007306ea0004fa16:
+> 
+>   Merge tag 'drm-xe-next-2026-03-26-1' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-next (2026-03-30 06:04:59 +1000)
+> 
+> are available in the Git repository at:
+> 
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.1-2026-04-01
+> [...]
 
-On 2/26/2026 4:48 AM, Trilok Soni wrote:
-> On 2/25/2026 11:40 AM, Dmitry Baryshkov wrote:
->> On Wed, Feb 25, 2026 at 11:16:26AM -0800, Trilok Soni wrote:
->>> On 2/25/2026 7:12 AM, Bjorn Andersson wrote:
->>>> On Wed, Feb 25, 2026 at 07:47:08PM +0530, Ekansh Gupta wrote:
->>>>>
->>>>> On 2/24/2026 9:03 AM, Trilok Soni wrote:
->>>>>> On 2/23/2026 11:08 AM, Ekansh Gupta wrote:
->>>>>>> Add initial documentation for the Qualcomm DSP Accelerator (QDA) driver
->>>>>>> integrated in the DRM accel subsystem.
->>>>>>>
->>>>>>> The new docs introduce QDA as a DRM/accel-based implementation of
->>>>>>> Hexagon DSP offload that is intended as a modern alternative to the
->>>>>>> legacy FastRPC driver in drivers/misc. The text describes the driver
->>>>>>> motivation, high-level architecture and interaction with IOMMU context
->>>>>>> banks, GEM-based buffer management and the RPMsg transport.
->>>>>>>
->>>>>>> The user-space facing section documents the main QDA IOCTLs used to
->>>>>>> establish DSP sessions, manage GEM buffer objects and invoke remote
->>>>>>> procedures using the FastRPC protocol, along with a typical lifecycle
->>>>>>> example for applications.
->>>>>>>
->>>>>>> Finally, the driver is wired into the Compute Accelerators
->>>>>>> documentation index under Documentation/accel, and a brief debugging
->>>>>>> section shows how to enable dynamic debug for the QDA implementation.
->>>>>> So existing applications written over character device UAPI needs to be
->>>>>> rewritten over new UAPI and it will be broken once this driver gets
->>>>>> merged? Are we going to keep both the drivers in the Linux kernel
->>>>>> and not deprecate the /char device one? 
->>>>>>
->>>>>> Is Qualcomm going to provide the wrapper library in the userspace
->>>>>> so that existing applications by our customers and developers
->>>>>> keep working w/ the newer kernel if the char interface based
->>>>>> driver gets deprecated? It is not clear from your text above. 
->>>>> Thanks for raising this, Trilok.
->>>>>
->>>>> This is one of the open items that I have. I'm not exactly sure what would be the
->>>>> acceptable way for this. 
->>>>>
->>>>> As you mentioned, applications that rely on /dev/fastrpc* might not work on QDA
->>>>> without modification.
->>>>>
->>>>> I was thinking in the same lines as you have mentioned and  having some shim/compat
->>>>> driver to translate FastRPC UAPI to QDA. The compat driver would expose the existing
->>>>> character devices and route the calls to QDA. The compat driver could be built via Kconfig.
->>>>>
->>>> This is a fundamental requirement, you need to address this in order for
->>>> this to move forward.
->>>>
->>>> Which makes me wonder if it would be possible to reach an accel driver
->>>> through incremental transition of the current driver, instead of just
->>>> dropping in a few thousand lines of new code/design.
->>>>
->>>>> However, I haven’t encountered an example of such a UAPI‑translation driver in the kernel
->>>>> before, so I would want guidance from maintainers on whether this is an acceptable
->>>>> model or not.
->>>>>
->>>>> Regarding your question about library, all the APIs exposed by github/fastrpc library are kept
->>>>> unchanged in terms of definitions and expectation. The same project can be build for both
->>>>> FastRPC and QDA based on configure options. So, the applications using github/fastrpc should
->>>>> not face any problem if the libs is built with proper configure options.
->>>>>
->>>> You're assuming that the kernel and userspace are a unified piece of
->>>> software, they are not. It must be possible for me to install a new
->>>> kernel package without having to replace the userspace libraries.
->>> Thank you Bjorn for providing the inputs. 
->>>
->>> I also foresee that we will be stop adding (or already happened) new features
->>> into the existing fastrpc driver, so calling the new driver as an alternative
->>> is in oversold category.
->>>
->>> You are pretty much began the deprecating the existing fastrpc driver, so let's
->>> just mention it if that is the case and provide migration/shim path so that
->>> existing binaries doesn't break.
->> I agree that we need a migration path, but I'd really focus on it after
->> getting at least basic parts of the QDA reviewed and agreed upon.
->> Otherwise the shim layer will be reworked again and again with no
->> immediate added benefit.
->>
-> I am fine with the review to be continued, this is RFC series anyway. We should also decide
-> the design of the shim layer here as well. I prefer to not have multiple
-> RFC revisions here if we don't agree on the basic requirements which
-> leads to acceptance of this new driver. 
+I noticed that this lacks "drm/amd/display: Wire up
+dcn10_dio_construct() for all pre-DCN401 generations", which is a fix
+that was posted 10 days ago[1] for a 7.0-rc1 regression that at least
+three people hit[2]; a fix that now seems to be in "this week's display
+driver promotion cycle before merging"[3] at AMD.
 
-Just wanted to provide an update here, I'm currently working on a new
-version of this driver with majority of comments addressed.
+Is this delay really needed / worth it for a regression fix at this
+point of the our devel cycle?
 
-I'm thinking of including limited functionalities (say, init, gem_alloc, invoke)
-as of now along with a minimal compat/shim driver.
+And yes, I understand that this might be shared code that AMD wants to
+test internally first. Still asking, because at the same time it would
+be nice to (a) fix the regressions rather sooner than later and (b) not
+fix in the last minute.
 
-The compat driver is currently planned in the same drivers/accel/qda path which
-will be exposing same interfaces(device nodes and ioctls) as fastrpc and simply
-route the calls to QDA. Please let me know if you see any concerns with this. I
-can rework my approach before sending the v1 of actual patch series.
+Are "pre-DCN401" chips even tested in this "driver promotion cycle"? And
+how often does it find problems anyway? Can't we just apply the fix and
+revert it quickly later in case AMD find problems (yes, I understand
+that this complicates things, but I wonder if that might be worth it if
+this is rare)?
 
-//Ekansh
+Ciao, Thorsten
 
->
-> ---Trilok Soni
+[1]
+https://lore.kernel.org/all/20260323211343.263909-1-sunlightlinux@gmail.com/
 
+[2]
+https://lore.kernel.org/all/CAOKSTBs1VNBdjRZe3M2v-nC%2BpLZZ0-KQtRUZUj6ACqb4Xe7LDg@mail.gmail.com/
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5052
+
+[3]
+https://lore.kernel.org/all/22eb66d8-b74a-4e0a-9851-7e39c7f950cd@amd.com/
