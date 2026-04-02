@@ -4,63 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BFEAD39415
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 10:48:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C80D3940D
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 10:51:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B4C10F108;
-	Thu,  2 Apr 2026 10:48:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 269FC10F165;
+	Thu,  2 Apr 2026 10:51:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QEjn/4M1";
+	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="CFJ+T+BT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6008910F0F1;
- Thu,  2 Apr 2026 10:48:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775126887; x=1806662887;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=7qL/SF8P7OvcTsWNyXtwkAHNZz6h+NNR0jfEf+YTwP0=;
- b=QEjn/4M1Css3BDBLyURojjdUgnW0DOxiu81xbccyWGKhwM5jaUG2uj5R
- hTXubzV0vizHsH2yBMARkPYvzeRkJkbDVKbdndidnWhr4MqFe80ywxps1
- ajxmUKIvKnebW0jOZUgEdlRyBKGPjXG5plNO4jjFNxHWpC29AOdCM8ruA
- cjmRa1o0ViTXxvyMeiMzwu8hT8VibhjwzPc3cD82wxhu159aH65virSb6
- gkgOfFwvyaF2jD9332lTIv8aiRz9QD4Ur8f57/staA7PxYxWuuJoN38EE
- s1kiUpzXWHSV7bkYgYmMCsz7WjL/ZYrsgqZob61mKJq4Aosx7hS53DSZy Q==;
-X-CSE-ConnectionGUID: egkmHgDtTEG9gTnDoKQ7+g==
-X-CSE-MsgGUID: DUwtxtQAQaiXB2tcyU7rZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="101635955"
-X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="101635955"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Apr 2026 03:48:07 -0700
-X-CSE-ConnectionGUID: v8yEbjqzS46F3u1+q1SDUA==
-X-CSE-MsgGUID: 7czss89nTxylbr16SgZAaQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="226920435"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.61])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Apr 2026 03:48:04 -0700
-Date: Thu, 2 Apr 2026 13:48:01 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jouni.hogander@intel.com,
- animesh.manna@intel.com
-Subject: Re: [PATCH 19/23] drm/i915/dp: Set relevant Downspread Ctrl DPCD
- bits for PR + Auxless ALPM
-Message-ID: <ac5JYcs5eP31T7Bi@intel.com>
-References: <20260402080425.548702-1-ankit.k.nautiyal@intel.com>
- <20260402080425.548702-20-ankit.k.nautiyal@intel.com>
+Received: from TYDPR03CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11023078.outbound.protection.outlook.com [52.101.127.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9B210F13D
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 10:51:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MkFixaGDdw+uTFKzwxSY9Kb5aELrFTcs03Wy3+L1SdHtduivZEJYA8bMEvKzK9qd+iL9P6jhIm13DeUKAM1pCArW1pNiUFsYeJx6Kj/wqkmPa+BLK+DpNGNLL5YgZRvWRrdyc5Ht54bXXyGJtdVKBOOU09rAFNcCERD5M9cXO2OrMXQmTDeV9hM1cPwoF4pI2ftIxhNSgjUuWxe48BBXq7I4LHIdf0iuKwxwlafnsuwhh9S+Bf7KK9yPhyGupK+GktIDMnxMyGLVFnHbHjY3HCjsss47mWyzdICP5dTKS2P7dWYXX87ISn6lXco5remSHPjCDh4wd9DHziFPSgNCSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VI2MSTo9zpN6C28iFiXOn3n95MKHT5Mpuz7NBG5gLPA=;
+ b=mxTkHIR6+cI+0veIwg27GEDYlL5PRwYNGHRlt9hEno3+7gOgAthQTVF6JDhMFCMlAxQb7FyBEsVwQ3JogqaF7xk+ZOl15o14WotdmWRJSX0W6zhA6LRnOX15gxH6N526FWvdcPPwdL2IO9U9G2BTocvm4BvTvzItBs3iJP2YoxjMYxzt0fXMvlWXKtd8r8R4M8k06VUjUf3LLCH7znHOGNOWyTObhLFYdg1LaCMIU7Hi6/wuan3c8V8UpMdcBzLJUgX+37IdeRf0V5oSfquYu2VGyuZwL93KROTEtr70LiBNfM/v0SLugL/23U1TnVnw0yDdHusnPDgcIZ4cqlttxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VI2MSTo9zpN6C28iFiXOn3n95MKHT5Mpuz7NBG5gLPA=;
+ b=CFJ+T+BTM4FykVb9JcpOI5xDujnEFWsvvScrbLjFSqrEILRWAL60CWNxv7HT2NraEnWE5nw+bqfnwLUyKWaDyCQOLByqvITSnu6ARD0wX2LLtuxR5UKvNPfzRc/PJmoFET8RXxEuGva13ZUNyv+ayNMxtxHdA6hjmhc5f1kXm1A=
+Received: from KUZP153MB1444.APCP153.PROD.OUTLOOK.COM (2603:1096:d10:36::22)
+ by SEZP153MB0695.APCP153.PROD.OUTLOOK.COM (2603:1096:101:92::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Thu, 2 Apr
+ 2026 10:50:56 +0000
+Received: from KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
+ ([fe80::c9fa:b931:702:dbac]) by KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
+ ([fe80::c9fa:b931:702:dbac%5]) with mapi id 15.20.9791.007; Thu, 2 Apr 2026
+ 10:50:56 +0000
+From: Saurabh Singh Sengar <ssengar@microsoft.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, "javierm@redhat.com"
+ <javierm@redhat.com>, "arnd@arndb.de" <arnd@arndb.de>, "ardb@kernel.org"
+ <ardb@kernel.org>, "ilias.apalodimas@linaro.org"
+ <ilias.apalodimas@linaro.org>, "chenhuacai@kernel.org"
+ <chenhuacai@kernel.org>, "kernel@xen0n.name" <kernel@xen0n.name>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "airlied@gmail.com"
+ <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, KY Srinivasan
+ <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
+ Long Li <longli@microsoft.com>, "deller@gmx.de" <deller@gmx.de>
+CC: "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "loongarch@lists.linux.dev"
+ <loongarch@lists.linux.dev>, "linux-efi@vger.kernel.org"
+ <linux-efi@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+ <linux-riscv@lists.infradead.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-hyperv@vger.kernel.org"
+ <linux-hyperv@vger.kernel.org>, "linux-fbdev@vger.kernel.org"
+ <linux-fbdev@vger.kernel.org>, Michael Kelley <mhklinux@outlook.com>, Saurabh
+ Sengar <ssengar@linux.microsoft.com>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: RE: [PATCH 1/8] hv: Select CONFIG_SYSFB only for CONFIG_HYPERV_VMBUS
+Thread-Topic: [PATCH 1/8] hv: Select CONFIG_SYSFB only for CONFIG_HYPERV_VMBUS
+Thread-Index: AQHcwo6UUBvHYaEr8EK6Q8BbiI9woQ==
+Date: Thu, 2 Apr 2026 10:50:55 +0000
+Message-ID: <KUZP153MB14449BBE44CBAEEA7621A4A0BE51A@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
+References: <20260402092305.208728-1-tzimmermann@suse.de>
+ <20260402092305.208728-2-tzimmermann@suse.de>
+In-Reply-To: <20260402092305.208728-2-tzimmermann@suse.de>
+Accept-Language: en-IN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=18bb24b4-8011-4e12-840f-c00cb01f033d;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-04-02T10:50:33Z;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KUZP153MB1444:EE_|SEZP153MB0695:EE_
+x-ms-office365-filtering-correlation-id: e877716d-0112-41b9-009e-08de90a5b777
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|18002099003|22082099003|56012099003|38070700021|921020;
+x-microsoft-antispam-message-info: SdvUNrGWjKzVIi0jcfhE88EgvkVPpvZjp5M7KULTg6vT9b35NBZ8AEqaVT0Tkk9vdyBpCxmtOkwcKfVkbWXdN0PUsAMIQOp640wFoCk+Og76/j5cs7ZPp2v2w7ZtiLMhXYKek4MDOVpMHs7ua+YHuDZxbfPyjxDwnipZIj+ViN+owrZF6iP5IlqmV9DrfOdW9LDK+lW1yaE3w5TkN6HbFBW8XdMoHU39a+ayo7Bojgl2kY2sRXZGOFSTr6cCMbaWhxDmUKUnhYhIvfF1Wnw74jGG52tnYxibb6x1jc3PFli1lS0tTOkRgDWg7cQfX3cKhHnDORsARR7xsc4cVAeBpk6WfqVtpU6pQOPr5G72mNnRr5IbaSYX4pXnkfdvUuT6+bkDE9+eQqadNQ5/SC/AsJ5nbr1eTyD/iYNzDNb55B3a4kKrEMOFbKiQIh1xFSYmwKJX2uBhMFacJJ3Zk3/ReUegHjUEX54zd+YEIO46Yh7NEP6HJ9FbVpPT5zmgrs84FCqs9iuuYaxHCEdano71Z5sTZofNhusZHi0SQXz4HgKfR+eK06Pq1NGOXO6iz6B3jl6X64jDqszQBtGWLj0xikzq57buLHyioV0rjB4KNj9/rNqptMQHWIbLit57pAGhm1ibyYBM+KsXSdIcutrAmSFXAUIxTVmsqG8SghYp+CT5Gjyj3FCZMye1gQX36+OsQwQHIP0xO9qdjmMR4aWKbh+K16NgPy/XGIuiJjnN5Eh54yE7MWsX8f12uyCujmwNXj8ZDk5kCJ+LxH9nEBdmn59YJ/dyrYEKhLYTOhSd/iqy9g+4Pxv57b7o6tQIVPhh
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:KUZP153MB1444.APCP153.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(18002099003)(22082099003)(56012099003)(38070700021)(921020);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iSJG7Ki3w/6dKAPOpBCKrVR/kp2H/0uLYC04t5WwHmON41CSLhBEJjwbX7yc?=
+ =?us-ascii?Q?AgzW9ZOP4ZJuKXfWVwmLd5ypp2jYq90uWNGza+TbZ7d8BnP9lnJqYW7KfLXF?=
+ =?us-ascii?Q?meDgY/tMXVEG9kwG5vHWqSWwSUU40BJUjsxFdKz7dlQq/raMld3rxijHFUiN?=
+ =?us-ascii?Q?OoyniSC+OyPvmXU7sHkqp6PNnOFzusH25mIzlMh54x0hAE5b3KKAVg5Euv7/?=
+ =?us-ascii?Q?uaBpStNA8Ma2KwxN8e4sy2b44NzZz+RR4wXU33LiyHmiP3zjAwznw044MgdA?=
+ =?us-ascii?Q?aYFst3K1AA2vtZffdDzFqJQ4qcF+WslTiOffOS4/e8cUtjIx9YdWKjBpWPw5?=
+ =?us-ascii?Q?lcZz3J1cA9c3+HAyRCueoO2BOvVVN4n1bk2jq644hA7ZDOfRkJZ1lun59JkD?=
+ =?us-ascii?Q?90rbaJGH7yoeV2N15LYFJLPIFgb/bI4tjfSFbJfe/5DCaNhYnDDXcA1nsu5w?=
+ =?us-ascii?Q?4Q7o9f2LxdLjfEyKGpfOCmuyU3KnAmU5Di413oMjdZEZFju77tnpfgO29MSE?=
+ =?us-ascii?Q?09+L0M4HWrX5NgzFKxlN8gOaUX2ShqhHj66fz9R4y64+Cs0KJ5nDzy8rNn/8?=
+ =?us-ascii?Q?y0erizoNJ7DjX+YbU9kJyyu1K0mHx+zzmxAYxeVTL34uWn2B7lxma3prBgOy?=
+ =?us-ascii?Q?yLUV1krIAalsVm7Z58q21aYrNYR6ORwhScAzEDkuE/L3En3wz8leHMq5luiK?=
+ =?us-ascii?Q?xKfcrv0RVxGHq4+xfDkS+j18SV2z242itwOfJTuxehsTktAjKKd/nsa5TMSB?=
+ =?us-ascii?Q?SfpgQyL/j46qm8DXgyismp84cqn5QXSt04d82FvcOdOIyEBNz8ZwuuoIl1kD?=
+ =?us-ascii?Q?Eca/8YgO81o4mo9lrmAOlLONhPTyrpkcJQfqZHzcoxwKfr//tHnFWz8FLmMb?=
+ =?us-ascii?Q?wyzrus7RIwpaa5+l4d7P0oopfUyI+l0JlyTC3aUPSt9GWxRi3YJ5oAHrfWoB?=
+ =?us-ascii?Q?ncy7f2ruU3K6EJFdaS8Zxn12FnIahFlHZtLZDowRxgm1pBJjivKeWUaJHY1b?=
+ =?us-ascii?Q?biEk6vKep1X2Gw6Nia22TpfuRJKRvCi2ZlFnUBM1PZ3qEJi9emB4if3Xw49/?=
+ =?us-ascii?Q?vhDX2yj9YvtdvTSpQG9nQD4WZLkdTcCkF2Q1qLLmW+Fl7gqjmAcdumGcFVjn?=
+ =?us-ascii?Q?L/6kdohQWqUe5/uihCnl3kaejbZZ/WgiW6smK13ETt5KQiGl+RWLFoRsUhji?=
+ =?us-ascii?Q?DiMnVR5ZdmLYMtEYAKJGOBoCL8V+cjzzOe/ytyLHxsd/tUvogGqQlSSNR2Ma?=
+ =?us-ascii?Q?0R9kEVP1Ajy0vEkwYyEjiLKPjm+kZibnmxm30Gyrh8StJ14VncvMaE49FuYE?=
+ =?us-ascii?Q?G+Ff6z5b0INzFNBNpktu1ST2Je3UYL7Vkzl4rIt52cklVc18IgSyI8omSRZr?=
+ =?us-ascii?Q?9JUwTCeDmXx2KkeKB2BimaMA+XJGDhrLVjHhuVDEEEQhiG7DsYSxodL3TrBm?=
+ =?us-ascii?Q?WOLxye8t9fyh7B1nCHg3/+2B3zvJv3Lb7+JzhbWyWfUaeBUwtSzybGz9QCor?=
+ =?us-ascii?Q?KSaJskktcf/eWSe2hKA+RPndW4NZNPJj/GQrMpHnRwBZOl+WivaVNbCo/XZ9?=
+ =?us-ascii?Q?oK+y/EkdnJM0yE0/2ZmV9c7iZu0sL/9oWBzEcCmp+8w1NV/QZX3ziKtUAFOC?=
+ =?us-ascii?Q?rL5hAV0Fhn+ObMf+C1I9nzWxozBclwuSH+c876KnyuDP?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260402080425.548702-20-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: e877716d-0112-41b9-009e-08de90a5b777
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Apr 2026 10:50:55.5076 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DIiXXMppZYPpOHdRHZ+nRFdZXYEpZs5V01ntxE7smqq1+dJGbx3NWf0fQz1aklgukmKcm3EdTfP6h0Aoox3ycg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZP153MB0695
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,122 +153,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 02, 2026 at 01:34:19PM +0530, Ankit Nautiyal wrote:
-> If a Panel Replay capable sink, supports Async Video timing in
-> PR active state, then source does not necessarily need to send AS SDPs
-> during PR active.
-> 
-> However, if asynchronous video timing is not supported, then for PR with
-> Aux-less ALPM, the source must transmit Adaptive-Sync SDPs for video
-> timing synchronization while PR is active.
-> 
-> If the source needs to send AS SDP during PR active, this requires setting
-> DPCD 0x0107[6] (FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE). This applies whether
-> VRR is enabled (AVT/FAVT) or fixed-timing mode is used.
-> 
-> This bit defines AS SDP timing behavior during PR Active, even if AS SDPs
-> are briefly suspended.
-> 
-> Program the relevant Downspread Ctrl DPCD bits accordingly.
-> 
-> v2: Instead of Panel Replay check simply use AS SDP enable check. (Ville)
-> 
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> Hyperv's sysfb access only exists in the VMBUS support. Therefore only se=
+lect
+> CONFIG_SYSFB for CONFIG_HYPERV_VMBUS. Avoids sysfb code on systems
+> that don't need it.
+>=20
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: 96959283a58d ("Drivers: hv: Always select CONFIG_SYSFB for Hyper-V
+> guests")
+> Cc: Michael Kelley <mhklinux@outlook.com>
+> Cc: Saurabh Sengar <ssengar@linux.microsoft.com>
+> Cc: Wei Liu <wei.liu@kernel.org>
+> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+> Cc: Haiyang Zhang <haiyangz@microsoft.com>
+> Cc: Dexuan Cui <decui@microsoft.com>
+> Cc: Long Li <longli@microsoft.com>
+> Cc: linux-hyperv@vger.kernel.org
+> Cc: <stable@vger.kernel.org> # v6.16+
 > ---
->  .../gpu/drm/i915/display/intel_dp_link_training.c    | 12 ++++++++++--
->  .../gpu/drm/i915/display/intel_dp_link_training.h    |  3 ++-
->  drivers/gpu/drm/i915/display/intel_dp_mst.c          |  2 +-
->  3 files changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> index a26094223f78..8b21c479ebfc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-> @@ -27,6 +27,7 @@
->  #include <drm/display/drm_dp_helper.h>
->  #include <drm/drm_print.h>
->  
-> +#include "intel_alpm.h"
->  #include "intel_display_core.h"
->  #include "intel_display_jiffies.h"
->  #include "intel_display_types.h"
-> @@ -34,6 +35,7 @@
->  #include "intel_dp.h"
->  #include "intel_dp_link_training.h"
->  #include "intel_encoder.h"
-> +#include "intel_hdmi.h"
->  #include "intel_hotplug.h"
->  #include "intel_panel.h"
->  
-> @@ -710,11 +712,14 @@ static bool intel_dp_link_max_vswing_reached(struct intel_dp *intel_dp,
->  	return true;
->  }
->  
-> -void intel_dp_link_training_set_mode(struct intel_dp *intel_dp, int link_rate, bool is_vrr)
-> +void intel_dp_link_training_set_mode(struct intel_dp *intel_dp, int link_rate,
-> +				     bool is_vrr,
-> +				     bool as_sdp_enable)
->  {
->  	u8 link_config[2];
->  
->  	link_config[0] = is_vrr ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
-> +	link_config[0] |= as_sdp_enable ? DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE : 0;
->  	link_config[1] = drm_dp_is_uhbr_rate(link_rate) ?
->  			 DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
->  	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
-> @@ -737,7 +742,10 @@ static void intel_dp_update_downspread_ctrl(struct intel_dp *intel_dp,
->  	  * especially on the first real commit when clearing the inherited flag.
->  	  */
->  	intel_dp_link_training_set_mode(intel_dp,
-> -					crtc_state->port_clock, crtc_state->vrr.in_range);
-> +					crtc_state->port_clock,
-> +					crtc_state->vrr.in_range,
-> +					crtc_state->infoframes.enable &
-> +					intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC));
+>  drivers/hv/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig index
+> 7937ac0cbd0f..2d0b3fcb0ff8 100644
+> --- a/drivers/hv/Kconfig
+> +++ b/drivers/hv/Kconfig
+> @@ -9,7 +9,6 @@ config HYPERV
+>  	select PARAVIRT
+>  	select X86_HV_CALLBACK_VECTOR if X86
+>  	select OF_EARLY_FLATTREE if OF
+> -	select SYSFB if EFI && !HYPERV_VTL_MODE
+>  	select IRQ_MSI_LIB if X86
+>  	help
+>  	  Select this option to run Linux as a Hyper-V client operating @@ -62,=
+6
+> +61,7 @@ config HYPERV_VMBUS
+>  	tristate "Microsoft Hyper-V VMBus driver"
+>  	depends on HYPERV
+>  	default HYPERV
+> +	select SYSFB if EFI && !HYPERV_VTL_MODE
+>  	help
+>  	  Select this option to enable Hyper-V Vmbus driver.
+>=20
+> --
+> 2.53.0
 
-The bit is only documented to be valid for panel replay capable
-sinks. So we should probably not set it otherwise.
+Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
 
-But the weird thing is that the AS SDP DB0[1:0] description does not
-provide for a set of valid values for that case (DPCD 107h[7:6]=10b).
-Either they assumed that AS SDP v1 is used in that case (in which case
-the we'd not be able to support FAVT and maybe some other stuff without
-PR), or it's just an oversight and the same values apply as for
-107h[7:6]=10b as they do for 107h[7:6]=11b.
-
->  }
->  
->  void intel_dp_link_training_set_bw(struct intel_dp *intel_dp,
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.h b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
-> index 33dcbde6a408..d3ae8ee38a75 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
-> @@ -18,7 +18,8 @@ int intel_dp_init_lttpr_and_dprx_caps(struct intel_dp *intel_dp);
->  bool intel_dp_lttpr_transparent_mode_enabled(struct intel_dp *intel_dp);
->  
->  void intel_dp_link_training_set_mode(struct intel_dp *intel_dp,
-> -				     int link_rate, bool is_vrr);
-> +				     int link_rate, bool is_vrr,
-> +				     bool as_sdp_enable);
->  void intel_dp_link_training_set_bw(struct intel_dp *intel_dp,
->  				   int link_bw, int rate_select, int lane_count,
->  				   bool enhanced_framing, bool post_lt_adj_req);
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index e8de17834dcd..ffd1cf0aad9a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -2142,7 +2142,7 @@ void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp)
->  
->  	intel_dp_compute_rate(intel_dp, link_rate, &link_bw, &rate_select);
->  
-> -	intel_dp_link_training_set_mode(intel_dp, link_rate, false);
-> +	intel_dp_link_training_set_mode(intel_dp, link_rate, false, false);
->  	intel_dp_link_training_set_bw(intel_dp, link_bw, rate_select, lane_count,
->  				      drm_dp_enhanced_frame_cap(intel_dp->dpcd), false);
->  
-> -- 
-> 2.45.2
-
--- 
-Ville Syrjälä
-Intel
