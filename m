@@ -4,70 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43698CC6B30
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53B30CC6B30
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 08:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A654A10F197;
-	Thu,  2 Apr 2026 08:23:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5101110EF8A;
+	Thu,  2 Apr 2026 08:29:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tIWiyezw";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TNUHH2pA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C52710F197
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 08:23:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 56BC741674;
- Thu,  2 Apr 2026 08:23:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D1CC116C6;
- Thu,  2 Apr 2026 08:23:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775118236;
- bh=iWXNVIUZfnMW7ccKC6aXFgVMhK9ernXK6+j0PJXs1tU=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=tIWiyezwCAFoPLv2uxCkYLhBz+hIFf6VJN2MHl80L0OaIXtpT9YZHcgXB4lnzOJ+M
- rKVL94vHukPQ4/Og7QQQXjzPAwf0wq7u8E3NpNxPgMB1SgvHqpJI+kxOTVX8dZ/Mky
- pAa4VF1cxSdu9icT0pR7QHMsWTLPCmdzZLeO9MuPWU6dndfP/xehCuYVOMwLsgonJE
- sWCSf+bX4mnJlJyA37LJNHL4SZsDfsuJkwXs0NfjGaIfH20uRuD4OvuBBVh9MSYbak
- M/oY9DkIJ6gM846m6LXSDFDMTfnYIe1izUh3I1zMJBACBaZPgloFBb+U/tYF6EF29b
- UofjFQm3PCenA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 02 Apr 2026 10:23:31 +0200
-Subject: [PATCH v3 2/2] Documentation: drm: Remove drm_atomic_state rename
- entry
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260402-drm-drm-atomic-update-v3-2-b826f51ac511@kernel.org>
-References: <20260402-drm-drm-atomic-update-v3-0-b826f51ac511@kernel.org>
-In-Reply-To: <20260402-drm-drm-atomic-update-v3-0-b826f51ac511@kernel.org>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Jani Nikula <jani.nikula@intel.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1837; i=mripard@kernel.org;
- h=from:subject:message-id; bh=iWXNVIUZfnMW7ccKC6aXFgVMhK9ernXK6+j0PJXs1tU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJnn1Ls9TmtHJl57YFohlCAnUHChWH5CToCKsKLiDK9LH
- 3IvbvreMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZyT5mxoXnu5uXN8iL+a4TL
- 7waZMzgLc/qx1ibx90Yb3ZSMO6Q4VylAYqnH7tP7Xzr15X2PuHGYsT5FhFt3xoR1qdKTP03bmML
- rxpp/8Phpdc8NjZvyzsQlMfR/2Ztn1my252vvrvnML+1iCwA=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1FDB10EF8A
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 08:29:07 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id BAD8A4E428AA;
+ Thu,  2 Apr 2026 08:29:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 837475FDEB;
+ Thu,  2 Apr 2026 08:29:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 94AD710450221; 
+ Thu,  2 Apr 2026 10:28:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1775118541; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=PUXno5TxkjpeBoSqZm65CbuO+h64L2SVBgOxOmu2oIo=;
+ b=TNUHH2pAZPAMP4NGLsz+uJewT7ce/5mkiukpdC9e/GF/cCgcQr2XiVigjiYOaiqLn0jVFV
+ MT7V55Gngp/p+G3cUIgeeaGjdsunI4FxxTXZV1VCvaZp8Fu1NmDMH4fpCoySsakeh4UzpF
+ lX48nkRylKWcwrlYejZxz4eLsr/mNruwRWad4ESyVHvE9nUIrx3Bx2UJfAcE1I0nEmmVXa
+ l6SnamIUZgMY5xRvEVj9Yq2kwWG4Du2bg3fbFoea5Ew5M1g5zMxgDAAnIdY63ggTOMOue5
+ +WOpPf9dvsdGz8Qf5D4+FLkyjNYPxNRVRz6lM1LRBcgO1HZxCQRpeH0WvglegQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Apr 2026 10:28:45 +0200
+Message-Id: <DHIJ00VZ2O0H.1550LBTEFNT83@bootlin.com>
+Cc: "Damon Ding" <damon.ding@rock-chips.com>, "Kory Maincent (TI.com)"
+ <kory.maincent@bootlin.com>, =?utf-8?q?Herv=C3=A9_Codina?=
+ <herve.codina@bootlin.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Adam Ford"
+ <aford173@gmail.com>, "Alexander Stein" <alexander.stein@ew.tq-group.com>,
+ "Christopher Obbard" <christopher.obbard@linaro.org>, "Daniel Scally"
+ <dan.scally@ideasonboard.com>, "Emanuele Ghidoli"
+ <emanuele.ghidoli@toradex.com>, "Fabio Estevam" <festevam@denx.de>,
+ "Francesco Dolcini" <francesco.dolcini@toradex.com>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Gilles Talis" <gilles.talis@gmail.com>,
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, "Heiko
+ Schocher" <hs@denx.de>, "Josua Mayer" <josua@solid-run.com>, "Kieran
+ Bingham" <kieran.bingham@ideasonboard.com>, "Marco Felsch"
+ <m.felsch@pengutronix.de>, "Martyn Welch" <martyn.welch@collabora.com>,
+ "Oleksij Rempel" <o.rempel@pengutronix.de>, "Peng Fan" <peng.fan@nxp.com>,
+ "Richard Hu" <richard.hu@technexion.com>, "Shengjiu Wang"
+ <shengjiu.wang@nxp.com>, "Stefan Eichenberger"
+ <stefan.eichenberger@toradex.com>, "Vitor Soares"
+ <vitor.soares@toradex.com>
+To: "Liu Ying" <victor.liu@nxp.com>, "Marek Vasut" <marex@denx.de>, "Stefan
+ Agner" <stefan@agner.ch>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Frank Li"
+ <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, "Fabio Estevam" <festevam@gmail.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Rob
+ Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v2 10/10] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+X-Mailer: aerc 0.20.1
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
+ <1a8b1a34-89bd-436e-8b5c-64ea71e8f333@nxp.com>
+In-Reply-To: <1a8b1a34-89bd-436e-8b5c-64ea71e8f333@nxp.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,54 +96,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We just did that item so we can remove it.
+Hello Liu,
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- Documentation/gpu/todo.rst | 23 -----------------------
- 1 file changed, 23 deletions(-)
+On Thu Apr 2, 2026 at 6:55 AM CEST, Liu Ying wrote:
+> Hi Luca,
+>
+> On Mon, Mar 30, 2026 at 09:25:51PM +0200, Luca Ceresoli wrote:
+>> Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
+>> drm_bridge_connector framework which is the current DRM bridge best
+>> practice.
+>>
+>> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+>> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL=
+/MBa8MPxL
+>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-diff --git a/Documentation/gpu/todo.rst b/Documentation/gpu/todo.rst
-index 2ceb00e08c59f0602de994749ec137107c80fb14..cdddf8db35f533787aaad22c3066766e804e8ecf 100644
---- a/Documentation/gpu/todo.rst
-+++ b/Documentation/gpu/todo.rst
-@@ -150,33 +150,10 @@ still look at that flag.
- 
- Contact: Simona Vetter, respective driver maintainers
- 
- Level: Advanced
- 
--Rename drm_atomic_commit
-------------------------
--
--The KMS framework uses two slightly different definitions for the ``state``
--concept. For a given object (plane, CRTC, encoder, etc., so
--``drm_$OBJECT_state``), the state is the entire state of that object. However,
--at the device level, ``drm_atomic_commit`` refers to a state update for a
--limited number of objects.
--
--The state isn't the entire device state, but only the full state of some
--objects in that device. This is confusing to newcomers, and
--``drm_atomic_commit`` should be renamed to something clearer like
--``drm_atomic_commit``.
--
--In addition to renaming the structure itself, it would also imply renaming some
--related functions (``drm_atomic_commit_alloc``, ``drm_atomic_commit_get``,
--``drm_atomic_commit_put``, ``drm_atomic_commit_init``,
--``__drm_atomic_commit_free``, etc.).
--
--Contact: Maxime Ripard <mripard@kernel.org>
--
--Level: Advanced
--
- Fallout from atomic KMS
- -----------------------
- 
- ``drm_atomic_helper.c`` provides a batch of functions which implement legacy
- IOCTLs on top of the new atomic driver interface. Which is really nice for
+>> @@ -86,11 +88,23 @@ static int lcdif_attach_bridge(struct lcdif_drm_priv=
+ate *lcdif)
+>>  					     "Failed to initialize encoder for endpoint%u\n",
+>>  					     of_ep.id);
+>>
+>> -		ret =3D drm_bridge_attach(encoder, bridge, NULL, 0);
+>> +		ret =3D drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO=
+_CONNECTOR);
+>
+> It seems that only analogix-anx6345.c, analogix-anx78xx.c and analogix_dp=
+_core.c
+> don't allow DRM_BRIDGE_ATTACH_NO_CONNECTOR, since they error out when att=
+aching
+> the bridge with the flag:
+>
+> if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+>          DRM_ERROR("Fix bridge driver to make connector optional!");
+>          return -EINVAL;
+> }
+>
+> Looks like i.MX8MP platforms don't use these drivers.
 
--- 
-2.53.0
+Exactly. I have checked all the drivers involved with the i.MX8MP and all
+of the support DRM_BRIDGE_ATTACH_NO_CONNECTOR.
 
+While converting all drivers is surely a good goal, converting all of them
+at once is not realistically doable. So the approach I took was to convert
+one specifically (lcdif_drv.c) plus all those which would break because
+they are used with the LCDIF.
+
+> But, are we completely safe here by adding the flag?  You also mentioned
+> "pitfalls" in commit mesg, which makes me a bit more worried.
+
+I mentioned potential pitfalls in the cover letter mainly because of the DT
+overlay insertion patch, which is somewhat tricky as it impacts many
+boards.
+
+Additionally it's not easy to spot all usages of this component by parsing
+dozens of dts files, so I might have missed some.
+
+So overall every patch sent has a potential for pitfalls, but for the
+reasons above I think this series has a bit more.
+
+Does this reassure you? :)
+
+>>  		if (ret)
+>>  			return dev_err_probe(dev, ret,
+>>  					     "Failed to attach bridge for endpoint%u\n",
+>>  					     of_ep.id);
+>> +
+>> +		connector =3D drm_bridge_connector_init(lcdif->drm, encoder);
+>
+> Also, kernel doc of drm_bridge_connector.c says:
+>
+>  * To make use of this helper, all bridges in the chain shall report brid=
+ge
+>  * operation flags (&drm_bridge->ops) and bridge output type
+>  * (&drm_bridge->type), as well as the DRM_BRIDGE_ATTACH_NO_CONNECTOR att=
+ach
+>  * flag (none of the bridges shall create a DRM connector directly).
+>
+> Are you sure that we are safe to use this helper?
+
+Yes. I have checked all in-tree dts[i] files for all the 3 LCDIFs.
+
+For the LCDIF3, the pipeline is:
+
+  LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
+
+And the involved bridges are:
+
+ * fsl,imx8mp-hdmi-pvi has ops =3D 0 (it doesn't set it) because it
+   implements none the optional features mentioned by those flags, and it
+   honors the DRM_BRIDGE_ATTACH_NO_CONNECTOR by propagating it
+
+ * fsl,imx8mp-hdmi-tx is implemented based on dw-hdmi, which sets ops as
+   appropriate and also propagates the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag
+
+ * display-connector (enabled via the DT overlay if needed) sets ops and
+   makes DRM_BRIDGE_ATTACH_NO_CONNECTOR mandatory
+
+The LCDIF2 involves the panel-bridge, display-connector and lvds-decoder
+which also set ops as needed and propagate DRM_BRIDGE_ATTACH_NO_CONNECTOR
+or make it mandatory.
+
+The same applies to the drivers used with the LCDIF1: adv7511, tc358767 and
+the panel bridge.
+
+I assume this answers your doubts. Let me know if it doesn't.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
