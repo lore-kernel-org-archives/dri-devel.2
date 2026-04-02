@@ -4,106 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95A9FD3941D
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 13:32:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D53D7D39422
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 13:33:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EED8210F246;
-	Thu,  2 Apr 2026 13:32:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4428210F26C;
+	Thu,  2 Apr 2026 13:33:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="mPiwRK+Q";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="EtS9VRau";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007E210F246
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 13:32:47 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-b9841aecf72so99699066b.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 06:32:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775136766; cv=none;
- d=google.com; s=arc-20240605;
- b=OTc/btmf6I2Q0ymrcRfQmdD1UYvAilT+T9x46kL7rkK1+DihtfRXmOFOZGKECJ00Dj
- p8Fjzi3U3Q9jsh4OmF2tDcryWmeszBCC3REK3pL8rJgcbTXQstVANFIczYkoe316zMsk
- rXGLXVbuqtME67XibGhQ29BOd7Bx8Bh02iO+0Xxrin9BBgQgnNMHiagWBOFNTVWvWmBh
- u7vfuNK4cr7x4b2CLYkwTO/CI3QLKTXlJ4DPAx/Bxl5vyCqBFBsHTpXDetcv6b5uGFna
- QHvMD0hiXLBaAF+75IjpDeHxEiTpaBgYyp5XgbkIBUoahDLtZA2CiBgJqQj0qamkNMmz
- RWYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=nsx2hYjw+sV8/0qohJ1DlKPwBoo2zkp1J5PdzUN8MV4=;
- fh=TQ1uVgAG+sDEN5uep9AoV31upoz3duPKmnLbNPXchk8=;
- b=H5W0YVJ7x18hNBSfJ8ZtvT89RGJ0REPiPr6ZW7AoZwo82YadKnAXclpo00DJsKgauO
- En5ENY6JGoh691sx2T+FjhXddXsfxxLtT/4jJJQaNyUuDG6VyOMi31tljYsVcCv8wu1w
- oRT9S7oVThFohwdg9nxOtglitzftTTcJROuZDRdc2WtStXDlktFqIeTuUrYMQIMI2PyA
- wSeM/S8YOasuYKParFrWxrgwW62zIIs4R7kuXA3CtYYusNI06TxSPKIPFqaLuag4YdHp
- 9i4FtPHBleMfFjoYSKLIO/b0Oq3aXSV7/+eP6ac6/w/JUcmGB9V+S6uIr7wfhXURjPxX
- Zpmw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1775136766; x=1775741566; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=nsx2hYjw+sV8/0qohJ1DlKPwBoo2zkp1J5PdzUN8MV4=;
- b=mPiwRK+Q8H+tCRcDC1S4T2B4g7V+cX7imehxeYx3ICjUZZ5ic3W73rIJ5rZ+d9wA0A
- ouFoPjG7Ydci+YixRE3Q8rhJYQGAXVYYkQvziEIdHbqLtuVXf9Jd/YYa37s797TLtoTo
- cYVbcUU3hxnLgIZH35KLIA11odTSkGdYBgenEG8hR+fbVoZsoysA9TydzWHIsafOCZh+
- VLyOoKLa4WI88L/Cs9C3wq+/gnYZVVzGOcwAYN+UfxmC4wmOPvP3cciyZRzxz25j/+un
- kTqqqIR2g5wG3h07QEAfwHOZTMmqj6WKwJ0CH/7TqE45SSRyjtsDyecSVRW4C2PGrgWu
- mlww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775136766; x=1775741566;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nsx2hYjw+sV8/0qohJ1DlKPwBoo2zkp1J5PdzUN8MV4=;
- b=Erlrtnxw+ZUrN3bGWVyCjU0BJ+Tl29aNbYhi689jVy6sW1ARRS/QCsRQ/qAYpG52G9
- ONuWSV2JXn7N+rJxe9WWz5gpiN6inbCwzkb4oZG8eK/I0A9NGsJQEUHN0Gh7CFjLpBuk
- wabuL4IRUn+LQSBSzImY33S6ahsIzjcZ51Y1EmkuPJZPGZuyhuIQTpS0HrUV/x8kdf5j
- nTYDPnLPBwxpheR6i1cvljDUX7ld7P8VNR7mu8+0aOHf3EpWS9PWH05f7kUBwkvTiBGn
- mPsCHZ2b2JkBM3MTdXbPAs9cNRHjq5NZe06HbimTSDj9KzBPC9Aru95ib+vGUzNACaV8
- kYVQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXvj+AKSve3db1RJhP6ZxxHJOsOrZwrRkNodmpRieW8bis9suU4bFE5WCupxFYOq7s5akpnkGolst8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyMcSBAJqoqC/RTx3tiak1TKgrFSD7uUhAy5lYuTBOF/gtYH5Ma
- 02KWqhDQ8tmXqmuhSHD8M/SjAq8FFuVF7RVZbnFxMLZPTfH7G6VRSTzkoCJj9790IZWA/sUOKkC
- eGowcqG3kbpJ8yuEoW5F4kYwG0WxgghEsUeDfi4OHpQ==
-X-Gm-Gg: ATEYQzzsxebg7X+ZGBJRNXjwWxl8qE7svBGzRwQASi29UwQrtwmoaRUoQ65lJIb4BVu
- mhz+/y2p6w3HyUX8ohqMFDYysxO+NoB7y+res6IOrpEYgn5mIw381nS+Y6RF3JylCiGz5GBWKvW
- zR/N1MsnTh+LkNd2yEHia4ZYAtz2UZUjCWyYks4HNwZX4i6Y9tck2DKiaUsyhQcPGfs9LmIaQHU
- rmGrBcF0+BFfwTX+lBz6YASl6iA3VPDmfuOVuV0znCHCGI8qPbpqFA2hwIJODSxIX2jap3UvENo
- pELspys=
-X-Received: by 2002:a17:906:4912:b0:b98:695:ec53 with SMTP id
- a640c23a62f3a-b9c138c110amr392586266b.18.1775136766273; Thu, 02 Apr 2026
- 06:32:46 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF43810F26C
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 13:33:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=LEuQskG1iYvQyAT0EX7yk5PQZBXMChDmD8ovQ7R0yDU=; b=EtS9VRauYhkWCd0FqWEXNDF0XK
+ +vIotq7dMkwZiQ7hUKUChtxoLKczcpEYPtHO3A8BjCihW8tHge4jV5KyFE3UT5OlyK1ixwMBveXTr
+ 1mzAn3+1VfPdXgaUc5Z78BB7qAJ4YAdBdubybtJ9I5xqVppPkjEruDapR+nhjVVqBAcHsb1tupd2B
+ JkvCd/m7LgktWKP/+XHdkTiGWQ0Tu7C+K/zj8cbu+/sDO2f0ac4sug9QqYzCZBEz5gfB//LLWgEPk
+ y2C2M2o2eJY8ZExY+btq37wPwBqGAtAAGAVfzgUTQ37xKjWChybRB14xMgqYq93ESx9XHbenTpRRi
+ OUQEnc5w==;
+Received: from [189.7.87.169] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1w8IAl-00AUFv-LS; Thu, 02 Apr 2026 15:33:23 +0200
+Message-ID: <d2788318-a701-43c1-9107-d6f63df1d8cd@igalia.com>
+Date: Thu, 2 Apr 2026 10:33:16 -0300
 MIME-Version: 1.0
-References: <CGME20260331100026eucas1p19bdc2aaca4c9a48c6f6ac8fec71478d8@eucas1p1.samsung.com>
- <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
- <46397de2-eedf-4e09-a83a-3b683d154fe7@samsung.com>
- <CAO_48GEFQE_FJjuq1UqP=DC6LJE8jjE3C+4FdAyB4uEZDsnFJw@mail.gmail.com>
- <20260402-burrowing-fine-bloodhound-afcebc@houat>
-In-Reply-To: <20260402-burrowing-fine-bloodhound-afcebc@houat>
-From: Sumit Semwal <sumit.semwal@linaro.org>
-Date: Thu, 2 Apr 2026 19:02:34 +0530
-X-Gm-Features: AQROBzBU7_o7IRQH6mzOKTP-KDFv7IkPoqq1yaLRTD3AfvGaKguQAkczWk5rypY
-Message-ID: <CAO_48GHzMpKHQxmS9ADd_Z9G56uWOPfJ-qhNek7ubgkk_yjGDg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/8] dma-buf: heaps: Turn heaps into modules
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Robin Murphy <robin.murphy@arm.com>, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka <vbabka@suse.cz>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, 
- Albert Esteve <aesteve@redhat.com>, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] drm/vc4: Miscellaneous fixes and improvements
+To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Boris Brezillon <bbrezillon@kernel.org>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260330-vc4-misc-fixes-v1-0-92defc940a29@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,46 +90,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+On 30/03/26 14:51, Maíra Canal wrote:
+> Hi,
+> 
+> This is a spin-off of the series "[PATCH 00/11] drm/vc4: Switch to DRM
+> GPU scheduler" [1]. While I was writing the series, I noticed some small
+> bugs in the driver code, so I compiled the fixes and code improvements
+> in this series.
+> 
+> Patches #1 to #4 are bug-fixes related to PM reference unbalance, memory
+> leaks, and race conditions. They will probably go through the
+> drm-misc-fixes branch. Finally, patches #5 and #6 are minor clean-ups
+> and common API adoption.
+> 
+> [1] https://lore.kernel.org/dri-devel/20260205-vc4-drm-scheduler-v1-0-c6174fd7bbc1@igalia.com/T/
+> 
+> Best regards,
+> - Maíra
+> 
+> ---
+> Maíra Canal (6):
+>        drm/vc4: Release runtime PM reference after binding V3D
+>        drm/vc4: Fix memory leak of BO array in hang state
+>        drm/vc4: Fix a memory leak in hang state error path
+>        drm/vc4: Protect madv read in vc4_gem_object_mmap() with madv_lock
+>        drm/vc4: Use devm_request_irq() for automatic cleanup
+>        drm/vc4: Clean-up UAPI header inclusion
 
-On Thu, 2 Apr 2026 at 18:42, Maxime Ripard <mripard@kernel.org> wrote:
->
-> On Thu, Apr 02, 2026 at 10:36:48AM +0530, Sumit Semwal wrote:
-> > Hello Maxime,
-> >
-> > On Tue, 31 Mar 2026 at 18:24, Marek Szyprowski <m.szyprowski@samsung.com> wrote:
-> > >
-> > > On 31.03.2026 12:00, Maxime Ripard wrote:
-> > > > The recent introduction of heaps in the optee driver [1] made possible
-> > > > the creation of heaps as modules.
-> > > >
-> > > > It's generally a good idea if possible, including for the already
-> > > > existing system and CMA heaps.
-> > > >
-> > > > The system one is pretty trivial, the CMA one is a bit more involved,
-> > > > especially since we have a call from kernel/dma/contiguous.c to the CMA
-> > > > heap code. This was solved by turning the logic around and making the
-> > > > CMA heap call into the contiguous DMA code.
-> > > >
-> > > > Let me know what you think,
-> > > > Maxime
-> > > >
-> > > > 1: https://lore.kernel.org/dri-devel/20250911135007.1275833-4-jens.wiklander@linaro.org/
-> > > >
-> > > > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> >
-> > Thank you for this patch series; now that it is needed by more folks,
-> > I think we can merge this.
-> >
-> > Marek, I'll coordinate with you on this - thank you!
->
-> If Marek plans on sending it during the next merge window, maybe the
-> best thing to do for us is just to wait for -rc1 and apply the rest of
-> the patches. Otherwise, we can merge the branch in drm-misc.
+Applied to drm-misc-fixes:
 
-We could do that. Are we ok to wait till -rc1?
->
-> Maxime
+[1/6] drm/vc4: Release runtime PM reference after binding V3D
+       commit: aaefbdde9abdc43699e110679c0e10972a5e1c59
+[2/6] drm/vc4: Fix memory leak of BO array in hang state
+       commit: f4dfd6847b3e5d24e336bca6057485116d17aea4
+[3/6] drm/vc4: Fix a memory leak in hang state error path
+       commit: 9525d169e5fd481538cf8c663cc5839e54f2e481
+[4/6] drm/vc4: Protect madv read in vc4_gem_object_mmap() with madv_lock
+       commit: 338c56050d8e892604da97f67bfa8cc4015a955f
 
-Best,
-Sumit
+Applied to drm-misc-next:
+
+[5/6] drm/vc4: Use devm_request_irq() for automatic cleanup
+       commit: 19e2815babd4c51a51ebabfe68daa90eb26309c3
+[6/6] drm/vc4: Clean-up UAPI header inclusion
+       commit: 4b9c36c83b34f710da9573291404f6a2246251c1
+
+Thanks for the reviews!
+
+Best regards,
+- Maíra
