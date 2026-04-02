@@ -4,87 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7269CD39418
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 12:58:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C6BD39420
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 13:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C337410F26D;
-	Thu,  2 Apr 2026 12:58:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3ABC10F089;
+	Thu,  2 Apr 2026 13:09:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20230601.gappssmtp.com header.i=@resnulli-us.20230601.gappssmtp.com header.b="LAEQHyEQ";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="FBxYlgk5";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="agPYXQIZ";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D40610E4E8
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 12:58:20 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-48374014a77so10446545e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 05:58:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=resnulli-us.20230601.gappssmtp.com; s=20230601; t=1775134699; x=1775739499;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=UzYbx1sEpC0M+peXKDrwMMEQ4PJH/E0owphKLjh5Vw8=;
- b=LAEQHyEQd7kfnlxYIRuG2Hv0v0UEg1pvI51djPjMhUrVGCrD4jj/pWW9Ud+xTPDReE
- vgfIwLyWa1umLjnVTmam4d3srEfwlPFhr2iSgE2rVZDNU7Orj1Jy7k2n5XWMof0t+oe2
- ZVjrXGJb1x1IPpmpMwozVc40XnSUBXgIr8LCpyCujjhdjX2bIrRHIigQM5MtheO6K8h4
- 91VINrs/7oCbqGbDKArB/ZvMNV9AcSRDUT5k+Pp0RbPjz6iRrHRqljLNFLSup29qAlq0
- NXM+cmP5s0UD5nSrAz0WajsmmorCKvV25aAEw+ijYokWKKl8IIq3pBCtQW7izVblQX24
- BhIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775134699; x=1775739499;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UzYbx1sEpC0M+peXKDrwMMEQ4PJH/E0owphKLjh5Vw8=;
- b=FPElpi9rcFo+h7azqs9F95d0E10Y7DflaeQlFHEiTS7ax8elLEu4PLsUQkGhvSZPmt
- 46QU1vPmJgQNDEgqiRFdiq3iQ+rc7PZpVfpD9Fii/I6G0KS93vd6SmEcOYVR6A1ge5E8
- hlpHhEH4+K/J/tZ3mgWsO7mcC2P3yyt7Ea6GNF9eOzqnPNzrYTgTu96br1RD25vNdvvA
- CGBdIPDXeEECe2LmJ54mv20DJjVcy97OW4b9nvbQjf0WKMh1ujCSeIxCo8L5QtYWePji
- lhCC0cQFrAm90zVS8wN3fGY8TzKDVqNHCsP9erj8UNe0GbbaPktKfSyMhHbJrk+KbB7b
- Zj7A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXENFse6G5dINubcPUYYqC7J8JZuF9E7tT9kCFSLCc9Cab/OAjtuDgdtCXmC44qETjSYfsbZCQl4Y4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwIdhxeS6fwxFrdVtDK0Th0LB0vSSqmWS3RP/E/osu/N+Yrb6Mh
- SVhAv+Apzy7ykpa8mpPGmLFSL6sobbqyphTigJbDm5XeewwZ90HvL2sZfHFERwG1fsk=
-X-Gm-Gg: ATEYQzzJB9fc3wkUMVI6Ykz9IYtyXE6ARFD1Lt5wp7sk5VDPhpeUx6mK9XiajOhaS+z
- LqOSzGd5NWiQBfpB3ZD8aijT03DyixzhngiCmcwgConJTGE2UkdDMlGqaI23tL7w2AhbVoj6+hU
- yj3QLyB5tfzCctRLTT38r7p5NdGkwP4+IjW3nYUkAYJmlasvN5mrhYr7d+MzP0MHlql4am1LxyF
- nLUWdemxwYhMgAHghlUMsfI2d0HsAEz/Cvvvft2H/LQRkYrkuGBkgPHblIG2OTJeyZQyugQtXEs
- 5UGJE6GbmoYEH4dDjXdwRz9weDBS5UVk+sFX0sVQISJynmMJYTzEyLChDKMyZKiyYXVU5ArS4kR
- O63jpvAWqQdPstt+UZGxIp9ZTLFjkiaMcuz5waid6Vvs7ihp5c4WsIkw94SNn3TWxX1gGsCnggA
- Xnn0YkQCjFP+WFut/ixKp6IErUd5yWwV259d7uCw/t7g==
-X-Received: by 2002:a05:600c:1f93:b0:480:1d0b:2d32 with SMTP id
- 5b1f17b1804b1-4888b7130f3mr58915525e9.12.1775134698707; 
- Thu, 02 Apr 2026 05:58:18 -0700 (PDT)
-Received: from FV6GYCPJ69 ([208.127.45.21]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887c884f77sm62829225e9.20.2026.04.02.05.58.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Apr 2026 05:58:18 -0700 (PDT)
-Date: Thu, 2 Apr 2026 14:58:15 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Brian Starkey <brian.starkey@arm.com>, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, 
- sumit.semwal@linaro.org, benjamin.gaignard@collabora.com, jstultz@google.com, 
- tjmercier@google.com, christian.koenig@amd.com, m.szyprowski@samsung.com, 
- robin.murphy@arm.com, leon@kernel.org, sean.anderson@linux.dev,
- ptesarik@suse.com, 
- catalin.marinas@arm.com, aneesh.kumar@kernel.org, suzuki.poulose@arm.com, 
- steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com, 
- ashish.kalra@amd.com, suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev,
- nd@arm.com
-Subject: Re: [PATCH v5 0/2] dma-buf: heaps: system: add an option to allocate
- explicitly shared/decrypted memory
-Message-ID: <l26gcpagdhabj6w66hhxzgwkwqlybontqtbf7f6lu2fic6pnu6@crh3rt3j3alm>
-References: <20260325192352.437608-1-jiri@resnulli.us>
- <4s75rtsmdfrze4rscbqzyrjyrko7n6sehe7agrngqag2cna5bz@eflmf4kwjocj>
- <20260402120254.GB2551565@ziepe.ca>
+Received: from fhigh-b2-smtp.messagingengine.com
+ (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2B3010F089
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 13:09:27 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 4567A7A011F;
+ Thu,  2 Apr 2026 09:09:26 -0400 (EDT)
+Received: from phl-imap-02 ([10.202.2.81])
+ by phl-compute-04.internal (MEProxy); Thu, 02 Apr 2026 09:09:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1775135366;
+ x=1775221766; bh=44e76YJxkd5q+hgUlWAXtOLYIJKiZNYp0nUsEzVCRk0=; b=
+ FBxYlgk5LwTbC6Hd0pYsekY+cj/43xfDic3Nq5KUYXIuAByjWcQC/4MynK8EvGyv
+ Uexk61LrbgEEKfXkfTlK/shMDYl5tyAn5shj5yTVpfPkur7h2UHMqxssu5nPxFoa
+ 8vRfS2ciCetboKjFIxSqY/FCKB4xHDco2m54AOjrLpQIp74wqvRjCB/NWCddnFbT
+ 0OTw/HpU2+VuBssb4bSjrLHtUqxuTg6rsGhW5fhjLiN2JmVBTYGLY7+coU3dR9Xh
+ kqkSyJqdDab0AXssZVE+URd2eVr0yDCGcxJxKLmiq6mHj7HSPdlt4CCQUxUTgVUD
+ sPIHM0gA5KivuyxhzN/y+w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1775135366; x=
+ 1775221766; bh=44e76YJxkd5q+hgUlWAXtOLYIJKiZNYp0nUsEzVCRk0=; b=a
+ gPYXQIZnT60HzAt2D0PVne9tKUzCK0FsozqUq7cu6ndYiCt4Z/zV7H3GR6snL8YH
+ Nia8I0kaiAnShNcTT/6fGyjj95fpYvgUCc2AH+6xSurhsnlZ0/6xukuewVctmEsx
+ caolHX6d3alkzc44sfHAEk/0YOY+sjm4Ulbwnunt1Z9c/aHUj2GGIQ5OaUk7ZUqB
+ qY8rSjZg92tjU6RaPqkWQnkAXLL5Jlys5BzrZH/DGIlwyuvhzujN3faH5snylGiP
+ c8fS9Rb3CO+ArMxP1zOFsIDznAp7cTRsV6Szkag3nisaBKJyi+L/Guz8OyI468i/
+ XwUvWnLeDj7G6x+YHKoMg==
+X-ME-Sender: <xms:hWrOacBTCxdDYIcJJmzYbVFEnnKq3VZJ2svW2EbxtuMV_IEV78GleA>
+ <xme:hWrOaZX8n43r1AuPAp20ZIPd-3JBc8md8Q2lCb8q6ld8xW__eIdTD4wKGkj2WLlkC
+ RaGDhtaQ6b9vmBnJwRoYLO0DM2MVb-fENcE3LIWtDZK0VG9hguYe8wA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeiudduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+ lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+ epofggfffhvfevkfgjfhfutgfgsehtjeertdertddtnecuhfhrohhmpedftehrnhguuceu
+ vghrghhmrghnnhdfuceorghrnhgusegrrhhnuggsrdguvgeqnecuggftrfgrthhtvghrnh
+ ephfdthfdvtdefhedukeetgefggffhjeeggeetfefggfevudegudevledvkefhvdeinecu
+ vehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprghrnhguse
+ grrhhnuggsrdguvgdpnhgspghrtghpthhtohepvdefpdhmohguvgepshhmthhpohhuthdp
+ rhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtoheprghirhhlih
+ gvugesghhmrghilhdrtghomhdprhgtphhtthhopeguvghllhgvrhesghhmgidruggvpdhr
+ tghpthhtoheprghruggssehkvghrnhgvlhdrohhrghdprhgtphhtthhopegthhgvnhhhuh
+ grtggriheskhgvrhhnvghlrdhorhhgpdhrtghpthhtohepmhhrihhprghrugeskhgvrhhn
+ vghlrdhorhhgpdhrtghpthhtohepfigvihdrlhhiuheskhgvrhhnvghlrdhorhhgpdhrtg
+ hpthhtohepihhlihgrshdrrghprghlohguihhmrghssehlihhnrghrohdrohhrghdprhgt
+ phhtthhopehmrggrrhhtvghnrdhlrghnkhhhohhrshhtsehlihhnuhigrdhinhhtvghlrd
+ gtohhm
+X-ME-Proxy: <xmx:hWrOaRJECYk7puPdfEJsTZFmLUHJ2_Z9AuyoEdU1gXrkS-yMyi0yeQ>
+ <xmx:hWrOaYk5-wfc0FB5RtkxmKUuvjk5TSISjWQ-QCF72nf8aIeKlC4K2A>
+ <xmx:hWrOaYa75UPVpD3coPM_gSmGfD7moZUk6STsXIaichwb1GQ5apWUDA>
+ <xmx:hWrOafhqdbusxY3d9sJNkItrflm8nihdTYsks40u3x14gzVAeZ__yw>
+ <xmx:hmrOaavXLi6cH6_83S9pbfjqCQNQGiA5wxCo72vsfMgeAep0jKjdGOSp>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id 462A2700065; Thu,  2 Apr 2026 09:09:25 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260402120254.GB2551565@ziepe.ca>
+X-ThreadId: ATYY62_w4Fts
+Date: Thu, 02 Apr 2026 15:08:43 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Javier Martinez Canillas" <javierm@redhat.com>,
+ "Ard Biesheuvel" <ardb@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Huacai Chen" <chenhuacai@kernel.org>, "WANG Xuerui" <kernel@xen0n.name>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>, "Dave Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
+ "Dexuan Cui" <decui@microsoft.com>, longli@microsoft.com,
+ "Helge Deller" <deller@gmx.de>
+Cc: linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+ linux-efi@vger.kernel.org, linux-riscv@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
+ linux-fbdev@vger.kernel.org
+Message-Id: <78f76717-8f1e-41d6-92f7-261df96b84b6@app.fastmail.com>
+In-Reply-To: <20260402092305.208728-4-tzimmermann@suse.de>
+References: <20260402092305.208728-1-tzimmermann@suse.de>
+ <20260402092305.208728-4-tzimmermann@suse.de>
+Subject: Re: [PATCH 3/8] firmware: sysfb: Make CONFIG_SYSFB a user-selectable
+ option
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,19 +116,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thu, Apr 02, 2026 at 02:02:54PM +0200, jgg@ziepe.ca wrote:
->On Thu, Apr 02, 2026 at 10:52:34AM +0100, Brian Starkey wrote:
->> I'm not clear why the heap depends on !CONFIG_HIGHMEM, but I also
->> don't know anything about SEV/TDX.
+On Thu, Apr 2, 2026, at 11:09, Thomas Zimmermann wrote:
+> Add a descriptive string and help text to CONFIG_SYSFB, so that users
+> can modify it. Flip all implicit selects in the Kconfig options into
+> dependencies. This avoids cyclic dependencies in the config.
 >
->It is because the CC apis, set_memory_decrypted()/etc are slightly
->mis-designed. They take in a vaddr to represent the address instead of
->a phys_addr_t or a page *
+> Enabling CONFIG_SYSFB makes the kernel provide a device for the firmware
+> framebuffer. As this can (slightly) affect system behavior, having a
+> user-facing option seems preferable. Some users might also want to set
+> every detail of their kernel config.
 >
->This means the user has to use page_address() and then the whole thing
->is incompatible with highmem.
->
->Which is fine, highmem and CC are never turned on together.
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Yeah, I was wondering if it is worth sanitizing it, but decided to be on
-the safe side, for unlikely oddities future may bring sake :)
+I don't really like this part of the series and would prefer
+to keep CONFIG_SYSFB hidden as much as possible as an x86
+(and EFI) specific implementation detail, with the hope
+of eventually seperating out the x86 bits from the EFI ones.
+
+In general, I am always in favor of properly using Kconfig
+dependencies over 'select' statements, for the same reasons
+you describe, but I don't want the the x86 logic for
+the legacy VESA and VGA console handling to leak into more
+architectures than necessary.
+
+Do you think we could instead move the sysfb_init()
+function into the same two places that contain the
+sysfb_primary_display definition (arch/x86/kernel/setup.c,
+drivers/firmware/efi/efi-init.c) and simplify the efi version
+to take out the x86 bits? That would reduce the rest
+of sysfb-primary.c to the logic to unregister the device,
+and that could then be selected by both x86 and EFI.
+
+      Arnd
