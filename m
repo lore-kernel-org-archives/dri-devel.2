@@ -4,96 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB7FCD6AAF4
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 18:27:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB061D6AAF4
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 18:29:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48CE410E040;
-	Thu,  2 Apr 2026 18:27:56 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kQeJV4eX";
-	dkim-atps=neutral
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E1E210E00B
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:27:54 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-124b07e5fe4so30934c88.3
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 11:27:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775154474; cv=none;
- d=google.com; s=arc-20240605;
- b=lnPlj91GZuVtJpNTM1Hd0LcDAV7GmPuv3Fuj9LyBOI8pEDtJe6+vOgMXGTNt8NCVe6
- FXDmMBDBk2s692WAFqyS5uGUKuCFo4a5cZ1SEM+Gz/DugrrQYGlYN0HtIqfB5rCtaYAL
- jzi4YmQyxixiOTFODumIj07LfBmUwwyxNH46E7OjwuguAUPVqU1SO7gzAQwPjSShVMRk
- A5oh7sEwLqaKPd6N7GsJggS/Qn7okkvTNQf0aQO5vWO/S41btqcqDTAZleDOrB4wlTaT
- D0cLOCA2qt7cjfg2xzJqU8OU7PBBB3oEceuXo3SFCmHq2ZZHlhG/hSSQJrh8A4JYXFNR
- /dDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=3nz78P8JwO8WYCJwneSwFruPF9nag3r5N/7yHGc7wHg=;
- fh=ZBvdVqpIxMD6eBuDDpRZpYPS3BASU37IQkYOGCDQn/o=;
- b=Ag5GLosKIfMBuw2EFIpVrB7o3Y+RShMaaBB1Dywq3TWcmhtnhDWVy9NnEjDFK8VnOI
- AOy7nChK0BzdGzYRY5xia/Po5DwjG1Z8of5wmIQ0ZdXUrJu/ox5XjeCNKuZ/6TmMt3Yj
- jerhO4djbCvpYkGPry/RSfEu3xH/xe+eWgvAToYTsVZFO19+bfVxr7zTH6OCfYjN4oJc
- r3Zed/0scHP8igJrswfyD8gqEQF5NzBQ2EoDl5jZh9MWzP+9q3iWm4VT4rnkHip82tO+
- zdUOwDJCDrKH01sM6YPCw+rr/KJKRGcPYAW1L7S/BebJlfPZ/VrsSX9rv66kNEeYZRTQ
- yPHA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775154474; x=1775759274; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3nz78P8JwO8WYCJwneSwFruPF9nag3r5N/7yHGc7wHg=;
- b=kQeJV4eX6KiTq9DzIbb2JcRkQSVQmwpfclep84r0M0ne+jgQa58gwHbg4JIyQ1eAs7
- Y0yfQp2QHyTIRvZrwqbsKwtL1aYqUDR1C/bTPPLBQ9S1ZzmOBIHOeCQVxCf7buX72qSN
- 04KzWiqfhwo4D8vCNX3+QWf0G8Zk7O+QIc/+xRwU3lJzTmbOvdQ5pf1OSbvlUemonvo+
- 3r2prBaFaSM9y6+TGo2gzeacBIvqliQHyrpM78S9U6WlT2+56SMlroZ//6MhSV9e6Sr1
- uD+JsH/O/s1rzo2oRaLIfR7XehGa8zihFcToiXW0QIvXKkh8u6s1KaD3yhSvgpMTWhak
- DT6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775154474; x=1775759274;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3nz78P8JwO8WYCJwneSwFruPF9nag3r5N/7yHGc7wHg=;
- b=of4lzVyU918ConZ3FqUlZQN2Prg6qv579nGFkxA94MZ9dhZ7wHncTWyUzrxAyoQlX3
- mABV6NE7jUqT9o4Nx0e49C8JF7bZUExEhsRyyh++cKNo7O81xzHnkVQIfiW3j5p2blme
- C9x/6tfiMuX89ck6Mr9dWFZqXFVpAFclBnqRQiILfbaLzPQHyX3LkU3R0NWHgVWt7vow
- fLA+bHrKDEyZqjpI1GU62HsjHkudKrQbPEbYTZKNIFLJfllyftC9ky+awE1Wt9YsMSnE
- 4eMjo0ypoFUID8tGJN0Lpi4Yd0rVRLBMcFL+Yp4GqZsc9vY23NaGZfleZg0Ri+WEXIAv
- 4yng==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX4FvqiDCKfUjI08DZt7YumLL6KaMGVWJoQiAUa8Ej79x9VYwVfx1tt20/SNCKQSrm5A/Mdy1nldd0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxplyFspHuKRn4K++HMKu4BlSdKhGxBHRBBCjnw8SC4GZ0VZ+mr
- P/Jui1HSU8dgocXaMXr/GYj/XoliBU0OA2HNz2riuHSJl91bVo7JzdPOdjRwoePrxRwKoKYmeDk
- LqHwPM99mmD2Kzw7BN3UtQkBvBaPiMwQ=
-X-Gm-Gg: ATEYQzzbIEy+l20+W1zoMwfgwfK7m37AEeRW6EukqYRkh0r15hCoJ24iekDQRtQkyR6
- 6osHSGERj2WR3uG7e1PMwuZtqZqVkZx2KdZka1ydpL+PQzefe031O5paCPBGb+9iHj2oX+nm6jl
- O3IOeMO6Nui9R41klJeaO9wslpdKPUtHJ/1KBMWbImwJFIOu4YBGONa7RVSI5X3AjNp5Vut5Njz
- 928p/WckvyJzDBCEHJrz8CuG6yRoAiqCiAQpDtgr50xrd5oBZpvTtXTU48cwmPGUaizMpLVqauo
- KLB1KHFrFn2NkJ+LVp5adu9bgHYifqPcIx5YXaioc+y0Gryl71/rcfp8y666l5WYwZhtjg==
-X-Received: by 2002:a05:7022:226:b0:12b:f9aa:a13d with SMTP id
- a92af1059eb24-12bfb6ed5ccmr22345c88.1.1775154473621; Thu, 02 Apr 2026
- 11:27:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F9FF10E178;
+	Thu,  2 Apr 2026 18:29:36 +0000 (UTC)
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D7EA10E178
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:29:34 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id 7F3D41F8005D
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 18:29:27 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id 412F0B4012D; Thu,  2 Apr 2026 18:29:25 +0000 (UTC)
+Received: from shepard (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id 8C9FCB40126;
+ Thu,  2 Apr 2026 18:29:23 +0000 (UTC)
+Date: Thu, 2 Apr 2026 20:29:21 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>,
+ Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
+Subject: Re: [PATCH 3/3] drm: lcdif: Wait for vblank before disabling DMA
+Message-ID: <ac61gYLcka7e5Tj-@shepard>
+References: <20260330224619.2620782-1-paulk@sys-base.io>
+ <20260330224619.2620782-4-paulk@sys-base.io>
+ <3305c7ec621987a30043f274b2705f739bddd497.camel@pengutronix.de>
 MIME-Version: 1.0
-References: <20260401184456.3576660-1-alexander.deucher@amd.com>
- <47c508c3-3424-4e8a-a63c-1f29d13b6ebe@leemhuis.info>
-In-Reply-To: <47c508c3-3424-4e8a-a63c-1f29d13b6ebe@leemhuis.info>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 2 Apr 2026 14:27:41 -0400
-X-Gm-Features: AQROBzBC6IbXZRo0MtyoO7uYGz-yAUxbl3iCRexA4WI6UV1jaB5oEu9t-_ooXNY
-Message-ID: <CADnq5_MiFOYLP9aUnYw4HFb-xWLZdq245ZB3e6iGn09ywOsY2w@mail.gmail.com>
-Subject: Re: Regression fix for audio issues with pre-DCN401 chips (was: Re:
- [pull] amdgpu, amdkfd drm-next-7.1)
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- airlied@gmail.com, simona.vetter@ffwll.ch, 
- Linus Torvalds <torvalds@linux-foundation.org>, 
- Linux kernel regressions list <regressions@lists.linux.dev>,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="tDItNukm9imF4pG6"
+Content-Disposition: inline
+In-Reply-To: <3305c7ec621987a30043f274b2705f739bddd497.camel@pengutronix.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,65 +60,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 2, 2026 at 4:59=E2=80=AFAM Thorsten Leemhuis
-<regressions@leemhuis.info> wrote:
->
-> Lo! Me again, sorry for pestering you folks about workflow issues again
-> after doing so just a few weeks ago. :-/
->
-> On 4/1/26 20:44, Alex Deucher wrote:
-> >
-> > More stuff for 7.1.
-> >
-> > The following changes since commit a51973c5dff8a0f01cc7d1b2007306ea0004=
-fa16:
-> >
-> >   Merge tag 'drm-xe-next-2026-03-26-1' of https://gitlab.freedesktop.or=
-g/drm/xe/kernel into drm-next (2026-03-30 06:04:59 +1000)
-> >
-> > are available in the Git repository at:
-> >
-> >   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.1-=
-2026-04-01
-> > [...]
->
-> I noticed that this lacks "drm/amd/display: Wire up
-> dcn10_dio_construct() for all pre-DCN401 generations", which is a fix
-> that was posted 10 days ago[1] for a 7.0-rc1 regression that at least
-> three people hit[2]; a fix that now seems to be in "this week's display
-> driver promotion cycle before merging"[3] at AMD.
->
-> Is this delay really needed / worth it for a regression fix at this
-> point of the our devel cycle?
->
-> And yes, I understand that this might be shared code that AMD wants to
-> test internally first. Still asking, because at the same time it would
-> be nice to (a) fix the regressions rather sooner than later and (b) not
-> fix in the last minute.
->
-> Are "pre-DCN401" chips even tested in this "driver promotion cycle"? And
-> how often does it find problems anyway? Can't we just apply the fix and
-> revert it quickly later in case AMD find problems (yes, I understand
-> that this complicates things, but I wonder if that might be worth it if
-> this is rare)?
->
 
-There are always new fixes.  Worse case it ends up in 7.0.1.  If it
-causes other regressions, then we end up introducing a new regression
-in rc7. Pick your poison I guess.
+--tDItNukm9imF4pG6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Alex
+Hi Lucas,
 
-> Ciao, Thorsten
->
-> [1]
-> https://lore.kernel.org/all/20260323211343.263909-1-sunlightlinux@gmail.c=
-om/
->
-> [2]
-> https://lore.kernel.org/all/CAOKSTBs1VNBdjRZe3M2v-nC%2BpLZZ0-KQtRUZUj6ACq=
-b4Xe7LDg@mail.gmail.com/
-> https://gitlab.freedesktop.org/drm/amd/-/work_items/5052
->
-> [3]
-> https://lore.kernel.org/all/22eb66d8-b74a-4e0a-9851-7e39c7f950cd@amd.com/
+On Tue 31 Mar 26, 11:14, Lucas Stach wrote:
+> Am Dienstag, dem 31.03.2026 um 00:46 +0200 schrieb Paul Kocialkowski:
+> > It is necessary to wait for the full frame to finish streaming
+> > through the DMA engine before we can safely disable it by removing
+> > the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
+> > hardware confused and unable to resume streaming for the next frame.
+> >=20
+> > This causes the FIFO underrun and empty status bits to be set and
+> > a single solid color to be shown on the display, coming from one of
+> > the pixels of the previous frame. The issue occurs sporadically when
+> > a new mode is set, which triggers the crtc disable and enable paths.
+> >=20
+> > Setting the shadow load bit and waiting for it to be cleared by the
+> > DMA engine allows waiting for completion.
+> >=20
+> > The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
+> >=20
+> > Fixes: 9db35bb349a0 ("drm: lcdif: Add support for i.MX8MP LCDIF variant=
+")
+> > Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
+> > Co-developed-by: Lucas Stach <l.stach@pengutronix.de>
+> > ---
+> >  drivers/gpu/drm/mxsfb/lcdif_kms.c | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/=
+lcdif_kms.c
+> > index 1aac354041c7..7dce7f48d938 100644
+> > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > @@ -393,6 +393,22 @@ static void lcdif_disable_controller(struct lcdif_=
+drm_private *lcdif)
+> >  	if (ret)
+> >  		drm_err(lcdif->drm, "Failed to disable controller!\n");
+> > =20
+> You can drop this no-op poll above...
+
+You're right, it looks a bit weird to keep it as it's not needed.
+
+> > +	/*
+> > +	 * It is necessary to wait for the full frame to finish streaming
+> > +	 * through the DMA engine before we can safely disable it by removing
+> > +	 * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
+> > +	 * hardware confused and unable to resume streaming for the next fram=
+e.
+> > +	 */
+> > +	reg =3D readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
+> > +	reg |=3D CTRLDESCL0_5_SHADOW_LOAD_EN;
+> > +	writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
+> > +
+> .. then setting the shadow load enable bit can be merged with the
+> access clearing the DMA enable bit.
+
+I've just tried it out and it works just as well!
+
+> > +	ret =3D readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
+> > +				 reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_EN),
+> > +				 0, 36000);	/* Wait ~2 frame times max */
+>=20
+> I know this is just a copy from the existing poll, but I don't think
+> the busy looping makes a lot of sense. I guess relaxing the poll by a
+> 100us or even 200us wait between checks wouldn't hurt.
+
+Yeah good point too. I think 200 us is definitely fine since we're looking
+at an average wait of a few ms.
+
+Will respin the series then!
+
+Thanks for the review,
+
+Paul
+
+> > +	if (ret)
+> > +		drm_err(lcdif->drm, "Failed to disable controller!\n");
+> > +
+> >  	reg =3D readl(lcdif->base + LCDC_V8_DISP_PARA);
+> >  	reg &=3D ~DISP_PARA_DISP_ON;
+> >  	writel(reg, lcdif->base + LCDC_V8_DISP_PARA);
+>=20
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--tDItNukm9imF4pG6
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnOtYEACgkQhP3B6o/u
+lQxIWRAAhTBm6l6e4boYz1kz6WDMKGGEtQUkKJOH1nrv6J0LkyeyaNqcPQX3sFyZ
+MuQRXuThf5BiOPwhJ0iZfu0kAwpbmLL3Xv/tjd3ioK4lpIz6SnOBPL6UqopvMFDa
+RUDMd30EychK4puPjWj0Ur+jw21I116JerBrPYX6DU1QWFFjQJtE3zI4y6WR+yBP
++03CbDhqctGmTKzR/KByVAHlMfLiZJbXu332T6wVB5X1edgdp/xz3i92LgpdBVyG
+2Ae6yOO4qmeTmoCQCOUATV7MAwhlsH3GdFpTqUn35ZGvV/9NkQjUJBy6oHbaKal5
+tl2wqvKxI9MmYtE+mYJnU2Y60ll46/I2x2qb9VbQS7vhlHnIvOknezIansj5YB9u
++fP16K48QofV2qblnXcpxmaViPFgzkDhIkhj05gekPlHX+O5OQGYQdGo23htJSIQ
+436Lut5JWS0tCunOBJpGP21HW5V3FNP7tMdWXi4C8VJqOu497Hxq2hkiX/gTU7d3
+Pgk1H3Od2FPfuuTlCaoruyQMJeU88L9X3uC7I3/QeYc8fvL/5BxccoP2gkZkz1Wb
+PJyqRcDTti7BMjyevVKwbt32GEyRQkUmR+DixOMNyNqKaaXFw/rsUYUKYcRl0Alv
+CpFP44ONxv/R/cZBJx66NEUJkNLtQymOk/RNOP9s74sjFAG8cwo=
+=neHO
+-----END PGP SIGNATURE-----
+
+--tDItNukm9imF4pG6--
