@@ -4,118 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DAB61112243
-	for <dri-devel@archiver.kernel.org>; Wed,  1 Apr 2026 23:33:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23F621112245
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 00:09:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E615A10ED79;
-	Wed,  1 Apr 2026 23:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F34B10EC96;
+	Thu,  2 Apr 2026 00:09:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="XMwVn2b/";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="OtHjWcEO";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011069.outbound.protection.outlook.com [52.101.57.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFAD610ED79
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 23:33:23 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010038.outbound.protection.outlook.com [52.101.85.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3595210E3AB;
+ Thu,  2 Apr 2026 00:09:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DlOtnZUgM6gWXBjtHpBEgsUoS6FrdwhihidfzUzATFbxLU9kxqT3aDw8xndeIj7lSVetreiKySKnWEO0M/t/PSNes7WMfhbgKDhoGnwyeP1h89CmI1puI4vqLRedM2cjd1ALPv+59YbtSoxIAGGf6uMZkSSh3FdyaqN6pn5GJCPy9edX6QxwPC/3b+mgtHF0Obd7hyTp0XrKYb2O/bV5wm6ArfATvT9OoS6AImQr16EG7LdP305XeP/ffxFFUT1/irJh7bIRLU/t5xbGq1F7XZXXvuhTYbHkdEctZhWAT0kNridpdo1iofjHYmBtJ84DzbmlpbCBX3wV9Z2vEN5w1Q==
+ b=v+QnDeHXnes1h/AH1iiv3KfJ/GPMVougkFyQpD6DOdbskwJtjFlNnFf1Ti4vkh1O3zD2McrTQR+Jy3z3cH8RD5BWT5JTY+XozoUwIS2ogSO3hvjUjbWQ/4TCTjAB2z7a9N4WyRN3MpJTJUjEHmHMbM1H0Y0IpXkECzK8ebDin7d05kLn/vfVNcPP/rLAL6Nwt44E+Z2VYvbR4vWVrWLpbHsm5cPqIUjBTWpfX7JVu5Rxw4c4GwzLjvLBIzVhIS93oZDQaSWSnm5Go1IfTbpU/KZzwJvDtC15m8CMj2KkFFIo5Dm5smFcMtsouD20CSPnDdyrJ9zbcAaVs0U62sSyLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eK6eC4KiOeqVmcfG6iGgdEvhNIpcYBymhO/vehG9B3g=;
- b=vv1DdQ/CfE6RYCdqm14fDWd2tixMgoOq3TncUD+b543SYOM/bLix81j2bSUkbJ6fc6kZSnZ594PSv0NzI4ecD2o10ybiDnfscs5N2yoGie6EC/lP9zNf2X8LBH6dH0/3szwhdZr2xj72RrxZJWvD42j0KZcXGOfwDKIrZajccSWC3wNKZBGedT5iQE1YfbzBxAs8TD5/PgqywrFgHNX2MkpSwjsXmi8AJ77Zn1TgxOyfpTxGMr0N6xwfcGgNdcNemPI3rjGveAXA4IF/PsifSsqbwEoyYOiJ88naywqYDZR8sSJCXYEwHOTg7TyeMpbcZ1VJ0oWtpLjc1/kdnO7bhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=uXFGiZPHGtQ1mCJotl3k/kk/S8XjX07BpyIvC+5gnr0=;
+ b=Sx+IBIRWVIbZtzmm+JvtEaDVMpuYzjbZMw5kzLgVWFkDPFX6kddLBeBoWkW9Z2BGdztAXUM8u9iuz+YgNaEX/QFQUlCqCvnDuJdId5SZ1mg2wvLq2iEypA+nP9kedlF3EudQJXhCyqZKiF0wJA6P39pQeX1kNLaIFk974TCkoRZf8ibhs4lmbYLZsDJMz6EfIjYharG4h5SPlBVd74mIZTUrkeLIB0DYUVR8D1jb4y4uZJd+06hut1SaBAcKMri2JzyBdCZzkfkqNo1jMbbHbwc1gOolYu6Q1183SOVB4jFzSzLxub8EByfEf4G20vTGkVXQwfvZDASUOTLNKRZJLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eK6eC4KiOeqVmcfG6iGgdEvhNIpcYBymhO/vehG9B3g=;
- b=XMwVn2b/XLciAt2qPUT0YbUGkw5eDRmIp+hDOGiB6AQA71xbf4Amy+nbODzGthbXgswtic02HRXPbovGFIQ3CwgG+MdsIM7u2c3Syg8BmlpT1knxb8fSDB2fgmLOVXpAV9s7n50AmRN65JTgu9tJ/zOL1o/b5DRkfxK3K0kTQGk=
-Received: from DS7PR05CA0081.namprd05.prod.outlook.com (2603:10b6:8:57::6) by
- PH0PR10MB6433.namprd10.prod.outlook.com (2603:10b6:510:21c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Wed, 1 Apr
- 2026 23:33:21 +0000
-Received: from DS1PEPF00017090.namprd03.prod.outlook.com
- (2603:10b6:8:57:cafe::25) by DS7PR05CA0081.outlook.office365.com
- (2603:10b6:8:57::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17 via Frontend Transport; Wed,
- 1 Apr 2026 23:33:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS1PEPF00017090.mail.protection.outlook.com (10.167.17.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 1 Apr 2026 23:33:20 +0000
-Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 1 Apr
- 2026 18:33:19 -0500
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 1 Apr
- 2026 18:33:18 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 1 Apr 2026 18:33:18 -0500
-Received: from [128.247.81.246] (mz02jj9v.dhcp.ti.com [128.247.81.246])
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 631NXIOM954717;
- Wed, 1 Apr 2026 18:33:18 -0500
-Message-ID: <09d3cf4d-ecb3-444a-8e88-7d51599007fe@ti.com>
-Date: Wed, 1 Apr 2026 18:33:18 -0500
+ bh=uXFGiZPHGtQ1mCJotl3k/kk/S8XjX07BpyIvC+5gnr0=;
+ b=OtHjWcEOWfEiIMJ7DANlP4opEjc//MJfmt64MP2J/7CKinh5CErPGUy6TYN+z0IftSGvDwl+9z1ltixUxXC+0l7B3xfXlQsEX/ITA0yI08exll+3g0EUpZqvb1nwK/Jh0/55nZTnHbWK7gat/gQv+RJLlbEByJ/PUKFSz2jDiTFek8fTtC2c5q7xZYasg2rmBpagrivKpkBBMIgmYgQxpW1oAtlSgni5RCkdVPywOto+s3WxR6EZPIx8BxfXae3wC7ho2sepoyBOBoPcZ7FXJb0lB0so4/eIxTfE6K/rCkqEQLkfBi+iTrL9Sv28E+abOdupe3YdUtaVj5dtLQAAkQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CY8PR12MB7171.namprd12.prod.outlook.com (2603:10b6:930:5c::20)
+ by SN7PR12MB6838.namprd12.prod.outlook.com (2603:10b6:806:266::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 2 Apr
+ 2026 00:08:56 +0000
+Received: from CY8PR12MB7171.namprd12.prod.outlook.com
+ ([fe80::4487:395f:3abf:ad9]) by CY8PR12MB7171.namprd12.prod.outlook.com
+ ([fe80::4487:395f:3abf:ad9%4]) with mapi id 15.20.9769.011; Thu, 2 Apr 2026
+ 00:08:55 +0000
+Date: Wed, 1 Apr 2026 20:08:53 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Airlie <airlied@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org
+Cc: Simon Horman <horms@kernel.org>,
+ David Laight <david.laight.linux@gmail.com>
+Subject: Re: [PATCH v2 0/4] ice: use better bitmap API
+Message-ID: <ac2zgKiszbbUb79t@yury>
+References: <20260302011159.61778-1-ynorov@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260302011159.61778-1-ynorov@nvidia.com>
+X-ClientProxiedBy: BN9PR03CA0681.namprd03.prod.outlook.com
+ (2603:10b6:408:10e::26) To CY8PR12MB7171.namprd12.prod.outlook.com
+ (2603:10b6:930:5c::20)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: sii902x: Add Power Management hooks with
- audio context
-To: "Thakkar, Devarsh" <devarsht@ti.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>
-CC: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Donadkar,
- Rishikesh" <r-donadkar@ti.com>, "Jain, Swamil" <s-jain1@ti.com>
-References: <20260401013758.4149091-1-sen@ti.com>
- <96444379-712c-4e21-8f3c-55eaad850cd4@ti.com>
-Content-Language: en-US
-From: Sen Wang <sen@ti.com>
-In-Reply-To: <96444379-712c-4e21-8f3c-55eaad850cd4@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017090:EE_|PH0PR10MB6433:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab6c7887-1550-42ae-8ef5-08de90470efd
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7171:EE_|SN7PR12MB6838:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2e09539-71a5-41c2-f282-08de904c07c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|7416014|13003099007|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: A70kMJjtMX89bXdjeuT8kqu/kFW3J1pkche0JDi9OhksAUvNfJ8T5S2b+L8YtF/ol1U/hQsW7jF9xf5C8ubX/1Y0G8rUyV4EWDpWEAhweiZCOV8VDFhBRfWDzh1KFQyouKoVlmMMJzmeuOh3ibFDbwcX7PMzMHCDFzua5yhzrJ8iY7rktD3o4sp2bcnshRFaMt/OxOnuRB5nj1ANcnusMgDbWo1pUFTDOth96WzHkg9REULoGwyrQjJhXnunURs/HdPT0SfWQaoGePTQ9U8XcGaxGH3GJBB4dIyk4vxwJBtDe+jS0q+cn9FcDzGCFL1OQbQKkLTF1JMKM2ATYiJyNoH2qISb5amD6xggSwUbsy3jm5PAel+/O6yRFNieNfDD+zmiXB0j+OuzO8HjWCDb7ZeZrrGL7fGwjWqE4eZFghOIn9cee0f4B7xANYGyXdl5IpCLlX+RkAM1+s1jtuRM7dXWGJGY31oGFrvbSBdPqi99++n9jzJ2O/MEL40mFrrclHjZCmHAvjlVYvv4LNW/cU83ZyeGnnL92OJLC40dsTF4slpoNe6WbwjcZq0rRgjLUNuKAXPI9ogZXV4x56Q28aMqdOqtvbejJxy1L1qjb1PEQXsXYOaQYpaE1g4TRBTSHpL0fy8ZTccNYzQcyrToksSqNfnmL7sF3Q9oA9Ao/ChlhwCGZ7kxZX09CvO6uUj5UBw3nfQ0fsdW9A/2GUbbKCaoNivNFq4tu1h1/2Ibewg=
-X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(7416014)(13003099007)(18002099003)(56012099003)(22082099003);
+ ARA:13230040|366016|7416014|376014|1800799024|10070799003|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: CU+nebmwnqqimNzyqgcEhrRF9FxR5hzmG0TQ0RqZJ+8EwrecgYY0IsPufeh2j83/dAdXEDDaJatZ+5P6tYdWrUYDwIa/T6lil6f1RMDhhYKga6OUqUzwDHfUTNaCySVTlm9rGfg8nagZ4TlC+ncwGSen68EaGsa65hRoEeGD52qBzVm50ym+jRh6LLzTUp8fu17TANySI0Sw6KvD2JNWArdm/uAh9ZX/1fw8yY/RFxeS/ZuZf4Yrd1sDMnhbo0dvEUas/O6eaHKAKfk1Dr+fsKlZJd6nSs9wpeOJsHZUchO99Gckfnf5MMM2NUsK5Vh6Qk682QE3Dat17/W4ouX9/zed2L/gLfnpU+ERaaaPKqXV6+xiyohSpVk5dcpq41LFZP76NdsyxZ/WEVF8f0qYUBEUqKp2AIP45Y1MAVwtM5iVsA5k6XYsnl341QGlqlVclbOQ7LuDTIRFHJk1/DSZt2kOdU+qZsyf6xKjgaZQa163TO7bgVWw5DLSzsFBXi/HTB3IJoHLSuwqGYhANUEO52nIU9GwRm5Duzi4GXOUxj+An2eg9ShhNizHJLH3Poxm6XM1GdR2ABnVOZjHSIc6HKuiTMVT9DzSToCfeSEawNY3sxUBQOM0RliX4lFk2V+11LzhtJX7cE1gJZJO7HVvAZe+DzbkLizWh5cuSym5Qxe1NdIyN1iBMhJFcJfwkWwBVWI+XAS3blWZN8Z/VgzQzjYxJE2fKJvNGitRzRzX4P3jm7rMeX6gRNhMMGIH5ff5AyOrbB1rOc1dTtsQmin4QNupdDs4DTGUTixQIhEv37U=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7171.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(10070799003)(921020)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: n2p2XzidpVKb4E3umQoqt/VSKUm9MAG4p5PYm9z6pnn348IHkZ9oVyTicte5la1N0n9KrJt1oFvq21cNNT/kydhqxlE9vXU6k+BiujW3If1Tloz59QPzOyjpX1VivkTqnC/g+EGHawu4W74IAmbF1EN3EDaxGVehyphdRRjc6d8IrqBE3b8whnsxkg7rRq6sUMfE927SMls6tVwWE5yh6mXPzbYu6zvvGo1/kL+Nvr9OqRIzlprFatigAlW+yEJn1wjeqsROXFDuS/nF9AkbmaMhm5bnW3l7At/sE7BHSw42u/rAB/u4maCFew+knf973Ty/ZPR7CgLC1FgscceJOkGySvZrMCHtgtbmAD+wumc+FB/Bl6/7Ut4fcIv74OsF/wDrZcErOfhHJz/bOlcpzFy1cAkT86VTNetq6eRK3uB4onu0G8V75duUXxXbfV8E
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 23:33:20.0697 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab6c7887-1550-42ae-8ef5-08de90470efd
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
- Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017090.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB6433
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?E7lRfOZPugBzEVhN+h5bXJgcbdDhq9LrMAXrrpaC3Q4wQDN5BU4oQjKSNrEt?=
+ =?us-ascii?Q?3Jf2d4XUmN0nOmHyBZDjqhW5Bvy4EBrKmqU5CPXyLVJP07mxg/hE3tH6+I7V?=
+ =?us-ascii?Q?KY7ztsYJ2gCQw6zopo7RAcc0F+Q7jvAGXJ3UxJ9b5yv0f76726tNnKgBudWv?=
+ =?us-ascii?Q?zdLoh4yUND357TNEc7R9G8wX6qlmgGR4KLM9iPKrbESwTM6nL7NS9ddfRreN?=
+ =?us-ascii?Q?DpFGBXkhKBE3tkFT57b4Uh1e1XHfhlYB/IOpk/fb5erSau3/8MbHjl1Wsz+c?=
+ =?us-ascii?Q?Wn1rBu+PH326ZXOQZrrPJCFxLg6inCTstO5vtYQ/9qgrPQ1V9OIEe7/DXPvb?=
+ =?us-ascii?Q?UbuJJ92fIeONkq+u7bRSk6fkT05D1KMXMVnnDWlc3UWvzeNTZqRhM2L/XryE?=
+ =?us-ascii?Q?jpgu4Hjc2gMScSFaw8ybaG8j9g/liwoAPtasw+OBXxKexEhyAXgRY8duCRa8?=
+ =?us-ascii?Q?FSRb0S89plzcwJSPSPmer1HfUz+xGTT8qONulAH7YXP9ul6AwvDBXBnYaz2Q?=
+ =?us-ascii?Q?reZ8JmNviR9JqKzpdcdr1FKQh6WCAPjxXktt8qvY+of5xSqO2sejDpZ8VlmH?=
+ =?us-ascii?Q?zH7spINRaWdBSoYzj9bWaxz8JFU1UTwRBb0DZAhjN/+FDMYFCaqD7xj++OfS?=
+ =?us-ascii?Q?DqeA/8g6ZH4xQdlv/kGDt3J6Nw6/8gKxQ5L7OSAt52f5HW+bZeTu+6hDvPKa?=
+ =?us-ascii?Q?qu0exv9mio6iCl0a2fYmty8oro1lqYhVnMqBOdNBW2q/bQmgtAca95L92xbY?=
+ =?us-ascii?Q?1yoSh4piPZa5eV6XiRrmTzsoa+skC5FLxug2JPnFu4eGfHy6a5WDleFhSuF5?=
+ =?us-ascii?Q?xPGbYIFP0NAxnLtc/lIgFz1FITADUN7EK8j3ipGU3hZuVfKmrsEIFN8upeVI?=
+ =?us-ascii?Q?CGZe7u4YyX/TaV2iKAAsYUnx8h4iXFhnwHP0ND9EUxi8DWdYGyMseWRvFmmi?=
+ =?us-ascii?Q?wlGyixMALIbV4gnFBXeaoElaOlEQOwaUYPLkBEWf+vrkpotu8mk3JFwqIEVh?=
+ =?us-ascii?Q?K/5t61Y+SC1km2x1JSYESUuSTLlDikdShHLyh1tc9dJCOq3FyLPp52wMSRYx?=
+ =?us-ascii?Q?a8Eo4xIcx/nUoitDVvAQ4QupVR1PIKRFw6wkwNBtuKsycPK5IPHavW/FCnlb?=
+ =?us-ascii?Q?3nVnn+a1c+Q79Gy+REgYe4eVp8vrCroPv8XlBuCSVbQ20QMsA+86K4qVM0AY?=
+ =?us-ascii?Q?9nG4g1g2c4vx0y/4WSTo/ciiRhxMdbZkX/Rp/AcWsdN1z2kqUse7cgdTyMhk?=
+ =?us-ascii?Q?KBzgecXDGkGfLzICiJoUJA34op8X3rByU7fEm2B1XkK0RhUOzCwQWruGYICf?=
+ =?us-ascii?Q?DEuQoMRbGwg63nlv2Qj/W5AsqdVq6xRjvNg6RbEaXEURAhr3jJKuaZeMTH1+?=
+ =?us-ascii?Q?QEd+33OwSDdxgnQDIZDW4mT4WU1ozAqZMZKwwvt9HUx8PTYsogKXEqi1Onol?=
+ =?us-ascii?Q?/lDD1FUpFR7xIzEXe9z9Lwce9NEFTH2s/GafBkBGoXkjROw47iPv+EsSBZjo?=
+ =?us-ascii?Q?6pUV6d55HvRz4BS6mbvH0RAdtvJhuBNXDIdyeG3n7O1IwTqbBvvkLrxE3uN7?=
+ =?us-ascii?Q?lt3m1lG7HyIKAn4Qe9oo8/s2wg63+DF2d85RlZKAYjia7nAQrut4gLLMxyRm?=
+ =?us-ascii?Q?RIpz+YLfM50hIBKZeCQ9sFHaMMM+AXMd8F4cQQDSc3crR9ujZcDxB4B5Pz6r?=
+ =?us-ascii?Q?zIuBPGKei9bXhbbtSoCJbm7KSh3CF/2VGB3RrmTrtNpITJgPBsvw2aOMV71A?=
+ =?us-ascii?Q?VU3fEzXGWvSwBW+mpOT0hO+zLpFVW2fLoRQxV9z5tC90nxzmssKo?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2e09539-71a5-41c2-f282-08de904c07c7
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 00:08:55.7601 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z1S8vMqp2dIIJDzS0NDCQWU7P2d2feaV92sH0XAm00HTa6x4Wuj0/Nu+feuIjHIWwods8PCLqFgOWRZGeICppg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6838
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,377 +139,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/1/26 09:42, Thakkar, Devarsh wrote:
-> Hi Sen,
-> 
-> On 01/04/26 07:07, Sen Wang wrote:
-> 
-> Sorry but this is not very clear, is this a V2 to
-> https://lore.kernel.org/all/e6497541-f3e7-4533-a188-9d422cb34d74@ti.com/ ?
-> 
-> In that case, the subject should mention it as PATCH v2 along with
-> changelog as documented in kernel patch guidelines :
-> https://docs.kernel.org/process/submitting-patches.html
-> 
-Hi Devarsh, Thanks for your review.
+On Sun, Mar 01, 2026 at 08:11:54PM -0500, Yury Norov wrote:
+> Use better bitmap API where appropriate. Patches #3,4 may be applied
+> separately.
 
-This new patch encompasses more features than the previous patch to
-warrant it being a separate patch. But nonetheless my apologies for
-not stating the indirection in my commit message.
-
->> Add suspend and resume hooks. On suspend, save TPI mode, interrupt
->> enable, and audio register context (when active). On resume, detect
->> power loss by comparing the saved TPI value; if changed, reset the
->> device and restore TPI mode and interrupts. Restore audio registers
->> and re-enable mclk if audio was active before suspend.
->>
->> Audio register values are read back during suspend rather than cached
->> during hw_params, as the sii902x requires a specific register write
->> sequence during initialization that must be preserved on resume.
->>
->> Based on initial PM hooks implementation by:
->>     Aradhya Bhatia <a-bhatia1@ti.com>
->>     Jayesh Choudhary <j-choudhary@ti.com>
->>
->> Signed-off-by: Sen Wang <sen@ti.com>
->> ---
->> Tested on TI SK-AM62P-LP board with HDMI audio playback across multiple
->> suspend/resume cycles.
+Added in bitmap-for-next for testing. Thanks!
+ 
+> v1: https://lore.kernel.org/all/20251223162303.434659-1-yury.norov@gmail.com/
+> v2:
+>  - new v2#4;
+>  - add documentation line (Simon);
 > 
-> Could you please also share the test logs ? Did you verify that both
-> audio/video context resume back seamlessly afer resuming from system
-> suspend ?
+> Yury Norov (4):
+>   bitmap: introduce bitmap_weighted_xor()
+>   ice: use bitmap_weighted_xor() in ice_find_free_recp_res_idx()
+>   ice: use bitmap_empty() in ice_vf_has_no_qs_ena
+>   drm/xe: switch xe_pagefault_queue_init() to using bitmap_weighted_or()
 > 
-
-Okay I'll attach it to the commit message for v2 patch.
-
-> I guess this still does not support runtime suspend/resume ?
+>  drivers/gpu/drm/xe/xe_pagefault.c           |  3 +--
+>  drivers/net/ethernet/intel/ice/ice_switch.c |  4 +---
+>  drivers/net/ethernet/intel/ice/ice_vf_lib.c |  4 ++--
+>  include/linux/bitmap.h                      | 15 +++++++++++++++
+>  lib/bitmap.c                                |  7 +++++++
+>  5 files changed, 26 insertions(+), 7 deletions(-)
 > 
-No it doesn't, I don't know if full suspend/resume is necessarily the 
-correct solution for runtime as well, besides there's also ways to do it 
-in mode_set/atomic callbacks. Not well-versed in DRM framework to draw 
-the conclusion here.
-
-Runtime PM should ideally decouple sound and video to maximize the power 
-saving. Let me take a deeper look and see if this chip has features that 
-benefits from runtime PM.
-
-> And assuming this is v2, here you should mention changelog and v1 link:
-> V1: https://lore.kernel.org/all/e6497541-f3e7-4533-a188-9d422cb34d74@ti.com/
->>
->>    drivers/gpu/drm/bridge/sii902x.c | 165 +++++++++++++++++++++++++++++++
->>    1 file changed, 165 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/sii902x.c
->> index 12497f5ce4ff..8da8ca22ac99 100644
->> --- a/drivers/gpu/drm/bridge/sii902x.c
->> +++ b/drivers/gpu/drm/bridge/sii902x.c
->> @@ -179,6 +179,8 @@ struct sii902x {
->>    	struct gpio_desc *reset_gpio;
->>    	struct i2c_mux_core *i2cmux;
->>    	u32 bus_width;
->> +	unsigned int ctx_tpi;
->> +	unsigned int ctx_interrupt;
->>    
->>    	/*
->>    	 * Mutex protects audio and video functions from interfering
->> @@ -189,6 +191,13 @@ struct sii902x {
->>    		struct platform_device *pdev;
->>    		struct clk *mclk;
->>    		u32 i2s_fifo_sequence[4];
->> +		bool active;
->> +		/* Audio register context for suspend/resume */
->> +		unsigned int ctx_i2s_input_config;
->> +		unsigned int ctx_audio_config_byte2;
->> +		unsigned int ctx_audio_config_byte3;
->> +		u8 ctx_i2s_stream_header[SII902X_TPI_I2S_STRM_HDR_SIZE];
->> +		u8 ctx_audio_infoframe[SII902X_TPI_MISC_INFOFRAME_SIZE];
->>    	} audio;
->>    };
->>    
->> @@ -755,6 +764,8 @@ static int sii902x_audio_hw_params(struct device *dev, void *data,
->>    	if (ret)
->>    		goto out;
->>    
->> +	sii902x->audio.active = true;
->> +
->>    	dev_dbg(dev, "%s: hdmi audio enabled\n", __func__);
->>    out:
->>    	mutex_unlock(&sii902x->mutex);
->> @@ -777,6 +788,8 @@ static void sii902x_audio_shutdown(struct device *dev, void *data)
->>    	regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
->>    		     SII902X_TPI_AUDIO_INTERFACE_DISABLE);
->>    
->> +	sii902x->audio.active = false;
->> +
->>    	mutex_unlock(&sii902x->mutex);
->>    
->>    	clk_disable_unprepare(sii902x->audio.mclk);
->> @@ -1069,6 +1082,157 @@ static const struct drm_bridge_timings default_sii902x_timings = {
->>    		 | DRM_BUS_FLAG_DE_HIGH,
->>    };
->>    
->> +static int sii902x_resume(struct device *dev)
->> +{
->> +	struct sii902x *sii902x = dev_get_drvdata(dev);
->> +	unsigned int tpi_reg, status;
->> +	int ret, i;
->> +
->> +	ret = regmap_read(sii902x->regmap, SII902X_REG_TPI_RQB, &tpi_reg);
->> +	if (ret)
->> +		return ret;
->> +
->> +	if (tpi_reg != sii902x->ctx_tpi) {
->> +		/*
->> +		 * TPI register context has changed. SII902X power supply
->> +		 * device has been turned off and on.
->> +		 */
->> +		sii902x_reset(sii902x);
->> +
->> +		/* Configure the device to enter TPI mode. */
->> +		ret = regmap_write(sii902x->regmap, SII902X_REG_TPI_RQB, 0x0);
->> +		if (ret)
->> +			return ret;
->> +
->> +		/* Re-enable the interrupts */
->> +		regmap_write(sii902x->regmap, SII902X_INT_ENABLE,
->> +			     sii902x->ctx_interrupt);
->> +	}
->> +
->> +	/* Clear all pending interrupts */
->> +	regmap_read(sii902x->regmap, SII902X_INT_STATUS, &status);
->> +	regmap_write(sii902x->regmap, SII902X_INT_STATUS, status);
->> +
->> +	/*
->> +	 * Restore audio context if audio was active before suspend,
->> +	 * in the matching order of sii902x_audio_hw_params() initialization.
->> +	 */
->> +	if (sii902x->audio.active) {
-> 
-> audio.active should be protected with mutex lock as done elsewhere in
-> the driver?
-> 
-Sounds good, I'm assuming PM resume/suspend are atomic but nonetheless 
-need to safeguard it from existing ops.
->> +		ret = clk_prepare_enable(sii902x->audio.mclk);
->> +		if (ret) {
->> +			dev_err(dev, "Failed to re-enable mclk: %d\n", ret);
->> +			return ret;
->> +		}
->> +
->> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
->> +				   sii902x->audio.ctx_audio_config_byte2);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
->> +				   sii902x->audio.ctx_i2s_input_config);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		for (i = 0; i < ARRAY_SIZE(sii902x->audio.i2s_fifo_sequence) &&
->> +		     sii902x->audio.i2s_fifo_sequence[i]; i++) {
->> +			ret = regmap_write(sii902x->regmap,
->> +					   SII902X_TPI_I2S_ENABLE_MAPPING_REG,
->> +					   sii902x->audio.i2s_fifo_sequence[i]);
->> +			if (ret)
->> +				goto err_audio_resume;
->> +		}
->> +
->> +		ret = regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
->> +				   sii902x->audio.ctx_audio_config_byte3);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
->> +					sii902x->audio.ctx_i2s_stream_header,
->> +					SII902X_TPI_I2S_STRM_HDR_SIZE);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +
->> +		ret = regmap_bulk_write(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
->> +					sii902x->audio.ctx_audio_infoframe,
->> +					SII902X_TPI_MISC_INFOFRAME_SIZE);
->> +		if (ret)
->> +			goto err_audio_resume;
->> +	}
->> +
-> 
-> Do we need to restore the indirect registers status too with the
-> constants that were used ?
-> 
-> /* Decode Level 0 Packets */
-> 
-> regmap_write(regmap, SII902X_IND_SET_PAGE, 0x02);  /* 0xBC */
-> 
-> regmap_write(regmap, SII902X_IND_OFFSET,  0x24);  /* 0xBD */
-> 
-> regmap_write(regmap, SII902X_IND_VALUE,   0x02);  /* 0xBE */
-> 
-> ```
-> 
-I didn't see any difference when I restore these registers but let me 
-double check just to be sure.
->> +	return 0;
->> +
->> +err_audio_resume:
->> +	clk_disable_unprepare(sii902x->audio.mclk);
->> +	dev_err(dev, "Failed to restore audio registers: %d\n", ret);
->> +	return ret;
->> +}
->> +
->> +static int sii902x_suspend(struct device *dev)
->> +{
->> +	struct sii902x *sii902x = dev_get_drvdata(dev);
->> +	int ret;
->> +
-> 
-> Have you reviewed Table 3.8 of the datasheet ?
-> 
-> I think we should probably be utilizing different operating modes during
-> suspend/resume cycles.
-> 
-> For e.g. with system suspend go to D3 cold state which is absolute
-> minimum power.
-> 
-> For runtime suspend thought, have to be little careful as the D state
-> should be chosen such that it does not have a too high resume latency.
-> If D3 doesn't have too high then probably use the same else use D2.
-> 
->> +	ret = regmap_read(sii902x->regmap, SII902X_REG_TPI_RQB,
->> +			  &sii902x->ctx_tpi);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = regmap_read(sii902x->regmap, SII902X_INT_ENABLE,
->> +			  &sii902x->ctx_interrupt);
->> +	if (ret)
->> +		return ret;
->> +
->> +	/*
->> +	 * Save audio context if audio is active, in the matching order
->> +	 * of sii902x_audio_hw_params() initialization.
->> +	 */
->> +	if (sii902x->audio.active) {
-> 
-> Here too, I think mutex protection required while accessing this flag.
-> 
-
-Understood
->> +		ret = regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
->> +				  &sii902x->audio.ctx_audio_config_byte2);
->> +		if (ret)
->> +			goto err_audio_suspend;
->> +
->> +		ret = regmap_read(sii902x->regmap, SII902X_TPI_I2S_INPUT_CONFIG_REG,
->> +				  &sii902x->audio.ctx_i2s_input_config);
->> +		if (ret)
->> +			goto err_audio_suspend;
->> +
->> +		ret = regmap_read(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
->> +				  &sii902x->audio.ctx_audio_config_byte3);
->> +		if (ret)
->> +			goto err_audio_suspend;
->> +
->> +		ret = regmap_bulk_read(sii902x->regmap, SII902X_TPI_I2S_STRM_HDR_BASE,
->> +				       sii902x->audio.ctx_i2s_stream_header,
->> +				       SII902X_TPI_I2S_STRM_HDR_SIZE);
->> +		if (ret)
->> +			goto err_audio_suspend;
->> +
->> +		ret = regmap_bulk_read(sii902x->regmap, SII902X_TPI_MISC_INFOFRAME_BASE,
->> +				       sii902x->audio.ctx_audio_infoframe,
->> +				       SII902X_TPI_MISC_INFOFRAME_SIZE);
->> +		if (ret)
->> +			goto err_audio_suspend;
->> +
-> 
-> In the previous revision, my comment was to skip  register reads for
-> restoring the context and instead populate the context in hw_params itself :
-> 
-> something as below :
-> @@ -710,18 +717,36 @@ static int sii902x_audio_hw_params(struct device
-> *dev, void *data,
->           ret = regmap_write(sii902x->regmap,
-> 
->                              SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
-> 
->                              config_byte2_reg);
-> 
-> -       if (ret < 0)
-> 
-> +       if (ret < 0)
-> 
->                   goto out;
-> 
-> +       sii902x->audio.ctx_audio_config_byte2 = config_byte2_reg;
-> 
->    
-> 
->           ret = regmap_write(sii902x->regmap,
-> SII902X_TPI_I2S_INPUT_CONFIG_REG,
->                              i2s_config_reg);
-> 
->           if (ret)
-> 
->                   goto out;
-> 
-> +       sii902x->audio.ctx_i2s_input_config = i2s_config_reg;
-> 
->    
-> 
->           for (i = 0; i < ARRAY_SIZE(sii902x->audio.i2s_fifo_sequence) &&
-> 
->                       sii902x->audio.i2s_fifo_sequence[i]; i++)
-> 
->                   regmap_write(sii902x->regmap,
-> 
->                                SII902X_TPI_I2S_ENABLE_MAPPING_REG,
-> 
-> and likewise and then you don't have to do reg reads in resume back
-> 
-Okay, let me analyze this.
->> +		/*
->> +		 * audio.active is kept true so that resume restores the audio
->> +		 * context. sii902x_audio_shutdown() clears it when the stream
->> +		 * is explicitly closed.
->> +		 */
->> +		clk_disable_unprepare(sii902x->audio.mclk);
->> +	}
->> +
->> +	return 0;
->> +
->> +err_audio_suspend:
->> +	dev_err(dev, "Failed to save audio context: %d\n", ret);
->> +	return ret;
->> +}
->> +
->> +static DEFINE_SIMPLE_DEV_PM_OPS(sii902x_pm_ops, sii902x_suspend, sii902x_resume);
->> +
-> 
-> Can we add runtime suspend/resume hooks too ?
-> 
-
-I can add what we have for runtime, although I need to investigate this 
-is actually makes a difference.
-
->>    static int sii902x_init(struct sii902x *sii902x)
->>    {
->>    	struct device *dev = &sii902x->i2c->dev;
->> @@ -1247,6 +1411,7 @@ static struct i2c_driver sii902x_driver = {
->>    	.remove = sii902x_remove,
->>    	.driver = {
->>    		.name = "sii902x",
->> +		.pm = pm_sleep_ptr(&sii902x_pm_ops),
->>    		.of_match_table = sii902x_dt_ids,
->>    	},
->>    	.id_table = sii902x_i2c_ids,
-> 
-> Regards
-> Devarsh
-
-Thanks for your review Devarsh, let me investigate and follow-up with a 
-v2 patch.
-
-Best regards,
-Sen Wang
+> -- 
+> 2.43.0
