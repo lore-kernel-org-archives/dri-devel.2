@@ -4,46 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EA96D6AAF5
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 16:50:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0421ED6AAF5
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 17:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 971D510E493;
-	Thu,  2 Apr 2026 16:50:55 +0000 (UTC)
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C78A10E493
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:50:53 +0000 (UTC)
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
- by leonov.paulk.fr (Postfix) with ESMTPS id 403AD1F8005C
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:50:47 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
- id CD928B40125; Thu,  2 Apr 2026 16:50:32 +0000 (UTC)
-Received: from shepard (unknown [192.168.1.1])
- by laika.paulk.fr (Postfix) with ESMTPSA id 14645B4011E;
- Thu,  2 Apr 2026 16:50:26 +0000 (UTC)
-Date: Thu, 2 Apr 2026 18:50:09 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9EAF10E06C;
+	Thu,  2 Apr 2026 17:01:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c+Rmecz1";
+	dkim-atps=neutral
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012035.outbound.protection.outlook.com
+ [40.93.195.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADBBB10E060;
+ Thu,  2 Apr 2026 17:01:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P3350ZtsztZ88bRjxtwt7H5L/KyBJG/7K/HBqu3IFLCCpZqBnJXK4J+8PzkRnDia/zBXH9LFBdihuVVvl14wgiT4xcfyMJdpdjdt+X8sCMc+H9OOIsiAYNVahFupKxiAScTsjLixfaAss2OS5tPuADxSNo7MqD9G4Ao+t9m17Els001fkxYbhMga5AFE68XYgJw4z08U4cFkWutKDim8OXd4sc/XzyqOMTzwYCWym8Qb0LTlDxJmNCGXT6neQu4lAt96ZhX5NM8jjfXuNCNqigfjLvr5OLW5br02hqs8wU3epAxtWr7yWvXrhZ/ahZqkHJKRwwVYT2N1Y/uwTy3cFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=quCjxGuT3uPWAeXKLqylvdOobHoPP4oAuDSE0XHhvDo=;
+ b=JktD6GrhZUn2Y6CTo/L168mhb8gzofLQyUFKpxx7A+6AaO3PJxnhpOq65MK/bare0RttRJPesrxXcJ3azqD1z+GEIE6u0XbStH1smLfkFZ2SGehyLy9RtzF55HtxcS8W46oX6UgR77+C206DCiM4qXNnMuUDF2WUFmca9TctbO8yTQkkZbAEK56oUvjj15/4LFXoOKuvC/PXANvdEChH7BH08WAjtJ2f4GN46zF7zQt7nv7RP+7J+n3A2qX2ifz9loIk1mwwbpzS4xVKkXXsj79FDHyne+U5A6XETlIlyDy6ac9pRCsKY5R9eFb/H8OMdxx7/hEpo+0zwF51QqalGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=quCjxGuT3uPWAeXKLqylvdOobHoPP4oAuDSE0XHhvDo=;
+ b=c+Rmecz1OYvsQEziqbhWJkGQQ+JBSG/9RnfxDal4/uxFQjgD8EELMp5dsTSStB0LmW3xeRlLrGVB56C5cKYtCoLURuqCBvzLRgG2bGYOkJq5xkjJVka+hI4qfEFrdyZDYMiQRayGMYbSJLzP4Y3+Ht7kfTvTrI7JO0Xk2xXw22k=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by SA3PR12MB8764.namprd12.prod.outlook.com (2603:10b6:806:317::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Thu, 2 Apr
+ 2026 17:01:09 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%5]) with mapi id 15.20.9769.020; Thu, 2 Apr 2026
+ 17:01:09 +0000
+Message-ID: <1ed28250-b72a-4aa2-8eed-aeaff687c1d5@amd.com>
+Date: Thu, 2 Apr 2026 13:01:00 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
+To: Daniel Stone <daniel@fooishbar.org>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>,
- Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
-Subject: Re: [PATCH 3/3] drm: lcdif: Wait for vblank before disabling DMA
-Message-ID: <ac6eQcDS8lr-A4ia@shepard>
-References: <20260330224619.2620782-1-paulk@sys-base.io>
- <20260330224619.2620782-4-paulk@sys-base.io>
- <m3y0j8mhoz.fsf@t19.piap.pl>
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>
+References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
+ <4265353.aeNJFYEL58@workhorse>
+ <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
+ <5416161.aeNJFYEL58@workhorse>
+ <792c4540-d690-4453-a32e-62e23e78d628@mailbox.org>
+ <9d525fe4-b091-4cd9-b977-de19ffe4b957@amd.com>
+ <20260331155028.71246d7a@fluorite>
+ <dc7f59af-05d0-4942-b21b-b85289f7eee1@amd.com>
+ <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <CAPj87rOz=QvQE1CqshspTPkC5nSXW_WAxUf1rwa=w4zmPdgtQQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0153.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::15) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="a2mfjKByZ2U6+wpv"
-Content-Disposition: inline
-In-Reply-To: <m3y0j8mhoz.fsf@t19.piap.pl>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|SA3PR12MB8764:EE_
+X-MS-Office365-Filtering-Correlation-Id: c78070da-fb10-47af-544d-08de90d96fef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: f4ETQSraoCRXiiGE4AjLm36/MxRc3CebrzEDr32scRMis3Sihvlyr1V5D/T9vXAfE+k2q6d6nKhIVvtOmJ2dwy8c9Ks1BBNar7EvcYBDF/+5Wsi+78JN9VgMKfZRLTK/vRk0HNG8b4W8QEaXdz7GkrtPa7x6HHS8t/1+52wuUEJN3oNMio+cqAyY4qW85lD+nhf8ICQJg+wAMGbR3rDivZ4pCb/0+HRLUxN9OirtyvIQ7aYVWOC68X8Jp+TrMkyqRu/hA5+uQu+BrwjuVBEs88LVrJ4tq42DaanEyvJbIF0wDCgSRCffqJez550zbDgESCnUC5FkArnYRiezr1jYkrHaoW9IQhygNx0dxIGeuTjEQS93jIgvekd6FzwE71jtQREWU19yLebi+kTaUGXh4N6hEN+oPb1KWhcaziKAlg+omLuFWPqMznARTLHwkX/etrQF3V4Q4fiT+1CzeIoXPKX3gITxh1Kb3d1XHnQ/kFOzKiGm73gL2r5800yYDEfXuDXGZZILPv7pH+o3nuAyJdoTq+dxtLD2caLoY88Q3u4BbioqWByYBly5tAIRvRiRe8nq7xAmjYEFkn7+3+YUtJ4xAfj6WBaUeM8jaXrvnWh0xOhAmjZYBPVT+IWxMEAeN7Cf+H8JG5/lOoj4VDpyLuAr0JUMJyLimO2ErwJCiDqEHtHzJo6tF0JZ9eG4MNh+UE9JHPvYGieuEaoGQQ2sHvflVfC+vu2FT3TAp6WoYTM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0IzNEgxV1owbFpXQnkrRjhEYUlhQURpa2FZUS8vaHBDU3pWUHptNGVyVTg2?=
+ =?utf-8?B?YkdkeTFYOHFJM3k5eEh2NmczaUxzQWdKNmpQMCtQTWE3cDdBM1dQNG8yczdF?=
+ =?utf-8?B?b0l0aTNUUDU0ajNTLzNFWkNUTFY2aEFaNzIvSjhCRUUrc1d0K3I4ZHJLTTN5?=
+ =?utf-8?B?ZHBZcFFFOU5nU0k2T1ZUbTVWVDBKUklNMmREQndhTDg0aFVKQS9pM2JUVTMy?=
+ =?utf-8?B?c053eU9OMnlIaXUyd2ZudTZTNlNJb2M4T1JnZjZWYUJjV3VKVzlyc3NWMVRl?=
+ =?utf-8?B?NmRmQ0FobmlHSVIwOGkyNy9icDVyalZqWVpGdHlCVlRoY09rdG56RlVvV3Vy?=
+ =?utf-8?B?blM3ZXFLbDdNT0dMaHZudE9WSWI1aXM1UnJZUjZpcGJHVHhXKzc1RDE2SnNZ?=
+ =?utf-8?B?NGxCUmtCNFFSTVJZeGtwZjVDV1hKaXp4YkdqdE53V00yZU54aU5OcVZjTW1y?=
+ =?utf-8?B?YU5rRjFnVUYzQjdFMkJxNmxYZXVqKzVoK2JPZmNPRisrd1ZMRVIrSmlMRTR6?=
+ =?utf-8?B?dEVkTlVvcG9Xd05tNG9Wb0dpdThrejVLcjRWT3VqSmJGZUFzSFQ2a0pUMXJZ?=
+ =?utf-8?B?UTVxcnhGLy8zQy92WGdYTVIrd1pURTZoZ1Vmdlc4TFZPOVpIeFRvUzZLdm13?=
+ =?utf-8?B?bU8rYStMRzJHNjd2eGIrSkdXQU9WVFJ3YVdibHYwcURBdGRUcGZDN2dLdVJK?=
+ =?utf-8?B?dEJ0TEcxMHhSM0VPcFBOZzB1TmFscDJwS2R3a2h1V1ZLVWUyajlNaXVkOVpm?=
+ =?utf-8?B?WXJoZ053RElueXBQOXNQSG16QTNVYUIzbEl4YnJYS3g0bDRhUzVIbWxUWGtP?=
+ =?utf-8?B?NjVvWHBsTEVsdTU2MGpnQi84NUFmb3BSVitadU1YQUlBWkFQOEtBVHZZN2py?=
+ =?utf-8?B?UkJJL0pBQlhoUnZFVVM2Qzl3blJERFVxaThxalRpTDV4RmtUMWVkTzUyaTVy?=
+ =?utf-8?B?WlZFTHdEL251YzQ4REljU1FxNThpNmdsZTdqc29rZFNvaXJ1d0JNc2RmMnBr?=
+ =?utf-8?B?NHlodzFiWTUrYURtdVY2SWVDNHZOODBMdFZ3ZDNBLzFWR3IxdXQzK2ZyMWdO?=
+ =?utf-8?B?MUYzcWY2dnR5OVpHa1NTUGhiWGZuMkVCQVc2MENaa1hkc3hldk5HSWFjc2RI?=
+ =?utf-8?B?ZzFOYi94VUhUOFBiUG5hOTNhU2hkZmU3OEkvWUYwYkphMFJiVlZpUTFaQU95?=
+ =?utf-8?B?S00xcTdGT3FLazR6bzlYY1ZwUzBpTmZaeUN0bFB1MHpTRTRqQVhVczJmVXNU?=
+ =?utf-8?B?UUpXVHEvSmRqZzBLbDBuZVVLMmNTSjlRMkFaTU1qbU5uYm1uSE1sMzhreWh3?=
+ =?utf-8?B?UExrajFKdzVHd25nWEUySGoyc2gvaG5OQWRFRDJBQWZ1cXlWOUNqYXoxa3hj?=
+ =?utf-8?B?ZjYrQzQwRDh3Tnl3aThhQ1ZnQjBXUTdLbGUwbytabVNiOXYxQVBrWHVkRFNJ?=
+ =?utf-8?B?b3hJdzd0MFFoVy9wS1NSdVFBL0E5Mm54WDlpREZGUUIzL2wwWUpqcC9PODJs?=
+ =?utf-8?B?b2k2aGlYTnJXblR1U2RDcW12M09XZCtBTWJCMHMxWnN5RXJtazlscktSWURK?=
+ =?utf-8?B?NUlucEROc3lJVXhSZEVwOG04UXpGNkZIZnFGbmkydDFzaHhPMEZFZWt4ejZs?=
+ =?utf-8?B?NFJIUTQ1L0RycGJMNEI0Wm1KbE4vdktpNkhPODEyUDY2WURtNzRkb3ZDWVUr?=
+ =?utf-8?B?dHVLTGdaU294c3RQUWZDWTNJYWthM3RYcVk0eVN4WmE5YVc0MU9rUTNNYmZQ?=
+ =?utf-8?B?SjNjVEhTMmplTk9SKy9QOTRNOUNFNjFab3E3T2h1S1p3bUJaMlNxQW4vSE1T?=
+ =?utf-8?B?M2lhM2xNRVhVeldqODV1emVBOE5xYWZ0YlByWFlrVVNnaFlqZEtBZlkwQk5a?=
+ =?utf-8?B?RUQ5T1huZ3JQNVFzdDFCbUhEdDZqVTZ6cmM4Ym1DUnlYWHlVZDlFMVRxUnFK?=
+ =?utf-8?B?UjFrQ2dzSWp3R1NNdE51dXFZQXpUc1RsSFdvUjJwWDdVc3ZUbmtxNE5GZ0JB?=
+ =?utf-8?B?cmRuOXJzajROK0o1dkFFM01NRXdWNXdNMHRJODM3TyttOHpvWkRHTDdMMUFI?=
+ =?utf-8?B?YWxubmxJYUZlMXM2Z2ZENzJ2ZDQ1MStGWWZ0VFkwY0J0REhubWU3ZlF3aHB2?=
+ =?utf-8?B?R3VWTkJ1YmhUcGpSR2QvNzBPVXkrWnE2UHNaNWk0T2toOE14ZWFiMkptVTlT?=
+ =?utf-8?B?UTc1cVUyNEhBR2ptN0lVMUM3NGpGYythK3Bla05wL3JOdnhiN3kxSXNuckpM?=
+ =?utf-8?B?OXRZUnE5TmFwVjVBOFdDUStBcG9WY2JBdTJHaUZRK3FPT0R5VVdOem41THRn?=
+ =?utf-8?B?c3RxajJ6aVRlUTRzSTh1WlQ1WGs4WWV4RE0zVG9GZzA4VWZDZ1Jtdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c78070da-fb10-47af-544d-08de90d96fef
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 17:01:09.4810 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L2atIEu85vwbI6AGtmqn5s/5VwxHpJ20Mrw2zwh5hUHS7ytKmFqGYeYgMVdiwYlCAot+t6jKrIeIFpgEHScG/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8764
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,264 +159,90 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---a2mfjKByZ2U6+wpv
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi Krzysztof,
+On 2026-04-01 04:40, Daniel Stone wrote:
+> Hi Harry,
+> 
+> On Tue, 31 Mar 2026 at 18:47, Harry Wentland <harry.wentland@amd.com> wrote:
+>> On 2026-03-31 08:50, Pekka Paalanen wrote:
+>>> People who care about the picture quality down to these levels will
+>>> likely want to know and learn about these techniques. They may also
+>>> want to explicitly control them.
+>>>
+>>> In time, when these have been used enough in the wild, compositor
+>>> developers will learn what makes a difference and what does not, so
+>>> they will adjust their reporting to end users. The most important thing
+>>> for the kernel is it offer an unambiguous and stable UAPI for these.
+>>>
+>>> Policy belongs in userspace.
+>>
+>> I don't like this as a blanket statement. There is a lot of policy that
+>> intersects with HW nuances, whether it comes to power or otherwise.
+>> Taking away driver vendor's abilities to optimize will hurt the Linux
+>> ecosystem in the long run.
+>>
+>> IMO this needs to be evaluated on a case by case basis. There are
+>> many places where it does make sense to give userspace a greater
+>> say on policy, but we don't want to push driver (HW specific) logic
+>> up into userspace.
+> 
+> It's not something that's _just_ specific to a particular
+> display-controller manufacturer or a particular IP generation though.
+> It very much depends on the usecase.
+> 
+> If you have a laptop and you're trying to give a presentation,
+> applying dithering and/or DSC makes a lot of sense: you don't want
+> your battery to die, and the projector's probably going to obliterate
+> half the colour anyway, so might as well as go for the most efficient
+> thing.
+> 
+> If your laptop is plugged into your big display at home to write code,
+> applying DSC to cram the highest possible resolution + refresh in
+> would make sense. But if dithering only results in a marginal power
+> saving, and your laptop is charging anyway - why bother degrading
+> visual acuity?
+> 
+> If you're a media player, then you're in a good position to know what
+> would be good to go over the wire, because you know (& are possibly in
+> control of) the format over what comes in in the first place.
+> 
+> But everyone's tradeoffs are different, which is why sometimes the
+> best choice is to ultimately leave it up to the user. If you dig into
+> any media playback device (STBs running Android TV, Apple TV, Fire TV,
+> et al), you'll see that all of them ultimately allow overrides for bpc
+> / colour model / subsampling / etc. Those aren't just there for fun,
+> but because they are usable to real people, and it's not possible for
+> Amlogic or MediaTek or Rockchip or whoever to statically decide that a
+> certain configuration is going to be best everywhere.
+> 
+> Right now we have drivers making magic per-vendor/SKU decisions,
+> without even so much as a feedback mechanism to userspace (unless you
+> count debugfs, maybe) so it can even figure out what's going on, let
+> alone control it. To properly support some of those usecases,
+> userspace needs to be able to control what goes out on the wire, but
+> as a first step, it just wants to be informed of what the driver even
+> did with the properties we gave it.
+> 
+> The end game of this isn't Weston logging something to stdout, it's to
+> surface things to userspace so it can guide the kernel into making a
+> good decision for usecases that may not be ones the silicon vendor
+> decided was 'probably the best thing' however many years ago.
+> 
 
-On Tue 31 Mar 26, 12:11, Krzysztof Ha=C5=82asa wrote:
-> Paul Kocialkowski writes:
-> > It is necessary to wait for the full frame to finish streaming
-> > through the DMA engine before we can safely disable it by removing
-> > the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-> > hardware confused and unable to resume streaming for the next frame.
-> >
-> > This causes the FIFO underrun and empty status bits to be set and
-> > a single solid color to be shown on the display, coming from one of
-> > the pixels of the previous frame. The issue occurs sporadically when
-> > a new mode is set, which triggers the crtc disable and enable paths.
-> >
-> > Setting the shadow load bit and waiting for it to be cleared by the
-> > DMA engine allows waiting for completion.
-> >
-> > The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
->=20
-> ...or "addressed" in the previous version :-)
->=20
-> Test results: it works for me: at 1080p60 and 2160p30. I.e. it fixed the
-> underrun problem. It's interesting how a CRTC shutdown can affect it's
-> subsequent start following an SW_RESET.
+I agree with you.
 
-Thanks for confirming! Indeed it's a bit surprising. I'm not sure what SW_R=
-ESET
-does exactly but it may not concern the DMA part. I've tried using it in the
-irq handler when the underrun is reported and it didn't do anything at all.
+But I wanted to respond to the statement that "policy belongs in
+userspace" and add a bit more nuance. It depends on the use-case
+and in any case, it's important drivers have the ability to set a
+good default policy for a given HW.
 
-> Or... perhaps it has something to do with the clocks? Also see below.
-> If somehow the DMA engine was "running" with it's clock disabled, it
-> would result in an underrun, or worse.
+We're still missing a lot of toggles to allow userspace to select a
+desired policy and I'm sure we'll be able to add those where needed
+but I agree with Michel and Ville that we need to get the end-to-end
+implementation right.
 
-Interestingly I tried to keep the clocks always on as an experiment and it
-had the opposite effect: the DMA engine would get confused every time after=
- the
-first mode set and disable. So for some reason the disabling of the clocks =
-seems
-to mitigate the issue rather than aggravate it.
+Harry
 
-I think the issue probably boils down to a corrupted internal state of the =
-DMA
-engine if it is disabled while streaming pixels. This is more or less what =
-the
-comment from NXP suggests.
+> Cheers,
+> Daniel
 
-> BTW apparently something converted your tab characters into spaces.
-
-Ah good to know, thanks!
-
-> > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > @@ -393,6 +393,22 @@ static void lcdif_disable_controller(struct lcdif_=
-drm_private *lcdif)
-> >         if (ret)
-> >                 drm_err(lcdif->drm, "Failed to disable controller!\n");
-> >
-> > +       /*
-> > +        * It is necessary to wait for the full frame to finish streami=
-ng
-> > +        * through the DMA engine before we can safely disable it by re=
-moving
-> > +        * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave =
-the
-> > +        * hardware confused and unable to resume streaming for the nex=
-t frame.
-> > +        */
-> > +       reg =3D readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
-> > +       reg |=3D CTRLDESCL0_5_SHADOW_LOAD_EN;
-> > +       writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
-> > +
-> > +       ret =3D readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
-> > +                                reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_=
-EN),
-> > +                                0, 36000);     /* Wait ~2 frame times =
-max */
->=20
-> I guess this comment is not necessarily correct - at 2160p30 one frame =3D
-> ca. 33 ms. Still works, though (I guess anything more than one frame is
-> enough). I don't know how long a frame on HDMI (or LVDS, MIPI etc.) can
-> take. 30 FPS on 2160p is common because the i.MX8MP can't display 2160p60.
-
-Honestly I think we're good assuming 30 fps (33 ms) is a lower bound.
-And the current 36 ms goes even beyond, so I think it's fine.
-
-> Also, found an issue. Perhaps unrelated? Powered the board without HDMI
-> connected. Then connected 1080p60 display. It came in 1024x768, console
-> 64x24 :-)
-
-That looks more related to a failure to fetch the EDID from the monitor.
-1024x768 is the default fallback that is used in this situation.
-Maybe check if there is something wrong with the DDC lines from the hdmi
-controller, maybe pinmux etc.
-
-> Run weston. Pressed ctrl-alt-backspace. It deadlocked. Sysrq (serial
-> console, show blocked state) showed (with *lcdif* in it):
-> task:systemd-logind  state:D stack:0     pid:253   tgid:253   ppid:1     =
- task_flags:0x400100 flags:0x00000800
-> Call trace:
->  ...
->  schedule+0x34/0x118
->  rpm_resume+0x188/0x678
->  __pm_runtime_resume+0x4c/0x98
->  clk_pm_runtime_get.part.0.isra.0+0x1c/0x94
->  clk_core_set_rate_nolock+0xd0/0x2fc
->  clk_set_rate+0x38/0x158
->  lcdif_crtc_atomic_enable+0x74/0x8d0
->  drm_atomic_helper_commit_crtc_enable+0xac/0x104
->  drm_atomic_helper_commit_tail_rpm+0x68/0xd8
->  commit_tail+0xa4/0x1a4
->  drm_atomic_helper_commit+0x178/0x1a0
->  drm_atomic_commit+0x8c/0xcc
->  drm_client_modeset_commit_atomic+0x1f8/0x25c
->  drm_client_modeset_commit_locked+0x60/0x17c
->  __drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x2c/0x8c
->  drm_fb_helper_set_par+0x5c/0x78
->  fb_set_var+0x190/0x35c
->  fbcon_blank+0x178/0x24c
->  do_unblank_screen+0xa8/0x19c
->  vt_ioctl+0x4fc/0x14c0
->  tty_ioctl+0x228/0xb88
->  __arm64_sys_ioctl+0x90/0xe4
->  ...
->=20
-> This is reproducible, though not always.
-
-That seems to be in the enable path and related to runtime pm.
-I don't think it is related to my patch at all.
-
-> It seems it locks on some mutex - the shell works until I do 'cat
-> log.txt' or similar. Now (with std output/error redirection?), weston
-> doesn't even start.
->=20
-> dmesg doesn't show anything of interest.
-> weston: 14.0.2
-> using /dev/dri/card1
-> DRM: supports atomic modesetting
-> DRM: supports GBM modifiers
-> DRM: does not support Atomic async page flip
-> DRM: supports picture aspect ratio
-> Loading module '/usr/lib64/libweston-14/gl-renderer.so'
-> Using rendering device: /dev/dri/renderD128
-> EGL version: 1.5
-> EGL vendor: Mesa Project
-> EGL client APIs: OpenGL OpenGL_ES
-> ...
-> Registered plugin API 'weston_drm_output_api_v1' of size 40
-> Registered plugin API 'weston_drm_virtual_output_api_v2' of size 48
-> Color manager: no-op
->   protocol support: no
-> Output 'HDMI-A-1' attempts EOTF mode SDR and colorimetry mode default.
-> Output 'HDMI-A-1' using color profile: stock sRGB color profile
-> Chosen EGL config details: id:  17 rgba: 8 8 8 0 buf: 24 dep:  0 stcl: 0 =
-int: 1-1 type: win vis_id: XRGB8
-> )
-> Output HDMI-A-1 (crtc 37) video modes:
-> 1920x1080@60.0, preferred, current, 148.5 MHz
->=20
-> Output 'HDMI-A-1' enabled with head(s) HDMI-A-1
-> Loading module '/usr/lib64/weston/desktop-shell.so'
-> launching '/usr/libexec/weston-keyboard'
-> launching '/usr/libexec/weston-desktop-shell'
-> Warning: computed repaint delay for output [HDMI-A-1] is abnormal: -69164=
- msec (happens always)
->=20
-> could not load cursor 'dnd-copy'
-> could not load cursor 'dnd-copy'
-> could not load cursor 'dnd-none'
-> could not load cursor 'dnd-none'
->=20
-> Why all these clk* mutexes? Perhaps something didn't work out as it
-> should there? clk_set_rate isn't supposed to take much time, is it?
-
-Maybe something to do with the clock driver.
-It seems pretty much unrelated to the lcdif driver.
-
-All the best,
-
-Paul
-
-> $ grep clk /tmp/minicom.cap -C1
-> [  728.310054]  __pm_runtime_resume+0x4c/0x98
-> [  728.310059]  clk_pm_runtime_get.part.0.isra.0+0x1c/0x94
-> [  728.310065]  clk_core_set_rate_nolock+0xd0/0x2fc
-> [  728.310071]  clk_set_rate+0x38/0x158
-> [  728.310076]  lcdif_crtc_atomic_enable+0x74/0x8d0
-> --
-> [  728.310210]  mutex_lock+0x48/0x58
-> [  728.310216]  clk_prepare_lock+0x80/0xc0
-> [  728.310223]  clk_unprepare+0x28/0x44
-> [  728.310227]  fsl_samsung_hdmi_phy_suspend+0x24/0x40
-> --
-> [  728.310344]  mutex_lock+0x48/0x58
-> [  728.310350]  clk_prepare_lock+0x80/0xc0
-> [  728.310359]  clk_unprepare+0x28/0x44
-> [  728.310364]  etnaviv_gpu_clk_disable.isra.0+0x28/0x80
-> [  728.310372]  etnaviv_gpu_rpm_suspend+0x78/0x1dc
-> --
-> [  728.310494]  mutex_lock+0x48/0x58
-> [  728.310499]  clk_prepare_lock+0x80/0xc0
-> [  728.310506]  clk_unprepare+0x28/0x44
-> [  728.310512]  sdhci_esdhc_runtime_suspend+0x7c/0x198
-> --
-> [  728.310627]  mutex_lock+0x48/0x58
-> [  728.310632]  clk_prepare_lock+0x80/0xc0
-> [  728.310639]  clk_round_rate+0x38/0x1d8
-> [  728.310646]  dev_pm_opp_set_rate+0xe4/0x2e0
-> --
-> [  728.310760]  mutex_lock+0x48/0x58
-> [  728.310765]  clk_prepare_lock+0x80/0xc0
-> [  728.310771]  clk_prepare+0x1c/0x50
-> [  728.310778]  sdhci_esdhc_runtime_resume+0x34/0x180
-> --
-> [  728.311286]  mutex_lock+0x48/0x58
-> [  728.311292]  clk_prepare_lock+0x80/0xc0
-> [  728.311298]  clk_prepare+0x1c/0x50
-> [  728.311303]  sdhci_esdhc_runtime_resume+0x34/0x180
->=20
-> Something fishy here.
-> --
-> Krzysztof "Chris" Ha=C5=82asa
->=20
-> Sie=C4=87 Badawcza =C5=81ukasiewicz
-> Przemys=C5=82owy Instytut Automatyki i Pomiar=C3=B3w PIAP
-> Al. Jerozolimskie 202, 02-486 Warszawa
-
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---a2mfjKByZ2U6+wpv
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnOnkEACgkQhP3B6o/u
-lQymaA/8Cu27/yyOshfCvqQopelEL+8j4/DcmCUAm138wEi8rWc/EG+eZ5P9Falz
-x3trgpduIM3oiIPxLR47PGUGiUTSLcs+XnlZVTYUp/Tu3iFG47n6JY6SiQUev43L
-bEFjXvIvzMew71be3QyVRKNDOxSXDvONIK5Qtx+/dDyok55iYEm8kWrZDnwbAbE6
-yfr0Iqo+FEiLcHqT8RhB/jesQPRS1PiCxkJlMEQMEN4mKXQqm2uPCZ1dMmMD1GXQ
-jDj7NaqhnSVQfpsOa/PpoeBgUjtlisku3ypcC1/e8mC+ZmNFZseTfXaUIceOwBTw
-LmJc8UFyt4peZfJilrj4kWDbVpn8P3zL9Tj9+JsPbGZW4/klJZ5LSYCLbZCQT4n5
-LkxGxSjqNCO4A/fUvBhIClyp0+WpDrC+guIUk+pg5WrIsN4hLxWXpO0lxjDT+qyp
-IsDeUcDEqHA95gP9LogZzy0H0yhq5HTBhXx7EDs4pXGKf4nTrfB8JLrIGhQO6QFH
-g1VEEkRq8XvByVCGaByNcPIUh1uWqYDx9ybHsc1+/5GF+qzhXpPGTDRGjj8L0GMs
-WQ8NaGNVPSeEEMWbqghtb5lTdqTdPndFhyJXJWY73o60oAGZiE+wW8fZpcvY8DK7
-N231m3Ihf/BmRWl5jujv95ju1zvIsqs9UEDwUUpJwKdrnjSPbeE=
-=87Mt
------END PGP SIGNATURE-----
-
---a2mfjKByZ2U6+wpv--
