@@ -4,127 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64204CC6B03
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 05:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0453CC6B04
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 05:50:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E1010F098;
-	Thu,  2 Apr 2026 05:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D96EA10F0AA;
+	Thu,  2 Apr 2026 05:50:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eu4yUDoR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bZk1torL";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BZME6/R4";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE2710F098
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 05:49:48 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 631M4MGK4009757
- for <dri-devel@lists.freedesktop.org>; Thu, 2 Apr 2026 05:49:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=7oB02y7DFV4
- f1UWHYqajk1w575aCaNpMNr02LPqXAcI=; b=Eu4yUDoRtYt7fCso2YhZMhuz9Iq
- WMd1xwGL0ebWGKctydfo25iZKUU66w9s8XmZxv4SUIOqzR6zwMdHy3QVxY1khflX
- pBc6S3OboAI0Au2rvHxWmTbIWuHsayu9nzgi/9ij7hTibffVatkEHctpoRzvirD+
- FNQca2Fj+QLy5iMQ/edMTSszHuIqUawOhbnrkIn5vk7V4cQDRYUpKTXhQdQXp+Rg
- +Z1b4Mz6RgXBSF738Ttv2j1/MhGatNPNwCEp486KixIFa5YBjR7vxNIJTo/YUFkG
- We+SiackFMR2M8rAKsMux8sDulXYD4Pidb7uqAM83yO9pNLylEQ1iCkLY4w==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d97e029nr-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 05:49:47 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-82c4664f75fso335686b3a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 01 Apr 2026 22:49:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775108987; x=1775713787;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7oB02y7DFV4f1UWHYqajk1w575aCaNpMNr02LPqXAcI=;
- b=bZk1torLmX7sS7RYqnjLZwfHhNPv9ah1xZHx2Kef83KX9acEupQdXQV94u9GKmRms4
- OnOH0hGQI3gjfuAfDEGutdJgr5ZqnCVV3BCJQ31WbDkmRhlcISzvhTyhW0dKwWXUgoNY
- bHaoW74P1f0ak8QZXjJbzSqaaJ+igFC+igI4RTPMaNT214ESff0IjKrgirX1fh5cdGOU
- xUUGqerIMF/AYi/dAyCxhNXMYq2KiINk7CLvk8TLmy9W6iHODAzU27RWgqZuut6kMbao
- i+YQOMtvh3ETg1C7m+knvBnFei4HALRcyxxypxiqcSZf7DWtCbiuIwQnVp37nDxzTPib
- TVcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775108987; x=1775713787;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=7oB02y7DFV4f1UWHYqajk1w575aCaNpMNr02LPqXAcI=;
- b=HPt159X0XmU0AFBHZetbv6kmKB8Vl/73eD4DrwGDB32mr2zBbEdEf06+7rFKw6WwGx
- 0tAReumIs1XMCHXDLIP4yWjORv03OChKHqUNKxeIuC1soWpsEvcvkau7mFdavknlbKjo
- HBK8wC8wTMgQL0qE81FchC47+zKFvqaP9oQoDmS/GwndTDq3p90q2Rt5ZfXVxfVmJU3B
- Jrumodj1LECWY1squw0JOGj5K3/nEcrRzWH3hHt5o6uO+QeQ4s2GXgKxJdwWHsiE2ah5
- jhtS6OOwBVB+dh7gEeuw4g2a/H0vvvxEK2PCuZ+LioMQ3U5EcEVNx9gpUc9RwhpYB7OL
- jV5g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWI64qVL4lyM5UJdtSMl9To0AMGWyEu75R1SND4gdi35w+AjfaFOZkaM8Uwa41UPDBK7X4MSkZfVAs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7QvUacLgpgr3NKoLf/Mcxg/mWzdwvmX8aAorrTaLQAdHFqzyp
- LSd/waiyjggnjOSzb8wcdNwe7byFgKeC9OFK2E2pTLVg/h4/xDZd56YEETvdv1+oFvU2+PGwV3t
- hkOQl6BFHbIK2ZvWXPNOqrNlY9UZhvndxjczahhXlbJhYP/fj0wLO2xzI0qsFaLatzNoObA4=
-X-Gm-Gg: ATEYQzxMlCy8/KEWQ55L8cLxICZsTHtq5o2oSPIvhpUuVpo1uxwRQbE82upKetWb1SO
- KEHGkJYjYMOLT5pMDbryA8v9iJsXR7I3HVDcpzcLyc96O6MjWgoNn4uxUxFGva1B8b7RoYOIdI4
- WCk1M1kpkIKmTVYAYsxWdLDPJxKv6zNqbYeU6ckJDlnZ4Dn24WkjxDeRDbst73/MYIR76YeIZFl
- ja1y+AKnL7u2zYEUXz28uUwSlxpAcryK5gqPxaVfhg2k3BVqRa1oO2hJSPefPaDttYFrRR5eRpV
- k1CbVW3b47GGp/3jdvskdOrJgKz8LIXrkLotZihjWdoEDlTIgRxaM+k9qSNhm/nwHzT3ghaNtbc
- eZkjVpFRxzHk+K3cSBwUmAv7R5jT72SDyM8FZzDo4b+fFK9QLYruTeA==
-X-Received: by 2002:a05:6a00:1c84:b0:82c:e76b:c68c with SMTP id
- d2e1a72fcca58-82ce86e2e62mr7119033b3a.0.1775108987077; 
- Wed, 01 Apr 2026 22:49:47 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1c84:b0:82c:e76b:c68c with SMTP id
- d2e1a72fcca58-82ce86e2e62mr7119003b3a.0.1775108986562; 
- Wed, 01 Apr 2026 22:49:46 -0700 (PDT)
-Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82cf9b5fb22sm2167747b3a.26.2026.04.01.22.49.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2026 22:49:46 -0700 (PDT)
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-To: srini@kernel.org, linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de,
- dmitry.baryshkov@oss.qualcomm.com, andersson@kernel.org,
- konrad.dybcio@oss.qualcomm.com
-Subject: [PATCH v7 4/4] misc: fastrpc: Add polling mode support for fastRPC
- driver
-Date: Thu,  2 Apr 2026 11:19:23 +0530
-Message-Id: <20260402054923.3061925-5-ekansh.gupta@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260402054923.3061925-1-ekansh.gupta@oss.qualcomm.com>
-References: <20260402054923.3061925-1-ekansh.gupta@oss.qualcomm.com>
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010015.outbound.protection.outlook.com
+ [52.101.193.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 710D310F0A7;
+ Thu,  2 Apr 2026 05:50:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RRfxGLI0+jXXmGZ79aqOTUTqaSb/jdr8kuFwfBPUHIpMyUmBTs4/rHNkdSAdavUPRQrj8FYR7YyysnffkASfc8bEBEjtpNQCktChyfKsch8pg0g83DfhHvDJEu9pW1OujyT0sExX9B7nhHc596r10H6PYMhC+Ea0tUQvb7OkD84NkuaO5ugRFuhUk0DsCWOCcq7B+lV2ucSlITuRCCurh4kpHKFnj5Nxdv46M6y10AAPOcFr0LC7aaSdIfm/f40JQxpap27jE0Z0hplsPbXzA8MiulhCshoYHPY+iCryYk1FbZL9E/mqGgsft51Vc3CvFeqRxsb/RBnB3PkQ/23gGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b90gY3739T5IsdSrqeAYbuM9KQipSa0Y9BtFFVISuCg=;
+ b=NyBSyujUDIwbdTJJJxEIknNByrT6YjuIzhk2F4sQtxzIgka2OTGZCP6HqzEW7eMkYallcHmPkQOxmyd31Q3dAzfG9/Wxb1s8Jhlx1kydz5jDJVsqC0MTqh1YsFTGh3v5XjlYj9D6/wuE1Z9xMy7p1FAJzSaNnbpeLLDluZfXBORLlLjngFKCXlsB+gdjB7f4qomrBKkNaF58Ug9f8Ely5jHi+zPZUeR+I6ehOMgfCD/NGY5ck3OX1ruekUHYKibJ/KtaikQ/K04/RkCECr0VCk3rSkwHUD3nMh7Hy+dXxsJL3yhoh0S3fQShGK+Oo8VBZGxisWyzs7kDuYS7+9PiXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b90gY3739T5IsdSrqeAYbuM9KQipSa0Y9BtFFVISuCg=;
+ b=BZME6/R4RRCxcWAHkDitOttVbO9t6PRrFmb1WOpmn/qxg1HdC1nqP+TX+XdceXHTowngPR5vir//jDXwS62QFXj2TDhnea25OkZClql6Hsy48/i3XietVFtUlaYAxcWNYxBvHgopH4YGh3x8Duv3w8paNATYFbFYqPhdUyVbBCRpyPq4jBv59XfxeKl4/YG525l88X1nYWMoxSjH9wjH8soMFe8AzEHonrhBm+C6v9oKsU0PHYuzXlbldcGNnTYca0wLms/VIYVtjg1G6JoABnVKNhdlmc9ygcXzbsw1KtchHNhyBB6gPmkNA27zaN2RLJu0P2Q8567UAt7a92wW1Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by SJ5PPF1394451C7.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::98b) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.10; Thu, 2 Apr
+ 2026 05:49:55 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9769.017; Thu, 2 Apr 2026
+ 05:49:55 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 02 Apr 2026 14:49:52 +0900
+Message-Id: <DHIFMDLKTUSR.14QI5EHNMK18I@nvidia.com>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, "Bjorn Roy Baron"
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Dave Airlie" <airlied@redhat.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Koen Koning"
+ <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, "Nikola Djukic" <ndjukic@nvidia.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ "Christian Koenig" <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ "Thomas Hellstrom" <thomas.hellstrom@linux.intel.com>, "Helge Deller"
+ <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng"
+ <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
+ <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea
+ Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
+ <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
+ <alexeyi@nvidia.com>, <joel@joelfernandes.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v10 02/21] gpu: nova-core: gsp: Extract usable FB region
+ from GSP
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-3-joelagnelf@nvidia.com>
+ <DHHOCGNIYDW3.1P7YIMVLW93IY@nvidia.com>
+ <d6fe3e40-0310-4b90-ac8c-8beeec886f90@nvidia.com>
+In-Reply-To: <d6fe3e40-0310-4b90-ac8c-8beeec886f90@nvidia.com>
+X-ClientProxiedBy: DM6PR21CA0019.namprd21.prod.outlook.com
+ (2603:10b6:5:174::29) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fdGgCkQF c=1 sm=1 tr=0 ts=69ce037b cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=TEHdEMHTk_fMHrPBF0kA:9 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-ORIG-GUID: MnYbp1_4MnMu6NVSTEeKhmFoH3NGtY6c
-X-Proofpoint-GUID: MnYbp1_4MnMu6NVSTEeKhmFoH3NGtY6c
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAyMDA0OCBTYWx0ZWRfX+8eEwVeLn3bH
- gaXTmPUpn8YGWEsjKHtFLmn5yyNsj20/BxCwsJzisYLataoU3ZbhlOgxgw0q/uC3oXYqNzUaXiB
- I7GHh5NRuqHFlOfgJr8+wKX/LRIIl1zlvKe8BV1+JESnj4hIx+YSjVZkB2X03AIzH4GGfGcQLjJ
- P+iXENkDglPzZawt0gOGNEy7NsVksv7o9xdSM2m2Mjlvow/98gViCImxEwGliqjg98BWi0Psb4T
- +wDyPHgdf3oed8X9pb9IqK2nbNqGRNwzdmtTI/0GQxzhSYkqXbWlysScnpySRuMI1EfBHt4d2RR
- 0BRlMcRSRPu5t7RGuT/Iz4qqgCMhD/SNFvXXQE9DsuoBafolWKL1vADs3CUBG8k9PwcWafcdfmU
- 7OOvMzSxdMFSPkv6XhAu40EjQnBbxEVUSlHWGe60l5uZ64CIhd3cBBkbUwT/+Ow4Qqeya14Xr4h
- Vk2UiU1+KEWJSiqH7+w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-02_01,2026-04-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- malwarescore=0 impostorscore=0 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
- definitions=main-2604020048
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SJ5PPF1394451C7:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c7cf037-7053-4a03-8e0e-08de907baad4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|7416014|10070799003|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: i40Rx5cjUc7QGBOFCMObAVEeZjPgE4FK+J5c70+8r30w54xHK/q9Ehkjaso5PbWGLaw7Nu6TIrptEY1j2PsfA2oDGH8cFAQywTDZ1MwwiDgmx/Od6yxYOGmaPYNTce5jaNL4/lb7fcQUHmo4pFNVYOyWCgAnqZDOrWsEplxtDWnx1ywt9+R0DxC40ZB92dxSBG+EQRbRBk3ys2nlNNFwq3FPjywYre6RJ8fGJ1ZN1zyOw/7ul0GKeQy8F/lQcNbJ5YI1fz5vtFa90xeDaLlsWhMUhIASZaGH+6l0CjYaGqPvoRgbd7UjRu9pL0S1CcjpfabMZ0uwo2eVAKCCV7q07Rtc+zzPtWF3AgbnQBH4cCR8W5kF5/4GlJ6mb59scco+MDvuti9GNqK/hYafqmusRlzd+6REQMzzPIAymj7aM4+b7FZ7BVggBT3/FCvN8V88kSgeM8koFdWOYaaiiDGQvHsnCF9AFrt4Hz6FEeD0wEyTCkwKaTcCK9CNAo/md3qyIASmGsrt/gdAc9mQ9MhBCtJZkIj3CR39ZMFE3ivE7uIzUq64/gxjrOJ6GziMg1+DjPJURNgU6V4s8lt208W12uAcur1Jda6aX64O4/OUD9fsqhPhhJ9YGZ8PrA1053GzQyvM1pY1QdfO3u/Uba8CTC3u+FNXP9k/DSEHq2ap64LUcq2lbVNiFuidjy9niEDsHgTaKuTfV1W7n7b1IVYxVg3jDgOJlvRYhS/xkXc+cIU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(10070799003)(1800799024)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjFOUENHUlBKQ1dEd2JDUE9PaXRwTW1OSHUxR2JYdnhjbCsxemh6OGVTdm9v?=
+ =?utf-8?B?QUFVV2RqWHRCUmhWNUlNS21GUzVSVU41VExZNTdxQUpEMTV3MEl1Qnl5TlNN?=
+ =?utf-8?B?YzB5RUh6cDdoc2MzSDR3OGl1NmtDVVYzRE4xeWRldWw3dmN2Q3dCNG9PT281?=
+ =?utf-8?B?NVNIRGNmbVhpYUxoaTBsUWw3aURTb0hpOS9TOXpnRHVqVW43Y0owc1k1eDhI?=
+ =?utf-8?B?NlZtMTVlY0ZERTRiN1R5cEpvT1FIajdyWWdJZjBWTFpUMFpuY2IvNHFsVWhZ?=
+ =?utf-8?B?N1NBNkFaNDIzTjNVNEl4NzZucXlGVTVkMUxzbWdKbXh4dDZtcHJzTFFteG9Q?=
+ =?utf-8?B?aVYrYjBFYklneWJLYnJ5RDlJVzRUVDFjb25kamNOTStqYisyeWlaNGgrY0Fp?=
+ =?utf-8?B?WE9lVWJsYzVrT2MzaVVDRXVVR1dBT213Y1Z2Q3pDamUyaXFZUGt3SXhBT2dm?=
+ =?utf-8?B?SU80ZlJhWHFlTDhtNFMveDFGTjNzQVV6c1VkbGRqczZHdlY3MzN0dmJJVFNP?=
+ =?utf-8?B?SUcrY3pqT3NWc3RhWWtGOHZlcnlvNVZteFBoTHdmR211ZVgvZ0ZRdmlyWHpX?=
+ =?utf-8?B?aHI3UEx0QjhLYUpqUVg2QUsvcHVLQ3JrR2dKNG16bzRLNmJ0NDF0ZnpjZ2tI?=
+ =?utf-8?B?VXRHMEwzczVtOS9ZNjRiM09LZGJUYkxNU2RQQkxHYkxOT1AxNVFLQTQwaFRj?=
+ =?utf-8?B?VUVtRG9ESWlSNGpLSXNsTzhoak1nMW5ZSy9KYlF5R1A4ak5rZDdNSnAxcURW?=
+ =?utf-8?B?NHh4UVJVVEdqRFdWMVdmaFMydlVtL2NXZTQvOFpwWmk0dno1d1NQODZHcFkv?=
+ =?utf-8?B?ZFVIR0U2aHlFRjBnTUJJSEh2dndyL0RqMldNZWEzTE5kMkI0L3JaQkdwcDND?=
+ =?utf-8?B?eC92L0h4bFRoTjNROFpJUWxDWU1YV1o3ZGV6RlpYZ3pMVEdpSjYrYXI2bFAy?=
+ =?utf-8?B?ZTVvT1A0SDNsUDRzZkNmTndtM05yTTRyclJaQVQvazNLT3lHSzVld2MwQ3Y0?=
+ =?utf-8?B?ZXpWYkk5K21UajdTcGVENEdKZVEra2RqTFp0QXlpY3BYbXlmckdyYTNRWlFv?=
+ =?utf-8?B?OTc3NitxUEdZcmVUMUhDUVBnWVplc2dBaW93aWVqb3p3TVV4WktRVEk4QnJ3?=
+ =?utf-8?B?ZHFxMFlJZmo2NVh2aGIya0lkVlFmTFNuUFV4dTRTZE9vM25OMjhOWHlwRzQv?=
+ =?utf-8?B?M29nM2Q4b1JMM3NWUnZmOWpyNVRaL21SOXFtYVRoWFlNVFNJSHkwazMxbVlH?=
+ =?utf-8?B?dGxyTC9XNmZmaUVJcmVRSHZyYnFuSVJRdk5EYjlQM21FVW1lU3VWcktFT2Ra?=
+ =?utf-8?B?ZXloYUNreUFsSUpRblVlNHNEMEx4ODNDck1pNkJjSFBvRUpqZEdHeERwam9r?=
+ =?utf-8?B?RG80LzZzMTdHKzJOWlhoL0ZUcWJjbXVpblVLcmFtSHBxN2JwRDNMR0dSMlJr?=
+ =?utf-8?B?Wm1URG9ONnBMK3NSMWI4S01SUkZXKzJVL0VFVUp1YUp4U2FSZUlQZVNQaTE4?=
+ =?utf-8?B?b1BZcmFwMWFlTmd5TUhRRis2akp1TGI1QUl0eHR0OXM2K3orMWVzSDMwY3NG?=
+ =?utf-8?B?U25FOE9qYUN4Y3RYZkl4dDFERTl2cFd5SU1QU0tJUWc4RlZXc21sRmNDNzFy?=
+ =?utf-8?B?ZDFhYm5PQzZjdWpsb1VlTXVsU2Q3emtNSExJdzd1UTBSM1BWdzRxN2hLbEMy?=
+ =?utf-8?B?bTBIaC80Z3pUNDRlOHAxbDZVb3FQWUxxY09TV0NnZGlESG8zNlBQdkNPRHg3?=
+ =?utf-8?B?VENTTEVsNU9tekJXY09NTmtoVGlxaTRaYVU4N2hHQndVOUZGUFJRekFER09F?=
+ =?utf-8?B?Tk9tR01ZYkQ2ckV5dGk5MHVWd0pVdXVsQzZ6TDI1MmNrcmhEK0x4bHYyRlhD?=
+ =?utf-8?B?bTl6VzdNWXR5VmZ6WTZ3Znc2MHlwWTFSMnhHbmR1dHlGN0dPRjRheVh2SjR4?=
+ =?utf-8?B?UFBRR1dzd1VoN05FWXU2S1NRWmhyVXBqYUVVUy9HTXRVNksxZWwwVG8xM0pF?=
+ =?utf-8?B?Tlpnc0JvOG1NcGg4V0JYNldmWmZqcVF6TmgrbmtqVnJoQSsyMU1FbWJpWUVN?=
+ =?utf-8?B?SWJJaXpIUmZZODRBK2xkSGJDaWtLV2Q0SG5ZNG9jVERXUDNsa2lBN1VwNTlC?=
+ =?utf-8?B?blhtN2lWc2JTU1dYSGtOSW5CN3ZGSXVpdjBKNCt3ZFJqRHB4aFBETnc3dCtR?=
+ =?utf-8?B?a05kUUMzai9oU2xTVHIzbVFHU0I3RlZJRG45RGJhbW4yMWE1dVNxaFRCMjRS?=
+ =?utf-8?B?LzYwV1p1V2VMT21BLzhjd2g0R2d2djBOeWNtdEpnd2NOR2ErSUVaM01YbGxF?=
+ =?utf-8?B?dkZiL1ZhTzMwVyt6SEM4UGd0aXB4aFpqNXovU2dhUjR2Y042ek8yNHJ5TVdL?=
+ =?utf-8?Q?B5kWdmMuVyCjhuIK0MpzTz21CktSd1VvyvHVZJa68wY7b?=
+X-MS-Exchange-AntiSpam-MessageData-1: akO65B3YfZZvoA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c7cf037-7053-4a03-8e0e-08de907baad4
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 05:49:55.6630 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k6Zkjcyknnf9Vq8FyLq+0OeVszEFokgjU+8SvrWKggq1hj46cp/267IzqfwCq5dWtZB6lkediNsspPYU5ae6Vw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF1394451C7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,281 +173,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For any remote call to DSP, after sending an invocation message,
-fastRPC driver waits for glink response and during this time the
-CPU can go into low power modes. This adds latency to overall fastrpc
-call as CPU wakeup and scheduling latencies are included. Add polling
-mode support with which fastRPC driver will poll continuously on a
-memory after sending a message to remote subsystem which will eliminate
-CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
-poll timeout happens, the call will fallback to normal RPC mode.  Poll
-mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
-request with FASTRPC_POLL_MODE request id.
+On Thu Apr 2, 2026 at 8:24 AM JST, Joel Fernandes wrote:
+>
+>
+> On 4/1/2026 4:27 AM, Eliot Courtney wrote:
+>> On Wed Apr 1, 2026 at 6:20 AM JST, Joel Fernandes wrote:
+>>> Add first_usable_fb_region() to GspStaticConfigInfo to extract the firs=
+t
+>>> usable FB region from GSP's fbRegionInfoParams. Usable regions are thos=
+e
+>>> that are not reserved or protected.
+>>>
+>>> The extracted region is stored in GetGspStaticInfoReply and exposed as
+>>> usable_fb_region field for use by the memory subsystem.
+>>>
+>>> Cc: Nikola Djukic <ndjukic@nvidia.com>
+>>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>>> ---
+>>=20
+>> Please see my feedback from v9[1] which still applies.
+>>=20
+>> [1]: https://lore.kernel.org/all/DH1GK30TUB4V.2GR6ANXIZDFFQ@nvidia.com/
+>
+> Yeah, I am seeing it now. Amidst making the earlier 7.1 merge window for
+> the DRM buddy and earlier patches in the series, I missed this. They seem
+> to be simple nits and I will address them in the next revision. thanks,
+>
+> --
+> Joel Fernandes
 
-Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
----
- drivers/misc/fastrpc.c      | 132 ++++++++++++++++++++++++++++++++++--
- include/uapi/misc/fastrpc.h |  10 +++
- 2 files changed, 135 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 4363e0cc296b..25f385f4704d 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -24,6 +24,8 @@
- #include <linux/of_reserved_mem.h>
- #include <linux/bits.h>
- #include <linux/bitops.h>
-+#include <linux/compiler.h>
-+#include <linux/iopoll.h>
- 
- #define ADSP_DOMAIN_ID (0)
- #define MDSP_DOMAIN_ID (1)
-@@ -38,6 +40,7 @@
- #define FASTRPC_CTX_MAX (256)
- #define FASTRPC_INIT_HANDLE	1
- #define FASTRPC_DSP_UTILITIES_HANDLE	2
-+#define FASTRPC_MAX_STATIC_HANDLE (20)
- #define FASTRPC_CTXID_MASK GENMASK(15, 8)
- #define INIT_FILELEN_MAX (2 * 1024 * 1024)
- #define INIT_FILE_NAMELEN_MAX (128)
-@@ -106,6 +109,12 @@
- 
- #define miscdev_to_fdevice(d) container_of(d, struct fastrpc_device, miscdev)
- 
-+/* Poll response number from remote processor for call completion */
-+#define FASTRPC_POLL_RESPONSE (0xdecaf)
-+
-+/* Polling mode timeout limit */
-+#define FASTRPC_POLL_MAX_TIMEOUT_US (10000)
-+
- struct fastrpc_phy_page {
- 	dma_addr_t addr;	/* dma address */
- 	u64 size;		/* size of contiguous region */
-@@ -236,8 +245,14 @@ struct fastrpc_invoke_ctx {
- 	u32 sc;
- 	u64 *fdlist;
- 	u32 *crc;
-+	/* Poll memory that DSP updates */
-+	u32 *poll;
- 	u64 ctxid;
- 	u64 msg_sz;
-+	/* work done status flag */
-+	bool is_work_done;
-+	/* process updates poll memory instead of glink response */
-+	bool is_polled;
- 	struct kref refcount;
- 	struct list_head node; /* list of ctxs */
- 	struct completion work;
-@@ -308,6 +323,8 @@ struct fastrpc_user {
- 	int client_id;
- 	int pd;
- 	bool is_secure_dev;
-+	/* Flags poll mode state */
-+	bool poll_mode;
- 	/* Lock for lists */
- 	spinlock_t lock;
- 	/* lock for allocations */
-@@ -923,7 +940,8 @@ static int fastrpc_get_meta_size(struct fastrpc_invoke_ctx *ctx)
- 		sizeof(struct fastrpc_invoke_buf) +
- 		sizeof(struct fastrpc_phy_page)) * ctx->nscalars +
- 		sizeof(u64) * FASTRPC_MAX_FDLIST +
--		sizeof(u32) * FASTRPC_MAX_CRCLIST;
-+		sizeof(u32) * FASTRPC_MAX_CRCLIST +
-+		sizeof(u32);
- 
- 	return size;
- }
-@@ -1019,6 +1037,9 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
- 	pages = fastrpc_phy_page_start(list, ctx->nscalars);
- 	ctx->fdlist = (u64 *)(pages + ctx->nscalars);
-+	ctx->poll = (u32 *)((uintptr_t)ctx->fdlist + sizeof(u64) * FASTRPC_MAX_FDLIST +
-+			     sizeof(u32) * FASTRPC_MAX_CRCLIST);
-+
- 	args = (uintptr_t)ctx->buf->virt + metalen;
- 	rlen = pkt_size - metalen;
- 	ctx->rpra = rpra;
-@@ -1188,6 +1209,74 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
- 
- }
- 
-+static inline u32 fastrpc_poll_op(void *p)
-+{
-+	struct fastrpc_invoke_ctx *ctx = p;
-+
-+	dma_rmb();
-+	return READ_ONCE(*ctx->poll);
-+}
-+
-+static int poll_for_remote_response(struct fastrpc_invoke_ctx *ctx)
-+{
-+	u32 val;
-+	int ret;
-+
-+	/*
-+	 * Poll until DSP writes FASTRPC_POLL_RESPONSE into *ctx->poll
-+	 * or until another path marks the work done.
-+	 */
-+	ret = read_poll_timeout_atomic(fastrpc_poll_op, val,
-+				       (val == FASTRPC_POLL_RESPONSE) || ctx->is_work_done, 1,
-+				       FASTRPC_POLL_MAX_TIMEOUT_US, false, ctx);
-+
-+	if (!ret && val == FASTRPC_POLL_RESPONSE) {
-+		ctx->is_work_done = true;
-+		ctx->retval = 0;
-+	}
-+
-+	if (ret == -ETIMEDOUT)
-+		ret = -EIO;
-+
-+	return ret;
-+}
-+
-+static inline int fastrpc_wait_for_response(struct fastrpc_invoke_ctx *ctx,
-+					    u32 kernel)
-+{
-+	int err = 0;
-+
-+	if (kernel) {
-+		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
-+			err = -ETIMEDOUT;
-+	} else {
-+		err = wait_for_completion_interruptible(&ctx->work);
-+	}
-+
-+	return err;
-+}
-+
-+static int fastrpc_wait_for_completion(struct fastrpc_invoke_ctx *ctx,
-+				       u32 kernel)
-+{
-+	int err;
-+
-+	do {
-+		if (ctx->is_polled) {
-+			err = poll_for_remote_response(ctx);
-+			/* If polling timed out, move to normal response mode */
-+			if (err)
-+				ctx->is_polled = false;
-+		} else {
-+			err = fastrpc_wait_for_response(ctx, kernel);
-+			if (err)
-+				return err;
-+		}
-+	} while (!ctx->is_work_done);
-+
-+	return 0;
-+}
-+
- static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 				   u32 handle, u32 sc,
- 				   struct fastrpc_invoke_args *args)
-@@ -1223,13 +1312,14 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
- 	if (err)
- 		goto bail;
- 
--	if (kernel) {
--		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
--			err = -ETIMEDOUT;
--	} else {
--		err = wait_for_completion_interruptible(&ctx->work);
--	}
-+	/*
-+	 * Set message context as polled if the call is for a user PD
-+	 * dynamic module and user has enabled poll mode.
-+	 */
-+	if (handle > FASTRPC_MAX_STATIC_HANDLE && fl->pd == USER_PD && fl->poll_mode)
-+		ctx->is_polled = true;
- 
-+	err = fastrpc_wait_for_completion(ctx, kernel);
- 	if (err)
- 		goto bail;
- 
-@@ -1812,6 +1902,30 @@ static int fastrpc_get_info_from_kernel(struct fastrpc_ioctl_capability *cap,
- 	return 0;
- }
- 
-+static int fastrpc_set_option(struct fastrpc_user *fl, char __user *argp)
-+{
-+	struct fastrpc_ioctl_set_option opt = {0};
-+	int i;
-+
-+	if (copy_from_user(&opt, argp, sizeof(opt)))
-+		return -EFAULT;
-+
-+	for (i = 0; i < ARRAY_SIZE(opt.reserved); i++) {
-+		if (opt.reserved[i] != 0)
-+			return -EINVAL;
-+	}
-+
-+	if (opt.req != FASTRPC_POLL_MODE)
-+		return -EINVAL;
-+
-+	if (opt.value)
-+		fl->poll_mode = true;
-+	else
-+		fl->poll_mode = false;
-+
-+	return 0;
-+}
-+
- static int fastrpc_get_dsp_info(struct fastrpc_user *fl, char __user *argp)
- {
- 	struct fastrpc_ioctl_capability cap = {0};
-@@ -2167,6 +2281,9 @@ static long fastrpc_device_ioctl(struct file *file, unsigned int cmd,
- 	case FASTRPC_IOCTL_MEM_UNMAP:
- 		err = fastrpc_req_mem_unmap(fl, argp);
- 		break;
-+	case FASTRPC_IOCTL_SET_OPTION:
-+		err = fastrpc_set_option(fl, argp);
-+		break;
- 	case FASTRPC_IOCTL_GET_DSP_INFO:
- 		err = fastrpc_get_dsp_info(fl, argp);
- 		break;
-@@ -2518,6 +2635,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	}
- 
- 	ctx->retval = rsp->retval;
-+	ctx->is_work_done = true;
- 	complete(&ctx->work);
- 
- 	/*
-diff --git a/include/uapi/misc/fastrpc.h b/include/uapi/misc/fastrpc.h
-index c6e2925f47e6..c37e24a764ae 100644
---- a/include/uapi/misc/fastrpc.h
-+++ b/include/uapi/misc/fastrpc.h
-@@ -16,6 +16,7 @@
- #define FASTRPC_IOCTL_INIT_CREATE_STATIC _IOWR('R', 9, struct fastrpc_init_create_static)
- #define FASTRPC_IOCTL_MEM_MAP		_IOWR('R', 10, struct fastrpc_mem_map)
- #define FASTRPC_IOCTL_MEM_UNMAP		_IOWR('R', 11, struct fastrpc_mem_unmap)
-+#define FASTRPC_IOCTL_SET_OPTION	_IOWR('R', 12, struct fastrpc_ioctl_set_option)
- #define FASTRPC_IOCTL_GET_DSP_INFO	_IOWR('R', 13, struct fastrpc_ioctl_capability)
- 
- /**
-@@ -67,6 +68,9 @@ enum fastrpc_proc_attr {
- /* Fastrpc attribute for memory protection of buffers */
- #define FASTRPC_ATTR_SECUREMAP	(1)
- 
-+/* Set option request ID to enable poll mode */
-+#define FASTRPC_POLL_MODE	(1)
-+
- struct fastrpc_invoke_args {
- 	__u64 ptr;
- 	__u64 length;
-@@ -133,6 +137,12 @@ struct fastrpc_mem_unmap {
- 	__s32 reserved[5];
- };
- 
-+struct fastrpc_ioctl_set_option {
-+	__u32 req;	/* request id */
-+	__u32 value;	/* value */
-+	__s32 reserved[6];
-+};
-+
- struct fastrpc_ioctl_capability {
- 	__u32 unused; /* deprecated, ignored by the kernel */
- 	__u32 attribute_id;
--- 
-2.34.1
-
+No worries. Sorry I have not gotten to more of the patches yet. Trying
+to get through some more now. Thanks!
