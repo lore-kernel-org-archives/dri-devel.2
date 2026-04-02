@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 313E0D3941D
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 13:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C6CBD39422
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 13:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77AF710F0EB;
-	Thu,  2 Apr 2026 13:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4231D10E037;
+	Thu,  2 Apr 2026 13:19:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WSszUspE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VcCGXSdL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5FD010F0EB
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 13:12:02 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 970D843F07;
- Thu,  2 Apr 2026 13:12:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2097EC116C6;
- Thu,  2 Apr 2026 13:12:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775135522;
- bh=a7x/ysTtVW24aU35eMPirkt+sO+v8dpDAEKDhxuDe60=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WSszUspE9dzXyP1vG2gMcdzvhWi9nAi5ipcnGtuyZonB7RZAGmX1hwDPduMtfEj0f
- lW2LoRIl2ShIjcyVDeuG1hlvOO/zqpCeA0Z146DRKKA0duBquAvj+fJQT/uscVbkZe
- 2wg5nQmX87424MYUc//sb0M9cOh0Ho+XSCi8NXobJRbr+fliundDiCPi1S/NRwsAeC
- kc4nITLm01qhH8H8Sxex1i7X4/hTzJrnBqisiAgNMciIgTmVqODXmYgxMjwhE4MTBg
- w18ZXyGoeIRDg6/g/t6PcP82CKsFc0A1CC7A5a4HCiyOTIneD54u7brrQ1GJ5SK+vp
- +XGiv48Yu5boA==
-Date: Thu, 2 Apr 2026 15:11:59 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Albert Esteve <aesteve@redhat.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, linux-mm@kvack.org
-Subject: Re: [PATCH v4 0/8] dma-buf: heaps: Turn heaps into modules
-Message-ID: <20260402-burrowing-fine-bloodhound-afcebc@houat>
-References: <CGME20260331100026eucas1p19bdc2aaca4c9a48c6f6ac8fec71478d8@eucas1p1.samsung.com>
- <20260331-dma-buf-heaps-as-modules-v4-0-e18fda504419@kernel.org>
- <46397de2-eedf-4e09-a83a-3b683d154fe7@samsung.com>
- <CAO_48GEFQE_FJjuq1UqP=DC6LJE8jjE3C+4FdAyB4uEZDsnFJw@mail.gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14F6910E037;
+ Thu,  2 Apr 2026 13:19:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775135974; x=1806671974;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Gs+Xnh6qnQTb6zC4se6OKcLOOFYS8jNrSCXm0EqBe9w=;
+ b=VcCGXSdLgw8SNGfSbnLWhqA4XlF5mP9odU2RjXhZvngQkkc32GAuREbe
+ RBd/OtBvY3Y8atGCV/AkxQK5Jm8IHndRLF+xOS/begQpRxnV4Ku0kZUxD
+ Lq4pXI1RfM5mu+HSHhOCAJ5MEMTE2hNdIjtDf3017MeMEePM0qiEiR6BG
+ pRrsX0HodbbYQXb7P8U/1qCGEL6KjTwmql7i0AFrHMYcsf9DTKIu1Wp11
+ QuFKAjSJIG5LROoSWj7U1Cm9Y0kgsH2wSrrMF0JbaSAvDFbRe7jl385Af
+ 1odBlBlcJk6PK26UlErur7kTOu/MDIBhOm96UJ4OVo9C2XGzRikpFVG1j w==;
+X-CSE-ConnectionGUID: VCuv2+2/Ss+Cq47gOMgCSw==
+X-CSE-MsgGUID: TqRADhhxS12s/YGxEBM/6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="78786643"
+X-IronPort-AV: E=Sophos;i="6.23,155,1770624000"; d="scan'208";a="78786643"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Apr 2026 06:19:25 -0700
+X-CSE-ConnectionGUID: qR2UZnKKSCy83eJq1jAjew==
+X-CSE-MsgGUID: PINTI8ZVRIuQFudIFvDRLA==
+X-ExtLoop1: 1
+Received: from gsd-build.iind.intel.com ([10.190.229.141])
+ by fmviesa003.fm.intel.com with ESMTP; 02 Apr 2026 06:19:22 -0700
+From: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Piotr=20Pi=C3=B3rkowski?= <piotr.piorkowski@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Winiarski?= <michal.winiarski@intel.com>,
+ Dunajski Bartosz <bartosz.dunajski@intel.com>,
+ Ashutosh Dixit <ashutosh.dixit@intel.com>, dri-devel@lists.freedesktop.org
+Subject: [RFC v8 1/1] drm/xe/pf: Restrict device query responses in admin-only
+ PF mode
+Date: Thu,  2 Apr 2026 13:19:14 +0000
+Message-ID: <20260402131912.634248-4-satyanarayana.k.v.p@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260402131912.634248-3-satyanarayana.k.v.p@intel.com>
+References: <20260402131912.634248-3-satyanarayana.k.v.p@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="me4gicdwmutl43x6"
-Content-Disposition: inline
-In-Reply-To: <CAO_48GEFQE_FJjuq1UqP=DC6LJE8jjE3C+4FdAyB4uEZDsnFJw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,62 +75,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+When a PF is configured in admin-only mode, it is intended for management
+only and must not expose workload-facing capabilities to userspace.
 
---me4gicdwmutl43x6
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 0/8] dma-buf: heaps: Turn heaps into modules
-MIME-Version: 1.0
+Limit the exposed ioctl set in admin-only PF mode to XE_DEVICE_QUERY and
+XE_OBSERVATION, and suppress capability-bearing query payloads so that
+the userspace cannot discover execution-related device details in this
+mode.
 
-On Thu, Apr 02, 2026 at 10:36:48AM +0530, Sumit Semwal wrote:
-> Hello Maxime,
->=20
-> On Tue, 31 Mar 2026 at 18:24, Marek Szyprowski <m.szyprowski@samsung.com>=
- wrote:
-> >
-> > On 31.03.2026 12:00, Maxime Ripard wrote:
-> > > The recent introduction of heaps in the optee driver [1] made possible
-> > > the creation of heaps as modules.
-> > >
-> > > It's generally a good idea if possible, including for the already
-> > > existing system and CMA heaps.
-> > >
-> > > The system one is pretty trivial, the CMA one is a bit more involved,
-> > > especially since we have a call from kernel/dma/contiguous.c to the C=
-MA
-> > > heap code. This was solved by turning the logic around and making the
-> > > CMA heap call into the contiguous DMA code.
-> > >
-> > > Let me know what you think,
-> > > Maxime
-> > >
-> > > 1: https://lore.kernel.org/dri-devel/20250911135007.1275833-4-jens.wi=
-klander@linaro.org/
-> > >
-> > > Signed-off-by: Maxime Ripard <mripard@kernel.org>
->=20
-> Thank you for this patch series; now that it is needed by more folks,
-> I think we can merge this.
->=20
-> Marek, I'll coordinate with you on this - thank you!
+Enable admin-only mode with:
+echo <B:D:F> | sudo tee /sys/bus/pci/drivers/xe/unbind
+sudo mkdir /sys/kernel/config/xe/<B:D:F>
+echo yes | sudo tee /sys/kernel/config/xe/<B:D:F>/sriov/admin_only_pf
+echo <B:D:F> | sudo tee /sys/bus/pci/drivers/xe/bind
 
-If Marek plans on sending it during the next merge window, maybe the
-best thing to do for us is just to wait for -rc1 and apply the rest of
-the patches. Otherwise, we can merge the branch in drm-misc.
+Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
+Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Piotr Piórkowski <piotr.piorkowski@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Michał Winiarski <michal.winiarski@intel.com>
+Cc: Dunajski Bartosz <bartosz.dunajski@intel.com>
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Acked-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 
-Maxime
+---
+V7 -> V8:
+- Fixed issues reported by CI.Hooks
+- Updated commit message (Ashutosh)
+- Removed gem_prime_import from admin_only_driver structure (Michal)
 
---me4gicdwmutl43x6
-Content-Type: application/pgp-signature; name="signature.asc"
+V6 -> V7:
+- Allowed xe_observation_ioctl as well with admin-only PF (Ashutosh,
+Michal).
+- Updated commit message with steps to enable admin-only mode (Rodrigo).
 
------BEGIN PGP SIGNATURE-----
+V5 -> V6:
+- Updated commit message.
+- Return number of engines and memory regions as zero instead of
+returning query size as zero (Michal Wajdeczko).
+- Allow all other query IOCTLs excepts query_engines and
+query_mem_regions (Michal Wajdeczko).
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCac5rGAAKCRAnX84Zoj2+
-drvAAX9Gv+TrbX5Ru5iTuTfrjby3dUGZF6Vd9/L4HY+x15swwQBj44P2X43WwAnM
-cMhPq+8Bf00cagtlOIBhV4Hse29yKk8z2Is7iRaewRIPe/yQho7wdJK8x1cnDkbD
-NQuA+jE9OQ==
-=+ZbZ
------END PGP SIGNATURE-----
+V4 -> V5:
+- Updated commit message (Matt B).
+- Introduced new driver_admin_only_pf structure (Michal Wajdeczko).
+- Updated all query configs (Michal Wajdeczko).
+- Renamed xe_device_is_admin_only() to xe_device_is_admin_only_pf()
+- Fixed other review comments (Michal Wajdeczko).
 
---me4gicdwmutl43x6--
+V3 -> V4:
+- Suppressed device capabilities in admin-only PF mode. (Wajdeczko)
+
+V2 -> V3:
+- Introduced new helper function xe_debugfs_create_files() to create
+debugfs entries based on admin_only_pf mode or normal mode.
+
+V1 -> V2:
+- Rebased to latest drm-tip.
+- Update update_minor_dev() to debugfs_minor_dev().
+---
+ drivers/gpu/drm/xe/xe_device.c    | 60 ++++++++++++++++++++++++++++---
+ drivers/gpu/drm/xe/xe_device.h    |  1 +
+ drivers/gpu/drm/xe/xe_hw_engine.c |  3 ++
+ drivers/gpu/drm/xe/xe_query.c     | 10 +++++-
+ 4 files changed, 69 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_device.c
+index cbce1d0ffe48..eba2fa6dc7d3 100644
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@ -25,6 +25,7 @@
+ #include "regs/xe_regs.h"
+ #include "xe_bo.h"
+ #include "xe_bo_evict.h"
++#include "xe_configfs.h"
+ #include "xe_debugfs.h"
+ #include "xe_defaults.h"
+ #include "xe_devcoredump.h"
+@@ -216,6 +217,11 @@ static const struct drm_ioctl_desc xe_ioctls[] = {
+ 			  DRM_RENDER_ALLOW),
+ };
+ 
++static const struct drm_ioctl_desc xe_ioctls_admin_only[] = {
++	DRM_IOCTL_DEF_DRV(XE_DEVICE_QUERY, xe_query_ioctl, DRM_RENDER_ALLOW),
++	DRM_IOCTL_DEF_DRV(XE_OBSERVATION, xe_observation_ioctl, DRM_RENDER_ALLOW),
++};
++
+ static long xe_drm_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ {
+ 	struct drm_file *file_priv = file->private_data;
+@@ -390,7 +396,7 @@ bool xe_is_xe_file(const struct file *file)
+ 	return file->f_op == &xe_driver_fops;
+ }
+ 
+-static struct drm_driver driver = {
++static struct drm_driver regular_driver = {
+ 	.driver_features =
+ 	    DRIVER_GEM |
+ 	    DRIVER_RENDER | DRIVER_SYNCOBJ |
+@@ -415,6 +421,38 @@ static struct drm_driver driver = {
+ 	.patchlevel = DRIVER_PATCHLEVEL,
+ };
+ 
++static struct drm_driver admin_only_driver = {
++	.driver_features =
++	    DRIVER_GEM | DRIVER_RENDER | DRIVER_GEM_GPUVA,
++	.open = xe_file_open,
++	.postclose = xe_file_close,
++
++	.dumb_create = xe_bo_dumb_create,
++	.dumb_map_offset = drm_gem_ttm_dumb_map_offset,
++#ifdef CONFIG_PROC_FS
++	.show_fdinfo = xe_drm_client_fdinfo,
++#endif
++	.ioctls = xe_ioctls_admin_only,
++	.num_ioctls = ARRAY_SIZE(xe_ioctls_admin_only),
++	.fops = &xe_driver_fops,
++	.name = DRIVER_NAME,
++	.desc = DRIVER_DESC,
++	.major = DRIVER_MAJOR,
++	.minor = DRIVER_MINOR,
++	.patchlevel = DRIVER_PATCHLEVEL,
++};
++
++/**
++ * xe_device_is_admin_only() - Check whether device is admin only or not.
++ * @xe: the &xe_device to check
++ *
++ * Return: true if the device is admin only, false otherwise.
++ */
++bool xe_device_is_admin_only(const struct xe_device *xe)
++{
++	return xe->drm.driver == &admin_only_driver;
++}
++
+ static void xe_device_destroy(struct drm_device *dev, void *dummy)
+ {
+ 	struct xe_device *xe = to_xe_device(dev);
+@@ -439,16 +477,25 @@ static void xe_device_destroy(struct drm_device *dev, void *dummy)
+ struct xe_device *xe_device_create(struct pci_dev *pdev,
+ 				   const struct pci_device_id *ent)
+ {
++	struct drm_driver *driver = &regular_driver;
+ 	struct xe_device *xe;
+ 	int err;
+ 
+-	xe_display_driver_set_hooks(&driver);
++#ifdef CONFIG_PCI_IOV
++	/*
++	 * Since XE device is not initialized yet, read from configfs
++	 * directly to decide whether we are in admin-only PF mode or not.
++	 */
++	if (xe_configfs_admin_only_pf(pdev))
++		driver = &admin_only_driver;
++#endif
++	xe_display_driver_set_hooks(driver);
+ 
+-	err = aperture_remove_conflicting_pci_devices(pdev, driver.name);
++	err = aperture_remove_conflicting_pci_devices(pdev, driver->name);
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+-	xe = devm_drm_dev_alloc(&pdev->dev, &driver, struct xe_device, drm);
++	xe = devm_drm_dev_alloc(&pdev->dev, driver, struct xe_device, drm);
+ 	if (IS_ERR(xe))
+ 		return xe;
+ 
+@@ -708,6 +755,11 @@ int xe_device_probe_early(struct xe_device *xe)
+ 
+ 	xe_sriov_probe_early(xe);
+ 
++	if (xe_device_is_admin_only(xe) && !IS_SRIOV_PF(xe)) {
++		xe_err(xe, "Can't run Admin-only mode without SR-IOV PF mode!\n");
++		return -ENODEV;
++	}
++
+ 	if (IS_SRIOV_VF(xe))
+ 		vf_update_device_info(xe);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_device.h b/drivers/gpu/drm/xe/xe_device.h
+index e4b9de8d8e95..c220f2f1352f 100644
+--- a/drivers/gpu/drm/xe/xe_device.h
++++ b/drivers/gpu/drm/xe/xe_device.h
+@@ -43,6 +43,7 @@ static inline struct xe_device *ttm_to_xe_device(struct ttm_device *ttm)
+ 	return container_of(ttm, struct xe_device, ttm);
+ }
+ 
++bool xe_device_is_admin_only(const struct xe_device *xe);
+ struct xe_device *xe_device_create(struct pci_dev *pdev,
+ 				   const struct pci_device_id *ent);
+ int xe_device_probe_early(struct xe_device *xe);
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index 337baf0a6e87..2c324acb1dd0 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -1027,6 +1027,9 @@ bool xe_hw_engine_is_reserved(struct xe_hw_engine *hwe)
+ 	struct xe_gt *gt = hwe->gt;
+ 	struct xe_device *xe = gt_to_xe(gt);
+ 
++	if (xe_device_is_admin_only(xe))
++		return true;
++
+ 	if (hwe->class == XE_ENGINE_CLASS_OTHER)
+ 		return true;
+ 
+diff --git a/drivers/gpu/drm/xe/xe_query.c b/drivers/gpu/drm/xe/xe_query.c
+index d84d6a422c45..b10a281c6ae0 100644
+--- a/drivers/gpu/drm/xe/xe_query.c
++++ b/drivers/gpu/drm/xe/xe_query.c
+@@ -231,10 +231,13 @@ static size_t calc_mem_regions_size(struct xe_device *xe)
+ 	u32 num_managers = 1;
+ 	int i;
+ 
++	if (xe_device_is_admin_only(xe))
++		goto out;
++
+ 	for (i = XE_PL_VRAM0; i <= XE_PL_VRAM1; ++i)
+ 		if (ttm_manager_type(&xe->ttm, i))
+ 			num_managers++;
+-
++out:
+ 	return offsetof(struct drm_xe_query_mem_regions, mem_regions[num_managers]);
+ }
+ 
+@@ -273,6 +276,8 @@ static int query_mem_regions(struct xe_device *xe,
+ 	mem_regions->num_mem_regions = 1;
+ 
+ 	for (i = XE_PL_VRAM0; i <= XE_PL_VRAM1; ++i) {
++		if (xe_device_is_admin_only(xe))
++			break;
+ 		man = ttm_manager_type(&xe->ttm, i);
+ 		if (man) {
+ 			mem_regions->mem_regions[mem_regions->num_mem_regions].mem_class =
+@@ -297,6 +302,9 @@ static int query_mem_regions(struct xe_device *xe,
+ 		}
+ 	}
+ 
++	if (xe_device_is_admin_only(xe))
++		memset(mem_regions, 0, size);
++
+ 	if (!copy_to_user(query_ptr, mem_regions, size))
+ 		ret = 0;
+ 	else
+-- 
+2.43.0
+
