@@ -4,141 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFC32E7E345
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CE3EE7E350
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:59:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33A2B10F416;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A62D10F3DF;
 	Fri,  3 Apr 2026 08:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="Ljqz2umr";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="OOrVmc1M";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OOrVmc1M";
 	dkim-atps=neutral
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazon11010037.outbound.protection.outlook.com [52.101.84.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6D4510ECE3
- for <dri-devel@lists.freedesktop.org>; Wed,  1 Apr 2026 10:10:44 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013031.outbound.protection.outlook.com
+ [40.107.162.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2708F10F2FB
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 16:14:27 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=EV4CNT5/VGPExXXdpINqus1QqHCn0Al3LAeMyoTUH5B6+Oo3CM+xAezOoRxUSWQNLTnoVqj30grWGvjPRr5eug2Y4qK8LYW6sz3TDlaZGaW9hOw+XpjXVzWWU4E3DrtQ2qIjvt3EjrIc1DKfZH3pz13jesBlU/PCH70Lw63sabIvzD8lKxLdO/wbObRZDFzC/aZAJfMf5KSgMzAIai5czmjbMOazSP5KKCRgLIcWiFfNxl7nG/QFglB4Q/LFj6mYWskCB34tS9BO6JN5mD6nG2PEcQZFFvedaPCmlVrTZjIMx/kcMF1ZTI4KGKFUcUK4zQR55XMqVGz9NYSKCy2aOA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9wNnmsTqBLOMci9G1iRkNSFgebbvN1FtmWgA2qmFtqs=;
+ b=Zowm7Vk6+iMqqsU0orTQb7zkoJ0BaPfBFvguS71RmHfjqWEB39A5/SsvgtxFY2RwTZ/ik8HWrkkhEu0fZcNat3GcPjmjUwiCiL26+fZ0+MM5OQQJFehur5SVY6e3eQgffsgcQz7pejn7p1t5GYSZYXbI2U4JIM83JIC7vbRANZ6fnnOqCy+HtmS5iGdk4HtGa8kW7IkCqFOmeWIqnqj5S0FsXFhWvvgMIyhcwbOduQH5bu7/QOIGzALPLqwS3MdBRGXh0xUAu10v5DrU9XebwOSWGxeTV4Hz3QvWQ0owemfTi3TvhD+IehQ1iZr+6WzHNKAasRAlhaByz9lw1o/y4Q==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=collabora.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9wNnmsTqBLOMci9G1iRkNSFgebbvN1FtmWgA2qmFtqs=;
+ b=OOrVmc1MzFUpECoPAvDybiI42aP4a8XHJekNHeWFISkOokBnG28NNuyu3rIG+36RjWYi3Rv0qujP2cmkg8Y41SQEnI8hBgIm/+Eddky5yKH6pWfxwi57k9pn9TIMOhy4LjWuWNWgIjbqFWGns4Gzo+R3k8ztmy+F+qIVsNm7Q8g=
+Received: from DU2PR04CA0152.eurprd04.prod.outlook.com (2603:10a6:10:2b0::7)
+ by AS8PR08MB9043.eurprd08.prod.outlook.com (2603:10a6:20b:5c1::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 2 Apr
+ 2026 16:14:20 +0000
+Received: from DU2PEPF0001E9C6.eurprd03.prod.outlook.com
+ (2603:10a6:10:2b0:cafe::d7) by DU2PR04CA0152.outlook.office365.com
+ (2603:10a6:10:2b0::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.18 via Frontend Transport; Thu,
+ 2 Apr 2026 16:14:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DU2PEPF0001E9C6.mail.protection.outlook.com (10.167.8.75) with Microsoft SMTP
+ Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9745.21 via
+ Frontend Transport; Thu, 2 Apr 2026 16:14:20 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pMpBshTvMLMltCU+6Qvb+2hrXE9rXiXbhvlzehIWUYm/kX9PGvtahe3ZABDZwDApv+nW3r85yCeO5PeRiM5XZbNk8O0Sv9i8CiKJbZjYU/eRfTwDgYkIEV5dEMJ/iMzHHm4Y1wrHmbep10vKKoQBRv3dIbilhtkAq+E3vhWV5ajIm7gGNd4UkIasV3ZpHV9/1cY1DVQ52Aka7gj/7IdN0yYYsZ9YK/eRVhKJwUvwyG2JzPRZlQcV9kui3oJrsEquWMS14+suorhycxuzw8cGqyHYrTNI0D0tjW0q7uLwdMhLOCd772EDNTxzDmWwJztL45OjBLRaVeFagtgYQadSQA==
+ b=gx0qazeTFFwAFNqtR7gr9IzmO4u9r6u7kQM6bChbyPZjnEKog8Afzv22e4LV3sHcoZTZ/tfPcZChZn/eeQUDqL3awPf0B4g8em+rx+oxAkGGwS7tjLnCiqVZPiqeoo+QHE+jeiW8dNkmNgT+7WM0tZHBYKmX4wHSm0NZwNgir8Y8ZdxdlqT/d+kUac2B/xV13EkRp2amJf/lRtlO7LICuaX15c4mAuICw4sT2pK+xFJVPZkI3ygL+oZnS96smL5b2MgcdQ4WpyZp5a3VrhjR8VeNFziYjSydOhWWanNj5lBaSdB6pN8hCWA1seMJkrd6kEFYaW2pU+BSYMN5ZIUHfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3CZTPOsuHsNV/MIJ53ilZx4Acs2Gx2bXgjhbH+GOyG8=;
- b=o+tyj0mTFxDjzoEX5Ddq0h4Eezu29kPrMMbXMzUBKFRuyeUl433+VKL/OUMuxK6pEe9hMAgLrPVCLL65KhhvZRszVZdkinxAgPI3jM/ReuJl1kZ2b1aHgYCZ5LBUBZP8en1jFmA6oFfZd86VWFw3WGLNU5gUNwO7SxakNdJnfWlkxNF/EdO5X41YLTSlKafZAdcZU1csDF4PGPWhnmLGEME/PclBrH86jvheyS0DOkan6Hip4s9xRU+29ONiszdNPc2z4HyQ2SCzc2F9CiikphSMN58MQxYNJ2SGtwpWXNFmIF+1KxDKVYSQM7bqAqNuTZQLPgA7th+ASOdfx/uW8g==
+ bh=9wNnmsTqBLOMci9G1iRkNSFgebbvN1FtmWgA2qmFtqs=;
+ b=YSk/Lo5N9l8UU5lEXq6sFLVhd50sATlHnFuEvoeKH7kMGi+ZW76DW/1ze0/pmg5rZrrZZVQKtCZMb+m47jy2OS7GP1x0YplN7VBxF0q72fP4Oil0wkPYh1MEPxOa2SiwRqBGBlDNFWDYN87/geKNrTOqYGp52CWwnAa5SLr1x2LfHgG+9Pv4t3LHIBeZfcXT/i2qPCoHJvSwjOAb+rNpMc8pAHv7BVw7gRWBrD4s3Iiza6UVUpbejVh+sha1Zgs6Z3BhybDMZ7jhxeMpet4s2qaL5uiaAdj63+BuCLYiZ1M1Ih97IKC3KBRkK5YWBCxLkyAmOF7X+x3LTZD3XMm6vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3CZTPOsuHsNV/MIJ53ilZx4Acs2Gx2bXgjhbH+GOyG8=;
- b=Ljqz2umrAg+Lalhq+iy3oUExKKsow8zxZjBICmxA/vUX/dfOxo2TkeK6Lj32pVy9Vw21Lr9IvmkRV8YXLEPywNQabS8l7G8+d1zpyUwna0YgupPnHsUvHgAVPafLC6QUy44cCioXA+Z1b6d5sRgkbVWEvUT2jamUurad5DEzy83RjBMLGcU07TtELB6/o1OjhZoPKWCr5nZ8vDBgPih5eCSBu6erA7x8U1uk69rEu21RU4abRxNMpScLXuZpAnNt0RkOFii/ZjfoeXu0SrkhjS1T8iDMLkZkyFyYhekJtGKXESc9bJxJIb1bmRywAyRUdSEbIYv0awODHoO7Y4KRUQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com (2603:10a6:208:c0::29)
- by VI2PR04MB10667.eurprd04.prod.outlook.com (2603:10a6:800:278::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Wed, 1 Apr
- 2026 10:10:41 +0000
-Received: from AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f]) by AM0PR04MB4707.eurprd04.prod.outlook.com
- ([fe80::e918:eca8:f034:698f%5]) with mapi id 15.20.9632.017; Wed, 1 Apr 2026
- 10:10:41 +0000
-From: Guangliu Ding <guangliu.ding@nxp.com>
-Date: Wed, 01 Apr 2026 18:19:12 +0800
-Subject: [PATCH v2 1/2] dt-bindings: gpu: mali-valhall-csf: Document
- i.MX952 support
-Content-Type: text/plain; charset="utf-8"
+ bh=9wNnmsTqBLOMci9G1iRkNSFgebbvN1FtmWgA2qmFtqs=;
+ b=OOrVmc1MzFUpECoPAvDybiI42aP4a8XHJekNHeWFISkOokBnG28NNuyu3rIG+36RjWYi3Rv0qujP2cmkg8Y41SQEnI8hBgIm/+Eddky5yKH6pWfxwi57k9pn9TIMOhy4LjWuWNWgIjbqFWGns4Gzo+R3k8ztmy+F+qIVsNm7Q8g=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from GV1PR08MB10455.eurprd08.prod.outlook.com
+ (2603:10a6:150:16f::10) by GVXPR08MB7846.eurprd08.prod.outlook.com
+ (2603:10a6:150::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Thu, 2 Apr
+ 2026 16:13:16 +0000
+Received: from GV1PR08MB10455.eurprd08.prod.outlook.com
+ ([fe80::af66:6019:a08:d04]) by GV1PR08MB10455.eurprd08.prod.outlook.com
+ ([fe80::af66:6019:a08:d04%6]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
+ 16:13:15 +0000
+Message-ID: <c8dbb9e2-f1a1-469e-a0af-ba3a5e3a651c@arm.com>
+Date: Thu, 2 Apr 2026 18:13:13 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] drm/shmem-helper: Add lockdep asserts to vmap/vunmap
+To: Daniel Almeida <daniel.almeida@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <benno.lossin@proton.me>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, Danilo Krummrich <dakr@kernel.org>,
+ Asahi Lina <lina@asahilina.net>
+References: <20250318-drm-gem-shmem-v1-0-64b96511a84f@collabora.com>
+ <20250318-drm-gem-shmem-v1-1-64b96511a84f@collabora.com>
+Content-Language: en-US
+From: =?UTF-8?B?QmVuY2UgQ3PDs2vDoXM=?= <bence.csokas@arm.com>
+In-Reply-To: <20250318-drm-gem-shmem-v1-1-64b96511a84f@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260401-master-v2-1-20d3fbcd19d6@nxp.com>
-References: <20260401-master-v2-0-20d3fbcd19d6@nxp.com>
-In-Reply-To: <20260401-master-v2-0-20d3fbcd19d6@nxp.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, Guangliu Ding <guangliu.ding@nxp.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775038767; l=1101;
- i=guangliu.ding@nxp.com; s=20260331; h=from:subject:message-id;
- bh=hUY9kgrBQ/WegpJ86SdI9Bctdf1An2jG47pTqJ7IKQw=;
- b=V5wM7ZO5pbnEEc+1rmTD9uW7ndhp2XAAq5OpSfwnbJVRvT/KFRToqDNNnkBQpalZ6li6PcqK3
- 8W2SpBuBGIvAP9eTirswv8wX9thzHd62S5x9UAJjiJ5W0IJWvjf2Z2I
-X-Developer-Key: i=guangliu.ding@nxp.com; a=ed25519;
- pk=Ozo8o/sk09NyO6URvn0eD0v0uVHduT/yJzVGTAJ9gxw=
-X-ClientProxiedBy: MA5PR01CA0106.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d1::16) To AM0PR04MB4707.eurprd04.prod.outlook.com
- (2603:10a6:208:c0::29)
+X-ClientProxiedBy: LO4P123CA0233.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a6::22) To GV1PR08MB10455.eurprd08.prod.outlook.com
+ (2603:10a6:150:16f::10)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4707:EE_|VI2PR04MB10667:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0de2e7ec-1ab8-4492-07b8-08de8fd6ed49
+X-MS-TrafficTypeDiagnostic: GV1PR08MB10455:EE_|GVXPR08MB7846:EE_|DU2PEPF0001E9C6:EE_|AS8PR08MB9043:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73290de9-59f5-4780-333f-08de90d2e5c9
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|376014|366016|7416014|1800799024|921020|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original: tCnzJijKPyim4Z7PHG9QnbdoBU6NvSmJOLwVyCC8iWHrFUfk0O0QevCX5aJlasvUbEaC4r5wxySB8RGZeDndEnk32Req+mYtNfnz+oF8A44Y4VSmMqUoDHBBQCy0nOfme/Oi0+ph8hZ5tlCc35wNxnOTY2KK+JsNHB8EnT8oPXNOSiC1wpAe0i2Gagvm1zoluoJ84cqJLvw0TCXgOUSzk6iiYJ7fP+/yXzmBTNzhD14C9JoJPE3HE3JuVl+Ha3lkg0lPc2Emr0r6dMb2454X4DgFKQsbZbcD72/Qytxl6iyIMajiPsCAwst7OCURQ3wo2JCiv6+7q9O94ScQbrzLtdsIEE4pXw/SAp3bq9/kuTLxk/9UYq4R5f+gEC4P+BStlGvdjsFxdBX7pOWC6fPpEOa01Damujd4VcXhRd/jswTH1fztYEGR3T56X6B0FJTPzc5x2caPsygETiYoKtuWaX7uCfavXQfnFL5gekgDTwz09gSIf0k1ToSSZIqFy5r+1byZuNVKN3bPAhZOD4SIe/9mdXQ0hns0EgIt2DiUcbZUHoVjPltb9w4lpJPdoK3oqjEXecNYd445qXknhFkSMMQgIRa0vNUOZLsRHDSmhlCj2ucWUfHHHe8Vac6RI8VwhxELk6jwuXag78w0nTog8i4DU0L3aYH4d/mDXeK6vErV0q5dtY3PRI4JinLpn1ocC4haXk9Gf8P8Sa3hQDlpykwXxcW5Y60y24bpXBStodWhtR6ideYKM6maVjQS+5QSB8dfBAIM9rPndi/37E3LIznB1kzsCfDCYg/z8Rs3eIA=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:GV1PR08MB10455.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(1800799024)(921020)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: AD3WP8WRar2R/Sm/GALGJbozGv5DzpzDWz6wpkjMJ4Wf+T+3nZjURIEBOHCyyAdFUmyN2Gk2u8SkhIyFFhRbxkCB3rHPO7BEkq2HYjMYlt/P5KhSh62tR9ey2iTGIbJ4FwxqT5wLFM8V0el5OxTMbeKopR7ykWsshRVaX/S+iCLJU7QtoB4RBK48fZYQJPOLwddMJRy2vxJmydQAr03MvvjAcsT1PaHnZzPCrBrcMYD0NEbMyMI+JW3Q3oecDMtigz8jGfBxukWfXWr/sSkf+EGDANA/wTQ7G3OQjndriL4Pw0rEJLIGYCvUjgNfF8USrL5zhB8uknRpOTnKI/6LRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB7846
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DU2PEPF0001E9C6.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 24d7c49e-89ba-473f-055c-08de90d2bf19
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|1800799024|52116014|376014|7416014|366016|56012099003|22082099003|18002099003|38350700014|921020;
-X-Microsoft-Antispam-Message-Info: 7VMYu8TyZC1PlkywpDwRPp+VSsjkxoWdgPbQyQINCGCMze8KRdZTBsFDBkwSQwUYBd43VImlQJCyZxgNJb0Wkjjw8Yj62hMTrrjPMgjavWV/XZNoLGpM7h1QnNd3KQ2vByNVPGdtlC/kqvm9YDyEg2liA7llLAE6giKd0HnOPJABShoh5wDie2HwyjTrw2OI3PoWQZ1g+YGGe+CyGoy0ssCPiHdLoCfr+QkckAdV8E5rkgIYt7A7QnClWnBuEtXUFakr4tz7miO9hGf80p2504fadeov4mzmtDz4j3iB+99zEhPerm6fk6dN9sqPk54VpHx4jfDbPK1OKWOPm82wlGBN3ce8OJhBB2LnLjd7Z7bq7r6Ri+K3ZHq7huRmXMuofYa2qSuOBgwE2BKtjQc0TS7EIV86ri0mBSX7uZMdicjhnqV2XFHt2whXd9muApdyzXpNG9D+VfVx5CbNhwLeP480Y56vwyU5PjByDiNDoB67vJHrkG7JqwWd6RAI5jfwxXTH1TF8h+kamwvtOvZUj3gDn402cKeZot0klZ9uZP34T1xAhGUZHcJ0Oinp8WxpHDrV+rtPibVOX1PI59tM1UUMyVzmgBBGzSdcREEB0DeGJ0M0KuEiw7WygpJQ47hO7ZhoLSX/Il+isZQe/YcDyVNkZaaBCBXmiDLpq4iqMjpEn7+/zWFr/RU82zQGVnSKgdt40Gp79upfE1TYULuzfhvRDkoTCdGoM+qb2zORW+u+wHtHl0bzwmZqqfe5B+YQpqZe5d06LXdrG1Z0MMI/NbBQFZ4p/XrnIYZLliNoIgmZ/vmIrsYepKRkWAGuJpqk
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM0PR04MB4707.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(1800799024)(52116014)(376014)(7416014)(366016)(56012099003)(22082099003)(18002099003)(38350700014)(921020);
+ ARA:13230040|1800799024|82310400026|14060799003|376014|36860700016|7416014|35042699022|13003099007|921020|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: cT/ROtm7nFG7C5gkiFeNQZJdEuhVHN1VScfFaHDOPvr4tDssNGTRBlJo6tDLXHcPlG0YQElPSmcOP8CJxsy/Cwaqb74/PhwLocAnwLJfWXYQ/KRgUxsn62hxDMxkSCT4/YXhUAT+Nel3GbwfKWOy3yrMpcuqGKzSud36X+jSGAEbFGTOoq5TWHfUAY1p5VDbUM4YGfLCOd1Zh/boSmlQYAalipi8U7RGNOP0OBWsuC4FfRgPfZ4daGxx1CfjcILAe4e/WN6ewvlRdYyndSFC6QCCHYm2YcOQmt6cfQ5/O5gnLbqK0lmhm1bx1PKHGTHqh2iA5WQEwINHmjUtH3jNMMHJia1Ae1fdkIdKUPI+YWOn0GG26XinNGCKNhCKPfFjGHIRZrJhSE3SZmMFeeXS5ymuJtJyer1erymNe6plrj9F9VTg1mbulXsWlesSKyu5r1SJGoFjsGmyW2yQ8OIx7Lt6klItNL7Mw1735Ffm9pvAR6I4umZl40SRjmiLeoovu0hCF+YsKXEG2iBtrLqdYMEpMh9XXNmoboc/Ug4Gxye5+p2Fe5B6OJGGfybefeZTz8H34tE9GTDSGih3066lkw3/jWrcejW4PCMg/SnHEZeLHQrR7BtEFe6826WcTfx5SyV2R2BtOTOcRC00oria3A3mmdVSvna4Gt5CCgjRRYabrVN6qpBBZzcT4So2tqKUPdo9nZBFYBBRHdnKnF1M/tTpq2vUDfsqEUyybs0KhW65Oe5z+BOkyLT4t1idRM8T/64irbReTzImK5ptrNkk7g8bxLCcGDevf/vlr4M1jaS7WNl1+byNK0jJ1irqKZLs
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(14060799003)(376014)(36860700016)(7416014)(35042699022)(13003099007)(921020)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UnU3TXJETGkvSzVoYUhIMHMwajhGcHBiQ3h2K1VyQUdnUWZLWTdZM21sZGpz?=
- =?utf-8?B?b0xIeWJQclhxTnJiSS9PUVlpYjdsaERrYXpNTEMraTQ1RmdxMlQ5cmgwcURM?=
- =?utf-8?B?NHFSVEs4c00zUzhQbWI5ZXF3KzMvWmZieUtGa3MvcGpYM2hWTVpoekhRZlBF?=
- =?utf-8?B?ZnJ3Y3Uyb2NnaUJFeWxxS1hxVjh0Z1lGdVd1bitXN05adStlWVhhRWU5cFB4?=
- =?utf-8?B?Y3p3TlRoMVlFQ1YvbkU4MGh1MXd4eUY1M2VucnBFempJclRrMlFLeGt1dDVR?=
- =?utf-8?B?ZWZSYXdFRUFJMXArckIvU1loK1ltN08rU2R5Q3J1MGpFcjBvSVNOemgxMEI3?=
- =?utf-8?B?cUFvMmR4akltQmkxeUUyM0VTVjB5bEE4MFk2V2V5WDM3bDlkK3lmTWxGMXN0?=
- =?utf-8?B?VnIxWG5iQU5EVmtuKzNtY0NpUEU1Q3NXY2U4MnlxUG9Ec2RqcmR6enB0MGpM?=
- =?utf-8?B?aGQ1RzVVSnBQWWRQWmZFbmk5VTgxM1dVa0xFbnVJTnJMdHhWamtUNjhxYVR0?=
- =?utf-8?B?ZkJsc2JNV21ZS2wvWGc2U3ZKZjBLTTRHWFZWUmtLMVFLdnNuTS9UZzV4QXZl?=
- =?utf-8?B?OHFXellYZXZoeVlvR1NvVDBhYnA2N2FXOGM1ZEdQMEQxT3YxZ3BzSEJzamN5?=
- =?utf-8?B?QUlwME9RWmY1OXNjZ0NDWUwyYjQ0R083RFlKdU95aGhycTRaVkI5Y0oyYTR2?=
- =?utf-8?B?NVVzOHQzOE16NFExNm5aUFkzZ3NvUlZNYy9KSzlUU01GRUswb0xrUzY4a1FO?=
- =?utf-8?B?eUdic000bVZZd2Fqbjc3WkV6bGZ1c3pJbzFxbzVXbmRBNmdEZldHN1d6dlc4?=
- =?utf-8?B?dmt3THJQeDZySCtFQWFsK2dpdHRLRElqS3pScUFmMjlKZHNSMDNib1d1d2Mz?=
- =?utf-8?B?aXBhQ1Vud3E3TEt2N1lPTjVFRmhsVFRpL1haL2Z0UjRNaUVRbm5YU2kxakto?=
- =?utf-8?B?aXBTa0twd2RQaitaK0g3dTlYaVVveGRUVkg3eHZ0M0YvL3Y5V1BwTkNxeWdo?=
- =?utf-8?B?d2RrMGU5enlaZHU5WmlmTkhFWUVVMnQ5c1VscXhZMytnVlpLMDZ5MG9rMWM4?=
- =?utf-8?B?eXBCS2cvK00vRFZVd0hrckxXbk9CbXV2Ym1RZlpldE5veFdvOFJycjBLYlhr?=
- =?utf-8?B?SFRJcjFMQVFTTXBtemZEa1g0NTJwTStGamNFTmRobmw1Ym96eUloVmMxL2I4?=
- =?utf-8?B?dGl1STMzTVEwV2pYaFhyZFAvUGpsOEtwUHVrbnNMMURQQlJiM2xDaGJnMWVF?=
- =?utf-8?B?SkltSkVBTHJpZ3JpaVZrb1NIaHVZOXErMlc3a1pHODFRQ24wdExmS1grMlgx?=
- =?utf-8?B?Y1FUYjVlR2hiZStRbzZ3TlBVYXJ0amJERHAvVmF2OVdVaFVYUUlqb3RSejJS?=
- =?utf-8?B?TTFUc2Z1NEkyZTFWNGNISW1xUEdVRUxNMVBRQzRzbnQrZldyV05abUZVZUJD?=
- =?utf-8?B?WHpZamhNNS9HNlBtL1ZGOUxiZlQzYWdGcWIva1BkcVZwc2dGVDRFbk1DQnZr?=
- =?utf-8?B?K3pTeXhyMzBBNmowU296SCtsOHhySGVtN3FaNjB0b05TVzd1M2VmZitVK2JU?=
- =?utf-8?B?Q3gvSThOdURwTTh5UGZlV1V5U3Z2WFNac3liT2Yyc3JjbVN0VGFORjl1bGxL?=
- =?utf-8?B?WnEya0JDMXF1Ly9XN24zQXY0a21GRkZ4YzN4ZmhFZFFpWE02emRlSUM1MVFW?=
- =?utf-8?B?S0p0bXQvdTZid0c1d1Z0QmVsQmZiTExsN0RubmhqSXRyRGNMTTBnWlVnR0Nu?=
- =?utf-8?B?bHJGMjFCN0xlYVE5cnNzOFduM0lzSmF2b0lvYnNiajM4R1RkZnJzZzdwUU5y?=
- =?utf-8?B?TVBpRjF3WDNXUCtnU2pDL2hQeldPaUZ5MHhvZEF6UmRhUklNOGVhZXAyQk9B?=
- =?utf-8?B?OFhQTGkxbDE3OE52VXpyMkFqQWVPWFgxS2FpK1N6K21sREhDRThxUUltaWpx?=
- =?utf-8?B?Zm0rWFRZUHFMRjcxT1U2c1AyclJSM2t5dnVtQ3BaVy9OVGZUd294WHRKTkdG?=
- =?utf-8?B?UkxOOWM1UTJHZmszdWRwb0xNbEdRM1NnSVdvV2JsMzRORGEwcGpSNUhSYkpn?=
- =?utf-8?B?bDRXdHJMWk4yd2R2Q0lISVRQdzBqUUhaWW9Nd0huRTlKTGcwalE2dDdrQjNy?=
- =?utf-8?B?Zlp1NVZKQW5zNThnRExzR1R5a0tsTmJHd2dTbm45ajF1bnJHaU1iYjlvb0pK?=
- =?utf-8?B?SVlWdWVtTGJ1U2dOOHJKcGo5UGdiYU5uRnd3WEVnTGUzamdNZzAydlhBV0tD?=
- =?utf-8?B?MTFoU1o0STNtRHYzNEcrVXBJQ1JsQTBQa2gzWkVTYXd2WWN4bjlEMStuTkdD?=
- =?utf-8?B?WTBWSWE3T294cDhCNFI3QytiMy9rK2dYdGpOTDl1MVVXajZuQTdqdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0de2e7ec-1ab8-4492-07b8-08de8fd6ed49
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4707.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2026 10:10:41.0262 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L+neToEZayeltRbnZGzMRN0BfCvQ7ElMQus1eHH6pFoPJhuss0Na32Ic3LKg+cml8Rz6oUH9WIpchpVKt+jHPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10667
+X-MS-Exchange-AntiSpam-MessageData-0: tdcvlV6Pi+K9B7qXyKUKhdJ41B3hNug3hL0DejQ28atf+kkNxvDf/+gOQsS9WMex5Guq1tHWEOopzQbwmhkz/lo0BVsBqrzMTABscP+BnDHazyEEclhoI8rPvKBDdd/eV8F86fjpruxBxwIBYWEtvjCpC1mbeeMve2WFmXdkOna2uOewh/iMbtVe8kv+QrWIvTQbYfdABkeqTWQO0Ta72T8PQKZZ/2+STgxJIIN7ugHLwmQXRf7YENkDZF5OjL7fmSIb6KkiUryFGjpu3VpqDSe579BLy3XsCvhcznRdUt0izestgHD5naByF63J1VYpgFdFqO4nNlcC4xnzAikoGm5vB+c6E9YOOd8IpFcq9yeyqzbmMbrjbXNaz2ZZIoTTpbG8Gi7zbPqci+JSS2x+Em2VfOHCeu1HYEh079+kmVUJdYm+MCoP5C1hPp8/8kno
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 16:14:20.4890 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73290de9-59f5-4780-333f-08de90d2e5c9
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF0001E9C6.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9043
 X-Mailman-Approved-At: Fri, 03 Apr 2026 08:59:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,31 +166,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The GPU instance used on NXP i.MX952 is the Mali‑G310,
-document support for this variant.
+Hi,
 
-A hardware GPU auto clock‑gating mechanism has been introduced,
-enabling GPUMIX to automatically manage the GPU clock. This improves
-overall response time.
+I just came across this commit while researching something else. 
+Original patch had too few context lines, so I here's the diff with `-U10`.
 
-Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
----
- Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml | 1 +
- 1 file changed, 1 insertion(+)
+On 3/18/25 20:22, Daniel Almeida wrote:
+> From: Asahi Lina <lina@asahilina.net>
+> 
+> Since commit 21aa27ddc582 ("drm/shmem-helper: Switch to reservation
+> lock"), the drm_gem_shmem_vmap and drm_gem_shmem_vunmap functions
+> require that the caller holds the DMA reservation lock for the object.
+> Add lockdep assertions to help validate this.
 
-diff --git a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-index 8eccd4338a2b..6a10843a26e2 100644
---- a/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-+++ b/Documentation/devicetree/bindings/gpu/arm,mali-valhall-csf.yaml
-@@ -20,6 +20,7 @@ properties:
-           - enum:
-               - mediatek,mt8196-mali
-               - nxp,imx95-mali            # G310
-+              - nxp,imx952-mali           # G310
-               - rockchip,rk3588-mali
-           - const: arm,mali-valhall-csf   # Mali Valhall GPU model/revision is fully discoverable
- 
+There were already lockdep assertions...
 
--- 
-2.34.1
+> Signed-off-by: Asahi Lina <lina@asahilina.net>
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Link: https://lore.kernel.org/r/20250318-drm-gem-shmem-v1-1-64b96511a84f@collabora.com
+> ---
+>   drivers/gpu/drm/drm_gem_shmem_helper.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index aa43265f4f4f..0b41f0346bad 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -341,20 +341,22 @@ EXPORT_SYMBOL_GPL(drm_gem_shmem_unpin);
+>    *
+>    * Returns:
+>    * 0 on success or a negative error code on failure.
+>    */
+>   int drm_gem_shmem_vmap_locked(struct drm_gem_shmem_object *shmem,
+>   			      struct iosys_map *map)
+>   {
+>   	struct drm_gem_object *obj = &shmem->base;
+>   	int ret = 0;
+>   
+> +	dma_resv_assert_held(obj->resv);
+> +
+>   	if (drm_gem_is_imported(obj)) {
+>   		ret = dma_buf_vmap(obj->dma_buf, map);
+>   	} else {
+>   		pgprot_t prot = PAGE_KERNEL;
+>   
+>   		dma_resv_assert_held(shmem->base.resv);
 
+... right here, and
+
+>   		if (refcount_inc_not_zero(&shmem->vmap_use_count)) {
+>   			iosys_map_set_vaddr(map, shmem->vaddr);
+>   			return 0;
+> @@ -401,20 +403,22 @@ EXPORT_SYMBOL_GPL(drm_gem_shmem_vmap_locked);
+>    * drops to zero.
+>    *
+>    * This function hides the differences between dma-buf imported and natively
+>    * allocated objects.
+>    */
+>   void drm_gem_shmem_vunmap_locked(struct drm_gem_shmem_object *shmem,
+>   				 struct iosys_map *map)
+>   {
+>   	struct drm_gem_object *obj = &shmem->base;
+>   
+> +	dma_resv_assert_held(obj->resv);
+> +
+>   	if (drm_gem_is_imported(obj)) {
+>   		dma_buf_vunmap(obj->dma_buf, map);
+>   	} else {
+>   		dma_resv_assert_held(shmem->base.resv);
+
+...here.
+
+>   		if (refcount_dec_and_test(&shmem->vmap_use_count)) {
+>   			vunmap(shmem->vaddr);
+>   			shmem->vaddr = NULL;
+>   
+>   			drm_gem_shmem_unpin_locked(shmem);
+
+Or were those insufficient for some reason? If so, should we keep both 
+of them, or should the older ones have been removed?
+
+Bence
