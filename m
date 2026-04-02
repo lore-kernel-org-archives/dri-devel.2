@@ -4,102 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B102CC6B1C
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 07:52:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE938CC6B1D
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 07:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E06C10F14B;
-	Thu,  2 Apr 2026 07:52:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="IKiVop3z";
-	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="WynND31R";
-	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F38310F14D
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 07:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1775116331;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=FvsWPlqmbOTslEl+opiYN/LrLejN3naTFWYzUkcHCYw=;
- b=IKiVop3zZ1bdjDsgorGSeiumpWPPGSe20M+MsqjwbLCdWdG+AvGni/6hcCiBg5knaMB7VL
- GT+5iM8fSgUoatEWLem6sGDVBiMx4okZI+UeNvz9CnKiuH/Xh1rsMpmubA3ztsyLAFEcS4
- 7QueTgUjZGsfyNWdBF14LARFYFyiqL8=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-616-JYHGnQ2SP2u4c3hwfPwPBA-1; Thu, 02 Apr 2026 03:52:07 -0400
-X-MC-Unique: JYHGnQ2SP2u4c3hwfPwPBA-1
-X-Mimecast-MFC-AGG-ID: JYHGnQ2SP2u4c3hwfPwPBA_1775116326
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-43d022974acso594465f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 00:52:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=redhat.com; s=google; t=1775116326; x=1775721126; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=FvsWPlqmbOTslEl+opiYN/LrLejN3naTFWYzUkcHCYw=;
- b=WynND31RCCyyikLYjl98lr2p3hdX0011GvZwsl8AlGyfKwGvrxwySYObol+o8/f11l
- wvcF/i7YVEBYeWfKceDRtsDbKAA0qfBctaz2apY3RrpEXJSqPqCDi4xClI0CuoRnztLF
- A8fDgTGLi0YWXZSmZqYQdbrXYCx/YspfnoqA3CzwPKdXFT+FuIq7ewH6Hs6PzHGAixS3
- qZUOhOGJlSdSXeE3kgjcXLKMP/g1zZxlYyQ/8p3D0TjdNGUyfNAkgq7FxCtYHYf8k7PD
- kKx7g/zjprON24leDJ8zixLwFLHg8FiNWHYeJBq933n35iPK0tc5Jz13TZK13mPRBzDr
- pXbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775116326; x=1775721126;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=FvsWPlqmbOTslEl+opiYN/LrLejN3naTFWYzUkcHCYw=;
- b=sIx5sOJuPUtbc1xYfe66rpxwk5dE5GLGtLfsPNAU0RZcIXytBKASgLTpMKiSbJ8XPu
- B5Gr0FEUf5Rirz4I9NmyLCqZARdLiOJJDgyOJXwms7NOSiMIN68p+j0vteXnH+CE6zUq
- 2xhjxGnmSsYNt8W7NGMzf0jZbUQzq22psS5jx/f7xSE2fY5GKFhckYhRex0YNK8baXf7
- N69XG2Gqmx4CKQdd9HSovNw/cjXc3qc+BzSMsHE18BaWns9l5j2Ef6v8rNgvZyIIbGSa
- 1pu5Wz1KQ2/uflYitTS67/FYg2Q+uF+DzgcduEcl7xxT3CbSuUSAIvqqjjqscyvj70Zq
- OXRA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWe1ryjdXMy62eY3MZN+THkEVukDAjaSRDqEUnmThSgWWm3LRyUY7hjKUziNg+QMjMNZ3Dw7Z1Y8/E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YztvHEL3zwcxE3WnuuRWHNr6kMpBCq3uCzsKffqll20YDlARCwW
- zd3HGZirO81R4WN2BlsKeEQ2H1wK9fWNYKZLHah0N/YByyJGWY5520JCpgHe/4SmEpY+sU2TuAT
- MYFaIpoapC5rbLEnfl8TCyY4vARhTqUkifvrRaMgiIQ55c39gw3sH4FPb/caemjYIGI71Ug==
-X-Gm-Gg: ATEYQzzV5HNRhnWpOzdDcS/PmqkWw4xQOGSN8Am2TxSgQkhXbbf/ZvUXbuwzhWU3nvs
- 1+dyhc7Lxzuw9PA5lkV2BmMoJcUWwYziEuMNV45aqdOKfbcTI4FGr5sjUXAyi1cmFK6qiO5adMp
- a2rT5bYNADtxFl8pUJ+pWRfcdpvxx3vbpwZrkgIvn9KSaa2NlINylXIJNptTS98ri5Za5fQBE8U
- 46KNSn9a5Esv6MNqffDqhe7obs5sSqnQn0STqNCuE+M1Lqmxq229hrGQEuitxAo+KYkZzVi9sTP
- dbzc9Sd5BoypCWSHTvNogMvzj2aQS4ojX2WOIe9F450psr6xzqJIFxG/assnrCPq2TqDYQ3uyg=
- =
-X-Received: by 2002:a05:6000:144f:b0:43d:b0f:eb44 with SMTP id
- ffacd0b85a97d-43d15057f18mr12783659f8f.15.1775116326238; 
- Thu, 02 Apr 2026 00:52:06 -0700 (PDT)
-X-Received: by 2002:a05:6000:144f:b0:43d:b0f:eb44 with SMTP id
- ffacd0b85a97d-43d15057f18mr12783605f8f.15.1775116325690; 
- Thu, 02 Apr 2026 00:52:05 -0700 (PDT)
-Received: from localhost ([2a01:e0a:b25:f902::ff])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4f1a99sm6565398f8f.32.2026.04.02.00.52.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Apr 2026 00:52:05 -0700 (PDT)
-Date: Thu, 2 Apr 2026 09:52:04 +0200
-From: Maxime Ripard <mripard@redhat.com>
-To: Dave Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <20260402-vivid-perfect-caiman-ca055e@houat>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="mw3d5nnhrpwvh64u"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22A1B10F162;
+	Thu,  2 Apr 2026 07:52:49 +0000 (UTC)
+Received: from MEUPR01CU001.outbound.protection.outlook.com
+ (mail-australiasoutheastazon11020128.outbound.protection.outlook.com
+ [52.101.152.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91ED010F14D
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 07:52:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oL3Hm+wfWE7VzlYpqMGgeO7D058YCdZXnFpz7YlDJCIhqyBlb08oDfHt3v+YqEB1t/BkCu7V30j/fxAZkdY4nbkZMuVTf2GurdPsI1+6/B25pAunjmjZVA1UIJQ99CAjSZLp7uaU4rFlcGXeNprTJfcx9X/upumXtJDvzwlgvUbI5Wr6ykT1O9OXsbNil/Yn6k75Em5/afaNCwwY35NuCfpQamJlwOVc+T7wPod6h4fz45JY0Q3AFvA6ZuPC9woyXksPTtmbnrJRah+1DhMQLh+cgasDmx3+y7Iz9GGOa7x65whVBGxsBJXZe7Z3G01UlrbHCZ1ohcU9X9oDRQtdIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0PHtcDmQ6D+SrnjgkNxZKtBFWgGs/5mFjGAooac/Vak=;
+ b=qZ3rVbHSW5JeaHT5OIsLOqkVX6o15IHMVj50cVecppM/UqA4n8S1JgIrbSf6+nn0csZcKXDPWyDR3FR9MFssXhAgS54RfiCI/0FM4JkBMQgnxv/abNfV+iD8qehmYsydBGmohqxhEvRlC6IxYoye1PwuF0tKvBlJ8uGtVMQAl22DMWV7/aOqU3OB4u6I6hBFi0p17tFSV7j4dU79a4SrWu7Sksr8Vpk8nbMVwt9fmOvm8KZlUns0vB6yCu5j66wzvQ/gTPblSuXB/izNM6OvGDrK0MueE/QzFFoEAtGU5/HXVjqVfRJr1CWs3p8mnoinudAz5OJQxdZFNR+WskfB2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
+ dkim=pass header.d=heitbaum.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=heitbaum.com;
+Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
+ by ME0P282MB4413.AUSP282.PROD.OUTLOOK.COM (2603:10c6:220:220::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Thu, 2 Apr
+ 2026 07:52:42 +0000
+Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::21b6:91f8:614d:1fdd%5]) with mapi id 15.20.9745.031; Thu, 2 Apr 2026
+ 07:52:41 +0000
+Date: Thu, 2 Apr 2026 07:52:27 +0000
+From: Rudi Heitbaum <rudi@heitbaum.com>
+To: dri-devel@lists.freedesktop.org
+Cc: rudi@heitbaum.com
+Subject: [PATCH libdrm] drm: handle asprintf() allocation failures in format
+ modifier name functions
+Message-ID: <ac4gO95kLFfF29cJ@b22fc13bbf9b>
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+X-ClientProxiedBy: ME3P282CA0152.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:220:1c9::9) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:279::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|ME0P282MB4413:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbbdcf6a-fd0a-4c4f-00d6-08de908cd145
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: lwCma7Fw2vJ26PcREC1QjI3pIM5MN5hiJTVWNMLhfiBkYzz319K3ffx8/WMYAwJeZOmzJAbppPUxpCMceUMGUfzrB6BlscoqOfvdmTmARrGThVq71MjuorhjZ9K59fc+HoL3HnzWMAkhZb98YU+MuwKG5ALXj6tEWZgscD+3CDZo4NLBKDz/ZZCxa+bfgczyPyBMn4FOFGH9Xceeg3INf9ZyCjCK7n0LEPcPGtg24LgcMhRbuXw1Pmp4pbdVUeZ477fJXtCNcN6K9HoCMdsANNhGWXbrMuZJYVzPJ6fzOtQbmdhDMAk/4hr3w//8yN7CbPr5SiT1eZ+ItoGZYqKXiitw7vFagTs6N+1LoXmNNUvC1yMWJ7uSx/6kiH+ITOpYSSo+Uk5DJvwhOC2mxKA8jueNT2JHPksfbyAQF3P5/6z+77AfS3LFsQlOmG2YljtdnrC9fFveimo+U/lqcA3EsqLF0O7hAKDh7zPTImZr9wv2/A5de5LoQw4/g5Zt11f1DE/HF4mIYwP9uEGIss/xtq4qmCmpk+KhgqkKCsw8bET/q8GThxRy+BARJcrdfDJGE6mIg1IdXtsLS0KZ+MtD+M8PT0+hGRt/kELMa5cViMrwGr8hcYlgj0XEbN82Ysv9DOSlM8ux8ANbVnaCGCd5S7H87AvbVhxkJzLb598EK5YdMpuaAyTpSRfI+qVrRWY1JG90Ie0OpMIwb4L3JY0xd/TRmrxp/tJScm+srinMmek=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(18002099003); DIR:OUT;
+ SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?KG+ugo30tYt6jjwhZS6zNLXN13LpF4uLCHEC0rbaPKj8CAxpLVzAnH7FnY7G?=
+ =?us-ascii?Q?MoitcF92XvnD7wKZEFpC9KxRkjZmb8qSnS5JyYuc7MqTfaXwcRc8j4YJFmzQ?=
+ =?us-ascii?Q?Gp9otSDj5lAM39vzRZ2kJlDgEbLtEzeRhKW0Gpq3TjoiQd/5zZcrYGkV69YR?=
+ =?us-ascii?Q?/e4hmzjsKmyp2wP18jrO5SrSXa/qCEUa/P1pFv8GeuO1++YrorLzO15wkK0Z?=
+ =?us-ascii?Q?Ioctf1hJAmJdRgU8Dbqamt3LOqmCCJllZZn12ALENbNGEK87oYeYensxBig1?=
+ =?us-ascii?Q?KVjos3dWzg4Py5oJEO/jf1Dzf0Axjutt9yl9HQj3yrnKJ/ZAEHkE5A8+Tkmf?=
+ =?us-ascii?Q?E7byNkDdeCsYc31S+4T4pH7jCWPUPBVMCebzrBsKZG12SBBhSTjKBTEGLv0p?=
+ =?us-ascii?Q?tpb17cjkkgf6lUjsiGq3amUOotBMmh+CF5RXmJq3N7Oyxyw/fMqKPSBRJ/QE?=
+ =?us-ascii?Q?oUKuZg01MXFkNJnHcznIw+fMRsnK4ngnNCMHyr3gXfyInTyW3AqI/G82qz3T?=
+ =?us-ascii?Q?pJiOT0iSC/eEsd/FpBQCK0Un6Qblks0clXbnQ0fZer09E2MYM+yI+tYHArsY?=
+ =?us-ascii?Q?VJWoE9m6gxsgNW9S05XyUHtJHgBgb5BtAyN8g9xTSED6Xku4lf0jdcW0T9UF?=
+ =?us-ascii?Q?PF8pSJ/Gmxlqq9WI62ECZ0Epg74pa9cvhZictJPZPp0ERU48He1Shiq7m8FD?=
+ =?us-ascii?Q?0tpZMUtH/QcjrEkMttJTyAdzd7SzOSkqALvxxTPUQZ3hP1/G8kYRPKVOKiCJ?=
+ =?us-ascii?Q?ANlcPvPaAhxLiOGqw35ocNkRVDgB4PUN5TrnNNNNEFXvUzmzW1lsd/EagvTs?=
+ =?us-ascii?Q?Bq8Qwj/NFCFSJUzwWtLBkfByQWZQO0hTtpehpCRkN//d/Jpp2t3+6pKwRdhp?=
+ =?us-ascii?Q?7ahK95TvajYS4y5xYvIt4jz8hoibugS9LpwgaABV0tWg+4idnh+l5HplMUVf?=
+ =?us-ascii?Q?OEG0hPIiTld5htgCVh89sJFG5oleZrmPLfH3leMRPGp2nne19yXD5HjetAse?=
+ =?us-ascii?Q?E2IgAFrEM9+WL8PfQvFkPB7DpVzfyLOPvRa5N4uuaVzezKiUdBLMWbD77WoL?=
+ =?us-ascii?Q?NJ/IHkEco156ZjttUKm1wW2WJv9dyWt3Lc5R0XTQEwOfkhktlU2Mjszv2Ceb?=
+ =?us-ascii?Q?m0yRoqlzmc0GOkdSIdZNpg1KqRhYgG8NnR/tdBxYM4FB6fnVlCJnn1sJ7ylc?=
+ =?us-ascii?Q?71yIv4lyJHHg9HeVDnUvLbEqh+NSMK3fWAVidFjHtV/vniTaInWqG5ZYyb0s?=
+ =?us-ascii?Q?0O38TTGqEFMUJPBniEq/E0+uKUJBlKaMN7cfkDfxyEekN20plpXaPOwux1Jj?=
+ =?us-ascii?Q?pNtQLZCDssh4w373DbJlPYGzsFqEvAmtizEmJpw5lexqeI5FJA8Zc/BLYbn6?=
+ =?us-ascii?Q?jFX5hmBVB28lz6zYlFRSCv3j5h8I1FSk7KiBaFB6vvDqcUSQkA4e/nBxr27P?=
+ =?us-ascii?Q?LDEzjH13ISCIsGiKtnZiujpPJvD2RTh4XYmSSN536okPtV3RHna1Nuj5AYOT?=
+ =?us-ascii?Q?OkUhPyf96beS4FtVWjl1ZAIeiehCoFQpoB2clHF+k2uPWZY4xSX/DmIPluOr?=
+ =?us-ascii?Q?Vg9koL8L1L4WL+xKHR3TKLb3UEIntIEhBafwVfYXfEn/Vfgele7+zoswF2eF?=
+ =?us-ascii?Q?X/sXWAOZ9Bo2+EINK+hBR96MX9IP8x83MWGk+2JTsJZRaYQ4ThhK+caA5O45?=
+ =?us-ascii?Q?39Q+3M59B8Vmqm7t581b/+E8RR02I3CYKpltQS1B1Fc0ga7rShyX70M5zJgJ?=
+ =?us-ascii?Q?pLoFO2HCgA=3D=3D?=
+X-OriginatorOrg: heitbaum.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbbdcf6a-fd0a-4c4f-00d6-08de908cd145
+X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Apr 2026 07:52:41.4937 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TFZDChwUFfaTnWl41wglzPygl8iHwJzG4LoZtjcJuo2dWPr0Y3Bf9wqXoyi+CZifqj3dVYyGPtvyEqvO00rHWg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME0P282MB4413
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,81 +116,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Check the return value of asprintf() in drmGetFormatModifierNameFromNvidia(),
+drmGetFormatModifierNameFromAmlogic(), and drmGetFormatModifierNameFromVivante()
+to avoid leaving pointers uninitialized on allocation failure.
 
---mw3d5nnhrpwvh64u
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: [PULL] drm-misc-fixes
-MIME-Version: 1.0
+asprintf() returns -1 on failure and does not guarantee the output pointer
+is set to NULL, which could lead to undefined behavior if the pointer is
+used subsequently. Set the pointer to NULL explicitly on failure.
 
-Hi,
+Fixes: -Wunused-result warnings from GCC
+Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
+---
+ xf86drm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-Here's this week drm-misc-fixes PR.
-
-Maxime
-
-drm-misc-fixes-2026-04-02:
-A refcounting fix for bridges, revert a previous framebuffer
-use-after-free fix that turned out to be causing more problems, a hang
-fix for qaic, an initialization fix for ast, a error handling fix for
-sysfb, and a speculation fix for drm_compat_ioctl.
-The following changes since commit 87a70013be7d1b96e7e160aea6dad4564b459868:
-
-  MAINTAINERS: Update GPU driver maintainer information (2026-03-25 15:10:30 +0100)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-04-02
-
-for you to fetch changes up to f8995c2df519f382525ca4bc90553ad2ec611067:
-
-  drm/ioc32: stop speculation on the drm_compat_ioctl path (2026-04-02 08:24:55 +0200)
-
-----------------------------------------------------------------
-A refcounting fix for bridges, revert a previous framebuffer
-use-after-free fix that turned out to be causing more problems, a hang
-fix for qaic, an initialization fix for ast, a error handling fix for
-sysfb, and a speculation fix for drm_compat_ioctl.
-
-----------------------------------------------------------------
-Chen Ni (1):
-      drm/sysfb: Fix efidrm error handling and memory type mismatch
-
-Greg Kroah-Hartman (1):
-      drm/ioc32: stop speculation on the drm_compat_ioctl path
-
-Liu Ying (1):
-      drm/bridge: Fix refcount shown via debugfs for encoder_bridges_show()
-
-Maarten Lankhorst (1):
-      Revert "drm: Fix use-after-free on framebuffers and property blobs when calling drm_dev_unplug"
-
-Thomas Zimmermann (1):
-      drm/ast: dp501: Fix initialization of SCU2C
-
-Youssef Samir (1):
-      accel/qaic: Handle DBC deactivation if the owner went away
-
- drivers/accel/qaic/qaic_control.c | 47 +++++++++++++++++++++++++++++++++++++--
- drivers/gpu/drm/ast/ast_dp501.c   |  2 +-
- drivers/gpu/drm/drm_bridge.c      | 16 ++++++++-----
- drivers/gpu/drm/drm_file.c        |  5 +----
- drivers/gpu/drm/drm_ioc32.c       |  2 ++
- drivers/gpu/drm/drm_mode_config.c |  9 +++-----
- drivers/gpu/drm/sysfb/efidrm.c    | 46 +++++++++++++++++++++++++-------------
- 7 files changed, 94 insertions(+), 33 deletions(-)
-
---mw3d5nnhrpwvh64u
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCac4gJAAKCRAnX84Zoj2+
-drPOAYCqO9KtSnn4c37r7FPdKUuXVaBPscaFo4b+iSzTYSpLAaH1vnacCPeOqY7W
-bdUCSqEBgJBBw1sI//uYcm35XvKjQvF4ePb1wi2bX6/+Gt9r3rj1klHnfFHKzoA0
-1fmVo5SmOw==
-=tHr/
------END PGP SIGNATURE-----
-
---mw3d5nnhrpwvh64u--
+diff --git a/xf86drm.c b/xf86drm.c
+index d4bfec8a..3199715e 100644
+--- a/xf86drm.c
++++ b/xf86drm.c
+@@ -348,9 +348,10 @@ drmGetFormatModifierNameFromNvidia(uint64_t modifier)
+      * testing against TEGRA_TILE */
+     if ((modifier & 0x10) == 0x10) {
+         char *mod_nvidia;
+-        asprintf(&mod_nvidia, "BLOCK_LINEAR_2D,HEIGHT=%"PRIu64",KIND=%"PRIu64","
++        if(asprintf(&mod_nvidia, "BLOCK_LINEAR_2D,HEIGHT=%"PRIu64",KIND=%"PRIu64","
+                  "GEN=%"PRIu64",SECTOR=%"PRIu64",COMPRESSION=%"PRIu64"", height,
+-                 kind, gen, sector, compression);
++                 kind, gen, sector, compression) < 0)
++            mod_nvidia = NULL;
+         return mod_nvidia;
+     }
+ 
+@@ -542,7 +543,8 @@ drmGetFormatModifierNameFromAmlogic(uint64_t modifier)
+     else
+         opts_str = "0";
+ 
+-    asprintf(&mod_amlogic, "FBC,LAYOUT=%s,OPTIONS=%s", layout_str, opts_str);
++    if(asprintf(&mod_amlogic, "FBC,LAYOUT=%s,OPTIONS=%s", layout_str, opts_str) < 0)
++        mod_amlogic = NULL;
+     return mod_amlogic;
+ }
+ 
+@@ -606,7 +608,8 @@ drmGetFormatModifierNameFromVivante(uint64_t modifier)
+ 	break;
+     }
+ 
+-    asprintf(&mod_vivante, "%s%s%s", color_tiling, tile_status, compression);
++    if(asprintf(&mod_vivante, "%s%s%s", color_tiling, tile_status, compression) < 0)
++        mod_vivante = NULL;
+     return mod_vivante;
+ }
+ 
+-- 
+2.53.0
 
