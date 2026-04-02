@@ -4,108 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F6DDD39405
-	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 09:23:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 158A8D39403
+	for <dri-devel@archiver.kernel.org>; Thu,  2 Apr 2026 09:27:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E81510F1F8;
-	Thu,  2 Apr 2026 09:23:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7718710F1AA;
+	Thu,  2 Apr 2026 09:27:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="0js1rDWn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tyx81et7";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0js1rDWn";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tyx81et7";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="M/RjTFpE";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5474110F1FB
- for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 09:23:28 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BCFC65BDAC;
- Thu,  2 Apr 2026 09:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775121793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YPCEYbiGOCpx2zUalDos08LGZhiPvMU5VsFjS8QK76U=;
- b=0js1rDWnH9smqDqLDvIAKHV8/eXXpqQLMMmO2TI8gDpO96XoYOJ31GNYVGDIhbudXFZi9G
- RQ/O7aJULE82Ey6TA6L6DSH8P2yEi8bpC87AmYkQUvPUMU9qrvfDUU3Q8uptTAtDg3jYPP
- Io9AeuySbfgnMZqPfHt6jtJYVMlHoo0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775121793;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YPCEYbiGOCpx2zUalDos08LGZhiPvMU5VsFjS8QK76U=;
- b=Tyx81et7F7PdaU5+qsAtZ653DbZ7+SrFuesp7ACsEj//SHAzWobwR7Yrj7KdApo1hOLQaG
- JiNq8qBG9bZiwyDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775121793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YPCEYbiGOCpx2zUalDos08LGZhiPvMU5VsFjS8QK76U=;
- b=0js1rDWnH9smqDqLDvIAKHV8/eXXpqQLMMmO2TI8gDpO96XoYOJ31GNYVGDIhbudXFZi9G
- RQ/O7aJULE82Ey6TA6L6DSH8P2yEi8bpC87AmYkQUvPUMU9qrvfDUU3Q8uptTAtDg3jYPP
- Io9AeuySbfgnMZqPfHt6jtJYVMlHoo0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775121793;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YPCEYbiGOCpx2zUalDos08LGZhiPvMU5VsFjS8QK76U=;
- b=Tyx81et7F7PdaU5+qsAtZ653DbZ7+SrFuesp7ACsEj//SHAzWobwR7Yrj7KdApo1hOLQaG
- JiNq8qBG9bZiwyDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2C4C74A0B1;
- Thu,  2 Apr 2026 09:23:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id oLbDCIE1zmlVYAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 02 Apr 2026 09:23:13 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: javierm@redhat.com, arnd@arndb.de, ardb@kernel.org,
- ilias.apalodimas@linaro.org, chenhuacai@kernel.org, kernel@xen0n.name,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, kys@microsoft.com, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
- deller@gmx.de
-Cc: linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-efi@vger.kernel.org, linux-riscv@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- linux-fbdev@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 5/8] firmware: sysfb: Implement screen_info relocation for
- primary display
-Date: Thu,  2 Apr 2026 11:09:19 +0200
-Message-ID: <20260402092305.208728-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260402092305.208728-1-tzimmermann@suse.de>
-References: <20260402092305.208728-1-tzimmermann@suse.de>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFCF810F1AA
+ for <dri-devel@lists.freedesktop.org>; Thu,  2 Apr 2026 09:27:52 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 472E7C5997A;
+ Thu,  2 Apr 2026 09:28:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 99F855FDEB;
+ Thu,  2 Apr 2026 09:27:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id A725810450A10; 
+ Thu,  2 Apr 2026 11:27:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1775122067; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=hNltrT681hiTQbE3LGT048Wx1XJA0ekV7Io5cPmIrZM=;
+ b=M/RjTFpEHWGpIz1DiOGq2rb5j81ppWs+giQBMPZIUw11Dbhns1gowQY1/+iF4Vm+ncLO4j
+ bsAK/Lezzs5m60qgcuZOCq+LGuY7kEX+wyTACozmVLhWjwZg8Dx2FR4Fz0uUJrJ8dGb5xf
+ PnZgLeGwSvVIyeX1kOFqp+RbqWs9yvbK88jEHnweZUGXM6CN9qfXTTebxvt9RbfTjOyVqC
+ Ru8JymYRkf97+IhAs+c0hlgBbc+s8gnfZfkJ1fJhbBL8+u3hmAmBfdJZbPF4ivYjh/JVCh
+ vYu71Yb6apxbkH+vEgnNgbb8sYAWNSR7Ty/COntGXtEmuh4q+XYcw3s6gx6fIQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH v3 00/11] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+Date: Thu, 02 Apr 2026 11:25:55 +0200
+Message-Id: <20260402-drm-lcdif-dbanc-v3-0-27cd247a0847@bootlin.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-6.80 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_CONTAINS_FROM(1.00)[]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-0.995]; MIME_GOOD(-0.10)[text/plain];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email];
- RCPT_COUNT_TWELVE(0.00)[24]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,arndb.de,kernel.org,linaro.org,xen0n.name,linux.intel.com,gmail.com,ffwll.ch,microsoft.com,gmx.de];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLykjg6e7ifkwtw7jmpw7b9yio)];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
+X-B4-Tracking: v=1; b=H4sIACM2zmkC/23NTQ7CIBCG4as0rMXQAUt15T2MC8qPnaQFAw3RN
+ L27tHGh0eX7JfPMTJKNaBM5VTOJNmPC4EvwXUV0r/zNUjSlCTBoGGcNNXGkgzboqOmU17Tlxhx
+ Fy0EaS8rVPVqHj028XEv3mKYQn9uDXK/r2wL2Y+WaMirkUTFRc24lO3chTAP6vQ4jWbUMHwL/I
+ 0ARtHSg3IE3CsS3sCzLC0Gyn/zyAAAA
+X-Change-ID: 20260306-drm-lcdif-dbanc-83dd948327de
+To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Liu Ying <victor.liu@nxp.com>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>
+Cc: Damon Ding <damon.ding@rock-chips.com>, 
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>, 
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Christopher Obbard <christopher.obbard@linaro.org>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>, 
+ Fabio Estevam <festevam@denx.de>, 
+ Francesco Dolcini <francesco.dolcini@toradex.com>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, 
+ Gilles Talis <gilles.talis@gmail.com>, 
+ =?utf-8?q?Goran_Ra=C4=91enovi=C4=87?= <goran.radni@gmail.com>, 
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Marco Felsch <m.felsch@pengutronix.de>, 
+ Martyn Welch <martyn.welch@collabora.com>, 
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, 
+ Richard Hu <richard.hu@technexion.com>, 
+ Shengjiu Wang <shengjiu.wang@nxp.com>, 
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>, 
+ Vitor Soares <vitor.soares@toradex.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.15.1
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,345 +101,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the relocation tracking for screen_info from the screen_info
-helpers to sysfb. The relocation code operates on sysfb_primary_display,
-which belongs to sysfb. The remaining screen_info helpers are now free
-from global state.
+This series modernizes the i.mx8mp LCDIF driver to use the
+bridge-connector, which is the current best practice in DRM.
 
-Adapt some symbol names. Now prefer early returns in the helper
-sysfb_apply_screen_info_fixup() over nested branching. Also return an
-errno code from sysfb_apply_screen_info_fixup() if the relocation
-failed. In this case, do not create a device for the framebuffer.
-The original code advertised this behavior in a comment but never
-implemented it.
+== Call for testing on i.MX8MP boards (especially those using HDMI)!
 
-Framebuffer aperture relocation can happen during boot if the PCI
-graphics device is located behind a PCI bridge. If the bridge's sub-
-bus gets relocated, the framebuffer aperture moves accordingly. The
-helper for tracking these relocations fixes up the values stored in
-sysfb_primary_display so that they refer to the correct address range
-again. Generic system-framebuffer drivers would not work otherwise.
+For who tested v1 or v2 (thanks!): some patches have changed so I had to
+drop your Tested-by on them. A new round of test would still be useful.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+This series applies changes to how video output devices are probed on
+i.MX8MP, especially those using HDMI. Even though I have put care in not
+breaking anything, there could potentially be pitfalls I haven't realized,
+causing regressions on existing boards.
+
+I have thus added in Cc all developers which appeared active on dts files
+for imx8mp boards involving video. I would appreciate testing on as many
+boards as possible, along with a Tested-by tag, or a report about any
+issues encountered.
+
+Thanks in advance to all testers!
+
+== Review recommendation
+
+I recommend reviewing patches in this order to be understood more
+effectively:
+
+ * Cover letter
+ * Patches 1-6: small preliminary cleanups (can be applied independently)
+ * Patch 11: the goal of this series, but would not work alone
+ * Patch 10: lets patch 11 work; but in turn it can't work alone
+ * Patch 8+9: lets patch 10 work; but in turn it can't work alone
+ * Patch 7: lets patch 8 work
+
+== Series description
+
+This series is not strictly related to DRM bridge hotplug, it is rather a
+preparation step. Introducing hotplug would need two different approaches:
+one for the new way, for drivers using bridge-connector and
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, another for drivers using the "old, legacy
+way" where the last bridge is supposed to instantiate the
+drm_connector. Hotplug is complicated enough in one case, so it makes sense
+to only support the new way.
+
+The hardware I'm working on is an i.MX8MP, whose LCDIF driver is still
+using the old way. So this series converts to the new way as a preparation
+step.
+
+Patch 11 does the conversion, which is simple. However this would introduce
+a regression on some boards. Here's why:
+
+There are 3 instances of the LCDIF in i.MX8MP:
+
+ * LCDIF1, driving the DSI output
+ * LCDIF2, driving the LVDS output
+ * LCDIF3, driving the HDMI output
+
+The device drivers of peripherals connected to LCDIF1 and LCDIF2 already
+support the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag. So far so good.
+
+LCDIF3 is more tricky. The HDMI pipeline is:
+
+  LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
+
+The fsl,imx8mp-hdmi-tx (hdmi-tx) does not support
+DRM_BRIDGE_ATTACH_NO_CONNECTOR, but it is based on the dw-hdmi component
+which supports it by simply changing a setting in the driver platform
+data. Patch 10 does this switch.
+
+However, for that switch to work, the device tree must describe the HDMI
+connector (compatible = "hdmi-connector").
+
+Unfortunately not all device trees in mainline have an hdmi-connector
+node. Adding one is easy, but would break existing hardware upgrading to a
+newer kernel without upgrading the device tree blob. This is addressed by
+patch 8+9 reusing an existing approach to add such a node to the live device
+tree at init time using a device tree overlay for boards which don't have
+one.
+
+Finally, patch 8+9 cannot work alone because of a bad interaction between
+devlink and device tree overlays. Patch 7 solves that.
+
+Tested on the Avnet MSC SM2-MB-EP1 board which currently has no
+"hdmi-connector" in the upstream device tree.
+
+== Grand plan
+
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
+
+Here's the work breakdown (➜ marks the current series):
+
+ 1. … add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. … add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. … protect encoder bridge chain with a mutex
+       7. … of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+	       convert basic direct users (v7.0-v7.1)
+	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+	  d. ✔… convert direct of_drm_get_bridge() users, part 4
+	        (some v7.1, some pending)
+	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. … handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. … protect private_obj removal from list
+    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. ➜ Migrate i.MX LCDIF driver to bridge-connector
+ 6.   DRM bridge hotplug
+    A.   Bridge hotplug management in the DRM core
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/firmware/sysfb.h         |   5 ++
- drivers/firmware/sysfb_pci.c     | 111 +++++++++++++++++++++++++++++++
- drivers/firmware/sysfb_primary.c |   9 ++-
- drivers/video/screen_info_pci.c  | 110 ------------------------------
- include/linux/screen_info.h      |   3 -
- 5 files changed, 123 insertions(+), 115 deletions(-)
+Changes in v3:
+- Patch 8: simplified overlay, handle of_overlay_fdt_apply() errors, use
+  of_graph_get_endpoint_by_regs() + add warning in separate patch  
+- Updated cover and mentioned the hardware used for testing
+- Minor fixes to other patches
+- Link to v2: https://patch.msgid.link/20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com
 
-diff --git a/drivers/firmware/sysfb.h b/drivers/firmware/sysfb.h
-index 9f7fe2e03f68..1eaa3b0fa364 100644
---- a/drivers/firmware/sysfb.h
-+++ b/drivers/firmware/sysfb.h
-@@ -8,8 +8,13 @@
- struct pci_dev;
- 
- #ifdef CONFIG_PCI
-+int sysfb_apply_screen_info_fixups(void);
- bool sysfb_pci_dev_is_enabled(struct pci_dev *pdev);
- #else
-+static inline int sysfb_apply_screen_info_fixups(void)
-+{
-+	return 0;
-+}
- static inline bool sysfb_pci_dev_is_enabled(struct pci_dev *pdev)
- {
- 	return false;
-diff --git a/drivers/firmware/sysfb_pci.c b/drivers/firmware/sysfb_pci.c
-index 8f3adeef4fb1..d972750c6bc6 100644
---- a/drivers/firmware/sysfb_pci.c
-+++ b/drivers/firmware/sysfb_pci.c
-@@ -1,9 +1,120 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
- #include <linux/pci.h>
-+#include <linux/printk.h>
-+#include <linux/screen_info.h>
-+#include <linux/sysfb.h>
- 
- #include "sysfb.h"
- 
-+static struct pci_dev *sysfb_lfb_pdev;
-+static size_t sysfb_lfb_bar;
-+static resource_size_t sysfb_lfb_res_start; // original start of resource
-+static resource_size_t sysfb_lfb_offset; // framebuffer offset within resource
-+
-+static bool __sysfb_relocation_is_valid(const struct screen_info *si, struct resource *pr)
-+{
-+	u64 size = __screen_info_lfb_size(si, screen_info_video_type(si));
-+
-+	if (sysfb_lfb_offset > resource_size(pr))
-+		return false;
-+	if (size > resource_size(pr))
-+		return false;
-+	if (resource_size(pr) - size < sysfb_lfb_offset)
-+		return false;
-+
-+	return true;
-+}
-+
-+int sysfb_apply_screen_info_fixups(void)
-+{
-+	struct screen_info *si = &sysfb_primary_display.screen;
-+	struct resource *pr;
-+
-+	if (!sysfb_lfb_pdev)
-+		return 0; /* primary display is not on a PCI device */
-+
-+	pr = &sysfb_lfb_pdev->resource[sysfb_lfb_bar];
-+
-+	if (pr->start == sysfb_lfb_res_start)
-+		return 0; /* no relocation took place */
-+
-+	if (!__sysfb_relocation_is_valid(si, pr))
-+		return -ENXIO;
-+
-+	/*
-+	 * Only update base if we have an actual relocation to a valid I/O range.
-+	 */
-+	__screen_info_set_lfb_base(si, pr->start + sysfb_lfb_offset);
-+	pr_info("Relocating firmware framebuffer to offset %pa[d] within %pr\n",
-+		&sysfb_lfb_offset, pr);
-+
-+	return 0;
-+}
-+
-+static int __screen_info_lfb_pci_bus_region(const struct screen_info *si, unsigned int type,
-+					    struct pci_bus_region *r)
-+{
-+	u64 base, size;
-+
-+	base = __screen_info_lfb_base(si);
-+	if (!base)
-+		return -EINVAL;
-+
-+	size = __screen_info_lfb_size(si, type);
-+	if (!size)
-+		return -EINVAL;
-+
-+	r->start = base;
-+	r->end = base + size - 1;
-+
-+	return 0;
-+}
-+
-+static void sysfb_fixup_lfb(struct pci_dev *pdev)
-+{
-+	unsigned int type;
-+	struct pci_bus_region bus_region;
-+	int ret;
-+	struct resource r = {
-+		.flags = IORESOURCE_MEM,
-+	};
-+	const struct resource *pr;
-+	const struct screen_info *si = &sysfb_primary_display.screen;
-+
-+	if (sysfb_lfb_pdev)
-+		return; // already found
-+
-+	type = screen_info_video_type(si);
-+	if (!__screen_info_has_lfb(type))
-+		return; // only applies to EFI; maybe VESA
-+
-+	ret = __screen_info_lfb_pci_bus_region(si, type, &bus_region);
-+	if (ret < 0)
-+		return;
-+
-+	/*
-+	 * Translate the PCI bus address to resource. Account for an offset if
-+	 * the framebuffer is behind a PCI host bridge.
-+	 */
-+	pcibios_bus_to_resource(pdev->bus, &r, &bus_region);
-+
-+	pr = pci_find_resource(pdev, &r);
-+	if (!pr)
-+		return;
-+
-+	/*
-+	 * We've found a PCI device with the framebuffer resource. Store away
-+	 * the parameters to track relocation of the framebuffer aperture.
-+	 */
-+	sysfb_lfb_pdev = pdev;
-+	sysfb_lfb_bar = pr - pdev->resource;
-+	sysfb_lfb_offset = r.start - pr->start;
-+	sysfb_lfb_res_start = bus_region.start;
-+}
-+DECLARE_PCI_FIXUP_CLASS_HEADER(PCI_ANY_ID, PCI_ANY_ID, PCI_BASE_CLASS_DISPLAY, 16,
-+			       sysfb_fixup_lfb);
-+
- bool sysfb_pci_dev_is_enabled(struct pci_dev *pdev)
- {
- 	/*
-diff --git a/drivers/firmware/sysfb_primary.c b/drivers/firmware/sysfb_primary.c
-index ab8d7fc468bb..298f87a43a7e 100644
---- a/drivers/firmware/sysfb_primary.c
-+++ b/drivers/firmware/sysfb_primary.c
-@@ -32,6 +32,7 @@
- #include <linux/pci.h>
- #include <linux/platform_data/simplefb.h>
- #include <linux/platform_device.h>
-+#include <linux/printk.h>
- #include <linux/screen_info.h>
- #include <linux/sysfb.h>
- 
-@@ -127,11 +128,15 @@ static __init int sysfb_init(void)
- 	struct simplefb_platform_data mode;
- 	const char *name;
- 	bool compatible;
--	int ret = 0;
-+	int ret;
- 
--	screen_info_apply_fixups();
-+	ret = sysfb_apply_screen_info_fixups();
- 
- 	mutex_lock(&disable_lock);
-+	if (ret) {
-+		pr_warn("Invalid relocation, disabling system framebuffer\n");
-+		disabled = true; /* screen_info relocation failed */
-+	}
- 	if (disabled)
- 		goto unlock_mutex;
- 
-diff --git a/drivers/video/screen_info_pci.c b/drivers/video/screen_info_pci.c
-index 8f34d8a74f09..d8985a54ce71 100644
---- a/drivers/video/screen_info_pci.c
-+++ b/drivers/video/screen_info_pci.c
-@@ -1,117 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- 
- #include <linux/pci.h>
--#include <linux/printk.h>
- #include <linux/screen_info.h>
--#include <linux/string.h>
--#include <linux/sysfb.h>
--
--static struct pci_dev *screen_info_lfb_pdev;
--static size_t screen_info_lfb_bar;
--static resource_size_t screen_info_lfb_res_start; // original start of resource
--static resource_size_t screen_info_lfb_offset; // framebuffer offset within resource
--
--static bool __screen_info_relocation_is_valid(const struct screen_info *si, struct resource *pr)
--{
--	u64 size = __screen_info_lfb_size(si, screen_info_video_type(si));
--
--	if (screen_info_lfb_offset > resource_size(pr))
--		return false;
--	if (size > resource_size(pr))
--		return false;
--	if (resource_size(pr) - size < screen_info_lfb_offset)
--		return false;
--
--	return true;
--}
--
--void screen_info_apply_fixups(void)
--{
--	struct screen_info *si = &sysfb_primary_display.screen;
--
--	if (screen_info_lfb_pdev) {
--		struct resource *pr = &screen_info_lfb_pdev->resource[screen_info_lfb_bar];
--
--		if (pr->start != screen_info_lfb_res_start) {
--			if (__screen_info_relocation_is_valid(si, pr)) {
--				/*
--				 * Only update base if we have an actual
--				 * relocation to a valid I/O range.
--				 */
--				__screen_info_set_lfb_base(si, pr->start + screen_info_lfb_offset);
--				pr_info("Relocating firmware framebuffer to offset %pa[d] within %pr\n",
--					&screen_info_lfb_offset, pr);
--			} else {
--				pr_warn("Invalid relocating, disabling firmware framebuffer\n");
--			}
--		}
--	}
--}
--
--static int __screen_info_lfb_pci_bus_region(const struct screen_info *si, unsigned int type,
--					    struct pci_bus_region *r)
--{
--	u64 base, size;
--
--	base = __screen_info_lfb_base(si);
--	if (!base)
--		return -EINVAL;
--
--	size = __screen_info_lfb_size(si, type);
--	if (!size)
--		return -EINVAL;
--
--	r->start = base;
--	r->end = base + size - 1;
--
--	return 0;
--}
--
--static void screen_info_fixup_lfb(struct pci_dev *pdev)
--{
--	unsigned int type;
--	struct pci_bus_region bus_region;
--	int ret;
--	struct resource r = {
--		.flags = IORESOURCE_MEM,
--	};
--	const struct resource *pr;
--	const struct screen_info *si = &sysfb_primary_display.screen;
--
--	if (screen_info_lfb_pdev)
--		return; // already found
--
--	type = screen_info_video_type(si);
--	if (!__screen_info_has_lfb(type))
--		return; // only applies to EFI; maybe VESA
--
--	ret = __screen_info_lfb_pci_bus_region(si, type, &bus_region);
--	if (ret < 0)
--		return;
--
--	/*
--	 * Translate the PCI bus address to resource. Account
--	 * for an offset if the framebuffer is behind a PCI host
--	 * bridge.
--	 */
--	pcibios_bus_to_resource(pdev->bus, &r, &bus_region);
--
--	pr = pci_find_resource(pdev, &r);
--	if (!pr)
--		return;
--
--	/*
--	 * We've found a PCI device with the framebuffer
--	 * resource. Store away the parameters to track
--	 * relocation of the framebuffer aperture.
--	 */
--	screen_info_lfb_pdev = pdev;
--	screen_info_lfb_bar = pr - pdev->resource;
--	screen_info_lfb_offset = r.start - pr->start;
--	screen_info_lfb_res_start = bus_region.start;
--}
--DECLARE_PCI_FIXUP_CLASS_HEADER(PCI_ANY_ID, PCI_ANY_ID, PCI_BASE_CLASS_DISPLAY, 16,
--			       screen_info_fixup_lfb);
- 
- static struct pci_dev *__screen_info_pci_dev(struct resource *res)
- {
-diff --git a/include/linux/screen_info.h b/include/linux/screen_info.h
-index c022403c599a..2adbe25b88d8 100644
---- a/include/linux/screen_info.h
-+++ b/include/linux/screen_info.h
-@@ -140,11 +140,8 @@ u32 __screen_info_lfb_bits_per_pixel(const struct screen_info *si);
- int screen_info_pixel_format(const struct screen_info *si, struct pixel_format *f);
- 
- #if defined(CONFIG_PCI)
--void screen_info_apply_fixups(void);
- struct pci_dev *screen_info_pci_dev(const struct screen_info *si);
- #else
--static inline void screen_info_apply_fixups(void)
--{ }
- static inline struct pci_dev *screen_info_pci_dev(const struct screen_info *si)
- {
- 	return NULL;
--- 
-2.53.0
+Changes in v2:
+- Dropped patch removing the loop in lcdif_attach_bridge, adapted following
+  patches as needed, added patch to use __free on the ep pointer
+- Added new cleanup patch (patch 6)
+- Build the fixup module unconditionally
+- patch 7: fix returned error codes
+- patch 1: fix cleanup action
+- Various minor improvements based on reviews, see per-patch changelog
+- Removed bouncing recipients from Cc
+- Link to v1: https://lore.kernel.org/r/20260320-drm-lcdif-dbanc-v1-0-479a04133e70@bootlin.com
+
+---
+Luca Ceresoli (11):
+      drm/mxsfb/lcdif: simplify remote pointer management using __free
+      drm/mxsfb/lcdif: simplify ep pointer management using __free
+      drm/mxsfb/lcdif: use dev_err_probe() consistently in lcdif_attach_bridge
+      drm/mxsfb/lcdif: move iteration-specific variables declaration inside loop in lcdif_attach_bridge
+      drm/bridge: dw-hdmi: document the output_port field
+      drm/bridge: dw-hdmi: warn on unsupported attach combination
+      drm/bridge: dw-hdmi: move next_bridge lookup to attach time
+      drm/bridge: imx8mp-hdmi-tx-connector-fixup: add an hdmi-connector when missing using a DT overlay at boot time
+      drm/bridge: imx8mp-hdmi-tx-connector-fixup: show a warning when adding the overlay
+      drm/bridge: imx8mp-hdmi-tx: switch to DRM_BRIDGE_ATTACH_NO_CONNECTOR
+      drm/mxsfb/lcdif: use DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+
+ drivers/gpu/drm/bridge/imx/Kconfig                 | 18 ++++++
+ drivers/gpu/drm/bridge/imx/Makefile                |  2 +
+ .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.c    | 75 ++++++++++++++++++++++
+ .../bridge/imx/imx8mp-hdmi-tx-connector-fixup.dtso | 33 ++++++++++
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c        |  1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          | 49 ++++++--------
+ drivers/gpu/drm/mxsfb/Kconfig                      |  2 +
+ drivers/gpu/drm/mxsfb/lcdif_drv.c                  | 69 ++++++++++----------
+ include/drm/bridge/dw_hdmi.h                       |  6 ++
+ 9 files changed, 192 insertions(+), 63 deletions(-)
+---
+base-commit: 5304ff59fe90c4f89c1ba8fea5e07d4a6673a9bf
+change-id: 20260306-drm-lcdif-dbanc-83dd948327de
+
+Best regards,
+--  
+Luca Ceresoli <luca.ceresoli@bootlin.com>
 
