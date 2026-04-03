@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 799FAE85367
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 13:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 744ADE8536F
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 13:34:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B59A110E4FC;
-	Fri,  3 Apr 2026 13:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C956810EFEC;
+	Fri,  3 Apr 2026 13:34:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mIGqkbXA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WjTAtIwr";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5E4410E4FC
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 13:33:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 091BD10EFEC
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 13:34:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8E0FA60008;
- Fri,  3 Apr 2026 13:33:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C46C4CEF7;
- Fri,  3 Apr 2026 13:33:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3620960126;
+ Fri,  3 Apr 2026 13:34:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C262C19423;
+ Fri,  3 Apr 2026 13:34:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775223238;
- bh=55i/c5lvlRWPg2Xg8EGYTojiNtSSlmXver3/W4dI8hI=;
+ s=k20201202; t=1775223247;
+ bh=IcHv4oOfMBrBSIng/zNOaemGUvnfIlHm5aAp787qRuw=;
  h=Date:From:To:Cc:Subject:From;
- b=mIGqkbXAo+lkeSD/zYFAfj+Fn50Zrb+62b1Wpgs/kbplORzv61Cr+sQa0UR6ZhZ5e
- yb1wcYuVSAfuQYnvpGai9UE7kCBbi8zu1EZMc/4g5tCBM6GNIGzgtsS9gShSUt9I10
- /Tru8sXEFlLaNuk/dBjxJoo0OxDFhokxCcAAvd2w+GgwazHYtdnuiFR+VgulpuhAlp
- koVmnFykFoCjUOCAUfFJBzmFytPH+mbB/SLQZuykB5fcVKBzPpeng/hOii2vW/PrC1
- B8tLIGaNF1NBN030Si2LyJgQgCdnPLbnqQZVD3oDO4vcfEGNzzi8Xg6Jv8v+dT14Mw
- 960R2xVLYgmxA==
-Date: Fri, 3 Apr 2026 14:33:54 +0100
+ b=WjTAtIwrlAtPuz1JUTlr/zssZbNujrCkZ5UIf7b420Q6pnjxrVY+0UcnjSxoFv2zD
+ RFgwmMi7axnU+dqUT1F80GqIrvmw9LbNzX4RIpyz3QTHYDADcNrC0IIm9e2XOO4xpv
+ GQswqMM7I7AEfVKREIxwcH0yYoTtTyCUQdCLdpfRAhYjROdNyiHfZM5U2mRbO9jGKV
+ jCb1ritcZdr/wJEv74jW535d3hGPIKmud6PTa5CK6VhFlQNSb2CcNnz+gxys5ka7vl
+ pMqBM/EUD/A/HtWLi01uM6lrzQSTwRJ8rOWV9EgBattQNt5AWeRaaXeuuEbKGeQfdD
+ niiWstDqjFyYg==
+Date: Fri, 3 Apr 2026 14:34:03 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Deborah Brouwer <deborah.brouwer@collabora.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the drm tree with the drm-fixes tree
-Message-ID: <ac_BwiAI8NwRwubJ@sirena.org.uk>
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>
+Subject: linux-next: manual merge of the drm tree with the rust tree
+Message-ID: <ac_Byw5cYys_lJ1a@sirena.org.uk>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="PdPPV9cII2aZSET3"
+ protocol="application/pgp-signature"; boundary="UfQu2MS+g0QBbQaD"
 Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,29 +61,24 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---PdPPV9cII2aZSET3
+--UfQu2MS+g0QBbQaD
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi all,
 
-Today's linux-next merge of the drm tree got conflicts in:
+Today's linux-next merge of the drm tree got a conflict in:
 
-  drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-  drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+  drivers/gpu/drm/tyr/driver.rs
 
 between commit:
 
-  a3ffaa5b397f4 ("drm/amdgpu/pm: drop SMU driver if version not matched mes=
-sages")
+  ef90b103e8f76 ("tyr: remove impl Send/Sync for TyrData")
 
-=66rom the drm-fixes tree and commits:
+=66rom the rust tree and commit:
 
-  6b0a6116286ef ("drm/amd/pm: Unify version check in SMUv11")
-  353f200825051 ("drm/amd/pm: Unify version check in SMUv12")
-  964e532d58378 ("drm/amd/pm: Unify version check in SMUv14")
+  15da5bc9f3ada ("drm/tyr: Clarify driver/device type names")
 
 =66rom the drm tree.
 
@@ -91,230 +89,216 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --combined drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 7ca8fdd23206e,d68ceee16d8f1..0000000000000
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@@ -192,81 -192,6 +192,6 @@@ int smu_v11_0_check_fw_status(struct sm
-  	return -EIO;
+diff --combined drivers/gpu/drm/tyr/driver.rs
+index e833e9f537b02,6114346415805..0000000000000
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@@ -1,44 -1,56 +1,56 @@@
+  // SPDX-License-Identifier: GPL-2.0 or MIT
+ =20
+- use kernel::clk::Clk;
+- use kernel::clk::OptionalClk;
+- use kernel::device::Bound;
+- use kernel::device::Core;
+- use kernel::device::Device;
+- use kernel::devres::Devres;
+- use kernel::drm;
+- use kernel::drm::ioctl;
+- use kernel::io::poll;
+- use kernel::new_mutex;
+- use kernel::of;
+- use kernel::platform;
+- use kernel::prelude::*;
+- use kernel::regulator;
+- use kernel::regulator::Regulator;
+- use kernel::sizes::SZ_2M;
+- use kernel::sync::aref::ARef;
+- use kernel::sync::Arc;
+- use kernel::sync::Mutex;
+- use kernel::time;
++ use kernel::{
++     clk::{
++         Clk,
++         OptionalClk, //
++     },
++     device::{
++         Bound,
++         Core,
++         Device, //
++     },
++     devres::Devres,
++     drm,
++     drm::ioctl,
++     io::poll,
++     new_mutex,
++     of,
++     platform,
++     prelude::*,
++     regulator,
++     regulator::Regulator,
++     sizes::SZ_2M,
++     sync::{
++         aref::ARef,
++         Arc,
++         Mutex, //
++     },
++     time, //
++ };
+ =20
+- use crate::file::File;
+- use crate::gem::TyrObject;
+- use crate::gpu;
+- use crate::gpu::GpuInfo;
+- use crate::regs;
++ use crate::{
++     file::TyrDrmFileData,
++     gem::TyrObject,
++     gpu,
++     gpu::GpuInfo,
++     regs, //
++ };
+ =20
+  pub(crate) type IoMem =3D kernel::io::mem::IoMem<SZ_2M>;
+ =20
++ pub(crate) struct TyrDrmDriver;
++=20
+  /// Convenience type alias for the DRM device type for this driver.
+- pub(crate) type TyrDevice =3D drm::Device<TyrDriver>;
++ pub(crate) type TyrDrmDevice =3D drm::Device<TyrDrmDriver>;
+ =20
+  #[pin_data(PinnedDrop)]
+- pub(crate) struct TyrDriver {
+-     _device: ARef<TyrDevice>,
++ pub(crate) struct TyrPlatformDriverData {
++     _device: ARef<TyrDrmDevice>,
   }
  =20
-- int smu_v11_0_check_fw_version(struct smu_context *smu)
-- {
-- 	struct amdgpu_device *adev =3D smu->adev;
-- 	uint32_t if_version =3D 0xff, smu_version =3D 0xff;
-- 	uint8_t smu_program, smu_major, smu_minor, smu_debug;
-- 	int ret =3D 0;
--=20
-- 	ret =3D smu_cmn_get_smc_version(smu, &if_version, &smu_version);
-- 	if (ret)
-- 		return ret;
--=20
-- 	smu_program =3D (smu_version >> 24) & 0xff;
-- 	smu_major =3D (smu_version >> 16) & 0xff;
-- 	smu_minor =3D (smu_version >> 8) & 0xff;
-- 	smu_debug =3D (smu_version >> 0) & 0xff;
-- 	if (smu->is_apu)
-- 		adev->pm.fw_version =3D smu_version;
--=20
-- 	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-- 	case IP_VERSION(11, 0, 0):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_NV10;
-- 		break;
-- 	case IP_VERSION(11, 0, 9):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_NV12;
-- 		break;
-- 	case IP_VERSION(11, 0, 5):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_NV14;
-- 		break;
-- 	case IP_VERSION(11, 0, 7):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_Sienna_Cichlid;
-- 		break;
-- 	case IP_VERSION(11, 0, 11):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_Navy_Flounder;
-- 		break;
-- 	case IP_VERSION(11, 5, 0):
-- 	case IP_VERSION(11, 5, 2):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_VANGOGH;
-- 		break;
-- 	case IP_VERSION(11, 0, 12):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_Dimgrey_Cavefish;
-- 		break;
-- 	case IP_VERSION(11, 0, 13):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_Beige_Goby;
-- 		break;
-- 	case IP_VERSION(11, 0, 8):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_Cyan_Skillfish;
-- 		break;
-- 	case IP_VERSION(11, 0, 2):
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_ARCT;
-- 		break;
-- 	default:
-- 		dev_err(smu->adev->dev, "smu unsupported IP version: 0x%x.\n",
-- 			amdgpu_ip_version(adev, MP1_HWIP, 0));
-- 		smu->smc_driver_if_version =3D SMU11_DRIVER_IF_VERSION_INV;
-- 		break;
-- 	}
--=20
-- 	/*
-- 	 * 1. if_version mismatch is not critical as our fw is designed
-- 	 * to be backward compatible.
-- 	 * 2. New fw usually brings some optimizations. But that's visible
-- 	 * only on the paired driver.
-- 	 * Considering above, we just leave user a verbal message instead
-- 	 * of halt driver loading.
-- 	 */
-- 	if (if_version !=3D smu->smc_driver_if_version) {
-- 		dev_info(smu->adev->dev, "smu driver if version =3D 0x%08x, smu fw if v=
-ersion =3D 0x%08x, "
-- 			"smu fw program =3D %d, version =3D 0x%08x (%d.%d.%d)\n",
-- 			smu->smc_driver_if_version, if_version,
-- 			smu_program, smu_version, smu_major, smu_minor, smu_debug);
-- 	}
--=20
-- 	return ret;
-- }
--=20
-  static int smu_v11_0_set_pptable_v2_0(struct smu_context *smu, void **tab=
-le, uint32_t *size)
-  {
-  	struct amdgpu_device *adev =3D smu->adev;
-diff --combined drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-index ac5e44dff6c97,f09da4d14510b..0000000000000
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-@@@ -70,42 -70,6 +70,6 @@@ int smu_v12_0_check_fw_status(struct sm
-  	return -EIO;
+  #[pin_data(PinnedDrop)]
+- pub(crate) struct TyrData {
++ pub(crate) struct TyrDrmDeviceData {
+      pub(crate) pdev: ARef<platform::Device>,
+ =20
+      #[pin]
+@@@ -53,6 -65,18 +65,6 @@@
+      pub(crate) gpu_info: GpuInfo,
   }
  =20
-- int smu_v12_0_check_fw_version(struct smu_context *smu)
-- {
-- 	struct amdgpu_device *adev =3D smu->adev;
-- 	uint32_t if_version =3D 0xff, smu_version =3D 0xff;
-- 	uint8_t smu_program, smu_major, smu_minor, smu_debug;
-- 	int ret =3D 0;
--=20
-- 	ret =3D smu_cmn_get_smc_version(smu, &if_version, &smu_version);
-- 	if (ret)
-- 		return ret;
--=20
-- 	smu_program =3D (smu_version >> 24) & 0xff;
-- 	smu_major =3D (smu_version >> 16) & 0xff;
-- 	smu_minor =3D (smu_version >> 8) & 0xff;
-- 	smu_debug =3D (smu_version >> 0) & 0xff;
-- 	if (smu->is_apu)
-- 		adev->pm.fw_version =3D smu_version;
--=20
-- 	/*
-- 	 * 1. if_version mismatch is not critical as our fw is designed
-- 	 * to be backward compatible.
-- 	 * 2. New fw usually brings some optimizations. But that's visible
-- 	 * only on the paired driver.
-- 	 * Considering above, we just leave user a verbal message instead
-- 	 * of halt driver loading.
-- 	 */
-- 	if (if_version !=3D smu->smc_driver_if_version) {
-- 		dev_info(smu->adev->dev, "smu driver if version =3D 0x%08x, smu fw if v=
-ersion =3D 0x%08x, "
-- 			"smu fw program =3D %d, smu fw version =3D 0x%08x (%d.%d.%d)\n",
-- 			smu->smc_driver_if_version, if_version,
-- 			smu_program, smu_version, smu_major, smu_minor, smu_debug);
-- 	}
--=20
-- 	return ret;
-- }
--=20
-  int smu_v12_0_powergate_sdma(struct smu_context *smu, bool gate)
-  {
-  	if (!smu->is_apu)
-diff --combined drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-index e38354c694c95,d0a8df1aa6b64..0000000000000
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@@ -229,66 -229,6 +229,6 @@@ int smu_v14_0_check_fw_status(struct sm
-  	return -EIO;
+ -// Both `Clk` and `Regulator` do not implement `Send` or `Sync`, but they
+ -// should. There are patches on the mailing list to address this, but the=
+y have
+ -// not landed yet.
+ -//
+ -// For now, add this workaround so that this patch compiles with the prom=
+ise
+ -// that it will be removed in a future patch.
+ -//
+ -// SAFETY: This will be removed in a future patch.
+ -unsafe impl Send for TyrDrmDeviceData {}
+ -// SAFETY: This will be removed in a future patch.
+ -unsafe impl Sync for TyrDrmDeviceData {}
+ -
+  fn issue_soft_reset(dev: &Device<Bound>, iomem: &Devres<IoMem>) -> Result=
+ {
+      regs::GPU_CMD.write(dev, iomem, regs::GPU_CMD_SOFT_RESET)?;
+ =20
+@@@ -70,14 -94,14 +82,14 @@@
+  kernel::of_device_table!(
+      OF_TABLE,
+      MODULE_OF_TABLE,
+-     <TyrDriver as platform::Driver>::IdInfo,
++     <TyrPlatformDriverData as platform::Driver>::IdInfo,
+      [
+          (of::DeviceId::new(c"rockchip,rk3588-mali"), ()),
+          (of::DeviceId::new(c"arm,mali-valhall-csf"), ())
+      ]
+  );
+ =20
+- impl platform::Driver for TyrDriver {
++ impl platform::Driver for TyrPlatformDriverData {
+      type IdInfo =3D ();
+      const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D Some(&OF_TAB=
+LE);
+ =20
+@@@ -107,7 -131,7 +119,7 @@@
+ =20
+          let platform: ARef<platform::Device> =3D pdev.into();
+ =20
+-         let data =3D try_pin_init!(TyrData {
++         let data =3D try_pin_init!(TyrDrmDeviceData {
+                  pdev: platform.clone(),
+                  clks <- new_mutex!(Clocks {
+                      core: core_clk,
+@@@ -121,10 -145,10 +133,10 @@@
+                  gpu_info,
+          });
+ =20
+-         let tdev: ARef<TyrDevice> =3D drm::Device::new(pdev.as_ref(), dat=
+a)?;
+-         drm::driver::Registration::new_foreign_owned(&tdev, pdev.as_ref()=
+, 0)?;
++         let ddev: ARef<TyrDrmDevice> =3D drm::Device::new(pdev.as_ref(), =
+data)?;
++         drm::driver::Registration::new_foreign_owned(&ddev, pdev.as_ref()=
+, 0)?;
+ =20
+-         let driver =3D TyrDriver { _device: tdev };
++         let driver =3D TyrPlatformDriverData { _device: ddev };
+ =20
+          // We need this to be dev_info!() because dev_dbg!() does not wor=
+k at
+          // all in Rust for now, and we need to see whether probe succeede=
+d.
+@@@ -134,12 -158,12 +146,12 @@@
   }
  =20
-- int smu_v14_0_check_fw_version(struct smu_context *smu)
-- {
-- 	struct amdgpu_device *adev =3D smu->adev;
-- 	uint32_t if_version =3D 0xff, smu_version =3D 0xff;
-- 	uint8_t smu_program, smu_major, smu_minor, smu_debug;
-- 	int ret =3D 0;
--=20
-- 	ret =3D smu_cmn_get_smc_version(smu, &if_version, &smu_version);
-- 	if (ret)
-- 		return ret;
--=20
-- 	smu_program =3D (smu_version >> 24) & 0xff;
-- 	smu_major =3D (smu_version >> 16) & 0xff;
-- 	smu_minor =3D (smu_version >> 8) & 0xff;
-- 	smu_debug =3D (smu_version >> 0) & 0xff;
-- 	if (smu->is_apu)
-- 		adev->pm.fw_version =3D smu_version;
--=20
-- 	switch (amdgpu_ip_version(adev, MP1_HWIP, 0)) {
-- 	case IP_VERSION(14, 0, 0):
-- 	case IP_VERSION(14, 0, 4):
-- 	case IP_VERSION(14, 0, 5):
-- 		smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_SMU_V14_0_0;
-- 		break;
-- 	case IP_VERSION(14, 0, 1):
-- 		smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_SMU_V14_0_1;
-- 		break;
-- 	case IP_VERSION(14, 0, 2):
-- 	case IP_VERSION(14, 0, 3):
-- 		smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_SMU_V14_0_2;
-- 		break;
-- 	default:
-- 		dev_err(adev->dev, "smu unsupported IP version: 0x%x.\n",
-- 			amdgpu_ip_version(adev, MP1_HWIP, 0));
-- 		smu->smc_driver_if_version =3D SMU14_DRIVER_IF_VERSION_INV;
-- 		break;
-- 	}
--=20
-- 	if (adev->pm.fw)
-- 		dev_dbg(smu->adev->dev, "smu fw reported program %d, version =3D 0x%08x=
- (%d.%d.%d)\n",
-- 			 smu_program, smu_version, smu_major, smu_minor, smu_debug);
--=20
-- 	/*
-- 	 * 1. if_version mismatch is not critical as our fw is designed
-- 	 * to be backward compatible.
-- 	 * 2. New fw usually brings some optimizations. But that's visible
-- 	 * only on the paired driver.
-- 	 * Considering above, we just leave user a verbal message instead
-- 	 * of halt driver loading.
-- 	 */
-- 	if (if_version !=3D smu->smc_driver_if_version) {
-- 		dev_info(adev->dev, "smu driver if version =3D 0x%08x, smu fw if versio=
-n =3D 0x%08x, "
-- 			 "smu fw program =3D %d, smu fw version =3D 0x%08x (%d.%d.%d)\n",
-- 			 smu->smc_driver_if_version, if_version,
-- 			 smu_program, smu_version, smu_major, smu_minor, smu_debug);
-- 	}
--=20
-- 	return ret;
-- }
--=20
-  static int smu_v14_0_set_pptable_v2_0(struct smu_context *smu, void **tab=
-le, uint32_t *size)
-  {
-  	struct amdgpu_device *adev =3D smu->adev;
+  #[pinned_drop]
+- impl PinnedDrop for TyrDriver {
++ impl PinnedDrop for TyrPlatformDriverData {
+      fn drop(self: Pin<&mut Self>) {}
+  }
+ =20
+  #[pinned_drop]
+- impl PinnedDrop for TyrData {
++ impl PinnedDrop for TyrDrmDeviceData {
+      fn drop(self: Pin<&mut Self>) {
+          // TODO: the type-state pattern for Clks will fix this.
+          let clks =3D self.clks.lock();
+@@@ -160,15 -184,15 +172,15 @@@ const INFO: drm::DriverInfo =3D drm::Driv
+  };
+ =20
+  #[vtable]
+- impl drm::Driver for TyrDriver {
+-     type Data =3D TyrData;
+-     type File =3D File;
++ impl drm::Driver for TyrDrmDriver {
++     type Data =3D TyrDrmDeviceData;
++     type File =3D TyrDrmFileData;
+      type Object =3D drm::gem::Object<TyrObject>;
+ =20
+      const INFO: drm::DriverInfo =3D INFO;
+ =20
+      kernel::declare_drm_ioctls! {
+-         (PANTHOR_DEV_QUERY, drm_panthor_dev_query, ioctl::RENDER_ALLOW, F=
+ile::dev_query),
++         (PANTHOR_DEV_QUERY, drm_panthor_dev_query, ioctl::RENDER_ALLOW, T=
+yrDrmFileData::dev_query),
+      }
+  }
+ =20
 
---PdPPV9cII2aZSET3
+--UfQu2MS+g0QBbQaD
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnPwcEACgkQJNaLcl1U
-h9AfmQf9GkQPCkfqCTXWnDy8UvZehlkNcxtd9S/DShRIVpgEUKaS17Qmkf4BB+hd
-3t/oI1yjgNoaspEioBtZ6ANO2atY7u+lIroeuN197luvsqo7hBK3hJAXXbaF4Jez
-amOtdi3Hq+6YyK5Zx3FMTdOFk+nE27Bz/pmG4xJuZtWysYDGLKz8FWeH0dNAKB0k
-xvbNB1GUV7YJSljAphhEjU4JxqIu9OIbdoGeAOWMxdTHMEAdgmBXpwNsV3d7ZSdB
-+UOnnOfMgDpEr2gnjhWk1SSOnlnPu4hNFic4NJSAV60nO4+iHGp6KHYJFU2h/m26
-oYydofy6pLe73s+CoTCedpn9ff6mFw==
-=A0ak
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnPwcoACgkQJNaLcl1U
+h9AKgAf9HJbs/MjCX3nXV51fwQjfMt5yx74Y8C5tZxBSZX0FhYn5kAfIJID6ngwp
+JZQC1eA+pOn8hAy11Wx1aDpBDXcIfGEagcb6XsX1q93xhGfken5uC/u04NVqQ1gs
+mYifgnX4gDG0FZxnp/b8RGEHyW519AYfOkMsAwda62MEq9T5Ev5Ohaf5i+8Te8Ru
+02DEUVE9FWCB6KSC66Zgs9UiHj1kBwkwg06NFPhPd1Ls5kythMogVQMLxS25u62z
+dAZr73DFWM4ujekzeWtKL9ahLzkgTbv4FheNXbgyrLG2BzTX98N5bLQLajYNH0XK
+zlHmLn8LW6U2lZpTMhWSTXpoCVd5Qg==
+=9QXD
 -----END PGP SIGNATURE-----
 
---PdPPV9cII2aZSET3--
+--UfQu2MS+g0QBbQaD--
