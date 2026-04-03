@@ -4,59 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3320CD730AF
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 07:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02A3ED730B6
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 07:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7708910F214;
-	Fri,  3 Apr 2026 07:28:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E351F10F224;
+	Fri,  3 Apr 2026 07:57:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bCqPcf3h";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nPE8SjAn";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6017110F295
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 07:28:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE1E910F224
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 07:57:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1775201286;
- bh=Jzk7/Gtny9pL0AE0z9y8UsAICmwzjMtbca3hpmIcLtc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bCqPcf3hrxsM6ZrdP1nyQmXNiJVGP7HP0a8vbVSpMxMr19aoRjL6M07jQQ36kpwzV
- AI4cx0L2077wTgpTizF5g1CN/iBwnDqsrIgox94pfC3koeiJdvt8zA8nJdTOUyV1sh
- 75UTnlmV0sjeHJUKgk71r47EVkXnEKyUCts/WeE70I9eqTPPXfRFVxwomUNMe3BHOE
- H66qF9cIIBv0L+5NSV5AL4YuVoHAktXpgJnN3s4FrX3zXCNQXKrsabLpulWf3zWRkn
- H9xfygMr2+ieqOn+WWZKEDBmfXNFXPsO6VfS9J5ysvLw5iWF72JVMvfDZWn521gjKF
- 1T7dwIZnbmSjw==
-Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 944B617E8632;
- Fri,  3 Apr 2026 09:28:05 +0200 (CEST)
-Date: Fri, 3 Apr 2026 09:27:59 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, Boqun
- Feng <boqun@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Miguel Ojeda
- <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy
- Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Steven
- Price <steven.price@arm.com>, Dirk Behme <dirk.behme@gmail.com>, Alexandre
- Courbot <acourbot@nvidia.com>
-Subject: Re: [PATCH v4 3/6] drm/tyr: Use register! macro for JOB_CONTROL
-Message-ID: <20260403092759.5d9aabe3@fedora>
-In-Reply-To: <20260402-tyr-use-register-macro-v4-v4-3-96a8d42f8bd1@collabora.com>
-References: <20260402-tyr-use-register-macro-v4-v4-0-96a8d42f8bd1@collabora.com>
- <20260402-tyr-use-register-macro-v4-v4-3-96a8d42f8bd1@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+ s=mail; t=1775203075;
+ bh=YoTFrjLkGAflEy1qRaxjWbCJiKRCH9HY1UiBdJlgevw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=nPE8SjAnEZBbJgABAw3FhSWYZmzKwhs2mme9AMCx9PAn6Cn/Slk4Y4m9Jyg6MlNaP
+ 9e8q0xE8h88QNwZ5b9wcjvXN5W2del+Vsa4dCgVP0SrZE/cOZ3XKxeCNlxbKO4bLDO
+ /RVuh1FR7t67aQstwvfvqPpZ/LkExksNsKpdIRAspq39jm7kJd5cpKWUgjznLImqeA
+ WdSg2FDY6l6rejIBPzI85vgHTvZGzbTQ7x4tAAfsLJ6CDHMjVa9hnMc/OQ5uhc+t/J
+ awcn0oq1k8y8eatl0dhihjtCtGng34XNmZu1bxuaC2vR/2tieG/FKpf1wqvBnFeofM
+ TfrVgpPkB2UxQ==
+Received: from [IPV6:2a01:e0a:5e3:6100:7aed:fe0e:8590:cbaa] (unknown
+ [IPv6:2a01:e0a:5e3:6100:7aed:fe0e:8590:cbaa])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: loicmolinari)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C0BE317E8683;
+ Fri,  3 Apr 2026 09:57:54 +0200 (CEST)
+Message-ID: <1268c6cf-f3d7-4085-baca-796526125f44@collabora.com>
+Date: Fri, 3 Apr 2026 09:57:53 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/shmem_helper: Make sure PMD entries get the writeable
+ upgrade
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ linux-mm@kvack.org, kernel@collabora.com,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+References: <20260320151914.586945-1-boris.brezillon@collabora.com>
+Content-Language: fr
+From: =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>
+Organization: Collabora Ltd
+In-Reply-To: <20260320151914.586945-1-boris.brezillon@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,107 +77,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 02 Apr 2026 16:35:33 -0700
-Deborah Brouwer <deborah.brouwer@collabora.com> wrote:
+Hi Boris,
 
-> Convert the JOB_CONTROL register definitions to use the `register!` macro.
+On 20/03/2026 16:19, Boris Brezillon wrote:
+> Unlike PTEs which are automatically upgraded to writeable entries if
+> .pfn_mkwrite() returns 0, the PMD upgrades go through .huge_fault(),
+> and we currently pretend to have handled the make-writeable request
+> even though we only ever map things read-only. Make sure we pass the
+> proper "write" info to vmf_insert_pfn_pmd() in that case.
 > 
-> Using the `register!` macro allows us to replace manual bit masks and
-> shifts with typed register and field accessors, which makes the code
-> easier to read and avoids errors from bit manipulation.
+> This also means we have to record the mkwrite event in the .huge_fault()
+> path now. Move the dirty tracking logic to a
+> drm_gem_shmem_record_mkwrite() helper so it can also be called from
+> drm_gem_shmem_pfn_mkwrite().
 > 
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> Note that this wasn't a problem before commit 28e3918179aa
+> ("drm/gem-shmem: Track folio accessed/dirty status in mmap"), because
+> the pgprot were not lowered to read-only before this commit (see the
+> vma_wants_writenotify() in vma_set_page_prot()).
+> 
+> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 > ---
->  drivers/gpu/drm/tyr/regs.rs | 58 ++++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 50 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-> index d0f99a433dfd1f55b855744abfe26ff9b429f179..54145d90d4922b895a6ebbbd2cda4fddb8488e1a 100644
-> --- a/drivers/gpu/drm/tyr/regs.rs
-> +++ b/drivers/gpu/drm/tyr/regs.rs
-> @@ -28,7 +28,6 @@
->  #![allow(dead_code)]
->  
->  use kernel::{
-> -    bits::bit_u32,
->      device::{
->          Bound,
->          Device, //
-> @@ -893,14 +892,57 @@ fn from(status: McuStatus) -> Self {
->      }
->  }
->  
-> -pub(crate) const JOB_IRQ_RAWSTAT: Register<0x1000> = Register;
-> -pub(crate) const JOB_IRQ_CLEAR: Register<0x1004> = Register;
-> -pub(crate) const JOB_IRQ_MASK: Register<0x1008> = Register;
-> -pub(crate) const JOB_IRQ_STAT: Register<0x100c> = Register;
-> -
-> -pub(crate) const JOB_IRQ_GLOBAL_IF: u32 = bit_u32(31);
-> -
->  pub(crate) const MMU_IRQ_RAWSTAT: Register<0x2000> = Register;
->  pub(crate) const MMU_IRQ_CLEAR: Register<0x2004> = Register;
->  pub(crate) const MMU_IRQ_MASK: Register<0x2008> = Register;
->  pub(crate) const MMU_IRQ_STAT: Register<0x200c> = Register;
+> This patch is based on drm-tip [2], because that's the only branch
+> that has both [1] and the dirty tracking changes that live in
+> drm-misc-next.
+> 
+> Also added the THP maintainers in Cc, so I can hopefully get some
+> feedback on the fix. For instance, I'm still unsure
+> drm_gem_shmem_pfn_mkwrite() is race-free (do we need some locking
+> there? should we call folio_mark_dirty_lock()? should we call the
+> fault handler directly from there and have all the dirty tracking
+> in this .[huge_]fault path?).
+> 
+> [1]https://yhbt.net/lore/dri-devel/20260319015224.46896-1-pedrodemargomes@gmail.com/
+> [2]https://gitlab.freedesktop.org/drm/tip
+> ---
+>   drivers/gpu/drm/drm_gem_shmem_helper.c | 46 ++++++++++++++++++--------
+>   1 file changed, 32 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 2062ca607833..545933c7f712 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -554,6 +554,21 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
+>   
+> +static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+> +{
+> +	struct vm_area_struct *vma = vmf->vma;
+> +	struct drm_gem_object *obj = vma->vm_private_data;
+> +	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> +	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> +	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
 > +
-> +/// These registers correspond to the JOB_CONTROL register page.
-> +/// They are involved in communication between the firmware running on the MCU and the host.
-> +pub(crate) mod job_control {
-> +    use kernel::register;
+> +	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> +		return;
 > +
-> +    register! {
-> +        /// Raw status of job interrupts.
-> +        ///
-> +        /// Write to this register to trigger these interrupts.
-> +        /// Writing a 1 to a bit forces that bit on.
-> +        pub(crate) JOB_IRQ_RAWSTAT(u32) @ 0x1000 {
-> +            /// CSG request. These bits indicate that CSGn requires attention from the host.
-> +            30:0    csg;
-> +            /// GLB request. Indicates that the GLB interface requires attention from the host.
-> +            31:31   glb;
+> +	file_update_time(vma->vm_file);
+> +	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
 
-Any particular reason you didn't go for
+Unless we're sure the folio can't be truncated by another CPU, maybe we 
+should use folio_mark_dirty_lock() here. This is what's done for pages 
+(not PFNs) in mm/memory.c. Let's wait and see how it goes without 
+locking for now.
 
-		31:31   glb => bool;
+Reviewed-by: Loïc Molinari <loic.molinari@collabora.com>
 
-here?
+Regards,
+Loïc
 
-> +        }
-> +
-> +        /// Clear job interrupts. Write only.
-> +        ///
-> +        /// Write a 1 to a bit to clear the corresponding bit in [`JOB_IRQ_RAWSTAT`].
-> +        pub(crate) JOB_IRQ_CLEAR(u32) @ 0x1004 {
-> +            /// Clear CSG request interrupts.
-> +            30:0    csg;
-> +            /// Clear GLB request interrupt.
-> +            31:31   glb;
-> +        }
-> +
-> +        /// Mask for job interrupts.
-> +        ///
-> +        /// Set each bit to 1 to enable the corresponding interrupt source or to 0 to disable it.
-> +        pub(crate) JOB_IRQ_MASK(u32) @ 0x1008 {
-> +            /// Enable CSG request interrupts.
-> +            30:0    csg;
-> +            /// Enable GLB request interrupt.
-> +            31:31   glb;
-> +        }
-> +
-> +        /// Active job interrupts. Read only.
-> +        ///
-> +        /// This register contains the result of ANDing together [`JOB_IRQ_RAWSTAT`] and
-> +        /// [`JOB_IRQ_MASK`].
-> +        pub(crate) JOB_IRQ_STATUS(u32) @ 0x100c {
-> +            /// CSG request interrupt status.
-> +            30:0    csg;
-> +            /// GLB request interrupt status.
-> +            31:31   glb;
-> +        }
-> +    }
 > +}
-> 
+> +
+>   static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>   				 unsigned long pfn)
+>   {
+> @@ -566,8 +581,23 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+>   
+>   		if (aligned &&
+>   		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+> +			vm_fault_t ret;
+> +
+>   			pfn &= PMD_MASK >> PAGE_SHIFT;
+> -			return vmf_insert_pfn_pmd(vmf, pfn, false);
+> +
+> +			/* Unlike PTEs which are automatically upgraded to
+> +			 * writeable entries, the PMD upgrades go through
+> +			 * .huge_fault(). Make sure we pass the "write" info
+> +			 * along in that case.
+> +			 * This also means we have to record the write fault
+> +			 * here, instead of in .pfn_mkwrite().
+> +			 */
+> +			ret = vmf_insert_pfn_pmd(vmf, pfn,
+> +						 vmf->flags & FAULT_FLAG_WRITE);
+> +			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+> +				drm_gem_shmem_record_mkwrite(vmf);
+> +
+> +			return ret;
+>   		}
+>   #endif
+>   	}
+> @@ -655,19 +685,7 @@ static void drm_gem_shmem_vm_close(struct vm_area_struct *vma)
+>   
+>   static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
+>   {
+> -	struct vm_area_struct *vma = vmf->vma;
+> -	struct drm_gem_object *obj = vma->vm_private_data;
+> -	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
+> -	loff_t num_pages = obj->size >> PAGE_SHIFT;
+> -	pgoff_t page_offset = vmf->pgoff - vma->vm_pgoff; /* page offset within VMA */
+> -
+> -	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >= num_pages))
+> -		return VM_FAULT_SIGBUS;
+> -
+> -	file_update_time(vma->vm_file);
+> -
+> -	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+> -
+> +	drm_gem_shmem_record_mkwrite(vmf);
+>   	return 0;
+>   }
+>   
 
