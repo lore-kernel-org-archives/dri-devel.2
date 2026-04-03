@@ -4,159 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E984E7E35D
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 09:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF69AE7E35C
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 09:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF30210F48B;
-	Fri,  3 Apr 2026 09:34:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4552410F48E;
+	Fri,  3 Apr 2026 09:37:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="Vec81VZg";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="isxJvM2K";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R3LHBa7W";
 	dkim-atps=neutral
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011009.outbound.protection.outlook.com [52.101.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E474710F48B
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 09:34:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xrqYlGjZEGqO2BnVHvcKD7Z0GpDwT9ee4Qbgk+1l7ZjB5GYdy01PTv6e4L5p5EG366juWejm1AiztnfTu/c/XL07dtvbhCivNoX0iPidU0OVvQITqiyL3GV2Rit9+YNT5LlaKU+vw4m3ksszf9SyLYlQJsXX9WMhqtAEh3J6epBDAoMJq1oAQAZb33mZJRHw401VtGbcreDnZyWt6YCnryo0we2gyOwWk5VTPXCwMVU9ROTLg8PtI02QyUpd3OE4FGZYHh2Q2WABXJpFtT6lmnjWmGySYls6n/+KuugcxBT7i0lCT4hRL++xVVdum59A9NeFtAC38Of5buTHwDJ76A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RVmT/WlN+VsGcSpN+sNolSrteDQUxXvGdTYtp70UG80=;
- b=hNYtQHpnZ2DdLR0dJ5x7u6IxDdruo3i/Ye9ZXl+ETd/2wEQCB0osje23kCV6VG4vvX3ve8Qh6fTDbwBHqfHuMTh3IGyBmvGT9N0FIs7AcDndUe15KWCYDPhqUGeXxCySFB/jy11gCo0MVqgdrJHl6FlGgkL4J8e21vuRM0nNaQB+gs6KpeCJm7ToGCnH7VhhuLcntZLLmpi4WgU6X3R2+81O3Z3o7aeqzzrWDcxMyUNWNjUtg/0m+sRuF6qp3JpU8pHG/rIGSa+xvKg/oSlS+y4S3BEYfxoJGIssVHa7K1uY7EXqZexO/9aelyPTDRsOd4xDluey6Qm0TG0Uc1ioug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RVmT/WlN+VsGcSpN+sNolSrteDQUxXvGdTYtp70UG80=;
- b=Vec81VZg5FxtLEog+o0EI3K8YjhKW3JdExJKeOpuNSE1RRI/F3qA6VwhsoupBMKzVOvmT4Mhpj0NRept4+5kJagWs9qcELQaRBH4wo6X2B+SOFpGAyfAE0VGlzkmCG34RaEUkvRDKteWyJSOSjGz+1TecIG4ksiU423aGobbUa3CDiUIlovvOBuSeJngp5DuicJ9ObCPYCT8+RMWsJPfDkQG2F1nIa81G/+/4AcJZONiOrHp8ufJ9kJ+WK5Ibm5MTWR2sjH04xp6nbi7+CIZZ0XuPe6+0htyVjegZ84nuEyyTutZ1jf4jCLP0FiQWJV0pfuYrNz1fZDRac/sqReWmw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by VI2PR04MB10836.eurprd04.prod.outlook.com (2603:10a6:800:276::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Fri, 3 Apr
- 2026 09:34:19 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
- 09:34:19 +0000
-Message-ID: <37b06014-33fb-4c4f-bbe9-bbaa411b9d1d@nxp.com>
-Date: Fri, 3 Apr 2026 17:35:26 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/11] drm/bridge: imx8mp-hdmi-tx-connector-fixup: show
- a warning when adding the overlay
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: Damon Ding <damon.ding@rock-chips.com>,
- "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Martyn Welch <martyn.welch@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260402-drm-lcdif-dbanc-v3-0-27cd247a0847@bootlin.com>
- <20260402-drm-lcdif-dbanc-v3-9-27cd247a0847@bootlin.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <20260402-drm-lcdif-dbanc-v3-9-27cd247a0847@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-X-ClientProxiedBy: MA5P287CA0089.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d4::9) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4D210F48E
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 09:37:18 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6337UmgT2707214
+ for <dri-devel@lists.freedesktop.org>; Fri, 3 Apr 2026 09:37:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=H0MsR4PHC7LRNEDJ02SXHtGh
+ 86o8LwWKhT/z44z5dSo=; b=isxJvM2K/Cv3Pm0NShfaaEwkY51/yH2P37+roCBv
+ lYrCcgbdhQHUYJxt9ZaYRXWC20+urqqeQP2i3fq42SxtBdpAbOyHaIPnzRWp93qp
+ QhAms5skdcgdocGbuW8EEkhEUxZ3sTcKnETvEuiyk1+Pm3OocQu1n8HzYcRw66t4
+ 536ts+kxzBAJIVeVFBFgH3T8x2hYC18mMhBZriiWcTHzQDNU9C8b+kQqmV4xadiD
+ mTBOHSS2dOrTwiGXGNamY2DF5T1mQ/6TJ4GlxtarDcpWup0gReaWKh75SsJBMArq
+ yJ0mRgfT8xA5wWGvPp4wQ33YQwu38eZi/2RiBGwkpqwHTg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9yfjhyeq-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 09:37:17 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-50b4987c698so30604521cf.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 02:37:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775209036; x=1775813836;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=H0MsR4PHC7LRNEDJ02SXHtGh86o8LwWKhT/z44z5dSo=;
+ b=R3LHBa7WMcAnQgYXEyrW/1xLB6rQS4jtiT/2yz7kJv5GOdAqHY76iuiL1SuiYeXdup
+ PlX5Ymd+sQKYWrmLyjD99X3bhO1YBTqVdfi2gNY8Icgp+XjOYWxszb1nXd53HYck4s4l
+ /BiS0Idr++ThJMVYI7Jyh1zDDT/LDxLYTRbYTRyt462Zinvh81dcMBM3zJmsyQas+b0O
+ oxr7Afcd0Efa045NN4Snh4mWLvQgbUTg3cMoAVklJY+OPwu5i+geLwLfF7IVqOqmMSKE
+ m3B0Hp8JWEbK3xRkrwLHOlNFzgPNp0EgIIhQtthHhu1bXqzu6l5mPTf6MVu0dmKZi+cv
+ QPlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775209036; x=1775813836;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=H0MsR4PHC7LRNEDJ02SXHtGh86o8LwWKhT/z44z5dSo=;
+ b=V6au7ExWb8BhOHjTjD+UwZ9qmMUpnMsNftivgUscI4Axd4cg6s/DHx8TV8T2/4lpo0
+ jd/E48IeMat9vvcJ4nJQWipRzEV1E93Yfi2egU2UOd6tfUm3SpN6osllO8au7D/GpW1k
+ JPdrycuz/Xn5MrQ42SAyo1z2oDmIFkc+W0C+r19BUGwGUlkLImEm/m9fvSicFtZyYT6f
+ NSlq5euO9v8+n3/gbE27uehcc7kICdrt2mcYJNcMfaPtGs5YYgeurpq0tzCl5zUZq5SC
+ fs85GvwU8DE9q/vAmceiX19dkV3Qrhxt3PO/sFvIgTDDiVZgVHtmnker47ihmhk86BHz
+ CcaQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUrNSfaZe8NdmHBRfB8k1Up00df4FGCTIFafvtOFo+SdZsGia0FrafyLoaPdrhWVSwyESpbgsRkSPU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDGbcaCvQG72DF1Uo1xtVjaC3xAlEXUzSBSqBZGWphbUNxzegS
+ 9zy812UwmDv+Kk0//9+DtrsDdzEejbv9reOSCnq8IzaOf2DZe6+GKuqfAeOuKBNUMCNzmhx0Nso
+ b4TXHyI8pCnT6lJxrLkZoyKFoj9hhNvoG4v9Lc92phubcFaYstPEvj5frrWpn0gRxy9g5Wkc=
+X-Gm-Gg: ATEYQzw3v9QYnLqEh09fnzHAAR1o1wMvuqXsqwc3HPVUPc9oujczyRPy34i5ebnTCeg
+ GRC19xHuYtvCJcaWdSoSdzf2glFixfeNiAFpKrrH8VJHoNkLPCF0v0BkblJpvzHEL29SubWof4H
+ YjCbQAID29VSHzd7b+qzGMP5rOpOFeN+sO6jfNbV1Gvx5CXlmefjC3hC0tJlTaaoLO1wWWQYmXk
+ tjfcL0mnu6sDOnSM9mkgjoY2ZvdbgBDtQn68iMi0AqRoywIIxN4ArqqfxHlnQVAx61VHf8BbpuE
+ rDKsudv+hjUeF7dHxhfk05UTEWut9E7UOCiHedpY23RM3JfAjtLQypQhH/jgL7TDQbyoS88UmpV
+ fdV3cJxYY10Z36uzw1+oZBg+r4w9pGKhrREzw9nMT8wWxjAQiXTqkhRdU
+X-Received: by 2002:ac8:7dc5:0:b0:509:202f:f03 with SMTP id
+ d75a77b69052e-50d4fd24b4dmr66236541cf.38.1775209036469; 
+ Fri, 03 Apr 2026 02:37:16 -0700 (PDT)
+X-Received: by 2002:ac8:7dc5:0:b0:509:202f:f03 with SMTP id
+ d75a77b69052e-50d4fd24b4dmr66234201cf.38.1775209031263; 
+ Fri, 03 Apr 2026 02:37:11 -0700 (PDT)
+Received: from trex (187.red-79-144-197.dynamicip.rima-tde.net.
+ [79.144.197.187]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d1e2a6f13sm15010561f8f.3.2026.04.03.02.37.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Apr 2026 02:37:10 -0700 (PDT)
+From: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>
+X-Google-Original-From: Jorge Ramirez <JorgeRamirez-Ortiz>
+Date: Fri, 3 Apr 2026 11:37:07 +0200
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v3 11/15] media: qcom: Switch to generic PAS TZ APIs
+Message-ID: <ac-KQ7e8-syph1Zl@trex>
+References: <20260327131043.627120-1-sumit.garg@kernel.org>
+ <20260327131043.627120-12-sumit.garg@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|VI2PR04MB10836:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec22d7e4-2da3-4503-af72-08de91642e24
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|19092799006|376014|7416014|921020|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Z70OpVziTqJigL8YJUddQv46Rt8BwlVFs8hJVo3akyeepJ+1mrhgpZS5V7BPNQixxCebvewvXQYlEijI06jnaXPaYg0Swokrz74HKEf9ENDF2y7OO5AZCpPHpfukBaqMN8to5q1yfXgVFSSBUBtrLaGElugbGQ3n19D20nPD35AqmHyY6gW9vLpZt2u58l3TLRVrOug4SVqVvcMtkT8bHHcFGApSu8N1HEQ93b4W17lJF1aZ6llxH7+Q9+pmCpwhQUWB5tYMe5ohGllvOT14gMmTu4QNbZiY+oRJPfPCVJRNMXjtkUk75ghh/xsdpXX+xx8Lz/BTxS5Z/3vz9BKgYyZlJ26nxnrHdRlaUrykCFtfF001okMBNN1CspXPEsLy8e/oavZ/Me6AgsNOX+9V0Fz8e5K5kan/k0VNAtScLEzW0EonFp0efSmu1oNoHHrrhvinPs7fBzbBrFuFbRWuiS1MpfbcP42VtQj9Q2mIShlwvgTWbhLAv6AQhxcJ/FTrjwODVQoxCq7Lram025EoSMJsq/g49IbDpsh7CfB0ftYh7jRrgsTmvx2PCpGdHeS2SM0m3kTfltdJ2E62otF29clBxuuI+jhq/w6i0YiVmrnY8L+uDlWWQLi390tCsgzrOUGQFmH8a4I4Pl4RJPIf2w2Vf1NSLrXEGeaIFqj0MWLn07zQNPTD5Ccsc3YNj9ZQHA9xW9vt05DTliHSWb92ToIGSNJ1DYia5rVz8x6TGN5SstsLFAGMhsb/q41zlB6j4BO1cPwjkT396P70LT9saemDWMb5othPsBnuOj7An/g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(921020)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUI3eTVWSTh1eWl5QTQzUElxbk9jTzFXQWZMUUNjTExHVDdBTjFvMjM5cU9K?=
- =?utf-8?B?N3d6QXZjeTlWeDlEUFlPTFZiYjhaeXlLVm1ZY0duY0RMOFAxYjJRZFlWOE1p?=
- =?utf-8?B?WUJoSVptYTRDSDBlbHh3WnhPNkhwRWhadVJFdzVCdHdocFAybnJOVHNZZ0M1?=
- =?utf-8?B?VDd1RlJFQUVZZjA3aUhjUzlsVDRPb1Y1RGc4Sm8vRmxFbFZPcnc1bm9GT1l6?=
- =?utf-8?B?VXIvWG1WTzRDS0JxeGQ4TCsrNGRUYThGZWhDc1M1TVBaWkYzNG4xSXFTazRB?=
- =?utf-8?B?L2ovUTlEbW9ueGZkdHVHSFd6ZC9zaEJVWlNUSWNSOVpUM0dxelRJL0RucWI2?=
- =?utf-8?B?K2lZcUZ6b3BjcXNxelN4dy9yU1RBYTlCOGFhdmxaNXptYktUajJYN1I1SGdD?=
- =?utf-8?B?d2ZaT01YVTViTkx0V3lLSUp6UVF1bXJTSW1IZldTRXcrZVpzOXp0bTMzYytj?=
- =?utf-8?B?bWZLdE0rSjlMMGRnMlhuRU8xRlJyeEF3ZVF5Ni8ya1krY1VONEljczhqTzFq?=
- =?utf-8?B?N0FXcXk3emNJM2lmN1JHdWxFeHVuRWZ3MWo4aVdid1QyS2pLalAyUm5RL2VX?=
- =?utf-8?B?M0p2OG4rSHdaVDlrSitybnJ0NG1BRVN4b3NxT1M4cm1zaDdYbWVSWkk5Q3BR?=
- =?utf-8?B?QXJqbGNMU3NENlNKMXlmRExHeVNIMEdhZmllQjVLK2lreTdqeW92N3NxdUk2?=
- =?utf-8?B?UGE5QkVNbnNVQWtJZG9CZkZaMGtacjlPTjBKTnhuZXFQV044RHVZNjQwNDZi?=
- =?utf-8?B?QkRvQy9YdWVRdktHb1U3azl5Q2xFQ1JYakFiSWRiWEJrTHFBZkkrdTRFbFlW?=
- =?utf-8?B?S1BPUjhnMGxmekhRUXd6MzI3ckxVeHI2L01VM1hLN2krY28valJPcmljVTNk?=
- =?utf-8?B?NjErL2d1TG1VRHowcUdDWlR2RjZvVVBLUndaOEVJMWdOQ25NanhEeldWTFNC?=
- =?utf-8?B?ZUIwdzIxKzFhdkNwaW5kK04vY1A4Q3hFS01MS2RxVUZrQmNXdVZhb1FjWkxy?=
- =?utf-8?B?M0hlZDYzd2RDVTZqUE5OOVdQczlLbUNmWUoydnpncFRmbUJ2WFdVNVRNVk5P?=
- =?utf-8?B?MVorVkpVd3V1elhTcFpNSnFzNUFnTlFMMThGaitIeEhXMDZlMzVkKzBYM2xq?=
- =?utf-8?B?b1FNZDlsSUlpSkRUdGZESEdONUN0KzNpWklVT1QydXB4REEyd0YxeXp3S0VH?=
- =?utf-8?B?SGxNaDVwcG9rRkRlVjYybXlyVE1FV1F5NzJJeUlPZlpzOS81aVhGbEU0UEN6?=
- =?utf-8?B?bTlRdEs3dW4wV0FsOXp6OS8vSHhTcWw3Q2NHbVdZeC81ZDc0a2JVVGZmYTcw?=
- =?utf-8?B?RDE0NjFBNEJBb2dSZk5sNGFwOWZJaStIajM1clg5VzNrNnhUN1NLQ0FNMVlC?=
- =?utf-8?B?OVdLeWdOSTFZRzNCb2VFZ0NzRXk2S0R5M0UweTQ0QzR2Z2h2Y21zQlNlRGg1?=
- =?utf-8?B?Nnh6dHFnaGI1c3lJYzQ0ZFY5eEg3My9veTk1K29WQXhPUCtyNk5FeUlBK0FS?=
- =?utf-8?B?a3J4bGw3bDlNZWRCNTVOVXJZY1FQa2xiNEFVV28zUDBJWHhuSVZta0grcS9U?=
- =?utf-8?B?cXlPUW1pa3ZHenNXelFBVEJsZkZXT1NWbmVBSk9UTEpqZ0l1UGVwR2V0SVJs?=
- =?utf-8?B?ZlQ2YmRKend4NThRclRUQS93cnFjRm9yL3ZZb2dkM2VYdnNlTlhoVldsb3hQ?=
- =?utf-8?B?NjlzUmd2YXlPc3BuU016S3Jwb2ExSEMxTEl1VWRab0w0bm96QVVNM25pNGNH?=
- =?utf-8?B?N0N3UXJyUXR1NGE4KzNhZE1tV0VYWDlad2xub1RLRGNJbWhRTmxtK3dKQzJi?=
- =?utf-8?B?WGxqNE5tMXhuRUNLcmZGQWdJWUZ6WERjMFFsUHRmZFhUcGo2eHhIN01COFZB?=
- =?utf-8?B?d0NhZ0g0NitYczJRcWpLNEdUWHdyc2RSTU5yanZTdnVETGxWak42cWNOUFJ4?=
- =?utf-8?B?QU0xcnBySEZaQjNWcnFleUppUng1aWdPTFJXQXFJSjRPUWhFN3VqUWE0Yk5D?=
- =?utf-8?B?MWxwLzJMUHdjcFUwaVhkbjM5Yzh2bVV4UHMvYVF2VU5Na3ZpYnp1SWk0RDJj?=
- =?utf-8?B?WW5NLzdoTmRXVEhMcFVCMVRpZ1VMc0ZBSWNLSXhlRW9Ed0VyVjRicG5GNGp6?=
- =?utf-8?B?dUNic1NYek52NmhJY0RpeHpwQjZtTW5YbXJmd0JweER1UlBUQ3lCQnpINzJX?=
- =?utf-8?B?dFgvdFlPUXdRby9ub2JhcGpNd2luUU9MWXRDd2d2cmc5TytHd1JrMGpKV3Ju?=
- =?utf-8?B?R3JwZlNvTkhPWGt5VEw2WEdSUG9TOXlZUmNqdFpEZlIvWGxORzloMGpmWnNJ?=
- =?utf-8?B?LzNZeFZuNWgwL3Y5endVTlRLdnVXMkRuL3dtbGo1VVZ1TVk2Nyt6QT09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec22d7e4-2da3-4503-af72-08de91642e24
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 09:34:19.2105 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wv8qeiX9ZG7zUFINt5JgWfRYWhbrX/al5+wlZJCGTMGWdDei3FyCCh+vjPSotDNlZCM6V38CvVI5g01i90c8+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10836
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327131043.627120-12-sumit.garg@kernel.org>
+X-Proofpoint-GUID: qQZ52Uf1klA01jgqPtZt_C9JlJoj3Pqz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDA4NSBTYWx0ZWRfX9VbmazmFPnOA
+ rfcdpEn+VS/cK4O+M/Ubm6c+TK8p45OPTdOmNZyYMfMtKkAzppl2ecvKcAcsU5sc7Vf2QH1HeFF
+ wBxOnDnalequt+yBiuZ4tW2Eii4ZxZezqaRSvHX9jhQQ3g6Ht8lPbLFeyEiPyLg5nLQNS29v8Ht
+ 3OwL/8QnWLn5RanEOeIjh082xX/NL1baUxx97aeRaAlqTqNt90dRI9ePRoEI2AvKv2lcX8oCEz4
+ tFpM5Q5xiBbg/uKBkNIqxhY0DXDrZ05zzRl15gINPRdO3JTx/igvBeV9HcZzWPOGw790EMT4LYI
+ QEiccFtXc49XUfBT2cp8ubRfV6rUPP0nYgQL3J4s0hnas+ajPEp7oJwUh2okQ/7f+OQtSYJMEP+
+ lFZJ+m/yGnmqNs+GEwiMT1l4Sm+5YSAiNzwTQAiTO+Nnr9lEEb9nJfqlyeFN8TQHvkChvCgsCEI
+ SslDFWtj/eJLhkvZlkA==
+X-Authority-Analysis: v=2.4 cv=OrpCCi/t c=1 sm=1 tr=0 ts=69cf8a4d cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=VPdg2FrOqWfiVCzsz0q0YA==:17
+ a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=vWT0tKtjkO2eN-vK3vkA:9 a=CjuIK1q_8ugA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: qQZ52Uf1klA01jgqPtZt_C9JlJoj3Pqz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-03_03,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 adultscore=0 suspectscore=0 phishscore=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030085
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,61 +157,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 02, 2026 at 11:26:04AM +0200, Luca Ceresoli wrote:
-> Describing the HDMI connector in device tree is recommended. While the
-> overlay insertion is a workaround to avoid breaking existing devices, every
-> dts should be improved by adding a connector description.
+On 27/03/26 18:40:39, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > 
-> Add a warning to make users aware as far as possible.
+> Switch qcom media client drivers over to generic PAS TZ APIs. Generic PAS
+> TZ service allows to support multiple TZ implementation backends like QTEE
+> based SCM PAS service, OP-TEE based PAS service and any further future TZ
+> backend service.
+
+OP-TEE based PAS service relies on the linux driver to configure the
+iommu (just as it is done on the no_tz case). This generic patch does
+not cover that requirement.
+
+Because of that, it is probably better if the commit message doesnt
+mention OP-TEE and instead maybe indicate that PAS wll support TEEs that
+implement the same restrictions that QTEE (ie, iommu configuration).
+
+I can send an RFC for OP-TEE support based on the integration work being
+carried out here [1]
+
+[1] https://github.com/OP-TEE/optee_os/pull/7721#discussion_r3016923507
+
 > 
-> As a warning line cannot hold all the relevant info, add a detailed comment
-> in the code so it easy to find when the warning is seen.
+> Along with that pass proper PAS ID to set_remote_state API. As per testing
+> the SCM backend just ignores it while OP-TEE makes use of it to for proper
+> book keeping purpose.
 > 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > ---
+>  drivers/media/platform/qcom/iris/Kconfig      | 25 ++++++++++---------
+>  .../media/platform/qcom/iris/iris_firmware.c  |  9 ++++---
+>  drivers/media/platform/qcom/venus/Kconfig     |  1 +
+>  drivers/media/platform/qcom/venus/firmware.c  | 11 ++++----
+>  4 files changed, 25 insertions(+), 21 deletions(-)
 > 
-> Patch added in v3. Kept as a separate comment w.r.t. the patch adding the
-> overlay to let it be added in a later moment in case we want to convert
-> existing dts files before adding the warning.
-> ---
->  .../gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-> index dc1736bfc3ac..f6190d86abd0 100644
-> --- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-> @@ -44,6 +44,23 @@ static int __init imx8mp_hdmi_tx_connector_fixup_init(void)
->  	if (endpoint)
->  		return 0;
->  
-> +	/*
-> +	 * Boards with an HDMI connector should describe it in a device
-> +	 * tree node with compatible = "hdmi-connector".
-> +	 *
-> +	 * If you see this warning, it means such a node was not found and
-> +	 * a fallback one is added using a device tree overlay. Please add
-> +	 * one in your device tree, also describing the exact connector
-> +	 * type (the added overlay assumes Type A as a fallback, but it
-> +	 * might be wrong).
-> +	 *
-> +	 * This node is necessary for modern DRM, where bridge drivers do
-> +	 * not create a connector (see the DRM_BRIDGE_ATTACH_NO_CONNECTOR
-> +	 * flag). See https://docs.kernel.org/gpu/drm-kms-helpers.html for
-> +	 * more info.
-> +	 */
-> +	pr_warn("Please add a hdmi-connector DT node for imx8mp-hdmi-tx.");
-
-Missing '\n' in warning message.  With it added:
-Reviewed-by: Liu Ying <victor.liu@nxp.com>
-
-> +
->  	dtbo_start = __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
->  	dtbo_size = __dtbo_imx8mp_hdmi_tx_connector_fixup_end -
->  		    __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
-> 
-
--- 
-Regards,
-Liu Ying
