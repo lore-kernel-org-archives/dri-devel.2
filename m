@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03759D730B2
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 19:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46185E8538E
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 19:05:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E535F10E260;
-	Fri,  3 Apr 2026 19:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8469210E273;
+	Fri,  3 Apr 2026 19:05:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="sa42E29Y";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="UK9zulwd";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 459ED10E0B1
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 19:03:57 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4367A10F49C
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 19:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1775243036; bh=IrkmYXz+eQlVd/BohsNjaWpAwzykhtdCHiqXQ19+Tno=;
- b=sa42E29Yt4WgqHHhfEFx4nhOBCCL2068rgt3dqVqE4ocJDa2+unuxN2BZUbDexpnN7Gy/BPM2
- yRrj0sPkc4sM1ebeG16OwgwIKGhHtqHRNF2YZoZxLU3LXOL4ivmAhRFv/kTE5CRsVEcO1wUrjw9
- WICGYyv8GFsJlWnv/lBot/LQNnmeo9NZxPZfcuWOZ0wmApDIUUbmEeg92meJfccaRy9kRmTzIwM
- 9L0C1rFAEKG/kjvW1gkZ7SJC3WgaY5gQFp0PasthC8IDM68kGh3HOx/Exh5yDGoaoqFCqC+2p9T
- LXzv3uESbEf9zhixG8LHwVP4/zIi8qXq9bWij94A8LWg==
-X-Forward-Email-ID: 69d00cabdc98192b40b89309
+ t=1775243114; bh=oJE2bPbGsEnN8M7cVwWKbpEiMnGlrfDSylYJQ08sUbA=;
+ b=UK9zulwdHZAzy54Y5w3pzgj1mp4zWENyzlvKdVH0FZ1FcbkFOqufsqgsPhwgBrMjWomEYKFM7
+ TjG2s1NlFjXc8JOKFpGzo2gDL0MOug1sq7oSjqPfpVtFb8fohNplT6zMs+WEXPRNyWL9U2+WWID
+ /87KaGuXzHD6in68YhhO/wqf87jUAGFldH+9ScLQqjmcDyQ/6hEh7ykolCUPgsCBoXTXAOci+ul
+ bo4witX/LiTGreXji3+brvnaHEmbe6tfDIS0ZznEeTtu+DucfGGJrOD3BjmQsgu2LQssodyVPz6
+ tBNW0VJ6Iiey0Nt5kORF3zC4SHUOz9ZT0jc6DaGsmeZA==
+X-Forward-Email-ID: 69d00cc5dc98192b40b893ab
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
+ 149.28.215.223
 X-Forward-Email-Version: 2.6.68
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -44,12 +44,11 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: Christian Hewitt <christianshewitt@gmail.com>,
  Diederik de Haas <diederik@cknow-tech.com>,
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Christopher Obbard <chris.obbard@collabora.com>
-Subject: [PATCH v3 01/13] drm: bridge: dw_hdmi: Disable scrambler feature when
- not supported
-Date: Fri,  3 Apr 2026 18:52:47 +0000
-Message-ID: <20260403185303.80748-2-jonas@kwiboo.se>
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 07/13] drm: bridge: dw_hdmi: Invalidate CEC phys addr from
+ connector detect
+Date: Fri,  3 Apr 2026 18:52:53 +0000
+Message-ID: <20260403185303.80748-8-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260403185303.80748-1-jonas@kwiboo.se>
 References: <20260403185303.80748-1-jonas@kwiboo.se>
@@ -70,40 +69,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The scrambler feature can be left enabled when hotplugging from a sink
-and mode that require scrambling to a sink that does not support SCDC or
-scrambling.
+Wait until the connector detect ops is called to invalidate CEC phys
+addr instead of doing it directly from the irq handler.
 
-Typically a blank screen or 'no signal' message can be observed after
-using a HDMI 2.0 4K@60Hz mode and then hotplugging to a sink that only
-support HDMI 1.4.
-
-Fix this by disabling the scrambler feature when SCDC is not supported.
-
-Fixes: 264fce6cc2c1 ("drm/bridge: dw-hdmi: Add SCDC and TMDS Scrambling support")
-Reported-by: Christopher Obbard <chris.obbard@collabora.com>
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v3: Collect r-b tag
-v2: New patch
+v3: No change
+v2: Collect r-b tag
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 0296e110ce65..9febcb58a1df 100644
+index aa4949de9173..975edd6e695a 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -2133,6 +2133,8 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
- 				    HDMI_MC_SWRSTZ);
- 			drm_scdc_set_scrambling(hdmi->curr_conn, 0);
- 		}
-+	} else if (hdmi->version >= 0x200a) {
-+		hdmi_writeb(hdmi, 0, HDMI_FC_SCRAMBLER_CTRL);
- 	}
+@@ -2470,7 +2470,17 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ {
+ 	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+ 					     connector);
+-	return dw_hdmi_detect(hdmi);
++	enum drm_connector_status status;
++
++	status = dw_hdmi_detect(hdmi);
++
++	if (status == connector_status_disconnected) {
++		mutex_lock(&hdmi->cec_notifier_mutex);
++		cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
++		mutex_unlock(&hdmi->cec_notifier_mutex);
++	}
++
++	return status;
+ }
  
- 	/* Set up horizontal active pixel width */
+ static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+@@ -3082,12 +3092,6 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+ 				       phy_stat & HDMI_PHY_HPD,
+ 				       phy_stat & HDMI_PHY_RX_SENSE);
+ 
+-		if ((phy_stat & (HDMI_PHY_RX_SENSE | HDMI_PHY_HPD)) == 0) {
+-			mutex_lock(&hdmi->cec_notifier_mutex);
+-			cec_notifier_phys_addr_invalidate(hdmi->cec_notifier);
+-			mutex_unlock(&hdmi->cec_notifier_mutex);
+-		}
+-
+ 		if ((intr_stat & HDMI_IH_PHY_STAT0_HPD) &&
+ 		    (phy_stat & HDMI_PHY_HPD))
+ 			status = connector_status_connected;
 -- 
 2.53.0
 
