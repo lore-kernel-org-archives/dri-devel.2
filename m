@@ -4,65 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09AABE7E365
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 10:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A568FE7E37B
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 11:54:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DF2310E44A;
-	Fri,  3 Apr 2026 10:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D290710E0D5;
+	Fri,  3 Apr 2026 11:54:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="cFVCBbhH";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="McvGINXR";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8F3B10E432;
- Fri,  3 Apr 2026 10:23:36 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9793110E0D5
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 11:54:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1775217248;
+ bh=fHyWYBw0QCaXuwmV7tmfQIxEXDEZv0zBdJiympvag2M=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=McvGINXRTF64ibfnIelLETIluhRkNklnGR2eK3OnVJPtPo7wQ0AJuv5mgsP604HHN
+ wQAtU0Uy1tW6kLYhWUbivK6eGyYXnu0V/AshHAbctcEj+WrazmGwI0Cx0KghZTBXzI
+ D1NJZ5m0ppjNBRmoeTgE6FTGvoN3+7ol0get5s7jQJciUK1MPG7kEYzMPE8VlkEYKV
+ tsdla1htX+wYD3HG8ajah7Du0/LkrI5S23SZwcLrLS1O85Uso1UpPWpUGvFXrSsnzl
+ Ki0sjPzO5490bjDRwdx0vJvFNMkHVGUTAFCmF7hIGnFpc5QXGqwbkIsKnYARYPcN3e
+ Xsjf6X0C3JmRg==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fnFDh6nxNz9tQF;
- Fri,  3 Apr 2026 12:23:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1775211813;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GP9qELArIUgbsc41VJCgX7j/0EeHPA0FoRwMzjcZtuA=;
- b=cFVCBbhHkSrRL+0vPUNyQ2a3kxqTVNPRZUCPxAAR6cuQX76uTm+XL1Lw5KPY5GmrmdOT/W
- j6A+0D5xuvxtwzhZ3Kp3IcsbnyWuiixM/nUI7kI+Lzay9MhplvnrJWEB9ARd9A9qSCQgnp
- pqsOnA6MJfYvflE3GXruYuPfsQYH+Eaexo26hM3lO9mGNz0QFHAqAakylGvSiohHDH3YRR
- WoAyV1cP0x47VTsImlsUTPbqWC6IEQM3yTAoozdt/SehwYADqTOpSRk8dp4pGpTnICczwd
- tYvoT4+OC7bfpjuDTJnyibRaKkhXZK7iFcp2Rqg3xsejLepk2tod49+icWiWFg==
-Message-ID: <915b3732-2c9d-4e92-a10e-68f59ee0b61f@mailbox.org>
-Date: Fri, 3 Apr 2026 12:23:25 +0200
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 65D2817E87D4;
+ Fri,  3 Apr 2026 13:54:07 +0200 (CEST)
+Date: Fri, 3 Apr 2026 13:54:04 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?B?QWRy?=
+ =?UTF-8?B?acOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Akash Goel <akash.goel@arm.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Konrad Dybcio
+ <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Dmitry
+ Osipenko <dmitry.osipenko@collabora.com>, Chris Diamand
+ <chris.diamand@arm.com>, Danilo Krummrich <dakr@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>, Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?=
+ <thomas.hellstrom@linux.intel.com>, Alice Ryhl <aliceryhl@google.com>,
+ Chia-I Wu <olvaffe@gmail.com>, kernel@collabora.com
+Subject: Re: [PATCH v7 00/10] drm/panthor: Add a GEM shrinker
+Message-ID: <20260403135404.431fe625@fedora>
+In-Reply-To: <20260401134854.2275433-1-boris.brezillon@collabora.com>
+References: <20260401134854.2275433-1-boris.brezillon@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Xaver Hugl <xaver.hugl@kde.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>, wayland-devel@lists.freedesktop.org
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <CAFZQkGzxfGP4E18owJf5d6L4n25-nvYn0TG=rTLCzjpj1Hk23w@mail.gmail.com>
- <4970515.ElGaqSPkdT@workhorse>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA, de-CH-frami
-In-Reply-To: <4970515.ElGaqSPkdT@workhorse>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: aw43nkspy7kihge1budkr5nnxuhhfjrc
-X-MBO-RS-ID: 3437b1f111f978ff333
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,52 +73,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/1/26 14:14, Nicolas Frattaroli wrote:
-> On Wednesday, 1 April 2026 13:57:08 Central European Summer Time Xaver Hugl wrote:
->> Am Do., 19. März 2026 um 13:28 Uhr schrieb Nicolas Frattaroli
->> <nicolas.frattaroli@collabora.com>:
->>>
->>> This series adds a new "link bpc" DRM property. It reflects the display
->>> link's actual achieved output bits per component, considering any
->>> degradation of the bit depth done by drivers for bandwidth or other
->>> reasons. The property's value is updated during an atomic commit, which
->>> is also when it fires an uevent if it changed to let userspace know.
->>
->> Hi,
->> I think it's a really good idea to have a property for knowing the
->> actual bpc of the link... however, I do have one big concern with this
->> API specifically: It only gives me this information after a modeset.
->>
->> With this limitation, I can at most show the user which bpc was chosen
->> after the apply display settings and have the end user manually test
->> and figure things out, but I cannot show in the UI which bpc will be
->> chosen with some configuration before they apply it, and I cannot do
->> atomic tests to find a desired tradeoff automatically on the
->> compositor side.
+On Wed,  1 Apr 2026 15:48:44 +0200
+Boris Brezillon <boris.brezillon@collabora.com> wrote:
+
+> Hello,
 > 
-> To do this I'd need to see if there's some feedback mechanism for
-> the output configuration chosen by the atomic check phase, so that
-> userspace can then run a DRM_MODE_ATOMIC_TEST_ONLY and get the value
-> back somehow.
+> This is an attempt at adding a GEM shrinker to panthor so the system
+> can finally reclaim GPU memory.
 > 
-> The current implementation wouldn't be able to do this since it
-> updates the property on commit_tail. I'll need to look into whether
-> drivers already have everything figured out with regards to link bpc
-> in the check phase, and how that would best be communicated to
-> userspace.
+> This implementation is losely based on the MSM shrinker (which is why
+> I added the MSM maintainers in Cc), and it's relying on the drm_gpuvm
+> eviction/validation infrastructure.
+> 
+> I've only done very basic IGT-based [1] and chromium-based (opening
+> a lot of tabs on Aquarium until the system starts reclaiming+swapping
+> out GPU buffers) testing, but I'm posting this early so I can get
+> preliminary feedback on the implementation. If someone knows about
+> better tools/ways to test the shrinker, please let me know.
+> 
+> A few words about some design/implementation choices:
+> - No MADVISE support because I want to see if we can live with just
+>   transparent reclaim
+> - We considered basing this implementation on the generic shrinker work
+>   started by Dmitry [2], but
+>   1. with the activeness/idleness tracking happening at the VM
+>      granularity, having per-BO LRUs would caused a lot of
+>      list_move()s that are not really needed (the VM as a whole
+>      become active/idle, we can track individual BOs)
+>   2. Thomas Zimmermann recently suggested that we should have our
+>      own GEM implementation instead of trying to add this extra reclaim
+>      complexity to gem-shmem. There are some plans to create a
+>      gem-uma (Unified Memory Architecture) lib that would do more
+>      than gem-shmem but in a way that doesn't force all its users
+>      to pay the overhead (size overhead of the gem object, mostly)
+>      for features they don't use. Patch "Part ways with
+>      drm_gem_shmem_object" is showing what this component-based lib
+>      API could look like if it were to be extracted
+> - At the moment we only support swapout, but we could add an
+>   extra flag to specify when buffer content doesn't need to be
+>   preserved to avoid the swapout/swapin dance. First candidate for
+>   this DISCARD_ON_RECLAIM flag would probably be the tiler heap chunks.
+> - Reclaim uses _try_lock() all the way because of the various lock order
+>   inversions between the reclaim path and submission paths. That means
+>   we don't try very hard to reclaim hot GPU buffers, but the locking is
+>   such a mess that I don't really see a better option to be honest.
+> 
+> 
+> Changes in v2:
+> - No fundamental changes in this v2, since the feedback I got were more
+>   focused on bugs than the overall approach. Check the changelog in each
+>   patch for more details.
+> 
+> Changes in v3:
+> - Mostly fixes (see the changelog in each patch)
+> 
+> Changes in v4:
+> - Only fixes (see the changelog in each patch)
+> 
+> Changes in v5:
+> - Only fixes (see the changelog in each patch)
+> 
+> Changes in v6:
+> - Fix huge fault handling and various other things reported by Adrian
+>   and the review bot (see the changelog in each patch for more)
+> 
+> Changes in v7:
+> - Fix a deadlock reported by lockdep
+> - Add a commit to remove an unused field
+> 
+> Regards,
+> 
+> Boris
+> 
+> [1]https://gitlab.freedesktop.org/bbrezillon/igt-gpu-tools/-/commit/fc76934a5579767d2aabe787d40e38a17c3f4ea4
+> [2]https://lkml.org/lkml/2024/1/5/665
+> 
+> Akash Goel (1):
+>   drm/panthor: Add a GEM shrinker
+> 
+> Boris Brezillon (9):
+>   drm/gem: Consider GEM object reclaimable if shrinking fails
+>   drm/panthor: Remove unused panthor_vm_op_ctx::map::new_vma field
+>   drm/panthor: Move panthor_gems_debugfs_init() to panthor_gem.c
+>   drm/panthor: Group panthor_kernel_bo_xxx() helpers
+>   drm/panthor: Don't call drm_gpuvm_bo_extobj_add() if the object is
+>     private
+>   drm/panthor: Part ways with drm_gem_shmem_object
+>   drm/panthor: Lazily allocate pages on mmap()
+>   drm/panthor: Split panthor_vm_prepare_map_op_ctx() to prepare for
+>     reclaim
+>   drm/panthor: Track the number of mmap on a BO
 
-Taking both the Weston use case described in this thread and Xaver's requirements into account, a "min bpc" property complementing the "max bpc" one (as suggested by Ville before) might be better than "link bpc".
+Queued to drm-misc-next.
 
-That might be a better fit even just for the Weston use case described in this thread, since AFAICT that only really cares about the minimum bpc, not the maximum.
+> 
+>  drivers/gpu/drm/drm_gem.c                |   10 +
+>  drivers/gpu/drm/panthor/Kconfig          |    1 -
+>  drivers/gpu/drm/panthor/panthor_device.c |   11 +-
+>  drivers/gpu/drm/panthor/panthor_device.h |   73 ++
+>  drivers/gpu/drm/panthor/panthor_drv.c    |   33 +-
+>  drivers/gpu/drm/panthor/panthor_fw.c     |   16 +-
+>  drivers/gpu/drm/panthor/panthor_gem.c    | 1453 ++++++++++++++++++----
+>  drivers/gpu/drm/panthor/panthor_gem.h    |  136 +-
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |  512 ++++++--
+>  drivers/gpu/drm/panthor/panthor_mmu.h    |    8 +
+>  drivers/gpu/drm/panthor/panthor_sched.c  |    9 +-
+>  11 files changed, 1923 insertions(+), 339 deletions(-)
+> 
 
-The compositor could set "min bpc" to any value <= the "max bpc" one. If the driver can't make things work with effective bpc >= "min bpc", the commit fails. Setting both properties to the same value would allow selecting a specific bpc. That would allow compositors to find possible bpc permutations using TEST_ONLY commits, as described by Xaver.
-
-Setting "min bpc" to 0 (which should probably be the default value) would allow any bpc, i.e. "auto" behaviour.
-
-
-One potential issue with the "min bpc" property is that if one DRM master leaves it at a non-0 value, and a later DRM master doesn't know about it yet, it might cause surprising commit failures for the latter. This kind of issue already exists with other properties though. (Some kind of "default state" mechanism might help for solving this kind of issue)
-
-
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
