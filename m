@@ -4,53 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23216E85367
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 14:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89FB3E85367
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 14:13:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E97D10F363;
-	Fri,  3 Apr 2026 14:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE07A10F364;
+	Fri,  3 Apr 2026 14:13:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="V8c9LJDT";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FLTvtaiS";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28A1C10F363
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 14:04:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
- To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Cc:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=IZSvE5AK57eurrIJyijYrtLd1G6bODZE8FppIUlbXe0=; b=V8c9LJDTLGD6AWeBfzaDv8azed
- kKYuUBYO8SaIJOilOzl5YXxoRmSaokB7oLOxmpCuqHu5m2u3WMRhIKZRmbU7LZ6hUeUUy0rSsSH5z
- Wtv3Pn+EVQcZ9mZa+AN+QXjoAHndoLafgBVPEN1nfa1z/EQC73YfS3Q+ix2yVPmGFUh/kk5DaGZUO
- UkZKlhg29NzMdm5QVmhi+6H9LL0WyTHdZ2O8c9T9J/tHXrA7X9oPxPBGI24zrRLcdGXPbeGtt7R82
- 7g+uOeKxI7ZoeoZ57hvmTKZ7HK1vBSQ5jSTMlzRyK26lR1Hqgn1KCeoj1FgrMohCiaqHIBLHR1vfd
- kQlDtlrA==;
-Received: from [189.89.58.26] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1w8f7y-00AtRx-Pe; Fri, 03 Apr 2026 16:04:02 +0200
-Message-ID: <2e472bf9-5320-4e63-b284-fe105556cee9@igalia.com>
-Date: Fri, 3 Apr 2026 11:03:57 -0300
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4B1A10F355
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 14:13:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1775225593;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=zCsOheHk8XlC9CSFSmzc3izuiVKcS+6jE7o78F0/vE0=;
+ b=FLTvtaiSWxQviBvxU4h7/A+XbG3am7WWlQ2wB8YCHyn0ClAEPCQJiSUrj17HebJrE994mN
+ MVgSQo+1wfZ87acCzH6H5WqYi+C/ZyaRqFaJrt5SEiCVGDvyKidPVbDqttZYp8ozVMknBl
+ 3P03nWtE9B90+xBCTBBglUItlOuFaOI=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-681-yCve99sRNFyrFfCBYsQ0Og-1; Fri, 03 Apr 2026 10:13:11 -0400
+X-MC-Unique: yCve99sRNFyrFfCBYsQ0Og-1
+X-Mimecast-MFC-AGG-ID: yCve99sRNFyrFfCBYsQ0Og_1775225591
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8d3bea3aa34so291576185a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 07:13:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775225591; x=1775830391;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zCsOheHk8XlC9CSFSmzc3izuiVKcS+6jE7o78F0/vE0=;
+ b=BQgfxjJbdvqw5I/Ts6GnLF74fs3kaV6lRnY1unu9ZwScWqa9fcIolkhY5Cf0axpatO
+ dzk4bhd+03egZeyArHWQSuQIFIA1WeLmB7e4N3U4+JYQw3Wj0NRrhV91ByR5lk9x11fr
+ bY213lIKNls8yb0icaHIp/ev16y64xQ7p0vKblIbhCKo1HIALLtXGC1xvdXWxtSSSu1R
+ Tkpw7yXwKsVuUxNc3XEOUBJwdTeBr+vE2B9CE2Kjzix0Kq7RANWph/KEzwCIfDppHzqM
+ ACX1FYvN6GZ4AaZPXRFZTNcRJe2V+/ETjTLVImiQdfHOUgPJXWAHSb9mRcxVXx9gX1jD
+ rJ+A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXo0kCG8xL3OS81OjfSPy9rHIb5j1Yil+xefCY4coU7NH9wteq3CXenQUJ7vYY8xdo8apJiSmPEdGc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzoGx9KsT5Yxruv1Jeqb3GNAgDdq6qpOnCJK8MGCG/6MpQ6WZxy
+ hKZ1iERiHRlaxFybv0cCfBwGrXF6tDDiF4hrR89vNHN5ytsJymq8VD3+3ifsPGdUeQvN8QvZGjb
+ 6h8x8UpTXKh9odLTa68Z+ExrBvTfXJM+hhRrDVZ3a5q7R/byYq5abFElvOmn31wY0gSqJqQ==
+X-Gm-Gg: ATEYQzy6TxmCItqmGKi2vNHtzvODhhokEMlWFo1d2Tn6jyHIjQCJDtNXRfGTL55yqEH
+ xCDlpa68/jVBdoWHYBAl81QtoobMRYONEKz/N3NTSO7BErSBHVo+m+9cL5vsyf5YCrR03WABXe+
+ hb1PKHiaZ1axo3tQP2M+lHJF8MSbGIjquAVSLj68mLEXXfvdJ0XWME3DM4pPVKQqV190Z1kMXE/
+ pd+GwKaVQ4cBOhyuUmZUidau+K3FFPYmUTiYEYUA36ZNaaE7Vuo9Ao6iAKoKZ+B7LWhiVoUVz/9
+ tJqQsCJhZVckvSLrESDLofHrmJRgnssar8+wMeULzKI2fl4SGUgBMUJCQdcdmrJ06JFalxJLF/W
+ gJm8dnDJLcVWHuTOpLtM9jw0wsT/6SUn6PnHunRijTQg+Mxo2bpoWAtqtyACGgpA=
+X-Received: by 2002:a05:620a:470d:b0:8d0:176:58bf with SMTP id
+ af79cd13be357-8d41ec0d06emr460638585a.63.1775225590913; 
+ Fri, 03 Apr 2026 07:13:10 -0700 (PDT)
+X-Received: by 2002:a05:620a:470d:b0:8d0:176:58bf with SMTP id
+ af79cd13be357-8d41ec0d06emr460628785a.63.1775225590198; 
+ Fri, 03 Apr 2026 07:13:10 -0700 (PDT)
+Received: from localhost (pool-100-17-19-56.bstnma.fios.verizon.net.
+ [100.17.19.56]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8d5336aa9f0sm21287085a.28.2026.04.03.07.13.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Apr 2026 07:13:09 -0700 (PDT)
+From: Eric Chanudet <echanude@redhat.com>
+Subject: [PATCH RFC 0/2] cgroup/mem: add a node to double charge in memcg
+Date: Fri, 03 Apr 2026 10:08:34 -0400
+Message-Id: <20260403-cgroup-dmem-memcg-double-charge-v1-0-c371d155de2a@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/colorop: Remove read-only comments from interpolation
- fields
-From: Melissa Wen <mwen@igalia.com>
-To: Alex Hung <alex.hung@amd.com>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- contact@emersion.fr, harry.wentland@amd.com, sebastian.wick@redhat.com,
- daniels@collabora.com, chaitanya.kumar.borah@intel.com,
- pekka.paalanen@collabora.com, xaver.hugl@kde.org,
- dri-devel@lists.freedesktop.org
-References: <20260402201514.1430606-1-alex.hung@amd.com>
- <9ace6f9b-bc25-427e-a303-940b60d14bd7@igalia.com>
-Content-Language: en-US
-In-Reply-To: <9ace6f9b-bc25-427e-a303-940b60d14bd7@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDYyNz3eT0ovzSAt2U3NRcXSBOTtdNyS9NyknVBSovAio3SDM0MEi0TEt
+ LSjNSAppSUJSallkBtiFaKcjNWSm2thYATWgic3YAAAA=
+X-Change-ID: 20260327-cgroup-dmem-memcg-double-charge-0f100a9ffbf2
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>, 
+ Dave Airlie <airlied@gmail.com>, Eric Chanudet <echanude@redhat.com>
+X-Mailer: b4 0.14.2
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: M2jBry0cYU4WDeYh61b2XlbSLXHv3ox9kh2jmONzhxU_1775225591
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,73 +111,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+It was suggested previously[1] to introduce a knob for dmem region to
+double charge dmem and memcg at the will of the administrator.
 
+This RFC tries do that in the dmem controller through the cgroupfs
+interface already available and walk through the problems that creates.
 
-On 03/04/2026 09:52, Melissa Wen wrote:
->
->
-> On 02/04/2026 17:15, Alex Hung wrote:
->> The lut1d_interpolation and lut3d_interpolation fields and their
->> associated properties were marked as read-only, but userspace
->> can set them via drm_atomic_colorop_set_property().
-> Hi Alex,
->
-> Just removing wrong comments is not enough. Those properties still 
-> behave as immutable.
->
-> lut1d/3d_interpolation should be handle by drm_colorop_state as they 
-> are mutable, not in drm_colorop.
-> ...and changes are needed everywhere we manage states of colorop 
-> mutable properties.
+[1] https://lore.kernel.org/all/a446b598-5041-450b-aaa9-3c39a09ff6a0@amd.com/
 
-As I was working on tracking changes and my series depends on this 
-change, I just did it and send here:
-https://lore.kernel.org/dri-devel/20260403135909.214378-1-mwen@igalia.com/
+Signed-off-by: Eric Chanudet <echanude@redhat.com>
+---
+Eric Chanudet (2):
+      mm/memcontrol: add page-level charge/uncharge functions
+      cgroup/dmem: add a node to double charge in memcg
 
-Melissa
->
-> Melissa
->>
->> Signed-off-by: Alex Hung <alex.hung@amd.com>
->> ---
->>   include/drm/drm_colorop.h | 6 ++----
->>   1 file changed, 2 insertions(+), 4 deletions(-)
->>
->> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
->> index a3a32f9f918c..5bcb510e56c0 100644
->> --- a/include/drm/drm_colorop.h
->> +++ b/include/drm/drm_colorop.h
->> @@ -296,7 +296,6 @@ struct drm_colorop {
->>       /**
->>        * @lut1d_interpolation:
->>        *
->> -     * Read-only
->>        * Interpolation for DRM_COLOROP_1D_LUT
->>        */
->>       enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
->> @@ -304,7 +303,6 @@ struct drm_colorop {
->>       /**
->>        * @lut3d_interpolation:
->>        *
->> -     * Read-only
->>        * Interpolation for DRM_COLOROP_3D_LUT
->>        */
->>       enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
->> @@ -312,7 +310,7 @@ struct drm_colorop {
->>       /**
->>        * @lut1d_interpolation_property:
->>        *
->> -     * Read-only property for DRM_COLOROP_1D_LUT interpolation
->> +     * Property for DRM_COLOROP_1D_LUT interpolation
->>        */
->>       struct drm_property *lut1d_interpolation_property;
->>   @@ -340,7 +338,7 @@ struct drm_colorop {
->>       /**
->>        * @lut3d_interpolation_property:
->>        *
->> -     * Read-only property for DRM_COLOROP_3D_LUT interpolation
->> +     * Property for DRM_COLOROP_3D_LUT interpolation
->>        */
->>       struct drm_property *lut3d_interpolation_property;
->
+ include/linux/memcontrol.h |  4 +++
+ kernel/cgroup/dmem.c       | 86 ++++++++++++++++++++++++++++++++++++++++++++--
+ mm/memcontrol.c            | 24 +++++++++++++
+ 3 files changed, 111 insertions(+), 3 deletions(-)
+---
+base-commit: 4b9c36c83b34f710da9573291404f6a2246251c1
+change-id: 20260327-cgroup-dmem-memcg-double-charge-0f100a9ffbf2
+
+Best regards,
+-- 
+Eric Chanudet <echanude@redhat.com>
 
