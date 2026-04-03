@@ -4,94 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 444D5D6AAFA
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 02:07:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6128FD7308A
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 02:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4C4E10F312;
-	Fri,  3 Apr 2026 02:07:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABD410E081;
+	Fri,  3 Apr 2026 02:57:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gFCbe7Dm";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="Qzrm7kjj";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36DAD10E36C
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 02:07:28 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-1271195d2a7so2189132c88.0
- for <dri-devel@lists.freedesktop.org>; Thu, 02 Apr 2026 19:07:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775182047; cv=none;
- d=google.com; s=arc-20240605;
- b=L6t3JYUhxVFTt4J/1UckZQDyBCoP1SEzMYPejk4CEA869e+tfzarK2xS24QZY++UAN
- HmUJI9rhek9X60L7yFVQPwhocZ3uDF0ktfZhrqhJ98FP6H1hnR5dCLKiRPMQZ7w/Kiy7
- Q5qHtEMPLPA3CmV7aQ8h5UHjXnHEcY/Nc5vtD9KHk0MruvalXlvVzRu8bclb3MI6tEqO
- uT2Z+nOOe6uZzfueM3YGu4kJ1vyo5N6LzgU5b0oVpEGT8hBm+mIwHDuhhBeY+nq99nMC
- GHzqWxiwOpOI98YHsCrXlTqtUZVP1lAKukw36vyeY2OiPGBDzsXPPJPDFwl2g69IaelN
- uv4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=6bdlFMjKwX6jg6vEgqWB3zFv/fhyRvvRLyn/3ttJYok=;
- fh=DklnO+5AsYCxb5yTbysAsRdMw+AYgz/RdLh7/63Nr8M=;
- b=T/djDD8g7BmmgxtpHSfjG/76PX+yOwhnIN1JV56kszetEuHv16o+2rEdC4eLztU8Gk
- HQVtYum2iE7W/EE5cwjtsNMQ8nwy6FBzDbEjqsbkgJrTFuqpVkar7CRauo5KpZd1mb02
- 4IlvKAyWTj02zrhRMso7p1UHU2vvbqchMrpKVIag9M0HRkRJ7N1CJYBtNInCLwKY0LXH
- dI8Gc5PSpLYPzJwWNHj3R93S6dO7xraeq/mB2v3WjNmn9kdvwEEt+uCoN7xs9siPpsgU
- JSJkda2HRn6toTFtqfWJKSdK5FpG0jBcklO08NgO95b+x9/BIJOuRcoK2/V/rfG/X+4C
- Z3yg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775182047; x=1775786847; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=6bdlFMjKwX6jg6vEgqWB3zFv/fhyRvvRLyn/3ttJYok=;
- b=gFCbe7DmVN4Xi1xdbq3LjLZYhavFicbXHMJYXbGBUxliE0KASQZsq05vqP3smJHtOr
- uinALXkTqneUoehCdxA9HiHGY1bvUc3/f8ztlIdUHJR6J4BMpHhg6vCbLuIS4uREPmVs
- /9aorn4cb7wJWnj3OhjGSfO3MBeuis4O2b57LIsLNrPEhG49ZBSyqCEDKDrc+eBxmjIY
- 9hON6hdhFimba82F0uAFpdUYxenU2lWJIoj9U5fJVfG1F3dY1dM3QetWhgQOOM8f5Ekf
- k7i3NIrPykLMV/N3wv19eVcxzNr99zIxyyq7XRrQY0ZGO3W6yOucPYoPIN2o44hwEL4Y
- VTVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775182047; x=1775786847;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6bdlFMjKwX6jg6vEgqWB3zFv/fhyRvvRLyn/3ttJYok=;
- b=IeYeIakB91JNAZT4d0zn74E/bFNTCAUmXwhGnL/3G6KQNBEIYnlfKIFhBEUN7x7+sQ
- l3FtcNOc/EBDaYk7QW/2tCwCZV7qqz6Y6q25enU0GxKLDbPIebfJm8quYZgaxf7yfMH1
- 9cOyPOoP1zuTRmjmEsUItUi0DLIKh8QmW6perjs9H558ZjF1FYrYxPqeS9WnvrdGMz1J
- wVkym7Z2c8ERhha6TQdxQ5UFlUDsKWQHb4DPzZcVw+xoxhLB3h5kf/KIl5XLO2WYccr7
- 728CuXQMZbxbQCetzfG1iGHax1uYw4YY4ZheLpuV4/I5OgqhCf4K3rHQwOCGkwqj3Ths
- JMIQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUSFEZeoH1IkYodIs3piGHGBjsQHkEafMfEBm61gMx6r0NZTy/tjo0Wdb+5A56O+NR/YgsC6rpGQKs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwoXuw/F5QFBNJzdZdVSl1ow7HwkvemQIURU4OT1B5PmGyBpc7l
- InCVaK4CZaprB3TPG9+h8jRo7Glf/0q1gIYtuVZavpoEr+wM7ClzVu65uwT7iUL3Ve/9rb3qbFD
- ZUVlOXkOnDzijEFKn/9IUY9rqA4o6R3Q=
-X-Gm-Gg: ATEYQzyZS2QWHWw5chsIyKtHIbofk0tRBCtd3g+yHZ92WiaQsF7VMh46x1U7MnKNPX5
- KI2rGMIBlNLMh9G6J0ykQcwpqSQely5iEAPX8SOkZTQ2A4C9VR6iP2EiqSuJstPj0Us0TBJfSiK
- q961IH4nH/MG0Qjm8bO4LRJfggRvaLxjz77piQK1Z9AHY0Vt76+EAX6Sggx3yKdwMyYsSAB25h0
- OpFat58kiO1sTOhDm11niZTjKqMcEb4/ocGeKUUTdP3102byKrASiL4HzMg8a/Me+91Ed1QQ3yE
- O2IjJe/744C5sK980A/jN/sltTQBoIOLcgmknvvz3A==
-X-Received: by 2002:a05:7022:b9c:b0:128:cf86:d1cb with SMTP id
- a92af1059eb24-12bfb76b78amr632139c88.31.1775182047343; Thu, 02 Apr 2026
- 19:07:27 -0700 (PDT)
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com
+ [113.46.200.224])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE7AF10E142
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 02:57:05 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=OZTBTKcnwyTAEV4BlINvIip8mO/Xv2gyjCHQ7cOFYbg=;
+ b=Qzrm7kjjloHcVKivEpr51VquIGwJqNi3UzAhA+e0yHdDsWA0TZ9o3it1POY26vdYefJTTPRYQ
+ kjHcr/1niyadgeM8S1MPCicVK0iMnqUE7LrvYWsZP/trFsDwRHTHb24gMlRpIcEgMI8V2f4gfsv
+ 4WTnub/annZXCHn6dUiyw54=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+ by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4fn3BN3l0Rz1cyTF;
+ Fri,  3 Apr 2026 10:50:52 +0800 (CST)
+Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
+ by mail.maildlp.com (Postfix) with ESMTPS id 95E2840539;
+ Fri,  3 Apr 2026 10:57:02 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 3 Apr 2026 10:57:02 +0800
+Received: from localhost.huawei.com (10.169.71.169) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 3 Apr 2026 10:57:01 +0800
+From: Yongbang Shi <shiyongbang@huawei.com>
+To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
+ <tiantao6@hisilicon.com>, <xinliang.liu@linaro.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
+ <fengsheng5@huawei.com>, <shiyongbang@huawei.com>, <helin52@h-partners.com>,
+ <shenjian15@huawei.com>, <shaojijie@huawei.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH for drm-misc-fixes v2 2/4] drm/hisilicon/hibmc: fix no showing
+ when no connectors connected
+Date: Fri, 3 Apr 2026 10:48:26 +0800
+Message-ID: <20260403024828.1131906-3-shiyongbang@huawei.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20260403024828.1131906-1-shiyongbang@huawei.com>
+References: <20260403024828.1131906-1-shiyongbang@huawei.com>
 MIME-Version: 1.0
-References: <20260321052033.23472-1-mario.kleiner.de@gmail.com>
- <f4861fc9-a602-44b9-b5c3-6b9c7f233b15@amd.com>
-In-Reply-To: <f4861fc9-a602-44b9-b5c3-6b9c7f233b15@amd.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Fri, 3 Apr 2026 04:06:50 +0200
-X-Gm-Features: AQROBzBYKvLcn-fpWdDlHhBv6oqIOkFDp46xmMBpkM_oFXmS8VBAM6auqfiTp6Y
-Message-ID: <CAEsyxyidQQMYH5TZt9D-4iGSmhPRp-iQ7meqer-YdJ9FPc6cZw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Change dither policy for 10 bpc output
- back to dithering
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org, Aric Cyr <aric.cyr@amd.com>, 
- Anthony Koo <anthony.koo@amd.com>, Rodrigo Siqueira <rodrigo.siqueira@amd.com>,
- Krunoslav Kovac <krunoslav.kovac@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Content-Type: multipart/alternative; boundary="00000000000057fa0b064e84c7cc"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.169.71.169]
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,289 +73,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---00000000000057fa0b064e84c7cc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: Lin He <helin52@huawei.com>
 
-That's great to hear! Maybe still a happy end for my users and Ubuntu
-26.04-LTS.
+Our chip support KVM over IP feature, so hibmc driver need to support
+displaying without any connectors plugged in. If no connectors are
+connected, the vdac connector status should be set to 'connected' to
+ensure proper KVM display functionality. Additionally, for
+previous-generation products that may lack hardware link support and
+thus cannot detect the monitor, the same approach should be applied
+to ensure VGA display functionality. Add phys_state in the struct of
+dp and vdac to check all physical outputs.
 
-Thanks Harry!
+For get_modes: using BMC modes for connector if no display is attached to
+phys VGA cable, otherwise use EDID modes by drm_connector_helper_get_modes,
+because KVM doesn't provide EDID reads.
 
-On Wed, Apr 1, 2026 at 9:32=E2=80=AFPM Harry Wentland <harry.wentland@amd.c=
-om>
-wrote:
+Fixes: 4c962bc929f1 ("drm/hisilicon/hibmc: Add vga connector detect functions")
+Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+Closes: https://lore.kernel.org/all/0eb5c509-2724-4c57-87ad-74e4270d5a5a@suse.de/
+Signed-off-by: Lin He <helin52@huawei.com>
+Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+---
+ChangeLog:
+v1 -> v2:
+  - fix the checkpatch.pl warning "line length of 83/85 exceeds 80 columns".
+  - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+    be given in public.
+  - add 'drm-misc-fixes' in subject prefix.
+---
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    | 33 +++++++++-----
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 45 +++++++++++++------
+ 4 files changed, 56 insertions(+), 24 deletions(-)
 
->
->
-> On 2026-03-21 01:20, Mario Kleiner wrote:
-> > Commit d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc t=
-o
-> > round") degraded display of 12 bpc color precision output to 10 bpc sin=
-ks
-> > by switching 10 bpc output from dithering to "truncate to 10 bpc".
-> >
-> > I don't find the argumentation in that commit convincing, but the
-> > consequences highly unfortunate, especially for applications that
-> > require effective > 10 bpc precision output of > 10 bpc framebuffers.
-> >
-> > The argument wasn't something strong like "there are hardware design
-> > defects or limitations which require us to work around broken dithering
-> > to 10 bpc", or "there are some special use cases which do require
-> > truncation to 10 bpc", but essentially "at some point in the past we
-> > used truncation in Polaris/Vega times and it looks like it got
-> > inadvertently changed for Navi, so let's do that again". I couldn't fin=
-d
-> > evidence for that in the git commit logs for this. The commit message
-> also
-> > acknowledges that using dithering "...makes some sense for FP16...
-> > ...but not for ARGB2101010 surfaces..."
-> >
-> > The problem with this is that it makes fp16 surfaces, and especially
-> > rgba16 fixed point surfaces, less useful. These are now well
-> > supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by
-> > OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Waylan=
-d,
-> > and they used to provide more than 10 bpc effective precision at the
-> > output.
-> >
-> > Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuffe=
-r,
-> > e.g., gamma tables, CTM, can be used for color correction and will
-> > benefit from an effective > 10 bpc output precision via dithering,
-> > retaining some precision that would get lost on the way through the
-> > pipeline, e.g., due to non-linear gamma functions.
-> >
-> > Scientific apps rely on this for > 10 bpc display precision. Truncating
-> > to 10 bpc, instead of dithering the pipeline internal 12 bpc precision
-> > down to 10 bpc, causes a serious loss of precision. This also creates t=
-he
-> > undesirable and slightly absurd situation that using a cheap monitor
-> > with only 8 bpc input and display panel will yield roughly 12 bpc
-> > precision via dithering from 12 -> 8 bpc, whereas investment into a
-> > more expensive monitor with 10 bpc input and native 10 bpc display will
-> > only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a properl=
-y
-> > set up color pipeline (gamma tables, CTM's etc. with more than 10 bpc o=
-ut
-> > precision) would allow effective 12 bpc precision output.
-> >
-> > Therefore this patch proposes reverting that commit and going back to
-> > dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8
-> bpc
-> > output.
-> >
-> > Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 wit=
-h
-> > a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer
-> and
-> > measuring resulting color precision with a photometer. No apparent visu=
-al
-> > artifacts or problems were observed, and effective precision was measur=
-ed
-> > to be 12 bpc again, as expected.
-> >
-> > Fixes: d5df648ec830 ("drm/amd/display: Change dither policy for 10bpc t=
-o
-> round")
-> > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> > Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> > Cc: stable@vger.kernel.org
-> > Cc: Aric Cyr <aric.cyr@amd.com>
-> > Cc: Anthony Koo <anthony.koo@amd.com>
-> > Cc: Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-> > Cc: Krunoslav Kovac <krunoslav.kovac@amd.com>
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
->
-> Kruno and I chatted a bit more about this and the best way forward
-> seems to be to re-enable SPATIAL10 dither and then override that
-> when needed in our Windows driver.
->
-> Patches is
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->
-> Will pull it in today.
->
-> Harry
->
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > index c9fbb64d706a..29db5404c4a0 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> > @@ -5056,7 +5056,7 @@ void
-> resource_build_bit_depth_reduction_params(struct dc_stream_state *stream,
-> >                       option =3D DITHER_OPTION_SPATIAL8;
-> >                       break;
-> >               case COLOR_DEPTH_101010:
-> > -                     option =3D DITHER_OPTION_TRUN10;
-> > +                     option =3D DITHER_OPTION_SPATIAL10;
-> >                       break;
-> >               default:
-> >                       option =3D DITHER_OPTION_DISABLE;
->
->
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+index 31316fe1ea8d..dfaeabd05d46 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+@@ -55,6 +55,7 @@ struct hibmc_dp {
+ 	struct drm_dp_aux aux;
+ 	struct hibmc_dp_cbar_cfg cfg;
+ 	u32 irq_status;
++	int phys_state;
+ };
+ 
+ int hibmc_dp_hw_init(struct hibmc_dp *dp);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+index 35dff7bfbf76..8fe2eb51a0b3 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+@@ -61,27 +61,38 @@ static int hibmc_dp_detect(struct drm_connector *connector,
+ {
+ 	struct hibmc_dp *dp = to_hibmc_dp(connector);
+ 	struct hibmc_dp_dev *dp_dev = dp->dp_dev;
+-	int ret;
++	int ret = connector_status_disconnected;
+ 
+ 	if (dp->irq_status) {
+-		if (dp_dev->hpd_status != HIBMC_HPD_IN)
+-			return connector_status_disconnected;
++		if (dp_dev->hpd_status != HIBMC_HPD_IN) {
++			ret = connector_status_disconnected;
++			goto exit;
++		}
+ 	}
+ 
+-	if (!hibmc_dp_get_dpcd(dp_dev))
+-		return connector_status_disconnected;
++	if (!hibmc_dp_get_dpcd(dp_dev)) {
++		ret = connector_status_disconnected;
++		goto exit;
++	}
+ 
+-	if (!dp_dev->is_branch)
+-		return connector_status_connected;
++	if (!dp_dev->is_branch) {
++		ret = connector_status_connected;
++		goto exit;
++	}
+ 
+ 	if (drm_dp_read_sink_count_cap(connector, dp_dev->dpcd, &dp_dev->desc) &&
+ 	    dp_dev->downstream_ports[0] & DP_DS_PORT_HPD) {
+ 		ret = drm_dp_read_sink_count(dp_dev->aux);
+-		if (ret > 0)
+-			return connector_status_connected;
++		if (ret > 0) {
++			ret = connector_status_connected;
++			goto exit;
++		}
+ 	}
+ 
+-	return connector_status_disconnected;
++exit:
++	dp->phys_state = ret;
++
++	return ret;
+ }
+ 
+ static int hibmc_dp_mode_valid(struct drm_connector *connector,
+@@ -243,5 +254,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+ 
+ 	connector->polled = DRM_CONNECTOR_POLL_HPD;
+ 
++	dp->phys_state = connector_status_disconnected;
++
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+index ca8502e2760c..6abb49b5107b 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+@@ -31,6 +31,7 @@ struct hibmc_vdac {
+ 	struct drm_connector connector;
+ 	struct i2c_adapter adapter;
+ 	struct i2c_algo_bit_data bit_data;
++	int phys_state;
+ };
+ 
+ struct hibmc_drm_private {
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+index 841e81f47b68..806d54120d89 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+@@ -25,27 +25,20 @@
+ static int hibmc_connector_get_modes(struct drm_connector *connector)
+ {
+ 	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+-	const struct drm_edid *drm_edid;
+-	int count;
++	int count = 0;
+ 
+-	drm_edid = drm_edid_read_ddc(connector, &vdac->adapter);
++	if (vdac->phys_state == connector_status_connected)
++		count = drm_connector_helper_get_modes(connector);
+ 
+-	drm_edid_connector_update(connector, drm_edid);
+-
+-	if (drm_edid) {
+-		count = drm_edid_connector_add_modes(connector);
+-		if (count)
+-			goto out;
+-	}
++	if (count > 0)
++		return count;
+ 
++	drm_edid_connector_update(connector, NULL);
+ 	count = drm_add_modes_noedid(connector,
+ 				     connector->dev->mode_config.max_width,
+ 				     connector->dev->mode_config.max_height);
+ 	drm_set_preferred_mode(connector, 1024, 768);
+ 
+-out:
+-	drm_edid_free(drm_edid);
+-
+ 	return count;
+ }
+ 
+@@ -57,10 +50,32 @@ static void hibmc_connector_destroy(struct drm_connector *connector)
+ 	drm_connector_cleanup(connector);
+ }
+ 
++static int hibmc_vdac_detect(struct drm_connector *connector,
++			     struct drm_modeset_acquire_ctx *ctx,
++			     bool force)
++{
++	struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
++	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
++
++	vdac->phys_state = drm_connector_helper_detect_from_ddc(connector,
++								ctx, force);
++
++	/* If the DP connectors are disconnected, the hibmc_vdac_detect function
++	 * must return a connected state to ensure KVM display functionality.
++	 * Additionally, for previous-generation products that may lack hardware
++	 * link support and thus cannot detect the monitor, hibmc_vdac_detect
++	 * should also return a connected state.
++	 */
++	if (priv->dp.phys_state != connector_status_connected)
++		return connector_status_connected;
++
++	return vdac->phys_state;
++}
++
+ static const struct drm_connector_helper_funcs
+ 	hibmc_connector_helper_funcs = {
+ 	.get_modes = hibmc_connector_get_modes,
+-	.detect_ctx = drm_connector_helper_detect_from_ddc,
++	.detect_ctx = hibmc_vdac_detect,
+ };
+ 
+ static const struct drm_connector_funcs hibmc_connector_funcs = {
+@@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+ 
+ 	connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+ 
++	vdac->phys_state = connector_status_connected;
++
+ 	return 0;
+ 
+ err:
+-- 
+2.33.0
 
---00000000000057fa0b064e84c7cc
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>That&#39;s great to hear! Maybe still a happy end for=
- my users and Ubuntu 26.04-LTS.</div><div><br></div><div>Thanks Harry!</div=
-></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr=
-" class=3D"gmail_attr">On Wed, Apr 1, 2026 at 9:32=E2=80=AFPM Harry Wentlan=
-d &lt;<a href=3D"mailto:harry.wentland@amd.com">harry.wentland@amd.com</a>&=
-gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
-On 2026-03-21 01:20, Mario Kleiner wrote:<br>
-&gt; Commit d5df648ec830 (&quot;drm/amd/display: Change dither policy for 1=
-0bpc to<br>
-&gt; round&quot;) degraded display of 12 bpc color precision output to 10 b=
-pc sinks<br>
-&gt; by switching 10 bpc output from dithering to &quot;truncate to 10 bpc&=
-quot;.<br>
-&gt; <br>
-&gt; I don&#39;t find the argumentation in that commit convincing, but the<=
-br>
-&gt; consequences highly unfortunate, especially for applications that<br>
-&gt; require effective &gt; 10 bpc precision output of &gt; 10 bpc framebuf=
-fers.<br>
-&gt; <br>
-&gt; The argument wasn&#39;t something strong like &quot;there are hardware=
- design<br>
-&gt; defects or limitations which require us to work around broken ditherin=
-g<br>
-&gt; to 10 bpc&quot;, or &quot;there are some special use cases which do re=
-quire<br>
-&gt; truncation to 10 bpc&quot;, but essentially &quot;at some point in the=
- past we<br>
-&gt; used truncation in Polaris/Vega times and it looks like it got<br>
-&gt; inadvertently changed for Navi, so let&#39;s do that again&quot;. I co=
-uldn&#39;t find<br>
-&gt; evidence for that in the git commit logs for this. The commit message =
-also<br>
-&gt; acknowledges that using dithering &quot;...makes some sense for FP16..=
-.<br>
-&gt; ...but not for ARGB2101010 surfaces...&quot;<br>
-&gt; <br>
-&gt; The problem with this is that it makes fp16 surfaces, and especially<b=
-r>
-&gt; rgba16 fixed point surfaces, less useful. These are now well<br>
-&gt; supported by Mesa 25.3 and later via OpenGL + EGL, Vulkan/WSI, and by<=
-br>
-&gt; OSS AMDVLK Vulkan/WSI/display, and also by GNOME 50 mutter under Wayla=
-nd,<br>
-&gt; and they used to provide more than 10 bpc effective precision at the<b=
-r>
-&gt; output.<br>
-&gt; <br>
-&gt; Even for 8 or 10 bpc surfaces, the color pipeline behind the framebuff=
-er,<br>
-&gt; e.g., gamma tables, CTM, can be used for color correction and will<br>
-&gt; benefit from an effective &gt; 10 bpc output precision via dithering,<=
-br>
-&gt; retaining some precision that would get lost on the way through the<br=
->
-&gt; pipeline, e.g., due to non-linear gamma functions.<br>
-&gt; <br>
-&gt; Scientific apps rely on this for &gt; 10 bpc display precision. Trunca=
-ting<br>
-&gt; to 10 bpc, instead of dithering the pipeline internal 12 bpc precision=
-<br>
-&gt; down to 10 bpc, causes a serious loss of precision. This also creates =
-the<br>
-&gt; undesirable and slightly absurd situation that using a cheap monitor<b=
-r>
-&gt; with only 8 bpc input and display panel will yield roughly 12 bpc<br>
-&gt; precision via dithering from 12 -&gt; 8 bpc, whereas investment into a=
-<br>
-&gt; more expensive monitor with 10 bpc input and native 10 bpc display wil=
-l<br>
-&gt; only yield 10 bpc, even if a fp16 or rgb16 framebuffer and/or a proper=
-ly<br>
-&gt; set up color pipeline (gamma tables, CTM&#39;s etc. with more than 10 =
-bpc out<br>
-&gt; precision) would allow effective 12 bpc precision output.<br>
-&gt; <br>
-&gt; Therefore this patch proposes reverting that commit and going back to<=
-br>
-&gt; dithering down to 10 bpc, consistent with the behaviour for 6 bpc or 8=
- bpc<br>
-&gt; output.<br>
-&gt; <br>
-&gt; Successfully tested on AMD Polaris DCE 11.2 and Raven Ridge DCN 1.0 wi=
-th<br>
-&gt; a native 10 bpc capable monitor, outputting a RGBA16 unorm framebuffer=
- and<br>
-&gt; measuring resulting color precision with a photometer. No apparent vis=
-ual<br>
-&gt; artifacts or problems were observed, and effective precision was measu=
-red<br>
-&gt; to be 12 bpc again, as expected.<br>
-&gt; <br>
-&gt; Fixes: d5df648ec830 (&quot;drm/amd/display: Change dither policy for 1=
-0bpc to round&quot;)<br>
-&gt; Signed-off-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gm=
-ail.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
-&gt; Tested-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gmail.=
-com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
-&gt; Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank">stable=
-@vger.kernel.org</a><br>
-&gt; Cc: Aric Cyr &lt;<a href=3D"mailto:aric.cyr@amd.com" target=3D"_blank"=
->aric.cyr@amd.com</a>&gt;<br>
-&gt; Cc: Anthony Koo &lt;<a href=3D"mailto:anthony.koo@amd.com" target=3D"_=
-blank">anthony.koo@amd.com</a>&gt;<br>
-&gt; Cc: Rodrigo Siqueira &lt;<a href=3D"mailto:rodrigo.siqueira@amd.com" t=
-arget=3D"_blank">rodrigo.siqueira@amd.com</a>&gt;<br>
-&gt; Cc: Krunoslav Kovac &lt;<a href=3D"mailto:krunoslav.kovac@amd.com" tar=
-get=3D"_blank">krunoslav.kovac@amd.com</a>&gt;<br>
-&gt; Cc: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" targ=
-et=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-<br>
-Kruno and I chatted a bit more about this and the best way forward<br>
-seems to be to re-enable SPATIAL10 dither and then override that<br>
-when needed in our Windows driver.<br>
-<br>
-Patches is<br>
-Reviewed-by: Harry Wentland &lt;<a href=3D"mailto:harry.wentland@amd.com" t=
-arget=3D"_blank">harry.wentland@amd.com</a>&gt;<br>
-<br>
-Will pull it in today.<br>
-<br>
-Harry<br>
-<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 2 +-<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drive=
-rs/gpu/drm/amd/display/dc/core/dc_resource.c<br>
-&gt; index c9fbb64d706a..29db5404c4a0 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c<br>
-&gt; @@ -5056,7 +5056,7 @@ void resource_build_bit_depth_reduction_params(s=
-truct dc_stream_state *stream,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0option =3D DITHER_OPTION_SPATIAL8;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case COLOR_DEPTH=
-_101010:<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0option =3D DITHER_OPTION_TRUN10;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0option =3D DITHER_OPTION_SPATIAL10;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0break;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0option =3D DITHER_OPTION_DISABLE;<br>
-<br>
-</blockquote></div>
-
---00000000000057fa0b064e84c7cc--
