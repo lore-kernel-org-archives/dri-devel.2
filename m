@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B5B2E7E345
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:36:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EABEE7E343
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 08:36:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB1DA10F3CD;
-	Fri,  3 Apr 2026 08:36:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 872BA10F3D2;
+	Fri,  3 Apr 2026 08:36:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dYwxIlX4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PWOgarWk";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012003.outbound.protection.outlook.com [52.101.48.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8102110F3CC;
- Fri,  3 Apr 2026 08:36:43 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012054.outbound.protection.outlook.com
+ [40.93.195.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09CA810F3CF;
+ Fri,  3 Apr 2026 08:36:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lIjenz8jPWs01m7tD5mJ/JtbLP6JEcXU6qOU5zoqiLB6GCigA5R8AezzoNojwbQ81grK/03STKnRy6FqWKdw/DLvuqfTg6r/uicGZ1YZ7hjp4pqh0NW64TIxhUd0PKz60WGAdUhClvZJ0ER/T7DhuiX7BDjeryajc3yHXRXxf+eqKYx7/5oSDigkBEdrtlsE9BzOQWpALW+xb/lZ5TW4/9tB+BbK9DU7o/fzJ2ysQNWHiPjT3aMuBoZs9gcAmzvsCTrGWGktbFnmgZfVtq4SN2oyPhd4ZJljdyvJaw9ESvDb509EcpApZZI2rJUM9fj9nYe58D3biCSpW+fiZl0QUA==
+ b=tU6x4rjSMK6z51aYGJ8Ve8zcwblX0Yq++Rk6zUstKAsNSenApr1ue063ECnOZhAOxnTT7WzJHpDCA8km8Oz5efXKLq5QbtesJe4FhOMr02wvw2vxRHvUJijnJ3bbX2zPPL+xjqH8QEFhJR6ZfEIOTDNXwKyk2vSfAE9zZyi/vj1rsdLUC+uBitHBYIWQFtNKldLWmS+ppYBQ6VZZznoo0EYDJVdS11iItrK4eaG0lWRcN4bbwVBHXqrxRscTyZKcI2aEVG8JFjBMHgCSMDSwByRPqL1GxsG27udCFOszDKHfQZ0XFg1/RdGHArZdCCeqWDWAzYPr0Zmvz0jm519G9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o2wg8M59vQqRPKgeG1nXqqPitek2f2Qi4IqV5Psvf+I=;
- b=ggE4wnTZMXOPZTsyTvaXnNrVWT2dWZNqP6tmR935NzCMnlCqPOamKah/KY7tOg7RPW2OREgcHxCGNYu2IoJNewXb68yGW/ZI1SnH63FbQllFJ+deiMzMjoivu29NS+460wZlba85w69d4ysE+MnIUIOmPo9wLJhg4Q2OMGO3hF6d0uqkBI6Ri6cFtbAyFJjDRvOpi1mQElyz20mz5i70cK4RtWC/qwi24XZwSCZSnZX05Ob3hctVrwKv4ZlPdV6uTpshLRUHLxscrhocIvXEuZv5bRnOOhBj3265VKVKl+4uWNWBXUecrRcagUAeEb7kun6gRTT3eJ9SkSkwMRX0kQ==
+ bh=rUNH2z1r0FjDKkISRM+SfldESlWh0U/5L4sLKJrFeEw=;
+ b=I0ucQlkfYhoyyPHvAZKdM/wwP3g/+3EZSeZGFYkcNXif+9ualNlz9hiqYtCYdltj1ZfSFBDQlj7XQUAX338vvIjU0uWqa85uWRE5Q53cnec5MjuNMo7VlM7Ivb+4/cZA/jhYIpdomJA3CRrnt5t8F9cxla4dt/AOd6kx9gGlWN0pktB7eufz9Z/i3P2aAGTQkhPRxf6ykojVtJoPyvdqNITtW753GPEhxdvRkZlu9Ce9+CCdfF31NS3K+eiNCpD0fFcTTx0bB7lzGvKHd1Q2RAPLPXcSDKWzmWntaA/qlTaiObPs6KdcuKqK/KhxIvmerWFssWEUmF9boh1fkG6XgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o2wg8M59vQqRPKgeG1nXqqPitek2f2Qi4IqV5Psvf+I=;
- b=dYwxIlX4pmISsiYWnuzbeiSvXWT7Vc8+vDMZ3g7ODA5DWALoBVYHJQPsK/GGsfOS3Dweylj5q563rT1xMW/aI8RvyEjlUTZ43tjeqpqsElyHSqcZrLXBujUhiCt82Lz5IJhUAXadmNoUVClreSfiz/1NLxrkUECAKW8voDlXlSk=
-Received: from BY5PR17CA0056.namprd17.prod.outlook.com (2603:10b6:a03:167::33)
- by SA3PR12MB8763.namprd12.prod.outlook.com (2603:10b6:806:312::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Fri, 3 Apr
- 2026 08:36:37 +0000
+ bh=rUNH2z1r0FjDKkISRM+SfldESlWh0U/5L4sLKJrFeEw=;
+ b=PWOgarWkU2qf069uO2ECwJDSq3TwLP7nN30QxtYSUiRN74mvdJ2WycRqvHbahL7p0pKCXZwYh7sSix72wxm7FNj5YTYbjXfkIHCNNokPqjPs3Y6umAgaHLNcz1Nfjw3dyIIV7QLlUpbymTcYl0gU9l4GRwt8FoVLISmrZ4/oGfs=
+Received: from BY5PR17CA0038.namprd17.prod.outlook.com (2603:10b6:a03:167::15)
+ by DM4PR12MB5962.namprd12.prod.outlook.com (2603:10b6:8:69::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.19; Fri, 3 Apr 2026 08:36:46 +0000
 Received: from SJ1PEPF00002319.namprd03.prod.outlook.com
- (2603:10b6:a03:167:cafe::a2) by BY5PR17CA0056.outlook.office365.com
- (2603:10b6:a03:167::33) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:167:cafe::9e) by BY5PR17CA0038.outlook.office365.com
+ (2603:10b6:a03:167::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.18 via Frontend Transport; Fri,
- 3 Apr 2026 08:36:37 +0000
+ 3 Apr 2026 08:36:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,23 +51,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF00002319.mail.protection.outlook.com (10.167.242.229) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 3 Apr 2026 08:36:37 +0000
+ 15.20.9769.17 via Frontend Transport; Fri, 3 Apr 2026 08:36:46 +0000
 Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 3 Apr 2026 03:36:35 -0500
+ 15.2.2562.17; Fri, 3 Apr 2026 03:36:44 -0500
 From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Felix Kuehling
- <Felix.Kuehling@amd.com>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, "Felix
- Kuehling" <felix.kuehling@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 1/7] drm/amdgpu: pass all the sdma scheds to amdgpu_mman
-Date: Fri, 3 Apr 2026 10:35:49 +0200
-Message-ID: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v5 2/7] drm/amdgpu: only use working sdma schedulers for ttm
+Date: Fri, 3 Apr 2026 10:35:50 +0200
+Message-ID: <20260403083602.1771-2-pierre-eric.pelloux-prayer@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
+References: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -75,29 +77,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|SA3PR12MB8763:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07de9dcd-e23a-4a2d-d7de-08de915c1ed4
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|DM4PR12MB5962:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0127c74-f2c8-4d2b-771b-08de915c2444
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: tVs8Kp/NVPsjedf2eQqrZHn1kPF7X1Kk5lybXIYG6LYf2q0Q3taruoc8xiZB1AfLHTD8cRFymVazMfDVsyTFYMMO4rWJuXJ+dvftTZoXedozzEQ/6nfeR6/XaZlokJHDvdDb4uSiyUZXC4reFsv5Xs4WD2FadseYzHAR31qiHRXSHDG60gq9pj/O/k1RfHriq61dWb2v4whwOLYUllHtCTBIgUEx6Vn0nPayE4iVMaTsV3OawbLH/jG2dKX2PlLBhOGYQdxIQE9fRmLIVwA4d5+bANulckcg6YEJoJtB4OmI0gjM67w2GnIGV8vNJ6vCyEPWDfehrF76BIgG4WFovBMnLmvZtYXoYzTgJoc1i2Kif5GZg9DmrhiqanTGdR0Xs2dYUsldaliTrXHquGiiNcDxQop8eoKtm5SL2Q4JXVnl6k1Ytt7D4q/0oq4h47GpBxXHRMtYxgTbvgTfhcgPUd7hkr7q8bueaLC0l6clDDDxoRnAd2RLUp2qBasOOwSrALL+F/cRQCTXuCnXndQLbKLCG3kOzDNIzZ/Jg2LhgCm7ygtdG2LC25ZKafhkaCTlwL2RGPCmdRd1lXSbs0kvm3hUkQz84TWgbXrlrCJGLzY5s3FU2REB4i2e91wSASOKNIVWMkbkJ3uVghjJwAF5nAvjj6TGQSBaSTEY9E6Wn3Y7tSiCKQRNyGk2kt5gP5UPIGUB43dHRij1IFTy/IzUbE99q0Not/d/w9x3r4r1gCjQCDLHsxu0AhpUeVQSVv35nqxpqWd3lFIOpH4y1HaNPg==
+ ARA:13230040|82310400026|1800799024|376014|36860700016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: hk/tbiU2V7LJ58tBbNnnvRXCN2YUhS1NUshyiFBosRvDhdKlASDZI5lv4mKmupQlPaAmUG7jUFtWdqg7TOYlicu8st62qd+WPL6fchsGYhMYxp4XWSMgIzwQxpgLgKDHs/hMFSgWNO9gDl8hBI62x2AdMs5fUudSz9B41RNym+vQWkqbWIRJT005VNhRCLY2PY9XcIt0kIShYWDzsQjWRy4ks3v4wETQx8cBfMRU5mzfRDYj3+TN7IN832KrDPceOyOqmzXi7tOqShkid9J9xeXgHJXZcmO7zfXqRucv8mUtavNjievR7gPU3Ocpo4CAQZI7/6mfnrZD/ig/X2k//oVds/7vd4+rCoqzV7KjRp3TU/2Q4DjcdrXDFMiktw8zNndLt42YfHneTH7JPdttKG0uLCoPwF+zTwHwyruMCxd4hPVRYStWjUOXlaK5OZMlMrQ6nb7MdStzHNI4786X0AXVNk3tp5UxWO6UENfKPf5YcirhPdF9rGKUnYEgIl6bNqDAUSPhwH37kOJqpeo8ZNKJFAg3iNEfLRJAsIcsHVspRKw8GP/CuLMtObNMFw95MT3stEY69/eIUOEYARbSs5kqxFakfDZbjOjNz8rcqWD+DAD5dJvMeGw3glNnQRWaCYE2arKtkPVEJ31xath3EqdjduYmMk+UV5o6kJAsCl+EWBvTayyaiX7oMZvclksv3rp1VVJGQQeaoi1TA+KUm8CxIoyUNkUjhiaFuQ+iUpXDJmIj2vOVXID8BvQSOGMkqOa5FE65e/6YS9oVLPw8qA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(18002099003);
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: TmGQApGZT4HfFTdJ/gjCI9ZCOFfdc+9k9gvTNvuUkiWfi67XXraJ409qj6n9e/YI6tKkJLlY/u1ewTRvwm4nqRzTTYg9slicQhDabjPIjrjwLJqQH5Q61FpnmgnYRx6javghllFl8Q1NWMRAk+nxMP6MsGgH8pO3ui4Y1ShG3ZXe6whMShBjFs0MiSeY0yKU4N2ICYkUb8xCS9YBvl/OCqbrj7gi/QR1rOw3KT6mN4QbNmB99LDe7V8mfq1AIhImx4gRR0G6r/amD8+RwLeJTCnAQrL966ISUR+i01S3vod5d+RMq5Q5tYhJly+zLDb5kKiAvQKQdDili79LOwN9fCs4/KhNAoQYQIFryPqVSeYLe0ecE68G6J54QgjuCx5fesp/MVbfu0zkcMkSbGy6fQslImqok0IqqOecQErdGWlVoexWWDzKxQyKp+WD3kSa
+X-MS-Exchange-AntiSpam-MessageData-0: eqBWaxmcrMyUvtsFgbu9eR8Ux8qD/o91kw31dKY6zgkpwW3spHth8oVnyXirbRMO+TvRt9bdwDnUZ6Qv+kIoytSPCLQh63lNkqGEwLUnVOHr95NNkZKYTwRnJkKt76wyMX2EVuSwhwu0BsPdqjSjSXTw/Mjp4KfEdHoyg/P88gw0GCO5zQClA8lrlPbxX0gPtOGXPPWKK4E+le+vYhA6EVV1GQH4dxwO3iBBO7zE3dJloKhkA3QnWO/3t3hw76HQ7Nib93UmzXxOFsmdolMuXh29JCJPs8OZCN0PShpeQCAqcWtdRZbY3PmhdsM1wE4Nemxg8Vi6/8bnwWQBb6Hob7R7ltQvueFZnq+DsZOzruwmKxESeQ3Ye5oUa9s19w9nsinTfXRxZiT7gspYG36EaU4pUtDVYBRKWNR36Z+I7iC7eGRP3uTuOaZH02/Ukq7f
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 08:36:37.2378 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07de9dcd-e23a-4a2d-d7de-08de915c1ed4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 08:36:46.3327 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0127c74-f2c8-4d2b-771b-08de915c2444
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002319.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8763
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5962
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,360 +115,377 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This will allow the use of all of them for clear/fill buffer
-operations.
-Since drm_sched_entity_init requires a scheduler array, we
-store schedulers rather than rings. For the few places that need
-access to a ring, we can get it from the sched using container_of.
+It's possible that some sdma instances aren't working so we shouldn't try
+to use them from TTM. To achieve this, delay the call to
+amdgpu_sdma_set_buffer_funcs_scheds after the rings have been tested, and
+then use the 'ready' property to decide if a sched should be used or not.
 
-Since the code is the same for all sdma versions, add a new
-helper amdgpu_sdma_set_buffer_funcs_scheds to set buffer_funcs_scheds
-based on the number of sdma instances.
+Note that currently it's not doing much, because if the ring helper fails
+for any ring, the whole sdma block init fails.
 
-Note: the new sched array is identical to the amdgpu_vm_manager one.
-These 2 could be merged.
+---
+v5: check buffer_funcs_enabled from amdgpu_ttm_access_memory_sdma
+---
 
 Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Acked-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  4 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 32 ++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |  3 +-
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c      |  3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c     |  3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c     |  3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c     |  8 ++----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c   |  6 +---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c     |  5 +---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c     |  5 +---
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c     |  3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c     |  3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c     |  3 +-
- drivers/gpu/drm/amd/amdgpu/si_dma.c        |  3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c   |  3 +-
- 17 files changed, 48 insertions(+), 43 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  | 23 ++++++++++++++++-------
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 10 ++++++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   |  5 +++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  9 +++++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c |  6 ++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  6 ++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  9 +++++++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c   |  9 +++++++--
+ drivers/gpu/drm/amd/amdgpu/si_dma.c      |  9 +++++++--
+ 12 files changed, 68 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 49e7881750fa..e3a8701f0b27 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1467,6 +1467,8 @@ ssize_t amdgpu_get_soft_full_reset_mask(struct amdgpu_ring *ring);
- ssize_t amdgpu_show_reset_mask(char *buf, uint32_t supported_reset);
- void amdgpu_sdma_set_vm_pte_scheds(struct amdgpu_device *adev,
- 				   const struct amdgpu_vm_pte_funcs *vm_pte_funcs);
-+void amdgpu_sdma_set_buffer_funcs_scheds(struct amdgpu_device *adev,
-+					 const struct amdgpu_buffer_funcs *buffer_funcs);
- 
- /* atpx handler */
- #if defined(CONFIG_VGA_SWITCHEROO)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 0c0489395edf..4da8de34be3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3700,7 +3700,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	adev->num_rings = 0;
- 	RCU_INIT_POINTER(adev->gang_submit, dma_fence_get_stub());
- 	adev->mman.buffer_funcs = NULL;
--	adev->mman.buffer_funcs_ring = NULL;
-+	adev->mman.num_buffer_funcs_scheds = 0;
- 	adev->vm_manager.vm_pte_funcs = NULL;
- 	adev->vm_manager.vm_pte_num_scheds = 0;
- 	adev->gmc.gmc_funcs = NULL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index e9e53c7c37d0..1a253e4257ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -708,12 +708,14 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
- void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 			      uint32_t vmhub, uint32_t flush_type)
- {
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-+	struct amdgpu_ring *ring;
- 	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
- 	struct dma_fence *fence;
- 	struct amdgpu_job *job;
- 	int r;
- 
-+	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
-+
- 	if (!hub->sdma_invalidation_workaround || vmid ||
- 	    !adev->mman.buffer_funcs_enabled || !adev->ib_pool_ready ||
- 	    !ring->sched.ready) {
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 3c63f87832e4..4ba7321b75e3 100644
+index 4ba7321b75e3..bd32113292ec 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -168,7 +168,7 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
- {
- 	struct amdgpu_ring *ring;
+@@ -1560,7 +1560,7 @@ static int amdgpu_ttm_access_memory_sdma(struct ttm_buffer_object *bo,
+ 	if (!adev->mman.sdma_access_ptr)
+ 		return -EACCES;
  
--	ring = adev->mman.buffer_funcs_ring;
-+	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
- 	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
- 	WARN_ON(job->ibs[0].length_dw > num_dw);
+-	if (!drm_dev_enter(adev_to_drm(adev), &idx))
++	if (!adev->mman.buffer_funcs_enabled || !drm_dev_enter(adev_to_drm(adev), &idx))
+ 		return -ENODEV;
  
-@@ -2349,18 +2349,17 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
- 		return;
- 
+ 	if (write)
+@@ -2351,8 +2351,7 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
  	if (enable) {
--		struct amdgpu_ring *ring;
  		struct drm_gpu_scheduler *sched;
  
--		if (!adev->mman.buffer_funcs_ring || !adev->mman.buffer_funcs_ring->sched.ready) {
-+		if (!adev->mman.num_buffer_funcs_scheds ||
-+		    !adev->mman.buffer_funcs_scheds[0]->ready) {
+-		if (!adev->mman.num_buffer_funcs_scheds ||
+-		    !adev->mman.buffer_funcs_scheds[0]->ready) {
++		if (!adev->mman.num_buffer_funcs_scheds) {
  			dev_warn(adev->dev, "Not enabling DMA transfers for in kernel use");
  			return;
  		}
+@@ -2734,20 +2733,30 @@ void amdgpu_sdma_set_buffer_funcs_scheds(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
+ 	struct drm_gpu_scheduler *sched;
+-	int i;
++	int i, n;
  
- 		num_clear_entities = 1;
- 		num_move_entities = 1;
--		ring = adev->mman.buffer_funcs_ring;
--		sched = &ring->sched;
-+		sched = adev->mman.buffer_funcs_scheds[0];
- 		r = amdgpu_ttm_buffer_entity_init(&adev->mman.gtt_mgr,
- 						  &adev->mman.default_entity,
- 						  DRM_SCHED_PRIORITY_KERNEL,
-@@ -2497,7 +2496,7 @@ int amdgpu_copy_buffer(struct amdgpu_device *adev,
- 	unsigned int i;
- 	int r;
+ 	adev->mman.buffer_funcs = buffer_funcs;
  
--	ring = adev->mman.buffer_funcs_ring;
-+	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
- 
- 	if (!ring->sched.ready) {
- 		dev_err(adev->dev,
-@@ -2730,6 +2729,27 @@ int amdgpu_ttm_evict_resources(struct amdgpu_device *adev, int mem_type)
- 	return ttm_resource_manager_evict_all(&adev->mman.bdev, man);
- }
- 
-+void amdgpu_sdma_set_buffer_funcs_scheds(struct amdgpu_device *adev,
-+					 const struct amdgpu_buffer_funcs *buffer_funcs)
-+{
-+	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB(0)];
-+	struct drm_gpu_scheduler *sched;
-+	int i;
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
++	for (i = 0, n = 0; i < adev->sdma.num_instances; i++) {
+ 		if (adev->sdma.has_page_queue)
+ 			sched = &adev->sdma.instance[i].page.sched;
+ 		else
+ 			sched = &adev->sdma.instance[i].ring.sched;
+-		adev->mman.buffer_funcs_scheds[i] = sched;
 +
-+	adev->mman.buffer_funcs = buffer_funcs;
++		if (!sched->ready)
++			continue;
 +
-+	for (i = 0; i < adev->sdma.num_instances; i++) {
-+		if (adev->sdma.has_page_queue)
-+			sched = &adev->sdma.instance[i].page.sched;
-+		else
-+			sched = &adev->sdma.instance[i].ring.sched;
-+		adev->mman.buffer_funcs_scheds[i] = sched;
++		adev->mman.buffer_funcs_scheds[n++] = sched;
 +	}
 +
-+	adev->mman.num_buffer_funcs_scheds = hub->sdma_invalidation_workaround ?
-+		1 : adev->sdma.num_instances;
-+}
-+
++	if (n == 0) {
++		adev->mman.num_buffer_funcs_scheds = 0;
++		drm_warn(&adev->ddev, "No working sdma ring available\n");
++		return;
+ 	}
+ 
+ 	adev->mman.num_buffer_funcs_scheds = hub->sdma_invalidation_workaround ?
+-		1 : adev->sdma.num_instances;
++		1 : n;
+ }
+ 
  #if defined(CONFIG_DEBUG_FS)
- 
- static int amdgpu_ttm_page_pool_show(struct seq_file *m, void *unused)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 3b1973611446..a6249252948b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -67,7 +67,8 @@ struct amdgpu_mman {
- 
- 	/* buffer handling */
- 	const struct amdgpu_buffer_funcs	*buffer_funcs;
--	struct amdgpu_ring			*buffer_funcs_ring;
-+	struct drm_gpu_scheduler		*buffer_funcs_scheds[AMDGPU_MAX_RINGS];
-+	u32					num_buffer_funcs_scheds;
- 	bool					buffer_funcs_enabled;
- 
- 	/* @default_entity: for workarounds, has no gart windows */
 diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index 22780c09177d..26276dcfd458 100644
+index 26276dcfd458..120da838ac28 100644
 --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
 +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -1340,8 +1340,7 @@ static const struct amdgpu_buffer_funcs cik_sdma_buffer_funcs = {
+@@ -939,7 +939,6 @@ static int cik_sdma_early_init(struct amdgpu_ip_block *ip_block)
  
- static void cik_sdma_set_buffer_funcs(struct amdgpu_device *adev)
+ 	cik_sdma_set_ring_funcs(adev);
+ 	cik_sdma_set_irq_funcs(adev);
+-	cik_sdma_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &cik_sdma_vm_pte_funcs);
+ 
+ 	return 0;
+@@ -1000,8 +999,15 @@ static int cik_sdma_sw_fini(struct amdgpu_ip_block *ip_block)
+ static int cik_sdma_hw_init(struct amdgpu_ip_block *ip_block)
  {
--	adev->mman.buffer_funcs = &cik_sdma_buffer_funcs;
--	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &cik_sdma_buffer_funcs);
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int r;
+ 
+-	return cik_sdma_start(adev);
++	r = cik_sdma_start(adev);
++	if (r)
++		return r;
++
++	cik_sdma_set_buffer_funcs(adev);
++
++	return 0;
  }
  
- const struct amdgpu_ip_block_version cik_sdma_ip_block =
+ static int cik_sdma_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 0090ace49024..c6a059ca59e5 100644
+index c6a059ca59e5..93ec52c1f367 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -1235,8 +1235,7 @@ static const struct amdgpu_buffer_funcs sdma_v2_4_buffer_funcs = {
+@@ -828,7 +828,6 @@ static int sdma_v2_4_early_init(struct amdgpu_ip_block *ip_block)
+ 		return r;
  
- static void sdma_v2_4_set_buffer_funcs(struct amdgpu_device *adev)
- {
--	adev->mman.buffer_funcs = &sdma_v2_4_buffer_funcs;
--	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v2_4_buffer_funcs);
+ 	sdma_v2_4_set_ring_funcs(adev);
+-	sdma_v2_4_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v2_4_vm_pte_funcs);
+ 	sdma_v2_4_set_irq_funcs(adev);
+ 
+@@ -898,7 +897,9 @@ static int sdma_v2_4_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
+-	return r;
++	sdma_v2_4_set_buffer_funcs(adev);
++
++	return 0;
  }
  
- const struct amdgpu_ip_block_version sdma_v2_4_ip_block = {
+ static int sdma_v2_4_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 2526d393162a..cb516a25210d 100644
+index cb516a25210d..3fde9be74690 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -1677,8 +1677,7 @@ static const struct amdgpu_buffer_funcs sdma_v3_0_buffer_funcs = {
+@@ -1108,7 +1108,6 @@ static int sdma_v3_0_early_init(struct amdgpu_ip_block *ip_block)
+ 		return r;
  
- static void sdma_v3_0_set_buffer_funcs(struct amdgpu_device *adev)
- {
--	adev->mman.buffer_funcs = &sdma_v3_0_buffer_funcs;
--	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v3_0_buffer_funcs);
+ 	sdma_v3_0_set_ring_funcs(adev);
+-	sdma_v3_0_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v3_0_vm_pte_funcs);
+ 	sdma_v3_0_set_irq_funcs(adev);
+ 
+@@ -1184,7 +1183,9 @@ static int sdma_v3_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
+-	return r;
++	sdma_v3_0_set_buffer_funcs(adev);
++
++	return 0;
  }
  
- const struct amdgpu_ip_block_version sdma_v3_0_ip_block =
+ static int sdma_v3_0_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 44f0f23e1148..d56be26f216b 100644
+index d56be26f216b..8a2a4e61867e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -2626,13 +2626,9 @@ static const struct amdgpu_buffer_funcs sdma_v4_4_buffer_funcs = {
- static void sdma_v4_0_set_buffer_funcs(struct amdgpu_device *adev)
+@@ -1775,7 +1775,6 @@ static int sdma_v4_0_early_init(struct amdgpu_ip_block *ip_block)
+ 		adev->sdma.has_page_queue = true;
+ 
+ 	sdma_v4_0_set_ring_funcs(adev);
+-	sdma_v4_0_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v4_0_vm_pte_funcs);
+ 	sdma_v4_0_set_irq_funcs(adev);
+ 	sdma_v4_0_set_ras_funcs(adev);
+@@ -1961,6 +1960,7 @@ static int sdma_v4_0_sw_fini(struct amdgpu_ip_block *ip_block)
+ static int sdma_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
  {
- 	if (amdgpu_ip_version(adev, SDMA0_HWIP, 0) >= IP_VERSION(4, 4, 0))
--		adev->mman.buffer_funcs = &sdma_v4_4_buffer_funcs;
-+		amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v4_4_buffer_funcs);
- 	else
--		adev->mman.buffer_funcs = &sdma_v4_0_buffer_funcs;
--	if (adev->sdma.has_page_queue)
--		adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].page;
--	else
--		adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+		amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v4_0_buffer_funcs);
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int r;
+ 
+ 	if (adev->flags & AMD_IS_APU)
+ 		amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_SDMA, false, 0);
+@@ -1968,7 +1968,12 @@ static int sdma_v4_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (!amdgpu_sriov_vf(adev))
+ 		sdma_v4_0_init_golden_registers(adev);
+ 
+-	return sdma_v4_0_start(adev);
++	r = sdma_v4_0_start(adev);
++	if (r)
++		return r;
++	sdma_v4_0_set_buffer_funcs(adev);
++
++	return 0;
  }
  
- static void sdma_v4_0_get_ras_error_count(uint32_t value,
+ static int sdma_v4_0_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 78bdfed0a7fd..67e9697301b4 100644
+index 67e9697301b4..88428b88e00f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -2316,11 +2316,7 @@ static const struct amdgpu_buffer_funcs sdma_v4_4_2_buffer_funcs = {
+@@ -1368,7 +1368,6 @@ static int sdma_v4_4_2_early_init(struct amdgpu_ip_block *ip_block)
+ 		adev->sdma.has_page_queue = true;
  
- static void sdma_v4_4_2_set_buffer_funcs(struct amdgpu_device *adev)
- {
--	adev->mman.buffer_funcs = &sdma_v4_4_2_buffer_funcs;
--	if (adev->sdma.has_page_queue)
--		adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].page;
--	else
--		adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v4_4_2_buffer_funcs);
+ 	sdma_v4_4_2_set_ring_funcs(adev);
+-	sdma_v4_4_2_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v4_4_2_vm_pte_funcs);
+ 	sdma_v4_4_2_set_irq_funcs(adev);
+ 	sdma_v4_4_2_set_ras_funcs(adev);
+@@ -1568,8 +1567,11 @@ static int sdma_v4_4_2_hw_init(struct amdgpu_ip_block *ip_block)
+ 		sdma_v4_4_2_inst_init_golden_registers(adev, inst_mask);
+ 
+ 	r = sdma_v4_4_2_inst_start(adev, inst_mask, false);
++	if (r)
++		return r;
++	sdma_v4_4_2_set_buffer_funcs(adev);
+ 
+-	return r;
++	return 0;
  }
  
- /**
+ static int sdma_v4_4_2_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 52f4e9e099cb..86f5eb784d57 100644
+index 86f5eb784d57..fa02907217e0 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -2052,10 +2052,7 @@ static const struct amdgpu_buffer_funcs sdma_v5_0_buffer_funcs = {
+@@ -1373,7 +1373,6 @@ static int sdma_v5_0_early_init(struct amdgpu_ip_block *ip_block)
+ 		return r;
  
- static void sdma_v5_0_set_buffer_funcs(struct amdgpu_device *adev)
- {
--	if (adev->mman.buffer_funcs == NULL) {
--		adev->mman.buffer_funcs = &sdma_v5_0_buffer_funcs;
--		adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
--	}
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v5_0_buffer_funcs);
+ 	sdma_v5_0_set_ring_funcs(adev);
+-	sdma_v5_0_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v5_0_vm_pte_funcs);
+ 	sdma_v5_0_set_irq_funcs(adev);
+ 	sdma_v5_0_set_mqd_funcs(adev);
+@@ -1472,8 +1471,11 @@ static int sdma_v5_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	sdma_v5_0_init_golden_registers(adev);
+ 
+ 	r = sdma_v5_0_start(adev);
++	if (r)
++		return r;
++	sdma_v5_0_set_buffer_funcs(adev);
+ 
+-	return r;
++	return 0;
  }
  
- const struct amdgpu_ip_block_version sdma_v5_0_ip_block = {
+ static int sdma_v5_0_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index b4fb90cc8f7d..3fec838374b2 100644
+index 3fec838374b2..f6ecbc524c9b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -2056,10 +2056,7 @@ static const struct amdgpu_buffer_funcs sdma_v5_2_buffer_funcs = {
+@@ -1264,7 +1264,6 @@ static int sdma_v5_2_early_init(struct amdgpu_ip_block *ip_block)
+ 		return r;
  
- static void sdma_v5_2_set_buffer_funcs(struct amdgpu_device *adev)
+ 	sdma_v5_2_set_ring_funcs(adev);
+-	sdma_v5_2_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v5_2_vm_pte_funcs);
+ 	sdma_v5_2_set_irq_funcs(adev);
+ 	sdma_v5_2_set_mqd_funcs(adev);
+@@ -1385,8 +1384,14 @@ static int sdma_v5_2_sw_fini(struct amdgpu_ip_block *ip_block)
+ static int sdma_v5_2_hw_init(struct amdgpu_ip_block *ip_block)
  {
--	if (adev->mman.buffer_funcs == NULL) {
--		adev->mman.buffer_funcs = &sdma_v5_2_buffer_funcs;
--		adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
--	}
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v5_2_buffer_funcs);
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int r;
+ 
+-	return sdma_v5_2_start(adev);
++	r = sdma_v5_2_start(adev);
++	if (r)
++		return r;
++	sdma_v5_2_set_buffer_funcs(adev);
++
++	return 0;
  }
  
- const struct amdgpu_ip_block_version sdma_v5_2_ip_block = {
+ static int sdma_v5_2_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index b005672f2f96..064508cecd11 100644
+index 064508cecd11..ee83d3e5978e 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -1895,8 +1895,7 @@ static const struct amdgpu_buffer_funcs sdma_v6_0_buffer_funcs = {
+@@ -1313,7 +1313,6 @@ static int sdma_v6_0_early_init(struct amdgpu_ip_block *ip_block)
+ 		return r;
  
- static void sdma_v6_0_set_buffer_funcs(struct amdgpu_device *adev)
- {
--	adev->mman.buffer_funcs = &sdma_v6_0_buffer_funcs;
--	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v6_0_buffer_funcs);
+ 	sdma_v6_0_set_ring_funcs(adev);
+-	sdma_v6_0_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v6_0_vm_pte_funcs);
+ 	sdma_v6_0_set_irq_funcs(adev);
+ 	sdma_v6_0_set_mqd_funcs(adev);
+@@ -1477,6 +1476,7 @@ static int sdma_v6_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	r = sdma_v6_0_start(adev);
+ 	if (r)
+ 		return r;
++	sdma_v6_0_set_buffer_funcs(adev);
+ 
+ 	return sdma_v6_0_set_userq_trap_interrupts(adev, true);
  }
- 
- const struct amdgpu_ip_block_version sdma_v6_0_ip_block = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-index 5679a94d0815..60447729271e 100644
+index 60447729271e..c8343981c596 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
-@@ -1845,8 +1845,7 @@ static const struct amdgpu_buffer_funcs sdma_v7_0_buffer_funcs = {
+@@ -1299,7 +1299,6 @@ static int sdma_v7_0_early_init(struct amdgpu_ip_block *ip_block)
+ 	}
  
- static void sdma_v7_0_set_buffer_funcs(struct amdgpu_device *adev)
- {
--	adev->mman.buffer_funcs = &sdma_v7_0_buffer_funcs;
--	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v7_0_buffer_funcs);
+ 	sdma_v7_0_set_ring_funcs(adev);
+-	sdma_v7_0_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v7_0_vm_pte_funcs);
+ 	sdma_v7_0_set_irq_funcs(adev);
+ 	sdma_v7_0_set_mqd_funcs(adev);
+@@ -1432,6 +1431,7 @@ static int sdma_v7_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	r = sdma_v7_0_start(adev);
+ 	if (r)
+ 		return r;
++	sdma_v7_0_set_buffer_funcs(adev);
+ 
+ 	return sdma_v7_0_set_userq_trap_interrupts(adev, true);
  }
- 
- const struct amdgpu_ip_block_version sdma_v7_0_ip_block = {
 diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index f20e0fc3fc74..c3428d2731dc 100644
+index c3428d2731dc..b1ca95c2623b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
 +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -1764,8 +1764,7 @@ static const struct amdgpu_buffer_funcs sdma_v7_1_buffer_funcs = {
+@@ -1275,7 +1275,6 @@ static int sdma_v7_1_early_init(struct amdgpu_ip_block *ip_block)
+ 	}
  
- static void sdma_v7_1_set_buffer_funcs(struct amdgpu_device *adev)
+ 	sdma_v7_1_set_ring_funcs(adev);
+-	sdma_v7_1_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &sdma_v7_1_vm_pte_funcs);
+ 	sdma_v7_1_set_irq_funcs(adev);
+ 	sdma_v7_1_set_mqd_funcs(adev);
+@@ -1374,10 +1373,16 @@ static int sdma_v7_1_hw_init(struct amdgpu_ip_block *ip_block)
  {
--	adev->mman.buffer_funcs = &sdma_v7_1_buffer_funcs;
--	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &sdma_v7_1_buffer_funcs);
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	uint32_t inst_mask;
++	int r;
+ 
+ 	inst_mask = GENMASK(adev->sdma.num_instances - 1, 0);
+ 
+-	return sdma_v7_1_inst_start(adev, inst_mask);
++	r = sdma_v7_1_inst_start(adev, inst_mask);
++	if (r)
++		return r;
++	sdma_v7_1_set_buffer_funcs(adev);
++
++	return 0;
  }
  
- const struct amdgpu_ip_block_version sdma_v7_1_ip_block = {
+ static int sdma_v7_1_hw_fini(struct amdgpu_ip_block *ip_block)
 diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-index 3e58feb2d5e4..155067c20a0e 100644
+index 155067c20a0e..549708075eb4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
 +++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-@@ -833,8 +833,7 @@ static const struct amdgpu_buffer_funcs si_dma_buffer_funcs = {
+@@ -487,7 +487,6 @@ static int si_dma_early_init(struct amdgpu_ip_block *ip_block)
+ 	adev->sdma.num_instances = SDMA_MAX_INSTANCE;
  
- static void si_dma_set_buffer_funcs(struct amdgpu_device *adev)
+ 	si_dma_set_ring_funcs(adev);
+-	si_dma_set_buffer_funcs(adev);
+ 	amdgpu_sdma_set_vm_pte_scheds(adev, &si_dma_vm_pte_funcs);
+ 	si_dma_set_irq_funcs(adev);
+ 
+@@ -543,8 +542,14 @@ static int si_dma_sw_fini(struct amdgpu_ip_block *ip_block)
+ static int si_dma_hw_init(struct amdgpu_ip_block *ip_block)
  {
--	adev->mman.buffer_funcs = &si_dma_buffer_funcs;
--	adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].ring;
-+	amdgpu_sdma_set_buffer_funcs_scheds(adev, &si_dma_buffer_funcs);
+ 	struct amdgpu_device *adev = ip_block->adev;
++	int r;
+ 
+-	return si_dma_start(adev);
++	r = si_dma_start(adev);
++	if (r)
++		return r;
++	si_dma_set_buffer_funcs(adev);
++
++	return 0;
  }
  
- const struct amdgpu_ip_block_version si_dma_ip_block =
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 964efa325908..28dc6886c1ff 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -129,13 +129,14 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, dma_addr_t *sys,
- 			     struct dma_fence **mfence)
- {
- 	const u64 GTT_MAX_PAGES = AMDGPU_GTT_MAX_TRANSFER_SIZE;
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-+	struct amdgpu_ring *ring;
- 	struct amdgpu_ttm_buffer_entity *entity;
- 	u64 gart_s, gart_d;
- 	struct dma_fence *next;
- 	u64 size;
- 	int r;
- 
-+	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
- 	entity = &adev->mman.move_entities[0];
- 
- 	mutex_lock(&entity->lock);
+ static int si_dma_hw_fini(struct amdgpu_ip_block *ip_block)
 -- 
 2.43.0
 
