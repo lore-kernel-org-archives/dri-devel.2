@@ -4,88 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47D6CE7E35C
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 09:32:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E984E7E35D
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 09:34:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE74A10F488;
-	Fri,  3 Apr 2026 09:32:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF30210F48B;
+	Fri,  3 Apr 2026 09:34:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BgdYFo6a";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="Vec81VZg";
 	dkim-atps=neutral
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6ECA10F488
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 09:32:50 +0000 (UTC)
-Received: by mail-qt1-f182.google.com with SMTP id
- d75a77b69052e-50d6b9bca48so4026031cf.2
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 02:32:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775208769; cv=none;
- d=google.com; s=arc-20240605;
- b=bhvCOdXpftbxINbyW4WLaSg4p4jUD2/5q8sAxLksOZyWEuyVoSsgCKcxDzS8244+N6
- Q61mRbsGOZPBhhIyxn3JHvyAkw/6PxwVh0PaKAoK8MkuH5aGIjiKUGQg3BticssG1OBN
- zw1TOC+NBdJ96baL/GLfLciEH4aaFTAcNZZN+LBkFQ3PTufRZ9CgZhg3vnMNP7WlNn93
- nfRXKqj3RRWgO6d5/0Nv0fHG8ud3e86y90xMBKfX2z47YAy+0WP146e2v6xeYnZ8ueEW
- /TQuiKH8qcnCxqbM1la+0noow37AeFIj0s14ut2X+GBk9Z4R9t5l0PmR8vyLkLZw3Yc6
- 7DLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=yxbtIRa2t2rc4pTtPgtuFWbHaqZDE/SQK7e3xhl2bbs=;
- fh=A08XZwmmb57jzirbgTkluPSvjDeiJMkkojF1n6qDmTk=;
- b=faLxeq9wwxnNe56FGR1vgHgStFslbHxnU4d3qyu1q41IQpEA6vORihRUoTKkuafMfe
- GGFp+3E4JsU+WQZljHkQr0uv4Gnb2rEr2/tD420gPqlB1EnpKP4q8O0tJC2bnQrbmE9D
- 6JYsjOvWNkT5LMjniWa+44NKDj6e3Y9nvlvsXLc8xs7CG08lyrGJ9Xv4s9JfAWA5Ofql
- c+o/yw0EMdtnV+xm/uhy/0sTI3t/whhD6ve9pOK9rH5nJxML3LQVmHU055jIk1c/DtDT
- /SphFZm1YfFyLvI0LU8N/Z15uCzQXNeiHcF25+LHsgg1gOwnxiTa7mlJXLqxGA61Tn4Y
- qc2w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775208769; x=1775813569; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=yxbtIRa2t2rc4pTtPgtuFWbHaqZDE/SQK7e3xhl2bbs=;
- b=BgdYFo6aUiJ+xPuzFQDFS2nvc0tDhNDyiAzuBMibOLqf71VgjSWBB5we2taZ+dV29G
- tHwJMJ/so+FwrEciqQHG9OmSLkioiEORpl0fKEX+EjU1e7mWI33Kh2ZpAoHzd6ZTbK91
- ElccjguDB20sZ8x3N8zwl80M2+CD/fj7oLMyjY9UMwKS5Rj6QsCgMeiA4b69zx1Wc2M4
- ifEMBIRfmgSYujgCisPuZEj7i8LIEAgqshNCPUpEvmsIYRpNl/Z4EBqfU9IpQbk3wefC
- +r+S2enCUw8JOGpDAJYAiJhLgmFDOsKzT9GyU/o9iXdOCWxL6SBFQ3YbDyysEgTPXIsw
- YmbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775208769; x=1775813569;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yxbtIRa2t2rc4pTtPgtuFWbHaqZDE/SQK7e3xhl2bbs=;
- b=q0p3sFcAcgcLZVKsl41JJNxDRlDGuHiM0yDKKh+Iv0QS8A0O5TLQYmCy1cBTOIK8jS
- UGlc5Hk2lIrPjKQDHBxUY15oh+vAlR/Htj8VlJ6lCChdUULacp57fnQ0v2R/RZBfcTtO
- PUrSgiwBVGAU4fbXR6YouqTstkczhgkdkofLOPgmw7KovEY0wNbjJ1C80xDqs9IfpMws
- OF9PzgyUZ0EeSfVWm7f1McghufmN1eVPtYEfP9tG0xiL67Bqr8gmHMQSDscHVXcIBz6M
- Mz1jJ9uicwA6E00jifuKlvmWNxhrBWkPS+UFr4++AOHZI65uP77Fhxyup9/zOqEhcFEr
- 3A8Q==
-X-Gm-Message-State: AOJu0YwucG5M/bl/eLOL5PfLZ186z/9NKc0EAnHR7YsVUpxW9VhMaRlJ
- 13PjNzxnsSDBnSAhosULhVw+6C9MXraoaCBMfD2//HWQCbWhnvMXIxAJ0Wd/r/tGa8Pg/luWSvE
- +KhZabqp9KphdrPtsfHm2SZRleDkoaqE=
-X-Gm-Gg: ATEYQzye2tKH3pONVcB57afLrEJAzqJa8BAyAXN/vN6T/3LqKwh2mcOnJSFEbRIlQoB
- /81sUh8br1YXjFsp8TBDTSMYeZYxDkmFBvzH913ZMuDIT2DNelS6OjoZR6KeXbRaVGAJMxP4Bi5
- VU/HJ+QLHUGYo4T0Z5SmBq52WhRkqK1H67L84fZAAmWHaPnoNwQng/mWbOMv99OOPjQA3xCV1PJ
- qP7rF632FI05rBR9qzNyarpWeowCQnbh/nznuLinAuYr3kGTMn5pOEQYcFEmpw9+4Q8OSO8yxxK
- aPcXJFnWoiRiXy4ZoskSswO2pbhL6ljsv/s/95hhnuDV6vHRktkg6jSFa1m70w1jB80=
-X-Received: by 2002:ac8:5a06:0:b0:50d:5b62:5ed4 with SMTP id
- d75a77b69052e-50d627587bdmr37399551cf.19.1775208769412; Fri, 03 Apr 2026
- 02:32:49 -0700 (PDT)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011009.outbound.protection.outlook.com [52.101.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E474710F48B
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 09:34:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xrqYlGjZEGqO2BnVHvcKD7Z0GpDwT9ee4Qbgk+1l7ZjB5GYdy01PTv6e4L5p5EG366juWejm1AiztnfTu/c/XL07dtvbhCivNoX0iPidU0OVvQITqiyL3GV2Rit9+YNT5LlaKU+vw4m3ksszf9SyLYlQJsXX9WMhqtAEh3J6epBDAoMJq1oAQAZb33mZJRHw401VtGbcreDnZyWt6YCnryo0we2gyOwWk5VTPXCwMVU9ROTLg8PtI02QyUpd3OE4FGZYHh2Q2WABXJpFtT6lmnjWmGySYls6n/+KuugcxBT7i0lCT4hRL++xVVdum59A9NeFtAC38Of5buTHwDJ76A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RVmT/WlN+VsGcSpN+sNolSrteDQUxXvGdTYtp70UG80=;
+ b=hNYtQHpnZ2DdLR0dJ5x7u6IxDdruo3i/Ye9ZXl+ETd/2wEQCB0osje23kCV6VG4vvX3ve8Qh6fTDbwBHqfHuMTh3IGyBmvGT9N0FIs7AcDndUe15KWCYDPhqUGeXxCySFB/jy11gCo0MVqgdrJHl6FlGgkL4J8e21vuRM0nNaQB+gs6KpeCJm7ToGCnH7VhhuLcntZLLmpi4WgU6X3R2+81O3Z3o7aeqzzrWDcxMyUNWNjUtg/0m+sRuF6qp3JpU8pHG/rIGSa+xvKg/oSlS+y4S3BEYfxoJGIssVHa7K1uY7EXqZexO/9aelyPTDRsOd4xDluey6Qm0TG0Uc1ioug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RVmT/WlN+VsGcSpN+sNolSrteDQUxXvGdTYtp70UG80=;
+ b=Vec81VZg5FxtLEog+o0EI3K8YjhKW3JdExJKeOpuNSE1RRI/F3qA6VwhsoupBMKzVOvmT4Mhpj0NRept4+5kJagWs9qcELQaRBH4wo6X2B+SOFpGAyfAE0VGlzkmCG34RaEUkvRDKteWyJSOSjGz+1TecIG4ksiU423aGobbUa3CDiUIlovvOBuSeJngp5DuicJ9ObCPYCT8+RMWsJPfDkQG2F1nIa81G/+/4AcJZONiOrHp8ufJ9kJ+WK5Ibm5MTWR2sjH04xp6nbi7+CIZZ0XuPe6+0htyVjegZ84nuEyyTutZ1jf4jCLP0FiQWJV0pfuYrNz1fZDRac/sqReWmw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by VI2PR04MB10836.eurprd04.prod.outlook.com (2603:10a6:800:276::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Fri, 3 Apr
+ 2026 09:34:19 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
+ 09:34:19 +0000
+Message-ID: <37b06014-33fb-4c4f-bbe9-bbaa411b9d1d@nxp.com>
+Date: Fri, 3 Apr 2026 17:35:26 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/11] drm/bridge: imx8mp-hdmi-tx-connector-fixup: show
+ a warning when adding the overlay
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: Damon Ding <damon.ding@rock-chips.com>,
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260402-drm-lcdif-dbanc-v3-0-27cd247a0847@bootlin.com>
+ <20260402-drm-lcdif-dbanc-v3-9-27cd247a0847@bootlin.com>
+From: Liu Ying <victor.liu@nxp.com>
+Content-Language: en-US
+In-Reply-To: <20260402-drm-lcdif-dbanc-v3-9-27cd247a0847@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: MA5P287CA0089.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d4::9) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
 MIME-Version: 1.0
-From: Dave Airlie <airlied@gmail.com>
-Date: Fri, 3 Apr 2026 19:32:38 +1000
-X-Gm-Features: AQROBzDny9zjBdKv5HsjRAh6R0bqwQPLuGKPoDB-IrEAz-LrQeClGUDM98tJalE
-Message-ID: <CAPM=9tyDYx6BAWV_KzJJ2h3LfxvmNgBj0DqV4qfEz7XvChVjaA@mail.gmail.com>
-Subject: [git pull] drm fixes for 7.0-rc7
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|VI2PR04MB10836:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec22d7e4-2da3-4503-af72-08de91642e24
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|19092799006|376014|7416014|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Z70OpVziTqJigL8YJUddQv46Rt8BwlVFs8hJVo3akyeepJ+1mrhgpZS5V7BPNQixxCebvewvXQYlEijI06jnaXPaYg0Swokrz74HKEf9ENDF2y7OO5AZCpPHpfukBaqMN8to5q1yfXgVFSSBUBtrLaGElugbGQ3n19D20nPD35AqmHyY6gW9vLpZt2u58l3TLRVrOug4SVqVvcMtkT8bHHcFGApSu8N1HEQ93b4W17lJF1aZ6llxH7+Q9+pmCpwhQUWB5tYMe5ohGllvOT14gMmTu4QNbZiY+oRJPfPCVJRNMXjtkUk75ghh/xsdpXX+xx8Lz/BTxS5Z/3vz9BKgYyZlJ26nxnrHdRlaUrykCFtfF001okMBNN1CspXPEsLy8e/oavZ/Me6AgsNOX+9V0Fz8e5K5kan/k0VNAtScLEzW0EonFp0efSmu1oNoHHrrhvinPs7fBzbBrFuFbRWuiS1MpfbcP42VtQj9Q2mIShlwvgTWbhLAv6AQhxcJ/FTrjwODVQoxCq7Lram025EoSMJsq/g49IbDpsh7CfB0ftYh7jRrgsTmvx2PCpGdHeS2SM0m3kTfltdJ2E62otF29clBxuuI+jhq/w6i0YiVmrnY8L+uDlWWQLi390tCsgzrOUGQFmH8a4I4Pl4RJPIf2w2Vf1NSLrXEGeaIFqj0MWLn07zQNPTD5Ccsc3YNj9ZQHA9xW9vt05DTliHSWb92ToIGSNJ1DYia5rVz8x6TGN5SstsLFAGMhsb/q41zlB6j4BO1cPwjkT396P70LT9saemDWMb5othPsBnuOj7An/g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(921020)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUI3eTVWSTh1eWl5QTQzUElxbk9jTzFXQWZMUUNjTExHVDdBTjFvMjM5cU9K?=
+ =?utf-8?B?N3d6QXZjeTlWeDlEUFlPTFZiYjhaeXlLVm1ZY0duY0RMOFAxYjJRZFlWOE1p?=
+ =?utf-8?B?WUJoSVptYTRDSDBlbHh3WnhPNkhwRWhadVJFdzVCdHdocFAybnJOVHNZZ0M1?=
+ =?utf-8?B?VDd1RlJFQUVZZjA3aUhjUzlsVDRPb1Y1RGc4Sm8vRmxFbFZPcnc1bm9GT1l6?=
+ =?utf-8?B?VXIvWG1WTzRDS0JxeGQ4TCsrNGRUYThGZWhDc1M1TVBaWkYzNG4xSXFTazRB?=
+ =?utf-8?B?L2ovUTlEbW9ueGZkdHVHSFd6ZC9zaEJVWlNUSWNSOVpUM0dxelRJL0RucWI2?=
+ =?utf-8?B?K2lZcUZ6b3BjcXNxelN4dy9yU1RBYTlCOGFhdmxaNXptYktUajJYN1I1SGdD?=
+ =?utf-8?B?d2ZaT01YVTViTkx0V3lLSUp6UVF1bXJTSW1IZldTRXcrZVpzOXp0bTMzYytj?=
+ =?utf-8?B?bWZLdE0rSjlMMGRnMlhuRU8xRlJyeEF3ZVF5Ni8ya1krY1VONEljczhqTzFq?=
+ =?utf-8?B?N0FXcXk3emNJM2lmN1JHdWxFeHVuRWZ3MWo4aVdid1QyS2pLalAyUm5RL2VX?=
+ =?utf-8?B?M0p2OG4rSHdaVDlrSitybnJ0NG1BRVN4b3NxT1M4cm1zaDdYbWVSWkk5Q3BR?=
+ =?utf-8?B?QXJqbGNMU3NENlNKMXlmRExHeVNIMEdhZmllQjVLK2lreTdqeW92N3NxdUk2?=
+ =?utf-8?B?UGE5QkVNbnNVQWtJZG9CZkZaMGtacjlPTjBKTnhuZXFQV044RHVZNjQwNDZi?=
+ =?utf-8?B?QkRvQy9YdWVRdktHb1U3azl5Q2xFQ1JYakFiSWRiWEJrTHFBZkkrdTRFbFlW?=
+ =?utf-8?B?S1BPUjhnMGxmekhRUXd6MzI3ckxVeHI2L01VM1hLN2krY28valJPcmljVTNk?=
+ =?utf-8?B?NjErL2d1TG1VRHowcUdDWlR2RjZvVVBLUndaOEVJMWdOQ25NanhEeldWTFNC?=
+ =?utf-8?B?ZUIwdzIxKzFhdkNwaW5kK04vY1A4Q3hFS01MS2RxVUZrQmNXdVZhb1FjWkxy?=
+ =?utf-8?B?M0hlZDYzd2RDVTZqUE5OOVdQczlLbUNmWUoydnpncFRmbUJ2WFdVNVRNVk5P?=
+ =?utf-8?B?MVorVkpVd3V1elhTcFpNSnFzNUFnTlFMMThGaitIeEhXMDZlMzVkKzBYM2xq?=
+ =?utf-8?B?b1FNZDlsSUlpSkRUdGZESEdONUN0KzNpWklVT1QydXB4REEyd0YxeXp3S0VH?=
+ =?utf-8?B?SGxNaDVwcG9rRkRlVjYybXlyVE1FV1F5NzJJeUlPZlpzOS81aVhGbEU0UEN6?=
+ =?utf-8?B?bTlRdEs3dW4wV0FsOXp6OS8vSHhTcWw3Q2NHbVdZeC81ZDc0a2JVVGZmYTcw?=
+ =?utf-8?B?RDE0NjFBNEJBb2dSZk5sNGFwOWZJaStIajM1clg5VzNrNnhUN1NLQ0FNMVlC?=
+ =?utf-8?B?OVdLeWdOSTFZRzNCb2VFZ0NzRXk2S0R5M0UweTQ0QzR2Z2h2Y21zQlNlRGg1?=
+ =?utf-8?B?Nnh6dHFnaGI1c3lJYzQ0ZFY5eEg3My9veTk1K29WQXhPUCtyNk5FeUlBK0FS?=
+ =?utf-8?B?a3J4bGw3bDlNZWRCNTVOVXJZY1FQa2xiNEFVV28zUDBJWHhuSVZta0grcS9U?=
+ =?utf-8?B?cXlPUW1pa3ZHenNXelFBVEJsZkZXT1NWbmVBSk9UTEpqZ0l1UGVwR2V0SVJs?=
+ =?utf-8?B?ZlQ2YmRKend4NThRclRUQS93cnFjRm9yL3ZZb2dkM2VYdnNlTlhoVldsb3hQ?=
+ =?utf-8?B?NjlzUmd2YXlPc3BuU016S3Jwb2ExSEMxTEl1VWRab0w0bm96QVVNM25pNGNH?=
+ =?utf-8?B?N0N3UXJyUXR1NGE4KzNhZE1tV0VYWDlad2xub1RLRGNJbWhRTmxtK3dKQzJi?=
+ =?utf-8?B?WGxqNE5tMXhuRUNLcmZGQWdJWUZ6WERjMFFsUHRmZFhUcGo2eHhIN01COFZB?=
+ =?utf-8?B?d0NhZ0g0NitYczJRcWpLNEdUWHdyc2RSTU5yanZTdnVETGxWak42cWNOUFJ4?=
+ =?utf-8?B?QU0xcnBySEZaQjNWcnFleUppUng1aWdPTFJXQXFJSjRPUWhFN3VqUWE0Yk5D?=
+ =?utf-8?B?MWxwLzJMUHdjcFUwaVhkbjM5Yzh2bVV4UHMvYVF2VU5Na3ZpYnp1SWk0RDJj?=
+ =?utf-8?B?WW5NLzdoTmRXVEhMcFVCMVRpZ1VMc0ZBSWNLSXhlRW9Ed0VyVjRicG5GNGp6?=
+ =?utf-8?B?dUNic1NYek52NmhJY0RpeHpwQjZtTW5YbXJmd0JweER1UlBUQ3lCQnpINzJX?=
+ =?utf-8?B?dFgvdFlPUXdRby9ub2JhcGpNd2luUU9MWXRDd2d2cmc5TytHd1JrMGpKV3Ju?=
+ =?utf-8?B?R3JwZlNvTkhPWGt5VEw2WEdSUG9TOXlZUmNqdFpEZlIvWGxORzloMGpmWnNJ?=
+ =?utf-8?B?LzNZeFZuNWgwL3Y5endVTlRLdnVXMkRuL3dtbGo1VVZ1TVk2Nyt6QT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec22d7e4-2da3-4503-af72-08de91642e24
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 09:34:19.2105 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wv8qeiX9ZG7zUFINt5JgWfRYWhbrX/al5+wlZJCGTMGWdDei3FyCCh+vjPSotDNlZCM6V38CvVI5g01i90c8+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10836
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,251 +172,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Linus,
+On Thu, Apr 02, 2026 at 11:26:04AM +0200, Luca Ceresoli wrote:
+> Describing the HDMI connector in device tree is recommended. While the
+> overlay insertion is a workaround to avoid breaking existing devices, every
+> dts should be improved by adding a connector description.
+> 
+> Add a warning to make users aware as far as possible.
+> 
+> As a warning line cannot hold all the relevant info, add a detailed comment
+> in the code so it easy to find when the warning is seen.
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+> ---
+> 
+> Patch added in v3. Kept as a separate comment w.r.t. the patch adding the
+> overlay to let it be added in a later moment in case we want to convert
+> existing dts files before adding the warning.
+> ---
+>  .../gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
+> index dc1736bfc3ac..f6190d86abd0 100644
+> --- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
+> +++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
+> @@ -44,6 +44,23 @@ static int __init imx8mp_hdmi_tx_connector_fixup_init(void)
+>  	if (endpoint)
+>  		return 0;
+>  
+> +	/*
+> +	 * Boards with an HDMI connector should describe it in a device
+> +	 * tree node with compatible = "hdmi-connector".
+> +	 *
+> +	 * If you see this warning, it means such a node was not found and
+> +	 * a fallback one is added using a device tree overlay. Please add
+> +	 * one in your device tree, also describing the exact connector
+> +	 * type (the added overlay assumes Type A as a fallback, but it
+> +	 * might be wrong).
+> +	 *
+> +	 * This node is necessary for modern DRM, where bridge drivers do
+> +	 * not create a connector (see the DRM_BRIDGE_ATTACH_NO_CONNECTOR
+> +	 * flag). See https://docs.kernel.org/gpu/drm-kms-helpers.html for
+> +	 * more info.
+> +	 */
+> +	pr_warn("Please add a hdmi-connector DT node for imx8mp-hdmi-tx.");
 
-Hopefully no Easter eggs in this bunch of fixes. Usual stuff across
-the amd/intel with some misc bits. Thanks to Thorsten and Alex for
-making sure a regression fix that was hanging around in process land
-finally made it in, that is probably the biggest change in here.
+Missing '\n' in warning message.  With it added:
+Reviewed-by: Liu Ying <victor.liu@nxp.com>
 
-Let me know if any issues,
+> +
+>  	dtbo_start = __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
+>  	dtbo_size = __dtbo_imx8mp_hdmi_tx_connector_fixup_end -
+>  		    __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
+> 
 
-Thanks,
-Dave.
-
-drm-fixes-2026-04-03:
-drm fixes for 7.0-rc7
-
-core:
-- revert unplug/framebuffer fix as it caused problems
-- compat ioctl speculation fix
-
-bridge:
-- refcounting fix
-
-sysfb:
-- error handling fix
-
-amdgpu:
-- fix renoir audio regression
-- UserQ fixes
-- PASID handling fix
-- S4 fix for smu11 chips
-- Misc small fixes
-
-amdkfd:
-- Non-4K page fixes
-
-i915:
-- Fix for #12045: Huawei Matebook E (DRR-WXX): Persistent Black Screen
-on Boot with i915 and Gen11: Modesetting and Backlight Control
-Malfunction
-- Fix for #15826: i915: Raptor Lake-P [UHD Graphics] display
-flicker/corruption on eDP panel
-- Use crtc_state->enhanced_framing properly on ivb/hsw CPU eDP
-
-xe:
-- uapi: Accept canonical GPU addresses in xe_vm_madvise_ioctl
-- Disallow writes to read-only VMAs
-- PXP fixes
-- Disable garbage collector work item on SVM close
-- void memory allocations in xe_device_declare_wedged
-
-qaic:
-- hang fix
-
-ast:
-- initialisation fix
-The following changes since commit 7aaa8047eafd0bd628065b15757d9b48c5f9c07d=
-:
-
-  Linux 7.0-rc6 (2026-03-29 15:40:00 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-04-03
-
-for you to fetch changes up to 75f53c4b2dbca831bf91e9befe06c9ad58f29352:
-
-  Merge tag 'drm-misc-fixes-2026-04-02' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-(2026-04-03 19:07:43 +1000)
-
-----------------------------------------------------------------
-drm fixes for 7.0-rc7
-
-core:
-- revert unplug/framebuffer fix as it caused problems
-- compat ioctl speculation fix
-
-bridge:
-- refcounting fix
-
-sysfb:
-- error handling fix
-
-amdgpu:
-- fix renoir audio regression
-- UserQ fixes
-- PASID handling fix
-- S4 fix for smu11 chips
-- Misc small fixes
-
-amdkfd:
-- Non-4K page fixes
-
-i915:
-- Fix for #12045: Huawei Matebook E (DRR-WXX): Persistent Black Screen
-on Boot with i915 and Gen11: Modesetting and Backlight Control
-Malfunction
-- Fix for #15826: i915: Raptor Lake-P [UHD Graphics] display
-flicker/corruption on eDP panel
-- Use crtc_state->enhanced_framing properly on ivb/hsw CPU eDP
-
-xe:
-- uapi: Accept canonical GPU addresses in xe_vm_madvise_ioctl
-- Disallow writes to read-only VMAs
-- PXP fixes
-- Disable garbage collector work item on SVM close
-- void memory allocations in xe_device_declare_wedged
-
-qaic:
-- hang fix
-
-ast:
-- initialisation fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu/pm: drop SMU driver if version not matched messages
-
-Arvind Yadav (1):
-      drm/xe/madvise: Accept canonical GPU addresses in xe_vm_madvise_ioctl
-
-Chen Ni (1):
-      drm/sysfb: Fix efidrm error handling and memory type mismatch
-
-Daniele Ceraolo Spurio (4):
-      drm/xe/pxp: Clean up termination status on failure
-      drm/xe/pxp: Remove incorrect handling of impossible state during susp=
-end
-      drm/xe/pxp: Clear restart flag in pxp_start after jumping back
-      drm/xe/pxp: Don't allow PXP on older PTL GSC FWs
-
-Dave Airlie (5):
-      Merge tag 'amd-drm-fixes-7.0-2026-04-01' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
-      Merge tag 'drm-intel-fixes-2026-04-02' of
-https://gitlab.freedesktop.org/drm/i915/kernel into drm-fixes
-      Merge tag 'drm-xe-fixes-2026-04-02' of
-https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
-      Merge tag 'amd-drm-fixes-7.0-2026-04-02' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
-      Merge tag 'drm-misc-fixes-2026-04-02' of
-https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
-
-Donet Tom (4):
-      drm/amdkfd: Align expected_queue_size to PAGE_SIZE
-      drm/amd: Fix MQD and control stack alignment for non-4K
-      drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE to 64KB
-      drm/amdkfd: Fix queue preemption/eviction failures by aligning
-control stack size to GPU page size
-
-Greg Kroah-Hartman (1):
-      drm/ioc32: stop speculation on the drm_compat_ioctl path
-
-Ionut Nechita (1):
-      drm/amd/display: Wire up dcn10_dio_construct() for all
-pre-DCN401 generations
-
-Jonathan Cavitt (1):
-      drm/xe/xe_pagefault: Disallow writes to read-only VMAs
-
-Junrui Luo (2):
-      drm/amdgpu: validate doorbell_offset in user queue creation
-      drm/amdgpu/userq: fix memory leak in MQD creation error paths
-
-Lijo Lazar (1):
-      drm/amdgpu: Fix wait after reset sequence in S4
-
-Liu Ying (1):
-      drm/bridge: Fix refcount shown via debugfs for encoder_bridges_show()
-
-Maarten Lankhorst (1):
-      Revert "drm: Fix use-after-free on framebuffers and property
-blobs when calling drm_dev_unplug"
-
-Matthew Brost (2):
-      drm/xe: Disable garbage collector work item on SVM close
-      drm/xe: Avoid memory allocations in xe_device_declare_wedged()
-
-Prike Liang (1):
-      drm/amdgpu: fix the idr allocation flags
-
-Srinivasan Shanmugam (1):
-      drm/amd/display: Fix NULL pointer dereference in dcn401_init_hw()
-
-Thomas Zimmermann (1):
-      drm/ast: dp501: Fix initialization of SCU2C
-
-Ville Syrj=C3=A4l=C3=A4 (3):
-      drm/i915/dsi: Don't do DSC horizontal timing adjustments in command m=
-ode
-      drm/i915/cdclk: Do the full CDCLK dance for min_voltage_level changes
-      drm/i915/dp: Use crtc_state->enhanced_framing properly on ivb/hsw CPU=
- eDP
-
-Youssef Samir (1):
-      accel/qaic: Handle DBC deactivation if the owner went away
-
- drivers/accel/qaic/qaic_control.c                  | 47 ++++++++++++++++++=
--
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  8 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           | 44 ++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h           |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 16 ++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  7 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  2 +-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         | 16 +++++--
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c             |  3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    | 23 +++++----
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c             | 11 +++--
- .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  | 17 ++++---
- .../amd/display/dc/resource/dcn10/dcn10_resource.c | 41 ++++++++++++++++
- .../amd/display/dc/resource/dcn20/dcn20_resource.c | 42 +++++++++++++++++
- .../display/dc/resource/dcn201/dcn201_resource.c   | 41 ++++++++++++++++
- .../amd/display/dc/resource/dcn21/dcn21_resource.c | 34 ++++++++++++++
- .../amd/display/dc/resource/dcn30/dcn30_resource.c | 42 +++++++++++++++++
- .../display/dc/resource/dcn301/dcn301_resource.c   | 42 +++++++++++++++++
- .../display/dc/resource/dcn302/dcn302_resource.c   | 41 ++++++++++++++++
- .../display/dc/resource/dcn303/dcn303_resource.c   | 41 ++++++++++++++++
- .../amd/display/dc/resource/dcn31/dcn31_resource.c | 40 ++++++++++++++++
- .../display/dc/resource/dcn314/dcn314_resource.c   | 40 ++++++++++++++++
- .../display/dc/resource/dcn315/dcn315_resource.c   | 40 ++++++++++++++++
- .../display/dc/resource/dcn316/dcn316_resource.c   | 40 ++++++++++++++++
- .../amd/display/dc/resource/dcn32/dcn32_resource.c | 43 +++++++++++++++++
- .../display/dc/resource/dcn321/dcn321_resource.c   | 43 +++++++++++++++++
- .../amd/display/dc/resource/dcn35/dcn35_resource.c | 43 +++++++++++++++++
- .../display/dc/resource/dcn351/dcn351_resource.c   | 43 +++++++++++++++++
- .../amd/display/dc/resource/dcn36/dcn36_resource.c | 43 +++++++++++++++++
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |  1 -
- drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |  1 -
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     |  1 -
- drivers/gpu/drm/ast/ast_dp501.c                    |  2 +-
- drivers/gpu/drm/drm_bridge.c                       | 16 +++++--
- drivers/gpu/drm/drm_file.c                         |  5 +-
- drivers/gpu/drm/drm_ioc32.c                        |  2 +
- drivers/gpu/drm/drm_mode_config.c                  |  9 ++--
- drivers/gpu/drm/i915/display/g4x_dp.c              |  2 +-
- drivers/gpu/drm/i915/display/icl_dsi.c             |  4 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c         | 54 ++++++++++++++++++=
-++++
- drivers/gpu/drm/sysfb/efidrm.c                     | 46 ++++++++++++------
- drivers/gpu/drm/xe/xe_device.c                     | 27 ++++++-----
- drivers/gpu/drm/xe/xe_pagefault.c                  |  6 +++
- drivers/gpu/drm/xe/xe_pxp.c                        | 23 ++++++---
- drivers/gpu/drm/xe/xe_svm.c                        |  2 +-
- drivers/gpu/drm/xe/xe_vm_madvise.c                 | 16 +++++--
- 48 files changed, 1013 insertions(+), 108 deletions(-)
+-- 
+Regards,
+Liu Ying
