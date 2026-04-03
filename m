@@ -4,125 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDDA1E8537A
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 17:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6544BE8537A
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 18:00:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39ABF10F3E3;
-	Fri,  3 Apr 2026 17:46:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B5E10E075;
+	Fri,  3 Apr 2026 18:00:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="f1yT73xc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fwwiobBa";
 	dkim-atps=neutral
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazon11010061.outbound.protection.outlook.com [52.101.228.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FA9910F3E3
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 17:46:36 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23D5A10E075
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 18:00:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qbLURXKoLE/VWuSt9Tx4JYztN6idWpslMt+SyDA8jmGxenITIxfkQDDGLAj6FBhvjYiVTFJXgmezf1CgeniO5JqbJwqlr66v5j1yFJlqkS4dxd7NhCpWCaRMFOxn7bfjLC/uGykxn7GDl/LoKqeFh+Kk/8CAJUVVuEK7bVxO+aNkSx36sFJ82AlxJzlWJrgq14vg57Zde9XmIMEjqu9tEVSekZp23isb6lx70tGAF+pF90eO4VBsusaarMi7rzpklf/iaINwfQQypkzjavTHV7vu9E/e4h8NSBWAhtllskPQEFLEXum9D91fKEhjLJ/gu1iTQVGCWixGTiQniZVvHQ==
+ b=yrGvSbb8313ygHasG8+I9govNUjh9lDJf7ysi8CpKff/5qvntwfuGyEAsF1aWUcqCrhv2KOFNgaeB5N06iU9F55vwckWgzZe0dHNLijJ4O/RJgbGW4scNQXFAOyxND0uF1tUe7KOjNUcxLJ+DHr6h6c0OAQXMd2YkkccUyJxD3XY4tfpUvFoLC4ZFeMK/fe2ybEe5JhmrDaMPBr+V4JOAHLidL0hVIl4IA3OCVUcEzsu375MSOXIDGfTXE35ZORYEC1uscxNvtL8kL8zubOnvEyiWBaJyA3lhxIEZzXh1C9C6hzJi4NMw+BSdGqg0qrgh1b4r/i673G2ZPfXgmT16Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jkxLY8ROdKMH9SzD2CwB9EmehMSmbK1qODpeNEWiHH0=;
- b=ByQ/nHatVA5BaaYRMkze2oxoaJIOax8BUon+NjUFNqjiZyxSvpMweTV2f/oNodbPDmguwXBp4Sm4+j5vorrN1K/PrKDjjz0srMrLKba3LTQ+2okmM6ZNm0gDVnSqFVoiRuHQqg3SYoW/uK5Rq4rifq7RnNNy5q+XPwx/hS+S1jIGCwXgWBX4555+LSq63x63zr/E8sxWi1bRRDTP2MRq3Gd0iPikFLMC0ALf5aK/OgpGZNVxfTmxE5cybsEG6nmLCmBrNFiAebvx5z1Zj99IQ5CqaXT8lpG8EUw1VwjFE/qcFdjolVMBR+itF2xcyohKKS/r5Dg2/QzMiuMVarr/YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ bh=+mEzRXl/sPJfxC7y/+w2xUCZ3D08HfwBw3Hi+h5YZ+w=;
+ b=FLmA4KazUWC4cWo5L6+WSOu2g75ml7e4Lx+3O1IMeeDeK3935YvgdjiwU7skZx+jYbK3BcYBI2ve7Dqaby2OGZqnzNbel2FXrOCBEv8I5plf6sfNs3sTrSVxanbHvj8Gwvaeh4oqkXAN3NmIY33VN80lfrPfUJnEHMCFCtiduG4eaENMCpReeafyl7u7wJcTgccKXmdySBhvvp29U0KBD/11X1TrqzjR7TvhAMG9C6ksSpMKNVYG7QEP2BY2k9lIu9mId37kHqhQhAdWXQnlb15cVGQOzrTGK0PcjauQkZh6rxPRTsGUOOWMYkDcFtxb2YfgX2wZRmdUeHre87B+Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jkxLY8ROdKMH9SzD2CwB9EmehMSmbK1qODpeNEWiHH0=;
- b=f1yT73xc7j51mT8aVV5XGEbxIXggxWCdvhgRBZcRGeTFGHb/wLFAFJCrla7mZ6Dn6Gj3AxAa6aIUeR6lI0Kx8giI0HRWn6u3Jwme1yrwS/e0mUjBP95OkwbKYlQ/1twECLA74h+wo4j4iA0tL1ibR6EgV/QcFy3oXWUM2nY0PIs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by TYRPR01MB13850.jpnprd01.prod.outlook.com (2603:1096:405:219::12)
+ bh=+mEzRXl/sPJfxC7y/+w2xUCZ3D08HfwBw3Hi+h5YZ+w=;
+ b=fwwiobBa6SMVj1JruXxqXfDmzSECunjmJ74kwwklsAOb2rLCMREXzOXyxuiPQn7E3z0o1lnnEtjDRGXOU1ClMmDPhXsnCbai/hc9zvJrNQg200WAIQU0BCHahVILMwYozu66cFRIesoWevllIv9DffKlzTSpqSl5qqUm3geb/5Q=
+Received: from SN7PR04CA0187.namprd04.prod.outlook.com (2603:10b6:806:126::12)
+ by SN7PR12MB8058.namprd12.prod.outlook.com (2603:10b6:806:348::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Fri, 3 Apr
- 2026 17:46:34 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Fri, 3 Apr 2026
- 17:46:34 +0000
-Date: Fri, 3 Apr 2026 19:46:22 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chris Brandt <chris.brandt@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] drm: renesas: rzg2l_mipi_dsi: Increase reset
- deassertion delay
-Message-ID: <ac_87h-5d24BJmDX@tom-desktop>
-References: <20260330104450.128512-1-biju.das.jz@bp.renesas.com>
- <20260330104450.128512-3-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330104450.128512-3-biju.das.jz@bp.renesas.com>
-X-ClientProxiedBy: FR0P281CA0012.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::17) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 3 Apr
+ 2026 18:00:34 +0000
+Received: from SN1PEPF000397AE.namprd05.prod.outlook.com
+ (2603:10b6:806:126:cafe::e8) by SN7PR04CA0187.outlook.office365.com
+ (2603:10b6:806:126::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.20 via Frontend Transport; Fri,
+ 3 Apr 2026 18:00:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397AE.mail.protection.outlook.com (10.167.248.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Fri, 3 Apr 2026 18:00:34 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 3 Apr
+ 2026 13:00:33 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 3 Apr
+ 2026 13:00:33 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 3 Apr 2026 13:00:32 -0500
+Message-ID: <3b4cbf4b-0ca6-b2b5-36d2-23547b23c708@amd.com>
+Date: Fri, 3 Apr 2026 11:00:26 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V2] accel/amdxdna: Adjust size for copy_to_user()
+Content-Language: en-US
+To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <maciej.falkowski@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
+References: <20260402174148.3527757-1-lizhi.hou@amd.com>
+ <ec41932c-79b9-4301-a66f-e1a50ede017c@amd.com>
+ <474ea416-ddde-88ed-1751-9960dcaef5a2@amd.com>
+ <886cc0f4-fc4c-4681-b01a-352190d6a58a@kernel.org>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <886cc0f4-fc4c-4681-b01a-352190d6a58a@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|TYRPR01MB13850:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5559d8bf-5805-4a2e-b433-08de91a8f284
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397AE:EE_|SN7PR12MB8058:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97b20df9-da24-43ea-c1c1-08de91aae74d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|52116014|7416014|18002099003|22082099003|56012099003|38350700014;
-X-Microsoft-Antispam-Message-Info: KKEQtdrAde7q8SMvMQxcOpazMEv6WUSslYpw1nKOvliilGpUYsfzLodBSqZPRfZpw/t2PTyp0b5aDCMqm3IgTRML5meo7HmryHQSH9U/NbiJb18gZ9yXbx4Q+Y3ufovBNCf+OnVFF5BJ53ol+AIR+bWjroqDKbys7qN+oG1uR2ocIYCFBOOa1LhqXIJ43UEHlMRhq019EFO0TG+XB+ovR6Sl8paYRbCMs7n7zc7PLGDKebc4/OZe0vpt+WteWtyWmpoPGkoBiNavnKTedZ69Zwh4YltBLHeK4Ojcl3ENFSJ2ENqw3Cv5GpHzyRvf6hJkqKiv94xQuiR83EKA6iWDc9wQexg5Oh7Y01UqvRSVc+pU/RMtNWv4+HhVenoRelNgnAeDhDGvh27sohvE14RpQ8bwpRnbGH9PxYf08pNrbSjYrpQHEVjJ+OzAeIJpwLbGP7QeIMKH2bqA1xcdzLB8FWqSBavY4YIozJGGcinv9iy2PBuzvnMTVBqAnBxa5aqQIZ7u3eV7DgeL/auD5qCB7UzGBCitnjN5KEjgzQ3bV5RNO9H+USSKH+JnSclPZ0SL0T4mexmDwofOkplMedATkB3Hj9T/gYOpIcTes2G8mNqQmzDu9Qxb6WvBCgfaas34uBwOQpGVXB1a/Uk4OzQVFaw/BdPX9WpCiJD7seOiuTImdepHcPCHokMNs9nTe3pJbM0wG8kGvhBOeWaZVoYZOjwnOxEDEGyvy3SVrUdu4+SVtODQu0Cow7V2+zYzx5XGE0xUd8mVhMVK8nnQBDytE9O3A9YmwuhSS/y2wyAg3ig=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(52116014)(7416014)(18002099003)(22082099003)(56012099003)(38350700014);
+ ARA:13230040|82310400026|1800799024|36860700016|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: HNwS7hwjQHB1S6wYuEmCLh8QQkMvvzGbyYZTh5naKyOwstVru+SWibrKzXYaiL6LPQuYlbxiDxVJiv3bE3r5wDsILp3SgV8+DFwd91K0jON4lfsuHM3oPk19+93LCs11OuBHK9tU9epFWXEz/+OazbpNcVOv1MMUR1unSuC+j5wBsWTw01Hc2pud0C6nRN28Ojh0AielTURF0s97MKSkwm6vUwkoqToiDsY7Oyl0xtFO2J6opLgImL6Xpi2yOcpE5Y+JTpnHoBCtVz61nApWm+BkkhFwq1YtKgVEy850K+C5kP9O383VaWEXsfQXzC1o/rpB+J8gzQJVldZjolx5KW10clweNaH4BPUvmc2l7Z8iUdYiNftGuNDGruoypqT0W6a5uhiSZ/yunJsLE3O+mWao8Obrm2LBRXIJxPv37vE6Ga4j5unHieDz/iVDwq2FL9W/nulQ3pVMs01tOWUdnSX/xKPb1n5jurl7XxhhLuC1A6fZgoDuxj3R/9ZiEhERRyYB8lq8Idw6C6QskUgKt/7vuWtXB9Fl72evedgToI2YYsreqBs6Uj2+d6oYo6whSNnmivrK2bXmgasdD1YRyBeCKKhmR9MGp6FGI0BKSFYl5TL8XKo0K/zgNBF6Cex7oATYsaBtrB+Q2Zm+XlMyLhS+ifX0nWKr8ndn/J9cfk7pdabNL5ZKKRahZSVyrdEI+rt5ZG8ROyLg9RqmwpgNWqUV2bzdox2ivkpuGj/P24ot/qKYEdVY9l1kHdNHeHPbzY/IL1RvCVm8jJeKu1nxbA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?we1n50UZiYCIlY0tJPLRkk1lTK+Zn4ChSA/KSwW6UzDYUK+1DUwLpbREIZqb?=
- =?us-ascii?Q?wnpfIvHRbD+/g9lNBFGvbBcbgCzl0LH7ECAhR1R/rMipmsvzqGflVscYJKkM?=
- =?us-ascii?Q?LQgncdfXOzWrR+ZvuijSXMtO+Q6vJdiW2Z8J/amI9cW2wr0fQHxBT9oAHEAW?=
- =?us-ascii?Q?z6WbsEoyeE8DQblqyJNg7+xJkR8xMDZGA/o9QGNaVWkZ2xDaKxnQ0cbCKIH4?=
- =?us-ascii?Q?B+oTFvGNPPQAejLgt363d6J1kniUe8lUzuPfV77eZvK1erJGzWG+kmDhKM0J?=
- =?us-ascii?Q?EP5ife2UOXYhY3r/0NZSDUYFjtREa1O1GE718IVXys3KsVMuARUvebOisLM7?=
- =?us-ascii?Q?KJ0hu1EGRli6XfRRw2iMIwSDeNumtOP4uvaIJtZyjfbIPlHM7D+7JVp7FQpH?=
- =?us-ascii?Q?prUY1lbSluwawwvMhYxbt2UNwcyUinurwVHFl+dJqyWfrWynh5crIq0SrKh3?=
- =?us-ascii?Q?hjFa05/T09bH/iP64UK/DJwQngsnGRE3gTgwDvcSJXMcokgpvpCPuR2bdc5i?=
- =?us-ascii?Q?oOLEBm1oDM+T4VubF5njTqoEm3dJa8DE7C5Vl9fvgb0e16YEAlfo7UAwcmjR?=
- =?us-ascii?Q?ahT3S6MOckR8rZS4Xw06sidIZdgLH/qrcgK3F+L2gFazAJEqALf74ypxEuO1?=
- =?us-ascii?Q?PRIuy1GDSIs/rDPH0fNBwqO7qhiI2Yvefk9kQBRZUFO7ycHCPSXcJYThGgAd?=
- =?us-ascii?Q?SVpRv/Zo9EPM+jBGWhhuEHTzipKbE1+AXOWGy3HJTcUR24mXn0eQYbqb4hBZ?=
- =?us-ascii?Q?D0cT7F2iq+yd+ovWFhyfODUtwhQWBT9f9BqgdCKz69J3cKygybjR4tw0x+m+?=
- =?us-ascii?Q?piuQ4kk1owocpvXFpilMmeVv71d7KTjFfxPXIwKmoEQDK59DFbY+S1BUnFfo?=
- =?us-ascii?Q?PNTYYuDFT8Dw3a8yp/mTFZdAw54O1B56OjElct/gVV1iBqllS1oyskiLEVq6?=
- =?us-ascii?Q?CoKcgkko+ZjQLzYro2czET6dLFDsAVkkK8CO26zUUkeUjO69dXct82JSZOS+?=
- =?us-ascii?Q?FFY2z3fWjSIi5CCNayrdnCS2QWLr+htRaKJ7GCiYK1a+eFGh5g0SOr+tt907?=
- =?us-ascii?Q?M/u8jPJUe8+k86PYmhnfe2laeRAYR2ZxJ+4mH8fPsT+bxw0ThCfvZrIwkeMf?=
- =?us-ascii?Q?16mifUoaDcPRx1pRLBdcDgxhx31eTMU3IbBW0Nt2Vgces8NRw8JBkBIDrpy4?=
- =?us-ascii?Q?HBtuTVE5rRuB9yBZmBz5RMEl30b6yMEN2xDWeD1pmi0++Apl2VeL/zEzyJ0j?=
- =?us-ascii?Q?QUEsRcPQ19u9MEs9HdzL8EUv7Q6p+P3KjVo4TXTigQZiZDILmJH5kGDWwSyT?=
- =?us-ascii?Q?SRzD4HKmi67Qd5HZbIMafLR+bHM5CibWQEOkG9pl034S/EdWYDnkgR6/SYWz?=
- =?us-ascii?Q?lv/lX3DT/W5iN3TJ/9CWkmcs/j7BLGzykYBehRX1VhH9a/Z/0bR6UJOOPxI8?=
- =?us-ascii?Q?eIjABK1i1Gbih8XIwvV+Dk+a/RY8cYBWo//DCkXdY8Q8ffhBD0Tkj9C22i+i?=
- =?us-ascii?Q?W7lAneopRBdGqsbVCBwEo9UlQKZ3ved8PSG2/xw6w6eb/9zybSVJKkUE3Oa4?=
- =?us-ascii?Q?2wga/APo011Jy79yxVmwmgEJjGVOX8FWe4GXY/igLKUiI8tm6K5qVZUSU/yY?=
- =?us-ascii?Q?iPilQPtM067V1x5gQ4shWHXqx/r11uLIl3Z25dnFMmhgRv6z2BEg8s/akmpN?=
- =?us-ascii?Q?u7TsCHTqYQCs3gOjWxLVYLvmvsUT/QgUkvc+bWQdG/XevH9H91XfvMRQ4O3Y?=
- =?us-ascii?Q?6JRy47Na4LKELbIUlnPwzCLWGzVYfVQk6HyFv2pgnkws6mbY0Zw1?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5559d8bf-5805-4a2e-b433-08de91a8f284
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 17:46:34.5965 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oc0w7JSfxxJS7cmbo2u64JvUtXrmbcwsR3yLh9W88ZSWGmoW1hSus5i64rNyaDxg/jiN+79Z0toKzt5W+vJq087gatkIFdxGccuHDJtH8cjhlBuZiEJ8zffymHDv4qLx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB13850
+X-MS-Exchange-AntiSpam-MessageData-0: 3onXBgigVXVsMwVlOje48xZpYIcWLyBKjs9j683kURHCwUw7wz88AiMz/4ZUekfhdFeSeBdJVbbjTfUrRmV/1+PVzAbsOqnEsrTiWAbNSi80GONe1+DHJ7v+ZMDoGA/grUv7MPwDzr7TW8rC6Z3KTlI/QAPZOLIAR0fc5W+ibDOs8kPX5Z/i9gvkyM8TwqQq6/y0uiQLV8q1HnySewxFwAulh5az1GFSW18lqfJ+0wHfcOGuWWw65WaHzxW0viXFiXuKCmKlFhYU7wV7913+izUkxqatoJvk0RU/dxhFnrC3YoHphDXjt6q3ubCv9Bx3/s2/AUDd7f6LwhJzQUwXRsw/tdQ+aFMnIkQctTT2NCRfKKp4JmKVW44r+7yIU5j0Bq/YDBE3YyOhS1/3k0/BohIOcB3ETS+TGqGkuFIk//grD79QMHOHoqkY0NugQFte
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 18:00:34.3677 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97b20df9-da24-43ea-c1c1-08de91aae74d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,50 +123,380 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Biju,
-Thanks for your patch.
 
-On Mon, Mar 30, 2026 at 11:44:45AM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
-> 
-> The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
-> requires waiting at least 1 msec after deasserting the CMN_RSTB signal
-> before the DSI-Tx module is ready. Increase the delay from 1 usec to
-> 1 msec by replacing udelay(1) with fsleep(1000) for RZ/G2L SoCs.
-> 
-
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-
-Kind Regards,
-Tommaso
-
-> Fixes: 7a043f978ed1 ("drm: rcar-du: Add RZ/G2L DSI driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
-> v2->v3:
->  * Moved the patch from patch#4 to patch#2.
->  * Added fixes tag.
->  * Updated commit description.
-> v1->v2:
->  * Updated commit header and description.
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> index ff95cb9a7de5..9d9f77d8f949 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> @@ -528,7 +528,7 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
->  	if (ret < 0)
->  		return ret;
->  
-> -	udelay(1);
-> +	fsleep(1000);
->  
->  	return 0;
->  }
-> -- 
-> 2.43.0
-> 
+On 4/3/26 08:56, Mario Limonciello wrote:
+> On 4/3/26 10:50 AM, Lizhi Hou wrote:
+>>
+>> On 4/2/26 14:06, Mario Limonciello wrote:
+>>> On 4/2/26 12:41 PM, Lizhi Hou wrote:
+>>>> The amount of data returned to user space should be limited by the 
+>>>> buffer
+>>>> size provided by the application. If the buffer is smaller than the 
+>>>> data
+>>>> size, return only the portion that fits instead of failing.
+>>>>
+>>>> Fixes: 850d71f6bf4c ("accel/amdxdna: Add query functions")
+>>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>
+> No more concerns after comments.
+>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Thanks, applied to drm-misc-next
+>>>> ---
+>>>>   drivers/accel/amdxdna/aie2_error.c   |  5 ++-
+>>>>   drivers/accel/amdxdna/aie2_message.c | 20 ++++++----
+>>>>   drivers/accel/amdxdna/aie2_pci.c     | 59 
+>>>> ++++++++++++++++------------
+>>>>   3 files changed, 50 insertions(+), 34 deletions(-)
+>>>>
+>>>> diff --git a/drivers/accel/amdxdna/aie2_error.c b/drivers/accel/ 
+>>>> amdxdna/aie2_error.c
+>>>> index 9d20e956c020..70007b4363cd 100644
+>>>> --- a/drivers/accel/amdxdna/aie2_error.c
+>>>> +++ b/drivers/accel/amdxdna/aie2_error.c
+>>>> @@ -406,8 +406,11 @@ int aie2_get_array_async_error(struct 
+>>>> amdxdna_dev_hdl *ndev, struct amdxdna_drm_
+>>>>         drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
+>>>>   +    if (!args->num_element)
+>>>> +        return -EINVAL;
+>>>> +
+>>>>       args->num_element = 1;
+>>>
+>>> I don't really follow.  Why check if args->num_element is 0 and then 
+>>> set it to 1?  Does the check actually make sense? Just set it to one 
+>>> and ignore what's there before.
+>>
+>> args->num_element is used as both user input and output argument.
+>>
+>> As a input argument, it means the max number of element user 
+>> expected. Expecting 0 element doe not make sense, thus -EINVAL is 
+>> returned.
+>>
+>> As a output argument, driver fills actual number of element being 
+>> returned. One element is returned for getting async error case.
+>>
+>>>
+>>> If it's for protecting args like a NULL args->buffer, wouldn't it 
+>>> make more sense to check for that?
+>>>
+>>>> -    args->element_size = sizeof(ndev->last_async_err);
+>>>> +    args->element_size = min(args->element_size, sizeof(ndev- 
+>>>> >last_async_err));
+>>>
+>>> As this comes from userspace, couldn't it end up being clamped if 
+>>> userspace sends a smaller buffer?  Is that intended?
+>>
+>> Yes, it is possible user sends smaller buffer. In this case, driver 
+>> fills partial of its data. This is intended.
+>>
+>>
+>>>
+>>>>       if (copy_to_user(u64_to_user_ptr(args->buffer),
+>>>>                &ndev->last_async_err, args->element_size))
+>>>>           return -EFAULT;
+>>>> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/ 
+>>>> amdxdna/aie2_message.c
+>>>> index e5e7da7a8f40..e52dc7ea9fc7 100644
+>>>> --- a/drivers/accel/amdxdna/aie2_message.c
+>>>> +++ b/drivers/accel/amdxdna/aie2_message.c
+>>>> @@ -369,12 +369,13 @@ int aie2_query_status(struct amdxdna_dev_hdl 
+>>>> *ndev, char __user *buf,
+>>>>   {
+>>>>       DECLARE_AIE_MSG(aie_column_info, MSG_OP_QUERY_COL_STATUS);
+>>>>       struct amdxdna_dev *xdna = ndev->aie.xdna;
+>>>> -    u32 buf_sz = size, aie_bitmap = 0;
+>>>> +    u32 buf_sz, aie_bitmap = 0;
+>>>>       struct amdxdna_client *client;
+>>>>       dma_addr_t dma_addr;
+>>>>       u8 *buff_addr;
+>>>>       int ret;
+>>>>   +    buf_sz = ndev->metadata.cols * ndev->metadata.size;
+>>>
+>>> Don't you want to respect /check the size of the caller immediately? 
+>>> It seems odd to hardcode it here at allocation time.
+>>
+>> ndev->metadata.cols * ndev->metadata.size is from firmware but not 
+>> user space. So it does not need to check.
+>>
+>>
+>> Thanks,
+>>
+>> Lizhi
+>>
+>>>
+>>>>       buff_addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
+>>>>       if (IS_ERR(buff_addr))
+>>>>           return PTR_ERR(buff_addr);
+>>>> @@ -398,13 +399,14 @@ int aie2_query_status(struct amdxdna_dev_hdl 
+>>>> *ndev, char __user *buf,
+>>>>         XDNA_DBG(xdna, "Query NPU status completed");
+>>>>   -    if (size < resp.size) {
+>>>> +    if (buf_sz < resp.size) {
+>>>>           ret = -EINVAL;
+>>>> -        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
+>>>> %u", size, resp.size);
+>>>> +        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
+>>>> %u", buf_sz, resp.size);
+>>>>           goto fail;
+>>>>       }
+>>>>   -    if (copy_to_user(buf, buff_addr, resp.size)) {
+>>>> +    size = min(size, resp.size);
+>>>> +    if (copy_to_user(buf, buff_addr, size)) {
+>>>>           ret = -EFAULT;
+>>>>           XDNA_ERR(xdna, "Failed to copy NPU status to user space");
+>>>>           goto fail;
+>>>> @@ -424,13 +426,14 @@ int aie2_query_telemetry(struct 
+>>>> amdxdna_dev_hdl *ndev,
+>>>>       DECLARE_AIE_MSG(get_telemetry, MSG_OP_GET_TELEMETRY);
+>>>>       struct amdxdna_dev *xdna = ndev->aie.xdna;
+>>>>       dma_addr_t dma_addr;
+>>>> -    u32 buf_sz = size;
+>>>> +    u32 buf_sz;
+>>>>       u8 *addr;
+>>>>       int ret;
+>>>>         if (header->type >= MAX_TELEMETRY_TYPE)
+>>>>           return -EINVAL;
+>>>>   +    buf_sz = min(size, SZ_4M);
+>>>>       addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
+>>>>       if (IS_ERR(addr))
+>>>>           return PTR_ERR(addr);
+>>>> @@ -446,13 +449,14 @@ int aie2_query_telemetry(struct 
+>>>> amdxdna_dev_hdl *ndev,
+>>>>           goto free_buf;
+>>>>       }
+>>>>   -    if (size < resp.size) {
+>>>> +    if (buf_sz < resp.size) {
+>>>>           ret = -EINVAL;
+>>>> -        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
+>>>> %u", size, resp.size);
+>>>> +        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
+>>>> %u", buf_sz, resp.size);
+>>>>           goto free_buf;
+>>>>       }
+>>>>   -    if (copy_to_user(buf, addr, resp.size)) {
+>>>> +    size = min(size, resp.size);
+>>>> +    if (copy_to_user(buf, addr, size)) {
+>>>>           ret = -EFAULT;
+>>>>           XDNA_ERR(xdna, "Failed to copy telemetry to user space");
+>>>>           goto free_buf;
+>>>> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/ 
+>>>> amdxdna/aie2_pci.c
+>>>> index 164e188ba501..041cbc8cd7e5 100644
+>>>> --- a/drivers/accel/amdxdna/aie2_pci.c
+>>>> +++ b/drivers/accel/amdxdna/aie2_pci.c
+>>>> @@ -620,23 +620,19 @@ static void aie2_fini(struct amdxdna_dev *xdna)
+>>>>   static int aie2_get_aie_status(struct amdxdna_client *client,
+>>>>                      struct amdxdna_drm_get_info *args)
+>>>>   {
+>>>> -    struct amdxdna_drm_query_aie_status status;
+>>>> +    struct amdxdna_drm_query_aie_status status = {};
+>>>>       struct amdxdna_dev *xdna = client->xdna;
+>>>>       struct amdxdna_dev_hdl *ndev;
+>>>> +    u32 buf_sz;
+>>>>       int ret;
+>>>>         ndev = xdna->dev_handle;
+>>>> -    if (copy_from_user(&status, u64_to_user_ptr(args->buffer), 
+>>>> sizeof(status))) {
+>>>> +    buf_sz = min(args->buffer_size, sizeof(status));
+>>>> +    if (copy_from_user(&status, u64_to_user_ptr(args->buffer), 
+>>>> buf_sz)) {
+>>>>           XDNA_ERR(xdna, "Failed to copy AIE request into kernel");
+>>>>           return -EFAULT;
+>>>>       }
+>>>>   -    if (ndev->metadata.cols * ndev->metadata.size < 
+>>>> status.buffer_size) {
+>>>> -        XDNA_ERR(xdna, "Invalid buffer size. Given Size: %u. Need 
+>>>> Size: %u.",
+>>>> -             status.buffer_size, ndev->metadata.cols * ndev- 
+>>>> >metadata.size);
+>>>> -        return -EINVAL;
+>>>> -    }
+>>>> -
+>>>>       ret = aie2_query_status(ndev, u64_to_user_ptr(status.buffer),
+>>>>                   status.buffer_size, &status.cols_filled);
+>>>>       if (ret) {
+>>>> @@ -644,7 +640,7 @@ static int aie2_get_aie_status(struct 
+>>>> amdxdna_client *client,
+>>>>           return ret;
+>>>>       }
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &status, 
+>>>> sizeof(status))) {
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &status, 
+>>>> buf_sz)) {
+>>>>           XDNA_ERR(xdna, "Failed to copy AIE request info to user 
+>>>> space");
+>>>>           return -EFAULT;
+>>>>       }
+>>>> @@ -659,6 +655,7 @@ static int aie2_get_aie_metadata(struct 
+>>>> amdxdna_client *client,
+>>>>       struct amdxdna_dev *xdna = client->xdna;
+>>>>       struct amdxdna_dev_hdl *ndev;
+>>>>       int ret = 0;
+>>>> +    u32 buf_sz;
+>>>>         ndev = xdna->dev_handle;
+>>>>       meta = kzalloc_obj(*meta);
+>>>> @@ -690,7 +687,8 @@ static int aie2_get_aie_metadata(struct 
+>>>> amdxdna_client *client,
+>>>>       meta->shim.lock_count = ndev->metadata.shim.lock_count;
+>>>>       meta->shim.event_reg_count = 
+>>>> ndev->metadata.shim.event_reg_count;
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), meta, 
+>>>> sizeof(*meta)))
+>>>> +    buf_sz = min(args->buffer_size, sizeof(*meta));
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), meta, buf_sz))
+>>>>           ret = -EFAULT;
+>>>>         kfree(meta);
+>>>> @@ -703,12 +701,14 @@ static int aie2_get_aie_version(struct 
+>>>> amdxdna_client *client,
+>>>>       struct amdxdna_drm_query_aie_version version;
+>>>>       struct amdxdna_dev *xdna = client->xdna;
+>>>>       struct amdxdna_dev_hdl *ndev;
+>>>> +    u32 buf_sz;
+>>>>         ndev = xdna->dev_handle;
+>>>>       version.major = ndev->version.major;
+>>>>       version.minor = ndev->version.minor;
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
+>>>> sizeof(version)))
+>>>> +    buf_sz = min(args->buffer_size, sizeof(version));
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
+>>>> buf_sz))
+>>>>           return -EFAULT;
+>>>>         return 0;
+>>>> @@ -719,13 +719,15 @@ static int aie2_get_firmware_version(struct 
+>>>> amdxdna_client *client,
+>>>>   {
+>>>>       struct amdxdna_drm_query_firmware_version version;
+>>>>       struct amdxdna_dev *xdna = client->xdna;
+>>>> +    u32 buf_sz;
+>>>>         version.major = xdna->fw_ver.major;
+>>>>       version.minor = xdna->fw_ver.minor;
+>>>>       version.patch = xdna->fw_ver.sub;
+>>>>       version.build = xdna->fw_ver.build;
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
+>>>> sizeof(version)))
+>>>> +    buf_sz = min(args->buffer_size, sizeof(version));
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
+>>>> buf_sz))
+>>>>           return -EFAULT;
+>>>>         return 0;
+>>>> @@ -737,11 +739,13 @@ static int aie2_get_power_mode(struct 
+>>>> amdxdna_client *client,
+>>>>       struct amdxdna_drm_get_power_mode mode = {};
+>>>>       struct amdxdna_dev *xdna = client->xdna;
+>>>>       struct amdxdna_dev_hdl *ndev;
+>>>> +    u32 buf_sz;
+>>>>         ndev = xdna->dev_handle;
+>>>>       mode.power_mode = ndev->pw_mode;
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, 
+>>>> sizeof(mode)))
+>>>> +    buf_sz = min(args->buffer_size, sizeof(mode));
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, buf_sz))
+>>>>           return -EFAULT;
+>>>>         return 0;
+>>>> @@ -754,6 +758,7 @@ static int aie2_get_clock_metadata(struct 
+>>>> amdxdna_client *client,
+>>>>       struct amdxdna_dev *xdna = client->xdna;
+>>>>       struct amdxdna_dev_hdl *ndev;
+>>>>       int ret = 0;
+>>>> +    u32 buf_sz;
+>>>>         ndev = xdna->dev_handle;
+>>>>       clock = kzalloc_obj(*clock);
+>>>> @@ -766,7 +771,8 @@ static int aie2_get_clock_metadata(struct 
+>>>> amdxdna_client *client,
+>>>>       snprintf(clock->h_clock.name, sizeof(clock->h_clock.name), "H 
+>>>> Clock");
+>>>>       clock->h_clock.freq_mhz = ndev->hclk_freq;
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), clock, 
+>>>> sizeof(*clock)))
+>>>> +    buf_sz = min(args->buffer_size, sizeof(*clock));
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), clock, buf_sz))
+>>>>           ret = -EFAULT;
+>>>>         kfree(clock);
+>>>> @@ -792,12 +798,14 @@ static int aie2_get_sensors(struct 
+>>>> amdxdna_client *client,
+>>>>       scnprintf(sensor.label, sizeof(sensor.label), "Total Power");
+>>>>       scnprintf(sensor.units, sizeof(sensor.units), "mW");
+>>>>   +    if (args->buffer_size < sizeof(sensor))
+>>>> +        goto out;
+>>>> +
+>>>>       if (copy_to_user(u64_to_user_ptr(args->buffer), &sensor, 
+>>>> sizeof(sensor)))
+>>>>           return -EFAULT;
+>>>>   +    args->buffer_size -= sizeof(sensor);
+>>>>       sensors_count++;
+>>>> -    if (args->buffer_size <= sensors_count * sizeof(sensor))
+>>>> -        goto out;
+>>>>         for (i = 0; i < min_t(u32, ndev->total_col, 8); i++) {
+>>>>           memset(&sensor, 0, sizeof(sensor));
+>>>> @@ -807,13 +815,15 @@ static int aie2_get_sensors(struct 
+>>>> amdxdna_client *client,
+>>>>           scnprintf(sensor.label, sizeof(sensor.label), "Column %d 
+>>>> Utilization", i);
+>>>>           scnprintf(sensor.units, sizeof(sensor.units), "%%");
+>>>>   +        if (args->buffer_size < sizeof(sensor))
+>>>> +            goto out;
+>>>> +
+>>>>           if (copy_to_user(u64_to_user_ptr(args->buffer) + 
+>>>> sensors_count * sizeof(sensor),
+>>>>                    &sensor, sizeof(sensor)))
+>>>>               return -EFAULT;
+>>>>   +        args->buffer_size -= sizeof(sensor);
+>>>>           sensors_count++;
+>>>> -        if (args->buffer_size <= sensors_count * sizeof(sensor))
+>>>> -            goto out;
+>>>>       }
+>>>>     out:
+>>>> @@ -909,6 +919,7 @@ static int aie2_query_resource_info(struct 
+>>>> amdxdna_client *client,
+>>>>       const struct amdxdna_dev_priv *priv;
+>>>>       struct amdxdna_dev_hdl *ndev;
+>>>>       struct amdxdna_dev *xdna;
+>>>> +    u32 buf_sz;
+>>>>         xdna = client->xdna;
+>>>>       ndev = xdna->dev_handle;
+>>>> @@ -920,7 +931,8 @@ static int aie2_query_resource_info(struct 
+>>>> amdxdna_client *client,
+>>>>       res_info.npu_tops_curr = ndev->curr_tops;
+>>>>       res_info.npu_task_curr = ndev->hwctx_num;
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &res_info, 
+>>>> sizeof(res_info)))
+>>>> +    buf_sz = min(args->buffer_size, sizeof(res_info));
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &res_info, 
+>>>> buf_sz))
+>>>>           return -EFAULT;
+>>>>         return 0;
+>>>> @@ -956,12 +968,7 @@ static int aie2_get_telemetry(struct 
+>>>> amdxdna_client *client,
+>>>>           XDNA_ERR(xdna, "Invalid buffer size");
+>>>>           return -EINVAL;
+>>>>       }
+>>>> -
+>>>>       telemetry_data_sz = args->buffer_size - header_sz;
+>>>> -    if (telemetry_data_sz > SZ_4M) {
+>>>> -        XDNA_ERR(xdna, "Buffer size is too big, %d", 
+>>>> telemetry_data_sz);
+>>>> -        return -EINVAL;
+>>>> -    }
+>>>>         header = kzalloc(header_sz, GFP_KERNEL);
+>>>>       if (!header)
+>>>> @@ -1002,6 +1009,7 @@ static int aie2_get_preempt_state(struct 
+>>>> amdxdna_client *client,
+>>>>       struct amdxdna_drm_attribute_state state = {};
+>>>>       struct amdxdna_dev *xdna = client->xdna;
+>>>>       struct amdxdna_dev_hdl *ndev;
+>>>> +    u32 buf_sz;
+>>>>         ndev = xdna->dev_handle;
+>>>>       if (args->param == DRM_AMDXDNA_GET_FORCE_PREEMPT_STATE)
+>>>> @@ -1009,7 +1017,8 @@ static int aie2_get_preempt_state(struct 
+>>>> amdxdna_client *client,
+>>>>       else if (args->param == 
+>>>> DRM_AMDXDNA_GET_FRAME_BOUNDARY_PREEMPT_STATE)
+>>>>           state.state = ndev->frame_boundary_preempt;
+>>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &state, 
+>>>> sizeof(state)))
+>>>> +    buf_sz = min(args->buffer_size, sizeof(state));
+>>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &state, buf_sz))
+>>>>           return -EFAULT;
+>>>>         return 0;
+>>>
+>
