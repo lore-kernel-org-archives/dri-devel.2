@@ -4,58 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A464EE8537A
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 17:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD7E5E8537A
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 17:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE48E10E149;
-	Fri,  3 Apr 2026 17:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3944C10EF45;
+	Fri,  3 Apr 2026 17:37:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="VuIXlKfY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SWTrcwWe";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 047F210E13F
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 17:22:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775236953; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Op+y/8VAu8y9n9WKAurTTuadj1e/j6pFbB7nrbAxg0fk0FLUE4OPCNW2tWz4P6Nx0n1tHQqpFU8b/LvL0hcpcdvWPBgTD0rmodUIJ1+lSMBTIImBqfpI8SHhMiq4EgoxmyXSFcqLX1Hky9rpykao2HbHCTAqdMcyG7ByLlIglbM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775236953;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=YrosouwhZwvyUGlWbsPUUf+XF0Na+nRve4I+Vhbxfl0=; 
- b=Y9KSuNkdksskNh84XTTPM8H5D61ZaJ1USAkpkaMdRUN1EYxKLwQoZMrRkVmAuLfLS/KVIEWfc2pSjn5KLXcnRRpsghtAxP9KsqMNLQAchVT4i3fTvaS4BJCkYv1uOqmKbbVE2YuIZUi25eAhpFjlL1ltcZ9YswrVGrB6lk1HP6A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775236953; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=YrosouwhZwvyUGlWbsPUUf+XF0Na+nRve4I+Vhbxfl0=;
- b=VuIXlKfYGNjELGlk5u1fGIy9cqS7sdV6j4dbOtzTAmYrPzp1lA3nmLmND49Dlfvd
- VKa9I7alcnKNgrfGx3wgBJuleUX9vH43l4rdAPuLe3n8P+E8h3hwOp0hcvGV9DUfxlN
- vITASElp4QlUcd5uVEksLLTSgwqbayP5fTtMtTDg=
-Received: by mx.zohomail.com with SMTPS id 1775236953117742.9768054966514;
- Fri, 3 Apr 2026 10:22:33 -0700 (PDT)
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH 2/2] drm/panthor: Fix outdated function documentation
-Date: Fri,  3 Apr 2026 18:21:12 +0100
-Message-ID: <20260403172116.3424075-2-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260403172116.3424075-1-adrian.larumbe@collabora.com>
-References: <20260403172116.3424075-1-adrian.larumbe@collabora.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC0210EF45
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 17:37:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3571660123;
+ Fri,  3 Apr 2026 17:37:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CE2C4CEF7;
+ Fri,  3 Apr 2026 17:37:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775237861;
+ bh=j5Lg+DOCGLuJzSedXBQFy1M5HS8GXHosnGnLzNSWDic=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=SWTrcwWe8frx7pOV00HJEAe4tjyaVxdgruJZUCuNgbBFc/fJaYKEYnyhOMYIpojb3
+ w4FX4yPkZc6CuAmvxOdCLG/g/WuaxtVEkuN0ROW90tfGqwhzEW0kQhon/8RY31E8Ie
+ UkBDQ3KVOc+mwNE4aDuFJfpA/gXXA0RNObFrNIwtDjMfuB+pxZW8nfDwqsdlIm4/cE
+ GRsdKGWLJAihdbLCbfXArOT59YIgBc4HJtyTN1oiY2CWSQtJotqZvtc6BPc1HZH7VQ
+ DYRA1TPXtiwtotxGf7Mio8l8TEbxZtkefNfV1C0oziN9ZXnWCpIGJkDHsOm1Ly0HwE
+ vmfT4iRO7OKYw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 03 Apr 2026 19:37:37 +0200
+Message-Id: <DHJPAT57O4B5.27NTSV0S1Y2TI@kernel.org>
+Subject: Re: [PATCH v4 0/2] gpu: nova-core: gsp: fix undefined behavior in
+ command queue code
+Cc: "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Alistair Popple" <apopple@nvidia.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: "Alexandre Courbot" <acourbot@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260401-cmdq-ub-fix-v4-0-a9a9cf982485@nvidia.com>
+In-Reply-To: <20260401-cmdq-ub-fix-v4-0-a9a9cf982485@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,26 +63,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-'vm' is no longer allowed to be NULL.
+On Wed Apr 1, 2026 at 4:29 PM CEST, Alexandre Courbot wrote:
+> Alexandre Courbot (2):
+>       gpu: nova-core: gsp: inline methods providing queue range invariant=
+s
+>       gpu: nova-core: gsp: fix undefined behavior in command queue code
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
----
- drivers/gpu/drm/panthor/panthor_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 69cef05b6ef7..13295d7a593d 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1264,7 +1264,7 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
- /**
-  * panthor_kernel_bo_create() - Create and map a GEM object to a VM
-  * @ptdev: Device.
-- * @vm: VM to map the GEM to. If NULL, the kernel object is not GPU mapped.
-+ * @vm: VM to map the GEM to.
-  * @size: Size of the buffer object.
-  * @bo_flags: Combination of drm_panthor_bo_flags flags.
-  * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
--- 
-2.53.0
-
+Applied to drm-rust-next, thanks!
