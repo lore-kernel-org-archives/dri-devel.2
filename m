@@ -4,144 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF69AE7E35C
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 09:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C09AE7E35E
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 09:47:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4552410F48E;
-	Fri,  3 Apr 2026 09:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9289810F490;
+	Fri,  3 Apr 2026 09:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="isxJvM2K";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R3LHBa7W";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="XxnhptcC";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4D210F48E
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 09:37:18 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6337UmgT2707214
- for <dri-devel@lists.freedesktop.org>; Fri, 3 Apr 2026 09:37:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=H0MsR4PHC7LRNEDJ02SXHtGh
- 86o8LwWKhT/z44z5dSo=; b=isxJvM2K/Cv3Pm0NShfaaEwkY51/yH2P37+roCBv
- lYrCcgbdhQHUYJxt9ZaYRXWC20+urqqeQP2i3fq42SxtBdpAbOyHaIPnzRWp93qp
- QhAms5skdcgdocGbuW8EEkhEUxZ3sTcKnETvEuiyk1+Pm3OocQu1n8HzYcRw66t4
- 536ts+kxzBAJIVeVFBFgH3T8x2hYC18mMhBZriiWcTHzQDNU9C8b+kQqmV4xadiD
- mTBOHSS2dOrTwiGXGNamY2DF5T1mQ/6TJ4GlxtarDcpWup0gReaWKh75SsJBMArq
- yJ0mRgfT8xA5wWGvPp4wQ33YQwu38eZi/2RiBGwkpqwHTg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d9yfjhyeq-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 09:37:17 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50b4987c698so30604521cf.0
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 02:37:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775209036; x=1775813836;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=H0MsR4PHC7LRNEDJ02SXHtGh86o8LwWKhT/z44z5dSo=;
- b=R3LHBa7WMcAnQgYXEyrW/1xLB6rQS4jtiT/2yz7kJv5GOdAqHY76iuiL1SuiYeXdup
- PlX5Ymd+sQKYWrmLyjD99X3bhO1YBTqVdfi2gNY8Icgp+XjOYWxszb1nXd53HYck4s4l
- /BiS0Idr++ThJMVYI7Jyh1zDDT/LDxLYTRbYTRyt462Zinvh81dcMBM3zJmsyQas+b0O
- oxr7Afcd0Efa045NN4Snh4mWLvQgbUTg3cMoAVklJY+OPwu5i+geLwLfF7IVqOqmMSKE
- m3B0Hp8JWEbK3xRkrwLHOlNFzgPNp0EgIIhQtthHhu1bXqzu6l5mPTf6MVu0dmKZi+cv
- QPlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775209036; x=1775813836;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=H0MsR4PHC7LRNEDJ02SXHtGh86o8LwWKhT/z44z5dSo=;
- b=V6au7ExWb8BhOHjTjD+UwZ9qmMUpnMsNftivgUscI4Axd4cg6s/DHx8TV8T2/4lpo0
- jd/E48IeMat9vvcJ4nJQWipRzEV1E93Yfi2egU2UOd6tfUm3SpN6osllO8au7D/GpW1k
- JPdrycuz/Xn5MrQ42SAyo1z2oDmIFkc+W0C+r19BUGwGUlkLImEm/m9fvSicFtZyYT6f
- NSlq5euO9v8+n3/gbE27uehcc7kICdrt2mcYJNcMfaPtGs5YYgeurpq0tzCl5zUZq5SC
- fs85GvwU8DE9q/vAmceiX19dkV3Qrhxt3PO/sFvIgTDDiVZgVHtmnker47ihmhk86BHz
- CcaQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUrNSfaZe8NdmHBRfB8k1Up00df4FGCTIFafvtOFo+SdZsGia0FrafyLoaPdrhWVSwyESpbgsRkSPU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDGbcaCvQG72DF1Uo1xtVjaC3xAlEXUzSBSqBZGWphbUNxzegS
- 9zy812UwmDv+Kk0//9+DtrsDdzEejbv9reOSCnq8IzaOf2DZe6+GKuqfAeOuKBNUMCNzmhx0Nso
- b4TXHyI8pCnT6lJxrLkZoyKFoj9hhNvoG4v9Lc92phubcFaYstPEvj5frrWpn0gRxy9g5Wkc=
-X-Gm-Gg: ATEYQzw3v9QYnLqEh09fnzHAAR1o1wMvuqXsqwc3HPVUPc9oujczyRPy34i5ebnTCeg
- GRC19xHuYtvCJcaWdSoSdzf2glFixfeNiAFpKrrH8VJHoNkLPCF0v0BkblJpvzHEL29SubWof4H
- YjCbQAID29VSHzd7b+qzGMP5rOpOFeN+sO6jfNbV1Gvx5CXlmefjC3hC0tJlTaaoLO1wWWQYmXk
- tjfcL0mnu6sDOnSM9mkgjoY2ZvdbgBDtQn68iMi0AqRoywIIxN4ArqqfxHlnQVAx61VHf8BbpuE
- rDKsudv+hjUeF7dHxhfk05UTEWut9E7UOCiHedpY23RM3JfAjtLQypQhH/jgL7TDQbyoS88UmpV
- fdV3cJxYY10Z36uzw1+oZBg+r4w9pGKhrREzw9nMT8wWxjAQiXTqkhRdU
-X-Received: by 2002:ac8:7dc5:0:b0:509:202f:f03 with SMTP id
- d75a77b69052e-50d4fd24b4dmr66236541cf.38.1775209036469; 
- Fri, 03 Apr 2026 02:37:16 -0700 (PDT)
-X-Received: by 2002:ac8:7dc5:0:b0:509:202f:f03 with SMTP id
- d75a77b69052e-50d4fd24b4dmr66234201cf.38.1775209031263; 
- Fri, 03 Apr 2026 02:37:11 -0700 (PDT)
-Received: from trex (187.red-79-144-197.dynamicip.rima-tde.net.
- [79.144.197.187]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e2a6f13sm15010561f8f.3.2026.04.03.02.37.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Apr 2026 02:37:10 -0700 (PDT)
-From: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>
-X-Google-Original-From: Jorge Ramirez <JorgeRamirez-Ortiz>
-Date: Fri, 3 Apr 2026 11:37:07 +0200
-To: Sumit Garg <sumit.garg@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
- dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
- elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com,
- amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
- op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
- skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: [PATCH v3 11/15] media: qcom: Switch to generic PAS TZ APIs
-Message-ID: <ac-KQ7e8-syph1Zl@trex>
-References: <20260327131043.627120-1-sumit.garg@kernel.org>
- <20260327131043.627120-12-sumit.garg@kernel.org>
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013023.outbound.protection.outlook.com
+ [52.101.83.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0406610F490
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 09:47:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uCYTWXRZ6FqI/VSqGz3YYLG9oeBlqsS5k7iJFi04PM5QcMsUO4N6X7OffZnNVjvGdrhfwjTrS+opZAXEJnsjNJRfE8Wq6OrDwx00SsPjMLut8zx3ZMmiOnK7BLpw+XOK3d0NS0Kkb13wLw1gyPACdsRmvpBW3peIMp5uwd4mF8TgUvLiOnkh6T0fJMNj5exb23gIEdCyUcPD4gu14aNf/RfqZYB1s/0i3XPyWWmR9inLWNhKc/BLU5w0pUMS/A7MJmWTd/RIMV7+eQdPkIZkdx7rC9+uV2+YK0jt+InGyXAB6IrNYcnZmRuVEuar346cAcdeam/7SiH37YreBoG3/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8S2Q/r3WUlfTPWrrWW15dFIajcamxizrS1WUsOMi1oM=;
+ b=OConr5d+g1FtUANlYu9Mji+1WOqJFUW6WMatOV7toLosp+twetgCdYm4dN+H7doIKe2sSwFP/SLu/zUhUR3/8m0u4hd1MdpkFPo9h5udCop3C88b22WNvF4yX9e3zjAcSI2oxQrzhS9ZkW2/25bOgxGs7CqYOVAkMj/lBjbM1VgWD107mA7SzOv7jZxUbKuzCJRJx7m11KWCS6nh5Ulh1jtt5rgsST3JFtc3a7sDdgGW6QUxZez99V49kdka98fzE71MmJYMOJEI2N2kg1Doj3FvLndt1Opw9ecOQ5OafHXPFTsfgY2sVxbeuRFX+4BVo6Jz7vcQamaoWj20XhKTPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8S2Q/r3WUlfTPWrrWW15dFIajcamxizrS1WUsOMi1oM=;
+ b=XxnhptcC/s1ZccYfOYytsaE8mY2ZYbHvpDvQwFmBUfNg0FGnKD8dSOpV3m446IZ5f7JRNZIJ21NbY0N0/4BqPD+/OJuvPTVRnnUiJL1rZsF3nbF5fXJVAe7wj8qkMdGiGr3TJQ3o2D1EKAXJBBV0YBQdw0tG/i7w+5iz7BTZj2Burai9rfKSaCv/13nwNK+oCD64iEXkiE7W7EBk81nUc/j5QBd1Selx+z3TRiRIr7cax+qXuYbaYxqjzTq/wbcpd7GzxwWGSIDh68Tb/jCUTv6qxSQv3oCPCMdnSisx74l8fghFARV3wleJrFrQzU4K647Wc2hvvsBWg+HWpEgO1w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
+ by GVXPR04MB12108.eurprd04.prod.outlook.com (2603:10a6:150:2bf::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 3 Apr
+ 2026 09:47:43 +0000
+Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
+ ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Fri, 3 Apr 2026
+ 09:47:42 +0000
+Message-ID: <5737ab1f-a61b-41be-908d-c24679aa2bf7@nxp.com>
+Date: Fri, 3 Apr 2026 17:48:50 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/10] drm/mxsfb/lcdif: use
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
+ Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: Damon Ding <damon.ding@rock-chips.com>,
+ "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
+ =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Christopher Obbard <christopher.obbard@linaro.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
+ Fabio Estevam <festevam@denx.de>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>,
+ Frieder Schrempf <frieder.schrempf@kontron.de>,
+ Gilles Talis <gilles.talis@gmail.com>,
+ =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
+ Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Martyn Welch <martyn.welch@collabora.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
+ <shengjiu.wang@nxp.com>,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ Vitor Soares <vitor.soares@toradex.com>
+References: <20260330-drm-lcdif-dbanc-v2-0-c7f2af536a24@bootlin.com>
+ <20260330-drm-lcdif-dbanc-v2-10-c7f2af536a24@bootlin.com>
+ <1a8b1a34-89bd-436e-8b5c-64ea71e8f333@nxp.com>
+ <DHIJ00VZ2O0H.1550LBTEFNT83@bootlin.com>
+From: Liu Ying <victor.liu@nxp.com>
+Content-Language: en-US
+In-Reply-To: <DHIJ00VZ2O0H.1550LBTEFNT83@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: SI2PR01CA0015.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::15) To AM7PR04MB7046.eurprd04.prod.outlook.com
+ (2603:10a6:20b:113::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260327131043.627120-12-sumit.garg@kernel.org>
-X-Proofpoint-GUID: qQZ52Uf1klA01jgqPtZt_C9JlJoj3Pqz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDAzMDA4NSBTYWx0ZWRfX9VbmazmFPnOA
- rfcdpEn+VS/cK4O+M/Ubm6c+TK8p45OPTdOmNZyYMfMtKkAzppl2ecvKcAcsU5sc7Vf2QH1HeFF
- wBxOnDnalequt+yBiuZ4tW2Eii4ZxZezqaRSvHX9jhQQ3g6Ht8lPbLFeyEiPyLg5nLQNS29v8Ht
- 3OwL/8QnWLn5RanEOeIjh082xX/NL1baUxx97aeRaAlqTqNt90dRI9ePRoEI2AvKv2lcX8oCEz4
- tFpM5Q5xiBbg/uKBkNIqxhY0DXDrZ05zzRl15gINPRdO3JTx/igvBeV9HcZzWPOGw790EMT4LYI
- QEiccFtXc49XUfBT2cp8ubRfV6rUPP0nYgQL3J4s0hnas+ajPEp7oJwUh2okQ/7f+OQtSYJMEP+
- lFZJ+m/yGnmqNs+GEwiMT1l4Sm+5YSAiNzwTQAiTO+Nnr9lEEb9nJfqlyeFN8TQHvkChvCgsCEI
- SslDFWtj/eJLhkvZlkA==
-X-Authority-Analysis: v=2.4 cv=OrpCCi/t c=1 sm=1 tr=0 ts=69cf8a4d cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=VPdg2FrOqWfiVCzsz0q0YA==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=NEAV23lmAAAA:8 a=EUspDBNiAAAA:8 a=vWT0tKtjkO2eN-vK3vkA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: qQZ52Uf1klA01jgqPtZt_C9JlJoj3Pqz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-03_03,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 adultscore=0 suspectscore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604030085
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|GVXPR04MB12108:EE_
+X-MS-Office365-Filtering-Correlation-Id: f30e0f16-ffce-4fde-f5de-08de91660d16
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|366016|1800799024|7416014|376014|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: pODivuyQD/RxlPDFIHKEY+HzXtYFTHasWabcvc6GfiSVdqXMSWpXsf+q4YjTVZr09z5lof3GLT/ypl5jghSexROfdOJYofy50ikDmNxO4PKHLsmIZG1GoxW7YQCMFeWIJAY7ankcYOAldnYQwvioA9wJVHlynFyo5/hd3fGA2+5LYBnNslwICeHLH/yJbWYtc8sgsnVN3zYnj0jakV9Na56+fQuWoYaYLmoKuRuMFJkljFRwxdW1Kr8BqE0ECKBgh2TZITtQaICIqUvinzYU9cLWntga1CgTEQgCnVVhP0pJ2zS0Wj23q8u0UnWXGN6JaM5pXBkL7io/GZW/pYjlPjepR0BJxoTjwUKxs8+AL3kTz71TU8iEPiaLyA9hls2t94rFzdW8YWItxCgBk9QKSd2/h7urpu9r8/cyrp4veS5MZr//HdRcaMzbExyJ+lzEVb0Hjg7uZHyr+3tImk0Lr53evFMv3UjNZ565YPpbL6lhqY8L0jPOA4C2OYC7eRTooVWFP7IFtp+hQpFpzJoxZOzkR94yXs2l58/x2ioWLLDf5BD22DBHQxo6c1y+d0A37ejUNi/+5RMCI1HBjarneQt4HFqq2zMkBSO2L6fQcjRueXGfvK3Vrels1hepmzwE4c51ShG1K9k8rJny3o859AxCidBjOjrQfpjzW4O6iZ0+MrWqo3aa9Uo+um5w0BjuS4rmC4aWT5TZH6q1+oqotZWgSKPi/iMKvqeYfOS13bs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(921020)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2VHNy82QVR0SmpKdC9vNklQZUQxcndBYlVnUWxvM3lOY3Z0aWF3d0N6RTZz?=
+ =?utf-8?B?SkV2Ujl0eVo0RnZrQ1BtdVVUMWlkWXBJaFZITG9uWWN1Zzg5bEl2S0h1Y2dv?=
+ =?utf-8?B?cFpvMFk0ei8vRk85RXYwY2ZSRlFGL0pkK083UEhRN2IrSTBBYVdlZlJna281?=
+ =?utf-8?B?cWpIMG9kcWU4Ujg5WC96UHZ0NmZZSHEyWitSbU12ODdjditOZVNLdG9RVUY4?=
+ =?utf-8?B?NVByQmd5M0xWcEhtSnlmcDhRN0dYanY2WE9KTGRUTHdURkw5YUR6TmUwcEwv?=
+ =?utf-8?B?c0FaSGRXK2w5cVB4MWRtQkNtWEs4OXp1MStqLzh5MkNhUXNJRkNlbXZYQnV6?=
+ =?utf-8?B?a2NsM2tWR1dHelZ3K0VIMG9QWkN2cjU1TVQxeU5NNGtKUk5GZXJab052UXZU?=
+ =?utf-8?B?ejlQNkJFdkltTjlkNDhNYTdCaEliV2VYcVMvQ0ZQUjVCdWN4MHB5YS9hWWxx?=
+ =?utf-8?B?R1JpVkgzbHlzTlVwcTY2RmF5SEFzWXpRNlFHMDJTQ0l0bjJLQm9hUjNzL3Z6?=
+ =?utf-8?B?QlNaK0p2eFhkQ1JuMkx5amt4bGFjazhad1RkRkFYOW1XQ2VnNEx1ZFU3bzBT?=
+ =?utf-8?B?TmkwSEhUSU1uYUZzTGg0OUFJaFlvcjlGNWtFcGk3S1dTRkdtVEJRdzNiRE1l?=
+ =?utf-8?B?OFJDZUhMRHFycXVvRmpENm5vQ21DSXNKODBJajFwUFp6V28zdEpuVVJ0eFdv?=
+ =?utf-8?B?Zk16YlBTM1NodGx3SnNvV2trUEpPNzBzZE51TURIWE9KVi82cnI3V3ZqbUtV?=
+ =?utf-8?B?dk1DaTdjUHhQWXZJU3VSWHk3Tm5hTTNiQW1kTk9tYWVFR1lWNkVzUHE0M2xL?=
+ =?utf-8?B?clBpZEV1MUJKMVJqRmlsR1RUREhXNWwrZ3ZFaG5sZ2wyRS90ZFYrb1Z5VElv?=
+ =?utf-8?B?ejRWRUx1d0hGMmdLSTNaN3E1eTRPKytIakIyYndCKzhLQ1FIMSs1dWhvb1JG?=
+ =?utf-8?B?VjlId3FVQW5HaEVQZm5nVDJOOUNrMmg2ZmxtSVBYVzdtSXEyUjloMTA1eXdr?=
+ =?utf-8?B?a2JQNTlWWGw1WFNSdmFhb2FMSkpEMDV5anRkL2QwbHJ1TERpTTdnYU1vVmVz?=
+ =?utf-8?B?d3ArVnlTSWlwVzdDWmNmZFVRa0FqZTAzcjRCdXlrMXE2TytWZ0pvV3BicGM5?=
+ =?utf-8?B?Qm9nVHR0dElBem0zK2JRL21Rcm04em9DODY3WjNuSXJ6aHB6eTFrbmhiSjFZ?=
+ =?utf-8?B?NHBaeHhEaGhZZnlzSThsSFN2RVB0OFdLVVkzUW5zMW40M0J2Nm5yN01WTzdo?=
+ =?utf-8?B?ZGMxK0FBT3IxVzFPVWcvVVdPZENsaVNZcnRpdDVJOUZFQmpNY2VSejd4eHg4?=
+ =?utf-8?B?Z09rbHVyV3oyVkdHcHIvUm1odm9TWXVyb3hUK3RuQkpjODA3cG44alN0djh6?=
+ =?utf-8?B?bzRmNXUyNy9MK3h2cy9mamhGM2dUREFsaTdJOGtzK0dsTnBNVGJnRjd6cWpx?=
+ =?utf-8?B?ejdqdHBMUFhodmpGLzhFd0sxazk1clhUWVliZGR4anc1QTB3eG94bVgyK1Z5?=
+ =?utf-8?B?V1NhQVQvOGZoU2NlV2tjamw1aDJNN3IxY01jZWd5TkY5NDNuWEU5bzdzdlc5?=
+ =?utf-8?B?VHlmRC9FaXVSUS9WQ2NRMktzY3lGWHRtWTgxYUlRSUdEYUxNVG5pSk5oUy9X?=
+ =?utf-8?B?SzlGSVdXd0ttc1lPTlFsZnE0bkhkNjdvZFFpeW9TNE1tcjlqZSszdXBUc2xy?=
+ =?utf-8?B?WlB2ZjhveHBncGEyMnNYYUJmalBERjliOWlGRjBEeW03L0o3cWppTjh0YmRX?=
+ =?utf-8?B?NUxYVEY4aVJzODJOeUJqWlovZlcxUlVEZUYvYnBQSmV3SnZGaHg5UjlsTlB5?=
+ =?utf-8?B?RmJ0dXl5bGNFSW1HZXFDNDlFY3Q2V2cwU09vTWRmamNUVWwzQ0J6bVBmUkUy?=
+ =?utf-8?B?U0VQNERoejJTNzdEWEZhbkZRaGFra1V4NUxtbGEvSk9PcjNqdmFFS1podk1j?=
+ =?utf-8?B?Nm9Cc3VhQ1JRbW92WUEraUdJWnVzYlNUS2VhSmJObkZZS0FsQXFCVzQ0dU9j?=
+ =?utf-8?B?WGVzUW1PblZJSlJRMUlnRUxONjh6R0xJQ1lBTWxhRVhKbkZZS0h2TUVETnhT?=
+ =?utf-8?B?QldOeTN1aXdLRWZjeVdwMWlPU2R4SUwwRm5GRittUzhNclNMNWUvTkIxWms3?=
+ =?utf-8?B?Tml2NWZJMmx1c1E5WDRuWnN6dzNmTm9iWVdDdUpUdkEvZ3lpNDdmUEpXUDgy?=
+ =?utf-8?B?U2ViZlAvbFpTeHlOanRtamxDd3hTR1NOeGRXNk5WUWZBbm5BVGVxbGJDc1BD?=
+ =?utf-8?B?Sk5IM3BxZFZvQ1cvRFMwcWZEWm9uMDZGdDVoMDFqdTFjUzhPc3dvL3RGaGFT?=
+ =?utf-8?B?NllPRXE2Y2kxNlRxN2FlSlJwcDlEZWJKTzJ3QXNzcmJhd0ZOTkdCdz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f30e0f16-ffce-4fde-f5de-08de91660d16
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 09:47:42.9089 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DLAlQhAmcqbFYLqQPdQVed/MWiKBjDHZmiLzQtDkSzlfPPh8BEmu/1SbqPy+EBAJTu7T+r++ozvs2KiWrNJFTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12108
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,37 +175,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 27/03/26 18:40:39, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Hi Luca,
+
+On Thu, Apr 02, 2026 at 10:28:45AM +0200, Luca Ceresoli wrote:
+> Hello Liu,
 > 
-> Switch qcom media client drivers over to generic PAS TZ APIs. Generic PAS
-> TZ service allows to support multiple TZ implementation backends like QTEE
-> based SCM PAS service, OP-TEE based PAS service and any further future TZ
-> backend service.
+> On Thu Apr 2, 2026 at 6:55 AM CEST, Liu Ying wrote:
+>> Hi Luca,
+>>
+>> On Mon, Mar 30, 2026 at 09:25:51PM +0200, Luca Ceresoli wrote:
+>>> Convert this driver to DRM_BRIDGE_ATTACH_NO_CONNECTOR and to the
+>>> drm_bridge_connector framework which is the current DRM bridge best
+>>> practice.
+>>>
+>>> Tested-by: Martyn Welch <martyn.welch@collabora.com>
+>>> Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com> # TQMa8MPxL/MBa8MPxL
+>>> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
+>>> @@ -86,11 +88,23 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
+>>>  					     "Failed to initialize encoder for endpoint%u\n",
+>>>  					     of_ep.id);
+>>>
+>>> -		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
+>>> +		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+>>
+>> It seems that only analogix-anx6345.c, analogix-anx78xx.c and analogix_dp_core.c
+>> don't allow DRM_BRIDGE_ATTACH_NO_CONNECTOR, since they error out when attaching
+>> the bridge with the flag:
+>>
+>> if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+>>          DRM_ERROR("Fix bridge driver to make connector optional!");
+>>          return -EINVAL;
+>> }
+>>
+>> Looks like i.MX8MP platforms don't use these drivers.
+> 
+> Exactly. I have checked all the drivers involved with the i.MX8MP and all
+> of the support DRM_BRIDGE_ATTACH_NO_CONNECTOR.
 
-OP-TEE based PAS service relies on the linux driver to configure the
-iommu (just as it is done on the no_tz case). This generic patch does
-not cover that requirement.
-
-Because of that, it is probably better if the commit message doesnt
-mention OP-TEE and instead maybe indicate that PAS wll support TEEs that
-implement the same restrictions that QTEE (ie, iommu configuration).
-
-I can send an RFC for OP-TEE support based on the integration work being
-carried out here [1]
-
-[1] https://github.com/OP-TEE/optee_os/pull/7721#discussion_r3016923507
+Great...
 
 > 
-> Along with that pass proper PAS ID to set_remote_state API. As per testing
-> the SCM backend just ignores it while OP-TEE makes use of it to for proper
-> book keeping purpose.
+> While converting all drivers is surely a good goal, converting all of them
+> at once is not realistically doable. So the approach I took was to convert
+> one specifically (lcdif_drv.c) plus all those which would break because
+> they are used with the LCDIF.
 > 
-> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/Kconfig      | 25 ++++++++++---------
->  .../media/platform/qcom/iris/iris_firmware.c  |  9 ++++---
->  drivers/media/platform/qcom/venus/Kconfig     |  1 +
->  drivers/media/platform/qcom/venus/firmware.c  | 11 ++++----
->  4 files changed, 25 insertions(+), 21 deletions(-)
+>> But, are we completely safe here by adding the flag?  You also mentioned
+>> "pitfalls" in commit mesg, which makes me a bit more worried.
 > 
+> I mentioned potential pitfalls in the cover letter mainly because of the DT
+> overlay insertion patch, which is somewhat tricky as it impacts many
+> boards.
+> 
+> Additionally it's not easy to spot all usages of this component by parsing
+> dozens of dts files, so I might have missed some.
+> 
+> So overall every patch sent has a potential for pitfalls, but for the
+> reasons above I think this series has a bit more.
+> 
+> Does this reassure you? :)
+
+... your check makes me a bit relaxed.
+
+> 
+>>>  		if (ret)
+>>>  			return dev_err_probe(dev, ret,
+>>>  					     "Failed to attach bridge for endpoint%u\n",
+>>>  					     of_ep.id);
+>>> +
+>>> +		connector = drm_bridge_connector_init(lcdif->drm, encoder);
+>>
+>> Also, kernel doc of drm_bridge_connector.c says:
+>>
+>>  * To make use of this helper, all bridges in the chain shall report bridge
+>>  * operation flags (&drm_bridge->ops) and bridge output type
+>>  * (&drm_bridge->type), as well as the DRM_BRIDGE_ATTACH_NO_CONNECTOR attach
+>>  * flag (none of the bridges shall create a DRM connector directly).
+>>
+>> Are you sure that we are safe to use this helper?
+> 
+> Yes. I have checked all in-tree dts[i] files for all the 3 LCDIFs.
+> 
+> For the LCDIF3, the pipeline is:
+> 
+>   LCDIF3 -> fsl,imx8mp-hdmi-pvi -> fsl,imx8mp-hdmi-tx -> HDMI connector
+> 
+> And the involved bridges are:
+> 
+>  * fsl,imx8mp-hdmi-pvi has ops = 0 (it doesn't set it) because it
+>    implements none the optional features mentioned by those flags, and it
+>    honors the DRM_BRIDGE_ATTACH_NO_CONNECTOR by propagating it
+> 
+>  * fsl,imx8mp-hdmi-tx is implemented based on dw-hdmi, which sets ops as
+>    appropriate and also propagates the DRM_BRIDGE_ATTACH_NO_CONNECTOR flag
+> 
+>  * display-connector (enabled via the DT overlay if needed) sets ops and
+>    makes DRM_BRIDGE_ATTACH_NO_CONNECTOR mandatory
+> 
+> The LCDIF2 involves the panel-bridge, display-connector and lvds-decoder
+> which also set ops as needed and propagate DRM_BRIDGE_ATTACH_NO_CONNECTOR
+> or make it mandatory.
+
+For now, LCDIF2 with LDB only supports LVDS panel, so display-connector and
+lvds-decoder are not enabled yet, though they can be in DT.
+
+> 
+> The same applies to the drivers used with the LCDIF1: adv7511, tc358767 and
+> the panel bridge.
+> 
+> I assume this answers your doubts. Let me know if it doesn't.
+
+Your description here for each LCDIF is helpful for reviewer to understand
+there will be no regression introduced by this commit, so I think it'd be
+good to put it in commit message - it reflects your thought about avoiding
+any regression and that it's not that easy to switch to the bridge connector
+helper(as an example for other DRM drivers to do the switch).
+With that done, I'll provide my R-b.  Thanks.
+
+> 
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com/
+
+-- 
+Regards,
+Liu Ying
