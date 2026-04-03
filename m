@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEB7CE8538E
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 18:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2191E8538E
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 18:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4866D10E073;
-	Fri,  3 Apr 2026 18:53:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08FAB10E1F5;
+	Fri,  3 Apr 2026 18:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="vC+8q4la";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="n/HSHVY6";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92E5910E073
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 18:53:55 +0000 (UTC)
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0EF710E1F5
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 18:54:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
  h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
  Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
- t=1775242435; bh=NhHR1zGTM8Ud/QZkcBCtlf+5beX0V8bPBR27LUMaG4o=;
- b=vC+8q4laqbuK3bZCq1VnBajMrbWNrJSQHitIaza68p05OwgJ377oCuDxb1YR7LHIuRgPQFPkP
- GODW52p3JgJ2rBnft/nT7JUuxy9U5W8faJPsMQMJTEnrkEOLizJ71tEWtLCq2URShDkzyhpThop
- pjlX0vzQ/v8jFAFNHd7BRxwFgIVtqnosfsSkyQLB8sYudKVCPYlbPxpTgjwsuz6rUIdUn+mBCZ6
- jCIA3BQ7oxsrkd7CAK7vXJeRu9sCKYyo4VtYWwH6UK9T9frldOEo7opbpVE7jWlUNoVBYM7jQA7
- pTa5n8rqopNnxiuD6cEmlD0zcGYnB1HAYkwDwix+3G0A==
-X-Forward-Email-ID: 69d00cc1dc98192b40b89390
+ t=1775242462; bh=E0mkfxt+70i0sVXF+aEVWPvQZUQWrx57uJ1ok/r354g=;
+ b=n/HSHVY6/T6k+5mDZFlWi0mlaG10KRSx0XSiI3OQBLmioFTlT2/3icxVBGV8U3TA+z4wNo3oO
+ tjWkxgi5fSs5ssdHBJxeu7avjiLqT8f7WLXhEGIWx9Dy7aWZhUFYETtvtfDoRJ4uRrciSi8DsvY
+ 33XOkteO0++g6y4RPSIvKYpq0tEhk5gu5mhBtoEcatGClZCTgPg4h3CybZxMJ4/gGMiZzBJUbGe
+ 4KJxGrTfEBk46wo6eeOJ8+RojF8jBP8PbLinFt4tq/5aEPkl9JfjAbH/dv5dxTtzqOGp1AtvgC7
+ QR4wY/MGC+s/yznKslh9zCShYMyjm0OjhjD1Jp6gKYcA==
+X-Forward-Email-ID: 69d00cd7dc98192b40b89417
 X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
- 121.127.44.73
+ 149.28.215.223
 X-Forward-Email-Version: 2.6.68
 X-Forward-Email-Website: https://forwardemail.net
 X-Complaints-To: abuse@forwardemail.net
@@ -45,10 +45,10 @@ Cc: Christian Hewitt <christianshewitt@gmail.com>,
  Diederik de Haas <diederik@cknow-tech.com>,
  dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v3 06/13] drm: bridge: dw_hdmi: Remove previous_mode and
- mode_set
-Date: Fri,  3 Apr 2026 18:52:52 +0000
-Message-ID: <20260403185303.80748-7-jonas@kwiboo.se>
+Subject: [PATCH v3 11/13] drm: bridge: dw_hdmi: Extract
+ dw_hdmi_connector_status_update()
+Date: Fri,  3 Apr 2026 18:52:57 +0000
+Message-ID: <20260403185303.80748-12-jonas@kwiboo.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260403185303.80748-1-jonas@kwiboo.se>
 References: <20260403185303.80748-1-jonas@kwiboo.se>
@@ -69,70 +69,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With the use of adjusted_mode directly from the crtc_state there is no
-longer a need to store a copy in previous_mode, remove it and the now
-unneeded mode_set ops.
+Move connector EDID update and CEC phys addr handling to a helper
+function as a preparation before moving EDID refresh from get_modes
+funcs to detect/force funcs.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
-v3: Collect r-b tag
-v2: No change
+v3: New patch
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 19 +------------------
- 1 file changed, 1 insertion(+), 18 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 30 +++++++++++++----------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 7e7147b14614..aa4949de9173 100644
+index 4a0498922476..0d42fdf9a386 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -154,8 +154,6 @@ struct dw_hdmi {
- 		bool enabled;
- 	} phy;
+@@ -2467,6 +2467,21 @@ static const struct drm_edid *dw_hdmi_edid_read(struct dw_hdmi *hdmi,
+  * DRM Connector Operations
+  */
  
--	struct drm_display_mode previous_mode;
++static void
++dw_hdmi_connector_status_update(struct drm_connector *connector,
++				enum drm_connector_status status)
++{
++	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi, connector);
++	const struct drm_edid *drm_edid;
++
++	drm_edid = dw_hdmi_edid_read(hdmi, connector);
++	drm_edid_connector_update(connector, drm_edid);
++	drm_edid_free(drm_edid);
++
++	cec_notifier_set_phys_addr(hdmi->cec_notifier,
++				   connector->display_info.source_physical_address);
++}
++
+ static enum drm_connector_status
+ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ {
+@@ -2484,20 +2499,9 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ 
+ static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+ {
+-	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+-					     connector);
+-	const struct drm_edid *drm_edid;
+-	int ret;
++	dw_hdmi_connector_status_update(connector, connector->status);
+ 
+-	drm_edid = dw_hdmi_edid_read(hdmi, connector);
 -
- 	struct i2c_adapter *ddc;
- 	void __iomem *regs;
- 	bool sink_is_hdmi;
-@@ -165,7 +163,7 @@ struct dw_hdmi {
- 	struct pinctrl_state *default_state;
- 	struct pinctrl_state *unwedge_state;
- 
--	struct mutex mutex;		/* for state below and previous_mode */
-+	struct mutex mutex;		/* for state below */
- 	enum drm_connector_force force;	/* mutex-protected force state */
- 	struct drm_connector *curr_conn;/* current connector (only valid when !disabled) */
- 	bool disabled;			/* DRM has disabled our bridge */
-@@ -2911,20 +2909,6 @@ dw_hdmi_bridge_mode_valid(struct drm_bridge *bridge,
- 	return mode_status;
+-	drm_edid_connector_update(connector, drm_edid);
+-	cec_notifier_set_phys_addr(hdmi->cec_notifier,
+-				   connector->display_info.source_physical_address);
+-	ret = drm_edid_connector_add_modes(connector);
+-	drm_edid_free(drm_edid);
+-
+-	return ret;
++	return drm_edid_connector_add_modes(connector);
  }
  
--static void dw_hdmi_bridge_mode_set(struct drm_bridge *bridge,
--				    const struct drm_display_mode *orig_mode,
--				    const struct drm_display_mode *mode)
--{
--	struct dw_hdmi *hdmi = bridge->driver_private;
--
--	mutex_lock(&hdmi->mutex);
--
--	/* Store the display mode for plugin/DKMS poweron events */
--	drm_mode_copy(&hdmi->previous_mode, mode);
--
--	mutex_unlock(&hdmi->mutex);
--}
--
- static void dw_hdmi_bridge_atomic_disable(struct drm_bridge *bridge,
- 					  struct drm_atomic_state *state)
- {
-@@ -2988,7 +2972,6 @@ static const struct drm_bridge_funcs dw_hdmi_bridge_funcs = {
- 	.atomic_get_input_bus_fmts = dw_hdmi_bridge_atomic_get_input_bus_fmts,
- 	.atomic_enable = dw_hdmi_bridge_atomic_enable,
- 	.atomic_disable = dw_hdmi_bridge_atomic_disable,
--	.mode_set = dw_hdmi_bridge_mode_set,
- 	.mode_valid = dw_hdmi_bridge_mode_valid,
- 	.detect = dw_hdmi_bridge_detect,
- 	.edid_read = dw_hdmi_bridge_edid_read,
+ static int dw_hdmi_connector_atomic_check(struct drm_connector *connector,
 -- 
 2.53.0
 
