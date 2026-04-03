@@ -4,16 +4,16 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48F75E8536F
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 14:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3062AE85367
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 14:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4851F10F2E3;
-	Fri,  3 Apr 2026 14:00:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3388410F2FF;
+	Fri,  3 Apr 2026 14:00:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="clG8OcYp";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XdWFd/yD";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A62310E4D2;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D16D110E51A;
  Fri,  3 Apr 2026 14:00:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=TSPa3Yd5acObIh82pF3owI2lAlpsxt4srm/wQTOY7Sc=; b=clG8OcYp3oxXeVXCtB1/lbaqxu
- RmArCIg8A7vSzg/doFfvdY0P0ZjEoEgQ4iEiI6T5jBNtCJghvns4FALhlQizuZHN1LgoBLSmQoBvL
- sTtuhttugjwoNKbU+U4GlvnPm4pH3TNqDOH3CdY2t9u0EvRgZXnHIjQ4TNzT1u9JEYk40bsGtQjWM
- +0LP30MkaQWDjPw9lwe61lFHXxtBJDnUV4BXKgPdINJlBsgadrML3KRucf8mT3sj704+ePzqdz5D7
- cLRz9mz8qc118T43YPHK8e8J7S6NZskHgAyIE0/8T0MckwvRzUm2vR3Pnrp/zRVhrBpPA8eTSR4Kn
- DK+SoQpg==;
+ bh=ODId+Puv+ksLM5ZeP1J/HwczMH5qfWb0nljTGmHwaLI=; b=XdWFd/yDH8cU9Pc2byD4w/uQgM
+ iGsieMtniiulbTDzCwlgQ/tGJz7c4+jh3C2EODwGDFTajMTL8I5EMjeXeH993xux0JKyMeUmWCYUQ
+ lE0iYY6pUVk/1Il6nKvJRW0VoY4TP8nKgwNwgaH1yRNYveO4Weraucsrgn3G/5CLQm60V90Uar94L
+ LRn4a3pXp1vPyNC90Z0kX0p+Y0w/v1pbw8EI8lusJ6vGrVdXS1OIeAMAmu95yWfh0nPdHnorPjdu+
+ MmpcZkCHqOs0tN5SYxC3P36jaE01HsCh6KbvUB2259DkC/5O7v7DH2rTeEuZC7S/BHT4PlLpgWxMn
+ U2lucc6Q==;
 Received: from [189.89.58.26] (helo=killbill.home)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1w8f3c-00AtJL-E1; Fri, 03 Apr 2026 15:59:32 +0200
+ id 1w8f3i-00AtJL-TE; Fri, 03 Apr 2026 15:59:39 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
@@ -47,11 +47,12 @@ Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
  Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 1/6] drm/atomic: only add colorop state from active color
- pipeline
-Date: Fri,  3 Apr 2026 10:58:25 -0300
-Message-ID: <20260403135909.214378-2-mwen@igalia.com>
+Subject: [PATCH v3 2/6] drm/atomic: don't set colorop properties of inactive
+ color pipelines
+Date: Fri,  3 Apr 2026 10:58:26 -0300
+Message-ID: <20260403135909.214378-3-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260403135909.214378-1-mwen@igalia.com>
 References: <20260403135909.214378-1-mwen@igalia.com>
@@ -72,123 +73,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Instead of adding colorop state of all colorops of a given plane, only
-get those from an active color pipeline of this plane.
+Reject attempts to change property values of a colorop that is not
+part of an active plane color pipeline.
 
+Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/drm_atomic.c        | 39 ++++++++++++++---------------
- drivers/gpu/drm/drm_atomic_helper.c |  9 +++----
- include/drm/drm_atomic.h            |  2 +-
- 3 files changed, 23 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/drm_atomic_uapi.c | 34 ++++++++++++++++++++++++++-----
+ 1 file changed, 29 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 41c57063f3b4..6b214b61008b 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1591,26 +1591,25 @@ drm_atomic_add_affected_planes(struct drm_atomic_state *state,
- 		if (IS_ERR(plane_state))
- 			return PTR_ERR(plane_state);
- 
--		if (plane_state->color_pipeline) {
--			ret = drm_atomic_add_affected_colorops(state, plane);
--			if (ret)
--				return ret;
--		}
-+		ret = drm_atomic_add_affected_colorops(plane_state, plane);
-+		if (ret)
-+			return ret;
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 5bd5bf6661df..bff8d58f8f12 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1275,15 +1275,38 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 		break;
  	}
- 	return 0;
- }
- EXPORT_SYMBOL(drm_atomic_add_affected_planes);
+ 	case DRM_MODE_OBJECT_COLOROP: {
+-		struct drm_colorop *colorop = obj_to_colorop(obj);
+-		struct drm_colorop_state *colorop_state;
++		struct drm_colorop *active_colorop, *colorop = obj_to_colorop(obj);
++		struct drm_colorop_state *colorop_state = NULL;
++		struct drm_plane_state *plane_state;
  
- /**
-- * drm_atomic_add_affected_colorops - add colorops for plane
-- * @state: atomic state
-+ * drm_atomic_add_affected_colorops - add active colorops for plane
-+ * @state: DRM plane state
-  * @plane: DRM plane
-  *
-  * This function walks the current configuration and adds all colorops
-- * currently used by @plane to the atomic configuration @state. This is useful
-- * when an atomic commit also needs to check all currently enabled colorop on
-- * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
-- * to avoid special code to force-enable all colorops.
-+ * currently used by an active color pipeline set for a @plane to the atomic
-+ * configuration @state. This is useful when an atomic commit also needs to
-+ * check all currently enabled colorop on @plane, e.g. when changing the mode.
-+ * It's also useful when re-enabling a plane to avoid special code to
-+ * force-enable all colorops.
-  *
-  * Since acquiring a colorop state will always also acquire the w/w mutex of the
-  * current plane for that colorop (if there is any) adding all the colorop states for
-@@ -1622,23 +1621,23 @@ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
-  * sequence must be restarted. All other errors are fatal.
-  */
- int
--drm_atomic_add_affected_colorops(struct drm_atomic_state *state,
-+drm_atomic_add_affected_colorops(struct drm_plane_state *plane_state,
- 				 struct drm_plane *plane)
- {
- 	struct drm_colorop *colorop;
- 	struct drm_colorop_state *colorop_state;
- 
--	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
-+	if (!plane_state || !plane_state->color_pipeline)
-+		return 0;
- 
- 	drm_dbg_atomic(plane->dev,
--		       "Adding all current colorops for [PLANE:%d:%s] to %p\n",
--		       plane->base.id, plane->name, state);
-+		       "Adding all current active colorops for [PLANE:%d:%s] to %p\n",
-+		       plane->base.id, plane->name, plane_state->state);
- 
--	drm_for_each_colorop(colorop, plane->dev) {
--		if (colorop->plane != plane)
--			continue;
--
 -		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-+	for (colorop = plane_state->color_pipeline;
-+	     colorop;
-+	     colorop = colorop->next) {
-+		colorop_state = drm_atomic_get_colorop_state(plane_state->state, colorop);
- 		if (IS_ERR(colorop_state))
- 			return PTR_ERR(colorop_state);
- 	}
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 481f92a03683..ce7bdd6a4051 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -3752,12 +3752,9 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
- 			goto free;
+-		if (IS_ERR(colorop_state)) {
+-			ret = PTR_ERR(colorop_state);
++		plane_state = drm_atomic_get_plane_state(state, colorop->plane);
++		if (IS_ERR(plane_state)) {
++			ret = PTR_ERR(plane_state);
+ 			break;
  		}
  
--		if (plane_state->color_pipeline) {
--			err = drm_atomic_add_affected_colorops(state, plane);
--			if (err)
--				goto free;
--		}
--
-+		err = drm_atomic_add_affected_colorops(plane_state, plane);
-+		if (err)
-+			goto free;
++		/* Check if the colorop obj is part of an active color pipeline */
++		for (active_colorop = plane_state->color_pipeline;
++		     active_colorop;
++		     active_colorop = active_colorop->next) {
++			if (active_colorop == colorop) {
++				colorop_state = drm_atomic_get_colorop_state(state, colorop);
++				if (IS_ERR(colorop_state)) {
++					ret = PTR_ERR(colorop_state);
++					goto err;
++				}
++				break;
++			}
++		}
++
++		if (!colorop_state) {
++			drm_dbg_atomic(prop->dev,
++				       "[COLOROP:%d:%d] not part of the active pipeline\n",
++					obj->id, colorop->type);
++			ret = -EINVAL;
++			goto err;
++		}
++
+ 		ret = drm_atomic_colorop_set_property(colorop, colorop_state,
+ 						      file_priv, prop, prop_value);
+ 		break;
+@@ -1294,6 +1317,7 @@ int drm_atomic_set_property(struct drm_atomic_state *state,
+ 		break;
  	}
  
- 	drm_connector_list_iter_begin(dev, &conn_iter);
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 8883290cd014..8916923f32b8 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -919,7 +919,7 @@ int __must_check
- drm_atomic_add_affected_planes(struct drm_atomic_state *state,
- 			       struct drm_crtc *crtc);
- int __must_check
--drm_atomic_add_affected_colorops(struct drm_atomic_state *state,
-+drm_atomic_add_affected_colorops(struct drm_plane_state *state,
- 				 struct drm_plane *plane);
- 
- int __must_check drm_atomic_check_only(struct drm_atomic_state *state);
++err:
+ 	drm_property_change_valid_put(prop, ref);
+ 	return ret;
+ }
 -- 
 2.53.0
 
