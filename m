@@ -4,110 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6544BE8537A
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 18:00:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF3BED730AD
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 18:53:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8B5E10E075;
-	Fri,  3 Apr 2026 18:00:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D1EF10E04C;
+	Fri,  3 Apr 2026 18:53:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fwwiobBa";
+	dkim=pass (2048-bit key; secure) header.d=kwiboo.se header.i=@kwiboo.se header.b="nISz8iiA";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23D5A10E075
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 18:00:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yrGvSbb8313ygHasG8+I9govNUjh9lDJf7ysi8CpKff/5qvntwfuGyEAsF1aWUcqCrhv2KOFNgaeB5N06iU9F55vwckWgzZe0dHNLijJ4O/RJgbGW4scNQXFAOyxND0uF1tUe7KOjNUcxLJ+DHr6h6c0OAQXMd2YkkccUyJxD3XY4tfpUvFoLC4ZFeMK/fe2ybEe5JhmrDaMPBr+V4JOAHLidL0hVIl4IA3OCVUcEzsu375MSOXIDGfTXE35ZORYEC1uscxNvtL8kL8zubOnvEyiWBaJyA3lhxIEZzXh1C9C6hzJi4NMw+BSdGqg0qrgh1b4r/i673G2ZPfXgmT16Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+mEzRXl/sPJfxC7y/+w2xUCZ3D08HfwBw3Hi+h5YZ+w=;
- b=FLmA4KazUWC4cWo5L6+WSOu2g75ml7e4Lx+3O1IMeeDeK3935YvgdjiwU7skZx+jYbK3BcYBI2ve7Dqaby2OGZqnzNbel2FXrOCBEv8I5plf6sfNs3sTrSVxanbHvj8Gwvaeh4oqkXAN3NmIY33VN80lfrPfUJnEHMCFCtiduG4eaENMCpReeafyl7u7wJcTgccKXmdySBhvvp29U0KBD/11X1TrqzjR7TvhAMG9C6ksSpMKNVYG7QEP2BY2k9lIu9mId37kHqhQhAdWXQnlb15cVGQOzrTGK0PcjauQkZh6rxPRTsGUOOWMYkDcFtxb2YfgX2wZRmdUeHre87B+Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+mEzRXl/sPJfxC7y/+w2xUCZ3D08HfwBw3Hi+h5YZ+w=;
- b=fwwiobBa6SMVj1JruXxqXfDmzSECunjmJ74kwwklsAOb2rLCMREXzOXyxuiPQn7E3z0o1lnnEtjDRGXOU1ClMmDPhXsnCbai/hc9zvJrNQg200WAIQU0BCHahVILMwYozu66cFRIesoWevllIv9DffKlzTSpqSl5qqUm3geb/5Q=
-Received: from SN7PR04CA0187.namprd04.prod.outlook.com (2603:10b6:806:126::12)
- by SN7PR12MB8058.namprd12.prod.outlook.com (2603:10b6:806:348::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 3 Apr
- 2026 18:00:34 +0000
-Received: from SN1PEPF000397AE.namprd05.prod.outlook.com
- (2603:10b6:806:126:cafe::e8) by SN7PR04CA0187.outlook.office365.com
- (2603:10b6:806:126::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.20 via Frontend Transport; Fri,
- 3 Apr 2026 18:00:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397AE.mail.protection.outlook.com (10.167.248.52) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 3 Apr 2026 18:00:34 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 3 Apr
- 2026 13:00:33 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 3 Apr
- 2026 13:00:33 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 3 Apr 2026 13:00:32 -0500
-Message-ID: <3b4cbf4b-0ca6-b2b5-36d2-23547b23c708@amd.com>
-Date: Fri, 3 Apr 2026 11:00:26 -0700
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D9A010E04C
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 18:53:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kwiboo.se;
+ h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
+ Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-e1b5cab7be;
+ t=1775242427; bh=t0j6fHmt5eOTjqBJf8He6l0hKsw3FQ0FWAqMAP76P7w=;
+ b=nISz8iiApUGdvygQt+JmizLkL2envlprc6VwOPX/V488wx4UlQ9GFzYVNpmJ+3vHHR+PDiwDl
+ XMrpYCwoEUUhDPuSuo524foa6KgjcybLBbMbI/m9/SOjTv8dj7VO2IollQPUhv7ZAWgSJyi26D2
+ +DYg+v+0L+ungokWjHi+MT+hbuF4rs/AQ087P0Fmgw7o0oarVeaOBV/fGeKlshb8lhBT3VjQ9Bd
+ BA2SQhilDF1oRiBMi72Y+Dx5bP6GDS0C1Oeq0DBuZCMENUibc8ybfZZ3zG+tUgxK8yKSUTj9doX
+ ZakCWLv3ystdifiY274/MKOUQzBrb06gk/1cR5GOxkHg==
+X-Forward-Email-ID: 69d00cb4dc98192b40b8933f
+X-Forward-Email-Sender: rfc822; jonas@kwiboo.se, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.6.68
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Christian Hewitt <christianshewitt@gmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 03/13] drm: bridge: dw_hdmi: Call poweron/poweroff from
+ atomic enable/disable
+Date: Fri,  3 Apr 2026 18:52:49 +0000
+Message-ID: <20260403185303.80748-4-jonas@kwiboo.se>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260403185303.80748-1-jonas@kwiboo.se>
+References: <20260403185303.80748-1-jonas@kwiboo.se>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V2] accel/amdxdna: Adjust size for copy_to_user()
-Content-Language: en-US
-To: Mario Limonciello <superm1@kernel.org>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <maciej.falkowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <max.zhen@amd.com>, <sonal.santan@amd.com>
-References: <20260402174148.3527757-1-lizhi.hou@amd.com>
- <ec41932c-79b9-4301-a66f-e1a50ede017c@amd.com>
- <474ea416-ddde-88ed-1751-9960dcaef5a2@amd.com>
- <886cc0f4-fc4c-4681-b01a-352190d6a58a@kernel.org>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <886cc0f4-fc4c-4681-b01a-352190d6a58a@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AE:EE_|SN7PR12MB8058:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97b20df9-da24-43ea-c1c1-08de91aae74d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: HNwS7hwjQHB1S6wYuEmCLh8QQkMvvzGbyYZTh5naKyOwstVru+SWibrKzXYaiL6LPQuYlbxiDxVJiv3bE3r5wDsILp3SgV8+DFwd91K0jON4lfsuHM3oPk19+93LCs11OuBHK9tU9epFWXEz/+OazbpNcVOv1MMUR1unSuC+j5wBsWTw01Hc2pud0C6nRN28Ojh0AielTURF0s97MKSkwm6vUwkoqToiDsY7Oyl0xtFO2J6opLgImL6Xpi2yOcpE5Y+JTpnHoBCtVz61nApWm+BkkhFwq1YtKgVEy850K+C5kP9O383VaWEXsfQXzC1o/rpB+J8gzQJVldZjolx5KW10clweNaH4BPUvmc2l7Z8iUdYiNftGuNDGruoypqT0W6a5uhiSZ/yunJsLE3O+mWao8Obrm2LBRXIJxPv37vE6Ga4j5unHieDz/iVDwq2FL9W/nulQ3pVMs01tOWUdnSX/xKPb1n5jurl7XxhhLuC1A6fZgoDuxj3R/9ZiEhERRyYB8lq8Idw6C6QskUgKt/7vuWtXB9Fl72evedgToI2YYsreqBs6Uj2+d6oYo6whSNnmivrK2bXmgasdD1YRyBeCKKhmR9MGp6FGI0BKSFYl5TL8XKo0K/zgNBF6Cex7oATYsaBtrB+Q2Zm+XlMyLhS+ifX0nWKr8ndn/J9cfk7pdabNL5ZKKRahZSVyrdEI+rt5ZG8ROyLg9RqmwpgNWqUV2bzdox2ivkpuGj/P24ot/qKYEdVY9l1kHdNHeHPbzY/IL1RvCVm8jJeKu1nxbA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3onXBgigVXVsMwVlOje48xZpYIcWLyBKjs9j683kURHCwUw7wz88AiMz/4ZUekfhdFeSeBdJVbbjTfUrRmV/1+PVzAbsOqnEsrTiWAbNSi80GONe1+DHJ7v+ZMDoGA/grUv7MPwDzr7TW8rC6Z3KTlI/QAPZOLIAR0fc5W+ibDOs8kPX5Z/i9gvkyM8TwqQq6/y0uiQLV8q1HnySewxFwAulh5az1GFSW18lqfJ+0wHfcOGuWWw65WaHzxW0viXFiXuKCmKlFhYU7wV7913+izUkxqatoJvk0RU/dxhFnrC3YoHphDXjt6q3ubCv9Bx3/s2/AUDd7f6LwhJzQUwXRsw/tdQ+aFMnIkQctTT2NCRfKKp4JmKVW44r+7yIU5j0Bq/YDBE3YyOhS1/3k0/BohIOcB3ETS+TGqGkuFIk//grD79QMHOHoqkY0NugQFte
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2026 18:00:34.3677 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97b20df9-da24-43ea-c1c1-08de91aae74d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8058
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,380 +69,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Change to only call poweron/poweroff from atomic_enable/atomic_disable
+funcs instead of trying to be clever by keeping a bridge_is_on state and
+poweron/off in the hotplug irq handler.
 
-On 4/3/26 08:56, Mario Limonciello wrote:
-> On 4/3/26 10:50 AM, Lizhi Hou wrote:
->>
->> On 4/2/26 14:06, Mario Limonciello wrote:
->>> On 4/2/26 12:41 PM, Lizhi Hou wrote:
->>>> The amount of data returned to user space should be limited by the 
->>>> buffer
->>>> size provided by the application. If the buffer is smaller than the 
->>>> data
->>>> size, return only the portion that fits instead of failing.
->>>>
->>>> Fixes: 850d71f6bf4c ("accel/amdxdna: Add query functions")
->>>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->
-> No more concerns after comments.
->
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Thanks, applied to drm-misc-next
->>>> ---
->>>>   drivers/accel/amdxdna/aie2_error.c   |  5 ++-
->>>>   drivers/accel/amdxdna/aie2_message.c | 20 ++++++----
->>>>   drivers/accel/amdxdna/aie2_pci.c     | 59 
->>>> ++++++++++++++++------------
->>>>   3 files changed, 50 insertions(+), 34 deletions(-)
->>>>
->>>> diff --git a/drivers/accel/amdxdna/aie2_error.c b/drivers/accel/ 
->>>> amdxdna/aie2_error.c
->>>> index 9d20e956c020..70007b4363cd 100644
->>>> --- a/drivers/accel/amdxdna/aie2_error.c
->>>> +++ b/drivers/accel/amdxdna/aie2_error.c
->>>> @@ -406,8 +406,11 @@ int aie2_get_array_async_error(struct 
->>>> amdxdna_dev_hdl *ndev, struct amdxdna_drm_
->>>>         drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
->>>>   +    if (!args->num_element)
->>>> +        return -EINVAL;
->>>> +
->>>>       args->num_element = 1;
->>>
->>> I don't really follow.  Why check if args->num_element is 0 and then 
->>> set it to 1?  Does the check actually make sense? Just set it to one 
->>> and ignore what's there before.
->>
->> args->num_element is used as both user input and output argument.
->>
->> As a input argument, it means the max number of element user 
->> expected. Expecting 0 element doe not make sense, thus -EINVAL is 
->> returned.
->>
->> As a output argument, driver fills actual number of element being 
->> returned. One element is returned for getting async error case.
->>
->>>
->>> If it's for protecting args like a NULL args->buffer, wouldn't it 
->>> make more sense to check for that?
->>>
->>>> -    args->element_size = sizeof(ndev->last_async_err);
->>>> +    args->element_size = min(args->element_size, sizeof(ndev- 
->>>> >last_async_err));
->>>
->>> As this comes from userspace, couldn't it end up being clamped if 
->>> userspace sends a smaller buffer?  Is that intended?
->>
->> Yes, it is possible user sends smaller buffer. In this case, driver 
->> fills partial of its data. This is intended.
->>
->>
->>>
->>>>       if (copy_to_user(u64_to_user_ptr(args->buffer),
->>>>                &ndev->last_async_err, args->element_size))
->>>>           return -EFAULT;
->>>> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/ 
->>>> amdxdna/aie2_message.c
->>>> index e5e7da7a8f40..e52dc7ea9fc7 100644
->>>> --- a/drivers/accel/amdxdna/aie2_message.c
->>>> +++ b/drivers/accel/amdxdna/aie2_message.c
->>>> @@ -369,12 +369,13 @@ int aie2_query_status(struct amdxdna_dev_hdl 
->>>> *ndev, char __user *buf,
->>>>   {
->>>>       DECLARE_AIE_MSG(aie_column_info, MSG_OP_QUERY_COL_STATUS);
->>>>       struct amdxdna_dev *xdna = ndev->aie.xdna;
->>>> -    u32 buf_sz = size, aie_bitmap = 0;
->>>> +    u32 buf_sz, aie_bitmap = 0;
->>>>       struct amdxdna_client *client;
->>>>       dma_addr_t dma_addr;
->>>>       u8 *buff_addr;
->>>>       int ret;
->>>>   +    buf_sz = ndev->metadata.cols * ndev->metadata.size;
->>>
->>> Don't you want to respect /check the size of the caller immediately? 
->>> It seems odd to hardcode it here at allocation time.
->>
->> ndev->metadata.cols * ndev->metadata.size is from firmware but not 
->> user space. So it does not need to check.
->>
->>
->> Thanks,
->>
->> Lizhi
->>
->>>
->>>>       buff_addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
->>>>       if (IS_ERR(buff_addr))
->>>>           return PTR_ERR(buff_addr);
->>>> @@ -398,13 +399,14 @@ int aie2_query_status(struct amdxdna_dev_hdl 
->>>> *ndev, char __user *buf,
->>>>         XDNA_DBG(xdna, "Query NPU status completed");
->>>>   -    if (size < resp.size) {
->>>> +    if (buf_sz < resp.size) {
->>>>           ret = -EINVAL;
->>>> -        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
->>>> %u", size, resp.size);
->>>> +        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
->>>> %u", buf_sz, resp.size);
->>>>           goto fail;
->>>>       }
->>>>   -    if (copy_to_user(buf, buff_addr, resp.size)) {
->>>> +    size = min(size, resp.size);
->>>> +    if (copy_to_user(buf, buff_addr, size)) {
->>>>           ret = -EFAULT;
->>>>           XDNA_ERR(xdna, "Failed to copy NPU status to user space");
->>>>           goto fail;
->>>> @@ -424,13 +426,14 @@ int aie2_query_telemetry(struct 
->>>> amdxdna_dev_hdl *ndev,
->>>>       DECLARE_AIE_MSG(get_telemetry, MSG_OP_GET_TELEMETRY);
->>>>       struct amdxdna_dev *xdna = ndev->aie.xdna;
->>>>       dma_addr_t dma_addr;
->>>> -    u32 buf_sz = size;
->>>> +    u32 buf_sz;
->>>>       u8 *addr;
->>>>       int ret;
->>>>         if (header->type >= MAX_TELEMETRY_TYPE)
->>>>           return -EINVAL;
->>>>   +    buf_sz = min(size, SZ_4M);
->>>>       addr = aie2_alloc_msg_buffer(ndev, &buf_sz, &dma_addr);
->>>>       if (IS_ERR(addr))
->>>>           return PTR_ERR(addr);
->>>> @@ -446,13 +449,14 @@ int aie2_query_telemetry(struct 
->>>> amdxdna_dev_hdl *ndev,
->>>>           goto free_buf;
->>>>       }
->>>>   -    if (size < resp.size) {
->>>> +    if (buf_sz < resp.size) {
->>>>           ret = -EINVAL;
->>>> -        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
->>>> %u", size, resp.size);
->>>> +        XDNA_ERR(xdna, "Bad buffer size. Available: %u. Needs: 
->>>> %u", buf_sz, resp.size);
->>>>           goto free_buf;
->>>>       }
->>>>   -    if (copy_to_user(buf, addr, resp.size)) {
->>>> +    size = min(size, resp.size);
->>>> +    if (copy_to_user(buf, addr, size)) {
->>>>           ret = -EFAULT;
->>>>           XDNA_ERR(xdna, "Failed to copy telemetry to user space");
->>>>           goto free_buf;
->>>> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/ 
->>>> amdxdna/aie2_pci.c
->>>> index 164e188ba501..041cbc8cd7e5 100644
->>>> --- a/drivers/accel/amdxdna/aie2_pci.c
->>>> +++ b/drivers/accel/amdxdna/aie2_pci.c
->>>> @@ -620,23 +620,19 @@ static void aie2_fini(struct amdxdna_dev *xdna)
->>>>   static int aie2_get_aie_status(struct amdxdna_client *client,
->>>>                      struct amdxdna_drm_get_info *args)
->>>>   {
->>>> -    struct amdxdna_drm_query_aie_status status;
->>>> +    struct amdxdna_drm_query_aie_status status = {};
->>>>       struct amdxdna_dev *xdna = client->xdna;
->>>>       struct amdxdna_dev_hdl *ndev;
->>>> +    u32 buf_sz;
->>>>       int ret;
->>>>         ndev = xdna->dev_handle;
->>>> -    if (copy_from_user(&status, u64_to_user_ptr(args->buffer), 
->>>> sizeof(status))) {
->>>> +    buf_sz = min(args->buffer_size, sizeof(status));
->>>> +    if (copy_from_user(&status, u64_to_user_ptr(args->buffer), 
->>>> buf_sz)) {
->>>>           XDNA_ERR(xdna, "Failed to copy AIE request into kernel");
->>>>           return -EFAULT;
->>>>       }
->>>>   -    if (ndev->metadata.cols * ndev->metadata.size < 
->>>> status.buffer_size) {
->>>> -        XDNA_ERR(xdna, "Invalid buffer size. Given Size: %u. Need 
->>>> Size: %u.",
->>>> -             status.buffer_size, ndev->metadata.cols * ndev- 
->>>> >metadata.size);
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>>>       ret = aie2_query_status(ndev, u64_to_user_ptr(status.buffer),
->>>>                   status.buffer_size, &status.cols_filled);
->>>>       if (ret) {
->>>> @@ -644,7 +640,7 @@ static int aie2_get_aie_status(struct 
->>>> amdxdna_client *client,
->>>>           return ret;
->>>>       }
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &status, 
->>>> sizeof(status))) {
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &status, 
->>>> buf_sz)) {
->>>>           XDNA_ERR(xdna, "Failed to copy AIE request info to user 
->>>> space");
->>>>           return -EFAULT;
->>>>       }
->>>> @@ -659,6 +655,7 @@ static int aie2_get_aie_metadata(struct 
->>>> amdxdna_client *client,
->>>>       struct amdxdna_dev *xdna = client->xdna;
->>>>       struct amdxdna_dev_hdl *ndev;
->>>>       int ret = 0;
->>>> +    u32 buf_sz;
->>>>         ndev = xdna->dev_handle;
->>>>       meta = kzalloc_obj(*meta);
->>>> @@ -690,7 +687,8 @@ static int aie2_get_aie_metadata(struct 
->>>> amdxdna_client *client,
->>>>       meta->shim.lock_count = ndev->metadata.shim.lock_count;
->>>>       meta->shim.event_reg_count = 
->>>> ndev->metadata.shim.event_reg_count;
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), meta, 
->>>> sizeof(*meta)))
->>>> +    buf_sz = min(args->buffer_size, sizeof(*meta));
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), meta, buf_sz))
->>>>           ret = -EFAULT;
->>>>         kfree(meta);
->>>> @@ -703,12 +701,14 @@ static int aie2_get_aie_version(struct 
->>>> amdxdna_client *client,
->>>>       struct amdxdna_drm_query_aie_version version;
->>>>       struct amdxdna_dev *xdna = client->xdna;
->>>>       struct amdxdna_dev_hdl *ndev;
->>>> +    u32 buf_sz;
->>>>         ndev = xdna->dev_handle;
->>>>       version.major = ndev->version.major;
->>>>       version.minor = ndev->version.minor;
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
->>>> sizeof(version)))
->>>> +    buf_sz = min(args->buffer_size, sizeof(version));
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
->>>> buf_sz))
->>>>           return -EFAULT;
->>>>         return 0;
->>>> @@ -719,13 +719,15 @@ static int aie2_get_firmware_version(struct 
->>>> amdxdna_client *client,
->>>>   {
->>>>       struct amdxdna_drm_query_firmware_version version;
->>>>       struct amdxdna_dev *xdna = client->xdna;
->>>> +    u32 buf_sz;
->>>>         version.major = xdna->fw_ver.major;
->>>>       version.minor = xdna->fw_ver.minor;
->>>>       version.patch = xdna->fw_ver.sub;
->>>>       version.build = xdna->fw_ver.build;
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
->>>> sizeof(version)))
->>>> +    buf_sz = min(args->buffer_size, sizeof(version));
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &version, 
->>>> buf_sz))
->>>>           return -EFAULT;
->>>>         return 0;
->>>> @@ -737,11 +739,13 @@ static int aie2_get_power_mode(struct 
->>>> amdxdna_client *client,
->>>>       struct amdxdna_drm_get_power_mode mode = {};
->>>>       struct amdxdna_dev *xdna = client->xdna;
->>>>       struct amdxdna_dev_hdl *ndev;
->>>> +    u32 buf_sz;
->>>>         ndev = xdna->dev_handle;
->>>>       mode.power_mode = ndev->pw_mode;
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, 
->>>> sizeof(mode)))
->>>> +    buf_sz = min(args->buffer_size, sizeof(mode));
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &mode, buf_sz))
->>>>           return -EFAULT;
->>>>         return 0;
->>>> @@ -754,6 +758,7 @@ static int aie2_get_clock_metadata(struct 
->>>> amdxdna_client *client,
->>>>       struct amdxdna_dev *xdna = client->xdna;
->>>>       struct amdxdna_dev_hdl *ndev;
->>>>       int ret = 0;
->>>> +    u32 buf_sz;
->>>>         ndev = xdna->dev_handle;
->>>>       clock = kzalloc_obj(*clock);
->>>> @@ -766,7 +771,8 @@ static int aie2_get_clock_metadata(struct 
->>>> amdxdna_client *client,
->>>>       snprintf(clock->h_clock.name, sizeof(clock->h_clock.name), "H 
->>>> Clock");
->>>>       clock->h_clock.freq_mhz = ndev->hclk_freq;
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), clock, 
->>>> sizeof(*clock)))
->>>> +    buf_sz = min(args->buffer_size, sizeof(*clock));
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), clock, buf_sz))
->>>>           ret = -EFAULT;
->>>>         kfree(clock);
->>>> @@ -792,12 +798,14 @@ static int aie2_get_sensors(struct 
->>>> amdxdna_client *client,
->>>>       scnprintf(sensor.label, sizeof(sensor.label), "Total Power");
->>>>       scnprintf(sensor.units, sizeof(sensor.units), "mW");
->>>>   +    if (args->buffer_size < sizeof(sensor))
->>>> +        goto out;
->>>> +
->>>>       if (copy_to_user(u64_to_user_ptr(args->buffer), &sensor, 
->>>> sizeof(sensor)))
->>>>           return -EFAULT;
->>>>   +    args->buffer_size -= sizeof(sensor);
->>>>       sensors_count++;
->>>> -    if (args->buffer_size <= sensors_count * sizeof(sensor))
->>>> -        goto out;
->>>>         for (i = 0; i < min_t(u32, ndev->total_col, 8); i++) {
->>>>           memset(&sensor, 0, sizeof(sensor));
->>>> @@ -807,13 +815,15 @@ static int aie2_get_sensors(struct 
->>>> amdxdna_client *client,
->>>>           scnprintf(sensor.label, sizeof(sensor.label), "Column %d 
->>>> Utilization", i);
->>>>           scnprintf(sensor.units, sizeof(sensor.units), "%%");
->>>>   +        if (args->buffer_size < sizeof(sensor))
->>>> +            goto out;
->>>> +
->>>>           if (copy_to_user(u64_to_user_ptr(args->buffer) + 
->>>> sensors_count * sizeof(sensor),
->>>>                    &sensor, sizeof(sensor)))
->>>>               return -EFAULT;
->>>>   +        args->buffer_size -= sizeof(sensor);
->>>>           sensors_count++;
->>>> -        if (args->buffer_size <= sensors_count * sizeof(sensor))
->>>> -            goto out;
->>>>       }
->>>>     out:
->>>> @@ -909,6 +919,7 @@ static int aie2_query_resource_info(struct 
->>>> amdxdna_client *client,
->>>>       const struct amdxdna_dev_priv *priv;
->>>>       struct amdxdna_dev_hdl *ndev;
->>>>       struct amdxdna_dev *xdna;
->>>> +    u32 buf_sz;
->>>>         xdna = client->xdna;
->>>>       ndev = xdna->dev_handle;
->>>> @@ -920,7 +931,8 @@ static int aie2_query_resource_info(struct 
->>>> amdxdna_client *client,
->>>>       res_info.npu_tops_curr = ndev->curr_tops;
->>>>       res_info.npu_task_curr = ndev->hwctx_num;
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &res_info, 
->>>> sizeof(res_info)))
->>>> +    buf_sz = min(args->buffer_size, sizeof(res_info));
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &res_info, 
->>>> buf_sz))
->>>>           return -EFAULT;
->>>>         return 0;
->>>> @@ -956,12 +968,7 @@ static int aie2_get_telemetry(struct 
->>>> amdxdna_client *client,
->>>>           XDNA_ERR(xdna, "Invalid buffer size");
->>>>           return -EINVAL;
->>>>       }
->>>> -
->>>>       telemetry_data_sz = args->buffer_size - header_sz;
->>>> -    if (telemetry_data_sz > SZ_4M) {
->>>> -        XDNA_ERR(xdna, "Buffer size is too big, %d", 
->>>> telemetry_data_sz);
->>>> -        return -EINVAL;
->>>> -    }
->>>>         header = kzalloc(header_sz, GFP_KERNEL);
->>>>       if (!header)
->>>> @@ -1002,6 +1009,7 @@ static int aie2_get_preempt_state(struct 
->>>> amdxdna_client *client,
->>>>       struct amdxdna_drm_attribute_state state = {};
->>>>       struct amdxdna_dev *xdna = client->xdna;
->>>>       struct amdxdna_dev_hdl *ndev;
->>>> +    u32 buf_sz;
->>>>         ndev = xdna->dev_handle;
->>>>       if (args->param == DRM_AMDXDNA_GET_FORCE_PREEMPT_STATE)
->>>> @@ -1009,7 +1017,8 @@ static int aie2_get_preempt_state(struct 
->>>> amdxdna_client *client,
->>>>       else if (args->param == 
->>>> DRM_AMDXDNA_GET_FRAME_BOUNDARY_PREEMPT_STATE)
->>>>           state.state = ndev->frame_boundary_preempt;
->>>>   -    if (copy_to_user(u64_to_user_ptr(args->buffer), &state, 
->>>> sizeof(state)))
->>>> +    buf_sz = min(args->buffer_size, sizeof(state));
->>>> +    if (copy_to_user(u64_to_user_ptr(args->buffer), &state, buf_sz))
->>>>           return -EFAULT;
->>>>         return 0;
->>>
->
+The bridge is already enabled/disabled depending on connection state
+with the call to drm_helper_hpd_irq_event() in hotplug irq handler.
+
+A benefit of this is that drm mode_config mutex is always held at
+poweron/off, something that may reduce the need for the dw-hdmi mutex.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+---
+v3: Collect r-b tag
+v2: Update commit message
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 33 ++---------------------
+ 1 file changed, 2 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 3b851f12adfe..eea266d01de3 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -169,7 +169,6 @@ struct dw_hdmi {
+ 	enum drm_connector_force force;	/* mutex-protected force state */
+ 	struct drm_connector *curr_conn;/* current connector (only valid when !disabled) */
+ 	bool disabled;			/* DRM has disabled our bridge */
+-	bool bridge_is_on;		/* indicates the bridge is on */
+ 	bool rxsense;			/* rxsense state */
+ 	u8 phy_mask;			/* desired phy int mask settings */
+ 	u8 mc_clkdis;			/* clock disable register */
+@@ -2398,8 +2397,6 @@ static void initialize_hdmi_ih_mutes(struct dw_hdmi *hdmi)
+ 
+ static void dw_hdmi_poweron(struct dw_hdmi *hdmi)
+ {
+-	hdmi->bridge_is_on = true;
+-
+ 	/*
+ 	 * The curr_conn field is guaranteed to be valid here, as this function
+ 	 * is only be called when !hdmi->disabled.
+@@ -2413,30 +2410,6 @@ static void dw_hdmi_poweroff(struct dw_hdmi *hdmi)
+ 		hdmi->phy.ops->disable(hdmi, hdmi->phy.data);
+ 		hdmi->phy.enabled = false;
+ 	}
+-
+-	hdmi->bridge_is_on = false;
+-}
+-
+-static void dw_hdmi_update_power(struct dw_hdmi *hdmi)
+-{
+-	int force = hdmi->force;
+-
+-	if (hdmi->disabled) {
+-		force = DRM_FORCE_OFF;
+-	} else if (force == DRM_FORCE_UNSPECIFIED) {
+-		if (hdmi->rxsense)
+-			force = DRM_FORCE_ON;
+-		else
+-			force = DRM_FORCE_OFF;
+-	}
+-
+-	if (force == DRM_FORCE_OFF) {
+-		if (hdmi->bridge_is_on)
+-			dw_hdmi_poweroff(hdmi);
+-	} else {
+-		if (!hdmi->bridge_is_on)
+-			dw_hdmi_poweron(hdmi);
+-	}
+ }
+ 
+ /*
+@@ -2561,7 +2534,6 @@ static void dw_hdmi_connector_force(struct drm_connector *connector)
+ 
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->force = connector->force;
+-	dw_hdmi_update_power(hdmi);
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	mutex_unlock(&hdmi->mutex);
+ }
+@@ -2971,7 +2943,7 @@ static void dw_hdmi_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->disabled = true;
+ 	hdmi->curr_conn = NULL;
+-	dw_hdmi_update_power(hdmi);
++	dw_hdmi_poweroff(hdmi);
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	handle_plugged_change(hdmi, false);
+ 	mutex_unlock(&hdmi->mutex);
+@@ -2989,7 +2961,7 @@ static void dw_hdmi_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->disabled = false;
+ 	hdmi->curr_conn = connector;
+-	dw_hdmi_update_power(hdmi);
++	dw_hdmi_poweron(hdmi);
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	handle_plugged_change(hdmi, true);
+ 	mutex_unlock(&hdmi->mutex);
+@@ -3089,7 +3061,6 @@ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense)
+ 		if (hpd)
+ 			hdmi->rxsense = true;
+ 
+-		dw_hdmi_update_power(hdmi);
+ 		dw_hdmi_update_phy_mask(hdmi);
+ 	}
+ 	mutex_unlock(&hdmi->mutex);
+-- 
+2.53.0
+
