@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD7E5E8537A
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 17:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C991AE85388
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 17:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3944C10EF45;
-	Fri,  3 Apr 2026 17:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6B110F2ED;
+	Fri,  3 Apr 2026 17:37:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SWTrcwWe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X4voS5gv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EC0210EF45
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 17:37:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75EBD10F2ED
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 17:37:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3571660123;
- Fri,  3 Apr 2026 17:37:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44CE2C4CEF7;
- Fri,  3 Apr 2026 17:37:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F061E43C07;
+ Fri,  3 Apr 2026 17:37:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47465C19421;
+ Fri,  3 Apr 2026 17:37:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775237861;
- bh=j5Lg+DOCGLuJzSedXBQFy1M5HS8GXHosnGnLzNSWDic=;
+ s=k20201202; t=1775237868;
+ bh=hqgZLgNN566Iogwng6grpVYRQlbqde4gHOvWVMmK9uU=;
  h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=SWTrcwWe8frx7pOV00HJEAe4tjyaVxdgruJZUCuNgbBFc/fJaYKEYnyhOMYIpojb3
- w4FX4yPkZc6CuAmvxOdCLG/g/WuaxtVEkuN0ROW90tfGqwhzEW0kQhon/8RY31E8Ie
- UkBDQ3KVOc+mwNE4aDuFJfpA/gXXA0RNObFrNIwtDjMfuB+pxZW8nfDwqsdlIm4/cE
- GRsdKGWLJAihdbLCbfXArOT59YIgBc4HJtyTN1oiY2CWSQtJotqZvtc6BPc1HZH7VQ
- DYRA1TPXtiwtotxGf7Mio8l8TEbxZtkefNfV1C0oziN9ZXnWCpIGJkDHsOm1Ly0HwE
- vmfT4iRO7OKYw==
+ b=X4voS5gv74LvlZngDC2/3LQi0an29Uk/eJeTI/O8Ak5OkoHl6s/yR/FIjRXc80Rfu
+ RnU5k1kP4GPZ1AxuHVJj5ZS/MSq/7PiXFp6sgRpIIqlbZc08T1kY1TH0TFE8uBzfHv
+ bFd423FPibwAkLmvP0V/ORyDCaUNlKAsXmnLVFE/4deqfjlgqqlyT8rqMKKHbhtqdg
+ jFFIRPqtnzab8bjRzd2tuogCFlYv7ESctuUZykSqGzQ1mdDkLCxEHRrYt0+3D3gaMv
+ QTTZuNoqDxCh996Tm0fZsSsBQshbQhggX02Ig3j/3B0pd4bWIYUyh4t8kDoSe6jlBb
+ v0im2O2wiPkog==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 03 Apr 2026 19:37:37 +0200
-Message-Id: <DHJPAT57O4B5.27NTSV0S1Y2TI@kernel.org>
-Subject: Re: [PATCH v4 0/2] gpu: nova-core: gsp: fix undefined behavior in
- command queue code
-Cc: "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Alistair Popple" <apopple@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+Date: Fri, 03 Apr 2026 19:37:44 +0200
+Message-Id: <DHJPAWGXIHTX.32B7QTC5N0KNA@kernel.org>
+Subject: Re: [PATCH v2] gpu: nova-core: bitfield: fix broken Default
+ implementation
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Lyude
+ Paul" <lyude@redhat.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>,
+ "Timur Tabi" <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260401-cmdq-ub-fix-v4-0-a9a9cf982485@nvidia.com>
-In-Reply-To: <20260401-cmdq-ub-fix-v4-0-a9a9cf982485@nvidia.com>
+References: <20260401-fix-bitfield-v2-1-2fa68c98114a@nvidia.com>
+In-Reply-To: <20260401-fix-bitfield-v2-1-2fa68c98114a@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,10 +63,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 1, 2026 at 4:29 PM CEST, Alexandre Courbot wrote:
-> Alexandre Courbot (2):
->       gpu: nova-core: gsp: inline methods providing queue range invariant=
-s
->       gpu: nova-core: gsp: fix undefined behavior in command queue code
+On Wed Apr 1, 2026 at 3:42 AM CEST, Eliot Courtney wrote:
+> The current implementation does not actually set the default values for
+> the fields in the bitfield.
+>
+> Fixes: 3fa145bef533 ("gpu: nova-core: register: generate correct `Default=
+` implementation")
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
 Applied to drm-rust-next, thanks!
