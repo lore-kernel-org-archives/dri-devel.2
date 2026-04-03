@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89FB3E85367
-	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 14:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15D87E85374
+	for <dri-devel@archiver.kernel.org>; Fri,  3 Apr 2026 14:13:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE07A10F364;
-	Fri,  3 Apr 2026 14:13:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51CB510F371;
+	Fri,  3 Apr 2026 14:13:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FLTvtaiS";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="M3kivujS";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4B1A10F355
- for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 14:13:13 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8B7310F371
+ for <dri-devel@lists.freedesktop.org>; Fri,  3 Apr 2026 14:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1775225593;
+ s=mimecast20190719; t=1775225595;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=zCsOheHk8XlC9CSFSmzc3izuiVKcS+6jE7o78F0/vE0=;
- b=FLTvtaiSWxQviBvxU4h7/A+XbG3am7WWlQ2wB8YCHyn0ClAEPCQJiSUrj17HebJrE994mN
- MVgSQo+1wfZ87acCzH6H5WqYi+C/ZyaRqFaJrt5SEiCVGDvyKidPVbDqttZYp8ozVMknBl
- 3P03nWtE9B90+xBCTBBglUItlOuFaOI=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=F2OXmkPnk3xdLi6S85WCOSMj2pCVYR8dHaWwnDoveRE=;
+ b=M3kivujSkZBsMMNS1fx687nYHgOSxl9V3yDIH+XUE+a7rGvZ7QrK7aaz4vMDNq0K85ryl8
+ WcvNVsPLrmdwrp4rucaWZAhPt35tKlWPdw6DSBtD6+OEmTptViT9SsNR8icM8a1ueGfg98
+ U/wnwl+wJlpf9UUWg+DdY21huiHWy44=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-yCve99sRNFyrFfCBYsQ0Og-1; Fri, 03 Apr 2026 10:13:11 -0400
-X-MC-Unique: yCve99sRNFyrFfCBYsQ0Og-1
-X-Mimecast-MFC-AGG-ID: yCve99sRNFyrFfCBYsQ0Og_1775225591
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8d3bea3aa34so291576185a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 07:13:11 -0700 (PDT)
+ us-mta-472-wnUVK9plMBe1OpVuoYjSpg-1; Fri, 03 Apr 2026 10:13:13 -0400
+X-MC-Unique: wnUVK9plMBe1OpVuoYjSpg-1
+X-Mimecast-MFC-AGG-ID: wnUVK9plMBe1OpVuoYjSpg_1775225592
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-89cd03be011so44949626d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 07:13:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775225591; x=1775830391;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zCsOheHk8XlC9CSFSmzc3izuiVKcS+6jE7o78F0/vE0=;
- b=BQgfxjJbdvqw5I/Ts6GnLF74fs3kaV6lRnY1unu9ZwScWqa9fcIolkhY5Cf0axpatO
- dzk4bhd+03egZeyArHWQSuQIFIA1WeLmB7e4N3U4+JYQw3Wj0NRrhV91ByR5lk9x11fr
- bY213lIKNls8yb0icaHIp/ev16y64xQ7p0vKblIbhCKo1HIALLtXGC1xvdXWxtSSSu1R
- Tkpw7yXwKsVuUxNc3XEOUBJwdTeBr+vE2B9CE2Kjzix0Kq7RANWph/KEzwCIfDppHzqM
- ACX1FYvN6GZ4AaZPXRFZTNcRJe2V+/ETjTLVImiQdfHOUgPJXWAHSb9mRcxVXx9gX1jD
- rJ+A==
+ d=1e100.net; s=20251104; t=1775225592; x=1775830392;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=F2OXmkPnk3xdLi6S85WCOSMj2pCVYR8dHaWwnDoveRE=;
+ b=PFcMx7VeZ9xIiWdTJeHMQZBAKmxJN8RMg4rpTWqhco6VJ6R+chMcd7FESazK1s4dfC
+ I9tyEGMo2rMfRQ+tU7BiK7dqOQZyBTIaDvmqgKGUI83l2n+MCU58gwvVcSdOnp80VCac
+ ODhit4L7yIlsoPw6uSedFqJJi+sx+fH4UsE4ntIrkZm4AVhEWqb4VFpJb2iHKUaBTZ8B
+ p3+kPcteHV3NRAD3tYZzQo5fJBo2iS/Lo+f29Lyfl5UX4wTIimmqB/+eVpykc6Cf2bN/
+ GzzMev5Py3fyjYoT/UL2h04ZFdchn45L/7zny/aqNTBL5KFyggy8MRYCz4JNz85N2u/Y
+ MSFA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXo0kCG8xL3OS81OjfSPy9rHIb5j1Yil+xefCY4coU7NH9wteq3CXenQUJ7vYY8xdo8apJiSmPEdGc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoGx9KsT5Yxruv1Jeqb3GNAgDdq6qpOnCJK8MGCG/6MpQ6WZxy
- hKZ1iERiHRlaxFybv0cCfBwGrXF6tDDiF4hrR89vNHN5ytsJymq8VD3+3ifsPGdUeQvN8QvZGjb
- 6h8x8UpTXKh9odLTa68Z+ExrBvTfXJM+hhRrDVZ3a5q7R/byYq5abFElvOmn31wY0gSqJqQ==
-X-Gm-Gg: ATEYQzy6TxmCItqmGKi2vNHtzvODhhokEMlWFo1d2Tn6jyHIjQCJDtNXRfGTL55yqEH
- xCDlpa68/jVBdoWHYBAl81QtoobMRYONEKz/N3NTSO7BErSBHVo+m+9cL5vsyf5YCrR03WABXe+
- hb1PKHiaZ1axo3tQP2M+lHJF8MSbGIjquAVSLj68mLEXXfvdJ0XWME3DM4pPVKQqV190Z1kMXE/
- pd+GwKaVQ4cBOhyuUmZUidau+K3FFPYmUTiYEYUA36ZNaaE7Vuo9Ao6iAKoKZ+B7LWhiVoUVz/9
- tJqQsCJhZVckvSLrESDLofHrmJRgnssar8+wMeULzKI2fl4SGUgBMUJCQdcdmrJ06JFalxJLF/W
- gJm8dnDJLcVWHuTOpLtM9jw0wsT/6SUn6PnHunRijTQg+Mxo2bpoWAtqtyACGgpA=
-X-Received: by 2002:a05:620a:470d:b0:8d0:176:58bf with SMTP id
- af79cd13be357-8d41ec0d06emr460638585a.63.1775225590913; 
- Fri, 03 Apr 2026 07:13:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:470d:b0:8d0:176:58bf with SMTP id
- af79cd13be357-8d41ec0d06emr460628785a.63.1775225590198; 
- Fri, 03 Apr 2026 07:13:10 -0700 (PDT)
+ AJvYcCW2gS/9pisWlWbntwCj9nSyPVu3+acq6YtP6r4ZRWaJwd+xnnF6zBj/RFifRRFcA57I9fm3S/St97k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzpPS0pP4OlSKXq3NUGg4VdFR/gmofb7pce6M1spiWVff/xVPq8
+ Dz8Js+GPvSMvJaZkt6ojYZIjEk9+IzvSUYsfmDZNB/ooGzZy/me7S24buYO/3rApuuJ4aLI3tLA
+ apIEuy13D0czI32odQDNTlpuIdTmzI/F0Jp3YuVJgKzEDpfE9Bvhv0fIAP0gbZdkuziy1Kg==
+X-Gm-Gg: AeBDievwPC+Or7OVisX+BOsZu5jxGSYnwkvaY4huzC1OhzEI0bw/duWZ6wcfiO4LzzD
+ DGgTvQ+ndBPPw87elrMO3efyrPOAg8KSgu9IreJq1WSb7a7j56PwKkpA3o5IQIg6nhKK1d/gPs5
+ mqry7TDOZqEvb1YVBZ7/4DpxzXW/EYghUCH7BZZWMejRH4JCRbstn2n09w90tbUx27XwvI72uV4
+ U5+UdKDdxscnfqP1BGc6S1k6xROrEXliJle3mCCsd9GjR9aNdHOzH3Jjtyn3cWOdm0GGo5+Ctj0
+ ndMg+n8D0Atj9AUgMItSkRkJKM5A9JO8+rgaMRszvssH1g2G1irV2bc86Jkq8VWLgyVF2yuKbuB
+ 95C34LoJEfOkFglfU6d8LA3ffM9/++Fbv01w0AtUjNl7u7gJ6MowpEIbRkWFav6U=
+X-Received: by 2002:a05:6214:76d:b0:89f:123c:4d9c with SMTP id
+ 6a1803df08f44-8a7025b7636mr47917326d6.18.1775225592255; 
+ Fri, 03 Apr 2026 07:13:12 -0700 (PDT)
+X-Received: by 2002:a05:6214:76d:b0:89f:123c:4d9c with SMTP id
+ 6a1803df08f44-8a7025b7636mr47916446d6.18.1775225591562; 
+ Fri, 03 Apr 2026 07:13:11 -0700 (PDT)
 Received: from localhost (pool-100-17-19-56.bstnma.fios.verizon.net.
  [100.17.19.56]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8d5336aa9f0sm21287085a.28.2026.04.03.07.13.09
+ 6a1803df08f44-8a593330a98sm50147126d6.2.2026.04.03.07.13.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Apr 2026 07:13:09 -0700 (PDT)
+ Fri, 03 Apr 2026 07:13:11 -0700 (PDT)
 From: Eric Chanudet <echanude@redhat.com>
-Subject: [PATCH RFC 0/2] cgroup/mem: add a node to double charge in memcg
-Date: Fri, 03 Apr 2026 10:08:34 -0400
-Message-Id: <20260403-cgroup-dmem-memcg-double-charge-v1-0-c371d155de2a@redhat.com>
+Date: Fri, 03 Apr 2026 10:08:35 -0400
+Subject: [PATCH RFC 1/2] mm/memcontrol: add page-level charge/uncharge
+ functions
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDYyNz3eT0ovzSAt2U3NRcXSBOTtdNyS9NyknVBSovAio3SDM0MEi0TEt
- LSjNSAppSUJSallkBtiFaKcjNWSm2thYATWgic3YAAAA=
-X-Change-ID: 20260327-cgroup-dmem-memcg-double-charge-0f100a9ffbf2
+Message-Id: <20260403-cgroup-dmem-memcg-double-charge-v1-1-c371d155de2a@redhat.com>
+References: <20260403-cgroup-dmem-memcg-double-charge-v1-0-c371d155de2a@redhat.com>
+In-Reply-To: <20260403-cgroup-dmem-memcg-double-charge-v1-0-c371d155de2a@redhat.com>
 To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
  Roman Gushchin <roman.gushchin@linux.dev>, 
  Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
@@ -92,7 +92,7 @@ Cc: cgroups@vger.kernel.org, linux-mm@kvack.org,
  Dave Airlie <airlied@gmail.com>, Eric Chanudet <echanude@redhat.com>
 X-Mailer: b4 0.14.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: M2jBry0cYU4WDeYh61b2XlbSLXHv3ox9kh2jmONzhxU_1775225591
+X-Mimecast-MFC-PROC-ID: KCUFleGTk3hBb_KmGuaXhmnikhtXyB5HB-Rn3zWpCJY_1775225592
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -111,29 +111,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-It was suggested previously[1] to introduce a knob for dmem region to
-double charge dmem and memcg at the will of the administrator.
-
-This RFC tries do that in the dmem controller through the cgroupfs
-interface already available and walk through the problems that creates.
-
-[1] https://lore.kernel.org/all/a446b598-5041-450b-aaa9-3c39a09ff6a0@amd.com/
+Expose functions to charge/uncharge memcg with a number of pages instead
+of a folio.
 
 Signed-off-by: Eric Chanudet <echanude@redhat.com>
 ---
-Eric Chanudet (2):
-      mm/memcontrol: add page-level charge/uncharge functions
-      cgroup/dmem: add a node to double charge in memcg
+ include/linux/memcontrol.h |  4 ++++
+ mm/memcontrol.c            | 24 ++++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
 
- include/linux/memcontrol.h |  4 +++
- kernel/cgroup/dmem.c       | 86 ++++++++++++++++++++++++++++++++++++++++++++--
- mm/memcontrol.c            | 24 +++++++++++++
- 3 files changed, 111 insertions(+), 3 deletions(-)
----
-base-commit: 4b9c36c83b34f710da9573291404f6a2246251c1
-change-id: 20260327-cgroup-dmem-memcg-double-charge-0f100a9ffbf2
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 70b685a85bf4cd0e830c9c0253e4d48f75957fe4..32f03890f13e06551fc910515eb478597c1235d8 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -642,6 +642,8 @@ static inline bool mem_cgroup_below_min(struct mem_cgroup *target,
+ 
+ int __mem_cgroup_charge(struct folio *folio, struct mm_struct *mm, gfp_t gfp);
+ 
++int mem_cgroup_try_charge_pages(struct mem_cgroup *memcg, gfp_t gfp_mask,
++				unsigned int nr_pages);
+ /**
+  * mem_cgroup_charge - Charge a newly allocated folio to a cgroup.
+  * @folio: Folio to charge.
+@@ -692,6 +694,8 @@ static inline void mem_cgroup_uncharge_folios(struct folio_batch *folios)
+ 	__mem_cgroup_uncharge_folios(folios);
+ }
+ 
++void mem_cgroup_uncharge_pages(struct mem_cgroup *memcg, unsigned int nr_pages);
++
+ void mem_cgroup_replace_folio(struct folio *old, struct folio *new);
+ void mem_cgroup_migrate(struct folio *old, struct folio *new);
+ 
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 772bac21d15584ce495cba6ad2eebfa7f693677f..49ed069a2dafd5d26d77e6737dffe7e64ba5118c 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -4764,6 +4764,24 @@ int __mem_cgroup_charge(struct folio *folio, struct mm_struct *mm, gfp_t gfp)
+ 	return ret;
+ }
+ 
++/**
++ * mem_cgroup_try_charge_pages - charge pages to a memory cgroup
++ * @memcg: memory cgroup to charge
++ * @gfp_mask: reclaim mode
++ * @nr_pages: number of pages to charge
++ *
++ * Try to charge @nr_pages to @memcg through try_charge_memcg.
++ *
++ * Returns 0 on success, an error code on failure.
++ */
++int mem_cgroup_try_charge_pages(struct mem_cgroup *memcg, gfp_t gfp_mask,
++				unsigned int nr_pages)
++{
++	return try_charge(memcg, gfp_mask, nr_pages);
++}
++EXPORT_SYMBOL_GPL(mem_cgroup_try_charge_pages);
++
++
+ /**
+  * mem_cgroup_charge_hugetlb - charge the memcg for a hugetlb folio
+  * @folio: folio being charged
+@@ -4948,6 +4966,12 @@ void __mem_cgroup_uncharge_folios(struct folio_batch *folios)
+ 		uncharge_batch(&ug);
+ }
+ 
++void mem_cgroup_uncharge_pages(struct mem_cgroup *memcg, unsigned int nr_pages)
++{
++	memcg_uncharge(memcg, nr_pages);
++}
++EXPORT_SYMBOL_GPL(mem_cgroup_uncharge_pages);
++
+ /**
+  * mem_cgroup_replace_folio - Charge a folio's replacement.
+  * @old: Currently circulating folio.
 
-Best regards,
 -- 
-Eric Chanudet <echanude@redhat.com>
+2.52.0
 
