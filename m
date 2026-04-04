@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D7B3E88D6D
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 00:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D964E88D79
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 03:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74B910F4C4;
-	Sat,  4 Apr 2026 00:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 913CA10E072;
+	Sat,  4 Apr 2026 03:41:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sge3PIuj";
+	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="EEToSnKe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBCD910F4C4
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 00:09:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C886243BD6;
- Sat,  4 Apr 2026 00:09:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22891C4CEF7;
- Sat,  4 Apr 2026 00:09:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775261391;
- bh=vIy1Ll9qC2oyfXhmdhIT7TXP8/zUi4JSdeupiKPg+9E=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=sge3PIujCFfaeJ/VjXEtbWh43ZhoT5uLd7ZviKQEMyiXOb6Tli+ymIuMAEsTBQIl2
- EI1yMfHkMi1R3Sp+zktVVPTJ+bAIfG7OdbDoSDJO4pWAN+geajHZUaELBhXv5bGn9W
- HEp/ZQDQ6s6YReJwNX1tloP8UZKgWEoxgyGW3yAeXxc2lxq+IBoOdFoZT15fTW/erf
- Aa3RlWMNJhKLT4O1whg7GI724geAUjGRXai/9d4n1EtF2DRBSyqkUTN8lomuY18LLL
- KDD57YZ2bWCHczFAPKUEAMg8UZ8/pv0RqJ0Y/rhZOgtdmTAfJqNZlx5eu4+CkLp3Ou
- pNhIlVpra20Fg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 04 Apr 2026 02:09:47 +0200
-Message-Id: <DHJXN2MZTZBF.3LSU0NJD0BQNC@kernel.org>
-Subject: Re: [PATCH v2] gpu: nova-core: bitfield: fix broken Default
- implementation
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Lyude
- Paul" <lyude@redhat.com>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260401-fix-bitfield-v2-1-2fa68c98114a@nvidia.com>
-In-Reply-To: <20260401-fix-bitfield-v2-1-2fa68c98114a@nvidia.com>
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F36210E072
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 03:41:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 3E699112C1D; Sat,  4 Apr 2026 05:41:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+ s=dkim; t=1775274088; h=from:subject:date:message-id:to:cc:mime-version:
+ content-transfer-encoding; bh=ApgxGQ153IAfgJWC/bMyIf2DW/ZJRfgpNGeMYExnZEE=;
+ b=EEToSnKeWDrAtLrTk/ulw4nZTqY+G8oP2hUaEgq50oYXnXijFe8nIlzb+aeQa05ZHoPDiD
+ TZtOmxkB5Udt/8u52CxGCoYdCz+DDgvpGf6q16zVIsZR8fmq3SN/CSLoFmL7KD1zbFYiuz
+ AW/Xt6TyHQL5J1Zx0o4kekQx8A6g9u+T7RgQc0+4qoT95wykDS9M4pVb6IcaayvfiFfFGd
+ 5t2qXKWG5D0DrXjw8pFo0IghpJNsyXbsxexXDjQnlmYvtN9WaZ6eezAfDs5sMmawMIhdHk
+ Q26+UqM+Ug2CcCAXGLBNzAmEJWiOB1FbGCqz/XT6D7rRB2i3eVn/9cHUDr+Wmw==
+From: Marek Vasut <marex@nabladev.com>
+To: devicetree@vger.kernel.org
+Cc: Marek Vasut <marex@nabladev.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: display: bridge: lt9211: Require data-lanes on
+ DSI input ports
+Date: Sat,  4 Apr 2026 05:40:18 +0200
+Message-ID: <20260404034123.340818-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,19 +61,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Apr 1, 2026 at 3:42 AM CEST, Eliot Courtney wrote:
-> The current implementation does not actually set the default values for
-> the fields in the bitfield.
->
-> Fixes: 3fa145bef533 ("gpu: nova-core: register: generate correct `Default=
-` implementation")
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+The Lontium LT9211 is capable of 1..4 DSI lanes per input DSI port,
+describe the lane count for each input port in the schema.
 
-Due to [1] I dropped this one as well for now; I will pick it up once -rc1 =
-is
-out.
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Jonas Karlman <jonas@kwiboo.se>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Robert Foss <rfoss@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: devicetree@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+---
+NOTE: For example Linux kernel driver does already use that information
+      and fails to probe if it is missing. There are currently no intree
+      users for this binding, so no new warnings will be generated once
+      this is applied, but a new user is about to be added.
+---
+ .../display/bridge/lontium,lt9211.yaml        | 37 ++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 2 deletions(-)
 
-Thanks,
-Danilo
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+index 9a6e9b25d14a9..5264fb2b68b78 100644
+--- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+@@ -36,18 +36,50 @@ properties:
+ 
+     properties:
+       port@0:
+-        $ref: /schemas/graph.yaml#/properties/port
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
+         description:
+           Primary MIPI DSI port-1 for MIPI input or
+           LVDS port-1 for LVDS input or DPI input.
+ 
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                description: array of physical DSI data lane indexes.
++                minItems: 1
++                items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++
+       port@1:
+-        $ref: /schemas/graph.yaml#/properties/port
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
+         description:
+           Additional MIPI port-2 for MIPI input or LVDS port-2
+           for LVDS input. Used in combination with primary
+           port-1 to drive higher resolution displays
+ 
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++
++            properties:
++              data-lanes:
++                description: array of physical DSI data lane indexes.
++                minItems: 1
++                items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++
+       port@2:
+         $ref: /schemas/graph.yaml#/properties/port
+         description:
+@@ -99,6 +131,7 @@ examples:
+             reg = <0>;
+ 
+             endpoint {
++              data-lanes = <1 2 3 4>;
+               remote-endpoint = <&dsi0_out>;
+             };
+           };
+-- 
+2.53.0
 
-[1] https://lore.kernel.org/all/DHJXK4PAD7V0.3UYK35FDHRNIK@kernel.org/
