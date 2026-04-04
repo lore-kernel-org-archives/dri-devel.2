@@ -4,76 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E43EE63FEC
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 17:34:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51B7BE63FEA
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 17:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44B9110E0FC;
-	Sat,  4 Apr 2026 17:34:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4AFF10E0E7;
+	Sat,  4 Apr 2026 17:41:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="Ud3T62Pv";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="W7Bw8k10";
 	dkim-atps=neutral
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
- [209.85.221.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16E2110E06D
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 06:40:21 +0000 (UTC)
-Received: by mail-vk1-f181.google.com with SMTP id
- 71dfb90a1353d-56db1b3626bso757952e0c.1
- for <dri-devel@lists.freedesktop.org>; Fri, 03 Apr 2026 23:40:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1775284820; x=1775889620; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=NM+YgMZ3VPSp8HAw6BysCZ3QXJispP0X2NnMfKbHGEw=;
- b=Ud3T62Pvx7Jp92tXbcLRxU1Mr/dmUGN78hMcfUytV6udlU/6bhgbuS9jtiF89mzTDU
- xk7EFyzc/MOnjmvivev1YrC6snpgVRcePuEYfkMs4Pc+MMYIE4rRmVNBTqRzpbbpnNWd
- t7uDnbgbtMixh6A5S4KrO+Ykf6ukRGJ857PbVit/6oNK0fVlmq4dEuqHVWLmL15acaHQ
- el6pDEJTiXzRs72Hwn8Qho0eT1RsFA2W2gxZo7lV4i3Muz2lvbWG0Cy1gZCDhaRCu2oT
- A35Bdf0OinJXnnQTfaommZA50YjuR9F/8sEdzEZg7CYkgbOw+RLSqu0b+k6nTpA1yhhu
- aU+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775284820; x=1775889620;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NM+YgMZ3VPSp8HAw6BysCZ3QXJispP0X2NnMfKbHGEw=;
- b=g4HwNQ6KV6n1OvYf+krpQYMGV/jTPyLfL6p4dS8Gm11QRb//BQyj2xzQcQlWsKw9Bi
- Rrr0YHQq4Yvku3WG5JXqcZGXi+jyxpj0JgdxrDSbY5+y7VsmLmHU9nv1Opt7LFx+csRa
- Ovp0VDeRuQw/RBD6BDndGfHAcZW6ukUQzVj+VIP9ezveEqRPBpmIXF192w0bDARHdyee
- a+c4hooWKwBnyw1rtWGDtuWLhiNeDl1UTMsi7ghIIN+oM2I39KFKYD21xM1llzks8Rmj
- KS0PZKX9SNjwUAdvK0NLGUu9IHLWcNlR8sR8FANYGByvZRMer0xn9SUey7MH8Qi5VXe4
- pcwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWFv/2v3bcSCGmjZiGyqOObfPN+6FeCi11AsXQ38Zkb83gZAj37q5lg2keWRT8prq6iMvOhEd8lfrA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwlPbqntZSdxfWkwgJSOS6Knn5PY0GskcDrM5sBzZ06RyWT9iNE
- vjOtNAZDuDfurWDOEXtmjqvQ0eFtViZ07IoyCEa9Jbpym8ukMSEWb/uGF/cnI9QBzfw=
-X-Gm-Gg: AeBDiesihTBDT0eH7Em+fOCgOoLlQxD1rihqQCoWzrfKCiTUYJB6WOW/kbItC7dv5qZ
- C/ywEBykma0jNk7W0W9yNGFPlrRs1WOGE8dcJ/quxOV0CtyRYtbdMyyTdCb0dDKBMpmLzFhRAiN
- +IPVwCxtvx3j9+eH2cm3hL8n6Bx7B6jE3uj6uCbhMiIesS0Rgj0s3wmBciLS1wlk7GLNScfxDWL
- XofPJCHyEXWrLRJYusVhjeWWYHs4Sz2qp0+NHZTfnPBls875/QjyvcCMnAFMdmX2gswTZ2Yhozg
- 1HPMaakYZyzUUSpNyxL33Kk8Goz1pDKW/0YEt/x+TNWKB/8TnlHbUEZw8Amut0rsFW5k+SSUxCT
- lvD8Atn9hiyYbnyyYbNCQzfZ7wiZ5ll/LAN+2ukWXGzhrcz8QPTFPFRKFMrILzUuF0CuMdIG4HX
- JlsIeleirsUJgA0GKfVr1q9awffxJK5CtBH8jYSWs8pAwz5cOWEj/+kIzZ9b38VPmzbYW0EfDY5
- frX60Mvjp9jURivUaedZpwGU8ir3CQrqllCpNhRE3m4xXtc9g==
-X-Received: by 2002:a05:6122:7c8:b0:567:433b:e903 with SMTP id
- 71dfb90a1353d-56dab87fccbmr2066447e0c.6.1775284820640; 
- Fri, 03 Apr 2026 23:40:20 -0700 (PDT)
-Received: from gui-host.Dlink ([177.33.104.190])
- by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-56d9bd2106csm8843708e0c.18.2026.04.03.23.40.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Apr 2026 23:40:20 -0700 (PDT)
-From: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, guilherme.bozi@usp.br
-Subject: [PATCH] drm/amdgpu: use named SRCID for JPEG decode in VCN 1.0
-Date: Sat,  4 Apr 2026 03:40:03 -0300
-Message-ID: <20260404064003.94877-1-guilherme.bozi@usp.br>
-X-Mailer: git-send-email 2.47.3
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011018.outbound.protection.outlook.com [52.101.62.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6982910E0E7
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 17:41:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WWzFFlt3wlHUpWpjxXoUn5vX5kPIEZFancBXzTYVAN8ndnWYVvSXAZwwR6UoBid5tK9oBXAewl0ODMxXhW6ekqarnCLRCtntiYHKHiPcrHqJrUSU57kUwmIWMuvVdiRP8lerFzQ2frHjO3yAA+Aa7SW1oJz9dyQpctzRGK55OZ4Af+Tj4418IWrCfenE30k1pRGiJWA+08L3JzQWNJdQra7DiF/hluY7bmxJ6Vfssfw2ZeYoAMfE44a66bAxE6CFtq0cIxo8JFWeCL1LQ0MxhoT1gVS7x7VOB0iY5cZo9OPRLMB71XSfY3bBVavIqK86ZuOgAXQ6rjC59X2oVL4RWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lcVz+38OnQoZyjmubZCEq8XWqB4RhdJZgwSLRdi8GVg=;
+ b=O/cLy8O63dwGgNGlTe1uiWZdJ3XOx/yl7gN2F6Ul5SSEpm8nY+C/peCoMgjhDtNrSGZjDaKf3lu9G447KiOsScTKvcBKgRdVMBt4oMFnn8zMC0prhk2wa4zJw9D+cEcG57IsCqVT0/ll6MS9a7Gn1DNMy/J5PxfcxL+OKoLhNt9j4l0PLebPqO8jaM1UVeaC88xk3bgdGcP0D86WUPZu4LLOxJaYAchdQoe7NS34mku+Pyf3G4eoIBpD8M6BX2IBGoz0wAE7kFBc5Mwp3BOuA+4TlMvKXgqaRqzJs88Hz+hMnLkMoCUiImasDf4U56pN01a0QZFX/rUJH+T52dqCQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lcVz+38OnQoZyjmubZCEq8XWqB4RhdJZgwSLRdi8GVg=;
+ b=W7Bw8k10gJAsE4ITIHMdf9gNu79CD1JMT+VtTb9uY3LJO/h/fnTuOOeqQgyaFmblRTBlbRk0rTWYyiCoX19jxR3aArJTjkrd8ulBVG7YK1FnsK4JmA+uU0K5tUX1HR2ShKayht7WowbLspRpAZIOj91YMMB67MbW87v/lFFRMeQ=
+Received: from BL1PR13CA0320.namprd13.prod.outlook.com (2603:10b6:208:2c1::25)
+ by DS4PPFC7C4B0ED5.namprd10.prod.outlook.com (2603:10b6:f:fc00::d48)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Sat, 4 Apr
+ 2026 17:41:27 +0000
+Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
+ (2603:10b6:208:2c1:cafe::66) by BL1PR13CA0320.outlook.office365.com
+ (2603:10b6:208:2c1::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.24 via Frontend Transport; Sat,
+ 4 Apr 2026 17:41:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN2PEPF00004FBC.mail.protection.outlook.com (10.167.243.182) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Sat, 4 Apr 2026 17:41:26 +0000
+Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Sat, 4 Apr
+ 2026 12:41:25 -0500
+Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Sat, 4 Apr
+ 2026 12:41:25 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Sat, 4 Apr 2026 12:41:25 -0500
+Received: from [128.247.81.246] (mz02jj9v.dhcp.ti.com [128.247.81.246])
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 634HfPZO1976390;
+ Sat, 4 Apr 2026 12:41:25 -0500
+Message-ID: <f3371c6f-b253-442f-b54d-833b711b5dcc@ti.com>
+Date: Sat, 4 Apr 2026 12:41:25 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: sii902x: Add Power Management hooks with
+ audio context
+To: "Thakkar, Devarsh" <devarsht@ti.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>
+CC: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Donadkar,
+ Rishikesh" <r-donadkar@ti.com>, "Jain, Swamil" <s-jain1@ti.com>
+References: <20260401013758.4149091-1-sen@ti.com>
+ <96444379-712c-4e21-8f3c-55eaad850cd4@ti.com>
+ <09d3cf4d-ecb3-444a-8e88-7d51599007fe@ti.com>
+ <58abc6bd-2f34-4b85-b26e-34324079ec50@ti.com>
+Content-Language: en-US
+From: Sen Wang <sen@ti.com>
+In-Reply-To: <58abc6bd-2f34-4b85-b26e-34324079ec50@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sat, 04 Apr 2026 17:34:02 +0000
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|DS4PPFC7C4B0ED5:EE_
+X-MS-Office365-Filtering-Correlation-Id: a688e9f1-2b56-42d3-a00a-08de92716550
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|7416014|36860700016|1800799024|18002099003|22082099003|56012099003|13003099007;
+X-Microsoft-Antispam-Message-Info: /jOFAnAw5f8h48tAyGP96iWCIyOVSNO7KWmslqvWDGTiU6zIph4HQGOURbqjMdHbcXSUC28n47FxRuJzOZqAtmawKR3439P7oKT91wdykm02aWsJGMsZ2/MdLAoFxHLfTMzNPc6gSvuHDbARqRvvzmYZ45ysdObSrFpIT19qmYfbRGOWJgzqgHN+wTSojJNROanfMbkiXiXVsnCu79d4LKtljekY1N6pBt02vx3HyJIGp3/AXJdhqo080TpsSk220EetcWwqmqYCRslX5KavaZP3T7BEzU2j8FfhTtYLakkHW2GV0l9loMYGyaPODhaguX+vjByoJYApj6xXcHYMXGsxnnaiZahIWvO69ogM8o6HhHOhIIKabHzKjNQlHXVNyCRuEjetaVrKGhdKf6YKGFtDsLkOcqd/nCbywvC+cPEnzoDxXCoM4JhKIfnJKTKCwXnPojTsg0Kock3HkhoZ8qeezYiXvSRR0wupMgOo4YPaUU6HpVVq9MPdf4iycS6AbvJDdHQwSb/3T7MtCHx1697/GdoQcUhfc2iU2572D9O6bkQZSUKJMoLHTl4nRfQQ0aC8N48XIpd9lIuoti4te9QuEnOm8m4o9HXbZJ3u+bb+lxkXcTO/qQNsB49O5jjnElc5EwUvLxBrHxnC6yF8iyJ42OIgxe5F6YNcXUppIIFhGjaA7qXAHWYMKyIUi+O8198UQbSk74jgn10uNjtrNN10YLpI0Lo2NjL1h+Ndajn6mtn+zxnryIAOK8eivH4mpaKqLro73huwyPXYAM/8TA==
+X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(7416014)(36860700016)(1800799024)(18002099003)(22082099003)(56012099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: lBMih2CR1avHZnBcSZwV/2zgcaPxsiFAu9dk389eBvkjKBBbS5prajWEFt6SYwM2xL4/Kwfa+3tW+YN4corJokjBkYHHC27ZpzC7FoN2Hry98jtOHpzCJfSMHxcaaZvR2DRACM4dfuSeKjzfn9FwHl8mOUaKhQpvEU9DDH5gnFlquz23o4nJlvmxNuUIxau49Hrydu2TDsOja73zHL92834HHh/3sv3TGTFHkmtuPJo9DSOBBFR9Q1jYI7NEtcp5oiWVdlZVrfUZtPCyY+FDsnB9jwoueVp6PuvOjiX6kmuD8NQAnHTBf05+jB6L5UausMQfs94XT2FBIW/rieV1AA2qmKESNQ4SCJNGz4/aS8m6+ShGFAEwn3biuxwI7YMO8kzTUGIT3Rx4C6z9oPhOJi+rmkroOwo+2jOgvtKYqAdJrXtrUTsDNzeq8opr4IN3
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2026 17:41:26.0731 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a688e9f1-2b56-42d3-a00a-08de92716550
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
+ Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPFC7C4B0ED5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,64 +133,456 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the hard-coded value 126 with the constant
-VCN_1_0__SRCID__JPEG_DECODE in jpeg_v1_0.c.
+On 4/2/26 02:07, Thakkar, Devarsh wrote:
+> Hi Sen,
+> 
+> Thanks for the update.
+> 
+> On 02/04/26 05:03, Sen Wang wrote:
+>> On 4/1/26 09:42, Thakkar, Devarsh wrote:
+>>> Hi Sen,
+>>>
+>>> On 01/04/26 07:07, Sen Wang wrote:
+>>>
+>>> Sorry but this is not very clear, is this a V2 to
+>>> https://lore.kernel.org/all/e6497541-f3e7-4533-
+>>> a188-9d422cb34d74@ti.com/ ?
+>>>
+>>> In that case, the subject should mention it as PATCH v2 along with
+>>> changelog as documented in kernel patch guidelines :
+>>> https://docs.kernel.org/process/submitting-patches.html
+>>>
+>> Hi Devarsh, Thanks for your review.
+>>
+>> This new patch encompasses more features than the previous patch to
+>> warrant it being a separate patch. But nonetheless my apologies for
+>> not stating the indirection in my commit message.
+>>
+> 
+> I don't think this qualifies to make it an independent patch altogether,
+> as long as goal of the patch is same as the initial one posted, this
+> should be labelled as a V2 with linkage to V1 in changelog. And the
+> follow up patch should be labelled V3.
+> 
+> The changelog should capture the changes under ---:
+> 
+> V1->V2 : What changed
+> V2->V3 : What changed
+> 
+> along with links for V1 and V2.
+> 
+> This gives the reviewer necessary context on architecture and reasoning
+> behind new changes/approaches even if it means the new patch contains
+> some extra feature which was not present in previous patch.
+> 
+> Regards
+> Devarsh
+> 
+> 
+Understood Devarsh, thank you for the detailed explanation. Deeply 
+appreciated.
 
-This improves code readability and maintainability by centralizing
-the SRCID definitions in ivsrcid/vcn/irqsrcs_vcn_1_0.h.
+I also dug more into the datasheet with your comments in mind and wanted 
+to gather some feedback on the proposal before sending a proper V3 patch.
 
-Also fixes potential confusion when handling JPEG decode interrupts
-in the VCN 1.0 hardware block.
+Here's my proposal, TL;DR:
 
-Signed-off-by: Guilherme Ivo Bozi <guilherme.bozi@usp.br>
----
- drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c                    | 6 ++++--
- drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h | 1 +
- 2 files changed, 5 insertions(+), 2 deletions(-)
+- Runtime suspend to use D2 (Sleep) for a quick bringup
+- System suspend to use D3 Hot for a complete power-off/on scheme
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-index b5bb7f4d607c..52a329773467 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
-@@ -31,6 +31,7 @@
- 
- #include "vcn/vcn_1_0_offset.h"
- #include "vcn/vcn_1_0_sh_mask.h"
-+#include "ivsrcid/vcn/irqsrcs_vcn_1_0.h"
- 
- static void jpeg_v1_0_set_dec_ring_funcs(struct amdgpu_device *adev);
- static void jpeg_v1_0_set_irq_funcs(struct amdgpu_device *adev);
-@@ -443,7 +444,7 @@ static int jpeg_v1_0_process_interrupt(struct amdgpu_device *adev,
- 	DRM_DEBUG("IH: JPEG decode TRAP\n");
- 
- 	switch (entry->src_id) {
--	case 126:
-+	case VCN_1_0__SRCID__JPEG_DECODE:
- 		amdgpu_fence_process(adev->jpeg.inst->ring_dec);
- 		break;
- 	default:
-@@ -488,7 +489,8 @@ int jpeg_v1_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	int r;
- 
- 	/* JPEG TRAP */
--	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN, 126, &adev->jpeg.inst->irq);
-+	r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_VCN,
-+		VCN_1_0__SRCID__JPEG_DECODE, &adev->jpeg.inst->irq);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h b/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h
-index e5951709bfc3..d97883a88b0e 100644
---- a/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h
-+++ b/drivers/gpu/drm/amd/include/ivsrcid/vcn/irqsrcs_vcn_1_0.h
-@@ -29,6 +29,7 @@
- #define VCN_1_0__SRCID__UVD_ENC_GENERAL_PURPOSE                 119     /* 0x77 Encoder General Purpose  */
- #define VCN_1_0__SRCID__UVD_ENC_LOW_LATENCY                     120     /* 0x78 Encoder Low Latency  */
- #define VCN_1_0__SRCID__UVD_SYSTEM_MESSAGE_INTERRUPT	        124		/* 0x7c UVD system message interrupt  */
-+#define VCN_1_0__SRCID__JPEG_DECODE                             126     /* 0x7e JRBC Decode interrupt */
- 
- #endif /* __IRQSRCS_VCN_1_0_H__ */
- 
--- 
-2.47.3
+For the full summary:
+
+(per Datasheet's powerstate, Table 3.8)
+D0 	- Full power
+D2 	- Quiet Power Down (i2c accessible)
+D3 Hot  - Complete Power Down (via HPD or RSEN wkup)
+D3 Cold - Complete Power Down (HPD)
+
+Runtime suspend on sii902x should NOT use the same flow as System suspend
+
+- Runtime suspend to use D2 for a quick bringup
+- System suspend to use D3 Hot for a complete power-off/on scheme
+	+ Hot vs Cold: even though Cold use marginally less power, it can only 
+be entered and wkup via HPD event (Hotplug detect), which is not a 
+software-controlled event.
+
+
+In such case, only system suspend needs to cache TPI and audio context, 
+reset & initalise the hardware. Whereas runtime suspend should just be 
+in a D2 state where all reg values are preserved. Thus providing faster 
+response time for runtime resume, especially when we don't have 
+autosuspend (yet), and avoids latency for spontaneous events in the DRM 
+framework.
+
+Best,
+Sen Wang
+
+>>>> Add suspend and resume hooks. On suspend, save TPI mode, interrupt
+>>>> enable, and audio register context (when active). On resume, detect
+>>>> power loss by comparing the saved TPI value; if changed, reset the
+>>>> device and restore TPI mode and interrupts. Restore audio registers
+>>>> and re-enable mclk if audio was active before suspend.
+>>>>
+>>>> Audio register values are read back during suspend rather than cached
+>>>> during hw_params, as the sii902x requires a specific register write
+>>>> sequence during initialization that must be preserved on resume.
+>>>>
+>>>> Based on initial PM hooks implementation by:
+>>>>      Aradhya Bhatia <a-bhatia1@ti.com>
+>>>>      Jayesh Choudhary <j-choudhary@ti.com>
+>>>>
+>>>> Signed-off-by: Sen Wang <sen@ti.com>
+>>>> ---
+>>>> Tested on TI SK-AM62P-LP board with HDMI audio playback across multiple
+>>>> suspend/resume cycles.
+>>>
+>>> Could you please also share the test logs ? Did you verify that both
+>>> audio/video context resume back seamlessly afer resuming from system
+>>> suspend ?
+>>>
+>>
+>> Okay I'll attach it to the commit message for v2 patch.
+>>
+>>> I guess this still does not support runtime suspend/resume ?
+>>>
+>> No it doesn't, I don't know if full suspend/resume is necessarily the
+>> correct solution for runtime as well, besides there's also ways to do it
+>> in mode_set/atomic callbacks. Not well-versed in DRM framework to draw
+>> the conclusion here.
+>>
+>> Runtime PM should ideally decouple sound and video to maximize the power
+>> saving. Let me take a deeper look and see if this chip has features that
+>> benefits from runtime PM.
+>>
+>>> And assuming this is v2, here you should mention changelog and v1 link:
+>>> V1: https://lore.kernel.org/all/e6497541-f3e7-4533-
+>>> a188-9d422cb34d74@ti.com/
+>>>>
+>>>>     drivers/gpu/drm/bridge/sii902x.c | 165 +++++++++++++++++++++++++++
+>>>> ++++
+>>>>     1 file changed, 165 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/
+>>>> bridge/sii902x.c
+>>>> index 12497f5ce4ff..8da8ca22ac99 100644
+>>>> --- a/drivers/gpu/drm/bridge/sii902x.c
+>>>> +++ b/drivers/gpu/drm/bridge/sii902x.c
+>>>> @@ -179,6 +179,8 @@ struct sii902x {
+>>>>         struct gpio_desc *reset_gpio;
+>>>>         struct i2c_mux_core *i2cmux;
+>>>>         u32 bus_width;
+>>>> +    unsigned int ctx_tpi;
+>>>> +    unsigned int ctx_interrupt;
+>>>>         /*
+>>>>          * Mutex protects audio and video functions from interfering
+>>>> @@ -189,6 +191,13 @@ struct sii902x {
+>>>>             struct platform_device *pdev;
+>>>>             struct clk *mclk;
+>>>>             u32 i2s_fifo_sequence[4];
+>>>> +        bool active;
+>>>> +        /* Audio register context for suspend/resume */
+>>>> +        unsigned int ctx_i2s_input_config;
+>>>> +        unsigned int ctx_audio_config_byte2;
+>>>> +        unsigned int ctx_audio_config_byte3;
+>>>> +        u8 ctx_i2s_stream_header[SII902X_TPI_I2S_STRM_HDR_SIZE];
+>>>> +        u8 ctx_audio_infoframe[SII902X_TPI_MISC_INFOFRAME_SIZE];
+>>>>         } audio;
+>>>>     };
+>>>> @@ -755,6 +764,8 @@ static int sii902x_audio_hw_params(struct device
+>>>> *dev, void *data,
+>>>>         if (ret)
+>>>>             goto out;
+>>>> +    sii902x->audio.active = true;
+>>>> +
+>>>>         dev_dbg(dev, "%s: hdmi audio enabled\n", __func__);
+>>>>     out:
+>>>>         mutex_unlock(&sii902x->mutex);
+>>>> @@ -777,6 +788,8 @@ static void sii902x_audio_shutdown(struct device
+>>>> *dev, void *data)
+>>>>         regmap_write(sii902x->regmap, SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>>>>                  SII902X_TPI_AUDIO_INTERFACE_DISABLE);
+>>>> +    sii902x->audio.active = false;
+>>>> +
+>>>>         mutex_unlock(&sii902x->mutex);
+>>>>         clk_disable_unprepare(sii902x->audio.mclk);
+>>>> @@ -1069,6 +1082,157 @@ static const struct drm_bridge_timings
+>>>> default_sii902x_timings = {
+>>>>              | DRM_BUS_FLAG_DE_HIGH,
+>>>>     };
+>>>> +static int sii902x_resume(struct device *dev)
+>>>> +{
+>>>> +    struct sii902x *sii902x = dev_get_drvdata(dev);
+>>>> +    unsigned int tpi_reg, status;
+>>>> +    int ret, i;
+>>>> +
+>>>> +    ret = regmap_read(sii902x->regmap, SII902X_REG_TPI_RQB, &tpi_reg);
+>>>> +    if (ret)
+>>>> +        return ret;
+>>>> +
+>>>> +    if (tpi_reg != sii902x->ctx_tpi) {
+>>>> +        /*
+>>>> +         * TPI register context has changed. SII902X power supply
+>>>> +         * device has been turned off and on.
+>>>> +         */
+>>>> +        sii902x_reset(sii902x);
+>>>> +
+>>>> +        /* Configure the device to enter TPI mode. */
+>>>> +        ret = regmap_write(sii902x->regmap, SII902X_REG_TPI_RQB, 0x0);
+>>>> +        if (ret)
+>>>> +            return ret;
+>>>> +
+>>>> +        /* Re-enable the interrupts */
+>>>> +        regmap_write(sii902x->regmap, SII902X_INT_ENABLE,
+>>>> +                 sii902x->ctx_interrupt);
+>>>> +    }
+>>>> +
+>>>> +    /* Clear all pending interrupts */
+>>>> +    regmap_read(sii902x->regmap, SII902X_INT_STATUS, &status);
+>>>> +    regmap_write(sii902x->regmap, SII902X_INT_STATUS, status);
+>>>> +
+>>>> +    /*
+>>>> +     * Restore audio context if audio was active before suspend,
+>>>> +     * in the matching order of sii902x_audio_hw_params()
+>>>> initialization.
+>>>> +     */
+>>>> +    if (sii902x->audio.active) {
+>>>
+>>> audio.active should be protected with mutex lock as done elsewhere in
+>>> the driver?
+>>>
+>> Sounds good, I'm assuming PM resume/suspend are atomic but nonetheless
+>> need to safeguard it from existing ops.
+>>>> +        ret = clk_prepare_enable(sii902x->audio.mclk);
+>>>> +        if (ret) {
+>>>> +            dev_err(dev, "Failed to re-enable mclk: %d\n", ret);
+>>>> +            return ret;
+>>>> +        }
+>>>> +
+>>>> +        ret = regmap_write(sii902x->regmap,
+>>>> SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>>>> +                   sii902x->audio.ctx_audio_config_byte2);
+>>>> +        if (ret)
+>>>> +            goto err_audio_resume;
+>>>> +
+>>>> +        ret = regmap_write(sii902x->regmap,
+>>>> SII902X_TPI_I2S_INPUT_CONFIG_REG,
+>>>> +                   sii902x->audio.ctx_i2s_input_config);
+>>>> +        if (ret)
+>>>> +            goto err_audio_resume;
+>>>> +
+>>>> +        for (i = 0; i < ARRAY_SIZE(sii902x->audio.i2s_fifo_sequence) &&
+>>>> +             sii902x->audio.i2s_fifo_sequence[i]; i++) {
+>>>> +            ret = regmap_write(sii902x->regmap,
+>>>> +                       SII902X_TPI_I2S_ENABLE_MAPPING_REG,
+>>>> +                       sii902x->audio.i2s_fifo_sequence[i]);
+>>>> +            if (ret)
+>>>> +                goto err_audio_resume;
+>>>> +        }
+>>>> +
+>>>> +        ret = regmap_write(sii902x->regmap,
+>>>> SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
+>>>> +                   sii902x->audio.ctx_audio_config_byte3);
+>>>> +        if (ret)
+>>>> +            goto err_audio_resume;
+>>>> +
+>>>> +        ret = regmap_bulk_write(sii902x->regmap,
+>>>> SII902X_TPI_I2S_STRM_HDR_BASE,
+>>>> +                    sii902x->audio.ctx_i2s_stream_header,
+>>>> +                    SII902X_TPI_I2S_STRM_HDR_SIZE);
+>>>> +        if (ret)
+>>>> +            goto err_audio_resume;
+>>>> +
+>>>> +        ret = regmap_bulk_write(sii902x->regmap,
+>>>> SII902X_TPI_MISC_INFOFRAME_BASE,
+>>>> +                    sii902x->audio.ctx_audio_infoframe,
+>>>> +                    SII902X_TPI_MISC_INFOFRAME_SIZE);
+>>>> +        if (ret)
+>>>> +            goto err_audio_resume;
+>>>> +    }
+>>>> +
+>>>
+>>> Do we need to restore the indirect registers status too with the
+>>> constants that were used ?
+>>>
+>>> /* Decode Level 0 Packets */
+>>>
+>>> regmap_write(regmap, SII902X_IND_SET_PAGE, 0x02);  /* 0xBC */
+>>>
+>>> regmap_write(regmap, SII902X_IND_OFFSET,  0x24);  /* 0xBD */
+>>>
+>>> regmap_write(regmap, SII902X_IND_VALUE,   0x02);  /* 0xBE */
+>>>
+>>> ```
+>>>
+>> I didn't see any difference when I restore these registers but let me
+>> double check just to be sure.
+>>>> +    return 0;
+>>>> +
+>>>> +err_audio_resume:
+>>>> +    clk_disable_unprepare(sii902x->audio.mclk);
+>>>> +    dev_err(dev, "Failed to restore audio registers: %d\n", ret);
+>>>> +    return ret;
+>>>> +}
+>>>> +
+>>>> +static int sii902x_suspend(struct device *dev)
+>>>> +{
+>>>> +    struct sii902x *sii902x = dev_get_drvdata(dev);
+>>>> +    int ret;
+>>>> +
+>>>
+>>> Have you reviewed Table 3.8 of the datasheet ?
+>>>
+>>> I think we should probably be utilizing different operating modes during
+>>> suspend/resume cycles.
+>>>
+>>> For e.g. with system suspend go to D3 cold state which is absolute
+>>> minimum power.
+>>>
+>>> For runtime suspend thought, have to be little careful as the D state
+>>> should be chosen such that it does not have a too high resume latency.
+>>> If D3 doesn't have too high then probably use the same else use D2.
+>>>
+>>>> +    ret = regmap_read(sii902x->regmap, SII902X_REG_TPI_RQB,
+>>>> +              &sii902x->ctx_tpi);
+>>>> +    if (ret)
+>>>> +        return ret;
+>>>> +
+>>>> +    ret = regmap_read(sii902x->regmap, SII902X_INT_ENABLE,
+>>>> +              &sii902x->ctx_interrupt);
+>>>> +    if (ret)
+>>>> +        return ret;
+>>>> +
+>>>> +    /*
+>>>> +     * Save audio context if audio is active, in the matching order
+>>>> +     * of sii902x_audio_hw_params() initialization.
+>>>> +     */
+>>>> +    if (sii902x->audio.active) {
+>>>
+>>> Here too, I think mutex protection required while accessing this flag.
+>>>
+>>
+>> Understood
+>>>> +        ret = regmap_read(sii902x->regmap,
+>>>> SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>>>> +                  &sii902x->audio.ctx_audio_config_byte2);
+>>>> +        if (ret)
+>>>> +            goto err_audio_suspend;
+>>>> +
+>>>> +        ret = regmap_read(sii902x->regmap,
+>>>> SII902X_TPI_I2S_INPUT_CONFIG_REG,
+>>>> +                  &sii902x->audio.ctx_i2s_input_config);
+>>>> +        if (ret)
+>>>> +            goto err_audio_suspend;
+>>>> +
+>>>> +        ret = regmap_read(sii902x->regmap,
+>>>> SII902X_TPI_AUDIO_CONFIG_BYTE3_REG,
+>>>> +                  &sii902x->audio.ctx_audio_config_byte3);
+>>>> +        if (ret)
+>>>> +            goto err_audio_suspend;
+>>>> +
+>>>> +        ret = regmap_bulk_read(sii902x->regmap,
+>>>> SII902X_TPI_I2S_STRM_HDR_BASE,
+>>>> +                       sii902x->audio.ctx_i2s_stream_header,
+>>>> +                       SII902X_TPI_I2S_STRM_HDR_SIZE);
+>>>> +        if (ret)
+>>>> +            goto err_audio_suspend;
+>>>> +
+>>>> +        ret = regmap_bulk_read(sii902x->regmap,
+>>>> SII902X_TPI_MISC_INFOFRAME_BASE,
+>>>> +                       sii902x->audio.ctx_audio_infoframe,
+>>>> +                       SII902X_TPI_MISC_INFOFRAME_SIZE);
+>>>> +        if (ret)
+>>>> +            goto err_audio_suspend;
+>>>> +
+>>>
+>>> In the previous revision, my comment was to skip  register reads for
+>>> restoring the context and instead populate the context in hw_params
+>>> itself :
+>>>
+>>> something as below :
+>>> @@ -710,18 +717,36 @@ static int sii902x_audio_hw_params(struct device
+>>> *dev, void *data,
+>>>            ret = regmap_write(sii902x->regmap,
+>>>
+>>>                               SII902X_TPI_AUDIO_CONFIG_BYTE2_REG,
+>>>
+>>>                               config_byte2_reg);
+>>>
+>>> -       if (ret < 0)
+>>>
+>>> +       if (ret < 0)
+>>>
+>>>                    goto out;
+>>>
+>>> +       sii902x->audio.ctx_audio_config_byte2 = config_byte2_reg;
+>>>
+>>>
+>>>            ret = regmap_write(sii902x->regmap,
+>>> SII902X_TPI_I2S_INPUT_CONFIG_REG,
+>>>                               i2s_config_reg);
+>>>
+>>>            if (ret)
+>>>
+>>>                    goto out;
+>>>
+>>> +       sii902x->audio.ctx_i2s_input_config = i2s_config_reg;
+>>>
+>>>
+>>>            for (i = 0; i < ARRAY_SIZE(sii902x->audio.i2s_fifo_sequence) &&
+>>>
+>>>                        sii902x->audio.i2s_fifo_sequence[i]; i++)
+>>>
+>>>                    regmap_write(sii902x->regmap,
+>>>
+>>>                                 SII902X_TPI_I2S_ENABLE_MAPPING_REG,
+>>>
+>>> and likewise and then you don't have to do reg reads in resume back
+>>>
+>> Okay, let me analyze this.
+>>>> +        /*
+>>>> +         * audio.active is kept true so that resume restores the audio
+>>>> +         * context. sii902x_audio_shutdown() clears it when the stream
+>>>> +         * is explicitly closed.
+>>>> +         */
+>>>> +        clk_disable_unprepare(sii902x->audio.mclk);
+>>>> +    }
+>>>> +
+>>>> +    return 0;
+>>>> +
+>>>> +err_audio_suspend:
+>>>> +    dev_err(dev, "Failed to save audio context: %d\n", ret);
+>>>> +    return ret;
+>>>> +}
+>>>> +
+>>>> +static DEFINE_SIMPLE_DEV_PM_OPS(sii902x_pm_ops, sii902x_suspend,
+>>>> sii902x_resume);
+>>>> +
+>>>
+>>> Can we add runtime suspend/resume hooks too ?
+>>>
+>>
+>> I can add what we have for runtime, although I need to investigate this
+>> is actually makes a difference.
+>>
+>>>>     static int sii902x_init(struct sii902x *sii902x)
+>>>>     {
+>>>>         struct device *dev = &sii902x->i2c->dev;
+>>>> @@ -1247,6 +1411,7 @@ static struct i2c_driver sii902x_driver = {
+>>>>         .remove = sii902x_remove,
+>>>>         .driver = {
+>>>>             .name = "sii902x",
+>>>> +        .pm = pm_sleep_ptr(&sii902x_pm_ops),
+>>>>             .of_match_table = sii902x_dt_ids,
+>>>>         },
+>>>>         .id_table = sii902x_i2c_ids,
+>>>
+>>> Regards
+>>> Devarsh
+>>
+>> Thanks for your review Devarsh, let me investigate and follow-up with a
+>> v2 patch.
+>>
+>> Best regards,
+>> Sen Wang
+> 
 
