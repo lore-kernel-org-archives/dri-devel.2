@@ -4,77 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE76FE63FEA
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 20:04:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B97E63FF6
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 20:09:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 019DE10E052;
-	Sat,  4 Apr 2026 20:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69DB010E0A8;
+	Sat,  4 Apr 2026 20:09:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ofgy9RmS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bg3ElQAD";
 	dkim-atps=neutral
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
- [209.85.221.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACB0910E052
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:04:50 +0000 (UTC)
-Received: by mail-vk1-f173.google.com with SMTP id
- 71dfb90a1353d-56a857578a8so1046501e0c.3
- for <dri-devel@lists.freedesktop.org>; Sat, 04 Apr 2026 13:04:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775333089; x=1775937889; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1MQ6/dIVlDkLkhz7sEG8ZPD2tsrLrbIS99Jl3sqf2Sw=;
- b=ofgy9RmSynjzTjQ0LeBczjWTnn+hD0IqLYUgB1vQxaHebNyIYugBd2QGJL5AuTvIRo
- jZEZXWJ6Cmy0LxWN9+ANd1YBKfJAx5AFDKQMJm2AveQJKBg8y7WVyDKzd77usgsWKL43
- gLClw5v2F8BGtGtw+i8cUMwsqPzhQuWw32YemTY2L7SzFPvITOHGPxcmBB8IQh/xOHTd
- r15/JqqTAKibVzekd2W/yvvzExFi+i3y7PFzqLdA7rxiipgSZpUtuo4Coq06ONj8lofi
- 3zcRHfsJBo/JYg+Ag2R9I0vNcDQkSIUOEmR6m++RdojeLhMf6kvwopmRIuriJ66JHmun
- zq7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775333089; x=1775937889;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1MQ6/dIVlDkLkhz7sEG8ZPD2tsrLrbIS99Jl3sqf2Sw=;
- b=mTdoBBBsJsmHzJ4wqI0oL/rGIt7AESPLvnttq3m0vQ7z7J+KTzudiJDSRDjc/zS/BY
- 9Jut8LTIHu+RCNnx8MhV6cZOpvqPLqc/ik9DEcxjDyWKJjppYXEyiAz5CJIRguOyYTT3
- mN0wKoKO08I2lERujaquD8sULWQ1wVSOQbMFDr9T6qBLLWL9wMHqL7uPnQa4qZR/OMpf
- pnol3N1d0ST8plid5oYdgL2Y0F1Scj9/VCU8EbxTz/VMeBn5EYlbPhhPYHsFOqSNPqe2
- mJMihFLws4MOaeyMuBvApa8l/i7+BRqVAN7pOh9CALYlnqgwRqPiwsFIzMSP955V2iR5
- JubA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV9W4iIQXY9OxlWkcALrBLw2KqzFCoUgDte4GduzXcFfxiwCZgp39K8VT5Xp+LDx+u0F1syTHm8Odg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwMvcfQwntt2zDBy1psIrtDvDhXrApxYLNmo6yV6CSfxSIhDmbn
- 7DzQZAJGb2iq1KBEJvLm06QBrNx6gVCX7Ne6fOfEt3Grl8ebS+UHkb9k
-X-Gm-Gg: AeBDiesGe3LO3yFCb8MXYeHcCvdYXyNRLl46/5I2EYpOlOkVdDFyHRqDO4a6xzOvm9l
- 0Sk2oySyIPPZRqQJ9UG4ia5ulVc5VS+4KIquq2NiKRX9MBaAgW8C5Sgm4BKwty7G7kUfFS/Io0c
- R3ZVFyxEoMIMfob+prfvHZqiKPiCK/JrKaKp9ku3aKX8+sBShvcSdtHGguowaZEeKaBfM2iyf02
- TJ6Jh+ToldMI8vbywpc62ZcGKpTc61K1j13MhOQdt+V7s/SZeob2gExgXFdXFLHXZSk/jZ7qC6V
- 2Si8yq3Cf+3P+h1ENFu6eyDWcNMygDBSUtfWG82djQ5R2RgbpXitd++n9lEGjVHMG1a3IchO09O
- beAtK4oR5VriumH6opnJH8PGgzbnJ16R58WBSUbyrNqstJwWfKH6zq+2GNfQEaICtvRTaXua+Wi
- kqfo7CBMwYmM7MlOzA5+euuwJLauowg+7evYQ5QZAzWuIccDwZOzMlw0+FZVsI10opCiFHGw==
-X-Received: by 2002:a05:6102:605b:b0:5db:fe0d:7fd5 with SMTP id
- ada2fe7eead31-605a4d76e3dmr2210872137.10.1775333089480; 
- Sat, 04 Apr 2026 13:04:49 -0700 (PDT)
-Received: from fabio-Precision-3551..
- ([2804:1b3:a803:fafb:5a7b:510a:6309:f015])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-605b214b45fsm5120113137.5.2026.04.04.13.04.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Apr 2026 13:04:49 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: heiko@sntech.de
-Cc: hjc@rock-chips.com, andy.yan@rock-chips.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH] dt-bindings: display: rockchip: dw-hdmi: Allow resets for
- Rockchip HDMI
-Date: Sat,  4 Apr 2026 17:04:34 -0300
-Message-ID: <20260404200434.1954651-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD6C610E0A8
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:09:12 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DB5C360008
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:09:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 85420C19421
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:09:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775333351;
+ bh=8pcTsj9JPvC0679FHtRxOCTXMYSEpYZllPfLZ07AShY=;
+ h=From:To:Subject:Date:From;
+ b=Bg3ElQADbaTjch8mrhe8U6wk1hGwE24TLIhS36ZsEXZHP1lvYlWHogrll+dvaaJVZ
+ 0JJu37qzUl/0YDOnvRzZKkoS6Pofk3Zi6EkaeW+SP3y58hdoC2gsMxvkCFlCcEY5wR
+ WH5VlRw4sOdzjhSh5uufo/r+I0bQKpj/xQ1RvKD/OkhB2VRMWCj4nmC+vY8ZhPNmDk
+ onhiT8yW7pB2oQfw8rGfx+gH2bfTgfI4bNmczmhegmy1yAt6NDhvCLv5jU5GfR3C8J
+ DIaBuMlp7hvWVIfZvbyyMusNAIonV7374w+9OP/54dhkS3SEqCrfkejEB+vg42FVG7
+ zu1hLc0mWxSig==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 7BFDFC433E1; Sat,  4 Apr 2026 20:09:11 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221320] New: ring gfx_0.1.0 timeout, signaled seq=5855035,
+ emitted seq=5855037
+Date: Sat, 04 Apr 2026 20:09:11 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: witold.baryluk+kernel@gmail.com
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression
+Message-ID: <bug-221320-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,46 +75,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Rockchip DW HDMI binding sets unevaluatedProperties: false while
-also inheriting from synopsys,dw-hdmi.yaml via allOf.
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221320
 
-The Synopsys binding defines the optional properties resets and
-reset-names, but due to dt-schema rules these are not considered
-allowed once unevaluatedProperties: false is set in the Rockchip
-schema unless they are re-declared locally.
+            Bug ID: 221320
+           Summary: ring gfx_0.1.0 timeout, signaled seq=3D5855035, emitted
+                    seq=3D5855037
+           Product: Drivers
+           Version: 2.5
+          Hardware: Intel
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: Video(DRI - non Intel)
+          Assignee: drivers_video-dri@kernel-bugs.osdl.org
+          Reporter: witold.baryluk+kernel@gmail.com
+        Regression: No
 
-This went unnoticed because most Rockchip SoCs do not wire a reset line
-to the HDMI controller in their DTS. The rk3228, however, does use a
-reset, which causes dtbs_check to emit:
+kernel 7.0.0-rc5
 
-Unevaluated properties are not allowed ('resets', 'reset-names')
+Possibly related to use of LM Studio, with partial GPU and partial CPU usag=
+e.
+(Started using LM Studio today, and otherwise this kernel and previous ones
+were doing fine, for many days on this rc, and weeeks on other kernels).
 
-Re-declare these properties in the Rockchip schema so they are accepted
-when present, matching the capabilities of the underlying Synopsys IP
-and fixing the dtbs_check warning for rk3228.
+Using `LM-Studio-0.4.9-1-x64.AppImage` - it is a likely source of issue (had
+few hours session with `google/gemma-4-26b-a4b` model with full context win=
+dow
+size), as reset happened just after I pressed enter in the prompt window (b=
+ut
+previous ~50 prompts did not show any issues).
 
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
----
- .../bindings/display/rockchip/rockchip,dw-hdmi.yaml         | 6 ++++++
- 1 file changed, 6 insertions(+)
+Mesa 26.0.3-1, but appimage and the tooling inside appimage might be using =
+some
+other version.
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml
-index 29716764413a..59fb084bb4fb 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-hdmi.yaml
-@@ -113,6 +113,12 @@ properties:
-       - port@0
-       - port@1
- 
-+  resets:
-+    maxItems: 1
-+
-+  reset-names:
-+    const: hdmi
-+
-   rockchip,grf:
-     $ref: /schemas/types.yaml#/definitions/phandle
-     description:
--- 
-2.43.0
+firmware-amd-graphics    20260221-1
 
+Using gnome shell wayland as desktop manager. Also Firefox running in a
+background. But nothing special was happening during the gpu timeout (i.e. =
+no
+video playback, but some videos maybe were paused).
+
+Linux debian 7.0.0-rc5 #2 SMP PREEMPT Fri Mar 27 00:34:39 UTC 2026 x86_64
+GNU/Linux
+
+
+6900 XT
+
+0c:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] N=
+avi
+21 [Radeon RX 6800/6800 XT / 6900 XT] (rev c0)
+
+CPU: AMD Ryzen Threadripper 2950X 16-Core Processor
+
+I also do have zram enabled (80GB, no backing_dev), on top of 256GB of ECC =
+RAM.
+But probably unrelated.
+
+[673923.157491] amdgpu 0000:0c:00.0: Dumping IP State
+[673923.160063] amdgpu 0000:0c:00.0: Dumping IP State Completed
+[673923.160138] amdgpu 0000:0c:00.0: [drm] AMDGPU device coredump file has =
+been
+created
+[673923.160142] amdgpu 0000:0c:00.0: [drm] Check your
+/sys/class/drm/card0/device/devcoredump/data
+[673923.160146] amdgpu 0000:0c:00.0: ring gfx_0.1.0 timeout, signaled
+seq=3D5855035, emitted seq=3D5855037
+[673923.160150] amdgpu 0000:0c:00.0:  Process gnome-shell pid 9084 thread
+gnome-shel:cs0 pid 9106
+[673923.160153] amdgpu 0000:0c:00.0: Starting gfx_0.1.0 ring reset
+[673923.404103] amdgpu 0000:0c:00.0: Ring gfx_0.1.0 reset failed
+[673923.404112] amdgpu 0000:0c:00.0: GPU reset begin!. Source:  1
+[673923.704012] amdgpu 0000:0c:00.0: MODE1 reset
+[673923.704018] amdgpu 0000:0c:00.0: GPU mode1 reset
+[673923.704084] amdgpu 0000:0c:00.0: GPU smu mode1 reset
+[673924.205560] amdgpu 0000:0c:00.0: GPU reset succeeded, trying to resume
+[673924.205736] amdgpu 0000:0c:00.0: [drm] PCIE GART of 512M enabled (table=
+ at
+0x0000008000300000).
+[673924.205760] amdgpu 0000:0c:00.0: VRAM is lost due to GPU reset!
+[673924.205762] amdgpu 0000:0c:00.0: PSP is resuming...
+[673924.284210] amdgpu 0000:0c:00.0: reserve 0xa00000 from 0x83fd000000 for=
+ PSP
+TMR
+[673924.421395] amdgpu 0000:0c:00.0: SECUREDISPLAY: optional securedisplay =
+ta
+ucode is not available
+[673924.421403] amdgpu 0000:0c:00.0: SMU is resuming...
+[673924.421409] amdgpu 0000:0c:00.0: smu driver if version =3D 0x00000040, =
+smu fw
+if version =3D 0x00000041, smu fw program =3D 0, version =3D 0x003a5a00 (58=
+.90.0)
+[673924.421419] amdgpu 0000:0c:00.0: SMU driver if version not matched
+[673924.421450] amdgpu 0000:0c:00.0: use vbios provided pptable
+[673924.497199] amdgpu 0000:0c:00.0: SMU is resumed successfully!
+[673924.497873] amdgpu 0000:0c:00.0: kiq ring mec 2 pipe 1 q 0
+[673924.507153] amdgpu 0000:0c:00.0: [drm] DMUB hardware initialized:
+version=3D0x02020021
+[673924.652432] amdgpu 0000:0c:00.0: ring gfx_0.0.0 uses VM inv eng 0 on hu=
+b 0
+[673924.652437] amdgpu 0000:0c:00.0: ring gfx_0.1.0 uses VM inv eng 1 on hu=
+b 0
+[673924.652439] amdgpu 0000:0c:00.0: ring comp_1.0.0 uses VM inv eng 4 on h=
+ub 0
+[673924.652440] amdgpu 0000:0c:00.0: ring comp_1.1.0 uses VM inv eng 5 on h=
+ub 0
+[673924.652442] amdgpu 0000:0c:00.0: ring comp_1.2.0 uses VM inv eng 6 on h=
+ub 0
+[673924.652444] amdgpu 0000:0c:00.0: ring comp_1.3.0 uses VM inv eng 7 on h=
+ub 0
+[673924.652445] amdgpu 0000:0c:00.0: ring comp_1.0.1 uses VM inv eng 8 on h=
+ub 0
+[673924.652446] amdgpu 0000:0c:00.0: ring comp_1.1.1 uses VM inv eng 9 on h=
+ub 0
+[673924.652447] amdgpu 0000:0c:00.0: ring comp_1.2.1 uses VM inv eng 10 on =
+hub
+0
+[673924.652449] amdgpu 0000:0c:00.0: ring comp_1.3.1 uses VM inv eng 11 on =
+hub
+0
+[673924.652450] amdgpu 0000:0c:00.0: ring kiq_0.2.1.0 uses VM inv eng 12 on=
+ hub
+0
+[673924.652451] amdgpu 0000:0c:00.0: ring sdma0 uses VM inv eng 13 on hub 0
+[673924.652452] amdgpu 0000:0c:00.0: ring sdma1 uses VM inv eng 14 on hub 0
+[673924.652454] amdgpu 0000:0c:00.0: ring sdma2 uses VM inv eng 15 on hub 0
+[673924.652455] amdgpu 0000:0c:00.0: ring sdma3 uses VM inv eng 16 on hub 0
+[673924.652456] amdgpu 0000:0c:00.0: ring vcn_dec_0 uses VM inv eng 0 on hu=
+b 8
+[673924.652457] amdgpu 0000:0c:00.0: ring vcn_enc_0.0 uses VM inv eng 1 on =
+hub
+8
+[673924.652458] amdgpu 0000:0c:00.0: ring vcn_enc_0.1 uses VM inv eng 4 on =
+hub
+8
+[673924.652459] amdgpu 0000:0c:00.0: ring vcn_dec_1 uses VM inv eng 5 on hu=
+b 8
+[673924.652460] amdgpu 0000:0c:00.0: ring vcn_enc_1.0 uses VM inv eng 6 on =
+hub
+8
+[673924.652461] amdgpu 0000:0c:00.0: ring vcn_enc_1.1 uses VM inv eng 7 on =
+hub
+8
+[673924.652462] amdgpu 0000:0c:00.0: ring jpeg_dec uses VM inv eng 8 on hub=
+ 8
+[673924.661748] amdgpu 0000:0c:00.0: GPU reset(1) succeeded!
+[673924.661840] amdgpu 0000:0c:00.0: [drm] device wedged, but recovered thr=
+ough
+reset
+[673924.671004] amdgpu 0000:0c:00.0: [drm] *ERROR* Failed to initialize par=
+ser
+-125!
+
+After the reset, LM studio operates fine after starting it again.
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
