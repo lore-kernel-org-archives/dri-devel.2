@@ -4,132 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C8D1E88D7A
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 04:37:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9891FE88D70
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 05:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF07C10E0B0;
-	Sat,  4 Apr 2026 04:37:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D32B910E065;
+	Sat,  4 Apr 2026 05:04:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="iToimRMt";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Q7patIhT";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011021.outbound.protection.outlook.com [52.101.62.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B154310E0B0
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 04:37:35 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012016.outbound.protection.outlook.com
+ [40.93.195.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 008E110E065
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 05:04:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YpiPSlxEXgqDsEycee7dE1+Ml7b7X7GDJDAzoKxXlAt5ks3bLoTkCb3QNjdNyItVxtVc0WPDs15hahS8VMNngPbA1kKo4oh8XzYVUTl/Gts7Y2RN4MQecD67UVweuF8pjOgdf0f8L8gYkFdtxGfpi6/b23dZyz2o9E1k/eimCtU9LNLKzQ52+XR50HdOuYL1zwOIb2jYe6ob8E+Dwriv28vcM2fOY1mkGVYtHu84caqeZSRtTlnJjx2Tb7Ab14fF6b/ZaKNlxpCoirLw2v52bdw8jAHTjRXfFNzqPRhTTsmuuuFW4f/WAAIECuwDpsIRd2yCtzTCeqo3Fqmbn1sauA==
+ b=AEHzGK0iKs+V9HK1U+0x2qaph7Q5aEcPmVLKRPzBTD8H7Ya5cq892CZhSNnwbFPycjo5138qXuGs0S5iqyqOa3OP6h1V5Ikq6pgDrzCrAMW9cugdvUH7C5kJ/vxdqlnoTJFPR02AIYAJ/3Ocv6V+4eanjtviJUx7UVwLBtv+x1a7roFkGiXeSuUn1zU06ChQX/evKjfOC0dHCAhZHvUGK48f4GtfJ407SLpCzqgpLPp4sZ0DA0so/VIOLhg8ZxWCzki3PAkgxfCjRqq7us0oS9IF1FU3t9jaq8LMGxPbI6CQWhlQ1CxNciOVZ1UAnBzbpiZIRTrYvAvQFD90heL8Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BwAKv2EbwgchIrTuv7RNZSsvA54ntyMBzQLaqdNbpxg=;
- b=Ykw8Ci8WU3Jf5j1zyFd8uOaVrYvL2vPpHNG0AVY0Bt9M++iblmzab65OOO2K0tcciDRAmIsv0D2OWxBgTqzIxVZS14LFP3V2ms2fl2HVr26b032C+jMLTYwq97aUfLIiWnp6+VngvAHun2X/UYCEaiMLRE9nIuVZ9DapJI3j57YfYTowlimc2XdWEMCF/+v617BQVJuRmL8o3lm3DuYGY5Cd8x+XbafE+2TN0ES+cPotZv/HR8/FTHwGPiIUo4dHcw+T749dqZaPx5SyeC508W/Sz/nB8HcjrrR25gq9lWr+JlCQO7fqaNIscDilwT9tYeDEps0R6ot88uhYnkj1iQ==
+ bh=/q9WNzRfcuIhiV6g6931LMz3Y6AAm64OYcMaVdfW130=;
+ b=G1mzhclpMkyV/iKoeXr2nRMXMuwxcVrOtoL0YU5uatsTe17M/xkVVuZn0qYej1zwXEByMwFPeq7m9VyboTI4BGU9X5R+Etd30DwPCmv/LzrvSyJXTX/DyZrvs9AAWicO3QSCLZpZsz+xim0Wftxj3+oo4tRPieO273sTcXkeFxEsUtDmtAM3jxG5mNGLocOEpirjKod0i5SNzsVvH1/PHUbI/AUWNWxK5fze0OvVn9xPj9qyqJDtcp1ZH0q/rItdY70wIuB1lDtbril3NaRf013wpmLrL9oSUgBzlTLz+Gek0wojVOiG+oQtF9w5gkAjJUdbv07t+qOb0kEQvGECrg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BwAKv2EbwgchIrTuv7RNZSsvA54ntyMBzQLaqdNbpxg=;
- b=iToimRMtWyKertJPahhfkMF5UKm00V22B+IVcRAGWt1MkrpqeRooLC4IXkWLjxwY5Wjek8AhAeGMSunsld8sajXe5BXuQ60s473G+LeVC4tlHp3ujhP7ZQRUWsLhFTr6s1j/lWS8+DH7Y8k0ovXPwIpCoThEib3n9TDdStDc8h3qvsd6mrjoQC2ZljlFJNvs+Y7kSnxN8hcuO/VFVLdAsIpoeBoih4YIr4+KxdkJIi2NMLQAiZCRU9u2cJeI1PZa1azR8IBk9QDjP0iFORLVWCaYHwzFJ6PfmDJxqxXxaywCKPFwgqaPu0k2lN4B7OI9IL8DGIWFWc8ZOBVaNfiaFw==
+ bh=/q9WNzRfcuIhiV6g6931LMz3Y6AAm64OYcMaVdfW130=;
+ b=Q7patIhTXsi779lomwIwfKPOGiEyRrYRdpfl+ndtcR1WNScct0wG6ZguPXY0EFJXMh22N2fpQXsfk1Ez+coztclD4ADuUDdmag+Mq4JgUp9kAieyqSIBwcoL6PbKsoAQIBfFUVBVCcbECIJoIP98gpKNSnyt10Wqz9UH9p0khySuO9RiN56nOFCWg7xHOfDQLfEMDBwC8ZmUFXqapqvGpRKQMc7LVZMmWg/lkr1urFimVOU8Kce0JvNMpPKRIxwcIWXmJIVDPQQvXyAuevjGGvPYxBP5hBfH2dXm+FJ3aLsUFCeGMEec495hUF3IDHs2sMWQ6AM0vPRlKxv/8t3/dA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SA3PR12MB9177.namprd12.prod.outlook.com (2603:10b6:806:39d::5)
+ by CY8PR12MB7513.namprd12.prod.outlook.com (2603:10b6:930:91::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Sat, 4 Apr
- 2026 04:37:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Sat, 4 Apr
+ 2026 05:04:28 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9769.018; Sat, 4 Apr 2026
- 04:37:31 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 04 Apr 2026 13:37:27 +0900
-Message-Id: <DHK3C0Q5NX6J.UGQ9SCBYSCRJ@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
- "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple" <apopple@nvidia.com>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 2/2] gpu: nova-core: gsp: fix undefined behavior in
- command queue code
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>
-References: <20260401-cmdq-ub-fix-v4-0-a9a9cf982485@nvidia.com>
- <20260401-cmdq-ub-fix-v4-2-a9a9cf982485@nvidia.com>
- <11466450-aeb3-48d3-a86f-934346fd4172@nvidia.com>
- <DHJXK4PAD7V0.3UYK35FDHRNIK@kernel.org>
-In-Reply-To: <DHJXK4PAD7V0.3UYK35FDHRNIK@kernel.org>
-X-ClientProxiedBy: TYCP286CA0347.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:7c::7) To CH2PR12MB3990.namprd12.prod.outlook.com
+ 05:04:28 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Sat, 04 Apr 2026 14:04:24 +0900
+Subject: [PATCH v5] gpu: nova-core: gsp: fix undefined behavior in command
+ queue code
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260404-cmdq-ub-fix-v5-1-53d21f4752f5@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23MSw6CMBSF4a2Qjr2mT0oduQ/joPQhHQBatNEQ9
+ m5hIgSH5yTfP6LBxeAGdCpGFF0KQ+i7PMShQKbR3c1BsHkjimmJGVFgWvuAVw0+vMEKWWOlJRe
+ 1Qlnco8v3Urtc827C8OzjZ4knMr//O4kAAeyVL13lmXHs3KVggz6avkVzKNEVpmyLacZSWkIJM
+ 8xLv8NsjcstZhmrUntKeGW0MDvMf5hjssUcMGillfGqorwSGzxN0xc47RnbXgEAAA==
+X-Change-ID: 20260319-cmdq-ub-fix-d57b09a745b9
+To: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Alistair Popple <apopple@nvidia.com>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.1
+X-ClientProxiedBy: TYCP286CA0343.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38e::11) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SA3PR12MB9177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60ce609e-992b-49fa-8bdb-08de9203e254
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CY8PR12MB7513:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea274edc-c69b-40be-8078-08de9207a5bb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|10070799003|1800799024|366016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: IcsdF9X3ErytKPtnt7w/Xfhjc3ub87u/KftPycKh+p/iH8ZM5r0XBB7tjylvpYZxp4PTbsrbjrsWWxPX0tCWSlGPfGMwgMXvh5K6wtLRLe1muGDv4NKuZtVAgeAGctxYJHPuexnf682UmEiVhIOE2+yT9haXa9o2RAzO9DIUOQi8MKqvc5nuWvPx1Cqft2Qqhqr9CX/Vpf8Eq7C5BNJRIIg2kIyaz6xottduf29GgrBHKTsdV06MRCK0WqMbmbzWOaBY4Wxx3fEA63qxKPVMXkMQkqvNFSC9tT8kP3FkZqg2Tk7IbEHcZRcA/IfXmStBsylmBt7vUX8AzotmG2K+k5y4bxMnXqansNBgZaT1nyp/SZUQ0yv4wrUuUCHecViNVe+j8CfQnb0Hg6cxQShxKtEnxdejb56JzUvN5OuozoiAvoEGI+F+IYUpp1iFyiGPa7CIAMgBz7Q5i5m8w3RKGJud4dXsoZllpAK1DUJlp4hHmaBsTrk9BFtCX5GcfAI0sIsxfeYxF2fleWIkV81HwaopLhs0dCd60KjKdSHmPjMu/9LWVVxOcRI/YMVnrPrzq0d3md4gFc5Jx3btQrScgejf5/NFi2zYijCCfvalBz4ymID5elUumZ5uJaQiAHXD68YapmlNIeGaEkuRyJ1hauuXgS96mwtbRuR64VpMFxeVl+s1liAzxIihdmKjS11n0ZDIH35e8lIdJNMhlklku2WytC2oXRsikceijCdd3zw=
+ ARA:13230040|1800799024|10070799003|376014|366016|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: Dd+RdfXHugpb2y6P3QJO9HoOf4j5Sno8ni5iHXE5ShVFLIWI48VfM2njGCaq8YIiyFV/VJNtH+ik74m1xQnwsOXDGBb11zk4ak4QUwQOg1cv7bUAbcMjrV30NkmYYO1IADiykcOYCnEPA+ra5PxQQ4DgtHrcbHp2X5PovPeSxfW0wRLjiwWQ5joTQtFJmsQbDdVmuV3JwvJA2ZF1wG4YN2wmSDgQ9+sXlkpY35TBd4pibnFwCwy8AbYAWtma7LXGaBypp7T6ddXKwD9gMvtIO3CA/e4CB7joUCV6Ax9My6elKECSdoeMIBMfG2hchmxoTIkweP8CPVdWClDwYi1YVENoVerMIbEKvQp8tvfrtta8lwJJDpEKZQQQ/omjfbuDgJThvK8A5blRcy3jwUd+dwqmOjZWctkGQimo3dG3tAsUL1HULgjbpxlivC5zeWigxwj1lBUpn0DDjW6WuM+t+hlonwPfT6MpdlvaQYVwloKyX3N/NeKwvsfMYuYUf0s048CCyRok1UnaNEtoXXmW0QUmUU15RrggwOg2GjyPLIu1Mb93XmPpXtBqR54dDqn66LHB8Rqgy5RI3en+3inA3LcWLFVBALsK/orS9EwZoPXLrJF1KC+M6/1VtEdYSRwT+wmEVzIy3ZtiPundt8LZiYOkBtscJb8zvnyHzue4I1oVUM79ARcQWcmVZXV3bspJMUOzRqDncvY5/m5+2ooLO55eOO2CHT6MoGS53SVnNqk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(10070799003)(1800799024)(366016)(56012099003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(10070799003)(376014)(366016)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGMzOHlZNGdYb0lGaFg0TXFMVzRycmF2cS80a3BlUytlS3RlSmNYNVpzYndO?=
- =?utf-8?B?T1lVWHc2bFRaTjJkeXBYOGxsYmxjR0h3M05VcDV4L3FxajgxSGxIOVg1MmJK?=
- =?utf-8?B?VTM4eW9Xbm1ORi9QL3lVL2ZBeWtzMUFVNWV1di9iUFZteUM3NzRBNFBhTVBB?=
- =?utf-8?B?RHZPQ1N6b053TTJISXhmNjZnZnpWaVdBWWpCUzFrUFFlcEZmU2FVRzNnTTNG?=
- =?utf-8?B?blAydm91M0NDZHhpbmJzZjFQUEcxa2N5M25GNnVrYW5nbmVaZXFFWnhYQ0tN?=
- =?utf-8?B?cVoxNGlKSlpCbHUvUldvL2RMRkM4Z3NPRGxUbk02cjdvNTE5cU4zR09vb1g2?=
- =?utf-8?B?RnM5dnRUZDl3SnJ2Y2h3R3Z0aVc4eVRiZGJwRG1UQm1MUGZ0SlAwUkpKU0xy?=
- =?utf-8?B?QnY2WWFDUzBUa1lmTUs1WWY3Z2tOaHJOU3lkSXl5STNWdkRHbFlLbUNUTkZW?=
- =?utf-8?B?TVFodWVadzRxWnRnTXVzVmpkc3poc3ZqYVJ4K0pzcThkYmozV0JDZVlnYVhN?=
- =?utf-8?B?TEVBajdSQlFtM2h6QmdabHRibmtaVGRrSzVycGNjTzBQVHdnOW5kZGpKTWE3?=
- =?utf-8?B?S0d5QXEvRzJJTHY3czMrUXFyY2NJQTdPejlEMTBQUC9kVTNHWVV4Ui84Q2Yr?=
- =?utf-8?B?dWs4YUkxaE8rVTNudWR5bHhzaVBzZEZrdDE2bE5hcXFDQWw2aDFLdU9XQU1G?=
- =?utf-8?B?c1o0OUhkN0lVWWQvZVJwTkt3SzZoOVYwcW81YlZiUFRYb01tM25MNUVpdzVO?=
- =?utf-8?B?cUtkNG1TMytQWkxFakdoK3dqRlZhYnI2N2pGb1BnVkxkcURubXJBTGFPQ04x?=
- =?utf-8?B?QkZhc0dmWFBFcFdKczE1OEZ3dTd5dzJhNUltRDQwOWxMWFpWeEp6SzNTQ0hq?=
- =?utf-8?B?YlF2Wjd4MGxNUkJJMDY1S3doZXQ4cnRQNzJjL1ozVVhuU0pHTjBNby9wTEo5?=
- =?utf-8?B?TDhVeTNPVmp0elp0cFVENDRsWTd5enAwaU5zNm5xZlZ4SnlkUHFoN2N4SGYv?=
- =?utf-8?B?V0JMcmtOOHNncjNkRDNNS01HZHFlUGF1UnNBWlo4ektmbU5IUEpGWWF5OHVQ?=
- =?utf-8?B?blBnWTBYeURuanRYem5PU1VoY05lWVlzSG1QdzBVUWFxWTNKeG9raUYrWE4y?=
- =?utf-8?B?SEhkanhXbTNCeDcwTnZhOEhkcHQ1U1FnRW9mYm55a0JzU09qcnFWSlNxRHdw?=
- =?utf-8?B?Vy9IbUw4MjJJbkk1a0dZUThCVkNLb2ttalVhVWQzdjZYWGgzU0xPWXY4K0k4?=
- =?utf-8?B?VHczTUFWaXVHa1hsdkx3a09XNjE5dmYyaEUrVmRHNFJJVDN4aUJPWmE4R1Jz?=
- =?utf-8?B?cXVocjNXSTdGTXFYUTVEYmNhTS80TThnTjJKL3lTc3BXQzB1Z2VPT29ScFNK?=
- =?utf-8?B?UGptNExNSDhlTnp5MmhXZEJoQ0gwTUlQSFl3c0kwdFRpSm1VdlZNNmFNSlNt?=
- =?utf-8?B?c2xjaStkUld6emdKMEZ3Y0RZWFMxLzZOQjMwTGZjTytHUmpJbDlSZmJQUkpO?=
- =?utf-8?B?T1U3ZXltZzc0cytaMEFsMVA5cy9uWGw4azNmYWVDTVd0RjJTQUE0K3V2Zmx3?=
- =?utf-8?B?QW5EbW5ScU5BWFFGRHB0OU5CcElEdHVzRDB4K3BFTncwK2p1OVo1MGhSUlRl?=
- =?utf-8?B?TmJsSCt5Nm5xQ0p4YU8wTy9IOVFZUzBMakdZV0pFQmxCaVFEYWpnNm9wN0t3?=
- =?utf-8?B?WEFCbzZkd0ZDd0w2S2FHK1VYTTYyL3NjTVlQc21acHFCMXhaQ0tsUVFyK0tN?=
- =?utf-8?B?ajdndWw4dHRVNWhJTmpNRTlmL2wvUFhzbDdoWDhsQjNONWRuNGhQWkRJYUxJ?=
- =?utf-8?B?K0xsK2ViWFA5NGthaE8yNUpVbmkyWFpsSDRDWTJ4VHlKakg2THl6RGZ4cmpi?=
- =?utf-8?B?Wm9BRXd4WUtpZEY5eEJWUUxnTW5XVldUV1dFVlM1ckh0MkZIb3NnS05rMnpW?=
- =?utf-8?B?T00yeGtvMjlIMFlkTnVzM3V4aFhidFp4QzFhcDZQUURTczBSUXNoOFpocjM2?=
- =?utf-8?B?b3BVWnR2SEpIRXlXZEhPQUtmUnduNTZPL1IyczJzcmo2K2lnUjhzYm1wNGVE?=
- =?utf-8?B?R3VHYW9IM3l5OTFTNDV4Y0wrRWs4WVNDbHcyYWovYW9vYXZ0a3R6ckJGb3Fs?=
- =?utf-8?B?UHdTNXJ1TnJNZ0wvMXNEY1JLZTJ0Mjl4dXg2dVNHd2ZSZnd6cjAwWFN6L2ZB?=
- =?utf-8?B?ZEFwMWEwemJNWWt6amcxL25paTNSOWVjcUF0UHgveUF4enFHdTZ1alVYeENB?=
- =?utf-8?B?ZlJPTEx2WlVPRldSVDJvd2JkL1hWQ2NQRXVQVXYwd0ViYVFQMk5iUCs5ZWdj?=
- =?utf-8?B?V0djcUoyT3I1c2FvN3lnOWVHSE8wK3JlU0ZUem52OC85eEFjUFZoYmt6VTBB?=
- =?utf-8?Q?2HqKeAqwcwSmRSabnCVFkofoybBW68qXFQOWSmowWj274?=
-X-MS-Exchange-AntiSpam-MessageData-1: zx2wihcWJZ8wUQ==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1ZjK0o1ZllJN3M4bHZENEpqQmNMU0xwU0thS1F1bzljMnVyMnBzVEpSN2dq?=
+ =?utf-8?B?S2djc1RaZFlmeWdLSUlVN04vMk9GQzJDeDI4MFBTSEhlS0NucWczN3JVamE4?=
+ =?utf-8?B?NUNzUmMvamkzOXFSVjY0SHRsbHZUN09Kdmo2WkVhZ2dwRnRkQnFYVjc1UW9s?=
+ =?utf-8?B?bXIrU0RwaW5DcXFQcWlBallGeTRwVURwOEdVNXVJSWU4UHhTbmcrTnNWMHRJ?=
+ =?utf-8?B?SFQ1K1M5VDgzeUgvRzFwdUs2YW5IVlNmWmsyNFc4V2VyTVNNV0VRQ0JqL1ZT?=
+ =?utf-8?B?U3JPRzNYQ0JkTVpuUFBoR1JuejdzSlp1UkcyaWdoUUcyNXM4YTF1bTBDOC9r?=
+ =?utf-8?B?UWQyMW0rcGxYbUoyVzVVcWcvT0VnYkFEUnhUZmI1a2xMS053R21PSjdPVHJY?=
+ =?utf-8?B?eUhmdTduMEtNRVFwM01FdGdGdGY4d2hyVUdMZVVXM1B0NDNDamIvcDJiZWpI?=
+ =?utf-8?B?bmZrZ1NsNis3ZmRaaGhwcy9nUnpId0xQWFVMVy9DOXpkOU5rK1VIMnNhUXFH?=
+ =?utf-8?B?RGhaT016VWNreWg2ei9mbUpGbFA5K0ZHSUFsamFNSjFQdTlyaGFjYmVVTFRE?=
+ =?utf-8?B?cnhlNUNIcUF4MjZlTktUdU11djJUVm8zNVFCSnZSZENkRHBwQUFuTzB0c0F1?=
+ =?utf-8?B?WUJpbWFHMzN4QW9mL1hMOUhPK1dzQTRvdEo2L0hLaCsyclo5TXJnUHJIMkJQ?=
+ =?utf-8?B?NVlYL0o4RDBwRko0QjNlSGwzbUFoN0ZWem5WQ3hOM0lDbVVsZ0V6Yk1EdU9K?=
+ =?utf-8?B?NmVYeUF0RXVjdHVFQVROa2dIWTJpMlBVcVliOXh1dkNUbW41TU91NC9Ha0kr?=
+ =?utf-8?B?dGhlUmQzMWZIemo0UkFxMVk5Z3FxZWRSZ0RFUTVMRTg0ZUhPVjJmdTk1RXFF?=
+ =?utf-8?B?aklaaEQxZkluZEI3OGFhWGEyZnlNdjg1bm15eSt4NkJmc3RDQUZqd1BmdnZI?=
+ =?utf-8?B?dDFmQnQxaGt3azVTa0h6WW4vbGJUZHp6NXZPUTU3S05xWlZ3M1FFSU1aaERl?=
+ =?utf-8?B?WmlubXpmZUJkNEhLVTd4ZDhoSFpiMXlpUHArUkszZzJkbWs2UXR3N3Vab3lw?=
+ =?utf-8?B?dFMzenl6THlka3FoTGZqdWZQdjI3UVk5WkpRL2RxWDN0Q2M1QnVEaFAvZHlx?=
+ =?utf-8?B?VFpRM2pqbkhkTmhqS1JZcjNaNkhuU1QveXdNZ04zN1ZucWhCaGZ3TGtBTnMx?=
+ =?utf-8?B?YmJoQ3JCT0ZmT3g2YUd6YnNPQm9SQ0Z3dTlOZmptSENxYTR4c3NmQ2dFS2Fn?=
+ =?utf-8?B?NHpiVTA3VURtbDB0aGwzUkNnMGx0OWRwVU1DNEhKZDQ5YVd3d3djN3FCdFpD?=
+ =?utf-8?B?Wk1yaHhHWHhIOThWamlENVAwMHRhQm5LWHU1YXNsRVZ0TVdxSjV0aUZIY2RI?=
+ =?utf-8?B?MHZUd0lxaTVoOFJON2cvRXRzOGJKTCtkL0R2eFo2bWhpMTlTRXo5N1BSSXcr?=
+ =?utf-8?B?T25WSEZCMWRobzBTQTlWcWtxdzdxV1ZySG9OaXpsbzllT0IrMi9Ub3cwVVd4?=
+ =?utf-8?B?K3ZVTFBKNU1KWXRQU3piTHJSaG5hSkJuTHNNZW9CTm9UT3JUdlNvUzVYWDhI?=
+ =?utf-8?B?YklXNHYwL1NnZHA4WURVQVdUNXNteDdNSitFcVliSCtsekFMMEVwMFdKTGk5?=
+ =?utf-8?B?bnZwMlQ4YitLSjd1VWRGQVgyODNsWVVqZ3YzbjVmeHVTditRa1ZkY3NwT0V3?=
+ =?utf-8?B?WnRHTDMwc0tJZjVicURHakRBT2hpV3hOaVVHYnBzNTVTQ2VpaFNheXFEcTBy?=
+ =?utf-8?B?QWNDYzNlZkU5SXlHMzNaa1VqcWh1bnQ4TmExS1h1cGlySzFsVFJUc3pYcGFw?=
+ =?utf-8?B?dnh2eVNkZUhIMGRpTG1jeVloQUFiMXREUXhUQk5RR29tTGxKVE1WMzM3UE1K?=
+ =?utf-8?B?ZXR1UVZDdWNFSHg1b3E4QUNpeWxDTk5pNm1xNVhtZGlQRzB3SEZyNWhsMDFS?=
+ =?utf-8?B?NExOcG85NlZUNXg4R2U4ZE9Kc01SMXl3VUp4dEl6ODMwbFEwQTI2RERMMHVD?=
+ =?utf-8?B?MTFJRWR3ZlBXS1RZbnpUQXdhbmNQamN1SGN1ZXJMZDNxV1orM1g1SGF5dUV4?=
+ =?utf-8?B?VEREaE1CcUp6ZlUyZWRpTEZ6OHk5K2krYzFpWXloQTU2VkowQjM0eEFVaWht?=
+ =?utf-8?B?YUkyRDZUUGZvZ0NuSStsS2RRR0lSbytrZUUzTDRBdHNycnFPeHFnOW43cmlV?=
+ =?utf-8?B?aDBpVWVadXk4KzBLV3JlYnhkaXU0Rzh1cTcvcCtQV2NrZHgxQjNhd1EvRjdJ?=
+ =?utf-8?B?VjBqRnhzcWFjdEp6OHYreFM5RFVEN0hzZVJaaEZ0dmZHTDhCOTVKbUo5UXZ4?=
+ =?utf-8?B?aHVqTGpDc3dkSXJaQmhTSklOTER5VXF2WTR3SllPVGlualJyUExzM3BuS2JO?=
+ =?utf-8?Q?n2F2tjnsH1C8vcQYUKGlGvSH/zBbsEhVM+nu3SOU0sI2y?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4OOAU+r96DY3+A==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60ce609e-992b-49fa-8bdb-08de9203e254
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea274edc-c69b-40be-8078-08de9207a5bb
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2026 04:37:31.8074 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2026 05:04:27.9568 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 29BANat1fLhdR0CH0f6cjV3FX0GdSpVJOci04iECXIVJf/StUcu49ejuN20Kzps411u20XvHtckEcKhplrbnYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9177
+X-MS-Exchange-CrossTenant-UserPrincipalName: ixj6XoBDv8GLOK70CMV3zxDX6PWhJtlZ/0E+WdtxaYNgAWAwYk77GGmEPXPF+YHL1kKs7eKkxEgD5u2qxdkkpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7513
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,50 +147,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Apr 4, 2026 at 9:05 AM JST, Danilo Krummrich wrote:
-> On Sat Apr 4, 2026 at 1:47 AM CEST, John Hubbard wrote:
->> On 4/1/26 7:29 AM, Alexandre Courbot wrote:
->>> `driver_read_area` and `driver_write_area` are internal methods that
->>> return slices containing the area of the command queue buffer that the
->>> driver has exclusive read or write access, respectively.
->>>=20
->>> While their returned value is correct and safe to use, internally they
->>> temporarily create a reference to the whole command-buffer slice,
->>> including GSP-owned regions. These regions can change without notice,
->>> and thus creating a slice to them, even if never accessed, is undefined
->>> behavior.
->>>=20
->>> Fix this by rewriting these methods to use pointer projections in order
->>> to create slices to valid regions only. It should eventually be replace=
-d
->>> by `IoView` and `IoSlice` once they land.
->>>=20
->>> Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindin=
-gs and handling")
->>> Reported-by: Danilo Krummrich <dakr@kernel.org>
->>> Closes: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.o=
-rg/
->>> Reviewed-by: Gary Guo <gary@garyguo.net>
->>> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
->>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->>> ---
->>>  drivers/gpu/nova-core/gsp/cmdq.rs | 114 ++++++++++++++++++++++--------=
---------
->>>  1 file changed, 65 insertions(+), 49 deletions(-)
->>
->> This is causing a build_assert failure in the latest drm-rust-next, with
->> rustc 1.85.0, and also with 1.78.0.
->>
->> rustc 1.93.0 does not show the problem.
->
-> Odd, it did pass all the testing at my end. Anyways, it only proves once =
-again
-> that this is pretty fragile.
+`driver_read_area` and `driver_write_area` are internal methods that
+return slices containing the area of the command queue buffer that the
+driver has exclusive read or write access, respectively.
 
-Same here, although I did not test with all the supported rustc versions
-(but pretty sure I did test 1.78). This seems to be heavily
-configuration dependent.
+While their returned value is correct and safe to use, internally they
+temporarily create a reference to the whole command-buffer slice,
+including GSP-owned regions. These regions can change without notice,
+and thus creating a slice to them, even if never accessed, is undefined
+behavior.
 
-Gary, do you know of a way to restrict the `project_pointer` macro to
-only take constant values as indices? That problem is pretty sneaky and
-likely to happen again, so we should probably harden that part a bit.
+Fix this by making these methods create slices to valid regions only.
+
+Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings and handling")
+Reported-by: Danilo Krummrich <dakr@kernel.org>
+Closes: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.org/
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+Since we are still getting `build_error`s on some configurations, this
+revision reverts to building raw slices from computed ending indices.
+---
+Changes in v5:
+- Eschew pointer projections with runtime-computed indices to avoid
+  spurious `build_error`s.
+- Drop `Reviewed-by` tags since the code has changed significantly.
+- Link to v4: https://patch.msgid.link/20260401-cmdq-ub-fix-v4-0-a9a9cf982485@nvidia.com
+
+Changes in v4:
+- Make some methods providing the `ptr_project!` invariants inline.
+- Use code paths that preserve the invariants `ptr_project!` depends on
+  more obviously to fix these testbot build failures:
+  - https://lore.kernel.org/all/202603280326.ucDKVaf2-lkp@intel.com/
+  - https://lore.kernel.org/all/202603281331.1ESuqgfz-lkp@intel.com/
+- Improve safety comment when creating the mutable slices (thanks Danilo!).
+- Link to v3: https://patch.msgid.link/20260326-cmdq-ub-fix-v3-1-96af2148ca5c@nvidia.com
+
+Changes in v3:
+- Rebase on top of latest `drm-rust-next` (with `Coherent` patches).
+- Use pointer projections. (thanks Gary!)
+- Link to v2: https://patch.msgid.link/20260323-cmdq-ub-fix-v2-1-77d1213c3f7f@nvidia.com
+
+Changes in v2:
+- Use `u32_as_usize` consistently.
+- Reduce the number of `unsafe` blocks by computing the end offset of
+  the returned slices and creating them at the end, in one step.
+- Take advantage of the fact that both slices have the same start index
+  regardless of the branch chosen.
+- Improve safety comments.
+- Link to v1: https://patch.msgid.link/20260319-cmdq-ub-fix-v1-1-0f9f6e8f3ce3@nvidia.com
+---
+ drivers/gpu/nova-core/gsp/cmdq.rs | 116 +++++++++++++++++++++++---------------
+ 1 file changed, 69 insertions(+), 47 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 2224896ccc89..569bb1a2501c 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -17,6 +17,7 @@
+     },
+     new_mutex,
+     prelude::*,
++    ptr,
+     sync::{
+         aref::ARef,
+         Mutex, //
+@@ -255,37 +256,46 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+     /// As the message queue is a circular buffer, the region may be discontiguous in memory. In
+     /// that case the second slice will have a non-zero length.
+     fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mut [[u8; GSP_PAGE_SIZE]]) {
+-        let tx = self.cpu_write_ptr() as usize;
+-        let rx = self.gsp_read_ptr() as usize;
++        let tx = self.cpu_write_ptr();
++        let rx = self.gsp_read_ptr();
++
++        // Pointer to the first entry of the CPU message queue.
++        let data = ptr::project!(mut self.0.as_mut_ptr(), .cpuq.msgq.data[0]);
++
++        let (tail_end, wrap_end) = if rx == 0 {
++            // The write area is non-wrapping, and stops at the second-to-last entry of the command
++            // queue (to leave the last one empty).
++            (MSGQ_NUM_PAGES - 1, 0)
++        } else if rx <= tx {
++            // The write area wraps and continues until `rx - 1`.
++            (MSGQ_NUM_PAGES, rx - 1)
++        } else {
++            // The write area doesn't wrap and stops at `rx - 1`.
++            (rx - 1, 0)
++        };
+ 
+         // SAFETY:
+-        // - We will only access the driver-owned part of the shared memory.
+-        // - Per the safety statement of the function, no concurrent access will be performed.
+-        let gsp_mem = unsafe { &mut *self.0.as_mut() };
+-        // PANIC: per the invariant of `cpu_write_ptr`, `tx` is `< MSGQ_NUM_PAGES`.
+-        let (before_tx, after_tx) = gsp_mem.cpuq.msgq.data.split_at_mut(tx);
+-
+-        // The area starting at `tx` and ending at `rx - 2` modulo MSGQ_NUM_PAGES, inclusive,
+-        // belongs to the driver for writing.
+-
+-        if rx == 0 {
+-            // Since `rx` is zero, leave an empty slot at end of the buffer.
+-            let last = after_tx.len() - 1;
+-            (&mut after_tx[..last], &mut [])
+-        } else if rx <= tx {
+-            // The area is discontiguous and we leave an empty slot before `rx`.
+-            // PANIC:
+-            // - The index `rx - 1` is non-negative because `rx != 0` in this branch.
+-            // - The index does not exceed `before_tx.len()` (which equals `tx`) because
+-            //   `rx <= tx` in this branch.
+-            (after_tx, &mut before_tx[..(rx - 1)])
+-        } else {
+-            // The area is contiguous and we leave an empty slot before `rx`.
+-            // PANIC:
+-            // - The index `rx - tx - 1` is non-negative because `rx > tx` in this branch.
+-            // - The index does not exceed `after_tx.len()` (which is `MSGQ_NUM_PAGES - tx`)
+-            //   because `rx < MSGQ_NUM_PAGES` by the `gsp_read_ptr` invariant.
+-            (&mut after_tx[..(rx - tx - 1)], &mut [])
++        // - `data` was created from a valid pointer, and `rx` and `tx` are in the
++        //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_write_ptr` and `gsp_read_ptr`,
++        //   thus the created slices are valid.
++        // - The area starting at `tx` and ending at `rx - 2` modulo `MSGQ_NUM_PAGES`,
++        //   inclusive, belongs to the driver for writing and is not accessed concurrently by
++        //   the GSP.
++        // - The caller holds a reference to `self` for as long as the returned slices are live,
++        //   meaning the CPU write pointer cannot be advanced and thus that the returned area
++        //   remains exclusive to the CPU for the duration of the slices.
++        // - The created slices point to non-overlapping sub-ranges of `data` in all
++        //   branches (in the `rx <= tx` case, the second slice ends at `rx - 1` which is strictly
++        //   less than `tx` where the first slice starts; in the other cases the second slice is
++        //   empty), so creating two `&mut` references from them does not violate aliasing rules.
++        unsafe {
++            (
++                core::slice::from_raw_parts_mut(
++                    data.add(num::u32_as_usize(tx)),
++                    num::u32_as_usize(tail_end - tx),
++                ),
++                core::slice::from_raw_parts_mut(data, num::u32_as_usize(wrap_end)),
++            )
+         }
+     }
+ 
+@@ -308,26 +318,38 @@ fn driver_write_area_size(&self) -> usize {
+     /// As the message queue is a circular buffer, the region may be discontiguous in memory. In
+     /// that case the second slice will have a non-zero length.
+     fn driver_read_area(&self) -> (&[[u8; GSP_PAGE_SIZE]], &[[u8; GSP_PAGE_SIZE]]) {
+-        let tx = self.gsp_write_ptr() as usize;
+-        let rx = self.cpu_read_ptr() as usize;
++        let tx = self.gsp_write_ptr();
++        let rx = self.cpu_read_ptr();
++
++        // Pointer to the first entry of the GSP message queue.
++        let data = ptr::project!(self.0.as_ptr(), .gspq.msgq.data[0]);
++
++        let (tail_end, wrap_end) = if rx <= tx {
++            // Read area is non-wrapping and stops right before `tx`.
++            (tx, 0)
++        } else {
++            // Read area is wrapping and stops right before `tx`.
++            (MSGQ_NUM_PAGES, tx)
++        };
+ 
+         // SAFETY:
+-        // - We will only access the driver-owned part of the shared memory.
+-        // - Per the safety statement of the function, no concurrent access will be performed.
+-        let gsp_mem = unsafe { &*self.0.as_ptr() };
+-        let data = &gsp_mem.gspq.msgq.data;
+-
+-        // The area starting at `rx` and ending at `tx - 1` modulo MSGQ_NUM_PAGES, inclusive,
+-        // belongs to the driver for reading.
+-        // PANIC:
+-        // - per the invariant of `cpu_read_ptr`, `rx < MSGQ_NUM_PAGES`
+-        // - per the invariant of `gsp_write_ptr`, `tx < MSGQ_NUM_PAGES`
+-        if rx <= tx {
+-            // The area is contiguous.
+-            (&data[rx..tx], &[])
+-        } else {
+-            // The area is discontiguous.
+-            (&data[rx..], &data[..tx])
++        // - `data` was created from a valid pointer, and `rx` and `tx` are in the
++        //   `0..MSGQ_NUM_PAGES` range per the invariants of `gsp_write_ptr` and `cpu_read_ptr`,
++        //   thus the created slices are valid.
++        // - The area starting at `rx` and ending at `tx - 1` modulo `MSGQ_NUM_PAGES`,
++        //   inclusive, belongs to the driver for reading and is not accessed concurrently by
++        //   the GSP.
++        // - The caller holds a reference to `self` for as long as the returned slices are live,
++        //   meaning the CPU read pointer cannot be advanced and thus that the returned area
++        //   remains exclusive to the CPU for the duration of the slices.
++        unsafe {
++            (
++                core::slice::from_raw_parts(
++                    data.add(num::u32_as_usize(rx)),
++                    num::u32_as_usize(tail_end - rx),
++                ),
++                core::slice::from_raw_parts(data, num::u32_as_usize(wrap_end)),
++            )
+         }
+     }
+ 
+
+---
+base-commit: 7c50d748b4a635bc39802ea3f6b120e66b1b9067
+change-id: 20260319-cmdq-ub-fix-d57b09a745b9
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
+
