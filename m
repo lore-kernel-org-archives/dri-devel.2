@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93211E63FEA
-	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 20:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1E96E63FF6
+	for <dri-devel@archiver.kernel.org>; Sat,  4 Apr 2026 20:12:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB1FB10E0E4;
-	Sat,  4 Apr 2026 20:12:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64ABF10E0E1;
+	Sat,  4 Apr 2026 20:12:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qitXPkEE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bSpFqdet";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6C5510E0E4
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:12:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DEC310E0E1
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:12:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 99A2B43E14
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:12:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 77D6AC19421
- for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:12:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D11BC60008
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:12:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 800CAC19425
+ for <dri-devel@lists.freedesktop.org>; Sat,  4 Apr 2026 20:12:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775333541;
- bh=+VovMeHy/diXa2Lcq5f7MJgXM6TA/6h52Ut62F8SYX8=;
+ s=k20201202; t=1775333567;
+ bh=9//RIEXwoIClot3RW/mDXWEfvZQxdH1ehnIG5DcW8vg=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=qitXPkEE53uH1XzaOS5I+l/W+s21Fttk2K+prc8fsjSm7Y0apmTPiZVC02Rjd4nkR
- b7tFuBC67/79pJLbm0FGDZqF9mN03cr5roidnJOCTUIpP50j3/bAxRVQkpwnedVXqg
- gvj/B2NET30N/iT32XLx5S64W5XfCzqSxZoiq/+KMkVjdKd94JrttCLEVWp5/MYuJ+
- XfmuuRu427RR97H4pQK3lI05EaURy06un3EdsUHGxOKNf+BSQrYWIXjtbopT9b2Z01
- gwIEz8JeYQ9AnLgxFCtRYcdd1IKKLm9jq7yC8lwIDCjbYX66u/8HoRGBiDqiBvdhWn
- 5ms96OIkMBAHw==
+ b=bSpFqdetfpq0qbiCibS5Q8kk350dR3mIz0YwR/Qe1BGA1DI8S/5aEFIK778jJ3vPy
+ VS3+sYEHoycKk1bzQN20Sq61rI/RljQkyWBcWStK68VDXvjO8vkztM3YajDU/6pWUe
+ NP2xZsVKhKQ3uUy5QKxrPJLN8K8+ZcIumZbfbWccbgL905xZ1GLYj+M/lw6lp1mpem
+ pAbdgHYh1YdG+sWs+p5pPvbnfrmpglDImoA3YchKtlveVWyTKue9ad/o1qLcH7dNFW
+ nsD1OAeb1HVJIIpjfG5Ok9+zUdBMajUmFvtC2UTscD6VjIQJJ2B+FqxvpF1Y9VnRPM
+ TbHYr9tBm3n/Q==
 Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 6EA9EC41614; Sat,  4 Apr 2026 20:12:21 +0000 (UTC)
+ from userid 48) id 73A4FC3279F; Sat,  4 Apr 2026 20:12:47 +0000 (UTC)
 From: bugzilla-daemon@kernel.org
 To: dri-devel@lists.freedesktop.org
 Subject: [Bug 221320] ring gfx_0.1.0 timeout, signaled seq=5855035, emitted
  seq=5855037
-Date: Sat, 04 Apr 2026 20:12:21 +0000
+Date: Sat, 04 Apr 2026 20:12:47 +0000
 X-Bugzilla-Reason: None
 X-Bugzilla-Type: changed
 X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
@@ -51,8 +51,8 @@ X-Bugzilla-Resolution:
 X-Bugzilla-Priority: P3
 X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
 X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: attachments.created
-Message-ID: <bug-221320-2300-K4hEmM98wg@https.bugzilla.kernel.org/>
+X-Bugzilla-Changed-Fields: attachments.filename attachments.description
+Message-ID: <bug-221320-2300-7Vrf8MO6MU@https.bugzilla.kernel.org/>
 In-Reply-To: <bug-221320-2300@https.bugzilla.kernel.org/>
 References: <bug-221320-2300@https.bugzilla.kernel.org/>
 Content-Type: text/plain; charset="UTF-8"
@@ -77,12 +77,14 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 https://bugzilla.kernel.org/show_bug.cgi?id=3D221320
 
---- Comment #1 from Witold Baryluk (witold.baryluk+kernel@gmail.com) ---
-Created attachment 309820
-  --> https://bugzilla.kernel.org/attachment.cgi?id=3D309820&action=3Dedit
-devcoredump
+Witold Baryluk (witold.baryluk+kernel@gmail.com) changed:
 
-devcoredump attached
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+ Attachment #309820|amdgpu-coredump.issue-22132 |amdgpu-devcoredump.issue-22
+           filename|0.data.zst                  |1320.data.zst
+ Attachment #309820|devcoredump                 |amdgpu-devcoredump.issue-22
+        description|                            |1320.data.zst
 
 --=20
 You may reply to this email to add a comment.
