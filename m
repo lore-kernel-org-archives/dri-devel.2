@@ -4,62 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1D48E64002
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 08:37:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C06E64013
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 11:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B455110E19A;
-	Sun,  5 Apr 2026 08:37:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6C3210E05F;
+	Sun,  5 Apr 2026 11:33:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L4catJD8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZUbgjDKP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8377810E19A
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 08:37:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D71C41942
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 08:37:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D3903C2BCB0
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 08:37:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775378226;
- bh=OMQT6l/yBYkeWsKNEDPOylTuchVnJeyMtNB9HNNXAoM=;
- h=From:To:Subject:Date:In-Reply-To:References:From;
- b=L4catJD81UsHVAlwKLlbsDF2l4jY6jQuEc8KZ3xXq80ezoAyqFgYbnihOWnmvsFEi
- 1QReCePeXa/0vjjSZRPicJnxSZJ+xGZwksITTQZh7TZVie6hAaxaS14SGEAjFZavYn
- vXmEAvfICMfV28xeA7YFvuMF8TCY3bjllI9t56Pf0sgIfjM8/T4lrewiLVZSFsXDMJ
- eW09Q4SnrQqteAeBZQegsevTele5DtT219m1M/TXAOOPbkinx5CeyzEkkglf2tdm5d
- IEW9zFWAerb0wuw/A4T7ifNAE9kRzUczqyG2XT+2LyWeEztR4V+Q9HMUc+VWgzBElf
- tmaOvEMC8wHBw==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id C67EBC41614; Sun,  5 Apr 2026 08:37:06 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221320] ring gfx_0.1.0 timeout, signaled seq=5855035, emitted
- seq=5855037
-Date: Sun, 05 Apr 2026 08:37:06 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: aros@gmx.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: MOVED
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_status resolution
-Message-ID: <bug-221320-2300-K1aROUm6mY@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221320-2300@https.bugzilla.kernel.org/>
-References: <bug-221320-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0056710E05F
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 11:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775388795; x=1806924795;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/R3qxzeMXpyD4RTwvc+cC5xS2OS6iPw9360rHfkSAdQ=;
+ b=ZUbgjDKPvH8IoBT3CkcQRQPn/U7KAu1ywqXKzbXt93rJhnzpNdP0IERO
+ Ly0rju3Ts79h2z3Xu+yIkWGkTTQ6knGG4OQ39r9JF51jsBibWT+ZCLTIn
+ f+ttXIJEd+nhtX589Nhtm9g/vlSggK49z+vOuM3WT3jo+n/of4VpE6Hhi
+ 5pdgTyPWGV2ZKZyiZP6oU7zYdE8M1dU1Nzx6K4GJ0oLddZqW/ZG62MzrE
+ z1bPsfK1mgNYk+GwLJLXc3jBnRc5SGd/l81hiPVcmYzMciPmk319HMeOD
+ ZMzZnLTQYDPPqweLOW4VYNvyiapkeE3+dJGyTIrblpKmL9HCd/9/iWQMI g==;
+X-CSE-ConnectionGUID: X3azy3deT9CnGLtjRez4Rg==
+X-CSE-MsgGUID: i/NaYxO0QJKKTYgZFtnqMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11749"; a="76565394"
+X-IronPort-AV: E=Sophos;i="6.23,161,1770624000"; d="scan'208";a="76565394"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2026 04:33:14 -0700
+X-CSE-ConnectionGUID: x7IkFCwUQVGpkV2o2f7r3A==
+X-CSE-MsgGUID: NlMhtsT/QD6p1Kzv6QwtOA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,161,1770624000"; d="scan'208";a="222843456"
+Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
+ ([10.211.93.152])
+ by fmviesa006.fm.intel.com with ESMTP; 05 Apr 2026 04:33:09 -0700
+Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w9Lj1-000000009qf-1WTz;
+ Sun, 05 Apr 2026 11:33:07 +0000
+Date: Sun, 5 Apr 2026 13:32:50 +0200
+From: kernel test robot <lkp@intel.com>
+To: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
+Cc: oe-kbuild-all@lists.linux.dev, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v3 2/2] Documentation: drm: Remove drm_atomic_state
+ rename entry
+Message-ID: <202604051325.jSSmpYZj-lkp@intel.com>
+References: <20260402-drm-drm-atomic-update-v3-2-b826f51ac511@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260402-drm-drm-atomic-update-v3-2-b826f51ac511@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,17 +88,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221320
+Hi Maxime,
 
-Artem S. Tashkinov (aros@gmx.com) changed:
+kernel test robot noticed the following build warnings:
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-             Status|NEW                         |RESOLVED
-         Resolution|---                         |MOVED
+[auto build test WARNING on 9bdbf7eb25b3121ef19533df4fb70f2c39fc0d6a]
 
---=20
-You may reply to this email to add a comment.
+url:    https://github.com/intel-lab-lkp/linux/commits/Maxime-Ripard/drm-Rename-struct-drm_atomic_state-to-drm_atomic_commit/20260405-115623
+base:   9bdbf7eb25b3121ef19533df4fb70f2c39fc0d6a
+patch link:    https://lore.kernel.org/r/20260402-drm-drm-atomic-update-v3-2-b826f51ac511%40kernel.org
+patch subject: [PATCH v3 2/2] Documentation: drm: Remove drm_atomic_state rename entry
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+docutils: docutils (Docutils 0.21.2, Python 3.13.5, on linux)
+reproduce: (https://download.01.org/0day-ci/archive/20260405/202604051325.jSSmpYZj-lkp@intel.com/reproduce)
 
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604051325.jSSmpYZj-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   Examples
+   ~~~~~~~~ [docutils]
+>> Documentation/gpu/komeda-kms.rst:420: WARNING: Title underline too short.
+
+
+vim +420 Documentation/gpu/komeda-kms.rst
+
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  408) 
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  409)     struct komeda_component {
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  410)         struct drm_private_obj obj;
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  411)         ...
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  412)     }
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  413) 
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  414)     struct komeda_pipeline {
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  415)         struct drm_private_obj obj;
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  416)         ...
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  417)     }
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  418) 
+77e56dfef2e28b Maxime Ripard                          2026-04-02  419  Tracking component_state/pipeline_state by drm_atomic_commit
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03 @420) -----------------------------------------------------------
+557c37360eca86 james qian wang (Arm Technology China  2019-01-03  421) 
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
