@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE41E9D804
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 15:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 434C4E9D804
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 15:15:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB76C10E140;
-	Sun,  5 Apr 2026 15:15:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7B4C10E165;
+	Sun,  5 Apr 2026 15:15:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SWWYoy2x";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K93rGjgy";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A14C10E140
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 15:15:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E679710E165
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 15:15:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 79268600AC;
- Sun,  5 Apr 2026 15:15:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ED0AC116C6;
- Sun,  5 Apr 2026 15:15:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6B2A4600CB;
+ Sun,  5 Apr 2026 15:15:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BDBAC116C6;
+ Sun,  5 Apr 2026 15:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775402144;
- bh=usJcO5sq1mo/2yNi7ckHKPTcHqyv8RKBCvpEEKy2yl0=;
+ s=k20201202; t=1775402149;
+ bh=iG6y+N88VDviY9Rc8PGy4cWFbqc/+Z7HoEe1Aq08Tio=;
  h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=SWWYoy2xaX53hGutTPUdf+V+4ogjzXoH1B4wyKTurlUsUKQWLkv+EQxFRVk4ndfJI
- +PkFSf6+PEbzPJGiXVpbj+GX6oQUaTMYxUlwN81VyxBMza+zAg4tlwCjm8fa0zcLT1
- SN/gk3gZZ6e2WXsPJnbuEYRxe92Zc/EWiQRoHKCQ3OqxX6/GqvdpU2V5BvJsKyHuIt
- BOa7++29NVhI1ba/7m8QOnerca396gAMXMZLGcWz5qx5Of8gq8Xc47VEdueula0ZN9
- XmBVYqIaqaYNAChr9B9K3GN+7Y/c01egERetp2zhtdXeRLcfsTtpLlB/m5IVByZFVB
- oEaDCv21XMyyg==
+ b=K93rGjgyqEHODDP0Drag0+382z+24YYshWvzwJhbyWwtE936cm95Ml4IUorpRnNcQ
+ 8v0R8/9uVaYltiw+U6q9pHWGwrvlb3yQ7U+hZPc0LIyp5wAzpZkr/rjvU7jNEVN0w2
+ +vekJYVLaBOeaDQwpPJ6PsXZUDXqLWCmQ31d6SOF+liBnTCJv5FzqinRLMZQjr2yc8
+ 9LIwyat2VQGpJKVChOwQO0RW68wzEsMB2YpFxVA9I7fB0hgkxlFgS6thPsOODxtPu5
+ jqsJXS0weu4ujOj4UpPAXoFS/9F9YIi3uZQU0kWyeIFvkj30K9H1OHvGLnOTZYUHf3
+ rlmkEqkiPRZJA==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 05 Apr 2026 17:15:39 +0200
-Message-Id: <DHLBJ7FDJHZ8.XHEA93HJA53B@kernel.org>
-Subject: Re: [PATCH v5] gpu: nova-core: gsp: fix undefined behavior in
- command queue code
-Cc: "Gary Guo" <gary@garyguo.net>, "Alice Ryhl" <aliceryhl@google.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Alistair Popple" <apopple@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Date: Sun, 05 Apr 2026 17:15:44 +0200
+Message-Id: <DHLBJ9NMLXFB.5H53BZ132FHG@kernel.org>
+Subject: Re: [PATCH v2] gpu: nova-core: falcon: pad firmware DMA object size
+ to required block alignment
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Gary Guo" <gary@garyguo.net>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
 To: "Alexandre Courbot" <acourbot@nvidia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260404-cmdq-ub-fix-v5-1-53d21f4752f5@nvidia.com>
-In-Reply-To: <20260404-cmdq-ub-fix-v5-1-53d21f4752f5@nvidia.com>
+References: <20260405-falcon-dma-roundup-v2-1-4af5b2ff9c16@nvidia.com>
+In-Reply-To: <20260405-falcon-dma-roundup-v2-1-4af5b2ff9c16@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,24 +63,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Apr 4, 2026 at 7:04 AM CEST, Alexandre Courbot wrote:
-> `driver_read_area` and `driver_write_area` are internal methods that
-> return slices containing the area of the command queue buffer that the
-> driver has exclusive read or write access, respectively.
+On Sun Apr 5, 2026 at 4:22 AM CEST, Alexandre Courbot wrote:
+> Commit a88831502c8f ("gpu: nova-core: falcon: use dma::Coherent")
+> dropped the nova-local `DmaObject` device memory type for the
+> kernel-global `Coherent` one.
 >
-> While their returned value is correct and safe to use, internally they
-> temporarily create a reference to the whole command-buffer slice,
-> including GSP-owned regions. These regions can change without notice,
-> and thus creating a slice to them, even if never accessed, is undefined
-> behavior.
+> This switch had a side-effect: `DmaObject` always aligned the requested
+> size to `PAGE_SIZE`, and also reported that adjusted size when queried.
+> `Coherent`, on the other hand, does page-align allocation sizes but only
+> allows CPU access on the exact size provided by the caller.
 >
-> Fix this by making these methods create slices to valid regions only.
+> This change runs into a limitation of falcon DMA copies, namely that DMA
+> accesses are done on blocks of exactly 256 bytes. If the provided data
+> does not have a length that is a multiple of 256, `dma_wr` returns
+> an error.
 >
-> Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings=
- and handling")
-> Reported-by: Danilo Krummrich <dakr@kernel.org>
-> Closes: https://lore.kernel.org/all/DH47AVPEKN06.3BERUSJIB4M1R@kernel.org=
-/
+> It was expected that all firmwares would present the proper adjusted
+> size, but this is not the case at least on my GA107:
+>
+>     NovaCore 0000:08:00.0: DMA transfer goes beyond range of DMA object
+>     NovaCore 0000:08:00.0: Failed to load FWSEC firmware: EINVAL
+>     NovaCore 0000:08:00.0: probe with driver NovaCore failed with error -=
+22
+>
+> Fix this by padding the `Coherent`'s size to `MEM_BLOCK_ALIGNMENT` (i.e.
+> 256) when allocating it and filling it with zeroes, before copying the
+> firmware on top of it.
+>
+> Fixes: a88831502c8f ("gpu: nova-core: falcon: use dma::Coherent")
+> Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+> Reviewed-by: Gary Guo <gary@garyguo.net>
 > Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 
 Applied to drm-rust-next, thanks!
