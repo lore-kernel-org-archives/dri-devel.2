@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F42EE9D827
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 133BDE9D826
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:56:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ADA810E176;
-	Sun,  5 Apr 2026 23:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60A6210E179;
+	Sun,  5 Apr 2026 23:56:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pFKlWdbI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QWwho++C";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F06310E1A0;
- Sun,  5 Apr 2026 23:55:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92DCD10E179;
+ Sun,  5 Apr 2026 23:56:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E6F47600CB;
+ by tor.source.kernel.org (Postfix) with ESMTP id 16814600AC;
+ Sun,  5 Apr 2026 23:56:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27803C2BC9E;
  Sun,  5 Apr 2026 23:55:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DC7C116C6;
- Sun,  5 Apr 2026 23:55:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775433353;
- bh=5w/hrnObbKhvO+jKV9Ekcn8KO5lrvAgEuh7kkEvfcjs=;
+ s=k20201202; t=1775433364;
+ bh=H/Ay6Jkav43FJVWalNMqy1drrqBC5z0jZaYEliYSxsg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pFKlWdbIbGq0s7ECR/XX4/m1j5ueBsd37sKXJ5uePknRDz52bcxRKKdQUe1jTopVz
- My33xj+WU7MHbje6Gh0L7CxJ3KxzvwAzOCWOcACpPEKqFS6mcKRf8vZJADvLXmZb8Y
- o52+2gns0KIFCn54pt8VBrZ+FWo9rC1to0WiGTYC13dYbxzXvTcpelifn0bJwujKk8
- 86EYB1I8NJU19juZwmDdg9wxjSeTqxQvMdO4C+IKLVR+fihXZU6p1+0tn/pIcBpd8O
- l9nnLvpiSxsgD13f15cAIkVKNBh1pZpZ73szNIqI8iXIz7LHd1T89xgFnRcsHNKyFY
- 9vVjtBOKjhKqQ==
+ b=QWwho++CAQHqbiJSHYjIFW+3zbIRsYkzI2NhaXD915XErZ5bX8D0JSqumwCvnboQC
+ JA2kZyy0PbupBQQ6NzUS0I5RoleMORu4/mJ8QJHPf8WuIxsJK2BntYwSEFYuKrHgs5
+ VPKZomQQHZR70NsihUxiVAScWTSo2yfHf8uJ/qsMQd0mTZH9HvJHft2Dn5JgiAXnIO
+ 3PdrXjw1Cnt6FYPbyK/FBO1nONRhPiI30ad4Kc7dhk4L7g63i4MoWAU0uWhs56aoAB
+ o0/TRdl5mjZSVEIann5jDzC12StU6bGXcn2XxNGHneIkfSLv34y3M6cbP04LdQktPx
+ m2gUzuUeHkCMQ==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -63,10 +63,10 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
  Tamir Duberstein <tamird@kernel.org>
-Subject: [PATCH v2 13/33] rust: transmute: simplify code with Rust 1.80.0
- `split_at_*checked()`
-Date: Mon,  6 Apr 2026 01:52:49 +0200
-Message-ID: <20260405235309.418950-14-ojeda@kernel.org>
+Subject: [PATCH v2 14/33] rust: alloc: simplify with `NonNull::add()` now that
+ it is stable
+Date: Mon,  6 Apr 2026 01:52:50 +0200
+Message-ID: <20260405235309.418950-15-ojeda@kernel.org>
 In-Reply-To: <20260405235309.418950-1-ojeda@kernel.org>
 References: <20260405235309.418950-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -86,81 +86,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-`feature(split_at_checked)` [1] has been stabilized in Rust 1.80.0 [2],
-which is older than our new minimum Rust version (Rust 1.85.0).
+Currently, we need to go through raw pointers and then re-create the
+`NonNull` from the result of offsetting the raw pointer.
 
-Thus simplify the code using `split_at_*checked()`.
+`feature(non_null_convenience)` [1] has been stabilized in Rust
+1.80.0 [2], which is older than our new minimum Rust version
+(Rust 1.85.0).
 
-Link: https://github.com/rust-lang/rust/issues/119128 [1]
-Link: https://github.com/rust-lang/rust/pull/124678 [2]
+Thus, now that we bump the Rust minimum version, simplify using
+`NonNull::add()` and clean the TODO note.
+
+Link: https://github.com/rust-lang/rust/issues/117691 [1]
+Link: https://github.com/rust-lang/rust/pull/124498 [2]
 Reviewed-by: Tamir Duberstein <tamird@kernel.org>
 Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- rust/kernel/transmute.rs | 33 ++++++---------------------------
- 1 file changed, 6 insertions(+), 27 deletions(-)
+ rust/kernel/alloc/allocator/iter.rs | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/rust/kernel/transmute.rs b/rust/kernel/transmute.rs
-index b9e6eadc08f5..654b5ede2fe2 100644
---- a/rust/kernel/transmute.rs
-+++ b/rust/kernel/transmute.rs
-@@ -66,16 +66,9 @@ fn from_bytes_prefix(bytes: &[u8]) -> Option<(&Self, &[u8])>
-     where
-         Self: Sized,
-     {
--        if bytes.len() < size_of::<Self>() {
--            None
--        } else {
--            // PANIC: We checked that `bytes.len() >= size_of::<Self>`, thus `split_at` cannot
--            // panic.
--            // TODO: replace with `split_at_checked` once the MSRV is >= 1.80.
--            let (prefix, remainder) = bytes.split_at(size_of::<Self>());
-+        let (prefix, remainder) = bytes.split_at_checked(size_of::<Self>())?;
+diff --git a/rust/kernel/alloc/allocator/iter.rs b/rust/kernel/alloc/allocator/iter.rs
+index 5759f86029b7..e0a70b7a744a 100644
+--- a/rust/kernel/alloc/allocator/iter.rs
++++ b/rust/kernel/alloc/allocator/iter.rs
+@@ -42,15 +42,9 @@ fn next(&mut self) -> Option<Self::Item> {
+             return None;
+         }
  
--            Self::from_bytes(prefix).map(|s| (s, remainder))
--        }
-+        Self::from_bytes(prefix).map(|s| (s, remainder))
-     }
+-        // TODO: Use `NonNull::add()` instead, once the minimum supported compiler version is
+-        // bumped to 1.80 or later.
+-        //
+         // SAFETY: `offset` is in the interval `[0, (self.page_count() - 1) * page::PAGE_SIZE]`,
+         // hence the resulting pointer is guaranteed to be within the same allocation.
+-        let ptr = unsafe { self.buf.as_ptr().add(offset) };
+-
+-        // SAFETY: `ptr` is guaranteed to be non-null given that it is derived from `self.buf`.
+-        let ptr = unsafe { NonNull::new_unchecked(ptr) };
++        let ptr = unsafe { self.buf.add(offset) };
  
-     /// Converts a mutable slice of bytes to a reference to `Self`.
-@@ -108,16 +101,9 @@ fn from_bytes_mut_prefix(bytes: &mut [u8]) -> Option<(&mut Self, &mut [u8])>
-     where
-         Self: AsBytes + Sized,
-     {
--        if bytes.len() < size_of::<Self>() {
--            None
--        } else {
--            // PANIC: We checked that `bytes.len() >= size_of::<Self>`, thus `split_at_mut` cannot
--            // panic.
--            // TODO: replace with `split_at_mut_checked` once the MSRV is >= 1.80.
--            let (prefix, remainder) = bytes.split_at_mut(size_of::<Self>());
-+        let (prefix, remainder) = bytes.split_at_mut_checked(size_of::<Self>())?;
- 
--            Self::from_bytes_mut(prefix).map(|s| (s, remainder))
--        }
-+        Self::from_bytes_mut(prefix).map(|s| (s, remainder))
-     }
- 
-     /// Creates an owned instance of `Self` by copying `bytes`.
-@@ -147,16 +133,9 @@ fn from_bytes_copy_prefix(bytes: &[u8]) -> Option<(Self, &[u8])>
-     where
-         Self: Sized,
-     {
--        if bytes.len() < size_of::<Self>() {
--            None
--        } else {
--            // PANIC: We checked that `bytes.len() >= size_of::<Self>`, thus `split_at` cannot
--            // panic.
--            // TODO: replace with `split_at_checked` once the MSRV is >= 1.80.
--            let (prefix, remainder) = bytes.split_at(size_of::<Self>());
-+        let (prefix, remainder) = bytes.split_at_checked(size_of::<Self>())?;
- 
--            Self::from_bytes_copy(prefix).map(|s| (s, remainder))
--        }
-+        Self::from_bytes_copy(prefix).map(|s| (s, remainder))
-     }
- }
- 
+         // SAFETY:
+         // - `ptr` is a valid pointer to a `Vmalloc` allocation.
 -- 
 2.53.0
 
