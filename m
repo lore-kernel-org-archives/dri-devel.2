@@ -4,32 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B704E64004
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 04:44:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 087C8E6400F
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 04:47:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DF9710E0F1;
-	Sun,  5 Apr 2026 04:44:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D976310E0F4;
+	Sun,  5 Apr 2026 04:47:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="gBvIaipp";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="IuP2PMuS";
 	dkim-atps=neutral
-X-Greylist: delayed 501 seconds by postgrey-1.36 at gabe;
- Sun, 05 Apr 2026 04:44:33 UTC
 Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com
  [95.215.58.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEBCE10E0F1
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 04:44:33 +0000 (UTC)
-Message-ID: <01664abc-05c2-403d-a9eb-b2b780a1aaae@linux.dev>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB8DA10E0F4
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 04:47:55 +0000 (UTC)
+Message-ID: <c7282d70-f7cd-42ec-9f79-3ce074f01970@linux.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1775363769;
+ t=1775364474;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jRO9W2hfI/BSBDTftXJZfBbu3HFf6wv71UgZO5Fk6uM=;
- b=gBvIaippW/ikq/XAxO9ld/dCCdw7GzFQT/8DvVcl1evTSUIJ07lZZFA2EpThgi/Vp9Heu4
- Vr3rnx/f9Gjt7jiw+zteNdICTHZyueUTlV/9Cth/pcd+a6Kou/uwT+/F2srQODw0rmoQK5
- jtmnXRcQ/wAA3R+5vUb7c/OboxfKNIw=
-Date: Sun, 5 Apr 2026 12:35:57 +0800
+ bh=kDt9N5g6D4SCWCX4TwS2U1BYH8gHEqTdtRgHFVI32PM=;
+ b=IuP2PMuS2U8srTZc94C4wdOggHU278UEqT5k+APawMKeUWxCzz2giMReCPaG2P9yAkqLAF
+ 7qUidZ8lco7cqgjBUqW5qiDv8Am2qwaiRz8hU2sUxsDTR6UPlfUXfKxFM7b8GyCANrgfj1
+ oM0IGccgRwKuOi1M3oySQYJ6xEF7Lgg=
+Date: Sun, 5 Apr 2026 12:47:40 +0800
 MIME-Version: 1.0
 Subject: Re: [PATCH 1/3] lib: test_hmm: evict device pages on file close to
  avoid use-after-free
@@ -85,13 +83,8 @@ On 3/31/26 2:34 PM, Alistair Popple wrote:
 > Reported-by: Zenghui Yu <zenghui.yu@linux.dev>
 > Closes: https://lore.kernel.org/linux-mm/8bd0396a-8997-4d2e-a13f-5aac033083d7@linux.dev/
 > Signed-off-by: Alistair Popple <apopple@nvidia.com>
-> 
-> ---
-> 
-> Note that I wasn't able to replicate the exact crash in [1] although I
-> replicated something similar. So I haven't been able to verify this
-> fixes the crash conclusively, but it should.
 
-Yup! I've verified that it indeed fixed the crash. Thanks for the fix!
+Tested-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
+Thanks,
 Zenghui
