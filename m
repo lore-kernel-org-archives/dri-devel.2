@@ -4,80 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 399B2E9D804
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 14:51:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD082E9D800
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 14:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5423110E04F;
-	Sun,  5 Apr 2026 14:51:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8395B10E13C;
+	Sun,  5 Apr 2026 14:51:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mm.st header.i=@mm.st header.b="UBvJ/dYd";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="h/zlEoIa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bbCuJ3yd";
 	dkim-atps=neutral
-Received: from fhigh-b3-smtp.messagingengine.com
- (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C088E10E228
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 12:40:38 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 005347A0170;
- Sun,  5 Apr 2026 08:40:37 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Sun, 05 Apr 2026 08:40:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mm.st; h=cc:cc
- :content-transfer-encoding:content-type:content-type:date:date
- :from:from:in-reply-to:message-id:mime-version:reply-to:subject
- :subject:to:to; s=fm2; t=1775392837; x=1775479237; bh=qvhNMzF2Rd
- qRowlPz7NRArEVYUhW5TkuePlxZ54jMR8=; b=UBvJ/dYdn/DiAEEyqyJk6PUrXh
- 1WQX6lvPPPchFBEDN2I2h5oE1qLRgAynX54rtt8B9F1xyM6WDvQnLdTvwtX3QtfZ
- E7I71Yjx4kYB5lrIS0hN9ktMCQYFesNLOqfbzRxht1C6OE8qqksIsHe3i7ywzip7
- wv6whLdy2qphZsKUPvUdayzCW9BAag/WVUI5P2jOVuuMC5pah4dirylDM2NMYaGo
- r2L73tAXIMVQDjFAcIHOmeVYx5cK0VbfznrfEnQlHTczM1QzUTHEpaKB/UgOCMfF
- ZtiSgG/bv5XSbo35oBBg+lLDxjtW+1y3R3mNSc4SS6qhjj21C9udTzUWUf8A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:message-id:mime-version:reply-to:subject
- :subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; t=1775392837; x=1775479237; bh=qvhNMzF2RdqRowlPz7NRArEVYUhW
- 5TkuePlxZ54jMR8=; b=h/zlEoIaBvVn2LVYtqBN7rxxGZMB7Y7Uo8gM0plDzUsS
- 5bjcGtjXRBzA52nuPELMjoY2JyicKxFqT89ZKE5adbe2hGwLH+81ldDh8eWbEDcF
- dSGYLdBRyTXe+DeHcv/1fJYQRwYsLsYCjcLRXNm6ac+mW2dJgxEPZwLnOTeihe2s
- FOe9hvA5GbW2LUIxQWRgF0GaGqrGwQHZCQ9lQZQXyqmbT1kkpU7wBLGZR5zy8uXZ
- bAcCW6G05Nwosp9dIPgCDOsXULgvaFVutxLTOIcGetN8wemLul2MIil0Ot+eM1sC
- AQOuxcu2kJPV2qRiMMLhxKYHtjAdvzk78MZWlOSeqA==
-X-ME-Sender: <xms:RVjSaZ2EXxoYmzRRhjkPw7H7qg8sZld4i-9NNFyR-oAYWvfKYLVOkA>
- <xme:RVjSaeDNZppQrQvtQLuzMn7AUgiadmEP5uZNRQTwl4PSl3ieg5avZgIJrRkABrhyz
- PnHB9YRJzhEKwphoeF_Qjsahp5HpQJQawtkW8sHCG_n6BwrG1Yotg>
-X-ME-Received: <xmr:RVjSaRdmAw82gJA_SRlw2YMqeGkU9uJt_YhkptGEONLopCmRpWzFdNC4mswsB175jPCP9g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddugeejjecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
- ihhlohhuthemuceftddtnecunecujfgurhepkfffgggfvfevhffutgfgsehtkeertddtvd
- ejnecuhfhrohhmpehnihhnohcuoehnihhnohesmhhmrdhstheqnecuggftrfgrthhtvghr
- nhepheekveeflefftddvueeujeeivdffgeeggfegheduleeuhfffvdeguddvgfevkeelne
- cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepnhhinhho
- sehmmhdrshhtpdhnsggprhgtphhtthhopedvpdhmohguvgepshhmthhpohhuthdprhgtph
- htthhopehlihhnuhigqdgrrhhmqdhmshhmsehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhr
- tghpthhtohepughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdroh
- hrgh
-X-ME-Proxy: <xmx:RVjSaTgN9x5x5hHjeVNyvQfIUTBhzFek-IElJsWckTqTF8xOf33dZQ>
- <xmx:RVjSaZqjRcAFaARkfrALqKFv7hm7yYodZpnTUv2peoF2JTGpgm4Frg>
- <xmx:RVjSaTH8bH4oKo3gOyXH4-GB4B8Pr9FqVs2k9RSwlk62Tj3wCXc8mw>
- <xmx:RVjSaTlvpe4hUa2r9qwLi5F5ZRfKVx_azYX3gv6RWtfJOco7HKbusw>
- <xmx:RVjSaeKR04BAH_4Q2VDH90PYLxBDZEGrIN-cNhG4TGH1ZA0PKT-qI4G_>
-Feedback-ID: i7990409e:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 5 Apr 2026 08:40:37 -0400 (EDT)
-Message-ID: <3f4d2926-6d00-48bc-ad9b-ba48602be95c@mm.st>
-Date: Sun, 5 Apr 2026 14:40:35 +0200
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4391510E1D1
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 12:36:57 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-43ba1f3fa7eso3358779f8f.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 05:36:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775392615; x=1775997415; darn=lists.freedesktop.org;
+ h=mime-version:subject:references:in-reply-to:message-id:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=43AI/uEwV09xDA495oWjYagS+R6tdTi+zC5+6mZ4pUE=;
+ b=bbCuJ3ydgqMrz3Ebhuf9fY6n+Mtvhu8Sxh0n9S8rxPO/hFKvHegWExtOKY5mqQRHd5
+ 2zSNCGUScUbyV/m0zNb+nAyOXUrPVL2pagz2jbi564CeO1HDtf8aEjNwjOzKo0MCLb2c
+ dsgWWq5H6foAqZ/dVDKFDhbgNLd91Qe+2qtulKZimD/9BpduZTwFWJGLcnpfNquhmOuI
+ j4Y01mJeVoVpzzEr2nRfQISdAfW+9dMti8AbNKwe1uHkIsu8yvl1f07hr7Xt/w35gIXi
+ TO+6CCqA7El1TuBbzcLIWr1ZfMZUnHz0bQVmfcj/MmgQ3qX4APDKw6TFHtihYske0Mi8
+ Ll8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775392615; x=1775997415;
+ h=mime-version:subject:references:in-reply-to:message-id:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=43AI/uEwV09xDA495oWjYagS+R6tdTi+zC5+6mZ4pUE=;
+ b=GCD3lj6ijMbEYNKb6gPMpJEogNBtTey8r5xbiCWsk3zO8S4G16XVBFM8IP2yr2+3Wa
+ xzkwaDUTvbGRnrGvCf7Kbc7Ym+9e6yue7lxR94wyNX+HjarvfKbLHlMGKuVOE3TBR9uN
+ HQkT9huxpF1H9jF8rYDdUeYQ1kPU146jPEkBKyrBZOCilLxsYicXpnUL/3EX3G5DmBPG
+ Wyb49qOMBa+tb5Xz+HHyRQzQz6RdoEeK/qbLkIfMybS6eOMwsodwPB//cn1MWqCJP3to
+ nyzzqgvx6rvy3LYN3hbwIU9Yj+VJ+bZuBskY89BmGqHttNOo8SEi6LKgYnD1+U9F3LzP
+ 1P/Q==
+X-Gm-Message-State: AOJu0YzqxCvVeKxrpWWT0PkdpvpD27p4qqRTt0TZyBuu7O4yo6pTA/kT
+ I/D3nu/HSPFYH1OWAFafGbRavA98U/YtptBQV2E+Nb6k044DDhAsksxtPexn3g==
+X-Gm-Gg: AeBDieuV9EBK4dqZv1ljtakiaCkvVWkLS68I6/kSt5s0OyDMxZKQ3GgIx/Vm+S1lA/W
+ 17G7Xea0hDkxk5QtHzdXxgHU7m4ZDCffsn6NNtiVuyjMJR3pu4RL43C1Z5jDsbTtGfoGNLlWxa6
+ YzwSr7MhfPRolRzyRyHq31m13smEB2T10mB44xDNMG2P76fiSpB8s7DiaOLUEOItE7wU4YHdp4M
+ bbbJiO45VoJiTjxuJaIUCt6mdGvbzVysBf3HkwrbRSUet9MBxy4F/UKDdTPFA253+ITqqZhTDGc
+ Nfk3aA5RcdTy7jKjhDEq12GhRHcwX0qqUTqnXFuYul87cu4UTYbX1EjmWl8xbu2s88c7RX3mK28
+ UvQLgE0WDoQct6xvAEDhmPreOKdNlVZT2R4HT+ZAB7GwCM/TETIWaQUlJsLIt+uui4Ci4DIxRLM
+ dHZtzJzMXxLDkEfE8+oV/k+LrhGsjYd4z7IBf4YM8q9mDbRuLoylZ2WS+dCAZC9Q==
+X-Received: by 2002:a05:6000:4305:b0:43c:f925:8fc0 with SMTP id
+ ffacd0b85a97d-43d29304ef8mr15846765f8f.50.1775392614808; 
+ Sun, 05 Apr 2026 05:36:54 -0700 (PDT)
+Received: from [10.0.1.4] (host-176-37-45-227.b025.la.net.ua. [176.37.45.227])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d1e2a720dsm32259353f8f.4.2026.04.05.05.36.53
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 05 Apr 2026 05:36:54 -0700 (PDT)
+Date: Sun, 5 Apr 2026 15:36:47 +0300
+From: max graey <maxgraey@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Message-ID: <e507997d-e019-44a5-adc8-069b9e1413d8@Spark>
+In-Reply-To: <814c998c-e63e-4a33-b152-4f3b8ed6dae2@Spark>
+References: <814c998c-e63e-4a33-b152-4f3b8ed6dae2@Spark>
+Subject: [RFC] drm/panic: reconsider manual div_by_10 implementation in
+ drm_panic_qr.rs
+X-Readdle-Message-ID: e507997d-e019-44a5-adc8-069b9e1413d8@Spark
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-From: nino <nino@mm.st>
-Subject: [BUG] msm-dp-display: DP PHY voltage swing state not reset on s2idle
- resume, link training fails (Snapdragon X1E78100)
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative; boundary="69d25764_216231b_525"
 X-Mailman-Approved-At: Sun, 05 Apr 2026 14:51:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,42 +87,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+--69d25764_216231b_525
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
 Hi,
 
-On Lenovo ThinkPad T14s Gen 6 (Snapdragon X1E78100, kernel 
-7.0.0-29-qcom-x1e), the external DisplayPort output via USB-C Alt Mode 
-fails to recover after a prolonged s2idle suspend. After waking, the 
-msm-dp-display driver attempts link training but immediately hits max 
-voltage swing level and fails:
 
-   [drm:msm_dp_ctrl_link_train_1] *ERROR* max v_level reached
-   [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #1 on phy 0 
-failed. ret=-11
-   [drm:msm_dp_ctrl_link_train] *ERROR* link training on sink failed. 
-ret=-11
-   [drm:msm_dp_display_process_hpd_high] *ERROR* failed to complete DP 
-link training
+while looking at drivers/gpu/drm/drm=5Fpanic=5Fqr.rs, I noticed that
+div10() uses special manual implementation for 32-bit ARM.
+As far as I understand, this was introduced due to older LLVM behavior,
+where 64-bit division on 32-bit targets could lower into a call to
+=5F=5Faeabi=5Fuldivmod, which in this context could lead to a panic.
 
-The failure also produces an EDID read failure during the suspend/resume 
-transition itself:
 
-   [drm:msm_dp_panel_read_sink_caps] *ERROR* panel edid read failed
+Reference:
+https://github.com/MatthewCroughan/linux/commit/33429daec773809c01be492b4=
+6a6210ab1473851
 
-The issue is reproducible after longer suspends (multi-hour/overnight) 
-but not always after short ones, suggesting the PHY voltage swing and 
-pre-emphasis state is not being reset before link training is 
-re-attempted on resume.
 
-Affected controllers: ae90000.displayport-controller, 
-ae98000.displayport-controller (USB-C DP Alt Mode). ae9a000 and aea0000 
-(internal eDP) are unaffected.
+However, starting from rustc 1.70.0 (and corresponding LLVM versions),
+this no longer seems to be an issue. The compiler now lowers constant
+division by 10 into a multiplication + shift sequence, avoiding runtime
+helper calls.
+Additionally, the generated code appears to be at least as efficient,
+if not better, than the current manual implementation.
 
-Hardware: Lenovo ThinkPad T14s Gen 6, Snapdragon X1E78100
-Kernel: 7.0.0-29-qcom-x1e (ubuntu upstream for these AMR64 cpu laptops)
-Dock: Dell D6000 via USB-C
-OS: Ubuntu 26.04 beta
 
-Happy to provide further logs or test patches.
+Godbolt proof:
+https://godbolt.org/z/fonv1MEhT
 
-Nino
+
+Given this, I was wondering whether it makes sense to remove the
+platform-specific=C2=A0=C2=A0manual division path, and rely on the compil=
+er for
+optimal code generation.
+
+
+Thanks=21
+
+--69d25764_216231b_525
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
+<head>
+<title></title>
+</head>
+<body>
+<div name=3D=22messageBodySection=22>
+<div dir=3D=22auto=22>Hi,<br />
+<br />
+<br />
+while looking at drivers/gpu/drm/drm=5Fpanic=5Fqr.rs, I noticed that<br /=
+>
+div10() uses special manual implementation for 32-bit ARM.<br />
+As far as I understand, this was introduced due to older LLVM behavior,<b=
+r />
+where 64-bit division on 32-bit targets could lower into a call to<br />
+=5F=5Faeabi=5Fuldivmod, which in this context could lead to a panic.<br /=
+>
+<br />
+<br />
+Reference:<br />
+<a href=3D=22https://github.com/MatthewCroughan/linux/commit/33429daec773=
+809c01be492b46a6210ab1473851=22 target=3D=22=5Fblank=22>https://github.co=
+m/MatthewCroughan/linux/commit/33429daec773809c01be492b46a6210ab1473851</=
+a><br />
+<br />
+<br />
+However, starting from rustc 1.70.0 (and corresponding LLVM versions),<br=
+ />
+this no longer seems to be an issue. The compiler now lowers constant<br =
+/>
+division by 10 into a multiplication + shift sequence, avoiding runtime<b=
+r />
+helper calls.<br />
+Additionally, the generated code appears to be at least as efficient,<br =
+/>
+if not better, than the current manual implementation.<br />
+<br />
+<br />
+Godbolt proof:<br />
+<a href=3D=22https://godbolt.org/z/fonv1MEhT=22 target=3D=22=5Fblank=22>h=
+ttps://godbolt.org/z/fonv1MEhT</a><br />
+<br />
+<br />
+Given this, I was wondering whether it makes sense to remove the&=23160;<=
+br />
+platform-specific&=23160;&=23160;manual division path, and rely on the co=
+mpiler for&=23160;<br />
+optimal code generation.<br />
+<br />
+<br />
+Thanks=21</div>
+</div>
+</body>
+</html>
+
+--69d25764_216231b_525--
 
