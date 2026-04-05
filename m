@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B2AE9D80D
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 19:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB1FE9D800
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 19:36:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7004E10E1B9;
-	Sun,  5 Apr 2026 19:32:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F369F10E1C8;
+	Sun,  5 Apr 2026 19:35:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G5tkb/uE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iiyvQZWw";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D61F10E1F8
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 19:32:10 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-2b8095668ebso238004eec.2
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 12:32:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775417530; cv=none;
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12F4910E1C8
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 19:35:59 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-2cc175eec4dso117354eec.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 12:35:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775417758; cv=none;
  d=google.com; s=arc-20240605;
- b=gs1KuddvN70IYAj33lQshEt8Lyy64cCxu43hnqdaVIbcjRb6elQxhy7CgwEKrk9CkS
- 8i8uF7E7E1yDhpvF76S9gPH4oG7hPQ+aC96TpvZJaJ/WS6cZ5+rRQKA2hWJUnDuzqjDg
- EXWbgKX64YcU2+Mh5PfTkT8EoJ869eXv44gUipq7zxDiOKqG3eCrNsgdKGDcDfQDHMzH
- /1YZzlxREApWxYKyQgbWVhhvlpNAO38lgWVVFTsga5eL2V7xG1oQKk5NXRZWjzb/IuA0
- 1k2Psk0mB3U2uqGJ4UFu7ksTJuEVsqweg4wlD6oMUVzIYEbq6wa9gvsALXjfbCuySVYQ
- Xlhw==
+ b=jUv5xee12/cL9X/MnB3E+vlo4jDXwAfoZJQNJTueXRWBybGk+Gy2oVEE3lSzR33Ou9
+ tLhCDkHRBvYScdmyOpLJyymT9zwuv+bpTIWbmtEq4RvejvQn++rxBnjwvS/Q1Nwea31q
+ dYFfZDFv6NE/CIvoUk87e8dPuKyQX68JinTQ9yyxKdxd4XgUgcz2h60wsxcwKe7d8uOO
+ hDkJtYyW2+nl8rEqTgZhfIAGuDrkZDezbUcxZzg58LmPiHroUY+JUxwyaEViJkgmzYb5
+ ExCUSWYRINxRQYyF0BwAKcN5IJ1b7HG4GpL90ENPRV5msNFsU6sak0bdqRQ50+mjLh/4
+ y4rA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=uj4oJAcIVuVW575tTJ/+8h74lmRr+UIi6+RvtopYiMw=;
- fh=8rdnGaXHpiSWhTwWFxWgULM+mCKRkhfashXKtxHpRpc=;
- b=VaFGSF1gMldQLtCZ4AGEy2Xc0AyAyBx+W1HRnPqdAlNGoGiyjMGbZXoQaaBq8J0Au1
- UH9MoMy1Q3m6oW6lHIjdks/qok7SijJuDOPSUxQUZ5HPK791MdwAjnLCdpJekV0vg1l0
- HcT9VBK1vBYtByUhBzQLN8DG4Hm2W7P6b87iSMFl1Eu5vhvgVW9zW0Z8kMbMZdEDGyQH
- c0aSMR1JfNWhdDSSd+a0orKrf340V71q4X0fFUsgJCW2E7H0U1ot98zH2iR7N7R4jAtf
- UFqpHrNvH7bB/QQ35VdwiVAtAkOPurAiOV9RCr71l4apMQR8CY3Vg2sKxKHKOYXiJDL5
- 8NiQ==; darn=lists.freedesktop.org
+ bh=BfjKSt6DEr7n25ZH5xS/6Npl1F2WZyz5JjVGM21RHvg=;
+ fh=v0XrsosR0AL2uv2VfDyFKdnQtPpKttyNTjxdXlzvTRY=;
+ b=dcVCcIrqV17cPGVnmAB47TFk2N2RUwkjTJasT0GCC0wdIRgI7WYLzWxV8pEzJ6CEWY
+ WWDCvP3xwhbah0TqBcqolZt26SgJ3iemA2t8HPVex6ozuP5DtzcI7rqVut4VJa81gJXd
+ 0ab9jYr7vZJRzyxp1h/ym1OaA3NS/dzJD4E3oRsoSBWB9MPVkXuj/MSEu+KisPuoyteh
+ Hy951XwnchFtfqtau4oeuIysQFGY24ATPD373hL4cTjTPO9/iNqc2OHAiT4PdHatjnGx
+ fC8kSTl76Ebl16gLrWv3DvYqpiUZhZ7zJk9ubdH2lHUc/iAuEgoiPkKkLj3rw6wfZSkx
+ 7s0w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775417530; x=1776022330; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1775417758; x=1776022558; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=uj4oJAcIVuVW575tTJ/+8h74lmRr+UIi6+RvtopYiMw=;
- b=G5tkb/uEWh6iw73jdTqX0G50RMULWWUbFusnue9eDEtWwbXa7/rUUXLvg/PAKIw00I
- vPW00VdyQRgrHIQyiuQ6cZz2v18xkv1i+7jUJnvH4rzqbeSRDSE9W/99jCS62acQfCVB
- Ta4wF5aIlrsoUsrSncf6HPtfTydnCOSZqMhWm+Nt2g/cbsIlwpLJ52jafdgUdJuQ8zBj
- 619JJqpTQ2wlUAoaDLZZtFCTtXgcLBAWvFjeerDUFdyl+QsvIKGv5FKqlucUnEs87Bty
- denf3ChB7lic7EQI87mATLN61ceI8IKqy4ihUeMBIX2fL9dGLdLspXKN4NprXsjL2U7i
- A86A==
+ bh=BfjKSt6DEr7n25ZH5xS/6Npl1F2WZyz5JjVGM21RHvg=;
+ b=iiyvQZWwcjQKaxyaxGPnNiu8f0sSJagijPvY0K9SOk33fbrQjsXvQBIlcAoB0IFvXP
+ 7vnRS7WFhiPKIkjSJrxZtBlmR/V2SkFgckwkjcUCZqPxBdLImyE5wRdUylqBNlBNuoTV
+ vaM7EEW1IbLOsyTAK0QCaTDSHJyXop1HUnLqeQUIq9NHhfEEDgRJkuDcVqjn0/TIDI3f
+ usJSiUeEBNxr8+Kseone2NwOyknNBobNw6m1Ov5goWIEDeXjK+L5LNnulPdWWIWaBCft
+ GfGc8dl+jipQx25MbJoFNxImYdWTIQ9T+GPbdnvkuZOSQvs0ggYhBgnNjMtHt9TPetNC
+ Ajpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775417530; x=1776022330;
+ d=1e100.net; s=20251104; t=1775417758; x=1776022558;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=uj4oJAcIVuVW575tTJ/+8h74lmRr+UIi6+RvtopYiMw=;
- b=Ox9TRMSrPWL0B1PXlow9C0oGo8jH0SBsFZJfsIGCR6Li6rXUDi56ca+3g7tzNqaah5
- f1LkvuWto69KBUVs0ngeaO5YomzjPHrfITkF+XgA/hIP+1q5Vv7ltAion2DF+6sg+L8z
- p2zQqN758yvRNEgO011S5HHDOjT1VL7lVHBI4KEzqz085G4Rz0eA9rcoouImjdBwNeM8
- efzw5C+KeagVdCxxkOAQseRWfUXCMd2mdZuFgUY95IHqE5QDRn9gjRkED0nNBmcfziHE
- qi0SZFuh2ir9g07IX6BAMAQWeYSebao2Tow2wHZe0eyk45GSmuE07mKf5pu4FXDL2h9i
- 3mJw==
+ bh=BfjKSt6DEr7n25ZH5xS/6Npl1F2WZyz5JjVGM21RHvg=;
+ b=HXT/dgYGGzA+4YyIoSEC6q4SeV0HSyThClhXRzrhbxfzEePdx9rtDBzgICSS5BoC6y
+ QE5AiEN78LZvukXuTYzJn6YgzxUKync9jPPR0kbylft5bqjaFMNFBV/sY6s/bbYCH6iA
+ ml1znl2hnOUeTvTufq0ury167e5cTMipm6gBqra2Q3JmcAjB6dQy8J/BGwZGsJKMuKhA
+ oi0M/S8iAcpGVnz1PH1+g0aQsdDFRDKiRh47E8XsXDDEiEMGPX10N0/d6hWlBZK/pIJW
+ HwNMeQbhKRznP5OTSMAW8rQoW5kskBvgeMdF4J4ek8OAlB3IbOusFO8dZ+QzuiMpA6FG
+ gpHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWjN0ArUVqrYBB+mk9UgJN/GDK9dd5znr+X+Egjfwf9pnQcUsodvppQYWuz6UOI584Iw3D6VPqghqM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxb9S5YUpp6t3etsLURhgYxFv9v0WOXMuJLxXaaMicXKf72tP/n
- yfhSQfw++QjDtSK8tZ1lYshs6x1w2YfyUM5RVdeore5r7wKtXOQHeVek2/GnXE7zUuv6Xe6CxxF
- Em+UwrK+wYMETWX2MPJ3NhKx+enjOqcA=
-X-Gm-Gg: AeBDieu0+DwXa4pYs5IGqNS61QZUZ/68JNPWrZe0Wdxvp8AxMjJIfbER0aYuul5E95V
- 6/dq3U4HwiHOoHBSXdwaaMOIEc33XYfd56hazOaYP1tAtGg8mXDCnPBb7CSAslvRyN3UyQzTUpx
- O0yeono/EV1Lv0hFui6+SjQ5KPLhVsEV0PfysC3l2f3cOfh9G2eNdkiK7l8ayHO4kZGpxhMNp4Z
- /vaE6xwbtuCL+E8BfhU4nLTm7Y8S0kAySKISj+s9grPK5MfZBN1L8zBL5t/HhMtVo6CpM64pAmt
- zHg3CavC1YOd11s+fcaH3npbtceOQ0jv4FXyx7Yn6C+hL+C4M2pn29k3b9rXSlX3RU63CD5yEt8
- PWC1ur4hRjS/9ivgCLo4kc3M=
-X-Received: by 2002:a05:7300:cd86:b0:2b7:e929:856b with SMTP id
- 5a478bee46e88-2cbfc768bbdmr2210515eec.5.1775417529556; Sun, 05 Apr 2026
- 12:32:09 -0700 (PDT)
+ AJvYcCU/y8x4QAWQFgQ17t1ALnKOxG/PhmeX1b1QRZPsjhwiNcBsQE5qBEWbk4efY5ldbSmK/Rkz3BbKoZ4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxT79mb55UJ6e3i9Wu2NYpsN7wv92odcKyRdz5WBZb9RdZhhd0S
+ gD10d/ug/dazOCqN4JLHEHbfG0rXW04tCqnxR+Y8DH/DWuOCHZJZVIMgMDUp1MGAmEvbhKMcxli
+ q3rG9nJSra1HQnl9yk5Vkv5dYEghIDo0=
+X-Gm-Gg: AeBDietJM1rmiD0ZIeve3g5q9Jh9fXJ+Qkx3MmFIWCzPlHNowWs1TJgXjzUe+8i7/Y0
+ H7l5FIMkhAnmh62IO+YX3R+ASubCSyTBiW4FoNMRFdHGRvXHr7QPfFT6VpE81CRyskUuyI9/UWT
+ 8sJsZMsz+ARC5YCSfovx/TIe732lbmP6H+BRUfXvV6axb90IncpyP27alxCSvnIFKsbnTW+fU9x
+ XXZgEHYSy8HUqj++nFMdq4MUwPI1RAkM7LssAQbblhP7uCqnfdBYpcNJdWbEIsAwllBAVotklT7
+ Qpic5F8/jAADGhOSUGrHuf5h1jsvXNLmZ43C1fPOYRcI/SAVju5GO323yCZBJyXd5RxQvlHH8eP
+ AP7DUU/dUP1zuieLuNedEzZE=
+X-Received: by 2002:a05:7300:dc88:b0:2c6:7f49:a862 with SMTP id
+ 5a478bee46e88-2cbf9afb2abmr2166610eec.2.1775417758303; Sun, 05 Apr 2026
+ 12:35:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260401114540.30108-1-ojeda@kernel.org>
- <20260401114540.30108-21-ojeda@kernel.org>
- <177508434460.73816.4231801886718165891.b4-review@b4>
-In-Reply-To: <177508434460.73816.4231801886718165891.b4-review@b4>
+ <20260401114540.30108-24-ojeda@kernel.org>
+ <177508434465.73816.4492182082440539007.b4-review@b4>
+In-Reply-To: <177508434465.73816.4492182082440539007.b4-review@b4>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 5 Apr 2026 21:31:57 +0200
-X-Gm-Features: AQROBzDsQvgh2EDKUg3LiGNTUf-8TUQBnEeLR3UEGt8KzpEPnOxtdZC7xsmuU3c
-Message-ID: <CANiq72m9bsXZnMJv2w9eszV5DGUG1Cq0NCEUqv60=4Op__Uong@mail.gmail.com>
-Subject: Re: [PATCH 20/33] rust: kbuild: remove unneeded old `allow`s for
- generated layout tests
+Date: Sun, 5 Apr 2026 21:35:45 +0200
+X-Gm-Features: AQROBzAMmQ2fYtLyUeAFSvUDsVE_iEOg6GKNUQ48f6LlPWNoSXcMUKGWx0A_W0I
+Message-ID: <CANiq72nqenC30r7QQAmdKxS8ehGU2SoSGr+LCnoTAGLegH-KnA@mail.gmail.com>
+Subject: Re: [PATCH 23/33] docs: rust: quick-start: update Ubuntu versioned
+ packages
 To: Tamir Duberstein <tamird@kernel.org>
 Cc: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, 
@@ -141,10 +141,21 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Thu, Apr 2, 2026 at 1:01=E2=80=AFAM Tamir Duberstein <tamird@kernel.org>=
  wrote:
 >
-> How about ordering this, the previous patch, and the next patch ahead of
-> the version bump to avoid the need to mention it here?
+> RUST_LIB_SRC is also mentioned in the nix section, do you know if it is
+> still needed there?
 
-That is reasonable, yeah.
+Yeah, that would be nice to know.
+
+I tried on my own, and it does seem still required (at least with
+those packages mentioned in the example). But perhaps a Nix user knows
+of a better way to do it, anyway.
+
+So I kept it.
+
+By the way, I think it would be nice to have a "standard",
+well-maintained `shell.nix` (or a flake or whatever is best nowadays)
+in the kernel tree somewhere, i.e. one that is known to work, that
+covers most tooling used in the kernel, etc.
 
 Cheers,
 Miguel
