@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D90DCE9D827
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FE5FE9D826
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A41210E19D;
-	Sun,  5 Apr 2026 23:56:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A3C010E1BD;
+	Sun,  5 Apr 2026 23:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QnGoHDW3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J75yujqh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC7D10E1AA;
- Sun,  5 Apr 2026 23:56:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 395C110E1A9;
+ Sun,  5 Apr 2026 23:56:50 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 33E81408A1;
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D1E3600CB;
+ Sun,  5 Apr 2026 23:56:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B450C116C6;
  Sun,  5 Apr 2026 23:56:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F8CC116C6;
- Sun,  5 Apr 2026 23:56:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775433398;
- bh=5Jab/7lBf0p9Y+zm0mNBBz7PFxQVXiWRK5KI8/o7D7w=;
+ s=k20201202; t=1775433409;
+ bh=sQUuqsYWoQQDl9yxEE9Az9YtqbQefhrhSP8rhldIqmw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QnGoHDW3vwcivvmNOjw9o2bOSnSiuXt7aIdxa8w364voeOtuXBDKRMXu1RrUL3xeZ
- J2FmW1h6MmTnqMjPgvotZtm9XroKgcD0uX7aDtypilDVqaCL8uTlxRvph7lumugK+8
- iodWD9nftj/RuaRmrf1nUD8TABFk1CZNavco9mtol/2XT+eI/VlknEJJjda7b6Nt6L
- Rb/8AMVE63lxKAX080HZgZZI2fWBTcVmYtNiB/2T5n5WhsMv6r77G7q/iT2SdggpN2
- ZuLsqQImLYMozcnF9ceFfZNqKay8184qpW7nCgXBZ5baOyb/Njj3jsrriLjAMaitQC
- h3qzSTuZ7BE+Q==
+ b=J75yujqhKFFuRX3GexxH2MvDnyBAcdTMIKhI0rNoTW15zw9TzUSxe27UepZvWE18X
+ sub3LugioC9w0xL+97ng102uzKndH8Ef/fjF5HpT6cFS3fEq4Egi4GCNsRUa5Zu7mF
+ ghvVrRnth7f8i1zaluS9EMfBoMQ6edcxRkjuwMamJd6VVZq13aoqCDwQFlUnwhXXER
+ Qli7u2f6YsZ6TrACIbajwtOLeo23srQOGUoscbrDvlMePGirOBgt0tq/xfktxKtt3s
+ F2UVROBeYqdnAEr10BJqZbI75EHII4oVRwiT7p2M42R6Wiky1MPlMLBmszZvTLKzsu
+ NMb1Zpm8DdMBw==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -63,10 +63,10 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
  Tamir Duberstein <tamird@kernel.org>
-Subject: [PATCH v2 17/33] rust: bump `bindgen` minimum supported version to
- 0.71.1 (Debian Trixie)
-Date: Mon,  6 Apr 2026 01:52:53 +0200
-Message-ID: <20260405235309.418950-18-ojeda@kernel.org>
+Subject: [PATCH v2 18/33] rust: rust_is_available: remove warning for
+ `bindgen` 0.66.[01]
+Date: Mon,  6 Apr 2026 01:52:54 +0200
+Message-ID: <20260405235309.418950-19-ojeda@kernel.org>
 In-Reply-To: <20260405235309.418950-1-ojeda@kernel.org>
 References: <20260405235309.418950-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -86,65 +86,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-As proposed in the past in e.g. LPC 2025 and the Maintainers Summit [1],
-we are going to follow Debian Stable's `bindgen` versions as our minimum
-supported version.
+It is not possible anymore to fall into the issue that this warning was
+alerting about given the `bindgen` version bump.
 
-Debian Trixie was released with `bindgen` 0.71.1, which it still uses
-to this day [2].
+Thus simplify by removing the machinery behind it, including tests.
 
-Debian Trixie's release happened on 2025-08-09 [3], which means that a
-fair amount of time has passed since its release for kernel developers
-to upgrade.
-
-Thus bump the minimum to the new version.
-
-Then, in later commits, clean up most of the workarounds and other bits
-that this upgrade of the minimum allows us.
-
-Ubuntu 25.10 also has a recent enough `bindgen` [4] (even the already
-unsupported Ubuntu 25.04 had it), and they also provide versioned packages
-with `bindgen` 0.71.1 back to Ubuntu 24.04 LTS [5].
-
-Link: https://lwn.net/Articles/1050174/ [1]
-Link: https://packages.debian.org/trixie/bindgen [2]
-Link: https://www.debian.org/releases/trixie/ [3]
-Link: https://packages.ubuntu.com/search?suite=all&searchon=names&keywords=bindgen [4]
-Link: https://launchpad.net/ubuntu/+source/rust-bindgen-0.71 [5]
-Acked-by: Tamir Duberstein <tamird@kernel.org>
-Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Tamir Duberstein <tamird@kernel.org>
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- Documentation/process/changes.rst | 2 +-
- scripts/min-tool-version.sh       | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ scripts/rust_is_available.sh             | 13 ------------
+ scripts/rust_is_available_bindgen_0_66.h |  2 --
+ scripts/rust_is_available_test.py        | 26 +++---------------------
+ 3 files changed, 3 insertions(+), 38 deletions(-)
+ delete mode 100644 scripts/rust_is_available_bindgen_0_66.h
 
-diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
-index 474594bd4831..84156d031365 100644
---- a/Documentation/process/changes.rst
-+++ b/Documentation/process/changes.rst
-@@ -32,7 +32,7 @@ you probably needn't concern yourself with pcmciautils.
- GNU C                  8.1              gcc --version
- Clang/LLVM (optional)  15.0.0           clang --version
- Rust (optional)        1.85.0           rustc --version
--bindgen (optional)     0.65.1           bindgen --version
-+bindgen (optional)     0.71.1           bindgen --version
- GNU make               4.0              make --version
- bash                   4.2              bash --version
- binutils               2.30             ld -v
-diff --git a/scripts/min-tool-version.sh b/scripts/min-tool-version.sh
-index a270ec761f64..b96ec2d379b6 100755
---- a/scripts/min-tool-version.sh
-+++ b/scripts/min-tool-version.sh
-@@ -34,7 +34,7 @@ rustc)
- 	echo 1.85.0
- 	;;
- bindgen)
--	echo 0.65.1
-+	echo 0.71.1
- 	;;
- *)
- 	echo "$1: unknown tool" >&2
+diff --git a/scripts/rust_is_available.sh b/scripts/rust_is_available.sh
+index d2323de0692c..77896e31dab5 100755
+--- a/scripts/rust_is_available.sh
++++ b/scripts/rust_is_available.sh
+@@ -163,19 +163,6 @@ if [ "$rust_bindings_generator_cversion" -lt "$rust_bindings_generator_min_cvers
+ 	echo >&2 "***"
+ 	exit 1
+ fi
+-if [ "$rust_bindings_generator_cversion" -eq 6600 ] ||
+-	[ "$rust_bindings_generator_cversion" -eq 6601 ]; then
+-	# Distributions may have patched the issue (e.g. Debian did).
+-	if ! "$BINDGEN" $(dirname $0)/rust_is_available_bindgen_0_66.h >/dev/null; then
+-		echo >&2 "***"
+-		echo >&2 "*** Rust bindings generator '$BINDGEN' versions 0.66.0 and 0.66.1 may not"
+-		echo >&2 "*** work due to a bug (https://github.com/rust-lang/rust-bindgen/pull/2567),"
+-		echo >&2 "*** unless patched (like Debian's)."
+-		echo >&2 "***   Your version:     $rust_bindings_generator_version"
+-		echo >&2 "***"
+-		warning=1
+-	fi
+-fi
+ 
+ # Check that the `libclang` used by the Rust bindings generator is suitable.
+ #
+diff --git a/scripts/rust_is_available_bindgen_0_66.h b/scripts/rust_is_available_bindgen_0_66.h
+deleted file mode 100644
+index c0431293421c..000000000000
+--- a/scripts/rust_is_available_bindgen_0_66.h
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#define A "\0"
+diff --git a/scripts/rust_is_available_test.py b/scripts/rust_is_available_test.py
+index 4fcc319dea84..b66fa5933844 100755
+--- a/scripts/rust_is_available_test.py
++++ b/scripts/rust_is_available_test.py
+@@ -54,17 +54,12 @@ else:
+ """)
+ 
+     @classmethod
+-    def generate_bindgen(cls, version_stdout, libclang_stderr, version_0_66_patched=False, libclang_concat_patched=False):
++    def generate_bindgen(cls, version_stdout, libclang_stderr, libclang_concat_patched=False):
+         if libclang_stderr is None:
+             libclang_case = f"raise SystemExit({cls.bindgen_default_bindgen_libclang_failure_exit_code})"
+         else:
+             libclang_case = f"print({repr(libclang_stderr)}, file=sys.stderr)"
+ 
+-        if version_0_66_patched:
+-            version_0_66_case = "pass"
+-        else:
+-            version_0_66_case = "raise SystemExit(1)"
+-
+         if libclang_concat_patched:
+             libclang_concat_case = "print('pub static mut foofoo: ::std::os::raw::c_int;')"
+         else:
+@@ -74,8 +69,6 @@ else:
+ import sys
+ if "rust_is_available_bindgen_libclang.h" in " ".join(sys.argv):
+     {libclang_case}
+-elif "rust_is_available_bindgen_0_66.h" in " ".join(sys.argv):
+-    {version_0_66_case}
+ elif "rust_is_available_bindgen_libclang_concat.h" in " ".join(sys.argv):
+     {libclang_concat_case}
+ else:
+@@ -83,8 +76,8 @@ else:
+ """)
+ 
+     @classmethod
+-    def generate_bindgen_version(cls, stdout, version_0_66_patched=False):
+-        return cls.generate_bindgen(stdout, cls.bindgen_default_bindgen_libclang_stderr, version_0_66_patched)
++    def generate_bindgen_version(cls, stdout):
++        return cls.generate_bindgen(stdout, cls.bindgen_default_bindgen_libclang_stderr)
+ 
+     @classmethod
+     def generate_bindgen_libclang_failure(cls):
+@@ -245,19 +238,6 @@ else:
+         result = self.run_script(self.Expected.FAILURE, { "BINDGEN": bindgen })
+         self.assertIn(f"Rust bindings generator '{bindgen}' is too old.", result.stderr)
+ 
+-    def test_bindgen_bad_version_0_66_0_and_0_66_1(self):
+-        for version in ("0.66.0", "0.66.1"):
+-            with self.subTest(version=version):
+-                bindgen = self.generate_bindgen_version(f"bindgen {version}")
+-                result = self.run_script(self.Expected.SUCCESS_WITH_WARNINGS, { "BINDGEN": bindgen })
+-                self.assertIn(f"Rust bindings generator '{bindgen}' versions 0.66.0 and 0.66.1 may not", result.stderr)
+-
+-    def test_bindgen_bad_version_0_66_0_and_0_66_1_patched(self):
+-        for version in ("0.66.0", "0.66.1"):
+-            with self.subTest(version=version):
+-                bindgen = self.generate_bindgen_version(f"bindgen {version}", True)
+-                result = self.run_script(self.Expected.SUCCESS, { "BINDGEN": bindgen })
+-
+     def test_bindgen_libclang_failure(self):
+         bindgen = self.generate_bindgen_libclang_failure()
+         result = self.run_script(self.Expected.FAILURE, { "BINDGEN": bindgen })
 -- 
 2.53.0
 
