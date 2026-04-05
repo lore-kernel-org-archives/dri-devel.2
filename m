@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F58E9D827
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F54E9D82C
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:55:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC12B10E144;
-	Sun,  5 Apr 2026 23:55:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74DF910E17D;
+	Sun,  5 Apr 2026 23:55:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gCHzAlM6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PWyM8OyK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F76710E144;
- Sun,  5 Apr 2026 23:55:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9653610E17D;
+ Sun,  5 Apr 2026 23:55:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7B3EF6011F;
+ by sea.source.kernel.org (Postfix) with ESMTP id 790AE4091F;
+ Sun,  5 Apr 2026 23:55:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4E1C2BCB0;
  Sun,  5 Apr 2026 23:55:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86601C116C6;
- Sun,  5 Apr 2026 23:55:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775433320;
- bh=HV0bL0gHeo5ytVraoqeUk7gpt273iWarFnhuW3AZrCI=;
+ s=k20201202; t=1775433331;
+ bh=y9tHNT9LLwvCnIp2g8KfzIzoqrv/gM7tQZbqTUN0GxU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gCHzAlM6VUIfeMuR3tiYiw4x52ObAlTAx9UnTip4jjUZVJ+sCfoUGSFvE9wPi7740
- 3QRK9w03A1z3Tiq5yMZhcKxEuaP5+x1h4JJYclMBu42+WH1zGRYSSJnyRXj0xz8xrv
- WlxPczxRkcp0lLRcjK9sorp63+5xChEEuulrugfJ6ET5VVvThzAtNxIfG4WG00VknT
- VdwbEkh/mOhhQJFQ0CiDoVyIB6OAVfcFk5XDu9QYRf/aMi7Zgkc5If449omeQ0BNT3
- YtPI2fbmIXg2yzp3nTj1jj9b4E2kcYl6f6NENEgnXH14mkqjTi3gSF9ScvSlzg3pmV
- OfGyMkO6NzpJQ==
+ b=PWyM8OyKxUz2TNjL8+e0G5SaNub5kKLoxTD9YqzS8KN12eDUh3ZxxS1ZwAzbPmbfi
+ nDroB+Dw6RlYMaIL1hnynDku4rObXrjTriUfRg/LjdBlpJ5OogQ+hXxDqZ5iAO3GAK
+ e23RwquOxN6ersxOC2v4Ca/qVybz5FXHmP0vq4U7f/+JsRHgs3qrHbTqzV1ypTAys0
+ UfpfwtLB8OR4qY8z6MRfaqIIuEmSd/QnTRo3ZGXmJFgkIE5hy3PpAGlENeQma7W6Kh
+ TbGlWD7OxbQ+ffRD4Uktwmuh8O2wehF4rKRblvXpaWPq7wb8e0PQQD7ybIk0+Jhh7V
+ ALQrawJ7O1w1A==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -63,10 +63,10 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
  Tamir Duberstein <tamird@kernel.org>
-Subject: [PATCH v2 10/33] rust: remove `RUSTC_HAS_COERCE_POINTEE` and simplify
- code
-Date: Mon,  6 Apr 2026 01:52:46 +0200
-Message-ID: <20260405235309.418950-11-ojeda@kernel.org>
+Subject: [PATCH v2 11/33] rust: kbuild: remove skipping of
+ `-Wrustdoc::unescaped_backticks`
+Date: Mon,  6 Apr 2026 01:52:47 +0200
+Message-ID: <20260405235309.418950-12-ojeda@kernel.org>
 In-Reply-To: <20260405235309.418950-1-ojeda@kernel.org>
 References: <20260405235309.418950-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -86,195 +86,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With the Rust version bump in place, the `RUSTC_HAS_COERCE_POINTEE`
-Kconfig (automatic) option is always true.
+Back in Rust 1.82.0, I cleaned the `rustdoc::unescaped_backticks` lint in
+upstream Rust and added tests so that hopefully it would not regress [1].
 
-Thus remove the option and simplify the code.
+Thus we can remove it from our side given the Rust minimum version bump.
 
-In particular, this includes removing our use of the predecessor unstable
-features we used with Rust < 1.84.0 (`coerce_unsized`, `dispatch_from_dyn`
-and `unsize`).
-
+Link: https://github.com/rust-lang/rust/pull/128307 [1]
 Reviewed-by: Tamir Duberstein <tamird@kernel.org>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
 Reviewed-by: Gary Guo <gary@garyguo.net>
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- init/Kconfig              |  3 ---
- rust/kernel/alloc/kbox.rs | 29 ++---------------------------
- rust/kernel/lib.rs        |  8 +-------
- rust/kernel/list/arc.rs   | 22 +---------------------
- rust/kernel/sync/arc.rs   | 21 ++-------------------
- 5 files changed, 6 insertions(+), 77 deletions(-)
+ rust/Makefile | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/init/Kconfig b/init/Kconfig
-index c38f49228157..f9fac458e4d4 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -178,9 +178,6 @@ config LD_CAN_USE_KEEP_IN_OVERLAY
- 	# https://github.com/llvm/llvm-project/pull/130661
- 	def_bool LD_IS_BFD || LLD_VERSION >= 210000
+diff --git a/rust/Makefile b/rust/Makefile
+index 16ea720e0a8e..5dc8b4cc89d1 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -75,8 +75,7 @@ core-edition := $(if $(call rustc-min-version,108700),2024,2021)
  
--config RUSTC_HAS_COERCE_POINTEE
--	def_bool RUSTC_VERSION >= 108400
--
- config RUSTC_HAS_SPAN_FILE
- 	def_bool RUSTC_VERSION >= 108800
+ core-skip_flags := \
+     --edition=2021 \
+-    -Wunreachable_pub \
+-    -Wrustdoc::unescaped_backticks
++    -Wunreachable_pub
  
-diff --git a/rust/kernel/alloc/kbox.rs b/rust/kernel/alloc/kbox.rs
-index 622b3529edfc..bd6da02c7ab8 100644
---- a/rust/kernel/alloc/kbox.rs
-+++ b/rust/kernel/alloc/kbox.rs
-@@ -77,33 +77,8 @@
- /// `self.0` is always properly aligned and either points to memory allocated with `A` or, for
- /// zero-sized types, is a dangling, well aligned pointer.
- #[repr(transparent)]
--#[cfg_attr(CONFIG_RUSTC_HAS_COERCE_POINTEE, derive(core::marker::CoercePointee))]
--pub struct Box<#[cfg_attr(CONFIG_RUSTC_HAS_COERCE_POINTEE, pointee)] T: ?Sized, A: Allocator>(
--    NonNull<T>,
--    PhantomData<A>,
--);
--
--// This is to allow coercion from `Box<T, A>` to `Box<U, A>` if `T` can be converted to the
--// dynamically-sized type (DST) `U`.
--#[cfg(not(CONFIG_RUSTC_HAS_COERCE_POINTEE))]
--impl<T, U, A> core::ops::CoerceUnsized<Box<U, A>> for Box<T, A>
--where
--    T: ?Sized + core::marker::Unsize<U>,
--    U: ?Sized,
--    A: Allocator,
--{
--}
--
--// This is to allow `Box<U, A>` to be dispatched on when `Box<T, A>` can be coerced into `Box<U,
--// A>`.
--#[cfg(not(CONFIG_RUSTC_HAS_COERCE_POINTEE))]
--impl<T, U, A> core::ops::DispatchFromDyn<Box<U, A>> for Box<T, A>
--where
--    T: ?Sized + core::marker::Unsize<U>,
--    U: ?Sized,
--    A: Allocator,
--{
--}
-+#[derive(core::marker::CoercePointee)]
-+pub struct Box<#[pointee] T: ?Sized, A: Allocator>(NonNull<T>, PhantomData<A>);
+ core-flags := \
+     --edition=$(core-edition) \
+@@ -209,8 +208,6 @@ rustdoc-macros: $(src)/macros/lib.rs rustdoc-clean rustdoc-proc_macro2 \
+     rustdoc-quote rustdoc-syn FORCE
+ 	+$(call if_changed,rustdoc)
  
- /// Type alias for [`Box`] with a [`Kmalloc`] allocator.
- ///
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 621cae75030c..66a09d77a2c4 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -39,17 +39,11 @@
- //
- // Expected to become stable.
- #![feature(arbitrary_self_types)]
-+#![feature(derive_coerce_pointee)]
- //
- // To be determined.
- #![feature(used_with_arg)]
- //
--// `feature(derive_coerce_pointee)` is expected to become stable. Before Rust
--// 1.84.0, it did not exist, so enable the predecessor features.
--#![cfg_attr(CONFIG_RUSTC_HAS_COERCE_POINTEE, feature(derive_coerce_pointee))]
--#![cfg_attr(not(CONFIG_RUSTC_HAS_COERCE_POINTEE), feature(coerce_unsized))]
--#![cfg_attr(not(CONFIG_RUSTC_HAS_COERCE_POINTEE), feature(dispatch_from_dyn))]
--#![cfg_attr(not(CONFIG_RUSTC_HAS_COERCE_POINTEE), feature(unsize))]
--//
- // `feature(file_with_nul)` is expected to become stable. Before Rust 1.89.0, it did not exist, so
- // enable it conditionally.
- #![cfg_attr(CONFIG_RUSTC_HAS_FILE_WITH_NUL, feature(file_with_nul))]
-diff --git a/rust/kernel/list/arc.rs b/rust/kernel/list/arc.rs
-index e1082423909c..a9a2b0178f65 100644
---- a/rust/kernel/list/arc.rs
-+++ b/rust/kernel/list/arc.rs
-@@ -160,7 +160,7 @@ fn try_new_list_arc(&self) -> bool {
- ///
- /// [`List`]: crate::list::List
- #[repr(transparent)]
--#[cfg_attr(CONFIG_RUSTC_HAS_COERCE_POINTEE, derive(core::marker::CoercePointee))]
-+#[derive(core::marker::CoercePointee)]
- pub struct ListArc<T, const ID: u64 = 0>
- where
-     T: ListArcSafe<ID> + ?Sized,
-@@ -443,26 +443,6 @@ fn as_ref(&self) -> &Arc<T> {
-     }
- }
- 
--// This is to allow coercion from `ListArc<T>` to `ListArc<U>` if `T` can be converted to the
--// dynamically-sized type (DST) `U`.
--#[cfg(not(CONFIG_RUSTC_HAS_COERCE_POINTEE))]
--impl<T, U, const ID: u64> core::ops::CoerceUnsized<ListArc<U, ID>> for ListArc<T, ID>
--where
--    T: ListArcSafe<ID> + core::marker::Unsize<U> + ?Sized,
--    U: ListArcSafe<ID> + ?Sized,
--{
--}
--
--// This is to allow `ListArc<U>` to be dispatched on when `ListArc<T>` can be coerced into
--// `ListArc<U>`.
--#[cfg(not(CONFIG_RUSTC_HAS_COERCE_POINTEE))]
--impl<T, U, const ID: u64> core::ops::DispatchFromDyn<ListArc<U, ID>> for ListArc<T, ID>
--where
--    T: ListArcSafe<ID> + core::marker::Unsize<U> + ?Sized,
--    U: ListArcSafe<ID> + ?Sized,
--{
--}
--
- /// A utility for tracking whether a [`ListArc`] exists using an atomic.
- ///
- /// # Invariants
-diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
-index 921e19333b89..18d6c0d62ce0 100644
---- a/rust/kernel/sync/arc.rs
-+++ b/rust/kernel/sync/arc.rs
-@@ -128,7 +128,7 @@
- /// # Ok::<(), Error>(())
- /// ```
- #[repr(transparent)]
--#[cfg_attr(CONFIG_RUSTC_HAS_COERCE_POINTEE, derive(core::marker::CoercePointee))]
-+#[derive(core::marker::CoercePointee)]
- pub struct Arc<T: ?Sized> {
-     ptr: NonNull<ArcInner<T>>,
-     // NB: this informs dropck that objects of type `ArcInner<T>` may be used in `<Arc<T> as
-@@ -182,15 +182,6 @@ unsafe fn container_of(ptr: *const T) -> NonNull<ArcInner<T>> {
-     }
- }
- 
--// This is to allow coercion from `Arc<T>` to `Arc<U>` if `T` can be converted to the
--// dynamically-sized type (DST) `U`.
--#[cfg(not(CONFIG_RUSTC_HAS_COERCE_POINTEE))]
--impl<T: ?Sized + core::marker::Unsize<U>, U: ?Sized> core::ops::CoerceUnsized<Arc<U>> for Arc<T> {}
--
--// This is to allow `Arc<U>` to be dispatched on when `Arc<T>` can be coerced into `Arc<U>`.
--#[cfg(not(CONFIG_RUSTC_HAS_COERCE_POINTEE))]
--impl<T: ?Sized + core::marker::Unsize<U>, U: ?Sized> core::ops::DispatchFromDyn<Arc<U>> for Arc<T> {}
--
- // SAFETY: It is safe to send `Arc<T>` to another thread when the underlying `T` is `Sync` because
- // it effectively means sharing `&T` (which is safe because `T` is `Sync`); additionally, it needs
- // `T` to be `Send` because any thread that has an `Arc<T>` may ultimately access `T` using a
-@@ -547,20 +538,12 @@ fn from(item: Pin<UniqueArc<T>>) -> Self {
- /// # Ok::<(), Error>(())
- /// ```
- #[repr(transparent)]
--#[cfg_attr(CONFIG_RUSTC_HAS_COERCE_POINTEE, derive(core::marker::CoercePointee))]
-+#[derive(core::marker::CoercePointee)]
- pub struct ArcBorrow<'a, T: ?Sized + 'a> {
-     inner: NonNull<ArcInner<T>>,
-     _p: PhantomData<&'a ()>,
- }
- 
--// This is to allow `ArcBorrow<U>` to be dispatched on when `ArcBorrow<T>` can be coerced into
--// `ArcBorrow<U>`.
--#[cfg(not(CONFIG_RUSTC_HAS_COERCE_POINTEE))]
--impl<T: ?Sized + core::marker::Unsize<U>, U: ?Sized> core::ops::DispatchFromDyn<ArcBorrow<'_, U>>
--    for ArcBorrow<'_, T>
--{
--}
--
- impl<T: ?Sized> Clone for ArcBorrow<'_, T> {
-     fn clone(&self) -> Self {
-         *self
+-# Starting with Rust 1.82.0, skipping `-Wrustdoc::unescaped_backticks` should
+-# not be needed -- see https://github.com/rust-lang/rust/pull/128307.
+ rustdoc-core: private skip_flags = $(core-skip_flags)
+ rustdoc-core: private rustc_target_flags = $(core-flags)
+ rustdoc-core: $(RUST_LIB_SRC)/core/src/lib.rs rustdoc-clean FORCE
 -- 
 2.53.0
 
