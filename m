@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C69E3E9D827
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:57:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C52BE9D827
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 23:57:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3748B10E1A9;
-	Sun,  5 Apr 2026 23:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF0C710E1A6;
+	Sun,  5 Apr 2026 23:57:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fZa94a2g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fWajgKwf";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BD0C10E1B7;
- Sun,  5 Apr 2026 23:57:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD6E10E1A6;
+ Sun,  5 Apr 2026 23:57:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 05C80435E5;
+ by sea.source.kernel.org (Postfix) with ESMTP id 2E0474394F;
+ Sun,  5 Apr 2026 23:57:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D085C116C6;
  Sun,  5 Apr 2026 23:57:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E412C116C6;
- Sun,  5 Apr 2026 23:57:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775433453;
- bh=y0xktRKRs5ryJC+G01aE6htP3MJxSFsUvP6UYzkishw=;
+ s=k20201202; t=1775433465;
+ bh=7mv52/ZG4QUnDcOB1zLib3ghxysM4SNZUNBkbqsCd6I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fZa94a2gUM+1/bUwa8Gk/haFENqG5HQ/kAPWfZKfoOpgs9LPvPn+5SYdTLlTrdqBN
- KhCyK2P/VjNgBuSBZRXH3t/NjrffsRCHyuBlWMIBQFw1QoF5qZOq0Fan1XeP/C9mwN
- mSmbpbCFTZr9ULdOVc2ZcG2LEkvGQJ8xFnLh+51z3NbAT8m8LjGsjXlDkeOe8MrFSS
- pua0Sbcn0dOpLzsRowI5EISEDL74bEj9qX5mI82scX4NoyYe3aG+R/HAcXyIsZeQm+
- 9Z0TPjgH5LdiQErUVz5M6qCBLJlmLC7RcmmO+rD7FdR+Z/0Ev92RuP1DJXKaj2QiNp
- MCtFh4b1E1+eg==
+ b=fWajgKwfrkdSNkiYnAd9kVPK1GTxxVyj6J8fkBbJmrLEd8CgJanav/phR9AoL3ylx
+ txfRsKu9RyJkL4rGC6RD3J1lxpa9C1fBSZzYpGbeXeZbD3guGiERO3kTGiCHAhtg92
+ EgiGkmUZ+/W0GJ+7JzQjQgfMYPZT8BWyQe0qXfjMWmH6CabWhNT0oyMw9cRsUMhrb4
+ 4xmAOFIxtQwyfAcrhXC65dsH2AYzCrEmcwkeyxe2CLJSxNlqukCsRdgXYFRU6ozXdz
+ 4B+nAbib/RZGoGdyfYl4J/MgCruSgPuD1K/cXlZHR3jxvKX31DQGGowb/YmjIjlMaf
+ nst7B8vwy2roQ==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
  Nicolas Schier <nsc@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
@@ -63,10 +63,10 @@ Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
  llvm@lists.linux.dev, linux-kernel@vger.kernel.org,
  Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
  Tamir Duberstein <tamird@kernel.org>
-Subject: [PATCH v2 22/33] docs: rust: quick-start: openSUSE provides
- `rust-src` package nowadays
-Date: Mon,  6 Apr 2026 01:52:58 +0200
-Message-ID: <20260405235309.418950-23-ojeda@kernel.org>
+Subject: [PATCH v2 23/33] docs: rust: quick-start: update Ubuntu versioned
+ packages
+Date: Mon,  6 Apr 2026 01:52:59 +0200
+Message-ID: <20260405235309.418950-24-ojeda@kernel.org>
 In-Reply-To: <20260405235309.418950-1-ojeda@kernel.org>
 References: <20260405235309.418950-1-ojeda@kernel.org>
 MIME-Version: 1.0
@@ -86,31 +86,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Both openSUSE Tumbleweed and Slowroll provide the `rust-src` package
-nowadays [1].
+Now that the minimum supported Rust version is bumped, bump the versioned
+Rust packages [1][2][3][4] to that version for Ubuntu in the Quick
+Start guide.
 
-Thus remove the version-specific one from the Quick Start guide.
+In addition, add "may" to the `RUST_LIB_SRC` line since it does not look
+like it is needed from a quick test in a Ubuntu 24.04 LTS container.
 
-Link: https://software.opensuse.org/package/rust-src?search_term=rust-src [1]
+Link: https://packages.ubuntu.com/search?suite=all&searchon=names&keywords=rustc [1]
+Link: https://packages.ubuntu.com/search?suite=all&searchon=names&keywords=bindgen [2]
+Link: https://launchpad.net/ubuntu/+source/rustc-1.85 [3]
+Link: https://launchpad.net/ubuntu/+source/rust-bindgen-0.71 [4]
 Reviewed-by: Tamir Duberstein <tamird@kernel.org>
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- Documentation/rust/quick-start.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/rust/quick-start.rst | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/Documentation/rust/quick-start.rst b/Documentation/rust/quick-start.rst
-index 152289f0bed2..642efce04ee8 100644
+index 642efce04ee8..54fe491deb7d 100644
 --- a/Documentation/rust/quick-start.rst
 +++ b/Documentation/rust/quick-start.rst
-@@ -84,7 +84,7 @@ openSUSE
- openSUSE Slowroll and openSUSE Tumbleweed provide recent Rust releases and thus
- they should generally work out of the box, e.g.::
+@@ -112,33 +112,33 @@ Though Ubuntu 24.04 LTS and older versions still provide recent Rust
+ releases, they require some additional configuration to be set, using
+ the versioned packages, e.g.::
  
--	zypper install rust rust1.79-src rust-bindgen clang
-+	zypper install rust rust-src rust-bindgen clang
+-	apt install rustc-1.80 rust-1.80-src bindgen-0.65 rustfmt-1.80 \
+-		rust-1.80-clippy
+-	ln -s /usr/lib/rust-1.80/bin/rustfmt /usr/bin/rustfmt-1.80
+-	ln -s /usr/lib/rust-1.80/bin/clippy-driver /usr/bin/clippy-driver-1.80
++	apt install rustc-1.85 rust-1.85-src bindgen-0.71 rustfmt-1.85 \
++		rust-1.85-clippy
++	ln -s /usr/lib/rust-1.85/bin/rustfmt /usr/bin/rustfmt-1.85
++	ln -s /usr/lib/rust-1.85/bin/clippy-driver /usr/bin/clippy-driver-1.85
+ 
+ None of these packages set their tools as defaults; therefore they should be
+ specified explicitly, e.g.::
+ 
+-	make LLVM=1 RUSTC=rustc-1.80 RUSTDOC=rustdoc-1.80 RUSTFMT=rustfmt-1.80 \
+-		CLIPPY_DRIVER=clippy-driver-1.80 BINDGEN=bindgen-0.65
++	make LLVM=1 RUSTC=rustc-1.85 RUSTDOC=rustdoc-1.85 RUSTFMT=rustfmt-1.85 \
++		CLIPPY_DRIVER=clippy-driver-1.85 BINDGEN=bindgen-0.71
+ 
+-Alternatively, modify the ``PATH`` variable to place the Rust 1.80 binaries
++Alternatively, modify the ``PATH`` variable to place the Rust 1.85 binaries
+ first and set ``bindgen`` as the default, e.g.::
+ 
+-	PATH=/usr/lib/rust-1.80/bin:$PATH
++	PATH=/usr/lib/rust-1.85/bin:$PATH
+ 	update-alternatives --install /usr/bin/bindgen bindgen \
+-		/usr/bin/bindgen-0.65 100
+-	update-alternatives --set bindgen /usr/bin/bindgen-0.65
++		/usr/bin/bindgen-0.71 100
++	update-alternatives --set bindgen /usr/bin/bindgen-0.71
+ 
+-``RUST_LIB_SRC`` needs to be set when using the versioned packages, e.g.::
++``RUST_LIB_SRC`` may need to be set when using the versioned packages, e.g.::
+ 
+-	RUST_LIB_SRC=/usr/src/rustc-$(rustc-1.80 --version | cut -d' ' -f2)/library
++	RUST_LIB_SRC=/usr/src/rustc-$(rustc-1.85 --version | cut -d' ' -f2)/library
+ 
+ For convenience, ``RUST_LIB_SRC`` can be exported to the global environment.
+ 
+-In addition, ``bindgen-0.65`` is available in newer releases (24.04 LTS and
+-24.10), but it may not be available in older ones (20.04 LTS and 22.04 LTS),
++In addition, ``bindgen-0.71`` is available in newer releases (24.04 LTS),
++but it may not be available in older ones (20.04 LTS and 22.04 LTS),
+ thus ``bindgen`` may need to be built manually (please see below).
  
  
- Ubuntu
 -- 
 2.53.0
 
