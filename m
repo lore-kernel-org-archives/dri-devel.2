@@ -4,157 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 755EBE9D803
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 14:34:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43A0BE9D804
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 14:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D03DC10E24C;
-	Sun,  5 Apr 2026 14:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 584CA10E0D1;
+	Sun,  5 Apr 2026 14:51:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RVEIFMpM";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Os0ZCnQ/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ayxtk835";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6546F10E243
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 14:34:28 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 635BfgFN3346442
- for <dri-devel@lists.freedesktop.org>; Sun, 5 Apr 2026 14:34:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 52oscFDjem1+c6zc6REhqJiMklNGT0dva2yqjZoyFxs=; b=RVEIFMpMKMSXfIoa
- ZPo3e86ZUVDI61Vmy8nadkvLlBqE/qMSGUYQhrHpp7qJWOroh03+1/6Tsbea1+XN
- F3ECjGHZ8d9+qDR5zxdzDKkaUCCXy7s++7o2h/yCnTTOwHQIY4etS7mLxLl9ehCw
- jyA5tUZTXQU+3HPXe62U71R3uDMC/+hCOB41mbD8igOHZzzHXwGOwQi8ChHGqd8s
- en36wRemjuXTsPKON/bRKa23o2jZKJYcAIpmJ4La9jNFAk3WI3bDj+5FGytIHj3F
- 6dUg5t7j0I7lgzyTpH1KTPApDp3kIrvGC4y5kFXQvW7rSs2rX5awBSlwmdqykSrc
- 0fkNEw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4datqsjjn5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 14:34:27 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8d3bea3aa34so596215385a.0
- for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 07:34:27 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58F5110E0E2
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 12:47:18 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-488af9fdaa7so1045535e9.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 05:47:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775399667; x=1776004467;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=52oscFDjem1+c6zc6REhqJiMklNGT0dva2yqjZoyFxs=;
- b=Os0ZCnQ/5o10h5+cYlgKN7fHxd9KEKQqKSvpToEa4Bsl700wPX16sf1wBPdyH7YM47
- VWovqBNUN5AVrzr90JVvmEjhzDOdPbit0VCbPNz7NP/FPmOzoaQsG90tWATDf7/AFQjB
- Yxu/9ITWAR6OY7/DO7sg8lJ7JIREZ06eLghYfvQG6cw7P1mJ9gP7KNgIGqt2utwxGb+0
- H4pXyTHY31fxQIvdwan5vAAr1GevyGBS9VmugOXHy+w7rgFLSBSI0TgvV/uTaBAueXP7
- caz/JcD/o51gpxB6Id9YDYlqwAlwzoupv2wFucS2CBUoFTO674rZbWn85KCsh1CGMpFN
- S3Pg==
+ d=gmail.com; s=20251104; t=1775393237; x=1775998037; darn=lists.freedesktop.org;
+ h=mime-version:subject:references:in-reply-to:message-id:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rWXvruxydWCE165D1X/rsTWP12iJIYJjDPOd90sWaLk=;
+ b=Ayxtk835VBmIvjLgkmk48qZf3zO/AnTwesz9GXsDjTmmS8spYmfUYmEKNGq8rLlBbj
+ eMpQpi9nNr9iXGtpJYyFo1G6+PWrGaOIBDEo4mHhfUD9MauxqexbPVyT/vPLxUxfTmy1
+ /+ClGpOvqTc76DuEANFOSfFs5Dw1qshNMThczwSPvKA74xUnToAl33O4mZozPkMF0y20
+ 7zS1FZYdu9ZPZybZyjDPhnh4nson7tMvYqZU6Lzjcnzf1qvF3PQlHHCXHKbt6qX69HZm
+ bPy4XvsUs+eaFxZYC+o1l9YQby/haK4fJZAOgarLsRf20AuHvnXUeDx42vbLflUdppOl
+ JeAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775399667; x=1776004467;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=52oscFDjem1+c6zc6REhqJiMklNGT0dva2yqjZoyFxs=;
- b=FRjn38fd532acsN1WNZUAW47/PwzN7kO2PntSPsy9R1gg3j/0+gbvNr+snUI/5uM2W
- sc/eJgZVmsliWJcAnf3RTJsv1xixc5dI2UNh8zNlM/HwDHPthHUxfP24v0va/nmIrcuq
- ComfVQ+OQlbzNZPzq65mCjd+Xbis0+nxKk8DC7mp6ZIBC964EGpzBigGrmNQuaU8pPci
- BBd/YA6tC7MsTAYa2lUK32nyh4pxX4KLUIBlbsUX2r9S5ZheGAf6jWIsD2QA6gfljUPA
- gA1HbOJL/PIpL692b2cLKQ3VRK1qEUt/v1FmyCa/dO8aUDsjWj39Cg3x7U0Nz4NaHnYk
- XDdQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTNFCborCwPoSmWzSQzURZjCyYt1HsDYbw5InGpLQ3DjdS8yrT3NGfChrSbjNXZanG3U9n5J6rKnk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1jgUy45uLpXMFDMjqSMKnKIqO4TsF+byPpnnBpdgtzpjLrWaU
- qvWpMslrbmixG4UQ5H5RrZdUvu2tvE++zTUAaOwMgbEkYcPyMCGGMS6lI8cjYthBU14htVVBlEZ
- XURsk2t9NMubFDJASPHJWOo+YMIYhvUR+BZhZXmNFMQgD5EykfFr5sH2wcgmeDy2q54Yq4mAdrk
- lL7Ks=
-X-Gm-Gg: AeBDietqhwUM88JwrkLRFlVo4SSdJhlsbX/Zd+69JE3RKsWsp1WOmagBGYbJo8gx331
- mZshVT7b2XHosYHqHzdqjA10X/km87OW5uDhvFpuv1iey5dO7+OH8b+XTWNO/k8t8TxMc6+5bTE
- WvVSJNRPLmo2Bt+8L9oQyHpL7qb1GbuwlaH0Nb/yg83gCTrYtovkxkr61jthRysDw5BmsVkymt4
- Hj+PRrbiH/7qjKYBPP9pWjmRcL83999A1dTJWxgSBYmoUk6F4nr77dBcLf/rM92E+LhYU/lI6XX
- g2GZH3anJAZJTBZ5DqUtAQZkxz7YXQeaL7N1jPcESjPyR/06JotoozmLkj8RRjyCP5wFTr5NMa7
- IzewNfqBHjszexS0UixC23cMEOaHBwEpVwaijdB3jmRQ6
-X-Received: by 2002:ac8:7f48:0:b0:50d:855a:8909 with SMTP id
- d75a77b69052e-50d855a8cb9mr46714811cf.32.1775399666626; 
- Sun, 05 Apr 2026 07:34:26 -0700 (PDT)
-X-Received: by 2002:ac8:7f48:0:b0:50d:855a:8909 with SMTP id
- d75a77b69052e-50d855a8cb9mr46714401cf.32.1775399666125; 
- Sun, 05 Apr 2026 07:34:26 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.94]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887e80a616sm713934755e9.2.2026.04.05.07.34.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Apr 2026 07:34:25 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Sun, 05 Apr 2026 16:34:04 +0200
-Subject: [PATCH v2 8/8] arm64: dts: qcom: sm8750: Correct DPU VBIF address
- space size
+ d=1e100.net; s=20251104; t=1775393237; x=1775998037;
+ h=mime-version:subject:references:in-reply-to:message-id:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=rWXvruxydWCE165D1X/rsTWP12iJIYJjDPOd90sWaLk=;
+ b=HFUITAr/jBwup/L0UU3qgaTexjiSRX/iGA+PTsVioGcDjeDLe3cqy/brBiava/fLxM
+ 8fHeDK2hdQY8FtFgSG/IirSgElCI4az7eWFsg2yrEaX5xdZwFtbRMRJbHqc6Iu97aHZv
+ iyj76AwytYaPlHufr/z1UqKDWErkGVd4MVhRHKSQNSph3nkx8uwZK8kej5tlkhE1n+Vz
+ lvNigtLcgf3zj15gi6ynDTJ88t12xZc59Vmd2g0TAQQZzL3DDm72yXXTcTVbxQuSND4n
+ 2A9uGRt178Q5kbswTnL4HtJbJeOiLoaHK6JWf93NrVHUv3QctystzVcwfmVTvK+vJExi
+ i4ow==
+X-Gm-Message-State: AOJu0YyKfKzE9hPMLi0fzssbpFZbk/tf29p1TNWrPcYdhftFjxejd+wG
+ LgpAiaC6eCdtqDi9GbC+bTTzqUwnlXPdyCPXrCdhVJ14AX2z2rddr2gYQ6qEsg==
+X-Gm-Gg: AeBDieuj3JjPU/sa2bfinoEKIUeq5mlUwK62FR3hWKpDukGgT29BUZJCzE41P8ZWZUo
+ ccEgmowPxSEHsPhkbB1jjY/omockUTZt/xZw+6EX8v+XR0N2XAIcNh/kL3hTb2veZJPI55PB2Ly
+ K/KH6KLfPuDVkdLG487IGt8fjVEvNGQVNqhrcwIfAUhPdcs+CTRcrHQFUreBanX8EH/yqlMq246
+ IyymWMKHXRJX6L3hVW/sl77HbPXjjoUhhV+9RsoJ1VbMHmq+MTDrUIPh7y0LCJZ07S0XbPqNrn8
+ 37btf5U1XbTvwWpyFmJClstx1p4BJZkaB0tM34TFodyCjXOTyZcRsmH7/UvqCSpQeGPXIclnkNB
+ CSmvitUpBgoCFiMrNMnVkzGASw/NJH/OOcuKFwU0RQDgjT26+OxNrLBU8X81djciG3R8x0qvKEB
+ ftoRvWN0usi/5RaCgCs2XyPw7Y2EwWCsU9um7Rt02QyN32HNLp469aFLW4XwkghA==
+X-Received: by 2002:a05:600c:3b1e:b0:485:3f1c:d8a1 with SMTP id
+ 5b1f17b1804b1-488996e728cmr133535015e9.9.1775393236428; 
+ Sun, 05 Apr 2026 05:47:16 -0700 (PDT)
+Received: from [10.0.1.4] (host-176-37-45-227.b025.la.net.ua. [176.37.45.227])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488a8d6e27csm120540955e9.6.2026.04.05.05.47.15
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 05 Apr 2026 05:47:16 -0700 (PDT)
+Date: Sun, 5 Apr 2026 15:47:10 +0300
+From: max graey <maxgraey@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Message-ID: <a00d30f2-7a25-4109-bede-b5b1cbb71f38@Spark>
+In-Reply-To: <69c9da12-4895-414e-85e7-5d7c4e7bab7c@Spark>
+References: <69c9da12-4895-414e-85e7-5d7c4e7bab7c@Spark>
+Subject: [RFC] drm/panic: reconsider manual div10 for 32-bit ARM
+ implementation in drm_panic_qr.rs
+X-Readdle-Message-ID: a00d30f2-7a25-4109-bede-b5b1cbb71f38@Spark
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260405-dts-qcom-display-regs-v2-8-34f4024c65dc@oss.qualcomm.com>
-References: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
-In-Reply-To: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=845;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Hl0zlaD4IFKg1NjUgP4F3RZL1deVCm5fZzxtJLP6NuI=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBp0nLeYiVcsI8vu787g1/XyQ9q0dbh9TdjeqRqI
- rrMFSpeRL2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCadJy3gAKCRDBN2bmhouD
- 157JD/9is11lENJgRuFgQ9Yth9GAtompFKYbTWij+WSzhIj0ch7c2fycWLChVDDGZSL2BJw3dT5
- jhYIU3JROcDUMvbOjNgcw7W68rqWjBk0Hltm0QFnGUiwUXGlkmULuSKPjA2kRlSmdqJI32ewiOF
- UKF44+/5BSY01Hc15/Nj1oxNSRjh9kbPzyg90iHXJ59QwPcp0oaccz1as04khsYKv4OuI8Ye1J0
- x2cLK1PnCsb5B95adaaAtFB/l0fMo6V6V0Tm/+9rJezcvURfDRBcHgQUz0mSMMfSlyqoyPRERBc
- mrlSzfBme4speAWuCSFh1thHbFbc0h8mDgVQ7l/DkTg4PK/5coVBHjqvRDwh/NFlwhQhFpLZBwy
- iqY3+BX4mEwmfFDmFUwDjpLbEaXf71rrvqfTy/9gE6fONgz+YUHPqLCuSLSi4qmdrvh3WKw4+M6
- Z5FzP19pktGnQ+VOdM9UUEMlpFYM3tAAneZQSCRK5UV8sB46AdMj5N/Hjao588jNqsDoGk7Eq0c
- +JjXpE8nE8ulKxN3JVmr4ObKKJRciTTpgmZ+t+MVTQMxvxGicOoDp/dWXewlY8ylsraI+MohEGy
- WdJBAF1hwYPZf2incCt+2S3C9qazhWKpPgAeLmVRGghQmPlYD5z9sB6+4/iA3oktncZ1GPun5yw
- DXIseaB5aVuK9wg==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=ari/yCZV c=1 sm=1 tr=0 ts=69d272f3 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=WYllmNudUJmrw8VR-PoA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: ZI4f-sDjhJw_rBvP_OqfAT8xGAv4qPp0
-X-Proofpoint-GUID: ZI4f-sDjhJw_rBvP_OqfAT8xGAv4qPp0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA1MDE1MSBTYWx0ZWRfX5KbBBtNsBlKA
- qVBOFR7rgz2NMJPndh1S5seKPQSLReaKni0Li2den1IphxxWLDwtQ2Bg0P40VL+a+5kiei/vpg3
- 3OHGIIxfEjwrAVW7tyGSNQOGcXaPV7ysr8vdMpFePUDNpJA4J5TmGJwewi3+7YFu+8OgUMW9Ejc
- b3yXZ0rwIE9eWMgrkEpFdDO8UkM6ahf5746DSrwXfvszupeM3Ga06EUCZraFE82eET4W5RjgvMR
- 8iM/jaiNsXqo4N8WfNLdmMlcHG1MEpKm+6z41MRBlfYPDAE6Wtyj1/+V/+UsYKwCuIvs7c8oa+I
- Aw2jjisOh3yS6gzBqowpCjW8Bxynav5P9VLw3xgqyBqvsEMRSgmXgasWbvfvLcXwqL9yw3fcbZ9
- 45pE2LMK3fXjgA8/1fbJZpMVTELUKy/uxmldFRrMeMLrLnd+cuqD8lAE0nhG8SZX5nq7j4Ri9/U
- Fx76l50/XI4mKGFSucA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-05_05,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 malwarescore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604050151
+Content-Type: multipart/alternative; boundary="69d259d3_41a7c4c9_525"
+X-Mailman-Approved-At: Sun, 05 Apr 2026 14:51:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,28 +87,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-VBIF register range is 0x3000 long, so correct the code even though
-missing part seems without practical impact.
+--69d259d3_41a7c4c9_525
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sm8750.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi,
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-index aefe517e0669..f4b8703ef856 100644
---- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
-@@ -3041,7 +3041,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 			mdss_mdp: display-controller@ae01000 {
- 				compatible = "qcom,sm8750-dpu";
- 				reg = <0x0 0x0ae01000 0x0 0x93000>,
--				      <0x0 0x0aeb0000 0x0 0x2008>;
-+				      <0x0 0x0aeb0000 0x0 0x3000>;
- 				reg-names = "mdp",
- 					    "vbif";
- 
+while looking at drivers/gpu/drm/drm=5Fpanic=5Fqr.rs, I noticed that
+div10() uses special manual implementation for 32-bit ARM.
+As far as I understand, this was introduced due to older LLVM behavior,
+where 64-bit division on 32-bit targets could lower into a call to
+=5F=5Faeabi=5Fuldivmod, which in this context could lead to a panic.
 
--- 
-2.51.0
+Reference:
+https://github.com/MatthewCroughan/linux/commit/33429daec773809c01be492b4=
+6a6210ab1473851
+
+However, starting from rustc 1.70.0 (and corresponding LLVM versions),
+this no longer seems to be an issue. The compiler now lowers constant
+division by 10 into a multiplication + shift sequence, avoiding runtime
+helper calls.
+Additionally, the generated code appears to be at least as efficient,
+if not better, than the current manual implementation.
+
+Godbolt proof:
+https://godbolt.org/z/fonv1MEhT
+
+Given this, I was wondering whether it makes sense to remove the
+platform-specific=C2=A0=C2=A0manual division path, and rely on the compil=
+er for
+optimal code generation.
+
+Thanks=21
+
+
+
+--69d259d3_41a7c4c9_525
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+<html xmlns=3D=22http://www.w3.org/1999/xhtml=22>
+<head>
+<title></title>
+</head>
+<body>
+<div name=3D=22messageBodySection=22>
+<div dir=3D=22auto=22>Hi,<br />
+<br />
+while looking at drivers/gpu/drm/drm=5Fpanic=5Fqr.rs, I noticed that<br /=
+>
+div10() uses special manual implementation for 32-bit ARM.<br />
+As far as I understand, this was introduced due to older LLVM behavior,<b=
+r />
+where 64-bit division on 32-bit targets could lower into a call to<br />
+=5F=5Faeabi=5Fuldivmod, which in this context could lead to a panic.<br /=
+>
+<br />
+Reference:<br />
+https://github.com/MatthewCroughan/linux/commit/33429daec773809c01be492b4=
+6a6210ab1473851<br />
+<br />
+However, starting from rustc 1.70.0 (and corresponding LLVM versions),<br=
+ />
+this no longer seems to be an issue. The compiler now lowers constant<br =
+/>
+division by 10 into a multiplication + shift sequence, avoiding runtime<b=
+r />
+helper calls.<br />
+Additionally, the generated code appears to be at least as efficient,<br =
+/>
+if not better, than the current manual implementation.<br />
+<br />
+Godbolt proof:<br />
+https://godbolt.org/z/fonv1MEhT<br />
+<br />
+Given this, I was wondering whether it makes sense to remove the<br />
+platform-specific&=23160;&=23160;manual division path, and rely on the co=
+mpiler for<br />
+optimal code generation.<br />
+<br />
+Thanks=21</div>
+</div>
+<div name=3D=22messageSignatureSection=22><br />
+<div class=3D=22match=46ont=22><br /></div>
+</div>
+</body>
+</html>
+
+--69d259d3_41a7c4c9_525--
 
