@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C06E64013
-	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 11:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18CE3E63FE8
+	for <dri-devel@archiver.kernel.org>; Sun,  5 Apr 2026 12:40:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6C3210E05F;
-	Sun,  5 Apr 2026 11:33:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D8F410E227;
+	Sun,  5 Apr 2026 12:40:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZUbgjDKP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l12VHwmY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0056710E05F
- for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 11:33:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775388795; x=1806924795;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=/R3qxzeMXpyD4RTwvc+cC5xS2OS6iPw9360rHfkSAdQ=;
- b=ZUbgjDKPvH8IoBT3CkcQRQPn/U7KAu1ywqXKzbXt93rJhnzpNdP0IERO
- Ly0rju3Ts79h2z3Xu+yIkWGkTTQ6knGG4OQ39r9JF51jsBibWT+ZCLTIn
- f+ttXIJEd+nhtX589Nhtm9g/vlSggK49z+vOuM3WT3jo+n/of4VpE6Hhi
- 5pdgTyPWGV2ZKZyiZP6oU7zYdE8M1dU1Nzx6K4GJ0oLddZqW/ZG62MzrE
- z1bPsfK1mgNYk+GwLJLXc3jBnRc5SGd/l81hiPVcmYzMciPmk319HMeOD
- ZMzZnLTQYDPPqweLOW4VYNvyiapkeE3+dJGyTIrblpKmL9HCd/9/iWQMI g==;
-X-CSE-ConnectionGUID: X3azy3deT9CnGLtjRez4Rg==
-X-CSE-MsgGUID: i/NaYxO0QJKKTYgZFtnqMg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11749"; a="76565394"
-X-IronPort-AV: E=Sophos;i="6.23,161,1770624000"; d="scan'208";a="76565394"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2026 04:33:14 -0700
-X-CSE-ConnectionGUID: x7IkFCwUQVGpkV2o2f7r3A==
-X-CSE-MsgGUID: NlMhtsT/QD6p1Kzv6QwtOA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,161,1770624000"; d="scan'208";a="222843456"
-Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
- ([10.211.93.152])
- by fmviesa006.fm.intel.com with ESMTP; 05 Apr 2026 04:33:09 -0700
-Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w9Lj1-000000009qf-1WTz;
- Sun, 05 Apr 2026 11:33:07 +0000
-Date: Sun, 5 Apr 2026 13:32:50 +0200
-From: kernel test robot <lkp@intel.com>
-To: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>
-Cc: oe-kbuild-all@lists.linux.dev, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 2/2] Documentation: drm: Remove drm_atomic_state
- rename entry
-Message-ID: <202604051325.jSSmpYZj-lkp@intel.com>
-References: <20260402-drm-drm-atomic-update-v3-2-b826f51ac511@kernel.org>
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDCAC10E227
+ for <dri-devel@lists.freedesktop.org>; Sun,  5 Apr 2026 12:40:10 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-482f454be5bso45424905e9.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 05:40:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775392809; x=1775997609; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=WpsAyL92FDCh5oOjRcERYi2Aj196fNE0wI66u8b/Ojs=;
+ b=l12VHwmYdQvGzgtFIsIdC/Hp0cm8uM6sz+z8wzegjYGiOKZBJPfVSwVCAm/8VH1UpF
+ aIodZiUaXygQMQe6w+Mbq0htYIIPgN5C/lrjNshF648/j9BYRg6EP31kEgtXa/2LKeev
+ akLHdzOeR+p0IIKed2E+dt2sXrLuqr9jjX7bYR8iCQGZqtMVJ4Mb16GrVpiLzFLCaXvK
+ tYhWGSgeuOneYeXVCFcNqky6AO+XWEASo7eQXIbWq+txCCKp8Pil4SYKg57s146wAKIy
+ TofmVKHH1IBH3BI0ONtZxAISmiM7xEBbox+NFC7yS0ozkxq2Ebtb5/P49IPL0eZUmLgW
+ UeLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775392809; x=1775997609;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WpsAyL92FDCh5oOjRcERYi2Aj196fNE0wI66u8b/Ojs=;
+ b=VEcuFTIJYl4/bNP2k9GAsxILp1kKDoTzZLRIY+CFEso252SVXN5rIV62/c4fwxVJj0
+ cXR35YXWmmhzAaW295VP1N1r8Tx4/ie6fh4d2Uhr1pm0CJSBPyXB8ewtNWt19vmJks1I
+ rwQkzo5VXMnupD6CQDldSwhKANM3lVfMhybbSahuDOoO5e/YixbM2vPTevLWhx6xQAml
+ 69HfwZ9GnaAnk2ipXlFYQO90HFEotR8mT8gsUnD8rIvpzJolqmKkjWTn2TeRAcuczZ5N
+ TNNh8CRDNTuh7QveRp2ig/GbsdFHnCgPVfxQj033EWa7kl6R1wZkJszohW0+EBHzHKke
+ xeyA==
+X-Gm-Message-State: AOJu0YxFqnFm/8HSLZ5HxS+qcSv560DgZGIFVLeSl3cHCvzaOdzXGe4K
+ 1FWjjlkX8DBFYP0Rx43RPSsgJHD43ZgKxY2iHjwULYrMM2qj5JTInF4l
+X-Gm-Gg: AeBDiesfH2+4SlssNyO0xDXmEYza3ATc/RdJJ7Na5lDvG94xdOXatPzTpRu2TecAgT3
+ ijX6mZSzItQR8fTV9n+RxWM8XFO2ox1O2KNq1F3NT3Z7u1YvlyQf7k2XCpBZWkO4tsdjzshh0bJ
+ wKnanQ/MY89953bgubSmy0DvFWGg5LL5pdxZGUld9a1omX65FFgsCQSE2pROuoKj6hO8qpr9WJB
+ HHNWRG19W18P3ZKiJSxCb14vFbtDehiLPpFqERsMt/ZVK/Ifs46Dz+g4Y3GQrIXS8sWpRkKvhV+
+ 68jsC2K5aiqM6iElb/3CyeMjcKtgnlbzmmFTSk8daY7NpNuk6VpP3uQz7YUndLBU1XX7rme29K2
+ 24flTWsUXlo89FpcBrWLdAvoL0kcstM68E+2/EbgraPFs9vgayxhEh/YedPzMMux3UUcTmkgFne
+ V9xAkWUPoVBFE6PFcRzUmvItAD7U+nrFV2B7HZ+aUGftvZsAfbeluF4+DgTnqeGaWJ7uZ9Y1CDU
+ /rwDbnaM+Wm1KAUxC8=
+X-Received: by 2002:a05:600c:354b:b0:486:fe83:861c with SMTP id
+ 5b1f17b1804b1-4889947fd78mr131309805e9.7.1775392808871; 
+ Sun, 05 Apr 2026 05:40:08 -0700 (PDT)
+Received: from Arch-Spectre.home (host-2-101-228-96.as13285.net.
+ [2.101.228.96]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4887e80a63esm529333055e9.3.2026.04.05.05.40.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Apr 2026 05:40:08 -0700 (PDT)
+From: Yicong Hui <yiconghui@gmail.com>
+To: robin.clark@oss.qualcomm.com,
+	lumag@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org, me@brighamcampbell.com,
+ Yicong Hui <yiconghui@gmail.com>
+Subject: [PATCH] drm/msm/dpu: Fix kernel-doc warning for
+ dpu_core_perf_adjusted_mode_clk
+Date: Sun,  5 Apr 2026 13:40:06 +0100
+Message-ID: <20260405124006.2688556-1-yiconghui@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260402-drm-drm-atomic-update-v3-2-b826f51ac511@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,49 +88,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maxime,
+Fix the following W=1 kernel-doc warning by correctly renaming the
+parameter crtc_clk_rate to mode_clk_rate in the kernel-doc and using the
+correct separator of : instead of -
 
-kernel test robot noticed the following build warnings:
+Warning: drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c:41 function parameter 'mode_clk_rate' not described in 'dpu_core_perf_adjusted_mode_clk'
 
-[auto build test WARNING on 9bdbf7eb25b3121ef19533df4fb70f2c39fc0d6a]
+Fixes: 62b7d6835288 ("drm/msm/dpu: Filter modes based on adjusted mode clock")
+Signed-off-by: Yicong Hui <yiconghui@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Maxime-Ripard/drm-Rename-struct-drm_atomic_state-to-drm_atomic_commit/20260405-115623
-base:   9bdbf7eb25b3121ef19533df4fb70f2c39fc0d6a
-patch link:    https://lore.kernel.org/r/20260402-drm-drm-atomic-update-v3-2-b826f51ac511%40kernel.org
-patch subject: [PATCH v3 2/2] Documentation: drm: Remove drm_atomic_state rename entry
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-docutils: docutils (Docutils 0.21.2, Python 3.13.5, on linux)
-reproduce: (https://download.01.org/0day-ci/archive/20260405/202604051325.jSSmpYZj-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604051325.jSSmpYZj-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   Examples
-   ~~~~~~~~ [docutils]
->> Documentation/gpu/komeda-kms.rst:420: WARNING: Title underline too short.
-
-
-vim +420 Documentation/gpu/komeda-kms.rst
-
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  408) 
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  409)     struct komeda_component {
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  410)         struct drm_private_obj obj;
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  411)         ...
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  412)     }
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  413) 
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  414)     struct komeda_pipeline {
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  415)         struct drm_private_obj obj;
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  416)         ...
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  417)     }
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  418) 
-77e56dfef2e28b Maxime Ripard                          2026-04-02  419  Tracking component_state/pipeline_state by drm_atomic_commit
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03 @420) -----------------------------------------------------------
-557c37360eca86 james qian wang (Arm Technology China  2019-01-03  421) 
-
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 13cc658065c5..4616b0f381c6 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -34,7 +34,7 @@ enum dpu_perf_mode {
+ /**
+  * dpu_core_perf_adjusted_mode_clk - Adjust given mode clock rate according to
+  *   the perf clock factor.
+- * @crtc_clk_rate - Unadjusted mode clock rate
++ * @mode_clk_rate: Unadjusted mode clock rate
+  * @perf_cfg: performance configuration
+  */
+ u64 dpu_core_perf_adjusted_mode_clk(u64 mode_clk_rate,
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.53.0
+
