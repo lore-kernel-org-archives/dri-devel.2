@@ -4,74 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1CB5F46C66
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 18:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E84ADF46C66
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 18:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4957E10E28F;
-	Mon,  6 Apr 2026 18:00:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5880B10E2B4;
+	Mon,  6 Apr 2026 18:19:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f1jZTypX";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="GFPqWeOM";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E2610E28F
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 18:00:17 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-488aa77a06eso23979375e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 11:00:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775498416; x=1776103216; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JuaHqZA6dNQtvLkTpFq0gKo8sR5f3PLoD26I4i7/L2M=;
- b=f1jZTypX+izGmnGrOPmFnAz2MNs36/5p8ukvgszQPf40mxFrl/eSL7FW3LKD5SovsV
- hZu0WjK3hsiQdxLKeAAvYYCiYXgr2IjI93is2W2rr8UAbrUhQQSr1PG5/Pg9FVCsQ0jK
- Ma1cufI83aitZU86weu28S9w0pk56WLfcrlkZrnGdgpKybkhXYr5No2DkzzJrIMLK9vo
- LqlXo6Ri1T8vA1VstbTFKJoHW2/10dBQOn1ARApeHR8ndzdodyYnE0OOdNp3HsZAHq08
- ftEeuyr+ANud+a/P+VW8V9fxGFTxSM5kYfxey+z3+nc3BFztxbkN+Pn2P8waw87CTrtv
- 9Yuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775498416; x=1776103216;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JuaHqZA6dNQtvLkTpFq0gKo8sR5f3PLoD26I4i7/L2M=;
- b=pJJrR0t2AjKBWvBOue7SUlPH+fs9mY4lCzsIFjYhFUNPbu530vQOKxR4sH5iDqGfE7
- QrnwDqkG8iciNcEGmweP3n017GhIPul1PuiidJxCGmqham8T1MlhBgARZ3k6ov07+sXb
- 8eBbCsmxouPQ2/y1wuKuCEgLjbShOYv1iq0U1LA/0o8PrSh4G17CBIaDXTENGVAu+Y/Y
- h8S9vi1xQpkt9P2ApmqaOp3PPC8A9rPjFVT6aNXvnC6gHLMc70/ZoyacxS3+aF7DWPH9
- 960bTcHn7HqfPT7yzj8YPdLw7OzGQpUUcEn+T7II15XXt0Wo1UjDjzY02C/zEF4rDqJu
- i5Ig==
-X-Gm-Message-State: AOJu0YwIRkrUdkzv182nDp5x2LMDmEvqNMe4yjr3dvhNlexnFyzrJsb0
- pMhcJ9vzkdCz8DhoHeACI9cLxBfD2yFoKuQuW7VYUSlkFzjwnvS5yxvf
-X-Gm-Gg: AeBDiev6/bx7ARRihHKP7LCAgDXSINOwC4t6lmcC3WTzh4QeuFjLvaLwXpxeImdKfNZ
- vq2U6TqfYb5EwK9qc7xmyidPXTb0dll46t6I9sCiAx1lAWlkrSPoaokQT1iLN1S4o6s9iEOQTWL
- kzgk8rSftCy/Nche/tKSafXIKCICDKC60CaQ9pZ24bjiimwj0d8JjsK5uuTUISuP18/b6c1AFpR
- 22RRw34zZ4HSqgzT87CHX9wBU1zOLYAKPz5mm3fIPsKHuh1fZe+vCYG9EZvJiKTM/pGi/xx0ZVu
- fg5PNO23d43P8LY5pS3mYSSuSe/0zdUcXBhX+6q5P2+fDUAPcCZ1sVBhBBUsF1SKNlmFMGOE2jd
- BYz0/wqGJ0NLH4mBtdCRuoViZXPctlSp+4LBL4a964J9d/Zd8yfSuK9PWv8hE7rw0nGNsTQ5Mpw
- HKmmOQXQlZhMC0f3mUEN99H9W6l8ihkx8+8WF4vTz8s6rObhsh0y377/AkC6eZlG7wsQQnL/VEx
- fToYegnRYADzVko0Gw=
-X-Received: by 2002:a05:600c:a11:b0:488:8185:e672 with SMTP id
- 5b1f17b1804b1-488998f8562mr176298535e9.30.1775498415418; 
- Mon, 06 Apr 2026 11:00:15 -0700 (PDT)
-Received: from Arch-Spectre.home (host-2-101-228-96.as13285.net.
- [2.101.228.96]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488a952a03asm170205575e9.0.2026.04.06.11.00.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Apr 2026 11:00:15 -0700 (PDT)
-From: Yicong Hui <yiconghui@gmail.com>
-To: laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de,
- maarten.lankhorst@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org, me@brighamcampbell.com,
- Yicong Hui <yiconghui@gmail.com>
-Subject: [PATCH] drm/imx: Fix three kernel-doc warnings in dcss-scaler.c
-Date: Mon,  6 Apr 2026 19:00:13 +0100
-Message-ID: <20260406180013.2442096-1-yiconghui@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012004.outbound.protection.outlook.com [52.101.43.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26B7310E2B6;
+ Mon,  6 Apr 2026 18:19:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fwRUzjrUt6QCEH0Tx3wSqdM/oDJ5M6VDra5HbBH1LrzX3JyJeTrWvp1AMvq82TRdJRsMZCinniZ57ejFDyi7guLK2Thy4IJnE2Lu1RtuRgyoCHmJ8p5NSkJNN5lV7UJo98xGqCJwBE9e5XxvFVP9pIohj0Y1958IYcFnp4sNzjPVh12cZLLQL54g1Ndhms1XZC5By/L9HDyRo2zKbWnb6QUzdNuwGly5dIdb65Iw3xi94ozLAban7PoMTGmxtQTfh/JMMmyaLkVtbdxoImX/dV/zmJNUmHATpzJ518M2LPQMjYCnHdjT8X2rLOm6bkvlUyp2X/6XrVfEf2HMeYuDTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dDkyTZl9Bxk+1ySeGeqSMsFEz7CiFBXaEyaI10rTR7s=;
+ b=cZ7ngRNXguIaewxk7favP2XWFPyvdy9JMAN6qnRSOPxdkP+sRHgRqb7BeCLtWB2MbFwBmB71MtYEDrn0oVSicwXlSTX4Q95tTw/zzSiXTUCvg5uNzlOgGKHkhKr6+Lp4knwAfCTLaC+qRPCYJKl1oI+fMjJ0IaJfNokVOhWjl9I/xqlTbKmMt05HYAbdM7RUkQErCbOupxfXSB62Dn9Oh8bW6JIN/HFf9kbZ4u28SCzFS9La8jymK2eigliAURj6RpoPeIsIJB3u2+O18gLTg3OxEf9/MOETzhC0h0fD41kVHjF1zeajnnbQFUo3L5pLSDAdAKXC9Mi4km1oDzilGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dDkyTZl9Bxk+1ySeGeqSMsFEz7CiFBXaEyaI10rTR7s=;
+ b=GFPqWeOMZXJXS0ajKu36T2zjRNKZToh5koe6Gra31L7MNA1OziCesi0ubTIgfjIyOvJV7wmVFmbCC1az+7ROY/r0NLT9sP01eI8S16kMm+IG6N5NN7qCgV/Wk16oZIHjbXL6qsrijVQ2KveueA2c3N75iVDlc5v2MEudw8RrIEE+d/5lbsTOKCyChGUY9+9k/2womfNocWyq35SqSMLM4haaPay6tAXN1ntOcl51/kOCXz3IvRAmHn1S5jKXPi0uvPrGvJr+8sy/09xUUsZGYchK42SluodaxoZEidEGlQseEawOBY0MwJFKFrDdYI60wBPmMq1Z1AkA7IOTMLdtzA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ PH8PR12MB6843.namprd12.prod.outlook.com (2603:10b6:510:1ca::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Mon, 6 Apr
+ 2026 18:19:01 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Mon, 6 Apr 2026
+ 18:19:01 +0000
+Message-ID: <6f379804-f75f-4852-951b-1993bcc1728f@nvidia.com>
+Date: Mon, 6 Apr 2026 14:18:59 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] gpu: nova-core: fix wrong use of barriers in GSP code
+To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+ Andrea Parri <parri.andrea@gmail.com>, Will Deacon <will@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Nicholas Piggin <npiggin@gmail.com>,
+ David Howells <dhowells@redhat.com>, Jade Alglave <j.alglave@ucl.ac.uk>,
+ Luc Maranget <luc.maranget@inria.fr>, "Paul E. McKenney"
+ <paulmck@kernel.org>, Akira Yokosawa <akiyks@gmail.com>,
+ Daniel Lustig <dlustig@nvidia.com>, rust-for-linux@vger.kernel.org,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, lkmm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+References: <20260402152443.1059634-2-gary@kernel.org>
+ <20260402152443.1059634-5-gary@kernel.org>
+ <dc9c3448-d82f-4cec-97f9-7ea3387d8296@nvidia.com>
+ <DHKE2U46YAJE.3SSXBYRWRXH4C@garyguo.net>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <DHKE2U46YAJE.3SSXBYRWRXH4C@garyguo.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1P223CA0041.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:208:5b6::12) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH8PR12MB6843:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85e3897a-0d64-4c26-6cb4-08de9408fa51
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|366016|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: n6BBHOPHUNwk3g4vkWGz9mjXZI08U+Ki6KFwUKRbiqEVBjvNXJPnb+1pg5JTud2ucxvgZ3V6DBlA/E9nW8oAT1NMYs3vcop6TQv5xVlc8z+jrNswvYKBD4p5g9qDJOYA9E//SoVyvqud35IPztprFqoQ94DkHaSDEnlEWhI3/66n74iJHtOfKKsnW6zLZpQCag3kEKjxlFMrQCySNgUsfaq1uxXwdBMfTrmawQX2Wx2zJI/U/oRgF6pSLMgjxel3VfgI9Sv4ct+vum5j+thb1XwQY6f4KXvWl0BPBphVv+BmMvwaNhNjjiJVsjsSDV6LwD2WmAO10TbVICCJO5vrCyAd+TbvgrD8AZ6vpFNNi81+o0GSSk/g1MjFLQk7oexs6bn0cVKBYVNPT32o/k68KBR0hMUElZbiaf4MHrl1LW3n2X+qP1Ti0rCMiW4+Ao9PWHpN4YRmijTgcMjozCHKdDNjzN5w1msGQQyywFx2pSU2RKlkvTVnJli7mF9yirEIsffiFrX3sifyyHo6pDR250NYogpspgg+F5vl9bzOqc/r2r5wME7+fWZ4TQtmSLpcSwrWOxyMgtHpmk3r8Eo9TCsi7HGtM+hSZRZ5zV9GlvNVouSXzHXq1tgkXpeo1bncaKHSgKWtG1/wYFm2MpqSms+3b3cEVjGrdjZcVsGgkrrgSlc6uOjxKBJqeGRCGaWScysQioMHVFTDKbi2jnaStq9eB3RfvgVHUsn7teQLBCTIgkT2MTC0sD6CxkanP269T+Luxo4J8dOv378fl9BdBw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016)(921020)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TGlBSVJyeVFJeHZ0THY0UWd1a1Z4ZE5LUmxEV3NMSjRmUlk2MmpjZWxHOXQw?=
+ =?utf-8?B?aERyOUkybmNJYzE1ekNoMHM1eXovalQ3c0sva096TFpkZ0Z5WDdDZ0QrWjRU?=
+ =?utf-8?B?VG8rYm9ZSnBjZ1Buank4dHh2V2hIdis3cUZjUTJRZDVaQnB0eTNsRXh6QVhl?=
+ =?utf-8?B?TUpneHVKM0RPMUxjMm81bmQwQUZzQXlhU3JxMXFxaENhRnFyUFA1V2NjbW1S?=
+ =?utf-8?B?U3lRMVB6dmNobzRpemI1NXFzMTJ0QnlFSU41OWxmYnIwNWpqV2V5Tk9Yc2Ni?=
+ =?utf-8?B?ZUlOcEFEOTFIOXplb3RYc3hFS3RmVXNsQWVIbnZLVGREeGJGcnNScWw0a2Vm?=
+ =?utf-8?B?azVJU3FKT3phaHlSWUd1YUxraSt1K3g2SXQ0VDU5S0RhSmI0bC9qWXVUcm5N?=
+ =?utf-8?B?aWRUcUFMZUp2azlaSUJOaitrOFVTcS9QcmdrNVNRRklUcXdQTG5SNnZ3MUd5?=
+ =?utf-8?B?dzVlaUtWRkVJT1NYOHYxMkFDZzZHcE9JMjBiOGtsS2dnYjI2b2l2WHQ1eFhs?=
+ =?utf-8?B?SFFnS2ZlaXJpeFVscVluN3VPelREbGl5Z3hiZytzZ21PTy9waEE5dDlWQWh0?=
+ =?utf-8?B?aHltVjY1cVpneVlkdTlGSXVrTzVFV0xualhsNzFWazdnZ09nZmxvZmR5NVZZ?=
+ =?utf-8?B?RldMUktEK1B1bnRhUFlOQjVWMFg0eUFrcVR0VDQrcFY2TjhvOHVIUDBMZGdZ?=
+ =?utf-8?B?RVppYjFJZjF3NU5WemphazZXaXgxam5JTFYzaWMwVjhmK3FaZGhDbUlHK3lW?=
+ =?utf-8?B?TCtiVmE3bWlWRmdxNHRBVDlSaDkyQ25PeGU4a1grVnd1Nzlnb1p6RkowY2Yr?=
+ =?utf-8?B?TXl5QUJFOVJ3MUVFaUtmSlhxdEFDNGhENVV6eFBUU2xIRElvVlRiQzI5TElE?=
+ =?utf-8?B?N1VNNHFuUTlaUWFyeWlPcUJVRGVTcXhRWlJPV2RpM2hudFpIRkgrVDIrY29N?=
+ =?utf-8?B?QzJTTXdPcU5FemF6QUxBV2g3bnowVURGYURBcWZwT1BmZkQ1RTc1UjZ5TklY?=
+ =?utf-8?B?YVJNT2tVN0h1YXVvMG4xZHNzZ2sxT3F2QlpuSktMekVFdHB1bVdXTTgrdUpJ?=
+ =?utf-8?B?VmtlNHlCSmRHYWM0bHBsaGhTcndJR051THVyZUx0aUNFTUhlR2dwWXc4cEZZ?=
+ =?utf-8?B?biticDZJc0x1TmFlU29naE1sYlhYUnVhVkExRlFiS2ttYzJ6Nm95bTYrZ24y?=
+ =?utf-8?B?NlZNQ3RrNzF6R1VRSHIyUVNwYmJQOWJGNmlHN0NTWStDRCtRcVI3bTBlcEhC?=
+ =?utf-8?B?WHZsbnhGU0dTWVpEL2lmR0YyTmxMWTFrUzhmVis3WnpPZmRSNmQvU1ZNQWpw?=
+ =?utf-8?B?bW0wU2xuR2tKMWZYMC9nMDc5TlN3eDhmajhMWnZldFc2Ukc0S2U2OEQ5Y3gv?=
+ =?utf-8?B?bXY1T1ZWVTFTelMxY0FLSWpISThlTXNHYnMwZ2hxdU82QmVQSWdpeWQwYWNC?=
+ =?utf-8?B?VjJhOG5TSHZqQkk3TnNpamg4aFM4d2EwcjUxZUhIU1RGSW80alBnN3VhcHhS?=
+ =?utf-8?B?VzBWZUdLeFMycUZmMmdOR0xQbTFUVVFHS29ZZ2RuUE9BOUgvcHg3eE1uSUFE?=
+ =?utf-8?B?U3AwU3hGUWdBYmZBWWFFN0diRkQyeThJbXVYMFZ0SFhPUFRtb1R1ajBKaWVh?=
+ =?utf-8?B?Zkd6YXdtclI4dTZmcmVkb3NGL1djMzdLN2owSDdKV1pzNFRMVTBNQ040MlBC?=
+ =?utf-8?B?cDZqa2VEL2dqcDFwZjFxUXB0TXp5OXBrL0swMU44MnJiNWhkNWlZcEI5Z3pK?=
+ =?utf-8?B?MEJLUGJpdlJKMzNCVXNLRFVERWk1b2hIeFV4cmhKbHgzM1BNeWhRVEtwckJO?=
+ =?utf-8?B?eGNabGJXVGRzbFZJMmdscDcxa0JIUnRsWm0xUTRPajdiQzZHa2czN05YbW9R?=
+ =?utf-8?B?R2hXVWxPOTBINmhyWWpudkhERk94S1Z2NXV0aUF6WU02T2wzWkx1L3BCVUNF?=
+ =?utf-8?B?My9xd25NMjRvV3hLeGpJM25iQWw0STF4d1Q2a1VaNko0ZzVzaGRSaWZPOTJF?=
+ =?utf-8?B?VFlLYm95ZForQS9FRThjNTNENmcxblpjazVYVlpVendjUHJKdHp1OUNuR2RW?=
+ =?utf-8?B?SDZnajFtWmJzcWl5cUFQUUE1aU4vYzVva2w4bE0rWDVMU0I5K2hZd3JqZThN?=
+ =?utf-8?B?c1FhdXVCUUNxWmVvWlFlZlcwYnY0ZXRENm5OWEUybmFoZnJlclFsQmRXUVd1?=
+ =?utf-8?B?TzhIZlh6N1dENm1FVXN4QU12ZmxuaFVFWjltVzZCZXo5ZkFKV2hrQnhjMlN5?=
+ =?utf-8?B?Mko4MjJWY2lQc29PNFY2TXpwYTNNTU9IdmErNmFPeGJTd0ZiTEtpV0xDbmMr?=
+ =?utf-8?B?bFJEQ3FIN2c1RzNwVVYxSFNBVzJFM2FpalNLcGF0dXdNYWNYR0VEZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85e3897a-0d64-4c26-6cb4-08de9408fa51
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 18:19:01.5140 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4CjHIFP51qpTzXqKPiZwpmdqohURewRoiT+2IMRiy1q0fkkpqRdHDAmSFC2I4DfD5B7eNIFcNCzcaAweo4B6Xg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6843
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,43 +153,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix the following W=1 kerneldoc warnings by adding the missing parameter
-descriptions for @phase0_identity and @nn_interpolation in
-dcss_scaler_filter_design() and @phase0_identity in
-dcss_scaler_gaussian_filter()
 
-Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:173 function parameter 'phase0_identity' not described in 'dcss_scaler_gaussian_filter'
-Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'phase0_identity' not described in 'dcss_scaler_filter_design'
-Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'nn_interpolation' not described in 'dcss_scaler_filter_design'
 
-Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
-Signed-off-by: Yicong Hui <yiconghui@gmail.com>
----
- drivers/gpu/drm/imx/dcss/dcss-scaler.c | 3 +++
- 1 file changed, 3 insertions(+)
+On 4/4/2026 9:02 AM, Gary Guo wrote:
+> On Thu Apr 2, 2026 at 10:56 PM BST, Joel Fernandes wrote:
+>> Hi Gary,
+>>
+>> On 4/2/2026 11:24 AM, Gary Guo wrote:
+>>> From: Gary Guo <gary@garyguo.net>
+>>>
+>>> Currently, in the GSP->CPU messaging path, the current code misses a read
+>>> barrier before data read. The barrier after read is updated to a DMA
+>>> barrier (with release ordering desired), instead of the existing (Rust)
+>>> SeqCst SMP barrier; the location of barrier is also moved to the beginning
+>>> of function, because the barrier is needed to synchronizing between data
+>>> and ring-buffer pointer, the RMW operation does not internally need a
+>>> barrier (nor it has to be atomic, as CPU pointers are updated by CPU only).
+>>>
+>>> In the CPU->GSP messaging path, the current code misses a write barrier
+>>> after data write and before updating the CPU write pointer. Barrier is not
+>>> needed before data write due to control dependency, this fact is documented
+>>> explicitly. This could be replaced with an acquire barrier if needed.
+>>>
+>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>> ---
+>>>  drivers/gpu/nova-core/gsp/cmdq.rs | 19 +++++++++++++++++++
+>>>  drivers/gpu/nova-core/gsp/fw.rs   | 12 ------------
+>>>  2 files changed, 19 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+>>> index 2224896ccc89..7e4315b13984 100644
+>>> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+>>> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+>>> @@ -19,6 +19,12 @@
+>>>      prelude::*,
+>>>      sync::{
+>>>          aref::ARef,
+>>> +        barrier::{
+>>> +            dma_mb,
+>>> +            Read,
+>>> +            Release,
+>>> +            Write, //
+>>> +        },
+>>>          Mutex, //
+>>>      },
+>>>      time::Delta,
+>>> @@ -258,6 +264,9 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+>>>          let tx = self.cpu_write_ptr() as usize;
+>>>          let rx = self.gsp_read_ptr() as usize;
+>>>  
+>>> +        // ORDERING: control dependency provides necessary LOAD->STORE ordering.
+>>> +        // `dma_mb(Acquire)` may be used here if we don't want to rely on control dependency.
+>>
+>> Just checking, does control dependency on CPU side really apply to ordering for
+>> IO (what the device perceives?). IOW, the loads are stores might be ordered on
+>> the CPU side, but the device might be seeing these operations out of order. If
+>> that is the case, perhaps the control dependency comment is misleading.
+> 
+> Given that CPU cannot speculate store, I don't see how dependency ordering can
+> be broken even if the other side is a bus-mastering device.
+> 
+> For this to be broken, the device would be able to see the dependency-ordered
+> STORE to be propagated to it before it does it own STORE that propagates to the
+> CPU to trigger the CPU STORE in the first place? That'll just break casuality.
+> 
+> I'll say that control dependency is sufficient here. I'm not worried that the
+> compiler will break this particular control dependency given that if
+> `gsp_read_ptr == cpu_write_ptr` will imply command allocation failure and this
+> condition cannot possibly be optimized out by the compiler.
+Yep, ok, fair enough.
 
-diff --git a/drivers/gpu/drm/imx/dcss/dcss-scaler.c b/drivers/gpu/drm/imx/dcss/dcss-scaler.c
-index 32c3f46b21da..5c7f8d952ec1 100644
---- a/drivers/gpu/drm/imx/dcss/dcss-scaler.c
-+++ b/drivers/gpu/drm/imx/dcss/dcss-scaler.c
-@@ -166,6 +166,7 @@ static int exp_approx_q(int x)
-  * dcss_scaler_gaussian_filter() - Generate gaussian prototype filter.
-  * @fc_q: fixed-point cutoff frequency normalized to range [0, 1]
-  * @use_5_taps: indicates whether to use 5 taps or 7 taps
-+ * @phase0_identity: whether to override phase 0 coefficients with identity filter
-  * @coef: output filter coefficients
-  */
- static void dcss_scaler_gaussian_filter(int fc_q, bool use_5_taps,
-@@ -262,7 +263,9 @@ static void dcss_scaler_nearest_neighbor_filter(bool use_5_taps,
-  * @src_length: length of input
-  * @dst_length: length of output
-  * @use_5_taps: 0 for 7 taps per phase, 1 for 5 taps
-+ * @phase0_identity: whether to override phase 0 coefficients with identity filter
-  * @coef: output coefficients
-+ * @nn_interpolation: whether to use nearest neighbor instead of gaussian filter
-  */
- static void dcss_scaler_filter_design(int src_length, int dst_length,
- 				      bool use_5_taps, bool phase0_identity,
--- 
-2.53.0
+thanks,
+
+--
+Joel Fernandes
 
