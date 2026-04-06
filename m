@@ -4,89 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F17EF4EC6
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 08:35:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98B7CEF4EC2
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 08:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 730F810E098;
-	Mon,  6 Apr 2026 08:35:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D8910E210;
+	Mon,  6 Apr 2026 08:54:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pu+PapHd";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Dg3LHdL+";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E564910E098
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 08:35:48 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-c76af7b0f94so2378412a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 01:35:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775464548; x=1776069348; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
- :cc:subject:date:message-id:reply-to;
- bh=MB0F9SKYr6+JVse3TW9scM+eJP0jATRzNvx3luR3WWo=;
- b=pu+PapHdg0jdcSPc3ZZU3iyEQyGWUlrn82UQlN+ObOit3J7dtxl7NMMz/7bFnYxPId
- 6KG15yG12w4JkPu9DHk1t/wLnGYCEMncuIWv8fIi8taksOrKutkTwcG4A+FUE8tQNeNl
- iAQU3hL/bYSJ7kic0zWGxIGMva1/HvKU8wrFqkTJiNrD6wIBvZ/5zqMjmRU1FEP3NGXI
- XEQh40gFllJ9Ojegi04IZQ1HN3UN9BNyt/icV6GPEWBpbX4t/O0j+S3YLa2g3GS2GMBX
- B5pkWEEfSxDJs0orx1dCBSPWPMLPdR18VRQfCW0Uz06mdFQDBTiBsNkZRjUe9M4dQSlH
- hA0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775464548; x=1776069348;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MB0F9SKYr6+JVse3TW9scM+eJP0jATRzNvx3luR3WWo=;
- b=IMG/NXkROEbC20oFnh/70BvmYCWkBT2wKjq9AbWACC7y/4mp5qt/+QwRo4QYm9uSl7
- cJJ6KESPvh6Ypua39QHeTn+W994nKfVZI4xuHchArzM1xX0ylnJTZZqC9cFbJu83/qEO
- xPV0I3dOTcHzYOUbuSwCzCzho/Z6iraZEEeSt/g8OQABnkbWjbsz50pICcTZs2/j9Ylv
- GUEpzW3SvWx1hnGjBvXbvYu4uSFj340sWoLojZbCjPPqVudZxJ312agM+cZJjIoWLiHR
- JlQ7PiBSfXjC0Gl8FNP7c7J2su6O6BqufBgWu4Eo45E8vXfgo2AliHKJKzsQxFrBc2wp
- lqVg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVoFL9j4cnTUsNRmZpXUiQ6g5iLMwMppeRxlHLpmdV8PiCHnZRqBBiTKM356Hb5UUNWFv/E5wBv/JY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywy+1ya0KJ68hRM3GCn9S3i4vQOcDKK59ZTm84u8aP5mBoyxyt/
- gaqWx+0r7ABB8S0taup3wbDpJzNRAO3LwjlaMxGGXIXR4tRS4OeH92Je
-X-Gm-Gg: AeBDieuF9kqslPLigho0PREX7JSb4rPad18cc2hrMd9/5xYsjbvvdB5/PXfIKChk7Nw
- 8gaXnpCkmaXcG5b0m/xQuYOvNxzrrakH9U7h13sj6fiaL3gBAU0meHm7Ep2ttQrcswYKrBqle64
- LxqjfOqk5vd17EmUlZ/IY2J8fKfCbMooJmHqBDx78zzTn+wI+Xd1jBm89wDGcW4PL6dkqgkvc3I
- cqgLhUff+FeRMGZQYeqXM6ZSzkf2s99ZwF8woEItLWNwVlWxxYc/AztANkYb4MAy9fw6wdcyGdp
- +3sdPSEwl0g3nFv8ACWqfSMBJzaKChG1xxb+bvGsyrlCy464W+ShNdQneJ8SH3wH2ANKJ6f40SK
- Nje+mAFOYeYpUFR4Qh8w1LvbvcA4EsQGG2FNgX7uNv6IdZo/zFPRLdq2eDkLXEcxrH0v8hTlZoK
- Gg8kBoj1tQ+S+TvKBFmYz2MJthMyPOr9O7osSTqfkLUgxtIqk=
-X-Received: by 2002:a05:6a20:7354:b0:39b:e321:784f with SMTP id
- adf61e73a8af0-39f2f05041dmr12441393637.40.1775464548351; 
- Mon, 06 Apr 2026 01:35:48 -0700 (PDT)
-Received: from [172.16.20.13] ([136.226.252.245])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82cf9c41bc6sm13741897b3a.29.2026.04.06.01.35.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Apr 2026 01:35:47 -0700 (PDT)
-Message-ID: <35eed359-8088-4ec0-9e16-e5cb31e0952e@gmail.com>
-Date: Mon, 6 Apr 2026 14:05:39 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: tessolveupstream@gmail.com
-Subject: Re: [PATCH v2 2/2] drm: bridge: ti-sn65dsi83: Add support for
- dual-link LVDS video mode
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, marex@denx.de,
- valentin@compulab.co.il, philippe.schenker@toradex.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260312043743.261475-1-tessolveupstream@gmail.com>
- <20260312043743.261475-3-tessolveupstream@gmail.com>
- <DH0X6JQP0ZIW.3F4LJLIEMWH8M@bootlin.com>
- <9a9e13a5-411a-40bc-b52f-4345e7f6b92e@gmail.com>
- <DH5S3RB2XZ31.3C994FZK5U4OV@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <DH5S3RB2XZ31.3C994FZK5U4OV@bootlin.com>
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011042.outbound.protection.outlook.com [52.101.62.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E737C10E210
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 08:54:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZjW1RqNM49K+oTyZ8smNpZS5wcrme0yDHquOc1MHUn8+s5zqLH6F3DCCgNSYlezwrh/eYSa2WmsHLwCSrUSDAmJmt7wWOpzyfeKvY5ZJOplGT93bTTwR1ae1+sjwPZlztJsxWoazng83S2Bm61l6jSIaf6bWbncNQeEG2g2jBmeF6pkOAmEz63am0egcdS7Tq00Ri0ClN6xcga9tOuWDLC5jipPBA3EeVRpvRQ7Q2b0dBzpNGdKLp8rtnoL3zJ2VfCAhLZp84355gplP4nmFP/SPmCyefvDM+bk7ycaCkAPYaeEsrLVVt5eIotci7FY0a6A6k5IEYN1CZF7qR8Epdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mbo4VEHzZPgBHbQ2s40Qwr2DR0uZcXGihY067x2itMc=;
+ b=BIilvfX0PAi9TJ24n5he40elqujlNo/Zjbr64ZKf7A52A5/C48MzLyyU2MB35SL5uotg4LIUR9ae99O/qnZvOEEZlDRMkxjafC5fdShJak/CKqQnxhr/2V4XW65n7GlH8ZAYTztzZTYaVrqIiOaI95n3bfUKanQxCfHvDhL+YhaDfXRYQ+a9FtaRP/6BZHTnz1fNq+t0yOUTvxdjgLhh+Z4sz6BnWo4PGskO5gXgcoJLRUMgdWMgBClwozjyxU0TTpwCvNA0dPYaNnI5Y8cwwkkcthcx2sFmI4kSJCodPp7QuhRtpWBun7jKYPARzz3bhSiMYglGYBbvEJS4iUQHFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mbo4VEHzZPgBHbQ2s40Qwr2DR0uZcXGihY067x2itMc=;
+ b=Dg3LHdL+7dAMWjm21wM9UaNhnI4PCQdS/ZhYzL+PEiyW/Gqpx8zRHHqCllrBy1qlYKHjRBrBC9/v1iilN2IlkwYzJLHe2YGAoFoxsfny6pVaDVZE1j+ufT8lIb2YjuodkLrkKJoT3re3GnMUZi3qB6BEY4SOZWvOiUfJdvp4LP90S6AXrZGZmVTCfomdOXoYeqSbRligmopaRbXyvf4OSBRJVKUnpMiDm1rWNGh/aAsmEyclhJ8229/81TT5SNIGt8k4yld/ecTEDAQmNFr8eClX13Iu3mjy0hs8n+z+5qW05ie4bP/iy/4+jFg9rz4v0RgXNpzwGQ7lP9wIr9W1Lg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by PH7PR12MB6465.namprd12.prod.outlook.com (2603:10b6:510:1f7::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Mon, 6 Apr
+ 2026 08:54:45 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9769.017; Mon, 6 Apr 2026
+ 08:54:45 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 06 Apr 2026 17:54:40 +0900
+Message-Id: <DHLY21KWINJP.32YXNJEUXBE9T@nvidia.com>
+Cc: "Alistair Popple" <apopple@nvidia.com>, "Joel Fernandes"
+ <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/9] gpu: nova-core: gsp: add NV_STATUS error code
+ bindings
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260325-rmcontrol-v3-0-f3101093484e@nvidia.com>
+ <20260325-rmcontrol-v3-1-f3101093484e@nvidia.com>
+ <fd010f7a-6d0d-4faf-bdea-23bac608f03e@nvidia.com>
+In-Reply-To: <fd010f7a-6d0d-4faf-bdea-23bac608f03e@nvidia.com>
+X-ClientProxiedBy: TYWPR01CA0037.jpnprd01.prod.outlook.com
+ (2603:1096:400:17f::6) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|PH7PR12MB6465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8938ae50-9053-47fa-3f23-08de93ba25f6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|10070799003|366016|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: unWWzzjKBhx+LLWdLP2ixk+DWSA6zVvMgLn4izJ9Hy0addALFkpx29AwIsGmrVqeoImHe2dVOyGeJt2SgQllfqQr2yavqPz586YK1NYIHUQzPn7O/D3D3PSe4miHpLUDTb12iZuwHTvrKNuQDZR3/2QsHh9/bCSIlxlaFDN4r0jedGiqu9ccAdWit3Fw8+5NVHpJT8KnUlytM7Jd/TuCuRBnfE5LHvodrO1jDjyi9Yw4zy/bs+XB0SoXhZo0ZcC5jooWZG+1vfixSWFtWx6nMse2BVgi4cKI6vZfjSoGJznQnT+4TWFG4FO2VCy1W/5ODs0Wws2XMA5F9g0TUZUk4w3vXyopnwGxVSYcOzqmtAOt+mF8b8vNkVPFe8Kd2cUWN/jcz0C3c5pTyJFQTQfy14voh3NdsDbPh4tXDSnP32CrIpYTxN2Mzgzy8A08lDLoxFAi3+pVVTm3QTEfpxKozcawm6PT9wB0VeFzeFTfynbhUuCAQEIBknc+T0zRhW2omI0oYK7voGVyPVx7syhpMQqwsmm27fA6dk+x+NURUVc2rq2/4iwCcGue1FhPONu59s0tp86vgufLLY820DS6l8xyKHtPqboibpvfKUXZ3/7SydXkR8a/GfWrT/2LkqM4K4+U7i/YxtDmkuA3iW3GA8czLe60Hu40kFZFEtHbdwbZ42X3jvoH/P6lhWgUVegKxozS7nqOejmduXtWjEUrJSgCkcaNqqfsQbk1YnnxMXU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(10070799003)(366016)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmRJK1hFbzB5Qkx5N2ZZVWtTUmhxOXhBMllyZ0U1c083VUtKVHF2TVlRMmYx?=
+ =?utf-8?B?WVVycU9taW1VaDNYUC80UkQrVksxaVJrUWlxVCtGem5GZitSVmRldWVVb0Rz?=
+ =?utf-8?B?Rk5EeFRUT1B1bitRWm0wZXhWVXBHSXBiaUhJclJyYnc3R3VRbHIwdGYyYm1W?=
+ =?utf-8?B?OHV4MHU4SUI3VWtxdUQya0lYclBiQVNpVzlLT1FIcDM3TjBDUHExbDUxOWVI?=
+ =?utf-8?B?K3A1ZVhQUTNabFFBa1ExUjU1RnUzRDRwQ25KL3RISkV1S1h6Qk9abldzT0VP?=
+ =?utf-8?B?Nkk4K2FyN0QvMTlaQzQxMkdMTmV3WXg2SStvTldNdjFoL0E0WW9LUE5EVFNU?=
+ =?utf-8?B?eHNvT2kvUjN4L1lUbHdYV2M2ck45VVZoYWxoTXB4MGtNajYwM204enNUNVVI?=
+ =?utf-8?B?akF5UTVEajdEV2tqbjJOQ3ErVjNseGxiVm5aZ0c1RXlPUnZnM1R4OTQzbmVI?=
+ =?utf-8?B?enVDanIxSVh6czlJbW1UUnczT2ZMUVdnTmpTYktoSTM3T25SNVZMaDF1aDds?=
+ =?utf-8?B?c2g1U3Vhc1ZhREdWRUw1QzRrOERHRVdmbVRjRlJMdWpudDMxZTZ6czk2WS9H?=
+ =?utf-8?B?NlRia1ZobHlWblhlcnNodGxMYTE5SFpkelBnbHZaU0JrSGliZU5Hb3hsT0RT?=
+ =?utf-8?B?VFhUaTgyeHRET3RISGJMLy9SZ3I2YS9vRUdSVjJSWHlTdnVyVzlVS3NraXpm?=
+ =?utf-8?B?OTg1alYxSTB3Slc2bndiMDZOOUtHMWJ3N1B2cDVZTlBpMGZpMFI0VXNCUHY1?=
+ =?utf-8?B?bDdlOHpKOFFLSEVwUGJZdWY2eDZsRDBvaGNvSDZXNE9YRW1KWUx6OGJIdEsw?=
+ =?utf-8?B?QkRaNjN1VUpkeWY3MG5vRlZsODR1VWVRZHM2NkdYVnpNclU1T1ZYVGY5Zis2?=
+ =?utf-8?B?cWFlL2xZQlZCRVJ6WXBoYUJ6dXluNVcxL3lDa0JFYUpLQkpqTVpvWUg4cldF?=
+ =?utf-8?B?N0MzSUlUMjZnelNPUXZTNGlqSDczZ3E4SnlJZjEzTEFXWXBFSXdDQjg3b1JC?=
+ =?utf-8?B?b1dlNGxYRFUwTGpaRlN6RXJrSFRITDU0VTcweXQ5T1VZQnE3K0QvR1oxZk9s?=
+ =?utf-8?B?SHZDMFpCUnprV1JvTlowZDZqMHhaVlBPNmpiL253bjl4aDZCdVM4VnpoUy9H?=
+ =?utf-8?B?NzVJTUYrZmF3TnB4YytoMWhTbDRKbUNoMFNFbVEwWkV1SzVRVHpDSGIrZDY5?=
+ =?utf-8?B?bVVabEk4bDNTWnlQTU96UitYN2JwVnBmSlBCTUVRbmJhQThKSTliaXZEUnFn?=
+ =?utf-8?B?MlVGYnhiN01IUmhhY0l1SyszZFpjRHhhQVpUZjFGbHNldXJhWWRuZ01IRDA5?=
+ =?utf-8?B?OERCOVBsVDBnalFKV0RvanpJMjN2SVdSQ3AzREp1c0hZMkxuUkJrZEdoTlY3?=
+ =?utf-8?B?MnJ3cWl1RU00Y0hvWFhLUjYvTVJxU1pWVWI1aGVJWDVMbjJtV3JyNWFGcHM3?=
+ =?utf-8?B?MEVYZ2RqSzJGRnAxbGFnNXdmeHZ3aFBLTkhIUWhER1o0aCtIZDBtWENDYUtq?=
+ =?utf-8?B?RXI1UzZFYjdldGdrSEhTNzFqdFRGOHl0TFBpakFTQURZcGRSUDFLb0hiS1Qv?=
+ =?utf-8?B?UDNNNlU0ckNROUExZGNtM1RPQkd4YWRYd2F0Y3YvRjk2RHl4WGhBck5hUUNO?=
+ =?utf-8?B?K1BUOXc1VmY2RzRnWDA5S0lKVkFobklmRXUzZ2JMejBtNTBoWFBxRjJDSXJM?=
+ =?utf-8?B?NU02eXBnc0lHeEdoSTU0T296dGtjQ2RhNUNrbDk3Q284YmtyVENzTkxQZjVH?=
+ =?utf-8?B?cjNSZVNPcWt1bmRLODdDcDJDbHYrRzQrTWtoTzZRWG82VmZjdVlnbDNPY21E?=
+ =?utf-8?B?TGd4Z3ljczNzaFFBUW5QWmw3Nit0Y3hGNm02TkM3clMwWEdYNXlYUmh1VHhh?=
+ =?utf-8?B?OW9KREpiU0dlZU9VVWdnRjhwWkx3QkE3VkUvamEzSkY2eUhvallWVy9NdWdv?=
+ =?utf-8?B?SnVFNzBIWGpnMXRseVdZbDQwUVgzenlydVA1cUZJclUxZUpmejVFQ2tPRmNk?=
+ =?utf-8?B?ZytaaVpHTnhUTVF4Slo0TGoybWZVMG50anZuQWtzYTVKZDVIZG53MnZXSEFv?=
+ =?utf-8?B?YzBsTWdTeDhOa1lrOGhESEQ0eGg3d25wdUxUYkJ5N2tNcWdSa2tERDNuSy8z?=
+ =?utf-8?B?NXhSTlVTQ1crSWRSb1JVK0FJVGtqNVlyNGkxWW1XdG5UUXl1VWRLb0Vvc0gz?=
+ =?utf-8?B?T1U0TmZFd2cwVHorY0gwUzNXa0NUd1pmSy9xc2xxVi9TdXBwSmN3VEtxNFV3?=
+ =?utf-8?B?cjE0TWtBRHdWN1pmcEcxSk02WGhRYXZBNHNBMHd6S3UxZkIreS9NNktGeFUy?=
+ =?utf-8?B?TmF4Q2luSjJkMGZvaEwvWTlvTEtGNXBMWUFIZ1NyamVrYU12YkdJd0NIQzFn?=
+ =?utf-8?Q?ILU/oJlfpRiPVTubSTi1Ee5YhuwlJpZpS6V/17/6McuCl?=
+X-MS-Exchange-AntiSpam-MessageData-1: 6vUmj04fu53UKQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8938ae50-9053-47fa-3f23-08de93ba25f6
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 08:54:44.9586 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yi0gr1r1lEYJvgRVi8/diDTTirA+HwrMVHdbS41V4tkgWkgWA0grxqUdpXJ4GjBmSF/E6UJJtRdzSN4xhzIfAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6465
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,159 +145,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 18-03-2026 14:22, Luca Ceresoli wrote:
-> Hello Sudarshan,
-> 
-> On Wed Mar 18, 2026 at 6:53 AM CET, tessolveupstream wrote:
->>>> +	if (ctx->dual_link_video_mode) {
->>>> +		regmap_write(ctx->regmap, REG_RC_LVDS_PLL, 0x05);
->>>> +		regmap_write(ctx->regmap, REG_RC_PLL_EN, 0x00);
->>>> +		regmap_write(ctx->regmap, REG_DSI_CLK, 0x53);
->>>> +		regmap_write(ctx->regmap, REG_LVDS_FMT, 0x6f);
->>>> +		regmap_write(ctx->regmap, REG_LVDS_VCOM, 0x00);
->>>> +		regmap_write(ctx->regmap,
->>>> +			     REG_VID_CHA_VERTICAL_DISPLAY_SIZE_LOW, 0x00);
->>>> +		regmap_write(ctx->regmap,
->>>> +			     REG_VID_CHA_VERTICAL_DISPLAY_SIZE_HIGH, 0x00);
->>>> +		regmap_write(ctx->regmap,
->>>> +			     REG_VID_CHA_HSYNC_PULSE_WIDTH_LOW, 0x10);
->>>> +		regmap_write(ctx->regmap,
->>>> +			     REG_VID_CHA_HORIZONTAL_BACK_PORCH, 0x28);
->>>> +		regmap_write(ctx->regmap,
->>>> +			     REG_VID_CHA_VERTICAL_BACK_PORCH, 0x00);
->>>> +		regmap_write(ctx->regmap,
->>>> +			     REG_VID_CHA_HORIZONTAL_FRONT_PORCH, 0x00);
->>>> +		regmap_write(ctx->regmap,
->>>> +			     REG_VID_CHA_VERTICAL_FRONT_PORCH, 0x00);
->>>> +	}
->>>
->>> I guess these hard-coded values are sepcific to your panel. They must
->>> instead be computed based on the timings in order to work for every panel.
->>>
->>
->> The hard-coded values were initially derived from the TI DSI Tuner output
->> during our bring-up testing. TI had also mentioned that when PATGEN is
->> enabled with dual-LVDS output on the SN65DSI84, the horizontal timings
->> must be divided by 2. They also noted that the current driver does not
->> appear to divide the horizontal timings when PATGEN is enabled in
->> dual-LVDS mode.
->>
->> Based on that suggestion, we had tried adjusting the horizontal timing
->> registers accordingly to match the tuner output.
->> Could you please advise how these register values are expected to be
->> derived from the mode timings so that they work correctly for different
->> panels?
-> 
-> Well, the principle is quite simple:
-> 
->  1. the panel docs tell you which timings the panel needs, e.g. HBP must be
->     10 clock cycles
-> 
->  2. your panel description in dts or implementation in a panel driver will
->     then be written accordingly
-> 
->  3. the ti-sn65dsi83 driver will receive a struct drm_display_mode* with
->     these values
-> 
->  4. based on those values it sets the registers so the SN65DSI84 uses the
->     timings required by the panel (with a bit of math if needed):
-> 
-> 	regmap_write(ctx->regmap, REG_VID_CHA_HORIZONTAL_BACK_PORCH,
-> 		     mode->htotal - mode->hsync_end);
-> 
-> Same for all other timings.
-> 
-> Ti is more complicated if more cases need to be handled, such as dual-LVDS,
-> and the chip documentation is vague about what must be done in those cases.
-> 
-> I suggested next steps to move forward in reply to the cover letter.
+On Mon Apr 6, 2026 at 4:55 AM JST, John Hubbard wrote:
+> On 3/25/26 5:13 AM, Eliot Courtney wrote:
+>> Add bindgen generated constants for NV_STATUS. This is used for RM
+>> control messages.
+>>=20
+>> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> ---
+>>   drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs | 144 ++++++++++++++=
+++++++++
+>>   1 file changed, 144 insertions(+)
+>>=20
+>> diff --git a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs b/drivers=
+/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+>> index 334e8be5fde8..dd37a7fd58c6 100644
+>> --- a/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+>> +++ b/drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs
+>> @@ -379,6 +379,150 @@ pub struct NV2080_CTRL_CMD_FB_GET_FB_REGION_INFO_P=
+ARAMS {
+>>       pub __bindgen_padding_0: [u8; 4usize],
+>>       pub fbRegion: [NV2080_CTRL_CMD_FB_GET_FB_REGION_FB_REGION_INFO; 16=
+usize],
+>>   }
+>> +pub const NV_OK: _bindgen_ty_4 =3D 0;
+>> +pub const NV_ERR_GENERIC: _bindgen_ty_4 =3D 65535;
+> ...
+>> +pub const NV_ERR_RESOURCE_RETIREMENT_ERROR: _bindgen_ty_4 =3D 134;
+>> +pub const NV_WARN_HOT_SWITCH: _bindgen_ty_4 =3D 65537;
+>> +pub const NV_WARN_INCORRECT_PERFMON_DATA: _bindgen_ty_4 =3D 65538;
 >
-
-Thank you so much for your suggestion.
- 
->>>> @@ -965,9 +1001,15 @@ static int sn65dsi83_host_attach(struct sn65dsi83 *ctx)
->>>>
->>>>  	dsi->lanes = dsi_lanes;
->>>>  	dsi->format = MIPI_DSI_FMT_RGB888;
->>>> -	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
->>>> -			  MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
->>>> -			  MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
->>>> +	if (ctx->dual_link_video_mode)
->>>> +		dsi->mode_flags = MIPI_DSI_MODE_VIDEO;
->>>> +	else
->>>> +		dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
->>>> +				  MIPI_DSI_MODE_VIDEO_BURST |
->>>> +				  MIPI_DSI_MODE_VIDEO_NO_HFP |
->>>> +				  MIPI_DSI_MODE_VIDEO_NO_HBP |
->>>> +				  MIPI_DSI_MODE_VIDEO_NO_HSA |
->>>> +				  MIPI_DSI_MODE_NO_EOT_PACKET;
->>>
->>> There is no explanation about this, can you elaborate on why?
->>>
->>> I'm working on bringing up a dual-LVDS panel on a board with the SN65DSI84,
->>> and the removing MIPI_DSI_MODE_VIDEO_BURST seems to help, but I still have
->>> no idea why. Should you have any info, maybe from TI, it would be very
->>> interesting.
->>>
->>
->> During our earlier bring-up, TI mentioned that one possible reason for the DSI
->> REFCLK not behaving as expected could be that the DSI output is configured in
->> burst mode instead of non-burst mode. In burst mode the DSI clock may not be
->> continuous, whereas non-burst mode provides a more predictable DSI clock.
-> 
-> Uhm, this is a bit vague. They basically said "burst can be more
-> problematic than continuous", which is obvious, and "try disabling burst
-> and see whether it helps" with no explanation on why one works and not the
-> other. Shoudl you have more info from them you'd be welcome to share it. In
-> particular, is disabling burst mode specifically related to dual-LVDS, or
-> just a way to (try to) get rid of some problems without a clear
-> understanding?
-> 
-> On my side I also have a dual-LVDS panel connected to a SN65DSI84, which
-> works only by disabling burst mode. I haven't tried upstreaming it because
-> I don't have an explanation of why it fixes the panel and so I have no idea
-> how to teach the driver when it should disable burst mode.
-> 
-> Additionally inyour patch you remove many other flags. Any explanation from
-> those?
+> If we go with pulling these ERR_ and WARN_ items in directly
+> from GSP-RM, then we should also update Alistair's bindgen
+> helper, or my fork of it:
 >
+>      https://github.com/apopple-nvidia/nova-gsp-binding-generator/commits=
+/main/
+>      https://github.com/johnhubbard/nova-gsp-binding-generator/commits/ma=
+in
 
-Thanks for your inputs.
- 
-I wanted to share a quick observation from our side. With your suggested 3
-patches (links below), the panel started working after simplifying the 
-dsi-> mode_flags:
- 
-https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-1-2e15f5a9a6a0@bootlin.com/
- 
-https://lore.kernel.org/all/20260226-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v1-2-2e15f5a9a6a0@bootlin.com/
- 
-https://lore.kernel.org/lkml/20260309-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v2-1-e6aaa7e1d181@bootlin.com/
- 
-Earlier configuration:
- 
-MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
-MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
- 
-Working configuration:
- 
-MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA |
-MIPI_DSI_MODE_NO_EOT_PACKET;
- 
-From our testing, removing MIPI_DSI_MODE_VIDEO_BURST along with the NO_HFP/NO_HBP 
-flags results in stable LVDS output in dual-link mode.
- 
-Could you please suggest how you would prefer to handle this change for 
-upstreaming?
- 
-> Best regards,
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+Yep, I have local changes to these which I will send. These bindings
+updates were all generated based on Alistair's bindgen helper.
+
+> However, the deeper problem is that the C headers define these as
+> #defines, so bindgen emits pub const u32 items. The hand-written
+> NvStatus enum in patch 2 has no compile-time relationship to them. When
+> Open RM adds a new code, the Rust enum silently absorbs it into
+> Unknown(u32) -> Err(EIO) with no compiler diagnostic.
+
+Yes, this is unfortunate, although we still need to manually think about
+the mapping at some point.
+
+One thing I can try is to remove the Unknown(u32) variant here and use
+TryFrom (which we will end up using with FromPrimitive later) - then
+at least we will get errors if a new discriminant is added.
+
+>
+> Which brings us back to a feature that Alex Courbot and Danilo have been
+> asking for, and I've been treating as "nice to have, maybe next month"
+> for apparently too long. And that is, generating Rust bindings directly
+> from the GSP-RM build system.
+
+Sounds good to me as long as we can generate this mapping at the same
+time and have it fail if a new one is added.
+
+> I think it's time, yes?
+
+What would this look like / any agreement on what the shape of this
+would look like yet?=20
+
+>
+>> +pub const NV_WARN_MISMATCHED_SLAVE: _bindgen_ty_4 =3D 65539;
+>> +pub const NV_WARN_MISMATCHED_TARGET: _bindgen_ty_4 =3D 65540;
+>> +pub const NV_WARN_MORE_PROCESSING_REQUIRED: _bindgen_ty_4 =3D 65541;
+>> +pub const NV_WARN_NOTHING_TO_DO: _bindgen_ty_4 =3D 65542;
+>> +pub const NV_WARN_NULL_OBJECT: _bindgen_ty_4 =3D 65543;
+>> +pub const NV_WARN_OUT_OF_RANGE: _bindgen_ty_4 =3D 65544;
+>> +pub type _bindgen_ty_4 =3D ffi::c_uint;
+>>   #[repr(C)]
+>>   #[derive(Debug, Copy, Clone, MaybeZeroable)]
+>>   pub struct NV2080_CTRL_GPU_GET_GID_INFO_PARAMS {
+>>=20
+>
+> thanks,
 
