@@ -4,166 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45336EF4ED4
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 12:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24E9DEF4EDE
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 12:54:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD9C10E14E;
-	Mon,  6 Apr 2026 12:49:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4358710E23A;
+	Mon,  6 Apr 2026 12:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S3eL572b";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KqXfamBM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7E110E14E;
- Mon,  6 Apr 2026 12:49:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775479795; x=1807015795;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=QSokSTe9XTPFmepwm7bapKPxy0+lz1H3OfSvU65jTko=;
- b=S3eL572b2kv5TN/TKnGR09H66Hs8/Emy3FBM/LwW+t9kiurqNZZBfOr5
- 5WOBqGCFwj4kY10zeYPwmxNu+FhH1W1awzTUN8m8qf0n97M7Ps0k2fhMs
- HP2ag7P93Aiunvp8lGeiXJKJoftpXXgF+T/ltG1ECid0zx6Ya3gFzbCOt
- jGBI8vIofao+DWClKOfnWy25Hxhj9KzoZaER0FGDWfbsr5JZdXl/yX77l
- yYv8RKezG6/HVzqzSW32Kmqa/6rdjdDG5dWK/oz2x2YYJDtv3AcIFERka
- YBgojUL8fn6lX3sXRzF/aua38UEf8ewrKOR3g8i6u5Kp6ALApLAs+tuQj A==;
-X-CSE-ConnectionGUID: pT4MG4kUSgqZ3dZFXWH12g==
-X-CSE-MsgGUID: +F06QQAhQBuFsjQVWE2omw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11750"; a="75466648"
-X-IronPort-AV: E=Sophos;i="6.23,163,1770624000"; d="scan'208";a="75466648"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2026 05:49:55 -0700
-X-CSE-ConnectionGUID: 2OjhXymqRJyGgQaCCi802g==
-X-CSE-MsgGUID: Q7KWbdTzQHOSZXELbadIbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,163,1770624000"; d="scan'208";a="251153205"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2026 05:49:55 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 6 Apr 2026 05:49:53 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 6 Apr 2026 05:49:53 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.48) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 6 Apr 2026 05:49:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IxpWEtfH20N4FpZJPpP0TqK0SR4FkfpELvtMD0822+bULmIQqgUVd/6OV384r1mpJ03lyptE2qxiv4XOEbH2HDN+1PbXB/0S8PeuqfxbGMgGxv/1h5JBtyYJ160h/3Jr03pvI4z73eRbJ2eCY3Kmt5i9qc90Kpv0MWvL3hgMuNfTdUDiqnUd7wKTAdEfA6kRHvyrDsBKQWKe64EeywGMBkn2a9cvSEAlk3z7SPK5bKcNbMHo3Kq/q/YVLkvyJfg1qh1xWgMXPaz+6tS63E8lrZRwbj3bkY5+QOzUPhrIcOCsAQHRRyO7+N50f9Nl1sBZiF2YH0K2BbW/IXpicO40Qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L6JfSHwXdSmY/nF45o/uwUaX7Wu9575uk+elbMFyFnw=;
- b=i/EsOvtGW2B7P8HFFOsREXh74HZEn+5Y3n74hpJPEnG0DnqbJp0FsijtC0eoMBmDqZ3C2ttVLaNL5gF3UcsiENFKWU8sgg1/AiWVQBWAGKl8E8irjfMHnWhOjPb4p5OraZsctCP6+TlOusgDzHH0mWZ27rXkcbEXG+cGtFQXht4IqmgXwRmbmUpObKEy+z4Q7ojFFoxJKh7+Bw1jTxltunqzNHphvWpHMVoPvkOg0ohDQioDaD3zHqUwKPPl3LDAyc/hRX6r5xPFwU+tPZ1GPWmV1pOEbbUFCXKYHne0x05QsLwcA7LSmg/XpebdbKo50EAXLHoRB4U8ZnhEwHHTmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MN0PR11MB6207.namprd11.prod.outlook.com (2603:10b6:208:3c5::21)
- by SJ5PPF6806D69E4.namprd11.prod.outlook.com
- (2603:10b6:a0f:fc02::831) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Mon, 6 Apr
- 2026 12:49:50 +0000
-Received: from MN0PR11MB6207.namprd11.prod.outlook.com
- ([fe80::52eb:929f:a8b2:139d]) by MN0PR11MB6207.namprd11.prod.outlook.com
- ([fe80::52eb:929f:a8b2:139d%5]) with mapi id 15.20.9769.018; Mon, 6 Apr 2026
- 12:49:50 +0000
-Message-ID: <0816c0c7-454e-4ba8-8197-2ac9601d157b@intel.com>
-Date: Mon, 6 Apr 2026 18:19:41 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] drm/xe/debugfs: Add interface to trigger power
- management unit error handler
-To: Raag Jadav <raag.jadav@intel.com>
-CC: "Tauro, Riana" <riana.tauro@intel.com>, <andrealmeid@igalia.com>,
- <christian.koenig@amd.com>, <airlied@gmail.com>, <simona.vetter@ffwll.ch>,
- <mripard@kernel.org>, <anshuman.gupta@intel.com>, <badal.nilawar@intel.com>,
- <karthik.poosa@intel.com>, <sk.anirban@intel.com>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <rodrigo.vivi@intel.com>
-References: <20260318064016.374656-7-mallesh.koujalagi@intel.com>
- <20260318064016.374656-12-mallesh.koujalagi@intel.com>
- <ab3e5dcf-d259-4a29-a70b-071bcdd24ec2@intel.com>
- <227a4bce-b3dd-4633-a2ae-8dceb82a6653@intel.com>
- <ac4pTtjVZ7nxEsag@black.igk.intel.com>
-Content-Language: en-US
-From: "Mallesh, Koujalagi" <mallesh.koujalagi@intel.com>
-In-Reply-To: <ac4pTtjVZ7nxEsag@black.igk.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0103.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d1::7) To MN0PR11MB6207.namprd11.prod.outlook.com
- (2603:10b6:208:3c5::21)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD29410E23A;
+ Mon,  6 Apr 2026 12:54:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2D32543FF4;
+ Mon,  6 Apr 2026 12:54:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F839C4CEF7;
+ Mon,  6 Apr 2026 12:54:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775480056;
+ bh=lmE4691xD8knfB5Qasc9kqe2NEgfhceQd9mqYaNZSg8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KqXfamBMiO+cbLoEGuW6uTNbJ99c6BU05Y3w7YvRuPst2gGOuyr1shCiZ2tLlUvqE
+ 9FB1hwefQoxk98pRkBOjMpgAQJplh58S8Qk9J1aJqWZYToVDi+kgmJTtTfVmAtE772
+ peaTipxc3+YTMfhQNey2BcKc8LG9c3Fy1mv7/bWPmnFayV5svW9JTvi/DhlngTBVc7
+ kXV6ycNx5Nd9Epyd8bxLC8lRwXdhlSLDIDmxFGDglgIvrhm9zsGPbV7w62nJfrWdr7
+ qvmg0gzmNxj22TedBleto/Ot5KmJs4NJ07WxmfSQmNj9NZNZVV7juxUrfaq/FJwVlp
+ t+3afvVxm5O8w==
+Date: Mon, 6 Apr 2026 13:54:13 +0100
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, Alistair Popple <apopple@nvidia.com>, 
+ Ralph Campbell <rcampbell@nvidia.com>, Christoph Hellwig <hch@lst.de>, 
+ Jason Gunthorpe <jgg@mellanox.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ linux-mm@kvack.org, 
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH v5] mm: Fix a hmm_range_fault() livelock / starvation
+ problem
+Message-ID: <adOqU0UDzpxvQuwA@lucifer>
+References: <20260210115653.92413-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR11MB6207:EE_|SJ5PPF6806D69E4:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46a41f75-a4eb-4442-561d-08de93dafddd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: uPmCwaGvaJptBCzEIdiZTU5LHWfrbIwkE9+gW8ygPqW1pg2tuskJH0l/3JrRbUmQvX5BL06g62t6mhFh74N3LRQFm47j0fpdiRh2B2u3WoL0kZp1uDLcNANHPxRSIvb9UNBx7SMNb51f/O9ULXUrEMr1R6fzpv7XvRlRAXmL5lAGL5IeQSg22c/Ghno2jwATxNpFSgiyJcWpFy7h9YrsdZ4dS5XzATFKXWLhpyGfCtwdc5OkYMG1LpOVNwem/TQly6RBfGWmE5HOm4Fgj/90/Mya/XwHwlMcPJ1GGTFnHaUhofye58sU/qCcQdxK2yKJWhufWcN6y4PFsPA6XUE/Dwl/T36vQvPyNX90Xno3J8l96Qa3B/pY53hC31yyMuMMoNNp3D6VsXuapdYt9d9YG9lfr2L9iCYR4r+aS57d5PsUxnDpLhSiP9yEHzTelo1IwTYFOk8jgaWkzPv0rW8pWLNJ9X4qfonbZG+Xmdcwub66fmzHzC+aumRB+MOxQvSZKB6sengdZkjdOXUIGQDT3Os7udGbdePnz1wraxP1a5coczwQThYgDEHcdQbmOuSW2BiP6muAMaPjFB8mn/QvkqZGV/4hkEGG04k/0a7Yio677YolgzHGwy6NuOb4dBuTUzDVqH223CzGGfuKAx9UB878nPuW88pOzeIVVwA4a3hDvJ6CxFok+XrW4vCwPNjkGXCufZ9fuAvDtUxmhPC5jLTN5Km5vfawP5JnpTAT1Q0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR11MB6207.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eS83SlVMREJuWHNmejJrV1E2MklTQlYrY0FkU1ByMTZhdEwrS0NRR29jTGdj?=
- =?utf-8?B?ZUZZSW1GcUNHVVgxdkdlN3NuUzlzQnBsdWIyVGFyQTJlUlpZK0RJbTBEYWNM?=
- =?utf-8?B?Uzl1UVoyYk5yM0xBUER0YnJZd1VYaG9YaXYxaTg2a0ZEV3JleWY4ODdrVWdo?=
- =?utf-8?B?dkJ6RzFveXAySHZDZHBraWhPTjY3YVBLZjR2OGY0QVhKVEtjRzdCUTV4QnB1?=
- =?utf-8?B?M0ZXU3d0NFhnOCtzYk93TTRyektXcnYrR1c4Y1ZKazdOcktpQWF2SWNvQXZR?=
- =?utf-8?B?Y0d4SWQxUksvWHRSdDlxQXI3WXZpNmt0RnR1TEZ1cXY4dDFVTk40UGZVVmhs?=
- =?utf-8?B?UEsxZlQ3OGZlVFoyRVorZzdQTE9mUk1LazZOVmwyVExNeThXcmdXZ2JEL2FC?=
- =?utf-8?B?aU9zKzlyT0s1K0xySzBIZExrVndPdHRmSy9TR09QSmFCOFdCMXVFcHhFM3BT?=
- =?utf-8?B?TFhiZ2dzNHpnejYzeUQvbFIwd2k2QlFSM2o4dy9NaVhmdXNWQTh6SmV3NElU?=
- =?utf-8?B?R0M2RzM1UWFYOHRDV00wTzJLdzZ0YUhJdm5Kcy9Lc1IyTkR4bFZsSlF2dmxm?=
- =?utf-8?B?Y2txMWswL0xqdXVLYVJ1ZDV2Snozc3lnNzNLRTVxcEdkaDhhSXYySUMvVFZr?=
- =?utf-8?B?MmFjQUZLVWZQUStaYjMwS0IrZngwM0J0SXRCWXl4RWluYXFZUFAzTHY1a3Bs?=
- =?utf-8?B?SzlCVE5PZGV2TDdNQWF2QWdaMVlGQWw3ZGc1VzlyQjlrbFQ2dThOZ1dHVy9v?=
- =?utf-8?B?QXNTVEdNcm9VVzI1bEUrOWxGb3pTNDNISFQ4K0Q3S24rdC82dWMycU84dEow?=
- =?utf-8?B?dUlOMit6WVlLemVaVlEvdGdqWlBKcTdiYVNodUpud1pyU3VwNWp0am9YZktZ?=
- =?utf-8?B?L1M0Rmd1NWk0MEtCMGs3VlZ0bGtRZUwxTjV3My84SWFDN1EwZ3o5SnEvdFpI?=
- =?utf-8?B?anVoV25UeVg1R3F5eWluckpJd24rTVprdlVtekd6SzRBVURkdGlmN3ZIM1Z1?=
- =?utf-8?B?bTR2ZmlHV1dkRCtCckNoYTNEL2NhVlVxRzloZXVVNkJXay9TNnRLaHR6ODBU?=
- =?utf-8?B?T1Zndit1K0J5MHB6RnR3bDlBT1FVOWNDRGEvbE0rWXVzMDlHR2tYMElGWjRM?=
- =?utf-8?B?bDVVYjFlOFc0S2RqK2hDUEpsamw1WEVldW1UdFVYOWRYOFVSbFg4UTRRUUU5?=
- =?utf-8?B?WVQ5OVJmTjAzdUpKM2c0Z1M2T2toN3lxL3VFejREKzMva2kyVnpUOEFVRjg1?=
- =?utf-8?B?MjJSWjBVZWtienMrUTdIMlhjUHlBRWpsQ2V3QkFyM1E5T2xOVnN2L0lHN2dl?=
- =?utf-8?B?ZDlzYmFkUk9MMlhSODI5dG9xa0NwUCtNM0hUQnJjM3hFNFFYYzZhNkdxcDhD?=
- =?utf-8?B?M1pyOHFCN2llNmxYVkJwY3JkYVBKQ2g5aGc1QUZYTkZDcGdkaVNxVEZLeUdV?=
- =?utf-8?B?ZDJ1N09DUGJCNUprd1I2RmlPc3V0RmlQMWRSd2wwNURQdlJCbStwR3kveWl3?=
- =?utf-8?B?UUY4U0RheXFPNzUxRHZiZDdDYlpnM3VhRW1tdzRmcm5Sd2tVc2JYd0hMWFJp?=
- =?utf-8?B?RlAwbFkrZ3JmRE9OU0owdGlyaEZ3RXNEaXhKUjZldjJLeEE5cDc1cTk0UUcv?=
- =?utf-8?B?dUJGL05DdE04S2lTUU11NTRlWW1pSG1jMXU1Q0NWZEs2ZHJVZzBmWkZWd2hX?=
- =?utf-8?B?TlgvdU1nZjNJZTdaOGxrUTFRTWxiOWN3c2hmWVhFQzNROWl0MjNDc05ybUxs?=
- =?utf-8?B?SncvSFcxVlVxc3NLbWU2RithdTNHYURuekxkdGVpeGd1L1h3V0lvWDhnSVBi?=
- =?utf-8?B?dWpPNDBHV1NOQ1RWTzZwcm1ReEg0Skc0SGlPaXRFbitVY2xtVGFEZUxNek9N?=
- =?utf-8?B?aVYwUktLQVQ2cUpCblhGY3JDeU9NQ3kxVENkVHRDd3dVU2dSS1d0TGgzeVNh?=
- =?utf-8?B?MFE1NzhFbElEeHZsUHhxeUJ4dFRGQ2NaNkM3dFdVSkR2VHZsZHREN2lkd0pt?=
- =?utf-8?B?b05XNFNKdHZTNlVZQ2c3ajNJcDl2OGFleDduMHZGQ0sza2hVR28xaG5POHV6?=
- =?utf-8?B?MVEzYmtKa3pzR1B5dVg2VWVEcnVXdU55amNCeHlEKzVVdFhpNVZZT2NrVzZR?=
- =?utf-8?B?NThmNS9qV0VlYXFhdGJIOTQxa3pNbFBGdHNnaTFuMXdGVVJpYWdFM3k3WC9Q?=
- =?utf-8?B?TTNXeHQ3SHBwSWdlZlR2WFRHV2djMUlmbHBZdG9maC9JQ3FPNnI1aXQwcXZt?=
- =?utf-8?B?a0I5Ry9WTlhTVzkrR05yNktVeFNaN28rZXA0KzdyZVc4amNxVEhlc1B5QmZT?=
- =?utf-8?B?TU5Rc0x1SDRPTHdmUVZtTnU4MHo2SHF3WFYyS2lDNGc5SHgxOFZkWlh0ZDRF?=
- =?utf-8?Q?7zm9oHr2+9Fjxw6s=3D?=
-X-Exchange-RoutingPolicyChecked: MBU33CGZzJFI3qJhmOQuxp1Z4Shk2cdAwW1oPUk5MaYStvlfMF4QNf2bY8ARdPj8kVmiSQ2osTsnh6ZnryqNKzETY/nIjqw1hZ+n0f7d5uHfEGbtHqjDOntd0elVeuAIoDz+dllKyBhzp4seDteLfvU0zViGuLrwm/ojO/lAb90v1Qv/bwK39Urf2AX2e/tCf0lButY4d8eLF/kVqG1dONs0mUy6h7vWndPKbedMaPynilhup2srpi/jAmXGbOLtMPJcFafX59lBieOIRF2jQ9CHJOy092wLeSH6E2TAZeiWZ3whPjswdHjeOc2/Yb0/dfE2CXh4qgV3SM5tKvq7xg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46a41f75-a4eb-4442-561d-08de93dafddd
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6207.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 12:49:50.7577 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lBtZPzPQNBoEMSE+aegZqQtBUMNcs1fiApqg5Qg+wQEeUQYCNCVu1IjBdKdZiDMAeAm8l24uW5sGvgpqoKdFOaXOcmBdwFwCHasr+zN+SMc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF6806D69E4
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260210115653.92413-1-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -179,117 +73,267 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi guys,
 
-On 02-04-2026 02:01 pm, Raag Jadav wrote:
-> On Mon, Mar 30, 2026 at 07:10:33PM +0530, Mallesh, Koujalagi wrote:
->> On 30-03-2026 10:25 am, Tauro, Riana wrote:
->>> On 3/18/2026 12:10 PM, Mallesh Koujalagi wrote:
->>>> Add a debugfs interface to manually trigger power management unit error
->>>> handler for testing cold reset recovery paths. This is useful for
->>>> validating the error recovery mechanism.
->>>>
->>>> The new debugfs entry 'trigger_punit_error' is located at:
->>>>     /sys/kernel/debug/dri/N/trigger_punit_error
->>>>
->>>> Reading the file displays usage instructions. Writing '1' invokes
->>>> xe_punit_error_handler(), which marks the device as wedged with
->>>> DRM_WEDGE_RECOVERY_COLD_RESET method and sends a uevent to userspace
->>>> indicating that a complete device power cycle is required for recovery.
->>>>
->>>> Writing '0' or any other false value has no effect.
->>>>
->>>> This interface is intended for development, testing, and validation
->>>> of power management unit error recovery code.
->>> Would fault injection be more appropriate here?
->> Here we need a deterministic way to invoke the punit error handler to test
->> the cold-reset
->>
->> recovery flow end-to-end. Using debugfs interface, we directly triggers
->> wedge/reset status via a debugfs write
->>
->> rather than using fault injection.
-> I think the question from Riana was, since fault injection can provide
-> wider coverage of all different kind of error flows, would it make more
-> sense to reuse it for punit as well?
++cc missing M/R, fsdevel list
 
-Thanks Riana/Raag!! will follow up.
+So this was merged upstream, and touches mm/, and even has a mm:
+prefix... but was taken through a non-mm tree.
 
-Thanks
+I'm confused as to why an mm: patch didn't go through the mm tree, but when
+we do stuff like this, isn't the done thing to get maintainer signoff
+before doing something like that, anyway?
 
--/Mallesh
+I see John gave a tag (and he's great so that gives me confidence here),
+but we should really follow the procedure on this properly.
 
+So:
+
+$ scripts/get_maintainer.pl --no-git include/linux/migrate.h mm/filemap.c mm/memory.c mm/migrate.c mm/migrate_device.c | grep maintainer
+Andrew Morton <akpm@linux-foundation.org> (maintainer:MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION)
+David Hildenbrand <david@kernel.org> (maintainer:MEMORY MANAGEMENT - MEMORY POLICY AND MIGRATION)
+"Matthew Wilcox (Oracle)" <willy@infradead.org> (maintainer:PAGE CACHE)
+
+Are the maintainers, and there are also 14 reviewers too.
+
+None were even cc'd here which isn't helpful :)
+
+I realise mm process has _perhaps_ not been quite so prescriptive as this
+in the past, but we definitely require this going forward, and in general
+you should run get_maintainers.pl and cc relevant people to help with the
+pain that is kernel email :)
+
+As I don't _think_ anybody noticed it, unfortunately. linux-mm is just too
+busy to keep track there, generally.
+
+We are semi-tetchy about this as we've had... fun in the past with some
+bigger changes that went through other trees. This is, at least, very
+isolated.
+
+Thanks, Lorenzo
+
+On Tue, Feb 10, 2026 at 12:56:53PM +0100, Thomas Hellstr�m wrote:
+> If hmm_range_fault() fails a folio_trylock() in do_swap_page,
+> trying to acquire the lock of a device-private folio for migration,
+> to ram, the function will spin until it succeeds grabbing the lock.
 >
-> Raag
+> However, if the process holding the lock is depending on a work
+> item to be completed, which is scheduled on the same CPU as the
+> spinning hmm_range_fault(), that work item might be starved and
+> we end up in a livelock / starvation situation which is never
+> resolved.
 >
->>>> Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
->>>> ---
->>>>    drivers/gpu/drm/xe/xe_debugfs.c | 38 +++++++++++++++++++++++++++++++++
->>>>    1 file changed, 38 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/xe/xe_debugfs.c
->>>> b/drivers/gpu/drm/xe/xe_debugfs.c
->>>> index 844cfafe1ec7..390bbed9c1af 100644
->>>> --- a/drivers/gpu/drm/xe/xe_debugfs.c
->>>> +++ b/drivers/gpu/drm/xe/xe_debugfs.c
->>>> @@ -18,6 +18,7 @@
->>>>    #include "xe_gt_debugfs.h"
->>>>    #include "xe_gt_printk.h"
->>>>    #include "xe_guc_ads.h"
->>>> +#include "xe_hw_error.h"
->>>>    #include "xe_mmio.h"
->>>>    #include "xe_pm.h"
->>>>    #include "xe_psmi.h"
->>>> @@ -509,6 +510,40 @@ static const struct file_operations
->>>> disable_late_binding_fops = {
->>>>        .write = disable_late_binding_set,
->>>>    };
->>>>    +static ssize_t trigger_punit_error_show(struct file *f, char
->>>> __user *ubuf,
->>>> +                    size_t size, loff_t *pos)
->>>> +{
->>>> +    const char *msg = "Write 1 to trigger power management unit
->>>> error handler\n";
->>>> +
->>>> +    return simple_read_from_buffer(ubuf, size, pos, msg, strlen(msg));
->>>> +}
->>>> +
->>>> +static ssize_t trigger_punit_error_set(struct file *f,
->>>> +                       const char __user *ubuf,
->>>> +                       size_t size, loff_t *pos)
->>>> +{
->>>> +    struct xe_device *xe = file_inode(f)->i_private;
->>>> +    bool trigger;
->>>> +    ssize_t ret;
->>>> +
->>>> +    ret = kstrtobool_from_user(ubuf, size, &trigger);
->>>> +    if (ret)
->>>> +        return ret;
->>>> +
->>>> +    if (trigger) {
->>>> +        xe_punit_error_handler(xe);
->>>> +        drm_info(&xe->drm, "PMU error handler triggered via
->>>> debugfs\n");
->>>> +    }
->>>> +
->>>> +    return size;
->>>> +}
->>>> +
->>>> +static const struct file_operations trigger_punit_error_fops = {
->>>> +    .owner = THIS_MODULE,
->>>> +    .read = trigger_punit_error_show,
->>>> +    .write = trigger_punit_error_set,
->>>> +};
->>>> +
->>>>    void xe_debugfs_register(struct xe_device *xe)
->>>>    {
->>>>        struct ttm_device *bdev = &xe->ttm;
->>>> @@ -550,6 +585,9 @@ void xe_debugfs_register(struct xe_device *xe)
->>>>        debugfs_create_file("disable_late_binding", 0600, root, xe,
->>>>                    &disable_late_binding_fops);
->>>>    +    debugfs_create_file("trigger_punit_error", 0600, root, xe,
->>>> +                &trigger_punit_error_fops);
->>>> +
->>>>        /*
->>>>         * Don't expose page reclaim configuration file if not
->>>> supported by the
->>>>         * hardware initially.
+> This can happen, for example if the process holding the
+> device-private folio lock is stuck in
+>    migrate_device_unmap()->lru_add_drain_all()
+> sinc lru_add_drain_all() requires a short work-item
+> to be run on all online cpus to complete.
+>
+> A prerequisite for this to happen is:
+> a) Both zone device and system memory folios are considered in
+>    migrate_device_unmap(), so that there is a reason to call
+>    lru_add_drain_all() for a system memory folio while a
+>    folio lock is held on a zone device folio.
+> b) The zone device folio has an initial mapcount > 1 which causes
+>    at least one migration PTE entry insertion to be deferred to
+>    try_to_migrate(), which can happen after the call to
+>    lru_add_drain_all().
+> c) No or voluntary only preemption.
+>
+> This all seems pretty unlikely to happen, but indeed is hit by
+> the "xe_exec_system_allocator" igt test.
+>
+> Resolve this by waiting for the folio to be unlocked if the
+> folio_trylock() fails in do_swap_page().
+>
+> Rename migration_entry_wait_on_locked() to
+> softleaf_entry_wait_unlock() and update its documentation to
+> indicate the new use-case.
+>
+> Future code improvements might consider moving
+> the lru_add_drain_all() call in migrate_device_unmap() to be
+> called *after* all pages have migration entries inserted.
+> That would eliminate also b) above.
+>
+> v2:
+> - Instead of a cond_resched() in hmm_range_fault(),
+>   eliminate the problem by waiting for the folio to be unlocked
+>   in do_swap_page() (Alistair Popple, Andrew Morton)
+> v3:
+> - Add a stub migration_entry_wait_on_locked() for the
+>   !CONFIG_MIGRATION case. (Kernel Test Robot)
+> v4:
+> - Rename migrate_entry_wait_on_locked() to
+>   softleaf_entry_wait_on_locked() and update docs (Alistair Popple)
+> v5:
+> - Add a WARN_ON_ONCE() for the !CONFIG_MIGRATION
+>   version of softleaf_entry_wait_on_locked().
+> - Modify wording around function names in the commit message
+>   (Andrew Morton)
+>
+> Suggested-by: Alistair Popple <apopple@nvidia.com>
+> Fixes: 1afaeb8293c9 ("mm/migrate: Trylock device page in do_swap_page")
+> Cc: Ralph Campbell <rcampbell@nvidia.com>
+> Cc: Christoph Hellwig <hch@lst.de>
+> Cc: Jason Gunthorpe <jgg@mellanox.com>
+> Cc: Jason Gunthorpe <jgg@ziepe.ca>
+> Cc: Leon Romanovsky <leon@kernel.org>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: John Hubbard <jhubbard@nvidia.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: linux-mm@kvack.org
+> Cc: <dri-devel@lists.freedesktop.org>
+> Signed-off-by: Thomas Hellstr�m <thomas.hellstrom@linux.intel.com>
+> Cc: <stable@vger.kernel.org> # v6.15+
+> Reviewed-by: John Hubbard <jhubbard@nvidia.com> #v3
+> ---
+>  include/linux/migrate.h | 10 +++++++++-
+>  mm/filemap.c            | 15 ++++++++++-----
+>  mm/memory.c             |  3 ++-
+>  mm/migrate.c            |  8 ++++----
+>  mm/migrate_device.c     |  2 +-
+>  5 files changed, 26 insertions(+), 12 deletions(-)
+>
+> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+> index 26ca00c325d9..d5af2b7f577b 100644
+> --- a/include/linux/migrate.h
+> +++ b/include/linux/migrate.h
+> @@ -65,7 +65,7 @@ bool isolate_folio_to_list(struct folio *folio, struct list_head *list);
+>
+>  int migrate_huge_page_move_mapping(struct address_space *mapping,
+>  		struct folio *dst, struct folio *src);
+> -void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+> +void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+>  		__releases(ptl);
+>  void folio_migrate_flags(struct folio *newfolio, struct folio *folio);
+>  int folio_migrate_mapping(struct address_space *mapping,
+> @@ -97,6 +97,14 @@ static inline int set_movable_ops(const struct movable_operations *ops, enum pag
+>  	return -ENOSYS;
+>  }
+>
+> +static inline void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+> +	__releases(ptl)
+> +{
+> +	WARN_ON_ONCE(1);
+> +
+> +	spin_unlock(ptl);
+> +}
+> +
+>  #endif /* CONFIG_MIGRATION */
+>
+>  #ifdef CONFIG_NUMA_BALANCING
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index ebd75684cb0a..d98e4883f13d 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -1379,14 +1379,16 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+>
+>  #ifdef CONFIG_MIGRATION
+>  /**
+> - * migration_entry_wait_on_locked - Wait for a migration entry to be removed
+> - * @entry: migration swap entry.
+> + * softleaf_entry_wait_on_locked - Wait for a migration entry or
+> + * device_private entry to be removed.
+> + * @entry: migration or device_private swap entry.
+>   * @ptl: already locked ptl. This function will drop the lock.
+>   *
+> - * Wait for a migration entry referencing the given page to be removed. This is
+> + * Wait for a migration entry referencing the given page, or device_private
+> + * entry referencing a dvice_private page to be unlocked. This is
+>   * equivalent to folio_put_wait_locked(folio, TASK_UNINTERRUPTIBLE) except
+>   * this can be called without taking a reference on the page. Instead this
+> - * should be called while holding the ptl for the migration entry referencing
+> + * should be called while holding the ptl for @entry referencing
+>   * the page.
+>   *
+>   * Returns after unlocking the ptl.
+> @@ -1394,7 +1396,7 @@ static inline int folio_wait_bit_common(struct folio *folio, int bit_nr,
+>   * This follows the same logic as folio_wait_bit_common() so see the comments
+>   * there.
+>   */
+> -void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+> +void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+>  	__releases(ptl)
+
+I mean I have to say though I'm happy you propagated the softleaf thing
+further at least ;)
+
+>  {
+>  	struct wait_page_queue wait_page;
+> @@ -1428,6 +1430,9 @@ void migration_entry_wait_on_locked(softleaf_t entry, spinlock_t *ptl)
+>  	 * If a migration entry exists for the page the migration path must hold
+>  	 * a valid reference to the page, and it must take the ptl to remove the
+>  	 * migration entry. So the page is valid until the ptl is dropped.
+> +	 * Similarly any path attempting to drop the last reference to a
+> +	 * device-private page needs to grab the ptl to remove the device-private
+> +	 * entry.
+>  	 */
+>  	spin_unlock(ptl);
+>
+> diff --git a/mm/memory.c b/mm/memory.c
+> index da360a6eb8a4..20172476a57f 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -4684,7 +4684,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+>  				unlock_page(vmf->page);
+>  				put_page(vmf->page);
+>  			} else {
+> -				pte_unmap_unlock(vmf->pte, vmf->ptl);
+> +				pte_unmap(vmf->pte);
+> +				softleaf_entry_wait_on_locked(entry, vmf->ptl);
+>  			}
+>  		} else if (softleaf_is_hwpoison(entry)) {
+>  			ret = VM_FAULT_HWPOISON;
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 4688b9e38cd2..cf6449b4202e 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -499,7 +499,7 @@ void migration_entry_wait(struct mm_struct *mm, pmd_t *pmd,
+>  	if (!softleaf_is_migration(entry))
+>  		goto out;
+>
+> -	migration_entry_wait_on_locked(entry, ptl);
+> +	softleaf_entry_wait_on_locked(entry, ptl);
+>  	return;
+>  out:
+>  	spin_unlock(ptl);
+> @@ -531,10 +531,10 @@ void migration_entry_wait_huge(struct vm_area_struct *vma, unsigned long addr, p
+>  		 * If migration entry existed, safe to release vma lock
+>  		 * here because the pgtable page won't be freed without the
+>  		 * pgtable lock released.  See comment right above pgtable
+> -		 * lock release in migration_entry_wait_on_locked().
+> +		 * lock release in softleaf_entry_wait_on_locked().
+>  		 */
+>  		hugetlb_vma_unlock_read(vma);
+> -		migration_entry_wait_on_locked(entry, ptl);
+> +		softleaf_entry_wait_on_locked(entry, ptl);
+>  		return;
+>  	}
+>
+> @@ -552,7 +552,7 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
+>  	ptl = pmd_lock(mm, pmd);
+>  	if (!pmd_is_migration_entry(*pmd))
+>  		goto unlock;
+> -	migration_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl);
+> +	softleaf_entry_wait_on_locked(softleaf_from_pmd(*pmd), ptl);
+>  	return;
+>  unlock:
+>  	spin_unlock(ptl);
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index 23379663b1e1..deab89fd4541 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -176,7 +176,7 @@ static int migrate_vma_collect_huge_pmd(pmd_t *pmdp, unsigned long start,
+>  		}
+>
+>  		if (softleaf_is_migration(entry)) {
+> -			migration_entry_wait_on_locked(entry, ptl);
+> +			softleaf_entry_wait_on_locked(entry, ptl);
+>  			spin_unlock(ptl);
+>  			return -EAGAIN;
+>  		}
+> --
+> 2.52.0
+>
+>
