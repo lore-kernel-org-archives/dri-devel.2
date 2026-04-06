@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB1BEF4EC4
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 08:32:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F17EF4EC6
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 08:35:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58DAA10E077;
-	Mon,  6 Apr 2026 08:32:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 730F810E098;
+	Mon,  6 Apr 2026 08:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hPTVqNJZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pu+PapHd";
 	dkim-atps=neutral
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C455210E077
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 08:32:23 +0000 (UTC)
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-c06cb8004e8so1269187a12.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 01:32:23 -0700 (PDT)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+ [209.85.215.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E564910E098
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 08:35:48 +0000 (UTC)
+Received: by mail-pg1-f169.google.com with SMTP id
+ 41be03b00d2f7-c76af7b0f94so2378412a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 01:35:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775464343; x=1776069143; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
+ d=gmail.com; s=20251104; t=1775464548; x=1776069348; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+ :cc:subject:date:message-id:reply-to;
  bh=MB0F9SKYr6+JVse3TW9scM+eJP0jATRzNvx3luR3WWo=;
- b=hPTVqNJZggb7pUZPPo01AmOFoHhYDcTABtR5ljiFsoOTGoq1NU0HVIERHHUkvnxvTg
- POXEqjYcEGzlg7qZomQ1muF7hx6JZJoEvkJdc8cCgZWGQIiTtPl+HZAFd46leZMCup+v
- q2Tp9ynlJuU2IOwoNgPYZfbODf67Rf6n2xK2kfmlqBeLGnIEyb6cJzJolcnzp+AKXJo2
- nSc0FgRfwpnrPM/oVtMmOkUUcMOwnpvzPc8IF8FeUmBheignjgU/cryepWJCOYeQmsoq
- mLLmETDptdlpcqa3wI7z6ywKBtECLugy9L6TwoHxGr/M47V9sw+faFAHHj4pGpUib3cd
- FYWA==
+ b=pu+PapHdg0jdcSPc3ZZU3iyEQyGWUlrn82UQlN+ObOit3J7dtxl7NMMz/7bFnYxPId
+ 6KG15yG12w4JkPu9DHk1t/wLnGYCEMncuIWv8fIi8taksOrKutkTwcG4A+FUE8tQNeNl
+ iAQU3hL/bYSJ7kic0zWGxIGMva1/HvKU8wrFqkTJiNrD6wIBvZ/5zqMjmRU1FEP3NGXI
+ XEQh40gFllJ9Ojegi04IZQ1HN3UN9BNyt/icV6GPEWBpbX4t/O0j+S3YLa2g3GS2GMBX
+ B5pkWEEfSxDJs0orx1dCBSPWPMLPdR18VRQfCW0Uz06mdFQDBTiBsNkZRjUe9M4dQSlH
+ hA0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775464343; x=1776069143;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
+ d=1e100.net; s=20251104; t=1775464548; x=1776069348;
+ h=content-transfer-encoding:in-reply-to:content-language:references
+ :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
  bh=MB0F9SKYr6+JVse3TW9scM+eJP0jATRzNvx3luR3WWo=;
- b=rCU7ka2hm81rjABZWi+b5S0Wuc7B7E3hzHAx/Q6AuK5S4oWwmwqw2Kr9KmZUR8R/Xl
- CEV0Uzd25/ggg6iFVOKZJ/IqNtfDt2OaPq9vVlHdcxXnlW0V3jVY21RayNOhyViutLmJ
- PWqyVfZGlBlTfxCZyOKFawZD4Ka1h9JuIbLq//n+Qvdh2Mh2dIN60DY7pPHuw6tweMjB
- F3ONlOHFGN9uTQp+UUAC2fesFHyxp4P2tz+Osbb/DAGBihUDwKUqSFzNvDOjdy3FLdll
- Ba4Hdb7c338BagCRmhABle0mmJGh8/F4AwfO4jcz95kTWPIaOJQbsZMYrr1UCXclI4z7
- J+fQ==
+ b=IMG/NXkROEbC20oFnh/70BvmYCWkBT2wKjq9AbWACC7y/4mp5qt/+QwRo4QYm9uSl7
+ cJJ6KESPvh6Ypua39QHeTn+W994nKfVZI4xuHchArzM1xX0ylnJTZZqC9cFbJu83/qEO
+ xPV0I3dOTcHzYOUbuSwCzCzho/Z6iraZEEeSt/g8OQABnkbWjbsz50pICcTZs2/j9Ylv
+ GUEpzW3SvWx1hnGjBvXbvYu4uSFj340sWoLojZbCjPPqVudZxJ312agM+cZJjIoWLiHR
+ JlQ7PiBSfXjC0Gl8FNP7c7J2su6O6BqufBgWu4Eo45E8vXfgo2AliHKJKzsQxFrBc2wp
+ lqVg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsAyL+Y+IFcgkhYIGGepJ0BYVDmswNOa3L6IFy0CwvntSvIrcmo/JVghK/3zKlvKbCg2mL5BXXa/4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxGWJ27MrqCbJeTCKZik416WuBrm9ElGclNgvFfBUsOIy/tZZCa
- mVaoFHwM7l31iTj0BU06bkrtkuA0fKAMe70YolSM2rAr6bweDRfZ3gp0
-X-Gm-Gg: AeBDiesFedOEcMaK/H9qc5TWj549jn2pWgVJkWab86d9dWmgwYLyTEa4vXkp+iEac1C
- jnh9whkNkpkmN0eKaApszffeVN75QJzmHqTkHMb69ETHkUa12lTtDj5mh47V6YdnRwcnp3PUQCB
- fuYIjDtdz0Y6UWWWV7kyeOLqmyI0GyugLSpIHgNHRuq3ILq627MAhmz5JmUOxibUop9YQCNmxXI
- 8NzUCzVFYFkzb3DcWtmb1S9EJC5z2IsR8WOIMVGTZ8bZHTqQ+0z3z37O4oU7ZhTpj1NLbucxEJ6
- M5rExOcRDua5dDApgUMefzkVaHpjpNAkiUvGxeQlBL14Q/va17lYJlQjOJKZUrNwhttBSnAbZ1C
- n7v3eSSiLOFaFiBM1l8+TQ6XwBgtwa8YcGlp4CbiHZthDeDrA7T5IVvRJNfKCTyU47qNCqfvkLp
- um5X/HNbFUsEMBnDNUS34Hy3FpdaBPs6pXVIaCTuvnNV8D8Xo=
-X-Received: by 2002:a05:6a00:1745:b0:82c:21df:807a with SMTP id
- d2e1a72fcca58-82d0db6ac7bmr11028578b3a.26.1775464343129; 
- Mon, 06 Apr 2026 01:32:23 -0700 (PDT)
+ AJvYcCVoFL9j4cnTUsNRmZpXUiQ6g5iLMwMppeRxlHLpmdV8PiCHnZRqBBiTKM356Hb5UUNWFv/E5wBv/JY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywy+1ya0KJ68hRM3GCn9S3i4vQOcDKK59ZTm84u8aP5mBoyxyt/
+ gaqWx+0r7ABB8S0taup3wbDpJzNRAO3LwjlaMxGGXIXR4tRS4OeH92Je
+X-Gm-Gg: AeBDieuF9kqslPLigho0PREX7JSb4rPad18cc2hrMd9/5xYsjbvvdB5/PXfIKChk7Nw
+ 8gaXnpCkmaXcG5b0m/xQuYOvNxzrrakH9U7h13sj6fiaL3gBAU0meHm7Ep2ttQrcswYKrBqle64
+ LxqjfOqk5vd17EmUlZ/IY2J8fKfCbMooJmHqBDx78zzTn+wI+Xd1jBm89wDGcW4PL6dkqgkvc3I
+ cqgLhUff+FeRMGZQYeqXM6ZSzkf2s99ZwF8woEItLWNwVlWxxYc/AztANkYb4MAy9fw6wdcyGdp
+ +3sdPSEwl0g3nFv8ACWqfSMBJzaKChG1xxb+bvGsyrlCy464W+ShNdQneJ8SH3wH2ANKJ6f40SK
+ Nje+mAFOYeYpUFR4Qh8w1LvbvcA4EsQGG2FNgX7uNv6IdZo/zFPRLdq2eDkLXEcxrH0v8hTlZoK
+ Gg8kBoj1tQ+S+TvKBFmYz2MJthMyPOr9O7osSTqfkLUgxtIqk=
+X-Received: by 2002:a05:6a20:7354:b0:39b:e321:784f with SMTP id
+ adf61e73a8af0-39f2f05041dmr12441393637.40.1775464548351; 
+ Mon, 06 Apr 2026 01:35:48 -0700 (PDT)
 Received: from [172.16.20.13] ([136.226.252.245])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82cf9b6113dsm12306813b3a.23.2026.04.06.01.32.15
+ d2e1a72fcca58-82cf9c41bc6sm13741897b3a.29.2026.04.06.01.35.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Apr 2026 01:32:22 -0700 (PDT)
-Message-ID: <68015824-8b8a-4349-a681-163a8ca3b5bc@gmail.com>
-Date: Mon, 6 Apr 2026 14:02:14 +0530
+ Mon, 06 Apr 2026 01:35:47 -0700 (PDT)
+Message-ID: <35eed359-8088-4ec0-9e16-e5cb31e0952e@gmail.com>
+Date: Mon, 6 Apr 2026 14:05:39 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: tessolveupstream@gmail.com
 Subject: Re: [PATCH v2 2/2] drm: bridge: ti-sn65dsi83: Add support for
  dual-link LVDS video mode
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
@@ -84,7 +84,6 @@ References: <20260312043743.261475-1-tessolveupstream@gmail.com>
  <9a9e13a5-411a-40bc-b52f-4345e7f6b92e@gmail.com>
  <DH5S3RB2XZ31.3C994FZK5U4OV@bootlin.com>
 Content-Language: en-US
-From: tessolveupstream@gmail.com
 In-Reply-To: <DH5S3RB2XZ31.3C994FZK5U4OV@bootlin.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
