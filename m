@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 553F6EF4ECA
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 10:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 039EAEF4EC2
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 11:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9835510E13B;
-	Mon,  6 Apr 2026 10:50:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5C2B10E232;
+	Mon,  6 Apr 2026 11:06:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WQh5ysFg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="uDSX8ZYT";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0033410E13B
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 10:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7AvgkVBxZtFcTTDxggHZFBfKWIHAFEMe9zC+9vGwXm4=; b=WQh5ysFglDsAMGC3PBjI/NOkoM
- pXqVb4E/lss+jbZlxpeGU5KLIRF4txUZpGaK3y6xBPlSq9VAuE71wd+N5QKllr57jUYFlcJxj3fNT
- DvWbG2n4tJFMy7qo9xtU+t7oqCzJSZlFDRw+cHwSXEecwZtkbPajy20kbuGtW3lCeIf+J2snbZnV9
- IzbgUAd8TADOe08F8D7qj5y6t5n4nQL/7PbDRtMXTnGfVFDYm18CeiKDTiyK5NxP9ZXsbJLtdn5Tf
- jWt5F61XLo4ATqqjoeEo4QAolB5TI9rPtmz/w75aaLB6h1515SXEDOykUvXD2eJPegfvrPlGYI+T4
- yoLR89Ww==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1w9hWj-00CX05-80; Mon, 06 Apr 2026 12:49:53 +0200
-Message-ID: <f9b615fe-697c-4e2d-910c-438ef843ad87@igalia.com>
-Date: Mon, 6 Apr 2026 11:49:52 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2351510E1EC;
+ Mon,  6 Apr 2026 11:06:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F2A944514;
+ Mon,  6 Apr 2026 11:05:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E82C19425;
+ Mon,  6 Apr 2026 11:05:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775473559;
+ bh=jWeUY2y70ibESK6vxa61BStZDdMuUDNZRSOnfa8Ra98=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uDSX8ZYTkh/NlJxxoGAd0cWMtzMGomo6b9LgNVmwu1mjYMTwy3jN1igt9EZHSX0Pe
+ nyUYkJgLG/jm++5bhOnPxBxKS7i0w79JbVBJtudVzDHyEh7HM+sqg4kxsSsIIzw3Fe
+ xn9sv32X9w1nvkWaRfS2BGv/lbL5tQZXgre8vkcZRUqdNmyFQUFDwkBzWUwIz3N1qi
+ rXCW33txp62kPI+QMWImMxKmF3qQkNW8rYypFHiBtn1+c0VwFz4IAVFb5piR9CwZGK
+ B7VFCsGCUxbvH5+hxgGKJcOUHqzm4DnK39PoYVvfnGrqLo2DNW7O4qSPhPjEMH8FRk
+ 3nJWONlYUOjtw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Donet Tom <donettom@linux.ibm.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.19-6.18] drm/amdkfd: Fix queue preemption/eviction
+ failures by aligning control stack size to GPU page size
+Date: Mon,  6 Apr 2026 07:05:38 -0400
+Message-ID: <20260406110553.3783076-4-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260406110553.3783076-1-sashal@kernel.org>
+References: <20260406110553.3783076-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] drm/vc4: Add DRM GPU scheduler infrastructure and
- job structures
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com>
- <20260402-vc4-drm-scheduler-v2-2-d84afd35c602@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260402-vc4-drm-scheduler-v2-2-d84afd35c602@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.19.11
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,712 +67,460 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Donet Tom <donettom@linux.ibm.com>
 
-On 02/04/2026 19:36, Maíra Canal wrote:
-> Introduce `struct vc4_job` as the new base structure for GPU jobs, with
-> `vc4_bin_job` and `vc4_render_job` as specialized variants for BIN and
-> RENDER jobs, respectively. These structures embed `struct drm_sched_job`
-> and will be used with the DRM GPU scheduler. The `vc4_exec_info` struct
-> now holds pointers to these job structs, allowing the existing validation
-> code to populate job fields during command list processing.
-> 
-> Add the core scheduler infrastructure in the new file "vc4_sched.c",
-> which implements scheduler operations for BIN and RENDER queues, timeout
-> handling, and job cleanup. Each queue has its own scheduler instance.
-> 
-> This design is largely inspired by the v3d driver.
-> 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/vc4/vc4_drv.c   |  24 +++
->   drivers/gpu/drm/vc4/vc4_drv.h   | 117 +++++++++++++-
->   drivers/gpu/drm/vc4/vc4_fence.c |  18 +++
->   drivers/gpu/drm/vc4/vc4_gem.c   |   8 +-
->   drivers/gpu/drm/vc4/vc4_sched.c | 337 ++++++++++++++++++++++++++++++++++++++++
->   5 files changed, 502 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-> index 616caf9d9915b9ed7f614d6f0339fa6ee2cb80e3..cacd4cb942593b44f2210b7738bd964ebc34522d 100644
-> --- a/drivers/gpu/drm/vc4/vc4_drv.c
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
-> @@ -145,7 +145,10 @@ static int vc4_get_param_ioctl(struct drm_device *dev, void *data,
->   static int vc4_open(struct drm_device *dev, struct drm_file *file)
->   {
->   	struct vc4_dev *vc4 = to_vc4_dev(dev);
-> +	struct drm_gpu_scheduler *sched;
->   	struct vc4_file *vc4file;
-> +	enum vc4_queue q;
-> +	int ret;
->   
->   	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
->   		return -ENODEV;
-> @@ -155,15 +158,33 @@ static int vc4_open(struct drm_device *dev, struct drm_file *file)
->   		return -ENOMEM;
->   	vc4file->dev = vc4;
->   
-> +	for (q = 0; q < VC4_MAX_QUEUES; q++) {
-> +		sched = &vc4->queue[q].sched;
-> +		ret = drm_sched_entity_init(&vc4file->sched_entity[q],
-> +					    DRM_SCHED_PRIORITY_NORMAL, &sched,
-> +					    1, NULL);
-> +		if (ret)
-> +			goto err_sched;
-> +	}
-> +
->   	vc4_perfmon_open_file(vc4file);
->   	file->driver_priv = vc4file;
-> +
->   	return 0;
-> +
-> +err_sched:
-> +	for (q--; q >= 0; q--)
-> +		drm_sched_entity_destroy(&vc4file->sched_entity[q]);
-> +	kfree(vc4file);
-> +	return ret;
-> +
->   }
->   
->   static void vc4_close(struct drm_device *dev, struct drm_file *file)
->   {
->   	struct vc4_dev *vc4 = to_vc4_dev(dev);
->   	struct vc4_file *vc4file = file->driver_priv;
-> +	enum vc4_queue q;
->   
->   	if (WARN_ON_ONCE(vc4->gen > VC4_GEN_4))
->   		return;
-> @@ -171,6 +192,9 @@ static void vc4_close(struct drm_device *dev, struct drm_file *file)
->   	if (vc4file->bin_bo_used)
->   		vc4_v3d_bin_bo_put(vc4);
->   
-> +	for (q = 0; q < VC4_MAX_QUEUES; q++)
-> +		drm_sched_entity_destroy(&vc4file->sched_entity[q]);
-> +
->   	vc4_perfmon_close_file(vc4file);
->   	kfree(vc4file);
->   }
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-> index 0f2fb035fef177dd446ff8322da2413c861ecfd3..b828c56f98965944b94a330e6c4e5ff95c9ab8f8 100644
-> --- a/drivers/gpu/drm/vc4/vc4_drv.h
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.h
-> @@ -20,6 +20,7 @@
->   #include <drm/drm_managed.h>
->   #include <drm/drm_mm.h>
->   #include <drm/drm_modeset_lock.h>
-> +#include <drm/gpu_scheduler.h>
->   
->   #include <kunit/test-bug.h>
->   
-> @@ -31,6 +32,19 @@ struct drm_gem_object;
->   extern const struct drm_driver vc4_drm_driver;
->   extern const struct drm_driver vc5_drm_driver;
->   
-> +enum vc4_queue {
-> +	VC4_BIN,
-> +	VC4_RENDER,
-> +	VC4_MAX_QUEUES,
-> +};
-> +
-> +struct vc4_queue_state {
-> +	struct drm_gpu_scheduler sched;
-> +
-> +	u64 fence_context;
-> +	u64 emit_seqno;
-> +};
-> +
->   /* Don't forget to update vc4_bo.c: bo_type_names[] when adding to
->    * this.
->    */
-> @@ -152,6 +166,12 @@ struct vc4_dev {
->   	 */
->   	uint64_t emit_seqno;
->   
-> +	struct vc4_queue_state queue[VC4_MAX_QUEUES];
-> +
-> +	struct vc4_bin_job *bin_job;
-> +
-> +	struct vc4_render_job *render_job;
-> +
->   	/* Sequence number for the last completed job on the GPU.
->   	 * Starts at 0 (no jobs completed).
->   	 */
-> @@ -174,6 +194,18 @@ struct vc4_dev {
->   	 * job_done_work.
->   	 */
->   	struct list_head job_done_list;
-> +
-> +	/* Lock taken when resetting the GPU, to keep multiple
-> +	 * processes from trying to park the scheduler threads and
-> +	 * reset at once.
-> +	 */
-> +	struct mutex reset_lock;
-> +
-> +	/* Lock taken when creating and pushing the GPU scheduler
-> +	 * jobs. This lock protects the DRM scheduler arm + push pair.
-> +	 */
-> +	struct mutex sched_lock;
-> +
->   	/* Spinlock used to synchronize the job_list and seqno
->   	 * accesses between the IRQ handler and GEM ioctls.
->   	 */
-> @@ -282,8 +314,8 @@ struct vc4_bo {
->   struct vc4_fence {
->   	struct dma_fence base;
->   	struct drm_device *dev;
-> -	/* vc4 seqno for signaled() test */
->   	uint64_t seqno;
-> +	enum vc4_queue queue;
->   };
->   
->   #define to_vc4_fence(_fence)					\
-> @@ -668,9 +700,84 @@ struct vc4_crtc_state {
->   
->   #define VC4_REG32(reg) { .name = #reg, .offset = reg }
->   
-> +struct vc4_job {
-> +	struct drm_sched_job base;
-> +
-> +	struct kref refcount;
-> +
-> +	struct vc4_dev *vc4;
-> +
-> +	/* Fence to be signaled by IRQ handler when the job is complete. */
-> +	struct dma_fence *irq_fence;
-> +
-> +	/* Scheduler fence for when the job is considered complete and
-> +	 * the BO reservations can be released.
-> +	 */
-> +	struct dma_fence *done_fence;
-> +
-> +	/* Last current and return addresses the hardware was processing when
-> +	 * the job timedout.
-> +	 */
-> +	u32 timedout_ctca, timedout_ctra;
-> +
-> +	/* Pointer to a performance monitor object if the user requested it,
-> +	 * NULL otherwise.
-> +	 */
-> +	struct vc4_perfmon *perfmon;
-> +
-> +	/* Callback for the freeing of the job on refcount going to 0. */
-> +	void (*free)(struct kref *ref);
-> +};
-> +
-> +struct vc4_bin_job {
-> +	struct vc4_job base;
-> +
-> +	uint32_t ct0ca, ct0ea;
-> +
-> +	/* Corresponding render job, for attaching our overflow memory. */
-> +	struct vc4_render_job *render;
-> +
-> +	/* Whether the exec has taken a reference to the binner BO, which should
-> +	 * happen with a VC4_PACKET_TILE_BINNING_MODE_CONFIG packet.
-> +	 */
-> +	bool bin_bo_used;
-> +};
-> +
-> +struct vc4_render_job {
-> +	struct vc4_job base;
-> +
-> +	uint32_t ct1ca, ct1ea;
-> +
-> +	/* This is the array of BOs that were looked up at the start of submission.
-> +	 * Command validation will use indices into this array.
-> +	 */
-> +	struct drm_gem_object **bo;
-> +	u32 bo_count;
-> +
-> +	/* List of other BOs used in the job that need to be released
-> +	 * once the job is complete.
-> +	 */
-> +	struct list_head unref_list;
-> +
-> +	/* List of BOs that are being written by the RCL. Other than
-> +	 * the binner temporary storage, this is all the BOs written
-> +	 * by the job.
-> +	 */
-> +	struct drm_gem_dma_object *rcl_write_bo[4];
-> +	uint32_t rcl_write_bo_count;
-> +
-> +	/* Bitmask of which binner slots are freed when this job completes.
-> +	 * Must remain allocated until the render job completes.
-> +	 */
-> +	uint32_t bin_slots;
-> +};
-> +
->   struct vc4_exec_info {
->   	struct vc4_dev *dev;
->   
-> +	struct vc4_bin_job *bin;
-> +	struct vc4_render_job *render;
-> +
->   	/* Sequence number for this bin/render job. */
->   	uint64_t seqno;
->   
-> @@ -793,6 +900,8 @@ struct vc4_file {
->   
->   	struct xarray perfmons;
->   
-> +	struct drm_sched_entity sched_entity[VC4_MAX_QUEUES];
-> +
->   	bool bin_bo_used;
->   };
->   
-> @@ -985,6 +1094,7 @@ extern struct platform_driver vc4_dsi_driver;
->   
->   /* vc4_fence.c */
->   extern const struct dma_fence_ops vc4_fence_ops;
-> +struct dma_fence *vc4_fence_create(struct vc4_dev *vc4, enum vc4_queue queue);
->   
->   /* vc4_gem.c */
->   int vc4_gem_init(struct drm_device *dev);
-> @@ -1000,6 +1110,7 @@ int vc4_wait_for_seqno(struct drm_device *dev, uint64_t seqno,
->   void vc4_job_handle_completed(struct vc4_dev *vc4);
->   int vc4_gem_madvise_ioctl(struct drm_device *dev, void *data,
->   			  struct drm_file *file_priv);
-> +void vc4_save_hang_state(struct drm_device *dev);
->   
->   /* vc4_hdmi.c */
->   extern struct platform_driver vc4_hdmi_driver;
-> @@ -1098,4 +1209,8 @@ int vc4_perfmon_destroy_ioctl(struct drm_device *dev, void *data,
->   int vc4_perfmon_get_values_ioctl(struct drm_device *dev, void *data,
->   				 struct drm_file *file_priv);
->   
-> +/* vc4_sched.c */
-> +int vc4_sched_init(struct vc4_dev *vc4);
-> +void vc4_sched_fini(struct vc4_dev *vc4);
-> +
->   #endif /* _VC4_DRV_H_ */
-> diff --git a/drivers/gpu/drm/vc4/vc4_fence.c b/drivers/gpu/drm/vc4/vc4_fence.c
-> index 580214e2158c7dcf39253f2148dea478ffe20e68..18e8c53563d62a3f7a725c1552c3ffe3cced77cc 100644
-> --- a/drivers/gpu/drm/vc4/vc4_fence.c
-> +++ b/drivers/gpu/drm/vc4/vc4_fence.c
-> @@ -23,6 +23,24 @@
->   
->   #include "vc4_drv.h"
->   
-> +struct dma_fence *vc4_fence_create(struct vc4_dev *vc4, enum vc4_queue q)
-> +{
-> +	struct vc4_queue_state *queue = &vc4->queue[q];
-> +	struct vc4_fence *fence;
-> +
-> +	fence = kzalloc_obj(*fence);
-> +	if (!fence)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	fence->dev = &vc4->base;
-> +	fence->queue = q;
-> +	fence->seqno = ++queue->emit_seqno;
+[ Upstream commit 78746a474e92fc7aaed12219bec7c78ae1bd6156 ]
 
-The increment is serialized by the run_job / scheduler worker, okay.
+The control stack size is calculated based on the number of CUs and
+waves, and is then aligned to PAGE_SIZE. When the resulting control
+stack size is aligned to 64 KB, GPU hangs and queue preemption
+failures are observed while running RCCL unit tests on systems with
+more than two GPUs.
 
-I was only slightly wondering, given how this function is in a different 
-component, whether it could somehow be possible to better separate the 
-responsibilities and remove this knowledge from vc4_fence.c. Though it 
-is somewhat of a bike shedding territory, maybe let the caller pass in 
-all the data? Like:
+amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
+doorbell_id: 80030008
+amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
+amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
+doorbell_id: 80030008
+amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
+amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
 
-vc4_fence_create(vc4, queue, context, seqno)
+This issue is observed on both 4 KB and 64 KB system page-size
+configurations.
 
-> +	dma_fence_init(&fence->base, &vc4_fence_ops, NULL, queue->fence_context,
-> +		       fence->seqno);
-> +
-> +	return &fence->base;
-> +}
-> +
->   static const char *vc4_fence_get_driver_name(struct dma_fence *fence)
->   {
->   	return "vc4";
-> diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-> index 614a2db245636c39855bc10727b62c00a6374f45..5af4386f4b39c7da9041c0a2ae49c91632412e72 100644
-> --- a/drivers/gpu/drm/vc4/vc4_gem.c
-> +++ b/drivers/gpu/drm/vc4/vc4_gem.c
-> @@ -149,7 +149,7 @@ vc4_get_hang_state_ioctl(struct drm_device *dev, void *data,
->   	return ret;
->   }
->   
-> -static void
-> +void
->   vc4_save_hang_state(struct drm_device *dev)
->   {
->   	struct vc4_dev *vc4 = to_vc4_dev(dev);
-> @@ -1135,6 +1135,12 @@ int vc4_gem_init(struct drm_device *dev)
->   	INIT_LIST_HEAD(&vc4->render_job_list);
->   	INIT_LIST_HEAD(&vc4->job_done_list);
->   	spin_lock_init(&vc4->job_lock);
-> +	ret = drmm_mutex_init(dev, &vc4->reset_lock);
-> +	if (ret)
-> +		return ret;
-> +	ret = drmm_mutex_init(dev, &vc4->sched_lock);
-> +	if (ret)
-> +		return ret;
->   
->   	INIT_WORK(&vc4->hangcheck.reset_work, vc4_reset_work);
->   	timer_setup(&vc4->hangcheck.timer, vc4_hangcheck_elapsed, 0);
-> diff --git a/drivers/gpu/drm/vc4/vc4_sched.c b/drivers/gpu/drm/vc4/vc4_sched.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..5c41c83a92aaf9b0bb9eb23ba93062337cb41011
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vc4/vc4_sched.c
-> @@ -0,0 +1,337 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/* Copyright (C) 2026 Raspberry Pi */
-> +
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +
-> +#include <drm/drm_print.h>
-> +
-> +#include "vc4_drv.h"
-> +#include "vc4_regs.h"
-> +#include "vc4_trace.h"
-> +
-> +static struct vc4_job *
-> +to_vc4_job(struct drm_sched_job *sched_job)
-> +{
-> +	return container_of(sched_job, struct vc4_job, base);
-> +}
-> +
-> +static struct vc4_bin_job *
-> +to_bin_job(struct drm_sched_job *sched_job)
-> +{
-> +	return container_of(sched_job, struct vc4_bin_job, base.base);
-> +}
-> +
-> +static struct vc4_render_job *
-> +to_render_job(struct drm_sched_job *sched_job)
-> +{
-> +	return container_of(sched_job, struct vc4_render_job, base.base);
-> +}
-> +
-> +static void
-> +vc4_flush_caches(struct drm_device *dev)
-> +{
-> +	struct vc4_dev *vc4 = to_vc4_dev(dev);
-> +
-> +	/* Flush the GPU L2 caches.  These caches sit on top of system
-> +	 * L3 (the 128kb or so shared with the CPU), and are
-> +	 * non-allocating in the L3.
-> +	 */
-> +	V3D_WRITE(V3D_L2CACTL, V3D_L2CACTL_L2CCLR);
-> +
-> +	V3D_WRITE(V3D_SLCACTL,
-> +		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T1CC) |
-> +		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T0CC) |
-> +		  VC4_SET_FIELD(0xf, V3D_SLCACTL_UCC) |
-> +		  VC4_SET_FIELD(0xf, V3D_SLCACTL_ICC));
-> +}
-> +
-> +static void
-> +vc4_flush_texture_caches(struct drm_device *dev)
-> +{
-> +	struct vc4_dev *vc4 = to_vc4_dev(dev);
-> +
-> +	V3D_WRITE(V3D_L2CACTL, V3D_L2CACTL_L2CCLR);
-> +
-> +	V3D_WRITE(V3D_SLCACTL,
-> +		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T1CC) |
-> +		  VC4_SET_FIELD(0xf, V3D_SLCACTL_T0CC));
-> +}
-> +
-> +static void
-> +vc4_sched_job_free(struct drm_sched_job *sched_job)
-> +{
-> +	struct vc4_job *job = to_vc4_job(sched_job);
-> +
-> +	vc4_job_cleanup(job);
-> +}
-> +
-> +static void
-> +vc4_switch_perfmon(struct vc4_dev *vc4, struct vc4_job *job)
-> +{
-> +	if (vc4->active_perfmon && vc4->active_perfmon != job->perfmon)
-> +		vc4_perfmon_stop(vc4, vc4->active_perfmon, true);
-> +
-> +	if (job->perfmon && vc4->active_perfmon != job->perfmon)
-> +		vc4_perfmon_start(vc4, job->perfmon);
+This patch fixes the issue by aligning the control stack size to
+AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
+will not be 64 KB on systems with a 64 KB page size and queue
+preemption works correctly.
 
-I think some conditionals end up redundant in this flow by the end of 
-the series. Here versus the vc4_perfmon_stop/start have internal checks. 
-Maybe vc4_perfmon_switch could be more streamlined, or maybe even moved 
-to vc4_perfmon.c next to start and stop? Up to you.
+Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE,
+which can waste memory if the system page size is large. In this patch,
+wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calculated
+from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
 
-Also, is the fact perfmon stop is no longer on job irq complete but on 
-next job run relevant? What about updating the counters when a job 
-completes and there is nothing further queued up? Or I missed something?
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit a3e14436304392fbada359edd0f1d1659850c9b7)
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
 
-> +}
-> +
-> +static struct dma_fence *vc4_bin_job_run(struct drm_sched_job *sched_job)
-> +{
-> +	struct vc4_bin_job *job = to_bin_job(sched_job);
-> +	struct vc4_dev *vc4 = job->base.vc4;
-> +	struct drm_device *dev = &vc4->base;
-> +	struct dma_fence *fence;
-> +
-> +	if (unlikely(job->base.base.s_fence->finished.error))
-> +		goto err_clean_bin_job;
-> +
-> +	/* Lock required around bin_job update vs vc4_overflow_mem_work(). */
-> +	spin_lock_irq(&vc4->job_lock);
-> +	vc4->bin_job = job;
-> +
-> +	/* Reset the overflow allocation registers to prevent the binner from
-> +	 * writing to a slot that a concurrent render job might free. The first
-> +	 * OUTOMEM interrupt will allocate a fresh slot.
-> +	 */
-> +	V3D_WRITE(V3D_BPOA, 0);
-> +	V3D_WRITE(V3D_BPOS, 0);
-> +	spin_unlock_irq(&vc4->job_lock);
-> +
-> +	vc4_flush_caches(dev);
-> +
-> +	fence = vc4_fence_create(vc4, VC4_BIN);
-> +	if (IS_ERR(fence))
-> +		goto err_clean_bin_job;
-> +
-> +	/* Release the previous fence if the scheduler is resubmitting this
-> +	 * job after a GPU reset.
-> +	 */
-> +	if (job->base.irq_fence)
-> +		dma_fence_put(job->base.irq_fence);
-> +	job->base.irq_fence = dma_fence_get(fence);
+LLM Generated explanations, may be completely bogus:
 
-One ref for the scheduler, one for job->base.irq_fence. Where is the 
-latter released?
+Now I have all the information needed for a thorough analysis.
 
-> +
-> +	trace_vc4_submit_cl(dev, false, to_vc4_fence(fence)->seqno,
-> +			    job->ct0ca, job->ct0ea);
-> +
-> +	vc4_switch_perfmon(vc4, &job->base);
-> +
-> +	V3D_WRITE(V3D_CTNCA(0), job->ct0ca);
-> +	V3D_WRITE(V3D_CTNEA(0), job->ct0ea);
-> +
-> +	return fence;
-> +
-> +err_clean_bin_job:
-> +	spin_lock_irq(&vc4->job_lock);
-> +	vc4->bin_job = NULL;
-> +	spin_unlock_irq(&vc4->job_lock);
-> +	return NULL;
-> +}
-> +
-> +static struct dma_fence *vc4_render_job_run(struct drm_sched_job *sched_job)
-> +{
-> +	struct vc4_render_job *job = to_render_job(sched_job);
-> +	struct vc4_dev *vc4 = job->base.vc4;
-> +	struct drm_device *dev = &vc4->base;
-> +	struct dma_fence *fence;
-> +
-> +	if (unlikely(job->base.base.s_fence->finished.error))
-> +		goto err_clean_render_job;
-> +
-> +	vc4->render_job = job;
-> +
-> +	/* A previous RCL may have written to one of our textures, and
-> +	 * our full cache flush at bin time may have occurred before
-> +	 * that RCL completed. Flush the texture cache now, but not
-> +	 * the instructions or uniforms (since we don't write those
-> +	 * from an RCL).
-> +	 */
-> +	vc4_flush_texture_caches(dev);
-> +
-> +	fence = vc4_fence_create(vc4, VC4_RENDER);
-> +	if (IS_ERR(fence))
-> +		goto err_clean_render_job;
-> +
-> +	/* Release the previous fence if the scheduler is resubmitting this
-> +	 * job after a GPU reset.
-> +	 */
-> +	if (job->base.irq_fence)
-> +		dma_fence_put(job->base.irq_fence);
-> +	job->base.irq_fence = dma_fence_get(fence);
-> +
-> +	trace_vc4_submit_cl(dev, true, to_vc4_fence(fence)->seqno,
-> +			    job->ct1ca, job->ct1ea);
-> +
-> +	vc4_switch_perfmon(vc4, &job->base);
-> +
-> +	V3D_WRITE(V3D_CTNCA(1), job->ct1ca);
-> +	V3D_WRITE(V3D_CTNEA(1), job->ct1ea);
-> +
-> +	return fence;
-> +
-> +err_clean_render_job:
-> +	spin_lock_irq(&vc4->job_lock);
-> +	vc4->render_job = NULL;
-> +	spin_unlock_irq(&vc4->job_lock);
-> +	return NULL;
-> +}
-> +
-> +static void
-> +vc4_reset(struct drm_device *dev)
-> +{
-> +	struct vc4_dev *vc4 = to_vc4_dev(dev);
-> +
-> +	drm_err(dev, "Resetting GPU.\n");
-> +
-> +	mutex_lock(&vc4->power_lock);
-> +	if (vc4->power_refcount) {
-> +		/* Power the device off and back on the by dropping the
-> +		 * reference on runtime PM.
-> +		 */
-> +		pm_runtime_put_sync_suspend(&vc4->v3d->pdev->dev);
-> +		pm_runtime_get_sync(&vc4->v3d->pdev->dev);
-> +	}
-> +	mutex_unlock(&vc4->power_lock);
-> +
-> +	vc4_irq_reset(dev);
-> +}
-> +
-> +static enum drm_gpu_sched_stat
-> +vc4_gpu_reset_for_timeout(struct vc4_dev *vc4, struct drm_sched_job *sched_job)
-> +{
-> +	enum vc4_queue q;
-> +
-> +	mutex_lock(&vc4->reset_lock);
-> +
-> +	/* block scheduler */
-> +	for (q = 0; q < VC4_MAX_QUEUES; q++)
-> +		drm_sched_stop(&vc4->queue[q].sched, sched_job);
-> +
-> +	if (sched_job) {
-> +		drm_sched_increase_karma(sched_job);
-> +
-> +		/* If the guilty job is a BIN job, also increase the karma
-> +		 * of its paired render job. Otherwise, the RENDER job would
-> +		 * be submitted to the GPU without binner output.
-> +		 */
-> +		if (sched_job->sched == &vc4->queue[VC4_BIN].sched) {
-> +			struct vc4_bin_job *bin = to_bin_job(sched_job);
-> +
-> +			drm_sched_increase_karma(&bin->render->base.base);
-> +		}
-> +	}
-> +
-> +	vc4_save_hang_state(&vc4->base);
-> +
-> +	/* get the GPU back into the init state */
-> +	vc4_reset(&vc4->base);
-> +
-> +	for (q = 0; q < VC4_MAX_QUEUES; q++)
-> +		drm_sched_resubmit_jobs(&vc4->queue[q].sched);
-> +
-> +	/* Unblock schedulers and restart their jobs. */
-> +	for (q = 0; q < VC4_MAX_QUEUES; q++)
-> +		drm_sched_start(&vc4->queue[q].sched, 0);
-> +
-> +	mutex_unlock(&vc4->reset_lock);
-> +
-> +	return DRM_GPU_SCHED_STAT_RESET;
-> +}
-> +
-> +static enum drm_gpu_sched_stat
-> +vc4_cl_job_timedout(struct drm_sched_job *sched_job, enum vc4_queue q)
-> +{
-> +	struct vc4_job *job = to_vc4_job(sched_job);
-> +	struct vc4_dev *vc4 = job->vc4;
-> +	u32 ctca = V3D_READ(V3D_CTNCA(q));
-> +	u32 ctra = V3D_READ(V3D_CTNRA0(q));
-> +
-> +	/* If the current address or return address have changed, then the GPU
-> +	 * has probably made progress and we should delay the reset. This could
-> +	 * fail if the GPU got in an infinite loop in the CL, but that is pretty
-> +	 * unlikely outside of an i-g-t testcase.
-> +	 */
-> +	if (job->timedout_ctca != ctca || job->timedout_ctra != ctra) {
-> +		job->timedout_ctca = ctca;
-> +		job->timedout_ctra = ctra;
-> +
-> +		return DRM_GPU_SCHED_STAT_NO_HANG;
-> +	}
-> +
-> +	return vc4_gpu_reset_for_timeout(vc4, sched_job);
-> +}
-> +
-> +static enum drm_gpu_sched_stat
-> +vc4_bin_job_timedout(struct drm_sched_job *sched_job)
-> +{
-> +	return vc4_cl_job_timedout(sched_job, VC4_BIN);
-> +}
-> +
-> +static enum drm_gpu_sched_stat
-> +vc4_render_job_timedout(struct drm_sched_job *sched_job)
-> +{
-> +	return vc4_cl_job_timedout(sched_job, VC4_RENDER);
-> +}
-> +
-> +static const struct drm_sched_backend_ops vc4_bin_sched_ops = {
-> +	.run_job = vc4_bin_job_run,
-> +	.timedout_job = vc4_bin_job_timedout,
-> +	.free_job = vc4_sched_job_free,
-> +};
-> +
-> +static const struct drm_sched_backend_ops vc4_render_sched_ops = {
-> +	.run_job = vc4_render_job_run,
-> +	.timedout_job = vc4_render_job_timedout,
-> +	.free_job = vc4_sched_job_free,
-> +};
-> +
-> +static int
-> +vc4_queue_sched_init(struct vc4_dev *vc4, const struct drm_sched_backend_ops *ops,
-> +		     enum vc4_queue queue, const char *name)
-> +{
-> +	struct drm_sched_init_args args = {
-> +		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
-> +		.credit_limit = 1,
-> +		.timeout = msecs_to_jiffies(500),
-> +		.dev = vc4->base.dev,
-> +	};
-> +
-> +	args.ops = ops;
-> +	args.name = name;
-> +
-> +	return drm_sched_init(&vc4->queue[queue].sched, &args);
-> +}
-> +
-> +int
-> +vc4_sched_init(struct vc4_dev *vc4)
-> +{
-> +	int ret;
-> +
-> +	for (int i = 0; i < VC4_MAX_QUEUES; i++)
-> +		vc4->queue[i].fence_context = dma_fence_context_alloc(1);
+---
 
-Bike shedding - could move the "cannot fail" steps to be last. Or even 
-allocate the fence context in vc4_queue_sched_init.
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-Regards,
+### Step 1.1: Subject Line Analysis
+- **Subsystem**: drm/amdkfd (AMD KFD - Kernel Fusion Driver for GPU
+  compute)
+- **Action verb**: "Fix" - explicitly a bug fix
+- **Summary**: Fixes GPU queue preemption/eviction failures by aligning
+  control stack size to GPU page size instead of system page size
 
-Tvrtko
+Record: [drm/amdkfd] [Fix] [Queue preemption/eviction failures from
+incorrect alignment to CPU page size]
 
-> +
-> +	ret = vc4_queue_sched_init(vc4, &vc4_bin_sched_ops,
-> +				   VC4_BIN, "vc4_bin");
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = vc4_queue_sched_init(vc4, &vc4_render_sched_ops,
-> +				   VC4_RENDER, "vc4_render");
-> +	if (ret) {
-> +		vc4_sched_fini(vc4);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +void
-> +vc4_sched_fini(struct vc4_dev *vc4)
-> +{
-> +	enum vc4_queue q;
-> +
-> +	for (q = 0; q < VC4_MAX_QUEUES; q++) {
-> +		if (vc4->queue[q].sched.ready)
-> +			drm_sched_fini(&vc4->queue[q].sched);
-> +	}
-> +}
-> 
+### Step 1.2: Tags
+- **Reviewed-by**: Felix Kuehling <felix.kuehling@amd.com> (AMD KFD
+  subsystem maintainer)
+- **Signed-off-by**: Donet Tom <donettom@linux.ibm.com> (author, IBM)
+- **Signed-off-by**: Alex Deucher <alexander.deucher@amd.com> (AMD GPU
+  maintainer)
+- **Cherry-picked from**: a3e14436304392fbada359edd0f1d1659850c9b7
+- No Fixes: tag (expected for manual review candidates)
+- No Cc: stable (expected)
+
+Record: Reviewed by AMD KFD maintainer. Author is from IBM (Power
+systems, which commonly use 64KB page sizes). Maintainer signoff from
+Alex Deucher.
+
+### Step 1.3: Commit Body Text
+The commit describes a clear, reproducible bug:
+- **Bug**: When control stack size aligns to 64 KB (on systems with
+  PAGE_SIZE=64KB), GPU hangs and queue preemption failures occur
+- **Symptom**: Real error messages included: "Queue preemption failed",
+  "Failed to evict process queues", "GPU reset begin!"
+- **Trigger**: Running RCCL unit tests on systems with more than two
+  GPUs
+- **Root cause**: Control stack size aligned to CPU PAGE_SIZE (which can
+  be 64KB) instead of AMDGPU_GPU_PAGE_SIZE (always 4KB)
+- **Affected configurations**: Both 4KB and 64KB system page-size
+  configurations (but the bug only manifests on 64KB page systems)
+
+Record: GPU hang, queue preemption failures, GPU resets. Clearly
+documented with error messages. IBM Power10 with AMD Instinct GPUs is
+the main platform affected.
+
+### Step 1.4: Hidden Bug Fix Detection
+This is not hidden - it is explicitly labeled as a fix with clear error
+messages and reproduction scenario.
+
+Record: Not a hidden fix; explicitly a bug fix with documented failure
+mode.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory of Changes
+- **Files changed**: 1 (drivers/gpu/drm/amd/amdkfd/kfd_queue.c)
+- **Lines changed**: ~5 lines modified in one function
+- **Functions modified**: `kfd_queue_ctx_save_restore_size()`
+- **Scope**: Single-file surgical fix
+
+Record: 1 file, ~5 lines, 1 function. Very small, very contained.
+
+### Step 2.2: Code Flow Changes
+
+**Hunk 1**: `wg_data_size` alignment changed from `PAGE_SIZE` to
+`AMDGPU_GPU_PAGE_SIZE`
+- Before: `ALIGN(..., PAGE_SIZE)` → on 64KB page systems, aligns to 64KB
+- After: `ALIGN(..., AMDGPU_GPU_PAGE_SIZE)` → always aligns to 4KB (GPU
+  page size)
+
+**Hunk 2**: `ctl_stack_size` alignment changed from `PAGE_SIZE` to
+`AMDGPU_GPU_PAGE_SIZE`
+- Before: `ALIGN(..., PAGE_SIZE)` → on 64KB page systems, could produce
+  64KB
+- After: `ALIGN(..., AMDGPU_GPU_PAGE_SIZE)` → always aligns to 4KB
+
+**Hunk 3**: `cwsr_size` now aligned to `PAGE_SIZE` for final system
+memory allocation
+- Before: `cwsr_size = ctl_stack_size + wg_data_size` (no final
+  alignment)
+- After: `cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE)`
+  (ensures system page alignment for memory allocation)
+
+Record: Intermediate GPU-internal sizes align to GPU page (4KB), final
+allocation size aligns to CPU page. This is the correct design pattern.
+
+### Step 2.3: Bug Mechanism
+Category: **Logic/correctness fix** - wrong alignment boundary causes
+hardware-incompatible control stack sizes.
+
+On 64KB page systems, the control stack was being padded to 64KB, which
+is incompatible with the GPU hardware's expectations. The GPU hardware
+operates with 4KB pages, so GPU-internal structures should be aligned to
+GPU page boundaries (4KB), not CPU page boundaries.
+
+Record: Logic/correctness bug. Wrong alignment boundary (CPU vs GPU page
+size) causes GPU hardware to fail during queue preemption.
+
+### Step 2.4: Fix Quality
+- **Obviously correct**: Yes. GPU internal structures should align to
+  GPU page size, not CPU page size. The final allocation aligns to CPU
+  page size for system memory.
+- **Minimal/surgical**: Yes. Only 3 alignment changes in one function.
+- **Regression risk**: Very low. On 4KB page systems (majority), this is
+  a no-op since `AMDGPU_GPU_PAGE_SIZE == PAGE_SIZE == 4096`. The
+  `ALIGN(cwsr_size, PAGE_SIZE)` addition only rounds up, never down.
+- **Red flags**: None.
+
+Record: Obviously correct, minimal, very low regression risk. No-op on
+4KB page systems.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: Blame the Changed Lines
+The buggy code was introduced in commit `517fff221c1e6` ("drm/amdkfd:
+Store queue cwsr area size to node properties") by Philip Yang, which
+first appeared in v6.12.
+
+Record: Buggy code introduced in v6.12 (commit 517fff221c1e6). Present
+in stable trees v6.12.y and later.
+
+### Step 3.2: Fixes Tag
+No explicit Fixes: tag present. However, the buggy commit is clearly
+`517fff221c1e6` which introduced this function with PAGE_SIZE alignment.
+
+Record: No Fixes: tag, but root cause commit identified as 517fff221c1e6
+(v6.12).
+
+### Step 3.3: File History
+Recent changes to kfd_queue.c include relaxing size checks, bumping vgpr
+sizes, and GFX7/8 queue validation fixes. Several changes have occurred
+since v6.12 (7 commits) that modified the function and surrounding code.
+
+Record: 7 commits changed this file since v6.12. The function has had
+some macro changes (WG_CONTEXT_DATA_SIZE_PER_CU now takes props
+parameter). Minor backport adjustment may be needed.
+
+### Step 3.4: Author's Commits
+Donet Tom from IBM has authored related non-4K page size fixes:
+- "Fix GART PTE for non-4K pagesize in svm_migrate_gart_map()"
+- "Relax size checking during queue buffer get"
+- Companion patch: "drm/amd: Fix MQD and control stack alignment for
+  non-4K"
+
+Record: Author is actively fixing non-4K page size issues in AMD GPU
+drivers. Specialized domain knowledge from IBM Power platform.
+
+### Step 3.5: Dependencies
+The companion MQD alignment patch (`6caeace0d1471`) touches different
+files (amdgpu_gart.c, amdgpu_ttm.c, kfd_mqd_manager_v9.c) and is NOT in
+HEAD. It addresses a separate issue (memory type assignment for MQD vs
+control stack on gfx9). The commit under review is self-contained - it
+only changes size calculations.
+
+On stable 6.12.y, the `WG_CONTEXT_DATA_SIZE_PER_CU` macro takes only
+`(gfxv)` not `(gfxv, props)`. This means the patch will need a trivial
+context adjustment for clean application to 6.12.y.
+
+Record: Self-contained fix. Minor context adjustment needed for 6.12.y
+due to macro signature difference. Companion MQD patch is independent.
+
+---
+
+## PHASE 4: MAILING LIST RESEARCH
+
+### Step 4.1: Patch Discussion
+The patch went through three RFC versions and a final PATCH v2:
+- **Christian König** initially raised concerns about debugger CPU-side
+  alignment, but later gave **Acked-by** after the fix was demonstrated
+  to resolve GPU hangs
+- **Felix Kuehling** gave formal **Reviewed-by** and stated "The series
+  looks good to me"
+- **Alex Deucher** confirmed inclusion for mainline
+- No NAKs
+- No explicit stable nomination found in discussion
+
+Record: Positive review from two AMD maintainers. Initial concern from
+König was addressed and resolved.
+
+### Step 4.2: Bug Report
+The bug was found during RCCL (AMD's collective communications library)
+unit testing on Power10 systems with multiple AMD GPUs. Real error
+messages in the commit show reproducible GPU hangs.
+
+Record: Real, reproducible bug found in multi-GPU compute testing on IBM
+Power systems.
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1: Key Functions
+Modified function: `kfd_queue_ctx_save_restore_size()`
+
+### Step 5.2: Callers
+Called from `kfd_topology.c:2193` during topology device initialization.
+This runs during GPU driver initialization for every AMD GPU, affecting
+all KFD-capable AMD GPU users.
+
+### Step 5.3-5.4: Call Chain
+The computed values (`ctl_stack_size`, `cwsr_size`) are stored in node
+properties and used during queue creation/validation in
+`kfd_queue_acquire_buffers()`. This is a critical path for any GPU
+compute workload.
+
+Record: Called during GPU initialization. Values used for all compute
+queue operations. High impact surface.
+
+### Step 5.5: Similar Patterns
+The companion MQD fix addresses the same root cause (CPU vs GPU page
+alignment mismatch) in different code paths, confirming this is a
+systematic issue for non-4K page systems.
+
+---
+
+## PHASE 6: STABLE TREE ANALYSIS
+
+### Step 6.1: Buggy Code in Stable Trees
+The function `kfd_queue_ctx_save_restore_size` was introduced in v6.12
+(commit 517fff221c1e6). It exists in stable trees v6.12.y and later.
+
+Record: Bug exists in v6.12.y, v6.13.y, v6.14.y stable trees.
+
+### Step 6.2: Backport Complications
+The `WG_CONTEXT_DATA_SIZE_PER_CU` macro signature changed (added `props`
+parameter) since v6.12. The patch will need a trivial context adjustment
+for 6.12.y (use `WG_CONTEXT_DATA_SIZE_PER_CU(gfxv)` instead of
+`WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props)`).
+
+Record: Minor context adjustment needed for 6.12.y. Should apply more
+cleanly to 6.13.y+.
+
+### Step 6.3: Related Fixes in Stable
+No related fix for this specific issue found in stable trees.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem Criticality
+- **Subsystem**: drm/amdkfd (GPU compute driver)
+- **Criticality**: IMPORTANT - affects users of AMD GPUs for compute
+  workloads (HPC, AI/ML, scientific computing)
+
+### Step 7.2: Subsystem Activity
+Very active subsystem with frequent commits (20+ in recent history on
+kfd_queue.c alone).
+
+Record: Active, important subsystem for GPU compute users.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Affected Population
+Systems with non-4K CPU page sizes using AMD GPUs for compute.
+Primarily:
+- IBM Power systems (ppc64le, 64KB page size) with AMD Instinct GPUs
+- ARM64 systems with 64KB page configurations
+- Any system where PAGE_SIZE > 4096
+
+Record: Platform-specific but affects all GPU compute workloads on those
+platforms.
+
+### Step 8.2: Trigger Conditions
+- Multi-GPU compute workloads (RCCL unit tests with >2 GPUs)
+- Queue preemption/eviction (normal GPU scheduling operations)
+- Trigger is common during real compute workloads
+
+Record: Common trigger during normal GPU compute operations on affected
+platforms.
+
+### Step 8.3: Failure Mode Severity
+- **GPU hang** → CRITICAL
+- **Queue preemption failure** → CRITICAL (GPU becomes unusable)
+- **GPU reset** → CRITICAL (interrupts all GPU work)
+- **Failed to restore process queues** → Data loss for running GPU
+  workloads
+
+Record: CRITICAL severity - GPU hangs, forced resets, compute workload
+failures.
+
+### Step 8.4: Risk-Benefit Ratio
+- **Benefit**: HIGH - prevents GPU hangs and resets on non-4K page
+  systems
+- **Risk**: VERY LOW -
+  - Only 3 alignment changes in one function
+  - No-op on 4KB page systems (the majority)
+  - Obviously correct - GPU internal structures should use GPU page
+    alignment
+  - Reviewed by AMD KFD maintainer
+
+Record: HIGH benefit, VERY LOW risk. Excellent ratio.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence Compilation
+
+**FOR backporting:**
+- Fixes GPU hangs and forced GPU resets (CRITICAL severity)
+- Small, surgical fix (3 alignment changes in 1 function)
+- Obviously correct (GPU structures align to GPU page size)
+- Reviewed by AMD KFD maintainer (Felix Kuehling)
+- Acked by Christian König after initial concerns resolved
+- Real, reproducible bug with documented error messages
+- Self-contained - no dependencies on other patches
+- No-op on 4KB page systems - zero regression risk for majority of users
+
+**AGAINST backporting:**
+- No Fixes: tag or Cc: stable (expected for manual review candidates)
+- Minor context adjustment needed for 6.12.y backport
+- Affects only non-4K page size systems (smaller population)
+
+**UNRESOLVED:**
+- Exact impact on ARM64 with 64KB pages (only documented on Power10)
+
+### Step 9.2: Stable Rules Checklist
+1. **Obviously correct and tested?** YES - Reviewed by maintainer,
+   tested on real hardware
+2. **Fixes a real bug?** YES - GPU hangs, queue preemption failures, GPU
+   resets
+3. **Important issue?** YES - GPU hangs are CRITICAL
+4. **Small and contained?** YES - 3 lines in 1 function
+5. **No new features or APIs?** YES - pure bugfix
+6. **Can apply to stable trees?** YES with minor context adjustment for
+   6.12.y
+
+### Step 9.3: Exception Categories
+Not an exception category - this is a straightforward bug fix that
+qualifies on its own merit.
+
+### Step 9.4: Decision
+The evidence overwhelmingly supports backporting. This is a small,
+obviously correct fix for a CRITICAL GPU hang issue. The fix is self-
+contained, reviewed by the subsystem maintainer, and carries effectively
+zero regression risk for the majority of systems.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed tags: Reviewed-by Felix Kuehling (AMD KFD
+  maintainer), SOB from Alex Deucher (AMD GPU maintainer), author from
+  IBM
+- [Phase 2] Diff analysis: 3 alignment changes in
+  kfd_queue_ctx_save_restore_size(): wg_data_size and ctl_stack_size
+  changed from PAGE_SIZE to AMDGPU_GPU_PAGE_SIZE alignment, cwsr_size
+  gets ALIGN(PAGE_SIZE)
+- [Phase 2] Verified AMDGPU_GPU_PAGE_SIZE = 4096 (constant) defined in
+  amdgpu_gart.h:35
+- [Phase 3] git log: function introduced in commit 517fff221c1e6 ("Store
+  queue cwsr area size to node properties"), first in v6.12
+- [Phase 3] git merge-base: confirmed code is in v6.12 but NOT in v6.11
+- [Phase 3] git diff v6.12..HEAD: confirmed 7 commits changed the file
+  since v6.12, including macro signature change for
+  WG_CONTEXT_DATA_SIZE_PER_CU
+- [Phase 3] git log --author="Donet Tom": confirmed 2 other AMD non-4K
+  page fixes
+- [Phase 3] Confirmed companion MQD patch (6caeace0d) is NOT in HEAD and
+  touches different files (independent)
+- [Phase 4] Lore/mailing list research: patch went through RFC v1-v3 and
+  PATCH v2, received Reviewed-by and Acked-by, no NAKs
+- [Phase 5] Grep callers: kfd_queue_ctx_save_restore_size called from
+  kfd_topology.c during device init
+- [Phase 5] Grep cwsr_size: used in kfd_queue_acquire_buffers for queue
+  validation and allocation
+- [Phase 6] Confirmed buggy code exists in v6.12.y stable tree
+- [Phase 6] Minor context adjustment needed for v6.12.y (macro signature
+  difference)
+- [Phase 8] Failure mode: GPU hang, forced GPU reset → CRITICAL severity
+- [Phase 8] On 4KB page systems: AMDGPU_GPU_PAGE_SIZE == PAGE_SIZE ==
+  4096, so fix is a no-op → zero regression risk
+
+**YES**
+
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+index 2822c90bd7be4..b97f4a51db6e3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+@@ -444,10 +444,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
+ 		    min(cu_num * 40, props->array_count / props->simd_arrays_per_engine * 512)
+ 		    : cu_num * 32;
+ 
+-	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
++	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
++				AMDGPU_GPU_PAGE_SIZE);
+ 	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
+ 	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
+-			       PAGE_SIZE);
++			       AMDGPU_GPU_PAGE_SIZE);
+ 
+ 	if ((gfxv / 10000 * 10000) == 100000) {
+ 		/* HW design limits control stack size to 0x7000.
+@@ -459,7 +460,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
+ 
+ 	props->ctl_stack_size = ctl_stack_size;
+ 	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
+-	props->cwsr_size = ctl_stack_size + wg_data_size;
++	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
+ 
+ 	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
+ 		props->eop_buffer_size = 0x8000;
+-- 
+2.53.0
 
