@@ -4,149 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03D8DE9D828
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 00:19:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCBE9E9D826
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 00:58:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48AD710E20B;
-	Mon,  6 Apr 2026 00:19:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9A6B10E13F;
+	Mon,  6 Apr 2026 00:58:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="p9qaW1mF";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oraVGmkq";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i4klINnZ";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022128.outbound.protection.outlook.com [52.101.101.128])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 855F710E20D;
- Mon,  6 Apr 2026 00:19:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nq2EMueT9kwTdGM/F/johr5P8xyJnC/KboiDLsmOP8tOZXlqcrM2LCDTULZFz7zeD/kJr3ZXAk2jShKGi7WUHn1v4Kj8bwzQfF6mvte5bKIBNswnp4rB3TpnQw94bHWYMYowIH7Z3+E5hP0mN59CrQgA/8yDdd40k7KpoVGJnlEYRNptSdcCDlfX0WblA2+GbXWWMtF8nuBj8adtlVzCUCqW9kqAYKkhvVpZAKlKbq/Eg3wBm1nZwiDjofkB4m6LD29L6wgX3f+lwxBFUwsD66jJH7q6Ilj4dp3L68LWytWbEzpeeocVHrngBdjLgxkvA/1wCx1ie6UAPsEp3nUAaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0urtsX1ZsBfytQ9Rq3gciCAK0Stwhe+4c7wULc+McAo=;
- b=yxvPHZesDxn0tYZHOe5RCx3iMS6/afCmDjYjq0ldyRiRREddJ+1jkx+kh+fLKoGdjl0iFESFXNB2mWw8jBsrghHd9RyxABqPb0LVcvC+t/+nEU6S/2324JMOHt7wyRcgXlRVEaAS2DS2RICDvDUzPWsW/7K3yVzh5FCWLRvlXFBbv6eBkS9hVZQsb22mFtdsRilFhg++tQCX2eVHl6mMm6M2VsDoh72aSmkYJmoGoCcvvvWJ47gnuCzTu3yKGMmBUPEFDJSUkD/REwq/WFEbx2k3ibIUHgvVbw31+u3833awR6Oz2X/KI3aVWNrfUOtWiJ4B60lHWeUv8AIurRyFXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0urtsX1ZsBfytQ9Rq3gciCAK0Stwhe+4c7wULc+McAo=;
- b=p9qaW1mFS6bV7Zi6EJyM6/kA1lrEyciTeFbeijVNX/kS6a60TSAE3A++9hBTTIUoY5SmLHIfxovvv9YW3z2SBvUm5iYkuu9VYnOfvddPNB+LjoYwYBJaTtJX6sN1Gwj9zZlvXrLsHomqG0CQsaHJGW3E/k8ZSPUT7ZG8WZsDaAI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWLP265MB6050.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d3::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Mon, 6 Apr
- 2026 00:18:57 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.016; Mon, 6 Apr 2026
- 00:18:57 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 06 Apr 2026 01:18:56 +0100
-Message-Id: <DHLN367TV9AM.DEQG8HBNZXLP@garyguo.net>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- <rust-for-linux@vger.kernel.org>, <linux-kbuild@vger.kernel.org>, "Lorenzo
- Stoakes" <lorenzo.stoakes@oracle.com>, "Vlastimil Babka"
- <vbabka@kernel.org>, "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- "Uladzislau Rezki" <urezki@gmail.com>, <linux-block@vger.kernel.org>,
- "moderated for non-subscribers" <linux-arm-kernel@lists.infradead.org>,
- "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, "Rae
- Moar" <raemoar63@gmail.com>, <linux-kselftest@vger.kernel.org>,
- <kunit-dev@googlegroups.com>, "Nick Desaulniers"
- <nick.desaulniers+lkml@gmail.com>, "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>, <llvm@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v2 07/33] rust: allow globally `clippy::incompatible_msrv`
-From: "Gary Guo" <gary@garyguo.net>
-To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
- <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>, "Danilo Krummrich"
- <dakr@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Courbot" <acourbot@nvidia.com>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Brendan Higgins" <brendan.higgins@linux.dev>, "David Gow"
- <david@davidgow.net>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <christian@brauner.io>, "Carlos
- Llamas" <cmllamas@google.com>, "Alice Ryhl" <aliceryhl@google.com>,
- "Jonathan Corbet" <corbet@lwn.net>
-X-Mailer: aerc 0.21.0
-References: <20260405235309.418950-1-ojeda@kernel.org>
- <20260405235309.418950-8-ojeda@kernel.org>
-In-Reply-To: <20260405235309.418950-8-ojeda@kernel.org>
-X-ClientProxiedBy: LNXP123CA0018.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:d2::30) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E052C10E03D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 00:58:45 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 635JaNfw3450012
+ for <dri-devel@lists.freedesktop.org>; Mon, 6 Apr 2026 00:58:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=plykkzu89dtG38Upzg/y2TNU
+ tXJmjdeCCRcfnkKEyGA=; b=oraVGmkqRj/TEC1Zfqb1y2uMv30guNpqZmXRksJd
+ sm4aGZbJoiYFVrq/1jnX4OaBsy9yGh3z9bJ0aG6UT+dNKDRC0eoHW9Ip9zplgnrq
+ nuO3mSKBwgA47J9fvcwDNPYB5lYxA38Mg8cBTx+s7TpYB6XMulYEGL3TU0woN+WA
+ eOI4jYZzrGNjQvlPlmLwbdbQXl2KT3qW27nGWF8wxBrfju93+PHqBO3khGtWwRkm
+ jN+jEQUNQme1CfK/M4i/nvzf/CH6KDlwcpe6NqkiNWVmaKpGzYkKPUPQXk8Pi4iv
+ 3nAGmXByB7dNrEO9HlAtulpdtUEan8BNWf2Pwb9iv20FxA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dauthbc53-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 00:58:44 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-5093a985e21so99941351cf.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 05 Apr 2026 17:58:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775437124; x=1776041924;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=plykkzu89dtG38Upzg/y2TNUtXJmjdeCCRcfnkKEyGA=;
+ b=i4klINnZ+xJcMYRtyVvchTRieng+TP1wAFarByFMN37OcQijHrpg9z3P/NSF8SFQ3J
+ simz4N8asaWvJZMA5nXiI+SIJ2YXQyOxlNUn60xXaE+s6I90Ngy6F6twrEH4uwAUZY+2
+ ErQRjcClZOAuRHpxEloi8c+Lle2jqgLvNmrde8plgULvtsMVyCGBaox7VbnYAmnZ9ZjC
+ nmUHS0/nI7YqtvhhGfBFZolI+mgAE3eCwk+49R5PVQc3oT3F9GdlEi25j1yAjJUmBJsQ
+ ErWfmnYQrJl20vL3UMbgJXur/TDCq9xY7rGhDY6z4ZfviRGLz1tP5JB1eGfAA28d5O+m
+ jEfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775437124; x=1776041924;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=plykkzu89dtG38Upzg/y2TNUtXJmjdeCCRcfnkKEyGA=;
+ b=QVSvkcy6EvHGRiZRHpFUS0AEpB0jlCZ5srXMDw2zJHwF0m8z+BdajmwE9YhcEJB70j
+ WcI7jKc3rB+pxqZu6bZ1f+rDMPFnphMSg3J4liif8dvv6o5DhqB7exOKeOPFx3fkbiNa
+ jZRqKjndjhIRR+I+dib+KdKU7QPEnQX9GYmrdELruzgc0c1ev5j+0+Rjl9BG7UVsv3Sn
+ hf+TcoZzx6kuGN/3EHThZsKTcW8YKNUOswzUPszWoyn/3oVH45jxcVy3WQZfWjEjnMzT
+ SRi4JHQTPaS/t1pPVC8q+1FFKMrPR7cgZ95cH3zlzJAewLzr6baH8cJw6f+Y5AWCUbG0
+ ZS8w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU5aEJ+1XKiN3GaWw8lKmqH0Muegw1yBf5kxXSjwfjvUvN8FLHgLLcjoW5Uapl43QNYk+izhuKK26M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqdfJ9YpOWRHRa54mfb3WQe3owKRCQhwXDZeETCDBaLzn9D3ht
+ aRnKC6gebKnFgDFAiV6h5yE7jAVCATVImAXkBWgOZfgaKkmMsbqrS3v5byJ+81GDsGH3pdEf3ST
+ E3pWWbGMJBqVc8ueLXz4Lm69y+sb5WC4jdwJCgfx+isnVglv5+Enm2p/51NCPQxheFndTHr4=
+X-Gm-Gg: AeBDieuD4rIUBOqSCe1QdCfOmu/OFb9OViF2BuUn/SZT3Vltt0w+CKCbvxajBE6mwto
+ 6Z/BBavqa/boV/CqyaSDZaWBhK3o9jteRUhm+b7r/ym20AXM8wpJz5M+5saK2ItI0M6l1hMFBS9
+ ZuKdGLdXrRzVpERqOlT0MVcIaYMtQ86N5MD7ctuw4pMjhYpiy5naCPVfj2FI1DFmsKCawgzJ/DV
+ KKYW1eq8Vw+J4xYIvpoYTNUdfZfLdDyee2gnu1lTkhG3Wa55D8RTadtcYgHUcCdJk5lLAfpxybo
+ DIBoxwIT2PP7ehvhSapubMFCF5c/gtzfCAvyovVcgGrVF0vTpvlvs95GFnYykU8z+gjkRcODosH
+ HSMPRiZPvjM1MpJ1VnhFhZNh964BLxIxCt5Uob5sV3fZ8LgKPIGxacX2zWIZN49YSFfIPx19HpQ
+ P5qjnDtL5rBf9QxgJHPfFqSXMATX5kRj/CHtc=
+X-Received: by 2002:a05:622a:5a0f:b0:50d:8656:3e60 with SMTP id
+ d75a77b69052e-50d865643a3mr60606761cf.50.1775437123916; 
+ Sun, 05 Apr 2026 17:58:43 -0700 (PDT)
+X-Received: by 2002:a05:622a:5a0f:b0:50d:8656:3e60 with SMTP id
+ d75a77b69052e-50d865643a3mr60606501cf.50.1775437123405; 
+ Sun, 05 Apr 2026 17:58:43 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38cd1fdfe5csm26751851fa.15.2026.04.05.17.58.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Apr 2026 17:58:41 -0700 (PDT)
+Date: Mon, 6 Apr 2026 03:58:38 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2 2/8] dt-bindings: display/msm: dp-controller: Allow
+ DAI on SM8650 and others
+Message-ID: <obnn4673iq7xdynuitngag35o7he3ogfegxwx33hnvlzhubjsm@5v3sr6euwrpr>
+References: <20260405-dts-qcom-display-regs-v2-0-34f4024c65dc@oss.qualcomm.com>
+ <20260405-dts-qcom-display-regs-v2-2-34f4024c65dc@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB6050:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8557003-e1ce-461d-cee8-08de9372184f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|366016|7416014|376014|921020|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: QmFvDTJbgNWDqyy5dMzMW9qvmpSKVLlHd4DwsH23IeTuSQMJtl8F5GFyBGuGWKQGYEVOPFuKcJwvWCjfv0UqP6uwDxucOrc/0jbJJWDjn26FKJeFQOZTOs5ao9Fe6fNU4MPjoMzXL/m60vlWcqZ2h43K3HXZ0s706F1g9jJ9wzv9AQb2+p2DbUMy2Geag/VPT9d/8RSybCAOcyD5FXZbTle9G7hddiSGPTtz+7Pl2Fpl4ld8TNlz0jryLMiE+K9+pGBlNJ634HmDJLneVM1wSuXtZ4nyWomAHyxaNAOpPDB5Pi/4hlrI7Q7G4ARmAnvZUPRDob5THFb6WNGoIyR/wYlwiOuDxaL3b69QjU277Dg0XbayNuxNMHN/AlhvoJzukarQ1tBgNhHELn5T41jB/+LSTTnzre0KClEHdW+cI4xaU4Xuv+2W+yvY0CFhkU67kaHrSjgNv+pkWllIu6PNagTjW/YqmqqPzg2kj0l+O7Iz5Ai+ptIlkCAVuB90DuX8mw9adcUDGLwNJc5Vs8VqVbaXg7PPStyC2t908NctXWyX3bpM9KWC251Lk1p464uB7VWZ+NwYT9LmGE9KBsLjsu7Zt8tT7WNxLlayL904H9FpY9yDWbTf6eGgDEuz86uCl1rIEun96ipMCQspF/t6gOQ+wg9cUJe9WXldB6Oz8zeme/qdh0s2zb8v0eMHVYspFOWMtWqV12hkz8ci8n4u50F6u3ipYUCw8wN8u8c2nhWy8Q6tPqlxyU5VOXqEurMg3aJwFrFJ+HoihHvt117jyA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(921020)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?STlsZm1oRGRxOThEYTdvY2NXR0R5eEJUR3ErZzhQbjRsSmtleDdUdUxaSlA4?=
- =?utf-8?B?SjFpcWNnT2orUGovUTk4UVpFbDFJaXRzTDdnZ2cyUXFUOHRlVldLSHVWV3d2?=
- =?utf-8?B?R0U4N1F1N2RqbUFYWDRJekV2WTVGcUlaNHBJR0dCdGVrdU1zVWZMbnZYWEh3?=
- =?utf-8?B?bWhHNkszd1ZOUC9ZMktDQ2FsZFZzVEtaWnZUeEhzdCthSk5NVGhyeXJkbXNr?=
- =?utf-8?B?ejdBTkplZTdxRkE5SnVDVVlTMTJUOVRTcmtERzVWSGxBamZ6WTdsRE55S0lO?=
- =?utf-8?B?aXBTbmN0UWNyWXlSVDJZZ3E5MG9qdU5vRHh5aSs1OE5SWGJ3SjVtdVJoVlJs?=
- =?utf-8?B?emVSME1uMjVnSHdhN1JxYzJsODZzbUdIL1gzY3p5aGlzK3J4OFBqWk5UUGQy?=
- =?utf-8?B?Wi80c016MjZkMWNrVWlMRFpsWHlLaU5qcEhNSTYxaWpURjdONURMaFVSYkcy?=
- =?utf-8?B?UzM5UnRySXJoL1creUgvRS9US0R0b0tjemhFK09kMWduVUkvNEJGRGhnZmVv?=
- =?utf-8?B?YjEyS2Y1N0VWMi9Ob2tseFN2bGc2eFZ3S2JyK1NuZ0QrRVBVRjRSbDJQRUhF?=
- =?utf-8?B?T2V3a0JaMkRiUVgvcVltQkZmUm5zWnJIclJiRTQ3eXowMjB0cGpZZUVTNVVY?=
- =?utf-8?B?S2w0K3dCczBNV0EzN3JoMisza25ZRVdNcE84WVdsSHNJaTR4Rjk4VTZiNFFi?=
- =?utf-8?B?NzRUMXBCejRpVHRCSEJacE9yQ1EzNkUxZGI3YWNDR0J4VnAyOENiTFZJL3VN?=
- =?utf-8?B?eC9aRThhTHZhTXlnVDFVd3ZneVUxSGNQOFlMS05LRzN6TzVkUEpzMlJrNTUy?=
- =?utf-8?B?TXVIRHNXUC80NXpJZmpDTjVQRW1sU3ZRZWhhZUNKRHlibFBQcGpKSlRZTmtM?=
- =?utf-8?B?ZmJGdXRPb1piR2sveVBPSmpRUWlabi9FcldDWGF6aURIZXZFeDlvb2lORlh4?=
- =?utf-8?B?WEhrMzRrWnlneDg2WC95VUx0OWlCZlVUZFJidmJKZkdrLzBaZnZDaVJRM2tF?=
- =?utf-8?B?bGhBYnRrV00yRTRqTG9jdVJFaEZmVGkwMGJUbU56RTFSTlZaWlM5MXZOZmhV?=
- =?utf-8?B?cVFpa0VlbVpaRXlOMStqZ0lIS2dWZnN2aDNMdUJwU3YzRWl2R3MrWS9zRDN1?=
- =?utf-8?B?dys4Mm1veHMzWkpSYkw0S1B3UnZSWFN1c0tPNGtFK29NM3JMalNMelliUlEw?=
- =?utf-8?B?R3RxWHNhdlBiR3E3WW1HamZpd0VmcjJtNkNXdnBCaXpTdlF4cEdkUGtKVGZr?=
- =?utf-8?B?T3djcFhkWU9XbVN3WGt2WUZ6RFpwOUVtQTNkakwwVlp1N1FHb2NubWxhQzMw?=
- =?utf-8?B?SnNvcFU3VzJHTkIzeDRHeUtiRmVrWWJsenh6WVVuWitsMFB0dzloTUdzZVU3?=
- =?utf-8?B?SXFFbzViWkZUaHk1OXp0L3JseU83MXRjZmhIOGwzTVcvWkJyZm1JM0hqcGxz?=
- =?utf-8?B?T1lrTmNzdGtObHRzblMrb0FBVzBCcWZRdnJHeFZjTWxjaDJZZU9aZzF2d1Np?=
- =?utf-8?B?OWJweWJ2cW5YWDgzSjRsOHlRc1RlTUFuUmtqK29lbnFKaGNPL0JVVTNNbDlU?=
- =?utf-8?B?SWpBRmdXSGRyOGZlT05hdHd4cWdtR2JOYTNUK1JRNkNic2xqbU9GWXdVVDBu?=
- =?utf-8?B?SkVjZDdSZVN6UWg4dENIbzZDenVRWmM2NmpFYmM1MHRrZ0pvM1lZVStDczFD?=
- =?utf-8?B?RHR0TEtZaG9NU3E4a1ZzRUw2V2lPYndTTkdxL3Frd1NaVDM5Y2k5d0hxSjZZ?=
- =?utf-8?B?dXBrZTNPTDl5Z3kwblh4eVRiVXM1MCs4bkxKUGhuczdYT3Zab0M5Q3NXbENL?=
- =?utf-8?B?V0NqUXpyUkZ6SjgrL2VMZ3p4c3B3UlRNQ2I4Q0pnUURkM3ZxSzg1QjRFS1RW?=
- =?utf-8?B?dEJEdUp6MDR6OFB0dlBmTnY0dFpWM0IyVjM0TitRWlI2VzJPTzI1R1ZHSE1p?=
- =?utf-8?B?c1NrbmZuSzZpTlRmc1VvTmF3NFZEZ0s1S25rbTZSQ1ZRL1o0K1lHVzNIQ1dw?=
- =?utf-8?B?N2J2NlZhWWRpbVppanpCbHNjclJYdzZYMktsL1FHZjllekg4c2hxQW5kZnB2?=
- =?utf-8?B?WFJtenRNYlNHMk05Vy9FM29OcFpJL25TdExLZ1gxeVZ0RXJNRkU5NXVhcGZn?=
- =?utf-8?B?a2JLdDg3T1dub0lFV1ZYQTNZQ1krQlo4aitaM0JPNjdTVnNZMXNOOGpGSjdU?=
- =?utf-8?B?ZER2OE04ek1hekszMlB5cnJrajZtRnJxYU9WN0dsZWNzSC84Uy9JRUEzdk9k?=
- =?utf-8?B?bTVkdGk1N09vY1BnSFJVeVdVdVV6dmhGZlVEOUIzS3pBUk5hR0gwcGRRMXFF?=
- =?utf-8?B?YXZpSHFSOFpPMy9yaTFVZ2tRSFdFTmFySHorQ1draXFxdE5WWUt3QT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8557003-e1ce-461d-cee8-08de9372184f
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 00:18:57.7329 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 41GIEQGjwWtWlQBHCAxPPghuS8envm6U/n99NT9FYRRKZ828RDnJKemRqLn9Uk3NMtxq8agELpKLfQ3b3q3TNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB6050
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260405-dts-qcom-display-regs-v2-2-34f4024c65dc@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA2MDAwNyBTYWx0ZWRfX+VIIE+MxzKGK
+ rcslYAyb6IGaOGGwLwuZozGMaplQVPA8u7b2+5gWGZbKjN8eFMwm3nkgqU9rRFQbwMSyx9GbR+e
+ U2JZE+l//oifAEjL0hERNnrXDymzHu6hurZEueZd1fkc+qMBmiei3fIchxERCeELdtw8uTh3QAY
+ MAbY+x27s8+KgMV73cBtXM0qEm1UhNtfgYVpO3lqN/hqbytF0rR+tUN1pvUHZ2J2RAlNI1uc9U3
+ Kcte4s94XWyFy3OKXARHHkhxb68cii4GeVQsL6eGAPkUEnxEZPPtFnwumzqXhcm0QObbirhFEU3
+ 7Ny+ZSDSIzdcQ4ouFCR8D5jA3Mt1ZjUBS0CJdvzvoZRFZMxxvSVTpozyUkcMxBCyxQNl27rJbJm
+ drP4lDFbt9YPe2kIXcHSkC9lugQjI6I57UHKUhYGhy7/Fg/3qfZkXge6qVwDmr1qLAyGwqIuU6c
+ M7Sg0KZ7lemLadV64Sw==
+X-Proofpoint-GUID: 3z8C-vUnyd2NcihjBD9DQlAJBOHtCkeq
+X-Authority-Analysis: v=2.4 cv=MIptWcZl c=1 sm=1 tr=0 ts=69d30545 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=Ul4Vrl7rK0zFZ15zA1kA:9 a=CjuIK1q_8ugA:10 a=zgiPjhLxNE0A:10
+ a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: 3z8C-vUnyd2NcihjBD9DQlAJBOHtCkeq
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-05_08,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2604060007
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,29 +156,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Apr 6, 2026 at 12:52 AM BST, Miguel Ojeda wrote:
-> `clippy::incompatible_msrv` is not buying us much, and we discussed
-> allowing it several times in the past.
->=20
-> For instance, there was recently another patch sent to `allow` it where
-> needed [1]. While that particular case would not be needed after the
-> minimum version bump to 1.85.0, it is simpler to just allow it to prevent
-> future instances.
->=20
-> Thus do so, and remove the last instance of locally allowing it we have
-> in the tree (except the one in the vendored `proc_macro2` crate).
->=20
-> Note that we still keep the `msrv` config option in `clippy.toml` since
-> that affects other lints as well.
->=20
-> Link: https://lore.kernel.org/rust-for-linux/20260404212831.78971-4-jhubb=
-ard@nvidia.com/ [1]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-
-Reviewed-by: Gary Guo <gary@garyguo.net>
-
+On Sun, Apr 05, 2026 at 04:33:58PM +0200, Krzysztof Kozlowski wrote:
+> DisplayPort on Qualcomm SoCs like SM8650 and compatible SM8750 supports
+> audio and there is already DTS having cells and sound-name-prefix.  The
+> "else:" clause for non-EDP and non-aux-bus cases already requires
+> '#sound-dai-cells', so it should actually reference the dai-common.yaml
+> for other properties, as pointed out by dtbs_check warnings like:
+> 
+>   sm8650-hdk-display-card-rear-camera-card.dtb:
+>     displayport-controller@af54000 (qcom,sm8650-dp): Unevaluated properties are not allowed ('sound-name-prefix' was unexpected)
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
 > ---
->  Makefile               | 1 +
->  rust/macros/helpers.rs | 1 -
->  2 files changed, 1 insertion(+), 1 deletion(-)
+> 
+> Changes in v2:
+> 1. Add dai-common.yaml reference (Dmitry)
+> ---
+>  Documentation/devicetree/bindings/display/msm/dp-controller.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
 
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+-- 
+With best wishes
+Dmitry
