@@ -4,78 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44CE0F46C66
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 17:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1CB5F46C66
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 18:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 544B310E2A8;
-	Mon,  6 Apr 2026 17:47:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4957E10E28F;
+	Mon,  6 Apr 2026 18:00:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eri6Ieqt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f1jZTypX";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82D5610E2A8
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 17:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RZwmJ3crMna943jHN8eBcfHuLBkX6R53YTtkuCQ5sIU=; b=eri6IeqtajmBRVCxFM52tCwjW5
- Fq+5bhWcsTrk+ipMvDlpT07MXlbhgALHleRWuFw18qXODHz1ac5t9WyNI94YGHYtE1zeyR6nipPpi
- l5KIShYCVO7bJXa4tjVHOAwe2n6ggUfVXG3jx3fEh4xtwWU7s8x9mwskk1ykLrWlWmKp8jGik9A1k
- gxF4YV41r2jp8nWktiPx7M79MvMnmNzNHe27rgkFjkL41DkUXV7fBamXEbT6Jzn0rd7SZVkX1KKt6
- 4xbk3OzqdAYkV9lVOUbKKOq+s6Ca4WuOQ/MOjHkajpEfKqjYWVSj+t6AYZ6ngmC5laywPefgviJl3
- hHg3AlCg==;
-Received: from [189.7.87.169] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1w9o2O-00CfMC-I5; Mon, 06 Apr 2026 19:47:00 +0200
-Message-ID: <dfeac011-c45f-493b-b925-91aace323da3@igalia.com>
-Date: Mon, 6 Apr 2026 14:46:55 -0300
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55E2610E28F
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 18:00:17 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-488aa77a06eso23979375e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 11:00:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775498416; x=1776103216; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=JuaHqZA6dNQtvLkTpFq0gKo8sR5f3PLoD26I4i7/L2M=;
+ b=f1jZTypX+izGmnGrOPmFnAz2MNs36/5p8ukvgszQPf40mxFrl/eSL7FW3LKD5SovsV
+ hZu0WjK3hsiQdxLKeAAvYYCiYXgr2IjI93is2W2rr8UAbrUhQQSr1PG5/Pg9FVCsQ0jK
+ Ma1cufI83aitZU86weu28S9w0pk56WLfcrlkZrnGdgpKybkhXYr5No2DkzzJrIMLK9vo
+ LqlXo6Ri1T8vA1VstbTFKJoHW2/10dBQOn1ARApeHR8ndzdodyYnE0OOdNp3HsZAHq08
+ ftEeuyr+ANud+a/P+VW8V9fxGFTxSM5kYfxey+z3+nc3BFztxbkN+Pn2P8waw87CTrtv
+ 9Yuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775498416; x=1776103216;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JuaHqZA6dNQtvLkTpFq0gKo8sR5f3PLoD26I4i7/L2M=;
+ b=pJJrR0t2AjKBWvBOue7SUlPH+fs9mY4lCzsIFjYhFUNPbu530vQOKxR4sH5iDqGfE7
+ QrnwDqkG8iciNcEGmweP3n017GhIPul1PuiidJxCGmqham8T1MlhBgARZ3k6ov07+sXb
+ 8eBbCsmxouPQ2/y1wuKuCEgLjbShOYv1iq0U1LA/0o8PrSh4G17CBIaDXTENGVAu+Y/Y
+ h8S9vi1xQpkt9P2ApmqaOp3PPC8A9rPjFVT6aNXvnC6gHLMc70/ZoyacxS3+aF7DWPH9
+ 960bTcHn7HqfPT7yzj8YPdLw7OzGQpUUcEn+T7II15XXt0Wo1UjDjzY02C/zEF4rDqJu
+ i5Ig==
+X-Gm-Message-State: AOJu0YwIRkrUdkzv182nDp5x2LMDmEvqNMe4yjr3dvhNlexnFyzrJsb0
+ pMhcJ9vzkdCz8DhoHeACI9cLxBfD2yFoKuQuW7VYUSlkFzjwnvS5yxvf
+X-Gm-Gg: AeBDiev6/bx7ARRihHKP7LCAgDXSINOwC4t6lmcC3WTzh4QeuFjLvaLwXpxeImdKfNZ
+ vq2U6TqfYb5EwK9qc7xmyidPXTb0dll46t6I9sCiAx1lAWlkrSPoaokQT1iLN1S4o6s9iEOQTWL
+ kzgk8rSftCy/Nche/tKSafXIKCICDKC60CaQ9pZ24bjiimwj0d8JjsK5uuTUISuP18/b6c1AFpR
+ 22RRw34zZ4HSqgzT87CHX9wBU1zOLYAKPz5mm3fIPsKHuh1fZe+vCYG9EZvJiKTM/pGi/xx0ZVu
+ fg5PNO23d43P8LY5pS3mYSSuSe/0zdUcXBhX+6q5P2+fDUAPcCZ1sVBhBBUsF1SKNlmFMGOE2jd
+ BYz0/wqGJ0NLH4mBtdCRuoViZXPctlSp+4LBL4a964J9d/Zd8yfSuK9PWv8hE7rw0nGNsTQ5Mpw
+ HKmmOQXQlZhMC0f3mUEN99H9W6l8ihkx8+8WF4vTz8s6rObhsh0y377/AkC6eZlG7wsQQnL/VEx
+ fToYegnRYADzVko0Gw=
+X-Received: by 2002:a05:600c:a11:b0:488:8185:e672 with SMTP id
+ 5b1f17b1804b1-488998f8562mr176298535e9.30.1775498415418; 
+ Mon, 06 Apr 2026 11:00:15 -0700 (PDT)
+Received: from Arch-Spectre.home (host-2-101-228-96.as13285.net.
+ [2.101.228.96]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488a952a03asm170205575e9.0.2026.04.06.11.00.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Apr 2026 11:00:15 -0700 (PDT)
+From: Yicong Hui <yiconghui@gmail.com>
+To: laurentiu.palcu@oss.nxp.com, l.stach@pengutronix.de,
+ maarten.lankhorst@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ skhan@linuxfoundation.org, me@brighamcampbell.com,
+ Yicong Hui <yiconghui@gmail.com>
+Subject: [PATCH] drm/imx: Fix three kernel-doc warnings in dcss-scaler.c
+Date: Mon,  6 Apr 2026 19:00:13 +0100
+Message-ID: <20260406180013.2442096-1-yiconghui@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] drm/vc4: Refcount vc4_file for safe access by jobs
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com>
- <20260402-vc4-drm-scheduler-v2-4-d84afd35c602@igalia.com>
- <945bb0fa-e4e2-4be8-8d4b-0c83b4fc6c4f@igalia.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <945bb0fa-e4e2-4be8-8d4b-0c83b4fc6c4f@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,79 +87,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+Fix the following W=1 kerneldoc warnings by adding the missing parameter
+descriptions for @phase0_identity and @nn_interpolation in
+dcss_scaler_filter_design() and @phase0_identity in
+dcss_scaler_gaussian_filter()
 
-On 06/04/26 12:00, Tvrtko Ursulin wrote:
-> 
-> On 02/04/2026 19:36, Maíra Canal wrote:
->> This is a preparation commit for per-file descriptor seqno tracking,
->> which will require the struct vc4_render_job to store a pointer to
->> vc4_file. Since the scheduler's free_job callback runs asynchronously,
->> it can execute after vc4_close() has already freed the vc4_file, causing
->> a use-after-free.
->>
->> Add kref-based reference counting to vc4_file so that jobs can safely
->> take a reference at submit time via vc4_file_get() and drop it in their
->> free callback via vc4_file_put().
->>
->> Signed-off-by: Maíra Canal <mcanal@igalia.com>
->> ---
->>   drivers/gpu/drm/vc4/vc4_drv.c | 23 +++++++++++++++++++++--
->>   drivers/gpu/drm/vc4/vc4_drv.h |  4 ++++
->>   2 files changed, 25 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/ 
->> vc4_drv.c
->> index 
->> cacd4cb942593b44f2210b7738bd964ebc34522d..d0e515c900af6e7400a96e42a9141dab5d5bca2d 100644
->> --- a/drivers/gpu/drm/vc4/vc4_drv.c
->> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
->> @@ -167,6 +167,7 @@ static int vc4_open(struct drm_device *dev, struct 
->> drm_file *file)
->>               goto err_sched;
->>       }
->> +    kref_init(&vc4file->refcount);
->>       vc4_perfmon_open_file(vc4file);
->>       file->driver_priv = vc4file;
->> @@ -180,6 +181,25 @@ static int vc4_open(struct drm_device *dev, 
->> struct drm_file *file)
->>   }
->> +static void vc4_file_release(struct kref *ref)
->> +{
->> +    struct vc4_file *vc4file = container_of(ref, struct vc4_file, 
->> refcount);
->> +
->> +    vc4_perfmon_close_file(vc4file);
-> 
-> Access of vc4->active_perfmon is not clear to me. When I was looking at 
-> the earlier patches I assumed it is protected by the run_job / 
-> workqueue. But from the angle of a delayed vc4_file release I am not 
-> sure why it is safe.
-> 
-> vc4_perfmon_close_file
->    -> vc4_perfmon_delete
-> 
->      /* If the active perfmon is being destroyed, stop it first */
->      if (perfmon == vc4->active_perfmon)
->          vc4_perfmon_stop(vc4, perfmon, false);
-> 
-> Why is vc4->active_perfmon stable here? Something guarantees the 
-> perfmons belonging to this file (vc4file->perfmons) will not be in the 
-> xarray any longer if it was the active one?
-> 
+Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:173 function parameter 'phase0_identity' not described in 'dcss_scaler_gaussian_filter'
+Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'phase0_identity' not described in 'dcss_scaler_filter_design'
+Warning: drivers/gpu/drm/imx/dcss/dcss-scaler.c:270 function parameter 'nn_interpolation' not described in 'dcss_scaler_filter_design'
 
-Yeah, this is a pre-existing problem that also exists in v3d. I'm not
-sure if it's worth it to fix it in this series, but it's something that
-has been in my TODO list for a while. To fix it, I'd prefer to examine
-this problem separately and check if I can simplify the management
-somehow instead of just adding a lock to protect active_perfmon. That's
-why I believe it deserves a separate series.
+Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
+Signed-off-by: Yicong Hui <yiconghui@gmail.com>
+---
+ drivers/gpu/drm/imx/dcss/dcss-scaler.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-If you prefer to have this fixed in this series, let me know and I can
-work on it.
-
-Thanks for the review!
-
-Best regards,
-- Maíra
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-scaler.c b/drivers/gpu/drm/imx/dcss/dcss-scaler.c
+index 32c3f46b21da..5c7f8d952ec1 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-scaler.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-scaler.c
+@@ -166,6 +166,7 @@ static int exp_approx_q(int x)
+  * dcss_scaler_gaussian_filter() - Generate gaussian prototype filter.
+  * @fc_q: fixed-point cutoff frequency normalized to range [0, 1]
+  * @use_5_taps: indicates whether to use 5 taps or 7 taps
++ * @phase0_identity: whether to override phase 0 coefficients with identity filter
+  * @coef: output filter coefficients
+  */
+ static void dcss_scaler_gaussian_filter(int fc_q, bool use_5_taps,
+@@ -262,7 +263,9 @@ static void dcss_scaler_nearest_neighbor_filter(bool use_5_taps,
+  * @src_length: length of input
+  * @dst_length: length of output
+  * @use_5_taps: 0 for 7 taps per phase, 1 for 5 taps
++ * @phase0_identity: whether to override phase 0 coefficients with identity filter
+  * @coef: output coefficients
++ * @nn_interpolation: whether to use nearest neighbor instead of gaussian filter
+  */
+ static void dcss_scaler_filter_design(int src_length, int dst_length,
+ 				      bool use_5_taps, bool phase0_identity,
+-- 
+2.53.0
 
