@@ -4,137 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA2D8F46C44
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 14:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B3C3F46C45
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 14:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0173C10E168;
-	Mon,  6 Apr 2026 14:13:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C96310E139;
+	Mon,  6 Apr 2026 14:25:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HdgkMWQ5";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EEXD2GhB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jSf4oD4Y";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCCD10E139
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 14:13:04 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 636A6D2c913876
- for <dri-devel@lists.freedesktop.org>; Mon, 6 Apr 2026 14:13:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=beKnurAGjmh8PAnmXnrRZXOK
- +gGp3TW+AG3rkQ9JhPg=; b=HdgkMWQ5HR6r4ZBuJngKf0dnZ4AecP80hzsRzbOo
- tYVOkpSn2HOBtXCi6Wifd8fBHTvMmFSYEc2mTMsCyHCoXcJHwERlHCHH7Ywyr3t4
- nGZlE6aS390bIqmVmWyx9PfvQ7tFWw3ImbGUfieozp1jmNCaRQmCRexuXynswjIf
- o928vL3dR9PpJ82+uQ+MJuqnAbjRrtB6O32ajrPM1EZmNil5aLFz2ho5HjxoMN8A
- DY685cDRPGCi33mcols5PUmbGuj+V2cR8PCM73huh6RNm3zmVAkGPK8QF/ZMpwQg
- l+Oe2J0/YHGJPU7Nq+k/fR0wu+cmRnb++8VxdkklIY4ntg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4daudd5b46-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 14:13:04 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-35da09e73d5so1278046a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 07:13:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775484783; x=1776089583;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=beKnurAGjmh8PAnmXnrRZXOK+gGp3TW+AG3rkQ9JhPg=;
- b=EEXD2GhBH8PRubMbLYNCUf4mEwBDZRYX9mUttHVNaYTHtpxySh78LxfNmkCk08A66f
- noGrhiGjjSjGaO+4WksTKIS1gf1IYYvSxXCrqrBrMQBwAysXAH+ICasi2niQeTl/P9/G
- y0aKNwqDugyihg3GcrV/kj7p2Q6VHhIVsyYlzQt8+HHYj7KWrDBaV8OKAPgfOCORvg/f
- UMpm9M+3GnCJ+L51ctDDh7BLmZM6enZfJy55/qSkKKbdOEfllmGnOJeYmrZiKipK2shE
- hBpNsR21GgJXrvgMM1+HSNCJxyO4FGG6B5fNMotUJFr0l/ICA6dpxBsvTBHc5Pe4UPoD
- wDMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775484783; x=1776089583;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=beKnurAGjmh8PAnmXnrRZXOK+gGp3TW+AG3rkQ9JhPg=;
- b=DTdbcU+LUvER/XYuzFbwmDC8flB6O3t97eqTXijSssfziVPy2C0WCf6K7s4r9J5wI9
- HIMA4MULueScvb7S7xWYaSzg98wI8uIGy28MdT/5UtoIKHDbgc77rt4W7LbG8xnxPOJT
- idn9jnMtyVqt4+jDiQJzrfHd9AnRFcZvumxqrxtXFCz2zAFeSk61vctqU1MnjqgM6Xlf
- 4ICE7Dc8UEQwMpJfP6wE7RXyNL87Ou6qJPbxjKcxmu0Q97g7jvO26z16Hl5/qfUGiga6
- 6tSCRajrnnyH6l5I2WoR9UwoDR+rWYInZBqP22aQt2lYQ6QKmKMdulGgD4zrfRYF7IRd
- 09bg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWpQIjGj0YwRbN4UQ9yvUbO+m2kM+cpcPaqVObuD9784CTcYVCtFbb4KAldOV/4Y2IOzIkJAxWOi2E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw7+SKOF+KCVb1+vZ15/h1ZOTXSqOsCOs0NHLa2kUAlH79YXG9E
- j8SIghq9OIJgwP5lonFks+EZm2arrFwuQnp1r7NOwd5c1i/A/FWDrgabTIIAMWTs81w7QpqKfC4
- FDJe7J85FCx8cFZKZ9Ovjku2wK6dVbOo+WsvC7va8C5/odls4VCQnMElUNjAbaAgY+qiXljE=
-X-Gm-Gg: AeBDietrs1fxpZvVeL9qaL3QX0WCeMtoIjjJgTcfFlwfAC2QrhOxxoIV/mC0wyetoAc
- evggyGDYop5qUpGpfP3+8LNoOvcCXLtehtwNPH4XPvch0gWqb7gCPp8rD3KIUk4TzbfaFvpXH14
- GX1GLMC/ie2WM3ivmdyI0F8L0eGR+5xcrWYHYxU7RDuJvIX2adX4biNhhnnsNjzxsR3Z+v9K3pC
- hz1jCWmDOfkOLkPcCFuhmn8fNdmuQ+Wui8xYbjFcOrxX2+g2YjG+eT9PUFi9qo+7Xkbw0ZENaov
- amKw/XWjo078Ab6uBMsjn6Ek8fiv1mB6357Vgv5tZBVpjgvtgw0N+wavg7QhMPpWGPPN9rjXxcq
- +SoEYRJpjiuDcSOB37bwV5rtj7adPE94+jX6yvVGzWK4HANm10Czq7KKWiyfvKwB+Hp4sLxnXWo
- JsKixs0gtQtRppXRA3JGnhFaBROK6rtcAH2CsYsEQV2A==
-X-Received: by 2002:a17:90b:390a:b0:35b:e4ed:4f60 with SMTP id
- 98e67ed59e1d1-35de69a53ffmr7635500a91.5.1775484783351; 
- Mon, 06 Apr 2026 07:13:03 -0700 (PDT)
-X-Received: by 2002:a17:90b:390a:b0:35b:e4ed:4f60 with SMTP id
- 98e67ed59e1d1-35de69a53ffmr7635477a91.5.1775484782848; 
- Mon, 06 Apr 2026 07:13:02 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35dbe624756sm24171622a91.5.2026.04.06.07.12.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Apr 2026 07:13:02 -0700 (PDT)
-Date: Mon, 6 Apr 2026 19:42:55 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- prahlad.valluru@oss.qualcomm.com
-Subject: Re: [PATCH] drm/msm/disp/dpu: consider SSPP line width during mode
- valid
-Message-ID: <adO/Z0mJ5ocI8J1z@hu-vishsain-blr.qualcomm.com>
-References: <20260328-msm-next-v1-1-12ac4e27c670@oss.qualcomm.com>
- <v37m6z5le4rk56b7pinr5wbi7l7s2bbgkggglx4eog6w7ja77f@lvyxc5tks2bs>
- <acrBL4fF4aiAw8m9@hu-vishsain-blr.qualcomm.com>
- <c7xvoopmujdmdar4lr5oghcc4olc72fpfrpe6yq7wrmtqaytjg@iweixftggvbg>
- <acrHj02HsaoK5N1b@hu-vishsain-blr.qualcomm.com>
- <sube4fl4iubrutg7wvdqcmdpuvia5bavmc5x5gajrngsrte6fj@nybmbjbcm6ma>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1164810E139;
+ Mon,  6 Apr 2026 14:25:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775485552; x=1807021552;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=rKELkQvIme8uI4n9QS8Dc9D6SMs/Rewb2K+DEE4ozts=;
+ b=jSf4oD4YW048++ntvtUJf5Tn/M3Y0TeHyo899ffOPl6/GY3wqt5KYmsI
+ zoiZSKbqmZI4+WyTyTOh5qdpDlNm9Gx/EL7EL0r5Hws0yUvqtGZebcvvj
+ 4XBIDXBz/6yo4iA67vzuHzKLQWhqcf7suvlWnSuT9v2iLB4XuI0cDcMXd
+ VtgYPFSohouJ2+xcJjQG+ijnMIbxfIdj7kD+Yx98zIolgAlZYvAm5C/YA
+ LRYbYQWKPsw31zaNuCaeqXjUGmzJXQLVNvcYAUowlqJvaN9dTvI4PirOZ
+ u45DR1ZfHqwD2zWC9FgqDIRjjs7it/cIt2gt1eXfZAktNMQL5UIphO8px A==;
+X-CSE-ConnectionGUID: fj4Gw9bsTWWulvXSMNW9Qg==
+X-CSE-MsgGUID: EhL1ROeYROyF6C6SZdgB9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11750"; a="75603890"
+X-IronPort-AV: E=Sophos;i="6.23,163,1770624000"; d="scan'208";a="75603890"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Apr 2026 07:25:51 -0700
+X-CSE-ConnectionGUID: Fe5HivbtSWuOvhZaFQEbkw==
+X-CSE-MsgGUID: mx1hRxbFQluVXJRqrII6Jw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,163,1770624000"; d="scan'208";a="221309236"
+Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
+ by fmviesa009.fm.intel.com with ESMTP; 06 Apr 2026 07:25:48 -0700
+From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com
+Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org, anshuman.gupta@intel.com,
+ badal.nilawar@intel.com, riana.tauro@intel.com, karthik.poosa@intel.com,
+ sk.anirban@intel.com, raag.jadav@intel.com,
+ Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Subject: [PATCH v3 0/4] Introduce cold reset recovery method
+Date: Mon,  6 Apr 2026 19:53:26 +0530
+Message-ID: <20260406142325.157035-6-mallesh.koujalagi@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sube4fl4iubrutg7wvdqcmdpuvia5bavmc5x5gajrngsrte6fj@nybmbjbcm6ma>
-X-Proofpoint-ORIG-GUID: Y271I0r_eFYftmM4FSEhmCt1Qi4aQnMl
-X-Authority-Analysis: v=2.4 cv=JZ2xbEKV c=1 sm=1 tr=0 ts=69d3bf70 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=q32X2GtWTQ-4QQcc0HIA:9 a=CjuIK1q_8ugA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA2MDE0MCBTYWx0ZWRfX5qqdrGeLughq
- GV4/hT3zMhW7/8dyv038KBqJBxQOUkWDwJb1cXfGxhGb4u69ZN6gPx05f7h/SsoISsb5N7bfV4R
- /A0TRuNcF/jI1ohCq4xdM2l/HA6iXKQKy8+0yizD2tQNT3o5Dp14DUfythtEW8giHOA4qdk6JZ6
- Mcn1WHYW9Kt8vkDae0LDQIesdsEGqN9hasQ79F0JW+t6rwBxyHsPjXLa65FSOICfbYJEGQu4nGv
- IzM7Y+aWn+qULU3cIQFoc1kW5IEr+RDgKWz5gKjOjNvQKvb5dShal+AeH4dLIe1JSGEInEBHZg6
- i7DyilTNKmHF/+gtmG5VlmdJT9TwmCIoqXAqdpmtj/0+rd4/zSngpBjn4k05p2BP4F+bGk6dTTv
- iSEIXEHFLyNu6p/mtLLOibVplNobAUVbSsOgkrQvTsHRd7pfIsq014zEIQlIhtWJ8NymNvkmJ6p
- R4/qQst1zHvBMl3T1Cg==
-X-Proofpoint-GUID: Y271I0r_eFYftmM4FSEhmCt1Qi4aQnMl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-06_03,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 malwarescore=0 suspectscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 spamscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2604060140
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,64 +70,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 10:38:15PM +0300, Dmitry Baryshkov wrote:
-> On Tue, Mar 31, 2026 at 12:27:19AM +0530, Vishnu Saini wrote:
-> > On Mon, Mar 30, 2026 at 09:39:31PM +0300, Dmitry Baryshkov wrote:
-> > > On Tue, Mar 31, 2026 at 12:00:07AM +0530, Vishnu Saini wrote:
-> > > > On Sun, Mar 29, 2026 at 02:24:53AM +0200, Dmitry Baryshkov wrote:
-> > > > > On Sat, Mar 28, 2026 at 10:45:35PM +0530, Vishnu Saini wrote:
-> > > > > > Few targets have lesser SSPP line width compared to mixer width,
-> > > > > > SSPP line width also needs to be considered during mode valid
-> > > > > > to avoid failures during atomic_check.
-> > > > > 
-> > > > > Technically this is not correct. There is no requirement for the
-> > > > > planes to cover the whole CRTC. Nor is there a requirement to use only 2
-> > > > > rectangles to cover the screen. As such, it is perfectly fine in
-> > > > > mode_valid, if CRTC is wider than 2x max_linewidth. It would be an error
-> > > > > if the user tries to stretch 2 rectangles in such a case.
-> > > > 
-> > > > This is to fix an issue with 5k monitor on rb3gen2, since SSPP maxlinewidth is 2400
-> > > > it can't cover the whole 5k buffer in left right split mode.
-> > > > Do we need to fix it from drm backend by dividing 5k buffer into 2 planes and 
-> > > > use 2 pipes in split mode.
-> > > 
-> > > Quad pipe is pending for 7.2, most likely. However, I think, instead you
-> > > should teach compositor that if the commit fails, it should retry with
-> > > the lower resolution (it might require somethi g like -E2BIG from te
-> > > commit).
-> > Yes, from driver we are returning "-E2BIG" during atomic_check.
-> > Thank you for the clarity, will try to fix it from compositor.
-> 
-> Just to point out: it's not different from the driver not being able to
-> perform the atomic commit for any other reason. For example, if card has
-> 3 outputs but can support only 2 concurrent outputs, then each connector
-> will still have a list of valid modes, but trying to enable outputs on
-> all three of them would still fail (or trying to enable high-enough
-> resolution on all three, if that removes a possible question of limiting
-> number of outputs by other means).
+This series builds on top of Introduce Xe Uncorrectable Error Handling[1]
+and adds support for handling errors that require a complete
+device power cycle (cold reset) to recover.
 
-Thanks for pointing this out. Agreed, this is consistent with other atomic
-commit failure scenarios caused by resource limits.
-The compositor team is looking into this from their end.
- 
-> >  
-> > > > 4 SSPP rects --> 2 LMs --> 3d_mux --> DP
-> > > >  
-> > > > > > 
-> > > > > > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> > > > > > ---
-> > > > > >  drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 12 ++++++++----
-> > > > > >  1 file changed, 8 insertions(+), 4 deletions(-)
-> > > > > > 
-> > > > > 
-> > > > > -- 
-> > > > > With best wishes
-> > > > > Dmitry
-> > > 
-> > > -- 
-> > > With best wishes
-> > > Dmitry
-> 
-> -- 
-> With best wishes
-> Dmitry
+Certain error conditions leave the device in a persistent hardware
+error state that cannot be cleared through existing recovery mechanisms
+such as driver reload or PCIe reset. In these cases, functionality can
+only be restored by performing a cold reset.
+
+To support this, the series introduces a new DRM wedging recovery
+method, DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)). When a device is wedged
+with this method, the DRM core notifies userspace via a uevent that a cold
+reset is required. This allows userspace to take appropriate action to
+power-cycle the device.
+
+Example uevent received:
+  SUBSYSTEM=drm
+  WEDGED=cold-reset
+  DEVPATH=/devices/.../drm/card0
+
+Detailed description in commit message.
+
+[1] https://patchwork.freedesktop.org/series/160482/
+This patch series introduces a call to xe_punit_error_handler() from
+within handle_soc_internal_errors() when PUNIT errors detected.
+
+v2:
+- Add use case: Handling errors from power management unit,
+  which requires a complete power cycle to 
+  recover. (Christian)
+- Add several instead of number to avoid update. (Jani)
+
+v3:
+- Update any scenario that requires cold-reset. (Riana)
+- Update document with generic scenario. (Riana)
+- Consistent with terminology. (Raag)
+- Remove already covered information.
+- Use PUNIT instead of PMU. (Riana)
+- Use consistent wordingi.
+- Remove log. (Raag)
+
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Maxime Ripard <mripard@kernel.org>
+
+Mallesh Koujalagi (3):
+  drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+  drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+  drm/xe: Handle PUNIT errors by requesting cold-reset recovery
+
+Riana Tauro (1):
+  Introduce Xe Uncorrectable Error Handling
+
+ Documentation/gpu/drm-uapi.rst                |  60 +++-
+ drivers/gpu/drm/drm_drv.c                     |   2 +
+ drivers/gpu/drm/xe/Makefile                   |   2 +
+ drivers/gpu/drm/xe/xe_device.c                |  10 +
+ drivers/gpu/drm/xe/xe_device.h                |  15 +
+ drivers/gpu/drm/xe/xe_device_types.h          |   6 +
+ drivers/gpu/drm/xe/xe_gt.c                    |  14 +-
+ drivers/gpu/drm/xe/xe_guc_submit.c            |   9 +-
+ drivers/gpu/drm/xe/xe_pci.c                   |   3 +
+ drivers/gpu/drm/xe/xe_pci_error.c             | 118 ++++++
+ drivers/gpu/drm/xe/xe_ras.c                   | 337 ++++++++++++++++++
+ drivers/gpu/drm/xe/xe_ras.h                   |  17 +
+ drivers/gpu/drm/xe/xe_ras_types.h             | 203 +++++++++++
+ drivers/gpu/drm/xe/xe_survivability_mode.c    |  12 +-
+ drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h |  13 +
+ include/drm/drm_device.h                      |   1 +
+ 16 files changed, 813 insertions(+), 9 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_pci_error.c
+ create mode 100644 drivers/gpu/drm/xe/xe_ras.c
+ create mode 100644 drivers/gpu/drm/xe/xe_ras.h
+ create mode 100644 drivers/gpu/drm/xe/xe_ras_types.h
+
+-- 
+2.34.1
+
