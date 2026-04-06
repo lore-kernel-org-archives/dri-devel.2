@@ -4,127 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 906F6F46C4E
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 16:34:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6FC3F46C62
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 17:27:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2D3510E277;
-	Mon,  6 Apr 2026 16:34:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C8DE10E245;
+	Mon,  6 Apr 2026 17:27:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="zn80Vxgw";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="b46ohCgL";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022115.outbound.protection.outlook.com [52.101.96.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9166A10E277
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 16:34:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LFkNyVFmg7g+W0oqTS+lHT5i0e0jnO5zj+2KN/wJgSttSy93H4xiEo5yDMFFI6C/8J6bX4NVdJOxs9iHmivDMojE88W0BK7KSSP8E4rC7LhOJmWkJ5za1aBOBZeiUJEWz1dry8MptHMVDqIusmKfBpNMw/zzg9wxGWUapFHjp2csuqbRKlqZNu2lZuVcFbo8FCUAJ2uSHBWavb9NWF/PP1hwEzNn1/GjKT37wrvOULYguY5LdCnFmPtYLCxp0Buvxr8gMQwqR9m80CafBLc3aZ+CtxYoY2/E7jiidzgb+UkpeLqfyyuaEzXvKx5o4XmgKSXbYKY+04bSkbKgHw2YSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RpWhvXHrqwDq7XXjRrBaVMdTySed2e7y6ZxEIU0Q2OI=;
- b=DwOve9ifXrGDZ/HKU2LkifrSoHiUOTHRWu3ZQTA+NPYzVTEIe7s98z8ymjisBUzLnIshxYZb0uGbCM5KxoPBZTBCLXzP+4xoUqccceXzbXgjMOltHF82E+SB5xDE5rJd4gLXTeGcr3zWi2m0/qFmOB911N0FnJjpUCT2vNi69XNb+eyFbdz8rL7Cfi3uMJHCYfldHWHliyJ6XtnftSUfZSsD3QdahxfeXnWeoE/Ef92d3Jc63nYPWxeg6eXhKLC84radNbWkkXEGlRDf8TZvkANNr5fk16jqgwh5kpmj4ScGdMX0CmbtetMD3UcGEZBNu+Ev6YzCkwaM7cF2hb77AA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RpWhvXHrqwDq7XXjRrBaVMdTySed2e7y6ZxEIU0Q2OI=;
- b=zn80Vxgw7CLEShmmO7ljelIHYLFoNK2DEjV39w2PzkDsAB3ez27XsRMjOFkZhLDgIqGDz6b6+gWv45Mp2jAhzUIgCJrioTPkowg5FZXsjkRWono99hsezXnWEmzRcJsT6c6dgN3QyCI7aGohKn8qso7zMwOrrkFbxDp2izqWHas=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWLP265MB5706.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1a4::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Mon, 6 Apr
- 2026 16:34:30 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.016; Mon, 6 Apr 2026
- 16:34:29 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 06 Apr 2026 17:34:28 +0100
-Message-Id: <DHM7U3F0463G.15D4YIQENI45D@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, <rust-for-linux@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] gpu: nova-core: require little endian
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>
-X-Mailer: aerc 0.21.0
-References: <20260406-fix-kconfig-v1-1-8f634499f7f0@nvidia.com>
-In-Reply-To: <20260406-fix-kconfig-v1-1-8f634499f7f0@nvidia.com>
-X-ClientProxiedBy: LNXP265CA0093.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:76::33) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B270D10E245
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 17:26:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=XVLXFSKDDmhhNjjQzCRj4AbzhYzUt+MT2Ws1Pn1+iq4=; b=b46ohCgLk6s3acWQG8279HART2
+ KvwYkFkOV8XXvMFUViOIs65pecJVed2+8/ZPfT/LSvtMYkn+1WZoO5JRHnNPCKlYZrRSISvWbrKup
+ kMfsWGUgVYahSOHL3I1LJiQlk0TMYdtP4+hJACFenbyr3JQjf0wLTXVe8jQwt3SJ75uHEC0aoYSaL
+ hpjaZNwcNqi/brSFRoXV5rQWtnpwAV0TCp6BZxYo2lHlAvfyRCLIrKIA74MCJNFOU0/aO4NWTjAue
+ g7J6DZOJgozzcg2c2kgacS7Ykqrll4VPjxiVs2poFFGpBjJ1A4J4UawmMKoWLksSr5Yf2BPWupJ/E
+ 9eFFpw5g==;
+Received: from [189.7.87.169] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1w9nio-00Cev4-0l; Mon, 06 Apr 2026 19:26:46 +0200
+Message-ID: <c4720d5a-ee18-47e5-bac2-e3c521972931@igalia.com>
+Date: Mon, 6 Apr 2026 14:26:39 -0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB5706:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0a98144-b077-4ff3-be9b-08de93fa6018
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|366016|376014|1800799024|7416014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: a7Cmap5uXVVU7A8dRz1e2zcLoGOyFPohHf+/1gBgB+3mIbd34NYRr1Phuq5JqU4SG0vUezhistX/phuWm/DkKHJSue8sXRH6dKT8bJJTIS40uDn0nPwb0LoCA1kkS0OnwZvmXFYeXQ65ZS+tid93sorEj5JWD7BQL85sxrI922rNqgQnypvPM8cxDbBt+JR3Qnlswy6swAoGg3mLXPj9ZvyB40+bcL3kKYBwGz9CH47Qth0gzHpL4+TdkCuVZlMcWATT2XNmwuDlwM3Vv3ldBlr4nfWRXQHYFPV6hmBHFSLzdh/zDXR2osjiwwyrquyQkaI80F11Ft2MjxiDT2wFukoPvLE58Jxt19oD19ssKY1bnmbz37HbabUYOESItWpHYfwP68ifh4UIN4p0uLKc0xIcjqjdHPO4hWvHPYtgzkBkZUhVkVyNnpMFwqmRdQO2vWiv6BMtRuG0qoevpjDgQVrYcm7S873pjX3BTSESG4WozBDksAibV6qG4B80ahfWlA7icK3goNFXLgXEArjKvT3MDW0NLLPMD/Gu9jdvZ3+RoIoPEkcYvXpDMV9k5EqwoqV+S0CbcTuXIYOUE1sHj7kpDvColv4JZiGc0nPt0rgZzCbkDJAS/9k2xYWHwKyTh5JDHY18+BMqZIBBgg9ztNV1wtxoRQRdGGjTHUq66ORy9ka8de8a9hU8Sbpwe9mZT/2d0STKeQQ6mr3+O7eWTE4Awxd2ztGD52dokBgxGYs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0dPWXNmQzlhOVluUG1ZZzBOcWl1djFhVjZoa1M1eVFsRE9EdkZtRGk0cmhT?=
- =?utf-8?B?QU9jMzJGT0ErbjYrdzVwbnVrd0pDYmJmVTEvNmIrd2Ezb0Yzd0xZYnp1dUxN?=
- =?utf-8?B?TmRFeVoxenFnejNQOTk1S1VYR21GWHRMWWZMUlJobUF6dWlMK2NlaGJiOUh5?=
- =?utf-8?B?cEZKcllwQ1VpNS9KYm5pSmhBaXRYbzM5VDVCelhlQjF2RUZXSE50YjNoMmdt?=
- =?utf-8?B?ZlNNaVJSMmhvZXBJc0M2RjZzUVo2cThLVnNRMCtJSjJjcTVRdWFGQTAvWlFI?=
- =?utf-8?B?NmFaZzM2dm1hemJYN1NWdHJka0pIWjF5ZHNIYWpsOG1QdTVzZ1MwWnFtenVk?=
- =?utf-8?B?TjFBZDRWVHBUR3hlcDRoQXZWQzBCZEJWbHJVaWpqS0FWNHFLTHllVzMzenFD?=
- =?utf-8?B?cjl4MnJZamE2aGZKQUM4Q1dVVE1CVkxqUVBrYzB2c3E2aEU5eFgrNUxDUkJT?=
- =?utf-8?B?SWt1UWlqRjBKUEpjN21HcFptdElCZURTV2ZMVjcwZ3FvZURXUzB6VlZ4V2dU?=
- =?utf-8?B?N1d5c3JyREROVUV0eklCYmFmcmZ1VlFIY1NiRzJndUxaMjlnTHU5RDZJdVhw?=
- =?utf-8?B?eXkyQ2lqZW9paWUxWlhIQjRiZ25ETldmZnJzWUhkVDhSbzNlRHJuOFJYNjdC?=
- =?utf-8?B?NG9CZDl2TWg1WFJzVjBLM0lnOTJyTVhOSWFRcWFXTE1GVHYrM0FUNzIya0xK?=
- =?utf-8?B?NU1FM29zZHdnZ2kzdWdwa1N2QTZ4bXVVZ2VSaWZYTENMTXphTlgrNEFCcmtG?=
- =?utf-8?B?OGl5dXJPNmZyU2NJODN3MERYQXl5eGNRK1dCdWhOcC81OEVTUTF4K2FMbkxJ?=
- =?utf-8?B?c1pKL3BOMnlXRnpkZFJyTGtCTWZqM1pyRE4xWjE3T0RuNlVHLzRTZ0MwVG92?=
- =?utf-8?B?TVRQODBLTWpLYUtEVi85ZWdGRFFVRWkyN3ppd05aTEJpQ3NabGFsSDA2Wm9q?=
- =?utf-8?B?MmZjVXhBd2p6UW5abU9IeW1HVlZOZkxMMVNqUW1kV3YxOUlBVW5kK1loWVJn?=
- =?utf-8?B?Snl3alNZWXhjWFlJVjAyWTJSdnc1WlQzUUNqMXN6ZnMwbFlQaW5JbDJrTlc4?=
- =?utf-8?B?Y1RxQjdiOUNwT1FSOUFHdXJCditObWFKQ2ZINW9tVTRENFU0cDc0aHZHbGcv?=
- =?utf-8?B?Vm84bEorMmtmNzZaNk5Xbm1hdTBaYzcvdHB4L2NTMUp1R2MzTCtpREVOYXpv?=
- =?utf-8?B?d21UQmhualRGSG1Gb3JJS0k2dzFJc0Jjd0RrWUNaaHQxR21Ob3V0SFNFSCtK?=
- =?utf-8?B?eG1VUWo1aWpkNy9DNzBIOHE0eFNlVSs1QVNDdFRlVEltbk9pOEFObTM5ZjJk?=
- =?utf-8?B?NEJXaDJwdU1mWlIrZ1NHK1ZwTUE2cmlOR0k1dFg4UzN1Mzg4SFdMbGZyYmIz?=
- =?utf-8?B?aDFZS3ArUC91M0NNYURUNDZPbml1NzNDOGduU25XZFpWbi9JMkJETmFUdzAw?=
- =?utf-8?B?SmhHVjR5VHBnWlBvenh5MFFJRXNvQ1pKbVN4bUVSbjlsVGVBcStDUDdIVlpi?=
- =?utf-8?B?UENxbHY3MkhiQldkaG5WaEhMTW53QUd5eTl0V01yejExVjh4anBYenZjU2VE?=
- =?utf-8?B?SmhRNjZ4ekdYczY1U0RjZzN2N2Y2TmtoTlZGei9TMVQxeFNHUDVWK0xjK25K?=
- =?utf-8?B?VjZCK20xL0tjenRBNW1EOUJsVEtvenJ3UFFBeTJ0SDh6TE1iNkNBVUwxc2g3?=
- =?utf-8?B?bFlxa0hXQk1BRGR4ZWM3ZmwyUTA1MXNUdHpHeTVZKytneTkydkxrVHR0MVlI?=
- =?utf-8?B?Ny8vVVIxbHE1OVZKVWx4dVYxSjBKcUtoY1ZSSEkwY1p4dElRUG9lckowR291?=
- =?utf-8?B?TjZxQlNLYlYydW5lNUpZVFhYb3BWYUhxYzNXUGc2ZTNuakRwRVJqYmxWYlR6?=
- =?utf-8?B?TW01QzdKU1A3eHRMM3IwSEprMys2VWxlZjZOaUJFbDYxMDFleUg1MW9EYTBH?=
- =?utf-8?B?SGtkaER3Q1ZIdFV0L2ZoRkdPclIwQXRQY0tnalRMRG5BS2FhQ2pQY2RQRFVK?=
- =?utf-8?B?QlJqbjM1MVFucEQxN1E3RkJHS0d2WkF0bXladVlSM1J6a2psYmVlR2VacUVx?=
- =?utf-8?B?ZmNEWDdhOVBJWm5BWjRuU2dYN04wd0hjZUxVbmo3cWxFdEY4ZlRvUUxIK2ky?=
- =?utf-8?B?UEJaMHdGQUZ0dVA3Qkp2OXY4Wm1uazFhK3Jhd0RHTVlXdERFMmlGRGFERW1V?=
- =?utf-8?B?dDQvaXBjd3E2dS9kWWI3YVF1WlpvR09Fa1hCZ29ZTHBxbEhBOUdHWVZXYU1Z?=
- =?utf-8?B?RUg2WVYrUWYvenhNLzVHY2Fldmd4dDIzWVJ5UVpiZm53cnFmajhvT25zM09Z?=
- =?utf-8?B?REs0a1N4UWtBTnZzOSsyN1d1cE54UCs4Z2F2WnhzaVlXT2E2V1AyQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0a98144-b077-4ff3-be9b-08de93fa6018
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 16:34:29.7643 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DZsodnVZz5mLwE1lC/GBiX2Wg+PDK6HPASGi9gOcxhWo5b8tb3y6RwbVgVmUWT5SQGKCpJ8l1ZwesqxfTvy2vA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5706
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/7] drm/vc4: Add per-file descriptor seqno tracking
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com>
+ <20260402-vc4-drm-scheduler-v2-5-d84afd35c602@igalia.com>
+ <39d288c0-8fb8-49bc-9c23-e8f90e00e579@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <39d288c0-8fb8-49bc-9c23-e8f90e00e579@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,59 +92,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Apr 6, 2026 at 7:52 AM BST, Eliot Courtney wrote:
-> The driver already assumes little endian in a lot of locations. For
-> example, all the code that reads RPCs out of the command queue just
-> directly interprets the bytes.
->
-> Make this explicit in Kconfig.
->
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-> ---
-> The current code assumes little endian in a bunch of places. I think we
-> should either explicitly decide to be generic on endianness or explicitly
-> decide not to - having some handling sprinkled around in various
-> locations seems confusing to me.
->
-> I believe that currently e.g. `RUST` transitively depends on
-> !CPU_BIG_ENDIAN, so this is more about making the decision explicit for
-> nova-core rather than fixing any kind of hole.
+Hi Tvrtko,
 
-IBM is adding PowerPC support which will be the first BE architecture that =
-RfL
-is going to support. However, only 32-bit BE is going to be added soon, so
-`depends on 64BIT` will prevent Nova from supporting that.
+On 06/04/26 12:09, Tvrtko Ursulin wrote:
 
-So I think it's good that we put it in.
+[...]
 
-Acked-by: Gary Guo <gary@garyguo.net>
+>> +
+>>   static void
+>>   vc4_job_free(struct kref *ref)
+>>   {
+>> @@ -260,6 +311,10 @@ vc4_render_job_free(struct kref *ref)
+>>       vc4->bin_alloc_used &= ~job->bin_slots;
+>>       spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+>> +    if (job->seqno)
+>> +        xa_erase(&job->file->seqno_xa, job->seqno);
+>> +
+>> +    vc4_file_put(job->file);
+>>       vc4_job_free(ref);
+>>   }
+>> @@ -428,6 +483,7 @@ vc4_submit_cl_ioctl(struct drm_device *dev, void 
+>> *data,
+>>           return ret;
+>>       exec.render = render;
+>> +    render->file = vc4_file_get(vc4_priv);
+>>       INIT_LIST_HEAD(&render->unref_list);
+>>       ret = vc4_lookup_bos(dev, file_priv, render, args->bo_handles,
+>> @@ -483,10 +539,20 @@ vc4_submit_cl_ioctl(struct drm_device *dev, void 
+>> *data,
+>>       vc4_push_job(&render->base);
+>>       mutex_unlock(&vc4->sched_lock);
+>> +    ret = xa_alloc_cyclic(&vc4_priv->seqno_xa, &render->seqno,
+>> +                  render->base.done_fence,
+>> +                  xa_limit_32b, &vc4_priv->next_seqno, GFP_KERNEL);
+>> +    if (ret < 0) {
+>> +        /* Jobs are already queued, just skip seqno tracking. */
+> 
+> Why it is not better to allocate the seqno earlier and avoid the problem 
+> of false positive waits?
 
-Best,
-Gary
+Actually, right after sending this series to the mailing list, I had an
+idea to solve this issue and I sent a patch implementing it for Etnaviv
+[1]. I plan to do the same for vc4 in v3.
 
-> ---
->  drivers/gpu/nova-core/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfi=
-g
-> index a4f2380654e2..d8456f8eaa05 100644
-> --- a/drivers/gpu/nova-core/Kconfig
-> +++ b/drivers/gpu/nova-core/Kconfig
-> @@ -3,6 +3,7 @@ config NOVA_CORE
->  	depends on 64BIT
->  	depends on PCI
->  	depends on RUST
-> +	depends on !CPU_BIG_ENDIAN
->  	select AUXILIARY_BUS
->  	select RUST_FW_LOADER_ABSTRACTIONS
->  	default n
->
-> ---
-> base-commit: a7a080bb4236ebe577b6776d940d1717912ff6dd
-> change-id: 20260406-fix-kconfig-3a059f622697
->
-> Best regards,
-> -- =20
-> Eliot Courtney <ecourtney@nvidia.com>
+Thanks for your review!
+
+[1] 
+https://lore.kernel.org/dri-devel/20260402193424.2023318-1-mcanal@igalia.com/T/
+
+Best regards,
+- Maíra
+
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+>> +        render->seqno = 0;
+>> +    }
+>>       vc4_attach_fences(file_priv, render, args->out_sync, render- 
+>> >base.done_fence);
+>>       drm_exec_fini(&exec_ctx);
+>> +    /* Return the seqno for our job. */
+>> +    args->seqno = render->seqno;
+>> +
+>>       vc4_job_put((void *)bin);
+>>       vc4_job_put((void *)render);
+>>
+> 
 
