@@ -4,59 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7A56EF4EA4
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 07:01:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 277C9EF4EA4
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 07:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F29BD10E1DA;
-	Mon,  6 Apr 2026 07:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9F3F10E1E0;
+	Mon,  6 Apr 2026 07:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=vignesh.raman@collabora.com header.b="QRfZQAzM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iBj4qyg0";
 	dkim-atps=neutral
-X-Greylist: delayed 902 seconds by postgrey-1.36 at gabe;
- Mon, 06 Apr 2026 07:01:36 UTC
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
- [136.143.188.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9323D10E1DA
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 07:01:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775457987; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=QTgpR5iSPn3DYqPPOKdG14snv5bcj0/VBtAmRD8h8lzWYOnJ0n3VCa2N0+Icrxm5dvwjcwp8FAW+yVid76AJAqm0kS3e2CmsfJherhm7ZhoElgFJ84HrWp4eJyhobPk8nvR7UOXpgQ6+WcndZv3wKN+EaOBvv4Dwqf6DmgkQlhY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775457987;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=FhNkycVgqMimgV7KYxi7Bteo9mriPh+8EGPCFUAsORs=; 
- b=CGdXywzsIbx3CMyXspmHvuEP/Fvfu8asM4p2SwcVn9c7JoBjQfKyhfb7NFm1OkXFQ3FN71XLefAabogBBqONheSzLmxNjbjlJ3o/BqIkw5FVDH6QV6ytDSKQhFiHmYoyGcjiGMsoGB0jJl4L9t5kh6s6VjjynyH7yNkKP5uXtTI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=vignesh.raman@collabora.com;
- dmarc=pass header.from=<vignesh.raman@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775457987; 
- s=zohomail; d=collabora.com; i=vignesh.raman@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:From:From:Subject:Subject:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=FhNkycVgqMimgV7KYxi7Bteo9mriPh+8EGPCFUAsORs=;
- b=QRfZQAzMUCoUO7WjAJ9wJKIXa/kAXrCdccjlAWP/AbLM8nNqNJ7WwPUxNBxIXXSq
- +twUBiJWj53waw+1ozt/DUrkwcH6M6XZHFa6m+ZeSyoKZmqrnrq179LEziqDVy5m5wA
- BkBlFQYvTWxJGUKRaewkRzW28wbfg51vjuEhAhD4=
-Received: by mx.zohomail.com with SMTPS id 1775457983869546.1265288708523;
- Sun, 5 Apr 2026 23:46:23 -0700 (PDT)
-Message-ID: <db70ec3b-736f-478c-917c-f8a56726c13e@collabora.com>
-Date: Mon, 6 Apr 2026 12:16:18 +0530
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9953810E012
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 07:39:53 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-488a29e6110so16370375e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 00:39:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775461192; x=1776065992; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=PV5yIQv/6bTdgVUZVXXsO9kP+vu/b8exNKt22mhgJ3E=;
+ b=iBj4qyg07vXTHX6LnUBu7VH2KjWaab6qKNqqNKKjKsXWeisvneNyBKFdGi7Qp2x4RJ
+ ys/KRxH/+yQRCHfwrviwwP+jNLVlm9IjlVxOpYF6OISz/jcwMBreBuilsiFUiIja3zv+
+ nXX0LAQEP4VFGl+yb+fLyIJBhHVK6hryASSt63d0b6uC6qCIchh8bII53WQB2rAXSyJJ
+ QXHoxRCqUKyx4D51Xc29j934a2YUnlJ6slt/rwAHUyeza2TKmNgbKyFmbUe9Z8zVhteQ
+ H42LdJaCA4kPP50qo6O1FH0iiVJat/weDDBqqRnMWvhyrXhJU+OVsySs46nNwCqpnbcf
+ jk9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775461192; x=1776065992;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=PV5yIQv/6bTdgVUZVXXsO9kP+vu/b8exNKt22mhgJ3E=;
+ b=F/E9f2811t+uLzVvg9wmikyOb571a+i1LB3dlhe7FVW0z4HESdVtFEBbJgZBbGNziJ
+ 3VS09nQLtbb6aW4M3T0OY13G+TaEYttubKLKm8sOjG7hP4Aocv3HHPozzKPTZwO+bq39
+ MgHjhpqzIZV54r9TUIpXD60diRhNotZyk+DpZxDn3zap41pnL/jRtDcbzw8Q3WqMy5YR
+ QAIyvkpNWDrkk4MYdbxL4lU15i82yDsQ84ed4mjCpYrTvrpbwLRtHdmttkdDuhKwIYYY
+ SvdiUgmoCiF+k9wO4LZS+TmXdnQPD8ze/9eD3IQuDEAe5ai7xAE+7IT0PthkDdsWoaKr
+ x4eA==
+X-Gm-Message-State: AOJu0YwYgb+aibN0PRl469VekpaEBgz53DvS7oTttH0mWTJYKhyagio8
+ 5FcY3T0CNmQhxSSoqIKWRQBW7sByuvufSdZoipVUZ5ZCn6kPGc/q0n2+
+X-Gm-Gg: AeBDiesona9qOA/JTrAVSEr95As9SVuY/MsyNZTQO2vl/jX/a0T8e6FYpq1kf//T3Wd
+ 7yQdJEHkb7Ao4ac8RPxAM77vw4SRvwjxCv7+1NEXqXPILtW1I5GSC4V1oMXK2noxXcWH5aZaCnC
+ /nwWcSgj5+YFGiTIzvoH8/Wjha+Sh/DzbzFeAvSJimdRSqELMXtwLmpNt0/yXnustGbeln9H6WV
+ lI/l02+aNY4xm+Lq/5VvH7KnGElk2XkDgWIU2pNaHjBWm3FcDhl2rB+nC4drOHgUHie72ep6tec
+ yjjScRVY6Cw8h6OJU6bcwiTfHynCLsjIbDllr7R1jA+obLiq336/oxYKmCf8fVjicrlo+UkFVUN
+ TS3UwiV85stFQI3qMzaoIqivKZ24RSnG5uD3HhCez9AlajVY7iS9/jvmSYG2VHzdkvRUO7wVp1y
+ 2qCPUJnz0VohpW
+X-Received: by 2002:a05:600c:3f0a:b0:487:2439:b7c8 with SMTP id
+ 5b1f17b1804b1-488996a206dmr185178835e9.1.1775461191593; 
+ Mon, 06 Apr 2026 00:39:51 -0700 (PDT)
+Received: from xeon ([188.163.112.56]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4887e83e906sm527201325e9.8.2026.04.06.00.39.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Apr 2026 00:39:50 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3 RESEND] drm: bridge: add support for Triple 10-BIT
+Date: Mon,  6 Apr 2026 10:39:26 +0300
+Message-ID: <20260406073930.24662-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Vignesh Raman <vignesh.raman@collabora.com>
-Subject: Re: [PATCH 1/1] drm/ci: bump IGT version to v2.3
-To: jim.cromie@gmail.com
-Cc: linux-kernel@vger.kernel.org, helen.fornazier@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org
-References: <20260319161159.1149822-1-jim.cromie@gmail.com>
- <dfa88f76-02d9-46a3-8bd8-bba0f14defa6@collabora.com>
- <CAJfuBxyu2K0THVAyS9i18LoTD3sR8TB_j-3Op3cxr+G_=xsKiQ@mail.gmail.com>
-Content-Language: en-US
-In-Reply-To: <CAJfuBxyu2K0THVAyS9i18LoTD3sR8TB_j-3Op3cxr+G_=xsKiQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,65 +89,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jim,
+Triple 10-BIT LVDS Transmitter is used in Microsoft Surface RT and
+MStar TSUMU88ADT3-LF-1 HDMI bridge is used in ASUS Transformer AiO
+P1801-T.
 
-On 04/04/26 18:38, jim.cromie@gmail.com wrote:
-> On Tue, Mar 31, 2026 at 11:45 PM Vignesh Raman
-> <vignesh.raman@collabora.com> wrote:
->>
->> Hi Jim,
->>
->> On 19/03/26 21:41, Jim Cromie wrote:
->>> IGT_VERSION is currently pinned to a sha thats ~1100 behind HEAD
->>>
->>> Lets bump it to the latest milestone/tag at v2.3
->>> Thats now only ~630 behind.
->>> Can we haz a v2.4 ?
->>>
->>> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
->>> ---
->>>    drivers/gpu/drm/ci/gitlab-ci.yml | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/ci/gitlab-ci.yml b/drivers/gpu/drm/ci/gitlab-ci.yml
->>> index 56638814bb28..d546bd123a63 100644
->>> --- a/drivers/gpu/drm/ci/gitlab-ci.yml
->>> +++ b/drivers/gpu/drm/ci/gitlab-ci.yml
->>> @@ -5,7 +5,7 @@ variables:
->>>      UPSTREAM_REPO: https://gitlab.freedesktop.org/drm/kernel.git
->>>      TARGET_BRANCH: drm-next
->>>
->>> -  IGT_VERSION: 129d5b10baaadea1d6cd6377341c4cb42e7ee6fd
->>> +  IGT_VERSION: v2.3
->>
->> Thanks for the patch. We also need to update the expectation files along
->> with this igt uprev. Are you planning to do it?
->>
-> 
-> I dont know what that means / entails,
-> So, it's best I don't.
-> When you do it, I'll then know how (if you cc me ;-)
+Link to v3: https://lore.kernel.org/lkml/20250824092728.105643-1-clamor95@gmail.com/
 
-When mesa or IGT version is updated in drm-ci, we need to update the 
-fails/flakes files in the xfails folder, as the new uprev can introduce 
-new failures or make some tests pass.
+---
+Changes on switching from v3 to v4:
+- rebased on top of v7.0
 
-Example 
-https://gitlab.freedesktop.org/drm/msm/-/merge_requests/213/diffs?commit_id=af95dfd73f307ce1bf4ba40826aabca3b60ceb84
+Changes on switching from v2 to v3:
+- place mstar,tsumu88adt3-lf-1 alphabetically
+- fix typos
 
-I will pick up your patch and run some tests, and update you. Thanks.
+Changes on switching from v1 to v2:
+- sort compatible alphabetically in schema
+---
 
-Regards,
-Vignesh
+David Heidelberg (1):
+  dt-bindigs: display: extend the LVDS codec with Triple 10-BIT LVDS
+    Transmitter
 
-> 
-> 
-> 
->> Regards,
->> Vignesh
->>
->>>
->>>      DEQP_RUNNER_GIT_URL: https://gitlab.freedesktop.org/mesa/deqp-runner.git
->>>      DEQP_RUNNER_GIT_TAG: v0.20.0
->>
+Maxim Schwalm (1):
+  drm/bridge: simple-bridge: Add support for MStar TSUMU88ADT3-LF-1
+
+Svyatoslav Ryhel (1):
+  dt-bindigs: display: extend the simple bridge with MStar
+    TSUMU88ADT3-LF-1 bridge
+
+ .../devicetree/bindings/display/bridge/lvds-codec.yaml       | 1 +
+ .../devicetree/bindings/display/bridge/simple-bridge.yaml    | 1 +
+ drivers/gpu/drm/bridge/simple-bridge.c                       | 5 +++++
+ 3 files changed, 7 insertions(+)
+
+-- 
+2.51.0
 
