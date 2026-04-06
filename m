@@ -4,157 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CA0EFB516F
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 21:55:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3B42FB5164
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 22:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E17F210E2D8;
-	Mon,  6 Apr 2026 21:55:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B88C10E2BF;
+	Mon,  6 Apr 2026 22:05:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="it6JVbox";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OGHi/I3b";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012071.outbound.protection.outlook.com [52.101.53.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DDDE10E2BF;
- Mon,  6 Apr 2026 21:55:26 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012038.outbound.protection.outlook.com
+ [40.107.200.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5982A10E2BF
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 22:05:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jd0VTIY5VU1NfkuxSEXH/Wgowi1ZLJhnw5vtw6zVEy2X+EgMbS9jqXKDzO0kd67MScuBGNqxEpT15ro4qtyq0AYcolVALAXFmTyXivI0ScASQ2ORwjpJaiHmtCSnbITLgi61UGmC2I/PwSQmls5qShlaMTkmVAfHWEgZIp/jGzeSDnGtOfQCUOMZXkROk6dbOpMRMItTN/r1vP6E8FXjtgGe4aPGENwADOF9Xzo4fvBCUwCxSIZPLX+9gFhyHJOeOT3qXFGb6KoPCzf4KApYFsGZSfOOgurZhd/gZSQtj3wodvGstKBdgSRyqLiATLuV5DDtX5UW6+W5L/41iQERtw==
+ b=FmkDtDAdZtk0mFj1DHRpu0ridzlBQv7M5sGkvAI0SPgEzRlT9zP975EwfrTjxsyBJOxwyH2dxaz1XLbhJZOmh+Z2BpQaW8QLWUBOEbY3PLW3xf75W0AWqr/EVEtO5dkMbqAHlZ/AF1kVaFDLWZ8cy/Pqx2RESmDB4wLOiZBRMuV22jo1P2KCmP4jRw6t9K+nTY8t2UaNzbJhkcdhjAyACl+h2wSzTwM3oU6LBNo3wmcuCsWEix4gcchjdMzVKKBQtOgHGGWH6PeKZy9nCZjWEb9A8NPOBgHMMHQ9QnpSeMSm7ds5/9C1HZgQ/7sNQo4cHaWjIa3jo4rb0GJR20+Giw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PoZinVtitqlIIWQUFWNH5gwp5G3bV2tCKI6DpzXLUwE=;
- b=XE79uAmW7WVfUzSgnv4OlzC6Xx2kKejonnUQ+Lpmt17C1d4+ht89NwYMfZ5qb8xl5uoUkuCcb/yejqChEqEXu2qSmCUcTyDquHlDD7NaSa62kopeXBBnDoGLZ1mUCrRZhjhpCHBpVZCAU6g6yD80+BBwy69X+GgpxVXrZ/t3faLj8aQQNO3tWzL+9yH4Tqk9yMopbp7301C3YHXFDxY3D6rwMaqac9ZpoRbA5GU+y2Jy5Tf/Z4FxoYUXLt2/wqVe0fjfMzKf2U1wpcpmmKrbDjB+BD8HggGkOn696yInkAJh3OWTg+EeOClWpQ6HoqzzFSA+WF8C0kxYDJBqRm47+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=kYs+s7fZKC6hCZ3f7g7CO/Y6opAsaFBzot0tfkb1U6U=;
+ b=B3ohK7BPlVrgMJfkZMwcgmrfc19ZvarBFRao4j2JRKoV0dCJUuSwCoKD5QXOQ5c9YglKFraS45133XyN+D7HTnay7P9+xd50o+OF/gXcbMkQsB9NZHVVz7zO13Tw2qt3wbrXXtgKhX6hvgVLottZioSUNjCxobl5GHdvHpWemJQqA9ubzAlv0zdiUEHW/cXp16w8e5fVE0V7rKhNYJv1pXqB5ScX1Wiv1fwa3h1MjodvQz6kIiEQMFKZqeWwTKuokJCqZB+76Po/fJfx1ozTCn8YoeeHqkSIkRvVP16+I0YPfBQ49fgtJzzDUxH4kPXvkljw0jpA+N3ZbD0FaE4t6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PoZinVtitqlIIWQUFWNH5gwp5G3bV2tCKI6DpzXLUwE=;
- b=it6JVbox4bbTCxjs/9kjgWfKOkeYqlIPP7yxpPX4brXgH/6XhUHw8W65gdpRVTS6Rh34dyKESeA9HfglQ7y6uzdSoUffzwZ2PAX+tTL7GjEQslATcfkWrwG2TobqOGIOVhxq2Nv+6wtVQeo2l8YeFcZMKvWZVWdNl9WJcT3ZWprbwoEV7wcow6nmNx6q683sNyKA7oIpZW/zhkGeTKZKeRFwH5XnR7cIINtBP+nS6MJ/Cvam1CvXG4pS3buSg9hI70csJYQ9W92FJTE8nNRR8xpJRj2nxa+Cytn4G+h2KB0AQgyuk/M/UX52hmhBQvZL8xrFr/dHLAREmcyH+fGAEw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- MW3PR12MB4426.namprd12.prod.outlook.com (2603:10b6:303:58::12) with
- Microsoft
+ bh=kYs+s7fZKC6hCZ3f7g7CO/Y6opAsaFBzot0tfkb1U6U=;
+ b=OGHi/I3brWcT6SKSm2+4jFprUc8lh88u/LMkfHs4RO5Hs9F5O81LROs/0D/uawXsu8G+HJzwt3kzJ6kNYDdpuKGJ6fKD44SaBoaNI+cXbWdSOLQsGpcbNNPR7BcEll2o9e/i2fNzyVxh9yHI3eM0iUFYrHbVXtTMCOg/6FwMLDA=
+Received: from SJ0P220CA0030.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::6)
+ by PH7PR12MB5656.namprd12.prod.outlook.com (2603:10b6:510:13b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Mon, 6 Apr
+ 2026 22:05:29 +0000
+Received: from SJ1PEPF00001CDC.namprd05.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::90) by SJ0P220CA0030.outlook.office365.com
+ (2603:10b6:a03:41b::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.32 via Frontend Transport; Mon,
+ 6 Apr 2026 22:05:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDC.mail.protection.outlook.com (10.167.242.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.12; Mon, 6 Apr 2026 21:55:21 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Mon, 6 Apr 2026
- 21:55:21 +0000
-Message-ID: <5db2aab1-4b65-486e-ad9b-27a108bdb0d6@nvidia.com>
-Date: Mon, 6 Apr 2026 17:55:17 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 12/21] gpu: nova-core: mm: Add unified page table
- entry wrapper enums
-To: Eliot Courtney <ecourtney@nvidia.com>, linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
- <elle@weathered-steel.dev>, alexeyi@nvidia.com, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-1-joelagnelf@nvidia.com>
- <20260331212048.2229260-13-joelagnelf@nvidia.com>
- <DHIFF98P1YQ3.1IXUT02E3TF20@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DHIFF98P1YQ3.1IXUT02E3TF20@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN0P223CA0024.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:52b::31) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ 15.20.9769.17 via Frontend Transport; Mon, 6 Apr 2026 22:05:28 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 6 Apr
+ 2026 17:05:28 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 6 Apr
+ 2026 15:05:28 -0700
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 6 Apr 2026 17:05:27 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <maciej.falkowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Read real-time clock frequencies
+Date: Mon, 6 Apr 2026 15:05:26 -0700
+Message-ID: <20260406220526.4027917-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|MW3PR12MB4426:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fb3457e-f206-4ab1-b6e0-08de94273288
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDC:EE_|PH7PR12MB5656:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3771bce3-cc88-4f59-bf73-08de94289d22
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: wmh3hDslOQz7xdHVqTRMbjvi7fGsSSkOkbQZPja9Zd4pkYl1HPMD/aDWzxrc9L1BRTcdnugnlYSnM2CD5bIiryE9g7FnN94GGYWngXdRC2pHRzYZs10LikZDw4aZdWbisDvpzSZLqlGRovp89bqSw8RQiuMySqDCZS2kr3aTaTG7zBd9CDfsI+LOPViO9eDj8PM0gwX5imKd38KPY9Muu6zn2ZYc8+q+cW3mDNpF/Q4wSGuWMlJkDWw8Hpj0JxhhjcTChEBwHIBp0peHsrwW+rPmW7A+yhLD02hUHdH0PB1Gp4g6j34KKuPYaXE3/cUpuUngQWmWRug4japgm3RqPfLSqA2Te1YBKhDEKYI/oTI8bu10xjUkL4tTwf0NdBejy8YTsRP7a7dEVI6y7rrb9ol/UpRHL8vHbL3dgkbOTthOhUtB2P2DpC7ph2LuoXlXYQ+vRBzQUZpFrC3w1T5A7QkYEPBDc8N11MAwjCZyDV3UgVlDefE6vB4mnnticKGyinHa2OJ+ryQor3Iy4rSKldJQ4FKJtWsiiBkJdrnsN6WoSmAncwXTrPyYB9jevETtmJgbH9TaxNh9jFxyjXK6PcQcYrodOauVI1GAgUMbB2nr+jQQgqF+Yh5tDwOySfWq96YONomOXsUAVUZ6M+j6w8onSclshyvXLiiGtiWuhImwW0lFtXOFd3HmCL0oR9IZ0O87idfIJbWbhxZc6+ZCdEaCtMkIxK8mRw8xJ0w83b0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
+ ARA:13230040|36860700016|82310400026|1800799024|376014|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: AEOpmSy818X/zjgHTBd89iavblJ0Cduhxr814PhSbRDuRCgefKi9FpGNLt/XnacLmJh51eRIVpKnHULtRml0bROKskKR5HXnpiwQL+ePZFcBiryKo3LBP7tLxHBNsIIqwB4o3O4jZf46WL4tsABAgzyF0BshR1PRGdOpEAkw69tRikG8ktDjH1Wz68CQo7zOpvOyspaVcvXPCT8/5LBeL2x/ygInNNANw1ITS++qLZw+UY72LJkuEuNXdxtD9tPFKsMEVnDEF6CUPIqFiRJDCdnns01uitX0nvWtMfUBF/qhemTTxGVs7LwROLGIkw8tnj7ofthGT+mFepMXz/MdITWCDq7vW46ls8Ga/yot3lpPqXLniYePx5Xe0A4RpVs3qFnHe6DmqtTjxYTggmakvMQx+HTqKLpXZAa1XXmcTuEOrK8eSM1jc2xp5maW+Y2enmLpzrcCAqoUXPW4vhp7/kI7r1aXKkGSpSe6CJ2GgdxPI+ZDKKXJj5HtEBxFd2uWxLttPIi/t6QYSITRJL2wwF/caaxhOwT3SJJPNpSQ6c8pk+6DXyGu22CGEwC2s/i7yP6hDxEyLZAd/Nrda4ztnfM5qXX1Kzk5D9Xq7l7WdAR7IX+zSvndNFWPaFc4JUPcHgBqwcOeDDkrDPambKREj0gRA1yGwGzitJk6dCDeu5YWRoYXLGn8x2MelFK6J99RxgY05XHurWkZc6yoO6ZOjkFiJz8dsNW9vxiNu7jEzF9FRcTvkRMqI03KPW7SBP+24VbEE0aTAbkHm5WjBiEHoQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?THBsL2x3dUVnQ2NqT1NaajZJeFNWZW1YQXU2N1VnWU5SekdmVWZYWTQwK3hG?=
- =?utf-8?B?SFgvQnJJVk1jRTFHd3VRMXZ5b0ljMFQ5dlNqQjZ6ZUlmRDZON0YveXc3Nm4r?=
- =?utf-8?B?Y3l2UkpIMzhCM0RwRy91c0k5d3RkOW9uOWNuQXAyZ21MYlVDam1qSk5iV2tR?=
- =?utf-8?B?T3hNWTI5aXRkWUpvYjFQMGVUb0didWxkQ0R0Q0JwdTlJQmRvTjdRR3RxZUZW?=
- =?utf-8?B?V043TGNTMnRVaDFHdzluSEN0WERqcjluUi9zUENUSFg5dzNZNXd3U3Rhc3Jl?=
- =?utf-8?B?c2hkem9JRGd0OHozSmphOXlVRXluTDJ4ZTJsY1lpSm52a1gzaHRVUTJrdlFB?=
- =?utf-8?B?cmFJclo0RHk5bkU2by9TTWNPYVhUTzN0SjgxRkkwamx1c3U0d1N6a0xraHBQ?=
- =?utf-8?B?d2hPTm9IbkttQStUMFVUaTFmMTlsUlFjdzd0THVZV3BLZ2dNbndhYUVEQ0FU?=
- =?utf-8?B?MFNLVWxZTmtRUmhjRWxuZ0FuenVkTCtzb2dxa3JSUkZOV1dxYXcvVGtmdkZD?=
- =?utf-8?B?QUowNm9BRHZUVmdwcEIvb2Z2TmZ6WmdvK2dlU3IxaFlaMVUzQ1ZsNmNNMW1x?=
- =?utf-8?B?SThwNjRKS05BM0RpVnN6aDA3U21vNCs3c3ZpcDBvSnEwbHZoRUtRb3lXUWx1?=
- =?utf-8?B?alpzVXNCcXFjTnFkUVJtVDJzcmpHRWRYTkFqODdIK1dhK0JiWWhEWkpyekVX?=
- =?utf-8?B?dnBUMEoyOEpiQkRTdUlEKzZtdWRPb0VoM2dISjdMbTRhYS9tS2NhS0pHODNt?=
- =?utf-8?B?YkVZQzNxa1dublBXZy9EWlRieUIwbVZVZ0RvZ0V1WHZwTExUbUJXZldGdlR3?=
- =?utf-8?B?eG83KzRZV3VYcHg3U2hQSW9STE84c2RiekFWQXNTYTJRVmhrRHNRSDlzMzd2?=
- =?utf-8?B?MEN2aE5LMk5OSU85VkdPSGdVRnFFUnZTU1lJNjdyQ2JsMUhMT2t3MDZ0Q0dI?=
- =?utf-8?B?QzRpU05OcE1UdHBOUVRyaEtwQTlMUm51clBkMW9sdklJVDcxeklaUlJmRFdw?=
- =?utf-8?B?cStQUmpPMnZwVi9EVFBTaHpnaWJDb1dqZmQyVWRESkJ6MHY0SyszSDgzdXVV?=
- =?utf-8?B?dDFqNkpkbC93eVhaU0F0cTRuTG5jMEJSWk5HbzR0OWJoZEswS1gzN2NuT1Iz?=
- =?utf-8?B?UkJlTFNUWlBqcjBOcXpHQmJLbjQ3TkZ4c0FvdW45Y1hqdDF6TlJCMnR4NzN4?=
- =?utf-8?B?Z0g2bmlreUhmeUZEUnhZMkV0SU41dnNhcy9vZG1BcUhCTXlvT2JqR1RUNWlP?=
- =?utf-8?B?Y3ZGNDB6M3FFdjRwZnROZzlPM2ZINlpXdlVDOHovSUFMZk1majY4djNqZUx2?=
- =?utf-8?B?UDQ4TkNkRGZNT1dScWVKY0tqc3ZOY0k0Y0hlOGJ1VmdoOEFIaGpBekZmYjNP?=
- =?utf-8?B?Si9CZU9COGMzMWlhVGdLMkdMc0VYVkRVWmJFNE16NmJaWU1wMmE4YVBhbk9I?=
- =?utf-8?B?bjRuWHdwQXNZWFozYUFBeXdmUHhGRmsySVR1V1BCK1VDM010QzFjRUF5a21W?=
- =?utf-8?B?UktaSENGcGE4aTNqMi9WRXBOUHNZMldnZ2pFL3FkTXVrQnJ6QnZ5MFd3dzI3?=
- =?utf-8?B?ZTJKUXVrdzdRRTBnQ1EvYy96b1VmSkJUbnNaVitNVGs2ZCtsVVIwWTM2dlJQ?=
- =?utf-8?B?VGZsZHVBWkxlejRES0dweTl4WGQxL1ZDbEhESnl4QTNGdnFiRjVBSmwxRG44?=
- =?utf-8?B?VU42QjVIVmRMK3VwYVdYREkxeUVKT2E2SjRDZHFOQncwVGhEL3pFdnBmRUdX?=
- =?utf-8?B?am54RUdNVnZhakpaZmMrcS8ycW1lSFdERDJOYkxjZXBYSTNxWUhiazUwUU5R?=
- =?utf-8?B?WlpJK3BmY3ZzeXhpdFBoUjI4cjFUbG5TMjEzeUZubFRKSytESFM0MG4zK3VN?=
- =?utf-8?B?K1RZVHhBZXdDVklCREhyazBENS9IQTRncTlpNmpTQXhvMXVqL2JHTUVUSlUz?=
- =?utf-8?B?NmdTMVF2TVlTMGhqR3hWUm9ZNzd3ZVQ3c2ZGcFVKMU9VMFhBMnJxY1hyY1pv?=
- =?utf-8?B?SlJFZGdzbVdJdXZ5QWNaYzNqUFFLNmdPc3R2MGF1TmFSZlVPWjI0akFsT1Qx?=
- =?utf-8?B?OHloWVl2SWRLZm5McUNuSmdsZUlPQnQxa1d4OUE4dm8wOEsyMjc5RlB4WWVi?=
- =?utf-8?B?eFNUOU9LYXhzc0g4aU1CbEkrL0dhalBQR0RvbVczOHBSLzVvbDljbzB0d1Nm?=
- =?utf-8?B?OUpzQVc2cG1wdUwveWdlYUQ5RkU2UW9KNStpVnR0M085VzBDWFFXMEQxL1N1?=
- =?utf-8?B?TFpQa2tUdlhqME9uUFAvWHZYZjRSM3FmY1B3MUhFUFpjcGVldVdjR0NIV2Ir?=
- =?utf-8?B?TlBleC9kanNBbG1WL0M2MGYrSitRVnRJQ2FSenZOdndyb0RHcXJpQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fb3457e-f206-4ab1-b6e0-08de94273288
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 21:55:20.7209 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9bBaP82ISgQBxauvSdtPbbczJJDQDUFWR71oFiTzyTSOW5t9Ht82ZtnaEBm9ajRg6apPu5W++th7DZPleGPVOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4426
+X-MS-Exchange-AntiSpam-MessageData-0: PQ6Mw6oyse1oYZA9GZidzUd84LPOlX3HL+jnaPMstoYgfUsYdjDHN8FvPlP/BDM0JoMFmxNCgJuRd8Ligh19XX+Q293SsANUfdKlXts4WyFtKgcSJ8WYfwibzWTsAox7F+Smkm5+t2a5kJGqKGkYjmgqPnWEoTNN4ycqDDHhyRtRl1kCfTaFxAcnpbvbJcUvg11Gtc1taVhFdfNYEa/2eVp5zWIu04Uk90hS7Mu0m2RRGRv1tLFT7bevVH6AHVavmLsbb0u4NiD/jVrIs9bcKqJNOAeUKKniIuL9dCwTnLYxwKQWGp18G7RuqG6KKM1gafW7WAnxkgvlo8EzS6ncVXwQRr1l9I8O8oo5DFn5LNO+yhZQI6yi+57wp3hHXw42LSuPqyU4MuRosL87A+JehnAGYQ/Rzc/AVOlUXju0nbTXKVoU57u9plmE59fSpE0/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2026 22:05:28.7984 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3771bce3-cc88-4f59-bf73-08de94289d22
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5656
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,168 +116,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Add support for reading real-time clock frequencies through the PMF
+interface.
 
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/aie2_pci.c  |  4 +++-
+ drivers/accel/amdxdna/aie2_pci.h  | 12 ++++++++--
+ drivers/accel/amdxdna/aie2_pm.c   |  6 ++---
+ drivers/accel/amdxdna/npu1_regs.c |  2 +-
+ drivers/accel/amdxdna/npu4_regs.c | 39 +++++++++++++++++++++----------
+ drivers/accel/amdxdna/npu5_regs.c |  4 +---
+ drivers/accel/amdxdna/npu6_regs.c |  4 +---
+ 7 files changed, 46 insertions(+), 25 deletions(-)
 
-On 4/2/2026 1:40 AM, Eliot Courtney wrote:
-> On Wed Apr 1, 2026 at 6:20 AM JST, Joel Fernandes wrote:
->> Add unified Pte, Pde, and DualPde wrapper enums that abstract over
->> MMU v2 and v3 page table entry formats. These enums allow the page
->> table walker and VMM to work with both MMU versions.
->>
->> Each unified type:
->> - Takes MmuVersion parameter in constructors
->> - Wraps both ver2 and ver3 variants
->> - Delegates method calls to the appropriate variant
->>
->> This enables version-agnostic page table operations while keeping
->> version-specific implementation details encapsulated in the ver2
->> and ver3 modules.
->>
->> Cc: Nikola Djukic <ndjukic@nvidia.com>
->> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> ---
->>  drivers/gpu/nova-core/mm/pagetable.rs | 330 ++++++++++++++++++++++++++
->>  1 file changed, 330 insertions(+)
->>
->> diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
->> index 6e01a1af5222..909df37c3ee8 100644
->> --- a/drivers/gpu/nova-core/mm/pagetable.rs
->> +++ b/drivers/gpu/nova-core/mm/pagetable.rs
->> @@ -12,6 +12,13 @@
->>  pub(crate) mod ver3;
->>  
->>  use crate::gpu::Architecture;
->> +use crate::mm::{
->> +    pramin,
->> +    Pfn,
->> +    VirtualAddress,
->> +    VramAddress, //
->> +};
->> +use kernel::prelude::*;
->>  
->>  /// Extracts the page table index at a given level from a virtual address.
->>  pub(crate) trait VaLevelIndex {
->> @@ -84,6 +91,96 @@ pub(crate) const fn as_index(&self) -> u64 {
->>      }
->>  }
->>  
->> +impl MmuVersion {
->> +    /// Get the `PDE` levels (excluding PTE level) for page table walking.
->> +    pub(crate) fn pde_levels(&self) -> &'static [PageTableLevel] {
->> +        match self {
->> +            Self::V2 => ver2::PDE_LEVELS,
->> +            Self::V3 => ver3::PDE_LEVELS,
->> +        }
->> +    }
->> +
->> +    /// Get the PTE level for this MMU version.
->> +    pub(crate) fn pte_level(&self) -> PageTableLevel {
->> +        match self {
->> +            Self::V2 => ver2::PTE_LEVEL,
->> +            Self::V3 => ver3::PTE_LEVEL,
->> +        }
->> +    }
->> +
->> +    /// Get the dual PDE level (128-bit entries) for this MMU version.
->> +    pub(crate) fn dual_pde_level(&self) -> PageTableLevel {
->> +        match self {
->> +            Self::V2 => ver2::DUAL_PDE_LEVEL,
->> +            Self::V3 => ver3::DUAL_PDE_LEVEL,
->> +        }
->> +    }
->> +
->> +    /// Get the number of PDE levels for this MMU version.
->> +    pub(crate) fn pde_level_count(&self) -> usize {
->> +        self.pde_levels().len()
->> +    }
->> +
->> +    /// Get the entry size in bytes for a given level.
->> +    pub(crate) fn entry_size(&self, level: PageTableLevel) -> usize {
->> +        if level == self.dual_pde_level() {
->> +            16 // 128-bit dual PDE
->> +        } else {
->> +            8 // 64-bit PDE/PTE
->> +        }
->> +    }
->> +
->> +    /// Get the number of entries per page table page for a given level.
->> +    pub(crate) fn entries_per_page(&self, level: PageTableLevel) -> usize {
->> +        match self {
->> +            Self::V2 => match level {
->> +                // TODO: Calculate these values from the bitfield dynamically
->> +                // instead of hardcoding them.
->> +                PageTableLevel::Pdb => 4, // PD3 root: bits [48:47] = 2 bits
->> +                PageTableLevel::L3 => 256, // PD0 dual: bits [28:21] = 8 bits
->> +                _ => 512,                 // PD2, PD1, PT: 9 bits each
->> +            },
->> +            Self::V3 => match level {
->> +                PageTableLevel::Pdb => 2,  // PDE4 root: bit [56] = 1 bit, 2 entries
->> +                PageTableLevel::L4 => 256, // PDE0 dual: bits [28:21] = 8 bits
->> +                _ => 512,                  // PDE3, PDE2, PDE1, PT: 9 bits each
->> +            },
->> +        }
->> +    }
->> +
->> +    /// Extract the page table index at `level` from `va` for this MMU version.
->> +    pub(crate) fn level_index(&self, va: VirtualAddress, level: u64) -> u64 {
->> +        match self {
->> +            Self::V2 => ver2::VirtualAddressV2::new(va).level_index(level),
->> +            Self::V3 => ver3::VirtualAddressV3::new(va).level_index(level),
->> +        }
->> +    }
->> +
->> +    /// Compute upper bound on page table pages needed for `num_virt_pages`.
->> +    ///
->> +    /// Walks from PTE level up through PDE levels, accumulating the tree.
->> +    pub(crate) fn pt_pages_upper_bound(&self, num_virt_pages: usize) -> usize {
->> +        let mut total = 0;
->> +
->> +        // PTE pages at the leaf level.
->> +        let pte_epp = self.entries_per_page(self.pte_level());
->> +        let mut pages_at_level = num_virt_pages.div_ceil(pte_epp);
->> +        total += pages_at_level;
->> +
->> +        // Walk PDE levels bottom-up (reverse of pde_levels()).
->> +        for &level in self.pde_levels().iter().rev() {
->> +            let epp = self.entries_per_page(level);
->> +
->> +            // How many pages at this level do we need to point to
->> +            // the previous pages_at_level?
->> +            pages_at_level = pages_at_level.div_ceil(epp);
->> +            total += pages_at_level;
->> +        }
->> +
->> +        total
->> +    }
->> +}
->> +
-> 
-> We have a lot of matches on the MMU version here (and below in Pte, Pde,
-> DualPde). What about making MmuVersion into a trait (e.g. Mmu) with
-> associated types for Pte, Pde, DualPde which can implement traits
-> defining their common operations too?
-
-I coded this up and it did not look pretty, there's not much LOC savings and the
-code becomes harder to read because of parametrization of several functions. Also:
-
-> Then you can parameterise Vmm/PtWalk on this type.
-
-The match still to be done somewhere, so you end up matching on chipset to call
-the correct parametrized functions versus just passing in the parameter or
-chipset down, in some cases.
-
-For now I am inclined to leave it as is. Also there's a Rust pitfall we all
-learnt during the turing and other patch reviews, sometimes doing a bunch of
-matches is good especially if the number of variants are expected to be fixed
-(in the mm case, version 2 and version 3). Traits have some disadvantages too,
-example dyn traits have to heap-allocated, parametrizing can increase code size
-(due to monomorphization) etc.
-
-thanks,
-
---
-Joel Fernandes
-
-
-
+diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+index 041cbc8cd7e5..c9c23c889c78 100644
+--- a/drivers/accel/amdxdna/aie2_pci.c
++++ b/drivers/accel/amdxdna/aie2_pci.c
+@@ -284,7 +284,7 @@ static struct xrs_action_ops aie2_xrs_actions = {
+ 
+ static void aie2_smu_fini(struct amdxdna_dev_hdl *ndev)
+ {
+-	ndev->priv->hw_ops.set_dpm(ndev, 0);
++	ndev->priv->hw_ops->set_dpm(ndev, 0);
+ 	aie_smu_fini(ndev->aie.smu_hdl);
+ }
+ 
+@@ -765,6 +765,7 @@ static int aie2_get_clock_metadata(struct amdxdna_client *client,
+ 	if (!clock)
+ 		return -ENOMEM;
+ 
++	aie2_update_counters(ndev);
+ 	snprintf(clock->mp_npu_clock.name, sizeof(clock->mp_npu_clock.name),
+ 		 "MP-NPU Clock");
+ 	clock->mp_npu_clock.freq_mhz = ndev->npuclk_freq;
+@@ -925,6 +926,7 @@ static int aie2_query_resource_info(struct amdxdna_client *client,
+ 	ndev = xdna->dev_handle;
+ 	priv = ndev->priv;
+ 
++	aie2_update_counters(ndev);
+ 	res_info.npu_clk_max = priv->dpm_clk_tbl[ndev->max_dpm_level].hclk;
+ 	res_info.npu_tops_max = ndev->max_tops;
+ 	res_info.npu_task_max = priv->hwctx_limit;
+diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
+index 7c308672b5fe..77ba125e4d72 100644
+--- a/drivers/accel/amdxdna/aie2_pci.h
++++ b/drivers/accel/amdxdna/aie2_pci.h
+@@ -201,8 +201,16 @@ struct amdxdna_dev_hdl {
+ 
+ struct aie2_hw_ops {
+ 	int (*set_dpm)(struct amdxdna_dev_hdl *ndev, u32 dpm_level);
++	int (*update_counters)(struct amdxdna_dev_hdl *ndev);
+ };
+ 
++#define aie2_update_counters(ndev)				\
++({								\
++	typeof(ndev) _ndev = ndev;				\
++	if (_ndev->priv->hw_ops->update_counters)		\
++		_ndev->priv->hw_ops->update_counters(_ndev);	\
++})
++
+ enum aie2_fw_feature {
+ 	AIE2_NPU_COMMAND,
+ 	AIE2_PREEMPT,
+@@ -229,7 +237,7 @@ struct amdxdna_dev_priv {
+ 	struct aie_bar_off_pair		sram_offs[SRAM_MAX_INDEX];
+ 	struct aie_bar_off_pair		psp_regs_off[PSP_MAX_REGS];
+ 	struct aie_bar_off_pair		smu_regs_off[SMU_MAX_REGS];
+-	struct aie2_hw_ops		hw_ops;
++	const struct aie2_hw_ops	*hw_ops;
+ };
+ 
+ extern const struct amdxdna_dev_ops aie2_ops;
+@@ -243,7 +251,7 @@ extern const struct dpm_clk_freq npu4_dpm_clk_table[];
+ extern const struct rt_config npu1_default_rt_cfg[];
+ extern const struct rt_config npu4_default_rt_cfg[];
+ extern const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[];
+-int npu4_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level);
++extern const struct aie2_hw_ops npu4_hw_ops;
+ 
+ /* aie2_pm.c */
+ int aie2_pm_init(struct amdxdna_dev_hdl *ndev);
+diff --git a/drivers/accel/amdxdna/aie2_pm.c b/drivers/accel/amdxdna/aie2_pm.c
+index 5ec6728d04fd..786d688bd82c 100644
+--- a/drivers/accel/amdxdna/aie2_pm.c
++++ b/drivers/accel/amdxdna/aie2_pm.c
+@@ -35,7 +35,7 @@ int aie2_pm_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = ndev->priv->hw_ops.set_dpm(ndev, dpm_level);
++	ret = ndev->priv->hw_ops->set_dpm(ndev, dpm_level);
+ 	if (!ret)
+ 		ndev->dpm_level = dpm_level;
+ 	amdxdna_pm_suspend_put(ndev->aie.xdna);
+@@ -49,7 +49,7 @@ int aie2_pm_init(struct amdxdna_dev_hdl *ndev)
+ 
+ 	if (ndev->dev_status != AIE2_DEV_UNINIT) {
+ 		/* Resume device */
+-		ret = ndev->priv->hw_ops.set_dpm(ndev, ndev->dpm_level);
++		ret = ndev->priv->hw_ops->set_dpm(ndev, ndev->dpm_level);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -64,7 +64,7 @@ int aie2_pm_init(struct amdxdna_dev_hdl *ndev)
+ 		ndev->max_dpm_level++;
+ 	ndev->max_dpm_level--;
+ 
+-	ret = ndev->priv->hw_ops.set_dpm(ndev, ndev->max_dpm_level);
++	ret = ndev->priv->hw_ops->set_dpm(ndev, ndev->max_dpm_level);
+ 	if (ret)
+ 		return ret;
+ 	ndev->dpm_level = ndev->max_dpm_level;
+diff --git a/drivers/accel/amdxdna/npu1_regs.c b/drivers/accel/amdxdna/npu1_regs.c
+index a83e44f378ad..f1141a65e64d 100644
+--- a/drivers/accel/amdxdna/npu1_regs.c
++++ b/drivers/accel/amdxdna/npu1_regs.c
+@@ -122,7 +122,7 @@ static const struct amdxdna_dev_priv npu1_dev_priv = {
+ 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU1_SMU, MPNPU_PUB_SCRATCH6),
+ 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU1_SMU, MPNPU_PUB_SCRATCH7),
+ 	},
+-	.hw_ops		= {
++	.hw_ops		= &(const struct aie2_hw_ops) {
+ 		.set_dpm = npu1_set_dpm,
+ 	},
+ };
+diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
+index 5d68171f4ec2..a3b6df56abd0 100644
+--- a/drivers/accel/amdxdna/npu4_regs.c
++++ b/drivers/accel/amdxdna/npu4_regs.c
+@@ -6,6 +6,7 @@
+ #include <drm/amdxdna_accel.h>
+ #include <drm/drm_device.h>
+ #include <drm/gpu_scheduler.h>
++#include <linux/amd-pmf-io.h>
+ #include <linux/bits.h>
+ #include <linux/sizes.h>
+ 
+@@ -63,12 +64,7 @@
+ #define NPU4_SMU_BAR_BASE	MMNPU_APERTURE4_BASE
+ #define NPU4_SRAM_BAR_BASE	MMNPU_APERTURE1_BASE
+ 
+-#define NPU4_DPM_TOPS(ndev, dpm_level) \
+-({ \
+-	typeof(ndev) _ndev = ndev; \
+-	(4096 * (_ndev)->total_col * \
+-	 (_ndev)->priv->dpm_clk_tbl[dpm_level].hclk / 1000000); \
+-})
++#define NPU4_DPM_TOPS(ndev, hclk) (4096 * (ndev)->total_col * (hclk) / 1000000)
+ 
+ const struct rt_config npu4_default_rt_cfg[] = {
+ 	{ 5, 1, AIE2_RT_CFG_INIT }, /* PDI APP LOAD MODE */
+@@ -105,7 +101,7 @@ const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[] = {
+ 	{ 0 }
+ };
+ 
+-int npu4_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
++static int npu4_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
+ {
+ 	int ret;
+ 
+@@ -115,8 +111,8 @@ int npu4_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
+ 
+ 	ndev->npuclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].npuclk;
+ 	ndev->hclk_freq = ndev->priv->dpm_clk_tbl[dpm_level].hclk;
+-	ndev->max_tops = NPU4_DPM_TOPS(ndev, ndev->max_dpm_level);
+-	ndev->curr_tops = NPU4_DPM_TOPS(ndev, dpm_level);
++	ndev->max_tops = NPU4_DPM_TOPS(ndev, ndev->priv->dpm_clk_tbl[ndev->max_dpm_level].hclk);
++	ndev->curr_tops = NPU4_DPM_TOPS(ndev, ndev->hclk_freq);
+ 
+ 	XDNA_DBG(ndev->aie.xdna, "MP-NPU clock %d, H clock %d\n",
+ 		 ndev->npuclk_freq, ndev->hclk_freq);
+@@ -124,6 +120,27 @@ int npu4_set_dpm(struct amdxdna_dev_hdl *ndev, u32 dpm_level)
+ 	return 0;
+ }
+ 
++static int npu4_update_counters(struct amdxdna_dev_hdl *ndev)
++{
++	struct amd_pmf_npu_metrics npu_metrics;
++	int ret;
++
++	ret = AIE2_GET_PMF_NPU_METRICS(&npu_metrics);
++	if (ret)
++		return ret;
++
++	ndev->npuclk_freq = npu_metrics.mpnpuclk_freq;
++	ndev->hclk_freq = npu_metrics.npuclk_freq;
++	ndev->curr_tops = NPU4_DPM_TOPS(ndev, ndev->hclk_freq);
++
++	return 0;
++}
++
++const struct aie2_hw_ops npu4_hw_ops = {
++	.set_dpm = npu4_set_dpm,
++	.update_counters = npu4_update_counters,
++};
++
+ static const struct amdxdna_dev_priv npu4_dev_priv = {
+ 	.fw_path        = "amdnpu/17f0_10/",
+ 	.rt_config	= npu4_default_rt_cfg,
+@@ -154,9 +171,7 @@ static const struct amdxdna_dev_priv npu4_dev_priv = {
+ 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU4_SMU, MP1_C2PMSG_61),
+ 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU4_SMU, MP1_C2PMSG_60),
+ 	},
+-	.hw_ops		= {
+-		.set_dpm = npu4_set_dpm,
+-	},
++	.hw_ops		= &npu4_hw_ops
+ };
+ 
+ const struct amdxdna_dev_info dev_npu4_info = {
+diff --git a/drivers/accel/amdxdna/npu5_regs.c b/drivers/accel/amdxdna/npu5_regs.c
+index 98ee8780f3f5..6d4596b9e61e 100644
+--- a/drivers/accel/amdxdna/npu5_regs.c
++++ b/drivers/accel/amdxdna/npu5_regs.c
+@@ -92,9 +92,7 @@ static const struct amdxdna_dev_priv npu5_dev_priv = {
+ 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU5_SMU, MP1_C2PMSG_61),
+ 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU5_SMU, MP1_C2PMSG_60),
+ 	},
+-	.hw_ops		= {
+-		.set_dpm = npu4_set_dpm,
+-	},
++	.hw_ops		= &npu4_hw_ops
+ };
+ 
+ const struct amdxdna_dev_info dev_npu5_info = {
+diff --git a/drivers/accel/amdxdna/npu6_regs.c b/drivers/accel/amdxdna/npu6_regs.c
+index 31400cca5ec4..76181345b6d1 100644
+--- a/drivers/accel/amdxdna/npu6_regs.c
++++ b/drivers/accel/amdxdna/npu6_regs.c
+@@ -92,9 +92,7 @@ static const struct amdxdna_dev_priv npu6_dev_priv = {
+ 		DEFINE_BAR_OFFSET(SMU_RESP_REG, NPU6_SMU, MP1_C2PMSG_61),
+ 		DEFINE_BAR_OFFSET(SMU_OUT_REG,  NPU6_SMU, MP1_C2PMSG_60),
+ 	},
+-	.hw_ops         = {
+-		.set_dpm = npu4_set_dpm,
+-	},
++	.hw_ops         = &npu4_hw_ops
+ 
+ };
+ 
+-- 
+2.34.1
 
