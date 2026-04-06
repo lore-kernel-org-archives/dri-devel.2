@@ -4,54 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D4DF46C45
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 15:00:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89BA1F46C47
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 15:09:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7099F897FD;
-	Mon,  6 Apr 2026 15:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE75610E286;
+	Mon,  6 Apr 2026 15:09:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZCvIG7SX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o/y8R8bc";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 916E3897FD
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 15:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7Yb3KE25wEideBvF4KofmK4Q/AKeisOXZQtxM6N2BMA=; b=ZCvIG7SXmMS5/XbBZ5EE2kY5ST
- V0bpjf/dF/0sVWPNh4y/fFSna37f9fk3wR36v+eF36njGnumdaygSSteGrIYQF8aTXoldjP5oFoms
- 73VKg4JxL69ly8v/He849UWvXKFY053Q1TfBSxFUTtqS/dvtHT2D2aHoH5xkPnEKqoQG3cAoh1FQS
- MfK2WSjj8mgDsxXlFtDAF5jV1LUUd2lrhT1AGLr5ILz+4Lf5c4BuGuJAFNj1Rm0NCtF+ysGNNCqmc
- p8HC8cCbQbBVJhYqNCFL3X7HLp8eZjH5a4M7SNTBL/JF6qjBnDZHCk4T4jpyF7G6MU5lOEx3mJTWh
- CJU+AyFQ==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1w9lQy-00Cc1V-9X; Mon, 06 Apr 2026 17:00:12 +0200
-Message-ID: <945bb0fa-e4e2-4be8-8d4b-0c83b4fc6c4f@igalia.com>
-Date: Mon, 6 Apr 2026 16:00:11 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3E4710E272;
+ Mon,  6 Apr 2026 15:09:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DA30960127;
+ Mon,  6 Apr 2026 15:09:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68937C4CEF7;
+ Mon,  6 Apr 2026 15:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775488174;
+ bh=O0tCVCwItPdB09X25AtxkzJho55vhQaNrcXsCz+9/zo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o/y8R8bcEVTlTvK0zRqe4ZRyaVIKSa6J42j2BUFXyoXgcPkklW46Kgoxtfq3xc4VM
+ UnpDKxOQHOgziuOFJafVPT/kkbzrMn0NTyIHGXhq1nhmibXsG8CRQn8fW9Z5xRvm6r
+ jqbHL9x5r5Re4AXMglM3CIl2xrFIMtiWjQzb95Mf/YTxAHvxiUElkEENbA+NjWVumE
+ djcnwUWumiNfqD7GNRjNdQK0j1EhLLJLaAR8g+BpR2pb6B3c/12zU6X3ceiH2mcr1E
+ fGcgsON4etNkPZgmJXUa9y1CvfU2gSqfHWb0MkfGujSgNjES2IhSKNrLQUBf4k+ARS
+ yDiUwKrLlpipw==
+Date: Mon, 6 Apr 2026 10:09:27 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Sumit Garg <sumit.garg@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ ath12k@lists.infradead.org, 
+ linux-remoteproc@vger.kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, 
+ conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run, 
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev, 
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com, 
+ simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, 
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ elder@kernel.org, 
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, 
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org, 
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, 
+ jorge.ramirez@oss.qualcomm.com, tonyh@qti.qualcomm.com,
+ vignesh.viswanathan@oss.qualcomm.com, 
+ srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
+ jens.wiklander@linaro.org, 
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, 
+ harshal.dev@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
+ Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v3 00/15] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <adPLx3nCBb8IHz2b@baldur>
+References: <20260327131043.627120-1-sumit.garg@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] drm/vc4: Refcount vc4_file for safe access by jobs
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260402-vc4-drm-scheduler-v2-0-d84afd35c602@igalia.com>
- <20260402-vc4-drm-scheduler-v2-4-d84afd35c602@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260402-vc4-drm-scheduler-v2-4-d84afd35c602@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260327131043.627120-1-sumit.garg@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,118 +81,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 02/04/2026 19:36, Maíra Canal wrote:
-> This is a preparation commit for per-file descriptor seqno tracking,
-> which will require the struct vc4_render_job to store a pointer to
-> vc4_file. Since the scheduler's free_job callback runs asynchronously,
-> it can execute after vc4_close() has already freed the vc4_file, causing
-> a use-after-free.
+On Fri, Mar 27, 2026 at 06:40:28PM +0530, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > 
-> Add kref-based reference counting to vc4_file so that jobs can safely
-> take a reference at submit time via vc4_file_get() and drop it in their
-> free callback via vc4_file_put().
+> Qcom platforms has the legacy of using non-standard SCM calls
+> splintered over the various kernel drivers. These SCM calls aren't
+> compliant with the standard SMC calling conventions which is a
+> prerequisite to enable migration to the FF-A specifications from Arm.
 > 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/vc4/vc4_drv.c | 23 +++++++++++++++++++++--
->   drivers/gpu/drm/vc4/vc4_drv.h |  4 ++++
->   2 files changed, 25 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-> index cacd4cb942593b44f2210b7738bd964ebc34522d..d0e515c900af6e7400a96e42a9141dab5d5bca2d 100644
-> --- a/drivers/gpu/drm/vc4/vc4_drv.c
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.c
-> @@ -167,6 +167,7 @@ static int vc4_open(struct drm_device *dev, struct drm_file *file)
->   			goto err_sched;
->   	}
->   
-> +	kref_init(&vc4file->refcount);
->   	vc4_perfmon_open_file(vc4file);
->   	file->driver_priv = vc4file;
->   
-> @@ -180,6 +181,25 @@ static int vc4_open(struct drm_device *dev, struct drm_file *file)
->   
->   }
->   
-> +static void vc4_file_release(struct kref *ref)
-> +{
-> +	struct vc4_file *vc4file = container_of(ref, struct vc4_file, refcount);
-> +
-> +	vc4_perfmon_close_file(vc4file);
 
-Access of vc4->active_perfmon is not clear to me. When I was looking at 
-the earlier patches I assumed it is protected by the run_job / 
-workqueue. But from the angle of a delayed vc4_file release I am not 
-sure why it is safe.
-
-vc4_perfmon_close_file
-   -> vc4_perfmon_delete
-
-	/* If the active perfmon is being destroyed, stop it first */
-	if (perfmon == vc4->active_perfmon)
-		vc4_perfmon_stop(vc4, perfmon, false);
-
-Why is vc4->active_perfmon stable here? Something guarantees the 
-perfmons belonging to this file (vc4file->perfmons) will not be in the 
-xarray any longer if it was the active one?
-
-> +	kfree(vc4file);
-> +}
-> +
-> +struct vc4_file *vc4_file_get(struct vc4_file *vc4file)
-> +{
-> +	kref_get(&vc4file->refcount);
-> +	return vc4file;
-> +}
-> +
-> +void vc4_file_put(struct vc4_file *vc4file)
-> +{
-> +	kref_put(&vc4file->refcount, vc4_file_release);
-> +}
-
-I'd be temped to "static inline" the above two in a header file 
-(avoiding trivial function calls) but up to you.
+Please get our colleagues involved in this discussion, because this
+non-SCM interface does not match the direction we are taking.
 
 Regards,
+Bjorn
 
-Tvrtko
-
-> +
->   static void vc4_close(struct drm_device *dev, struct drm_file *file)
->   {
->   	struct vc4_dev *vc4 = to_vc4_dev(dev);
-> @@ -195,8 +215,7 @@ static void vc4_close(struct drm_device *dev, struct drm_file *file)
->   	for (q = 0; q < VC4_MAX_QUEUES; q++)
->   		drm_sched_entity_destroy(&vc4file->sched_entity[q]);
->   
-> -	vc4_perfmon_close_file(vc4file);
-> -	kfree(vc4file);
-> +	vc4_file_put(vc4file);
->   }
->   
->   DEFINE_DRM_GEM_FOPS(vc4_drm_fops);
-> diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
-> index b828c56f98965944b94a330e6c4e5ff95c9ab8f8..2a331dd053cab1e55476cb028f399a5d25eb4309 100644
-> --- a/drivers/gpu/drm/vc4/vc4_drv.h
-> +++ b/drivers/gpu/drm/vc4/vc4_drv.h
-> @@ -898,6 +898,8 @@ struct vc4_exec_info {
->   struct vc4_file {
->   	struct vc4_dev *dev;
->   
-> +	struct kref refcount;
-> +
->   	struct xarray perfmons;
->   
->   	struct drm_sched_entity sched_entity[VC4_MAX_QUEUES];
-> @@ -1083,6 +1085,8 @@ static inline void vc4_debugfs_add_regset32(struct drm_device *drm,
->   #endif
->   
->   /* vc4_drv.c */
-> +struct vc4_file *vc4_file_get(struct vc4_file *vc4file);
-> +void vc4_file_put(struct vc4_file *vc4file);
->   void __iomem *vc4_ioremap_regs(struct platform_device *dev, int index);
->   int vc4_dumb_fixup_args(struct drm_mode_create_dumb *args);
->   
+> OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> support these non-standard SCM calls. And even for newer architectures
+> using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> calls either with FF-A requirements coming in. And with both OP-TEE
+> and QTEE drivers well integrated in the TEE subsystem, it makes further
+> sense to reuse the TEE bus client drivers infrastructure.
 > 
-
+> The added benefit of TEE bus infrastructure is that there is support
+> for discoverable/enumerable services. With that client drivers don't
+> have to manually invoke a special SCM call to know the service status.
+> 
+> So enable the generic Peripheral Authentication Service (PAS) provided
+> by the firmware. It acts as the common layer with different TZ
+> backends plugged in whether it's an SCM implementation or a proper
+> TEE bus based PAS service implementation.
+> 
+> The TEE PAS service ABI is designed to be extensible with additional API
+> as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+> extensions of the PAS service needed while still maintaining backwards
+> compatibility.
+> 
+> Currently OP-TEE support is being added to provide the backend PAS
+> service implementation which can be found as part of this PR [1].
+> This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+> EVK board being the next target. In addition to that WIN/IPQ targets
+> planning to use OP-TEE will use this service too. Surely the backwards
+> compatibility is maintained and tested for SCM backend.
+> 
+> Patch summary:
+> - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+>   only allow UEFI and Linux to boot in EL2.
+> - Patch #2: adds generic PAS service.
+> - Patch #3: migrates SCM backend to generic PAS service.
+> - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+> - Patch #5-#13: migrates all client drivers to generic PAS service.
+> - Patch #14: drops legacy PAS SCM exported APIs.
+> 
+> The patch-set is based on v7.0-rc5 tag and can be found in git tree here
+> [2].
+> 
+> Merge strategy:
+> 
+> It is expected due to APIs dependency, the entire patch-set to go via
+> the Qcom tree. All other subsystem maintainers, it will be great if I
+> can get acks for the corresponding subsystem patches.
+> 
+> [1] https://github.com/OP-TEE/optee_os/pull/7721
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v3
+> 
+> ---
+> Changes in v3:
+> - Incorporated some style and misc. comments for patch #2, #3 and #4.
+> - Add QCOM_PAS Kconfig dependency for various subsystems.
+> - Switch from pseudo TA to proper TA invoke commands.
+> 
+> Changes in v2:
+> - Fixed kernel doc warnings.
+> - Polish commit message and comments for patch #2.
+> - Pass proper PAS ID in set_remote_state API for media firmware drivers.
+> - Added Maintainer entry and dropped MODULE_AUTHOR.
+> 
+> Mukesh Ojha (1):
+>   arm64: dts: qcom: kodiak: Add EL2 overlay
+> 
+> Sumit Garg (14):
+>   firmware: qcom: Add a generic PAS service
+>   firmware: qcom_scm: Migrate to generic PAS service
+>   firmware: qcom: Add a PAS TEE service
+>   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+>   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+>   soc: qcom: mdtloader: Switch to generic PAS TZ APIs
+>   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+>   remoteproc: qcom: Select QCOM_PAS generic service
+>   drm/msm: Switch to generic PAS TZ APIs
+>   media: qcom: Switch to generic PAS TZ APIs
+>   net: ipa: Switch to generic PAS TZ APIs
+>   wifi: ath12k: Switch to generic PAS TZ APIs
+>   firmware: qcom_scm: Remove SCM PAS wrappers
+>   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+> 
+>  MAINTAINERS                                   |   9 +
+>  arch/arm64/boot/dts/qcom/Makefile             |   2 +
+>  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  35 ++
+>  drivers/firmware/qcom/Kconfig                 |  19 +
+>  drivers/firmware/qcom/Makefile                |   2 +
+>  drivers/firmware/qcom/qcom_pas.c              | 288 +++++++++++
+>  drivers/firmware/qcom/qcom_pas.h              |  50 ++
+>  drivers/firmware/qcom/qcom_pas_tee.c          | 478 ++++++++++++++++++
+>  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+>  drivers/gpu/drm/msm/Kconfig                   |   1 +
+>  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+>  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+>  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+>  drivers/media/platform/qcom/venus/Kconfig     |   1 +
+>  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+>  drivers/net/ipa/Kconfig                       |   2 +-
+>  drivers/net/ipa/ipa_main.c                    |  13 +-
+>  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+>  drivers/net/wireless/ath/ath12k/ahb.c         |   8 +-
+>  drivers/remoteproc/Kconfig                    |   1 +
+>  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+>  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+>  drivers/remoteproc/qcom_wcnss.c               |  12 +-
+>  drivers/soc/qcom/mdt_loader.c                 |  12 +-
+>  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+>  include/linux/firmware/qcom/qcom_scm.h        |  29 --
+>  include/linux/soc/qcom/mdt_loader.h           |   6 +-
+>  28 files changed, 1114 insertions(+), 317 deletions(-)
+>  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+>  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+>  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+>  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> 
+> -- 
+> 2.51.0
+> 
