@@ -4,96 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D132F46C44
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 14:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6BBF46C44
+	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 14:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C444610E1F7;
-	Mon,  6 Apr 2026 14:34:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3630810E25D;
+	Mon,  6 Apr 2026 14:38:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TEzMg6MM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fMeehR+q";
 	dkim-atps=neutral
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1384A10E1F7
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 14:34:48 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-2bd5658b901so241504eec.3
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 07:34:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775486087; cv=none;
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A65D10E25D
+ for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 14:38:05 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-2bd801b4078so411744eec.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 07:38:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775486284; cv=none;
  d=google.com; s=arc-20240605;
- b=CDUHZfKdJn6p6bat8NilPzdfRx4H0c6tDFXBnpsyYQhxp89EWKBiHc1NeGsjXoFfM2
- SCGWCaU8OiJqpUZFZ3F7nnG8xzJ/4srZeybEp6x6owa2/XQ+MINsQ1dY0S2+/uzuo5gQ
- puez76Vijm6DjtS4xZJxYmlW9uLNeXscsvBzts6w//O0IXTY7olQEssVIaQWjhe2elIK
- 6eW5JwuuBa0qBoLLfnLj9y3nnrLE3GPTsD3Oxqe9XxUfuNsu5FZP4RJMqZxgtLNWquIw
- XiSzcBbSBW0/9keJ3kA02Kz4oGuUdA81Cqwls9tzESnV1v1V+Nx+tc5cMkLHcggJZ1yC
- 0YhA==
+ b=lW5Mpc+aaPCHzDBvq40WNhwrJG8vgDnon3qde97Nu6HUQpRAz3Whpo8dcJZf+ACq5k
+ ifnkzzp98VGXYe2PoSFKoZhaoUnx7oRKSlNwIjP2y9pUT/VoX6VjnGsG+jO3KIRZQ90U
+ hk9xkdDOoUoaF9jigbUejX0yr588lx8dnnlVmR72CKp73fyhrBpO6b+uBV6uSsyTksWQ
+ yHT3n80rXKl/3jSvyeIdq+WxPxvukHLdxv6Mm9HWh1EyLDaLc1OxohTa76SFtO5gENpx
+ CFOoDvkyOq/egHZvQ+Wjlq/VREG66Ba/DlAyktru9LTcdRzD69kpjeff9nd+2Ne2jE1m
+ Uo1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=txc1GgXszHVDSxiwgLcr3FoLM/49u5UMyHGBJqURxJA=;
- fh=xal9y+Ox2ATlPwHy6ZqYdNSK29asPnLDGUkw4HT2aW0=;
- b=WAvi+DKfg02Kqz1oOIie16wRWohAJ7TqAU+PsJbDXoXTaHJ1JCrHi//GUxuCtkPIY+
- oYFyY5WPNToktXTmOtOV9CX3mW57YGy9+UL55rNZrQuJeapIKI/qTSQJqLv9p7l6chOG
- Q2/Igir//RCuoMDOGqK88kDL0a2qmItoomEIe6UtNGjOfTu6SM5meiDFfzUWANAv4DEa
- 79iYvl4TrI61mBE9Cy/kbVJkODP7AMTCQXQjQQG3cNcivmMxCo1w3pQzrWU/Xs5LBvPw
- rjgcmZ+1PPoFo2xCYPOCunyXp9nfPHKgD6ZgEz/BNBf+Ni4LTT5A/hUzjc79QmK04ouC
- bXJw==; darn=lists.freedesktop.org
+ bh=hIhNt0MJcuiCREyJL4elAnSUfXIEbP8C+cm2AS/TYZc=;
+ fh=TYCVJoPQ1MtIu8Y67AeiNJLETfuLiRJmBjTBISkPcgY=;
+ b=Shjyo97sOwvPqIG8fNw3uWls1zSUCnsTV0iyoa3D38Qct7kbXdg9YuqKoQ8Y2rEptr
+ bbLamwe/nQW27qln2otfydni+d1A+qTQdo6kXtZP3PlX0Gd5sRUzryIdg15TwHq2sFNz
+ smH0pn++02vHEJmgNIY8nrIS2CfFdDCis5sl+KYaNQ4oFksC4nzf6CxlIQT2wgkYbZM0
+ /G3qoSP0/pMl168b/3lo5HSj0LiUdpimBGskfpHMA5iJdXoJcaWUWkvYoKy5KGI+1Wb1
+ MToDSqJgErJfYUZkyYu/uoSlTxejJEZtc4gSKDNE4KZkwVyTI0/AtZL5Y5AEQivI8Hmy
+ 19tA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775486087; x=1776090887; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1775486284; x=1776091084; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=txc1GgXszHVDSxiwgLcr3FoLM/49u5UMyHGBJqURxJA=;
- b=TEzMg6MM/cOH8LfpoiE4LbStPH47J1e+LFlw5y06iJ19h8bvArNmVCc61GVixjZrVB
- ikQU5U0WxTTXGdnpOrwV9Y7ChHidyDSt2cXHXCNWkkuNX+67BsVDzUAY+gdXhWJC5P8I
- g6KNnFwxCp6Ewx/r04N89BNXPJsByYt2XVqPltJvWRaRAbHwSMISwhvwXGlMaLHJbLBZ
- 0Ct7/NlTykcL+X4n2brrX4flSTVhe4YYDwzxNoNE9T2FR1Fe+WvsBB8miUXzrP+cXEKz
- rW3VpZWcsT7Q3dHm9VVx9mXCh9vHSqA/uvhaa77zqjudzSQl2taXsvuwlp5Hw3fxu1vP
- OlLQ==
+ bh=hIhNt0MJcuiCREyJL4elAnSUfXIEbP8C+cm2AS/TYZc=;
+ b=fMeehR+qalZQpVp3KTvGTubjSnHIdQW6PXCFXtCfyCIggZOWLKZWbZMUDlBRj3YRDv
+ R7lg4xrai7ZsFgETc5y7MXkwCCunn8CXRKZatAlnQPFuCyUAjEYrB9IVLzhFZfz9xNNh
+ MB9pP4F9JRM571uC9IAa8dloxKxC5qpXfmkv79rAbw6aJ84Q7NCq/fhbnnfW5V0LbqGg
+ AiYtBdW5hvRrrhM20GxKkKceLH8khpSj62xwsmImuIFROuCwS9ujVPDBa53xXmmoXxPR
+ mGFokFsXwr1p3sBnZkH5tM4/x+5c+kMllhtLZGA8DYEW6wBidOn4LAsoDbZw4WqkZGvr
+ 8bKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775486087; x=1776090887;
+ d=1e100.net; s=20251104; t=1775486284; x=1776091084;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=txc1GgXszHVDSxiwgLcr3FoLM/49u5UMyHGBJqURxJA=;
- b=Sgj1Z3Zi2i7A9sEZhEEJysLzHg1kTOhA/WUD8xocjwUQNHyGnfFe41hkjsEMKfAevc
- +xChXE9SHhCRZAq/Btgb3NkAsMFlZUyd36ETW6b7aLASbkdvrWg5qNzy2DswRdodfD69
- /L5zqDCdE72NF33mr5f7H89rF83fhCXPUYO+jF93U0uQnVDbiUt5GR3R7jGYh0tuH1gL
- b6s/ZEeLMvt3yd3K2d/UD3kyXqST/lrBQWgwTjx6/tQ8cS2qfo0y15QRY4hTN9HGuPnq
- PFNlPWSa18zKfpfni/1GTe1iwUOQFZa5WcErH5/K4ciObhzpWNZWxX2RM0d1/84FiKpE
- vTvQ==
+ bh=hIhNt0MJcuiCREyJL4elAnSUfXIEbP8C+cm2AS/TYZc=;
+ b=pnwb/vNxb0B63vYu2WlfnX08te5ZNuKlqURiHNuN23EXMS0sNdtIyn7QZ6M0/58tBB
+ TwEm2NQphsgcrSLECC7CfL9U7ATBQxsrt/0YtTucf5IPXllGPxh4DYWNove+r/JYTDuh
+ i1vGVM9zW9Zlw91nBLlX7F5aHk1k51MUQB0s4oNajJiWFK3+l5Gg/+rHsyy7hBPviWyF
+ 1gzboST4Saz1+5BHDQlc08F/GQIi4+z+Q2n7ufPNvDLHLXzIdEbfuJ/rV9uYzGJCPMNE
+ 97r5dMJLazhzxO15DrFZ+QccFfYrpl5SDpdHkknHj5TaPH1gIPajww0BLudOiCDyxISa
+ nE1Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWO5LYMNkE3fitMmP8jpn8QAHpHk/AxMtNZbWWsSHBLbjlXNADFUn/NelO1IL5UTJjaIuCs6uqoBmg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4Iuce5D4r6coa3IHXxZOybzQmW49QsNTCv8ud4jxq3TzFl6u1
- Q0a+Beva9QbmH6sJ+eWC5fxRuzKySXH1sz/7c2+GmZaUsSCwzWUP00QUnQtuVp7rLqis7AaAbVF
- f/RE0rH3vTJl+unH/xbDERLofZc/431k=
-X-Gm-Gg: AeBDietT5au8tH6Akj8oi0opzNe2+rITqnIMQ97uF4Con5nxoEetLeCBTbFLWjlXvVM
- 0TzsmZ2gHLG5zHqMVdkkRumKYfVVH33Fy5yv85TTbdGRZy4rdEL9R1Xd/REXuyKjhmWAP31CgvB
- EhRAspT4oFMmwP4i13wVartdQ5E2gwsl7w0UkiOa5saTbIJbmn2rVZEiR46sYzry4FaAWov0Xpf
- fYSD5iOyrX+PBxBK8sz2ET7gyxVp+NDzy2Ws+V5DJVouBwFFaqxZbYa21SDJLCQTXAIYiGgB9vN
- kN2pIntEHlqvgVoeAQHdP3q/fBXJVvTji2N7rZCrMNcZuak+rolXvX2y0LbXvLVLr1YclyjgjOd
- KONSLeSzn8n2Oyzj7qX0QHvM=
-X-Received: by 2002:a05:7301:2f8b:b0:2c7:2cac:8162 with SMTP id
- 5a478bee46e88-2cbfd5652c8mr2525685eec.5.1775486087120; Mon, 06 Apr 2026
- 07:34:47 -0700 (PDT)
+ AJvYcCXRj9na11kbCGxNIKy6OEEcZJXfUYP6U5eGnwNJNCv17oHUtD4ka6QXwUEDNJNhPpeSTjoc18G/Et4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwuDemFHXJtNU+/nSGPnp4zvfJx/CSIKyjZ3d/HIYAX8VVX6ObD
+ OPrb7K9M3Txfj2B5CpOp+kS9I48Q9X6DCKw8g7Hp8FSN6R95jIqMFHTNnob7nCEy3tfkgBNqLRC
+ rYYiQTz5ASp6kZF6HDsK6Ultv2jDYviE=
+X-Gm-Gg: AeBDievRm66siZRQIM4zkB2uSl3ja0Sz6m66ndclZE1Y86msNnefIktcgFwnpKPMgBL
+ S13jzYOiWzxK5iXvBF4MVm5lq8WqPdPcfbIoUUapvhXKo+wlZ6bs3d9JphAwJ3zMT8OziWZo2Vs
+ jWLfxLYtwKe7ouFzLbKry/sLxZ89kT8RuBawd1PHdt+8Pa150P81NDrJ8KOHtdGHuANrjwaJ7cm
+ dHCunSu7ux4ZZN+y7i8hWIk9ENUC5cgklj0XLQjLss9T/XmQM0r8kuApCW1cVaS5LvRtpu3AqYx
+ kw6pJZPzmhoK7mZVkc+unlr2bGCafSLfNfQHsn5tMb1Us8FYV9T/C3rCzvUn4VlvEfo5hMxHALz
+ Q9DzKI6yS6Dkid3TMbfeEOsYpa8KUProcZQ==
+X-Received: by 2002:a05:693c:2c06:b0:2be:2912:ff65 with SMTP id
+ 5a478bee46e88-2cbfbc7d828mr3020598eec.3.1775486284289; Mon, 06 Apr 2026
+ 07:38:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <adO3fzHT81hnO2B4@sirena.org.uk>
-In-Reply-To: <adO3fzHT81hnO2B4@sirena.org.uk>
+References: <20260405235309.418950-1-ojeda@kernel.org>
+ <20260405235309.418950-8-ojeda@kernel.org>
+ <177548573697.95472.13544191227699996309.b4-review@b4>
+In-Reply-To: <177548573697.95472.13544191227699996309.b4-review@b4>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Mon, 6 Apr 2026 16:34:34 +0200
-X-Gm-Features: AQROBzCX_P08GU-8bqwxCda3woDdlNoD5iWxzaK9HD93KlyqVNZ07s90bW7xWu4
-Message-ID: <CANiq72=On8c2zXqzkyyV7rHGu+r5peRzhJCFf1XLS6wjU-RktA@mail.gmail.com>
-Subject: Re: linux-next: manual merge of the drm tree with the rust tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- Asahi Lina <lina+kernel@asahilina.net>, 
- Danilo Krummrich <dakr@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Miguel Ojeda <ojeda@kernel.org>
+Date: Mon, 6 Apr 2026 16:37:52 +0200
+X-Gm-Features: AQROBzAshONAZRL6Bf4qdEX94VdiVWUdtgExWPcnxvz_Z_wjuLZH7VazFmpsU7M
+Message-ID: <CANiq72ne_JYPodnROckyNto10ZF0PqadRxSrng5-mZyqVovxFg@mail.gmail.com>
+Subject: Re: [PATCH v2 07/33] rust: allow globally `clippy::incompatible_msrv`
+To: Tamir Duberstein <tamird@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+ Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ rust-for-linux@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, linux-block@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Alexandre Ghiti <alex@ghiti.fr>, 
+ linux-riscv@lists.infradead.org, nouveau@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Rae Moar <raemoar63@gmail.com>, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, 
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -111,12 +137,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 6, 2026 at 3:39=E2=80=AFPM Mark Brown <broonie@kernel.org> wrot=
-e:
+On Mon, Apr 6, 2026 at 4:29=E2=80=AFPM Tamir Duberstein <tamird@kernel.org>=
+ wrote:
 >
-> I fixed it up (see below) and can carry the fix as necessary.
+> Could you add a reference to the upstream bug report [0] here?
 
-Looks good, thanks!
+Of course, thanks for the tags!
 
 Cheers,
 Miguel
