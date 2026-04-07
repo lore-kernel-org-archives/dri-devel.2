@@ -4,137 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA48CFB5173
-	for <dri-devel@archiver.kernel.org>; Mon,  6 Apr 2026 23:43:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D625BFB5178
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 01:15:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C86F10E2FD;
-	Mon,  6 Apr 2026 23:43:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E667410E305;
+	Tue,  7 Apr 2026 01:15:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="K5YiiQ57";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K5S54ped";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A6T8u7U4";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7AF810E2FD
- for <dri-devel@lists.freedesktop.org>; Mon,  6 Apr 2026 23:43:22 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 636LSfGB2580030
- for <dri-devel@lists.freedesktop.org>; Mon, 6 Apr 2026 23:43:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- hfm5estcAn1Cw7C4MRrM5+NNSc/ctNCcBh2lICL2YvM=; b=K5YiiQ57crlXi82y
- AzktGtA8cSsJWrH8qVtdBCrnCMw6aFInSmAklRh3v4udOBEDQxwfQ/uCKUQCpLme
- Pac/X/t7sVYIoNOqzBy5+zCstSe6FP8fAKSm7wdh/shi9eIdvEb4ahdfEqNIK3GI
- IFmz/acmTwCa4wV3PVMpw62Auu95IjHnZ3vntanZkpSVmt0cDfECZvfzCH8o+j1o
- KGxtUvIW7NrDQdPv6h1WV4XC7y/2SXHI+3gVI2wMDeZI2Hho9jyymFVV/JfFve2c
- fDm+fU2NW8smqkTr/F+FMsrg0gV7UnHIgXfJ8N3bAzRjGMH0exfuUO+wxz0CLFtY
- P8h0pw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmsf08kr-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 23:43:21 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50da529ff48so1253391cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 16:43:21 -0700 (PDT)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3856010E307
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 01:15:22 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-127337e3870so267270c88.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 18:15:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775524521; cv=none;
+ d=google.com; s=arc-20240605;
+ b=lR9qeAS7m14CGr3+sssmMZsjbNx0GF/S0OfRow767qIOnR3HKj8+nB7q1zJehm7eFp
+ pJPEvQ6VjISNNt0K0F/y+kr9uhqHQjiMn5dtf7UPfC5d5hfPWXQEPGrgtLU3TuIqR89Q
+ IZeIwsve+vLAuk1an13ypBaA10bdtOexzmI2ir7bXGNE8ccdIHlhKxG/mT9kDr1opchR
+ SaYcpWqs7IunMvzbpHDV264mj8YfCbMG0d1abcmp7vBgrezPRSh669OUBUeUAHD1mqS2
+ cZPow2VtzHl3yibNIVEJIFKgenBddgLfJvOIFjDedcC6KDsrp9EU6CV3qxAqwplB6oDL
+ 1LgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=C6sODPPjnlrZIOKdwziurbw8hAdqBwTpglq0vQMQ05A=;
+ fh=luxiRYi3dfbdQol248KjVUHzAS+yzm36/NuofU1D63c=;
+ b=QVDya89/V8G9376FE3mFhq3KeM9CdpLQi1QM/ZFZZOW+Qfu04JbVraPESOHKg/O2W6
+ 23QvTjI1oHrjMEpD83H4Mwva6FtFp3HfIgwdcXwCMbMxDF1O8yP3vKWfKYvHzKC+DHKE
+ jiRzwmCDQyhWGziaFeczgqGOjZCpJVTYV6ddwCh99KqcGMaUA27Q4uJy9MMSuGy5VfbO
+ 0lmvhZiaZUt3IQQQDIOYQ1Ps04SjE3mgU+l7Z/J0v3RSgfooLCJq/DUg45Fnun2VOMls
+ PiX41OB2RE5A5k7D1zmYZZN5rhbwzP78UhRExrUK2eGlvMGwooeLr/HTLM4mr2kbeg/U
+ t3mA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775519001; x=1776123801;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=hfm5estcAn1Cw7C4MRrM5+NNSc/ctNCcBh2lICL2YvM=;
- b=K5S54ped9k9PyUEq3Q+dan8gN1AJ7CTaCoEE1Nf9SI08RDFiEtS5ThvJajkKO7O50k
- EHQcLg6GPDKUYCSpVXnEQGcZoIsSxQT7Uo0NAQu4ZVmpugo8RuPQq2fVFATfyYXF386S
- mFkf2bQ47uzkdLDuF/96ljyUEP5F3W15OJXhZYuC46W/n6H2nJ7xSqfIFYZLOqKNv9eG
- 6elpFIfhG3JAC+y2I1xVxeeL5URtZ+/X31HdwNsUikrzfQYgn/zq2TnOaJfYzqbI8uji
- BpXEEHxIlblbgLaOp59bE9hZxSvGv0QACyEqhy6Sh5CV/4+NayCiQn5nk6/wl13+B6O8
- DcDQ==
+ d=gmail.com; s=20251104; t=1775524521; x=1776129321; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=C6sODPPjnlrZIOKdwziurbw8hAdqBwTpglq0vQMQ05A=;
+ b=A6T8u7U4KgzlbM7LWJEs/2yjmMumMK2UOHdujcSRdrVtaw0dpROH5bs2/t6mih/Scd
+ BMkds6RWnFSAU84CF4FQ1GapwSty7mPfqYb8gddSF/ngLKSYvMNV96+NSUCqVOEfGDFe
+ SV6joQs3tJ6AZxQfkpA0cXPvMc9Zv8eptZxPtxEZML+ZTmVwBvV5gFabMo6thP578Qtl
+ DNSV/OeSPDuXRTNQCRHL2pOaa3bzfG65j+eAXzvb1ObbZ+rc+fdrqR30/4PK4tZVngPE
+ egyBe6GqVKAcE2rMeHGIbVjcz/d8aGpmZE+vxAZYM5GgWR94z2TfmBeKJ/Bc3AVprUYu
+ GQdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775519001; x=1776123801;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=hfm5estcAn1Cw7C4MRrM5+NNSc/ctNCcBh2lICL2YvM=;
- b=fOpTzuScU6zGAbbARFIzQ72BzvhCGY5bLreqX9HA0518h0cUI7Y7r86wZTZk2sRvEh
- KgmuC2WrOFhVCjvRjfKwglYvUAwrbvj6F1tO05/3Ik75BF6jPmKuXrq4R+6xMoEAdEAd
- s81rLpjQd0PrP3wFiFP8aUW4SJgP8P1Kn6UMfr6kY1d5/mycZJn3M3yqBq1R0S857aDZ
- HQHD7A5C4C5NNd3Goar6It9YNMaRICNeKjXXgJIAMcqA4yWZgt8zeiZA4nPCLCfvu8YJ
- +vX/wCcx2lzLHQyvL8JqBkC4z0ieHQuwUQ3lxBmflQ1G9iY+upsnbWWGhw5a9qc60ewk
- 7leg==
+ d=1e100.net; s=20251104; t=1775524521; x=1776129321;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=C6sODPPjnlrZIOKdwziurbw8hAdqBwTpglq0vQMQ05A=;
+ b=qiDC/DaOaqDeHtsxxo8zlLpBXWlPT36vv3HH7K4rW1cH3kxsGAD3S5597Wg//QHX0M
+ egnrB2s+xfCjCYQXmYJuKYKIQaONZdkCSox1htssZ3cfQ43bUV3kUyRecikRxXXhz43m
+ IpGAgcXOQqer/ou3Mjn6ysRmu6QEuYakC0dpwAU/dERgGduEmpcEo42b26IQ17ZyzBFS
+ 0QeP9YtVv0WzSRSZl5Yz41gIPtXgGJfy5ra7zDsLFfuImlO7bZxPH5o+Wwj68exi/A1L
+ NOCUbWrMqR9B0CUNan6ljQrqIeK3qvnMOC7jvAEVml0YsIGXniGFdbd0Wok1lpe7VP7q
+ hpaA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXqtwvPpsDCZ+ekrJT2e9VVrnzo9HntIc5I8qic4BdmfxjlKxVuNb5g35P2tWt6C/FeeI8YfsDLwNU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxtyxsu/uDqvT3eJsP0yDZXIwB4DTJu6uGXdbqOk8lXQoC73ZWV
- oogSQ8o3coTjCoDbU7rO/A1mSYhP9AyCGIl/2/kWjcR8MXM9dCzHG3GQRkehxMrPQ4M+TUOCNr0
- mp8Es1IgmppUL7LoVrpaTRwX4LvIrsC58kbO35qSHHmnWMcE8mdSs3Ea4LtJyUYpsCAYRO3M=
-X-Gm-Gg: AeBDieuNOKKMjV/k7IZH+oInDupzr34GEoNHb5r1quj6zGNevT0BmBUNY+dAI2su6xX
- 3ThmLK1Dncpr0nFkdIy7qLExQvhsPxWz0dZzEWUqrDNjmmVzlG7kS2cpGjnsQD37LpPiBibuphF
- jGnuJVPX9HrnCmop+GZTtA79/Vf9JKIDU9EdqLo+ICo7NW0D5OtA2mOq9CxY7x3JeJp7ckfwzjz
- FDJxXTQ/MnyMa6WW1aSWGx3AIkolsGlHoli2kRGRw/iiNvXLlfGtPHF2xjdXwR7YnoKKMBcKGpy
- uasJ/ly/XF2efP1M4gIsgpqNZQepP0E/vcG3aWvMLzXCXOsZetPbymxrRhVO7qfmRSF97gbw7tu
- k3nLa57bvAQa8Lp3GcQ5WeEorU6dJHB48CpMSQJ3pMeWhHHDHH0d7WsA5kDf8HYRwe6JHJOsdsc
- JfvplbhUHMpEWQmgi20hhu2CooRMgZS/VqmEk=
-X-Received: by 2002:a05:622a:1249:b0:50d:8d63:3899 with SMTP id
- d75a77b69052e-50d8d633997mr117473721cf.14.1775519001128; 
- Mon, 06 Apr 2026 16:43:21 -0700 (PDT)
-X-Received: by 2002:a05:622a:1249:b0:50d:8d63:3899 with SMTP id
- d75a77b69052e-50d8d633997mr117473411cf.14.1775519000715; 
- Mon, 06 Apr 2026 16:43:20 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2c6ca3100sm3725118e87.35.2026.04.06.16.43.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Apr 2026 16:43:18 -0700 (PDT)
-Date: Tue, 7 Apr 2026 02:43:16 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/adreno: fix userspace-triggered crash on a2xx-a4xx
-Message-ID: <5boflu67xgvflhrkbmc4gsv7dx3dzke5b324hudnrtt5kzn5wn@74e4t7doa2zg>
-References: <20260407-adreno-fix-ubwc-v1-1-bb2b09450b87@oss.qualcomm.com>
- <CACSVV03uVF-STTwCVR3=9Jf=dCh7buBmk-1LBhYO0YfUDYXNDQ@mail.gmail.com>
+ AJvYcCXva3Zx+7eoupADtVg6qmANv/fCckYnGSX9PbyP9w/xxxlKSrjO7haD6ycvVv42oSuwNaqmvpCA7Gs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYzD/fvjNAj6L8Ge96S2Uxiz32G6fUSpF1J/7nKlTSa8JQPwQn
+ s/6YZQe8zjfIp8C8Mk0DaHiLp1BhbLWzkqqk5EdV+dNOjSanrxLiVYJm9Ol4Bq3J/VZTjl4dSFK
+ 7v0IFQi2xYs1ipxndbGbluumS6ZBITcU=
+X-Gm-Gg: AeBDiesnBvHesIYX32Hko1k7uzlBUoTh92nx3qSIcogN6eFS6nkAkaq20YrbUO9r0s1
+ 6rTy49QRTRBke0VnM8jaoSmtkiIit3NfehvrVeTIAB/yKgt28PGCE616tMU8gqvZPe3UB2VqyTy
+ 3e2fYZDZkniiAJm+gx63QDwTVjLwTxhPP108vFfrAXdEmHVI84durOmHsRbafAroM3fLlyhEQt/
+ XMpqlVwQ0BBmlvkH/LWJudbM+NxAdsrhefjXN6V3Tm+jR6DIkCSIdaICyvhNaoRHkH+e3Qwoqme
+ oEwCnGp23EZ1rmA6WeMkoEETsmO/mUmazDp6nXEgPImh2lNBX4uVrFi6FtVPE6BP/HxJjllXWg8
+ sjLQ6o4kFbYZXrWniQxP1sIY=
+X-Received: by 2002:a05:7301:1007:b0:2be:298c:a11 with SMTP id
+ 5a478bee46e88-2cbfcf52a13mr3516734eec.3.1775524521173; Mon, 06 Apr 2026
+ 18:15:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACSVV03uVF-STTwCVR3=9Jf=dCh7buBmk-1LBhYO0YfUDYXNDQ@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA2MDIzMSBTYWx0ZWRfX65JCaJLC0tMd
- 18rlt9BmX81YKhXUfCjCVa4cEF04TVRI6lRkjoXuQUpIlk/+1e6usFo6okjocE4q5b+Mz1dK8O7
- Z6DlhAcFX0hQq0TixOC9mRQvYFjKsMeFTnCnWWpzSGwrT11lsHaiBaMh+MHxNJBdtAuTwOAOebZ
- Xe86fWrpLr7C22Yjau3CHh9G/DJWMXEb2/kcdOYAz40D/WHmBOjper/j2atwiF19AnPSHHg5GH9
- Au37wJURLPWXif+iJsuRAGN8lk//YNz1OS7hM1LyA7uFB0Q1vXEOa7aNQwwefwHtjiTyPsem+ON
- 1n+UO03VmHyn4DoUB0j9avXjXUTH7M5BDWEtxnAX7qdc1IbACyW1efkak+9gcwpwg/hcjjCtavZ
- +I0XqLplAcxAecmVKRqhMCwae0S8M8bHqRwuzWx0YaEpqdHDa2haIwxf+BTJiJ6lpIjyJl1rRma
- /Brogd183syZKMmr/vg==
-X-Proofpoint-ORIG-GUID: fSoueQ26EXLsFWV_CUGVabUk95FsNAg3
-X-Proofpoint-GUID: fSoueQ26EXLsFWV_CUGVabUk95FsNAg3
-X-Authority-Analysis: v=2.4 cv=DcInbPtW c=1 sm=1 tr=0 ts=69d44519 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=aIc0x1t0BmEQyzKU2LkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-06_05,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 phishscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604060231
+References: <20260405235309.418950-1-ojeda@kernel.org>
+ <CANiq72mnGArtgAbe7xXZCYW1x7Zd5hozfnzoftaGy9rxoLO4ew@mail.gmail.com>
+ <cf28afe0-ede5-4d1a-9824-65a1448f8161@nvidia.com>
+ <CANiq72n4tmTzqbcHCnzUBFyLVmJzB-AJng_1FgELJCWr7hDg4A@mail.gmail.com>
+ <efe61810-2b28-4acd-b69f-d577042c0b62@nvidia.com>
+In-Reply-To: <efe61810-2b28-4acd-b69f-d577042c0b62@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 7 Apr 2026 03:15:06 +0200
+X-Gm-Features: AQROBzCpjGVGSHiqD6WWW0AkLWSnE3ic7jf8UnYoPnV_5tut3XVgaNfJWwQj0o4
+Message-ID: <CANiq72n84On9UxQ9CNqyFb5wpJZKrBzb1Xej9ZRqhLim--ftAQ@mail.gmail.com>
+Subject: Re: [PATCH v2 00/33] rust: bump minimum Rust and `bindgen` versions
+To: John Hubbard <jhubbard@nvidia.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, 
+ Danilo Krummrich <dakr@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Simona Vetter <simona@ffwll.ch>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+ Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ rust-for-linux@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, linux-block@vger.kernel.org, 
+ moderated for non-subscribers <linux-arm-kernel@lists.infradead.org>,
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ linux-riscv@lists.infradead.org, nouveau@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Rae Moar <raemoar63@gmail.com>, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, 
+ Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, 
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,77 +138,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 06, 2026 at 03:24:43PM -0700, Rob Clark wrote:
-> On Mon, Apr 6, 2026 at 3:14 PM Dmitry Baryshkov
-> <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> >
-> > Before a5xx Adreno driver will not try fetching UBWC params (because
-> > those generations didn't support UBWC anyway), however it's still
-> > possible to query UBWC-related params from the userspace, triggering
-> > possible NULL pointer dereference. Check for UBWC config in
-> > adreno_get_param() and return sane defaults if there is none.
-> >
-> > Fixes: a452510aad53 ("drm/msm/adreno: Switch to the common UBWC config struct")
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 15 ++++++++++++---
-> >  1 file changed, 12 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > index d5fe6f6f0dec..7dc95c0a17f7 100644
-> > --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> > @@ -426,16 +426,25 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
-> >                 *value = vm->mm_range;
-> >                 return 0;
-> >         case MSM_PARAM_HIGHEST_BANK_BIT:
-> > -               *value = adreno_gpu->ubwc_config->highest_bank_bit;
-> > +               if (!adreno_gpu->ubwc_config)
-> > +                       *value = 13;
-> > +               else
-> > +                       *value = adreno_gpu->ubwc_config->highest_bank_bit;
-> 
-> These three params are only used by userspace on a6xx, so tbh it would
-> be ok to return -ENOENT for platforms that have no ubwc config.  That
-> might be better than returning imaginary values.
+On Mon, Apr 6, 2026 at 9:07=E2=80=AFPM John Hubbard <jhubbard@nvidia.com> w=
+rote:
+>
+> That's what I thought I recalled, too. Weird that it is not in rust-next
+> already, though.
 
-I'd say, those are defaults. But I agree, -ENOENT might be better.
+It is normal -- in the kernel back merges are generally to be avoided.
 
-> 
-> BR,
-> -R
-> 
-> >                 return 0;
-> >         case MSM_PARAM_RAYTRACING:
-> >                 *value = adreno_gpu->has_ray_tracing;
-> >                 return 0;
-> >         case MSM_PARAM_UBWC_SWIZZLE:
-> > -               *value = adreno_gpu->ubwc_config->ubwc_swizzle;
-> > +               if (!adreno_gpu->ubwc_config)
-> > +                       *value = 0;
-> > +               else
-> > +                       *value = adreno_gpu->ubwc_config->ubwc_swizzle;
-> >                 return 0;
-> >         case MSM_PARAM_MACROTILE_MODE:
-> > -               *value = adreno_gpu->ubwc_config->macrotile_mode;
-> > +               if (!adreno_gpu->ubwc_config)
-> > +                       *value = 0;
-> > +               else
-> > +                       *value = adreno_gpu->ubwc_config->macrotile_mode;
-> >                 return 0;
-> >         case MSM_PARAM_UCHE_TRAP_BASE:
-> >                 *value = adreno_gpu->uche_trap_base;
-> >
-> > ---
-> > base-commit: 36ece9697e89016181e5ae87510e40fb31d86f2b
-> > change-id: 20260407-adreno-fix-ubwc-6a2564710e21
-> >
-> > Best regards,
-> > --
-> > With best wishes
-> > Dmitry
-> >
-
--- 
-With best wishes
-Dmitry
+Cheers,
+Miguel
