@@ -4,70 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C727FEEF2D
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:41:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC8AFFEEF2D
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:41:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 376FB10E43E;
-	Tue,  7 Apr 2026 14:41:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5DB10E440;
+	Tue,  7 Apr 2026 14:41:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gu9fJZwU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lVB4M4ZF";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54B5D10E429
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 14:41:47 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7CBAE6012A;
- Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 245B4C2BCAF;
- Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775572906;
- bh=OCZBNxvoQHTLSNbncUAUntFZfUElInK//+0RKU0RpRI=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=gu9fJZwUQvX7+zI9g9d22OiZZOcHI6R93RiGO+uose113kUA2yJpn/3RvfIlEenfi
- JuleAMRoyJN8TzZ8cWinI604YHFX135U0GsYqokW1i1R8bwirzvIOZ6ajXSaQJIAne
- vx+32JyL5w5dbRjnvFHCQ9987b+rHPKATqHd4JeakEa5zlLKm+YcNsQfjDR2ReWRvE
- fHUUNQ7Asb0rjPJHcnp6VDqip9J2pC7DFNCd3/p0eOs5VFrF7xfhHKBvIpIlJCjOQh
- o1E6GyqvmEeBpqh7avZ3/0bjc084CX3RqulRanyK7J71JsH4kH3Ee/ub+mMqC39KLF
- ha3Tyh09jUZlA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1C119FEEF52;
- Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
-From: Maud Spierings via B4 Relay
- <devnull+maudspierings.gocontroll.com@kernel.org>
-Date: Tue, 07 Apr 2026 16:41:42 +0200
-Subject: [PATCH v8 1/4] dt-bindings: backlight: Add max25014 support
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF5B210E43F
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 14:41:54 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-43cfbd17589so4056362f8f.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 07:41:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775572913; x=1776177713; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=aBvRjjOb926xFV+H1FqZpjuC1zFML4FZaPUVcq0/XXk=;
+ b=lVB4M4ZFNDY8tAPBkmUO7LezS/l3mheTG8l8diyraIbILlta9OEQV0JlZEfr1A3rS7
+ teJuIk6b1DVXxGWIP9zy1QoR7qMtqtbWzQ+Y0mB0XGOor4Ca0eBU98bi5UuSnYad+TQr
+ ek3FoIICuLIxGYmNDabdzRveXk2KBNWyqBSJiYvpbbSuANKpIFPMsHBdIWPLve4TNE2O
+ uQWTFwSErdIXZzcx4LT8gwi4M76T+LyINko14CnDZExcxAa1mLgZkAltV06hUeASmHRn
+ OMlnYr1rKsuj3rYtO9Nu+GOOdL5PR0D9kkgeVeyVH+riIMJclvfaCgZxjYEgRcqW1zFx
+ /wbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775572913; x=1776177713;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=aBvRjjOb926xFV+H1FqZpjuC1zFML4FZaPUVcq0/XXk=;
+ b=UW3r7ZQMerWFH9wdBnhmZjC5k+UaFTxCWJu1Ml86HqkPC+MEVDfstHooI/QQ1AZ/sd
+ mkkxYxLLjqygEEZN8nWpPjie9FSvhKIyq7TYTGcEUAY/gxB7hub11+Xba42T6CmtT2yd
+ NnL7MZ4MJTyECYaF40US8RaAjhqmxeGO448LOo08aNvc6TuwtbBBRS/NUDXRoHhDWS6r
+ kHJg20L802YQ/7gdR8nDbc9qy8g8yKUmWQUWV1EkvxrxrecOuV/aDPmQdk51NwS6KsaU
+ 4qmka7wwwdhIvh35lTLZPvLMmyfA9LSWPP1SCCrdV2PYoF8q84THbEzbg+KDqg1O2+Hr
+ bxWQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWxSGclcbN9GDKV0VTZ2+ZpcNuGdTfRYd/+dVR6Hq3s5nYUIrdNOqW1eOCIMyMnPirpOBm1FE+mGqE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVHGHdeIHiESRfRKcYXDIsnuB2rgf9I41XzYuBkfmU1ht3F8j+
+ a6kzRcQsoQX1LCc8QTXpMGCUwA/9OIVUcies/mf1nrp+3S4xTRNhHkr7
+X-Gm-Gg: AeBDievww1VLXFRVI6He4z/UtDLAWoEH8ugIE7zyDeMfC1l7VdxAwcuwBqnhpjuCK/t
+ Ze25ja3MJAaBge4qpGfW0irwDqWxhVYI4VxKJ4Lakg+usTrscYIp2lhsnzmZWIOTFRz5oXAuy9i
+ pTTncjyxA671EEUz613bwqzgVLsDZrFjDbOEYMmoFeDv9asLS46K/ug489T/DS41jyzJygsJMtn
+ HSoe2zNKeiRoOlCGJeVmkrAL0BinxFscTzJNGvvN1+c39sofZlVeq019lczU4+btG6aFxz51Bvc
+ HVvRMSrcCy/anO04Wlaf0iBPeLueMSQrooX6Y3+AUBr5tDhtdjuV8ud7TcXHU7YznZTeEKL2N8S
+ FSJ6309nI2m8Ldk6SZ/9kkflythOSao/ZadU88vdP5EC4l9isqCg2D1dROCIviD9JlJ/AHnKUBy
+ yUW1DUfyz9Gn8CoE+LCcSi7c8ogLQ8YymbrUnFC2A=
+X-Received: by 2002:a5d:4445:0:b0:43d:4a43:53db with SMTP id
+ ffacd0b85a97d-43d4a4355afmr3472891f8f.26.1775572913195; 
+ Tue, 07 Apr 2026 07:41:53 -0700 (PDT)
+Received: from vitor-nb (dsl-43-224.bl27.telepac.pt. [176.79.43.224])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d1e4e5890sm49990292f8f.31.2026.04.07.07.41.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Apr 2026 07:41:52 -0700 (PDT)
+From: Vitor Soares <ivitro@gmail.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Vitor Soares <vitor.soares@toradex.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCH v4] drm/bridge: cdns-dsi: Replace deprecated
+ UNIVERSAL_DEV_PM_OPS()
+Date: Tue,  7 Apr 2026 15:41:41 +0100
+Message-ID: <20260407144142.1420354-2-ivitro@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-max25014-v8-1-14eac7ed673a@gocontroll.com>
-References: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
-In-Reply-To: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, 
- Maud Spierings <maudspierings@gocontroll.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775572904; l=3542;
- i=maudspierings@gocontroll.com; s=20250214; h=from:subject:message-id;
- bh=wI7LikOzP1C7GvYpLTTVl+2QLbKSZ6aGcqr6KI8Kvzw=;
- b=2XxgIk5IgTyU/jzxJhrSo//Y3+lDQ0tuknOKKoIg2OfNxyNvbqZcBhhnJe2/f1W5guvqZM5Ti
- zO/vibJFzCnDdNItFZnNRDKX4pZxwnGPgB3yebhK2n2b8eQVvMhGmcn
-X-Developer-Key: i=maudspierings@gocontroll.com; a=ed25519;
- pk=7chUb8XpaTQDvWhzTdHC0YPMkTDloELEC7q94tOUyPg=
-X-Endpoint-Received: by B4 Relay for maudspierings@gocontroll.com/20250214
- with auth_id=341
-X-Original-From: Maud Spierings <maudspierings@gocontroll.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,135 +92,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: maudspierings@gocontroll.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Maud Spierings <maudspierings@gocontroll.com>
+From: Vitor Soares <vitor.soares@toradex.com>
 
-The Maxim MAX25014 is a 4-channel automotive grade backlight driver IC
-with integrated boost controller.
+The deprecated UNIVERSAL_DEV_PM_OPS() macro uses the provided callbacks
+for both runtime PM and system sleep. This causes the DSI clocks to be
+disabled twice: once during runtime suspend and again during system
+suspend, resulting in a WARN message from the clock framework when
+attempting to disable already-disabled clocks.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Maud Spierings <maudspierings@gocontroll.com>
+[   84.384540] clk:231:5 already disabled
+[   84.388314] WARNING: CPU: 2 PID: 531 at /drivers/clk/clk.c:1181 clk_core_disable+0xa4/0xac
+...
+[   84.579183] Call trace:
+[   84.581624]  clk_core_disable+0xa4/0xac
+[   84.585457]  clk_disable+0x30/0x4c
+[   84.588857]  cdns_dsi_suspend+0x20/0x58 [cdns_dsi]
+[   84.593651]  pm_generic_suspend+0x2c/0x44
+[   84.597661]  ti_sci_pd_suspend+0xbc/0x15c
+[   84.601670]  dpm_run_callback+0x8c/0x14c
+[   84.605588]  __device_suspend+0x1a0/0x56c
+[   84.609594]  dpm_suspend+0x17c/0x21c
+[   84.613165]  dpm_suspend_start+0xa0/0xa8
+[   84.617083]  suspend_devices_and_enter+0x12c/0x634
+[   84.621872]  pm_suspend+0x1fc/0x368
+
+To address this issue, replace UNIVERSAL_DEV_PM_OPS() with
+SET_RUNTIME_PM_OPS(), enabling suspend/resume handling through the
+_enable()/_disable() hooks managed by the DRM framework for both
+runtime and system-wide PM.
+
+Cc: stable@vger.kernel.org # 6.1.x
+Fixes: e19233955d9e ("drm/bridge: Add Cadence DSI driver")
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
+v3 -> v4
+ - Add Reviewed-by from Tomi Valkeinen
+ - Rebase on top of drm-misc-fixes
+ - Verified issue still present on current mainline
 
-In the current implementation the control registers for channel 1,
-control all channels. So only one led subnode with led-sources is
-supported right now. If at some point the driver functionality is
-expanded the bindings can be easily extended with it.
----
- .../bindings/leds/backlight/maxim,max25014.yaml    | 83 ++++++++++++++++++++++
- MAINTAINERS                                        |  5 ++
- 2 files changed, 88 insertions(+)
+v2 -> v3
+ - Fix warning: 'cdns_dsi_suspend' defined but not used [-Wunused-function]
+ - Fix warning: 'cdns_dsi_resume' defined but not used [-Wunused-function]
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/maxim,max25014.yaml b/Documentation/devicetree/bindings/leds/backlight/maxim,max25014.yaml
-new file mode 100644
-index 0000000000000..d00be2e081938
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/maxim,max25014.yaml
-@@ -0,0 +1,83 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/maxim,max25014.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Maxim max25014 backlight controller
-+
-+maintainers:
-+  - Maud Spierings <maudspierings@gocontroll.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - maxim,max25014
-+
-+  reg:
-+    maxItems: 1
-+
-+  default-brightness:
-+    minimum: 0
-+    maximum: 100
-+    default: 50
-+
-+  enable-gpios:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  power-supply:
-+    description: Regulator which controls the boost converter input rail.
-+
-+  pwms:
-+    maxItems: 1
-+
-+  maxim,iset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 15
-+    default: 11
-+    description:
-+      Value of the ISET field in the ISET register. This controls the current
-+      scale of the outputs, a higher number means more current.
-+
-+  maxim,strings:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      A 4-bit bitfield that describes which led strings to turn on.
-+    minItems: 4
-+    maxItems: 4
-+    items:
-+      maximum: 1
-+    default:
-+      [1 1 1 1]
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        backlight@6f {
-+            compatible = "maxim,max25014";
-+            reg = <0x6f>;
-+            default-brightness = <50>;
-+            enable-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
-+            interrupt-parent = <&gpio1>;
-+            interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
-+            power-supply = <&reg_backlight>;
-+            pwms = <&pwm1>;
-+            maxim,iset = <7>;
-+            maxim,strings = <1 1 1 0>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 10d12b51b1f6f..7e3ad236537fe 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15688,6 +15688,11 @@ F:	Documentation/userspace-api/media/drivers/max2175.rst
- F:	drivers/media/i2c/max2175*
- F:	include/uapi/linux/max2175.h
+v1 -> v2
+ - Rely only on SET_RUNTIME_PM_OPS() for the PM.
+
+ drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+index 0dd85e26248c..e07a9892df4e 100644
+--- a/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
++++ b/drivers/gpu/drm/bridge/cadence/cdns-dsi-core.c
+@@ -1230,7 +1230,7 @@ static const struct mipi_dsi_host_ops cdns_dsi_ops = {
+ 	.transfer = cdns_dsi_transfer,
+ };
  
-+MAX25014 BACKLIGHT DRIVER
-+M:	Maud Spierings <maudspierings@gocontroll.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/leds/backlight/maxim,max25014.yaml
-+
- MAX31335 RTC DRIVER
- M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
- L:	linux-rtc@vger.kernel.org
-
+-static int __maybe_unused cdns_dsi_resume(struct device *dev)
++static int cdns_dsi_resume(struct device *dev)
+ {
+ 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
+ 
+@@ -1241,7 +1241,7 @@ static int __maybe_unused cdns_dsi_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int __maybe_unused cdns_dsi_suspend(struct device *dev)
++static int cdns_dsi_suspend(struct device *dev)
+ {
+ 	struct cdns_dsi *dsi = dev_get_drvdata(dev);
+ 
+@@ -1251,8 +1251,9 @@ static int __maybe_unused cdns_dsi_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static UNIVERSAL_DEV_PM_OPS(cdns_dsi_pm_ops, cdns_dsi_suspend, cdns_dsi_resume,
+-			    NULL);
++static const struct dev_pm_ops cdns_dsi_pm_ops = {
++	RUNTIME_PM_OPS(cdns_dsi_suspend, cdns_dsi_resume, NULL)
++};
+ 
+ static int cdns_dsi_drm_probe(struct platform_device *pdev)
+ {
+@@ -1399,7 +1400,7 @@ static struct platform_driver cdns_dsi_platform_driver = {
+ 	.driver = {
+ 		.name   = "cdns-dsi",
+ 		.of_match_table = cdns_dsi_of_match,
+-		.pm = &cdns_dsi_pm_ops,
++		.pm = pm_ptr(&cdns_dsi_pm_ops),
+ 	},
+ };
+ module_platform_driver(cdns_dsi_platform_driver);
 -- 
 2.53.0
-
 
