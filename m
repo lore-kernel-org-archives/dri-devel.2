@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02463FEEF56
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:01:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7611FF5104
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:09:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66BE210E442;
-	Tue,  7 Apr 2026 15:01:45 +0000 (UTC)
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63C5B10E442
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:01:43 +0000 (UTC)
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
- by leonov.paulk.fr (Postfix) with ESMTPS id 21B8D1F8005C
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:01:26 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
- id 88E31B40191; Tue,  7 Apr 2026 15:01:24 +0000 (UTC)
-Received: from shepard (unknown [192.168.1.1])
- by laika.paulk.fr (Postfix) with ESMTPSA id C0656B4018A;
- Tue,  7 Apr 2026 15:01:22 +0000 (UTC)
-Date: Tue, 7 Apr 2026 17:01:20 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Lucas Stach <l.stach@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51ED510E029;
+	Tue,  7 Apr 2026 15:09:41 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="gfQT8L/e";
+	dkim-atps=neutral
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B08A10E029
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:09:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id B98CF10E33C; Tue,  7 Apr 2026 17:09:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+ s=dkim; t=1775574576;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=fUKRr3PIBlTzdV7W5Whjo5YyCw0hsjFvMeaap8RDMWk=;
+ b=gfQT8L/ePFsPjNOlKK7k4A8ISlVQUwClinREShy/diZqB70BOY43EQwB6JhIiJJHrtQWet
+ xaxDxyWLPzX1j2RvMm8/jtZinzR9neA6m/dPmrHL2ZTh0TivcHbMT8SXrRIXyZmAc2eQmC
+ uWb3saPAGAaNFP5DG1xfevjSqP+YDyCQL3itj/wcesOIM26SANxL4snTrnLa8CbIMkOjG/
+ uv6ELiglcBwNlO992owG7IPXHLH6FufdjnKXibgtwZvknkRkApNMm0ql+ASjKi9r+CwxTJ
+ f2aqkyl7QcFb8opXCWp0DlBHIqEN0r0td1ZbL6mU+F7VbO+LynOsSEPK5ztzeQ==
+Message-ID: <c3a9c4eb-92ce-48c2-83ff-18c7ce03acd9@nabladev.com>
+Date: Tue, 7 Apr 2026 16:51:45 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: display: bridge: lt9211: Require data-lanes
+ on DSI input ports
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: devicetree@vger.kernel.org, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>,
- Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
-Subject: Re: [PATCH v2 2/2] drm: lcdif: Wait for vblank before disabling DMA
-Message-ID: <adUcQIor2tEMCn3R@shepard>
-References: <20260402183351.3281123-1-paulk@sys-base.io>
- <20260402183351.3281123-3-paulk@sys-base.io>
- <d6bbf0c23dc5cf0c6ab0375fb1d2d3f6b4579737.camel@pengutronix.de>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="tr3oA7U7+SI63nqs"
-Content-Disposition: inline
-In-Reply-To: <d6bbf0c23dc5cf0c6ab0375fb1d2d3f6b4579737.camel@pengutronix.de>
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Robert Foss <rfoss@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260404034123.340818-1-marex@nabladev.com>
+ <20260407-invaluable-pretty-leopard-1e8dfc@quoll>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260407-invaluable-pretty-leopard-1e8dfc@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,116 +68,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 4/7/26 10:00 AM, Krzysztof Kozlowski wrote:
 
---tr3oA7U7+SI63nqs
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+>> NOTE: For example Linux kernel driver does already use that information
+>>        and fails to probe if it is missing. There are currently no intree
+> 
+> The first sentence must be part of the commit msg. That is important
+> reason why you are doing this... but I don't see how you achieve any of
+> this. Look:
+> 
+> 
+>>        users for this binding, so no new warnings will be generated once
+>>        this is applied, but a new user is about to be added.
+> 
+> What warnings? How?
 
-Hi Lucas,
+There are no in-tree users of this binding, so no DT checker warnings 
+will be produced on existing in-tree DTs. I am in the process of adding 
+a DTO which uses this binding now in arm64: dts: imx8mm: imx8mp: Add 
+DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
 
-On Tue 07 Apr 26, 10:28, Lucas Stach wrote:
-> Am Donnerstag, dem 02.04.2026 um 20:33 +0200 schrieb Paul Kocialkowski:
-> > It is necessary to wait for the full frame to finish streaming
-> > through the DMA engine before we can safely disable it by removing
-> > the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-> > hardware confused and unable to resume streaming for the next frame.
-> >=20
-> > This causes the FIFO underrun and empty status bits to be set and
-> > a single solid color to be shown on the display, coming from one of
-> > the pixels of the previous frame. The issue occurs sporadically when
-> > a new mode is set, which triggers the crtc disable and enable paths.
-> >=20
-> > Setting the shadow load bit and waiting for it to be cleared by the
-> > DMA engine allows waiting for completion.
-> >=20
-> > The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
-> >=20
-> > Fixes: 9db35bb349a0 ("drm: lcdif: Add support for i.MX8MP LCDIF variant=
-")
-> > Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
-> > Co-developed-by: Lucas Stach <l.stach@pengutronix.de>
->=20
-> Looks good to me. Since the co-developed tag requires a sign-off from
-> me, I'll add that instead of a review tag. And you might want to move
-> your sign-off down, as you are the one submitting the patch.
-
-Sounds good to me! This can probably be done when picking up the patch,
-but if maintainers need me to respin the series to get all the tags in
-order myself, just let me know!
-
-All the best,
-
-Paul
-
-> Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
->
-> > ---
-> >  drivers/gpu/drm/mxsfb/lcdif_kms.c | 15 ++++++++++++---
-> >  1 file changed, 12 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/=
-lcdif_kms.c
-> > index a00c4f6d63f4..0d04a0028671 100644
-> > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-> > @@ -375,14 +375,23 @@ static void lcdif_disable_controller(struct lcdif=
-_drm_private *lcdif)
-> >  	int ret;
-> > =20
-> >  	reg =3D readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
-> > +	/* Disable the layer for DMA. */
-> >  	reg &=3D ~CTRLDESCL0_5_EN;
-> > +	/*
-> > +	 * It is necessary to wait for the full frame to finish streaming
-> > +	 * through the DMA engine before we can safely disable it by removing
-> > +	 * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
-> > +	 * hardware confused and unable to resume streaming for the next fram=
-e.
-> > +	 */
-> > +	reg |=3D CTRLDESCL0_5_SHADOW_LOAD_EN;
-> >  	writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
-> > =20
-> > +	/* Wait for the frame to finish or timeout after 50 ms. */
-> >  	ret =3D readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
-> > -				 reg, !(reg & CTRLDESCL0_5_EN),
-> > -				 0, 36000);	/* Wait ~2 frame times max */
-> > +				 reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_EN),
-> > +				 200, 50000);
-> >  	if (ret)
-> > -		drm_err(lcdif->drm, "Failed to disable controller!\n");
-> > +		drm_err(lcdif->drm, "Timed out waiting for final vblank!\n");
-> > =20
-> >  	reg =3D readl(lcdif->base + LCDC_V8_DISP_PARA);
-> >  	reg &=3D ~DISP_PARA_DISP_ON;
->=20
-
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---tr3oA7U7+SI63nqs
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnVHEAACgkQhP3B6o/u
-lQx7KA/7BnpEWNIUmhxDgwURWcnToLoxc1aEBm/u/+bpY0PzQwdfdimZy7f8fR4h
-PuxDVy7QBNZTag6cT6rcoJ9QoWw8Srx2docDOotHjGHMOjytxrv3KJ4KeN7kVlpH
-EeuJNt8jWSulxNRiuEv85B6pFw9yUpwb1UCyiLx4H8jIHvOIxbPAOxc7f20PkCjP
-Sbwx+0iSgxffcH0c++DlDONOOLj/3pjLtjw8K6MGXQtRXX0kIxU9lVI9SNgvaZlR
-18xQ3n1Y92Zm/wOuN8tGB7VX3ILwYTXJYDU/qE3DSAzqRvLFFNTBAeBLPOVzTmhB
-Pile1vjDAdO/A4YoV/pOUS0mt0lpT40dyEH2aDC5Rzty7w5s9VbPaE9AjnPLvEvY
-GPCZ+Jcln2clHdhEEX3TiVyimht8j0GLtNtJ+Dl28b1GhYmJN6xouNNLMOvOikE3
-RwCE8eq+ijQly5rxYwnpRONuHhAPWEMg10oayJiM6vhJ4xoBxgimChoF9Klvfqev
-nbn5eOqezBWsPFx/AT53T1TJoP0kNwJLdu6HKNPIdEyWN3Fk0zbrD3kHDsPfvpDF
-vHStdPI8fyeJygwslAKAgEJNv9Vj7OFWBYap3Hn70jkLR+zAMRsKr4Or3b4PQCKq
-ZtOAvsX/zNSDVt50bwMhPmbWBE530bMy75n+cbLTPB1KgY1yT1o=
-=Ted2
------END PGP SIGNATURE-----
-
---tr3oA7U7+SI63nqs--
+>> ---
+>>   .../display/bridge/lontium,lt9211.yaml        | 37 ++++++++++++++++++-
+>>   1 file changed, 35 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+>> index 9a6e9b25d14a9..5264fb2b68b78 100644
+>> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+>> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9211.yaml
+>> @@ -36,18 +36,50 @@ properties:
+>>   
+>>       properties:
+>>         port@0:
+>> -        $ref: /schemas/graph.yaml#/properties/port
+>> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> 
+> OK, that's correct.
+> 
+>> +        unevaluatedProperties: false
+>>           description:
+>>             Primary MIPI DSI port-1 for MIPI input or
+>>             LVDS port-1 for LVDS input or DPI input.
+>>   
+>> +        properties:
+>> +          endpoint:
+>> +            $ref: /schemas/media/video-interfaces.yaml#
+>> +            unevaluatedProperties: false
+> 
+> That's correct.
+> 
+>> +
+>> +            properties:
+>> +              data-lanes:
+>> +                description: array of physical DSI data lane indexes.
+>> +                minItems: 1
+>> +                items:
+>> +                  - const: 1
+>> +                  - const: 2
+>> +                  - const: 3
+>> +                  - const: 4
+> 
+> That's almost redundant in this context - it was already there - and the
+> point is that it solves noting in the problem you had. Binding still
+> does not validate the ABI and does not match it, still.
+> 
+> Since commit foo bar, driver needs data-lanes, so what you need to do is
+> allow them and to require them. You can also specify their constraints
+> if device can be configured multiple ways, up to 4 lanes.
+Please pardon my ignorance, what exactly do you propose I change in this 
+patch ?
