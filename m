@@ -4,120 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E1DFB5184
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 02:50:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E13FB5188
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 03:01:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C336910E312;
-	Tue,  7 Apr 2026 02:50:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="YgAU5k/T";
-	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010050.outbound.protection.outlook.com [52.101.69.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A37C710E312
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 02:50:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vNTDy7A3ZXZO2uH/9a0Se1ZZFJl41Lt6QQzbBulc82UjIG46WNWZfdaqS5FQ608izX4s/BKZmpjBZcMUJpMD/EmG4ZsPN4zdh1QADC2WB6ycWCbIfGUn2i28uHFvcshwK8CsiGlupbOID9VPFyBS1mvw7gY+TTcQwgCY6OybUZauGXo3NifL19C+ZCttRkinrBf5VcglvxDi0B6kwkwg9bQq1D67Yvw76Z02R1uAxo3AiS78wFseUfQ3sHs6+Y/h3BDQCcEcp55xccw5MEjghgL+Slgby1X83cM/QwsEzPqnsW2r/meTPxwN7ijWFOo+ULwa2jpnHSooNyi7j3Hx+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SySb8nK1HAxGRC5lKmxGE4dT5A6tIPQOuEK8jcrLag8=;
- b=TQeQ0H1uDlsYTNzlrX64IeBxMQE2mxVh4R0DRRE69WI1ytr2szrHREdMVawdQd8SEP1ZlDm1gtLGrnoTEg9BedWskqbQwKoveXaIk8E3tmRQoM5Ei9HmMArs1YYnmitsIKp6QXmBJmIqtrvnApO1dc2+dDvZp0jgoSUIg4XzE5i6cY5eBq01cLnNsKF4+c+CUIiLqZlmzIn6FO/j0rOz62EE0OCdJaywU/81IncWFienrygzILeqAQukF8jOVVLT1C0gJX4sODB8Q27yK5i3bfHJjifUlMX/ANWDBEduMGTXmaJLPRVUA3Di5i6ZJLiFxI1TSdbsptrFS2yrB047vQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SySb8nK1HAxGRC5lKmxGE4dT5A6tIPQOuEK8jcrLag8=;
- b=YgAU5k/TuZOgEGaaKOPia4hvp1Eal2jVT4eeQpz9DYPNjRjSTrQyy97+/JfrJWqFP6Yu85d7tft0CgH80cLBzoV87neZ9TrxwaUe7e5BWPYxaqlI9XVdtmCJd3sgk1duQm7cuIPloess0Q8ZLB6b9UwwhZv+oPIR6hANCu28TObl+I4NXk8rpb2EGBSyqrlWqxdHRqWPjrjkMLa3WlKFFQIwGpYe3wQCwzFffrxx88d1+5tRVERyL8jUConz/qXbWGgoEOjK/AZRKxwBXhOKg49oCWL6lRKT+UfwpKAu2bJf0cLZz11+jFMeA9uiKSd/mk2m7rRb9M1Jfk2ZOqkBFQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AS8PR04MB8246.eurprd04.prod.outlook.com (2603:10a6:20b:3f6::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Tue, 7 Apr
- 2026 02:50:27 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9769.018; Tue, 7 Apr 2026
- 02:50:27 +0000
-Date: Mon, 6 Apr 2026 22:50:18 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Dominik Haller <D.Haller@phytec.de>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "sam@ravnborg.org" <sam@ravnborg.org>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "upstream@phytec.de" <upstream@phytec.de>
-Subject: Re: [PATCH 2/2] drm/panel: simple: Add EDT ETML1010G0DKA panel
-Message-ID: <adRw6sNItxMNEfK6@lizhi-Precision-Tower-5810>
-References: <20220818124518.42080-1-d.haller@phytec.de>
- <20220818124518.42080-2-d.haller@phytec.de>
- <ba13246c-3838-4993-12ef-420d82730b28@phytec.de>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ba13246c-3838-4993-12ef-420d82730b28@phytec.de>
-X-ClientProxiedBy: BYAPR06CA0064.namprd06.prod.outlook.com
- (2603:10b6:a03:14b::41) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C884E10E331;
+	Tue,  7 Apr 2026 03:01:21 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 782C410E331
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 03:01:18 +0000 (UTC)
+Received: from canpmsgout09.his.huawei.com (unknown [172.19.92.135])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4fqWCw1wGrz1BG3r
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 11:00:44 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+ by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4fqW5061gfz1cyV3;
+ Tue,  7 Apr 2026 10:54:44 +0800 (CST)
+Received: from kwepemf100009.china.huawei.com (unknown [7.202.181.223])
+ by mail.maildlp.com (Postfix) with ESMTPS id 57ADF40561;
+ Tue,  7 Apr 2026 11:00:57 +0800 (CST)
+Received: from [10.67.121.162] (10.67.121.162) by
+ kwepemf100009.china.huawei.com (7.202.181.223) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Tue, 7 Apr 2026 11:00:56 +0800
+Subject: Re: [PATCH for drm-misc-fixes v2 4/4] drm/hisilicon/hibmc: use clock
+ to look up the PLL value
+To: Yongbang Shi <shiyongbang@huawei.com>, <tzimmermann@suse.de>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <xinliang.liu@linaro.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
+ <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
+ <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+References: <20260403024828.1131906-1-shiyongbang@huawei.com>
+ <20260403024828.1131906-5-shiyongbang@huawei.com>
+From: "tiantao (H)" <tiantao6@hisilicon.com>
+Message-ID: <b7253734-bda0-a9d9-e170-3c4323b708cb@hisilicon.com>
+Date: Tue, 7 Apr 2026 11:00:42 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AS8PR04MB8246:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2c733353-7d1d-4e8b-c21a-08de94506c57
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|19092799006|366016|52116014|38350700014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: XOtyxc9oxuz1p2r/qJkMWpxp1POo0TrekLDGNcEes75Txh5R0+x0wp8IvY2KOhLhcqn+VP4E96EsBY5ezJkibqOlFTOyaetOVouaaO+ltz5MZEzN09U6RDnWR8gI7ONjYJ7FP3oDwQM8Vhj18qNJATmi4qvfFX3/Dazz4vHyfAvCHV7wawi6qm/iaqwraUYGKALo702kYaImvkP8kYJSbTFwHSy07u5R9XhwlV0BDUWsMzGndBmGw4VH/hDAJBse19xDy6xMTi8/HqVhR5vuoRccl6533zgtaUZnw8a2Hy2iXzEtFTD095XcR3z1blXY6RIHSOTUtJFAsTq5FVG4hmBnwfNO0CXc/ZbH7K5WbQujHobGJwlL87awH5rsO4OSJ/alFdy8u42hE+o2WiAYcLJOUJaBLhY36I3LLjYj3GQYY04GdzwXDsKZeHJpohdP/g0S2zAsrNuV9EeVNkDsI34F8xHyM8EOwZ1kYz0mrRaTTnjgsYOXu/AoRrnQVPtvpAVZj+BYtFZRLDnaUS3E6HpWyXT1fpGRxebLzFXbBCI2ROCjC3+O6xil9GDZIPKYiZTwI6JGi1CiGJZBv8UN13zrSBDVqmIr6BZffl6Mw7EJvG0RQNPWOOBTSQJEAQEwtFEZI/v5gn6fUNTjuKVa+TqQj0Nre4Ww2UOxCj7B+Bvr4rRzAz/ZIxdbmmDOCdee/dZ7eU95Og4/6sHVHN1kmrsu/J2lxoFwl8oftPW4I4fCuAqBpiH40+//n1L9OaLY2dqk2Nokv4tPPIV3MhlzgrTe8WCPafq8mMFR6bS6vzY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA4PR04MB9366.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(19092799006)(366016)(52116014)(38350700014)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?QxTiV9YqCYpbZHa3Ii0XagA+I3MBjkZ7e1G/6tE/wIhCkpUGz1X+uemM/S?=
- =?iso-8859-1?Q?+MHPyJ1CC99sSQBLQcnqYos5IzoER5/FcUdgDEZciMRte1AsjwkuJiN3R5?=
- =?iso-8859-1?Q?cXRo1hpKYlJkxi2bBg1l642gZF2EgazL9wMZr/P1FHPl7x3NpXIp/dX9yP?=
- =?iso-8859-1?Q?FeLYa4netQlY6RFCSZ6q7pvcDHcZicgHrrtQhbm0owda8SJF+JODz67Wbs?=
- =?iso-8859-1?Q?tikrSOW1c3wU6hEi8JtRWu7VyHlRCWpk0noXwmKHD6euRPQleeXgayybgY?=
- =?iso-8859-1?Q?G4lG4ZJqdDgZ1bKZ2bupdjFn6gc5ial5sFNq2LURExcXpsSuGvVGFHXQUw?=
- =?iso-8859-1?Q?PyE798vo356iRn4v2oqxuTR3a0TndF1GxkGKUGd4qRAnoGC68POtYwfgIV?=
- =?iso-8859-1?Q?tcWGOXt3jj3u61XwW73fWkBE5gFy9Ic9YHrg1Yygu8rbRp4hYdAE7/xkn7?=
- =?iso-8859-1?Q?Xr3caJwxdtfKenbhw/WRYVqEin5Lw+YGsfDkWp0ixLxnFMKQ658CzQzBNd?=
- =?iso-8859-1?Q?EtjKbgbOvWXeALrB1bmA5lsrwk/xMpCe16KbhpNKmD72euiOxKXBLYV5c6?=
- =?iso-8859-1?Q?I92wsIeKwmwtAaEK4XTU4zj61nb2byhmfKlbTOi59t0stfC/A/kSGBXmxA?=
- =?iso-8859-1?Q?ozVJ3Bzw5w67iWjDHS4jl+orxphge9xBNzBm1ou2CPHwRrt9NXPocNy8ZO?=
- =?iso-8859-1?Q?Uh2nuaMlsSkoJZ7kN7WvyCqxHq8N5kNBo4MrEb87tvpSEBpzIN0mmgUXxw?=
- =?iso-8859-1?Q?m6AjjCgvZdIaPf+otONjdUMaeyQ4TFW12OcS27pGNIMstJZpOaYInR5rZR?=
- =?iso-8859-1?Q?eQu0vZn4v4elfIPqV6Fn2YVDS6Yc5pEcIa/XLvfet1YaOatTt2XMzmP9q6?=
- =?iso-8859-1?Q?vIjtqEjefQP2cdBPEYTatH69f7rQEI7H0FsqgK16swN7MqXBnoGJadKGZe?=
- =?iso-8859-1?Q?l6SMB/0atPxW3hk5pDCEk9rAgzyOhMPkQwSHwe9CRLlW7hIFTo9SFeRvua?=
- =?iso-8859-1?Q?HDyAcdEQ7uVFBBpvyyudx2MkuYssR5ah0qJIue8vvCYmD9/XfuMAx7lzF/?=
- =?iso-8859-1?Q?gUc1nbB8/ggeQw2X4T+20NCuYtXUA6nu+SjJFDEy47y8iUCVMOp7+1lPRD?=
- =?iso-8859-1?Q?/Yxmf0XxpMnSiofugeiwNz9V+7HSvYfE9fagcjFUKTwMFp6O7iMATsDcLQ?=
- =?iso-8859-1?Q?OmL4WlxEVsKgucgpbgKaQBN23NHHuFQN2pKqaGFjWYANjXcRMm9AiZjzqP?=
- =?iso-8859-1?Q?NJz9mqOIWyDaN5ssvz2y6frWR/jUs/mWJOq/6RF6EFI1R1aJgPylu9EwZN?=
- =?iso-8859-1?Q?brJka1RBc6hQ8zgkKVuwUPsJcwG2VCp0I0klvz45mLdqRjcCfGwcLzQR8s?=
- =?iso-8859-1?Q?xeCufJHJDT0utWVRtdyDk1WnuJcE64Zsp7UNMmo5KAS8ck5nnXCWaK8XTX?=
- =?iso-8859-1?Q?GqY2uFdSFhEoaiPZwhtlo4lyK/vJ45Vx+d2VoeZhtMsjABpFOmS072GMBV?=
- =?iso-8859-1?Q?Wa4fuNA8qETC6GYX19vLwbskmv1XHWIl8jUOM/4Ku1UUCn0Omo3png/ZtK?=
- =?iso-8859-1?Q?benAAiEW/7xwzABtT/4UWic/1qN9ftqC6kG7eHMAg3MS4KceouEO7BJTXL?=
- =?iso-8859-1?Q?1sHlyZgRt7Uu9KJHIkXqZcQziI8efbiRTlwOPjXy9DoaTMUjhqKFsr/eYx?=
- =?iso-8859-1?Q?KCAA41A0QJdcP+q6n5r42fI0Dl0D/UOtqLH2fc3LukZ8o/7fNOnygBdF85?=
- =?iso-8859-1?Q?kutvYkP7qfeOC2qyjMFpxkK4HIepquvMHeguBh+X3p0cLL?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c733353-7d1d-4e8b-c21a-08de94506c57
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 02:50:27.0701 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VWoMxEci+bqNdmEATtnRtxUoNpZsZ3I3irZmuT/BrMRTWnn4FtDhEe8X1cU+i4AOXs7+OZr0edcgYkA1LtYUSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8246
+In-Reply-To: <20260403024828.1131906-5-shiyongbang@huawei.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.67.121.162]
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemf100009.china.huawei.com (7.202.181.223)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,80 +64,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Feb 06, 2023 at 02:20:31PM +0000, Dominik Haller wrote:
-> Hello,
 
-Neil Armstrong:
+ÔÚ 2026/4/3 10:48, Yongbang Shi Ð´µÀ:
+> From: Lin He <helin52@huawei.com>
+>
+> In the past, we use width and height to look up our PLL value.
+> But actually the actual clock check is also necessnary. There are
+> some resolutions that width and height same, but its clock different.
+> Add the clock check when using pll_table to determine the PLL value.
+>
+> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
+> Signed-off-by: Lin He <helin52@huawei.com>
+> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+> ---
+> ChangeLog:
+> v1 -> v2:
+>    - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+>      be given in public.
+>    - add 'drm-misc-fixes' in subject prefix.
+> ---
+>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 80 +++++++++++--------
+>   1 file changed, 46 insertions(+), 34 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> index 89bed78f1466..8561acbbc3c8 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> @@ -22,6 +22,8 @@
+>   #include "hibmc_drm_drv.h"
+>   #include "hibmc_drm_regs.h"
+>   
+> +#define CLOCK_TOLERANCE 100 /* kHz tolerance */
+> +
+The macro CLOCK_TOLERANCE is introduced in this patch but not referenced.
+If it's not required, please drop the definition to avoid dead code.
+If it is intended for future use, please add a comment explaining its 
+purpose.
 
-It is quite old. Any reason why not pick this patch?
-
-Frank
->
-> ping here, this one got forgotten.
-> It still applies on drm-misc-next and v6.2-rc7
->
->
-> On 18.08.22 14:45, Dominik Haller wrote:
-> > Add support for the EDT ETML1010G0DKA 10.1" 1280x800 LVDS panel.
-> >
-> > Signed-off-by: Dominik Haller <d.haller@phytec.de>
-> > ---
-> >   drivers/gpu/drm/panel/panel-simple.c | 29 ++++++++++++++++++++++++++++
-> >   1 file changed, 29 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> > index f9e1f85daef7..9314db24ab51 100644
-> > --- a/drivers/gpu/drm/panel/panel-simple.c
-> > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> > @@ -1779,6 +1779,32 @@ static const struct panel_desc edt_etml0700y5dha = {
-> >   	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> >   };
-> >
-> > +static const struct drm_display_mode edt_etml1010g0dka_mode = {
-> > +	.clock = 70000,
-> > +	.hdisplay = 1280,
-> > +	.hsync_start = 1280 + 100,
-> > +	.hsync_end = 1280 + 100 + 19,
-> > +	.htotal = 1280 + 100 + 19 + 41,
-> > +	.vdisplay = 800,
-> > +	.vsync_start = 800 + 4,
-> > +	.vsync_end = 800 + 4 + 4,
-> > +	.vtotal = 800 + 4 + 4 + 15,
-> > +	.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC,
-> > +};
-> > +
-> > +static const struct panel_desc edt_etml1010g0dka = {
-> > +	.modes = &edt_etml1010g0dka_mode,
-> > +	.num_modes = 1,
-> > +	.bpc = 8,
-> > +	.size = {
-> > +		.width = 216,
-> > +		.height = 135,
-> > +	},
-> > +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> > +	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
-> > +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> > +};
-> > +
-> >   static const struct drm_display_mode edt_etmv570g2dhu_mode = {
-> >   	.clock = 25175,
-> >   	.hdisplay = 640,
-> > @@ -4057,6 +4083,9 @@ static const struct of_device_id platform_of_match[] = {
-> >   	}, {
-> >   		.compatible = "edt,etml0700y5dha",
-> >   		.data = &edt_etml0700y5dha,
-> > +	}, {
-> > +		.compatible = "edt,etml1010g0dka",
-> > +		.data = &edt_etml1010g0dka,
-> >   	}, {
-> >   		.compatible = "edt,etmv570g2dhu",
-> >   		.data = &edt_etmv570g2dhu,
->
->
-> --
-> PHYTEC Messtechnik GmbH | Barcelona-Allee 1 | 55129 Mainz, Germany
->
-> Geschäftsführer: Dipl.-Ing. Michael Mitezki, Dipl.-Ing. Bodo Huber |
-> Handelsregister Mainz HRB 4656 | Finanzamt Mainz-Mitte | St.Nr.
-> 266500608, DE 149059855
->
+>   struct hibmc_display_panel_pll {
+>   	u64 M;
+>   	u64 N;
+> @@ -32,26 +34,43 @@ struct hibmc_display_panel_pll {
+>   struct hibmc_dislay_pll_config {
+>   	u64 hdisplay;
+>   	u64 vdisplay;
+> +	int clock;
+>   	u32 pll1_config_value;
+>   	u32 pll2_config_value;
+>   };
+>   
+>   static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
+> -	{640, 480, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
+> -	{800, 600, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
+> -	{1024, 768, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
+> -	{1152, 864, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
+> -	{1280, 768, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
+> -	{1280, 720, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
+> -	{1280, 960, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> -	{1280, 1024, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> -	{1440, 900, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
+> -	{1600, 900, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> -	{1600, 1200, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
+> -	{1920, 1080, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
+> -	{1920, 1200, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
+> +	{640, 480, 25000, CRT_PLL1_HS_25MHZ, CRT_PLL2_HS_25MHZ},
+> +	{800, 600, 40000, CRT_PLL1_HS_40MHZ, CRT_PLL2_HS_40MHZ},
+> +	{1024, 768, 65000, CRT_PLL1_HS_65MHZ, CRT_PLL2_HS_65MHZ},
+> +	{1152, 864, 78750, CRT_PLL1_HS_80MHZ_1152, CRT_PLL2_HS_80MHZ},
+> +	{1280, 768, 80000, CRT_PLL1_HS_80MHZ, CRT_PLL2_HS_80MHZ},
+> +	{1280, 720, 74375, CRT_PLL1_HS_74MHZ, CRT_PLL2_HS_74MHZ},
+> +	{1280, 960, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> +	{1280, 1024, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> +	{1440, 900, 105952, CRT_PLL1_HS_106MHZ, CRT_PLL2_HS_106MHZ},
+> +	{1600, 900, 108000, CRT_PLL1_HS_108MHZ, CRT_PLL2_HS_108MHZ},
+> +	{1600, 1200, 162500, CRT_PLL1_HS_162MHZ, CRT_PLL2_HS_162MHZ},
+> +	{1920, 1080, 148750, CRT_PLL1_HS_148MHZ, CRT_PLL2_HS_148MHZ},
+> +	{1920, 1200, 193750, CRT_PLL1_HS_193MHZ, CRT_PLL2_HS_193MHZ},
+>   };
+>   
+> +static int hibmc_get_best_clock_idx(const struct drm_display_mode *mode)
+> +{
+> +	int i, diff;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
+> +		if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
+> +		    hibmc_pll_table[i].vdisplay == mode->vdisplay) {
+> +			diff = abs(mode->clock - hibmc_pll_table[i].clock);
+> +			if (diff < mode->clock / 100) /* tolerance 1/100 */
+> +				return i;
+> +		}
+> +	}
+> +
+> +	return -EOPNOTSUPP;
+> +}
+> +
+>   static int hibmc_plane_atomic_check(struct drm_plane *plane,
+>   				    struct drm_atomic_state *state)
+>   {
+> @@ -214,17 +233,13 @@ static enum drm_mode_status
+>   hibmc_crtc_mode_valid(struct drm_crtc *crtc,
+>   		      const struct drm_display_mode *mode)
+>   {
+> -	size_t i = 0;
+>   	int vrefresh = drm_mode_vrefresh(mode);
+>   
+>   	if (vrefresh < 59 || vrefresh > 61)
+>   		return MODE_NOCLOCK;
+>   
+> -	for (i = 0; i < ARRAY_SIZE(hibmc_pll_table); i++) {
+> -		if (hibmc_pll_table[i].hdisplay == mode->hdisplay &&
+> -		    hibmc_pll_table[i].vdisplay == mode->vdisplay)
+> -			return MODE_OK;
+> -	}
+> +	if (hibmc_get_best_clock_idx(mode) >= 0)
+> +		return MODE_OK;
+>   
+>   	return MODE_BAD;
+>   }
+> @@ -281,23 +296,20 @@ static void set_vclock_hisilicon(struct drm_device *dev, u64 pll)
+>   	writel(val, priv->mmio + CRT_PLL1_HS);
+>   }
+>   
+> -static void get_pll_config(u64 x, u64 y, u32 *pll1, u32 *pll2)
+> +static void get_pll_config(struct drm_display_mode *mode, u32 *pll1, u32 *pll2)
+>   {
+> -	size_t i;
+> -	size_t count = ARRAY_SIZE(hibmc_pll_table);
+> -
+> -	for (i = 0; i < count; i++) {
+> -		if (hibmc_pll_table[i].hdisplay == x &&
+> -		    hibmc_pll_table[i].vdisplay == y) {
+> -			*pll1 = hibmc_pll_table[i].pll1_config_value;
+> -			*pll2 = hibmc_pll_table[i].pll2_config_value;
+> -			return;
+> -		}
+> +	int idx;
+> +
+> +	idx = hibmc_get_best_clock_idx(mode);
+> +	if (idx < 0) {
+> +		/* if found none, we use default value */
+> +		*pll1 = CRT_PLL1_HS_25MHZ;
+> +		*pll2 = CRT_PLL2_HS_25MHZ;
+> +		return;
+>   	}
+>   
+> -	/* if found none, we use default value */
+> -	*pll1 = CRT_PLL1_HS_25MHZ;
+> -	*pll2 = CRT_PLL2_HS_25MHZ;
+> +	*pll1 = hibmc_pll_table[idx].pll1_config_value;
+> +	*pll2 = hibmc_pll_table[idx].pll2_config_value;
+>   }
+>   
+>   /*
+> @@ -319,7 +331,7 @@ static u32 display_ctrl_adjust(struct drm_device *dev,
+>   	x = mode->hdisplay;
+>   	y = mode->vdisplay;
+>   
+> -	get_pll_config(x, y, &pll1, &pll2);
+> +	get_pll_config(mode, &pll1, &pll2);
+>   	writel(pll2, priv->mmio + CRT_PLL2_HS);
+>   	set_vclock_hisilicon(dev, pll1);
+>   
