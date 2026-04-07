@@ -4,71 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BDC4EDB7D8
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:18:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739D1EDB7D4
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9284B10E37E;
-	Tue,  7 Apr 2026 09:18:54 +0000 (UTC)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 699F210E37E
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:18:53 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-56d9ed609d2so1375675e0c.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:18:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93CAB10E08C;
+	Tue,  7 Apr 2026 09:25:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=resnulli-us.20251104.gappssmtp.com header.i=@resnulli-us.20251104.gappssmtp.com header.b="fqCsOI9C";
+	dkim-atps=neutral
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD2D210E08C
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:25:20 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-43d0deb7ad5so4354131f8f.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:25:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=resnulli-us.20251104.gappssmtp.com; s=20251104; t=1775553918; x=1776158718;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ChD0onF1gDOUOLYFpD7x1c0kz7T4QILlyJ39777mmvM=;
+ b=fqCsOI9CbcXxJS5URrOQUtL35aqwZFMTzCcNf0Bj6Js8H9/stuvlvcZstvhBy2pIML
+ fPqf0P/BbXA94lkZZef0sNdGm5ysN/R/kWr0xHbCpiLftnUPagGuINbuqut+k4QEZ+hF
+ qR7cfpY9ztaI3eIrEm7G8yxsb19ISG9mKPUcoKSd28LrN2TJxje1ULsI2UHkt2mCSkx3
+ OQDmySUVmf+mr9rql7XbSB4q2NKVRZ9Trj0ln02hSTeVEHs5NGTbnzOdv+tP3GMkbMOz
+ mB0O5xDOLmUbInutoG8xymzXduwCOh4v7RImr3EudExsF4vTYzkO+J9LFLqrigiR6PJq
+ 3P7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775553532; x=1776158332;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cR9HGabiBXNm33M/l0GZLFmidathx2ZfsEf0OcHHACY=;
- b=l7/1EUM1fLHvcqvGqjz0re8zw/GIqIZMHCS2gUuon5150fGrJr0uvdn2R1xGkTcXUW
- kpWQrZiNDuSPx2twLJvonneeNB9/TC8Zo2owNT9oIB2rubHnUPP3F5LCjqrkPa1RqNL5
- A10ddKel//4EeAa1AW807ijmCV/GEhqProNgmugNESM/oZjyMNKYFec3mk8cWI21wDjv
- YqQvPF1lDj9U7UUI7B8wt/C2u4EzeZQW7Cm26Ldfk4uThoXxrAR6ha6Kk1LMamkvlsqO
- jEHAazDfTW4Ppn1ifrphKXgdL5f39sMKwbsgGsOVuzUjSD5MK8d7kqnBZRSNxmRg/VSK
- ctjA==
-X-Gm-Message-State: AOJu0YwThUmDL66Ertqcn7Al/ilecXZMyeJNiRJCZJDw+f7/rDgt/2lt
- SonQEZhdraum08zwX3hv0IXwb9fi4j0pcrJGSGwRgnl9+pphxUc2wqMVg3/aOkN7
-X-Gm-Gg: AeBDietSqS5iH8hLvRhTnN0TidKwCBq14ZQTILmKG+tzJ8tqazN7sTufyIzAAsngQPq
- 81CvEKxGX9X6f+8azaefPkHs+mg10r9THIDAKUmtTKAWkYwF6D6E82kHLuCQKRdr48i61Qkl/HZ
- 4wyEgTEfW9IS9qTCuwgGlPMc9Gy94iY5ZhTnc0S1/+KaD7PcWvVMcSVeeZ/2UcSToE4zuds3wLi
- eUatvRaPZJiJSVluwfssRjvdw/H7kPrfaRSg30FLHzmK4I0GCF9hk9A+KuPxrpdyI/5cS7Ho66U
- wlIYtqxqQ7M6Ehnwu7dQmOE6zR4oamTCxgI7ue76lF9sXVjnmhvLmuMBze02B9NXJJHQtdsnpq2
- RNqwtv3BzelvDwB3r8uF44QTL80NXmw4oplu5BbWfNlGRQJ6uFaVMWIvbBrj5fm3cXQ4PamPYrb
- mHg3UIKk5lczfA/dNzg74ZuahIoaHXnEgZ+B2n4+FnXE8P2GfO67xCFd/QOiXD3lPW
-X-Received: by 2002:a05:6122:a05:b0:566:2711:d8ab with SMTP id
- 71dfb90a1353d-56dab90cf81mr5067313e0c.6.1775553532185; 
- Tue, 07 Apr 2026 02:18:52 -0700 (PDT)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com.
- [209.85.221.171]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-56d9bceb2e6sm17990988e0c.15.2026.04.07.02.18.52
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Apr 2026 02:18:52 -0700 (PDT)
-Received: by mail-vk1-f171.google.com with SMTP id
- 71dfb90a1353d-56d958880ecso1332741e0c.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:18:52 -0700 (PDT)
-X-Received: by 2002:a05:6122:1d15:b0:56c:ca50:e963 with SMTP id
- 71dfb90a1353d-56daba4441amr5183687e0c.14.1775553531657; Tue, 07 Apr 2026
- 02:18:51 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1775553918; x=1776158718;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ChD0onF1gDOUOLYFpD7x1c0kz7T4QILlyJ39777mmvM=;
+ b=AI3lQlJ2zSLaWX+xeG4TU9ET+KPavDRr580udjY3MhS42mtZB0sioyYm6HvsMA8FoN
+ 6L7bXeZdY48mEY+az5irdyy6BD2VeYujXBoqPlcgkftFYA9080uhzOmFpflM759TBK9Y
+ yWk5NXB5O9H1w+Gf7EIB/xQ1sThrZOtfJqhO5Vl3FHPTB3+rifRYJ48EJ4n58eTGWLGQ
+ Pr5grsj1oZImyUdlTAOCDb1RwaegTt5cNXZFp7kZheMbPub7i8OQ0fm+Bg+9xMWFgsKw
+ KVRFZIl6mIQTJ0MxgM85dU8fp61iC4xK70PFAwfEeHzeiBEeUv4i4nO4jD15Leq86VkJ
+ eyHg==
+X-Gm-Message-State: AOJu0YyiQbgi+CDYiOrJAZ3x3fN+BH7Y8IDJphQ+R1/lMD72YlmI/x/C
+ Arum2IechRZ/ZehyYH+rAMspaD6ztPXCutrvyYe61JJx1eyRAq9kKKSKHDiJrwck4IE=
+X-Gm-Gg: AeBDiesO5GxdQ8o16fsPaYVoq6V3/VV1Syk+sc9UMFUn54uXGDGZtJY1ijYrykEFYUY
+ MRtC04JNTOr4m/SW/PLqsgMly7AL/+lB7TN43JJ5cEmFTU4wBw+wE4zXN9qMRlSZl2/L7PUOQYv
+ cCvU2nMImVvzP9UXk5B3n9UQ1cBdbruncAC8m+jjTnkQYDAq61jzewYbGZFx/xfq8Fefmgln/vy
+ rFC2lLvToKlP7XuUzPoJzi68uZ3CB3g3Iuk05LbaSS5oPYEILlIbD3dF30qF5Pn5MJju7UOenki
+ GyfeXhGMxKS31ywjWNAuXck3ipsE0Movp0RHT0wWq3olBQpt+e1SrXRq+Of9xfxUSi79Tr0K0H+
+ nawh7jb7Z4kWjKW8zUv6owkz6yff2ycUOUSy9hxYH7Y4yhoxjLLCGssOL2RF2Pr/o23sEDwceG+
+ kKPh+8EnEnmZowsYrrl/zwd5TxQnnyQ8E=
+X-Received: by 2002:a05:6000:4201:b0:43c:f95c:3e66 with SMTP id
+ ffacd0b85a97d-43d29294b62mr24203622f8f.21.1775553918478; 
+ Tue, 07 Apr 2026 02:25:18 -0700 (PDT)
+Received: from FV6GYCPJ69 ([85.163.81.98]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d1e4f5016sm52091538f8f.33.2026.04.07.02.25.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Apr 2026 02:25:17 -0700 (PDT)
+Date: Tue, 7 Apr 2026 11:25:15 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ iommu@lists.linux.dev, linux-media@vger.kernel.org, sumit.semwal@linaro.org, 
+ benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com, 
+ christian.koenig@amd.com, m.szyprowski@samsung.com, robin.murphy@arm.com,
+ jgg@ziepe.ca, 
+ leon@kernel.org, sean.anderson@linux.dev, ptesarik@suse.com, 
+ catalin.marinas@arm.com, aneesh.kumar@kernel.org, suzuki.poulose@arm.com, 
+ steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com, 
+ ashish.kalra@amd.com, suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
+Subject: Re: [PATCH] dma-buf: heaps: system: document system_cc_shared heap
+Message-ID: <5l5ack3pgpajrkbcactkiyvfi5pir3jn5eg6tmohcrdgiuqtn5@odbwbvsn4vrj>
+References: <20260402141103.598495-1-jiri@resnulli.us>
+ <CABdmKX3N70j8ZZs5DNhx6fhRi=Aa_+2xY1JHcW+uDoaV2+Sngw@mail.gmail.com>
 MIME-Version: 1.0
-References: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260323164526.2292491-5-laurent.pinchart+renesas@ideasonboard.com>
- <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
-In-Reply-To: <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 7 Apr 2026 11:18:39 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWLcat1BegoTH_=ir9svJ2CECw2g672pfz-5CGg6xtWuA@mail.gmail.com>
-X-Gm-Features: AQROBzDsnfwxgRbWuNYO6rWIlZEto2LwHPdqUIPoMgm27H9bZD6G-qlMJsPH2Ss
-Message-ID: <CAMuHMdWLcat1BegoTH_=ir9svJ2CECw2g672pfz-5CGg6xtWuA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] drm: rcar-du: Don't leak device_link to CMM
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Biju Das <biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABdmKX3N70j8ZZs5DNhx6fhRi=Aa_+2xY1JHcW+uDoaV2+Sngw@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,39 +96,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 7 Apr 2026 at 11:10, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Mon, 23 Mar 2026 at 18:22, Laurent Pinchart
-> <laurent.pinchart+renesas@ideasonboard.com> wrote:
-> > The DU driver creates device_link instances between the DU and CMMs, but
-> > never deletes them. Fix it by introducing a rcar_du_cmm structure to
-> > group the CMM device and device_link, and deleting the links at cleanup
-> > time.
-> >
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Mon, Apr 06, 2026 at 10:20:33PM +0200, tjmercier@google.com wrote:
+>On Thu, Apr 2, 2026 at 7:11 AM Jiri Pirko <jiri@resnulli.us> wrote:
+>>
+>> From: Jiri Pirko <jiri@nvidia.com>
+>>
+>> Document the system_cc_shared dma-buf heap that was introduced
+>> recently. Describe its purpose, availability conditions and
+>> relation to confidential computing VMs.
+>>
+>> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
+>> ---
+>>  Documentation/userspace-api/dma-buf-heaps.rst | 8 ++++++++
+>>  1 file changed, 8 insertions(+)
+>>
+>> diff --git a/Documentation/userspace-api/dma-buf-heaps.rst b/Documentation/userspace-api/dma-buf-heaps.rst
+>> index 05445c83b79a..591732393e7d 100644
+>> --- a/Documentation/userspace-api/dma-buf-heaps.rst
+>> +++ b/Documentation/userspace-api/dma-buf-heaps.rst
+>> @@ -16,6 +16,14 @@ following heaps:
+>>
+>>   - The ``system`` heap allocates virtually contiguous, cacheable, buffers.
+>>
+>> + - The ``system_cc_shared`` heap allocates virtually contiguous, cacheable,
+>> +   buffers using shared (decrypted) memory. It is only present on
+>> +   confidential computing (CoCo) VMs where memory encryption is active
+>> +   (e.g., AMD SEV, Intel TDX). The allocated pages have the encryption
+>> +   bit cleared, making them accessible for device DMA without TDISP
+>> +   support. On non-CoCo VMs configurations, this heap is
 >
-> Thanks for your patch, which is now commit 3bce3fdd1ff2ba24 ("drm:
-> rcar-du: Don't leak device_link to CMM") in drm-misc/for-linux-next.
+>"non-CoCo VM configurations"
 >
-> This causes koelsch to hang during boot when a display is already
-> connected before boot:
+>> +   not registered.
 >
->       [drm] Initialized rcar-du 1.0.0 for feb00000.display on minor 0
->       rcar-du feb00000.display: [drm] Device feb00000.display probed
+>Doesn't seem like you need to wrap this line.
 >
-> When no display is connected, the system boots fine.
+>with that: Reviewed-by: T.J.Mercier <tjmercier@google.com>
+
+Okay. Thanks!
+
+
 >
-> While looking into this, I noticed that hotplug after boot crashes,
-> but I haven't bisected that. It definitely worked a few months ago:
-
-I am feeling lucky: reverting this commit fixes HDMI hotplug, too ;-)
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+>> +
+>>   - The ``default_cma_region`` heap allocates physically contiguous,
+>>     cacheable, buffers. Only present if a CMA region is present. Such a
+>>     region is usually created either through the kernel commandline
+>
+>Each paragraph starting with '-' confused me for a second there. Those
+>aren't part of the diff. :)
