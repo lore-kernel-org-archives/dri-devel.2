@@ -4,99 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B46FCFEEF2D
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:44:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D2BAFEEF49
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:53:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2054610E43F;
-	Tue,  7 Apr 2026 14:44:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1D5910E093;
+	Tue,  7 Apr 2026 14:53:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="axOyr6zk";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jyg5zU1h";
 	dkim-atps=neutral
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
- [209.85.219.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F173910E43F
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 14:44:04 +0000 (UTC)
-Received: by mail-qv1-f47.google.com with SMTP id
- 6a1803df08f44-8a032383008so68434976d6.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 07:44:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775573044; cv=none;
- d=google.com; s=arc-20240605;
- b=KCwE4a+fzaHnj8I8lVXqNCX9Zxjs+PBqszrp4vVGndQcy/x/WT7yYdvl87sN7KQphu
- w8U168Bjizcmqfv230yyp7jbYcQtHgvvTni2Tt6vs5sT44STyFvJAGc9sHrp9jkkty/P
- 7l4R5qhlA0wsTFcsSawX8xQPrJy+3KffCMZMeaFaFWqKHhyx4BfnHao+dCnI1pU3F60S
- ICctXCz3ONhU+S9U8s8yPDSjljhy2uH9jcaqlX+eOsOWUGFRTrjFGk51g+SRplxj5252
- +LKgH/nRj9JKS1bLeHTGEaXosPt+9ChVuw5uWC0TPZ7Ti1io+jPWysUNQ4KYK6iYSJOd
- VGFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Zl+ybDcUVtik8d9nb2gVdt0WS3xrV20DIN3DouokInQ=;
- fh=+JtYaV44Xp6flwTJbV/0/l5ZI3RPIyPB6DWO8IlVapg=;
- b=T0oDv6Hyit298HhHLm7w4Msm5tw9XYTLDfxyWGxdc4tkNnJDG3p3bPz5y1Bs45fltH
- JnLBrap63VEpcJ38hfeCjqN6qSfL4DK1VpcbUE8xbhEEzHqp/z6BO6mWKSiU8MsnHP8c
- V8QRTwscZR/4XZiMnG76HZjtfPScMTdSfYLmwL89s1j78zCKJQ1VyYjr8SaEvxpM0cr8
- mc+5WByEyGKapL3CXDE5LD25R6IvNKnwq3UFRSUbI7B5CLN6rf8usfRXUF+eYAaI1ahY
- JZh5IM7pL77+B/kzXPrjXQYiyC0MIqVdieIyv6WD+EihBmFEwk9bwjlRiFMIRhlN5+pp
- O+IQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775573044; x=1776177844; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Zl+ybDcUVtik8d9nb2gVdt0WS3xrV20DIN3DouokInQ=;
- b=axOyr6zk52NPMaCfmctRECKBIrTY8rzEH+2zyZpKl8Xvxt2Qg1KI3b6XFQfRc54vIY
- GF0KcD8C1SA7wp+iVj3D2oLb3C2gnOzh8T31u7ENCVmVVwBQ733k8mcKQGGZeiRs6+QC
- B9yTl2Or7zXrOQshEycKFcgmhNw/uYd7GcUwvpupnZH0WxeQXx9+m1nszPBnzLixY7+U
- 6MavKvjsWgbXfGmYaP7i8YooQpKzO5u6NhexwJB401sosusIkFrACsgb9pD3ODXfhEJu
- u5f3K0i9N9EUh0Rnt/5Pk1jKYZs5ipeXDFHAohyPIqTI3UWE0ceWAdQaKIIhpqiLsCD/
- B9aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775573044; x=1776177844;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Zl+ybDcUVtik8d9nb2gVdt0WS3xrV20DIN3DouokInQ=;
- b=YeqQkkObpTvO9NqpIuBgw9rIJovESjs3dyxI89Z5vAb3pPbc5tBuSSRU+XojD9bANH
- u0UN980LjDS20dM+ou+Lx8tuYcw7Uu4ESckA0ka6XEOM7YmJpBAe+9l62BBDckwvEaIa
- n8vZ8HizVeoY4ur5//uOySr69553iu+vaxFfKR0dULUQ2JffKTlf/Uhd3841K8F8NQdq
- yV9fOWyRZlwfu7d2Qa4j0ro9JHOiN0ZU/oOHxpq1hzpLt73iPnEg9hrVV3jpBdUmaIXx
- 2EevDEkKLym0rVPaz0IMVvT2R7Dwfboz9FI4aa7zYez42+Op/cD1GzuyLfwnubwxe7Mj
- 7wmg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVlnbpMOot75fDdJRxs1d2CMVfMnx1stvK7c8cgaepIwl2uff2HoXBGhesnvR5moezzcOMlN7fLUoc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY0vaxlF+WiSQ+j2G73H0gW8Nqh83DMaCsmavJalMNBeF+FQX5
- M/cqaQtK92kUqCD4a4ld8koPphbUV8HheahcfdDpsVZgLNRsUNp0pziU7hxgkjicjPD8tIbooUx
- 9Rkx0v3eLbz+Hy0iS0w4G/fNnSxSI5gBAnrwUhCw=
-X-Gm-Gg: AeBDieuBjQ25J/lSg6YVdz8J7KdnHQWb0qkPVlqXrbQbEbR4kZJcSSZOG0wihLW2c/n
- /D0553aHGEz7a4Y4GYkmMnrQenJwqz01KR4MDLuJWKyy7ddDUNH+YTIsO30cpv9R++BY/fcrxyi
- JrYLjj2ZJ2RHyXO0aQ4WrUXkLlu+NETOn5K8gpt3kyntIvz9paSY5vwsiaraP8tn5ncdcSuIy2N
- Rgn3bG5sqpEVJ+/c6Kv0EaPMEtkn1ACA0BtjHYYJjTZ8fCFN/w01tUVE79gmWgPQMg/0iRKYfsz
- ZquMRA==
-X-Received: by 2002:ad4:5bc3:0:b0:8a5:fcce:4c with SMTP id
- 6a1803df08f44-8a7043edff1mr287526516d6.27.1775573043645; 
- Tue, 07 Apr 2026 07:44:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260326094308.1161335-1-wenst@chromium.org>
- <20260326094308.1161335-3-wenst@chromium.org>
-In-Reply-To: <20260326094308.1161335-3-wenst@chromium.org>
-From: Inki Dae <daeinki@gmail.com>
-Date: Tue, 7 Apr 2026 23:43:26 +0900
-X-Gm-Features: AQROBzBGt340ZHEJc4Xn02uKsIv90vik5xWrVoDE6tBxFh2VJoHTruSbBo3C7_4
-Message-ID: <CAAQKjZM5NC6svNX=7QpXzsfS-xAsCV2GdLDDdSTDpArwqg=o7g@mail.gmail.com>
-Subject: Re: [PATCH 2/4] drm/exynos: Use DRM core dedicated DMA device
- tracking facility
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57CB310E442
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 14:53:55 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 5CD7EC5B18D;
+ Tue,  7 Apr 2026 14:54:27 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 74AD7603C7;
+ Tue,  7 Apr 2026 14:53:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id E190010450234; 
+ Tue,  7 Apr 2026 16:53:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1775573631; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=dFpKKgJSe3LDnkGc1FYdedAaRZnlCAUJQ/ukxoYtD4Y=;
+ b=jyg5zU1hYNkpXLJb6meqXDq8VXWt5eBi1yf3MaMX4NsBnSaVC/ZPYaTPMHOcbkpkgn7seX
+ HdjHcw4PrpZ0PYHJ18lCo/NHNq/wkP2Ku+QULqsv8pSWhETT/KsLi7kQeTcjZWYThxn7Q4
+ l7zHJtiDTJiJlC1CO/bQDYp8BnlXkGJuxUHCWCez3KNaNT6ICV89h3x6N65jZYF6dnuQhC
+ xOEOeYuOK/aBMpBgzW0JucXrgPsddZzoiqseZiqilL5Fht5CfhYh8s8Bs8eo05cTOYj83O
+ phfnzk8yElIsP6clYK1BZPlnI0lWTWcda3nfyaoQG1wnb5XiWHJf1bmTtOtIUA==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 07 Apr 2026 16:53:40 +0200
+Message-Id: <DHN0BGS5NT7V.364S1W551CQW6@bootlin.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>, <andrzej.hajda@intel.com>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <hjc@rock-chips.com>, <heiko@sntech.de>, <andy.yan@rock-chips.com>,
+ <wens@kernel.org>, <samuel@sholland.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH v1 2/4] drm/bridge: dw-hdmi: Allow
+ &dw_hdmi_plat_data.output_port = 0 without DRM_BRIDGE_ATTACH_NO_CONNECTOR
+Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <victor.liu@nxp.com>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <shengjiu.wang@nxp.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, <linux-sunxi@lists.linux.dev>
+X-Mailer: aerc 0.20.1
+References: <20260403070032.447102-1-damon.ding@rock-chips.com>
+ <20260403070032.447102-3-damon.ding@rock-chips.com>
+In-Reply-To: <20260403070032.447102-3-damon.ding@rock-chips.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,163 +73,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-2026=EB=85=84 3=EC=9B=94 26=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 6:51, C=
-hen-Yu Tsai <wenst@chromium.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+Hello Damon,
+
+On Fri Apr 3, 2026 at 9:00 AM CEST, Damon Ding wrote:
+> In the previous commit, Luca split the dw-hdmi attach process into two
+> cases:
 >
-> The exynos driver tracks a dedicated DMA device in its private data.
-> The DRM core already has facilities to do this, and it is integrated
-> into DRM PRIME imports and GEM DMA helpers.
+>  A. hdmi->plat_data->output_port =3D 0:
+>     the HDMI output (port@1) in device tree is not used
 >
-> Convert the exynos driver to use the core's dedicated DMA device
-> tracking facility. Also get rid of exynos_drm_gem_prime_import() as
-> it is identical to drm_gem_prime_import() after the conversion.
+>  B. hdmi->plat_data->output_port =3D 1:
+>     the HDMI output (port@1) is parsed to find the next bridge
 >
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> For Rockchip, many older platforms (RK3288, RK3399, etc.) only support
+> case A by default. They can support DRM_BRIDGE_ATTACH_NO_CONNECTOR flag
+> after adapting to the bridge connector helper. Relax this constraint in
+> preparation for Rockchip dw-hdmi bridge-connector adaptation.
+>
+> Link: https://lore.kernel.org/all/20260402-drm-lcdif-dbanc-v3-6-27cd247a0=
+847@bootlin.com/
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 > ---
->  drivers/gpu/drm/exynos/exynos_drm_dma.c | 11 +++++-----
->  drivers/gpu/drm/exynos/exynos_drm_drv.c |  1 -
->  drivers/gpu/drm/exynos/exynos_drm_drv.h |  8 --------
->  drivers/gpu/drm/exynos/exynos_drm_g2d.c | 11 +++++-----
->  drivers/gpu/drm/exynos/exynos_drm_gem.c | 27 ++++++++++---------------
->  drivers/gpu/drm/exynos/exynos_drm_gem.h |  2 --
->  6 files changed, 23 insertions(+), 37 deletions(-)
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_dma.c b/drivers/gpu/drm/ex=
-ynos/exynos_drm_dma.c
-> index ccc6b852ee7d..734741c80cbe 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_dma.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_dma.c
-> @@ -8,6 +8,7 @@
->  #include <linux/iommu.h>
->  #include <linux/platform_device.h>
->
-> +#include <drm/drm_device.h>
->  #include <drm/drm_print.h>
->  #include <drm/exynos_drm.h>
->
-> @@ -41,7 +42,7 @@ static int drm_iommu_attach_device(struct drm_device *d=
-rm_dev,
->         struct exynos_drm_private *priv =3D drm_dev->dev_private;
->         int ret =3D 0;
->
-> -       if (get_dma_ops(priv->dma_dev) !=3D get_dma_ops(subdrv_dev)) {
-> +       if (get_dma_ops(drm_dev_dma_dev(drm_dev)) !=3D get_dma_ops(subdrv=
-_dev)) {
->                 DRM_DEV_ERROR(subdrv_dev, "Device %s lacks support for IO=
-MMU\n",
->                           dev_name(subdrv_dev));
->                 return -EINVAL;
-> @@ -93,8 +94,8 @@ int exynos_drm_register_dma(struct drm_device *drm, str=
-uct device *dev,
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/=
+bridge/synopsys/dw-hdmi.c
+> index dd50dda3a4f5..20b2f9e145b0 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -2912,9 +2912,8 @@ static int dw_hdmi_bridge_attach(struct drm_bridge =
+*bridge,
 >  {
->         struct exynos_drm_private *priv =3D drm->dev_private;
+>  	struct dw_hdmi *hdmi =3D bridge->driver_private;
 >
-> -       if (!priv->dma_dev) {
-> -               priv->dma_dev =3D dev;
-> +       if (drm_dev_dma_dev(drm) =3D=3D drm->dev) {
-> +               drm_dev_set_dma_dev(drm, dev);
->                 DRM_INFO("Exynos DRM: using %s device for DMA mapping ope=
-rations\n",
->                          dev_name(dev));
->         }
-> @@ -109,7 +110,7 @@ int exynos_drm_register_dma(struct drm_device *drm, s=
-truct device *dev,
->                         mapping =3D arm_iommu_create_mapping(dev,
->                                 EXYNOS_DEV_ADDR_START, EXYNOS_DEV_ADDR_SI=
-ZE);
->                 else if (IS_ENABLED(CONFIG_IOMMU_DMA))
-> -                       mapping =3D iommu_get_domain_for_dev(priv->dma_de=
-v);
-> +                       mapping =3D iommu_get_domain_for_dev(dev);
+> -	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the nex=
+t bridge */
+> -	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_dat=
+a->output_port))
+> -		return -EINVAL;
+> +	if ((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->outpu=
+t_port)
+> +		return 0;
 >
->                 if (!mapping)
->                         return -ENODEV;
-> @@ -135,5 +136,5 @@ void exynos_drm_cleanup_dma(struct drm_device *drm)
->
->         arm_iommu_release_mapping(priv->mapping);
->         priv->mapping =3D NULL;
-> -       priv->dma_dev =3D NULL;
-> +       drm_dev_set_dma_dev(drm, NULL);
->  }
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/ex=
-ynos/exynos_drm_drv.c
-> index 2101a74dc1ed..9ee30086879f 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> @@ -109,7 +109,6 @@ static const struct drm_driver exynos_drm_driver =3D =
-{
->         .open                   =3D exynos_drm_open,
->         .postclose              =3D exynos_drm_postclose,
->         .dumb_create            =3D exynos_drm_gem_dumb_create,
-> -       .gem_prime_import       =3D exynos_drm_gem_prime_import,
->         .gem_prime_import_sg_table      =3D exynos_drm_gem_prime_import_s=
-g_table,
->         EXYNOS_DRM_FBDEV_DRIVER_OPS,
->         .ioctls                 =3D exynos_ioctls,
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.h b/drivers/gpu/drm/ex=
-ynos/exynos_drm_drv.h
-> index 06c29ff2aac0..1ab7195d09ae 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.h
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.h
-> @@ -198,7 +198,6 @@ struct drm_exynos_file_private {
->   */
->  struct exynos_drm_private {
->         struct device *g2d_dev;
-> -       struct device *dma_dev;
->         struct device *vidi_dev;
->         void *mapping;
->
-> @@ -208,13 +207,6 @@ struct exynos_drm_private {
->         wait_queue_head_t       wait;
->  };
->
-> -static inline struct device *to_dma_dev(struct drm_device *dev)
-> -{
-> -       struct exynos_drm_private *priv =3D dev->dev_private;
-> -
-> -       return priv->dma_dev;
-> -}
-> -
->  static inline bool is_drm_iommu_supported(struct drm_device *drm_dev)
->  {
->         struct exynos_drm_private *priv =3D drm_dev->dev_private;
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_g2d.c b/drivers/gpu/drm/ex=
-ynos/exynos_drm_g2d.c
-> index 348603262af0..85a3a247dfca 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_g2d.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_g2d.c
-> @@ -20,6 +20,7 @@
->  #include <linux/uaccess.h>
->  #include <linux/workqueue.h>
->
-> +#include <drm/drm_device.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_print.h>
->  #include <drm/exynos_drm.h>
-> @@ -278,7 +279,7 @@ static int g2d_init_cmdlist(struct g2d_data *g2d)
->
->         g2d->cmdlist_dma_attrs =3D DMA_ATTR_WRITE_COMBINE;
->
-> -       g2d->cmdlist_pool_virt =3D dma_alloc_attrs(to_dma_dev(g2d->drm_de=
-v),
-> +       g2d->cmdlist_pool_virt =3D dma_alloc_attrs(drm_dev_dma_dev(g2d->d=
-rm_dev),
->                                                 G2D_CMDLIST_POOL_SIZE,
->                                                 &g2d->cmdlist_pool, GFP_K=
-ERNEL,
->                                                 g2d->cmdlist_dma_attrs);
-> @@ -311,7 +312,7 @@ static int g2d_init_cmdlist(struct g2d_data *g2d)
->         return 0;
->
->  err:
-> -       dma_free_attrs(to_dma_dev(g2d->drm_dev), G2D_CMDLIST_POOL_SIZE,
-> +       dma_free_attrs(drm_dev_dma_dev(g2d->drm_dev), G2D_CMDLIST_POOL_SI=
-ZE,
+>  	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+>  		struct device_node *remote __free(device_node) =3D
 
-to_dma_dev returns only the dedicated DMA device explicitly stored by
-the Exynos driver, whereas drm_dev_dma_dev falls back to the DRM
-master device when no dedicated DMA device has been set. So this does
-change the existing behavior, but it does not look problematic to me.
+My understanding is that a hdmi-connector node is required in DT when using
+drm_bridge_connector and DRM_BRIDGE_ATTACH_NO_CONNECTOR. Among others, it
+is necessary to expose the correct connector type instead of defaulting to
+DRM_MODE_CONNECTOR_HDMIA.
 
-Thanks,
-Inki Dae
+@Dmitry, others, can you confirm or deny the above?
+
+If I'm correct, then the right way to support
+DRM_BRIDGE_ATTACH_NO_CONNECTOR here is adding an hdmi-connector node in DT,
+perhaps reusing the device tree overlay I proposed in [0].
+
+[0] https://lore.kernel.org/lkml/20260407-drm-lcdif-dbanc-v4-8-247a16e61ef9=
+@bootlin.com/
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
