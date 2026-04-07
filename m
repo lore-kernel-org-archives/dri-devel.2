@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CFABFEEF29
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 12:26:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B65BEFEEF25
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 12:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D154010E405;
-	Tue,  7 Apr 2026 12:26:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2509310E407;
+	Tue,  7 Apr 2026 12:26:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="LD++QH6E";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="D3dqZ7vv";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0962F10E405
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 12:26:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 025AB10E407
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 12:26:17 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 940A3C5B19C;
- Tue,  7 Apr 2026 12:26:40 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 9B10CC5B19C;
+ Tue,  7 Apr 2026 12:26:49 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CC7B8603C7;
- Tue,  7 Apr 2026 12:26:06 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D42B7603C7;
+ Tue,  7 Apr 2026 12:26:15 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 37FA91045020B; 
- Tue,  7 Apr 2026 14:25:55 +0200 (CEST)
+ with ESMTPSA id F200710450208; 
+ Tue,  7 Apr 2026 14:26:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775564764; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775564773; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=6jzvuat4HWr3Cl443Yz6IZbyUZIbJglUU0HNcZ8X2Bk=;
- b=LD++QH6E7COdIppSppSxtiyT7VLdluAuKm0X9wuLeN5mhI33iqlOCIbIC7TJFAMdxoHHHa
- TeiZ9wcEg8s+HLJ8aMIMOUdq9jmQ/7ei9ytKpCrseNna0cXa6q+zgsb8hDDqV+4PqvLIOp
- 9L6yvBoIXIoY86xrp/x3hmTaARd2g34144P7YcWFp6KkvfeYMeKeOegN6M05bR6LuFuLAs
- untNCrc2DJuHFimwfpkBxn+c3J3rVGoWpYspZUepqS1K9V42GXEYJTVtSfhje+7365xxqA
- ZAlXgOLFwpZ7DQMIyapx059691cQquTD3t6vtaxJ9mEA7ZPKtC7zzOEoCVHPhA==
+ bh=CkJQw+DInHJHvCmitjPQ0JO4rV0l1+Ax32sk2lseoyY=;
+ b=D3dqZ7vv3Xzr3N2ydVDlcx5/04K7oP5VsVydtmcjJDO9aDgYKjJ5arPeecsM4/UQo/6N9G
+ YhTrGIaGTjrrc4EW0grj0F6N8yS0RoMSLlxsphUsaNNH7g5eM2cQ6MbZXmKKfFSJr3+jiF
+ iRg1Sm1xuGSBYGiR6suD+TCDIBbKLSd8cyPUoxxAp/Agkr/nFSmRgRyTq5NlgkwdyL3gC+
+ 4y8XWlPL0BpyfiKf79s/r79DIVhIWylm2hx7cJW74wNY3u7M0R/3KOsZPPUXFuYnWTBNE1
+ BULaDSGIPbH9ULAsnJWsqlpr1DhFhwbtwSgx+/L24TB8a64yrsesp2PBXuwPFA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Tue, 07 Apr 2026 14:24:23 +0200
-Subject: [PATCH v4 09/11] drm/bridge: imx8mp-hdmi-tx-connector-fixup: show
- a warning when adding the overlay
+Date: Tue, 07 Apr 2026 14:24:24 +0200
+Subject: [PATCH v4 10/11] drm/bridge: imx8mp-hdmi-tx: switch to
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-drm-lcdif-dbanc-v4-9-247a16e61ef9@bootlin.com>
+Message-Id: <20260407-drm-lcdif-dbanc-v4-10-247a16e61ef9@bootlin.com>
 References: <20260407-drm-lcdif-dbanc-v4-0-247a16e61ef9@bootlin.com>
 In-Reply-To: <20260407-drm-lcdif-dbanc-v4-0-247a16e61ef9@bootlin.com>
 To: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
@@ -99,59 +99,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Describing the HDMI connector in device tree is recommended. While the
-overlay insertion is a workaround to avoid breaking existing devices, every
-dts should be improved by adding a connector description.
+The imx8mp-hdmi-tx one of many drivers based on dw-hdmi. dw-hdmi in turn
+can operate in two different modes, depending on the platform data as set
+by the driver:
 
-Add a warning to make users aware as far as possible.
+ A. hdmi->plat_data->output_port = 0:
+    the HDMI output (port@1) in device tree is not used [0]
 
-As a warning line cannot hold all the relevant info, add a detailed comment
-in the code so it easy to find when the warning is seen.
+ B. hdmi->plat_data->output_port = 1:
+    the HDMI output (port@1) is parsed to find the next bridge
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+The imx8mp-hdmi-tx driver falls in case A. Switching to case B, which is
+the current best practice, requires that the HDMI connector is always
+described in the live device tree, and a previous commit ensured this is
+always the case by adding an overlay in case the device tree does not
+comply.
+
+So now we can simply switch to the new mode and support
+DRM_BRIDGE_ATTACH_NO_CONNECTOR.
+
 Reviewed-by: Liu Ying <victor.liu@nxp.com>
-
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
-
-Changes in v4:
-- add missing \n to warning string
-- Add Liu's R-by
-
-Patch added in v3. Kept as a separate comment w.r.t. the patch adding the
-overlay to let it be added in a later moment in case we want to convert
-existing dts files before adding the warning.
+Changes in v2:
+- new patch, split out of the previous patch
 ---
- .../gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-index dc1736bfc3ac..aaac27d00590 100644
---- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-+++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx-connector-fixup.c
-@@ -44,6 +44,23 @@ static int __init imx8mp_hdmi_tx_connector_fixup_init(void)
- 	if (endpoint)
- 		return 0;
+diff --git a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+index 32fd3554e267..8e8cfd66f23b 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
++++ b/drivers/gpu/drm/bridge/imx/imx8mp-hdmi-tx.c
+@@ -138,6 +138,7 @@ static int imx8mp_dw_hdmi_probe(struct platform_device *pdev)
+ 	plat_data->phy_name = "SAMSUNG HDMI TX PHY";
+ 	plat_data->priv_data = hdmi;
+ 	plat_data->phy_force_vendor = true;
++	plat_data->output_port = 1;
  
-+	/*
-+	 * Boards with an HDMI connector should describe it in a device
-+	 * tree node with compatible = "hdmi-connector".
-+	 *
-+	 * If you see this warning, it means such a node was not found and
-+	 * a fallback one is added using a device tree overlay. Please add
-+	 * one in your device tree, also describing the exact connector
-+	 * type (the added overlay assumes Type A as a fallback, but it
-+	 * might be wrong).
-+	 *
-+	 * This node is necessary for modern DRM, where bridge drivers do
-+	 * not create a connector (see the DRM_BRIDGE_ATTACH_NO_CONNECTOR
-+	 * flag). See https://docs.kernel.org/gpu/drm-kms-helpers.html for
-+	 * more info.
-+	 */
-+	pr_warn("Please add a hdmi-connector DT node for imx8mp-hdmi-tx.\n");
-+
- 	dtbo_start = __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
- 	dtbo_size = __dtbo_imx8mp_hdmi_tx_connector_fixup_end -
- 		    __dtbo_imx8mp_hdmi_tx_connector_fixup_begin;
+ 	platform_set_drvdata(pdev, hdmi);
+ 
 
 -- 
 2.53.0
