@@ -4,58 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D89B3FF5125
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 16:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5652EFF5126
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 17:23:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B46D10E47B;
-	Tue,  7 Apr 2026 16:40:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B643689BE8;
+	Tue,  7 Apr 2026 17:23:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qrxM0ol8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="o8ux524l";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F069610E47B
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 16:40:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9C74543BDA;
- Tue,  7 Apr 2026 16:40:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47868C19424;
- Tue,  7 Apr 2026 16:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775580006;
- bh=MMjTxiRt182mA+d7a01NisWAIFu2aQYhIc1cD9yuTHw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qrxM0ol8CZsj8NJDI8i3IHumeMUPnvV5/d+aKFk8P2d+irl/3aG2tFOknzGbXlL5B
- TRW3hLQvNVuopxMRi7djN4HYqDOG6Ci9dGFdIrzdzQLDeaZ9YVPquIRDIVrE2382Ik
- sA6KhKkiLfxrKkj0xm0zbjzFBK/jFVoddIjC39gY+reZvYHopkYrNRxbf8yho2HtIy
- 2/OWpoe144YCHotDsm/s/M58lmNI6ToQlkAtU3Z41n18FhtgSbUjHcOa6+h1sz33K1
- CRgxgQfAMrm+84RJzJ7LH/7KYMiYT3Ktc5hLSZrKhy7rB1ZOz4CTGfGeMiVuAVy2Q9
- hMR4nFG5Dbaiw==
-Date: Tue, 7 Apr 2026 11:40:04 -0500
-From: Rob Herring <robh@kernel.org>
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Teguh Sobirin <teguh@sobir.in>
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add ChipWealth
- CH13726A AMOLED driver
-Message-ID: <20260407164004.GA2715665-robh@kernel.org>
-References: <20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com>
- <20260323-ch13726a-v3-1-e28b6f97fe80@gmail.com>
- <20260324-dexterous-snake-of-progress-ea8783@quoll>
- <CALHNRZ-TAQmcwYr9iW+j+S5Egh11C0LpPeY1SO=hgDdvG8otqQ@mail.gmail.com>
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010042.outbound.protection.outlook.com [52.101.56.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C55C789BE8
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 17:23:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WOob7QzgQz6/ryL7aeNnFEQ+Y7P/Bpu+r+BimnfU3O01N7DhAUVjaqzPnUayhHOVo3U1LDSFZP1a+82MD4tfqwBkYWzLiV3TmixGAVujpSZF9+SY4wvFpRJWOXi2puBrBOhbYjc5Qrb4HXYlMerdSUrG5SBpyPKrqwpCc6y7duiFF1XR+piJnfMhcVwNgiBkmx1/l2IchH1nrohmf8gjbC8TTF7C3d6099q+E1oNaTxEv02GQl62UuMN+RqO9eRjOXeC8I8TC6bBgej7T9Y60YLXWxUVUoA+7ORT/E4+PxVBVozjwNGngOPOu9FuFKjFNSQZP/GJK9gripw+W78QWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nqU6A5NHccpaA0zRJYpNhmP+CuzGjcKKLnXqJIt+dY8=;
+ b=HHPfVV4mP/MWqHP337PXFBLqDH9WXBjC4ZhMY/wKo4utxeScMRiSZCJ+2BxKS4zkOd0fxm/p8tocwIlA2rMLYREbXcCOoBVwasVkhDBqVrzIxeGC4S1UzhJE7ZMoSBfjuVaGjnFuogMhstxTJzKxDha2y3Sae2u/lTVc1GGzte8iM5Gl/J+1zkv8i2GvMty/pgv0UEgT0xBRRLakeS+b5LkKVKSlprhm50nxCl1zsgpe13FRvc2iRMUzrPVmx7x3WDRspC40YfaeVqlxPve5TKnaOhd+aAOD5JLBM8exNp5Qul0/ysl2dhotOFqgmB3qs6vH31TzfDem6yGrhnMa0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nqU6A5NHccpaA0zRJYpNhmP+CuzGjcKKLnXqJIt+dY8=;
+ b=o8ux524lGereqthBW73YMjxt7+gyXdTJNmwkzRXgK8QhsKXutS0ZquZqTVOt+24OTyNo1kFv7LsRHwR0GzwfqM8Fu30x4rQalR9K1/jwycL0IrWxCleIMPyfl+mT+P0xb/S2JQZAaZZUzDNRucbUfv2f5Nuq106x3186HBAd5PU=
+Received: from SJ0PR03CA0099.namprd03.prod.outlook.com (2603:10b6:a03:333::14)
+ by SA3PR12MB9090.namprd12.prod.outlook.com (2603:10b6:806:397::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 17:23:29 +0000
+Received: from SJ1PEPF000026C6.namprd04.prod.outlook.com
+ (2603:10b6:a03:333:cafe::25) by SJ0PR03CA0099.outlook.office365.com
+ (2603:10b6:a03:333::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.32 via Frontend Transport; Tue,
+ 7 Apr 2026 17:23:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C6.mail.protection.outlook.com (10.167.244.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Tue, 7 Apr 2026 17:23:28 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 7 Apr
+ 2026 12:23:28 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 7 Apr
+ 2026 10:23:28 -0700
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 7 Apr 2026 12:23:27 -0500
+Message-ID: <a378c871-a944-2751-510c-84bd2de9561f@amd.com>
+Date: Tue, 7 Apr 2026 10:23:22 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH V1] accel/amdxdna: Handle DETACH_DEBUG_BO through
+ config_debug_bo path
+Content-Language: en-US
+To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
+ <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
+ <maciej.falkowski@linux.intel.com>
+CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
+ <sonal.santan@amd.com>
+References: <20260406211403.4011988-1-lizhi.hou@amd.com>
+ <ea3bc9a5-e21f-4346-8af4-4ebc0f44a234@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <ea3bc9a5-e21f-4346-8af4-4ebc0f44a234@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALHNRZ-TAQmcwYr9iW+j+S5Egh11C0LpPeY1SO=hgDdvG8otqQ@mail.gmail.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C6:EE_|SA3PR12MB9090:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4962966-d749-4e7c-8122-08de94ca627b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|1800799024|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 2izw65C3zH//72lhDhf2Xmb7WqO+MxyekSlNEW59icWqW6Qsj/XZf40kIYZDGl4WVQf46LeEjc2jsxPfL0HrMEFacv9aDXqfShxhHltGuP4RbCbQLtalzGL3R2sqbwWJne/L2ViO+0XWjj7OoQcROMhMLc6nMSrr+ESWEU3BoHY1LZyUVohxfLH0GhzzC/qaf14wTF6G/5Xb+ltCL08JfwbzGrfMBzoN4oIFq0pRz+iS7HkPGI2NAf86iszYM5qPga6inyU0d7YksH8OuWREK1aIrWzj6meC/oDvpuOJYNwkS60JRUEPSZYSOVRzO88WVAQ1ViaVWz+9TeBYmBrfhvtTx8yXZIXv5tVusU/jrMu0BK9Hp0i3Jxq3yZDPVcbjWqcFscOY0JyNmM6zCj7u+SeJi5+ZvO8uvNNw0xWPgXKvcOr+TwPTBTCd7nAG17PGl45Ez2+hSjMw8UpY+JmbboMeLLfAUeaXjnl/WQDSIPqHFdgjj4++aT4cCO/FzZ1sfhSdcaLP3HTIY5JGf2qhUxcBRf8pGztKGOV1BMaaEU5lHqzi3bEVYclNdePORn5OG4C+xXtt+XkhKVadw4BljwJeTZ7xgNsZnk4mgg6FZC2bzqHu2nHvJvZZR7y147XOelS1xkRf6uxJEngxw+Wh5vHrJjtXHnCvnRRnZ8+qmag3trcZPAYZTMRmS/jGzDLCM7KL7YeqQ/d5ys1NK51Z8uxK1vxtVZKOtIDPyig6uaWwQMUQzVgLcYg5FDdQIhYJVGZUB+XGQGfl5feYmAkKRg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: CpgUdLmA377OcIqsaxxJknx547MWTgKVA3tXpMO4mDe1m71lZFf2VVZluFq0CMxqonJ3ZtqgkzzUDn5fjmCM4vI+eTvJrxYrkddjiBWBxZj7eJquhMsfHqZUC2QRWxXe9rUILagJTy4K0uOvvz+JA5BFhukX1I1ZSz1D2EteRRS++W/31P7A++yUFxWhG361L77o5N+c4E87f84zq52RaRpbcX5budU+S9aCGKK5ErqerNinW2hRtjF1gQQ96yH0X/blReioOiTjDTqgXPdpwptTxAPgHZZnH+BOH+2lQ0zZeeLrxFkcRwnPBWCrRqFfuNSEGho5yBSdqI4aCOsIJNbw12ptu/mrP9H6TqIOLStXZHC/cj/9MwM+y72Xeq7Y+oeaI30tKQt7nwH5urt8KhKwJKuizfhFb56i8YC9jkTZc7SVc+SGy+f7k84aeMoh
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 17:23:28.8423 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4962966-d749-4e7c-8122-08de94ca627b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C6.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9090
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,67 +121,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2026 at 11:01:33AM -0500, Aaron Kling wrote:
-> On Tue, Mar 24, 2026 at 4:08 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >
-> > On Mon, Mar 23, 2026 at 12:08:32PM -0500, Aaron Kling wrote:
-> > > The Chip Wealth Technology CH13726A AMOLED driver is a single chip
-> > > solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
-> > >
-> > > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> > > ---
-> > >  .../display/panel/chipwealth,ch13726a.yaml         | 65 ++++++++++++++++++++++
-> > >  1 file changed, 65 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-> > > new file mode 100644
-> > > index 0000000000000000000000000000000000000000..5d964900795653401a871994bcf6403cdeaad64f
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
-> > > @@ -0,0 +1,65 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Chip Wealth Technology CH13726A AMOLED driver
-> > > +
-> > > +maintainers:
-> > > +  - Neil Armstrong <neil.armstrong@linaro.org>
-> > > +
-> > > +description:
-> > > +  Chip Wealth Technology CH13726A is a single-chip solution
-> > > +  for AMOLED connected using a MIPI-DSI video interface.
-> >
-> > Here you describe the hardware, including what I asked last time -
-> > explain why this is ayntec thor panel, but not chipwealth,ch13726a.
-> >
-> > Then also name the file as the compatible. If you do not know the part
-> > (model?) number, then why do you think filename should be called
-> > ch13726a?
-> 
-> The vendor source release for the AYN Thor calls the 'panel' ch13726a,
-> but per the data sheet for said part, it's a chip used in various
-> panels, not a panel itself. The handling for various panels using this
-> chip will share a lot of similarities since the chip is what the
-> kernel driver will talk to. The alternative would be having separate
-> drivers and bindings for every panel that will be mostly duplicated.
-> This is the case for multiple things supported in the kernel already,
-> such as the vtdr6130 which is currently described as a unique panel
-> but is in fact the part number for a ddic. And I will need to refactor
-> that for another device I have in the pipeline. In fact, all the
-> device panels I need to submit in this context reference ddic's and
-> not unique panel models. I'm waiting to see what gets approved for
-> this series before sending the rest of those in.
-> 
-> If I add something to the description like 'This chip is not a panel
-> itself, but is used to control various panels', would that be
-> sufficient? Or does the kernel need a new way to describe ddic's
-> separately from panels, since this seems to be common now?
 
-So sounds like the compatible should be '"ayntec,thor-panel-bottom", 
-"chipwealth,ch13726a"' with the filename being chipwealth,ch13726a.yaml. 
-At least that is how we do most cases where we know the underlying chip.
+On 4/6/26 14:29, Mario Limonciello wrote:
+>
+>
+> On 4/6/26 16:14, Lizhi Hou wrote:
+>> From: Max Zhen <max.zhen@amd.com>
+>>
+>> Route DETACH_DEBUG_BO through aie2_config_debug_bo() the same way as
+>> ATTACH_DEBUG_BO.
+>>
+>> The scheduler switch in aie2_sched_job_run() already handles
+>> ATTACH_DEBUG_BO with aie2_config_debug_bo(), but DETACH_DEBUG_BO was
+>> not included in that path. Add an explicit fallthrough so both attach
+>> and detach operations use the same handler.
+>>
+>> This fixes debug BO detach handling by ensuring the detach command is
+>> processed by the expected configuration path.
+>>
+>> Fixes: 7ea046838021 ("accel/amdxdna: Support firmware debug buffer")
+>> Signed-off-by: Max Zhen <max.zhen@amd.com>
+>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+>> ---
+>>   drivers/accel/amdxdna/aie2_ctx.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c 
+>> b/drivers/accel/amdxdna/aie2_ctx.c
+>> index 8db32f8e2362..c464cf8024c3 100644
+>> --- a/drivers/accel/amdxdna/aie2_ctx.c
+>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
+>> @@ -360,6 +360,8 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
+>>               ret = aie2_sync_bo(hwctx, job, 
+>> aie2_sched_drvcmd_resp_handler);
+>>               break;
+>>           case ATTACH_DEBUG_BO:
+>> +            fallthrough;
+>> +        case DETACH_DEBUG_BO:
+>
+> TBH - I don't think you actually need the fallthrough command here 
+> unless you plan to add new code in the ATTACH_DEBUG_BO case.
+>
+> IE you can do this:
+>
+> case ATTACH_DEBUG_BO:
+> case DETACH_DEBUG_BO:
+>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-Rob
+Thanks. Applied to drm-misc-next.
+
+Lizhi
+
+>
+>>               ret = aie2_config_debug_bo(hwctx, job, 
+>> aie2_sched_drvcmd_resp_handler);
+>>               break;
+>>           default:
+>
