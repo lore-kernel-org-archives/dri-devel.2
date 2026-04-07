@@ -4,55 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C948AEDB7F2
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 10:44:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4E1FEDB7F2
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 10:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBCED10E3BA;
-	Tue,  7 Apr 2026 10:44:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE8F10E3CB;
+	Tue,  7 Apr 2026 10:44:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bYazggw5";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="uQk+oE8E";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D43BA10E3BA
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 10:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1775558638;
- bh=p1S/HVNwMAV8P+dvfRIHpJX9+NoRKf7j/cSNqRVpuKU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bYazggw5dKqWf19ltuBmGwE4A/PHpOVbVd5WCKL6EPXaRaacB3MnKsoTPtx161HPp
- 3Zere+RPv4DeIz1iZ8ETmy4hbFEtpZGFQQl91R0NNu227MZafMb3jia1SypEFHwop8
- MCOXT01TWSj8d67tUBHk4NO755a5A7DYxDxbY4asmAf+yoFH5lRDA21VwXyPb542J5
- BDpgh40y3aAPqlfvZiKmk4+wJyjOF5bBXn6++3hgvqaVLfLcRSQjxmG/ErNVZmhbzp
- pdyGqHZQ4PrbfC+G/HBrNHemAiXtYfdqU1/rxayvmHVUqTXZEv5BEiKvzMlN8oT91E
- VFlFSnbfsrkWw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 0541D17E04C4;
- Tue,  7 Apr 2026 12:43:57 +0200 (CEST)
-Date: Tue, 7 Apr 2026 12:43:53 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven Price
- <steven.price@arm.com>, kernel@collabora.com, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH 1/2] drm/panthor: Extend VM locked region for remap case
- to be a superset
-Message-ID: <20260407124353.0364f536@fedora>
-In-Reply-To: <adTbdH653uY4CxWh@e142607>
-References: <20260403172116.3424075-1-adrian.larumbe@collabora.com>
- <adTbdH653uY4CxWh@e142607>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BCEC310E3CB
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 10:44:32 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9170A1688
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 03:44:26 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 198413F641
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 03:44:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1775558672; bh=VBs8ChKDSp5MwFOx2pPHR2HElbB6h+20jtXC41viTQE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=uQk+oE8ED8gCCliY7vseTpI07TI82+axy2/uEWc3UNqvybV2Fd6lvA7wOUS6YvjP2
+ cqUMgvEjfB1NcZRfmv0sr3VMNgAfTY96o1StFYSvNl2CKrsvKupYF9tuU5f+uCcQU9
+ ldAjJ/cKkVWplkBOhn7VeMJP6yw5WbPxq+FPBaew=
+Date: Tue, 7 Apr 2026 11:44:29 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v6 2/4] drm/panthor: Pass vm_bind_op to
+ vm_prepare_map_op_ctx
+Message-ID: <adTgDZyg3oJU4cHm@e142607>
+References: <20260403192743.3572062-1-adrian.larumbe@collabora.com>
+ <20260403192743.3572062-3-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260403192743.3572062-3-adrian.larumbe@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,102 +63,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 7 Apr 2026 11:24:52 +0100
-Liviu Dudau <liviu.dudau@arm.com> wrote:
+On Fri, Apr 03, 2026 at 08:27:27PM +0100, Adrián Larumbe wrote:
+> Instead of passing its constituent elements, pass the whole struct to
+> simplify the function prototype.
+> 
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 29 +++++++++++++++------------
+>  1 file changed, 16 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 880c8c4cca17..10da2f021d9d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -1275,9 +1275,7 @@ static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
+>  static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  					 struct panthor_vm *vm,
+>  					 struct panthor_gem_object *bo,
+> -					 u64 offset,
+> -					 u64 size, u64 va,
+> -					 u32 flags)
+> +					 const struct drm_panthor_vm_bind_op *op)
+>  {
+>  	struct drm_gpuvm_bo *preallocated_vm_bo;
+>  	struct sg_table *sgt = NULL;
+> @@ -1286,12 +1284,12 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  	if (!bo)
+>  		return -EINVAL;
+>  
+> -	if ((flags & ~PANTHOR_VM_BIND_OP_MAP_FLAGS) ||
+> -	    (flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) != DRM_PANTHOR_VM_BIND_OP_TYPE_MAP)
+> +	if ((op->flags & ~PANTHOR_VM_BIND_OP_MAP_FLAGS) ||
+> +	    (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) != DRM_PANTHOR_VM_BIND_OP_TYPE_MAP)
+>  		return -EINVAL;
+>  
+>  	/* Make sure the VA and size are in-bounds. */
+> -	if (size > bo->base.size || offset > bo->base.size - size)
+> +	if (op->size > bo->base.size || op->bo_offset > bo->base.size - op->size)
+>  		return -EINVAL;
+>  
+>  	/* If the BO has an exclusive VM attached, it can't be mapped to other VMs. */
+> @@ -1299,7 +1297,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  	    bo->exclusive_vm_root_gem != panthor_vm_root_gem(vm))
+>  		return -EINVAL;
+>  
+> -	panthor_vm_init_op_ctx(op_ctx, size, va, flags);
+> +	panthor_vm_init_op_ctx(op_ctx, op->size, op->va, op->flags);
+>  
+>  	ret = panthor_vm_op_ctx_prealloc_vmas(op_ctx);
+>  	if (ret)
+> @@ -1328,7 +1326,7 @@ static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+>  	}
+>  
+>  	op_ctx->map.vm_bo = drm_gpuvm_bo_obtain_prealloc(preallocated_vm_bo);
+> -	op_ctx->map.bo_offset = offset;
+> +	op_ctx->map.bo_offset = op->bo_offset;
+>  
+>  	ret = panthor_vm_op_ctx_prealloc_pts(op_ctx);
+>  	if (ret)
+> @@ -2843,10 +2841,7 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
+>  		gem = drm_gem_object_lookup(file, op->bo_handle);
+>  		ret = panthor_vm_prepare_map_op_ctx(op_ctx, vm,
+>  						    gem ? to_panthor_bo(gem) : NULL,
+> -						    op->bo_offset,
+> -						    op->size,
+> -						    op->va,
+> -						    op->flags);
+> +						    op);
+>  		drm_gem_object_put(gem);
+>  		return ret;
+>  
+> @@ -3042,10 +3037,18 @@ int panthor_vm_bind_exec_sync_op(struct drm_file *file,
+>  int panthor_vm_map_bo_range(struct panthor_vm *vm, struct panthor_gem_object *bo,
+>  			    u64 offset, u64 size, u64 va, u32 flags)
+>  {
+> +	struct drm_panthor_vm_bind_op op = {0};
+>  	struct panthor_vm_op_ctx op_ctx;
+>  	int ret;
+>  
+> -	ret = panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, offset, size, va, flags);
+> +	op = (struct drm_panthor_vm_bind_op){
+> +		.bo_offset = offset,
+> +		.size = size,
+> +		.va = va,
+> +		.flags = flags,
+> +	};
 
-> On Fri, Apr 03, 2026 at 06:21:11PM +0100, Adri=C3=A1n Larumbe wrote:
-> > In the event of an sm_step_remap() that leads to a partial unmap of a
-> > transparent huge page, the new locked region required by an extended un=
-map
-> > might not be a superset of the original one. Then, if it leaves a porti=
-on
-> > of the initially requested one out, the ensuing map will trigger a warn=
-ing.
-> >=20
-> > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> > Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages=
-")
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_mmu.c | 13 +++++++++++++
-> >  1 file changed, 13 insertions(+)
-> >=20
-> > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pa=
-nthor/panthor_mmu.c
-> > index fa8b31df85c9..2b96359d3b94 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> > @@ -1709,6 +1709,19 @@ static int panthor_vm_lock_region(struct panthor=
-_vm *vm, u64 start, u64 size)
-> >  	    start + size <=3D vm->locked_region.start + vm->locked_region.siz=
-e)
-> >  		return 0;
-> > =20
-> > +	/* sm_step_remap() may need a locked region that isn't a strict super=
-set
-> > +	 * of the original one because of having to extend unmap boundaries b=
-eyond
-> > +	 * it to deal with partial unmaps of transparent huge pages. What we =
-want
-> > +	 * in those cases is to lock the union of both regions.
-> > +	 */
-> > +	if (vm->locked_region.size) { =20
->=20
-> Why is this check needed? We're updating the vm->locked_region.size later=
- anyway, and I think
-> we can cope with a locked region being of zero size when we are called, u=
-nless we consider that
-> to be a bug and we should check earlier for a zero value.
+You can merge the assignment with the declaration, at least GCC is OK with it.
 
-It's here to detect if this is the initial lock (=3D=3D0), or the one
-that's done in sm_step_remap() (!=3D0). If we drop this conditional, the
-adjusted start will always be zero on the initial lock, because both
-vm->locked_region.start and vm->locked_region.size are zero in that
-case (see panthor_vm_unlock_region()).
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
->=20
-> > +		u64 end =3D start + size; =20
->=20
-> Like Boris pointed out, the calculations can be optimized so that we don'=
-t need this line.
->=20
-> > +
-> > +		start =3D min(start, vm->locked_region.start);
-> > +		size =3D max(vm->locked_region.start +
-> > +			   vm->locked_region.size, end) - start; =20
->=20
-> If we have something like:
->=20
->  ..... [start .. start+size] ...... [vm->locked_region.start .. vm->locke=
-d_region.start + vm->locked_region.size] ....
+Best regards,
+Liviu
 
-First off, that's not supposed to happen. The 3 cases that exist now are:
+> +
+> +	ret = panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, &op);
+>  	if (ret)
+>  		return ret;
+>  
+> -- 
+> 2.53.0
+> 
 
-[start .. start+size]
-		[vm->locked_region.start .. vm->locked_region.start + vm->locked_region.s=
-ize]
-
-or
-
-									[start .. start+size]
-[vm->locked_region.start .. vm->locked_region.start + vm->locked_region.siz=
-e]
-
-or
-
-[start					..					 start+size]
-	[vm->locked_region.start .. vm->locked_region.start + vm->locked_region.si=
-ze]
-
-
->=20
-> we end up locking
->=20
->  ..... [start ................................................. vm->locke=
-d_region.start + vm->locked_region.size] ....
->=20
-> is that intended?
-
-We could add a WARN_ON() is there's no overlap between
-the previously locked region and the new one, but I'm
-not convinced this is something for panthor_vm_unlock_region() to
-enforce. Looks more like something the caller should check.
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
