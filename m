@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55630FF5105
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:21:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90002FF5106
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:22:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B374210E450;
-	Tue,  7 Apr 2026 15:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0647510E451;
+	Tue,  7 Apr 2026 15:22:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nRtAiGf2";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xfKmwpXs";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495BB10E450
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:21:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E025A10E451
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:22:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3053A4341A;
- Tue,  7 Apr 2026 15:21:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4535C19424;
- Tue,  7 Apr 2026 15:21:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 227E0600AC;
+ Tue,  7 Apr 2026 15:22:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F955C116C6;
+ Tue,  7 Apr 2026 15:22:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1775575267;
- bh=4/RD0GvU1ohUmHdV9BvMn1yXLZ7Pc7LSVr8rOABWmFA=;
+ s=korg; t=1775575339;
+ bh=VrkgTZSpPb33P6wtdotg/eCB6BoWzSTNCDZ8ACDR0j4=;
  h=Subject:To:Cc:From:Date:From;
- b=nRtAiGf2wMqBI7GIKiGH9xYBbcNw4v2vpvfPEIk7rIsXKoRwEs7bq2u/dOG3tC545
- UP/uvaQRwSE4iGjvN8Qn//8z2ZjDYGmMeZN0QxatEAUO1zYDMvobfZdIw3ncrVPCZz
- SJaWGBC/saAMnF+/6+xbDn9JAr2EpOp94TY/v5KE=
+ b=xfKmwpXsVl+cUa7H7NBe8zhTN5zZlMM7RsoJw6Re1CfC7cZOGgte4YZp+xnEQcUeW
+ MbgA91KyS7dBQh1gyr00BIe3vhFShR6mcPQIsumzsLImojU0oMD8OEzVkP5wB8T0Uu
+ VfM9z4HgNPQfy8x5ZCEnjMJ7N4LLWSzrR55rAHVI=
 Subject: Patch "drm/ast: dp501: Fix initialization of SCU2C" has been added to
- the 6.6-stable tree
+ the 6.12-stable tree
 To: airlied@redhat.com, dri-devel@lists.freedesktop.org,
  gregkh@linuxfoundation.org, jfalempe@redhat.com, tzimmermann@suse.de
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 07 Apr 2026 17:19:58 +0200
-Message-ID: <2026040758-mummified-penny-7283@gregkh>
+Date: Tue, 07 Apr 2026 17:20:10 +0200
+Message-ID: <2026040709-plutonium-drapery-5212@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -60,12 +60,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/ast: dp501: Fix initialization of SCU2C
 
-to the 6.6-stable tree which can be found at:
+to the 6.12-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-ast-dp501-fix-initialization-of-scu2c.patch
-and it can be found in the queue-6.6 subdirectory.
+and it can be found in the queue-6.12 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -103,7 +103,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/ast/ast_dp501.c
 +++ b/drivers/gpu/drm/ast/ast_dp501.c
-@@ -439,7 +439,7 @@ static void ast_init_analog(struct drm_d
+@@ -442,7 +442,7 @@ static void ast_init_analog(struct drm_d
  	/* Finally, clear bits [17:16] of SCU2c */
  	data = ast_read32(ast, 0x1202c);
  	data &= 0xfffcffff;
@@ -111,10 +111,10 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 +	ast_write32(ast, 0x1202c, data);
  
  	/* Disable DVO */
- 	ast_set_index_reg_mask(ast, AST_IO_CRTC_PORT, 0xa3, 0xcf, 0x00);
+ 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0xa3, 0xcf, 0x00);
 
 
 Patches currently in stable-queue which might be from tzimmermann@suse.de are
 
-queue-6.6/drm-ioc32-stop-speculation-on-the-drm_compat_ioctl-path.patch
-queue-6.6/drm-ast-dp501-fix-initialization-of-scu2c.patch
+queue-6.12/drm-ioc32-stop-speculation-on-the-drm_compat_ioctl-path.patch
+queue-6.12/drm-ast-dp501-fix-initialization-of-scu2c.patch
