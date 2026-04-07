@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4358EFD5F8C
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:09:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 486B7FD5F82
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:09:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A9810E537;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B30B10E53C;
 	Wed,  8 Apr 2026 07:09:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arduino.cc header.i=@arduino.cc header.b="Ieu6IhqZ";
+	dkim=pass (1024-bit key; unprotected) header.d=arduino.cc header.i=@arduino.cc header.b="UmfQXno3";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B24C10E0F9
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 12:53:06 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-488b8bc6bc9so9310435e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 05:53:06 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3611F10E0F9
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 12:53:24 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-488b0046078so20913715e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 05:53:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=arduino.cc; s=google; t=1775566385; x=1776171185; darn=lists.freedesktop.org;
+ d=arduino.cc; s=google; t=1775566403; x=1776171203; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RCVkgvU8wrx3yykBBPWnaa5epvqaL9BLmZRlWagspkE=;
- b=Ieu6IhqZx7JvW8LDDRF1aGPKBYAn2O4GEu+mn6vJJEzQrS+DDLHLZ4wL/HqyP9DgPu
- Jcr5pmRo/n8Ym+26GiQ2CJD+uTaurd+Ca58PwRkv5VA8ggoadr4kD8IxgOpL75qJqy3F
- iWRcj3rTyyagZek9wB/JpnUPHumdkH8j8aoTo=
+ bh=i8Ky7jN1vb219gvtLaR6stiV3r09kOF9IWgMsLPbH74=;
+ b=UmfQXno3c9lgEiVXEHLC1LnKY7esQgUdN1fxhF5NqSQmK710gm8FwHkGnFoL9gILut
+ fhnIq5Q56rYpJMdiwmk7o140+X/Lxwi7spN1pL4Xh7JGYRjqqjZ7QeNQETWp9+mTtF2l
+ kKMLHzYzPtTWJ4FSZHT2SRAdzhixng6wpnwlU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775566385; x=1776171185;
+ d=1e100.net; s=20251104; t=1775566403; x=1776171203;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=RCVkgvU8wrx3yykBBPWnaa5epvqaL9BLmZRlWagspkE=;
- b=nheGpGE2wmQ0bX94jeGsC9jcB0osTOp6tSwIHEMgrarppHq48T+oW1JtYYJCfq1hT1
- ozYZMpicgYEd4rZbCSIxBVTYxbIvjRyIi00ClZWHaP2+TiLlkJlHtYevLdr1u9y7FDsc
- uDW4Ap45tKK+JsdO8iuvt7W//qCNlNPOKeGMUI1/pDkdHN/EPOrJDvMz2jWF/pHTa2nh
- ByXITCcbvykhqk9Hmc+4K8Xy6iwC6l+3k/20DeVuA3k0aSV75I1qBqhAhpY4y/ARoW34
- /zKsmESjVrBvh6SkDC+KCgAUn0rgeEr4dnvlFOoECDLZRLleyHkDTFl44q1DVxhwXGHd
- ndVg==
+ bh=i8Ky7jN1vb219gvtLaR6stiV3r09kOF9IWgMsLPbH74=;
+ b=iBPJBimhwM4NJQZWsCHNpMf8UWws1tuXSY1yWd1oH69gWCLLY3FlxmyNPYaxnTAMPZ
+ lNXIwF1HeaAZD5mcwrAyFNBCOdDDOp9ADlKXA9jaEXpnqReouQmPO1FIV5AGA6htdJIM
+ qomHIq+qSaqQIjZT40C6acPF3rHZfZFWXAIrHCUa8m9oyy9LrcqhjErOfBPkXR0ydieJ
+ 6JGWA+aIqj/G6oXqOwItBmkwYUbdeCZT4krLOPJVBf4pZRgSI5BCWSoGpJfGpwb3+qrD
+ xVKNm0Pm771pXZTP/OXNBWL7z0VGiUEDEAoMOOMRGQDQTzRRJt9Zt2j2zxha8H6wInib
+ 5fqQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU4rvR0y1DvECfZGuQIQWR5SWwUs5b6r0yvj4TXrfuHlCzaHNCLBsxq1yLgpS4H8QJuqrLL/9yq18E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+S5+PvbR0R20i83IKHsrBgb2gAUr2HHfFiVj7tIhOf4iyTVIF
- u84/bVOAlr6klx+6HArb4yy5z0lF1rAU/I/9XJqfKkBN0QSDmocYXm2dBJZxGnU1/2A=
-X-Gm-Gg: AeBDietOHPONkPe6+2+d80h0DkUuKE08u4AvP5vTwp+8s9w9m5go1me2eTWP6LIKbai
- vbDTo1pTSylZGH8q+W3Aoah40hgNYO1TvIPl0WyvRkGOitJFi+xjwjZyT25nBodITsTTaSuyT4R
- gtLmmPhrM04A7NdEaMrEiG2W6nJIX1reTaTObPBVEEsEBI5hkF9wUa2A30j6SIXjFT5bjbg2V3B
- ud5+AU2kIWqp7d+LjKMZDaVmw1+ctbl1nmUpY1yG/if3MaJ6oD+Ei0Tkasib5/VJNk1hoXd6VOU
- 6a2nyPcL+Mrb1zLmo5CztQ8S3SXeGIM65uSWu2Fj+rIGlMkEIWAv2l6fGeeH3j6ltR7+RR6GdSR
- Cum4OnB4HEgvBx4nK/TbGRg87py7wIyeiTq4NMLndS/OjqPrzt8UP58aIH0sHYY7K50bdCDG4K6
- iwODYLXfkbonttFZ1A/p9XN7+ZaZ3R1EiaVhEegIhPpbfWYdN5k0LIp+INr/YYzfujydM=
-X-Received: by 2002:a05:600c:c8d:b0:486:fb69:4960 with SMTP id
- 5b1f17b1804b1-48899794fe6mr225654285e9.19.1775566384726; 
- Tue, 07 Apr 2026 05:53:04 -0700 (PDT)
+ AJvYcCUK3xSI7lRa7mfmvx0DFS8W0nlBJKTHAHbi2HeogRqW9bHz1AxX/Z8M1V6j9jxLwaeP9l7e/DYA7Fw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBQiFJk8/ha92LcpbgfDNzum1OUfS9yyEd2ATEPYHxEFMo/CIb
+ dcaXeh+R2UgCHNo2GXPplEoXowOSZ1LUY4tU9McAWUvY8R16os18n24e0+w2Aygk0yM=
+X-Gm-Gg: AeBDiev9YT884X9lmPEvr3Kx3NLaRFyq512ezCdUq+1D3dfw1Pd4+MdplTHkbMkrDQE
+ +DslnPqFm1o8L/w6jhxW8x7uMGfl0+acbtaZI0tU0AvoVVV643a5XZgpeoDS0qmTC+cQB8ebkFw
+ s0C6eOLcdqOJiNpJywfWxHA1WA6/CaFOjbAiXB7k3FpwXD+y1VNhUxIBS3YplTnsrj9XBRy08qH
+ M+QmwxB4Ag3jiOaN2pdj/rqTsrgLlUpcWNZLB368oh3KCcQfIWalz/sFl5hlmJX+SE9Opkb1Qn0
+ 5xz0hx3kYykBgrRchq4L5mzGmKq7UWAe9ojm18P047mSmI4fX0KGGa/BCVoSNv/b9a/IyGGu7tr
+ kubVv/bRg9NTP0NmQi3OpfHMJgT6GjR9KTZulH9HX1muWQ+1f/YS07DR0kppiKFp3PCvhnvfLF+
+ 4IXHJ1PWv/b+6gG/EWjy5Yn2HlYLJ6yaL5hhIZ59WAfnK0E0aPnEdhyzVY
+X-Received: by 2002:a05:600c:4ed3:b0:477:a1a2:d829 with SMTP id
+ 5b1f17b1804b1-4889970ee1fmr245541745e9.13.1775566402659; 
+ Tue, 07 Apr 2026 05:53:22 -0700 (PDT)
 Received: from riccardo-work (public.toolboxoffice.it. [213.215.163.27])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488a8ddfde7sm416273855e9.5.2026.04.07.05.53.03
+ 5b1f17b1804b1-488a221aa9fsm127567945e9.3.2026.04.07.05.53.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Apr 2026 05:53:04 -0700 (PDT)
+ Tue, 07 Apr 2026 05:53:22 -0700 (PDT)
 From: Riccardo Mereu <r.mereu.kernel@arduino.cc>
 To: dmitry.baryshkov@oss.qualcomm.com
 Cc: airlied@gmail.com, brgl@kernel.org, broonie@kernel.org,
@@ -71,13 +71,13 @@ Cc: airlied@gmail.com, brgl@kernel.org, broonie@kernel.org,
  robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de,
  yangcong5@huaqin.corp-partner.google.com,
  Riccardo Mereu <r.mereu@arduino.cc>
-Subject: Re: [PATCH 14/19] drm/panel: jadard-jd9365da-h3: support Waveshare
- DSI panels
-Date: Tue,  7 Apr 2026 14:53:01 +0200
-Message-ID: <20260407125301.282253-1-r.mereu.kernel@arduino.cc>
+Subject: Re: [PATCH 18/19] dt-bindings: gpio: describe Waveshare GPIO
+ controller
+Date: Tue,  7 Apr 2026 14:53:18 +0200
+Message-ID: <20260407125318.282288-1-r.mereu.kernel@arduino.cc>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
-References: <20260401-waveshare-dsi-touch-v1-14-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-18-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-18-5e9119b5a014@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 08 Apr 2026 07:09:52 +0000
@@ -96,9 +96,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 10:26:33 +0300 Dmitry Baryshkov wrote:
+On Wed, 01 Apr 2026 10:26:37 +0300 Dmitry Baryshkov wrote:
 >From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->Add configuration for Waveshare DSI panels using JD9365 controller.
+>The Waveshare DSI TOUCH family of panels has separate on-board GPIO
+>controller, which controls power supplies to the panel and the touch
+>screen and provides reset pins for both the panel and the touchscreen.
+>Also it provides a simple PWM controller for panel backlight.
+>
+>Add bindings for these GPIO controllers. As overall integration might be
+>not very obvious (and it differs significantly from the bindings used by
+>the original drivers), provide complete example with the on-board
+>regulators and the DSI panel.
 >
 >Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
