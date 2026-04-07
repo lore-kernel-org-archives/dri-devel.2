@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE7CFEDB7E0
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:50:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08F4AEDB7E1
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:50:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E93D8944A;
-	Tue,  7 Apr 2026 09:50:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 676E110E3A0;
+	Tue,  7 Apr 2026 09:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XLGr0LtR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Yqfo+aPu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 228248944A
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:50:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6074610E3A0
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:50:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CED64401FF;
- Tue,  7 Apr 2026 09:49:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFF2EC116C6;
- Tue,  7 Apr 2026 09:49:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 694BF600AC;
+ Tue,  7 Apr 2026 09:50:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66DB3C2BCB0;
+ Tue,  7 Apr 2026 09:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775555399;
- bh=zbCjM/kUidpYPGa5U14ns17PXhNStsJdyFkgBeDBztE=;
+ s=k20201202; t=1775555419;
+ bh=piwacNlPnviF2p7z7QdXwwrwVrCQDT2X8uRCwatEFjc=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=XLGr0LtRTvvWvzBjR2UOfjAyWBWJBMmlgyPcHqmQgG+jakF+ZUQadqZUVNaxrqrjC
- TSbhvlGdgVm0MHfAe6ZSqfNbk71PsHu7hsFr1Id5BwSief141zW9/QKosdoUku8q6h
- 3hrhSc/polzV/+1KX2Mc/H0N+t8DJA89bZBfsGx7Z0VQ1xwIqoIjDvmX74dkyA499r
- AHKYBhKje0AxFiiU743yvmD50CAOjfJD8jP/4EFHIOI8k/vKG82Ixdt9s+5GMvf7dn
- zUIEzdcwN/9duk3cGPRRaKbjY8FzeWexw5tzIXDUsous7J/VZBja0Ds3nhJWaq2efx
- CQL/b2+PPSbjw==
-Message-ID: <d6bd2466-30d3-4cb5-b4fc-99504062e87c@kernel.org>
-Date: Tue, 7 Apr 2026 11:49:52 +0200
+ b=Yqfo+aPuQy7MakwJvye20yfzuYf/671WZSbffCmgLpI/Fvgx8Yy0GEk5Sz4ixAUWl
+ x/Ks8k63tGo1RE28tmuedz6fZcXc3N2MpItFQN4+DHSRnnPNQkLSCd6+Z5Ii1ptFWn
+ PrgVCoEjVEUQ8x9MJ22u6Qjj/Ao2XFoDds5d5Y5zFzlwgE0q63Pr3qRcLsNTbPB7JX
+ ypwC0jCa3LzpKueybTxUALhRhOV3znJhSg44KzfMDaMOnBwuBH0Xg952RCN12GgzFn
+ 0itfKvMuGYXBowvdYRM8ir+oQhOOgwEjnGHmvRfLUbsZRTnCTjnUg3dfJMq0pplr09
+ Wv8RaEotFYT8g==
+Message-ID: <6b52fae8-ff95-4f2f-9754-af083644f8fd@kernel.org>
+Date: Tue, 7 Apr 2026 11:50:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 01/19] dt-bindings: display/panel: himax, hx83102: describe
  Waveshare panel
-To: Linus Walleij <linusw@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
@@ -48,13 +47,12 @@ Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
  Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>,
  Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
 References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
  <20260401-waveshare-dsi-touch-v1-1-5e9119b5a014@oss.qualcomm.com>
- <20260402-sticky-wooden-silkworm-5bdff4@quoll>
- <CAD++jL=T9eOXujPSpTp_uNJ2rxN9P9Ybt28+H-YF_=3+_RXCkQ@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -100,9 +98,9 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <CAD++jL=T9eOXujPSpTp_uNJ2rxN9P9Ybt28+H-YF_=3+_RXCkQ@mail.gmail.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-1-5e9119b5a014@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,26 +116,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07/04/2026 11:38, Linus Walleij wrote:
-> On Thu, Apr 2, 2026 at 10:30 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> On Wed, Apr 01, 2026 at 10:26:20AM +0300, Dmitry Baryshkov wrote:
+On 01/04/2026 09:26, Dmitry Baryshkov wrote:
+> Describe Waveshare 12.3-DSI-TOUCH-A panel which allegedly uses HX83102
+> as a panel controller.
 > 
->>> +          # Waveshare 12.3-DSI-TOUCH-A panel
->>> +          - waveshare,12.3-dsi-touch-a
->>
->> I don't think we use '.' in compatibles, so waveshare,12-3-dsi-touch-a
-> 
-> Qualcomm happen to use periods in similar cases for their
-> "qualcomm universal peripheral":
-> Documentation/devicetree/bindings/i2c/qcom,i2c-qup.yaml
-> 
-> I don't know if the policy changed since, but that's a big and widespread
-> platform and I never saw it challenged so I think it's kind of established
-> that we do.
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/display/panel/himax,hx83102.yaml | 2 ++
 
-That example is ancient, but you are right that this is widespread
-pattern. I wonder why this 'dot' here felt odd - assumed that 'dot' in
-version is something else than 'dot' in other place.. dunno, it's fine.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
