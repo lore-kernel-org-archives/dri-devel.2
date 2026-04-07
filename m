@@ -4,102 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA5FCEDB7CA
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 07:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B9BDEDB7CA
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 07:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D70210E34D;
-	Tue,  7 Apr 2026 07:41:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB9AA10E348;
+	Tue,  7 Apr 2026 07:42:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="meyUFXrX";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SKDYBvLm";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XIf9m+cl";
 	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C147810E305
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 00:59:23 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-82a893d289bso1886040b3a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 17:59:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775523563; cv=none;
- d=google.com; s=arc-20240605;
- b=U2KZGKBWOoMc/yVPXcIcPK1m/p77OGUrDd194kdQAX7qlhZh77t6juUN3EYQBgafaY
- n1cm+mPVx/Cj+JUiuauJLfRGfMAh4FnfGdHTbDfSq3Yig6KiJt2kn8osVU/9Lyj8FSgc
- aYwJG0mSaigBgB3/krtrwSipRtQkuls4xmX6kWZMj2gjPIx29tgq7hGgNS816Mix0XCJ
- o68lyrKpKo9sWS4W7PoTEVgbDiwgxIbR37BAm5QkSEe+hNXcE+p5u2jm7EM3fqsO9i6L
- nMHroLbVhjdqm09NdRGiQGrozf3mM8iyZPH1CT46ruUDRaGesAkqKtPg0BdLbvRfDB/j
- 7mxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=6QmMjRqyoV0SFMDHfCFFbh4R9qmzLTG4qB0Z0d+Cd74=;
- fh=hDjnJ0s7IAVFHu9Y4nkTbxb1lVN8FaO0FMddrlBrC+Y=;
- b=Et6CtlerrpCBUwOINFNuHCHuFeOd9x6mKPOzqAT8W6TFvizwGTDz4CQOO6otAKv0z3
- GLOUtj/IIFApsRyM08CyeIm59zMhWQXlH4xI5qKKhGxioBuHOssEvcCEMeYGwxFVCvht
- m2J76PGHH9/SIb0vU1DTrcRRrjb60ZQmkMvXmFZOpEQsuHKWkkNCCL5bwtzTHagOPF2+
- UVIqFwcCL4iYy3zMeAyK3qvEOopsZkevKIGxdR0xvhOcGSUnU5Uw3F4upTfnqMof3HhY
- UmxCzvCdUtlf0A3wHaGr5wHyv1KlAPuH7seDL0ktwzgNAHEBuuEUI8bDHXkslKgvkBIu
- tgIg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCCCE10E348
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 07:42:43 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6376fn093816869
+ for <dri-devel@lists.freedesktop.org>; Tue, 7 Apr 2026 07:42:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 8H5Cd8kCpx0encXZzHYTsGhsPEus+NlMJikROsqaXp8=; b=SKDYBvLm/YrQQd75
+ ClQbgXg3SfgyjRfAWBdt75FrOG9rN6Ctg/adauEpq3hJsGMVom6NgV+vgCTMDnjs
+ QCcPuWLP7vDCLyZMlYQmpxhNeh+gDqTZwmgqNl75fvoEd93siik3Kd21UR9Jjxfd
+ 1aYl3+hk9TTJGXINsYR6hBfP0QTuAw28wGK81/YPQVhcO9M+CGQYCV1RI94VhKJf
+ nWZe7NcTAQBhSp7/oIPqOTG1Vy0rTghY6P1IkNzbfAaeqRVa0WmFcsIfaMGgnd4/
+ u/P5axc/G57iXVN2h5w6+/xQwRcQoD/U2dCbV09zL1UTd5azxfP2ep3Npp0/xZ0n
+ zcezSQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmr4smua-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 07:42:42 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-35c1107da15so5052782a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 00:42:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775523563; x=1776128363; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6QmMjRqyoV0SFMDHfCFFbh4R9qmzLTG4qB0Z0d+Cd74=;
- b=meyUFXrX40rQs+RzQ4k9Zw87L473rZvB2sNJUrvkpo/UwwMjeScZGiEzUd0c71VFrI
- bae4Jg1AYU+WyUe2Bvq426IP9dKDMndZF1bT5TrT9HowHWodMA/t+f4yTEMI6vLaofVw
- poDiUE1EfnmLVmsI/Y2nmKN/bRpPHI+G87Ywe6iUdSBaxmKxfmY2CT8yOYJqSIhUgxZy
- cCq/KkdWHA/ICkBnjUSGKswYRgBWsO8//a5WuVoonry3KafgdcDxAxQ8JJwlwvrbWESQ
- mP6by8h5sSTymQolIRdYsDBe6DAITeRsWIQcikAYtD4rnFgdQ+r97eNn3X/vMnQikV7R
- cKMQ==
+ d=oss.qualcomm.com; s=google; t=1775547762; x=1776152562;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8H5Cd8kCpx0encXZzHYTsGhsPEus+NlMJikROsqaXp8=;
+ b=XIf9m+clkRAnshzOzj+7YGWiJC+QpwRyKdKxBVDvNNytlKWdCj3CsiZtRtEi6KAccs
+ Q3v+sqYGs6wlF22y26pq557wJi/vwAjCfTgkyF4eD222Qu8sN8R+G7tLfVdqr6SiOhc4
+ aT5rPaxL04RlMSm1jzlQF2HYRHIpjuDqc2biQRBQMJCXtwp+6xLMZmaKZHxEncGmoprn
+ iUqPg8Qu7z5cchBDcJmi1HhFE8kwuZNW0K+Ae40LODGr9qjy978j/iSDc4y1XBmbehr2
+ 4W9rfgWL5Dj0eyNdbtKB2BRKRPFpxPWfoJMqEvSSQIv7qcnVR27XyoLWR97zk7wXCTNU
+ sB6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775523563; x=1776128363;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6QmMjRqyoV0SFMDHfCFFbh4R9qmzLTG4qB0Z0d+Cd74=;
- b=TSAoU8rWtZuNQyy2kkx6Lwu8rwGk+zyR0K4MPx4wthXgfl/OVt6RxhFcjdWkoSZGN5
- qzcLjGRtI+v1+v9/mpWvV9NOwfybSMAC4eF7PoybZoEFKHdTA/ExVnalCjBHVv8NGlbB
- V4pCh/drpg0C/QPl2YdgvH/nbz6T1JEVtpZX6+gkGgf7yyJbNo83WJfqkXIimrK88N/R
- gB6M4G162EFELV88gr8iIfTQkdUWZ64VYUUp89ypnxhlpMqGU2J+RG1kbmCZHzpncT0L
- w7VVWmN3nFNBEWjCONp/yjko+yD9w5rm3Fbfr4SP4Hr7AX+uJkOJvs2zn722nLZ2GVHB
- nxsQ==
+ d=1e100.net; s=20251104; t=1775547762; x=1776152562;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8H5Cd8kCpx0encXZzHYTsGhsPEus+NlMJikROsqaXp8=;
+ b=qpsRgMWG2D7hhnNQE7/rt1FTIwuzZGkQtI1KXaeiVL3/KNEq9TbbH3fgB1GmlU142n
+ yU2+zbpXcEPqhpN4JHx22O/VeEuQbqb8MHCaEVSKKP4l2U9DZmexJxPxWzfk4c7MLJGi
+ 3HyhtdesEHqhL3J/vToS8t/cm+6RxUznIEgwgta8p5sZRmYR3RM6M3p68mIDBMYpl6s3
+ xvXVvyDIjwsnwGSFj+hCinHLR7LCPOFQNFrMuEqE+0z4bvRIR15SPdu+Qgnn9LWB9lfm
+ KDLQ455+jXIknNqSCSDNeTP7Y4luqBCnn8QcZNpa6D7cF8ztCDJxKK17s/onArnuTivl
+ yxtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVoyJHHp7Nalb6revtY2WL67gXMuBytFJ9KM8P3VJYGwEY0NLruiEOyC3/8LXR5APzocd+yHi/OVmc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7LMJIm9vM2Vw+u6B0DRVSjG6MGIFEDjnWgchkkGzad+FNW+76
- yk/vTpFZlEl/KPca1s7ztTR4ZK0kYUEKkalgcn+VSjw4Efzfsz9pbluUQSwr+k07QswyJNtsQfN
- AuS0lz0QbriKmQYuNlaWwp3hHXr/pNSS2hNKJcVc=
-X-Gm-Gg: AeBDiesNwgDWCg1Sp47b/uB9S11VENELIBEVcg9x63rVcTtc+59hrATin4Ng56NxztP
- qxkZI7V5egSaoF0WosNLrzKIJNf9aoHusqlrW2cmRLJ6oNcRYYUtVC91a8Ku3YeV0gYgNzF/Gwe
- fBdCWjSeEyUF/ofmkYliNeKiz/oQlJnXo8H+QLncjbfTEAxMyaiWqL9gwc/YQMKWxbDFKYhq/D7
- UTeHkZIq8xPG2r2F4QVHz1UxeX4IPB8yKWjTkKUD43F3tZ/G6uublaYh9wEpk1laqsUT3jnWU8p
- qmn/eb1X8jDCyUTx7jCFN9+pv8kvxjTHGN/aL94=
-X-Received: by 2002:a05:6a00:418e:b0:829:809e:8977 with SMTP id
- d2e1a72fcca58-82d0dbbabe9mr14058590b3a.49.1775523563008; Mon, 06 Apr 2026
- 17:59:23 -0700 (PDT)
+ AJvYcCWjGAq2DbzQwCCJChEuyhOIJLCrr/Xxhvun56I2e1N5wI8o5a42iT81mLmlEU1b5wpONAA/x2u6bc4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7XMbwHPgtHdg2iFHeWaxBJea58nQuG68vYvH1dopbeFrmdSzg
+ V5TvhWBhhOmM5AA9L5qzn06VfLcFTX3R+gPd3tHZJL/UNVagTaBQSVaecsnZ0kU6uTqf02NiV/s
+ J4WHGl+iDCx8ZKvWxlcvSwFz7sEZN3LMAo3RdF0yvvH5yQOHuDHSYrULDZ1w+Bm8qh+sWLiY=
+X-Gm-Gg: AeBDiesBh/4zqPO9lBwgqc22tmtb54+jsqIwfsc7eyUkonXh++kynvDMi0WPAk8H9S/
+ /fDcxmvzNCgvmH4zxADh6z+MGkWLVYAP/vT0gqjB3vQxUrqUP+YL1HDJUwl1h6OWY1/C15Wny7f
+ jZdXtCRnFSHuYI5nLV0LQEpPIIK+AGZWhgvuU9l0V5a9zpbFHskMv7fwP6bTE1zKqqIjLYKed2S
+ ViN1jqWmh09UYUR9MRqjHYS2l1rI822aryn1088H8F2w13FRbUuNINWCn6lhgydXxzDEBaR7Ucm
+ oEtE3MCz5exbPf9OcVIqHO3S3s7fTyNi85V7T7AsIys6On6pn59+7Aa/cEcb/blGTzfCKTeZLob
+ Te4voRsBiRC/gDH/+gmcLFq5FT+ViJSPTVSuWKui3nYGY3XH9cdXPfZ4RtGFpoL3XkWpc5j1wMR
+ XVkfl5kDjs10EC7Lrh4A==
+X-Received: by 2002:a05:6a20:958e:b0:398:b499:44f1 with SMTP id
+ adf61e73a8af0-39f2f2c99b0mr14809813637.58.1775547761451; 
+ Tue, 07 Apr 2026 00:42:41 -0700 (PDT)
+X-Received: by 2002:a05:6a20:958e:b0:398:b499:44f1 with SMTP id
+ adf61e73a8af0-39f2f2c99b0mr14809762637.58.1775547760757; 
+ Tue, 07 Apr 2026 00:42:40 -0700 (PDT)
+Received: from [10.133.33.220] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c76c6491fedsm16512815a12.8.2026.04.07.00.42.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Apr 2026 00:42:40 -0700 (PDT)
+Message-ID: <cda87928-c2e2-4f75-ade1-5a4ae49c4399@oss.qualcomm.com>
+Date: Tue, 7 Apr 2026 15:42:34 +0800
 MIME-Version: 1.0
-References: <20260330224503.548284-1-gabrielsousa230@gmail.com>
- <01989c65-1e1e-4f78-ac88-a1c76961b3c3@amd.com>
- <CADnq5_N6bzHTQJjS6__-Fmp15fASUw3C5DG1uNvZgkxCRtFkcw@mail.gmail.com>
- <CALsHKmUeB3=H9=Nq=+jOvtmwXxSg=wtHrASZNvVVPQwpyem2ug@mail.gmail.com>
- <CADnq5_Pf841oeJAwhLp=1Y_tOWmEX+gyhDW06Z=qr+FR4x4JEw@mail.gmail.com>
- <11e4daaa-0f1e-4fd4-b435-d2fa9d058869@amd.com>
- <162848f7-ee9f-4bac-83e8-84863081dc60@amd.com>
-In-Reply-To: <162848f7-ee9f-4bac-83e8-84863081dc60@amd.com>
-From: Gabriel Almeida <gabrielsousa230@gmail.com>
-Date: Mon, 6 Apr 2026 21:59:11 -0300
-X-Gm-Features: AQROBzCT90vAADVehvSm-H5oj3vBKLsMR-Ip8pY5530fFJQpP5rg8oZbgympGXA
-Message-ID: <CALsHKmV2rsZ9qZ+Mncr-1qhnPZWYrH9OVqMnCdYtAMFr7v_RrA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: deduplicate register access and helper
- routines
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Lazar, Lijo" <lijo.lazar@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- alexander.deucher@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 07 Apr 2026 07:41:20 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 28/38] drm/msm/dp: add dp_mst_drm to manage DP MST
+ bridge operations
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-28-01faacfcdedd@oss.qualcomm.com>
+ <h22zh2zcgdcv2k3mxc5rslpfd3xnerjfailehtaw3wbtpnisy3@s56vudwvoh4q>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <h22zh2zcgdcv2k3mxc5rslpfd3xnerjfailehtaw3wbtpnisy3@s56vudwvoh4q>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=dO6WXuZb c=1 sm=1 tr=0 ts=69d4b572 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=EqrOjz0QqMv4gUmD5pcA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-GUID: 2vFO-CUlooRoNjl7r97jICPcnlsJfrii
+X-Proofpoint-ORIG-GUID: 2vFO-CUlooRoNjl7r97jICPcnlsJfrii
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA2OSBTYWx0ZWRfX8u9CmkzgaT5o
+ egiOnqlprZAAbM0cIQAJF42uJygRuQlQQOXXxypRf2nmaZXImRfmiqDc8h8rKpxnuiQUcxKrONE
+ sWYbqW3Lbo4s1utgAlAWu34R/QZeYTzD6YkF+j4mxDpS9ptzTccWCibXdndr+qOVfJG8hGf5Bre
+ ff4pekHwBS6HmbyaUwurhQLu6A8Y5ZrJeclZIvcvYnloLWJX06VLvkcYZMqo9l5jG3rZplDBuTc
+ Gwkhzd/kEw4G2pSrLukEkpv7FNPrgoraNpXdK2xGtmePTXow3La6/jf+M+3YazsEZBurDmMR0s7
+ 3JuHfU4ISuio12hb8XjwrFb1ld60qx4NLBqvOjUqxqQPXdLUavSKWmJm7Xvvxm5Cv0MTapVU0gp
+ RY1ligiycztRfiSt0koFJMtSqkw3c1bbg1S0LDkRLUkurFMCsubcWr68Sgd5881mR85LdHfLXLC
+ qb04U4x9J3D7KJO/BDQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-07_02,2026-04-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
+ impostorscore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070069
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,688 +151,806 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi all,
 
-First, thank you all for the feedback and help.
 
-Based on all the messages, I'll change the patch as follows:
-- Move read_indexed_register function to amdgpu_reg_access.c and
-rename it to amdgpu_read_indexed_register
-- Move program_aspm function to amdgpu_nbio.c and rename it to
-amdgpu_nbio_program_aspm
-- Remove the change in common_sw_init function
-- Delete the proposed amdgpu_common file
+On 8/27/2025 1:36 AM, Dmitry Baryshkov wrote:
+> On Mon, Aug 25, 2025 at 10:16:14PM +0800, Yongxing Mou wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> Add a new file dp_mst_drm to manage the DP MST bridge operations
+>> similar to the dp_drm file which manages the SST bridge operations.
+>> Each MST encoder creates one bridge and each bridge is bound to its
+>> own dp_panel abstraction to manage the operations of its pipeline.
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/Makefile        |   3 +-
+>>   drivers/gpu/drm/msm/dp/dp_display.h |   3 +
+>>   drivers/gpu/drm/msm/dp/dp_mst_drm.c | 556 ++++++++++++++++++++++++++++++++++++
+>>   drivers/gpu/drm/msm/dp/dp_mst_drm.h |  86 ++++++
+>>   4 files changed, 647 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+>> index 0c0dfb25f01b193b10946fae20138caf32cf0ed2..a61fa2637ff317ed4dee715de5d12a7befa987f5 100644
+>> --- a/drivers/gpu/drm/msm/Makefile
+>> +++ b/drivers/gpu/drm/msm/Makefile
+>> @@ -142,7 +142,8 @@ msm-display-$(CONFIG_DRM_MSM_DP)+= dp/dp_aux.o \
+>>   	dp/dp_link.o \
+>>   	dp/dp_panel.o \
+>>   	dp/dp_audio.o \
+>> -	dp/dp_utils.o
+>> +	dp/dp_utils.o \
+>> +	dp/dp_mst_drm.o
+>>   
+>>   msm-display-$(CONFIG_DRM_MSM_HDMI_HDCP) += hdmi/hdmi_hdcp.o
+>>   
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.h b/drivers/gpu/drm/msm/dp/dp_display.h
+>> index d5889b801d190b6f33b180ead898c1e4ebcbf8f3..f958de6244b556df5452a5dbec6899fb79a57193 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_display.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_display.h
+>> @@ -7,6 +7,7 @@
+>>   #define _DP_DISPLAY_H_
+>>   
+>>   #include "dp_panel.h"
+>> +#include "dp_mst_drm.h"
+>>   #include "disp/msm_disp_snapshot.h"
+>>   
+>>   #define DP_MAX_PIXEL_CLK_KHZ	675000
+>> @@ -25,6 +26,8 @@ struct msm_dp {
+>>   	bool is_edp;
+>>   	bool internal_hpd;
+>>   
+>> +	struct msm_dp_mst *msm_dp_mst;
+>> +
+>>   	struct msm_dp_audio *msm_dp_audio;
+>>   	bool psr_supported;
+>>   };
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..73de29136801ef5f45e0b2d09280fe113021b68c
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> @@ -0,0 +1,556 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
+>> + */
+>> +
+>> +/*
+>> + * Copyright © 2014 Red Hat.
+> 
+> Is it based on? Using the code? C&P?
+> 
+>> + *
+>> + * Permission to use, copy, modify, distribute, and sell this software and its
+>> + * documentation for any purpose is hereby granted without fee, provided that
+>> + * the above copyright notice appear in all copies and that both that copyright
+>> + * notice and this permission notice appear in supporting documentation, and
+>> + * that the name of the copyright holders not be used in advertising or
+>> + * publicity pertaining to distribution of the software without specific,
+>> + * written prior permission.  The copyright holders make no representations
+>> + * about the suitability of this software for any purpose.  It is provided "as
+>> + * is" without express or implied warranty.
+>> + *
+>> + * THE COPYRIGHT HOLDERS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+>> + * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
+>> + * EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+>> + * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+>> + * DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+>> + * TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+>> + * OF THIS SOFTWARE.
+> 
+> Why? Anyway, MIT licence would be absorbed into GPL-2.0-only (or it
+> should be GPL-2.0-only OR MIT)
+> 
+>> + */
+>> +
+>> +#include "dp_mst_drm.h"
+>> +
+>> +#define to_msm_dp_mst_bridge(x)     container_of((x), struct msm_dp_mst_bridge, base)
+>> +#define to_msm_dp_mst_bridge_priv(x) \
+> 
+> Unused
+> 
+>> +		container_of((x), struct msm_dp_mst_bridge, obj)
+>> +#define to_msm_dp_mst_bridge_state_priv(x) \
+> 
+> Why is it _priv? There is no 'private' bridge state.
+> 
+>> +		container_of((x), struct msm_dp_mst_bridge_state, base)
+>> +#define to_msm_dp_mst_bridge_state(x) \
+>> +		to_msm_dp_mst_bridge_state_priv((x)->obj.state)
+>> +#define to_msm_dp_mst_connector(x) \
+>> +		container_of((x), struct msm_dp_mst_connector, connector)
+>> +
+>> +#define DP_MST_CONN_ID(bridge) ((bridge)->connector ? \
+>> +		(bridge)->connector->base.id : 0)
+>> +
+>> +#define MAX_DPCD_TRANSACTION_BYTES 16
+>> +
+>> +static struct drm_private_state *msm_dp_mst_duplicate_bridge_state(struct drm_private_obj *obj)
+>> +{
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +
+>> +	mst_bridge_state = kmemdup(obj->state, sizeof(*mst_bridge_state), GFP_KERNEL);
+>> +	if (!mst_bridge_state)
+>> +		return NULL;
+>> +
+>> +	__drm_atomic_helper_private_obj_duplicate_state(obj, &mst_bridge_state->base);
+>> +
+>> +	return &mst_bridge_state->base;
+>> +}
+>> +
+>> +static void msm_dp_mst_destroy_bridge_state(struct drm_private_obj *obj,
+>> +					    struct drm_private_state *state)
+>> +{
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state =
+>> +		to_msm_dp_mst_bridge_state_priv(state);
+>> +
+>> +	kfree(mst_bridge_state);
+>> +}
+>> +
+>> +static const struct drm_private_state_funcs msm_dp_mst_bridge_state_funcs = {
+>> +	.atomic_duplicate_state = msm_dp_mst_duplicate_bridge_state,
+>> +	.atomic_destroy_state = msm_dp_mst_destroy_bridge_state,
+>> +};
+>> +
+>> +/**
+>> + * dp_mst_find_vcpi_slots() - Find VCPI slots for this PBN value
+>> + * @mgr: manager to use
+>> + * @pbn: payload bandwidth to convert into slots.
+>> + *
+>> + * Calculate the number of VCPI slots that will be required for the given PBN
+>> + * value.
+>> + *
+>> + * RETURNS:
+> 
+> Return: foo, abc or def
+> 
+>> + * The total slots required for this port, or error.
+>> + */
+>> +static int msm_dp_mst_find_vcpi_slots(struct drm_dp_mst_topology_mgr *mgr, int pbn)
+>> +{
+>> +	int num_slots;
+>> +	struct drm_dp_mst_topology_state *state;
+>> +
+>> +	state = to_drm_dp_mst_topology_state(mgr->base.state);
+>> +	num_slots = DIV_ROUND_UP(pbn, dfixed_trunc(state->pbn_div));
+> 
+> Don't you get those as payload->time_slots ?
+> 
+Got it , will delete this.
+>> +
+>> +	/* max. time slots - one slot for MTP header */
+>> +	if (num_slots > 63)
+>> +		return -ENOSPC;
+>> +	return num_slots;
+>> +}
+>> +
+>> +static void msm_dp_mst_update_timeslots(struct msm_dp_mst *mst,
+>> +					 struct msm_dp_mst_bridge *mst_bridge,
+>> +					 struct drm_atomic_state *state,
+>> +					 struct drm_dp_mst_port *port)
+>> +{
+>> +	int i;
+>> +	struct msm_dp_mst_bridge *msm_dp_bridge;
+>> +	struct drm_dp_mst_topology_state *mst_state;
+>> +	struct drm_dp_mst_atomic_payload *payload;
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +	int prev_start = 0;
+>> +	int prev_slots = 0;
+>> +
+>> +	mst_state = to_drm_dp_mst_topology_state(mst->mst_mgr.base.state);
+>> +	payload = drm_atomic_get_mst_payload_state(mst_state, port);
+>> +
+>> +	if (!payload) {
+>> +		DRM_ERROR("mst bridge [%d] update_timeslots failed, null payload\n",
+>> +			  mst_bridge->id);
+>> +		return;
+>> +	}
+>> +
+>> +	for (i = 0; i < mst->max_streams; i++) {
+>> +		msm_dp_bridge = mst->mst_bridge[i];
+>> +		if (mst_bridge == msm_dp_bridge) {
+>> +			mst_bridge_state = to_msm_dp_mst_bridge_state(msm_dp_bridge);
+>> +			/*
+>> +			 * When a payload was removed make sure to move any payloads after it
+>> +			 * to the left so all payloads are aligned to the left.
+>> +			 */
+> 
+> The comment is not valid anymore, as far as I understand.
+> 
+>> +			if (payload->vc_start_slot < 0) {
+>> +				// cache the payload
+>> +				prev_start = mst_bridge_state->start_slot;
+>> +				prev_slots = mst_bridge_state->num_slots;
+>> +				mst_bridge_state->pbn = 0;
+>> +				mst_bridge_state->start_slot = 1;
+>> +				mst_bridge_state->num_slots = 0;
+>> +				mst_bridge_state->vcpi = 0;
+>> +			} else { //add payload
+>> +				mst_bridge_state->pbn = payload->pbn;
+>> +				mst_bridge_state->start_slot = payload->vc_start_slot;
+>> +				mst_bridge_state->num_slots = payload->time_slots;
+>> +				mst_bridge_state->vcpi = payload->vcpi;
+> 
+> I still see a lot of manual slot management here. Can't we use the
+> struct drm_dp_mst_atomic_payload directly instead of copying and caching
+> everything?
+> 
+>> +			}
+>> +		}
+>> +	}
+>> +
+>> +	// Now commit all the updated payloads
+>> +	for (i = 0; i < mst->max_streams; i++) {
+>> +		msm_dp_bridge = mst->mst_bridge[i];
+>> +
+>> +		mst_bridge_state = to_msm_dp_mst_bridge_state(msm_dp_bridge);
+>> +		//Shift payloads to the left if there was a removed payload.
+>> +		if (payload->vc_start_slot < 0 && mst_bridge_state->start_slot > prev_start)
+>> +			mst_bridge_state->start_slot -= prev_slots;
+> 
+> Well... Don't MST helpers do this already for you? I see corresponding
+> part in drm_dp_remove_payload_part2().
+> 
+Here I wanted to reply together with the comment above.
+This code seems to be trying to submit the channel_info for all streams 
+in a single commit, which is why some manual management was added.
+However, in the next revision I plan to remove this manual handling from 
+the bridge state and use the payload directly instead.
+And after those been moved... it seems that we don't need bridge_state 
+anymore?
+>> +
+>> +		msm_dp_display_set_stream_info(mst->msm_dp, msm_dp_bridge->msm_dp_panel,
+>> +					       msm_dp_bridge->id, mst_bridge_state->start_slot,
+>> +					       mst_bridge_state->num_slots,
+>> +					       mst_bridge_state->pbn, mst_bridge_state->vcpi);
+>> +		drm_dbg_dp(mst->msm_dp->drm_dev,
+>> +			   "conn:%d vcpi:%d start_slot:%d num_slots:%d, pbn:%d\n",
+>> +			   DP_MST_CONN_ID(msm_dp_bridge), mst_bridge_state->vcpi,
+>> +			   mst_bridge_state->start_slot,
+>> +			   mst_bridge_state->num_slots, mst_bridge_state->pbn);
+>> +	}
+>> +}
+>> +
+>> +static int msm_dp_mst_bridge_pre_enable_part1(struct msm_dp_mst_bridge *dp_bridge,
+>> +					       struct drm_atomic_state *state)
+>> +{
+>> +	struct msm_dp *dp_display = dp_bridge->display;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(dp_bridge->connector);
+>> +	struct drm_dp_mst_port *port = mst_conn->mst_port;
+>> +	struct drm_dp_mst_topology_state *mst_state;
+>> +	struct drm_dp_mst_atomic_payload *payload;
+>> +	struct msm_dp_panel *dp_panel = mst_conn->dp_panel;
+>> +	int pbn, slots;
+>> +	int rc = 0;
+>> +
+>> +	mst_state = drm_atomic_get_new_mst_topology_state(state, &mst->mst_mgr);
+>> +
+>> +	pbn = drm_dp_calc_pbn_mode(dp_panel->msm_dp_mode.drm_mode.clock,
+>> +				   (mst_conn->connector.display_info.bpc * 3) << 4);
+>> +
+>> +	slots = msm_dp_mst_find_vcpi_slots(&mst->mst_mgr, pbn);
+> 
+> payload->time_slots ?
+> 
+Got it.
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "conn:%d pbn:%d, slots:%d\n", DP_MST_CONN_ID(dp_bridge),
+>> +		   pbn, slots);
+>> +
+>> +	payload = drm_atomic_get_mst_payload_state(mst_state, port);
+>> +	if (!payload || payload->time_slots <= 0) {
+>> +		DRM_ERROR("time slots not allocated for conn:%d\n", DP_MST_CONN_ID(dp_bridge));
+>> +		rc = -EINVAL;
+>> +		return rc;
+>> +	}
+>> +
+>> +	drm_dp_mst_update_slots(mst_state, DP_CAP_ANSI_8B10B);
+>> +
+>> +	rc = drm_dp_add_payload_part1(&mst->mst_mgr, mst_state, payload);
+>> +	if (rc) {
+>> +		DRM_ERROR("payload allocation failure for conn:%d\n", DP_MST_CONN_ID(dp_bridge));
+>> +		return rc;
+>> +	}
+>> +
+>> +	msm_dp_mst_update_timeslots(mst, dp_bridge, state, port);
+>> +
+>> +	return rc;
+>> +}
+>> +
+>> +static void _msm_dp_mst_bridge_pre_enable_part2(struct msm_dp_mst_bridge *dp_bridge,
+>> +						struct drm_atomic_state *state)
+>> +{
+>> +	struct msm_dp *dp_display = dp_bridge->display;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(dp_bridge->connector);
+>> +	struct drm_dp_mst_port *port = mst_conn->mst_port;
+>> +	struct drm_dp_mst_topology_state *mst_state;
+>> +	struct drm_dp_mst_atomic_payload *payload;
+>> +
+>> +	drm_dp_check_act_status(&mst->mst_mgr);
+>> +
+>> +	mst_state = to_drm_dp_mst_topology_state(mst->mst_mgr.base.state);
+>> +	payload = drm_atomic_get_mst_payload_state(mst_state, port);
+>> +
+>> +	if (!payload) {
+> 
+> Kill all defensive coding. If something can not happen, there is no need
+> to check for it.
+> 
+Got it.
+>> +		DRM_ERROR("mst bridge [%d] null payload\n", dp_bridge->id);
+>> +		return;
+>> +	}
+>> +
+>> +	if (!payload->port) {
+>> +		DRM_ERROR("mst bridge [%d] null port\n", dp_bridge->id);
+>> +		return;
+>> +	}
+>> +
+>> +	if (!payload->port->connector) {
+>> +		DRM_ERROR("mst bridge [%d] part-2 failed, null connector\n",
+>> +			  dp_bridge->id);
+>> +		return;
+>> +	}
+>> +
+>> +	if (payload->vc_start_slot == -1) {
+>> +		DRM_ERROR("mst bridge [%d] part-2 failed, payload alloc part 1 failed\n",
+>> +			  dp_bridge->id);
+>> +		return;
+>> +	}
+>> +
+>> +	drm_dp_add_payload_part2(&mst->mst_mgr, payload);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "mst bridge [%d] _pre enable part-2 complete\n",
+>> +		   dp_bridge->id);
+>> +}
+>> +
+>> +static void msm_dp_mst_bridge_pre_disable_part1(struct msm_dp_mst_bridge *dp_bridge,
+>> +						 struct drm_atomic_state *state)
+>> +{
+>> +	struct msm_dp *dp_display = dp_bridge->display;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(dp_bridge->connector);
+>> +	struct drm_dp_mst_port *port = mst_conn->mst_port;
+>> +	struct drm_dp_mst_topology_state *old_mst_state;
+>> +	struct drm_dp_mst_topology_state *new_mst_state;
+>> +	const struct drm_dp_mst_atomic_payload *old_payload;
+>> +	struct drm_dp_mst_atomic_payload *new_payload;
+>> +
+>> +	old_mst_state = drm_atomic_get_old_mst_topology_state(state, &mst->mst_mgr);
+>> +
+>> +	new_mst_state = drm_atomic_get_new_mst_topology_state(state, &mst->mst_mgr);
+>> +
+>> +	old_payload = drm_atomic_get_mst_payload_state(old_mst_state, port);
+>> +	new_payload = drm_atomic_get_mst_payload_state(new_mst_state, port);
+>> +
+>> +	if (!old_payload || !new_payload) {
+>> +		DRM_ERROR("mst bridge [%d] _pre disable part-1 failed, null payload\n",
+>> +			  dp_bridge->id);
+>> +		return;
+>> +	}
+>> +
+>> +	drm_dp_remove_payload_part1(&mst->mst_mgr, new_mst_state, new_payload);
+>> +	drm_dp_remove_payload_part2(&mst->mst_mgr, new_mst_state, old_payload, new_payload);
+>> +
+>> +	msm_dp_mst_update_timeslots(mst, dp_bridge, state, port);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "mst bridge [%d] _pre disable part-1 complete\n",
+>> +		   dp_bridge->id);
+>> +}
+>> +
+>> +static void msm_dp_mst_bridge_atomic_pre_enable(struct drm_bridge *drm_bridge,
+>> +						struct drm_atomic_state *state)
+>> +{
+>> +	int rc = 0;
+>> +	struct msm_dp_mst_bridge *bridge;
+>> +	struct msm_dp *dp_display;
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +	struct msm_dp_mst *dp_mst;
+>> +
+>> +	if (!drm_bridge) {
+>> +		DRM_ERROR("Invalid params\n");
+>> +		return;
+>> +	}
+>> +
+>> +	bridge = to_msm_dp_mst_bridge(drm_bridge);
+>> +	mst_bridge_state = to_msm_dp_mst_bridge_state(bridge);
+>> +	dp_display = bridge->display;
+>> +	dp_mst = dp_display->msm_dp_mst;
+>> +
+>> +	/* to cover cases of bridge_disable/bridge_enable without modeset */
+>> +	bridge->connector = mst_bridge_state->connector;
+>> +	bridge->msm_dp_panel = mst_bridge_state->msm_dp_panel;
+>> +
+>> +	if (!bridge->connector) {
+>> +		DRM_ERROR("Invalid connector\n");
+>> +		return;
+>> +	}
+>> +
+>> +	mutex_lock(&dp_mst->mst_lock);
+>> +	msm_dp_display_atomic_prepare(dp_display);
+>> +
+>> +	rc = msm_dp_mst_bridge_pre_enable_part1(bridge, state);
+>> +	if (rc) {
+>> +		DRM_ERROR("[%d] DP display pre-enable failed, rc=%d\n", bridge->id, rc);
+>> +		msm_dp_display_unprepare(dp_display);
+>> +		mutex_unlock(&dp_mst->mst_lock);
+>> +		return;
+>> +	}
+>> +
+>> +	msm_dp_display_enable_helper(dp_display, bridge->msm_dp_panel);
+>> +
+>> +	_msm_dp_mst_bridge_pre_enable_part2(bridge, state);
+>> +
+>> +	mutex_unlock(&dp_mst->mst_lock);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "conn:%d mode:%s fps:%d vcpi:%d slots:%d to %d\n",
+>> +		   DP_MST_CONN_ID(bridge), bridge->msm_dp_panel->msm_dp_mode.drm_mode.name,
+>> +		   drm_mode_vrefresh(&bridge->msm_dp_panel->msm_dp_mode.drm_mode),
+>> +		   mst_bridge_state->vcpi, mst_bridge_state->start_slot,
+>> +		   mst_bridge_state->start_slot + mst_bridge_state->num_slots);
+>> +}
+>> +
+>> +static void msm_dp_mst_bridge_atomic_disable(struct drm_bridge *drm_bridge,
+>> +					     struct drm_atomic_state *state)
+>> +{
+>> +	struct msm_dp_mst_bridge *bridge;
+>> +	struct msm_dp *dp_display;
+>> +	struct msm_dp_mst *mst;
+>> +
+>> +	if (!drm_bridge) {
+>> +		DRM_ERROR("Invalid params\n");
+>> +		return;
+>> +	}
+>> +
+>> +	bridge = to_msm_dp_mst_bridge(drm_bridge);
+>> +	if (!bridge->connector) {
+>> +		DRM_ERROR("Invalid connector\n");
+>> +		return;
+>> +	}
+>> +
+>> +	dp_display = bridge->display;
+>> +	mst = dp_display->msm_dp_mst;
+>> +
+>> +	mutex_lock(&mst->mst_lock);
+>> +
+>> +	msm_dp_mst_bridge_pre_disable_part1(bridge, state);
+>> +
+>> +	msm_dp_display_disable_helper(dp_display, bridge->msm_dp_panel);
+>> +
+>> +	drm_dp_check_act_status(&mst->mst_mgr);
+>> +
+>> +	mutex_unlock(&mst->mst_lock);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "mst bridge:%d conn:%d disable complete\n", bridge->id,
+>> +		   DP_MST_CONN_ID(bridge));
+>> +}
+>> +
+>> +static void msm_dp_mst_bridge_atomic_post_disable(struct drm_bridge *drm_bridge,
+>> +						  struct drm_atomic_state *state)
+>> +{
+>> +	int conn = 0;
+>> +	struct msm_dp_mst_bridge *bridge;
+>> +	struct msm_dp *dp_display;
+>> +	struct msm_dp_mst *mst;
+>> +
+>> +	if (!drm_bridge) {
+>> +		DRM_ERROR("Invalid params\n");
+>> +		return;
+>> +	}
+>> +
+>> +	bridge = to_msm_dp_mst_bridge(drm_bridge);
+>> +	if (!bridge->connector) {
+>> +		DRM_ERROR("Invalid connector\n");
+>> +		return;
+>> +	}
+>> +
+>> +	conn = DP_MST_CONN_ID(bridge);
+>> +
+>> +	dp_display = bridge->display;
+>> +	mst = dp_display->msm_dp_mst;
+>> +
+>> +	mutex_lock(&mst->mst_lock);
+>> +
+>> +	msm_dp_display_atomic_post_disable_helper(dp_display, bridge->msm_dp_panel);
+>> +
+>> +	if (!dp_display->mst_active)
+>> +		msm_dp_display_unprepare(dp_display);
+>> +
+>> +	bridge->connector = NULL;
+>> +	bridge->msm_dp_panel =  NULL;
+>> +
+>> +	mutex_unlock(&mst->mst_lock);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "mst bridge:%d conn:%d post disable complete\n",
+>> +		   bridge->id, conn);
+>> +}
+>> +
+>> +static int msm_dp_mst_bridge_atomic_check(struct drm_bridge *drm_bridge,
+>> +				struct drm_bridge_state *bridge_state,
+>> +				struct drm_crtc_state *crtc_state,
+>> +				struct drm_connector_state *conn_state)
+>> +{
+>> +	struct drm_atomic_state *state = crtc_state->state;
+>> +	struct drm_connector *connector = conn_state->connector;
+>> +	struct drm_dp_mst_topology_state *mst_state;
+>> +	struct msm_dp_mst_connector *mst_conn;
+>> +	struct msm_dp *dp_display;
+>> +	struct msm_dp_mst *mst;
+>> +	int rc = 0, pbn, slots;
+>> +	u32 bpp;
+>> +
+>> +	if (!drm_atomic_crtc_needs_modeset(crtc_state) || !crtc_state->enable) {
+>> +		return 0;
+>> +	}
+>> +
+>> +	mst_conn = to_msm_dp_mst_connector(connector);
+>> +	dp_display = mst_conn->msm_dp;
+>> +	mst = dp_display->msm_dp_mst;
+>> +
+>> +	bpp = connector->display_info.bpc * 3;
+>> +
+>> +	if (!bpp)
+>> +		bpp = 24;
+>> +
+>> +	pbn = drm_dp_calc_pbn_mode(crtc_state->mode.clock, bpp << 4);
+>> +
+>> +	mst_state = to_drm_dp_mst_topology_state(mst->mst_mgr.base.state);
+>> +	if (IS_ERR(mst_state))
+>> +		return PTR_ERR(mst_state);
+>> +
+>> +	if (!dfixed_trunc(mst_state->pbn_div)) {
+>> +		mst_state->pbn_div =
+>> +			drm_dp_get_vc_payload_bw(mst_conn->dp_panel->link_info.rate,
+>> +						mst_conn->dp_panel->link_info.num_lanes);
+>> +	}
+>> +
+>> +	slots = drm_dp_atomic_find_time_slots(state, &mst->mst_mgr, mst_conn->mst_port, pbn);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "add slots, conn:%d pbn:%d slots:%d rc:%d\n",
+>> +			connector->base.id, pbn, slots, rc);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void msm_dp_mst_bridge_mode_set(struct drm_bridge *drm_bridge,
+>> +				       const struct drm_display_mode *mode,
+>> +				       const struct drm_display_mode *adjusted_mode)
+> 
+> It's clearly defined as deprecated, not to be used by new drivers. Any
+> reason for not following it?
+> 
+Will delete this.
+>> +{
+>> +	struct msm_dp_mst_bridge *bridge;
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +	struct msm_dp *dp_display;
+>> +	struct msm_dp_panel *msm_dp_panel;
+>> +
+>> +	if (!drm_bridge || !mode || !adjusted_mode) {
+> 
+> Ugh. No overprotective coding.
+> 
+Got it.
+>> +		DRM_ERROR("Invalid params\n");
+>> +		return;
+>> +	}
+>> +
+>> +	bridge = to_msm_dp_mst_bridge(drm_bridge);
+>> +
+>> +	mst_bridge_state = to_msm_dp_mst_bridge_state(bridge);
+>> +	bridge->connector = mst_bridge_state->connector;
+>> +	bridge->msm_dp_panel = mst_bridge_state->msm_dp_panel;
+> 
+> Why? All important functions should have access to bridge state and thus state fields.
+> 
+>> +
+>> +	msm_dp_panel = bridge->msm_dp_panel;
+>> +	dp_display = bridge->display;
+>> +
+>> +	msm_dp_display_mode_set_helper(dp_display, mode, adjusted_mode, bridge->msm_dp_panel);
+>> +	msm_dp_panel->pbn = drm_dp_calc_pbn_mode(msm_dp_panel->msm_dp_mode.drm_mode.clock,
+>> +							  (msm_dp_panel->msm_dp_mode.bpp << 4));
+>> +	drm_dbg_dp(dp_display->drm_dev, "mst bridge:%d conn:%d mode set complete %s\n", bridge->id,
+>> +		   DP_MST_CONN_ID(bridge), mode->name);
+>> +}
+>> +
+>> +/* DP MST Bridge APIs */
+>> +static const struct drm_bridge_funcs msm_dp_mst_bridge_ops = {
+>> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+>> +	.atomic_destroy_state   = drm_atomic_helper_bridge_destroy_state,
+>> +	.atomic_reset           = drm_atomic_helper_bridge_reset,
+>> +	.atomic_pre_enable   = msm_dp_mst_bridge_atomic_pre_enable,
+>> +	.atomic_disable      = msm_dp_mst_bridge_atomic_disable,
+>> +	.atomic_post_disable = msm_dp_mst_bridge_atomic_post_disable,
+>> +	.atomic_check = msm_dp_mst_bridge_atomic_check,
+>> +	.mode_set     = msm_dp_mst_bridge_mode_set,
+>> +};
+>> +
+>> +int msm_dp_mst_drm_bridge_init(struct msm_dp *dp_display, struct drm_encoder *encoder)
+>> +{
+>> +	int rc = 0;
+>> +	struct msm_dp_mst_bridge *bridge = NULL;
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +	struct drm_device *dev;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	int i;
+>> +
+>> +	for (i = 0; i < mst->max_streams; i++) {
+>> +		if (!mst->mst_bridge[i]->in_use) {
+>> +			bridge = mst->mst_bridge[i];
+>> +			bridge->encoder = encoder;
+>> +			bridge->in_use = true;
+>> +			bridge->id = i;
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +	if (i == mst->max_streams) {
+>> +		DRM_ERROR("mst supports only %d bridges\n", i);
+>> +		rc = -EACCES;
+>> +		goto end;
+>> +	}
+>> +
+>> +	dev = dp_display->drm_dev;
+>> +	bridge->display = dp_display;
+>> +	bridge->base.funcs = &msm_dp_mst_bridge_ops;
+>> +	bridge->base.encoder = encoder;
+>> +	bridge->base.type = dp_display->connector_type;
+>> +	bridge->base.ops = DRM_BRIDGE_OP_MODES;
+>> +	drm_bridge_add(&bridge->base);
+>> +
+>> +	rc = drm_bridge_attach(encoder, &bridge->base, NULL, 0);
+>> +	if (rc) {
+>> +		DRM_ERROR("failed to attach bridge, rc=%d\n", rc);
+>> +		goto end;
+>> +	}
+>> +
+>> +	mst_bridge_state = kzalloc(sizeof(*mst_bridge_state), GFP_KERNEL);
+>> +	if (!mst_bridge_state) {
+>> +		rc = -ENOMEM;
+>> +		goto end;
+>> +	}
+>> +
+>> +	drm_atomic_private_obj_init(dev, &bridge->obj,
+>> +				    &mst_bridge_state->base,
+>> +				    &msm_dp_mst_bridge_state_funcs);
+> 
+> Why do you register a separate object if you already have bridge and you
+> can use bridge's state?
+> 
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "mst drm bridge init. bridge id:%d\n", i);
+>> +
+>> +	return 0;
+>> +
+>> +end:
+>> +	return rc;
+>> +}
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..d75731ca2e5870377026e8ad1057bdcc5f0d4c78
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> @@ -0,0 +1,86 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
+>> + *
+>> + * Permission to use, copy, modify, distribute, and sell this software and its
+>> + * documentation for any purpose is hereby granted without fee, provided that
+>> + * the above copyright notice appear in all copies and that both that copyright
+>> + * notice and this permission notice appear in supporting documentation, and
+>> + * that the name of the copyright holders not be used in advertising or
+>> + * publicity pertaining to distribution of the software without specific,
+>> + * written prior permission.  The copyright holders make no representations
+>> + * about the suitability of this software for any purpose.  It is provided "as
+>> + * is" without express or implied warranty.
+>> + *
+>> + * THE COPYRIGHT HOLDERS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+>> + * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
+>> + * EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+>> + * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+>> + * DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+>> + * TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE
+>> + * OF THIS SOFTWARE.
+> 
+> Please check what you are sending. The SPDX header says GPL-2.0-only,
+> while the licence text is MIT. Why?
+> 
+>> + */
+>> +
+>> +#ifndef _DP_MST_DRM_H_
+>> +#define _DP_MST_DRM_H_
+>> +
+>> +#include <linux/kernel.h>
+>> +#include <linux/init.h>
+>> +#include <linux/errno.h>
+>> +#include <linux/version.h>
+>> +
+>> +#include <drm/drm_atomic_helper.h>
+>> +#include <drm/drm_atomic.h>
+>> +#include <drm/drm_bridge.h>
+>> +#include <drm/drm_crtc.h>
+>> +#include <drm/drm_fixed.h>
+>> +#include <drm/drm_connector.h>
+>> +#include <drm/display/drm_dp_helper.h>
+>> +#include <drm/display/drm_dp_mst_helper.h>
+> 
+> Are all those includes necessary here? Replace them with forward struct
+> definitions and move includes to the source file. Only keep those, which
+> are actually necessary for the contents of the header.
+> 
+>> +
+>> +#include "dp_panel.h"
+>> +#include "dp_display.h"
+>> +
+>> +struct msm_dp_mst_bridge {
+>> +	struct drm_bridge base;
+>> +	struct drm_private_obj obj;
+>> +	u32 id;
+>> +
+>> +	bool in_use;
+> 
+> What does it mean? In use currently for one of outputs?
+> 
+>> +
+>> +	struct msm_dp *display;
+>> +	struct drm_encoder *encoder;
+>> +
+>> +	struct drm_connector *connector;
+> 
+> Why do you have connector both as a part of the bridge and bridge state?
+> 
+> Please describe design decisions in the commit mesage or as comments.
+> 
+Sure will add it in commit message.
+>> +	struct msm_dp_panel *msm_dp_panel;
+>> +};
+>> +
+>> +struct msm_dp_mst_bridge_state {
+>> +	struct drm_private_state base;
+>> +	struct drm_connector *connector;
+>> +	struct msm_dp_panel *msm_dp_panel;
+>> +
+>> +	int vcpi;
+>> +	int pbn;
+>> +	int num_slots;
+>> +	int start_slot;
+> 
+> I'd definitely prefer to have payload pointer here, if that's also a
+> part of the state.
+> 
+Here if we not need pbn/vcpi/slots/start_slot in bridge state, can we 
+delete whole bridge state and move connector/dp_panel to bridge?
+>> +};
+>> +
+>> +struct msm_dp_mst {
+>> +	struct drm_dp_mst_topology_mgr mst_mgr;
+>> +	struct msm_dp_mst_bridge *mst_bridge[DP_STREAM_MAX];
+>> +	struct msm_dp *msm_dp;
+>> +	u32 max_streams;
+>> +	struct mutex mst_lock;
+>> +};
+>> +
+>> +struct msm_dp_mst_connector {
+>> +	struct drm_connector connector;
+>> +	struct drm_dp_mst_port *mst_port;
+>> +	struct msm_dp *msm_dp;
+>> +	struct msm_dp_panel *dp_panel;
+>> +};
+>> +
+>> +int msm_dp_mst_drm_bridge_init(struct msm_dp *dp, struct drm_encoder *encoder);
+>> +
+>> +#endif /* _DP_MST_DRM_H_ */
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
-Does it look good to you?
-
-Best regards,
-Gabriel Almeida
-
-Em qua., 1 de abr. de 2026 =C3=A0s 05:21, Christian K=C3=B6nig
-<christian.koenig@amd.com> escreveu:
->
-> On 4/1/26 08:58, Lazar, Lijo wrote:
-> >
-> >
-> > On 01-Apr-26 2:51 AM, Alex Deucher wrote:
-> >> On Tue, Mar 31, 2026 at 5:07=E2=80=AFPM Gabriel Almeida
-> >> <gabrielsousa230@gmail.com> wrote:
-> >>>
-> >>> Hi Christian and Alex,
-> >>>
-> >>> Thank you both for your feedback.
-> >>>
-> >>> I understand that there can be differences between these functions du=
-e to
-> >>> different macro values across hardware generations. I admit that I di=
-dn=E2=80=99t
-> >>> fully take that into account in this patch.
-> >>>
-> >>> Among the functions I modified, `program_aspm` and `common_sw_init` s=
-eem
-> >>> to have identical behavior regardless of those macros, so I thought t=
-hey
-> >>> could be good candidates for shared helper functions. That said,
-> >>> `common_sw_init` is currently only identical across NV, SOC21 and SOC=
-24,
-> >>> so I=E2=80=99m not sure if you would consider it generic enough for s=
-uch use.
-> >>>
-> >>> Regarding `read_indexed_register`, I=E2=80=99m still uncertain due to=
- the use of
-> >>> the `RREG32` macro. From what I=E2=80=99ve seen so far, it appears to=
- behave
-> >>> consistently across these implementations, but I may be missing some
-> >>> subtleties.
-> >>
-> >> You are correct.  the RREG32 and WREG32 macros are the same on all chi=
-ps.
-> >>
-> >>>
-> >>> Also, when Christian mentioned =E2=80=9Cmove them a layer up=E2=80=9D=
-, do you mean moving
-> >>> these helpers into an existing common file such as `amdgpu_device.c`
-> >>> instead of introducing a new file like `amdgpu_common.c/h`? I can rew=
-ork
-> >>> the patch accordingly and drop the new files if that is the preferred
-> >>> approach.
-> >>
-> >> I think something like  amdgpu_common_helpers.c is fine, although
-> >> thinking about it more, I think the program_aspm() function should
-> >> probably end up in amdgpu_nbio.c as something like
-> >> amdgpu_nbio_program_aspm().  read_indexed_register() could probably go
-> >> in amdgpu_device.c as amdgpu_device_read_indexed_register_helper().
-> >
-> > For the grbm register access one, consider keeping it in amdgpu_reg_acc=
-ess.c
->
-> Yeah I wanted to suggest something similar.
->
-> In general the driver code files are mostly organized like this:
->
-> * amdgpu_drv.[ch]       Code for the whole driver, e.g. module_init and c=
-o.
-> * amdgpu_device.[ch]    Code for a specific adev instance.
-> * amdgpu_$ip.[ch]       Code for this specific HW IP which is independent=
- of the HW generation (e.g. amdgpu_sdma.c)
-> * $ip_$version.[ch]     Code for a specific IP in a specific HW generatio=
-n (e.g. sdma_v6_0.c)
-> * $HW_gen.[ch]          Code for a specififc HW generation (e.g. cik.c or=
- soc15.c....)
-> * $whatever.[ch]        Code for interfacing with kernel subsystem, featu=
-re, task, whatever (e.g. amdgpu_ttm.c, amdgpu_cs.c...)
->
-> So when you have some common functionality that should either go into amd=
-gpu_device.c or amdgpu_$ip.[ch].
->
-> Regards,
-> Christian.
-Thanks for sharing this with me. I wasn't aware of this organization,
-and it will be very helpful to understand it.
->
-> >
-> > Thanks,
-> > Lijo
-> >
-> >> And finally I'm not sure it's worth breaking out common_sw_init() as a
-> >> separate function.  Maybe drop that change.
-> >>
-> >> Alex
-> >>
-> >>>
-> >>> I can also incorporate Alex=E2=80=99s suggestions regarding naming an=
-d licensing.
-> >>>
-> >>> Given these points, I=E2=80=99d like to better understand which direc=
-tion you
-> >>> would prefer for this change.
-> >>>
-> >>> Thanks again for your time and guidance.
-> >>>
-> >>> Best regards,
-> >>> Gabriel Almeida
-> >>>
-> >>>
-> >>> Em ter., 31 de mar. de 2026 =C3=A0s 10:31, Alex Deucher
-> >>> <alexdeucher@gmail.com> escreveu:
-> >>>>
-> >>>> On Tue, Mar 31, 2026 at 7:34=E2=80=AFAM Christian K=C3=B6nig
-> >>>> <christian.koenig@amd.com> wrote:
-> >>>>>
-> >>>>> On 3/31/26 00:45, Gabriel Almeida wrote:
-> >>>>>> Some helper functions are implemented multiple times with identica=
-l
-> >>>>>> logic across different source files.
-> >>>>>
-> >>>>> And that is at least sometimes completely intentional.
-> >>>>>
-> >>>>> Background is that different headers are included which define macr=
-os with different values for each HW generation.
-> >>>>>
-> >>>>>>
-> >>>>>> Extract these implementations into a shared helper file
-> >>>>>> (amdgpu_common.c) and update existing code to reuse them.
-> >>>>>
-> >>>>> Please don't when they are functional identical then move them a la=
-yer up instead of messing up the backends.
-> >>>>>
-> >>>>> Regards,
-> >>>>> Christian.
-> >>>>>
-> >>>>>>
-> >>>>>> This simplifies the codebase and avoids duplication without
-> >>>>>> changing behavior.
-> >>>>>>
-> >>>>>> No functional changes intended.
-> >>>>>>
-> >>>>>> Signed-off-by: Gabriel Almeida <gabrielsousa230@gmail.com>
-> >>>>>> ---
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/Makefile        |  2 ++
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_common.c | 42 ++++++++++++++++=
-++++++
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_common.h | 12 +++++++
-> >>>>
-> >>>> I think amdgpu_common_helper.c/h would be better.
-> >>>>
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/nv.c            | 38 +++-------------=
-----
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/soc15.c         | 31 ++--------------
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/soc21.c         | 38 +++-------------=
-----
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/soc24.c         | 29 ++-------------
-> >>>>>>   drivers/gpu/drm/amd/amdgpu/soc_v1_0.c      | 21 ++---------
-> >>>>>>   8 files changed, 72 insertions(+), 141 deletions(-)
-> >>>>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
-> >>>>>>   create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm=
-/amd/amdgpu/Makefile
-> >>>>>> index 6a7e9bfec..84cce03d7 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> >>>>>> @@ -69,6 +69,8 @@ amdgpu-y +=3D amdgpu_device.o amdgpu_reg_access.=
-o amdgpu_doorbell_mgr.o amdgpu_kms
-> >>>>>>          amdgpu_ring_mux.o amdgpu_xcp.o amdgpu_seq64.o amdgpu_aca.=
-o amdgpu_dev_coredump.o \
-> >>>>>>          amdgpu_cper.o amdgpu_userq_fence.o amdgpu_eviction_fence.=
-o amdgpu_ip.o
-> >>>>>>
-> >>>>>> +amdgpu-y +=3D amdgpu_common.o
-> >>>>>> +
-> >>>>>>   amdgpu-$(CONFIG_PROC_FS) +=3D amdgpu_fdinfo.o
-> >>>>>>
-> >>>>>>   amdgpu-$(CONFIG_PERF_EVENTS) +=3D amdgpu_pmu.o
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_common.c
-> >>>>>> new file mode 100644
-> >>>>>> index 000000000..34ade6f63
-> >>>>>> --- /dev/null
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.c
-> >>>>>> @@ -0,0 +1,42 @@
-> >>>>>> +// SPDX-License-Identifier: GPL-2.0
-> >>>>
-> >>>> This should be MIT
-> >>>>
-> >>>>>> +#include <linux/module.h>
-> >>>>>> +
-> >>>>>> +#include "amdgpu.h"
-> >>>>>> +#include "amdgpu_common.h"
-> >>>>>> +#include "mxgpu_nv.h"
-> >>>>>> +
-> >>>>>> +uint32_t read_indexed_register(struct amdgpu_device *adev,
-> >>>>>> +                              u32 se_num, u32 sh_num, u32 reg_off=
-set)
-> >>>>>> +{
-> >>>>>> +       uint32_t val;
-> >>>>>> +
-> >>>>>> +       mutex_lock(&adev->grbm_idx_mutex);
-> >>>>>> +       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> +               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xff=
-ffffff, 0);
-> >>>>>> +
-> >>>>>> +       val =3D RREG32(reg_offset);
-> >>>>>> +
-> >>>>>> +       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> +               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffff=
-ff, 0xffffffff, 0);
-> >>>>>> +       mutex_unlock(&adev->grbm_idx_mutex);
-> >>>>>> +       return val;
-> >>>>>> +}
-> >>>>>> +
-> >>>>>> +void program_aspm(struct amdgpu_device *adev)
-> >>>>>> +{
-> >>>>>> +       if (!amdgpu_device_should_use_aspm(adev))
-> >>>>>> +               return;
-> >>>>>> +
-> >>>>>> +       if (adev->nbio.funcs->program_aspm)
-> >>>>>> +               adev->nbio.funcs->program_aspm(adev);
-> >>>>>> +}
-> >>>>>> +
-> >>>>>> +int common_sw_init(struct amdgpu_ip_block *ip_block)
-> >>>>
-> >>>> Please prefix each of these functions with amdgpu_common_helper_
-> >>>>
-> >>>>>> +{
-> >>>>>> +       struct amdgpu_device *adev =3D ip_block->adev;
-> >>>>>> +
-> >>>>>> +       if (amdgpu_sriov_vf(adev))
-> >>>>>> +               xgpu_nv_mailbox_add_irq_id(adev);
-> >>>>>> +
-> >>>>>> +       return 0;
-> >>>>>> +}
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_common.h
-> >>>>>> new file mode 100644
-> >>>>>> index 000000000..314b3506b
-> >>>>>> --- /dev/null
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_common.h
-> >>>>>> @@ -0,0 +1,12 @@
-> >>>>>> +/* SPDX-License-Identifier: GPL-2.0 */
-> >>>>
-> >>>> This should be MIT
-> >>>>
-> >>>> Alex
-> >>>>
-> >>>>>> +#ifndef __AMDGPU_COMMON_H__
-> >>>>>> +#define __AMDGPU_COMMON_H__
-> >>>>>> +
-> >>>>>> +uint32_t read_indexed_register(struct amdgpu_device *adev,
-> >>>>>> +                              u32 se_num, u32 sh_num, u32 reg_off=
-set);
-> >>>>>> +
-> >>>>>> +void program_aspm(struct amdgpu_device *adev);
-> >>>>>> +
-> >>>>>> +int common_sw_init(struct amdgpu_ip_block *ip_block);
-> >>>>>> +
-> >>>>>> +#endif
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd=
-/amdgpu/nv.c
-> >>>>>> index 7ce1a1b95..cf8052c73 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> >>>>>> @@ -29,6 +29,7 @@
-> >>>>>>
-> >>>>>>   #include "amdgpu.h"
-> >>>>>>   #include "amdgpu_atombios.h"
-> >>>>>> +#include "amdgpu_common.h"
-> >>>>>>   #include "amdgpu_ih.h"
-> >>>>>>   #include "amdgpu_uvd.h"
-> >>>>>>   #include "amdgpu_vce.h"
-> >>>>>> @@ -354,29 +355,13 @@ static struct soc15_allowed_register_entry n=
-v_allowed_read_registers[] =3D {
-> >>>>>>          { SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
-> >>>>>>   };
-> >>>>>>
-> >>>>>> -static uint32_t nv_read_indexed_register(struct amdgpu_device *ad=
-ev, u32 se_num,
-> >>>>>> -                                        u32 sh_num, u32 reg_offse=
-t)
-> >>>>>> -{
-> >>>>>> -       uint32_t val;
-> >>>>>> -
-> >>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xff=
-ffffff, 0);
-> >>>>>> -
-> >>>>>> -       val =3D RREG32(reg_offset);
-> >>>>>> -
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffff=
-ff, 0xffffffff, 0);
-> >>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
-> >>>>>> -       return val;
-> >>>>>> -}
-> >>>>>>
-> >>>>>>   static uint32_t nv_get_register_value(struct amdgpu_device *adev=
-,
-> >>>>>>                                        bool indexed, u32 se_num,
-> >>>>>>                                        u32 sh_num, u32 reg_offset)
-> >>>>>>   {
-> >>>>>>          if (indexed) {
-> >>>>>> -               return nv_read_indexed_register(adev, se_num, sh_n=
-um, reg_offset);
-> >>>>>> +               return read_indexed_register(adev, se_num, sh_num,=
- reg_offset);
-> >>>>>>          } else {
-> >>>>>>                  if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, mmG=
-B_ADDR_CONFIG))
-> >>>>>>                          return adev->gfx.config.gb_addr_config;
-> >>>>>> @@ -511,16 +496,6 @@ static int nv_set_vce_clocks(struct amdgpu_de=
-vice *adev, u32 evclk, u32 ecclk)
-> >>>>>>          return 0;
-> >>>>>>   }
-> >>>>>>
-> >>>>>> -static void nv_program_aspm(struct amdgpu_device *adev)
-> >>>>>> -{
-> >>>>>> -       if (!amdgpu_device_should_use_aspm(adev))
-> >>>>>> -               return;
-> >>>>>> -
-> >>>>>> -       if (adev->nbio.funcs->program_aspm)
-> >>>>>> -               adev->nbio.funcs->program_aspm(adev);
-> >>>>>> -
-> >>>>>> -}
-> >>>>>> -
-> >>>>>>   const struct amdgpu_ip_block_version nv_common_ip_block =3D {
-> >>>>>>          .type =3D AMD_IP_BLOCK_TYPE_COMMON,
-> >>>>>>          .major =3D 1,
-> >>>>>> @@ -965,12 +940,7 @@ static int nv_common_late_init(struct amdgpu_=
-ip_block *ip_block)
-> >>>>>>
-> >>>>>>   static int nv_common_sw_init(struct amdgpu_ip_block *ip_block)
-> >>>>>>   {
-> >>>>>> -       struct amdgpu_device *adev =3D ip_block->adev;
-> >>>>>> -
-> >>>>>> -       if (amdgpu_sriov_vf(adev))
-> >>>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
-> >>>>>> -
-> >>>>>> -       return 0;
-> >>>>>> +       return common_sw_init(ip_block);
-> >>>>>>   }
-> >>>>>>
-> >>>>>>   static int nv_common_hw_init(struct amdgpu_ip_block *ip_block)
-> >>>>>> @@ -984,7 +954,7 @@ static int nv_common_hw_init(struct amdgpu_ip_=
-block *ip_block)
-> >>>>>>                  adev->nbio.funcs->apply_l1_link_width_reconfig_wa=
-(adev);
-> >>>>>>
-> >>>>>>          /* enable aspm */
-> >>>>>> -       nv_program_aspm(adev);
-> >>>>>> +       program_aspm(adev);
-> >>>>>>          /* setup nbio registers */
-> >>>>>>          adev->nbio.funcs->init_registers(adev);
-> >>>>>>          /* remap HDP registers to a hole in mmio space,
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/=
-amd/amdgpu/soc15.c
-> >>>>>> index b456e4541..a6b91363d 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> >>>>>> @@ -28,6 +28,7 @@
-> >>>>>>   #include <drm/amdgpu_drm.h>
-> >>>>>>
-> >>>>>>   #include "amdgpu.h"
-> >>>>>> +#include "amdgpu_common.h"
-> >>>>>>   #include "amdgpu_ih.h"
-> >>>>>>   #include "amdgpu_uvd.h"
-> >>>>>>   #include "amdgpu_vce.h"
-> >>>>>> @@ -401,29 +402,12 @@ static struct soc15_allowed_register_entry s=
-oc15_allowed_read_registers[] =3D {
-> >>>>>>          { SOC15_REG_ENTRY(GC, 0, mmDB_DEBUG2)},
-> >>>>>>   };
-> >>>>>>
-> >>>>>> -static uint32_t soc15_read_indexed_register(struct amdgpu_device =
-*adev, u32 se_num,
-> >>>>>> -                                        u32 sh_num, u32 reg_offse=
-t)
-> >>>>>> -{
-> >>>>>> -       uint32_t val;
-> >>>>>> -
-> >>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xff=
-ffffff, 0);
-> >>>>>> -
-> >>>>>> -       val =3D RREG32(reg_offset);
-> >>>>>> -
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffff=
-ff, 0xffffffff, 0);
-> >>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
-> >>>>>> -       return val;
-> >>>>>> -}
-> >>>>>> -
-> >>>>>>   static uint32_t soc15_get_register_value(struct amdgpu_device *a=
-dev,
-> >>>>>>                                           bool indexed, u32 se_num=
-,
-> >>>>>>                                           u32 sh_num, u32 reg_offs=
-et)
-> >>>>>>   {
-> >>>>>>          if (indexed) {
-> >>>>>> -               return soc15_read_indexed_register(adev, se_num, s=
-h_num, reg_offset);
-> >>>>>> +               return read_indexed_register(adev, se_num, sh_num,=
- reg_offset);
-> >>>>>>          } else {
-> >>>>>>                  if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, mmG=
-B_ADDR_CONFIG))
-> >>>>>>                          return adev->gfx.config.gb_addr_config;
-> >>>>>> @@ -695,15 +679,6 @@ static int soc15_set_vce_clocks(struct amdgpu=
-_device *adev, u32 evclk, u32 ecclk
-> >>>>>>          return 0;
-> >>>>>>   }
-> >>>>>>
-> >>>>>> -static void soc15_program_aspm(struct amdgpu_device *adev)
-> >>>>>> -{
-> >>>>>> -       if (!amdgpu_device_should_use_aspm(adev))
-> >>>>>> -               return;
-> >>>>>> -
-> >>>>>> -       if (adev->nbio.funcs->program_aspm)
-> >>>>>> -               adev->nbio.funcs->program_aspm(adev);
-> >>>>>> -}
-> >>>>>> -
-> >>>>>>   const struct amdgpu_ip_block_version vega10_common_ip_block =3D
-> >>>>>>   {
-> >>>>>>          .type =3D AMD_IP_BLOCK_TYPE_COMMON,
-> >>>>>> @@ -1284,7 +1259,7 @@ static int soc15_common_hw_init(struct amdgp=
-u_ip_block *ip_block)
-> >>>>>>          struct amdgpu_device *adev =3D ip_block->adev;
-> >>>>>>
-> >>>>>>          /* enable aspm */
-> >>>>>> -       soc15_program_aspm(adev);
-> >>>>>> +       program_aspm(adev);
-> >>>>>>          /* setup nbio registers */
-> >>>>>>          adev->nbio.funcs->init_registers(adev);
-> >>>>>>          /* remap HDP registers to a hole in mmio space,
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/=
-amd/amdgpu/soc21.c
-> >>>>>> index fbd1d97f3..586d62202 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-> >>>>>> @@ -27,6 +27,7 @@
-> >>>>>>
-> >>>>>>   #include "amdgpu.h"
-> >>>>>>   #include "amdgpu_atombios.h"
-> >>>>>> +#include "amdgpu_common.h"
-> >>>>>>   #include "amdgpu_ih.h"
-> >>>>>>   #include "amdgpu_uvd.h"
-> >>>>>>   #include "amdgpu_vce.h"
-> >>>>>> @@ -306,29 +307,12 @@ static struct soc15_allowed_register_entry s=
-oc21_allowed_read_registers[] =3D {
-> >>>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
-> >>>>>>   };
-> >>>>>>
-> >>>>>> -static uint32_t soc21_read_indexed_register(struct amdgpu_device =
-*adev, u32 se_num,
-> >>>>>> -                                        u32 sh_num, u32 reg_offse=
-t)
-> >>>>>> -{
-> >>>>>> -       uint32_t val;
-> >>>>>> -
-> >>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xff=
-ffffff, 0);
-> >>>>>> -
-> >>>>>> -       val =3D RREG32(reg_offset);
-> >>>>>> -
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffff=
-ff, 0xffffffff, 0);
-> >>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
-> >>>>>> -       return val;
-> >>>>>> -}
-> >>>>>> -
-> >>>>>>   static uint32_t soc21_get_register_value(struct amdgpu_device *a=
-dev,
-> >>>>>>                                        bool indexed, u32 se_num,
-> >>>>>>                                        u32 sh_num, u32 reg_offset)
-> >>>>>>   {
-> >>>>>>          if (indexed) {
-> >>>>>> -               return soc21_read_indexed_register(adev, se_num, s=
-h_num, reg_offset);
-> >>>>>> +               return read_indexed_register(adev, se_num, sh_num,=
- reg_offset);
-> >>>>>>          } else {
-> >>>>>>                  if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, reg=
-GB_ADDR_CONFIG) && adev->gfx.config.gb_addr_config)
-> >>>>>>                          return adev->gfx.config.gb_addr_config;
-> >>>>>> @@ -470,15 +454,6 @@ static int soc21_set_vce_clocks(struct amdgpu=
-_device *adev, u32 evclk, u32 ecclk
-> >>>>>>          return 0;
-> >>>>>>   }
-> >>>>>>
-> >>>>>> -static void soc21_program_aspm(struct amdgpu_device *adev)
-> >>>>>> -{
-> >>>>>> -       if (!amdgpu_device_should_use_aspm(adev))
-> >>>>>> -               return;
-> >>>>>> -
-> >>>>>> -       if (adev->nbio.funcs->program_aspm)
-> >>>>>> -               adev->nbio.funcs->program_aspm(adev);
-> >>>>>> -}
-> >>>>>> -
-> >>>>>>   const struct amdgpu_ip_block_version soc21_common_ip_block =3D {
-> >>>>>>          .type =3D AMD_IP_BLOCK_TYPE_COMMON,
-> >>>>>>          .major =3D 1,
-> >>>>>> @@ -912,12 +887,7 @@ static int soc21_common_late_init(struct amdg=
-pu_ip_block *ip_block)
-> >>>>>>
-> >>>>>>   static int soc21_common_sw_init(struct amdgpu_ip_block *ip_block=
-)
-> >>>>>>   {
-> >>>>>> -       struct amdgpu_device *adev =3D ip_block->adev;
-> >>>>>> -
-> >>>>>> -       if (amdgpu_sriov_vf(adev))
-> >>>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
-> >>>>>> -
-> >>>>>> -       return 0;
-> >>>>>> +       return common_sw_init(ip_block);
-> >>>>>>   }
-> >>>>>>
-> >>>>>>   static int soc21_common_hw_init(struct amdgpu_ip_block *ip_block=
-)
-> >>>>>> @@ -925,7 +895,7 @@ static int soc21_common_hw_init(struct amdgpu_=
-ip_block *ip_block)
-> >>>>>>          struct amdgpu_device *adev =3D ip_block->adev;
-> >>>>>>
-> >>>>>>          /* enable aspm */
-> >>>>>> -       soc21_program_aspm(adev);
-> >>>>>> +       program_aspm(adev);
-> >>>>>>          /* setup nbio registers */
-> >>>>>>          adev->nbio.funcs->init_registers(adev);
-> >>>>>>          /* remap HDP registers to a hole in mmio space,
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/=
-amd/amdgpu/soc24.c
-> >>>>>> index d1adf19a5..f9341c0e4 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
-> >>>>>> @@ -26,6 +26,7 @@
-> >>>>>>   #include <linux/pci.h>
-> >>>>>>
-> >>>>>>   #include "amdgpu.h"
-> >>>>>> +#include "amdgpu_common.h"
-> >>>>>>   #include "amdgpu_ih.h"
-> >>>>>>   #include "amdgpu_uvd.h"
-> >>>>>>   #include "amdgpu_vce.h"
-> >>>>>> @@ -132,31 +133,12 @@ static struct soc15_allowed_register_entry s=
-oc24_allowed_read_registers[] =3D {
-> >>>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
-> >>>>>>   };
-> >>>>>>
-> >>>>>> -static uint32_t soc24_read_indexed_register(struct amdgpu_device =
-*adev,
-> >>>>>> -                                           u32 se_num,
-> >>>>>> -                                           u32 sh_num,
-> >>>>>> -                                           u32 reg_offset)
-> >>>>>> -{
-> >>>>>> -       uint32_t val;
-> >>>>>> -
-> >>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xff=
-ffffff, 0);
-> >>>>>> -
-> >>>>>> -       val =3D RREG32(reg_offset);
-> >>>>>> -
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffff=
-ff, 0xffffffff, 0);
-> >>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
-> >>>>>> -       return val;
-> >>>>>> -}
-> >>>>>> -
-> >>>>>>   static uint32_t soc24_get_register_value(struct amdgpu_device *a=
-dev,
-> >>>>>>                                           bool indexed, u32 se_num=
-,
-> >>>>>>                                           u32 sh_num, u32 reg_offs=
-et)
-> >>>>>>   {
-> >>>>>>          if (indexed) {
-> >>>>>> -               return soc24_read_indexed_register(adev, se_num, s=
-h_num, reg_offset);
-> >>>>>> +               return read_indexed_register(adev, se_num, sh_num,=
- reg_offset);
-> >>>>>>          } else {
-> >>>>>>                  if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, reg=
-GB_ADDR_CONFIG) &&
-> >>>>>>                      adev->gfx.config.gb_addr_config)
-> >>>>>> @@ -455,12 +437,7 @@ static int soc24_common_late_init(struct amdg=
-pu_ip_block *ip_block)
-> >>>>>>
-> >>>>>>   static int soc24_common_sw_init(struct amdgpu_ip_block *ip_block=
-)
-> >>>>>>   {
-> >>>>>> -       struct amdgpu_device *adev =3D ip_block->adev;
-> >>>>>> -
-> >>>>>> -       if (amdgpu_sriov_vf(adev))
-> >>>>>> -               xgpu_nv_mailbox_add_irq_id(adev);
-> >>>>>> -
-> >>>>>> -       return 0;
-> >>>>>> +       return common_sw_init(ip_block);
-> >>>>>>   }
-> >>>>>>
-> >>>>>>   static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block=
-)
-> >>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/d=
-rm/amd/amdgpu/soc_v1_0.c
-> >>>>>> index 709b1669b..2f77fb0b6 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-> >>>>>> @@ -21,6 +21,7 @@
-> >>>>>>    *
-> >>>>>>    */
-> >>>>>>   #include "amdgpu.h"
-> >>>>>> +#include "amdgpu_common.h"
-> >>>>>>   #include "soc15.h"
-> >>>>>>   #include "soc15_common.h"
-> >>>>>>   #include "soc_v1_0.h"
-> >>>>>> @@ -184,31 +185,13 @@ static struct soc15_allowed_register_entry s=
-oc_v1_0_allowed_read_registers[] =3D {
-> >>>>>>          { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG_1) },
-> >>>>>>   };
-> >>>>>>
-> >>>>>> -static uint32_t soc_v1_0_read_indexed_register(struct amdgpu_devi=
-ce *adev,
-> >>>>>> -                                              u32 se_num,
-> >>>>>> -                                              u32 sh_num,
-> >>>>>> -                                              u32 reg_offset)
-> >>>>>> -{
-> >>>>>> -       uint32_t val;
-> >>>>>> -
-> >>>>>> -       mutex_lock(&adev->grbm_idx_mutex);
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, se_num, sh_num, 0xff=
-ffffff, 0);
-> >>>>>> -
-> >>>>>> -       val =3D RREG32(reg_offset);
-> >>>>>> -
-> >>>>>> -       if (se_num !=3D 0xffffffff || sh_num !=3D 0xffffffff)
-> >>>>>> -               amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffff=
-ff, 0xffffffff, 0);
-> >>>>>> -       mutex_unlock(&adev->grbm_idx_mutex);
-> >>>>>> -       return val;
-> >>>>>> -}
-> >>>>>>
-> >>>>>>   static uint32_t soc_v1_0_get_register_value(struct amdgpu_device=
- *adev,
-> >>>>>>                                              bool indexed, u32 se_=
-num,
-> >>>>>>                                              u32 sh_num, u32 reg_o=
-ffset)
-> >>>>>>   {
-> >>>>>>          if (indexed) {
-> >>>>>> -               return soc_v1_0_read_indexed_register(adev, se_num=
-, sh_num, reg_offset);
-> >>>>>> +               return read_indexed_register(adev, se_num, sh_num,=
- reg_offset);
-> >>>>>>          } else {
-> >>>>>>                  if (reg_offset =3D=3D SOC15_REG_OFFSET(GC, 0, reg=
-GB_ADDR_CONFIG_1) &&
-> >>>>>>                      adev->gfx.config.gb_addr_config)
-> >>>>>> --
-> >>>>>> 2.43.0
-> >>>>>>
-> >>>>>
-> >
->
