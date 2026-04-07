@@ -4,98 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 244B7EDB7DC
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:31:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A83BEDB7D4
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:31:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E74A10E382;
-	Tue,  7 Apr 2026 09:31:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7E1C10E399;
+	Tue,  7 Apr 2026 09:31:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fj7GuhKT";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IMDz3WbH";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RzmRA1WQ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MSb+qC/H";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEEBB10E382
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:31:24 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C316410E397
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:31:30 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6376Wjcs3402384
- for <dri-devel@lists.freedesktop.org>; Tue, 7 Apr 2026 09:31:23 GMT
+ 6376L9iG3537351
+ for <dri-devel@lists.freedesktop.org>; Tue, 7 Apr 2026 09:31:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=no6GmN1FeKv2TMsDqdpgcy
- RTsovznCVnpZx+ew88y/c=; b=fj7GuhKTzcP1FSYoJcErC/suupVPGRtLzj8gsn
- HMU0u/rFXc/2XD9X79GwxqXZdLP2zKDdOlmYf3lM5UTE0KCVhHBTuJbPukxSaC1G
- vtj0xzke5eCUwZDr6iZUyT9+dWQa/My3MsNM2FzmazeM3BbVPU5tenxGKue8e/Fr
- VeTPtEekoJrE9BM2NfH+Vg8ts4DrUrw3SXcUkMAQmRjAC7XncGCcuPemOTD4x24j
- 1josFXQOHrcqD5KGxcwLdFj4zDJjOOz8//eCdERVNTV6Jh0Qy6FPG7/GrUUXhB7i
- ca1df1kYN3FXShIpZNWAMnvQuSkYASPifB1dyEfy6iMyREQQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmrht1vs-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ vjxepcNfcMFp0kM4FwikjtT6M4X71nel3jc1Rp4eDPk=; b=RzmRA1WQC21TiocN
+ GJ0ald+eVXqwFx9+c/RuktHOrXgNsFoXWlk0PQrx8zLVS7uT8Jiy8aatFZujH+M+
+ GOrQagM8No/lWDadgrDj+ehFnZTrwqMsrEswI4+Bp+bfxr/K4Hh5PkUqNCdUcKUF
+ QVDfi45Z1yktVIUXq2U58UFdsHUiRGNTipu8fPF7ql8ZnwghRblLXC4YhecIWjBb
+ GnnYlOde/eW6PgESM+v3CQ9bXEGF/pnzvhZARGERUMxlN89+niNEe3VV0FSJ0PPr
+ toBIJaorlDrlughJaGDEJaNTUQozTvUlQJE/5FIXHz9dyhNc0eDlFZ07+KxNefep
+ vDs55w==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmra22mw-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 09:31:23 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2b0c30b51bfso105697715ad.0
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:31:23 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 09:31:30 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2b24308165dso124750695ad.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:31:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775554283; x=1776159083;
+ d=oss.qualcomm.com; s=google; t=1775554289; x=1776159089;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=no6GmN1FeKv2TMsDqdpgcyRTsovznCVnpZx+ew88y/c=;
- b=IMDz3WbHZsI2ax1pKDpZa3qYp8hFxxqjytAnxXxoLUXhZkX2S1zL+bCqCqeWFTIhBd
- jYtFudtIxYdQTMg/VjibUB7aE5D41580TvvCx3GOetFG28v7lPeghKvgvODhMP4QzJl1
- qvaW+HtGDXfa6E2ofebunXPAn1TB3gxxvADTYipMIlaCiZArIb6dbqeGf52gG9Wi+BnL
- hz+aBOYtDhz6hjBI8LVMeKk8FIXpri64T7dhYqnXTWDNdgnB98mfKJKsgUbDsiExr+kY
- P6r4NUgfRk6zixoMDr1QQcFzojIG6lwDM9N8zNG+WAOeQf29nnSBMaBj2eqwqU1wWsRm
- Btcw==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=vjxepcNfcMFp0kM4FwikjtT6M4X71nel3jc1Rp4eDPk=;
+ b=MSb+qC/HvjSUalTa9hoy4b/OXeknpS94gWZOwXf0DkR1ZYWQYG8Oo/I37A2/X4o2/t
+ y2vaUUc+8B8zmqZ363ER++qnlXf4zkGkliw5w+R5R47rG9FFQoOtV79VTjyY2dw+ez1K
+ cEWPeLpy9w2UYmN3iSDRngnNCbQ7TobFGNUi0wHTY+cGndIjKZ7kGXmjEElYh6tUhtnq
+ PnoGHq5XSQdV5Yqh9WuW9HxI9rfX0Gxt1BOF2VAh990UwwZtloNc7IQeaU7lu+O54nbE
+ XRfhYJ31HSEtWj23Jf8m9UMoy9tU0Tl+45jknY6gHpMuJp0ZINvshYCT4q9z8oqFIEVh
+ VQ4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775554283; x=1776159083;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=no6GmN1FeKv2TMsDqdpgcyRTsovznCVnpZx+ew88y/c=;
- b=AqIt+AVfsttSq0hxqUGfj2xwzRz+WDX5rLdYlkfJrqcaqwnRebOLxMSfCDLcMiXxjl
- 5QOT0iK64Er+DPGHg6E2EZQVXVCy+PT2gb/ZX6/8nxQE1HkmI6kIvV3yII8XJPNjeKoI
- jvFgxAhW8fqQxzMk2rTYaRh3xyGVASaHz4EK/scbpSD+Rx2HjDRK2x3bAvC6AmwMfol5
- cP9uT+vBCHGIHaJG7dfIrKsTVWcPa8nIzjCt5YSiP4HucujC1XS/fyYTKckYB7BCpW3Y
- p5nSF13N8x51d4hk22RmMWqAXMrTzgmgluMZEBmq3EIStARqFB2qCd+RT34K5CPxDCSj
- Sxqg==
+ d=1e100.net; s=20251104; t=1775554289; x=1776159089;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=vjxepcNfcMFp0kM4FwikjtT6M4X71nel3jc1Rp4eDPk=;
+ b=m6JdxK6yeYLtwgmEs2atRCafGRjVAaJIjoefvkwSCbMESajgwvQ5QLAUSupj4JRqNC
+ 8xoo3ByQLD7gKlbmAPvIh/Qm6NOT59El87UiSNZP2gDvR8NpYcSnlY9qTO94byudhzzU
+ IeWhIdDh1jpRmvyMZYGy2P2RaeFjI9yhHbp7zAfUYyRZslDOgS0rrnQ1YENQ9NQLLWvl
+ JU6VpMa6OITERG9deIgTo+h83Uyfuu/a3NilcRsHcgDFWaY3cf9NLzmGDgsqgcMzJFs9
+ EQlfTrkMn7lPLz9rNUhxf8+NKDFIooLiyT5DsgiDeg0wcSraBOlXDPGPdhENgtpMpnwX
+ Z3uA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU2Zz3Va6gmmZxuXLAIisDpqkLFyDF0N0HCvlAeGVZ02LDnybIBZ/CDAR5wxKqxIyLkF5Y+84wxtNk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRRLm0qtasBwbBTzMo4RMm1gSAiUo9NOOvIWWE0jXqknrk2jrv
- ccUqw+6ZfBhMWioLuCONzHcQGaE+xzM1W/TP9vgQidl5CYuVYd9XFfdIZpsAYvUpcrlQAsmRHZ4
- gQCzXC957937IdksJERA5bLzOzp1x6217Y5z1FCRwSwUwI1MAvLFjR701P8ixcISbM8AERow=
-X-Gm-Gg: AeBDiev/wumsKNpeO4469YqrYAZzGaicETDekU4+7PcQBfIoGnvn0fiWaSZ9zBowaTl
- e9gjko1Dxyh8e+Ce0HvmB5FMjgFXbNWKXiarz0HHM+36etIkCHq202ljenAFFslFDYAhyTg07z6
- cCS8yyUr/uOWcTcu1bziOFcN2sGOt0rsbaUrCZiDrTUCSKkaiqRKMQbExlxFde2R3guFRnRpnJ7
- umrsAZcjDk3bSP9mg2ikcLd/wQ4GGYXrg6s8KbsifRcr3tysEkuiECtaDRm8K3Kje9osE0ZeRXe
- bUNJ+QsUQYLelDSk28pC0Fe546ENj7YhuhovmUNV2RXqHAxHGMnWgbUZq7ATKeqifyOZPQ2ppHY
- V4jQcNgmZAadNwz+DwWuLV72df+5y8gqIUiYKJ51kdaty6g==
-X-Received: by 2002:a17:903:3508:b0:2b2:50e1:f104 with SMTP id
- d9443c01a7336-2b281706efbmr176573405ad.3.1775554282627; 
- Tue, 07 Apr 2026 02:31:22 -0700 (PDT)
-X-Received: by 2002:a17:903:3508:b0:2b2:50e1:f104 with SMTP id
- d9443c01a7336-2b281706efbmr176572955ad.3.1775554282039; 
- Tue, 07 Apr 2026 02:31:22 -0700 (PDT)
+ AJvYcCXmLs5HCsonoAmi1/YMqCgwVcEPiq+AYavMFpmJhRUl+FkN130PCOxp4oPYRvMCw6pcq2aILhSh7fc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTEKKmTF+KOQFfqtqr1mXNQ/FNPEObjZEC8Z2q+Mh8YUlvPHF1
+ cycXf+NaO1LVDbxlCIVby0oANnXe4T+sqvmgAOCizn258oZkLu2EGUHlSP9SGXy6GNW5XbZJohd
+ 4vAep50AEFofjMo7vqV8Vze75x/q3UResWUiXDrWNrqOGVKymjKHBiWwBhl0J0zhN5HslAFY=
+X-Gm-Gg: AeBDietKXvCSkuTo1Xy8/vJEnsovowE1rnbuq5ktoYqE2KsFoyjRqAzPIz1WEY8ncV0
+ xlMefXaENMIpz79fq4uvxQQ+/XkFvPusGDCHF/LFDC0/15qzyI46w6/im6h25mJWEDyR3QpB0d+
+ 0oX5EyXkF3qRL+HRkLy0rfMfKcLyPo4xUbqm0nfuqLEIgGuAwgeIj4JEyOQcXa9wCSy1oBYtUpR
+ X0MxfDnP3OqI2UGxld6c5FTaqZaZR57dxsNFP6969AM/dxiDyEgIQO3mLjpgFH+Tb3UI5xUZxQ6
+ XskRro/2cb6UrZnoJi+aIBll3r5/JYbtgf54xUPZuuSKHARiZMH9SUSnFOSww3oHvdQg7f7SFT5
+ yXfsT9ep5fDeB9XkenfaGMTj5ZlfTR0zz1vIjp3P3oaitCg==
+X-Received: by 2002:a17:903:1b4b:b0:2b2:5c31:24bf with SMTP id
+ d9443c01a7336-2b28175bf51mr176450225ad.19.1775554289486; 
+ Tue, 07 Apr 2026 02:31:29 -0700 (PDT)
+X-Received: by 2002:a17:903:1b4b:b0:2b2:5c31:24bf with SMTP id
+ d9443c01a7336-2b28175bf51mr176449715ad.19.1775554288963; 
+ Tue, 07 Apr 2026 02:31:28 -0700 (PDT)
 Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b27478bc96sm172888365ad.33.2026.04.07.02.31.15
+ d9443c01a7336-2b27478bc96sm172888365ad.33.2026.04.07.02.31.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Apr 2026 02:31:21 -0700 (PDT)
+ Tue, 07 Apr 2026 02:31:28 -0700 (PDT)
 From: Taniya Das <taniya.das@oss.qualcomm.com>
-Subject: [PATCH 0/6] qcom: Refactor GPU GX GDSC handling and IFPC behavior
- on A8x GPUs
-Date: Tue, 07 Apr 2026 15:00:50 +0530
-Message-Id: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
+Date: Tue, 07 Apr 2026 15:00:51 +0530
+Subject: [PATCH 1/6] clk: qcom: gdsc: Add custom disable callback for GX GDSC
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAMrO1GkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDEwMz3fS0Ct3knGzdtMyK1GJdI5NEE0ujpCRzM3MzJaCegqJUsARQS3R
- sbS0AQqIcQV8AAAA=
-X-Change-ID: 20260406-gfx-clk-fixes-24a492bb7676
+Message-Id: <20260407-gfx-clk-fixes-v1-1-4bb5583a5054@oss.qualcomm.com>
+References: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
+In-Reply-To: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>,
@@ -114,34 +112,32 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
  Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Taniya Das <taniya.das@oss.qualcomm.com>,
- Pengyu Luo <mitltlatltl@gmail.com>, Alexander Koskovich <akoskovich@pm.me>
+ freedreno@lists.freedesktop.org, Taniya Das <taniya.das@oss.qualcomm.com>
 X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA4NyBTYWx0ZWRfX3tU+qFxQK6xu
- 2NSyHK3WerBqKSe5gviZuv3qiy7nLkwuuwJOMfwozgh/0J2pW+IVtcGkBmgqPmRYmt51K2sDLg0
- tNTzDnN4wYOLV4wZCj3IWjTFJtk9gqPyEB/9hVEhq/nAc+NmRfMd9r50IBl3qjNVln9A7zQw16t
- bznpRciSwd9eO9Cx5Ajvy60winbOadnVLIf2iLxuNehETbsFDZgt7PTBagSCF+CW+DrAtK9pQAh
- IZI6PgB6BLRYnZOrOgsl13NXDjJDrTrrmYg/vGXHKvgbXbd7uwngZ5/20XUx5+V+BS25Y/Q5svM
- jm04nlzw+41b+numpSoqzfscjPQ80CzjbytHMmHeJTSIv46csplfvD+yEWq5hLBx3CsXopdyYq2
- Ljz4Fj1UHrFhJIkQ94yMESfem9H8szcMh4xHDUSblEVElchuxHaKIT/6Aulk+3Ptooq23uXCeI6
- nDp4XydK5fg7lL6mM3g==
-X-Proofpoint-GUID: dv5qmGjCXzPH-lO36HcJI3LsBgLH9mMC
-X-Authority-Analysis: v=2.4 cv=XPUAjwhE c=1 sm=1 tr=0 ts=69d4ceeb cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-ORIG-GUID: DlyYgm1CVABCUlSmU1D7fGMZs69mi8Gb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA4NyBTYWx0ZWRfX869XHHLRA7bA
+ JP5rKY/NxAI3edu9eSEW5oiyfQiOkth3wDkuONNdkkhfdPV8qQveDWJWdE+Q9G6JnITBMqdEIIj
+ PFIgyNKZzkkfH9SlsyxquAHoKZLDGpzJCh6pbd5XsxtbovtmFpiS5MK+VNzFHQj4RHIHuVd5x8P
+ xFBGYcdLiKKnghaXbhEOBediQ9/ABjxRBZDoTeGEpPvByVrwSAG79c7kArwBKYTaZAGBVXXZzmV
+ PnsJcGMpD4Ltu0mwx7Czr3e1ulBfBTKb+T4Y8QUV9pSBWU4SeXQ8gWol2oUY4wcaBcvJ86lt+mr
+ apFCBernWARIUtUH1mRY9Xw+2h1W/e0cgExJUkzoUHpyQw9xwWNjh9I6eW0rzpCd2oGTJSAj8x3
+ AKhJmBPyHy0f1HnD9rjndLtu64w9erG5xt3klj+oH9p7L8lCL3pgGx8rO37RnWnTS2LFEAinPS6
+ DV7uavy1ASt1Mbm8pNg==
+X-Authority-Analysis: v=2.4 cv=BKGDalQG c=1 sm=1 tr=0 ts=69d4cef2 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=zYEJGWroTao7pyO8AgkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: dv5qmGjCXzPH-lO36HcJI3LsBgLH9mMC
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=6udHJU8j9nUP921WRPkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: DlyYgm1CVABCUlSmU1D7fGMZs69mi8Gb
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-07_02,2026-04-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- clxscore=1011 adultscore=0 phishscore=0 bulkscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604070087
+ lowpriorityscore=0 phishscore=0 clxscore=1011 bulkscore=0 suspectscore=0
+ spamscore=0 impostorscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070087
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,113 +153,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series fixes two closely related issues around GX GDSC ownership and
-rail control on A8x GPUs, where recent hardware changes and runtime PM
-interactions violate GMU and IFPC(Inter Frame Power Collapse) architectural
-expectations.
+From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 
-Problem statement 1: Incorrect GX GDSC disable by OS
-----------------------------------------------------
-GX GDSC is a special GPU power domain that must be exclusively controlled
-by GMU firmware during normal operation. The OS is expected to force‑
-disable GX GDSC only during GPU/GMU recovery.
+The GX GDSC is a special power domain that should only be disabled
+by OS during GMU recovery. In all other scenarios, the GMU firmware
+is responsible for handling its disable sequence, and OS must not
+interfere.
 
-However, when GX GDSC is managed through the generic GenPD runtime PM
-framework, it can be unintentionally disabled by the OS during system
-resume (resume_noirq/complete phases) or runtime PM suspend paths. This
-can race with GMU firmware usage and result in warnings such as:
+During the resume_noirq() phase of system resume, the GenPD framework
+enables all power domains and later disables them in the complete()
+phase if there are no active votes from OS. This behavior can
+incorrectly disable the GX GDSC while the GMU firmware is still using
+it.
 
-  gx_clkctl_gx_gdsc status stuck at 'on'
+To prevent this, implement a custom disable callback for GX GDSC that
+relies on GenPD’s synced_poweroff flag. The GMU driver sets this flag
+only during recovery, allowing OS to explicitly disable GX GDSC in
+hardware in that case. In all other situations, the disable callback
+will avoid touching GX GDSC hardware.
 
-and failures in gdsc_toggle_logic(), leading to broken GPU suspend/resume
-behaviour.
-
-Solution:
-Introduce a custom disable callback for GX GDSC that prevents the OS from
-touching GX GDSC hardware during normal runtime PM and system PM flows.
-The callback relies on GenPD’s synced_poweroff flag, which is asserted by
-the GMU driver only during recovery, explicitly allowing GX GDSC to be
-disabled by the OS in that case.
-
-This ensures strict GX GDSC ownership by GMU while still supporting
-recovery use cases.
-
-Problem statement 2: Unintended GX/GMxC rail votes from APPS RSC
---------------------------------------------------------------
-On A8x platforms, GX GDSC has been moved to a dedicated GXCLKCTL block
-under the GX power domain. Due to the current runtime PM device links
-between supplier and consumer, when GMU device is moved to RPM_ACTIVE
-state, GXCLKCTL device will also be moved to RPM_ACTIVE and result in
-GX/GMxC rail votes from the OS.
-
-This behavior conflicts with IFPC and Adreno architecture requirements,
-which mandate that GMU firmware must be the sole voter of these
-collapsible rails on behalf of the GPU. Linux is expected to intervene
-only during GPU/GMU recovery.
-
-Solution:
-The runtime PM of GXCLKCTL can be disabled post the GX CLKCTL is runtime
-suspended in probe, so the runtime PM requests of GMU device are not propagated
-to its supplier GXCLKCTL.  To avoid incomplete runtime suspend during probe on
-clock controllers using runtime PM, ensure pm_runtime_put_sync() is used so that
-runtime PM suspend completes before returning from probe.
-
-This along with GMU driver change to vote on GX GDSC only during GMU recovery will
-prevent the votes on GX/GMXC rails from APPS RSC during normal GMU operation.
-
-Patch overview:
---------------
-1. clk: qcom: gdsc: Add custom disable callback for GX GDSC
-   - Prevents unintended GX GDSC disable outside recovery.
-
-2. clk: qcom: gxclkctl: Use custom disable callback for gx_gdsc
-   - Applies the custom behavior to GXCLKCTL and fixes runtime PM warnings.
-
-3. clk: qcom: common: ensure runtime PM suspend completes on probe
-   - Guarantees synchronous runtime suspend during probe.
-
-4. clk: qcom: gxclkctl: Remove GX/GMxC rail votes to align with IFPC
-   - Eliminates unintended APPS RSC rail votes, restoring GMU ownership.
-
-5. drm/msm/a8xx: Make a8xx_recover IFPC safe
-   - Makes the A8xx recovery path IFPC‑aware by checking GX power‑domain
-   state before accessing GX MMIO, matching a6xx behavior.
-
-6. drm/msm/a6xx: Limit GXPD votes to recovery in A8x
-   - Removes GXPD voting from normal GMU runtime PM and restricts it to
-   recovery using the synced_poweroff mechanism.
-
-Together, these changes restore strict GMU ownership of GX GDSC and GPU
-rails, align Linux behavior with IFPC architecture, resolves reported
-runtime warnings and failures, and enable correct power collapse of
-GX/GMxC on A8x GPUs.
-
+Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 ---
-Akhil P Oommen (2):
-      drm/msm/a8xx: Make a8xx_recover IFPC safe
-      drm/msm/a6xx: Limit GXPD votes to recovery in A8x
+ drivers/clk/qcom/gdsc.c | 22 ++++++++++++++++++++++
+ drivers/clk/qcom/gdsc.h |  1 +
+ 2 files changed, 23 insertions(+)
 
-Jagadeesh Kona (1):
-      clk: qcom: gdsc: Add custom disable callback for GX GDSC
+diff --git a/drivers/clk/qcom/gdsc.c b/drivers/clk/qcom/gdsc.c
+index 95aa071202455421d818171d04f95d15e2b581fa..ab5d741a2e2351bfac06a6814c5a8ba7355bc8bc 100644
+--- a/drivers/clk/qcom/gdsc.c
++++ b/drivers/clk/qcom/gdsc.c
+@@ -675,3 +675,25 @@ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain)
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(gdsc_gx_do_nothing_enable);
++
++/*
++ * GX GDSC is a special power domain. Normally, its disable sequence
++ * is managed by the GMU firmware, and high level OS must not attempt
++ * to disable it. The only exception is during GMU recovery, where the
++ * GMU driver can set GenPD’s synced_poweroff flag to allow explicitly
++ * disable GX GDSC in hardware.
++ */
++int gdsc_gx_disable(struct generic_pm_domain *domain)
++{
++	struct gdsc *sc = domain_to_gdsc(domain);
++
++	if (domain->synced_poweroff)
++		return gdsc_disable(domain);
++
++	/* Remove parent-supply placed in enable */
++	if (sc->rsupply)
++		return regulator_disable(sc->rsupply);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(gdsc_gx_disable);
+diff --git a/drivers/clk/qcom/gdsc.h b/drivers/clk/qcom/gdsc.h
+index dd843e86c05b2f30e6d9e978681580016333839d..495daebaf99519ba0571070b41d133ee867c4fd3 100644
+--- a/drivers/clk/qcom/gdsc.h
++++ b/drivers/clk/qcom/gdsc.h
+@@ -88,6 +88,7 @@ int gdsc_register(struct gdsc_desc *desc, struct reset_controller_dev *,
+ 		  struct regmap *);
+ void gdsc_unregister(struct gdsc_desc *desc);
+ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain);
++int gdsc_gx_disable(struct generic_pm_domain *domain);
+ #else
+ static inline int gdsc_register(struct gdsc_desc *desc,
+ 				struct reset_controller_dev *rcdev,
 
-Taniya Das (3):
-      clk: qcom: gxclkctl: Use custom disable callback for gx_gdsc
-      clk: qcom: common: ensure runtime PM suspend completes on probe
-      clk: qcom: gxclkctl: Remove GX/GMxC rail votes to align with IFPC
-
- drivers/clk/qcom/common.c             |  2 +-
- drivers/clk/qcom/gdsc.c               | 22 ++++++++++++
- drivers/clk/qcom/gdsc.h               |  1 +
- drivers/clk/qcom/gxclkctl-kaanapali.c | 12 ++++++-
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 64 +++++++++++++++++++++++++++++------
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 15 +++++---
- 6 files changed, 99 insertions(+), 17 deletions(-)
----
-base-commit: 2febe6e6ee6e34c7754eff3c4d81aa7b0dcb7979
-change-id: 20260406-gfx-clk-fixes-24a492bb7676
-
-Best regards,
 -- 
-Taniya Das <taniya.das@oss.qualcomm.com>
+2.34.1
 
