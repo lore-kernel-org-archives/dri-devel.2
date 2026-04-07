@@ -4,42 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482A4FF5107
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F5A9FF5107
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4F1F10E2C6;
-	Tue,  7 Apr 2026 15:25:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 282D910E458;
+	Tue,  7 Apr 2026 15:27:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MQrltge4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="orNcS3en";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1nSXPBP2";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="orNcS3en";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1nSXPBP2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5381710E2C6
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:25:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 901B660132;
- Tue,  7 Apr 2026 15:25:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE491C19424;
- Tue,  7 Apr 2026 15:25:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1775575520;
- bh=J2VTavdbdehJYRbSk2SrBfChlQkW+kizQkX9Jl35aIU=;
- h=Subject:To:Cc:From:Date:From;
- b=MQrltge45EM3DlJGb0hvFpUQDF2b/xzWQjPPD/w0dh4DHUlB9ZyzZ2LePk/TbYHvK
- fwmSFpVDa6I6K6PTGJKi1anOmnZ3MAljqUWaKPM+j6Lfr+GiVZ/bR6CN6dr0L1dj6V
- Uu8qnDJPCSRLNgCk70cuIcG9KKlzRSIj5CB3MefU=
-Subject: Patch "drm/ast: dp501: Fix initialization of SCU2C" has been added to
- the 6.19-stable tree
-To: airlied@redhat.com, dri-devel@lists.freedesktop.org,
- gregkh@linuxfoundation.org, jfalempe@redhat.com, tzimmermann@suse.de
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 07 Apr 2026 17:20:36 +0200
-Message-ID: <2026040736-playgroup-fifty-dc34@gregkh>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FF2210E458
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:27:38 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F29634E4EB;
+ Tue,  7 Apr 2026 15:27:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775575657; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0OBtpStnSK4lEKUyGV5rLnq/J20wHKNPY+gbXHPmL+o=;
+ b=orNcS3encMox92stCLKzz0MYqv58VAR356k8cA5y9iVG5K8CYcwlVPFsLx85/mwXDPcjNJ
+ KR5QDIzR5it4RP8ohFy0YdJqp7R82iKCdzkj04KbAYz7K+Rh1tPHSfExh0MOPMyWFZHulV
+ 7Q1o4rydYHsYfU0Vj1WBiul0VGVPZoo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775575657;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0OBtpStnSK4lEKUyGV5rLnq/J20wHKNPY+gbXHPmL+o=;
+ b=1nSXPBP2vcqSfCEoz4g2tolZxk1V96jz07t2pH8WqPE3FI9nZyOaB5wlZvzbQWS3lzVaNn
+ 8OBvXUBQ7VxzLsDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775575657; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0OBtpStnSK4lEKUyGV5rLnq/J20wHKNPY+gbXHPmL+o=;
+ b=orNcS3encMox92stCLKzz0MYqv58VAR356k8cA5y9iVG5K8CYcwlVPFsLx85/mwXDPcjNJ
+ KR5QDIzR5it4RP8ohFy0YdJqp7R82iKCdzkj04KbAYz7K+Rh1tPHSfExh0MOPMyWFZHulV
+ 7Q1o4rydYHsYfU0Vj1WBiul0VGVPZoo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775575657;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=0OBtpStnSK4lEKUyGV5rLnq/J20wHKNPY+gbXHPmL+o=;
+ b=1nSXPBP2vcqSfCEoz4g2tolZxk1V96jz07t2pH8WqPE3FI9nZyOaB5wlZvzbQWS3lzVaNn
+ 8OBvXUBQ7VxzLsDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A35034A0B0;
+ Tue,  7 Apr 2026 15:27:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kF93Jmgi1WmVSwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 07 Apr 2026 15:27:36 +0000
+Message-ID: <09219554-3619-41ad-875f-f77620319a6d@suse.de>
+Date: Tue, 7 Apr 2026 17:27:36 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/fb-helper: Fix a locking bug in an error path
+To: Bart Van Assche <bvanassche@acm.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Nathan Chancellor <nathan@kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
+References: <20260403205355.1181984-1-bvanassche@acm.org>
+ <1c03e4d8-0eac-4863-a18d-1ea750c853fb@suse.de>
+ <c8c6b2a0-4ef4-44df-9f38-4f5b8d50dac4@suse.de>
+ <a4cfd10b-bdcb-431d-991d-ca664eaa2a98@acm.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <a4cfd10b-bdcb-431d-991d-ca664eaa2a98@acm.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCPT_COUNT_SEVEN(0.00)[11];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ MID_RHS_MATCH_FROM(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,amd.com,oss.qualcomm.com,redhat.com,gmail.com,ffwll.ch,lists.freedesktop.org];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email,
+ imap1.dmz-prg2.suse.org:helo, intel.com:email, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,67 +148,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi
 
-This is a note to let you know that I've just added the patch titled
+Am 07.04.26 um 17:17 schrieb Bart Van Assche:
+> On 4/7/26 12:47 AM, Thomas Zimmermann wrote:
+>> (cc: dri-devel)
+>
+> Hi Thomas,
+>
+> Is dri-devel the right mailing list to Cc for this patch? If so, how 
+> about adding an L: line to the drivers/gpu/drm/ entry in the MAINTAINERS
+> file? That entry currently doesn't have an L: line as one can see below:
 
-    drm/ast: dp501: Fix initialization of SCU2C
+It is covered by the general "DRM DRIVERS" entry and tools seem to get 
+it right.
 
-to the 6.19-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+But yeah, that L: entry seems missing here. And it's so obviously 
+missing that I wonder if it's intentional.
 
-The filename of the patch is:
-     drm-ast-dp501-fix-initialization-of-scu2c.patch
-and it can be found in the queue-6.19 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 2f42c1a6161646cbd29b443459fd635d29eda634 Mon Sep 17 00:00:00 2001
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Date: Fri, 27 Mar 2026 14:32:53 +0100
-Subject: drm/ast: dp501: Fix initialization of SCU2C
-
-From: Thomas Zimmermann <tzimmermann@suse.de>
-
-commit 2f42c1a6161646cbd29b443459fd635d29eda634 upstream.
-
-Ast's DP501 initialization reads the register SCU2C at offset 0x1202c
-and tries to set it to source data from VGA. But writes the update to
-offset 0x0, with unknown results. Write the result to SCU instead.
-
-The bug only happens in ast_init_analog(). There's similar code in
-ast_init_dvo(), which works correctly.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 83c6620bae3f ("drm/ast: initial DP501 support (v0.2)")
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: Dave Airlie <airlied@redhat.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v3.16+
-Link: https://patch.msgid.link/20260327133532.79696-2-tzimmermann@suse.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ast/ast_dp501.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/drivers/gpu/drm/ast/ast_dp501.c
-+++ b/drivers/gpu/drm/ast/ast_dp501.c
-@@ -436,7 +436,7 @@ static void ast_init_analog(struct ast_d
- 	/* Finally, clear bits [17:16] of SCU2c */
- 	data = ast_read32(ast, 0x1202c);
- 	data &= 0xfffcffff;
--	ast_write32(ast, 0, data);
-+	ast_write32(ast, 0x1202c, data);
- 
- 	/* Disable DVO */
- 	ast_set_index_reg_mask(ast, AST_IO_VGACRI, 0xa3, 0xcf, 0x00);
+Best regards
+Thomas
 
 
-Patches currently in stable-queue which might be from tzimmermann@suse.de are
+>
+> DRM DRIVERS AND MISC GPU PATCHES
+> M:    Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> M:    Maxime Ripard <mripard@kernel.org>
+> M:    Thomas Zimmermann <tzimmermann@suse.de>
+> S:    Maintained
+> W: https://drm.pages.freedesktop.org/maintainer-tools/drm-misc.html
+> T:    git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> F:    Documentation/devicetree/bindings/display/
+> F:    Documentation/devicetree/bindings/gpu/
+> F:    Documentation/gpu/
+> F:    drivers/gpu/drm/
+> F:    drivers/gpu/vga/
+> F:    include/drm/drm
+> F:    include/linux/vga*
+> F:    include/uapi/drm/
+> X:    drivers/gpu/drm/amd/
+> X:    drivers/gpu/drm/armada/
+> X:    drivers/gpu/drm/etnaviv/
+> X:    drivers/gpu/drm/exynos/
+> X:    drivers/gpu/drm/i915/
+> X:    drivers/gpu/drm/kmb/
+> X:    drivers/gpu/drm/mediatek/
+> X:    drivers/gpu/drm/msm/
+> X:    drivers/gpu/drm/nova/
+> X:    drivers/gpu/drm/radeon/
+> X:    drivers/gpu/drm/tegra/
+> X:    drivers/gpu/drm/tyr/
+> X:    drivers/gpu/drm/xe/
+>
+> Thanks,
+>
+> Bart.
 
-queue-6.19/drm-ioc32-stop-speculation-on-the-drm_compat_ioctl-path.patch
-queue-6.19/drm-sysfb-fix-efidrm-error-handling-and-memory-type-.patch
-queue-6.19/drm-ast-dp501-fix-initialization-of-scu2c.patch
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
