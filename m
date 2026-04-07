@@ -4,100 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE876FEEF52
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:01:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02463FEEF56
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2920D10E441;
-	Tue,  7 Apr 2026 15:01:09 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MWWFNl95";
-	dkim-atps=neutral
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFE6E10E441
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:01:07 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-8cd71fb9f06so328488485a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 08:01:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775574064; cv=none;
- d=google.com; s=arc-20240605;
- b=NPV+1KAVBP0AsIjeZyvVi1XLVYJLRGBAbYMn6+KMJ2P0bcZcpVmjdNc0VNX6ey7jg7
- 38wrnrOWb0tEzp2EfWLBNh28LrP8MHYx9mKJ5XYdPzB5rYq46/MWZPzkEyE3DODHlDgb
- Ct3Ro9XVuIgzkSicXzhz3NOOyIveHYXEUBHDzviNrFfExPipY9NQsm1dhsWU9b3ZI8WA
- SvwYtGbd9HUx5M2ULU8z9SyeQRoF/RTVY38bi/2yyjFJTh15w/SrzK0NR4g/rnv1ripO
- o1+UfIZkijKZiIzGTswoYIyiVPKC0V/KarFOK7aAKEOvX2/kKAh2SN6SqEcjWC25Leq8
- VCmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=3lNjW+dxr/buBuPTrI5vfayHnWO+C+X6rAlTXc04424=;
- fh=McaDjl/BWetYR5N+Gvg61UIyVSsIZnEhM32wk4r8ucA=;
- b=K6eNQYF0kHAsxmK3CG61q1WDCOQWaT67oeUw+WYlGQH4YHQ8FtuWGCEby5u14xhCU+
- WfbBPJbMA6mk0Wr6VUdDOvtRhe/yj8mays32jzxBOSz1jxWplWnCsohvZ2dB6PUP3ocp
- WdBY4KO+7Cr6toKlMZtPDrbcRzb4mU0pZd6WLnaU2PwJ5ZrhUotnrYsCxONUoXapqW10
- FyJtzTs3nTZUSY0mukWAbmp7VqO3M5rYdNYGQ3JrQB+LgoJMWl0+YsZvj/33Ac1MndNK
- fgraiuex+q97JynTmfh4jBiimsV7nn3p3pRhbXK3kM/ZCXEqgag3nn+YP+n6oWJM3QXw
- Witg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775574064; x=1776178864; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3lNjW+dxr/buBuPTrI5vfayHnWO+C+X6rAlTXc04424=;
- b=MWWFNl95CNKQOT6xxLabGVio0QDr4OZeMzjOmHqztmUC5FhXp/Pvde+HpWtrzThifk
- XHfeuXDZY1VN1+K6/FB3p0iTIPsGGerOzmGIWHB9DC5SIH10p0GFKmFElV8uEl+srsFi
- bC34xVX7smpRJxEEx6+NR9ecUJwWEm1tIjYztV0zcAi+24qIhM/Iv3K4kOQr7mjibv8o
- SwNoGg4HJuJXb2MbLu80C9PTOtMDTkJhhiBAdzOVV8IVbNBi35z96p9Kgp7fCjzf/C4h
- fEb9/siN2eHAKmmefdGcWtv0QnIPr5vCuG3+y8d0YjLm2h+opw3G9IFzayRjKS0L8tix
- dKlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775574064; x=1776178864;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3lNjW+dxr/buBuPTrI5vfayHnWO+C+X6rAlTXc04424=;
- b=dZANw5+GlDgncDPLhQCt4GKMywfxpYfUp4QfDDczJGxnJipKX5xcSvqAFWXruRy3cE
- JjusEXTcnfKO23nuM93seTkreF3euVtgOJ21nEqMSxAg4z4usMKJLbdgb00ifvO1SGHR
- 84Qudg1ieEKnZF97SsiNVTDHw+3DSpC2RK6HD7eXxaQFu7l2MDb/IQKMBeAgY318Xkjx
- Gc2IcdX4l63SjH+CN6SpsESzoQZow8HxLlilRM8Qlabgn3Mbxr5z3yeuRQzJacphc166
- jVRmlykwzr597yzAmByxFPEPtPJVW5x471jsT0glMPFi9zSAy0J4PTlXXy/ZEDw4vTim
- Mnmw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVjCyoiWS3HhryMpmG4VEJn+h5HdDzcom8+sGo1zAkCOa8dFjO7tMCsm0+islhVEfvyHDxI3Vy72NQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHrSHx+58K5MaeDh+vz3nAWQ0YyNQ0214GVA7hMNSeRdkH3/4i
- IJVLRujG5wJXHiL1tMApvjW0jQLce7PMPQuko5+QcbRhqErULkuz4ZCETPMffCcZ7JKunwn+o3o
- ap0uOfFDwoAOtDb+wr6o4N9+P0o2ikfE=
-X-Gm-Gg: AeBDievxNZT1EvQBcADhaave9coYTluCfCYEvH6JfP1dN44Py2nEqtZ4yhjThN7vlj5
- ZUsHwH/8S+LwSMxo11Dv9sfueasnIur4GsGtI+1bzPRzvzlqZK6/f3UuHztU+NwI83dfx4wNRh9
- rbeAujBGkr9D5knxzk0Oq6jrSpLhWAGRMjmECQteHa/L5xaj4uxy8D216w4QP8sqorXPuAWchpU
- k4zLK+8kyg70V6YbhdSWCUoq8L9wTyL7wm9KXOSeBJ4MVZfURf6yWt/Vu/pw8MzwPWKTN/UV9CU
- LwuCEg==
-X-Received: by 2002:a05:6214:2f13:b0:89e:cb8b:a77e with SMTP id
- 6a1803df08f44-8a704abb8dfmr284541396d6.32.1775574064233; Tue, 07 Apr 2026
- 08:01:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66BE210E442;
+	Tue,  7 Apr 2026 15:01:45 +0000 (UTC)
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63C5B10E442
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:01:43 +0000 (UTC)
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+ by leonov.paulk.fr (Postfix) with ESMTPS id 21B8D1F8005C
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:01:26 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+ id 88E31B40191; Tue,  7 Apr 2026 15:01:24 +0000 (UTC)
+Received: from shepard (unknown [192.168.1.1])
+ by laika.paulk.fr (Postfix) with ESMTPSA id C0656B4018A;
+ Tue,  7 Apr 2026 15:01:22 +0000 (UTC)
+Date: Tue, 7 Apr 2026 17:01:20 +0200
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Lucas Stach <l.stach@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Krzysztof =?utf-8?Q?Ha=C5=82asa?= <khalasa@piap.pl>,
+ Marco Felsch <m.felsch@pengutronix.de>, Liu Ying <victor.liu@nxp.com>
+Subject: Re: [PATCH v2 2/2] drm: lcdif: Wait for vblank before disabling DMA
+Message-ID: <adUcQIor2tEMCn3R@shepard>
+References: <20260402183351.3281123-1-paulk@sys-base.io>
+ <20260402183351.3281123-3-paulk@sys-base.io>
+ <d6bbf0c23dc5cf0c6ab0375fb1d2d3f6b4579737.camel@pengutronix.de>
 MIME-Version: 1.0
-References: <20260326094308.1161335-1-wenst@chromium.org>
- <CGME20260327054445eucas1p2d1ac645faccf16272c3a12406400a364@eucas1p2.samsung.com>
- <CAGXv+5G2H3CSic5hCSd2g6RrfGyNSbpYS7Z9uo-XUn6No3a4Rw@mail.gmail.com>
- <52a26d5b-67ec-4a99-98f6-6216e930cdb7@samsung.com>
-In-Reply-To: <52a26d5b-67ec-4a99-98f6-6216e930cdb7@samsung.com>
-From: Inki Dae <daeinki@gmail.com>
-Date: Wed, 8 Apr 2026 00:00:27 +0900
-X-Gm-Features: AQROBzCwFYJ79nrP10FU2NCqyXv-mL-J9T-1EOFubFcU9cyDki20zWlIqj79km4
-Message-ID: <CAAQKjZO=h9uegjBOi7dqq0DM3o2B9gJ9mkM+40pEXMHY87unvw@mail.gmail.com>
-Subject: Re: [PATCH 0/4] drm/exynos: Random cleanups
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="tr3oA7U7+SI63nqs"
+Content-Disposition: inline
+In-Reply-To: <d6bbf0c23dc5cf0c6ab0375fb1d2d3f6b4579737.camel@pengutronix.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,34 +60,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-2026=EB=85=84 3=EC=9B=94 31=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 11:39, =
-Marek Szyprowski <m.szyprowski@samsung.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
-=84=B1:
->
-> On 27.03.2026 06:44, Chen-Yu Tsai wrote:
-> > On Thu, Mar 26, 2026 at 5:43=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.or=
-g> wrote:
-> >> Here are some cleanups for the exynos drm driver. This was done as par=
-t
-> >> of the conversion of the driver to GEM DMA helpers. These patches have
-> >> no dependency, unlike the actual conversion, so I am sending them
-> >> separately for inclusion now.
-> >>
-> >> Please take a look.
-> > I should add that these patches were only compile tested.
->
-> I've tested this on the real hardware and it works fine.
->
-> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-Thanks Marek, :)
-Inki Dae
+--tr3oA7U7+SI63nqs
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+Hi Lucas,
+
+On Tue 07 Apr 26, 10:28, Lucas Stach wrote:
+> Am Donnerstag, dem 02.04.2026 um 20:33 +0200 schrieb Paul Kocialkowski:
+> > It is necessary to wait for the full frame to finish streaming
+> > through the DMA engine before we can safely disable it by removing
+> > the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
+> > hardware confused and unable to resume streaming for the next frame.
+> >=20
+> > This causes the FIFO underrun and empty status bits to be set and
+> > a single solid color to be shown on the display, coming from one of
+> > the pixels of the previous frame. The issue occurs sporadically when
+> > a new mode is set, which triggers the crtc disable and enable paths.
+> >=20
+> > Setting the shadow load bit and waiting for it to be cleared by the
+> > DMA engine allows waiting for completion.
+> >=20
+> > The NXP BSP driver addresses this issue with a hardcoded 25 ms sleep.
+> >=20
+> > Fixes: 9db35bb349a0 ("drm: lcdif: Add support for i.MX8MP LCDIF variant=
+")
+> > Signed-off-by: Paul Kocialkowski <paulk@sys-base.io>
+> > Co-developed-by: Lucas Stach <l.stach@pengutronix.de>
+>=20
+> Looks good to me. Since the co-developed tag requires a sign-off from
+> me, I'll add that instead of a review tag. And you might want to move
+> your sign-off down, as you are the one submitting the patch.
+
+Sounds good to me! This can probably be done when picking up the patch,
+but if maintainers need me to respin the series to get all the tags in
+order myself, just let me know!
+
+All the best,
+
+Paul
+
+> Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
 >
-> Best regards
-> --
-> Marek Szyprowski, PhD
-> Samsung R&D Institute Poland
->
->
+> > ---
+> >  drivers/gpu/drm/mxsfb/lcdif_kms.c | 15 ++++++++++++---
+> >  1 file changed, 12 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/=
+lcdif_kms.c
+> > index a00c4f6d63f4..0d04a0028671 100644
+> > --- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > +++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
+> > @@ -375,14 +375,23 @@ static void lcdif_disable_controller(struct lcdif=
+_drm_private *lcdif)
+> >  	int ret;
+> > =20
+> >  	reg =3D readl(lcdif->base + LCDC_V8_CTRLDESCL0_5);
+> > +	/* Disable the layer for DMA. */
+> >  	reg &=3D ~CTRLDESCL0_5_EN;
+> > +	/*
+> > +	 * It is necessary to wait for the full frame to finish streaming
+> > +	 * through the DMA engine before we can safely disable it by removing
+> > +	 * the DISP_PARA_DISP_ON bit. Disabling it in-flight can leave the
+> > +	 * hardware confused and unable to resume streaming for the next fram=
+e.
+> > +	 */
+> > +	reg |=3D CTRLDESCL0_5_SHADOW_LOAD_EN;
+> >  	writel(reg, lcdif->base + LCDC_V8_CTRLDESCL0_5);
+> > =20
+> > +	/* Wait for the frame to finish or timeout after 50 ms. */
+> >  	ret =3D readl_poll_timeout(lcdif->base + LCDC_V8_CTRLDESCL0_5,
+> > -				 reg, !(reg & CTRLDESCL0_5_EN),
+> > -				 0, 36000);	/* Wait ~2 frame times max */
+> > +				 reg, !(reg & CTRLDESCL0_5_SHADOW_LOAD_EN),
+> > +				 200, 50000);
+> >  	if (ret)
+> > -		drm_err(lcdif->drm, "Failed to disable controller!\n");
+> > +		drm_err(lcdif->drm, "Timed out waiting for final vblank!\n");
+> > =20
+> >  	reg =3D readl(lcdif->base + LCDC_V8_DISP_PARA);
+> >  	reg &=3D ~DISP_PARA_DISP_ON;
+>=20
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--tr3oA7U7+SI63nqs
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmnVHEAACgkQhP3B6o/u
+lQx7KA/7BnpEWNIUmhxDgwURWcnToLoxc1aEBm/u/+bpY0PzQwdfdimZy7f8fR4h
+PuxDVy7QBNZTag6cT6rcoJ9QoWw8Srx2docDOotHjGHMOjytxrv3KJ4KeN7kVlpH
+EeuJNt8jWSulxNRiuEv85B6pFw9yUpwb1UCyiLx4H8jIHvOIxbPAOxc7f20PkCjP
+Sbwx+0iSgxffcH0c++DlDONOOLj/3pjLtjw8K6MGXQtRXX0kIxU9lVI9SNgvaZlR
+18xQ3n1Y92Zm/wOuN8tGB7VX3ILwYTXJYDU/qE3DSAzqRvLFFNTBAeBLPOVzTmhB
+Pile1vjDAdO/A4YoV/pOUS0mt0lpT40dyEH2aDC5Rzty7w5s9VbPaE9AjnPLvEvY
+GPCZ+Jcln2clHdhEEX3TiVyimht8j0GLtNtJ+Dl28b1GhYmJN6xouNNLMOvOikE3
+RwCE8eq+ijQly5rxYwnpRONuHhAPWEMg10oayJiM6vhJ4xoBxgimChoF9Klvfqev
+nbn5eOqezBWsPFx/AT53T1TJoP0kNwJLdu6HKNPIdEyWN3Fk0zbrD3kHDsPfvpDF
+vHStdPI8fyeJygwslAKAgEJNv9Vj7OFWBYap3Hn70jkLR+zAMRsKr4Or3b4PQCKq
+ZtOAvsX/zNSDVt50bwMhPmbWBE530bMy75n+cbLTPB1KgY1yT1o=
+=Ted2
+-----END PGP SIGNATURE-----
+
+--tr3oA7U7+SI63nqs--
