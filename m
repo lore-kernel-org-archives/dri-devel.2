@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C447FEEF49
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:41:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42361FEEF54
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3603A10E43B;
-	Tue,  7 Apr 2026 14:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 287A210E433;
+	Tue,  7 Apr 2026 14:41:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KdC2ZRum";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Gw8YlotI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE43A10E433
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D15F010E429
  for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7BABE44502;
+ by sea.source.kernel.org (Postfix) with ESMTP id 87DD6445B1;
  Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4A0E1C2BCB1;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5E649C4AF17;
  Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1775572906;
- bh=RzDcyPpemAgfYuOygoQAvIaSmqDPhC/cS4bP5B6vsvE=;
+ bh=zy4Kbyjtmn83ZXvPSeufAPoShfvdWp3vnlE7ZQw292A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=KdC2ZRummxRlxnxpEdSJ+S5oaMhp8Fel7VS4LiwcfzuZWVqMu1KPxHaLSpLBTxep9
- VZUzRhh7euUVECUqu43UNIE4fiHkXHVnrW8fRfXEmSR9BBKXaJ4u2+Vu8WPaa6ffvt
- DENSBYWARF3c/8AmI6kOXuW3Yxeme7rzz7sGQAXj+CHiC5Fc9WmYTcabYvzeoRWu0/
- 4hDg0sUDP1asWXW1dfcQbQIlxewn/wZoWNx3tmjPKiB6CjL37CYcugp3/UbvO7Kt7M
- RjG6FlZQF1jkgzw8ByB81l3jvZgQslbyDn3aDtFJ5OAM5jt1heJk36wVFXrZ26rex3
- Rp3b2aAHgAAsQ==
+ b=Gw8YlotI82lWpqdIJGYZKSZPfUEhx7N3asVAShVjCgMN3Y93UpPei/k8qfpau6xgm
+ pw6A0yMvXhmpcwbDosZ8Y8Na8QEkBE4f6m3BMCaMzMVJlcEWrIpYBY3lxN3nZZ032t
+ BGWjmbFk+wfyP9uxyaIwCDtVVNixBMMqop/JQa1kqjSxooLIIga4s4b3Qr2GN0YMWf
+ +lK+dreATV6vbeBuYnvcSslgKAqR8ygTwJ58JMU2EB02TWQDonwrYKwNOJYL9HxfEj
+ o9VGUXzcZWIv2m8xdy/ZAeFUyHrhr7rk/2ybeVfAJaEjq3mdLX6SG2NrPQ3R2ZrQIV
+ 4fx3qTPNiyQnw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 4096BFEEF49;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 53FFAFEEF54;
  Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
 From: Maud Spierings via B4 Relay
  <devnull+maudspierings.gocontroll.com@kernel.org>
-Date: Tue, 07 Apr 2026 16:41:44 +0200
-Subject: [PATCH v8 3/4] arm64: dts: freescale:
- moduline-display-av101hdt-a10: add backlight
+Date: Tue, 07 Apr 2026 16:41:45 +0200
+Subject: [PATCH v8 4/4] arm64: dts: freescale:
+ moduline-display-av123z7m-n17: add backlight
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-max25014-v8-3-14eac7ed673a@gocontroll.com>
+Message-Id: <20260407-max25014-v8-4-14eac7ed673a@gocontroll.com>
 References: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
 In-Reply-To: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -59,11 +59,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, 
  Maud Spierings <maudspierings@gocontroll.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775572904; l=1537;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775572904; l=1518;
  i=maudspierings@gocontroll.com; s=20250214; h=from:subject:message-id;
- bh=+1ZENSjRFgYpM2Bg8jk7rZIWi1Ty068ZRlt35oCUryc=;
- b=0ktw1f1QYWGRXyCye0CHAz+5y7kZhEL1jZgm01VD72KtioV07SuLqeQAX+BgbSC7KnRqOhQGs
- S2CXzIuvk6GChmPwln6g//DfN/g6Qoz3HY20ADDvfX8tlw8TxOsWz8s
+ bh=bBzg4k6mqXfY+8CJUSTNJPK838E3PabyDsy+agbeziA=;
+ b=e+WGtvMe//0Y7E6w30LDPnVg2+tZLH45yUKTtLojGr9wJi1WSVrWotrJHy1NBTk36+ZhI+V67
+ kPsI2WxtzbeCxNEkXt4rjFJzh7wrDyS6BCZ3UlDjRpoSCqM8pk5DP5b
 X-Developer-Key: i=maudspierings@gocontroll.com; a=ed25519;
  pk=7chUb8XpaTQDvWhzTdHC0YPMkTDloELEC7q94tOUyPg=
 X-Endpoint-Received: by B4 Relay for maudspierings@gocontroll.com/20250214
@@ -87,33 +87,30 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Maud Spierings <maudspierings@gocontroll.com>
 
-Add the missing backlight driver.
+Add the missing backlight.
 
 Signed-off-by: Maud Spierings <maudspierings@gocontroll.com>
 ---
- ...x8p-ml81-moduline-display-106-av101hdt-a10.dtso | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ ...p-tx8p-ml81-moduline-display-106-av123z7m-n17.dtso | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtso
-index c6fc5d5b1e5fa..23e4bf64b28b5 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtso
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtso
-@@ -17,6 +17,7 @@
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av123z7m-n17.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av123z7m-n17.dtso
+index 3eb665ce9d5d2..0b969c8c04db1 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av123z7m-n17.dtso
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106-av123z7m-n17.dtso
+@@ -16,6 +16,7 @@
  
  	panel {
- 		compatible = "boe,av101hdt-a10";
+ 		compatible = "boe,av123z7m-n17";
 +		backlight = <&backlight>;
  		enable-gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
  		pinctrl-0 = <&pinctrl_panel>;
  		pinctrl-names = "default";
-@@ -40,7 +41,30 @@ reg_vbus: regulator-vbus {
+@@ -91,10 +92,26 @@ lvds1_out: endpoint {
+ 		};
  	};
- };
  
-+&i2c4 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
+-	/* max25014 @ 0x6f */
 +	backlight: backlight@6f {
 +		compatible = "maxim,max25014";
 +		reg = <0x6f>;
@@ -122,10 +119,10 @@ index c6fc5d5b1e5fa..23e4bf64b28b5 100644
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&pinctrl_backlight>;
 +		maxim,iset = <7>;
-+		maxim,strings = <1 1 1 0>;
++		maxim,strings = <1 1 1 1>;
 +	};
-+};
-+
+ };
+ 
  &iomuxc {
 +	pinctrl_backlight: backlightgrp {
 +		fsl,pins = <
@@ -134,9 +131,9 @@ index c6fc5d5b1e5fa..23e4bf64b28b5 100644
 +		>;
 +	};
 +
- 	pinctrl_panel: panelgrp {
+ 	pinctrl_lvds_bridge: lvdsbridgegrp {
  		fsl,pins = <
- 			MX8MP_IOMUXC_GPIO1_IO07__GPIO1_IO07
+ 			MX8MP_IOMUXC_SAI1_TXD2__GPIO4_IO14
 
 -- 
 2.53.0
