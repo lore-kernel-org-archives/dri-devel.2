@@ -4,60 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D2BAFEEF49
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE876FEEF52
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:01:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1D5910E093;
-	Tue,  7 Apr 2026 14:53:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2920D10E441;
+	Tue,  7 Apr 2026 15:01:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="jyg5zU1h";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MWWFNl95";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57CB310E442
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 14:53:55 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 5CD7EC5B18D;
- Tue,  7 Apr 2026 14:54:27 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 74AD7603C7;
- Tue,  7 Apr 2026 14:53:53 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E190010450234; 
- Tue,  7 Apr 2026 16:53:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775573631; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=dFpKKgJSe3LDnkGc1FYdedAaRZnlCAUJQ/ukxoYtD4Y=;
- b=jyg5zU1hYNkpXLJb6meqXDq8VXWt5eBi1yf3MaMX4NsBnSaVC/ZPYaTPMHOcbkpkgn7seX
- HdjHcw4PrpZ0PYHJ18lCo/NHNq/wkP2Ku+QULqsv8pSWhETT/KsLi7kQeTcjZWYThxn7Q4
- l7zHJtiDTJiJlC1CO/bQDYp8BnlXkGJuxUHCWCez3KNaNT6ICV89h3x6N65jZYF6dnuQhC
- xOEOeYuOK/aBMpBgzW0JucXrgPsddZzoiqseZiqilL5Fht5CfhYh8s8Bs8eo05cTOYj83O
- phfnzk8yElIsP6clYK1BZPlnI0lWTWcda3nfyaoQG1wnb5XiWHJf1bmTtOtIUA==
-Mime-Version: 1.0
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE6E10E441
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:01:07 +0000 (UTC)
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-8cd71fb9f06so328488485a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 08:01:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775574064; cv=none;
+ d=google.com; s=arc-20240605;
+ b=NPV+1KAVBP0AsIjeZyvVi1XLVYJLRGBAbYMn6+KMJ2P0bcZcpVmjdNc0VNX6ey7jg7
+ 38wrnrOWb0tEzp2EfWLBNh28LrP8MHYx9mKJ5XYdPzB5rYq46/MWZPzkEyE3DODHlDgb
+ Ct3Ro9XVuIgzkSicXzhz3NOOyIveHYXEUBHDzviNrFfExPipY9NQsm1dhsWU9b3ZI8WA
+ SvwYtGbd9HUx5M2ULU8z9SyeQRoF/RTVY38bi/2yyjFJTh15w/SrzK0NR4g/rnv1ripO
+ o1+UfIZkijKZiIzGTswoYIyiVPKC0V/KarFOK7aAKEOvX2/kKAh2SN6SqEcjWC25Leq8
+ VCmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=3lNjW+dxr/buBuPTrI5vfayHnWO+C+X6rAlTXc04424=;
+ fh=McaDjl/BWetYR5N+Gvg61UIyVSsIZnEhM32wk4r8ucA=;
+ b=K6eNQYF0kHAsxmK3CG61q1WDCOQWaT67oeUw+WYlGQH4YHQ8FtuWGCEby5u14xhCU+
+ WfbBPJbMA6mk0Wr6VUdDOvtRhe/yj8mays32jzxBOSz1jxWplWnCsohvZ2dB6PUP3ocp
+ WdBY4KO+7Cr6toKlMZtPDrbcRzb4mU0pZd6WLnaU2PwJ5ZrhUotnrYsCxONUoXapqW10
+ FyJtzTs3nTZUSY0mukWAbmp7VqO3M5rYdNYGQ3JrQB+LgoJMWl0+YsZvj/33Ac1MndNK
+ fgraiuex+q97JynTmfh4jBiimsV7nn3p3pRhbXK3kM/ZCXEqgag3nn+YP+n6oWJM3QXw
+ Witg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775574064; x=1776178864; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3lNjW+dxr/buBuPTrI5vfayHnWO+C+X6rAlTXc04424=;
+ b=MWWFNl95CNKQOT6xxLabGVio0QDr4OZeMzjOmHqztmUC5FhXp/Pvde+HpWtrzThifk
+ XHfeuXDZY1VN1+K6/FB3p0iTIPsGGerOzmGIWHB9DC5SIH10p0GFKmFElV8uEl+srsFi
+ bC34xVX7smpRJxEEx6+NR9ecUJwWEm1tIjYztV0zcAi+24qIhM/Iv3K4kOQr7mjibv8o
+ SwNoGg4HJuJXb2MbLu80C9PTOtMDTkJhhiBAdzOVV8IVbNBi35z96p9Kgp7fCjzf/C4h
+ fEb9/siN2eHAKmmefdGcWtv0QnIPr5vCuG3+y8d0YjLm2h+opw3G9IFzayRjKS0L8tix
+ dKlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775574064; x=1776178864;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=3lNjW+dxr/buBuPTrI5vfayHnWO+C+X6rAlTXc04424=;
+ b=dZANw5+GlDgncDPLhQCt4GKMywfxpYfUp4QfDDczJGxnJipKX5xcSvqAFWXruRy3cE
+ JjusEXTcnfKO23nuM93seTkreF3euVtgOJ21nEqMSxAg4z4usMKJLbdgb00ifvO1SGHR
+ 84Qudg1ieEKnZF97SsiNVTDHw+3DSpC2RK6HD7eXxaQFu7l2MDb/IQKMBeAgY318Xkjx
+ Gc2IcdX4l63SjH+CN6SpsESzoQZow8HxLlilRM8Qlabgn3Mbxr5z3yeuRQzJacphc166
+ jVRmlykwzr597yzAmByxFPEPtPJVW5x471jsT0glMPFi9zSAy0J4PTlXXy/ZEDw4vTim
+ Mnmw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVjCyoiWS3HhryMpmG4VEJn+h5HdDzcom8+sGo1zAkCOa8dFjO7tMCsm0+islhVEfvyHDxI3Vy72NQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHrSHx+58K5MaeDh+vz3nAWQ0YyNQ0214GVA7hMNSeRdkH3/4i
+ IJVLRujG5wJXHiL1tMApvjW0jQLce7PMPQuko5+QcbRhqErULkuz4ZCETPMffCcZ7JKunwn+o3o
+ ap0uOfFDwoAOtDb+wr6o4N9+P0o2ikfE=
+X-Gm-Gg: AeBDievxNZT1EvQBcADhaave9coYTluCfCYEvH6JfP1dN44Py2nEqtZ4yhjThN7vlj5
+ ZUsHwH/8S+LwSMxo11Dv9sfueasnIur4GsGtI+1bzPRzvzlqZK6/f3UuHztU+NwI83dfx4wNRh9
+ rbeAujBGkr9D5knxzk0Oq6jrSpLhWAGRMjmECQteHa/L5xaj4uxy8D216w4QP8sqorXPuAWchpU
+ k4zLK+8kyg70V6YbhdSWCUoq8L9wTyL7wm9KXOSeBJ4MVZfURf6yWt/Vu/pw8MzwPWKTN/UV9CU
+ LwuCEg==
+X-Received: by 2002:a05:6214:2f13:b0:89e:cb8b:a77e with SMTP id
+ 6a1803df08f44-8a704abb8dfmr284541396d6.32.1775574064233; Tue, 07 Apr 2026
+ 08:01:04 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260326094308.1161335-1-wenst@chromium.org>
+ <CGME20260327054445eucas1p2d1ac645faccf16272c3a12406400a364@eucas1p2.samsung.com>
+ <CAGXv+5G2H3CSic5hCSd2g6RrfGyNSbpYS7Z9uo-XUn6No3a4Rw@mail.gmail.com>
+ <52a26d5b-67ec-4a99-98f6-6216e930cdb7@samsung.com>
+In-Reply-To: <52a26d5b-67ec-4a99-98f6-6216e930cdb7@samsung.com>
+From: Inki Dae <daeinki@gmail.com>
+Date: Wed, 8 Apr 2026 00:00:27 +0900
+X-Gm-Features: AQROBzCwFYJ79nrP10FU2NCqyXv-mL-J9T-1EOFubFcU9cyDki20zWlIqj79km4
+Message-ID: <CAAQKjZO=h9uegjBOi7dqq0DM3o2B9gJ9mkM+40pEXMHY87unvw@mail.gmail.com>
+Subject: Re: [PATCH 0/4] drm/exynos: Random cleanups
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+ linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 07 Apr 2026 16:53:40 +0200
-Message-Id: <DHN0BGS5NT7V.364S1W551CQW6@bootlin.com>
-To: "Damon Ding" <damon.ding@rock-chips.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <hjc@rock-chips.com>, <heiko@sntech.de>, <andy.yan@rock-chips.com>,
- <wens@kernel.org>, <samuel@sholland.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v1 2/4] drm/bridge: dw-hdmi: Allow
- &dw_hdmi_plat_data.output_port = 0 without DRM_BRIDGE_ATTACH_NO_CONNECTOR
-Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <victor.liu@nxp.com>,
- <dmitry.baryshkov@oss.qualcomm.com>, <shengjiu.wang@nxp.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-sunxi@lists.linux.dev>
-X-Mailer: aerc 0.20.1
-References: <20260403070032.447102-1-damon.ding@rock-chips.com>
- <20260403070032.447102-3-damon.ding@rock-chips.com>
-In-Reply-To: <20260403070032.447102-3-damon.ding@rock-chips.com>
-X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,69 +113,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Damon,
-
-On Fri Apr 3, 2026 at 9:00 AM CEST, Damon Ding wrote:
-> In the previous commit, Luca split the dw-hdmi attach process into two
-> cases:
+2026=EB=85=84 3=EC=9B=94 31=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 11:39, =
+Marek Szyprowski <m.szyprowski@samsung.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
+=84=B1:
 >
->  A. hdmi->plat_data->output_port =3D 0:
->     the HDMI output (port@1) in device tree is not used
+> On 27.03.2026 06:44, Chen-Yu Tsai wrote:
+> > On Thu, Mar 26, 2026 at 5:43=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.or=
+g> wrote:
+> >> Here are some cleanups for the exynos drm driver. This was done as par=
+t
+> >> of the conversion of the driver to GEM DMA helpers. These patches have
+> >> no dependency, unlike the actual conversion, so I am sending them
+> >> separately for inclusion now.
+> >>
+> >> Please take a look.
+> > I should add that these patches were only compile tested.
 >
->  B. hdmi->plat_data->output_port =3D 1:
->     the HDMI output (port@1) is parsed to find the next bridge
+> I've tested this on the real hardware and it works fine.
 >
-> For Rockchip, many older platforms (RK3288, RK3399, etc.) only support
-> case A by default. They can support DRM_BRIDGE_ATTACH_NO_CONNECTOR flag
-> after adapting to the bridge connector helper. Relax this constraint in
-> preparation for Rockchip dw-hdmi bridge-connector adaptation.
+> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+Thanks Marek, :)
+Inki Dae
+
 >
-> Link: https://lore.kernel.org/all/20260402-drm-lcdif-dbanc-v3-6-27cd247a0=
-847@bootlin.com/
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+> Best regards
+> --
+> Marek Szyprowski, PhD
+> Samsung R&D Institute Poland
 >
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/=
-bridge/synopsys/dw-hdmi.c
-> index dd50dda3a4f5..20b2f9e145b0 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -2912,9 +2912,8 @@ static int dw_hdmi_bridge_attach(struct drm_bridge =
-*bridge,
->  {
->  	struct dw_hdmi *hdmi =3D bridge->driver_private;
 >
-> -	/* DRM_BRIDGE_ATTACH_NO_CONNECTOR requires a remote-endpoint to the nex=
-t bridge */
-> -	if (WARN_ON((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_dat=
-a->output_port))
-> -		return -EINVAL;
-> +	if ((flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) && !hdmi->plat_data->outpu=
-t_port)
-> +		return 0;
->
->  	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
->  		struct device_node *remote __free(device_node) =3D
-
-My understanding is that a hdmi-connector node is required in DT when using
-drm_bridge_connector and DRM_BRIDGE_ATTACH_NO_CONNECTOR. Among others, it
-is necessary to expose the correct connector type instead of defaulting to
-DRM_MODE_CONNECTOR_HDMIA.
-
-@Dmitry, others, can you confirm or deny the above?
-
-If I'm correct, then the right way to support
-DRM_BRIDGE_ATTACH_NO_CONNECTOR here is adding an hdmi-connector node in DT,
-perhaps reusing the device tree overlay I proposed in [0].
-
-[0] https://lore.kernel.org/lkml/20260407-drm-lcdif-dbanc-v4-8-247a16e61ef9=
-@bootlin.com/
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
