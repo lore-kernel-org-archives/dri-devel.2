@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71E13FB5188
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 03:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C587FB5189
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 03:02:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C884E10E331;
-	Tue,  7 Apr 2026 03:01:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF05910E332;
+	Tue,  7 Apr 2026 03:02:12 +0000 (UTC)
 Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 782C410E331
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 03:01:18 +0000 (UTC)
-Received: from canpmsgout09.his.huawei.com (unknown [172.19.92.135])
- by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4fqWCw1wGrz1BG3r
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 11:00:44 +0800 (CST)
-Received: from mail.maildlp.com (unknown [172.19.163.214])
- by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4fqW5061gfz1cyV3;
- Tue,  7 Apr 2026 10:54:44 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5529610E332
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 03:02:11 +0000 (UTC)
+Received: from canpmsgout04.his.huawei.com (unknown [172.19.92.133])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4fqWF31RTfz1BG7p
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 11:01:43 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+ by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4fqW6G1F0xz1prRD;
+ Tue,  7 Apr 2026 10:55:50 +0800 (CST)
 Received: from kwepemf100009.china.huawei.com (unknown [7.202.181.223])
- by mail.maildlp.com (Postfix) with ESMTPS id 57ADF40561;
- Tue,  7 Apr 2026 11:00:57 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 43E912025F;
+ Tue,  7 Apr 2026 11:02:06 +0800 (CST)
 Received: from [10.67.121.162] (10.67.121.162) by
  kwepemf100009.china.huawei.com (7.202.181.223) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Tue, 7 Apr 2026 11:00:56 +0800
+ 15.2.1544.36; Tue, 7 Apr 2026 11:02:05 +0800
 Subject: Re: [PATCH for drm-misc-fixes v2 4/4] drm/hisilicon/hibmc: use clock
  to look up the PLL value
 To: Yongbang Shi <shiyongbang@huawei.com>, <tzimmermann@suse.de>,
@@ -38,8 +38,8 @@ CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
 References: <20260403024828.1131906-1-shiyongbang@huawei.com>
  <20260403024828.1131906-5-shiyongbang@huawei.com>
 From: "tiantao (H)" <tiantao6@hisilicon.com>
-Message-ID: <b7253734-bda0-a9d9-e170-3c4323b708cb@hisilicon.com>
-Date: Tue, 7 Apr 2026 11:00:42 +0800
+Message-ID: <fe73e9fc-f51a-b476-5d3a-157837052f15@hisilicon.com>
+Date: Tue, 7 Apr 2026 11:02:05 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
