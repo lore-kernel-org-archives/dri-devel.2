@@ -4,70 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 517C7EDB7CC
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:11:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65FD5EDB7CC
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:12:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60DA10E320;
-	Tue,  7 Apr 2026 09:11:05 +0000 (UTC)
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com
- [209.85.222.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5922A10E320
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:11:05 +0000 (UTC)
-Received: by mail-ua1-f42.google.com with SMTP id
- a1e0cc1a2514c-951a4e8d1b5so1437516241.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:11:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C01DE10E37F;
+	Tue,  7 Apr 2026 09:12:45 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="mwOTzdze";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U/msmbea";
+	dkim-atps=neutral
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECBE510E37E
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:12:43 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6376YpnM2327993
+ for <dri-devel@lists.freedesktop.org>; Tue, 7 Apr 2026 09:12:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=; b=mwOTzdzegibL1bSr
+ r/heC0qre9CYMHscG2vVaL5iFH3flu0z/iRSiHX3GR3HS+PE5grXy80vnbf4xX5+
+ p4wT+Q2Z4gghcMPJ0V9zbSrWVU5TwjO3Iff8KqDoV1vYy+34XkxwBaFnuD5fd4bc
+ 4ZayZbW8/zgtj1JF814Xiu+TsCbzOv8BCVA1mtiTBu8MW8u694zbqFLPqsT7nCdv
+ M9m7gAp1lFaXYoE6jC971Srnmh3XDM2C2PLFwrV81eTPfHGea1SnMxVUHLtNes82
+ /n1YkGfhs4G3DzqpfERK4V+nvevNVxH/qBadqmWCwSu0Idvh7dw3B6VOciDLY+PK
+ 8QlKAQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcms4syum-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 09:12:43 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-8cb485c686cso168191885a.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:12:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775553162; x=1776157962;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=;
+ b=U/msmbeaoN+a4eckFeXcdLQGRnBa548ih9x9zHIclCBTbYy3HgLXORLei2LvxDYgGC
+ fJc+BSYsmNBihSVPn/W5SNqiTOOzI1T40Fp4gQ+LwfRYjc1b+/Jo46LqygZXehKuMmA3
+ ECRVWJTy6h3aCa72JorIENAacIZ/S4GIKk7uCn/LpTqePOyG8L5X6a2/jBXch88KzBvs
+ LgBshwPGPYbQojVK7/ZS7LQ3wWX46pn9Fnu8R8ihtIqvyTYOgzayju96ACqtF2d49w6T
+ 2na2CV6yB8ueo2YDnS4kI7z3MYzMOJg5QFzk0ocBD7Hw0v3tNgTcDxdrlnQztOXwgWg1
+ 5wqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775553064; x=1776157864;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lNZASjgqAlCAiE4mw8qwv/Flo+VjivMPygkU64fW+o0=;
- b=Exsfr9SiJIdKuHYVjUx3UgUTGRT6bBCDhGpYACEhPouzPHGrW831vTpVP/tskXbB44
- 0IuNNMi37I/yYjlXLd8tvbXh+7pPkH0iP9sKqgsZF8MfO1PzriaP9lo+CcPDKK8/fEej
- BpLx6qeGS2ODchIHJNByW+AlyJeyeY2GcUiWLuKy/L7D7KE9xKu3K1Y3MJ2i3Q+HzMA8
- +866jxQPoOOKRxSrUNIHIW52DvsdO8fzTHDIdfmj1BXoRO8CmgjkqR2ZeEKP3peBcBcL
- yVRXBpxdys6AUsBie7L6jTMpriE3X8hl+QeXzDIxQXtjVBVJxqKvSrUh8WNW0ZovQ9jK
- 4Waw==
-X-Gm-Message-State: AOJu0YzvEQ462gyTdovdhKZxNj4mDBoRIX2yXKD21bicNFZhiK6dDg9w
- 2YBbWlmN/K9wnUCngfAmyvlefcj1CFgD7FQ8CpXIi+nz4rr110KSh67UueM6pyjP
-X-Gm-Gg: AeBDieuaXXXJAnzTIj6c/Fihg9isIfUnkwCHW4o0hGaPSnz3nrbauyku7z6ccCu6476
- htVmxe+APn7pLXg09f7/h5JM8FcJucAYOQOU0n/E6ac9buNAqFd35P5v2Qh/aO++6miLQOxnQKi
- kJu1MaEPeDM53b82SpFDuKDb15iEGTfhAORdU5H1TG58LF3iItPgja6mokEnv0DoJMJ4/U986G2
- T49zKKzhChMBr8o9oh+Kgvr/hKhmiR183dN1HOhZInEf6XD3+kYX3XxMoxpKDc2R+Qn6o8NhGR/
- Hm/E65XRGR0TvmqYdYE/wE7qsxFWLlGy4FZQ8yBM+53aJEzYdyi0GnSSHwHmunvqGdfM/BORiHX
- 273qSYDWJCrnTLFiZXmMysjLYz9NHH6a/LrYzteqoVWxSsH4KWpzsl8cmiRexavWViOdTth8447
- d3xTOmDHSxmLOtWot5Q6akdXfDeBx0bp7vtDa61yBpuSM3GiQpZj3enpuJBUKA28vW
-X-Received: by 2002:a05:6102:3e0b:b0:602:ac40:96ad with SMTP id
- ada2fe7eead31-605a50e2b82mr5128855137.30.1775553064208; 
- Tue, 07 Apr 2026 02:11:04 -0700 (PDT)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com.
- [209.85.221.177]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-60583093d14sm18589108137.11.2026.04.07.02.11.03
- for <dri-devel@lists.freedesktop.org>
+ d=1e100.net; s=20251104; t=1775553162; x=1776157962;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZH7NJeeL+W0a0G40QLryaXbsSTbVab4mx59PHbCSQMk=;
+ b=DSmsLfdIctNQnEzHLxSMFAFyybnGqWaPB48S4XO2YY9b52SYA6Hz3sEnJjQilXx2wu
+ wRDwtQVHurPKkk5EjMLBDrbhhlDB5Dj+oeRAzYi4bZiAdGQHinEjCz1t/jiDz+8MDclE
+ J1VD5jcXeRYiZ31mb94qnQs8Nz4ajOH0OJcVw1BPwNjEXE1PX4uYDJjE0fY2sEOXTu5O
+ xCHB7qoMSCdwoR0zhwnuxkxexOR2xHHDKzrmIn4jFvSPTuQiTuo78Zf80+XD4sCBGHiR
+ ZlRu0W11QAKFW/7vCtuKGABcBjQZhxO9oo2ZoCLDmsyeVcy7kMOylwSYsqKsuDlspSdR
+ p+7g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWU8CfMoc56SvUUGR8MoA+0TLfZ8uuYq6EdQtHs3MP12v6hkltQ4y7DjxZ3DSdr4vCFBbmsPs3K5mw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz+Ppm3C/AKpF3ThjLHAiOQjqOf0thAmtoYM7JQ3yPWTXSshiGd
+ dukod6ED4K9Q1s5weR8XOxrPypoTNtuRTMWPdngraYQHVqJS1P6shXIJVpUJCzfZsFvk4RFvnVh
+ L49+EFqwDsZrYBTiiQbtC6CGoSgFT5wsQ7MzMVYxbUnSkny4MxMTa/Zcx7ZLjxX7vAAIDXKo=
+X-Gm-Gg: AeBDieucEAFQWnfSV8AN2zOHWkjBLQSWVIbmeIcFEtmUKEXEO6n9uLWBVaW5INPjGEc
+ Lx3ZlcXkL/CuSqbX6GP0ucpjIPA79BTiUlJ2RJURfNPJb8xD+BqM1DRZx5A4n+XlXOfRL9dslc6
+ SgubT1Ju+1XxO/MDbFLq2gVz9DP7afSEYMcd8pgBFkVJC11jxMFgZucCTrifzOPZpqA6IEPVwj3
+ sT4sqj4lmXzC/orEqec0taT06Kan6hZYe8knFfh5Md8+l6l045TZ+eitDCBonRjo7YJUICGBJ7q
+ hQQC+IspPlnI3i4CDihl00RRNm++lxuPf3M6XS9eYPP7c8tZbxAQXCHp2vqP/XMxUoXsv4DbhtA
+ /jO0HSe70FJmi4Kf5UT0kL9qaggQggC5RYD/yGZADp43/k4SsP8LdfxV9TOxL0fWp4122xedV2H
+ OoZpM=
+X-Received: by 2002:ac8:5853:0:b0:50d:aae1:7078 with SMTP id
+ d75a77b69052e-50daae17569mr2878291cf.1.1775553162395; 
+ Tue, 07 Apr 2026 02:12:42 -0700 (PDT)
+X-Received: by 2002:ac8:5853:0:b0:50d:aae1:7078 with SMTP id
+ d75a77b69052e-50daae17569mr2878061cf.1.1775553161873; 
+ Tue, 07 Apr 2026 02:12:41 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9d0edd4264sm19703366b.36.2026.04.07.02.12.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Apr 2026 02:11:04 -0700 (PDT)
-Received: by mail-vk1-f177.google.com with SMTP id
- 71dfb90a1353d-56eec951db1so572781e0c.3
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:11:03 -0700 (PDT)
-X-Received: by 2002:a05:6102:5cc1:b0:605:57f5:6d26 with SMTP id
- ada2fe7eead31-605a4c9a0cdmr5737340137.5.1775553063692; Tue, 07 Apr 2026
- 02:11:03 -0700 (PDT)
+ Tue, 07 Apr 2026 02:12:40 -0700 (PDT)
+Message-ID: <d986e1b6-afa4-4e39-a586-2ca119ccd42c@oss.qualcomm.com>
+Date: Tue, 7 Apr 2026 11:12:36 +0200
 MIME-Version: 1.0
-References: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260323164526.2292491-5-laurent.pinchart+renesas@ideasonboard.com>
-In-Reply-To: <20260323164526.2292491-5-laurent.pinchart+renesas@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 7 Apr 2026 11:10:52 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
-X-Gm-Features: AQROBzA1sHxPH0RAVNNk6u3T6X_CdwB9koc1lAfq-_hUfXtBdCfv_IjKKIEuZmo
-Message-ID: <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
-Subject: Re: [PATCH v2 4/4] drm: rcar-du: Don't leak device_link to CMM
-To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Biju Das <biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] arm64: dts: qcom: sm8750: Correct DPU VBIF address
+ space size
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260402-dts-qcom-display-regs-v1-0-daa54ab448a3@oss.qualcomm.com>
+ <20260402-dts-qcom-display-regs-v1-7-daa54ab448a3@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260402-dts-qcom-display-regs-v1-7-daa54ab448a3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDA4MyBTYWx0ZWRfX4+xr3avEbkQy
+ Mn1iNtXUSTkBFaW+LXSNbJHXPdDjCS0TWyAXZ9gSyM9FAg3D7ToASMTievX728z3o3PgIezkHgD
+ PsQGsWe/sADhIyVeKdIFhPNJVLopbKkAigx0i5eCeZCKgHS+A/oVHIy4sIFlTVvkjKXFtnUxPeA
+ 3JdnMD1Iw3uoOpPkUO1EGdypkvSRLvFlkKR2gKgwlwax0eqc+2rqI1xw9oCQzTOEZOlvdS6Wa5f
+ BOojg5w/5fe5EdQBtTlYIZufBSBrfjqhM7ToAnSLyvA9sMKuOOdNoxWy2YvBu6CxX5FyVeVTqo3
+ +53OZWxQJ2/+MG7Qc/zCeqsl4uGut8GwmaxDa6JURCbXwNo9yz/5Puydi9OIh0JZDzjd9dWghEF
+ wOmnM4W9C/I7m5ePWLjqE+mTqB3KKgeqhHuEFPhSNWxXasgP2md3OnfRiXlLG2jByieAs+AYB7T
+ Ahy1kWqtmnRqjVOPiNA==
+X-Proofpoint-ORIG-GUID: QS-q27qIMsSWgv_Ep5s-hXqPt15TjDDr
+X-Authority-Analysis: v=2.4 cv=WNZPmHsR c=1 sm=1 tr=0 ts=69d4ca8b cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=fzqTxgmSy3qf8bfLeY0A:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: QS-q27qIMsSWgv_Ep5s-hXqPt15TjDDr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-07_02,2026-04-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 phishscore=0 spamscore=0 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070083
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,189 +157,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
+On 4/2/26 1:45 PM, Krzysztof Kozlowski wrote:
+> VBIF register range is 0x3000 long, so correct the code even though
+> missing part seems without practical impact.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
-On Mon, 23 Mar 2026 at 18:22, Laurent Pinchart
-<laurent.pinchart+renesas@ideasonboard.com> wrote:
-> The DU driver creates device_link instances between the DU and CMMs, but
-> never deletes them. Fix it by introducing a rcar_du_cmm structure to
-> group the CMM device and device_link, and deleting the links at cleanup
-> time.
->
-> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Thanks for your patch, which is now commit 3bce3fdd1ff2ba24 ("drm:
-rcar-du: Don't leak device_link to CMM") in drm-misc/for-linux-next.
-
-This causes koelsch to hang during boot when a display is already
-connected before boot:
-
-      [drm] Initialized rcar-du 1.0.0 for feb00000.display on minor 0
-      rcar-du feb00000.display: [drm] Device feb00000.display probed
-
-When no display is connected, the system boots fine.
-
-While looking into this, I noticed that hotplug after boot crashes,
-but I haven't bisected that. It definitely worked a few months ago:
-
-    Unable to handle kernel NULL pointer dereference at virtual
-address 00000000 when read
-    [00000000] *pgd=00000000
-    Internal error: Oops: 5 [#1] SMP ARM
-    CPU: 1 UID: 0 PID: 43 Comm: kworker/1:3 Not tainted
-7.0.0-rc3-shmobile-00734-g3bce3fdd1ff2 #2454 VOLUNTARY
-    Hardware name: Generic R-Car Gen2 (Flattened Device Tree)
-    Workqueue: events adv7511_hpd_work
-    PC is at rcar_du_crtc_atomic_enable+0x14/0xa4
-    LR is at drm_atomic_helper_commit_crtc_enable+0xb0/0xd4
-    pc : [<c0534700>]    lr : [<c05145f8>]    psr: a0000013
-    sp : f0939b88  ip : fffffff8  fp : c1fe25b8
-    r10: c21d01ac  r9 : c0c7862b  r8 : c0a99acc
-    r7 : c21d000c  r6 : c2e1c800  r5 : c21d0000  r4 : c21d0398
-    r3 : 00000000  r2 : 00000000  r1 : c24ed800  r0 : c21d0398
-    Flags: NzCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment none
-    Control: 10c5387d  Table: 4231006a  DAC: 00000051
-    Register r0 information: non-slab/vmalloc memory
-    Register r1 information: slab kmalloc-64 start c24ed800 pointer
-offset 0 size 64
-    Register r2 information: NULL pointer
-    Register r3 information: NULL pointer
-    Register r4 information: non-slab/vmalloc memory
-    Register r5 information: non-slab/vmalloc memory
-    Register r6 information: slab kmalloc-512 start c2e1c800 pointer
-offset 0 size 512
-    Register r7 information: non-slab/vmalloc memory
-    Register r8 information: non-slab/vmalloc memory
-    Register r9 information: non-slab/vmalloc memory
-    Register r10 information: non-slab/vmalloc memory
-    Register r11 information: slab kmalloc-128 start c1fe2580 pointer
-offset 56 size 128
-    Register r12 information: non-paged memory
-    Process kworker/1:3 (pid: 43, stack limit = 0xdcd99ef9)
-    Stack: (0xf0939b88 to 0xf093a000)
-    9b80:                   c21d0398 00000000 c24ed800 c05145f8
-00000048 c1fde6c0
-    9ba0: c2f7c680 c21d000c c24ed800 46818964 00000009 c0a9bf18
-c24ed800 c0515350
-    9bc0: c24ed800 c21d000c 46818964 c0535aac c24ed800 00000000
-46818964 c05187dc
-    9be0: 00000000 c24ed800 c21d000c 00000000 c21d000c c05189a4
-c24ed800 c21d000c
-    9c00: c15bac10 00000001 c21d000c c04de554 c24ed800 c22d1400
-c21d1000 c0109fdc
-    9c20: 00000000 c15bac10 00000000 00000000 00000000 00000000
-00000000 c0109fdc
-    9c40: 00000000 c15bac10 00000000 00000000 00000000 00000000
-00000000 ff6cd0a0
-    9c60: 00000000 f0939c80 c1542a00 c050e368 00000000 c21d01b0
-00000000 00000000
-    9c80: c1c30000 00000008 0000000e 00000000 00000000 00000000
-c1ce8f24 c21d35a8
-    9ca0: 00000000 ff6cd0a0 ffffffff c21d000c c1542a18 c1542a00
-c1542ab8 000000f0
-    9cc0: 00000043 000000f0 00000001 c050e470 c1c30000 c095df28
-c21d0058 c21d0058
-    9ce0: c21d0058 c1542a00 c21d000c 00000000 c1542ab8 000000f0
-00000043 c050e5a4
-    9d00: 00000000 c1542a00 00000000 c0521a44 00000000 c2d89000
-c1514c00 c1077124
-    9d20: 000000f0 c0521a7c c14b2800 c047f16c 00000000 c14df800
-00000043 00000000
-    9d40: 00000000 c14b2800 c14b2958 00000000 00000000 0000003e
-c0a81464 00000000
-    9d60: 00000001 c04c0688 c14b2800 c10798fc 00000000 c04c2654
-c1079918 c0a81464
-    9d80: c0a814b8 00000001 0000003e c1079918 c0a81464 00000000
-00000000 0000003e
-    9da0: 00000001 c1079a18 00000000 c04c298c c0fe6d84 c0c6f88c
-00000001 00000001
-    9dc0: c0fe491c c1076f84 c1076f84 00000000 c0fe491c c0a96a00
-00000000 c047d3e8
-    9de0: c0f04ff8 00000000 c1076f84 c047f974 c2d89000 c0f059d4
-c2d891cc c0f059d4
-    9e00: c21d000c c0a96a00 00000000 c0478508 60000013 00000000
-00000000 00000780
-    9e20: 00000438 00000000 00000000 00000000 00000000 00000000
-00000000 00000000
-    9e40: 00000000 00000000 00000020 ff6cd0a0 c1542ab8 c1542a00
-c2d89000 00000000
-    9e60: 00000000 c0521674 00000000 c24f05c0 c102cee8 c0944738
-00000cc0 00000000
-    9e80: c1542a18 00000001 c141f505 00000000 00000000 00000780
-00000438 00000780
-    9ea0: 00000438 00000020 00000018 ff6cd0a0 c1542ab8 c1542a00
-c1542a00 c21d000c
-    9ec0: c17d81b8 c10349c0 c141f505 61c88647 c17d81bc c050d594
-c1542a00 00000000
-    9ee0: c21d00a8 c1542a00 c21d0094 c050d948 c17d81c8 00000001
-c17d8278 c04e2f44
-    9f00: c17d81b8 c141f500 ef7cd600 c053dba8 000000d0 ff6cd0a0
-c1cede80 c0143f50
-    9f20: c0a01828 00000000 c1c30000 ff6cd0a0 c1c30000 c1c30000
-ef7cd620 ef7cd600
-    9f40: c014424c c1cede80 ef7cd620 ef7cd600 c014424c c1c30000
-c1cedeac c1034ee0
-    9f60: 00000000 c01443bc 00000000 c1d00780 c169eac0 c1c30000
-c014424c c1cede80
-    9f80: f08fdecc 00000000 00000000 c014b654 c169eac0 c014b558
-00000000 00000000
-    9fa0: 00000000 00000000 00000000 c010014c 00000000 00000000
-00000000 00000000
-    9fc0: 00000000 00000000 00000000 00000000 00000000 00000000
-00000000 00000000
-    9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-00000000 00000000
-    Call trace:
-     rcar_du_crtc_atomic_enable from
-drm_atomic_helper_commit_crtc_enable+0xb0/0xd4
-     drm_atomic_helper_commit_crtc_enable from
-drm_atomic_helper_commit_modeset_enables+0x10/0x38
-     drm_atomic_helper_commit_modeset_enables from
-rcar_du_atomic_commit_tail+0x54/0xb8
-     rcar_du_atomic_commit_tail from commit_tail+0x6c/0x138
-     commit_tail from drm_atomic_helper_commit+0xf4/0x104
-     drm_atomic_helper_commit from drm_atomic_commit+0xbc/0xec
-     drm_atomic_commit from drm_client_modeset_commit_atomic+0x190/0x214
-     drm_client_modeset_commit_atomic from
-drm_client_modeset_commit_locked+0x3c/0x148
-     drm_client_modeset_commit_locked from drm_client_modeset_commit+0x28/0x3c
-     drm_client_modeset_commit from
-__drm_fb_helper_restore_fbdev_mode_unlocked+0xa4/0xac
-     __drm_fb_helper_restore_fbdev_mode_unlocked from
-drm_fb_helper_set_par+0x2c/0x38
-     drm_fb_helper_set_par from fbcon_init+0x2c8/0x460
-     fbcon_init from visual_init+0x98/0xe4
-     visual_init from do_bind_con_driver+0x1f0/0x260
-     do_bind_con_driver from do_take_over_console+0x12c/0x174
-     do_take_over_console from do_fbcon_takeover+0x4c/0xb0
-     do_fbcon_takeover from fbcon_fb_registered+0xf4/0x160
-     fbcon_fb_registered from register_framebuffer+0x1f8/0x21c
-     register_framebuffer from
-__drm_fb_helper_initial_config_and_unlock+0x468/0x534
-     __drm_fb_helper_initial_config_and_unlock from drm_client_hotplug+0x50/0x94
-     drm_client_hotplug from drm_client_dev_hotplug+0x80/0x8c
-     drm_client_dev_hotplug from drm_bridge_hpd_notify+0x30/0x3c
-     drm_bridge_hpd_notify from adv7511_hpd_work+0x74/0xb4
-     adv7511_hpd_work from process_scheduled_works+0x1d8/0x324
-     process_scheduled_works from worker_thread+0x170/0x208
-     worker_thread from kthread+0xfc/0x108
-     kthread from ret_from_fork+0x14/0x28
-    Exception stack(0xf0939fb0 to 0xf0939ff8)
-    9fa0:                                     00000000 00000000
-00000000 00000000
-    9fc0: 00000000 00000000 00000000 00000000 00000000 00000000
-00000000 00000000
-    9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-    Code: e1a04000 e5903520 e5906468 e59054d8 (e5930000)
-    ---[ end trace 0000000000000000 ]---
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Konrad
