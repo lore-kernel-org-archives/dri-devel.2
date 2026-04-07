@@ -4,161 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D85EDB7D4
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:06:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 517C7EDB7CC
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 09:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A246810E379;
-	Tue,  7 Apr 2026 09:06:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F/3au0Jj";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7BE810E379;
- Tue,  7 Apr 2026 09:06:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775552775; x=1807088775;
- h=message-id:date:subject:from:to:cc:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=0YjtOpUpNRTAHyijt9E3Ez2hlIwBzETvgzpHyJZQH6k=;
- b=F/3au0JjbcsmP2NRBMMf/Yxg5Wx2aEJ8htrCnOKlc6bW+dFph/7HXIuK
- PiPds5fpW7krvoz9AIqa9wf+O4ayMfyal7kkAXq+/dkMI8JIzilKB0/r2
- oHkme34Zy0fzgcIgIeQu0E6V+yL8MsIj6r8+cN5NRK6BXHZU1sjZjeSo4
- iLHSCF4YF2hCWj7ZPAPCxp6sOm+KoiTa/0pNK8Qxhdjk4MB2+EvMY9VR4
- ZJ+HNxh6nBo2vyAUC99IB5lSDuyqL1+InZQfdjca8JQff6uOAABtX7DEA
- zgvfys2yqf5JDSMSq25Cfq/DK891myzcCjTNJm0E08uWmwqHL2sTmu7nV g==;
-X-CSE-ConnectionGUID: M6v0IiMmTX+1cOKlwD5xUA==
-X-CSE-MsgGUID: YqpgYVzzTMuJSXdGndb3vg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11751"; a="87962070"
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="87962070"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 02:06:14 -0700
-X-CSE-ConnectionGUID: OD4xozsBRGGhYQtjpjI8aA==
-X-CSE-MsgGUID: p8DmdJf5TcSAHUOF++Ti4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="224917167"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 02:06:14 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 7 Apr 2026 02:06:13 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 7 Apr 2026 02:06:13 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.41)
- by edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 7 Apr 2026 02:06:12 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dLRmJwHRBDy5h3RttCPsb4/59aCDMqYBwZYnXTy/nxkX1ncdmLLxviX5vasX5G1ibdJe9/aafBTfT3Zo68uJy0vPEJPyJvyLrYE9GpC1lAsfhgAsgewF9yF/S4dyMBsSZ5qsa5vfdZkc7efpQV60kV0lF+bu8zkTI/eqIKzxwGxz2U85FUMHkXKwkPZv64/UFEdf7JdeFmDkQTwAL79laDIB+8XtZqp90qcwK1/Xf+kxI2UniD7W1TTXTZ6jRHwq3Ap5OTu2z5JUZlNLZOmMt4+UpiKRhxCvd54LD9LPNIDOXDf6Wg/VVs7BX8PB5ZAKr+Dkj5E05bX1fL6wKO2hpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GRXwlKEb/SYNjuD1Tc5UhQqJ2Afeos2Tdc2A7NYf1cM=;
- b=XipaMMangC3aujnfXalacMg4M82CTcaGGxyUyZyB1alHd8Y3V8nzlAVaKuebXEt8X9BhUYK3lkvb2RT/yc/HYSxcdgmJ8K2JFloSlaChQ+h2AXCvO+0na4VNOKsN1Hr8eiKvkRdx/rnlbqD/5ghp9DlqcBIl+jsCMO43p2r09nyggUP2oCczpcxFVtUvaI/S961K8gskKHHO1iJXAZCVvBztB8bSmRA808iAVucqC+55mA1caUU1ZnUzOcBmDwfPpucWrE1NMtlFoIxiSUusedNBBfwPyJpDFPC9tX06vqTQAxVH4XsVbkB9ka16SFUvcTiQssP3EldYmGffKb0J+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by DS7PR11MB6200.namprd11.prod.outlook.com (2603:10b6:8:98::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Tue, 7 Apr
- 2026 09:06:10 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9769.016; Tue, 7 Apr 2026
- 09:06:10 +0000
-Message-ID: <788d3052-8927-4275-9ccb-300de14c53f4@intel.com>
-Date: Tue, 7 Apr 2026 14:36:02 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 19/23] drm/i915/dp: Set relevant Downspread Ctrl DPCD bits
- for PR + Auxless ALPM
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
- <animesh.manna@intel.com>
-References: <20260402080425.548702-1-ankit.k.nautiyal@intel.com>
- <20260402080425.548702-20-ankit.k.nautiyal@intel.com>
- <ac5JYcs5eP31T7Bi@intel.com> <af89e4c7-d62d-45d0-807c-fa2616db9b9e@intel.com>
-Content-Language: en-US
-In-Reply-To: <af89e4c7-d62d-45d0-807c-fa2616db9b9e@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0280.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f2::18) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B60DA10E320;
+	Tue,  7 Apr 2026 09:11:05 +0000 (UTC)
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com
+ [209.85.222.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5922A10E320
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:11:05 +0000 (UTC)
+Received: by mail-ua1-f42.google.com with SMTP id
+ a1e0cc1a2514c-951a4e8d1b5so1437516241.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:11:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775553064; x=1776157864;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lNZASjgqAlCAiE4mw8qwv/Flo+VjivMPygkU64fW+o0=;
+ b=Exsfr9SiJIdKuHYVjUx3UgUTGRT6bBCDhGpYACEhPouzPHGrW831vTpVP/tskXbB44
+ 0IuNNMi37I/yYjlXLd8tvbXh+7pPkH0iP9sKqgsZF8MfO1PzriaP9lo+CcPDKK8/fEej
+ BpLx6qeGS2ODchIHJNByW+AlyJeyeY2GcUiWLuKy/L7D7KE9xKu3K1Y3MJ2i3Q+HzMA8
+ +866jxQPoOOKRxSrUNIHIW52DvsdO8fzTHDIdfmj1BXoRO8CmgjkqR2ZeEKP3peBcBcL
+ yVRXBpxdys6AUsBie7L6jTMpriE3X8hl+QeXzDIxQXtjVBVJxqKvSrUh8WNW0ZovQ9jK
+ 4Waw==
+X-Gm-Message-State: AOJu0YzvEQ462gyTdovdhKZxNj4mDBoRIX2yXKD21bicNFZhiK6dDg9w
+ 2YBbWlmN/K9wnUCngfAmyvlefcj1CFgD7FQ8CpXIi+nz4rr110KSh67UueM6pyjP
+X-Gm-Gg: AeBDieuaXXXJAnzTIj6c/Fihg9isIfUnkwCHW4o0hGaPSnz3nrbauyku7z6ccCu6476
+ htVmxe+APn7pLXg09f7/h5JM8FcJucAYOQOU0n/E6ac9buNAqFd35P5v2Qh/aO++6miLQOxnQKi
+ kJu1MaEPeDM53b82SpFDuKDb15iEGTfhAORdU5H1TG58LF3iItPgja6mokEnv0DoJMJ4/U986G2
+ T49zKKzhChMBr8o9oh+Kgvr/hKhmiR183dN1HOhZInEf6XD3+kYX3XxMoxpKDc2R+Qn6o8NhGR/
+ Hm/E65XRGR0TvmqYdYE/wE7qsxFWLlGy4FZQ8yBM+53aJEzYdyi0GnSSHwHmunvqGdfM/BORiHX
+ 273qSYDWJCrnTLFiZXmMysjLYz9NHH6a/LrYzteqoVWxSsH4KWpzsl8cmiRexavWViOdTth8447
+ d3xTOmDHSxmLOtWot5Q6akdXfDeBx0bp7vtDa61yBpuSM3GiQpZj3enpuJBUKA28vW
+X-Received: by 2002:a05:6102:3e0b:b0:602:ac40:96ad with SMTP id
+ ada2fe7eead31-605a50e2b82mr5128855137.30.1775553064208; 
+ Tue, 07 Apr 2026 02:11:04 -0700 (PDT)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com.
+ [209.85.221.177]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-60583093d14sm18589108137.11.2026.04.07.02.11.03
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Apr 2026 02:11:04 -0700 (PDT)
+Received: by mail-vk1-f177.google.com with SMTP id
+ 71dfb90a1353d-56eec951db1so572781e0c.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 02:11:03 -0700 (PDT)
+X-Received: by 2002:a05:6102:5cc1:b0:605:57f5:6d26 with SMTP id
+ ada2fe7eead31-605a4c9a0cdmr5737340137.5.1775553063692; Tue, 07 Apr 2026
+ 02:11:03 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|DS7PR11MB6200:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ff76ed0-c128-47f4-0286-08de9484e92a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: uxbfj+uo/BW+EC4FsQ0KNwlOPkcHzqUuQbY0a9LPzn8u99JzEM6msRJKK8g4fABkLrBmPwyn7F4YBE1L+70Wxj5VEHSdKaWC8rpn/JC2ukK/f9Kock6mX68Xm4jWvVkg9CV3Zyf9635h86AI6NJaZ4zbxiLs4h1O58E1XMJhcFGxK2+BHdiZTA14CbQrgisGriwYkmRXqz4I39xUZOi4T7zXTS8INkA02B8VAC9MxtMfdrUtmBNy/c54qAoTDNYB7qxHX8uvDHQAj9ZfZ79+4CD8JmPTkGJS+CG7tGMIT588H4MmiT5pi/EYsIThldkE2httv5KKnkJitrQ1Npph6HeJrFoouiwoWU/uZCdInEhi2BIjb0wcxBtB9u80UtMMXUaP6dXSZihuDONJGTd3KUvpdAhLmuWPI57VZQKpm+U/1suVssiy0a2ckFEl2f/velxrc1zuZxVQTNmMfq9ckOynJRZ6oaZCMuxbtw2zVWRcFvA0OnrPJc/+xiawQP6nhUb2d+QUXGB8Tu+cVduJVtEm/A+Ah9ZxGbvTCAd3ALbs6DeNIy+qqhgdCvGWBnIlYHc8pXoEq27SKLoeaWumBuwmsF3qlXbHonSbCEq1tLCLsq+0vz5k2r5KSOcjV7XL3bhqA266AJ+vm4xKgNZ/OGlsF/CfGmSnRAQ+RTYgczbiZq+7JxdvU23vRSz4IOnhS0IA9HRDR2ZWB3U3T3Hx+Drbq+XwAoRqITeRw/5P/w4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzJqa1JvdExmQzJTQmpVbTJWaDBZc0ZVaks5MXBIeEdqNFRIeEhaNWdQRmVO?=
- =?utf-8?B?WXAxblFFa0xzUTNrUUhTeHAvandhNEZ4OFB1ZGdGYXZTSVJudkRVNHBJNVl4?=
- =?utf-8?B?YmFkY3A5V0JmdEw0K3pUazJkYVR0TFNyTStVNWNMeTQxR1NaQ2phNFdJam9q?=
- =?utf-8?B?aTJlcnZ2S0ZUUUVMcDNMRDJqdFZXL0Mwa3hmQzRJRC9FLzZPWnpPZ1Y3cFQ2?=
- =?utf-8?B?alZsbU5sRGF0bCtOVWhTcmZGYkNXT3ZtQUFqRm5UUmhRb1ZXclBjSkpRYXBv?=
- =?utf-8?B?OGNMY2ppYkFmeXA4aUpERGFKQURZQ2hWb1NDeGkrM3lLM01MdDdFaGRHY0d1?=
- =?utf-8?B?a3Z2enhuV0U5VCtUeUptNVJDZ1IzZFcyUkl5SklWT0RkK1pYOVd4U21zMW10?=
- =?utf-8?B?TkFST0YvWmZnUHA0TlcwT1VNeWpZbjNaVkRRSDRpL0p3aERtWXhvbnNUWGUv?=
- =?utf-8?B?QzNqcVlpK0h5UWs5SDUwZ1U2Q1doeUt2TlE1YnNHNTVLVWl2WlhCUTFFalNu?=
- =?utf-8?B?RFVIb2FCb3plU25BT0tnelcxQ3NadjAzVzd2c3UyV283WGZrRHd6MS82SWww?=
- =?utf-8?B?Wm9oSkdxWDBPTmJ1S3pKM2dBSzJhOEdDTzhFc1drMVVnWG8zRW9WdEF4dWwr?=
- =?utf-8?B?RUVDN0JMT1ZTaTdUZGtHUm5ITTBwY01MYWxSK1ZsV3NQWWJTNFpmaE0yTUdq?=
- =?utf-8?B?dUhCRkdsNnRFaW9tQUNKS2VobkVlSXNyVVhOSmRyWS9ka0FON1k0L1M4UnpY?=
- =?utf-8?B?R3dZalVZM1FoeFhZakJmWmg3ZWdGUTBxLzZCSkF4dENmSHVOb0lJeitNSFMv?=
- =?utf-8?B?NGI5L1ZwVjJQN3lZb0ZCanJocWZ3N0ZxdWYxSXFyczJobHRWOXZwZ1VTUzhh?=
- =?utf-8?B?TjNlOS9zUDFBcHgwR0NpZ2hkYjNlL0FDb3JmK0FKU2FZUy85aytFQkNuY0lT?=
- =?utf-8?B?TjRkZHFkV3g4Sm5iNU56M04rSHpZSERlSUZPN1FpVFFmbHZiRmJiTkJtVTN4?=
- =?utf-8?B?MXB1blpOdXBIYnBCd010M0dUV3lJdTBFVUZNQlpmaUJEY2ZOcHRwMGxENUpW?=
- =?utf-8?B?eVRYMHBRQ3BySUgwMS80NG8yMk1DUm1scnR0cTdiOWJWdkZqelN0ckRNK0hu?=
- =?utf-8?B?OXArQ3Y1NGJWdzFaczZwTjU1VUkyN25SRWVLYkFNaG16TEJyVE0zeHpqM1Rv?=
- =?utf-8?B?Zjd1YW1RSllOYkJOVFdZdTBHNW1DaDllbmZwS0RuQ3dQVlkvT2ZmTHNJZmNp?=
- =?utf-8?B?ZmZOdTdIR094eFArSjgyVXZDUzI0d284Rk1LL1NHb3FuWHUyUzJnMEZjRVZs?=
- =?utf-8?B?TlRoT2t2UzgzL2JyNHNhbjVIeHVhY2FKcXZMT2ZhQ2VXcnRoRjhlU3QxMjho?=
- =?utf-8?B?aWxRazBDb0JCeXFTeHAwaG42dnlJVTBJd2VRSERSb1BwWEw3RjcxblFlbWtG?=
- =?utf-8?B?ckJJS2hBTWtJKzIwdFpnUC85bkgrbE9LVGN1eFNYWVFiL29ENG5OdDRpKzFZ?=
- =?utf-8?B?Z3NGMHJ1bkF2UnVtZ0NJNlZ3NzM2TWlXVzVIRDBmN1JocFVJbGMySzViUzgy?=
- =?utf-8?B?dlloNVdJaXNDWW9NUlVGMXNnM3htYUtMbFpZNTNwZ3dvRkhuVW9iTHdiaVhN?=
- =?utf-8?B?RVZIdVFEcTMvZ05EYjNIemVVczdQelhTRE9vckVqOUhObFJidzRPKzlGazlQ?=
- =?utf-8?B?RGl5dVN6endlUlRSZ1I5Y1Y5T1cycHYwYUdGUFFrOVNKNCsxckllNGJuQ1U4?=
- =?utf-8?B?R2d0SEpmVGJiOUxiNjVjRHRiZFpNRURHdngyNUNWekxlZG9EWE5TemlmeEtm?=
- =?utf-8?B?a3hBODRYZXpUUWZFTytxK3B0MWltcUJhUmY2TFU2UCtRTmhNMHEyWDBTZ1Bn?=
- =?utf-8?B?TDF6eUZMNVQvYTd0cWloSW4zRmVjTzdvMlNjZGF1djI0QUZUVXFQa2dVOTRY?=
- =?utf-8?B?c0RQQTZjNWROdEtNa29PZVc3WHlCRVd4UlNWQ2lZR0RpUWJDVXRZSXZIUzJY?=
- =?utf-8?B?UjJXamt6TTN6eml0YlRQa0tQbGpzTWNKVFZMSkE1WE5EbzluM0ljb1FtMSs5?=
- =?utf-8?B?WUs5UUQwdmVNVlRIZ1EwaUtvek5EdkxLSWtWa3lXdkRZUk5pTWFQbXVwbUdU?=
- =?utf-8?B?d1JmNUdaNW9XVTNNa1BvckVnTDFVNGZRb3JpWERWZXZueU1yeXpRM0VrTHVx?=
- =?utf-8?B?amJybWZRZjlwdkdHR0p2TTY0TktHZUtqa21WL2U4QmVnMVhXb1p5M1p5RCtj?=
- =?utf-8?B?THRwK2J1RWJxVCs0NDlubm5mRHJoQVBJTlJ5N2hOaklaU3AveW51YWtsaHFr?=
- =?utf-8?B?OUh6MU9zVnQrTlZDdUlLbGp0RTVHeHNtaC80QjEzYmpkNHY1Rk5kWnExN3pE?=
- =?utf-8?Q?DhRKejW5R4mMQba4=3D?=
-X-Exchange-RoutingPolicyChecked: BI2ViPxvX8VnrbrxeGuSKHCSecznpDQcVIt+Dr3cHDHvUFSj+kFFZ0umECDJi/bhziH06uMumaCuMhiYmcP+iJKy5bicsLTNqXMauenJzts4Xy7kTLzFAv0aQAF9P6OZu0zTDS2av8I15nmfxONurA0Ou8J4PIJJ7+onkIMihwS9thml44PUsJJrtO1BNBP2/WiLuGBOBWF6CLr1M59hObehxYtxi3ms2LxgXPHQEDRiqICY13ukOqewdJXELFYdOUN6/Uh/uEjo28mAsjkOnFiMpWhhVsZG4O8+TVsZlWALk+eTuYHKFGdrLsjexeSOcztDc/r/CRzi3+N7myrCIA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ff76ed0-c128-47f4-0286-08de9484e92a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 09:06:10.5107 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 55nGk6zi7gE+dDfDs0777eeQclnt/cyBQzVGhcHOvUOefoX6oX9hJK5Y5WOLXVFFbRgdCtumMaa8p5D5QgG3oUf7m+QGujeDLW/lHx1gozs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6200
-X-OriginatorOrg: intel.com
+References: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
+ <20260323164526.2292491-5-laurent.pinchart+renesas@ideasonboard.com>
+In-Reply-To: <20260323164526.2292491-5-laurent.pinchart+renesas@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 7 Apr 2026 11:10:52 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
+X-Gm-Features: AQROBzA1sHxPH0RAVNNk6u3T6X_CdwB9koc1lAfq-_hUfXtBdCfv_IjKKIEuZmo
+Message-ID: <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] drm: rcar-du: Don't leak device_link to CMM
+To: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,159 +83,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Laurent,
 
-On 4/7/2026 2:21 PM, Nautiyal, Ankit K wrote:
+On Mon, 23 Mar 2026 at 18:22, Laurent Pinchart
+<laurent.pinchart+renesas@ideasonboard.com> wrote:
+> The DU driver creates device_link instances between the DU and CMMs, but
+> never deletes them. Fix it by introducing a rcar_du_cmm structure to
+> group the CMM device and device_link, and deleting the links at cleanup
+> time.
 >
-> On 4/2/2026 4:18 PM, Ville Syrjälä wrote:
->> On Thu, Apr 02, 2026 at 01:34:19PM +0530, Ankit Nautiyal wrote:
->>> If a Panel Replay capable sink, supports Async Video timing in
->>> PR active state, then source does not necessarily need to send AS SDPs
->>> during PR active.
->>>
->>> However, if asynchronous video timing is not supported, then for PR 
->>> with
->>> Aux-less ALPM, the source must transmit Adaptive-Sync SDPs for video
->>> timing synchronization while PR is active.
->>>
->>> If the source needs to send AS SDP during PR active, this requires 
->>> setting
->>> DPCD 0x0107[6] (FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE). This applies 
->>> whether
->>> VRR is enabled (AVT/FAVT) or fixed-timing mode is used.
->>>
->>> This bit defines AS SDP timing behavior during PR Active, even if AS 
->>> SDPs
->>> are briefly suspended.
->>>
->>> Program the relevant Downspread Ctrl DPCD bits accordingly.
->>>
->>> v2: Instead of Panel Replay check simply use AS SDP enable check. 
->>> (Ville)
->>>
->>> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->>> ---
->>>   .../gpu/drm/i915/display/intel_dp_link_training.c    | 12 
->>> ++++++++++--
->>>   .../gpu/drm/i915/display/intel_dp_link_training.h    |  3 ++-
->>>   drivers/gpu/drm/i915/display/intel_dp_mst.c          |  2 +-
->>>   3 files changed, 13 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c 
->>> b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
->>> index a26094223f78..8b21c479ebfc 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
->>> @@ -27,6 +27,7 @@
->>>   #include <drm/display/drm_dp_helper.h>
->>>   #include <drm/drm_print.h>
->>>   +#include "intel_alpm.h"
->>>   #include "intel_display_core.h"
->>>   #include "intel_display_jiffies.h"
->>>   #include "intel_display_types.h"
->>> @@ -34,6 +35,7 @@
->>>   #include "intel_dp.h"
->>>   #include "intel_dp_link_training.h"
->>>   #include "intel_encoder.h"
->>> +#include "intel_hdmi.h"
->>>   #include "intel_hotplug.h"
->>>   #include "intel_panel.h"
->>>   @@ -710,11 +712,14 @@ static bool 
->>> intel_dp_link_max_vswing_reached(struct intel_dp *intel_dp,
->>>       return true;
->>>   }
->>>   -void intel_dp_link_training_set_mode(struct intel_dp *intel_dp, 
->>> int link_rate, bool is_vrr)
->>> +void intel_dp_link_training_set_mode(struct intel_dp *intel_dp, int 
->>> link_rate,
->>> +                     bool is_vrr,
->>> +                     bool as_sdp_enable)
->>>   {
->>>       u8 link_config[2];
->>>         link_config[0] = is_vrr ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
->>> +    link_config[0] |= as_sdp_enable ? 
->>> DP_FIXED_VTOTAL_AS_SDP_EN_IN_PR_ACTIVE : 0;
->>>       link_config[1] = drm_dp_is_uhbr_rate(link_rate) ?
->>>                DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
->>>       drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, 
->>> link_config, 2);
->>> @@ -737,7 +742,10 @@ static void 
->>> intel_dp_update_downspread_ctrl(struct intel_dp *intel_dp,
->>>         * especially on the first real commit when clearing the 
->>> inherited flag.
->>>         */
->>>       intel_dp_link_training_set_mode(intel_dp,
->>> -                    crtc_state->port_clock, crtc_state->vrr.in_range);
->>> +                    crtc_state->port_clock,
->>> +                    crtc_state->vrr.in_range,
->>> +                    crtc_state->infoframes.enable &
->>> + intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC));
->> The bit is only documented to be valid for panel replay capable
->> sinks. So we should probably not set it otherwise.
->>
->> But the weird thing is that the AS SDP DB0[1:0] description does not
->> provide for a set of valid values for that case (DPCD 107h[7:6]=10b).
->> Either they assumed that AS SDP v1 is used in that case (in which case
->> the we'd not be able to support FAVT and maybe some other stuff without
->> PR), or it's just an oversight and the same values apply as for
->> 107h[7:6]=10b as they do for 107h[7:6]=11b.
->
->
-> Yeah you are right, the spec doesnt say any specific thing for AS SDP 
-> DB0[1:0] when DPCD 107h[7:6]=10b.
->
-> It says for values 11b and 01b. As you said, I agree we should have a 
-> Panel Replay check also.
->
-> I'll just use:
->
-> intel_alpm_is_alpm_aux_less() &&
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
+Thanks for your patch, which is now commit 3bce3fdd1ff2ba24 ("drm:
+rcar-du: Don't leak device_link to CMM") in drm-misc/for-linux-next.
 
-I think I need to use intel_psr_needs_alpm_aux_less()  instead.
+This causes koelsch to hang during boot when a display is already
+connected before boot:
 
+      [drm] Initialized rcar-du 1.0.0 for feb00000.display on minor 0
+      rcar-du feb00000.display: [drm] Device feb00000.display probed
 
+When no display is connected, the system boots fine.
 
-> crtc_state->infoframes.enable & 
-> intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC))
->
->
-> Regards,
->
-> Ankit
->
->>
->>>   }
->>>     void intel_dp_link_training_set_bw(struct intel_dp *intel_dp,
->>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.h 
->>> b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
->>> index 33dcbde6a408..d3ae8ee38a75 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_dp_link_training.h
->>> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.h
->>> @@ -18,7 +18,8 @@ int intel_dp_init_lttpr_and_dprx_caps(struct 
->>> intel_dp *intel_dp);
->>>   bool intel_dp_lttpr_transparent_mode_enabled(struct intel_dp 
->>> *intel_dp);
->>>     void intel_dp_link_training_set_mode(struct intel_dp *intel_dp,
->>> -                     int link_rate, bool is_vrr);
->>> +                     int link_rate, bool is_vrr,
->>> +                     bool as_sdp_enable);
->>>   void intel_dp_link_training_set_bw(struct intel_dp *intel_dp,
->>>                      int link_bw, int rate_select, int lane_count,
->>>                      bool enhanced_framing, bool post_lt_adj_req);
->>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c 
->>> b/drivers/gpu/drm/i915/display/intel_dp_mst.c
->>> index e8de17834dcd..ffd1cf0aad9a 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
->>> @@ -2142,7 +2142,7 @@ void intel_dp_mst_prepare_probe(struct 
->>> intel_dp *intel_dp)
->>>         intel_dp_compute_rate(intel_dp, link_rate, &link_bw, 
->>> &rate_select);
->>>   -    intel_dp_link_training_set_mode(intel_dp, link_rate, false);
->>> +    intel_dp_link_training_set_mode(intel_dp, link_rate, false, 
->>> false);
->>>       intel_dp_link_training_set_bw(intel_dp, link_bw, rate_select, 
->>> lane_count,
->>> drm_dp_enhanced_frame_cap(intel_dp->dpcd), false);
->>>   --
->>> 2.45.2
+While looking into this, I noticed that hotplug after boot crashes,
+but I haven't bisected that. It definitely worked a few months ago:
+
+    Unable to handle kernel NULL pointer dereference at virtual
+address 00000000 when read
+    [00000000] *pgd=00000000
+    Internal error: Oops: 5 [#1] SMP ARM
+    CPU: 1 UID: 0 PID: 43 Comm: kworker/1:3 Not tainted
+7.0.0-rc3-shmobile-00734-g3bce3fdd1ff2 #2454 VOLUNTARY
+    Hardware name: Generic R-Car Gen2 (Flattened Device Tree)
+    Workqueue: events adv7511_hpd_work
+    PC is at rcar_du_crtc_atomic_enable+0x14/0xa4
+    LR is at drm_atomic_helper_commit_crtc_enable+0xb0/0xd4
+    pc : [<c0534700>]    lr : [<c05145f8>]    psr: a0000013
+    sp : f0939b88  ip : fffffff8  fp : c1fe25b8
+    r10: c21d01ac  r9 : c0c7862b  r8 : c0a99acc
+    r7 : c21d000c  r6 : c2e1c800  r5 : c21d0000  r4 : c21d0398
+    r3 : 00000000  r2 : 00000000  r1 : c24ed800  r0 : c21d0398
+    Flags: NzCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment none
+    Control: 10c5387d  Table: 4231006a  DAC: 00000051
+    Register r0 information: non-slab/vmalloc memory
+    Register r1 information: slab kmalloc-64 start c24ed800 pointer
+offset 0 size 64
+    Register r2 information: NULL pointer
+    Register r3 information: NULL pointer
+    Register r4 information: non-slab/vmalloc memory
+    Register r5 information: non-slab/vmalloc memory
+    Register r6 information: slab kmalloc-512 start c2e1c800 pointer
+offset 0 size 512
+    Register r7 information: non-slab/vmalloc memory
+    Register r8 information: non-slab/vmalloc memory
+    Register r9 information: non-slab/vmalloc memory
+    Register r10 information: non-slab/vmalloc memory
+    Register r11 information: slab kmalloc-128 start c1fe2580 pointer
+offset 56 size 128
+    Register r12 information: non-paged memory
+    Process kworker/1:3 (pid: 43, stack limit = 0xdcd99ef9)
+    Stack: (0xf0939b88 to 0xf093a000)
+    9b80:                   c21d0398 00000000 c24ed800 c05145f8
+00000048 c1fde6c0
+    9ba0: c2f7c680 c21d000c c24ed800 46818964 00000009 c0a9bf18
+c24ed800 c0515350
+    9bc0: c24ed800 c21d000c 46818964 c0535aac c24ed800 00000000
+46818964 c05187dc
+    9be0: 00000000 c24ed800 c21d000c 00000000 c21d000c c05189a4
+c24ed800 c21d000c
+    9c00: c15bac10 00000001 c21d000c c04de554 c24ed800 c22d1400
+c21d1000 c0109fdc
+    9c20: 00000000 c15bac10 00000000 00000000 00000000 00000000
+00000000 c0109fdc
+    9c40: 00000000 c15bac10 00000000 00000000 00000000 00000000
+00000000 ff6cd0a0
+    9c60: 00000000 f0939c80 c1542a00 c050e368 00000000 c21d01b0
+00000000 00000000
+    9c80: c1c30000 00000008 0000000e 00000000 00000000 00000000
+c1ce8f24 c21d35a8
+    9ca0: 00000000 ff6cd0a0 ffffffff c21d000c c1542a18 c1542a00
+c1542ab8 000000f0
+    9cc0: 00000043 000000f0 00000001 c050e470 c1c30000 c095df28
+c21d0058 c21d0058
+    9ce0: c21d0058 c1542a00 c21d000c 00000000 c1542ab8 000000f0
+00000043 c050e5a4
+    9d00: 00000000 c1542a00 00000000 c0521a44 00000000 c2d89000
+c1514c00 c1077124
+    9d20: 000000f0 c0521a7c c14b2800 c047f16c 00000000 c14df800
+00000043 00000000
+    9d40: 00000000 c14b2800 c14b2958 00000000 00000000 0000003e
+c0a81464 00000000
+    9d60: 00000001 c04c0688 c14b2800 c10798fc 00000000 c04c2654
+c1079918 c0a81464
+    9d80: c0a814b8 00000001 0000003e c1079918 c0a81464 00000000
+00000000 0000003e
+    9da0: 00000001 c1079a18 00000000 c04c298c c0fe6d84 c0c6f88c
+00000001 00000001
+    9dc0: c0fe491c c1076f84 c1076f84 00000000 c0fe491c c0a96a00
+00000000 c047d3e8
+    9de0: c0f04ff8 00000000 c1076f84 c047f974 c2d89000 c0f059d4
+c2d891cc c0f059d4
+    9e00: c21d000c c0a96a00 00000000 c0478508 60000013 00000000
+00000000 00000780
+    9e20: 00000438 00000000 00000000 00000000 00000000 00000000
+00000000 00000000
+    9e40: 00000000 00000000 00000020 ff6cd0a0 c1542ab8 c1542a00
+c2d89000 00000000
+    9e60: 00000000 c0521674 00000000 c24f05c0 c102cee8 c0944738
+00000cc0 00000000
+    9e80: c1542a18 00000001 c141f505 00000000 00000000 00000780
+00000438 00000780
+    9ea0: 00000438 00000020 00000018 ff6cd0a0 c1542ab8 c1542a00
+c1542a00 c21d000c
+    9ec0: c17d81b8 c10349c0 c141f505 61c88647 c17d81bc c050d594
+c1542a00 00000000
+    9ee0: c21d00a8 c1542a00 c21d0094 c050d948 c17d81c8 00000001
+c17d8278 c04e2f44
+    9f00: c17d81b8 c141f500 ef7cd600 c053dba8 000000d0 ff6cd0a0
+c1cede80 c0143f50
+    9f20: c0a01828 00000000 c1c30000 ff6cd0a0 c1c30000 c1c30000
+ef7cd620 ef7cd600
+    9f40: c014424c c1cede80 ef7cd620 ef7cd600 c014424c c1c30000
+c1cedeac c1034ee0
+    9f60: 00000000 c01443bc 00000000 c1d00780 c169eac0 c1c30000
+c014424c c1cede80
+    9f80: f08fdecc 00000000 00000000 c014b654 c169eac0 c014b558
+00000000 00000000
+    9fa0: 00000000 00000000 00000000 c010014c 00000000 00000000
+00000000 00000000
+    9fc0: 00000000 00000000 00000000 00000000 00000000 00000000
+00000000 00000000
+    9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+00000000 00000000
+    Call trace:
+     rcar_du_crtc_atomic_enable from
+drm_atomic_helper_commit_crtc_enable+0xb0/0xd4
+     drm_atomic_helper_commit_crtc_enable from
+drm_atomic_helper_commit_modeset_enables+0x10/0x38
+     drm_atomic_helper_commit_modeset_enables from
+rcar_du_atomic_commit_tail+0x54/0xb8
+     rcar_du_atomic_commit_tail from commit_tail+0x6c/0x138
+     commit_tail from drm_atomic_helper_commit+0xf4/0x104
+     drm_atomic_helper_commit from drm_atomic_commit+0xbc/0xec
+     drm_atomic_commit from drm_client_modeset_commit_atomic+0x190/0x214
+     drm_client_modeset_commit_atomic from
+drm_client_modeset_commit_locked+0x3c/0x148
+     drm_client_modeset_commit_locked from drm_client_modeset_commit+0x28/0x3c
+     drm_client_modeset_commit from
+__drm_fb_helper_restore_fbdev_mode_unlocked+0xa4/0xac
+     __drm_fb_helper_restore_fbdev_mode_unlocked from
+drm_fb_helper_set_par+0x2c/0x38
+     drm_fb_helper_set_par from fbcon_init+0x2c8/0x460
+     fbcon_init from visual_init+0x98/0xe4
+     visual_init from do_bind_con_driver+0x1f0/0x260
+     do_bind_con_driver from do_take_over_console+0x12c/0x174
+     do_take_over_console from do_fbcon_takeover+0x4c/0xb0
+     do_fbcon_takeover from fbcon_fb_registered+0xf4/0x160
+     fbcon_fb_registered from register_framebuffer+0x1f8/0x21c
+     register_framebuffer from
+__drm_fb_helper_initial_config_and_unlock+0x468/0x534
+     __drm_fb_helper_initial_config_and_unlock from drm_client_hotplug+0x50/0x94
+     drm_client_hotplug from drm_client_dev_hotplug+0x80/0x8c
+     drm_client_dev_hotplug from drm_bridge_hpd_notify+0x30/0x3c
+     drm_bridge_hpd_notify from adv7511_hpd_work+0x74/0xb4
+     adv7511_hpd_work from process_scheduled_works+0x1d8/0x324
+     process_scheduled_works from worker_thread+0x170/0x208
+     worker_thread from kthread+0xfc/0x108
+     kthread from ret_from_fork+0x14/0x28
+    Exception stack(0xf0939fb0 to 0xf0939ff8)
+    9fa0:                                     00000000 00000000
+00000000 00000000
+    9fc0: 00000000 00000000 00000000 00000000 00000000 00000000
+00000000 00000000
+    9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+    Code: e1a04000 e5903520 e5906468 e59054d8 (e5930000)
+    ---[ end trace 0000000000000000 ]---
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
