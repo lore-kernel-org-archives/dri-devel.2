@@ -4,45 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD966105D989
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 22:55:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E0EFEDB7D0
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 23:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 268DE10E3B8;
-	Tue,  7 Apr 2026 22:55:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6263D10E4E4;
+	Tue,  7 Apr 2026 23:36:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EFP8XNlY";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gzwV2I2n";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E1C10E3B8
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 22:55:35 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 41B391121;
- Wed,  8 Apr 2026 00:54:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1775602446;
- bh=ryXTSXcBD56C04vqWZf8CaGltRtiQOsx2nSg1l0oRXc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=EFP8XNlYHiTLk43zQbfyucXqteHwni31bTPRWlb+vKrW3CdXb7qr3XBZG0Za1+TeU
- dmWGYcy5NjFp1pfewwp2K2QViOS9sVVcaG3Rhg96nSZK+Z1raSFfpnnyHCo8LbmY3m
- O5yY9dMW7P5nubJP1Gb0nQk5XF6Y8RzARMAAQt40=
-Date: Wed, 8 Apr 2026 01:55:32 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Biju Das <biju.das.jz@bp.renesas.com>
-Subject: Re: [PATCH v2 4/4] drm: rcar-du: Don't leak device_link to CMM
-Message-ID: <20260407225532.GC1214579@killaraus.ideasonboard.com>
-References: <20260323164526.2292491-1-laurent.pinchart+renesas@ideasonboard.com>
- <20260323164526.2292491-5-laurent.pinchart+renesas@ideasonboard.com>
- <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EAF810E4E4
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 23:36:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1775604961;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=cSte9vRO1TSshWcFHdBwTd4rL0Ri6sBQhlLf+reom5g=;
+ b=gzwV2I2ncUaqe4+QeLgjoWkgtjPeLfmFpCTr4rwSDxK4lI4btnWMqUO++NzW1aPp4fp8Ow
+ WP8R4m4Jnvezxs8mFvTp60v/XkbRv16gtk2CR58hFskdBBfdyVr21kon4pDLTIVBCGJhjL
+ 1wglG0RCTCdDy3ecrqUPW8SFVaGvM7E=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-348-HR8mRNS1MQmYn3WPPE-LZg-1; Tue, 07 Apr 2026 19:36:00 -0400
+X-MC-Unique: HR8mRNS1MQmYn3WPPE-LZg-1
+X-Mimecast-MFC-AGG-ID: HR8mRNS1MQmYn3WPPE-LZg_1775604959
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50d5d1c2289so136738611cf.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 16:35:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775604959; x=1776209759;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=cSte9vRO1TSshWcFHdBwTd4rL0Ri6sBQhlLf+reom5g=;
+ b=lTjeY25VJQzcM+gnZElSE8o0jdNu45F45mjmeqNsZ+/KxM+gCmOeZxKMjCLjMcCc1T
+ U498CSeYc5Rz4dRDYMUmTRypAcSi7TsacYF5fktx4yzcw+WudF/xh++O0gNvMD+mpWqM
+ 2UAtml33AM6E/bXFSR5/ESLbUdXZlpzvs1Xs1yr+cIQ9ho07166sK5Zgo3PJCyF+koRQ
+ iU6/RZAHsroTp1GCZAT8/48dhkUVexLlhuGGCaEyt/SENljvPLnjC7pYIGXOVFKGMBs/
+ Nv3/KcbvejdhrE0GbNsjwZMiM2SqAFyTH70Zz5kbSoCJziYaSXCNnhXOJN4grRsUKzCF
+ wyLA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXio1qASlSuohlNa/KVfSi34rEtEF2Zg0tS2OKeqWbDlCDK615kyy3aa9QpCQeyhAICu4HdngWyEqk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyn0//4YxjtA+YIX8tKQosViuTkFibdccNTVfNJkR3Jsgp9o8c/
+ w7A7PqcxSQWt4tACMqUWba/yB4HmA4bTpK96V0qZNbJbJleYKR3EYzBdlFgUbe5XxZW2IilOExx
+ tTkqy5wlqckMQIyCrOK5VOtyIwaR9n6cwkqo1sM2EFKGawHn4BgJAJOv4nuQQZlT/DFvBuQ==
+X-Gm-Gg: AeBDievZTBgrjiOG0G1Kk4nCUsXoNa7jAHW/6dxZLGsETCXwTlsiG5zFj7DlNbYIZ3K
+ BtY+af0VA6cthLI5tq3tRxqqbAFKbAh+GGs14dnME7fAn6C0LTF0ARgrZsKalBytOr73Im97+zO
+ 9f7/ylrFD6kZQiIK31bvxBUvWz4hLOd6s6Izjsd6pPE+UEQQ+oOEOHEIS/o05MW5L3J9oIQ++C/
+ EwBQWGhoXUJM5m/sfFh1oWNbppN9l4XNQ6HYnpm/xcdV1YbbGjVZuv1iJZhueyNY/kVSYgluIAk
+ sSV/EwsnM30L4CeYz1A0neRQQli3qsnOjHJq2zQAAwL5ct8Yq/z2rdI5Cnq6cNKM5fI2x++GciC
+ lhDOM1y8Akbwj5e4ICQ7PoXCByL3b6qYkQYZkgVC5XnYPCFB3bL60abFhQuQc0n8=
+X-Received: by 2002:ac8:7e89:0:b0:50b:41b7:d6c2 with SMTP id
+ d75a77b69052e-50d62ad8295mr291700921cf.47.1775604959221; 
+ Tue, 07 Apr 2026 16:35:59 -0700 (PDT)
+X-Received: by 2002:ac8:7e89:0:b0:50b:41b7:d6c2 with SMTP id
+ d75a77b69052e-50d62ad8295mr291700461cf.47.1775604958598; 
+ Tue, 07 Apr 2026 16:35:58 -0700 (PDT)
+Received: from localhost (pool-100-17-19-56.bstnma.fios.verizon.net.
+ [100.17.19.56]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-50d5ea136a1sm129517281cf.25.2026.04.07.16.35.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Apr 2026 16:35:56 -0700 (PDT)
+Date: Tue, 7 Apr 2026 19:35:54 -0400
+From: Eric Chanudet <echanude@redhat.com>
+To: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <natalie.vock@gmx.de>, Tejun Heo <tj@kernel.org>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "T.J. Mercier" <tjmercier@google.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+ Maxime Ripard <mripard@redhat.com>, Albert Esteve <aesteve@redhat.com>, 
+ Dave Airlie <airlied@gmail.com>
+Subject: Re: [PATCH RFC 2/2] cgroup/dmem: add a node to double charge in memcg
+Message-ID: <adUVZ-i3Ot3R07Lq@x1nano>
+References: <20260403-cgroup-dmem-memcg-double-charge-v1-0-c371d155de2a@redhat.com>
+ <20260403-cgroup-dmem-memcg-double-charge-v1-2-c371d155de2a@redhat.com>
+ <auzxmkl5jxlvlxpryibtz7srdnssguiaylb3uisheclrqelcgh@owm2nve7axb5>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <auzxmkl5jxlvlxpryibtz7srdnssguiaylb3uisheclrqelcgh@owm2nve7axb5>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: HF3QLv2ZyoQSzq2nujKwMEtBn8_g7aJcIdNMTk9-hG4_1775604959
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,186 +111,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Geert,
-
-On Tue, Apr 07, 2026 at 11:10:52AM +0200, Geert Uytterhoeven wrote:
-> On Mon, 23 Mar 2026 at 18:22, Laurent Pinchart wrote:
-> > The DU driver creates device_link instances between the DU and CMMs, but
-> > never deletes them. Fix it by introducing a rcar_du_cmm structure to
-> > group the CMM device and device_link, and deleting the links at cleanup
-> > time.
-> >
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+On Tue, Apr 07, 2026 at 02:48:05PM +0200, Michal Koutný wrote:
+> Hi.
 > 
-> Thanks for your patch, which is now commit 3bce3fdd1ff2ba24 ("drm:
-> rcar-du: Don't leak device_link to CMM") in drm-misc/for-linux-next.
+> On Fri, Apr 03, 2026 at 10:08:36AM -0400, Eric Chanudet <echanude@redhat.com> wrote:
+> > Introduce /cgroupfs/<>/dmem.memcg to make allocations in a dmem
+> > controlled region also be charged in memcg.
+> > 
+> > This is disabled by default and requires the administrator to configure
+> > it through the cgroupfs before the first charge occurs.
 > 
-> This causes koelsch to hang during boot when a display is already
-> connected before boot:
+> This somehow dropped the reason from [1] that this should be per-cgroup
+> controllable. Is that still valid? (Otherwise, I'd ask why not make this
+> a simple boot cmdline parameter like cgroup.memory=nokmem.)
+
+[1] argued it should be controllable per dmem region more than per
+cgroup. For example, a cgroup configured +memory and +dmem with one
+region charging only dmem and the other double charging memcg and dmem.
+
+cgroup.memory=nokmem karg would double charge all or none of the regions
+for all cgroups iiuc. So maybe just make memcg CFTYPE_ONLY_ON_ROOT and
+inherit that configuration in all children would do?
+
+> > @@ -624,6 +656,13 @@ void dmem_cgroup_uncharge(struct dmem_cgroup_pool_state *pool, u64 size)
+> >  		return;
+> >  
+> >  	page_counter_uncharge(&pool->cnt, size);
+> > +
+> > +	struct mem_cgroup *memcg = mem_cgroup_from_cgroup(pool->cs->css.cgroup);
 > 
->       [drm] Initialized rcar-du 1.0.0 for feb00000.display on minor 0
->       rcar-du feb00000.display: [drm] Device feb00000.display probed
+> This is not necessarily same memcg as when the dmem was charged via
+> current (imagine dmem controller to depth N, but memcg only to N-1;
+> charge, then memcg is enabled up to N so this would attempt uncharge
+> from new memcg at level N, possibly going negative).
 > 
-> When no display is connected, the system boots fine.
+> There is a question whether dmem should enforce same-depth hierarchies
+> with `dmem_cgrp_subsys.depends_on = 1 << memory_cgrp_id` (see
+> io_cgrp_subsys for comparison).
+
+Thanks! I'll look into depends_on.
+
+> And eventually, if per-cgroup attribute is desired, it would make
+> greater sense to me if that attribute was on the parent level, so that
+> siblings competing among each other are always of the same composition
+> (i.e. all w/out dmem or all including dmem). This likely results in this
+> extra-charging attribute to be properly hierarchical.
 > 
-> While looking into this, I noticed that hotplug after boot crashes,
-> but I haven't bisected that. It definitely worked a few months ago:
+> HTH,
+> Michal
+> 
+> [1] https://lore.kernel.org/all/a446b598-5041-450b-aaa9-3c39a09ff6a0@amd.com/
 
-Oops. Would you be able to test the following patch ?
-
-commit 6c66826668e73570ce7668069460538f1ab610f7
-Author: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Date:   Wed Apr 8 01:49:40 2026 +0300
-
-    drm: rcar-du: Fix crash when no CMM is available
-    
-    Commit 3bce3fdd1ff2 ("drm: rcar-du: Don't leak device_link to CMM")
-    refactored CMM handling, and introduced an incorrect test for CMM
-    availability. When no CMM is present, the rcrtc->cmm field is NULL,
-    testing rcrtc->cmm->dev causes a NULL pointer dereference. This slipped
-    through testing as all tests were run with the CMM present.
-    
-    Fix this issue by correctly testing for rcrtc->cmm.
-    
-    Fixes: 3bce3fdd1ff2 ("drm: rcar-du: Don't leak device_link to CMM")
-    Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
-    Closes: https://lore.kernel.org/dri-devel/CAMuHMdXomz9GFDqkBjGX9Sda_GLccPcrihvFbOz0GAitDVNTbw@mail.gmail.com
-    Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-index 7c36c30a75b6..1a246ebbfc61 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c
-@@ -513,7 +513,7 @@ static void rcar_du_cmm_setup(struct drm_crtc *crtc)
- 	struct rcar_du_crtc *rcrtc = to_rcar_crtc(crtc);
- 	struct rcar_cmm_config cmm_config = {};
- 
--	if (!rcrtc->cmm->dev)
-+	if (!rcrtc->cmm)
- 		return;
- 
- 	if (drm_lut)
-@@ -667,7 +667,7 @@ static void rcar_du_crtc_stop(struct rcar_du_crtc *rcrtc)
- 	if (rcar_du_has(rcrtc->dev, RCAR_DU_FEATURE_VSP1_SOURCE))
- 		rcar_du_vsp_disable(rcrtc);
- 
--	if (rcrtc->cmm->dev)
-+	if (rcrtc->cmm)
- 		rcar_cmm_disable(rcrtc->cmm->dev);
- 
- 	/*
-@@ -726,7 +726,7 @@ static void rcar_du_crtc_atomic_enable(struct drm_crtc *crtc,
- 	struct rcar_du_crtc_state *rstate = to_rcar_crtc_state(crtc->state);
- 	struct rcar_du_device *rcdu = rcrtc->dev;
- 
--	if (rcrtc->cmm->dev)
-+	if (rcrtc->cmm)
- 		rcar_cmm_enable(rcrtc->cmm->dev);
- 	rcar_du_crtc_get(rcrtc);
- 
- 
->     Unable to handle kernel NULL pointer dereference at virtual address 00000000 when read
->     [00000000] *pgd=00000000
->     Internal error: Oops: 5 [#1] SMP ARM
->     CPU: 1 UID: 0 PID: 43 Comm: kworker/1:3 Not tainted 7.0.0-rc3-shmobile-00734-g3bce3fdd1ff2 #2454 VOLUNTARY
->     Hardware name: Generic R-Car Gen2 (Flattened Device Tree)
->     Workqueue: events adv7511_hpd_work
->     PC is at rcar_du_crtc_atomic_enable+0x14/0xa4
->     LR is at drm_atomic_helper_commit_crtc_enable+0xb0/0xd4
->     pc : [<c0534700>]    lr : [<c05145f8>]    psr: a0000013
->     sp : f0939b88  ip : fffffff8  fp : c1fe25b8
->     r10: c21d01ac  r9 : c0c7862b  r8 : c0a99acc
->     r7 : c21d000c  r6 : c2e1c800  r5 : c21d0000  r4 : c21d0398
->     r3 : 00000000  r2 : 00000000  r1 : c24ed800  r0 : c21d0398
->     Flags: NzCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment none
->     Control: 10c5387d  Table: 4231006a  DAC: 00000051
->     Register r0 information: non-slab/vmalloc memory
->     Register r1 information: slab kmalloc-64 start c24ed800 pointer offset 0 size 64
->     Register r2 information: NULL pointer
->     Register r3 information: NULL pointer
->     Register r4 information: non-slab/vmalloc memory
->     Register r5 information: non-slab/vmalloc memory
->     Register r6 information: slab kmalloc-512 start c2e1c800 pointer offset 0 size 512
->     Register r7 information: non-slab/vmalloc memory
->     Register r8 information: non-slab/vmalloc memory
->     Register r9 information: non-slab/vmalloc memory
->     Register r10 information: non-slab/vmalloc memory
->     Register r11 information: slab kmalloc-128 start c1fe2580 pointer offset 56 size 128
->     Register r12 information: non-paged memory
->     Process kworker/1:3 (pid: 43, stack limit = 0xdcd99ef9)
->     Stack: (0xf0939b88 to 0xf093a000)
->     9b80:                   c21d0398 00000000 c24ed800 c05145f8 00000048 c1fde6c0
->     9ba0: c2f7c680 c21d000c c24ed800 46818964 00000009 c0a9bf18 c24ed800 c0515350
->     9bc0: c24ed800 c21d000c 46818964 c0535aac c24ed800 00000000 46818964 c05187dc
->     9be0: 00000000 c24ed800 c21d000c 00000000 c21d000c c05189a4 c24ed800 c21d000c
->     9c00: c15bac10 00000001 c21d000c c04de554 c24ed800 c22d1400 c21d1000 c0109fdc
->     9c20: 00000000 c15bac10 00000000 00000000 00000000 00000000 00000000 c0109fdc
->     9c40: 00000000 c15bac10 00000000 00000000 00000000 00000000 00000000 ff6cd0a0
->     9c60: 00000000 f0939c80 c1542a00 c050e368 00000000 c21d01b0 00000000 00000000
->     9c80: c1c30000 00000008 0000000e 00000000 00000000 00000000 c1ce8f24 c21d35a8
->     9ca0: 00000000 ff6cd0a0 ffffffff c21d000c c1542a18 c1542a00 c1542ab8 000000f0
->     9cc0: 00000043 000000f0 00000001 c050e470 c1c30000 c095df28 c21d0058 c21d0058
->     9ce0: c21d0058 c1542a00 c21d000c 00000000 c1542ab8 000000f0 00000043 c050e5a4
->     9d00: 00000000 c1542a00 00000000 c0521a44 00000000 c2d89000 c1514c00 c1077124
->     9d20: 000000f0 c0521a7c c14b2800 c047f16c 00000000 c14df800 00000043 00000000
->     9d40: 00000000 c14b2800 c14b2958 00000000 00000000 0000003e c0a81464 00000000
->     9d60: 00000001 c04c0688 c14b2800 c10798fc 00000000 c04c2654 c1079918 c0a81464
->     9d80: c0a814b8 00000001 0000003e c1079918 c0a81464 00000000 00000000 0000003e
->     9da0: 00000001 c1079a18 00000000 c04c298c c0fe6d84 c0c6f88c 00000001 00000001
->     9dc0: c0fe491c c1076f84 c1076f84 00000000 c0fe491c c0a96a00 00000000 c047d3e8
->     9de0: c0f04ff8 00000000 c1076f84 c047f974 c2d89000 c0f059d4 c2d891cc c0f059d4
->     9e00: c21d000c c0a96a00 00000000 c0478508 60000013 00000000 00000000 00000780
->     9e20: 00000438 00000000 00000000 00000000 00000000 00000000 00000000 00000000
->     9e40: 00000000 00000000 00000020 ff6cd0a0 c1542ab8 c1542a00 c2d89000 00000000
->     9e60: 00000000 c0521674 00000000 c24f05c0 c102cee8 c0944738 00000cc0 00000000
->     9e80: c1542a18 00000001 c141f505 00000000 00000000 00000780 00000438 00000780
->     9ea0: 00000438 00000020 00000018 ff6cd0a0 c1542ab8 c1542a00 c1542a00 c21d000c
->     9ec0: c17d81b8 c10349c0 c141f505 61c88647 c17d81bc c050d594 c1542a00 00000000
->     9ee0: c21d00a8 c1542a00 c21d0094 c050d948 c17d81c8 00000001 c17d8278 c04e2f44
->     9f00: c17d81b8 c141f500 ef7cd600 c053dba8 000000d0 ff6cd0a0 c1cede80 c0143f50
->     9f20: c0a01828 00000000 c1c30000 ff6cd0a0 c1c30000 c1c30000 ef7cd620 ef7cd600
->     9f40: c014424c c1cede80 ef7cd620 ef7cd600 c014424c c1c30000 c1cedeac c1034ee0
->     9f60: 00000000 c01443bc 00000000 c1d00780 c169eac0 c1c30000 c014424c c1cede80
->     9f80: f08fdecc 00000000 00000000 c014b654 c169eac0 c014b558 00000000 00000000
->     9fa0: 00000000 00000000 00000000 c010014c 00000000 00000000 00000000 00000000
->     9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
->     9fe0: 00000000 00000000 00000000 00000000 00000013 00000000 00000000 00000000
->     Call trace:
->      rcar_du_crtc_atomic_enable from drm_atomic_helper_commit_crtc_enable+0xb0/0xd4
->      drm_atomic_helper_commit_crtc_enable from drm_atomic_helper_commit_modeset_enables+0x10/0x38
->      drm_atomic_helper_commit_modeset_enables from rcar_du_atomic_commit_tail+0x54/0xb8
->      rcar_du_atomic_commit_tail from commit_tail+0x6c/0x138
->      commit_tail from drm_atomic_helper_commit+0xf4/0x104
->      drm_atomic_helper_commit from drm_atomic_commit+0xbc/0xec
->      drm_atomic_commit from drm_client_modeset_commit_atomic+0x190/0x214
->      drm_client_modeset_commit_atomic from drm_client_modeset_commit_locked+0x3c/0x148
->      drm_client_modeset_commit_locked from drm_client_modeset_commit+0x28/0x3c
->      drm_client_modeset_commit from __drm_fb_helper_restore_fbdev_mode_unlocked+0xa4/0xac
->      __drm_fb_helper_restore_fbdev_mode_unlocked from drm_fb_helper_set_par+0x2c/0x38
->      drm_fb_helper_set_par from fbcon_init+0x2c8/0x460
->      fbcon_init from visual_init+0x98/0xe4
->      visual_init from do_bind_con_driver+0x1f0/0x260
->      do_bind_con_driver from do_take_over_console+0x12c/0x174
->      do_take_over_console from do_fbcon_takeover+0x4c/0xb0
->      do_fbcon_takeover from fbcon_fb_registered+0xf4/0x160
->      fbcon_fb_registered from register_framebuffer+0x1f8/0x21c
->      register_framebuffer from __drm_fb_helper_initial_config_and_unlock+0x468/0x534
->      __drm_fb_helper_initial_config_and_unlock from drm_client_hotplug+0x50/0x94
->      drm_client_hotplug from drm_client_dev_hotplug+0x80/0x8c
->      drm_client_dev_hotplug from drm_bridge_hpd_notify+0x30/0x3c
->      drm_bridge_hpd_notify from adv7511_hpd_work+0x74/0xb4
->      adv7511_hpd_work from process_scheduled_works+0x1d8/0x324
->      process_scheduled_works from worker_thread+0x170/0x208
->      worker_thread from kthread+0xfc/0x108
->      kthread from ret_from_fork+0x14/0x28
->     Exception stack(0xf0939fb0 to 0xf0939ff8)
->     9fa0:                                     00000000 00000000 00000000 00000000
->     9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
->     9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
->     Code: e1a04000 e5903520 e5906468 e59054d8 (e5930000)
->     ---[ end trace 0000000000000000 ]---
+Thank you for the feedback,
 
 -- 
-Regards,
+Eric Chanudet
 
-Laurent Pinchart
