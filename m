@@ -4,148 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EEBFFB5180
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 03:24:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92F84FB5190
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 04:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 878EA10E31F;
-	Tue,  7 Apr 2026 03:24:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0019B10E1EF;
+	Tue,  7 Apr 2026 04:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GEt+DKcT";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aE4r+Add";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="XKRGZyIn";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB96010E31F
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 03:23:58 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 636LQKq63537311
- for <dri-devel@lists.freedesktop.org>; Tue, 7 Apr 2026 03:23:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=OK++8WcMbyqDqJRvkHrdUK
- BaMe3ofWql14darhFggQc=; b=GEt+DKcT9JCXfCu/QMCnfTshCZUlcvracIlddE
- YmMp0mMp1Jib900PZZAra22KI9yi8izg5L0W3vvl3LsCH9BT8zNdsHrgIetQsS7M
- ErCritSK7faQwtTiYO7WkNutc+o14spbUTPDi+PaLKWjcf59llozU/ONrHYKVeTY
- 002W4lpM49b22qbJ+uAoTC8Ax1DB5PGYxieZxXNjQPRAEvTg13ct9mODSCdr236U
- m8MpA6m/nUqB+OXm0qGGOy78f963MlkOD+x8gmT6cSUPBN/aSqN8tAI4x21aVl+d
- vwGJm1/+JkXgPBKvV5nAkD4gO8dg64mwUaCnIIoKOaj/fY8w==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmra0tsd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 03:23:58 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50b4987c698so127255441cf.0
- for <dri-devel@lists.freedesktop.org>; Mon, 06 Apr 2026 20:23:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775532237; x=1776137037;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=OK++8WcMbyqDqJRvkHrdUKBaMe3ofWql14darhFggQc=;
- b=aE4r+AddJCDIiV0FNR4ePjdlupoeouEVPaRErY7exuyCH6/m4S1pllH8SCAW7ZyHsY
- KUAw7g2CHSatRBxNOCldiP+nQaus5AfKriDhPC5TSvWZ1a5mYhV67meQXSvqtz4nnHQh
- m4LeHWjY1Tx8LSBD55TBLRSI6kRoIpP/6FHQ69NpVPCXtq/RxeU1nji7yCSADln9Nmdb
- Adr9p45wjTxpKJLVNlIkb+RHk5LLn/GGE2JUvWwViSAu9SSinonQlM7gtcKSMUEMcxlb
- hAACClA2GPvd7tjbOfRd9/brOZSjKILnMeE5ZKnJLKJHZXrYMlcdIy/+GXTptkl2wWRq
- NTdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775532237; x=1776137037;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OK++8WcMbyqDqJRvkHrdUKBaMe3ofWql14darhFggQc=;
- b=WcMPqPdTOtohVvcS9cqCrZvAeJ7aXyuxsMTQHZHeivOjr8dklrRDVIaw9kIg/FS0zs
- qnpl+6sotl96fEzYgbPCudWsY5Jxymz/IjdRor4zQsYazLM+pIqwYhrXuz3GZ7xIk0na
- Lvfw2lDWPFINRl5JnDnqOdxRE2SLqlIM8d1V20T6zp/9mUYEJHiyo+R82IhtHrdl5sl+
- XNPAQ8hLOSii6uy5+jjTJY6WxeIegXxHfOBo+KRMblsJObSEiZS4cepoqCFQiR2sFeXo
- A1BSJUqvhml0hSjXQH8Vv73nL49WferQeEJ67yPkWLfkRxXGOiOnM9R9QEZ/s8bSp3Bq
- Vlzw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXgMaiCCeB2Hd6jcynClouycd7IPubhLHYcy1zf9vQwkwVIJNhuAfEMbzoSU6tl08k7rhd3SmHHE5Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQ6olGen4Oef2NGa8v8jAIXX8JLsHVuP2bazQrxd8ewe6zJRKC
- 1gGBsXcVgx6RHnvOS7KrAYPlRCWSR8RQOwqls5jyAM8e44rWu68HGd+8mWLXkWWKQxIPccsnYTn
- bV6o7MJCLI2oJ9eO1DQeOL1KtV225ZyCesgr8hBnozypwt7JnzNfzC4DA+uLW6BUsKMBtTKY=
-X-Gm-Gg: AeBDies8uOzeXMhBjZokvBo1YKvINMoCCNMGcvxNgGcq31eTL8G6fdicdewtjeo/uKD
- 8cjpkxVLKkmC77/KvDzBvNxpQ+BaFNu5csaDGjxukikWRpNoIElRvxNG8zt8iGjyuILbM7upuyL
- H6DWn3DmPgqmsm6qDXDHdi6NaMWXaM7pdDVv3PTCbncnBwlDVKy8tzuCZj0BMqnbkZqyLPCSBQt
- gfM58iXHGdMAVZIbEdH3y/M1Z3AH0zpCxod74UlDFbwttrogweKzMTBHU0UkSNKPLTS8pzI9sVy
- d8t3wby4FAHYoIMMIEwuGyhNH/DTrRBUcfeI8Oh3o7n2AUhpTBlINjjoGbpoH5nVz7TnteouOMP
- 7ItwbZo8BDL19nTZR/wSDK6RuKiPbtOk+15DTZ3bU3MkYDaLPbbJUo1DEZ3702VdfsQu540VwMT
- 2dn99AlZPs2tUxk3zwUcEsfhgoTdlmvyvivU0=
-X-Received: by 2002:ac8:7dc5:0:b0:509:202f:f03 with SMTP id
- d75a77b69052e-50d4fd24b4dmr235753081cf.38.1775532237198; 
- Mon, 06 Apr 2026 20:23:57 -0700 (PDT)
-X-Received: by 2002:ac8:7dc5:0:b0:509:202f:f03 with SMTP id
- d75a77b69052e-50d4fd24b4dmr235752751cf.38.1775532236732; 
- Mon, 06 Apr 2026 20:23:56 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38cd1fff886sm30768591fa.17.2026.04.06.20.23.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Apr 2026 20:23:54 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Tue, 07 Apr 2026 06:23:51 +0300
-Subject: [PATCH v2] drm/msm/adreno: fix userspace-triggered crash on a2xx-a4xx
-MIME-Version: 1.0
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010063.outbound.protection.outlook.com
+ [40.93.198.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBFA710E1EF
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 04:00:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cJQGSgBoYCHKa9ihN/oe7v+ygRgy98CLH12VwZUPNERv3lYQVI/E4xi1Ija7tE9mmRd/D4F5YdaaM0IKBX/8T4LmEdaGhjBbPb/H0h79ujEWTR9X5xTiYGqSsYB7lCMxK+gTxCMNo1UzMgo2L7tFYt3uNuQqNt6cbC1ucLx2rcB4WPwQdL+tdBDuot9eAIzE9/lw+IpyTUicUIgSbxeB9+ABWw1qvxUHozup7li4f2MiCDI81M3rYr+h67E5hHqIvlEpDV3u5a5n5cvkba4zl6zynKgAuSza1BBxKfY+aexkalf1/vv87uaDkLL0TRzJKyVjZjC355BuNMslQIF8ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zd/E+OcDfJSkIk7FyCmSCTr/6gAWhKE1EER20onIQ94=;
+ b=VKCbQbhoW7Tk2ZGN+bk6bWANTW760YNpkFanI17tXYSkUb50Tydj4nC0ljp9kmFceksKxPQ9a3aHV6YP9WQLdcY9XQ/LPqjbA9l7ZgOEny8JUnYaxtWSRPmipSr6G6rjyUE2OiAnTDGjhGTJauR4dEoRZIt7aNU5b555qDNt5FiTOefFPKF8OdaygNJSZu3XTxte/4h8862A4YnWhSSuUMQPQwt81NfjOA0FvFLqmCNAEJgN2npxeoLKWSX8EE7mZ9p0lerIHWuCi09MnH7OqoqmElrA1CrALx/w+K8qEiDTxhqAObPqZ2jtYy36vY78uNmUQIARJ96E+eBfWxV5vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zd/E+OcDfJSkIk7FyCmSCTr/6gAWhKE1EER20onIQ94=;
+ b=XKRGZyInrxoKeGYKaBJRnjs3vHhuA5E7+IrV4/S70T7FQUvtOfSV76ixpIuqpNecnNrjeqFtfgkeJD3JjzVqT8rATrbVXeH+fX1GE+gZhPgUTt4xNod9qZuRbsJ9QmQYvMSpxNSwRuBmYzFRs3CMUc1A/ND0lvy0zzNaRdb0b6XIB2pTvnwUqvZFcdIGrN1VaN9UthWM3f/YihahtdyYWF5ADeXBgS1lsySzuq4h3Q0+kvKiwjEn0IDllXK4AitIGyCBaBfcmWax3+CPNcv/BVeixy8LP8WSYSDxAVP+q3rDDz2wX43Pi2Vl9e7LBPBFDFwZfbs+J0GAToqoiyM+ng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by SJ0PR12MB6805.namprd12.prod.outlook.com (2603:10b6:a03:44f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 04:00:12 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9769.017; Tue, 7 Apr 2026
+ 04:00:11 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Tue, 07 Apr 2026 12:59:50 +0900
+Subject: [PATCH v2] gpu: nova: require little endian
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260407-adreno-fix-ubwc-v2-1-7ff73624635e@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAMZ41GkC/3WNyw6CMBBFf4XM2iFtw0Nd+R+GRVtGqRGqHUAN6
- b9bcO1mkpN775kFmIIjhmO2QKDZsfNDArXLwHZ6uBK6NjEooSpRiBp1G2jweHFvnMzLYqVVWRW
- 1FKQkpNUjUMo247n5MU/mRnZcNWujczz68NleznLt/bfPEiUao4w4FKUw+/rkmfPnpO/W932eD
- jQxxi9KCbVzxwAAAA==
-X-Change-ID: 20260407-adreno-fix-ubwc-6a2564710e21
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Message-Id: <20260407-fix-kconfig-v2-1-6b4fb06c690c@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ7CIBREr9L8tRhKkYor72G6QArt1wgGKtE03
+ F2oW5cvM/NmhWgCmginZoVgEkb0rgDbNaBn5SZDcCwMjDJBORXE4pvctXcWJ9IpepBWMCZkD2X
+ xDKbEm+0y/Di+rjejl6qojRnj4sNnu0tt7f03p5a05GhFx7mUtrf07BKOqPbaP2DIOX8BS7KIA
+ rkAAAA=
+X-Change-ID: 20260406-fix-kconfig-3a059f622697
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1883;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=worjPPj4ESVBaBV4MNEMASe3hAq2NdQk3yUJ68sqnTA=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp1HjIDXCRr5zKUdKi2UpZ12hKraipBs3O9o8Gu
- yc7oN+r8DWJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCadR4yAAKCRCLPIo+Aiko
- 1YQSCACIV5VUw/gWw2R562oWys03qBIMJyr2ym4v+Pg3fUrsAiIRATT3pSktxFBBM3n7DId+G0b
- 83Fw2IdKcmLE83kLL2KEtqKH6t0L2sjk6/yc1mL9VwKH/uJXQLECUvhz2TWm0vpDv98lQ5P/PZW
- 6RWB5uJywzfg7edo9NtTUCfQQ5RNu+8Zi62Dnc453Rt2eVbGt9kQRxNb1lpUTs8tlR6ZviCEoIc
- RWEz9u75r4D7r6DrtRRMsdyJZIwUqDWSP6D3GrYSj388eeOMJPvAMCxzn6yP+GN4G226xW1RSSO
- Nq4Jyzyia2TWyIqONt8Ua9d++lAcUkGXQ6Tpu8e0XR94LAXc
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: I-ayWcHyTAkGV_5aPnoYTwmf0CbAw_Ru
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDAyOSBTYWx0ZWRfX7yggKiKkwNdW
- 0qfnjVrOOFmFRPSHf0uxMOqaCUEw74FDlvNxk2BkMdoJjQuq9qRIUvsh+lFkjYUbW943JnyplZX
- NMydsILOxOYlNarCbTb+KRw1t5L9sSLWBcAHz2SYuPvcRR4oTqBQLqFcIrpiLAzyEDMOT0MqDzy
- 2e01kDPp8j/0OW0h4t70Yy2syXBdjUMSQBHsFiommqABCuF3BMKAMuDbqd2qb+4bqwzcpeds5zA
- qiFiT8ZDcgMTSy6f8x4CQcKpnXT3ahRkuHwQJjHLlBagqggExEr6Q68vJ7Gax2aJBlh4T+G7YGv
- g8aGEPnZwfEd+D1dRx9GnfouHTLCu2rDpJeuX5sGa16JZ4e9YRWMlbAJoiAibCmYUPjhQ87z7qq
- 3aF7APhkjtIzJR2NdiH9DP5Uz+F9xWrND5idk4LAUpN5k25Lw6KU4hJnfNd7fIsUs2MdPJf6scO
- 20WWdmTxorTy6D9IFAA==
-X-Authority-Analysis: v=2.4 cv=BKGDalQG c=1 sm=1 tr=0 ts=69d478ce cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=5ICTkH4HVDsf0thFk5wA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: I-ayWcHyTAkGV_5aPnoYTwmf0CbAw_Ru
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-07_01,2026-04-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0 suspectscore=0
- spamscore=0 impostorscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604070029
+X-ClientProxiedBy: DB3PR08CA0029.eurprd08.prod.outlook.com (2603:10a6:8::42)
+ To BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SJ0PR12MB6805:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8aaab82-12e8-4647-8f41-08de945a2a9b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|376014|1800799024|56012099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: wvgtYI7LbbJG7pw/pTlcaEnBTRzuyUg22wv7Fcs5k8skSYS3EEiQNN/sUlOMf2ryqcapE+z1btg8yhSmFIt1fbPDkwSGHMovch8iVTFKZrdXtEMwGrL1j6zRzWIy8ykgEsnm6TeX9lHXKbJEW7lXkHWZXHs2eqApIjrRMEv65wpf1nqmpyJVRP3nyZU+4j/3PioPLsi24SlyifDmzGuk62ShL02z+jX0IU114ZjJF/9qW7avQxv7ne4dwGDNIz9/23gpSk7makdGwLnQWE0hQjtdeJLxugBUkiJGt8awltS9DzEzfbcXY9HCv7meTP13uKulQHKvMOR6A+5x6liUC7qUE0wIjsWViFvkRvaVN83Gfqzs8TmC9DV2MHdde3NTOAJ7AiYj8GGleASy+n5Zu76kiaDgJerYpIz8g+B6O4kJRMphFuumOvZh3sz6WcSTv2COM1L5wPn8+9mQdWnZIWbiWFgHRuBSw1lhL3cPjfLZAeitrrfjphMsqZ+5ya+KyuOxKVJ1pZsOP7VFI8KILVxa/tb/mIoKdarXNCHceg4utTa1pI/dmBTvp0qAt7KUW3k/MpFniXtpygO/1UHTqNovF5Fm6aWq7KBtodjriZNalLNm2Xjzeb9B64kSlBXaa7YKeiVhvyb+oNEYBptOFk/QGU9y1ZtRtm18Da8v7/MB9SnYz6nFUqlMbGF3Uyf9GW27zidG0oP4QBN14fHd/LRbMxkXwue1PKmDGTfoRlw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VllvazBMb0s0RVdiYnMvQWRhN05wcXc0TVF0ZE1qVUJaWWlWSnEySEU0amU4?=
+ =?utf-8?B?eUNkL0RYb3VRWkNIN3ZLeDZpeWt4VkF5b2lWMXVpZzVxcTZ6eEk5UkxNK0VV?=
+ =?utf-8?B?M3BQcE9TUExSRjhuUlNlaGlLaS9qaWxsRDZ6VkZQVWJONFdTRTNIZVN1aHZu?=
+ =?utf-8?B?aHIwczZOaGZyZnJLNGFUSmtkNHBBbmVnb1Mvc0FmTVBadXgrWS90blM5c1VW?=
+ =?utf-8?B?cHhKemdEeWhpOHhPTlg1dWFzWVpkai9zUVhXYnBFQ2tUMjU2YktUanh3S25y?=
+ =?utf-8?B?OHUrbkRLaHdvbW5QaXQ0MGV1dGQyVWxDQ2lMc3FaRDhoK1RMVEhCcm12OU1P?=
+ =?utf-8?B?M3JxZTE1cWppUC9mb0Zpa2t4S0ZyRzBIYnF4Q0Q4Q3ZYL3RwRW1qOTJDL3Zr?=
+ =?utf-8?B?MXBkaUxURWlvZFErdkhpUm12dEczK2xVcDU1TjB5UTBSU3UrK1JjSUVhRmpx?=
+ =?utf-8?B?bkpiMHdYUFdlWVVidFczdEhuc2RFY2UvNDljSHQvU0FBVzJMQ2QyQ1FtU2FH?=
+ =?utf-8?B?L2FjeEFKcXFJdDV4M1JIYXE5cUxNVXovS2E1QnE5WWxiaXZYUDZrMjR2ek13?=
+ =?utf-8?B?TkdjL1dkdDJMTjMwaVYzdnh1dmtjUlkray9VQzlxTWF5RW02Yi9TRUk5NkFL?=
+ =?utf-8?B?R0xidVkzYWNuTUpQSG1qeHJjOGJUckFFS1FHcHdhbG1ic0NFUkJidkRhUHhy?=
+ =?utf-8?B?UEY3YmZvcUtSQURHVHl3aVkwWTlXU3BVWmQvbk9tRFo1YTZGSnAvZEVvRTI5?=
+ =?utf-8?B?am53cDN2cDY4azdTK1hZMytIUG4xeFF3UGhBVU1yU25WNFRRNkpmZEJJQkxp?=
+ =?utf-8?B?TTNkUlFERFJFRnFUOW56d0dFaDBXS2IzQnlaU3pWeVVuMlVYaHIwOXQvQ1Nx?=
+ =?utf-8?B?YWxhaWx3d3pnNElmVzFCdWU5MmxtekVrMWhtOXNjZng1RlpHZG5nLy83TzUr?=
+ =?utf-8?B?UDYwb0FadTFyT3ZlU0FIdHFIaTEwai9Da2xsc2ZKMncyTkZOdHVab0h2OCtI?=
+ =?utf-8?B?dVJILzVLT3FwTnVVS2oydDNRWVU4bVpMSU4yRzRzRU5DaFNHT2tPRm9pdVJP?=
+ =?utf-8?B?Y0ZjLzRkM204SHdQbmFWWThJZ1cwRldQQ285bnR4VGR4VUtldzFOa1ltTVQy?=
+ =?utf-8?B?cExBZVRmdFJiK2U4cldVM0sxQUxGOGl6Zmh1NzdyV3ZtVElCdjlxWUNOb1Jv?=
+ =?utf-8?B?RTRSSEFhRWVoTDVOVkk0VGsyVitOaG1RdmNjRjFueUNpODI3cDNsTk5QVG5W?=
+ =?utf-8?B?Snk1SElDMDdTUWpNVFY4WDZ0QkIzcXhGdXNXRHQ1aTk5aGxpdnJTZldFblgy?=
+ =?utf-8?B?QW10TnhsU1QwbTBGS0hXQlluUExRRlpPbmJxREhHcmtvRi9mTFNzdkdIUE5I?=
+ =?utf-8?B?czB4Y1pmN0xCMThlSU9hR1hLWXdINVA5YnRBOTZpNDRuVHlRbWRVTEJSWkRi?=
+ =?utf-8?B?NmFRVnpMY2IvRXBiUXF0VjBpTzZpK2p5M3dXMDdwMmREbytOMEZDTjhLTWhv?=
+ =?utf-8?B?MFNMV01CalNqdVZ4aGFzVHdVZG9KK3hXOFpycU5pRHFCMnRWa1ZkdUVhR2c1?=
+ =?utf-8?B?NzVCMmx2T2dlSFFFTW9DVGtjWnhpZ0Z5VG52SEpTQVFPREtvS0diNkNkdzdD?=
+ =?utf-8?B?OFB2VGkwVkJCTjVhK21mWUtSNTBrM3R5MWFpY2d2QzFHdE5tWURaREJxbzl5?=
+ =?utf-8?B?VWNPQWQ1V2t1YWhOU3hNZFZtczNqQWNpVDFkby8yV2haSmdzTW5GN2g3NzJW?=
+ =?utf-8?B?Q21RWlQrcEowbGNKODM5YVpEQ3FVR0x2Zzg0M1BRbjBkcExYMHNWWXFDRFda?=
+ =?utf-8?B?WTVOTDJkVTZVOTJXc21zQS83aGV6UFFEMTR2OWYzUkx5ay9MTlZRSUF4akh0?=
+ =?utf-8?B?K1l6b3E1azg2Z2gwTER0S2h4ZGR1RW9PTTBNWVlPK09qRTlLc2xJYXJZTTQy?=
+ =?utf-8?B?a3RPdWZia2xqNG5VSG1GS2p5WThTL3grY0F2WC9sWmZpaEd0cXZuakNTNitZ?=
+ =?utf-8?B?MWtaamVqUWFLdXVScHF6YW1IbWJMSjY1ZVNEaU9Bb2FnYVpRdGFacUlpaUZp?=
+ =?utf-8?B?TWdZYStESUhjYnBKOXIzNlhEdEJNcGxBS2EzeWtjNGVrN2xTSktPRjltYm50?=
+ =?utf-8?B?bWdwRi9HNnArTjlpcjRad2VVTFFPaFBLajJCRUxsdUk1VHhRWnZqYWpLQzhJ?=
+ =?utf-8?B?am95RnprKzRkSkxiMTNTcnR1UFl2VWZVMnA2S3pkOWxRNXN1Tko0dWdFT214?=
+ =?utf-8?B?QWYzWm9KeERmcGg2NmQ3UXN3bW5JV0xQc2xIUFVtL0x5dXk5aXVuRFcxc3Ba?=
+ =?utf-8?B?cCtjSE5wSm80Mmo0NDdGQ0hJTXJ1dUdJd1pmdmFEcXZ3UGlUbGpCcExick93?=
+ =?utf-8?Q?T3Q+YjHQbqjngGzlzzVUFLnewEhBYJbeOOcFYNP57JybN?=
+X-MS-Exchange-AntiSpam-MessageData-1: GlrHkv1nHOIQEw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8aaab82-12e8-4647-8f41-08de945a2a9b
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 04:00:11.8022 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YdpjfNFVfIDELtmZeS3x5nYQKLGxF7r8JStBYJGPeragGrWS0qMyvSqSzZ4gNm9/UGTBHmA3Be106GKKhMkTJA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6805
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,55 +144,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Before a5xx Adreno driver will not try fetching UBWC params (because
-those generations didn't support UBWC anyway), however it's still
-possible to query UBWC-related params from the userspace, triggering
-possible NULL pointer dereference. Check for UBWC config in
-adreno_get_param() and return sane defaults if there is none.
+The driver already assumes little endian in a lot of locations. For
+example, all the code that reads RPCs out of the command queue just
+directly interprets the bytes.
 
-Fixes: a452510aad53 ("drm/msm/adreno: Switch to the common UBWC config struct")
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Make this explicit in Kconfig.
+
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+The current code assumes little endian in a bunch of places. I think we
+should either explicitly decide to be generic on endianness or explicitly
+decide not to - having some handling sprinkled around in various
+locations seems confusing to me.
+
+I believe that currently e.g. `RUST` transitively depends on
+!CPU_BIG_ENDIAN, so this is more about making the decision explicit for
+nova-core rather than fixing any kind of hole.
 ---
 Changes in v2:
-- Changed adreno_get_param() return -ENOENT for affected params (Rob)
-- Link to v1: https://patch.msgid.link/20260407-adreno-fix-ubwc-v1-1-bb2b09450b87@oss.qualcomm.com
+- Also add to nova-drm (Thanks Danilo)
+- Did not take Reviewed-by + Acked-by because commit changed
+  substantively
+- Link to v1: https://patch.msgid.link/20260406-fix-kconfig-v1-1-8f634499f7f0@nvidia.com
 ---
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/nova/Kconfig  | 1 +
+ drivers/gpu/nova-core/Kconfig | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index d5fe6f6f0dec..34e4ab43b0f6 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -426,15 +426,21 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
- 		*value = vm->mm_range;
- 		return 0;
- 	case MSM_PARAM_HIGHEST_BANK_BIT:
-+		if (!adreno_gpu->ubwc_config)
-+			return -ENOENT;
- 		*value = adreno_gpu->ubwc_config->highest_bank_bit;
- 		return 0;
- 	case MSM_PARAM_RAYTRACING:
- 		*value = adreno_gpu->has_ray_tracing;
- 		return 0;
- 	case MSM_PARAM_UBWC_SWIZZLE:
-+		if (!adreno_gpu->ubwc_config)
-+			return -ENOENT;
- 		*value = adreno_gpu->ubwc_config->ubwc_swizzle;
- 		return 0;
- 	case MSM_PARAM_MACROTILE_MODE:
-+		if (!adreno_gpu->ubwc_config)
-+			return -ENOENT;
- 		*value = adreno_gpu->ubwc_config->macrotile_mode;
- 		return 0;
- 	case MSM_PARAM_UCHE_TRAP_BASE:
+diff --git a/drivers/gpu/drm/nova/Kconfig b/drivers/gpu/drm/nova/Kconfig
+index 3e637ad7b5ba..a2028b8539d7 100644
+--- a/drivers/gpu/drm/nova/Kconfig
++++ b/drivers/gpu/drm/nova/Kconfig
+@@ -4,6 +4,7 @@ config DRM_NOVA
+ 	depends on DRM=y
+ 	depends on PCI
+ 	depends on RUST
++	depends on !CPU_BIG_ENDIAN
+ 	select AUXILIARY_BUS
+ 	select NOVA_CORE
+ 	default n
+diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
+index a4f2380654e2..d8456f8eaa05 100644
+--- a/drivers/gpu/nova-core/Kconfig
++++ b/drivers/gpu/nova-core/Kconfig
+@@ -3,6 +3,7 @@ config NOVA_CORE
+ 	depends on 64BIT
+ 	depends on PCI
+ 	depends on RUST
++	depends on !CPU_BIG_ENDIAN
+ 	select AUXILIARY_BUS
+ 	select RUST_FW_LOADER_ABSTRACTIONS
+ 	default n
 
 ---
-base-commit: 36ece9697e89016181e5ae87510e40fb31d86f2b
-change-id: 20260407-adreno-fix-ubwc-6a2564710e21
+base-commit: a7a080bb4236ebe577b6776d940d1717912ff6dd
+change-id: 20260406-fix-kconfig-3a059f622697
 
 Best regards,
 --  
-With best wishes
-Dmitry
+Eliot Courtney <ecourtney@nvidia.com>
 
