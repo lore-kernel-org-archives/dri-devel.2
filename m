@@ -4,161 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A816EDB7F6
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 10:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1423DEDB7F8
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 10:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D9710E3DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E8E710E3E0;
 	Tue,  7 Apr 2026 10:56:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mf45q+nA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NFmVb2YC";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PpegGfe/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB4510E3D9;
- Tue,  7 Apr 2026 10:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775559400; x=1807095400;
- h=message-id:date:subject:from:to:cc:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=2y36gRrOJyTq3CNlkHrQTBdZD6MCfxOfFjwf6EYdVc8=;
- b=mf45q+nAIWwJ8m2f6utV7u0TbdvqNuEgLJZANSGJ5ax8yjprFwq3zCSb
- zT2vCWHHLefXtnMcJH52Nqjbiz0K0YWmir0iq/rSHrJAmlz3tAukZg2E9
- e0CKW9PkoV0XMZ9V0Yjat2e6Ubr1nHxb5JFx47MaSo+jxS12WYdKIxigI
- I+tD7g2PSeWmFlg/UlG2MBbCIsYOwdj9ddz3qr/Po07ytvYoSjy36OIEv
- XwiebDsurhiAGMgoqAU49r37sNVQ5I9PnPO6+kTFOma5KwQng3RXyD1Dv
- V3VHqvMNL5UOViZU1qAIQj1Zi7USVkykRpyQNhcamTYA9tdDG+Rtyi3Mi Q==;
-X-CSE-ConnectionGUID: Zzfw2q6FTrW9RblOQgsWDw==
-X-CSE-MsgGUID: lLwmhPAaSneC14yvWpIJcg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11751"; a="87970310"
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="87970310"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 03:56:40 -0700
-X-CSE-ConnectionGUID: sBGutKVCQ0SFoNNdd+zUug==
-X-CSE-MsgGUID: Y57JLTCbQOm/ybdFcqNZ1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="229811400"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 03:56:39 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 7 Apr 2026 03:56:39 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 7 Apr 2026 03:56:39 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.55) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 7 Apr 2026 03:56:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mvr69d11dV8u64Ua4I5YMS3c8sHOL3tab5F+1k2aPZGJP4yiC8Onkc+gYdIT94Mufmt0xDzbltfuuOHlpy8E0PGdDjBxTHmztJreDB1CcF7F2n9XHtqGdawAGdH+8MAmzsSz8eBn/XiD8Z58rl6hS1hyDo7MSIkLbJFZmdHfnEyEDPU4SL0rFui6A3wTUu+AJUsUTth7w93TAPQg32dHh0Roj+4Pnu6lkb1QtmEL1h1ekrAXgsrbp0hUFSenB7LaoseKD+XqHmNfjngacc/Y8SsW1GURmtErBtDeefM0H0TXscLFlwbdi0Wu0bVk3nKS0+rEV6Fe5OQq692edk7xkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7+7VXH42tJJ5IC9/YmVLWQQUq9ELo6P4eQHFGmydnCI=;
- b=SKbp9dfhxZhB+0E50PLcOTh38qB1X2S+AHSoQPiL6lz7700dNd0N39l2rOrFM4LS4+VAbNP/y1ZdxMoYpazAakLedY4tANWxm5b5SWb5dckK0/7BNQuMcxRGUX3lbVlWj8aNaH1ZSUtHxx8Jl6G2HS55rAz1XIyoBMpt9cwMg+O+D4JM0dE7zJq+p7Gx3ifTdp1wUYyJ7r+w8oqnLoyg1BuB/r+zuPgZ4yRvLplS7fcME60mrfHiM1pKRdhOrKJPNRkDSAimerVlqjUybC2x3JsVC8oeeGSw1haHHWOyNTiNnPWKeqc5JimKerHsQAup0kpINa8y1olfpslmdMYAqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by BL1PR11MB5272.namprd11.prod.outlook.com (2603:10b6:208:30a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Tue, 7 Apr
- 2026 10:56:37 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9769.016; Tue, 7 Apr 2026
- 10:56:37 +0000
-Message-ID: <e08840f2-3fdd-45b7-b31b-0c95ff98ab29@intel.com>
-Date: Tue, 7 Apr 2026 16:26:28 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 22/23] drm/i915/dp: Compute and include coasting vtotal
- for AS SDP
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
- <animesh.manna@intel.com>
-References: <20260402080425.548702-1-ankit.k.nautiyal@intel.com>
- <20260402080425.548702-23-ankit.k.nautiyal@intel.com>
- <ac5Omw5rDxuGO-Bp@intel.com> <2ae5996e-1eec-4b33-9d4e-6a07aa805698@intel.com>
-Content-Language: en-US
-In-Reply-To: <2ae5996e-1eec-4b33-9d4e-6a07aa805698@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA1PR01CA0155.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:71::25) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1564710E3DD
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 10:56:41 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6376f82P3402359
+ for <dri-devel@lists.freedesktop.org>; Tue, 7 Apr 2026 10:56:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ ko+QfhLFwmwkxoUOJjdvmB7TSp2JRVRFcGoAOsZ7jO4=; b=NFmVb2YC62QCgbj9
+ ROi1zp1yHdWUoSXTDEYN2HMyaHFePibhcCfXJiROm1raq6ZH6U8p8qeSf8gGG4hQ
+ t3fD7Cgms9AcIbNIvK6bftF8NofE+8SH4yJwiekx3odZ6+OBM/5hzzL7nIJ/loW5
+ Gj1loQIgThK6kMsNNuqj1utmaZ/tWRtcV6WeibBiT2L2+BF9hrCvDt5v1bRYyUe7
+ e6ULJp3yJ5BYi3L/0QAlh+mAiUx64QeaNeaFzfnfU/yd1M62CBNlrztF8gP113e6
+ PmiyektmEl47FHoW08Xz2RpY9GX8GE1n5S5hqc/tTSGNCNDm0/WWcbJoXMFAJFU7
+ gyhTrQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dcmrhtbxy-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 10:56:39 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-8cff2297253so102458885a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 03:56:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775559399; x=1776164199;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ko+QfhLFwmwkxoUOJjdvmB7TSp2JRVRFcGoAOsZ7jO4=;
+ b=PpegGfe/Bf4DLwpahZVYHW/7/cujV7F9RJicr28o0ITdr0H8wCMggrO7eOJhuMl9xY
+ i4CxzXy19r4NMQzDZI0u9FGj2D9qeld80+lYH/YLKn/VecGGXPLMnIeyf937IJmJNpM0
+ iboHSNutAV1ulYIu7B2S/acMNA7JOloFLfythy3X2EpvVS/W2AsHDD40F6iZst9XBC0X
+ MB7vL3sbh32up+aFvzo9VQjcq7cQGTHOmvCdm5v/6JStcg9jCD04aB+VizA90md6CD/g
+ 8iqKu6wdPq9Tjim84p510eq/3Ws1QiPBoOxnMraxzO7Kf8vWiLoGjl80d3fx5J8NOvx2
+ RBlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775559399; x=1776164199;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ko+QfhLFwmwkxoUOJjdvmB7TSp2JRVRFcGoAOsZ7jO4=;
+ b=ProZSeReS8rBAnicYFAy/CvpCeBElSctgd2L8gDiE4t+CKQqrPCKjS3Mkl4/eAPv5N
+ TStHKutQonLaR6NiDdhPkdL6TOqrsMG0qmvND+r0XdIJDcB+g3FwsHBXIEfYedBlzYoA
+ g+adOSx3tyvCN+ltc+yGRLS9/wTjYQLGqh76PXDp9AIZhhsNzyb9imuuvCJrW/0bVdKY
+ l+KQF+9fYxUR2JikRQz7o3WS3kgob6jmNv/pfNvKLugu6p7/8OxH//ORxVjH56eOnHw+
+ ZvSly6A9hZ/F73w7qiSMvA6UdcL6iQrXilltUm4r6L8jQFS3ayDBRFO0Yz4Rpuk9Sfjb
+ Ho7Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV4QbsX8Fa+krldenzG+sgcButSqNEUtW9Fbg6a76ovfLwg1ZM6cUdqrDsFmQF2XUGE7E3xLsIC2X0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyfEbUQIEJe17OUQoh1W7sQS/Qn2r92oKiih0P8TxHT39UfMoMv
+ UyShqr1h+ZMGbLi7oGue+/isqIFTf/YcfwQOhWHylXjkK202FfdtQk7BIKivinAsujUNl14bMUv
+ mYoiGwCrgBQIC9c0mG4tMwMtP2s6yEY/ltWppy/mWxCCwEL6TIwF7U5KeSQePizJ9+FQG3qg=
+X-Gm-Gg: AeBDieukpNFxUeybWaWUHPHmRY/PLqhk2x+sZN933Yzl0KU0unm+mT0FyL0+copf21I
+ 0CB36sBc6J3v6vvI8ShKwxuWzhBuk4SiVZi1eXEpK6giwBurmMv4x4lNXiqzYVRw8LagHzvsUkX
+ 9jH2Bs6J+jAViIUMaRlSQ6wQRq+d7ZMSH57RsKnW7mP0o0egK1JgY7smCRzQITK3oHNiHshq8Tb
+ 6pZjefoVUHEBOKdRpDWwHlrsRb6MR4DFD025d3u3Z7LjB4+vFpQZ+F9MVZHhiHP36yIiX0Ytcfx
+ FQSODqGfbJJelKlb/1HHwQwAPqN4BJxklDr5yh1DhvWR2aP+3adCiUTVf8vZEI8KSx4CwoGer0k
+ aFgSf7BG1FhVN7uuxsmCwfLgbLTu1go9ZcSv+6PLoGbt9//TEYPRCrz90Pxmx7bXphKx7wEO54P
+ fUy2g=
+X-Received: by 2002:a05:620a:489b:b0:8c6:e2a7:ad1c with SMTP id
+ af79cd13be357-8d41b2e38bbmr1763512485a.5.1775559399148; 
+ Tue, 07 Apr 2026 03:56:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:489b:b0:8c6:e2a7:ad1c with SMTP id
+ af79cd13be357-8d41b2e38bbmr1763509385a.5.1775559398584; 
+ Tue, 07 Apr 2026 03:56:38 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66e033a7800sm4257700a12.18.2026.04.07.03.56.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Apr 2026 03:56:37 -0700 (PDT)
+Message-ID: <6149513e-2c0f-4f01-a467-b4a213d65609@oss.qualcomm.com>
+Date: Tue, 7 Apr 2026 12:56:34 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|BL1PR11MB5272:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ca0c8ee-5115-4566-ea21-08de94945714
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: SgUcObONYe9CSzbK4Be43tDoaqFHGnDdyEGySh6L8LWzADJohHDoMoVF9d1NF9CHIfdhceGHU7ZB6KBlmZoSJoScyCLDq+NnTudDPe66BAsr/bm8Hyyw+vqEXw/dmm4D2wj2NNzTL0UrEsQxf7ZXM6H9ztM9eJtOZGMjZ7Z1HZSUnXQYc7PPYNEXcpsjy/GmwuQFiTyWOIt7U/ouhEqjiPbIPfpgz93zJA5ZOLuTZVMKhj2FNRenegkBWoVX+ccvQHXcwmEXH3ch+Yie0QxgunK8s9S7JEJEhgKxAsXaH6/Q1i+XyNuNY0iPAZUomyuB3yDanBBnmjRLEt1PIrKUAI43zRPVDZif8svkEFTkncVPH5bX6g8sD+gwdIyMn/1x/44es2c6wYjThwPmSsSkum8hQq9XDDCLc5ZsGWLpgvubskxhhESasTngWefLS3foThkJSwXhStB8NLVBh39hPta9xpv0J7MJ1aLd0JUYmTFVyCA4gITC4UTUM8YWRs2mQjKyPLJgR/5rYTwgmwXxd1uA0KY27EOOuOjwIdrY1P5PNJOjW+wnFhZW0EwcpBme42P5bysluHaPfecDJsAd9SevvyelEk5Zf3X3siTLb00dFH3wwvKSVb7HRLcyK4qWbxsmC2rAlvuyrKUdq+7t5ZvA+djdJ5ogluLFU/sFIGJQTM4rI0NDu2GH+hor/oOjtoBDP+OLAZdi+qrfSI1HsC7QUd2GBSTlSrutkOvHA3M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RGVFN1h3RG5UWStqZUM5ckdaRktGc2dpRTFmVVVyTDNrTWNEekgzeW5pV3lL?=
- =?utf-8?B?dnlvWklKb2JUdmJrVEdPMTdFWmtCa0ViVHFVbkNoQm9xU0YxWWd3anhHcEtr?=
- =?utf-8?B?SG5YeDJ6dGhhNVRkWmVESkFJYytYZ1VoMUU2UlRNTVc2d213S1RKenhkZXlB?=
- =?utf-8?B?bWoyRHF1S0VYTi9SbEFiWU8vakhnUGZtaFJOanlXeUg2S20xMml2bFFvNzhx?=
- =?utf-8?B?TGJzNVZWQ0NzSjNnTkFwc3FvdUFmYTI2SmtQamhrdWRCSjVlYTMvcTJqK1hJ?=
- =?utf-8?B?QVc0OTNRUlNVUWRXYldLSmNnL0FRTUhaZjc4TGdhZ0pSbDk3emFQTVRJZEZu?=
- =?utf-8?B?blNhR1czeVNHTG9aUUs3bm5rWUExSytWUS9yZVo1T1lRNmVsYURta3k5bkV2?=
- =?utf-8?B?c1RZeUlmWGV4a29tbDVPaFZuWjQvS2JJdG03SUtuazBGOWRTZVAzT1RxY0E5?=
- =?utf-8?B?eEpBVXhUa203d2NyNkYzLzZwdnZ5QzduY2lnTzhQMWg5SDBFcTB1amN4RFRq?=
- =?utf-8?B?ODZOT1pmMW9VZ1dvOVRuTlYvUXBRYm5MTHBGbzlCZDdTaG9jb0hHUWllNG1W?=
- =?utf-8?B?bnZwN3k2Z3BlWTZRUkZYQ0hIVUZ2SnNyZWlmVVV4QjVrNDBudTJoR05QOGlZ?=
- =?utf-8?B?d2k1bTYrVmlObEh1R2lFWFZlUGU2Q0FyVDIwczFBVGtWUUFhVUlzU051ckJK?=
- =?utf-8?B?UFJRWEl2MGxIU045THFyd0xaUGI1cTJGek9JYStveHZjcjN2MDArTGs2eDlz?=
- =?utf-8?B?M3loTXhFb05pMmVYRDZLMHR0NU1QNlZrVTV3aDFPaGhrbEliZ3RHQ2JMTU1k?=
- =?utf-8?B?Ykp2UzRlMVU4bkxQR2xGbzRGUGhtTHQ1bjA1VDgzZmlOZ2FQY2dvQXRqR1lF?=
- =?utf-8?B?Tm41Q2lmSWIyOUdwL3cxcW5ORFBVTnRlRXBEdHE0cHQybVpuVEFKZ2hOT3dh?=
- =?utf-8?B?aEFXWjEwYk1jMU1qZWhqU1V0NVNad3BmVlNjVkpEcTZuY016OCtvYTFzSWdK?=
- =?utf-8?B?c1FmS2FSQWp5a2FwUVBBNEJLSkpUanpiVjQrTXVycThJc0toNDU5Y3d2eTZo?=
- =?utf-8?B?Skd1ZkcwSndtclpFQWhsMlFybU40UVpsU05QWm9EZE5rTSt3cjRjbEtXS0pi?=
- =?utf-8?B?WGJCRWtIdzI4cGlRNXA4TjQrRFBuSmFTN3dwanVQNCtOMGlML2I5L1BPQUdI?=
- =?utf-8?B?U1Fpb3ZuUUJ2Y3dZNW5VU2RNMkUwT05qN2lwbENOdVpVQlpqRGczeUkzbFhU?=
- =?utf-8?B?VnhTcXNOUUwzQTQ3S3N5eERUQ2lSNEpJNWdWeDVCMnZsMHZPM2ZWN2pjVFQ1?=
- =?utf-8?B?S1ZsUzBBRGN2U0JTTnFkTDdNdGJYK29mWFpvOEgwTWtrY2hGQ3RyaUdqY1FN?=
- =?utf-8?B?WmlQYk1Cc1BEZEMzUGxkYkdSdUFqaFBWcnNYYnpaR2tSSUJCdWZIZWphWjFq?=
- =?utf-8?B?Wnp5QVZJdWY1MkZmWEJYVU5udzcxaFc0OHU5Qm0xbVVjNmNndHg0WWtiTGpF?=
- =?utf-8?B?QmhIVDNWc2ZWWE9uTEx5ZDlzUXV5OHJTTldmOUR6NStGUDZnZWFBYXFlMlU4?=
- =?utf-8?B?L2g0WnpSd2x5QmpGRGFiZkN4RUNOS29TbDlZUkdDM2hzL0gxVFlYT05sWWd4?=
- =?utf-8?B?Ti8vMDlNSTdFQnhJTlk3Wm5ldjdKd3cvSUxMTmhwd0NMeHBmNjh5akgySXp3?=
- =?utf-8?B?VjNINklMbkdqOFBVM2RqTEg1Y3ZteG50bzdMSFpmUzdNbTN0RWdwT3JmY21B?=
- =?utf-8?B?OTNoUnZWeGFZQytyVHVpYXgyNithclVmN25mdmZMNmRFU2hKZmVZYVkwQnN3?=
- =?utf-8?B?d09zK0JEQnYyVkRWZFpIU0NXeUNJQ3NKWVJOYVVSQkhhcHlZQ2UxT0hzOGgr?=
- =?utf-8?B?UkszU29WbFc3SWNlSklpdm14VExod0hrVjR0UHcrNWhjUnpneGJvY0ZlV2x0?=
- =?utf-8?B?SlJjUTFOOTZvSk8vcEhOQzg0a2grT21PV0pkNTdJbkpnOXQvbkdwZTh1amhW?=
- =?utf-8?B?UFU4NDJIZW12MG9RNXNEVjV5MmF6QWtQalRpQjBTOVM0R3hOVTBvWi92b3ly?=
- =?utf-8?B?NVNTamZoZ3Zud2NVcVI0VFJNNml0cjZiWkZsR1hCRm9hTjdWUlZZWjVna293?=
- =?utf-8?B?MDhMOG1LQWNhTnExd1Q5SUFmTnAxYVdvbkovZkFaRmNuZ1ozZnZvWU5qYUhp?=
- =?utf-8?B?ZzVoZWcyVkZDNG84RGpOdndpZ2IzbTAzZzZzb2E3ZzNNSHFtM1BXRVJvMkdF?=
- =?utf-8?B?S1J4RnBXRUFXRFd6a3h3a2UxZVBBZTlXR284U1dKdkhhS0RJOFlQR3NsUUk4?=
- =?utf-8?B?czBRSkVOY0JsU1pTUTN1UWNiWXFMMlJLYzhxdlk5YXZ3QTFsWW4xUDRBR2Jv?=
- =?utf-8?Q?3nhHTo4l56vYm0Wo=3D?=
-X-Exchange-RoutingPolicyChecked: HT93Azc4B5MKnA3J0At31RZVDlbQuA0Ebm8RDFVPcZ7Kg3ZFqt/kXj5VQxLntwhOd6J1KI9CDR+8c946pdeS9KV1pliWQxHkTo/62aSXtrVxGOBiBBAYxyYBFQSxJ/EBFkFF7WscQAjHrTM+W++hjDJWDvRg+gyi/mm5qpTVqXy5DWpVdY4qYAS9a61WckGFe3TT8ERqTBNKpVu9JLUFyU+sk5arYZ1iJT4PuuxXFnGswV5S5Rd7lTFq4P2cyTMAnyu8aYY5C66j7F3FsAWeuq5LnLm2kqu83tJM6hTZ8LknZOCHH3/sTWUlWcIQip186rq0PeztrvQU6Ah8Nd7D/A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ca0c8ee-5115-4566-ea21-08de94945714
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 10:56:37.3463 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cTVK00+8Ca6NGj97OodhUxihXHMWZxQu43GOpYPcOeookXXb4G6h3+2aNd2xtUunfTz8SZfFLlorkn80UaKeT+Vfj23f4In1PD0b5/uP/v8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5272
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] clk: qcom: gdsc: Add custom disable callback for GX
+ GDSC
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
+ <20260407-gfx-clk-fixes-v1-1-4bb5583a5054@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260407-gfx-clk-fixes-v1-1-4bb5583a5054@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA3MDEwMiBTYWx0ZWRfX8KoffbPWVpL8
+ tf27/7M+Whh8nCxhpyToTj6x9ztUm0JQwLhJitzIBra/j1l5pJ5KAGiLH3bgfIyqxJHSrgCJFdB
+ JoQ5xhR777ASn72RzzhdWniiaiuHF87+G0FWggUHu5vECy++YevMquvmYcajQ/yySIpctUwcckR
+ aulJBTED9wszrMm3lx/prXS9f7TMnBdXEq9nx9bxBL5ZMKqBqgbfOcL/NtTBusPmNoUqyV9Ht35
+ kFGdQGP0LvapSG4M4TK6RO3bHbdum90dxnRmT2qvP4x9lU/BHmYWCbqWZtK9H/afP3A7ryLeZeu
+ Q4RxBz2nsJvbnDTVy/WDLpUhtVCNpLz3W1gUtHDkox7NSvQBNddF2mkI18Tz1oYeI54qGJJCtIs
+ SALJ/AFHT6G8qLOmZ3oDdKraqcJGzKstizU3a/+THoaLAHOnmQ4xekYKjTyZ1PeSwYVT3Y1JQE9
+ l5O/+vXcg+sopP/WtGQ==
+X-Proofpoint-GUID: 1vEDliX6bluS8fq6k7LsNdT50Wcq9uOd
+X-Authority-Analysis: v=2.4 cv=XPUAjwhE c=1 sm=1 tr=0 ts=69d4e2e7 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=ZW6dt3tIyA_XQ_bais0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: 1vEDliX6bluS8fq6k7LsNdT50Wcq9uOd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-07_02,2026-04-07_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ clxscore=1015 adultscore=0 phishscore=0 bulkscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604070102
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,136 +158,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 4/7/26 11:30 AM, Taniya Das wrote:
+> From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+> 
+> The GX GDSC is a special power domain that should only be disabled
+> by OS during GMU recovery. In all other scenarios, the GMU firmware
+> is responsible for handling its disable sequence, and OS must not
+> interfere.
+> 
+> During the resume_noirq() phase of system resume, the GenPD framework
+> enables all power domains and later disables them in the complete()
+> phase if there are no active votes from OS. This behavior can
+> incorrectly disable the GX GDSC while the GMU firmware is still using
+> it.
+> 
+> To prevent this, implement a custom disable callback for GX GDSC that
+> relies on GenPD’s synced_poweroff flag. The GMU driver sets this flag
+> only during recovery, allowing OS to explicitly disable GX GDSC in
+> hardware in that case. In all other situations, the disable callback
+> will avoid touching GX GDSC hardware.
+> 
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/gdsc.c | 22 ++++++++++++++++++++++
+>  drivers/clk/qcom/gdsc.h |  1 +
+>  2 files changed, 23 insertions(+)
+> 
+> diff --git a/drivers/clk/qcom/gdsc.c b/drivers/clk/qcom/gdsc.c
+> index 95aa071202455421d818171d04f95d15e2b581fa..ab5d741a2e2351bfac06a6814c5a8ba7355bc8bc 100644
+> --- a/drivers/clk/qcom/gdsc.c
+> +++ b/drivers/clk/qcom/gdsc.c
+> @@ -675,3 +675,25 @@ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain)
+>  	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(gdsc_gx_do_nothing_enable);
+> +
+> +/*
+> + * GX GDSC is a special power domain. Normally, its disable sequence
+> + * is managed by the GMU firmware, and high level OS must not attempt
 
-On 4/7/2026 4:24 PM, Nautiyal, Ankit K wrote:
->
-> On 4/2/2026 4:40 PM, Ville Syrjälä wrote:
->> On Thu, Apr 02, 2026 at 01:34:22PM +0530, Ankit Nautiyal wrote:
->>> DP v2.1 allows the source to temporarily suspend Adaptive-Sync SDP
->>> transmission while Panel Replay is active when the sink supports
->>> asynchronous video timing.
->>>
->>> In such cases, the sink relies on the last transmitted AS SDP timing
->>> information to maintain the refresh rate. To support this behavior,
->>> compute and populate the coasting vtotal field in the AS SDP payload.
->>>
->>> Include coasting vtotal in AS SDP packing, unpacking, and comparison,
->>> and set it during late AS SDP configuration for PR with Aux-less ALPM
->>> when asynchronous video timing is supported.
->>>
->>> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->>> ---
->>>   drivers/gpu/drm/i915/display/intel_display.c |  3 ++-
->>>   drivers/gpu/drm/i915/display/intel_dp.c      | 19 +++++++++++++++++++
->>>   2 files changed, 21 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c 
->>> b/drivers/gpu/drm/i915/display/intel_display.c
->>> index a0e7ef2574b2..747dd3112d66 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_display.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
->>> @@ -4914,7 +4914,8 @@ intel_compare_dp_as_sdp(const struct 
->>> drm_dp_as_sdp *a,
->>>           a->duration_incr_ms == b->duration_incr_ms &&
->>>           a->duration_decr_ms == b->duration_decr_ms &&
->>>           a->target_rr_divider == b->target_rr_divider &&
->>> -        a->mode == b->mode;
->>> +        a->mode == b->mode &&
->>> +        a->coasting_vtotal == b->coasting_vtotal;
->>>   }
->>>     static bool
->>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c 
->>> b/drivers/gpu/drm/i915/display/intel_dp.c
->>> index 902c09e0780f..de6f88a5400d 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->>> @@ -5123,6 +5123,9 @@ static ssize_t intel_dp_as_sdp_pack(const 
->>> struct drm_dp_as_sdp *as_sdp,
->>>       if (as_sdp->target_rr_divider)
->>>           sdp->db[4] |= 0x20;
->>>   +    sdp->db[7] = as_sdp->coasting_vtotal & 0xFF;
->>> +    sdp->db[8] = (as_sdp->coasting_vtotal >> 8) & 0xFF;
->>> +
->>>       return length;
->>>   }
->>>   @@ -5306,6 +5309,7 @@ int intel_dp_as_sdp_unpack(struct 
->>> drm_dp_as_sdp *as_sdp,
->>>       as_sdp->vtotal = (sdp->db[2] << 8) | sdp->db[1];
->>>       as_sdp->target_rr = ((sdp->db[4] & 0x3) << 8) | sdp->db[3];
->>>       as_sdp->target_rr_divider = sdp->db[4] & 0x20 ? true : false;
->>> +    as_sdp->coasting_vtotal = (sdp->db[8] << 8) | sdp->db[7];
->>>         return 0;
->>>   }
->>> @@ -7383,6 +7387,21 @@ void 
->>> intel_dp_as_sdp_compute_config_late(struct intel_dp *intel_dp,
->>>       } else {
->>>           as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
->>>       }
->>> +
->>> +    /*
->>> +     * For Panel Replay with Async Video Timing support, the source 
->>> can
->>> +     * disable sending the AS SDP during PR Active state. In that 
->>> case,
->>> +     * the sink needs the coasting vtotal value to maintain the 
->>> refresh
->>> +     * rate.
->>> +     *
->>> +     * #TODO:
->>> +     * If we ever advertise support for coasting at other refresh 
->>> targets,
->>> +     * this logic could be revisited. For now, use the minimum 
->>> refresh rate
->>> +     * as the only safe coasting value.
->>> +     */
->>> +    if (intel_alpm_is_alpm_aux_less(intel_dp, crtc_state) &&
->>> +        intel_psr_pr_async_video_timing_supported(intel_dp))
->>> +        as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
->> Seems reasonable.
->>
->> Is this always under our control or could the hardware overwrite
->> this with the current vtotal at the time of PR entry? Assuming
->> we can enter PR before the vtotal goes back to vmax on its own
->> anyway.
->
->
-> What I understand from Bspec in this regard is:
->
-> Do not write Adaptive Sync SDP Transmission Disable in PR Active State 
-> i.e. DB[2], instead use PR_ALPM_CTL[ AS SDP Transmission in Active 
-> Disable ] bit.
->
-> HW will sample the PR_ALPM_CTL bit only when PR is active, and it will 
-> get reflected in AS SDP payload in an 'appropriate' time.
->
-> HW will ignore this bit when PR is Inactive and always send AS SDP.
->
-> So I think HW will not touch the coasting vtotal DBs.
->
-> Driver should set appropriate coasting Vtotal and set the 
-> PR_ALPM_CTL[AS SDP Transmission in Active disable] bit.
->
-> During PR active Driver will set the DB[2] bit in payload which will 
-> trigger the sink to use Coasting Vtotal.
+nit: "and high level OS must not attempt" -> "and the OS must not attempt"
 
 
-..HW will set the DB[2] bit ... (facepalm)
+> + * to disable it. The only exception is during GMU recovery, where the
+> + * GMU driver can set GenPD’s synced_poweroff flag to allow explicitly
+> + * disable GX GDSC in hardware.
+> + */
+> +int gdsc_gx_disable(struct generic_pm_domain *domain)
+> +{
+> +	struct gdsc *sc = domain_to_gdsc(domain);
+> +
+> +	if (domain->synced_poweroff)
+> +		return gdsc_disable(domain);
 
+Can we use this version to replace gdsc_gx_do_nothing_enable() too?
 
->
-> (Unless we start writing : DPCD 00B1[0] ie. 
-> PANEL_REPLAY_CONFIG2[PANEL_REPLAY_SINK_REFRESH_RATE_UNLOCK_GRANTED], 
-> in which sink starts using its own logic).
->
->
-> Regards,
->
-> Ankit
->
->
->
->>
->>>   }
->>>     static
->>> -- 
->>> 2.45.2
+Konrad
