@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42A1FEEF49
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:41:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E2AFEEF2D
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 14:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD9D10E429;
-	Tue,  7 Apr 2026 14:41:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2965410E42B;
+	Tue,  7 Apr 2026 14:41:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oek19lf5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vEPn/GFA";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92C6810E42B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92BFA10E429
  for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 42BC743349;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6530E444AD;
  Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 15E62C116C6;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 387AAC2BCB0;
  Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1775572906;
- bh=J1I/2EOKwZVbytZkVaMR4iXsx/7J4F1JU+XT5ySnbp0=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=oek19lf5sQOYXEuG7R6jzbTUO8yVV9V51qQ09nlC/LdeYdXfNGVSQIXPdJfJ6okkW
- 5xf0VSz4LEmSDC92rt97UsZjZ0KrH6sGJpYwOBGil6821Z7PMg4Jxx9vMsOjs6XoiD
- VQbB5cdlUF5NfGZCjMv31Mzi/uYtDwjClujpg/DJrmbxkqTNqZ8dNl7Xxap5d+zH+/
- 4XBVdfw4hB6yEtJnC0GAZ0l/VNGKnBYwn8z0xfb+9PshUwEMhrhntVBryFCLPpKV+t
- +LqS6qCBqsAP9u1d8zZqlz+eVybBZWgOWRcTVPsnwYU1+V/CQy7bK5RluTRzjFKoKK
- Pa49VPpxPsV7Q==
+ bh=ef1jx7OWsEKTkZ4NElBbj+7oVAsnbdFmCVkx7//t3nU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=vEPn/GFAjO6VEpxdGL5GojtYcE0hpr7H9ChbGQ6QTtMuKa818tZRqmR0UeUVrTQuk
+ FJDqSjwifIz+QPIxDKk1kjNlX5ukqpQvfnfqElbP+VjIOW4BQ3HI/jFCqgJNGK5bib
+ FLWT+T21ecFKw79/1TlvcyTrqXqZvasjd5eJbKGgPqbUSiodS14m+0AojbyTjOlTGx
+ yLtqBLwUbS153xozcuIiTsrn3KB1WgQGWaI45Ux/02/w+r0w7UDeg5yqLSEM2GvYL6
+ Eipse8jOF4Ve1+Z2UcAFatBT6m6EcZ71Qjfsxleu7vGBZxeXaEyqQbD4FTXpxte3UE
+ xN0Kt0VOGrvqQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 09363FEEF2D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 2ED03FEEF53;
  Tue,  7 Apr 2026 14:41:46 +0000 (UTC)
 From: Maud Spierings via B4 Relay
  <devnull+maudspierings.gocontroll.com@kernel.org>
-Subject: [PATCH v8 0/4] backlight: add new max25014 backlight driver
-Date: Tue, 07 Apr 2026 16:41:41 +0200
-Message-Id: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
+Date: Tue, 07 Apr 2026 16:41:43 +0200
+Subject: [PATCH v8 2/4] backlight: add max25014atg backlight
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OS2rDMBCA4asEresyo7e66j1KF2N5lAiSKNjBp
- ATfvUpKa0G90wh9/+guJh4zT+Jtdxcjz3nK5VwH/7IT8UDnPXd5qLOQIA1YabsT3eoJdaclOBO
- QkZIR9fll5JRvz9THZ50PebqW8etZnvFx+xNx0qyRGTvogH2MHGrP8/u+xHK+juV4fI3lJB6lW
- a7aY2i0rNqkwRH3qJFpU6tVB8RGq6oHUElzT8qZ7d36TyNAu1tXbWnoJQGRMmlTm1UjuEabqgN
- ZIuMU2H5b21VLaH9uq/aeFUWPKNO2dr/aAkrVaFc1Gjag+0Axun96WZZvBG2W5xkCAAA=
-X-Change-ID: 20250626-max25014-4207591e1af5
+Message-Id: <20260407-max25014-v8-2-14eac7ed673a@gocontroll.com>
+References: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
+In-Reply-To: <20260407-max25014-v8-0-14eac7ed673a@gocontroll.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -62,11 +58,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, 
  Maud Spierings <maudspierings@gocontroll.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775572904; l=5325;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775572904; l=13586;
  i=maudspierings@gocontroll.com; s=20250214; h=from:subject:message-id;
- bh=J1I/2EOKwZVbytZkVaMR4iXsx/7J4F1JU+XT5ySnbp0=;
- b=p2hDxSqIgqxC9d1BFxg57HCSFAyqjj18dU4K/5XRBHtJvUONwpApN2xyYpYFsaKvIKUwT+EXN
- 8/kLvdncznPCJLpxpgDs7Ydqk82Vjgom6VvmfQ1XsZ01J+ZatazMhpM
+ bh=uLW+QPrYLFpK9vr5ApIMHXa3cKKYw6jF1JqrJdl0OQw=;
+ b=yw5E2rD9Uh9m6lW83GPT1YYTvJbPZIHrYWnj1d4uFwGZLSJIP4kkel/gsaNivBRhNYSwme4RR
+ piG+WMg/bLiARblnKska4y1YGIPBu+541NXrB+W8fgLBCsoHvnulYGn
 X-Developer-Key: i=maudspierings@gocontroll.com; a=ed25519;
  pk=7chUb8XpaTQDvWhzTdHC0YPMkTDloELEC7q94tOUyPg=
 X-Endpoint-Received: by B4 Relay for maudspierings@gocontroll.com/20250214
@@ -88,120 +84,447 @@ Reply-To: maudspierings@gocontroll.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Maxim MAX25014 is an automotive grade backlight driver IC. Its
-datasheet can be found at [1].
+From: Maud Spierings <maudspierings@gocontroll.com>
 
-With its integrated boost controller, it can power 4 channels (led
-strings) and has a number of different modes using pwm and or i2c.
-Currently implemented is only i2c control.
+The Maxim MAX25014 is a 4-channel automotive grade backlight driver IC
+with integrated boost controller.
 
-link: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX25014.pdf [1]
-
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 Signed-off-by: Maud Spierings <maudspierings@gocontroll.com>
 ---
-Changes in v8:
-- Clean up some leftovers from the led subnodes, address/size-cells (Rob)
-- Add Robs rb tag
-- Add Daniels rb tag
-- Bring the Kconfig option in line text wise with other drivers
-- Rebase on the latest next
-- Link to v7: https://lore.kernel.org/r/20260123-max25014-v7-0-15e504b9acc7@gocontroll.com
+ MAINTAINERS                        |   1 +
+ drivers/video/backlight/Kconfig    |   7 +
+ drivers/video/backlight/Makefile   |   1 +
+ drivers/video/backlight/max25014.c | 377 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 386 insertions(+)
 
-Changes in v7:
-- remove the led subnodes
-- always enable the regulator by using devm_regulator_get_enable()
-- remove the no longer required gotos and simplify early returns
-- fix the name of the SHORTED_LED error field
-- fix the name of the SHORTGND error field
-- use the proper backlight helper functions for setting/getting
-  brightness
-- Link to v6: https://lore.kernel.org/r/20251201-max25014-v6-0-88e3ac8112ff@gocontroll.com
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7e3ad236537fe..1f1a5326a6aab 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15692,6 +15692,7 @@ MAX25014 BACKLIGHT DRIVER
+ M:	Maud Spierings <maudspierings@gocontroll.com>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/leds/backlight/maxim,max25014.yaml
++F:	drivers/video/backlight/max25014.c
+ 
+ MAX31335 RTC DRIVER
+ M:	Antoniu Miclaus <antoniu.miclaus@analog.com>
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index a7a3fbaf7c29e..f4e99542ffe8f 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -282,6 +282,13 @@ config BACKLIGHT_DA9052
+ 	help
+ 	  Enable the Backlight Driver for DA9052-BC and DA9053-AA/Bx PMICs.
+ 
++config BACKLIGHT_MAX25014
++	tristate "Backlight driver for Maxim MAX25014"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	  If you are using a MAX25014 chip as a backlight driver say Y to enable it.
++
+ config BACKLIGHT_MAX8925
+ 	tristate "Backlight driver for MAX8925"
+ 	depends on MFD_MAX8925
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index 794820a98ed49..21c8313cfb121 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -47,6 +47,7 @@ obj-$(CONFIG_BACKLIGHT_LOCOMO)		+= locomolcd.o
+ obj-$(CONFIG_BACKLIGHT_LP855X)		+= lp855x_bl.o
+ obj-$(CONFIG_BACKLIGHT_LP8788)		+= lp8788_bl.o
+ obj-$(CONFIG_BACKLIGHT_LV5207LP)	+= lv5207lp.o
++obj-$(CONFIG_BACKLIGHT_MAX25014)	+= max25014.o
+ obj-$(CONFIG_BACKLIGHT_MAX8925)		+= max8925_bl.o
+ obj-$(CONFIG_BACKLIGHT_MP3309C)		+= mp3309c.o
+ obj-$(CONFIG_BACKLIGHT_MT6370)		+= mt6370-backlight.o
+diff --git a/drivers/video/backlight/max25014.c b/drivers/video/backlight/max25014.c
+new file mode 100644
+index 0000000000000..3ee45617261f3
+--- /dev/null
++++ b/drivers/video/backlight/max25014.c
+@@ -0,0 +1,377 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Backlight driver for Maxim MAX25014
++ *
++ * Copyright (C) 2025 GOcontroll B.V.
++ * Author: Maud Spierings <maudspierings@gocontroll.com>
++ */
++
++#include <linux/backlight.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/regmap.h>
++#include <linux/slab.h>
++
++#define MAX25014_ISET_DEFAULT_100 11
++#define MAX_BRIGHTNESS            100
++#define MIN_BRIGHTNESS            0
++#define TON_MAX                   130720 /* @153Hz */
++#define TON_STEP                  1307 /* @153Hz */
++#define TON_MIN                   0
++
++#define MAX25014_DEV_ID           0x00
++#define MAX25014_REV_ID           0x01
++#define MAX25014_ISET             0x02
++#define MAX25014_IMODE            0x03
++#define MAX25014_TON1H            0x04
++#define MAX25014_TON1L            0x05
++#define MAX25014_TON2H            0x06
++#define MAX25014_TON2L            0x07
++#define MAX25014_TON3H            0x08
++#define MAX25014_TON3L            0x09
++#define MAX25014_TON4H            0x0A
++#define MAX25014_TON4L            0x0B
++#define MAX25014_TON_1_4_LSB      0x0C
++#define MAX25014_SETTING          0x12
++#define MAX25014_DISABLE          0x13
++#define MAX25014_BSTMON           0x14
++#define MAX25014_IOUT1            0x15
++#define MAX25014_IOUT2            0x16
++#define MAX25014_IOUT3            0x17
++#define MAX25014_IOUT4            0x18
++#define MAX25014_OPEN             0x1B
++#define MAX25014_SHORTGND         0x1C
++#define MAX25014_SHORTED_LED      0x1D
++#define MAX25014_MASK             0x1E
++#define MAX25014_DIAG             0x1F
++
++#define MAX25014_ISET_ENA         BIT(5)
++#define MAX25014_ISET_PSEN        BIT(4)
++#define MAX25014_IMODE_HDIM       BIT(2)
++#define MAX25014_SETTING_FPWM     GENMASK(6, 4)
++#define MAX25014_DISABLE_DIS_MASK GENMASK(3, 0)
++#define MAX25014_DIAG_OT          BIT(0)
++#define MAX25014_DIAG_OTW         BIT(1)
++#define MAX25014_DIAG_HW_RST      BIT(2)
++#define MAX25014_DIAG_BSTOV       BIT(3)
++#define MAX25014_DIAG_BSTUV       BIT(4)
++#define MAX25014_DIAG_IREFOOR     BIT(5)
++
++struct max25014 {
++	struct i2c_client *client;
++	struct backlight_device *bl;
++	struct regmap *regmap;
++	struct gpio_desc *enable;
++	uint32_t iset;
++	uint8_t strings_mask;
++};
++
++static const struct regmap_config max25014_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = MAX25014_DIAG,
++};
++
++static int max25014_initial_power_state(struct max25014 *maxim)
++{
++	uint32_t val;
++	int ret;
++
++	ret = regmap_read(maxim->regmap, MAX25014_ISET, &val);
++	if (ret)
++		return ret;
++
++	return val & MAX25014_ISET_ENA ? BACKLIGHT_POWER_ON : BACKLIGHT_POWER_OFF;
++}
++
++static int max25014_check_errors(struct max25014 *maxim)
++{
++	uint32_t val;
++	uint8_t i;
++	int ret;
++
++	ret = regmap_read(maxim->regmap, MAX25014_OPEN, &val);
++	if (ret)
++		return ret;
++	if (val) {
++		dev_err(&maxim->client->dev, "Open led strings detected on:\n");
++		for (i = 0; i < 4; i++) {
++			if (val & 1 << i)
++				dev_err(&maxim->client->dev, "string %d\n", i + 1);
++		}
++		return -EIO;
++	}
++
++	ret = regmap_read(maxim->regmap, MAX25014_SHORTGND, &val);
++	if (ret)
++		return ret;
++	if (val) {
++		dev_err(&maxim->client->dev, "Short to ground detected on:\n");
++		for (i = 0; i < 4; i++) {
++			if (val & 1 << i)
++				dev_err(&maxim->client->dev, "string %d\n", i + 1);
++		}
++		return -EIO;
++	}
++
++	ret = regmap_read(maxim->regmap, MAX25014_SHORTED_LED, &val);
++	if (ret)
++		return ret;
++	if (val) {
++		dev_err(&maxim->client->dev, "Shorted led detected on:\n");
++		for (i = 0; i < 4; i++) {
++			if (val & 1 << i)
++				dev_err(&maxim->client->dev, "string %d\n", i + 1);
++		}
++		return -EIO;
++	}
++
++	ret = regmap_read(maxim->regmap, MAX25014_DIAG, &val);
++	if (ret)
++		return ret;
++	/*
++	 * The HW_RST bit always starts at 1 after power up.
++	 * It is reset on first read, does not indicate an error.
++	 */
++	if (val && val != MAX25014_DIAG_HW_RST) {
++		if (val & MAX25014_DIAG_OT)
++			dev_err(&maxim->client->dev,
++				"Overtemperature shutdown\n");
++		if (val & MAX25014_DIAG_OTW)
++			dev_err(&maxim->client->dev,
++				 "Chip is getting too hot (>125C)\n");
++		if (val & MAX25014_DIAG_BSTOV)
++			dev_err(&maxim->client->dev,
++				"Boost converter overvoltage\n");
++		if (val & MAX25014_DIAG_BSTUV)
++			dev_err(&maxim->client->dev,
++				"Boost converter undervoltage\n");
++		if (val & MAX25014_DIAG_IREFOOR)
++			dev_err(&maxim->client->dev, "IREF out of range\n");
++		return -EIO;
++	}
++	return 0;
++}
++
++/*
++ * 1. disable unused strings
++ * 2. set dim mode
++ * 3. set setting register
++ * 4. enable the backlight
++ */
++static int max25014_configure(struct max25014 *maxim, int initial_state)
++{
++	uint32_t val;
++	int ret;
++
++	ret = regmap_read(maxim->regmap, MAX25014_DISABLE, &val);
++	if (ret)
++		return ret;
++
++	/*
++	 * Strings can only be disabled when MAX25014_ISET_ENA == 0, check if
++	 * it needs to be changed at all to prevent the backlight flashing when
++	 * it is configured correctly by the bootloader
++	 */
++	if (!((val & MAX25014_DISABLE_DIS_MASK) == maxim->strings_mask)) {
++		if (initial_state == BACKLIGHT_POWER_ON) {
++			ret = regmap_write(maxim->regmap, MAX25014_ISET, 0);
++			if (ret)
++				return ret;
++		}
++		ret = regmap_write(maxim->regmap, MAX25014_DISABLE, maxim->strings_mask);
++		if (ret)
++			return ret;
++	}
++
++	ret = regmap_write(maxim->regmap, MAX25014_IMODE, MAX25014_IMODE_HDIM);
++	if (ret)
++		return ret;
++
++	ret = regmap_read(maxim->regmap, MAX25014_SETTING, &val);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(maxim->regmap, MAX25014_SETTING,
++			   val & ~MAX25014_SETTING_FPWM);
++	if (ret)
++		return ret;
++
++	return regmap_write(maxim->regmap, MAX25014_ISET,
++			   maxim->iset | MAX25014_ISET_ENA |
++			   MAX25014_ISET_PSEN);
++}
++
++static int max25014_update_status(struct backlight_device *bl_dev)
++{
++	struct max25014 *maxim = bl_get_data(bl_dev);
++	uint32_t reg;
++	int ret;
++
++	reg  = TON_STEP * backlight_get_brightness(bl_dev);
++
++	/*
++	 * 18 bit number lowest, 2 bits in first register,
++	 * next lowest 8 in the L register, next 8 in the H register
++	 * Seemingly setting the strength of only one string controls all of
++	 * them, individual settings don't affect the outcome.
++	 */
++	ret = regmap_write(maxim->regmap, MAX25014_TON_1_4_LSB, reg & 0b00000011);
++	if (ret != 0)
++		return ret;
++	ret = regmap_write(maxim->regmap, MAX25014_TON1L, (reg >> 2) & 0b11111111);
++	if (ret != 0)
++		return ret;
++	return regmap_write(maxim->regmap, MAX25014_TON1H, (reg >> 10) & 0b11111111);
++}
++
++static const struct backlight_ops max25014_bl_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = max25014_update_status,
++};
++
++static int max25014_parse_dt(struct max25014 *maxim,
++			     uint32_t *initial_brightness)
++{
++	struct device *dev = &maxim->client->dev;
++	struct device_node *node = dev->of_node;
++	uint32_t strings[4];
++	int res, i;
++
++	res = of_property_count_u32_elems(node, "maxim,strings");
++	if (res == 4) {
++		of_property_read_u32_array(node, "maxim,strings", strings, 4);
++		for (i = 0; i < 4; i++) {
++			if (strings[i] == 0)
++				maxim->strings_mask |= 1 << i;
++	}
++	} else {
++		maxim->strings_mask = 0;
++	}
++
++	*initial_brightness = 50U;
++	of_property_read_u32(node, "default-brightness", initial_brightness);
++
++	maxim->iset = MAX25014_ISET_DEFAULT_100;
++	of_property_read_u32(node, "maxim,iset", &maxim->iset);
++
++	if (maxim->iset > 15)
++		return dev_err_probe(dev, -EINVAL,
++				     "Invalid iset, should be a value from 0-15, entered was %d\n",
++				     maxim->iset);
++
++	if (*initial_brightness > 100)
++		return dev_err_probe(dev, -EINVAL,
++				     "Invalid initial brightness, should be a value from 0-100, entered was %d\n",
++				     *initial_brightness);
++
++	return 0;
++}
++
++static int max25014_probe(struct i2c_client *cl)
++{
++	const struct i2c_device_id *id = i2c_client_get_device_id(cl);
++	struct backlight_properties props;
++	uint32_t initial_brightness = 50;
++	struct backlight_device *bl;
++	struct max25014 *maxim;
++	int ret;
++
++	maxim = devm_kzalloc(&cl->dev, sizeof(struct max25014), GFP_KERNEL);
++	if (!maxim)
++		return -ENOMEM;
++
++	maxim->client = cl;
++
++	ret = max25014_parse_dt(maxim, &initial_brightness);
++	if (ret)
++		return ret;
++
++	ret = devm_regulator_get_enable(&maxim->client->dev, "power");
++	if (ret)
++		return dev_err_probe(&maxim->client->dev, ret,
++				     "failed to get power-supply");
++
++	maxim->enable = devm_gpiod_get_optional(&maxim->client->dev, "enable",
++						GPIOD_OUT_HIGH);
++	if (IS_ERR(maxim->enable))
++		return dev_err_probe(&maxim->client->dev, PTR_ERR(maxim->enable),
++				    "failed to get enable gpio\n");
++
++	/* Datasheet Electrical Characteristics tSTARTUP 2ms */
++	fsleep(2000);
++
++	maxim->regmap = devm_regmap_init_i2c(cl, &max25014_regmap_config);
++	if (IS_ERR(maxim->regmap))
++		return dev_err_probe(&maxim->client->dev, PTR_ERR(maxim->regmap),
++			"failed to initialize the i2c regmap\n");
++
++	i2c_set_clientdata(cl, maxim);
++
++	ret = max25014_check_errors(maxim);
++	if (ret) /* error is already reported in the above function */
++		return ret;
++
++	ret = max25014_initial_power_state(maxim);
++	if (ret < 0)
++		return dev_err_probe(&maxim->client->dev, ret, "Could not get enabled state\n");
++
++	memset(&props, 0, sizeof(struct backlight_properties));
++	props.type = BACKLIGHT_PLATFORM;
++	props.max_brightness = MAX_BRIGHTNESS;
++	props.brightness = initial_brightness;
++	props.scale = BACKLIGHT_SCALE_LINEAR;
++	props.power = ret;
++
++	ret = max25014_configure(maxim, ret);
++	if (ret)
++		return dev_err_probe(&maxim->client->dev, ret, "device config error");
++
++	bl = devm_backlight_device_register(&maxim->client->dev, id->name,
++					    &maxim->client->dev, maxim,
++					    &max25014_bl_ops, &props);
++	if (IS_ERR(bl))
++		return dev_err_probe(&maxim->client->dev, PTR_ERR(bl),
++				    "failed to register backlight\n");
++
++	maxim->bl = bl;
++
++	backlight_update_status(maxim->bl);
++
++	return 0;
++}
++
++static void max25014_remove(struct i2c_client *cl)
++{
++	struct max25014 *maxim = i2c_get_clientdata(cl);
++
++	backlight_device_set_brightness(maxim->bl, 0);
++	gpiod_set_value_cansleep(maxim->enable, 0);
++}
++
++static const struct of_device_id max25014_dt_ids[] = {
++	{ .compatible = "maxim,max25014", },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, max25014_dt_ids);
++
++static const struct i2c_device_id max25014_ids[] = {
++	{ "max25014" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, max25014_ids);
++
++static struct i2c_driver max25014_driver = {
++	.driver = {
++		.name = KBUILD_MODNAME,
++		.of_match_table = of_match_ptr(max25014_dt_ids),
++	},
++	.probe = max25014_probe,
++	.remove = max25014_remove,
++	.id_table = max25014_ids,
++};
++module_i2c_driver(max25014_driver);
++
++MODULE_DESCRIPTION("Maxim MAX25014 backlight driver");
++MODULE_AUTHOR("Maud Spierings <maudspierings@gocontroll.com>");
++MODULE_LICENSE("GPL");
 
-Changes in v6:
-- fixup changes in v4 where default brightness handling was changed but
-  not noted
-- remove leftover comment about initializing brightness
-- use BIT definitions for fields in the DIAG register
-- apply reverse christmas tree initialization of local variables
-- remove !=0 from checks, just check if (ret)
-- remove > 0 from checks, just check if (val)
-- use dev_err_probe() more
-- set enable gpio high in the get() instead of seperately calling set()
-- change usleep_range() to fsleep()
-- remove null checks when setting gpio value
-- get regular regulator, not optional to avoid further NULL checks in
-  case none is provided
-- introduce max25014_initial_power_state() to check if the bootloader
-  has already initialized the backlight and to correctly set props.power
-- squash max25014_register_control() into max25014_update_status()
-- in max25014_configure() perform extra checking on the DISABLE register
-  now that the state from the bootloader is taken into account
-- Link to v5: https://lore.kernel.org/r/20251107-max25014-v5-0-9a6aa57306bf@gocontroll.com
-
-Changes in v5:
-- moved comment about current functions of the driver to the actual
-  comment section of the commit
-- fixed the led@0 property, regex patternProperty is not needed as of
-  now
-- added extra clarification about the ISET field/register
-- moved #address-cells and #size-cells to the correct location
-- remove leftover default-brightness in backlight nodes
-- Link to v4: https://lore.kernel.org/r/20251009-max25014-v4-0-6adb2a0aa35f@gocontroll.com
-
-Changes in v4:
-- remove setting default brightness, let backlight core take care of it
-- use a led node to describe the backlight
-- use led-sources to enable specific channels
-- also wait 2ms when there is a supply but no enable
-- change dev_warn() to dev_err() in error path in max25014_check_errors()
-- set backlight_properties.scale to BACKLIGHT_SCALE_LINEAR
-- rebase latest next
-- add address-cells and size-cells to i2c4 in av101hdt-a10.dtso
-- Link to v3: https://lore.kernel.org/r/20250911-max25014-v3-0-d03f4eba375e@gocontroll.com
-
-Changes in v3:
-- fixed commit message type intgrated -> integrated
-- added maximum and description to maxim,iset-property
-- dropped unused labels and pinctrl in bindings example
-- put the compatible first in the bindings example and dts
-- removed brackets around defines
-- removed the leftover pdata struct field
-- removed the initial_brightness struct field
-- Link to v2: https://lore.kernel.org/r/20250819-max25014-v2-0-5fd7aeb141ea@gocontroll.com
-
-Changes in v2:
-- Remove leftover unused property from the bindings example
-- Complete the bindings example with all properties
-- Remove some double info from the maxim,iset property
-- Remove platform_data header, fold its data into the max25014 struct
-- Don't force defines to be unsigned
-- Remove stray struct max25014 declaration
-- Remove chipname and device from the max25014 struct
-- Inline the max25014_backlight_register() and strings_mask() functions
-- Remove CONFIG_OF ifdef
-- Link to v1: https://lore.kernel.org/r/20250725-max25014-v1-0-0e8cce92078e@gocontroll.com
-
----
-Maud Spierings (4):
-      dt-bindings: backlight: Add max25014 support
-      backlight: add max25014atg backlight
-      arm64: dts: freescale: moduline-display-av101hdt-a10: add backlight
-      arm64: dts: freescale: moduline-display-av123z7m-n17: add backlight
-
- .../bindings/leds/backlight/maxim,max25014.yaml    |  83 +++++
- MAINTAINERS                                        |   6 +
- ...x8p-ml81-moduline-display-106-av101hdt-a10.dtso |  24 ++
- ...x8p-ml81-moduline-display-106-av123z7m-n17.dtso |  19 +-
- drivers/video/backlight/Kconfig                    |   7 +
- drivers/video/backlight/Makefile                   |   1 +
- drivers/video/backlight/max25014.c                 | 377 +++++++++++++++++++++
- 7 files changed, 516 insertions(+), 1 deletion(-)
----
-base-commit: f3e6330d7fe42b204af05a2dbc68b379e0ad179e
-change-id: 20250626-max25014-4207591e1af5
-
-Best regards,
---  
-Maud Spierings <maudspierings@gocontroll.com>
+-- 
+2.53.0
 
 
