@@ -4,82 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0382FD5F82
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EC03FD5F88
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34E7310E540;
-	Wed,  8 Apr 2026 07:09:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arduino.cc header.i=@arduino.cc header.b="BPENZh8C";
-	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338C310E0F9
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 12:53:41 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-43d03db7f87so2750616f8f.3
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 05:53:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=arduino.cc; s=google; t=1775566420; x=1776171220; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=O9QJ1HBFAyhDaJiIDLuTd9AfbF3RQyrm1cC5fEoMDC4=;
- b=BPENZh8CjbDdC62oGYAcPwlgQxUy/bURYdTg9atsWDc8aBfVRW7+erqbrzHMN0Lkto
- M5KclmPHkoBwEK7ptAAzz+uV0qhyq/+iREwJDbtbr0Xtp3ZERz6l/k6UTg8aSZAXLQ7Q
- IJEZDttbE4cC8HD6vmA9N/mO8dfHmJm52Ydps=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775566420; x=1776171220;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=O9QJ1HBFAyhDaJiIDLuTd9AfbF3RQyrm1cC5fEoMDC4=;
- b=Hs9B858hKRlKwbHFRd2Dl3jMPCmAHTEt8nYXkXOWCgRupNytwZktAPbjKyCbWUs9la
- 3ozhnc+FN8eeSq9/nQbs6KgpZUHBmZ1XQE/iEWXW09+gq42NOUJOKejijXxLiwAD7yCz
- eRwNQRoRSf1UAjUUqG1JqKrDPPb9ytk5XmQ90ncxQvJHqOG67ZGPxUn6oK2PGH1dCC8i
- zpSzL4PtByYf9vt1DBnv2HyWLIZs/z1TfiweKxHQWZ1PhF5bUpsDzIYbjZbJaHGT5F88
- 1+1scUsilOB4BQZ2qUIvMSo33dQkL1bJyvwL6CGFXiXORbNCs9arXOR8idaDCG+4X0m2
- 9gNQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWAk4jgo81e1tbQgE285CcPXvXEyDaHMnZ9lHZyuuFp5HbC1WD0ZSDXhlGiO38vMWObz97oRqI19Jk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJHk/830H1BQTCC+Ifb9NNp8ouXA5BRs1Fiuxacc0FGjcrQn6I
- lWfRmMKBycEUSQJPOLhpHkqfUBZmXk0XOLoHsOAF3uG0SbUKsrDljP0s1TbVeyFZV+w=
-X-Gm-Gg: AeBDieuomz7EyxRjxZlkn5X6NV6JqShk4M9uAFM0gF1V6ej0fnDsYmfQLwFvh1qwbzO
- k6cI2zVDZsWAlcUb0CrkAws72bXoQoIu8+fg/EVqLKXJpXfysE7S0l55LnUq+8nT/KPopMm7UQq
- 9FzKKcYnhCsspKYMs3I2I5umHBpB+Bq2luYZG4fSLxk8zlPRa+qFUT4Ybed2udHvuQ9i9HqfTM5
- HE0ImiuWQIoAJimLW56yD/XD5yTQ0rPhYh57ECEctg5drQURqr3fO/YQv9KMDDMpyhSUZc2ZeEe
- 4Yhmww1g+b8cLwcrEz+kDO+jot9kpaRBK0lRV31CEvCYMTNVFhXvhLKxI9jrYFGibIi83vflr7H
- Rs+R6QOMYF7ZKygm094QIfMCS4w90i/oMdOmSh73gvDa+9bukOsZmMCIi1tNII905K3byJj2IAI
- NeOfCQISUxCQHWbSJvqXpFuMynjyIEpEzCdPrxG5OE2L9+F5HeHQu/2PrhWPrerL8yU0k=
-X-Received: by 2002:a5d:5d08:0:b0:43b:60f7:2283 with SMTP id
- ffacd0b85a97d-43d292af08fmr23457243f8f.22.1775566419646; 
- Tue, 07 Apr 2026 05:53:39 -0700 (PDT)
-Received: from riccardo-work (public.toolboxoffice.it. [213.215.163.27])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e2a7223sm45923267f8f.5.2026.04.07.05.53.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Apr 2026 05:53:39 -0700 (PDT)
-From: Riccardo Mereu <r.mereu.kernel@arduino.cc>
-To: dmitry.baryshkov@oss.qualcomm.com
-Cc: airlied@gmail.com, brgl@kernel.org, broonie@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, jagan@edgeble.ai, javierm@redhat.com,
- jesszhan0024@gmail.com, krzk+dt@kernel.org, lgirdwood@gmail.com,
- linusw@kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- megi@xff.cz, mripard@kernel.org, neil.armstrong@linaro.org,
- robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de,
- yangcong5@huaqin.corp-partner.google.com,
- Riccardo Mereu <r.mereu@arduino.cc>
-Subject: Re: [PATCH 19/19] gpio: add GPIO controller found on Waveshare DSI
- TOUCH panels
-Date: Tue,  7 Apr 2026 14:53:36 +0200
-Message-ID: <20260407125336.282320-1-r.mereu.kernel@arduino.cc>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-19-5e9119b5a014@oss.qualcomm.com>
-References: <20260401-waveshare-dsi-touch-v1-19-5e9119b5a014@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0A8710E54D;
+	Wed,  8 Apr 2026 07:10:03 +0000 (UTC)
+Received: from metis.whiteo.stw.pengutronix.de
+ (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64E5910E39F
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 09:32:03 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.whiteo.stw.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <s.kerkmann@pengutronix.de>)
+ id 1wA2mX-000740-7x; Tue, 07 Apr 2026 11:31:37 +0200
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <s.kerkmann@pengutronix.de>) id 1wA2mW-0049fn-0l;
+ Tue, 07 Apr 2026 11:31:36 +0200
+Received: from [::1] (helo=dude05.red.stw.pengutronix.de)
+ by dude05.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
+ (envelope-from <s.kerkmann@pengutronix.de>)
+ id 1wA2mW-0000000436p-0d46; Tue, 07 Apr 2026 11:31:36 +0200
+From: Stefan Kerkmann <s.kerkmann@pengutronix.de>
+Date: Tue, 07 Apr 2026 11:31:17 +0200
+Subject: [PATCH 2/2] drm/panel: simple: Add Startek KD070HDFLD092 LVDS
+ panel support
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260407-panel-simple-startek-upstream-v1-2-76721696655f@pengutronix.de>
+References: <20260407-panel-simple-startek-upstream-v1-0-76721696655f@pengutronix.de>
+In-Reply-To: <20260407-panel-simple-startek-upstream-v1-0-76721696655f@pengutronix.de>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Stefan Kerkmann <s.kerkmann@pengutronix.de>
+X-Mailer: b4 0.15.1
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: s.kerkmann@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
 X-Mailman-Approved-At: Wed, 08 Apr 2026 07:09:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,14 +69,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 10:26:38 +0300 Dmitry Baryshkov wrote:
->From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->The Waveshare DSI TOUCH family of panels has separate on-board GPIO
->controller, which controls power supplies to the panel and the touch
->screen and provides reset pins for both the panel and the touchscreen.
->Also it provides a simple PWM controller for panel backlight. Add
->support for this GPIO controller.
->
->Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+The Startek KD070HDFLD092 is a 7" WSVGA LVDS panel.
 
-Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
+Signed-off-by: Stefan Kerkmann <s.kerkmann@pengutronix.de>
+---
+ drivers/gpu/drm/panel/panel-simple.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 91ab280869bac..737a1014f8112 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -4540,6 +4540,32 @@ static const struct panel_desc starry_kr070pe2t = {
+ 	.connector_type = DRM_MODE_CONNECTOR_DPI,
+ };
+ 
++static const struct display_timing startek_kd070hdfld092_timing = {
++	.pixelclock = { 40800000, 51200000, 67200000 },
++	.hactive = { 1024, 1024, 1024 },
++	.hfront_porch = { 40, 160, 216 },
++	.hback_porch = { 30, 140, 140 },
++	.hsync_len = { 20, 20, 20 },
++	.vactive = { 600, 600, 600 },
++	.vfront_porch = { 2, 12, 177 },
++	.vback_porch = { 5, 20, 20 },
++	.vsync_len = { 3, 3, 3 },
++	.flags = DISPLAY_FLAGS_DE_HIGH,
++};
++
++static const struct panel_desc startek_kd070hdfld092 = {
++	.timings = &startek_kd070hdfld092_timing,
++	.num_timings = 1,
++	.bpc = 8,
++	.size = {
++		.width = 154,
++		.height = 86,
++	},
++	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
++	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
++	.connector_type = DRM_MODE_CONNECTOR_LVDS,
++};
++
+ static const struct display_timing startek_kd070wvfpa_mode = {
+ 	.pixelclock = { 25200000, 27200000, 30500000 },
+ 	.hactive = { 800, 800, 800 },
+@@ -5532,6 +5558,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	}, {
+ 		.compatible = "starry,kr070pe2t",
+ 		.data = &starry_kr070pe2t,
++	}, {
++		.compatible = "startek,kd070hdfld092",
++		.data = &startek_kd070hdfld092,
+ 	}, {
+ 		.compatible = "startek,kd070wvfpa",
+ 		.data = &startek_kd070wvfpa,
+
+-- 
+2.47.3
+
