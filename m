@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 486B7FD5F82
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:09:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C56DAFD5F85
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B30B10E53C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8599910E532;
 	Wed,  8 Apr 2026 07:09:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arduino.cc header.i=@arduino.cc header.b="UmfQXno3";
+	dkim=pass (1024-bit key; unprotected) header.d=arduino.cc header.i=@arduino.cc header.b="DduO+mLD";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3611F10E0F9
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 12:53:24 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488b0046078so20913715e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 05:53:24 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71A5310E0F9
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 12:52:03 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-488c2690057so2701025e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 07 Apr 2026 05:52:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=arduino.cc; s=google; t=1775566403; x=1776171203; darn=lists.freedesktop.org;
+ d=arduino.cc; s=google; t=1775566322; x=1776171122; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=i8Ky7jN1vb219gvtLaR6stiV3r09kOF9IWgMsLPbH74=;
- b=UmfQXno3c9lgEiVXEHLC1LnKY7esQgUdN1fxhF5NqSQmK710gm8FwHkGnFoL9gILut
- fhnIq5Q56rYpJMdiwmk7o140+X/Lxwi7spN1pL4Xh7JGYRjqqjZ7QeNQETWp9+mTtF2l
- kKMLHzYzPtTWJ4FSZHT2SRAdzhixng6wpnwlU=
+ bh=MLG70cZPHbMVCayA98g50Pt9/HRyo+CUlZFeaApT25E=;
+ b=DduO+mLD6F171fZ4qHXcqmp0+hhBTEWRFS8Phql5FZPCrJqwF8R58qC04wsFBHSw3J
+ phFDyV5nXfNOpfmaWbKeTY0bKpLTScjknbWe/tdKqjZeFZ/p4AbuxL27ffk1Y8Q/Ynlm
+ HfNWOchk3nuufwt/fc3pW+ilv1VgjFceVFUgg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775566403; x=1776171203;
+ d=1e100.net; s=20251104; t=1775566322; x=1776171122;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=i8Ky7jN1vb219gvtLaR6stiV3r09kOF9IWgMsLPbH74=;
- b=iBPJBimhwM4NJQZWsCHNpMf8UWws1tuXSY1yWd1oH69gWCLLY3FlxmyNPYaxnTAMPZ
- lNXIwF1HeaAZD5mcwrAyFNBCOdDDOp9ADlKXA9jaEXpnqReouQmPO1FIV5AGA6htdJIM
- qomHIq+qSaqQIjZT40C6acPF3rHZfZFWXAIrHCUa8m9oyy9LrcqhjErOfBPkXR0ydieJ
- 6JGWA+aIqj/G6oXqOwItBmkwYUbdeCZT4krLOPJVBf4pZRgSI5BCWSoGpJfGpwb3+qrD
- xVKNm0Pm771pXZTP/OXNBWL7z0VGiUEDEAoMOOMRGQDQTzRRJt9Zt2j2zxha8H6wInib
- 5fqQ==
+ bh=MLG70cZPHbMVCayA98g50Pt9/HRyo+CUlZFeaApT25E=;
+ b=N7YkNJieBIjiEGJ4R4I+IAq4/1Y3T802iaauO74HIdafW1p5Cp4eEBAoEN9ADIRzKl
+ 84S8IAyrNGfxxltXH7hyhwSefF3+pM2Jj2w5aqYdKGpUB23+qljC2IjgUQ4Y/TchzRWb
+ FpahNDIeF+7NCUqxYBOOs466cW/LhykkmNwvv2Bac7gAsG9FnLjq6df8tlZ+hGwd9HEL
+ C+LJq8sX3wPAqAW7NJ6retPlBJpX7msoro/UW3UeJm2f+6epmDeo19A9w8E1ZDlU1zCB
+ JNxPVwHnqdzXASt9qXcHyYTDEGQmU9f6X6KagagwkOhcywGJyEbQgCGCrLMPkV2+o8JT
+ zPLQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUK3xSI7lRa7mfmvx0DFS8W0nlBJKTHAHbi2HeogRqW9bHz1AxX/Z8M1V6j9jxLwaeP9l7e/DYA7Fw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwBQiFJk8/ha92LcpbgfDNzum1OUfS9yyEd2ATEPYHxEFMo/CIb
- dcaXeh+R2UgCHNo2GXPplEoXowOSZ1LUY4tU9McAWUvY8R16os18n24e0+w2Aygk0yM=
-X-Gm-Gg: AeBDiev9YT884X9lmPEvr3Kx3NLaRFyq512ezCdUq+1D3dfw1Pd4+MdplTHkbMkrDQE
- +DslnPqFm1o8L/w6jhxW8x7uMGfl0+acbtaZI0tU0AvoVVV643a5XZgpeoDS0qmTC+cQB8ebkFw
- s0C6eOLcdqOJiNpJywfWxHA1WA6/CaFOjbAiXB7k3FpwXD+y1VNhUxIBS3YplTnsrj9XBRy08qH
- M+QmwxB4Ag3jiOaN2pdj/rqTsrgLlUpcWNZLB368oh3KCcQfIWalz/sFl5hlmJX+SE9Opkb1Qn0
- 5xz0hx3kYykBgrRchq4L5mzGmKq7UWAe9ojm18P047mSmI4fX0KGGa/BCVoSNv/b9a/IyGGu7tr
- kubVv/bRg9NTP0NmQi3OpfHMJgT6GjR9KTZulH9HX1muWQ+1f/YS07DR0kppiKFp3PCvhnvfLF+
- 4IXHJ1PWv/b+6gG/EWjy5Yn2HlYLJ6yaL5hhIZ59WAfnK0E0aPnEdhyzVY
-X-Received: by 2002:a05:600c:4ed3:b0:477:a1a2:d829 with SMTP id
- 5b1f17b1804b1-4889970ee1fmr245541745e9.13.1775566402659; 
- Tue, 07 Apr 2026 05:53:22 -0700 (PDT)
+ AJvYcCV4faUwG0ngf5FcWtMGTN4WmySjcvVPq8DVezQ7pYSDm0CkppHqAUH5ee6pwUFI/IlCT83+4Oawzuc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy7SvSD5kKUDu4+ZcT0/95rrWBNYNtZFCXTzvmcdlENaG8a2Yg3
+ gp9FKKSHhQkj3uhmlGv9rGTQJYAKwPp2FkzXVc7yT5wvxU/nAdb3WC06y2hoQrbNxZggEFsZk/3
+ eXH3m
+X-Gm-Gg: AeBDietxa91bXO69/6U7HnyUgPQOelRgVyCV3PSoVJTNTioOQPTKkNOpQ19uDy29/XZ
+ QUDAUBmfOqOpChniG+JkzZC34qFp88G+keWqxQiOQuCBsJRXd9g/wfrMLjNUqmUoBf7e3WYMhbe
+ 01HpUjI2FNQ3BqBM798q3BAX0yYziF84D3rMS+vac6L0KdXbE7r3K2GVqeGXSFr3QMr82+pM5C/
+ eTfPHu4u4xfRSuG/T1lWaTnfzd8xu9DKCdgli9uLpPZ6fXueVaDzLNr3QhKgvNMXZerwRVvspdb
+ P7T7BYkyP3VZ3Uqm6kdkVk/ji0HCcOY+wydLmMHuRCV/BfTIWG9fkTgFnxbP9UWDxJ8pGNzRNiA
+ Tn9D9LamfrVCiuacJJ/9rF9U0ffcqjlT/vUb8XubiZ3QCCpvu3xyYKiIDsJz4fR5l1VnAtAaFgR
+ Ud6GmDS2/mvbw5DF9V7tY/hBLAp0bcWfEenTjIsh13lxIZZGxAQtMPNYzj
+X-Received: by 2002:a05:600c:3b18:b0:487:12c:e7e1 with SMTP id
+ 5b1f17b1804b1-4889970dccdmr220831905e9.11.1775566321939; 
+ Tue, 07 Apr 2026 05:52:01 -0700 (PDT)
 Received: from riccardo-work (public.toolboxoffice.it. [213.215.163.27])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488a221aa9fsm127567945e9.3.2026.04.07.05.53.21
+ 5b1f17b1804b1-48893f39027sm365288315e9.2.2026.04.07.05.52.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Apr 2026 05:53:22 -0700 (PDT)
+ Tue, 07 Apr 2026 05:52:01 -0700 (PDT)
 From: Riccardo Mereu <r.mereu.kernel@arduino.cc>
 To: dmitry.baryshkov@oss.qualcomm.com
 Cc: airlied@gmail.com, brgl@kernel.org, broonie@kernel.org,
@@ -71,13 +72,13 @@ Cc: airlied@gmail.com, brgl@kernel.org, broonie@kernel.org,
  robh@kernel.org, simona@ffwll.ch, tzimmermann@suse.de,
  yangcong5@huaqin.corp-partner.google.com,
  Riccardo Mereu <r.mereu@arduino.cc>
-Subject: Re: [PATCH 18/19] dt-bindings: gpio: describe Waveshare GPIO
- controller
-Date: Tue,  7 Apr 2026 14:53:18 +0200
-Message-ID: <20260407125318.282288-1-r.mereu.kernel@arduino.cc>
+Subject: Re: [PATCH 13/19] drm/panel: jadard-jd9365da-h3: set
+ prepare_prev_first
+Date: Tue,  7 Apr 2026 14:51:59 +0200
+Message-ID: <20260407125159.282144-1-r.mereu.kernel@arduino.cc>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-18-5e9119b5a014@oss.qualcomm.com>
-References: <20260401-waveshare-dsi-touch-v1-18-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-13-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-13-5e9119b5a014@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 08 Apr 2026 07:09:52 +0000
@@ -96,17 +97,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 01 Apr 2026 10:26:37 +0300 Dmitry Baryshkov wrote:
+On Wed, 01 Apr 2026 10:26:32 +0300 Dmitry Baryshkov wrote:
 >From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->The Waveshare DSI TOUCH family of panels has separate on-board GPIO
->controller, which controls power supplies to the panel and the touch
->screen and provides reset pins for both the panel and the touchscreen.
->Also it provides a simple PWM controller for panel backlight.
->
->Add bindings for these GPIO controllers. As overall integration might be
->not very obvious (and it differs significantly from the bindings used by
->the original drivers), provide complete example with the on-board
->regulators and the DSI panel.
+>Sending DSI commands from the prepare() callback requires DSI link to be
+>up at that point. For DSI hosts is guaranteed only if the panel driver
+>sets the .prepare_prev_first flag. Set it to let these panels work with
+>the DSI hosts which don't power on the link in their .mode_set callback.
 >
 >Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
