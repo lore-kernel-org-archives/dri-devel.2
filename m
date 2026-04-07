@@ -4,43 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BE5FFB5191
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 04:36:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82917FB5193
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 04:55:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DEDA10E074;
-	Tue,  7 Apr 2026 04:36:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C326A10E174;
+	Tue,  7 Apr 2026 04:55:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="mdsJdW6h";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="og8fhcTr";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A595010E074
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 04:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
- Content-ID:Content-Description:In-Reply-To:References;
- bh=AZdryoEjym1dfrc8csNMBSh/pD6+gVbxgUBr+ZfMCMA=; b=mdsJdW6hBj4+4e6enWTyx6vv0L
- nWX/ZO1Q37CzQXmdqbssr4bMckGKz/ZsEdHTesiAlfbpMfvufanvVxWDKI+SN4iaeW6g8LB/tmJhR
- ea2SojoO0DQv9Wn6XrG2Ot4MEmptBZYvik95FcUj5X/fOVS5J5KMN9fOH4K57mlA3/YJqxumshadq
- rd2/WKN0j/Ekzg8QnVzE3dBuPBas68DBtjzO+1DRy2Pe1rZ7YXHVD/71OvlS6QD7569QB24Ae+ICO
- 7lIGy3xPbPJ4G62D2afLts4Vy73WpZxlEDTn73bfwX3L88oLrRgoi/nl+YcT2FKbPhIPe0YWk4ol4
- Zws0gmug==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1w9yBF-00000005soa-3IbK; Tue, 07 Apr 2026 04:36:49 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org
-Subject: [PATCH] dma-fence: correct kernel-doc function parameter @flags
-Date: Mon,  6 Apr 2026 21:36:48 -0700
-Message-ID: <20260407043649.2015894-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.53.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 842B310E174;
+ Tue,  7 Apr 2026 04:55:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9D27460180;
+ Tue,  7 Apr 2026 04:55:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60815C116C6;
+ Tue,  7 Apr 2026 04:54:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775537702;
+ bh=rvu7/o0Lwq7mvoGpGDMuVDAnB7mMlRjy9d5tc7U+Cb8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=og8fhcTrcSW1XpExdd/a68mQ3sOlxr3SXLyjG8HBdY4XWYM29iTLx0Vs0oZzLQBYD
+ tu/RPZiAfSuTwJv5JHbdFaiitpZ6bXxgjdlLLxffWjK89/+jrNtXEyaJ4DJU/d0LCi
+ R6uKK10Vn0UY5G1a0lvKWQphTQ5vpl4v7DMcIZPNotI5UlcQAmshX1P/Wvpvltcgkl
+ vD400kR01f5mLCkLuTrZxTVTIz3eLkCsqiEBguYacQ0aKOGIUaWkZrKUIb0uWeIiYs
+ L/vTx3jbOsZk2PnifHxjEUKls3C4t+Wnbflcd+lJMRWwJLFmxogFFi7/Fue/xF+WPg
+ BLYdUjWFdKV2w==
+Date: Tue, 7 Apr 2026 10:24:44 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ robin.clark@oss.qualcomm.com, sean@poorly.run,
+ akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+ airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+ dikshita.agarwal@oss.qualcomm.com, bod@kernel.org,
+ mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
+ trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+ tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+ srinivas.kandagatla@oss.qualcomm.com,
+ amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+ op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+ skare@qti.qualcomm.com, harshal.dev@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v3 00/15] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <adSOFCL26y5qt1Cu@sumit-xelite>
+References: <20260327131043.627120-1-sumit.garg@kernel.org>
+ <adPLx3nCBb8IHz2b@baldur>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <adPLx3nCBb8IHz2b@baldur>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,33 +78,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-'make htmldocs' complains that dma_fence_unlock_irqrestore() is missing
-a description of its @flags parameter. The description is there but it is
-missing a ':' sign. Add that and correct the possessive form of "its".
+Hi Bjorn,
 
-WARNING: ../include/linux/dma-fence.h:414 function parameter 'flags' not described in 'dma_fence_unlock_irqrestore'
+On Mon, Apr 06, 2026 at 10:09:27AM -0500, Bjorn Andersson wrote:
+> On Fri, Mar 27, 2026 at 06:40:28PM +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> 
+> Please get our colleagues involved in this discussion, because this
+> non-SCM interface does not match the direction we are taking.
 
-Fixes: 3e5067931b5d ("dma-buf: abstract fence locking v2")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: linux-media@vger.kernel.org
+I thought I have already involved folks from QTEE perspective (Apurupa
+and Sree) actively working on FF-A implementation aligned to this
+interface. It would have been better if you could let me know where is
+the direction mismatch here. In case there is a better alternative
+design proposal for PAS service with FF-A, I would be happy to hear
+that.
 
- include/linux/dma-fence.h |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Anyhow for the legacy SoCs like KLMT, we really don't have any
+alternative but have to stick to existing QTEE PAS design with OP-TEE
+providing as an alternative backend. Surely we want to support loading
+of existing signed firmware present in linux-firmware repo for KLMT with
+OP-TEE being the TZ.
 
---- linux-next-20260406.orig/include/linux/dma-fence.h
-+++ linux-next-20260406/include/linux/dma-fence.h
-@@ -408,9 +408,9 @@ static inline spinlock_t *dma_fence_spin
- /**
-  * dma_fence_unlock_irqrestore - unlock the fence and irqrestore
-  * @fence: the fence to unlock
-- * @flags the CPU flags to restore
-+ * @flags: the CPU flags to restore
-  *
-- * Unlock the fence, allowing it to change it's state to signaled again.
-+ * Unlock the fence, allowing it to change its state to signaled again.
-  */
- #define dma_fence_unlock_irqrestore(fence, flags)	\
- 	spin_unlock_irqrestore(dma_fence_spinlock(fence), flags)
+-Sumit
