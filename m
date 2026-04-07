@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0374FFF5106
-	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:23:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482A4FF5107
+	for <dri-devel@archiver.kernel.org>; Tue,  7 Apr 2026 15:25:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF5E10E453;
-	Tue,  7 Apr 2026 15:23:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4F1F10E2C6;
+	Tue,  7 Apr 2026 15:25:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RHpVHJNV";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MQrltge4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEC6110E453
- for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:23:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5381710E2C6
+ for <dri-devel@lists.freedesktop.org>; Tue,  7 Apr 2026 15:25:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 833E2435CD;
- Tue,  7 Apr 2026 15:23:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160DEC116C6;
- Tue,  7 Apr 2026 15:23:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 901B660132;
+ Tue,  7 Apr 2026 15:25:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE491C19424;
+ Tue,  7 Apr 2026 15:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1775575404;
- bh=Bdu20pV4xnten1kwHihU3y3+YsSksUG5FJHKGIS+uO0=;
+ s=korg; t=1775575520;
+ bh=J2VTavdbdehJYRbSk2SrBfChlQkW+kizQkX9Jl35aIU=;
  h=Subject:To:Cc:From:Date:From;
- b=RHpVHJNV3wE1W/bvTQ565ZC46zvR/NsqNnLhTYnuFIondz6MmmnZNgmBVh5p7kP5R
- 1V8aFfw9iWbJqcKCKQwHdhnWkk6ZPMcz88bAy+CPxb4nAzY6KJfoy2jLRTOxa8Z7U9
- t+mSrOrB4ZOa+MbOLF9u0yn/Nm8bFaNjkA3jDXcw=
+ b=MQrltge45EM3DlJGb0hvFpUQDF2b/xzWQjPPD/w0dh4DHUlB9ZyzZ2LePk/TbYHvK
+ fwmSFpVDa6I6K6PTGJKi1anOmnZ3MAljqUWaKPM+j6Lfr+GiVZ/bR6CN6dr0L1dj6V
+ Uu8qnDJPCSRLNgCk70cuIcG9KKlzRSIj5CB3MefU=
 Subject: Patch "drm/ast: dp501: Fix initialization of SCU2C" has been added to
- the 6.18-stable tree
+ the 6.19-stable tree
 To: airlied@redhat.com, dri-devel@lists.freedesktop.org,
  gregkh@linuxfoundation.org, jfalempe@redhat.com, tzimmermann@suse.de
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 07 Apr 2026 17:20:22 +0200
-Message-ID: <2026040722-lining-sash-89f7@gregkh>
+Date: Tue, 07 Apr 2026 17:20:36 +0200
+Message-ID: <2026040736-playgroup-fifty-dc34@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -60,12 +60,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/ast: dp501: Fix initialization of SCU2C
 
-to the 6.18-stable tree which can be found at:
+to the 6.19-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-ast-dp501-fix-initialization-of-scu2c.patch
-and it can be found in the queue-6.18 subdirectory.
+and it can be found in the queue-6.19 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -116,6 +116,6 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from tzimmermann@suse.de are
 
-queue-6.18/drm-ioc32-stop-speculation-on-the-drm_compat_ioctl-path.patch
-queue-6.18/drm-sysfb-fix-efidrm-error-handling-and-memory-type-.patch
-queue-6.18/drm-ast-dp501-fix-initialization-of-scu2c.patch
+queue-6.19/drm-ioc32-stop-speculation-on-the-drm_compat_ioctl-path.patch
+queue-6.19/drm-sysfb-fix-efidrm-error-handling-and-memory-type-.patch
+queue-6.19/drm-ast-dp501-fix-initialization-of-scu2c.patch
