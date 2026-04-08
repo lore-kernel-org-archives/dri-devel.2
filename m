@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 249C91073CBA
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C83A105D9B9
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 14:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7639A10E66E;
-	Wed,  8 Apr 2026 13:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E05510E678;
+	Wed,  8 Apr 2026 14:01:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="N0MeI2e6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LaRbhP9P";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7998910E66E
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:57:07 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B950267F
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 06:57:01 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- C4DC23F641
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 06:57:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1775656627; bh=DtgfAHIcG2yL3Uyz3ksmN6rTp9I1YSd/gQUgwKu2M3Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=N0MeI2e6aQ/+6B/O7ABN+afiQBpZX7ijyHP84mYjd4wAlyLJjC6BjtOJEUeSHj8rm
- /3SrFuUAJrg5PjSprnMAMfUHy87G+VBNMRfdt3dvlfhrIfvhMh9gMPl9fz1AMOtAeN
- MT7zfURwNfRdmaRrjZ31MOWhR3j/x0y3xWaLln0k=
-Date: Wed, 8 Apr 2026 14:56:47 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Guangliu Ding <guangliu.ding@nxp.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v3] arm64: dts: imx952: Describe Mali G310 GPU
-Message-ID: <adZeny_sRg7t_A3j@e142607>
-References: <20260407-master-v3-1-5a05cea0c521@nxp.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C693E10E678;
+ Wed,  8 Apr 2026 14:01:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775656908; x=1807192908;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Sj0bJFhLUKd5S3V9MnFKRV5ekCEI4Kjbr33EGYWA0HA=;
+ b=LaRbhP9Pt/AYxQdCIxP6KPIm0b9vRXXhnkUqj8AEOGL0RTaTJISblFkN
+ CxalTyV9ZpYKUS5jKOU0o3hXditO5vuhjNy4ZmbOdzPcs7qKbhUTC59xq
+ MD3VYV1QNCTfXYhFpbpNo1VSew0a0oRbflfxShDR5Eoel82SqlHPDwLZ8
+ nOvb9JkrlCTMR+sujkv++HSsONcu5BncR2x+kzsY4fA1qex+RO98pqMde
+ 9bTN+Vz0Bf88my/1gaV/5bnoZm4/cdYu+QK71JmN0G5Lwz53BpPc/GG8Y
+ 1fY9EePYR3O56smgIS51nAVw6F12uIDYpGWj7fys5qpmhDxl8k4vTJC5Q g==;
+X-CSE-ConnectionGUID: yHmg3xFpTqWxA+OsW3Aj2g==
+X-CSE-MsgGUID: drHbHcVxQWuYb+8CQ0woDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="75811529"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="75811529"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 07:01:24 -0700
+X-CSE-ConnectionGUID: Alic1PWlRku5Io90y4350A==
+X-CSE-MsgGUID: mQANnXLbSPyxyL30DYQ8ag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="228726676"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO
+ jhogande-mobl3.intel.com) ([10.245.244.251])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 07:01:23 -0700
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 3/7] drm/dp: Include PSR2 granularity registers into PSR
+ capability size define
+Date: Wed,  8 Apr 2026 17:00:55 +0300
+Message-ID: <20260408140059.252067-4-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260408140059.252067-1-jouni.hogander@intel.com>
+References: <20260408140059.252067-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260407-master-v3-1-5a05cea0c521@nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,108 +73,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 07, 2026 at 11:15:03AM +0800, Guangliu Ding wrote:
-> Support Mali G310 GPU on i.MX952 board. Describe this GPU in the DT.
-> Include dummy GPU voltage regulator and OPP tables.
-> 
-> A hardware GPU auto clock‑gating mechanism has been introduced,
-> enabling GPUMIX to automatically manage the GPU clock. This improves
-> overall response time.
-> 
-> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+Currently EDP_PSR_RECEIVER_CAP_SIZE contains only DP_PSR_SUPPORT and
+DP_PSR_CAPS register. Include also granularity registers into this size to
+avoid need to read them separately.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ include/drm/display/drm_dp.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
-Liviu
-
-> ---
-> This series enable Mali G310 GPU support on i.MX952 boards, the same GPU
-> IP as the instance on i.MX95 boards.
-> ---
-> Changes in v3:
-> - Follow the order of interrupts/interrupt-names in arm,mali-valhall-csf.yaml.
-> - Drop dt-bindings change in arm,mali-valhall-csf.yaml.
-> - Replace "nxp,imx952-mali" with "nxp,imx95-mali" in compatible.
-> - Link to v2: https://patch.msgid.link/20260401-master-v2-0-20d3fbcd19d6@nxp.com
-> 
-> Changes in v2:
-> - Improve patch description, adding more GPU information.
-> - Remove Reviewed-by tag.
-> - Link to v1: https://patch.msgid.link/20260331-master-v1-0-65c8e318d462@nxp.com
-> ---
->  arch/arm64/boot/dts/freescale/imx952.dtsi | 36 +++++++++++++++++++++++++++++++
->  1 file changed, 36 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/freescale/imx952.dtsi b/arch/arm64/boot/dts/freescale/imx952.dtsi
-> index 91fe4916ac04..ced09e7a1dc5 100644
-> --- a/arch/arm64/boot/dts/freescale/imx952.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx952.dtsi
-> @@ -318,6 +318,28 @@ usbphynop2: usbphynop2 {
->  		clock-names = "main_clk";
->  	};
->  
-> +	gpu_opp_table: opp-table {
-> +		compatible = "operating-points-v2";
-> +
-> +		opp-500000000 {
-> +			opp-hz = /bits/ 64 <500000000>;
-> +			opp-hz-real = /bits/ 64 <500000000>;
-> +			opp-microvolt = <920000>;
-> +		};
-> +
-> +		opp-800000000 {
-> +			opp-hz = /bits/ 64 <800000000>;
-> +			opp-hz-real = /bits/ 64 <800000000>;
-> +			opp-microvolt = <920000>;
-> +		};
-> +
-> +		opp-1000000000 {
-> +			opp-hz = /bits/ 64 <1000000000>;
-> +			opp-hz-real = /bits/ 64 <1000000000>;
-> +			opp-microvolt = <920000>;
-> +		};
-> +	};
-> +
->  	soc {
->  		compatible = "simple-bus";
->  		#address-cells = <2>;
-> @@ -1262,5 +1284,19 @@ usbmisc2: usbmisc@4c200200 {
->  			reg = <0x0 0x4c200200 0x0 0x200>,
->  			      <0x0 0x4c010014 0x0 0x4>;
->  		};
-> +
-> +		gpu: gpu@4d900000 {
-> +			compatible = "nxp,imx95-mali", "arm,mali-valhall-csf";
-> +			reg = <0 0x4d900000 0 0x480000>;
-> +			interrupts = <GIC_SPI 289 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "job", "mmu", "gpu";
-> +			clocks = <&scmi_clk IMX952_CLK_GPU>;
-> +			clock-names = "core";
-> +			power-domains = <&scmi_devpd IMX952_PD_GPU>;
-> +			operating-points-v2 = <&gpu_opp_table>;
-> +			dynamic-power-coefficient = <1013>;
-> +		};
->  	};
->  };
-> 
-> ---
-> base-commit: 0138af2472dfdef0d56fc4697416eaa0ff2589bd
-> change-id: 20260331-master-7ec7ff0fe1b2
-> 
-> Best regards,
-> --  
-> Guangliu Ding <guangliu.ding@nxp.com>
-> 
-
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 8b15d3eeb716..9af87c88b9c4 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -1691,7 +1691,7 @@ enum drm_dp_phy {
+ #define DP_RECEIVER_CAP_SIZE		0xf
+ #define DP_DSC_RECEIVER_CAP_SIZE        0x10 /* DSC Capabilities 0x60 through 0x6F */
+ #define DP_DSC_BRANCH_CAP_SIZE		3
+-#define EDP_PSR_RECEIVER_CAP_SIZE	2
++#define EDP_PSR_RECEIVER_CAP_SIZE	5
+ #define EDP_DISPLAY_CTL_CAP_SIZE	5
+ #define DP_LTTPR_COMMON_CAP_SIZE	8
+ #define DP_LTTPR_PHY_CAP_SIZE		3
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.43.0
+
