@@ -4,45 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D0B21073CBE
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 249C91073CBA
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3B0D10E669;
-	Wed,  8 Apr 2026 13:46:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7639A10E66E;
+	Wed,  8 Apr 2026 13:57:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="iQJUhPIO";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="N0MeI2e6";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8657F10E669
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:46:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7998910E66E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:57:07 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 372AC1477
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 06:46:30 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B950267F
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 06:57:01 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- BDD303F641
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 06:46:35 -0700 (PDT)
+ C4DC23F641
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 06:57:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1775655995; bh=VPeUmPFpteb4N6Wv4WsBHZdFN79rVW+9WXeSgrwjIog=;
+ t=1775656627; bh=DtgfAHIcG2yL3Uyz3ksmN6rTp9I1YSd/gQUgwKu2M3Q=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=iQJUhPIOvvHLxYGMSDsG95FCwDpA5yi4MrK4qAtSkJ8dRHVnVm69Mpfe20QRRDgfg
- 2c4EaeI9ztqa3SyDsuLOj9uvuMy9tVBXCrNks9N7g3KhBUWd/pvkmZqsSutmSK3JFQ
- /jTxiJGT4l8KJLp7eeejKG6YccO4oz7vRZnXzOm0=
-Date: Wed, 8 Apr 2026 14:46:32 +0100
+ b=N0MeI2e6aQ/+6B/O7ABN+afiQBpZX7ijyHP84mYjd4wAlyLJjC6BjtOJEUeSHj8rm
+ /3SrFuUAJrg5PjSprnMAMfUHy87G+VBNMRfdt3dvlfhrIfvhMh9gMPl9fz1AMOtAeN
+ MT7zfURwNfRdmaRrjZ31MOWhR3j/x0y3xWaLln0k=
+Date: Wed, 8 Apr 2026 14:56:47 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yicong Hui <yiconghui@gmail.com>
-Subject: Re: [PATCH] drm/panthor: Fix kernel-doc in panthor_sched.c so it's
- visible
-Message-ID: <adZcOLGBNWUQVhoj@e142607>
-References: <20260408091242.799074-1-steven.price@arm.com>
+To: Guangliu Ding <guangliu.ding@nxp.com>
+Cc: Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3] arm64: dts: imx952: Describe Mali G310 GPU
+Message-ID: <adZeny_sRg7t_A3j@e142607>
+References: <20260407-master-v3-1-5a05cea0c521@nxp.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260408091242.799074-1-steven.price@arm.com>
+In-Reply-To: <20260407-master-v3-1-5a05cea0c521@nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,14 +69,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 10:12:42AM +0100, Steven Price wrote:
-> Various substructures defined in panthor_sched.c have kernel-doc which
-> is silently ignored because it doesn't include the full path to the
-> member. Fix these issues so that the kernel-doc text is actually output
-> by including the name of the parent.
+On Tue, Apr 07, 2026 at 11:15:03AM +0800, Guangliu Ding wrote:
+> Support Mali G310 GPU on i.MX952 board. Describe this GPU in the DT.
+> Include dummy GPU voltage regulator and OPP tables.
 > 
-> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-> Signed-off-by: Steven Price <steven.price@arm.com>
+> A hardware GPU auto clock‑gating mechanism has been introduced,
+> enabling GPUMIX to automatically manage the GPU clock. This improves
+> overall response time.
+> 
+> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
 
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
@@ -73,238 +85,84 @@ Best regards,
 Liviu
 
 > ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 72 ++++++++++++-------------
->  1 file changed, 36 insertions(+), 36 deletions(-)
+> This series enable Mali G310 GPU support on i.MX952 boards, the same GPU
+> IP as the instance on i.MX95 boards.
+> ---
+> Changes in v3:
+> - Follow the order of interrupts/interrupt-names in arm,mali-valhall-csf.yaml.
+> - Drop dt-bindings change in arm,mali-valhall-csf.yaml.
+> - Replace "nxp,imx952-mali" with "nxp,imx95-mali" in compatible.
+> - Link to v2: https://patch.msgid.link/20260401-master-v2-0-20d3fbcd19d6@nxp.com
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 3bb1cb5a2656..b255354553df 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -221,7 +221,7 @@ struct panthor_scheduler {
->  	/** @groups: Various lists used to classify groups. */
->  	struct {
->  		/**
-> -		 * @runnable: Runnable group lists.
-> +		 * @groups.runnable: Runnable group lists.
->  		 *
->  		 * When a group has queues that want to execute something,
->  		 * its panthor_group::run_node should be inserted here.
-> @@ -231,7 +231,7 @@ struct panthor_scheduler {
->  		struct list_head runnable[PANTHOR_CSG_PRIORITY_COUNT];
+> Changes in v2:
+> - Improve patch description, adding more GPU information.
+> - Remove Reviewed-by tag.
+> - Link to v1: https://patch.msgid.link/20260331-master-v1-0-65c8e318d462@nxp.com
+> ---
+>  arch/arm64/boot/dts/freescale/imx952.dtsi | 36 +++++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/imx952.dtsi b/arch/arm64/boot/dts/freescale/imx952.dtsi
+> index 91fe4916ac04..ced09e7a1dc5 100644
+> --- a/arch/arm64/boot/dts/freescale/imx952.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx952.dtsi
+> @@ -318,6 +318,28 @@ usbphynop2: usbphynop2 {
+>  		clock-names = "main_clk";
+>  	};
 >  
->  		/**
-> -		 * @idle: Idle group lists.
-> +		 * @groups.idle: Idle group lists.
->  		 *
->  		 * When all queues of a group are idle (either because they
->  		 * have nothing to execute, or because they are blocked), the
-> @@ -242,7 +242,7 @@ struct panthor_scheduler {
->  		struct list_head idle[PANTHOR_CSG_PRIORITY_COUNT];
->  
->  		/**
-> -		 * @waiting: List of groups whose queues are blocked on a
-> +		 * @groups.waiting: List of groups whose queues are blocked on a
->  		 * synchronization object.
->  		 *
->  		 * Insert panthor_group::wait_node here when a group is waiting
-> @@ -283,17 +283,17 @@ struct panthor_scheduler {
->  
->  	/** @pm: Power management related fields. */
->  	struct {
-> -		/** @has_ref: True if the scheduler owns a runtime PM reference. */
-> +		/** @pm.has_ref: True if the scheduler owns a runtime PM reference. */
->  		bool has_ref;
->  	} pm;
->  
->  	/** @reset: Reset related fields. */
->  	struct {
-> -		/** @lock: Lock protecting the other reset fields. */
-> +		/** @reset.lock: Lock protecting the other reset fields. */
->  		struct mutex lock;
->  
->  		/**
-> -		 * @in_progress: True if a reset is in progress.
-> +		 * @reset.in_progress: True if a reset is in progress.
->  		 *
->  		 * Set to true in panthor_sched_pre_reset() and back to false in
->  		 * panthor_sched_post_reset().
-> @@ -301,7 +301,7 @@ struct panthor_scheduler {
->  		atomic_t in_progress;
->  
->  		/**
-> -		 * @stopped_groups: List containing all groups that were stopped
-> +		 * @reset.stopped_groups: List containing all groups that were stopped
->  		 * before a reset.
->  		 *
->  		 * Insert panthor_group::run_node in the pre_reset path.
-> @@ -395,19 +395,19 @@ struct panthor_queue {
->  
->  	/** @iface: Firmware interface. */
->  	struct {
-> -		/** @mem: FW memory allocated for this interface. */
-> +		/** @iface.mem: FW memory allocated for this interface. */
->  		struct panthor_kernel_bo *mem;
->  
-> -		/** @input: Input interface. */
-> +		/** @iface.input: Input interface. */
->  		struct panthor_fw_ringbuf_input_iface *input;
->  
-> -		/** @output: Output interface. */
-> +		/** @iface.output: Output interface. */
->  		const struct panthor_fw_ringbuf_output_iface *output;
->  
-> -		/** @input_fw_va: FW virtual address of the input interface buffer. */
-> +		/** @iface.input_fw_va: FW virtual address of the input interface buffer. */
->  		u32 input_fw_va;
->  
-> -		/** @output_fw_va: FW virtual address of the output interface buffer. */
-> +		/** @iface.output_fw_va: FW virtual address of the output interface buffer. */
->  		u32 output_fw_va;
->  	} iface;
->  
-> @@ -416,26 +416,26 @@ struct panthor_queue {
->  	 * queue is waiting on.
->  	 */
->  	struct {
-> -		/** @gpu_va: GPU address of the synchronization object. */
-> +		/** @syncwait.gpu_va: GPU address of the synchronization object. */
->  		u64 gpu_va;
->  
-> -		/** @ref: Reference value to compare against. */
-> +		/** @syncwait.ref: Reference value to compare against. */
->  		u64 ref;
->  
-> -		/** @gt: True if this is a greater-than test. */
-> +		/** @syncwait.gt: True if this is a greater-than test. */
->  		bool gt;
->  
-> -		/** @sync64: True if this is a 64-bit sync object. */
-> +		/** @synwait.sync64: True if this is a 64-bit sync object. */
->  		bool sync64;
->  
-> -		/** @bo: Buffer object holding the synchronization object. */
-> +		/** @syncwait.obj: Buffer object holding the synchronization object. */
->  		struct drm_gem_object *obj;
->  
-> -		/** @offset: Offset of the synchronization object inside @bo. */
-> +		/** @syncwait.offset: Offset of the synchronization object inside @bo. */
->  		u64 offset;
->  
->  		/**
-> -		 * @kmap: Kernel mapping of the buffer object holding the
-> +		 * @syncwait.kmap: Kernel mapping of the buffer object holding the
->  		 * synchronization object.
->  		 */
->  		void *kmap;
-> @@ -443,21 +443,21 @@ struct panthor_queue {
->  
->  	/** @fence_ctx: Fence context fields. */
->  	struct {
-> -		/** @lock: Used to protect access to all fences allocated by this context. */
-> +		/** @fence_ctx.lock: Used to protect access to all fences allocated by this context. */
->  		spinlock_t lock;
->  
->  		/**
-> -		 * @id: Fence context ID.
-> +		 * @fence_ctx.id: Fence context ID.
->  		 *
->  		 * Allocated with dma_fence_context_alloc().
->  		 */
->  		u64 id;
->  
-> -		/** @seqno: Sequence number of the last initialized fence. */
-> +		/** @fence_ctx.seqno: Sequence number of the last initialized fence. */
->  		atomic64_t seqno;
->  
->  		/**
-> -		 * @last_fence: Fence of the last submitted job.
-> +		 * @fence_ctx.last_fence: Fence of the last submitted job.
->  		 *
->  		 * We return this fence when we get an empty command stream.
->  		 * This way, we are guaranteed that all earlier jobs have completed
-> @@ -467,7 +467,7 @@ struct panthor_queue {
->  		struct dma_fence *last_fence;
->  
->  		/**
-> -		 * @in_flight_jobs: List containing all in-flight jobs.
-> +		 * @fence_ctx.in_flight_jobs: List containing all in-flight jobs.
->  		 *
->  		 * Used to keep track and signal panthor_job::done_fence when the
->  		 * synchronization object attached to the queue is signaled.
-> @@ -477,13 +477,13 @@ struct panthor_queue {
->  
->  	/** @profiling: Job profiling data slots and access information. */
->  	struct {
-> -		/** @slots: Kernel BO holding the slots. */
-> +		/** @profiling.slots: Kernel BO holding the slots. */
->  		struct panthor_kernel_bo *slots;
->  
-> -		/** @slot_count: Number of jobs ringbuffer can hold at once. */
-> +		/** @profiling.slot_count: Number of jobs ringbuffer can hold at once. */
->  		u32 slot_count;
->  
-> -		/** @seqno: Index of the next available profiling information slot. */
-> +		/** @profiling.seqno: Index of the next available profiling information slot. */
->  		u32 seqno;
->  	} profiling;
+> +	gpu_opp_table: opp-table {
+> +		compatible = "operating-points-v2";
+> +
+> +		opp-500000000 {
+> +			opp-hz = /bits/ 64 <500000000>;
+> +			opp-hz-real = /bits/ 64 <500000000>;
+> +			opp-microvolt = <920000>;
+> +		};
+> +
+> +		opp-800000000 {
+> +			opp-hz = /bits/ 64 <800000000>;
+> +			opp-hz-real = /bits/ 64 <800000000>;
+> +			opp-microvolt = <920000>;
+> +		};
+> +
+> +		opp-1000000000 {
+> +			opp-hz = /bits/ 64 <1000000000>;
+> +			opp-hz-real = /bits/ 64 <1000000000>;
+> +			opp-microvolt = <920000>;
+> +		};
+> +	};
+> +
+>  	soc {
+>  		compatible = "simple-bus";
+>  		#address-cells = <2>;
+> @@ -1262,5 +1284,19 @@ usbmisc2: usbmisc@4c200200 {
+>  			reg = <0x0 0x4c200200 0x0 0x200>,
+>  			      <0x0 0x4c010014 0x0 0x4>;
+>  		};
+> +
+> +		gpu: gpu@4d900000 {
+> +			compatible = "nxp,imx95-mali", "arm,mali-valhall-csf";
+> +			reg = <0 0x4d900000 0 0x480000>;
+> +			interrupts = <GIC_SPI 289 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "job", "mmu", "gpu";
+> +			clocks = <&scmi_clk IMX952_CLK_GPU>;
+> +			clock-names = "core";
+> +			power-domains = <&scmi_devpd IMX952_PD_GPU>;
+> +			operating-points-v2 = <&gpu_opp_table>;
+> +			dynamic-power-coefficient = <1013>;
+> +		};
+>  	};
 >  };
-> @@ -627,7 +627,7 @@ struct panthor_group {
->  
->  	/** @fdinfo: Per-file info exposed through /proc/<process>/fdinfo */
->  	struct {
-> -		/** @data: Total sampled values for jobs in queues from this group. */
-> +		/** @fdinfo.data: Total sampled values for jobs in queues from this group. */
->  		struct panthor_gpu_usage data;
->  
->  		/**
-> @@ -805,15 +805,15 @@ struct panthor_job {
->  
->  	/** @call_info: Information about the userspace command stream call. */
->  	struct {
-> -		/** @start: GPU address of the userspace command stream. */
-> +		/** @call_info.start: GPU address of the userspace command stream. */
->  		u64 start;
->  
-> -		/** @size: Size of the userspace command stream. */
-> +		/** @call_info.size: Size of the userspace command stream. */
->  		u32 size;
->  
->  		/**
-> -		 * @latest_flush: Flush ID at the time the userspace command
-> -		 * stream was built.
-> +		 * @call_info.latest_flush: Flush ID at the time the userspace
-> +		 * command stream was built.
->  		 *
->  		 * Needed for the flush reduction mechanism.
->  		 */
-> @@ -822,10 +822,10 @@ struct panthor_job {
->  
->  	/** @ringbuf: Position of this job is in the ring buffer. */
->  	struct {
-> -		/** @start: Start offset. */
-> +		/** @ringbuf.start: Start offset. */
->  		u64 start;
->  
-> -		/** @end: End offset. */
-> +		/** @ringbuf.end: End offset. */
->  		u64 end;
->  	} ringbuf;
->  
-> @@ -840,10 +840,10 @@ struct panthor_job {
->  
->  	/** @profiling: Job profiling information. */
->  	struct {
-> -		/** @mask: Current device job profiling enablement bitmask. */
-> +		/** @profiling.mask: Current device job profiling enablement bitmask. */
->  		u32 mask;
->  
-> -		/** @slot: Job index in the profiling slots BO. */
-> +		/** @profiling.slot: Job index in the profiling slots BO. */
->  		u32 slot;
->  	} profiling;
->  };
-> -- 
-> 2.39.5
+> 
+> ---
+> base-commit: 0138af2472dfdef0d56fc4697416eaa0ff2589bd
+> change-id: 20260331-master-7ec7ff0fe1b2
+> 
+> Best regards,
+> --  
+> Guangliu Ding <guangliu.ding@nxp.com>
 > 
 
 -- 
