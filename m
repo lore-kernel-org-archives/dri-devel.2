@@ -4,82 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A7C31073CA3
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 12:04:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 082461073CA4
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 12:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD1D010E620;
-	Wed,  8 Apr 2026 12:04:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7018A10E61F;
+	Wed,  8 Apr 2026 12:07:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="TwbVrcDC";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vsGGjsKL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ljj2Zw04";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vsGGjsKL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ljj2Zw04";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B186A10E620
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:04:06 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-488c2690057so14947695e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 05:04:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1775649845; x=1776254645; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=67FUvuUYw3FdlK6qJZvlH40hk371TsgTNRnsmwrbeHA=;
- b=TwbVrcDCohhfSbcghHn/c/Uo+AaKaGfMIDBzV0D8nCUH8Sw02WFJVQk3TDUIQY8jsU
- cvXeIU2sSPWLNLG4ZTLqJ8lzPqqi1sT3z88R7eHim7JfNP0UO6j0dEPkzV65T9x6ggHy
- 0qyt6EgHRN9M6cLG1z898XhBUGXJV8PwbD6Ck=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775649845; x=1776254645;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=67FUvuUYw3FdlK6qJZvlH40hk371TsgTNRnsmwrbeHA=;
- b=dloygVFHfiM5GAfeFX0CTmoNcUde4sdSkRCWRYqT38x8247SlrrB9BO1w6rphFrb2J
- KfDA//qtpBf3TlQF/vMCLvlAabB4vUZOCnFh7akOH25128fLLAzJJHTAeBmL/618DVSa
- I5b/f4y3au2gw4d07SAhgBr3XbWiZh5AYbPeHuOe3p+gAA3RTJKCLqHqhJypVUCyzmOw
- QHl85KcA/KLErQPz5ggxvOgDy3kYkGpEj8vxbsAaxDv6rxdi7N/a2JN1nZ49HX21R73g
- zR5LgvLizPGcldWWqbbkmLJLv8OG1PNuh9RgqAAg7QT6pcB7OwPUTE3O/OOAjVzm4hWG
- 7zHQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUXzlu7EM6J+Dv1dMKj5a2V2wzJZsdY4r+Y4gnPl1GpU+gw03Tp4f6sqCtn1TVsAR8lkWbYahVjYSc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyUq3GmEnwRB90Zo4bxn2rfz79s14Eti41uJ5a5J4xG8Do1hmNN
- hbCAyy6EVarI4igmX7Q047KTyrJCqZ08/iyLXDuyhEt6q0F5cMrXswpKyYYtSNQVloM=
-X-Gm-Gg: AeBDietjzK2f65XQbgYue6wFFFUwSCriUXH/etjTzd39MytZCs4Ag95pzG5jInrqCvL
- iZ2tWJIlkpn0eCEHRO0LU7j/VS4CPFWf9q3llUeoPn8qqAnzaKAksN3MWStiB3Kwf7cFDXne3Iq
- 9ipsWlJNv5fSjkMJUvetzUyA/Ox3qQJIAunIlEK48hBX6DdDE2Cb2NJ168b0sLxXT1AwaQJtZDs
- 6mC+rs7tFnAk3q3NxkYPrImu0r4ukCtdhNubdrN676HkyEIP+ZFWYr51fbVOGPuTFKI0op7EcCP
- 4CIwY1svdnrBjM3LSsHXtCeYMy3rNzCDgux8VW97ckqUlp8AMM8XAnafk6nmXylWbb0wSr6E35q
- nd7eDzABpZ8KEdwhjPh8DJlkpxBMQrAUD95jo/wY+Q37p5ijoGf0V2+n1M4uor+PmbIFsHpRf64
- zFgBsqlp2MAcyP/E/kjYSyhf3MFrYA1yJrhtS+J603c4H3Qg==
-X-Received: by 2002:a05:600c:1d1d:b0:488:7ebd:78 with SMTP id
- 5b1f17b1804b1-4889977cbb7mr287621565e9.14.1775649844715; 
- Wed, 08 Apr 2026 05:04:04 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48893f39027sm439570295e9.2.2026.04.08.05.04.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Apr 2026 05:04:04 -0700 (PDT)
-Date: Wed, 8 Apr 2026 14:04:02 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Intel graphics driver community testing & development
- <intel-gfx@lists.freedesktop.org>, 
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>, 
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- Linus Torvalds <torvalds@linuxfoundation.org>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Andi Shyti <andi.shyti@kernel.org>,
- Chris Wilson <chris@chris-wilson.co.uk>
-Subject: Re: [PATCH v3] drm/i915/gem: Don't use VMA from wrong VM in EXECBUF
-Message-ID: <adZEMi0ps3vK9-xt@phenom.ffwll.local>
-References: <20260408110551.84120-1-joonas.lahtinen@linux.intel.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86BA710E61F
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:07:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2C9325BCD7;
+ Wed,  8 Apr 2026 12:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775650047; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jASeO5XV+LlUMhFuZJ9gFlWeF7A6u/Xj3fH0hY3UYg8=;
+ b=vsGGjsKLt7f9UE7S61Wf/8amw2f6y/VIDVXQ8WhSCrHIgSrKe02ICL/Nml2fHpLvagW2Hw
+ NCf0dEWFbqx98beyCgA43If8ilX9nYxA4Kj+WGyqVZkhKFu/t5ASe2J0RVjj4PUBhz4goG
+ fUAltN+pgAtVTyVjPfeXh3fAhLBzhSs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775650047;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jASeO5XV+LlUMhFuZJ9gFlWeF7A6u/Xj3fH0hY3UYg8=;
+ b=ljj2Zw04spbzy6TtWbNsfNqE3yuAcQKK4QjiEfbdwTntwBMGVga2X6h2mmDgn7Lcu7oE0q
+ qBPdso9uY+xlXRDg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=vsGGjsKL;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ljj2Zw04
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775650047; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jASeO5XV+LlUMhFuZJ9gFlWeF7A6u/Xj3fH0hY3UYg8=;
+ b=vsGGjsKLt7f9UE7S61Wf/8amw2f6y/VIDVXQ8WhSCrHIgSrKe02ICL/Nml2fHpLvagW2Hw
+ NCf0dEWFbqx98beyCgA43If8ilX9nYxA4Kj+WGyqVZkhKFu/t5ASe2J0RVjj4PUBhz4goG
+ fUAltN+pgAtVTyVjPfeXh3fAhLBzhSs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775650047;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=jASeO5XV+LlUMhFuZJ9gFlWeF7A6u/Xj3fH0hY3UYg8=;
+ b=ljj2Zw04spbzy6TtWbNsfNqE3yuAcQKK4QjiEfbdwTntwBMGVga2X6h2mmDgn7Lcu7oE0q
+ qBPdso9uY+xlXRDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EBC3D4A0B3;
+ Wed,  8 Apr 2026 12:07:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id r9cjOP5E1mlkUgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 08 Apr 2026 12:07:26 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/5] drm/sysfb: Support basic power management
+Date: Wed,  8 Apr 2026 14:03:13 +0200
+Message-ID: <20260408120722.328769-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260408110551.84120-1-joonas.lahtinen@linux.intel.com>
-X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_DN_SOME(0.00)[];
+ FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ RCPT_COUNT_SEVEN(0.00)[7];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Queue-Id: 2C9325BCD7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,98 +116,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 02:05:51PM +0300, Joonas Lahtinen wrote:
-> Do not pick a VMA with non-matching VM (ppGTT) on quick path
-> of BO handle lookup for a given EXECBUF call. VMA from wrong VM
-> could be picked if same BO is repeatedly used in EXECBUF
-> calls on same context with alternating VMs (ppGTTs). However due
-> to the introduction of proto-ctx that should not be possible since
-> d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
->  create parameters (v5)").
-> 
-> Also avoids returning a VMA without increasing the refcount,
-> which may potentially lead to UAF since f7ce8639f6ff ("drm/i915/gem:
-> Split the context's obj:vma lut into its own mutex") and until
-> d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
->  create parameters (v5)").
+Add callbacks for suspending and resuming to the sysfb drivers. The
+helpers store and restore DRM state across the suspend/resume cycle.
 
-Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
+While most hardware loses the system framebuffer setup on suspends,
+some systems do retain the configuration; notable emulators. Adding
+PM support makes it work with DRM.
 
-Also, much more succinct summary above than my babbling below :-)
+Tested with vesadrm on qemu's bochs device.
 
-Cheers, Sima
+Thomas Zimmermann (5):
+  drm/sysfb: corebootdrm: Support power management
+  drm/sysfb: efidrm: Support power management
+  drm/sysfb: ofdrm: Support power management
+  drm/sysfb: simpledrm: Support power management
+  drm/sysfb: vesadrm: Support power management
 
-> 
-> Sima's analysis:
-> 
->   This check was added in f7ce8639f6ff ("drm/i915/gem: Split the context's
->   obj:vma lut into its own mutex") but without any hint in the commit
->   message as to why. In another hunk of that commit there's a hint though in
->   __eb_add_lut:
-> 
->           /* user racing with ctx set-vm */
-> 
->   This would mean that this bug was introduced in e0695db7298e ("drm/i915:
->   Create/destroy VM (ppGTT) for use with contexts"), which allowed to change
->   the gem_ctx->vm at runtime, opening up the race that was partially fixed
->   in the earlier referenced commit about a year later.
-> 
->   But it cannot be exploited anymore in anything remotely recent because
->   with the introduction of proto-contexts we've made gem_ctx->vm invariant
->   again, exactly to preemptively close all these potential issues.
->   Specifically d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
->   create parameters (v5)") is the vm specific part of the proto-context
->   work.
-> 
->   Despite that this is impossible to exploit I think it's still good to fix,
->   but I think for paranoia's sake we should put a WARN_ON_ONCE(vma->vm !=
->   vm) in there, since this really should be impossible.
-> 
->   I don't think there's a  harm in backporting this though, since there's a
->   2 year window between the introduction of the ctx->vm change and it's
->   complete fix with the proto-ctx work between 2019 and 2021. It's not
->   realistic to backport the latter and this here is trivial in case anyone
->   is foolish enough to run such an old kernel.
-> 
-> v3:
-> - Include Sima's analysis and WARN_ON_ONCE
-> 
-> Fixes: f7ce8639f6ff ("drm/i915/gem: Split the context's obj:vma lut into its own mutex")
-> References: https://lore.kernel.org/all/20260324151741.29338-1-sosohero200@gmail.com/
-> Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Linus Torvalds <torvalds@linuxfoundation.org>
-> Cc: Simona Vetter <simona.vetter@ffwll.ch>
-> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-> Cc: Andi Shyti <andi.shyti@kernel.org>
-> Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> index bd608cea396f..16f7c2fac143 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -895,8 +895,12 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
->  
->  		rcu_read_lock();
->  		vma = radix_tree_lookup(&eb->gem_context->handles_vma, handle);
-> -		if (likely(vma && vma->vm == vm))
-> +		if (likely(vma && vma->vm == vm)) {
->  			vma = i915_vma_tryget(vma);
-> +		} else {
-> +			WARN_ON_ONCE(vma && vma->vm != vm);
-> +			vma = NULL;
-> +		}
->  		rcu_read_unlock();
->  		if (likely(vma))
->  			return vma;
-> -- 
-> 2.53.0
-> 
+ drivers/gpu/drm/sysfb/corebootdrm.c | 21 +++++++++++++++++++++
+ drivers/gpu/drm/sysfb/efidrm.c      | 19 +++++++++++++++++++
+ drivers/gpu/drm/sysfb/ofdrm.c       | 19 +++++++++++++++++++
+ drivers/gpu/drm/sysfb/simpledrm.c   | 21 +++++++++++++++++++++
+ drivers/gpu/drm/sysfb/vesadrm.c     | 19 +++++++++++++++++++
+ 5 files changed, 99 insertions(+)
 
 -- 
-Simona Vetter
-Software Engineer
-http://blog.ffwll.ch
+2.53.0
+
