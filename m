@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C10951073CB4
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C5F51073CB0
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:08:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2985E10E655;
-	Wed,  8 Apr 2026 13:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA4F10E657;
+	Wed,  8 Apr 2026 13:08:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t8jHs4nY";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ad/8ZIKJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BE1610E656;
- Wed,  8 Apr 2026 13:08:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 003D710E656;
+ Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1396540295;
- Wed,  8 Apr 2026 13:08:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9990DC19424;
- Wed,  8 Apr 2026 13:08:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D6F9340295;
+ Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F8AC19421;
+ Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1775653688;
- bh=1fnP9fhKM/LV4zTeBsDzpY2Z2mFeApCa4rbxutDwJC8=;
+ s=korg; t=1775653683;
+ bh=tboaPTB7rSn2D7fzsYWWM7ybxzEObwYovXT4VessUvI=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=t8jHs4nYT7M9y2qJLtkIY91pRhj79DIi6eSJ5/jHNY8p86ZHJy+cfYs7up91kOtJz
- EvFPfkswxILRPymiKudG2VStf57tU77eG+UfoNWSLT9ElOsw8gfolilZsTcPz6BgEC
- Dt9drF1V1s42zP+cJCpAY7KHoaEaVsJJOx1G3PS0=
-Subject: Patch "drm/amd/display: Correct logic check error for fastboot" has
+ b=Ad/8ZIKJbmZxoEWdEuVm20Z7xe6ZILwRvv5neEUVaJ31H+MH0uetIxCzpW+arsRP0
+ rwfB6kWewrpfkaQS2uG04buc2jFgOvlfoR5nQ3L8m9iPhHKMMpnqQp4rYKExn0vnB2
+ jvJ2MWbDFe3mariXviyCzsCT0felHAXtfXBXOcXg=
+Subject: Patch "drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming." has
  been added to the 6.12-stable tree
-To: Charlene.Liu@amd.com, Eric.Yang2@amd.com, Mario.Limonciello@amd.com,
- Rodrigo.Siqueira@amd.com, Roman.Li@amd.com, Tony.Cheng@amd.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, alex.hung@amd.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- christian.koenig@amd.com, daniel.wheeler@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- harry.wentland@amd.com, issor.oruam@gmail.com, ovidiu.bunea@amd.com,
- ray.wu@amd.com, rosenp@gmail.com, simona@ffwll.ch, sunpeng.li@amd.com,
- timur.kristof@gmail.com, wayne.lin@amd.com
+To: Eric.Yang2@amd.com, Mario.Limonciello@amd.com, Rodrigo.Siqueira@amd.com,
+ Roman.Li@amd.com, Tony.Cheng@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ alex.hung@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, issor.oruam@gmail.com,
+ ray.wu@amd.com, rosenp@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, timur.kristof@gmail.com, wayne.lin@amd.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 08 Apr 2026 15:07:40 +0200
-In-Reply-To: <20260401003908.3438-11-rosenp@gmail.com>
-Message-ID: <2026040840-prior-repossess-034d@gregkh>
+In-Reply-To: <20260401003908.3438-7-rosenp@gmail.com>
+Message-ID: <2026040840-handgrip-prayer-9b0f@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
@@ -66,70 +64,151 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    drm/amd/display: Correct logic check error for fastboot
+    drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
 
 to the 6.12-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     drm-amd-display-correct-logic-check-error-for-fastboot.patch
+     drm-amd-display-fix-dce-6.0-and-6.4-pll-programming.patch
 and it can be found in the queue-6.12 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-232628-greg=kroah.com@vger.kernel.org Wed Apr  1 02:45:51 2026
+From stable+bounces-232625-greg=kroah.com@vger.kernel.org Wed Apr  1 02:44:20 2026
 From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 31 Mar 2026 17:39:08 -0700
-Subject: drm/amd/display: Correct logic check error for fastboot
+Date: Tue, 31 Mar 2026 17:39:04 -0700
+Subject: drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
 To: stable@vger.kernel.org
 Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Xinhui Pan" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <wayne.lin@amd.com>, "Mario Limonciello" <Mario.Limonciello@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Eric Yang" <Eric.Yang2@amd.com>, "Tony Cheng" <Tony.Cheng@amd.com>, "Mauro Rossi" <issor.oruam@gmail.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
-Message-ID: <20260401003908.3438-11-rosenp@gmail.com>
+Message-ID: <20260401003908.3438-7-rosenp@gmail.com>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+From: Timur KristÃ³f <timur.kristof@gmail.com>
 
-[ Upstream commit b6a65009e7ce3f0cc72da18f186adb60717b51a0 ]
+[ Upstream commit 35222b5934ec8d762473592ece98659baf6bc48e ]
 
-[Why]
-Fix fastboot broken in driver.
-This is caused by an open source backport change 7495962c.
+Apparently, both DCE 6.0 and 6.4 have 3 PLLs, but PLL0 can only
+be used for DP. Make sure to initialize the correct amount of PLLs
+in DC for these DCE versions and use PLL0 only for DP.
 
-from the comment, the intended check is to disable fastboot
-for pre-DCN10. but the logic check is reversed, and causes
-fastboot to be disabled on all DCN10 and after.
+Also, on DCE 6.0 and 6.4, the PLL0 needs to be powered on at
+initialization as opposed to DCE 6.1 and 7.x which use a different
+clock source for DFS.
 
-fastboot is for driver trying to pick up bios used hw setting
-and bypass reprogramming the hw if dc_validate_boot_timing()
-condition meets.
+The following functions were used as reference from the	old
+radeon driver implementation of	DCE 6.x:
+- radeon_atom_pick_pll
+- atombios_crtc_set_disp_eng_pll
 
-Fixes: 7495962cbceb ("drm/amd/display: Disable fastboot on DCE 6 too")
-Cc: stable@vger.kernel.org
-Reviewed-by: Mario Limonciello <Mario.Limonciello@amd.com>
-Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Timur KristÃ³f <timur.kristof@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c |    5 +
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c       |   34 +++++++-----
+ 2 files changed, 25 insertions(+), 14 deletions(-)
 
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1910,8 +1910,8 @@ void dce110_enable_accelerated_mode(stru
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+@@ -245,6 +245,11 @@ int dce_set_clock(
+ 	pxl_clk_params.target_pixel_clock_100hz = requested_clk_khz * 10;
+ 	pxl_clk_params.pll_id = CLOCK_SOURCE_ID_DFS;
  
- 	get_edp_streams(context, edp_streams, &edp_stream_num);
++	/* DCE 6.0, DCE 6.4: engine clock is the same as PLL0 */
++	if (clk_mgr_base->ctx->dce_version == DCE_VERSION_6_0 ||
++	    clk_mgr_base->ctx->dce_version == DCE_VERSION_6_4)
++		pxl_clk_params.pll_id = CLOCK_SOURCE_ID_PLL0;
++
+ 	if (clk_mgr_dce->dfs_bypass_active)
+ 		pxl_clk_params.flags.SET_DISPCLK_DFS_BYPASS = true;
  
--	/* Check fastboot support, disable on DCE 6-8 because of blank screens */
--	if (edp_num && edp_stream_num && dc->ctx->dce_version < DCE_VERSION_10_0) {
-+	/* Check fastboot support, disable on DCE 6-8-10 because of blank screens */
-+	if (edp_num && edp_stream_num && dc->ctx->dce_version > DCE_VERSION_10_0) {
- 		for (i = 0; i < edp_num; i++) {
- 			edp_link = edp_links[i];
- 			if (edp_link != edp_streams[0]->link)
+--- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
+@@ -374,7 +374,7 @@ static const struct resource_caps res_ca
+ 		.num_timing_generator = 6,
+ 		.num_audio = 6,
+ 		.num_stream_encoder = 6,
+-		.num_pll = 2,
++		.num_pll = 3,
+ 		.num_ddc = 6,
+ };
+ 
+@@ -390,7 +390,7 @@ static const struct resource_caps res_ca
+ 		.num_timing_generator = 2,
+ 		.num_audio = 2,
+ 		.num_stream_encoder = 2,
+-		.num_pll = 2,
++		.num_pll = 3,
+ 		.num_ddc = 2,
+ };
+ 
+@@ -990,21 +990,24 @@ static bool dce60_construct(
+ 
+ 	if (bp->fw_info_valid && bp->fw_info.external_clock_source_frequency_for_dp != 0) {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
+ 
++		/* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't initialize it here. */
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
+ 		pool->base.clock_sources[1] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
+ 		pool->base.clk_src_count = 2;
+ 
+ 	} else {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
+ 
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
+-		pool->base.clk_src_count = 1;
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
++		pool->base.clock_sources[1] =
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
++		pool->base.clk_src_count = 2;
+ 	}
+ 
+ 	if (pool->base.dp_clock_source == NULL) {
+@@ -1382,21 +1385,24 @@ static bool dce64_construct(
+ 
+ 	if (bp->fw_info_valid && bp->fw_info.external_clock_source_frequency_for_dp != 0) {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
+ 
++		/* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't initialize it here. */
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[0], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
+ 		pool->base.clock_sources[1] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[1], false);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
+ 		pool->base.clk_src_count = 2;
+ 
+ 	} else {
+ 		pool->base.dp_clock_source =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[0], true);
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
+ 
+ 		pool->base.clock_sources[0] =
+-				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[1], false);
+-		pool->base.clk_src_count = 1;
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
++		pool->base.clock_sources[1] =
++			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
++		pool->base.clk_src_count = 2;
+ 	}
+ 
+ 	if (pool->base.dp_clock_source == NULL) {
 
 
 Patches currently in stable-queue which might be from rosenp@gmail.com are
