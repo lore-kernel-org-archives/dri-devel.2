@@ -4,55 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27999FD5F6E
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 05:14:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 646ADFD5F61
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 05:32:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82F6610E028;
-	Wed,  8 Apr 2026 05:14:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BA5210E02A;
+	Wed,  8 Apr 2026 05:32:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ort4Dwwd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rBiYDCOA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E40410E028
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 05:14:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775625295; x=1807161295;
- h=date:from:to:cc:subject:message-id;
- bh=o57cu5zIDmikxYZ4YIPbWaC5tzT1ix4Yf3Jpx91nq0g=;
- b=Ort4DwwdCD9S15NaEeAwq8+SM2yebkdIT/A3/K/FIeErqZ4QH/B5Twag
- VykhASfhOpKKKElLIUTJdml0lLNL2MaO4H/SbiGFJta/J3tmc8FqeFhzL
- b2AdF6w6rNh6EgM/xc1jLazBMt/6csSSZeyQOIIY30sCsaVJBgn9f7TBt
- kTxiRWuTpwACAMIdM1/qcjU91m3xcgNuoSer/LeAYmHF0+4Cm21RSZrTA
- t6Fnr8kFsqhR32CCV6WUCHG2R3PNMiZH5JehDLg2b9alT8xi5IPIT7Da2
- R1ZQo7Aghn2nE/HBxGo5AkIVrDUP71AGMKU97Neb/YT1QLKWTKyj/UjkV g==;
-X-CSE-ConnectionGUID: ZYsRqE1JR+mqqtJvGd7g/w==
-X-CSE-MsgGUID: B6bH70OWSsWRndpZg9saew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="75636473"
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="75636473"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 22:14:55 -0700
-X-CSE-ConnectionGUID: U2QnI/BRQXG1PDmwG5Rh5Q==
-X-CSE-MsgGUID: 4ub5Qqq8RQqUuPY4BjUsKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="228263753"
-Received: from lkp-server01.sh.intel.com (HELO d00eb8a6782a) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 07 Apr 2026 22:14:53 -0700
-Received: from kbuild by d00eb8a6782a with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wALFZ-000000001SH-44B9;
- Wed, 08 Apr 2026 05:14:49 +0000
-Date: Wed, 08 Apr 2026 13:14:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Chen-Yu Tsai" <wenst@chromium.org>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Inki Dae <inki.dae@samsung.com>
-Subject: [daeinki-drm-exynos:exynos-drm-next 3/4]
- drivers/gpu/drm/exynos/exynos_drm_gem.c:69:49: warning: format '%lx' expects
- argument of type 'long unsigned int', but argument 6 has type 'size_t' {aka
- 'unsigned int'}
-Message-ID: <202604081331.jSJQSVmg-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7FA10E09A
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 05:32:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0FFBB444BE;
+ Wed,  8 Apr 2026 05:32:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DA544C2BC9E;
+ Wed,  8 Apr 2026 05:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775626365;
+ bh=oAVLn0Pf8rZYdqjOGJ0372UjEDnO37tJPkJuki+zbTQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=rBiYDCOAJbXnveUjzEXgTvY+mnB/c5d9D3bL1eCkFpaQwl1gNTkzOYu5xSW+efGWW
+ FNpcxKpdYhOhCUkeYkveGYfqiykbz1Ui5F5f+pePNUBdaLxHT24GMjOt7tZiP3WwcJ
+ 9jT1Diari8DERrP0+sD3Ob3PcOxGZ+lxQR6tvxUWmdy/aVCWHwTyUqNa4cg2Ilf+tz
+ igagfN0OzAGJ5WPpDzSBdq35w6M8kFU7j17Dc53ZkryaXtvV1VdXk1rx5e0Tdkr5Gc
+ TYYsQW82zXqtFt4KQ2n2vvLx0b25nhWyw/Hf/i+BhQGbGqBanDrzHCXLWbenZegIaE
+ 2BCfb62nxCKgA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id CA915FD5F61;
+ Wed,  8 Apr 2026 05:32:45 +0000 (UTC)
+From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
+Date: Wed, 08 Apr 2026 00:32:39 -0500
+Subject: [PATCH v4 1/2] dt-bindings: display: panel: Add ChipWealth
+ CH13726A AMOLED driver
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260408-ch13726a-v4-1-9bb1a9b8f329@gmail.com>
+References: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
+In-Reply-To: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
+ Aaron Kling <webgeek1234@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775626365; l=2232;
+ i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
+ bh=9mFynGjtbhyIlNz+8QqjnthJKrW1n6N71zYlWYxXU8Y=;
+ b=dSt4DQQSVNFCvghBjZrKA3K/jKKWSvgcm0y5YTzOzT2PFiCzQNpCWJslFVfSA/+sWKcWwR/bn
+ Wnr1mttXpbqDAdh7SjOrQmqU6C0u+eiypBE83DViX2yfHUdZ0OrUgK2
+X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
+ pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
+X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
+ auth_id=342
+X-Original-From: Aaron Kling <webgeek1234@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,124 +77,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
-head:   0867757f1eec0a246c70b2407a1bbed949170821
-commit: 11e898373fba6b1d27b15ab4beff592701a57293 [3/4] drm/exynos: Drop exynos_drm_gem.size field
-config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20260408/202604081331.jSJQSVmg-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260408/202604081331.jSJQSVmg-lkp@intel.com/reproduce)
+From: Aaron Kling <webgeek1234@gmail.com>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202604081331.jSJQSVmg-lkp@intel.com/
+The Chip Wealth Technology CH13726A AMOLED driver is a single chip
+solution for MIPI-DSI. This is used for the AYN Thor bottom panel.
 
-All warnings (new ones prefixed by >>):
+Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+---
+ .../display/panel/chipwealth,ch13726a.yaml         | 67 ++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
 
-   In file included from drivers/gpu/drm/exynos/exynos_drm_gem.c:16:
-   drivers/gpu/drm/exynos/exynos_drm_gem.c: In function 'exynos_drm_alloc_buf':
->> drivers/gpu/drm/exynos/exynos_drm_gem.c:69:49: warning: format '%lx' expects argument of type 'long unsigned int', but argument 6 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
-      69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
-         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      70 |                         (unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-         |                                                              ~~~~~~~~~~~~~~~~~~~~~
-         |                                                                              |
-         |                                                                              size_t {aka unsigned int}
-   include/drm/drm_print.h:563:39: note: in definition of macro 'drm_dev_dbg'
-     563 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
-         |                                       ^~~
-   drivers/gpu/drm/exynos/exynos_drm_gem.c:69:9: note: in expansion of macro 'DRM_DEV_DEBUG_KMS'
-      69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
-         |         ^~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/exynos/exynos_drm_gem.c:69:76: note: format string is defined here
-      69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
-         |                                                                          ~~^
-         |                                                                            |
-         |                                                                            long unsigned int
-         |                                                                          %x
-   In file included from drivers/gpu/drm/exynos/exynos_drm_gem.c:16:
-   drivers/gpu/drm/exynos/exynos_drm_gem.c: In function 'exynos_drm_free_buf':
-   drivers/gpu/drm/exynos/exynos_drm_gem.c:83:37: warning: format '%lx' expects argument of type 'long unsigned int', but argument 6 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
-      83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
-         |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      84 |                         (unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-         |                                                              ~~~~~~~~~~~~~~~~~~~~~
-         |                                                                              |
-         |                                                                              size_t {aka unsigned int}
-   include/drm/drm_print.h:563:39: note: in definition of macro 'drm_dev_dbg'
-     563 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
-         |                                       ^~~
-   drivers/gpu/drm/exynos/exynos_drm_gem.c:83:9: note: in expansion of macro 'DRM_DEV_DEBUG_KMS'
-      83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
-         |         ^~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/exynos/exynos_drm_gem.c:83:64: note: format string is defined here
-      83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
-         |                                                              ~~^
-         |                                                                |
-         |                                                                long unsigned int
-         |                                                              %x
-
-
-vim +69 drivers/gpu/drm/exynos/exynos_drm_gem.c
-
-2043e6f6d5c5fb0 Thomas Zimmermann   2021-11-08  26  
-9940d9d93406f41 Marek Szyprowski    2020-04-23  27  static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
-2a8cb4894540898 Joonyoung Shim      2015-08-16  28  {
-813fd67b57ffca0 Joonyoung Shim      2015-10-02  29  	struct drm_device *dev = exynos_gem->base.dev;
-9940d9d93406f41 Marek Szyprowski    2020-04-23  30  	unsigned long attr = 0;
-2a8cb4894540898 Joonyoung Shim      2015-08-16  31  
-813fd67b57ffca0 Joonyoung Shim      2015-10-02  32  	if (exynos_gem->dma_addr) {
-e457a1a9585b941 Chen-Yu Tsai        2026-03-26  33  		DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "already allocated.\n");
-2a8cb4894540898 Joonyoung Shim      2015-08-16  34  		return 0;
-2a8cb4894540898 Joonyoung Shim      2015-08-16  35  	}
-2a8cb4894540898 Joonyoung Shim      2015-08-16  36  
-2a8cb4894540898 Joonyoung Shim      2015-08-16  37  	/*
-2a8cb4894540898 Joonyoung Shim      2015-08-16  38  	 * if EXYNOS_BO_CONTIG, fully physically contiguous memory
-2a8cb4894540898 Joonyoung Shim      2015-08-16  39  	 * region will be allocated else physically contiguous
-2a8cb4894540898 Joonyoung Shim      2015-08-16  40  	 * as possible.
-2a8cb4894540898 Joonyoung Shim      2015-08-16  41  	 */
-813fd67b57ffca0 Joonyoung Shim      2015-10-02  42  	if (!(exynos_gem->flags & EXYNOS_BO_NONCONTIG))
-9940d9d93406f41 Marek Szyprowski    2020-04-23  43  		attr |= DMA_ATTR_FORCE_CONTIGUOUS;
-2a8cb4894540898 Joonyoung Shim      2015-08-16  44  
-2a8cb4894540898 Joonyoung Shim      2015-08-16  45  	/*
-2a8cb4894540898 Joonyoung Shim      2015-08-16  46  	 * if EXYNOS_BO_WC or EXYNOS_BO_NONCACHABLE, writecombine mapping
-2a8cb4894540898 Joonyoung Shim      2015-08-16  47  	 * else cachable mapping.
-2a8cb4894540898 Joonyoung Shim      2015-08-16  48  	 */
-813fd67b57ffca0 Joonyoung Shim      2015-10-02  49  	if (exynos_gem->flags & EXYNOS_BO_WC ||
-813fd67b57ffca0 Joonyoung Shim      2015-10-02  50  			!(exynos_gem->flags & EXYNOS_BO_CACHABLE))
-9940d9d93406f41 Marek Szyprowski    2020-04-23  51  		attr |= DMA_ATTR_WRITE_COMBINE;
-2a8cb4894540898 Joonyoung Shim      2015-08-16  52  
-9940d9d93406f41 Marek Szyprowski    2020-04-23  53  	/* FBDev emulation requires kernel mapping */
-9940d9d93406f41 Marek Szyprowski    2020-04-23  54  	if (!kvmap)
-9940d9d93406f41 Marek Szyprowski    2020-04-23  55  		attr |= DMA_ATTR_NO_KERNEL_MAPPING;
-2a8cb4894540898 Joonyoung Shim      2015-08-16  56  
-9940d9d93406f41 Marek Szyprowski    2020-04-23  57  	exynos_gem->dma_attrs = attr;
-11e898373fba6b1 Chen-Yu Tsai        2026-03-26  58  	exynos_gem->cookie = dma_alloc_attrs(drm_dev_dma_dev(dev), exynos_gem->base.size,
-813fd67b57ffca0 Joonyoung Shim      2015-10-02  59  					     &exynos_gem->dma_addr, GFP_KERNEL,
-00085f1efa387a8 Krzysztof Kozlowski 2016-08-03  60  					     exynos_gem->dma_attrs);
-813fd67b57ffca0 Joonyoung Shim      2015-10-02  61  	if (!exynos_gem->cookie) {
-e457a1a9585b941 Chen-Yu Tsai        2026-03-26  62  		DRM_DEV_ERROR(drm_dev_dma_dev(dev), "failed to allocate buffer.\n");
-9940d9d93406f41 Marek Szyprowski    2020-04-23  63  		return -ENOMEM;
-2a8cb4894540898 Joonyoung Shim      2015-08-16  64  	}
-2a8cb4894540898 Joonyoung Shim      2015-08-16  65  
-9940d9d93406f41 Marek Szyprowski    2020-04-23  66  	if (kvmap)
-9940d9d93406f41 Marek Szyprowski    2020-04-23  67  		exynos_gem->kvaddr = exynos_gem->cookie;
-df547bf7735a623 Marek Szyprowski    2015-10-13  68  
-e457a1a9585b941 Chen-Yu Tsai        2026-03-26 @69  	DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
-11e898373fba6b1 Chen-Yu Tsai        2026-03-26  70  			(unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
-2a8cb4894540898 Joonyoung Shim      2015-08-16  71  	return 0;
-2a8cb4894540898 Joonyoung Shim      2015-08-16  72  }
-2a8cb4894540898 Joonyoung Shim      2015-08-16  73  
-
-:::::: The code at line 69 was first introduced by commit
-:::::: e457a1a9585b941e2aa771142b63c951f6a3d54e drm/exynos: Use DRM core dedicated DMA device tracking facility
-
-:::::: TO: Chen-Yu Tsai <wenst@chromium.org>
-:::::: CC: Inki Dae <inki.dae@samsung.com>
+diff --git a/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
+new file mode 100644
+index 00000000000000..c8d7b61037e622
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/chipwealth,ch13726a.yaml
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/chipwealth,ch13726a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Chip Wealth Technology CH13726A AMOLED driver
++
++maintainers:
++  - Neil Armstrong <neil.armstrong@linaro.org>
++
++description:
++  Chip Wealth Technology CH13726A is a single-chip solution
++  for AMOLED connected using a MIPI-DSI video interface.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: ayntec,thor-panel-bottom
++      - const: chipwealth,ch13726a
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel
++
++  vdd-supply: true
++  vddio-supply: true
++  vdd1v2-supply: true
++  avdd-supply: true
++
++  port: true
++  reset-gpios: true
++  rotation: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - vddio-supply
++  - vdd1v2-supply
++  - avdd-supply
++  - reset-gpios
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        panel@0 {
++            compatible = "ayntec,thor-panel-bottom", "chipwealth,ch13726a";
++            reg = <0>;
++            vdd1v2-supply = <&vreg_l11b_1p2>;
++            vddio-supply = <&vdd_disp_1v8>;
++            vdd-supply = <&vreg_l13b_3p0>;
++            avdd-supply = <&vdd_disp2_2v8>;
++            reset-gpios = <&tlmm 133 GPIO_ACTIVE_HIGH>;
++        };
++    };
++
++...
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.53.0
+
+
