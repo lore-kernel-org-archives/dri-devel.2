@@ -4,79 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D25CFD5F98
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 09:08:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46A90FD5F99
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 09:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB47810E5BB;
-	Wed,  8 Apr 2026 09:08:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A361010E5E8;
+	Wed,  8 Apr 2026 09:12:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ffwll.ch header.i=@ffwll.ch header.b="WWt25n1Y";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="sdo+2rBW";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7751E10E5BB
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 09:08:11 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-43cf8fe9c2aso3474367f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 02:08:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1775639289; x=1776244089; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=dKTBatq0cvZCVrBhAkZ8dIwEDJYjd8kVDmfDtYpfCw0=;
- b=WWt25n1Yiv9bQEs68tvMmntlKPtAJiS1WUDOUfLfuyODtE4wKnGFQ1PCJX/kpIMCkB
- PHF1u+W0BBGZiIDExNjIW4hbzPpMdAqLJAv35ttVFcqRDUbr/2Xl09MYdGd4uDqxuVWX
- v27c7HnjLA2TTpDiONYkoJ5M/boT7mwB4vnOw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775639289; x=1776244089;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dKTBatq0cvZCVrBhAkZ8dIwEDJYjd8kVDmfDtYpfCw0=;
- b=fg//WMpVyMMHsBUsMvRN/sF0sqLh2a5kk/aQITEVCjb7b7yQ7j8sAQtSVZ0SFwc0al
- 2alM2lcx93v50Lzq3Uw7BkQJB2JW0gbzJOc6fnfxYXTXRywKwjZ2PQ39oTWwBWy96Ojc
- Wv7diD8tlBF5DoIaoOfpDwZ3CXoSExI+N8ZrLGKxkoeTDBAAiTiPOx/rw353czpJ1gwg
- RQneXUe8Mda7Dm4iv7h/Lnr5XgHAT4AZNve45Fu+w26UUqM99odxCLFJwHmAyNQJVlAV
- cBjk3WnpFNtZ0nzsJ3cO7wLbmANvIh6LbT3CzPaTGDuQxjmhapo25OT4GlppVBl4/BG8
- JLZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVmb8ND5kbSMqVBRqWojO9hp6WV/Q4Al/SW6PKRvJYtqHrF7yZTRi76diIW2ZhaqVargvVrJfMN4UI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWuDl9uSKM0/ZejfOWlusfufk2hJNbWyulcCGjUERRhSrSQ+uQ
- ZGaz7Ye6R7LeBC+mnU5AFMLJF64GPmgfEt8tWk5IgqI5l/3G3EaF5PN0phVy9zrGUiw=
-X-Gm-Gg: AeBDieuluaSXAJ6xMKBy+qtFotRCzCtOlfQjqGA1eGLlExZz11v6M61wAuDu0FHXA+M
- IYhQCWrqtrp7h3xgdLxm477vwxGgOx4v50RbOsK+4d2KRTmhXSJarPkiGV2wzTpi65qIw8N6dnq
- FntNWUajBcMcpLgRM+EEIJBnEIH8HuY7fZV8ehtoMAcJgZZg/xZAXDQrWGFFK7DzoiZmIRNiNwh
- AEDnKUXyXMok8TikpP4qKL7ZLvPee+3AGaE6nM9MIPSYUlsWfB96w/gvp7KH2ftdn24N3YLJaXs
- GzrMiIA/5cg9CIam/OHQ3dX2XAdlNDwm627JI3xuLgC3WObWhmDWegJJyG0HOBo98bFESx0NsNY
- twBhLytVN2ud1YzMvONCfo2bRfEvsOnF6GM8BXT36J7211MdGbStZa/nmUAbYI5tDII3tui6V8n
- N0VIUEs8qczuBhvZKMsHUZoJLWp2u8CvEQyok=
-X-Received: by 2002:a05:6000:208a:b0:43c:fe0e:5bbc with SMTP id
- ffacd0b85a97d-43d292a0309mr28660057f8f.19.1775639289373; 
- Wed, 08 Apr 2026 02:08:09 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:5485:d4b2:c087:b497])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4f7d4esm49900832f8f.34.2026.04.08.02.08.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Apr 2026 02:08:08 -0700 (PDT)
-Date: Wed, 8 Apr 2026 11:08:06 +0200
-From: Simona Vetter <simona.vetter@ffwll.ch>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Intel graphics driver community testing & development
- <intel-gfx@lists.freedesktop.org>, 
- Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>, 
- Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- Linus Torvalds <torvalds@linuxfoundation.org>
-Subject: Re: [PATCH] drm/i915/gem: Don't use VMA from wrong VM in EXECBUF
-Message-ID: <adYa9rf5fgL8-DVq@phenom.ffwll.local>
-References: <20260408082859.69823-1-joonas.lahtinen@linux.intel.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2F72110E5E8
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 09:12:55 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 05F9E2720;
+ Wed,  8 Apr 2026 02:12:49 -0700 (PDT)
+Received: from e112269-lin.cambridge.arm.com (e112269-lin.cambridge.arm.com
+ [10.1.194.64])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8643F3F641;
+ Wed,  8 Apr 2026 02:12:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1775639574; bh=lDjVzpTLSKf+XNGMY3zylTiHkhGPHETdPLG+EolvfoU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=sdo+2rBWaxHxlWnczZDCi5wJrTz64mME0Bp5Q9ZHmsUsNY6l1EExmRWEp43OXu0at
+ HGTcd/XPxjd+gph9ig2PF2Tolbt906bR+NmG4NAl8YiIktoTkyXuxgcwdkcsQ+NHLJ
+ 4x4gYszoyIj3J+Lp+BMUrJ+qul9FkvqXYqNLVDOk=
+From: Steven Price <steven.price@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>
+Cc: Steven Price <steven.price@arm.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Yicong Hui <yiconghui@gmail.com>
+Subject: [PATCH] drm/panthor: Fix kernel-doc in panthor_sched.c so it's visible
+Date: Wed,  8 Apr 2026 10:12:42 +0100
+Message-Id: <20260408091242.799074-1-steven.price@arm.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260408082859.69823-1-joonas.lahtinen@linux.intel.com>
-X-Operating-System: Linux phenom 6.19.10+deb14-amd64 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,80 +54,244 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 11:28:59AM +0300, Joonas Lahtinen wrote:
-> Do not pick VMA with non-matching VM (ppGTT) on quick path
-> of BO handle lookup for a given EXECBUF call. VMA from wrong VM
-> could be picked if same BO is repeatedly used in EXECBUF
-> calls on same context with alternating VMs (ppGTTs).
-> 
-> Also avoids returning a VMA without increasing the refcount,
-> which may potentially lead to UAF.
-> 
-> References: https://lore.kernel.org/all/20260324151741.29338-1-sosohero200@gmail.com/
-> Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Linus Torvalds <torvalds@linuxfoundation.org>
-> Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> index bd608cea396f..7463c3262651 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -897,6 +897,8 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
->  		vma = radix_tree_lookup(&eb->gem_context->handles_vma, handle);
->  		if (likely(vma && vma->vm == vm))
+Various substructures defined in panthor_sched.c have kernel-doc which
+is silently ignored because it doesn't include the full path to the
+member. Fix these issues so that the kernel-doc text is actually output
+by including the name of the parent.
 
-This check was added in f7ce8639f6ff ("drm/i915/gem: Split the context's
-obj:vma lut into its own mutex") but without any hint in the commit
-message as to why. In another hunk of that commit there's a hint though in
-__eb_add_lut:
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+Signed-off-by: Steven Price <steven.price@arm.com>
+---
+ drivers/gpu/drm/panthor/panthor_sched.c | 72 ++++++++++++-------------
+ 1 file changed, 36 insertions(+), 36 deletions(-)
 
-	/* user racing with ctx set-vm */
-
-This would mean that this bug was introduced in e0695db7298e ("drm/i915:
-Create/destroy VM (ppGTT) for use with contexts"), which allowed to change
-the gem_ctx->vm at runtime, opening up the race that was partially fixed
-in the earlier referenced commit about a year later.
-
-But it cannot be exploited anymore in anything remotely recent because
-with the introduction of proto-contexts we've made gem_ctx->vm invariant
-again, exactly to preemptively close all these potential issues.
-Specifically d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
-create parameters (v5)") is the vm specific part of the proto-context
-work.
-
-Despite that this is impossible to exploit I think it's still good to fix,
-but I think for paranoia's sake we should put a WARN_ON_ONCE(vma->vm !=
-vm) in there, since this really should be impossible.
-
-I don't think there's a  harm in backporting this though, since there's a
-2 year window between the introduction of the ctx->vm change and it's
-complete fix with the proto-ctx work between 2019 and 2021. It's not
-realistic to backport the latter and this here is trivial in case anyone
-is foolish enough to run such an old kernel.
-
-With the WARN_ON_ONCE added and the above analysis included this is
-
-Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
-
-Cheers, Sima
-
-PS: Caught a cold, brain's not entirely working, this might be all very
-wrong so please check my history digging.
-
->  			vma = i915_vma_tryget(vma);
-> +		else
-> +			vma = NULL;
->  		rcu_read_unlock();
->  		if (likely(vma))
->  			return vma;
-> -- 
-> 2.53.0
-> 
-
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index 3bb1cb5a2656..b255354553df 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -221,7 +221,7 @@ struct panthor_scheduler {
+ 	/** @groups: Various lists used to classify groups. */
+ 	struct {
+ 		/**
+-		 * @runnable: Runnable group lists.
++		 * @groups.runnable: Runnable group lists.
+ 		 *
+ 		 * When a group has queues that want to execute something,
+ 		 * its panthor_group::run_node should be inserted here.
+@@ -231,7 +231,7 @@ struct panthor_scheduler {
+ 		struct list_head runnable[PANTHOR_CSG_PRIORITY_COUNT];
+ 
+ 		/**
+-		 * @idle: Idle group lists.
++		 * @groups.idle: Idle group lists.
+ 		 *
+ 		 * When all queues of a group are idle (either because they
+ 		 * have nothing to execute, or because they are blocked), the
+@@ -242,7 +242,7 @@ struct panthor_scheduler {
+ 		struct list_head idle[PANTHOR_CSG_PRIORITY_COUNT];
+ 
+ 		/**
+-		 * @waiting: List of groups whose queues are blocked on a
++		 * @groups.waiting: List of groups whose queues are blocked on a
+ 		 * synchronization object.
+ 		 *
+ 		 * Insert panthor_group::wait_node here when a group is waiting
+@@ -283,17 +283,17 @@ struct panthor_scheduler {
+ 
+ 	/** @pm: Power management related fields. */
+ 	struct {
+-		/** @has_ref: True if the scheduler owns a runtime PM reference. */
++		/** @pm.has_ref: True if the scheduler owns a runtime PM reference. */
+ 		bool has_ref;
+ 	} pm;
+ 
+ 	/** @reset: Reset related fields. */
+ 	struct {
+-		/** @lock: Lock protecting the other reset fields. */
++		/** @reset.lock: Lock protecting the other reset fields. */
+ 		struct mutex lock;
+ 
+ 		/**
+-		 * @in_progress: True if a reset is in progress.
++		 * @reset.in_progress: True if a reset is in progress.
+ 		 *
+ 		 * Set to true in panthor_sched_pre_reset() and back to false in
+ 		 * panthor_sched_post_reset().
+@@ -301,7 +301,7 @@ struct panthor_scheduler {
+ 		atomic_t in_progress;
+ 
+ 		/**
+-		 * @stopped_groups: List containing all groups that were stopped
++		 * @reset.stopped_groups: List containing all groups that were stopped
+ 		 * before a reset.
+ 		 *
+ 		 * Insert panthor_group::run_node in the pre_reset path.
+@@ -395,19 +395,19 @@ struct panthor_queue {
+ 
+ 	/** @iface: Firmware interface. */
+ 	struct {
+-		/** @mem: FW memory allocated for this interface. */
++		/** @iface.mem: FW memory allocated for this interface. */
+ 		struct panthor_kernel_bo *mem;
+ 
+-		/** @input: Input interface. */
++		/** @iface.input: Input interface. */
+ 		struct panthor_fw_ringbuf_input_iface *input;
+ 
+-		/** @output: Output interface. */
++		/** @iface.output: Output interface. */
+ 		const struct panthor_fw_ringbuf_output_iface *output;
+ 
+-		/** @input_fw_va: FW virtual address of the input interface buffer. */
++		/** @iface.input_fw_va: FW virtual address of the input interface buffer. */
+ 		u32 input_fw_va;
+ 
+-		/** @output_fw_va: FW virtual address of the output interface buffer. */
++		/** @iface.output_fw_va: FW virtual address of the output interface buffer. */
+ 		u32 output_fw_va;
+ 	} iface;
+ 
+@@ -416,26 +416,26 @@ struct panthor_queue {
+ 	 * queue is waiting on.
+ 	 */
+ 	struct {
+-		/** @gpu_va: GPU address of the synchronization object. */
++		/** @syncwait.gpu_va: GPU address of the synchronization object. */
+ 		u64 gpu_va;
+ 
+-		/** @ref: Reference value to compare against. */
++		/** @syncwait.ref: Reference value to compare against. */
+ 		u64 ref;
+ 
+-		/** @gt: True if this is a greater-than test. */
++		/** @syncwait.gt: True if this is a greater-than test. */
+ 		bool gt;
+ 
+-		/** @sync64: True if this is a 64-bit sync object. */
++		/** @synwait.sync64: True if this is a 64-bit sync object. */
+ 		bool sync64;
+ 
+-		/** @bo: Buffer object holding the synchronization object. */
++		/** @syncwait.obj: Buffer object holding the synchronization object. */
+ 		struct drm_gem_object *obj;
+ 
+-		/** @offset: Offset of the synchronization object inside @bo. */
++		/** @syncwait.offset: Offset of the synchronization object inside @bo. */
+ 		u64 offset;
+ 
+ 		/**
+-		 * @kmap: Kernel mapping of the buffer object holding the
++		 * @syncwait.kmap: Kernel mapping of the buffer object holding the
+ 		 * synchronization object.
+ 		 */
+ 		void *kmap;
+@@ -443,21 +443,21 @@ struct panthor_queue {
+ 
+ 	/** @fence_ctx: Fence context fields. */
+ 	struct {
+-		/** @lock: Used to protect access to all fences allocated by this context. */
++		/** @fence_ctx.lock: Used to protect access to all fences allocated by this context. */
+ 		spinlock_t lock;
+ 
+ 		/**
+-		 * @id: Fence context ID.
++		 * @fence_ctx.id: Fence context ID.
+ 		 *
+ 		 * Allocated with dma_fence_context_alloc().
+ 		 */
+ 		u64 id;
+ 
+-		/** @seqno: Sequence number of the last initialized fence. */
++		/** @fence_ctx.seqno: Sequence number of the last initialized fence. */
+ 		atomic64_t seqno;
+ 
+ 		/**
+-		 * @last_fence: Fence of the last submitted job.
++		 * @fence_ctx.last_fence: Fence of the last submitted job.
+ 		 *
+ 		 * We return this fence when we get an empty command stream.
+ 		 * This way, we are guaranteed that all earlier jobs have completed
+@@ -467,7 +467,7 @@ struct panthor_queue {
+ 		struct dma_fence *last_fence;
+ 
+ 		/**
+-		 * @in_flight_jobs: List containing all in-flight jobs.
++		 * @fence_ctx.in_flight_jobs: List containing all in-flight jobs.
+ 		 *
+ 		 * Used to keep track and signal panthor_job::done_fence when the
+ 		 * synchronization object attached to the queue is signaled.
+@@ -477,13 +477,13 @@ struct panthor_queue {
+ 
+ 	/** @profiling: Job profiling data slots and access information. */
+ 	struct {
+-		/** @slots: Kernel BO holding the slots. */
++		/** @profiling.slots: Kernel BO holding the slots. */
+ 		struct panthor_kernel_bo *slots;
+ 
+-		/** @slot_count: Number of jobs ringbuffer can hold at once. */
++		/** @profiling.slot_count: Number of jobs ringbuffer can hold at once. */
+ 		u32 slot_count;
+ 
+-		/** @seqno: Index of the next available profiling information slot. */
++		/** @profiling.seqno: Index of the next available profiling information slot. */
+ 		u32 seqno;
+ 	} profiling;
+ };
+@@ -627,7 +627,7 @@ struct panthor_group {
+ 
+ 	/** @fdinfo: Per-file info exposed through /proc/<process>/fdinfo */
+ 	struct {
+-		/** @data: Total sampled values for jobs in queues from this group. */
++		/** @fdinfo.data: Total sampled values for jobs in queues from this group. */
+ 		struct panthor_gpu_usage data;
+ 
+ 		/**
+@@ -805,15 +805,15 @@ struct panthor_job {
+ 
+ 	/** @call_info: Information about the userspace command stream call. */
+ 	struct {
+-		/** @start: GPU address of the userspace command stream. */
++		/** @call_info.start: GPU address of the userspace command stream. */
+ 		u64 start;
+ 
+-		/** @size: Size of the userspace command stream. */
++		/** @call_info.size: Size of the userspace command stream. */
+ 		u32 size;
+ 
+ 		/**
+-		 * @latest_flush: Flush ID at the time the userspace command
+-		 * stream was built.
++		 * @call_info.latest_flush: Flush ID at the time the userspace
++		 * command stream was built.
+ 		 *
+ 		 * Needed for the flush reduction mechanism.
+ 		 */
+@@ -822,10 +822,10 @@ struct panthor_job {
+ 
+ 	/** @ringbuf: Position of this job is in the ring buffer. */
+ 	struct {
+-		/** @start: Start offset. */
++		/** @ringbuf.start: Start offset. */
+ 		u64 start;
+ 
+-		/** @end: End offset. */
++		/** @ringbuf.end: End offset. */
+ 		u64 end;
+ 	} ringbuf;
+ 
+@@ -840,10 +840,10 @@ struct panthor_job {
+ 
+ 	/** @profiling: Job profiling information. */
+ 	struct {
+-		/** @mask: Current device job profiling enablement bitmask. */
++		/** @profiling.mask: Current device job profiling enablement bitmask. */
+ 		u32 mask;
+ 
+-		/** @slot: Job index in the profiling slots BO. */
++		/** @profiling.slot: Job index in the profiling slots BO. */
+ 		u32 slot;
+ 	} profiling;
+ };
 -- 
-Simona Vetter
-Software Engineer
-http://blog.ffwll.ch
+2.39.5
+
