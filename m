@@ -4,131 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69ED510F9943
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 14:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB01F10F9945
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 14:45:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC01310E687;
-	Wed,  8 Apr 2026 14:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1784B10E68A;
+	Wed,  8 Apr 2026 14:45:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Ia3a9YU6";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="XpU2W5X6";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013048.outbound.protection.outlook.com [52.101.72.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 520D110E687
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 14:36:32 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010041.outbound.protection.outlook.com [52.101.229.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16EAF10E68A
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 14:45:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ih2bMZP/MUUUEAl6tt4fdE0II9TCEkVno4N/JlwjRsQ2judaHciWnMsFZfYoNrb+wgxdweXDYis6iRxjoX9Gy6N0YfLjhlAg7QRAXhMV67Euuwu3W77pMy/fdOSHSc9dQjG2Ns9U0ZcwB6q8nTIoJ4/uAvHoe3sFKSENXOY0JmslF2VEo+HW6WRAPYpYjvzCtC4rIXnHL6EGy2scR1J9QZKMBvv2pTwZG5Vl/qTmKKVl870J5CbzSzPmP6SfTW91qpz5IU4/bAwMpyHq++UlBq4Jw4X7WuX+xz6Z7k1H/aAnVyBlcDCogKK2zofZT7vKO1Nzztd4Ju1aGG6EkAFdOg==
+ b=BXGoZuk0H5SCASeapxFAskf3CPw3QEfxbYZPaPMJsy/mzeBIXHaZcIZmytDA51MJ+g0Oqz0G1p/qvLgtoVlBkSFdwZApUyvROdFBlavjbeLwOHY4UPpDjctZny9DKSXJPjXDGQ4c9kP+Z84I3xBfWiUlA37q8OggLq84jyKFB/e2xIjbE5kZ/RubOJzlxELYj4b4T3F66evddciSOcXyokY0OsNEyaFRYlz5JF5Acf9JsSd27wrq01jMyrG67naCysV+6dVLWH2s8aQBiRdiaYqYZdLFA78R3VUvKBPp0awoSzJJ9gCjV2e/SxJaMNGc9usypxdUmTCr1vr+cGRBDA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=297WAgKQeW0KQQcBc68Yf3iEK3gX+VzLajW4fX7A2oE=;
- b=PLFrKwt/qKxLe+XJgMTAV5goPlFLIsnFf/7DexP0r3OYbu5eHOaZIAWojaYXX6nWu5wj5hfxtymaew/21Zti1T/9bDCJTkpInAV2cmIXuAlNvfTIdIt7eDEd6ypyPTvz+MykP/6AK1s0LsWOv/LCvz7YWspHmofB+cQAx2rYn5bQwSm4af82g3/PaFQk2CFNCAbNg2rcJZLu/XZdBj0KuhIHGHTEJJRCevlzQw/srmObodafP0CLqAUOs6YRULehaRLJGwxGBUyw2OGaMMy6AiawLxJ7mADl060eYScwedWjTdX7l91LzWZE/gctlK/luAOueNBOjkMseT7uU+0HOA==
+ bh=IDK7fOup7eUFC4r+TUbWuTGx8/lxw0RY2Y0bwv1fCNk=;
+ b=hYGcXqq/LiecgNddqexhTJxic7hLFvIuJWIqmF9JGHr3VafmzASYuvOVhaPbusCkvVtyjIo087c0ae7OL4J+ZTPe3SeG8H+ePGGuVfg7q5RgMF9EmD5cJH5aDFcGHRLHaJBfbXKR+Xqb8MP7EDSzIKUG6eYFlRbjicuaR1t1/M00QsRh+CejL0eiqZBEnTn6vI4FP90KwK9TlmvqZaMZQChe8NGHBLA8o+09Ktoqxn0mXO8sekNbMwNiBgxZ3T7W9a4uA1Jj0bzhSWvdIHoRZmXf27RUSWj6SNASlYW6GD6Gn2QSpFaKz8y8jf7x4lnrE3OgYxjPFMsZu/V/9VTcww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=297WAgKQeW0KQQcBc68Yf3iEK3gX+VzLajW4fX7A2oE=;
- b=Ia3a9YU6HuNFfAScVynEYdhpF2oU871PlVtmSE/KquZYILNq/mVXGP6oO4YNHazyKUbdtMYLgjPgqAiHSIxKdHD/Ag+oXBWBUepYokN+8VAxXkuxKBjBfCFcPsiWr8waQO1aU+1Tr7Dm70Sy4oVsMey0X2qSJc7pwRLKA6NDI3NqVhuID744290B/laS7hVQGqkbhA1IZp8nR9BFt3wHjXGrIclmISShw3NqENnDdw4haVX4gmMnO2Qc6nsY5LOJI9ZaCmfeDFeAJmtp9XpOaG2kZEekXIP0talAP/KHEUX8wkEFntu1CEcIpcznrT2jJWu/rkl1PRjgDVSW/5iVEw==
+ bh=IDK7fOup7eUFC4r+TUbWuTGx8/lxw0RY2Y0bwv1fCNk=;
+ b=XpU2W5X6uDpd5vvZjrNZeDtYiijHc3BQX7IaP2Ce+OwZEemkBShqDCWxUiZKIIULfZFMkY2daG0fifDtj94FhEDhdKTedWpgOzTi0y2q1xhIbgzLKbSUe96/pSS4AqQursobjOT17dAZIy5BbWup8mX8ZRvgwJcvuYdKERxKhqE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV1PR04MB9135.eurprd04.prod.outlook.com (2603:10a6:150:26::19)
- by GV1PR04MB10251.eurprd04.prod.outlook.com (2603:10a6:150:1aa::12)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by OS3PR01MB10232.jpnprd01.prod.outlook.com (2603:1096:604:1e4::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
- 2026 14:36:25 +0000
-Received: from GV1PR04MB9135.eurprd04.prod.outlook.com
- ([fe80::3826:2706:1e81:c9e2]) by GV1PR04MB9135.eurprd04.prod.outlook.com
- ([fe80::3826:2706:1e81:c9e2%5]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 14:36:25 +0000
-Date: Wed, 8 Apr 2026 17:36:20 +0300
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: imx@lists.linux.dev, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Wed, 8 Apr
+ 2026 14:45:00 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
+ 14:45:00 +0000
+Message-ID: <87a18664-d19e-4434-8f92-1c7ce4f3a131@bp.renesas.com>
+Date: Wed, 8 Apr 2026 16:44:48 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 10/21] dt-bindings: display: renesas,rzg2l-du: Add
+ support for RZ/G3E SoC
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
+ linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- dri-devel@lists.freedesktop.org,
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Ying Liu <victor.liu@nxp.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v21 3/8] dt-bindings: display: bridge: Add Cadence MHDP8501
-Message-ID: <6avfg3f5djqkdvq6q6ouyvw2ms25rvixpluxqmbzey6ylnesnd@2st3tvlmxtvv>
-References: <20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f@oss.nxp.com>
- <20260407-dcss-hdmi-upstreaming-v21-3-4681070ab82f@oss.nxp.com>
- <20260408-large-marigold-pheasant-bef65f@quoll>
- <wowfuuvnhnm6fjuynow4uvle7idvuyf77hct46gxakjre63y2z@xlmau2vl3lwb>
- <277cdf3b-7032-4847-9c22-bddae2a76b34@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <277cdf3b-7032-4847-9c22-bddae2a76b34@kernel.org>
-X-ClientProxiedBy: FR4P281CA0045.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::14) To GV1PR04MB9135.eurprd04.prod.outlook.com
- (2603:10a6:150:26::19)
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <20260408122436.GH1928916@killaraus.ideasonboard.com>
+ <dafdbdcf-98db-473c-8122-296af1922e6c@bp.renesas.com>
+ <20260408141638.GA1965119@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260408141638.GA1965119@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0271.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e6::20) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR04MB9135:EE_|GV1PR04MB10251:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fa5ec6b-e647-459d-4abe-08de957c3625
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OS3PR01MB10232:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01fb90ed-36f2-4ed7-4453-08de957d6931
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|19092799006|7416014|366016|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: wvOKoo6F9m81QTJQhL7hWhiuy6K60hNWYdtElX6sq57p+8/PppEqUv5dY8OYfSKpK5ZVUpMG5DbXffnV9nzbrbwNO3yqHRyNfXYIYFKqpoVDMUhzPYh3JILPJQNVN3Gcy5nHOJmQoAh0uj19Ko8qr43iqUg6RloMNzhMioEZcDz52dxIxYMXw8IODUeS1ymgG7tHazp2w89+I5Qqic69n+BtRg+V5vDqtFrgg04Owr+cMpnCmG1wNyYTCrkgVJx/a+YZdsj46qVc2UCXG1h5xrTQnwoci0eq3kgqsTRr91mOrVCf5ceUQ4+kAcNTRNyZXkcbYr/JNOJTb8uyj4sHZpDr7p20FWTcY5EUAQGuJcmSGbk9mUWwBm7wc7WKwx8Fl2i1n7uJ7j/PtfvTJGo/TcnH9fGzWAml3n0RC3FT4eFFMNYAVAq9ahokdDN033TSe3ME3ebyNR5QF3xyYuesuSYm30hgQCFA6XhFvB2tDWy27Ypg4DUrmySuIT537FjnuCKxBBuGPNClNMpjKIeNhqXoAKsVhexAjatf2Q2fRNFq00kguWSr0UqsyDDl5dBlcOqAhLInemE7+8eo9T+ojBQIGDRT/hYURGng7/s5sXqybweUnbHjEseQmxZ05KdvNpesw16cvJZnqxUIDl5e5v8dq+fP6q1MtLPq5udX5wVNLPeTq++gNzJg44s5kg9qUUdERCqWy1nNEZfuR5I0SLKiCuvx+NIKvSZMp0NBFmKGS/IVBarojXylOsL7xFS6
+ ARA:13230040|7416014|376014|366016|1800799024|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: ySp3+tPP4BYNZqALzP4z5QT+MmbIn4zcZm+87D63zUbSoyy6aMlZ6lahEpmqENZrrHc2lVfULK9RJlwkm4gsAv13Sl5PdX01V55ya+C+iOdorzG2GLJfEA/cjLBVQiRQXLnY5GS+qi7OzJAwEcEZkKd3I3S6mxBvQvsccVq1Ok6CcarNoi4cK+AyxOfiPx0epCn5qWWlQxzWtQsEeeM3BdLw7PqGdcmBPwoVLtj6AMkg9U4UaaQTitCG278p7VhUEft6AQcq34S3x3Ydt20WV38tW5l/gb+r8pxBWK+UhCeLp5WQZtqLeScEAQ8Y1UVehrpGT5hHmoW2Lgu0NM08DMfAuDmB55N5jYM2aSY9JWDK525pdybVHQZjfgBUDY21h/SAmdgyZhM4zEe9WbVLbSlPV7tBxZMfTvl8mCsi8AAyQu5dScW+ctRgUgCjLRjpM/HKh3D2jQbMQVYZvXRSu50jp9YlrWraNUCjbobe2A33GPRRlG1PVHGDcI9Ykhj9DTNz4IqAQS3i5Yy+oftKV28XixePXvesXEzFYLx7lK6QA3G0WlMlnJT9FJ8uzB8Q72pv7/cWEiN9Xb04K8swO6Y7+6nczHOjFlz9kxJ+AQyhsMQcz0zFm0rs5k2JkDPiKv5I4iN1I0L+HY8rNhHNKDjhPrxKGiWs9ntSb63JOsnJsVRSRCzCAp0X6/mMkjqHdOF2X/v3t8IP8yZUGJ2cJW9jbCt7sxihGaDefCnEgDE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV1PR04MB9135.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(19092799006)(7416014)(366016)(18002099003)(22082099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lC5WOJuq683uoX7MkmKMoJKYFacg+A2gO80ynqg2DWgXHom4xeiGXuXQHRqA?=
- =?us-ascii?Q?vZioIo1FNctG2SmuaXCzYBZhPB6WnRlmbVn1wgT4gfuKk+3gteh8JtWJqOQw?=
- =?us-ascii?Q?ZX2puQ61RBQkv4qOBAT+4K/aTxfc9hGp3NZW2TQk5pX4tUtwYs/kX/YXMFh4?=
- =?us-ascii?Q?rZApnvgEQrdfX9G3zFs1ErJEyQKzruRYG42JgfZcvcOn6W2nOzok1rPRAOkE?=
- =?us-ascii?Q?3mreZVUzxc/KujG6b4LIOyz4Po3NHeivqDPXm2W5CZ4DXWlfcCdfbN/CMviM?=
- =?us-ascii?Q?6OV76lfgZ6Z/IDr8hgVCe+vuFNApRRdljYLoyGc1Bm/0bQn59uODcpMhxbl3?=
- =?us-ascii?Q?38fkdRZSZLeSYhKRHH81OvSi4dMMqfWrWWPjkeXtWRI1f79sbyUbYy2CDmzp?=
- =?us-ascii?Q?aGxxlIHuK+rOl73EYpcuEpcw+tMMYsB8znRAF/92G2y+INhznP+opTkp71gd?=
- =?us-ascii?Q?jZB1e7uU3S289l2QY6Yfyl5TE9MIYisF3gJsKOwWTHXMeN8vDu7o2rv1W8XG?=
- =?us-ascii?Q?HJtYTunGd6RPUEb4NHe+w6kPIpOciRSYsN4NVOBRboe/IH/9XwlLOTdjjDXE?=
- =?us-ascii?Q?cptc8oQ0/2MUFX4sM48FHVD0Au2phuYlulPBw+LMdBdpwU0UgNYoe/9PYii0?=
- =?us-ascii?Q?k6jLmT8fxl3ycGDx/JFSwAojBi2JxV79xUC8cpCTM1kvwF0QsFLwYkX9IFr3?=
- =?us-ascii?Q?/cMPDpv+lEaSf7vNUbBkxiomKs5LNW42FcsvgsN4ATsu+fMHmMf6yqT6eXDN?=
- =?us-ascii?Q?+DtE4mtHs1obLKi2QsGdlnlexwcM1LsfGD2Vo7ywUxyt6XF16Y98ZN5ULkab?=
- =?us-ascii?Q?vsZv6S5aZIDmYw3lImJ3uKtO8aA0W+IMjB/abRTYD3IyJbwwqmJG8/Sc26WB?=
- =?us-ascii?Q?/WNqYfarbZVz89SkkCPNxkTrW/aRDZAmmVNydHunc1RlmEOf4NasNvfc6kCo?=
- =?us-ascii?Q?3pce9IyrPn2JyNQenCnzsD8yaj/NJMDlhuU4jlqNBM8cHHSVLMmQuKdKh2n0?=
- =?us-ascii?Q?eljrMuApLV6VfqAvPWUdf3dz9U7y96i2Kll7r8EjyAyPe9e/t6hiiuabvehm?=
- =?us-ascii?Q?iVDvH4OCYljdlitLqa9PaYANn/dvFT323Xx9Y54wPaUdura+Kk8OnBBWnlmp?=
- =?us-ascii?Q?jNAxQK2KIj1WbFgFYsRol+7D8B9p9HcR0NZ8dR7JkMsjPqhZ2tIbDBBJtX04?=
- =?us-ascii?Q?sCFMIxLDDsbDUtyRuV0p1c9Xp4OMqYT9e7PkoRBn6ZO+CnYkRFsJIdS+MQc1?=
- =?us-ascii?Q?N/H+2SoxfT+FS2Drb+d6RIZvlpDCzHfFD788vL1dIt/JMNyKwAIz0gtONtQV?=
- =?us-ascii?Q?mM2e613/J/6yclUVhzuFXe8gVKGWBi1B8PUr/vQrke1N0sSdgc4Lc9jIY/jv?=
- =?us-ascii?Q?Sq7PgGrOXq5bvCqvb300wlJzm/a+nDrvctuPghGMhdi/It5Axyv2il3lYMyK?=
- =?us-ascii?Q?3YdU4ZdXOmBPRc9v7kqKzuAaFNST1g/0uaDRjn+G2hOMQh33LmjuXglx++lK?=
- =?us-ascii?Q?eO9e/nOkURQxJe/oXmHZi7E4xrUgrIaliCvkziEs1O347FK18JQQoIneUknE?=
- =?us-ascii?Q?5znPQrzo/lh3pM7Sc7B7lk4GL1Hh1847vpQ8HnBErwkz/65V9kMnBf/MLm1P?=
- =?us-ascii?Q?YfKvy5l4JXtqIAQX+15r2I5Jmx0MQG5q+2NBkVJMPi1yiCCXnOqwYMKwKb4B?=
- =?us-ascii?Q?GWHxlljY0BgP0bH4PEg7/f+OVu9CMvV2aOYW+D7OQhmApHEz2ozzNMprQbTN?=
- =?us-ascii?Q?z0ewJaakgUKAoRMg7Pqpxp4WNOixcC8=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fa5ec6b-e647-459d-4abe-08de957c3625
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB9135.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGVDcnFxV24rSUwvTVNzZDdWcTFORER1Y0RoR0dscVAzTjhlVXR6TGR0cHgx?=
+ =?utf-8?B?QURBZFhZbS9tYkY2MzBuWFp0U1Z0SkZvbEJTazRrWUpQck9VcGlYUzdqdUtR?=
+ =?utf-8?B?bkJwbkxyOWJMM24rR0JwaUhrcmFrZHg2WEdFeFpIOHNWeVE3endaaVIrRkpx?=
+ =?utf-8?B?aFFzcWJFY2hKMFFTeVJBRHl6SXRuVkk2dXk2M3o1SW9Rb0xvdnd2VHpZbHJw?=
+ =?utf-8?B?MXpiTW50Z1hyanlISnBTMXFzNG92T1AyUFIwRUVNL212dTdCRzhBMlhHaUNE?=
+ =?utf-8?B?ZHJvaHA4SGd0UzdyZ0J5NzRRaW9SM0M2VFVSU2VDUERhSFZnaGF6U3JSb01q?=
+ =?utf-8?B?b2dlT3VYYzV3L3BSMkZkVnB5Yk45WEpEbkV3dWdhR0FHdnZHQ1dSeEIyVDdw?=
+ =?utf-8?B?ZU5NVzgvVktDOEFMcW8rVldkaFRnQ0dNaHpCcThjbmdTYkllNko0T0IvbkZu?=
+ =?utf-8?B?TytvY2piWUlUNEdzM1ZXRUg1TVhZbnp6Tzd3d0poZlhQOGdHQXNJanRkcjZG?=
+ =?utf-8?B?a3h4Nlk1b041bnJtRGs5d3E5L1pzcFdPb204VXdvL0RxeU5lOW95UjFKK1Rp?=
+ =?utf-8?B?Z3BoTjJDb2orbWRSWWVYM1BlNTJ4RDNDQTN1b2JSYUVnYjhadEpZTmVueUhU?=
+ =?utf-8?B?VzhmTndvVTFEMWVtODN0VjJScjArZ1Y0TUdYVDNWbHdMZko2akVYSWppYVZM?=
+ =?utf-8?B?SUhkU3B0cjhmVDBITzFQdzMvU2lKU0p5RXhMbTZ3SC9WbjZ1ejE3WDJnaTh1?=
+ =?utf-8?B?VlZxck0rMFJUNXFlM1NpQXZpRnBYblZWOTJKclRtdG8wUFZHM1V1aVFld3Np?=
+ =?utf-8?B?dk4xSGVjc0FYWTJFSXF0YnczTFpKS25iMFlaYmwxSmtHdVYrdFRJNEtjaHdE?=
+ =?utf-8?B?Mm90MEtQVjREcWZCSU44WFpWOEZBMUhUZ1F1U3JOR01lOHRSMzlGaWVJU1RX?=
+ =?utf-8?B?eFRhMEJhRmJ6NHRjaktFUHBKUFlDSjY1U0krUHpBV3BoZ2t4YmcrZ1c1NnEy?=
+ =?utf-8?B?N1lzd0t6dk91MmFBSmNRUmUvc0d3OW5jRmtrL3RXRjJsWElBYjRWc2l4NU1y?=
+ =?utf-8?B?YjRIT0JibE53OWxGemFLVHVPSXlWOC80Z2wyaHpHUkZBa1B3aUI3clVmTzBU?=
+ =?utf-8?B?Z05KTk8yZzBZTmNuTitOWnMwaVZEaUF0aTlqWklIa1hIT2F2SGpEem55SVVS?=
+ =?utf-8?B?OE5KZmxaOGZYZGRteWZ4bFJoZ3NqcmRzazNubzRuNituRG9zdGZ5cG9kTGVR?=
+ =?utf-8?B?bHZPbTFrMFBaZkNVU2VqemZFRHNvZ0xCMFRYS2lOZHVZWHdBbFdZakVOQnlT?=
+ =?utf-8?B?RVVVZzdjVm80M1pheHhBVzk1OWcwUlpsK3owSjYxdW5LTEFZTXp4TCthcElS?=
+ =?utf-8?B?NzNuQXZDeXpZbEZlcFJxQjJUZStWc3UzYlZOQUJISnczMlhLc1NBZ2NlMmRW?=
+ =?utf-8?B?eTE3citHMVpYbFhOSGRaZmVFelJDU3hHdUpUQ0dVRFVEcTdNU2xmdDgwVXM2?=
+ =?utf-8?B?NWozS1BuZ0daekl4U01TcE5SVUZPSFdjWlVUZnZNRlkvSnBNNlZ5UWtQbCt1?=
+ =?utf-8?B?Qk1GdWZ6OUc1ZTZVUnB6L2VOQVZKUjhlakowcmcybU8ydFVrQTlxYXJUbXo2?=
+ =?utf-8?B?Uk5tY1JTYWs1L1NFRnpkVkNkNXU0Z3hzSjdhVTRrb0srYmVCQ05pbDlJeHlx?=
+ =?utf-8?B?TUErNTcwZnVscTVsR05Dck9iK0Rsa0FUcmxTRHNER0xoTUhDMUtHdS95K2Y2?=
+ =?utf-8?B?OHRBUmt3QUdPQXIyNXVNRVFkQ1JaUE5RSksyWFg0Mmt3OFdGYmhCR09kRDE5?=
+ =?utf-8?B?SFlUZkNqVTFYZlNXOU5iRVJPUFBFUkVHaXZkQ1JPM2ZyMUxHbURyS1UrV0FB?=
+ =?utf-8?B?WDIrU3IzNUllcFF0V1NYczRnRmlNaUlDZk44ekZsUHVhTE9XY016dFBOMG84?=
+ =?utf-8?B?MHNKZEdLMEVXRlVLM3plWmw1eGUyeVhuOTFOTzVXWXQ3eFlrZ1FiNTBMbEM3?=
+ =?utf-8?B?RjF1djRvTkdObE0yckdPeGRMWlFTYkl2Uitqa0MrWWU2eWt4UEhRYmhXUC9a?=
+ =?utf-8?B?Q21DVDBpWEwvaUUxOEYrVVY1Z3B4cFJzd0h2UXI5dmlkeWlRbzBaWVZQUklQ?=
+ =?utf-8?B?MldGSHRGSzZiWGRrYzFaMjZIeG1MRDZOei9WVGVKL1lYcGl3S2MxNTA2c2tW?=
+ =?utf-8?B?R0xqU1VWcmxzbEcrRnJESWlGbFRNSjdITnF3cU9YdWswZlVBMjdXZkFmYThw?=
+ =?utf-8?B?N1ArK0RRcHFIOHRHS1JzR0VMRVdDcFNZdVBDczVnRVlHc0Y0ZlRRUi9Ga1A5?=
+ =?utf-8?B?aG1wYVBzTnhYeHVIMlRYNEpNYUIxeks2RVhVVlhXYlNtK05uaDVnOFRtTHZq?=
+ =?utf-8?Q?TI8qEMeeVYTvSxQtMMNHRr5/1IZ1uO1YqbILr?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01fb90ed-36f2-4ed7-4453-08de957d6931
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 14:36:25.2619 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 14:45:00.2738 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6YjRgYCVYPAxQnqnG9I7uU6sfkEBZklEY96WEkQNZxxUS7uEF7lerPoWyUZvss3lkLxlvvQ8z4f9ent+KCWsnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10251
+X-MS-Exchange-CrossTenant-UserPrincipalName: iQd5L14zcFimvCdMZN5j8rTLBjIPpcd9t/WLUvFz5vJ4Uo7LJt+PIczIFnx7t+BUvjOeEr3XagBQqCKgXFKxvznzJvuqHk2CrYbCjGQajEy19jHu63g86fYYTERRJTd4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB10232
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,46 +154,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 09:32:54AM +0200, Krzysztof Kozlowski wrote:
-> On 08/04/2026 09:13, Laurentiu Palcu wrote:
-> >>> +  phys:
-> >>> +    maxItems: 1
-> >>> +    description:
-> >>> +      phandle to the DP/HDMI PHY
-> >>> +
-> >>> +  interrupts:
-> >>> +    items:
-> >>> +      - description: Hotplug cable plugin.
-> >>> +      - description: Hotplug cable plugout.
-> >>> +
-> >>> +  interrupt-names:
-> >>> +    items:
-> >>> +      - const: plug_in
-> >>> +      - const: plug_out
-> >>> +
-> >>> +  cdns,bridge-type:
-> >>
-> >> Drop property. Graph defines what is connected on the other side. And if
-> >> this is for different devices then compatible tells what bridge is that.
-> > 
-> > Initially, Sandor did use the remote compatible to decide the bridge
-> > type but he assumed the remote is always the connector. However, as
-> > Dmitry pointed out [1], this is not reliable as we can have another bridge
-> > in-between this one and the connector.
-> > 
-> > [1] https://lore.kernel.org/all/dpj333mzr5azqhrgw3cxd7x5kiwxms4iomwy74uqfhr2zu4ocr@36rkth27d2jc/
-> 
-> So you still know what is on the other side, e.g. second bridge for HDMI
-> or DP, even if this is DP over USB-C.
-> 
-> I understand that Dmitry did not want to use that part of code in the
-> drivers, but what is located at the end is not really a separate
-> property of this bridge, because it already duplicates that information.
-> The final endpoint defines the type.
+Hi Laurent,
+Thanks for your comment.
 
-Ok, I'll drop the property and add a routine to traverse the graph and
-find the last endpoint.
+On 4/8/26 16:16, Laurent Pinchart wrote:
+> On Wed, Apr 08, 2026 at 04:02:14PM +0200, Tommaso Merciai wrote:
+>> Hi Laurent,
+>> Thanks for your review.
+>>
+>> On 4/8/26 14:24, Laurent Pinchart wrote:
+>>> On Wed, Apr 08, 2026 at 12:36:55PM +0200, Tommaso Merciai wrote:
+>>>> The RZ/G3E SoC has 2 LCD controllers (LCDC), each containing a Frame
+>>>> Compression Processor (FCPVD), a Video Signal Processor (VSPD), and a
+>>>> Display Unit (DU).
+>>>>
+>>>>    - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+>>>>    - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+>>>>
+>>>> Add a new SoC-specific compatible string 'renesas,r9a09g047-du'.
+>>>>
+>>>> Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" to
+>>>> allow up to four output ports, and explicitly disable port@2 and port@3
+>>>> for existing SoCs that do not expose them.
+>>>>
+>>>> Describe the four output ports of the RZ/G3E DU:
+>>>>
+>>>>    - port@0: DSI (available on both LCDC instances)
+>>>>    - port@1: DPAD / parallel RGB (LCDC1 only)
+>>>>    - port@2: LVDS channel 0 (LCDC0 only)
+>>>>    - port@3: LVDS channel 1 (available on both LCDC instances)
+>>>>
+>>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+>>>> ---
+>>>> v5->v6:
+>>>>    - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
+>>>>      explicitly disable port@2 and port@3 for existing SoCs that do not expose
+>>>>      them.
+>>>>    - Reworked ports numbering + improved/fixed ports descriptions in the
+>>>>      bindings documentation.
+>>>>    - Improved commit body.
+>>>>
+>>>> v4->v5:
+>>>>    - Dropped renesas,id property and updated bindings
+>>>>      accordingly.
+>>>>
+>>>> v2->v3:
+>>>>    - No changes.
+>>>>
+>>>> v2->v3:
+>>>>    - No changes.
+>>>>
+>>>> v1->v2:
+>>>>    - Use single compatible string instead of multiple compatible strings
+>>>>      for the two DU instances, leveraging a 'renesas,id' property to
+>>>>      differentiate between DU0 and DU1.
+>>>>    - Updated commit message accordingly.
+>>>>
+>>>>    .../bindings/display/renesas,rzg2l-du.yaml    | 30 ++++++++++++++++++-
+>>>>    1 file changed, 29 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+>>>> index 5add3b832eab..32da0b5ec88c 100644
+>>>> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+>>>> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+>>>> @@ -20,6 +20,7 @@ properties:
+>>>>          - enum:
+>>>>              - renesas,r9a07g043u-du # RZ/G2UL
+>>>>              - renesas,r9a07g044-du # RZ/G2{L,LC}
+>>>> +          - renesas,r9a09g047-du # RZ/G3E
+>>>>              - renesas,r9a09g057-du # RZ/V2H(P)
+>>>>          - items:
+>>>>              - enum:
+>>>> @@ -61,7 +62,7 @@ properties:
+>>>>          model-dependent. Each port shall have a single endpoint.
+>>>>    
+>>>>        patternProperties:
+>>>> -      "^port@[0-1]$":
+>>>> +      "^port@[0-3]$":
+>>>>            $ref: /schemas/graph.yaml#/properties/port
+>>>>            unevaluatedProperties: false
+>>>>    
+>>>> @@ -103,6 +104,8 @@ allOf:
+>>>>                port@0:
+>>>>                  description: DPI
+>>>>                port@1: false
+>>>> +            port@2: false
+>>>> +            port@3: false
+>>>>    
+>>>>              required:
+>>>>                - port@0
+>>>> @@ -119,6 +122,8 @@ allOf:
+>>>>                  description: DSI
+>>>>                port@1:
+>>>>                  description: DPI
+>>>> +            port@2: false
+>>>> +            port@3: false
+>>>>    
+>>>>              required:
+>>>>                - port@0
+>>>> @@ -135,9 +140,32 @@ allOf:
+>>>>                port@0:
+>>>>                  description: DSI
+>>>>                port@1: false
+>>>> +            port@2: false
+>>>> +            port@3: false
+>>>>    
+>>>>              required:
+>>>>                - port@0
+>>>> +  - if:
+>>>> +      properties:
+>>>> +        compatible:
+>>>> +          contains:
+>>>> +            const: renesas,r9a09g047-du
+>>>> +    then:
+>>>> +      properties:
+>>>> +        ports:
+>>>> +          properties:
+>>>> +            port@0:
+>>>> +              description: DSI
+>>>> +            port@1:
+>>>> +              description: DPAD
+>>>> +            port@2:
+>>>> +              description: LVDS, Channel 0
+>>>> +            port@3:
+>>>> +              description: LVDS, Channel 1
+>>>> +
+>>>> +          required:
+>>>> +            - port@0
+>>>> +            - port@3
+>>>
+>>> Why are ports 1 and 2 not required ?
+>>
+>> About this we had a similar discussion on v5[0]
+>> We are using the same compatible and:
+>>
+>> - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+>> |
+>> --> then has:
+>> 	port@0
+>> 	port@2
+>> 	port@3
+>> 	
+>>
+>>    - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+>> |
+>> --> then has:
+>> 	port@0
+>> 	port@1
+>> 	port@3
+> 
+> Ah yes, I forget there are two LCDC instances with different output
+> configurations.
+> 
+> Something still looks a bit weird to me though. For LCDC1, which
+> supports a single LVDS channel, you use the port described as the second
+> LVDS channel. Is there a reason not to use port@2 ?
 
--- 
-Thanks,
-Laurentiu
+
+9.11 Low Voltage Differential Signaling (LVDS)
+9.11.1.2 Block Diagram
+Figure 9.11-1 shows a block diagram of LVDS.
+
+LCDC1 is connected to LVDS, Channel 1
+For this reason I'm using port@3.
+
+Kind Regards,
+Tommaso
+
+> 
+>> Then port@1 is required for DU1 but not for DU0.
+>> Same port@2 is required for DU0 but not for DU1.
+>>
+>> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/ca022fdbba5236c36e0cb3095db4c31e8e0cb1b8.1770996493.git.tommaso.merciai.xr@bp.renesas.com/
+>>
+>>>>
+>>>>    examples:
+>>>>      # RZ/G2L DU
+> 
+
