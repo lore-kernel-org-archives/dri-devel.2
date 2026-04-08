@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C5F51073CB0
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC27F1073CB4
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA4F10E657;
-	Wed,  8 Apr 2026 13:08:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4909510E654;
+	Wed,  8 Apr 2026 13:08:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ad/8ZIKJ";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lblk+wQq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 003D710E656;
- Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE42410E654;
+ Wed,  8 Apr 2026 13:08:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D6F9340295;
- Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F8AC19421;
- Wed,  8 Apr 2026 13:08:03 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 31A5660133;
+ Wed,  8 Apr 2026 13:08:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0E6C19421;
+ Wed,  8 Apr 2026 13:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1775653683;
- bh=tboaPTB7rSn2D7fzsYWWM7ybxzEObwYovXT4VessUvI=;
+ s=korg; t=1775653706;
+ bh=Nkbl4OlcdSN8dS3CZhiOwiRGcyOHxj/GcD7jW18qbp4=;
  h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=Ad/8ZIKJbmZxoEWdEuVm20Z7xe6ZILwRvv5neEUVaJ31H+MH0uetIxCzpW+arsRP0
- rwfB6kWewrpfkaQS2uG04buc2jFgOvlfoR5nQ3L8m9iPhHKMMpnqQp4rYKExn0vnB2
- jvJ2MWbDFe3mariXviyCzsCT0felHAXtfXBXOcXg=
-Subject: Patch "drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming." has
- been added to the 6.12-stable tree
+ b=lblk+wQqt0d56CIfUSGjaAAZxhy/R86y9s0UJ9OHVcKK9S2CvJ5k93GslRxfYOIHI
+ 6vYfyYyYzPX4kQJGXHIBFWN1QCqQVaHxYTV33y0xPhWio4DhhKq9foobYeM1XZqvvh
+ vgcZPA/S/bkBf+yffWFuRG8g8PJnBORPST1HPbiM=
+Subject: Patch "drm/amd/display: Reject modes with too high pixel clock on
+ DCE6-10" has been added to the 6.12-stable tree
 To: Eric.Yang2@amd.com, Mario.Limonciello@amd.com, Rodrigo.Siqueira@amd.com,
  Roman.Li@amd.com, Tony.Cheng@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
  alex.hung@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
  christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
  gregkh@linuxfoundation.org, harry.wentland@amd.com, issor.oruam@gmail.com,
- ray.wu@amd.com, rosenp@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ mario.limonciello@amd.com, ray.wu@amd.com, rosenp@gmail.com, simona@ffwll.ch,
  sunpeng.li@amd.com, timur.kristof@gmail.com, wayne.lin@amd.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 08 Apr 2026 15:07:40 +0200
-In-Reply-To: <20260401003908.3438-7-rosenp@gmail.com>
-Message-ID: <2026040840-handgrip-prayer-9b0f@gregkh>
+Date: Wed, 08 Apr 2026 15:07:41 +0200
+In-Reply-To: <20260401003908.3438-5-rosenp@gmail.com>
+Message-ID: <2026040840-chastity-deuce-0bf1@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
@@ -64,151 +64,177 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
+    drm/amd/display: Reject modes with too high pixel clock on DCE6-10
 
 to the 6.12-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     drm-amd-display-fix-dce-6.0-and-6.4-pll-programming.patch
+     drm-amd-display-reject-modes-with-too-high-pixel-clock-on-dce6-10.patch
 and it can be found in the queue-6.12 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From stable+bounces-232625-greg=kroah.com@vger.kernel.org Wed Apr  1 02:44:20 2026
+From stable+bounces-232623-greg=kroah.com@vger.kernel.org Wed Apr  1 02:43:45 2026
 From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 31 Mar 2026 17:39:04 -0700
-Subject: drm/amd/display: Fix DCE 6.0 and 6.4 PLL programming.
+Date: Tue, 31 Mar 2026 17:39:02 -0700
+Subject: drm/amd/display: Reject modes with too high pixel clock on DCE6-10
 To: stable@vger.kernel.org
 Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Xinhui Pan" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <wayne.lin@amd.com>, "Mario Limonciello" <Mario.Limonciello@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Eric Yang" <Eric.Yang2@amd.com>, "Tony Cheng" <Tony.Cheng@amd.com>, "Mauro Rossi" <issor.oruam@gmail.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
-Message-ID: <20260401003908.3438-7-rosenp@gmail.com>
+Message-ID: <20260401003908.3438-5-rosenp@gmail.com>
 
 From: Timur KristÃ³f <timur.kristof@gmail.com>
 
-[ Upstream commit 35222b5934ec8d762473592ece98659baf6bc48e ]
+[ Upstream commit 118800b0797a046adaa2a8e9dee9b971b78802a7 ]
 
-Apparently, both DCE 6.0 and 6.4 have 3 PLLs, but PLL0 can only
-be used for DP. Make sure to initialize the correct amount of PLLs
-in DC for these DCE versions and use PLL0 only for DP.
+Reject modes with a pixel clock higher than the maximum display
+clock. Use 400 MHz as a fallback value when the maximum display
+clock is not known. Pixel clocks that are higher than the display
+clock just won't work and are not supported.
 
-Also, on DCE 6.0 and 6.4, the PLL0 needs to be powered on at
-initialization as opposed to DCE 6.1 and 7.x which use a different
-clock source for DFS.
+With the addition of the YUV422	fallback, DC can now accidentally
+select a mode requiring higher pixel clock than actually supported
+when the DP version supports the required bandwidth but the clock
+is otherwise too high for the display engine. DCE 6-10 don't
+support these modes but they don't have a bandwidth calculation
+to reject them properly.
 
-The following functions were used as reference from the	old
-radeon driver implementation of	DCE 6.x:
-- radeon_atom_pick_pll
-- atombios_crtc_set_disp_eng_pll
-
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
+Fixes: db291ed1732e ("drm/amd/display: Add fallback path for YCBCR422")
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Timur KristÃ³f <timur.kristof@gmail.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c |    5 +
- drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c       |   34 +++++++-----
- 2 files changed, 25 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c      |    3 +++
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c     |    5 +++++
+ drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c            |   10 +++++++++-
+ drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c |   10 +++++++++-
+ drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c   |   10 +++++++++-
+ 5 files changed, 35 insertions(+), 3 deletions(-)
 
 --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
 +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -245,6 +245,11 @@ int dce_set_clock(
- 	pxl_clk_params.target_pixel_clock_100hz = requested_clk_khz * 10;
- 	pxl_clk_params.pll_id = CLOCK_SOURCE_ID_DFS;
+@@ -460,6 +460,9 @@ void dce_clk_mgr_construct(
+ 		clk_mgr->max_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
+ 	clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_INVALID;
  
-+	/* DCE 6.0, DCE 6.4: engine clock is the same as PLL0 */
-+	if (clk_mgr_base->ctx->dce_version == DCE_VERSION_6_0 ||
-+	    clk_mgr_base->ctx->dce_version == DCE_VERSION_6_4)
-+		pxl_clk_params.pll_id = CLOCK_SOURCE_ID_PLL0;
++	base->clks.max_supported_dispclk_khz =
++		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
 +
- 	if (clk_mgr_dce->dfs_bypass_active)
- 		pxl_clk_params.flags.SET_DISPCLK_DFS_BYPASS = true;
+ 	dce_clock_read_integrated_info(clk_mgr);
+ 	dce_clock_read_ss_info(clk_mgr);
+ }
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+@@ -147,6 +147,8 @@ void dce60_clk_mgr_construct(
+ 		struct dc_context *ctx,
+ 		struct clk_mgr_internal *clk_mgr)
+ {
++	struct clk_mgr *base = &clk_mgr->base;
++
+ 	dce_clk_mgr_construct(ctx, clk_mgr);
+ 
+ 	memcpy(clk_mgr->max_clks_by_state,
+@@ -157,5 +159,8 @@ void dce60_clk_mgr_construct(
+ 	clk_mgr->clk_mgr_shift = &disp_clk_shift;
+ 	clk_mgr->clk_mgr_mask = &disp_clk_mask;
+ 	clk_mgr->base.funcs = &dce60_funcs;
++
++	base->clks.max_supported_dispclk_khz =
++		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+ }
  
 --- a/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dce60/dce60_resource.c
-@@ -374,7 +374,7 @@ static const struct resource_caps res_ca
- 		.num_timing_generator = 6,
- 		.num_audio = 6,
- 		.num_stream_encoder = 6,
--		.num_pll = 2,
-+		.num_pll = 3,
- 		.num_ddc = 6,
- };
+@@ -34,6 +34,7 @@
+ #include "stream_encoder.h"
  
-@@ -390,7 +390,7 @@ static const struct resource_caps res_ca
- 		.num_timing_generator = 2,
- 		.num_audio = 2,
- 		.num_stream_encoder = 2,
--		.num_pll = 2,
-+		.num_pll = 3,
- 		.num_ddc = 2,
- };
+ #include "resource.h"
++#include "clk_mgr.h"
+ #include "include/irq_service_interface.h"
+ #include "irq/dce60/irq_service_dce60.h"
+ #include "dce110/dce110_timing_generator.h"
+@@ -870,10 +871,17 @@ static bool dce60_validate_bandwidth(
+ {
+ 	int i;
+ 	bool at_least_one_pipe = false;
++	struct dc_stream_state *stream = NULL;
++	const uint32_t max_pix_clk_khz = max(dc->clk_mgr->clks.max_supported_dispclk_khz, 400000);
  
-@@ -990,21 +990,24 @@ static bool dce60_construct(
- 
- 	if (bp->fw_info_valid && bp->fw_info.external_clock_source_frequency_for_dp != 0) {
- 		pool->base.dp_clock_source =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
- 
-+		/* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't initialize it here. */
- 		pool->base.clock_sources[0] =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], false);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
- 		pool->base.clock_sources[1] =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
- 		pool->base.clk_src_count = 2;
- 
- 	} else {
- 		pool->base.dp_clock_source =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
- 
- 		pool->base.clock_sources[0] =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
--		pool->base.clk_src_count = 1;
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
-+		pool->base.clock_sources[1] =
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
-+		pool->base.clk_src_count = 2;
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-		if (context->res_ctx.pipe_ctx[i].stream)
++		stream = context->res_ctx.pipe_ctx[i].stream;
++		if (stream) {
+ 			at_least_one_pipe = true;
++
++			if (stream->timing.pix_clk_100hz >= max_pix_clk_khz * 10)
++				return DC_FAIL_BANDWIDTH_VALIDATE;
++		}
  	}
  
- 	if (pool->base.dp_clock_source == NULL) {
-@@ -1382,21 +1385,24 @@ static bool dce64_construct(
+ 	if (at_least_one_pipe) {
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
+@@ -29,6 +29,7 @@
+ #include "stream_encoder.h"
  
- 	if (bp->fw_info_valid && bp->fw_info.external_clock_source_frequency_for_dp != 0) {
- 		pool->base.dp_clock_source =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_EXTERNAL, NULL, true);
+ #include "resource.h"
++#include "clk_mgr.h"
+ #include "include/irq_service_interface.h"
+ #include "virtual/virtual_stream_encoder.h"
+ #include "dce110/dce110_resource.h"
+@@ -843,10 +844,17 @@ static bool dce100_validate_bandwidth(
+ {
+ 	int i;
+ 	bool at_least_one_pipe = false;
++	struct dc_stream_state *stream = NULL;
++	const uint32_t max_pix_clk_khz = max(dc->clk_mgr->clks.max_supported_dispclk_khz, 400000);
  
-+		/* DCE 6.0 and 6.4: PLL0 can only be used with DP. Don't initialize it here. */
- 		pool->base.clock_sources[0] =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[0], false);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
- 		pool->base.clock_sources[1] =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[1], false);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
- 		pool->base.clk_src_count = 2;
- 
- 	} else {
- 		pool->base.dp_clock_source =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[0], true);
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL0, &clk_src_regs[0], true);
- 
- 		pool->base.clock_sources[0] =
--				dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[1], false);
--		pool->base.clk_src_count = 1;
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL1, &clk_src_regs[1], false);
-+		pool->base.clock_sources[1] =
-+			dce60_clock_source_create(ctx, bp, CLOCK_SOURCE_ID_PLL2, &clk_src_regs[2], false);
-+		pool->base.clk_src_count = 2;
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-		if (context->res_ctx.pipe_ctx[i].stream)
++		stream = context->res_ctx.pipe_ctx[i].stream;
++		if (stream) {
+ 			at_least_one_pipe = true;
++
++			if (stream->timing.pix_clk_100hz >= max_pix_clk_khz * 10)
++				return DC_FAIL_BANDWIDTH_VALIDATE;
++		}
  	}
  
- 	if (pool->base.dp_clock_source == NULL) {
+ 	if (at_least_one_pipe) {
+--- a/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dce80/dce80_resource.c
+@@ -32,6 +32,7 @@
+ #include "stream_encoder.h"
+ 
+ #include "resource.h"
++#include "clk_mgr.h"
+ #include "include/irq_service_interface.h"
+ #include "irq/dce80/irq_service_dce80.h"
+ #include "dce110/dce110_timing_generator.h"
+@@ -876,10 +877,17 @@ static bool dce80_validate_bandwidth(
+ {
+ 	int i;
+ 	bool at_least_one_pipe = false;
++	struct dc_stream_state *stream = NULL;
++	const uint32_t max_pix_clk_khz = max(dc->clk_mgr->clks.max_supported_dispclk_khz, 400000);
+ 
+ 	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-		if (context->res_ctx.pipe_ctx[i].stream)
++		stream = context->res_ctx.pipe_ctx[i].stream;
++		if (stream) {
+ 			at_least_one_pipe = true;
++
++			if (stream->timing.pix_clk_100hz >= max_pix_clk_khz * 10)
++				return DC_FAIL_BANDWIDTH_VALIDATE;
++		}
+ 	}
+ 
+ 	if (at_least_one_pipe) {
 
 
 Patches currently in stable-queue which might be from rosenp@gmail.com are
