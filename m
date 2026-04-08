@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EF971073CB6
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:26:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 580321073CBA
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:29:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D75D910E65B;
-	Wed,  8 Apr 2026 13:26:45 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 610EA10E65B
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:26:44 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-8cfdac74050so723031385a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 06:26:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49D0110E65C;
+	Wed,  8 Apr 2026 13:29:21 +0000 (UTC)
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
+ [209.85.160.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D401E10E65C
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:29:19 +0000 (UTC)
+Received: by mail-qt1-f180.google.com with SMTP id
+ d75a77b69052e-50d6b9bca48so79589031cf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 06:29:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775654803; x=1776259603;
+ d=1e100.net; s=20251104; t=1775654959; x=1776259759;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=11iAo9dki9YzQOZbHMLoGuCa0VnV6ePIcYUznc5FWP8=;
- b=L4gHv9p/lD1d3nkkeXKmLMf0LCnDLMHmWw2x/2jLyenAPahH7gu1UmnQA5+U5R8bpY
- 46Xs42q8nVjpDqIFIcv50rJyuam3V92lF257RlcR4in32GICHpkD9BhDwRzoM0MFDj/U
- a9moElnfMp0Gn7L8FP4UBRvTP3IQJnwnA1KIPKY9F3m+RcJ24ptWQllPJKarxArd8g4o
- cg3pDizTV0YdJWSxb2/+XZZF9Tn9lT7i2AA7DN00mcmynk545EdXc5QF9uleG2S8OBSn
- 2h99BR8iYSG0YpLpfhrIDO8IinfAZHDxjvb1s3c6nt3Ia90b13E3Hz4WlCZJevIK87V1
- +L3g==
+ bh=8VHgesrf5StiprJKDytJNXvB7R5FJ2lBTM9ZJItFuhE=;
+ b=s2sm/ALL3As2PxtdC2TpupPG1aaecPYHpQRJNtzpFAutcpmExpsh4wngOsW+86j7ql
+ 0C0kQeAovUSTGlVhY7GeGvaqVKIvufOnhw66+vXpt4TQrHFes088Yp219i2zrCOpa9GR
+ mD3AsrcdfkmEYM1PZU+fvZceSU0L3VZOL9Ce3iVsnvWdLES4SRgaJynE3mYIRwn5ocpe
+ pEsZnnGMK6H1CKSZZlE1TEYVjvb1VoGEayCI9OwS0YqmhWzAB3fx8KvP2q15AEe+x/TA
+ dsIwpQ8D7KIdT1PSqBgWFSDQAdYmu0hAxU5xOREw7MbPTfGlj143cR3oCpYQsepCfZLe
+ LQ4w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV5Y3LRh8XmwBcxc9iF//77s19K2QDqy/zxAkaWrSW44VdacqsH/P3O6gj1kqEulxXPz/AcCmeuwRo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5rKaLn/pR+pLvQnSKOhIClAcfzBCEh3eoc36bajbb5wOcH405
- sdQdRgkgYqfjwdMp8/nE1R5IREl7esvJ3BIoCFgW4LO/3mdebm2vIAiJwJWaFI1d
-X-Gm-Gg: AeBDietxUfGplLIDr/NUW7axYiOz4VgAeebbwQHZMYBKB4aaG1uysB1cL8Np7EY7R4E
- D1aBBqxjU2t86wjNKrHanl2iCJr/t9rJt4h83md+uebf1K1sRErTGMSQhPS6dPck4DE7Zhc73gQ
- CNbaiepcxvwMiyEv8IRMYPG2d+l0YhawCE5d3bdLsXHQ2flfWXUNivkx5hJtaSzH/qOm9kDj0Kv
- H9KZsFhr82cAZsLz4gLX0vGq/+ZXrNFNk3Texxd3QpfyW6gbKC+UsQkrgVG4C9iTm7Tjo3fBnb9
- V0xejfszFgT7h4sZKzrLwD0NNowsDds4wM1zLpbfhfirWhvD4hv58eMCVjKtJKtuTJSWG0e/OzO
- GRWFgueEbsURrnE/LMVLWwimz8ajiTETiGuAeQGN+djor2WTk6tAYuZ1Pvsxhx2NKTe/F5XlhV0
- r3DUWVopFDPc+GSE1fCJnuB/JK7JwNK+jGgMh6eTOguBhM6j+R7XJpqld8CeE0kALoGJVXwRLwc
- tM=
-X-Received: by 2002:a05:620a:710a:b0:8cf:db04:8a22 with SMTP id
- af79cd13be357-8d41db50e60mr2746245985a.42.1775654803052; 
- Wed, 08 Apr 2026 06:26:43 -0700 (PDT)
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com.
- [209.85.222.172]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8d2a8740491sm1536447985a.38.2026.04.08.06.26.42
+ AJvYcCVqpt8xmqPHqVyiKr3QDc124S5UQKPZF1qGWWZ4HGzKGE94xhJEzLU/r++gkBpwa7459nVTEmrs9NU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw3O/y2wZ49g5J/iatkNZtGv6CCybmkpINkgtvNpp+TQ6j1qKDS
+ 4RXXA+Dd3mswhuAEWJUOHSoRjsVFqChGcPzIexRF5YEDWPEcwdaP3x1hpcYzUkrF
+X-Gm-Gg: AeBDieuQedsqusX22YtVhWR1ogYIizTThwJw1EYdbh8jODULlSFq5gbxrI6W0TIP+67
+ d5rszo7Pbur8U6nEq4BSTwtV4jl95/c0a2/kLhKVzPVqf2NLLH2p5T1qTsE8Kh0mBQ+6/pPm9nd
+ XUKzFxesbLjHynlizShzT1iuKzVpiBGUV8y2J3kBBJ/sNLO+nwKIypzZOKtsvUw2P5lP1TMloC+
+ 4U2LN3yZfogOwJSXudbIX4hTVwNnINnJQ5vlVXWtVvU2UxcGP7dmHLrJNGRTIwn0YdTX6tDV+ih
+ mHtsVkJ7voE5kDdoVtQI/wJMLPu/bvaOq5Qs6LK7V/pek5UrD5a6llMyFvcAMG35WWuG3B4LFJA
+ QVVxQ1tLtOprmxMFv+RwtbmnKkOQfNgS/o03m0qIhnMqU/1CkEFwe8LVz9CoytTPOzjTxOSzAjs
+ NXSAlPdTdpywt3xn/n1JF/BRWWjYPVKBkXykbmjDFqkIAz/vnLJM59oISoZjSsVGZc
+X-Received: by 2002:a05:622a:1893:b0:509:1a36:6aca with SMTP id
+ d75a77b69052e-50d6273faf2mr311508811cf.17.1775654958467; 
+ Wed, 08 Apr 2026 06:29:18 -0700 (PDT)
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com.
+ [209.85.160.180]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-50d4b93dd05sm162222621cf.9.2026.04.08.06.29.17
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 06:26:42 -0700 (PDT)
-Received: by mail-qk1-f172.google.com with SMTP id
- af79cd13be357-8cbc593a67aso626721685a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 06:26:42 -0700 (PDT)
+ Wed, 08 Apr 2026 06:29:17 -0700 (PDT)
+Received: by mail-qt1-f180.google.com with SMTP id
+ d75a77b69052e-50b392f1846so87383991cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 06:29:17 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVd6P76TnC0AZS2zq+GGJfYG9AeMLqX+C1O0KQ9eEQe+aNxjLYSeusxCwZhJdZOiibqrZDnhV6PXI8=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:4b05:b0:56d:3b69:87d2 with SMTP id
- 71dfb90a1353d-56dab9df26emr8767911e0c.11.1775654366102; Wed, 08 Apr 2026
- 06:19:26 -0700 (PDT)
+ AJvYcCV5/jx3sj3aUyy/u3W8Lney3HNom3f9QbV1DpAvsWLsew9Qt8nmVf5C1PjD5s/XZjrDm36jhU0+uzM=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:3a03:b0:56f:1a26:563a with SMTP id
+ 71dfb90a1353d-56f1a265761mr1211064e0c.7.1775654605828; Wed, 08 Apr 2026
+ 06:23:25 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <24d3853ca2522df21e6a071a23e23ba4ca4b7276.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <24d3853ca2522df21e6a071a23e23ba4ca4b7276.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <9595f56ce8ab120477bfc11eaafb0f2b655d049a.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <9595f56ce8ab120477bfc11eaafb0f2b655d049a.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 8 Apr 2026 15:19:14 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV-GrDWaKzxf09DRKwDkcY7W_cZrnubBWqD0w1iAYc8Kw@mail.gmail.com>
-X-Gm-Features: AQROBzC36oVu26dy7QAue_JJJeRvfbuifO9CcFeX81T2keIzqU6JIH81ayIbX9M
-Message-ID: <CAMuHMdV-GrDWaKzxf09DRKwDkcY7W_cZrnubBWqD0w1iAYc8Kw@mail.gmail.com>
-Subject: Re: [PATCH v6 01/21] clk: renesas: rzv2h: Add PLLDSI clk mux support
+Date: Wed, 8 Apr 2026 15:23:14 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXr_=E+WhCd0Tfrehn+2Mo3L+GUUUCWX5vc-gunYx_oTw@mail.gmail.com>
+X-Gm-Features: AQROBzCAS3tdwS4I5i1ony0ZYqV2Tos82DINalsSZpND3OxFU3AJc31boq9f15A
+Message-ID: <CAMuHMdXr_=E+WhCd0Tfrehn+2Mo3L+GUUUCWX5vc-gunYx_oTw@mail.gmail.com>
+Subject: Re: [PATCH v6 06/21] clk: renesas: r9a09g047: Add support for
+ SMUX2_DSI{0, 1}_CLK
 To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 Cc: tomm.merciai@gmail.com, laurent.pinchart@ideasonboard.com, 
  linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
@@ -101,31 +101,16 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Wed, 8 Apr 2026 at 12:38, Tommaso Merciai
 <tommaso.merciai.xr@bp.renesas.com> wrote:
-> Add PLLDSI clk mux support to select PLLDSI clock from different clock
-> sources.
+> Add support for the SMUX2_DSI0_CLK and SMUX2_DSI1_CLK clock muxes
+> present on the r9a09g047 SoC.
 >
-> Introduce the DEF_PLLDSI_SMUX() macro to define these muxes and register
-> them in the clock driver.
+> These muxes select between CDIV7_DSI{0,1}_CLK and CSDIV_2to16_PLLDSI{0,1}
+> using the CPG_SSEL3 register (SELCTL0 and SELCTL1 bits).
 >
-> Extend the determine_rate callback to calculate and propagate PLL
-> parameters via rzv2h_get_pll_dtable_pars() when LVDS output is selected,
-> using a new helper function rzv2h_cpg_plldsi_smux_lvds_determine_rate().
->
-> The CLK_SMUX2_DSI{0,1}_CLK clock multiplexers select between two paths
-> with different duty cycles:
->
-> - CDIV7_DSIx_CLK (LVDS path, parent index 0): asymmetric H/L=4/3 duty (4/7)
-> - CSDIV_DSIx (DSI/RGB path, parent index 1): symmetric 50% duty (1/2)
->
-> Implement rzv2h_cpg_plldsi_smux_{get,set}_duty_cycle clock operations to
-> allow the DRM driver to query and configure the appropriate clock path
-> based on the required output duty cycle.
+> According to the hardware manual, when LVDS0 or LVDS1 outputs are used,
+> SELCTL0 or SELCTL1 must be set accordingly.
 >
 > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
-> v5->v6:
->  - Fixed rzv2h_cpg_plldsi_smux_clk_register() removed u8 width, mask
->    variables and replaced with direct use of smux.width and clk_div_mask(smux.width).
 
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
