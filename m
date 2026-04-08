@@ -4,50 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6315A10F995C
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 17:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C74310F9961
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 17:39:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1A9210E086;
-	Wed,  8 Apr 2026 17:26:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C95A210E149;
+	Wed,  8 Apr 2026 17:39:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aoE7Q98k";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="JuriSJgw";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFB0B10E086
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 17:26:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id F0F55600AD;
- Wed,  8 Apr 2026 17:26:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4CAC19421;
- Wed,  8 Apr 2026 17:26:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775669168;
- bh=9uE9HoVnp7JPCgpbGLmdshO3VOOSJvutMUsufBuWIAE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=aoE7Q98kw7DjSv5SYx/PLWyb6TT0oSh1ghhcqb4tJaqcg/sGmOosuc6vi3CEPHfwo
- 1XIqNSj9Moa6vJOVg+BAVOu9D1MC+EV1R/ZdtNxonT6LRIxFp5MHJeJd7G3seoNT/l
- pfDsmpfLMwr+6Gz0wkZpaVLFNMucxkgAW08pkFtpdje8F/RY+Jcu9Mw0MzY7MDjKxm
- coOSjVOu4OxXzZm6Fw39VnyEQrRcPFrg/efdq6AgeldOekHj+i4oAiu3GesgA9E26P
- 0kBL/CnTSw6YuI+O3Fg3qUc2a08lxiKppLtS8jYCUBIQThFs32eLo9fxl3Zk4pfwzF
- 7BTydDsgC4WXg==
-Date: Wed, 8 Apr 2026 18:26:04 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: linux-next: manual merge of the drm tree with the drm-misc-fixes
- tree
-Message-ID: <efa647ef-17e8-432e-9560-a1f0435c0975@sirena.org.uk>
-References: <ab1XClKfaCMYzg5-@sirena.org.uk> <20260320163902.24571f5d@fedora>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="WQm+T1p8jBQqMjN4"
-Content-Disposition: inline
-In-Reply-To: <20260320163902.24571f5d@fedora>
-X-Cookie: Often things ARE as bad as they seem!
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16B2810E149
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 17:39:12 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id B19CE1A3209;
+ Wed,  8 Apr 2026 17:39:11 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6EEE6603CE;
+ Wed,  8 Apr 2026 17:39:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id F0E60104500F3; 
+ Wed,  8 Apr 2026 19:39:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1775669950; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=o1r78Oe7IhroDVFua4r3F62SWxavC2jpM81v5Mz3foQ=;
+ b=JuriSJgw9+8ml1Ogw2VVzBdYD2DmSJIGpR4sQs5SbqIAJTjKGCJhxw6uOoEhQXtN+Bz4l5
+ N+cizsNqX4Div0NMZPHQYwPbGdkHUj90rtPc6poxq7/Z6519e7hDBPzii/4mSFyyga1x8Y
+ KfBfE5R9S52FLbiJIypjTjiOljb6S/SMvhOrMcdua7qfzK7LNtyA13LnOBIxCmeQfMLynY
+ moVbo2sSvGrsuhNs9LhAU9G4PbI1ZP/nwYXpNQDfLc/gFzxUcLcY/0h7vCVh+L5O+tVRjp
+ g5xDgxfWGtPyGQOu2I2VI69EXsprVy0Oqk+502RRH6VpRUkcDVk5jsQoWi4fag==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 08 Apr 2026 19:39:03 +0200
+Message-Id: <DHNYGMWPQWLM.3OBWO5G9NPWK5@bootlin.com>
+Subject: Re: [PATCH v4 1/4] drm: renesas: rz-du: rzg2l_du_encoder: convert
+ to of_drm_find_and_get_bridge()
+Cc: "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Louis Chauvet" <louis.chauvet@bootlin.com>, "Biju Das"
+ <biju.das.jz@bp.renesas.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Anitha
+ Chrisanthus" <anitha.chrisanthus@intel.com>, "Linus Walleij"
+ <linusw@kernel.org>, "Laurent Pinchart"
+ <laurent.pinchart+renesas@ideasonboard.com>, "Tomi Valkeinen"
+ <tomi.valkeinen+renesas@ideasonboard.com>, "Kieran Bingham"
+ <kieran.bingham+renesas@ideasonboard.com>, "Geert Uytterhoeven"
+ <geert+renesas@glider.be>, "Magnus Damm" <magnus.damm@gmail.com>, "Tomi
+ Valkeinen" <tomi.valkeinen@ideasonboard.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-0-421781c8c061@bootlin.com>
+ <20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-1-421781c8c061@bootlin.com>
+ <a3c30888-9818-4355-9d09-5398172cd698@bootlin.com>
+In-Reply-To: <a3c30888-9818-4355-9d09-5398172cd698@bootlin.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,45 +78,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Louis,
 
---WQm+T1p8jBQqMjN4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Wed Apr 8, 2026 at 5:44 PM CEST, Louis Chauvet wrote:
 
-On Fri, Mar 20, 2026 at 04:39:02PM +0100, Boris Brezillon wrote:
-> Mark Brown <broonie@kernel.org> wrote:
+>> @@ -83,10 +83,21 @@ int rzg2l_du_encoder_init(struct rzg2l_du_device  *r=
+cdu,
+>>
+>>   		bridge =3D devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
+>>   							 DRM_MODE_CONNECTOR_DPI);
+>> -		if (IS_ERR(bridge))
+>> -			return PTR_ERR(bridge);
+>> +		if (IS_ERR(bridge)) {
+>> +			// Inhibit the cleanup action on an ERR_PTR
+>> +			ret =3D PTR_ERR(bridge);
+>> +			bridge =3D NULL;
+>> +			return ret;
+>> +		}
+>
+> Can't you use
+> https://elixir.bootlin.com/linux/v6.19.11/source/include/linux/cleanup.h#=
+L230?
+>
+> return PTR_ERR(no_free_ptr(bridge));
 
-> > I fixed it up (see below) and can carry the fix as necessary. This
-> > is now fixed as far as linux-next is concerned, but any non trivial
-> > conflicts should be mentioned to your upstream maintainer when your tree
-> > is submitted for merging.  You may also want to consider cooperating
-> > with the maintainer of the conflicting tree to minimise any particularly
-> > complex conflicts.
+Ah, nice cleanup indeed! However, being this patch already reviewed ans
+tested, I'll postpone this cleanup to a later series.
 
-> I have a slightly different conflict resolution (it's the one we currently
-> have in drm-tip[1]).
+> With or without this modification:
+>
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
-> [1]https://gitlab.freedesktop.org/drm/tip
+Thanks!
 
-Sorry, this got buried and won't be relevant any more - for future
-reference if you could send an incremental patch on top of the merge
-that was there that is much easier for me to ingest.  Merges are
-remembered with git rerere and then fixed up with patches on top of that
-if needed.
+Luca
 
---WQm+T1p8jBQqMjN4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnWj6sACgkQJNaLcl1U
-h9B8Ugf/W/NswsqRYP/fIpPyS0ZHEnIyiBZeuqT/CPQ2wdGeRmHYlNQZyTFhIt5U
-1VDOlPt9HiU7YKOd2zYHn/98sVctneh35/UOBS9csLxWZc8W5v7/yMuSoVXlYMuC
-i1zZPC/BsfFIELwCMbEZ/CE/sJsfOkQknYmKmF9B7xdDv1mbMgvzrjlbr4tdvNSF
-yMWlv4WmiF+honLQ37uNsEpYbYZ7mVAqgJwTtjP5/RO6RtQPBlEc1x2qrE0f4zWV
-k6GuPEAWI5DRRVBcO/k6seEJrzB/WO8aqA23SkbcFEj1Q2zR7NLkBueRJwqPw9uy
-nX1yxlCYcTrQtKIE084kPldmYpBWiQ==
-=TMGS
------END PGP SIGNATURE-----
-
---WQm+T1p8jBQqMjN4--
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
