@@ -4,161 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C23B7105D996
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 03:00:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27999FD5F6E
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 05:14:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6AA10E506;
-	Wed,  8 Apr 2026 03:00:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82F6610E028;
+	Wed,  8 Apr 2026 05:14:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="gBbnCgFJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ort4Dwwd";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013030.outbound.protection.outlook.com
- [40.107.162.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85C1910E506
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 03:00:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a441UnrxhMag2u2Hovm1AFjyDZrcmiVGLkFcOvp5feAOy3mKomI6cEl51gJyumNg26B12/625jGj8JtnOj9rXEcoq7PUrhoristaFSyqitkdzngzGibCdgmLcE3lxUS0p/q6lI6UZ67KhRdp/Lv+MO+DDB6vEii2/50psMgWE90yFUWIRM1G7leG0l5dKhJP8TjoCcRMeVGZL8OHRVvMPnGzE1K1+NIAZEawHLCkOUmMmTen+wItvfapMv2WQw0yYNPjYxJMx/C+N43zXoMKabbyhuDTVSQEwKcdnvQbLZ0Y8tpI1Tu7xHwkqXOvnftjgZe6iAcvDjTErNH7OpuIvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ES/XsuOVIuselhNviVnNDEN11iMyuR8LMgvecTY0/sc=;
- b=xkewWaNySHaBYAwWukcRBcwgcGQ53ga0hpJm8J73QzdrPruN+gGSvSJrXYaYCh5kvzuEZ8V3zyeVk8+swWmhCOxjgQgtlCTUOn/QVJDc9gkDH5jYwVkJHSi+B4fSgvQqvLiPrgTtrRx/uWsPZcOulJ5QkySnnvg634QQHEH5Dzh93nOGpbaMNkndqmMShTdASmQs6mvxXOr0F1kCkGd4fwiOvi6RhPKbzhy1gnvWhFqW30ncdTJG+neEOILE3MG93wm/6CTDACQM6snEywxqZD4hHXiJUCzZzA0Kt71y7TW7DmVxrjN8HR4DkXkgH+vqdBLwj701Yu1yehzgsLHGdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ES/XsuOVIuselhNviVnNDEN11iMyuR8LMgvecTY0/sc=;
- b=gBbnCgFJ8PMgP1TOi13AE+8VlshNCLOujf+YkMv+4Va/p1hGaLSiu1nLb7Qbom9Ap31rXw1PEEjub5cDP9zK9LY3zbI4fQ6vGeW0GpD5KVH9gb5sKQwkit43TRUurBIJ3EeHGG9Ik9o/e1D8xJnNPc0KMqeaQ6lRiuPYRtIdhr6vpiOW8DyU/ZJvPY/R9iiG8Sdaptp/C1dBFwZkXhDxTsJX5XAPadiXu7zetz5WKe7Y+IpLGU9WERrRHtnwBDz7awI6LTO1MWfrnRJ30pST9uT3KLhHQC1YHCgOf6AlYIOJvAuSloNF39EmaswnWaKeuX8QX/KDqY1pJxFX5SCuHg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com (2603:10a6:20b:113::22)
- by DB9PR04MB9356.eurprd04.prod.outlook.com (2603:10a6:10:36a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
- 2026 03:00:23 +0000
-Received: from AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64]) by AM7PR04MB7046.eurprd04.prod.outlook.com
- ([fe80::4609:64af:8a4b:fd64%3]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 03:00:23 +0000
-Message-ID: <f467c021-268e-48b2-9c62-8998759c4a74@nxp.com>
-Date: Wed, 8 Apr 2026 11:01:32 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/11] drm/mxsfb/lcdif: use
- DRM_BRIDGE_ATTACH_NO_CONNECTOR and the bridge-connector
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: Damon Ding <damon.ding@rock-chips.com>,
- "Kory Maincent (TI.com)" <kory.maincent@bootlin.com>,
- =?UTF-8?Q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>,
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Adam Ford <aford173@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Christopher Obbard <christopher.obbard@linaro.org>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>,
- Fabio Estevam <festevam@denx.de>,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- Frieder Schrempf <frieder.schrempf@kontron.de>,
- Gilles Talis <gilles.talis@gmail.com>,
- =?UTF-8?B?R29yYW4gUmHEkWVub3ZpxIc=?= <goran.radni@gmail.com>,
- Heiko Schocher <hs@denx.de>, Josua Mayer <josua@solid-run.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Marco Felsch <m.felsch@pengutronix.de>,
- Martyn Welch <martyn.welch@collabora.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
- Richard Hu <richard.hu@technexion.com>, Shengjiu Wang
- <shengjiu.wang@nxp.com>,
- Stefan Eichenberger <stefan.eichenberger@toradex.com>,
- Vitor Soares <vitor.soares@toradex.com>
-References: <20260407-drm-lcdif-dbanc-v4-0-247a16e61ef9@bootlin.com>
- <20260407-drm-lcdif-dbanc-v4-11-247a16e61ef9@bootlin.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <20260407-drm-lcdif-dbanc-v4-11-247a16e61ef9@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0207.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b0::6) To AM7PR04MB7046.eurprd04.prod.outlook.com
- (2603:10a6:20b:113::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7046:EE_|DB9PR04MB9356:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38f673dd-1ada-43c9-ed1c-08de951afa2f
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|19092799006|22082099003|18002099003|56012099003|921020;
-X-Microsoft-Antispam-Message-Info: +o++tXAHXLF0+qvDJFGT3E8Hd84WEUiyPB01Nc9jmSOI3V6zYlCqmwAcfiYZewbQtv+6xcO7NV9iITAlGAsY5lhEK/d5b0gZPu0FXmWzfyWbhd7Bf7fQmxodGeP+z1LpeZae5uz61GwxwUgLMdjcZej7VKU6pExrLN2mZc35cm1QDl9vGWgd3KJ/tm4Wo6Zjz3Zmgm5wAVVlZxEeYEMwBTplez1Mkx6+0PW/vpMrJLkvVVlfP6c3vE632hyFrWbtNoLc4KSv67cqHEqdDAvxbq0dwjWl/vlbpCjNRcsSLyxpMUi9lczW7viMmhRT6wl0TVYvkNI0fU4k7DjWgtfq1X7oGf0w31QWu1q3aD1F/FwAnR7skaDWF+9lw7QNF8ANKew66HwXiLFtWTJYZyDv5EBPDtVmj6EBsaBIiAfM+yMqO8NuJeS+Vdk5K0JIKomfvmGUA5UxesLSw5/5+TXFCa4xSPcuTM5NtuqZsj5c6ZWaLHyUeji4+dtdz6oIcUD8T6g2M+aWDXx3HHwXZZ9lqfy5DW2UDm3Rby1k5A7QcXF4EFMoxwdRVbnBwVM6Ft5r5PjDu13XIz0A9ncZprVQ7bBs2jgi/k/xUbN2VkGeSNuaAbcirFKxi3nVhmnsomw3letEknjqNopZeg6QnVVSxq7PzQO7XjUGLJYySWqc2Tw9ftWFrcGFv1+QjoGHb8g94CJZcgdoRx1UE6SSuL74Tye0984OpMxNClhoxJXMIjmjAKwGRBx4gksogeNqcY8vaXFsea/F2YR95v1GGrz5aw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM7PR04MB7046.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(19092799006)(22082099003)(18002099003)(56012099003)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXEzTGhiaCtkaVhPdTFBdnVLdURNUXJKUXpReGczN0U2K3N3MnAvL1pJYk1r?=
- =?utf-8?B?RVpoUjM3U1FKUEdjL084ZHBOVnRxZFpqTjNWVk5oalNFWUNsSUx2SEJ3Qksx?=
- =?utf-8?B?OVRIL1NxWUl3WkplQUI5bGpIUmJnN2YrcWU3SUM5dWxTS0taMWZ0OExLVlI4?=
- =?utf-8?B?WUh0czdaTXJGZXhuSldoMUU3TkhwOEhqN0ExWVZ1Mm51ZVAxT1NsZHYvOVhN?=
- =?utf-8?B?T3ltTERBNWVmQWtDQ2V5RjNCajVXS1NZeG1pMEV3OWpvZjB6RDFkRXV5aUJk?=
- =?utf-8?B?eG11cEY1N3BiS2w0VkdVOW9FbU5kNGFmcExEekRKRXBMWWtnelQ4OVc3dXZi?=
- =?utf-8?B?VU9vQzhkOHhuV2pXdkRYWVJsRmJEaWVram03Nno4R2x2bFJLd3FWcGp3em5s?=
- =?utf-8?B?NUh3TTh3TVdObmNqdWl4Njl2WVJJb2lOajROV0doeFNTaVBvQUtsZDlxU01D?=
- =?utf-8?B?elRPMzU5bnQyL002czFCYXl2Tk9aTmY3OGVRUVV3c0hxTmVmOFFnb0kvcmZJ?=
- =?utf-8?B?Z2NHMVJTZFhjWkZiYnNHZEx3NUhYclBQb3c1c1Nua2hvWkNQb3BEUks1eVpu?=
- =?utf-8?B?L29FclVCN2U4dFBJckZDUjlMbUNBaXZqVXhDMWdjZEJaQUk1UXF0N2JmS0tx?=
- =?utf-8?B?d1RudDNVeS83UXgrajBkTC9HOE5kekVnbjJYcGVrVm90QjhCRi9BeU1nd2xi?=
- =?utf-8?B?blBaZU1Gclp2RUE4QzdKa3hlbVNubzhzSHJxWUJwMHA3ellpc1pDTnlSSlFU?=
- =?utf-8?B?bDR5K0Q2cVluMzB1U2lvcysybWQ4ZFJSNm9jWnpydFVQTVhyUGZXb1lnSWZo?=
- =?utf-8?B?Tkh4VEp4cWpkVEtHcnVWeEVtTWNIelFPYmkva2hMOEF1NUhmekFmTjdldWo4?=
- =?utf-8?B?emJGWE1XRnE3aEZvd1lPSTY5Y2wvc1VHT2cvTldJZWlVWEdZRkVxNHd0dWRB?=
- =?utf-8?B?RDVqUEtnU0V6MDA3bGlvQUlOZFN2YzkvYi9KQWdFWDR1TUcwcmZsYzh3anJN?=
- =?utf-8?B?elBtQXBwaDRXVDByMGJSZWt3WTNpcU5ZOFRqRVZTditMYkczZnFTRkRuczZL?=
- =?utf-8?B?OTQ1Tm5JWmJYTXRuRUgxN2hzYkgxamZac0R0QXFQYUZITDliU1hlajFzbDJn?=
- =?utf-8?B?ZHJwaW84amY4NnRrYXNYTUYvejdQTmFSdWorWlhHM2lvbDdYTUlHMUdwbjE0?=
- =?utf-8?B?SWpMb3ZMTzdKZFF4U21WdHZNSXRBdFZrR0ZFdlBDazVxRVY3NUtHWjludngx?=
- =?utf-8?B?MUxQclhqZUowV3hzVGNZRkNFb1NSTXUrUSs3RXZ4Q2ZIL2pRb2kwSlBHQms1?=
- =?utf-8?B?SGJQanVtcHRmTFJzVUVZVFNWYVNDajZyUGxhdlB0dWxpRzUxZkNyeWxKVVdp?=
- =?utf-8?B?UjJvMlZvMW11eEtJc2JuK1VRSk1mTTJoNExKRVgxcVZMS1VOYm51OFhLSDVk?=
- =?utf-8?B?cjBqbTVDcWdpdFJGRW1IWDBNTmcxRVdyS1hWbFBYNXlaQzFMbmg5UzgvZy9h?=
- =?utf-8?B?Q0gwNFg1d2NqcnlOaktJcGRWVitwTjcyQnltejdqMWVQcVFldTY1MkhTQVJq?=
- =?utf-8?B?UEVLbzN0T3d3d1I5TXVOenB5Umtscno0ZW5Tam5XTEJLWmRPdFZ4Mk0xSTFB?=
- =?utf-8?B?U0w3d1FyK2E1THozcW0zTkFaZWoyWFpHOS9RVHVSR1hxbmRZZkVSMk8ySmtR?=
- =?utf-8?B?ck1pR09sWjcwZmxrMVJ3QlZWOWtSYVdsQWtBZzJDMS9zazI5clFrMDBOeVpk?=
- =?utf-8?B?YkE2NllVbGhSNWkwMXZ0Y2pyUkpydXFPYnMyR0NSRkU1Mkx4VjB5NkZzb1dQ?=
- =?utf-8?B?TlUyVW1mampuUWRUMDVWenh2WStZeVlqcVEzK09lci9nWkVyblEzWkVLQ0ZN?=
- =?utf-8?B?aVQzZnVsRkw0c2hNZUg4SWE0bnVYZURGS2V6a2N6Tk95a1RWOVZnVWs3dUli?=
- =?utf-8?B?a0c4OGptTkxwSjZ2NGdlU3dMb2hHTmw4T0lGNlFlZzhENE9mck80NVRCa1JX?=
- =?utf-8?B?WmViQjlZY0k0aVhmb2J5N1B5aS8rWlJJenAxR1cyUk4vK0c1d0ZKc2VGVGxa?=
- =?utf-8?B?UlR2bWZvTXFWdmE3N21WYjF0SkExWXg2Q2JuQzRLbFRqS1NrMlgzVGdEc2ZJ?=
- =?utf-8?B?czUrUW9NSlpSV0FUbVM2T014TTdhUVorNlhPTVhPQSt3R3MvVnovRWZDNEkz?=
- =?utf-8?B?b2hiTTFyMkVOdXFsQTdpQWZBMUpDUkRGMlN1QjJZV2txb0YvVk5QQVg0QTdq?=
- =?utf-8?B?SXFBYjNVOGZYQ2FjTU80VzlaNHNUUXBwRktWL0FMWTBaUlhoZDROaEtDSUJV?=
- =?utf-8?B?RUV5NndueEVGYWdMeCtnekRXbDRsQlJFendjM2NzTDhCZktMQzVVZz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38f673dd-1ada-43c9-ed1c-08de951afa2f
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB7046.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 03:00:23.4205 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p/0WcG3xGy18HBy9MV2lPGiCrFsogps9D3AoxSQzGHqMCa70l5rLXgergckaTr0vnS6AdLBqbUWLFqsPGfAMbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9356
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E40410E028
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 05:14:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775625295; x=1807161295;
+ h=date:from:to:cc:subject:message-id;
+ bh=o57cu5zIDmikxYZ4YIPbWaC5tzT1ix4Yf3Jpx91nq0g=;
+ b=Ort4DwwdCD9S15NaEeAwq8+SM2yebkdIT/A3/K/FIeErqZ4QH/B5Twag
+ VykhASfhOpKKKElLIUTJdml0lLNL2MaO4H/SbiGFJta/J3tmc8FqeFhzL
+ b2AdF6w6rNh6EgM/xc1jLazBMt/6csSSZeyQOIIY30sCsaVJBgn9f7TBt
+ kTxiRWuTpwACAMIdM1/qcjU91m3xcgNuoSer/LeAYmHF0+4Cm21RSZrTA
+ t6Fnr8kFsqhR32CCV6WUCHG2R3PNMiZH5JehDLg2b9alT8xi5IPIT7Da2
+ R1ZQo7Aghn2nE/HBxGo5AkIVrDUP71AGMKU97Neb/YT1QLKWTKyj/UjkV g==;
+X-CSE-ConnectionGUID: ZYsRqE1JR+mqqtJvGd7g/w==
+X-CSE-MsgGUID: B6bH70OWSsWRndpZg9saew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="75636473"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="75636473"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Apr 2026 22:14:55 -0700
+X-CSE-ConnectionGUID: U2QnI/BRQXG1PDmwG5Rh5Q==
+X-CSE-MsgGUID: 4ub5Qqq8RQqUuPY4BjUsKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="228263753"
+Received: from lkp-server01.sh.intel.com (HELO d00eb8a6782a) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 07 Apr 2026 22:14:53 -0700
+Received: from kbuild by d00eb8a6782a with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wALFZ-000000001SH-44B9;
+ Wed, 08 Apr 2026 05:14:49 +0000
+Date: Wed, 08 Apr 2026 13:14:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Inki Dae <inki.dae@samsung.com>
+Subject: [daeinki-drm-exynos:exynos-drm-next 3/4]
+ drivers/gpu/drm/exynos/exynos_drm_gem.c:69:49: warning: format '%lx' expects
+ argument of type 'long unsigned int', but argument 6 has type 'size_t' {aka
+ 'unsigned int'}
+Message-ID: <202604081331.jSJQSVmg-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,20 +68,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Luca,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git exynos-drm-next
+head:   0867757f1eec0a246c70b2407a1bbed949170821
+commit: 11e898373fba6b1d27b15ab4beff592701a57293 [3/4] drm/exynos: Drop exynos_drm_gem.size field
+config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20260408/202604081331.jSJQSVmg-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260408/202604081331.jSJQSVmg-lkp@intel.com/reproduce)
 
-On Tue, Apr 07, 2026 at 02:24:25PM +0200, Luca Ceresoli wrote:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604081331.jSJQSVmg-lkp@intel.com/
 
-[...]
+All warnings (new ones prefixed by >>):
 
->    (even though only the pane-bridge is surrently supported), amd all these
+   In file included from drivers/gpu/drm/exynos/exynos_drm_gem.c:16:
+   drivers/gpu/drm/exynos/exynos_drm_gem.c: In function 'exynos_drm_alloc_buf':
+>> drivers/gpu/drm/exynos/exynos_drm_gem.c:69:49: warning: format '%lx' expects argument of type 'long unsigned int', but argument 6 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
+      69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
+         |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      70 |                         (unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
+         |                                                              ~~~~~~~~~~~~~~~~~~~~~
+         |                                                                              |
+         |                                                                              size_t {aka unsigned int}
+   include/drm/drm_print.h:563:39: note: in definition of macro 'drm_dev_dbg'
+     563 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
+         |                                       ^~~
+   drivers/gpu/drm/exynos/exynos_drm_gem.c:69:9: note: in expansion of macro 'DRM_DEV_DEBUG_KMS'
+      69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
+         |         ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/exynos/exynos_drm_gem.c:69:76: note: format string is defined here
+      69 |         DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
+         |                                                                          ~~^
+         |                                                                            |
+         |                                                                            long unsigned int
+         |                                                                          %x
+   In file included from drivers/gpu/drm/exynos/exynos_drm_gem.c:16:
+   drivers/gpu/drm/exynos/exynos_drm_gem.c: In function 'exynos_drm_free_buf':
+   drivers/gpu/drm/exynos/exynos_drm_gem.c:83:37: warning: format '%lx' expects argument of type 'long unsigned int', but argument 6 has type 'size_t' {aka 'unsigned int'} [-Wformat=]
+      83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
+         |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      84 |                         (unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
+         |                                                              ~~~~~~~~~~~~~~~~~~~~~
+         |                                                                              |
+         |                                                                              size_t {aka unsigned int}
+   include/drm/drm_print.h:563:39: note: in definition of macro 'drm_dev_dbg'
+     563 |         __drm_dev_dbg(NULL, dev, cat, fmt, ##__VA_ARGS__)
+         |                                       ^~~
+   drivers/gpu/drm/exynos/exynos_drm_gem.c:83:9: note: in expansion of macro 'DRM_DEV_DEBUG_KMS'
+      83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
+         |         ^~~~~~~~~~~~~~~~~
+   drivers/gpu/drm/exynos/exynos_drm_gem.c:83:64: note: format string is defined here
+      83 |         DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%lx), size(0x%lx)\n",
+         |                                                              ~~^
+         |                                                                |
+         |                                                                long unsigned int
+         |                                                              %x
 
-s/surrently/currently/
-s/amd/and/
 
-With these fixed:
-Reviewed-by: Liu Ying <victor.liu@nxp.com>
+vim +69 drivers/gpu/drm/exynos/exynos_drm_gem.c
+
+2043e6f6d5c5fb0 Thomas Zimmermann   2021-11-08  26  
+9940d9d93406f41 Marek Szyprowski    2020-04-23  27  static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
+2a8cb4894540898 Joonyoung Shim      2015-08-16  28  {
+813fd67b57ffca0 Joonyoung Shim      2015-10-02  29  	struct drm_device *dev = exynos_gem->base.dev;
+9940d9d93406f41 Marek Szyprowski    2020-04-23  30  	unsigned long attr = 0;
+2a8cb4894540898 Joonyoung Shim      2015-08-16  31  
+813fd67b57ffca0 Joonyoung Shim      2015-10-02  32  	if (exynos_gem->dma_addr) {
+e457a1a9585b941 Chen-Yu Tsai        2026-03-26  33  		DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "already allocated.\n");
+2a8cb4894540898 Joonyoung Shim      2015-08-16  34  		return 0;
+2a8cb4894540898 Joonyoung Shim      2015-08-16  35  	}
+2a8cb4894540898 Joonyoung Shim      2015-08-16  36  
+2a8cb4894540898 Joonyoung Shim      2015-08-16  37  	/*
+2a8cb4894540898 Joonyoung Shim      2015-08-16  38  	 * if EXYNOS_BO_CONTIG, fully physically contiguous memory
+2a8cb4894540898 Joonyoung Shim      2015-08-16  39  	 * region will be allocated else physically contiguous
+2a8cb4894540898 Joonyoung Shim      2015-08-16  40  	 * as possible.
+2a8cb4894540898 Joonyoung Shim      2015-08-16  41  	 */
+813fd67b57ffca0 Joonyoung Shim      2015-10-02  42  	if (!(exynos_gem->flags & EXYNOS_BO_NONCONTIG))
+9940d9d93406f41 Marek Szyprowski    2020-04-23  43  		attr |= DMA_ATTR_FORCE_CONTIGUOUS;
+2a8cb4894540898 Joonyoung Shim      2015-08-16  44  
+2a8cb4894540898 Joonyoung Shim      2015-08-16  45  	/*
+2a8cb4894540898 Joonyoung Shim      2015-08-16  46  	 * if EXYNOS_BO_WC or EXYNOS_BO_NONCACHABLE, writecombine mapping
+2a8cb4894540898 Joonyoung Shim      2015-08-16  47  	 * else cachable mapping.
+2a8cb4894540898 Joonyoung Shim      2015-08-16  48  	 */
+813fd67b57ffca0 Joonyoung Shim      2015-10-02  49  	if (exynos_gem->flags & EXYNOS_BO_WC ||
+813fd67b57ffca0 Joonyoung Shim      2015-10-02  50  			!(exynos_gem->flags & EXYNOS_BO_CACHABLE))
+9940d9d93406f41 Marek Szyprowski    2020-04-23  51  		attr |= DMA_ATTR_WRITE_COMBINE;
+2a8cb4894540898 Joonyoung Shim      2015-08-16  52  
+9940d9d93406f41 Marek Szyprowski    2020-04-23  53  	/* FBDev emulation requires kernel mapping */
+9940d9d93406f41 Marek Szyprowski    2020-04-23  54  	if (!kvmap)
+9940d9d93406f41 Marek Szyprowski    2020-04-23  55  		attr |= DMA_ATTR_NO_KERNEL_MAPPING;
+2a8cb4894540898 Joonyoung Shim      2015-08-16  56  
+9940d9d93406f41 Marek Szyprowski    2020-04-23  57  	exynos_gem->dma_attrs = attr;
+11e898373fba6b1 Chen-Yu Tsai        2026-03-26  58  	exynos_gem->cookie = dma_alloc_attrs(drm_dev_dma_dev(dev), exynos_gem->base.size,
+813fd67b57ffca0 Joonyoung Shim      2015-10-02  59  					     &exynos_gem->dma_addr, GFP_KERNEL,
+00085f1efa387a8 Krzysztof Kozlowski 2016-08-03  60  					     exynos_gem->dma_attrs);
+813fd67b57ffca0 Joonyoung Shim      2015-10-02  61  	if (!exynos_gem->cookie) {
+e457a1a9585b941 Chen-Yu Tsai        2026-03-26  62  		DRM_DEV_ERROR(drm_dev_dma_dev(dev), "failed to allocate buffer.\n");
+9940d9d93406f41 Marek Szyprowski    2020-04-23  63  		return -ENOMEM;
+2a8cb4894540898 Joonyoung Shim      2015-08-16  64  	}
+2a8cb4894540898 Joonyoung Shim      2015-08-16  65  
+9940d9d93406f41 Marek Szyprowski    2020-04-23  66  	if (kvmap)
+9940d9d93406f41 Marek Szyprowski    2020-04-23  67  		exynos_gem->kvaddr = exynos_gem->cookie;
+df547bf7735a623 Marek Szyprowski    2015-10-13  68  
+e457a1a9585b941 Chen-Yu Tsai        2026-03-26 @69  	DRM_DEV_DEBUG_KMS(drm_dev_dma_dev(dev), "dma_addr(0x%lx), size(0x%lx)\n",
+11e898373fba6b1 Chen-Yu Tsai        2026-03-26  70  			(unsigned long)exynos_gem->dma_addr, exynos_gem->base.size);
+2a8cb4894540898 Joonyoung Shim      2015-08-16  71  	return 0;
+2a8cb4894540898 Joonyoung Shim      2015-08-16  72  }
+2a8cb4894540898 Joonyoung Shim      2015-08-16  73  
+
+:::::: The code at line 69 was first introduced by commit
+:::::: e457a1a9585b941e2aa771142b63c951f6a3d54e drm/exynos: Use DRM core dedicated DMA device tracking facility
+
+:::::: TO: Chen-Yu Tsai <wenst@chromium.org>
+:::::: CC: Inki Dae <inki.dae@samsung.com>
 
 -- 
-Regards,
-Liu Ying
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
