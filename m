@@ -4,102 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF4E1073C8B
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B61FD5F79
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:33:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 894F910E603;
-	Wed,  8 Apr 2026 10:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD84110E0D7;
+	Wed,  8 Apr 2026 10:33:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lXBPViHR";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="v0dGvejY";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010000.outbound.protection.outlook.com [52.101.56.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 790D110E5FB;
- Wed,  8 Apr 2026 10:07:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ccyKjYNEyekD7nK7ipFJlUs4/F/1kHv7PxW2IMY29vM8S4wZ1WlVghmvKp6D/HFjMjvPUCOEBeBzd/hBtp09kK5hF7x6DR7AJJhitjML32cvxqwQZddXpjMNlOVY75iv87hCdBPzyCuWxiYY6C/RI1OgWh+0jEelXocvoMnci3D4iiE5iWJ6YyOJxng4SoNvUBbrcGL+3qJb+MiNb1OvAAVNAPFOco5OiNBIXFj5L9jP7yHyGHyY1Ud+nB/ALTmtEd4Bt0QXzRodEcbnTtG8vXfXJpprZ+YCFWw53u4utTtdR1qsI2p3arB8U9WG+rormIy5WNxOFrgk1HuCX1hhtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=02sbvyGOWphVk448LzlzXSbn4NroMpjCBhgZX8Z3CYU=;
- b=D6Ox6zfnGgfI8EvM5Zk684Je0gX8+lGzp8yKX8niFgyFVV2zu43HrOG0pVUUk864SBpEg0tLlq28MBi1BD1ktVMJki3bhjjYRs2v722q6icdE80lMy5dyGijo/WzEfz5hi+U9xV3DBy38opSSbEzOpbh3uSBGX88k/Lb+tvUMnA7iH5YIas2zNGhd54yaqLpADXGeMUUs2FlYuJKOKypWUK3FRVJPfmLaLT7fy4zUr4OlC+PCfAPL9xQD1kvdIELbC22TxW5Md6mHbigNz8x3OseLacu/vaEm/mdefHrHOmya7WEROjy1501e1oX7zhvzjkIp66NUIFBNhxb7uYt2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=02sbvyGOWphVk448LzlzXSbn4NroMpjCBhgZX8Z3CYU=;
- b=lXBPViHR6LHJUaDFoM2cTsDrWXdv5+8FG12rDJhIdlT3MdDGL/MXBXQmDSCYjjGGdduTwP+4S8m2cEH8tXAI4zas3ttNS574KmqtZbdLQgaU/S5k3FieF4msoPfd4Xze6XjLfjmQtJ3WXrz1A43BAVHiaEP/4I77Ep2BgGub9BA=
-Received: from PH7PR17CA0060.namprd17.prod.outlook.com (2603:10b6:510:325::24)
- by DS5PPFBABE93B01.namprd12.prod.outlook.com (2603:10b6:f:fc00::65f)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 8 Apr
- 2026 10:07:36 +0000
-Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
- (2603:10b6:510:325:cafe::35) by PH7PR17CA0060.outlook.office365.com
- (2603:10b6:510:325::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.32 via Frontend Transport; Wed,
- 8 Apr 2026 10:07:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 10:07:35 +0000
-Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 8 Apr 2026 05:07:34 -0500
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH v6 8/8] drm/amdgpu: use DRM_SCHED_PRIORITY_KERNEL for all ttm
- entities
-Date: Wed, 8 Apr 2026 12:03:19 +0200
-Message-ID: <20260408100327.1372-8-pierre-eric.pelloux-prayer@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260408100327.1372-1-pierre-eric.pelloux-prayer@amd.com>
-References: <20260408100327.1372-1-pierre-eric.pelloux-prayer@amd.com>
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D05D10E0D7
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 10:33:28 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6385eBuw2995154; Wed, 8 Apr 2026 11:33:03 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=Y
+ RbIUfy7PDUjzpSHaVbdZAuNWadSqt0BWYZ64+s6FzA=; b=v0dGvejY1qOLi4OWX
+ cSd8OYKCKN5epd3EIE+jSol+If6RExyox0ntJaT9DgWfxFpfbmvKfk73L/bQDNKf
+ sA48anNK2CaLzgXR4Z8XUDeALOEw08iIXfNMBL/oYWQyu+dkbQYRh2MSAth1z27d
+ IESyxiozXQeKIombfglswcVgXVCnwmg7YviHcMUw2//n0S+qwLaWreQ1Y55xpOdO
+ ceUMNds3TrKZN3Q3dB7Km9G8gR0OIBeNpn8l/4xyf7QvIK69hH97jiApPibjuhAI
+ oMlV0FcUPmFVA9rzRIsLnnAQXcRL9ef9FSf3xAYR3b+Y4i0v3kkYY9HPINzOHrjU
+ H2jpQ==
+Received: from hhmail02.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4dd4s2gs5a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 08 Apr 2026 11:33:03 +0100 (BST)
+Received: from HHMAIL03.hh.imgtec.org (10.44.0.121) by HHMAIL02.hh.imgtec.org
+ (10.100.10.20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 8 Apr
+ 2026 11:33:02 +0100
+Received: from
+ 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
+ (172.25.4.178) by HHMAIL03.hh.imgtec.org (10.44.0.121) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 8 Apr 2026 11:33:02 +0100
+From: Matt Coster <matt.coster@imgtec.com>
+To: Frank Binns <frank.binns@imgtec.com>, Brajesh Gupta
+ <brajesh.gupta@imgtec.com>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alessio Belle <alessio.belle@imgtec.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+ <stable@vger.kernel.org>
+In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
+References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
+Subject: Re: [PATCH 0/8] drm/imagination: Job submission fixes and cleanup
+Message-ID: <177564438213.82099.271553295476946768.b4-ty@b4>
+Date: Wed, 8 Apr 2026 11:33:02 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|DS5PPFBABE93B01:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68012261-02f0-4ccf-e701-08de9556a86c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Ytsck3Dci8jkP5BGVcWN52ZX4Qx/ZMB9QwpAG0wpyjBYJjSviF+bAQN10kr73OHkMWFSK601MYAxOpSZY2D2YsJZoHHFS+tO+vA8JQVmYBooaZaXhe6FqReiv5TZVBm0wqJ1E49ihH1PsBoi7kCDyLQD9zisHpP79OR75GFo0oeKno0HydYcUr5KEBtyTEahvHUOHQXiBFF1LHpXuAOngDlVzoXdUNQxBpTQ/upx0oihNkzujAXndZp9SNIS8TOPM/yxsNOV7g1qJugobbf/z4cOWyLexvc0o8YsVVxaxjILtRtKUohBHKnHoaB1MqTNbMb4c1554RLhISKEwLaPpAFBSR77qBpQpOheYQkToYDGIXtjHOQzHhqcZeSyFNwh8qRj7AoK2lVvXUA6lQsPMQouhhinl0HcTrV7q772hz7FkV+wPCzycdNc4sv61RztwPPTsuyEdizF0bEgwVmvyQPyZmOXh5oQe1Cc9MhIoeUCllMWQD4NFRcfyLHgbVS1I9GgIdd+9rnr/p4WnMcb4g/YVgaUXKgK9IKc4vLtzVfwsLwpxFrgzvkeOD77mL7nnINZ7onQh50T/nXOtUwrqZorpuTjUB1nYJcsJRraJu9XwYOl1o3I7ZHSPRjEU30ZJFsNx1lWzKgykIXr8/XLM6OhAPtq0jc2QsjtBG8pk7KaNeXSLZ7iHn/YTMOuGB1yGz+B1QPP1MujmhDz473wCFvF6+63BfvHa9bb1HtaLDXzATnYD2vYitnrDGbeiDOh2C2bDDW6vXOgRwjMt96mQw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3ok2M2xoM05Khi1oJgWFWh13yiESdQpobSN75/3QOC7E4gu1/u14ewXWiQBsT6KtgZYQAtLs9BhR3s3ZFcSQQA4LhjVgp/9MSN3tUyVCeaNRMmuANhzHfq1uWb2FoZKioHfGvmeH1YNuZPyEUFMIK1gCjjW8ae0zs+DL/jvC1DJ79tRQXOkC34N1rSs8x9t2+GPD75CG3NTLRfY2p26IeEJ6u2u1nIe+okmhAkEbUsSR07uixiXcT0q/GEBLU1ONAzNiybezaxPjAyzl8SyY6VuVKJc4xTjFrvlQCrpAl7iNYsZkAdBcSeMpxSRVnS2grmKJfD619YxXJYqL2flA+2Fq7xjpdgGoKywyIkg1L/JOHmSqIZm62iLNFcppWJsrvGC6ffiUXrnheh1p6lYuHAM7O0rS3cZohWsaY2BPjbfHpYzMA4Y/3lFBClCPNt5Q
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:07:35.7769 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68012261-02f0-4ccf-e701-08de9556a86c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFBABE93B01
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.1
+X-Originating-IP: [172.25.4.178]
+X-Proofpoint-GUID: _TMcyOQ8vC78jZMMA64wGo11iNMJ4oFu
+X-Authority-Analysis: v=2.4 cv=cL/QdFeN c=1 sm=1 tr=0 ts=69d62edf cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=vO48zYV2LvQA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=TDz46OUBVoeO_pJfSP8A:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-ORIG-GUID: _TMcyOQ8vC78jZMMA64wGo11iNMJ4oFu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA5NyBTYWx0ZWRfX/eQQBFVBZg2E
+ Ol7j9k4HU3URWdMzOVwSOImzIkGBeYxlGqzExnLAasSyRg/51K4G5pLUuiuri0pu1HpawO4x1KI
+ G+P+zkm9OAwZwpYAGtSi78AT9wmrPRrMjLQQRE9lMi3wYAUcJToHanw0t8vduYtwfso9mvHULNu
+ m5HjA9ISZkKQKT2hKV9reG8Fl2jRI64qTa2EUWqEDqTZDIBLUj4edSfev+lEzljuBTe0MwXLi2z
+ gmYxh1NhVdu1n0GqodK176OBD8IFLEGsczmNJPDngu2ZhFwrk3oQvrkfWk6optu263lnp3KVQt6
+ aMAjI5ktnBDJdDHXSyxg1FZAV/NpgrRhcr8WWNSOXXi9TdVPqsSJvmUkuYEfXQdZLbqbGDvxB2I
+ W7zpm1oxzvLI1oJ40oh3NoQ/IPFyZ0lo9DMxPoc7Nik6NIMUVbdoqPyfuK5nz+C0CeC/Ik9f3Hp
+ MpRDyJ38fg6uOCpHtxA==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,35 +97,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm jobs must have higher priority than any userspace jobs.
 
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Mon, 30 Mar 2026 08:56:35 +0100, Alessio Belle wrote:
+> The first two commits fix rare bugs and should be backported to stable
+> branches.
+> 
+> The rest is an attempt to cleanup and document the code to make it
+> a bit easier to understand.
+> 
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 000f66452b10..1f9423556ab3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2378,7 +2378,7 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
- 		r = amdgpu_ttm_buffer_entity_init(
- 			&adev->mman.gtt_mgr,
- 			&adev->mman.clear_entities[i],
--			DRM_SCHED_PRIORITY_NORMAL,
-+			DRM_SCHED_PRIORITY_KERNEL,
- 			adev->mman.buffer_funcs_scheds,
- 			adev->mman.num_buffer_funcs_scheds, 1);
- 
-@@ -2398,7 +2398,7 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
- 		r = amdgpu_ttm_buffer_entity_init(
- 			&adev->mman.gtt_mgr,
- 			&adev->mman.move_entities[i],
--			DRM_SCHED_PRIORITY_NORMAL,
-+			DRM_SCHED_PRIORITY_KERNEL,
- 			adev->mman.buffer_funcs_scheds,
- 			adev->mman.num_buffer_funcs_scheds, 2);
- 
+Applied, thanks!
+
+[1/8] drm/imagination: Count paired job fence as dependency in prepare_job()
+      commit: 9cd74f935306cd857f46686975c43383e1d95f94
+[2/8] drm/imagination: Fit paired fragment job in the correct CCCB
+      commit: 4baf9e70cb756d78dd56419f8baee2978a72d0c3
+[3/8] drm/imagination: Skip check on paired job fence during job submission
+      commit: 18998b3cb7595850b8b2da55adb3fdc7aef8bc22
+[4/8] drm/imagination: Rename pvr_queue_fence_is_ufo_backed() to reflect usage
+      commit: c162e655092de8de2e0f7776d72919dd5e3b84f2
+[5/8] drm/imagination: Rename fence returned by pvr_queue_job_arm()
+      commit: 5dae1a21f1e7128a19c68212422383f700699d01
+[6/8] drm/imagination: Move repeated job fence check to its own function
+      commit: 402562e60c6c1b15ee359ba7ffed907baa886a99
+[7/8] drm/imagination: Update check to skip prepare_job() for fragment jobs
+      commit: 5c81eb2970133ad073214eb1e5b0c34a1ae793eb
+[8/8] drm/imagination: Minor improvements to job submission code documentation
+      commit: 62a36c2da774800bef893bc4bf8922fb9c07c1d0
+
+Best regards,
 -- 
-2.43.0
+Matt Coster <matt.coster@imgtec.com>
 
