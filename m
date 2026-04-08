@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF07AFD5F75
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 05:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EA1FFD5F61
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 05:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDE210E09A;
-	Wed,  8 Apr 2026 05:32:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7253D10E31A;
+	Wed,  8 Apr 2026 05:32:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NEzML/5c";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OuWnYgOT";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC8410E31A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F5ED10E02A
  for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 05:32:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 012DE419AB;
+ by sea.source.kernel.org (Postfix) with ESMTP id 1CF3344563;
  Wed,  8 Apr 2026 05:32:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC057C19424;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EC9D8C4AF0C;
  Wed,  8 Apr 2026 05:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775626365;
- bh=4uTI8UOVIZulietJSjNMsqfC3JUpA5rfcPQ0Qg4tPps=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=NEzML/5chum846fuX+qntTd9jwvTsgHPI7f16MRfmcszdYoudWA6U7disgOLtsULw
- FaLHyZSZBZyVTbSFJyjp+Weq7tzAeR7Gt2RbMUl/aYJQSgnAE79mxflZCWi5Yp6via
- dOaQDyL/5Nlot4r0nEqzvqoKG8UPP33o+ZLGl20Gxq88x82K0IiF0jRMTemUgjvert
- 0fm+id2Q4Bq7R2qqQVIDB+O7a5fcJUvq3muq5EXbR/2lamEp7HrmM+HDVs8EnV8tO5
- FflKBXmgUjkEv8pNHEEREggTnEK0DPkr+CMDecE42pRG67uh1bLu/iRlHx28UZK2bo
- CkfCLjYR7Wpkw==
+ s=k20201202; t=1775626366;
+ bh=rIJJnO/TQFCbXkc8ukdRNBH+j2+Pa0+JkbY7sTXNJoQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=OuWnYgOTx4vcHFzFgk+7apbgs1OrbL/fkrcTLOgaaBJXD+nwJIXreUJxRafRaMhRI
+ ZLNVBSGiovt8Y9drgOYl+EFXr76SIx+UrWW+FiM2jYSsoGG7QzU5oPSey4BK77lBXU
+ RJhGFSskbXYrYg2tp3NuaXEwniubHjUANNUqx+E+BsMCmxKdjtveiY2tQlXbZ9DEXD
+ zQzg0lHWK+g67jumfOjZ1p2Rt/TDMIPJpxmzanO2+1zJts/0hFfdEgIbqRpgjO6EpM
+ Rn+yq1Um8Jj720tms2O1MciOzt5RVJkADF+3UfeTT8wRoSPJd8oH1d3gLOa3ywi2Rk
+ MtXiAaHXBYZKg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B6B28FD5F6C;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id DDD2DFD5F6E;
  Wed,  8 Apr 2026 05:32:45 +0000 (UTC)
 From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Subject: [PATCH v4 0/2] drm/panel: Add panel driver for ChipWealth CH13726A
+Date: Wed, 08 Apr 2026 00:32:40 -0500
+Subject: [PATCH v4 2/2] drm/panel: Add panel driver for ChipWealth CH13726A
  based panels
-Date: Wed, 08 Apr 2026 00:32:38 -0500
-Message-Id: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12PSW6EMBBFr4K8jiO7jAdY5R5RFh7KjaUA3Zigt
- FrcPW6IBMnyl+r94UEyTgkzaasHmXBJOY1DEfVLRXxnhwvSFIomwEAxAEZ9x4UGZalsvFLaBCm
- CIeX9OmFM35vV+8euJ7x9Fcd5PxJnM1I/9n2a20obGRk6iEYG9A615xgbiw1AI3hkvKlj9IDk3
- KSt9h5cU3sf6M1nIyWjXHmmnRIBQbVLTZ7xXcrzON23YQvf8n83wLFh4ZRRlIwHbZAzad8uvU2
- fr6XkZrLAAYoSeoBQQDDW1sr5oAL7D4oTCOIEimciGKdioyOaP+C6rj9lFhIKkQEAAA==
-X-Change-ID: 20260220-ch13726a-59c6678d53d8
+Message-Id: <20260408-ch13726a-v4-2-9bb1a9b8f329@gmail.com>
+References: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
+In-Reply-To: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -59,11 +55,11 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>, 
  Aaron Kling <webgeek1234@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1775626365; l=2276;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1775626365; l=11367;
  i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=4uTI8UOVIZulietJSjNMsqfC3JUpA5rfcPQ0Qg4tPps=;
- b=fypg7sL9xsw9TCAotM+pnsUwQi2ksnpfSOlqOOQnKCYWQURQvG54FKk1DsVo4BFMn/mWZcTkY
- AwOyQYYdgmwChfKQn1Nsm+1sT9GktG3XijGddUhDq5EFd5+/W85wQ56
+ bh=edAL6zcY6lHNMUHRy2PSWxaDofjVJPxBf795F9aCGcg=;
+ b=x10Vnm31zmzM9tXufYWNrhrx6DvCd3HsPFM1fLB6ias/s6MoVVoULFdqlqsPqB7bm+2pmLZgq
+ egedPtv1tAdDwfcidiFVrxAuJ5eygxM2/DVFTXpTjRKWzSnySCKGCyy
 X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
  pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
 X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
@@ -85,58 +81,400 @@ Reply-To: webgeek1234@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This driver is based on the one by Teguh Sobirin [0], cut down to only
-support the AYN Thor bottom panel.
+From: Teguh Sobirin <teguh@sobir.in>
 
-Due to [1], the AYN vendor description patch has been folded into the
-AYN QCS8550 dt series. Which means this series now depends on said
-series and it must be picked up before this.
+This is used by the AYN Thor for the bottom panel.
 
-[0] https://github.com/AYNTechnologies/linux/commit/d0ff75b09e66023c5f88992706dee4601aa7a437
-[1] https://lore.kernel.org/linux-arm-msm/c7fb3f89-6574-4761-9ef2-2fdf6d4801b5@kernel.org
-
+Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
 Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
 ---
-Changes in v4:
-- Add fallback compatible to bindings doc in patch 1
-- Link to v3: https://lore.kernel.org/r/20260323-ch13726a-v3-0-e28b6f97fe80@gmail.com
+ drivers/gpu/drm/panel/Kconfig                     |  11 +
+ drivers/gpu/drm/panel/Makefile                    |   1 +
+ drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 339 ++++++++++++++++++++++
+ 3 files changed, 351 insertions(+)
 
-Changes in v3:
-- Reword patch 1 commit message for clarity
-- Order properties properly in patch 1
-- Track vendor description dependency series change
-- Link to v2: https://lore.kernel.org/r/20260317-ch13726a-v2-0-28aa46bcd6d0@gmail.com
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index d6863b28ddc559..e2c00f08f4507d 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+ 	  Say Y here if you want to support for BOE TV101WUM-LL2
+ 	  WUXGA PANEL DSI Video Mode panel
+ 
++config DRM_PANEL_CHIPWEALTH_CH13726A
++	tristate "CHIPWEALTH CH13726A-based DSI panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_HELPER
++	help
++	  Say Y here if you want to enable support for ChipWealth
++	  CH13726A-based display panels.
++
+ config DRM_PANEL_EBBG_FT8719
+ 	tristate "EBBG FT8719 panel driver"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index a4291dc3905bed..343d283d1620fb 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) += panel-boe-td4320.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) += panel-boe-th101mb31ig002-28a.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) += panel-boe-tv101wum-ll2.o
+ obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) += panel-boe-tv101wum-nl6.o
++obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) += panel-chipwealth-ch13726a.o
+ obj-$(CONFIG_DRM_PANEL_DSI_CM) += panel-dsi-cm.o
+ obj-$(CONFIG_DRM_PANEL_LVDS) += panel-lvds.o
+ obj-$(CONFIG_DRM_PANEL_SIMPLE) += panel-simple.o
+diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+new file mode 100644
+index 00000000000000..48a5e20e07c487
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+@@ -0,0 +1,339 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * ChipWealth CH13726A MIPI-DSI panel driver
++ * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regulator/consumer.h>
++
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++
++#include <video/mipi_display.h>
++
++struct ch13726a_panel {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	struct regulator_bulk_data supplies[4];
++	struct gpio_desc *reset_gpio;
++	struct ch13726a_desc *desc;
++	enum drm_panel_orientation orientation;
++	bool prepared;
++};
++
++struct ch13726a_desc {
++	unsigned int width_mm;
++	unsigned int height_mm;
++	unsigned int bpc;
++
++	const struct drm_display_mode *modes;
++	unsigned int num_modes;
++};
++
++static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_panel *panel)
++{
++	return container_of(panel, struct ch13726a_panel, panel);
++}
++
++static void ch13726a_reset(struct ch13726a_panel *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 11000);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(10000, 11000);
++}
++
++static int ch13726a_on(struct ch13726a_panel *ctx)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
++	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int ch13726a_disable(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++
++	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 50);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int ch13726a_prepare(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++	struct device *dev = &ctx->dsi->dev;
++	int ret;
++
++	if (ctx->prepared)
++		return 0;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++	if (ret < 0) {
++		dev_err(dev, "Failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	ch13726a_reset(ctx);
++
++	ret = ch13726a_on(ctx);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++		regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++		return ret;
++	}
++
++	msleep(28);
++
++	ctx->prepared = true;
++
++	return 0;
++}
++
++static int ch13726a_unprepare(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	if (!ctx->prepared)
++		return 0;
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
++
++	ctx->prepared = false;
++	return 0;
++}
++
++static const struct drm_display_mode thor_bottom_modes[] = {
++	{
++		/* 120Hz */
++		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 28,
++		.hsync_end = 1080 + 28 + 4,
++		.htotal = 1080 + 28 + 4 + 36,
++		.vdisplay = 1240,
++		.vsync_start = 1240 + 16,
++		.vsync_end = 1240 + 16 + 4,
++		.vtotal = 1240 + 16 + 4 + 8,
++	},
++	{
++		/* 60Hz */
++		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 60 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 28,
++		.hsync_end = 1080 + 28 + 4,
++		.htotal = 1080 + 28 + 4 + 36,
++		.vdisplay = 1240,
++		.vsync_start = 1240 + 16,
++		.vsync_end = 1240 + 16 + 4,
++		.vtotal = 1240 + 16 + 4 + 8,
++	}
++};
++
++static struct ch13726a_desc thor_bottom_desc = {
++	.modes = thor_bottom_modes,
++	.num_modes = ARRAY_SIZE(thor_bottom_modes),
++	.width_mm = 65,
++	.height_mm = 75,
++	.bpc = 8,
++};
++
++static int ch13726a_get_modes(struct drm_panel *panel,
++					struct drm_connector *connector)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	for (uint8_t i = 0; i < ctx->desc->num_modes; i++) {
++		const struct drm_display_mode *m = &ctx->desc->modes[i];
++		struct drm_display_mode *mode;
++
++		mode = drm_mode_duplicate(connector->dev, m);
++		if (!mode) {
++			dev_err(&ctx->dsi->dev, "failed to add mode %ux%u@%u\n",
++				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
++			return -ENOMEM;
++		}
++
++		mode->type = DRM_MODE_TYPE_DRIVER;
++		if (i == 0)
++			mode->type |= DRM_MODE_TYPE_PREFERRED;
++
++		drm_mode_set_name(mode);
++		drm_mode_probed_add(connector, mode);
++	}
++
++	connector->display_info.width_mm = ctx->desc->width_mm;
++	connector->display_info.height_mm = ctx->desc->height_mm;
++	connector->display_info.bpc = ctx->desc->bpc;
++
++	return ctx->desc->num_modes;
++}
++
++static enum drm_panel_orientation ch13726a_get_orientation(struct drm_panel *panel)
++{
++	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
++
++	return ctx->orientation;
++}
++
++static const struct drm_panel_funcs ch13726a_panel_funcs = {
++	.prepare = ch13726a_prepare,
++	.unprepare = ch13726a_unprepare,
++	.disable = ch13726a_disable,
++	.get_modes = ch13726a_get_modes,
++	.get_orientation = ch13726a_get_orientation,
++};
++
++static int ch13726a_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness(dsi, brightness);
++	if (ret < 0)
++		return ret;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return 0;
++}
++
++static const struct backlight_ops ch13726a_bl_ops = {
++	.update_status = ch13726a_bl_update_status,
++};
++
++static struct backlight_device *
++ch13726a_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 255,
++		.max_brightness = 255,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
++					      &ch13726a_bl_ops, &props);
++}
++
++static int ch13726a_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct ch13726a_panel *ctx;
++	int ret;
++
++	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++
++	ctx->desc = (struct ch13726a_desc *)of_device_get_match_data(dev);
++	if (!ctx->desc)
++		return -ENODEV;
++
++	ctx->supplies[0].supply = "vdd1v2";
++	ctx->supplies[1].supply = "vddio";
++	ctx->supplies[2].supply = "vdd";
++	ctx->supplies[3].supply = "avdd";
++
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
++				      ctx->supplies);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to get regulators\n");
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
++	if (ret < 0) {
++		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
++		return ret;
++	}
++
++	ctx->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	dsi->lanes = 4;
++	dsi->format = MIPI_DSI_FMT_RGB888;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
++			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++
++	drm_panel_init(&ctx->panel, dev, &ch13726a_panel_funcs,
++		       DRM_MODE_CONNECTOR_DSI);
++	ctx->panel.prepare_prev_first = true;
++
++	ctx->panel.backlight = ch13726a_create_backlight(dsi);
++	if (IS_ERR(ctx->panel.backlight))
++		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
++				     "Failed to create backlight\n");
++
++	drm_panel_add(&ctx->panel);
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
++		drm_panel_remove(&ctx->panel);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void ch13726a_remove(struct mipi_dsi_device *dsi)
++{
++	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id ch13726a_of_match[] = {
++	{ .compatible = "ayntec,thor-panel-bottom", .data = &thor_bottom_desc },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ch13726a_of_match);
++
++static struct mipi_dsi_driver ch13726a_driver = {
++	.probe = ch13726a_probe,
++	.remove = ch13726a_remove,
++	.driver = {
++		.name = "panel-ch13726a-amoled",
++		.of_match_table = ch13726a_of_match,
++	},
++};
++module_mipi_dsi_driver(ch13726a_driver);
++
++MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
++MODULE_LICENSE("GPL");
 
-Changes in v2:
-- Add Neil Armstrong to binding maintainer list
-- Add 120hz mode, which required a minor restructure of the driver
-- Link to v1: https://lore.kernel.org/r/20260222-ch13726a-v1-0-e501d78e105a@gmail.com
-
----
-Aaron Kling (1):
-      dt-bindings: display: panel: Add ChipWealth CH13726A AMOLED driver
-
-Teguh Sobirin (1):
-      drm/panel: Add panel driver for ChipWealth CH13726A based panels
-
- .../display/panel/chipwealth,ch13726a.yaml         |  67 ++++
- drivers/gpu/drm/panel/Kconfig                      |  11 +
- drivers/gpu/drm/panel/Makefile                     |   1 +
- drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c  | 339 +++++++++++++++++++++
- 4 files changed, 418 insertions(+)
----
-base-commit: 785f0eb2f85decbe7c1ef9ae922931f0194ffc2e
-change-id: 20260220-ch13726a-59c6678d53d8
-prerequisite-change-id: 20260217-ayn-qcs8550-16c07b63de26:v4
-prerequisite-patch-id: 042cab8f04748207ba5395dd0f23c445955aaa2b
-prerequisite-patch-id: 4e13275bfaa4f838a627fe8dfa3d4cb8972fc5b4
-prerequisite-patch-id: 16c130bcfd7c787b91e828b8e600bd0d740f937e
-prerequisite-patch-id: 4b7e6b017349c386f54e221790da4392fe066ff3
-prerequisite-patch-id: 3844bef2eda3cf59031b1d131eb6ba9295629bb4
-prerequisite-patch-id: bcb261e40f0386b91a09eb4080cbdf74d21f3df2
-
-Best regards,
 -- 
-Aaron Kling <webgeek1234@gmail.com>
+2.53.0
 
 
