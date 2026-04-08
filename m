@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CF8A1073C95
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:52:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B5D1073C8D
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7186610E637;
-	Wed,  8 Apr 2026 10:52:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE95E10E1CD;
+	Wed,  8 Apr 2026 10:53:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="t+iy0P9e";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qN6GMFl8";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECED10E612
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 10:52:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D540210E1CD
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 10:53:10 +0000 (UTC)
 Received: from killaraus.ideasonboard.com
  (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 8BE482D5;
- Wed,  8 Apr 2026 12:51:20 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id AFE13593;
+ Wed,  8 Apr 2026 12:51:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1775645480;
- bh=eOf7WaILLGdFbtza4ISZNW1ylaaLT25hB73ERulW5YM=;
+ s=mail; t=1775645501;
+ bh=Rjn11KqJ94w5Tb07XxHG3O1GIwrQHeFSfrcL2oJFkFg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=t+iy0P9eg/dvPO+Q8xI/f+tycBOM1I3CqaodI9n6Of3CdDQthjnhepI79Hi2wZtqv
- KX6caWnwKfk9sR42ULyPksqsKTFjwLpLNIZBkzo3IH090F/eAHceDnoryUhGdaB8Ui
- v5EcEQXtDDnfrWSEXCProkaFqu51x1XFU0+LTBEc=
-Date: Wed, 8 Apr 2026 13:52:47 +0300
+ b=qN6GMFl8+gjuyjFpOAfDNN6eBaM258NATkrmnuaiBPnOK4XUxrZlMsfe25/m1/54t
+ 1Mk9JRq/R934PpCFU01TQOINmlbxV6rZIy3ukEBTs7rQj5GupYS0Mv3nXJ1MTiUROs
+ qxQrf2/yYgzrle+cFygHUpKTbS57qyn7EJCrzC7I=
+Date: Wed, 8 Apr 2026 13:53:08 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
@@ -45,15 +45,15 @@ Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 16/21] media: dt-bindings: media: renesas,vsp1:
- Document RZ/G3E
-Message-ID: <20260408105247.GB1928916@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v6 17/21] media: dt-bindings: media: renesas,fcp:
+ Document RZ/G3E SoC
+Message-ID: <20260408105308.GC1928916@killaraus.ideasonboard.com>
 References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <c1e2eb36af01e0cddd8050ba70847c3a0821c91e.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <5aaf561a66c24639477a99d3861ca969a81673f0.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <c1e2eb36af01e0cddd8050ba70847c3a0821c91e.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <5aaf561a66c24639477a99d3861ca969a81673f0.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,12 +69,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 12:37:01PM +0200, Tommaso Merciai wrote:
-> The VSPD block on the RZ/G3E SoC is identical to the one found on the
+On Wed, Apr 08, 2026 at 12:37:02PM +0200, Tommaso Merciai wrote:
+> The FCPVD block on the RZ/G3E SoC is identical to the one found on the
 > RZ/G2L SoC.
 > 
-> No driver changes are required, as `renesas,r9a07g044-vsp2` will be used
-> as a fallback compatible string on the RZ/G3E SoC.
+> No driver changes are required, as `renesas,fcpv` will be used as a
+> fallback compatible string on the RZ/G3E SoC.
 > 
 > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
@@ -98,21 +98,29 @@ Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 > v1->v2:
 >  - Collected tags.
 > 
->  Documentation/devicetree/bindings/media/renesas,vsp1.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  Documentation/devicetree/bindings/media/renesas,fcp.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/renesas,vsp1.yaml b/Documentation/devicetree/bindings/media/renesas,vsp1.yaml
-> index 07a97dd87a5b..62bff3ce3eaa 100644
-> --- a/Documentation/devicetree/bindings/media/renesas,vsp1.yaml
-> +++ b/Documentation/devicetree/bindings/media/renesas,vsp1.yaml
-> @@ -25,6 +25,7 @@ properties:
->            - enum:
->                - renesas,r9a07g043u-vsp2   # RZ/G2UL
->                - renesas,r9a07g054-vsp2    # RZ/V2L
-> +              - renesas,r9a09g047-vsp2    # RZ/G3E
->                - renesas,r9a09g056-vsp2    # RZ/V2N
->                - renesas,r9a09g057-vsp2    # RZ/V2H(P)
->            - const: renesas,r9a07g044-vsp2 # RZ/G2L fallback
+> diff --git a/Documentation/devicetree/bindings/media/renesas,fcp.yaml b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
+> index b5eff6fec8a9..f7e486e90e43 100644
+> --- a/Documentation/devicetree/bindings/media/renesas,fcp.yaml
+> +++ b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
+> @@ -30,6 +30,7 @@ properties:
+>                - renesas,r9a07g043u-fcpvd # RZ/G2UL
+>                - renesas,r9a07g044-fcpvd # RZ/G2{L,LC}
+>                - renesas,r9a07g054-fcpvd # RZ/V2L
+> +              - renesas,r9a09g047-fcpvd # RZ/G3E
+>                - renesas,r9a09g056-fcpvd # RZ/V2N
+>                - renesas,r9a09g057-fcpvd # RZ/V2H(P)
+>            - const: renesas,fcpv         # Generic FCP for VSP fallback
+> @@ -77,6 +78,7 @@ allOf:
+>                - renesas,r9a07g043u-fcpvd
+>                - renesas,r9a07g044-fcpvd
+>                - renesas,r9a07g054-fcpvd
+> +              - renesas,r9a09g047-fcpvd
+>                - renesas,r9a09g056-fcpvd
+>                - renesas,r9a09g057-fcpvd
+>      then:
 
 -- 
 Regards,
