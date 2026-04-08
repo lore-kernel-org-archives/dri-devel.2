@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF5D6FD5F6A
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A8EFFD5F98
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 116F510E5C4;
-	Wed,  8 Apr 2026 08:58:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D65AD10E5A1;
+	Wed,  8 Apr 2026 08:58:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i46cDBob";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kCTctViD";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D444C10E5C0;
- Wed,  8 Apr 2026 08:58:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A5810E5C6;
+ Wed,  8 Apr 2026 08:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775638691; x=1807174691;
+ t=1775638693; x=1807174693;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2akm8lWwsE5Rd4IgY195Wt4KpWwXChvZ/XszmNS2Iis=;
- b=i46cDBobzZhvesRrHm58CXim1NBC+oh5ABA0SA2wQJRM40Xn4MCJzTUb
- xfSJPRan+zTteeDEmkC1Xd6uegvZHZsrdQ+UHpP968r7n98bzZyzJzsaZ
- u/JX2HbxKK9DaTTBKlFxOVhmJ3EDGvrycskaROsjxBWxu7HqYqTuYO47K
- W1xADT7ca3stcewCzfT6CL6rBa8gS4zoYf4/LorK9pSDeOkoYFsbu2+5j
- 8RCUH8nCgM8d0MX4rMtsAXt0L4Y8Hv8boan5Ohfw+Le5l6a7Uvc5MFXpD
- iaZm0ewE6z+Ukl90NFE1PG9xlJNxqFgFrOVdOzEkSHWuS3muz1qhYlnEu A==;
-X-CSE-ConnectionGUID: EuRTV/a5QoK8TIrMqNA0wQ==
-X-CSE-MsgGUID: GkZmZjJTRyCLg3T9p4byqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76516663"
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="76516663"
+ bh=kx/RmKMQipP0r+MUwhSa6J4HJ68f8SaHw+dkCCa0gTs=;
+ b=kCTctViDY1ixba6MjSNBb4xKyZhfbGZLsQjThWtCMC4yd8NoUkAWe02J
+ 0HiDclQ0/irzOM3Rucxln+8UAyar0RYFKl/UfyiYCayvgNLr+tgXNFXLr
+ 7q6bHAzuwuEjVCvEedr41Jbh41DsSDV41XHztj3bs8jGcsPiPj3yDWczu
+ vS6PeUyq7LsWSSoAJqGZiNXlCnP5KWtYYD6+ahvvtVM1FprazS2Guh9xQ
+ 1D8F2VeBoCp3PWjhsITcUeL2K703z9k7mlBpSuatb2Nc+LHWyVh9X3o5y
+ SOx2v7yPXaDFAEOAaKbfNL+MyXjCHUFZxpixugaYSyIUuWjNK0VPRnfsz w==;
+X-CSE-ConnectionGUID: QqYTZqmoTW2u2JYmmThuWg==
+X-CSE-MsgGUID: hQwNs+TPSqCKhSzP3azR8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76516665"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="76516665"
 Received: from orviesa010.jf.intel.com ([10.64.159.150])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 01:58:11 -0700
-X-CSE-ConnectionGUID: sxeZiRMMRF2mv6vWSO/9TA==
-X-CSE-MsgGUID: 67Ip8k5GT2W5090zcCHtkA==
+ 08 Apr 2026 01:58:13 -0700
+X-CSE-ConnectionGUID: QmCOrPkbRDuOyVeF72AslA==
+X-CSE-MsgGUID: VXP85zqqSbOOuQRqPl5o0w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="227572564"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="227572573"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 01:58:08 -0700
+ 08 Apr 2026 01:58:11 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
  animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 13/26] drm/i915/dp: Use revision field of AS SDP data structure
-Date: Wed,  8 Apr 2026 14:12:25 +0530
-Message-ID: <20260408084239.1295325-14-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 14/26] drm/i915/dp: Set sdp_type in AS SDP unpack
+Date: Wed,  8 Apr 2026 14:12:26 +0530
+Message-ID: <20260408084239.1295325-15-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260408084239.1295325-1-ankit.k.nautiyal@intel.com>
 References: <20260408084239.1295325-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,66 +69,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the revision field of struct drm_dp_as_sdp instead of current
-hardcoding for the AS SDP revisions.
+Add sdp_type in AS SDP unpack. Since the field sdp_type is not compared
+in intel_compare_dp_as_sdp() it doesn't throw up any mismatch error yet.
+
+In the subsequent change this field will be added along with other missing
+fields for comparison.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 3 ++-
- drivers/gpu/drm/i915/display/intel_dp.c      | 7 +++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 10b6c6fcb03f..57870baebfa5 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4906,7 +4906,8 @@ static bool
- intel_compare_dp_as_sdp(const struct drm_dp_as_sdp *a,
- 			const struct drm_dp_as_sdp *b)
- {
--	return a->vtotal == b->vtotal &&
-+	return a->revision == b->revision &&
-+		a->vtotal == b->vtotal &&
- 		a->target_rr == b->target_rr &&
- 		a->duration_incr_ms == b->duration_incr_ms &&
- 		a->duration_decr_ms == b->duration_decr_ms &&
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 095bde8e97ef..cec0f3d03c2f 100644
+index cec0f3d03c2f..bca5dc2c3b30 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3159,6 +3159,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	as_sdp->sdp_type = DP_SDP_ADAPTIVE_SYNC;
- 	as_sdp->length = 0x9;
- 	as_sdp->duration_incr_ms = 0;
-+	as_sdp->revision = 0x2;
- 	as_sdp->vtotal = intel_vrr_vmin_vtotal(crtc_state);
- 
- 	if (crtc_state->cmrr.enable) {
-@@ -5122,7 +5123,7 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
- 	/* Prepare AS (Adaptive Sync) SDP Header */
- 	sdp->sdp_header.HB0 = 0;
- 	sdp->sdp_header.HB1 = as_sdp->sdp_type;
--	sdp->sdp_header.HB2 = 0x02;
-+	sdp->sdp_header.HB2 = as_sdp->revision;
- 	sdp->sdp_header.HB3 = as_sdp->length;
- 
- 	/* Fill AS (Adaptive Sync) SDP Payload */
-@@ -5309,13 +5310,11 @@ int intel_dp_as_sdp_unpack(struct drm_dp_as_sdp *as_sdp,
- 	if (sdp->sdp_header.HB1 != DP_SDP_ADAPTIVE_SYNC)
- 		return -EINVAL;
- 
--	if (sdp->sdp_header.HB2 != 0x02)
--		return -EINVAL;
--
+@@ -5313,6 +5313,7 @@ int intel_dp_as_sdp_unpack(struct drm_dp_as_sdp *as_sdp,
  	if ((sdp->sdp_header.HB3 & 0x3F) != 9)
  		return -EINVAL;
  
++	as_sdp->sdp_type = sdp->sdp_header.HB1;
  	as_sdp->length = sdp->sdp_header.HB3 & DP_AS_SDP_LENGTH_MASK;
-+	as_sdp->revision = sdp->sdp_header.HB2;
+ 	as_sdp->revision = sdp->sdp_header.HB2;
  	as_sdp->mode = sdp->db[0] & DP_AS_SDP_OPERATION_MODE_MASK;
- 	as_sdp->vtotal = (sdp->db[2] << 8) | sdp->db[1];
- 	as_sdp->target_rr = ((sdp->db[4] & 0x3) << 8) | sdp->db[3];
 -- 
 2.45.2
 
