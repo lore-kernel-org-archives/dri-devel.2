@@ -4,113 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C735B1073CA4
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 12:07:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78D7A1073CA4
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 12:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A83E10E62D;
-	Wed,  8 Apr 2026 12:07:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CECD110E628;
+	Wed,  8 Apr 2026 12:12:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="pSonmwH+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NwatUQBI";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="pSonmwH+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NwatUQBI";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="eE08sLBO";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1505910E62B
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:07:44 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 54D554E9AD;
- Wed,  8 Apr 2026 12:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775650048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vnNUITmbs8KI8OzpfgiMPavs0mM0/4PON293526XCuI=;
- b=pSonmwH+r3yTA5/xWTyeY5fDaqcHCCyQj4Rc+oFzAP63hIAPVnk/OuheA/uDseF3+yzq/1
- KbbVSvAYWpru9QjeNmxwVv1EyHRmppAeq8ulHFkddx/ew1Srx3rTZeSzbillta2uMO2IeV
- UmiELJapSSzHb2+PawaDJ++LdaBzeHs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775650048;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vnNUITmbs8KI8OzpfgiMPavs0mM0/4PON293526XCuI=;
- b=NwatUQBIcTu8cJoSH9hbWAJ+l5hVlHcbcVl7WpUCo7NerRI2HYSsuPMrZe745bh3/PC9xp
- PoiHL9Ud4AFZVhCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pSonmwH+;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NwatUQBI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1775650048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vnNUITmbs8KI8OzpfgiMPavs0mM0/4PON293526XCuI=;
- b=pSonmwH+r3yTA5/xWTyeY5fDaqcHCCyQj4Rc+oFzAP63hIAPVnk/OuheA/uDseF3+yzq/1
- KbbVSvAYWpru9QjeNmxwVv1EyHRmppAeq8ulHFkddx/ew1Srx3rTZeSzbillta2uMO2IeV
- UmiELJapSSzHb2+PawaDJ++LdaBzeHs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1775650048;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vnNUITmbs8KI8OzpfgiMPavs0mM0/4PON293526XCuI=;
- b=NwatUQBIcTu8cJoSH9hbWAJ+l5hVlHcbcVl7WpUCo7NerRI2HYSsuPMrZe745bh3/PC9xp
- PoiHL9Ud4AFZVhCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 20BD64A0B4;
- Wed,  8 Apr 2026 12:07:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id wNXCBgBF1mlkUgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 08 Apr 2026 12:07:28 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: javierm@redhat.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 5/5] drm/sysfb: vesadrm: Support power management
-Date: Wed,  8 Apr 2026 14:03:18 +0200
-Message-ID: <20260408120722.328769-6-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260408120722.328769-1-tzimmermann@suse.de>
-References: <20260408120722.328769-1-tzimmermann@suse.de>
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF6E10E628
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:11:59 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id E52B71121;
+ Wed,  8 Apr 2026 14:10:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1775650230;
+ bh=yLrg4EEZxTbl+jYp5ekc58SS/dTtJj5GLA5g+mQUWpU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=eE08sLBOA2/vKse0f9R2TP0XQyBErO4x5TJdtpQwiASGnQm0zgUS886oour18MVB8
+ SqtxtKyaTMOyrTGZ/sqYE6l9XMdKL/hwUYgJID7s+7Rsh+cIX+gGKSSO+x6+dwWfZZ
+ MeOvio4SFkomkJNO21g1xj+vxWXj8GnSVi1OKMWw=
+Date: Wed, 8 Apr 2026 15:11:56 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
+ linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v6 20/21] arm64: dts: renesas: r9a09g047: Add DU{0, 1} and
+ DSI nodes
+Message-ID: <20260408121156.GF1928916@killaraus.ideasonboard.com>
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <ca31352b03689fa9902660be5cb4d0972ce04304.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid,suse.de:email];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[7];
- R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Queue-Id: 54D554E9AD
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ca31352b03689fa9902660be5cb4d0972ce04304.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,71 +68,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set PM ops for the vesadrm driver. Suspend and resume the DRM state
-on systems that support it.
+On Wed, Apr 08, 2026 at 12:37:05PM +0200, Tommaso Merciai wrote:
+> Add DU0, DU1, DSI nodes to RZ/RZG3E SoC DTSI.
+> 
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v5->v6:
+>  - Update ports numbering accordingly to the latest DT bindings.
+> 
+> v4->v5:
+>  - Rename du0_out_dsi0 into du0_out_dsi.
+>  - Rename du1_out_dsi0 into du1_out_dsi.
+>  - Drop renesas,id entry from DU nodes.
+> 
+> v3->v4:
+>  - No changes.
+> 
+> v2->v3:
+>  - No changes.
+> 
+> v1->v2:
+>  - Use single compatible string instead of multiple compatible strings
+>    for the two DU instances, leveraging a 'renesas,id' property to
+>    differentiate between DU0 and DU1.
+>  - Use vclk instead of vclk1 for DSI Node and set to the right position.
+> 
+>  arch/arm64/boot/dts/renesas/r9a09g047.dtsi | 120 +++++++++++++++++++++
+>  1 file changed, 120 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> index f2fdaadd9d39..25d3a503a6cc 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> @@ -1585,6 +1585,126 @@ csi2cru: endpoint@0 {
+>  			};
+>  		};
+>  
+> +		dsi: dsi@16430000 {
+> +			compatible = "renesas,r9a09g047-mipi-dsi";
+> +			reg = <0 0x16430000 0 0x20000>;
+> +			interrupts = <GIC_SPI 874 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 875 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 876 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 877 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 878 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 879 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 880 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "seq0", "seq1", "vin1", "rcv",
+> +					  "ferr", "ppi", "debug";
+> +			clocks = <&cpg CPG_MOD 0xec>, <&cpg CPG_MOD 0xe9>,
+> +				 <&cpg CPG_MOD 0xe8>, <&cpg CPG_MOD 0xea>,
+> +				 <&cpg CPG_MOD 0x190>, <&cpg CPG_MOD 0xeb>;
+> +			clock-names = "pllrefclk", "aclk", "pclk", "vclk",
+> +				      "lpclk", "vclk2";
+> +			resets = <&cpg 0xd8>, <&cpg 0xd7>;
+> +			reset-names = "arst", "prst";
+> +			power-domains = <&cpg>;
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +					dsi_in0: endpoint {
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +					dsi_in1: endpoint {
+> +					};
+> +				};
+> +
+> +				port@2 {
+> +					reg = <2>;
+> +					dsi_out: endpoint {
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		du0: display@16460000 {
+> +			compatible = "renesas,r9a09g047-du";
+> +			reg = <0 0x16460000 0 0x10000>;
+> +			interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg CPG_MOD 0xed>,
+> +				 <&cpg CPG_MOD 0xee>,
+> +				 <&cpg CPG_MOD 0xef>;
+> +			clock-names = "aclk", "pclk", "vclk";
+> +			power-domains = <&cpg>;
+> +			resets = <&cpg 0xdc>;
 
-Many systems lose the hardware's framebuffer settings on suspend,
-hence resuming doesn't work there. Yet some systems, most notably
-emulators, keep the hardware state across suspend/resume cycles.
-There, DRM's suspend and resume helpers bring back the display on
-resume.
+I'm a bit concerned here. The same reset line is shared by the FCP, VSP
+and DU. The FCP driver doesn't currently control it, but the VSP and DU
+both assert and de-assert reset, without any coordination. Does it work
+by chance ?
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/sysfb/vesadrm.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+> +			renesas,vsps = <&vspd0 0>;
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +					du0_out_dsi: endpoint {
+> +					};
+> +				};
+> +
+> +				port@2 {
+> +					reg = <2>;
+> +					du0_out_lvds0: endpoint {
+> +					};
+> +				};
+> +
+> +				port@3 {
+> +					reg = <3>;
+> +					du0_out_lvds1: endpoint {
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		du1: display@16490000 {
+> +			compatible = "renesas,r9a09g047-du";
+> +			reg = <0 0x16490000 0 0x10000>;
+> +			interrupts = <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks = <&cpg CPG_MOD 0x1a8>,
+> +				 <&cpg CPG_MOD 0x1a9>,
+> +				 <&cpg CPG_MOD 0x1aa>;
+> +			clock-names = "aclk", "pclk", "vclk";
+> +			power-domains = <&cpg>;
+> +			resets = <&cpg 0x11e>;
+> +			renesas,vsps = <&vspd1 0>;
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +					du1_out_dsi: endpoint {
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +					du1_out_rgb: endpoint {
+> +					};
+> +				};
+> +
+> +				port@3 {
+> +					reg = <3>;
+> +					du1_out_lvds1: endpoint {
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+>  		fcpvd0: fcp@16470000 {
+>  			compatible = "renesas,r9a09g047-fcpvd",
+>  				     "renesas,fcpv";
 
-diff --git a/drivers/gpu/drm/sysfb/vesadrm.c b/drivers/gpu/drm/sysfb/vesadrm.c
-index 4e00113e5c77..255b90a200b0 100644
---- a/drivers/gpu/drm/sysfb/vesadrm.c
-+++ b/drivers/gpu/drm/sysfb/vesadrm.c
-@@ -5,6 +5,7 @@
- #include <linux/limits.h>
- #include <linux/platform_device.h>
- #include <linux/sysfb.h>
-+#include <linux/pm.h>
- 
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_atomic.h>
-@@ -21,6 +22,7 @@
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/drm_managed.h>
-+#include <drm/drm_modeset_helper.h>
- #include <drm/drm_modeset_helper_vtables.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -617,6 +619,22 @@ static struct drm_driver vesadrm_driver = {
-  * Platform driver
-  */
- 
-+static int vesadrm_pm_suspend(struct device *dev)
-+{
-+	struct drm_device *drm = dev_get_drvdata(dev);
-+
-+	return drm_mode_config_helper_suspend(drm);
-+}
-+
-+static int vesadrm_pm_resume(struct device *dev)
-+{
-+	struct drm_device *drm = dev_get_drvdata(dev);
-+
-+	return drm_mode_config_helper_resume(drm);
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(vesadrm_pm_ops, vesadrm_pm_suspend, vesadrm_pm_resume);
-+
- static int vesadrm_probe(struct platform_device *pdev)
- {
- 	struct vesadrm_device *vesa;
-@@ -649,6 +667,7 @@ static void vesadrm_remove(struct platform_device *pdev)
- static struct platform_driver vesadrm_platform_driver = {
- 	.driver = {
- 		.name = "vesa-framebuffer",
-+		.pm = pm_sleep_ptr(&vesadrm_pm_ops),
- 	},
- 	.probe = vesadrm_probe,
- 	.remove = vesadrm_remove,
 -- 
-2.53.0
+Regards,
 
+Laurent Pinchart
