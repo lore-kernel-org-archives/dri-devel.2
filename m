@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D54061073C8A
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:07:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF4E1073C8B
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 304E410E5FD;
-	Wed,  8 Apr 2026 10:07:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 894F910E603;
+	Wed,  8 Apr 2026 10:07:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KfHqwmP2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lXBPViHR";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010022.outbound.protection.outlook.com [52.101.201.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40D4B10E5FA;
- Wed,  8 Apr 2026 10:07:39 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010000.outbound.protection.outlook.com [52.101.56.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 790D110E5FB;
+ Wed,  8 Apr 2026 10:07:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c7LubVpdQBlP4kWtgOlSrrQk7luTMgIVouamo69W9BOXKzIdwv9+ytnJgzDx028/t0jYG1n8eFUEugYR9mqfdXcOb4LB8JfhZE4rPqQeAwbpqtkiHGF3PK6b8Qr/Wr3Ph0iU1VBtY8iKRqAVWjH/JO7+7aJhhJfDGkE7wBB1qqxDvPYusCtL9W1EpCzl6gPIoeEFWCs5s2JHEEmDspyigjtgs3Z+jvIl6tOEFY5J1+vrTNGtGTblZt4H5u3h3bBfz51sihBHgRjiJt+LOxdBJp9UqbHRzRyaYPTpbSx4qUkC3ec6YMXB9Mocm4VU07wQf4dY8nAibOgb9nhu9xVQyA==
+ b=ccyKjYNEyekD7nK7ipFJlUs4/F/1kHv7PxW2IMY29vM8S4wZ1WlVghmvKp6D/HFjMjvPUCOEBeBzd/hBtp09kK5hF7x6DR7AJJhitjML32cvxqwQZddXpjMNlOVY75iv87hCdBPzyCuWxiYY6C/RI1OgWh+0jEelXocvoMnci3D4iiE5iWJ6YyOJxng4SoNvUBbrcGL+3qJb+MiNb1OvAAVNAPFOco5OiNBIXFj5L9jP7yHyGHyY1Ud+nB/ALTmtEd4Bt0QXzRodEcbnTtG8vXfXJpprZ+YCFWw53u4utTtdR1qsI2p3arB8U9WG+rormIy5WNxOFrgk1HuCX1hhtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qjrREOGjeZUc664yhmfUQ4u7gEWdT/I3o0ZnKpzLNqw=;
- b=MKG8OZjR5f9p8Dn9207DeiJQwGZHi3+RvuNGiH+wuv9sLlfKHuQ5miBs2UriqyS4669gDE1SGQaWj/s9SC+6BgQZsQ7Gdf0U53LzpoiFE68+EXaYwyjtkjKvZp2Qa3eB3MGDIzlvNuQtGO3xwdVhPjJoNU+3Vn5P6PFCLOdpgrrAxVZhF++YD8+zzKlRQMurtJLNKr6EPkrkfSr1NbCJjv6pGm/iLaZlnkf6S9sySZSTyvIfef2PqKNStFXNwvkapGVC8d/JsPxd0K7cfuTA+k8/vjAvdIS1/ebtslDArlInBTBIioVYPCnQxFHD2yf35BxuT58V9m49FxFvqAs74w==
+ bh=02sbvyGOWphVk448LzlzXSbn4NroMpjCBhgZX8Z3CYU=;
+ b=D6Ox6zfnGgfI8EvM5Zk684Je0gX8+lGzp8yKX8niFgyFVV2zu43HrOG0pVUUk864SBpEg0tLlq28MBi1BD1ktVMJki3bhjjYRs2v722q6icdE80lMy5dyGijo/WzEfz5hi+U9xV3DBy38opSSbEzOpbh3uSBGX88k/Lb+tvUMnA7iH5YIas2zNGhd54yaqLpADXGeMUUs2FlYuJKOKypWUK3FRVJPfmLaLT7fy4zUr4OlC+PCfAPL9xQD1kvdIELbC22TxW5Md6mHbigNz8x3OseLacu/vaEm/mdefHrHOmya7WEROjy1501e1oX7zhvzjkIp66NUIFBNhxb7uYt2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qjrREOGjeZUc664yhmfUQ4u7gEWdT/I3o0ZnKpzLNqw=;
- b=KfHqwmP2Iz/+/BeFSP7AD5tGMtvema5RFFoxx5FtjCn1yQfbfw3YqFiDpNDstRY6mrd1XJ+OUWCY2ys0XmMXuQavFa5BMeUbKdxYN5kgwnGU4FVAl4XUMMxRC/vnjFH9jmex55hR8PyARl2PjDiqzLMZBnDb9vTVlAnfUesU6Lo=
-Received: from PH7PR02CA0001.namprd02.prod.outlook.com (2603:10b6:510:33d::18)
- by IA0PR12MB8226.namprd12.prod.outlook.com (2603:10b6:208:403::21)
+ bh=02sbvyGOWphVk448LzlzXSbn4NroMpjCBhgZX8Z3CYU=;
+ b=lXBPViHR6LHJUaDFoM2cTsDrWXdv5+8FG12rDJhIdlT3MdDGL/MXBXQmDSCYjjGGdduTwP+4S8m2cEH8tXAI4zas3ttNS574KmqtZbdLQgaU/S5k3FieF4msoPfd4Xze6XjLfjmQtJ3WXrz1A43BAVHiaEP/4I77Ep2BgGub9BA=
+Received: from PH7PR17CA0060.namprd17.prod.outlook.com (2603:10b6:510:325::24)
+ by DS5PPFBABE93B01.namprd12.prod.outlook.com (2603:10b6:f:fc00::65f)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Wed, 8 Apr
- 2026 10:07:33 +0000
-Received: from CY4PEPF0000EDD3.namprd03.prod.outlook.com
- (2603:10b6:510:33d:cafe::e) by PH7PR02CA0001.outlook.office365.com
- (2603:10b6:510:33d::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Wed,
- 8 Apr 2026 10:07:22 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Wed, 8 Apr
+ 2026 10:07:36 +0000
+Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
+ (2603:10b6:510:325:cafe::35) by PH7PR17CA0060.outlook.office365.com
+ (2603:10b6:510:325::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.32 via Frontend Transport; Wed,
+ 8 Apr 2026 10:07:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EDD3.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 10:07:32 +0000
+ 15.20.9769.17 via Frontend Transport; Wed, 8 Apr 2026 10:07:35 +0000
 Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 8 Apr 2026 05:07:31 -0500
+ 15.2.2562.17; Wed, 8 Apr 2026 05:07:34 -0500
 From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
@@ -62,44 +62,44 @@ To: Alex Deucher <alexander.deucher@amd.com>,
 CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH v6 7/8] drm/amdgpu: split amdgpu_ttm_set_buffer_funcs_status
- in 2 funcs
-Date: Wed, 8 Apr 2026 12:03:18 +0200
-Message-ID: <20260408100327.1372-7-pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v6 8/8] drm/amdgpu: use DRM_SCHED_PRIORITY_KERNEL for all ttm
+ entities
+Date: Wed, 8 Apr 2026 12:03:19 +0200
+Message-ID: <20260408100327.1372-8-pierre-eric.pelloux-prayer@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260408100327.1372-1-pierre-eric.pelloux-prayer@amd.com>
 References: <20260408100327.1372-1-pierre-eric.pelloux-prayer@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD3:EE_|IA0PR12MB8226:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa12b3bb-e526-414e-6896-08de9556a6b5
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|DS5PPFBABE93B01:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68012261-02f0-4ccf-e701-08de9556a86c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: UOCNiFNbAHtzqJkWSqVtGdn91otukDblS7WidLOSR5tr1mbt1AWb6RnAs1ksTcXKu/iNLiyRPpAcLUSFCLuHXcseByyhBkTrcPOy7MVZPEGjdl999W8JhzrXPahTPFyaca7h0laxpNsS/2VmDJQimxJWmo1u+aOBXj5zKBmn/y29B2DxcztlnHwqAwTASO4jw0ldWnwABzKlKBMOtWYNTNPZeDFxSmIXjxH+ZYZJOH40V0MjLSjE2w/e3tUoQ/eNJGHYgdoWfMBLAKTIXBfjDMs96Tngj63wBX74ULVt7dUeNIiZ1J3S1dgOam2285zKj/+nJD/EOYXqWmkfihM1te0muDpqhF6dKcifckzO0qC1iOv1488MQwjpC6CwXUzrJdgvFhwDiLejX7nHx56BTcw7ZHYpnPEp70bVSq4EFfMPbnkwMiGufBU728nkOsUrpNzAuSMWpvHpWVNt/lUaXFCfHnc58HabRS5nbg1eOczaXtbzprmMk+Bal/su4n3v/D361gt1+8epuohRjbYzyX1xLkhtoeds/4cfyfY/jxQnaeJad8XTqoz+XDOwBMF1iFm0SxGoogoIiRVsXkaUUy7VaRNb9sIuA4PO3MjvC9qEUqGRHjVe7XxVNlPImT6f5HI2I4UBXbCkHPmW/4Le/T1xXuogp0DCEjlPBGjuHOEZPj5LxSsD7UIZUjBSV2Ut6BA3XtSiTh6+z+t/Ys+ZlD0QKdZPpul/v1JcRfwabvCEHtqVnJXMc56Xsc20QHkmcz5noqGAF8ABp45gneWQqQ==
+ ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Ytsck3Dci8jkP5BGVcWN52ZX4Qx/ZMB9QwpAG0wpyjBYJjSviF+bAQN10kr73OHkMWFSK601MYAxOpSZY2D2YsJZoHHFS+tO+vA8JQVmYBooaZaXhe6FqReiv5TZVBm0wqJ1E49ihH1PsBoi7kCDyLQD9zisHpP79OR75GFo0oeKno0HydYcUr5KEBtyTEahvHUOHQXiBFF1LHpXuAOngDlVzoXdUNQxBpTQ/upx0oihNkzujAXndZp9SNIS8TOPM/yxsNOV7g1qJugobbf/z4cOWyLexvc0o8YsVVxaxjILtRtKUohBHKnHoaB1MqTNbMb4c1554RLhISKEwLaPpAFBSR77qBpQpOheYQkToYDGIXtjHOQzHhqcZeSyFNwh8qRj7AoK2lVvXUA6lQsPMQouhhinl0HcTrV7q772hz7FkV+wPCzycdNc4sv61RztwPPTsuyEdizF0bEgwVmvyQPyZmOXh5oQe1Cc9MhIoeUCllMWQD4NFRcfyLHgbVS1I9GgIdd+9rnr/p4WnMcb4g/YVgaUXKgK9IKc4vLtzVfwsLwpxFrgzvkeOD77mL7nnINZ7onQh50T/nXOtUwrqZorpuTjUB1nYJcsJRraJu9XwYOl1o3I7ZHSPRjEU30ZJFsNx1lWzKgykIXr8/XLM6OhAPtq0jc2QsjtBG8pk7KaNeXSLZ7iHn/YTMOuGB1yGz+B1QPP1MujmhDz473wCFvF6+63BfvHa9bb1HtaLDXzATnYD2vYitnrDGbeiDOh2C2bDDW6vXOgRwjMt96mQw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(56012099003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0Q64kHw3aW3UHVNMd5q5osHYl0P/9g5cZPDEhQKtdu17iNdX1lMtJlxqjMfiFMjAk9XytCrgx7qoo6zJp+BL5B1cOu5iUiNgyTm5RirQUc3YtyJHI3yg4gWjWRBf/I2XO6WcdHmpHjMJyA8iAn4W1ZdFb9YUdOmDIiwL6pdXBu9OE0yBhC9FCh2Z0aNSc3WNBr5VGI1Hnkk5LZkYK5O9+ZT+sv2AVIrfS4PbMp93A4ik1mo7f/JyPBrZNrTa12enwXrcmAToYP7iIPp33NfdMfEOpX9QaNSyfkC1nz3ctgzcKcLciz3BAXaQ96kxt1eQ37OZF5o07YTp2mCdwFqA4PP/j3HOof129I6oxzvJyJ+XIWIhAKT+ySQLayrhdUXQ8lxPeoPg2M2ClqDyv94boEsfecnOtoVJ3dfZvJoaw8PxsKX8E/UJ0XD0qFvafYjZ
+X-MS-Exchange-AntiSpam-MessageData-0: 3ok2M2xoM05Khi1oJgWFWh13yiESdQpobSN75/3QOC7E4gu1/u14ewXWiQBsT6KtgZYQAtLs9BhR3s3ZFcSQQA4LhjVgp/9MSN3tUyVCeaNRMmuANhzHfq1uWb2FoZKioHfGvmeH1YNuZPyEUFMIK1gCjjW8ae0zs+DL/jvC1DJ79tRQXOkC34N1rSs8x9t2+GPD75CG3NTLRfY2p26IeEJ6u2u1nIe+okmhAkEbUsSR07uixiXcT0q/GEBLU1ONAzNiybezaxPjAyzl8SyY6VuVKJc4xTjFrvlQCrpAl7iNYsZkAdBcSeMpxSRVnS2grmKJfD619YxXJYqL2flA+2Fq7xjpdgGoKywyIkg1L/JOHmSqIZm62iLNFcppWJsrvGC6ffiUXrnheh1p6lYuHAM7O0rS3cZohWsaY2BPjbfHpYzMA4Y/3lFBClCPNt5Q
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:07:32.8933 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa12b3bb-e526-414e-6896-08de9556a6b5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:07:35.7769 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68012261-02f0-4ccf-e701-08de9556a86c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD3.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8226
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFBABE93B01
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,339 +115,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Makes a code slightly clearer and reduces indentation.
-
----
-v5: use amdgpu_in_reset in amdgpu_ttm_disable_buffer_funcs
----
+ttm jobs must have higher priority than any userspace jobs.
 
 Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  14 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 188 +++++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    |   4 +-
- 3 files changed, 109 insertions(+), 97 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 4da8de34be3d..a24f52e71850 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2463,7 +2463,7 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto init_failed;
- 
--	amdgpu_ttm_set_buffer_funcs_status(adev, true);
-+	amdgpu_ttm_enable_buffer_funcs(adev);
- 
- 	/* Don't init kfd if whole hive need to be reset during init */
- 	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
-@@ -3147,7 +3147,7 @@ static int amdgpu_device_ip_suspend(struct amdgpu_device *adev)
- 		amdgpu_virt_request_full_gpu(adev, false);
- 	}
- 
--	amdgpu_ttm_set_buffer_funcs_status(adev, false);
-+	amdgpu_ttm_disable_buffer_funcs(adev);
- 
- 	r = amdgpu_device_ip_suspend_phase1(adev);
- 	if (r)
-@@ -3362,7 +3362,7 @@ static int amdgpu_device_ip_resume(struct amdgpu_device *adev)
- 
- 	r = amdgpu_device_ip_resume_phase2(adev);
- 
--	amdgpu_ttm_set_buffer_funcs_status(adev, true);
-+	amdgpu_ttm_enable_buffer_funcs(adev);
- 
- 	if (r)
- 		return r;
-@@ -4215,7 +4215,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 	/* disable ras feature must before hw fini */
- 	amdgpu_ras_pre_fini(adev);
- 
--	amdgpu_ttm_set_buffer_funcs_status(adev, false);
-+	amdgpu_ttm_disable_buffer_funcs(adev);
- 
- 	/*
- 	 * device went through surprise hotplug; we need to destroy topology
-@@ -4482,7 +4482,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
- 	if (r)
- 		goto unwind_userq;
- 
--	amdgpu_ttm_set_buffer_funcs_status(adev, false);
-+	amdgpu_ttm_disable_buffer_funcs(adev);
- 
- 	amdgpu_fence_driver_hw_fini(adev);
- 
-@@ -4496,7 +4496,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool notify_clients)
- 	return 0;
- 
- unwind_evict:
--	amdgpu_ttm_set_buffer_funcs_status(adev, true);
-+	amdgpu_ttm_enable_buffer_funcs(adev);
- 	amdgpu_fence_driver_hw_init(adev);
- 
- unwind_userq:
-@@ -5230,7 +5230,7 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 				if (r)
- 					goto out;
- 
--				amdgpu_ttm_set_buffer_funcs_status(tmp_adev, true);
-+				amdgpu_ttm_enable_buffer_funcs(tmp_adev);
- 
- 				r = amdgpu_device_ip_resume_phase3(tmp_adev);
- 				if (r)
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 8d778cbce1aa..000f66452b10 100644
+index 000f66452b10..1f9423556ab3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2100,7 +2100,7 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 	}
+@@ -2378,7 +2378,7 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
+ 		r = amdgpu_ttm_buffer_entity_init(
+ 			&adev->mman.gtt_mgr,
+ 			&adev->mman.clear_entities[i],
+-			DRM_SCHED_PRIORITY_NORMAL,
++			DRM_SCHED_PRIORITY_KERNEL,
+ 			adev->mman.buffer_funcs_scheds,
+ 			adev->mman.num_buffer_funcs_scheds, 1);
  
- 	/* Change the size here instead of the init above so only lpfn is affected */
--	amdgpu_ttm_set_buffer_funcs_status(adev, false);
-+	amdgpu_ttm_disable_buffer_funcs(adev);
- #ifdef CONFIG_64BIT
- #ifdef CONFIG_X86
- 	if (adev->gmc.xgmi.connected_to_cpu)
-@@ -2329,116 +2329,92 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- }
+@@ -2398,7 +2398,7 @@ void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
+ 		r = amdgpu_ttm_buffer_entity_init(
+ 			&adev->mman.gtt_mgr,
+ 			&adev->mman.move_entities[i],
+-			DRM_SCHED_PRIORITY_NORMAL,
++			DRM_SCHED_PRIORITY_KERNEL,
+ 			adev->mman.buffer_funcs_scheds,
+ 			adev->mman.num_buffer_funcs_scheds, 2);
  
- /**
-- * amdgpu_ttm_set_buffer_funcs_status - enable/disable use of buffer functions
-+ * amdgpu_ttm_enable_buffer_funcs - enable use of buffer functions
-  *
-  * @adev: amdgpu_device pointer
-- * @enable: true when we can use buffer functions.
-  *
-- * Enable/disable use of buffer functions during suspend/resume. This should
-+ * Enable use of buffer functions during suspend/resume. This should
-  * only be called at bootup or when userspace isn't running.
-  */
--void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
-+void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev)
- {
- 	struct ttm_resource_manager *man = ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
- 	u32 num_clear_entities, num_move_entities;
--	uint64_t size;
- 	int r, i, j;
- 
- 	if (!adev->mman.initialized || amdgpu_in_reset(adev) ||
--	    adev->mman.buffer_funcs_enabled == enable || adev->gmc.is_app_apu)
-+	    adev->mman.buffer_funcs_enabled || adev->gmc.is_app_apu)
- 		return;
- 
--	if (enable) {
--		if (!adev->mman.num_buffer_funcs_scheds) {
--			dev_warn(adev->dev, "Not enabling DMA transfers for in kernel use");
--			return;
--		}
-+	if (!adev->mman.num_buffer_funcs_scheds) {
-+		dev_warn(adev->dev, "Not enabling DMA transfers for in kernel use");
-+		return;
-+	}
-+
-+	/* default_entity doesn't need multiple schedulers so pass only 1. */
-+	r = amdgpu_ttm_buffer_entity_init(&adev->mman.gtt_mgr,
-+						&adev->mman.default_entity,
-+						DRM_SCHED_PRIORITY_KERNEL,
-+						adev->mman.buffer_funcs_scheds, 1, 0);
-+	if (r < 0) {
-+		dev_err(adev->dev,
-+			"Failed setting up TTM entity (%d)\n", r);
-+		return;
-+	}
-+
-+	num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
-+	num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
-+
-+	adev->mman.clear_entities = kcalloc(num_clear_entities,
-+						sizeof(struct amdgpu_ttm_buffer_entity),
-+						GFP_KERNEL);
-+	atomic_set(&adev->mman.next_clear_entity, 0);
-+	if (!adev->mman.clear_entities)
-+		goto error_free_default_entity;
-+
-+	adev->mman.num_clear_entities = num_clear_entities;
-+
-+	for (i = 0; i < num_clear_entities; i++) {
-+		r = amdgpu_ttm_buffer_entity_init(
-+			&adev->mman.gtt_mgr,
-+			&adev->mman.clear_entities[i],
-+			DRM_SCHED_PRIORITY_NORMAL,
-+			adev->mman.buffer_funcs_scheds,
-+			adev->mman.num_buffer_funcs_scheds, 1);
- 
--		num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
--		num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
--		/* default_entity doesn't need multiple schedulers so pass only 1. */
--		r = amdgpu_ttm_buffer_entity_init(&adev->mman.gtt_mgr,
--						  &adev->mman.default_entity,
--						  DRM_SCHED_PRIORITY_KERNEL,
--						  adev->mman.buffer_funcs_scheds, 1, 0);
- 		if (r < 0) {
--			dev_err(adev->dev,
--				"Failed setting up TTM entity (%d)\n", r);
--			return;
--		}
--
--		adev->mman.clear_entities = kcalloc(num_clear_entities,
--						    sizeof(struct amdgpu_ttm_buffer_entity),
--						    GFP_KERNEL);
--		atomic_set(&adev->mman.next_clear_entity, 0);
--		if (!adev->mman.clear_entities)
-+			for (j = 0; j < i; j++)
-+				amdgpu_ttm_buffer_entity_fini(
-+					&adev->mman.gtt_mgr, &adev->mman.clear_entities[j]);
-+			adev->mman.num_clear_entities = 0;
-+			kfree(adev->mman.clear_entities);
- 			goto error_free_default_entity;
--
--		adev->mman.num_clear_entities = num_clear_entities;
--
--		for (i = 0; i < num_clear_entities; i++) {
--			r = amdgpu_ttm_buffer_entity_init(
--				&adev->mman.gtt_mgr,
--				&adev->mman.clear_entities[i],
--				DRM_SCHED_PRIORITY_NORMAL,
--				adev->mman.buffer_funcs_scheds,
--				adev->mman.num_buffer_funcs_scheds, 1);
--
--			if (r < 0) {
--				for (j = 0; j < i; j++)
--					amdgpu_ttm_buffer_entity_fini(
--						&adev->mman.gtt_mgr, &adev->mman.clear_entities[j]);
--				kfree(adev->mman.clear_entities);
--				adev->mman.num_clear_entities = 0;
--				adev->mman.clear_entities = NULL;
--				goto error_free_default_entity;
--			}
- 		}
-+	}
- 
--		adev->mman.num_move_entities = num_move_entities;
--		atomic_set(&adev->mman.next_move_entity, 0);
--		for (i = 0; i < num_move_entities; i++) {
--			r = amdgpu_ttm_buffer_entity_init(
--				&adev->mman.gtt_mgr,
--				&adev->mman.move_entities[i],
--				DRM_SCHED_PRIORITY_NORMAL,
--				adev->mman.buffer_funcs_scheds,
--				adev->mman.num_buffer_funcs_scheds, 2);
-+	adev->mman.num_move_entities = num_move_entities;
-+	atomic_set(&adev->mman.next_move_entity, 0);
-+	for (i = 0; i < num_move_entities; i++) {
-+		r = amdgpu_ttm_buffer_entity_init(
-+			&adev->mman.gtt_mgr,
-+			&adev->mman.move_entities[i],
-+			DRM_SCHED_PRIORITY_NORMAL,
-+			adev->mman.buffer_funcs_scheds,
-+			adev->mman.num_buffer_funcs_scheds, 2);
- 
--			if (r < 0) {
--				for (j = 0; j < i; j++)
--					amdgpu_ttm_buffer_entity_fini(
--						&adev->mman.gtt_mgr, &adev->mman.move_entities[j]);
--				adev->mman.num_move_entities = 0;
--				goto error_free_clear_entities;
--			}
-+		if (r < 0) {
-+			for (j = 0; j < i; j++)
-+				amdgpu_ttm_buffer_entity_fini(
-+					&adev->mman.gtt_mgr,
-+					&adev->mman.move_entities[j]);
-+			adev->mman.num_move_entities = 0;
-+			goto error_free_clear_entities;
- 		}
--	} else {
--		amdgpu_ttm_buffer_entity_fini(&adev->mman.gtt_mgr,
--					      &adev->mman.default_entity);
--		for (i = 0; i < adev->mman.num_clear_entities; i++)
--			amdgpu_ttm_buffer_entity_fini(&adev->mman.gtt_mgr,
--						      &adev->mman.clear_entities[i]);
--		for (i = 0; i < adev->mman.num_move_entities; i++)
--			amdgpu_ttm_buffer_entity_fini(&adev->mman.gtt_mgr,
--						      &adev->mman.move_entities[i]);
--		/* Drop all the old fences since re-creating the scheduler entities
--		 * will allocate new contexts.
--		 */
--		ttm_resource_manager_cleanup(man);
--		kfree(adev->mman.clear_entities);
--		adev->mman.clear_entities = NULL;
--		adev->mman.num_clear_entities = 0;
--		adev->mman.num_move_entities = 0;
- 	}
- 
- 	/* this just adjusts TTM size idea, which sets lpfn to the correct value */
--	if (enable)
--		size = adev->gmc.real_vram_size;
--	else
--		size = adev->gmc.visible_vram_size;
--	man->size = size;
--	adev->mman.buffer_funcs_enabled = enable;
-+	man->size = adev->gmc.real_vram_size;
-+	adev->mman.buffer_funcs_enabled = true;
- 
- 	return;
- 
-@@ -2454,6 +2430,42 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
- 				      &adev->mman.default_entity);
- }
- 
-+/**
-+ * amdgpu_ttm_disable_buffer_funcs - disable use of buffer functions
-+ *
-+ * @adev: amdgpu_device pointer
-+ */
-+void amdgpu_ttm_disable_buffer_funcs(struct amdgpu_device *adev)
-+{
-+	struct ttm_resource_manager *man =
-+		ttm_manager_type(&adev->mman.bdev, TTM_PL_VRAM);
-+	int i;
-+
-+	if (!adev->mman.buffer_funcs_enabled || amdgpu_in_reset(adev))
-+		return;
-+
-+	amdgpu_ttm_buffer_entity_fini(&adev->mman.gtt_mgr,
-+				      &adev->mman.default_entity);
-+	for (i = 0; i < adev->mman.num_move_entities; i++)
-+		amdgpu_ttm_buffer_entity_fini(&adev->mman.gtt_mgr,
-+					      &adev->mman.move_entities[i]);
-+	for (i = 0; i < adev->mman.num_clear_entities; i++)
-+		amdgpu_ttm_buffer_entity_fini(&adev->mman.gtt_mgr,
-+					      &adev->mman.clear_entities[i]);
-+	/* Drop all the old fences since re-creating the scheduler entities
-+	 * will allocate new contexts.
-+	 */
-+	ttm_resource_manager_cleanup(man);
-+
-+	kfree(adev->mman.clear_entities);
-+	adev->mman.clear_entities = NULL;
-+	adev->mman.num_clear_entities = 0;
-+	adev->mman.num_move_entities = 0;
-+
-+	man->size = adev->gmc.visible_vram_size;
-+	adev->mman.buffer_funcs_enabled = false;
-+}
-+
- static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
- 				  struct amdgpu_ttm_buffer_entity *entity,
- 				  unsigned int num_dw,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index d7b14d5cac77..8a5f34aaabac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -178,8 +178,8 @@ bool amdgpu_res_cpu_visible(struct amdgpu_device *adev,
- 
- int amdgpu_ttm_init(struct amdgpu_device *adev);
- void amdgpu_ttm_fini(struct amdgpu_device *adev);
--void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
--					bool enable);
-+void amdgpu_ttm_enable_buffer_funcs(struct amdgpu_device *adev);
-+void amdgpu_ttm_disable_buffer_funcs(struct amdgpu_device *adev);
- int amdgpu_copy_buffer(struct amdgpu_device *adev,
- 		       struct amdgpu_ttm_buffer_entity *entity,
- 		       uint64_t src_offset,
 -- 
 2.43.0
 
