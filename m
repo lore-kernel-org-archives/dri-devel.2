@@ -4,58 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 279A610F9973
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 19:12:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 698A510F9969
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 19:31:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 202E810E6D3;
-	Wed,  8 Apr 2026 19:12:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD50E10E6D7;
+	Wed,  8 Apr 2026 19:31:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="C2/pU1JS";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SF9zQbp2";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44A8110E6D3
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 19:12:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775675564; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=AMgmqzCke+qA4bmHc2k1KSadqTWg9hdJo7YqufJnaYIT6R37LIkiL9p3wE5XHKz3wNhX+JAKle+FLOYq7aS3rNap6QNv8wW/pyD4Zyb4M+rc8YX0n/WwGw7xepnlH8jfcwDOUA7i99hvDoG979yXTD3kl7uiJI1XBwCWCYHPOGc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775675564;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=hD2RYdac2HAVJCq3NYFTwqMUeLsLEECmlHbXEKLWJw8=; 
- b=elPgzxuqH2kQkCm/s8+nqQuNIU8TrmdS30IjsX1ZDSvCW7ScgAEr9KX5mBRyI+1HxPRMLL9jBUEntmsdIIk8B8BOF66VfMRdz8N/sjUTq5YIno5Kzuz7j4iECAy5T28aa38NPuUdamZWa5yk+QsNuCDK9vEWsqBbT96prEmr8R8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775675564; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=hD2RYdac2HAVJCq3NYFTwqMUeLsLEECmlHbXEKLWJw8=;
- b=C2/pU1JSN2T7hWt8aqS+slKtLh2IfM2JvlGW1Y/YkPbvc9o5HU3sLG8YZpRcobKH
- 3TssKr0EnbqhS+XV6i3rrPTa1X3rGbebbyONJDMwL01k/YCuuX0VOHqhqzKjk+wL5Z/
- ya5pA17mghzXTL7SQRMldoQldJCwHA+HY6xE0ZdI=
-Received: by mx.zohomail.com with SMTPS id 1775675562642342.8141427039209;
- Wed, 8 Apr 2026 12:12:42 -0700 (PDT)
-From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH v2 2/2] drm/panthor: Fix outdated function documentation
-Date: Wed,  8 Apr 2026 20:12:24 +0100
-Message-ID: <20260408191228.537625-2-adrian.larumbe@collabora.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260408191228.537625-1-adrian.larumbe@collabora.com>
-References: <20260408191228.537625-1-adrian.larumbe@collabora.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 297DA10E6D7
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 19:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:Content-Description
+ :Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=u7pw0CfIdSLr4OFETtM4WJRAWr7L8IUM54hl6YYzK2A=; b=SF9zQbp2IBAZ6HP0OTWdc6VV3j
+ 7c55k/eVbF213YQRY3+VTkBuj7Pf1sSoEQHBd7wzp73piDvLphWbfEBja0OCD+VVHNU7E5Q/JIj8S
+ oiufHthi6X+SwlbimbgfTaAy2pMiXUlpd45aaMqnSioQUU4wluN37C10KZmS1EeTE60nSExx2/PKj
+ xijvr9ykkRxoCKFJ179xHdjdv++vGyCc7sJ3nguhdO9CgwxQhkZCy/0IeWsZsiK7NZHQNDhB6k86F
+ 7YfliVhTSzWf6hhbe/duQ2S3hKSoa53JQqpBx+f5ebJIC7bBAyF6nG8N+Z0bdfhdwNHIUcqyOdXh7
+ NHOL/dBQ==;
+Received: from 179-125-64-254-dinamico.pombonet.net.br ([179.125.64.254]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wAYcc-00Dcg1-38; Wed, 08 Apr 2026 21:31:30 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Wed, 08 Apr 2026 16:31:00 -0300
+Subject: [PATCH] drm/vram: remove DRM_VRAM_MM_FILE_OPERATIONS from docs
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260408-drm_gem_vram_helper_docs-v1-1-4d667a768f75@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAPOs1mkC/x3MywqAIBBA0V+JWSfYyx6/EiGlYw1kxQgRhP+et
+ DyLe18IyIQBhuwFxpsCnUdCkWdgtvlYUZBNhlKWStayE5a9XtHrm2evN9wvZG1PE8RiWldJ15t
+ GFZDyi9HR86/HKcYP3P2z62oAAAA=
+X-Change-ID: 20260408-drm_gem_vram_helper_docs-bc7f30f9c561
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel-dev@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+X-Mailer: b4 0.14.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,27 +64,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-'vm' is no longer allowed to be NULL.
+Commit 02f64b2d8605 ("drm/vram: drop DRM_VRAM_MM_FILE_OPERATIONS") dropped
+DRM_VRAM_MM_FILE_OPERATIONS in preference for using DEFINE_DRM_GEM_OPS.
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+However, it was not dropped from the kernel docs.
+
+Use DEFINE_DRM_GEM_OPS in the illustration on how to define a
+struct file_operations for such a DRM driver and remove any reference
+to DRM_VRAM_MM_FILE_OPERATIONS.
+
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- drivers/gpu/drm/panthor/panthor_gem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_gem_vram_helper.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 69cef05b6ef7..13295d7a593d 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1264,7 +1264,7 @@ void panthor_kernel_bo_destroy(struct panthor_kernel_bo *bo)
- /**
-  * panthor_kernel_bo_create() - Create and map a GEM object to a VM
-  * @ptdev: Device.
-- * @vm: VM to map the GEM to. If NULL, the kernel object is not GPU mapped.
-+ * @vm: VM to map the GEM to.
-  * @size: Size of the buffer object.
-  * @bo_flags: Combination of drm_panthor_bo_flags flags.
-  * @vm_map_flags: Combination of drm_panthor_vm_bind_op_flags (only those
+diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
+index d7fcced75e797ce1b86313612a577775c9c26487..bca802ccddee792b8a8f643ecb02a41915f7ba18 100644
+--- a/drivers/gpu/drm/drm_gem_vram_helper.c
++++ b/drivers/gpu/drm/drm_gem_vram_helper.c
+@@ -49,15 +49,12 @@ static const struct drm_gem_object_funcs drm_gem_vram_object_funcs;
+  * To initialize the VRAM helper library call drmm_vram_helper_init().
+  * The function allocates and initializes an instance of &struct drm_vram_mm
+  * in &struct drm_device.vram_mm . Use &DRM_GEM_VRAM_DRIVER to initialize
+- * &struct drm_driver and  &DRM_VRAM_MM_FILE_OPERATIONS to initialize
++ * &struct drm_driver and &DEFINE_DRM_GEM_FOPS to define
+  * &struct file_operations; as illustrated below.
+  *
+  * .. code-block:: c
+  *
+- *	struct file_operations fops ={
+- *		.owner = THIS_MODULE,
+- *		DRM_VRAM_MM_FILE_OPERATION
+- *	};
++ *	DEFINE_DRM_GEM_FOPS(fops);
+  *	struct drm_driver drv = {
+  *		.driver_feature = DRM_ ... ,
+  *		.fops = &fops,
+
+---
+base-commit: 408df6213f56f467675dc0ecf156a8bd1984555e
+change-id: 20260408-drm_gem_vram_helper_docs-bc7f30f9c561
+
+Best regards,
 -- 
-2.53.0
+Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
