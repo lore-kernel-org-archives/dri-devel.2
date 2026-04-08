@@ -4,169 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F09110F9943
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 14:29:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69ED510F9943
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 14:36:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFDB710E685;
-	Wed,  8 Apr 2026 14:29:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC01310E687;
+	Wed,  8 Apr 2026 14:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NmZhGnKe";
+	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Ia3a9YU6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78B0A10E685;
- Wed,  8 Apr 2026 14:29:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775658592; x=1807194592;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=rhcmQot4pvSxijETZW9o3b1bBsi+RW9HhxSNG3KFdL0=;
- b=NmZhGnKeCg9agNsJ32V9UlakHwKVpwhq1l/Qr9oIXlSNxymXYS7P5vnc
- cFWZMSh3rzukjZXjJL/6+RXxdLeiOj4vSom00Yny8ylaj8a4t9xdOZ+pj
- eIDEtAcdPwjvHL4VDm5hwF9aqVLbGpKJ092iUk16Ai/Z4+B5Rna+eL1kl
- 4D7j1X9bqr7z6l04ssTxkoqQ0++l6Amlob/o+ZdlAybwlmc8m8WzaW4ST
- gpEeePuTLlVYHcwe1HteFB/Gj0M6UJGuLFZemvMmPfK09r1DBxfiDXjyk
- t5YI7VwZQ2E6Kk4XToLATVGXerlAR3aljBUJ5dmMakC3rF/dhmuHqWlxP w==;
-X-CSE-ConnectionGUID: SdZeKcbCSt+ot9c730mLmw==
-X-CSE-MsgGUID: cd5ZgCSQSPCeNgvqlH1SAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="87269722"
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="87269722"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 07:29:52 -0700
-X-CSE-ConnectionGUID: wpMB7BeFQsCwgZ5yz1IhKA==
-X-CSE-MsgGUID: 5RQtLLLuQ82uWXoEaKZVTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="230151555"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 07:29:51 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 8 Apr 2026 07:29:50 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 8 Apr 2026 07:29:50 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.1) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 8 Apr 2026 07:29:50 -0700
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013048.outbound.protection.outlook.com [52.101.72.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 520D110E687
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 14:36:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GfHSfO56LptAWKn4YQwSYSMy0GmVM4ju+Oe5kEENVySYD3wEgx1mrlEUnZudti1hZwiVdXNxQEmquBLR2c2fa49xtOUGZywvhtJEjBnyw4epJmU20FuQ2BjwMgaoOmWUtIeZCE0KQ1xd/OEXMWH66XEr+SvoYcHr19iCXECpZnpzxRYZUlK419DUTa8ngC+zsF6pMZccGM0Ea1RvFc4nr95xberrO2i4GOqsIg0mcq+8/yjTdDwUuchEguoc7DfWT4Px+YTmfU9Lr58eF8Q0hqc9iaD7zoDTMs11hg8C9jDna4xzSuf4585/jvvYk/wfwqhpUpzqSU/6Nx4EK7+Yug==
+ b=Ih2bMZP/MUUUEAl6tt4fdE0II9TCEkVno4N/JlwjRsQ2judaHciWnMsFZfYoNrb+wgxdweXDYis6iRxjoX9Gy6N0YfLjhlAg7QRAXhMV67Euuwu3W77pMy/fdOSHSc9dQjG2Ns9U0ZcwB6q8nTIoJ4/uAvHoe3sFKSENXOY0JmslF2VEo+HW6WRAPYpYjvzCtC4rIXnHL6EGy2scR1J9QZKMBvv2pTwZG5Vl/qTmKKVl870J5CbzSzPmP6SfTW91qpz5IU4/bAwMpyHq++UlBq4Jw4X7WuX+xz6Z7k1H/aAnVyBlcDCogKK2zofZT7vKO1Nzztd4Ju1aGG6EkAFdOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yivXx5xcczCK2XjJf46OfezU9bMs5/YKY23d4ZIHbDk=;
- b=guqmN9cic1/VxYQEJiJJCRd03OFmmPECI1pe1erNh338RfoDsXgZaRbwrikjMTttmeNcgeVMiIy9fhNNPqTYp8GxJ3gVvShNtQWlrl75TYjLg5PbAtG/7IovwSFFhUwahPlhiLakiZpZCDuhs4omiGmVl0sgJ8rGp8Ob+3Dvbqe1tbiabGx6GEr3LmAUzzr2EdfC1ptdKuOyRwtnlMBn3DKLNZZ2aRWomwYcSrqCe27SFx5qnmdYYQy8hWZBvwWStbUwoI5ezH8AnY7hM0LD2/T0vb9RP/NO9KxX83w3giSU8fN1//L1K/613UYcGHh9+wn60OdRgmElWgWl4Yh89w==
+ bh=297WAgKQeW0KQQcBc68Yf3iEK3gX+VzLajW4fX7A2oE=;
+ b=PLFrKwt/qKxLe+XJgMTAV5goPlFLIsnFf/7DexP0r3OYbu5eHOaZIAWojaYXX6nWu5wj5hfxtymaew/21Zti1T/9bDCJTkpInAV2cmIXuAlNvfTIdIt7eDEd6ypyPTvz+MykP/6AK1s0LsWOv/LCvz7YWspHmofB+cQAx2rYn5bQwSm4af82g3/PaFQk2CFNCAbNg2rcJZLu/XZdBj0KuhIHGHTEJJRCevlzQw/srmObodafP0CLqAUOs6YRULehaRLJGwxGBUyw2OGaMMy6AiawLxJ7mADl060eYScwedWjTdX7l91LzWZE/gctlK/luAOueNBOjkMseT7uU+0HOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=297WAgKQeW0KQQcBc68Yf3iEK3gX+VzLajW4fX7A2oE=;
+ b=Ia3a9YU6HuNFfAScVynEYdhpF2oU871PlVtmSE/KquZYILNq/mVXGP6oO4YNHazyKUbdtMYLgjPgqAiHSIxKdHD/Ag+oXBWBUepYokN+8VAxXkuxKBjBfCFcPsiWr8waQO1aU+1Tr7Dm70Sy4oVsMey0X2qSJc7pwRLKA6NDI3NqVhuID744290B/laS7hVQGqkbhA1IZp8nR9BFt3wHjXGrIclmISShw3NqENnDdw4haVX4gmMnO2Qc6nsY5LOJI9ZaCmfeDFeAJmtp9XpOaG2kZEekXIP0talAP/KHEUX8wkEFntu1CEcIpcznrT2jJWu/rkl1PRjgDVSW/5iVEw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- DS0PR11MB7877.namprd11.prod.outlook.com (2603:10b6:8:f4::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17; Wed, 8 Apr 2026 14:29:47 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%6]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 14:29:47 +0000
-Message-ID: <09f253b3-ee64-4fbb-8cec-820e9769aa80@intel.com>
-Date: Wed, 8 Apr 2026 19:59:33 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/drm_ras: Add DRM RAS netlink error event
- notification
-To: Raag Jadav <raag.jadav@intel.com>, <aravind.iddamsetty@linux.intel.com>,
- <rodrigo.vivi@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <netdev@vger.kernel.org>, <anshuman.gupta@intel.com>,
- <joonas.lahtinen@linux.intel.com>, <simona.vetter@ffwll.ch>,
- <airlied@gmail.com>, <pratik.bari@intel.com>,
- <joshua.santosh.ranjan@intel.com>, <ashwin.kumar.kulkarni@intel.com>,
- <shubham.kumar@intel.com>, <ravi.kishore.koppuravuri@intel.com>,
- <anvesh.bakwad@intel.com>, <maarten.lankhorst@linux.intel.com>, Zack McKevitt
- <zachary.mckevitt@oss.qualcomm.com>, Lijo Lazar <lijo.lazar@amd.com>,
- "Hawking Zhang" <Hawking.Zhang@amd.com>, "David S. Miller"
- <davem@davemloft.net>, "Paolo Abeni" <pabeni@redhat.com>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>
-References: <20260311102913.3387468-6-riana.tauro@intel.com>
- <20260311102913.3387468-9-riana.tauro@intel.com>
- <acPjxf5XTYuR7sbM@black.igk.intel.com>
-Content-Language: en-US
-From: "Tauro, Riana" <riana.tauro@intel.com>
-In-Reply-To: <acPjxf5XTYuR7sbM@black.igk.intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0261.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f1::17) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com (2603:10a6:150:26::19)
+ by GV1PR04MB10251.eurprd04.prod.outlook.com (2603:10a6:150:1aa::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
+ 2026 14:36:25 +0000
+Received: from GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2]) by GV1PR04MB9135.eurprd04.prod.outlook.com
+ ([fe80::3826:2706:1e81:c9e2%5]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
+ 14:36:25 +0000
+Date: Wed, 8 Apr 2026 17:36:20 +0300
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: imx@lists.linux.dev, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ dri-devel@lists.freedesktop.org,
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Ying Liu <victor.liu@nxp.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v21 3/8] dt-bindings: display: bridge: Add Cadence MHDP8501
+Message-ID: <6avfg3f5djqkdvq6q6ouyvw2ms25rvixpluxqmbzey6ylnesnd@2st3tvlmxtvv>
+References: <20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f@oss.nxp.com>
+ <20260407-dcss-hdmi-upstreaming-v21-3-4681070ab82f@oss.nxp.com>
+ <20260408-large-marigold-pheasant-bef65f@quoll>
+ <wowfuuvnhnm6fjuynow4uvle7idvuyf77hct46gxakjre63y2z@xlmau2vl3lwb>
+ <277cdf3b-7032-4847-9c22-bddae2a76b34@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <277cdf3b-7032-4847-9c22-bddae2a76b34@kernel.org>
+X-ClientProxiedBy: FR4P281CA0045.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c7::14) To GV1PR04MB9135.eurprd04.prod.outlook.com
+ (2603:10a6:150:26::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|DS0PR11MB7877:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25de7fbe-a2e0-46a3-b7fa-08de957b48f7
+X-MS-TrafficTypeDiagnostic: GV1PR04MB9135:EE_|GV1PR04MB10251:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3fa5ec6b-e647-459d-4abe-08de957c3625
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: bVzgxphNXsG0kR+oiNQDS8jWSYEPe1yKPbESo0Ynu80ZcFILR4izgDNioUAV9wAEgtFBY4tB4ypcXPAIFNNwoRK41TqKkiB6nfnhVeZ/6ZA1MUsxINLZy5GCLJsTf52/FQscX4qwMazwdqcW+uszNHaNDhuVIhAf51KaFcWDk2EVJfW+B3WgwnYJeljPQ7ddt3dIG8eFYll8ydKYp/47E3709neGGajbtsGYefk9XE+tE9v+vd9VaVWMgrKqdaNozSwH4AJnBuviTAS2LGR+zKQ1VAFQKh7npfiKhWPcevZaXYe9kZk+qAoGOv1KqnqoO6ydmLiMmZP8ME5vEJaotPKdjsAR4XclxO73hcG8b+mCJJzM9OBPP0KdmiOye06t5p1aBkN9ieYLN9uvU5cfFjsPMcJLGMbM9Fu/f6Bc7QZkGuAqZfEd92BKUQh1ELaCbub6pOFDlqjFylZiiihd5lGrovsRITLhpuMYY5HwvCR6pE2qtleDrSXoqN7fcmeNC+enk83X8CFk7B1091pgI/MphgOp7w792IgHb5yLAVxHlTmjkQMaP8SoPKY5jPlRCvZW5uc6KiNqTUwkvbTY0DzPMOUu9yuuwq6yIPwtHyL60gqaqkG2m09lVUWbT1ckqo5szzHa/HFLW9IhiirZFdqwHKPhWXx5xJSAkTc3MdCB8rCmN0dCceTTgnKgv6ZnqQXIGfo/QYkGeb3WlEreDKcF7jIAisUQrAvI9wsIJvI=
+ ARA:13230040|1800799024|376014|19092799006|7416014|366016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: wvOKoo6F9m81QTJQhL7hWhiuy6K60hNWYdtElX6sq57p+8/PppEqUv5dY8OYfSKpK5ZVUpMG5DbXffnV9nzbrbwNO3yqHRyNfXYIYFKqpoVDMUhzPYh3JILPJQNVN3Gcy5nHOJmQoAh0uj19Ko8qr43iqUg6RloMNzhMioEZcDz52dxIxYMXw8IODUeS1ymgG7tHazp2w89+I5Qqic69n+BtRg+V5vDqtFrgg04Owr+cMpnCmG1wNyYTCrkgVJx/a+YZdsj46qVc2UCXG1h5xrTQnwoci0eq3kgqsTRr91mOrVCf5ceUQ4+kAcNTRNyZXkcbYr/JNOJTb8uyj4sHZpDr7p20FWTcY5EUAQGuJcmSGbk9mUWwBm7wc7WKwx8Fl2i1n7uJ7j/PtfvTJGo/TcnH9fGzWAml3n0RC3FT4eFFMNYAVAq9ahokdDN033TSe3ME3ebyNR5QF3xyYuesuSYm30hgQCFA6XhFvB2tDWy27Ypg4DUrmySuIT537FjnuCKxBBuGPNClNMpjKIeNhqXoAKsVhexAjatf2Q2fRNFq00kguWSr0UqsyDDl5dBlcOqAhLInemE7+8eo9T+ojBQIGDRT/hYURGng7/s5sXqybweUnbHjEseQmxZ05KdvNpesw16cvJZnqxUIDl5e5v8dq+fP6q1MtLPq5udX5wVNLPeTq++gNzJg44s5kg9qUUdERCqWy1nNEZfuR5I0SLKiCuvx+NIKvSZMp0NBFmKGS/IVBarojXylOsL7xFS6
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:GV1PR04MB9135.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(19092799006)(7416014)(366016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dndLMXhsdzQvOFVXNk9JVnFrOExWeFpZcWQySmRZdmdodW02THpaUjk2dlZm?=
- =?utf-8?B?R21TWGt3Y1dGS1Z1WUpIelN5RjZidWllMGY5UU9oTFBpOUlydEpCYlV0QmhK?=
- =?utf-8?B?SU1HREFhSmlqMlMvaTJQYzBsSFlSZ29UUjNyeUx6eXVQdWRvY01kK1BYY0lz?=
- =?utf-8?B?SXlGSE9MUWM0dmVyS2pyZFpQM0pGaUFYYU9pR1dNclJ1VFdiZCtHQ3hYMkd1?=
- =?utf-8?B?Z0s3dFNwbnBVUjF3cis5VlV0cXo3TDhZaW5kbVVsUmlRdTZxZ001SkxzR3Jl?=
- =?utf-8?B?WFN0bW9QeXlNYjc5MUtNN0JkdU43UHFPQ2VCSXY1cFVSRnorSUk2dmpEN0NJ?=
- =?utf-8?B?SlBqWjJLTG1uR0R5b3kwemV4Kzh1MmZ3REEvZGg1RlVUUFBkeHU4Yzl1L2Q4?=
- =?utf-8?B?a21XSldpTHZlMnIySC9DVHgySkFQMndmR1JDNlZLNXRUZFNjUVZuTW40clpV?=
- =?utf-8?B?djZOWDEvY0xKYVJwNlBjTHVvWkI5RWVacnJQNnlpQ3FwbUpCWnVveXd0ZUtt?=
- =?utf-8?B?ZERyOHJrakgwbU9TdURSZjBCRmZ1RFhhZitFN29SanM1eHBOK2NlYjFuVlNv?=
- =?utf-8?B?SkphQ1hxSWZFNUtwS1Ftc055SWp4cUJNV3lJQUc1bmtnbUpYYlRvRGladG9k?=
- =?utf-8?B?VFNoVnVONm9EdHMrUXc2TmlUWmM0U1Juc2xNVHUrOHJkY1g5V0l1akErU2xz?=
- =?utf-8?B?aTJpa2FwQlFKdzFYUXcrZm1CMnl3bVJkMU5uakRMZzlYckF1ZURYWDF4TWl4?=
- =?utf-8?B?T09IV2htRlM2TXBhY2lwRmJJUEVxQVdzWXVDY3hRek1pOE8rL21SOElXTEVH?=
- =?utf-8?B?NjlzNkNkY09McWtEOFJoN0ZxMW8xSGY4Q0QxZFhER3VZVk1rS05yWi9vajFI?=
- =?utf-8?B?bnlBenNQcnFKQm9vb3BoSXE0YjEvTi95cjU5bGxwaXF2bFZwYjh5T2NOb0p5?=
- =?utf-8?B?OVdPZzhBTmNmM1IvZXVkZFdDTGNuN3AvQ3cxVE1abE9GSEZiblBqQkNnbkhY?=
- =?utf-8?B?clArOG9DSU9MemxsendkL3huUFRDbWcvYVhLQkZ2U3VlVk5FalRpMG14SVB2?=
- =?utf-8?B?NUhQa0JsMWJ0QWRzL01aOVZZVTQ1a3JwamI3WTAzZHVDdVVWT3NsenlubW84?=
- =?utf-8?B?Y3BXcE1LTXZ2Sk1tOGhDcGhsMXgwK1RwZ21KN2gwUnpzRGxPQ3JtSXpSb296?=
- =?utf-8?B?Q01xNnB3MDM0SUlJREdpWGQ0VjVWV3NFVTR2MnVWK1BQSXo4M0RqWGdta2VJ?=
- =?utf-8?B?Q3NDSTVtVStzYWN3L0g2UlNveUtSc0NXZTFjK2pPdHZCT3BOZ3Vrc1d6Z05M?=
- =?utf-8?B?VjVCOXZBYW9MMGRVdzRaeU15N3NkMGYreklmVzc2S1lFbkJFWFlrVFNXVnhK?=
- =?utf-8?B?Slpra0lRckpPOFBQUzhWb3JRSnVIQmZRb1RVVm9XRnRwYVBsaGlRRktyck1Q?=
- =?utf-8?B?eWVEN0RSOVUyZU1rT0M4L3VlcUw3QWp5OXNxaHVBUG9RTmVxMDJLS05jcmpK?=
- =?utf-8?B?Z1JhMGlFQjdHVjJ2cnlKRzRuVEh6VXQ1ck51bXBBTDZRRVYzcFVhOHJnNXNT?=
- =?utf-8?B?MmF2VTk3NEE2UGs1N1p3QXZXNitScmhjQjhwb3p3Z01odDVDTzNmL3VPSFlJ?=
- =?utf-8?B?VzVqeDdjaTl6eWhnVnh6aUtWbjRPa0NBQm1aSGRFM2kyK0tjSitvcVBtZVln?=
- =?utf-8?B?SEFGVmZWeEs1K1dTN3hqWW1ZL3ZJNXhETGgybUphVkxsYTd5ZE4wakVhTHlt?=
- =?utf-8?B?dTVRNk0wUXlEZ3Q2ZTlScjBlSHdhTnE1RG5WUCtCM1lzZ3ZueW5YTjVCS1Fp?=
- =?utf-8?B?VlJzU0lnWlRSSVBxZmQvUlNYN3QySUhKbmFrN1kzVXh4UnMrNm5NT3FBMVlN?=
- =?utf-8?B?cGRSQmFxUlFHOGlHVXBEeHIzdTVzSysrVG5oTzZlcWNYZjYyb1lhK3poN0NS?=
- =?utf-8?B?N2RaUkJCczlNcXl3YS9tcCs2WEVadWJkTTFEa2x3YlNPQ0dhRVArRTBxVTdZ?=
- =?utf-8?B?TTRjbkZWaURJSUtVZTJVVVRMd2Y0ZUxYdHBhSEU5a05aMHpuWVBxRURlUUFy?=
- =?utf-8?B?OTBkU2VtRENPS2ZrSGxZZURob0NkWW8xSWhyZEhKZit0eWFMTU9kWU9Ua2Ev?=
- =?utf-8?B?czlWcTZROEtOVm13aTlENGJvMEJnQkZ2ZytOdTZRNW5uSm9JU2pKQlBaMjlJ?=
- =?utf-8?B?bjR2N2VVSCtGVUJCVStlOG04L0ZZL2ZGcmJaQW1RS29KU1ZMRXVycHp4Z1hD?=
- =?utf-8?B?anQrdlFMdlE2WlBUSUVrTUU5Ni9UU3pJaENtK2RDL1VlVVRjNjB1WkZBRGV6?=
- =?utf-8?B?K2dXRXQxNzlrNGZDSGM0N3RQSzlpWkthVWxvRlQ5cnZSVFdZL0hhQT09?=
-X-Exchange-RoutingPolicyChecked: PMOB8kwysrhDkLEBxIIiqll0WHUHhYBI5ABHZQDjoh37iw1TDpcfAs+/JwSR5vNNj4MV43qjKf8FjSKlNfeBA4XuOJ6crin+SUpxr7mxbfm3/htYIR1RLNVW6k1ANNL9Je5z2i+Nezljt2/MsP2dCpdDrgfdfOHtQ5nJxCj66pjYfXBgk1oCLFmex4mD+9J7G8WWeurFL8TKB8K+GZCTyQH2tDAqsLIBCmCIw6WWlA/VuzH87LyIcgchUK+7bZQTj7suZiNDG7c4f3+UAYUy6sVIpGQOAiWjOY9ezgZihG1xbOB2LJxbyqGfaj/SoVeK6nI9dDzDxQRZopKBhOUO2A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25de7fbe-a2e0-46a3-b7fa-08de957b48f7
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lC5WOJuq683uoX7MkmKMoJKYFacg+A2gO80ynqg2DWgXHom4xeiGXuXQHRqA?=
+ =?us-ascii?Q?vZioIo1FNctG2SmuaXCzYBZhPB6WnRlmbVn1wgT4gfuKk+3gteh8JtWJqOQw?=
+ =?us-ascii?Q?ZX2puQ61RBQkv4qOBAT+4K/aTxfc9hGp3NZW2TQk5pX4tUtwYs/kX/YXMFh4?=
+ =?us-ascii?Q?rZApnvgEQrdfX9G3zFs1ErJEyQKzruRYG42JgfZcvcOn6W2nOzok1rPRAOkE?=
+ =?us-ascii?Q?3mreZVUzxc/KujG6b4LIOyz4Po3NHeivqDPXm2W5CZ4DXWlfcCdfbN/CMviM?=
+ =?us-ascii?Q?6OV76lfgZ6Z/IDr8hgVCe+vuFNApRRdljYLoyGc1Bm/0bQn59uODcpMhxbl3?=
+ =?us-ascii?Q?38fkdRZSZLeSYhKRHH81OvSi4dMMqfWrWWPjkeXtWRI1f79sbyUbYy2CDmzp?=
+ =?us-ascii?Q?aGxxlIHuK+rOl73EYpcuEpcw+tMMYsB8znRAF/92G2y+INhznP+opTkp71gd?=
+ =?us-ascii?Q?jZB1e7uU3S289l2QY6Yfyl5TE9MIYisF3gJsKOwWTHXMeN8vDu7o2rv1W8XG?=
+ =?us-ascii?Q?HJtYTunGd6RPUEb4NHe+w6kPIpOciRSYsN4NVOBRboe/IH/9XwlLOTdjjDXE?=
+ =?us-ascii?Q?cptc8oQ0/2MUFX4sM48FHVD0Au2phuYlulPBw+LMdBdpwU0UgNYoe/9PYii0?=
+ =?us-ascii?Q?k6jLmT8fxl3ycGDx/JFSwAojBi2JxV79xUC8cpCTM1kvwF0QsFLwYkX9IFr3?=
+ =?us-ascii?Q?/cMPDpv+lEaSf7vNUbBkxiomKs5LNW42FcsvgsN4ATsu+fMHmMf6yqT6eXDN?=
+ =?us-ascii?Q?+DtE4mtHs1obLKi2QsGdlnlexwcM1LsfGD2Vo7ywUxyt6XF16Y98ZN5ULkab?=
+ =?us-ascii?Q?vsZv6S5aZIDmYw3lImJ3uKtO8aA0W+IMjB/abRTYD3IyJbwwqmJG8/Sc26WB?=
+ =?us-ascii?Q?/WNqYfarbZVz89SkkCPNxkTrW/aRDZAmmVNydHunc1RlmEOf4NasNvfc6kCo?=
+ =?us-ascii?Q?3pce9IyrPn2JyNQenCnzsD8yaj/NJMDlhuU4jlqNBM8cHHSVLMmQuKdKh2n0?=
+ =?us-ascii?Q?eljrMuApLV6VfqAvPWUdf3dz9U7y96i2Kll7r8EjyAyPe9e/t6hiiuabvehm?=
+ =?us-ascii?Q?iVDvH4OCYljdlitLqa9PaYANn/dvFT323Xx9Y54wPaUdura+Kk8OnBBWnlmp?=
+ =?us-ascii?Q?jNAxQK2KIj1WbFgFYsRol+7D8B9p9HcR0NZ8dR7JkMsjPqhZ2tIbDBBJtX04?=
+ =?us-ascii?Q?sCFMIxLDDsbDUtyRuV0p1c9Xp4OMqYT9e7PkoRBn6ZO+CnYkRFsJIdS+MQc1?=
+ =?us-ascii?Q?N/H+2SoxfT+FS2Drb+d6RIZvlpDCzHfFD788vL1dIt/JMNyKwAIz0gtONtQV?=
+ =?us-ascii?Q?mM2e613/J/6yclUVhzuFXe8gVKGWBi1B8PUr/vQrke1N0sSdgc4Lc9jIY/jv?=
+ =?us-ascii?Q?Sq7PgGrOXq5bvCqvb300wlJzm/a+nDrvctuPghGMhdi/It5Axyv2il3lYMyK?=
+ =?us-ascii?Q?3YdU4ZdXOmBPRc9v7kqKzuAaFNST1g/0uaDRjn+G2hOMQh33LmjuXglx++lK?=
+ =?us-ascii?Q?eO9e/nOkURQxJe/oXmHZi7E4xrUgrIaliCvkziEs1O347FK18JQQoIneUknE?=
+ =?us-ascii?Q?5znPQrzo/lh3pM7Sc7B7lk4GL1Hh1847vpQ8HnBErwkz/65V9kMnBf/MLm1P?=
+ =?us-ascii?Q?YfKvy5l4JXtqIAQX+15r2I5Jmx0MQG5q+2NBkVJMPi1yiCCXnOqwYMKwKb4B?=
+ =?us-ascii?Q?GWHxlljY0BgP0bH4PEg7/f+OVu9CMvV2aOYW+D7OQhmApHEz2ozzNMprQbTN?=
+ =?us-ascii?Q?z0ewJaakgUKAoRMg7Pqpxp4WNOixcC8=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fa5ec6b-e647-459d-4abe-08de957c3625
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB9135.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 14:29:47.5534 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 14:36:25.2619 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qeC0+nD2u9+MvKjrpgXerJuWiI/lwUu73V8PEiTQ4riyxzXGqDp/HSmpP9fOTjFxf8ZP7Ffaw8gHRWl4U4GN4Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7877
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6YjRgYCVYPAxQnqnG9I7uU6sfkEBZklEY96WEkQNZxxUS7uEF7lerPoWyUZvss3lkLxlvvQ8z4f9ent+KCWsnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10251
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,116 +144,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Apr 08, 2026 at 09:32:54AM +0200, Krzysztof Kozlowski wrote:
+> On 08/04/2026 09:13, Laurentiu Palcu wrote:
+> >>> +  phys:
+> >>> +    maxItems: 1
+> >>> +    description:
+> >>> +      phandle to the DP/HDMI PHY
+> >>> +
+> >>> +  interrupts:
+> >>> +    items:
+> >>> +      - description: Hotplug cable plugin.
+> >>> +      - description: Hotplug cable plugout.
+> >>> +
+> >>> +  interrupt-names:
+> >>> +    items:
+> >>> +      - const: plug_in
+> >>> +      - const: plug_out
+> >>> +
+> >>> +  cdns,bridge-type:
+> >>
+> >> Drop property. Graph defines what is connected on the other side. And if
+> >> this is for different devices then compatible tells what bridge is that.
+> > 
+> > Initially, Sandor did use the remote compatible to decide the bridge
+> > type but he assumed the remote is always the connector. However, as
+> > Dmitry pointed out [1], this is not reliable as we can have another bridge
+> > in-between this one and the connector.
+> > 
+> > [1] https://lore.kernel.org/all/dpj333mzr5azqhrgw3cxd7x5kiwxms4iomwy74uqfhr2zu4ocr@36rkth27d2jc/
+> 
+> So you still know what is on the other side, e.g. second bridge for HDMI
+> or DP, even if this is DP over USB-C.
+> 
+> I understand that Dmitry did not want to use that part of code in the
+> drivers, but what is located at the end is not really a separate
+> property of this bridge, because it already duplicates that information.
+> The final endpoint defines the type.
 
-On 3/25/2026 7:01 PM, Raag Jadav wrote:
-> On Wed, Mar 11, 2026 at 03:59:17PM +0530, Riana Tauro wrote:
->> Add support for asynchronous error notifications in drm_ras.
-> It's either drm_ras or DRM RAS, make it consistent in all patches
-> (both commit message and subject).
-Sure.
->
->> Define a new `error-event` netlink event and a new multicast
->> group `error-notify` in drm_ras spec. Each event contains
->> a node-id and error-id to identify the type and source
->> of error.
->>
->> Add drm_ras_error_notify() to trigger this event from drivers.
->> Userspace can receive this event by subscribing to the
->> multicast group error-notify.
->>
->> Example: Using ynl tool
-> Ditto. Either Usage or Example, make it consistent in all patches.
->
-> Also, please utilize the full 75 character space where possible.
+Ok, I'll drop the property and add a routine to traverse the graph and
+find the last endpoint.
 
-Will fix.
-
->
->> $ sudo ynl --family drm_ras --subscribe error-notify
->>
->> Cc: Jakub Kicinski <kuba@kernel.org>
->> Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
->> Cc: Lijo Lazar <lijo.lazar@amd.com>
->> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
->> Cc: David S. Miller <davem@davemloft.net>
->> Cc: Paolo Abeni <pabeni@redhat.com>
->> Cc: Eric Dumazet <edumazet@google.com>
->> Signed-off-by: Riana Tauro <riana.tauro@intel.com>
->> ---
->>   Documentation/gpu/drm-ras.rst            |  9 +++++
->>   Documentation/netlink/specs/drm_ras.yaml | 14 +++++++
->>   drivers/gpu/drm/drm_ras.c                | 48 ++++++++++++++++++++++++
->>   drivers/gpu/drm/drm_ras_nl.c             |  6 +++
->>   drivers/gpu/drm/drm_ras_nl.h             |  4 ++
->>   include/drm/drm_ras.h                    |  2 +
->>   include/uapi/drm/drm_ras.h               |  3 ++
->>   7 files changed, 86 insertions(+)
->>
->> diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
->> index 4636e68f5678..09b2918f67bd 100644
->> --- a/Documentation/gpu/drm-ras.rst
->> +++ b/Documentation/gpu/drm-ras.rst
->> @@ -54,6 +54,8 @@ User space tools can:
->>     ``node-id`` and ``error-id`` as parameters.
->>   * Clear specific error counters with the ``clear-error-counter`` command, using both
->>     ``node-id`` and ``error-id`` as parameters.
->> +* Listen to ``error-event`` notifications for error events by subscribing to the
->> +  ``error-notify`` multicast group.
->>   
->>   YAML-based Interface
->>   --------------------
->> @@ -109,3 +111,10 @@ Example: Clear an error counter for a given node
->>   
->>       sudo ynl --family drm_ras --do clear-error-counter --json '{"node-id":0, "error-id":1}'
->>       None
->> +
->> +Example: Listen to error events
->> +
->> +.. code-block:: bash
->> +
->> +    sudo ynl --family drm_ras --subscribe error-notify
->> +    {'msg': {'error-id': 1, 'node-id': 1}, 'name': 'error-event'}
-> Can we also have error-name and node-name? I'd be pulling my hair off
-> if I need to remember all the ids.
-
-Yeah makes sense. We can add the node_name, error_name.
-Adding device_name would also be more useful in the event.
-
-@Rodrigo/@aravind thoughts?
-
->
-> On that note, I think it'll be good to have them as part of request
-> attributes as an alternative to ids (also for existing commands) but
-> that can done as a follow up.
->
-We cannot use names as alternative because it won't work for multiple cards.
-example in xe: Suppose there are 2 cards and each has 2 nodes. We cannot 
-query using node_name+error_name.
-Also most of the netlink implementations use id's as unique identifiers.
-
-$ sudo ./cli.py --family drm_ras  --dump list-nodes
-[{'device-name': 'bdf_1', 'node-id': 0, 'node-name': 
-'correctable-errors', 'node-type': 'error-counter'},
-  {'device-name': 'bdf_1, 'node-id': 1, 'node-name': 
-'uncorrectable-errors', 'node-type': 'error-counter'},
-  {'device-name': 'bdf_2', 'node-id': 2, 'node-name': 
-'correctable-errors', 'node-type': 'error-counter'},
-  {'device-name': 'bdf_2', 'node-id': 3, 'node-name': 
-'uncorrectable-errors', 'node-type': 'error-counter'}]
-
->
-> Also, what if I have multiple devices with multiple nodes. Do they need
-> separate subscription?
->
-No, we subscribe only to the group not the nodes. In this case the group 
-is 'error-notify'
-
-$ sudo ./cli.py --family drm_ras --subscribe error-notify
-{'msg': {'error-id': 1, 'node-id': 1}, 'name': 'error-event'}
-{'msg': {'error-id': 1, 'node-id': 3}, 'name': 'error-event'}
-
-
-Thanks
-Riana
->
-> Raag
+-- 
+Thanks,
+Laurentiu
