@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9955110F9972
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 20:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B63B210F9976
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 20:15:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8770C10E1F5;
-	Wed,  8 Apr 2026 20:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5854310E6DA;
+	Wed,  8 Apr 2026 20:15:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bcAwq6iw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HGDWkbqc";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD7410E0AB;
- Wed,  8 Apr 2026 20:15:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E603810E0AB;
+ Wed,  8 Apr 2026 20:15:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1775679345; x=1807215345;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=kkYNh4+pZJ4BbCKx7nuaC6w/YYhhhfa8cB0PmhpF8tE=;
- b=bcAwq6iwVGN3wcs/InnvQBmg1HrpLs/u84yMgGNTxS8OeTzHGkQKniZn
- 29QR7iams56M9QToqr5GpNT1dWPo7lSlAlsFUC0xDT+8B6SIOvnuVwQmx
- lSsVsXLa87/Qq/AHdDxhF1hWPSf6SsacGC7JqwnOxXcuphksp2xzmt8ft
- Z4nejZP0b6cYYpJy6mESgOZHW8SJs4tOV5/tmUJx0wN/8ItBRjgYKSO1z
- Kenrg5oKQRUv3h4YE7zG0uStCyrFukvJnh72ZYcNB+1+N6XrL/uXCxACt
- u3+C43hU8XFZPCIHEqdpzM8RkqQBe6cXjnCU7rXqd4CKzH8mQ1rc+rkHs Q==;
-X-CSE-ConnectionGUID: n+T20mhYSKeLnOKKrGs/gw==
-X-CSE-MsgGUID: 2A9j2i08QAWCPzKs3KJZhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94063728"
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="94063728"
+ bh=7unNGrEJl6E6MEiNQDBJuekWG6AdIgLRLgN/G+82Prk=;
+ b=HGDWkbqcZlYe8rNhEYMcaY/LeeBpgn1X9hmgeIJxlGTB8VjoS+BXQExl
+ NQrID89k4jQ38Dj5GXOX9Mb/0RKP31+0C5IKbccBKhHTyIOwhe3ZJ7uZJ
+ To2eeWOviXV8X4t934xPTPgRvq5Bwhz6pmqeXLBY5ah1pGElNqcb82uYN
+ C/tHeXQ4xD1r/JGiGtqo1DyX+pndPIMw8bQQbIZdjElkhTkvk898gvGOq
+ MIB4AB/SGkZqjdQAQtHr+Q113ckgvdX/D/QiVMYvoVYHHyG2ZZnIZtCb9
+ h02scO5FO5omaMQ9uPO7Iz/RRNBiZ1k6JwUCBRfdpUU5QDsA7m2+Mq1XP A==;
+X-CSE-ConnectionGUID: 260kSpM5SZmqkhycDdli+g==
+X-CSE-MsgGUID: EFzMiYeNTMqkO6BEweyDmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94063726"
+X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="94063726"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Apr 2026 13:15:44 -0700
-X-CSE-ConnectionGUID: CFHGIqoLReaT6Lo4vl8BTg==
-X-CSE-MsgGUID: 6W7qxT08QVuhoS5xTSRD8Q==
+X-CSE-ConnectionGUID: KQtEfh34Q06VrfbaKhFoNg==
+X-CSE-MsgGUID: f4urvQm3QmCW7olowmstWA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="228451024"
+X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="228451018"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Apr 2026 13:15:44 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  francois.dugast@intel.com
-Subject: [PATCH v6 5/5] drm/pagemap: Fix drm_pagemap_migrate_unmap_pages
- kerneldoc
-Date: Wed,  8 Apr 2026 13:15:37 -0700
-Message-Id: <20260408201537.3580549-6-matthew.brost@intel.com>
+Subject: [PATCH v6 3/5] drm/pagemap: Split drm_pagemap_migrate_map_pages into
+ device / system
+Date: Wed,  8 Apr 2026 13:15:35 -0700
+Message-Id: <20260408201537.3580549-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260408201537.3580549-1-matthew.brost@intel.com>
 References: <20260408201537.3580549-1-matthew.brost@intel.com>
@@ -68,31 +68,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace @dma_addr with @pagemap_addr in the function documentation,
-as @pagemap_addr is the actual name of the function argument.
+Split drm_pagemap_migrate_map_pages into device / system helpers clearly
+seperating these operations. Will help with upcoming changes to split
+IOVA allocation steps.
 
-Suggested-by: Francois Dugast <francois.dugast@intel.com>
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Francois Dugast <francois.dugast@intel.com>
 ---
- drivers/gpu/drm/drm_pagemap.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_pagemap.c | 151 ++++++++++++++++++++++------------
+ 1 file changed, 100 insertions(+), 51 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index ed62866b52f6..172e8e81a71c 100644
+index 63f32cf6e1a7..ee4d9f90bf67 100644
 --- a/drivers/gpu/drm/drm_pagemap.c
 +++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -397,8 +397,9 @@ drm_pagemap_migrate_map_system_pages(struct device *dev,
-  * @state: DMA IOVA state for mapping.
+@@ -216,7 +216,8 @@ static void drm_pagemap_get_devmem_page(struct page *page,
+ }
+ 
+ /**
+- * drm_pagemap_migrate_map_pages() - Map migration pages for GPU SVM migration
++ * drm_pagemap_migrate_map_device_private_pages() - Map device private migration
++ * pages for GPU SVM migration
+  * @dev: The device performing the migration.
+  * @local_dpagemap: The drm_pagemap local to the migrating device.
+  * @pagemap_addr: Array to store DMA information corresponding to mapped pages.
+@@ -232,58 +233,50 @@ static void drm_pagemap_get_devmem_page(struct page *page,
   *
-  * This function unmaps previously mapped pages of memory for GPU Shared Virtual
-- * Memory (SVM). It iterates over each DMA address provided in @dma_addr, checks
-- * if it's valid and not already unmapped, and unmaps the corresponding page.
-+ * Memory (SVM). It iterates over each DMA address provided in @pagemap_addr,
-+ * checks if it's valid and not already unmapped, and unmaps the corresponding
-+ * page.
+  * Returns: 0 on success, -EFAULT if an error occurs during mapping.
   */
- static void drm_pagemap_migrate_unmap_pages(struct device *dev,
- 					    struct drm_pagemap_addr *pagemap_addr,
+-static int drm_pagemap_migrate_map_pages(struct device *dev,
+-					 struct drm_pagemap *local_dpagemap,
+-					 struct drm_pagemap_addr *pagemap_addr,
+-					 unsigned long *migrate_pfn,
+-					 unsigned long npages,
+-					 enum dma_data_direction dir,
+-					 const struct drm_pagemap_migrate_details *mdetails)
++static int
++drm_pagemap_migrate_map_device_private_pages(struct device *dev,
++					     struct drm_pagemap *local_dpagemap,
++					     struct drm_pagemap_addr *pagemap_addr,
++					     unsigned long *migrate_pfn,
++					     unsigned long npages,
++					     enum dma_data_direction dir,
++					     const struct drm_pagemap_migrate_details *mdetails)
+ {
+ 	unsigned long num_peer_pages = 0, num_local_pages = 0, i;
+ 
+ 	for (i = 0; i < npages;) {
+ 		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
+-		dma_addr_t dma_addr;
++		struct drm_pagemap_zdd *zdd;
++		struct drm_pagemap *dpagemap;
++		struct drm_pagemap_addr addr;
+ 		struct folio *folio;
+ 		unsigned int order = 0;
+ 
+ 		if (!page)
+ 			goto next;
+ 
++		WARN_ON_ONCE(!is_device_private_page(page));
+ 		folio = page_folio(page);
+ 		order = folio_order(folio);
+ 
+-		if (is_device_private_page(page)) {
+-			struct drm_pagemap_zdd *zdd = drm_pagemap_page_zone_device_data(page);
+-			struct drm_pagemap *dpagemap = zdd->dpagemap;
+-			struct drm_pagemap_addr addr;
+-
+-			if (dpagemap == local_dpagemap) {
+-				if (!mdetails->can_migrate_same_pagemap)
+-					goto next;
+-
+-				num_local_pages += NR_PAGES(order);
+-			} else {
+-				num_peer_pages += NR_PAGES(order);
+-			}
++		zdd = drm_pagemap_page_zone_device_data(page);
++		dpagemap = zdd->dpagemap;
+ 
+-			addr = dpagemap->ops->device_map(dpagemap, dev, page, order, dir);
+-			if (dma_mapping_error(dev, addr.addr))
+-				return -EFAULT;
++		if (dpagemap == local_dpagemap) {
++			if (!mdetails->can_migrate_same_pagemap)
++				goto next;
+ 
+-			pagemap_addr[i] = addr;
++			num_local_pages += NR_PAGES(order);
+ 		} else {
+-			dma_addr = dma_map_page(dev, page, 0, page_size(page), dir);
+-			if (dma_mapping_error(dev, dma_addr))
+-				return -EFAULT;
+-
+-			pagemap_addr[i] =
+-				drm_pagemap_addr_encode(dma_addr,
+-							DRM_INTERCONNECT_SYSTEM,
+-							order, dir);
++			num_peer_pages += NR_PAGES(order);
+ 		}
+ 
++		addr = dpagemap->ops->device_map(dpagemap, dev, page, order, dir);
++		if (dma_mapping_error(dev, addr.addr))
++			return -EFAULT;
++
++		pagemap_addr[i] = addr;
++
+ next:
+ 		i += NR_PAGES(order);
+ 	}
+@@ -298,6 +291,60 @@ static int drm_pagemap_migrate_map_pages(struct device *dev,
+ 	return 0;
+ }
+ 
++/**
++ * drm_pagemap_migrate_map_system_pages() - Map system or device coherent
++ * migration pages for GPU SVM migration
++ * @dev: The device performing the migration.
++ * @pagemap_addr: Array to store DMA information corresponding to mapped pages.
++ * @migrate_pfn: Array of page frame numbers of system pages or peer pages to map.
++ * @npages: Number of system or device coherent pages to map.
++ * @dir: Direction of data transfer (e.g., DMA_BIDIRECTIONAL)
++ *
++ * This function maps pages of memory for migration usage in GPU SVM. It
++ * iterates over each page frame number provided in @migrate_pfn, maps the
++ * corresponding page, and stores the DMA address in the provided @dma_addr
++ * array.
++ *
++ * Returns: 0 on success, -EFAULT if an error occurs during mapping.
++ */
++static int
++drm_pagemap_migrate_map_system_pages(struct device *dev,
++				     struct drm_pagemap_addr *pagemap_addr,
++				     unsigned long *migrate_pfn,
++				     unsigned long npages,
++				     enum dma_data_direction dir)
++{
++	unsigned long i;
++
++	for (i = 0; i < npages;) {
++		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
++		dma_addr_t dma_addr;
++		struct folio *folio;
++		unsigned int order = 0;
++
++		if (!page)
++			goto next;
++
++		WARN_ON_ONCE(is_device_private_page(page));
++		folio = page_folio(page);
++		order = folio_order(folio);
++
++		dma_addr = dma_map_page(dev, page, 0, page_size(page), dir);
++		if (dma_mapping_error(dev, dma_addr))
++			return -EFAULT;
++
++		pagemap_addr[i] =
++			drm_pagemap_addr_encode(dma_addr,
++						DRM_INTERCONNECT_SYSTEM,
++						order, dir);
++
++next:
++		i += NR_PAGES(order);
++	}
++
++	return 0;
++}
++
+ /**
+  * drm_pagemap_migrate_unmap_pages() - Unmap pages previously mapped for GPU SVM migration
+  * @dev: The device for which the pages were mapped
+@@ -358,9 +405,13 @@ drm_pagemap_migrate_remote_to_local(struct drm_pagemap_devmem *devmem,
+ 				    const struct drm_pagemap_migrate_details *mdetails)
+ 
+ {
+-	int err = drm_pagemap_migrate_map_pages(remote_device, remote_dpagemap,
+-						pagemap_addr, local_pfns,
+-						npages, DMA_FROM_DEVICE, mdetails);
++	int err = drm_pagemap_migrate_map_device_private_pages(remote_device,
++							       remote_dpagemap,
++							       pagemap_addr,
++							       local_pfns,
++							       npages,
++							       DMA_FROM_DEVICE,
++							       mdetails);
+ 
+ 	if (err)
+ 		goto out;
+@@ -379,12 +430,11 @@ drm_pagemap_migrate_sys_to_dev(struct drm_pagemap_devmem *devmem,
+ 			       struct page *local_pages[],
+ 			       struct drm_pagemap_addr pagemap_addr[],
+ 			       unsigned long npages,
+-			       const struct drm_pagemap_devmem_ops *ops,
+-			       const struct drm_pagemap_migrate_details *mdetails)
++			       const struct drm_pagemap_devmem_ops *ops)
+ {
+-	int err = drm_pagemap_migrate_map_pages(devmem->dev, devmem->dpagemap,
+-						pagemap_addr, sys_pfns, npages,
+-						DMA_TO_DEVICE, mdetails);
++	int err = drm_pagemap_migrate_map_system_pages(devmem->dev,
++						       pagemap_addr, sys_pfns,
++						       npages, DMA_TO_DEVICE);
+ 
+ 	if (err)
+ 		goto out;
+@@ -448,7 +498,7 @@ static int drm_pagemap_migrate_range(struct drm_pagemap_devmem *devmem,
+ 						     &pages[last->start],
+ 						     &pagemap_addr[last->start],
+ 						     cur->start - last->start,
+-						     last->ops, mdetails);
++						     last->ops);
+ 
+ out:
+ 	*last = *cur;
+@@ -1010,7 +1060,6 @@ EXPORT_SYMBOL(drm_pagemap_put);
+ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+ {
+ 	const struct drm_pagemap_devmem_ops *ops = devmem_allocation->ops;
+-	struct drm_pagemap_migrate_details mdetails = {};
+ 	unsigned long npages, mpages = 0;
+ 	struct page **pages;
+ 	unsigned long *src, *dst;
+@@ -1049,10 +1098,10 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+ 	if (err || !mpages)
+ 		goto err_finalize;
+ 
+-	err = drm_pagemap_migrate_map_pages(devmem_allocation->dev,
+-					    devmem_allocation->dpagemap, pagemap_addr,
+-					    dst, npages, DMA_FROM_DEVICE,
+-					    &mdetails);
++	err = drm_pagemap_migrate_map_system_pages(devmem_allocation->dev,
++						   pagemap_addr,
++						   dst, npages,
++						   DMA_FROM_DEVICE);
+ 	if (err)
+ 		goto err_finalize;
+ 
+@@ -1121,7 +1170,6 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+ 				  MIGRATE_VMA_SELECT_COMPOUND,
+ 		.fault_page	= page,
+ 	};
+-	struct drm_pagemap_migrate_details mdetails = {};
+ 	struct drm_pagemap_zdd *zdd;
+ 	const struct drm_pagemap_devmem_ops *ops;
+ 	struct device *dev = NULL;
+@@ -1179,8 +1227,9 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+ 	if (err)
+ 		goto err_finalize;
+ 
+-	err = drm_pagemap_migrate_map_pages(dev, zdd->dpagemap, pagemap_addr, migrate.dst, npages,
+-					    DMA_FROM_DEVICE, &mdetails);
++	err = drm_pagemap_migrate_map_system_pages(dev, pagemap_addr,
++						   migrate.dst, npages,
++						   DMA_FROM_DEVICE);
+ 	if (err)
+ 		goto err_finalize;
+ 
 -- 
 2.34.1
 
