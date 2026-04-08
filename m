@@ -4,142 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D6ABFD5F98
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:58:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA1CFD5F9C
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:58:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 563B510E5D3;
-	Wed,  8 Apr 2026 08:58:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 202F610E5DE;
+	Wed,  8 Apr 2026 08:58:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="O1x6Kwzv";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KKNeQfqJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ij+mB1+G";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A3510E5CD
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:58:19 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6388Ynag1796071
- for <dri-devel@lists.freedesktop.org>; Wed, 8 Apr 2026 08:58:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- qL7PDtfGlQZiLJDrztVf44XQnSa5r5vuSGqc/zpJnTQ=; b=O1x6Kwzvdbg2uw+E
- eILejdyVH8cqvM1QAiK+GMVTPTMJgESQ7kRxVRHDpvuB5G6XP0vXeNEVDxsokE8K
- RomxlH+xxn2A4Aic0mZqvOQNwquLOH3htT95lgMbWlhFM18LZ1EmEedK0F+Qx4Tr
- yHxkLlZ2q4YsaPbYXlSUJYbhgO8LE1WPOykoKwISdvh384oAOkyz4nJhT3efaQYH
- xD1xsEBHAoqyAdG1hNtRqely/oXDlWyRzJn9+fFZAjc/DI5qyVAmRAWC52bJNp8J
- fCniJp5gmIwO+ycHF/qILuPcdHgFbS/0SlHpuf06vO/IrxQRNh7d/Sf+3aZHUnV4
- IJ2Vng==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd51db95c-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 08:58:18 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-8cb485c686cso203866385a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 01:58:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775638697; x=1776243497;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=qL7PDtfGlQZiLJDrztVf44XQnSa5r5vuSGqc/zpJnTQ=;
- b=KKNeQfqJ6BeZh8KMLpM3sBfEmX+cQxWzuD+nKo05nhCTJnAUxiO/plb3Pnx1swzsyD
- ndcRkWm3D3+uwfdqZeF7iEuEHGNVgVLx5f54yQ3VgPhWiSR8VaUI5HtjJFZR30l/oozB
- g7QE7zSztE+i65/H1EtzQopYLWwSQoT/tuNlYIaNLOjVBNDsPm7hlMdM1bvX3ESTwayZ
- wPTACcnW1TtaKsmJ+sFUMOUBU1g1Xn839/gHh3ldfsYmn7G3jHWAmCXJlWC0Tdt76/rz
- HdTPq4Y4nCP9ipYbSkabEj+3ZVA5NWmKbRGUot61wKMSuAh2+DXzJA75G2KEuU9WVj1r
- 8HDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775638697; x=1776243497;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qL7PDtfGlQZiLJDrztVf44XQnSa5r5vuSGqc/zpJnTQ=;
- b=BFpgv8liPE+yNBdHjDo7l37ITy6sZ4qxP+7+JT6F+B62TV+NE6na8Vr4YO27ZNTz3Y
- 1oA2ezQRF+mL/7MU66KBnaGLx0Rn26SFVnEcU21HfWRBQm/aB+blF88n2VUawpsW9Y+7
- X/p+7Fl4ZqVT/S+upgo8CKkxpQ2fyPk5nDwerP7FJfFV9LZUqlijOgTDbuo09D01MKMo
- Aahg9jtz2dfPsmDewR+i5StYPF+PhHWotO6n7znJTOwHcZzbtzKuyDAeaZBClMF1KW62
- 7IYSQbat6xEpaeb07EncsVopkR5iKY9JiWjads7RvG09GpHYkayzfBwgrM3p3YOWdYIf
- /Pvw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWjqL8H8HDHS6PDxzdl9bYuzJhAB1FeWoec/AgynOuBOEYGyD/nV+CDD4p7oF1ypwfv79ge4xvusH4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyh58C0ehiJeRLzQiy4PBSVRXoPKSYm8fTeCYE1REFGthljmkW8
- Hp5bUVZNoZnhL0R8r8rXjvCQ8/PRf6OAthXKfqGAW3bQM+KYxys31srbUMO2dL5IaJVBQo6wOGJ
- CHrh2ycB/KH0uLYULszGxlDojfzcsoYrZdCyK8XXdt0fhgJuaT4r9BW+nTGW1ahOs/zePMdQ=
-X-Gm-Gg: AeBDiet1F4AEIg+YwUovGNOApnIb6P/4Vb+A2mSx5ywpQGZa8isNuAZLaFGzbGlqf+r
- sI8JeITa9mfghtLf5/7W6WF7+xJZZqFAe9q+WtqrVjtHSkVLR6f1BCvNPIaNnOF0j1v8OnCQZbN
- hYtN+PiX1FT95RBw0NWS1CQUgfj0BQUWdWrP5It4Q7amCrt+WNfRRRkE7H0jzcvLPQ7jDrXPYwe
- TkfckwV8IBkIfzwNxpTh+SsWWE4JcrLvAQEjyMuiOObskAWqt4vR3ofsbc1mPNVyAQ52HZrzMm6
- SwxbqLOD4CdNU+G+x+yUYxl6MPb6tusgUFNt2ebMHTSJcc7vruSiLPh2CKy6XTzPIcIv+FE/gUx
- s0p1JsmsijXp1Bdfml9kVCmJSKua24j8yAsbAYYyZITpBgOVrTJ/qd4MozZBYxV2whapCnCE+He
- 7JG1M=
-X-Received: by 2002:a05:622a:7292:b0:50d:8667:6829 with SMTP id
- d75a77b69052e-50d866769d0mr92898351cf.2.1775638697507; 
- Wed, 08 Apr 2026 01:58:17 -0700 (PDT)
-X-Received: by 2002:a05:622a:7292:b0:50d:8667:6829 with SMTP id
- d75a77b69052e-50d866769d0mr92898201cf.2.1775638697114; 
- Wed, 08 Apr 2026 01:58:17 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9c3c9721b6sm612375166b.10.2026.04.08.01.58.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 01:58:16 -0700 (PDT)
-Message-ID: <cb21fcd3-b924-4cb4-971a-9e56319fc18c@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 10:58:12 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E62D10E5DD;
+ Wed,  8 Apr 2026 08:58:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775638701; x=1807174701;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=w97To1uz79r0oCXBC62PCQxLVR6TuBW00cm+du3XD9M=;
+ b=ij+mB1+Gp6KNY0rz0VspGU3HAivP6p1/djBLlZsfDyw76WnaLG4bhB1l
+ y4avjAygHgFahwy3RlPCdnQ6BQEd3+/pN8xMDS+ZFdbfbSHiuoUlDCkJ+
+ wPndCUFmPKaJWWuyWTfAvvpWb4FG7CEnUn6UM94+IeflvTBiIGUH+/BNA
+ gWE4L1Utop9eSmPgX9WuRlk2PqR+t2WTnV+HUHnfI8qC3ZbMZSnVTgb3A
+ n24Uq7EPOwoXbUxVX6H9ajNGcDFATCUPoZC4mxzoc+0YIEeiTvqfuQNIG
+ SKthWZdXiryau9Myb5SA0wTZ4feqMMQJKwvpgxHp4mMMi6hgSkMCBYwm+ w==;
+X-CSE-ConnectionGUID: XoTm8/rNQc6bLNW4WYgXzA==
+X-CSE-MsgGUID: fbX4BC6DQdiHX5Ud8daclA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76516680"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="76516680"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 01:58:21 -0700
+X-CSE-ConnectionGUID: dmY1aBKiSpOJqsKKzU01JA==
+X-CSE-MsgGUID: wqrO+3c9S3i3sBwlxhGArQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="227572599"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 01:58:19 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
+ animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 17/26] drm/i915/dp: Add member to intel_dp to store AS SDP v2
+ support
+Date: Wed,  8 Apr 2026 14:12:29 +0530
+Message-ID: <20260408084239.1295325-18-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260408084239.1295325-1-ankit.k.nautiyal@intel.com>
+References: <20260408084239.1295325-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 3/7] drm/msm/adreno: rename llc_mmio to cx_misc_mmio
-To: Alexander Koskovich <akoskovich@pm.me>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260407-adreno-810-v3-0-30cb7f196ed4@pm.me>
- <20260407-adreno-810-v3-3-30cb7f196ed4@pm.me>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260407-adreno-810-v3-3-30cb7f196ed4@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: zDnFMlnmmamiVJdlrNumN2ixogK67Zwf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA4MCBTYWx0ZWRfX0Dclt8QZZugy
- Nveydlt7zts82h8CcxfvDUmLKLV/o3U00MXs/lCo4+MYzJygej5IjJQEQqEacHeERvjRbRaXYvE
- UohUCL+EzxAx0S9rsGzW6eqmRHIkytl9BVXh/RXvmNE72mzuqxKR/tslVnxE3Y16zF5hEPW/bAK
- t7xwnCqcBNY+ovPvWhsNdUWG63oKKPKNwJRenG0lqaswnskFLuq3EmdB2mKexvUSUuLvIjy/Q80
- GFRdlsNma7Q9NEKPrRe0NOkOkkhe1+hnBOIm9rQKijZx0TwqnN/nk6mP+Ur7XEC7IO11IZ4pz2K
- edY30h36RVWIqDj31aOlEwq2Vrjt3IJbEDyzppB3p04jZK65SNgyToI2T6By4unlSOKPayeygtO
- SVIN6vI5s2o7hDJWPdJDC8/2RUYoHqUdryqerEMbIEWKCClmpWUZEdxW8FzxTFO3s5B31UaqOHF
- zQXz2vxtZoKOqd8bGVg==
-X-Authority-Analysis: v=2.4 cv=AcaB2XXG c=1 sm=1 tr=0 ts=69d618aa cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=EWmrOR-qnjryNtOcuEoA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: zDnFMlnmmamiVJdlrNumN2ixogK67Zwf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-08_03,2026-04-07_05,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- phishscore=0 impostorscore=0 spamscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080080
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,19 +70,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/8/26 3:45 AM, Alexander Koskovich wrote:
-> This region is used for more than just LLCC, it also provides access to
-> software fuse values (raytracing, etc).
-> 
-> Rename relevant symbols from _llc to _cx_misc for use in a follow up
-> change that decouples this from LLCC.
-> 
-> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
+eDP v1.5a advertises support for Adaptive Sync SDP and with that the
+support for AS SDP v2 is mandatory.
 
-Seems you lost my tag
+DP v2.1 SCR advertises support for FAVT payload fields parsing in DPCD
+0x2214 Bit 2. This indicates the support for Adaptive-Sync SDP version 2
+(AS SDP v2), which allows the source to set the version in HB2[4:0] and the
+payload length in HB3[5:0] of the AS SDP header.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+DP v2.1 SCR also introduces ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR in the
+Panel Replay Capability DPCD 0x00b1 (Bit 3). When this bit is set, the sink
+does not support asynchronous video timing while in a Panel Replay Active
+state and the source is required to keep transmitting Adaptive-Sync
+SDPs. The spec mandates that such sinks shall support AS SDP v2.
 
-Konrad
+Infer AS SDP v2 support from these capabilities and store it in
+struct intel_dp for use by subsequent feature enablement changes.
+
+v2:
+ - Include parsing ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR bit to
+   determine AS SDP v2 support. (Ville)
+v3:
+ - Use helper to determine asynch video timing support.
+v4:
+ - Add AS SDP v2 support for eDP as per v1.5a.
+ - Add a check for Panel Replay support before checking for Async video
+   timing support in PR
+ - Add a TODO for Display ID and PCON considerations. (Ville)
+
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 49 +++++++++++++++++++
+ 2 files changed, 50 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index e2496db1642a..efc609eef4f5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1870,6 +1870,7 @@ struct intel_dp {
+ 	/* connector directly attached - won't be use for modeset in mst world */
+ 	struct intel_connector *attached_connector;
+ 	bool as_sdp_supported;
++	bool as_sdp_v2_supported;
+ 
+ 	struct drm_dp_tunnel *tunnel;
+ 	bool tunnel_suspended:1;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index bca5dc2c3b30..aa035cb2fcc5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6307,6 +6307,46 @@ intel_dp_unset_edid(struct intel_dp *intel_dp)
+ 					       false);
+ }
+ 
++static bool
++intel_dp_sink_supports_as_sdp_v2(struct intel_dp *intel_dp)
++{
++	u8 rx_features;
++
++	/*
++	 * The DP spec does not explicitly provide the AS SDP v2 capability.
++	 * So based on the DP v2.1 SCR, we infer it from the following bits:
++	 *
++	 * DP_AS_SDP_FAVT_PAYLOAD_FIELDS_PARSING_SUPPORTED indicates support for
++	 * FAVT, which is explicitly defined to use AS SDP v2.
++	 *
++	 * DP_ASYNC_VIDEO_TIMING_NOT_SUPPORTED_IN_PR indicates that the sink
++	 * does not support asynchronous video timing while in PR Active,
++	 * requiring the source to keep transmitting Adaptive-Sync SDPs. The
++	 * spec mandates that such sinks shall support AS SDP v2.
++	 *
++	 * #TODO: Check the Adaptive-Sync DisplayID 2.1 block once DisplayID
++	 * parsing is available. This may help detect AS SDP v2 support for
++	 * native DP 2.1 sinks that do not expose FAVT or PR-based capability
++	 * bits.
++	 *
++	 * In the presence of PCONs, check PCON support from DPCD and sink
++	 * support from Display ID.
++	 */
++
++	if (drm_dp_dpcd_read_byte(&intel_dp->aux,
++				  DP_DPRX_FEATURE_ENUMERATION_LIST_CONT_1,
++				  &rx_features) == 1) {
++		if (rx_features & DP_AS_SDP_FAVT_PAYLOAD_FIELDS_PARSING_SUPPORTED)
++			return true;
++	}
++
++	if (intel_dp->psr.sink_panel_replay_support &&
++	    !intel_psr_pr_async_video_timing_supported(intel_dp))
++		return true;
++
++	return false;
++}
++
+ static void
+ intel_dp_detect_sdp_caps(struct intel_dp *intel_dp)
+ {
+@@ -6314,6 +6354,15 @@ intel_dp_detect_sdp_caps(struct intel_dp *intel_dp)
+ 
+ 	intel_dp->as_sdp_supported = HAS_AS_SDP(display) &&
+ 		drm_dp_as_sdp_supported(&intel_dp->aux, intel_dp->dpcd);
++
++	if (!intel_dp->as_sdp_supported)
++		return;
++
++	/* eDP Adaptive-Sync SDP always uses AS SDP v2 */
++	if (intel_dp_is_edp(intel_dp))
++		intel_dp->as_sdp_v2_supported =  true;
++	else
++		intel_dp->as_sdp_v2_supported = intel_dp_sink_supports_as_sdp_v2(intel_dp);
+ }
+ 
+ static bool intel_dp_needs_dpcd_probe(struct intel_dp *intel_dp, bool force_on_external)
+-- 
+2.45.2
+
