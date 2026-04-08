@@ -4,50 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41F5FD5F94
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:33:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 210C1FD5F8E
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:34:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76DD110E585;
-	Wed,  8 Apr 2026 08:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83DC610E588;
+	Wed,  8 Apr 2026 08:34:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="GvNX4EKk";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="bmZjPCWl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a/7N/lPh";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C41210E585
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:33:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1775636774;
- bh=+qpGNZpM/4zlDBjPSmbKKvW
- 1+lrka7rHduPuKMaiudA=; b=GvNX4EKk8fC9QPwE7fnNl5xP+v66Lub+LYWxC/oEfFcdJ3MYde
- 8nRpufZ62K5CvuOfRvXleuCWWRWfQsMXYII0bNe25LnbEQ5MmGTwah3txJzYadgIBbkcFW+FYNP
- M86yjpLOAaCktNy7pXJckssOSVMa+bIN0NnlcE4ZYRfL7cgbBQBcqI1gT0f3h/ZM8NBy7b4NwaN
- QlWNMq3XWyUGBIp8GuJ/UCrqz8xLZa0bno3Vn908n1mmKoQwYCtYULjGwDFWmCH3WP1mKVTQELC
- ABC3cM8rEae8uvNmo7D0gkqPrZ669NYTfLZMzoYbcThvR/LYyr/z0z7Vq4wvu0yPPHQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1775636774; bh=+qpGNZpM/4zlDBjPSmbKKvW
- 1+lrka7rHduPuKMaiudA=; b=bmZjPCWlf25rT+rt29D4AjqY0HNNUXddKH9lYxXQy4w1z91CQr
- 4feg8EsFP1MOZ5fuXK058OXPyl3aC8fSAcCA==;
-Message-ID: <cb980ffb-1180-4613-a801-6e8bed5d669c@damsy.net>
-Date: Wed, 8 Apr 2026 10:26:13 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E66EA10E587;
+ Wed,  8 Apr 2026 08:34:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775637287; x=1807173287;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=Z95CjdbwHS0pAgI2+9rZ0GmygT3N2HLDTmrehBn9p14=;
+ b=a/7N/lPhapcnoXmL0pCpJvMrCkeQlmf68Hs03lRSJh8Pl6p55MFan3p3
+ S3K7Xz+KlJ4i9tmTh9e3Z5E8XWrDZrTZPsUbFebOvUPFHBAxzT35SzbU9
+ kAA2KmuTb1QbdImIfqidZUCKDa5kqFD12p4lgvXTjLGpdlGQvnELUhFJ3
+ lrP0iM74fhl7r7WH2iohYk+Wntcl5jRgR7G8onu68M1Eib/dhOWRpy7ka
+ 3iLtOy3d3YZYSPHKedVlZc0KaYBnc+0ERiATcDSmLPcmDMU+DD9fsYq2P
+ rsgbTFZ/w1+fa1UWJXEGjpm25G4CvSDYi1IUk5Ac92vLaS2Wh6QV+8OMu A==;
+X-CSE-ConnectionGUID: R1A2SNX7QfC6O9kSNwOx9A==
+X-CSE-MsgGUID: kvkk9ZY5Ry+Xo7rkON6r3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="99239265"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="99239265"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 01:34:47 -0700
+X-CSE-ConnectionGUID: pfhp5jv3RqObpRsbZUruKw==
+X-CSE-MsgGUID: cfqGAIYsQ1yi2s9E6KjhQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="233286588"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.1])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 01:34:45 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/7] drm/amdgpu: give ttm entities access to all the
- sdma scheds
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
- <20260403083602.1771-4-pierre-eric.pelloux-prayer@amd.com>
- <c9123064-413d-4cf3-b39f-5268cedcf92d@amd.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <c9123064-413d-4cf3-b39f-5268cedcf92d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260408082859.69823-1-joonas.lahtinen@linux.intel.com>
+References: <20260408082859.69823-1-joonas.lahtinen@linux.intel.com>
+Subject: Re: [PATCH] drm/i915/gem: Don't use VMA from wrong VM in EXECBUF
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Direct Rendering Infrastructure - Development
+ <dri-devel@lists.freedesktop.org>,
+ Ville =?utf-8?b?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Linus Torvalds <torvalds@linuxfoundation.org>
+To: Intel graphics driver community testing & development
+ <intel-gfx@lists.freedesktop.org>
+Date: Wed, 08 Apr 2026 11:34:41 +0300
+Message-ID: <177563728194.70530.11694465930209500099@jlahtine-mobl>
+User-Agent: alot/0.12.dev7+g16b50e5f
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,91 +73,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+There will be no CI results as Linus already has a temporary fix in his
+tree which got to drm-tip via the various -fixes trees. But its the same
+change suggested by Ville so effectively it's been tested already in
+every CI run after incorporating -rc7 to -fixes trees this week.
 
-
-Le 07/04/2026 à 12:05, Christian König a écrit :
-> On 4/3/26 10:35, Pierre-Eric Pelloux-Prayer wrote:
->> With this change we now have as many clear and move entities as we
->> have sdma engines (limited to TTM_NUM_MOVE_FENCES).
->>
->> To enable load-balancing this patch gives access to all sdma
->> schedulers to all entities.
->>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> Reviewed-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 16 +++++++++-------
->>   1 file changed, 9 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 83f6d00dc3a0..648ad344e89c 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -2349,8 +2349,6 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
->>   		return;
->>   
->>   	if (enable) {
->> -		struct drm_gpu_scheduler *sched;
->> -
->>   		if (!adev->mman.num_buffer_funcs_scheds) {
->>   			dev_warn(adev->dev, "Not enabling DMA transfers for in kernel use");
->>   			return;
->> @@ -2358,11 +2356,10 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
->>   
->>   		num_clear_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
->>   		num_move_entities = MIN(adev->mman.num_buffer_funcs_scheds, TTM_NUM_MOVE_FENCES);
->> -		sched = adev->mman.buffer_funcs_scheds[0];
->>   		r = amdgpu_ttm_buffer_entity_init(&adev->mman.gtt_mgr,
->>   						  &adev->mman.default_entity,
->>   						  DRM_SCHED_PRIORITY_KERNEL,
->> -						  &sched, 1, 0);
->> +						  adev->mman.buffer_funcs_scheds, 1, 0);
-> 
-> Why still giving num_schedulers as 1 here???
-> 
-
-Because I think multiple schedulers aren't useful for this entity. But if you prefer I can pass all 
-available schedulers to all ttm entities (in which case I'd remove the parameters from 
-amdgpu_ttm_buffer_entity_init).
-
->>   		if (r < 0) {
->>   			dev_err(adev->dev,
->>   				"Failed setting up TTM entity (%d)\n", r);
->> @@ -2380,8 +2377,11 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
->>   
->>   		for (i = 0; i < num_clear_entities; i++) {
->>   			r = amdgpu_ttm_buffer_entity_init(
->> -				&adev->mman.gtt_mgr, &adev->mman.clear_entities[i],
->> -				DRM_SCHED_PRIORITY_NORMAL, &sched, 1, 1);
->> +				&adev->mman.gtt_mgr,
->> +				&adev->mman.clear_entities[i],
->> +				DRM_SCHED_PRIORITY_NORMAL,
-> 
-> That should be DRM_SCHED_PRIORITY_KERNEL, same below.
-
-OK, will update in v6.
-
-Thanks,
-Pierre-Eric
-
-
-> 
-> Regards,
-> Christian.
-> 
->> +				adev->mman.buffer_funcs_scheds,
->> +				adev->mman.num_buffer_funcs_scheds, 1);
->>   
->>   			if (r < 0) {
->>   				for (j = 0; j < i; j++)
->> @@ -2400,7 +2400,9 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
->>   			r = amdgpu_ttm_buffer_entity_init(
->>   				&adev->mman.gtt_mgr,
->>   				&adev->mman.move_entities[i],
->> -				DRM_SCHED_PRIORITY_NORMAL, &sched, 1, 2);
->> +				DRM_SCHED_PRIORITY_NORMAL,
->> +				adev->mman.buffer_funcs_scheds,
->> +				adev->mman.num_buffer_funcs_scheds, 2);
->>   
->>   			if (r < 0) {
->>   				for (j = 0; j < i; j++)
+Regards, Joonas
