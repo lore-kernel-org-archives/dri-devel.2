@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78831073CB0
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834EA1073CB4
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0739510E64B;
-	Wed,  8 Apr 2026 13:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E115F10E65E;
+	Wed,  8 Apr 2026 13:07:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SddBSPZD";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FTfA9EmG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709A610E64B
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:06:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775653586; x=1807189586;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=0cHiUjDaYWGPTd6WomSM8ze9DWt0SHiKae+mAMTafBQ=;
- b=SddBSPZDyFcm3YkD8Av8cZXqmQIfg+L6zSGTEG0UNXH8hYDXAutMWwbx
- GJiCYbnshoguTBH3QxvizosvNeSljEsa+s2WAdgRqwUfvwP73EG8iNmIY
- vPlE6EoBA6x7D+3YFM/OCHIdeGHbN5gxyQsRRxwLgpyqX88veARs1FWaw
- ja3dSzkeXh4Go6299oFufk2xDO3kdxj0u+VjcvFwbrdKbyJt5apEun3cy
- RcwspCOgXRzuZar6Hj4aCngF6UA3Xy7QXj8/IR3m+izQZUuRo7xgZQydZ
- eEkiTWjjJHK9fPqRdM6pTzeoX79RduYjewO4kuXsxj+Q3mAJEeGMXtkvX g==;
-X-CSE-ConnectionGUID: cvuXGcWkR5OR+w64qMEU2Q==
-X-CSE-MsgGUID: Mx9g2C2wTXudfq6kSXGgZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76599535"
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="76599535"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 06:06:25 -0700
-X-CSE-ConnectionGUID: moNvs6GnRTu/fBUhdKYxTg==
-X-CSE-MsgGUID: HlYlVbuSTty4l06LtTkHBA==
-X-ExtLoop1: 1
-Received: from dgeiger-mobl1.ger.corp.intel.com (HELO [10.246.17.96])
- ([10.246.17.96])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 06:06:23 -0700
-Message-ID: <10d61ab1-216d-4a79-bd80-ff4309c4d6b4@linux.intel.com>
-Date: Wed, 8 Apr 2026 15:01:31 +0200
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61CCD10E64D;
+ Wed,  8 Apr 2026 13:07:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 06ED044503;
+ Wed,  8 Apr 2026 13:07:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E9AC19424;
+ Wed,  8 Apr 2026 13:07:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1775653666;
+ bh=8mh746Ujr683Wq4XJ9yNNUA56PJPup2q3TBHMki9xgM=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=FTfA9EmG7QnRURHmT5cXXQQwBK8ELhW014kSJfNTaVynfAxBvUdkcHN9u11v+6HoF
+ kP76xZ3mZQiPMF1+jUaG0x/etK9ym6pR/IYeF12nCW08Av8Z5Tj4d6d+AddBIIGot8
+ WYK7nitV9QkyJqf/upDF0+57YCWUNnXAFfHdn68o=
+Subject: Patch "drm/amd/amdgpu: decouple ASPM with pcie dpm" has been added to
+ the 6.12-stable tree
+To: Eric.Yang2@amd.com, Mario.Limonciello@amd.com, Rodrigo.Siqueira@amd.com,
+ Roman.Li@amd.com, Tony.Cheng@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ alex.hung@amd.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, issor.oruam@gmail.com,
+ kenneth.feng@amd.com, kevinyang.wang@amd.com, ray.wu@amd.com, rosenp@gmail.com,
+ simona@ffwll.ch, sunpeng.li@amd.com, timur.kristof@gmail.com,
+ wayne.lin@amd.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 08 Apr 2026 15:07:36 +0200
+In-Reply-To: <20260401003908.3438-2-rosenp@gmail.com>
+Message-ID: <2026040836-revoke-very-c4c6@gregkh>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/ivpu: Add support for limiting NPU frequency
-To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, karol.wachowski@linux.intel.com,
- lizhi.hou@amd.com, maciej.falkowski@linux.intel.com
-References: <20260330083815.1806045-1-andrzej.kacprowski@linux.intel.com>
- <dcf02dcc-e49f-4d7a-8cec-95d177b32336@oss.qualcomm.com>
-Content-Language: en-US
-From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
-In-Reply-To: <dcf02dcc-e49f-4d7a-8cec-95d177b32336@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,55 +62,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 31-Mar-26 8:12 AM, Jeff Hugo wrote:
-> On 3/30/2026 2:38 AM, Andrzej Kacprowski wrote:
->> Add configurable frequency limits to allow users to constrain the NPU
->> operating frequency range for power and thermal management. This support
->> requires firmware API version 3.34.0 or newer.
->>
->> New sysfs interface:
->>
->> The freq/ subdirectory contains the following attributes:
->>
->> - hw_min_freq: Minimum frequency supported by hardware (read-only)
->> - hw_max_freq: Maximum frequency supported by hardware (read-only)
->> - hw_efficient_freq: Hardware's optimal operating frequency (read-only)
->> - current_freq: Current NPU frequency in MHz (read-only)
->> - set_min_freq: Configure minimum operating frequency (50XX+ devices)
->> - set_max_freq: Configure maximum operating frequency (50XX+ devices)
-> I don't see Documentation/ABI changes in this patch, which are required 
-> for sysfs.
-> 
-Good point. I will add required documentation for all attributes 
-exported by the ivpu driver.
-[PATCH V2] will follow.
 
-> However, I wonder if this is the best way to move forward. At best, you 
-> appear to be implementing a completely custom version of hwmon. However, 
-> I wonder if hwmon/sysfs will be limiting as you support 3 generations of 
-> devices if I recall correctly, and that number is probably going to go 
-> up. With the different generations supporting different capabilities, I 
-> suspect the sysfs approach will eventually put you into a corner.
-Hwmon supports a fixed set of sensor types (temperature, voltage, fan 
-speed, etc...) but it does not support frequency, so its not suitable 
-for the purpose.
-Frequency limiting is supported on 2 hardware generations (50XX and 
-60XX) without any delta. I'm not expecting any changes in this code for 
-future hardware.
-> 
-> Your collegues over in the XE area have proposed a netlink mechanism, 
-> which is in -next currently (expected to go in the 7.1 merge window). We 
-> collaborated on that mechanism, and have plans to extend it for these 
-> kinds of "telemetry" items. I'm expecting we'll have some patches posted 
-> on list in a week, maybe 2 (finishing up some of the final details). 
-> Perhaps you would find that useful?
-The DRM RAS over netlink seems to be tailored for reporting error counters.
+This is a note to let you know that I've just added the patch titled
 
-The xe driver I was mimicking, still manages frequency limiting with 
-sysfs, even thou it supported hwmon for discrete hw sensors, and now RAS 
-over netlink as well for error counters.
+    drm/amd/amdgpu: decouple ASPM with pcie dpm
 
-- Andrzej
-> 
-> -Jeff
+to the 6.12-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
+The filename of the patch is:
+     drm-amd-amdgpu-decouple-aspm-with-pcie-dpm.patch
+and it can be found in the queue-6.12 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From stable+bounces-232620-greg=kroah.com@vger.kernel.org Wed Apr  1 02:41:51 2026
+From: Rosen Penev <rosenp@gmail.com>
+Date: Tue, 31 Mar 2026 17:38:59 -0700
+Subject: drm/amd/amdgpu: decouple ASPM with pcie dpm
+To: stable@vger.kernel.org
+Cc: "Alex Deucher" <alexander.deucher@amd.com>, "Christian König" <christian.koenig@amd.com>, "Xinhui Pan" <Xinhui.Pan@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, "Rodrigo Siqueira" <Rodrigo.Siqueira@amd.com>, "Ray Wu" <ray.wu@amd.com>, "Wayne Lin" <wayne.lin@amd.com>, "Mario Limonciello" <Mario.Limonciello@amd.com>, "Roman Li" <Roman.Li@amd.com>, "Eric Yang" <Eric.Yang2@amd.com>, "Tony Cheng" <Tony.Cheng@amd.com>, "Mauro Rossi" <issor.oruam@gmail.com>, "Timur Kristóf" <timur.kristof@gmail.com>, "Alex Hung" <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS), dri-devel@lists.freedesktop.org (open list:DRM DRIVERS), linux-kernel@vger.kernel.org (open list)
+Message-ID: <20260401003908.3438-2-rosenp@gmail.com>
+
+From: Kenneth Feng <kenneth.feng@amd.com>
+
+[ Upstream commit df0e722fbdbedb6f2b682dc2fad9e0c221e3622d ]
+
+ASPM doesn't need to be disabled if pcie dpm is disabled.
+So ASPM can be independantly enabled.
+
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |    2 --
+ 1 file changed, 2 deletions(-)
+
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1782,8 +1782,6 @@ bool amdgpu_device_should_use_aspm(struc
+ 	}
+ 	if (adev->flags & AMD_IS_APU)
+ 		return false;
+-	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK))
+-		return false;
+ 	return pcie_aspm_enabled(adev->pdev);
+ }
+ 
+
+
+Patches currently in stable-queue which might be from rosenp@gmail.com are
+
+queue-6.12/drm-amd-amdgpu-decouple-aspm-with-pcie-dpm.patch
+queue-6.12/drm-amd-display-reject-modes-with-too-high-pixel-clock-on-dce6-10.patch
+queue-6.12/drm-amd-display-fix-dce-6.0-and-6.4-pll-programming.patch
+queue-6.12/drm-amd-display-disable-scaling-on-dce6-for-now.patch
+queue-6.12/drm-amd-display-disable-fastboot-on-dce-6-too.patch
+queue-6.12/drm-amd-display-correct-logic-check-error-for-fastboot.patch
+queue-6.12/drm-amd-amdgpu-disable-aspm-in-some-situations.patch
+queue-6.12/drm-amd-display-keep-pll0-running-on-dce-6.0-and-6.4.patch
+queue-6.12/drm-amd-display-adjust-dce-8-10-clock-don-t-overclock-by-15.patch
+queue-6.12/drm-amd-disable-aspm-on-si.patch
