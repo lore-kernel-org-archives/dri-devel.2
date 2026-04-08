@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE561073C93
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 12:45:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 386301073C93
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 12:50:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4982A10E575;
-	Wed,  8 Apr 2026 12:45:36 +0000 (UTC)
-X-Greylist: delayed 347 seconds by postgrey-1.36 at gabe;
- Wed, 08 Apr 2026 12:45:34 UTC
-Received: from 6.mo575.mail-out.ovh.net (6.mo575.mail-out.ovh.net
- [46.105.63.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F39B10E575
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:45:34 +0000 (UTC)
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.109.249.22])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4frN1Y2DCcz61lq
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:39:44 +0000 (UTC)
-Received: from ghost-submission-7d8d68f679-rvp9c (unknown [10.110.118.225])
- by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5CAADC29B9;
- Wed,  8 Apr 2026 12:39:43 +0000 (UTC)
-Received: from etezian.org ([37.59.142.97])
- by ghost-submission-7d8d68f679-rvp9c with ESMTPSA
- id MJC9D49M1mneRSgAk2rvTQ
- (envelope-from <andi@etezian.org>); Wed, 08 Apr 2026 12:39:43 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 881C510E464;
+	Wed,  8 Apr 2026 12:50:30 +0000 (UTC)
+X-Greylist: delayed 574 seconds by postgrey-1.36 at gabe;
+ Wed, 08 Apr 2026 12:50:29 UTC
+Received: from 3.mo560.mail-out.ovh.net (3.mo560.mail-out.ovh.net
+ [46.105.58.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3B1210E464
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:50:29 +0000 (UTC)
+Received: from director5.ghost.mail-out.ovh.net (unknown [10.110.58.129])
+ by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4frN2s6KWKzB4gt
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 12:40:53 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-mb8kg (unknown [10.110.113.134])
+ by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 923D91001F4;
+ Wed,  8 Apr 2026 12:40:51 +0000 (UTC)
+Received: from etezian.org ([37.59.142.111])
+ by ghost-submission-7d8d68f679-mb8kg with ESMTPSA
+ id xi9IBtNM1mmC/xcAWGcN2g
+ (envelope-from <andi@etezian.org>); Wed, 08 Apr 2026 12:40:51 +0000
 Authentication-Results: garm.ovh; auth=pass
- (GARM-97G00223703280-d183-470b-9751-0b51bc554a44,
+ (GARM-111S00502917d8b-fe65-4101-a4d9-a01200ae7c8c,
  D209C671E6EFFA79B5C95F157C9E47DE85B2B2E2) smtp.auth=andi@etezian.org
 X-OVh-ClientIp: 178.82.31.9
 From: Andi Shyti <andi.shyti@kernel.org>
@@ -38,18 +38,19 @@ Cc: janusz.krzysztofik@intel.com, dri-devel@lists.freedesktop.org,
  Andi Shyti <andi.shyti@kernel.org>,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 Subject: [PATCH] dma-buf: fix UAF in dma_buf_put() tracepoint
-Date: Wed,  8 Apr 2026 14:39:15 +0200
-Message-ID: <20260408123916.2604101-1-andi.shyti@kernel.org>
+Date: Wed,  8 Apr 2026 14:39:16 +0200
+Message-ID: <20260408123916.2604101-2-andi.shyti@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <68595b2ceed038074f5fe0a5739d75aafbcac8d3.camel@intel.com>
+In-Reply-To: <20260408123916.2604101-1-andi.shyti@kernel.org>
 References: <68595b2ceed038074f5fe0a5739d75aafbcac8d3.camel@intel.com>
+ <20260408123916.2604101-1-andi.shyti@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 5516909544000427226
+x-ovh-tracer-id: 5536331319964046554
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFJcN3wABJSf2iZpuR5LkA/rJofncb8HPc1lvL14FRcLOhQZE9m65WI7Syzas+A5oU/HMP6qC08qwn2zeFkRR5HvIZrLxMSqek0zFZDYgrkyvfAr5plLRTBX/NT1TF8vFWKq2ajKk0j/79sd/tNec7iFaJQhArVdfqMXgEY9sgx9yGM9FzuJLYJKMjXCETNVsXf+qfrOdOhVic425NTdRHE3a3QPOSdjP3MeHA+GhGkfeLZ3KRIxDswm1v6v1n01idrLScUV3IcfBnSZc3eV7sfBqvJvxU7El0aQnmB3Qejf7phnyndjNdEJ4FQBHv47AIXzCTaI9hPomwTY2P5akDfAaO0cFJ60QpfsIaGzXbWpX0GJ0shSAUjf+R+x9rbRIRx706scn3rSyOA+pJa1ANuumMjZ6jkv53o/70ZCoUedN4tXXuzLx8t1nTOXxP2O6YTueDsD9kvIjx76l0e5cFG5XDCnVRRDxCxiTUFe3102gU6Vim/fW85pE0G5cQWpTVkhQZSKquR0z3JwZUvTJUU/H+tdhcHsWPB7J+0BLfPg97KilbG3yQ4g+ON0WVRxgIEwFdmXTd73j+EsY79gTZNfONXUaCxUqr2JfvaxtnA5ZqGuFyXMY7pipeEC5mpj/QyJfU8sxw8OTrzIK/oIY/ER6HM7Ia7ApzDPtz/XmcBAw
+X-VR-SPAMCAUSE: dmFkZTFz5CK8pll4+m5rzR24T746LhjYj0+P7SPwAVsk3wZFnbp+RFDWAosALJb5nVkuVD1j5uaxE3Q2sgEtavEjgrNJlsQ6p+mnK8Qlhi0kzcJwEgnoUBVKWrsVVpQ7R/Y+9BwkJcgqgm25Q2u/F9PiAsMNwOCgi8TL/5WLXNpdsfoLSd1BWZKbZ9S7GFLaJeqB5t12xoDsqbrrHVeB2JRmOd716PcPxqa6FrDi+Nr4Lropz4Ey1GayttEWMbI7tmWXMHtER0h++jPXdEVXopxjePU8Ff0ssrpUzGvE6lfQumSM7er0ehIPkgcyj0Nzujs8ITbFvT+IaQ4L8GPlRPmrjDZBJ98d0lE8mdmB2zfmbzmwm5Px7B3fSs5ru/5XE6tfxqfMCP4iMRELaw+dpSGu9ThNrGvYr2ksf5kLd6hy2OKbELck+1XDBgYk6WOtP++sk0mcvdnj/KcdN/7ua6Qk/dyc4Da0AqO5tHWv0FaDEpt/irhD4YmXinKQtR2pxsx6NGPmDzKiyEHHqVRTnJfxOmIfql8EctniM5iKDefhI/5YZ9+7uiUr+HjZkN8EoX/tCN8LgXsZvFc0jYjLecIkB0XeG/sjOlwo5scc3drqcfwjTtPUas9o8AvlAdwrndKMm4DYnw6BDo8H2lvzgXKQJ93hKgtvXoVXCuMeaOCWQxQdfw
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
