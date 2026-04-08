@@ -4,84 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1B61FD5F79
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:33:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25ACC1073C8B
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD84110E0D7;
-	Wed,  8 Apr 2026 10:33:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AD8A10E0E8;
+	Wed,  8 Apr 2026 10:37:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="v0dGvejY";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="BThh7p+d";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D05D10E0D7
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 10:33:28 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6385eBuw2995154; Wed, 8 Apr 2026 11:33:03 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=Y
- RbIUfy7PDUjzpSHaVbdZAuNWadSqt0BWYZ64+s6FzA=; b=v0dGvejY1qOLi4OWX
- cSd8OYKCKN5epd3EIE+jSol+If6RExyox0ntJaT9DgWfxFpfbmvKfk73L/bQDNKf
- sA48anNK2CaLzgXR4Z8XUDeALOEw08iIXfNMBL/oYWQyu+dkbQYRh2MSAth1z27d
- IESyxiozXQeKIombfglswcVgXVCnwmg7YviHcMUw2//n0S+qwLaWreQ1Y55xpOdO
- ceUMNds3TrKZN3Q3dB7Km9G8gR0OIBeNpn8l/4xyf7QvIK69hH97jiApPibjuhAI
- oMlV0FcUPmFVA9rzRIsLnnAQXcRL9ef9FSf3xAYR3b+Y4i0v3kkYY9HPINzOHrjU
- H2jpQ==
-Received: from hhmail02.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4dd4s2gs5a-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Apr 2026 11:33:03 +0100 (BST)
-Received: from HHMAIL03.hh.imgtec.org (10.44.0.121) by HHMAIL02.hh.imgtec.org
- (10.100.10.20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 8 Apr
- 2026 11:33:02 +0100
-Received: from
- 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa
- (172.25.4.178) by HHMAIL03.hh.imgtec.org (10.44.0.121) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 8 Apr 2026 11:33:02 +0100
-From: Matt Coster <matt.coster@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Brajesh Gupta
- <brajesh.gupta@imgtec.com>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Alessio Belle <alessio.belle@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- <stable@vger.kernel.org>
-In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
-References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
-Subject: Re: [PATCH 0/8] drm/imagination: Job submission fixes and cleanup
-Message-ID: <177564438213.82099.271553295476946768.b4-ty@b4>
-Date: Wed, 8 Apr 2026 11:33:02 +0100
+Received: from OS0P286CU010.outbound.protection.outlook.com
+ (mail-japanwestazon11011048.outbound.protection.outlook.com [40.107.74.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E4AA10E44D
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 10:37:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=etqFBYLb58ZZTJXzAU3aXNzRvNp+LAm3reC+3GHn0RMEeYpldOcTf4YO6TJMHrR+IUqIiowRXz4Cl5j8k8wBjpHheS3CyMygniYzBi1OLyzgfIZ0oY7cDSpZWRLfY1893gmULGSrQ0T75CYX8DX9zZj9I5YgWWPKwOvZdWcvQ71TYrvosHjSM7zS+iCik8ygfQPWTehqpBnuEtxT5tmvqwaGJw71+2/pSVLA1eiz5ZPoRYZ1YqSi/aJHyp35Fs1mIH0sCkAnvzv3SH094rDz5Fx6OljphRLTfRa7y/g7NmLHGbzwedlOoBSU99ubyW857yZaegeOu7LZfASYYFB+aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eW19/+Wox3LjFxbrBU3q+T/9DNO5Ilv/N4mUQYCMCoo=;
+ b=uvA+H9GkQtOan5z63e6EMSluAPqN/SFfEj77ad4RqbR6sFFeVPOrZP8eSs3z6NbbD+ldxj8MreGT+a4XHiMp4NcXW7+MaW3HrY/s77xGAm6aGFb6/RWjXzmxVMno9reL/rt6tJgG5uyT3f/Pp/Kt+b5SE4Pj4Eqfhr1juf5sfql77scBd8gixxniLabZV3Ii6jhTvIQCTJPwMFGFdZg29p/UxNXcAJSrU6KWT7ByVj8fgF6/DC02I9WjGlAjpmCFEBFQZK287eHw+/He7X7I+0SzJ5Xd5yYht3wrloQUmSWZ/C+gFFqw7/VO4rYY7XpmzQ7VFrV/cCTDMu3i0lioTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eW19/+Wox3LjFxbrBU3q+T/9DNO5Ilv/N4mUQYCMCoo=;
+ b=BThh7p+dEkVNXWwLQ61k6pJyiiejwWYkzBEFZMtejwFSsmnxMIUo35X8iKev+LdxeuvO0+elb4i68XnkogFHfvUj/DjgYZEQyUE7xhwoj161UHycH3lhgFGKNSQ23+VjhVCUxr5vjdONIeiu1VUaQ2Rj/Nx5cAeeFM41u3VNs00=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
+ by OS7PR01MB13668.jpnprd01.prod.outlook.com (2603:1096:604:35d::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Wed, 8 Apr
+ 2026 10:37:47 +0000
+Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
+ ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Wed, 8 Apr 2026
+ 10:37:47 +0000
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: tomm.merciai@gmail.com, geert@linux-m68k.org,
+ laurent.pinchart@ideasonboard.com
+Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
+Subject: [PATCH v6 00/21] Add support for DU and DSI on the Renesas RZ/G3E SoC
+Date: Wed,  8 Apr 2026 12:36:45 +0200
+Message-ID: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0140.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::8) To TYCPR01MB11947.jpnprd01.prod.outlook.com
+ (2603:1096:400:3e1::6)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
-X-Originating-IP: [172.25.4.178]
-X-Proofpoint-GUID: _TMcyOQ8vC78jZMMA64wGo11iNMJ4oFu
-X-Authority-Analysis: v=2.4 cv=cL/QdFeN c=1 sm=1 tr=0 ts=69d62edf cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=vO48zYV2LvQA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=TDz46OUBVoeO_pJfSP8A:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: _TMcyOQ8vC78jZMMA64wGo11iNMJ4oFu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA5NyBTYWx0ZWRfX/eQQBFVBZg2E
- Ol7j9k4HU3URWdMzOVwSOImzIkGBeYxlGqzExnLAasSyRg/51K4G5pLUuiuri0pu1HpawO4x1KI
- G+P+zkm9OAwZwpYAGtSi78AT9wmrPRrMjLQQRE9lMi3wYAUcJToHanw0t8vduYtwfso9mvHULNu
- m5HjA9ISZkKQKT2hKV9reG8Fl2jRI64qTa2EUWqEDqTZDIBLUj4edSfev+lEzljuBTe0MwXLi2z
- gmYxh1NhVdu1n0GqodK176OBD8IFLEGsczmNJPDngu2ZhFwrk3oQvrkfWk6optu263lnp3KVQt6
- aMAjI5ktnBDJdDHXSyxg1FZAV/NpgrRhcr8WWNSOXXi9TdVPqsSJvmUkuYEfXQdZLbqbGDvxB2I
- W7zpm1oxzvLI1oJ40oh3NoQ/IPFyZ0lo9DMxPoc7Nik6NIMUVbdoqPyfuK5nz+C0CeC/Ik9f3Hp
- MpRDyJ38fg6uOCpHtxA==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OS7PR01MB13668:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7321b02-aeb8-41ab-867c-08de955adfdc
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|52116014|376014|18002099003|38350700014|56012099003;
+X-Microsoft-Antispam-Message-Info: l/SDHQNCqzAr3aOiMVckoHCdph12gmx8HjFDYlJweOZKXHpDtTyHgwB4QpOHlj6ttT7gGS0ASI4/xcBQWx73KAT2jMpmqNBzuno2YObaIpsTsMTg7OZR+qtOb6sFoXrAJjWf1C1j8MjoPb2Siv8C2EJ5OatwEEkBRbLmt7T542NpB4wNEEa/JDpDyN/rEULzQDIFRa7pokmGnUcNlto+6lAvXJE6vbNuz5fvtY/yEc9yD8qfFQhkW80T3LMwqmX7OgrbAYgGInNVvucsm5lN1PAwZB77m2p0Cu1htGETuups5iyzwI9DnA5spGOOdZaNCskAnBjmRYmpXmWA9yp9lY0ZfedqpgJrNSLOzLRtl8HUMHZtrN9YEPVHm6J41LS5QXHK+oUcdEJm3OH/8gb7OIxXu0hGNxel9++OPilCvOxOYZaShDk34JB11X/Bno8MRPBahveQWx2ZP57dvMIlczLDNdBgYXp0ySS1T6bmYBG6N3ZkVFKZgmtGCDImv1BCcXM4Oz7U+MK/0shggPCGEFsH7kyTpjJpG+CAvsLoW+RVfrJSORM6k9Src5paX+DrwriTygRpVU0jXN/kE7GFhjTQS5eoAkYRazIyQhVudNWLk+pmtkg4X+AtQBJ6TgU3ew1+TUIc8nq6mal1rmVFkEsLUM7KqiydwIkJRUg04Ajrtasre8Qz+AO7S6gjxAAshpeHUZpamFCUl6fod87fU+aMJ10YnA28Mv0k7fgrwZLS4MbWD/bhxYv1Ap1vzasRrFJ3nUCjjd89unL1TY4kqLvlmrLE576Y/eFUVSzCThM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(52116014)(376014)(18002099003)(38350700014)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eyoKOqd9AAAG65cZ3ZbqniWFmePMXqKwLBfir/IGTgOfhhFbgbfC+GhtbokO?=
+ =?us-ascii?Q?50EaoBh162OjfMVZW0boULVt2a/X7EtysFvss3FOJKq4LfEqRa7g4nlg1XNR?=
+ =?us-ascii?Q?ldGTGL7+WIn3mNbVXqwTxPBNVq/rvV/rOv4zCplVwqiX4IgzJ8XlIBsYweb8?=
+ =?us-ascii?Q?K1mB73irSstam0ZjHf1okLChq3Iot6NYbrFEWLiEaPKEwwaDwZ0OkEnFLoTQ?=
+ =?us-ascii?Q?48CHVGgrKh/CxBQ+jg0A2VXeJjTmK/IhaPwgHWUh/tgGp+xtwk9VLrVd1FcS?=
+ =?us-ascii?Q?Qb9dUwz4RBUsVDdjvMC9LeLDqlwc1WWCTX1Ep0Uw79Gxl/8lo2x2zjmqPZHv?=
+ =?us-ascii?Q?sm8EMq1ehoDWUj7uX274RVNzuO/O7m5gGE1txVX7T5ACCdYI1sOhmxk4c9Q9?=
+ =?us-ascii?Q?+VxocOkZVmCXvpygh+MZGn2sHg+hZAv34oDXCO9dbvZY1AUSa+qJ2DhkJ/KM?=
+ =?us-ascii?Q?jLrWLBCdZ0l/GU3Spi1RWnfriZ8B5okm0WqA9Dg0HgMQlr6xanuz3R01ZybB?=
+ =?us-ascii?Q?Z4WpBvlEeAPqmwsNj+TVSivTrFHDWR3dD+1k4RdyLPaLWL3zJMa8n0eTUpR+?=
+ =?us-ascii?Q?YbO5eGHQXZHzuxBQxPCTlQSS7Y7sud98GNxSoehBX2A06tPRyap+GP9/zILc?=
+ =?us-ascii?Q?8rJeG80lkETXetmgK0+pORm17TKM/ARHO1HipjiM7dMVVBv9nAiRkySLxKYe?=
+ =?us-ascii?Q?9gwqMA7FO6b40eLLnnxvyzuqRQVM42DH1TjZStA7hxnq0v8eu1ta66HUpnaF?=
+ =?us-ascii?Q?9jQGznvti7EhkFID11tVuIK1rloCbuvtqjlePHMdHeIR+hfIGM04iww2oePn?=
+ =?us-ascii?Q?lgH80K7E+qDU5cWIWYOJQgOZzBp+vZVsk+fXmNaDiLXLZ0NJ3e7XxYB5pRx6?=
+ =?us-ascii?Q?RAp1yYx7LzjRcwieSKazPrZ92k50Bfn3rQ9n3xhfRbYkarhrwDa4qVBCcAsW?=
+ =?us-ascii?Q?GMwswwyPeWa4KHJShe2JrwkcI89IRqztLgsiTEdx6SrMnO+n8jIdMyOhUdNl?=
+ =?us-ascii?Q?paBTVNp5J7tEsDtGiFj3dvvRj+WdBDZNpGqbwOGgFfai4bbt68wu26QWNd1r?=
+ =?us-ascii?Q?dYjfS877xI376sUfLPbGK3KjqC5YuTAgSdrw7H5z0u0uJrjUG3hu7OFCN5Sd?=
+ =?us-ascii?Q?xbJQ3BSydX2dEQ+lGpT5IPG/EqFP8EYEgzDuziSgPmopvNAxX/cm/ScT3ATg?=
+ =?us-ascii?Q?o4d+oxKHPWiIiJFF232MZ0sZQmv4MwjKm+ESGup9JPd2TTZw05j/rM5ufwYM?=
+ =?us-ascii?Q?0UTutMZxjroKRRWQV4UG6Oy6bkNVlgKjNahagbKlX7gnmQJhIU5t6RmeM0yA?=
+ =?us-ascii?Q?ClueQ4h7iFqnJowFAJP3ONUSxNqCM8e3IpNO91HJr+bsp4Mxx0SftyOkX6No?=
+ =?us-ascii?Q?gspM0lciT9EpAMElpAtsZsx6R4Nb0V8dRbVjmLtlDl3BJN0W/Czi1djDFeRM?=
+ =?us-ascii?Q?rbhxRp/KkVo+GF1IS2OTGdjIwTzQ2oFoJyq86D7d9/NuiqrxRbC/HDQdCbJj?=
+ =?us-ascii?Q?axIu6HXHuwyQ0RBLH4tUVJy5JK9tIZUsgGtDNjFPXR3iEYLuY5pQUucvH5ow?=
+ =?us-ascii?Q?RczbHsA7dJE5XlZ1UNWrpkl+NRPCDJgeV5qR8hdH9Eq8CR4KR+G3jC14oduE?=
+ =?us-ascii?Q?HdM509lHT8t5I3z0xN+LPkCxOnNIqBv72q6cGFnFbXrCQA3iOUmSLT7J4Us1?=
+ =?us-ascii?Q?8D4X8w4b88I6OQbFQWqu0xVizHTod/ae5P9Y/0AMNoGYiBv6WA5zriXmQcfR?=
+ =?us-ascii?Q?T0s8iJEkhqblVNYQJ0Wy0DVkRU71c3y3xAKmH4tYaaj85aO9wf5S?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7321b02-aeb8-41ab-867c-08de955adfdc
+X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 10:37:47.1581 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: k6OlbEh8FLWn73HhsWrHue6SOsGoBA4MImOCBf6Y2EUP0Lt96uCvNwNuuOWbLuRDh7LPiPTsgJ+7vQ55g5z3Es5nizpVO3IaWq6L8CVGwAJ0TZnL027gTYHSqWVUKICy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7PR01MB13668
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,37 +139,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Dear All,
 
-On Mon, 30 Mar 2026 08:56:35 +0100, Alessio Belle wrote:
-> The first two commits fix rare bugs and should be backported to stable
-> branches.
-> 
-> The rest is an attempt to cleanup and document the code to make it
-> a bit easier to understand.
-> 
-> 
-> [...]
+This patch series adds support for the 2 Display Units (DUs) and MIPI DSI
+interface found on the Renesas RZ/G3E SoC.
 
-Applied, thanks!
+RZ/G3E SoC has 2 LCD controller (LCDC0 and LCDC1), both are composed
+of Frame Compression Processor (FCPVD), Video Signal Processor (VSPD),
+and Display Unit (DU).
 
-[1/8] drm/imagination: Count paired job fence as dependency in prepare_job()
-      commit: 9cd74f935306cd857f46686975c43383e1d95f94
-[2/8] drm/imagination: Fit paired fragment job in the correct CCCB
-      commit: 4baf9e70cb756d78dd56419f8baee2978a72d0c3
-[3/8] drm/imagination: Skip check on paired job fence during job submission
-      commit: 18998b3cb7595850b8b2da55adb3fdc7aef8bc22
-[4/8] drm/imagination: Rename pvr_queue_fence_is_ufo_backed() to reflect usage
-      commit: c162e655092de8de2e0f7776d72919dd5e3b84f2
-[5/8] drm/imagination: Rename fence returned by pvr_queue_job_arm()
-      commit: 5dae1a21f1e7128a19c68212422383f700699d01
-[6/8] drm/imagination: Move repeated job fence check to its own function
-      commit: 402562e60c6c1b15ee359ba7ffed907baa886a99
-[7/8] drm/imagination: Update check to skip prepare_job() for fragment jobs
-      commit: 5c81eb2970133ad073214eb1e5b0c34a1ae793eb
-[8/8] drm/imagination: Minor improvements to job submission code documentation
-      commit: 62a36c2da774800bef893bc4bf8922fb9c07c1d0
+LCDC0 is connected to LVDS (single or dual channel) and DSI.
+LCDC1 is connected to LVDS (single ch), DSI, and GPIO (Parallel I/F).
 
-Best regards,
+Thanks & Regards,
+Tommaso
+
+v5->v6:
+ - Rebased on top of next-20260406
+ - PATCH 1: Fixed rzv2h_cpg_plldsi_smux_clk_register() removed u8 width, mask
+   variables and replaced with direct use of smux.width and clk_div_mask(smux.width).
+ - PATCH 9: New patch.
+ - PATCH 10: Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
+   explicitly disable port@2 and port@3 for existing SoCs that do not expose
+   them. Reworked ports numbering + improved/fixed ports descriptions in the
+   bindings documentation. Improved commit body.
+ - PATCH 15: Aligned ports numbering with the bindings changes.
+ - PATCH 20: Update ports numbering accordingly to the latest DT bindings.
+
+v4->v5:
+ - Rebased on top of next-20260211
+ - PATCH 9: Dropped renesas,id property.
+ - PATCH 10: Collected tag.
+ - PATCH 14: Fixed RG2L_DU_FEATURE_SMUX2_DSI_CLK to RZG2L_DU_FEATURE_SMUX2_DSI_CLK
+             Added features field documentation.
+ - PATCH 19: Rename du0_out_dsi0 into du0_out_dsi.
+             Rename du1_out_dsi0 into du1_out_dsi.
+             Drop renesas,id entry from DU nodes.
+ - PATCH 20: Use DU0 -> DSI instead of DU1 -> DSI.
+
+v3->v4:
+ - Rebased on top of next-20260130
+ - PATCH 1: Fixed build error: https://lore.kernel.org/oe-kbuild-all/202601311423.gWtJuxiU-lkp@intel.com/
+
+v2->v3:
+ - PATCH 1: Added missing defines for duty num/den.
+
+v1->v2:
+ - Rebased on top of next-20260129.
+ - PATCH 1: Added rzv2h_cpg_plldsi_smux_{get,set}_duty_cycle clock
+   operations to allow the DRM driver to query and configure the
+   appropriate clock path based on the required output duty cycle.
+   Updated commit message accordingly.
+ - PATCH 2-5: Collected tags.
+ - PATCH 6: Moved clk_ids to match enum order.
+ - PATCH 7: Collected GUytterhoeven tag. Fixed "dsi_0_vclk2" position
+   to match order.
+ - PATCH 8: Collected GUytterhoeven tag.
+ - PATCH 9: Use single compatible string instead of multiple compatible
+   strings for the two DU instances, leveraging a 'renesas,id' property
+   to differentiate between DU0 and DU1. Updated commit message.
+ - PATCH 10: Removed oneOf from clocks property, which is not sufficient
+   to differentiate between RZ/G3E, RZ/V2H(P) and RZ/G2L. Use the already
+   existing vclk instead of vclk1 for RZ/G3E DSI bindings. Updated allOf.
+ - PATCH 14: Instead of using clk-provider API to select the right parent
+   clock, just set the correct duty cycle based on the output. Updated
+   commit message accordingly.
+ - PATCH 15-16: Collected tags.
+ - PATCH 17: Squashed fcpvd0 and fcpvd1 patches into a single patch.
+   Collected tags.
+ - PATCH 18: Squashed vspd0 and vspd1 patches into a single patch.
+   Collected tags.
+ - PATCH 19: Reworked DU nodes to use single compatible. Use vclk instead
+   of vclk1 for DSI Node and set to the right position.
+ - PATCH 20: Fixed: dsi, du and adv7535 are part of the R9A09G047E57
+   SMARC SoM board then add entries in the rzg3e-smarc-som.dtsi instead
+   of using the r9a09g047e57-smarc-du1-adv7535.dtsi.
+
+Tommaso Merciai (21):
+  clk: renesas: rzv2h: Add PLLDSI clk mux support
+  clk: renesas: r9a09g047: Add CLK_PLLETH_LPCLK support
+  clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1} clocks
+  clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1}_DIV7 clocks
+  clk: renesas: r9a09g047: Add CLK_PLLDSI{0,1}_CSDIV clocks
+  clk: renesas: r9a09g047: Add support for SMUX2_DSI{0,1}_CLK
+  clk: renesas: r9a09g047: Add support for DSI clocks and resets
+  clk: renesas: r9a09g047: Add support for LCDC{0,1} clocks and resets
+  dt-bindings: display: renesas,rzg2l-du: Refuse port@1 for RZ/G2UL
+  dt-bindings: display: renesas,rzg2l-du: Add support for RZ/G3E SoC
+  dt-bindings: display: bridge: renesas,dsi: Add support for RZ/G3E SoC
+  drm: renesas: rz-du: mipi_dsi: Add out_port to OF data
+  drm: renesas: rz-du: mipi_dsi: Add RZ_MIPI_DSI_FEATURE_GPO0R feature
+  drm: renesas: rz-du: mipi_dsi: Add support for RZ/G3E
+  drm: renesas: rz-du: Add RZ/G3E support
+  media: dt-bindings: media: renesas,vsp1: Document RZ/G3E
+  media: dt-bindings: media: renesas,fcp: Document RZ/G3E SoC
+  arm64: dts: renesas: r9a09g047: Add fcpvd{0,1} nodes
+  arm64: dts: renesas: r9a09g047: Add vspd{0,1} nodes
+  arm64: dts: renesas: r9a09g047: Add DU{0,1} and DSI nodes
+  arm64: dts: renesas: r9a09g047e57-smarc: Enable DU0 and DSI support
+
+ .../bindings/display/bridge/renesas,dsi.yaml  | 144 ++++++++++----
+ .../bindings/display/renesas,rzg2l-du.yaml    |  31 ++-
+ .../bindings/media/renesas,fcp.yaml           |   2 +
+ .../bindings/media/renesas,vsp1.yaml          |   1 +
+ arch/arm64/boot/dts/renesas/r9a09g047.dtsi    | 172 +++++++++++++++++
+ .../boot/dts/renesas/rzg3e-smarc-som.dtsi     | 114 +++++++++++
+ drivers/clk/renesas/r9a09g047-cpg.c           |  84 ++++++++
+ drivers/clk/renesas/rzv2h-cpg.c               | 181 ++++++++++++++++++
+ drivers/clk/renesas/rzv2h-cpg.h               |  12 ++
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c |  48 +++++
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  28 ++-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |  12 ++
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 113 ++++++++++-
+ .../drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h   |   3 +
+ include/linux/clk/renesas.h                   |  20 ++
+ 15 files changed, 919 insertions(+), 46 deletions(-)
+
 -- 
-Matt Coster <matt.coster@imgtec.com>
+2.43.0
 
