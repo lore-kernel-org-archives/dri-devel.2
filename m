@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C4B10F995C
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 18:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD23510F996A
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 18:24:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D6B810E6BB;
-	Wed,  8 Apr 2026 18:15:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1453510E6BF;
+	Wed,  8 Apr 2026 18:24:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0xMQujKj";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rXjaROkZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2CA10E6BF
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 18:15:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1B3510E6BF
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 18:24:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A726D4019F;
- Wed,  8 Apr 2026 18:15:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39390C19421;
- Wed,  8 Apr 2026 18:15:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E99A360126;
+ Wed,  8 Apr 2026 18:24:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44377C19421;
+ Wed,  8 Apr 2026 18:24:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1775672154;
- bh=E8VZkQcf8+2+RHXM9acIXX6++BywUUXX7ha1To94IGQ=;
+ s=korg; t=1775672641;
+ bh=hggNYybW0V7L++/9nh5HQSAic/bEDbew7+2vWRvkeC8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=0xMQujKjdzQ/onbKeFssqexCxfHVroNi9DsJI5NOJdnFg/YMWLPjKH5MwuPERQV2Q
- DVxx6GNEbhIE8W9q2p9YNRO9VXAewRvCb/HWJi34vPkFfFUYYzUZbOT6H9bBYIQViW
- GQOW2cmCRcxJ2YRnLw0LjqXZ3JCGvniX6Pbcl+nw=
+ b=rXjaROkZOMhKCrOycLGXzOkoYNkzAqrtC0h36yt8KF9YqFU1jR3Dj8K9dHE07Z6JV
+ e60IWo4hhT91gwfiqJG/E9RJ9w1xqD52AqWLgmZzFXgVtI6jrB7rC4JrvBPb4xnCgN
+ WZE4jQdR3K6jkDdIoH6Av3J7OoPKQqVFQ2vzfrlQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Jocelyn Falempe <jfalempe@redhat.com>, Dave Airlie <airlied@redhat.com>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.1 210/312] drm/ast: dp501: Fix initialization of SCU2C
-Date: Wed,  8 Apr 2026 20:02:07 +0200
-Message-ID: <20260408175941.603231218@linuxfoundation.org>
+Subject: [PATCH 6.6 085/160] drm/ast: dp501: Fix initialization of SCU2C
+Date: Wed,  8 Apr 2026 20:02:52 +0200
+Message-ID: <20260408175916.369983519@linuxfoundation.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260408175933.715315542@linuxfoundation.org>
-References: <20260408175933.715315542@linuxfoundation.org>
+In-Reply-To: <20260408175913.177092714@linuxfoundation.org>
+References: <20260408175913.177092714@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -59,7 +59,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -90,7 +90,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/ast/ast_dp501.c
 +++ b/drivers/gpu/drm/ast/ast_dp501.c
-@@ -426,7 +426,7 @@ static void ast_init_analog(struct drm_d
+@@ -439,7 +439,7 @@ static void ast_init_analog(struct drm_d
  	/* Finally, clear bits [17:16] of SCU2c */
  	data = ast_read32(ast, 0x1202c);
  	data &= 0xfffcffff;
