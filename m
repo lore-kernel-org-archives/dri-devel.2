@@ -4,59 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36C0810F9949
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 15:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061A610F9953
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 15:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B5310E696;
-	Wed,  8 Apr 2026 15:08:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74C5710E2E7;
+	Wed,  8 Apr 2026 15:26:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Q/BmDdEr";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="w0D4skP8";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A68610E696
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 15:08:11 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id D7226802;
- Wed,  8 Apr 2026 17:06:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1775660801;
- bh=jy7c2EfX9uKf/s00Sa/JP+dpMatqQ0mu/fctV6dD8bA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Q/BmDdErSkyMUJrrfKvI5vWI+XWJuAJsqnk1yXD4821NAwFF22zeD6uxtbeVRF+ay
- swR3h31+YmSgi2ia5Fq/YE9gRsEHhYYhswb04fCzW2SQ6Ls1CjaLGvDBQP3uqfP3YC
- KA5Sgv5nh3ebnp7P6UqJx9Q3kmPRS3f/HJAhmPaM=
-Date: Wed, 8 Apr 2026 18:08:07 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v6 13/21] drm: renesas: rz-du: mipi_dsi: Add
- RZ_MIPI_DSI_FEATURE_GPO0R feature
-Message-ID: <20260408150807.GD1965119@killaraus.ideasonboard.com>
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <9e0f64dd5e1efb0d27219416121c91a19da96ebd.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <20260408123102.GA1960713@killaraus.ideasonboard.com>
- <b8ded729-5c22-4a47-bfb7-8bffeed76e98@bp.renesas.com>
- <20260408141719.GB1965119@killaraus.ideasonboard.com>
- <136a9922-48ae-48e2-8cb1-14559206e7af@bp.renesas.com>
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC6EF10E2E7
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 15:26:30 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 03AD3C5AA98;
+ Wed,  8 Apr 2026 15:27:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A1D93603CB;
+ Wed,  8 Apr 2026 15:26:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 6F5C3104500FE; 
+ Wed,  8 Apr 2026 17:26:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1775661987; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=72Qg8MBIKhTgh9OmiZH+JlMoUCsH5TjRk01SfHXWUxI=;
+ b=w0D4skP86rtIcvz0e/xGYVNX/Mc4WZr+VcjZoYNNq3MM/sNEg7BqG5riRmhSCcBoFlf0kd
+ GbqrrSWSgvHeruEyE+Gkbs4LsD8LDfBG4Pls+oqsw90G/yfTgVNwJx7NBsxe900ZbkAdE4
+ cl6qMC+kWVXJjIKR1/YqmQ+dwpYT2fUrJxCvYbhfv6yqKXdnmQ7UmkEko4w4uRYLjjtBNM
+ 1AIjqgf73qH9qsKCtxWp17UhWiwLluhQMhEf4y4cVXQZn3/RC7dkpyYMJit2YeF9feA54x
+ ffc6mK6I/8CULWpFpR7Wq0r+/n7wbWQXq74pelng+L34rxGGytd9qHuxDOU7RA==
+Message-ID: <3b55fd8c-f7c7-49ef-bcd5-5603d38950f1@bootlin.com>
+Date: Wed, 8 Apr 2026 17:27:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <136a9922-48ae-48e2-8cb1-14559206e7af@bp.renesas.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] drm/bridge: drm_bridge_get/put(): document NULL
+ pointer behaviour
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Liu Ying <victor.liu@nxp.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260324-drm-bridge-alloc-getput-document-null-check-v1-1-fb0877c49d7e@bootlin.com>
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260324-drm-bridge-alloc-getput-document-null-check-v1-1-fb0877c49d7e@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,213 +73,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 04:58:01PM +0200, Tommaso Merciai wrote:
-> On 4/8/26 16:17, Laurent Pinchart wrote:
-> > On Wed, Apr 08, 2026 at 04:12:22PM +0200, Tommaso Merciai wrote:
-> >> On 4/8/26 14:31, Laurent Pinchart wrote:
-> >>> On Wed, Apr 08, 2026 at 12:36:58PM +0200, Tommaso Merciai wrote:
-> >>>> The MIPI DSI ip found in the RZ/G3E SoC select the video input clock
-> >>>> based on the DU instance actually connected using the GPO0R register.
-> >>>>
-> >>>> Add this feature to the driver using `RZ_MIPI_DSI_FEATURE_GPO0R`, update
-> >>>> the code accordingly to manage the vclk selection with the introduction
-> >>>> of `rzg2l_mipi_dsi_get_input_port()`.
-> >>>>
-> >>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> >>>> ---
-> >>>> v5->v6:
-> >>>>    - Moved rzg2l_mipi_dsi_link_write() into rzv2h_mipi_dsi_dphy_init()
-> >>>>      + comments from HW Manual.
-> >>>>
-> >>>> v4->v5:
-> >>>>    - No changes.
-> >>>>
-> >>>> v3->v4:
-> >>>>    - No changes.
-> >>>>
-> >>>> v2->v3:
-> >>>>    - No changes.
-> >>>>
-> >>>> v1->v2:
-> >>>>    - No changes.
-> >>>>
-> >>>>    .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 71 +++++++++++++++++--
-> >>>>    .../drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h   |  3 +
-> >>>>    2 files changed, 68 insertions(+), 6 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> >>>> index be6dbf19a24e..947c8e15fc4b 100644
-> >>>> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> >>>> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> >>>> @@ -37,7 +37,9 @@ MODULE_IMPORT_NS("RZV2H_CPG");
-> >>>>    
-> >>>>    #define RZG2L_DCS_BUF_SIZE	128 /* Maximum DCS buffer size in external memory. */
-> >>>>    
-> >>>> +#define RZ_MIPI_DSI_MAX_INPUT	2
-> >>>>    #define RZ_MIPI_DSI_FEATURE_16BPP	BIT(0)
-> >>>> +#define RZ_MIPI_DSI_FEATURE_GPO0R	BIT(1)
-> >>>>    
-> >>>>    struct rzg2l_mipi_dsi;
-> >>>>    
-> >>>> @@ -81,13 +83,14 @@ struct rzg2l_mipi_dsi {
-> >>>>    	struct drm_bridge bridge;
-> >>>>    	struct drm_bridge *next_bridge;
-> >>>>    
-> >>>> -	struct clk *vclk;
-> >>>> +	struct clk *vclk[RZ_MIPI_DSI_MAX_INPUT];
-> >>>>    	struct clk *lpclk;
-> >>>>    
-> >>>>    	enum mipi_dsi_pixel_format format;
-> >>>>    	unsigned int num_data_lanes;
-> >>>>    	unsigned int lanes;
-> >>>>    	unsigned long mode_flags;
-> >>>> +	u8 vclk_idx;
-> >>>>    
-> >>>>    	struct rzv2h_dsi_mode_calc mode_calc;
-> >>>>    
-> >>>> @@ -543,8 +546,8 @@ static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_f
-> >>>>    	unsigned long vclk_rate;
-> >>>>    	unsigned int bpp;
-> >>>>    
-> >>>> -	clk_set_rate(dsi->vclk, mode_freq * KILO);
-> >>>> -	vclk_rate = clk_get_rate(dsi->vclk);
-> >>>> +	clk_set_rate(dsi->vclk[dsi->vclk_idx], mode_freq * KILO);
-> >>>> +	vclk_rate = clk_get_rate(dsi->vclk[dsi->vclk_idx]);
-> >>>>    	if (vclk_rate != mode_freq * KILO)
-> >>>>    		dev_dbg(dsi->dev, "Requested vclk rate %lu, actual %lu mismatch\n",
-> >>>>    			mode_freq * KILO, vclk_rate);
-> >>>> @@ -687,6 +690,19 @@ static int rzv2h_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
-> >>>>    	rzg2l_mipi_dsi_phy_write(dsi, PLLCLKSET1R,
-> >>>>    				 FIELD_PREP(PLLCLKSET1R_PLL_K, dsi_parameters->k));
-> >>>>    
-> >>>> +	/*
-> >>>> +	 * From RZ/G3E HW manual (Rev.1.15) section 9.5.3 Operation,
-> >>>> +	 * 9.5.3.1 Power on Reset and Initial Settings for All Operations.
-> >>>> +	 * Figure 9.5-4 Power On/Off Sequence show that after writing to
-> >>>> +	 * GPO0R.VICH register we need to wait for more than 1 x tp before
-> >>>> +	 * writing to PLLENR.PLLEN.
-> >>>> +	 *
-> >>>> +	 * Note: GPO0R is a link register, not a PHY register. This setting
-> >>>> +	 * is specific to RZ/G3E.
-> >>>> +	 */
-> >>>> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R)
-> >>>> +		rzg2l_mipi_dsi_link_write(dsi, GPO0R, dsi->vclk_idx);
-> >>>> +
-> >>>>    	/*
-> >>>>    	 * From RZ/V2H HW manual (Rev.1.20) section 9.5.3 Operation,
-> >>>>    	 * (C) After write to D-PHY registers we need to wait for more than 1 x tp
-> >>>> @@ -1005,6 +1021,37 @@ static int rzg2l_mipi_dsi_stop_video(struct rzg2l_mipi_dsi *dsi)
-> >>>>    	return ret;
-> >>>>    }
-> >>>>    
-> >>>> +static int rzg2l_mipi_dsi_get_input_port(struct rzg2l_mipi_dsi *dsi)
-> >>>> +{
-> >>>> +	struct device_node *np = dsi->dev->of_node;
-> >>>> +	struct device_node *remote_ep, *ep_node;
-> >>>> +	struct of_endpoint ep;
-> >>>> +	bool ep_enabled;
-> >>>> +	int in_port;
-> >>>> +
-> >>>> +	/* DSI can have only one port enabled */
-> >>>
-> >>> Why is that ? The hardware supports dynamic input selection, why can't
-> >>> it be supported at runtime ?
-> >>
-> >> For runtime/dynamic you mean using DT overlay??
-> >> like, remove:
-> >>
-> >> Removing - DU0 --> DSI (input 0 | port@0 ) overlay and
-> >> install  - DU1 --> DSI (input 1 | port@1 ) overlay and
-> >> viceversa?
-> > 
-> > No, I mean configurable by userspace, with two CRTCs sharing one DSI
-> > encoder.
-> 
-> Sorry, question:
->   - Is it possible to create CRTC from user space?
 
-No, the CRTCs are created by the driver, but you can have one DRM device
-that covers two LCDCs, with one CRTC each, both connected to the same
-DSI encoder (and apparently this applies to the LVDS encoder too).
-Userspace then selects which CRTC drives which connector.
 
->  From hardware point only one DSI input is selectable out of 2 LCDC's at 
-> a time.
+On 3/24/26 10:08, Luca Ceresoli wrote:
+> drm_bridge_get and drm_bridge_put() do nothing when they are passed a NULL
+> pointer, and they do so since their initial addition in commit 30d1b37d4c02
+> ("drm/bridge: add support for refcounting").
 > 
-> References:
->   - 9.5.2.2.3 9.5 MIPI DSI Interface (DSI)
->     General Purpose Output 0 Register (DSI_LINK_GPO0R)
+> This allows simpler code in various places when using these
+> functions. However it's not documented, so it's not clear whether it is
+> part of the API "contract" or just a current implementation detail that
+> might change in the future.
 > 
->   - 9.5 MIPI DSI Interface (DSI)
->     9.5.1.2 Block Diagram
->     Figure 9.5-1 Video Input Interface
+> There is no visible reason to remove this NULL check, so document it,
+> making it part of the contract, letting users count on it.
 > 
-> >>>> +	for_each_endpoint_of_node(np, ep_node) {
-> >>>> +		of_graph_parse_endpoint(ep_node, &ep);
-> >>>> +		if (ep.port >= RZ_MIPI_DSI_MAX_INPUT)
-> >>>> +			break;
-> >>>> +
-> >>>> +		remote_ep = of_graph_get_remote_endpoint(ep_node);
-> >>>> +		ep_enabled = of_device_is_available(remote_ep);
-> >>>> +		of_node_put(remote_ep);
-> >>>> +
-> >>>> +		if (ep_enabled) {
-> >>>> +			in_port = ep.port;
-> >>>> +			break;
-> >>>> +		}
-> >>>> +	}
-> >>>> +
-> >>>> +	if (!ep_enabled)
-> >>>> +		return -EINVAL;
-> >>>> +
-> >>>> +	dev_dbg(dsi->dev, "input port@%d\n", in_port);
-> >>>> +	return in_port;
-> >>>> +}
-> >>>> +
-> >>>>    /* -----------------------------------------------------------------------------
-> >>>>     * Bridge
-> >>>>     */
-> >>>> @@ -1425,9 +1472,21 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
-> >>>>    	if (IS_ERR(dsi->mmio))
-> >>>>    		return PTR_ERR(dsi->mmio);
-> >>>>    
-> >>>> -	dsi->vclk = devm_clk_get(dsi->dev, "vclk");
-> >>>> -	if (IS_ERR(dsi->vclk))
-> >>>> -		return PTR_ERR(dsi->vclk);
-> >>>> +	dsi->vclk[0] = devm_clk_get(dsi->dev, "vclk");
-> >>>> +		if (IS_ERR(dsi->vclk[0]))
-> >>>> +			return PTR_ERR(dsi->vclk[0]);
-> >>>> +
-> >>>> +	if (dsi->info->features & RZ_MIPI_DSI_FEATURE_GPO0R) {
-> >>>> +		dsi->vclk[1] = devm_clk_get(dsi->dev, "vclk2");
-> >>>> +		if (IS_ERR(dsi->vclk[1]))
-> >>>> +			return PTR_ERR(dsi->vclk[1]);
-> >>>> +
-> >>>> +		ret = rzg2l_mipi_dsi_get_input_port(dsi);
-> >>>> +		if (ret < 0)
-> >>>> +			return dev_err_probe(dsi->dev, -EINVAL,
-> >>>> +					     "No available input port\n");
-> >>>> +		dsi->vclk_idx = ret;
-> >>>> +	}
-> >>>>    
-> >>>>    	dsi->lpclk = devm_clk_get(dsi->dev, "lpclk");
-> >>>>    	if (IS_ERR(dsi->lpclk))
-> >>>> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
-> >>>> index 2bef20566648..cee2e0bc5dc5 100644
-> >>>> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
-> >>>> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi_regs.h
-> >>>> @@ -83,6 +83,9 @@
-> >>>>    #define LINKSR_SQCHRUN1			BIT(4)
-> >>>>    #define LINKSR_SQCHRUN0			BIT(0)
-> >>>>    
-> >>>> +/* RZ/G3E General Purpose Output 0 Register */
-> >>>> +#define GPO0R				0xc0
-> >>>> +
-> >>>>    /* Tx Set Register */
-> >>>>    #define TXSETR				0x100
-> >>>>    #define TXSETR_NUMLANECAP		(0x3 << 16)
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
--- 
-Regards,
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
-Laurent Pinchart
+> ---
+> Historical note: I thought this was documented from the beginning and
+> realized it's not the case when someone proposed adding a 'if (bridge)
+> drm_bridge_put(bridge)' to a driver [0]. Let's fix it now.
+> 
+> [0] https://lore.kernel.org/lkml/DG0CHD0TAH9A.27UW4KKY2O9V7@bootlin.com/
+> ---
+>   drivers/gpu/drm/drm_bridge.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 3b165a0d1e77..3108249a63cd 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -282,7 +282,7 @@ static void __drm_bridge_free(struct kref *kref)
+>   
+>   /**
+>    * drm_bridge_get - Acquire a bridge reference
+> - * @bridge: DRM bridge
+> + * @bridge: DRM bridge; if NULL this function does nothing
+>    *
+>    * This function increments the bridge's refcount.
+>    *
+> @@ -300,7 +300,7 @@ EXPORT_SYMBOL(drm_bridge_get);
+>   
+>   /**
+>    * drm_bridge_put - Release a bridge reference
+> - * @bridge: DRM bridge
+> + * @bridge: DRM bridge; if NULL this function does nothing
+>    *
+>    * This function decrements the bridge's reference count and frees the
+>    * object if the reference count drops to zero.
+> 
+> ---
+> base-commit: a50007089e078a1b7a826559a02277b1601ee189
+> change-id: 20260129-drm-bridge-alloc-getput-document-null-check-a551e64b8fc1
+> 
+> Best regards,
+
