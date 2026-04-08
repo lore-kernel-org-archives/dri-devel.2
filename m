@@ -4,87 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA021073CAE
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B78831073CB0
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 13:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC91810E64C;
-	Wed,  8 Apr 2026 13:02:45 +0000 (UTC)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
- [209.85.221.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E7C910E64C
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:02:44 +0000 (UTC)
-Received: by mail-vk1-f169.google.com with SMTP id
- 71dfb90a1353d-56d9ed609d2so1867371e0c.1
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 06:02:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775653363; x=1776258163;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=H/ehc1JvHivWXa8+tx/BxLqhZP9bLnNS5TsQxkh+zto=;
- b=ebOIplNb3gIvUmseJ4FMohIk1YrmbGXl1sBjiBshHfKuv9rjqxWuxlVSemH4EplLdV
- WUGD26D9pPoA7LADv3WJbIAiu+YQGiIYJ6EtltRQ15eK1a5BkYnvFW9dIhgd12ZF8eQ3
- gMoP3sUwzzwNoPwY79gPZAdzjmv+gJ31O6aWr0bWKGBqdP8Ie+1hu4vWfX9Qv8oRWNar
- ZuT9HD830eGtY3aEGKh7wF7QyiNEkW+POqTw4VHotABn2UOReHr4nauU06PkuFfwWU+A
- P/Fh/sAKLM5rntCvl8fm3KQD7u0Z1s/l3SqGLhlo3P1PeM0kTomTGGBau4CyRCDMkWJO
- L07Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU3RBziFhkTS8R9Qwxv9MwugJevahMl+naRdAFsysRIySm1kgscPQDlvJRP8yTwQkLNMJCfQBwGy8U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyKEqEmNGbE57GsfjqxReStoyiNv5Kw43JKTO5PtusyCib2/NGU
- h4N7Bys6lUffrwQWHbic1BpeYA+uYSDytw93gqKEG2OwxfAOMkyGfRlMPjygEsP2
-X-Gm-Gg: AeBDiesgO+WN1E7XQkBTZDbXVmV+Oga7U3AsFsqm0hocdf0jGteddCWtijTsgCm2pWR
- ZC5ivaYt5/WnKXOjuq0mJKPtwr0gtpuG93y0dMpwoUmrj4YRJuiM+ZzY4wyTpsN911f7uq6Fzhb
- Uqe3bwikEFLagZyLixEluun7tgFximrpSSGlT1XkQrM3ow5BgtF/bIQhzX1TWbGQtxiW7y8thUV
- Y1ph5P5d89ZCrb/rHHocG/VBWB8wezWJhzBnTOCy/Cp7SVJ9sIt5hyEJd90nUf/Pko2hSkf89xD
- gWnJB1HP8QHH7UHdfuEUcCHLEnWLf2hILKA0spiK4m1Ypu1J+I8rixvyPNPFEUwfd8veZTcy2/K
- IG74UUD3gIA3C5/b/GOFRYiEapQMhRg7fAxdGjShnbTz5jbTNw2JVC+cq10Uk56JtGS8HnYYOE8
- JH4B/eKQr1sotkyegtfJfEQkCYij14CAZSUvy+hqsZsClne9Mc/0TrES2rvHvl2TXT
-X-Received: by 2002:a05:6122:245:b0:56c:ca50:e963 with SMTP id
- 71dfb90a1353d-56f1649283cmr2251696e0c.14.1775653308563; 
- Wed, 08 Apr 2026 06:01:48 -0700 (PDT)
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com.
- [209.85.221.178]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-56d9bce02f3sm19848978e0c.14.2026.04.08.06.01.44
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 06:01:45 -0700 (PDT)
-Received: by mail-vk1-f178.google.com with SMTP id
- 71dfb90a1353d-56a9c5cb48bso1863115e0c.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 06:01:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWNZh0Rj8uE9O3dqOy4ZlU4Rez04/CCOiZJr43AdHbl910n5V6dwsvkr8wBAO2dkI5Yr/Jpw+6+Cqk=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:a05:b0:566:2711:d8ab with SMTP id
- 71dfb90a1353d-56dab90cf81mr7244283e0c.6.1775653285855; Wed, 08 Apr 2026
- 06:01:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0739510E64B;
+	Wed,  8 Apr 2026 13:06:27 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SddBSPZD";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 709A610E64B
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 13:06:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775653586; x=1807189586;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=0cHiUjDaYWGPTd6WomSM8ze9DWt0SHiKae+mAMTafBQ=;
+ b=SddBSPZDyFcm3YkD8Av8cZXqmQIfg+L6zSGTEG0UNXH8hYDXAutMWwbx
+ GJiCYbnshoguTBH3QxvizosvNeSljEsa+s2WAdgRqwUfvwP73EG8iNmIY
+ vPlE6EoBA6x7D+3YFM/OCHIdeGHbN5gxyQsRRxwLgpyqX88veARs1FWaw
+ ja3dSzkeXh4Go6299oFufk2xDO3kdxj0u+VjcvFwbrdKbyJt5apEun3cy
+ RcwspCOgXRzuZar6Hj4aCngF6UA3Xy7QXj8/IR3m+izQZUuRo7xgZQydZ
+ eEkiTWjjJHK9fPqRdM6pTzeoX79RduYjewO4kuXsxj+Q3mAJEeGMXtkvX g==;
+X-CSE-ConnectionGUID: cvuXGcWkR5OR+w64qMEU2Q==
+X-CSE-MsgGUID: Mx9g2C2wTXudfq6kSXGgZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76599535"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="76599535"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 06:06:25 -0700
+X-CSE-ConnectionGUID: moNvs6GnRTu/fBUhdKYxTg==
+X-CSE-MsgGUID: HlYlVbuSTty4l06LtTkHBA==
+X-ExtLoop1: 1
+Received: from dgeiger-mobl1.ger.corp.intel.com (HELO [10.246.17.96])
+ ([10.246.17.96])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 06:06:23 -0700
+Message-ID: <10d61ab1-216d-4a79-bd80-ff4309c4d6b4@linux.intel.com>
+Date: Wed, 8 Apr 2026 15:01:31 +0200
 MIME-Version: 1.0
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <481fefa0c9f6f0629a663fe3da1fb17e7f4a1a05.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <481fefa0c9f6f0629a663fe3da1fb17e7f4a1a05.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 8 Apr 2026 15:01:13 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWimH9kaOcwVx1LnujT=Lbm8cE50mj+YFxtBQMZCT0N8w@mail.gmail.com>
-X-Gm-Features: AQROBzB38k87n7vfkgAHJ2zbU_998n7zblsjoYLjCSjeXBMYaqe_VAmcFna50bs
-Message-ID: <CAMuHMdWimH9kaOcwVx1LnujT=Lbm8cE50mj+YFxtBQMZCT0N8w@mail.gmail.com>
-Subject: Re: [PATCH v6 21/21] arm64: dts: renesas: r9a09g047e57-smarc: Enable
- DU0 and DSI support
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, laurent.pinchart@ideasonboard.com, 
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Add support for limiting NPU frequency
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, karol.wachowski@linux.intel.com,
+ lizhi.hou@amd.com, maciej.falkowski@linux.intel.com
+References: <20260330083815.1806045-1-andrzej.kacprowski@linux.intel.com>
+ <dcf02dcc-e49f-4d7a-8cec-95d177b32336@oss.qualcomm.com>
+Content-Language: en-US
+From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+In-Reply-To: <dcf02dcc-e49f-4d7a-8cec-95d177b32336@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,188 +71,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Tommaso,
+On 31-Mar-26 8:12 AM, Jeff Hugo wrote:
+> On 3/30/2026 2:38 AM, Andrzej Kacprowski wrote:
+>> Add configurable frequency limits to allow users to constrain the NPU
+>> operating frequency range for power and thermal management. This support
+>> requires firmware API version 3.34.0 or newer.
+>>
+>> New sysfs interface:
+>>
+>> The freq/ subdirectory contains the following attributes:
+>>
+>> - hw_min_freq: Minimum frequency supported by hardware (read-only)
+>> - hw_max_freq: Maximum frequency supported by hardware (read-only)
+>> - hw_efficient_freq: Hardware's optimal operating frequency (read-only)
+>> - current_freq: Current NPU frequency in MHz (read-only)
+>> - set_min_freq: Configure minimum operating frequency (50XX+ devices)
+>> - set_max_freq: Configure maximum operating frequency (50XX+ devices)
+> I don't see Documentation/ABI changes in this patch, which are required 
+> for sysfs.
+> 
+Good point. I will add required documentation for all attributes 
+exported by the ivpu driver.
+[PATCH V2] will follow.
 
-On Wed, 8 Apr 2026 at 12:40, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> Enable DU0, DSI and ADV7535 on RZ/G3E SMARC EVK.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> However, I wonder if this is the best way to move forward. At best, you 
+> appear to be implementing a completely custom version of hwmon. However, 
+> I wonder if hwmon/sysfs will be limiting as you support 3 generations of 
+> devices if I recall correctly, and that number is probably going to go 
+> up. With the different generations supporting different capabilities, I 
+> suspect the sysfs approach will eventually put you into a corner.
+Hwmon supports a fixed set of sensor types (temperature, voltage, fan 
+speed, etc...) but it does not support frequency, so its not suitable 
+for the purpose.
+Frequency limiting is supported on 2 hardware generations (50XX and 
+60XX) without any delta. I'm not expecting any changes in this code for 
+future hardware.
+> 
+> Your collegues over in the XE area have proposed a netlink mechanism, 
+> which is in -next currently (expected to go in the 7.1 merge window). We 
+> collaborated on that mechanism, and have plans to extend it for these 
+> kinds of "telemetry" items. I'm expecting we'll have some patches posted 
+> on list in a week, maybe 2 (finishing up some of the final details). 
+> Perhaps you would find that useful?
+The DRM RAS over netlink seems to be tailored for reporting error counters.
 
-Thanks for your patch!
+The xe driver I was mimicking, still manages frequency limiting with 
+sysfs, even thou it supported hwmon for discrete hw sensors, and now RAS 
+over netlink as well for error counters.
 
-> --- a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
-> @@ -33,6 +33,7 @@ aliases {
->                 ethernet0 = &eth0;
->                 ethernet1 = &eth1;
->                 i2c2 = &i2c2;
-> +               i2c7 = &i2c7;
->                 mmc0 = &sdhi0;
->                 mmc2 = &sdhi2;
->         };
-> @@ -77,12 +78,47 @@ reg_vdd0p8v_others: regulator-vdd0p8v-others {
->                 regulator-always-on;
->         };
->
-> +       reg_1p8v_adv: regulator-1p8v-adv {
+- Andrzej
+> 
+> -Jeff
 
-Please preserve sort order (alphabetical, by node name).
-
-> +               compatible = "regulator-fixed";
-> +               regulator-name = "fixed-1.8V";
-> +               regulator-min-microvolt = <1800000>;
-> +               regulator-max-microvolt = <1800000>;
-> +               regulator-boot-on;
-> +               regulator-always-on;
-> +       };
-> +
-> +       reg_3p3v_adv: regulator-3p3v-adv {
-> +               compatible = "regulator-fixed";
-> +               regulator-name = "fixed-3.3V";
-> +               regulator-min-microvolt = <3300000>;
-> +               regulator-max-microvolt = <3300000>;
-> +               regulator-boot-on;
-> +               regulator-always-on;
-> +       };
-
-Why not reusing the existing reg_1p8v and reg_3p3v?
-Note that reg_1p8v driving eMMC and QSPI are also not the same
-physical power rail.
-
-> +
-> +       osc1: cec-clock {
-
-Please preserve sort order (alphabetical, by node name).
-
-> +               compatible = "fixed-clock";
-> +               #clock-cells = <0>;
-> +               clock-frequency = <12000000>;
-> +       };
-> +
->         /* 32.768kHz crystal */
->         x3: x3-clock {
->                 compatible = "fixed-clock";
->                 #clock-cells = <0>;
->                 clock-frequency = <32768>;
->         };
-> +
-> +       dsi-to-hdmi-out {
-
-hdmi-out?
-
-Please preserve sort order (alphabetical, by node name).
-
-> +               compatible = "hdmi-connector";
-> +               type = "d";
-> +
-> +               port {
-> +                       dsi_to_hdmi_out: endpoint {
-> +                               remote-endpoint = <&adv7535_out>;
-> +                       };
-> +               };
-> +       };
->  };
->
->  &audio_extal_clk {
-> @@ -107,6 +143,37 @@ &eth1 {
->         status = "okay";
->  };
->
-> +&dsi {
-
-Please preserve sort-order (alphabetical, by label).
-
-> +       status = "okay";
-> +
-> +       ports {
-> +               port@0 {
-> +                       dsi_in0: endpoint {
-> +                               remote-endpoint = <&du0_out_dsi>;
-> +                       };
-> +               };
-> +
-> +               port@2 {
-> +                       dsi_out: endpoint {
-> +                               remote-endpoint = <&adv7535_in>;
-> +                               data-lanes = <1 2 3 4>;
-> +                       };
-> +               };
-> +       };
-> +};
-> +
-> +&du0 {
-> +       status = "okay";
-> +
-> +       ports {
-> +               port@0 {
-> +                       du0_out_dsi: endpoint {
-> +                               remote-endpoint = <&dsi_in0>;
-> +                       };
-> +               };
-> +       };
-> +};
-> +
->  &gpu {
->         status = "okay";
->         mali-supply = <&reg_vdd0p8v_others>;
-> @@ -132,6 +199,48 @@ raa215300: pmic@12 {
->         };
->  };
->
-> +&i2c7 {
-> +       pinctrl-0 = <&i2c7_pins>;
-> +       pinctrl-names = "default";
-> +       status = "okay";
-> +       clock-frequency = <400000>;
-> +
-> +       adv7535: hdmi@3d {
-> +               compatible = "adi,adv7535";
-> +               reg = <0x3d>, <0x4d>, <0x2d>, <0x5d>;
-> +               reg-names = "main", "edid", "cec", "packet";
-> +               clocks = <&osc1>;
-> +               clock-names = "cec";
-> +               avdd-supply = <&reg_1p8v_adv>;
-> +               dvdd-supply = <&reg_1p8v_adv>;
-> +               pvdd-supply = <&reg_1p8v_adv>;
-> +               a2vdd-supply = <&reg_1p8v_adv>;
-> +               v3p3-supply = <&reg_3p3v_adv>;
-> +               v1p2-supply = <&reg_1p8v_adv>;
-> +               adi,dsi-lanes = <4>;
-> +               interrupts-extended = <&pinctrl RZG3E_GPIO(L, 4) IRQ_TYPE_EDGE_FALLING>;
-> +
-> +               ports {
-> +                       #address-cells = <1>;
-> +                       #size-cells = <0>;
-> +
-> +                       port@0 {
-> +                               reg = <0>;
-> +                               adv7535_in: endpoint {
-> +                                       remote-endpoint = <&dsi_out>;
-> +                               };
-> +                       };
-> +
-> +                       port@1 {
-> +                               reg = <1>;
-> +                               adv7535_out: endpoint {
-> +                                       remote-endpoint = <&dsi_to_hdmi_out>;
-> +                               };
-> +                       };
-> +               };
-> +       };
-> +};
-> +
->  &i3c {
->         pinctrl-0 = <&i3c_pins>;
->         pinctrl-names = "default";
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
