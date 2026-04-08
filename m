@@ -4,56 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B5D1073C8D
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:53:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13DE6FD5F79
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 10:59:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE95E10E1CD;
-	Wed,  8 Apr 2026 10:53:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2A410E0F7;
+	Wed,  8 Apr 2026 10:59:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qN6GMFl8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c+kC22aD";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D540210E1CD
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 10:53:10 +0000 (UTC)
-Received: from killaraus.ideasonboard.com
- (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
- by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id AFE13593;
- Wed,  8 Apr 2026 12:51:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1775645501;
- bh=Rjn11KqJ94w5Tb07XxHG3O1GIwrQHeFSfrcL2oJFkFg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qN6GMFl8+gjuyjFpOAfDNN6eBaM258NATkrmnuaiBPnOK4XUxrZlMsfe25/m1/54t
- 1Mk9JRq/R934PpCFU01TQOINmlbxV6rZIy3ukEBTs7rQj5GupYS0Mv3nXJ1MTiUROs
- qxQrf2/yYgzrle+cFygHUpKTbS57qyn7EJCrzC7I=
-Date: Wed, 8 Apr 2026 13:53:08 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 17/21] media: dt-bindings: media: renesas,fcp:
- Document RZ/G3E SoC
-Message-ID: <20260408105308.GC1928916@killaraus.ideasonboard.com>
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <5aaf561a66c24639477a99d3861ca969a81673f0.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF64689C48;
+ Wed,  8 Apr 2026 10:59:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775645982; x=1807181982;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=rI+xEI4plkQhMsH9fK6qESxqKU0IMeOdYAHW6tblm7c=;
+ b=c+kC22aDt/PgQJkPP4uZzPYfv5RUGemJ/bZhXTrGq2f1lHevwE48JDvy
+ 4faFf9WLOt3J/Wvnq6zPW30sgFYAg8w7kTMZiV+nJvoK9h1txJ9lSfX4b
+ /7U/EN95kUYzATLKkdsHt0JTnotPknGHQbyVXt/bvYgQtqDEeTZv/emxH
+ ajIQsvaD8wMuccQsFzClQlcHvM4Sl8271Piaqu6yfUN2Ibudb7dBhIJSd
+ bW32tar0cwUC3batYKGQGzQ4c6lr4uQxzA5df1XadMHV8R9knEBippJZk
+ +KoI6IJKan971oKw5tTSNxA9YUyFRQcPL0084K/dtmAhUscBZOLYhlLs7 Q==;
+X-CSE-ConnectionGUID: PeSrwQMjRUC7UOdtORxa6w==
+X-CSE-MsgGUID: qFhEiarQQjGEyM5JtyI2NQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="87701104"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="87701104"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 03:59:42 -0700
+X-CSE-ConnectionGUID: b4QzCCOaRcScvlCqdfutaw==
+X-CSE-MsgGUID: iSh5h4d/Txuv7L3ABYmCMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="258870385"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.1])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 03:59:39 -0700
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Intel graphics driver community testing & development
+ <intel-gfx@lists.freedesktop.org>
+Cc: Direct Rendering Infrastructure - Development
+ <dri-devel@lists.freedesktop.org>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Linus Torvalds <torvalds@linuxfoundation.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Andi Shyti <andi.shyti@kernel.org>,
+ Chris Wilson <chris@chris-wilson.co.uk>
+Subject: [PATCH v2] drm/i915/gem: Don't use VMA from wrong VM in EXECBUF
+Date: Wed,  8 Apr 2026 13:59:31 +0300
+Message-ID: <20260408105932.82810-1-joonas.lahtinen@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5aaf561a66c24639477a99d3861ca969a81673f0.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,60 +75,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 12:37:02PM +0200, Tommaso Merciai wrote:
-> The FCPVD block on the RZ/G3E SoC is identical to the one found on the
-> RZ/G2L SoC.
-> 
-> No driver changes are required, as `renesas,fcpv` will be used as a
-> fallback compatible string on the RZ/G3E SoC.
-> 
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Do not pick a VMA with non-matching VM (ppGTT) on quick path
+of BO handle lookup for a given EXECBUF call. VMA from wrong VM
+could be picked if same BO is repeatedly used in EXECBUF
+calls on same context with alternating VMs (ppGTTs). However due
+to the introduction of proto-ctx that should not be possible since
+d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
+ create parameters (v5)").
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Also avoids returning a VMA without increasing the refcount,
+which may potentially lead to UAF since f7ce8639f6ff ("drm/i915/gem:
+Split the context's obj:vma lut into its own mutex") and until
+d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
+ create parameters (v5)").
 
-> ---
-> v5->v6:
->  - No changes.
-> 
-> v4->v5:
->  - No changes.
-> 
-> v3->v4:
->  - No changes.
-> 
-> v2->v3:
->  - No changes.
-> 
-> v1->v2:
->  - Collected tags.
-> 
->  Documentation/devicetree/bindings/media/renesas,fcp.yaml | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/renesas,fcp.yaml b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
-> index b5eff6fec8a9..f7e486e90e43 100644
-> --- a/Documentation/devicetree/bindings/media/renesas,fcp.yaml
-> +++ b/Documentation/devicetree/bindings/media/renesas,fcp.yaml
-> @@ -30,6 +30,7 @@ properties:
->                - renesas,r9a07g043u-fcpvd # RZ/G2UL
->                - renesas,r9a07g044-fcpvd # RZ/G2{L,LC}
->                - renesas,r9a07g054-fcpvd # RZ/V2L
-> +              - renesas,r9a09g047-fcpvd # RZ/G3E
->                - renesas,r9a09g056-fcpvd # RZ/V2N
->                - renesas,r9a09g057-fcpvd # RZ/V2H(P)
->            - const: renesas,fcpv         # Generic FCP for VSP fallback
-> @@ -77,6 +78,7 @@ allOf:
->                - renesas,r9a07g043u-fcpvd
->                - renesas,r9a07g044-fcpvd
->                - renesas,r9a07g054-fcpvd
-> +              - renesas,r9a09g047-fcpvd
->                - renesas,r9a09g056-fcpvd
->                - renesas,r9a09g057-fcpvd
->      then:
+Sima's analysis:
 
+  This check was added in f7ce8639f6ff ("drm/i915/gem: Split the context's
+  obj:vma lut into its own mutex") but without any hint in the commit
+  message as to why. In another hunk of that commit there's a hint though in
+  __eb_add_lut:
+
+          /* user racing with ctx set-vm */
+
+  This would mean that this bug was introduced in e0695db7298e ("drm/i915:
+  Create/destroy VM (ppGTT) for use with contexts"), which allowed to change
+  the gem_ctx->vm at runtime, opening up the race that was partially fixed
+  in the earlier referenced commit about a year later.
+
+  But it cannot be exploited anymore in anything remotely recent because
+  with the introduction of proto-contexts we've made gem_ctx->vm invariant
+  again, exactly to preemptively close all these potential issues.
+  Specifically d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
+  create parameters (v5)") is the vm specific part of the proto-context
+  work.
+
+  Despite that this is impossible to exploit I think it's still good to fix,
+  but I think for paranoia's sake we should put a WARN_ON_ONCE(vma->vm !=
+  vm) in there, since this really should be impossible.
+
+  I don't think there's a  harm in backporting this though, since there's a
+  2 year window between the introduction of the ctx->vm change and it's
+  complete fix with the proto-ctx work between 2019 and 2021. It's not
+  realistic to backport the latter and this here is trivial in case anyone
+  is foolish enough to run such an old kernel.
+
+Fixes: f7ce8639f6ff ("drm/i915/gem: Split the context's obj:vma lut into its own mutex")
+References: https://lore.kernel.org/all/20260324151741.29338-1-sosohero200@gmail.com/
+Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Linus Torvalds <torvalds@linuxfoundation.org>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Andi Shyti <andi.shyti@kernel.org>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index bd608cea396f..7463c3262651 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -897,6 +897,8 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+ 		vma = radix_tree_lookup(&eb->gem_context->handles_vma, handle);
+ 		if (likely(vma && vma->vm == vm))
+ 			vma = i915_vma_tryget(vma);
++		else
++			vma = NULL;
+ 		rcu_read_unlock();
+ 		if (likely(vma))
+ 			return vma;
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
