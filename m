@@ -4,101 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E06F10F9968
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 20:22:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B8D10FC440
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 21:32:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5EE310E260;
-	Wed,  8 Apr 2026 20:22:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9514F10E15E;
+	Wed,  8 Apr 2026 21:32:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="O5HGT3NX";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gMSp+Qwn";
 	dkim-atps=neutral
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0C0A10E6D9
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 20:22:44 +0000 (UTC)
-Received: by mail-qt1-f181.google.com with SMTP id
- d75a77b69052e-50d8e11b948so1744881cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 13:22:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1775679764; x=1776284564;
- darn=lists.freedesktop.org; 
- h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
- :from:subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=wBJw70mUEicNNB549MIpFjeIXaI1p71OdOWBzakHM6k=;
- b=O5HGT3NXP9cZHnO87D96d1W9ZiBwlE8xXr/TO2E4iNWYpoRd84FMvhN5xhI2L2Tisl
- YdWp/mlb9oXi82EOjFByQj2sZMgUvKSpxK8m+U2ow83vc4T9XTDYb9PfGp4W5nzgO0MK
- 1cveHrPzUEjxDHiyiMu2Tg/NCOwYcaTx0e/ffCFE19WGruxk6kfWDwNAmQ9ule0lhmMI
- mpbNrEqipa5egl645LcrG20D5tEZXQa5QBGgJSlol3f5jYXQhbwkKadpHRUjTOBOITH2
- NgCeXgWGp8Ik31Ibz/GCatgotEXdfqSHVJszOIhjJjUrbQ0wkvToiLhpfQSZ3kTNNEJk
- bsiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775679764; x=1776284564;
- h=mime-version:user-agent:autocrypt:references:in-reply-to:date:cc:to
- :from:subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=wBJw70mUEicNNB549MIpFjeIXaI1p71OdOWBzakHM6k=;
- b=k0R2tAfKkRQIXqRTerCR/d1IZMqTgzx494Z4MBMFVZkamyDi1WuSTff5OpTZORe2tX
- 7+mAnrdwBQRDU2ID+WHfDsm23/4cs8eTMBO/f/fOwQI51KmC0/Ge36XMCb3b1F9G8Urg
- bkXT55XEwwjnt/uPwoeSLEqxIgHsvECWs9MrRmvNslbMXg56XC7YNPQVY0za4IG3qrZH
- A2AmSlruWrZFBWBFNVfsOAbFO+Qwg743vfwnePU8hrBuDD5AwjokUrxUiGBByn7YkG+1
- o4RY81SNC2rJIxrU28f6QVqfqroAPtBHP/XuItI3qZgTC2Lto24K2xBT006nF1z+N1QY
- iXUA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU7BBsg5ITU7Tpv4oe7cRg0TlLB4e9xc0dNoq+XUSqQnvGxzr1IKG8teLa1VScoGwqYT0lkYLHGrsA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVzrJINV7klBTSrmBXgRxum38foYoikIeACJDstZtq0S2nPvZf
- 2AzUlwp2DANvZ7dLzZMrph8Xa4TgXWAPe6mQMu6zrqpKYv6a1ZSVF1D8poU6/bu5Boc=
-X-Gm-Gg: AeBDieuih4SSTN4Eg7o+EUBZjnYyO9skurUenpVxixu9QEnsziY8NKEwHvF5Z0DVjJt
- mR06kWBu2t2nh7CjKTPc8EOJvjgweBW6KJ+B0GTxLrMc1jbBgRibwLZ9/VaQhTz6WmBZ6GyrLHW
- eg5+cxK7iVMBFIjc5KvvGIyMSqxb3jhkT+u8evJPSrFu8jbY5AODdMbR0kiRYWlsLc0N+YplAui
- jC5snDzhQiUthqMNgoyx/NZ8F0JAP9TsfCDE62YMxXPFmVABMlTgV/knZq75UatrQpeHxJY2eW5
- gqgoxB/pSBduTBk1n67GMn0zGvE8brCDidZAFhJgeRUiv3sm3Znv718d9PmFCs8UfbssaWBFJn8
- FAH9Skyvz6oXw2XxQX8Lw42SiMLZFo0NkJsAEW0dsC+omWgfHb4/sR5zVYaTI1hycB3FZ4d6/O0
- MUfweWyVdGGfT+jU5wqlUAy2flP53V
-X-Received: by 2002:a05:622a:1984:b0:50b:4ba4:9add with SMTP id
- d75a77b69052e-50d62a9ca10mr334496991cf.34.1775679763542; 
- Wed, 08 Apr 2026 13:22:43 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e06b::5ac? ([2606:6d00:15:e06b::5ac])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50d4aed181asm192301041cf.0.2026.04.08.13.22.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Apr 2026 13:22:42 -0700 (PDT)
-Message-ID: <cd1de04076917d65ccd7dd91d9392af7977a4906.camel@ndufresne.ca>
-Subject: Re: [PATCH v2 0/5] Migrate soc, drm-mediatek, mdp3 to new CMDQ APIs
- (series 2/4)
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Jason-JH Lin <jason-jh.lin@mediatek.com>, Jassi Brar	
- <jassisinghbrar@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, Nancy Lin	
- <nancy.lin@mediatek.com>, Singo Chang <singo.chang@mediatek.com>, Paul-PL
- Chen	 <paul-pl.chen@mediatek.com>, Moudy Ho <moudy.ho@mediatek.com>,
- Xiandong Wang	 <xiandong.wang@mediatek.com>, Sirius Wang
- <sirius.wang@mediatek.com>, Fei Shao	 <fshao@chromium.org>, Chen-yu Tsai
- <wenst@chromium.org>, 	Project_Global_Chrome_Upstream_Group@mediatek.com, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-media@vger.kernel.org
-Date: Wed, 08 Apr 2026 16:22:41 -0400
-In-Reply-To: <20260325035836.2110757-1-jason-jh.lin@mediatek.com>
-References: <20260325035836.2110757-1-jason-jh.lin@mediatek.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-RDSjhy/5yQt09mvK/09B"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED63810E15E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 21:31:59 +0000 (UTC)
+Received: from killaraus.ideasonboard.com
+ (2001-14ba-703d-e500--2a1.rev.dnainternet.fi [IPv6:2001:14ba:703d:e500::2a1])
+ by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id D3172241;
+ Wed,  8 Apr 2026 23:30:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1775683830;
+ bh=oAC1/K/V1XBRxFt3ULj40F2D7Cto95HCk2G145TRZY0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=gMSp+QwnN623dVRBFHiTqntRHjnCxX1D7YwQcxPqxZo/B5D3P7rtrGdZDclkKs3K6
+ XAMs6yUVUXOwkY7ATV1KKf5OIeFChkeqG2ySh98XyuaD/Oz5Fm6yxAMo9pFqVqOvo2
+ OxXwL4uwsRgyvNTgQQWDHC2MBzix6SyMICGLx3W0=
+Date: Thu, 9 Apr 2026 00:31:56 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Linus Walleij <linusw@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/4] drm: rcar-du: encoder: convert to
+ of_drm_find_and_get_bridge()
+Message-ID: <20260408213156.GL1965119@killaraus.ideasonboard.com>
+References: <20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-0-421781c8c061@bootlin.com>
+ <20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-3-421781c8c061@bootlin.com>
+ <4cd29943-a8d0-4706-b0c5-01d6b33863e4@bootlin.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <4cd29943-a8d0-4706-b0c5-01d6b33863e4@bootlin.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,78 +72,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Apr 08, 2026 at 06:03:01PM +0200, Louis Chauvet wrote:
+> On 4/2/26 18:27, Luca Ceresoli wrote:
+> > of_drm_find_bridge() is deprecated. Move to its replacement
+> > of_drm_find_and_get_bridge() which gets a bridge reference, and ensure it
+> > is put when done.
+> > 
+> > We need to handle the two cases: when a panel_bridge is added and when it
+> > isn't. So:
+> > 
+> >   * in the 'else' case a panel_bridge is not added and bridge is found: use
+> >     of_drm_find_and_get_bridge() to get a reference to the found bridge
+> >   * in the 'then' case a panel_bridge is found using a devm function which
+> >     already takes a refcount and will put it on removal, but we need to take
+> >     another so the following code in this function always get exactly one
+> >     reference that it needs to put
+> > 
+> > In order to put the reference, add the needed drm_bridge_put() calls in the
+> > existing cleanup function.
+> > 
+> > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> > 
+> > ---
+> > 
+> > Changes in v4:
+> > - fixed conflict after commit 3bce3fdd1ff2 ("drm: rcar-du: Don't leak
+> >    device_link to CMM")
+> > - Use ARRAY_SIZE() instead of define
+> > - Unsigned variable for never-negative variable
+> > - Added comment to clarify the additional drm_bridge_get() in the
+> >    panel_bridge case
+> > - Coding style (C comments, line wrap at 80)
+> > ---
+> >   drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 35 +++++++++++++++++++----
+> >   drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h |  1 +
+> >   drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c     |  2 ++
+> >   3 files changed, 32 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> > index 7ecec7b04a8d..0ae06edf3066 100644
+> > --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> > +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
+> > @@ -51,7 +51,7 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+> >   {
+> >   	struct rcar_du_encoder *renc;
+> >   	struct drm_connector *connector;
+> > -	struct drm_bridge *bridge;
+> > +	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+> >   	int ret;
+> >   
+> >   	/*
+> > @@ -69,20 +69,33 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+> >   
+> >   		bridge = devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
+> >   							 DRM_MODE_CONNECTOR_DPI);
+> > -		if (IS_ERR(bridge))
+> > -			return PTR_ERR(bridge);
+> > +		if (IS_ERR(bridge)) {
+> > +			/* Inhibit the cleanup action on an ERR_PTR */
+> > +			ret = PTR_ERR(bridge);
+> > +			bridge = NULL;
+> > +			return ret;
+> 
+> Same as before, can you use no_free_ptr?
 
---=-RDSjhy/5yQt09mvK/09B
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+That would be nice. You could then drop the comment, as no_free_ptr
+makes it explicit.
 
-Hi,
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Le mercredi 25 mars 2026 =C3=A0 11:57 +0800, Jason-JH Lin a =C3=A9crit=C2=
-=A0:
-> This series migrates the MediaTek SoC, DRM, and MDP3 drivers to the new
-> CMDQ APIs introduced for MT8196.
->=20
-> Series application order:
-> =C2=A0 1. [Series V2 2/4] Migrate subsystems to new CMDQ APIs (this serie=
-s)
-> =C2=A0 2. [Series V2 3/4] Remove shift_pa from CMDQ jump functions
-> =C2=A0 3. [Series V2 4/4] Remove deprecated CMDQ APIs
->=20
-> Please apply this series after the MT8196 GCE support series,
-> and before the following series.
->=20
-> ---
->=20
-> Change in v2:
-> 1. Rebase on linux-next
-> 2. Fix build error of -EINVAL in patch2.
->=20
-> ---
->=20
-> Jason-JH Lin (5):
-> =C2=A0 soc: mediatek: Use pkt_write function pointer for subsys ID
-> =C2=A0=C2=A0=C2=A0 compatibility
-> =C2=A0 soc: mediatek: mtk-cmdq: Add cmdq_pkt_jump_rel_temp() for removing
-> =C2=A0=C2=A0=C2=A0 shift_pa
-> =C2=A0 drm/mediatek:Use reg_write function pointer for subsys ID
-> =C2=A0=C2=A0=C2=A0 compatibility
-> =C2=A0 media: platform: mtk-mdp3: Refactor CMDQ writes for CMDQ API chang=
-e
-> =C2=A0 media: platform: mtk-mdp3: Change cmdq_pkt_jump_rel() to
-> =C2=A0=C2=A0=C2=A0 cmdq_pkt_jump_rel_temp()
+> With or without this modification:
+> 
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> 
+> > +		}
+> > +
+> > +		/*
+> > +		 * The reference taken by devm_drm_panel_bridge_add_typed() is
+> > +		 * released automatically. Take a second one for the __free()
+> > +		 * when this function will return.
+> > +		 */
+> > +		drm_bridge_get(bridge);
+> >   	} else {
+> > -		bridge = of_drm_find_bridge(enc_node);
+> > +		bridge = of_drm_find_and_get_bridge(enc_node);
+> >   		if (!bridge)
+> >   			return -EPROBE_DEFER;
+> >   
+> >   		if (output == RCAR_DU_OUTPUT_LVDS0 ||
+> >   		    output == RCAR_DU_OUTPUT_LVDS1)
+> > -			rcdu->lvds[output - RCAR_DU_OUTPUT_LVDS0] = bridge;
+> > +			rcdu->lvds[output - RCAR_DU_OUTPUT_LVDS0] =
+> > +				drm_bridge_get(bridge);
+> >   
+> >   		if (output == RCAR_DU_OUTPUT_DSI0 ||
+> >   		    output == RCAR_DU_OUTPUT_DSI1)
+> > -			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] = bridge;
+> > +			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] =
+> > +				drm_bridge_get(bridge);
+> >   	}
+> >   
+> >   	/*
+> > @@ -135,3 +148,13 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+> >   
+> >   	return drm_connector_attach_encoder(connector, &renc->base);
+> >   }
+> > +
+> > +void rcar_du_encoder_cleanup(struct rcar_du_device *rcdu)
+> > +{
+> > +	unsigned int i;
+> > +
+> > +	for (i = 0; i < ARRAY_SIZE(rcdu->lvds); i++)
+> > +		drm_bridge_put(rcdu->lvds[i]);
+> > +	for (i = 0; i < ARRAY_SIZE(rcdu->dsi); i++)
+> > +		drm_bridge_put(rcdu->dsi[i]);
+> > +}
+> > diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
+> > index e5ec8fbb3979..b2b5e93f30f8 100644
+> > --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
+> > +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
+> > @@ -25,5 +25,6 @@ struct rcar_du_encoder {
+> >   int rcar_du_encoder_init(struct rcar_du_device *rcdu,
+> >   			 enum rcar_du_output output,
+> >   			 struct device_node *enc_node);
+> > +void rcar_du_encoder_cleanup(struct rcar_du_device *rcdu);
+> >   
+> >   #endif /* __RCAR_DU_ENCODER_H__ */
+> > diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
+> > index b2d0e4651e35..1119c84e5fe9 100644
+> > --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
+> > +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
+> > @@ -832,6 +832,8 @@ static void rcar_du_modeset_cleanup(struct drm_device *dev, void *res)
+> >   
+> >   		put_device(cmm->dev);
+> >   	}
+> > +
+> > +	rcar_du_encoder_cleanup(rcdu);
+> >   }
+> >   
+> >   int rcar_du_modeset_init(struct rcar_du_device *rcdu)
+> > 
 
-Can the two last be applied to the media tree alone without breaking anythi=
-ng ?
-Otherwise I will need to wait for the soc: patches to have landed.
+-- 
+Regards,
 
-Nicolas
-
->=20
-> =C2=A0drivers/gpu/drm/mediatek/mtk_ddp_comp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 12 +++++-----
-> =C2=A0.../platform/mediatek/mdp3/mtk-mdp3-cmdq.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 6 ++---
-> =C2=A0.../platform/mediatek/mdp3/mtk-mdp3-comp.h=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 6 ++---
-> =C2=A0drivers/soc/mediatek/mtk-mmsys.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 ++++---
-> =C2=A0drivers/soc/mediatek/mtk-mutex.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++--
-> =C2=A0include/linux/soc/mediatek/mtk-cmdq.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 | 24 +++++++++++++++++++
-> =C2=A06 files changed, 44 insertions(+), 17 deletions(-)
-
---=-RDSjhy/5yQt09mvK/09B
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCada5EQAKCRDZQZRRKWBy
-9BvDAQDiGnxs8IuI1dVJpXUEYd4nLqhHu0mrYWUd+Xo+VGU9BQD+M4bHsQCcq4KC
-eU/cm+cZeMh1990/2+dj1+RYXPBBewk=
-=HqBw
------END PGP SIGNATURE-----
-
---=-RDSjhy/5yQt09mvK/09B--
+Laurent Pinchart
