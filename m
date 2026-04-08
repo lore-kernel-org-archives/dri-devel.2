@@ -4,49 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DEF3FD5F99
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD40FD5F88
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:45:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFA7210E589;
-	Wed,  8 Apr 2026 08:35:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C9F10E594;
+	Wed,  8 Apr 2026 08:45:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="m913tN86";
-	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="/Vn7FNg1";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ch1ehORK";
 	dkim-atps=neutral
-Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC88710E589
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1775636896;
- bh=IUs+CEQnVM7B8OhrBHYwnjW
- oDMnj21vYP4RTDDhcnLk=; b=m913tN86eRMk//7KnW8P8WxRQi+tk/4Semmcuzj1cpIfr90nWY
- ku7xpD0ALTvCZUPF3EZcXKg71YDsXOHkMeep8Kkt2gXXKufN9wY7i9/2Y8m4wkKaWb6nRTfB3VP
- 4QYx5bdO9HC72DmlkXBaLq6kFrwmjEjlWu+aNNMoYv+FGp37vMdbwFdGTg4QQeLuI+2FrpfRUUA
- Qc+7k+OzUvUbnKEJMT89ccwElEF31Ae8ixWpewhYgohJYLCRmQvdu+5yx+aEiWwxbSVf3GoUZ+J
- z/VolabLgChBUlqQJSorv9RH34coVGYdmYMyvL0UBeX6HbzJ+qNjyOR1gJmZ3UNHjMw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
- c=relaxed/relaxed; 
- h=From:To:Subject:Date:Message-ID; t=1775636896; bh=IUs+CEQnVM7B8OhrBHYwnjW
- oDMnj21vYP4RTDDhcnLk=; b=/Vn7FNg128JP4S6UFeq+y/pcxxTlT848677QPEr6dk3iQXJNSX
- b60dUUuzQJKRND5lOWleh4DFiZPigVwh5tAw==;
-Message-ID: <5bbb4118-9151-425a-b359-2da33c6917f5@damsy.net>
-Date: Wed, 8 Apr 2026 10:28:16 +0200
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A67D10E596
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:45:18 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-8d67a483d3eso395383585a.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 01:45:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775637917; x=1776242717; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=3lr+SQhutbSWGABS7oQ2OjJMnCc+Y1xCXHP8EbLYn64=;
+ b=Ch1ehORKhIcyC14cSR/WO7bL4FBH6PadmhAIO3BLfGMf8X8r58JJY8F6idH4paX2VU
+ lpESWUfZBDdWjNmD9segymcehWLh6CexXRAkTxSIlKPINC0xtJYaQBvKb02GqJwZHGUB
+ jdhMD2b/jmx5fp0ycdB2CrWUnKWtuwo2Ds2+pkjSMvQ9h8Fam3NlnzcNciSCibRT/HU8
+ dv3CHp3sfsBx0LOtpep0vvqP3eyRqAkjgjohbytfZUYfTHM6ATetiYTa/Cz7ZX4Cvtbt
+ H79aWDJK8qim53pmZDYDSdPQbkka9Mv735tdKddA8ELMq/vIGe89INytrV2asmcANH/2
+ km8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775637917; x=1776242717;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3lr+SQhutbSWGABS7oQ2OjJMnCc+Y1xCXHP8EbLYn64=;
+ b=fek+VBdtGjtqE5EYypEoxzQXLtCqq7ubTVw7XG3a4ixDJs+o6vOm8bTNjF2TUqwSXi
+ 066mXii+b6mCRk2pb+XkMagk7RgF6GnDfcxCUEFhbX0HbtDEz+lDdb9h7b8H5w5My+Yv
+ mhflfV7vidt2a0SMTVEqRhHx0x/ls0Zd0NpZnoX/uAx5tGckfnuPj3zlQ2/kKx/qHnaz
+ UtSGPN53e6EBYaVJNO95wk7ZLnjYsy0i49b+g2D2ax2r7kLIYEEazRheEnn3VeyTBUyy
+ /+LfYW9rRPcqQuCTa97o6tb5L0nLyz2ZyZHnV3uSOeXIIAm/enxcIc4sYpWFfYGMx2HN
+ o/eQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVusshROEGKqEdwwWXz0oTkE+WDDiYDIhDE0UnD9ZJc2tcEXCPWv+g37g0g9IU/cJF3xfb1PvIHGTE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1EYiwYhW/HUAwNoJTisIsR46CpSHz5HuQOZL6K08/67oUqDYe
+ bbGve2n7cs6RavJjgFoUMeaYWT6sKAF0H/tTgnddVTZJGEjNxVOOugWa
+X-Gm-Gg: AeBDieufx8b5tkFRKXpXdVK0PDG53SSk7KEXRf0n5ohuxY5pjrQMMCeyITPFFc9wByJ
+ VXgh8Bfe7ZoE+nkEtW97JMAx7+0+kjBKEVthlgf39iJyVHDR9EilzEojHQbZG4QEvkKu25QqH23
+ S1cMR/cuIQOi46KyGpq/tHndfeciOVfZYrmtFLRxsWIXClgqcQTtbo9n3o9RwN+iv5T3ynUnoEF
+ OW/pBqsDIxVr18sZ/agRGAKqydThhXDd0YVjU3mcNlZpD416+j1fnR7rsR2DE9PXT4vzoCDWTBV
+ FGl5B+OWnci8t+sAH+L7MUcuHfR+YC39tJK/43pFDfABraoeGk58mC7VK/3LrsZg9y7PykM2Myw
+ BcjF1GSjI4BvXDSASrGR4bfjicshb0PRF9KnyS9aq4Yi1pAYl95ZTK2J70CyVKfmFYMLtUPAGRG
+ RsQKWWA0+yOERXmbbR
+X-Received: by 2002:a05:6214:468c:b0:89c:e4c3:dc2d with SMTP id
+ 6a1803df08f44-8a7022bbe6amr337024886d6.2.1775637916961; 
+ Wed, 08 Apr 2026 01:45:16 -0700 (PDT)
+Received: from localhost ([2001:67c:1562:8007::aac:4468])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8ac56e3a898sm39028506d6.38.2026.04.08.01.45.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Apr 2026 01:45:16 -0700 (PDT)
+From: "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/dp: Clear accumulated HPD events after link training
+Date: Wed,  8 Apr 2026 16:45:09 +0800
+Message-ID: <20260408084509.555045-1-acelan.kao@canonical.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/7] drm/amdgpu: rename amdgpu_fill_buffer as
- amdgpu_ttm_clear_buffer
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260403083602.1771-1-pierre-eric.pelloux-prayer@amd.com>
- <20260403083602.1771-6-pierre-eric.pelloux-prayer@amd.com>
- <0c00c6ec-5834-42a3-b1a7-0bb81943bd98@amd.com>
-Content-Language: en-US
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-In-Reply-To: <0c00c6ec-5834-42a3-b1a7-0bb81943bd98@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,153 +90,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+After link training completes, intel_dp_stop_link_train() calls
+intel_hpd_unblock() which fires all HPD events that accumulated
+during training via queue_work_for_missed_irqs(). On MST hubs that
+generate rapid short HPD pulses (observed at 5-55ms intervals on
+Dell U2721DE with Realtek MST hub), this creates a burst of stale
+ESI processing that races with the ongoing modeset pipeline enabling
+the 2nd MST stream, resulting in a GPU hard lockup.
 
+Use intel_hpd_clear_and_unblock() instead, which clears the
+accumulated HPD events before unblocking. These events are stale
+since they reflect link status before the successful retrain. Any
+new HPD events arriving after the unblock will be processed normally,
+and the scheduled link check (intel_encoder_link_check_queue_work)
+provides a safety net for detecting legitimate link issues.
 
-Le 07/04/2026 à 12:16, Christian König a écrit :
-> 
-> 
-> On 4/3/26 10:35, Pierre-Eric Pelloux-Prayer wrote:
->> This is the only use case for this function.
->>
->> ---
->> v2: amdgpu_ttm_clear_buffer instead of amdgpu_clear_buffer
->> ---
->>
->> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> Reviewed-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 12 +++++------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 23 ++++++++++------------
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h    | 13 ++++++------
->>   3 files changed, 22 insertions(+), 26 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index d0884bbffa75..195cb1c814d1 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -717,9 +717,9 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
->>   	    bo->tbo.resource->mem_type == TTM_PL_VRAM) {
->>   		struct dma_fence *fence;
->>   
->> -		r = amdgpu_fill_buffer(amdgpu_ttm_next_clear_entity(adev),
->> -				       bo, 0, NULL, &fence,
->> -				       true, AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
->> +		r = amdgpu_ttm_clear_buffer(amdgpu_ttm_next_clear_entity(adev),
->> +					    bo, NULL, &fence,
-> 
-> Wait a second. Why is the dependency NULL here?
-> 
+Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Good catch.
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index a26094223f780..4de2b3d3ea21c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1267,7 +1267,7 @@ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
+ 			lt_dbg(intel_dp, DP_PHY_DPRX, "128b/132b intra-hop not clearing\n");
+ 	}
+ 
+-	intel_hpd_unblock(encoder);
++	intel_hpd_clear_and_unblock(encoder);
+ 
+ 	if (!display->hotplug.ignore_long_hpd &&
+ 	    intel_dp->link.seq_train_failures < MAX_SEQ_TRAIN_FAILURES) {
+-- 
+2.53.0
 
-> Could it be that we relied on the fact that clears and moves were serialized in the past?
-> 
-
-No it's a mistake in the previous patch where the resv param was dropped. I've fixed it in v6.
-
-Thanks,
-PE
-
-
-> Regards,
-> Christian.
-> 
->> +					    true, AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
->>   		if (unlikely(r))
->>   			goto fail_unreserve;
->>   
->> @@ -1329,9 +1329,9 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
->>   	if (r)
->>   		goto out;
->>   
->> -	r = amdgpu_fill_buffer(amdgpu_ttm_next_clear_entity(adev),
->> -			       abo, 0, &bo->base._resv, &fence,
->> -			       false, AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
->> +	r = amdgpu_ttm_clear_buffer(amdgpu_ttm_next_clear_entity(adev),
->> +				    abo, &bo->base._resv, &fence,
->> +				    false, AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
->>   	if (WARN_ON(r))
->>   		goto out;
->>   
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index a3d0998b8cec..e74f9f8a88dc 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -417,8 +417,8 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
->>   	if (old_mem->mem_type == TTM_PL_VRAM &&
->>   	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
->>   		struct dma_fence *wipe_fence = NULL;
->> -		r = amdgpu_fill_buffer(entity, abo, 0, NULL, &wipe_fence,
->> -				       false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
->> +		r = amdgpu_ttm_clear_buffer(entity, abo, NULL, &wipe_fence,
->> +					    false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
->>   		if (r) {
->>   			goto error;
->>   		} else if (wipe_fence) {
->> @@ -2572,26 +2572,23 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_device *adev,
->>   }
->>   
->>   /**
->> - * amdgpu_fill_buffer - fill a buffer with a given value
->> + * amdgpu_ttm_clear_buffer - fill a buffer with 0
->>    * @entity: entity to use
->>    * @bo: the bo to fill
->> - * @src_data: the value to set
->>    * @resv: fences contained in this reservation will be used as dependencies.
->>    * @out_fence: the fence from the last clear will be stored here. It might be
->>    *             NULL if no job was run.
->> - * @dependency: optional input dependency fence.
->>    * @consider_clear_status: true if region reported as cleared by amdgpu_res_cleared()
->>    *                         are skipped.
->>    * @k_job_id: trace id
->>    *
->>    */
->> -int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
->> -		       struct amdgpu_bo *bo,
->> -		       uint32_t src_data,
->> -		       struct dma_resv *resv,
->> -		       struct dma_fence **out_fence,
->> -		       bool consider_clear_status,
->> -		       u64 k_job_id)
->> +int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->> +			    struct amdgpu_bo *bo,
->> +			    struct dma_resv *resv,
->> +			    struct dma_fence **out_fence,
->> +			    bool consider_clear_status,
->> +			    u64 k_job_id)
->>   {
->>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->>   	struct dma_fence *fence = NULL;
->> @@ -2622,7 +2619,7 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>   			goto error;
->>   
->>   		r = amdgpu_ttm_fill_mem(adev, entity,
->> -					src_data, to, cur_size, resv,
->> +					0, to, cur_size, resv,
->>   					&next, true, k_job_id);
->>   		if (r)
->>   			goto error;
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> index 436a3e09a178..d7b14d5cac77 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->> @@ -187,13 +187,12 @@ int amdgpu_copy_buffer(struct amdgpu_device *adev,
->>   		       struct dma_resv *resv,
->>   		       struct dma_fence **fence,
->>   		       bool vm_needs_flush, uint32_t copy_flags);
->> -int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
->> -		       struct amdgpu_bo *bo,
->> -		       uint32_t src_data,
->> -		       struct dma_resv *resv,
->> -		       struct dma_fence **out_fence,
->> -		       bool consider_clear_status,
->> -		       u64 k_job_id);
->> +int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->> +			    struct amdgpu_bo *bo,
->> +			    struct dma_resv *resv,
->> +			    struct dma_fence **out_fence,
->> +			    bool consider_clear_status,
->> +			    u64 k_job_id);
->>   struct amdgpu_ttm_buffer_entity *amdgpu_ttm_next_clear_entity(struct amdgpu_device *adev);
->>   
->>   int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
