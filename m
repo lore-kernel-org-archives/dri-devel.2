@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B7CFD5F94
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:10:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C1CBFD5F94
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:11:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B21E10E55C;
-	Wed,  8 Apr 2026 08:10:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E018C10E559;
+	Wed,  8 Apr 2026 08:11:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kx08zvmC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WCXoWZp0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C35210E55C
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:10:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EAD710E559
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:11:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 138B9444F7
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:10:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE010C2BCB4
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:10:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1481C4404E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:11:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2670C2BCB7
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775635824;
- bh=ECHfPTPhmkdkFd66BtjTzlwbUq3yiTD8+y8hVdw2RfY=;
+ s=k20201202; t=1775635862;
+ bh=sqdL8nTdSHEyk1Way49SKBiavpK4C4Nmipixbhq+G44=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=Kx08zvmCyMhESbHlfmJm/uZBZ6cNKeBsF0YOShpI5Fwi3guEfaNfVQ/ioixPncCGg
- BWM2NbNv8njydxu6kJhk9+pq3yPq/cwJjVWPApEtHOkdhB3fjjOFDVt4sWDxJGWOTt
- zaecLdTgpUmCru7Oe/Kw9h+k8Z7QUAc2WYG7fFOrQq3bnnqDGi3v6M1KtyKexweab3
- U4Yu12qPNAcYOQTGpNB3SGuf39FsdH5tntcCiNyATkR3ZRqc6XWVPLA9THDWl1oKCH
- EUq+VwpTNyVmCpLLDJiDaqbQzFrzMyyVrKnZEb8S4BcSYuB+f1CryIbJWocrFdC44x
- 2RQKFvds0UIlA==
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-79853c0f5b9so94753717b3.0
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 01:10:24 -0700 (PDT)
+ b=WCXoWZp01ja4gl5ebFzz9Qg4PArTyY+KnAPGimXdcSH3lU3D3ZNmpMX1SzEeS3dhw
+ vW3kj/xcoQNtD5TZ03EXMu9N7y3eFdcDf8C2Dc4Qs8668N+YPIyLbuRwF/FvrPHxc2
+ qvXm5k6cukVaPpwHpLOJR6DXxy9TB9HPC2JQuJf8YTUT8CBsEs+yyQQAV8hjY42VLl
+ xvpfzq/Ukc8Ciy2ZgSAuRfu/EpTBYAFA9DOaIOd9NvOc58GA+ZaSgwMCG4VAbOd+Gk
+ BpjFo4EkowOU7QiwD0gz/OqBglvXd94jeYskym7BU0w+FMoYvhtDNh4ze9jNRieldc
+ m90DEhIkBip8A==
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-649278a69c5so4643463d50.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 01:11:02 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCXAA+VbT42mclcj6J2dFiDSozMKYs5chrPXwncnVQ+MGtiCcDouGj9jnkoInj+ZMKJwEAshV6yiYCY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbuzdjnDWLd1b7kHJA6n0R/kcg9d9W1OcAXs/G+N3OOvWOqie5
- hsmzPZB1x6XIoNZ0AhxNaANaWlLujIhEvOik0qAUTYDNjUpPWm0U3UZGgo+11cmqxwr00dE+H1T
- qBxMZVLAcy7ql+YnF/vyrh9enlP7qHKk=
-X-Received: by 2002:a81:8a05:0:b0:79f:b903:88c8 with SMTP id
- 00721157ae682-7a4d3dc8967mr153186747b3.18.1775635824304; Wed, 08 Apr 2026
- 01:10:24 -0700 (PDT)
+ AJvYcCUFFKBdDck92lkpCv4QrNDbIGU6WAcRwVPV89wGj/cuNOryANiKQA3RtCfeNpLdwTNLlnN9E2Vl5OU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzh7gdz2sHT3CzympzZ7R9Jo66GKASw4raIkV2qKC1zbsMGrYCb
+ IpE2ecbvh/ivd9yyDQbHUg+94d/k4CJad6YlRk2I4JRjq+3LpKLR8L4uFimK5HCuLzUt0ZOX7Ye
+ 8goof3KOUODRMjCjLH/Yr8gvIUnehtHI=
+X-Received: by 2002:a05:690c:6e84:b0:79a:6cd1:ddf8 with SMTP id
+ 00721157ae682-7a4d31e619dmr192017227b3.4.1775635862276; Wed, 08 Apr 2026
+ 01:11:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
- <20260401-waveshare-dsi-touch-v1-10-5e9119b5a014@oss.qualcomm.com>
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-10-5e9119b5a014@oss.qualcomm.com>
+ <20260401-waveshare-dsi-touch-v1-11-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-11-5e9119b5a014@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 8 Apr 2026 10:10:13 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmG_y2dunkyzH7KDtphN6WORzt87f5CpqzAtCUtALv8CA@mail.gmail.com>
-X-Gm-Features: AQROBzA1L-k3CYGiASnMrssM2dYaCBEXqtHZxkZ8TG5qef9N3AQG7wAPZBWfSaI
-Message-ID: <CAD++jLmG_y2dunkyzH7KDtphN6WORzt87f5CpqzAtCUtALv8CA@mail.gmail.com>
-Subject: Re: [PATCH 10/19] drm/panel: himax-hx8394: support Waveshare DSI
- panels
+Date: Wed, 8 Apr 2026 10:10:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkUPKpMhEeP0tY+t5E0Hc+iX_7RVpxK701NU523OB3zfg@mail.gmail.com>
+X-Gm-Features: AQROBzC0ZBvsFFgFL0sfxRCHkBDh3w5K4JhNTM28x_a4U-5EjcHBvdxh69DaTIg
+Message-ID: <CAD++jLkUPKpMhEeP0tY+t5E0Hc+iX_7RVpxK701NU523OB3zfg@mail.gmail.com>
+Subject: Re: [PATCH 11/19] drm/panel: jadard-jd9365da-h3: use
+ drm_connector_helper_get_modes_fixed
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -87,13 +87,10 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Enable support for Waveshare 5.0" and 5.5" DSI TOUCH-A panels.
+> Use existing helper instead of manually coding it.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-This looks excellent, good documentation and references to (incomplete...)
-datasheet. Maybe this datasheet has the defs I was complaining about
-in the other patch?
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
