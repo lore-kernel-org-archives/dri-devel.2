@@ -4,43 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 571A2FD5F99
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:57:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50991FD5F98
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:57:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CEBE10E59B;
-	Wed,  8 Apr 2026 08:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC57310E5A5;
+	Wed,  8 Apr 2026 08:57:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="rhrnQbnd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DAR8RUjz";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id ADDE510E59B
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:57:13 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6ED8C2D95;
- Wed,  8 Apr 2026 01:57:07 -0700 (PDT)
-Received: from [10.57.32.88] (unknown [10.57.32.88])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 245223F632;
- Wed,  8 Apr 2026 01:57:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1775638633; bh=hL/IlzsmXrkiy8j5LwUDBfc6pyyS+d3tDsLfxhpS7Eg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=rhrnQbndtQJL7Muf4HTSG1hDXbVjF0xvd/FcwxSfbAp5ZWZVDf3jbv0WqCGttB5sU
- uErzWzF/0c6bpIoXzFtWvrq3ed29SX3q5G6WPmWtYM+IURDAtaf5HcppP3WxXwaCDu
- Wz0oGA0g10PQSMNXpRLXgHcMsZr+FXclRLQ7PVO8=
-Message-ID: <57e63f1e-f678-4b31-a9ca-800a631c9a94@arm.com>
-Date: Wed, 8 Apr 2026 09:57:10 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2B1C10E5A4;
+ Wed,  8 Apr 2026 08:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775638658; x=1807174658;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KM3H4mvGgcmcwYaJ0vMxVqfVQlSvjcWp62H1r2n8rIA=;
+ b=DAR8RUjzvZ41WZLyLesqwCfhy47lEgvDFH99Jw2SuQPHFmPuVQludVNR
+ yRp8GwB19dEJVuCYLNEC+g+LqWTwCjCf6k2n799/Tge6sK9BUuT5x4cu8
+ xbIfPo39MtLIFdKz5yTFeW1o36880onQU3AkExD9YdQeOI8J7vjmcsdHw
+ Bhk20hFIdb28Un1I5E/eNh0oJJqYaiMoSV5uXNIiDC95zMHJIlWy6Npmv
+ 4lLqc08TzCpnnkpAxM1ACMfwc+yY2tVOtTWCYsSzqKblMvUJ5oT0n/iFp
+ KyxEuE2yWiaHsE81e8Ly/a/9FHGLMJOqOhAElWQHmibJ0Vep9p2dnD1e7 A==;
+X-CSE-ConnectionGUID: iEazX66XRUuXLucfvoJsZg==
+X-CSE-MsgGUID: 6FABCHCxSVmkHO0kpqNnXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="76516582"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="76516582"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 01:57:37 -0700
+X-CSE-ConnectionGUID: 8C51P7KeTryQBomQm0cFtA==
+X-CSE-MsgGUID: Jro53ta6R2OgQYfWiWsCtA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="227572422"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 01:57:35 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
+ animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 00/26] Fix Adaptive-Sync SDP for PR with Link ON + Auxless-ALPM
+Date: Wed,  8 Apr 2026 14:12:12 +0530
+Message-ID: <20260408084239.1295325-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panthor: Fix kernel-doc warning in panthor_sched.c
-To: Yicong Hui <yiconghui@gmail.com>, boris.brezillon@collabora.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- skhan@linuxfoundation.org, me@brighamcampbell.com
-References: <20260405192309.389039-1-yiconghui@gmail.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260405192309.389039-1-yiconghui@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,51 +68,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 05/04/2026 20:23, Yicong Hui wrote:
-> Fix the following W=1 kerneldoc warnings by adding the missing parameter
-> descriptions for @ptdev and @events in panthor_sched_report_fw_events()
-> and @ptdev in panthor_sched_report_mmu_fault()
-> 
-> Warning: drivers/gpu/drm/panthor/panthor_sched.c:1898 function parameter 'ptdev' not described in 'panthor_sched_report_fw_events'
-> Warning: drivers/gpu/drm/panthor/panthor_sched.c:1898 function parameter 'events' not described in 'panthor_sched_report_fw_events'
-> Warning: drivers/gpu/drm/panthor/panthor_sched.c:2783 function parameter 'ptdev' not described in 'panthor_sched_report_mmu_fault'
-> 
-> Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-> Signed-off-by: Yicong Hui <yiconghui@gmail.com>
+Enable Adaptive Sync SDP for Panel replay + auxless ALPM.
+First few patches are fixes in existing AS SDP enablement and drm core
+changes for Panel replay with SDP.
+Later patches add the support to send AS SDP for Panel replay with Link
+ON and with auxless ALPM (Link-Off). 
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+This series is in continuation from discussions in [1] [2] [3]
+and is actually revision 5 of the series [4].
 
-Thanks, I actually have a patch I've been meaning to send for this.
-There's a few more kerneldoc issues in this file (documentation doesn't
-get output but there's no warning) - I'll push this to drm-misc-next and
-send a patch for the remaining issues.
+While sending patches Rev 3 of [4], patchwork encountered an issue and
+somehow dropped few patches from the series, and created new patchwork
+links with incomplete list of patches for rev 3 and 4. With this CI couldnt
+pick up the series for testing.
 
-Thanks,
-Steve
+To avoid further confusion and more patchwork links with missing patches,
+I am modifying the subject of the series to create new 'final' patchwork
+link (with a hope that patchwork doesn't miss anymore patches) for which
+we can get the CI results.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_sched.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index a70f1db0764e..2d6dc5db4148 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1894,6 +1894,8 @@ static void process_fw_events_work(struct work_struct *work)
->  
->  /**
->   * panthor_sched_report_fw_events() - Report FW events to the scheduler.
-> + * @ptdev: Device.
-> + * @events: Bitmask of pending FW events to report.
->   */
->  void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events)
->  {
-> @@ -2779,6 +2781,7 @@ static void panthor_group_start(struct panthor_group *group)
->  
->  /**
->   * panthor_sched_report_mmu_fault() - Report MMU faults to the scheduler.
-> + * @ptdev: Device.
->   */
->  void panthor_sched_report_mmu_fault(struct panthor_device *ptdev)
->  {
+As the first few drm core changes get reviews, I intend to send those
+separately and get them merge next.
+
+[1] https://lore.kernel.org/all/1b8c6c6de1e5fe0db83e6ae942dfee7e6f950767.camel@intel.com/
+[2] https://lore.kernel.org/all/aPtqdAxDwiuQZbrn@intel.com/
+[3] https://lore.kernel.org/intel-gfx/7c2d6f4e-69e6-452a-89cc-5fd4254430bd@intel.com/T/#m6e8beab2cc3b6ff9d61f740f107d83a2f4e08114
+[4] https://patchwork.freedesktop.org/series/161977/#rev2
+
+Changes from last revision of Series [4]
+ - Add helper to print SDP version in the logs and use it.
+ - Fill missing sdp_type field in AS SDP unpack.
+ - Check PR support also in helper
+   intel_psr_pr_async_video_timing_supported()
+ - Add #TODO to check Display ID 2.0 blocks for AS SDP for determining
+   AS SDP v2 support.
+ - Check if PR is enabled along with AS SDP enable before setting
+   relevant Downspread CTRL DPCD bits.
+
+Ankit Nautiyal (26):
+  drm/dp: Rename and relocate AS SDP payload field masks
+  drm/dp: Clean up DPRX feature enumeration macros
+  drm/dp: Add bits for AS SDP FAVT Payload Fields Parsing support
+  drm/dp: Add DPCD for configuring AS SDP for PR + VRR
+  drm/dp: Store coasting vtotal in struct drm_dp_as_sdp
+  drm/dp: Add a helper to get the SDP type as a string
+  drm/dp: Add target_rr_divider field in AS SDP logging
+  drm/i915/dp: Fix readback for target_rr in Adaptive Sync SDP
+  drm/i915/vrr: Avoid vrr for PCON with HDMI2.1 sink
+  drm/i915/dp: Account for AS_SDP guardband only when enabled
+  drm/i915/dp: Add a helper to decide if AS SDP can be used
+  drm/i915/dp: Skip AS SDP for DP branch devices
+  drm/i915/dp: Use revision field of AS SDP data structure
+  drm/i915/dp: Set sdp_type in AS SDP unpack
+  drm/i915/dp: Include all relevant AS SDP fields in comparison
+  drm/i915/psr: Add helper to get Async Video timing support in PR
+    active
+  drm/i915/dp: Add member to intel_dp to store AS SDP v2 support
+  drm/i915/dp: Allow AS SDP only if v2 is supported
+  drm/i915/psr: Write the PR config DPCDs in burst mode
+  drm/i915/display: Add helper for AS SDP transmission time selection
+  drm/i915/psr: Program Panel Replay CONFIG3 using AS SDP transmission
+    time
+  drm/i915/dp: Set relevant Downspread Ctrl DPCD bits for PR + Auxless
+    ALPM
+  drm/i915/dp: Program AS SDP DB[1:0] for PR with Link off
+  drm/i915/dp: Split AS SDP computation between compute_config and
+    compute_config_late
+  drm/i915/dp: Compute and include coasting vtotal for AS SDP
+  drm/i915/dp: Always enable AS SDP if supported by source + sink
+
+ drivers/gpu/drm/display/drm_dp_helper.c       |  39 +++-
+ drivers/gpu/drm/i915/display/intel_alpm.c     |  20 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |   9 +-
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 187 +++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dp.h       |   2 +
+ .../drm/i915/display/intel_dp_link_training.c |  15 +-
+ .../drm/i915/display/intel_dp_link_training.h |   3 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |   2 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |  40 ++--
+ drivers/gpu/drm/i915/display/intel_psr.h      |   1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      |  10 +
+ include/drm/display/drm_dp.h                  |  20 +-
+ include/drm/display/drm_dp_helper.h           |   1 +
+ 14 files changed, 288 insertions(+), 62 deletions(-)
+
+-- 
+2.45.2
 
