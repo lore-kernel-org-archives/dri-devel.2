@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A53BFD5F92
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:27:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FD87FD5F88
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 08:27:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C977810E571;
-	Wed,  8 Apr 2026 08:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0E0910E573;
+	Wed,  8 Apr 2026 08:27:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ntQiLtGr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LcwDZkpm";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8592810E571
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:27:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1422410E573
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:27:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4745544518
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:27:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21660C2BCC9
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:27:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EF9E74425D
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:27:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA6DC2BCB1
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 08:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775636823;
- bh=dAv+La3U8Nx7XhasEfBGS7ePrE8r3GYXA+jCkywSwRE=;
+ s=k20201202; t=1775636844;
+ bh=Nh/HgkDdzSl2nd13YnkWx/Pm3GBsXpIS/jjsAxO2JZA=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=ntQiLtGrqe75QaxaTjlLuIXUQ5w/YPlxE50wIJaVITYqYOK/uu8leefTE6fv3S0k/
- a9CfrcK3ThgRtVQ77ZEyzI2deZDSr9ZboU70AVDO6vbk8bpPvRBblhOT9yUs7kuT81
- j2R0y8nDYTF4Pn1mqEwGJu7lHejyJbM1lVDre5TYqz4QZrtJa99dwwjS5qMmyyULlq
- vZ24nWKGm4VU6U1wzsYMB/GZq8XpSS95P25Re6QTg0g+C62cbiCimpPiYtH5LBMJRj
- MEH5StlIOA6TsGhtHDa7cnbYejkmdDOVWYIylPyCCtuOWs9NmIJ1jPe5kr9DpFTBCf
- 5HgwMdA7b83XA==
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-79a535e7c00so64463767b3.3
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 01:27:03 -0700 (PDT)
+ b=LcwDZkpm2MXkNjBMqFo5DXJzgm94Tuojzj5XvJd9cwY2DXDMgCdxOFdN8idqT+oje
+ 6ty6QjsFAlpDlJzKrcJph6KNTZFm2pQlBn5dG0gqLFRzI6cnF7BOWCFfvIKSj0l/eo
+ ih16Q5TWM8uQKmbJ8Kpy94Av6+Xrd72Z5MUBuKyxca70LvZQ1IYX8OicKYxlsLjiEC
+ XdpVINSbV+rsEcfb8Cj0wDdGOytZ0hdR70ulTSXNyKd3CPhORwk+7oHwv4wSvdeuAX
+ iZYpdm2BO3F+2cUtupGaK+rq7CMQgQF3qotT/c/KDryj9+hqBJC4qOQeqEiKhz8JNm
+ kHa0FP8Wm8wAA==
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-7a2b6adbfa6so56277947b3.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 01:27:24 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWNM6LcROGPR9CGxsyMY10mkxP3yOChvRHPRRxlEsWEl8Wdn4Bj38+lRArala7auGyiThnlILv3ZDQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7dcl9Odvfw6xhxjpCii5Zg26zUfsTzbJ1Pkeosqule06qFL4F
- 1xCiCifSuqmh9NK5f4D7rf9UJU5mujH6vEZb5gkxvrfJWel2i64GrM7eG3MvhhD3MYFhnf8sKxa
- zjxvhBk5LxIe+yDd+rzS2OpsH4cXOh+8=
-X-Received: by 2002:a05:690c:6610:b0:79d:4f01:5bc1 with SMTP id
- 00721157ae682-7a4d84c32a6mr196936127b3.31.1775636822459; Wed, 08 Apr 2026
- 01:27:02 -0700 (PDT)
+ AJvYcCVpj1ad7CUmUqymwyC2Tl9lKDFNogsu9DQuhd7lG6bY0LROdIEYGhS9PVFdamaPypH3/D+VGmzJ3Kg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvH67L1a0NxnoaylzLmfxG5x1lOcmd3mqDt52d4sX7ggYAWKxR
+ P8AZ/qKyNgNUSbM2OncpiBmxTLAKv32GJoID20W8a92Tz012BtWKFIsDwB/Ls12wOd8e6nOJxzb
+ MaO1JTkygUcAIiHvjDH44qaW771/r9Us=
+X-Received: by 2002:a05:690c:385:b0:79a:2ef2:7f7 with SMTP id
+ 00721157ae682-7a4d6e21e14mr210763987b3.23.1775636844272; Wed, 08 Apr 2026
+ 01:27:24 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
- <20260401-waveshare-dsi-touch-v1-15-5e9119b5a014@oss.qualcomm.com>
-In-Reply-To: <20260401-waveshare-dsi-touch-v1-15-5e9119b5a014@oss.qualcomm.com>
+ <20260401-waveshare-dsi-touch-v1-17-5e9119b5a014@oss.qualcomm.com>
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-17-5e9119b5a014@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 8 Apr 2026 10:26:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=DmZc-+n4z57QzirGj-S=UBqHKVUkV2dUkQp8HjXA33A@mail.gmail.com>
-X-Gm-Features: AQROBzAl5SihlBoUxkuLl6r0BxYNCbci2S_noIkx70TcWl8cgQaobuFx_PSi9DY
-Message-ID: <CAD++jL=DmZc-+n4z57QzirGj-S=UBqHKVUkV2dUkQp8HjXA33A@mail.gmail.com>
-Subject: Re: [PATCH 15/19] drm/panel: ilitek-ili9881c: support Waveshare 7.0"
- DSI panel
+Date: Wed, 8 Apr 2026 10:27:11 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnQb02FhQDngY_ZnOeQq-2Naxg4MT38BtQK+2TGFymeDw@mail.gmail.com>
+X-Gm-Features: AQROBzDZLZBjPdZdwCQGMrQ2dNUUfDDmI-jmdfj9Sal7q_dMbU4JwTx-3FFyxlc
+Message-ID: <CAD++jLnQb02FhQDngY_ZnOeQq-2Naxg4MT38BtQK+2TGFymeDw@mail.gmail.com>
+Subject: Re: [PATCH 17/19] drm/panel: add driver for Waveshare 8.8" DSI
+ TOUCH-A panel
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -84,22 +84,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
-
-thanks for your patch!
-
 On Wed, Apr 1, 2026 at 9:27=E2=80=AFAM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Enable support for Waveshare 7.0" DSI TOUCH-A panel. It requires
-> additional voltage regulator, iovcc.
+> Add driver for the panel found on Waveshare 8.8" DSI TOUCH-A kit. It
+> uses ota7290b IC as a controller.
 >
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-(...)
-> +       ILI9881C_COMMAND_INSTR(0x01, 0x00),
-> +       ILI9881C_COMMAND_INSTR(0x02, 0x00),
 
-Same comment about using a jam table here.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
 Linus Walleij
