@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3E1FD5F7B
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 05:40:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DD27FD5F82
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 06:38:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D8E10E53D;
-	Wed,  8 Apr 2026 05:40:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AACC10E528;
+	Wed,  8 Apr 2026 06:38:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mjIZNoSD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UQSdJzm4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E298110E53A;
- Wed,  8 Apr 2026 05:40:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775626853; x=1807162853;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=pJKHk2vMVCKjWEohaVgMrTUZS47quOy9V1pn6kGHbMU=;
- b=mjIZNoSD9dELCnX8ahOcKl/31gjLJFih9+Scr1wGemc+fxIWv7FLaMxW
- J1v8lP+DoHnsdJcKbA2k1wD+5Zjlranb2yp65QRU/JFDgD7knWroLuABq
- 6agVZHgT5fAZwgEU+82QALH1qHIIrves/UyDn3M8Px/rimK+/nV4KEwUB
- FWZneH4Ix2riIwlHbQ8RiwLYiT0IdR+I7NPftgv3d6Pyw3n6e1Dl8odbE
- gV1mKupKslou/rmoDohuEcxa/sOTAA4s4H3LDF68ttE6kbXT6Z0OAeM3I
- ziwLaU1wC2AKyR/f5y8U4p/26Q2j1/0PViW+J6zt5/7gFOTVpjPL2hwNx w==;
-X-CSE-ConnectionGUID: b/bi5EKUTcqcKAB1IlTQOg==
-X-CSE-MsgGUID: 2qBGsbUYSduTeHOZ1af4Xg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="80194954"
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="80194954"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 22:40:53 -0700
-X-CSE-ConnectionGUID: h8EddY8xRgOcYEdr96DV0A==
-X-CSE-MsgGUID: /0/416rsT4eOSk+/ohZstw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="251518117"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa002.fm.intel.com with ESMTP; 07 Apr 2026 22:40:48 -0700
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: harry.wentland@amd.com, louis.chauvet@bootlin.com, mwen@igalia.com,
- contact@emersion.fr, alex.hung@amd.com, daniels@collabora.com,
- uma.shankar@intel.com, maarten.lankhorst@intel.com,
- pekka.paalanen@collabora.com, pranay.samala@intel.com,
- swati2.sharma@intel.com, chaitanya.kumar.borah@intel.com
-Subject: [PATCH v2 13/13] drm/i915/color: Add YUV range correction to SDR
- plane pipeline
-Date: Wed,  8 Apr 2026 10:45:14 +0530
-Message-Id: <20260408051514.608781-14-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260408051514.608781-1-chaitanya.kumar.borah@intel.com>
-References: <20260408051514.608781-1-chaitanya.kumar.borah@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5F6210E525
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 06:38:43 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AE51760123;
+ Wed,  8 Apr 2026 06:38:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7327C19424;
+ Wed,  8 Apr 2026 06:38:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775630322;
+ bh=F5C8Khj7DpMvOKVUF26GhkolmJLJIPfPjUu2n/qWpsI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=UQSdJzm4eO6CsxuDaJG33sr7UfkT9iUvvWpf5Pbvg9CGfy8vVw3x9tlrJDlrgK0Dl
+ HKlVeiCR5xhpBmJUR/Eg3j0SBFGSZlSKV2opkYwt0++zEdFCTAN+AvnSrp5IwW0tzH
+ zTHkhyYSGzPsSwVY+YnL9jKU5hm/dlBHmjrVCXWHRaQO6RdZ93h6emeRC96jfzMRgp
+ 40r9gqQJWeiV5BMe6G1BP2200rSg6syrYybZjCbc1p2mC0XGOAq0rYxrKHkpBxwi7R
+ x4h8zopuXVJO85aASLARrjit/bkzoOy5q8lmTK+BC7ZfhBAjNXYIOLRtH98v5e7WV3
+ g3GOxgk0B24og==
+Date: Wed, 8 Apr 2026 08:38:40 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: imx@lists.linux.dev, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Ying Liu <victor.liu@nxp.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com
+Subject: Re: [PATCH v21 0/8] Initial support Cadence MHDP8501(HDMI/DP) for
+ i.MX8MQ
+Message-ID: <20260408-accelerated-sturdy-skink-caaa3b@quoll>
+References: <20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f@oss.nxp.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260407-dcss-hdmi-upstreaming-v21-0-4681070ab82f@oss.nxp.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,28 +76,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Insert the INTEL_PLANE_CB_YUV_RANGE_CORRECT color block into the SDR
-plane color pipeline. This enables YCbCr limited-to-full range expansion
-ahead of the CSC block that expects full range pixel data. With this,
-the pipeline can accept limited range framebuffers.
+On Tue, Apr 07, 2026 at 02:31:24PM +0000, Laurentiu Palcu wrote:
+> From: Sandor Yu <Sandor.yu@nxp.com>
+> 
+> Hi,
+> 
+> Since Sandor left NXP some time back, I'll be taking over this patchset
+> and continue the upstreaming process from where he left off.
+> 
+> The patchset adds initial support for Cadence MHDP8501(HDMI/DP) DRM bridge
+> and Cadence HDP-TX PHY(HDMI/DP) for Freescale i.MX8MQ.
+> 
+> I addressed all remaining reviewers' comments from v20 but I'm not sure
+> whether Alexander's issue is still present. Alexander, let me know if
+> you're still experiencing a black screen with this patch-set and I'll
+> try to address it in the next revision.
+> 
+> --
+> Changes in v21:
+>  - Dropped "phy: Add HDMI configuration options" patch because it was
+>    already merged separately;
+>  - Rebased to latest linux-next (7.0-rc6) and fixed all issues
+>    introduced by API changes in DRM;
+>  - Addressed Maxime's comment on patch #5 and used debugfs file instead
+>    of sysfs for printing firmware version;
+>  - Addressed all Dmitry's comments: handled the
+>    cdns_mhdp_mailbox_send_recv_multi() error, removed the RGB 10bit
+>    unused code, added a dts property in order to get the bridge type (I
+>    couldn't find another way to do it...);
+>  - Dropped Krzysztof's r-b tag for patch #4 (which is now patch #3)
+>    since I added a new property;
 
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
----
- drivers/gpu/drm/i915/display/intel_color_pipeline.c | 1 +
- 1 file changed, 1 insertion(+)
+Whych property? You really are not supposed to add new properties at
+v21. This means your binding was incomplete while being discussed for
+~20 revisions.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-index 17cbbbc839af..301ee3bdc4b0 100644
---- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-+++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-@@ -45,6 +45,7 @@ static const enum intel_color_block hdr_plane_pipeline[] = {
- };
- 
- static const enum intel_color_block sdr_plane_pipeline[] = {
-+	INTEL_PLANE_CB_YUV_RANGE_CORRECT,
- 	INTEL_PLANE_CB_PRE_CSC_LUT,
- 	INTEL_PLANE_CB_CSC_FF,
- 	INTEL_PLANE_CB_POST_CSC_LUT,
--- 
-2.25.1
+Best regards,
+Krzysztof
 
