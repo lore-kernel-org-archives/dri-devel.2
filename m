@@ -4,95 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89B8FD5F87
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:26:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2872FD5F87
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:26:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 193B910E546;
-	Wed,  8 Apr 2026 07:26:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE3D10E54A;
+	Wed,  8 Apr 2026 07:26:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ao2psTjY";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Na/U8eDZ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="D5g2CpXR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HATcsAKV";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4CD910E523
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 07:26:25 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAEB910E548
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 07:26:34 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63839prH2412018
- for <dri-devel@lists.freedesktop.org>; Wed, 8 Apr 2026 07:26:24 GMT
+ 6385WDTm1006023
+ for <dri-devel@lists.freedesktop.org>; Wed, 8 Apr 2026 07:26:34 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 2H3ndmymhmzrh7O0zHIVLNuQNg52ggIc09GsHqPIwgE=; b=ao2psTjYeuWNlIks
- B5Ha/DIf2FQdzBeLJtw1QsyMDquC/j2XyIYVbKXYIN7mh7YzY/zMCUHE3P8DfwW8
- 2HKO31tRLLktwRrB3QMXuVigxSLZz2xGIiLiHUbLbHVyPSO+LufMCmTF6yVbf/FR
- Y2Z4cNxCZ0URB1s9Fb8fKC8GJ39wMPx6xyNi3L4YY3CDU3bpzhayeZq0jE4a6V0a
- fY7TIbaNxj1OSLpxLJZvgUjQSik99Lt7Q0NRagJDESD/pJ3NFRwGwdDo5SOPjKFe
- ML+jYsg4QS9kVVGllbGekzJfgPtOYgPCKcfh5kgLPIDUOYCvtQFbjbxOukpAeqNj
- iIweUA==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd61vaj6y-1
+ NHy+iMr3Xqnr1XEITbbqSi8Jils/yDblCvPpvjVgONo=; b=D5g2CpXREiB8xYvp
+ gQYIZLSZAb4UPRwCpFw07wMuDmOY4Y47vWCtOtPVzhoYS0AcFT6MXfCbGec4BNvO
+ lEOfSfzOOvtn0UnrJ/SGp18CRgthWEiZIt/5cv6BBybRtlCObEfh7I9eJA+lR6t/
+ aBtzO/8RQ9c403MUYNlT1JnfUGniPelMZcMbj5h5ZTLDyQzQxWpq5rkdnqIJDXO/
+ xdU1bM8N3ny2tcQ7swPECrcLEjv6qvCxBkxNu7D0P+eud+mT3YhrKGN25vjLK2KF
+ P/OToiPeQOIhO4QdyRTm9iWzKyhmAetkoW7zfSb41t+069PJr66EW52b2oFrJAYf
+ P+3gsw==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd7tpa1vh-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 07:26:24 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id
- d2e1a72fcca58-82cd9fa608bso10052792b3a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 00:26:24 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 07:26:34 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-82cd9fa609aso3652664b3a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 00:26:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775633184; x=1776237984;
+ d=oss.qualcomm.com; s=google; t=1775633193; x=1776237993;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=2H3ndmymhmzrh7O0zHIVLNuQNg52ggIc09GsHqPIwgE=;
- b=Na/U8eDZ26XI8zEC3vEkRLS9R/6lRFg1vn3xjd1tZ9fgV8ORfgZfTS37jlDrxpSznn
- k/fL+rjQ5afKIDOjzV54TCU4L4brNp/mFgr5LEnWyrqRRF/bc/A9kgnvhXAx8Lf7c1KM
- SmYy3ZFUstpQyQKunpZvbWbj5IlOWB2/WhqUA6sNoYiatnqM/ryDzbUqFUwgHum3xkaj
- RwZA2vIyyyVGFtXZa6am7WDUXQ5l4p5k7Kk3qe8uwuVjwo3/NVR4wpbgsEYQ1moRg+Ou
- +p5ojIoiL+WBRs3ho1zJDt7xnxI2Trmxci/d0suw46tbuxQaobto1aTzAQqlDzn2jzsk
- kLXw==
+ bh=NHy+iMr3Xqnr1XEITbbqSi8Jils/yDblCvPpvjVgONo=;
+ b=HATcsAKVXZCR0AaW4U0dKqolnGOnPAeztXyrM6OkxhsRug4xDOc1ceKpiRbyNSHdIj
+ +lDtTbNPBBbbh8Ax+//7u8zLy3hrOfURF3wlT/0TBo3j4zdrcQamb3f85bP/tBi/P2DP
+ yRWeFO9OHQLPAoOyGIZlpAjZd14rOsInnEARJJKVB537Mo6nqI90a9tqL2+EE7GDAzqg
+ 2HQGdhtfJO50913fGbkd32RR0JReuS/ZCEo85ocDfSe5QnZzcCekugHL76t7OywcGTDi
+ iW30dUX9xlsNoWTmOe0xqKO2pUxF0pgmtyQsd3XVdPR+8H9hCJ+MYQ9VDQCY3/zg15wu
+ Vizg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775633184; x=1776237984;
+ d=1e100.net; s=20251104; t=1775633193; x=1776237993;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=2H3ndmymhmzrh7O0zHIVLNuQNg52ggIc09GsHqPIwgE=;
- b=cC2o5Nnfp5td94tv84JhSWeikL6SxzwDpznx+76UHV608mQxv6uXEr6+eiyeUpS5I/
- kDAvCRVeemMbyszkTij/4Gs7Mgu7E4CKRrDJr3FoLvemNIKzBRO4STthfTPPoQs9jQIk
- V8RcN/TivKamDundB2tIe8zEyC8z+ySKPBg8rIo89ZuSblK4oisNhNZsPelMftbXZ4TQ
- o+wvS3vx5quLVOUwVO9BPLvpjBwTx5uO91t7tCu3JPjSkIwptRTISb9EI6UsVjzIt7VY
- 7t1LClKyAh8S3XmvmFDmtA/9ce1jMz+adzy2RqRsxiW4aKj+DeWRvJwAfKdwtIafvklE
- fRIg==
+ bh=NHy+iMr3Xqnr1XEITbbqSi8Jils/yDblCvPpvjVgONo=;
+ b=Ru1OG/nA26cp89lHtYPAQyI0+LN3NgT5hwiSFvUwdJNX9FA7u1XYmw0YqU+00w+4/u
+ MErVYqmqmfkunGizU5Dh8ZmUABJoGatUr+/srmSebdkBVEE1mygDBfXLvYpFw7TFCeWn
+ n+dBbAAUamkizaZVrd2kYC88WPywUE1n6f/oAGeUSFAzVEQi9dMoBe6otim/N5BKg4AW
+ bwhn7tvvoaipPLSFwPx1zPZsXlDu1Xpv0uz5+KNPrIqHQYYd8epanxaLwcu5y4Pqf1aL
+ DjpRQSq/crrAye5cKuDr+YDcseJG+ZcXOGQ1NX2+hu10BqFDLK4M4KB0VBFNCGbxBsnp
+ p5kQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV3h7nS2hPZSPSMtvjxRuUZseA7AI9pXTBEaGCKqCGk/+Fy7E0FXvy3NpIpcXi599jvq2Wt3imYDrc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwMvGiqL+bXSOGHD52ZWX1OLQ+ywhEYxYd6M53r4UoJllQRJ9+3
- 95rYVmwP9ddHK9acksOiZKU8dOid+mjOgcq3QGC4YLMnLuaJB8mPPirC8CSQeo8i4nPC++GZfV4
- BxjfvIRNfdasxs6GrnLoE0LOUJui/bykFKQE8NuaHhvy66vasV0VTJ7OlGeMGBLgOjmw9Ads=
-X-Gm-Gg: AeBDiesgN0+/bbGk7trFggQVEHdhJv/2LNiEFccqzTDmindGSPskV0ElsVKbHh8MfXB
- fPvqaYg4necTs7x3P5ERryNmYbVTDxeO1hvdejMWwFXHbahmccEpcxYQlZDyxc4afXadAF7P1XC
- BHiSG/lJmZ0bPodVdA+SdkmBnmq1k1bh5qPS3mo6QTEsjKhQTZDccCgSlzdA7gG28Ll531MU1or
- BVYcPe5+5Pnvkn0HV1M64hHuC7z2DTPPSm33fpxjIm/3R4TO4+fgoyqSkCopLSrGry/+qX1yDkz
- wVrQu/8Blzc//kg8j8iug0ia6JOeIZoykKDhz5B3D4J4pLJN/bsGisfs/ulhbgFoxmm9lznU1R7
- 8Mi3JGAEkF4SsnjoEolXgLGtihuM8xVbpYA1Z4Hvcr7ZOIZ6cyw==
-X-Received: by 2002:a05:6a00:800a:b0:82a:6d9d:3f85 with SMTP id
- d2e1a72fcca58-82d0dbbca07mr20585726b3a.48.1775633183761; 
- Wed, 08 Apr 2026 00:26:23 -0700 (PDT)
-X-Received: by 2002:a05:6a00:800a:b0:82a:6d9d:3f85 with SMTP id
- d2e1a72fcca58-82d0dbbca07mr20585685b3a.48.1775633183348; 
- Wed, 08 Apr 2026 00:26:23 -0700 (PDT)
+ AJvYcCU1afemXb/6g43n8WVMdO+/fW8n5cTwkEyMhM3OoSeNCLkWtEiBQ4nh3no7H/Zg6PAFNySWNdxLUW8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw0d5f2nGNB9zQouHGX7mM90dGk0vIvngRA+ehANyCVzIuYhxRO
+ uuq3yLgmj2+x2xSF1d0A7vDjuQwEJRRQzOW9b/cPLd4AiHe7BAbnrm8qoEdVhEBxqXofi7AQRrA
+ 8Fdu4A7gqxttTpZw/0QkEzualySJ5S44kVzMRBkcTryA/rgg7jX0t+8V0VxtCrp3D4eemvFM=
+X-Gm-Gg: AeBDievxGwrJxgvgEXTcSoyD435Kr15KFH6zz70q6Qg34fPRCf5Ckr6Kwpq6PMPWWeH
+ QeeGCYv7iSYKvq7nzMmfP3n2Oo3dlJ9Kbnf4PKXDLaXOrxZtWwtqKQJ+b5nJk9CB8fxMy3+U9gd
+ m8JqVFIgwJbxF0nPAEkvo+a1e9ieKv+ca7Tz1nnyra4YQTIhqLHsNT3wjEwZXxSE6H896FZckSp
+ HRaV/nYK19gXvaTQRuo3/mUCHKXzyS1YBbeUhtJiqU3YW9WQaOUM0II9s2HIfAHk0Dno3nxwWwM
+ ihJuUogbxn8qz18TY5lvsw6aiKQuEDwbKpruUv6RGIq7fxN5fluOSgzX6GA17bKQGpV1ojaZmmO
+ lfkKHEYrLoyh5HXbTIG7XHbf6FhQr3qm1WaNKREP/eXCV6DbPjQ==
+X-Received: by 2002:a05:6a00:ad08:b0:82c:77cd:50e1 with SMTP id
+ d2e1a72fcca58-82d0da993b4mr19225537b3a.20.1775633193558; 
+ Wed, 08 Apr 2026 00:26:33 -0700 (PDT)
+X-Received: by 2002:a05:6a00:ad08:b0:82c:77cd:50e1 with SMTP id
+ d2e1a72fcca58-82d0da993b4mr19225502b3a.20.1775633193088; 
+ Wed, 08 Apr 2026 00:26:33 -0700 (PDT)
 Received: from [10.217.217.198] ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82cf9c68273sm24431255b3a.41.2026.04.08.00.26.16
+ d2e1a72fcca58-82cf9c68273sm24431255b3a.41.2026.04.08.00.26.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 00:26:23 -0700 (PDT)
-Message-ID: <38aa8c0b-fb29-44c9-a346-363220264c7c@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 12:56:15 +0530
+ Wed, 08 Apr 2026 00:26:32 -0700 (PDT)
+Message-ID: <404ca234-1bab-4094-b7dc-c4d0b072d929@oss.qualcomm.com>
+Date: Wed, 8 Apr 2026 12:56:24 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] clk: qcom: common: ensure runtime PM suspend
- completes on probe
+Subject: Re: [PATCH 1/6] clk: qcom: gdsc: Add custom disable callback for GX
+ GDSC
 To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
@@ -111,38 +111,37 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
 References: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
- <20260407-gfx-clk-fixes-v1-3-4bb5583a5054@oss.qualcomm.com>
- <c72e02c7-57d8-4353-a6d8-9dbf4f7a7e37@oss.qualcomm.com>
+ <20260407-gfx-clk-fixes-v1-1-4bb5583a5054@oss.qualcomm.com>
+ <6149513e-2c0f-4f01-a467-b4a213d65609@oss.qualcomm.com>
 Content-Language: en-US
 From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <c72e02c7-57d8-4353-a6d8-9dbf4f7a7e37@oss.qualcomm.com>
+In-Reply-To: <6149513e-2c0f-4f01-a467-b4a213d65609@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA2NiBTYWx0ZWRfX7rQv57b+7Hp2
- c+n4zb2i4vVltQzKPqZC2yoKlQqAT6VHwVQOZMnvhqoF89jxq5QWU5/aP3PDuV/RqJyggnjokh1
- 7xNyxdv/seXTTGqsC+D63jGRCYkiigcTf0EJ6e211FW57vabVqAZym5Cj84I0ROM4GrAQkqBjf7
- PbsSrw7JnguEJU/wDGPJFvmZ/0+p3Dyk12B/J/NLee4IZN44YlA6P8T9aVgYJZ5sKSLCpu0GZIC
- CXQzXav5Mv0WIN/JgnDbx3cQldohhN/ARc7FBSJ0nc8XwM6PoKDWfjEjvrjXQbW1D8OAoAwhMdd
- 2B0q3LsGBFsIJxwg5daHwDMQUPMDPr/YULse7SHYGveEF3MMRrW6i0E0x/1KNXexH8tbfbRPEy2
- V1w2v8S3E2JLsPYLHww9gtoq/2jpU2Xqxt2bix3I48eWhStkP0pZ08J4W1xfozFNA0JGcsMeR1m
- +K7XhlNqgUhLzgvLYgg==
-X-Authority-Analysis: v=2.4 cv=FecHAp+6 c=1 sm=1 tr=0 ts=69d60320 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: -7ZuE9dfyEOwhloN9vD_gYK8wvwBYeBi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA2NiBTYWx0ZWRfXxFsR4nnNiu0m
+ VWbnKEq1XT5ivezgwJapFQ3wHPgmQUE9wUAKokVFTQJGjjPgM50e/9rbhFv4V/7en7McHRbVttb
+ k/0WhjSyR4InbsEeMOqwNu7bnFmHDpv4hVLAQASEUa8tOFZeGP8wTbvFmkQiJ0EiKkpTmQcYKHu
+ wzCKn2sQ6iwv4ll+/3grQUA3TPIVyySoGkoWdY9Ti/nBDUvTM+irijs9cpsBcFcqMdZuYeXnokR
+ fOc/tWmhBOwsGZ75U2gMe5M9xigJFwmf+KDZ62fla51M0OCey3IdcBtdcs2ttHivNiOIhYKxupJ
+ MCD7r0+HosQAxIiHCnt6l/LzaQrJEV0QZqEnjk0S6+jDFxFJZO64PfoMvzpOZsjeRwNnue4FLTn
+ ViimqEf24vRQJm2JHwueJK92dw23YI/5LQOMvCUT7EyYacbCSWol+KideBG14v+4IgLXZSSStBq
+ OC+X3vjZ+KGzsmAQx+g==
+X-Proofpoint-ORIG-GUID: -7ZuE9dfyEOwhloN9vD_gYK8wvwBYeBi
+X-Authority-Analysis: v=2.4 cv=DNS/JSNb c=1 sm=1 tr=0 ts=69d6032a cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=Ej0lypjitWEjAblOXOAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10 a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-ORIG-GUID: QU73LF04o8DG1nBjSHKgS_1lbUDP70ql
-X-Proofpoint-GUID: QU73LF04o8DG1nBjSHKgS_1lbUDP70ql
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=RnFGxym7J1TeeuKG4B0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-08_03,2026-04-07_05,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
- suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604080066
+ suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080066
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,27 +159,35 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 
-On 4/7/2026 4:28 PM, Konrad Dybcio wrote:
-> On 4/7/26 11:30 AM, Taniya Das wrote:
->> When the clock controller is probed with 'use_rpm' enabled, the
->> runtime PM reference is currently released using pm_runtime_put(),
->> which may return before the runtime suspend has completed. This
->> can leave the power domain transition in progress while the probe
->> path continues or returns.
->>
->> Use pm_runtime_put_sync() instead to ensure the runtime PM “put”
->> completes synchronously during probe, guaranteeing the device is
->> fully runtime‑suspended before returning.
+On 4/7/2026 4:26 PM, Konrad Dybcio wrote:
+>> @@ -675,3 +675,25 @@ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain)
+>>  	return ret;
+>>  }
+>>  EXPORT_SYMBOL_GPL(gdsc_gx_do_nothing_enable);
+>> +
+>> +/*
+>> + * GX GDSC is a special power domain. Normally, its disable sequence
+>> + * is managed by the GMU firmware, and high level OS must not attempt
+> nit: "and high level OS must not attempt" -> "and the OS must not attempt"
 > 
-> It's not immediately obvious why that's an issue, is there an
-> observable problem when the transition doesn't complete in time?
+
+Sure, will update in the next patch.
+
 > 
-> Konrad
+>> + * to disable it. The only exception is during GMU recovery, where the
+>> + * GMU driver can set GenPD’s synced_poweroff flag to allow explicitly
+>> + * disable GX GDSC in hardware.
+>> + */
+>> +int gdsc_gx_disable(struct generic_pm_domain *domain)
+>> +{
+>> +	struct gdsc *sc = domain_to_gdsc(domain);
+>> +
+>> +	if (domain->synced_poweroff)
+>> +		return gdsc_disable(domain);
+> Can we use this version to replace gdsc_gx_do_nothing_enable() too?
 
-
-Calling pm_runtime_disable() immediately after pm_runtime_put() prevents
-the runtime suspend from completing, leaving the clock controller active
-and the HW rails in the ON state.
+No, Konrad, the enable should be always a no-op in every scenario.
+synced_poweroff can't be used to handle enable of GDSC.
 
 
 -- 
