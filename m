@@ -4,144 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2872FD5F87
-	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D44FFD5F8F
+	for <dri-devel@archiver.kernel.org>; Wed,  8 Apr 2026 07:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BE3D10E54A;
-	Wed,  8 Apr 2026 07:26:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F23A810E548;
+	Wed,  8 Apr 2026 07:29:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="D5g2CpXR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HATcsAKV";
+	dkim=pass (2048-bit key; unprotected) header.d=windriver.com header.i=@windriver.com header.b="Amubntlj";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAEB910E548
- for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 07:26:34 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6385WDTm1006023
- for <dri-devel@lists.freedesktop.org>; Wed, 8 Apr 2026 07:26:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NHy+iMr3Xqnr1XEITbbqSi8Jils/yDblCvPpvjVgONo=; b=D5g2CpXREiB8xYvp
- gQYIZLSZAb4UPRwCpFw07wMuDmOY4Y47vWCtOtPVzhoYS0AcFT6MXfCbGec4BNvO
- lEOfSfzOOvtn0UnrJ/SGp18CRgthWEiZIt/5cv6BBybRtlCObEfh7I9eJA+lR6t/
- aBtzO/8RQ9c403MUYNlT1JnfUGniPelMZcMbj5h5ZTLDyQzQxWpq5rkdnqIJDXO/
- xdU1bM8N3ny2tcQ7swPECrcLEjv6qvCxBkxNu7D0P+eud+mT3YhrKGN25vjLK2KF
- P/OToiPeQOIhO4QdyRTm9iWzKyhmAetkoW7zfSb41t+069PJr66EW52b2oFrJAYf
- P+3gsw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dd7tpa1vh-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 07:26:34 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-82cd9fa609aso3652664b3a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 00:26:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775633193; x=1776237993;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=NHy+iMr3Xqnr1XEITbbqSi8Jils/yDblCvPpvjVgONo=;
- b=HATcsAKVXZCR0AaW4U0dKqolnGOnPAeztXyrM6OkxhsRug4xDOc1ceKpiRbyNSHdIj
- +lDtTbNPBBbbh8Ax+//7u8zLy3hrOfURF3wlT/0TBo3j4zdrcQamb3f85bP/tBi/P2DP
- yRWeFO9OHQLPAoOyGIZlpAjZd14rOsInnEARJJKVB537Mo6nqI90a9tqL2+EE7GDAzqg
- 2HQGdhtfJO50913fGbkd32RR0JReuS/ZCEo85ocDfSe5QnZzcCekugHL76t7OywcGTDi
- iW30dUX9xlsNoWTmOe0xqKO2pUxF0pgmtyQsd3XVdPR+8H9hCJ+MYQ9VDQCY3/zg15wu
- Vizg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775633193; x=1776237993;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=NHy+iMr3Xqnr1XEITbbqSi8Jils/yDblCvPpvjVgONo=;
- b=Ru1OG/nA26cp89lHtYPAQyI0+LN3NgT5hwiSFvUwdJNX9FA7u1XYmw0YqU+00w+4/u
- MErVYqmqmfkunGizU5Dh8ZmUABJoGatUr+/srmSebdkBVEE1mygDBfXLvYpFw7TFCeWn
- n+dBbAAUamkizaZVrd2kYC88WPywUE1n6f/oAGeUSFAzVEQi9dMoBe6otim/N5BKg4AW
- bwhn7tvvoaipPLSFwPx1zPZsXlDu1Xpv0uz5+KNPrIqHQYYd8epanxaLwcu5y4Pqf1aL
- DjpRQSq/crrAye5cKuDr+YDcseJG+ZcXOGQ1NX2+hu10BqFDLK4M4KB0VBFNCGbxBsnp
- p5kQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU1afemXb/6g43n8WVMdO+/fW8n5cTwkEyMhM3OoSeNCLkWtEiBQ4nh3no7H/Zg6PAFNySWNdxLUW8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw0d5f2nGNB9zQouHGX7mM90dGk0vIvngRA+ehANyCVzIuYhxRO
- uuq3yLgmj2+x2xSF1d0A7vDjuQwEJRRQzOW9b/cPLd4AiHe7BAbnrm8qoEdVhEBxqXofi7AQRrA
- 8Fdu4A7gqxttTpZw/0QkEzualySJ5S44kVzMRBkcTryA/rgg7jX0t+8V0VxtCrp3D4eemvFM=
-X-Gm-Gg: AeBDievxGwrJxgvgEXTcSoyD435Kr15KFH6zz70q6Qg34fPRCf5Ckr6Kwpq6PMPWWeH
- QeeGCYv7iSYKvq7nzMmfP3n2Oo3dlJ9Kbnf4PKXDLaXOrxZtWwtqKQJ+b5nJk9CB8fxMy3+U9gd
- m8JqVFIgwJbxF0nPAEkvo+a1e9ieKv+ca7Tz1nnyra4YQTIhqLHsNT3wjEwZXxSE6H896FZckSp
- HRaV/nYK19gXvaTQRuo3/mUCHKXzyS1YBbeUhtJiqU3YW9WQaOUM0II9s2HIfAHk0Dno3nxwWwM
- ihJuUogbxn8qz18TY5lvsw6aiKQuEDwbKpruUv6RGIq7fxN5fluOSgzX6GA17bKQGpV1ojaZmmO
- lfkKHEYrLoyh5HXbTIG7XHbf6FhQr3qm1WaNKREP/eXCV6DbPjQ==
-X-Received: by 2002:a05:6a00:ad08:b0:82c:77cd:50e1 with SMTP id
- d2e1a72fcca58-82d0da993b4mr19225537b3a.20.1775633193558; 
- Wed, 08 Apr 2026 00:26:33 -0700 (PDT)
-X-Received: by 2002:a05:6a00:ad08:b0:82c:77cd:50e1 with SMTP id
- d2e1a72fcca58-82d0da993b4mr19225502b3a.20.1775633193088; 
- Wed, 08 Apr 2026 00:26:33 -0700 (PDT)
-Received: from [10.217.217.198] ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82cf9c68273sm24431255b3a.41.2026.04.08.00.26.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 00:26:32 -0700 (PDT)
-Message-ID: <404ca234-1bab-4094-b7dc-c4d0b072d929@oss.qualcomm.com>
-Date: Wed, 8 Apr 2026 12:56:24 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] clk: qcom: gdsc: Add custom disable callback for GX
- GDSC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
- <20260407-gfx-clk-fixes-v1-1-4bb5583a5054@oss.qualcomm.com>
- <6149513e-2c0f-4f01-a467-b4a213d65609@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <6149513e-2c0f-4f01-a467-b4a213d65609@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
+ [205.220.178.238])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8442C10E54E
+ for <dri-devel@lists.freedesktop.org>; Wed,  8 Apr 2026 07:29:14 +0000 (UTC)
+Received: from pps.filterd (m0250812.ppops.net [127.0.0.1])
+ by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63856HcK3478919; Wed, 8 Apr 2026 07:28:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+ h=cc:content-transfer-encoding:content-type:date:from
+ :message-id:mime-version:subject:to; s=PPS06212021; bh=+6RmWVrRq
+ T00CEMV68MKVIV30n9RY9p+V694yN/Pwzs=; b=AmubntljT0UvzpN1vPq5m5cIn
+ grjkIzRoE1FGVUzbU8+v2wAGFAN9do944tVFeA3E5nxyV3wpKDY9qra3zbjI62Bh
+ f6ishEBplGdaZc2aMB0+/PdvdlKjFG/ielwxcSDsIm23VpNTu7ItSMdC2B7YDW4R
+ RTHer8XzAKgO47bB3kEUaboutKrvnvTgJI6cNA8mk19LWPKkwhOtijBlaxk4bQh9
+ YhNjoC6UjLNwsbIo55gkXU/nxKRVt9O1qnadEGZFJmUSE6ld3/dKF8x00d/SXD1R
+ EmP5UYXc6NPshZt8VZB66EJ6SwbAoLvqe1LZsmoeqXNzQqvIIB7khB8m9IhQg==
+Received: from ch5pr02cu005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012063.outbound.protection.outlook.com
+ [40.107.200.63])
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4dcmrya5ey-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 08 Apr 2026 07:28:26 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TVRT00ZfIRFTfpbE7ZnYEMmIfckkuun1Lrskqf/NTkFaBhd6UqQ7Q+jk5hqiF+/iyHzZYALJ666+edgAwBs0cB0+3LKoVW8TOs+NJzEphVDTe6Ro0/6jsoCcs39RwdtOuPvZOC6qwQyl/tZ/sHdJoQ6mH1lZRW5zqhjTT7LuAwhfCRKA+609fDB6LfM4d8oI9ec2C3LTwmb/yoi84xIHbIuB39js7PiUEL/4cwhszcM0hHCTnjSUC5MD0VyokyOgyKXChiaefLKvOrZMYDejYj3Zfi18k4m+8No4/I09pfsYhTBIv1U8Xo+btgL05AlNoHZ4JNAj/dYxJIL/5jGX9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+6RmWVrRqT00CEMV68MKVIV30n9RY9p+V694yN/Pwzs=;
+ b=kL9tuoZ3w7zRvUtkteU7JG8PS32JkMN2g6PeuphLtsAf56CW+8gzfzuVnnG2QpioXW8GCy0VlTAobVEB9huygXJCYfQuQG5ldjuWDFi19GgoG400CQMOYjQk/M7WgSaKSAGrQT0IyizEsmqfm1I03KVrbmdKCBHkXcjIdzBypihyUa01i7qvc9wyh9sw3IjYIJeJl3LUg/+tYLBNr0JV6+3tl0+kil6zBmGXR0mIYwWglicSZOeDVmJYffoIFGlyTMxDkHTe1B0MwJcHRvY1kXHW8Ia0/IRXTpDm77dGNVNRLZ5EbqIQ3Mu9aiUvvqC5JM6++ot3tG2BIb1kd6dPIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::53) by CH2PR11MB8834.namprd11.prod.outlook.com
+ (2603:10b6:610:284::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Wed, 8 Apr
+ 2026 07:28:21 +0000
+Received: from DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ ([fe80::acc9:24e7:5138:6cdf]) by DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ ([fe80::acc9:24e7:5138:6cdf%4]) with mapi id 15.20.9769.009; Wed, 8 Apr 2026
+ 07:28:21 +0000
+From: Xiaolei Wang <xiaolei.wang@windriver.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, Xiaolei.Wang@windriver.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/bridge: fsl-ldb: support downstream bridges in addition
+ to panels
+Date: Wed,  8 Apr 2026 15:28:02 +0800
+Message-ID: <20260408072802.3947600-1-xiaolei.wang@windriver.com>
+X-Mailer: git-send-email 2.43.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: -7ZuE9dfyEOwhloN9vD_gYK8wvwBYeBi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA2NiBTYWx0ZWRfXxFsR4nnNiu0m
- VWbnKEq1XT5ivezgwJapFQ3wHPgmQUE9wUAKokVFTQJGjjPgM50e/9rbhFv4V/7en7McHRbVttb
- k/0WhjSyR4InbsEeMOqwNu7bnFmHDpv4hVLAQASEUa8tOFZeGP8wTbvFmkQiJ0EiKkpTmQcYKHu
- wzCKn2sQ6iwv4ll+/3grQUA3TPIVyySoGkoWdY9Ti/nBDUvTM+irijs9cpsBcFcqMdZuYeXnokR
- fOc/tWmhBOwsGZ75U2gMe5M9xigJFwmf+KDZ62fla51M0OCey3IdcBtdcs2ttHivNiOIhYKxupJ
- MCD7r0+HosQAxIiHCnt6l/LzaQrJEV0QZqEnjk0S6+jDFxFJZO64PfoMvzpOZsjeRwNnue4FLTn
- ViimqEf24vRQJm2JHwueJK92dw23YI/5LQOMvCUT7EyYacbCSWol+KideBG14v+4IgLXZSSStBq
- OC+X3vjZ+KGzsmAQx+g==
-X-Proofpoint-ORIG-GUID: -7ZuE9dfyEOwhloN9vD_gYK8wvwBYeBi
-X-Authority-Analysis: v=2.4 cv=DNS/JSNb c=1 sm=1 tr=0 ts=69d6032a cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=RnFGxym7J1TeeuKG4B0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
+Content-Type: text/plain
+X-ClientProxiedBy: SE2P216CA0117.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c9::6) To DS4PPFD667CEBB6.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::53)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPFD667CEBB6:EE_|CH2PR11MB8834:EE_
+X-MS-Office365-Filtering-Correlation-Id: de8a872c-1e3f-4962-7d49-08de95406988
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|52116014|7416014|376014|18002099003|921020|38350700014|56012099003;
+X-Microsoft-Antispam-Message-Info: mY+rVb97oWbN/TUjZHBUIFHJQrj3XnwD1BIaz18RRhOdzHpLwGzDQoG4rPb/lrlC5t3jR+JH5ZnvaBx+lnIbhJ6ob6FJxaFRu1U47lbsDUDpxvGGbcK64DZudfNLwyZLOWy1V5Nvej8T8kE0NGqjv8+MtIq4U041ckOU8PkSzVuydhXjwaGEEF3nLSA/v/9w+OdnB42jomJsp+T3eVo5eNACV8IagcOoN+4r2Wz3fk4UEgrE2daJQ5+5B8xq6gYjCxT5PJFdSaWuShidf8+iHV1R7kJlcsHqF38Jt7V0VHdlhJrB4gBUAdpSrI8fOLk8/DKv1uqoR26NL6rwYC6pmGpDoaUACBvGnDmpcboPeG8EMAUlRnZXj3qaITHrDD2MelssvvqK0PVtndJ4LsSnhvY+4Eu8sjmOz9vFbvRfMI1oEs8XnUG5l5KkfMgrV2zmHgZt+VzfDvHYTQucSSAPf1yRMWodtGgpDGbN9PgMi3c3TKJETSwfgLV/WhQ6uAaH18xlXiU7LICUTuMS8c/0AJypDbJ/pLnIyKDKZzeWA4vna3mk0aCI9ZhFstna4w85MZvEmLYrLdcaGnnj8k008BTLkNevjBwHc1eSQEHBCHzDe4DkDRkgHDY9r0yp97w7JlsxZnzpTOXsiKyECEeRIDVrUPsBGZZxcNzoL24ol6K9xtPAzVXfT3RvByEiw42P7mEEsxTNmdZ+/IZssA1ib2MjiYhYzNao6grm5azK8SKQ3vkb76Iw4ZvmpiDf7IbcaYvnrS0mixhwByY8iFWck9uPK5LwMyfs8GX2TeusyOwoZmh8B/elj+AlqSzdGVpt
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPFD667CEBB6.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(52116014)(7416014)(376014)(18002099003)(921020)(38350700014)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qJlv15YSmmi7MggFZavmg449meCSsUwfEiEcdrSFMb+vFBU4EMqjHEOXyU81?=
+ =?us-ascii?Q?uICjeLahWaH/UgvKG6zEkaPnfYhJ7G8PTqOP40KRyoyVQdALFEuFqYh4M5Xm?=
+ =?us-ascii?Q?tPe3TuXNKwN6M8m+oLtf7EPF5bznmZM29lMmkT3keEPX/dGxNYshZQunibcp?=
+ =?us-ascii?Q?EXlAsGwciHUe5xlyhOjWYVEnE3gAerf94MkSZkAfRf6qwDaHa0h0mPmUzPog?=
+ =?us-ascii?Q?S9MSO8otu7A10CUIFv2ny/JgBTLNMWZkzh4DIBATwNtMQAOMzwBJpVvbYejj?=
+ =?us-ascii?Q?5bkfKClkaCH5NfsiXq+e0rBcuMOnBV2JbdU8gzjrW+NP4hPtu7iK2KOJcFDP?=
+ =?us-ascii?Q?Zxyb6e+iv8nSVlbwxQJ1LkEhk/Szve8EOB3CC/GpwllGNt3MUtcT38RqCC3s?=
+ =?us-ascii?Q?GNKlFnheKXyeFWVX7jKASOOB/IWSxkIH0NXsID4B3QtNdIt8Hl2Jg10LBEnn?=
+ =?us-ascii?Q?99PicyMp6S1BcRbxwDGQ8Rhm4ibnDkZuQt7Coke+FNmvqfZBt1KV9WIkhFnh?=
+ =?us-ascii?Q?N2Aa2/4M7zMc7PGyxbUv9ztAcYf95F0Qdius+jzMN/2lNxJTluIWxnQP/k+/?=
+ =?us-ascii?Q?mwxbevuD+a3JLhYY3l64xAU/lmgLJ/tIPO4f1v7uF2Mi5yjtLmK/InqsIU8T?=
+ =?us-ascii?Q?OEXYyIZh5stEhIqUYdPbNycj+nFCfXnd24H5MRhW62OGsKx/f6rPhGLNvByE?=
+ =?us-ascii?Q?idDE+Ph3IOdX6fXbmPSW02UDfSRXY/kowv4nM1I61Ms4GnnXIoXEMs78UrPL?=
+ =?us-ascii?Q?7X89oWVvl3XOcFYGuXGf6MpZCBsUC7uXNVNhVmXFcl1evlpeosCzIBlQOJ6e?=
+ =?us-ascii?Q?9lyx5b1wLs/UT83F+fnIAY95BB+fj+Nb+8/bg3bZyLYcPlWPAZ1chTX4FB8i?=
+ =?us-ascii?Q?N3spQgUQl2EvslbEJIdJ/jOiEExzi638llgGJEoEPB0Q8Rhu2Ge0i4laEwYt?=
+ =?us-ascii?Q?f9zxUPL5iyqKLbBHgmCcU8RFtAYJcguab2CTcvT/RQ3AFdIXHGunxGnG8M8B?=
+ =?us-ascii?Q?alx9fFfMhIs5VSpi546kKSNks46n2ExfauynvZhtkNN2l3pSRiavUaXjjeAh?=
+ =?us-ascii?Q?Du9kIdXrMBBOmN3FQe0vVEmnupTGyTS3JIaTZ5vU+pvVy0F856aLCPvJKZt+?=
+ =?us-ascii?Q?7JhUU1UMYVIlpFcbms2RAxZ2qeSMO5yw1kcp1/sB53WJfNfiHHYNavTg66Ca?=
+ =?us-ascii?Q?jES7BxS2/ZxluVb/Mwti3tbm97gsMPAnRoNAuEXmRe+Ldmdv7/7/zJu70nGB?=
+ =?us-ascii?Q?g/apn3tdS8Qal1agQ+uXK2tNNLMJJLvqNyww2yVApKGzVD1pLOc8ULWq4awm?=
+ =?us-ascii?Q?wVXDqNlonb850nJRaP6ZHCh8YQJc1Wq/nxE1BVDIZskW8+OIZY7XR3OBc9D2?=
+ =?us-ascii?Q?9lfk7UQweFIK2Rc6TZyjN6HHWW4w4BF7NnHmOKXh6eKlX3n3kIhfPtVzeTco?=
+ =?us-ascii?Q?2W5NNQ3tX9uxjp4VdbCuQ2wWu10nrwfTMZNYniFJzrq7v88qYaKeE5gA86I9?=
+ =?us-ascii?Q?sgFbDK3olrGUWtMPa/duhTrrgKrdb2dLSUyBlR6WEJAIAEw+Jc64iiMm4biz?=
+ =?us-ascii?Q?7wBnoasZ754r+NRvr7z/ujNj0sKn9KQd5B5uHZm3+Rw/qGDcGhlHv6p1Lprr?=
+ =?us-ascii?Q?QFL5QzEJXaLpKxq5tsab6+YSPpz1mwV4tGVT8Z6gAbysiDa0knqSYQ2ixkYx?=
+ =?us-ascii?Q?8h8SA0wwp7zuH8HWF1FBEUibo3bfLEFRXLVJRfDdYbwi6V7tiomWxMS8N3xV?=
+ =?us-ascii?Q?gtYTSDD2Ddc2D6gZS5VMf6RaVUeNHi4=3D?=
+X-Exchange-RoutingPolicyChecked: qSF2iBBbh6FQJ8MKA8JdsXYKTiv3GbLJaZDtwgQSC3IMgFX9NELIUxiT32RNye1PxwbCEvgFqa1B/XlttidsBSvX4cboVnjik0am+pH9rBb10qw/CCOpp5+ZnxmxppLIocIzu41xMfqRegETOONKHAOOAK/rLBlngbKCsMza+0Qm+MDN9foc3tGr9JpMkSnPaZUhj4fQ4lukEj1pH85f6jdP7Pct5tva7HwyfHA2DP2q7M8a2S8FXH4OP80jcqz6WAdeZpxLTFKTHBmszf7EwyueciWGkUf2d9Dcwq0hcsB07gnNnYn+DQ+C3tG3uOzuf/Abzj2zKaKNwMtbPsamQA==
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de8a872c-1e3f-4962-7d49-08de95406988
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFD667CEBB6.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 07:28:21.6825 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pTPlYOclQk6nfQOtGXyCIqBKiVip5J0nmIYztIBA5Hft0sZA+v8nxr58H/fL/dCJf16tMnf/TmQ4M1juU00eHLj2W/4CbAG7MM9WEfd7VEs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR11MB8834
+X-Authority-Analysis: v=2.4 cv=QoduG1yd c=1 sm=1 tr=0 ts=69d6039a cx=c_pps
+ a=9KM80f3Gg1/mZdPsmiBtBA==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=bi6dqmuHe4P4UrxVR6um:22 a=fTW__CHxibyLmBMfj2wP:22 a=t7CeM3EgAAAA:8
+ a=Mncm4iutsJNvaOiebwAA:9 a=FdTzh2GWekK77mhwV6Dw:22
+X-Proofpoint-GUID: KvCUDz5q0gpFNFA6d8H-_pZmgTlkHNjN
+X-Proofpoint-ORIG-GUID: KvCUDz5q0gpFNFA6d8H-_pZmgTlkHNjN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDA2NiBTYWx0ZWRfX2V0x4ZfVlAwE
+ KWaOh8CKwqUYfceiAEHQo74OS02qe6Ao5IjJpMTpiSGgYVl3WOE1HPNhnsFDstLi7cpg83hzzEq
+ Jqz1vcmHLwgQNRQPIOwdWTtd2Om/vEAVnJk5yRqS0yd7p1mrXvACdak62gUJJouhP9DjL4SupFe
+ z1h9C9JTbE0PFSv7e9QGMNenJviHQUfs0r//6MqRIbtlZ+AOeUl1nkaG338wGQL5+i4Jk/Xv0db
+ SrBu0cm6aVi69miAUuaPgfiOMCNKweK7nCBJgBKZ5nVNT4e+kPf55C4wmeYZ234aF95UbWEDWlo
+ 3T7919aHOpNLpaXnMaa3n8J3ZnkQBrnfdiR56TYvl11elTV1GXqtdU7dJBjZsbECCcns37YdY+4
+ r0thj7goHfx61vr9t+kl/7+mwJgF6kauUunJ9E3KOI9PvYvruT5bm0OkJawWx5QrkK04rVMDRQI
+ HQrUo3Ja9uGEkyZrFCQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-08_03,2026-04-07_05,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
- impostorscore=0 clxscore=1015 bulkscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080066
+ malwarescore=0 spamscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 phishscore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604080066
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,40 +165,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+The fsl-ldb driver currently only supports connecting to a drm_panel
+via of_drm_find_panel(). This prevents it from working with downstream
+bridge chips such as the ITE IT6263 LVDS-to-HDMI converter.
 
+Replace of_drm_find_panel() + devm_drm_panel_bridge_add() with
+devm_drm_of_get_bridge(), which handles both panels and bridges.
 
-On 4/7/2026 4:26 PM, Konrad Dybcio wrote:
->> @@ -675,3 +675,25 @@ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain)
->>  	return ret;
->>  }
->>  EXPORT_SYMBOL_GPL(gdsc_gx_do_nothing_enable);
->> +
->> +/*
->> + * GX GDSC is a special power domain. Normally, its disable sequence
->> + * is managed by the GMU firmware, and high level OS must not attempt
-> nit: "and high level OS must not attempt" -> "and the OS must not attempt"
-> 
+This fixes the LVDS-to-HDMI display output path on i.MX8MP EVK.
 
-Sure, will update in the next patch.
+Signed-off-by: Xiaolei Wang <xiaolei.wang@windriver.com>
+---
+ drivers/gpu/drm/bridge/fsl-ldb.c | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
-> 
->> + * to disable it. The only exception is during GMU recovery, where the
->> + * GMU driver can set GenPD’s synced_poweroff flag to allow explicitly
->> + * disable GX GDSC in hardware.
->> + */
->> +int gdsc_gx_disable(struct generic_pm_domain *domain)
->> +{
->> +	struct gdsc *sc = domain_to_gdsc(domain);
->> +
->> +	if (domain->synced_poweroff)
->> +		return gdsc_disable(domain);
-> Can we use this version to replace gdsc_gx_do_nothing_enable() too?
-
-No, Konrad, the enable should be always a no-op in every scenario.
-synced_poweroff can't be used to handle enable of GDSC.
-
-
+diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fsl-ldb.c
+index 5c3cf37200bc..2936c945ba52 100644
+--- a/drivers/gpu/drm/bridge/fsl-ldb.c
++++ b/drivers/gpu/drm/bridge/fsl-ldb.c
+@@ -292,9 +292,7 @@ static const struct drm_bridge_funcs funcs = {
+ static int fsl_ldb_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+-	struct device_node *panel_node;
+ 	struct device_node *remote1, *remote2;
+-	struct drm_panel *panel;
+ 	struct fsl_ldb *fsl_ldb;
+ 	int dual_link;
+ 
+@@ -322,25 +320,18 @@ static int fsl_ldb_probe(struct platform_device *pdev)
+ 	remote2 = of_graph_get_remote_node(dev->of_node, 2, 0);
+ 	fsl_ldb->ch0_enabled = (remote1 != NULL);
+ 	fsl_ldb->ch1_enabled = (remote2 != NULL);
+-	panel_node = of_node_get(remote1 ? remote1 : remote2);
+ 	of_node_put(remote1);
+ 	of_node_put(remote2);
+ 
+-	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled) {
+-		of_node_put(panel_node);
++	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled)
+ 		return dev_err_probe(dev, -ENXIO, "No panel node found");
+-	}
+ 
+ 	dev_dbg(dev, "Using %s\n",
+ 		fsl_ldb_is_dual(fsl_ldb) ? "dual-link mode" :
+ 		fsl_ldb->ch0_enabled ? "channel 0" : "channel 1");
+ 
+-	panel = of_drm_find_panel(panel_node);
+-	of_node_put(panel_node);
+-	if (IS_ERR(panel))
+-		return PTR_ERR(panel);
+-
+-	fsl_ldb->panel_bridge = devm_drm_panel_bridge_add(dev, panel);
++	fsl_ldb->panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node,
++						       fsl_ldb->ch0_enabled ? 1 : 2, 0);
+ 	if (IS_ERR(fsl_ldb->panel_bridge))
+ 		return PTR_ERR(fsl_ldb->panel_bridge);
+ 
 -- 
-Thanks,
-Taniya Das
+2.43.0
 
