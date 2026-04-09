@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0183CEA3C5E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE434EA3C5D
 	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 13:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D6210E7F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 030C010E7F5;
 	Thu,  9 Apr 2026 13:23:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="g6xMpgjp";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="K9YCQMl1";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF91110E7F6
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF6FF10E7F5
  for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 13:23:54 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 87C6DC5C187;
+Received: from smtpout-01.galae.net (unknown [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 709AAC5C186;
  Thu,  9 Apr 2026 13:24:27 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 35DFA5FDEB;
- Thu,  9 Apr 2026 13:23:48 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9F9C5603F0;
+ Thu,  9 Apr 2026 13:23:42 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7EE4A104500CC; 
- Thu,  9 Apr 2026 15:23:44 +0200 (CEST)
+ with ESMTPSA id 04AFD104500B5; 
+ Thu,  9 Apr 2026 15:23:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775741027; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=fVytxjV17xgSK10EcsYyGCsPOjuobSuyvtNitHNtoxY=;
- b=g6xMpgjp786lwmwHMvkneopo5MudqqKPEJnnZHvtLdVMLwzvvs4PJd3chB7LZcjUBoLK5T
- 8iE1/qaJjvuYrTIEsqoDTpRKpMTlawF+ao32uB9lrzeGSK55NsXajGSAd30QdMD/0oCI77
- Hc8PSjP2Ne9Aj2BEipM9ajcbOE6CumJvBC6+uNfc70p1SX2ltmSEVV0HpUkPB2mVgaCbS3
- zEPb2pJLPBNaRPmGsgvk1ThuiLFhzpsak0n6LZ4uh46c8dEVHZttB3dN01YYqS8eroRQQv
- e5P4MyjV/bMRU5a8X9QxfyGVFxvQtWnat1R8gEiUuGlhFHndq30kamosTqrSUg==
+ t=1775741021; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=RxXfFjkwt0n+KppWQuwHghseRk51EzwOfVwmm8AdvN8=;
+ b=K9YCQMl1RFnP7j+9AC49f+K9xIT+Fvdr/jbMSGPM6lsWUVIB0PwjuJ9qV1vg5S5A/+KkGc
+ R7dc3RrcAp4IHi5I1LYvkSGqrz/Ti/pm6W9L2FoIRBnT9PzPYmwoXG9jbfv32K0vJg27Pg
+ kRtf0buZauKb/xRCHnMiuMYYm0KLxt1v8sgspF4av9WMWgifQajZrAjpegDnB4P9MZjW3U
+ BuUmIvuy/ctekBXuGOeN5zGg1JWVnE3i2KhgtZDr5zsUoDS5QoWxe7jI2KGUed+aQbffZc
+ NiWnnuSJjUG56FZ6tueXQQ/AlXdCYzdoPEF27iSBKNR1dB+c3dG66nmvtntNGw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 09 Apr 2026 15:23:29 +0200
-Subject: [PATCH v5 2/2] drm: rcar-du: encoder: convert to
- of_drm_find_and_get_bridge()
+Subject: [PATCH v5 0/2] drm/bridge: convert users of of_drm_find_bridge(),
+ part 4
+Date: Thu, 09 Apr 2026 15:23:27 +0200
+Message-Id: <20260409-drm-bridge-alloc-getput-drm_of_find_bridge-4-v5-0-d7381c07788a@bootlin.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-drm-bridge-alloc-getput-drm_of_find_bridge-4-v5-2-d7381c07788a@bootlin.com>
-References: <20260409-drm-bridge-alloc-getput-drm_of_find_bridge-4-v5-0-d7381c07788a@bootlin.com>
-In-Reply-To: <20260409-drm-bridge-alloc-getput-drm_of_find_bridge-4-v5-0-d7381c07788a@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAE+o12kC/5XR3YrCMBAF4FeRXG9kZpKm0SvfY5HS/GmgNpJ2i
+ 4v03TcVQRe86eWZge8MzJ0NPkc/sP3mzrKf4hBTX0L1tWH23PYnz6MrmRGQAoSau3zhJkdXNm3
+ XJctPfrz+jMu8SaEJsXfNcy85tDsyQmHwO8cKec0+xNuj7vtY8jkOY8q/j/YJl+mzCNW6ogk5c
+ C+kETpU4Kg+mJTGLvZbmy5sqZrojRe4kqeFB43GOotSfeDFixeoV/Ki8AjlcqoIRPWBly9eAq3
+ kyyO4JKw1Wm1B4X9+nuc/GVjUeAcCAAA=
+X-Change-ID: 20260107-drm-bridge-alloc-getput-drm_of_find_bridge-4-0a92b361fe9d
 To: Biju Das <biju.das.jz@bp.renesas.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
@@ -77,131 +80,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-of_drm_find_bridge() is deprecated. Move to its replacement
-of_drm_find_and_get_bridge() which gets a bridge reference, and ensure it
-is put when done.
+This series converts many DRM drivers from the now deprecated
+of_drm_find_bridge() to its replacement of_drm_find_and_get_bridge() which
+allows correct bridge refcounting.
 
-We need to handle the two cases: when a panel_bridge is added and when it
-isn't. So:
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
 
- * in the 'else' case a panel_bridge is not added and bridge is found: use
-   of_drm_find_and_get_bridge() to get a reference to the found bridge
- * in the 'then' case a panel_bridge is found using a devm function which
-   already takes a refcount and will put it on removal, but we need to take
-   another so the following code in this function always get exactly one
-   reference that it needs to put
+Here's the work breakdown (➜ marks the current series):
 
-In order to put the reference, add the needed drm_bridge_put() calls in the
-existing cleanup function.
+ 1. ➜ add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. ➜ add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. … protect encoder bridge chain with a mutex
+       7. ➜ of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+	       convert basic direct users (v7.0-v7.1)
+	  b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+	  c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+	  d. ➜ convert direct of_drm_get_bridge() users, part 4
+	       (some v7.1, some pending)
+	  e.   convert bridge-only drm_of_find_panel_or_bridge() users
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. … handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. … protect private_obj removal from list
+    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. … Migrate i.MX LCDIF driver to bridge-connector
+ 6.   DRM bridge hotplug
+    A.   Bridge hotplug management in the DRM core
+    B.   Device tree description
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+This work is a continuation of the work to correctly handle bridge
+refcounting for existing of_drm_find_bridge(). The ground work is in:
+
+ - commit 293a8fd7721a ("drm/bridge: add of_drm_find_and_get_bridge()")
+ - commit 9da0e06abda8 ("drm/bridge: deprecate of_drm_find_bridge()")
+ - commit 3fdeae134ba9 ("drm/bridge: add next_bridge pointer to struct drm_bridge")
+
+The whole conversion is split in multiple series to make the review process
+a bit smoother:
+
+ - Part 2: mostly drivers in drivers/gpu/drm/bridge [2], applied
+ - Part 3: other drivers, low-medium complexity [3], applied
+ - Part 4: other drivers, converting the most complex cases [this series]
+
+[2] https://lore.kernel.org/lkml/20260109-drm-bridge-alloc-getput-drm_of_find_bridge-2-v2-0-8bad3ef90b9f@bootlin.com/
+[3] https://lore.kernel.org/lkml/20260109-drm-bridge-alloc-getput-drm_of_find_bridge-3-v2-0-8d7a3dbacdf4@bootlin.com/
+
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
-
 Changes in v5:
-- simplify error bailout using no_free_ptr
+- Drop patches 2,4, now applied
+- Use no_free_ptr to simplify the 2 remaining patches
+- Link to v4: https://patch.msgid.link/20260402-drm-bridge-alloc-getput-drm_of_find_bridge-4-v4-0-421781c8c061@bootlin.com
 
 Changes in v4:
-- fixed conflict after commit 3bce3fdd1ff2 ("drm: rcar-du: Don't leak
-  device_link to CMM")
-- Use ARRAY_SIZE() instead of define
-- Unsigned variable for never-negative variable
-- Added comment to clarify the additional drm_bridge_get() in the
-  panel_bridge case
-- Coding style (C comments, line wrap at 80)
+- Patch 3: many improvements as suggested by Laurent
+- Patch 1: add comment after Laurent's suggestion on patch 3
+- Link to v3: https://lore.kernel.org/r/20260318-drm-bridge-alloc-getput-drm_of_find_bridge-4-v3-0-10f502520357@bootlin.com
+
+Changes in v3:
+- Rebased on current drm-misc-next (on v7.0-rc3)
+- Dropped patches already applied
+- Link to v2: https://lore.kernel.org/r/20260131-drm-bridge-alloc-getput-drm_of_find_bridge-4-v2-0-e081bcdc1467@bootlin.com
+
+Changes in v2:
+- Removed bouncing recipient: Edmund Dea <edmund.j.dea@intel.com>
+- used break instead of a warning patch 3, adapted patch 4 as a
+  consequence
+- Link to v1: https://lore.kernel.org/r/20260116-drm-bridge-alloc-getput-drm_of_find_bridge-4-v1-0-e34b38f50d27@bootlin.com
+
 ---
+Luca Ceresoli (2):
+      drm: renesas: rz-du: rzg2l_du_encoder: convert to of_drm_find_and_get_bridge()
+      drm: rcar-du: encoder: convert to of_drm_find_and_get_bridge()
+
  drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 29 +++++++++++++++++++----
  drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h |  1 +
  drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c     |  2 ++
- 3 files changed, 27 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c  | 13 +++++++---
+ 4 files changed, 37 insertions(+), 8 deletions(-)
+---
+base-commit: 4d5876596774995cad1f5901fbf486f3aecd6602
+change-id: 20260107-drm-bridge-alloc-getput-drm_of_find_bridge-4-0a92b361fe9d
 
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-index 7ecec7b04a8d..32ea09d65d76 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-@@ -51,7 +51,7 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
- {
- 	struct rcar_du_encoder *renc;
- 	struct drm_connector *connector;
--	struct drm_bridge *bridge;
-+	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
- 	int ret;
- 
- 	/*
-@@ -70,19 +70,28 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
- 		bridge = devm_drm_panel_bridge_add_typed(rcdu->dev, panel,
- 							 DRM_MODE_CONNECTOR_DPI);
- 		if (IS_ERR(bridge))
--			return PTR_ERR(bridge);
-+			return PTR_ERR(no_free_ptr(bridge));
-+
-+		/*
-+		 * The reference taken by devm_drm_panel_bridge_add_typed() is
-+		 * released automatically. Take a second one for the __free()
-+		 * when this function will return.
-+		 */
-+		drm_bridge_get(bridge);
- 	} else {
--		bridge = of_drm_find_bridge(enc_node);
-+		bridge = of_drm_find_and_get_bridge(enc_node);
- 		if (!bridge)
- 			return -EPROBE_DEFER;
- 
- 		if (output == RCAR_DU_OUTPUT_LVDS0 ||
- 		    output == RCAR_DU_OUTPUT_LVDS1)
--			rcdu->lvds[output - RCAR_DU_OUTPUT_LVDS0] = bridge;
-+			rcdu->lvds[output - RCAR_DU_OUTPUT_LVDS0] =
-+				drm_bridge_get(bridge);
- 
- 		if (output == RCAR_DU_OUTPUT_DSI0 ||
- 		    output == RCAR_DU_OUTPUT_DSI1)
--			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] = bridge;
-+			rcdu->dsi[output - RCAR_DU_OUTPUT_DSI0] =
-+				drm_bridge_get(bridge);
- 	}
- 
- 	/*
-@@ -135,3 +144,13 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
- 
- 	return drm_connector_attach_encoder(connector, &renc->base);
- }
-+
-+void rcar_du_encoder_cleanup(struct rcar_du_device *rcdu)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(rcdu->lvds); i++)
-+		drm_bridge_put(rcdu->lvds[i]);
-+	for (i = 0; i < ARRAY_SIZE(rcdu->dsi); i++)
-+		drm_bridge_put(rcdu->dsi[i]);
-+}
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
-index e5ec8fbb3979..b2b5e93f30f8 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.h
-@@ -25,5 +25,6 @@ struct rcar_du_encoder {
- int rcar_du_encoder_init(struct rcar_du_device *rcdu,
- 			 enum rcar_du_output output,
- 			 struct device_node *enc_node);
-+void rcar_du_encoder_cleanup(struct rcar_du_device *rcdu);
- 
- #endif /* __RCAR_DU_ENCODER_H__ */
-diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-index b2d0e4651e35..1119c84e5fe9 100644
---- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-+++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-@@ -832,6 +832,8 @@ static void rcar_du_modeset_cleanup(struct drm_device *dev, void *res)
- 
- 		put_device(cmm->dev);
- 	}
-+
-+	rcar_du_encoder_cleanup(rcdu);
- }
- 
- int rcar_du_modeset_init(struct rcar_du_device *rcdu)
-
--- 
-2.53.0
+Best regards,
+--  
+Luca Ceresoli <luca.ceresoli@bootlin.com>
 
