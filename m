@@ -4,157 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D278BEA3C4E
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 13:37:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 281C2EA3C4E
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 13:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E09A10E365;
-	Thu,  9 Apr 2026 13:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F89010E81D;
+	Thu,  9 Apr 2026 13:44:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JBhkPayV";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="Ad0X5hQS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75CE510E31E;
- Thu,  9 Apr 2026 13:37:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775741876; x=1807277876;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=8TwS9fnw79bWH72v3d0ELO3QWDv/Li4RdCbPfgQi3Lk=;
- b=JBhkPayV3fZAIDITCkkq6t8gDprchp+CMm34Yn87P5rxa/fssI987vQR
- v+Q+Dm+iMZvw5X7Gfy7DXGUDoMclK8t1m2IDB0YWGtP1hdDBAnaySTfIn
- JWN7OFBsLyHl6Q/5DWz6EQi2UIdg75sn8UDDuuYEh8UNpw5p2oe4xpQNQ
- IeAG5qklsta4SnnkJ3crw0cO+5kqcYSuzpiwpZK3QAHcdBtmDYL4ytgiq
- S9ZiCHq6ZASqDTAkSmCajJgbSpghuyYaH1JFULfyTrSAmg1dzVmfHKr6P
- fioXj+DEPyE1HekftODADVRkEFsxEz3mzCP+g/53MHOQIO1kN47waG3bp Q==;
-X-CSE-ConnectionGUID: TUuo6MesRBOVKcMmotV5Kg==
-X-CSE-MsgGUID: mORrnDahTFCvPKBJE8DqXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="79333765"
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="79333765"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 06:37:55 -0700
-X-CSE-ConnectionGUID: MN+T9jfvTjmxI4McGb/afQ==
-X-CSE-MsgGUID: z5TctSXxSluxBHIgZJvveg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="233138202"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 06:37:55 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 9 Apr 2026 06:37:53 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Thu, 9 Apr 2026 06:37:53 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.44) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Thu, 9 Apr 2026 06:37:50 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q+yc6QLywKMkHa4BLJsNcDlik6dC7GDjqT+AJk8l7hsYUpYuEjCR4Z1gQxV6DFGCQhkPswZsSGrq0Mb5Oes5GVrcgkNNn7zCezMLjnksrLyrca4b6YF8zgj+i7Q4CP1tOHt/48jZaXMPzVEQMwiJJ3sjul9LWUxppd2Mcb97GJ1lobjBcMpsdqEqJf4AXbJliMbYI51cIn9cvg0Mw5m3TRM7gtB0SrA+e3EUJ37hvXRwLyZ2Vm29yl1x/y0lE7i8v0Mrvi/MSyOfMVJSJ0FU9PMd4ewAPBr8/8LBMBFAmgAircwQR2f99SPwRBFOHsNYCmU+qZ7qP1sPQwtYbO/c7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VsJjdSZ1DT5PmW13JD7pW49ipZCm7qYwTbvutj1DnO4=;
- b=dRv0aRT3VQw7+iIHIUusBlfbcavhr9vj9HUiz0754klgQS9soWjsl3U+uZNSISQ0pSv+n1d3kKpEhQCKGxlHUTJs6dIUNpOOqOeJRAz3KEEdZCdjPeQyYdvfKk5zLAiuHLgLnLaBPOvGA5jr+6ryFrJ2G+aEEPHfQ2e4hOC2jjskmlEKOZkHOjrJ489jg9ubrfQWprWmRMpuA14kqM/3H9lGT/KWMYJ2nuQLzv+EfnL9NzYXXUWexJbNwonvHAwQoCxeFsvjzmALQfgfc1lXDPjxOxG5CCV5LcstnR71t8utkRKz2Xh9MSHTTCNo53qMb/Y07c5HgqzobeawvbLysA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
- by LV8PR11MB8509.namprd11.prod.outlook.com (2603:10b6:408:1e6::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 9 Apr
- 2026 13:37:48 +0000
-Received: from CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d]) by CYYPR11MB8430.namprd11.prod.outlook.com
- ([fe80::1d86:a34:519a:3b0d%5]) with mapi id 15.20.9791.032; Thu, 9 Apr 2026
- 13:37:48 +0000
-Date: Thu, 9 Apr 2026 09:37:41 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: "Tauro, Riana" <riana.tauro@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <netdev@vger.kernel.org>, Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- <joonas.lahtinen@linux.intel.com>, <aravind.iddamsetty@linux.intel.com>,
- <anshuman.gupta@intel.com>, <simona.vetter@ffwll.ch>, <airlied@gmail.com>,
- <pratik.bari@intel.com>, <joshua.santosh.ranjan@intel.com>,
- <ashwin.kumar.kulkarni@intel.com>, <shubham.kumar@intel.com>,
- <ravi.kishore.koppuravuri@intel.com>, <raag.jadav@intel.com>,
- <anvesh.bakwad@intel.com>, <maarten.lankhorst@linux.intel.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang
- <Hawking.Zhang@amd.com>, "David S. Miller" <davem@davemloft.net>, Paolo Abeni
- <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>
-Subject: Re: [PATCH v2 1/2] drm/drm_ras: Add clear-error-counter netlink
- command to drm_ras
-Message-ID: <aderpXuhLoiUoxcT@intel.com>
-References: <20260409073318.2909379-4-riana.tauro@intel.com>
- <20260409073318.2909379-5-riana.tauro@intel.com>
- <e7978696-eff6-4c1f-ab0f-047dccb18b59@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <e7978696-eff6-4c1f-ab0f-047dccb18b59@intel.com>
-X-ClientProxiedBy: SJ0PR13CA0190.namprd13.prod.outlook.com
- (2603:10b6:a03:2c3::15) To CYYPR11MB8430.namprd11.prod.outlook.com
- (2603:10b6:930:c6::19)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|LV8PR11MB8509:EE_
-X-MS-Office365-Filtering-Correlation-Id: a197d617-c87e-4295-9327-08de963d2fe4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|366016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: LF7HQnh+7fmbl9aqHRgplvONz0rYwyv9+P93NUi1Fbsuy1HV7386S4CLOXaZuzVkSvS9QNi3+gERcI+OVv/OJjz0qZIDSDKTfAYATWO092z1LfLu5acb1e83ZvPfnNyacIs+eGCJ1S8WeqQ4GkymM0LUFx5WN9S6KcsepLfkzeKdy4svIKFObLaGKw9hNoC0/YnRPKYvW57BXYJq8OHd9uQZU5dVCEgFjPOzusoqIf18JGaO5cucyJw25+yAKvVVkplzdLaufBwnROPcDhN6mwvKVIRJJty4ghrv8yKDe3uXxBRXaRZ7IDVM59pEbSTB/9uVXA67/v3rCH9/8sBjtZNUCGASUe4GuBby5RThU2jyHuVTWED4wSI34Q4q/Kumazmqbwi0HMhd8fpDbSF4tnYvCsNtRIPnv9+dmubAEbpggJuE7MKLitzrPKllD178azIJ7e2XdBsey01jmGWtnB6G6LiE206ubL7fsCoBhPlooFuVC5xKf57xhQRrQ+cdIjro6DK6HRif46w0Je+UJNprl2qUuGTPvBgsb4lZUb5tcYATEgMnOEH3p7CxakTiKyilCDxqbS4BFBe/QaS7GmULMcBoFdsLs5RaCJJW0c0ed1i+3U3Htx59et2gha5y1tpl7nuB1p2gN3oWM/t8s6xFYDdFL3uutsg/VWQiJYZogjEXFy9WszGwQXPRYYrMbTGQNAVErDnCPeZoWImx0WBlTBjnxIpiEnswGYV7LeY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(366016)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qoHrTrXP+fMtcC/LhG4na24wYaicSzVqeGwIq5UY9zzYw8/UyU4WVt6anHt3?=
- =?us-ascii?Q?aiOygejBWCGAjaFQvImtV42nsiAaBCzTrdmCYRo/2QI+Fo8f1tbikR4kptJy?=
- =?us-ascii?Q?q7YDknsjHpxG+iVHPImXwF42BS/boFps3CIyZ3uBxHZbdNHhVOqJQ9jDtpeA?=
- =?us-ascii?Q?aY/GQLIE86EijniPAk229ZjKh/EX6ERzxxr+VqOwW511xk0GvwkU/B5R9iRO?=
- =?us-ascii?Q?q0kydjyRl9aYK8k3WcqFpJWTxvcvMH5tjy/tIcnKAW78FW6uEwI6Za9T2g+9?=
- =?us-ascii?Q?8d0OrMPvqJ2G+4yja0aOsRaNjG1Ht/eaBgwjAlQZwoCKpVJ3osqmHsN5lg1L?=
- =?us-ascii?Q?KwvA4vRTvkt1XDYErU6EnJdNYsx5BiWAXKGQ0P561mYkUvoD/Q9JGf5YXS7D?=
- =?us-ascii?Q?3zjjG2KtqmzfQhHs3k9DPTXj4bRRmPKe7+MPXaeE45SHPbqrI68jV1zK0//s?=
- =?us-ascii?Q?zB+DqanRVfOixxMvlsKDbomnM8ijuYnQsZ9N/McQXaM5XVm+z9CmxVMqEGyj?=
- =?us-ascii?Q?iDVPnu/yWxY5BhH75XUV6xNCz2FgsmS/Ea1rr/DbKh+6CkeK7pVX/f9xZxiI?=
- =?us-ascii?Q?pcs9OXCqoMem+69rXi4kTfXn/sfz3ZIH3VF4+6WXhNDlGBsO9yWm+XeA3TZP?=
- =?us-ascii?Q?0t17rOLezqLQFypD/T1MLO9VpiAT31/dohfjxgnl+DF4+JHDMzUrylX+3bTY?=
- =?us-ascii?Q?wGd/zCIhlcGOe2FglyKWc6sImpQvi2KJqFxGxSB62KGJfYQgY74QuFIgQ1bQ?=
- =?us-ascii?Q?Xgrl/FXrA9IOE5Dqk2SMh7CHt33ti5KmvZC8Em/1HgAY5smQEK6dCa0U05kH?=
- =?us-ascii?Q?iERROYFTGK0UpuRyS25+0A64g0e1oL5XmS+m2pPGoOUz7FBR9bZfoKHSm/kx?=
- =?us-ascii?Q?rH40KF/paw3FaDBgOuBzv3kvIHH5Jff+g80ioZajeUAz+XlzEeUFGdqE2LaK?=
- =?us-ascii?Q?60Q+DVrlJ1r/rf/qnLUYQ9yr0/5B3XjMRBZEQTFrc3KlOD+trP8qeBBkUGqP?=
- =?us-ascii?Q?EWMYyJD1QtjkL4j8DQ5KvlTkdl8X6MIhsGndMyyOaQ1vb446btfBPB8LqcWU?=
- =?us-ascii?Q?CIa3UoBHXvxbaxrVI/gUOpJvgsasWYpsgOM8WIq/IInUgPE1LJqmc95Kfh5A?=
- =?us-ascii?Q?B9EaNCDJC0s19IdePGMuOPBJP01IUBqIxprmStD00br13mPj2PManFzsV6fi?=
- =?us-ascii?Q?Rwh9+u7UBI0VYCgjua5fp4hBKJVjS5jlrpTBlrqXb7HiwmMcjSbRYQABKDC6?=
- =?us-ascii?Q?1tjRRw2jY7nUSQ4tA+7yhcQOwTGI6GHa3sDJluXho6mKo3PefXjY1xbozJWY?=
- =?us-ascii?Q?VSlNti9SlYVYsO3VVNjG1c+ntHeOu0vjEdy4yvvwgjWOJNGZk5ZqnSogVvCk?=
- =?us-ascii?Q?o8uQM+zwuxFWklke7FoXrD48o6Qc/98kpZm45rqTucxG9fny4wOJ12kF4KpV?=
- =?us-ascii?Q?qrOkQytrhaClvGuFZsVla5SjCphnQwzkZpz+R+/mQ2EYavw2bAup4lNfLyW6?=
- =?us-ascii?Q?eT2Viy1rVj21PhLRkYEORTZTJtzxAbugwsbVmxxqYQ6vmdVjO/l9y36uoO28?=
- =?us-ascii?Q?YNDdI2nGVjfQUNsWstQD6ie2XqQou+6ImpQy055Oo7ocTGmuNFf7z6ZtE/KG?=
- =?us-ascii?Q?G93S+bdXHTCzU42wwNhdguptMkkmr2ci1ugLnRQSNmINIx8XgnM0Ztdmn+fp?=
- =?us-ascii?Q?+RQn3EIVNmImaaWxxBeDW10Z6eIsW56Fv6Go0xx/sk/qxfAaZsQ7fpj0SM8K?=
- =?us-ascii?Q?XJdjL8g5WQ=3D=3D?=
-X-Exchange-RoutingPolicyChecked: Rbsh/bjVMK6/z+f2BWEp4o6CWLJ1hzIFZyHnfbpb7b/puQMy7B+Dqwfzp8561aWe5x/j10G2Farw1fnpyOoghh1JcW7IFvaO7+v35gNpxB+zd02sBTXuCU8XR4HSKJfxwONoELLR8CgdpF86EWTmv37YXywjDTZxXj0B4JmeSOwFj/T/vgyNN++eDD5gDS0EZh1XnCtqWwaf921Nq5hpwZWxPyP53Gh3/kOUZgAIacK10vHIcFagYbk29RPjDDySlaMSaHCOvjQvzRV899tr3XltFuBPWKfhq5xDz866ZmELV8zCO10xo/3eMJbEAxmW/VuKM10CiQEI8IFT44J3EA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: a197d617-c87e-4295-9327-08de963d2fe4
-X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 13:37:47.7502 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XTisuKE3sFUTubAskyWW3kfggmRAtrdIuLVajMxSJD50d5I1I40yeJiArT3/OWV5L6/3/udvWYZPxmBpACxdug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8509
-X-OriginatorOrg: intel.com
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 225BD10E811
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 13:44:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775742283; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=C1va+UXI3n2r6Qu87DnMyq3OJk3RSJBsWwzyCqbbwU2Wccc0uaqKlHBQnkrnGiSsSiRiSZS/EkPkaatESl/ZUErKX1uKz/vODHQh1iPrVoaaLqhjchN5aLHTrC/i81wtVIiZcmZ02wvdwLi2ImSEvpiFHkvgTt9CwZNb8s//MBM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1775742283;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=IACELWoMgQVNQe/brpupc3LeXkJWLMq8v9SHNUec+LA=; 
+ b=FJVxiR6lXrUTXpjzrKmf2uLfJzz7isivVPQyCLLVjvHLOjaZqCUm1nXa78zqMz3w7+LqoXrAAG+x5BmrxfUzXeajX2AvH9NANY95nNAbU8O0p49X3WrcOOl5slns/+beUap2uNpCt60znOeOIhHzwf0XbUAXkYKlG0JtIvW5fIo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775742283; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=IACELWoMgQVNQe/brpupc3LeXkJWLMq8v9SHNUec+LA=;
+ b=Ad0X5hQSTcbiNCzPR3emY1mw/f72uWfL76G85UyOn6N/G+cua2EPxe7+7p0nNagz
+ mf5LJKYoRmWfmZV/dHs/pNUDN+jKjKoOnZ7bK573qHdm4vLYoZQOGJnH9dzgqpyvaAx
+ fw7Nf0WYh0YMyLGhAadCZlfXWpbK0n4bMIiAiIZY=
+Received: by mx.zohomail.com with SMTPS id 1775742281657359.5534164318499;
+ Thu, 9 Apr 2026 06:44:41 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v1 RESEND 4/4] drm/tyr: add GPU reset handling
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260409114133.43134-1-work@onurozkan.dev>
+Date: Thu, 9 Apr 2026 10:44:24 -0300
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ linux-kernel@vger.kernel.org, dakr@kernel.org, aliceryhl@google.com,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org,
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <395ED15F-3BC1-48C0-BE36-AF3A951E464D@collabora.com>
+References: <20260313091646.16938-1-work@onurozkan.dev>
+ <20260313091646.16938-5-work@onurozkan.dev> <20260319120828.52736966@fedora>
+ <9876893D-F3B4-4CA4-8858-473B6FB8E7EB@collabora.com>
+ <20260409114133.43134-1-work@onurozkan.dev>
+To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,253 +73,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 09, 2026 at 12:51:44PM +0530, Tauro, Riana wrote:
-> Hi Zack
-> 
-> Could you please take a look at this patch if applicable to your usecase.
-> Please let me know if any
-> changes are required
-> 
-> @Rodrigo This is already reviewed by Jakub and Raag.
-> If there are no opens, can this be merged via drm_misc
+Hi Onur,
 
-if we push this to drm-misc-next, it might take a few weeks to propagate
-back to drm-xe-next. With other work from you and Raag going fast pace
-on drm-xe-next around this area, I'm afraid it could cause some conflicts.
+> On 9 Apr 2026, at 08:41, Onur =C3=96zkan <work@onurozkan.dev> wrote:
+>=20
+> On Fri, 03 Apr 2026 12:01:09 -0300
+> Daniel Almeida <daniel.almeida@collabora.com> wrote:
+>=20
+>>=20
+>>=20
+>>> On 19 Mar 2026, at 08:08, Boris Brezillon =
+<boris.brezillon@collabora.com> wrote:
+>>>=20
+>>> On Fri, 13 Mar 2026 12:16:44 +0300
+>>> Onur =C3=96zkan <work@onurozkan.dev> wrote:
+>>>=20
+>>>> +impl Controller {
+>>>> +    /// Creates a [`Controller`] instance.
+>>>> +    fn new(pdev: ARef<platform::Device>, iomem: =
+Arc<Devres<IoMem>>) -> Result<Arc<Self>> {
+>>>> +        let wq =3D workqueue::OrderedQueue::new(c"tyr-reset-wq", =
+0)?;
+>>>> +
+>>>> +        Arc::pin_init(
+>>>> +            try_pin_init!(Self {
+>>>> +                pdev,
+>>>> +                iomem,
+>>>> +                pending: Atomic::new(false),
+>>>> +                wq,
+>>>> +                work <- kernel::new_work!("tyr::reset"),
+>>>> +            }),
+>>>> +            GFP_KERNEL,
+>>>> +        )
+>>>> +    }
+>>>> +
+>>>> +    /// Processes one scheduled reset request.
+>>>> +    ///
+>>>> +    /// Panthor reference:
+>>>> +    /// - =
+drivers/gpu/drm/panthor/panthor_device.c::panthor_device_reset_work()
+>>>> +    fn reset_work(self: &Arc<Self>) {
+>>>> +        dev_info!(self.pdev.as_ref(), "GPU reset work is =
+started.\n");
+>>>> +
+>>>> +        // SAFETY: `Controller` is part of driver-private data and =
+only exists
+>>>> +        // while the platform device is bound.
+>>>> +        let pdev =3D unsafe { self.pdev.as_ref().as_bound() };
+>>>> +        if let Err(e) =3D run_reset(pdev, &self.iomem) {
+>>>> +            dev_err!(self.pdev.as_ref(), "GPU reset failed: =
+{:?}\n", e);
+>>>> +        } else {
+>>>> +            dev_info!(self.pdev.as_ref(), "GPU reset work is =
+done.\n");
+>>>> +        }
+>>>=20
+>>> Unfortunately, the reset operation is not as simple as instructing =
+the
+>>> GPU to reset, it's a complex synchronization process where you need =
+to
+>>> try to gracefully put various components on hold before you reset, =
+and
+>>> then resume those after the reset is effective. Of course, with what =
+we
+>>> currently have in-tree, there's not much to suspend/resume, but I =
+think
+>>> I'd prefer to design the thing so we can progressively add more
+>>> components without changing the reset logic too much.
+>>>=20
+>>> I would probably start with a Resettable trait that has the
+>>> {pre,post}_reset() methods that exist in Panthor.
+>>>=20
+>>> The other thing we need is a way for those components to know when a
+>>> reset is about to happen so they can postpone some actions they were
+>>> planning in order to not further delay the reset, or end up with
+>>> actions that fail because the HW is already unusable. Not too sure =
+how
+>>> we want to handle that though. Panthor is currently sprinkled with
+>>> panthor_device_reset_is_pending() calls in key places, but that's =
+still
+>>> very manual, maybe we can automate that a bit more in Tyr, dunno.
+>>>=20
+>>=20
+>>=20
+>> We could have an enum where one of the variants is Resetting, and the =
+other one
+>> gives access to whatever state is not accessible while resets are in =
+progress.
+>>=20
+>> Something like
+>>=20
+>> pub enum TyrData {
+>>  Active(ActiveTyrData),
+>>  ResetInProgress(ActiveTyrData)
+>> }
+>>=20
+>> fn access() -> Option<&ActiveTyrData> {
+>>  =E2=80=A6 // if the =E2=80=9CResetInProgress=E2=80=9D variant is =
+active, return None
+>> }
+>>=20
+>=20
+> That's an interesting approach, but if it's all about `fn access` =
+function, we
+> can already do that with a simple atomic state e.g.,:
+>=20
+> // The state flag in reset::Controller
+> state: Atomic<ResetState>
+>=20
+> fn access(&self) -> Option<&Arc<Devres<IoMem>>> {
+> match self.state.load(Relaxed) {
+> ResetState::Idle =3D> Some(&self.iomem),
+> _ =3D> None,
+> }
+> }
+>=20
+> What do you think? Would this be sufficient?
+>=20
+> Btw, a sample code snippet from the caller side would be very helpful =
+for
+> designing this further. That part is kind a blurry for me.
+>=20
+> Thanks,
+> Onur
+>=20
+>>=20
+>>>> +
+>>>> +        self.pending.store(false, Release);
+>>>> +    }
+>>>> +}
 
-It is definitely fine by me, but another option is to get ack from
-drm-misc maintainers to get this through drm-xe-next.
+I think that there are two things we're trying to implement correctly:
 
-so, really okay with drm-misc-next?
+1) Deny access to a subset of the state while a reset is in progress
+2) Wait for anyone accessing 1) to finish before starting a reset
 
-> 
-> Thanks
-> Riana
-> 
-> On 4/9/2026 1:03 PM, Riana Tauro wrote:
-> > Introduce a new 'clear-error-counter' drm_ras command to reset the counter
-> > value for a specific error counter of a given node.
-> > 
-> > The command is a 'do' netlink request with 'node-id' and 'error-id'
-> > as parameters with no response payload.
-> > 
-> > Usage:
-> > 
-> > $ sudo ynl --family drm_ras  --do clear-error-counter --json \
-> > '{"node-id":1, "error-id":1}'
-> > None
-> > 
-> > Cc: Jakub Kicinski <kuba@kernel.org>
-> > Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-> > Cc: Lijo Lazar <lijo.lazar@amd.com>
-> > Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-> > Cc: David S. Miller <davem@davemloft.net>
-> > Cc: Paolo Abeni <pabeni@redhat.com>
-> > Cc: Eric Dumazet <edumazet@google.com>
-> > Signed-off-by: Riana Tauro <riana.tauro@intel.com>
-> > Reviewed-by: Jakub Kicinski <kuba@kernel.org>
-> > Reviewed-by: Raag Jadav <raag.jadav@intel.com>
-> > ---
-> >   Documentation/gpu/drm-ras.rst            |  8 +++++
-> >   Documentation/netlink/specs/drm_ras.yaml | 13 ++++++-
-> >   drivers/gpu/drm/drm_ras.c                | 43 +++++++++++++++++++++++-
-> >   drivers/gpu/drm/drm_ras_nl.c             | 13 +++++++
-> >   drivers/gpu/drm/drm_ras_nl.h             |  2 ++
-> >   include/drm/drm_ras.h                    | 11 ++++++
-> >   include/uapi/drm/drm_ras.h               |  1 +
-> >   7 files changed, 89 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm-ras.rst
-> > index 70b246a78fc8..4636e68f5678 100644
-> > --- a/Documentation/gpu/drm-ras.rst
-> > +++ b/Documentation/gpu/drm-ras.rst
-> > @@ -52,6 +52,8 @@ User space tools can:
-> >     as a parameter.
-> >   * Query specific error counter values with the ``get-error-counter`` command, using both
-> >     ``node-id`` and ``error-id`` as parameters.
-> > +* Clear specific error counters with the ``clear-error-counter`` command, using both
-> > +  ``node-id`` and ``error-id`` as parameters.
-> >   YAML-based Interface
-> >   --------------------
-> > @@ -101,3 +103,9 @@ Example: Query an error counter for a given node
-> >       sudo ynl --family drm_ras --do get-error-counter --json '{"node-id":0, "error-id":1}'
-> >       {'error-id': 1, 'error-name': 'error_name1', 'error-value': 0}
-> > +Example: Clear an error counter for a given node
-> > +
-> > +.. code-block:: bash
-> > +
-> > +    sudo ynl --family drm_ras --do clear-error-counter --json '{"node-id":0, "error-id":1}'
-> > +    None
-> > diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/netlink/specs/drm_ras.yaml
-> > index 79af25dac3c5..e113056f8c01 100644
-> > --- a/Documentation/netlink/specs/drm_ras.yaml
-> > +++ b/Documentation/netlink/specs/drm_ras.yaml
-> > @@ -99,7 +99,7 @@ operations:
-> >         flags: [admin-perm]
-> >         do:
-> >           request:
-> > -          attributes:
-> > +          attributes: &id-attrs
-> >               - node-id
-> >               - error-id
-> >           reply:
-> > @@ -113,3 +113,14 @@ operations:
-> >               - node-id
-> >           reply:
-> >             attributes: *errorinfo
-> > +    -
-> > +      name: clear-error-counter
-> > +      doc: >-
-> > +           Clear error counter for a given node.
-> > +           The request includes the error-id and node-id of the
-> > +           counter to be cleared.
-> > +      attribute-set: error-counter-attrs
-> > +      flags: [admin-perm]
-> > +      do:
-> > +        request:
-> > +          attributes: *id-attrs
-> > diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> > index b2fa5ab86d87..d6eab29a1394 100644
-> > --- a/drivers/gpu/drm/drm_ras.c
-> > +++ b/drivers/gpu/drm/drm_ras.c
-> > @@ -26,7 +26,7 @@
-> >    * efficient lookup by ID. Nodes can be registered or unregistered
-> >    * dynamically at runtime.
-> >    *
-> > - * A Generic Netlink family `drm_ras` exposes two main operations to
-> > + * A Generic Netlink family `drm_ras` exposes the below operations to
-> >    * userspace:
-> >    *
-> >    * 1. LIST_NODES: Dump all currently registered RAS nodes.
-> > @@ -37,6 +37,10 @@
-> >    *    Returns all counters of a node if only Node ID is provided or specific
-> >    *    error counters.
-> >    *
-> > + * 3. CLEAR_ERROR_COUNTER: Clear error counter of a given node.
-> > + *    Userspace must provide Node ID, Error ID.
-> > + *    Clears specific error counter of a node if supported.
-> > + *
-> >    * Node registration:
-> >    *
-> >    * - drm_ras_node_register(): Registers a new node and assigns
-> > @@ -66,6 +70,8 @@
-> >    *   operation, fetching all counters from a specific node.
-> >    * - drm_ras_nl_get_error_counter_doit(): Implements the GET_ERROR_COUNTER doit
-> >    *   operation, fetching a counter value from a specific node.
-> > + * - drm_ras_nl_clear_error_counter_doit(): Implements the CLEAR_ERROR_COUNTER doit
-> > + *   operation, clearing a counter value from a specific node.
-> >    */
-> >   static DEFINE_XARRAY_ALLOC(drm_ras_xa);
-> > @@ -314,6 +320,41 @@ int drm_ras_nl_get_error_counter_doit(struct sk_buff *skb,
-> >   	return doit_reply_value(info, node_id, error_id);
-> >   }
-> > +/**
-> > + * drm_ras_nl_clear_error_counter_doit() - Clear an error counter of a node
-> > + * @skb: Netlink message buffer
-> > + * @info: Generic Netlink info containing attributes of the request
-> > + *
-> > + * Extracts the node ID and error ID from the netlink attributes and
-> > + * clears the current value.
-> > + *
-> > + * Return: 0 on success, or negative errno on failure.
-> > + */
-> > +int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
-> > +					struct genl_info *info)
-> > +{
-> > +	struct drm_ras_node *node;
-> > +	u32 node_id, error_id;
-> > +
-> > +	if (!info->attrs ||
-> > +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
-> > +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID))
-> > +		return -EINVAL;
-> > +
-> > +	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
-> > +	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
-> > +
-> > +	node = xa_load(&drm_ras_xa, node_id);
-> > +	if (!node || !node->clear_error_counter)
-> > +		return -ENOENT;
-> > +
-> > +	if (error_id < node->error_counter_range.first ||
-> > +	    error_id > node->error_counter_range.last)
-> > +		return -EINVAL;
-> > +
-> > +	return node->clear_error_counter(node, error_id);
-> > +}
-> > +
-> >   /**
-> >    * drm_ras_node_register() - Register a new RAS node
-> >    * @node: Node structure to register
-> > diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
-> > index 16803d0c4a44..dea1c1b2494e 100644
-> > --- a/drivers/gpu/drm/drm_ras_nl.c
-> > +++ b/drivers/gpu/drm/drm_ras_nl.c
-> > @@ -22,6 +22,12 @@ static const struct nla_policy drm_ras_get_error_counter_dump_nl_policy[DRM_RAS_
-> >   	[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
-> >   };
-> > +/* DRM_RAS_CMD_CLEAR_ERROR_COUNTER - do */
-> > +static const struct nla_policy drm_ras_clear_error_counter_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID + 1] = {
-> > +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
-> > +	[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
-> > +};
-> > +
-> >   /* Ops table for drm_ras */
-> >   static const struct genl_split_ops drm_ras_nl_ops[] = {
-> >   	{
-> > @@ -43,6 +49,13 @@ static const struct genl_split_ops drm_ras_nl_ops[] = {
-> >   		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID,
-> >   		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
-> >   	},
-> > +	{
-> > +		.cmd		= DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
-> > +		.doit		= drm_ras_nl_clear_error_counter_doit,
-> > +		.policy		= drm_ras_clear_error_counter_nl_policy,
-> > +		.maxattr	= DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
-> > +		.flags		= GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
-> > +	},
-> >   };
-> >   struct genl_family drm_ras_nl_family __ro_after_init = {
-> > diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
-> > index 06ccd9342773..a398643572a5 100644
-> > --- a/drivers/gpu/drm/drm_ras_nl.h
-> > +++ b/drivers/gpu/drm/drm_ras_nl.h
-> > @@ -18,6 +18,8 @@ int drm_ras_nl_get_error_counter_doit(struct sk_buff *skb,
-> >   				      struct genl_info *info);
-> >   int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
-> >   					struct netlink_callback *cb);
-> > +int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
-> > +					struct genl_info *info);
-> >   extern struct genl_family drm_ras_nl_family;
-> > diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
-> > index 5d50209e51db..f2a787bc4f64 100644
-> > --- a/include/drm/drm_ras.h
-> > +++ b/include/drm/drm_ras.h
-> > @@ -58,6 +58,17 @@ struct drm_ras_node {
-> >   	int (*query_error_counter)(struct drm_ras_node *node, u32 error_id,
-> >   				   const char **name, u32 *val);
-> > +	/**
-> > +	 * @clear_error_counter:
-> > +	 *
-> > +	 * This callback is used by drm_ras to clear a specific error counter.
-> > +	 * Driver should implement this callback to support clearing error counters
-> > +	 * of a node.
-> > +	 *
-> > +	 * Returns: 0 on success, negative error code on failure.
-> > +	 */
-> > +	int (*clear_error_counter)(struct drm_ras_node *node, u32 error_id);
-> > +
-> >   	/** @priv: Driver private data */
-> >   	void *priv;
-> >   };
-> > diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
-> > index 5f40fa5b869d..218a3ee86805 100644
-> > --- a/include/uapi/drm/drm_ras.h
-> > +++ b/include/uapi/drm/drm_ras.h
-> > @@ -41,6 +41,7 @@ enum {
-> >   enum {
-> >   	DRM_RAS_CMD_LIST_NODES = 1,
-> >   	DRM_RAS_CMD_GET_ERROR_COUNTER,
-> > +	DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
-> >   	__DRM_RAS_CMD_MAX,
-> >   	DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
+IIUC, using Atomic<T> can solve 1 by bailing if the "reset in progress"
+flag/variant is set, but I don't think it implements 2? One would have =
+to
+implement more logic to block until the state is not being actively =
+used.
+
+Now, there are probably easier ways to solve this, but I propose that we =
+do the
+extra legwork to make this explicit and enforceable by the type system.
+
+How about introducing a r/w semaphore abstraction? It seems to correctly =
+encode
+the logic we want:
+
+a) multiple users can access the state if no reset is pending ("read" =
+side)
+b) the reset code can block until the state is no longer being accessed =
+(the "write" side)
+
+In Tyr, this would roughly map to something like:
+
+struct TyrData {
+  reset_gate: RwSem<ActiveHwState>
+  // other, always accessible members
+}
+
+impl TyrData {
+  fn try_access(&self) -> Option<ReadGuard<'_, ActiveHwState>> {...}
+}
+
+Where ActiveHwState contains the fw/mmu/sched blocks (these are not =
+upstream
+yet, Deborah has a series that will introduce the fw block that should =
+land
+soon) and perhaps more.
+
+Now, the reset logic would be roughly:
+
+fn reset_work(tdev: Arc<TyrDevice>) {
+  // Block until nobody else is accessing the hw, prevent others from
+  // initiating new accesses too..
+  let _guard =3D tdev.reset_gate.write();
+  =20
+  // pre_reset() all Resettable implementors
+
+  ... reset
+
+  // post_Reset all Resettable implementors
+}
+
+Now, for every block that might touch a resource that would be =
+unavailable
+during a reset, we enforce a try_access() via the type system, and =
+ensure that
+the reset cannot start while the guard is alive. In particular, ioctls =
+would
+look like:
+
+fn ioctl_foo(...) {
+  let hw =3D tdev.reset_gate.try_access()?;
+  // resets are blocked while the guard is alive, no other way to access =
+that state otherwise
+}
+
+The code will not compile otherwise, so long as we keep the state in =
+ActiveHwState, i.e.:=20
+protected by the r/w sem.
+
+This looks like an improvement over Panthor, since Panthor relies on =
+manually
+canceling work that access hw state via cancel_work_sync(), and gating =
+new work
+submissions on the "reset_in_progress" flag, i.e.:
+
+/**
+ * sched_queue_work() - Queue a scheduler work.
+ * @sched: Scheduler object.
+ * @wname: Work name.
+ *
+ * Conditionally queues a scheduler work if no reset is =
+pending/in-progress.
+ */
+#define sched_queue_work(sched, wname) \
+do { \
+if (!atomic_read(&(sched)->reset.in_progress) && \
+    !panthor_device_reset_is_pending((sched)->ptdev)) \
+queue_work((sched)->wq, &(sched)->wname ## _work); \
+} while (0)
+
+
+Thoughts?
+
+=E2=80=94 Daniel
+
+
