@@ -4,91 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3681F31E27
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 15:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D325F31E3B
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 15:35:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12DF810E823;
-	Thu,  9 Apr 2026 15:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5782010E825;
+	Thu,  9 Apr 2026 15:35:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="kDEe8V0n";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="clAyFjti";
 	dkim-atps=neutral
-Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
- [209.85.221.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E800E10E81F
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 15:26:23 +0000 (UTC)
-Received: by mail-wr1-f73.google.com with SMTP id
- ffacd0b85a97d-4362197d1easo782660f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 08:26:23 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A8D610E825
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 15:35:15 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-488a9033b2cso11958145e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 08:35:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1775748382; x=1776353182;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=SsvvT/ajEX6uKhiIbhIMJ4UO0Dt37j/GL0F977LH8ug=;
- b=kDEe8V0nQGzeuGndZVvffgVIwnkilrsWKT1xFs+bCntgtzfgmyj1i/4m0Gi3aeugjC
- iPKuR+R8b3lr8MUOsqiSV05cALmhjBw+IDH9jAcLoHLthLi6QAJupLzHhcm35MpTGZNG
- N6tP4K8F5lHdOnU7WO7PWon42zxIYmxqb0VeTqniCiGQYsgOEuK2ceCaJqyCVT3u05Du
- BAx/nP9IS9BBA9bub5OLdluriJ15vhEoX1BSksHNnWU1PlFMPYqubvtEXQ7LSRR3jlpZ
- tnE/otvRK8R+mdCHn35uCxmqwYPjhElr+mRRMaDlMchPgkk8lEppp3A8HErK2hbUnzu0
- O/mQ==
+ d=ursulin.net; s=google; t=1775748914; x=1776353714; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BoHh2oQwRZV0sojHJta12unSmCEvime8s05Q4A/XRlU=;
+ b=clAyFjtiEPseBM3e9u/cS4BwGntOusywDCf1qp4mS5a3OmgHUKTvb8Xym4p0Obx+iO
+ QR3We3hGE8nDVNa/k+VPdi5KLxF6XaeoslGmT7dra36MuGnIpUq6xaSu75jQAziVcYuY
+ IRyMc7zKcB1ufaSFbvml0LDnLawIrbHRwwR1TLxJQvZUl1h9Ew4MRq9ly6YU2elv5tWd
+ CM4xJ4uffb303fLsbL9maR9Wh5YEIj/8Q9D9lwcvItmim1bWGaB8OaJDbPm09IhKL5Td
+ b+aY0OUpFEFMim/+uD2cuu4P+pfGUwaU/pdDYq5/jDE8Vcjzw1Zmaf9qr2QFh8ZDWJOC
+ dzTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775748382; x=1776353182;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SsvvT/ajEX6uKhiIbhIMJ4UO0Dt37j/GL0F977LH8ug=;
- b=BmUZD+kqCbhuhWVSoVDK8sz6p8x8iZGG8XIzYsXE8up4WZdZhUWUehQyVZPMx1ab2Y
- AtoRpXRNDRtS6xAlgNyEoEfZiAeUEzRUuOeukGdjsLuXhIpAc1CqJnWhuBd5deUgIjy5
- ZNP78SmAQjn092JjeYvA6s9x3n95DNtmsXn7fNV4/nBI0zwEpQkmtp/s8hI8wtWLGtHk
- 4Wq1pvK2W8XR0+tRtq10dNM23orL3IyKscUSXUjlz66Gbc13R0PlEjtSQsElXAba63Tj
- q8QMYhNYNBa9rd7jO1drIQqphKpRx7Omwxn8KzH7mYq7oQTtw95+b7jJ92uDdqxGFdyN
- smSw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUzvuEVVI5ISTg5qHGdmWUoAl3deuDQIYYgy3v50VH42JQYVzZZogL73RvaCmcyqEKFOO0yCAxRzJI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUiVh4j1QtaebxUOtm+g5bLWBHy6pjuRn6t0pnd174RII/0RCo
- OjmuuHpuQz1vqyH36XUi6PwnHqyLhKOysO1eJllIQ6sKt3HJ6iLii6szDM/pMdvPJhtEkTFYT7e
- q1Kid+RvedqN/fnLp7Q==
-X-Received: from wrsv2.prod.google.com ([2002:a5d:4a42:0:b0:43d:21c:e7e0])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:4201:b0:43c:f95c:3e66 with SMTP id
- ffacd0b85a97d-43d29294b62mr39038591f8f.21.1775748382210; 
- Thu, 09 Apr 2026 08:26:22 -0700 (PDT)
-Date: Thu, 09 Apr 2026 15:26:09 +0000
-In-Reply-To: <20260409-gpuvm-rust-v6-0-b16e6ada7261@google.com>
-Mime-Version: 1.0
-References: <20260409-gpuvm-rust-v6-0-b16e6ada7261@google.com>
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp;
- fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14341; i=aliceryhl@google.com; 
- h=from:subject:message-id;
- bh=dbTc61MvZi+51ZExIE6njd6Wlmv7IPUMeb2BmCuJreg=; 
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBp18UX/2YIhPghe6mJmtJF6PkwmDrX8DG7baGiF
- tNeuGzoPhmJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCadfFFwAKCRAEWL7uWMY5
- RgwnEACnWUDSj/KzVph18Kl1Jk0OjWRAxPK0DqickJkb60PfWLQMzs+VTzOF7JOi5fx+ieGToj5
- NGShh+fQ4w5j8wNiUx8waltWPVQByNax25ojIzc1iTA7OVF1ST2qjOs8bJeISqMByFVtMFDUfgl
- Wh4M6TnMRtmRTJmPsgjSd6S7zcLcp9+Bq89w4CwMxhCr9/csRNKS3dkdnq3qFTGClXsIN5qTquK
- BocWnv7JUvxUT8/Fdf3XhFXlnkM83KUgbXghVUfFAoLnohktqHZLZt8bf528wM6Ag1RCVcbIlor
- J6DdItO0rT8tJMLP/2sHZGxvmrGsV0KuZPsxUSK9lSy4Ftsua+db69w2+PL2kUWHHaN7LTE/l1y
- faZdkS1t0qWs5UUj5JaQvaWIDQdY16e7Zy5KGmta2wwxCbklha1E1ZNVWADhIMsUaaR31N3/4V7
- NVPkbV0Mbvv9UYbJRF/JH5SBi/uAw8+9cADCVllOvXSQBNvt1sh5Eh67YDir5KeBoxTWkiTkACH
- 5yGBncIxdxuEzVZyf3vlPEGhO40CJQHhvoCY43NY3utAUtLeidNPEVxk2krGyTW0PE6fkH5ltZ6
- oD5Ny9yJ/WfLvQJ4goGE5SuAC963c63qT0NOZczNsZEwi+il2P1Garnu6+beO39uadzZozpHlLk
- qit6eHlcU0a2YWA==
-X-Mailer: b4 0.14.3
-Message-ID: <20260409-gpuvm-rust-v6-4-b16e6ada7261@google.com>
-Subject: [PATCH v6 4/5] rust: gpuvm: add GpuVmCore::sm_unmap()
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Janne Grunau <j@jannau.net>, Matthew Brost <matthew.brost@intel.com>, 
- "=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, 
- Asahi Lina <lina+kernel@asahilina.net>, Sumit Semwal <sumit.semwal@linaro.org>,
- "=?utf-8?q?Christian_K=C3=B6nig?=" <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-media@vger.kernel.org, Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+ d=1e100.net; s=20251104; t=1775748914; x=1776353714;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BoHh2oQwRZV0sojHJta12unSmCEvime8s05Q4A/XRlU=;
+ b=MRjDXW3m+e8MoXMKU6QIz2QY1n515iSOwwGHRFDOGeuL+1l1X8dymKRBu0srWBE2Vh
+ xWKPcXI1J4SjMt+gWjyA2eSomAwfku8ese6ftSiOUP8dXPHHjnWGHo9RDbz7cAexv9nE
+ K2BluNG3TyIv//xLVKGv2nUoa0dcbb9TMgpJO5lLbTavNu+Ny9QPnRF2BA3OGwfyGftC
+ J2+UJmK1bF+gE6yy/IUGCQbN3wgkBsL66y492ZF5mXWwf6el+9sTvs/ZLETXjO3kBHkb
+ BE7s0DumyImeyBzNBVJGYYJsiPHd3dVtW4fDvVz3O65JOEtZa/7oQHc2LY6lJ4oBdnnl
+ FXxA==
+X-Gm-Message-State: AOJu0YwEVmsCsE08JMDUYqAfbVCyuusgXHN2ArctJg5QWA4xmjfwJq9l
+ REj8BNKGgOaNfoKYrV5/1mns9Gg3ovt4cgD7q0rKp69muFzAyVCXmNmbKyuvkTC8Rn0=
+X-Gm-Gg: AeBDieu/czj4gp37m7z7YFdSlP9/25deU4L19goMQAcY2TvEFER5rvxQjPiz9g1Qwfe
+ baSZdQ76Q9sOCRtmG2+PpBDTO8OAHMBeIJDEh3Q/4klKOImUXjsYkJU9aCqR2rs7d4eFG6aDxQm
+ ajqF7jpYVaaRi41LIyLGXj7OnUPRd7r5JCf0Xyb2u7Jnuh3tDszXOkNfSRpALiXD3/7zzpY1pak
+ odKJZ+qKSIdksDYa/QFdYKKQ33fv++n8Pq/BC2YfE/4Re+1q9bg6fobZHjq3N38uXrDTFVMiSxD
+ LEp3GjJaxF2ecqSkm/N06l3W2KZmRVqYrMMwkT6jS3lqbRMpHFrwJRB5p+XrfupFutJ7kEHsHrG
+ P76gP3Z6NdWnNLefN/EnRqhVjT1upEwJ2vp3Q/st+qTheKB7FvjcMsA+G6m8h9dWoLJ2ifHiJs6
+ YcsSrC61UqryIt8iloGIM+nYnVWTQE1L8xNmD4DGsO/Hh+
+X-Received: by 2002:a05:600c:1e24:b0:488:c078:bfda with SMTP id
+ 5b1f17b1804b1-488c078f73fmr139267735e9.26.1775748913011; 
+ Thu, 09 Apr 2026 08:35:13 -0700 (PDT)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488cd096e3bsm58205855e9.1.2026.04.09.08.35.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Apr 2026 08:35:12 -0700 (PDT)
+Message-ID: <6a67c09d-d85e-45a9-90a4-125db30092d8@ursulin.net>
+Date: Thu, 9 Apr 2026 16:35:11 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/sched: Add test suite for concurrent job
+ submissions
+To: Marco Pagani <marco.pagani@linux.dev>,
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260408154947.85204-1-marco.pagani@linux.dev>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260408154947.85204-1-marco.pagani@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,402 +96,440 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the entrypoint for unmapping ranges in the GPUVM, and provide
-callbacks and VA types for the implementation.
 
-Co-developed-by: Asahi Lina <lina+kernel@asahilina.net>
-Signed-off-by: Asahi Lina <lina+kernel@asahilina.net>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
- rust/kernel/drm/gpuvm/mod.rs    |  30 ++++-
- rust/kernel/drm/gpuvm/sm_ops.rs | 272 ++++++++++++++++++++++++++++++++++++++++
- rust/kernel/drm/gpuvm/va.rs     |   1 -
- rust/kernel/drm/gpuvm/vm_bo.rs  |   8 ++
- 4 files changed, 306 insertions(+), 5 deletions(-)
+On 08/04/2026 16:49, Marco Pagani wrote:
+> Add a new test suite to simulate concurrent job submissions to the DRM
+> scheduler, as this functionality is not covered by current test suites.
+> 
+> The new test suite includes two initial test cases: (i) a test case for
+> parallel job submission and (ii) a test case for interleaved job
+> submission and completion. In the first test case, worker threads
+> concurrently submit jobs to the scheduler, and then the timeline is
+> manually advanced to complete them in bulk. In the second test case,
+> worker threads concurrently submit sequences of jobs of different
+> durations to the mock scheduler using a sliding window to better model
+> real-world workloads. The timeline is advanced automatically by the
+> finishing jobs, interleaving submission with completion.
+> 
+> Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
+> ---
+> Changes in v2:
+> - Improved test description
+> - Use multiple job durations instead of harmonic periods/durations
+> - Improved submission for interleaved test with a sliding window
+> - Removed unnecessary asserts per Tvrtko's feedback, but kept wait_scheduled
+> - Changed parameter names from period to duration for clarity
+> - Used temp variables to reduce line breaks
+> ---
+>   drivers/gpu/drm/scheduler/tests/tests_basic.c | 356 ++++++++++++++++++
+>   1 file changed, 356 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+> index a5a5a35a87b0..1791b157cfc8 100644
+> --- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
+> +++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
+> @@ -1,7 +1,11 @@
+>   // SPDX-License-Identifier: GPL-2.0
+>   /* Copyright (c) 2025 Valve Corporation */
+>   
+> +#include <linux/completion.h>
+>   #include <linux/delay.h>
+> +#include <linux/minmax.h>
+> +#include <linux/time.h>
+> +#include <linux/workqueue.h>
+>   
+>   #include "sched_tests.h"
+>   
+> @@ -235,6 +239,357 @@ static void drm_sched_basic_cancel(struct kunit *test)
+>   	KUNIT_ASSERT_EQ(test, job->hw_fence.error, -ECANCELED);
+>   }
+>   
+> +struct sched_concurrent_context {
+> +	struct drm_mock_scheduler *sched;
+> +	struct workqueue_struct *sub_wq;
+> +	struct kunit *test;
+> +	struct completion wait_go;
+> +};
+> +
+> +KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_fini_wrap, drm_mock_sched_fini,
+> +			    struct drm_mock_scheduler *);
+> +
+> +KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_entity_free_wrap, drm_mock_sched_entity_free,
+> +			    struct drm_mock_sched_entity *);
+> +
+> +static void complete_destroy_workqueue(void *context)
+> +{
+> +	struct sched_concurrent_context *ctx = context;
+> +
+> +	complete_all(&ctx->wait_go);
+> +
+> +	destroy_workqueue(ctx->sub_wq);
+> +}
+> +
+> +static int drm_sched_concurrent_init(struct kunit *test)
+> +{
+> +	struct sched_concurrent_context *ctx;
+> +	int ret;
+> +
+> +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx);
+> +
+> +	init_completion(&ctx->wait_go);
+> +
+> +	ctx->sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
+> +
+> +	ret = kunit_add_action_or_reset(test, drm_mock_sched_fini_wrap, ctx->sched);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	/* Use an unbounded workqueue to maximize job submission concurrency */
+> +	ctx->sub_wq = alloc_workqueue("drm-sched-submitters-wq", WQ_UNBOUND,
+> +				      WQ_UNBOUND_MAX_ACTIVE);
+> +	KUNIT_ASSERT_NOT_NULL(test, ctx->sub_wq);
+> +
+> +	ret = kunit_add_action_or_reset(test, complete_destroy_workqueue, ctx);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	ctx->test = test;
+> +	test->priv = ctx;
+> +
+> +	return 0;
+> +}
+> +
+> +struct drm_sched_parallel_params {
+> +	const char *description;
+> +	unsigned int num_jobs;
+> +	unsigned int num_workers;
+> +};
+> +
+> +static const struct drm_sched_parallel_params drm_sched_parallel_cases[] = {
+> +	{
+> +		.description = "Parallel submission of multiple jobs per worker",
+> +		.num_jobs = 8,
+> +		.num_workers = 16,
+> +	},
+> +};
+> +
+> +static void
+> +drm_sched_parallel_desc(const struct drm_sched_parallel_params *params, char *desc)
+> +{
+> +	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
+> +}
+> +
+> +KUNIT_ARRAY_PARAM(drm_sched_parallel, drm_sched_parallel_cases, drm_sched_parallel_desc);
 
-diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs
-index 78951e8aa5d3..a6436abd0f9c 100644
---- a/rust/kernel/drm/gpuvm/mod.rs
-+++ b/rust/kernel/drm/gpuvm/mod.rs
-@@ -18,6 +18,7 @@
-     bindings,
-     drm,
-     drm::gem::IntoGEMObject,
-+    error::to_result,
-     prelude::*,
-     sync::aref::{
-         ARef,
-@@ -28,6 +29,7 @@
- 
- use core::{
-     cell::UnsafeCell,
-+    marker::PhantomData,
-     mem::{
-         ManuallyDrop,
-         MaybeUninit, //
-@@ -43,12 +45,15 @@
-     }, //
- };
- 
--mod va;
--pub use self::va::*;
-+mod sm_ops;
-+pub use self::sm_ops::*;
- 
- mod vm_bo;
- pub use self::vm_bo::*;
- 
-+mod va;
-+pub use self::va::*;
-+
- /// A DRM GPU VA manager.
- ///
- /// This object is refcounted, but the locations of mapped ranges may only be accessed or changed
-@@ -104,8 +109,8 @@ const fn vtable() -> &'static bindings::drm_gpuvm_ops {
-             vm_bo_free: GpuVmBo::<T>::FREE_FN,
-             vm_bo_validate: None,
-             sm_step_map: None,
--            sm_step_unmap: None,
--            sm_step_remap: None,
-+            sm_step_unmap: Some(Self::sm_step_unmap),
-+            sm_step_remap: Some(Self::sm_step_remap),
-         }
-     }
- 
-@@ -257,6 +262,23 @@ pub trait DriverGpuVm: Sized + Send {
- 
-     /// Data stored with each [`struct drm_gpuvm_bo`](struct@GpuVmBo).
-     type VmBoData;
-+
-+    /// The private data passed to callbacks.
-+    type SmContext<'ctx>;
-+
-+    /// Indicates that an existing mapping should be removed.
-+    fn sm_step_unmap<'op, 'ctx>(
-+        &mut self,
-+        op: OpUnmap<'op, Self>,
-+        context: &mut Self::SmContext<'ctx>,
-+    ) -> Result<OpUnmapped<'op, Self>, Error>;
-+
-+    /// Indicates that an existing mapping should be split up.
-+    fn sm_step_remap<'op, 'ctx>(
-+        &mut self,
-+        op: OpRemap<'op, Self>,
-+        context: &mut Self::SmContext<'ctx>,
-+    ) -> Result<OpRemapped<'op, Self>, Error>;
- }
- 
- /// The core of the DRM GPU VA manager.
-diff --git a/rust/kernel/drm/gpuvm/sm_ops.rs b/rust/kernel/drm/gpuvm/sm_ops.rs
-new file mode 100644
-index 000000000000..05f81c638aef
---- /dev/null
-+++ b/rust/kernel/drm/gpuvm/sm_ops.rs
-@@ -0,0 +1,272 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+
-+use super::*;
-+
-+/// The actual data that gets threaded through the callbacks.
-+struct SmData<'a, 'ctx, T: DriverGpuVm> {
-+    gpuvm: &'a mut UniqueRefGpuVm<T>,
-+    user_context: &'a mut T::SmContext<'ctx>,
-+}
-+
-+/// Represents an `sm_step_unmap` operation that has not yet been completed.
-+pub struct OpUnmap<'op, T: DriverGpuVm> {
-+    op: &'op bindings::drm_gpuva_op_unmap,
-+    // This ensures that 'op is invariant, so that `OpUnmap<'long, T>` does not
-+    // coerce to `OpUnmap<'short, T>`. This ensures that the user can't return the
-+    // wrong`OpUnmapped` value.
-+    _invariant: PhantomData<*mut &'op mut T>,
-+}
-+
-+impl<'op, T: DriverGpuVm> OpUnmap<'op, T> {
-+    /// Indicates whether this [`GpuVa`] is physically contiguous with the
-+    /// original mapping request.
-+    ///
-+    /// Optionally, if `keep` is set, drivers may keep the actual page table
-+    /// mappings for this `drm_gpuva`, adding the missing page table entries
-+    /// only and update the `drm_gpuvm` accordingly.
-+    pub fn keep(&self) -> bool {
-+        self.op.keep
-+    }
-+
-+    /// The range being unmapped.
-+    pub fn va(&self) -> &GpuVa<T> {
-+        // SAFETY: This is a valid va. It's not the `kernel_alloc_node` because you can't unmap it,
-+        // and it's not sparse by the `GpuVm<T>` type invariants.
-+        unsafe { GpuVa::<T>::from_raw(self.op.va) }
-+    }
-+
-+    /// Remove the VA.
-+    pub fn remove(self) -> (OpUnmapped<'op, T>, GpuVaRemoved<T>) {
-+        // SAFETY: The op references a valid drm_gpuva in the GPUVM.
-+        unsafe { bindings::drm_gpuva_unmap(self.op) };
-+        // SAFETY: The va is no longer in the interval tree so we may unlink it.
-+        unsafe { bindings::drm_gpuva_unlink_defer(self.op.va) };
-+
-+        // SAFETY: We just removed this va from the `GpuVm<T>`.
-+        let va = unsafe { GpuVaRemoved::from_raw(self.op.va) };
-+
-+        (
-+            OpUnmapped {
-+                _invariant: self._invariant,
-+            },
-+            va,
-+        )
-+    }
-+}
-+
-+/// Represents a completed [`OpUnmap`] operation.
-+pub struct OpUnmapped<'op, T> {
-+    _invariant: PhantomData<*mut &'op mut T>,
-+}
-+
-+/// Represents an `sm_step_remap` operation that has not yet been completed.
-+pub struct OpRemap<'op, T: DriverGpuVm> {
-+    op: &'op bindings::drm_gpuva_op_remap,
-+    // This ensures that 'op is invariant, so that `OpRemap<'long, T>` does not
-+    // coerce to `OpRemap<'short, T>`. This ensures that the user can't return the
-+    // wrong`OpRemapped` value.
-+    _invariant: PhantomData<*mut &'op mut T>,
-+}
-+
-+impl<'op, T: DriverGpuVm> OpRemap<'op, T> {
-+    /// The preceding part of a split mapping.
-+    #[inline]
-+    pub fn prev(&self) -> Option<&OpRemapMapData> {
-+        // SAFETY: We checked for null, so the pointer must be valid.
-+        NonNull::new(self.op.prev).map(|ptr| unsafe { OpRemapMapData::from_raw(ptr) })
-+    }
-+
-+    /// The subsequent part of a split mapping.
-+    #[inline]
-+    pub fn next(&self) -> Option<&OpRemapMapData> {
-+        // SAFETY: We checked for null, so the pointer must be valid.
-+        NonNull::new(self.op.next).map(|ptr| unsafe { OpRemapMapData::from_raw(ptr) })
-+    }
-+
-+    /// Indicates whether the `drm_gpuva` being removed is physically contiguous with the original
-+    /// mapping request.
-+    ///
-+    /// Optionally, if `keep` is set, drivers may keep the actual page table mappings for this
-+    /// `drm_gpuva`, adding the missing page table entries only and update the `drm_gpuvm`
-+    /// accordingly.
-+    #[inline]
-+    pub fn keep(&self) -> bool {
-+        // SAFETY: The unmap pointer is always valid.
-+        unsafe { (*self.op.unmap).keep }
-+    }
-+
-+    /// The range being unmapped.
-+    #[inline]
-+    pub fn va_to_unmap(&self) -> &GpuVa<T> {
-+        // SAFETY: This is a valid va. It's not the `kernel_alloc_node` because you can't unmap it,
-+        // and it's not sparse by the `GpuVm<T>` type invariants.
-+        unsafe { GpuVa::<T>::from_raw((*self.op.unmap).va) }
-+    }
-+
-+    /// The [`drm_gem_object`](DriverGpuVm::Object) whose VA is being remapped.
-+    #[inline]
-+    pub fn obj(&self) -> &T::Object {
-+        self.va_to_unmap().obj()
-+    }
-+
-+    /// The [`GpuVmBo`] that is being remapped.
-+    #[inline]
-+    pub fn vm_bo(&self) -> &GpuVmBo<T> {
-+        self.va_to_unmap().vm_bo()
-+    }
-+
-+    /// Update the GPUVM to perform the remapping.
-+    pub fn remap(
-+        self,
-+        va_alloc: [GpuVaAlloc<T>; 2],
-+        prev_data: impl PinInit<T::VaData>,
-+        next_data: impl PinInit<T::VaData>,
-+    ) -> (OpRemapped<'op, T>, OpRemapRet<T>) {
-+        let [va1, va2] = va_alloc;
-+
-+        let mut unused_va = None;
-+        let mut prev_ptr = ptr::null_mut();
-+        let mut next_ptr = ptr::null_mut();
-+        if self.prev().is_some() {
-+            prev_ptr = va1.prepare(prev_data);
-+        } else {
-+            unused_va = Some(va1);
-+        }
-+        if self.next().is_some() {
-+            next_ptr = va2.prepare(next_data);
-+        } else {
-+            unused_va = Some(va2);
-+        }
-+
-+        // SAFETY: the pointers are non-null when required
-+        unsafe { bindings::drm_gpuva_remap(prev_ptr, next_ptr, self.op) };
-+
-+        let gpuva_guard = self.vm_bo().lock_gpuva();
-+        if !prev_ptr.is_null() {
-+            // SAFETY: The prev_ptr is a valid drm_gpuva prepared for insertion. The vm_bo is still
-+            // valid as the not-yet-unlinked gpuva holds a refcount on the vm_bo.
-+            unsafe { bindings::drm_gpuva_link(prev_ptr, self.vm_bo().as_raw()) };
-+        }
-+        if !next_ptr.is_null() {
-+            // SAFETY: The next_ptr is a valid drm_gpuva prepared for insertion. The vm_bo is still
-+            // valid as the not-yet-unlinked gpuva holds a refcount on the vm_bo.
-+            unsafe { bindings::drm_gpuva_link(next_ptr, self.vm_bo().as_raw()) };
-+        }
-+        drop(gpuva_guard);
-+
-+        // SAFETY: The va is no longer in the interval tree so we may unlink it.
-+        unsafe { bindings::drm_gpuva_unlink_defer((*self.op.unmap).va) };
-+
-+        (
-+            OpRemapped {
-+                _invariant: self._invariant,
-+            },
-+            OpRemapRet {
-+                // SAFETY: We just removed this va from the `GpuVm<T>`.
-+                unmapped_va: unsafe { GpuVaRemoved::from_raw((*self.op.unmap).va) },
-+                unused_va,
-+            },
-+        )
-+    }
-+}
-+
-+/// Part of an [`OpRemap`] that represents a new mapping.
-+#[repr(transparent)]
-+pub struct OpRemapMapData(bindings::drm_gpuva_op_map);
-+
-+impl OpRemapMapData {
-+    /// # Safety
-+    /// Must reference a valid `drm_gpuva_op_map` for duration of `'a`.
-+    unsafe fn from_raw<'a>(ptr: NonNull<bindings::drm_gpuva_op_map>) -> &'a Self {
-+        // SAFETY: ok per safety requirements
-+        unsafe { ptr.cast().as_ref() }
-+    }
-+
-+    /// The base address of the new mapping.
-+    pub fn addr(&self) -> u64 {
-+        self.0.va.addr
-+    }
-+
-+    /// The length of the new mapping.
-+    pub fn length(&self) -> u64 {
-+        self.0.va.range
-+    }
-+
-+    /// The offset within the [`drm_gem_object`](DriverGpuVm::Object).
-+    pub fn gem_offset(&self) -> u64 {
-+        self.0.gem.offset
-+    }
-+}
-+
-+/// Struct containing objects removed or not used by [`OpRemap::remap`].
-+pub struct OpRemapRet<T: DriverGpuVm> {
-+    /// The `drm_gpuva` that was removed.
-+    pub unmapped_va: GpuVaRemoved<T>,
-+    /// If the remap did not split the region into two pieces, then the unused `drm_gpuva` is
-+    /// returned here.
-+    pub unused_va: Option<GpuVaAlloc<T>>,
-+}
-+
-+/// Represents a completed [`OpRemap`] operation.
-+pub struct OpRemapped<'op, T> {
-+    _invariant: PhantomData<*mut &'op mut T>,
-+}
-+
-+impl<T: DriverGpuVm> UniqueRefGpuVm<T> {
-+    /// Remove any mappings in the given region.
-+    ///
-+    /// Internally calls [`DriverGpuVm::sm_step_unmap`] for ranges entirely contained within the
-+    /// given range, and [`DriverGpuVm::sm_step_remap`] for ranges that overlap with the range.
-+    #[inline]
-+    pub fn sm_unmap(&mut self, addr: u64, length: u64, context: &mut T::SmContext<'_>) -> Result {
-+        let gpuvm = self.as_raw();
-+        let mut p = SmData {
-+            gpuvm: self,
-+            user_context: context,
-+        };
-+        // SAFETY:
-+        // * raw_request() creates a valid request.
-+        // * The private data is valid to be interpreted as SmData.
-+        to_result(unsafe { bindings::drm_gpuvm_sm_unmap(gpuvm, (&raw mut p).cast(), addr, length) })
-+    }
-+}
-+
-+impl<T: DriverGpuVm> GpuVm<T> {
-+    /// # Safety
-+    /// Must be called from `sm_unmap` with a pointer to `SmData`.
-+    pub(super) unsafe extern "C" fn sm_step_unmap(
-+        op: *mut bindings::drm_gpuva_op,
-+        p: *mut c_void,
-+    ) -> c_int {
-+        // SAFETY: The caller provides a pointer to `SmData`.
-+        let p = unsafe { &mut *p.cast::<SmData<'_, '_, T>>() };
-+        let op = OpUnmap {
-+            // SAFETY: sm_step_unmap is called with an unmap operation.
-+            op: unsafe { &(*op).__bindgen_anon_1.unmap },
-+            _invariant: PhantomData,
-+        };
-+        match p.gpuvm.data().sm_step_unmap(op, p.user_context) {
-+            Ok(OpUnmapped { .. }) => 0,
-+            Err(err) => err.to_errno(),
-+        }
-+    }
-+
-+    /// # Safety
-+    /// Must be called from `sm_unmap` with a pointer to `SmData`.
-+    pub(super) unsafe extern "C" fn sm_step_remap(
-+        op: *mut bindings::drm_gpuva_op,
-+        p: *mut c_void,
-+    ) -> c_int {
-+        // SAFETY: The caller provides a pointer to `SmData`.
-+        let p = unsafe { &mut *p.cast::<SmData<'_, '_, T>>() };
-+        let op = OpRemap {
-+            // SAFETY: sm_step_remap is called with a remap operation.
-+            op: unsafe { &(*op).__bindgen_anon_1.remap },
-+            _invariant: PhantomData,
-+        };
-+        match p.gpuvm.data().sm_step_remap(op, p.user_context) {
-+            Ok(OpRemapped { .. }) => 0,
-+            Err(err) => err.to_errno(),
-+        }
-+    }
-+}
-diff --git a/rust/kernel/drm/gpuvm/va.rs b/rust/kernel/drm/gpuvm/va.rs
-index 227c259f7db9..0b09fe44ab39 100644
---- a/rust/kernel/drm/gpuvm/va.rs
-+++ b/rust/kernel/drm/gpuvm/va.rs
-@@ -1,6 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0 OR MIT
- 
--#![expect(dead_code)]
- use super::*;
- 
- /// Represents that a range of a GEM object is mapped in this [`GpuVm`] instance.
-diff --git a/rust/kernel/drm/gpuvm/vm_bo.rs b/rust/kernel/drm/gpuvm/vm_bo.rs
-index 05fd7998f4bd..c064ac63897b 100644
---- a/rust/kernel/drm/gpuvm/vm_bo.rs
-+++ b/rust/kernel/drm/gpuvm/vm_bo.rs
-@@ -144,6 +144,14 @@ pub fn obj(&self) -> &T::Object {
-     pub fn data(&self) -> &T::VmBoData {
-         &self.data
-     }
-+
-+    pub(super) fn lock_gpuva(&self) -> crate::sync::MutexGuard<'_, ()> {
-+        // SAFETY: The GEM object is valid.
-+        let ptr = unsafe { &raw mut (*self.obj().as_raw()).gpuva.lock };
-+        // SAFETY: The GEM object is valid, so the mutex is properly initialized.
-+        let mutex = unsafe { crate::sync::Mutex::from_raw(ptr) };
-+        mutex.lock()
-+    }
- }
- 
- /// A pre-allocated [`GpuVmBo`] object.
+As long as you don't plan to add more test cases any time soon the 
+boiler plate could be reduced by unot using KUNIT_ARRAY_PARAM but it is 
+up to you. (Same for the other test below.)
 
--- 
-2.53.0.1213.gd9a14994de-goog
+> +
+> +struct parallel_worker {
+> +	struct work_struct work;
+> +	struct sched_concurrent_context *ctx;
+> +	struct drm_mock_sched_entity *entity;
+> +	struct drm_mock_sched_job **jobs;
+> +	unsigned int id;
+> +};
+> +
+> +static void drm_sched_parallel_worker(struct work_struct *work)
+> +{
+> +	const struct drm_sched_parallel_params *params;
+> +	struct sched_concurrent_context *test_ctx;
+> +	struct parallel_worker *worker;
+> +	unsigned int i;
+> +
+> +	worker = container_of(work, struct parallel_worker, work);
+> +	test_ctx = worker->ctx;
+> +	params = test_ctx->test->param_value;
+> +
+> +	wait_for_completion(&test_ctx->wait_go);
+> +
+> +	kunit_info(test_ctx->test, "Parallel worker %u submitting %u jobs started\n",
+> +		   worker->id, params->num_jobs);
+> +
+> +	for (i = 0; i < params->num_jobs; i++)
+> +		drm_mock_sched_job_submit(worker->jobs[i]);
+> +}
+> +
+> +/*
+> + * Spawns workers that submit a sequence of jobs to the mock scheduler.
+> + * Once all jobs are submitted, the timeline is manually advanced.
+> + */
+> +static void drm_sched_parallel_submit_test(struct kunit *test)
+> +{
+> +	struct sched_concurrent_context *ctx = test->priv;
+> +	const struct drm_sched_parallel_params *params = test->param_value;
+> +	struct parallel_worker *workers, *worker;
+> +	struct drm_mock_sched_job *job;
+> +	unsigned int i, j, completed_jobs, total_jobs;
+> +	bool done;
+> +	int ret;
+> +
+> +	KUNIT_ASSERT_GT(test, params->num_workers, 0);
+> +	KUNIT_ASSERT_GT(test, params->num_jobs, 0);
+> +
+> +	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
+> +				GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, workers);
+> +
+> +	/*
+> +	 * Init workers only after all jobs and entities have been successfully
+> +	 * allocated. In this way, the cleanup logic for when an assertion fail
+> +	 * can be simplified.
+> +	 */
+> +	for (i = 0; i < params->num_workers; i++) {
+> +		worker = &workers[i];
+> +		worker->id = i;
+> +		worker->ctx = ctx;
+> +		worker->entity = drm_mock_sched_entity_new(test,
+> +							   DRM_SCHED_PRIORITY_NORMAL,
+> +							   ctx->sched);
+> +
+> +		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
+> +						worker->entity);
+> +		KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +		worker->jobs = kunit_kcalloc(test, params->num_jobs,
+> +					     sizeof(*worker->jobs), GFP_KERNEL);
+> +		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
+> +
+> +		for (j = 0; j < params->num_jobs; j++) {
+> +			job = drm_mock_sched_job_new(test, worker->entity);
+> +			worker->jobs[j] = job;
+> +		}
+> +	}
+> +
+> +	for (i = 0; i < params->num_workers; i++) {
+> +		worker = &workers[i];
+> +		INIT_WORK(&worker->work, drm_sched_parallel_worker);
+> +		queue_work(ctx->sub_wq, &worker->work);
+> +	}
+> +
+> +	complete_all(&ctx->wait_go);
+> +	flush_workqueue(ctx->sub_wq);
+> +
+> +	for (i = 0; i < params->num_workers; i++) {
+> +		worker = &workers[i];
+> +		for (j = 0; j < params->num_jobs; j++) {
+> +			job = worker->jobs[j];
+> +			done = drm_mock_sched_job_wait_scheduled(job, HZ);
+> +			KUNIT_EXPECT_TRUE(test, done);
+> +		}
+> +	}
+> +
+> +	total_jobs = params->num_workers * params->num_jobs;
+> +	completed_jobs = drm_mock_sched_advance(ctx->sched, total_jobs);
+> +	KUNIT_EXPECT_EQ(test, completed_jobs, total_jobs);
+> +
+> +	for (i = 0; i < params->num_workers; i++) {
+> +		worker = &workers[i];
+> +		for (j = 0; j < params->num_jobs; j++) {
+> +			job = worker->jobs[j];
+> +			done = drm_mock_sched_job_wait_finished(job, HZ);
+> +			KUNIT_EXPECT_TRUE(test, done);
+> +		}
+> +	}
+> +}
+> +
+> +struct drm_sched_interleaved_params {
+> +	const char *description;
+> +	unsigned int test_duration_ms;
+> +	unsigned int job_base_duration_us;
+> +	unsigned int num_workers;
+> +	unsigned int num_in_flight_jobs;
+> +};
+> +
+> +static const struct drm_sched_interleaved_params drm_sched_interleaved_cases[] = {
+> +	{
+> +		.description = "Interleaved submission of multiple jobs per worker",
+> +		.test_duration_ms = 1000,
+> +		.job_base_duration_us = 100,
+> +		.num_workers = 16,
+> +		.num_in_flight_jobs = 8,
+> +	},
+> +};
+> +
+> +static void
+> +drm_sched_interleaved_desc(const struct drm_sched_interleaved_params *params, char *desc)
+> +{
+> +	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
+> +}
+> +
+> +KUNIT_ARRAY_PARAM(drm_sched_interleaved, drm_sched_interleaved_cases,
+> +		  drm_sched_interleaved_desc);
+> +
+> +struct interleaved_worker {
+> +	struct work_struct work;
+> +	struct sched_concurrent_context *ctx;
+> +	struct drm_mock_sched_entity *entity;
+> +	struct drm_mock_sched_job **jobs;
+> +	unsigned int id;
+> +	unsigned int job_count;
+> +	unsigned int job_duration_us;
+> +};
+> +
+> +static void drm_sched_interleaved_worker(struct work_struct *work)
+> +{
+> +	struct sched_concurrent_context *test_ctx;
+> +	const struct drm_sched_interleaved_params *params;
+> +	struct interleaved_worker *worker;
+> +	unsigned int i, j, max_in_flight_job;
+> +	unsigned long timeout;
+> +	bool done;
+> +
+> +	worker = container_of(work, struct interleaved_worker, work);
+> +	test_ctx = worker->ctx;
+> +	params = test_ctx->test->param_value;
+> +
+> +	wait_for_completion(&test_ctx->wait_go);
+> +
+> +	kunit_info(test_ctx->test, "Worker %u submitting %u jobs of %u us started\n",
+> +		   worker->id, worker->job_count, worker->job_duration_us);
+> +
+> +	timeout = msecs_to_jiffies(params->test_duration_ms * 2);
+> +
+> +	/* Fill the submission window */
+> +	max_in_flight_job = min(worker->job_count, params->num_in_flight_jobs);
+> +	for (i = 0; i < max_in_flight_job; i++)
+> +		drm_mock_sched_job_submit(worker->jobs[i]);
+> +
+> +	/* Keep the window full by submitting a new job at once until done */
+> +	for (i = 0; i < worker->job_count; i++) {
+> +		done = drm_mock_sched_job_wait_finished(worker->jobs[i], timeout);
+> +		if (!done)
+> +			kunit_info(test_ctx->test, "Job %u of worker %u timed out\n",
+> +				   i, worker->id);
+> +
+> +		j = i + max_in_flight_job;
+> +		if (j < worker->job_count)
+> +			drm_mock_sched_job_submit(worker->jobs[j]);
+> +	}
+
+The loop maybe isn't the most straight-forward but eventually looked to 
+me like it will do what it wants.
+
+num_in_flight_jobs as a test parameter is perhaps arbitrary? I am not 
+sure what it aims to achieve versus if workers would just be submitting 
+one by one, or perhaps two by two, in both cases loops would be simpler. 
+Or even if num_in_flight_jobs would perhaps be automatically derived 
+from the worker->id? If the goal is to simulate queue depth it sounds 
+good to vary it.
+
+But these are minor points and up to you. The test now looks passably 
+tidy as it is.
+
+Ah wait, please also check if this one needs to be marked as "slow" 
+kunit test. AFAIR all that are expected to take more than 1s need that.
+
+Regards,
+
+Tvrtko
+
+> +}
+> +
+> +/*
+> + * Spawns workers that submit a sequence of jobs to the mock scheduler. Job
+> + * durations are chosen as multiples of a base duration value specified as
+> + * a test parameter. Since the scheduler serializes jobs from all workers,
+> + * the total test duration budget is divided into equal shares among workers.
+> + * These shares are then used to compute the number of jobs that each worker
+> + * can submit
+> + */
+> +static void drm_sched_interleaved_submit_test(struct kunit *test)
+> +{
+> +	const struct drm_sched_interleaved_params *params = test->param_value;
+> +	struct sched_concurrent_context *ctx = test->priv;
+> +	struct interleaved_worker *workers, *worker;
+> +	struct drm_mock_sched_job *job;
+> +	unsigned int worker_share_us;
+> +	unsigned int i, j;
+> +	bool done;
+> +	int ret;
+> +
+> +	KUNIT_ASSERT_GT(test, params->num_workers, 0);
+> +	KUNIT_ASSERT_GT(test, params->job_base_duration_us, 0);
+> +
+> +	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
+> +				GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, workers);
+> +
+> +	/* Divide the available test time into equal shares among the workers */
+> +	worker_share_us = (params->test_duration_ms * USEC_PER_MSEC) /
+> +			  params->num_workers;
+> +
+> +	/*
+> +	 * Init workers only after all jobs and entities have been successfully
+> +	 * allocated. In this way, the cleanup logic for when an assertion fails
+> +	 * can be simplified.
+> +	 */
+> +	for (i = 0; i < params->num_workers; i++) {
+> +		worker = &workers[i];
+> +		worker->id = i;
+> +		worker->ctx = ctx;
+> +
+> +		worker->job_duration_us = params->job_base_duration_us * (i + 1);
+> +		worker->job_count = worker_share_us / worker->job_duration_us;
+> +		worker->job_count = max(1U, worker->job_count);
+> +
+> +		worker->entity = drm_mock_sched_entity_new(test,
+> +							   DRM_SCHED_PRIORITY_NORMAL,
+> +							   ctx->sched);
+> +
+> +		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
+> +						worker->entity);
+> +		KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +		worker->jobs = kunit_kcalloc(test, worker->job_count,
+> +					     sizeof(*worker->jobs), GFP_KERNEL);
+> +		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
+> +
+> +		for (j = 0; j < worker->job_count; j++) {
+> +			job = drm_mock_sched_job_new(test, worker->entity);
+> +			drm_mock_sched_job_set_duration_us(job, worker->job_duration_us);
+> +
+> +			worker->jobs[j] = job;
+> +		}
+> +	}
+> +
+> +	for (i = 0; i < params->num_workers; i++) {
+> +		worker = &workers[i];
+> +		INIT_WORK(&worker->work, drm_sched_interleaved_worker);
+> +		queue_work(ctx->sub_wq, &worker->work);
+> +	}
+> +
+> +	complete_all(&ctx->wait_go);
+> +	flush_workqueue(ctx->sub_wq);
+> +
+> +	for (i = 0; i < params->num_workers; i++) {
+> +		worker = &workers[i];
+> +		for (j = 0; j < worker->job_count; j++) {
+> +			job = worker->jobs[j];
+> +			done = drm_mock_sched_job_is_finished(job);
+> +			KUNIT_EXPECT_TRUE(test, done);
+> +		}
+> +	}
+> +}
+> +
+> +static struct kunit_case drm_sched_concurrent_tests[] = {
+> +	KUNIT_CASE_PARAM(drm_sched_parallel_submit_test, drm_sched_parallel_gen_params),
+> +	KUNIT_CASE_PARAM(drm_sched_interleaved_submit_test, drm_sched_interleaved_gen_params),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite drm_sched_concurrent = {
+> +	.name = "drm_sched_concurrent_tests",
+> +	.init = drm_sched_concurrent_init,
+> +	.test_cases = drm_sched_concurrent_tests,
+> +};
+> +
+>   static struct kunit_case drm_sched_cancel_tests[] = {
+>   	KUNIT_CASE(drm_sched_basic_cancel),
+>   	{}
+> @@ -556,6 +911,7 @@ static struct kunit_suite drm_sched_credits = {
+>   };
+>   
+>   kunit_test_suites(&drm_sched_basic,
+> +		  &drm_sched_concurrent,
+>   		  &drm_sched_timeout,
+>   		  &drm_sched_cancel,
+>   		  &drm_sched_priority,
 
