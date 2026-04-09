@@ -4,55 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABAA10FC456
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 01:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 609DA10FC466
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 02:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0F5610E054;
-	Thu,  9 Apr 2026 01:55:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8653C10E0EB;
+	Thu,  9 Apr 2026 02:49:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k1YWy19Q";
+	dkim=pass (2048-bit key; unprotected) header.d=nabladev.com header.i=@nabladev.com header.b="fbd4W5wC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F58C10E054;
- Thu,  9 Apr 2026 01:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775699723; x=1807235723;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=vxbJAYaPMU7ih0grmsulTu1jSyuYGS8R/7Kh74RBTQE=;
- b=k1YWy19QIyCdBA+YMhshox7WiUPhzdiCwg5EyPJYKY89kflJowIA21vN
- WF1Cpe8gPyBu/SadCAsPoNRdayzR/AIiz/PKedG67FJ4umbBGD4H0vBdJ
- Czku9OYyqmd8KL8OcxTjF2k+RFh32+hUqsUeThJFaWzCLl91voK766qpT
- +xRrWWo94KBe78a/YjIicZrnkSk0A/SDtmcwmu1Jyr14BdaINdABf6fIh
- YrBcAp8Vn6mS8Ve912fL6xkEOh3mOK01gp/4E7+GeBRjXKUo8ssQM2O+/
- dsaX9tsc4ock915Cu+vvU/tHMJqYbo42a8MtFn1plnBxlPruS4Bs0HGiI A==;
-X-CSE-ConnectionGUID: jrbYGIiER6KUe3hBHX41iw==
-X-CSE-MsgGUID: 6zAgEXC2RxmPInRWomVMWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94085797"
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="94085797"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 18:55:22 -0700
-X-CSE-ConnectionGUID: vh7VlRmlRuig1/mBF9Ai/g==
-X-CSE-MsgGUID: aPaNwco2TZuIXBcsj1C4FQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="233597320"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 18:55:22 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: francois.dugast@intel.com,
-	himal.prasad.ghimiray@intel.com
-Subject: [PATCH] drm/gpusvm,
- pagemap: Do not assume DRM pagemap owns device pages
-Date: Wed,  8 Apr 2026 18:55:12 -0700
-Message-Id: <20260409015512.3670302-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23FC610E0EB
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 02:49:40 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 9084D11276A; Thu,  9 Apr 2026 04:49:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+ s=dkim; t=1775702977; h=from:subject:date:message-id:to:cc:mime-version:
+ content-transfer-encoding; bh=Y/Vs+lajGNLuHVTZi9YuxQObAJW7yBV0C3O93uFX/q8=;
+ b=fbd4W5wCyZNMs4RQdmQV/nWZ2NrK4FZ9nr5hlDhgtMMdsQCYm4IE3dhIv+WqKy056IZ+3m
+ XRfHE9ZwPjNhSG9Kd9BNJ5kkzrqMulsMJ5Sb+pSFKp4xbG6YHzeRnwJgzY1/DuqNUTLVXD
+ 0JmR4dqn3ZyP+R0Cg4nlY+SC4t7k5CUVa8LVvKNWVaKslG9Vn05rwD8QhH87FnVXv1H2s2
+ i2Aa5GoPBPOqJPHPVSbIkDe1nWA0+jQwLox3uKzdpFRMoBNqcydS3SSrScQ4dGuV7k1vrt
+ IFCNbBEYNo/orIfYT0YIpIYSVmzkcU+MboZdVnhpjVM9AsCwH8KOFs/nqg0VoQ==
+From: Marek Vasut <marex@nabladev.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Marek Vasut <marex@nabladev.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] drm/bridge: stm_lvds: Do not fail atomic_check on disabled
+ connector
+Date: Thu,  9 Apr 2026 04:48:41 +0200
+Message-ID: <20260409024928.344010-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,85 +62,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update drm_pagemap_page_zone_device_data() to derive the pgmap ops from
-the page and compare them against the DRM pagemap ops. If the ops do not
-match, return NULL.
+If the connector is disabled, the new connector state has .crtc field
+set to NULL and there is nothing more to validate after that point.
+The .crtc field being NULL is not an error. Test for .crtc being NULL,
+and if it is NULL, exit early with return 0.
 
-Also harden two risky call sites by checking for NULL after
-hmm_range_fault() or migrate_vma_setup() when migrating to device
-memory, as it is possible to encounter device pages that are not owned
-by DRM pagemap.
+This fixes a failure in suspend/resume path, where the connector is
+already disabled, but .atomic_check is called, fails, returns -EINVAL
+and blocks the suspend entry.
 
-Suggested-by: sashiko.dev
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Fixes: aca1cbc1c986 ("drm/stm: lvds: add new STM32 LVDS Display Interface Transmitter driver")
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- drivers/gpu/drm/drm_gpusvm.c  |  5 +++++
- drivers/gpu/drm/drm_pagemap.c | 14 ++++++++++----
- include/drm/drm_pagemap.h     |  5 ++++-
- 3 files changed, 19 insertions(+), 5 deletions(-)
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Philippe Cornu <philippe.cornu@foss.st.com>
+Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Yannick Fertre <yannick.fertre@foss.st.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ drivers/gpu/drm/stm/lvds.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-index 365a9c0b522a..b3cccd047a21 100644
---- a/drivers/gpu/drm/drm_gpusvm.c
-+++ b/drivers/gpu/drm/drm_gpusvm.c
-@@ -1506,6 +1506,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
- 			struct drm_pagemap_zdd *__zdd =
- 				drm_pagemap_page_zone_device_data(page);
+diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c
+index fe38c0984b2b5..25e2ba98f36ae 100644
+--- a/drivers/gpu/drm/stm/lvds.c
++++ b/drivers/gpu/drm/stm/lvds.c
+@@ -897,14 +897,14 @@ static int lvds_connector_atomic_check(struct drm_connector *connector,
+ 	if (!conn_state)
+ 		return -EINVAL;
  
-+			if (!__zdd) {
-+				err = -EINVAL;
-+				goto err_unmap;
-+			}
++	if (!conn_state->crtc)
++		return 0;
 +
- 			if (!ctx->allow_mixed &&
- 			    zdd != __zdd && i > 0) {
- 				err = -EOPNOTSUPP;
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index d82ea7ccb8da..95c951c5b569 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -753,10 +753,16 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 				own_pages++;
- 				goto next;
- 			}
--			cur.dpagemap = src_zdd->dpagemap;
--			cur.ops = src_zdd->devmem_allocation->ops;
--			cur.device = cur.dpagemap->drm->dev;
--			pages[i] = src_page;
-+			if (src_zdd) {
-+				cur.dpagemap = src_zdd->dpagemap;
-+				cur.ops = src_zdd->devmem_allocation->ops;
-+				cur.device = cur.dpagemap->drm->dev;
-+				pages[i] = src_page;
-+			} else {
-+				npages = i;
-+				err = -EINVAL;
-+				goto err_finalize;
-+			}
- 		}
- 		if (!pages[i]) {
- 			cur.dpagemap = NULL;
-diff --git a/include/drm/drm_pagemap.h b/include/drm/drm_pagemap.h
-index 95eb4b66b057..9b7c50932db5 100644
---- a/include/drm/drm_pagemap.h
-+++ b/include/drm/drm_pagemap.h
-@@ -367,12 +367,15 @@ int drm_pagemap_reinit(struct drm_pagemap *dpagemap);
-  * drm_pagemap_page_zone_device_data() - Page to zone_device_data
-  * @page: Pointer to the page
-  *
-- * Return: Page's zone_device_data
-+ * Return: Page's zone_device_data if owned by DRM pagemap, NULL otherwise
-  */
- static inline struct drm_pagemap_zdd *drm_pagemap_page_zone_device_data(struct page *page)
- {
- 	struct folio *folio = page_folio(page);
+ 	if (list_empty(&connector->modes)) {
+ 		drm_dbg(connector->dev, "connector: empty modes list\n");
+ 		return -EINVAL;
+ 	}
  
-+	if (WARN_ON_ONCE(page_pgmap(page)->ops != drm_pagemap_pagemap_ops_get()))
-+		return NULL;
-+
- 	return folio_zone_device_data(folio);
- }
+-	if (!conn_state->crtc)
+-		return -EINVAL;
+-
+ 	panel_mode = list_first_entry(&connector->modes,
+ 				      struct drm_display_mode, head);
  
 -- 
-2.34.1
+2.53.0
 
