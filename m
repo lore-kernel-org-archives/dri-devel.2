@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7757FE98FDD
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:57:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3E05E98FD2
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:57:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2C1110E6F0;
-	Thu,  9 Apr 2026 09:57:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23E5810E73E;
+	Thu,  9 Apr 2026 09:57:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="efS0wf+b";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="H4rAFGB7";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D383F10E6F0
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:57:14 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5B7F10E747
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:57:23 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 97A14C5B1A0;
- Thu,  9 Apr 2026 09:57:47 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id C32A44E4294C;
+ Thu,  9 Apr 2026 09:57:22 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id EF6E55FDEB;
- Thu,  9 Apr 2026 09:57:12 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9983B5FDEB;
+ Thu,  9 Apr 2026 09:57:22 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B41F2104500DC; 
- Thu,  9 Apr 2026 11:57:09 +0200 (CEST)
+ with ESMTPSA id 823C61045024B; 
+ Thu,  9 Apr 2026 11:57:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775728632; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775728641; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=eEchKB+r7i4/YwY7RKiJKjKP3eW5V6E5trl50E3B2ys=;
- b=efS0wf+b5LyoTXx6AgeQVMuWcNoHXNjqE40jxSkExUYTGCfkzzZFaO1Gx7bxZqUIMsWjl7
- oa1op6wx5+cI881XhwpS4wwWSYamU0GWdstL5ujSrsq25HVcMyMCVMSfhbecfs32vgSGsS
- 2ZAqBhfG4qFRGd8CKTSEE9KaUcydWLH2z+Y4k1ePW5V95cOeOIzb+loASLu8BvAG8RYDCe
- ZXOY6HynVnN/yG5Z0vITzrjtK5TlsGB6wPmKrY0Q80S0IyL7qpa5YpVCknj+EdGiEf9Bda
- /RK35elxDWRwCDfZk+UnQiV0EpcJNNlXiQrXJJVkHpRFULN8rI2cbaM9jpgnmw==
-Message-ID: <9e517e8d-f944-4934-9f97-07101ec98711@bootlin.com>
-Date: Thu, 9 Apr 2026 11:57:09 +0200
+ bh=H4Duh/8RS/OPo8SoITHDOLmCgFlW4owZSO6Ia9g4olk=;
+ b=H4rAFGB7hI3Xu7gkabvq+HMyx3YP0XZYenDDnoUhQiHt3JUCzyU/qyvG0hpB0M2/SKrUYv
+ pIV78kIXCco19Ua1TuNed6fxMKGH4Y0NQ+R076b/emN1aTIlBKgjdTTQ6wvr48g4u3F0Sz
+ SL7du88TLqa/2joZEn7Dmya0H73pi7BNYDAslAf/b67WTwTcHUiWuMIxKc+0lqe25xkmjB
+ SkSWmf2J4FpS/PZhx29xlPTQmtrDwcsj2wmIlnuJ8jCVH10qplOGziFV0w83fZ8+D7E6Ro
+ jvnmBZfpczzB/Ziu2qaYuH+p0m/FAe7EhTvXiotPDt6p338ighXaK7suxxD81g==
+Message-ID: <4fdc66a6-9429-4c80-8014-a09c492d6cf2@bootlin.com>
+Date: Thu, 9 Apr 2026 11:57:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 6/7] drm/bridge: prevent encoder chain changes while
- iterating with list_for_each_entry_reverse()
+Subject: Re: [PATCH v5 7/7] drm/bridge: prevent encoder chain changes in
+ pre_enable/post_disable
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -52,10 +52,10 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Ian Ray <ian.ray@gehealthcare.com>
 References: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-0-8bf786c5c7e6@bootlin.com>
- <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-6-8bf786c5c7e6@bootlin.com>
+ <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-7-8bf786c5c7e6@bootlin.com>
 Content-Language: en-US
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-In-Reply-To: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-6-8bf786c5c7e6@bootlin.com>
+In-Reply-To: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-7-8bf786c5c7e6@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
@@ -77,19 +77,23 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
 On 3/24/26 9:58 AM, Luca Ceresoli wrote:
-> These loops in drm_bridge.c iterate over the encoder chain using
-> list_for_each_entry_reverse(), which does not prevent changes to the bridge
-> chain while iterating over it.
+> Take the encoder chain mutex while iterating over the encoder chain in
+> drm_atomic_bridge_chain_pre_enable() and
+> drm_atomic_bridge_chain_post_disable() to ensure the lists won't change
+> while being inspected.
 > 
-> Take the encoder chain mutex while iterating to avoid chain changes while
-> iterating.
+> These functions have nested list_for_each_*() loops, which makes them
+> complicated. list_for_each_entry_from() loops could be replaced by
+> drm_for_each_bridge_in_chain_from(), but it would not work in a nested way
+> in its current implementation. Besides, there is no "_reverse" variant of
+> drm_for_each_bridge_in_chain_from().
 > 
-> All the "simple" loops are converted. drm_atomic_bridge_chain_pre_enable()
-> and drm_atomic_bridge_chain_post_disable() are handled by a separate
-> commit.
+> Keep code simple and readable by explicitly locking around the outer
+> loop. Thankfully there are no break or return points inside the loops, so
+> the change is trivial and readable.
 > 
+> Reviewed-by: Maxime Ripard <mripard@kernel.org>
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> 
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
@@ -97,77 +101,49 @@ Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 > 
 > Changes in v3:
 > - Lock encoder->bridge_chain_mutex directly, no wrappers
+> - Improved commit message
 > 
-> Changes in v2: none
+> Changes in v2:
+> - Improved commit message
 > ---
->   drivers/gpu/drm/drm_bridge.c | 40 ++++++++++++++++++++++------------------
->   1 file changed, 22 insertions(+), 18 deletions(-)
+>   drivers/gpu/drm/drm_bridge.c | 4 ++++
+>   1 file changed, 4 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 37feb8143de4..c76f3451af39 100644
+> index c76f3451af39..29231730e1f8 100644
 > --- a/drivers/gpu/drm/drm_bridge.c
 > +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -808,6 +808,7 @@ void drm_atomic_bridge_chain_disable(struct drm_bridge *bridge,
->   		return;
+> @@ -867,6 +867,7 @@ void drm_atomic_bridge_chain_post_disable(struct drm_bridge *bridge,
 >   
 >   	encoder = bridge->encoder;
+>   
+> +	mutex_lock(&encoder->bridge_chain_mutex);
+>   	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
+>   		limit = NULL;
+>   
+> @@ -915,6 +916,7 @@ void drm_atomic_bridge_chain_post_disable(struct drm_bridge *bridge,
+>   			/* Jump all bridges that we have already post_disabled */
+>   			bridge = limit;
+>   	}
+> +	mutex_unlock(&encoder->bridge_chain_mutex);
+>   }
+>   EXPORT_SYMBOL(drm_atomic_bridge_chain_post_disable);
+>   
+> @@ -961,6 +963,7 @@ void drm_atomic_bridge_chain_pre_enable(struct drm_bridge *bridge,
+>   
+>   	encoder = bridge->encoder;
+>   
 > +	mutex_lock(&encoder->bridge_chain_mutex);
 >   	list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
->   		if (iter->funcs->atomic_disable) {
->   			iter->funcs->atomic_disable(iter, state);
-> @@ -818,6 +819,7 @@ void drm_atomic_bridge_chain_disable(struct drm_bridge *bridge,
+>   		if (iter->pre_enable_prev_first) {
+>   			next = iter;
+> @@ -1003,6 +1006,7 @@ void drm_atomic_bridge_chain_pre_enable(struct drm_bridge *bridge,
 >   		if (iter == bridge)
 >   			break;
 >   	}
 > +	mutex_unlock(&encoder->bridge_chain_mutex);
 >   }
->   EXPORT_SYMBOL(drm_atomic_bridge_chain_disable);
+>   EXPORT_SYMBOL(drm_atomic_bridge_chain_pre_enable);
 >   
-> @@ -1322,25 +1324,27 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
->   		return ret;
->   
->   	encoder = bridge->encoder;
-> -	list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
-> -		int ret;
-> -
-> -		/*
-> -		 * Bus flags are propagated by default. If a bridge needs to
-> -		 * tweak the input bus flags for any reason, it should happen
-> -		 * in its &drm_bridge_funcs.atomic_check() implementation such
-> -		 * that preceding bridges in the chain can propagate the new
-> -		 * bus flags.
-> -		 */
-> -		drm_atomic_bridge_propagate_bus_flags(iter, conn,
-> -						      crtc_state->state);
-> -
-> -		ret = drm_atomic_bridge_check(iter, crtc_state, conn_state);
-> -		if (ret)
-> -			return ret;
-> +	scoped_guard(mutex, &encoder->bridge_chain_mutex) {
-> +		list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
-> +			int ret;
-> +
-> +			/*
-> +			 * Bus flags are propagated by default. If a bridge needs to
-> +			 * tweak the input bus flags for any reason, it should happen
-> +			 * in its &drm_bridge_funcs.atomic_check() implementation such
-> +			 * that preceding bridges in the chain can propagate the new
-> +			 * bus flags.
-> +			 */
-> +			drm_atomic_bridge_propagate_bus_flags(iter, conn,
-> +							      crtc_state->state);
-> +
-> +			ret = drm_atomic_bridge_check(iter, crtc_state, conn_state);
-> +			if (ret)
-> +				return ret;
->   
-> -		if (iter == bridge)
-> -			break;
-> +			if (iter == bridge)
-> +				break;
-> +		}
->   	}
->   
->   	return 0;
 > 
 
