@@ -4,83 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E01D5E9DE6F
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D22DE9DE76
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFC0610E778;
-	Thu,  9 Apr 2026 09:11:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04CB410E733;
+	Thu,  9 Apr 2026 09:15:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="YkWeiO21";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="F1uAdxIT";
 	dkim-atps=neutral
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4D810E779
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:11:44 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-43b8e8e7432so550751f8f.1
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 02:11:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1775725903; x=1776330703; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=+5wz/BvjEDMd/4gYUrDrwtdKo1HH0lx8NLd29v9vbXc=;
- b=YkWeiO21oFLzHXFrg+mZMErPee5T/rVPJljtVLpAsfiQi3bNSL9uJkKNKHHVkF6YEY
- D8tsjqEsWahon3aG0pdPT/7FouARpzt2i2hEkGyThWYvPX4FaxOPbYVKMqhvu7X19NU6
- R34A1GWAXMi9i7wmSW14dezrYjsnrSHN1+QqSEcOSRRaTOaJ7e7IQMQ4e4mf7IAgTgtD
- O8aI9syJbDhrZDKSkVGgXdb0jHwhBkCK4xeYbARi0CAIAgULJQyul8Xr/au1r088flAZ
- cNW+btCLjm6Z/E9fHVWTTez0b1xFU+oeaory7ySFjKA4Yl/DbPmdAhfDwmDASWveK43X
- AMEA==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C71E10E733
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:15:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1775726121;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=bKk/qgaXfCtywmbbEPA5j7wB85nwcXgi7ZycM7rdkR4=;
+ b=F1uAdxITQW6jX3K70wlROsLhcuh2xR0gkKiFHjoM3wgAg5W+J2irxv3K9XgGZCmeOJtbp1
+ A2jwzTL5mqbzBvThRvhD/00OkPqrC9Eglluwhve5WxsMLCZiDztTEPi7/WDw3HDA3ky63M
+ eMHvj/X464SGMFS7Mk5mWcVlx45SMGU=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-599-i4yw81ydMzeGagNM2Mq7IQ-1; Thu, 09 Apr 2026 05:15:18 -0400
+X-MC-Unique: i4yw81ydMzeGagNM2Mq7IQ-1
+X-Mimecast-MFC-AGG-ID: i4yw81ydMzeGagNM2Mq7IQ_1775726117
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-488c2aa6becso5514655e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 02:15:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775725903; x=1776330703;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20251104; t=1775726117; x=1776330917;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=+5wz/BvjEDMd/4gYUrDrwtdKo1HH0lx8NLd29v9vbXc=;
- b=dtYXUFc2Zs5r7T/0fFYXV/QsG1KQd4U9bkW5qDSI/A3xTSyED7HoHw4wU9Xhohqs3y
- MAE+v6JxmksGTGMOCCTmyeUDGTyAcn27/RBShsRsxJ1iF6vR95EG6xI5OYz/UzYRAg3U
- hroLaG6PwUTVJOI+KygPYcQz+9DqPuYqhkm/hkYcgsCLwav07WRlAxGg/Q2Vio1ATYlU
- AtLlE4NnXYmLaCQgeWzurYsau9PIyTQDrifYK/Cj1sn0yYEPtSE0B//x6nkvPA7TKDZ+
- 2QWXDHK4+WUKomrqDXkxxwUyFhbGtr61MmOyf81g9RO4lJ7iFiMyTNRxS6dnaJ2mnSmr
- ZY1Q==
-X-Gm-Message-State: AOJu0Ywf7BtrQZLq1lO67PexY81YJ8nzlGpWxjk1tfcXFOCabrCyTnlr
- aHlY4IyWOs3YUPparv4dYdHx+79uu52yrW2Cmvac2ku7NS+jpSf7QQCGvkE3B1zVKSUyXt57VpW
- YEcKcaLI=
-X-Gm-Gg: AeBDiesW1Dp3VK5uSLMtrQ0IOn/HB5tLgoc25pWtniK2+nG8+2bLfcaK9UV/Uemy2Py
- 83nZ4vvTlyjcC/rSfPgcXYlQ26blm9kvmVITkrNcIJ6y7sdYEb/27HND7BhXKirTMHAgPUBB2Eb
- o6N6GhM/piH0dRTuoTZvDqvII3TAr+8kmW57cB1zttmhD06Vc5TSQqFkR3aGdamf3/KCWjilh2a
- JB3PX3GiYwdJN8xLsG/8xplFzic053t3tKtz4clYHZ46oW8e41T12R00qyCJIPJLTRR+6vWwIqI
- Hwuauz0siseSmbtImnOQTM8tlaZ3OaIsgcavyjZgFDpJi0kTc10sleHiwml/DTtaqwnZoDzun/O
- Orzo3bDEFz+NBiGX37Hl9QV8fZ7uJ4sxH5IRrjXePz95GDIcR62yGnl3MB2e2bRO00jWxpRROyY
- ygmDejxzokO5+sznNGPSwBveiAP0fv/GnJs98AQKNraTbO
-X-Received: by 2002:a5d:5d08:0:b0:439:b8b2:fabc with SMTP id
- ffacd0b85a97d-43d292a9581mr35950478f8f.21.1775725902114; 
- Thu, 09 Apr 2026 02:11:42 -0700 (PDT)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4e6224sm66188510f8f.25.2026.04.09.02.11.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 02:11:41 -0700 (PDT)
-Message-ID: <b8d02a4c-e20d-4814-8ba3-eaba6b701b6f@ursulin.net>
-Date: Thu, 9 Apr 2026 10:11:41 +0100
+ bh=bKk/qgaXfCtywmbbEPA5j7wB85nwcXgi7ZycM7rdkR4=;
+ b=U+CIeUDgU5S9Qz18DnyGj0b0SxS2FZ4bLpfrw39G3Bs8VSnyLwNnFWL69RGBKqlG5z
+ Sgk3josw1Q4j+Inf388NbPlNT1a2hvMu/KsSiPUYaB6W+JTyHHrqZb7POkIqOrvN1XAa
+ P9C3Z3DR/kG368TMAsco8zt8sYhxVwWBGantK8nXDXrfNKK0xgzBqo3oQezyAviESiCT
+ enRxi9nv6V4ZUtNXM5U5SC6d8enO/yK31+yLZXhwLlWmkZpUYiuoLiPvewHccEVSrtAh
+ NzMlWoszUwP0+GR+ksS8VCF1ARkYQlEmWXjTLqOJZyMKQHdLNjpxheR0YTlTs8t57/s/
+ CT3Q==
+X-Gm-Message-State: AOJu0YxahbVwE0s0yAmppmRWlYnUWVDgTCZL5F+8kELmaF3o91ybo/vY
+ 8XVCUdmYW9qHREeLtfFbmh1O7JjV56xw4TRKzHyJdt3PqdbAAD2HZVpBGwtpECi8ZirNUZv2O5H
+ j0wMeVhRdAroLpeS5GPDeO+PsLuqArDhrdBk8h88RW91+mHhur5Suxu8cSEC7q2SmwiCWrQ==
+X-Gm-Gg: AeBDiet0Mny4mdJg2OfhLbS8aNBAQDNJqF8C9JnFgjHQSGEWUaxMH0YSN9MLdLxtbnZ
+ hFF94AQu2uq/OMpEN5TohnwVTQxRAFCrDEoEamcbNgBJ9EqZ/j8i0nOyjBUbmBWQjfaggQHmZ6z
+ Q3CXJMCZSNGz9aoE98oO+mEm3fCp5CENNhlsbtk+mBGGwH/nNAYPh45RPeLHrNNKXd3fSHCR7jW
+ Iq3fgFt/OuZkcqv0/6hGI7CSciKWMKchSpYYoNJa41UjTIak9yBXxW8poktNueccuqocPcv6W72
+ auAhyfM3sDfZmRAXLlo93uhKMpjEDKHLwzT8GMEUrzdnzgV3hJHNeqPsKPQj0dhjCkfcn2BX2FP
+ sACVzkbfIpkcb3cBdxZeakAb/6EWk4l/XUY5UN//PaKP1FxbAYg==
+X-Received: by 2002:a05:600c:c0dc:b0:486:fdba:f5db with SMTP id
+ 5b1f17b1804b1-488cce7760dmr29725595e9.0.1775726117014; 
+ Thu, 09 Apr 2026 02:15:17 -0700 (PDT)
+X-Received: by 2002:a05:600c:c0dc:b0:486:fdba:f5db with SMTP id
+ 5b1f17b1804b1-488cce7760dmr29725145e9.0.1775726116563; 
+ Thu, 09 Apr 2026 02:15:16 -0700 (PDT)
+Received: from localhost ([37.221.85.123]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d5e969bbfsm2718936f8f.1.2026.04.09.02.15.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Apr 2026 02:15:15 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Cong Yang
+ <yangcong5@huaqin.corp-partner.google.com>, Ondrej Jirman <megi@xff.cz>,
+ Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>, Mark
+ Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz
+ Golaszewski <brgl@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 06/19] drm/of: add helper to count data-lanes on a
+ remote endpoint
+In-Reply-To: <20260401-waveshare-dsi-touch-v1-6-5e9119b5a014@oss.qualcomm.com>
+References: <20260401-waveshare-dsi-touch-v1-0-5e9119b5a014@oss.qualcomm.com>
+ <20260401-waveshare-dsi-touch-v1-6-5e9119b5a014@oss.qualcomm.com>
+Date: Thu, 09 Apr 2026 11:15:09 +0200
+Message-ID: <878qawjy02.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/i915/gem: Drop check for changed VM in EXECBUF
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Intel graphics driver community testing & development
- <intel-gfx@lists.freedesktop.org>
-Cc: Direct Rendering Infrastructure - Development
- <dri-devel@lists.freedesktop.org>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Linus Torvalds <torvalds@linuxfoundation.org>,
- Simona Vetter <simona.vetter@ffwll.ch>, Andi Shyti <andi.shyti@kernel.org>
-References: <20260409053111.8914-1-joonas.lahtinen@linux.intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260409053111.8914-1-joonas.lahtinen@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: _WpBo4O_aCt8xf7xax36mk1TNV0UFoLWMJVQ_RQ6Jeg_1775726117
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,69 +106,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> writes:
 
-On 09/04/2026 06:31, Joonas Lahtinen wrote:
-> Since the introduction of d4433c7600f7 ("drm/i915/gem: Use the proto-context
-> to handle create parameters (v5)") it has not been possible for VM to change
-> after context creation so the check will never fail.
-> 
-> Sima's analysis:
-> 
->    This check was added in f7ce8639f6ff ("drm/i915/gem: Split the context's
->    obj:vma lut into its own mutex") but without any hint in the commit
->    message as to why. In another hunk of that commit there's a hint though in
->    __eb_add_lut:
-> 
->            /* user racing with ctx set-vm */
-> 
->    This would mean that this bug was introduced in e0695db7298e ("drm/i915:
->    Create/destroy VM (ppGTT) for use with contexts"), which allowed to change
->    the gem_ctx->vm at runtime, opening up the race that was partially fixed
->    in the earlier referenced commit about a year later.
-> 
->    But it cannot be exploited anymore in anything remotely recent because
->    with the introduction of proto-contexts we've made gem_ctx->vm invariant
->    again, exactly to preemptively close all these potential issues.
->    Specifically d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle
->    create parameters (v5)") is the vm specific part of the proto-context
->    work.
-> 
-> v3:
-> - Include Sima's analysis and WARN_ON_ONCE
-> 
-> v4:
-> - Focus only on latest mainline codebase
-> 
-> References: https://lore.kernel.org/all/20260324151741.29338-1-sosohero200@gmail.com/
-> Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Linus Torvalds <torvalds@linuxfoundation.org>
-> Cc: Simona Vetter <simona.vetter@ffwll.ch>
-> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
-> Cc: Andi Shyti <andi.shyti@kernel.org>
-> Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Hello Dmitry,
+
+> If the DSI panel supports versatile lanes configuration, its driver
+> might require determining the number of DSI data lanes, which is usually
+> specified on the DSI host side of the OF graph. Add new helper as a
+> pair to drm_of_get_data_lanes_count_ep() that lets callers determine
+> number of data-lanes on the remote side of the OF graph.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> index bd608cea396f..621f07a55c38 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -895,7 +895,7 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
->   
->   		rcu_read_lock();
->   		vma = radix_tree_lookup(&eb->gem_context->handles_vma, handle);
-> -		if (likely(vma && vma->vm == vm))
-> +		if (likely(vma))
->   			vma = i915_vma_tryget(vma);
->   		rcu_read_unlock();
->   		if (likely(vma))
 
-Analysis reads correct to me.
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+-- 
+Best regards,
 
-Regards,
-
-Tvrtko
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
