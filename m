@@ -4,136 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4096AF364B7
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 20:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 449A7F364B8
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 20:25:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7A8410E8A4;
-	Thu,  9 Apr 2026 20:23:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 910E810E01F;
+	Thu,  9 Apr 2026 20:25:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SVMVhu6M";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UXt4x/Er";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="p0L/UKj4";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1FA10E8AF
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 20:23:04 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 639IUDY3779768
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 20:23:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yAm1FyXVAl2rw2SiWlWKegNh5tcyNAIhWj+e+79Lzlo=; b=SVMVhu6MyGcYZmHE
- B5pO1E/XFaKr6Dz9LBq4FW5XRQOCd4wPVNxtuhjXDYrD71Z1k0AcvzgmbDv0I/Rq
- 5eSj04rDG58BVbn57k8aY0URYm0Ni7SS5nDX+WONNvBQJDuUcEg9x+lcWB7YSxbo
- vJKOjlaa+o5daZamgV1LNdush0ZK72uVmvBwWWbeC2XOpC1dpJG/JPOAD5/7FCSO
- ut24fZ8n2TlM27z4+rqedyhAd6KR8FN/0pDaTOod3ZApu1oniXiaYUMS+3K/yHzi
- 0he3Hq9q5bzEIDRqv7ezGIJl5p3Splt+2qdc65QBE6Txp2+2wQo3hvzcZaKR4Nex
- sgxjLg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dec8hsstu-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 20:23:03 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id
- 5a478bee46e88-2ba9a744f7dso1526482eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 13:23:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775766183; x=1776370983;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=yAm1FyXVAl2rw2SiWlWKegNh5tcyNAIhWj+e+79Lzlo=;
- b=UXt4x/ErcJqM0gj9b4d6CIPj103PDOD9XyRJmmql5/YfXyW4ntwYuU3bIWtbvkpKGD
- EJ7tacMWcJ36okxfXDheiYCUyTSl2+0H419wYlMYHTHZv66wuxL3mvug06CdhT0eCviq
- o84SeVrNEvJdXWytRZMUl6mQb1R8d+FyaIEdeShM+2y2p6Y7cZ0TyrCGUXI/qgGbvybe
- +QRMesruN0t840zt0ObcNMvSNbHbcIJCEbs+SYIJutFRSuovmAP5iQxlx8GGLLu356/F
- HE0Xp9WBwkU0AsOVPByiHbU9Q+zcul+eZmEl9Z82e88rS0ltzTQrP3lslLV8m/lnLY0J
- /3Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775766183; x=1776370983;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=yAm1FyXVAl2rw2SiWlWKegNh5tcyNAIhWj+e+79Lzlo=;
- b=RFvAcq6Ec7fHlUcYy7dzvvkZkJmYD+L5xioYE9njGzSy7QG74E1q/wiHNcvJzMk3Pn
- bVjpVbEJ8f602d0blyMNEIn3yE4yJyAEykdhT+DLrPOAJXEn8mIN0Y36rTU+/QbRQl+V
- TYyuOyLsWK4XVOe7oliWSTjr3hkC5cj0GzSKsJgk7zvfBL8AnvhR/6Fb3LCxjH69zOH0
- LOUoi/5WKyL8FBjh0goGVq91OtH90xKHq9xaHhgIBKkdqcdXzMN1hc56FJwBwxk4RQuT
- 6P0GOyCAKZtuTQlydsTaYcJRz4HXPDoxM+DzRZGbZmZxkjfUOU7xeIWgj7eifl0WY2fM
- OWHA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWk3D9qLTrtg6ZttuEBQpAdgphhD8j6vvplZnIS2bdmEA36peJ+Bw5XXGSF7fpnEKsssMjme/nAjTY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz4kqOJYqrI8+MwVcsA9RLWxLlMVUlAw6Ts8VcNnYxaoIjnTWw1
- lxUPnNSYOQao93ZzuHmG4uR/Jw+MDGnQOVtW8N/y/ikXtLNDa2P2wpO0leYqirGOFLcpbD7RnmY
- GQNjVy1AFx2TJFFPKgAcVplJy8fMlcwTjeoEiizm3YWGl4qc3U4bs+48OmRX4vJ7r6QXy9VE=
-X-Gm-Gg: AeBDiesRPkLl/Wm24ZFmKUW/S4jZEKoMglj2phkvuZL1CUDGRHfvz+E/0aphn0h+BRQ
- 388QpVUK3SYByRhM2nRFr29hyvBRJ1joD+bHIGxdqk7K9Jk8VUGewNdFf0CuQw/Ah4CiQvTYzAZ
- 0zYj1gv6kPyltocUA6b+8RPMf5g5ggEXKt1RRhV6ZddL3PmLBEzIOwddvmI/QrUunZ87YQByz3Y
- ShUlkHczCCBZX84PrjmSrpJ41Da22J8oI6Z4g/SSLm5bluySt9D31IXm4SfkdiK+Y/SnQXdgsLG
- NYETWpCyFZoNWAjWLNoxveKucBDQtjqoESmEjid8xMG9nJ+FjyI+gh8NlRQOzDOZ+wnmKZcL196
- +2ooSV5HTWnWRpoT1h/eYZArIr7AQoqHblVZBLcQwwsIBno9kX24rDDkiRFcWPGpuTg9KsQLU+0
- 8=
-X-Received: by 2002:a05:7300:bc8a:b0:2c6:cdb3:bd67 with SMTP id
- 5a478bee46e88-2d5897690bbmr312310eec.22.1775766183131; 
- Thu, 09 Apr 2026 13:23:03 -0700 (PDT)
-X-Received: by 2002:a05:7300:bc8a:b0:2c6:cdb3:bd67 with SMTP id
- 5a478bee46e88-2d5897690bbmr312275eec.22.1775766182573; 
- Thu, 09 Apr 2026 13:23:02 -0700 (PDT)
-Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2d562ac344csm1137899eec.25.2026.04.09.13.23.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 13:23:02 -0700 (PDT)
-Message-ID: <7aeeed43-b458-4c68-98b0-e857f1ed791d@oss.qualcomm.com>
-Date: Thu, 9 Apr 2026 14:23:00 -0600
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012019.outbound.protection.outlook.com [52.101.53.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 854FB10E01F
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 20:25:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K/Rln9l1LENrxUwsaAuIe4zKhavlajYYddHe23UcRNeB2ENKrN7I0i90LDuwJ9BqjZBjDrSKplkz24Vp32W1wmlKEbZW3m6aOW+DFslNjyv878Wz9wMHE2BW1mHqFvgVo0VYbeBZlsGms00mQfWn/v8c4Euq9MWG/JIEU4eaa3CPAWaNgRtze8lTXeTXR9k8JPayMVD/31wlQkVl+F0iU4gaVaCmFZ6P19sNBGNGHc8TuM0FAHVTDw1wkPqAc6cvFiIkNnHNZong6Ip91qGwVchxpuszRJ9BCRet7irm4K11FmxkbNyMpEBIZOVdiNGNIkJzptLeKbXOhbsPSzE4kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rkUqWlYYBo4duq0kgt4AIavCNZCG/vy1kVBobug1JGQ=;
+ b=bscOlEUXz4hREUskr5LUXwQNG59juCOWo0hJkGn49B1whneIHBp6S065eKzdBSPIezd6k13ZTRufLPFWiJKamxzp02+S07wnYQgyrFNdEi9vcfndMhqSREhU/PUgBRd3ZV+k2lhM2sWQQCpAQkCXooMIS6sRahLtafVOFVEjhI/HmJWlYyOb7ZJaDRtL7O74xvUwYmx/Jf6siJ/1owOQ3gS6eK5cLDmm5js/O0LXzIy6JBetmgBJz8Iug0WZrxfvCNEEkBE0kExy+zHcx188vGwFl2HcdM59cSiioLmAZ5ZMyxaC3CQJlKsPU406j6v8lOxjFK7JiZq/eMugDAVBXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rkUqWlYYBo4duq0kgt4AIavCNZCG/vy1kVBobug1JGQ=;
+ b=p0L/UKj4JwB+BOJkR7xrzwFzLXEXKcUYBfpT9NykFj1VRSB00VSgH0dx/2P+lgx19c4yaIrSG9T0TpfJraaEa8hByOcl04xZWmrUw2ntjQB7mtbtxtHaM5k2UEmRnwY0wOfwt6M6tXAXq9WfmEo3/2Tdt8ZbxWqtdbyCxzTornE=
+Received: from LV3P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::19)
+ by IA6PR10MB997658.namprd10.prod.outlook.com (2603:10b6:208:5dc::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Thu, 9 Apr
+ 2026 20:25:37 +0000
+Received: from BN3PEPF0000B374.namprd21.prod.outlook.com
+ (2603:10b6:408:234:cafe::53) by LV3P220CA0018.outlook.office365.com
+ (2603:10b6:408:234::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.40 via Frontend Transport; Thu,
+ 9 Apr 2026 20:25:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BN3PEPF0000B374.mail.protection.outlook.com (10.167.243.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9818.0 via Frontend Transport; Thu, 9 Apr 2026 20:25:37 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 15:25:36 -0500
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 15:25:36 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Thu, 9 Apr 2026 15:25:36 -0500
+Received: from [128.247.81.183] (ltpf5gwk6l.dhcp.ti.com [128.247.81.183] (may
+ be forged))
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 639KPavG181324;
+ Thu, 9 Apr 2026 15:25:36 -0500
+Message-ID: <8d1ca869-350f-44b2-999b-93c6f23028c0@ti.com>
+Date: Thu, 9 Apr 2026 15:25:36 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/9] bus: mhi: Match devices exposing the protocol on
- the SAHARA channel
-To: Kishore Batta <kishore.batta@oss.qualcomm.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, andersson@kernel.org
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mhi@lists.linux.dev
-References: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
- <20260319-sahara_protocol_new_v2-v4-3-47ad79308762@oss.qualcomm.com>
+Subject: Re: [PATCH] drm/bridge: sii902x: Add Power Management hooks with
+ audio context
+To: Devarsh Thakkar <devarsht@ti.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>
+CC: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Donadkar,
+ Rishikesh" <r-donadkar@ti.com>, "Jain, Swamil" <s-jain1@ti.com>
+References: <20260401013758.4149091-1-sen@ti.com>
+ <96444379-712c-4e21-8f3c-55eaad850cd4@ti.com>
+ <09d3cf4d-ecb3-444a-8e88-7d51599007fe@ti.com>
+ <58abc6bd-2f34-4b85-b26e-34324079ec50@ti.com>
+ <f3371c6f-b253-442f-b54d-833b711b5dcc@ti.com>
+ <8ccc9527-8779-4aba-bd43-54999b589506@ti.com>
 Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260319-sahara_protocol_new_v2-v4-3-47ad79308762@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=PMM/P/qC c=1 sm=1 tr=0 ts=69d80aa7 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=3E-APKfXKu7q0kj6aHwA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-ORIG-GUID: u4V3L9Z6CtwYZQy9ZlnjjjYsX0dvAhOH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDE4NyBTYWx0ZWRfX5qEwu31919+1
- 1kJYUVF6jXhRRS/SKFkRSMWnyrESHdwJl+3b0I4zryockxkXnTrcZU0LJbrXfssZUG23znQeyiI
- vcYx3cQhKAp2IXnhdUeL/Yjuy6lX/E5n2S+V9RKQqP42MKf0wghi7EcEVRu9leZO7DFPgUnXPZK
- Y9WWzlj499wConFEKX1Iwt7u1BlDJwOSQjW/uyp529J3Z4YN713rnWSBdMHaoZR1y4tLUVyc22o
- FQnsaPqlncoNujzXuN/mGE/kGDPc9x8Oka46Yy0m1EO/d/v/tuSc4yFNHzy7EzLo8uc1wDTEAQ2
- 1vdaHbOqHK1HeCOfVJ5kNyaQCUz8v3BzsP3rFFpD8zwDcNoduHwILGggXZFUlc1Freux/CcmMny
- xkQW9e7HuUtGslJeeWvwLWCGtrFLh+q4mI8ItLqrrkdDOwPp7W586TUzuvCGwfprYmnwULZnvBz
- I094DgpyBZdMsk/ycnw==
-X-Proofpoint-GUID: u4V3L9Z6CtwYZQy9ZlnjjjYsX0dvAhOH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604090187
+From: "Wang, Sen" <sen@ti.com>
+In-Reply-To: <8ccc9527-8779-4aba-bd43-54999b589506@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B374:EE_|IA6PR10MB997658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82852067-b84b-4ccb-f395-08de9676293a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|7416014|1800799024|82310400026|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: p4RahmDBSOz8FQujvaqAiIwyWzrvg18n5Qo7OuEO9WR8RMLNp8K4NYhOyGkTobaBkRb4MmH+AKsOY6W9QjlKIo7p8mijlfRGQxl8xMsi24uy7uybFwsDOtL2DAcrYgavwBurqhW18EqButNQwchxiD1BsL/XPA8/rOvQSKg0Vxl8N4KaZMcgGx3gst9TNiI77YZkXlptDPmMiDtgfIi9YUNiwtr6rjupS3lRA4DA9gF5EGqSwws+jeVTWakFN+5Da2fN0Og1ylcuKT52kHTjL5j5ntt2kjRAbja2NBtZTSPAXZflanRSSHWKBO+hswCvwi7lJqsWk8rlIK/pHASfeBWfesEYSjwHgcBk8MuLEFn+KjPWqED7JazkTIwRTKjWYAWlIc0MvfJ1hOzDuFeRozt6fc6k80+ImQNwJOmZtrjoGuDtHzz8O7ubZelAu0Ommjav2j4sFGidi4g71hVRe/arVAlzpu2Za9acz5WsK3SiOWjltlpvRB/n5TDW1l9VJNVYksWcGHW8M6ThjS8XmsOdq8dLiW5u6fee02efZmPbxIVLACQ/GJdKTQg9UN00B5u1qvqeQXc7K3NgDgmDPvMTMq6RfzqAhB/eRaqPTe1j1l7fB80ooln4QOSvNE+JTzW6OqccI+3c4Nt1GlxqvKg6gGEudqPy0iA6BHNC3bbti3elPXUIvYOyq/4YT6tua+MOqqPE9JfuAS5D47luq8RTgLXohi+Av7sX1qkUHyaSBAtybNa8UejHph7sBglGkbxrynnytJTGS1j2PNTiiw==
+X-Forefront-Antispam-Report: CIP:198.47.23.195; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet201.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(7416014)(1800799024)(82310400026)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: OWbGFa9yU726+xDHYUXQ5jKfLZkpi1cVfiB24wWX4Pbwg9AAbTSentlwyBhZaQhScTTaKs0oMClCYhXsV8x19quuEi9j8Smc4YEyI4WO4nK86QSPQ0mnue67mgo/FH7HQ+F6dGXHNKA/Nou2LFMJP231ScAKZFnwje5ck8C7Tt0CHhUw3LeMUxs37LpRIGXtJHJXq3rEIsoI7fDombpZwJ7uCrinveyx+cmE+szfctOygbIHLlWj+KbZUi8msWIk+V2XO8/pm74vCZWk14nMWmntgFwdPMhL6iopDM+hDecWyOWaoJCpLABbuC3fnr5poQeFfPUOjjO63+e+J08DYGS86eEHjAHUbgK4WN2eVMMhXKC0Ql4Cz5zjpX4z9WAAf6arCT/w+TCqN3CZzZZXwaO31viJoOU50NJwjI8fu9Yg5R49IcwLIsaLycsGarW2
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 20:25:37.3987 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82852067-b84b-4ccb-f395-08de9676293a
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.195];
+ Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B374.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR10MB997658
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,47 +137,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/19/2026 12:31 AM, Kishore Batta wrote:
-> Some Qualcomm devices expose the Sahara protocol on a generic SAHARA MHI
-> channel rather than a QAIC specific channel name. As a result, the sahara
-
-"Sahara"
-
-> driver does not currently bind to such devices and never probes.
+On 4/9/2026 10:11 AM, Devarsh Thakkar wrote:
+> Hi Sen,
 > 
-> Extend the MHI device ID match table to also match the SAHARA channel
-> name. This allows the Sahara protocol driver to bind to devices that
-> expose the protocol directly on a standard sahara MHI channel.
-
-"Sahara"
-
+> Thanks for looking into this.
 > 
-> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
-> ---
->   drivers/bus/mhi/sahara/sahara.c | 2 ++
->   1 file changed, 2 insertions(+)
+> On 04/04/26 23:11, Sen Wang wrote:
+>> On 4/2/26 02:07, Thakkar, Devarsh wrote:
+>>> Hi Sen,
+>>>
+>>> Thanks for the update.
+>>>
+>>> On 02/04/26 05:03, Sen Wang wrote:
+>>>> On 4/1/26 09:42, Thakkar, Devarsh wrote:
+>>>>> Hi Sen,
+>>>>>
+>>>>> On 01/04/26 07:07, Sen Wang wrote:
+>>>>>
+>>>>> Sorry but this is not very clear, is this a V2 to
+>>>>> https://lore.kernel.org/all/e6497541-f3e7-4533-
+>>>>> a188-9d422cb34d74@ti.com/ ?
+>>>>>
+>>>>> In that case, the subject should mention it as PATCH v2 along with
+>>>>> changelog as documented in kernel patch guidelines :
+>>>>> https://docs.kernel.org/process/submitting-patches.html
+>>>>>
+>>>> Hi Devarsh, Thanks for your review.
+>>>>
+>>>> This new patch encompasses more features than the previous patch to
+>>>> warrant it being a separate patch. But nonetheless my apologies for
+>>>> not stating the indirection in my commit message.
+>>>>
+>>>
+>>> I don't think this qualifies to make it an independent patch altogether,
+>>> as long as goal of the patch is same as the initial one posted, this
+>>> should be labelled as a V2 with linkage to V1 in changelog. And the
+>>> follow up patch should be labelled V3.
+>>>
+>>> The changelog should capture the changes under ---:
+>>>
+>>> V1->V2 : What changed
+>>> V2->V3 : What changed
+>>>
+>>> along with links for V1 and V2.
+>>>
+>>> This gives the reviewer necessary context on architecture and reasoning
+>>> behind new changes/approaches even if it means the new patch contains
+>>> some extra feature which was not present in previous patch.
+>>>
+>>> Regards
+>>> Devarsh
+>>>
+>>>
+>> Understood Devarsh, thank you for the detailed explanation. Deeply 
+>> appreciated.
+>>
+>> I also dug more into the datasheet with your comments in mind and 
+>> wanted to gather some feedback on the proposal before sending a proper 
+>> V3 patch.
+>>
+>> Here's my proposal, TL;DR:
+>>
+>> - Runtime suspend to use D2 (Sleep) for a quick bringup
+>> - System suspend to use D3 Hot for a complete power-off/on scheme
+>>
+>> For the full summary:
+>>
+>> (per Datasheet's powerstate, Table 3.8)
+>> D0     - Full power
+>> D2     - Quiet Power Down (i2c accessible)
+>> D3 Hot  - Complete Power Down (via HPD or RSEN wkup)
+>> D3 Cold - Complete Power Down (HPD)
+>>
+>> Runtime suspend on sii902x should NOT use the same flow as System suspend
+>>
+>> - Runtime suspend to use D2 for a quick bringup
 > 
-> diff --git a/drivers/bus/mhi/sahara/sahara.c b/drivers/bus/mhi/sahara/sahara.c
-> index 8ff7b6425ac5423ef8f32117151dca10397686a8..e3499977e7c6b53bc624a8eb00d0636f2ea63307 100644
-> --- a/drivers/bus/mhi/sahara/sahara.c
-> +++ b/drivers/bus/mhi/sahara/sahara.c
-> @@ -911,8 +911,10 @@ static void sahara_mhi_dl_xfer_cb(struct mhi_device *mhi_dev, struct mhi_result
->   
->   static const struct mhi_device_id sahara_mhi_match_table[] = {
->   	{ .chan = "QAIC_SAHARA", },
-> +	{ .chan = "SAHARA"},
+> If D3 mode resume latency is faster and comparable to D2 and no obvious 
+> tradeoffs then maybe we could use D3 for runtime resume too?
+> 
+D2 resume presumably will be a lot faster because it's a shallow sleep. 
+Also for backwards compatibility, D3 requires a full context switch and 
+I can't guarantee runtime resume would preserve all the states that user 
+relies on. Currently we only restore the essential registers needed for 
+video and audio context.
 
-This doesn't work and breaks bisect. At this point Sahara will bind to 
-QDU100, ath12k, or something else but not know how to drive one of those 
-devices.
+>> - System suspend to use D3 Hot for a complete power-off/on scheme
+>>      + Hot vs Cold: even though Cold use marginally less power, it can 
+>> only be entered and wkup via HPD event (Hotplug detect), which is not 
+>> a software-controlled event.
+>>
+> 
+> For system suspend, anyway the system resume will mostly be done with 
+> system wakeup sources so I am not sure if we really need the extra 
+> wakeup present in D3 Hot as compared to D3 cold, so probably would be 
+> better to stick to D3 cold if no obvious tradeoffs.
+> 
+Well we can't use D3 cold in system suspend. D3 cold only triggers via 
+HDMI wakeup, so it's a passive mechanism rather than the PM's active 
+trigger.
 
-Just add this when you add QDU100 support, which looks to be patch 5.
+That does bring up an alternative approach. Rather than using PM 
+framework I'm more familiar with, we could rely on DRM atomic KMS. Since 
+it handles hotplug detection and we're offloading impl to the core DRM 
+helper APIs. This way no system resume/suspend is needed, but we still 
+get the benefits of D2 runtime resume.
 
->   	{},
->   };
-> +MODULE_DEVICE_TABLE(mhi, sahara_mhi_match_table);
->   
->   static struct mhi_driver sahara_mhi_driver = {
->   	.id_table = sahara_mhi_match_table,
+> Also could you please measure resume back latencies for each of the D2 
+> and D3 modes and we can then maybe compare that with the power table to 
+> get latency vs power tradeoff view and decide ?
+> 
+Compatibility is the biggest concern I have, rather be safe than sorry.
+And I don't think it's worthwhile to focus so much on sporadic events 
+that runtime PM handles, when the narrative is on the overarching power 
+management.
+
+>>
+>> In such case, only system suspend needs to cache TPI and audio 
+>> context, reset & initalise the hardware. Whereas runtime suspend 
+>> should just be in a D2 state where all reg values are preserved. Thus 
+>> providing faster response time for runtime resume, especially when we 
+>> don't have autosuspend (yet), and avoids latency for spontaneous 
+>> events in the DRM framework.
+> 
+> I think we probably should add auto-suspend support too w.r. runtime 
+> suspend as don't want to go to suspend too frequently if the 
+> initialization latency (along with power rampup sequences) is too high.
+> 
+
+Okay I can do that.
+
+> Regards
+> Devarsh
 > 
 
