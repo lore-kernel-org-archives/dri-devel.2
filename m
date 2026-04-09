@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E046E98FC2
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 06:26:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9A2E98FCD
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 06:26:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B44E410E71E;
-	Thu,  9 Apr 2026 06:26:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C06AD10E722;
+	Thu,  9 Apr 2026 06:26:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BSVzLYry";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SXZX0p8G";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="awwcLrJt";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iyYV3Cd9";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD14610E71E
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 06:26:31 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB20A10E721
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 06:26:35 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 638NxQWv1072645
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 06:26:31 GMT
+ 63958KTO3712896
+ for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 06:26:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=wFzA2omutyD
- gArQT4+qbnS5naimicpEKr+NS8iMhMfo=; b=BSVzLYryvsrTo/GxIOrH3jOLgjs
- NNZ9jVNo2pl3yNpZMsIEYFt4AsxJ6l2fqN7V6duPE6gnDvLK8mf8xYgwkOldcW7L
- NGVabh5IOKlcG1SRwrIetZojLldQePi5+XyPF/hXOjGHFmCt5xm4e+U1lbZlaRpe
- YR7+ko+p9IIptQeQhfawLcWah2wxOjwx/4Xi3lWyeFCS2iGM/G3xooIRTXX4jea/
- yuQzbmc+skof3xAIE+hgxHsXGqQkZRcYZFfy9TulErtorXzerIZKTl9HA81APUPB
- aREOUhewgrLlADmsEId0KmZixsaeaDmSBj3k6PIj1GyzYoPDLTOQ2uraC/g==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddtb3apgu-1
+ :mime-version:references:subject:to; s=qcppdkim1; bh=pX4/CzTEsQ9
+ azlafCB2t1IsspVCg3AMoDjZdlkJJoE4=; b=awwcLrJtHXQ5tfoHcotTtyGJOSD
+ 0MeLxKwccPj+SJ06MoxJ8ZK1K938h61GWnCehkSek+qUwHMrc6phwRSg7wEc89L8
+ mFNeo3JSVqk5E/QxBjHFcKkNTnPj/AoLKpHEKZFPy5l8WgPsB4Rifo1ixZ75X7P2
+ 2U0I11c81EkV3DuHbAPN62L5WhlbG/hD8Vs5+H81h5g8BMyANOKG1T71AbgohLbb
+ u7PUi/TrP1uIMzAszl4Pn7OxSfehD7xCvyd5xLpBi+MyFuLFb9XfbUWZxOPH8s5V
+ VHO+9B7eyRg/tY943OGRzHz1X1F6atcUbHKGTymz8LSx9TeAweoQuctj7bg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddt74anjc-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 06:26:30 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2b2523e0299so13486865ad.3
- for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 23:26:30 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 06:26:35 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b0f4e632caso11277585ad.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 23:26:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775715990; x=1776320790;
+ d=oss.qualcomm.com; s=google; t=1775715995; x=1776320795;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=wFzA2omutyDgArQT4+qbnS5naimicpEKr+NS8iMhMfo=;
- b=SXZX0p8GHVRgutGODGuVg1ZnQp17/VUU34G5H3BWw3JZmHeMDWe2JtySSGXtdWdNRC
- KlVPCt5AP1RRg7RVaEfc1rp9RB1LrNs+fPzrK4hzHxgKWxLNyHoHASH/uBmP2gOC9fYl
- WtnuYw37CKyv1dAuu6rkCL1nPtmL4XzJre9hTAEDzt9nLhHq9hM7CJJkGTd/TjOt4XFY
- OHshVnv7Uujj48yGJPXEqCPQghjsfoCyIfostgh9k9vXR4n6rY8s8nXeEYbzmYbz996q
- MXkxI9M0Q4xLFO7S6pL+DAjzqFDmnC9bqhMSVaX9ToVmn8U+EBNx8+Zqj3F9wiBHirzx
- M1cw==
+ bh=pX4/CzTEsQ9azlafCB2t1IsspVCg3AMoDjZdlkJJoE4=;
+ b=iyYV3Cd974lxeoI6IAwy8sBt9Uj8qvlV8jDQtxRnbUUXc4KM3eD9E/BRGxy1/iSlHR
+ BaCNXn3PZSGoGo08wW3ZhEqxtPOPrL8bG7kjTgujDG+mKmv8HO+vUBpf4xmg8rxSjIgZ
+ ENA1ejFCHrYXhJZVe7iwLJ8c48+31FwcwJNmlHhQ3fTf0utOceRx00xANBEEXmj5ZV5s
+ 9n8auIVFuxlNhfCDda5n3Rmoiy4LiCs5/AyyPsAT9scaw7+5j9Ki3I3rOlHIvlekmB+n
+ YxWFnjbdLHFnyQq5t9Sfgz4wuzoWf2b0Au4fig5ceCOakHWZmpB3ozsbxc/+XcCox3rF
+ v0zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775715990; x=1776320790;
+ d=1e100.net; s=20251104; t=1775715995; x=1776320795;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=wFzA2omutyDgArQT4+qbnS5naimicpEKr+NS8iMhMfo=;
- b=lwwhi+BJyqA2P8rVdsh2lRoGAeDaRrmSKqCOxG48ykSCqn7P2jDpSRIlwOqF59tlyZ
- trFDLFa+VEqofAVPZXLiTaDNRLdLf4yXMdfSPJf0cH7FarbVB91Az7tPo+9eE8Zbuhfj
- RzRV1BtfGfRVA5moYFv+J7MNgi0VZ5W+qKYfGMQVQyZ5Qhc4MvDZpFuasoc/PQF1TgNz
- PWFDd1V53QAnPUJCHkb53EfLDqWeBQN5olEGQbNYGHqT4+npjbTcCjrXavvEweNymyTf
- 0I0clojeGYXpZ/xj+atcH7DXAWTOdb9/JNIclxkRk2alE9ii0saFPJztwI5PqfaTSCh6
- DVug==
+ bh=pX4/CzTEsQ9azlafCB2t1IsspVCg3AMoDjZdlkJJoE4=;
+ b=Ad7VdwKAKLwJ3lAHaZtS4fm+y7FlDTTs5MCmxiWyW9xLDu9wtYc8HZKDNSZva4LBJx
+ 4TwjN2XbYyWSqgPdG/ugWaJ84I4+dj0xaXTG0Ijoidt3MiUK/SPmRKUkgWwUBrH0rJxY
+ QvNYtnvmbsDfS93DsD1lJZLRHUvBrt/H52PlWOdgmk2T997FPrcrWdxRqVrPCeUI5w9k
+ 9H3fnABSggiIYLyw8+2DFq0328bhuLAOPpsKwdVOO5Fk6fVPqcI8M/GqQlldMGIMUbSZ
+ 16luZ6/Vug9hhIP+W8XzTvuM6WKa6K4L7R9mI6od6LhsDwAI3fG/PNbjHSnRJCIl84Kl
+ 3fmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU9373GwPnUqQca5334g5BUT2UVPSAgLtAuAZvO5kWH1e1vQzLe7PwiXGQqUjl8KhIG7y9ziPZJKPU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1J2nS9ANfwaPJicyKCOsn4d78j2K+qfJxFcRzdMxoOcCWyM7f
- 0ZlDUOIUyHfeX7/Zdr23gg3zvHFAHOgosaKOgUCLSLtS1/CUeFMvzTEaVVgTOkDKrovbNZD4nbK
- 9TVs6lSrjUqnEoLSHN+/U3TZZPKF1zRTgzMGaK/lP9i1+WVpbm4819u0oK5fxxTCKQBVlPsE=
-X-Gm-Gg: AeBDievJQ4nLDoihxKy+P7e5Mgw2Gs+CXDuEKJ3Tlp6LOG0hEFugWbqcH9oKgIokFlf
- bnDstqgWcoQHJlloQke3fUZy0wy1UCo0+3xBT2KKcqm0jivXnMKB6/mTjIDPIenzyJ6BunI4IPb
- SNMbvXDcyHFnB+MA+md4oF2fX8Gtzm+xwkcnplETxtuvOESHPx7BUYVBapTGOxLTYR7c1eZRWGv
- lulq08jvWPgKWseQ3uzJYNzHdlsv+n1OM3HmjL4q0apK6JAn3I50pSXo5K45YpuaxOTiVC6GoI6
- w/kXROtw2lhGWbN9gFTdYgNO2Jg/O4WEtMfFHYNJMfDw6yEur1drhFoTkcTz2/9JkMhImng77D7
- ALCOqsETp9QcU3lSerTZSkOMB1tgIVhiDhBQFZIWH/bPCzSzo2S1+7DMtCis7OJ8qmxtrlkyVo7
- 7jbGpvOuWlTjblFCyuhg==
-X-Received: by 2002:a17:903:1a90:b0:2ae:8272:deb0 with SMTP id
- d9443c01a7336-2b2c726c892mr25970565ad.15.1775715989734; 
- Wed, 08 Apr 2026 23:26:29 -0700 (PDT)
-X-Received: by 2002:a17:903:1a90:b0:2ae:8272:deb0 with SMTP id
- d9443c01a7336-2b2c726c892mr25970285ad.15.1775715989234; 
- Wed, 08 Apr 2026 23:26:29 -0700 (PDT)
+ AJvYcCUZwDHsCJKI7QpvNkytwtseGfSBQZzanq181se3PL8vp9MgAN5Op1CFRimPdWuCrkK2prkDzmpxyh8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymYVVQ6K/2OOTQGHoxlfDQ2a76sEXbKlk5li/sLeddEFaquY0r
+ fTnkW2Ow+jQDNrn6SlL2m5n8z2X30H8y2z0WxeyS6mBxErwxdgoTm6FqGsVXP72y9yTLzFMgzQb
+ T7jahORuviYL/NK/7Vukxxrs4Qs6rpaULY38ogbvSai6O6iBwFPi/Id81LjWJcZ3m16qQOdo=
+X-Gm-Gg: AeBDiet1BU+41sYMPvoAijmT9BXZitbG3ZD215dnwZUEC5/xoder0U9b92zzxrEMKv+
+ JPD18koRqC6vrAuiZzWUD88dBkkTps916Z62HTv+wSR84M5SmwZCzPBHSvlToxloj3ZXvjw6GuS
+ 0wtI3NoE2XPccapWh9Sf2QhyL5Zp8inv4pGd5XUbHUNhG8oTJlzDLP2TkqGy57wr0L65cBA1uHy
+ VvgWhGn5js7Y6mt/2+earMC64SxIJzm+w5QH/GZ9ckuzADCKQlkgV4hI+moyLgqS6EJfIy4xRgj
+ K7gz8Vj9Z7sj0bcmUIAU1kLB09jGg82tTlmO76La0xkH2k8OsRQ9cYSy8sy9XkdMaQTF96EaE8R
+ K+zlNadGf5vZtO0H16vDsa79mTf4hdsS575DRH9VK96Vpw69U83xpKAMJ6n2AY4khZCEpTtLINa
+ Pbf7D7OSxGH+smkE/gyg==
+X-Received: by 2002:a17:902:da83:b0:2ae:5163:c2aa with SMTP id
+ d9443c01a7336-2b2817add40mr242580435ad.20.1775715994550; 
+ Wed, 08 Apr 2026 23:26:34 -0700 (PDT)
+X-Received: by 2002:a17:902:da83:b0:2ae:5163:c2aa with SMTP id
+ d9443c01a7336-2b2817add40mr242580075ad.20.1775715994073; 
+ Wed, 08 Apr 2026 23:26:34 -0700 (PDT)
 Received: from QCOM-SocCW5bzXR.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b2749cbd4dsm220786795ad.76.2026.04.08.23.26.25
+ d9443c01a7336-2b2749cbd4dsm220786795ad.76.2026.04.08.23.26.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Apr 2026 23:26:28 -0700 (PDT)
+ Wed, 08 Apr 2026 23:26:33 -0700 (PDT)
 From: Jianping Li <jianping.li@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
  Amol Maheshwari <amahesh@qti.qualcomm.com>
@@ -98,39 +98,38 @@ Cc: Arnd Bergmann <arnd@arndb.de>,
  linux-kernel@vger.kernel.org, ekansh.gupta@oss.qualcomm.com,
  quic_chennak@quicinc.com, stable@kernel.org,
  Jianping Li <jianping.li@oss.qualcomm.com>
-Subject: [PATCH v4 1/4] misc: fastrpc: Fix initial memory allocation for Audio
- PD memory pool
-Date: Thu,  9 Apr 2026 14:26:14 +0800
-Message-Id: <20260409062617.1182-2-jianping.li@oss.qualcomm.com>
+Subject: [PATCH v4 2/4] misc: fastrpc: Remove buffer from list prior to unmap
+ operation
+Date: Thu,  9 Apr 2026 14:26:15 +0800
+Message-Id: <20260409062617.1182-3-jianping.li@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260409062617.1182-1-jianping.li@oss.qualcomm.com>
 References: <20260409062617.1182-1-jianping.li@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDA1NSBTYWx0ZWRfX4KDmbyDWss7q
- qx0O4M5Z5sLz3YD3EdeOmbHbh7LMIWHJ8/7oWsTUZZ036JVf8d4lkmkx1dStJZpajEzE6dc3Bzt
- qmUIlGWS3NXOuMA6kM/6G5rZ5JNX6suhOEWrCFrNCz+KUyQQlyYYZjZRD6qGQgve9qX/NWQtsrX
- C80MwwRZspb5caiSR2ggBUNHWge81I+hnrc1q3XWnfOO/9eVF1O0OQjV7NxFvOd2uxRpORhQsGl
- Kz6axO82KipiMZTLMpdzm+cSZwDyr++Mi6ohLRnWnf1MpWKLL9WDcSGZ5vCIidYs0BeLCd71g/+
- IFp19QMxQUBGBdE8w0aMmXw523QItYS7vC8Ayhi+GNDxoMuvWD625F2lra2Xz8k3fi+wwXqS5Bd
- Nzr2vVe844p+mTOlgynoUS6Kbl8NR61yUizRBPEIga+4h6oez/RWM18c8DgDluuXDOQoQAeggvq
- Dfz6eLlIOK7gXDvmGvA==
-X-Authority-Analysis: v=2.4 cv=eKIjSnp1 c=1 sm=1 tr=0 ts=69d74696 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Authority-Analysis: v=2.4 cv=TL51jVla c=1 sm=1 tr=0 ts=69d7469b cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=VwQbUJbxAAAA:8 a=Op9FgWJ_R3wbKKMAuNAA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: ZxCpCAzBh9hJr7FLjUNTz61xmTunRNG8
-X-Proofpoint-ORIG-GUID: ZxCpCAzBh9hJr7FLjUNTz61xmTunRNG8
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=ZnmZ8TzD_GdZzTgawW0A:9 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: cXNm2KCrwUSd-nYWh5N05EKzT1YO_TxB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDA1NSBTYWx0ZWRfX/25oNRFbmQkQ
+ CpcIjgnhgK1NiSdjjAhlWTOEZzhY0PfI2BATcE0iHMmtjZGYwdEn56zOuZGuIcvvmkWFhB45FWX
+ CVifewmZYkeK/DoNx7kpLFE6LijAX1drvkospz75HQCEFLT30ovoYXvJDj0mbB/7eO0+CxfSRN1
+ 7C/Cnxf4pYH8WnWPKgeYncCguEvC8T6pFcfhyDjpkYh4m+WcXExlvbLDWq8TpLTp2nfMMCUHsx6
+ JKWHW3/Qq/DkpxyuZbgzvfpCzSsYDA9+XHfs1Itr9E+6eJ9g8N6YQOkPJ+P3fUx+H1qiAxKDh2H
+ RUwF06lAZUoIBwY2ZSoBbv/8QTEmWSAhzCA0J3CHNM1FP/PBA5J+VbkY4bLNhjaT9K7lcbE+p9v
+ /d88H3rgLK/sCmmIyyrbT5drbSYPQy6DWpUZOEFboNiARCW7WkRBbyzhQ6VUQy0TTuB74UXX2jU
+ b5mAnAGlVbPUdvnCuXw==
+X-Proofpoint-GUID: cXNm2KCrwUSd-nYWh5N05EKzT1YO_TxB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-09_01,2026-04-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 clxscore=1015 spamscore=0 suspectscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604090055
+ phishscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 adultscore=0
+ spamscore=0 suspectscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090055
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,53 +147,87 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 
-The initial buffer allocated for the Audio PD memory pool is never added
-to the pool because pageslen is set to 0. As a result, the buffer is not
-registered with Audio PD and is never used, causing a memory leak. Audio
-PD immediately falls back to allocating memory from the remote heap since
-the pool starts out empty.
+fastrpc_req_munmap_impl() is called to unmap any buffer. The buffer is
+getting removed from the list after it is unmapped from DSP. This can
+create potential race conditions if any other thread removes the entry
+from list while unmap operation is ongoing. Remove the entry before
+calling unmap operation.
 
-Fix this by setting pageslen to 1 so that the initially allocated buffer
-is correctly registered and becomes part of the Audio PD memory pool.
-
-Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+Fixes: 2419e55e532de ("misc: fastrpc: add mmap/unmap support")
 Cc: stable@kernel.org
 Co-developed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 ---
- drivers/misc/fastrpc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/misc/fastrpc.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 47356a5d5804..b87a5f97c96f 100644
+index b87a5f97c96f..148085c3b61a 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -1324,7 +1324,9 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 		err = PTR_ERR(name);
- 		goto err;
- 	}
--
-+	inbuf.client_id = fl->client_id;
-+	inbuf.namelen = init.namelen;
-+	inbuf.pageslen = 0;
- 	if (!fl->cctx->remote_heap) {
- 		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
- 						&fl->cctx->remote_heap);
-@@ -1347,12 +1349,10 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 				goto err_map;
- 			}
- 			scm_done = true;
-+			inbuf.pageslen = 1;
+@@ -1862,9 +1862,6 @@ static int fastrpc_req_munmap_impl(struct fastrpc_user *fl, struct fastrpc_buf *
+ 				      &args[0]);
+ 	if (!err) {
+ 		dev_dbg(dev, "unmmap\tpt 0x%09lx OK\n", buf->raddr);
+-		spin_lock(&fl->lock);
+-		list_del(&buf->node);
+-		spin_unlock(&fl->lock);
+ 		fastrpc_buf_free(buf);
+ 	} else {
+ 		dev_err(dev, "unmmap\tpt 0x%09lx ERROR\n", buf->raddr);
+@@ -1878,6 +1875,7 @@ static int fastrpc_req_munmap(struct fastrpc_user *fl, char __user *argp)
+ 	struct fastrpc_buf *buf = NULL, *iter, *b;
+ 	struct fastrpc_req_munmap req;
+ 	struct device *dev = fl->sctx->dev;
++	int err;
+ 
+ 	if (copy_from_user(&req, argp, sizeof(req)))
+ 		return -EFAULT;
+@@ -1885,6 +1883,7 @@ static int fastrpc_req_munmap(struct fastrpc_user *fl, char __user *argp)
+ 	spin_lock(&fl->lock);
+ 	list_for_each_entry_safe(iter, b, &fl->mmaps, node) {
+ 		if ((iter->raddr == req.vaddrout) && (iter->size == req.size)) {
++			list_del(&iter->node);
+ 			buf = iter;
+ 			break;
  		}
+@@ -1897,7 +1896,14 @@ static int fastrpc_req_munmap(struct fastrpc_user *fl, char __user *argp)
+ 		return -EINVAL;
  	}
  
--	inbuf.client_id = fl->client_id;
--	inbuf.namelen = init.namelen;
--	inbuf.pageslen = 0;
- 	fl->pd = USER_PD;
+-	return fastrpc_req_munmap_impl(fl, buf);
++	err = fastrpc_req_munmap_impl(fl, buf);
++	if (err) {
++		spin_lock(&fl->lock);
++		list_add_tail(&buf->node, &fl->mmaps);
++		spin_unlock(&fl->lock);
++	}
++
++	return err;
+ }
  
- 	args[0].ptr = (u64)(uintptr_t)&inbuf;
+ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+@@ -1988,14 +1994,17 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 
+ 	if (copy_to_user((void __user *)argp, &req, sizeof(req))) {
+ 		err = -EFAULT;
+-		goto err_assign;
++		goto err_copy;
+ 	}
+ 
+ 	dev_dbg(dev, "mmap\t\tpt 0x%09lx OK [len 0x%08llx]\n",
+ 		buf->raddr, buf->size);
+ 
+ 	return 0;
+-
++err_copy:
++	spin_lock(&fl->lock);
++	list_del(&buf->node);
++	spin_unlock(&fl->lock);
+ err_assign:
+ 	fastrpc_req_munmap_impl(fl, buf);
+ 
 -- 
 2.43.0
 
