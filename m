@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10D5F364A4
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 17:08:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D636F364A6
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 17:09:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69FFB10E061;
-	Thu,  9 Apr 2026 17:08:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B6AC10E067;
+	Thu,  9 Apr 2026 17:09:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MIZWIZeI";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Esilw5jB";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E039F10E061
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 17:08:56 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87F7410E063;
+ Thu,  9 Apr 2026 17:09:00 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8B53CC5C18B;
- Thu,  9 Apr 2026 17:09:30 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 7A5C81A3253;
+ Thu,  9 Apr 2026 17:08:59 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C09BA603E4;
- Thu,  9 Apr 2026 17:08:55 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4E569603E4;
+ Thu,  9 Apr 2026 17:08:59 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9BAF410450194; 
- Thu,  9 Apr 2026 19:08:50 +0200 (CEST)
+ with ESMTPSA id 63A85104500F2; 
+ Thu,  9 Apr 2026 19:08:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775754534; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775754537; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=wQHs+xJKsUMQO+6CCh7X3NX/2yXBo/WKUOrvcvLPWfg=;
- b=MIZWIZeI6SDzL7xElyXrZcp1xP5FU/iv6TVLEMIzJzuy69V14+eWik9kRKFGixgQaD6ciS
- Ddf0uG5jq9ljh6Qn4Bfo3Lo4wh3XkM6VJnIAAGk9dBUjHNGHVUxP2CdnVN7cr8dJaD0IMj
- J0Syiixw7j9TNbIZj6PVG1Ugn2d1/iCHei/yCZMmd68Rx+dsZQxLDuWDrcTWQIm7QeB+QA
- 164m9FfPe/Owoxjn26H4BCuDi+FulELgNLV8kTRt7/wicDSenIEtyWuk+lzDtW7/7QYFln
- hwwOk/KBfs0c9gD6gPRrMcw5DivnFR3liiquTWK6mqxqzChKFRM/bHEfHbbn+Q==
+ bh=NhYzqxeLYhJJ/6ErxgYsDp7OCqAbT6h4r7mS/NeBN9E=;
+ b=Esilw5jBNt2HrURjOGXsg52LiDQiFuR0QII4Q91Rpe6T0eEUWE3VvQMHZ+yKKX+MzIInVx
+ 3roiCnEIl7sK/Fr89SK+iIVzA3aSLyUJpoSanEFRF/PUhnZide9jpzZBl2ql4TVzB0w5Jy
+ LketgkWtt6ykso5AUT4CbjuyQcVFnYbFo6hZAYsEQJK6mcsV5/fOfmMibllUS1SJL0eIOr
+ 8dQxWlx4hITtWuQWnURGImJNSoHUjGMi0ZvaiW2tux7699tL+xK3EcK4Xd/2EUQWkThmuU
+ OwDnYjTfVFwSjKHvtXFGcZGePvXwyZy/qN6G69EvEzyBFbOtXBTcNd80Pmw9CQ==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Thu, 09 Apr 2026 19:08:17 +0200
-Subject: [PATCH RFC 01/12] drm/i915/display/intel_sdvo: Fix double
- connector destroy in error paths
+Date: Thu, 09 Apr 2026 19:08:18 +0200
+Subject: [PATCH RFC 02/12] drm/i915/display/intel_lvds: Drop redundant
+ manual cleanup on init failure
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-feat_link_cap-v1-1-7069e8199ce2@bootlin.com>
+Message-Id: <20260409-feat_link_cap-v1-2-7069e8199ce2@bootlin.com>
 References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 In-Reply-To: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>, 
@@ -85,75 +85,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_sdvo_connector_funcs registers intel_connector_destroy() as the
-.destroy callback. Once drm_connector_init_with_ddc() succeeds inside
-intel_sdvo_connector_init(), the DRM core takes ownership of the
-connector object and will call .destroy on teardown.
+intel_lvds_init() had a goto-based error path that manually called
+drm_connector_cleanup(), drm_encoder_cleanup(), kfree() and
+intel_connector_free() when no LVDS panel mode could be found.
 
-The error labels in intel_sdvo_tv_init() and intel_sdvo_lvds_init()
-call intel_connector_destroy() explicitly before returning false,
-causing it to be invoked twice: once in the error path and again by
-the DRM core through the registered .destroy callback.
+Once drm_connector_init_with_ddc() and drm_encoder_init() have been
+called, the DRM core takes ownership of these objects and will invoke
+their .destroy callbacks (intel_connector_destroy and
+intel_encoder_destroy) during device teardown. The manual cleanup in
+the failed: label is therefore redundant.
 
-Remove the manual intel_connector_destroy() calls from the error labels
-and return false directly instead.
+Remove it and replace the goto with a simple early return.
 
-Fixes: 32aad86fe88e7 ("drm/i915/sdvo: Propagate errors from reading/writing control bus.")
+Fixes: 79e539453b34e ("DRM: i915: add mode setting support")
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
 
 Not tested as I don't have such hardware.
 ---
- drivers/gpu/drm/i915/display/intel_sdvo.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lvds.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 2e1af9e869ded..6eb2b4b45a9b4 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2873,16 +2873,12 @@ intel_sdvo_tv_init(struct intel_sdvo *intel_sdvo, u16 type)
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index cc6d4bfcff102..e78a41e2b268c 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -991,8 +991,10 @@ void intel_lvds_init(struct intel_display *display)
+ 	mutex_unlock(&display->drm->mode_config.mutex);
  
- 	if (!intel_sdvo_tv_create_property(intel_sdvo, intel_sdvo_connector, type))
--		goto err;
-+		return false;
+ 	/* If we still don't have a mode after all that, give up. */
+-	if (!intel_panel_preferred_fixed_mode(connector))
+-		goto failed;
++	if (!intel_panel_preferred_fixed_mode(connector)) {
++		drm_dbg_kms(display->drm, "No LVDS modes found, disabling.\n");
++		return;
++	}
  
- 	if (!intel_sdvo_create_enhance_property(intel_sdvo, intel_sdvo_connector))
--		goto err;
-+		return false;
+ 	intel_panel_init(connector, drm_edid);
  
- 	return true;
+@@ -1005,12 +1007,4 @@ void intel_lvds_init(struct intel_display *display)
+ 	lvds_encoder->a3_power = lvds & LVDS_A3_POWER_MASK;
+ 
+ 	return;
 -
--err:
--	intel_connector_destroy(connector);
--	return false;
+-failed:
+-	drm_dbg_kms(display->drm, "No LVDS modes found, disabling.\n");
+-	drm_connector_cleanup(&connector->base);
+-	drm_encoder_cleanup(&encoder->base);
+-	kfree(lvds_encoder);
+-	intel_connector_free(connector);
+-	return;
  }
- 
- static bool
-@@ -2945,7 +2941,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, u16 type)
- 	}
- 
- 	if (!intel_sdvo_create_enhance_property(intel_sdvo, intel_sdvo_connector))
--		goto err;
-+		return false;
- 
- 	intel_bios_init_panel_late(display, &intel_connector->panel, NULL, NULL);
- 
-@@ -2967,13 +2963,9 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, u16 type)
- 	intel_panel_init(intel_connector, NULL);
- 
- 	if (!intel_panel_preferred_fixed_mode(intel_connector))
--		goto err;
-+		return false;
- 
- 	return true;
--
--err:
--	intel_connector_destroy(connector);
--	return false;
- }
- 
- static u16 intel_sdvo_filter_output_flags(u16 flags)
 
 -- 
 2.43.0
