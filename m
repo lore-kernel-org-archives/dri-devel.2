@@ -4,101 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20BA6E9DE68
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 08:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 127D5E9DE60
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 08:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7748B10E76E;
-	Thu,  9 Apr 2026 08:15:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3472210E768;
+	Thu,  9 Apr 2026 08:17:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HAXYGnzN";
-	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DL5Ht5qp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BVuYzmSY";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1904C10E769
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 08:15:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1775722520;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=cgrA7bBT8ZXCQqWY+bO1JlCg1Ecm798GETsxCdNk+V4=;
- b=HAXYGnzN1jmlSW8Q8yZSRhphJLwq6JZYUuyb+64tqlqxQeZi//T78nfGc55WSrh+y/fN7T
- 5nIYHhtRNkz3SdxDuX4huye8L3V/tHvoOXgIK5hOSA/tqtOWthb0cY0tqEOlgUzWHXjoCU
- SMTJDY9I7ylTnz9XYYYZ4/UL/5vnJ6w=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-527-tTDh0Yt9PWC63AxfHkf3-w-1; Thu, 09 Apr 2026 04:15:18 -0400
-X-MC-Unique: tTDh0Yt9PWC63AxfHkf3-w-1
-X-Mimecast-MFC-AGG-ID: tTDh0Yt9PWC63AxfHkf3-w_1775722517
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-488c82b4701so3757705e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 01:15:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=redhat.com; s=google; t=1775722517; x=1776327317; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cgrA7bBT8ZXCQqWY+bO1JlCg1Ecm798GETsxCdNk+V4=;
- b=DL5Ht5qpgzhCKvaQvy2rYKJQKgmZOQrfrdg+yGc90z6upgyrSnO84xj2GzQCeei4eV
- CPTStztFqwAf9f+91FKgLTMmRq/ZgfaqbI5HLUixA27iVVcDbORnBEwmgoRTTtBnbR8Z
- g1D1I6NAJmEl9B0YIGL/Hok+hbOowSOrnoZtT7ATCYzk3OrMhoORgbNDeFf0ne1R3moI
- 99f/nrfzZsPC1EVLCHge7I1Vjl7wnHtruIsGuj4oIVtrg2nLi7pWw71KcFdgWjk8R8rA
- 39xG0hErPqX3G7KagLZgDgCeoGGSU/CnXOx4kTakhPbqXEV3XpD/vES2wt0xjnFkGr8J
- UD7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775722517; x=1776327317;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cgrA7bBT8ZXCQqWY+bO1JlCg1Ecm798GETsxCdNk+V4=;
- b=dSJiGLqeAZNy2/qrXFkJVJuMdwVJiQUKT3jbucLBv4CNoTIdHzcZFPyCVw/bZWtMA5
- WPxagku0OgQMUNobI3pvlt8eHFC/EiOgmioNgO+1qOboTUcioGdqsKFpt+V8JSLdcZE0
- whx0KRF0JAafp/KaXX1DEY/q8Xv4pFvHqJcHEYwZq7bfnyccbhL5U3RLabQJIgviKkcA
- Uzvck1fYax25ThKrlzT/MTLViEGZqBwHF5+kEtWB+Pm6vytaHFUHYZGIrF7YCO6R37Wp
- FuxOESi7ZgrxdCXAY1ysJ17JwS3lTjFW1pb/OTuhjH1lHm0Mxci03hhSOGvcpu5ptzy4
- AwCw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWZMWCBjv6OzZHC7irdv4BLweFHpSP/13/t4pncVAgmlfk0C5eBG0HDJEcM9ymkvy3GjsYqEpJYlLg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxmi1jHA1MMm4QUXEEieZ+krDUpW3kee/FwTigWOAvbg8ABcQrT
- +7I7qNM+J3o0FhOndQkMNHbIsypmY2BIN04g0eq4nbScFtOibCULN+N897Alc1olC3RyvWSseaK
- r6Ff6/JDeDxRs9K4LECZaVSq/TbdwxaeoEHEWIFf/EHCBL+sx/B3sz75fiWaEffRmhAGVNg==
-X-Gm-Gg: AeBDiet32z0kMYuOTARDqgyRZYnRq/7/OzQCyAJaPS/Z+7ixhWLWM70tyU3alDJqCxU
- mOz/PwVc849PffF89IMZ10wFpwj0yldYbcUiaypc0FjxSUtsBLOrmD4ANso/CNRnRBR2VBfPN/z
- +DsCuoEZCg0RWSIDVcNcikJT5Pi/zHKhLPSHhRrSS3EHSbJf2R2vg9gOmGmjwaQnWm73CAqRpeJ
- G/zRYVqH3YLWi7OroUV6M5x6nWnV4syu7m2GplsyOQ6VHCew8S6gBEY3Pk38DDlYXyK5MGjYR1P
- Fmevxpawfri0GmjbCpolFOLoFQPI+RvvHKJyg2OEFhljjQsQTMcLVqDmtRwpPBobY50kQuWp7o1
- njcxCEZr800Hgy0tC
-X-Received: by 2002:a05:600c:c087:b0:485:3c2e:60d5 with SMTP id
- 5b1f17b1804b1-488cd50f45dmr21727355e9.2.1775722516982; 
- Thu, 09 Apr 2026 01:15:16 -0700 (PDT)
-X-Received: by 2002:a05:600c:c087:b0:485:3c2e:60d5 with SMTP id
- 5b1f17b1804b1-488cd50f45dmr21726855e9.2.1775722516410; 
- Thu, 09 Apr 2026 01:15:16 -0700 (PDT)
-Received: from localhost ([37.221.85.123]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488cd2492e8sm54399245e9.15.2026.04.09.01.15.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2026 01:15:15 -0700 (PDT)
-Date: Thu, 9 Apr 2026 10:15:10 +0200
-From: Maxime Ripard <mripard@redhat.com>
-To: Dave Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-fixes
-Message-ID: <20260409-omniscient-tomato-coucal-edbadc@penduick>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD96710E768;
+ Thu,  9 Apr 2026 08:17:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775722678; x=1807258678;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=uvnzCPAQaegStDHL3qh9Anic3TFOTdvOGtXXNVqWRP8=;
+ b=BVuYzmSYoTdui2Ee7Gc922CNBTfDWA35fx/emxveVcLCSmonJUYu3ePL
+ PH8110W53HgUaQzeSWwXrZPPrxd/tsV4hq5gk4CnizFYCXItCAIZK1SQW
+ 1Ml8bTAwi35jqAz+iGsbqMf9iJ00Mxx0tvkPYoBPVDrD48ZM7Sbi+spfK
+ xomb43GD+xHysvVnSvTjjd4PzkenuXM0AtLwAFb8cyuxNs7TNJbfFeiGH
+ DabuEyms8HYHszqxENuXHXrJd3Vl4gfeNTPTohVmctdmlcpCskdhKsb/t
+ s3XNRSchUmnRc+nfJdyLDg8vMZTykGAveKgGuRIkD9UbFp5dxjBGsxZZK g==;
+X-CSE-ConnectionGUID: Gd/bSi5XQae0Vqbw842yaA==
+X-CSE-MsgGUID: uX+XFCPXT+S9lxkD0+kGIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="76610264"
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="76610264"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 01:17:58 -0700
+X-CSE-ConnectionGUID: hf/UWDY0TnyTAtlP4DKt8A==
+X-CSE-MsgGUID: nRkhJqGkTwmz2bkAEc8mJA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="228638269"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.62])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 01:17:55 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Simona
+ Vetter <simona.vetter@ffwll.ch>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, Jouni =?utf-8?Q?H=C3=B6gander?=
+ <jouni.hogander@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH 3/6] drm/i915/reset: Move pending_fb_pin handling to i915
+In-Reply-To: <20260408233458.22666-4-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
+ <20260408233458.22666-4-ville.syrjala@linux.intel.com>
+Date: Thu, 09 Apr 2026 11:17:51 +0300
+Message-ID: <90a7ec16fbc16368fd2b64db4cc30ce5d3e36439@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="zyi5rrtfb4irsvwy"
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,68 +76,301 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, 09 Apr 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Only i915 uses the pending_fb_pin counter to potentially whack
+> the GPU harder if the display gets nuked during a GPU reset.
+> Move the atomic counter into the i915 specific bits of code, so
+> that we don't need to worry about on the display side.
+>
+> For some reason the overlay code kept the pending_fb_pin counter
+> elevated for longer than just for the pin, but from now on it'll
+> just cover the actual pinning part.
+>
+> Cc: Simona Vetter <simona.vetter@ffwll.ch>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
---zyi5rrtfb4irsvwy
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: [PULL] drm-misc-fixes
-MIME-Version: 1.0
+Yay, this is nice!
 
-Hi,
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Here's this week drm-misc-fixes PR.
+> ---
+>  .../gpu/drm/i915/display/intel_display_core.h |  1 -
+>  .../drm/i915/display/intel_display_reset.c    |  9 +--------
+>  .../drm/i915/display/intel_display_reset.h    |  5 +----
+>  drivers/gpu/drm/i915/display/intel_overlay.c  | 10 ++--------
+>  drivers/gpu/drm/i915/gt/intel_reset.c         | 19 ++++++++++---------
+>  drivers/gpu/drm/i915/i915_dpt.c               |  5 ++---
+>  drivers/gpu/drm/i915/i915_drv.h               |  2 ++
+>  drivers/gpu/drm/i915/i915_fb_pin.c            |  9 ++++-----
+>  drivers/gpu/drm/i915/i915_overlay.c           |  6 ++++++
+>  9 files changed, 28 insertions(+), 38 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/=
+gpu/drm/i915/display/intel_display_core.h
+> index d708d322aa85..9e77003addd0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_core.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+> @@ -561,7 +561,6 @@ struct intel_display {
+>  		struct drm_atomic_state *modeset_state;
+>  		struct drm_modeset_acquire_ctx reset_ctx;
+>  		/* modeset stuck tracking for reset */
+> -		atomic_t pending_fb_pin;
+>  		u32 saveDSPARB;
+>  		u32 saveSWF0[16];
+>  		u32 saveSWF1[16];
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers=
+/gpu/drm/i915/display/intel_display_reset.c
+> index 137a2a33c8b0..ca15dc18ef0f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_reset.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
+> @@ -27,19 +27,12 @@ bool intel_display_reset_test(struct intel_display *d=
+isplay)
+>  		display->params.force_reset_modeset_test;
+>  }
+>=20=20
+> -void intel_display_reset_prepare(struct intel_display *display,
+> -				 modeset_stuck_fn modeset_stuck, void *context)
+> +void intel_display_reset_prepare(struct intel_display *display)
+>  {
+>  	struct drm_modeset_acquire_ctx *ctx =3D &display->restore.reset_ctx;
+>  	struct drm_atomic_state *state;
+>  	int ret;
+>=20=20
+> -	if (atomic_read(&display->restore.pending_fb_pin)) {
+> -		drm_dbg_kms(display->drm,
+> -			    "Modeset potentially stuck, unbreaking through wedging\n");
+> -		modeset_stuck(context);
+> -	}
+> -
+>  	/*
+>  	 * Need mode_config.mutex so that we don't
+>  	 * trample ongoing ->detect() and whatnot.
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.h b/drivers=
+/gpu/drm/i915/display/intel_display_reset.h
+> index e0f15e757728..a8aa7729d33f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_reset.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_reset.h
+> @@ -10,12 +10,9 @@
+>=20=20
+>  struct intel_display;
+>=20=20
+> -typedef void modeset_stuck_fn(void *context);
+> -
+>  bool intel_display_reset_supported(struct intel_display *display);
+>  bool intel_display_reset_test(struct intel_display *display);
+> -void intel_display_reset_prepare(struct intel_display *display,
+> -				 modeset_stuck_fn modeset_stuck, void *context);
+> +void intel_display_reset_prepare(struct intel_display *display);
+>  void intel_display_reset_finish(struct intel_display *display, bool test=
+_only);
+>=20=20
+>  #endif /* __INTEL_RESET_H__ */
+> diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/d=
+rm/i915/display/intel_overlay.c
+> index 12a325ceae6f..a809aa2950ac 100644
+> --- a/drivers/gpu/drm/i915/display/intel_overlay.c
+> +++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+> @@ -481,13 +481,9 @@ static int intel_overlay_do_put_image(struct intel_o=
+verlay *overlay,
+>  	if (ret !=3D 0)
+>  		return ret;
+>=20=20
+> -	atomic_inc(&display->restore.pending_fb_pin);
+> -
+>  	vma =3D intel_parent_overlay_pin_fb(display, obj, &offset);
+> -	if (IS_ERR(vma)) {
+> -		ret =3D PTR_ERR(vma);
+> -		goto out_pin_section;
+> -	}
+> +	if (IS_ERR(vma))
+> +		return PTR_ERR(vma);
+>=20=20
+>  	if (!intel_parent_overlay_is_active(display)) {
+>  		const struct intel_crtc_state *crtc_state =3D
+> @@ -571,8 +567,6 @@ static int intel_overlay_do_put_image(struct intel_ov=
+erlay *overlay,
+>=20=20
+>  out_unpin:
+>  	intel_parent_overlay_unpin_fb(display, vma);
+> -out_pin_section:
+> -	atomic_dec(&display->restore.pending_fb_pin);
+>=20=20
+>  	return ret;
+>  }
+> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915=
+/gt/intel_reset.c
+> index ffd11767874f..a1e6aaca8c9b 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+> @@ -1398,11 +1398,6 @@ int intel_engine_reset(struct intel_engine_cs *eng=
+ine, const char *msg)
+>  	return err;
+>  }
+>=20=20
+> -static void display_reset_modeset_stuck(void *gt)
+> -{
+> -	intel_gt_set_wedged(gt);
+> -}
+> -
+>  static void intel_gt_reset_global(struct intel_gt *gt,
+>  				  u32 engine_mask,
+>  				  const char *reason)
+> @@ -1434,10 +1429,16 @@ static void intel_gt_reset_global(struct intel_gt=
+ *gt,
+>  			intel_display_reset_test(display) ||
+>  			need_display_reset;
+>=20=20
+> -		if (reset_display)
+> -			intel_display_reset_prepare(display,
+> -						    display_reset_modeset_stuck,
+> -						    gt);
+> +		if (reset_display) {
+> +			if (atomic_read(&i915->pending_fb_pin)) {
+> +				drm_dbg_kms(&i915->drm,
+> +					    "Modeset potentially stuck, unbreaking through wedging\n");
+> +
+> +				intel_gt_set_wedged(gt);
+> +			}
+> +
+> +			intel_display_reset_prepare(display);
+> +		}
+>=20=20
+>  		intel_gt_reset(gt, engine_mask, reason);
+>=20=20
+> diff --git a/drivers/gpu/drm/i915/i915_dpt.c b/drivers/gpu/drm/i915/i915_=
+dpt.c
+> index 9f47bb563c85..fcd7cced771d 100644
+> --- a/drivers/gpu/drm/i915/i915_dpt.c
+> +++ b/drivers/gpu/drm/i915/i915_dpt.c
+> @@ -129,7 +129,6 @@ static void dpt_cleanup(struct i915_address_space *vm)
+>  struct i915_vma *i915_dpt_pin_to_ggtt(struct intel_dpt *dpt, unsigned in=
+t alignment)
+>  {
+>  	struct drm_i915_private *i915 =3D dpt->vm.i915;
+> -	struct intel_display *display =3D i915->display;
+>  	struct ref_tracker *wakeref;
+>  	struct i915_vma *vma;
+>  	void __iomem *iomem;
+> @@ -141,7 +140,7 @@ struct i915_vma *i915_dpt_pin_to_ggtt(struct intel_dp=
+t *dpt, unsigned int alignm
+>  		pin_flags |=3D PIN_MAPPABLE;
+>=20=20
+>  	wakeref =3D intel_runtime_pm_get(&i915->runtime_pm);
+> -	atomic_inc(&display->restore.pending_fb_pin);
+> +	atomic_inc(&i915->pending_fb_pin);
+>=20=20
+>  	for_i915_gem_ww(&ww, err, true) {
+>  		err =3D i915_gem_object_lock(dpt->obj, &ww);
+> @@ -171,7 +170,7 @@ struct i915_vma *i915_dpt_pin_to_ggtt(struct intel_dp=
+t *dpt, unsigned int alignm
+>=20=20
+>  	dpt->obj->mm.dirty =3D true;
+>=20=20
+> -	atomic_dec(&display->restore.pending_fb_pin);
+> +	atomic_dec(&i915->pending_fb_pin);
+>  	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+>=20=20
+>  	return err ? ERR_PTR(err) : vma;
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_=
+drv.h
+> index dafee3dcd1c5..844ed79e7211 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -315,6 +315,8 @@ struct drm_i915_private {
+>  	/* The TTM device structure. */
+>  	struct ttm_device bdev;
+>=20=20
+> +	atomic_t pending_fb_pin;
+> +
+>  	I915_SELFTEST_DECLARE(struct i915_selftest_stash selftest;)
+>=20=20
+>  	/*
+> diff --git a/drivers/gpu/drm/i915/i915_fb_pin.c b/drivers/gpu/drm/i915/i9=
+15_fb_pin.c
+> index 1018f4b7bc2c..a08a8ace681f 100644
+> --- a/drivers/gpu/drm/i915/i915_fb_pin.c
+> +++ b/drivers/gpu/drm/i915/i915_fb_pin.c
+> @@ -29,7 +29,6 @@ intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
+>  		    unsigned long *out_flags,
+>  		    struct intel_dpt *dpt)
+>  {
+> -	struct intel_display *display =3D to_intel_display(fb->dev);
+>  	struct drm_i915_private *i915 =3D to_i915(fb->dev);
+>  	struct drm_gem_object *_obj =3D intel_fb_bo(fb);
+>  	struct drm_i915_gem_object *obj =3D to_intel_bo(_obj);
+> @@ -48,7 +47,7 @@ intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
+>  	if (WARN_ON(!i915_gem_object_is_framebuffer(obj)))
+>  		return ERR_PTR(-EINVAL);
+>=20=20
+> -	atomic_inc(&display->restore.pending_fb_pin);
+> +	atomic_inc(&i915->pending_fb_pin);
+>=20=20
+>  	for_i915_gem_ww(&ww, ret, true) {
+>  		ret =3D i915_gem_object_lock(obj, &ww);
+> @@ -103,7 +102,7 @@ intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
+>=20=20
+>  	i915_vma_get(vma);
+>  err:
+> -	atomic_dec(&display->restore.pending_fb_pin);
+> +	atomic_dec(&i915->pending_fb_pin);
+>=20=20
+>  	return vma;
+>  }
+> @@ -142,7 +141,7 @@ intel_fb_pin_to_ggtt(const struct drm_framebuffer *fb,
+>  	 */
+>  	wakeref =3D intel_runtime_pm_get(&i915->runtime_pm);
+>=20=20
+> -	atomic_inc(&display->restore.pending_fb_pin);
+> +	atomic_inc(&i915->pending_fb_pin);
+>=20=20
+>  	/*
+>  	 * Valleyview is definitely limited to scanning out the first
+> @@ -218,7 +217,7 @@ intel_fb_pin_to_ggtt(const struct drm_framebuffer *fb,
+>  	if (ret)
+>  		vma =3D ERR_PTR(ret);
+>=20=20
+> -	atomic_dec(&display->restore.pending_fb_pin);
+> +	atomic_dec(&i915->pending_fb_pin);
+>  	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+>  	return vma;
+>  }
+> diff --git a/drivers/gpu/drm/i915/i915_overlay.c b/drivers/gpu/drm/i915/i=
+915_overlay.c
+> index 2d7aff51e39b..6de550a17756 100644
+> --- a/drivers/gpu/drm/i915/i915_overlay.c
+> +++ b/drivers/gpu/drm/i915/i915_overlay.c
+> @@ -354,11 +354,14 @@ static struct i915_vma *i915_overlay_pin_fb(struct =
+drm_device *drm,
+>  					    struct drm_gem_object *obj,
+>  					    u32 *offset)
+>  {
+> +	struct drm_i915_private *i915 =3D to_i915(drm);
+>  	struct drm_i915_gem_object *new_bo =3D to_intel_bo(obj);
+>  	struct i915_gem_ww_ctx ww;
+>  	struct i915_vma *vma;
+>  	int ret;
+>=20=20
+> +	atomic_inc(&i915->pending_fb_pin);
+> +
+>  	i915_gem_ww_ctx_init(&ww, true);
+>  retry:
+>  	ret =3D i915_gem_object_lock(new_bo, &ww);
+> @@ -373,6 +376,9 @@ static struct i915_vma *i915_overlay_pin_fb(struct dr=
+m_device *drm,
+>  			goto retry;
+>  	}
+>  	i915_gem_ww_ctx_fini(&ww);
+> +
+> +	atomic_dec(&i915->pending_fb_pin);
+> +
+>  	if (ret)
+>  		return ERR_PTR(ret);
 
-Maxime
-
-drm-misc-fixes-2026-04-09:
-Several fixes for v3d about memory leak, runtime PM, and locking, and a
-Kconfig improvement for ethosu.
-The following changes since commit f8995c2df519f382525ca4bc90553ad2ec611067:
-
-  drm/ioc32: stop speculation on the drm_compat_ioctl path (2026-04-02 08:2=
-4:55 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-20=
-26-04-09
-
-for you to fetch changes up to 857fa8f2a5b184c206c703a3d9ce05cea683cfed:
-
-  accel: ethosu: Add hardware dependency hint (2026-04-02 15:18:14 -0500)
-
-----------------------------------------------------------------
-Several fixes for v3d about memory leak, runtime PM, and locking, and a
-Kconfig improvement for ethosu.
-
-----------------------------------------------------------------
-Jean Delvare (1):
-      accel: ethosu: Add hardware dependency hint
-
-Ma=EDra Canal (4):
-      drm/vc4: Release runtime PM reference after binding V3D
-      drm/vc4: Fix memory leak of BO array in hang state
-      drm/vc4: Fix a memory leak in hang state error path
-      drm/vc4: Protect madv read in vc4_gem_object_mmap() with madv_lock
-
- drivers/accel/ethosu/Kconfig  |  1 +
- drivers/gpu/drm/vc4/vc4_bo.c  |  3 +++
- drivers/gpu/drm/vc4/vc4_gem.c | 19 +++++++++++--------
- drivers/gpu/drm/vc4/vc4_v3d.c |  1 +
- 4 files changed, 16 insertions(+), 8 deletions(-)
-
---zyi5rrtfb4irsvwy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaddgDQAKCRAnX84Zoj2+
-dq+8AX9h1JYGdlhW52Zj4EWdoRxaJBWxFCZNyc2xQBtzzr6NTN0KeIhc8MqhmQND
-y5WSyc8BfjOYEMehb2BhpAw/A0qZZRSRQKeXskcw87pwZN0wPA1CLGL2lEl4E/RP
-Hy3M+KMS/w==
-=ebgs
------END PGP SIGNATURE-----
-
---zyi5rrtfb4irsvwy--
-
+--=20
+Jani Nikula, Intel
