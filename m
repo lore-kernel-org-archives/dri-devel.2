@@ -4,140 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09755F364BD
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 21:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E2CF364B6
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 21:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C7F110E0A8;
-	Thu,  9 Apr 2026 21:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8813010E080;
+	Thu,  9 Apr 2026 21:12:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BIWL5Rqq";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QQqFa0kM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="krlGezdj";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3569610E0A8
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 21:06:34 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 639HkUFs2698383
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 21:06:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=BkT2BXpxWHehgHaz7HpCxZpY
- hADGt5iQQLiK/P6Xocs=; b=BIWL5Rqqsj0jnC+EeLvbLFI4/kra1Oj3NiTjbMPp
- /XQeyVBxb1yj1Xik4FOtTE05S4A4Y8Ie772HGVqYNd61VIRj2+D0qMLWU16xVOr6
- SM2jzt68Gq35kUw0JSA5klvDL3s06inD5cmehemAhJy+NTeCO4+x9w/k9DFM7GVO
- 2sRadJT/Ay75272QJ8YVCFvUNQnZjK3Mo0EuFRALKPE2QdZetCMfBW3rLcVM6eDl
- 9MYmcQAnR4te0uifG3MWVMAHfVb4kTUUdEuDcVYlQ4cZNNOkheYns+TXTwxVubvu
- gCj0kpjPZ6D3EUQfYXRaSw3MpMLftlHDyqgbxpS4EoM0iQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4degt9rk6n-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 21:06:33 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50b34223670so60898171cf.0
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 14:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775768793; x=1776373593;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=BkT2BXpxWHehgHaz7HpCxZpYhADGt5iQQLiK/P6Xocs=;
- b=QQqFa0kM7/7FDM+/yKLRM9+2/r1ITPInWblBmd33C+e+co5HsSrLfW5xf+ab/hi0z8
- XLMf070AmVl6lDfcTXG73xBfRJbbkzbZ2O8mJhiOV5L91eqKTFzePYyIvCdeJy1rneMw
- 7wdeX73g0ezGfLfrX+GVeDTI2XapSDJHb2vAlOfcXvASHerUlna6jr+qyZz16MvC9AN7
- n9CE8FZc5ti0oHNjMZ/Tk9sh/XsrH+jLvrM+WNJfuGFQwaUhMb3Sy1bUBDtVAEwDqpwr
- sfn6jjHI5+lTXwRqkUp8bTNa2/ivLTk61dbFT1YP9XxXNGiU1IAkUxtGgriwoRPNrL8Y
- eamQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775768793; x=1776373593;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=BkT2BXpxWHehgHaz7HpCxZpYhADGt5iQQLiK/P6Xocs=;
- b=dsLOXGT7qNFRPzHOWTwoiNM70E/tnescjRXtp9s4XA+4jhzdVyS0evG7Z5sw+VdVLF
- g8Xjb+mD3W2FlRKxQM5rHSfQVCMjqxfzyYlkYWlPDitk154QVe8ahAgIafsekBo0K+8Y
- GAws26UYuCW2/TPdg78PC5QmGPTMpvNrXykQSRj9HoqKab7FkHgMWRO/Q0O/eGFdWAT5
- /KC1yz2WceClv1aMe1GsoAD7+yW6QXcKABkBS8IkYfCh+2BBd4wAM6EcCp9mevKeE+kg
- AfD6ZI1IwjtnxobseITkQxOdMJbteUsq00U4uE3Rthkwy6DBs70ghJEHUiJABySh4XiP
- 5VLw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV2eM2hsi3vfTHzqlgCESsxXooVYtDvk1GPKOwJRhY4r49suXqblyc/HYLqti4xIjjXGkR9KvFTLmE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxn0h4U90qCG+ptjToDOG+VKlr8KUoponuf5ZqsAH8H0+X7a1ho
- NvxQ7zB5sPhpPkm4ElLJD6r3ab+wv5i8HMSaXF5br9lSaISiTqFGG81X7UQ8LHP7bV2e1mc9/0o
- frgnKajcfR3ClWYe9c9xI3hE759pSje5qZr4yGV6fuRIS75HeehDQF3SLC7G0CeXE4w1JLgk=
-X-Gm-Gg: AeBDieujjFACk8K2AYzsxvG8EE4dAythtr1g3sTMRl7pMsQZ85eKQW5mOXyec1FzlAT
- Wv/YreqpI2DEbMmcURKNPKMV2reVrznoiVXfE9a7lIVAQGiABAUSLQk9laVsS9eOPzoy6Vm/A8c
- Z+/rxZpGHb/9eBvqUNonheh5pzgI48E8Mp1Yq6FJWOYejWSKweWfOYTJCr2vH9F/aBs/44kMfnX
- Y702Ks4p9inNtg1vRWp+H1OYubKfJ6IcfXGfAkGPG2ArrcGpERnll4/LpEgz1BHoDQaqDqx5nct
- 9aQeTjPJwl0cVk25Z4lXKfLzSS98Mtw7vJ+32Yy9da1szD/nL0y47JCUpUkVUSapPqX+LFRZAOq
- /wwSfiQiOibYbA6OBRBSSqMwK/ONWFb4R8aqgXlfG6awVZxSuKwVDDhLyFoj3u7yOyulHFFAJ1o
- UpEKkWM+ZddUfLXRZSU/xPyQS9ll9jGhqHax4=
-X-Received: by 2002:ac8:5a02:0:b0:50d:8734:ba65 with SMTP id
- d75a77b69052e-50dd5b95bc8mr14103821cf.11.1775768792650; 
- Thu, 09 Apr 2026 14:06:32 -0700 (PDT)
-X-Received: by 2002:ac8:5a02:0:b0:50d:8734:ba65 with SMTP id
- d75a77b69052e-50dd5b95bc8mr14102751cf.11.1775768791806; 
- Thu, 09 Apr 2026 14:06:31 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a3eee86641sm161191e87.3.2026.04.09.14.06.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2026 14:06:30 -0700 (PDT)
-Date: Fri, 10 Apr 2026 00:06:28 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- victor.liu@nxp.com, Frank.Li@nxp.com, shawnguo@kernel.org,
- s.hauer@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, krzk@kernel.org, jingoohan1@gmail.com,
- p.zabel@pengutronix.de, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com, Laurent.pinchart@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com, kernel@pengutronix.de,
- festevam@gmail.com, alim.akhtar@samsung.com, luca.ceresoli@bootlin.com,
- nicolas.frattaroli@collabora.com, dianders@chromium.org,
- m.szyprowski@samsung.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH v13 11/17] drm/bridge: analogix_dp: Apply
- drm_bridge_connector helper
-Message-ID: <wmt75edxyrmhyyfxx7xrrhfdjvdu6u24zwwwsd4ryy52ctwm6f@th73j4phtvmm>
-References: <20260409065301.446670-1-damon.ding@rock-chips.com>
- <20260409065301.446670-12-damon.ding@rock-chips.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72EA610E080
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 21:12:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775769128; x=1807305128;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=oJxyh0g/A8b5OcJcuVfTmAYVKJITInLTJHPo1BiHZ5w=;
+ b=krlGezdjJoITrtmxcSWc1vaq5ULk0GDWFVV/sZ5qF36xbfzV5M/B92LP
+ UaZ+5P3q3mWhvl5PiOclDyEtFRfJPYjwA/KYuxB03JzVz6CCUj1mn8EOk
+ VxutmCVprp7kkTlIEZvpxPQDwKG2doOXOBItD7ow6iXFcXqerjJ6Y4Tk7
+ KaY4Pnrjo7Lw3LNLCE7lVt7T5aSVLDrXVIQgMssPejTcRgiP01pSYhQr2
+ IEPLY+JJbPbNqovtSeo09i7PSrqPR8vE09aMf6fVci9gisCfUw26Cbkm/
+ TpQKUm78QkEVHZjFPWgsUxZs/HcAwicTJWDKilHEzm59JA6SovcaMtxAG Q==;
+X-CSE-ConnectionGUID: 6WkgNKP0TsauzUrVI8N9Ew==
+X-CSE-MsgGUID: RdhfjGd4SjyfwkDFEL2miw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="80380649"
+X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; d="scan'208";a="80380649"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 14:12:08 -0700
+X-CSE-ConnectionGUID: 0ggiM17aQMOyemTMyngTTQ==
+X-CSE-MsgGUID: WimCPlygQfGHw+8lwr2olw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,170,1770624000"; d="scan'208";a="252240438"
+Received: from dgeiger-mobl1.ger.corp.intel.com (HELO [10.246.17.96])
+ ([10.246.17.96])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 14:12:06 -0700
+Message-ID: <2807038a-b931-4a7a-9d8a-ea4feb53b595@linux.intel.com>
+Date: Thu, 9 Apr 2026 23:12:02 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260409065301.446670-12-damon.ding@rock-chips.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDE5NCBTYWx0ZWRfX/k5Z1cKBIVAL
- AgtigqjOHwzeldjX6t9PrX7FxoRgTLBvU5mxSb59wPPv2bA4h2oA5ICj3q44de1ZKdpVZzn1RHb
- rf9GC2CpSwsuxG9JL64X+fZuc6LlNS8sMzGta+IamdLeJj7/CbogFqcBmC27+fMW56/CxkvcfwE
- a2a6Gnsn8ilWmhUfp7iGlO/TCbfwClJsG/kvERG3Y5uwCpJi0GoLrKIfHdmWP9PmwtzTYtmqwr1
- IHMbdZNmsdAaVF/0r3KKnoOJ3dFsgg6LRu3Wubwve/87kQkRen1p8hyIhZCKbQwtBuNftpTtUwd
- jZbKzE7zpSS491PUAZ6w7lLlbITFOB3I239De7oc4Fx9j6HaNTPHjFnWYSlU09ivDNSNRE/JzfT
- DJHol0jahSquxzfraAuZn010TYQhlxni3i7z9stnaloWbnicioHGWoYsxVszkBv0iAcxDIwrHZ3
- P7CwemuhuYQBk9lGyXA==
-X-Proofpoint-ORIG-GUID: IYXwj_RhC9dLnhaeUVlw39MrhKsg5-yY
-X-Proofpoint-GUID: IYXwj_RhC9dLnhaeUVlw39MrhKsg5-yY
-X-Authority-Analysis: v=2.4 cv=BJyDalQG c=1 sm=1 tr=0 ts=69d814d9 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=s8YR1HE3AAAA:8
- a=hD80L64hAAAA:8 a=EUspDBNiAAAA:8 a=yovIxdhcBUqVpsxpVugA:9 a=CjuIK1q_8ugA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=jGH_LyMDp9YhSvY-UuyI:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 clxscore=1015 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090194
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] accel/ivpu: Add support for limiting NPU frequency
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, karol.wachowski@linux.intel.com,
+ lizhi.hou@amd.com, maciej.falkowski@linux.intel.com
+References: <20260330083815.1806045-1-andrzej.kacprowski@linux.intel.com>
+ <dcf02dcc-e49f-4d7a-8cec-95d177b32336@oss.qualcomm.com>
+ <10d61ab1-216d-4a79-bd80-ff4309c4d6b4@linux.intel.com>
+ <74542a6e-14d6-4736-961f-59443d59b146@oss.qualcomm.com>
+Content-Language: en-US
+From: Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>
+In-Reply-To: <74542a6e-14d6-4736-961f-59443d59b146@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,37 +74,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 09, 2026 at 02:52:55PM +0800, Damon Ding wrote:
-> Initialize bridge_connector for both Rockchip and Exynos encoder sides.
-> Then, make DRM_BRIDGE_ATTACH_NO_CONNECTOR mandatory for Analogix bridge
-> side, as the private &drm_connector is no longer created.
+On 09-Apr-26 9:19 PM, Jeff Hugo wrote:
+> On 4/8/2026 7:01 AM, Andrzej Kacprowski wrote:
+>> On 31-Mar-26 8:12 AM, Jeff Hugo wrote:
+>>> On 3/30/2026 2:38 AM, Andrzej Kacprowski wrote:
+>>>> Add configurable frequency limits to allow users to constrain the NPU
+>>>> operating frequency range for power and thermal management. This 
+>>>> support
+>>>> requires firmware API version 3.34.0 or newer.
+>>>>
+>>>> New sysfs interface:
+>>>>
+>>>> The freq/ subdirectory contains the following attributes:
+>>>>
+>>>> - hw_min_freq: Minimum frequency supported by hardware (read-only)
+>>>> - hw_max_freq: Maximum frequency supported by hardware (read-only)
+>>>> - hw_efficient_freq: Hardware's optimal operating frequency (read-only)
+>>>> - current_freq: Current NPU frequency in MHz (read-only)
+>>>> - set_min_freq: Configure minimum operating frequency (50XX+ devices)
+>>>> - set_max_freq: Configure maximum operating frequency (50XX+ devices)
+>>> I don't see Documentation/ABI changes in this patch, which are 
+>>> required for sysfs.
+>>>
+>> Good point. I will add required documentation for all attributes 
+>> exported by the ivpu driver.
+>> [PATCH V2] will follow.
+>>
+>>> However, I wonder if this is the best way to move forward. At best, 
+>>> you appear to be implementing a completely custom version of hwmon. 
+>>> However, I wonder if hwmon/sysfs will be limiting as you support 3 
+>>> generations of devices if I recall correctly, and that number is 
+>>> probably going to go up. With the different generations supporting 
+>>> different capabilities, I suspect the sysfs approach will eventually 
+>>> put you into a corner.
+>> Hwmon supports a fixed set of sensor types (temperature, voltage, fan 
+>> speed, etc...) but it does not support frequency, so its not suitable 
+>> for the purpose.
 > 
-> The previous &drm_connector_funcs and &drm_connector_helper_funcs APIs
-> are replaced by the corresponding &drm_bridge_funcs APIs:
+> hwmon_device_register_with_info() allows you to extend the interface 
+> with the extra_groups parameter.
+Indeed, looks like there is way to add custom attributes.
+Still I haven't found any example where frequency would be managed 
+though hwmon interface.
+
+The intended purpose of the proposed ivpu feature is to allow system 
+level power manager to limit NPU power usage and extend system battery 
+life.
+
+Hwmon does not seem to be a good match here - its main value is 
+providing standardized sensors that can be accessed though common 
+software like lm-sensors.
+
+- Andrzej
 > 
-> analogix_dp_atomic_check() -> analogix_dp_bridge_atomic_check()
-> analogix_dp_detect()       -> analogix_dp_bridge_detect()
-> analogix_dp_get_modes()    -> analogix_dp_bridge_get_modes()
->                               analogix_dp_bridge_edid_read()
-> 
-> Additionally, the compatibilities of Analogix DP bridge based on whether
-> the next bridge is a 'panel'. If it is, OP_MODES and OP_DETECT are
-> supported; If not (the next bridge is a 'monitor' or a bridge chip),
-> OP_EDID and OP_DETECT are supported.
-> 
-> The devm_drm_bridge_add() is placed in analogix_dp_bind() instead of
-> analogix_dp_probe(), because the type of next bridge (the panel, monitor
-> or bridge chip) can only be determined after the probe process has fully
-> completed.
-> 
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Tested-by: Heiko Stuebner <heiko@sntech.de> # rk3588
+>> Frequency limiting is supported on 2 hardware generations (50XX and 
+>> 60XX) without any delta. I'm not expecting any changes in this code 
+>> for future hardware.
+>>>
+>>> Your collegues over in the XE area have proposed a netlink mechanism, 
+>>> which is in -next currently (expected to go in the 7.1 merge window). 
+>>> We collaborated on that mechanism, and have plans to extend it for 
+>>> these kinds of "telemetry" items. I'm expecting we'll have some 
+>>> patches posted on list in a week, maybe 2 (finishing up some of the 
+>>> final details). Perhaps you would find that useful?
+>> The DRM RAS over netlink seems to be tailored for reporting error 
+>> counters.
+>>
+>> The xe driver I was mimicking, still manages frequency limiting with 
+>> sysfs, even thou it supported hwmon for discrete hw sensors, and now 
+>> RAS over netlink as well for error counters.
+>>
+>> - Andrzej
+>>>
+>>> -Jeff
+>>
 > 
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
