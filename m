@@ -4,58 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90201E9DE5D
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 07:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 258ECE9DE5A
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 07:27:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E3510E759;
-	Thu,  9 Apr 2026 07:24:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2129910E74D;
+	Thu,  9 Apr 2026 07:27:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="c9+Yk+hi";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Dr9xzTk4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lu/fj+YZ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="W+DOzxck";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MLAPGoKM";
 	dkim-atps=neutral
-Received: from mail-m15598.qiye.163.com (mail-m15598.qiye.163.com
- [101.71.155.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB8E110E754
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 07:24:28 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3a130ab6e;
- Thu, 9 Apr 2026 15:24:24 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, victor.liu@nxp.com, Frank.Li@nxp.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, inki.dae@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org,
- jingoohan1@gmail.com, p.zabel@pengutronix.de, hjc@rock-chips.com,
- heiko@sntech.de, andy.yan@rock-chips.com
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, kernel@pengutronix.de, festevam@gmail.com,
- alim.akhtar@samsung.com, dmitry.baryshkov@oss.qualcomm.com,
- luca.ceresoli@bootlin.com, nicolas.frattaroli@collabora.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v13 17/17] drm/bridge: analogix_dp: Apply panel_bridge helper
-Date: Thu,  9 Apr 2026 15:19:08 +0800
-Message-Id: <20260409071908.466294-5-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260409071908.466294-1-damon.ding@rock-chips.com>
-References: <20260409065301.446670-1-damon.ding@rock-chips.com>
- <20260409071908.466294-1-damon.ding@rock-chips.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A021F10E74D
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 07:27:17 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 062B34EDFB;
+ Thu,  9 Apr 2026 07:27:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775719636; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5l8iEbVSJ/iO+Sg9NaZxX6rd+AtK0+GSi2e9EwTIJH8=;
+ b=Dr9xzTk45PbTPQFp6HAO8oLhL/smBDkNSWgMvnGrsPj6cMMnxEOgZkQVzYnX/oHHY8TkSC
+ 8AjQ4j1RXi42ZPNoYyneg+9YdCOlo6gmlYTbarGn8FeEW1x+ASZVJZGoki19sNp6iZdDTD
+ xNnmR165NzIgqT5dXqh8FhQQhcQSJX0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775719636;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5l8iEbVSJ/iO+Sg9NaZxX6rd+AtK0+GSi2e9EwTIJH8=;
+ b=lu/fj+YZZDHOm7S3SWmplC5rMqblfkdOH7tGqNG8N8S3NbRSXRc8Ey5gpciez6PMwwny2v
+ SBnbjpFUvCcDTsBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1775719635; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5l8iEbVSJ/iO+Sg9NaZxX6rd+AtK0+GSi2e9EwTIJH8=;
+ b=W+DOzxckF6xeD2TV+dKWH2sBQvFeW+NtTq2bF8+7OyOkSOOhcRCMSlfjYXsb6hd+byZHtW
+ ocxSmRO9IFRikafPhzOViq3ZmU3MXel/ujt0QKCU80OvMPxhhj/yNdH48s6LxGkM928rR5
+ 9njRkWjziRO1azUE/eAt5xxKFvy9M9c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1775719635;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=5l8iEbVSJ/iO+Sg9NaZxX6rd+AtK0+GSi2e9EwTIJH8=;
+ b=MLAPGoKMFg78PG3zaldxVbntnkkRTWVDAJMZlkn3fp18HGuzUYAFKeMCZsj0OPzkOIce20
+ 8MbpC5LLOC8/WMCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C7A524A0B3;
+ Thu,  9 Apr 2026 07:27:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CC1OL9JU12maUAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 09 Apr 2026 07:27:14 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: deller@gmx.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2] MAINTAINERS: Add dedicated entry for fbcon
+Date: Thu,  9 Apr 2026 09:26:09 +0200
+Message-ID: <20260409072711.12500-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d7120bea703a3kunm41c7027340af8a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGUtMQ1ZJHx5OGkNNQxlDHkJWFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- 1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=c9+Yk+hiF9x0rhiMFUHFSwOUgwyyM/GIpw9K9LkkbtGwKaW1S98n0sGtCp82C5f6DeWHstdXXEjDT7rfOnNQLxtVhjobtUH5zzmHq/NihM7hwSyzYkHrskZGgpAtGyhcmO2P1i8MQp2FTAkAIChTAfIUPhT48vEQfga7EXPJOMw=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=6LGPCYqxydQp/EFMTOko81ZvOxyViuIVDf7MPL6ki1Q=;
- h=date:mime-version:subject:message-id:from;
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[billm.au:url,lists.freedesktop.org:email,ffwll.ch:email,suse.de:mid,suse.de:email,gitlab.freedesktop.org:url,gmx.de:email];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; FROM_EQ_ENVFROM(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FREEMAIL_TO(0.00)[gmx.de,ffwll.ch];
+ RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_FIVE(0.00)[6];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_ENVRCPT(0.00)[gmx.de]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,162 +101,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to unify the handling of the panel and bridge, apply
-panel_bridge helpers for Analogix DP driver. With this patch, the
-bridge support will also become available.
+Add an own entry for the framebuffer console code, which is jointly
+used by the fbdev and DRM drivers.
 
-The following changes have ben made:
-- Apply plane_bridge helper to wrap the panel as the bridge.
-- Remove the explicit panel APIs calls, which can be replaced with
-  the automic bridge APIs calls wrapped by the panel.
-- Remove the unnecessary analogix_dp_bridge_get_modes().
+v2:
+- add Helge as maintainer
+- list font and include files
+- update commit message (Helge)
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Tested-by: Heiko Stuebner <heiko@sntech.de> # rk3588
-
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
+ MAINTAINERS | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-Changes in v4:
-- Rename the &analogix_dp_plat_data.bridge to
-  &analogix_dp_plat_data.next_bridge.
-
-Changes in v5:
-- Move panel_bridge addition a little forward.
-- Move next_bridge attachment from Analogix side to Rockchip/Exynos
-  side.
-
-Changes in v6
-- Remove the unnecessary analogix_dp_bridge_get_modes().
-- Not to set DRM_BRIDGE_OP_MODES if the next is a panel.
-- Squash [PATCH v5 15/17]drm/bridge: analogix_dp: Remove panel
-  disabling and enabling in analogix_dp_set_bridge() into this
-  commit.
-- Fix the &drm_bridge->ops to DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT.
-
-Changes in v9:
-- Add Tested-by tag.
-
-Changes in v13:
-- Modify '(on rk3588)' to '# rk3588' for Tested-by tag.
----
- .../drm/bridge/analogix/analogix_dp_core.c    | 41 +++++--------------
- 1 file changed, 11 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 7d30e4184a80..fb6b8aaa353b 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -749,9 +749,6 @@ static int analogix_dp_commit(struct analogix_dp_device *dp)
- {
- 	int ret;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8e80296449ba..66769dcf5faa 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -10091,6 +10091,29 @@ S:	Maintained
+ W:	https://floatingpoint.billm.au/
+ F:	arch/x86/math-emu/
  
--	/* Keep the panel disabled while we configure video */
--	drm_panel_disable(dp->plat_data->panel);
--
- 	ret = analogix_dp_train_link(dp);
- 	if (ret) {
- 		dev_err(dp->dev, "unable to do link train, ret=%d\n", ret);
-@@ -771,9 +768,6 @@ static int analogix_dp_commit(struct analogix_dp_device *dp)
- 		return ret;
- 	}
- 
--	/* Safe to enable the panel now */
--	drm_panel_enable(dp->plat_data->panel);
--
- 	/* Check whether panel supports fast training */
- 	ret = analogix_dp_fast_link_train_detection(dp);
- 	if (ret)
-@@ -858,17 +852,6 @@ static int analogix_dp_disable_psr(struct analogix_dp_device *dp)
- 	return analogix_dp_send_psr_spd(dp, &psr_vsc, true);
- }
- 
--static int analogix_dp_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *connector)
--{
--	struct analogix_dp_device *dp = to_dp(bridge);
--	int num_modes = 0;
--
--	if (dp->plat_data->panel)
--		num_modes += drm_panel_get_modes(dp->plat_data->panel, connector);
--
--	return num_modes;
--}
--
- static const struct drm_edid *analogix_dp_bridge_edid_read(struct drm_bridge *bridge,
- 							   struct drm_connector *connector)
- {
-@@ -909,7 +892,7 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
- 	struct analogix_dp_device *dp = to_dp(bridge);
- 	enum drm_connector_status status = connector_status_disconnected;
- 
--	if (dp->plat_data->panel || dp->plat_data->next_bridge)
-+	if (dp->plat_data->next_bridge)
- 		return connector_status_connected;
- 
- 	if (!analogix_dp_detect_hpd(dp))
-@@ -995,8 +978,6 @@ static void analogix_dp_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	/* Don't touch the panel if we're coming back from PSR */
- 	if (old_crtc_state && old_crtc_state->self_refresh_active)
- 		return;
--
--	drm_panel_prepare(dp->plat_data->panel);
- }
- 
- static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
-@@ -1168,16 +1149,12 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
- 	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
- 		return;
- 
--	drm_panel_disable(dp->plat_data->panel);
--
- 	disable_irq(dp->irq);
- 
- 	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
- 
- 	pm_runtime_put_sync(dp->dev);
- 
--	drm_panel_unprepare(dp->plat_data->panel);
--
- 	dp->fast_train_enable = false;
- 	dp->psr_supported = false;
- 	dp->dpms_mode = DRM_MODE_DPMS_OFF;
-@@ -1252,7 +1229,6 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
- 	.atomic_post_disable = analogix_dp_bridge_atomic_post_disable,
- 	.atomic_check = analogix_dp_bridge_atomic_check,
- 	.attach = analogix_dp_bridge_attach,
--	.get_modes = analogix_dp_bridge_get_modes,
- 	.edid_read = analogix_dp_bridge_edid_read,
- 	.detect = analogix_dp_bridge_detect,
- };
-@@ -1498,17 +1474,22 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
- 		return ret;
- 	}
- 
--	if (dp->plat_data->panel)
--		bridge->ops = DRM_BRIDGE_OP_MODES | DRM_BRIDGE_OP_DETECT;
--	else
--		bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
--
-+	bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
- 	bridge->of_node = dp->dev->of_node;
- 	bridge->type = DRM_MODE_CONNECTOR_eDP;
- 	ret = devm_drm_bridge_add(dp->dev, &dp->bridge);
- 	if (ret)
- 		goto err_unregister_aux;
- 
-+	if (dp->plat_data->panel) {
-+		dp->plat_data->next_bridge = devm_drm_panel_bridge_add(dp->dev,
-+								       dp->plat_data->panel);
-+		if (IS_ERR(dp->plat_data->next_bridge)) {
-+			ret = PTR_ERR(bridge);
-+			goto err_unregister_aux;
-+		}
-+	}
++FRAMEBUFFER CONSOLE
++M:	Helge Deller <deller@gmx.de>
++M:	Thomas Zimmermann <tzimmermann@suse.de>
++L:	dri-devel@lists.freedesktop.org
++L:	linux-fbdev@vger.kernel.org
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/fb/fbcon.rst
++F:	drivers/video/fbdev/core/bitblit.c
++F:	drivers/video/fbdev/core/fb_logo.c
++F:	drivers/video/fbdev/core/fbcon.c
++F:	drivers/video/fbdev/core/fbcon.h
++F:	drivers/video/fbdev/core/fbcon_ccw.c
++F:	drivers/video/fbdev/core/fbcon_cw.c
++F:	drivers/video/fbdev/core/fbcon_rotate.c
++F:	drivers/video/fbdev/core/fbcon_rotate.h
++F:	drivers/video/fbdev/core/fbcon_ud.c
++F:	drivers/video/fbdev/core/softcursor.c
++F:	drivers/video/fbdev/core/tileblit.c
++F:	include/linux/fbcon.h
++F:	include/linux/font.h
++F:	lib/fonts/
 +
- 	ret = drm_bridge_attach(dp->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret) {
- 		DRM_ERROR("failed to create bridge (%d)\n", ret);
+ FRAMEBUFFER CORE
+ M:	Simona Vetter <simona@ffwll.ch>
+ S:	Odd Fixes
 -- 
-2.34.1
+2.53.0
 
