@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D636F364A6
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 17:09:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FA04F364A4
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 17:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B6AC10E067;
-	Thu,  9 Apr 2026 17:09:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9750B10E14C;
+	Thu,  9 Apr 2026 17:09:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Esilw5jB";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="G+GjrKxf";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F7410E063;
- Thu,  9 Apr 2026 17:09:00 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9588610E14C
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 17:09:04 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 7A5C81A3253;
- Thu,  9 Apr 2026 17:08:59 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 3868AC5C18A;
+ Thu,  9 Apr 2026 17:09:38 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4E569603E4;
- Thu,  9 Apr 2026 17:08:59 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6E8D7603E4;
+ Thu,  9 Apr 2026 17:09:03 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 63A85104500F2; 
- Thu,  9 Apr 2026 19:08:54 +0200 (CEST)
+ with ESMTPSA id 31D461045019C; 
+ Thu,  9 Apr 2026 19:08:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775754537; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775754541; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=NhYzqxeLYhJJ/6ErxgYsDp7OCqAbT6h4r7mS/NeBN9E=;
- b=Esilw5jBNt2HrURjOGXsg52LiDQiFuR0QII4Q91Rpe6T0eEUWE3VvQMHZ+yKKX+MzIInVx
- 3roiCnEIl7sK/Fr89SK+iIVzA3aSLyUJpoSanEFRF/PUhnZide9jpzZBl2ql4TVzB0w5Jy
- LketgkWtt6ykso5AUT4CbjuyQcVFnYbFo6hZAYsEQJK6mcsV5/fOfmMibllUS1SJL0eIOr
- 8dQxWlx4hITtWuQWnURGImJNSoHUjGMi0ZvaiW2tux7699tL+xK3EcK4Xd/2EUQWkThmuU
- OwDnYjTfVFwSjKHvtXFGcZGePvXwyZy/qN6G69EvEzyBFbOtXBTcNd80Pmw9CQ==
+ bh=ni70mQN+06B9PrFWju5Vc9jCJGly/AFJiVYl7kDxCyk=;
+ b=G+GjrKxfsxCSIWMIv+pwZvAagbcJbW9sMgZKMpbqpi3Zq5sFrJCjuNZ+bUlmD0zHIiUX6y
+ 8tm1vdGx6zVwq9775jZ5CXlTLM65igo19UXwJ65CFvWPVdJsXmGUSM33E9Rot3O0YQ9Ps+
+ dkFawd9NFVZiT5xRQTCspEo7EYjHUlYopKFq5ublJE/7ECFUKchcdmq+k1wPtI6yxUvc9b
+ le/PKC4/7QYmxbvSsfTA9lvy/4L2taX2/Cyy7m2430v4dJRR/Xn2f+HOAX5NWcVttAGqfC
+ uQ6ToIINYfd0UoCfq2VBfq4GgnzXbOx8s45R4x86t0J8tQq+PKGPwPrQXXyZrA==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Thu, 09 Apr 2026 19:08:18 +0200
-Subject: [PATCH RFC 02/12] drm/i915/display/intel_lvds: Drop redundant
- manual cleanup on init failure
+Date: Thu, 09 Apr 2026 19:08:19 +0200
+Subject: [PATCH RFC 03/12] drm/i915/display/intel_dp: Drop redundant
+ intel_dp_aux_fini() on init failure
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-feat_link_cap-v1-2-7069e8199ce2@bootlin.com>
+Message-Id: <20260409-feat_link_cap-v1-3-7069e8199ce2@bootlin.com>
 References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 In-Reply-To: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>, 
@@ -85,57 +85,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-intel_lvds_init() had a goto-based error path that manually called
-drm_connector_cleanup(), drm_encoder_cleanup(), kfree() and
-intel_connector_free() when no LVDS panel mode could be found.
+intel_dp_aux_fini() is already invoked via intel_dp_encoder_flush_work()
+in the encoder destroy path (intel_dp_encoder_destroy() and
+intel_ddi_encoder_destroy()). Calling it explicitly when
+intel_edp_init_connector() fails before jumping to the fail label
+therefore results in a double invocation. Drop the redundant call.
 
-Once drm_connector_init_with_ddc() and drm_encoder_init() have been
-called, the DRM core takes ownership of these objects and will invoke
-their .destroy callbacks (intel_connector_destroy and
-intel_encoder_destroy) during device teardown. The manual cleanup in
-the failed: label is therefore redundant.
-
-Remove it and replace the goto with a simple early return.
-
-Fixes: 79e539453b34e ("DRM: i915: add mode setting support")
+Fixes: c191eca110a37 ("drm/i915: Move intel_connector->unregister to connector->early_unregister")
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
+ drivers/gpu/drm/i915/display/intel_dp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Not tested as I don't have such hardware.
----
- drivers/gpu/drm/i915/display/intel_lvds.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index cc6d4bfcff102..e78a41e2b268c 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -991,8 +991,10 @@ void intel_lvds_init(struct intel_display *display)
- 	mutex_unlock(&display->drm->mode_config.mutex);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 4955bd8b11d7a..71f206adbebd3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -7232,10 +7232,8 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 		connector->get_hw_state = intel_connector_get_hw_state;
+ 	connector->sync_state = intel_dp_connector_sync_state;
  
- 	/* If we still don't have a mode after all that, give up. */
--	if (!intel_panel_preferred_fixed_mode(connector))
--		goto failed;
-+	if (!intel_panel_preferred_fixed_mode(connector)) {
-+		drm_dbg_kms(display->drm, "No LVDS modes found, disabling.\n");
-+		return;
-+	}
+-	if (!intel_edp_init_connector(intel_dp, connector)) {
+-		intel_dp_aux_fini(intel_dp);
++	if (!intel_edp_init_connector(intel_dp, connector))
+ 		goto fail;
+-	}
  
- 	intel_panel_init(connector, drm_edid);
- 
-@@ -1005,12 +1007,4 @@ void intel_lvds_init(struct intel_display *display)
- 	lvds_encoder->a3_power = lvds & LVDS_A3_POWER_MASK;
- 
- 	return;
--
--failed:
--	drm_dbg_kms(display->drm, "No LVDS modes found, disabling.\n");
--	drm_connector_cleanup(&connector->base);
--	drm_encoder_cleanup(&encoder->base);
--	kfree(lvds_encoder);
--	intel_connector_free(connector);
--	return;
- }
+ 	intel_dp_set_source_rates(intel_dp);
+ 	intel_dp_set_common_rates(intel_dp);
 
 -- 
 2.43.0
