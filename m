@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFECEE98FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7757FE98FDD
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:57:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 300FF10E6EB;
-	Thu,  9 Apr 2026 09:57:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2C1110E6F0;
+	Thu,  9 Apr 2026 09:57:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="CDW/dyvx";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="efS0wf+b";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA6F210E6EB
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:57:01 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D383F10E6F0
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:57:14 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id C1FA74E4294C;
- Thu,  9 Apr 2026 09:57:00 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 97A14C5B1A0;
+ Thu,  9 Apr 2026 09:57:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8FF975FDEB;
- Thu,  9 Apr 2026 09:57:00 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id EF6E55FDEB;
+ Thu,  9 Apr 2026 09:57:12 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5F78D104507FB; 
- Thu,  9 Apr 2026 11:56:57 +0200 (CEST)
+ with ESMTPSA id B41F2104500DC; 
+ Thu,  9 Apr 2026 11:57:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775728619; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775728632; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=4o06unlAgoP4zflxzOcT43io3OuS1mtGSGTK8lxH0+4=;
- b=CDW/dyvxMUfjJqgJTtybW8XJRxoM6HQz9TIagxo5J9J9pek1NEweTlw5pfbxyXP8nRwq5l
- 1ZJfc365mXmOAXyix3W0A8httrOn8YKS+0MA9DiHwGfzuz0CvKhXJPIc7+GOcYSf/ez6St
- 0x+KpVNLcRDS08BXLgfIoFJCyfNtSxfxN8Gfw/TSIcb7hWRW19oDwbud6iIfzgWk2SJCMw
- fENydSCIR2vN7nUDqH7xJRr3G7vvwO1RVNh6tpzYtgT71bFd62jF3DHkMmcMOnA1ypCjCC
- bhwJNtQm+v6ieinI9kH/HtkvYYVohmQ/1knunv1In1Dkw8Gb1rzhAhm+SkAEPg==
-Message-ID: <3ea41a49-5ec1-42f2-859d-0293c4b444aa@bootlin.com>
-Date: Thu, 9 Apr 2026 11:56:57 +0200
+ bh=eEchKB+r7i4/YwY7RKiJKjKP3eW5V6E5trl50E3B2ys=;
+ b=efS0wf+b5LyoTXx6AgeQVMuWcNoHXNjqE40jxSkExUYTGCfkzzZFaO1Gx7bxZqUIMsWjl7
+ oa1op6wx5+cI881XhwpS4wwWSYamU0GWdstL5ujSrsq25HVcMyMCVMSfhbecfs32vgSGsS
+ 2ZAqBhfG4qFRGd8CKTSEE9KaUcydWLH2z+Y4k1ePW5V95cOeOIzb+loASLu8BvAG8RYDCe
+ ZXOY6HynVnN/yG5Z0vITzrjtK5TlsGB6wPmKrY0Q80S0IyL7qpa5YpVCknj+EdGiEf9Bda
+ /RK35elxDWRwCDfZk+UnQiV0EpcJNNlXiQrXJJVkHpRFULN8rI2cbaM9jpgnmw==
+Message-ID: <9e517e8d-f944-4934-9f97-07101ec98711@bootlin.com>
+Date: Thu, 9 Apr 2026 11:57:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/7] drm/bridge: prevent encoder chain changes while
- iterating with list_for_each_entry_from()
+Subject: Re: [PATCH v5 6/7] drm/bridge: prevent encoder chain changes while
+ iterating with list_for_each_entry_reverse()
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -52,10 +52,10 @@ Cc: Hui Pu <Hui.Pu@gehealthcare.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Ian Ray <ian.ray@gehealthcare.com>
 References: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-0-8bf786c5c7e6@bootlin.com>
- <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-5-8bf786c5c7e6@bootlin.com>
+ <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-6-8bf786c5c7e6@bootlin.com>
 Content-Language: en-US
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-In-Reply-To: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-5-8bf786c5c7e6@bootlin.com>
+In-Reply-To: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-6-8bf786c5c7e6@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
@@ -78,129 +78,96 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 3/24/26 9:58 AM, Luca Ceresoli wrote:
 > These loops in drm_bridge.c iterate over the encoder chain using
-> list_for_each_entry_from(), which does not prevent changes to the bridge
+> list_for_each_entry_reverse(), which does not prevent changes to the bridge
 > chain while iterating over it.
 > 
-> Convert most of those loops to instead use
-> drm_for_each_bridge_in_chain_from(), which locks the chain.
+> Take the encoder chain mutex while iterating to avoid chain changes while
+> iterating.
 > 
-> This also simplifies code.
-> 
-> All the "simple" loops are converted here. The only ones not touched are
-> those in drm_atomic_bridge_chain_pre_enable() and
-> drm_atomic_bridge_chain_post_disable(), because they have nested loops
-> which are not well handled by drm_for_each_bridge_in_chain_from(). Those
-> two functions are handled by a separate commit.
+> All the "simple" loops are converted. drm_atomic_bridge_chain_pre_enable()
+> and drm_atomic_bridge_chain_post_disable() are handled by a separate
+> commit.
 > 
 > Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> 
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
 > ---
->   drivers/gpu/drm/drm_bridge.c | 35 ++++++++++++-----------------------
->   1 file changed, 12 insertions(+), 23 deletions(-)
+> 
+> Changes in v3:
+> - Lock encoder->bridge_chain_mutex directly, no wrappers
+> 
+> Changes in v2: none
+> ---
+>   drivers/gpu/drm/drm_bridge.c | 40 ++++++++++++++++++++++------------------
+>   1 file changed, 22 insertions(+), 18 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 42ca4b243579..37feb8143de4 100644
+> index 37feb8143de4..c76f3451af39 100644
 > --- a/drivers/gpu/drm/drm_bridge.c
 > +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -725,7 +725,7 @@ void drm_bridge_detach(struct drm_bridge *bridge)
->   /**
->    * drm_bridge_chain_mode_valid - validate the mode against all bridges in the
->    *				 encoder chain.
-> - * @bridge: bridge control structure
-> + * @first_bridge: bridge control structure
->    * @info: display info against which the mode shall be validated
->    * @mode: desired mode to be validated
->    *
-> @@ -739,17 +739,14 @@ void drm_bridge_detach(struct drm_bridge *bridge)
->    * MODE_OK on success, drm_mode_status Enum error code on failure
->    */
->   enum drm_mode_status
-> -drm_bridge_chain_mode_valid(struct drm_bridge *bridge,
-> +drm_bridge_chain_mode_valid(struct drm_bridge *first_bridge,
->   			    const struct drm_display_info *info,
->   			    const struct drm_display_mode *mode)
->   {
-> -	struct drm_encoder *encoder;
-> -
-> -	if (!bridge)
-> +	if (!first_bridge)
->   		return MODE_OK;
->   
-> -	encoder = bridge->encoder;
-> -	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
-> +	drm_for_each_bridge_in_chain_from(first_bridge, bridge) {
->   		enum drm_mode_status ret;
->   
->   		if (!bridge->funcs->mode_valid)
-> @@ -767,7 +764,7 @@ EXPORT_SYMBOL(drm_bridge_chain_mode_valid);
->   /**
->    * drm_bridge_chain_mode_set - set proposed mode for all bridges in the
->    *			       encoder chain
-> - * @bridge: bridge control structure
-> + * @first_bridge: bridge control structure
->    * @mode: desired mode to be set for the encoder chain
->    * @adjusted_mode: updated mode that works for this encoder chain
->    *
-> @@ -776,20 +773,16 @@ EXPORT_SYMBOL(drm_bridge_chain_mode_valid);
->    *
->    * Note: the bridge passed should be the one closest to the encoder
->    */
-> -void drm_bridge_chain_mode_set(struct drm_bridge *bridge,
-> +void drm_bridge_chain_mode_set(struct drm_bridge *first_bridge,
->   			       const struct drm_display_mode *mode,
->   			       const struct drm_display_mode *adjusted_mode)
->   {
-> -	struct drm_encoder *encoder;
-> -
-> -	if (!bridge)
-> +	if (!first_bridge)
+> @@ -808,6 +808,7 @@ void drm_atomic_bridge_chain_disable(struct drm_bridge *bridge,
 >   		return;
 >   
-> -	encoder = bridge->encoder;
-> -	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
-> +	drm_for_each_bridge_in_chain_from(first_bridge, bridge)
->   		if (bridge->funcs->mode_set)
->   			bridge->funcs->mode_set(bridge, mode, adjusted_mode);
-> -	}
+>   	encoder = bridge->encoder;
+> +	mutex_lock(&encoder->bridge_chain_mutex);
+>   	list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
+>   		if (iter->funcs->atomic_disable) {
+>   			iter->funcs->atomic_disable(iter, state);
+> @@ -818,6 +819,7 @@ void drm_atomic_bridge_chain_disable(struct drm_bridge *bridge,
+>   		if (iter == bridge)
+>   			break;
+>   	}
+> +	mutex_unlock(&encoder->bridge_chain_mutex);
 >   }
->   EXPORT_SYMBOL(drm_bridge_chain_mode_set);
+>   EXPORT_SYMBOL(drm_atomic_bridge_chain_disable);
 >   
-> @@ -1013,7 +1006,7 @@ EXPORT_SYMBOL(drm_atomic_bridge_chain_pre_enable);
+> @@ -1322,25 +1324,27 @@ int drm_atomic_bridge_chain_check(struct drm_bridge *bridge,
+>   		return ret;
 >   
->   /**
->    * drm_atomic_bridge_chain_enable - enables all bridges in the encoder chain
-> - * @bridge: bridge control structure
-> + * @first_bridge: bridge control structure
->    * @state: atomic state being committed
->    *
->    * Calls &drm_bridge_funcs.atomic_enable (falls back on
-> @@ -1023,22 +1016,18 @@ EXPORT_SYMBOL(drm_atomic_bridge_chain_pre_enable);
->    *
->    * Note: the bridge passed should be the one closest to the encoder
->    */
-> -void drm_atomic_bridge_chain_enable(struct drm_bridge *bridge,
-> +void drm_atomic_bridge_chain_enable(struct drm_bridge *first_bridge,
->   				    struct drm_atomic_state *state)
->   {
-> -	struct drm_encoder *encoder;
+>   	encoder = bridge->encoder;
+> -	list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
+> -		int ret;
 > -
-> -	if (!bridge)
-> +	if (!first_bridge)
->   		return;
+> -		/*
+> -		 * Bus flags are propagated by default. If a bridge needs to
+> -		 * tweak the input bus flags for any reason, it should happen
+> -		 * in its &drm_bridge_funcs.atomic_check() implementation such
+> -		 * that preceding bridges in the chain can propagate the new
+> -		 * bus flags.
+> -		 */
+> -		drm_atomic_bridge_propagate_bus_flags(iter, conn,
+> -						      crtc_state->state);
+> -
+> -		ret = drm_atomic_bridge_check(iter, crtc_state, conn_state);
+> -		if (ret)
+> -			return ret;
+> +	scoped_guard(mutex, &encoder->bridge_chain_mutex) {
+> +		list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
+> +			int ret;
+> +
+> +			/*
+> +			 * Bus flags are propagated by default. If a bridge needs to
+> +			 * tweak the input bus flags for any reason, it should happen
+> +			 * in its &drm_bridge_funcs.atomic_check() implementation such
+> +			 * that preceding bridges in the chain can propagate the new
+> +			 * bus flags.
+> +			 */
+> +			drm_atomic_bridge_propagate_bus_flags(iter, conn,
+> +							      crtc_state->state);
+> +
+> +			ret = drm_atomic_bridge_check(iter, crtc_state, conn_state);
+> +			if (ret)
+> +				return ret;
 >   
-> -	encoder = bridge->encoder;
-> -	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
-> +	drm_for_each_bridge_in_chain_from(first_bridge, bridge)
->   		if (bridge->funcs->atomic_enable) {
->   			bridge->funcs->atomic_enable(bridge, state);
->   		} else if (bridge->funcs->enable) {
->   			bridge->funcs->enable(bridge);
->   		}
-> -	}
->   }
->   EXPORT_SYMBOL(drm_atomic_bridge_chain_enable);
+> -		if (iter == bridge)
+> -			break;
+> +			if (iter == bridge)
+> +				break;
+> +		}
+>   	}
 >   
+>   	return 0;
 > 
 
