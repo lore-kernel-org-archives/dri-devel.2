@@ -4,72 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A216E99046
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4B9E9904A
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0823010E89F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07E9810E89E;
 	Fri, 10 Apr 2026 07:06:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s9kUcvMX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VqtlobN3";
 	dkim-atps=neutral
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
- [209.85.219.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA7A410E05A
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 04:19:04 +0000 (UTC)
-Received: by mail-qv1-f47.google.com with SMTP id
- 6a1803df08f44-8a58057d7baso18959176d6.1
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 21:19:04 -0700 (PDT)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 015E610E004
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 16:41:59 +0000 (UTC)
+Received: by mail-qk1-f172.google.com with SMTP id
+ af79cd13be357-8d76492e51bso107920585a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 09:41:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775794743; x=1776399543; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1775752919; x=1776357719; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ArSw/Jy6VI8sSzLBGSoBorIgScihUu+vrKWP2sPCXow=;
- b=s9kUcvMX+cPeD60xPTZqEAqR+f8yU69hoijwpYepr7eSRzZEo6wbqpyoHEytI67981
- jDRg+EbK4+pW6OsJjW9JvIcX2KkkpTvmqC/Vuq+QzUfG8cNkXlIZrnKpbKF2kn/dJuFH
- haG9SkxLpEEg9CmaAR/uecW5Sv29Qfv+ZN7TBYXflbOiB3p6ZlIy9HB3BwRht4gbZQlC
- gwv2ZuZcjIgEdTmg29cT3YAWtMv2Xd6yuT2y/6jqCYPjWTfxoEGCIBopr9PTjExtF8I2
- 7JBDn8e6eQWp5oyQhm1Fi0rQGgLP9sLEWEHkjaK/UCEPcuy4pEsJbHpgX46aRRGAFv+e
- /0lw==
+ bh=uih4IkEdnJDVtHqKmPWCYNbfi2V3Eeb0IfkSkkn7OLw=;
+ b=VqtlobN3HOY6FW0SO0XBYpPmvQsMSDGAuI8hod4/u4d5kiYuR30GE1fnD/TduX2vv4
+ Wf70A+lMuxPAhCV1ktD9xBSr67uvTsDcybHBXYZjKwX79q4qdp7604eswILjm484ujnr
+ otV6ke5R874I+3dB8gobmNkRLVpAFWJjTSvyG5jY3fRuKTfjc3szW7CcoUZmUW2+txyO
+ IxWRf2GbuhPvUs/d/W5crKcq+fed9RBSFmhI5wOezKliCVopop1Dkjb8unh/tP3oE3bH
+ Rj2fcIgi7OBpiO6LE7sVHQkfE4GNxl8Awx3EmfpKTL7yZdZ3LPuvzkrYAcmfD9htmU9M
+ FBiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775794743; x=1776399543;
+ d=1e100.net; s=20251104; t=1775752919; x=1776357719;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ArSw/Jy6VI8sSzLBGSoBorIgScihUu+vrKWP2sPCXow=;
- b=jyz6eRz6j8P+JsjV56tdjWIwzjDdSDDEW+G5taF2Itrw3tkfOHYElOnZOwBrfR4aPU
- sd85tYOUzdG0vG99Mbe3roAGCh9tEzYrcZwaHz2cGlMZ5gbBymaRDhm7KDPkBCFGZUTl
- os60hhAb1cOITie7ow+61qikSs7tOTQSwLm7X5M7rDGfpo4hyZASuAiTRpPbHvgd44Es
- yYdmdb5pUB1BuDu22+iaS5GRbyHNSrMAX5Ct17UH8NZiS1Ujp2xcFGr87QxPgMrdleK4
- yuRNz7fTcOrbtCU+Z3bNf9H6yY/9BosdsCuSZG4Q24c56Vbip5NOmwr2feS7Y2rTuev+
- Vl1g==
-X-Gm-Message-State: AOJu0YybuYBJUJoni9a4uYwsvzMRytY9DmGWGv/2FXWVhhPDdGNPGryB
- FblmruYVaw/qydl2q50FyEqy9vkbIcy2UD0rqEMRFv+5phkW6UMV83v2EGZmU5fo
-X-Gm-Gg: AeBDievAkyCppuCahbxXcPGyC4OItubSeRm+1k0wwDY8uwU9IQoWnJo2dtVnrkUC+5F
- DrGwgiAK8Glo9c49SoJzqgf96tQDYdNlbh1tOhgJhmLq7ZeTobIUv2uOYWgP72PTR8Lpw2vobB6
- vx8C4qJ5yaasZe1w5+rlW/p9W7aCatPh5kwqNXhZAaiKoVRuj+Bd1i384DGP2tKSQj+72ycEkx8
- ColGxOpZYn+SSD2eQq2hX7DOIJxH+2sWHU1a16JnWWmQAj6kny+zvdYwD8hR2SHEZ5TQ4G7VI/Z
- zARxrIuEbyqeFDsaDtrLPRLOUSE25gVHDUzkzn5T+nOIA3p/gU/VEMSryvZBe75V3XtgCLD/VM6
- fw3MHYCu1c6qyja3+gsDBmBwmtavIR0P+uRwdm33IEg/zIvrehzBP3l5SIfdrTnkqtBsUdP1CbL
- dyH7cM/C3FRO6/i19HBfH4Te2FyjVvXgWHFowE7xH6fZyE5IcLgXDHiF/MiAUi6EDCUCFUjtgHw
- s6yo0lnrPc3+e8sBV2lOCqk5EfQ
-X-Received: by 2002:a05:6214:54c4:b0:89f:123c:4d9c with SMTP id
- 6a1803df08f44-8ac861ad302mr23047736d6.18.1775794743411; 
- Thu, 09 Apr 2026 21:19:03 -0700 (PDT)
+ bh=uih4IkEdnJDVtHqKmPWCYNbfi2V3Eeb0IfkSkkn7OLw=;
+ b=Mq29u+kkX8BHUTNDJ+uRZpVUjIRNaRVRtNJfkkW0JvfnbHH76eefHDx319X0MOYZp1
+ h1nQm/z5JU5tHzEpHWdj5JuVPpZmWCxKteOwI0CN5H7CKffbKLubKn4DOfASuMuy6LKL
+ VFZbw1g2FY92fuGfgpSH1Kj7ikQIplbtownLw+gYN4LIjVdXd93Fm+1uD/cNnDvwyhJA
+ 3MJT08i/K2QSjoDvYbn3GG/WmUrVHC1OxU2JpOjzWK71P4JUoRhbGeSqZWW+a/sYeu/n
+ fw29uTmN2o2UX7ULoZ7sar1Hg0BIoVsrVw3uVTvb8GmFYauB8gMIoF+XJ88h9BcTD4a5
+ a0Ag==
+X-Gm-Message-State: AOJu0YwFEha4dx7iDM74eWhIg0IFWST2p1+KexiCE0d3W6//JWGM4vs/
+ jyexVfaCrFR35jqlzxzBAEe1DSKhNfTk2yeDxu5UVsn3ycbRpQ2Gz2qq
+X-Gm-Gg: AeBDiesLXXOvUy6/fQL8rN0ELwZbNyTlg6KaqGwtUJGNrLj/9/LNqhM1Cle5c22+5GQ
+ 8nt0+5HHTBedU9FQSBJIzEsMEzVehis5EGVgojXoAY3jiXIoHMASib3wo+Fl0CU93I4emoctDRZ
+ BqjPgSgg1UAm9PXxqJUj9HI0qpafOnfxLfDyEcN4pIaeqN3O443r76qbTbXdao3prN6BzwOUdqN
+ eUFAuH0yIL7cEDF4eVXeS3ov39MiEwHiu3+eGN0j3bl37lX3SDzaXoKcj6FP9yAA/6msJcqZ7oC
+ nVKZI4nk0hiZCr05ro4j/9DLQWN19e5MhxUujk33hJ9rPGrdqALyUUiuO6Uq7vf+Vi/HRzwyLtL
+ qk/3Oh+7BMQOvU6Afn2UXyEugR/MOUhvQldPjeMKeYoxiRPd2Ssag7zq0Lgz6HX2ljl0E5s5BOX
+ 8AITSOpdAnYsVMjXcwTxhJHgxyQrwABQKmAzcMWBlRPIfSMSd/PJUGBV6d2H1eFdWY8hDrDl8QN
+ xZmelU5DuptPa0mgGeNjBdHcUQv
+X-Received: by 2002:a05:622a:5d0f:b0:50d:bc78:5ff6 with SMTP id
+ d75a77b69052e-50dbc78892dmr70800001cf.61.1775752918681; 
+ Thu, 09 Apr 2026 09:41:58 -0700 (PDT)
 Received: from
  TDC4045031631.e0cglfehwr0e5gttmepj3hi3hf.ux.internal.cloudapp.net
  ([20.63.37.123]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ac84a104ddsm12905896d6.14.2026.04.09.21.19.02
+ 6a1803df08f44-8ac849e2891sm622556d6.5.2026.04.09.09.41.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2026 21:19:03 -0700 (PDT)
+ Thu, 09 Apr 2026 09:41:58 -0700 (PDT)
 From: Ashutosh Desai <ashutoshdesai993@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org, Lyude Paul <lyude@redhat.com>,
- Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Ashutosh Desai <ashutoshdesai993@gmail.com>
-Subject: [PATCH] drm/dp/mst: fix buffer overflows in sideband chunk
- accumulation
-Date: Fri, 10 Apr 2026 04:19:01 +0000
-Message-Id: <20260410041901.2438960-1-ashutoshdesai993@gmail.com>
+Subject: [PATCH] drm/gem: Fix inconsistent plane dimension calculation in
+ drm_gem_fb_init_with_funcs()
+Date: Thu,  9 Apr 2026 16:41:56 +0000
+Message-Id: <20260409164156.2235189-1-ashutoshdesai993@gmail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -89,61 +91,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_dp_sideband_append_payload() has three related bugs when processing
-device-provided sideband reply data:
+drm_gem_fb_init_with_funcs() computes sub-sampled plane dimensions
+using plain integer division:
 
-1. Zero-length curchunk_len underflow: msg_len is a 6-bit field taken
-   directly from the DP sideband header. If a device sends msg_len=0,
-   curchunk_len is set to zero. The condition (curchunk_idx >= curchunk_len)
-   is immediately true, and curchunk_len-1 wraps to 255 (u8 underflow).
-   drm_dp_msg_data_crc4() reads 255 bytes from chunk[48], then memcpy()
-   writes 255 bytes into msg[], both far out of bounds.
+  unsigned int width  = mode_cmd->width  / (i ? info->hsub : 1);
+  unsigned int height = mode_cmd->height / (i ? info->vsub : 1);
 
-2. chunk[48] overflow: curchunk_len can reach 63 (6-bit field). chunk[] is
-   only 48 bytes. Multi-iteration payload assembly appends 16-byte blocks
-   until curchunk_idx reaches curchunk_len, writing up to 15 bytes past
-   the end of chunk[] into msg[].
+However, the ioctl-level framebuffer_check() in drm_framebuffer.c uses
+drm_format_info_plane_width/height() which round up dimensions via
+DIV_ROUND_UP(). This inconsistency corrupts the subsequent GEM object
+size check for certain pixel format and dimension combinations.
 
-3. msg[256] overflow: each chunk contributes (curchunk_len-1) bytes to
-   msg[]. No check ensures curlen + (curchunk_len-1) stays within msg[256],
-   so the memcpy can spill into adjacent struct fields.
+For example, with NV12 (vsub=2) and a 1-pixel-tall framebuffer the
+GEM size validation path sees height=0 instead of height=1. The
+expression (height - 1) then wraps to UINT_MAX as an unsigned int,
+causing min_size to overflow and wrap back to a small value. A tiny
+GEM object therefore passes the size guard, yet when the GPU accesses
+the chroma plane it will read or write memory beyond the object's
+bounds.
 
-All three are reachable from any DP MST device that can forge sideband
-reply messages on a physical connection.
+Fix by replacing the open-coded divisions with drm_format_info_plane_width()
+and drm_format_info_plane_height(), which use DIV_ROUND_UP() and match
+the calculation already used in framebuffer_check().
 
-Cc: stable@vger.kernel.org
 Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index f2a7dbc5e..5261a4a54 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -789,6 +789,12 @@ static bool drm_dp_sideband_append_payload(struct drm_dp_sideband_msg_rx *msg,
- {
- 	u8 crc4;
+diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+index 9166c353f..88808e972 100644
+--- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
++++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
+@@ -172,8 +172,8 @@ int drm_gem_fb_init_with_funcs(struct drm_device *dev,
+ 	}
  
-+	/* curchunk_len must be >= 1 (min 1 CRC byte) and fit in chunk[] */
-+	if (!msg->curchunk_len ||
-+	    msg->curchunk_len > ARRAY_SIZE(msg->chunk) ||
-+	    msg->curchunk_idx + replybuflen > ARRAY_SIZE(msg->chunk))
-+		return false;
-+
- 	memcpy(&msg->chunk[msg->curchunk_idx], replybuf, replybuflen);
- 	msg->curchunk_idx += replybuflen;
+ 	for (i = 0; i < info->num_planes; i++) {
+-		unsigned int width = mode_cmd->width / (i ? info->hsub : 1);
+-		unsigned int height = mode_cmd->height / (i ? info->vsub : 1);
++		unsigned int width = drm_format_info_plane_width(info, mode_cmd->width, i);
++		unsigned int height = drm_format_info_plane_height(info, mode_cmd->height, i);
+ 		unsigned int min_size;
  
-@@ -799,6 +805,9 @@ static bool drm_dp_sideband_append_payload(struct drm_dp_sideband_msg_rx *msg,
- 			print_hex_dump(KERN_DEBUG, "wrong crc",
- 				       DUMP_PREFIX_NONE, 16, 1,
- 				       msg->chunk,  msg->curchunk_len, false);
-+		/* Guard against accumulated msg[] overflow */
-+		if (msg->curlen + msg->curchunk_len - 1 > ARRAY_SIZE(msg->msg))
-+			return false;
- 		/* copy chunk into bigger msg */
- 		memcpy(&msg->msg[msg->curlen], msg->chunk, msg->curchunk_len - 1);
- 		msg->curlen += msg->curchunk_len - 1;
+ 		objs[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
 -- 
 2.34.1
 
