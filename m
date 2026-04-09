@@ -4,165 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B70E3E98FAA
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 03:52:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD413E98FA6
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 04:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C848310E711;
-	Thu,  9 Apr 2026 03:52:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF6610E714;
+	Thu,  9 Apr 2026 04:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MFG+JWuQ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cGhthPCS";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S5KC/nEE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 478C610E192;
- Thu,  9 Apr 2026 03:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775706731; x=1807242731;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=KW0yiKLBuIXFVMwhUqb8ewCofVgdIoEzN8yaerszG2A=;
- b=MFG+JWuQ57i0RU3FXMtaPSPYiaUjKhX6t/Pys3puYIcwKmA4vIFV/v/d
- UGtX3BChi4JxYAlSC7TZDVszCQSnsJ8hvzNcLD5Q6LPJvpdjtDbwzY3VW
- y0Ywvkc+jzF+eO7TDacp9Wldun0q//A9NFM5IY0JUrzxEtPHJVjh+hZrn
- 1svPMxJssqje2X9fAWJvr8gcprT4C7UZMz3xOzf9NcIC7EAPaLmm+6nA/
- nV8xz8/01s6T3ITrqjshErQMgOe8EgoPrGEDHdqhakBB6vWnNN+/K3I2P
- HkXZdan2KCWJaBa38N/+94nW0jeKai5baOxy44XZPE9UoZckNOKnAa5Cm w==;
-X-CSE-ConnectionGUID: I5jz7fAzRiaExVusVw2OQw==
-X-CSE-MsgGUID: 9TaxQUaYSsGuXyQOc+boew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="76774855"
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="76774855"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 20:52:11 -0700
-X-CSE-ConnectionGUID: AI8+ZE3vSTu/OggYeuEPpw==
-X-CSE-MsgGUID: 7pGu1SFeSySGu5jpjhK7kA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="225481631"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 20:52:10 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 8 Apr 2026 20:52:09 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 8 Apr 2026 20:52:09 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.55) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 8 Apr 2026 20:52:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LX+y5VPZOy3C6450r0tI2OKgipow0S5kJW4txrz+BiEpCl3CqbFEfpi0wO8rCQ9mo63R7bK/26M09Wm1sGgaPNOUQvEmmlyhWLBSkd91WWik+SiOKtr9+Imy6Ha+H3A4nC5lcfWh/mBf41esUnqi9lVVKx9hv9L5wpro/OaJiJndZUeUCkVErzYZmZyYBtp/lnw0CO9S4Ee0uapHwxXAAkK5kOASt+b0jb5BnoSHR/d6KZ9tncgzybU14DXZvkEwylqs5lRkStPnBOBDbKc2Qg1ShU/JKv8L/egY+AHVBpwHePRua1/sQaDRSg4e1GI9baVkxBIq2MlxUQpc/MZIVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KW0yiKLBuIXFVMwhUqb8ewCofVgdIoEzN8yaerszG2A=;
- b=FMZfPmDXHi+y9oYAKzf1LSWMdzrSkiy4CdIg61r/cYiZUbbtLREzu0kyzet7Rbru4Rc9eqgjPDT8/lBYg2vRQC7Zf4tmAe1mSvxeKwZANnuGQgY0l/xJTBDs5KIL6zq5CgaKWmy4O99rHCPKYAJeQdb6OTYT6wASqHd5XmDCjC29bRz8GMXFMElVDThOzIECUWEc4MF9Nj1eOp8Zaa3v7DeumiPs4+DjuWoHjIl+kxgY6XeEB2EYhqNCroErdRHDqdKwLCOHxcm8DRz8ldOnOvLy53SzzbJEbzh3fTRsUvHZPPozjrA2hQD5roBWa19Kat3mbgk/x9VtRoGbVvhq0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA1PR11MB6241.namprd11.prod.outlook.com (2603:10b6:208:3e9::5)
- by DS7PR11MB6039.namprd11.prod.outlook.com (2603:10b6:8:76::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17; Thu, 9 Apr 2026 03:52:07 +0000
-Received: from IA1PR11MB6241.namprd11.prod.outlook.com
- ([fe80::7ac8:884c:5d56:9919]) by IA1PR11MB6241.namprd11.prod.outlook.com
- ([fe80::7ac8:884c:5d56:9919%4]) with mapi id 15.20.9769.016; Thu, 9 Apr 2026
- 03:52:01 +0000
-From: "Rinitha, SX" <sx.rinitha@intel.com>
-To: Yury Norov <ynorov@nvidia.com>, "Nguyen, Anthony L"
- <anthony.l.nguyen@intel.com>, "David S. Miller" <davem@davemloft.net>,
- =?iso-8859-1?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Andrew Morton
- <akpm@linux-foundation.org>, David Airlie <airlied@gmail.com>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, "Brost, Matthew"
- <matthew.brost@intel.com>, Paolo Abeni <pabeni@redhat.com>, "Kitszel,
- Przemyslaw" <przemyslaw.kitszel@intel.com>, "Vivi, Rodrigo"
- <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Yury Norov
- <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>
-CC: Simon Horman <horms@kernel.org>, David Laight
- <david.laight.linux@gmail.com>
-Subject: RE: [Intel-wired-lan] [PATCH v2 2/4] ice: use bitmap_weighted_xor()
- in ice_find_free_recp_res_idx()
-Thread-Topic: [Intel-wired-lan] [PATCH v2 2/4] ice: use bitmap_weighted_xor()
- in ice_find_free_recp_res_idx()
-Thread-Index: AQHcqeGnEY8oKhW3v0+n742GmXLaa7XUwHTQ
-Date: Thu, 9 Apr 2026 03:52:01 +0000
-Message-ID: <IA1PR11MB6241D61FB987977E4E7711608B582@IA1PR11MB6241.namprd11.prod.outlook.com>
-References: <20260302011159.61778-1-ynorov@nvidia.com>
- <20260302011159.61778-3-ynorov@nvidia.com>
-In-Reply-To: <20260302011159.61778-3-ynorov@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR11MB6241:EE_|DS7PR11MB6039:EE_
-x-ms-office365-filtering-correlation-id: 199c020f-9bfc-4d0f-d241-08de95eb5b24
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|921020|38070700021|22082099003|56012099003|18002099003;
-x-microsoft-antispam-message-info: +5gZiJ4F8AHlMAij3KwYf5Y9w6TgpKlyZ8erv4BqMDLUUHDk7Ljd+Xfi52p4W83reUVMTF8YuIC9z3ZqfXHaIoxolzHgSNGq/RLOosRX9fefa3Iu1GXzTYuwCJF5ETuQiHdxF1uyjrafvRGZXpqy0AOSXM8t+up6vOmy1w1Puh5pM847wcOwJvs/NWaFKg+S1Wrg2JlVvHdqU1tPmLRt7JFGPdNQBVG/ElOjHWayz5eygzpfSMPN2HRduOmN+GflAGZ8AIqNLNv0pXCeHbx+W07AUppcQpB1vd1mmlcRu2GTOEF912JpXQbuTRIf6916tFwcddD0t/lbzQPECnlJthjy0ymM2bb4QM6hK/0WxD0MP5OIszXRnlvYCfbcO6uyNe/DmHki8iD3OKP37pIe+eequep+kcpairnpTz/tuFY58XUT5NpkZ9Q0yfzj4uccSCvyyNUqxgaluAeISvMsvzGgImQR2jjPvzvCFdeKrKT7jI5QpZUk9pSLj/oekHxdi9ogQJ/gK6fbePRNLEwprES7XX2RJPwSVew9i7I3OgERstuMwX0dJUyxKh1rq1EeIuPgZn3rmZZfZJaPvLdqEuPTA+sZitu1Yxp9IAUUpColqJyIWZY7if+wYtgZDItW95wB7PFIU/HsqWrOfkfAayrHR+q8KvlfIXnjcRL9RMsIRk7IzzSii/c4vTvAx78gj8KzRqjK5+a+9TiMA7DAtWi/bCjli6AChlou+vuuMcqmpxcNmlFDkRfH8HbNf4dnlyEkKbxOCoI/UyUURZftCnbvxSFWIxm5XLrHqgOYLaARlgNmbi8BO9GEd9Cb+pVA
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR11MB6241.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(921020)(38070700021)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?aJjcC3PX4jdtfxfB3A124DJBT3fnIKv9GHSMA5iQLO/MBaHkTWJCpJxKfO?=
- =?iso-8859-1?Q?mnf8L4Kpr6Uz6hFBepFrdNs+h/NpILVLTFGDS1X2glay2yIhN3Ny3nyOrw?=
- =?iso-8859-1?Q?tmyxsTG0cxqAMj5yBI+PtN+bkkMTypII9Rc1Cnru5sCZ5T9oHsFdQe1wRN?=
- =?iso-8859-1?Q?sEP/fao91j1YVcLlOuMfT4HRb4vvUquVsbhUCvPt0lFOoDcrRc2+MBHSXZ?=
- =?iso-8859-1?Q?yjoqMBzWZh0nPwhmkMgFWmNitZxR2Dr2a213UTUxmval1UWj1zaYKanVnJ?=
- =?iso-8859-1?Q?oYqGTREhokukUJ8B+oeanbZj13DRFWP+maE37gBvdVxDxwTrs+Wj/J5rDW?=
- =?iso-8859-1?Q?WMYQQUJPzQspP7pX3ZGdknvIbvB/tVzJP9Yz0ut3SvPOG/JTgLKhZnoEMC?=
- =?iso-8859-1?Q?ffkU2UYil1rlDXWAyudVGC1WDHslvhJhMYMZgH2iHD2Cmftxow6N+T+Ey7?=
- =?iso-8859-1?Q?m45HqOxmygIljxYNXh4jywSVUr8Ge+vCL+ZsScqBl8Nudon1Q3dyl/jA2L?=
- =?iso-8859-1?Q?1XH0weyGz5zTNU4ypH2WlaWVFdbrPknBuDJQ6mxBWctmv0tF13Vn6fwrTl?=
- =?iso-8859-1?Q?cFHrYbnF1TXePE7gKet0jVmFON5JHyhZ2yKLH7dbiMDyomB7h+OBWDsUKH?=
- =?iso-8859-1?Q?hxQFZzqUQWeiRKyw4coLP2zM4PSlGanLwEy1eSy/ajwZNotWTyJeWrlnMC?=
- =?iso-8859-1?Q?B78Js9mjSXhLD7V5WH//K//YPkD+YEyx00kqQzj2wnijF+NAOazYrNRjjx?=
- =?iso-8859-1?Q?HLH0uhs0nJ5L+GgYlJ8ck8oP6+Z6HWF0/qDsre+RXoiE/UilmdYGczQ9GA?=
- =?iso-8859-1?Q?BabFDR0HptF8Sgs6WPnkfzd70L4u9/NjmrN7lnkW943F0yb3VUPtrx3Kmj?=
- =?iso-8859-1?Q?CEbql9tR0VEFwPc8sNuyq5AYKd8JWxG6MJQycgBC4Umtklae6ejRwRSf8D?=
- =?iso-8859-1?Q?8/YguDiCqyKgj5A+FsU7iwN+2vowF1L1BETTMfi5uVOExGY55V9nwnANBS?=
- =?iso-8859-1?Q?X2hYtRqODZltgsfN8cM8bEo0MX/jM7y5R3suFWlilR5DL2tf9VC3NhLtUH?=
- =?iso-8859-1?Q?CwoCqwESMxA1AqxCFGeTlkAPnMrimmcNhlO7+Tv+N9KYFeRG4/lqTQs1b+?=
- =?iso-8859-1?Q?D1xryGNQGRit0zdOuQ1wkkQw4cZ6uU7qEoDnCsn48ZmJzKxXhDYNkhqVFL?=
- =?iso-8859-1?Q?h7jzUSnnDryB4oittxpCzvr1Jqz87fcZWR1K05qUmIgGSah54NCBdfuwTO?=
- =?iso-8859-1?Q?L93gj/a/haAhG2sIzHhLRbsaNNabzE+aQ/jRAZB77yX3jVEIh3Rf8aYYgR?=
- =?iso-8859-1?Q?V0P4RZYPnk2PFWZZXPq4NU6N8V/FFiuYlaVXM9Mkb0/WlVnAlbvWnS/rg8?=
- =?iso-8859-1?Q?oFw6xU1kgPvTh4FZoTwzYavQHr3cK3GjIamQm9rDB9L6JfM76gE/GFmZe1?=
- =?iso-8859-1?Q?lR8lmktvaqPYHhRo/Z25QqPQ4ybHP8sqdOwvZ+yyMgk77LMVUOpdpM+tUM?=
- =?iso-8859-1?Q?Qp1E5IUIVTw01DRWtysftE6pil5ySjy4EjSgKBMmjHXXCKBtWzvoHYMM+k?=
- =?iso-8859-1?Q?piteWkO5mYv3Y3hCXRl6OxjkSFwhsStyjcAerbHMiHbO1tHYAYgMjvpTB+?=
- =?iso-8859-1?Q?jLgSAiuCpwrugAAsg/V+tjeYZsmKcTNNHpQqFtkkeIV+O4QlO8sefxDIy/?=
- =?iso-8859-1?Q?pWttCsViKOvMtE+MhHvyVdytMOuUtXjgbsPU5o6kLVpt2N2Ug0HSDQ6c9p?=
- =?iso-8859-1?Q?kCD/mEsGWJcobtl2I+QnJPaqbkS9xYf66v2KV6t37l7sZH?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7726010E0FF
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 04:02:08 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 638NF5u52845008
+ for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 04:02:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ MnuyyB+5NDkjvl9qZxcYCWASOiqmS2rT122z4ePoI8g=; b=cGhthPCSw8ij1zbn
+ g+HsVWD/7UhoG36QNHY16J0tUvHP9XLO+jeuixIGH3PLCYZsD3d4T+lJO2Crf0PB
+ 7DiErHyjr+SVfgZKe+dSkCGEWZgWqDIVzUKHPjLkhQd+1OuoeNU1G44i8fzdPcXG
+ t07yML2Utvj/1nOByCiNrFZmPFz+bVICxNTK39oUR9gSa/MDU5XVrqa9jHQ8wQoE
+ 07C96RsPCHF9PwKurTwTAUCCBINpDyNQ8QEH9RyOJ6OhCXai73v0KFPGjRvtxbEt
+ +QWRBXKAskWsksa5VLgG4pKLNQw+ZcCxZsTlzVKt6djBvoReE9YarmvfSZYkRNcx
+ SGxjhw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddt7hj9u2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 04:02:07 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2b24a00d12cso4827805ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 08 Apr 2026 21:02:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775707326; x=1776312126;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MnuyyB+5NDkjvl9qZxcYCWASOiqmS2rT122z4ePoI8g=;
+ b=S5KC/nEEhzhL3eMp1sWLBpK+6blrPyjQLwRS1IDq1zKEK3Q8Bo6+Ydmvk+DI8e3w63
+ a4o9qsTq03Nuu2hp3j5xyjxw8t1G4TNPS1NeOyhHP4x1jsA3ZwRV7VzGtM7G0UfiE3C0
+ 9fFPmkj/n1Pn8BmtG9t/49qJC879PIPd1WItEZNfDT+kJH9ulCUbzD0f9p3UG0Y/Nkqr
+ CKKzALmRi1ikxL+WFT86q7JoXLL1Q7SRYAZ2r7wObcMtd5JG5gTYnHU0U5s0vf96hmUD
+ GlpKbeqyEdIsFra3F84tA2LVv8qruHVuYt08gaxrreIKZ0JgxCQzIGLXfDg99iWsGgjH
+ DCJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775707326; x=1776312126;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MnuyyB+5NDkjvl9qZxcYCWASOiqmS2rT122z4ePoI8g=;
+ b=BrgbSvdybggajPNHa6h4GHB89PUd1kVXvTuopYDFk7YYiRjaoiFnufa8bNvjV4AMDV
+ nxCWl9dHEsyNUsBvhN4cak1Z+i950WXS971zCSv/nz8igxbEFbnpBF5u1cSe7vdGksop
+ uLSMJB9lCg20kM8cXlnLCA+EDl0cUzgcjGNoundpIbNe3kKUkocqdBhciv0C+JRmTOuj
+ JUOSXoJw0QjiHSV92BZkLY/nXarhIbUh3q9s8fuIBal22R7pIz4ZgSHzNJHLzvFUxWCE
+ Y+WBfK5ApT5fKFmKaZPRz0WD4vDNXZaExj2uSkwpamlYq/LmNCgin5eWvXyx+epAaAG2
+ /zoA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCViHuklI+Fd8Sw6YYaPqGVw283sBFRrZ5FevwWZNwGs/VprnwhQaAiYAyiwu0FcgMThMP4MPaRyejc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz2xsnakamNVOIRG3dfZeocx+XsCX6Fak062A4Xh5j0rYeaFxAG
+ DUJQ48+Y077cIgylBxUOG6k2wOOJ7hWf9npLHw+kcAFAwmLqFuSPJiNabJa8Hx2bIWy0IwXe44/
+ eAuO2cCwr7QhpPssRglkrzkKFqowsZYHRfxHVHt2xZZaFheYjuF7QK33hfiFswlWhLsCYvMg=
+X-Gm-Gg: AeBDieu5BHNSG6XN4rO8vb5zfEes9tjmjngjO/8mxxNVWorX47YYX9ozEJhWu9nZUH0
+ EdPwT0tnKe0BX8XGDHCHdqXTb09RKqivmEtgnzdH6RXYkjo1AB9WUBQ1blWKD7gy/gYn1Fsrf6h
+ AQraT74BGe23MTIzRBogVoofryRbiMWB2aQZZbFXykHRu68rM2e3/NQc4frrka3bKOczE3lDRg2
+ bIoL7NZgxXKDvnr2bFK37Q+rRydxGy/DvQUaoPJ7Iq/umrBti0s/P9KEvUb1XETiji/mOi0PNmV
+ CduXeKODi8Omm/qJ9CoWHFkPzmECtIkE4fnDGKkylHjNXqWxx8zccHkxqnBYyb9GXUlmjOMhTwf
+ DBDue37u1LEi3XH+gAD+OClCi7AFs1x2bFOmaQnRlnzz5bGqV5aIRBjStURCkkRuZ4OZguqJkE4
+ K1c3UGiNPhuYACHBLbxA==
+X-Received: by 2002:a17:902:9888:b0:2b2:5124:d068 with SMTP id
+ d9443c01a7336-2b2c7308a1cmr15374545ad.10.1775707325750; 
+ Wed, 08 Apr 2026 21:02:05 -0700 (PDT)
+X-Received: by 2002:a17:902:9888:b0:2b2:5124:d068 with SMTP id
+ d9443c01a7336-2b2c7308a1cmr15373505ad.10.1775707324395; 
+ Wed, 08 Apr 2026 21:02:04 -0700 (PDT)
+Received: from [10.133.33.242] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b2c09cdcd2sm29978475ad.29.2026.04.08.21.01.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Apr 2026 21:02:03 -0700 (PDT)
+Message-ID: <399e29a0-1c52-4e81-9393-3642d50e1e69@oss.qualcomm.com>
+Date: Thu, 9 Apr 2026 12:01:58 +0800
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: HZGVcP7SwLhhpqPuWdbSeyJsqPrbziVv4YKd+D+J7TTMFnHwbVHt298OO8ZR317w5yFyBI7ksZ4yuhAzyvnEUOzvF4ZnCsLKopCUHK2KazS8rT99Qv4d3/MtFROZaV4jwN9Umn0Fnm18FxUPZwMTk3LJuc3HIKIuEs/IVtaZUV/O8OTJ2B2sxSNVLr1k+8dJ6Alj/GfE9SC9DSsCFLqQjIZPpj1slNgoly6OIh3L66juUXMO4QOTHlA/4vBE55aZ0suHBlBfthgdxKGZE1O2KaDGf4pe0WMnOJfuHa1FRY1Lgyy0OoeuMcy2lQ8BkhItd9j3R65KH2m10NyX9gu2tQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6241.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 199c020f-9bfc-4d0f-d241-08de95eb5b24
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2026 03:52:01.1813 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0Q3neP6GsGZrzCpVJobREQMUEkbF6k/vWgHo1FGM3i4FRJHyUmPllc5JbsA9rljn3Lf7TfIxcYaTRNA91Ug4Bg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6039
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 30/38] drm/msm/dp: add connector abstraction for DP MST
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-30-01faacfcdedd@oss.qualcomm.com>
+ <x72v67fsgmekfeebasggtiaofwlxw6ikqch4lxkrryior3yxxk@xiiw75bnj37p>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <x72v67fsgmekfeebasggtiaofwlxw6ikqch4lxkrryior3yxxk@xiiw75bnj37p>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=O5IJeh9W c=1 sm=1 tr=0 ts=69d724bf cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=P-IC7800AAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=7jCAB-3gvQ6QjorLAh0A:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22 a=d3PnA9EDa4IxuAV0gXij:22
+ a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: v89BZg3Jcg0lRuBujVaoa3J6RGCiSCHU
+X-Proofpoint-GUID: v89BZg3Jcg0lRuBujVaoa3J6RGCiSCHU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDAzMyBTYWx0ZWRfX3/tRjp3pkXh8
+ zWIc1zM3Ozca7V4RhnvBig8HgyYQ2UiVTNKaHaVawXifdOwyULHR5nEi7LJRibVbGD40vMp7Ew6
+ TOp5QewMcH735xVjfH5WDX+mJ7fftV2x02QAwIRC5Z1L5mgSjT7+cLUIxzHtgX0qf+E8NTUaJ7l
+ ErZJxycunNmpxDmk89EvHrizYLQd2pr47X7otbfGMlf6SnFL1jmweQOZhUokaLvMHSJMY7/TM9R
+ jSu4zrBDcgf3L5ZMkqMtAixEQWqYwstv01yIONaDXsgpMq2f6/vE9uYCCOHNh6OMpMzu22cSVLD
+ higBgNvxFsMDqpc3OaTuEMTgcvl6DuIMKzN7As8Hwtqc3I/LJwMXWVwn9v2gMq5saRNd9rNoJIa
+ UD0Fg2QSr2Gb2/QIx+XXCeyZqz7zqMgsdiIJzuSFS0zJdXWHzi1areO9JoBd3Vc/TkrV7WVZM1j
+ OD+T0Al/GYw6Zaa/t6w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-09_01,2026-04-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090033
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -178,32 +151,527 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> -----Original Message-----
-> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf Of Y=
-ury Norov via Intel-wired-lan
-> Sent: 02 March 2026 06:42
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; David S. Miller <dave=
-m@davemloft.net>; Thomas Hellstr=F6m <thomas.hellstrom@linux.intel.com>; An=
-drew Lunn <andrew+netdev@lunn.ch>; Andrew Morton <akpm@linux-foundation.org=
->; David Airlie <airlied@gmail.com>; Eric Dumazet <edumazet@google.com>; Ja=
-kub Kicinski <kuba@kernel.org>; Brost, Matthew <matthew.brost@intel.com>; P=
-aolo Abeni <pabeni@redhat.com>; Kitszel, Przemyslaw <przemyslaw.kitszel@int=
-el.com>; Vivi, Rodrigo <rodrigo.vivi@intel.com>; Simona Vetter <simona@ffwl=
-l.ch>; Yury Norov <yury.norov@gmail.com>; Rasmus Villemoes <linux@rasmusvil=
-lemoes.dk>; dri-devel@lists.freedesktop.org; intel-xe@lists.freedesktop.org=
-; linux-kernel@vger.kernel.org; netdev@vger.kernel.org; intel-wired-lan@lis=
-ts.osuosl.org
-> Cc: Yury Norov <ynorov@nvidia.com>; Simon Horman <horms@kernel.org>; Davi=
-d Laight <david.laight.linux@gmail.com>
-> Subject: [Intel-wired-lan] [PATCH v2 2/4] ice: use bitmap_weighted_xor() =
-in ice_find_free_recp_res_idx()
->
-> Use the right helper and save one bitmaps traverse.
->
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> ---
-> drivers/net/ethernet/intel/ice/ice_switch.c | 4 +---
-> 1 file changed, 1 insertion(+), 3 deletions(-)
->
 
-Tested-by: Rinitha S <sx.rinitha@intel.com> (A Contingent worker at Intel)
+
+On 8/27/2025 2:31 AM, Dmitry Baryshkov wrote:
+> On Mon, Aug 25, 2025 at 10:16:16PM +0800, Yongxing Mou wrote:
+>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>
+>> Add connector abstraction for the DP MST. Each MST encoder
+>> is connected through a DRM bridge to a MST connector and each
+>> MST connector has a DP panel abstraction attached to it.
+> 
+> What's the functionality split between the connector and bridge? Please
+> explain it here. Do we really need a bridge if we have a non-trivial
+> connector implementation?
+> 
+MST connector only for MST API calls/detect/get_modes/get encoder, and 
+the bridge handles display enable/disable, hotplug, mode set....
+>>
+>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/msm/dp/dp_mst_drm.c | 391 +++++++++++++++++++++++++++++++++++-
+>>   drivers/gpu/drm/msm/dp/dp_mst_drm.h |   3 +
+>>   2 files changed, 393 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.c b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> index 73de29136801ef5f45e0b2d09280fe113021b68c..b4f640134af544c77ab262d2cbe0b67e1e2e1b3a 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.c
+>> @@ -25,6 +25,8 @@
+>>    * OF THIS SOFTWARE.
+>>    */
+>>   
+>> +#include <drm/drm_edid.h>
+>> +#include <drm/drm_managed.h>
+>>   #include "dp_mst_drm.h"
+>>   
+>>   #define to_msm_dp_mst_bridge(x)     container_of((x), struct msm_dp_mst_bridge, base)
+>> @@ -525,7 +527,6 @@ int msm_dp_mst_drm_bridge_init(struct msm_dp *dp_display, struct drm_encoder *en
+>>   
+>>   	dev = dp_display->drm_dev;
+>>   	bridge->display = dp_display;
+>> -	bridge->base.funcs = &msm_dp_mst_bridge_ops;
+>>   	bridge->base.encoder = encoder;
+>>   	bridge->base.type = dp_display->connector_type;
+>>   	bridge->base.ops = DRM_BRIDGE_OP_MODES;
+>> @@ -554,3 +555,391 @@ int msm_dp_mst_drm_bridge_init(struct msm_dp *dp_display, struct drm_encoder *en
+>>   end:
+>>   	return rc;
+>>   }
+>> +
+>> +static struct msm_dp_mst_bridge_state *msm_dp_mst_br_priv_state(struct drm_atomic_state *st,
+>> +								struct msm_dp_mst_bridge *bridge)
+>> +{
+>> +	struct drm_device *dev = bridge->base.dev;
+>> +	struct drm_private_state *obj_state = drm_atomic_get_private_obj_state(st, &bridge->obj);
+>> +
+>> +	WARN_ON(!drm_modeset_is_locked(&dev->mode_config.connection_mutex));
+>> +
+>> +	return to_msm_dp_mst_bridge_state_priv(obj_state);
+>> +}
+>> +
+>> +/* DP MST Connector OPs */
+>> +static int
+>> +msm_dp_mst_connector_detect(struct drm_connector *connector,
+>> +			    struct drm_modeset_acquire_ctx *ctx,
+>> +			    bool force)
+>> +{
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(connector);
+>> +	struct msm_dp *dp_display = mst_conn->msm_dp;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	enum drm_connector_status status = connector_status_disconnected;
+>> +
+>> +	if (drm_connector_is_unregistered(&mst_conn->connector))
+>> +		return status;
+> 
+> Can detect be called for unregistered connector?
+> 
+Got it, will remove this.
+>> +
+>> +	if (dp_display->link_ready && dp_display->mst_active)
+>> +		status = drm_dp_mst_detect_port(connector,
+>> +						ctx, &mst->mst_mgr, mst_conn->mst_port);
+> 
+> I think this should be wrapped in the pm_runtime calls.
+> 
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "conn:%d status:%d\n", connector->base.id, status);
+> 
+> Do we need this?
+> 
+Will delete this log.
+>> +
+>> +	return status;
+>> +}
+>> +
+>> +static int msm_dp_mst_connector_get_modes(struct drm_connector *connector)
+>> +{
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(connector);
+>> +	struct msm_dp *dp_display = mst_conn->msm_dp;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	const struct drm_edid *drm_edid;
+>> +
+>> +	if (drm_connector_is_unregistered(&mst_conn->connector))
+>> +		return drm_edid_connector_update(connector, NULL);
+> 
+> Is there a need for this? I don't see a check in nouveau code.
+> 
+Okay.. i see in intel's code..
+https://elixir.bootlin.com/linux/v6.19.11/source/drivers/gpu/drm/i915/display/intel_dp_mst.c#L1390
+do we need to remove this ?
+>> +
+>> +	drm_edid = drm_dp_mst_edid_read(connector, &mst->mst_mgr, mst_conn->mst_port);
+>> +	drm_edid_connector_update(connector, drm_edid);
+>> +
+>> +	return drm_edid_connector_add_modes(connector);
+>> +}
+>> +
+>> +static enum drm_mode_status msm_dp_mst_connector_mode_valid(struct drm_connector *connector,
+>> +							    const struct drm_display_mode *mode)
+>> +{
+>> +	struct msm_dp_mst_connector *mst_conn;
+>> +	struct msm_dp *dp_display;
+>> +	struct drm_dp_mst_port *mst_port;
+>> +	struct msm_dp_panel *dp_panel;
+>> +	struct msm_dp_mst *mst;
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +	u16 full_pbn, required_pbn;
+>> +	int i, active_enc_cnt = 0;
+>> +
+>> +	if (drm_connector_is_unregistered(connector))
+>> +		return 0;
+>> +
+>> +	mst_conn = to_msm_dp_mst_connector(connector);
+>> +	dp_display = mst_conn->msm_dp;
+>> +	mst = dp_display->msm_dp_mst;
+>> +	mst_port = mst_conn->mst_port;
+>> +	dp_panel = mst_conn->dp_panel;
+>> +
+>> +	if (!dp_panel || !mst_port)
+>> +		return MODE_ERROR;
+>> +
+>> +	for (i = 0; i < mst->max_streams; i++) {
+>> +		mst_bridge_state = to_msm_dp_mst_bridge_state(mst->mst_bridge[i]);
+>> +		if (mst_bridge_state->connector &&
+>> +		    mst_bridge_state->connector != connector)
+>> +			active_enc_cnt++;
+>> +	}
+>> +
+>> +	if (active_enc_cnt < DP_STREAM_MAX)
+>> +		full_pbn = mst_port->full_pbn;
+>> +	else {
+>> +		DRM_ERROR("all MST streams are active\n");
+>> +		return MODE_BAD;
+> 
+> And if the stream becomes unused, who will call the mode_valid? This
+> callback should validate if the mode can be enabled at all, not taking
+> care about other MST streams, connectors, etc. If the user overcommits,
+> e.g. by selecting 4 8K modes, then atomic_check() will fail, but it
+> still should be possible to disable all other connectors and get the max
+> mode supported here.
+> 
+Got it.. will delete this.
+>> +	}
+>> +
+>> +	required_pbn = drm_dp_calc_pbn_mode(mode->clock, (connector->display_info.bpc * 3) << 4);
+> 
+> You should not be using connector's BPC here. It can be lowered to fit
+> the mode. It should be (6 * 3) << 4
+> 
+Got it.
+>> +
+>> +	if (required_pbn > full_pbn) {
+> 
+> 
+>> +		drm_dbg_dp(dp_display->drm_dev, "mode:%s not supported. pbn %d vs %d\n",
+>> +			   mode->name, required_pbn, full_pbn);
+>> +		return MODE_BAD;
+> 
+> MODE_CLOCK_HIGH
+> 
+>> +	}
+>> +
+>> +	return msm_dp_display_mode_valid(dp_display, &dp_panel->connector->display_info, mode);
+>> +}
+>> +
+>> +static struct drm_encoder *
+>> +msm_dp_mst_atomic_best_encoder(struct drm_connector *connector, struct drm_atomic_state *state)
+>> +{
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(connector);
+>> +	struct msm_dp *dp_display = mst_conn->msm_dp;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	struct drm_encoder *enc = NULL;
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +	u32 i;
+>> +	struct drm_connector_state *conn_state = drm_atomic_get_new_connector_state(state,
+>> +										    connector);
+>> +
+>> +	if (conn_state && conn_state->best_encoder)
+>> +		return conn_state->best_encoder;
+>> +
+>> +	for (i = 0; i < mst->max_streams; i++) {
+>> +		mst_bridge_state = msm_dp_mst_br_priv_state(state, mst->mst_bridge[i]);
+>> +		if (IS_ERR(mst_bridge_state))
+>> +			goto end;
+>> +
+>> +		if (mst_bridge_state->connector == connector) {
+>> +			enc = mst->mst_bridge[i]->encoder;
+>> +			goto end;
+>> +		}
+>> +	}
+>> +
+>> +	for (i = 0; i < mst->max_streams; i++) {
+>> +		mst_bridge_state = msm_dp_mst_br_priv_state(state, mst->mst_bridge[i]);
+>> +
+>> +		if (!mst_bridge_state->connector) {
+>> +			mst_bridge_state->connector = connector;
+>> +			mst_bridge_state->msm_dp_panel = mst_conn->dp_panel;
+>> +			enc = mst->mst_bridge[i]->encoder;
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +end:
+>> +	if (enc)
+>> +		drm_dbg_dp(dp_display->drm_dev, "mst connector:%d atomic best encoder:%d\n",
+>> +			   connector->base.id, i);
+>> +	else
+>> +		drm_dbg_dp(dp_display->drm_dev, "mst connector:%d atomic best encoder failed\n",
+>> +			   connector->base.id);
+>> +
+>> +	return enc;
+>> +}
+>> +
+>> +static int msm_dp_mst_connector_atomic_check(struct drm_connector *connector,
+>> +					     struct drm_atomic_state *state)
+>> +{
+>> +	int rc = 0, slots;
+>> +	struct drm_connector_state *old_conn_state;
+>> +	struct drm_connector_state *new_conn_state;
+>> +	struct drm_crtc *old_crtc;
+>> +	struct drm_crtc_state *crtc_state;
+>> +	struct msm_dp_mst_bridge *bridge;
+>> +	struct msm_dp_mst_bridge_state *mst_bridge_state;
+>> +	struct drm_bridge *drm_bridge;
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(connector);
+>> +	struct msm_dp *dp_display = mst_conn->msm_dp;
+>> +	struct msm_dp_mst *mst = dp_display->msm_dp_mst;
+>> +	struct drm_dp_mst_atomic_payload *payload;
+>> +	struct drm_dp_mst_topology_state *mst_state;
+>> +
+>> +	if (!state)
+>> +		return rc;
+>> +
+>> +	new_conn_state = drm_atomic_get_new_connector_state(state, connector);
+>> +	if (!new_conn_state)
+>> +		return rc;
+>> +
+>> +	old_conn_state = drm_atomic_get_old_connector_state(state, connector);
+>> +	if (!old_conn_state)
+>> +		goto end;
+>> +
+>> +	old_crtc = old_conn_state->crtc;
+>> +	if (!old_crtc)
+>> +		goto end;
+>> +
+>> +	crtc_state = drm_atomic_get_new_crtc_state(state, old_crtc);
+>> +
+>> +	/* attempt to release vcpi slots on a modeset change for crtc state */
+>> +	if (drm_atomic_crtc_needs_modeset(crtc_state)) {
+>> +		if (WARN_ON(!old_conn_state->best_encoder)) {
+>> +			rc = -EINVAL;
+>> +			goto end;
+>> +		}
+>> +
+>> +		drm_bridge = drm_bridge_chain_get_first_bridge(old_conn_state->best_encoder);
+> 
+> Why do we have it here rather than in bridge's atomic_check?
+> 
+Got it, will move to bridge's atomic_check.
+>> +		if (WARN_ON(!drm_bridge)) {
+>> +			rc = -EINVAL;
+>> +			goto end;
+>> +		}
+>> +		bridge = to_msm_dp_mst_bridge(drm_bridge);
+>> +
+>> +		mst_bridge_state = msm_dp_mst_br_priv_state(state, bridge);
+>> +
+>> +		mst_state = to_drm_dp_mst_topology_state(mst->mst_mgr.base.state);
+>> +	
+>> +		payload = drm_atomic_get_mst_payload_state(mst_state, mst_conn->mst_port);
+>> +
+>> +		slots = payload->time_slots;
+>> +		if (slots > 0) {
+>> +			rc = drm_dp_atomic_release_time_slots(state,
+>> +							      &mst->mst_mgr,
+>> +							      mst_conn->mst_port);
+>> +			if (rc) {
+>> +				DRM_ERROR("failed releasing %d vcpi slots %d\n", slots, rc);
+>> +				goto end;
+>> +			}
+>> +		}
+>> +
+>> +		if (!new_conn_state->crtc) {
+>> +			/* for cases where crtc is not disabled the slots are not
+>> +			 * freed by drm_dp_atomic_release_time_slots. this results
+>> +			 * in subsequent atomic_check failing since internal slots
+>> +			 * were freed but not the DP MST mgr's
+>> +			 */
+>> +			mst_bridge_state->num_slots = 0;
+>> +			mst_bridge_state->connector = NULL;
+>> +			mst_bridge_state->msm_dp_panel = NULL;
+>> +
+>> +			drm_dbg_dp(dp_display->drm_dev, "clear best encoder: %d\n", bridge->id);
+>> +		}
+>> +	}
+>> +
+>> +end:
+>> +	drm_dbg_dp(dp_display->drm_dev, "mst connector:%d atomic check ret %d\n",
+>> +		   connector->base.id, rc);
+>> +	return rc;
+>> +}
+>> +
+>> +static void dp_mst_connector_destroy(struct drm_connector *connector)
+>> +{
+>> +	struct msm_dp_mst_connector *mst_conn = to_msm_dp_mst_connector(connector);
+>> +
+>> +	drm_connector_cleanup(connector);
+>> +	drm_dp_mst_put_port_malloc(mst_conn->mst_port);
+>> +	kfree(mst_conn);
+>> +}
+>> +
+>> +/* DRM MST callbacks */
+>> +static const struct drm_connector_helper_funcs msm_dp_drm_mst_connector_helper_funcs = {
+>> +	.get_modes =    msm_dp_mst_connector_get_modes,
+>> +	.detect_ctx =   msm_dp_mst_connector_detect,
+>> +	.mode_valid =   msm_dp_mst_connector_mode_valid,
+>> +	.atomic_best_encoder = msm_dp_mst_atomic_best_encoder,
+>> +	.atomic_check = msm_dp_mst_connector_atomic_check,
+>> +};
+>> +
+>> +static const struct drm_connector_funcs msm_dp_drm_mst_connector_funcs = {
+>> +	.reset = drm_atomic_helper_connector_reset,
+>> +	.destroy = dp_mst_connector_destroy,
+>> +	.fill_modes = drm_helper_probe_single_connector_modes,
+>> +	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>> +	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>> +};
+>> +
+>> +static struct drm_connector *
+>> +msm_dp_mst_add_connector(struct drm_dp_mst_topology_mgr *mgr,
+>> +			 struct drm_dp_mst_port *port, const char *pathprop)
+>> +{
+>> +	struct msm_dp_mst *dp_mst;
+>> +	struct drm_device *dev;
+>> +	struct msm_dp *dp_display;
+>> +	struct msm_dp_mst_connector *mst_conn;
+>> +	struct drm_connector *connector;
+>> +	int rc, i;
+>> +
+>> +	dp_mst = container_of(mgr, struct msm_dp_mst, mst_mgr);
+>> +
+>> +	dp_display = dp_mst->msm_dp;
+>> +	dev = dp_display->drm_dev;
+>> +
+>> +	mst_conn = kzalloc(sizeof(*mst_conn), GFP_KERNEL);
+>> +
+>> +	if (!mst_conn)
+>> +		return NULL;
+>> +
+>> +	drm_modeset_lock_all(dev);
+>> +
+>> +	connector = &mst_conn->connector;
+>> +	rc = drm_connector_dynamic_init(dev, connector,
+>> +					&msm_dp_drm_mst_connector_funcs,
+>> +					DRM_MODE_CONNECTOR_DisplayPort, NULL);
+>> +	if (rc) {
+>> +		kfree(mst_conn);
+>> +		drm_modeset_unlock_all(dev);
+>> +		return NULL;
+>> +	}
+>> +
+>> +	mst_conn->dp_panel = msm_dp_display_get_panel(dp_display);
+>> +	if (!mst_conn->dp_panel) {
+>> +		DRM_ERROR("failed to get dp_panel for connector\n");
+>> +		kfree(mst_conn);
+>> +		drm_modeset_unlock_all(dev);
+>> +		return NULL;
+>> +	}
+>> +
+>> +	mst_conn->dp_panel->connector = connector;
+>> +	mst_conn->msm_dp = dp_display;
+>> +
+>> +	drm_connector_helper_add(connector, &msm_dp_drm_mst_connector_helper_funcs);
+>> +
+>> +	if (connector->funcs->reset)
+>> +		connector->funcs->reset(connector);
+>> +
+>> +	/* add all encoders as possible encoders */
+>> +	for (i = 0; i < dp_mst->max_streams; i++) {
+>> +		rc = drm_connector_attach_encoder(connector, dp_mst->mst_bridge[i]->encoder);
+>> +
+>> +		if (rc) {
+>> +			DRM_ERROR("failed to attach encoder to connector, %d\n", rc);
+>> +			kfree(mst_conn);
+>> +			drm_modeset_unlock_all(dev);
+>> +			return NULL;
+>> +		}
+>> +	}
+>> +
+>> +	mst_conn->mst_port = port;
+>> +	drm_dp_mst_get_port_malloc(mst_conn->mst_port);
+>> +
+>> +	drm_object_attach_property(&connector->base,
+>> +				   dev->mode_config.path_property, 0);
+> 
+> Where do we set the property then?
+> 
+Will add it.
+>> +	drm_object_attach_property(&connector->base,
+>> +				   dev->mode_config.tile_property, 0);
+>> +
+>> +	drm_modeset_unlock_all(dev);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "add MST connector id:%d\n", connector->base.id);
+>> +
+>> +	return connector;
+>> +}
+>> +
+>> +static const struct drm_dp_mst_topology_cbs msm_dp_mst_drm_cbs = {
+>> +	.add_connector = msm_dp_mst_add_connector,
+> 
+> No .poll_hpd_irq ?
+> 
+I checked that poll_hpd_irq is only used for certain specific scenarios, 
+so it can be added later when it is actually needed.
+>> +};
+>> +
+>> +int msm_dp_mst_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux)
+>> +{
+>> +	struct drm_device *dev;
+>> +	int conn_base_id = 0;
+>> +	int ret;
+>> +	struct msm_dp_mst *msm_dp_mst;
+>> +
+>> +	if (!dp_display) {
+>> +		DRM_ERROR("invalid params\n");
+>> +		return 0;
+>> +	}
+> 
+> Can't we just trust the driver?
+> 
+Got it.
+>> +
+>> +	dev = dp_display->drm_dev;
+>> +
+>> +	msm_dp_mst = devm_kzalloc(dev->dev, sizeof(*msm_dp_mst), GFP_KERNEL);
+>> +	if (!msm_dp_mst)
+>> +		return -ENOMEM;
+>> +
+>> +	memset(&msm_dp_mst->mst_mgr, 0, sizeof(msm_dp_mst->mst_mgr));
+>> +	msm_dp_mst->mst_mgr.cbs = &msm_dp_mst_drm_cbs;
+>> +	conn_base_id = dp_display->connector->base.id;
+>> +	msm_dp_mst->msm_dp = dp_display;
+>> +	msm_dp_mst->max_streams = max_streams;
+>> +
+>> +	for (int i = 0; i < DP_STREAM_MAX; i++) {
+>> +		msm_dp_mst->mst_bridge[i] = devm_drm_bridge_alloc(dev->dev,
+>> +						struct msm_dp_mst_bridge, base,
+>> +						&msm_dp_mst_bridge_ops);
+> 
+> This should have been a part of the previous patch.
+> 
+Got it.
+>> +	}
+>> +
+>> +	msm_dp_mst->dp_aux = drm_aux;
+>> +
+>> +	ret = drm_dp_mst_topology_mgr_init(&msm_dp_mst->mst_mgr, dev,
+>> +					   drm_aux,
+>> +					   MAX_DPCD_TRANSACTION_BYTES,
+>> +					   max_streams,
+>> +					   conn_base_id);
+>> +	if (ret) {
+>> +		DRM_ERROR("DP DRM MST topology manager init failed\n");
+>> +		return ret;
+>> +	}
+>> +
+>> +	dp_display->msm_dp_mst = msm_dp_mst;
+>> +
+>> +	mutex_init(&msm_dp_mst->mst_lock);
+>> +
+>> +	drm_dbg_dp(dp_display->drm_dev, "DP DRM MST topology manager init completed\n");
+> 
+> Why do we need so many debug messages? They make the log overspammed and
+> hard to follow.
+> 
+Got it.
+>> +	return ret;
+>> +}
+>> diff --git a/drivers/gpu/drm/msm/dp/dp_mst_drm.h b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> index d75731ca2e5870377026e8ad1057bdcc5f0d4c78..1484fabd92ad0075eac5369aac8ca462acbd3eda 100644
+>> --- a/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> +++ b/drivers/gpu/drm/msm/dp/dp_mst_drm.h
+>> @@ -70,6 +70,7 @@ struct msm_dp_mst {
+>>   	struct drm_dp_mst_topology_mgr mst_mgr;
+>>   	struct msm_dp_mst_bridge *mst_bridge[DP_STREAM_MAX];
+>>   	struct msm_dp *msm_dp;
+>> +	struct drm_dp_aux *dp_aux;
+>>   	u32 max_streams;
+>>   	struct mutex mst_lock;
+>>   };
+>> @@ -83,4 +84,6 @@ struct msm_dp_mst_connector {
+>>   
+>>   int msm_dp_mst_drm_bridge_init(struct msm_dp *dp, struct drm_encoder *encoder);
+>>   
+>> +int msm_dp_mst_init(struct msm_dp *dp_display, u32 max_streams, struct drm_dp_aux *drm_aux);
+>> +
+>>   #endif /* _DP_MST_DRM_H_ */
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
+
