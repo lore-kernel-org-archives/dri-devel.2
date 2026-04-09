@@ -4,143 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02788F364C3
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 22:20:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 467E9F364C3
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 22:37:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26D6E10E158;
-	Thu,  9 Apr 2026 22:20:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58B4C10E88E;
+	Thu,  9 Apr 2026 22:37:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="NI2OvWo5";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="blJpCc5V";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WDgXoLNJ";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7191D10E033
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 22:20:55 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 639HkbQr2698454
- for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 22:20:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- NhC1xnjVzqLBQGw7MdZwg0L/BccYrR8OrGOTQqV/NrY=; b=NI2OvWo5Uz4HWnLg
- XmdY0oNoCP/JZDMqXJEUmu6dk7B6X0CTWehE6JGK/bsYNGl9Qm6mU3odG4PhuID7
- /DLPF24xx3/pOxRjpnNGLsqaE2VDwC9CKYrXmBPy2Io0f25bAuN+x55MVIGRckW6
- SM85MYoHlsTJgqhTO3QWGSSKjIy60livErsEQE5iYrkkPSOoVQ3OyFBuk7sAUMga
- IkyFHUHZwaGRPaEZIZZicz3q8B2ifD6QzFn0GoE7dlfgYJauLz1AX9E4CxRuZxTr
- Krw01r1nzcYB6O3AVbUn5/viHPYyPMF/CYHEhWcVWlc9wMSEkZvF/cdRVFxpyJki
- q3YtDA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4degt9rrfm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 22:20:54 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50da529ff48so39861041cf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 15:20:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775773253; x=1776378053;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=NhC1xnjVzqLBQGw7MdZwg0L/BccYrR8OrGOTQqV/NrY=;
- b=blJpCc5VVV61wQQqZcOSazbQ51Q1vezTgPlVS/fnXyTwi1KLIzue+oHZn0Vkxb2cVf
- DRL5X8KZg8hmzS4qtsUyfjMLh/85bXYcY4cwqWmU3inyx50UAjmzGyRYi03yzOQUJPEO
- VKkCErkZy+z/NR9lfJX53EFud02YGHPS2onMD89bBZi5+ps0+5BmspthGO/0QlX58wSE
- zUlSHEurZyafV1us4zKIFBltvSCJU9NRnwdaVEVp9jwI7WlBUocReVwBErTu6AdfBXoK
- Qc1l1V+WyokKoia9/+U/KJavWnExayo/iAE71q519PLuGh7CLKVhYw02KUwfZAiufxBe
- p/RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775773253; x=1776378053;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=NhC1xnjVzqLBQGw7MdZwg0L/BccYrR8OrGOTQqV/NrY=;
- b=ikZRl4qT/WB8h2R+EwtlQ/W71M/H0nPRGBa7oFFqLvS4tfOMy0qOodCQ/EwPlQHzLg
- KZoe+/5q3ixVNh5AKih8umgMRdfPGmT6UFffmfU92Wu6zfwh6o0rbbAntdg/7oAaKaMY
- Pb1Meb7EfLbx8HEAeSiPMFKiNNjWkyoC8GmOMvMpFu4OBFrAl3V7YuobknLzzEB38dWE
- itU+3zJtX2p/s0rdFIOUgQ80P5Kf1XkZJZYechYZAyeHMAerFz2BZtc+oz9nkbsbhE5X
- x9V1sMoR8qnRE+vRFFLTcvpbdj8ZshAVmlY2EdXG5lS8tzvBAVLB53/pLTL3fvK7zNAm
- AZsA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXzDIg/X+SFsuzcM1oQk1h4C5oup5x0vkZfmMOmLW3s4H6Sa4kPoPKQgvy79cOkuJ8e8KT+8rD8nJ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyjU2R6JhaudQhjR20F39xfNXfe/0QXiOx4NxJiWeE6HqtLpGKf
- x2vOmVowWF3SH7zaGg+ksK0ZDkfvCdZJSDswK69GZf0V2okbB4T6806d2HmapCQzZb/Fjslbfxi
- e9i7w3T1IFZ25X071d1ZclkHr5qyIAwZ1ON/OqjCtGMd5IcoBcAG5VFVCpMlFWgKjl0FuOJg=
-X-Gm-Gg: AeBDieuUKxG9e1HhV6e4HdTGm2fXbVnxZK/4fy2cFZNHlj+T3+MkzTkuK0gankRQoyA
- IsSnImlW29UJAHtd5iY1KNMpI5ZaYX5Brz93yYSAP3yO6SaHDM3NxRIVqVyxaQ7mjeyJ0X7A9/k
- OzS2he2Yb/MQia768m58MRoRzejHUsVs5ZSTFSqeGeZof19u6Cer2ozV96kI1oHcmnQsWwHDrhl
- lrffQWUAr5Nj1Xi9ffnVqpf7tK45MzNaP31kgLD04oSW9JqcsSuyqKhI6gqVphBafLKhFERNZxB
- B8Vb/njroBOraR8bFaCXgSNWfy26+aLcvOSAQUHa8XVq9t66pq/65a+yrzXR1ZsAOglKRMoLvVb
- MPqjTAB0G0/PmsnASLVH96mYx7sop0iBIrVJSP3avg5ze98pNP3D5wPjkq+1ZJFFkE37Qjzr3gF
- JTbym8KeBdfp9w46s9Ya2kOmNmukSdRPk4XJ0=
-X-Received: by 2002:a05:622a:a707:b0:50d:a466:6d11 with SMTP id
- d75a77b69052e-50dd5b77e0cmr13383891cf.33.1775773253525; 
- Thu, 09 Apr 2026 15:20:53 -0700 (PDT)
-X-Received: by 2002:a05:622a:a707:b0:50d:a466:6d11 with SMTP id
- d75a77b69052e-50dd5b77e0cmr13383621cf.33.1775773253058; 
- Thu, 09 Apr 2026 15:20:53 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a3eeee1219sm202574e87.50.2026.04.09.15.20.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2026 15:20:51 -0700 (PDT)
-Date: Fri, 10 Apr 2026 01:20:49 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Daniel Stone <daniels@collabora.com>,
- Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-Message-ID: <flq7gnt4l3yd736dcg32ra4tzrwslv4uj7kgvbbqv5uj2m7rop@37p2kjfcaty6>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8ba60a99-f69e-482e-bd68-f6bc36291c54@mailbox.org>
- <5797606.kQq0lBPeGt@workhorse>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93FE210E88E
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 22:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1775774261;
+ bh=mMZFlS36rjorHgR/mWWffVLLV2B7T9gk0BFFHkidN7c=;
+ h=From:Date:Subject:To:Cc:From;
+ b=WDgXoLNJg4XeYrwn12V6eES2wHHDyctKx1HgKhBZmIBtfD4b4zxRXznTdh2iZL4/c
+ ugeQJuprMgY/NrMVOHrg3ESaYRN9baFIOpHocwgy6EHhZKXmcGGJWyFD8Mq6ccHe+t
+ qjSbnY+eufxSJCX250lHByl5dGvgZQ38AV6zdbX2Z7k6ZnStw21pec9kTU/810ONXp
+ riocy8rWXXgh3fLrK9HHQOowRtLPQiw3Ivu+X95AMPi0HW7eI3Ofhb17U6CkTQ7Dv2
+ +pq91segVwXKaafhvtQh7yfucH+BAR5/oioRtGkewB4GwH1GZ1Biw+XD9/jROfqEeF
+ S7wIquU+E6jIQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 38F1817E12B9;
+ Fri, 10 Apr 2026 00:37:41 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+ id EF4BB48002C; Thu, 09 Apr 2026 23:34:50 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 09 Apr 2026 23:34:41 +0200
+Subject: [PATCH RFC v2] drm/rockchip: vop2: Add clock rate mode check
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5797606.kQq0lBPeGt@workhorse>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDIwNiBTYWx0ZWRfXweQCImuLzkkM
- X2r+Q/YQkzhRo5Ih5FlHxhWgHZI12a9i8mW82nnP4BR5vc4Hi4f9pfjMgvGAAafLYyXiV0oaXSY
- Wj46f0zuWVvhVTOTdS4vyqZ+WqIfI5ZPHAXcB7nP6U5x0fpA/cdalVZKRCIuxEtQbgnEsJynBoU
- VJ6wJRNdxI7dAPiYytmDcWZ9SfH205Vx03iv+2nR9Nmgtmnujrk0X6PJnwmF219T4mGUcdq7RRj
- p5qT4LRk7Tq4k9vQLes8NiIXdZyd+RYCKFov4g3XXPYWAwC1C/IkBAnwd6tVfqklpFUAd1ydPke
- rsb92CC00p+zaYlaCi42+zaL9QWH0OHctmgVAhV0irEPE7g/xKEISZh3EjN2xmNlAV4g7xcAHYh
- jWhzzs0lJW+Xzz8WsCS6blwfYGiDhdKmQihT7ox6V1paoOmqLKrLnakcrX9/n4KRm1Wn3Z1v5Qo
- wjNhCvOMaG6kusBa6mw==
-X-Proofpoint-ORIG-GUID: CXYUFAT4k48WYyLe5JJ5fGHTZbxWhDnF
-X-Proofpoint-GUID: CXYUFAT4k48WYyLe5JJ5fGHTZbxWhDnF
-X-Authority-Analysis: v=2.4 cv=BJyDalQG c=1 sm=1 tr=0 ts=69d82646 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=e5mUnYsNAAAA:8
- a=9QKrCliAx9hTWDlqWTcA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 clxscore=1015 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090206
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260409-vop2-clk-rate-check-v2-1-b207cfc427d7@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAHAb2GkC/32NTQrCMBCFr1Jm7UgzYNq4EgQP4Fa6SMfRhv6kJ
+ CUopXc39AAuv/d431shSnAS4VysECS56PyUgQ4FcGent6B7ZgYqSZekKkx+JuShx2AXQe6EeyR
+ dkzZVVbNlyMs5yMt9dusD7rcrNDnsXFx8+O5PSe3VX2lSqNDUpj1po5Rp7YX9MNjWB3tkP0Kzb
+ dsPGxQsFL8AAAA=
+X-Change-ID: 20260217-vop2-clk-rate-check-268269778cac
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Daniel Stone <daniels@collabora.com>, Alexey Charkov <alchark@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6139;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=mMZFlS36rjorHgR/mWWffVLLV2B7T9gk0BFFHkidN7c=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGnYG3pi93cTW4yCyNLQ/GfeLTF0kZ4v7mNL0
+ OjnrUV3xsUT+YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJp2Bt6AAoJENju1/PI
+ O/qavSEP/A0aU+k3AfM0XGEz8p1RH76/YOZ9FzU2UErXy0i5r6jS48u4EPfvOr0xn4Syk6epyMz
+ jm65iH6FdShVljTsPUvorvrLWAIpbdlNgmL0AF8meRHLaYMF+I0BWmIgJvK3X0MrC0WxLS4crKP
+ hvmp/JbkwvTGg4yeTs/7Ec9KNpSvGgB60xyPw4ucCMzIwF1O36gritfoRIA3PoHWNJ9mzAnOW8J
+ jEX6OgP2aIPAv4Htm6O04uqSsJVtaX7fgZr7zloX97kxZHrYKIjpUKEO5XTD4NSbY3kt7GQRqK0
+ YhsO/NIA4/33Hg1tejWdUM6Wu0zcAv32GWb+4BKmFYitrzyz+nbdTwZnfSAgBaeJlIGvjmwehT+
+ s2y4gFTnfVYSNLrtfQOs66BU1Exhbt3EHcH10uwpMqpMjWH5WkTB0rEUEhSWEGm2Q7snzmH23qv
+ Gqk0ALPvoOH6eb5Fo3nzCMqPzgwjMpvNhZHhJ0ZK3MASBd+iGVBAQwBVZXD+limymSbkK1dqf7G
+ Ktq7Cen14fOOvvt7Rsu/6j3WDRAlMvmfcP54KwFRlT7ymXfLMkcrioRvBnLKEc3YuYGijk9b3Ij
+ /333Y5/ZlWPsuX4ObbS0f4/UZ+ntlgn3vt/j9HdYXWbYmObLME0CXGWJjdJgZ8CX3KP8rt3Lj5n
+ aSKCmBd1HEPPoqMrHAxk4DA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,80 +89,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 07:02:38PM +0100, Nicolas Frattaroli wrote:
-> On Friday, 20 March 2026 15:32:37 Central European Standard Time Michel Dänzer wrote:
-> > On 3/19/26 13:28, Nicolas Frattaroli wrote:
-> > > This series adds a new "link bpc" DRM property. It reflects the display
-> > > link's actual achieved output bits per component, considering any
-> > > degradation of the bit depth done by drivers for bandwidth or other
-> > > reasons. The property's value is updated during an atomic commit, which
-> > > is also when it fires an uevent if it changed to let userspace know.
-> > > 
-> > > There's a weston implementation at [1] which makes use of this new
-> > > property to warn when a user's requested bpc could not be reached.
-> > > 
-> > > [1]: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850
-> > 
-> > I see no description of a real-world use case, either in this series
-> > or in the weston MR, beyond logging a message when the "link bpc" &
-> > "max bpc" property values don't match. They are not expected to match
-> > in general, so I have a hard time seeing the usefulness of that.
-> 
-> Hello,
-> 
-> these are valid concerns. The problem being addressed is related to
-> userspace being able to detect whether the link has degraded due to,
-> say, a sketchy cable.
-> 
-> This patch started out as a method of forcing the output link's BPC
-> value to a certain value, but this is not desirable. The max bpc
-> property is already used to restrict the link's bpc due to sketchy
-> hardware that advertises a higher max bpc than it can actually
-> achieve.
-> 
-> This adds the other side of the equation, where userspace isn't
-> necessarily keen on blindly accepting the combination of output
-> link parameters the kernel degraded to. This allows userspace to
-> detect that an explicitly chosen value it tried did not work, and
-> try again with a different color format/VRR/bpc/etc.
-> 
-> A particular real-world use case is for playback of video content.
-> When playing back YUV 4:2:0 10-bit video content in a full-screen
-> setting, having RGB 10-bit degrade to YUV 4:2:0 10-bit rather than
-> RGB 8-bit is more desirable. However, this is a tradeoff only
-> userspace knows to make; the kernel doesn't necessarily know that
-> the framebuffer it has been handed as RGB 10-bit is secretly just
-> a video player's playback of YUV 4:2:0 10-bit content. As for
-> the property that let's userspace actually set the output color
-> format, that's a separate series of mine.
-> 
-> I agree that the weston implementation isn't a great showcase,
-> but it's actually supposed to compare link bpc with an explicitly
-> set max bpc config value, not the property value. The config value
-> exists to request a certain bpc.
-> 
-> > Moreover, there's no description of what exactly the "link bpc" property
-> > value means, e.g. vs things like DSC or dithering, or how a compositor / 
-> > user would determine which value they need / want under given circumstances.
-> 
-> I agree that I should've expanded on this after splitting it out of the
-> HDMI patch. It's the output BPC as HDMI understands it. That means DSC is not
-> a factor. I don't know if any display protocols do dithering at the
-> protocol level, I only know some monitors dither internally, which isn't
-> something that can be detected.
+The display might offer modes, which exceed the maximum clock rate of a
+video output. This usually happens for displays that offer refresh rates
+above 60 Hz. This results in no picture (or a broken one) being displayed
+without manual intervention. Fix this by teaching the driver about the
+maximum achievable clock rates for each video port.
 
-First of all, HDMI 2.1 has DSC support. Second, the world is not limited
-to HDMI. There is DisplayPort (with DSC support). There are DSI panels
-(also, DSC). There are cases when you have the DSI-to-DPI bridge doing
-dithering from 24bpp input to 18bpp DPI glass. There might be a display
-controller doing dithering from the 24bpp to 18bpp or 16bpp. Overall,
-you need to clearly define, what is the "link bpc" in all these cases.
+The information about the maximum clock rates for each video channel and
+the tip about multiple pixels being processed per clock were provided by
+Andy Yan and roughly checked against the information available in the
+datasheet (which specifies limits like "2560x1600@60Hz with 10-bit"
+instead of a specific pixel rate).
 
-> 
-> > In summary, I'm skeptical that this will be useful in practice in the
-> > current form. I do see potential for spurious bug reports based on the
-> > "link bpc" property having the "wrong" value though.
+For the video ports supporting a 600 MHz input clock, there is some
+logic to handle up to 4 pixels in parallel when needed resulting in
+the extra multiplier.
 
+Suggested-by: Andy Yan <andy.yan@rock-chips.com>
+Link: https://lore.kernel.org/linux-rockchip/1528d788.186b.19d08ed974c.Coremail.andyshrk@163.com/
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+I've kept the RFC tag, as I'm not sure about the 4x parallel pixel
+processing. IIUIC all of the video ports with a maximum of 600 MHz
+input clock support it, considering they can go to 4K @ 120Hz,
+which is above 1.2GHz while Andy mentioned a max. support clock rate
+of 600 MHz.
+---
+Changes in v2:
+- Link to v1: https://lore.kernel.org/r/20260217-vop2-clk-rate-check-v1-1-989b569119ba@collabora.com
+- based on v7.0-rc7
+- rename max_clock_rate into max_pixel_clock_rate to distinguish from
+  input clock
+- update max clock rates to the numbers provided by Andy Yan with
+  extra 4x multiplier for 4K 120Hz VPs
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c |  3 +++
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  1 +
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 ++++++++++
+ 3 files changed, 14 insertions(+)
+
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index a195f5c819a2..35a0edda5375 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -1434,6 +1434,9 @@ static enum drm_mode_status vop2_crtc_mode_valid(struct drm_crtc *crtc,
+ 	if (mode->hdisplay > vp->data->max_output.width)
+ 		return MODE_BAD_HVALUE;
+ 
++	if (mode->clock > vp->data->max_pixel_clock_rate / 1000)
++		return MODE_CLOCK_HIGH;
++
+ 	return MODE_OK;
+ }
+ 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+index 9124191899ba..fd46913f3346 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
+@@ -225,6 +225,7 @@ struct vop2_video_port_data {
+ 	u16 gamma_lut_len;
+ 	u16 cubic_lut_len;
+ 	struct vop_rect max_output;
++	u32 max_pixel_clock_rate;
+ 	const u8 pre_scan_max_dly[4];
+ 	unsigned int offset;
+ 	/**
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index f3950e8476a7..6ae3d506c476 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -559,18 +559,21 @@ static const struct vop2_video_port_data rk3568_vop_video_ports[] = {
+ 		.gamma_lut_len = 1024,
+ 		.cubic_lut_len = 9 * 9 * 9,
+ 		.max_output = { 4096, 2304 },
++		.max_pixel_clock_rate = 600000000U,
+ 		.pre_scan_max_dly = { 69, 53, 53, 42 },
+ 		.offset = 0xc00,
+ 	}, {
+ 		.id = 1,
+ 		.gamma_lut_len = 1024,
+ 		.max_output = { 2048, 1536 },
++		.max_pixel_clock_rate = 200000000U,
+ 		.pre_scan_max_dly = { 40, 40, 40, 40 },
+ 		.offset = 0xd00,
+ 	}, {
+ 		.id = 2,
+ 		.gamma_lut_len = 1024,
+ 		.max_output = { 1920, 1080 },
++		.max_pixel_clock_rate = 150000000U,
+ 		.pre_scan_max_dly = { 40, 40, 40, 40 },
+ 		.offset = 0xe00,
+ 	},
+@@ -775,6 +778,7 @@ static const struct vop2_video_port_data rk3576_vop_video_ports[] = {
+ 		.gamma_lut_len = 1024,
+ 		.cubic_lut_len = 9 * 9 * 9, /* 9x9x9 */
+ 		.max_output = { 4096, 2304 },
++		.max_pixel_clock_rate = 600000000U * 4,
+ 		/* win layer_mix hdr  */
+ 		.pre_scan_max_dly = { 10, 8, 2, 0 },
+ 		.offset = 0xc00,
+@@ -785,6 +789,7 @@ static const struct vop2_video_port_data rk3576_vop_video_ports[] = {
+ 		.gamma_lut_len = 1024,
+ 		.cubic_lut_len = 729, /* 9x9x9 */
+ 		.max_output = { 2560, 1600 },
++		.max_pixel_clock_rate = 300000000U,
+ 		/* win layer_mix hdr  */
+ 		.pre_scan_max_dly = { 10, 6, 0, 0 },
+ 		.offset = 0xd00,
+@@ -793,6 +798,7 @@ static const struct vop2_video_port_data rk3576_vop_video_ports[] = {
+ 		.id = 2,
+ 		.gamma_lut_len = 1024,
+ 		.max_output = { 1920, 1080 },
++		.max_pixel_clock_rate = 150000000U,
+ 		/* win layer_mix hdr  */
+ 		.pre_scan_max_dly = { 10, 6, 0, 0 },
+ 		.offset = 0xe00,
+@@ -1061,6 +1067,7 @@ static const struct vop2_video_port_data rk3588_vop_video_ports[] = {
+ 		.gamma_lut_len = 1024,
+ 		.cubic_lut_len = 9 * 9 * 9, /* 9x9x9 */
+ 		.max_output = { 4096, 2304 },
++		.max_pixel_clock_rate = 600000000U * 4,
+ 		/* hdr2sdr sdr2hdr hdr2hdr sdr2sdr */
+ 		.pre_scan_max_dly = { 76, 65, 65, 54 },
+ 		.offset = 0xc00,
+@@ -1070,6 +1077,7 @@ static const struct vop2_video_port_data rk3588_vop_video_ports[] = {
+ 		.gamma_lut_len = 1024,
+ 		.cubic_lut_len = 729, /* 9x9x9 */
+ 		.max_output = { 4096, 2304 },
++		.max_pixel_clock_rate = 600000000U * 4,
+ 		.pre_scan_max_dly = { 76, 65, 65, 54 },
+ 		.offset = 0xd00,
+ 	}, {
+@@ -1078,12 +1086,14 @@ static const struct vop2_video_port_data rk3588_vop_video_ports[] = {
+ 		.gamma_lut_len = 1024,
+ 		.cubic_lut_len = 17 * 17 * 17, /* 17x17x17 */
+ 		.max_output = { 4096, 2304 },
++		.max_pixel_clock_rate = 600000000U * 4,
+ 		.pre_scan_max_dly = { 52, 52, 52, 52 },
+ 		.offset = 0xe00,
+ 	}, {
+ 		.id = 3,
+ 		.gamma_lut_len = 1024,
+ 		.max_output = { 2048, 1536 },
++		.max_pixel_clock_rate = 150000000U,
+ 		.pre_scan_max_dly = { 52, 52, 52, 52 },
+ 		.offset = 0xf00,
+ 	},
+
+---
+base-commit: 591cd656a1bf5ea94a222af5ef2ee76df029c1d2
+change-id: 20260217-vop2-clk-rate-check-268269778cac
+
+Best regards,
 -- 
-With best wishes
-Dmitry
+Sebastian Reichel <sebastian.reichel@collabora.com>
+
