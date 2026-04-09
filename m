@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFD310FC456
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 01:33:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABAA10FC456
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 01:55:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6144E10E741;
-	Thu,  9 Apr 2026 01:33:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0F5610E054;
+	Thu,  9 Apr 2026 01:55:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bcrLJpDT";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k1YWy19Q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 717D910E741;
- Thu,  9 Apr 2026 01:33:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F58C10E054;
+ Thu,  9 Apr 2026 01:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775698433; x=1807234433;
+ t=1775699723; x=1807235723;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=7SAtYWVUOlf800s6bfc5eywit6yAaUAQJIieVusBzCs=;
- b=bcrLJpDToRCHifa1bfzq3pYeXGW02RUc5EgOd8WLxte8Z3xeAQ2R1MtX
- hRbAgLtkZrX1YgenXxTAdKwrwDnV3W6Q8LD8bJd6FLNcHzu/KNqgaYxi8
- wmuzu1iul8zZlm7Wb4J6gTClGP201a+tzvjBbdPMR2uc9kSWlQy3jKa6C
- O5bhIEQW7Nt6SMP/qwlrEwWznM9C3u8GOOu9l5oG+r+OMAkTWxJYmDYSS
- ofH3coR26xNw5qJmm87wJHHx0/mYC2UOGqm2cHyfK0MIIY0zxre6n4lzN
- T5ZR2IjZ0c2/P5k8d2YMud1IEgpFRuhchIe04NZXvrl6HwVYOKKrCa+TP Q==;
-X-CSE-ConnectionGUID: pM2FYknJSeixV+rs3C3Svg==
-X-CSE-MsgGUID: aLenxk0cRHuxMUWG+uIvbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="76713061"
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="76713061"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 18:33:53 -0700
-X-CSE-ConnectionGUID: +bs49bXmR4SB0M8ZsFiGpA==
-X-CSE-MsgGUID: Bp6tXyLvT7K9mgWpGij7zQ==
+ bh=vxbJAYaPMU7ih0grmsulTu1jSyuYGS8R/7Kh74RBTQE=;
+ b=k1YWy19QIyCdBA+YMhshox7WiUPhzdiCwg5EyPJYKY89kflJowIA21vN
+ WF1Cpe8gPyBu/SadCAsPoNRdayzR/AIiz/PKedG67FJ4umbBGD4H0vBdJ
+ Czku9OYyqmd8KL8OcxTjF2k+RFh32+hUqsUeThJFaWzCLl91voK766qpT
+ +xRrWWo94KBe78a/YjIicZrnkSk0A/SDtmcwmu1Jyr14BdaINdABf6fIh
+ YrBcAp8Vn6mS8Ve912fL6xkEOh3mOK01gp/4E7+GeBRjXKUo8ssQM2O+/
+ dsaX9tsc4ock915Cu+vvU/tHMJqYbo42a8MtFn1plnBxlPruS4Bs0HGiI A==;
+X-CSE-ConnectionGUID: jrbYGIiER6KUe3hBHX41iw==
+X-CSE-MsgGUID: 6zAgEXC2RxmPInRWomVMWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="94085797"
+X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="94085797"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 18:55:22 -0700
+X-CSE-ConnectionGUID: vh7VlRmlRuig1/mBF9Ai/g==
+X-CSE-MsgGUID: aPaNwco2TZuIXBcsj1C4FQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="266600580"
-Received: from emr-371.sh.intel.com ([10.67.116.154])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 18:33:51 -0700
-From: "Baoli.Zhang" <baoli.zhang@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: "Baoli.Zhang" <baoli.zhang@linux.intel.com>,
- "Junxiao . Chang" <junxiao.chang@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/xe: use krealloc_array to prevent integer overflow
-Date: Thu,  9 Apr 2026 09:25:19 +0800
-Message-ID: <20260409012520.3531256-1-baoli.zhang@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="233597320"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Apr 2026 18:55:22 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: francois.dugast@intel.com,
+	himal.prasad.ghimiray@intel.com
+Subject: [PATCH] drm/gpusvm,
+ pagemap: Do not assume DRM pagemap owns device pages
+Date: Wed,  8 Apr 2026 18:55:12 -0700
+Message-Id: <20260409015512.3670302-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,53 +68,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace the use of krealloc() with krealloc_array() in xe driver to
-mitigate the risk of integer overflow during memory allocation size
-calculation.
+Update drm_pagemap_page_zone_device_data() to derive the pgmap ops from
+the page and compare them against the DRM pagemap ops. If the ops do not
+match, return NULL.
 
-Signed-off-by: Baoli.Zhang <baoli.zhang@linux.intel.com>
-Signed-off-by: Junxiao.Chang <junxiao.chang@intel.com>
+Also harden two risky call sites by checking for NULL after
+hmm_range_fault() or migrate_vma_setup() when migrating to device
+memory, as it is possible to encounter device pages that are not owned
+by DRM pagemap.
+
+Suggested-by: sashiko.dev
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
-Changes in v2:
-- Adjust continuation-line indentation in xe_vm_madvise.c (no functional change).
+ drivers/gpu/drm/drm_gpusvm.c  |  5 +++++
+ drivers/gpu/drm/drm_pagemap.c | 14 ++++++++++----
+ include/drm/drm_pagemap.h     |  5 ++++-
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
-v1: https://patchwork.freedesktop.org/patch/713422/?series=163696&rev=1
-
- drivers/gpu/drm/xe/xe_configfs.c   | 2 +-
- drivers/gpu/drm/xe/xe_vm_madvise.c | 7 ++++---
- 2 files changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/xe_configfs.c b/drivers/gpu/drm/xe/xe_configfs.c
-index 7fd07d1280bb1..4cf903c904ba0 100644
---- a/drivers/gpu/drm/xe/xe_configfs.c
-+++ b/drivers/gpu/drm/xe/xe_configfs.c
-@@ -766,7 +766,7 @@ static ssize_t wa_bb_store(struct wa_bb wa_bb[static XE_ENGINE_CLASS_MAX],
- 	 * 2. Allocate a u32 array and set the pointers to the right positions
- 	 * according to the length of each class' wa_bb
- 	 */
--	tmp = krealloc(wa_bb[0].cs, count * sizeof(u32), GFP_KERNEL);
-+	tmp = krealloc_array(wa_bb[0].cs, count, sizeof(u32), GFP_KERNEL);
- 	if (!tmp)
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+index 365a9c0b522a..b3cccd047a21 100644
+--- a/drivers/gpu/drm/drm_gpusvm.c
++++ b/drivers/gpu/drm/drm_gpusvm.c
+@@ -1506,6 +1506,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+ 			struct drm_pagemap_zdd *__zdd =
+ 				drm_pagemap_page_zone_device_data(page);
  
-diff --git a/drivers/gpu/drm/xe/xe_vm_madvise.c b/drivers/gpu/drm/xe/xe_vm_madvise.c
-index bc39a9a9790c3..c90fea2b3d808 100644
---- a/drivers/gpu/drm/xe/xe_vm_madvise.c
-+++ b/drivers/gpu/drm/xe/xe_vm_madvise.c
-@@ -63,9 +63,10 @@ static int get_vmas(struct xe_vm *vm, struct xe_vmas_in_madvise_range *madvise_r
++			if (!__zdd) {
++				err = -EINVAL;
++				goto err_unmap;
++			}
++
+ 			if (!ctx->allow_mixed &&
+ 			    zdd != __zdd && i > 0) {
+ 				err = -EOPNOTSUPP;
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index d82ea7ccb8da..95c951c5b569 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -753,10 +753,16 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+ 				own_pages++;
+ 				goto next;
+ 			}
+-			cur.dpagemap = src_zdd->dpagemap;
+-			cur.ops = src_zdd->devmem_allocation->ops;
+-			cur.device = cur.dpagemap->drm->dev;
+-			pages[i] = src_page;
++			if (src_zdd) {
++				cur.dpagemap = src_zdd->dpagemap;
++				cur.ops = src_zdd->devmem_allocation->ops;
++				cur.device = cur.dpagemap->drm->dev;
++				pages[i] = src_page;
++			} else {
++				npages = i;
++				err = -EINVAL;
++				goto err_finalize;
++			}
+ 		}
+ 		if (!pages[i]) {
+ 			cur.dpagemap = NULL;
+diff --git a/include/drm/drm_pagemap.h b/include/drm/drm_pagemap.h
+index 95eb4b66b057..9b7c50932db5 100644
+--- a/include/drm/drm_pagemap.h
++++ b/include/drm/drm_pagemap.h
+@@ -367,12 +367,15 @@ int drm_pagemap_reinit(struct drm_pagemap *dpagemap);
+  * drm_pagemap_page_zone_device_data() - Page to zone_device_data
+  * @page: Pointer to the page
+  *
+- * Return: Page's zone_device_data
++ * Return: Page's zone_device_data if owned by DRM pagemap, NULL otherwise
+  */
+ static inline struct drm_pagemap_zdd *drm_pagemap_page_zone_device_data(struct page *page)
+ {
+ 	struct folio *folio = page_folio(page);
  
- 		if (madvise_range->num_vmas == max_vmas) {
- 			max_vmas <<= 1;
--			__vmas = krealloc(madvise_range->vmas,
--					  max_vmas * sizeof(*madvise_range->vmas),
--					  GFP_KERNEL);
-+			__vmas = krealloc_array(madvise_range->vmas,
-+						max_vmas,
-+						sizeof(*madvise_range->vmas),
-+						GFP_KERNEL);
- 			if (!__vmas) {
- 				kfree(madvise_range->vmas);
- 				return -ENOMEM;
++	if (WARN_ON_ONCE(page_pgmap(page)->ops != drm_pagemap_pagemap_ops_get()))
++		return NULL;
++
+ 	return folio_zone_device_data(folio);
+ }
+ 
 -- 
-2.43.0
+2.34.1
 
