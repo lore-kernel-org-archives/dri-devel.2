@@ -4,143 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B51FEA3C23
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 11:15:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83246EA3C53
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 11:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E8C710E7C2;
-	Thu,  9 Apr 2026 11:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE43510E7CA;
+	Thu,  9 Apr 2026 11:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="K+IXn1SK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jc68mhls";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010008.outbound.protection.outlook.com [52.101.229.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 724E910E7C2
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 11:15:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kkYBsrP9CMszfV0aiZGN8TM7XD3FtjxkIdELsJbkspxQgQIBF2cMRGFzB5sXFZO0phCreK74B2OIj6U6EfZAT6K/qh/Il2LC9iasFfB/pm3eI0zb8QyxqU5NNr4TPOrFOJvrfSzqpxxJ1OoZ+wgGUim8CsfEdHFkJjx8KwYSmYQKnMdBo4UuYBh73hwemHLeWgH0G+PCb10PIKwCIvWcvwkWVY238UUrpAxmJTOJ2OMn8aaNBqfr+QiErcAswEBs97mPK9Ri6y8RKTN0UY6KDDfqjOlgPhyT9a5mgRuoy/+4498kx/h/2StQ2W1+b6iKqJoSfEVNNuiIikHS3V9H7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QvwiYnz6iaNNCx8n9/4y+CjV5bD4vZ5izpQA3J63g8g=;
- b=MkQYs9phPANZKbn3HFQ+uWXH8/aqjnDQSoGrP4DC0RKrEeQROUV1rzbmYbBMHDCT/FSbn2HmVzsFefxRAXnwqy+Hj4aEKUKHHWB5nXD/epe6tEjPREWLWK1ugZO07LNwuIaBQ170V4x8ZszsTHKlNx/4WNu914AimqLiAJjMiIz8hRu/B5WCc0HrnQ+J4gJTZELy3X3vxXV/mnxwkY/kzuexb1lzOG+//2zzXIai4tb1ZonFU6Akl6i7TiRjcOfr3eI7wAqu2uWUJfm4Pib4Wz97K+WMN+0XlbhCCs1L9jJWKP+TRjRIZl65byV+fv/lshVS7cJIHlicqEPgHk+lDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QvwiYnz6iaNNCx8n9/4y+CjV5bD4vZ5izpQA3J63g8g=;
- b=K+IXn1SKIgUHlshUF573plVJRzTDNkp/Ag6aUtPCg8T6oVJYcF30IZCrdMkzTb/kJrblrpSNQ+VCabzgHhEpt1i5gTo6lMmDONRC4SA6lFYsTZcgVtAgviVOXGXq4QBKINPIIF38xNDWSMDjNhH2SUoc6dkUc9hUfnMYBPKpjVw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OSCPR01MB15925.jpnprd01.prod.outlook.com (2603:1096:604:3ef::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Thu, 9 Apr
- 2026 11:15:30 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.017; Thu, 9 Apr 2026
- 11:15:30 +0000
-Message-ID: <61f294e8-f9ae-4868-8dba-60250279ef21@bp.renesas.com>
-Date: Thu, 9 Apr 2026 13:15:18 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/21] dt-bindings: display: renesas,rzg2l-du: Add
- support for RZ/G3E SoC
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <20260408122436.GH1928916@killaraus.ideasonboard.com>
- <dafdbdcf-98db-473c-8122-296af1922e6c@bp.renesas.com>
- <20260408141638.GA1965119@killaraus.ideasonboard.com>
- <87a18664-d19e-4434-8f92-1c7ce4f3a131@bp.renesas.com>
- <20260408150053.GC1965119@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <20260408150053.GC1965119@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0107.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::10) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB01010E7C1;
+ Thu,  9 Apr 2026 11:19:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1775733578; x=1807269578;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=W044KsuiqEnq5+U1Vr/ZHmEhSl//AYNZVyuoY1pR/ZQ=;
+ b=Jc68mhlsI2O2e+owFt1xIYd7FXDE96MtOsAQjVnu8XE8x9qRO1hSCE9M
+ raiL/4hP3Rec3DTIhxI2zi5kvDfkMSyjDYo7/DfpUmAPmi1d8XFPoaJ5o
+ lXqbQQknVhvszTUBiQM/Pzrwca7/x9VhLLWkQ3M9uDbtrcBOreAmulQQf
+ pKrKMaQOLXaY7fR8uTx7u9Rqi4tE2G8g8qZt1vDHbFHDXYG7/iiFk2VQZ
+ /DLcyPld9jkShpncmEcYjLq7SPWoM2t/hwVyCu1bpKN4P/tZD+XVStu1L
+ yQ9yRBODE5ZLWWlzvotLOFpmaW1mT2bKoFMpCxXb3NhMhVcBXTll4uUwA Q==;
+X-CSE-ConnectionGUID: a60W2OeeT9CJxKwCSwk4gA==
+X-CSE-MsgGUID: JYak8wfpS/C4JYuAzKFCoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="76754376"
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="76754376"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 04:19:38 -0700
+X-CSE-ConnectionGUID: hMxTOrWGQxeVELDN2IYMyQ==
+X-CSE-MsgGUID: U+uqeZ8bS9Cc/T/voayGTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="252078413"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.216])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 04:19:35 -0700
+Date: Thu, 9 Apr 2026 14:19:32 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH 5/6] drm/i915/reset: Handle the display vs. GPU reset
+ deadlock using a custom dma-fence
+Message-ID: <adeLRHQ2omAv93yM@intel.com>
+References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
+ <20260408233458.22666-6-ville.syrjala@linux.intel.com>
+ <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSCPR01MB15925:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17ab0709-492a-4238-e336-08de96294f28
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: xGotiDuy1d9aO0QkCdoqQB2UojAkdMR3ikhHPb52fzf9I1ajA0p9sV0w73xMXGKND6UzjdHSULR8y8i53S4DbRS+zxYWImzs4G+Y+4GBKBxVravduIaQKvpkkE82YvGMq3kkhhxO/xP+loSyA9b6zFhRipS5bRG9yCZYDwMO5XtjWShS1x/09LBgedugJODO7uD9QaN8mHMkTZhXW+l28KfbPNwc1cyT5bOfvzEY19xwmmmdnKwyeZCpbmQrB+Zmz0oYF5KsA5udWJT4RO2hX73tXIVdiuJM/ISqloepjaLS87UOujl5JA6UBebVquyK0JHE/jmKfGXqngml877xkPBGAXGbXsCg/s0WDYnghJylsY85M2Z0J5vbd6JE/0k1KrRttWIImY5YYz95i7BHopVq/hb3oGFRqdDWIEFD2Gv48iERLUVuMBr2GHKSLowVZ1O9kStYbkgi5OxWvUdQKKXV78FbM6WG9vKCByYnmkur2T64g2Jfr4UF76kAKxhfVmAoLy1QRlDcCWR4UkSBd1C1pRWtIz02f/vK5DFOyNJhWPLZKB91FwIG4KwOtIUcTCipO54s0o2d/rUzk/rUjsVmouiulIoDFrS8lWglmiYlunfRXE9RekuPVmGRTxUFUF3wgAQTVs/RUh3UuW6U9P9SXHU3iSYgBUL7yGiaeqtMPkA4V9/v0zqydY4q92uacpvC4sM1HXOqcFpnPvNp7Rm2WpbW34/OHpOMBv1kEH8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NTRqVmI4Uy8xY004K0picm0zcEw0ZHRMUzZWWnBOTUtZdUhRbjBWZjczY1E4?=
- =?utf-8?B?RGliUkxwQ1hDY2FPNDBuMmJuYjROb0EyWTh2cy94QWQ3Y21SMjVFbnZuSlNY?=
- =?utf-8?B?LzZyMFVndTByWVBSMEJ0RXdYU3l0QloxdkNDaU9jWFY3aVJWRGVKWmh3bEox?=
- =?utf-8?B?eC9pUmVvaTZmbE02WkFsd0dLdi82ejcwVFNVblJBZVg5TGllVlhDMitrSURP?=
- =?utf-8?B?Z2FiRDhXMlZ2Z3Y0cUNXaENvOEtOS3BFRUZxQkdwT1lOR0ZHR0JtY21qZkZn?=
- =?utf-8?B?cUtKSTQreHN6ZUs5c0xjNmgvS3p6KzNmWW8rV3Z3VDJReGRLVnAxM0x5OTF0?=
- =?utf-8?B?bjlzY2N1TzNBVEt5aDcvTm1Bckg0bTRlamhXbmpyUnVYaWpEdDJDdjBoa0M3?=
- =?utf-8?B?eEdVSDVUWGI4QVJ6RDhUQU9qeXdNaW1laUVwR3ZWemp4dm9iZmtZbk0xRkNJ?=
- =?utf-8?B?alZ5M3NKeGRPSDlpdm4xNnV5VGpIN2JNYTFSSXhvQUxRNEt1YW1lV3Ixb01G?=
- =?utf-8?B?cGpBa0dtVEZjaFdobGN3dGpJaTRHMjQrdWhiZFIvSUlUOGxITXJMeVBRWVdJ?=
- =?utf-8?B?ODV2L09hdkdQUDdNTFhzOVhCN2xlajk0ejlFTm9IaExtWTBlZVBsVE1aSnMz?=
- =?utf-8?B?V1J4WmpTYlBpc1lRNjZmSHlTYThqUmtKZG1Ub1ovVXNhWnNCNnREUGJPaXM0?=
- =?utf-8?B?Q3hvNTR4RGdSVlhBNlQ0Y3ZGM01WSFdoYjl3WnVDVG9LdlhCaHBGNFJlNmQ0?=
- =?utf-8?B?Q0tLZDNMcGI2a0tLQmJLdmt3elVMUXliNUtwREt5cFQ4THROa1IySHBXeUxV?=
- =?utf-8?B?UnhOcnRLQTloRlRXanRzSVM5NExZRUlkdEVZVWJ5L3pUYWROMjFXRXhycEZw?=
- =?utf-8?B?OVZXc0FWSzN2WjVCa0F1MStPdUpyZlNMWFNySE5kTkVxUWJuZFhoMkZCdDdr?=
- =?utf-8?B?aVVqS1IzMlNBR2pXaDlKN28waTdtcnZhTHRZWkMwRitPQ2hBMHJJZ2hTZFRl?=
- =?utf-8?B?eGNCaDhhUTBUeExIWG54THJXeEUrQ3dwaStEMFlSVHVBS2tMRlBVWUp3clVj?=
- =?utf-8?B?UmtOaXd3aS8wVEdwaDBHdUV2YkdNaVYrTnlQOERQQ2lQM3c2NjdhNVFCVXg0?=
- =?utf-8?B?Y0RQVFE0VEtqNVhEZ0JHT2ttRnBmTDRQZ0p3VnRCcklQVlRTOCtXUVl6RHBB?=
- =?utf-8?B?SU8zTnQyNUphbmFLUVFEeVBhcmQ0elNVWVpWVUl1WXVGUTlZQURoazN5eUxQ?=
- =?utf-8?B?WW0yZWROT0FWaklkdTgxSFVaTmhlOVpzOEVhMDArTy9TbUtkcVlrTnlYVXpu?=
- =?utf-8?B?N0Jxd0ZMSlZOOGxFbVAzMVBTakdmSXlXYmJsMnA5aVpzcUduV25tNndsU2NI?=
- =?utf-8?B?UFgvU0tQL2RLSnVpaDh3YW5xeWNzd25mb2NMYmtpeC9lN3EyWVNCbUJiSTRj?=
- =?utf-8?B?Rlk3RHJTSlcrRFJQQWd5S1dyalFDK2poanozdkZJbVZURVFhTUF0MU5zUkM4?=
- =?utf-8?B?Smd2Z1lveXN4eTRSNk0vRWRPTUJ2NW14M2dZZHFVaVlpWmhsT3c3YmZ6T2tP?=
- =?utf-8?B?TWJqVXRFcG10TWh2WjRlQWtwcHBlc1ZCeUViSklDQVR4N3JwRUY1NEFSSjJl?=
- =?utf-8?B?cFFETFZDSCt6SEw5RHB5RXQxM3laREZ6Z25iUWNzSDVpQnBjcFlGZHBnRlFh?=
- =?utf-8?B?ZEpORUNlYW9JTWd5OG1leGFtRVFoK0VOdFZEMWFLUzRvWHo1Y1JWWG1YS0x2?=
- =?utf-8?B?N1ZlVVdndGFQbk9KOCtobkxJb0paL0p5ZGUvN3A4YmRqRXhZdHYwb25JUXR5?=
- =?utf-8?B?eUZUem51UkVyaS9KY0h4MFV2MGE0WGVuOXNpMlNxWXFXbGhncGxrN1BzRVNY?=
- =?utf-8?B?ZVF6ZEpPZC84djJyWTdUOHlPQzJUN2toS1hkSUpMdmJBMyswdU9GS2orSzV4?=
- =?utf-8?B?MDBMckJPTS80blBKK3psMlV5MzQ3RXZXUnpCTU5CVTlyVE9OQ1hici9mbDdE?=
- =?utf-8?B?eGFITmd1ZzltY3MwRUtrM0NBQWkyTGtob2ZrbGh0SnlTVWR2NFpqY2hYNU5P?=
- =?utf-8?B?OG9QOUo4aFB6b1M4TThYL3hSVXMrTjFidkp0UG4wT0drMllCVkIzRTlZZjJ4?=
- =?utf-8?B?RnNjbnpOUEg0aG4rSUl3a2JIa2N2OVlYd1hibVlweG45NE5UYklaUzg1Y1lu?=
- =?utf-8?B?VndQM0dWcGt0WVN2bkRDQ1VXMllWSXpKcXhUQWRLQWpqeDBBS29XVlV1VnA4?=
- =?utf-8?B?Vmd3ZGtwWTRhcVpIa2ZpcVR0a1RBcTBjS2p6bllPY1BmRHdoMG8xWUluNk5N?=
- =?utf-8?B?THVGZHIzTElTUStEejVPZGNUcmFFNlhaT3pqdElUYVNvQVRKRmU0amFTOXpj?=
- =?utf-8?Q?mXtcvMaAYgYdHVE7Gxyf8oumbQXz6UXwjPBbv?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17ab0709-492a-4238-e336-08de96294f28
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 11:15:30.0266 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w4CeegvYzZaIvAQdKBKYAt079rOzh8uQQg2DnImEhh6/etdTqKrz44VUhpfxR71EnfDQh/c8yvhcGoR2cN9FiJnTe1OysJrHmvA6Dq6rcc/cNbnUR6LQvw2D3wqQaU4u
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB15925
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,251 +79,325 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
-Thanks for your comments.
-
-On 4/8/26 17:00, Laurent Pinchart wrote:
-> On Wed, Apr 08, 2026 at 04:44:48PM +0200, Tommaso Merciai wrote:
->> On 4/8/26 16:16, Laurent Pinchart wrote:
->>> On Wed, Apr 08, 2026 at 04:02:14PM +0200, Tommaso Merciai wrote:
->>>> On 4/8/26 14:24, Laurent Pinchart wrote:
->>>>> On Wed, Apr 08, 2026 at 12:36:55PM +0200, Tommaso Merciai wrote:
->>>>>> The RZ/G3E SoC has 2 LCD controllers (LCDC), each containing a Frame
->>>>>> Compression Processor (FCPVD), a Video Signal Processor (VSPD), and a
->>>>>> Display Unit (DU).
->>>>>>
->>>>>>     - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->>>>>>     - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
->>>>>>
->>>>>> Add a new SoC-specific compatible string 'renesas,r9a09g047-du'.
->>>>>>
->>>>>> Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" to
->>>>>> allow up to four output ports, and explicitly disable port@2 and port@3
->>>>>> for existing SoCs that do not expose them.
->>>>>>
->>>>>> Describe the four output ports of the RZ/G3E DU:
->>>>>>
->>>>>>     - port@0: DSI (available on both LCDC instances)
->>>>>>     - port@1: DPAD / parallel RGB (LCDC1 only)
->>>>>>     - port@2: LVDS channel 0 (LCDC0 only)
->>>>>>     - port@3: LVDS channel 1 (available on both LCDC instances)
->>>>>>
->>>>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
->>>>>> ---
->>>>>> v5->v6:
->>>>>>     - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
->>>>>>       explicitly disable port@2 and port@3 for existing SoCs that do not expose
->>>>>>       them.
->>>>>>     - Reworked ports numbering + improved/fixed ports descriptions in the
->>>>>>       bindings documentation.
->>>>>>     - Improved commit body.
->>>>>>
->>>>>> v4->v5:
->>>>>>     - Dropped renesas,id property and updated bindings
->>>>>>       accordingly.
->>>>>>
->>>>>> v2->v3:
->>>>>>     - No changes.
->>>>>>
->>>>>> v2->v3:
->>>>>>     - No changes.
->>>>>>
->>>>>> v1->v2:
->>>>>>     - Use single compatible string instead of multiple compatible strings
->>>>>>       for the two DU instances, leveraging a 'renesas,id' property to
->>>>>>       differentiate between DU0 and DU1.
->>>>>>     - Updated commit message accordingly.
->>>>>>
->>>>>>     .../bindings/display/renesas,rzg2l-du.yaml    | 30 ++++++++++++++++++-
->>>>>>     1 file changed, 29 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>>>> index 5add3b832eab..32da0b5ec88c 100644
->>>>>> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>>>> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>>>> @@ -20,6 +20,7 @@ properties:
->>>>>>           - enum:
->>>>>>               - renesas,r9a07g043u-du # RZ/G2UL
->>>>>>               - renesas,r9a07g044-du # RZ/G2{L,LC}
->>>>>> +          - renesas,r9a09g047-du # RZ/G3E
->>>>>>               - renesas,r9a09g057-du # RZ/V2H(P)
->>>>>>           - items:
->>>>>>               - enum:
->>>>>> @@ -61,7 +62,7 @@ properties:
->>>>>>           model-dependent. Each port shall have a single endpoint.
->>>>>>     
->>>>>>         patternProperties:
->>>>>> -      "^port@[0-1]$":
->>>>>> +      "^port@[0-3]$":
->>>>>>             $ref: /schemas/graph.yaml#/properties/port
->>>>>>             unevaluatedProperties: false
->>>>>>     
->>>>>> @@ -103,6 +104,8 @@ allOf:
->>>>>>                 port@0:
->>>>>>                   description: DPI
->>>>>>                 port@1: false
->>>>>> +            port@2: false
->>>>>> +            port@3: false
->>>>>>     
->>>>>>               required:
->>>>>>                 - port@0
->>>>>> @@ -119,6 +122,8 @@ allOf:
->>>>>>                   description: DSI
->>>>>>                 port@1:
->>>>>>                   description: DPI
->>>>>> +            port@2: false
->>>>>> +            port@3: false
->>>>>>     
->>>>>>               required:
->>>>>>                 - port@0
->>>>>> @@ -135,9 +140,32 @@ allOf:
->>>>>>                 port@0:
->>>>>>                   description: DSI
->>>>>>                 port@1: false
->>>>>> +            port@2: false
->>>>>> +            port@3: false
->>>>>>     
->>>>>>               required:
->>>>>>                 - port@0
->>>>>> +  - if:
->>>>>> +      properties:
->>>>>> +        compatible:
->>>>>> +          contains:
->>>>>> +            const: renesas,r9a09g047-du
->>>>>> +    then:
->>>>>> +      properties:
->>>>>> +        ports:
->>>>>> +          properties:
->>>>>> +            port@0:
->>>>>> +              description: DSI
->>>>>> +            port@1:
->>>>>> +              description: DPAD
->>>>>> +            port@2:
->>>>>> +              description: LVDS, Channel 0
->>>>>> +            port@3:
->>>>>> +              description: LVDS, Channel 1
->>>>>> +
->>>>>> +          required:
->>>>>> +            - port@0
->>>>>> +            - port@3
->>>>>
->>>>> Why are ports 1 and 2 not required ?
->>>>
->>>> About this we had a similar discussion on v5[0]
->>>> We are using the same compatible and:
->>>>
->>>> - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->>>> |
->>>> --> then has:
->>>> 	port@0
->>>> 	port@2
->>>> 	port@3
->>>> 	
->>>>
->>>>     - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
->>>> |
->>>> --> then has:
->>>> 	port@0
->>>> 	port@1
->>>> 	port@3
->>>
->>> Ah yes, I forget there are two LCDC instances with different output
->>> configurations.
->>>
->>> Something still looks a bit weird to me though. For LCDC1, which
->>> supports a single LVDS channel, you use the port described as the second
->>> LVDS channel. Is there a reason not to use port@2 ?
->>
->> 9.11 Low Voltage Differential Signaling (LVDS)
->> 9.11.1.2 Block Diagram
->> Figure 9.11-1 shows a block diagram of LVDS.
->>
->> LCDC1 is connected to LVDS, Channel 1
->> For this reason I'm using port@3.
+On Thu, Apr 09, 2026 at 12:46:11PM +0200, Christian König wrote:
+> On 4/9/26 01:34, Ville Syrjala wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > The old display vs. GPU reset deadlock is back more or less.
+> > The old (working) solution to the problem was originally
+> > introduced in commit 9db529aac938 ("drm/i915: More surgically
+> > unbreak the modeset vs reset deadlock"), but it got nuked with
+> > commit d59cf7bb73f3 ("drm/i915/display: Use dma_fence interfaces
+> > instead of i915_sw_fence").
+> > 
+> > Apparently no one looked hard enough to see that things didn't
+> > work quite properly anymore. What is still saving us for the most
+> > part is that we have a timeout on the fence wait
+> > (CONFIG_DRM_I915_FENCE_TIMEOUT, 10 seconds by default). But
+> > people are perhaps trying to get rid of that so we may need
+> > another solution, and 10 seconds is a bit slow.
 > 
-> Re-reading that, I think I've misinterpreted the hardware architecture.
-> Doesn't the DU have a single output, that is connected the multiple
-> encoders (LVDS and DSI for LCDC0 and LVDS, DSI and DPI for LCDC1) ? It
-> seems modelling it with a single port and multiple endpoints would
-> better match the device.
+> Yeah agree that approach with the timeout is usually a big no no.
 > 
-> For LVDS in particular, I see a single LVDS encoder with two channels,
-> so there should not be two LVDS output ports in the DU. The two ports
-> should be on the output of the LVDS device.
+> > Re-solve the problem yet again with a custom dma-fence that gets
+> > signaled just prior to a GPU reset, and have the atomic commit wait
+> > for either that or the real fence using dma_fence_wait_any_timeout().
+> 
+> Hui? I don't fully understand what the source of the problem is, but of hand that approach of solving it doesn't sound like a good idea either.
+> 
+> > Whichever signals first will let the commit proceed. We create a new
+> > "reset fence" whenever someone needs one, and keep it until the next
+> > GPU reset has completed. After that the next guy will again get a
+> > fresh unsignaled "reset fence".
+> 
+> And that sounds even worse. A dma_fence which waits for the next GPU reset without triggering it itself would be an indefinite dma_fence which is not allowed.
 
-
-You are suggesting the following dt architecture:
-
-du0: display@16460000 {
-	compatible = "renesas,r9a09g047-du";
-	reg = <0 0x16460000 0 0x10000>;
-	interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
-	clocks = <&cpg CPG_MOD 0xed>,
-			<&cpg CPG_MOD 0xee>,
-			<&cpg CPG_MOD 0xef>;
-	clock-names = "aclk", "pclk", "vclk";
-	power-domains = <&cpg>;
-	resets = <&cpg 0xdc>;
-	renesas,vsps = <&vspd0 0>;
-	status = "disabled";
-
-	port {
-		du0_out_dsi: endpoint@0 {
-			reg = <0>;
-		};
-
-		du0_out_lvds0: endpoint@2 {
-			reg = <2>;
-		};
-
-		du0_out_lvds1: endpoint@3 {
-			reg = <3>;
-		};
-	}
-};
-
-du1: display@16490000 {
-	compatible = "renesas,r9a09g047-du";
-	reg = <0 0x16490000 0 0x10000>;
-	interrupts = <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
-	clocks = <&cpg CPG_MOD 0x1a8>,
-			<&cpg CPG_MOD 0x1a9>,
-			<&cpg CPG_MOD 0x1aa>;
-	clock-names = "aclk", "pclk", "vclk";
-	power-domains = <&cpg>;
-	resets = <&cpg 0x11e>;
-	renesas,vsps = <&vspd1 0>;
-	status = "disabled";
-
-	port {
-		du1_out_dsi: endpoint@0 {
-			reg = <0>;
-		};
-
-		du1_out_rgb: endpoint@1 {
-			reg = <1>;
-		};
-
-		du1_out_lvds1: endpoint@3 {
-			reg = <3>;
-		};
-	}
-};
-
-
-Please correct me if I'm wrong.
-
-Kind Regards,
-Tommaso
+This is a purely internal thing to the i915 display code. This fence
+is never shared with anyone. And we never wait for just this fence,
+the wait always happens alongside a real fence using
+dma_fence_wait_any_timeout().
 
 > 
->>>> Then port@1 is required for DU1 but not for DU0.
->>>> Same port@2 is required for DU0 but not for DU1.
->>>>
->>>> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/ca022fdbba5236c36e0cb3095db4c31e8e0cb1b8.1770996493.git.tommaso.merciai.xr@bp.renesas.com/
->>>>
->>>>>>
->>>>>>     examples:
->>>>>>       # RZ/G2L DU
-> 
+> I think something is missing in my picture how that is supposed to work.
 
+The problem stems from the fact that on old platforms a GPU reset
+also resets the display hardware, and to do that safely we need:
+1. shut down display
+2. perform the GPU reset
+3. restore the display hardware to its orignal state
+
+We just do that with essentially with a normal atomic commit. But a 
+previous atomic commit may already be waiting for a fence, which
+won't signal until the GPU reset happens, and the GPU reset is now
+waiting for that previous atomic commit to finish so that it can do
+its own atomic commit. In order to break the deadlock we need to
+abort the fence waits in the atomic commit, and that's what this
+"reset fence" achieves.
+
+> 
+> Thanks,
+> Christian.
+> 
+> > 
+> > Cc: Simona Vetter <simona.vetter@ffwll.ch>
+> > Cc: Christian König <christian.koenig@amd.com>
+> > Cc: Jani Nikula <jani.nikula@intel.com>
+> > Cc: Jouni Högander <jouni.hogander@intel.com>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c  | 34 +++++---
+> >  .../gpu/drm/i915/display/intel_display_core.h |  6 ++
+> >  .../drm/i915/display/intel_display_driver.c   |  5 ++
+> >  .../drm/i915/display/intel_display_reset.c    | 77 +++++++++++++++++++
+> >  .../drm/i915/display/intel_display_reset.h    |  4 +
+> >  drivers/gpu/drm/xe/Makefile                   |  1 +
+> >  6 files changed, 117 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> > index 58a654ca0d20..83ccf13c4b16 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -72,6 +72,7 @@
+> >  #include "intel_display_driver.h"
+> >  #include "intel_display_power.h"
+> >  #include "intel_display_regs.h"
+> > +#include "intel_display_reset.h"
+> >  #include "intel_display_rpm.h"
+> >  #include "intel_display_types.h"
+> >  #include "intel_display_utils.h"
+> > @@ -7149,22 +7150,35 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
+> >  
+> >  static void intel_atomic_commit_fence_wait(struct intel_atomic_state *intel_state)
+> >  {
+> > -	struct drm_plane *plane;
+> > +	struct intel_display *display = to_intel_display(intel_state);
+> >  	struct drm_plane_state *new_plane_state;
+> > -	long ret;
+> > +	struct dma_fence *reset_fence;
+> > +	struct drm_plane *plane;
+> >  	int i;
+> >  
+> > +	reset_fence = intel_display_reset_fence_get(display);
+> > +
+> >  	for_each_new_plane_in_state(&intel_state->base, plane, new_plane_state, i) {
+> > -		if (new_plane_state->fence) {
+> > -			ret = dma_fence_wait_timeout(new_plane_state->fence, false,
+> > -						     i915_fence_timeout());
+> > -			if (ret <= 0)
+> > -				break;
+> > +		struct dma_fence *fences[2] = {
+> > +			[0] = new_plane_state->fence,
+> > +			[1] = reset_fence,
+> > +		};
+> > +		long ret;
+> >  
+> > -			dma_fence_put(new_plane_state->fence);
+> > -			new_plane_state->fence = NULL;
+> > -		}
+> > +		if (!new_plane_state->fence)
+> > +			continue;
+> > +
+> > +		ret = dma_fence_wait_any_timeout(fences, reset_fence ? 2 : 1, false,
+> > +						 i915_fence_timeout(), NULL);
+> > +		if (ret <= 0)
+> > +			break;
+> > +
+> > +		dma_fence_put(new_plane_state->fence);
+> > +		new_plane_state->fence = NULL;
+> >  	}
+> > +
+> > +	if (reset_fence)
+> > +		dma_fence_put(reset_fence);
+> >  }
+> >  
+> >  static void intel_atomic_dsb_wait_commit(struct intel_crtc_state *crtc_state)
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+> > index 9e77003addd0..6687b658c51d 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_core.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+> > @@ -556,6 +556,12 @@ struct intel_display {
+> >  		unsigned long mask;
+> >  	} quirks;
+> >  
+> > +	struct {
+> > +		/* protects reset.fence */
+> > +		struct mutex mutex;
+> > +		struct dma_fence *fence;
+> > +	} reset;
+> > +
+> >  	struct {
+> >  		/* restore state for suspend/resume and display reset */
+> >  		struct drm_atomic_state *modeset_state;
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> > index 23bfecc983e8..fcd31722c731 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> > @@ -34,6 +34,7 @@
+> >  #include "intel_display_driver.h"
+> >  #include "intel_display_irq.h"
+> >  #include "intel_display_power.h"
+> > +#include "intel_display_reset.h"
+> >  #include "intel_display_types.h"
+> >  #include "intel_display_utils.h"
+> >  #include "intel_display_wa.h"
+> > @@ -257,6 +258,8 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
+> >  
+> >  	intel_mode_config_init(display);
+> >  
+> > +	intel_display_reset_fence_init(display);
+> > +
+> >  	ret = intel_cdclk_init(display);
+> >  	if (ret)
+> >  		goto cleanup_wq_unordered;
+> > @@ -584,6 +587,8 @@ void intel_display_driver_remove(struct intel_display *display)
+> >  	if (!HAS_DISPLAY(display))
+> >  		return;
+> >  
+> > +	intel_display_reset_fence_discard(display);
+> > +
+> >  	flush_workqueue(display->wq.flip);
+> >  	flush_workqueue(display->wq.modeset);
+> >  	flush_workqueue(display->wq.cleanup);
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers/gpu/drm/i915/display/intel_display_reset.c
+> > index ca15dc18ef0f..80dd2ea8a0c2 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_reset.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
+> > @@ -3,6 +3,8 @@
+> >   * Copyright © 2023 Intel Corporation
+> >   */
+> >  
+> > +#include <linux/dma-fence.h>
+> > +
+> >  #include <drm/drm_atomic_helper.h>
+> >  #include <drm/drm_print.h>
+> >  
+> > @@ -16,6 +18,72 @@
+> >  #include "intel_hotplug.h"
+> >  #include "intel_pps.h"
+> >  
+> > +static const char *intel_display_reset_fence_get_driver_name(struct dma_fence *fence)
+> > +{
+> > +	return "intel_display";
+> > +}
+> > +
+> > +static const char *intel_display_reset_fence_get_timeline_name(struct dma_fence *fence)
+> > +{
+> > +	return "reset";
+> > +}
+> > +
+> > +static const struct dma_fence_ops intel_display_reset_fence_ops = {
+> > +	.get_driver_name = intel_display_reset_fence_get_driver_name,
+> > +	.get_timeline_name = intel_display_reset_fence_get_timeline_name,
+> > +};
+> > +
+> > +static void intel_display_reset_create(struct intel_display *display)
+> > +{
+> > +	struct dma_fence *fence;
+> > +
+> > +	fence = kzalloc_obj(*fence);
+> > +	if (!fence)
+> > +		return;
+> > +
+> > +	dma_fence_init(fence, &intel_display_reset_fence_ops, NULL, 0, 0);
+> > +
+> > +	display->reset.fence = fence;
+> > +}
+> > +
+> > +struct dma_fence *intel_display_reset_fence_get(struct intel_display *display)
+> > +{
+> > +	struct dma_fence *fence;
+> > +
+> > +	mutex_lock(&display->reset.mutex);
+> > +
+> > +	if (!display->reset.fence)
+> > +		intel_display_reset_create(display);
+> > +
+> > +	fence = display->reset.fence;
+> > +	if (fence)
+> > +		dma_fence_get(fence);
+> > +
+> > +	mutex_unlock(&display->reset.mutex);
+> > +
+> > +	return fence;
+> > +}
+> > +
+> > +void intel_display_reset_fence_discard(struct intel_display *display)
+> > +{
+> > +	struct dma_fence *fence;
+> > +
+> > +	mutex_lock(&display->reset.mutex);
+> > +
+> > +	fence = display->reset.fence;
+> > +	if (fence)
+> > +		dma_fence_put(fence);
+> > +
+> > +	display->reset.fence = NULL;
+> > +
+> > +	mutex_unlock(&display->reset.mutex);
+> > +}
+> > +
+> > +void intel_display_reset_fence_init(struct intel_display *display)
+> > +{
+> > +	mutex_init(&display->reset.mutex);
+> > +}
+> > +
+> >  bool intel_display_reset_supported(struct intel_display *display)
+> >  {
+> >  	return HAS_DISPLAY(display);
+> > @@ -31,8 +99,15 @@ void intel_display_reset_prepare(struct intel_display *display)
+> >  {
+> >  	struct drm_modeset_acquire_ctx *ctx = &display->restore.reset_ctx;
+> >  	struct drm_atomic_state *state;
+> > +	struct dma_fence *reset_fence;
+> >  	int ret;
+> >  
+> > +	reset_fence = intel_display_reset_fence_get(display);
+> > +	if (reset_fence) {
+> > +		dma_fence_signal(reset_fence);
+> > +		dma_fence_put(reset_fence);
+> > +	}
+> > +
+> >  	/*
+> >  	 * Need mode_config.mutex so that we don't
+> >  	 * trample ongoing ->detect() and whatnot.
+> > @@ -110,6 +185,8 @@ void intel_display_reset_finish(struct intel_display *display, bool test_only)
+> >  
+> >  	drm_atomic_state_put(state);
+> >  unlock:
+> > +	intel_display_reset_fence_discard(display);
+> > +
+> >  	drm_modeset_drop_locks(ctx);
+> >  	drm_modeset_acquire_fini(ctx);
+> >  	mutex_unlock(&display->drm->mode_config.mutex);
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.h b/drivers/gpu/drm/i915/display/intel_display_reset.h
+> > index a8aa7729d33f..c36a075c6b4d 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display_reset.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_display_reset.h
+> > @@ -10,6 +10,10 @@
+> >  
+> >  struct intel_display;
+> >  
+> > +struct dma_fence *intel_display_reset_fence_get(struct intel_display *display);
+> > +void intel_display_reset_fence_discard(struct intel_display *display);
+> > +void intel_display_reset_fence_init(struct intel_display *display);
+> > +
+> >  bool intel_display_reset_supported(struct intel_display *display);
+> >  bool intel_display_reset_test(struct intel_display *display);
+> >  void intel_display_reset_prepare(struct intel_display *display);
+> > diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+> > index 110fef511fe2..1a85dfe457f0 100644
+> > --- a/drivers/gpu/drm/xe/Makefile
+> > +++ b/drivers/gpu/drm/xe/Makefile
+> > @@ -262,6 +262,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
+> >  	i915-display/intel_display_power.o \
+> >  	i915-display/intel_display_power_map.o \
+> >  	i915-display/intel_display_power_well.o \
+> > +	i915-display/intel_display_reset.o \
+> >  	i915-display/intel_display_rpm.o \
+> >  	i915-display/intel_display_rps.o \
+> >  	i915-display/intel_display_trace.o \
+
+-- 
+Ville Syrjälä
+Intel
