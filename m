@@ -4,67 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73ED0F364D1
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 22:57:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97979F364CA
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 23:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8BBD10E893;
-	Thu,  9 Apr 2026 22:57:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0072D10E15F;
+	Thu,  9 Apr 2026 23:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="IiBOlxF7";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kSQ3PYrT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wrl9ah0X";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFE3610E89E;
- Thu,  9 Apr 2026 22:57:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775775427; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=m4HMpydMUiKIypEQgW6lE0uc9Durc0jVzFb/kzdmqnnznlX2Ixpm+FkCIVVQ98qrsFEqrnvkrvimFZmpCLYmLlGGLIzDCJfnnjCRF2Mw1ysWFCKsKwwRfmBpdz84Jh7eP2STnJiR3tmF3SESeqgJzhEdNCUrYr0TrSwWiF/gpHs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775775427;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mglfHDbQCdy4UxiAawklgqLRry8FY4Gua9B8jPjXuow=; 
- b=C9DX0pvd94VEeXNdz66O5D5Z3yzcRGfY/HtGsXcMYcScTMZ16Jx+f3QFbcDOTT4pGhzAjVwSuJN4yyvGcfWE5K9FrMEXBncN1mjWdcNmrrEFIZ39Pya99XFAsoyEIWQqDhzJeYa1oyK/xzfXWVuhS/ldnLmxEOv/n4pf7DXlfnQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775775426; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=mglfHDbQCdy4UxiAawklgqLRry8FY4Gua9B8jPjXuow=;
- b=IiBOlxF7Bp5ihDohymYF03yGGNlWo9IPoN7KuA8VYBzOm5Et+C8w68RGS/gK4wDD
- xj5PR7Ru35KRCmAaA9nz4A+s+2sDB0RoznCzRciIpC7M1JAfG4pVVox/pzYjTgcdvVe
- pCJXqHX2ljR5wqUAWJ03nAyAWTkQ2XfJvGUE3HpI=
-Received: by mx.zohomail.com with SMTPS id 1775775425845803.217885107667;
- Thu, 9 Apr 2026 15:57:05 -0700 (PDT)
-Date: Thu, 9 Apr 2026 15:57:04 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Lyude Paul <lyude@redhat.com>
-Cc: nouveau@lists.freedesktop.org, Gary Guo <gary@garyguo.net>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- rust-for-linux@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, Matthew Maurer <mmaurer@google.com>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- christian.koenig@amd.com, Asahi Lina <lina@asahilina.net>,
- Miguel Ojeda <ojeda@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Alice Ryhl <aliceryhl@google.com>,
- Boqun Feng <boqun@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Krishna Ketan Rai <prafulrai522@gmail.com>, linux-media@vger.kernel.org,
- Shankari Anand <shankari.ak0208@gmail.com>,
- David Airlie <airlied@gmail.com>, Benno Lossin <lossin@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, linaro-mm-sig@lists.linaro.org,
- Asahi Lina <lina+kernel@asahilina.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@vger.kernel.org
-Subject: Re: [PATCH v10 4/5] rust: drm: gem: Introduce shmem::SGTable
-Message-ID: <adguwHf8NpFPqWkV@um790>
-References: <20260409001559.622026-1-lyude@redhat.com>
- <20260409001559.622026-5-lyude@redhat.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2599110E87B
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 23:01:33 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 639KhZIH2624709
+ for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 23:01:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ szDQZJpHeLYiXJmahVnEFVzdttSQHWcNOehxAJzYlsA=; b=kSQ3PYrToYXR4Elg
+ ZgKAv0RWyY+mBwFhvaDERk6GTtrsOQ5hF8SYd2zS7wt9VG+crzh2ZJON4g1II51n
+ PMJ0aWMdcZCg2GgX77f+0TK7vfq/JqcihWleXwH4z8hoT1iH0uD6OjkjDswZvLzk
+ ePoBQJ2ZzsQejtbvfuAmKVWMN7WPE1PgXbkkq2EN5w5Sy+PIB+pi55V48z/DXRwb
+ d5/YWesSX0aaSER5qjIn6jLrLrqrQp5inXctoaxiWwce5Raj2Od+o+YogqbMBWQg
+ omlipNadM/nAngeZ0zv22FoQG/KlUaLdPT5GMbTPO/gm/mwTsLfTknCBr4ogsG9C
+ AKJOuA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
+ [74.125.82.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4decmu1xjv-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 23:01:32 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id
+ 5a478bee46e88-2c16233ee11so1890800eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 16:01:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775775691; x=1776380491;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=szDQZJpHeLYiXJmahVnEFVzdttSQHWcNOehxAJzYlsA=;
+ b=Wrl9ah0XFaSMQRIH2bL5tUxSDMfubviDFOeJQHZo5t/+uNzFMIdMZT7LuNblPUDTIM
+ TmXdUgDE4WyC76hK0e4xQyBv3OuCSMWAo9qk44jULzi9S/LmmyWvCtd/liRv2OdFahwi
+ mqb7LxoHBG7+16Z5+mtg/o/Fw+9rsy09MK5EI1GczSeiyoXG37krj784+6w/+Y/g51pR
+ NNBysXuuEmyMfzFvc14whUV0scq9g8hsPMGEyz0zJ3wfU4F7tCx+xJv/El3gd192QzJr
+ GQ0QeKB0tbFKSjmUVuyP1DEKQuXiZf3Tl9bKB74ohmPTtQ2qMfNrB9qkRlyqMWGQD3kR
+ hRUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775775691; x=1776380491;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=szDQZJpHeLYiXJmahVnEFVzdttSQHWcNOehxAJzYlsA=;
+ b=jIuCQEHSuxVozpx2wypl4NU/zpoBxxP8iQYuRWgxNqU6lJXouJBM2VT3dJr6Y7jnJV
+ 3dhaBnRnmOfMCUNj/LcoJ0nhr0oqSdghL4Sksgddj5XZe4QcAFZ8UmxXrj/hb0XM/hF/
+ vNN3bEUqfNTPYj9kM1ZFpwukiO6QfocN88MFgq7RXdIG/bh0IjFY9WzhCVwvqTsQT+KI
+ Wbyfr6tsCBVnqSVxhjyB8u2Nk9SZyx5VUZddPZImrgpuTtcT130bgCXIujAG0oPtFqK/
+ VNbIBNsDV55rgY9UoPqEcS3tMzKWsj/djRxHcmwPNmEeX1iqXp8Z3VzwwaI32+zkhNZK
+ ZyKA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXH3jPPWVRR9qdsRGHlg39zuSlbA5GlBz3vzLBLxFH/b7ZxXIh8eztc3zOrNHU8HswU2ykS1xI8eIM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwiEkF/1ONRiEdpcexVPcyKM4FwP8d++uKgSEnkU7AI7c81VcxV
+ ShuMNA1G/mmFJznwaSvdu3zlV/ZSMJJKEhv2z0c/51QgTm68JSZZAsDyFB2X5sUD0gUTcOB0tL7
+ 41b4jQm2UUZUegJEYuMbaVc1ZBPKzITaMZgyfpIKK4c8V9uBcuJmdRd+QxrMkeAqnC3moU5w=
+X-Gm-Gg: AeBDiesN+jJmrqFfC2EApCLAmdZmeYmbEkRd1iuwdB0zDO6z7Be6mKAfoaAxk/J3K9Y
+ 7rxDRHHSiDmGSURBxJjWZdB4aKVEusf6Ny4PulhDDpeQWjXRdqybkjCFhQQauwyjI2EDCvZFbNO
+ Gub2waW5Tmj1tKOMWe1WqTjt+kcs/7Di7bu6qlIVBLu3ndxRqYMIeoV5BdfkciDINdDfLj0ubpU
+ aaO2AXSkdIv/Uw9h9qdyzj2MYb5Wl8LmXfEympnv5b2O6qz5lg8Abtt+PuFZKe9lhfx6da/ttWu
+ +6/xvM4HxKSargOsbk62EjeEG2jwPCCU5+lZytawjlfJQNvU6nmi9zAU8i1HX61nuDgrdKlGL1i
+ T/Xjv0djcWw0VJaoyxadt+X27qEX8VTCrUAduoXKwOcW+0VZ2UKpOovC5Qj4tPdcEYmpYelqxWV
+ glJlKKqIc=
+X-Received: by 2002:a05:7300:bc8a:b0:2c6:cdb3:bd67 with SMTP id
+ 5a478bee46e88-2d5897690bbmr529674eec.22.1775775689468; 
+ Thu, 09 Apr 2026 16:01:29 -0700 (PDT)
+X-Received: by 2002:a05:7300:bc8a:b0:2c6:cdb3:bd67 with SMTP id
+ 5a478bee46e88-2d5897690bbmr529629eec.22.1775775688659; 
+ Thu, 09 Apr 2026 16:01:28 -0700 (PDT)
+Received: from [10.226.48.50] (i-global254.qualcomm.com. [199.106.103.254])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2d5632a2a06sm1668316eec.30.2026.04.09.16.01.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Apr 2026 16:01:28 -0700 (PDT)
+Message-ID: <413e8508-5f29-4a5a-a583-8360f9e48712@oss.qualcomm.com>
+Date: Thu, 9 Apr 2026 17:01:25 -0600
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/drm_ras: Add clear-error-counter netlink
+ command to drm_ras
+To: "Tauro, Riana" <riana.tauro@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ aravind.iddamsetty@linux.intel.com
+Cc: anshuman.gupta@intel.com, simona.vetter@ffwll.ch, airlied@gmail.com,
+ pratik.bari@intel.com, joshua.santosh.ranjan@intel.com,
+ ashwin.kumar.kulkarni@intel.com, shubham.kumar@intel.com,
+ ravi.kishore.koppuravuri@intel.com, raag.jadav@intel.com,
+ anvesh.bakwad@intel.com, maarten.lankhorst@linux.intel.com,
+ Jakub Kicinski <kuba@kernel.org>, Lijo Lazar <lijo.lazar@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, "David S. Miller"
+ <davem@davemloft.net>,
+ Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>
+References: <20260409073318.2909379-4-riana.tauro@intel.com>
+ <20260409073318.2909379-5-riana.tauro@intel.com>
+ <e7978696-eff6-4c1f-ab0f-047dccb18b59@intel.com>
+Content-Language: en-US
+From: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+In-Reply-To: <e7978696-eff6-4c1f-ab0f-047dccb18b59@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260409001559.622026-5-lyude@redhat.com>
+X-Proofpoint-GUID: qIdqx9mbT8NSbkhHeW4bq9uDW_fui-0K
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDIxMyBTYWx0ZWRfX9dtuEXpTPZrH
+ /AE+7OWF6rCHIIZNt77yfCVMU1r38IqmUB1Q0i2jy14PnU7c3Vhq6KGWC1m0biaISirD3+pYoQZ
+ F1d6YclSi8l4OKMbDGPY1eb1YIXxuEv+BLfdsEq8tIGVd16CWZz6dKBflnw0h3gbs++FiHurzQs
+ 0jsq8A7leCKCP1PTDq7/nwHcoKO9kadt3Okd7sOhSGcydFu1f7Fu1BD3rdgnnXPcUVYgGyKOMCy
+ eeTxFLhIFn3InA9TKtP/x7qcNsXp0g6/0iolHvlCXqjbFvBGTyPIMu4vfH2Lmhv+GwmShDXS5AH
+ tLYw7rGHUKmm9E7S9G4ziP/QgUyN3EFLTnVvokzmkJwwFQ+lVfx2dV3z+6lk0SlECEEK8a0Zbop
+ SV5Y+7ZQj8xhZ+Jb9C+B3i0yxFFS/HYwwsUFMQzQ7nPyfa2BUYXPCs22NS09ryEzutusRBZ/hsO
+ QfOijBU0V5mxjaVdaKg==
+X-Proofpoint-ORIG-GUID: qIdqx9mbT8NSbkhHeW4bq9uDW_fui-0K
+X-Authority-Analysis: v=2.4 cv=DslmPm/+ c=1 sm=1 tr=0 ts=69d82fcc cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=zd2uoN0lAAAA:8 a=J1Y8HTJGAAAA:8
+ a=20KFwNOVAAAA:8 a=1XWaLZrsAAAA:8 a=QyXUC8HyAAAA:8 a=af6eHWY9oS_2PyDk4DsA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+ a=y1Q9-5lHfBjTkpIzbSAN:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0 malwarescore=0
+ clxscore=1011 impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604090213
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,308 +156,273 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 08:12:50PM -0400, Lyude Paul wrote:
-> In order to do this, we need to be careful to ensure that any interface we
-> expose for scatterlists ensures that any mappings created from one are
-> destroyed on driver-unbind. To do this, we introduce a Devres resource into
-> shmem::Object that we use in order to ensure that we release any SGTable
-> mappings on driver-unbind. We store this in an UnsafeCell and protect
-> access to it using the dma_resv lock that we already have from the shmem
-> gem object, which is the same lock that currently protects
-> drm_gem_object_shmem->sgt.
+
+On 4/9/2026 1:21 AM, Tauro, Riana wrote:
+> Hi Zack
 > 
-> We also provide two different methods for acquiring an sg table:
-> self.sg_table(), and self.owned_sg_table(). The first function is for
-> short-term uses of mapped SGTables, the second is for callers that need to
-> hold onto the mapped SGTable for an extended period of time. The second
-> variant uses Devres of course, whereas the first simply relies on rust's
-> borrow checker to prevent driver-unbind when using the mapped SGTable.
+> Could you please take a look at this patch if applicable to your 
+> usecase. Please let me know if any
+> changes are required
 > 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+ From a quick glance, I think this looks good from our end.
+
+Thanks,
+Zack
+
+> @Rodrigo This is already reviewed by Jakub and Raag.
+> If there are no opens, can this be merged via drm_misc
 > 
-> ---
-> V3:
-> * Rename OwnedSGTable to shmem::SGTable. Since the current version of the
->   SGTable abstractions now has a `Owned` and `Borrowed` variant, I think
->   renaming this to shmem::SGTable makes things less confusing.
->   We do however, keep the name of owned_sg_table() as-is.
-> V4:
-> * Clarify safety comments for SGTable to explain why the object is
->   thread-safe.
-> * Rename from SGTableRef to SGTable
-> V10:
-> * Use Devres in order to ensure that SGTables are revocable, and are
->   unmapped on driver-unbind.
+> Thanks
+> Riana
 > 
->  rust/kernel/drm/gem/shmem.rs | 191 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 189 insertions(+), 2 deletions(-)
-> 
-> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-> index c643f18b20838..111be446213df 100644
-> --- a/rust/kernel/drm/gem/shmem.rs
-> +++ b/rust/kernel/drm/gem/shmem.rs
-> @@ -11,25 +11,38 @@
->  
->  use crate::{
->      container_of,
-> +    device::{
-> +        self,
-> +        Bound, //
-> +    },
-> +    devres::*,
->      drm::{
->          driver,
->          gem,
->          private::Sealed, //
->          Device,
->      },
-> -    error::to_result,
-> +    error::{
-> +        from_err_ptr, //
-> +        to_result,
-> +    },
->      prelude::*,
-> +    scatterlist,
->      types::{
->          ARef,
->          Opaque, //
->      }, //
->  };
->  use core::{
-> +    cell::UnsafeCell,
->      ops::{
->          Deref,
->          DerefMut, //
->      },
-> -    ptr::NonNull,
-> +    ptr::{
-> +        self,
-> +        NonNull, //
-> +    },
->  };
->  use gem::{
->      BaseObjectPrivate,
-> @@ -65,6 +78,10 @@ pub struct Object<T: DriverObject> {
->      obj: Opaque<bindings::drm_gem_shmem_object>,
->      /// Parent object that owns this object's DMA reservation object.
->      parent_resv_obj: Option<ARef<Object<T>>>,
-> +    /// Devres object for unmapping any SGTable on driver-unbind.
-> +    ///
-> +    /// This is protected by the object's dma_resv lock.
-> +    sgt_res: UnsafeCell<Option<Devres<SGTableMap<T>>>>,
->      #[pin]
->      inner: T,
->  }
-> @@ -117,6 +134,7 @@ pub fn new(
->              try_pin_init!(Self {
->                  obj <- Opaque::init_zeroed(),
->                  parent_resv_obj: config.parent_resv_obj.map(|p| p.into()),
-> +                sgt_res: UnsafeCell::new(None),
->                  inner <- T::new(dev, size, args),
->              }),
->              GFP_KERNEL,
-> @@ -176,6 +194,100 @@ extern "C" fn free_callback(obj: *mut bindings::drm_gem_object) {
->          // SAFETY: We're recovering the Kbox<> we created in gem_create_object()
->          let _ = unsafe { KBox::from_raw(this) };
->      }
-> +
-> +    // If necessary, create an SGTable for the gem object and register a Devres for it to ensure
-> +    // that it is unmapped on driver unbind.
-> +    fn create_sg_table<'a>(
-> +        &'a self,
-> +        dev: &'a device::Device<Bound>,
-> +    ) -> Result<&'a Devres<SGTableMap<T>>> {
-> +        let ret;
-> +        let sgt_res_ptr = self.sgt_res.get();
-> +
-> +        // SAFETY: This lock is initialized throughout the lifetime of the gem object
-> +        unsafe { bindings::dma_resv_lock(self.raw_dma_resv(), ptr::null_mut()) };
-> +
-> +        // SAFETY: We just grabbed the lock required for reading this data above.
-> +        let sgt_res = unsafe { (*sgt_res_ptr).as_ref() };
-> +        if let Some(sgt_res) = sgt_res {
-> +            // We already have a Devres object for this sg table, return it
-> +            ret = Ok(sgt_res);
-> +        } else {
-> +            // SAFETY: We grabbed the lock required for calling this function above */
-> +            let sgt = from_err_ptr(unsafe {
-> +                bindings::drm_gem_shmem_get_pages_sgt_locked(self.as_raw_shmem())
-> +            });
-> +
-> +            if let Err(e) = sgt {
-> +                ret = Err(e);
-> +            } else {
-> +                // INVARIANT:
-> +                // - We called drm_gem_shmem_get_pages_sgt_locked above and checked that it
-> +                //   succeeded, fulfilling the invariant of SGTableRef that the object's `sgt` field
-> +                //   is initialized.
-> +                // - We store this Devres in the object itself and don't move it, ensuring that the
-> +                //   object it points to remains valid for the lifetime of the SGTableRef.
-> +                let devres = Devres::new(dev, init!(SGTableMap { obj: self.into() }));
-> +                match devres {
-> +                    Ok(devres) => {
-> +                        // SAFETY: We acquired the lock protecting this data above, making it safe
-> +                        // to write into here
-> +                        unsafe { (*sgt_res_ptr) = Some(devres) };
-> +
-> +                        // SAFETY: We just write Some() into *sgt_res_ptr above
-> +                        ret = Ok(unsafe { (&*sgt_res_ptr).as_ref().unwrap_unchecked() });
-> +                    }
-> +                    Err(e) => {
-> +                        // We can't make sure that the pages for this object are unmapped on
-> +                        // driver-unbind, so we need to release the sgt
-> +                        // SAFETY:
-> +                        // - We grabbed the lock required for calling this function above
-> +                        // - We checked above that get_pages_sgt_locked() was successful
-> +                        unsafe { bindings::__drm_gem_shmem_free_sgt_locked(self.as_raw_shmem()) };
-> +
-> +                        ret = Err(e);
-> +                    }
-> +                }
-> +            }
-> +        }
-> +
-> +        // SAFETY: We're releasing the lock that we grabbed above.
-> +        unsafe { bindings::dma_resv_unlock(self.raw_dma_resv()) };
-> +
-> +        ret
-> +    }
-> +
-> +    /// Creates (if necessary) and returns an immutable reference to a scatter-gather table of DMA
-> +    /// pages for this object.
-> +    ///
-> +    /// This will pin the object in memory.
-> +    #[inline]
-> +    pub fn sg_table<'a>(
-> +        &'a self,
-> +        dev: &'a device::Device<Bound>,
-> +    ) -> Result<&'a scatterlist::SGTable> {
-> +        let sgt = self.create_sg_table(dev)?;
-> +
-> +        Ok(sgt.access(dev)?.deref())
-> +    }
-> +
-> +    /// Creates (if necessary) and returns an owned reference to a scatter-gather table of DMA pages
-> +    /// for this object.
-> +    ///
-> +    /// This is the same as [`sg_table`](Self::sg_table), except that it instead returns an
-> +    /// [`shmem::SGTable`] which holds a reference to the associated gem object, instead of a
-> +    /// reference to an [`scatterlist::SGTable`].
-> +    ///
-> +    /// This will pin the object in memory.
-> +    ///
-> +    /// [`shmem::SGTable`]: SGTable
-> +    pub fn owned_sg_table(&self, dev: &device::Device<Bound>) -> Result<SGTable<T>> {
-> +        self.create_sg_table(dev)?;
-> +
-> +        // INVARIANT: We just ensured above that `self.sgt_res` is initialized with
-> +        // `Some(Devres<SGTableMap<T>>)`.
-> +        Ok(SGTable(self.into()))
-> +    }
->  }
->  
->  impl<T: DriverObject> Deref for Object<T> {
-> @@ -226,3 +338,78 @@ impl<T: DriverObject> driver::AllocImpl for Object<T> {
->          dumb_map_offset: None,
->      };
->  }
-> +
-> +/// A reference to a GEM object that is known to have a mapped [`SGTable`].
-> +///
-> +/// This is used by the Rust bindings with [`Devres`] in order to ensure that mappings for SGTables
-> +/// on GEM shmem objects are revoked on driver-unbind.
-> +///
-> +/// # Invariants
-> +///
-> +/// - `self.obj` always points to a valid GEM object.
-> +/// - This object is proof that `self.0.owner.sgt` has an initialized and valid SGTable.
-> +pub struct SGTableMap<T: DriverObject> {
-> +    obj: NonNull<Object<T>>,
-> +}
-> +
-> +impl<T: DriverObject> Deref for SGTableMap<T> {
-> +    type Target = scatterlist::SGTable;
-> +
-> +    fn deref(&self) -> &Self::Target {
-> +        // SAFETY:
-> +        // - The NonNull is guaranteed to be valid via our type invariants.
-> +        // - The sgt field is guaranteed to be initialized and valid via our type invariants.
-> +        unsafe { scatterlist::SGTable::from_raw((*self.obj.as_ref().as_raw_shmem()).sgt) }
-> +    }
-> +}
-> +
-> +impl<T: DriverObject> Drop for SGTableMap<T> {
-> +    fn drop(&mut self) {
-> +        // SAFETY: `obj` is always valid via our type invariants
-> +        let obj = unsafe { self.obj.as_ref() };
-> +
-> +        // SAFETY: The dma_resv for GEM objects is initialized throughout its lifetime
-> +        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_mut()) };
-> +
-> +        // SAFETY: We acquired the lock needed for calling this function above
-> +        unsafe { bindings::__drm_gem_shmem_free_sgt_locked(obj.as_raw_shmem()) };
+> On 4/9/2026 1:03 PM, Riana Tauro wrote:
+>> Introduce a new 'clear-error-counter' drm_ras command to reset the 
+>> counter
+>> value for a specific error counter of a given node.
+>>
+>> The command is a 'do' netlink request with 'node-id' and 'error-id'
+>> as parameters with no response payload.
+>>
+>> Usage:
+>>
+>> $ sudo ynl --family drm_ras  --do clear-error-counter --json \
+>> '{"node-id":1, "error-id":1}'
+>> None
+>>
+>> Cc: Jakub Kicinski <kuba@kernel.org>
+>> Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+>> Cc: Lijo Lazar <lijo.lazar@amd.com>
+>> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+>> Cc: David S. Miller <davem@davemloft.net>
+>> Cc: Paolo Abeni <pabeni@redhat.com>
+>> Cc: Eric Dumazet <edumazet@google.com>
+>> Signed-off-by: Riana Tauro <riana.tauro@intel.com>
+>> Reviewed-by: Jakub Kicinski <kuba@kernel.org>
+>> Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+>> ---
+>>   Documentation/gpu/drm-ras.rst            |  8 +++++
+>>   Documentation/netlink/specs/drm_ras.yaml | 13 ++++++-
+>>   drivers/gpu/drm/drm_ras.c                | 43 +++++++++++++++++++++++-
+>>   drivers/gpu/drm/drm_ras_nl.c             | 13 +++++++
+>>   drivers/gpu/drm/drm_ras_nl.h             |  2 ++
+>>   include/drm/drm_ras.h                    | 11 ++++++
+>>   include/uapi/drm/drm_ras.h               |  1 +
+>>   7 files changed, 89 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/gpu/drm-ras.rst b/Documentation/gpu/drm- 
+>> ras.rst
+>> index 70b246a78fc8..4636e68f5678 100644
+>> --- a/Documentation/gpu/drm-ras.rst
+>> +++ b/Documentation/gpu/drm-ras.rst
+>> @@ -52,6 +52,8 @@ User space tools can:
+>>     as a parameter.
+>>   * Query specific error counter values with the ``get-error-counter`` 
+>> command, using both
+>>     ``node-id`` and ``error-id`` as parameters.
+>> +* Clear specific error counters with the ``clear-error-counter`` 
+>> command, using both
+>> +  ``node-id`` and ``error-id`` as parameters.
+>>   YAML-based Interface
+>>   --------------------
+>> @@ -101,3 +103,9 @@ Example: Query an error counter for a given node
+>>       sudo ynl --family drm_ras --do get-error-counter --json '{"node- 
+>> id":0, "error-id":1}'
+>>       {'error-id': 1, 'error-name': 'error_name1', 'error-value': 0}
+>> +Example: Clear an error counter for a given node
+>> +
+>> +.. code-block:: bash
+>> +
+>> +    sudo ynl --family drm_ras --do clear-error-counter --json 
+>> '{"node-id":0, "error-id":1}'
+>> +    None
+>> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/ 
+>> netlink/specs/drm_ras.yaml
+>> index 79af25dac3c5..e113056f8c01 100644
+>> --- a/Documentation/netlink/specs/drm_ras.yaml
+>> +++ b/Documentation/netlink/specs/drm_ras.yaml
+>> @@ -99,7 +99,7 @@ operations:
+>>         flags: [admin-perm]
+>>         do:
+>>           request:
+>> -          attributes:
+>> +          attributes: &id-attrs
+>>               - node-id
+>>               - error-id
+>>           reply:
+>> @@ -113,3 +113,14 @@ operations:
+>>               - node-id
+>>           reply:
+>>             attributes: *errorinfo
+>> +    -
+>> +      name: clear-error-counter
+>> +      doc: >-
+>> +           Clear error counter for a given node.
+>> +           The request includes the error-id and node-id of the
+>> +           counter to be cleared.
+>> +      attribute-set: error-counter-attrs
+>> +      flags: [admin-perm]
+>> +      do:
+>> +        request:
+>> +          attributes: *id-attrs
+>> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+>> index b2fa5ab86d87..d6eab29a1394 100644
+>> --- a/drivers/gpu/drm/drm_ras.c
+>> +++ b/drivers/gpu/drm/drm_ras.c
+>> @@ -26,7 +26,7 @@
+>>    * efficient lookup by ID. Nodes can be registered or unregistered
+>>    * dynamically at runtime.
+>>    *
+>> - * A Generic Netlink family `drm_ras` exposes two main operations to
+>> + * A Generic Netlink family `drm_ras` exposes the below operations to
+>>    * userspace:
+>>    *
+>>    * 1. LIST_NODES: Dump all currently registered RAS nodes.
+>> @@ -37,6 +37,10 @@
+>>    *    Returns all counters of a node if only Node ID is provided or 
+>> specific
+>>    *    error counters.
+>>    *
+>> + * 3. CLEAR_ERROR_COUNTER: Clear error counter of a given node.
+>> + *    Userspace must provide Node ID, Error ID.
+>> + *    Clears specific error counter of a node if supported.
+>> + *
+>>    * Node registration:
+>>    *
+>>    * - drm_ras_node_register(): Registers a new node and assigns
+>> @@ -66,6 +70,8 @@
+>>    *   operation, fetching all counters from a specific node.
+>>    * - drm_ras_nl_get_error_counter_doit(): Implements the 
+>> GET_ERROR_COUNTER doit
+>>    *   operation, fetching a counter value from a specific node.
+>> + * - drm_ras_nl_clear_error_counter_doit(): Implements the 
+>> CLEAR_ERROR_COUNTER doit
+>> + *   operation, clearing a counter value from a specific node.
+>>    */
+>>   static DEFINE_XARRAY_ALLOC(drm_ras_xa);
+>> @@ -314,6 +320,41 @@ int drm_ras_nl_get_error_counter_doit(struct 
+>> sk_buff *skb,
+>>       return doit_reply_value(info, node_id, error_id);
+>>   }
+>> +/**
+>> + * drm_ras_nl_clear_error_counter_doit() - Clear an error counter of 
+>> a node
+>> + * @skb: Netlink message buffer
+>> + * @info: Generic Netlink info containing attributes of the request
+>> + *
+>> + * Extracts the node ID and error ID from the netlink attributes and
+>> + * clears the current value.
+>> + *
+>> + * Return: 0 on success, or negative errno on failure.
+>> + */
+>> +int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+>> +                    struct genl_info *info)
+>> +{
+>> +    struct drm_ras_node *node;
+>> +    u32 node_id, error_id;
+>> +
+>> +    if (!info->attrs ||
+>> +        GENL_REQ_ATTR_CHECK(info, 
+>> DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
+>> +        GENL_REQ_ATTR_CHECK(info, 
+>> DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID))
+>> +        return -EINVAL;
+>> +
+>> +    node_id = nla_get_u32(info- 
+>> >attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
+>> +    error_id = nla_get_u32(info- 
+>> >attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
+>> +
+>> +    node = xa_load(&drm_ras_xa, node_id);
+>> +    if (!node || !node->clear_error_counter)
+>> +        return -ENOENT;
+>> +
+>> +    if (error_id < node->error_counter_range.first ||
+>> +        error_id > node->error_counter_range.last)
+>> +        return -EINVAL;
+>> +
+>> +    return node->clear_error_counter(node, error_id);
+>> +}
+>> +
+>>   /**
+>>    * drm_ras_node_register() - Register a new RAS node
+>>    * @node: Node structure to register
+>> diff --git a/drivers/gpu/drm/drm_ras_nl.c b/drivers/gpu/drm/drm_ras_nl.c
+>> index 16803d0c4a44..dea1c1b2494e 100644
+>> --- a/drivers/gpu/drm/drm_ras_nl.c
+>> +++ b/drivers/gpu/drm/drm_ras_nl.c
+>> @@ -22,6 +22,12 @@ static const struct nla_policy 
+>> drm_ras_get_error_counter_dump_nl_policy[DRM_RAS_
+>>       [DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
+>>   };
+>> +/* DRM_RAS_CMD_CLEAR_ERROR_COUNTER - do */
+>> +static const struct nla_policy 
+>> drm_ras_clear_error_counter_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID + 1] = {
+>> +    [DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
+>> +    [DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
+>> +};
+>> +
+>>   /* Ops table for drm_ras */
+>>   static const struct genl_split_ops drm_ras_nl_ops[] = {
+>>       {
+>> @@ -43,6 +49,13 @@ static const struct genl_split_ops drm_ras_nl_ops[] 
+>> = {
+>>           .maxattr    = DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID,
+>>           .flags        = GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
+>>       },
+>> +    {
+>> +        .cmd        = DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
+>> +        .doit        = drm_ras_nl_clear_error_counter_doit,
+>> +        .policy        = drm_ras_clear_error_counter_nl_policy,
+>> +        .maxattr    = DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
+>> +        .flags        = GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
+>> +    },
+>>   };
+>>   struct genl_family drm_ras_nl_family __ro_after_init = {
+>> diff --git a/drivers/gpu/drm/drm_ras_nl.h b/drivers/gpu/drm/drm_ras_nl.h
+>> index 06ccd9342773..a398643572a5 100644
+>> --- a/drivers/gpu/drm/drm_ras_nl.h
+>> +++ b/drivers/gpu/drm/drm_ras_nl.h
+>> @@ -18,6 +18,8 @@ int drm_ras_nl_get_error_counter_doit(struct sk_buff 
+>> *skb,
+>>                         struct genl_info *info);
+>>   int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
+>>                       struct netlink_callback *cb);
+>> +int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+>> +                    struct genl_info *info);
+>>   extern struct genl_family drm_ras_nl_family;
+>> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
+>> index 5d50209e51db..f2a787bc4f64 100644
+>> --- a/include/drm/drm_ras.h
+>> +++ b/include/drm/drm_ras.h
+>> @@ -58,6 +58,17 @@ struct drm_ras_node {
+>>       int (*query_error_counter)(struct drm_ras_node *node, u32 error_id,
+>>                      const char **name, u32 *val);
+>> +    /**
+>> +     * @clear_error_counter:
+>> +     *
+>> +     * This callback is used by drm_ras to clear a specific error 
+>> counter.
+>> +     * Driver should implement this callback to support clearing 
+>> error counters
+>> +     * of a node.
+>> +     *
+>> +     * Returns: 0 on success, negative error code on failure.
+>> +     */
+>> +    int (*clear_error_counter)(struct drm_ras_node *node, u32 error_id);
+>> +
+>>       /** @priv: Driver private data */
+>>       void *priv;
+>>   };
+>> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
+>> index 5f40fa5b869d..218a3ee86805 100644
+>> --- a/include/uapi/drm/drm_ras.h
+>> +++ b/include/uapi/drm/drm_ras.h
+>> @@ -41,6 +41,7 @@ enum {
+>>   enum {
+>>       DRM_RAS_CMD_LIST_NODES = 1,
+>>       DRM_RAS_CMD_GET_ERROR_COUNTER,
+>> +    DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
+>>       __DRM_RAS_CMD_MAX,
+>>       DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
 
-When i was testing this with tyr I got a double free here when I unloaded the module.
-
-When our drm::Device (drm::Device<TyrDrmDriver, Ctx>) was released, its device data
-(TyrDrmDeviceData) was dropped. In our device data we are indirectly holding several gem
-Objects through the firmware (Firmware → sections → KernelBo → bo)
-
-When those objects are destroyed, shmem::Object::free_callback() runs. This calls
-drm_gem_shmem_release() which, on the C side frees shmem→sgt if it exists
-via __drm_gem_shmem_free_sgt_locked(shmem).
-
-But the Rust Object<T> still has the sgt_res. So, at the end of free_callback(), KBox::from_raw(this) triggers
-SGTableMap::drop(), and that calls __drm_gem_shmem_free_sgt_locked() again for the same shmem object.
-
-So the same sgt ends up being freed once from drm_gem_shmem_release() and again later from SGTableMap::drop().
-
-For now my fix is just to clear sgt_res in free_callback() before drm_gem_shmem_release() which
-prevents the sgt from being freed by the C side.
-
-I plan to post our latest tyr series soon including this abstraction, and I hope you can have a look,
-perhaps how we’ve set up the device data is unexpected.
-
-> +
-> +        // SAFETY: We are releasing the lock we acquired above.
-> +        unsafe { bindings::dma_resv_unlock(obj.raw_dma_resv()) };
-> +    }
-> +}
-> +
-> +// SAFETY: The NonNull in SGTableRef is guaranteed valid by our type invariants, and the GEM object
-> +// it points to is guaranteed to be thread-safe.
-> +unsafe impl<T: DriverObject> Send for SGTableMap<T> {}
-> +// SAFETY: The NonNull in SGTableRef is guaranteed valid by our type invariants, and the GEM object
-> +// it points to is guaranteed to be thread-safe.
-> +unsafe impl<T: DriverObject> Sync for SGTableMap<T> {}
-> +
-> +/// An owned reference to a scatter-gather table of DMA address spans for a GEM shmem object.
-> +///
-> +/// This object holds an owned reference to the underlying GEM shmem object, ensuring that the
-> +/// [`scatterlist::SGTable`] referenced by this type remains valid for the lifetime of this object.
-> +///
-> +/// # Invariants
-> +///
-> +/// - This type is proof that `self.0.sgt_res` is initialized with a `Some(Devres<SGTableMap<T>>)`.
-> +/// - This object is only exposed in situations where we know the underlying `SGTable` will not be
-> +///   modified for the lifetime of this object. Thus, it is safe to send/access this type across
-> +///   threads.
-> +pub struct SGTable<T: DriverObject>(ARef<Object<T>>);
-> +
-> +// SAFETY: This object is thread-safe via our type invariants.
-> +unsafe impl<T: DriverObject> Send for SGTable<T> {}
-> +// SAFETY: This object is thread-safe via our type invariants.
-> +unsafe impl<T: DriverObject> Sync for SGTable<T> {}
-> +
-> +impl<T: DriverObject> Deref for SGTable<T> {
-> +    type Target = Devres<SGTableMap<T>>;
-> +
-> +    fn deref(&self) -> &Self::Target {
-> +        // SAFETY: `self.owner.sgt_res` is guaranteed to be initialized with
-> +        // `Some(Devres<SGTableMap<T>>)` via our type invariants
-> +        unsafe { (*self.0.sgt_res.get()).as_ref().unwrap_unchecked() }
-> +    }
-> +}
-> -- 
-> 2.53.0
-> 
