@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 726AAEA3C59
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 12:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A516AEA3C4E
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 12:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3BED10E7ED;
-	Thu,  9 Apr 2026 12:59:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB69E10E7EF;
+	Thu,  9 Apr 2026 12:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OJD+mbnP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="bk8qIZCG";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8CF710E7ED
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 12:59:00 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-48374014a77so11643265e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 05:59:00 -0700 (PDT)
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66F4910E7EF
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 12:59:20 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-43cfce3a195so532434f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 05:59:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1775739539; x=1776344339; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1775739559; x=1776344359; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=x4+d359KX46hXwxtaE9R0Hy4plQuOMKkNrAfPPDGlPA=;
- b=OJD+mbnPjkK1VabvJABl/CpLnHnZrGNdoWXeXl2juheGMh6QBTgMclTNpkEdmqDWzO
- 4C1t+8kLEfry4LUTnGtE7BydNttwGbuQJj6iPIrBFq7NwI7XC5I1bIWE85A6SFfwgSOP
- 1vUHPHVUGch3GCjOfWJDgl88brnWT6Hjup4ZkuAVR6tTG4lJ6GI9yGJpeXqJrgK62Prj
- czvvCnL4w6tyNcrjY2q+Z1oh9IZhWuZR6fV3lu6CLcy8WAlCdIUkEez8pcpHf92B/2Xy
- +ueXv/Jn6L/E0gt5Q6zRZhjeWUc3TuNFJThrRGUg2wsWapVShpW9ZIWCwmtl/U3Z6NzR
- ePIg==
+ :reply-to; bh=xj2vZaEiNHHsypQhOoqn3dsKsdK2sO9N5bb9CwmONCI=;
+ b=bk8qIZCGX5S7zaS3pzZVrggiv/QgwmH8UNQJS7crcqDHIL1RU2kW84fJPe3KUXwMW9
+ teZ1ZfgN53D82/8WjDWhOR7tB7nmg1gd5GC/ALwiyzDNeBHfTHYw7tY6nnGAetdcn3me
+ VVJ39VEfmGGjvaquIoLE+ylOEuEIumrtWi1RhrW8sIxQrZLbdiUQWkn36kT/uVTIZW85
+ 38GlCUs3TlewY4W4lnG+5MYcKMaUNTen6kT/sqeICT8dhwfRiXZAQcE7xyFM8uE4DSNt
+ mP8o+SmDgPapgaOLbyeysHdDw5OihPjEHV7e2YHDf5GxhP31TVkFg/1w9Q25fpug+u0c
+ Jhjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775739539; x=1776344339;
+ d=1e100.net; s=20251104; t=1775739559; x=1776344359;
  h=content-transfer-encoding:in-reply-to:organization:autocrypt
  :content-language:references:cc:to:subject:reply-to:from:user-agent
  :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=x4+d359KX46hXwxtaE9R0Hy4plQuOMKkNrAfPPDGlPA=;
- b=DlIXo5aMmHag1Fo/81yF79gokTbMZ6+b5Qfx5VKfIs3LhbcJAq9BAVwgL6Fkhxp4Sv
- immdzGuQKmC/sNfmzeNADAomMUaeLOP4ulq7UzERKHI4/VYJycSTdXoryNvlyw12t2Wk
- dJQVTpioYj5XvLgcF5v+w02SRAyI9XV+P3s4o3dmDw3yP95HSVOxOF8Wpd7WiaGVpflP
- CduezZL3VpIVq5uDRtL2Sm/lz7K2h5XhSGZyzUl0nYXjvnAiBR0mdNu3n9FUsiJgc6gP
- 4AHK6AgjUdTt/7UsNuvKxDuMOPFpeGmBLzAKRZW0iUCjOXw78a5VPYf3pwcGTjORboE5
- fV7Q==
-X-Gm-Message-State: AOJu0YyhbMsktPbb+xb0EAeDEZu3UQ5bfrqjpNkUNQgfw3vWp67cWwAl
- a9nNcOfR5KK4GpxOaEEzDMjwWRY+d0MbkEo5wUK8nrV5jmg+9xVACQ9MVzStdQ4nvs4=
-X-Gm-Gg: AeBDieuTKyRj8GZCMzRL3ZBqJn22vwfNvMfv/PDTHHxjtPNYZCUYX1PapnXym/YZdjn
- 0BBjFRHmLi/KgvFlWsrY1eu0Fn/Xn3NB120loZxsWPK4UeIzVOg9SvqNWgUDmk0hpawKE/4AzrA
- TCvU82M8uR7xIpSVZuFHVbsnAseh+v3kf99TC/wZvnGKqP4bAfLqhadtxEPaM6LihgvSiBkpiVY
- e2eeijBaqPLz/ZUpfnv6/7oH30SnbHgllsYXWtRuzGFjqbVpdlMPeB6r3X0VrGjOEYzk1Q/fwAr
- Cgc9CasDldyEbMJz0mCIG6IlmKZcMyYq3eZHDxgNtboYr7B3TNXeoGP92q6npyZGcn9WCXfzEwT
- TLgNugPG7AvpHet7TNqScmNOhM8ix8J226PtNYU68nBWu+POhWnnh4hxRi6mzp2C4vVAqxzMch1
- PYObZ9eWshZmKJN3rw7pBBzllmKzVG0CAb5jWaAytLXOKhXojggalO7suKzoT7ku+adQZwdjRUQ
- TtC
-X-Received: by 2002:a05:600c:6305:b0:486:d76c:fa57 with SMTP id
- 5b1f17b1804b1-4889978da75mr343672015e9.17.1775739538882; 
- Thu, 09 Apr 2026 05:58:58 -0700 (PDT)
+ bh=xj2vZaEiNHHsypQhOoqn3dsKsdK2sO9N5bb9CwmONCI=;
+ b=kwHbTIHS+bxSqOIZKUIJT8731e/xBX7Rku3Oh0AqTyP/0r880i/jDWivGLVAI/768e
+ aVitwRc5/FafhCcfOlcrDSEiQDEgoL6Z5/VkGxw8hhfKNxMz6PyQRYS0JG0Biw/GWMaC
+ WVlZIKaBVKMqDfNMjqHIgmhz/LX05ak0VOdhFERdeCaYVRsIshiEhlMSwm3ClW7Jk+e7
+ iKFrvdC60HPQhACM0jVWMOyg42kObpshcvvY52pDhayAhjwOv+uI6CqzeLx9lX+FCS1v
+ v9RYP5T749TSPCa1PgjPfAyck5IhAzrAwxb/EXgmh7MZ0h5eb04TmTCEoVAJ5zcolEOQ
+ cpLA==
+X-Gm-Message-State: AOJu0YwPOv2j9IhzKl+wgQZPYmNSf2Ad6WcWSZhqDVh3Sza8204HaiAR
+ zxvEaRC9DVyVKvZAIpeiaB8pyA3Tw9A3JE5OulIc15jQk/0UNT1O9ZUGg5DddXYng4uLZIyjNsV
+ uGeUYT14=
+X-Gm-Gg: AeBDievnuzNGOwuUtbfTQruesEzRzPPpKg5gfPVm679RoMxRE0HfJcCiQeXXAN2fAGB
+ ScWkPuvBe0QzrucdSvmTiGQM3R8x5ZAGav3Of7WgnGmtVHnNLuLQdmrlI6/5ysyS7oPhoDNKrFM
+ r/pWc/0Gdad2us0/isgKJrZmgIy+/EFwL/iDeBP/177yIrxVTCfyC4blwUCGhIfpxvr55aeVUfz
+ OH4c2C53xxArx/MwIdcODpzYijd4M8fPhNvNoySVPp2xNNK+7VPEwt7Eu2dxy43gClPtvdF2m5k
+ w9uyCVU9bT5upeO7IktuZyNmbgmg0dOaC/DD+w8xAKf0Vz34PfOh5M0puf3hBQyHcg+0JZJCAvR
+ q0z+32YEiWefDDyFSVTYo+L+2nijx9q/ulbaU2cPYGIOTngNGNaCccs93HCzTHrZap6yTFocozp
+ +nojl9LCteOG9FWI/fgj+XDZnQYSxGQObgtfkn9MrulaacfmHzImhyiCk8nPIDgcy4O/KCb87J5
+ nEc
+X-Received: by 2002:a05:6000:288c:b0:43c:f336:7ab5 with SMTP id
+ ffacd0b85a97d-43d5a14b024mr4729778f8f.22.1775739558565; 
+ Thu, 09 Apr 2026 05:59:18 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:47c:bef1:62cf:54fb?
  ([2a01:e0a:106d:1080:47c:bef1:62cf:54fb])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e2a720dsm68106981f8f.4.2026.04.09.05.58.57
+ ffacd0b85a97d-43d1e1fe0b0sm69043166f8f.0.2026.04.09.05.59.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 05:58:58 -0700 (PDT)
-Message-ID: <dfb14fb7-7013-4946-b151-a9db4478c0cd@linaro.org>
-Date: Thu, 9 Apr 2026 14:58:57 +0200
+ Thu, 09 Apr 2026 05:59:18 -0700 (PDT)
+Message-ID: <a4a487fc-7b65-4de2-97f9-71e5085dded1@linaro.org>
+Date: Thu, 9 Apr 2026 14:59:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 4/4] drm/panel: simple: add Waveshare LCD panels
+Subject: Re: [PATCH v2 4/4] drm/panel: simple: add Waveshare LCD panels
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -84,8 +85,8 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260330-ws-lcd-v1-0-309834a435c0@oss.qualcomm.com>
- <20260330-ws-lcd-v1-4-309834a435c0@oss.qualcomm.com>
+References: <20260331-ws-lcd-v2-0-a1add63b6eb6@oss.qualcomm.com>
+ <20260331-ws-lcd-v2-4-a1add63b6eb6@oss.qualcomm.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -112,7 +113,7 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20260330-ws-lcd-v1-4-309834a435c0@oss.qualcomm.com>
+In-Reply-To: <20260331-ws-lcd-v2-4-a1add63b6eb6@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -131,7 +132,7 @@ Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 3/30/26 15:25, Dmitry Baryshkov wrote:
+On 3/31/26 17:44, Dmitry Baryshkov wrote:
 > Waveshare have a serie of DSI panel kits with the DPI or LVDS panel
 > being attached to the DSI2DPI or DSI2LVDS bridge. The commit
 > 46be11b678e0 ("drm/panel: simple: Add Waveshare 13.3" panel support")
@@ -546,8 +547,6 @@ On 3/30/26 15:25, Dmitry Baryshkov wrote:
 >   		.compatible = "waveshare,13.3inch-panel",
 >   		.data = &waveshare_133inch,
 > 
-
-LGTM, panel-simple for panels that autoconfigures themselves from a flash
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
