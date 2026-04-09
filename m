@@ -4,61 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBC25E9DE66
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 08:02:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B4BAE9DE64
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 08:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B86110E766;
-	Thu,  9 Apr 2026 08:02:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B6AB10E761;
+	Thu,  9 Apr 2026 08:09:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FUsCaw3o";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FAMP4WVG";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF1610E75D;
- Thu,  9 Apr 2026 08:02:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 467C210E75B;
+ Thu,  9 Apr 2026 08:09:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775721749; x=1807257749;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=TMCOMtxEzd9UPzJgn0a6zly/55WwgU0xxGAU68Fm6aY=;
- b=FUsCaw3oNFIstb3lqC89odNq7VF02CNMsrfAN7KRuOsEfInP+EFFOHvv
- 8F2n7isy1nn7HQh7q4L/XoHit/co7OE5PLti7uZY+gVWBcMjfLb4ZxQHu
- 5LsBI/tzJBUqp8bvpccvISlQWEl2JDGCi1fAL19pNgfy4bgtfNc+yDyns
- F27BZ8dpvG0NcZLbpIWYBRPTmT3iP7kqqvSSox8IsM5GSY98doD+jkyXR
- Q3A+Nj4TBdjJk/wN3PPRgKkiwfCSJvv/7GNX/x6OGYE31fkJQgzsF8/sN
- BoI2xvLEquRhN+1ix8etCQ3+MHRQyqLvw+s2cipOKhRkm2cXQijEKLrzd Q==;
-X-CSE-ConnectionGUID: l0cPBBraSJ6BP+IKqVlGwQ==
-X-CSE-MsgGUID: KAvyFB57T36B+ZTgvdU0HQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="75757404"
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="75757404"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 01:02:28 -0700
-X-CSE-ConnectionGUID: k0N2IA5jTdCfuzsEvHykZA==
-X-CSE-MsgGUID: TC/fmssAT3OcqqIFL/N2Rg==
+ t=1775722181; x=1807258181;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=vKvbBqDP87heWpNDUVKUHVquqx+uF6Oad/eR8x+MU8A=;
+ b=FAMP4WVG0x7onnSqtncCFxKWhZ3ZnKmRNEaZp/JjcMecBI/3JKRRrITu
+ nd5tWIJi3AON5dau6jH9tbNewu2gFYcEhxi/Mt2+U0CfDfzN1udEZDYHC
+ sjle4r6+T+scLxBSKAbOODETkNaWEFXgA1pQI9zGmD9wsWVa99FSkdw7H
+ p/vveUalfMQEgsqAiPqYrlGNNsrGm89do1v4ciQ3dq0Lf4G0Jb0/BcDn1
+ N1kONzkVbYsk+BeNv0nD73FHdr/Xj3VxNTTSdVSG9PEKvVUzHY0mkGixh
+ cy2t1y3N+MkX8xGYBwLWpU7cOSG5vatYNXE8RQCt8gZotZf1lqDA3lNHR g==;
+X-CSE-ConnectionGUID: wq507l3wRRqEoczib9x62Q==
+X-CSE-MsgGUID: nxNHlnAURPywEVrtSW5HKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="75892763"
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="75892763"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 01:09:41 -0700
+X-CSE-ConnectionGUID: ya6VTcyxSxanFbg1YWpwSw==
+X-CSE-MsgGUID: gciFVPZsRxSnOokFCTCKUQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="228582888"
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="259148489"
 Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.246.62])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 01:02:23 -0700
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 01:09:38 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Matthew Brost <matthew.brost@intel.com>
-Cc: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, Oded Gabbay
- <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] topic/step for i915 and xe
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Simona
+ Vetter <simona.vetter@ffwll.ch>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>, Jouni =?utf-8?Q?H=C3=B6gander?=
+ <jouni.hogander@intel.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>
+Subject: Re: [PATCH 1/6] dma-buf: Remove old lies about
+ dma_fence_wait_any_timeout() not accepting some fences
+In-Reply-To: <20260408233458.22666-2-ville.syrjala@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Date: Thu, 09 Apr 2026 11:02:20 +0300
-Message-ID: <cc1ff0a476ff457e88251e22b83c1a45ada11ecc@intel.com>
+References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
+ <20260408233458.22666-2-ville.syrjala@linux.intel.com>
+Date: Thu, 09 Apr 2026 11:09:34 +0300
+Message-ID: <8963fcfe824675600e932dd9020d114b190d793b@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,66 +77,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, 09 Apr 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> commit 796422f227ee ("dma-fence: Allow wait_any_timeout for all
+> fences") made dma_fence_wait_any_timeout() accept any fence, even
+> one with a custom .wait() implementation. Update the docs to match.
+>
+> Cc: Simona Vetter <simona.vetter@ffwll.ch>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-Hi Thomas, Matthew and Rodrigo -
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Here's a topic pull intended for both drm-xe-next and drm-intel-next to
-unify the steppings header and enum between the i915 and xe drivers. I'm
-opting for a topic branch because merging this through either driver's
--next branch would likely be painful conflicts wise.
+> ---
+>  drivers/dma-buf/dma-fence.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 1826ba73094c..2c623c0221e2 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -884,9 +884,8 @@ dma_fence_test_signaled_any(struct dma_fence **fences=
+, uint32_t count,
+>   * @idx: used to store the first signaled fence index, meaningful only on
+>   *	positive return
+>   *
+> - * Returns -EINVAL on custom fence wait implementation, -ERESTARTSYS if
+> - * interrupted, 0 if the wait timed out, or the remaining timeout in jif=
+fies
+> - * on success.
+> + * Returns -ERESTARTSYS if interrupted, 0 if the wait timed out,
+> + * or the remaining timeout in jiffies on success.
+>   *
+>   * Synchronous waits for the first fence in the array to be signaled. The
+>   * caller needs to hold a reference to all fences in the array, otherwis=
+e a
 
-Please pull this to drm-xe-next (*), and once you're done, I'll follow
-suit in drm-intel-next.
-
-Thanks,
-Jani.
-
-
-(*) Hint, 'dim apply-pull drm-xe-next' on this message will do the
-    trick.
-
-
-The following changes since commit 4516432284e1b2ad9e70de8067f779c9c1072189:
-
-  ttm/pool: track allocated_pages per numa node. (2026-04-08 06:52:48 +1000)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/topic/step-2026-04-09
-
-for you to fetch changes up to baf310b9836445ca9056f04ec347293963a1cc6e:
-
-  drm/i915/display: switch to including common step file directly (2026-04-09 10:10:03 +0300)
-
-----------------------------------------------------------------
-topic/step to unify xe and i915 on common steppings header and enum
-
-----------------------------------------------------------------
-Jani Nikula (3):
-      drm/xe/step: switch to the shared step definitions with i915
-      drm/xe/step: switch from enum xe_step to intel_step naming
-      drm/i915/display: switch to including common step file directly
-
- drivers/gpu/drm/i915/display/intel_cdclk.c         |  2 +-
- drivers/gpu/drm/i915/display/intel_ddi.c           |  2 +-
- .../gpu/drm/i915/display/intel_display_device.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_display_power.c |  2 +-
- drivers/gpu/drm/i915/display/intel_display_wa.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |  2 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_fbc.c           |  2 +-
- drivers/gpu/drm/i915/display/intel_flipq.c         |  2 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c          |  2 +-
- drivers/gpu/drm/i915/display/intel_pmdemand.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_psr.c           |  2 +-
- drivers/gpu/drm/i915/display/skl_universal_plane.c |  2 +-
- .../gpu/drm/xe/compat-i915-headers/intel_step.h    | 13 -----
- drivers/gpu/drm/xe/tests/xe_pci.c                  |  4 +-
- drivers/gpu/drm/xe/xe_step.c                       |  2 +-
- drivers/gpu/drm/xe/xe_step.h                       |  4 +-
- drivers/gpu/drm/xe/xe_step_types.h                 | 61 +---------------------
- 18 files changed, 20 insertions(+), 90 deletions(-)
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_step.h
-
--- 
+--=20
 Jani Nikula, Intel
