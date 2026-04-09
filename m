@@ -4,80 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C2D5F31E24
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 15:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC8CDF31E25
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 15:11:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B842010E816;
-	Thu,  9 Apr 2026 15:05:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20C9410E81A;
+	Thu,  9 Apr 2026 15:11:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hTZ1zhKv";
+	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="Hd420Vh1";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5326410E816;
- Thu,  9 Apr 2026 15:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1775747116;
- bh=njEfQhSNjU32s17L2d4TAimuJampYgAZWfO8+3FgIoA=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=hTZ1zhKvuqpF4WA7yeUShw0AQafg6qSyyoj1LVuAW8twVDdBZb4kLLQG0HokwNvBB
- cgzS/yOaQWylFOntQMVK5pYhiJKxyLu+uFbOnIFOKQ6dcg96kxEYGoR+S2+A+Hghpx
- cNyiBOtfhDtkdYMuHeGOFaBmL9IwhATW4oQ9ebx5MLxrhNEKODmXm1OY955a4plcck
- fF1xH+Mm3w54CyU1giWpiQcT10a+WcBLGA4MjQpvzGT5RrpK5XRkRJnHxnqjWl1bSz
- REoWqczT1RtFbA4bDMMPnQ35vk3pyCh2RuB2OdlV+jfUJ4CVX2/j+7NXzzvb0/MMm7
- QOVEdEuZ66cSg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: nicolas)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2744017E137E;
- Thu,  9 Apr 2026 17:05:14 +0200 (CEST)
-Message-ID: <b02fc0752b7c4b567e3628ffada1317cb2967610.camel@collabora.com>
-Subject: Re: [PATCH v5 0/3] Add "link bpc" DRM property
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Pekka Paalanen
- <pekka.paalanen@collabora.com>, Michel =?ISO-8859-1?Q?D=E4nzer?=
- <michel.daenzer@mailbox.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Leo Li	 <sunpeng.li@amd.com>, Rodrigo
- Siqueira <siqueira@igalia.com>, Alex Deucher	 <alexander.deucher@amd.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Ville
- =?ISO-8859-1?Q?Syrj=E4l=E4?=	 <ville.syrjala@linux.intel.com>, Daniel Stone
- <daniels@collabora.com>,  Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 	amd-gfx@lists.freedesktop.org,
- kernel@collabora.com, Derek Foreman	 <derek.foreman@collabora.com>, Marius
- Vlad <marius.vlad@collabora.com>
-Date: Thu, 09 Apr 2026 11:05:12 -0400
-In-Reply-To: <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
-References: <20260319-link-bpc-v5-0-5306cd04a708@collabora.com>
- <8676926.T7Z3S40VBb@workhorse>
- <eff61423-a854-44c1-8634-30e2bd61e005@mailbox.org>
- <4265353.aeNJFYEL58@workhorse>
- <254c20a4-cce3-4c8e-9902-514586f3e694@mailbox.org>
- <20260326155305.736b4e64@fluorite>
- <7461820c-e3ab-40f5-98d2-9878e60ba2ad@amd.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
- protocol="application/pgp-signature"; boundary="=-JnhPg60M+5/DW5fs4JwT"
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012027.outbound.protection.outlook.com
+ [40.93.195.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA4D810E81A
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 15:11:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oeX/7oDgSgpYxWq/sLq8vC1tFesz6e9ZmNNvopsVyHEzwRlnOy/WM9s7688z8GxUouJfiWJ6WO7xd1fdVjDZogK5JskS3Qfu9r7x9xIil3giT6boTUcWUBB7rAqW6N7Y3URvVi99eoa+bS1VwBRZhv//TearxP9cRzFJ58TO7avSAUrzk6PhpOBp0NVeyp518nfdhHXnPn4lE+qCkyJkDk2ZqImOYEBOrjZEOX4a9V0e+N2DrP+JpDTNajmVTCUSTCv1434zKJJjEXRBmvURiltNhCJUbvQdUO/tcFhwghTT59CaYlfBUNlSUY5rWomwudAlolRFBiQJjOrcgJvpOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c6U2Lh2XygsHPJVYH5oOuMmwgRuZjaihQVRVusS4HPU=;
+ b=P/RMN+//FNL9vvo3qN8zACTa+rCRhkPo60M5g9QpRtpr7dyNWtGseJXXDu1yyfBXNYQWcx0u48QTRVLnToK2KEwZJMm7YInMyhMKrD9kBKEMYeAt/6f5NPHshdrVE0mvAqWevnsXUNS9CmAz7kMt0LMubCGSQGUsHz/099ykysSSmoSghOblklUWd7MPrUUSd/ynt3pdVoS4lSqbQbXOVwUI7yGDXWTE+Eb3B+OtWfZQU4aDgMsjhMk/Nq6A6wxO2e/RQxsBAIFsZtwH9JAtaxknmYF5sEEjaJ2pe39vFaX6sNFAEsxX7E5eO2qcdtIUDakZANLvuGAEgjCZ5/8nlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c6U2Lh2XygsHPJVYH5oOuMmwgRuZjaihQVRVusS4HPU=;
+ b=Hd420Vh1SltQ/dVMcmovgJKx5synbmTBbvGL10NjGha1KSMBl2gvAQjRPaKTiLSwfNdUGawYxpzmgqctmu4ybw7PU2hotSwyHJb4J9gsjLw46e4rhmNSJZNO8s1Jwf12jR8ByYnNMCrar/jOHhk4qRgHDErKDyU2Q39PYpsE9OI=
+Received: from MN2PR07CA0028.namprd07.prod.outlook.com (2603:10b6:208:1a0::38)
+ by BN0PR10MB5158.namprd10.prod.outlook.com (2603:10b6:408:120::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Thu, 9 Apr
+ 2026 15:11:47 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:208:1a0:cafe::79) by MN2PR07CA0028.outlook.office365.com
+ (2603:10b6:208:1a0::38) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.35 via Frontend Transport; Thu,
+ 9 Apr 2026 15:11:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Thu, 9 Apr 2026 15:11:47 +0000
+Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 10:11:44 -0500
+Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Thu, 9 Apr
+ 2026 10:11:44 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE213.ent.ti.com
+ (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Thu, 9 Apr 2026 10:11:44 -0500
+Received: from [172.24.233.62] (devarsh-precision-tower-3620.dhcp.ti.com
+ [172.24.233.62])
+ by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 639FBeNI2785302;
+ Thu, 9 Apr 2026 10:11:40 -0500
+Message-ID: <8ccc9527-8779-4aba-bd43-54999b589506@ti.com>
+Date: Thu, 9 Apr 2026 20:41:39 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: sii902x: Add Power Management hooks with
+ audio context
+To: Sen Wang <sen@ti.com>, Andrzej Hajda <andrzej.hajda@intel.com>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
+CC: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Donadkar,
+ Rishikesh" <r-donadkar@ti.com>, "Jain, Swamil" <s-jain1@ti.com>
+References: <20260401013758.4149091-1-sen@ti.com>
+ <96444379-712c-4e21-8f3c-55eaad850cd4@ti.com>
+ <09d3cf4d-ecb3-444a-8e88-7d51599007fe@ti.com>
+ <58abc6bd-2f34-4b85-b26e-34324079ec50@ti.com>
+ <f3371c6f-b253-442f-b54d-833b711b5dcc@ti.com>
+Content-Language: en-US
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <f3371c6f-b253-442f-b54d-833b711b5dcc@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|BN0PR10MB5158:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4fc01815-4d0c-4230-cbb1-08de964a51db
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|36860700016|376014|1800799024|82310400026|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: HvoU2JrKvmlpJeXiS6rE6UD+fKPnT8q7FQ167fGDh6TWvZkthtcO+LEqM1F9M52X+R4AgqicN2bzHoMOY2i2wrt8CZ0n7dWspbrouQ+lsK67jrQTTHi9XphRMC3U7jkWIbwKedeSXHTaR9e7OO0N6qbIJewEkK6sAqHA/qjdeQsvfZF9fIlUrTSXwbl/Q5BGNlcD0no5ot2S5tEVNA3bPGbwsqCQWDjKe1P0NDnupm3DqqQ5r7iJ1t/aIHkKzQyAEDIVgITSChJDwMvZDBGeEKh8Mv4gcha1gKLzspJ3oMlTTg8gkF07A9RifvtDheRQ4qT/ku37bKe86NSLs4TGcFCYBWIrvRSTFpNlis5qOnD8j7Bi2lTygTzIZYYhv/MsVSOid7JWTTPYcFyeTArrXGkySbkLcHpEqOW/b9doYPbX0KcaHMoE40sgIlwaQ3ssW8aMUBz1YjmgL8krcTluwp1M9Ywkr4vseiIYRc6veMY1LZxDq/DXFHLD5UMVX06X1tLztoziRNw6IUFT3GfcDbCOjqQ9LucBG5jZainxDAU6ncjMMDcNMNYcpvnwYNDX2puj2rf+3IxqM3XKmm/cjE+5HOMmXc0dcCV/40VhGgdGcm6Qa11RWDltaP2eIzXBH+KEOcBx2vLQVdAy6enuBjK+FGW6J+2aiLQARu92iSHG9rV/O4piQPS9S67wV4IoaY8T4T0LKwAcQTwYnk56FtUjgiUGkm/X02GdhKvNZspHALBsgYymxaEnnv9+FqmanH2dQhzJsUtz855QNC1u6Q==
+X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(7416014)(36860700016)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: evhyfVQ/CtPTX7wxRTPjogZItCRAM/lSdyH0heYXhf8w9tArRpvuLbni4hmU7EYddK/XP5ELO7G81uNJ7l9CwHQDkBnPoywXnZOg9bUAv2h5ty7Br0tEqwHW5RODzqWIHhoWmXv6HumrjnRAEMdJ+ys1OgJgG9XlWT18rNH/ZuEAaFe7ndoJYEYhdnDjIu//fo42ir81w6CfxbyYGGnMMZM2nrR3Z/LCe5+mTzlkafLd3pZDdRU5c21J/ceb/6ladYb6C5Qe+G60QlQP9C8BULWV2Yi8WQezWEHDIXTtD5DgDa79/+4Z8eHbAqXbz2eXNhmQBg8dNLzCSCB6UpYDv1tXeIvZLFTobKGPRVdeLgxRx/2f4P6C1YE812V46tJ0hPQ6YEnQOwP86cez30NT0wOhHWD1If/XnMfbPKPFsFBIU6F2oJw/Mn0Ug+H4e6Ev
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 15:11:47.7047 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fc01815-4d0c-4230-cbb1-08de964a51db
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
+ Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB5158
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,143 +136,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Sen,
 
---=-JnhPg60M+5/DW5fs4JwT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks for looking into this.
 
-Hi,
+On 04/04/26 23:11, Sen Wang wrote:
+> On 4/2/26 02:07, Thakkar, Devarsh wrote:
+>> Hi Sen,
+>>
+>> Thanks for the update.
+>>
+>> On 02/04/26 05:03, Sen Wang wrote:
+>>> On 4/1/26 09:42, Thakkar, Devarsh wrote:
+>>>> Hi Sen,
+>>>>
+>>>> On 01/04/26 07:07, Sen Wang wrote:
+>>>>
+>>>> Sorry but this is not very clear, is this a V2 to
+>>>> https://lore.kernel.org/all/e6497541-f3e7-4533-
+>>>> a188-9d422cb34d74@ti.com/ ?
+>>>>
+>>>> In that case, the subject should mention it as PATCH v2 along with
+>>>> changelog as documented in kernel patch guidelines :
+>>>> https://docs.kernel.org/process/submitting-patches.html
+>>>>
+>>> Hi Devarsh, Thanks for your review.
+>>>
+>>> This new patch encompasses more features than the previous patch to
+>>> warrant it being a separate patch. But nonetheless my apologies for
+>>> not stating the indirection in my commit message.
+>>>
+>>
+>> I don't think this qualifies to make it an independent patch altogether,
+>> as long as goal of the patch is same as the initial one posted, this
+>> should be labelled as a V2 with linkage to V1 in changelog. And the
+>> follow up patch should be labelled V3.
+>>
+>> The changelog should capture the changes under ---:
+>>
+>> V1->V2 : What changed
+>> V2->V3 : What changed
+>>
+>> along with links for V1 and V2.
+>>
+>> This gives the reviewer necessary context on architecture and reasoning
+>> behind new changes/approaches even if it means the new patch contains
+>> some extra feature which was not present in previous patch.
+>>
+>> Regards
+>> Devarsh
+>>
+>>
+> Understood Devarsh, thank you for the detailed explanation. Deeply 
+> appreciated.
+> 
+> I also dug more into the datasheet with your comments in mind and wanted 
+> to gather some feedback on the proposal before sending a proper V3 patch.
+> 
+> Here's my proposal, TL;DR:
+> 
+> - Runtime suspend to use D2 (Sleep) for a quick bringup
+> - System suspend to use D3 Hot for a complete power-off/on scheme
+> 
+> For the full summary:
+> 
+> (per Datasheet's powerstate, Table 3.8)
+> D0     - Full power
+> D2     - Quiet Power Down (i2c accessible)
+> D3 Hot  - Complete Power Down (via HPD or RSEN wkup)
+> D3 Cold - Complete Power Down (HPD)
+> 
+> Runtime suspend on sii902x should NOT use the same flow as System suspend
+> 
+> - Runtime suspend to use D2 for a quick bringup
 
-Le lundi 30 mars 2026 =C3=A0 15:01 -0400, Harry Wentland a =C3=A9crit=C2=A0=
-:
->=20
->=20
-> On 2026-03-26 09:53, Pekka Paalanen wrote:
-> > Hi Michel,
-> >=20
-> > I have some opinions as well.
-> >=20
-> > On Tue, 24 Mar 2026 17:44:21 +0100
-> > Michel D=C3=A4nzer <michel.daenzer@mailbox.org> wrote:
-> >=20
-> > > Per my previous posts, my concerns are:
-> > >=20
-> > > * The meaning of the "link bpc" property value isn't defined well
-> > > enough vs things like dithering or DSC, which will likely result in
-> > > compositors / users overestimating what value they need / want,
-> > > resulting in compositors spuriously rejecting configurations which
-> > > would work perfectly fine, and/or spurious issue reports.
-> >=20
-> > That is ok. Compositors need to understand what the numbers mean, how
-> > reliable they are, and act accordingly. Knowing the lower bound for
-> > link precision is already useful as it guarantees a minimum precision.
-> > It is up to the compositors to decide how they communicate this.
-> >=20
-> > Or course, assuming lossy compression is not too lossy. Maybe
-> > lossy compression should be forbidden by default unless explicitly
-> > enabled by userspace?
-> >=20
->=20
-> I disagree. While technically lossy, DSC is perceptually lossless, at
-> least according to the designers of DSC. If I'm not mistaken this is
-> all based on extensive studies.
->=20
-> The decision to enable DSC or not has an impact on the power consumption
-> of the HW, in ways that are often nuanced. Userspace has no way to know
-> or understand these nuances. This should be in control of the driver.
+If D3 mode resume latency is faster and comparable to D2 and no obvious 
+tradeoffs then maybe we could use D3 for runtime resume too?
 
-Just my two cent, I can imagine HDMI to be used as a transport between two =
-live
-post-production modules. In such a use case, the driver may be programmed t=
-o
-save power, while in practice the user wants absolutly now loss, since thes=
-e
-adds up like the photocopy of the photocopy, and the studied "virtually los=
-s-
-less" effect is now gone.
+> - System suspend to use D3 Hot for a complete power-off/on scheme
+>      + Hot vs Cold: even though Cold use marginally less power, it can 
+> only be entered and wkup via HPD event (Hotplug detect), which is not a 
+> software-controlled event.
+> 
 
->=20
-> At most I could see a "never do DSC or dither" toggle, if one is really
-> concerned about this, but I don't realistically see use-cases where this
-> would improve user experience, even for users that care about color work
-> and correctness.
+For system suspend, anyway the system resume will mostly be done with 
+system wakeup sources so I am not sure if we really need the extra 
+wakeup present in D3 Hot as compared to D3 cold, so probably would be 
+better to stick to D3 cold if no obvious tradeoffs.
 
-But an opt-out solution works too.
+Also could you please measure resume back latencies for each of the D2 
+and D3 modes and we can then maybe compare that with the power table to 
+get latency vs power tradeoff view and decide ?
 
-Nicolas
+> 
+> In such case, only system suspend needs to cache TPI and audio context, 
+> reset & initalise the hardware. Whereas runtime suspend should just be 
+> in a D2 state where all reg values are preserved. Thus providing faster 
+> response time for runtime resume, especially when we don't have 
+> autosuspend (yet), and avoids latency for spontaneous events in the DRM 
+> framework.
 
->=20
-> The YCbCr420 case is different. We probably want a way for userspace to
-> understand that half 3/4 of chroma values are being tossed out. This
-> would be significant for RGB content but insignificant for YCbCr420
-> content.
->=20
-> Harry
->=20
-> > > With my compositor developer hat on, what I'd want to know is
-> > > something like: "How many bits of information can be passed over the
-> > > link, allowing the display to present it in a way which can be
-> > > perceived by the user?" With dithering or DSC, that would be a higher
-> > > value than the physical link bpc.
-> >=20
-> > Sure, but this is not that. This is only a part of that. You would
-> > also want to know what the monitor does with the signal, the depth of
-> > the data path to the panel, and so on. I'm sure those are completely
-> > off-topic for a KMS property.
-> >=20
-> > The kernel driver won't know how acceptable temporal dithering, spatial
-> > dithering or lossy compression are, so I don't think it should be
-> > deciding how many bits of precision they add or subtract. Exactly this
-> > makes the link bpc property a well-defined fact rather than an estimate=
-.
-> >=20
-> > The documentation of 'link bpc' could be more explicit about this.
-> >=20
-> > >=20
-> > > * There's no clear use case.
-> > >=20
-> > > This is generally a requirement for new KMS UAPI.
-> > >=20
-> > > The practical usefulness of the corresponding weston MR is dubious
-> > > per the concern above.
-> >=20
-> > I think the example of RGB 10 bpc to be degraded to YCbCr 10 bpc rather
-> > than RGB 8 bpc is an excellent use case. I had another use case in
-> > https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1850#not=
-e_3115686
-> >=20
-> > Mario Kleiner had excellent cases as well.
-> >=20
-> > Maybe these just need to be spelled more clearly in the commit message.
-> >=20
-> > > > That the link-bpc property does not consider DSC and dithering?
-> > > > Two things which the max-bpc property also does not consider?=C2=A0=
-=20
-> > >=20
-> > > It's not (as much of) an issue with the "max bpc" property because
-> > > it's just an upper limit, the driver is free to use a lower effective
-> > > bpc.
-> >=20
-> > FWIW, 'max bpc' is a workaround for faulty sink devices that claim to
-> > handle a depth but silently misbehave. This is also why I called for a
-> > "desired bpc" setting in the Weston MR, to not confuse with the "max
-> > bpc" setting.
-> >=20
-> >=20
-> > Thanks,
-> > pq
+I think we probably should add auto-suspend support too w.r. runtime 
+suspend as don't want to go to suspend too frequently if the 
+initialization latency (along with power rampup sequences) is too high.
 
---=-JnhPg60M+5/DW5fs4JwT
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+Regards
+Devarsh
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCadfAKAAKCRDZQZRRKWBy
-9GuYAP0TQ2ZEHIOZc5bf+TaJ3FJJnaVmOiVergJCUzBZhoQxrQEAu5ujoGzDRDg5
-DraF15z7cxvva5nk3+PLjGP9pUTpGAM=
-=65gq
------END PGP SIGNATURE-----
-
---=-JnhPg60M+5/DW5fs4JwT--
