@@ -4,129 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C00AF364D1
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 22:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73ED0F364D1
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 22:57:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D00AB10E04A;
-	Thu,  9 Apr 2026 22:57:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8BBD10E893;
+	Thu,  9 Apr 2026 22:57:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="rjC961Kl";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="IiBOlxF7";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011050.outbound.protection.outlook.com [52.101.57.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC61B10E04A
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 22:57:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qn6Z3SXX8ZugEmzGE5bl2d/YUcAYK0oP2HWpdVJlL7sE36nALqW5iCiJdoOZwAuT6+4OIaQG2uiyLLewCJQsUG+6n2HkwTD6qdK6P9elz7h3kwCg5fEPDBbhFZMuz2gmbQ+ZhEKvDMUOVBvBYOwbtJ+KmwqjLcFEfPuBAdFR7tQwK/los2a0Noh0Y1xHi+cckc5ND3z9evaNWjZVdoL9WDntvQpdfnBFPrNKpycUd8NWLyhTSN6xkRJ9KeymbLEFd9Pr7y3QZ4ncTCZimEdcS4NlF61CZXGtbY+3ANBLmL44PnN4grnRB2Y/5njOSyDfgdxRAcPSTyJkJJptplOH8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iMP3RJn9BzMJhwQvyyIF4VPZD11Hs6WRnR3AJlM8JEs=;
- b=T5ih2EUPVplQDoNUPTq2KRnKRyxKS33mI2Ivl8TsKJhHpRsj1oqAdJjiY/qAQQIMb2w6mN3r3nxvUdaGsWZP5wORdFQ3s8wfyB6DQ/DPC5dIK/r8iWBUr4xi1dyqMvwSwfZIWO8U3UHuscxcMHLQyzC70Ct6Q1/Vcnl0bzbtZE2wInw3kJCvbAwLBLb3zaopeOV0FJ4sZjdLilamZlA4Hcx68cs+dj1FROyAN32VjEZqkghTU5n+iDiN5KKLyneDBCZkuqBxos6mebIPXIbA8VA4X4jR/aojt5F7qqhMgws4SZ93REAmKvTVaG/RP7Q2NpqHHbx+7+ExDrDiMtRzvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iMP3RJn9BzMJhwQvyyIF4VPZD11Hs6WRnR3AJlM8JEs=;
- b=rjC961KlMGytMQaK8nrmgUPBZXzmwTWwzRaWvhWCAqS84eiyZuQ5McdJR5HkeDD/kHnGSg8Hjwpo0+44QRjY88j3cl07TzS8StSvup4Gkuc67Z0Tu096OwQ2mU9Q6WmlSGdaUimb7VpmRC94mERxHfxcMWqOTBQwtbJvsA7wNKyHMEgQeM7GbjYaJdaHl//dl/TAdDgWHDcqR4GC9cm7H3Jb0oI36Xg+JsALXdTZqRpDAT8ushXhw1eiUL9U2Yg4aocfhHkKlL6UC6N6rTuQ3JLC1pNG4wF2A585f/xTE/gjzedoPNPEhBU5cpvJUuG7200T/N3Vi0iR44X2M8y3nQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DM4PR12MB6254.namprd12.prod.outlook.com (2603:10b6:8:a5::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.34; Thu, 9 Apr 2026 22:56:58 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.20.9769.020; Thu, 9 Apr 2026
- 22:56:57 +0000
-Message-ID: <91732d1a-da56-4ea8-9012-b86a34b1ad0c@nvidia.com>
-Date: Thu, 9 Apr 2026 15:56:55 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu: nova-core: fb: make sure to unregister SysmemFlush
- on boot failure
-To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
- <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Alistair Popple <apopple@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260409-fix-systemflush-v1-1-a1d6c968f17c@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260409-fix-systemflush-v1-1-a1d6c968f17c@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0122.namprd13.prod.outlook.com
- (2603:10b6:a03:2c6::7) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFE3610E89E;
+ Thu,  9 Apr 2026 22:57:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775775427; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=m4HMpydMUiKIypEQgW6lE0uc9Durc0jVzFb/kzdmqnnznlX2Ixpm+FkCIVVQ98qrsFEqrnvkrvimFZmpCLYmLlGGLIzDCJfnnjCRF2Mw1ysWFCKsKwwRfmBpdz84Jh7eP2STnJiR3tmF3SESeqgJzhEdNCUrYr0TrSwWiF/gpHs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1775775427;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mglfHDbQCdy4UxiAawklgqLRry8FY4Gua9B8jPjXuow=; 
+ b=C9DX0pvd94VEeXNdz66O5D5Z3yzcRGfY/HtGsXcMYcScTMZ16Jx+f3QFbcDOTT4pGhzAjVwSuJN4yyvGcfWE5K9FrMEXBncN1mjWdcNmrrEFIZ39Pya99XFAsoyEIWQqDhzJeYa1oyK/xzfXWVuhS/ldnLmxEOv/n4pf7DXlfnQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775775426; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=mglfHDbQCdy4UxiAawklgqLRry8FY4Gua9B8jPjXuow=;
+ b=IiBOlxF7Bp5ihDohymYF03yGGNlWo9IPoN7KuA8VYBzOm5Et+C8w68RGS/gK4wDD
+ xj5PR7Ru35KRCmAaA9nz4A+s+2sDB0RoznCzRciIpC7M1JAfG4pVVox/pzYjTgcdvVe
+ pCJXqHX2ljR5wqUAWJ03nAyAWTkQ2XfJvGUE3HpI=
+Received: by mx.zohomail.com with SMTPS id 1775775425845803.217885107667;
+ Thu, 9 Apr 2026 15:57:05 -0700 (PDT)
+Date: Thu, 9 Apr 2026 15:57:04 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: nouveau@lists.freedesktop.org, Gary Guo <gary@garyguo.net>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ rust-for-linux@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
+ dri-devel@lists.freedesktop.org, Matthew Maurer <mmaurer@google.com>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ christian.koenig@amd.com, Asahi Lina <lina@asahilina.net>,
+ Miguel Ojeda <ojeda@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Alice Ryhl <aliceryhl@google.com>,
+ Boqun Feng <boqun@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Krishna Ketan Rai <prafulrai522@gmail.com>, linux-media@vger.kernel.org,
+ Shankari Anand <shankari.ak0208@gmail.com>,
+ David Airlie <airlied@gmail.com>, Benno Lossin <lossin@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ Asahi Lina <lina+kernel@asahilina.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kernel@vger.kernel.org
+Subject: Re: [PATCH v10 4/5] rust: drm: gem: Introduce shmem::SGTable
+Message-ID: <adguwHf8NpFPqWkV@um790>
+References: <20260409001559.622026-1-lyude@redhat.com>
+ <20260409001559.622026-5-lyude@redhat.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DM4PR12MB6254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0eba2e25-d706-469c-c860-08de968b4d23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|56012099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: nhRgiuehnI6f643tFHB1jbaicJO1Z9ntX6Mn8Tn6DCAh5I1Yuh0q27euv6imqVynEv1o3G+uVsGKtC5YtCmymurEtQpO+OLhogzTj0Z6fhRmnEJg5fzYr4gVWOXatuzp/ad5h5W3Q7IvxAIyx5H/mVkuzQ0SFWpzuls1y91RST+OaaAl7umqm4MFc7bvrLhTsCmqP2RJeJjUWafe5msUa4MDAPiBUztj/97uJadBIPy6iadq882q+QuRdtbukQB2YDIYA/QpBdjkHlOvdh1otEfD724+6gyjNMjx2Dv3ypQQiAeKqknH26oXYQbh3LJMLMF5+brFIh/ysTPtDfVK6Y226ByQALSLLO2kifdRyzPQKHSa2SMaPUgL3DQojH3JHGPeGXDraJgaChLHapzY3eP8Zj30VD5SLrL+00qyicnnokpHkEbJdvYBhBulu9elKDbPh9JHIp0MpUo1EpBQT3OHkd8dDm0BBKoMZ26vWwVkhxifQaX4i+/xdsGqU+nHd3hHoNCuDdriO6K5Y6Sf3nS3u7S14VWcEIddTy5YJC55Ngc11UEts1achkrf9iqzxcliqPwg351vrq+klzREaS3Lq8EOcX3WcpQvi6/fTjxL5SgfSEg7wq0aZwj8zoFk4xbBdiVsD1yGbc6QRdP+lP8CkDxpWMhhLQdmAX9D388nC8ehro5ILqhl54EhXVpFivclZ8Iwu9EkJjPmAKUrBIfzgUoploPxxUjifv59O10=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3NQL2dxZ1NnUGdFUDVGNHNtOUJqVW9aSnZQWkEzM3pMcy9jNzE5WDQyWFdk?=
- =?utf-8?B?N2wxWUdjMmhmeThVajY3aERLbFZJV1I1MCtEalFjSlpiaC9teTR4ZDVZaXg5?=
- =?utf-8?B?NXIyZFUvSEc3ZmV3NXZXVEk0MjVzVEJlcEgvbnFBUk93OXBkS1FSL3R4cXQ1?=
- =?utf-8?B?UWUweXdUVWdqVmZHMm1PajdmeDRheklhLzRkRjU5bm9neWt6QnFuakdWdTdK?=
- =?utf-8?B?OVVMVnU2TExoa0RWVW9OcldQdUJoRitKekV6QjZXZXNZNTFuYkJxcC9OYTlU?=
- =?utf-8?B?VEF1RkwvckVyVkN0bDl2L0RWd1FEOTg0TDdOZXhLZ2gzTzVOK3FDK2VpMjhB?=
- =?utf-8?B?ekdHcDd0WFBNOUFkeHA0TjNqVHlJQU9EM0lENHNWekQ5bjlTcWk3ZmRDTm5E?=
- =?utf-8?B?aU1XcHRCZlNvb3REK2VRY2ZOZWUyaUgvN0lHMFZHeWx3YmhJOEF4bVRFR293?=
- =?utf-8?B?cFJCblp4VTlqalRhNngvbW1pWWY4K3BSMHJZTFdGbUFrRGpUYWd4M0gzVHp4?=
- =?utf-8?B?MWNCdFE3bm1FcUNadVpyTDRoY1QvNndaeU5QTkRCaGtlMzNrb29KZ2hnYkQ3?=
- =?utf-8?B?MS9xODdqTldYRHpaR0RGQWFuSkdjVnpQMDlZUmlIbGdoNVFrcjB3akZwaTh5?=
- =?utf-8?B?M05zN2djVjhLTFRIVC9ZbGlKc0VURDdHRjlWbTVMOWs0SUdmTWdxd3NESDNj?=
- =?utf-8?B?NmhLU0ZuVFpRWjZiU2s3WWEvOElIdFlFZnpscjMybU1nOXUvVEpFeWtHOUtL?=
- =?utf-8?B?d3Nacnp3OXV4Y09KRWkzNVduN29VU1g5ZGxyT3hPdVlIb1psUlltZ002dnE2?=
- =?utf-8?B?RzRCck9UYndkb1IvVm1Rc1ppL3JRMHBLQVp4ZTArajhHa0xQYzA3cHBGTXBL?=
- =?utf-8?B?ZUJVU29BdGFPY2RSZFJIaVJ3SndIVkYrbkIrTFpjbVRlYkRvK1BMWE8vZ3Ix?=
- =?utf-8?B?ZFd2Z3hEaXVUN090ZUpuUjF4WllONGFxNHVGUXU3eno2RyswRFV2Z0pSYmNB?=
- =?utf-8?B?REFPdXNRZVA3R2tNVnlVK3ZvZ3dTR0tlaVovNERLMjk5Z3pZZitEQWZoa2Nn?=
- =?utf-8?B?cVNuaE1IbkxIMC9Lb2VkL3h3ZTN3RzhTbm03U0tLdzNORFBYY01IWVB4Skd6?=
- =?utf-8?B?ZWxMVGtBODJHNWd3Nm03NUdXdmd6QjRXSE1EbDJzazJ3SVB1UnBtZHoyZWhx?=
- =?utf-8?B?Z3dFbUo3dk1NOFRZb0daaW1icEx6bTNNRllZQk91akswbERqbmt1K09UTlh6?=
- =?utf-8?B?d1NBY3dSYmNGQ3pQK05hbHB5SHBIMkhCQjY3bFkvMGdOR3JZakxyUFRtS3A2?=
- =?utf-8?B?UDloVTV1dG9xckZJTVNEVWVXQURzNzljL0lNUWNzS3c5cHlLaUthSElQYUVy?=
- =?utf-8?B?RSt6NnJUOGIzbkVyOUM4dlR5Qkt3RGVnK2xIQ3hoUERXdGxCQU9DbWtUK2NL?=
- =?utf-8?B?MmdNY0Z4Y0o5ZFFkOUVnM2VzOWIyN016K1Uya2dxMWhDaDRzcnhoTTZpWlpr?=
- =?utf-8?B?TVRqVnFGSHVpUkgvdG9HOHFFMEpZOHpTeGI0c1BRc0N6dWkrdUJzNXFCS3Bl?=
- =?utf-8?B?WHZ3cVg3V3p1Wk1ZaU5IbzZZQTAyOGc4RkMrSEhFSFdxSDJ6djlCU25qbUJN?=
- =?utf-8?B?cHpqaGd5U0F3OFdPb0VWWUkrSkl5TlhXcURTVVJTZFBheUFDMGNrelgxYUJ0?=
- =?utf-8?B?SHFDaTF6OGJDTmF2SmsrMG55SUJONE5rWm1Rc3RRNFFTUjJzbThjckhMNHFi?=
- =?utf-8?B?L2QxVVBDTi9HNFBNR0xJR0QxY0hoWVNjVCszUnZLckdzNkdEc2cyYmZ2S0dz?=
- =?utf-8?B?NnhLcXk4dlZJVjBUZWd4VUlNWCtWSDcyd1pxTCsrSWJBcXpWRHN2RW5pczhX?=
- =?utf-8?B?K3BudzBBUTlxTTNsOURkNHUyYTRXd3VCOG4rTE1EV0p6VDZZanhsdFBTdzhD?=
- =?utf-8?B?RzRXK0pFNmd5MzE1cFVHa2FhYmVuaDFQV3RPRzdvUGlyeHBxRG0vTlNrZUpF?=
- =?utf-8?B?RjRwWWtyTWtWM1A1clNjSmVrVGtLTlNLSXpjQkFLL2JXWnR5NzdGOXo1MlR5?=
- =?utf-8?B?bXpzaGxYUFpEcHBXQ09UUlUyeG0xQkVVM3E4VngybVdZbFhGZDFxZXhyb01i?=
- =?utf-8?B?R1lCQm1mYjNxM29jSS9PeHk4NklSOFNFdDkrUG5HTzZTODlobzNVSHF6SDVS?=
- =?utf-8?B?L25KRHRYNEgzZDFmajZBUEVwU3ArWTEzZzNTVFRtcXVDUWxybEFYK0FwdzRl?=
- =?utf-8?B?SU03Umo1d1hiNElBektDOG1jZ3FvZG5EVnM1c0ZvVzlZSlJwREdvTG4weGhE?=
- =?utf-8?B?bncvK3ByQVRRZVFTandoSWpKWTJ2OUJ0U0Y2L1EvWjZrR0dxUEVsUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0eba2e25-d706-469c-c860-08de968b4d23
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 22:56:57.5076 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zzdprPj4jOvvkppeh0U6kvCVf6JFL6PiP8PmF8krYJwNMwE3jbT3bc96IqnavGZZdiT9uGb1YtcVxVyE5xE1NA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6254
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260409001559.622026-5-lyude@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,40 +80,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/9/26 5:15 AM, Eliot Courtney wrote:
-> Current `Gpu::new` will not unregister SysmemFlush if something fails
-> after it is created, since it needs manual unregistering. Add a `Drop`
-> implementation which will clean it up in that case. Maintain the manual
-> unregister path because it can stay infallible, unlike the Drop path
-> which depends on revocable access. In the case that `Gpu::new` fails the
-> access is guaranteed to succeed, however.
+On Wed, Apr 08, 2026 at 08:12:50PM -0400, Lyude Paul wrote:
+> In order to do this, we need to be careful to ensure that any interface we
+> expose for scatterlists ensures that any mappings created from one are
+> destroyed on driver-unbind. To do this, we introduce a Devres resource into
+> shmem::Object that we use in order to ensure that we release any SGTable
+> mappings on driver-unbind. We store this in an UnsafeCell and protect
+> access to it using the dma_resv lock that we already have from the shmem
+> gem object, which is the same lock that currently protects
+> drm_gem_object_shmem->sgt.
+> 
+> We also provide two different methods for acquiring an sg table:
+> self.sg_table(), and self.owned_sg_table(). The first function is for
+> short-term uses of mapped SGTables, the second is for callers that need to
+> hold onto the mapped SGTable for an extended period of time. The second
+> variant uses Devres of course, whereas the first simply relies on rust's
+> borrow checker to prevent driver-unbind when using the mapped SGTable.
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> 
+> ---
+> V3:
+> * Rename OwnedSGTable to shmem::SGTable. Since the current version of the
+>   SGTable abstractions now has a `Owned` and `Borrowed` variant, I think
+>   renaming this to shmem::SGTable makes things less confusing.
+>   We do however, keep the name of owned_sg_table() as-is.
+> V4:
+> * Clarify safety comments for SGTable to explain why the object is
+>   thread-safe.
+> * Rename from SGTableRef to SGTable
+> V10:
+> * Use Devres in order to ensure that SGTables are revocable, and are
+>   unmapped on driver-unbind.
+> 
+>  rust/kernel/drm/gem/shmem.rs | 191 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 189 insertions(+), 2 deletions(-)
+> 
+> diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
+> index c643f18b20838..111be446213df 100644
+> --- a/rust/kernel/drm/gem/shmem.rs
+> +++ b/rust/kernel/drm/gem/shmem.rs
+> @@ -11,25 +11,38 @@
+>  
+>  use crate::{
+>      container_of,
+> +    device::{
+> +        self,
+> +        Bound, //
+> +    },
+> +    devres::*,
+>      drm::{
+>          driver,
+>          gem,
+>          private::Sealed, //
+>          Device,
+>      },
+> -    error::to_result,
+> +    error::{
+> +        from_err_ptr, //
+> +        to_result,
+> +    },
+>      prelude::*,
+> +    scatterlist,
+>      types::{
+>          ARef,
+>          Opaque, //
+>      }, //
+>  };
+>  use core::{
+> +    cell::UnsafeCell,
+>      ops::{
+>          Deref,
+>          DerefMut, //
+>      },
+> -    ptr::NonNull,
+> +    ptr::{
+> +        self,
+> +        NonNull, //
+> +    },
+>  };
+>  use gem::{
+>      BaseObjectPrivate,
+> @@ -65,6 +78,10 @@ pub struct Object<T: DriverObject> {
+>      obj: Opaque<bindings::drm_gem_shmem_object>,
+>      /// Parent object that owns this object's DMA reservation object.
+>      parent_resv_obj: Option<ARef<Object<T>>>,
+> +    /// Devres object for unmapping any SGTable on driver-unbind.
+> +    ///
+> +    /// This is protected by the object's dma_resv lock.
+> +    sgt_res: UnsafeCell<Option<Devres<SGTableMap<T>>>>,
+>      #[pin]
+>      inner: T,
+>  }
+> @@ -117,6 +134,7 @@ pub fn new(
+>              try_pin_init!(Self {
+>                  obj <- Opaque::init_zeroed(),
+>                  parent_resv_obj: config.parent_resv_obj.map(|p| p.into()),
+> +                sgt_res: UnsafeCell::new(None),
+>                  inner <- T::new(dev, size, args),
+>              }),
+>              GFP_KERNEL,
+> @@ -176,6 +194,100 @@ extern "C" fn free_callback(obj: *mut bindings::drm_gem_object) {
+>          // SAFETY: We're recovering the Kbox<> we created in gem_create_object()
+>          let _ = unsafe { KBox::from_raw(this) };
+>      }
+> +
+> +    // If necessary, create an SGTable for the gem object and register a Devres for it to ensure
+> +    // that it is unmapped on driver unbind.
+> +    fn create_sg_table<'a>(
+> +        &'a self,
+> +        dev: &'a device::Device<Bound>,
+> +    ) -> Result<&'a Devres<SGTableMap<T>>> {
+> +        let ret;
+> +        let sgt_res_ptr = self.sgt_res.get();
+> +
+> +        // SAFETY: This lock is initialized throughout the lifetime of the gem object
+> +        unsafe { bindings::dma_resv_lock(self.raw_dma_resv(), ptr::null_mut()) };
+> +
+> +        // SAFETY: We just grabbed the lock required for reading this data above.
+> +        let sgt_res = unsafe { (*sgt_res_ptr).as_ref() };
+> +        if let Some(sgt_res) = sgt_res {
+> +            // We already have a Devres object for this sg table, return it
+> +            ret = Ok(sgt_res);
+> +        } else {
+> +            // SAFETY: We grabbed the lock required for calling this function above */
+> +            let sgt = from_err_ptr(unsafe {
+> +                bindings::drm_gem_shmem_get_pages_sgt_locked(self.as_raw_shmem())
+> +            });
+> +
+> +            if let Err(e) = sgt {
+> +                ret = Err(e);
+> +            } else {
+> +                // INVARIANT:
+> +                // - We called drm_gem_shmem_get_pages_sgt_locked above and checked that it
+> +                //   succeeded, fulfilling the invariant of SGTableRef that the object's `sgt` field
+> +                //   is initialized.
+> +                // - We store this Devres in the object itself and don't move it, ensuring that the
+> +                //   object it points to remains valid for the lifetime of the SGTableRef.
+> +                let devres = Devres::new(dev, init!(SGTableMap { obj: self.into() }));
+> +                match devres {
+> +                    Ok(devres) => {
+> +                        // SAFETY: We acquired the lock protecting this data above, making it safe
+> +                        // to write into here
+> +                        unsafe { (*sgt_res_ptr) = Some(devres) };
+> +
+> +                        // SAFETY: We just write Some() into *sgt_res_ptr above
+> +                        ret = Ok(unsafe { (&*sgt_res_ptr).as_ref().unwrap_unchecked() });
+> +                    }
+> +                    Err(e) => {
+> +                        // We can't make sure that the pages for this object are unmapped on
+> +                        // driver-unbind, so we need to release the sgt
+> +                        // SAFETY:
+> +                        // - We grabbed the lock required for calling this function above
+> +                        // - We checked above that get_pages_sgt_locked() was successful
+> +                        unsafe { bindings::__drm_gem_shmem_free_sgt_locked(self.as_raw_shmem()) };
+> +
+> +                        ret = Err(e);
+> +                    }
+> +                }
+> +            }
+> +        }
+> +
+> +        // SAFETY: We're releasing the lock that we grabbed above.
+> +        unsafe { bindings::dma_resv_unlock(self.raw_dma_resv()) };
+> +
+> +        ret
+> +    }
+> +
+> +    /// Creates (if necessary) and returns an immutable reference to a scatter-gather table of DMA
+> +    /// pages for this object.
+> +    ///
+> +    /// This will pin the object in memory.
+> +    #[inline]
+> +    pub fn sg_table<'a>(
+> +        &'a self,
+> +        dev: &'a device::Device<Bound>,
+> +    ) -> Result<&'a scatterlist::SGTable> {
+> +        let sgt = self.create_sg_table(dev)?;
+> +
+> +        Ok(sgt.access(dev)?.deref())
+> +    }
+> +
+> +    /// Creates (if necessary) and returns an owned reference to a scatter-gather table of DMA pages
+> +    /// for this object.
+> +    ///
+> +    /// This is the same as [`sg_table`](Self::sg_table), except that it instead returns an
+> +    /// [`shmem::SGTable`] which holds a reference to the associated gem object, instead of a
+> +    /// reference to an [`scatterlist::SGTable`].
+> +    ///
+> +    /// This will pin the object in memory.
+> +    ///
+> +    /// [`shmem::SGTable`]: SGTable
+> +    pub fn owned_sg_table(&self, dev: &device::Device<Bound>) -> Result<SGTable<T>> {
+> +        self.create_sg_table(dev)?;
+> +
+> +        // INVARIANT: We just ensured above that `self.sgt_res` is initialized with
+> +        // `Some(Devres<SGTableMap<T>>)`.
+> +        Ok(SGTable(self.into()))
+> +    }
+>  }
+>  
+>  impl<T: DriverObject> Deref for Object<T> {
+> @@ -226,3 +338,78 @@ impl<T: DriverObject> driver::AllocImpl for Object<T> {
+>          dumb_map_offset: None,
+>      };
+>  }
+> +
+> +/// A reference to a GEM object that is known to have a mapped [`SGTable`].
+> +///
+> +/// This is used by the Rust bindings with [`Devres`] in order to ensure that mappings for SGTables
+> +/// on GEM shmem objects are revoked on driver-unbind.
+> +///
+> +/// # Invariants
+> +///
+> +/// - `self.obj` always points to a valid GEM object.
+> +/// - This object is proof that `self.0.owner.sgt` has an initialized and valid SGTable.
+> +pub struct SGTableMap<T: DriverObject> {
+> +    obj: NonNull<Object<T>>,
+> +}
+> +
+> +impl<T: DriverObject> Deref for SGTableMap<T> {
+> +    type Target = scatterlist::SGTable;
+> +
+> +    fn deref(&self) -> &Self::Target {
+> +        // SAFETY:
+> +        // - The NonNull is guaranteed to be valid via our type invariants.
+> +        // - The sgt field is guaranteed to be initialized and valid via our type invariants.
+> +        unsafe { scatterlist::SGTable::from_raw((*self.obj.as_ref().as_raw_shmem()).sgt) }
+> +    }
+> +}
+> +
+> +impl<T: DriverObject> Drop for SGTableMap<T> {
+> +    fn drop(&mut self) {
+> +        // SAFETY: `obj` is always valid via our type invariants
+> +        let obj = unsafe { self.obj.as_ref() };
+> +
+> +        // SAFETY: The dma_resv for GEM objects is initialized throughout its lifetime
+> +        unsafe { bindings::dma_resv_lock(obj.raw_dma_resv(), ptr::null_mut()) };
+> +
+> +        // SAFETY: We acquired the lock needed for calling this function above
+> +        unsafe { bindings::__drm_gem_shmem_free_sgt_locked(obj.as_raw_shmem()) };
 
-Hi Eliot,
+When i was testing this with tyr I got a double free here when I unloaded the module.
 
-The code looks exactly correct to me. I just have some tiny commit
-message suggestions:
+When our drm::Device (drm::Device<TyrDrmDriver, Ctx>) was released, its device data
+(TyrDrmDeviceData) was dropped. In our device data we are indirectly holding several gem
+Objects through the firmware (Firmware → sections → KernelBo → bo)
 
-1. The subject line could be tightened up slightly, to:
+When those objects are destroyed, shmem::Object::free_callback() runs. This calls
+drm_gem_shmem_release() which, on the C side frees shmem→sgt if it exists
+via __drm_gem_shmem_free_sgt_locked(shmem).
 
-    gpu: nova-core: fb: unregister SysmemFlush on boot failure
+But the Rust Object<T> still has the sgt_res. So, at the end of free_callback(), KBox::from_raw(this) triggers
+SGTableMap::drop(), and that calls __drm_gem_shmem_free_sgt_locked() again for the same shmem object.
 
-2. And I'd like to rewrite the commit message body, to approximately this:
+So the same sgt ends up being freed once from drm_gem_shmem_release() and again later from SGTableMap::drop().
 
-If Gpu::new fails after SysmemFlush::register succeeds, the registered
-sysmem flush page is never unregistered because SysmemFlush has no Drop
-impl and try_pin_init! only drops already-initialized fields on failure.
+For now my fix is just to clear sgt_res in free_callback() before drm_gem_shmem_release() which
+prevents the sgt from being freed by the C side.
 
-Add a Drop impl that unregisters through revocable BAR access, which
-covers the init-failure path. The manual unregister in Gpu::unbind is
-still needed because by the time Drop runs during normal teardown,
-devres has already revoked the BAR.
+I plan to post our latest tyr series soon including this abstraction, and I hope you can have a look,
+perhaps how we’ve set up the device data is unexpected.
 
-With that,
-
-Reviewed-by: John Hubbard <jhubbard@nvidia.com>
-
-
-thanks,
--- 
-John Hubbard
-
+> +
+> +        // SAFETY: We are releasing the lock we acquired above.
+> +        unsafe { bindings::dma_resv_unlock(obj.raw_dma_resv()) };
+> +    }
+> +}
+> +
+> +// SAFETY: The NonNull in SGTableRef is guaranteed valid by our type invariants, and the GEM object
+> +// it points to is guaranteed to be thread-safe.
+> +unsafe impl<T: DriverObject> Send for SGTableMap<T> {}
+> +// SAFETY: The NonNull in SGTableRef is guaranteed valid by our type invariants, and the GEM object
+> +// it points to is guaranteed to be thread-safe.
+> +unsafe impl<T: DriverObject> Sync for SGTableMap<T> {}
+> +
+> +/// An owned reference to a scatter-gather table of DMA address spans for a GEM shmem object.
+> +///
+> +/// This object holds an owned reference to the underlying GEM shmem object, ensuring that the
+> +/// [`scatterlist::SGTable`] referenced by this type remains valid for the lifetime of this object.
+> +///
+> +/// # Invariants
+> +///
+> +/// - This type is proof that `self.0.sgt_res` is initialized with a `Some(Devres<SGTableMap<T>>)`.
+> +/// - This object is only exposed in situations where we know the underlying `SGTable` will not be
+> +///   modified for the lifetime of this object. Thus, it is safe to send/access this type across
+> +///   threads.
+> +pub struct SGTable<T: DriverObject>(ARef<Object<T>>);
+> +
+> +// SAFETY: This object is thread-safe via our type invariants.
+> +unsafe impl<T: DriverObject> Send for SGTable<T> {}
+> +// SAFETY: This object is thread-safe via our type invariants.
+> +unsafe impl<T: DriverObject> Sync for SGTable<T> {}
+> +
+> +impl<T: DriverObject> Deref for SGTable<T> {
+> +    type Target = Devres<SGTableMap<T>>;
+> +
+> +    fn deref(&self) -> &Self::Target {
+> +        // SAFETY: `self.owner.sgt_res` is guaranteed to be initialized with
+> +        // `Some(Devres<SGTableMap<T>>)` via our type invariants
+> +        unsafe { (*self.0.sgt_res.get()).as_ref().unwrap_unchecked() }
+> +    }
+> +}
+> -- 
+> 2.53.0
+> 
