@@ -4,98 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC884E98FD2
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:56:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A016AE98FDD
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 09:56:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5221B10E2E9;
-	Thu,  9 Apr 2026 09:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F24710E6E8;
+	Thu,  9 Apr 2026 09:56:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="Ch482v1C";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="UMAlW2Y6";
 	dkim-atps=neutral
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A603910E2E9
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:56:15 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5a2c500750dso734470e87.1
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 02:56:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775728574; cv=none;
- d=google.com; s=arc-20240605;
- b=GgkdUNKHmVQzEN5e6x6poEds2WqqSdH8snBGONGIInmqLt9MpKMWuZVnhBc+Gwh1oE
- er1GhRmPf70AhMT141mcFyzL0lbKCNJOk4RgipYqXPxNM/qmh8ASJtSW5QcD71eGPNQO
- N5RIhGzMfT522jzzt+aJgwNYShlrZphRXqfHh9FaIY0gYsIEk3CjrTQDsSv/cDm9wKYg
- i3sPMGdaLboNzjfEBw+8gANV1H2Gn+hClR4jzwWOGUTDSyq7/wJFxpr0jzWUJiusH86d
- M58XVlQzNrNGeDs+fjF+4PGFWCd2lZjpTjwTaGa0WeXvy5JTfvC3dYKRv3jTewL+f78D
- 3R4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=c9gSmzhinqcBOsp12tJEIswm4tlqqYWiTBRIxxnDOpk=;
- fh=XCjD+z4z32qo9HtfAnlN0xrjk82cqsgX7z3SnrQsN2M=;
- b=Wa9D4BVRZQ6kv3FuqeJzeiybM8PIdh3yZboIVCYQvZprOGodErMtv2F7Q+QWpF6grn
- 6y5TiZC28cfwx8NOc0FaN3El/O1VKdfA6HAxeOU++Np9L316CuzFElBtWEdye9kTPAif
- nAoj+ZvWS/Nq3e6L4u9MjIBFRON/76c8W9C6sOG1RTjFnjpqzhVt43sWKcTdYi1ytE4D
- /21Hrct4osqktGmWtP+/XRMF+tRyrw+SMeahgQYuYqvB496z8OG/rWbTRRfYI+glkVWn
- m/IlvhsG2k4a/DxSADdicCLPsou9ee1dGUUT6LcsAlj4NGKsGicWJOKxM00VbH6hj6h7
- GKPA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1775728574; x=1776333374; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=c9gSmzhinqcBOsp12tJEIswm4tlqqYWiTBRIxxnDOpk=;
- b=Ch482v1CaSph+cW4x1QpS8tUX2neEHbVWmr0xim4Vg7CQ5cIlAdLrItn3lkWJnllg8
- 4FmqCizVzslTO1h/olNbfB5PSBfCMpsE0rs4ufAMVOCBDsW3WiuJvMntUNgCmkzjNXJ9
- 6H6uAyNhwFjYiIS814nQdwAsXtWjHAEEX68S3Y/r9+OIq96IXrNsglNJ47i2v27Ds9SA
- FfKSoLQXzMBxwG8xUBBzcLcXOX7TJ/THQlCuX4It01c6fgGx8N7MNTraOxa5mjFn1ULP
- C4X5LvuRwGZZ44pIN8qkdPlHhpS6xQVyMHpEHNogHnhaNEHisZHp9j3dzbeShWAs3gwf
- weVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775728574; x=1776333374;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=c9gSmzhinqcBOsp12tJEIswm4tlqqYWiTBRIxxnDOpk=;
- b=o4y8mG4HhagyiNRWPVDZfTzerXXzdHWY72ZFnd2Tzvu6Wo8/4Ol7/MVkaXQJRcIRea
- NjFwRhh/nSOJ1ox6irA7a4J2gLWHbfozXFl2TlViiTPaLDjOEtEyTdp9VxRoIxGKG9dI
- 3DTcvi1ZA1nfRNrYFiB7v++dsJ0lACjiEpu0KCcugHyV7vX9+CYuSmkzeK8LTxsulIbv
- 6Km9dlOc7fulTAWZaS3tWPQmgViMGSoVohiGsQbuq8hOvkgWKg+zd8MdvVmPUtpekoIu
- 0MNeG8HWM5qPscAj+yZ2w6uNKtt/WheTye8ySocsSFNNA156RLHrm9JvC2xFPqM3WHWo
- Guvw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXIXLQvE2UxU1bf5k+WGiy1veebI2g0npMLXyGsW0LB30Ft4D8tnaPcdZMFhUfL3beGVExevNnxyF8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyoUTQPVWkw09Y3C+xCOn12/xsnUceVTdQBHL8IY+rJNaHVSdFb
- 4tXRaV+g/AzrbkmGihDKSpfHWaSbH0tW1/W+ZvxgmdQphlutooGgSm9qK9R2eDQeyL24LCwaE6/
- xl2VEh1xOnP7E62FGD8q9OnJnscpS7OfUxPdHPUgzAw==
-X-Gm-Gg: AeBDievzFgXbrsDMwKfY+sW3zLTjnf0GXjBtipYLSUu0DRBJk/kZ8XhQ0j/np/URzpP
- PKcSM0EIRrUcESg7sxKW6wOrjrwcwlQSsF54lXoTLbgpR9FPRfxiPL3WmdRlFhUkL/55PA1TR4S
- bSXHqzRx8oQFx9Yibml4l3iLL9ysykISkRRzoEZyDfiiCXEFaS0xJhBr6yfHYUB0HpmUrFH56/u
- rjHkK1sH2zTihI60IpDNo5+CfU6mlIdhI2JHuWMBOLu5VwK9xVgdUjbMfni1lpppeBiZssBWIyf
- kinqmB+emmmj/1DHcAV+JbiYdR18/SEzCgWfLyyB
-X-Received: by 2002:a05:6512:15a1:b0:5a3:d2ef:2f9f with SMTP id
- 2adb3069b0e04-5a3e7a55915mr1032829e87.20.1775728573604; Thu, 09 Apr 2026
- 02:56:13 -0700 (PDT)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9E4710E6E8
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 09:56:44 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id CD7101A3236;
+ Thu,  9 Apr 2026 09:56:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9AA885FDEB;
+ Thu,  9 Apr 2026 09:56:43 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 26C1E104500DC; 
+ Thu,  9 Apr 2026 11:56:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1775728602; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=og7A9CWzp20T8+kYE/xTpokPQuPu0SDZDu89tndMdLA=;
+ b=UMAlW2Y62sGPi/u4DoDpeipzrWHCGCC11F2qNPZiamRZTrfBYs0F3Pa1rNwoQKuo2sreZ6
+ 2DiSzF/Sm2x6wd5J3b0Z1p8rbHXvj03goSL0D5rdA1VPJMzOH6Y79bVgV/w58GY3WXHAgy
+ BmFBgA0ILX+9zrdatetxWuzP5HJOdrS5/EVHYaeLzjNkF14BQSRzNok0yEkfVxnU/Mn/28
+ Xh5fW5NycNyl62Ud3M9agLAbQmgxyNdhJLKPvN2LzUTiJq3uCq5unyq5V31di39uTkQP9V
+ INKptbEoJ8rzoQYTE4iPxEhD8qcWsktqd4f+yXJ7RdAkG0pyZB+nrMi2QzPObw==
+Message-ID: <c5531b0f-271c-4e12-b77c-f8943cae8bcc@bootlin.com>
+Date: Thu, 9 Apr 2026 11:56:39 +0200
 MIME-Version: 1.0
-References: <20251104111339.128685-1-marco.crivellari@suse.com>
-In-Reply-To: <20251104111339.128685-1-marco.crivellari@suse.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Thu, 9 Apr 2026 11:56:02 +0200
-X-Gm-Features: AQROBzA989_lfiY3-RS3NH1OmL1VlMwSv3RIEazol177q-esTpt0aSeJYDX6spE
-Message-ID: <CAAofZF7aiLb4V00CuCVz8yJFhQgCLra1ue-r3q3PRJiwTKwzjw@mail.gmail.com>
-Subject: Re: [PATCH] drm/bridge: replace use of system_wq with system_percpu_wq
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Michal Hocko <mhocko@suse.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/7] drm/bridge: drm_bridge_attach: lock the encoder
+ chain mutex during insertion
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ian Ray <ian.ray@gehealthcare.com>
+References: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-0-8bf786c5c7e6@bootlin.com>
+ <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-3-8bf786c5c7e6@bootlin.com>
+Content-Language: en-US
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+In-Reply-To: <20260324-drm-bridge-alloc-encoder-chain-mutex-v5-3-8bf786c5c7e6@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,21 +74,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Nov 4, 2025 at 12:13=E2=80=AFPM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
-> [...]
->  drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
->  drivers/gpu/drm/bridge/ti-tfp410.c  | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
 
-Hi,
 
-Gentle ping.
+On 3/24/26 9:58 AM, Luca Ceresoli wrote:
+> drm_bridge_attach() modifies the encoder bridge chain, so take a mutex
+> around such operations to allow users of the chain to protect themselves
+> from chain modifications while iterating.
+> 
+> Reviewed-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Thanks!
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
---=20
+> ---
+> 
+> Changes in v3:
+> - Lock encoder->bridge_chain_mutex directly, no wrappers
+> 
+> Changes in v2:
+> - Removed comment before on drm_bridge_detach()
+> ---
+>   drivers/gpu/drm/drm_bridge.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 30d957675d87..42ca4b243579 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -574,10 +574,12 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+>   	bridge->dev = encoder->dev;
+>   	bridge->encoder = encoder;
+>   
+> +	mutex_lock(&encoder->bridge_chain_mutex);
+>   	if (previous)
+>   		list_add(&bridge->chain_node, &previous->chain_node);
+>   	else
+>   		list_add(&bridge->chain_node, &encoder->bridge_chain);
+> +	mutex_unlock(&encoder->bridge_chain_mutex);
+>   
+>   	if (bridge->funcs->attach) {
+>   		ret = bridge->funcs->attach(bridge, encoder, flags);
+> @@ -594,7 +596,9 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+>   err_reset_bridge:
+>   	bridge->dev = NULL;
+>   	bridge->encoder = NULL;
+> +	mutex_lock(&encoder->bridge_chain_mutex);
+>   	list_del(&bridge->chain_node);
+> +	mutex_unlock(&encoder->bridge_chain_mutex);
+>   
+>   	if (ret != -EPROBE_DEFER)
+>   		DRM_ERROR("failed to attach bridge %pOF to encoder %s: %d\n",
+> 
 
-Marco Crivellari
-
-SUSE Labs
