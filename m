@@ -4,63 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FB3BE9DE62
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 08:13:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20BA6E9DE68
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 08:15:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 576AF10E767;
-	Thu,  9 Apr 2026 08:13:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7748B10E76E;
+	Thu,  9 Apr 2026 08:15:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YqkVmcrg";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HAXYGnzN";
+	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DL5Ht5qp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A773410E767;
- Thu,  9 Apr 2026 08:13:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775722430; x=1807258430;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=Aou7PJiN+m4B4Cq2GcvCEYf2MSYheuUqx83L/uWbnss=;
- b=YqkVmcrguI1BScqB66yJHaSLxal/M5IVmReq0PizPWxloBu7QhGxgkn1
- FXIoX6+ryfe1tUINvI8H0k6sh0lJUtgx6oLBRUW8kaLd7QMyMTJTwbkog
- OoHsnuhhM2XPOY79TV71Lhx1iZqnVNJtuoG9o8TPeHtBqNGWJaWpNfmdT
- o3YlyzZRH0DbkxgewRWbLX66Cjk1YNBFVhibmwW4871fTcHb1lJ8a/R+c
- wU1cyJKXSSpaeOXTTgyPvstsWqt414Hlg+/9UWv8RHeE0HE8ox5l13H0J
- KGoNmjnHPUfTirsqYIpcGZVDt51xTCvC90Jl9080k4diBu2+2Xo2dizaL w==;
-X-CSE-ConnectionGUID: E1Uh4Hm1QFeWYW6mA26Uag==
-X-CSE-MsgGUID: rFPvjYThSDG1CAawBpccLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="75758605"
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="75758605"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 01:13:49 -0700
-X-CSE-ConnectionGUID: Cgvt7FEoT4e6PbTjh6RWDw==
-X-CSE-MsgGUID: jiWFTei+Q1yv2sDPc35N0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="232749511"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.62])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 01:13:46 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Simona
- Vetter <simona.vetter@ffwll.ch>, Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>, Jouni =?utf-8?Q?H=C3=B6gander?=
- <jouni.hogander@intel.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH 2/6] drm/i915/reset: Reorganize display reset code
-In-Reply-To: <20260408233458.22666-3-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
- <20260408233458.22666-3-ville.syrjala@linux.intel.com>
-Date: Thu, 09 Apr 2026 11:13:43 +0300
-Message-ID: <1faaaf6e482716344c969a1a14582b063ab801be@intel.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1904C10E769
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 08:15:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1775722520;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=cgrA7bBT8ZXCQqWY+bO1JlCg1Ecm798GETsxCdNk+V4=;
+ b=HAXYGnzN1jmlSW8Q8yZSRhphJLwq6JZYUuyb+64tqlqxQeZi//T78nfGc55WSrh+y/fN7T
+ 5nIYHhtRNkz3SdxDuX4huye8L3V/tHvoOXgIK5hOSA/tqtOWthb0cY0tqEOlgUzWHXjoCU
+ SMTJDY9I7ylTnz9XYYYZ4/UL/5vnJ6w=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-527-tTDh0Yt9PWC63AxfHkf3-w-1; Thu, 09 Apr 2026 04:15:18 -0400
+X-MC-Unique: tTDh0Yt9PWC63AxfHkf3-w-1
+X-Mimecast-MFC-AGG-ID: tTDh0Yt9PWC63AxfHkf3-w_1775722517
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-488c82b4701so3757705e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 01:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=redhat.com; s=google; t=1775722517; x=1776327317; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=cgrA7bBT8ZXCQqWY+bO1JlCg1Ecm798GETsxCdNk+V4=;
+ b=DL5Ht5qpgzhCKvaQvy2rYKJQKgmZOQrfrdg+yGc90z6upgyrSnO84xj2GzQCeei4eV
+ CPTStztFqwAf9f+91FKgLTMmRq/ZgfaqbI5HLUixA27iVVcDbORnBEwmgoRTTtBnbR8Z
+ g1D1I6NAJmEl9B0YIGL/Hok+hbOowSOrnoZtT7ATCYzk3OrMhoORgbNDeFf0ne1R3moI
+ 99f/nrfzZsPC1EVLCHge7I1Vjl7wnHtruIsGuj4oIVtrg2nLi7pWw71KcFdgWjk8R8rA
+ 39xG0hErPqX3G7KagLZgDgCeoGGSU/CnXOx4kTakhPbqXEV3XpD/vES2wt0xjnFkGr8J
+ UD7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775722517; x=1776327317;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=cgrA7bBT8ZXCQqWY+bO1JlCg1Ecm798GETsxCdNk+V4=;
+ b=dSJiGLqeAZNy2/qrXFkJVJuMdwVJiQUKT3jbucLBv4CNoTIdHzcZFPyCVw/bZWtMA5
+ WPxagku0OgQMUNobI3pvlt8eHFC/EiOgmioNgO+1qOboTUcioGdqsKFpt+V8JSLdcZE0
+ whx0KRF0JAafp/KaXX1DEY/q8Xv4pFvHqJcHEYwZq7bfnyccbhL5U3RLabQJIgviKkcA
+ Uzvck1fYax25ThKrlzT/MTLViEGZqBwHF5+kEtWB+Pm6vytaHFUHYZGIrF7YCO6R37Wp
+ FuxOESi7ZgrxdCXAY1ysJ17JwS3lTjFW1pb/OTuhjH1lHm0Mxci03hhSOGvcpu5ptzy4
+ AwCw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZMWCBjv6OzZHC7irdv4BLweFHpSP/13/t4pncVAgmlfk0C5eBG0HDJEcM9ymkvy3GjsYqEpJYlLg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxmi1jHA1MMm4QUXEEieZ+krDUpW3kee/FwTigWOAvbg8ABcQrT
+ +7I7qNM+J3o0FhOndQkMNHbIsypmY2BIN04g0eq4nbScFtOibCULN+N897Alc1olC3RyvWSseaK
+ r6Ff6/JDeDxRs9K4LECZaVSq/TbdwxaeoEHEWIFf/EHCBL+sx/B3sz75fiWaEffRmhAGVNg==
+X-Gm-Gg: AeBDiet32z0kMYuOTARDqgyRZYnRq/7/OzQCyAJaPS/Z+7ixhWLWM70tyU3alDJqCxU
+ mOz/PwVc849PffF89IMZ10wFpwj0yldYbcUiaypc0FjxSUtsBLOrmD4ANso/CNRnRBR2VBfPN/z
+ +DsCuoEZCg0RWSIDVcNcikJT5Pi/zHKhLPSHhRrSS3EHSbJf2R2vg9gOmGmjwaQnWm73CAqRpeJ
+ G/zRYVqH3YLWi7OroUV6M5x6nWnV4syu7m2GplsyOQ6VHCew8S6gBEY3Pk38DDlYXyK5MGjYR1P
+ Fmevxpawfri0GmjbCpolFOLoFQPI+RvvHKJyg2OEFhljjQsQTMcLVqDmtRwpPBobY50kQuWp7o1
+ njcxCEZr800Hgy0tC
+X-Received: by 2002:a05:600c:c087:b0:485:3c2e:60d5 with SMTP id
+ 5b1f17b1804b1-488cd50f45dmr21727355e9.2.1775722516982; 
+ Thu, 09 Apr 2026 01:15:16 -0700 (PDT)
+X-Received: by 2002:a05:600c:c087:b0:485:3c2e:60d5 with SMTP id
+ 5b1f17b1804b1-488cd50f45dmr21726855e9.2.1775722516410; 
+ Thu, 09 Apr 2026 01:15:16 -0700 (PDT)
+Received: from localhost ([37.221.85.123]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488cd2492e8sm54399245e9.15.2026.04.09.01.15.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Apr 2026 01:15:15 -0700 (PDT)
+Date: Thu, 9 Apr 2026 10:15:10 +0200
+From: Maxime Ripard <mripard@redhat.com>
+To: Dave Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <20260409-omniscient-tomato-coucal-edbadc@penduick>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="zyi5rrtfb4irsvwy"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,151 +114,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 09 Apr 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Stop returning the "is there a display?" status from
-> intel_display_reset_prepare(). I plan to move the pending_fb_pin
-> into the i915 code, so I need to make that determination already
-> before intel_display_reset_prepare() is called. Add a new
-> intel_display_reset_supported() function for that.
->
-> Cc: Simona Vetter <simona.vetter@ffwll.ch>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Jouni H=C3=B6gander <jouni.hogander@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+--zyi5rrtfb4irsvwy
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: [PULL] drm-misc-fixes
+MIME-Version: 1.0
 
-> ---
->  .../drm/i915/display/intel_display_reset.c    | 23 ++++++++-----------
->  .../drm/i915/display/intel_display_reset.h    |  3 ++-
->  drivers/gpu/drm/i915/gt/intel_reset.c         | 13 +++++++----
->  3 files changed, 20 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers=
-/gpu/drm/i915/display/intel_display_reset.c
-> index d00ef5bdcbda..137a2a33c8b0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_reset.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
-> @@ -16,22 +16,24 @@
->  #include "intel_hotplug.h"
->  #include "intel_pps.h"
->=20=20
-> +bool intel_display_reset_supported(struct intel_display *display)
-> +{
-> +	return HAS_DISPLAY(display);
-> +}
-> +
->  bool intel_display_reset_test(struct intel_display *display)
->  {
-> -	return display->params.force_reset_modeset_test;
-> +	return HAS_DISPLAY(display) &&
-> +		display->params.force_reset_modeset_test;
->  }
->=20=20
-> -/* returns true if intel_display_reset_finish() needs to be called */
-> -bool intel_display_reset_prepare(struct intel_display *display,
-> +void intel_display_reset_prepare(struct intel_display *display,
->  				 modeset_stuck_fn modeset_stuck, void *context)
->  {
->  	struct drm_modeset_acquire_ctx *ctx =3D &display->restore.reset_ctx;
->  	struct drm_atomic_state *state;
->  	int ret;
->=20=20
-> -	if (!HAS_DISPLAY(display))
-> -		return false;
-> -
->  	if (atomic_read(&display->restore.pending_fb_pin)) {
->  		drm_dbg_kms(display->drm,
->  			    "Modeset potentially stuck, unbreaking through wedging\n");
-> @@ -60,7 +62,7 @@ bool intel_display_reset_prepare(struct intel_display *=
-display,
->  		ret =3D PTR_ERR(state);
->  		drm_err(display->drm, "Duplicating state failed with %i\n",
->  			ret);
-> -		return true;
-> +		return;
->  	}
->=20=20
->  	ret =3D drm_atomic_helper_disable_all(display->drm, ctx);
-> @@ -68,13 +70,11 @@ bool intel_display_reset_prepare(struct intel_display=
- *display,
->  		drm_err(display->drm, "Suspending crtc's failed with %i\n",
->  			ret);
->  		drm_atomic_state_put(state);
-> -		return true;
-> +		return;
->  	}
->=20=20
->  	display->restore.modeset_state =3D state;
->  	state->acquire_ctx =3D ctx;
-> -
-> -	return true;
->  }
->=20=20
->  void intel_display_reset_finish(struct intel_display *display, bool test=
-_only)
-> @@ -83,9 +83,6 @@ void intel_display_reset_finish(struct intel_display *d=
-isplay, bool test_only)
->  	struct drm_atomic_state *state;
->  	int ret;
->=20=20
-> -	if (!HAS_DISPLAY(display))
-> -		return;
-> -
->  	state =3D fetch_and_zero(&display->restore.modeset_state);
->  	if (!state)
->  		goto unlock;
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.h b/drivers=
-/gpu/drm/i915/display/intel_display_reset.h
-> index 8b3bda134454..e0f15e757728 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_reset.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_reset.h
-> @@ -12,8 +12,9 @@ struct intel_display;
->=20=20
->  typedef void modeset_stuck_fn(void *context);
->=20=20
-> +bool intel_display_reset_supported(struct intel_display *display);
->  bool intel_display_reset_test(struct intel_display *display);
-> -bool intel_display_reset_prepare(struct intel_display *display,
-> +void intel_display_reset_prepare(struct intel_display *display,
->  				 modeset_stuck_fn modeset_stuck, void *context);
->  void intel_display_reset_finish(struct intel_display *display, bool test=
-_only);
->=20=20
-> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915=
-/gt/intel_reset.c
-> index 37272871b0f2..ffd11767874f 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-> @@ -1425,16 +1425,19 @@ static void intel_gt_reset_global(struct intel_gt=
- *gt,
->  		bool need_display_reset;
->  		bool reset_display;
->=20=20
-> -		need_display_reset =3D intel_gt_gpu_reset_clobbers_display(gt) &&
-> +		need_display_reset =3D
-> +			intel_display_reset_supported(display) &&
-> +			intel_gt_gpu_reset_clobbers_display(gt) &&
->  			intel_has_gpu_reset(gt);
->=20=20
-> -		reset_display =3D intel_display_reset_test(display) ||
-> +		reset_display =3D
-> +			intel_display_reset_test(display) ||
->  			need_display_reset;
->=20=20
->  		if (reset_display)
-> -			reset_display =3D intel_display_reset_prepare(display,
-> -								    display_reset_modeset_stuck,
-> -								    gt);
-> +			intel_display_reset_prepare(display,
-> +						    display_reset_modeset_stuck,
-> +						    gt);
->=20=20
->  		intel_gt_reset(gt, engine_mask, reason);
+Hi,
 
---=20
-Jani Nikula, Intel
+Here's this week drm-misc-fixes PR.
+
+Maxime
+
+drm-misc-fixes-2026-04-09:
+Several fixes for v3d about memory leak, runtime PM, and locking, and a
+Kconfig improvement for ethosu.
+The following changes since commit f8995c2df519f382525ca4bc90553ad2ec611067:
+
+  drm/ioc32: stop speculation on the drm_compat_ioctl path (2026-04-02 08:2=
+4:55 +0200)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-20=
+26-04-09
+
+for you to fetch changes up to 857fa8f2a5b184c206c703a3d9ce05cea683cfed:
+
+  accel: ethosu: Add hardware dependency hint (2026-04-02 15:18:14 -0500)
+
+----------------------------------------------------------------
+Several fixes for v3d about memory leak, runtime PM, and locking, and a
+Kconfig improvement for ethosu.
+
+----------------------------------------------------------------
+Jean Delvare (1):
+      accel: ethosu: Add hardware dependency hint
+
+Ma=EDra Canal (4):
+      drm/vc4: Release runtime PM reference after binding V3D
+      drm/vc4: Fix memory leak of BO array in hang state
+      drm/vc4: Fix a memory leak in hang state error path
+      drm/vc4: Protect madv read in vc4_gem_object_mmap() with madv_lock
+
+ drivers/accel/ethosu/Kconfig  |  1 +
+ drivers/gpu/drm/vc4/vc4_bo.c  |  3 +++
+ drivers/gpu/drm/vc4/vc4_gem.c | 19 +++++++++++--------
+ drivers/gpu/drm/vc4/vc4_v3d.c |  1 +
+ 4 files changed, 16 insertions(+), 8 deletions(-)
+
+--zyi5rrtfb4irsvwy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaddgDQAKCRAnX84Zoj2+
+dq+8AX9h1JYGdlhW52Zj4EWdoRxaJBWxFCZNyc2xQBtzzr6NTN0KeIhc8MqhmQND
+y5WSyc8BfjOYEMehb2BhpAw/A0qZZRSRQKeXskcw87pwZN0wPA1CLGL2lEl4E/RP
+Hy3M+KMS/w==
+=ebgs
+-----END PGP SIGNATURE-----
+
+--zyi5rrtfb4irsvwy--
+
