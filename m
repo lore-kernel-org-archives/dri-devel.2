@@ -4,66 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83246EA3C53
-	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 11:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DCE1EA3C4E
+	for <dri-devel@archiver.kernel.org>; Thu,  9 Apr 2026 11:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE43510E7CA;
-	Thu,  9 Apr 2026 11:19:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC1910E7D0;
+	Thu,  9 Apr 2026 11:33:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jc68mhls";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GQgtvptO";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G7rDoGLg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB01010E7C1;
- Thu,  9 Apr 2026 11:19:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775733578; x=1807269578;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=W044KsuiqEnq5+U1Vr/ZHmEhSl//AYNZVyuoY1pR/ZQ=;
- b=Jc68mhlsI2O2e+owFt1xIYd7FXDE96MtOsAQjVnu8XE8x9qRO1hSCE9M
- raiL/4hP3Rec3DTIhxI2zi5kvDfkMSyjDYo7/DfpUmAPmi1d8XFPoaJ5o
- lXqbQQknVhvszTUBiQM/Pzrwca7/x9VhLLWkQ3M9uDbtrcBOreAmulQQf
- pKrKMaQOLXaY7fR8uTx7u9Rqi4tE2G8g8qZt1vDHbFHDXYG7/iiFk2VQZ
- /DLcyPld9jkShpncmEcYjLq7SPWoM2t/hwVyCu1bpKN4P/tZD+XVStu1L
- yQ9yRBODE5ZLWWlzvotLOFpmaW1mT2bKoFMpCxXb3NhMhVcBXTll4uUwA Q==;
-X-CSE-ConnectionGUID: a60W2OeeT9CJxKwCSwk4gA==
-X-CSE-MsgGUID: JYak8wfpS/C4JYuAzKFCoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="76754376"
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="76754376"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 04:19:38 -0700
-X-CSE-ConnectionGUID: hMxTOrWGQxeVELDN2IYMyQ==
-X-CSE-MsgGUID: U+uqeZ8bS9Cc/T/voayGTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="252078413"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.216])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 04:19:35 -0700
-Date: Thu, 9 Apr 2026 14:19:32 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@intel.com>,
- Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Subject: Re: [PATCH 5/6] drm/i915/reset: Handle the display vs. GPU reset
- deadlock using a custom dma-fence
-Message-ID: <adeLRHQ2omAv93yM@intel.com>
-References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
- <20260408233458.22666-6-ville.syrjala@linux.intel.com>
- <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDEB310E7CF
+ for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 11:33:19 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6394vsKB3532458
+ for <dri-devel@lists.freedesktop.org>; Thu, 9 Apr 2026 11:33:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ lSQtNNtrN/Cj2ZcaKm5dvAcEzbJkLVwFQlaO2exXYfE=; b=GQgtvptOFJ4Wk0NK
+ uevgShDBYjEwp02c0y6ad0DT+UWmh5HrVL6y/p5Pu3qQsWBdp98zLG5CCig4g8p2
+ amiYLolhg9ESXTTmG6w9gXJoJK8Xa6MSvrjuTaTTRJNrIrM35JArJOcq6MPTHSHU
+ vaMKRQs5TGHdLlNAO+HYIL1Iz9bR82vGhYRbhp98e9/2uxqXh7uRBDjKo3g/Xrmn
+ hEA+fqOksFk45bfgEgy8hh3bO/xkKdQBVzGGrDkDxhT9M0J/11w/omMX1OB1PuB9
+ OZtIZL+YmWyR6fzits8WTA5QDA0jiwfacn8oZR1MYtqwlG3za8Ji7vcVbdE2Kqov
+ Xb/PjA==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ddw9mtwx3-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 11:33:19 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-35d93a8149bso947710a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 04:33:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775734399; x=1776339199;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=lSQtNNtrN/Cj2ZcaKm5dvAcEzbJkLVwFQlaO2exXYfE=;
+ b=G7rDoGLgDHAGDQg+Hq/icX7zcVV14EYshq9Smx6dWHImuwxInqshcHvpr5HWutx2K6
+ z4ZDPe4UG8/PK4My+KYkptcMR39RORlelbgw2bRYhvQ2gFlF/hqUITSMkzzz/WdYgqC9
+ akFXaRPCfK1qT/ve1neryGNCCKLAaQCqp2PqByihfZ8FcNV+N3M5EiK9WAvRKDUcJMLC
+ TndFj8pNPhYaE11+dGAc39/xcbuUdugtxz/CnmDCSyTBMRKA6LJi1V1C9s9gpyipexzK
+ 3th2Qlyii4iOuCVsC1qfNi4qCsVTeecyhSQr/bh2kZtMTZP6MvZFzITqOY6jAecLwv9+
+ 91pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775734399; x=1776339199;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=lSQtNNtrN/Cj2ZcaKm5dvAcEzbJkLVwFQlaO2exXYfE=;
+ b=rJDy/lzhBS+adwLdbRsoFwNMc27EQC3lL6BBHAzUj+pzSVxedDbUxxaiwdXActpbGb
+ JYUQxrT0bGAJRHxPKlJaDswaJkuenDo666NNt8zWOh7cusvSW+tuOQWTFeI24NVgVGNb
+ 0qJnY9w/qeyWz5kqoCIuXIT1yWt/cH4mfONILBR/gOdizfNRw1TtjgpPSOb/W8bF7IgV
+ AP2xKEHDV9ACDhGk+gU4r3GPL9Gay1scgh1msb+VjdA16IjTD5gkAvGnxfOOp1dO+6BD
+ HVtJw8XHpxv+g6PPjAPAxMq3akvyHeluQ2iUUoIPqkxWlACmtmQTHjN1OHx+uAQG0fFa
+ MmWA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWMR85D9BcdeOoctwniUlzqSYmZ1oYFC6jpTIdxmPymOuSUhGhuGl9ZWolI3VvYvFagg4AS9I0jUNg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHL4tU95Oe7jNugHdZDMjFpRqltm9mDmM13S2JRhf/VtN61PTY
+ cGI+FuxarBjiTqzU6iXoFq+nEEQWHtSoqbTdM4ZtDlvJaFyPG5w//oWgKpI+GOCTYPeyPX9s8eo
+ Cavp+or7pr8JtRhCqH9svyB6chKBPvJl9oCRcreawndmKioN79ToT/ffs9FfkJZHRP13+CE8=
+X-Gm-Gg: AeBDievvg03NRbvUoCSW2LptOB/1jLmr62WRapyRj8yWwMi1+OpJ7rOOTm+CsNE+7QF
+ nfldOQfRd4p5ulrfOsm+FrFx6Ru8mJ+maqPbttt07zR08zak1aQmHXmpYfwjbeZ1GJkxtEP802S
+ j7Q8hvlqzyMxubGzNJ1RV3TfU5GmCGzdpsSTNJGJgdwaczjI6dJgRmvTNnI3eqX8NQeb+eJX02A
+ At8Dvsju+Hx0LxKYzLjqHFTjIoim6XSxfNKVX09uXrvKz3uqlpazHZjLzZpnBJHtnX2VIFJ1CLq
+ pPq5vK0EmxwXTelmp9u1SVT7Ve5KuOjFkaC15EHT/qv0uhslvHJWxt5RDUNdE9a8FcZLigx8KxY
+ f3fm/HR+i0vBZCNuEtiUUwscBU+dGZZAgVxJBXLb3aZaN/VqM83ILUy0nePQvt/EmsTGkn4awC0
+ kKpY8dLbwcFHaYDvPkDg==
+X-Received: by 2002:a17:90a:e7ce:b0:35c:195e:112f with SMTP id
+ 98e67ed59e1d1-35e3548977fmr3157565a91.18.1775734398596; 
+ Thu, 09 Apr 2026 04:33:18 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7ce:b0:35c:195e:112f with SMTP id
+ 98e67ed59e1d1-35e3548977fmr3157537a91.18.1775734398074; 
+ Thu, 09 Apr 2026 04:33:18 -0700 (PDT)
+Received: from [10.133.33.242] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35e34cece9esm1549105a91.1.2026.04.09.04.33.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Apr 2026 04:33:17 -0700 (PDT)
+Message-ID: <1e3e0fd7-742b-49cd-b432-da9bd2a0ba7b@oss.qualcomm.com>
+Date: Thu, 9 Apr 2026 19:33:12 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 17/38] drm/msm/dp: add support to send ACT packets for
+ MST
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
+ <20250825-msm-dp-mst-v3-17-01faacfcdedd@oss.qualcomm.com>
+ <mtli7kelybfot6ai3lqjagy6hahnpkimqjnjbk26shaoekqoht@cbycvfsmry4o>
+ <46d97aec-9f46-42bd-8725-2c236ffd13ba@oss.qualcomm.com>
+ <4cb29e7a-9a75-4f8a-9036-c96e9190b7b0@oss.qualcomm.com>
+ <fbca1547-d54d-4bab-89b9-404d97c3c08c@oss.qualcomm.com>
+ <4rhd6qlj4jevrnj2zqctqrcbpkvcalk5qmr3ryuk6ewwa7e35p@o7xzhuzfsms2>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <4rhd6qlj4jevrnj2zqctqrcbpkvcalk5qmr3ryuk6ewwa7e35p@o7xzhuzfsms2>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-Authority-Analysis: v=2.4 cv=cfPiaHDM c=1 sm=1 tr=0 ts=69d78e7f cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=YxuP5ldsg-JQntm2Dv8A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: BqFv8J2OaAduh58y-1k9Mt-XDPlc014w
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDEwMyBTYWx0ZWRfX/Ga4/tRHUt1D
+ hg+BQRL+VPsJz8m/8OGwO/BGIdnlz9nfHWmUyNOt7hoSLYYQ9M4EiwVMM5jr8W4MCXpvyzgYdqo
+ a3oVLe60wfO3FaKZv718OsE9+//Y1857kVXqqDEyLEvWu47OU2mEDRNvZLdndkU4D+uAq9HekEA
+ 7fB+xhkGLJx/rFeY9qw4jxyUn8BF+3GJKPCWa25umGx7UkRTZFaRMFH/KwAoaUgPr16GSp+T+It
+ HxJuxHmqHxFkd+3TGAHzPOaA4vtK+w6F2oedAPzEJqLnPKV0Go0GSTXbnUOLoOvmBlILjdfQb0S
+ t7wTsCjev6XoAs3GGrstmWdlvPTs7wZOQDJtAwceOD+doUdn1DgdwjLOSFGSZBb6QrYOs9Zi0tc
+ KTIKbaWFuMft4Yi7+DzJvUyDclSECe4piIO6c1y9XI+NNtfzxKTbyo5jwTaI3OxyvlAsrjL5A+Y
+ 0cztDnYp+pxkgWnJIzA==
+X-Proofpoint-GUID: BqFv8J2OaAduh58y-1k9Mt-XDPlc014w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-09_03,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 lowpriorityscore=0
+ malwarescore=0 spamscore=0 bulkscore=0 adultscore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604090103
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,325 +156,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 09, 2026 at 12:46:11PM +0200, Christian K�nig wrote:
-> On 4/9/26 01:34, Ville Syrjala wrote:
-> > From: Ville Syrj�l� <ville.syrjala@linux.intel.com>
-> > 
-> > The old display vs. GPU reset deadlock is back more or less.
-> > The old (working) solution to the problem was originally
-> > introduced in commit 9db529aac938 ("drm/i915: More surgically
-> > unbreak the modeset vs reset deadlock"), but it got nuked with
-> > commit d59cf7bb73f3 ("drm/i915/display: Use dma_fence interfaces
-> > instead of i915_sw_fence").
-> > 
-> > Apparently no one looked hard enough to see that things didn't
-> > work quite properly anymore. What is still saving us for the most
-> > part is that we have a timeout on the fence wait
-> > (CONFIG_DRM_I915_FENCE_TIMEOUT, 10 seconds by default). But
-> > people are perhaps trying to get rid of that so we may need
-> > another solution, and 10 seconds is a bit slow.
-> 
-> Yeah agree that approach with the timeout is usually a big no no.
-> 
-> > Re-solve the problem yet again with a custom dma-fence that gets
-> > signaled just prior to a GPU reset, and have the atomic commit wait
-> > for either that or the real fence using dma_fence_wait_any_timeout().
-> 
-> Hui? I don't fully understand what the source of the problem is, but of hand that approach of solving it doesn't sound like a good idea either.
-> 
-> > Whichever signals first will let the commit proceed. We create a new
-> > "reset fence" whenever someone needs one, and keep it until the next
-> > GPU reset has completed. After that the next guy will again get a
-> > fresh unsignaled "reset fence".
-> 
-> And that sounds even worse. A dma_fence which waits for the next GPU reset without triggering it itself would be an indefinite dma_fence which is not allowed.
 
-This is a purely internal thing to the i915 display code. This fence
-is never shared with anyone. And we never wait for just this fence,
-the wait always happens alongside a real fence using
-dma_fence_wait_any_timeout().
 
+On 4/1/2026 7:27 PM, Dmitry Baryshkov wrote:
+> On Wed, Apr 01, 2026 at 02:55:32PM +0800, Yongxing Mou wrote:
+>>
+>>
+>> On 4/1/2026 2:47 PM, Dmitry Baryshkov wrote:
+>>> On 01/04/2026 09:44, Yongxing Mou wrote:
+>>>>
+>>>>
+>>>> On 8/26/2025 5:10 AM, Dmitry Baryshkov wrote:
+>>>>> On Mon, Aug 25, 2025 at 10:16:03PM +0800, Yongxing Mou wrote:
+>>>>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>>>
+>>>>>> Whenever virtual channel slot allocation changes, the DP
+>>>>>> source must send the action control trigger sequence to notify
+>>>>>> the sink about the same. This would be applicable during the
+>>>>>> start and stop of the pixel stream. Add the infrastructure
+>>>>>> to be able to send ACT packets for the DP controller when
+>>>>>> operating in MST mode.
+>>>>>>
+>>>>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
+>>>>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+>>>>>> ---
+>>>>>>    drivers/gpu/drm/msm/dp/dp_ctrl.c    | 39
+>>>>>> +++++++++++++++++++++++++ + +++++++++--
+>>>>>>    drivers/gpu/drm/msm/dp/dp_ctrl.h    |  4 ++--
+>>>>>>    drivers/gpu/drm/msm/dp/dp_display.c |  3 ++-
+>>>>>>    drivers/gpu/drm/msm/dp/dp_display.h |  1 +
+>>>>>>    drivers/gpu/drm/msm/dp/dp_reg.h     |  2 ++
+>>>>>>    5 files changed, 44 insertions(+), 5 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>>> b/drivers/gpu/drm/msm/ dp/dp_ctrl.c
+>>>>>> index 608a1a077301b2ef3c77c271d873bb4364abe779..16e5ed58e791971d5dca3077cbb77bfcc186505a
+>>>>>> 100644
+>>>>>> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>>> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+>>>>>> @@ -142,6 +142,7 @@ struct msm_dp_ctrl_private {
+>>>>>>        bool core_clks_on;
+>>>>>>        bool link_clks_on;
+>>>>>>        bool stream_clks_on[DP_STREAM_MAX];
+>>>>>> +    bool mst_active;
+>>>>>>    };
+>>>>>>    static inline u32 msm_dp_read_ahb(const struct
+>>>>>> msm_dp_ctrl_private *ctrl, u32 offset)
+>>>>>> @@ -227,6 +228,32 @@ static int
+>>>>>> msm_dp_aux_link_configure(struct drm_dp_aux *aux,
+>>>>>>        return 0;
+>>>>>>    }
+>>>>>> +void msm_dp_ctrl_mst_send_act(struct msm_dp_ctrl *msm_dp_ctrl)
+>>>>>> +{
+>>>>>> +    struct msm_dp_ctrl_private *ctrl;
+>>>>>> +    bool act_complete;
+>>>>>> +
+>>>>>> +    ctrl = container_of(msm_dp_ctrl, struct
+>>>>>> msm_dp_ctrl_private, msm_dp_ctrl);
+>>>>>> +
+>>>>>> +    if (!ctrl->mst_active)
+>>>>>> +        return;
+>>>>>> +
+>>>>>> +    msm_dp_write_link(ctrl, REG_DP_MST_ACT, 0x1);
+>>>>>> +    /* make sure ACT signal is performed */
+>>>>>> +    wmb();
+>>>>>> +
+>>>>>> +    msleep(20); /* needs 1 frame time */
+>>>>>> +
+>>>>>> +    act_complete = msm_dp_read_link(ctrl, REG_DP_MST_ACT);
+>>>>>> +
+>>>>>> +    if (!act_complete)
+>>>>>> +        drm_dbg_dp(ctrl->drm_dev, "mst ACT trigger complete
+>>>>>> SUCCESS\n");
+>>>>>> +    else
+>>>>>> +        drm_dbg_dp(ctrl->drm_dev, "mst ACT trigger complete
+>>>>>> failed\n");
+>>>>>
+>>>>> Shouldn't it return an error if the register dind't latch? Also,
+>>>>> shouldn't we set mst_active only if the write went through?
+>>>>>
+>>>> In some cases, MST still works correctly even when the ACT trigger
+>>>> fails; here refer to the downstream implementation.
+>>>
+>>> I don't think it is a good idea. It would be better to signal this to
+>>> the user and rollback the MST configuration (as in the case of any other
+>>> error).
+>>>
+>>> I will change my mind if you point out i915, amdgpu or nouveau drivers
+>>> ignoring the ACT issues.
+>>>
+>> Sure. Until I can find more convincing evidence, I will make the changes as
+>> requested.
 > 
-> I think something is missing in my picture how that is supposed to work.
-
-The problem stems from the fact that on old platforms a GPU reset
-also resets the display hardware, and to do that safely we need:
-1. shut down display
-2. perform the GPU reset
-3. restore the display hardware to its orignal state
-
-We just do that with essentially with a normal atomic commit. But a 
-previous atomic commit may already be waiting for a fence, which
-won't signal until the GPU reset happens, and the GPU reset is now
-waiting for that previous atomic commit to finish so that it can do
-its own atomic commit. In order to break the deadlock we need to
-abort the fence waits in the atomic commit, and that's what this
-"reset fence" achieves.
-
+> Or you can point out the relevant part of the standard.
 > 
-> Thanks,
-> Christian.
-> 
-> > 
-> > Cc: Simona Vetter <simona.vetter@ffwll.ch>
-> > Cc: Christian K�nig <christian.koenig@amd.com>
-> > Cc: Jani Nikula <jani.nikula@intel.com>
-> > Cc: Jouni H�gander <jouni.hogander@intel.com>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Signed-off-by: Ville Syrj�l� <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_display.c  | 34 +++++---
-> >  .../gpu/drm/i915/display/intel_display_core.h |  6 ++
-> >  .../drm/i915/display/intel_display_driver.c   |  5 ++
-> >  .../drm/i915/display/intel_display_reset.c    | 77 +++++++++++++++++++
-> >  .../drm/i915/display/intel_display_reset.h    |  4 +
-> >  drivers/gpu/drm/xe/Makefile                   |  1 +
-> >  6 files changed, 117 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> > index 58a654ca0d20..83ccf13c4b16 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > @@ -72,6 +72,7 @@
-> >  #include "intel_display_driver.h"
-> >  #include "intel_display_power.h"
-> >  #include "intel_display_regs.h"
-> > +#include "intel_display_reset.h"
-> >  #include "intel_display_rpm.h"
-> >  #include "intel_display_types.h"
-> >  #include "intel_display_utils.h"
-> > @@ -7149,22 +7150,35 @@ static void skl_commit_modeset_enables(struct intel_atomic_state *state)
-> >  
-> >  static void intel_atomic_commit_fence_wait(struct intel_atomic_state *intel_state)
-> >  {
-> > -	struct drm_plane *plane;
-> > +	struct intel_display *display = to_intel_display(intel_state);
-> >  	struct drm_plane_state *new_plane_state;
-> > -	long ret;
-> > +	struct dma_fence *reset_fence;
-> > +	struct drm_plane *plane;
-> >  	int i;
-> >  
-> > +	reset_fence = intel_display_reset_fence_get(display);
-> > +
-> >  	for_each_new_plane_in_state(&intel_state->base, plane, new_plane_state, i) {
-> > -		if (new_plane_state->fence) {
-> > -			ret = dma_fence_wait_timeout(new_plane_state->fence, false,
-> > -						     i915_fence_timeout());
-> > -			if (ret <= 0)
-> > -				break;
-> > +		struct dma_fence *fences[2] = {
-> > +			[0] = new_plane_state->fence,
-> > +			[1] = reset_fence,
-> > +		};
-> > +		long ret;
-> >  
-> > -			dma_fence_put(new_plane_state->fence);
-> > -			new_plane_state->fence = NULL;
-> > -		}
-> > +		if (!new_plane_state->fence)
-> > +			continue;
-> > +
-> > +		ret = dma_fence_wait_any_timeout(fences, reset_fence ? 2 : 1, false,
-> > +						 i915_fence_timeout(), NULL);
-> > +		if (ret <= 0)
-> > +			break;
-> > +
-> > +		dma_fence_put(new_plane_state->fence);
-> > +		new_plane_state->fence = NULL;
-> >  	}
-> > +
-> > +	if (reset_fence)
-> > +		dma_fence_put(reset_fence);
-> >  }
-> >  
-> >  static void intel_atomic_dsb_wait_commit(struct intel_crtc_state *crtc_state)
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-> > index 9e77003addd0..6687b658c51d 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_core.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-> > @@ -556,6 +556,12 @@ struct intel_display {
-> >  		unsigned long mask;
-> >  	} quirks;
-> >  
-> > +	struct {
-> > +		/* protects reset.fence */
-> > +		struct mutex mutex;
-> > +		struct dma_fence *fence;
-> > +	} reset;
-> > +
-> >  	struct {
-> >  		/* restore state for suspend/resume and display reset */
-> >  		struct drm_atomic_state *modeset_state;
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> > index 23bfecc983e8..fcd31722c731 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-> > @@ -34,6 +34,7 @@
-> >  #include "intel_display_driver.h"
-> >  #include "intel_display_irq.h"
-> >  #include "intel_display_power.h"
-> > +#include "intel_display_reset.h"
-> >  #include "intel_display_types.h"
-> >  #include "intel_display_utils.h"
-> >  #include "intel_display_wa.h"
-> > @@ -257,6 +258,8 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
-> >  
-> >  	intel_mode_config_init(display);
-> >  
-> > +	intel_display_reset_fence_init(display);
-> > +
-> >  	ret = intel_cdclk_init(display);
-> >  	if (ret)
-> >  		goto cleanup_wq_unordered;
-> > @@ -584,6 +587,8 @@ void intel_display_driver_remove(struct intel_display *display)
-> >  	if (!HAS_DISPLAY(display))
-> >  		return;
-> >  
-> > +	intel_display_reset_fence_discard(display);
-> > +
-> >  	flush_workqueue(display->wq.flip);
-> >  	flush_workqueue(display->wq.modeset);
-> >  	flush_workqueue(display->wq.cleanup);
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers/gpu/drm/i915/display/intel_display_reset.c
-> > index ca15dc18ef0f..80dd2ea8a0c2 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_reset.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
-> > @@ -3,6 +3,8 @@
-> >   * Copyright � 2023 Intel Corporation
-> >   */
-> >  
-> > +#include <linux/dma-fence.h>
-> > +
-> >  #include <drm/drm_atomic_helper.h>
-> >  #include <drm/drm_print.h>
-> >  
-> > @@ -16,6 +18,72 @@
-> >  #include "intel_hotplug.h"
-> >  #include "intel_pps.h"
-> >  
-> > +static const char *intel_display_reset_fence_get_driver_name(struct dma_fence *fence)
-> > +{
-> > +	return "intel_display";
-> > +}
-> > +
-> > +static const char *intel_display_reset_fence_get_timeline_name(struct dma_fence *fence)
-> > +{
-> > +	return "reset";
-> > +}
-> > +
-> > +static const struct dma_fence_ops intel_display_reset_fence_ops = {
-> > +	.get_driver_name = intel_display_reset_fence_get_driver_name,
-> > +	.get_timeline_name = intel_display_reset_fence_get_timeline_name,
-> > +};
-> > +
-> > +static void intel_display_reset_create(struct intel_display *display)
-> > +{
-> > +	struct dma_fence *fence;
-> > +
-> > +	fence = kzalloc_obj(*fence);
-> > +	if (!fence)
-> > +		return;
-> > +
-> > +	dma_fence_init(fence, &intel_display_reset_fence_ops, NULL, 0, 0);
-> > +
-> > +	display->reset.fence = fence;
-> > +}
-> > +
-> > +struct dma_fence *intel_display_reset_fence_get(struct intel_display *display)
-> > +{
-> > +	struct dma_fence *fence;
-> > +
-> > +	mutex_lock(&display->reset.mutex);
-> > +
-> > +	if (!display->reset.fence)
-> > +		intel_display_reset_create(display);
-> > +
-> > +	fence = display->reset.fence;
-> > +	if (fence)
-> > +		dma_fence_get(fence);
-> > +
-> > +	mutex_unlock(&display->reset.mutex);
-> > +
-> > +	return fence;
-> > +}
-> > +
-> > +void intel_display_reset_fence_discard(struct intel_display *display)
-> > +{
-> > +	struct dma_fence *fence;
-> > +
-> > +	mutex_lock(&display->reset.mutex);
-> > +
-> > +	fence = display->reset.fence;
-> > +	if (fence)
-> > +		dma_fence_put(fence);
-> > +
-> > +	display->reset.fence = NULL;
-> > +
-> > +	mutex_unlock(&display->reset.mutex);
-> > +}
-> > +
-> > +void intel_display_reset_fence_init(struct intel_display *display)
-> > +{
-> > +	mutex_init(&display->reset.mutex);
-> > +}
-> > +
-> >  bool intel_display_reset_supported(struct intel_display *display)
-> >  {
-> >  	return HAS_DISPLAY(display);
-> > @@ -31,8 +99,15 @@ void intel_display_reset_prepare(struct intel_display *display)
-> >  {
-> >  	struct drm_modeset_acquire_ctx *ctx = &display->restore.reset_ctx;
-> >  	struct drm_atomic_state *state;
-> > +	struct dma_fence *reset_fence;
-> >  	int ret;
-> >  
-> > +	reset_fence = intel_display_reset_fence_get(display);
-> > +	if (reset_fence) {
-> > +		dma_fence_signal(reset_fence);
-> > +		dma_fence_put(reset_fence);
-> > +	}
-> > +
-> >  	/*
-> >  	 * Need mode_config.mutex so that we don't
-> >  	 * trample ongoing ->detect() and whatnot.
-> > @@ -110,6 +185,8 @@ void intel_display_reset_finish(struct intel_display *display, bool test_only)
-> >  
-> >  	drm_atomic_state_put(state);
-> >  unlock:
-> > +	intel_display_reset_fence_discard(display);
-> > +
-> >  	drm_modeset_drop_locks(ctx);
-> >  	drm_modeset_acquire_fini(ctx);
-> >  	mutex_unlock(&display->drm->mode_config.mutex);
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.h b/drivers/gpu/drm/i915/display/intel_display_reset.h
-> > index a8aa7729d33f..c36a075c6b4d 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_reset.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_reset.h
-> > @@ -10,6 +10,10 @@
-> >  
-> >  struct intel_display;
-> >  
-> > +struct dma_fence *intel_display_reset_fence_get(struct intel_display *display);
-> > +void intel_display_reset_fence_discard(struct intel_display *display);
-> > +void intel_display_reset_fence_init(struct intel_display *display);
-> > +
-> >  bool intel_display_reset_supported(struct intel_display *display);
-> >  bool intel_display_reset_test(struct intel_display *display);
-> >  void intel_display_reset_prepare(struct intel_display *display);
-> > diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-> > index 110fef511fe2..1a85dfe457f0 100644
-> > --- a/drivers/gpu/drm/xe/Makefile
-> > +++ b/drivers/gpu/drm/xe/Makefile
-> > @@ -262,6 +262,7 @@ xe-$(CONFIG_DRM_XE_DISPLAY) += \
-> >  	i915-display/intel_display_power.o \
-> >  	i915-display/intel_display_power_map.o \
-> >  	i915-display/intel_display_power_well.o \
-> > +	i915-display/intel_display_reset.o \
-> >  	i915-display/intel_display_rpm.o \
-> >  	i915-display/intel_display_rps.o \
-> >  	i915-display/intel_display_trace.o \
+Emm ,the DP HPG only specifies that an MST_ACT needs to be issued, and 
+does not require validating its contents. This appears to be a 
+Qualcomm‑specific hardware register, not a generic one.
 
--- 
-Ville Syrj�l�
-Intel
+
+
