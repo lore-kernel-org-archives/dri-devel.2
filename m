@@ -4,66 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2696E99055
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 08:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7458E9904A
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 08:10:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0606810E8E1;
-	Fri, 10 Apr 2026 08:06:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B644810E8E6;
+	Fri, 10 Apr 2026 08:10:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ksZFRD6q";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="B+5k/4oy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7E989DFC;
- Fri, 10 Apr 2026 08:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775808381; x=1807344381;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=wA94zRZq84xYFpwzGzcwqHyL6HNUQgoHAbgajBVa5nQ=;
- b=ksZFRD6q9+zyrTdC8Fp4zt+A9rYb/bU7EyU10pvOiaxPYZWPMaqvJfCd
- uad28oSKRXHJymZ+QnBjlwJlfQpcmSU6Rf2DqvJAn+gFCVMPXMd9cRilz
- sJyHOhBA5zr8Xvk42CHM3oJJgA7e5bYQNfZlwxhFOBc37+M1oS7BOnbTl
- Ac1M08jrq6jjZZDO5sV4Sjo6eugPiFosbDcCYfeW6/WC96Dt0TkXhd9If
- NNdo7r68RHFLd0M9Qt1RS6PXo9tjSwanqKj18LEaMxIPzSa8z1FMIjNFu
- +XvK1IPgeYrW6cAaZtfZ1+TcC0HCrd/NnTWBLdE5piUFcFKXRWfpFYqaN A==;
-X-CSE-ConnectionGUID: JCuhq9t0T0CA7Awh2OZUSw==
-X-CSE-MsgGUID: 7zAnbFAFT0SZ8KrpaDgEBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="87112328"
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="87112328"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 01:06:21 -0700
-X-CSE-ConnectionGUID: A16Ofq1/TFSodDN05Hf6DQ==
-X-CSE-MsgGUID: wVFhdyfKQjeqY6hoY6Pjnw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="233416426"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.110])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 01:06:15 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost
- <matthew.brost@intel.com>, Dave Airlie <airlied@gmail.com>, Simona Vetter
- <simona.vetter@ffwll.ch>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, Oded Gabbay
- <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: Re: [PULL] topic/step for i915 and xe
-In-Reply-To: <ade396UuRQoPLGdS@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cc1ff0a476ff457e88251e22b83c1a45ada11ecc@intel.com>
- <ade396UuRQoPLGdS@intel.com>
-Date: Fri, 10 Apr 2026 11:06:12 +0300
-Message-ID: <404ea596f4aacf999d403182d31843a5d2c47bb2@intel.com>
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11010047.outbound.protection.outlook.com [52.101.229.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74B3210E8E6
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 08:10:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BuWmF3HNgXxkk7Y4CbVVRX/1k1XdCQPcP77o4byA5BK7aGTyV3Hru7UsAptAcE9AhoLyBiDlnfmNn7AZZ9L1Fw4TGuY3SKA7P1pf9ALgZ5Z0ZIdNfYjCbPL9WF1QPc0MooohEqkPB7lrYj63J/R2oY7kychO7vtaRwTIjTkHsU/nTDOn/dUMW0JArT5qR1td33T1YFoLlTZYXj6NDPrCMSvv0wDnFXeYIQZlU+CgWPmOO1yjP5ehVbQPxk33JxJL++BFgmvQVV0Mh9rhOHFr3UvFgoLMfPm9nQ/+yyDPy2xWyKcY4MlaAunr4+ZcTZbDkNGE0wHJWKBEKbZPhO7ZdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bHTDzM4oDRDmShWT+yDZW4nb7yecrrV4GgaAIeWersw=;
+ b=s2+IJlBquymLXtOnNLgb/ykZ5SCO7vA8Td03yTiDlE+PGR08t5C+M85c4zl8/gYIC6doJL5YjSu4u7nT9ogCVaDsoq0sa9GUfE16FzkXnL657tt0lmsuQZbNuQsDUAIPbwNK1emGAD3YCDwK2YroBFhm4+srDDX6oz6+5EA4yNVtmln9PznxrMfXktqjIB5uiz5pQw2LSQ0pcq+nb2oBiSnu2j4noSaNAJAKffvOYjcAGtPND8K6dKYvL89KK8lzkffh4fDNQrl3FARgosKQwi66R0IjU2LeYxi7DZKSWHtwQ4+scZZx1waV0ZzDtNI/d20cxyK8V9GvrzhAftTV2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bHTDzM4oDRDmShWT+yDZW4nb7yecrrV4GgaAIeWersw=;
+ b=B+5k/4oySA30IAvevknqw6+9xQUwtVky1C+3Ss6nDb1Q1ZL9Ih0QTOWLsA9Luik/yOO5Oj+3MCyGrUdUc1A1d0b2KNsbCXfmQPtBUHjAQ0NJ3gkge00Qb1vFpiyZEcF7Dt0D3lsa5NcHs9vXqa9SRCNG5ozI7z4KJui0KCRYWfM=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY4PR01MB17262.jpnprd01.prod.outlook.com (2603:1096:405:334::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Fri, 10 Apr
+ 2026 08:10:36 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
+ 08:10:30 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Tommaso Merciai
+ <tomm.merciai@gmail.com>, geert <geert@linux-m68k.org>, laurent.pinchart
+ <laurent.pinchart@ideasonboard.com>
+CC: "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Laurent
+ Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Subject: RE: [PATCH v2] drm: rz-du: Ensure correct suspend/resume ordering
+ with VSP
+Thread-Topic: [PATCH v2] drm: rz-du: Ensure correct suspend/resume ordering
+ with VSP
+Thread-Index: AQHcwFQgtY7iM5DGnEmNoMcLJJmk8bXYAh7A
+Date: Fri, 10 Apr 2026 08:10:30 +0000
+Message-ID: <TY3PR01MB11346A9F516651EE71FDC57A586592@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260330144651.817338-1-tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <20260330144651.817338-1-tommaso.merciai.xr@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB17262:EE_
+x-ms-office365-filtering-correlation-id: 4f8e7f65-60e0-4930-e825-08de96d8a206
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: Ll9oLDp0R1Lld5HxjBFOU4utx6utLzqQlWqln4pPrRQjDMczZUq2jfjrt/9rKinfm/VuD+KsLz7G/3g9crbaFXqEpZxI1lOKpWNsAOWrqA5+hJNfDq92UjHHSdm35I8AQ9v0tBjpO5BROw+ruthIWFFCBHooyhYpzsu0KwobW3jMDgesBj/sFduDMF6YoveGdDkoLufRQ6U8apGneeWGjMediQyrsJ+m219bFmLaAVCUtvU4qPgWkrjuy8hLFHFSNtEHg7ZBsv7zKuKZsZrRKDfya7jbLJVYceGvBnoBfbW/FBDbup3/JsklFdT2g2ckr1o1yOZoVOS+aFu9E+Al1Pv9SBsKLtVwZ35L7NHTMKYW5Ye5k1AQ1w0CbuhXTP+afVoUjOpZAr603uXyYcMIjPRvJa4mcyeKAKmqVkcdgDURvWuKtgQGjy9ToP+DibEz11Jt8XvlTkq6ysqKtdqhuYsp5Q3F9n5nP6DDG7dfX+Hnj22rgVmpmMcKpMP1raWBRA86aCpshrhfVpmRkK2lcuyzv3mbCtOp1ZxD8FVNpVn43hxgdRq+7pL1Wzw9T91Uj75d67R11i86zIxnOv8LI6TFdXNO+KytzMGbQstz4gkj/D6lG2JaaP0gy82Momuja9LEBffL0Hdmac2l06GycbmlGsHSjx2ai7iYUzwj8cSICy5FImvlFjW6M1IoGL1ffA7G8qF1tEwa0WrmuywCnwDcPFxSL/QlK/TQ0OyI5p7Hw69LVkHWqMX04NaPdl3gKS+C91kU2cB4zykBDIA53qU3Vl4mDLoQfBYoCu5QI8A=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WF6hTR9a9hySQ0vQSnseAopqtpRzMbhH8STXGps4fOAil6FOmj1Y6kzftxRS?=
+ =?us-ascii?Q?fO5oNmiSWkemiNGCHFPTReFXnMPGzpPA/eWrMfl65b+GqvlzMwxHlv3PWA7S?=
+ =?us-ascii?Q?KM8PL17sk7S9eZRFa7knrzmLQ/ulGEIIg/EDjPBY4uCMeT5Je8nxWQPmWvyS?=
+ =?us-ascii?Q?tPRx8OkkogeQGcIVjhY4K3F3XqC2EfpBtsmpVcT6x0cq1R/hPlROuUj47rIT?=
+ =?us-ascii?Q?dKs0iheWag6HCOHwY8MQVQefwn+UkfAJw1I8byaE+FDZBL2GnAMwXpIg5F+/?=
+ =?us-ascii?Q?A1NIzILwIDA1u5M2D7qsMJ3KqiVKf/H9TDDRyzaYK5ZACGZjdWhyvvg0oKYt?=
+ =?us-ascii?Q?OWYUdvwPoq8C8xWW5KrsG0QCLCEXvgFYSXNiomAYSvlCFBSi6OOwSAdIgX6W?=
+ =?us-ascii?Q?H7/Wrm9/ub5HoaD2bSNEa2PZDCk5dzuuYQ78428Z7RgC4NNN8jt+cByMBP98?=
+ =?us-ascii?Q?zHa4PeFDfcCEM9xBSW8vzliCFOMV5E+gLZ7bhyjF8uQioErBJ/HGRLhP3ROf?=
+ =?us-ascii?Q?/afGmzV1KZ0HbU7YsoxERFTrdlI7efRpUTE3n3rQMaayy7vpZTtohs4NptDk?=
+ =?us-ascii?Q?k8MGGK+Ep1Zwdf5wABA+pASl3EClNcNmPY9SuTBuOmfd9+H7E+SdXdIDf2yw?=
+ =?us-ascii?Q?ibUSUx6sYkjfI8T2vC2NLcY6IsJb3t7e5PiMfyhToTEs2bkMoQmRUVFWYvUT?=
+ =?us-ascii?Q?JN4ki4oioc9QTt7UP4C41vzkiJ9SDZ2d5nyQU4xPpSS3C6SowF5b82P6dJnY?=
+ =?us-ascii?Q?dMezmyQSnmxOLbKP38BB0AckdZSIIDtvFTgqZGD4xEY+gTo8+3KR8M8gOjNq?=
+ =?us-ascii?Q?4dpKBQUf/PUtH3ZHEi6a0cFCYPE4bYAatJpwyVZ3uutmG6cKK0bAnzqQWUZ2?=
+ =?us-ascii?Q?lYvapzc2PfCho0p40QilbgqF/NLz9N7maSZjWSQQY2RMzrm7Sksqa7yxWKbA?=
+ =?us-ascii?Q?9LmyT6Mzv0MUqoZfv9pIth1e1bNOmaOB4fh795cxiaCTQ4sSLNc5U0aTTZQI?=
+ =?us-ascii?Q?1KR1zTgkT+wASgFtqfNoVKrWWnSqUYtocWtfDCNbX+UY6zQGNlt4yj9G+P8z?=
+ =?us-ascii?Q?N+wGXDp1PDlZ/huoMCkKnoBis9xOjASKaDnFCGa0yjVh1RcfiJ007aGh8fZa?=
+ =?us-ascii?Q?UfZe91/NhAzxI8HDVKb7CFrvU/5afYs7/WlYQ4/3JUkV6ME70z506wr/rZwU?=
+ =?us-ascii?Q?UeuC7axWZmT46ux8tHN15rJKcoG47KEjex01kg7ugo5uDkxHumCuuO0OU5mR?=
+ =?us-ascii?Q?IM5ptxkqZLvHPepEmUXmLL13tFmMg3Lk2WvPliubILOasla/lANTeiLLvuD0?=
+ =?us-ascii?Q?nHkXuNRBlna11k/YAfCdwnIbiHixRe3wflDA8yT4wNXOY1ywXuo4dMD9AZg2?=
+ =?us-ascii?Q?qNf4BenO/PGbo/9G5MafcUwlk1ZBJ9V4kV097rjoT8xmNyDMICaDbmqQStK+?=
+ =?us-ascii?Q?mNaJ6Ax1asxxLlDfXxu6ScM73WQPt8Igl6ztndU6Y2yN66l2wmWdsh6AXVG/?=
+ =?us-ascii?Q?2V1RoEsQkvEvvWZrCqr8R2ZFg+SIEekaJDMSX30a2ROdl9+LsFLcBwlKDNXB?=
+ =?us-ascii?Q?MluOhX1/XDdTJDmy86Bt1J+Gn/2LWH2QVstvYO9HKqC+daRLKgsu5BpzBLK3?=
+ =?us-ascii?Q?Ia/N8Cry6NWU8NeVpbC84VOqlJJFktmdEy7rEb01pvKulV+GPoUd3z+GKCrt?=
+ =?us-ascii?Q?bbjB8zV9cyiyT6Mf5wtr1eSIvuJLG88+/5ZAMBnOhIwS2ep1ak/INXTWVt4m?=
+ =?us-ascii?Q?aAVqMGDekQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f8e7f65-60e0-4930-e825-08de96d8a206
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2026 08:10:30.8301 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cOCZTT8MwlmPNgQ8TytPlCngp9i61eRxDXi3zWxgx3CY/iX5oHxnOw6LxkJ+nBLm0uKYrE2za22R3+UuZfolQfNfRE7XtVL4a0E8rCZDF64=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB17262
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,80 +138,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 09 Apr 2026, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
-> On Thu, Apr 09, 2026 at 11:02:20AM +0300, Jani Nikula wrote:
->> 
->> Hi Thomas, Matthew and Rodrigo -
->> 
->> Here's a topic pull intended for both drm-xe-next and drm-intel-next to
->> unify the steppings header and enum between the i915 and xe drivers. I'm
->> opting for a topic branch because merging this through either driver's
->> -next branch would likely be painful conflicts wise.
->> 
->> Please pull this to drm-xe-next (*), and once you're done, I'll follow
->> suit in drm-intel-next.
->
-> Pulled to drm-xe-next while I'm covering for Thomas.
+Hi,
 
-And pulled to drm-intel-next as well. Thanks a lot.
+> -----Original Message-----
+> From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Sent: 30 March 2026 15:47
+> Subject: [PATCH v2] drm: rz-du: Ensure correct suspend/resume ordering wi=
+th VSP
+>=20
+> The VSP serves as an interface to memory and a compositor to the DU. It t=
+herefore needs to be suspended
+> after and resumed before the DU, to be properly stopped and restarted in =
+a controlled fashion driven by
+> the DU driver. This currently works by chance. Avoid relying on luck by e=
+nforcing the correct
+> suspend/resume ordering with device links.
+>=20
+> Based on similar work done by Laurent Pinchart for R-Car DU.
+> commit db5be3a7d6bd ("drm: rcar-du: Ensure correct suspend/resume orderin=
+g with VSP")
+>=20
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-BR,
-Jani.
+Applied to drm-misc-next.
 
->
->> 
->> Thanks,
->> Jani.
->> 
->> 
->> (*) Hint, 'dim apply-pull drm-xe-next' on this message will do the
->>     trick.
->> 
->> 
->> The following changes since commit 4516432284e1b2ad9e70de8067f779c9c1072189:
->> 
->>   ttm/pool: track allocated_pages per numa node. (2026-04-08 06:52:48 +1000)
->> 
->> are available in the Git repository at:
->> 
->>   https://gitlab.freedesktop.org/drm/i915/kernel.git tags/topic/step-2026-04-09
->> 
->> for you to fetch changes up to baf310b9836445ca9056f04ec347293963a1cc6e:
->> 
->>   drm/i915/display: switch to including common step file directly (2026-04-09 10:10:03 +0300)
->> 
->> ----------------------------------------------------------------
->> topic/step to unify xe and i915 on common steppings header and enum
->> 
->> ----------------------------------------------------------------
->> Jani Nikula (3):
->>       drm/xe/step: switch to the shared step definitions with i915
->>       drm/xe/step: switch from enum xe_step to intel_step naming
->>       drm/i915/display: switch to including common step file directly
->> 
->>  drivers/gpu/drm/i915/display/intel_cdclk.c         |  2 +-
->>  drivers/gpu/drm/i915/display/intel_ddi.c           |  2 +-
->>  .../gpu/drm/i915/display/intel_display_device.c    |  2 +-
->>  drivers/gpu/drm/i915/display/intel_display_power.c |  2 +-
->>  drivers/gpu/drm/i915/display/intel_display_wa.c    |  2 +-
->>  drivers/gpu/drm/i915/display/intel_dp_mst.c        |  2 +-
->>  drivers/gpu/drm/i915/display/intel_dpll_mgr.c      |  2 +-
->>  drivers/gpu/drm/i915/display/intel_fbc.c           |  2 +-
->>  drivers/gpu/drm/i915/display/intel_flipq.c         |  2 +-
->>  drivers/gpu/drm/i915/display/intel_hdcp.c          |  2 +-
->>  drivers/gpu/drm/i915/display/intel_pmdemand.c      |  2 +-
->>  drivers/gpu/drm/i915/display/intel_psr.c           |  2 +-
->>  drivers/gpu/drm/i915/display/skl_universal_plane.c |  2 +-
->>  .../gpu/drm/xe/compat-i915-headers/intel_step.h    | 13 -----
->>  drivers/gpu/drm/xe/tests/xe_pci.c                  |  4 +-
->>  drivers/gpu/drm/xe/xe_step.c                       |  2 +-
->>  drivers/gpu/drm/xe/xe_step.h                       |  4 +-
->>  drivers/gpu/drm/xe/xe_step_types.h                 | 61 +---------------------
->>  18 files changed, 20 insertions(+), 90 deletions(-)
->>  delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_step.h
->> 
->> -- 
->> Jani Nikula, Intel
+Cheers,
+Biju
 
--- 
-Jani Nikula, Intel
+> ---
+> v1->v2:
+>  - Collected Laurent Pinchart tag.
+>  - Added commit id of the similar work on R-Car DU.
+>=20
+>  drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c | 16 ++++++++++++++++  driv=
+ers/gpu/drm/renesas/rz-
+> du/rzg2l_du_vsp.h |  2 ++
+>  2 files changed, 18 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c b/drivers/gpu/d=
+rm/renesas/rz-
+> du/rzg2l_du_vsp.c
+> index bd486377f037..eb626c3cc421 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c
+> @@ -20,6 +20,7 @@
+>  #include <drm/drm_vblank.h>
+>=20
+>  #include <linux/bitops.h>
+> +#include <linux/device.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+> @@ -293,6 +294,9 @@ static void rzg2l_du_vsp_cleanup(struct drm_device *d=
+ev, void *res)  {
+>  	struct rzg2l_du_vsp *vsp =3D res;
+>=20
+> +	if (vsp->link)
+> +		device_link_del(vsp->link);
+> +
+>  	put_device(vsp->vsp);
+>  }
+>=20
+> @@ -317,6 +321,18 @@ int rzg2l_du_vsp_init(struct rzg2l_du_vsp *vsp, stru=
+ct device_node *np,
+>  	if (ret < 0)
+>  		return ret;
+>=20
+> +	/*
+> +	 * Enforce suspend/resume ordering between the DU (consumer) and the
+> +	 * VSP (supplier). The DU will be suspended before and resume after the
+> +	 * VSP.
+> +	 */
+> +	vsp->link =3D device_link_add(rcdu->dev, vsp->vsp, DL_FLAG_STATELESS);
+> +	if (!vsp->link) {
+> +		dev_err(rcdu->dev, "Failed to create device link to VSP %s\n",
+> +			dev_name(vsp->vsp));
+> +		return -EINVAL;
+> +	}
+> +
+>  	ret =3D vsp1_du_init(vsp->vsp);
+>  	if (ret < 0)
+>  		return ret;
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h b/drivers/gpu/d=
+rm/renesas/rz-
+> du/rzg2l_du_vsp.h
+> index 322eb80dcbaf..a22aaf0843ed 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.h
+> @@ -15,6 +15,7 @@
+>  #include <linux/scatterlist.h>
+>=20
+>  struct device;
+> +struct device_link;
+>  struct drm_framebuffer;
+>  struct rzg2l_du_device;
+>  struct rzg2l_du_format_info;
+> @@ -29,6 +30,7 @@ struct rzg2l_du_vsp_plane {  struct rzg2l_du_vsp {
+>  	unsigned int index;
+>  	struct device *vsp;
+> +	struct device_link *link;
+>  	struct rzg2l_du_device *dev;
+>  };
+>=20
+> --
+> 2.43.0
+
