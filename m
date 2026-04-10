@@ -4,132 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A5E2F459FC
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 17:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 627A3F459FC
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 17:40:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95CBE10E9A1;
-	Fri, 10 Apr 2026 17:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B423E10E9A6;
+	Fri, 10 Apr 2026 17:40:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gMMvkIPb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hadJNWlG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LT236VYx";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0393210E9C9
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:08:45 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63AH89o01498616
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:08:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- HZOxmQZBEOeXvhjn2YgqcFwzqbzGVvP4E9vnaq98S+Q=; b=gMMvkIPbjfraVc7k
- lzHsqHWRGylCZTg+gypgOLgoLjcoluVaAZvoRUmJf2qaOczDDJdQBDH4m69wcwBG
- ge8eKFh0i/Tse8glkYs4sCmIcgvqcrsY/Uc7aErrOitbqRPSMwbKpfVyl+4TCSh+
- 2Q7HRZ+/VO22l+WXLgZ41sF1wJWPysKK5m4k9WbKnAF6ZWW6WL1FAPajOics46Y4
- 0qJuwtFCaE+QmnKvkEIA/oxEG5xiNf5VPOYx8FsYuJFVu22fJca1LcWXQNHCMcVk
- uL7Q7mGYb0+ms8ZXrKzp2lSAxnKtd22h9iVMSrlN1C+W1chf8naN+cHdmFaKKyPf
- t+mnQg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dey5b18qw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:08:45 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-2ba9a744f7dso2821022eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:08:45 -0700 (PDT)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1950B10E9A6
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:40:42 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-b9c11eba219so281761366b.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:40:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775842840; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Kq4CZMP5zTWK9QUvkSkMxxDXK+5nScBs5S2K2J12iRxqYVTnBtCRTojUPBG85+dQEl
+ nwLKux4h2M2zunJb9MLgwX2dwU6wNt5wSfxPOf6cLdsqh+cQRexiMOBd3fRv45TOCXH0
+ Da/Oq9lTqmjc1fXforNNIp/RcYymIYntAyqJH8mTbo/If5X/iLZaGIfDa58b/vs9hkgw
+ Hs/k/BW5YcLYuGkp22wvwvHa8HxLWMqZkylP14/nAipbZ1hnZhPLOG630bbbPDOTUnEU
+ wLGofEoKwr2SLUg3hlXv9zDZfm7w8pajrEFbrENMD7gimdON0EGct3UV7bzpW3WhCO1f
+ 0Jrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=dN6OHHDaiTfVdHomxkKXHWudndDr0TAk+XE4EiflmuI=;
+ fh=equZ4F3a2c3Rq5Auo1Jv8SaaBGIWhYi0nRqYpYGUxEQ=;
+ b=G5I4Ul7fnGEKyzr8JOU9pDR8FgTKrd8rGqEiP6xYXEOPTLYRbC+pK8ttEbRPaF9bD1
+ L1NiBPqxAKtqCbcwHB8qWBBUQse5nhkZnIXo4pxG3zQcNEpK2dHuJo6N8YFSOMTvafBr
+ 93f8wrL0q7YaLaXUC1Z56qzxkn5gVdUKRqQYM5eljJeQOX9zTW6Gj2zU2BHAsJyh0DG/
+ 1T0SCdatKnGJxb8oJOkocStRm34akO6bvYTLmoE8zjHILTugm4WLRASNqk1oKpnN0ENx
+ GJNZN3kUNVbBBnYWVAMfyuE0KUOL745s9XnWUeORrIV1QJSFtYia91goboUwQNnxEtun
+ sMTQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775840925; x=1776445725;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=HZOxmQZBEOeXvhjn2YgqcFwzqbzGVvP4E9vnaq98S+Q=;
- b=hadJNWlG6J2gsiNDR70LHh4YreXTGGlzxGKXJZXl1Vgrj9pYPfTqppxrS7XPCqKYN1
- fxJUQTaCAIX90AAT2nkY1fOfp84+DGt7lZFtAmx46TKXUn6NSrZ97WSSnFG0xdYE//3T
- tE18HoPdt3521/M1hOdGC5suovPfqeF4IKXk8pq+UDwGkpUgYXpj1gIjZH0mxBNeDpmG
- /kRP242sJegys+xOMoLzoqQyTqXAvDP/BfcEeF06/91C4E+y+TTdUr9GjROWBdE63JHy
- 0oR/8NxnbMOPaG8BiJjClxR9BFX0svziYorKfgsHQZDgFfoTafPyZaBr588wD0ULXuVv
- BYlA==
+ d=gmail.com; s=20251104; t=1775842840; x=1776447640; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dN6OHHDaiTfVdHomxkKXHWudndDr0TAk+XE4EiflmuI=;
+ b=LT236VYxJgqs35x1yUPg3TW3JYPl2LB4xxJESAHmeBDFQj515n5TDrCvzbnjQ0hTyI
+ SHw4ed2QL6zFbN02Z/pJj4wHMUUmh0xvPa9rjipYsI0onycUoUT79aQXZyynv7wg6H79
+ +Cn5XxeLaf9i3/pc/i00gQduOU7qp4tBguXT9B1SImL4c/WDf7dzsk5D87NQzfT31DdU
+ EbsshaQ8izI+c5ERNAZE+ABKKC9d9d20kolsufse8UNzqfvsKBAkKPS5mpE2bYS3+I8M
+ HuCzNVev2OFb1otojJ2bvg+93zCQCGR62a/Q4wcZYY3K7VOyooU/mS9MXfdCfo9TAX6K
+ aImw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775840925; x=1776445725;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=HZOxmQZBEOeXvhjn2YgqcFwzqbzGVvP4E9vnaq98S+Q=;
- b=FWowxeMykJGrWkk5euXgvb0MPTFLV5d8jMIwLTZpMqv9o9XPcr+tzufCsNk+oRZkaZ
- uWwRZrPQCMfw6GvVeJ/24RfPoBvEqmL5ox47rt+bNIIoHSD5INQ3U4+gSd1Ek1ueqYYM
- O9qG+ivo5KUcAHhrhSm44rdvQFGu8vxCubhNLcScFd3f5cKJgvnBwn0o3Pz9fH9V47wh
- 6X4wHfqMrif62Z7S8k8URLYZTV8VY4oqE7vp7x1A68htn9wGmgcTPZSvcsXKrPIkwXYo
- P22I/y9J3Gi62h0p+chNwXk4SxOd7uJDmAHx3LqOQQVKiT0FZKXeRsqlgoXydOSSZgOr
- cIhw==
+ d=1e100.net; s=20251104; t=1775842840; x=1776447640;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=dN6OHHDaiTfVdHomxkKXHWudndDr0TAk+XE4EiflmuI=;
+ b=nfRwV//1dVbVKuG9fTkB2jAE707tiUbjTeSAEAcu+DNCVwZAweIP67q3yk7rmL+7mE
+ P3jhitT2NMPnjgo2T0gADAtv3EH2atI1+lEc1d/Lu9Hjq9q0XG/t+4pqFzXKQJJS+NpN
+ 9P7+Eg7ErHEfcZ0Sil4f9A4t/E+g/b8duCSzJivyw5x+kcX83tgkqojT9arsjZpIlemT
+ lZbq8VOzS8NvflI/OF4rb82d++qwUF4xda4fD3oeSsNJNSUohD5RNVXKRiP0Q1nZ0SdG
+ fpnIzXa3h49Y+aqmSIE9A2dpwR4AGpd4LOy41PQur+Y2EoPChb/3z3MowkDN4zz63Se3
+ KqwQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWIXGWwpuKAUFR+lXeoxvIUZn+a+wH2HIMv8mpvnBlrzHDB2HsOv5TcuVhrx0z+n+NiKtKAujoOtfA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw8SZdPXNqg1eQ+G+XQEE2DkE80qfww9FagcDDD+foFJzKYC4Ts
- ejD0cr811tc8RLmoMZKg9ZBILLkYS8aoariW223VaBLxI0k9wMfa7M9AaYxBccWFySeGk0qvupW
- /pAeojOhc3//zEpkcv8q8lWumElfs85tGmZMS/b+5nqblSNxjZFN+8ljMU7SUEG/QHoHe94k=
-X-Gm-Gg: AeBDieunxtwrdbyB3V9RhAmlp4ddbSWYl+c8X6eYeWCNRk7oZqCZNyLRfuOJJawCkwI
- 8Midwqk+Yy1zk2BTK5tbWYg0salqAoyW6gArh3oqiZ3nZHNDg/JA0YRXKfjRTT3IFrMdn2Xp3cD
- V44gbBbXy1h0eRD4t/vOLK59QP8h63OK+B/WW/mKqiUxPPIYWplUzJRpf4lrQXqbqJttudkPqme
- 8nkEjd0uvqL+u+jklEV0rX+oGfVymYCGNnzoiIU1sd8YdDvRkyulfNGUyAz0b4Q2/bcpki4Dpc0
- /7jYwNZLHPd1uOQ/8USIBouHeYsjgk8yHmtkY365VzfGMWH6q8OZqMeCOzgBv+GfU+V+Cecnjp9
- 0e1tGHPw9Ff+IQ+QYDOQdA0QP1grV57iLdSFUUpJHeltpansnQWJ4xRnD0lU262NPsR+K6s+Qat
- U=
-X-Received: by 2002:a05:693c:3116:b0:2d5:432f:1569 with SMTP id
- 5a478bee46e88-2d5891752bbmr2332808eec.15.1775840924844; 
- Fri, 10 Apr 2026 10:08:44 -0700 (PDT)
-X-Received: by 2002:a05:693c:3116:b0:2d5:432f:1569 with SMTP id
- 5a478bee46e88-2d5891752bbmr2332781eec.15.1775840924302; 
- Fri, 10 Apr 2026 10:08:44 -0700 (PDT)
-Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2d561bde68bsm5089493eec.17.2026.04.10.10.08.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Apr 2026 10:08:43 -0700 (PDT)
-Message-ID: <aa92c999-2d0a-420c-92af-92540a27027d@oss.qualcomm.com>
-Date: Fri, 10 Apr 2026 11:08:42 -0600
+ AJvYcCXDz+0ii9+2SmwnEvm+BpBpAOETL5d65pW6aOP/53puMDBzTyfVT4bifr2IElYWHXYwlextNQ6ivls=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTOaPsQfQ/pwULKaX2umgkQspwvlxPGYyjs9su8cXPpUNTK1hT
+ xyM+IEe0ahFJF90+raTifWHZa+glMacypl+HfMbpgErPZn1kBA3qup5joDDOFCQOPlmlznmwEE4
+ 8K7gHJ2wJP7vXJYMcebETDHSWiD3lY38=
+X-Gm-Gg: AeBDieumUmFzdvbZLWioKtS3pwWeWyhVsYqL37LSCJjPXxscm44eFOWjIxm2ky7aB5G
+ 6uidNit21HXedp/WO3DmIgk2BMBmYdJP6VDeLpyIegiW+oI+Pb/Vn8r+nwSkE7+620mHH7m3yXq
+ +S7qfKHawICP15qQykmmKvhSjcJWiI4MSchGM+rDNcwiYaq+yaFKgEL5h46tUtavFU2RGannvZN
+ 1D5lmGiCk5Hk3Szqt8pe6kIoJg3IrnjD09r5w+oS9CBljM8h2OrwzmSh9HTrs4M6SMzT2THpdcx
+ UoodVCPa2a4l9oM4eAuvlRwBqI9ycqhjt0QXZpRR/usn/nyqsVRfMbEX5o0uVhlPImVhhtoehgA
+ dQLbnvPmlqcTgNULT
+X-Received: by 2002:a17:906:eece:b0:b9c:350b:f849 with SMTP id
+ a640c23a62f3a-b9d7297e205mr254084166b.24.1775842840105; Fri, 10 Apr 2026
+ 10:40:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] accel/qaic: fix incorrect counter check in RAS message
- decode
-To: Alok Tiwari <alok.a.tiwari@oracle.com>, maciej.falkowski@linux.intel.com, 
- jacek.lawrynowicz@linux.intel.com, quic_thanson@quicinc.com,
- carl.vanderlip@oss.qualcomm.com, ogabbay@kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: alok.a.tiwarilinux@gmail.com
-References: <20260410112015.592546-1-alok.a.tiwari@oracle.com>
-Content-Language: en-US
-From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260410112015.592546-1-alok.a.tiwari@oracle.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: rmP4ODyItL3u0L9zdI-eOounSr1ztQmP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDE2MCBTYWx0ZWRfX0sG8/kyoqRWh
- vTUYorSA8ZYxu8O51N5gW1vYB83xvAPBqkrKoMhPjROVPebjmdpWxnOrLTWgyup+bVumwCDdmJS
- 5NYinJRJ1JIbz4lU1XYpczMnCfIR2iY0yLm5HPqBATjr4cYxB7vlteiNtVudwrI6Yeu30aH2Eil
- BufMTDOi9PFE4UAQhx2WqnvqDuaOJkcYRlJCJt3G/e6iZbiIlZTTApF/TXJ366tCahb9MBV2aEM
- lKL2ind8lPvF5MHf9jEu9T3pF3JFkR31DacvbB6I4ew9tG5xrMZ1tcFkbNJ7Q5Suil375sr1cdf
- 2QhqkARH4fsdWDVgU92lSpeuLvjYLkDF3e5THGHV5r5OYzVo+UJa51w5RT0caZvOpj7tOe8dnok
- HPLIY7v30ewL1PTMD3QaZVe55txXU2MpuObcRbxccecKY9u6bZGBnb4kCPrgKvStHgqSFY4Q52U
- 5JhtuNWhGMDXJiDQvnw==
-X-Proofpoint-GUID: rmP4ODyItL3u0L9zdI-eOounSr1ztQmP
-X-Authority-Analysis: v=2.4 cv=VsgTxe2n c=1 sm=1 tr=0 ts=69d92e9d cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=yPCof4ZbAAAA:8 a=EUspDBNiAAAA:8 a=kkqwuB-7APtATm1xqVgA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_05,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- adultscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604100160
+References: <20260401220643.12802-1-rosenp@gmail.com>
+ <b772c81c-3628-45c5-ab11-a0737a94b812@oss.qualcomm.com>
+In-Reply-To: <b772c81c-3628-45c5-ab11-a0737a94b812@oss.qualcomm.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 10 Apr 2026 10:40:28 -0700
+X-Gm-Features: AQROBzAGbFQNHO1NpZGhgy_hzsDylIa-uvfdzOOR1DS2GBgDZwb6wKvs4Zz0Xlg
+Message-ID: <CAKxU2N96X31nsB-Vyt-Sm1rQMTo8cuZG+UDN=37av8c_5n-EcQ@mail.gmail.com>
+Subject: Re: [PATCHv2] accel/qaic: kcalloc + kzalloc to kzalloc
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, 
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ "open list:QUALCOMM CLOUD AI (QAIC) DRIVER" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>, 
+ "open list:KERNEL HARDENING (not covered by other
+ areas):Keyword:b__counted_by(_le|_be)?b" <linux-hardening@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,12 +113,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/10/2026 5:20 AM, Alok Tiwari wrote:
-> The UE and UE_NF cases check ce_count against UINT_MAX before incrementing
-> their respective counters. This is logically incorrect and prevents
-> ue_count and ue_nf_count from incrementing when ce_count reaches UINT_MAX.
-> 
-> Fixes: c11a50b170e7 ("accel/qaic: Add Reliability, Accessibility, Serviceability (RAS)")
-> Signed-off-by: Alok Tiwari <alok.a.tiwari@oracle.com>
-
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+On Fri, Apr 10, 2026 at 10:01=E2=80=AFAM Jeff Hugo <jeff.hugo@oss.qualcomm.=
+com> wrote:
+>
+> For future reference, $SUBJECT should have a space between "PATCH" and
+> the version. git format-patch will do it correctly for you if you use
+> the -v option.
+>
+> On 4/1/2026 4:06 PM, Rosen Penev wrote:
+> > Consolidate the two-element allocation into a single allocation using a
+> > flexible array member. This reduces memory fragmentation and simplifies
+> > the error path by eliminating the need to check for allocation failure
+> > between the two allocations.
+> >
+> > Add __counted_by for runtime bounds checking.
+>
+> This reword addresses my "why" comment on v1.  However I don't see that
+> you responded to my question about how this was validated. I don't
+> require a v3 of this patch, nor do I really want one. I want you to
+> reply to this message and detail what validation you performed on this
+> patch.
+None. This is a straightforward conversion to a flexible array member
+(and future devm_kzalloc_flex).
+>
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > ---
+> >   v2: use macro for number of elements. reword commit message.
+>
+> Also for future reference, a blank line to separate the change log from
+> the patch diff here makes the change log easier to find and read.
+>
+> >   drivers/accel/qaic/qaic.h     | 4 ++--
+> >   drivers/accel/qaic/qaic_drv.c | 8 +++-----
+> >   2 files changed, 5 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
+> > index fa7a8155658c..e237020f6aa9 100644
+> > --- a/drivers/accel/qaic/qaic.h
+> > +++ b/drivers/accel/qaic/qaic.h
+> > @@ -152,8 +152,6 @@ struct qaic_device {
+> >       struct list_head        cntl_xfer_list;
+> >       /* Synchronizes MHI control device transactions and its xfer list=
+ */
+> >       struct mutex            cntl_mutex;
+> > -     /* Array of DBC struct of this device */
+> > -     struct dma_bridge_chan  *dbc;
+> >       /* Work queue for tasks related to MHI control device */
+> >       struct workqueue_struct *cntl_wq;
+> >       /* Synchronizes all the users of device during cleanup */
+> > @@ -206,6 +204,8 @@ struct qaic_device {
+> >       void                    *ssr_mhi_buf;
+> >       /* DBC which is under SSR. Sentinel U32_MAX would mean that no SS=
+R in progress */
+> >       u32                     ssr_dbc;
+> > +     /* Array of DBC struct of this device */
+> > +     struct dma_bridge_chan  dbc[] __counted_by(num_dbc);
+> >   };
+> >
+> >   struct qaic_drm_device {
+> > diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_dr=
+v.c
+> > index 63fb8c7b4abc..1dda8dfea5a4 100644
+> > --- a/drivers/accel/qaic/qaic_drv.c
+> > +++ b/drivers/accel/qaic/qaic_drv.c
+> > @@ -43,6 +43,7 @@ MODULE_IMPORT_NS("DMA_BUF");
+> >   #define QAIC_DESC                   "Qualcomm Cloud AI Accelerators"
+> >   #define CNTL_MAJOR                  5
+> >   #define CNTL_MINOR                  0
+> > +#define DBC_NUM                              16
+> >
+> >   struct qaic_device_config {
+> >       /* Indicates the AIC family the device belongs to */
+> > @@ -405,15 +406,12 @@ static struct qaic_device *create_qdev(struct pci=
+_dev *pdev,
+> >       struct drm_device *drm;
+> >       int i, ret;
+> >
+> > -     qdev =3D devm_kzalloc(dev, sizeof(*qdev), GFP_KERNEL);
+> > +     qdev =3D devm_kzalloc(dev, struct_size(qdev, dbc, DBC_NUM), GFP_K=
+ERNEL);
+> >       if (!qdev)
+> >               return NULL;
+> >
+> > +     qdev->num_dbc =3D DBC_NUM;
+> >       qdev->dev_state =3D QAIC_OFFLINE;
+> > -     qdev->num_dbc =3D 16;
+> > -     qdev->dbc =3D devm_kcalloc(dev, qdev->num_dbc, sizeof(*qdev->dbc)=
+, GFP_KERNEL);
+> > -     if (!qdev->dbc)
+> > -             return NULL;
+> >
+> >       qddev =3D devm_drm_dev_alloc(&pdev->dev, &qaic_accel_driver, stru=
+ct qaic_drm_device, drm);
+> >       if (IS_ERR(qddev))
+> > --
+> > 2.53.0
+> >
+>
