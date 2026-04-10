@@ -4,94 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2845F44873
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 14:07:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2A97F44873
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 14:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CE0410E960;
-	Fri, 10 Apr 2026 14:07:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53E6E10E962;
+	Fri, 10 Apr 2026 14:08:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="XkpjP0vx";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="apk2luYc";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FE1910E960
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 14:07:12 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-b982b0889d8so286851466b.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 07:07:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775830031; cv=none;
- d=google.com; s=arc-20240605;
- b=QIhetYpr41AKlsvyc4rCBLLuCoZPuDXB8U1Sqjs8s6femcAe6DqAL5Qw1z711LM3Fp
- 5zOi+SZTf83OML4xfUwdzkqtw/PrzGOvuePfs2m3I76VtMAM1IfOzStzpYuj0baCUfL4
- UVN8l83Gp8Cob45T6zHRIuSpc1WQa5pCyC+SLhlr26u+HO1e+DOlxJuElgEgj0xv09yF
- pY418dzFaTBwD1dUx0BcPZcXsB//p1c9a59RSU39IVKCodDt06M0VJrq9F2GMg2t9rEj
- 8CXYkTw8lP79YRU9NzB8F2e0gkeUmJ5q+qMr+5ZkVQNd4FgzsUbW/UKSAcudBe6slelI
- R0JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=J7QztuYj2+YPxHFsqeBj8RkIsj0A+J82n8lSDLxBNak=;
- fh=zHnxozcO+C4oB/rNCyVq+YR11wbihlyp0dXNTaOup3k=;
- b=ky2NGRImSACPNDuXh5oN7bFYRykI7hNYsYQacGZSyf1JHlBQZx35XJNI7+OfZGVqph
- 3NGFr74Z5Mwg3u2W/hd6AbIS+5aYAlkwCvBPPVIEc7h6qVO951ZvK+j5pCRNzu+s4x8U
- sWlpRzWiERifdZABIs1dwe7A5my2cDGZ1W6lZ9TTEPWqmL4F+CKN2wXgm2OQUq2K1a/R
- 6gyXsJDCyCii11HOH6AMJoBmKaY6pROjMnb64lJeNOX4MH+1PBXJh31mxxMFv1tuqy2t
- 0DAO1mqQIBSAV4pw/1uUnL1oo2KUhf5ae0kz4usJaiSmhoCctCVKEKUe9qAArO709bI3
- YHaA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1775830031; x=1776434831; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=J7QztuYj2+YPxHFsqeBj8RkIsj0A+J82n8lSDLxBNak=;
- b=XkpjP0vxKiyxyC5Msi0tU4NsPHIyT1TiUpGE6FsB4+Trs93bTP3sDIO9yFNsKmZjuL
- o2fMASbCLuTjCmg0FiKUQzfu7ygjuSkjZjEuT/1g5Zhe3A3JTXbZUjDEPsL1swdl0kYQ
- 6P3QLjZxdmz1TwNUkDvJNu0cSRTw5NmavxwCP2xgaNOhxuJwFXMqk0JG/0x//zE3e4SI
- 1su2IW0AIUWi6/2BFpSqyNXzdObK1FW3QQwbf0RhO/nltD9LRv3ubH5GhCG6UJl+6AC1
- XIw7DTyLZrd3xatCVG2WWRXMQutf7uKe4xSrPYDp1qSLJ6+xD/BzI7ORDgm+18ZdD/+j
- zHoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775830031; x=1776434831;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=J7QztuYj2+YPxHFsqeBj8RkIsj0A+J82n8lSDLxBNak=;
- b=KByv8eRccQYseHOTev27auYttjLclotitG0RB/1Fq89SNOIIu1YzPsGmN3igjLYJQk
- 9OcLh0+7x+6YM3gWNHZyDg5pSJpD8FkSQZRw69PFck0vUXEB2mMZ2njN7yt7g6LS97BJ
- GOJtoMjX1yBKcgWHreVkkxLLR5wck8YdjrGvkDe1H7r2ix2zZAy2TbGZJ4MniOlNbwRJ
- xf42YWSN54QUMCV9v5iUaq7gwyRO8E7rsV8IBbnqT8o/5tGmnn/7bk5Zl/M4eI92+xSS
- D9mKlG66ku7WGzXdCrGzG+qNRDljXdcFi3VaiPw2h1oi8MQi7lCLlgTHxF/kokLJZrfg
- Dgcw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUHu5twow7Iki88DYbjOMTY00aXBHhPsVXwhoyAMd6kRHCkDMncLR8vTwRzwYsGgfPGmdPvSdeHOM4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwA/dKOQNbeUkQDtjgXs9Abnic4NrM+Pt2GycO2nQvUFwBx3Uek
- t4J01zkVQBB5WUsUGZ6DblMrVtTCLK+3KGLPOavnFRHZ4ui4xyht6nHJuhxnPh1mz1VZ2iMhbRp
- 1isJ7GQ6RnJoRea+LfhZFngK5yxd8bz/ImHi97tA55g==
-X-Gm-Gg: AeBDietFBTVe+4ytcQsCWcRM65Z1ZaKyYaiSU1lhyxJ5ETbR1lxJ8lKmTGvFlJanCGl
- XL371z6N6sb95rx8I65YbNvmW0qEoExsS3oSuPxReFVLXclRRN0I5UuvAcnR3/APHIzxbTKTU6p
- Pe1l3+uTWp0YctsPyVfLc2AjG6/osnY8N5KUbFn7uxlU06THkzWvG2W6JMVw+a6CXVDwXTkwufT
- kaMoZn56Lll6NO3q32etfR2m8Bs1dxp99SZG4a7JrG8Vk5Fc/j7n4KZ1V5Y5ap0gh1RzYwAa5ch
- pjreASp2oYIfxwv96+uV4PeZyrzydOUV/WwRFFo=
-X-Received: by 2002:a17:907:26ce:b0:b9b:7f2d:923d with SMTP id
- a640c23a62f3a-b9d72661536mr207795366b.27.1775830030380; Fri, 10 Apr 2026
- 07:07:10 -0700 (PDT)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010046.outbound.protection.outlook.com [52.101.46.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25E3E10E962
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 14:08:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PN1pPVSKqALQ4cyHIuOX8wlhsVqAK5fmQEJYQUsj68DjRAIjB80lU5DtlNEWHDr7h8udhshZPLRXHNVqQkKOW8fJjcytGwpmEFQ/WTRGzzZh2reLLh6NXxay8y/JL233/oohFHJvR625geOBmvl1nWRyMxl8pUBu3Lhajy/QB4cissntxenNsH6oGxg6wTZz92GJZ+w1wyhtyAHGKAu5WMmZCqz8eE1Y6Ri2Z+TCuoQbB14uebjXIrRy66b0K9fE1O8YYbdrwh9cgMw3hLxW582n+4LCkQz1U1sLofO8xszE5HpEdCbU2EVCCBd14G9nBf5+QNSF6ujVJdQZy3J9sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7uejLG2N29MxFLyBSLBDat9fjpgH/LzQXOBKngztnrQ=;
+ b=aFXSqcErWnrimoqNTVTXVV/3mYWBWoQaHYG8P3hVOjArdtz+rKnd6Yb9iqhJ826g6LSA/d0gH5irDsTDE3WfPtn0bIjY3j4ec7BV/VWfQsBoiT3aU0QeF6+SKJorrRn2pIL90Znuyh6MddK2Oq2RLwQ+oDRFWEc0hOgPVyj/8r4vIDJTJI30M3XnYbX9EQ3DXYMDfXK+dWNHN1Ev3Ar7L9oUR47DOy82MIFN5hGxU5Bij6vDT3xWniAScKiNus///WP+mXOT4t6eLAXaUd32gDYYwkohlWA3qaJzlTm5/vERfRsyJ0wVFo87OX1VeKmwvOzw9NBfKW1kh2P5NjPPiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7uejLG2N29MxFLyBSLBDat9fjpgH/LzQXOBKngztnrQ=;
+ b=apk2luYcLromQymnu0yk0qpGjb15L+wf31/HuMeZZhsSAVjfGrBHwxMrwH6G1zfxjviW5y70OjP11Qw30ZIBVKFs539VqdH+HtcfiN/ZbffOGcFFREzto6xdAtp3xxrEBhMIVwTXFhFh+kr9VClHIGMlZM5/HnGuGp0KNIa3xVYfb6eWVkrgTqsCYZPiFPk5YxFzRNfsZANA6iU+VFMVZiwIxIJYM5KWUl89RnAjxslbSwUJPoFWGwyt3brCpBHddSx4j3+tV5UYRifmhPtnobTjiqX9+svW670xv4Wo9aPew1TyiCm7aCghgfLiVVr+XxFhY8AoXTDtc1MQvc7Gng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ CH3PR12MB8075.namprd12.prod.outlook.com (2603:10b6:610:122::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9791.34; Fri, 10 Apr 2026 14:08:48 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Fri, 10 Apr 2026
+ 14:08:48 +0000
+Message-ID: <b90e1cb3-d6de-41fc-98e6-0e744666069b@nvidia.com>
+Date: Fri, 10 Apr 2026 10:08:45 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] gpu: nova-core: vbios: fix various cases of reading
+ past `BIOS_MAX_SCAN_LEN`
+To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
+ <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260410-fix-vbios-v1-0-bc6f71d153d6@nvidia.com>
+ <20260410-fix-vbios-v1-1-bc6f71d153d6@nvidia.com>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20260410-fix-vbios-v1-1-bc6f71d153d6@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BLAPR03CA0085.namprd03.prod.outlook.com
+ (2603:10b6:208:329::30) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-References: <20260410123703.937822-1-sumit.semwal@linaro.org>
- <c427afeb-15eb-4a46-aa6c-fe24631d24ae@amd.com>
-In-Reply-To: <c427afeb-15eb-4a46-aa6c-fe24631d24ae@amd.com>
-From: Sumit Semwal <sumit.semwal@linaro.org>
-Date: Fri, 10 Apr 2026 19:36:59 +0530
-X-Gm-Features: AQROBzDTpEfzR4ryK5YAY1RA4qEovpocT3VJx89MYLkdYmV0Mtz-BnQUmSjc1y0
-Message-ID: <CAO_48GHyBz-CEap=icQDKqVsBgCy+DNazd6ANzf0NucE5yc1cg@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: fix htmldocs error for dma_buf_attach_revocable
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: leon@kernel.org, broonie@kernel.org, linux-media@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-next@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CH3PR12MB8075:EE_
+X-MS-Office365-Filtering-Correlation-Id: a341dce5-7415-44bb-1697-08de970aaf3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: V00+sjFj5pdrOZt/YX/shl7L/s8kbbw3Z9GvA2C9zd53rlg9C2+ehcWK9q+0EVNTbZDHOyT5Qv4w8NTqa3HzPslnDb31ENBluy2UJaiSivjPRV6qY6N6eiZoAfT11Qi7S8C5nJ5mBSSuznJYAsOmST6ws42zrYFz9NKjxj3hCQsBBpe2AtR38UqoKiByxLFqADmG1KvfLzGG+9zynKJtIdhINle6X3f9/GMGMFsrlmqDpizbR31RVvKq9n/dkIy9/iGq/3g1yUqptVQqMGFIgLfQE4V9AoDVHGBbxRtWR0U5JNuNIktrsijDrLuAc82fMLrIBn0ORSXO/H0tv/BCDcTwY3FYD0/q4XBt6mK0caesImh6Jkwx44GfZ94VFEqikK70RSRFa9Wz9GdbeF8zMRVi1BPZs3MBNz7wRgPOBtRCr6ZIyIVeE6i/VrnTdhE4v0u2fxaU0sp7v+QRqD/Z9PzH8RLgOs9VaDFOOvZ26Z2TXKA2wozB8SU6ftwprqZauH2PBBDrSAespYZsKDA1n8XuypZZ4Jxzk+YzNFvx0OcxCHLfDj3YABbOVfdTEo+dm9gCsUO1oz8rbpWCn57MOEBwRAHkMeJ5xFZ36S2vsaaJGI8KltI25svLFVE49CpIDInIgjjzIoGjGEnxYGy+pxIdfCv6i1m9+3MeDCWv8qkJmuirI/G3jYm1+NH66fgAujDjKhUgudAgzK4KurvTspT/IhktKbEIoJg17o+enN0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFJXVzQ2V2ZzVFZuWDYvTWw0RU1Mbk8wODg1aFVlOW15bkdkS3lTSUpqdkdE?=
+ =?utf-8?B?OHVLN3FlTnpaRUJiZjJnWHNDckFpYzRwc3QvRnFZaWpJajJQZExXRFB2dDN6?=
+ =?utf-8?B?djZJMmpFUjBzUEZCTDZHMTFJVGdkSzh3Nk1FMCtoR2tsTTloc2E3NEZvNmZP?=
+ =?utf-8?B?NFlZZ1ptSTJVbFREK3RDTWdQeWlDU0lpcWFvNU1paHNyTkM2aW5IU2xsN3Zt?=
+ =?utf-8?B?eEdHU3FHbjZyYXBKV0E5YUxJREVNS0t6THNGREo4cHJqOTZ0ODI5TGUyREc1?=
+ =?utf-8?B?TGY1U0hBVGF0Um03SEFFak9EdlRRdHpoTGdzblZYTHUyRjc3RmphMFFiK3dl?=
+ =?utf-8?B?QUtVZElEcXJLSjJXSStnTHhXaGFsb1Q4RjRCZy9pSWlISHI3WVUvUHNCOWpO?=
+ =?utf-8?B?NEduSDNER1pOTXZYaHJNRW9kR1hnRDducUdTTnkrajUwbDRCV2dzUER5Tko0?=
+ =?utf-8?B?TDVZQ0tWUWdhNmVOMVppaXlOVHBJZ3JpcURmQm5FTW14SGh5N200K2dicjMz?=
+ =?utf-8?B?NGRzb1lvSExvSjFRdGVSTWlocVRHcHBXSUFEREF2UWhqSUJBTlpHM2lFdWEw?=
+ =?utf-8?B?MW5HR3IraGE5V0F2SFRvSXZlR0xJQldrTmZKNW5ObVpyd3BLczhNVytRVHhX?=
+ =?utf-8?B?VXZDOCtXR0FTbWxrbFdzS2lJNVM4SjRJT0YyK0NMcC9Ccld1em5sTUhDSU16?=
+ =?utf-8?B?NlpKUEdWUnY4K3dEYUNhTnF1d3I1SzVsSUFEcXhkTHRkOTYwTGdqSUpZejNv?=
+ =?utf-8?B?RTJLYXBqQjhFUVlJSWlvUXdWZ3JOY3R2SG92cGhTQlNRZUgvRlM2S2NVaTNo?=
+ =?utf-8?B?cGw3Y3ZNWExvR1I1Z25CLzhEajhLWWxTa1MrUGdJaERUTi9YcEpyTC9WRWc4?=
+ =?utf-8?B?b2pGWWswcVB0RnhXS3lnRm9jQUhqWkk1K0xIVGZuVG1iUVJncnpBMEoxdEY5?=
+ =?utf-8?B?cThZcjRNR2hMTytxMlJGWmZnK3NBbVpWbGgwZU5vTFAyTHZDY0pjbG4wNXB6?=
+ =?utf-8?B?b3lYQ1lseGhuaGdZbmMybkJqaXRsaSt3ZzdpU0ZUbmR3UDM3dFZTUU1kZ2cz?=
+ =?utf-8?B?NjBOZngzQ0JlWEZaY0hLNFlUbkt3Rmk5MUZqUDhwM2JhWVVHbjNRYkY4MHEw?=
+ =?utf-8?B?bEpmRVRCNkh4QkxhaEEyR0g1NGt4bFA4NzlRK0xmMHJMMDhhMUUram95UlpZ?=
+ =?utf-8?B?NnlJTmdIK1hYRHhYaXNjSGJ3T0NudWMrTFEwdW9SK3VtVWFXVklYeU5Namxi?=
+ =?utf-8?B?RVNhQ0huZ3N1dEN1aDcyR0x4MS9WRXFROHpQMVk0NEtRanZUcnBlcXd5empI?=
+ =?utf-8?B?UEh0clh0bFVmWm9TS0VpUWRJaXRmMU1aZGRBZzRrWFkyUkRYeVVub2VpZHRS?=
+ =?utf-8?B?NkVMZnd0RnNESEtDQUhQNGNFQ3JPMFVJVHYzZThTeU5zYWZoNitFRnc0OExI?=
+ =?utf-8?B?Y1dnRmU3QW1SdzZ5L3ZOaVdhMU9hM1VHMTBaakwzSXMxMnB4TDREa0pvTHhs?=
+ =?utf-8?B?RGMxbGFqYm1oYnQ5Z2RQZENwTU1LTlJ2NE9xeTl0bWFORXYyZWJkdzhkRVpB?=
+ =?utf-8?B?NmpJL1lnWjhkQk9XSE1oTVJMTTh4ZkJvZFh2VEVicmZ1d1hoU2ZubHRrc1dB?=
+ =?utf-8?B?ajNyaHFPdmVIQmllNlo2WkxpRyt0Zm5HNnd2YnQ5cEhQWVQyc05IQWZRUzFY?=
+ =?utf-8?B?UXNOcjVZMlZXQkNxdERueVV2MmR4WnFTRllCR1RjdlpUcXRhWEl1NUhPVXMw?=
+ =?utf-8?B?YzMwS3FkMFZsdFpMV3BMZEhYc1FwRVd0Uy9UQ1RQdWU4dzRKSFZEOFVSU291?=
+ =?utf-8?B?QlVlVk1WblhjVjYyRnZuOTBsUWRSOGdiU2lFK2ZLL0R4YjNEYjJ2dDgyY1o3?=
+ =?utf-8?B?cVVsamRDd2paQ3Urb0Zhd1ZzSnlqZWx6UHh6Unh1RVIweDREaEFkVDlPWldv?=
+ =?utf-8?B?TmpFd1l5cnZxd2hNRXRMYmt3MW03SG1pUjNMZW5PS3FCMFJTK3gzRDB0dE5z?=
+ =?utf-8?B?cU9tSy9nQUFaQWVhRE1UYXlXeXp1NS9WbnRwS1N3Vnl4YTIrZjBGVTZVeFpz?=
+ =?utf-8?B?VWFSQWdhdUhpMnFLNjJDTnp2U0owS1N6RTh1MWRyNENpZFpTWGZ5VEl4RXpY?=
+ =?utf-8?B?ekE3TnhPR1RpWjNFQW8xZnJUdUQ1aHlSZnZBcU4wWGEyMStnVGo2VGxBUXJQ?=
+ =?utf-8?B?WFJXd3l6UTdIQ25CY1A0SCs5MWxFMThvWTFZYzRqTmtUVWE3QTlkUGowRGtB?=
+ =?utf-8?B?T0ZSQXhNcVNFRFZDdUVtTTZwVnk5dDlMa1V4UkdjcFJkZXZ1bVFtRjMyS2xs?=
+ =?utf-8?B?US9IRC83TURvK2Q3SGQ2RUtqaURmZlJPdXpZM054NGNwK2FXcmRoUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a341dce5-7415-44bb-1697-08de970aaf3a
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 14:08:48.1532 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 50OLmh5PHuozOFHkfvdEWmlgMj+bWHhmJWw1CMDyPeHxF1w6G3UwSsywgELVKuq5ajUH3hROr+ZiLARun0jXSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8075
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,44 +142,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Christian,
 
-On Fri, 10 Apr 2026 at 18:14, Christian K=C3=B6nig <christian.koenig@amd.co=
-m> wrote:
->
-> On 4/10/26 14:37, Sumit Semwal wrote:
-> > linux-next testing showed this htmldoc error due to a missing extra
-> > line in the comments; add it.
-> >
-> > Fixes: be6d4c9e9d714 ("dma-buf: Add dma_buf_attach_revocable()")
-> > Reported-by: Mark Brown <broonie@kernel.org>
-> > Signed-off-by: Sumit Semwal <sumit.semwal@linaro.org>
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Thank you; pushed to drm-misc-next-fixes!
+On 4/10/2026 4:38 AM, Eliot Courtney wrote:
+> Fix various cases that allow reading past `BIOS_MAX_SCAN_LEN` when
+> scanning the VBIOS.
+> 
+> Fix bug where `read_more_at_offset` would unnecessarily read more data.
+> This happens when the window to read has some part cached and some part
+> not. It would read `len` bytes instead of just the uncached portion,
+> which could read past `BIOS_MAX_SCAN_LEN`.
+> 
+> Also add more checked arithmetic to catch potential overflows.
+> `read_bios_image_at_offset` is called with a length from the VBIOS
+> header, so we should be more defensive here.
+> 
+> Fixes: 6fda04e7f0cd ("gpu: nova-core: vbios: Add base support for VBIOS construction and iteration")
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/vbios.rs | 18 ++++++++----------
+>  1 file changed, 8 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
+> index ebda28e596c5..6de7e58e0da0 100644
+> --- a/drivers/gpu/nova-core/vbios.rs
+> +++ b/drivers/gpu/nova-core/vbios.rs
+> @@ -132,17 +132,14 @@ fn read_more(&mut self, len: usize) -> Result {
+>  
+>      /// Read bytes at a specific offset, filling any gap.
+>      fn read_more_at_offset(&mut self, offset: usize, len: usize) -> Result {
+> -        if offset > BIOS_MAX_SCAN_LEN {
+> +        let end = offset.checked_add(len).ok_or(EINVAL)?;
+> +
+> +        if end > BIOS_MAX_SCAN_LEN {
+>              dev_err!(self.dev, "Error: exceeded BIOS scan limit.\n");
+>              return Err(EINVAL);
+>          }
+>  
+> -        // If `offset` is beyond current data size, fill the gap first.
+> -        let current_len = self.data.len();
+> -        let gap_bytes = offset.saturating_sub(current_len);
+> -
+> -        // Now read the requested bytes at the offset.
+> -        self.read_more(gap_bytes + len)
+> +        self.read_more(end.saturating_sub(self.data.len()))
+>      }
+>  
+>      /// Read a BIOS image at a specific offset and create a [`BiosImage`] from it.
+> @@ -155,8 +152,9 @@ fn read_bios_image_at_offset(
+>          len: usize,
+>          context: &str,
+>      ) -> Result<BiosImage> {
+> +        let end = offset.checked_add(len).ok_or(EINVAL)?;
+>          let data_len = self.data.len();
+> -        if offset + len > data_len {
+> +        if end > data_len {
+>              self.read_more_at_offset(offset, len).inspect_err(|e| {
+>                  dev_err!(
+>                      self.dev,
+> @@ -167,7 +165,7 @@ fn read_bios_image_at_offset(
+>              })?;
+>          }
+>  
+> -        BiosImage::new(self.dev, &self.data[offset..offset + len]).inspect_err(|err| {
+> +        BiosImage::new(self.dev, &self.data[offset..end]).inspect_err(|err| {
+>              dev_err!(
+>                  self.dev,
+>                  "Failed to {} at offset {:#x}: {:?}\n",
+> @@ -189,7 +187,7 @@ fn next(&mut self) -> Option<Self::Item> {
+>              return None;
+>          }
+>  
+> -        if self.current_offset > BIOS_MAX_SCAN_LEN {
+> +        if self.current_offset >= BIOS_MAX_SCAN_LEN {
+>              dev_err!(self.dev, "Error: exceeded BIOS scan limit, stopping scan\n");
+>              return None;
+>          }
+Very nice!
 
-Best,
-Sumit
->
-> > ---
-> >  drivers/dma-buf/dma-buf.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index a202a308c079..532c3f14bf9d 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -1353,6 +1353,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_attach_revocable, "D=
-MA_BUF");
-> >   * Upon return importers may continue to access the DMA-buf memory. Th=
-e caller
-> >   * must do two additional waits to ensure that the memory is no longer=
- being
-> >   * accessed:
-> > + *
-> >   *  1) Until dma_resv_wait_timeout() retires fences the importer is al=
-lowed to
-> >   *     fully access the memory.
-> >   *  2) Until the importer calls unmap it is allowed to speculatively
->
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+
+thanks,
+
+--
+Joel Fernandes
+
