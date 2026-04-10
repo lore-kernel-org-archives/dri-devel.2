@@ -4,124 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91D6AE99071
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 10:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D0E8E99071
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 10:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D877010E928;
-	Fri, 10 Apr 2026 10:20:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2C510E920;
+	Fri, 10 Apr 2026 10:23:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ndPdVVLn";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DCUeU93m";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zjiup33z";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FF1ZWyhG";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B3810E920
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:19:58 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8DD110E92B
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:23:52 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63AA5aKV1498597
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:19:58 GMT
+ 63A5oNZc4148365
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:23:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=6jAgrIXul/6oRSYYubPw70Q0si68WXVn+fa
- kGuy+ODE=; b=ndPdVVLnGPt32e2MEzl7sTuz9/zVb7Sk84BklOIbc/rtOnMHJEL
- 6J+fQmw38SM2WVmQRhoUZxq1JPCnytnNgArI2MVnT+7H+9+tsq0JMpTHzF/xgKAd
- a6IH4gcMXW9TISx4eJ1JpoF5ESDjtT6gjEquabdsRmduxNHxtVD2uEzbJ34suXz+
- WqwbGrj4lFSE8uqFuyLx/qQcmXTS266MnkSJSXqfy9tCcrS367sBehXCLdq20vlc
- pGC7/r0GVnkNCxZoLcI5VUv4xZkN/l7EaEOGEsMf8cdLCmtyafGpMMA7qSNJr7Va
- QApP0LKWRTcmc5d/DwrpEJSBJgRAMzDg6jA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dey5b024j-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XaYLNQUphR/lWUOk/mTQUwW9YYZEvSerDmEd50yoXrc=; b=Zjiup33zzocnk6bv
+ WHB1lT0HsouahnjG/Xxfaj/KQ2/4rYCGivaY7KTnqIF3j6l51k2T99+VnJxpoifJ
+ on+AU2MccbBy5k/P+y1+86gnD0IgIrpPHEXwQRX4m9e/Raad/4zomhPjXTC12fTI
+ hOrvH5Krwnyl1lyd6bsBImuUbGFhuVTWQdWMdN8ma0CLs9ujZrAnN1vOaEMfboZM
+ uL40HclDdIY7odtpxZT/gd4nOlHpHRRDYz+I38yyCfixfqHpKQdna5itF852KY7T
+ UDieNCENvz2CZeoBikqK4pNdaN5ah4yjZcy3QGrtPEm/uuWnq4V1XNusjUxnIa6J
+ 81ypVQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deudggyqk-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:19:58 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2b24305cb3cso19063705ad.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 03:19:58 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:23:52 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-50d87632952so4596761cf.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 03:23:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775816398; x=1776421198;
+ d=oss.qualcomm.com; s=google; t=1775816631; x=1776421431;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=6jAgrIXul/6oRSYYubPw70Q0si68WXVn+fakGuy+ODE=;
- b=DCUeU93m5eFdddgFK2Co2I2c8jI4wTbPw7djHv+X+I9XHP3J6hBEKR8K92wyBsww/1
- rpYjMOPY6S5JtaacHDNCWFmTjLaWc0LE+/orP9lgbFrCTtQ7Fi47j1Cx5fvD5u+WcsNT
- tyJLmtlxCC7sd33e71nRQ3cG1x33dxWHlq8EI0hY+VB9238H+h3I5PBLf8cAcnAyvjqH
- bM2eqMNaGTsouY0HPUea6ZAZvA8kX++mTeUMfUZC8ZjB4CbsXwACFy7Zc0hpGJqGR+jq
- bJ3U6qQAYa/xgLQLRUl94XumHaVX0IRf+XKBV45up2/2SAumjuvZm6E8HtCLgZGAYLaA
- IPKA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=XaYLNQUphR/lWUOk/mTQUwW9YYZEvSerDmEd50yoXrc=;
+ b=FF1ZWyhGFIot+R7AYmMQsv3RIjCdgEULZiKpVVdSVSC48SHhu4JiTWwaDRr8TLQjqn
+ h8LNn309PPXzG5A2dmOVNvzf8Y2KtKsj3PcbuAdaCY6ia9tcNHetQFLii6M0V+niDp0q
+ vz6Hn9zASYvBtI3HBiVe/m5NR6G+zVGZWNICa/Ms/vQEz5x+0eOjOoYk24VXOWGoFgu+
+ pm+6Mo8Ulo2tmO3zle50faj8hKaODi/9Mee2LfZMRFpRDpjrjCnMyB5PtGKcDax1dYQ+
+ Yqrz3qaLaoYY4fbjiGPrnVjBrivrOzQqgnw30VUOG4lcPfmJz9QX2EptQzfZO0iFswJi
+ SJ5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775816398; x=1776421198;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6jAgrIXul/6oRSYYubPw70Q0si68WXVn+fakGuy+ODE=;
- b=rljiy/s4DECR1qcv2MLRMWVdnoG2MCFPfGZas4023tVnzj4RISq9xsLaz80ECmd41A
- YVOSxFI9it05v2/G637TVf9sPJ0jnAb7y4dBj0eVpLlG/s7pSUwT8hRAGtSCDQXgYTSP
- Z8ZL70AfxcttAsffxvk4iJ/2KHUrQtL/zGnJLUj+kPT3XS1FEP+de+sXPZHHdVbWkgHH
- +AOBqC1b+tBCThJBJtEqnl886kGZZEuGRGBVD53EPC7k+VCAQt6qchYtJ1zMGNo+hEUe
- 1gDsW2OUzhuxrGqJsMidTTSn9KKx4BAb4bXhrq2qfCc44XFhugIHLa6b3suX7ADb6dcQ
- CT3w==
+ d=1e100.net; s=20251104; t=1775816631; x=1776421431;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XaYLNQUphR/lWUOk/mTQUwW9YYZEvSerDmEd50yoXrc=;
+ b=WZvMlIomNKKIJ0jD8/c9i/3sUSkO3GufMXaBljhSlScZJsAc52wQ4li7jGoLEGK8sR
+ tFNJGpuBUQ+ZLZYALSUVM7xpzYXAbt/96+PnAn6tiyfEHtoItJzcN/I8yS8C4ku6M4Hr
+ Yuax8hfh9Q+uPRN08/Lvw6JbzvLLR9nxkijt3VQNPmUDHM2qZfuyNiwYWm9arj6DNlXc
+ hg0XpeGI3RFJI0j3x1rOVZ725ve6xTe9ZnGlbL8OFd0TIZCWzFd7o5JesyIJ8ndzlV3i
+ nX4RWndG95a3ZiGxWkLMfONdC8ogth+4XtFeaXfxaWNPPZLucbSdm12rL1EIzyHnXR8j
+ ZzvA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWrCFy/17SO+dulNUsYSh6KbtMqrfIgr6nK1emp0xbi6ES8uG+JTn9FjKtaMVBumKM78wwiNUIW9p4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywvu6t5uvnK3MS2vMMGJfrX0rqhZHSmsYXVgEV/VK9PnRwCT0F3
- B6itfhoh6zsih9RWQW2AAaEFRaHSoewBPJ/JfjJ9koSa0WDSjxA3UmTCOjZoHFfec3saSt3eOeq
- ycsofy0L+3puCFFZd66fHkQVMnl+VSdJOQeqyHG8gdNY6Y1TS5NPO+I89AzNqXo+UP306iLc=
-X-Gm-Gg: AeBDieslqzPpaiLWgIspp0HUDsihYaPhQvCNMWVK/ywo6BADoKCqlpB+82OM9GwGZ81
- xzByz0LFD0WCEm72D9IviKcWStSrhMD8lrLz4xqR2xQpbpdYaTAni/VveEOB//4RAXJvpetHi28
- IBTkXnZ45kJ/V7eZhMjmK7NmPqu0Te1CCLSgLTedQxITId0+uQJ8+7FyDEYu3pn8r6bS8uLmooO
- YlUIR5YXj9WtaVgKQTScLybdAdKPS9jgCZZEI92Tc/DLQm/SCLhAJEerol+0bz34Ipx6oTLxfbu
- yXdBJTrbpW9XWr7aNusnOe3QxnwiFMQZ4OwIXXMwmIRgHFS2YEXccHJDYlVH1flS2f7cdshzBfq
- INBaVRi9Z9jK/t4hS1ESCDWLnQp5Gwc4joep/EYd7RNZEqVokMfGmK5no
-X-Received: by 2002:a05:6a20:9389:b0:398:7855:1596 with SMTP id
- adf61e73a8af0-39fe3c64b7amr3091121637.10.1775816397574; 
- Fri, 10 Apr 2026 03:19:57 -0700 (PDT)
-X-Received: by 2002:a05:6a20:9389:b0:398:7855:1596 with SMTP id
- adf61e73a8af0-39fe3c64b7amr3091085637.10.1775816397075; 
- Fri, 10 Apr 2026 03:19:57 -0700 (PDT)
-Received: from hu-arandive-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c79219c618asm2024362a12.18.2026.04.10.03.19.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2026 03:19:56 -0700 (PDT)
-From: Aniket Randive <aniket.randive@oss.qualcomm.com>
-To: mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
- andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- naresh.maramaina@oss.qualcomm.com, aniket.randive@oss.qualcomm.com
-Subject: [PATCH V4] i2c: qcom-geni: Avoid extra TX DMA TRE for single read
- message in GPI mode
-Date: Fri, 10 Apr 2026 15:49:49 +0530
-Message-Id: <20260410101949.2315058-1-aniket.randive@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+ AJvYcCWHjq3TechS8E0PyqMpbL4Ag78suAW9klu1csPXPxiraQe/SZnV9esPsjwOClGU2+jecr9k+ZnZlTo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwX+NFJfcoGrpt4bYIGojKt+o1TA/3AFxdsKa5baAkapLZr0hgl
+ bn/IvRXh36uDPR0u01ySppHrL0QOOrGx+bLECY4aHCodc19JNYOlIDfWJzzEYTOrjphM2PEihCa
+ 9TzRBwX+WBh7cAT6YBFOydySQZBehG95C2Fx5b/jwZY7Nm2HD2yxsto++UfzCwgmwS8PjXYE=
+X-Gm-Gg: AeBDieut+LY/jI+yaw2zBDX7gyvwH1GR+pLYfZOhMWkBFAMVEeDTbFdDJiKyNVb7KfO
+ IXYy9HktroooxjwzIXWvD5T0t1+fLIU0z24rK51Qozi2RTZMvdbuybc5q+OFb4o4Ev4yLpPy6xS
+ fzoTwxuoLrZHwLGZTDRdhN9+dXqC2iJ4UqrxG8TtN6sWAshTJdZkiJM0f5YyODpT9aRsiNsyECn
+ Zg0Fbpx65gdlcrDjo8eA/tYg6KrC9vodDCcmTahdTF20SQgf/HgrcBobMBPFs6qIEVRpT/LPVZE
+ v1QCk6J5V24PttjUcsGLRxlXEBvnjVJ2oYVE6TrwbHinC2BO2HflQo+m5eTGpO6bMNJCkzEpYzZ
+ ZDE1sz940l1WnrWqDh4Lmo5FYhoJhBR/A53eyErt0HqAIwqQ2YxQql5sHfmuzsiA9t8FS+l7QhP
+ hwKYk=
+X-Received: by 2002:a05:622a:5a96:b0:509:15aa:cf03 with SMTP id
+ d75a77b69052e-50dd5b76641mr28793401cf.4.1775816631335; 
+ Fri, 10 Apr 2026 03:23:51 -0700 (PDT)
+X-Received: by 2002:a05:622a:5a96:b0:509:15aa:cf03 with SMTP id
+ d75a77b69052e-50dd5b76641mr28793161cf.4.1775816630923; 
+ Fri, 10 Apr 2026 03:23:50 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9d6e5c5457sm66123566b.35.2026.04.10.03.23.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Apr 2026 03:23:50 -0700 (PDT)
+Message-ID: <724f14e2-83f9-4637-8e63-f31001ca0725@oss.qualcomm.com>
+Date: Fri, 10 Apr 2026 12:23:47 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: 7SNfzG0oCAJrPNXYa-e8MOMslKdVVH2l
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDA5NSBTYWx0ZWRfX+mfuHbccaEy+
- rFs7BUJzPpzUfjwEZOOM41zjjLSTkB1yY5TAggNsgrwDWO3yb4vMgVWIrT3aXi+CowfiP9Nys/r
- RvO6Q807ojFGK16t4+gtr2NN2kS8hJisUFES58cF5uIipTUuspNuSGFa7du+OKzw6UbSNz8lQAu
- nQCBjrCBH9k2SN5oi310mK8hb4Qs/AMbvigvl5GP3H2XaXgDcRkOTmybXGwQfF/WgyXFp0qUcGO
- bhmYk+Qtr09YaCuxaJk/lFFkcPCpyab7YJkZCHMqUIdBxvcRrOHx+0WONQNj9g0vdEOZkn6oqh8
- h1+otgR3x9iuQUwfRtzeW+hwIMM85aN64r9J3jTVaPq13x4OMsI96x4qQmMPHG4S2Qk8Do1uapT
- f6qsk1OGAlan2uAa+uxeA2hYpy4vIlkjTidDCoDGHOPcmjyuRShjDVHU0LxuyICfbDRW+9pqX6v
- 1X8oGuZQxyPiI5E6jtQ==
-X-Proofpoint-GUID: 7SNfzG0oCAJrPNXYa-e8MOMslKdVVH2l
-X-Authority-Analysis: v=2.4 cv=VsgTxe2n c=1 sm=1 tr=0 ts=69d8cece cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=g-2Moo4YgOi5Nr3pVm0A:9 a=1OuFwYUASf3TG4hYMiVC:22
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 39/39] drm/msm/dp: Add MST stream support for supported
+ DP controllers
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
+ <20260410-msm-dp-mst-v4-39-b20518dea8de@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260410-msm-dp-mst-v4-39-b20518dea8de@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 9ZYg8wlAFOweYazMO4XisRf6hj_-bVPU
+X-Proofpoint-GUID: 9ZYg8wlAFOweYazMO4XisRf6hj_-bVPU
+X-Authority-Analysis: v=2.4 cv=H/brBeYi c=1 sm=1 tr=0 ts=69d8cfb8 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=UGWVb_hElQaF8LtDzA8A:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDA5NiBTYWx0ZWRfX+jRHRifa74Sm
+ bv26vAGDkxiP6JLgbwHK4KIVPxVy0s3e6hwfkvArlwu/h18f3lCcxze7q+mRyhAaWzRP65xVTxH
+ UvVA2rHEa1m0FAlXHZG3nSMJl7BlYLCWkp9vIGakVZuBwQKHlmE+phjoc/gd6ZEwSnjbf0iNVi/
+ fu4RzRyAYfQG3hLiNuvIWXmqk2K0MKxSJaWwi0nUld4Sk6Gorvq8uUiwmDBuap/640pipPpIq2S
+ n/GIqTKtwFHWmKkSSls89MFdqjL7z2F9f2OAM0oxIe/AgcsHZueNwXGJmjoLdvELwOU0C28iGBS
+ ILwpqdoclt3vcfeO6OVA/Dv2H9KG8/+4nXAvyUXIfyaBThXW6XM3a4/8DZTPn3AlwsEVisdp6XH
+ /8jnMT8rF34eoZQfQsTpqr6YBXPe0M8lg/ag+ujrhSOK7zX+zF7gjWU9x08jgtsbuCpYq5arXNq
+ CL2UkqRnYMQAVuXqvww==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-10_03,2026-04-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
- adultscore=0 spamscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604100095
+ priorityscore=1501 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100096
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,91 +149,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In GPI mode, the I2C GENI driver programs an extra TX DMA transfer
-descriptor (TRE) on the TX channel when handling a single read message.
-This results in an unintended write phase being issued on the I2C bus,
-even though a read transaction does not require any TX data.
+On 4/10/26 11:34 AM, Yongxing Mou wrote:
+> Enables MST support for MSM DP controllers that support it, allowing each
+> controller to handle up to two or four DisplayPort streams. All necessary
+> MST support code was already implemented in the previous series of patches.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 42 ++++++++++++++++++++++++-------------
+>  1 file changed, 28 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index ca89e20b7563..f632b4f64ccc 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -107,16 +107,21 @@ struct msm_dp_desc {
+>  };
+>  
+>  static const struct msm_dp_desc msm_dp_desc_glymur[] = {
+> -	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
 
-For a single-byte read, the correct hardware sequence consists of the
-CONFIG and GO commands followed by a single RX DMA TRE. Programming an
-additional TX DMA TRE is redundant, causes unnecessary DMA buffer
-mapping on the TX channel, and may lead to incorrect bus behavior.
+Please reformat all the changes so that the entries have one assignment a line
 
-Update the transfer logic to avoid programming a TX DMA TRE for single
-read messages in GPI mode.
+> -	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+> -	{ .io_start = 0x0af64000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true },
+> +	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true,
+> +	  .mst_streams = 2 },
+> +	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true,
+> +	  .mst_streams = 2 },
+> +	{ .io_start = 0x0af64000, .id = MSM_DP_CONTROLLER_2, .wide_bus_supported = true,
+> +	  .mst_streams = 2 },
+>  	{ .io_start = 0x0af6c000, .id = MSM_DP_CONTROLLER_3, .wide_bus_supported = true },
+>  	{}
 
-Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
----
+All 4 DPTXes on Glymur have the address spaces that suggest 4-way MST
 
-Changes in v4:
-  - Added some more description in comment and changed the label name.
-Changes in v3:
-  - Added comment in the driver for better readability and changed the
-    position of 'skip_dma' label to allow dma engine configuration.
-Changes in v2:
-  - Updated the commit message.
 
- drivers/i2c/busses/i2c-qcom-geni.c | 24 +++++++++++++++++++-----
- 1 file changed, 19 insertions(+), 5 deletions(-)
+>  };
+>  
+>  static const struct msm_dp_desc msm_dp_desc_sa8775p[] = {
+> -	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+> -	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+> +	{ .io_start = 0x0af54000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true,
+> +	  .mst_streams = 4},
+> +	{ .io_start = 0x0af5c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true,
+> +	  .mst_streams = 2},
+>  	{ .io_start = 0x22154000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+>  	{ .io_start = 0x2215c000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+>  	{}
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index a4acb78fafb6..a482a4c60744 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- {
- 	struct gpi_i2c_config *peripheral;
- 	unsigned int flags;
--	void *dma_buf;
--	dma_addr_t addr;
-+	void *dma_buf = NULL;
-+	dma_addr_t addr = 0;
- 	enum dma_data_direction map_dirn;
- 	enum dma_transfer_direction dma_dirn;
- 	struct dma_async_tx_descriptor *desc;
-@@ -639,6 +639,16 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	gi2c_gpi_xfer = &gi2c->i2c_multi_desc_config;
- 	msg_idx = gi2c_gpi_xfer->msg_idx_cnt;
- 
-+	/*
-+	 * Skip TX DMA mapping for a read message (I2C_M_RD) to avoid
-+	 * programming an extra TX DMA TRE that would cause an unintended
-+	 * write cycle on the I2C bus before the actual read operation.
-+	 */
-+	if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
-+		peripheral->multi_msg = true;
-+		goto skip_tx_dma_map;
-+	}
-+
- 	dma_buf = i2c_get_dma_safe_msg_buf(&msgs[msg_idx], 1);
- 	if (!dma_buf) {
- 		ret = -ENOMEM;
-@@ -658,6 +668,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 		goto out;
- 	}
- 
-+skip_tx_dma_map:
- 	if (gi2c->is_tx_multi_desc_xfer) {
- 		flags = DMA_CTRL_ACK;
- 
-@@ -740,9 +751,12 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	return 0;
- 
- err_config:
--	dma_unmap_single(gi2c->se.dev->parent, addr,
--			 msgs[msg_idx].len, map_dirn);
--	i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-+	/* Avoid DMA unmap as the write operation skipped DMA mapping */
-+	if (dma_buf) {
-+		dma_unmap_single(gi2c->se.dev->parent, addr,
-+				 msgs[msg_idx].len, map_dirn);
-+		i2c_put_dma_safe_msg_buf(dma_buf, &msgs[msg_idx], false);
-+	}
- 
- out:
- 	gi2c->err = ret;
--- 
-2.34.1
+Same thing here
 
+> @@ -133,38 +138,47 @@ static const struct msm_dp_desc msm_dp_desc_sc7180[] = {
+>  };
+>  
+>  static const struct msm_dp_desc msm_dp_desc_sc7280[] = {
+> -	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true },
+> +	{ .io_start = 0x0ae90000, .id = MSM_DP_CONTROLLER_0, .wide_bus_supported = true,
+> +	  .mst_streams = 2 },
+>  	{ .io_start = 0x0aea0000, .id = MSM_DP_CONTROLLER_1, .wide_bus_supported = true },
+>  	{}
+
+Interestingly the eDP host on 7280 also has the registers for MST..
+
+Please recheck all the entries
+
+Konrad
