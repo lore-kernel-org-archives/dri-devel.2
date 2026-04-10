@@ -4,147 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26771F44852
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 12:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21799F44852
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 13:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7930610E958;
-	Fri, 10 Apr 2026 12:47:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5544210E1F2;
+	Fri, 10 Apr 2026 13:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bSzslD6N";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="RDdr44xX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7861D10E954;
- Fri, 10 Apr 2026 12:47:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775825229; x=1807361229;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=a0pEeKU6OldmTaWufPde+j0QleSm8DZ4lJ5Kd7MsaZQ=;
- b=bSzslD6NTAe9LECGcuHUueJMmPv/C5KVvuhsHlx/E7azcRroBVbpUkKK
- G2KSeYAmrxR1xFlxys21FR2S2aPi/3SM9dCWQK3GiAs9TkUwu6pCgFQep
- AYH8/QcN2O9q92jjfmIJiKo+q3JHBgzzHsr/7j23sy4CFadd00mpkn9/R
- CKMMeQdJS+fMXfqsM7EMPUrUdkueUMBiY94Hw0PKvm5DCEyX+WFi6D6SX
- msbzEc75RbFUdg80AHGZuiKOgX+x0AQOqHt9Xj6OXD/98b+eJqi9v9i5t
- EqfC3l/Y/YF68OmAtZU6DluHzgfx5ZlnnIPRKC0lsVWgnQaDPUjbXd4jH A==;
-X-CSE-ConnectionGUID: qXkfjr51SF6nCEjspjfrzQ==
-X-CSE-MsgGUID: bdCbvw3QQdSZDBgeXT+b/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="80435120"
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="80435120"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 05:47:08 -0700
-X-CSE-ConnectionGUID: l5ajf3eVRBCK3fNLg2Ze8Q==
-X-CSE-MsgGUID: 5sf0YbBcSO21J0bB14j/VQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="228995197"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 05:47:08 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 10 Apr 2026 05:47:07 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 10 Apr 2026 05:47:07 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.2) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 10 Apr 2026 05:47:06 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KswmPHco5d4BZ6mky7rC2RXm9WmtWukc5c0mGgzrPASlllOibKy3l5RFbMN9lYnU3fs7Lj8KI23oLlk2ZeiCxFLaBS/FENM6/KNR08YS88youUeUNqn0qrgfYeGiTj2r9vmM8mJ7Nb78EgGXGwvbTizkqOAvZA038A710lWLpZVMo3uZOWqF+wJ9stVApozz3gTyio4wqIXjL0id/HqPc33+npYXM4d2xZoq9Ul9yhAQVCkvFhhMnKWinY/PKHDLpym09kUSS3iEx414PBpwvbv4QT4U/bal95bFlFEgD/topQr73RNNjOwYNBgEzHDyQSGNrXOxWK96urxfdyCdeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rfMs64nlDHw1dwZX8RkZ93I0w2ZLzJ416VGGOPCPHB0=;
- b=KrKN8nlF9lTRDemxSpWT0HUevuYiEr+TG/R0za28HaC24F9mNAy08UVEzLhF2cZSM8sQ4qlHffXsB9DYSBRoEOxMNTbSCgunirsEeewxkgT3PdxqXkFhlP/YN4EzhiUW2HKkiMsqQz3oOR6jDYHX0Fb/g1P2H/ik6EKMKNqa56rdiaSmNaF7O3TN5gzdDWKswN+TURJPVEhiDOOKatXo00yBuRl5Lb1F5t5wHd+bA6Zy7XB10dX5gUt0wwz+tc6jR4d8/URr+eiv57Q3BrvriG1QuvekNCw2ksPjOa+NaQvhXHEPL2c5akVYY/NoZnEEB7bZt/v52fE5QgR4Y47SMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com (2603:10b6:930:78::8)
- by IA1PR11MB6268.namprd11.prod.outlook.com (2603:10b6:208:3e4::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.19; Fri, 10 Apr
- 2026 12:47:02 +0000
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277]) by CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277%3]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 12:47:02 +0000
-Date: Fri, 10 Apr 2026 14:46:54 +0200
-From: Francois Dugast <francois.dugast@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <himal.prasad.ghimiray@intel.com>
-Subject: Re: [PATCH] drm/gpusvm,pagemap: Do not assume DRM pagemap owns
- device pages
-Message-ID: <adjxPkmE94e1dybe@fdugast-desk>
-References: <20260409015512.3670302-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260409015512.3670302-1-matthew.brost@intel.com>
-Organization: Intel Corporation
-X-ClientProxiedBy: DUZPR01CA0139.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4bd::14) To CY8PR11MB7828.namprd11.prod.outlook.com
- (2603:10b6:930:78::8)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR11MB7828:EE_|IA1PR11MB6268:EE_
-X-MS-Office365-Filtering-Correlation-Id: c22c763a-e5e4-4f0c-3690-08de96ff4321
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: pyM+rIJMeYc3uKuIyoWnJhgUCE5KIBHS/zcQ+Mwy0zsM/HAUCF26sdEkXFk5x5KjDoUwgr5TFvaonJ+PAyv+zYMjRzDj/C25D8dlN+VP96oSEzppogAAybLRsnXVdLGlz38eS1fU2XvN6y9STsxLvpKMe2LGo8vGq6uYJ9KTFnmeNwbdWUJ2+6j4JW6I/mNw+YX370tLYrBzfzHIC6LE5BzvNd28GSqkgNJpOGkQn9lmvzE/0ne59hpS15CGcECkflvcJHvH5ipln9NtW/XeqNMyY1AVGfff74GxIoILjfliyM7MvJ4ydZ/ByCANKwmNysptzqIgZjle6qgStFft++gC32JjPG6x2hjD7GgRCGRIgYc90AiITmlwK5YxTWDGfdV/gFzEoia81hPhpdBLbDlQBVEnLcI4y46KhRFXAiZsBJaxRNHG3xy+3XVSjrSXdbinZrFOGnGLz1iX9+F5QQVTND6YFT/1S1LAFt7Pkg2lXeR4TqsK5rZ/le7Es8IO6cOI5YyCDgAEcEowIM7mLgATGLSDNGKRbVWWSeq8UrxSZcCdW97qIoOwoweDFBakFCRTYlw5Yc1QeNPdaXyusk8hi95vysA1EqscijpvJnzdjsCO+TwHJTgrXZ5Bj3cnWgcYKcWywSdrWYofaOEpCfmVwrm4T74hD2ruJ7rCqU2V3w3X6KNHTmGD0vAanH8YmwYo2+hjeZIAkWurcL/RN7+kkhMKtE1GhyuaQ/AQ9Hs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR11MB7828.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8AxT8USILAUCDLuMbbjAww2PKhKwPxTWMChORUuFEpxcAjrjZSZRkcWA5BNH?=
- =?us-ascii?Q?jOvb+7OCLwMYkMt5IU/JLtodltEt+4vhnDBWz9MrrIUXUNqjv0M84bVJaELB?=
- =?us-ascii?Q?EbXKSspR9Ynq2mW14+PH9OMoyKT7h6Fj0U0XXoa4AboxLISftxsMmOEAat09?=
- =?us-ascii?Q?q8Ype83ffYMG31MusWEIpT3oOqwmnjMtbRcTJFAXzyhMGpj9uuwmmK7IIXEG?=
- =?us-ascii?Q?EjLt0cA2CkOFNKSfXSarOz8y0Yo+3UahIhPO50WlI9vHidVxpatmu9RCvzGv?=
- =?us-ascii?Q?HnP3ly712dSTi8hQKy+VYNsR/mbMaLcx3tiR3mlVOMGI20xMizUoa2a2LUFJ?=
- =?us-ascii?Q?2O/yKvd0kAM1TUnwBXbDVtRHRitaIMaCHVb9HT8OrZ5W1z/BGOpv/0fSIwkE?=
- =?us-ascii?Q?n1KTtbEUiluk+8oLoxzSO9YbI08SLLRaCUHvQubox1WzMnOEyg+4+ynxEg47?=
- =?us-ascii?Q?wU83OMYJjB+D08zLFGgNKvlT6wGsMP0gTNuj8m5ohr2dqwVDvivik2v4Siuw?=
- =?us-ascii?Q?nUJ6LGGkeGdeSmX1/dcqy31MT9kniWuEFlyJqwhQpsMkPbVhCgQxtifTQSHs?=
- =?us-ascii?Q?tvVOTMn7slxn9jWvg+yZlDdnTFxXSyLL2W3MJNSXAz3vScNt3eJmXq3UjyMi?=
- =?us-ascii?Q?8T2qHtC6dV4Zv4GugVO8SYkuwx3LWQN842rj/eZ2MfBFic64WJ+Pa7cVxStv?=
- =?us-ascii?Q?7uVPDoRRad4EsPiGskDQ3lBOvYHRu+J2M5b1s7CdBVFSUvqzhkXCDH6JE3jF?=
- =?us-ascii?Q?b8eiClVH/coLlPkXFixC8TMT+HRkY6tP+r3Vj0oGBXq/4ZgrP5YvmqvRdblR?=
- =?us-ascii?Q?VFZkkmzbJTkq9os81zEsa55vcvqUGQGMroiRP9WCx3UGXMYZ4iC4aPGL5qgf?=
- =?us-ascii?Q?BknIqxXIVxW2x1RW4PD+eFI+bV4c/nELm75r6p2q65kQLzVB5MPAWrLYgjO5?=
- =?us-ascii?Q?mdFy9kMT11LiS4njEXRnqtrSMbqlVXAEFjpsk91WdySCNNjB+UpGcSMrenR4?=
- =?us-ascii?Q?xGwTtwyXo9XQOOaPxfQlYtnC1A+9V+Ebruluv8gWPAGmkgLWKSCa5MwKNH0C?=
- =?us-ascii?Q?tir2DNgLVsIj4lUUHh+aA6RYJlfJz6Kn1dLr4AGT7sbtUYuRGDNsIzKUTKr4?=
- =?us-ascii?Q?gkUD9kTRWO7gE0+dIc4ddVLkwYWKOtZbOnbPdJ0Hyy/jiofu53tmcaEt25hG?=
- =?us-ascii?Q?jJIQottTqGbjf3jNJOaaqs6I5K64VUJI819WjGpe2huu+//mS8JkFhIggLqi?=
- =?us-ascii?Q?MXdC2WsVfiwudxFoCUq9W+7t5EzMSx/q7LOcfuMm+AqzVCJKfQFeKULur9k0?=
- =?us-ascii?Q?rsGN/UDv4d5Gsjwgu54irNyBoJqNiPJeL8MKNxWuzphRLYMl5sv7gnS6v35m?=
- =?us-ascii?Q?J7j0OMkeQhHDDAX5YhVoWGFSzPKFNZZXXJr0+jWD2U0F2sptCVPU9uHMG853?=
- =?us-ascii?Q?oIkRvpaY3pGze+/9B3zs0Cds9dUqEcEmg0ZFQsxb1ZNJO3UdjvfLPFF09u0Y?=
- =?us-ascii?Q?WNEKcEk4nDkh21ILnW9oymgmq8IsZ7RdJXJ+fSq/bUibI4AN8My+dZ8nVFix?=
- =?us-ascii?Q?oGlY50JxrJXEMsNG2D1h0QFrmfOwxrZ5QXM5O7qvKor/YMg6r3siqIpsN6ti?=
- =?us-ascii?Q?IZiH1FFCnjq0m7Sk+bjqmquJjxrQQ/XKKaio2d74ci4xUE0mZo/TvEDw1ODi?=
- =?us-ascii?Q?AMpY2vODpbcQLTR5MsBVj1jzGRghJylIA/4tnbyNT+jYTpOAW/VNDG17HcAj?=
- =?us-ascii?Q?n0Oogj6yTd5KrVR6zsPkzKpN0BWKKa8=3D?=
-X-Exchange-RoutingPolicyChecked: BR0dM/MJIc4I9MwgL5Nr3F1/c97UULW6RFE9zZd+5O08rcrvibPkN9ER7Wjcd+zZgOMZIRQdCIOBTdh2FfQVhnl+zRjQTXXJl0iqGcJFehhmW8zd1gIOxb2qPfLhkZ/v9jbVWWvQCoY9aQ4bPuXn/h9wvpPDUW5r0pja5UltbK8VBG8NJA9uhIdNRnowOlBbcvmPmxnQDAA6if8etWjmZLrSr3GAG71XFFIFPg7/qU6/5w3OpVPfDaXQ425csCwuQbI02/nqXlXG7Ff8ROLZ5KJ45jEdVfm86Ze913KaiRUQGeLFrPVZbXv3rlLSMrHjl9GTKKrsHtpE065+DD+lKg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c22c763a-e5e4-4f0c-3690-08de96ff4321
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7828.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 12:47:02.2607 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iE7AnJPkgSvNLHJSu0SmBUjgkwUiWmwpoqNym/3fS5+vbBwd49VEy+9SV1ejwq6xD2Xv1L3kGLLpBS7lXLH2AxC9/Iy1kwZhwOsy5Er9NbQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6268
-X-OriginatorOrg: intel.com
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59C0910E1F2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 13:01:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775826074; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=STCb+KR/JF03Ct5ZVbrqPeZsHexMoMw4+Z0Th3WIKWqjQBppLKeld8pZB3BC3bM1FmAXoCIBdqqNh/m4FPrzz+Imi5VLwaVmPwXCF6YVUch/HT3gLV6yt8VOk9neklsbO3VOLBNMNwu6hAc9xF93t/YHToXmd+OqmuBY815r2bQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1775826074;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=kl3Z780aRsua4P1zejE90IPe2FUZG1v23TcTvGJBWDQ=; 
+ b=aIEqQmuzODWJ1sng7/dXfcYP19qSOeQRYGBtzuVZ8Gcrs68w6T99Ae5S50R3m1fCnUEo5/6NbQNIHj3CGPG563jaLF+wW/y4hWwI4vNilmasK74SjYvJ6C6tAIhZrIUIYbM2vFqeWArzwq8bMtOlcxx2od5Nbp+A3mTrrS3FS9k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775826074; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=kl3Z780aRsua4P1zejE90IPe2FUZG1v23TcTvGJBWDQ=;
+ b=RDdr44xXLfsOsnLRdDPubWZvxtZ3NhSU21oYBbAijmj+8dpjSSB8pvA4NijtgUdE
+ wbMpY9NS2fOyOrzGBV4h6I3MGi0gxkR/ekEYPU1IkVv5tEs0NfH+KeCAFd9+qXl+ida
+ OuEMWZJ9AV+ek8jhBVRSLi9q7w7WUlvyWOv9ibqE=
+Received: by mx.zohomail.com with SMTPS id 1775826073160748.9776467229868;
+ Fri, 10 Apr 2026 06:01:13 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v1 RESEND 4/4] drm/tyr: add GPU reset handling
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <aditNn-iQc3QXRfK@google.com>
+Date: Fri, 10 Apr 2026 10:00:56 -0300
+Cc: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ linux-kernel@vger.kernel.org, dakr@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org,
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <8AB77A5D-54F7-4AC5-A2C0-33498D532E32@collabora.com>
+References: <20260313091646.16938-1-work@onurozkan.dev>
+ <20260313091646.16938-5-work@onurozkan.dev> <20260319120828.52736966@fedora>
+ <9876893D-F3B4-4CA4-8858-473B6FB8E7EB@collabora.com>
+ <20260409114133.43134-1-work@onurozkan.dev>
+ <395ED15F-3BC1-48C0-BE36-AF3A951E464D@collabora.com>
+ <aditNn-iQc3QXRfK@google.com>
+To: Alice Ryhl <aliceryhl@google.com>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,99 +76,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 06:55:12PM -0700, Matthew Brost wrote:
-> Update drm_pagemap_page_zone_device_data() to derive the pgmap ops from
-> the page and compare them against the DRM pagemap ops. If the ops do not
-> match, return NULL.
-> 
-> Also harden two risky call sites by checking for NULL after
-> hmm_range_fault() or migrate_vma_setup() when migrating to device
-> memory, as it is possible to encounter device pages that are not owned
-> by DRM pagemap.
 
-Shouldn't we also harden other calls to drm_pagemap_page_zone_device_data() in
+>>=20
+>> I think that there are two things we're trying to implement =
+correctly:
+>>=20
+>> 1) Deny access to a subset of the state while a reset is in progress
+>> 2) Wait for anyone accessing 1) to finish before starting a reset
+>>=20
+>> IIUC, using Atomic<T> can solve 1 by bailing if the "reset in =
+progress"
+>> flag/variant is set, but I don't think it implements 2? One would =
+have to
+>> implement more logic to block until the state is not being actively =
+used.
+>>=20
+>> Now, there are probably easier ways to solve this, but I propose that =
+we do the
+>> extra legwork to make this explicit and enforceable by the type =
+system.
+>>=20
+>> How about introducing a r/w semaphore abstraction? It seems to =
+correctly encode
+>> the logic we want:
+>>=20
+>> a) multiple users can access the state if no reset is pending ("read" =
+side)
+>> b) the reset code can block until the state is no longer being =
+accessed (the "write" side)
+>>=20
+>> In Tyr, this would roughly map to something like:
+>>=20
+>> struct TyrData {
+>>  reset_gate: RwSem<ActiveHwState>
+>>  // other, always accessible members
+>> }
+>>=20
+>> impl TyrData {
+>>  fn try_access(&self) -> Option<ReadGuard<'_, ActiveHwState>> {...}
+>> }
+>>=20
+>> Where ActiveHwState contains the fw/mmu/sched blocks (these are not =
+upstream
+>> yet, Deborah has a series that will introduce the fw block that =
+should land
+>> soon) and perhaps more.
+>>=20
+>> Now, the reset logic would be roughly:
+>>=20
+>> fn reset_work(tdev: Arc<TyrDevice>) {
+>>  // Block until nobody else is accessing the hw, prevent others from
+>>  // initiating new accesses too..
+>>  let _guard =3D tdev.reset_gate.write();
+>>=20
+>>  // pre_reset() all Resettable implementors
+>>=20
+>>  ... reset
+>>=20
+>>  // post_Reset all Resettable implementors
+>> }
+>>=20
+>> Now, for every block that might touch a resource that would be =
+unavailable
+>> during a reset, we enforce a try_access() via the type system, and =
+ensure that
+>> the reset cannot start while the guard is alive. In particular, =
+ioctls would
+>> look like:
+>>=20
+>> fn ioctl_foo(...) {
+>>  let hw =3D tdev.reset_gate.try_access()?;
+>>  // resets are blocked while the guard is alive, no other way to =
+access that state otherwise
+>> }
+>>=20
+>> The code will not compile otherwise, so long as we keep the state in =
+ActiveHwState, i.e.:=20
+>> protected by the r/w sem.
+>>=20
+>> This looks like an improvement over Panthor, since Panthor relies on =
+manually
+>> canceling work that access hw state via cancel_work_sync(), and =
+gating new work
+>> submissions on the "reset_in_progress" flag, i.e.:
+>>=20
+>> /**
+>> * sched_queue_work() - Queue a scheduler work.
+>> * @sched: Scheduler object.
+>> * @wname: Work name.
+>> *
+>> * Conditionally queues a scheduler work if no reset is =
+pending/in-progress.
+>> */
+>> #define sched_queue_work(sched, wname) \
+>> do { \
+>> if (!atomic_read(&(sched)->reset.in_progress) && \
+>>    !panthor_device_reset_is_pending((sched)->ptdev)) \
+>> queue_work((sched)->wq, &(sched)->wname ## _work); \
+>> } while (0)
+>>=20
+>>=20
+>> Thoughts?
+>=20
+> I don't think a semaphore is the right answer. I think SRCU plus a
+> counter makes more sense. (With a sentinal value reserved for =
+"currently
+> resetting".)
 
-    drm_pagemap_migrate_map_device_private_pages()
-    drm_pagemap_migrate_unmap_pages()
-    drm_pagemap_migrate_populate_ram_pfn()
-    __drm_pagemap_migrate_to_ram()
-    drm_pagemap_folio_free()
-    drm_pagemap_migrate_to_ram()
-    drm_pagemap_page_to_dpagemap()
+Can you expand a bit on why you think r/w semaphores are not the answer? =
+They
+seem to correctly encode the logic we want.
 
-Francois
+>=20
+> When you begin using the hardware, you start an srcu critical region =
+and
+> read the counter. If the counter has the sentinel value, you know the
+> hardware is resetting and you fail. Otherwise you record the couter =
+and
+> proceed.
+>=20
+> If at any point you release the srcu critical region and want to
+> re-acquire it to continue the same ongoing work, then you must ensure
+> that the counter still has the same value. This ensures that if the =
+GPU
+> is reset, then even if the reset has finished by the time you come =
+back,
+> you still fail because the counter has changed.
 
-> 
-> Suggested-by: sashiko.dev
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->  drivers/gpu/drm/drm_gpusvm.c  |  5 +++++
->  drivers/gpu/drm/drm_pagemap.c | 14 ++++++++++----
->  include/drm/drm_pagemap.h     |  5 ++++-
->  3 files changed, 19 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> index 365a9c0b522a..b3cccd047a21 100644
-> --- a/drivers/gpu/drm/drm_gpusvm.c
-> +++ b/drivers/gpu/drm/drm_gpusvm.c
-> @@ -1506,6 +1506,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
->  			struct drm_pagemap_zdd *__zdd =
->  				drm_pagemap_page_zone_device_data(page);
->  
-> +			if (!__zdd) {
-> +				err = -EINVAL;
-> +				goto err_unmap;
-> +			}
-> +
->  			if (!ctx->allow_mixed &&
->  			    zdd != __zdd && i > 0) {
->  				err = -EOPNOTSUPP;
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> index d82ea7ccb8da..95c951c5b569 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -753,10 +753,16 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
->  				own_pages++;
->  				goto next;
->  			}
-> -			cur.dpagemap = src_zdd->dpagemap;
-> -			cur.ops = src_zdd->devmem_allocation->ops;
-> -			cur.device = cur.dpagemap->drm->dev;
-> -			pages[i] = src_page;
-> +			if (src_zdd) {
-> +				cur.dpagemap = src_zdd->dpagemap;
-> +				cur.ops = src_zdd->devmem_allocation->ops;
-> +				cur.device = cur.dpagemap->drm->dev;
-> +				pages[i] = src_page;
-> +			} else {
-> +				npages = i;
-> +				err = -EINVAL;
-> +				goto err_finalize;
-> +			}
->  		}
->  		if (!pages[i]) {
->  			cur.dpagemap = NULL;
-> diff --git a/include/drm/drm_pagemap.h b/include/drm/drm_pagemap.h
-> index 95eb4b66b057..9b7c50932db5 100644
-> --- a/include/drm/drm_pagemap.h
-> +++ b/include/drm/drm_pagemap.h
-> @@ -367,12 +367,15 @@ int drm_pagemap_reinit(struct drm_pagemap *dpagemap);
->   * drm_pagemap_page_zone_device_data() - Page to zone_device_data
->   * @page: Pointer to the page
->   *
-> - * Return: Page's zone_device_data
-> + * Return: Page's zone_device_data if owned by DRM pagemap, NULL otherwise
->   */
->  static inline struct drm_pagemap_zdd *drm_pagemap_page_zone_device_data(struct page *page)
->  {
->  	struct folio *folio = page_folio(page);
->  
-> +	if (WARN_ON_ONCE(page_pgmap(page)->ops != drm_pagemap_pagemap_ops_get()))
-> +		return NULL;
-> +
->  	return folio_zone_device_data(folio);
->  }
->  
-> -- 
-> 2.34.1
-> 
+We don't want to "come back=E2=80=9D, anything that is in-flight must =
+complete, i.e.:
+the reset logic must wait for in-flight jobs, because the work has =
+already been
+dispatched to the hardware. We do want to forbid more work from being =
+queued
+while a reset is pending, though.
+
+
+>=20
+>=20
+> Another option could be to rely on the existing Device unbind logic.
+> Entirely remove the class device and run the full unbind procedure,
+> cleaning up all devm work etc. Then once that has finished, probe the
+> device again and start from scratch. After all, GPU reset does not =
+have
+> to be a cheap operation.
+>=20
+> Alice
+
+What about all resources associated with this class device? Userspace =
+would be
+holding handles to resources that are effectively gone.
+
+
+In any case, I'm not trying to push this r/w semaphore thing as "the =
+right
+thing", and if the "srcu + counter" idea turns out to be better, great! =
+:)
+
+The problem is what Boris said recently, though: there's a delay between =
+the
+point of "we need a reset" and the reset worker being scheduled.
+
+In the design I proposed, there would be a window of time in which:
+
+1) the hardware is in an invalid state, and must be reset
+2) the reset worker hasn't run yet, so the "write" lock has not been =
+taken
+3) due to 2, the submit() logic sees the hardware as available, and =
+queues more work
+4) the work from 3 now gets to execute even though the hardware is =
+crashed
+
+=E2=80=94 Daniel=
