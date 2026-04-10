@@ -4,80 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1767E99076
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 10:12:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB117E99068
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 10:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 316E610E90B;
-	Fri, 10 Apr 2026 10:12:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60F5610E919;
+	Fri, 10 Apr 2026 10:15:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sE/4Rf/K";
+	dkim=pass (2048-bit key; unprotected) header.d=icenowy.me header.i=uwu@icenowy.me header.b="B9wqX4l5";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0B7010E90B
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:12:13 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-488ab2db91aso27436835e9.3
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 03:12:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775815932; x=1776420732; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=22v578vS3urScHwXah/EGJm4oQZ5Dq0jM06OD1zJsnE=;
- b=sE/4Rf/KFZ3oNKczb9egj8ngROBjq2/2QAzU0vUqxZchg8r4opDjHWgv18HwLIZq50
- g+o7qx8d7Yfkdy20zVCGYYdoZ1Lx+YKoGVG5b3O3cx55Q1hm8zCeHXyco7I28aHY4z1P
- 5udghTF4oE+P/wTOtVDSgo9s38iEJTG8Z/TVMztXfxeZSS3MXoCa55lSQ2pMj2vDWCwf
- bqNncdoyV234xrdMCSEvOLr9gwO8jcZIT8fzyIQd7KW/q3jI70+RsbvgDXLjLRr2/VDX
- 9Aoa5oQrE6EsAIdSaHGf/otQ/ajD1LnFCWiV5YKJOEmr3a99ZDKvDT9zFEhlsLHUVNc7
- iQvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775815932; x=1776420732;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=22v578vS3urScHwXah/EGJm4oQZ5Dq0jM06OD1zJsnE=;
- b=aeQfVH/D2pZ3uQcayUU3RvkXea4rIqvtkyKj/wUTAXUMHwqX4BBsF8yN2skL7O57iy
- BSpOTM8ZFD+BVgY+dhhGQdz7H85XGjTQl/lXm1vTf1iG2LB9Vo6ylRlrUS+tXEUmgBpV
- fEzsG4Je1YsjA0yo0sYfB+wOka1v/sOFS6mwVs87diNiD/Mz9z8qMz6ICJYb7b59t5Tu
- PycA+HGS5nJdKFIwnnolw+sCV99221w0fImeYdLDGdQhD57SOMiyfp6cB9sYTPUUih7S
- +66HT1TMI3lxkFPL5nCYgeYh00Yr0I7o5vGNJu1DHSoad1EkkGOqe+49Jji+faItKlAz
- tIjw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU6AJEd5zCKGd5JSVs8jhGnHJPryxx3NwngRlUgrvxvxAEeIOp9GBTfi2wkMA0IEHDJHulSGZ35iBY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrKrgYgFdC75LfH89hJLf2TpWBaV3S2KuipT6iV5GvXQ+UmPhd
- GL//ghgLcer75y7KrZR4hnGSmtGBfr/pWgi/1iqq2Hna5nUNm9Dbh+sf
-X-Gm-Gg: AeBDievAti4QCuPHqtkbodG36HsKmzJ7b4MplOQtV2yvdw9cY71qllv4iCzh01sQ8Xi
- zx1nY+RsnhW1isQhQ6Ya0uZncxdj3z8b3oB4KVhlMYryolkViFIyz55yaj0ruVyN1/miL/9Ta4g
- 1AKlR5BDAmtXBpS8McoQmUIBVJh/dodS4orWksB1W8jY8ryZGIdq1UBtu7fuyptOssLKynulj1R
- HOeyJz6OhcHg6PpwUNsf5RvDe6Mx1llwsXyppE3oHQ/nB5H0guXZr6C0aMwlh/X6W8jY83Xk8wH
- u09n21/hDgb5LtcFVfc1Tl3L90WG5RZrD4VSR/3W6cVZ3tUwx/bamHnz+12gijf3w7pCRTHYsIa
- NKfCEZxBupUKjwOkijtEwzHUhEcFUR5x3OBfv+DCLGOeOwBMmuYrdcF0zbXQknHP78PbAm6ZZLu
- 8RKOn8NSwvlPW+PoEaPvA=
-X-Received: by 2002:a05:600c:3ba1:b0:488:90ac:8f71 with SMTP id
- 5b1f17b1804b1-488d67c704amr32809435e9.5.1775815932319; 
- Fri, 10 Apr 2026 03:12:12 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488d683c902sm17472615e9.22.2026.04.10.03.12.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2026 03:12:11 -0700 (PDT)
-Date: Fri, 10 Apr 2026 13:12:08 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Pengyu Luo <mitltlatltl@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org
-Subject: [PATCH next] drm/panel: himax-hx83121a: Fix NULL vs IS_ERR() check
- in probe()
-Message-ID: <adjM-IhvtrghMDnB@stanley.mountain>
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68BFF10E919
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:15:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1775816156; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=mEe3laSAdu8R0WhTDRru8ZPSczrMqQrxUOnM6HYPvcg0wSuRDjqvqUfhpOsdXGPfNejuNkjBuPyL/9Qa6m0qeAvM5jSzEuYNinnYLVxrlpu082Y25DGNTlCpNJa46oznn6MSfFaYr3vB6lQf3aUAhRY6q3MWmrQdiukXr3Xbs1Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1775816156;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=G6AnCneEdMxNqnTVUSaf/YvUtOIJ206a3KqvNRA76I4=; 
+ b=izRyZFI+O0lWlYIMBb6H3lBR27yBLkGLIWTnfhBIpHxXWeBbgPaTomJO+N1f2jtDStLjH60BiQgVJo5MuSXU+UIlJdqv7rMEAbR5HHTgHSlSb1ySM56mz9MMD85elJ7fKtJ4FRTtNWoRUbquXjolsEmHAqOnIwwKaO/wR3D5Cxs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=icenowy.me;
+ spf=pass  smtp.mailfrom=uwu@icenowy.me;
+ dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775816156; 
+ s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=G6AnCneEdMxNqnTVUSaf/YvUtOIJ206a3KqvNRA76I4=;
+ b=B9wqX4l52SLtm4BM8+n2dRwOtxV8JsqR+Hvdgi0NQEzLnKJ98u5KpFUvD6L2XRHi
+ sN3MVK0DkctVoSFaVa00BONCaj31tShfx04a+ivHusAxI9KuSFUyr8SDkx4pDJoakv0
+ 1GX/REeS+0H7X+bVRruYAatVqZ8EUzkgKytOltLi9H9lxN74aAV1vqy0rffHgECDg0w
+ C4afYO8iMISHDay4zbBk6TW1IEeVmOuDQHYg4Dp7yyV7S7i3Da932n+4ImhqLq2ApZc
+ kobgahx4GM84CYk0MMcBAE9vh6BJFiVuefigOX9pRM4FQ+I6x5Jj9aGoIXRXwUFX8Wp
+ VFbjIVsCEQ==
+Received: by mx.zohomail.com with SMTPS id 1775816154386446.00739810195216;
+ Fri, 10 Apr 2026 03:15:54 -0700 (PDT)
+Message-ID: <8d32576c481acee56530fa4846be88e0ee51d747.camel@icenowy.me>
+Subject: Re: [bug report] drm/bridge: add a driver for T-Head TH1520 HDMI
+ controller
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Dan Carpenter <error27@gmail.com>
+Cc: linux-riscv@lists.infradead.org, dri-devel@lists.freedesktop.org
+Date: Fri, 10 Apr 2026 18:15:46 +0800
+In-Reply-To: <adjM7-DcN_6KvbE7@stanley.mountain>
+References: <adjM7-DcN_6KvbE7@stanley.mountain>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,32 +70,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The devm_drm_panel_alloc() function never returns NULL, it returns error
-pointers on failure.
-
-Fixes: a7c61963b727 ("drm/panel: Add Himax HX83121A panel driver")
-Signed-off-by: Dan Carpenter <error27@gmail.com>
----
-This email is a free service from the Smatch-CI project [smatch.sf.net].
-
- drivers/gpu/drm/panel/panel-himax-hx83121a.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-himax-hx83121a.c b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-index ebe643ba4184..bed79aa06f46 100644
---- a/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-+++ b/drivers/gpu/drm/panel/panel-himax-hx83121a.c
-@@ -596,8 +596,8 @@ static int himax_probe(struct mipi_dsi_device *dsi)
- 
- 	ctx = devm_drm_panel_alloc(dev, struct himax, panel, &himax_panel_funcs,
- 				   DRM_MODE_CONNECTOR_DSI);
--	if (!ctx)
--		return -ENOMEM;
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
- 
- 	ret = devm_regulator_bulk_get_const(&dsi->dev,
- 					    ARRAY_SIZE(himax_supplies),
--- 
-2.53.0
+5ZyoIDIwMjYtMDQtMTDkupTnmoQgMTM6MTEgKzAzMDDvvIxEYW4gQ2FycGVudGVy5YaZ6YGT77ya
+Cj4gSGVsbG8gSWNlbm93eSBaaGVuZywKPiAKPiBDb21taXQgOTZmMzBlZTBmYjlkICgiZHJtL2Jy
+aWRnZTogYWRkIGEgZHJpdmVyIGZvciBULUhlYWQgVEgxNTIwIEhETUkKPiBjb250cm9sbGVyIikg
+ZnJvbSBKYW4gMjksIDIwMjYgKGxpbnV4LW5leHQpLCBsZWFkcyB0byB0aGUgZm9sbG93aW5nCj4g
+U21hdGNoIHN0YXRpYyBjaGVja2VyIHdhcm5pbmc6Cj4gCj4gCWRyaXZlcnMvZ3B1L2RybS9icmlk
+Z2UvdGgxNTIwLWR3LWhkbWkuYzoxMzkKPiB0aDE1MjBfZHdfaGRtaV9wcm9iZSgpCj4gCXdhcm46
+ICdoZG1pJyBpc24ndCBhbiBFUlJfUFRSCj4gCj4gZHJpdmVycy9ncHUvZHJtL2JyaWRnZS90aDE1
+MjAtZHctaGRtaS5jCj4gwqDCoMKgIDEzM8KgwqDCoMKgwqDCoMKgwqAgcGxhdF9kYXRhLT5vdXRw
+dXRfcG9ydCA9IDE7Cj4gwqDCoMKgIDEzNMKgwqDCoMKgwqDCoMKgwqAgcGxhdF9kYXRhLT5tb2Rl
+X3ZhbGlkID0gdGgxNTIwX2hkbWlfbW9kZV92YWxpZDsKPiDCoMKgwqAgMTM1wqDCoMKgwqDCoMKg
+wqDCoCBwbGF0X2RhdGEtPmNvbmZpZ3VyZV9waHkgPSB0aDE1MjBfaGRtaV9waHlfY29uZmlndXJl
+Owo+IMKgwqDCoCAxMzbCoMKgwqDCoMKgwqDCoMKgIHBsYXRfZGF0YS0+cHJpdl9kYXRhID0gaGRt
+aTsKPiDCoMKgwqAgMTM3IAo+IMKgwqDCoCAxMzjCoMKgwqDCoMKgwqDCoMKgIGhkbWktPmR3X2hk
+bWkgPSBkd19oZG1pX3Byb2JlKHBkZXYsIHBsYXRfZGF0YSk7Cj4gLS0+IDEzOcKgwqDCoMKgwqDC
+oMKgwqAgaWYgKElTX0VSUihoZG1pKSkKPiDCoMKgwqAgMTQwwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgcmV0dXJuIFBUUl9FUlIoaGRtaSk7Cj4gCj4gcy9oZG1pL2hkbWktPmR3X2hk
+bWkvCgpUaGFua3MgZm9yIHRoZSByZXBvcnQuCgpBIHBlbmRpbmcgZml4IGlzIGF0IFsxXS4KClsx
+XQpodHRwczovL2xvcmUua2VybmVsLm9yZy9kcmktZGV2ZWwvMjAyNjAzMjEtdGgxNTIwLXYxLTAt
+ZWM4NzcxOTc3NzBkQGdtYWlsLmNvbS8KCgpUaGFua3MsCkljZW5vd3kKCj4gCj4gwqDCoMKgIDE0
+MSAKPiDCoMKgwqAgMTQywqDCoMKgwqDCoMKgwqDCoCBwbGF0Zm9ybV9zZXRfZHJ2ZGF0YShwZGV2
+LCBoZG1pKTsKPiDCoMKgwqAgMTQzIAo+IMKgwqDCoCAxNDTCoMKgwqDCoMKgwqDCoMKgIHJldHVy
+biAwOwo+IMKgwqDCoCAxNDUgfQo+IAo+IFRoaXMgZW1haWwgaXMgYSBmcmVlIHNlcnZpY2UgZnJv
+bSB0aGUgU21hdGNoLUNJIHByb2plY3QKPiBbc21hdGNoLnNmLm5ldF0uCj4gCj4gcmVnYXJkcywK
+PiBkYW4gY2FycGVudGVyCg==
 
