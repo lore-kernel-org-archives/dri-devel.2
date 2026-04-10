@@ -4,92 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01565F44840
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 11:22:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A55CF44841
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 11:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E95910E938;
-	Fri, 10 Apr 2026 11:22:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9716D10E93C;
+	Fri, 10 Apr 2026 11:31:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=quicinc.com header.i=@quicinc.com header.b="GeBFTT3N";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oRuZQ/CL";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76BE710E939
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 11:22:14 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63AADVLm1925453; Fri, 10 Apr 2026 11:22:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- OXCDEuWxbaerERvBelLzYgqdWH9OXFRHW+vN3cYatsk=; b=GeBFTT3NU1FSM6Hj
- 2H/Q7pmlAT4qe7QOhaKVrZ75sFot43vQAH/ZP7Y33Vu+BaMZmQfkzDAawcDzGOeD
- KOA8vlG50i+byMO8TqcO0eeTh97OqkzFO4SIhfX4xyBxCkoqXxunKyJRhPFNSgcM
- VFXvlJvAtM1Y76kpZ2mGh8ChBdQ5A4KiL/x4mIMmBjVT/P+qvtGIJRuSlxLSObAm
- MHmBZvI1qHXlRK6EOYMDiw3Q/4E70nZqOLx3reTJd6hAx3DoHXUkKrq7qakIkCNK
- CLiSB5yef4Rch6kFbaLlTn/3YeWAOdDDTAi34BJ0fXSreoIR7Uxa+CJFtaM6pjDg
- b11yxg==
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deudjs5ed-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Apr 2026 11:22:09 +0000 (GMT)
-Received: from nasanex01c.na.qualcomm.com (nasanex01c.na.qualcomm.com
- [10.45.79.139])
- by NASANPPMTA05.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTPS id 63ABM9nl017097
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 10 Apr 2026 11:22:09 GMT
-Received: from [10.216.26.180] (10.80.80.8) by nasanex01c.na.qualcomm.com
- (10.45.79.139) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012004.outbound.protection.outlook.com
+ [40.93.195.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B0D810E93B;
+ Fri, 10 Apr 2026 11:31:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yvtKmoTNUBRK2hpEGyJ6PIgdWPG3yJNvhbiOfW8wkYAvgMd73mBgaDeyaWcLe2ZsUZktZ8OafHLpXyFFd6TXDd84IGbxnFJyb0+NHEamVF7Vju+vhHH27radbriMFXORVXabtjq+pJoiic+R5Dp1fBr+uOpE5v8JS9lGlTMG+P6MiJke2d43C7ZYumshs2c0lUwAKwQ6zT86y78ZnsZ6FYbtIVpIDnYdEhXxxsSOWximC0pMWeGQdEpbKXmcVvgHvPz0Yx9lk/eoJaxaUx7AU3D8GNqABUq2rDUsQNltQiFNJJQTZ0Rl9j02MtSQcM9UK7EbuQ9wefUYAXWBYJFinQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aR8IGvyW/uerlWdF3Aa6wLFh43qDkI1NdYc02LACRas=;
+ b=Hnt8/HlKijuCKWCHzHIgSGcGojYairA667nMFkliRavBGCgf5DhJHD3Lib4JhRj9HrUESmTO5MrJekEQ0aeg7qnmgfkjHyE5Uwovn3a308WRo/OUWtvNQ4awpVtYfhKmm/Jf3eAwmWzmtS2p50J5jxPnbmZ/X1eWGQ01n0cEmED8ak18MJRK9HJH1Ix/FhP+74dYYjTHM6KcfuJH1w84BOmzn3qXeFQUVRBnEk2l3kwA3Vw+2rIqTVC38y42NB9/8397P4kfNQdG9iRrMugQxV/RstMLVmYikKZWV1MbRX+FNS3b7qY58bzPc+aNUIgR+IYsDUUqE23/qvcV502lFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aR8IGvyW/uerlWdF3Aa6wLFh43qDkI1NdYc02LACRas=;
+ b=oRuZQ/CLhpQi6PBjibh6ELtFOBjLLeHz9uVlzZ+1gZ4Wf6hX0B4GCGlSp5w2111lnsZ/WPl1Q6mN9A6rNF/bwqJAkaHsIaaxBo64mYBv37H0OtzgMNcRIhsP6xuXzI9umUXCF4N3hCAaZKLNezxOfVVU47BxZD3DwbIkLb1yGZY=
+Received: from PH7P220CA0068.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32c::24)
+ by PH7PR12MB7308.namprd12.prod.outlook.com (2603:10b6:510:20c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.32; Fri, 10 Apr
+ 2026 11:31:51 +0000
+Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
+ (2603:10b6:510:32c:cafe::1d) by PH7P220CA0068.outlook.office365.com
+ (2603:10b6:510:32c::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.42 via Frontend Transport; Fri,
+ 10 Apr 2026 11:31:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Fri, 10 Apr 2026 11:31:50 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 10 Apr
- 2026 04:22:05 -0700
-Message-ID: <fb37aa8d-bc61-48fe-9c82-828e7fd642f9@quicinc.com>
-Date: Fri, 10 Apr 2026 16:52:01 +0530
+ 2026 06:31:50 -0500
+Received: from junhua-PC.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 10 Apr 2026 06:31:47 -0500
+From: Junhua Shen <Junhua.Shen@amd.com>
+To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
+ <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
+ <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
+ <honglei1.huang@amd.com>, <Lingshan.Zhu@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <junhshen@amd.com>, Junhua Shen <Junhua.Shen@amd.com>
+Subject: [PATCH RFC 0/6] drm/amdgpu: SVM VRAM migration via drm_pagemap
+Date: Fri, 10 Apr 2026 19:31:40 +0800
+Message-ID: <20260410113146.146212-1-Junhua.Shen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4] i2c: qcom-geni: Avoid extra TX DMA TRE for single read
- message in GPI mode
-To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
- <mukesh.savaliya@oss.qualcomm.com>, <viken.dadhaniya@oss.qualcomm.com>,
- <andi.shyti@kernel.org>, <sumit.semwal@linaro.org>,
- <christian.koenig@amd.com>
-CC: <linux-i2c@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <naresh.maramaina@oss.qualcomm.com>
-References: <20260410101949.2315058-1-aniket.randive@oss.qualcomm.com>
-Content-Language: en-US
-From: Mukesh Kumar Savaliya <quic_msavaliy@quicinc.com>
-In-Reply-To: <20260410101949.2315058-1-aniket.randive@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
- nasanex01c.na.qualcomm.com (10.45.79.139)
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=X+hi7mTe c=1 sm=1 tr=0 ts=69d8dd61 cx=c_pps
- a=JYp8KDb2vCoCEuGobkYCKw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=GEpy-HfZoHoA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=2ZZFV4PajdD4Tf-m3e0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: gRq6W0F6IGuJAnJhHlCPTtFpLZTjLa7V
-X-Proofpoint-ORIG-GUID: gRq6W0F6IGuJAnJhHlCPTtFpLZTjLa7V
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDEwNiBTYWx0ZWRfXwOqFuikj+wsJ
- Nns3Qy0glre0sxugk1cvT+ttj1yIvRP3n8VhRfH4xTL5Sbk80NaB/UX4AAZbjlantZO+ozfjSB/
- MsfzSZ+sWAaSfJmhgc36qRY7u0V4PJgEjGNTQTaNvJIBXrUED/YvY6THa83wQH+XdFDm5p2IDcb
- hRfTXzv6ePnBnA7KzYQ3xS/baN+CeUjaXJeiwyHXMxXmI7c/gsyF+QTxANvKv3xtkU95qE9pa3Q
- GBh2WNEao+QEhmAS+CPijjNGjTo7L+aTonS2oz1mxUMQl3QYyWfey0SSmBUy6+CJf3FWjs/rXGN
- JLmS9ttJw15Qzd3C0bn+oDOxL/R+6w3L7kdNBPJlBMomd6w5bABAT31XI5bel2waNNtyzSLoil8
- ZouoRu7+3VexVNpIRfYX4axBgB6CJ6i8ipbT74oN5ApCEyLzH0ojaE3fwY7mTf5fyp4szp2lFuk
- rtMM+1Odb6UoEYuo7zA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_03,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 spamscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100106
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|PH7PR12MB7308:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42246c5d-4ba5-4289-1769-08de96f4c233
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700016|82310400026|921020|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: hw4AsyZFDhZfW4XPeZjVJ/cMbWYvL70NYoEesiwCxf+3owwKSlXPdKbV/Yce3X4BtkjUU93GZydHIRt+r/gtotYxxJ5ux5jgYs9Um7dS1b2FLf6SRJYsq4WV6by+gYaBR8V4RxZ1y6WZTlwC4YR5+nlw3ODcJfw2JWA4JF+PQxelPWuCYnzzp8P7rW3YyMcYLApnHuPpfkR69dlNJ7f6fq5GaWr+vHmfCfm0l4vVQziqH05OC2f0SZUwRu2KnuIJih86eyMCbPOjPfa6Atzl/qpThUIH0+yt+8Pe81vtlzRphlC8fCd8V6S49HmgFcwGZwjwZr43tqYmZbOdZ55GAg/ApzQvYsVJoOOtDW1deb62Op5X98mqDjob11Pzbww5weC2xpTXj5IjMAxWs8w8ao1Vp+YaIfxmGZ7UAY/IXKYYK33Olt4xSFlyb25SjWeyXl8d4/kD9Fvf8w8yozn3GMLvuTFuAepklZ5sIQtv3cpNC9M/2TD109NjYORvUy5Q4Hn1lQaT5JV1+NNPg/JER1fjzE0Z+aOPibfoG0/iBTnTLI7hPJpfnF/tMmeTDd28QI8jM+e5U3iZeBvC++7BMvZtFwLRBDN7k+io2cQwT50c/2oAkmTlHHewEPQK4hsPjAfI20Iznxmxk3yiCtKLEhwTTCjxYjfTRizWh+9pw4gxn9LYbEi/W0Zt3cRdovE7/0pfflzue530Ww0FulPuhJ+YXzpbER+DLfxy1KyRoKc9QjxZgXO8WQIwDcqiC5DLFkkIgwaVPACt8wjrLzXZXugIbH1IuGZW86Myxa71F3nZFAe4Zrb1Gk9y+aZFZcPR
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(921020)(13003099007)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: m4vmrINsjPl9XwbY/ordFyWpneE64Nit5CiUzk4QEOqPjD7tHzgAl9H0hnl/KU3wI+PJGN6vvIRPqt2e6e7+N8/sr7v3QmMECcD2IimtwuwYicMkiTeGeH3yvEwjn8TrcrnV/xyOwy1ZQluW3hfa/roZDUnTvQZsCyvhar1YKK95JtEFp/a6dD911qXWrWgL4TFvhDB1wOk9P/ldKXqk1uIeYncoNjU15iQd/IOPSYivmj8V8zBN7sknEPxdXDH7prNyDcNcgMKPedglw97nnm4bfR/buJvMdtbMKMBfHvzr9h3/mQGDGrQYV8rjnHWhFPPiygmZQanHpyLPQiIAvUdvjJTm/F0o6LLuGif8oZ2YosqF27OlGocalkGOp2taloKMmQDED0uGm9G7w9YTRyPlptrlektUaIkocApkwCpmqc8vNR6oswSNzWZOaTtL
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 11:31:50.6576 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42246c5d-4ba5-4289-1769-08de96f4c233
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7308
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,44 +113,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series adds VRAM migration support to the amdgpu DRM SVM
+subsystem, building on top of the POC SVM core series [1]. It uses
+the drm_pagemap infrastructure for ZONE_DEVICE based page migration
+between system RAM and GPU VRAM.
 
+This is NOT a production-ready submission — it is a POC/RFC to
+validate the drm_pagemap migration path and start discussion on
+the design.
 
-On 4/10/2026 3:49 PM, Aniket Randive wrote:
-> In GPI mode, the I2C GENI driver programs an extra TX DMA transfer
-> descriptor (TRE) on the TX channel when handling a single read message.
-> This results in an unintended write phase being issued on the I2C bus,
-> even though a read transaction does not require any TX data.
-> 
-> For a single-byte read, the correct hardware sequence consists of the
-> CONFIG and GO commands followed by a single RX DMA TRE. Programming an
-> additional TX DMA TRE is redundant, causes unnecessary DMA buffer
-> mapping on the TX channel, and may lead to incorrect bus behavior.
-> 
-> Update the transfer logic to avoid programming a TX DMA TRE for single
-> read messages in GPI mode.
-> 
-> Co-developed-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-> Signed-off-by: Maramaina Naresh <naresh.maramaina@oss.qualcomm.com>
-> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
-Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
-> ---
-> 
-> Changes in v4:
->    - Added some more description in comment and changed the label name.
-> Changes in v3:
->    - Added comment in the driver for better readability and changed the
->      position of 'skip_dma' label to allow dma engine configuration.
-> Changes in v2:
->    - Updated the commit message.
-> 
->   drivers/i2c/busses/i2c-qcom-geni.c | 24 +++++++++++++++++++-----
->   1 file changed, 19 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-> index a4acb78fafb6..a482a4c60744 100644
-> --- a/drivers/i2c/busses/i2c-qcom-geni.c
-> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
-> @@ -625,8 +625,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
+Limitations:
 
-[...]
+  - Single GPU only; multi-GPU migration is not addressed
+  - No XNACK-on GPU fault-driven migration (XNACK-off ioctl
+    path only)
+  - No VRAM-to-VRAM (peer GPU) migration
+  - Eviction fence path is functional but not stress-tested
+    under heavy memory pressure
+
+Design:
+
+GPU VRAM is registered as a ZONE_DEVICE region via
+devm_memremap_pages(). A new struct amdgpu_pagemap wraps
+dev_pagemap with drm_pagemap state. The drm_pagemap_ops and
+drm_pagemap_devmem_ops callbacks implement SDMA-based data transfer
+through a GART aperture window.
+
+VRAM overcommit is handled via eviction fences: when TTM needs to
+reclaim VRAM, the fence's enable_signaling callback schedules a
+work item that triggers migrate_to_ram for all device-private pages,
+copying data back to system RAM via SDMA before signaling the fence.
+
+Migration policy is driven by SVM range attributes (preferred
+location, prefetch hints) and integrated into the existing SVM
+range map path.
+
+Patch overview:
+
+  1/6  Introduce amdgpu_pagemap wrapper and KFD pgmap accessor
+  2/6  Register ZONE_DEVICE for VRAM and init drm_pagemap
+  3/6  Implement drm_pagemap SDMA migration callbacks
+       (copy_to_devmem, copy_to_ram, populate_devmem_pfn, etc.)
+  4/6  Add eviction fences for VRAM overcommit handling
+  5/6  Add SVM attribute extensions for prefetch and migration triggers
+  6/6  Wire up VRAM migration into the SVM range map path
+
+Testing:
+  - Hardware: gfx1100 (W7900) and gfx943 (MI300X)
+  - KFD test: 95%+ passed, same failures as official release
+  - ROCR test: all passed
+
+Dependencies:
+
+This series applies on top of the amdgpu DRM SVM core series [1]
+which provides range management, GPU mapping, and attribute
+infrastructure.
+
+[1] https://lore.kernel.org/amd-gfx/20260317112958.2925370-1-honglei1.huang@amd.com/
+
+Junhua Shen (6):
+  drm/amdgpu: introduce amdgpu_pagemap and kfd pgmap accessor
+  drm/amdgpu: register ZONE_DEVICE for drm_pagemap SVM migration
+  drm/amdgpu: implement drm_pagemap SDMA migration callbacks
+  drm/amdgpu: add SVM eviction fences for VRAM overcommit
+  drm/amdgpu: add SVM attr prefetch/force-trigger and in_populate tracking
+  drm/amdgpu: integrate VRAM migration into SVM range map path
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |    6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   52 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |    9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c   | 1063 +++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h   |   67 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |    4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c       |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h       |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c  |   46 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c |  486 +++++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |    6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |    2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |    2 +-
+ 13 files changed, 1694 insertions(+), 51 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h
+
+-- 
+2.34.1
 
