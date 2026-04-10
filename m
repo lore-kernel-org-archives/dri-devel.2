@@ -4,134 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B95B0F459F9
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 17:01:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1CC4F45A01
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 17:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1039B10E99F;
-	Fri, 10 Apr 2026 17:01:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 259C110E9A0;
+	Fri, 10 Apr 2026 17:08:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TMoDkyl7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aaVM6UTE";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZrPr5XbP";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xow9cwgp";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB2A710E99F
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:01:54 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0B2D10E9A0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:08:11 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63AAhIo34148720
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:01:54 GMT
+ 63AF6G6E3760345
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:08:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Bp/JyCTFtYQweJXfZZHfGdsxTk73Q69WkzJJd9yJDo8=; b=TMoDkyl7oeUMHSz1
- h4wbFV4nYnVGhfvzDmN4xUy6d0XMg8QC98zam32doQLoGBKcgqhlDgl2GGhxsAwD
- Xhtc0/Lxf0xf6G53bITxUHvJYoRwyAT/NjGQgPi1RxMVFBjKMVaNySXEOU4Ary16
- whCWw85DgOcGC39X74/lnJBWIlOuxiq7kLenyia2XyhsogfphGqWMJkkdL2HR9LM
- 3s1mbFDwoIFjzh9Bv2CfVchktonmZinmvNQUZR+7aRBnXciYJvggaocDtWc0Wal1
- hNq2TtTgsEfTfLzAkagGORu7vD/v2zFFu3XEY6O2CxDzdXL0k7aaRg5EZknl4it0
- Ct6dIg==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
- [74.125.82.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deudgj6uk-1
+ SSw6uo7wQYRFUP/Y1wiTkctP3k+hXzw1+IVpWEt9h3c=; b=ZrPr5XbPN/A5E/Zf
+ +FqrSJToxNlTn12UJhwww91gASUw4GeapYqdC1ztSZzneu8+iW10tUbQv6Dg7Ioh
+ yXBEHtqlN+FVg4Inh2NfEJGJ7XZsWXS2/FeVGFLs4vQjzovawH7RjVZVIiSqFYjM
+ 6Pmo1jic4wmlt7Cd8AUu+QTmThYDWe0beGYuMvVkceFsV1CCWVdiD5a8wPJTtUCE
+ ikBUIsgiyjB/v4KijX+Yg+F6mf5mpwYKRnB1E6tbXLWhL6hOEG+2iRc+2zC72MDa
+ B8ee+q+/Okrm/tj+3hM1iZ3r/PUowgXAig22zViRzem1+o4VBc65QyqzcZhFD8h8
+ RauIVg==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4df3j1gc32-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:01:54 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id
- 5a478bee46e88-2ba8013a9e3so2532082eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:01:54 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:08:10 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id
+ 5a478bee46e88-2c0f6593ef5so2972585eec.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:08:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775840513; x=1776445313;
+ d=oss.qualcomm.com; s=google; t=1775840890; x=1776445690;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=Bp/JyCTFtYQweJXfZZHfGdsxTk73Q69WkzJJd9yJDo8=;
- b=aaVM6UTEH3K7qC9XQUSqk5DDrpX8GHLWO7sVxv6ed8J5gvhpMD9u5LovprHr5H4fls
- klHUi8siXl8GsKNo/ICpeZ0kOQssGdd+Qn3MQUQBLMgkfCRAPqRzLUllLK+tKVjxzekU
- eKZu6cR4/21BfQ+6n2A1jL82BZyp8VBGMJ45fVl0dRXrxxaybGOBMnxNhiMixLwFnfyx
- Dywtu7kGOgyZ7W1ICDC9cR0DGfcY5Y8E41f3TRswWw2dOrIqUwJZyZ5hDls1EezXj7UF
- l30UXvpAf2N7pNTo1JHPgeiT48GwA4AfD9GeSUoOE3C9lUEWnc4jw3jOqg9xxw9bzrHq
- SfXQ==
+ bh=SSw6uo7wQYRFUP/Y1wiTkctP3k+hXzw1+IVpWEt9h3c=;
+ b=Xow9cwgpDSYZBiIWviaKVoc5f8T6gwuDe6Hsr94IIWiIC2KlLbug4DpUir/ClS3f+B
+ bgJwSZscIWpseaP7nKLYJ9d67vIgzSJbJ69UjwJ8MIHnqqy7X85lWm7WQZ2qFBXnV804
+ IDxSDx9UPLCGtXs6GEe8oHfUla1ehpsN5ypPVh6nyc3FGrFVGvtVxgXRoveBdvLY27+O
+ px8cbCrPJnjvUjRQ2vuNPPYprTKegi3xoyrbPS/1qZLh09mSmeIi3zphmgr93eOi2LbC
+ W7iEwRNwhC2ktpos2HQT7Aspo5LpfWV9C+sM7xwQNeJjRcb/fHRhrTkOntkAal/fmjH3
+ L1nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775840513; x=1776445313;
+ d=1e100.net; s=20251104; t=1775840890; x=1776445690;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Bp/JyCTFtYQweJXfZZHfGdsxTk73Q69WkzJJd9yJDo8=;
- b=fnbUWIwV7EHAeLAQJhdS42YCZfuY0mOfHIkl1rU6kl6eHtexSVTHW2oB7A2VLM0UMq
- BzrZFnsRzjuxqwmbNFnDa1hcC6Y3M6zisZ0Hl4Xpo4qipNvxE+lLzroVN+RvhUre9pdr
- kJOvgVn+wqjrsSlAv2gjMIm4mgkQgENwHdj2QKPvbNPX+NQbdv6F2+Jt0zgEPiumUXvS
- WX4bgTVDNRSSgT43Lc6nuVXje43irw8gh4WzCuPHnPqzc9iYRwiRJPSo7igtj2f+VTKu
- DBmxo/ztqyoQjdwJ16ImgXv3s9knzwgBpZV+EDAMqcfTIR3luNCOwjvo1Ky5Fde3TAJd
- 2Tqw==
+ bh=SSw6uo7wQYRFUP/Y1wiTkctP3k+hXzw1+IVpWEt9h3c=;
+ b=DpWw7un4MLk+C0y/G4qQTDFpn1OWyglRtnks6GGloxoXGa3oq8wweYWSv+N/DPGQ3L
+ rZZEx33mpXThRhVLC3Ivvf6rW9wZgOu34txWXbzoNygUHLE55KWMHuEvovJ+/Vcd3lTM
+ IXQNGiO8TRpXhRpqNYn1YEZPMZGRhpA6K6lrMrxCzzRp5tm4ocPniqhzT1cpafNCsXDF
+ C4eGrJvxc1WwhM0Kjkd5l4ubJXh9FlQn0VEmq7usQ3E2/filJEzCDCJqNLIIXnrDL5Os
+ v28yHNaJx+EmeGbVnSGLTk412NqoB8fl4Vmih08VtuPcANYZZ35ClMVYxkrEd+dMvMG8
+ zmNg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFl3MjNfr5Y0QJRRLqCF0spQf2kbaCCyX4Dv9QGsPeFE4pE5gCwyLngl7RhdkcqUPA4yiZj2OpOzM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YycS+8TCeOZyjM0BohTffbZRRl8tqj3E2wCmMHfwEtXpErWYofR
- 6qlPvs4AyWBPiYI20qaMPJ/7YmvVWL8gkNr36NMAn0BRtMORVVRziBcAPd9BQHv/oIq+/WR4Hnv
- bQVuTqBTfLZrJBwPcDURfrqqb2fsfIHPXcABjseTlMvsmdhO4Fm515r9ry/o38gMsNVaeNO0=
-X-Gm-Gg: AeBDieuB7ByDvOs7UDD03QEuvyQDssonJRSxNoJpqVWPx1km8ggEyKf2oTBLhVE92L/
- +oP6QhQ6pUvuScp5KCgkdBOmKeQUbU7JwCJAXnI2jRf4TT8LqWj2Ag+HSgMi0wz30MqxNB2ztVR
- 7J1eSZXADoNFI2gs2jIpEPc2i7GwG0ZUnQnSUNryRBF/g22XEoexnIM0yt9OonWH1W+Srtepiap
- ZYax9RpSOGJaQyU/FWcR6cMAidcsHkTeDyOEnw4oTpTPH6WsZWmqdNp7g2nM/cIHyjmo2S7VLxw
- kbD4uG/sRDo3DWgwJSvk354lu8JnXTbt99qWSNn2xnYoMOAu9zBFL9WANaxZJ2u/5DJLhrIBZRD
- DiHkrbB6La1y4eYreu9URzO85sbpepRKRIQaheoWEQEf9V2p+SZo454mf+k2hVHw3GMxErmD/9W
- E=
-X-Received: by 2002:a05:7301:4089:b0:2cc:afce:bc01 with SMTP id
- 5a478bee46e88-2d589daf1b2mr2340779eec.29.1775840511793; 
- Fri, 10 Apr 2026 10:01:51 -0700 (PDT)
-X-Received: by 2002:a05:7301:4089:b0:2cc:afce:bc01 with SMTP id
- 5a478bee46e88-2d589daf1b2mr2340682eec.29.1775840509759; 
- Fri, 10 Apr 2026 10:01:49 -0700 (PDT)
+ AJvYcCVehMUgVlHxsLHXjTTpI3OmwUNP+1YY4yorjmMfzMskdD+tkycHHtxsienwUfrnfAMUAuhE6MOVD3g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSLs/gc4V8ud/QmUx0Q48Ktxj5PgP9LhXX19T0e6Ay4fFv0A0n
+ wx6FSwiKsFiHr+EjBrcd9Ypw3iHuqDIv7lECZ+jY/zopH74slotoS2gxQWKaGLgwafxFZCQF/Za
+ OvxTXqrv8eQDfvHVZA/Gp0xRwcBPpuOcRZf8aB+BU8nPZOS4K4Ix6P2B1w29gEsr4VvBOwgk=
+X-Gm-Gg: AeBDieuVDyFzVH9f/Bzhefb/OWCqsO/QW9+X+aKnx92mX1XMITgDgkzRzP11amT6FJh
+ OoQZ0mpNJ8CjuC1JwAdRCTfO2SW3UW/4mBhd9dSqRz8F4HzX85/6RHhvQ6ybB99g6q0T0qVo2gG
+ SORp61tA2nZBkEvuNz5Q6OCOdX/tVBg9mE4a/Meyu0mYbJFVm1xtBj+WCKPF0FY8ZFOzWjFWaE/
+ JHmNDY8ajayQsZBKVB+Il4EVej9RVtoaqal+fPgvx29lwL6IY3xE6Z1jhLdy42WAAmY7c1Y823Q
+ wC99pQYhj9F0iSPEBwqAeWsDEh0ztjT9joDrReMIZrXWzbiAbz0VMDrgwq0SWQeL2lrf2m0Y5jj
+ Z+iboKGXWE+fxxTM3g/d3nu3+i2gtrnnpbF7uLmR0rYpPzgr20hX8dqNatds8aHAUGwxuuEEICL
+ A=
+X-Received: by 2002:a05:7301:1014:b0:2d2:d7b7:5c6e with SMTP id
+ 5a478bee46e88-2d5876a0692mr2102068eec.8.1775840889559; 
+ Fri, 10 Apr 2026 10:08:09 -0700 (PDT)
+X-Received: by 2002:a05:7301:1014:b0:2d2:d7b7:5c6e with SMTP id
+ 5a478bee46e88-2d5876a0692mr2102040eec.8.1775840888986; 
+ Fri, 10 Apr 2026 10:08:08 -0700 (PDT)
 Received: from [10.226.59.182] (i-global254.qualcomm.com. [199.106.103.254])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2d55f5c69d5sm5778968eec.3.2026.04.10.10.01.48
+ 5a478bee46e88-2d561cd2c09sm6239376eec.18.2026.04.10.10.08.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Apr 2026 10:01:49 -0700 (PDT)
-Message-ID: <b772c81c-3628-45c5-ab11-a0737a94b812@oss.qualcomm.com>
-Date: Fri, 10 Apr 2026 11:01:47 -0600
+ Fri, 10 Apr 2026 10:08:08 -0700 (PDT)
+Message-ID: <7755ccdb-54de-478f-8f12-98c6dac03e8d@oss.qualcomm.com>
+Date: Fri, 10 Apr 2026 11:08:07 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] accel/qaic: kcalloc + kzalloc to kzalloc
-To: Rosen Penev <rosenp@gmail.com>, linux-arm-msm@vger.kernel.org
-Cc: Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "open list:QUALCOMM CLOUD AI (QAIC) DRIVER"
- <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>,
- open "list:KERNEL" HARDENING "(not" covered by other
- "areas):Keyword:b__counted_by(_le|_be)?b" <linux-hardening@vger.kernel.org>
-References: <20260401220643.12802-1-rosenp@gmail.com>
+Subject: Re: [PATCH] accel/qaic: fix incorrect counter check in RAS message
+ decode
+To: Alok Tiwari <alok.a.tiwari@oracle.com>, maciej.falkowski@linux.intel.com, 
+ jacek.lawrynowicz@linux.intel.com, quic_thanson@quicinc.com,
+ carl.vanderlip@oss.qualcomm.com, ogabbay@kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: alok.a.tiwarilinux@gmail.com
+References: <20260410112015.592546-1-alok.a.tiwari@oracle.com>
 Content-Language: en-US
 From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-In-Reply-To: <20260401220643.12802-1-rosenp@gmail.com>
+In-Reply-To: <20260410112015.592546-1-alok.a.tiwari@oracle.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: fkoKbq9lhrSBvDrnvU0gRWncwtu5aPxU
-X-Proofpoint-GUID: fkoKbq9lhrSBvDrnvU0gRWncwtu5aPxU
-X-Authority-Analysis: v=2.4 cv=H/brBeYi c=1 sm=1 tr=0 ts=69d92d02 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDE2MCBTYWx0ZWRfX/XYEZVpPnXny
+ kqY1LubOc3BBCHn1fS2S9YvbiUkOh9OzLYMy+k8uM2r911NdGz8TW/IBPZcHKs28q3n6T1to21t
+ lF5ZlrnO2C3zl2D2OC9H5g2oy8wHOcwq96kF4/eaZmfIQwByB43Hs0+KuyzAWAUJ5qfeTy+qEjj
+ CyGo7mAtszqcIIbR74LmJjmfxLyVwJkSJBtlnrCaXl4FTHV2ROe1c2OJOK914a3ns5mmfV0WpF4
+ fMxl3LeC3/bSuOyj5DSRpYY1ASvcGRlekIuEzsnUEb4MEXH6xkKiwh3LT99n/zg8nTf4ZXQRnwu
+ +AP+TPPuZA05lQlev/MbM8DrOqcQl3xH+aeJA7Iccfmr46pyjAwslpPzzwoW/E1enlJ2IGeNatq
+ Zvs7BcI6eWIdAUgsHuW4a1bo4IdCiU2S51k+SWyKhFwKK9FVdbiQ1Da5wYMBPRBeQDVuos5gBnP
+ TPIE17t6gzd8/q5g5NQ==
+X-Proofpoint-ORIG-GUID: CdCX7vETGdzyLRoliU2igYVOwBLGsSmj
+X-Authority-Analysis: v=2.4 cv=AbKB2XXG c=1 sm=1 tr=0 ts=69d92e7a cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=pGLkceISAAAA:8 a=xkNXEimOluXcSHuVYG0A:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDE1OCBTYWx0ZWRfX3zKQ1qHZJydr
- +QkRHS9ttgYEwOYZ6RlYObKHqsVRDCb89OnABFCbZfC+gPrgrHK6gqUGArvN1+QyoRv1V8HweIt
- j2sJWDGBWWh3VZsfR8pczLA/sIfRVGDADbJzbHuz642BqQ4F7WBh514bCN9Ar7cTov9oeO+14JK
- E1SLIgX451ski0y/LHqNyYmPxG3yZ/phb/J8j/xcNebXU3yMP86r97/Rahls5OEAUs8QG4XZk+p
- UuzUcjm66Kp5p+u1NOXDxB88SYTm1Vb1g+8D+YqpKtCQuz8cxWgNnr3VLsUIBn0bA/ftVVeInW3
- T30jFdUqn1gWuMTkZ8QUwwva1T+eU5M486nlNqOiYvpzaD/RP4GL0DsIO03Q3efnBHCaF8B8IZB
- SUbkQK7FZzvhWsskZ7UBlz6FvofQ5PGQ/n/P4OKVgSGXkebIFUq5Js0G58nzlISoQfGnT/FncQ9
- 87alSK82GHTqpNQyKAw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=NFNAc6_Cs8KxrqNOKKQA:9 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: CdCX7vETGdzyLRoliU2igYVOwBLGsSmj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-10_04,2026-04-09_02,2025-10-01_01
+ definitions=2026-04-10_05,2026-04-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0 clxscore=1015
+ impostorscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100158
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100160
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,88 +143,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For future reference, $SUBJECT should have a space between "PATCH" and 
-the version. git format-patch will do it correctly for you if you use 
-the -v option.
+On 4/10/2026 5:20 AM, Alok Tiwari wrote:
+> The UE and UE_NF cases check ce_count against UINT_MAX before incrementing
+> their respective counters. This is logically incorrect and prevents
+> ue_count and ue_nf_count from incrementing when ce_count reaches UINT_MAX.
 
-On 4/1/2026 4:06 PM, Rosen Penev wrote:
-> Consolidate the two-element allocation into a single allocation using a
-> flexible array member. This reduces memory fragmentation and simplifies
-> the error path by eliminating the need to check for allocation failure
-> between the two allocations.
-> 
-> Add __counted_by for runtime bounds checking.
+Nice catch. I'm curious, how did you find this?
 
-This reword addresses my "why" comment on v1.  However I don't see that 
-you responded to my question about how this was validated. I don't 
-require a v3 of this patch, nor do I really want one. I want you to 
-reply to this message and detail what validation you performed on this 
-patch.
-
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->   v2: use macro for number of elements. reword commit message.
-
-Also for future reference, a blank line to separate the change log from 
-the patch diff here makes the change log easier to find and read.
-
->   drivers/accel/qaic/qaic.h     | 4 ++--
->   drivers/accel/qaic/qaic_drv.c | 8 +++-----
->   2 files changed, 5 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
-> index fa7a8155658c..e237020f6aa9 100644
-> --- a/drivers/accel/qaic/qaic.h
-> +++ b/drivers/accel/qaic/qaic.h
-> @@ -152,8 +152,6 @@ struct qaic_device {
->   	struct list_head	cntl_xfer_list;
->   	/* Synchronizes MHI control device transactions and its xfer list */
->   	struct mutex		cntl_mutex;
-> -	/* Array of DBC struct of this device */
-> -	struct dma_bridge_chan	*dbc;
->   	/* Work queue for tasks related to MHI control device */
->   	struct workqueue_struct	*cntl_wq;
->   	/* Synchronizes all the users of device during cleanup */
-> @@ -206,6 +204,8 @@ struct qaic_device {
->   	void			*ssr_mhi_buf;
->   	/* DBC which is under SSR. Sentinel U32_MAX would mean that no SSR in progress */
->   	u32			ssr_dbc;
-> +	/* Array of DBC struct of this device */
-> +	struct dma_bridge_chan	dbc[] __counted_by(num_dbc);
->   };
-> 
->   struct qaic_drm_device {
-> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
-> index 63fb8c7b4abc..1dda8dfea5a4 100644
-> --- a/drivers/accel/qaic/qaic_drv.c
-> +++ b/drivers/accel/qaic/qaic_drv.c
-> @@ -43,6 +43,7 @@ MODULE_IMPORT_NS("DMA_BUF");
->   #define QAIC_DESC			"Qualcomm Cloud AI Accelerators"
->   #define CNTL_MAJOR			5
->   #define CNTL_MINOR			0
-> +#define DBC_NUM				16
-> 
->   struct qaic_device_config {
->   	/* Indicates the AIC family the device belongs to */
-> @@ -405,15 +406,12 @@ static struct qaic_device *create_qdev(struct pci_dev *pdev,
->   	struct drm_device *drm;
->   	int i, ret;
-> 
-> -	qdev = devm_kzalloc(dev, sizeof(*qdev), GFP_KERNEL);
-> +	qdev = devm_kzalloc(dev, struct_size(qdev, dbc, DBC_NUM), GFP_KERNEL);
->   	if (!qdev)
->   		return NULL;
-> 
-> +	qdev->num_dbc = DBC_NUM;
->   	qdev->dev_state = QAIC_OFFLINE;
-> -	qdev->num_dbc = 16;
-> -	qdev->dbc = devm_kcalloc(dev, qdev->num_dbc, sizeof(*qdev->dbc), GFP_KERNEL);
-> -	if (!qdev->dbc)
-> -		return NULL;
-> 
->   	qddev = devm_drm_dev_alloc(&pdev->dev, &qaic_accel_driver, struct qaic_drm_device, drm);
->   	if (IS_ERR(qddev))
-> --
-> 2.53.0
-> 
-
+-Jeff
