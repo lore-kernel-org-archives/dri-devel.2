@@ -4,80 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D17DE99046
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B43E99048
 	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 07:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17E2010E8A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB5510E8A8;
 	Fri, 10 Apr 2026 07:06:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RhjkVjCl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fozFd+2E";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E264110E849
- for <dri-devel@lists.freedesktop.org>; Thu,  9 Apr 2026 17:21:33 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4832c8f9d87so1845375e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 10:21:33 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2622010E896
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 06:15:56 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4830b67aa6bso2433715e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 09 Apr 2026 23:15:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775755292; x=1776360092; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=naig0CaZu0k7Q+bocF2lGCn7pzOcOGz/HtaZFjdO1l4=;
- b=RhjkVjCl+BHllsDvVSSb47gpTWh3BgAsAWVOvqxIvPuJtHjC2DCjlQfEAvzgEIieHo
- tYYM3ySHEJb71IPf56+hMOtMqkZYnJ40ksvS9t8QdgfGkjXPMnnlfd/l+IdAqDAP0dpe
- 0DSlzFrL5lXKPm1qdIcXU+jZoBVLf8yz4jfILo1A3OPdeBeC78G+BU2fPXeHuU4eiB2q
- lGhF/pXX5DdYmMGuAxF5o8d3W69s/uAYgmsTUeuuNuo0gLDwACFnVscKPlzBs/YVwLf4
- QK7HpkqLJRUcGaXWyV3Wa9tSg18dPVtufgLgrZ3YRtpD2Xsh1uu2mVaKerPPvusYOZKS
- zReQ==
+ d=gmail.com; s=20251104; t=1775801754; x=1776406554; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=uSjn24L98hphx3W4Kt1Sy+XjH05WXGXcx5CVk5R26MI=;
+ b=fozFd+2E440odaZC8PGgR90MUnHjGZrXc1cs82YEnbTaDJ/ewfvWdxkqlAi+w7tdI5
+ SmrTII2ed4FY8bUa0vqO/WZmXNSlZGSZ05t2aOyXQJwU3Tv94v5FNUWfsVir4TF2WsN2
+ X6RDX7TnLXRi05ZBWe1XUinDMhSgP+uWikNzQ/RqhJ0IIa2NyEO/RGiayX+Y9E0YV+iU
+ 75OYDSnttx8txK8u3hRGw7Fc0luvW3qecSQZo+OeKuBu/eNZR3Dr+i1GzsNTx+61AFuB
+ DMeus2uqRAm2eWRlUQ7FsxK52+lN69+Nw61DQTfzm2XF9+RqhE5DQDGNn5mlJ0HxqlX3
+ 2G5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775755292; x=1776360092;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=naig0CaZu0k7Q+bocF2lGCn7pzOcOGz/HtaZFjdO1l4=;
- b=A2weka2nhySrnUDe8l4rneRmKAu6Bbbh+i48a8XcKmuKVD5jrROcnSsI+jT0iX01nq
- mnJLapLfD155bcdjaPXgDcHHH1fwvjCgTZjExKmtZDZnX7TbwMJq8diLggYr1ZkcHXpQ
- Js2fzEBcOxWz6djJApFgh1Sk2uQbFwJL2v1EN4dyqFwkczpgFypJoCKTzcifrIpm3DmJ
- 2aR+gBsm/rKmL26lujjHqA1XnojXuXrRLvqsm+SxU7UJ701I/uIO/Z9dphFT3QS/ncK3
- HxyQbsFpER0qH7ZX3Lv7J15Siy8+30nxfSM7oY2EqJJPcMzqvPkpLymlis1ZtHRnXjd4
- XuEw==
-X-Gm-Message-State: AOJu0Yy5gGITF3af8T1jfewJUYwA6o04dH6tS0aXmpuUQJh+appVrK4R
- h6U2iEyPzgsL3ASSaQ7fx4O2rw9ZWTQ/P4AFuAF6CbVmopOSKMDwVFPVzLEwy9dk
-X-Gm-Gg: AeBDieubY6eCnvW9FN3wfUw6AXhSxlQi1d2aFe1XnuD7h6z6hPuZL3TdUeiYZjhejGR
- e5PQki3sY+KU1+EmAEOynGOpU16J1AVriysiKyQhjvqcJCm9xvh/PH9Yb1PaUChw4hAOLIY8DwB
- SWX5Gz83hrj1tfi67foimxLszYy7Vg/lc0p6Czmvep7+nJAUG0lfonvjlg49k0xg+X1esyAw65+
- 5dNKdEaBUJL+xkXmhtwOMcRLiymDBhkSykkBJLGd6BQYE1OxhI20gA9ingroOGU1ZZNnJv2aCtE
- 0Zpk6+KMo0Zh2TPd53n+5H0DtwyBn38oOOQuTuLHLpdTw3QKR0DNJg+ZGOaYZ70IOzFNHauaMhQ
- 3pqxVSGDV/OCx5YrfS0ObLoamLWdVf5QCSICPpHEXGrHfSht8WZT2DbRpcFAzN6YjvHsBt+pcMp
- tgqegATJXIciU1uK+J7Id68XUEvMepinNJE10YdMjqSMR8OJue9i4qddHrNWkxis8AkFSmVvJg9
- riir7gUy1Tr/g==
-X-Received: by 2002:a05:600c:4f56:b0:488:7fd3:5cd5 with SMTP id
- 5b1f17b1804b1-488c5327661mr78481465e9.1.1775755292156; 
- Thu, 09 Apr 2026 10:21:32 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1775801754; x=1776406554;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uSjn24L98hphx3W4Kt1Sy+XjH05WXGXcx5CVk5R26MI=;
+ b=c7rPRPCOzsqcZVnEiQebefL0dEsCAolryZECWlBNzH1UAYBpSctWOoN77YmVubgcjy
+ qKb8AUgwVNGql/a1nEUhx0cTfIZ5F0yCU5JwwSxw2eI12wRnX5ANciTxIW8d1ju+A1Ji
+ /kdR3gIMRqk+cihHBm/s9uoXzLi8L3yimYRwJE744xAKleHfDSZ3Fcp4epMnZ+BYVGx8
+ ovmh8eZuipOtNixMMoxAEvISZ/DOKjWtGsMzJ4mKFBP8DIOyFg8twToCtjjIyqmLOw/U
+ 3Ddjmup14j8HDeZMA62iFIM05yAzKi4s7s4SEI3aLEqjRErdSG1QyG5yax4RN80sBVYN
+ jP0Q==
+X-Gm-Message-State: AOJu0YxnRX3Ml62ffRHImkCzPTEOxcFlKUQai0n/d6L5XI0O4bI/AATm
+ AwntBPGBmlfMSPlblHOU2C+WLPy3EWarezpJlbiEWxsL4BCT2Sodv+/V
+X-Gm-Gg: AeBDiesG2xes0KTDh8uFRgTzNd7/kkBtJJzS7BkQJU0ta21PlMhCcxeC0RWhv12RjIX
+ ZeokoL6VSstyu/cuiiKpt/Vd+HcztOrWSuiojImBTNHZsCJat6hjum9VuiswCUQ2Rw8TJTZDEjZ
+ WVyWKL4+D7o2w3P2O+1Bav74//Ylzx4K13BCBgmxMo8eBGL8x62fTvFWLZ2mptGO4KHTtKlifBQ
+ W9CFnXdHH2QdIMRMuJB0dCiMLzx91yZDoMknpZEZJKSyN4WtnAVxID6Cp7mePQDL99sg+6akgfE
+ PBvV7Uo0llcCCJtg0CbiACzy2jRRB/ezOTueW36kDRwY2JcinXPffjXizOXQkOUDY6dezbn0bX0
+ NHvOV4NFS8SLLpA36F15bx32boX60ukh5ldCMI0BA6ELNkzLNwcTWeXRlaOKOMuiKuP2DZE8l09
+ 2hA7iXvi7TapLPExhO1rHwfLDoNvpksxbGHuA6cBksJRy2aBP75dDWaTDUIdhoWFtRq8C/7htRG
+ mQ2aR3SF4p8qg==
+X-Received: by 2002:a05:600c:b85:b0:486:fb8a:fed with SMTP id
+ 5b1f17b1804b1-488d68a0975mr10827815e9.8.1775801754397; 
+ Thu, 09 Apr 2026 23:15:54 -0700 (PDT)
 Received: from localhost.localdomain
  (ip-078-043-200-145.um18.pools.vodafone-ip.de. [78.43.200.145])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d63dec090sm367345f8f.12.2026.04.09.10.21.31
+ 5b1f17b1804b1-488d5888c12sm55473955e9.3.2026.04.09.23.15.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2026 10:21:31 -0700 (PDT)
+ Thu, 09 Apr 2026 23:15:53 -0700 (PDT)
 From: Marek Czernohous <mczernohous@gmail.com>
 X-Google-Original-From: Marek Czernohous <marek@czernohous.de>
 To: nouveau@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Marek Czernohous <marek@czernohous.de>
-Subject: [PATCH 3/3] drm/nouveau/dp: retry link check once on HPD IRQ before
- disconnect
-Date: Thu,  9 Apr 2026 19:21:26 +0200
-Message-ID: <20260409172126.115441-4-marek@czernohous.de>
+Subject: [PATCH 1/3] drm/nouveau/pci: use nv46 MSI rearm for G94 (NVAC/MCP79)
+Date: Fri, 10 Apr 2026 08:15:50 +0200
+Message-ID: <20260410061552.19056-1-marek@czernohous.de>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260409172126.115441-1-marek@czernohous.de>
-References: <20260409172126.115441-1-marek@czernohous.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 10 Apr 2026 07:06:49 +0000
+X-Mailman-Approved-At: Fri, 10 Apr 2026 07:06:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,47 +88,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On NV50/G94-family chipsets with DisplayPort, transient link glitches
-can trigger an HPD IRQ where the first nouveau_dp_link_check() fails
-momentarily. The driver then falls through to connector status
-re-detection, treating it as a disconnect event. This causes a brief
-display blackout followed by a re-plug, which is disruptive under
-both X11 and Wayland.
+The G94 PCI function uses nv40_pci_msi_rearm(), which re-arms MSI
+interrupts via memory-mapped register access. On NVAC (MCP79/MCP7A)
+chipsets this method is unreliable, causing sporadic FIFO errors and
+GPU hangs.
 
-Add a single retry with a 100ms delay before giving up on the link.
-DisplayPort link training typically completes within a few
-milliseconds; 100ms is generous enough to cover worst-case
-re-negotiation on older hardware without adding perceptible latency
-for genuine unplug events.
+The closely related NVAA (MCP77/MCP73) chipset has MSI disabled
+entirely in the driver (.msi_rearm is not set), with a comment marking
+it as "reported broken". NVAC shares the same integrated GPU
+architecture (both are NV50/Tesla family, memory-mapped through the
+host bridge) but was not given the same treatment.
 
-The retry is bounded (exactly one attempt) and only applies to the
-IRQ path — plug/unplug events are not affected.
+Switch to nv46_pci_msi_rearm(), which re-arms MSI via direct PCI
+config space access (pci_write_config_byte at offset 0x68). This
+method bypasses the memory-mapped register path that is problematic on
+these integrated chipsets.
 
-Tested on NVAC (MCP79) with DisplayPort output over extended DPMS
-on/off cycles. Without this patch, occasional display flickers were
-observed after DPMS resume. With this patch, all DPMS transitions are
-clean.
+Tested on Apple Mac Mini (MCP79, NVAC 0xac080b1) with DisplayPort
+output. System is stable with MSI enabled (no NvMSI=0 workaround
+needed), zero FIFO errors observed over extended operation including
+DPMS cycles.
 
 Signed-off-by: Marek Czernohous <marek@czernohous.de>
 ---
- drivers/gpu/drm/nouveau/nouveau_display.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/nouveau/nvkm/subdev/pci/g94.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index d71dcfc6e..b6e40794b 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -465,6 +465,10 @@ nouveau_display_hpd_work(struct work_struct *work)
- 		if (bits & NVIF_CONN_EVENT_V0_IRQ) {
- 			if (nouveau_dp_link_check(nv_connector))
- 				continue;
-+			/* Retry once after 100ms for transient DP glitches (NV50/G94) */
-+			msleep(100);
-+			if (nouveau_dp_link_check(nv_connector))
-+				continue;
- 		}
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/g94.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/g94.c
+index df745d069..9dc28a4bc 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/g94.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/g94.c
+@@ -28,7 +28,7 @@ g94_pci_func = {
+ 	.cfg = { .addr = 0x088000, .size = 0x1000 },
  
- 		connector->status = drm_helper_probe_detect(connector, NULL, false);
+ 	.init = g84_pci_init,
+-	.msi_rearm = nv40_pci_msi_rearm,
++	.msi_rearm = nv46_pci_msi_rearm,
+ 
+ 	.pcie.init = g84_pcie_init,
+ 	.pcie.set_link = g84_pcie_set_link,
 -- 
 2.52.0
 
