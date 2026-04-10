@@ -4,100 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 627A3F459FC
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 17:40:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1578BF459FC
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 17:53:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B423E10E9A6;
-	Fri, 10 Apr 2026 17:40:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7122910E9AD;
+	Fri, 10 Apr 2026 17:53:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LT236VYx";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="nq41BCPZ";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1950B10E9A6
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:40:42 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-b9c11eba219so281761366b.2
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 10:40:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775842840; cv=none;
- d=google.com; s=arc-20240605;
- b=Kq4CZMP5zTWK9QUvkSkMxxDXK+5nScBs5S2K2J12iRxqYVTnBtCRTojUPBG85+dQEl
- nwLKux4h2M2zunJb9MLgwX2dwU6wNt5wSfxPOf6cLdsqh+cQRexiMOBd3fRv45TOCXH0
- Da/Oq9lTqmjc1fXforNNIp/RcYymIYntAyqJH8mTbo/If5X/iLZaGIfDa58b/vs9hkgw
- Hs/k/BW5YcLYuGkp22wvwvHa8HxLWMqZkylP14/nAipbZ1hnZhPLOG630bbbPDOTUnEU
- wLGofEoKwr2SLUg3hlXv9zDZfm7w8pajrEFbrENMD7gimdON0EGct3UV7bzpW3WhCO1f
- 0Jrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=dN6OHHDaiTfVdHomxkKXHWudndDr0TAk+XE4EiflmuI=;
- fh=equZ4F3a2c3Rq5Auo1Jv8SaaBGIWhYi0nRqYpYGUxEQ=;
- b=G5I4Ul7fnGEKyzr8JOU9pDR8FgTKrd8rGqEiP6xYXEOPTLYRbC+pK8ttEbRPaF9bD1
- L1NiBPqxAKtqCbcwHB8qWBBUQse5nhkZnIXo4pxG3zQcNEpK2dHuJo6N8YFSOMTvafBr
- 93f8wrL0q7YaLaXUC1Z56qzxkn5gVdUKRqQYM5eljJeQOX9zTW6Gj2zU2BHAsJyh0DG/
- 1T0SCdatKnGJxb8oJOkocStRm34akO6bvYTLmoE8zjHILTugm4WLRASNqk1oKpnN0ENx
- GJNZN3kUNVbBBnYWVAMfyuE0KUOL745s9XnWUeORrIV1QJSFtYia91goboUwQNnxEtun
- sMTQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775842840; x=1776447640; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dN6OHHDaiTfVdHomxkKXHWudndDr0TAk+XE4EiflmuI=;
- b=LT236VYxJgqs35x1yUPg3TW3JYPl2LB4xxJESAHmeBDFQj515n5TDrCvzbnjQ0hTyI
- SHw4ed2QL6zFbN02Z/pJj4wHMUUmh0xvPa9rjipYsI0onycUoUT79aQXZyynv7wg6H79
- +Cn5XxeLaf9i3/pc/i00gQduOU7qp4tBguXT9B1SImL4c/WDf7dzsk5D87NQzfT31DdU
- EbsshaQ8izI+c5ERNAZE+ABKKC9d9d20kolsufse8UNzqfvsKBAkKPS5mpE2bYS3+I8M
- HuCzNVev2OFb1otojJ2bvg+93zCQCGR62a/Q4wcZYY3K7VOyooU/mS9MXfdCfo9TAX6K
- aImw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775842840; x=1776447640;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=dN6OHHDaiTfVdHomxkKXHWudndDr0TAk+XE4EiflmuI=;
- b=nfRwV//1dVbVKuG9fTkB2jAE707tiUbjTeSAEAcu+DNCVwZAweIP67q3yk7rmL+7mE
- P3jhitT2NMPnjgo2T0gADAtv3EH2atI1+lEc1d/Lu9Hjq9q0XG/t+4pqFzXKQJJS+NpN
- 9P7+Eg7ErHEfcZ0Sil4f9A4t/E+g/b8duCSzJivyw5x+kcX83tgkqojT9arsjZpIlemT
- lZbq8VOzS8NvflI/OF4rb82d++qwUF4xda4fD3oeSsNJNSUohD5RNVXKRiP0Q1nZ0SdG
- fpnIzXa3h49Y+aqmSIE9A2dpwR4AGpd4LOy41PQur+Y2EoPChb/3z3MowkDN4zz63Se3
- KqwQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXDz+0ii9+2SmwnEvm+BpBpAOETL5d65pW6aOP/53puMDBzTyfVT4bifr2IElYWHXYwlextNQ6ivls=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTOaPsQfQ/pwULKaX2umgkQspwvlxPGYyjs9su8cXPpUNTK1hT
- xyM+IEe0ahFJF90+raTifWHZa+glMacypl+HfMbpgErPZn1kBA3qup5joDDOFCQOPlmlznmwEE4
- 8K7gHJ2wJP7vXJYMcebETDHSWiD3lY38=
-X-Gm-Gg: AeBDieumUmFzdvbZLWioKtS3pwWeWyhVsYqL37LSCJjPXxscm44eFOWjIxm2ky7aB5G
- 6uidNit21HXedp/WO3DmIgk2BMBmYdJP6VDeLpyIegiW+oI+Pb/Vn8r+nwSkE7+620mHH7m3yXq
- +S7qfKHawICP15qQykmmKvhSjcJWiI4MSchGM+rDNcwiYaq+yaFKgEL5h46tUtavFU2RGannvZN
- 1D5lmGiCk5Hk3Szqt8pe6kIoJg3IrnjD09r5w+oS9CBljM8h2OrwzmSh9HTrs4M6SMzT2THpdcx
- UoodVCPa2a4l9oM4eAuvlRwBqI9ycqhjt0QXZpRR/usn/nyqsVRfMbEX5o0uVhlPImVhhtoehgA
- dQLbnvPmlqcTgNULT
-X-Received: by 2002:a17:906:eece:b0:b9c:350b:f849 with SMTP id
- a640c23a62f3a-b9d7297e205mr254084166b.24.1775842840105; Fri, 10 Apr 2026
- 10:40:40 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D231C10E9AD
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 17:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1775843605;
+ bh=8SKxaz/fg5duvBKCI2u+f3xCvRfeM+qAmhyeFF4N1jk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=nq41BCPZXCr7y/vgaQ3tOWGsgz3S9/tHDnRhYzgd5cOUfBJDhpbimuWy0JITn5Is3
+ ppJelFvKv99e8NsGeG/USyhaJSLLtQ0UnutN5lwEmHBYTvrypC5i8jCTllSEDGxT47
+ E2Z23/M/+qfSKA0QteRMdL4ONZe9s3awc7Y9kQPdh8YIQeg4SxNZtHY4u5roA6w7LY
+ LtMC5KS8SIG5zeFMei17unsgLKRoc2HJD8tA0a77YvlOPv4KXOeJ3b/J8x6xdKhXFo
+ 7gAhsocdmCnT66kJF840H7XjgzHComnJLY/GkyKJQo5qyRRw2hfT7B6ALS18ShqMjp
+ VI0P/LBel1sSQ==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 177E817E09AC;
+ Fri, 10 Apr 2026 19:53:25 +0200 (CEST)
+Date: Fri, 10 Apr 2026 19:53:20 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/8] drm/panthor: Store IRQ register base iomem pointer
+ in panthor_irq
+Message-ID: <20260410195320.71be575c@fedora>
+In-Reply-To: <20260410164637.549145-5-karunika.choo@arm.com>
+References: <20260410164637.549145-1-karunika.choo@arm.com>
+ <20260410164637.549145-5-karunika.choo@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-References: <20260401220643.12802-1-rosenp@gmail.com>
- <b772c81c-3628-45c5-ab11-a0737a94b812@oss.qualcomm.com>
-In-Reply-To: <b772c81c-3628-45c5-ab11-a0737a94b812@oss.qualcomm.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Fri, 10 Apr 2026 10:40:28 -0700
-X-Gm-Features: AQROBzAGbFQNHO1NpZGhgy_hzsDylIa-uvfdzOOR1DS2GBgDZwb6wKvs4Zz0Xlg
-Message-ID: <CAKxU2N96X31nsB-Vyt-Sm1rQMTo8cuZG+UDN=37av8c_5n-EcQ@mail.gmail.com>
-Subject: Re: [PATCHv2] accel/qaic: kcalloc + kzalloc to kzalloc
-To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, 
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- "open list:QUALCOMM CLOUD AI (QAIC) DRIVER" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>, 
- "open list:KERNEL HARDENING (not covered by other
- areas):Keyword:b__counted_by(_le|_be)?b" <linux-hardening@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,100 +68,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 10, 2026 at 10:01=E2=80=AFAM Jeff Hugo <jeff.hugo@oss.qualcomm.=
-com> wrote:
->
-> For future reference, $SUBJECT should have a space between "PATCH" and
-> the version. git format-patch will do it correctly for you if you use
-> the -v option.
->
-> On 4/1/2026 4:06 PM, Rosen Penev wrote:
-> > Consolidate the two-element allocation into a single allocation using a
-> > flexible array member. This reduces memory fragmentation and simplifies
-> > the error path by eliminating the need to check for allocation failure
-> > between the two allocations.
-> >
-> > Add __counted_by for runtime bounds checking.
->
-> This reword addresses my "why" comment on v1.  However I don't see that
-> you responded to my question about how this was validated. I don't
-> require a v3 of this patch, nor do I really want one. I want you to
-> reply to this message and detail what validation you performed on this
-> patch.
-None. This is a straightforward conversion to a flexible array member
-(and future devm_kzalloc_flex).
->
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >   v2: use macro for number of elements. reword commit message.
->
-> Also for future reference, a blank line to separate the change log from
-> the patch diff here makes the change log easier to find and read.
->
-> >   drivers/accel/qaic/qaic.h     | 4 ++--
-> >   drivers/accel/qaic/qaic_drv.c | 8 +++-----
-> >   2 files changed, 5 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/drivers/accel/qaic/qaic.h b/drivers/accel/qaic/qaic.h
-> > index fa7a8155658c..e237020f6aa9 100644
-> > --- a/drivers/accel/qaic/qaic.h
-> > +++ b/drivers/accel/qaic/qaic.h
-> > @@ -152,8 +152,6 @@ struct qaic_device {
-> >       struct list_head        cntl_xfer_list;
-> >       /* Synchronizes MHI control device transactions and its xfer list=
- */
-> >       struct mutex            cntl_mutex;
-> > -     /* Array of DBC struct of this device */
-> > -     struct dma_bridge_chan  *dbc;
-> >       /* Work queue for tasks related to MHI control device */
-> >       struct workqueue_struct *cntl_wq;
-> >       /* Synchronizes all the users of device during cleanup */
-> > @@ -206,6 +204,8 @@ struct qaic_device {
-> >       void                    *ssr_mhi_buf;
-> >       /* DBC which is under SSR. Sentinel U32_MAX would mean that no SS=
-R in progress */
-> >       u32                     ssr_dbc;
-> > +     /* Array of DBC struct of this device */
-> > +     struct dma_bridge_chan  dbc[] __counted_by(num_dbc);
-> >   };
-> >
-> >   struct qaic_drm_device {
-> > diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_dr=
-v.c
-> > index 63fb8c7b4abc..1dda8dfea5a4 100644
-> > --- a/drivers/accel/qaic/qaic_drv.c
-> > +++ b/drivers/accel/qaic/qaic_drv.c
-> > @@ -43,6 +43,7 @@ MODULE_IMPORT_NS("DMA_BUF");
-> >   #define QAIC_DESC                   "Qualcomm Cloud AI Accelerators"
-> >   #define CNTL_MAJOR                  5
-> >   #define CNTL_MINOR                  0
-> > +#define DBC_NUM                              16
-> >
-> >   struct qaic_device_config {
-> >       /* Indicates the AIC family the device belongs to */
-> > @@ -405,15 +406,12 @@ static struct qaic_device *create_qdev(struct pci=
-_dev *pdev,
-> >       struct drm_device *drm;
-> >       int i, ret;
-> >
-> > -     qdev =3D devm_kzalloc(dev, sizeof(*qdev), GFP_KERNEL);
-> > +     qdev =3D devm_kzalloc(dev, struct_size(qdev, dbc, DBC_NUM), GFP_K=
-ERNEL);
-> >       if (!qdev)
-> >               return NULL;
-> >
-> > +     qdev->num_dbc =3D DBC_NUM;
-> >       qdev->dev_state =3D QAIC_OFFLINE;
-> > -     qdev->num_dbc =3D 16;
-> > -     qdev->dbc =3D devm_kcalloc(dev, qdev->num_dbc, sizeof(*qdev->dbc)=
-, GFP_KERNEL);
-> > -     if (!qdev->dbc)
-> > -             return NULL;
-> >
-> >       qddev =3D devm_drm_dev_alloc(&pdev->dev, &qaic_accel_driver, stru=
-ct qaic_drm_device, drm);
-> >       if (IS_ERR(qddev))
-> > --
-> > 2.53.0
-> >
->
+On Fri, 10 Apr 2026 17:46:33 +0100
+Karunika Choo <karunika.choo@arm.com> wrote:
+
+>  static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
+>  					      struct panthor_irq *pirq,				\
+> -					      int irq, u32 mask)				\
+> +					      int irq, u32 mask, u32 irq_baseaddr)		\
+
+Can we pass the void __iomem * directly instead of an offset to apply
+to ptdev->iomem?
+
+>  {												\
+>  	pirq->ptdev = ptdev;									\
+>  	pirq->irq = irq;									\
+>  	pirq->mask = mask;									\
+> +	pirq->iomem = ptdev->iomem + irq_baseaddr;						\
