@@ -4,124 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38DFCE99056
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 08:56:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F76EE99056
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 08:58:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9333D10E19C;
-	Fri, 10 Apr 2026 08:56:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0389410E8F3;
+	Fri, 10 Apr 2026 08:58:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="CYpunT2q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vi/v6jlh";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010050.outbound.protection.outlook.com [52.101.229.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96B1610E19C
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 08:56:13 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010018.outbound.protection.outlook.com
+ [52.101.193.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 570EA10E8F3
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 08:58:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=A3RGlJib8/p0nGbVNS5alu9GbqZheT2DJjUkcmQZg3LxDgBp6zj+UXmgj7C+Wr6oHQrku3Qn5RmT61DsDASlW6zE5z3+TOYkBxYHdnQBHNfn7dXlVUjB4Szm+3oA/0LftcuozKkK1aSRz+9imJ/x/YQ7Vy34/WX8FnLxIilynHA378kJtiG5C9szIsAhqfvTUaX/RAbo6+6xcnbVeKIXWVjrgbrThdO0gV0UMNq4kYoIbbKWMcL/E2xznvxYyjMh0mQ2UqZRwolAx60Tkoc8WEHcFRITfUoyi5ktLwsUzJlccyGilxE7GVjYHpv+FdXqOgbbUyCK2KzAhh+ehVv4gQ==
+ b=tPnU8RnGhjU0Avc195Xi74RIGiiVyUMiVbxID7Fm/5dxQfsXgm+O9w9444F/YD+lZKWMsUTzorVN5iI5wTr73teGz9CcUNjwrE6tCIyHVOGjpCd6Ug9Hkky/MNHwKnWabL/4dy+pVvyFQE9iDuQPDRX+D55eGvfq1VUjmhfJ/VksJy6NHr/49P3tCvmIymZZdgfOgDrOsRj4Puc04OAnwsf+wvAjju24aR9tJqIb0f+Hd7mnYKx1Q3MLByBHpI6SFr6YjU94dDDZPe/ujhuFl5xMEgRoeuA2ScmTo7smJzbuZSHDJfT7qp6JHVb0mzrgAHnhBXObuMOO76v9q53xsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BcSIcN4CVM0t188mBo3hWtUkrC8ZUomLXldejaSDgC4=;
- b=NFdiBjPDVZ2qBTQcfxIBqZnrUA8AHUS/kpgPPqj2iFzOh9n+tlbMDAq7BfNlFy0qR4k58Mt5EJAczcKspfn10feLE3DZcyM307DrZQaxpQ2Xwv8x+MGlFjekR3PN0hP0tXQ3XCU4Ah2sHbwv2w9kkK3VMt4vuRahv5GZc9jPKj1IjAm8L6zwxJ3dE00zej8FmsLyRXuKFS7QgrZbFG+Ncict6AoSkWadrbwax+gTltJZzZzGQar1TONq7+S1FAz5ba700oFzQzLkYGVIZurZOoRxJdHQ0EWf06eWsKvH9f4oYlwYQ5BtI8zNdskMARGYj8ahrZvMGDwgMzSOO0xK3Q==
+ bh=ILgRY5+Fz981rnHHgnY8pD7P4hJtorwPhDoWTapzONk=;
+ b=wSed2XqVXB6aRf+IGxDEV1VsW7sjtn95MdRKZtXCyfp0Cr48E/1y8FxKe7pBjmSOhZTFMFHr+VZMvzXV/lbYABMgW6MmU7V3Gyw1mTKmaHawWAOjtAqOEdDjynqIo3NtfXxAizL8JZ0E8BGjMZ8uQdI4vej1r/0YoolfBCG+pqyFWi6aNRDnuS4oS6U+rHJ12RkRGZZbYC/8Xa9pRdL3m1Xto0yiT/oe4DT6vuw//5PIpIj7SV76QwuGfeZp6C/U+vnAGdlcu5jxcnrf6ZFXFXlKuAWwHXAsvj0VaoCP0ri/1eRs5erA3PU4uAzqj1VnBzrncSpd+2xG17nK4I+K0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BcSIcN4CVM0t188mBo3hWtUkrC8ZUomLXldejaSDgC4=;
- b=CYpunT2qMRJG9huJ+0kDe4s0d2PIt3tAT5lpUNcAvwHcdzHVTNLrNQ2dryxpJ6YjxqDKWUUqQ1dBh/OhQ+If4cFNq8In65PhDfHcBiri1dRB+Ei63hWog+ku/Pre232wJcSLBDcVpTxEzfRFiYGnpgjzidYEi0tS89kITJxTK/I=
+ bh=ILgRY5+Fz981rnHHgnY8pD7P4hJtorwPhDoWTapzONk=;
+ b=Vi/v6jlhexjk+DA0jaDVS4pvqgXoO9QmbAWo/XhR0gw+Zy5hYBZwEHcpPluYzqfqubvosypTWo5Hi4YT3+iFViLPualb0ZQI4h+sL66EloU9L2roHj6AMlkXJ7nqLH1ldwCJb74D+zmFSzxuwGyU7j/mKXvtL3zGksJUXaw4jSY=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OS9PR01MB17334.jpnprd01.prod.outlook.com (2603:1096:604:44e::6)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB6757.namprd12.prod.outlook.com (2603:10b6:a03:449::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.16; Fri, 10 Apr
- 2026 08:56:08 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 08:56:08 +0000
-Date: Fri, 10 Apr 2026 10:55:55 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chris Brandt <chris.brandt@renesas.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v3 3/3] drm: renesas: rzg2l_mipi_dsi: Fix deassert/assert
- of CMN_RSTB signal
-Message-ID: <adi7G_TUSWWRtm7m@tom-desktop>
-References: <20260330104450.128512-1-biju.das.jz@bp.renesas.com>
- <20260330104450.128512-4-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330104450.128512-4-biju.das.jz@bp.renesas.com>
-X-ClientProxiedBy: FR0P281CA0265.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b5::14) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.34; Fri, 10 Apr
+ 2026 08:58:52 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9791.032; Fri, 10 Apr 2026
+ 08:58:52 +0000
+Message-ID: <2fae926b-a25b-42bc-ab63-caf36505b33d@amd.com>
+Date: Fri, 10 Apr 2026 10:58:47 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-fence: Move signalling tracepoint to before ops detach
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org
+References: <20260330133623.17704-1-tvrtko.ursulin@igalia.com>
+ <20260331094944.772833c0@fedora>
+ <918805b0-2cb9-454a-9048-84cc5bfc8798@igalia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <918805b0-2cb9-454a-9048-84cc5bfc8798@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0001.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c8::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OS9PR01MB17334:EE_
-X-MS-Office365-Filtering-Correlation-Id: 227543c1-cd62-44bd-688b-08de96df0180
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB6757:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f0154d8-80ca-440c-5fa0-08de96df6334
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|52116014|18002099003|38350700014|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 7mcr0laa4HeDuVCWUpecTTCkAzlCgqnD45zibyPYM0XlFby31owHy4pOoXK8a+PvyWeEJiZn9NyuIAcDOrQnYAp1i17/WGQqbQdYRud7AE/yJTciZ0ROPmKQ4XUDqnaSbzfwmIFpgY5gGCxS/BTl5xY4G2hksjouqucXtmFjxbK0DTO6D0XyGiWH1T5KDws6nwkPqIme0XpLbYVkfJup4yxhUn7637NNw0eKQs5LamfiJ011YRhd0IC4aFj/IUXsW0Q2HRn9KCBTH5CDnykUQP8GAxsR73QPjFu/T+ckYmTwyT6/8ZDhxQJFYzfyAdh834umnVvdzRgkR/e/y9yvG2DiWaDpfDUGxnk/MUmIkwmcCs/T1CzbysLug2sKIodyomyGVD2YXjFSwQqNo6O9/gYAv1hG6fGfznmHGkKyr8hWIBosn2SIql5gFFqp8PXneHP97zz2fOifsfNGRO79NRFqpnsJU97e3WbZ/7DWDm3IOgK7KUOONLSZnkjYU/0rFYSVw1cjxF1XFh92peI2L8O/u+WIpL0qa4VDBVk61NfBGs/hhkc7GWaig1XrzdOVkZFtn6LGPM4Fz6TgVt9kbsykxmVPtWHIdLi8aTmC1OVPQXqhkg7Wynkf8OUEED3OUoE532IbVYIfO2i2PN7f2u1VIUwYGwUThFxbX50y+LHkDHKwtUixJ2GJkpx/Dkm0WZ1HngokwS6iJ3/iTtysTSJWg7Wyzcib51kJCMo9xSuZEV2d7t1dXY+OQysxZ3099LkiG6rxL8hS+UDJyAUMmen+SaOT83xlBg53FLp3ZbY=
+ ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: QV6tsxaMjOzyk8KxTfN1ppGr5LpgJFgQ7GYltu/2TyxVYBHpsL5SMPTR+6YvdP+kGY7lmOI6uFIRgg4fMoWzHtH2gRPJXbKa4GnXS4l/MgoZry0dj81PA99erv1oYSnTi8EZyYX1kNmY+Dpov2OnB6+SuoyRkNib4tHbvhBX4dSJg+mk6xeyDakT3h6QAC62r2obzNqp2RA082DkXnpq+e4vgezU4/q8086JtzRmwbEeiAXBC1Sv3odGX9MnIz9hd1Yd0x2CqLJzqgySkWRuhl8V/oQlA14kO5UDszKle5qBgAk6WHkcYh85E8oGOfNuWNOaRPRWktaA2zL65nHYXmukUQIeCLe7P4EBguSDVNVaAo4+asS8aHYyZCiewANNHOktrd/9d1ug5r5PAuPADgb7HmxFcp+Sog6hwNzf/5MrC8BSMmHtDsofkeQbzHgeoB/AdOn18WaVkGKEppD9UI4Ftf+UYCeEWxcEEVDT9ohC1RvHcAyQ94dAGMQeexx89wmPW5xBc/mTsWDBs6+GswjaxcJuPu2U6MkrRsHwlw5pFXnEJ/I8gZH3z3aSZWAvtuCPJv4zdPfZF4MN248epxh4+slCS04lxwlBKbLexa4TtHhKmc0klezrCeqrNu8U0naVZTBOQAjEEC3ZtPFr3uipGIVE3TegR+UW8WkbLiHjtthB1yL8lWPimKycs4WMyiiSVhy4UXFw4hDTTpC7R3QJsKTsll28fFhcmJP31vs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(52116014)(18002099003)(38350700014)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?i5g1ijLIaHieLrNIMmf0HnTLd+oyXpX56RyQ8h1Pl45P5bb4KTdN2PIg5xdp?=
- =?us-ascii?Q?J/07gECks4I1DmuTckgdsGOw3P4P+ex4rpXGpVgkfzLLbEnDnqxvtJJsCC0H?=
- =?us-ascii?Q?ETp7FEWqCspksQ+QXAFxEg0wbrY82zA5TTjLTImA0MqIvPi1KdrBrfHJrLnp?=
- =?us-ascii?Q?cgHcmWJ/cUYwicFNLSn83QGfsTiyUxCe03526CeVb2X01e5APcPboPN9bQzU?=
- =?us-ascii?Q?Z6Muipmd/CUTW1lwjRQghH7jP6t7LvBImSllUWwV6RBZRmyEth9qEn6vjf1F?=
- =?us-ascii?Q?TrgIS53m886di45SGe/Y9t5OMVxima2kFSoE85e/V5CDM8zIzKyVeY9v39yn?=
- =?us-ascii?Q?jDMx5lIZKfXI2aUfCSvW6Jl1ig3zamqnHkz8APAz7FCCg3FKY4iFndVJbq89?=
- =?us-ascii?Q?Zdo3FZBSR22UobsT/3M5Bw9QwG/NNhrNyH/qR26/td8rtGFA8XSQoX8kOJ8f?=
- =?us-ascii?Q?Em+zwW8YtoWAkoqMRiEi6jJziCnO1DdVnx0RDynHF1DwLdUl+aftod017NjM?=
- =?us-ascii?Q?Eshh3RKPJd4c9Tu0rQilGpe2GF/XaKXm66FUkzqps/Rlq7fBp6zyuQopqqTB?=
- =?us-ascii?Q?2tTPbV7j9ffZqjCGOtrl/UKYuGjeaz2/Fm4iGBkG3B8Wo4INHmbMjQ3obu8Q?=
- =?us-ascii?Q?M+uuTv6k6193IpbP9+zZ2oeOVXoJBzIeDw2RaFxe0+eFuWuPmlC0dMn/IKhd?=
- =?us-ascii?Q?FGiJ/C+sLR3YwcI81Ck357DFzEpxjVUq9CdI9bxYP3uKGDVFemo3ZNehgsfn?=
- =?us-ascii?Q?3rpauyEKnm7pS/x+kBpFqYsfhgyAUNqkobPDJTSLdRBb/0mEZibTexQU4yJd?=
- =?us-ascii?Q?0As5xSXFOuB1WxI3Pircxl5lkDZvdm4dJ3JGRKozotUUTdfF8IM7zsMxayGS?=
- =?us-ascii?Q?O06EtNAQGcbqycIfmfODqEd3EKav72IQwNvZJGlDa4mJ7YfkSNOrAC0D+OB0?=
- =?us-ascii?Q?HRbatTwoKd387QwFGVhNyp19IfyKk7r0HyEE228/K2UjRVt5/VLrXAdQ7dII?=
- =?us-ascii?Q?RhUMDdkChnDXiWp4LkAuNkglMVLRIRTVscjmUCEadrI1aKAW7l0wsGYSrk14?=
- =?us-ascii?Q?wxgqEiAoIcKbZJE2e06UGpwO9zt6rEDwNeg/tMwqg8AsTMfRW95OJx95Czo+?=
- =?us-ascii?Q?4772hFMXLn8fjZKeLIMUj0mv1sRjscqLXFKoqRf8mqkTMzmu7YZz+nUgd/42?=
- =?us-ascii?Q?G/vdwypXs6zZodKlmcxm0KTsXxMT/91M7mKJ/N686fkp+XRjoIvCBhJOMJfh?=
- =?us-ascii?Q?UxzdOZWOR5dUTCPr1LDuimpzB4PcAQHd+u1ZIdUi6LB7LV062BEgZvR5pcH/?=
- =?us-ascii?Q?2QETfJJlxuPCHXS2/nJeVws66dL2tc/5CmRVKoVw3Y3QFoVAR2gDyjOTQiPP?=
- =?us-ascii?Q?UETLknKQo4PbOi6AUWjkIO1VW9Ojg0ZQniwcoxKpJV9h2DnjL6ABjZgMuOEu?=
- =?us-ascii?Q?YaXG99YvBFi8ZS/c7CG3Nr0FSW2+jcD+ZHlAGWPK6cGAEHAv7QE817l5S9Y1?=
- =?us-ascii?Q?7TtBpBYIbp0Otv03MqjIjbBLp+qT9NPmmybnJBvgENdiXa7v2Xo4GvSJkJCv?=
- =?us-ascii?Q?y2TkV0yZRqWrEgtsC7HwaJ2rV14ciN0almNG2dR4to74G4OOLVbSQ1p+357W?=
- =?us-ascii?Q?mFFh7SuCbmB2D55Cr08sUSp/FJ0m7SsUcKCjL4Bwz/pcsWxiTfaGW1mKt9wN?=
- =?us-ascii?Q?od4oF0q1tgerKYWkr42szdCnsoDO53dGbjXEOlRYk1+pUx2RiLgyEztbWsAQ?=
- =?us-ascii?Q?1s+4J7uehLi2ca15kCbDdQVljn4cTSaBf1Ph3tm5FNQNU0lowdUS?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 227543c1-cd62-44bd-688b-08de96df0180
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZkFrdFBiNVFxVWFVRWh1RjdmNXlWQzVkNFRwV2JVb2hHM2M0SzJ0VE1yN3p0?=
+ =?utf-8?B?VVBuSTJGUzEwRC9oeTFibkovT1NSRVhBUEMvUXVRa2orNGNOclNFc1E1dllK?=
+ =?utf-8?B?cUtLcm1VOUJ4cFF4R3RHOE56SDJQUC82aFl4Y3dYVXVJZ1RuMS85bnRFOWM5?=
+ =?utf-8?B?Y2RKQnJkNjRwL2dOVHowbWpHRDM4Ny9oVHBTeTNQbHVWQ2lwQktQSm9kM0gz?=
+ =?utf-8?B?bTd1TUhnaXdqVlRLR1U3Vjl5YlpSRUFOSUc5S3dvbDF1MURXb1MvQjE0dlRL?=
+ =?utf-8?B?aHQzYzNmREtaM2o1Wi8vVUEzb29lcEhhZ29wR0ZXVjE0WXlnZjBSaEFBWXpX?=
+ =?utf-8?B?cjcvcG5FdGs4cXdJK0EyYzRtOS9BcUhZQmM5bEpISU1iQ0JXQU5ybW9lMm5h?=
+ =?utf-8?B?WGJOcGR4M1NyRXZ2TUZ2T2xiUk9XWnBNSzdTZTg3ekl5OGxYVzN4WWtuL3VC?=
+ =?utf-8?B?Z25pZytKbkNRZUZTbXV3WjRtWkFzTHFBSGk2RkdseVNNZHpOTTdZTUg3MTEw?=
+ =?utf-8?B?cndZajkxdlV1QmM1d2czcVdXWmpaSXM5aVlNQThLL2ZEcGNzaGhPYXdnK2hn?=
+ =?utf-8?B?QXdoUVZJUmQ1WHBtUUp6cnRRNExFTk4yckQwSElsa0NEMTlCZGJETGw5bElr?=
+ =?utf-8?B?U1JTZHZONHdJeVlxRkRaL2hJcGVvOVU1Snp4aHBwOWZCellqVmlCaHB5dUlo?=
+ =?utf-8?B?UkdmSzJmY2JYRHhrRmpuV2hjK1ZWci9CNldlUWZEVWxFRjRuZEJSYUNiU3hj?=
+ =?utf-8?B?Z01LazFkK0tCQWVhWCtsN2R4aDhYaWJXZytuekZUMHRlM2JKdDdMbmEyTG9B?=
+ =?utf-8?B?dXJITDJvK2N4ZThvZit3NGVqa0pBWUpVM0JydWczbDlwc2Z2NWVET0lFYW1F?=
+ =?utf-8?B?NytlWE9YNytKdTZlN3dpbGgzODRScXZrQld2cnRESG1NcUFFTWg2OVA3dGlI?=
+ =?utf-8?B?THhhejNlZU1RN1JCSEhKTTBWczN3T3hNU1FISWhwbWlzY3B6bzM5TkRzZ1E3?=
+ =?utf-8?B?ejlJZ05GZEdnZXFTTG5ZL0dMay9mRFRONERycFVEbXhOTjV1TmZlMTFWYU1i?=
+ =?utf-8?B?OVJBV1lhNGpRZXBTVXVsb1pZVHhMTDFRYU5hUFlFcVp0bGNIQXdMWklTS1dB?=
+ =?utf-8?B?TzZ3TVhramZTQnNLRGpVdk1CbWlXYTYxd0Ivck5zSk9uRUdINnk4MnRVTDhr?=
+ =?utf-8?B?dVhqeFl3bTcxSjM1UlExTW9qVzhqVW5pVm5ISXdBVmd5aGUxQnBqK2VXRTFP?=
+ =?utf-8?B?eFVWWXJmREo3Vnl0dVlOTEM4UGczZ3ludVZuWmVYdGVRZTJYcXVnakg0akRh?=
+ =?utf-8?B?K1B1SXVlOEM0dExsYkgwcm8xSmJlWE5jOHd2YWpjVVRWNno4ZGFqMHV2NzJt?=
+ =?utf-8?B?VW44cTZ3ZGJtdS9Xc2hDU0ZTL3ZxQzNSdnFwdS9sb3ZRTUpNTWpJaFgrcGpu?=
+ =?utf-8?B?VDA4NXd5VjREYXFpakxLc2ZyWjhHb2ZKRjlFLzFITUxYN2diem9KeDNScEF5?=
+ =?utf-8?B?L0pjVDhIMWFoUzkzd0IvY01uUmN2bHpsRWFPT1BLS3ZVMU5OMnR2OWZ1SGJG?=
+ =?utf-8?B?TDcrc1l3WDd4UTBmejc3UjRSakhOS2IyOU9qeW91cGNtaTdqNHdOcWxveUtQ?=
+ =?utf-8?B?L3pqaE0wSkRwN01wY3dvazBwZVhGRjdETlVwY09mc0duUjdjMDhqdlBpYmhn?=
+ =?utf-8?B?TVpMS3BjRDZaaWVELzBhSmFEZm0ycDVQb0xVTFZpdGFrSnBHYjRwZjJZMEw0?=
+ =?utf-8?B?NHB3cWFsMVVONDNlQ0M2ZFJGb2ZRendsZkd6OFp3M3B2UWFjaVBHQUJUV0tB?=
+ =?utf-8?B?VkkxYUxaOHVFU21ZZE1ZSWtuU3dLSW5rZ2loQkIzNEhVeVNMeTRQMzE0U2tP?=
+ =?utf-8?B?RmJQOFhnZzZIckxHNHNNandxb2RzL1JYZU5BNFNzNitqKy9PUWFRbE5nSXlN?=
+ =?utf-8?B?UjNuOUhkdWtKMjNWbDJyVHFBYmZBWlZ6L3J3N09SekgvVWZFMUNBTXZRcWVx?=
+ =?utf-8?B?TG02eEhoRGhDYVc5Rm1PK280VXNyajhzNnN3Y0RUWVZTUjJjTWtvTmt1b1o4?=
+ =?utf-8?B?MFV0NWZoMWJvNDZrYlVEUjZ2L3lJNWVkajREYVQ3Z1R5OVNXQzhWVEJkc0Fq?=
+ =?utf-8?B?OWdxOEQ4VG4vS1U2OSs0REtVN2Y2S0wxVmdCMWFuNG5obVhpYXQxUnd0Tm5S?=
+ =?utf-8?B?MlVaYUJTS0xLYmRybmlvUFQzczR4Q1M3ZjRYQXkyTGNFNzR6QkhaR3hNdnNL?=
+ =?utf-8?B?clY2bUdlbHNHTnlXbm1BS3JpWjgrdGNHd3o5VGxTM1NodTB4TWVJL296NjVu?=
+ =?utf-8?Q?cY/zpHlXm6477JIj62?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f0154d8-80ca-440c-5fa0-08de96df6334
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 08:56:08.5993 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 08:58:52.0869 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nid0pgNRWu7WiZu12VL+sm/anR3o9JAKksMf6miwxV444g2rgGoa52fEt6YbDv9HocVcYeh+DQvCU8f6XIPi4xMnP641ol9fj59nhcddckIL6o2//42Lo+oJ2+a93lpg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB17334
+X-MS-Exchange-CrossTenant-UserPrincipalName: L8amLVDQOszLaKY3VEyMlG8QqdUav34AXH9oNvZhikvT4SkFvuzazboO2/IIWao1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6757
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,102 +140,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Biju,
-Thanks for your patch.
+On 4/9/26 15:58, Tvrtko Ursulin wrote:
+> 
+> On 31/03/2026 08:49, Boris Brezillon wrote:
+>> On Mon, 30 Mar 2026 14:36:23 +0100
+>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>>
+>>> Move the signalling tracepoint to before fence->ops are reset otherwise
+>>> tracepoint will dereference a null pointer.
+>>
+>> I suspect other trace points are impacted too
+>> (trace_dma_fence_destroy() is, at the very least).
+> 
+> Indeed. I wonder why that did not trigger for me, while the one I fix here was an insta-crash...
 
-On Mon, Mar 30, 2026 at 11:44:46AM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
-> 
-> The RZ/G2L hardware manual (Rev. 1.50, May 2025), Section 34.4.2.1,
-> requires deasserting the CMN_RSTB signal after setting the Link registers.
-> Move the reset_control_deassert() call from rzg2l_mipi_dsi_dphy_init() to
-> rzg2l_mipi_dsi_startup(), placing it after the Link register writes. This
-> reset signal is optional for RZ/V2H SoCs, so add a NULL check. Drop the
-> unused ret variable from rzg2l_mipi_dsi_dphy_init().
-> 
-> The CMN_RSTB signal is not required for reading PHY registers in the
-> probe. Move reset_control_assert() from rzg2l_mipi_dsi_dphy_exit() to
-> rzg2l_mipi_dsi_stop(), placing it before the dphy_exit() call. Since this
-> reset signal is optional for RZ/V2H, the call is a no-op on that SoC.
-> 
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+You need to actually enable the trace points and at least for the destroy one nobody is usually interested in that.
 
-Looks good to me, thanks.
-Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-
-Kind Regards,
-Tommaso
-
-> ---
-> v2->v3:
->  * Merged patch#2 and patch#3 to avoid breakage.
->  * Updated commit description
-> v1->v2:
->  * Updated commit header and description
->  * Moved the code from rzg2l_mipi_dsi_dphy_init() to rzg2l_mipi_dsi_startup()
->  * Moved the check before calling reset_control_deassert(), so that it will be
->    skipped for RZ/V2H SoC
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 18 +++++++++---------
->  1 file changed, 9 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> index 9d9f77d8f949..715872130780 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> @@ -484,7 +484,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
->  	u32 dphytim1;
->  	u32 dphytim2;
->  	u32 dphytim3;
-> -	int ret;
->  
->  	/* All DSI global operation timings are set with recommended setting */
->  	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
-> @@ -524,12 +523,6 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
->  	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM2, dphytim2);
->  	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYTIM3, dphytim3);
->  
-> -	ret = reset_control_deassert(dsi->rstc);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	fsleep(1000);
-> -
->  	return 0;
->  }
->  
-> @@ -541,8 +534,6 @@ static void rzg2l_mipi_dsi_dphy_exit(struct rzg2l_mipi_dsi *dsi)
->  
->  	dphyctrl0 &= ~(DSIDPHYCTRL0_EN_LDO1200 | DSIDPHYCTRL0_EN_BGR);
->  	rzg2l_mipi_dsi_phy_write(dsi, DSIDPHYCTRL0, dphyctrl0);
-> -
-> -	reset_control_assert(dsi->rstc);
->  }
->  
->  static int rzg2l_dphy_conf_clks(struct rzg2l_mipi_dsi *dsi, unsigned long mode_freq,
-> @@ -811,6 +802,14 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
->  	FIELD_MODIFY(DSISETR_MRPSZ, &dsisetr, RZG2L_DCS_BUF_SIZE);
->  	rzg2l_mipi_dsi_link_write(dsi, DSISETR, dsisetr);
->  
-> +	if (dsi->rstc) {
-> +		ret = reset_control_deassert(dsi->rstc);
-> +		if (ret < 0)
-> +			goto err_phy;
-> +
-> +		fsleep(1000);
-> +	}
-> +
->  	return 0;
->  
->  err_phy:
-> @@ -822,6 +821,7 @@ static int rzg2l_mipi_dsi_startup(struct rzg2l_mipi_dsi *dsi,
->  
->  static void rzg2l_mipi_dsi_stop(struct rzg2l_mipi_dsi *dsi)
->  {
-> +	reset_control_assert(dsi->rstc);
->  	dsi->info->dphy_exit(dsi);
->  	pm_runtime_put(dsi->dev);
->  }
-> -- 
-> 2.43.0
+> To fix trace_dma_fence_destroy I think we need a new tracepoint definition ie. move it away from the existing event class - make it just log the context and seqno.
 > 
+> Anyone has a better idea?
+
+The idea of tracing without accessing fence->ops sounds valid to me.
+
+Alternatively we could call dma_fence_timeline_name() and dma_fence_driver_name() from the tracepoint as well, but that means the tracepoints now require a RCU read side lock.
+
+Regards,
+Christian.
+
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Philipp Stanner <phasta@kernel.org>
+>>> Cc: Boris Brezillon <boris.brezillon@collabora.com>
+>>> Cc: linux-media@vger.kernel.org
+>>> Cc: linaro-mm-sig@lists.linaro.org
+>>> ---
+>>>   drivers/dma-buf/dma-fence.c | 3 ++-
+>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+>>> index 1826ba73094c..1c1eaecaf1b0 100644
+>>> --- a/drivers/dma-buf/dma-fence.c
+>>> +++ b/drivers/dma-buf/dma-fence.c
+>>> @@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>>>                         &fence->flags)))
+>>>           return;
+>>>   +    trace_dma_fence_signaled(fence);
+>>> +
+>>>       /*
+>>>        * When neither a release nor a wait operation is specified set the ops
+>>>        * pointer to NULL to allow the fence structure to become independent
+>>> @@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+>>>         fence->timestamp = timestamp;
+>>>       set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
+>>> -    trace_dma_fence_signaled(fence);
+>>>         list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+>>>           INIT_LIST_HEAD(&cur->node);
+>>
+> 
+
