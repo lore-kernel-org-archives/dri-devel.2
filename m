@@ -4,76 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47C21F44874
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 14:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8586F44873
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 14:30:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AACA810E96B;
-	Fri, 10 Apr 2026 14:21:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 193FB10E249;
+	Fri, 10 Apr 2026 14:30:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="CVwPR2Jj";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kLJ4kw79";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A17EC10E969;
- Fri, 10 Apr 2026 14:21:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775830871; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Jn/Tmj19i3gOK6f9TWANjUnYtLOPBQJNqcx0tOvjD6UpoX8CURmIgJHUNdecp8Pw0CljdDunOXYctaIxdBHusanURm0wQacxVoaGiqrv4X1c2DA8c8Y0+8I4KFWu1BkOG6EKYiSMzeB/aMXduHDEnhJaZkibDPCNqKz5tzzC2w0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775830871;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9zLHnTtMqw0wWzWI7j+3+Qz08IlRB+2G4Qkl+hxqDWo=; 
- b=YYqZ7rPD2KtIX1IkeI5KwpQUzCS1ufbR7X+rw1FRYUs1PdogLTcepHPQHDUFTuX4/XqMYUliTgNli96hFqCPikJoz7GZp8BfKi27RdJ/soknA9PpgKQ9gi/D846d2zCYSaUSm/Cc3/QnFgD5R/p82+/jayc8xDqUoa0hzflpqSg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775830871; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=9zLHnTtMqw0wWzWI7j+3+Qz08IlRB+2G4Qkl+hxqDWo=;
- b=CVwPR2JjdsnnJHG3iLLKNbX4wAsiZCkL3NtXjldGLNGHKv8/5VoQA1Jn4biRiq67
- //9zWXRFyP5j6alWl4gj1F2804zm/gplOKweJwC3iihVZHcLBnJ1hRq5pRUvZc8NkjE
- dyhmroMYyfJueA+zxqQg6lsQ7hpMUqCrpzHbjqJ0=
-Received: by mx.zohomail.com with SMTPS id 1775830869992203.62896287388855;
- Fri, 10 Apr 2026 07:21:09 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v12 04/25] drm/bridge: Act on the DRM color format property
-Date: Fri, 10 Apr 2026 16:21:00 +0200
-Message-ID: <4810558.ElGaqSPkdT@workhorse>
-In-Reply-To: <edeq6wxmwzvovfoo6pvih6dybwszf3tahg7nvqkjrw3qxllbfd@jwejh2sgb5eh>
-References: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
- <20260409-color-format-v12-4-ce84e1817a27@collabora.com>
- <edeq6wxmwzvovfoo6pvih6dybwszf3tahg7nvqkjrw3qxllbfd@jwejh2sgb5eh>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012013.outbound.protection.outlook.com
+ [40.93.195.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0601210E249
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 14:30:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=phiFRlIHT4ZqWjRzb0H705/6OpEbkwxauy+2TVAbpM1oe3thGZwsNXIjVTmbIpUFE4/7vZ/1YLFyhTTXQDXs9vHlSASCIzVMYk4c0X0lJtvQC7pQoQIIyTWgFLrBksIKnWCMgOC8bPbWN1P0exPHej3BreNxQz5KyAN1DzVaYwGUfGFiwfUIV+iMzn5B4C9FOMaIe8b6yd1X3mzTudmHcDA1b0QjJ78N63uSxcLjYNjt35iRlJxjfuGBsbPQ+HrOgGf4AAf9IURt4b0arVJJRV/BOkCxCYlXSeiEGxeGJYXWroisHlsi0EX8bnCFx3HjW3CqDorHZjcLyqojUKWotQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DSMtyvv/7Y0NYzoaUsPvCT+s6EMkSXlY8x/AzGr+lMc=;
+ b=W+5vw26ZQcVAjv0UtWgsbz4JH2rJ7+IWPoPPd2/tVZXAQgHgB35PTCbU7J91uF4qfkisOj2NsgTI45NYmz8upAs4idPW12oE0UGVJ3aGfa3pMzxwTvoD1h0MxxZbCts+VswJreBItnYSBVNwvL4A0/ZNvSkRhDZ4rdr0q6Fx4HGATaVGJ/+EmgiUZnLo3+3H8AlbWqYUIliOTOd8llR6+iHzR+QbrmsykdP1MKD4B8OrIo1PZGCmUm+D8mZAs9ge/GbtcTsjHrzaIUW5ixGwJZ3YqW7ndiJt1ofqzdWCMbr15NYBQpRooX2iXgp1p+S+qxltZ/j5PBhTjqBVCWavwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DSMtyvv/7Y0NYzoaUsPvCT+s6EMkSXlY8x/AzGr+lMc=;
+ b=kLJ4kw79vG9gk2eOC5QNCkIf8qSl0HuQ6FXOu4PhmK8mAvBupalP0y7gUuJ+7pRtz6ttcC/Q2k2f+oiey7Pz1NOwLPfJNlYW16yJIV6XoqfktXEG50vdtTcUYHGVxTWTUTBpj/+NAkq/9/uwH2CoWMJwBvjuzWMc8XvGVB6FdnrBVd5VqbxfVYGirw3/eiN2OtCSXkP4a8GAgBfzB1P/BiaQsM0FGCpJwhuyVjGcpVbR3MjFkPm4qk/sN55OqhzHXV7aYG+gHj6Kx9w1DnH+IdTtfFPv4cE+yAEZePdg2bmAD9JAeFgjF5YqOBalysOSUohcnkVR/7qfof39yBjq5A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ SJ0PR12MB6782.namprd12.prod.outlook.com (2603:10b6:a03:44d::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Fri, 10 Apr
+ 2026 14:30:18 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9769.014; Fri, 10 Apr 2026
+ 14:30:18 +0000
+Message-ID: <f840abb3-5a0e-43af-8b57-6b4db97255cf@nvidia.com>
+Date: Fri, 10 Apr 2026 10:30:15 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] gpu: nova-core: vbios: limit `BitToken` entry reads
+To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
+ <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260410-fix-vbios-v1-0-bc6f71d153d6@nvidia.com>
+ <20260410-fix-vbios-v1-2-bc6f71d153d6@nvidia.com>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20260410-fix-vbios-v1-2-bc6f71d153d6@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0087.namprd13.prod.outlook.com
+ (2603:10b6:208:2b8::32) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SJ0PR12MB6782:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cc684db-c8e2-4055-d0c4-08de970db025
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: oaNm08GFhQnTTXir3B/B4RXcLGVE35l8CjhmP86O+urcspwRekKTXlWtGKkct7dCJG4LT3G4Y/FKUzdhMyqq3xxbske7cgepU+DrP1jwEiYQYSeZL5ZdRvPTg6fCVDJp/cCu7rN3WEVG3X0MIlnlgqbHIIo4rtBOUDXEfzjCRcAhWP2VFhTPSm3Ym5oXa24XXaCzE5wXn8wKMAshBm34vQD7Pd68zIAyhkIw+2H96Q9L2sDkBLJMku51e2NJBoM5lTA53EWMQ//lYyLWm4ZQtM3x/Pv+mIoSk+dYyMRDuJWKjmpjOq0ef1m6g02G2tQjgNDB/SMCqYYzFPtpKKFqcEbz+37xDxPwFfwd0WZBSgvCwmBtJIfT1PHYl4N8bP21AUnmzfHU95Pji4OTXt/yCNCmYR4laW7Kzf9ND7rIQLgqPcQaVaFzGce4Z2Lw40+GS7lOvnoFwKt39CjZnlZZcqUABjrfqPBV4CUFvQpK044F818NLQyVSEdRFjozZHdVElCqFbm5+FyY35JKRlOdN4iknmzgvwbTELLBLPjL56+q93MEqTptxkCJAXfh3uMAjCyKrUmn29OCFSBfG5ws+i/eHlB2TJ4l2cqqaXvAegCY05R9fhzKBn2dNLoIkftsOUTPFOgJ1PknYi8c4FE5l+zuXcJS9wdSeyTLHqco7HHM2mWfCbuaA1g7+K7SSgpctLTS0uRVqqW8Xpb/ZNd5EkM4QstYmeOP1B8/du5OVNM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGoxcWRXYkRwQ2VHRWYrNUFvWmt3NDIzL2JFbUp1NDFaOWR1a2NibnRqUWNF?=
+ =?utf-8?B?UUdzRDRucFJaUEhHNXNRWFpvMGc3a2hPTWoxSkhkS1RCUW1kQ1RwUEVCWXNS?=
+ =?utf-8?B?c2RuN1hQbHVTNWU1VnNIZVVtdFRJV1RSTllGa2JlYmk0TmhDaytSamxlV2wr?=
+ =?utf-8?B?VFVVWU1YSDR5bDJJeU5BSEYyRm1GUXJyOHRrbVNXUVZkakdRdUpRL0I3WExj?=
+ =?utf-8?B?aW9SdVBoYnc1S0FJSUV1T0ROV2pKc1ZHSVlFUXl3Y1BXWFZocDh0VDVoUUFN?=
+ =?utf-8?B?ZHRqWWVQdW54dzZWb1lCdEhwelo3eHMwNXZOTWVvNmxLeG9qbHNyTHFsMHl3?=
+ =?utf-8?B?dUM1bzR4UFdqZ21TSXlQanN0MGt3Q2RtVzVuQWQzSWkzSkM4cWdsS2lrejRD?=
+ =?utf-8?B?SWtxWnRSanQ2ellXVm9OQ1Y4bzl5Y0RnL0x5WVU2anIrNjFDV0VxSDBScEs5?=
+ =?utf-8?B?OEtoam5aNW5Wak4vTkVUWVlzeXhkcklRQnZnV0U4TnR0ZHkzVVc3YnF2czZj?=
+ =?utf-8?B?UDRuOUxkWEJLTzQxdlY0cXlOT09nTlF2ZndOR2JmNEJXaDc2OFdjNFZrOVFC?=
+ =?utf-8?B?ZzFQL0dYRERhZVJzSC83OC90U0pTZ3NrbUoxTW1Ecm84L1BQNHJGSnk1WC9V?=
+ =?utf-8?B?QTBSa1ZjMnFEaXhkVWl6ZUxPT0JmVktCQU1pRnF4ZnhrYmViL1kvUkluLzNp?=
+ =?utf-8?B?NXRvL1JyU2xmWEpMcWlCTGpZb1RabHdkUjZXbXZaclZkbHArZVVsVHFnNXBy?=
+ =?utf-8?B?bVpwc1Y2UjFBTGxqa1d2NGhjTFJUOHRGQXhMcnpGYlMvdmVXQlhCdno5VjdJ?=
+ =?utf-8?B?WWc1dlJRYmJTWGhvamwyN212K1pSRDJram52SGxlNkxldXhOTndYaFJKd0NI?=
+ =?utf-8?B?MTVIRjVNZGlpSmMrUXhZYm03WEVhVjlSeGU2Z0dOWEFkMkdtTGtxSEp3TVBV?=
+ =?utf-8?B?TWR3SFVQYnVONUdXeDQ0M0x6UUVOTk1tZEpmNVBnbCtLOGtUaXZxYnVQN2Rm?=
+ =?utf-8?B?TGhndmI0UzJkRVQzZGN4d2FhQnEzZ2llZ3ZCdkc0V3NpRzd4UkZleHhURGg1?=
+ =?utf-8?B?N2NaZ21RWVdFdTB0Z2pWaFkzWHdrejJPTm94VllhWVJnbHQxcEp3Z2REcFpW?=
+ =?utf-8?B?eXd2T0hKcTZyVHd1d1J2Um5sdDgvZUFjN0dHUmt6eUM4OE5lSTVDYTRwdXQ1?=
+ =?utf-8?B?QTZtYlVJK2FkRkJkckVFYXpiMk5ZRlUva05PMG5sUFg3NmdiUkk4cHN0cHlJ?=
+ =?utf-8?B?T2kvekk3MlhUM0JuOFFvV2ZRV0taUzdZd1NCN3lJbjdrUUxoRUMvSVgzYXd3?=
+ =?utf-8?B?ZmNNOHdjUnVUSDB6cnJ6aFVwZ1Irc2Z6cXZQV3BZTE1tWk1DWWcwandDZHRH?=
+ =?utf-8?B?RXVUQVJFY2FtWEYxWDhrbUs0djlnZHJ0MVVXT2ZJWEdUdmFSYUlIcUEwK0cz?=
+ =?utf-8?B?WUx4Ui9rNXUwS1kyclJMaGs0RUMwZzhhQnlLYU42aXYxUnhzSllOc1ArSVc1?=
+ =?utf-8?B?QzI4SENDV3p5ZU1ZZFZITTVrOXFpZUVtRENwRnN0Z0QyR3pqODZKZk9ySld6?=
+ =?utf-8?B?WnZCdHdJWGJwa3k0Y1NIRThGOTlaa1hZOHVlOHNSYTY5UmlPeVFCcWxQNy9O?=
+ =?utf-8?B?YkpVRE1ueGNmem9rTXc5bFAzM3pTc25JL21tY2Fwa3B4OGdjSVh4MHpPZFJz?=
+ =?utf-8?B?bjhjVVJkT0R2TXBEVzZyTkJBSWx2ZG5tMDVvZTBpWjJjbEQwbHZHYThqS0Ux?=
+ =?utf-8?B?YWs1NWdUenpOVEhHYzRPRmRmdkJHWkoxWWVsMU05NHA4OWdVb1lFeFZ3ckRS?=
+ =?utf-8?B?VE41S1hCUWxwLzkvRGJsZEM5NXJvR2Y1eFhOSlpZeTNLVDBNbUNBVk44cWxM?=
+ =?utf-8?B?UHh1ZWpvdTA5cXpuWlBqa2U2YnczVlR2aUhuRllUVjNVaGxMT3pzRGxDNEJh?=
+ =?utf-8?B?c0phclZ4UXVLUWpHQmpsbENwN0tLdVhoNDYvVDR0bXJURU5KcWJ0R1lGMkFR?=
+ =?utf-8?B?YjhBZ0Rka3BmeHZkQ0h0TmdKVG1pUjY0b05TaFJKZkRmZ2ZwYlN2YnRSLzFX?=
+ =?utf-8?B?RDhpbWFPU2I4cWltVURkd0cybFZsaTB1aXAyUjhvcG1XRlBjV1NCSUJkSSt5?=
+ =?utf-8?B?RU1hWG96MDZuaUs5UGtsZGJWQVVlRFZlekQzOXBiSVNKZ2pHZE5EK3I5SkJM?=
+ =?utf-8?B?VnZUclRITU1rT1p4VG9HdzA1NUxYNStvT0N5Y3BHRGFwMFlkL1FyclVNYkRu?=
+ =?utf-8?B?RjZacTNVYzV4MDhwVzJ5NUxpaC9NaHNtY3VORmtqZGF2ME9oOEpHQXZHem5v?=
+ =?utf-8?B?Z0JVSDhxZS9TOStidnNNTnpyMzFmRTRsalZ0dm5mMmlDQWFWMXJQZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cc684db-c8e2-4055-d0c4-08de970db025
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 14:30:18.0579 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CXskx70pefA9rLwsacJxO10eMsfPeOYkSU5RmkuDfX6uGXURHThL2iXxhP8niNLG7ebO3rwBmMIEXlMVusXabg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6782
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,186 +142,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Friday, 10 April 2026 00:08:24 Central European Summer Time Dmitry Baryshkov wrote:
-> On Thu, Apr 09, 2026 at 05:44:54PM +0200, Nicolas Frattaroli wrote:
-> > The new DRM color format property allows userspace to request a specific
-> > color format on a connector. In turn, this fills the connector state's
-> > color_format member to switch color formats.
-> > 
-> > Make drm_bridges consider the color_format set in the connector state
-> > during the atomic bridge check. For bridges that represent HDMI bridges,
-> > rely on whatever format the HDMI logic set. Reject any output bus
-> > formats that do not correspond to the requested color format.
-> > 
-> > Non-HDMI last bridges with DRM_CONNECTOR_COLOR_FORMAT_AUTO set will end
-> > up choosing the first output format that functions to make a whole
-> > recursive bridge chain format selection succeed.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/drm_bridge.c | 89 +++++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 88 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> > index ba80bebb5685..7c1516864d96 100644
-> > --- a/drivers/gpu/drm/drm_bridge.c
-> > +++ b/drivers/gpu/drm/drm_bridge.c
-> > @@ -1150,6 +1150,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
-> >  	return ret;
-> >  }
-> >  
-> > +static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_connector_color_format fmt)
-> > +{
-> > +	if (fmt == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
-> > +		return true;
-> > +
-> > +	switch (bus_fmt) {
-> > +	case MEDIA_BUS_FMT_FIXED:
-> > +		return true;
-> > +	case MEDIA_BUS_FMT_RGB888_1X24:
-> > +	case MEDIA_BUS_FMT_RGB101010_1X30:
-> > +	case MEDIA_BUS_FMT_RGB121212_1X36:
-> > +	case MEDIA_BUS_FMT_RGB161616_1X48:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_RGB444;
-> > +	case MEDIA_BUS_FMT_YUV8_1X24:
-> > +	case MEDIA_BUS_FMT_YUV10_1X30:
-> > +	case MEDIA_BUS_FMT_YUV12_1X36:
-> > +	case MEDIA_BUS_FMT_YUV16_1X48:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
-> > +	case MEDIA_BUS_FMT_UYVY8_1X16:
-> > +	case MEDIA_BUS_FMT_VYUY8_1X16:
-> > +	case MEDIA_BUS_FMT_YUYV8_1X16:
-> > +	case MEDIA_BUS_FMT_YVYU8_1X16:
-> > +	case MEDIA_BUS_FMT_UYVY10_1X20:
-> > +	case MEDIA_BUS_FMT_YUYV10_1X20:
-> > +	case MEDIA_BUS_FMT_VYUY10_1X20:
-> > +	case MEDIA_BUS_FMT_YVYU10_1X20:
-> > +	case MEDIA_BUS_FMT_UYVY12_1X24:
-> > +	case MEDIA_BUS_FMT_VYUY12_1X24:
-> > +	case MEDIA_BUS_FMT_YUYV12_1X24:
-> > +	case MEDIA_BUS_FMT_YVYU12_1X24:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
-> > +	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-> > +	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-> > +	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-> > +	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-> > +		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
-> > +	default:
-> > +		return false;
-> > +	}
-> > +}
-> > +
-> >  /*
-> >   * This function is called by &drm_atomic_bridge_chain_check() just before
-> >   * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-> > @@ -1193,6 +1234,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
-> >  	struct drm_encoder *encoder = bridge->encoder;
-> >  	struct drm_bridge_state *last_bridge_state;
-> >  	unsigned int i, num_out_bus_fmts = 0;
-> > +	enum drm_connector_color_format fmt;
-> >  	u32 *out_bus_fmts;
-> >  	int ret = 0;
-> >  
-> > @@ -1234,13 +1276,58 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
-> >  			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
-> >  	}
-> >  
-> > +	/*
-> > +	 * On HDMI connectors, use the output format chosen by whatever does the
-> > +	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
-> > +	 * are sorted by preference for %DRM_CONNECTOR_COLOR_FORMAT_AUTO, as
-> > +	 * bus_format_is_color_fmt() always returns true for AUTO.
-> > +	 */
-> > +	if (last_bridge->type == DRM_MODE_CONNECTOR_HDMIA) {
+
+
+On 4/10/2026 4:38 AM, Eliot Courtney wrote:
+> If `header.token_size` is smaller than `BitToken`, then we currently can
+> read past the end of `image.base.data`. Check that the token size is at
+> least as big as `BitToken`.
 > 
-> I still think this is misplaced (and misidentified). Consider HDMI
-> bridge being routed to the DVI-D connector. The last bridge would have
-> different type, but the HDMI-specific logic must still be applied. The
-> bridge must use RGB444, but it must be handled in a generic way.
-
-Thanks for the review. I was hoping that an HDMI bridge chain going to
-a DVI connector would be a DRM_MODE_CONNECTOR_HDMIB thing, but apparently
-not. I also don't know however how doing this in the drm bridge connector
-helps us here. I guess we'd call into a drm_bridge_connector specific
-function with the connector format and connector, and get an output
-format in return, and said function checks that if any bridge in the
-bridge connector is HDMI it uses the HDMI logic? That would conflict
-with the following case from what I understand:
-
-> Or other way around, a DVI bridge being routed through the HDMI
-> connector (thinking about PandaBoard here). The combo should not go
-> through the HDMI-specific color format selection although the last
-> bridge in the chanin is the HDMI-A bridge.
-
-In that case, wouldn't the recursive bridge bus format selection
-take care of this? I assume the DVI bridge will only allow RGB444,
-and one of the bridges that follow it is an HDMI bridge for the
-HDMI connector that's physically on the board.
-
-In such a case, if the HDMI state helpers came up with something
-other than RGB444, the select_bus_fmt_recursive below would fail
-as expected, since it won't be able to find an output that
-satisfies the constraints given by the DVI bridge.
-
-> I think all these cases should be handled by the connector, which knows
-> if there is an OP_HDMI bridge in the chain or not.
-
-Kind regards,
-Nicolas Frattaroli
-
-> > +		drm_dbg_kms(last_bridge->dev,
-> > +			    "HDMI bridge requests format %s\n",
-> > +			    drm_hdmi_connector_get_output_format_name(
-> > +				    conn_state->hdmi.output_format));
-> > +		switch (conn_state->hdmi.output_format) {
-> > +		case DRM_OUTPUT_COLOR_FORMAT_RGB444:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
-> > +			break;
-> > +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
-> > +			break;
-> > +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
-> > +			break;
-> > +		case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
-> > +			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
-> > +			break;
-> > +		default:
-> > +			ret = -EINVAL;
-> > +			goto out_free_bus_fmts;
-> > +		}
-> > +	} else {
-> > +		fmt = conn_state->color_format;
-> > +		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %d\n", fmt);
-> > +	}
-> > +
-> >  	for (i = 0; i < num_out_bus_fmts; i++) {
-> > +		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
-> > +			drm_dbg_kms(last_bridge->dev,
-> > +				    "Skipping bus format 0x%04x as it doesn't match format %d\n",
-> > +				    out_bus_fmts[i], fmt);
-> > +			ret = -ENOTSUPP;
-> > +			continue;
-> > +		}
-> >  		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
-> >  					       conn_state, out_bus_fmts[i]);
-> > -		if (ret != -ENOTSUPP)
-> > +		if (ret != -ENOTSUPP) {
-> > +			drm_dbg_kms(last_bridge->dev,
-> > +				    "Found bridge chain ending with bus format 0x%04x\n",
-> > +				    out_bus_fmts[i]);
-> >  			break;
-> > +		}
-> >  	}
-> >  
-> > +out_free_bus_fmts:
-> >  	kfree(out_bus_fmts);
-> >  
-> >  	return ret;
-> > 
+> Fixes: dc70c6ae2441 ("gpu: nova-core: vbios: Add support to look up PMU table in FWSEC")
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/vbios.rs | 34 +++++++++++++++++-----------------
+>  1 file changed, 17 insertions(+), 17 deletions(-)
 > 
+> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
+> index 6de7e58e0da0..de856000de23 100644
+> --- a/drivers/gpu/nova-core/vbios.rs
+> +++ b/drivers/gpu/nova-core/vbios.rs
+> @@ -423,31 +423,31 @@ impl BitToken {
+>      /// Find a BIT token entry by BIT ID in a PciAtBiosImage
+>      fn from_id(image: &PciAtBiosImage, token_id: u8) -> Result<Self> {
+>          let header = &image.bit_header;
+> +        let entry_size = usize::from(header.token_size);
+> +
+> +        if entry_size < size_of::<BitToken>() {
+> +            return Err(EINVAL);
+> +        }
+>  
+>          // Offset to the first token entry
+>          let tokens_start = image.bit_offset + usize::from(header.header_size);
+>  
+>          for i in 0..usize::from(header.token_entries) {
+> -            let entry_offset = tokens_start + (i * usize::from(header.token_size));
+> -
+> -            // Make sure we don't go out of bounds
+> -            if entry_offset + usize::from(header.token_size) > image.base.data.len() {
+> -                return Err(EINVAL);
+> -            }
+> +            let entry_offset = tokens_start + (i * entry_size);
+> +            let entry = image
+> +                .base
+> +                .data
+> +                .get(entry_offset..)
+> +                .and_then(|data| data.get(..entry_size))
+> +                .ok_or(EINVAL)?;
+>  
+>              // Check if this token has the requested ID
+> -            if image.base.data[entry_offset] == token_id {
+> +            if entry[0] == token_id {
+>                  return Ok(BitToken {
+> -                    id: image.base.data[entry_offset],
+> -                    data_version: image.base.data[entry_offset + 1],
+> -                    data_size: u16::from_le_bytes([
+> -                        image.base.data[entry_offset + 2],
+> -                        image.base.data[entry_offset + 3],
+> -                    ]),
+> -                    data_offset: u16::from_le_bytes([
+> -                        image.base.data[entry_offset + 4],
+> -                        image.base.data[entry_offset + 5],
+> -                    ]),
+> +                    id: entry[0],
+> +                    data_version: entry[1],
+> +                    data_size: u16::from_le_bytes([entry[2], entry[3]]),
+> +                    data_offset: u16::from_le_bytes([entry[4], entry[5]]),
+>                  });
+>              }
+>          }
 > 
 
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
 
+thanks,
 
+--
+Joel Fernandes
 
