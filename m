@@ -4,66 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 182C5F44852
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 12:20:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C9D5F44854
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 12:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6656710E964;
-	Fri, 10 Apr 2026 12:20:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6578810E130;
+	Fri, 10 Apr 2026 12:37:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="NqtE3ZUG";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="MWLffC7c";
 	dkim-atps=neutral
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8140E10E964
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 12:20:51 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260410122049euoutp0143673c5084fdbd183ef4d66d37caa67a~k-jNd8WTG1907619076euoutp01A
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 12:20:49 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260410122049euoutp0143673c5084fdbd183ef4d66d37caa67a~k-jNd8WTG1907619076euoutp01A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1775823649;
- bh=lN5zWO6+anmGDngLkOfFZEph7VAV3nISscwbspgkQFg=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=NqtE3ZUGhjK5b+8l3UJojriJ5nrit/EwmaDAMcMN1Br+4xN1xUNTVGwRO9rgOuFEb
- Bx2jTuJ8f+oN9wlq+XE/SWAFwLerZjUb96fqzAMZHDkFsEJdpJG3ASlCz+YzeKizNO
- GJFKrCnlGUMsKgU/vRZdu0YCgkUV/c9nFfJj/i48=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260410122049eucas1p2207046638096d1540b23f0a14d6169ac~k-jNEfoaG3206132061eucas1p2p;
- Fri, 10 Apr 2026 12:20:49 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260410122047eusmtip17c8b02f981e525f46be03f8d2d0e134f~k-jLa09If3110231102eusmtip1Z;
- Fri, 10 Apr 2026 12:20:47 +0000 (GMT)
-Message-ID: <9e3f7066-f147-4854-b662-9027fa7d3c80@samsung.com>
-Date: Fri, 10 Apr 2026 14:20:46 +0200
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 701E610E130
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 12:37:17 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-35da01fc0baso1301429a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 05:37:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1775824637; x=1776429437; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ObSlHorYoFId3LOZrgQbV492ce1VusgbgOP1QwTrQ4w=;
+ b=MWLffC7cqI/CUPcQrvTy1HtTneEP/1ABOy0CHZx9gfa0Zb2n+FtlG6amCI24TXHtvf
+ vA0+Q5r99/UsHZxqlz3fASVx7Qk+JhJo3DTn5T93C3YX7W/FdYntsG3ZyLIpEpXOCOuW
+ W0enIQqAqI/KfUKqcAdRr56ZyUkdwQ0g0gmpEDF+m8xvtbe3H/QzX2+grkLrC1AANnBj
+ iwFTNfq01oZbydO2eDK7WOxXPHl6lmxRiSRgXkPYEOeSqQtMSh2P/9QFoxLC/QTppcrb
+ H6KLH8quFi4luZoMPsWQQqYoKutVigNZAsn83ku51ijorbVje7pSL+YIImDNCSeLTNlL
+ 2VOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775824637; x=1776429437;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ObSlHorYoFId3LOZrgQbV492ce1VusgbgOP1QwTrQ4w=;
+ b=TT6Y1zXJ29HxVrCahIUE384PolEEJSF4nNEFrW3KcmNjb8zWQ9eNI6FDxoLc8t2nsO
+ nadzvnQvwRxunbOApZnbzoji91d5eUCbTfG6LCqm/OaaHzQBZskb9auEKzuDDxa5lxkK
+ SuLQoPGbdVUYcqOKlBUaemq83L+AA0SywjHuf2M0VwyH/XXpCd8ORsaaHL8kqPXANkDp
+ PGJ2cGLioohVNZxEsG564edIRhGkx9e1qszAvZboZkuRHH024EQ+cieaqb7g/T903Xx2
+ 9rzSr9PmkmZf2wEAKU3YdQmPmhkx31BRHfREPeSNey5jTAr6JWfB4LKgCry4lNFJ/Q5Z
+ 2hBw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVw4k2XNNZ4CBamnxFG9vLmALxFeMV+uGqrH30EgT6n7GxOciQZ4uup11ID+eFiH35trZYVIXxsco4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDYoxSbQgw/JprnQA8Hvu6nO3aArza6B4ZHkJXcZc0SFMCf4y0
+ Hr3/4FP3H4u2fww0NXO8PStTVAEUacuUsdyR4D6A00Hs+enovj4D9TNO9jm1WvOeeWU=
+X-Gm-Gg: AeBDievyvPEwQC7hexZB+v1s05grbgd0uz0IvHu4LNzyLqFyVB3QYEjLGoKKEHqS8xf
+ k8SkcvOO6i2j3JXeCs66dKJFRbxvMzQzXkNzLjEDqoLnv34sQBZCzjx//mAXHfykahPE7bgYkJ4
+ BUkrgZ6W7u3LCfvAUzSTj+UfONNT4l36bsu3W4V4C0h+KWBD0s/qo6GwwG8VgTm1DizTPibTOqv
+ iOQYQ3U5yt6QIaoRP2vgydboo4kr01LQv2RZb/24pz1eWOM2GpckfyhkwjXAlJrFDerv8bLkCmi
+ 1U18CZjox+pRE8qAEOaHSYNLQIVks4kuAtT7NZ7Q6zKVTHbNbIhFkHHCL64tW0DQD4FuXqLP2pq
+ S49vNkkbobbkuezfu9sEk1ZDrQkZ6I8phU6Z+A5gvKEAv7lfnSQBMbSnov3bkkfP1ZOOw3LjyYv
+ 9nOuUV8Zn03OdoQqilykedKZd1Nmer7VmMmR/rJnZKX/pD
+X-Received: by 2002:a17:90b:2ccb:b0:35d:a9bb:1e33 with SMTP id
+ 98e67ed59e1d1-35e427afe02mr3338087a91.11.1775824636700; 
+ Fri, 10 Apr 2026 05:37:16 -0700 (PDT)
+Received: from nagraj.tail8a2ac.ts.net
+ ([2406:7400:98:af5f:a6a2:e126:5ae3:4132])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35e35155829sm6780138a91.13.2026.04.10.05.37.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Apr 2026 05:37:16 -0700 (PDT)
+From: Sumit Semwal <sumit.semwal@linaro.org>
+To: christian.koenig@amd.com
+Cc: leon@kernel.org, broonie@kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-next@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH] dma-buf: fix htmldocs error for dma_buf_attach_revocable
+Date: Fri, 10 Apr 2026 18:07:03 +0530
+Message-ID: <20260410123703.937822-1-sumit.semwal@linaro.org>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2] dma-buf: heaps: system: document system_cc_shared heap
-To: Sumit Semwal <sumit.semwal@linaro.org>, Jiri Pirko <jiri@resnulli.us>
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev, linux-media@vger.kernel.org,
- benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com,
- tjmercier@google.com, christian.koenig@amd.com, robin.murphy@arm.com,
- jgg@ziepe.ca, leon@kernel.org, ptesarik@suse.com, catalin.marinas@arm.com,
- aneesh.kumar@kernel.org, suzuki.poulose@arm.com, steven.price@arm.com,
- thomas.lendacky@amd.com, john.allen@amd.com, ashish.kalra@amd.com,
- suravee.suthikulpanit@amd.com, linux-coco@lists.linux.dev
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <CAO_48GFt21rv0PJd2Csa0O4OEpN053_p__4Zux+m7jQdHSagEg@mail.gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260410122049eucas1p2207046638096d1540b23f0a14d6169ac
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260410121457eucas1p1450d22bb1d09d9978fe68e801d8c2a58
-X-EPHeader: CA
-X-CMS-RootMailID: 20260410121457eucas1p1450d22bb1d09d9978fe68e801d8c2a58
-References: <20260407092617.635223-1-jiri@resnulli.us>
- <CGME20260410121457eucas1p1450d22bb1d09d9978fe68e801d8c2a58@eucas1p1.samsung.com>
- <CAO_48GFt21rv0PJd2Csa0O4OEpN053_p__4Zux+m7jQdHSagEg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,28 +88,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 10.04.2026 14:14, Sumit Semwal wrote:
-> On Tue, 7 Apr 2026 at 14:56, Jiri Pirko <jiri@resnulli.us> wrote:
->> From: Jiri Pirko <jiri@nvidia.com>
->>
->> Document the system_cc_shared dma-buf heap that was introduced
->> recently. Describe its purpose, availability conditions and
->> relation to confidential computing VMs.
->>
->> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
->> Reviewed-by: T.J.Mercier <tjmercier@google.com>
-> Thank you for the patch!
->
-> Marek: Since you're taking the dependent patches through your tree,
-> could you please use:
-> Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
->
-> and take this as well?
+linux-next testing showed this htmldoc error due to a missing extra
+line in the comments; add it.
 
-Yes, sure. Applied to dma-mapping-for-next. Thanks!
+Fixes: be6d4c9e9d714 ("dma-buf: Add dma_buf_attach_revocable()")
+Reported-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sumit Semwal <sumit.semwal@linaro.org>
+---
+ drivers/dma-buf/dma-buf.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Best regards
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index a202a308c079..532c3f14bf9d 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -1353,6 +1353,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_attach_revocable, "DMA_BUF");
+  * Upon return importers may continue to access the DMA-buf memory. The caller
+  * must do two additional waits to ensure that the memory is no longer being
+  * accessed:
++ *
+  *  1) Until dma_resv_wait_timeout() retires fences the importer is allowed to
+  *     fully access the memory.
+  *  2) Until the importer calls unmap it is allowed to speculatively
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.51.1
 
