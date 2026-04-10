@@ -4,146 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84E54F459EF
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 16:09:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3974CF459F5
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 16:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EBE710E180;
-	Fri, 10 Apr 2026 16:09:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66CF110E988;
+	Fri, 10 Apr 2026 16:21:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NDWMJK6Z";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FFFtkMO3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A92E10E979;
- Fri, 10 Apr 2026 16:09:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED39610E986;
+ Fri, 10 Apr 2026 16:21:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775837347; x=1807373347;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=XY89SokgZcVAXVJFtJ3J/ghlfPlZ+cWY3mhwIBohTnI=;
- b=NDWMJK6Zr6Yul4VUeKH8RivjivHf24kd6Ilvt6VACXGdnvxeftMFGjbx
- zEz/4fHJ6UkdmUVlWVZ8IrDeg48sLw0vxle+vUVxQk8U4CQjAIiiR6ROO
- BtKjby1eo158/hdNnlox72p0z2MNgBXw/Qxr317USMPWTd00iad5Ytllw
- tDhDL4h7iA86zWKKCOhZXYsuZoYzit+TwhB2nchaXj20nm/JC8fgCCybx
- yJat0ysJP9f7C/F8GiKmKedzKUJwj1tqBPcqBK7Fk+jnyZvU34c3lbYK4
- uzvg5Le3EQlDTnPJtpZksVVgg/DiiUk+Lw2hOI+lW8ZDdfiyD+sOEj+3P A==;
-X-CSE-ConnectionGUID: oKMeS6MuRMSQqsCuUMTT9A==
-X-CSE-MsgGUID: SMYA7W7NSUCchDi7ycoh0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="87556237"
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="87556237"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 09:09:07 -0700
-X-CSE-ConnectionGUID: MgKFoCwLS96F1ccqNYIYGw==
-X-CSE-MsgGUID: LZCTeqXZTSOX2fp0AIpupA==
+ t=1775838067; x=1807374067;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=L4JnN6ymkD02thfr3D7lc2Ddeg6CXvhtgVtpVinHkfY=;
+ b=FFFtkMO36Qw2tiBFlJAtsp789H6d47URN5ZXbM3arCGhdEA+AFltfTYM
+ HbCKjRlo5xBMPKC8B7z2RpjhWA3z+L9r/jwsz1H3NoRgHk4pkszPgDRMu
+ YMgDHeb1eknDi3Q5QqyFqiRG5qs4WVm9dszdxOhMr5KWbikx0f6JSuG0k
+ Vmg0FfeAiqjrMsg2A5nbp5TBYrE/8CIpqW9/avSR/5NsuRQmh4WrrpqfN
+ wK5/NTk1idBr0gG2542bfAxlINb8HWzmXokuzV942padsU9mSr9ni9Yob
+ /uQsNYWQ0unUzVnKreCuBP6aY2jr2diNXVBO88aE1EaZOhHkJ7K+xiR7O A==;
+X-CSE-ConnectionGUID: cmnc8SevQaO4JVy6azR5Hw==
+X-CSE-MsgGUID: 2DfOhYrESuum5IbP1s7g+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="76575382"
+X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="76575382"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2026 09:21:06 -0700
+X-CSE-ConnectionGUID: 7iDZzSfNTFujT5f7GhEQ5g==
+X-CSE-MsgGUID: ++Zffgl8QfWm3j0Dwaa+zQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="228272845"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 09:09:07 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 10 Apr 2026 09:09:06 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 10 Apr 2026 09:09:06 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.39) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 10 Apr 2026 09:09:05 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iA6Jqo2EWWuR4Dw6G/nqHSVHCtS8nAp1QGhJQUrtSOPITk+1Z9JMoGK+L/OETskNOAJEhG7bWcAW57ZHBDnV3gPnyJRWmVYh/+bXIU1Y5VIwag2SsYC71603VrZM73X+tBj5mUaIVus16popSjepLH5xKpHa8Vzfw5N0Aocym/vX3lp68QbN2zaq8C3o3wU2M+HF2whrdFxguePzbqG0H9/fMCushOaekAN3S7s5Arfhez5eNBKdt34MM20cNQlyihQbz02fOGHSG6jznzWC3qHZULaF3+2UZEKs0w8xhvHr2ol74/LfUkk3Iz6MlhKMNuIHUZJLY7ej4A8ZRfO+EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EosNlWFPdF1Z48zkh0p06EwXN1CgmcOKUhtuuMoDaZI=;
- b=gdJpqcYMNP2PWs1wrd+r1oHGk2+IfgsgQht4i/1xmcm76UUzESYiLw4/VUchsGkTbJnJt849HKjdfqK00mCfVOgWuz8ojG7Y0Uvgq2i5Dlih6Vz7fYETHg9bLf1WjRGkLyyC7OF5ZvqZswX7WdBkmz6t0M61UzbxQ81+diOnI/PTkTiToXfkLMtozE6JBMXB+UDoxeuIbyTq9h7rvxUto/kmwx1SyNC0L7v8rNQPXgcX7R4W+kUZjdI3NV1mujhDiAsszL1Rq2O74I1jQsP9OONihLWlrf+vI1CuOXUTthuPlzzk3bagjKG5w+1ViiGc2eWb1JdworY7JWhvBKKLXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com (2603:10b6:930:78::8)
- by PH8PR11MB6612.namprd11.prod.outlook.com (2603:10b6:510:1cf::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.35; Fri, 10 Apr
- 2026 16:09:03 +0000
-Received: from CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277]) by CY8PR11MB7828.namprd11.prod.outlook.com
- ([fe80::1171:db4d:d6ad:3277%3]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 16:09:03 +0000
-Date: Fri, 10 Apr 2026 18:08:09 +0200
-From: Francois Dugast <francois.dugast@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v6 4/5] drm/pagemap: Use dma-map IOVA alloc, link, and
- sync API for DRM pagemap
-Message-ID: <adkgaXUuBdD5A4ZO@fdugast-desk>
-References: <20260408201537.3580549-1-matthew.brost@intel.com>
- <20260408201537.3580549-5-matthew.brost@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260408201537.3580549-5-matthew.brost@intel.com>
-Organization: Intel Corporation
-X-ClientProxiedBy: DB3PR08CA0002.eurprd08.prod.outlook.com (2603:10a6:8::15)
- To CY8PR11MB7828.namprd11.prod.outlook.com (2603:10b6:930:78::8)
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.149])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2026 09:20:55 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kory Maincent <kory.maincent@bootlin.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave
+ Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>, Eric
+ Anholt <eric@anholt.net>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Mark Yacoub
+ <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Simona Vetter
+ <simona.vetter@ffwll.ch>, Kory Maincent <kory.maincent@bootlin.com>
+Subject: Re: [PATCH RFC 09/12] drm: Introduce drmm_connector_dp_init() with
+ link training state properties
+In-Reply-To: <20260409-feat_link_cap-v1-9-7069e8199ce2@bootlin.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
+ <20260409-feat_link_cap-v1-9-7069e8199ce2@bootlin.com>
+Date: Fri, 10 Apr 2026 19:20:53 +0300
+Message-ID: <52197e5711b7ceabeb48035910fe39978e96a497@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR11MB7828:EE_|PH8PR11MB6612:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62b78b04-840e-4fa1-02f7-08de971b7be8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: UzuifmtHEW9Ko4421aJ+j4jEIHYtb01qIo5tEAbWdBf4XqW3bQEp/nYXdy6W5NaSOaHYhbl64bsvhloZ4HFJBk4QbEuwG7WpHNhxaHevfQwEm9p5fJvlQoKUR5Pux8PL5Lj3OHNmMZXiuypdpEjFqHOYj1uMq6hPwoozQ4+pd31Qmu3uezUX63HlrQ3jlaNuvl5PELAiomn4/3pMr/pjV1ucrGpdRtUGDzCu9fQGlo8aBJgNMUrLIJzsSdmXc5VlO4h86jsKhuHZjN8aL1nspZVWJKeTmcDdK9h+d9cmVxXE8l4md0EL2JpTcMoz4h88Wfim3WrmLIGCqTw/TJUSiwRX41WfVREnB6zk4ymf8YH+SR2h/EuC6whHyl3reHqsxblT1Gsv+HgwYSnfHGEz7IFgSkNm6tECoG49rqGD7lP17b5u2dlE3rHns3jEkbPkgqH1W9/GM0qTU2sKjIkF1/dLedPd2lD3TJhY8ve7Z2ghTu0TuBqoQUUl0ohJP97kK72LVqx2in4V0OkmxxqvjR1LNE5nS1ApAPlMV/iYwRh0M73ZLJsMurMQPYDM44AC0504MzlMRmUrFgcwNmfuECAOIUmNEm8879/HD2uamv8ZGdXRVW+huKpJRQ88WS4nQ0/PteRUTJ56ZB1pM+aV1Wvo2mpb2xnHaykRZNpT6je+niCqbZKkXhePlJ+iw4o9L8MRp8p4wFWpWWOZxPrPCe8BHhhRl9YnlFCph1vf1Uo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR11MB7828.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Zn9JLEO05Y4w2Q8cQ2RwPUHJX+2eUkdyqjMNMu2Zd2TwWP/GrA6zhxTlMcGe?=
- =?us-ascii?Q?L4yg7NTrAAXHV8Y9YA3Qt3dN5c6gxY6L8qsv/44hW2kgyOpzqqseDnUuI8xL?=
- =?us-ascii?Q?F2ko6nHYu79MDdJO9US80RTWV2roKwYtqLMJ67mxfleksY978gPNKSoaUuz9?=
- =?us-ascii?Q?6pG4phI5LpSjXIYN/55IdYEDv1S1B1YWjcHlZ4YjHU6NkrCTkDRXwX5kMzxz?=
- =?us-ascii?Q?2bRGGYQXdRcxl70V+apgYlpa6RrsVmv6u+9wkKrQpfCA3kUUCySdtocdrf9k?=
- =?us-ascii?Q?a4F+HsR+7Yl7r2p4maAm0BUpxzf75wy1F7prxGLRqYkwNU6jPIyEXLTZVA6e?=
- =?us-ascii?Q?aJUTmlv0asSbSbkfE3fzqyrLJz1w+NTHhoPz9r2TURqsr0ma0Yq//BpNZs3C?=
- =?us-ascii?Q?CBbVd5LhZRNgNhsTbVnHjnF8NYqjWeV+CxYPlVFGYA7X4alGXJA9Mxk5UAWo?=
- =?us-ascii?Q?+0PB65mh0JkXt4YS7H5wlzLbz2weZOWpBrrVQJhMMbI94pVZMTBstaVztuJk?=
- =?us-ascii?Q?9meSwepXg8kXVzdLiGHmCFL6gLeGWdwB0T7gxvpbJZCDzSP2U14fwhVtC5Ua?=
- =?us-ascii?Q?NvZl0JUvHC35HL5KPfw8p6QRdpYyefJIkNnRVrfFkHJG8en3nmuvzfut9rkt?=
- =?us-ascii?Q?4617S5pSP0RTNTr79TahVvh0ghUkS71D4/yscQn3U0jVXtioz3WztbS8rs1c?=
- =?us-ascii?Q?GwD2Gx54o4OzMw5JTU2AX7e0NpXWYrQopwu7tkJTBhVBYKb2MEyI5HWzAekk?=
- =?us-ascii?Q?lgPKOR1PBX6VX90uuozyyHgbYSepRj9dO55sbmAcliAFnJL//eDunZoAmJfp?=
- =?us-ascii?Q?dqIf5mwQedsL8QyGpBebreGL7JxVkGo4vY70FBUBY9OB8Ka4gU/VCJh+ZKhg?=
- =?us-ascii?Q?L++v9vSHWugrqpLGtXMIe43OKAZlYez/GqNlbxX+aN4jZ0UrdgYnYD1Mpij4?=
- =?us-ascii?Q?UunMxUrWVCmtyD9ik+QBzl+3acljvsftyofh6qHI1coMJxLBSHrIFJfUM0cu?=
- =?us-ascii?Q?3oaXVwUi0X2hT+0qHMREdoc2gO13Scq6s3st9zNbl8XWeWPzoiQ0nY0WybcQ?=
- =?us-ascii?Q?QAFuJpAJZ/4SyPh3HHmxDSqWGuQDRq9jOz98yWLgr9XCX/efi33bmPnhAvFh?=
- =?us-ascii?Q?OaZx3cYfBgmQlHrZFyVm2CAsFYE87ZrOGiyyY4Wp5O/8KaZ04yfgSzHY4sAo?=
- =?us-ascii?Q?c1O1eeRp7VBar6J0+83yc0LJyYh2tk0t+sL0BJcYlV9C0cNFSeZEMe4Wkqzi?=
- =?us-ascii?Q?vZqYdh13UvRaQJ4rULXzZkJEcGGFvvi2/Ex3lBYtxLC2WWjvzBGnd/+YiqHh?=
- =?us-ascii?Q?qhtmK+8rtNuV22bc9NXP+NHeVbz7+aFkkBHmqWKmj7KKLxBzoM0yqIFGifvA?=
- =?us-ascii?Q?IY5JaVvQg2RaAj9r7zpE8NMtdZj3gvGmsV4fPBZtbHTpEt3YEn8LGzcDmC8P?=
- =?us-ascii?Q?o0kWUGKZ6ultFId+cV9g8gXTfqrpl7iGPLOryWJJ9wt8nXHr6ex8yxfSk7hg?=
- =?us-ascii?Q?PxD6CYlFIc+ZJSP6cw4DxQbloAhXFJSC762Jb5Fo/THOgar/U95fTcfyTg3j?=
- =?us-ascii?Q?MM8achl+gHV9oIxIqomQ6CC4a7rZIpU1k1y34vNeNV7FDv13GnWkxGotQhFh?=
- =?us-ascii?Q?VNSYY8PuMKYN394Nz579q2rzjLvb6kCaCrdj3ayKetIrGiNINsIL5JO4G8ji?=
- =?us-ascii?Q?tPp9djXFxlCRQvX3gr/eoiGUG7hdYWnbKsQyTWY/4462fBgq/WxTyiS1tdQH?=
- =?us-ascii?Q?RbJ7GZftH7L1eMhFX/USniYTDZFrq88=3D?=
-X-Exchange-RoutingPolicyChecked: Pkm3A4gBSHASLiFvb1P7I7gF1j540TBbtRn0w/Nov0wQVg+ZRG6ilm0IlbBDjC+QjaH9Oq2Ex/BAjdxqshFh7AAqNvGLdv34ECDQlNtE1dZyV9vgQHoWhm62FI0e+zyHNlw8OPCoeD2rwJZEWhdOLO9PFr0DsPnBLPcokFHhcIRZVWkPNYOmd9MFPqkjHshsVIJLM/qKYgdFnJhbm8SVpzTZ062/+sHkZCv1qpwJoaALQG0CbqQQpnA68ZohLEVBlV09VYJXWc3YxpgcHDpPHhHndcNuiwFYKn0PjWuFCL3VZEYl2p7z7Tl09fTxbsq87Zwk7Wi0jibbO/LJFS2ZZw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62b78b04-840e-4fa1-02f7-08de971b7be8
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7828.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 16:09:03.4604 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D0WL3YJvat6UBZiXxxbAWM5CzoCFLtwRcVHI5yUBJbruWyNK3JnamjGNESaj5BtcwSGgcMhJW4iVm6+bJ4GCNPjXWsjmHmiPukMxacdy8ZY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6612
-X-OriginatorOrg: intel.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,259 +91,592 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2026 at 01:15:36PM -0700, Matthew Brost wrote:
-> The dma-map IOVA alloc, link, and sync APIs perform significantly better
-> than dma-map / dma-unmap, as they avoid costly IOMMU synchronizations.
-> This difference is especially noticeable when mapping a 2MB region in
-> 4KB pages.
-> 
-> Use the IOVA alloc, link, and sync APIs for DRM pagemap, which create DMA
-> mappings between the CPU and GPU for copying data.
-> 
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+On Thu, 09 Apr 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> Add a managed DisplayPort connector initialization helper,
+> drmm_connector_dp_init(), modeled after the existing HDMI counterpart
+> drmm_connector_hdmi_init(). Cleanup is handled automatically via a
+> DRM-managed action.
+>
+> The helper creates the following immutable connector properties to expose
+> DP link training capabilities and state to userspace:
+>
+>   - num_lanes: bitmask of supported lane counts (1, 2, 4)
+>   - link_rate: Array of supported link rates.
+>   - dsc_en: Display Stream Compression supported
+>   - voltage_swingN: per-lane voltage swing level bitmask
+>   - pre-emphasisN: per-lane pre-emphasis level bitmask
 
-I have been running more tests this week: this improves SVM page fault
-handling latency by around 4% for 64kB and by around 20% for 2MB, nice!
+The main question is, why do we need to provide these details to the
+userspace via ABI?
 
-Reviewed-by: Francois Dugast <francois.dugast@intel.com>
+I mean yeah, we can unify on a debugfs interface, but connector
+properties and ABI seems a bit over the top. The userspace should not
+have to act on any of this information, except perhaps in a test
+scenario, for which debugfs should be just fine.
 
-Francois
+I'm also concerned about the duplication of data here. I think debugfs
+could be constructed in a way to query the actual information from the
+driver right then and there, instead of having to copy data over to
+properties, which can go stale.
 
-> 
+Oh, there's also too much going on in one patch here.
+
+
+BR,
+Jani.
+
+
+
+>
+> Link rates are passed by the driver in deca-kbps, following the DRM
+> convention, but exposed to userspace in kbps for clarity.
+>
+> Two additional helpers are provided to update and reset those properties
+> at runtime:
+>   - drm_connector_dp_set_link_train_properties()
+>   - drm_connector_dp_reset_link_train_properties()
+>
+> Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 > ---
-> v6: Fix drm_pagemap_migrate_map_system_pages kernel doc (Francois)
-> ---
->  drivers/gpu/drm/drm_pagemap.c | 85 ++++++++++++++++++++++++++++-------
->  1 file changed, 70 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> index ee4d9f90bf67..ed62866b52f6 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -291,6 +291,19 @@ drm_pagemap_migrate_map_device_private_pages(struct device *dev,
->  	return 0;
->  }
+>  drivers/gpu/drm/Makefile           |   1 +
+>  drivers/gpu/drm/drm_dp_connector.c | 344 +++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_connector.h        |  38 ++++
+>  include/drm/drm_dp_connector.h     | 109 ++++++++++++
+>  4 files changed, 492 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd7830..8ff08c2fb863e 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -42,6 +42,7 @@ drm-y := \
+>  	drm_color_mgmt.o \
+>  	drm_colorop.o \
+>  	drm_connector.o \
+> +	drm_dp_connector.o \
+>  	drm_crtc.o \
+>  	drm_displayid.o \
+>  	drm_drv.o \
+> diff --git a/drivers/gpu/drm/drm_dp_connector.c b/drivers/gpu/drm/drm_dp_connector.c
+> new file mode 100644
+> index 0000000000000..b25637a4378d5
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_dp_connector.c
+> @@ -0,0 +1,344 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Google
+> + * Author: Kory Maincent <kory.maincent@bootlin.com>
+> + */
+> +#include <drm/drm_dp_connector.h>
+> +#include <drm/drm_print.h>
+> +#include <linux/list.h>
+> +
+> +/**
+> + * drm_connector_dp_link_reset_properties() - Reset DisplayPort link configuration
+> + * @connector: DRM connector
+> + * @dp_link: Link training informations
+> + *
+> + * Returns: Zero on success, or an errno code otherwise.
+> + */
+> +int
+> +drm_connector_dp_set_link_train_properties(struct drm_connector *connector,
+> +					   const struct drm_connector_dp_link_train *dp_link_train)
+> +{
+> +	u32 lrate = 0;
+> +	int ret;
+> +
+> +	if (!connector)
+> +		return -ENODEV;
+> +
+> +	if (dp_link_train->nlanes && !is_power_of_2(dp_link_train->nlanes & DRM_NLANES_MASK)) {
+> +		drm_err(connector->dev, "Wrong lane number");
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (dp_link_train->rate) {
+> +		struct drm_property_enum *prop_enum;
+> +		bool found = false;
+> +
+> +		list_for_each_entry(prop_enum, &connector->dp.link_rate_property->enum_list, head) {
+> +			u32 parsed_rate;
+> +
+> +			/* Convert dp_link_train->rate from deca-kbps to kbps */
+> +			if (!kstrtou32(prop_enum->name, 10, &parsed_rate) &&
+> +			    dp_link_train->rate * 10 == parsed_rate) {
+> +				lrate = 1 << prop_enum->value;
+> +				found = true;
+> +				break;
+> +			}
+> +		}
+> +
+> +		if (!found) {
+> +			drm_err(connector->dev, "Wrong rate value");
+> +			return -EINVAL;
+> +		}
+> +	}
+> +
+> +	ret = drm_object_property_set_value(&connector->base, connector->dp.nlanes_property,
+> +					    dp_link_train->nlanes);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = drm_object_property_set_value(&connector->base, connector->dp.link_rate_property,
+> +					    lrate);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (connector->dp.dsc_en_property) {
+> +		ret = drm_object_property_set_value(&connector->base, connector->dp.dsc_en_property,
+> +						    dp_link_train->dsc_en);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	for (int i = 0; i < 4; i++) {
+> +		if (connector->dp.v_swing_property[i]) {
+> +			ret = drm_object_property_set_value(&connector->base,
+> +							    connector->dp.v_swing_property[i],
+> +							    dp_link_train->v_swing[i]);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+> +		if (connector->dp.pre_emph_property[i]) {
+> +			ret = drm_object_property_set_value(&connector->base,
+> +							    connector->dp.pre_emph_property[i],
+> +							    dp_link_train->pre_emph[i]);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +	}
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL(drm_connector_dp_set_link_train_properties);
+> +
+> +/**
+> + * drm_connector_dp_link_reset_properties() - Reset DisplayPort link configuration
+> + * @connector: DRM connector
+> + */
+> +void drm_connector_dp_reset_link_train_properties(struct drm_connector *connector)
+> +{
+> +	struct drm_connector_dp_link_train dp_link_train = {0};
+> +
+> +	drm_connector_dp_set_link_train_properties(connector, &dp_link_train);
+> +}
+> +EXPORT_SYMBOL(drm_connector_dp_reset_link_train_properties);
+> +
+> +static int drm_connector_create_nlanes_prop(struct drm_connector *connector,
+> +					    u8 sup_nlanes)
+> +{
+> +	static const struct drm_prop_enum_list props[] = {
+> +		{__builtin_ffs(DRM_DP_1LANE) - 1, "1" },
+> +		{__builtin_ffs(DRM_DP_2LANE) - 1, "2" },
+> +		{__builtin_ffs(DRM_DP_4LANE) - 1, "4" },
+> +	};
+> +	struct drm_property *prop;
+> +
+> +	if (drm_WARN_ON(connector->dev, sup_nlanes != (sup_nlanes & DRM_NLANES_MASK)))
+> +		return -EINVAL;
+> +
+> +	prop = drm_property_create_bitmask(connector->dev, DRM_MODE_PROP_IMMUTABLE,
+> +					   "num_lanes", props, ARRAY_SIZE(props),
+> +					   sup_nlanes);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +
+> +	connector->dp.nlanes_property = prop;
+> +
+> +	return 0;
+> +}
+> +
+> +static int drm_connector_create_lrate_prop(struct drm_connector *connector,
+> +					   u32 sup_nlrates,
+> +					   const u32 *sup_lrates)
+> +{
+> +	struct drm_prop_enum_list *props;
+> +	u32 supp_nlrates_bitmask = 0;
+> +	struct drm_property *prop;
+> +	int ret = 0;
+> +
+> +	if (!sup_nlrates || !sup_lrates)
+> +		return 0;
+> +
+> +	props = kcalloc(sup_nlrates, sizeof(*props), GFP_KERNEL);
+> +	if (!props)
+> +		return -ENOMEM;
+> +
+> +	for (int i = 0; i < sup_nlrates; i++) {
+> +		props[i].type = i;
+> +		/* Convert deca-kbps to kbps */
+> +		props[i].name = kasprintf(GFP_KERNEL, "%d", sup_lrates[i] * 10);
+> +		if (!props[i].name) {
+> +			while (i--)
+> +				kfree(props[i].name);
+> +			kfree(props);
+> +			return -ENOMEM;
+> +		}
+> +		supp_nlrates_bitmask |= 1 << i;
+> +	}
+> +
+> +	prop = drm_property_create_bitmask(connector->dev, DRM_MODE_PROP_IMMUTABLE,
+> +					   "link_rate", props, sup_nlrates,
+> +					   supp_nlrates_bitmask);
+> +	if (!prop) {
+> +		ret = -ENOMEM;
+> +		goto out;
+> +	}
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +
+> +	connector->dp.link_rate_property = prop;
+> +
+> +out:
+> +	for (int i = 0; i < sup_nlrates; i++)
+> +		kfree(props[i].name);
+> +
+> +	kfree(props);
+> +	return ret;
+> +}
+> +
+> +static int drm_connector_create_dsc_prop(struct drm_connector *connector)
+> +{
+> +	struct drm_property *prop;
+> +
+> +	prop = drm_property_create_bool(connector->dev, DRM_MODE_PROP_IMMUTABLE, "dsc_en");
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +
+> +	connector->dp.dsc_en_property = prop;
+> +
+> +	return 0;
+> +}
+> +
+> +static int drm_connector_create_vswing_prop(struct drm_connector *connector,
+> +					    u8 sup_v_swings, int id)
+> +{
+> +	static const struct drm_prop_enum_list props[] = {
+> +		{__builtin_ffs(DRM_DP_VOLTAGE_SWING_LEVEL_0) - 1, "level_0" },
+> +		{__builtin_ffs(DRM_DP_VOLTAGE_SWING_LEVEL_1) - 1, "level_1" },
+> +		{__builtin_ffs(DRM_DP_VOLTAGE_SWING_LEVEL_2) - 1, "level_2" },
+> +		{__builtin_ffs(DRM_DP_VOLTAGE_SWING_LEVEL_3) - 1, "level_3" },
+> +	};
+> +	struct drm_property *prop;
+> +	char str[16];
+> +
+> +	if (!sup_v_swings)
+> +		return 0;
+> +
+> +	if (drm_WARN_ON(connector->dev, sup_v_swings != (sup_v_swings &
+> +						   DRM_DP_VOLTAGE_SWING_LEVEL_MASK)))
+> +		return -EINVAL;
+> +
+> +	snprintf(str, sizeof(str), "voltage_swing%d", id);
+> +	prop = drm_property_create_bitmask(connector->dev, DRM_MODE_PROP_IMMUTABLE,
+> +					   str, props, ARRAY_SIZE(props),
+> +					   sup_v_swings);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +
+> +	connector->dp.v_swing_property[id] = prop;
+> +
+> +	return 0;
+> +}
+> +
+> +static int drm_connector_create_pre_emph_prop(struct drm_connector *connector,
+> +					      u8 sup_pre_emph, int id)
+> +{
+> +	static const struct drm_prop_enum_list props[] = {
+> +		{__builtin_ffs(DRM_DP_PRE_EMPH_LEVEL_0) - 1, "level_0" },
+> +		{__builtin_ffs(DRM_DP_PRE_EMPH_LEVEL_1) - 1, "level_1" },
+> +		{__builtin_ffs(DRM_DP_PRE_EMPH_LEVEL_2) - 1, "level_2" },
+> +		{__builtin_ffs(DRM_DP_PRE_EMPH_LEVEL_3) - 1, "level_3" },
+> +	};
+> +	struct drm_property *prop;
+> +	char str[16];
+> +
+> +	if (!sup_pre_emph)
+> +		return 0;
+> +
+> +	if (drm_WARN_ON(connector->dev, sup_pre_emph != (sup_pre_emph &
+> +						   DRM_DP_PRE_EMPH_LEVEL_MASK)))
+> +		return -EINVAL;
+> +
+> +	snprintf(str, sizeof(str), "pre_emphasis%d", id);
+> +	prop = drm_property_create_bitmask(connector->dev, DRM_MODE_PROP_IMMUTABLE,
+> +					   str, props, ARRAY_SIZE(props),
+> +					   sup_pre_emph);
+> +	if (!prop)
+> +		return -ENOMEM;
+> +
+> +	drm_object_attach_property(&connector->base, prop, 0);
+> +
+> +	connector->dp.pre_emph_property[id] = prop;
+> +
+> +	return 0;
+> +}
+> +
+> +static int
+> +drm_connector_dp_create_props(struct drm_connector *connector,
+> +			      const struct drm_connector_dp_link_train_caps *dp_link_train_caps)
+> +{
+> +	u8 nlanes;
+> +	int ret;
+> +
+> +	ret = drm_connector_create_nlanes_prop(connector, dp_link_train_caps->nlanes);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = drm_connector_create_lrate_prop(connector, dp_link_train_caps->nrates,
+> +					      dp_link_train_caps->rates);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (dp_link_train_caps->dsc) {
+> +		ret = drm_connector_create_dsc_prop(connector);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	nlanes = 1 << (fls(dp_link_train_caps->nlanes) - 1);
+> +	for (int i = 0; i < nlanes; i++) {
+> +		ret = drm_connector_create_vswing_prop(connector,
+> +						       dp_link_train_caps->v_swings, i);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = drm_connector_create_pre_emph_prop(connector,
+> +							 dp_link_train_caps->pre_emphs, i);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * drmm_connector_dp_init - Init a preallocated DisplayPort connector
+> + * @dev: DRM device
+> + * @connector: A pointer to the DisplayPort connector to init
+> + * @funcs: callbacks for this connector
+> + * @dp_link_train_caps: DisplayPort link training capabilities. The pointer
+> + *			is not kept by the DRM core
+> + * @connector_type: user visible type of the connector
+> + * @ddc: optional pointer to the associated ddc adapter
+> + *
+> + * Initialises a preallocated DisplayPort connector. Connectors can be
+> + * subclassed as part of driver connector objects.
+> + *
+> + * Cleanup is automatically handled with a call to
+> + * drm_connector_cleanup() in a DRM-managed action.
+> + *
+> + * The connector structure should be allocated with drmm_kzalloc().
+> + *
+> + * The @drm_connector_funcs.destroy hook must be NULL.
+> + *
+> + * Returns:
+> + * Zero on success, error code on failure.
+> + */
+> +int drmm_connector_dp_init(struct drm_device *dev,
+> +			   struct drm_connector *connector,
+> +			   const struct drm_connector_funcs *funcs,
+> +			   const struct drm_connector_dp_link_train_caps *dp_link_train_caps,
+> +			   int connector_type,
+> +			   struct i2c_adapter *ddc)
+> +{
+> +	int ret;
+> +
+> +	if (!(connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+> +	      connector_type == DRM_MODE_CONNECTOR_eDP))
+> +		return -EINVAL;
+> +
+> +	if (!dp_link_train_caps)
+> +		return -EINVAL;
+> +
+> +	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return drm_connector_dp_create_props(connector, dp_link_train_caps);
+> +}
+> +EXPORT_SYMBOL(drmm_connector_dp_init);
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index f83f28cae2075..df3a71fed35b1 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -1987,6 +1987,39 @@ struct drm_connector_cec {
+>  	void *data;
+>  };
 >  
 > +/**
-> + * struct drm_pagemap_iova_state - DRM pagemap IOVA state
-> + * @dma_state: DMA IOVA state.
-> + * @offset: Current offset in IOVA.
-> + *
-> + * This structure acts as an iterator for packing all IOVA addresses within a
-> + * contiguous range.
+> + * struct drm_connector_dp - DRM Connector DisplayPort-related structure
 > + */
-> +struct drm_pagemap_iova_state {
-> +	struct dma_iova_state dma_state;
-> +	unsigned long offset;
+> +struct drm_connector_dp {
+> +	/**
+> +	 * @nlanes_property: Connector property to report the number of lanes
+> +	 */
+> +	struct drm_property *nlanes_property;
+> +
+> +	/**
+> +	 * @link_rate_property: Connector property to report the link rate
+> +	 */
+> +	struct drm_property *link_rate_property;
+> +
+> +	/**
+> +	 * @dsc_en_property: Connector property to report the Display Stream
+> +	 * Compression supporrt
+> +	 */
+> +	struct drm_property *dsc_en_property;
+> +
+> +	/**
+> +	 * @v_swing_property: Connector property to report the voltage
+> +	 * swing per lane
+> +	 */
+> +	struct drm_property *v_swing_property[4];
+> +
+> +	/**
+> +	 * @pre_emph_property: Connector property to report the
+> +	 * pre-emphasis per lane
+> +	 */
+> +	struct drm_property *pre_emph_property[4];
 > +};
 > +
 >  /**
->   * drm_pagemap_migrate_map_system_pages() - Map system or device coherent
->   * migration pages for GPU SVM migration
-> @@ -299,22 +312,25 @@ drm_pagemap_migrate_map_device_private_pages(struct device *dev,
->   * @migrate_pfn: Array of page frame numbers of system pages or peer pages to map.
->   * @npages: Number of system or device coherent pages to map.
->   * @dir: Direction of data transfer (e.g., DMA_BIDIRECTIONAL)
-> + * @state: DMA IOVA state for mapping.
+>   * struct drm_connector - central DRM connector control structure
 >   *
->   * This function maps pages of memory for migration usage in GPU SVM. It
->   * iterates over each page frame number provided in @migrate_pfn, maps the
->   * corresponding page, and stores the DMA address in the provided @dma_addr
->   * array.
->   *
-> - * Returns: 0 on success, -EFAULT if an error occurs during mapping.
-> + * Returns: 0 on success, negative error code on failure.
->   */
->  static int
->  drm_pagemap_migrate_map_system_pages(struct device *dev,
->  				     struct drm_pagemap_addr *pagemap_addr,
->  				     unsigned long *migrate_pfn,
->  				     unsigned long npages,
-> -				     enum dma_data_direction dir)
-> +				     enum dma_data_direction dir,
-> +				     struct drm_pagemap_iova_state *state)
->  {
->  	unsigned long i;
-> +	bool try_alloc = false;
->  
->  	for (i = 0; i < npages;) {
->  		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
-> @@ -329,9 +345,31 @@ drm_pagemap_migrate_map_system_pages(struct device *dev,
->  		folio = page_folio(page);
->  		order = folio_order(folio);
->  
-> -		dma_addr = dma_map_page(dev, page, 0, page_size(page), dir);
-> -		if (dma_mapping_error(dev, dma_addr))
-> -			return -EFAULT;
-> +		if (!try_alloc) {
-> +			dma_iova_try_alloc(dev, &state->dma_state,
-> +					   (npages - i) * PAGE_SIZE >=
-> +					   HPAGE_PMD_SIZE ?
-> +					   HPAGE_PMD_SIZE : 0,
-> +					   npages * PAGE_SIZE);
-> +			try_alloc = true;
-> +		}
+> @@ -2410,6 +2443,11 @@ struct drm_connector {
+>  	 * @cec: CEC-related data.
+>  	 */
+>  	struct drm_connector_cec cec;
 > +
-> +		if (dma_use_iova(&state->dma_state)) {
-> +			int err = dma_iova_link(dev, &state->dma_state,
-> +						page_to_phys(page),
-> +						state->offset, page_size(page),
-> +						dir, 0);
-> +			if (err)
-> +				return err;
+> +	/**
+> +	 * @dp: DisplayPort-related variable and properties.
+> +	 */
+> +	struct drm_connector_dp dp;
+>  };
+>  
+>  #define obj_to_connector(x) container_of(x, struct drm_connector, base)
+> diff --git a/include/drm/drm_dp_connector.h b/include/drm/drm_dp_connector.h
+> new file mode 100644
+> index 0000000000000..77d2f4bb6df68
+> --- /dev/null
+> +++ b/include/drm/drm_dp_connector.h
+> @@ -0,0 +1,109 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
 > +
-> +			dma_addr = state->dma_state.addr + state->offset;
-> +			state->offset += page_size(page);
-> +		} else {
-> +			dma_addr = dma_map_page(dev, page, 0, page_size(page),
-> +						dir);
-> +			if (dma_mapping_error(dev, dma_addr))
-> +				return -EFAULT;
-> +		}
->  
->  		pagemap_addr[i] =
->  			drm_pagemap_addr_encode(dma_addr,
-> @@ -342,6 +380,9 @@ drm_pagemap_migrate_map_system_pages(struct device *dev,
->  		i += NR_PAGES(order);
->  	}
->  
-> +	if (dma_use_iova(&state->dma_state))
-> +		return dma_iova_sync(dev, &state->dma_state, 0, state->offset);
+> +#ifndef DRM_DP_CONNECTOR_H_
+> +#define DRM_DP_CONNECTOR_H_
 > +
->  	return 0;
->  }
->  
-> @@ -353,6 +394,7 @@ drm_pagemap_migrate_map_system_pages(struct device *dev,
->   * @pagemap_addr: Array of DMA information corresponding to mapped pages
->   * @npages: Number of pages to unmap
->   * @dir: Direction of data transfer (e.g., DMA_BIDIRECTIONAL)
-> + * @state: DMA IOVA state for mapping.
->   *
->   * This function unmaps previously mapped pages of memory for GPU Shared Virtual
->   * Memory (SVM). It iterates over each DMA address provided in @dma_addr, checks
-> @@ -362,10 +404,17 @@ static void drm_pagemap_migrate_unmap_pages(struct device *dev,
->  					    struct drm_pagemap_addr *pagemap_addr,
->  					    unsigned long *migrate_pfn,
->  					    unsigned long npages,
-> -					    enum dma_data_direction dir)
-> +					    enum dma_data_direction dir,
-> +					    struct drm_pagemap_iova_state *state)
->  {
->  	unsigned long i;
->  
-> +	if (state && dma_use_iova(&state->dma_state)) {
-> +		dma_iova_unlink(dev, &state->dma_state, 0, state->offset, dir, 0);
-> +		dma_iova_free(dev, &state->dma_state);
-> +		return;
-> +	}
+> +#include <drm/drm_connector.h>
 > +
->  	for (i = 0; i < npages;) {
->  		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
->  
-> @@ -420,7 +469,7 @@ drm_pagemap_migrate_remote_to_local(struct drm_pagemap_devmem *devmem,
->  			       devmem->pre_migrate_fence);
->  out:
->  	drm_pagemap_migrate_unmap_pages(remote_device, pagemap_addr, local_pfns,
-> -					npages, DMA_FROM_DEVICE);
-> +					npages, DMA_FROM_DEVICE, NULL);
->  	return err;
->  }
->  
-> @@ -430,11 +479,13 @@ drm_pagemap_migrate_sys_to_dev(struct drm_pagemap_devmem *devmem,
->  			       struct page *local_pages[],
->  			       struct drm_pagemap_addr pagemap_addr[],
->  			       unsigned long npages,
-> -			       const struct drm_pagemap_devmem_ops *ops)
-> +			       const struct drm_pagemap_devmem_ops *ops,
-> +			       struct drm_pagemap_iova_state *state)
->  {
->  	int err = drm_pagemap_migrate_map_system_pages(devmem->dev,
->  						       pagemap_addr, sys_pfns,
-> -						       npages, DMA_TO_DEVICE);
-> +						       npages, DMA_TO_DEVICE,
-> +						       state);
->  
->  	if (err)
->  		goto out;
-> @@ -443,7 +494,7 @@ drm_pagemap_migrate_sys_to_dev(struct drm_pagemap_devmem *devmem,
->  				  devmem->pre_migrate_fence);
->  out:
->  	drm_pagemap_migrate_unmap_pages(devmem->dev, pagemap_addr, sys_pfns, npages,
-> -					DMA_TO_DEVICE);
-> +					DMA_TO_DEVICE, state);
->  	return err;
->  }
->  
-> @@ -471,6 +522,7 @@ static int drm_pagemap_migrate_range(struct drm_pagemap_devmem *devmem,
->  				     const struct migrate_range_loc *cur,
->  				     const struct drm_pagemap_migrate_details *mdetails)
->  {
-> +	struct drm_pagemap_iova_state state = {};
->  	int ret = 0;
->  
->  	if (cur->start == 0)
-> @@ -498,7 +550,7 @@ static int drm_pagemap_migrate_range(struct drm_pagemap_devmem *devmem,
->  						     &pages[last->start],
->  						     &pagemap_addr[last->start],
->  						     cur->start - last->start,
-> -						     last->ops);
-> +						     last->ops, &state);
->  
->  out:
->  	*last = *cur;
-> @@ -1060,6 +1112,7 @@ EXPORT_SYMBOL(drm_pagemap_put);
->  int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
->  {
->  	const struct drm_pagemap_devmem_ops *ops = devmem_allocation->ops;
-> +	struct drm_pagemap_iova_state state = {};
->  	unsigned long npages, mpages = 0;
->  	struct page **pages;
->  	unsigned long *src, *dst;
-> @@ -1101,7 +1154,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
->  	err = drm_pagemap_migrate_map_system_pages(devmem_allocation->dev,
->  						   pagemap_addr,
->  						   dst, npages,
-> -						   DMA_FROM_DEVICE);
-> +						   DMA_FROM_DEVICE, &state);
->  	if (err)
->  		goto err_finalize;
->  
-> @@ -1125,7 +1178,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
->  	migrate_device_pages(src, dst, npages);
->  	migrate_device_finalize(src, dst, npages);
->  	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
-> -					DMA_FROM_DEVICE);
-> +					DMA_FROM_DEVICE, &state);
->  
->  err_free:
->  	kvfree(buf);
-> @@ -1170,6 +1223,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
->  				  MIGRATE_VMA_SELECT_COMPOUND,
->  		.fault_page	= page,
->  	};
-> +	struct drm_pagemap_iova_state state = {};
->  	struct drm_pagemap_zdd *zdd;
->  	const struct drm_pagemap_devmem_ops *ops;
->  	struct device *dev = NULL;
-> @@ -1229,7 +1283,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
->  
->  	err = drm_pagemap_migrate_map_system_pages(dev, pagemap_addr,
->  						   migrate.dst, npages,
-> -						   DMA_FROM_DEVICE);
-> +						   DMA_FROM_DEVICE, &state);
->  	if (err)
->  		goto err_finalize;
->  
-> @@ -1254,7 +1308,8 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
->  	migrate_vma_finalize(&migrate);
->  	if (dev)
->  		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
-> -						npages, DMA_FROM_DEVICE);
-> +						npages, DMA_FROM_DEVICE,
-> +						&state);
->  err_free:
->  	kvfree(buf);
->  err_out:
-> -- 
-> 2.34.1
-> 
+> +#define DRM_DP_1LANE	BIT(0)
+> +#define DRM_DP_2LANE	BIT(1)
+> +#define DRM_DP_4LANE	BIT(2)
+> +#define DRM_NLANES_MASK (DRM_DP_1LANE | DRM_DP_2LANE | DRM_DP_4LANE)
+> +#define DRM_DP_VOLTAGE_SWING_LEVEL_0 BIT(0)
+> +#define DRM_DP_VOLTAGE_SWING_LEVEL_1 BIT(1)
+> +#define DRM_DP_VOLTAGE_SWING_LEVEL_2 BIT(2)
+> +#define DRM_DP_VOLTAGE_SWING_LEVEL_3 BIT(3)
+> +#define DRM_DP_VOLTAGE_SWING_LEVEL_MASK (DRM_DP_VOLTAGE_SWING_LEVEL_0 | \
+> +					 DRM_DP_VOLTAGE_SWING_LEVEL_1 | \
+> +					 DRM_DP_VOLTAGE_SWING_LEVEL_2 | \
+> +					 DRM_DP_VOLTAGE_SWING_LEVEL_3)
+> +#define DRM_DP_PRE_EMPH_LEVEL_0 BIT(0)
+> +#define DRM_DP_PRE_EMPH_LEVEL_1 BIT(1)
+> +#define DRM_DP_PRE_EMPH_LEVEL_2 BIT(2)
+> +#define DRM_DP_PRE_EMPH_LEVEL_3 BIT(3)
+> +#define DRM_DP_PRE_EMPH_LEVEL_MASK (DRM_DP_PRE_EMPH_LEVEL_0 | \
+> +				    DRM_DP_PRE_EMPH_LEVEL_1 | \
+> +				    DRM_DP_PRE_EMPH_LEVEL_2 | \
+> +				    DRM_DP_PRE_EMPH_LEVEL_3)
+> +
+> +/**
+> + * struct drm_connector_dp_link_train_caps - DRM DisplayPort link training
+> + * capabilities
+> + */
+> +struct drm_connector_dp_link_train_caps {
+> +	/**
+> +	 * @nlanes: Bitmask of lanes number supported
+> +	 */
+> +	u8 nlanes;
+> +
+> +	/**
+> +	 * @nrates: Number of link rates supported
+> +	 */
+> +	u32 nrates;
+> +
+> +	/**
+> +	 * @rates: Array listing the supported link rates in deca-kbps
+> +	 */
+> +	const u32 *rates;
+> +
+> +	/**
+> +	 * @dsc: Display Stream Compression supported
+> +	 */
+> +	bool dsc;
+> +
+> +	/**
+> +	 * @v_swings: Bitmask of voltage swing level supported
+> +	 */
+> +	u8 v_swings;
+> +
+> +	/**
+> +	 * @pre_emphs: Bitmask of pre-emphasis level supported
+> +	 */
+> +	u8 pre_emphs;
+> +};
+> +
+> +/**
+> + * struct drm_connector_dp_link_train - DRM DisplayPort link training
+> + * information report
+> + */
+> +struct drm_connector_dp_link_train {
+> +	/**
+> +	 * @nlanes: The number of lanes used
+> +	 */
+> +	u8 nlanes;
+> +
+> +	/**
+> +	 * @rates: Link rate value selected in deca-kbps
+> +	 */
+> +	u32 rate;
+> +
+> +	/**
+> +	 * @dsc: Display Stream Compression enabled
+> +	 */
+> +	bool dsc_en;
+> +
+> +	/**
+> +	 * @v_swings: Array listing the bitmask voltage swing level per lanes
+> +	 */
+> +	u8 v_swing[4];
+> +
+> +	/**
+> +	 * @pre_emph: Array listing the bitmask pre-emphasis level per lanes
+> +	 */
+> +	u8 pre_emph[4];
+> +};
+> +
+> +int drmm_connector_dp_init(struct drm_device *dev,
+> +			   struct drm_connector *connector,
+> +			   const struct drm_connector_funcs *funcs,
+> +			   const struct drm_connector_dp_link_train_caps *dp_link_train_caps,
+> +			   int connector_type,
+> +			   struct i2c_adapter *ddc);
+> +
+> +int
+> +drm_connector_dp_set_link_train_properties(struct drm_connector *con,
+> +					   const struct drm_connector_dp_link_train *dp_link_train);
+> +
+> +void drm_connector_dp_reset_link_train_properties(struct drm_connector *connector);
+> +
+> +#endif // DRM_DP_CONNECTOR_H_
+
+-- 
+Jani Nikula, Intel
