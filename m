@@ -4,145 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53268F4485A
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 13:22:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6CA5F44870
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 13:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB7C810E95C;
-	Fri, 10 Apr 2026 13:22:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3813810E95F;
+	Fri, 10 Apr 2026 13:52:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="C8g4PHCD";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SGfzgDEf";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eZWK/qpn";
 	dkim-atps=neutral
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11010011.outbound.protection.outlook.com [52.101.229.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4057110E95C
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 13:22:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hppLmtC1yK/Umn6jS4L2aJ/gCCm8TQ8k0CMnb6ozY1Ao9xIU2KN72XtuWzKoJjXxpOkiDHuCNIlcYaFa57RaeLnmpvaMBC/u7QbJLyM/JdSFJ55uL75u8GsDOKHRelbBHNtNaDvR86X1PY+hLZ6CRVa6MFEvDyJS+lujgO8xNS7JF1qRh3N1wca6MYg+Hw7W7UqINCFbZZEdCFwgLUYOd2L4aK7DXNoBD7Qb5Y017hG4lX7PQ7BcTZ43kFyH/+Mg8YzEvcDDNjW+wP2wXsupOD6LbfvvR6w8J76opQqJOAqoNMHkJ5GAF2dSdU3hSrJRw0uAq5MxhP8ah3ejtP2M5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K27zfRWDwDnXfUEQnQw02XhWyuzo/5sUEU7ZvQidkVQ=;
- b=cx2JjmzqcYfWSYmNZOzC6QNL2qbrnvia7jdLChuKYCBHW74Q7KnYpiKnA2Q+vOpoTC1VDaOMIlwyJl/pxeaqZdBOzPZwl6B0LxfEFzRoXze3F0WrKR4FHdCm9g9dzX+oV/iJ6VtQ6JvndIJPtKK8336JFYLBBcCne6azFmGzHm9thC28CnjYVO+jwL45XewaiTttzAR8cVrvEFAjZKLpjQK+S6mjDtvXwK3WD7QGnfPL0XB0mfeMvC7xIH87p7HerYaYnjqPDUV6hmbQtYgjRDeC3xXQJ4/j8KMvZIXEFJPI+KhHS6tWTFey1XZ+xskS8MzIn/G6a7Tpr+YNlpS3ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K27zfRWDwDnXfUEQnQw02XhWyuzo/5sUEU7ZvQidkVQ=;
- b=C8g4PHCDJGKB0p+Mm/HcdFIUH9fF+V6jKra7dji1rCZeJvUUKz3VsjFuH6cXJm1KmZzKQMzNPbMux0xwmbWNQH/OL7OT1WqfS0ULm4qP6fBw01wiU2ISRBDS9uIkPv1EAxnYPvoPABnJMYVRuNLlfCypwBuxUuo5sjsJfpHN7jQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com (2603:1096:400:3e1::6)
- by OSCPR01MB14468.jpnprd01.prod.outlook.com (2603:1096:604:3a3::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Fri, 10 Apr
- 2026 13:21:56 +0000
-Received: from TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8]) by TYCPR01MB11947.jpnprd01.prod.outlook.com
- ([fe80::33f1:f7cd:46be:e4d8%5]) with mapi id 15.20.9769.041; Fri, 10 Apr 2026
- 13:21:56 +0000
-Message-ID: <191a4bc7-f19e-4771-b70d-e54dd5506799@bp.renesas.com>
-Date: Fri, 10 Apr 2026 15:21:44 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 10/21] dt-bindings: display: renesas,rzg2l-du: Add
- support for RZ/G3E SoC
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: tomm.merciai@gmail.com, geert@linux-m68k.org,
- linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E5810E95F
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 13:52:11 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63AApPRx3743239
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 13:52:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=D6n98aPN2xgHIqFP3YmENZo5
+ DpksRhsWwsJxP9z2Dlk=; b=SGfzgDEf79p4IOvBYHZ3MlwLFiGZYl4aSfj9TXLt
+ 5BrXDR08ksy8IwQ1TTzgSoOr1usAXtRoh+n/iru1LvcvPw2DVNmtb5+wau8NJt2i
+ urH67z27uUOl+VNZwpSZhDFSmaFRAZ8NG3uMTBWW7Z9OQyNSAij/JOPfgoi6Mw94
+ YBH19kB1/UA/+eayBzx+RWoPwpa2GR49TEHf40A3T7ODrkCwzaq8kWyQNhE/Wo45
+ TJxjmYIHCWQkDC/AwFzMw1kTFyH/bu5b8v63cRU4LBTwHBIqGxoqoMGUVViFla2s
+ Iry5V/3GG98bgYeoh6Cx6g5GYrzoPlY5t34sZfT+pSJ1rQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deytngg5k-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 13:52:11 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-6054a46d802so2768804137.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 06:52:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775829130; x=1776433930;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=D6n98aPN2xgHIqFP3YmENZo5DpksRhsWwsJxP9z2Dlk=;
+ b=eZWK/qpnny8FthC0jPBE15PYxxJyFBOwEKKnS+giOkMb4y8OCpOSikou1HH8Nj9hAg
+ 2Pr0Zv6xel8Bei1EtWPfnENzTgKPbrN/frpR1kHZ0geV8+hKOPZ00YYSW9uYzWxUHRz1
+ bj5szfXFZ27lSisfMOdp9bkH5vfhcidzDnk5ba7DJmRMCODQ9TYAM3fORJhaMDDhB6gK
+ jiMrlc46zrnP3Lf8H/ia6ipZ1XCeL8Y9rso0QxJMwGbMVqkf/gBm8JCzYyEyKUbb5Fll
+ O61Qj7FPIxNduQ8aBjgFCj5VQavFy7FOFzcKQ5oaInWypsry/xH1HoveELvqTDz7a6/F
+ 3t1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775829130; x=1776433930;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=D6n98aPN2xgHIqFP3YmENZo5DpksRhsWwsJxP9z2Dlk=;
+ b=mo1Ek2+2JlvAv+481XtY2zwEJKzCbWRUIus68PgejjZaHdx5Vs7+gfshO3dCX518k3
+ ocknxTnAbtgZJHQDUBz+CtqCBqg3g8bOoS+RgGlfz1qpMbu5KiC9kTYK7IpNheEX/NkT
+ RO1dBxL56qfcvB5w9iJ92Yk/DFpe4x8Vph//6PC4Nyz1V7xxvTB6l90TWQ53k+toPGu2
+ eokg+pHNZXeMi3PyaR2I33TH6eZuuGo14t52sKTigTnmvml3U9+Z7pYEC86vlNJSW/p0
+ bu0Y0fDyB0LuAneeRFnktRCMFNpGo62Vn1e71d7bNf3m65ap63h7qtaYjlnvH2nkG5oE
+ MNYg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWquKkS0IDF8ALORPp2HiuHRM60jQ7qXnYw2u0jZz29DLB6DHszJ5GZ0dRbmZbzHwKY140Jk+FQJeI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIg1/zQ5EY1XwLP+TGsWOIZPqAblMNMrsWUEjlFTIV7oveW1Eg
+ 541JmGWwp+5tzLdmd7pWfFtNxwwmA+esbuXBh3pD1beUtOCMGv0lpX24cvP0PjwscLFvD6IGiug
+ 3lHibrlQH1t9YUvgKRHSWxDJvn1269g2Yrz5G0hao4O1MnqteqqCtHfsvVaq/xLnfzW1cBCo=
+X-Gm-Gg: AeBDieuOM3rnAxCF+XgswNNs7Tw9OhDW2PCh0sa7q0oYuBd3TAanukvcEyULjz95F6J
+ a2XLK79wmbaBi2o/knStGl8Ij0TAl6365SC/NBSJ9zpIuXedj5saCkb0PjDVzRCAKesfqoHBgJD
+ ELFyzkGbH1RHJu2IdEAvbrtP19eYa0rfihfGoGaAJB5rgDUM7GTMpa5cBMwBOPRNyPcywcbYoHM
+ VoweKm/Pk2bEnQPpqUFtw3LigcQb7jQqveFkoMC8m113YUpRvTSFYmfo9jKPmLiyIbKrryDFuk/
+ 6R+svsHEUHI8OLA2FccZNy7jB6GSqvjAU2fAvQqsv5fyidqAlwCYFqBQkxLlIj8v2N1K22ozSj3
+ fSGh0bQXU75eWAOES4AZHG1TuGm/tbja9tn74gk/9llP84+gYOCSN6dLIXUBnHjHS7hYQ+i3c/s
+ if535T1Kz7lDLkhDH94fl2AzBbOyyXqs3qEVg=
+X-Received: by 2002:a05:6102:6044:b0:605:27db:c899 with SMTP id
+ ada2fe7eead31-60a01472c5dmr1167183137.29.1775829130166; 
+ Fri, 10 Apr 2026 06:52:10 -0700 (PDT)
+X-Received: by 2002:a05:6102:6044:b0:605:27db:c899 with SMTP id
+ ada2fe7eead31-60a01472c5dmr1167166137.29.1775829129762; 
+ Fri, 10 Apr 2026 06:52:09 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a3eee86a45sm754519e87.11.2026.04.10.06.52.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Apr 2026 06:52:08 -0700 (PDT)
+Date: Fri, 10 Apr 2026 16:52:06 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <20260408122436.GH1928916@killaraus.ideasonboard.com>
- <dafdbdcf-98db-473c-8122-296af1922e6c@bp.renesas.com>
- <20260408141638.GA1965119@killaraus.ideasonboard.com>
- <87a18664-d19e-4434-8f92-1c7ce4f3a131@bp.renesas.com>
- <20260408150053.GC1965119@killaraus.ideasonboard.com>
- <61f294e8-f9ae-4868-8dba-60250279ef21@bp.renesas.com>
- <20260409132420.GD2634584@killaraus.ideasonboard.com>
-Content-Language: en-US
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <20260409132420.GD2634584@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0001.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c8::15) To TYCPR01MB11947.jpnprd01.prod.outlook.com
- (2603:1096:400:3e1::6)
+ Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/39] drm/msm/dp: remove cached drm_edid from panel
+Message-ID: <7cnjdge435t55s5vf66fkjfmkz7jvcbbax2uuismyc74mv4eia@toe2vu2folqa>
+References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
+ <20260410-msm-dp-mst-v4-1-b20518dea8de@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCPR01MB11947:EE_|OSCPR01MB14468:EE_
-X-MS-Office365-Filtering-Correlation-Id: bec918c6-faf2-442a-6c63-08de9704236f
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: SRixY4wKqCn5UtufNpP/SOIOcDQ0wQ4Crm8AtSRtxNWi4kzl+sgJTSp5i7To5Yy2jM1c7u7UIws4CBNs1HKv/AhRyEnnEagLIBk6A3tmNCQA/eKED1V5h7s3ARQgRBFBqgpQ8WcgSC/5oRZ0EA1JuCoA1G6Wi1Apqm/JzS2LRumIwnJNA38WPWCTHQ+scA+5kt8s8npt0iySGd1x/Lv1FEQE1zLJ6+Z0DGOTy5QBnGsmNkPQc82qLnA0/Dh4JK3QJlFOLGBy1BZdT6K41+9UWh+UpYGEKWRZfLdMsA8mwTz4sSjuoeaUJbYxA35UUFP6cqBXk7tpYY+lljLXy3qOiIkbOagAzvwmjs2jvBWcLo4kabEkPjn8LSqONCxXFpk72e+iCxikNHSIUYxY3Q4nhaPcAPZCOcHnTW48L1WiB3zAPy1nDm13HHXkCXQaiNh3B2h9f0SWa02q5MeBIAdRiojZoBy4VU6k2OPnXYub7Z9uDklhoQqmqFT1RZUsFeBsv5NKFzoEWzgoFM2XsFoMptAJJ3h+N60H2LRMchnnNFkg37XpJZYO6vYwEKxacBnsItvt2yN2Wu4KR658VFFlDgCMDh38mzh2ia6E1RG/oJiEtUBnoc5BdfPSJzRGVdfUQPTCLON/Utkg2hCTaB0iQOz2V7o1LZ+gCXqYQ8t16eDcXzAl2XGT2r7kuUWcUQnE9V/sjeL1n8HXbsNwA5flBZsMiEAcQhOd3wamP1HYOjE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYCPR01MB11947.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TzVDdWhLSm4xV2ZDenZsVU9pZC9uRm8zR2cyR0dZYkpBcTFsMjEwRFNDNWJ5?=
- =?utf-8?B?aEF3U2dnY2RvUEZnb0ROWWlmamV2WWplWmJZT2Y5bmIrVk8ydks4blUwa01q?=
- =?utf-8?B?bldtUnpreHFkaTJPVmQvWGVRb2t2UCtMbWd1blloTC9NNWQxYll5TjdCVUQ1?=
- =?utf-8?B?c0RnVXl1K05odXZOMi9kaHZqWTllRk9UNUZoS1JMV0huRlB3ajRjNzlJQ21x?=
- =?utf-8?B?N3pRQmRZK252SkIxbkR6cS9sckRoY2hVS1dKNzRQUUFVR3FpZCtlOGR3bTM1?=
- =?utf-8?B?VXRzajZQQkFTMmFCdHg3MFVVNVBQSEZtMEZreStDVkU1VWNNT2NCakZCSDI1?=
- =?utf-8?B?QnZ6cldGNkJOOXhlWGhhR0RNUGhDWktkUkZQNFNtQndWK2kvTTZPaWdiVDBt?=
- =?utf-8?B?RjROZ1dDUm1rcC93WFROOEs4M2t0REhFYXFpamJhd2VZb3B1djlZeWQrNis2?=
- =?utf-8?B?VTlYdHBXY2pHZ1ZyU2lIQVVGYzFOc0ltNFdKaDNhL1BHbHFSU1hKY0tyWUkz?=
- =?utf-8?B?QkExSU40bVB0bWNEdzByQWdOdm1CQmR5ZnVjbkxGSVozbGN1SFRDdm9pYzZE?=
- =?utf-8?B?WldyYjk4ZzNvUFdMcDRlbm5aWEo0M0RRNEpVVW82VHB6REN0bkQrNlMvVGZq?=
- =?utf-8?B?SFVpektoNmlhcUw0eTExVTdYS3h6MndNdzdmSHpEZFdUaE9UNXdJTHJST1dW?=
- =?utf-8?B?c2x0ZU9qQ2VockZmeEJrbHpaTEQzUlV2WkFnOGdGcHl1d3UvdTJKYmtEMFVS?=
- =?utf-8?B?eWRPZGYycktjVm1UaHkzZjlnalNUM1E5TW1zYVhqY2Urb0xpbkdFVnNNMjVw?=
- =?utf-8?B?QWViTDdrcUNYQjNOTkNtNkdScGdjN01zaGxCeWRtU3QzbVpkZzlXSXBWcHRs?=
- =?utf-8?B?eWc4bVJVeFpMaFd5VTE1M0xzTU4vczhRL0ZTKy9tcmxQeXkweGJ1eTVPZWFh?=
- =?utf-8?B?SG1veSthTk9ETndaNlRQWEZwbjVtT1NDVlF6RmlmU1FheTMyRFd4Y1VQRnNo?=
- =?utf-8?B?MDNWcVdtSkpmZGM5cHRDbzA2Vlh1UVlqdlY2MWxTbGdVMFdsa0tWQ21ya3h6?=
- =?utf-8?B?dEoyak1IRThOaGVjZ1NmMzAzR2NqUVRxZC9RMDkzb0lYN3ZWQnBra2JuL1pa?=
- =?utf-8?B?cnNmbEFvRGR5bVpsYkRkeWt2S2Z4LzVmTDNydzBBeStsZ3lhNkVKWDlsTGNN?=
- =?utf-8?B?ajc4NStVNjBheE14NFRmT2xPUHRrU21sVmVTVEVnZFZ6M0FadGI4NjRSNDM5?=
- =?utf-8?B?K2VxYnlVbE9mRm5MZzNhQU5uQ1NOMk5aaFdYYkpYUDhYQitweG93cHNkRWJv?=
- =?utf-8?B?aGNCVGc3eDZZZzI4ZlpnU3hyZGxscld1cXg0QS9DQ1NRMFE3YUhNc0tVSkcz?=
- =?utf-8?B?YU1NcFUvTmtCSkExaGpha3JyRHNxWXJhMC9PNmpZVlVmeE04Nm0xa0VCK1pu?=
- =?utf-8?B?M3JrN2grTVFvdkx2SjZSMjJXUTJXTlBjdGUwMmFsbnNhaGpXL3N1NlJQV1BP?=
- =?utf-8?B?VjE2ZUFIK2I2V0ZHeXhDVW5QaGhlRlJDL1crTFZUR3MwdFd6QmFvR1VET21j?=
- =?utf-8?B?bTZUUHNHZEhVQkZqWTBIblRRZnYzUXZScEJxcFBJK3RSa2dVWUVIS0o1TEpa?=
- =?utf-8?B?dnFrQ3htdDRtVWhIRVdJY0NtSlUzWjZlWEs4aEQ0T0tHWVk3VGJZcWhQeFd5?=
- =?utf-8?B?TGVYUjNJVUg0SGpuK3pubUpSKzlFK3lKWkhzZ3hZZmxERTkzRXlxWnBoV3do?=
- =?utf-8?B?cGhLZHhMc050bVhoNmI0WUU5K0l0azF6Zk1HYTgrb2NGNjM0MDZrd0FGaG43?=
- =?utf-8?B?cEFuQkVMZmFsWnNnTnJQUWxCdEZBSzB3ank2ZC9HYStlVjE3VEVNRmhCcEJF?=
- =?utf-8?B?WnNUUlpNZmVGSnRLNXFJNDd2aUhkcVBJSTlLRHY3YVRvOXY4TjFDckpLeW5y?=
- =?utf-8?B?MzdWVytXM05STXBTQ2pGT2hHRzd3ekNDWlRsaUd3MDR6cWlabEZpM1E5ZWhQ?=
- =?utf-8?B?Sm9WV0tQa0p2Qkw0UjYyNEVpUm1ndlFkRlowTXAzNkpweTUzbkMxVithNkx0?=
- =?utf-8?B?WnFDaXU5UngycjZHWWY1RnRaWENVdU5DYlFYMW42Q2h5QWtPVGRHZUt1TDN5?=
- =?utf-8?B?alg3QkZLZlFDVWFSNFF6OE5HeVJ4dVkyOUJGNkhDOHQ1L1d1bE9xWE0rS256?=
- =?utf-8?B?RnV0TFpHcW9RNnVBMG55blFGMC9NcksrWUVVSitVVTB5WXFXQU13azdrZkFU?=
- =?utf-8?B?Y1U1Z2VwS1JKZTFUdFJUQzNaSStKVXMxRHJ3OUk0cHFEQy9oa2FWT3YrOWpv?=
- =?utf-8?B?VUx1UnVGbDhaVWZtczVBZGJSMmg1dCtrM2xGcHAvQnlJSkFBQUgrVnYwVjV4?=
- =?utf-8?Q?dtPPnlJCleymmXg66nKOwba3aEUcTMDO1+oeg?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bec918c6-faf2-442a-6c63-08de9704236f
-X-MS-Exchange-CrossTenant-AuthSource: TYCPR01MB11947.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 13:21:56.4833 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FRX8EIv+PicaG0+RYzFmAYW5jG9VyU6/jlffAxP3hwMsA+mCp6XqLHo5d+BFLMFsakCXAInW71zvNkGisegUZqVcIoPWASmisyMVCdgX/IXNxJoayehqUyQWQxA8QMuY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB14468
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260410-msm-dp-mst-v4-1-b20518dea8de@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: PpyyUm2XaXaXJqN4uFd5Zsu4UnYxZvZY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEwMDEzMCBTYWx0ZWRfX9QHXG1Yk3LNH
+ lZs30jevMKvXs3Me4G9i/J14j3Csu65tQewYGABsn+gpQUc9NAu8XN441ywWRFVmidKTW7e/nXm
+ BR8ka7bFhJNJvZCPlHB71S/Zo7/2H39VUZZSDRFDnnO0AudvZ/qjS1jq3a16WirEHO/WeapQDie
+ kzJs7hbyHgUyRkcDFGK25XZ+Vh11we1k4+GQG3nkTK55m+2tLd1jutjHpPsM14dF4teHBXTbbxh
+ lPEIgYYBB186xXdCUrTxOwJpfsRwycZ0Bs6/EUUFTmBfhn+7aQeSggF2BaXoONmgacMgfVOGC61
+ ph0u7omn1Lt+ND3ZkBEwjjVndEydeqiwnyZtheI/jzcCyraed8hczp2k/1WajtJ48ww/pFYIHmA
+ g7EZzhxiUP7MU/7dRbGgfZrXSeJEuHGdmvW9YciiL8XZhEW7lfXY+kqMueS/gMtPMTzCWq/6TzN
+ yLMmKI1XUsce4eP+K+Q==
+X-Proofpoint-GUID: PpyyUm2XaXaXJqN4uFd5Zsu4UnYxZvZY
+X-Authority-Analysis: v=2.4 cv=crGrVV4i c=1 sm=1 tr=0 ts=69d9008b cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=moIHXxoqlhIiEUXYKbMA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-10_04,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ spamscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604100130
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,301 +144,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Laurent,
-
-On 4/9/26 15:24, Laurent Pinchart wrote:
-> On Thu, Apr 09, 2026 at 01:15:18PM +0200, Tommaso Merciai wrote:
->> On 4/8/26 17:00, Laurent Pinchart wrote:
->>> On Wed, Apr 08, 2026 at 04:44:48PM +0200, Tommaso Merciai wrote:
->>>> On 4/8/26 16:16, Laurent Pinchart wrote:
->>>>> On Wed, Apr 08, 2026 at 04:02:14PM +0200, Tommaso Merciai wrote:
->>>>>> On 4/8/26 14:24, Laurent Pinchart wrote:
->>>>>>> On Wed, Apr 08, 2026 at 12:36:55PM +0200, Tommaso Merciai wrote:
->>>>>>>> The RZ/G3E SoC has 2 LCD controllers (LCDC), each containing a Frame
->>>>>>>> Compression Processor (FCPVD), a Video Signal Processor (VSPD), and a
->>>>>>>> Display Unit (DU).
->>>>>>>>
->>>>>>>>      - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->>>>>>>>      - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
->>>>>>>>
->>>>>>>> Add a new SoC-specific compatible string 'renesas,r9a09g047-du'.
->>>>>>>>
->>>>>>>> Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" to
->>>>>>>> allow up to four output ports, and explicitly disable port@2 and port@3
->>>>>>>> for existing SoCs that do not expose them.
->>>>>>>>
->>>>>>>> Describe the four output ports of the RZ/G3E DU:
->>>>>>>>
->>>>>>>>      - port@0: DSI (available on both LCDC instances)
->>>>>>>>      - port@1: DPAD / parallel RGB (LCDC1 only)
->>>>>>>>      - port@2: LVDS channel 0 (LCDC0 only)
->>>>>>>>      - port@3: LVDS channel 1 (available on both LCDC instances)
->>>>>>>>
->>>>>>>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
->>>>>>>> ---
->>>>>>>> v5->v6:
->>>>>>>>      - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
->>>>>>>>        explicitly disable port@2 and port@3 for existing SoCs that do not expose
->>>>>>>>        them.
->>>>>>>>      - Reworked ports numbering + improved/fixed ports descriptions in the
->>>>>>>>        bindings documentation.
->>>>>>>>      - Improved commit body.
->>>>>>>>
->>>>>>>> v4->v5:
->>>>>>>>      - Dropped renesas,id property and updated bindings
->>>>>>>>        accordingly.
->>>>>>>>
->>>>>>>> v2->v3:
->>>>>>>>      - No changes.
->>>>>>>>
->>>>>>>> v2->v3:
->>>>>>>>      - No changes.
->>>>>>>>
->>>>>>>> v1->v2:
->>>>>>>>      - Use single compatible string instead of multiple compatible strings
->>>>>>>>        for the two DU instances, leveraging a 'renesas,id' property to
->>>>>>>>        differentiate between DU0 and DU1.
->>>>>>>>      - Updated commit message accordingly.
->>>>>>>>
->>>>>>>>      .../bindings/display/renesas,rzg2l-du.yaml    | 30 ++++++++++++++++++-
->>>>>>>>      1 file changed, 29 insertions(+), 1 deletion(-)
->>>>>>>>
->>>>>>>> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>>>>>> index 5add3b832eab..32da0b5ec88c 100644
->>>>>>>> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>>>>>> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
->>>>>>>> @@ -20,6 +20,7 @@ properties:
->>>>>>>>            - enum:
->>>>>>>>                - renesas,r9a07g043u-du # RZ/G2UL
->>>>>>>>                - renesas,r9a07g044-du # RZ/G2{L,LC}
->>>>>>>> +          - renesas,r9a09g047-du # RZ/G3E
->>>>>>>>                - renesas,r9a09g057-du # RZ/V2H(P)
->>>>>>>>            - items:
->>>>>>>>                - enum:
->>>>>>>> @@ -61,7 +62,7 @@ properties:
->>>>>>>>            model-dependent. Each port shall have a single endpoint.
->>>>>>>>      
->>>>>>>>          patternProperties:
->>>>>>>> -      "^port@[0-1]$":
->>>>>>>> +      "^port@[0-3]$":
->>>>>>>>              $ref: /schemas/graph.yaml#/properties/port
->>>>>>>>              unevaluatedProperties: false
->>>>>>>>      
->>>>>>>> @@ -103,6 +104,8 @@ allOf:
->>>>>>>>                  port@0:
->>>>>>>>                    description: DPI
->>>>>>>>                  port@1: false
->>>>>>>> +            port@2: false
->>>>>>>> +            port@3: false
->>>>>>>>      
->>>>>>>>                required:
->>>>>>>>                  - port@0
->>>>>>>> @@ -119,6 +122,8 @@ allOf:
->>>>>>>>                    description: DSI
->>>>>>>>                  port@1:
->>>>>>>>                    description: DPI
->>>>>>>> +            port@2: false
->>>>>>>> +            port@3: false
->>>>>>>>      
->>>>>>>>                required:
->>>>>>>>                  - port@0
->>>>>>>> @@ -135,9 +140,32 @@ allOf:
->>>>>>>>                  port@0:
->>>>>>>>                    description: DSI
->>>>>>>>                  port@1: false
->>>>>>>> +            port@2: false
->>>>>>>> +            port@3: false
->>>>>>>>      
->>>>>>>>                required:
->>>>>>>>                  - port@0
->>>>>>>> +  - if:
->>>>>>>> +      properties:
->>>>>>>> +        compatible:
->>>>>>>> +          contains:
->>>>>>>> +            const: renesas,r9a09g047-du
->>>>>>>> +    then:
->>>>>>>> +      properties:
->>>>>>>> +        ports:
->>>>>>>> +          properties:
->>>>>>>> +            port@0:
->>>>>>>> +              description: DSI
->>>>>>>> +            port@1:
->>>>>>>> +              description: DPAD
->>>>>>>> +            port@2:
->>>>>>>> +              description: LVDS, Channel 0
->>>>>>>> +            port@3:
->>>>>>>> +              description: LVDS, Channel 1
->>>>>>>> +
->>>>>>>> +          required:
->>>>>>>> +            - port@0
->>>>>>>> +            - port@3
->>>>>>>
->>>>>>> Why are ports 1 and 2 not required ?
->>>>>>
->>>>>> About this we had a similar discussion on v5[0]
->>>>>> We are using the same compatible and:
->>>>>>
->>>>>> - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
->>>>>> |
->>>>>> --> then has:
->>>>>> 	port@0
->>>>>> 	port@2
->>>>>> 	port@3
->>>>>> 	
->>>>>>
->>>>>>      - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
->>>>>> |
->>>>>> --> then has:
->>>>>> 	port@0
->>>>>> 	port@1
->>>>>> 	port@3
->>>>>
->>>>> Ah yes, I forget there are two LCDC instances with different output
->>>>> configurations.
->>>>>
->>>>> Something still looks a bit weird to me though. For LCDC1, which
->>>>> supports a single LVDS channel, you use the port described as the second
->>>>> LVDS channel. Is there a reason not to use port@2 ?
->>>>
->>>> 9.11 Low Voltage Differential Signaling (LVDS)
->>>> 9.11.1.2 Block Diagram
->>>> Figure 9.11-1 shows a block diagram of LVDS.
->>>>
->>>> LCDC1 is connected to LVDS, Channel 1
->>>> For this reason I'm using port@3.
->>>
->>> Re-reading that, I think I've misinterpreted the hardware architecture.
->>> Doesn't the DU have a single output, that is connected the multiple
->>> encoders (LVDS and DSI for LCDC0 and LVDS, DSI and DPI for LCDC1) ? It
->>> seems modelling it with a single port and multiple endpoints would
->>> better match the device.
->>>
->>> For LVDS in particular, I see a single LVDS encoder with two channels,
->>> so there should not be two LVDS output ports in the DU. The two ports
->>> should be on the output of the LVDS device.
->>
->> You are suggesting the following dt architecture:
->>
->> du0: display@16460000 {
->> 	compatible = "renesas,r9a09g047-du";
->> 	reg = <0 0x16460000 0 0x10000>;
->> 	interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
->> 	clocks = <&cpg CPG_MOD 0xed>,
->> 			<&cpg CPG_MOD 0xee>,
->> 			<&cpg CPG_MOD 0xef>;
->> 	clock-names = "aclk", "pclk", "vclk";
->> 	power-domains = <&cpg>;
->> 	resets = <&cpg 0xdc>;
->> 	renesas,vsps = <&vspd0 0>;
->> 	status = "disabled";
->>
->> 	port {
->> 		du0_out_dsi: endpoint@0 {
->> 			reg = <0>;
->> 		};
->>
->> 		du0_out_lvds0: endpoint@2 {
->> 			reg = <2>;
->> 		};
->>
->> 		du0_out_lvds1: endpoint@3 {
->> 			reg = <3>;
->> 		};
->> 	}
->> };
->>
->> du1: display@16490000 {
->> 	compatible = "renesas,r9a09g047-du";
->> 	reg = <0 0x16490000 0 0x10000>;
->> 	interrupts = <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
->> 	clocks = <&cpg CPG_MOD 0x1a8>,
->> 			<&cpg CPG_MOD 0x1a9>,
->> 			<&cpg CPG_MOD 0x1aa>;
->> 	clock-names = "aclk", "pclk", "vclk";
->> 	power-domains = <&cpg>;
->> 	resets = <&cpg 0x11e>;
->> 	renesas,vsps = <&vspd1 0>;
->> 	status = "disabled";
->>
->> 	port {
->> 		du1_out_dsi: endpoint@0 {
->> 			reg = <0>;
->> 		};
->>
->> 		du1_out_rgb: endpoint@1 {
->> 			reg = <1>;
->> 		};
->>
->> 		du1_out_lvds1: endpoint@3 {
->> 			reg = <3>;
->> 		};
->> 	}
->> };
->>
->>
->> Please correct me if I'm wrong.
+On Fri, Apr 10, 2026 at 05:33:36PM +0800, Yongxing Mou wrote:
+> The cached drm_edid seems unnecessary here. Use the drm_edid pointer
+> directly in the plug stage instead of caching it. Remove the cached
+> drm_edid and the corresponding oneliner to simplify the code.
 > 
-> That's right. It would match the hardware, or at least my understanding
-> of the hardware based on the documentation. As far as I can tell, each
-> DU has a single 24-bit output port connected to multiple encoders.
-
-Thanks for the clarification.
-
-I want to make sure I understand the intended architecture correctly,
-because I see a potential conflict between your feedback on the two patches.
-
-For [1], you confirmed the two separate DU nodes (DU0 and DU1) with the
-single-port/multi-endpoint model. That maps to two separate platform 
-devices, which means two separate DRM devices.
-
-For [2], you suggested:
-
-"you can have one DRM device that covers two LCDCs, with one CRTC each,
-both connected to the same DSI encoder. Userspace then selects which
-CRTC drives which connector."
-
-Please correct me if I'm wrong but to me these two appear to be 
-incompatible. With two separate DRM devices,the DSI encoder and its 
-connector can only belong to one of them. Userspace cannot select 
-between CRTCs across two DRM devices.
-
-To support the single-DRM-device model you describe, both DU0 and DU1 
-would need to be managed by a single driver instance, similar to R-Car 
-DU which aggregate multiple LCDC channels into one DRM device.
-
-Using a single DRM device that spawn 2 crtc (1 du dt node ) this use 
-case can be tested with the following cmds:
-
-	modetest -M rzg2l-du -s 58@55:800x600-56.25@XR24
-	modetest -M rzg2l-du -s 58@56:800x600-56.25@XR24
-
-Could you clarify which architecture is the intended direction?
-
-Option A: Two separate DRM devices (2 DU dt nodes, current approach),
-           with the DSI input selected via DT configuration.
-           The dynamic vclk selection I implemented still applies,
-           but runtime CRTC switching from userspace is not possible.
-
-Option B: A single DRM device aggregating both DU instances (1 DU dt node),
-           with two CRTCs both connected to the DSI encoder.
-
-
-[1] 
-https://patchwork.kernel.org/project/linux-renesas-soc/patch/8f814f22ff62dcde6153260e2c8c29a5415c9a89.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
-[2] 
-https://patchwork.kernel.org/project/linux-renesas-soc/patch/9e0f64dd5e1efb0d27219416121c91a19da96ebd.1775636898.git.tommaso.merciai.xr@bp.renesas.com/
-
-Kind Regards,
-Tommaso
-
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 27 +++++++++++-------
+>  drivers/gpu/drm/msm/dp/dp_panel.c   | 57 ++++---------------------------------
+>  drivers/gpu/drm/msm/dp/dp_panel.h   | 13 +++------
+>  3 files changed, 26 insertions(+), 71 deletions(-)
 > 
->>>>>> Then port@1 is required for DU1 but not for DU0.
->>>>>> Same port@2 is required for DU0 but not for DU1.
->>>>>>
->>>>>> [0] https://patchwork.kernel.org/project/linux-renesas-soc/patch/ca022fdbba5236c36e0cb3095db4c31e8e0cb1b8.1770996493.git.tommaso.merciai.xr@bp.renesas.com/
->>>>>>
->>>>>>>>
->>>>>>>>      examples:
->>>>>>>>        # RZ/G2L DU
-> 
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
+> index 5c6a24ec140d..e28cc1bbb5b1 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -268,6 +268,7 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>  	const struct drm_display_info *info = &connector->display_info;
+>  	int rc = 0;
+>  	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+> +	const struct drm_edid *drm_edid;
+>  
+>  	rc = drm_dp_read_dpcd_caps(dp->aux, dpcd);
+>  	if (rc)
+> @@ -275,10 +276,20 @@ static int msm_dp_display_process_hpd_high(struct msm_dp_display_private *dp)
+>  
+>  	dp->link->lttpr_count = msm_dp_display_lttpr_init(dp, dpcd);
+>  
+> -	rc = msm_dp_panel_read_sink_caps(dp->panel, connector);
+> +	rc = msm_dp_panel_read_link_caps(dp->panel, connector);
+>  	if (rc)
+>  		goto end;
+>  
+> +	drm_edid = drm_edid_read_ddc(connector, &dp->aux->ddc);
 
+Where is it free?
+
+> +	drm_edid_connector_update(connector, drm_edid);
+> +
+> +	if (!drm_edid) {
+> +		DRM_ERROR("panel edid read failed\n");
+> +		/* check edid read fail is due to unplug */
+> +		if (!msm_dp_aux_is_link_connected(dp->aux))
+
+Does this work for USB-C AltMode usecase?
+
+> +			return -ETIMEDOUT;
+> +	}
+> +
+>  	msm_dp_link_process_request(dp->link);
+>  
+>  	if (!dp->msm_dp_display.is_edp)
+
+-- 
+With best wishes
+Dmitry
