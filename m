@@ -4,55 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44BB1F459FC
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 18:13:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DAF6F45A08
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 18:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B381A10E9B5;
-	Fri, 10 Apr 2026 18:13:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9CB10E9B7;
+	Fri, 10 Apr 2026 18:16:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VfS2NJLg";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Xeo2HQbu";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BEE410E9B5
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 18:13:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1775844814;
- bh=Bm+PCjeh7kObuA2fQ4qTkn6YdyYabvbqHjnxY40+HTE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=VfS2NJLgpBhva1CcYD8aG2W4XgCl8LdK4tlsXZ66UzTSL4ocUCgDbhZDQGQEs5hYB
- OccQKs7fyT6P7GEkDuxtILvJjLfNeuMvQQku7lcL3r+wtioXq0rzw8KN/PLKMWJVdn
- bWeNZhQf4KFGFcW6B161XIiLMn/ne7PGOjsBYUGdHUKgSY2KGWvR8MLrhh0w0ZTBxN
- MqaSLjigPlWe6b5crwdpq5n2xOL3mgFrb5/lA5u+F4mm5EpRtVVUlVwiGy/+bJi/ig
- SgaQqy9wwnleRiA/hU9d/GdtLscMQtGcJOo8vXZaqXMRQX3KGoYCaWyMAxOxgXusGt
- 9VCqBxRo/2c3g==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7C34117E10F4;
- Fri, 10 Apr 2026 20:13:34 +0200 (CEST)
-Date: Fri, 10 Apr 2026 20:13:31 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 8/8] drm/panthor: Use a local iomem base for MMU AS
- registers
-Message-ID: <20260410201331.4c76a073@fedora>
-In-Reply-To: <20260410164637.549145-9-karunika.choo@arm.com>
-References: <20260410164637.549145-1-karunika.choo@arm.com>
- <20260410164637.549145-9-karunika.choo@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B266E10E9B7
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 18:16:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SFdb53Cnvj6j4DYQ+vrH9HHnFQo1EfWh+VuVDrHJojM=; b=Xeo2HQbuXkKxpi8jCryl0VZuxE
+ ZDQjamLyl5QpP48Zuui53q2ry23x2KCG/bW1tx8RrSBRIuTviQBkKVzwcCziy6bAT+hqDKZmavqTp
+ jWXRQagc0TKFcqC2jfdM24hiscrKa040MkGiGGiaN4vKWpdkgSPNTYw210l9S3gcvURV+GkImPwtz
+ YUZ5ZIxwALPmxygSmJitWyHjPmPv8jjBFNf8uVR64UCglA4hHjN/QZ143Dzoqyqkt1zF0ulJKGaIM
+ a8w/7zz9yxIyFDbZHmc/2jHTWUPK63hqXw7t61uQBEhVN+eD7pUQYe1pE2t+dOHAWxAKABTqmWOEq
+ gUOUC5vg==;
+Received: from [189.7.87.169] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wBGPN-00EVbw-7Z; Fri, 10 Apr 2026 20:16:45 +0200
+Message-ID: <cbcb794f-0d82-40b4-a9a5-6aca99e8c434@igalia.com>
+Date: Fri, 10 Apr 2026 15:16:38 -0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/v3d: Limit ioctl extension chain depth to prevent
+ infinite loop
+To: Ashutosh Desai <ashutoshdesai993@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: itoral@igalia.com, stable@vger.kernel.org
+References: <20260410013907.2404175-1-ashutoshdesai993@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260410013907.2404175-1-ashutoshdesai993@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,182 +86,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 10 Apr 2026 17:46:37 +0100
-Karunika Choo <karunika.choo@arm.com> wrote:
+Hi Ashutosh,
 
-> Add an MMU_AS_CONTROL local iomem pointer to struct panthor_mmu and
-> switch AS register accesses to that base.
+On 09/04/26 22:39, Ashutosh Desai wrote:
+> v3d_get_extensions() walks a userspace-provided singly-linked list of
+> ioctl extensions without any bound on the chain length.  A local user
+> can craft a self-referential extension (ext->next == &ext) with zero
+> in_sync_count and out_sync_count, which bypasses the existing duplicate-
+> extension guard:
 > 
-> Interrupt accesses remain routed through the IRQ-local iomem base, while
-> the MMU register definitions are adjusted so AS registers are expressed
-> relative to the local MMU AS window. This completes the conversion away
-> from using the global device mapping for MMU AS register accesses.
+>      if (se->in_sync_count || se->out_sync_count)
+>              return -EINVAL;
 > 
-> No functional change intended.
+> The guard never fires because v3d_get_multisync_post_deps() returns
+> immediately when count is zero, leaving both fields at zero on every
+> iteration.  The result is an infinite loop in kernel context, blocking
+> the calling thread and pegging a CPU core indefinitely.
 > 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+> Both i915 (stackdepth = 512) and xe (MAX_USER_EXTENSIONS = 16) impose
+> an explicit depth limit on the same pattern.  Apply the same defence to
+> V3D by capping the walk at 16 extensions.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
 
-Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
+As Jani mentioned in a previous e-mail, if this is AI-generated, please
+add an AI coding assistant attribution.
+
+That said, I believe this makes a lot of sense. Some comments below.
 
 > ---
->  drivers/gpu/drm/panthor/panthor_mmu.c      | 35 ++++++++++++++--------
->  drivers/gpu/drm/panthor/panthor_mmu_regs.h | 10 ++-----
->  2 files changed, 25 insertions(+), 20 deletions(-)
+>   drivers/gpu/drm/v3d/v3d_submit.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index b8665e447d95..0767e148369d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -55,6 +55,9 @@ struct panthor_as_slot {
->   * struct panthor_mmu - MMU related data
->   */
->  struct panthor_mmu {
-> +	/** @iomem: CPU mapping of MMU_AS_CONTROL iomem region */
-> +	void __iomem *iomem;
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+> index 18f2bf1fe..491eeb6b3 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -802,12 +802,18 @@ v3d_get_extensions(struct drm_file *file_priv,
+>   	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+>   	struct v3d_dev *v3d = v3d_priv->v3d;
+>   	struct drm_v3d_extension __user *user_ext;
+> +	unsigned int ext_count = 0;
+>   	int ret;
+>   
+>   	user_ext = u64_to_user_ptr(ext_handles);
+>   	while (user_ext) {
+>   		struct drm_v3d_extension ext;
+>   
+> +		if (ext_count++ >= 16) {
+
+I believe we could limit it to 7, which is the number of existing V3D
+extensions. Also, we could add this number as a #define, to make things
+more clear.
+
+Best regards,
+- Maíra
+
+> +			drm_dbg(&v3d->drm, "Too many V3D ioctl extensions\n");
+> +			return -E2BIG;
+> +		}
 > +
->  	/** @irq: The MMU irq. */
->  	struct panthor_irq irq;
->  
-> @@ -517,13 +520,14 @@ static void free_pt(void *cookie, void *data, size_t size)
->  
->  static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
->  {
-> +	struct panthor_mmu *mmu = ptdev->mmu;
->  	int ret;
->  	u32 val;
->  
->  	/* Wait for the MMU status to indicate there is no active command, in
->  	 * case one is pending.
->  	 */
-> -	ret = gpu_read_relaxed_poll_timeout_atomic(ptdev->iomem, AS_STATUS(as_nr), val,
-> +	ret = gpu_read_relaxed_poll_timeout_atomic(mmu->iomem, AS_STATUS(as_nr), val,
->  						   !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
->  
->  	if (ret) {
-> @@ -541,7 +545,7 @@ static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd
->  	/* write AS_COMMAND when MMU is ready to accept another command */
->  	status = wait_ready(ptdev, as_nr);
->  	if (!status) {
-> -		gpu_write(ptdev->iomem, AS_COMMAND(as_nr), cmd);
-> +		gpu_write(ptdev->mmu->iomem, AS_COMMAND(as_nr), cmd);
->  		status = wait_ready(ptdev, as_nr);
->  	}
->  
-> @@ -589,12 +593,14 @@ PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
->  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  				 u64 transtab, u64 transcfg, u64 memattr)
->  {
-> +	struct panthor_mmu *mmu = ptdev->mmu;
-> +
->  	panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
->  				      panthor_mmu_as_fault_mask(ptdev, as_nr));
->  
-> -	gpu_write64(ptdev->iomem, AS_TRANSTAB(as_nr), transtab);
-> -	gpu_write64(ptdev->iomem, AS_MEMATTR(as_nr), memattr);
-> -	gpu_write64(ptdev->iomem, AS_TRANSCFG(as_nr), transcfg);
-> +	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), transtab);
-> +	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), memattr);
-> +	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), transcfg);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -602,6 +608,7 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
->  				  bool recycle_slot)
->  {
-> +	struct panthor_mmu *mmu = ptdev->mmu;
->  	struct panthor_vm *vm = ptdev->mmu->as.slots[as_nr].vm;
->  	int ret;
->  
-> @@ -629,9 +636,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
->  	if (recycle_slot)
->  		return 0;
->  
-> -	gpu_write64(ptdev->iomem, AS_TRANSTAB(as_nr), 0);
-> -	gpu_write64(ptdev->iomem, AS_MEMATTR(as_nr), 0);
-> -	gpu_write64(ptdev->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
-> +	gpu_write64(mmu->iomem, AS_TRANSTAB(as_nr), 0);
-> +	gpu_write64(mmu->iomem, AS_MEMATTR(as_nr), 0);
-> +	gpu_write64(mmu->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
->  
->  	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
->  }
-> @@ -784,7 +791,7 @@ int panthor_vm_active(struct panthor_vm *vm)
->  	 */
->  	fault_mask = panthor_mmu_as_fault_mask(ptdev, as);
->  	if (ptdev->mmu->as.faulty_mask & fault_mask) {
-> -		gpu_write(ptdev->iomem, MMU_INT_CLEAR, fault_mask);
-> +		gpu_write(ptdev->mmu->irq.iomem, INT_CLEAR, fault_mask);
->  		ptdev->mmu->as.faulty_mask &= ~fault_mask;
->  	}
->  
-> @@ -1712,7 +1719,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && size) {
->  		/* Lock the region that needs to be updated */
-> -		gpu_write64(ptdev->iomem, AS_LOCKADDR(vm->as.id),
-> +		gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
->  			    pack_region_range(ptdev, &start, &size));
->  
->  		/* If the lock succeeded, update the locked_region info. */
-> @@ -1761,6 +1768,7 @@ static void panthor_vm_unlock_region(struct panthor_vm *vm)
->  
->  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
->  {
-> +	struct panthor_mmu *mmu = ptdev->mmu;
->  	bool has_unhandled_faults = false;
->  
->  	status = panthor_mmu_fault_mask(ptdev, status);
-> @@ -1773,8 +1781,8 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
->  		u32 access_type;
->  		u32 source_id;
->  
-> -		fault_status = gpu_read(ptdev->iomem, AS_FAULTSTATUS(as));
-> -		addr = gpu_read64(ptdev->iomem, AS_FAULTADDRESS(as));
-> +		fault_status = gpu_read(mmu->iomem, AS_FAULTSTATUS(as));
-> +		addr = gpu_read64(mmu->iomem, AS_FAULTADDRESS(as));
->  
->  		/* decode the fault status */
->  		exception_type = fault_status & 0xFF;
-> @@ -1805,7 +1813,7 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
->  		 * Note that COMPLETED irqs are never cleared, but this is fine
->  		 * because they are always masked.
->  		 */
-> -		gpu_write(ptdev->iomem, MMU_INT_CLEAR, mask);
-> +		gpu_write(mmu->irq.iomem, INT_CLEAR, mask);
->  
->  		if (ptdev->mmu->as.slots[as].vm)
->  			ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
-> @@ -3222,6 +3230,7 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	if (ret)
->  		return ret;
->  
-> +	mmu->iomem = ptdev->iomem + MMU_AS_BASE;
->  	ptdev->mmu = mmu;
->  
->  	irq = platform_get_irq_byname(to_platform_device(ptdev->base.dev), "mmu");
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> index de460042651d..4e32ab931949 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> @@ -8,16 +8,12 @@
->  
->  #define MMU_INT_BASE					0x2000
->  
-> -#define MMU_INT_RAWSTAT					0x2000
-> -#define MMU_INT_CLEAR					0x2004
-> -#define MMU_INT_MASK					0x2008
-> -#define MMU_INT_STAT					0x200c
-> -
->  /* AS_COMMAND register commands */
->  
-> -#define MMU_BASE					0x2400
-> +#define MMU_AS_BASE					0x2400
-> +
->  #define MMU_AS_SHIFT					6
-> -#define MMU_AS(as)					(MMU_BASE + ((as) << MMU_AS_SHIFT))
-> +#define MMU_AS(as)					((as) << MMU_AS_SHIFT)
->  
->  #define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
->  #define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
+>   		if (copy_from_user(&ext, user_ext, sizeof(ext))) {
+>   			drm_dbg(&v3d->drm, "Failed to copy submit extension\n");
+>   			return -EFAULT;
 
