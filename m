@@ -4,53 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B489F44841
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 11:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BC0F44847
+	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 12:07:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AB2710E943;
-	Fri, 10 Apr 2026 11:34:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FACB10E224;
+	Fri, 10 Apr 2026 12:07:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="QaESeYc4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vOhYvvy0";
 	dkim-atps=neutral
-Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com
- [91.218.175.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BFE810E943
- for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 11:34:00 +0000 (UTC)
-Message-ID: <8a67f5b0-6f56-484a-8ad8-564419b4e137@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1775820838;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6yw1JX6mHdNxmIMqYH0hr5zwhpPH1QklVfC4B6+9BBY=;
- b=QaESeYc4SheE/B1YkTl3hHPWE0SXKKI8it9lkOvlFoWZM4+bc8zN4ASLv1E8MZl/snapIt
- f/4QFYVGuUH0xvzu0Qty+v070XeUHagDWe7qWaE1XN1Z8ujx2LdPGjGbrEDWFl8itjWLHz
- rqAcwFe9HcUjyPKCY7WW0mCwJ2RknfQ=
-Date: Fri, 10 Apr 2026 13:33:54 +0200
-MIME-Version: 1.0
-Subject: Re: [PATCH v2] drm/sched: Add test suite for concurrent job
- submissions
-To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260408154947.85204-1-marco.pagani@linux.dev>
- <6a67c09d-d85e-45a9-90a4-125db30092d8@ursulin.net>
- <c06e0be2-90c7-469e-af3c-04b4bf3bb2bd@linux.dev>
- <d54ddff5776e55a7cd88082e738fe0127ed77c3b.camel@mailbox.org>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011006.outbound.protection.outlook.com [40.107.208.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8791F10E21F;
+ Fri, 10 Apr 2026 12:07:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vd25EzR/HQqqFrFrDLhLF6OWJFRoNSlZ+VBj+sVJfbj7YHsDuBYCilYfGX26w+AbwCdJZdw7MNEIwjw7oR9CByj+0CGHKyp1kjmHjmoIUzjYJFa3ilh7z3uzU0FpAmIrWvbG9jbugqTyu1Et5r4kZLum9uu9rG0eZeJg7GgArXDuV08TNhjTo/pZIYNcHTSF1/whAjo9mf+gJ9iqayMi0VfqH2vosLwyVMo6gIp7e2A1cs8p3yCteefwlSqA/nUMeEaFiOn4Lcx5HYaNK2+/NevmShuKaDODQHZEO2srOi/37F2xJBLxCXfc8tG5cz/X9gQKYNR0TBS3J0g+SbOy4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RaxhRXX165W6Y5iAMpo26t1lEg6zw4s2X3A8RKBypZg=;
+ b=q+nAj8N+MnnxKnSTmsuTSVisFNwZ7E0QyFx7CHSYzhAkNZ9qgc5POqrCEOYprbRvU/1iT+WYQBFyJpqMgM79h1O84ThVmNc4woASqfkLTDjAAXYwqD5wGqVa2wQHP6xBMRMCp0k/1eO//ttsucvFd0NIOHc04gRp1bXBw7lYLmkpsniZ0IPdPnrpK+kfZGMJe3XFmpLVEB90pKbe5iOHJe1vwPAFWmrz8vchtJo4wp7aLVfuxaQgaU3RKaO3hw/5GQCixkK2AO5zF70IQBmPz48UhurD5HgUZ5CtfbuT3GtGI/cfmYQPYyMEQafbGggzK1ojDwOuf8IOwAP6JW0ZUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RaxhRXX165W6Y5iAMpo26t1lEg6zw4s2X3A8RKBypZg=;
+ b=vOhYvvy0Juy1+H2wwRFpc6XqfR4jZ/U0Gawuz+1Zv+gSRgmzxG9caVjoCT38CC1igM3VcuCMyyis4LrG79HQrGVW6yM6MjfJxYuNYy1wua7tKPrO4acQw3qNpJHMctjrvGOzcTmpPnAQb0aWJB1P2tqRWWVh8RfklBkjXdMBYL0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by BY5PR12MB4130.namprd12.prod.outlook.com (2603:10b6:a03:20b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Fri, 10 Apr
+ 2026 12:07:33 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9791.032; Fri, 10 Apr 2026
+ 12:07:33 +0000
+Message-ID: <8ee389bc-5321-4ff7-82db-351d4f641e6a@amd.com>
+Date: Fri, 10 Apr 2026 14:07:24 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 4/6] drm/amdgpu: add SVM eviction fences for VRAM
+ overcommit
+To: Junhua Shen <Junhua.Shen@amd.com>, Alexander.Deucher@amd.com,
+ Felix.Kuehling@amd.com, Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com,
+ Philip.Yang@amd.com, Xiaogang.Chen@amd.com, Ray.Huang@amd.com,
+ honglei1.huang@amd.com, Lingshan.Zhu@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ junhshen@amd.com
+References: <20260410113146.146212-1-Junhua.Shen@amd.com>
+ <20260410113146.146212-5-Junhua.Shen@amd.com>
 Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Marco Pagani <marco.pagani@linux.dev>
-In-Reply-To: <d54ddff5776e55a7cd88082e738fe0127ed77c3b.camel@mailbox.org>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260410113146.146212-5-Junhua.Shen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+X-ClientProxiedBy: BN9PR03CA0325.namprd03.prod.outlook.com
+ (2603:10b6:408:112::30) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4130:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4d4ad43-e68c-48bf-5d10-08de96f9bedb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|921020|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: L9D/QDDoGoTyjHx1RrNlC7ERUK1MTFLygHD55WPEKzOZvA+X98zPutLPv6DRN+10bJVhBxqKTH+VQFdP6DUnmlYJFB+38/UeJT74HK0CB65Tk49Kp7zQjS89VWaki+feCc+w+u6S3i1vyYnpcv/99dPkgDNI4I+eyYYOgSP9QiDgvSRqiyVFmd9TYQ8VDAkkhG9jWxCfTK5d7l+MpG3L6niwWCBdCb4N+HTwYZHMUFfsHvOZ3GsWVbsE4PFRH+yWRQqIDo8ND0eQMVsL6Q/6A+2dlyPmZ6ChdCaUi9g6iit3QgwVUdHnEI+J+pbsdEyJNEEpnbWI7eteB3ABHSNjP17V7m88SrBIRAg4F40AgQvnsH/krtOVxaQxL6ORI6fDU0RLEY/Eqf0M9sJoZavN2ohrlHs//cMgl9F39KctZHI1zehOoQkZzjFN3GFhjIG1HPgVuqPMPbfXZSW89QHF5XcVcD69ckKCzDcfFM4JjUnHllhD8qgEefiYzSC+stVUlOuaDKsVSHh3tG4+yR1yIPJLkEH52jXBKgTsi9BcVq7YO/lC+t8FUyn6tejK98Iql4XLMn6jqFLzM6eipazUShsbPymaZpp64KGp0pYLMbHVtyKKIbKc9cBo7M7ZDXqVUMeKjYaDdWhIV1rRjiyi6/AyYktHezHrgDzRUQIq1QXNkKe7cq3D1oWwC6iOOfT+1NMo85D7izOZRRzqco2xHHCoKgCmduO5iL+FHS3REw4PwTdyowIapOmPG713hi2BbspB2sTp6giMV/rdqKCUmg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(921020)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTZnbUI5d2lPVE02ajEyNUNXQXJrdzM5RjNnaDNaV3Znb0MweVRNTVZ5WE1r?=
+ =?utf-8?B?eVRwaVNIU1J3Z1dYOEhxcHJhNnQ0SVJSSVVTcXEvMCtRNkMvbURRU29NUVUx?=
+ =?utf-8?B?SU9vUjE0RFU5elJNYlhEdzhmdEgyVUV1ZmVISjgwQXJ5ODdSSC9QM2pkMzBy?=
+ =?utf-8?B?R3VoV1VrOEYrYUVpZGgwL2gvbC84Rzdlb29KdTRCWDdFOWZlVm9vZGx4SEky?=
+ =?utf-8?B?NHRETXFuSEVzdTZYS0xYWE13TzgwQ1hNVkRHUXU4cUYyTW53eEhwTzI4enFj?=
+ =?utf-8?B?RzUyZm5nUzlTWVBRcUsyUnVRU2lsZVV4Vi8ybmxkR0J0T2FscXE5Z3FhM1JL?=
+ =?utf-8?B?ZFdhTFJ1SjRwcmdLS2VDSXRrVGJKZnlsb1I2VW1tUGxnK0JZZXVMS1I5djQ3?=
+ =?utf-8?B?RTFZeFBINkF6VVFJL0dKZUR5akZFK3RZR2RFTm5NcklFOHhoTDUvRXVTQmdQ?=
+ =?utf-8?B?YmFjZGRtZ3BkQ1pDZ1U2V3lvdCtoQUFSMGdNSXNQVWdFOEhucXJSaTNCOVpt?=
+ =?utf-8?B?ejJSTHZuMVJhRGgxaDRZdW5IaDRWOFhDbG5sV3J6UFNKY3JiSEVCRFU2MjdU?=
+ =?utf-8?B?K3dTTUU0WWJlY0E4QXRFZ0ZjOU1BVGZ2YS9yamx5MWtYZkxtUStIZ1k1QVJE?=
+ =?utf-8?B?LytvdnA2aXRDMUhicS9zZ3ZyZGJhdllhQXJ5eTViUEd3aE9WcmVRODRaRHhx?=
+ =?utf-8?B?WHRLdDJxUFZKMmsvMldML2NrdXBMTEY5SlludkNBYlQ2MUxRMTZFdVNuK3VL?=
+ =?utf-8?B?a29ZV3BmRU50K0NzRHVMN2hIUDc5RVdOcXZPQjRKckhsTmwxYzNlMkwxYlF3?=
+ =?utf-8?B?TzNnYWdPa2Z0a0o4K3YyN1VZQTJWaml3bXdtcEVuK2l0eE90aFFJeWNPSmlT?=
+ =?utf-8?B?MUpsdjZVLzgrRDBHY2M5Skt5YjBVakd1b0lickJZa3FrS3Q3T042VE1rc21B?=
+ =?utf-8?B?a0M0RlgweVN1ZDZTN3Q0d2U1WVo4YmpabC9kMVJGciszT2x2M3p1bzdxT0VJ?=
+ =?utf-8?B?YXBDOFNjb2NwRzhCRWRUYXhQWk9wMU9FVUpyb2pveXpSOUlzMm81OHlmRjBp?=
+ =?utf-8?B?cHB0eWZXRFR0YVlJdkRZZ3gwQXViV1FqdHYyKytZUnVySjdxTXlSUFpBdlpv?=
+ =?utf-8?B?dWlEUDdyODFFR0llekcxVVUwbTZNVGN0Tks0eUFlc2Z4akkwVjVsOVZwSExz?=
+ =?utf-8?B?U0p2Z09CZkVmTS80R3FBeEpYbDRieUtLTUFNNVNPOHExZ0dJeW1sNWZSWVZV?=
+ =?utf-8?B?dXU4dzhvVC9heENyUkl0c3E3Ung2ZllIU1pkdzJXUk1QVG12T2xvcTFqZTBR?=
+ =?utf-8?B?UE0za1NDcGcyOTBoOTVuZzl6NGNHbzA2YUU4VDh3SjBSM2JCYVNicHd0bHJN?=
+ =?utf-8?B?NkRHTk0rSGcrWVlvRzBKUlRjOEFhTVF1aXFPV2VVckplRGNvQ3NuTDFkdXhU?=
+ =?utf-8?B?Und6dFpMaFB6aWxVbmpSbERwSTRYR3k2MVFtR0NiZk0wSkRaS1Q0dmhBYmRm?=
+ =?utf-8?B?Wi9odnR4dEhZTGtOKzI0TFk0amcvS1BKM2M0TU16cjNiQlR1ejhiUkI5S21K?=
+ =?utf-8?B?K3NtUXdJYnFEZGtJWWg4U1BKTEpLTHFLYUUxeUhXSC9UTGE5Z1pTYU9Uc0VX?=
+ =?utf-8?B?c0M2SVJzV2U0UGgwOXhTOVhsRWVqY3V4T0VmdUVhTTJMNmhpVld2ZWNrSUNp?=
+ =?utf-8?B?U1dpYm1GODRjam8yOHRBYjM3MXVjQ3c5ZjBGQnZVZEhXUjhGOWJVc3g4UWEz?=
+ =?utf-8?B?dHV1WENmTW0zbnVFeWhRUTFKdFdkU05YQ3Y5TlJnZGRwb0JRZWFRNFFMQ1Ux?=
+ =?utf-8?B?SVB4OWhDZS93c3pmb25ha0puRmhIRXM5Y3Q2aE1DK2IzZThpRTVvMGpsdkdG?=
+ =?utf-8?B?dmZFTXRUZDErVTRYSFU4UStESm0zbGVDbnR5UU5qNmRYL1ZFWjE3UFl3MFZT?=
+ =?utf-8?B?eGk1RFRKRy81YnVUUDRwM1RucUlMU2NOTkRSRXFESmsyOEVWL1BqR1U0c0M4?=
+ =?utf-8?B?SWRMaW5iOTFRaTBjTjRvd1lDS3puRVowaUdvckYrUE93c0dHVmVDWEZPNldQ?=
+ =?utf-8?B?V21waXpiWGwvUUhLcVozMmdoN2hzZiszMVhVaEx6K3I2a2x2VzhrTjF0dWhB?=
+ =?utf-8?B?MkhKNUhZQ1ZLMlJiYWRnSHJIS1VFRkNZWGVsRGdLTndnUDd5ZHI5QythRXlY?=
+ =?utf-8?B?NmNWdXdRUGoraFY0TTdQbm44Zi81aitiVVJhV1hQWW52azc3TzNlZmlxaUpZ?=
+ =?utf-8?B?YmV2T0RNa0IyUFZHUm5JQ0hydzVGV2JBcm9kejQ2V091S0U5REFWQ2hTc0lX?=
+ =?utf-8?Q?CFudbycj++BITtntsN?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4d4ad43-e68c-48bf-5d10-08de96f9bedb
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 12:07:32.8793 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VpKQZTiM+4Vpk0jflH3dro5gh+VJ297yVl2Hz2H5ifgBYkARbGEs+ur/FPSXffmH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4130
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,491 +140,401 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 4/10/26 13:31, Junhua Shen wrote:
+> Add eviction fence support so that TTM can reclaim SVM VRAM
+> when the system is under memory pressure.
+> 
+> When TTM needs to evict a DISCARDABLE SVM BO, the fence's
+> enable_signaling callback schedules a work item that calls
+> hmm_range_fault(dev_private_owner=NULL) to trigger
+> migrate_to_ram for all device-private pages in the BO's
+> virtual address range. After SDMA copies the data back to
+> system RAM, the fence is signaled and TTM discards the
+> now-empty VRAM resource.
 
+Absolutely clear NAK to that whole approach! This doesn't even remotely work correctly.
 
-On 10/04/2026 11:19, Philipp Stanner wrote:
-> On Fri, 2026-04-10 at 11:07 +0200, Marco Pagani wrote:
->>
->>
->> On 09/04/2026 17:35, Tvrtko Ursulin wrote:
->>>
->>> On 08/04/2026 16:49, Marco Pagani wrote:
->>>> Add a new test suite to simulate concurrent job submissions to the DRM
->>>> scheduler, as this functionality is not covered by current test suites.
->>>>
->>>> The new test suite includes two initial test cases: (i) a test case for
->>>> parallel job submission and (ii) a test case for interleaved job
->>>> submission and completion. In the first test case, worker threads
->>>> concurrently submit jobs to the scheduler, and then the timeline is
->>>> manually advanced to complete them in bulk. In the second test case,
->>>> worker threads concurrently submit sequences of jobs of different
->>>> durations to the mock scheduler using a sliding window to better model
->>>> real-world workloads. The timeline is advanced automatically by the
->>>> finishing jobs, interleaving submission with completion.
->>>>
->>>> Signed-off-by: Marco Pagani <marco.pagani@linux.dev>
->>>> ---
->>>> Changes in v2:
->>>> - Improved test description
->>>> - Use multiple job durations instead of harmonic periods/durations
->>>> - Improved submission for interleaved test with a sliding window
->>>> - Removed unnecessary asserts per Tvrtko's feedback, but kept wait_scheduled
->>>> - Changed parameter names from period to duration for clarity
->>>> - Used temp variables to reduce line breaks
->>>> ---
->>>>   drivers/gpu/drm/scheduler/tests/tests_basic.c | 356 ++++++++++++++++++
->>>>   1 file changed, 356 insertions(+)
->>>>
->>>> diff --git a/drivers/gpu/drm/scheduler/tests/tests_basic.c b/drivers/gpu/drm/scheduler/tests/tests_basic.c
->>>> index a5a5a35a87b0..1791b157cfc8 100644
->>>> --- a/drivers/gpu/drm/scheduler/tests/tests_basic.c
->>>> +++ b/drivers/gpu/drm/scheduler/tests/tests_basic.c
->>>> @@ -1,7 +1,11 @@
->>>>   // SPDX-License-Identifier: GPL-2.0
->>>>   /* Copyright (c) 2025 Valve Corporation */
->>>>   
->>>> +#include <linux/completion.h>
->>>>   #include <linux/delay.h>
->>>> +#include <linux/minmax.h>
->>>> +#include <linux/time.h>
->>>> +#include <linux/workqueue.h>
->>>>   
->>>>   #include "sched_tests.h"
->>>>   
->>>> @@ -235,6 +239,357 @@ static void drm_sched_basic_cancel(struct kunit *test)
->>>>   	KUNIT_ASSERT_EQ(test, job->hw_fence.error, -ECANCELED);
->>>>   }
->>>>   
->>>> +struct sched_concurrent_context {
->>>> +	struct drm_mock_scheduler *sched;
->>>> +	struct workqueue_struct *sub_wq;
->>>> +	struct kunit *test;
->>>> +	struct completion wait_go;
->>>> +};
->>>> +
->>>> +KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_fini_wrap, drm_mock_sched_fini,
->>>> +			    struct drm_mock_scheduler *);
->>>> +
->>>> +KUNIT_DEFINE_ACTION_WRAPPER(drm_mock_sched_entity_free_wrap, drm_mock_sched_entity_free,
->>>> +			    struct drm_mock_sched_entity *);
->>>> +
->>>> +static void complete_destroy_workqueue(void *context)
->>>> +{
->>>> +	struct sched_concurrent_context *ctx = context;
->>>> +
->>>> +	complete_all(&ctx->wait_go);
->>>> +
->>>> +	destroy_workqueue(ctx->sub_wq);
->>>> +}
->>>> +
->>>> +static int drm_sched_concurrent_init(struct kunit *test)
->>>> +{
->>>> +	struct sched_concurrent_context *ctx;
->>>> +	int ret;
->>>> +
->>>> +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, ctx);
->>>> +
->>>> +	init_completion(&ctx->wait_go);
->>>> +
->>>> +	ctx->sched = drm_mock_sched_new(test, MAX_SCHEDULE_TIMEOUT);
->>>> +
->>>> +	ret = kunit_add_action_or_reset(test, drm_mock_sched_fini_wrap, ctx->sched);
->>>> +	KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +	/* Use an unbounded workqueue to maximize job submission concurrency */
->>>> +	ctx->sub_wq = alloc_workqueue("drm-sched-submitters-wq", WQ_UNBOUND,
->>>> +				      WQ_UNBOUND_MAX_ACTIVE);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, ctx->sub_wq);
->>>> +
->>>> +	ret = kunit_add_action_or_reset(test, complete_destroy_workqueue, ctx);
->>>> +	KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +	ctx->test = test;
->>>> +	test->priv = ctx;
->>>> +
->>>> +	return 0;
->>>> +}
->>>> +
->>>> +struct drm_sched_parallel_params {
->>>> +	const char *description;
->>>> +	unsigned int num_jobs;
->>>> +	unsigned int num_workers;
->>>> +};
->>>> +
->>>> +static const struct drm_sched_parallel_params drm_sched_parallel_cases[] = {
->>>> +	{
->>>> +		.description = "Parallel submission of multiple jobs per worker",
->>>> +		.num_jobs = 8,
->>>> +		.num_workers = 16,
->>>> +	},
->>>> +};
->>>> +
->>>> +static void
->>>> +drm_sched_parallel_desc(const struct drm_sched_parallel_params *params, char *desc)
->>>> +{
->>>> +	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
->>>> +}
->>>> +
->>>> +KUNIT_ARRAY_PARAM(drm_sched_parallel, drm_sched_parallel_cases, drm_sched_parallel_desc);
->>>
->>> As long as you don't plan to add more test cases any time soon the 
->>> boiler plate could be reduced by unot using KUNIT_ARRAY_PARAM but it is 
->>> up to you. (Same for the other test below.)
->>
->> Right.
->>
->>>> +
->>>> +struct parallel_worker {
->>>> +	struct work_struct work;
->>>> +	struct sched_concurrent_context *ctx;
->>>> +	struct drm_mock_sched_entity *entity;
->>>> +	struct drm_mock_sched_job **jobs;
->>>> +	unsigned int id;
->>>> +};
->>>> +
->>>> +static void drm_sched_parallel_worker(struct work_struct *work)
->>>> +{
->>>> +	const struct drm_sched_parallel_params *params;
->>>> +	struct sched_concurrent_context *test_ctx;
->>>> +	struct parallel_worker *worker;
->>>> +	unsigned int i;
->>>> +
->>>> +	worker = container_of(work, struct parallel_worker, work);
->>>> +	test_ctx = worker->ctx;
->>>> +	params = test_ctx->test->param_value;
->>>> +
->>>> +	wait_for_completion(&test_ctx->wait_go);
->>>> +
->>>> +	kunit_info(test_ctx->test, "Parallel worker %u submitting %u jobs started\n",
->>>> +		   worker->id, params->num_jobs);
->>>> +
->>>> +	for (i = 0; i < params->num_jobs; i++)
->>>> +		drm_mock_sched_job_submit(worker->jobs[i]);
->>>> +}
->>>> +
->>>> +/*
->>>> + * Spawns workers that submit a sequence of jobs to the mock scheduler.
->>>> + * Once all jobs are submitted, the timeline is manually advanced.
->>>> + */
->>>> +static void drm_sched_parallel_submit_test(struct kunit *test)
->>>> +{
->>>> +	struct sched_concurrent_context *ctx = test->priv;
->>>> +	const struct drm_sched_parallel_params *params = test->param_value;
->>>> +	struct parallel_worker *workers, *worker;
->>>> +	struct drm_mock_sched_job *job;
->>>> +	unsigned int i, j, completed_jobs, total_jobs;
->>>> +	bool done;
->>>> +	int ret;
->>>> +
->>>> +	KUNIT_ASSERT_GT(test, params->num_workers, 0);
->>>> +	KUNIT_ASSERT_GT(test, params->num_jobs, 0);
->>>> +
->>>> +	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
->>>> +				GFP_KERNEL);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, workers);
->>>> +
->>>> +	/*
->>>> +	 * Init workers only after all jobs and entities have been successfully
->>>> +	 * allocated. In this way, the cleanup logic for when an assertion fail
->>>> +	 * can be simplified.
->>>> +	 */
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		worker = &workers[i];
->>>> +		worker->id = i;
->>>> +		worker->ctx = ctx;
->>>> +		worker->entity = drm_mock_sched_entity_new(test,
->>>> +							   DRM_SCHED_PRIORITY_NORMAL,
->>>> +							   ctx->sched);
->>>> +
->>>> +		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
->>>> +						worker->entity);
->>>> +		KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +		worker->jobs = kunit_kcalloc(test, params->num_jobs,
->>>> +					     sizeof(*worker->jobs), GFP_KERNEL);
->>>> +		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
->>>> +
->>>> +		for (j = 0; j < params->num_jobs; j++) {
->>>> +			job = drm_mock_sched_job_new(test, worker->entity);
->>>> +			worker->jobs[j] = job;
->>>> +		}
->>>> +	}
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		worker = &workers[i];
->>>> +		INIT_WORK(&worker->work, drm_sched_parallel_worker);
->>>> +		queue_work(ctx->sub_wq, &worker->work);
->>>> +	}
->>>> +
->>>> +	complete_all(&ctx->wait_go);
->>>> +	flush_workqueue(ctx->sub_wq);
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		worker = &workers[i];
->>>> +		for (j = 0; j < params->num_jobs; j++) {
->>>> +			job = worker->jobs[j];
->>>> +			done = drm_mock_sched_job_wait_scheduled(job, HZ);
->>>> +			KUNIT_EXPECT_TRUE(test, done);
->>>> +		}
->>>> +	}
->>>> +
->>>> +	total_jobs = params->num_workers * params->num_jobs;
->>>> +	completed_jobs = drm_mock_sched_advance(ctx->sched, total_jobs);
->>>> +	KUNIT_EXPECT_EQ(test, completed_jobs, total_jobs);
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		worker = &workers[i];
->>>> +		for (j = 0; j < params->num_jobs; j++) {
->>>> +			job = worker->jobs[j];
->>>> +			done = drm_mock_sched_job_wait_finished(job, HZ);
->>>> +			KUNIT_EXPECT_TRUE(test, done);
->>>> +		}
->>>> +	}
->>>> +}
->>>> +
->>>> +struct drm_sched_interleaved_params {
->>>> +	const char *description;
->>>> +	unsigned int test_duration_ms;
->>>> +	unsigned int job_base_duration_us;
->>>> +	unsigned int num_workers;
->>>> +	unsigned int num_in_flight_jobs;
->>>> +};
->>>> +
->>>> +static const struct drm_sched_interleaved_params drm_sched_interleaved_cases[] = {
->>>> +	{
->>>> +		.description = "Interleaved submission of multiple jobs per worker",
->>>> +		.test_duration_ms = 1000,
->>>> +		.job_base_duration_us = 100,
->>>> +		.num_workers = 16,
->>>> +		.num_in_flight_jobs = 8,
->>>> +	},
->>>> +};
->>>> +
->>>> +static void
->>>> +drm_sched_interleaved_desc(const struct drm_sched_interleaved_params *params, char *desc)
->>>> +{
->>>> +	strscpy(desc, params->description, KUNIT_PARAM_DESC_SIZE);
->>>> +}
->>>> +
->>>> +KUNIT_ARRAY_PARAM(drm_sched_interleaved, drm_sched_interleaved_cases,
->>>> +		  drm_sched_interleaved_desc);
->>>> +
->>>> +struct interleaved_worker {
->>>> +	struct work_struct work;
->>>> +	struct sched_concurrent_context *ctx;
->>>> +	struct drm_mock_sched_entity *entity;
->>>> +	struct drm_mock_sched_job **jobs;
->>>> +	unsigned int id;
->>>> +	unsigned int job_count;
->>>> +	unsigned int job_duration_us;
->>>> +};
->>>> +
->>>> +static void drm_sched_interleaved_worker(struct work_struct *work)
->>>> +{
->>>> +	struct sched_concurrent_context *test_ctx;
->>>> +	const struct drm_sched_interleaved_params *params;
->>>> +	struct interleaved_worker *worker;
->>>> +	unsigned int i, j, max_in_flight_job;
->>>> +	unsigned long timeout;
->>>> +	bool done;
->>>> +
->>>> +	worker = container_of(work, struct interleaved_worker, work);
->>>> +	test_ctx = worker->ctx;
->>>> +	params = test_ctx->test->param_value;
->>>> +
->>>> +	wait_for_completion(&test_ctx->wait_go);
->>>> +
->>>> +	kunit_info(test_ctx->test, "Worker %u submitting %u jobs of %u us started\n",
->>>> +		   worker->id, worker->job_count, worker->job_duration_us);
->>>> +
->>>> +	timeout = msecs_to_jiffies(params->test_duration_ms * 2);
->>>> +
->>>> +	/* Fill the submission window */
->>>> +	max_in_flight_job = min(worker->job_count, params->num_in_flight_jobs);
->>>> +	for (i = 0; i < max_in_flight_job; i++)
->>>> +		drm_mock_sched_job_submit(worker->jobs[i]);
->>>> +
->>>> +	/* Keep the window full by submitting a new job at once until done */
->>>> +	for (i = 0; i < worker->job_count; i++) {
->>>> +		done = drm_mock_sched_job_wait_finished(worker->jobs[i], timeout);
->>>> +		if (!done)
->>>> +			kunit_info(test_ctx->test, "Job %u of worker %u timed out\n",
->>>> +				   i, worker->id);
->>>> +
->>>> +		j = i + max_in_flight_job;
->>>> +		if (j < worker->job_count)
->>>> +			drm_mock_sched_job_submit(worker->jobs[j]);
->>>> +	}
->>>
->>> The loop maybe isn't the most straight-forward but eventually looked to 
->>> me like it will do what it wants.
->>
->> I will address this in my reply to your next message.
->>
->>> num_in_flight_jobs as a test parameter is perhaps arbitrary? I am not 
->>> sure what it aims to achieve versus if workers would just be submitting 
->>> one by one, or perhaps two by two, in both cases loops would be simpler.
->>
->> I think it's better to have it as a parameter rather than hardcoded in
->> the test.
-> 
-> The tests are basically here to help us developers percuss the
-> scheduler. So I would say we don't need to put thaaaat much focus on
-> such details. Parameter sounds nice to me, but hardcoded wouldn't break
-> any bones either.
-> 
->>  
->>> Or even if num_in_flight_jobs would perhaps be automatically derived 
->>> from the worker->id? If the goal is to simulate queue depth it sounds 
->>> good to vary it.
->>
->> That's a nice idea, but I think having a fixed number of in_flight_jobs
->> expressed as a parameter is a good balance between test expressiveness
->> and simplicity.
-> 
-> I think those are very detailed questions that one probably wants to
-> address in a hypothetical "test payloads more realistically"-patch.
-> 
-> This patch overall looks very good and tidy to me and I think we
-> soonish want to take it as the "provide ground layer for concurrent job
-> submission testing"-patch.
-> 
-> So unless someone sees major blockers like bugs, I would like to take
-> it in soonish, since it's been on-list for quite some time now and we
-> seem to loose ourselves in deep-ish details :]
-> 
->>
->>> But these are minor points and up to you. The test now looks passably 
->>> tidy as it is.
->>
->> Thanks for the tidy encouragement.
->>
->>> Ah wait, please also check if this one needs to be marked as "slow"
->>> kunit test. AFAIR all that are expected to take more than 1s need that.
->>
->> I've run it with UML and QEMU (arch=x86_64) and with the current parameters
->> kunit does not recommend to mark it as slow. But maybe you are right, it's
->> safer to mark it as slow anyway.
-> 
-> +1
-> 
-> If you can provide that in v3, it would seem we're good to go.
+Please see the documentation for dma_fence handling for the background.
 
-Sure, I'll address the comments and then prepare a v3.
+Regards,
+Christian.
 
-Thanks,
-Marco
-
->>>> +}
->>>> +
->>>> +/*
->>>> + * Spawns workers that submit a sequence of jobs to the mock scheduler. Job
->>>> + * durations are chosen as multiples of a base duration value specified as
->>>> + * a test parameter. Since the scheduler serializes jobs from all workers,
->>>> + * the total test duration budget is divided into equal shares among workers.
->>>> + * These shares are then used to compute the number of jobs that each worker
->>>> + * can submit
->>>> + */
->>>> +static void drm_sched_interleaved_submit_test(struct kunit *test)
->>>> +{
->>>> +	const struct drm_sched_interleaved_params *params = test->param_value;
->>>> +	struct sched_concurrent_context *ctx = test->priv;
->>>> +	struct interleaved_worker *workers, *worker;
->>>> +	struct drm_mock_sched_job *job;
->>>> +	unsigned int worker_share_us;
->>>> +	unsigned int i, j;
->>>> +	bool done;
->>>> +	int ret;
->>>> +
->>>> +	KUNIT_ASSERT_GT(test, params->num_workers, 0);
->>>> +	KUNIT_ASSERT_GT(test, params->job_base_duration_us, 0);
->>>> +
->>>> +	workers = kunit_kcalloc(test, params->num_workers, sizeof(*workers),
->>>> +				GFP_KERNEL);
->>>> +	KUNIT_ASSERT_NOT_NULL(test, workers);
->>>> +
->>>> +	/* Divide the available test time into equal shares among the workers */
->>>> +	worker_share_us = (params->test_duration_ms * USEC_PER_MSEC) /
->>>> +			  params->num_workers;
->>>> +
->>>> +	/*
->>>> +	 * Init workers only after all jobs and entities have been successfully
->>>> +	 * allocated. In this way, the cleanup logic for when an assertion fails
->>>> +	 * can be simplified.
->>>> +	 */
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		worker = &workers[i];
->>>> +		worker->id = i;
->>>> +		worker->ctx = ctx;
->>>> +
->>>> +		worker->job_duration_us = params->job_base_duration_us * (i + 1);
->>>> +		worker->job_count = worker_share_us / worker->job_duration_us;
->>>> +		worker->job_count = max(1U, worker->job_count);
->>>> +
->>>> +		worker->entity = drm_mock_sched_entity_new(test,
->>>> +							   DRM_SCHED_PRIORITY_NORMAL,
->>>> +							   ctx->sched);
->>>> +
->>>> +		ret = kunit_add_action_or_reset(test, drm_mock_sched_entity_free_wrap,
->>>> +						worker->entity);
->>>> +		KUNIT_ASSERT_EQ(test, ret, 0);
->>>> +
->>>> +		worker->jobs = kunit_kcalloc(test, worker->job_count,
->>>> +					     sizeof(*worker->jobs), GFP_KERNEL);
->>>> +		KUNIT_ASSERT_NOT_NULL(test, worker->jobs);
->>>> +
->>>> +		for (j = 0; j < worker->job_count; j++) {
->>>> +			job = drm_mock_sched_job_new(test, worker->entity);
->>>> +			drm_mock_sched_job_set_duration_us(job, worker->job_duration_us);
->>>> +
->>>> +			worker->jobs[j] = job;
->>>> +		}
->>>> +	}
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		worker = &workers[i];
->>>> +		INIT_WORK(&worker->work, drm_sched_interleaved_worker);
->>>> +		queue_work(ctx->sub_wq, &worker->work);
->>>> +	}
->>>> +
->>>> +	complete_all(&ctx->wait_go);
->>>> +	flush_workqueue(ctx->sub_wq);
->>>> +
->>>> +	for (i = 0; i < params->num_workers; i++) {
->>>> +		worker = &workers[i];
->>>> +		for (j = 0; j < worker->job_count; j++) {
->>>> +			job = worker->jobs[j];
->>>> +			done = drm_mock_sched_job_is_finished(job);
->>>> +			KUNIT_EXPECT_TRUE(test, done);
->>>> +		}
->>>> +	}
->>>> +}
->>>> +
->>>> +static struct kunit_case drm_sched_concurrent_tests[] = {
->>>> +	KUNIT_CASE_PARAM(drm_sched_parallel_submit_test, drm_sched_parallel_gen_params),
->>>> +	KUNIT_CASE_PARAM(drm_sched_interleaved_submit_test, drm_sched_interleaved_gen_params),
->>>> +	{}
->>>> +};
->>>> +
->>>> +static struct kunit_suite drm_sched_concurrent = {
->>>> +	.name = "drm_sched_concurrent_tests",
->>>> +	.init = drm_sched_concurrent_init,
->>>> +	.test_cases = drm_sched_concurrent_tests,
->>>> +};
->>>> +
->>>>   static struct kunit_case drm_sched_cancel_tests[] = {
->>>>   	KUNIT_CASE(drm_sched_basic_cancel),
->>>>   	{}
->>>> @@ -556,6 +911,7 @@ static struct kunit_suite drm_sched_credits = {
->>>>   };
->>>>   
->>>>   kunit_test_suites(&drm_sched_basic,
->>>> +		  &drm_sched_concurrent,
->>>>   		  &drm_sched_timeout,
->>>>   		  &drm_sched_cancel,
->>>>   		  &drm_sched_priority,
->>>
->>
 > 
+> The implementation adds:
+>   - struct amdgpu_svm_evict_fence with dma_fence_ops
+>   - amdgpu_svm_evict_bo_worker using mmu_interval_notifier
+>   - amdgpu_svm_evict_fence_create called from bo_alloc
+>   - AMDGPU_GEM_CREATE_DISCARDABLE flag on SVM BOs
+>   - fence attached as DMA_RESV_USAGE_BOOKKEEP
+> 
+> Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c | 267 +++++++++++++++++++-
+>  1 file changed, 264 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
+> index 115df0cf0f94..0724416f5aa8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
+> @@ -61,8 +61,11 @@
+>   */
+>  
+>  #include <drm/drm_pagemap.h>
+> +#include <linux/dma-fence.h>
+> +#include <linux/hmm.h>
+>  #include <linux/memremap.h>
+>  #include <linux/migrate.h>
+> +#include <linux/mmu_notifier.h>
+>  
+>  #include "amdgpu_migrate.h"
+>  #include "amdgpu.h"
+> @@ -76,6 +79,10 @@
+>  #define FROM_RAM_TO_VRAM	0
+>  #define FROM_VRAM_TO_RAM	1
+>  
+> +/* Fence context for SVM eviction fences (shared by all instances) */
+> +static u64 amdgpu_svm_evict_fence_context;
+> +static atomic_t amdgpu_svm_evict_fence_seq = ATOMIC_INIT(0);
+> +
+>  static inline struct amdgpu_pagemap *
+>  dpagemap_to_apagemap(struct drm_pagemap *dpagemap)
+>  {
+> @@ -102,6 +109,214 @@ amdgpu_svm_page_to_apagemap(struct page *page)
+>  	return container_of(pgmap, struct amdgpu_pagemap, pgmap);
+>  }
+>  
+> +/*
+> + * Eviction fence — prevents TTM from discarding BO before pages migrate back
+> + */
+> +
+> +/**
+> + * struct amdgpu_svm_evict_fence - Fence that gates TTM eviction of SVM BOs
+> + *
+> + * @base: dma_fence base (attached to BO's dma_resv as BOOKKEEP fence)
+> + * @lock: Spinlock for fence signaling
+> + * @eviction_work: Work item that migrates ZONE_DEVICE pages back to RAM
+> + * @mm: The owning process's mm_struct (mmgrab'd)
+> + * @start: Virtual address range start (inclusive)
+> + * @end: Virtual address range end (exclusive)
+> + *
+> + * When TTM needs to evict an SVM BO (DISCARDABLE) to reclaim VRAM,
+> + * it waits on this fence. The enable_signaling callback schedules
+> + * the eviction worker, which uses hmm_range_fault(owner=NULL) to
+> + * trigger migrate_to_ram for all device-private pages in [start, end).
+> + * After migration completes the fence is signaled, allowing TTM to
+> + * discard the now-empty VRAM resource.
+> + */
+> +struct amdgpu_svm_evict_fence {
+> +	struct dma_fence base;
+> +	spinlock_t lock;
+> +	struct work_struct eviction_work;
+> +	struct mm_struct *mm;
+> +	unsigned long start;
+> +	unsigned long end;
+> +};
+> +
+> +static inline struct amdgpu_svm_evict_fence *
+> +to_amdgpu_svm_evict_fence(struct dma_fence *f)
+> +{
+> +	return container_of(f, struct amdgpu_svm_evict_fence, base);
+> +}
+> +
+> +/* Temporary MMU interval notifier ops for eviction worker's hmm_range_fault */
+> +static bool
+> +amdgpu_svm_evict_notifier_invalidate(struct mmu_interval_notifier *mni,
+> +				     const struct mmu_notifier_range *range,
+> +				     unsigned long cur_seq)
+> +{
+> +	return true;	/* no-op: we don't need invalidation tracking */
+> +}
+> +
+> +static const struct mmu_interval_notifier_ops amdgpu_svm_evict_mni_ops = {
+> +	.invalidate = amdgpu_svm_evict_notifier_invalidate,
+> +};
+> +
+> +/**
+> + * amdgpu_svm_evict_bo_worker - Work item to migrate device pages back to RAM
+> + * @work: Embedded work_struct in amdgpu_svm_evict_fence
+> + *
+> + * Registers a temporary mmu_interval_notifier and calls hmm_range_fault()
+> + * with dev_private_owner=NULL, which triggers the dev_pagemap migrate_to_ram
+> + * callback for each device-private page.  This copies VRAM data to system
+> + * memory via SDMA.
+> + *
+> + * After migration (or on error), signals the fence so TTM can proceed.
+> + */
+> +static void amdgpu_svm_evict_bo_worker(struct work_struct *work)
+> +{
+> +	struct amdgpu_svm_evict_fence *fence =
+> +		container_of(work, struct amdgpu_svm_evict_fence, eviction_work);
+> +	struct mm_struct *mm = fence->mm;
+> +	unsigned long start = fence->start;
+> +	unsigned long end = fence->end;
+> +	unsigned long npages = (end - start) >> PAGE_SHIFT;
+> +	struct mmu_interval_notifier notifier;
+> +	unsigned long timeout;
+> +	unsigned long *pfns;
+> +	int retries = 3;
+> +	int err = 0;
+> +
+> +	if (!mmget_not_zero(mm))
+> +		goto signal;
+> +
+> +	err = mmu_interval_notifier_insert(&notifier, mm, start, end - start,
+> +					   &amdgpu_svm_evict_mni_ops);
+> +	if (err) {
+> +		pr_warn("amdgpu: SVM eviction notifier insert failed: %d\n", err);
+> +		goto put_mm;
+> +	}
+> +
+> +	pfns = kvmalloc_array(npages, sizeof(*pfns), GFP_KERNEL);
+> +	if (!pfns)
+> +		goto remove_notifier;
+> +
+> +	timeout = jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
+> +	do {
+> +		struct hmm_range hmm_range = {
+> +			.notifier = &notifier,
+> +			.start = start,
+> +			.end = end,
+> +			.hmm_pfns = pfns,
+> +			.default_flags = HMM_PFN_REQ_FAULT,
+> +			.dev_private_owner = NULL,
+> +		};
+> +
+> +		hmm_range.notifier_seq = mmu_interval_read_begin(&notifier);
+> +		if (time_after(jiffies, timeout)) {
+> +			err = -ETIME;
+> +			break;
+> +		}
+> +
+> +		mmap_read_lock(mm);
+> +		err = hmm_range_fault(&hmm_range);
+> +		mmap_read_unlock(mm);
+> +	} while (err == -EBUSY && --retries);
+> +
+> +	if (err)
+> +		pr_warn("amdgpu: SVM eviction migration failed: %d [0x%lx-0x%lx]\n",
+> +			err, start, end);
+> +
+> +	kvfree(pfns);
+> +remove_notifier:
+> +	mmu_interval_notifier_remove(&notifier);
+> +put_mm:
+> +	mmput(mm);
+> +signal:
+> +	dma_fence_signal(&fence->base);
+> +	dma_fence_put(&fence->base);	/* drop worker's reference */
+> +}
+> +
+> +static const char *amdgpu_svm_fence_get_driver_name(struct dma_fence *f)
+> +{
+> +	return "amdgpu_svm";
+> +}
+> +
+> +static const char *amdgpu_svm_fence_get_timeline_name(struct dma_fence *f)
+> +{
+> +	return "svm_eviction";
+> +}
+> +
+> +/**
+> + * amdgpu_svm_fence_enable_signaling - Called by TTM when it wants to evict
+> + *
+> + * Takes a fence reference for the worker and schedules the eviction work.
+> + * The worker will migrate device pages back to RAM and signal the fence.
+> + */
+> +static bool amdgpu_svm_fence_enable_signaling(struct dma_fence *f)
+> +{
+> +	struct amdgpu_svm_evict_fence *fence = to_amdgpu_svm_evict_fence(f);
+> +
+> +	if (dma_fence_is_signaled(f))
+> +		return true;
+> +
+> +	AMDGPU_MIGRATE_TRACE("evict fence enable_signaling: [0x%lx-0x%lx]\n",
+> +			  fence->start, fence->end);
+> +
+> +	dma_fence_get(f);	/* reference for the worker */
+> +	schedule_work(&fence->eviction_work);
+> +	return true;
+> +}
+> +
+> +static void amdgpu_svm_fence_release(struct dma_fence *f)
+> +{
+> +	struct amdgpu_svm_evict_fence *fence = to_amdgpu_svm_evict_fence(f);
+> +
+> +	mmdrop(fence->mm);
+> +	kfree_rcu(f, rcu);
+> +}
+> +
+> +/**
+> + * amdgpu_svm_evict_fence_check_mm - Allow cross-process eviction
+> + *
+> + * TTM calls check_mm to see if an eviction should be skipped for the
+> + * calling process.  For SVM overcommit, we always allow eviction
+> + * (return false = "do not skip"), matching KFD SVM behavior.
+> + */
+> +static const struct dma_fence_ops amdgpu_svm_evict_fence_ops = {
+> +	.get_driver_name = amdgpu_svm_fence_get_driver_name,
+> +	.get_timeline_name = amdgpu_svm_fence_get_timeline_name,
+> +	.enable_signaling = amdgpu_svm_fence_enable_signaling,
+> +	.release = amdgpu_svm_fence_release,
+> +};
+> +
+> +/**
+> + * amdgpu_svm_evict_fence_create - Create an eviction fence for an SVM BO
+> + * @mm: The owning process's mm_struct
+> + * @start: VA range start
+> + * @end: VA range end (exclusive)
+> + *
+> + * Return: Pointer to fence, or NULL on allocation failure
+> + */
+> +static struct amdgpu_svm_evict_fence *
+> +amdgpu_svm_evict_fence_create(struct mm_struct *mm,
+> +			      unsigned long start, unsigned long end)
+> +{
+> +	struct amdgpu_svm_evict_fence *fence;
+> +
+> +	fence = kzalloc(sizeof(*fence), GFP_KERNEL);
+> +	if (!fence)
+> +		return NULL;
+> +
+> +	mmgrab(mm);
+> +	fence->mm = mm;
+> +	fence->start = start;
+> +	fence->end = end;
+> +	spin_lock_init(&fence->lock);
+> +	INIT_WORK(&fence->eviction_work, amdgpu_svm_evict_bo_worker);
+> +	dma_fence_init(&fence->base, &amdgpu_svm_evict_fence_ops, &fence->lock,
+> +		       amdgpu_svm_evict_fence_context,
+> +		       atomic_inc_return(&amdgpu_svm_evict_fence_seq));
+> +
+> +	return fence;
+> +}
+> +
+>  /*
+>   * drm_pagemap_devmem_ops — per-BO migration mechanics
+>   */
+> @@ -111,6 +326,8 @@ amdgpu_svm_page_to_apagemap(struct page *page)
+>   *
+>   * @devmem: drm_pagemap device memory allocation (passed to framework)
+>   * @bo: The backing VRAM amdgpu_bo
+> + * @eviction_fence: Fence that gates TTM eviction — worker migrates pages
+> + *                  back to RAM before signaling, so BO can be discarded
+>   *
+>   * It is allocated per-migration in populate_mm() and freed by
+>   * devmem_release() when all device-private pages have migrated
+> @@ -124,6 +341,7 @@ amdgpu_svm_page_to_apagemap(struct page *page)
+>  struct amdgpu_svm_bo {
+>  	struct amdgpu_bo *bo;
+>  	struct drm_pagemap_devmem devmem;
+> +	struct amdgpu_svm_evict_fence *eviction_fence;
+>  };
+>  
+>  static inline struct amdgpu_svm_bo *
+> @@ -149,6 +367,12 @@ amdgpu_svm_devmem_release(struct drm_pagemap_devmem *devmem_allocation)
+>  	AMDGPU_MIGRATE_TRACE("release svm_bo=%px bo=%px\n",
+>  			  svm_bo, svm_bo->bo);
+>  
+> +	if (svm_bo->eviction_fence) {
+> +		/* Ensure fence is signaled (e.g., process exit path) */
+> +		dma_fence_signal(&svm_bo->eviction_fence->base);
+> +		dma_fence_put(&svm_bo->eviction_fence->base);
+> +	}
+> +
+>  	amdgpu_bo_unref(&svm_bo->bo);
+>  	kfree(svm_bo);
+>  }
+> @@ -629,14 +853,27 @@ amdgpu_svm_device_map(struct drm_pagemap *dpagemap,
+>   * @dpagemap: The drm_pagemap for this device
+>   * @mm: mm_struct of the owning process
+>   * @size: Allocation size in bytes
+> + * @start: Virtual address range start (for eviction fence)
+> + * @end: Virtual address range end (for eviction fence)
+> + *
+> + * Allocates an amdgpu_svm_bo wrapper, creates a VRAM-only amdgpu_bo
+> + * with the DISCARDABLE flag, and attaches an eviction fence.
+> + *
+> + * When TTM later needs to reclaim VRAM, the eviction fence's
+> + * enable_signaling schedules a work item that migrates all
+> + * ZONE_DEVICE pages in [start, end) back to system RAM via
+> + * hmm_range_fault(owner=NULL).  After migration, the fence is
+> + * signaled and TTM discards the now-empty VRAM resource.
+>   *
+>   * Return: Pointer to allocated amdgpu_svm_bo on success, ERR_PTR on failure
+>   */
+>  static struct amdgpu_svm_bo *
+>  amdgpu_svm_bo_alloc(struct amdgpu_device *adev,
+>  		     struct drm_pagemap *dpagemap,
+> -		     struct mm_struct *mm, unsigned long size)
+> +		     struct mm_struct *mm, unsigned long size,
+> +		     unsigned long start, unsigned long end)
+>  {
+> +	struct amdgpu_svm_evict_fence *evict_fence;
+>  	struct amdgpu_svm_bo *svm_bo;
+>  	struct amdgpu_bo_param bp = {};
+>  	struct amdgpu_bo *bo;
+> @@ -646,13 +883,20 @@ amdgpu_svm_bo_alloc(struct amdgpu_device *adev,
+>  	if (!svm_bo)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> +	evict_fence = amdgpu_svm_evict_fence_create(mm, start, end);
+> +	if (!evict_fence) {
+> +		kfree(svm_bo);
+> +		return ERR_PTR(-ENOMEM);
+> +	}
+> +
+>  	bp.size = size;
+>  	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
+>  	bp.domain = AMDGPU_GEM_DOMAIN_VRAM;
+>  	bp.type = ttm_bo_type_device;
+>  	bp.flags = AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
+>  		   AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
+> -		   AMDGPU_GEM_CREATE_VRAM_CLEARED;
+> +		   AMDGPU_GEM_CREATE_VRAM_CLEARED |
+> +		   AMDGPU_GEM_CREATE_DISCARDABLE;
+>  
+>  	ret = amdgpu_bo_create(adev, &bp, &bo);
+>  	if (ret) {
+> @@ -671,8 +915,20 @@ amdgpu_svm_bo_alloc(struct amdgpu_device *adev,
+>  		return ERR_PTR(ret);
+>  	}
+>  
+> +	/* Attach eviction fence to BO reservation (BO is born reserved) */
+> +	ret = dma_resv_reserve_fences(bo->tbo.base.resv, 1);
+> +	if (ret) {
+> +		dma_fence_put(&evict_fence->base);
+> +		amdgpu_bo_unref(&bo);
+> +		kfree(svm_bo);
+> +		return ERR_PTR(ret);
+> +	}
+> +	dma_resv_add_fence(bo->tbo.base.resv, &evict_fence->base,
+> +			   DMA_RESV_USAGE_BOOKKEEP);
+>  	amdgpu_bo_unreserve(bo);
+> +
+>  	svm_bo->bo = bo;
+> +	svm_bo->eviction_fence = evict_fence;
+>  
+>  	drm_pagemap_devmem_init(&svm_bo->devmem,
+>  				adev->dev, mm,
+> @@ -709,7 +965,8 @@ amdgpu_svm_populate_mm(struct drm_pagemap *dpagemap,
+>  	struct amdgpu_svm_bo *svm_bo;
+>  	int ret;
+>  
+> -	svm_bo = amdgpu_svm_bo_alloc(adev, dpagemap, mm, end - start);
+> +	svm_bo = amdgpu_svm_bo_alloc(adev, dpagemap, mm, end - start,
+> +				     start, end);
+>  	if (IS_ERR(svm_bo))
+>  		return PTR_ERR(svm_bo);
+>  
+> @@ -796,6 +1053,10 @@ int amdgpu_svm_migration_init(struct amdgpu_device *adev)
+>  	svm_dm->hpa_base = pgmap->range.start;
+>  	svm_dm->initialized = true;
+>  
+> +	/* One-time init of the shared fence context for SVM eviction fences */
+> +	if (!amdgpu_svm_evict_fence_context)
+> +		amdgpu_svm_evict_fence_context = dma_fence_context_alloc(1);
+> +
+>  	dev_info(adev->dev, "SVM: registered %ldMB device memory, hpa_base=0x%llx\n",
+>  			size >> 20, svm_dm->hpa_base);
+>  	return 0;
 
