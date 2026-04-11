@@ -4,139 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D0D8F3ED40
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 13:32:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 811A9F3ED40
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 13:56:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82A9710E1FC;
-	Sat, 11 Apr 2026 13:32:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9100B10E20B;
+	Sat, 11 Apr 2026 13:56:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RSKVlVn5";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aKLONA1X";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FaDVNuFj";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011037.outbound.protection.outlook.com
- [40.93.194.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6EBE10E1FC;
- Sat, 11 Apr 2026 13:32:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uD+5dyTE6sCV95Yx3WmlcCU3diRHEI56tzOMJG5LlZg0cXn3UXjRzFAS81w+xPSKhIjWJxzooau1rCDnud2Z6Q86XpijAx+mL6vNoaerDmLhnr6rmvge01G3dKSCmmhCQ3bZmZvHX+VL1cO39WwV/oGFRN2jtalonnmrxif8MSsky3Jmkv7VrqnXgaxC1SqOgKVbE+ewnALlQVeZQUJKz75s29sBpNklkknBWvWGCw8mweBFZDFZxYSDklvcTGlun1Y4U+vImQ5nS0huulysbd7/lptLUMM1Mg1Amsbx2/BOmr2jPLKhgsl74eNJb1aMiq6EjQYp95yWPOqq46gcLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+IDfgeBmwQeNTL7XBGDuGSBMO5e2rkJd8wN7HJTJs3s=;
- b=t23O+uakM4ip6P60rEMGqOX5eghphasOnCLNKA3jAxQ1kkbmLV5sm0z82b0gleYLhGxT3edysrCQtaZMFlgyZwa6cod9YK4GFsxnDGoM5723E+BEfbrBWVUtgJaSt1Zesvk7XjsAMBnh7QyupjsaIFcZdRJAofWTS3jbM3g8PykIAsL++Ap7eSI+AIMq3yr6fpPQ/R0NgpGXkT9jEn+386QW1QAsk7cwS4uK+Uf3qvtIpoiF7PLm4mVAXkrJBQ7bruJWDOXy2wO012j1Y3eUfEKBxlsBbddJHGTIyruUtX58uvM6HG/d+srs4z8B4lJIyYqoUmhsizvUxxWaw0tBPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+IDfgeBmwQeNTL7XBGDuGSBMO5e2rkJd8wN7HJTJs3s=;
- b=RSKVlVn5pUxbniRMmj7Y1gc+AYUChqg3C4WAeDpTK5dcexwv4ukk025a/fyZSp7YxyDb/qbfKY1jcQ/g0rUb3pHpXw/tC0hyG5gS+4SIxJeJQV1QfGrot0UO6Lq77VxfeOOMJA+kvTdRAUXqC1EehzzsBjjuQgu4J/uRkgZ+bGVluuLThIZkh2ZMLWVON6rjb4d9UMuS0GQr/uBpCmFX0u/R3aNhyZU0OWTq6oT8mo5R2HRmRNlAFwtEpJGnVcCFqzVMyXa2xlbeJElCuy02HQ5nNCNU74vDotq1s2NKRAyAL6+MpWt4E5Mq3JBwkebcMCf0doqCRW2GK4QUKCSErQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SN7PR12MB6863.namprd12.prod.outlook.com (2603:10b6:806:264::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.46; Sat, 11 Apr
- 2026 13:32:44 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9769.041; Sat, 11 Apr 2026
- 13:32:43 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 11 Apr 2026 22:32:38 +0900
-Message-Id: <DHQD3LJ6PA12.8H8P3FUPSP9K@nvidia.com>
-Cc: <nouveau@lists.freedesktop.org>, "Gary Guo" <gary@garyguo.net>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, <rust-for-linux@vger.kernel.org>,
- "Danilo Krummrich" <dakr@kernel.org>, <dri-devel@lists.freedesktop.org>,
- "Matthew Maurer" <mmaurer@google.com>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "Lorenzo Stoakes"
- <lorenzo.stoakes@oracle.com>, <christian.koenig@amd.com>, "Asahi Lina"
- <lina@asahilina.net>, "Miguel Ojeda" <ojeda@kernel.org>, "Andreas Hindborg"
- <a.hindborg@kernel.org>, "Simona Vetter" <simona@ffwll.ch>, "Alice Ryhl"
- <aliceryhl@google.com>, "Boqun Feng" <boqun@kernel.org>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, "Krishna Ketan Rai" <prafulrai522@gmail.com>,
- <linux-media@vger.kernel.org>, "Shankari Anand"
- <shankari.ak0208@gmail.com>, "David Airlie" <airlied@gmail.com>, "Benno
- Lossin" <lossin@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>,
- <linaro-mm-sig@lists.linaro.org>, "Asahi Lina" <lina+kernel@asahilina.net>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, <kernel@vger.kernel.org>
-Subject: Re: [PATCH v10 5/5] rust: drm: gem: Add vmap functions to shmem
- bindings
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Lyude Paul" <lyude@redhat.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260409001559.622026-1-lyude@redhat.com>
- <20260409001559.622026-6-lyude@redhat.com>
-In-Reply-To: <20260409001559.622026-6-lyude@redhat.com>
-X-ClientProxiedBy: TY4P286CA0072.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:36d::11) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95E5010E20B
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 13:56:28 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63B4dtUb3873783
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 13:56:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=yh2v74eVUgATbTiDREMIszXOd/VRQYJ0x2a0dK2LEFM=; b=aK
+ LONA1XnQn8S58xZ6yQNuh39E3l92IVXUwM1nZcRuv7AWROoStf//EvemFWXP2Xre
+ 9ybdcSeKDaiTFbiSzTJN4joe2BZq2lwdUySOxALEe1RJCWtiXCEgkZhen6abblOA
+ 7wL0B+ITLZT4gOGH31YivAgkfVeKUDlYAyitIv5TOuUg+Qq36N4a384iDdIUi14U
+ Dt+HgsaZt6OSNHW3llg/lTa+A0pvjBoipEysblpr6EdEOYc2uN1XsQYSm1Am4FgD
+ rHXMvP21uSmbZyQTK9UCrZmQ5/7hQcx67CH/CraNy6IxS9vZmGGa04C5JI/TUPRq
+ eqtKEnidR+tIbbNP7fNw==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfffhrrkg-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 13:56:27 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id
+ 586e51a60fabf-4236c3b8f32so5242455fac.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 06:56:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775915787; cv=none;
+ d=google.com; s=arc-20240605;
+ b=IuLP3azm9R8pc5N4XXfwuevZj4UQxzh0QEG1eJ2OZtTQpMFgvuohi+ZZGtAweyoHmR
+ jS14h/DoVuvbbdHPlFSMVsdpRbdoUq0xQqddNAY2NajKGJxee4WmAHrZW8FBco28/tvw
+ +9+lrQeew3Obfaqn5CE9+T1f9Y7CULHSPTErNs6q6PtNwN5xXqT+e6W3eOSC9ucdeN/h
+ scLBaEORitInlNpj63za++KHlgM+nxrCb1yxQDEhmrxotBpKVxe70h6K4nUXLK9q5H08
+ tbGJIe+1opkuqIzxafZCqmMkHvCGvI/k7VO9o2yV1R455XBh2WoJgEiU0ox2vosQ1vY3
+ TCmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=yh2v74eVUgATbTiDREMIszXOd/VRQYJ0x2a0dK2LEFM=;
+ fh=qdGGaXMFcoa2GHvaQj2+JbVFf9+bNCd/daxfjHp6j2g=;
+ b=gmysfgqi3yPXMUbcRDtqyPrKgLQxbuqNvtPARnxBDLqAJnSsoajkARQWKqpsgCjOzL
+ obiMdJohkWt44Zk4XF6kjaLvREyeKpxqVTV6D+LfCUfbe0O8rs1T5uo2OFPuoT636NDC
+ HRZnn8PhttemVanOEwZ60Eb7SzUn7qiCRd26Q2rXsLiEwHYh681VF3BtJP4Wj87ZkEbO
+ 8Wx0lJOIXswUV9LER6p260FemYSs5wgb2tg3AwAJ92ZJRezVWmSW3kODSupurKCcr7hU
+ 0YZr4xQMsaoYz7DHxwESVj+oAkJKszW1lG6A31VmbeF226/a19LBninSYpLSWvwEkG1K
+ FjMg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775915787; x=1776520587;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=yh2v74eVUgATbTiDREMIszXOd/VRQYJ0x2a0dK2LEFM=;
+ b=FaDVNuFj84POlruPRhWjZRSGxhg692rdLcJI5H7Or/7zxseq03/nQHdk2Ehxezwn1f
+ ZELBB9MYtBxaThfZGa+m+nELVilwg0rO3fEMZX5CYfQ22Oltw236N+9qtzzVe5PR1XFy
+ zKOG+E8F0HwzYa95tSeIW3E0+c9xVBPzUo1TixHRZW0UtiHMr63RTM4VZUw8lSs6SRPX
+ 3xJamzi5SEIENCFOCEVlPyholfekF0czrtrnhOTY86KG72BAB66qsQXpmj78TgMszsXd
+ GuwuJE1KRpKMxoIFXekUPO+maUZcmjU2ofW043Ay/sna38KriJuk0zw5qZPuUQrkI87H
+ HqWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775915787; x=1776520587;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yh2v74eVUgATbTiDREMIszXOd/VRQYJ0x2a0dK2LEFM=;
+ b=UB4YM4BUA7hDJuqh0sHAp2/KOZHSrq6hHdqi7tGG6W8X7GHIJ+h0cUAZX7YvJaw6NV
+ mWddXC+VRpnRGj0q1+fPUFO+EVYXK7qcJ2smp4xCOq+obpDB7RTZ0kTZJAUBxDQnybKb
+ 7Rr2ze0V7SECenR4Cpxp8F2ePqo+NOJx384kw2QXbrejSBUgpj0KYjIY/xH3Ae84J6PT
+ mTdlPpi1q3SEanuAnaMJzk/gyCigsp3tn82rphunfFmsj8gadNCCAtILHJrOQsztxA2A
+ ySjVSRX6fuLMIebcNLqUkD18pB/dlMt6IZVIYDer9qACy86IxkvLbocWxXOcp9BGTACr
+ hg6Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXZmfaPTenyMbtNKdl2s+yoDYnpEq39GtfMJFVd4U0EntOp4gWiV7kvvXtHy68b4/pBZ06DaV5cRCM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEjWM9i2nyMdUzjeGYfYVKbdXLKrT0HpVxy9S2HR3ef5MXSlEb
+ GIQ7gsrzeTlPUeOvIiUPt1kJ2M1miyQdCDwYqWV2SL7Gg9owJRp++4wdmAwoI4nzs4bbJ5i4Enk
+ AbantpxetLUZUhHxVIvYMyXOPayTQfATAKNigckxilmIY2gaqME/hu59nuHPDux40Xf4xYTLNQ/
+ qj7mUa/3E+5SGJDSrWQrg2dCJYdvmHz84/lT55DbPoM83KNw==
+X-Gm-Gg: AeBDies0BS6bBhyhSkvclMqkcNBW6WjmqpWCXfDxN7DQGrSfYRURKUvkx9V/knD+vb0
+ 7m+4Kv+iL1WW6bmUniRKZFXu1GWBL8g+/naojeS8umeW+72oBONeVXQAWlf0lcbYXCPI2n4DHpW
+ yEEWz9m+YsiuXdYxryFA9X/esGm3sZRpbppMJ/7RZD9e1ANewvqZCImrQZuk6xV5nuJbFl0ESrc
+ TuReVaXwJj3eHQYoFX94STDHaHSEU3Abx3Z4Q==
+X-Received: by 2002:a05:6870:1704:b0:423:b4e9:b8fa with SMTP id
+ 586e51a60fabf-423bd0ca63fmr5438604fac.23.1775915787015; 
+ Sat, 11 Apr 2026 06:56:27 -0700 (PDT)
+X-Received: by 2002:a05:6870:1704:b0:423:b4e9:b8fa with SMTP id
+ 586e51a60fabf-423bd0ca63fmr5438586fac.23.1775915786551; Sat, 11 Apr 2026
+ 06:56:26 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SN7PR12MB6863:EE_
-X-MS-Office365-Filtering-Correlation-Id: 379003f8-f333-457a-5331-08de97cecedf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|10070799003|366016|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 9p1q90t07orT2nQEFvoG2knfWsx1sI8HOm2HUmwO9K3pEV+cTAm7zvBO+G43UByVwArJ5iym9ykTVVHS0XFkS2zifAGDOG2759CCd7qEUP22P7KJs3/2/65Q3hLygdXZ0Im1dc2GCX0cHJx6Q1UsfjSKWZwUqvlYJkDXcJrA46zmKJjefYK93KbXldkpCRoGPgrt8gZCtTC7UfK2b9Z+QFxjepU0fLoCDOyb/rR8jiy0Zcy7x2UjLPLH6BDR6KqNyqgyuO0J4qAZt+UHzMYVawCTyMXWPQpmaYo4KBQDJ7ZuxqDMh7kMka0MWCfaRfHcR1hxwIjrpLNCfbQp1FToyaJScqeYCCB6jCeDEIYBKb48oPEtiwTXILYh1RYB8A1wL3uGEJqg0q89SuBdLJedpwvJY+Zm8XpZGBECCReeE4tK5l9KjenjMkQM7xXFIT+tK1Nu8vvp4OIMdU8ClbXHzczsGTdE3nPYxhdJkLzzAZmlTvRU01p13rf5pBlyxt7emtDKZ7aMSkK/LuV0s6wlvhm7ut1Vqg+uUkOr6nKzIqDw/yRIt/zHVmpmZV+sA0oOBhvVi87selp4dptRB9+xH86JDBrHwZ8Z4IIc31HZvv83fbU58iAyBRTNfw2qrA5acfAJDE5ZYmx///IRXx+xn5SBloF9+TGcAsMT3Crxrc2xZHj0pQZ/YdCS+MECzb4x4Ahs4WuLfTWXucMH3MgweyR7zslyNxwTPRvQkiPX0SQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(10070799003)(366016)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?clJ0aXltUmEwV2VQZm5OcFBkMEdiZ3pBV2RIcEQwLy9jVUJucjlOMVJsMUlr?=
- =?utf-8?B?QnBxcjNnb0FRVTJ5QXBlbVJFd21WSERLRkVSMGs3d2dOMFU2SUN5RU1OSEFt?=
- =?utf-8?B?ZzJiVkhiMW54eWQ5NGFabjBsM0JyYXJDOGJaUXpHRU1EM20zQVRWQlZQU2tN?=
- =?utf-8?B?VTdJb2hXcEkzNjUxUm41T1FGZ3ptVDM3amZiUlNSN2RNWE1IK3BVVHJnWjl0?=
- =?utf-8?B?STk5b3R2eW91bk4veUhOMkY4SVZqNnRaemFpVS9hM2hZOHdMRVZMNnBjZXdi?=
- =?utf-8?B?ZTlNbXRCL2FrR2ZSMnJpempIWDBJNUZnNy9RVnhsaWswcWc4M1BoNW1aUHRa?=
- =?utf-8?B?NmpSTENyS20yelo2UXdCaHc0Sm5pZytMZkQvRlRHcWVsSjZGM1JMNVg5bVdv?=
- =?utf-8?B?SVZ0U0N1SDQ3WXAyVmdMeXNsOEVhV29ncDdjK2ZiQVdPeHd4U0NiemxNejI0?=
- =?utf-8?B?eS8vUC9sbUtWajNvUkdha21OaW51ZmdrdVU0akZJeGw3SDB6SmRYbVZiVEti?=
- =?utf-8?B?OGtaNUx2eGhzNTVxYUUzZGc1ZGtuVHErdVp3bGlDMWs5Z3hyQ0NZR1JRSmZQ?=
- =?utf-8?B?RGhUM0FZd1BoZDJkNTJGZk5mT0R3ME5HME5QRVJ1YkRaWFVBVnpvTmZrRk5w?=
- =?utf-8?B?aGx1TkMrNFVqanVBWksrK0ZjWnNqV0xqU0R3MWxkSE96SmtFcUlsV1VRR1J0?=
- =?utf-8?B?NHNmT2gxUXNzWU5LVUIwRDM0YjhWZkorYTlIVWlialNLbWFlL09BdEgyR2x4?=
- =?utf-8?B?RkszMmhYc1ZCQmVOcE1IaUJYR24rUGhOdERBSzZ1MHRDa3l6RmI1VW00OUJM?=
- =?utf-8?B?VStqVWN4dDFMazNSanQ0d3phRFZvM21KTWk5Z2M5bGhOWVQ0bUg0bWp2K0ow?=
- =?utf-8?B?V2lNZVF6NDdvZjJDQTFEaTIvcnhTWlEvdlV5TTIrRExCTFl3aU9kMkpzT08z?=
- =?utf-8?B?a2JXL1UrQzluUE13VWVTVEp0VWRkZTJXNXN3QjI0QU0ra09MaVYyTFZsazVh?=
- =?utf-8?B?dWNndHRMdXpJUjVCZTZIWFdsL1J2RWdHVzhSTlplVzUzL21HRmFVbWtGc2ZU?=
- =?utf-8?B?WUdUdVNXQk16aG9kMTY2WEtVaHpRaTJJUjV2WmFGUk1yUVlad2l3Yk1kRDFB?=
- =?utf-8?B?QVJDNHp2Z2pSdXl3TkV3VzlCektIZ3ZSaHhiNm9ScGhsaWdPM0lUeVpFWHBW?=
- =?utf-8?B?OWhSYXFlTE5UNjZXU2Q2M0tJLzJEeVRtUW1tUWpESkVCTnJ6RjcybldDL3hB?=
- =?utf-8?B?OVoyRlVJZ2VOU2lqVDZiK2JmSndIUTlFSGtMOUlRc2FIMGREaHBWVlZ4azBL?=
- =?utf-8?B?VUlVc2p2N3ZROUcyL0ZrRGdPekp1bU1QbC9ZekRlVWlSU2QvdEJOc2hGMGli?=
- =?utf-8?B?RjVBNkE3a1Y0a2E4bkE2RFlFWTBnVFY4MDRKc0VRbitoSzZEQXkrRVlQTkdp?=
- =?utf-8?B?QVJROFhtUzFmM2kyNGVtODR2bDVDdlBaaTdqQTVmM0NENWtqSnF4MnY1bkhK?=
- =?utf-8?B?VW5nRHU3TXhyZmg5Zmp2SlJXKzFvQjdyN1Q0cFVWVFB1K1FvZE1NR21ZZkYz?=
- =?utf-8?B?dEE1K2tCT0hqSFU2NGxHNElBNlZkam1JS0NxNW9yai8vcHJLdkRwTVZ2bWVS?=
- =?utf-8?B?bWoxdFZyNWtveEF4TVBjY1lTNndrQlRvOFM1L2ZZUmRKR2IxbXlJUmdqZG1X?=
- =?utf-8?B?SEtVTzIxV2VzRUFFcDFsM0pNc0grUWxxL01nZklGRFd4Q3ltOXVPTHRaMzBY?=
- =?utf-8?B?WjI5VG0zSEc0TXhsM3R6clJlZjBFYnM5cjVhSis2dTNSNjZQeXlJbHhBZ1E3?=
- =?utf-8?B?V01qVFRUdmZ2UmJDMWNuTVdoTE9jUnZHV3JRdWk3eHU3YUJZajBoZlNVZW0z?=
- =?utf-8?B?TUxXM3kyVEMwaUZiSWlxZXcwK1VWTXNrVTNpdzZZVVVuaTlIYkgzMEdQY05t?=
- =?utf-8?B?Kzd6Q1p4SlQ0VndDVlBiZU14Q0dDN01OUzZKajgzNFAyUTIwWmh0bkJ5U0FZ?=
- =?utf-8?B?TG9KMnB4M3B6aVhiak8zY2I5eU9DWlZ4eENHUC9xVmZXdUZTMEsxTEF2bzJu?=
- =?utf-8?B?WDRpbnVFdWFCemhpZ1BtQ0l4TWliRDB0T0JLUHh6TXZhd0pFRUo0VmwvY2xj?=
- =?utf-8?B?bURXK1FjL2RkdUVXbUp1T0hkbk0wOU5IUzB4TWMxMFEzRjBzV2RoUXJ3dHF2?=
- =?utf-8?B?ZEtjWGVqZkc2emhGczZQZCt5ZkpxK0ZQdHFWQ3BTOVYvcHFCZmIzSUZuczh0?=
- =?utf-8?B?dDNTeFh1L3Boc1VUT1FScXVTUjB4cE1Wd3lPdWhUR1N4aGNVVXhveXRycitO?=
- =?utf-8?B?NmxPazRSazlQVkJCS3grTGJ6MExEckNkWFBVNGgwR1FBNGVBaFBUeWE4emdt?=
- =?utf-8?Q?5qmTwbDN319pgCDZNuSjlv5Rt65AHf57HRkWZHTZOWnVK?=
-X-MS-Exchange-AntiSpam-MessageData-1: K0ehdg7Umcgbtw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 379003f8-f333-457a-5331-08de97cecedf
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Apr 2026 13:32:43.7569 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PMpWW2OBJ/ecbhenMlS0ll65xtYoKTfmdXN5rl2mtTaXJa1U6ThdYH1e2GA+Sqp24oQV1v/SiRdHQS9iuAueOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6863
+References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
+ <20260327-a8xx-gpu-batch2-v2-15-2b53c38d2101@oss.qualcomm.com>
+ <07fcf759-b53c-4bc8-8e88-48b82713fecb@oss.qualcomm.com>
+In-Reply-To: <07fcf759-b53c-4bc8-8e88-48b82713fecb@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Sat, 11 Apr 2026 06:56:15 -0700
+X-Gm-Features: AQROBzA-sRqdmBF_muUFAE2zHOFlBaMvdKWe5l0zbT8wwrPZW6ScfJPwLACwsdM
+Message-ID: <CACSVV03gr87bJcywyt1wHoaLRaaUJEmKAz3jTmipUt9NGSqbtQ@mail.gmail.com>
+Subject: Re: [PATCH v2 15/17] drm/msm/a8xx: Preemption support for A840
+To: Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDExOSBTYWx0ZWRfX0MATVsj8hvBy
+ 8fdbqUJMdtyz7A1Vp4VD8KoDaSUPYnoys6B3SRPsJuecPyJmjR7sVl/yJ7nq1faSfSabAzMEFNW
+ QvwdEtlTzvMo289eje2yGa2Kd4h/LjZm4OHHy+STSDexhP2/o+8Oo1IU1ONaUnYYi+5oPbD1SjY
+ 4nwRr7KYyxd81vihJTDCBMwHw/YoHMxcaKHw3z8p9sWhqprR6wsrq+nYP84YFQIg+NaG+CYET7I
+ qIgSH1gXVPHETSLDVz6/qejltTeTjilQkx9bv6vgVOiJJV6dXd3brKGSLCnWIL/MpL2Lj1WzSyF
+ WJf66ScRAk6vPHXlBfIMwN0aoc1km148TYVWeQtxFX0wrRQZqhJtA2xDvAGWTC3B1YvOQQdRSAZ
+ Ua40mJgAu58OdZ2BxcAhRJpVOcaIK4Khndx6prf3M61rjkgYIYkh1FtrPiMI/ztfIQexuW9InAS
+ sybAK/N9Gv0Ibca4Row==
+X-Proofpoint-ORIG-GUID: K-0a9SZShMy9cltiIMa1O_bGrxk08sjF
+X-Authority-Analysis: v=2.4 cv=FOkrAeos c=1 sm=1 tr=0 ts=69da530b cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=dlYDSFsnk2uCUIF3f14A:9
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10 a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-GUID: K-0a9SZShMy9cltiIMa1O_bGrxk08sjF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-11_03,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 impostorscore=0 suspectscore=0 priorityscore=1501
+ clxscore=1015 spamscore=0 phishscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604110119
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,278 +163,285 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Lyude,
-
-On Thu Apr 9, 2026 at 9:12 AM JST, Lyude Paul wrote:
-<snip>
-> @@ -288,6 +299,84 @@ pub fn owned_sg_table(&self, dev: &device::Device<Bo=
-und>) -> Result<SGTable<T>>
->          // `Some(Devres<SGTableMap<T>>)`.
->          Ok(SGTable(self.into()))
->      }
-> +
-> +    /// Attempt to create a vmap from the gem object, and confirm the si=
-ze of said vmap.
-> +    fn raw_vmap(&self, min_size: usize) -> Result<*mut c_void> {
-> +        if self.size() < min_size {
-> +            return Err(ENOSPC);
-> +        }
-> +
-> +        let mut map: MaybeUninit<bindings::iosys_map> =3D MaybeUninit::u=
-ninit();
-> +
-> +        // SAFETY: drm_gem_shmem_vmap can be called with the DMA reserva=
-tion lock held
-> +        to_result(unsafe {
-> +            // TODO: see top of file
-> +            bindings::dma_resv_lock(self.raw_dma_resv(), ptr::null_mut()=
+On Fri, Apr 10, 2026 at 7:22=E2=80=AFPM Jie Gan <jie.gan@oss.qualcomm.com> =
+wrote:
+>
+>
+>
+> On 3/27/2026 8:14 AM, Akhil P Oommen wrote:
+> > The programing sequence related to preemption is unchanged from A7x. Bu=
+t
+> > there is some code churn due to register shuffling in A8x. So, split ou=
+t
+> > the common code into a header file for code sharing and add/update
+> > additional changes required to support preemption feature on A8x GPUs.
+> >
+> > Finally, enable the preemption quirk in A840's catalog to enable this
+> > feature.
+> >
+> > Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> > ---
+> >   drivers/gpu/drm/msm/Makefile              |   1 +
+> >   drivers/gpu/drm/msm/adreno/a6xx_catalog.c |   1 +
+> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.c     |   7 +-
+> >   drivers/gpu/drm/msm/adreno/a6xx_gpu.h     |   5 +
+> >   drivers/gpu/drm/msm/adreno/a6xx_preempt.c |  77 +--------
+> >   drivers/gpu/drm/msm/adreno/a6xx_preempt.h |  82 ++++++++++
+> >   drivers/gpu/drm/msm/adreno/a8xx_gpu.c     |  37 ++++-
+> >   drivers/gpu/drm/msm/adreno/a8xx_preempt.c | 259 +++++++++++++++++++++=
++++++++++
+> >   8 files changed, 389 insertions(+), 80 deletions(-)
+> >
+[...]
+> > diff --git a/drivers/gpu/drm/msm/adreno/a8xx_preempt.c b/drivers/gpu/dr=
+m/msm/adreno/a8xx_preempt.c
+> > new file mode 100644
+> > index 000000000000..3d8c33ba722e
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/msm/adreno/a8xx_preempt.c
+> > @@ -0,0 +1,259 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. =
+*/
+> > +
+> > +#include "msm_gem.h"
+> > +#include "a6xx_gpu.h"
+> > +#include "a6xx_gmu.xml.h"
+> > +#include "a6xx_preempt.h"
+> > +#include "msm_mmu.h"
+> > +#include "msm_gpu_trace.h"
+> > +
+> > +static void preempt_prepare_postamble(struct a6xx_gpu *a6xx_gpu)
+> > +{
+> > +     u32 *postamble =3D a6xx_gpu->preempt_postamble_ptr;
+> > +     u32 count =3D 0;
+> > +
+> > +     postamble[count++] =3D PKT7(CP_REG_RMW, 3);
+> > +     postamble[count++] =3D REG_A8XX_RBBM_PERFCTR_SRAM_INIT_CMD;
+> > +     postamble[count++] =3D 0;
+> > +     postamble[count++] =3D 1;
+> > +
+> > +     postamble[count++] =3D PKT7(CP_WAIT_REG_MEM, 6);
+> > +     postamble[count++] =3D CP_WAIT_REG_MEM_0_FUNCTION(WRITE_EQ);
+> > +     postamble[count++] =3D CP_WAIT_REG_MEM_POLL_ADDR_LO(
+> > +                             REG_A8XX_RBBM_PERFCTR_SRAM_INIT_STATUS);
+> > +     postamble[count++] =3D CP_WAIT_REG_MEM_POLL_ADDR_HI(0);
+> > +     postamble[count++] =3D CP_WAIT_REG_MEM_3_REF(0x1);
+> > +     postamble[count++] =3D CP_WAIT_REG_MEM_4_MASK(0x1);
+> > +     postamble[count++] =3D CP_WAIT_REG_MEM_5_DELAY_LOOP_CYCLES(0);
+> > +
+> > +     a6xx_gpu->preempt_postamble_len =3D count;
+> > +
+> > +     a6xx_gpu->postamble_enabled =3D true;
+> > +}
+> > +
+> > +static void preempt_disable_postamble(struct a6xx_gpu *a6xx_gpu)
+> > +{
+> > +     u32 *postamble =3D a6xx_gpu->preempt_postamble_ptr;
+> > +
+> > +     /*
+> > +      * Disable the postamble by replacing the first packet header wit=
+h a NOP
+> > +      * that covers the whole buffer.
+> > +      */
+> > +     *postamble =3D PKT7(CP_NOP, (a6xx_gpu->preempt_postamble_len - 1)=
 );
-> +            let ret =3D bindings::drm_gem_shmem_vmap_locked(self.as_raw_=
-shmem(), map.as_mut_ptr());
-> +            bindings::dma_resv_unlock(self.raw_dma_resv());
-> +            ret
-> +        })?;
-> +
-> +        // SAFETY: The call to drm_gem_shmem_vunmap_locked succeeded abo=
-ve, so we are guaranteed
+> > +
+> > +     a6xx_gpu->postamble_enabled =3D false;
+> > +}
+> > +
+> > +/*
+> > + * Set preemption keepalive vote. Please note that this vote is differ=
+ent from the one used in
+> > + * a8xx_irq()
+> > + */
+> > +static void a8xx_preempt_keepalive_vote(struct msm_gpu *gpu, bool on)
+> > +{
+> > +     struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> > +     struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+> > +
+> > +     gmu_write(&a6xx_gpu->gmu, REG_A8XX_GMU_PWR_COL_PREEMPT_KEEPALIVE,=
+ on);
+> > +}
+> > +
+> > +void a8xx_preempt_irq(struct msm_gpu *gpu)
+> > +{
+> > +     uint32_t status;
+> > +     struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> > +     struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+> > +     struct drm_device *dev =3D gpu->dev;
+> > +
+> > +     if (!try_preempt_state(a6xx_gpu, PREEMPT_TRIGGERED, PREEMPT_PENDI=
+NG))
+> > +             return;
+> > +
+> > +     /* Delete the preemption watchdog timer */
+> > +     timer_delete(&a6xx_gpu->preempt_timer);
+> > +
+> > +     /*
+> > +      * The hardware should be setting the stop bit of CP_CONTEXT_SWIT=
+CH_CNTL
+> > +      * to zero before firing the interrupt, but there is a non zero c=
+hance
+> > +      * of a hardware condition or a software race that could set it a=
+gain
+> > +      * before we have a chance to finish. If that happens, log and go=
+ for
+> > +      * recovery
+> > +      */
+> > +     status =3D gpu_read(gpu, REG_A8XX_CP_CONTEXT_SWITCH_CNTL);
+> > +     if (unlikely(status & A8XX_CP_CONTEXT_SWITCH_CNTL_STOP)) {
+> > +             DRM_DEV_ERROR(&gpu->pdev->dev,
+> > +                                       "!!!!!!!!!!!!!!!! preemption fa=
+ulted !!!!!!!!!!!!!! irq\n");
+> > +             set_preempt_state(a6xx_gpu, PREEMPT_FAULTED);
+> > +             dev_err(dev->dev, "%s: Preemption failed to complete\n",
+> > +                     gpu->name);
+> > +             kthread_queue_work(gpu->worker, &gpu->recover_work);
+> > +             return;
+> > +     }
+> > +
+> > +     a6xx_gpu->cur_ring =3D a6xx_gpu->next_ring;
+> > +     a6xx_gpu->next_ring =3D NULL;
+> > +
+> > +     set_preempt_state(a6xx_gpu, PREEMPT_FINISH);
+> > +
+> > +     update_wptr(a6xx_gpu, a6xx_gpu->cur_ring);
+> > +
+> > +     set_preempt_state(a6xx_gpu, PREEMPT_NONE);
+> > +
+> > +     a8xx_preempt_keepalive_vote(gpu, false);
+> > +
+> > +     trace_msm_gpu_preemption_irq(a6xx_gpu->cur_ring->id);
+> > +
+> > +     /*
+> > +      * Retrigger preemption to avoid a deadlock that might occur when=
+ preemption
+> > +      * is skipped due to it being already in flight when requested.
+> > +      */
+> > +     a8xx_preempt_trigger(gpu);
+> > +}
+> > +
+> > +void a8xx_preempt_hw_init(struct msm_gpu *gpu)
+> > +{
+> > +     struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> > +     struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+> > +     int i;
+> > +
+> > +     /* No preemption if we only have one ring */
+> > +     if (gpu->nr_rings =3D=3D 1)
+> > +             return;
+> > +
+> > +     for (i =3D 0; i < gpu->nr_rings; i++) {
+> > +             struct a6xx_preempt_record *record_ptr =3D a6xx_gpu->pree=
+mpt[i];
+> > +
+> > +             record_ptr->wptr =3D 0;
+> > +             record_ptr->rptr =3D 0;
+> > +             record_ptr->rptr_addr =3D shadowptr(a6xx_gpu, gpu->rb[i])=
+;
+> > +             record_ptr->info =3D 0;
+> > +             record_ptr->data =3D 0;
+> > +             record_ptr->rbase =3D gpu->rb[i]->iova;
+> > +     }
+> > +
+> > +     /* Write a 0 to signal that we aren't switching pagetables */
+> > +     gpu_write64(gpu, REG_A8XX_CP_CONTEXT_SWITCH_SMMU_INFO, 0);
+> > +
+> > +     /* Enable the GMEM save/restore feature for preemption */
+> > +     gpu_write(gpu, REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABL=
+E, 0x1);
+> > +
+> > +     /* Reset the preemption state */
+> > +     set_preempt_state(a6xx_gpu, PREEMPT_NONE);
+> > +
+> > +     spin_lock_init(&a6xx_gpu->eval_lock);
+> > +
+> > +     /* Always come up on rb 0 */
+> > +     a6xx_gpu->cur_ring =3D gpu->rb[0];
+> > +}
+> > +
+> > +void a8xx_preempt_trigger(struct msm_gpu *gpu)
+> > +{
+> > +     struct adreno_gpu *adreno_gpu =3D to_adreno_gpu(gpu);
+> > +     struct a6xx_gpu *a6xx_gpu =3D to_a6xx_gpu(adreno_gpu);
+> > +     unsigned long flags;
+> > +     struct msm_ringbuffer *ring;
+> > +     unsigned int cntl;
+> > +     bool sysprof;
+> > +
+> > +     if (gpu->nr_rings =3D=3D 1)
+> > +             return;
+> > +
+> > +     /*
+> > +      * Lock to make sure another thread attempting preemption doesn't=
+ skip it
+> > +      * while we are still evaluating the next ring. This makes sure t=
+he other
+> > +      * thread does start preemption if we abort it and avoids a soft =
+lock.
+> > +      */
+> > +     spin_lock_irqsave(&a6xx_gpu->eval_lock, flags);
+> > +
+> > +     /*
+> > +      * Try to start preemption by moving from NONE to START. If
+> > +      * unsuccessful, a preemption is already in flight
+> > +      */
+> > +     if (!try_preempt_state(a6xx_gpu, PREEMPT_NONE, PREEMPT_START)) {
+> > +             spin_unlock_irqrestore(&a6xx_gpu->eval_lock, flags);
+> > +             return;
+> > +     }
+> > +
+> > +     cntl =3D A8XX_CP_CONTEXT_SWITCH_CNTL_LEVEL(a6xx_gpu->preempt_leve=
+l);
+> > +
+> > +     if (a6xx_gpu->skip_save_restore)
+> > +             cntl |=3D A8XX_CP_CONTEXT_SWITCH_CNTL_SKIP_SAVE_RESTORE;
+> > +
+> > +     if (a6xx_gpu->uses_gmem)
+> > +             cntl |=3D A8XX_CP_CONTEXT_SWITCH_CNTL_USES_GMEM;
+> > +
+> > +     cntl |=3D A8XX_CP_CONTEXT_SWITCH_CNTL_STOP;
+> > +
+> > +     /* Get the next ring to preempt to */
+> > +     ring =3D get_next_ring(gpu);
+> > +
+> > +     /*
+> > +      * If no ring is populated or the highest priority ring is the cu=
+rrent
+> > +      * one do nothing except to update the wptr to the latest and gre=
+atest
+> > +      */
+> > +     if (!ring || (a6xx_gpu->cur_ring =3D=3D ring)) {
+> > +             set_preempt_state(a6xx_gpu, PREEMPT_FINISH);
+> > +             update_wptr(a6xx_gpu, a6xx_gpu->cur_ring);
+> > +             set_preempt_state(a6xx_gpu, PREEMPT_NONE);
+> > +             spin_unlock_irqrestore(&a6xx_gpu->eval_lock, flags);
+> > +             return;
+> > +     }
+> > +
+> > +     spin_unlock_irqrestore(&a6xx_gpu->eval_lock, flags);
+> > +
+> > +     spin_lock_irqsave(&ring->preempt_lock, flags);
+> > +
+> > +     struct a7xx_cp_smmu_info *smmu_info_ptr =3D
+> > +             a6xx_gpu->preempt_smmu[ring->id];
+> > +     struct a6xx_preempt_record *record_ptr =3D a6xx_gpu->preempt[ring=
+->id];
+> > +     u64 ttbr0 =3D ring->memptrs->ttbr0;
+> > +     u32 context_idr =3D ring->memptrs->context_idr;
+>
+> Shall we declare these variables at the top of the function body?
+>
 
-Looks like a typo: the call above is `drm_gem_shmem_vmap_locked`.
+We can use c11 / mixed code/declarations now.  It's actually kinda
+required for cleanup.h stuff (which I recommend for new code, where
+possible.. I've been using it for PERFCNTR_CONFIG ioctl that I'm
+working on, and it makes error path cleanup much more straightforward)
 
-> +        // that map is properly initialized.
-> +        let map =3D unsafe { map.assume_init() };
-> +
-> +        // XXX: We don't currently support iomem allocations
-> +        if map.is_iomem {
-> +            // SAFETY:
-> +            // - The vmap operation above succeeded, guaranteeing that `=
-map` points to a valid
-> +            //   memory mapping.
-> +            // - We checked that this is an iomem allocation, making it =
-safe to read vaddr_iomem
-> +            unsafe { self.raw_vunmap(map) };
-> +
-> +            Err(ENOTSUPP)
-> +        } else {
-> +            // SAFETY: We checked that this is not an iomem allocation, =
-making it safe to read vaddr
-> +            Ok(unsafe { map.__bindgen_anon_1.vaddr })
-> +        }
-> +    }
-> +
-> +    /// Unmap a vmap from the gem object.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - The caller promises that `map` is a valid vmap on this gem obj=
-ect.
-> +    /// - The caller promises that the memory pointed to by map will no =
-longer be accesed through
-> +    ///   this instance.
-> +    unsafe fn raw_vunmap(&self, mut map: bindings::iosys_map) {
-> +        let resv =3D self.raw_dma_resv();
-> +
-> +        // SAFETY:
-> +        // - This function is safe to call with the DMA reservation lock=
- held
-> +        // - Our `ARef` is proof that the underlying gem object here is =
-initialized and thus safe to
-> +        //   dereference.
-> +        unsafe {
-> +            // TODO: see top of file
-> +            bindings::dma_resv_lock(resv, ptr::null_mut());
-> +            bindings::drm_gem_shmem_vunmap_locked(self.as_raw_shmem(), &=
-mut map);
-> +            bindings::dma_resv_unlock(resv);
-> +        }
-> +    }
-> +
-> +    /// Creates and returns a virtual kernel memory mapping for this obj=
-ect.
-> +    #[inline]
-> +    pub fn vmap<const SIZE: usize>(&self) -> Result<VMapRef<'_, T, SIZE>=
-> {
-> +        Ok(VMapRef {
-> +            // INVARIANT: `raw_vmap()` checks that the gem object is at =
-least as large as `SIZE`.
-> +            addr: self.raw_vmap(SIZE)?,
-> +            owner: self,
-> +        })
-> +    }
-> +
-> +    /// Creates and returns an owned reference to a virtual kernel memor=
-y mapping for this object.
-> +    #[inline]
-> +    pub fn owned_vmap<const SIZE: usize>(&self) -> Result<VMap<T, SIZE>>=
- {
-> +        Ok(VMap {
-> +            // INVARIANT: `raw_vmap()` checks that the gem object is at =
-least as large as `SIZE`.
-> +            addr: self.raw_vmap(SIZE)?,
-> +            owner: self.into(),
-> +        })
-> +    }
->  }
-> =20
->  impl<T: DriverObject> Deref for Object<T> {
-> @@ -386,6 +475,154 @@ unsafe impl<T: DriverObject> Send for SGTableMap<T>=
- {}
->  // it points to is guaranteed to be thread-safe.
->  unsafe impl<T: DriverObject> Sync for SGTableMap<T> {}
-> =20
-> +macro_rules! impl_vmap_io_capable {
-> +    ($impl:ident, $ty:ty $(, $lifetime:lifetime )?) =3D> {
-
-How about taking a list of types as argument, so you don't need to
-invoke the macro once per supported primitive?
-
-> +        impl<$( $lifetime ,)? D: DriverObject, const SIZE: usize> IoCapa=
-ble<$ty>
-> +            for $impl<$( $lifetime ,)? D, SIZE>
-> +        {
-> +            #[inline(always)]
-> +            unsafe fn io_read(&self, address: usize) -> $ty {
-> +                let ptr =3D address as *mut $ty;
-> +
-> +                // SAFETY: The safety contract of `io_read` guarantees t=
-hat address is a valid
-> +                // address within the bounds of `Self` of at least the s=
-ize of $ty, and is properly
-> +                // aligned.
-> +                unsafe { ptr::read(ptr) }
-> +            }
-> +
-> +            #[inline(always)]
-> +            unsafe fn io_write(&self, value: $ty, address: usize) {
-> +                let ptr =3D address as *mut $ty;
-> +
-> +                // SAFETY: The safety contract of `io_write` guarantees =
-that address is a valid
-> +                // address within the bounds of `Self` of at least the s=
-ize of $ty, and is properly
-> +                // aligned.
-> +                unsafe { ptr::write(ptr, value) }
-> +            }
-> +        }
-> +    };
-> +}
-> +
-> +// Implement various traits common to both VMap types
-> +macro_rules! impl_vmap_common {
-> +    ($impl:ident $(, $lifetime:lifetime )?) =3D> {
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> $impl<$( $lifetime ,=
-)? D, SIZE>
-
-The comment says "Implement various traits" but this block is not a
-trait implementation.
-
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            /// Borrows a reference to the object that owns this virtual=
- mapping.
-> +            #[inline(always)]
-> +            pub fn owner(&self) -> &Object<D> {
-> +                &self.owner
-> +            }
-> +        }
-> +
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> Drop for $impl<$( $l=
-ifetime ,)? D, SIZE>
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            #[inline(always)]
-> +            fn drop(&mut self) {
-> +                // SAFETY:
-> +                // - Our existence is proof that this map was previously=
- created using self.owner.
-> +                // - Since we are in Drop, we are guaranteed that no one=
- will access the memory
-> +                //   through this mapping after calling this.
-> +                unsafe {
-> +                    self.owner.raw_vunmap(bindings::iosys_map {
-> +                        is_iomem: false,
-> +                        __bindgen_anon_1: bindings::iosys_map__bindgen_t=
-y_1 { vaddr: self.addr }
-> +                    })
-> +                };
-> +            }
-> +        }
-> +
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> Io for $impl<$( $lif=
-etime ,)? D, SIZE>
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            #[inline(always)]
-> +            fn addr(&self) -> usize {
-> +                self.addr as usize
-> +            }
-> +
-> +            #[inline(always)]
-> +            fn maxsize(&self) -> usize {
-> +                self.owner.size()
-> +            }
-> +        }
-> +
-> +        impl<$( $lifetime ,)? D, const SIZE: usize> IoKnownSize for $imp=
-l<$( $lifetime ,)? D, SIZE>
-> +        where
-> +            D: DriverObject,
-> +        {
-> +            const MIN_SIZE: usize =3D SIZE;
-> +        }
-> +
-> +        impl_vmap_io_capable!($impl, u8 $( , $lifetime )?);
-> +        impl_vmap_io_capable!($impl, u16 $( , $lifetime )?);
-> +        impl_vmap_io_capable!($impl, u32 $( , $lifetime )?);
-> +        #[cfg(CONFIG_64BIT)]
-> +        impl_vmap_io_capable!($impl, u64 $( , $lifetime )?);
-> +    };
-> +}
-> +
-> +/// An owned reference to a virtual mapping for a shmem-based GEM object=
- in kernel address space.
-> +///
-> +/// # Invariants
-> +///
-> +/// - The size of `owner` is >=3D SIZE.
-> +/// - The memory pointed to by addr remains valid at least until this ob=
-ject is dropped.
-> +pub struct VMap<D: DriverObject, const SIZE: usize =3D 0> {
-> +    addr: *mut c_void,
-> +    owner: ARef<Object<D>>,
-> +}
-> +
-> +impl_vmap_common!(VMap);
-
-I believe you can considerably reduce the use of macros and consolidate
-the code around a single type if you define `VMap` this way:
-
-    pub struct VMap<D, R, const SIZE: usize =3D 0>
-    where
-        D: DriverObject,
-        R: Deref<Target =3D Object<D>>,
-    {
-        addr: *mut c_void,
-        owner: R,
-    }
-
-Then `R` can either be `&'a Object<D>` or `ARef<Object<D>>` and you
-don't need `impl_vmap_common!` anymore (`impl_vmap_io_capable!` is
-probably still useful though).
-
-The extra generic makes the type a bit more complex, but you can also
-fold it into something similar to what you currently have by defining
-type aliases:
-
-    pub type VMapRef<'a, D, const SIZE: usize =3D 0> =3D VMap<D, &'a Object=
-<D>, SIZE>;
-    pub type VMapOwned<D, const SIZE: usize =3D 0> =3D VMap<D, ARef<Object<=
-D>>, SIZE>;
-
-... although I don't think that is necessary as callers will never need
-to specify these generics anyway.
+BR,
+-R
