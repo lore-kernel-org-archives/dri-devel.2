@@ -4,96 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC1EF3ED4C
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 12:11:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB31F3ED4C
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 12:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0067710E1E2;
-	Sat, 11 Apr 2026 12:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8827710E1E4;
+	Sat, 11 Apr 2026 12:11:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JGo2FMSp";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DOFxFIM6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XkJdHlqy";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PQVtw4GF";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E554210E1E2
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 12:11:15 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EEAD10E1E4
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 12:11:18 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63B40LrY3909843
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 12:11:15 GMT
+ 63B41Mk33377139
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 12:11:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- VffLj0dx4ChWNgZbhFjLmDZu+t4dULnpnscDgkywfYA=; b=JGo2FMSpMoW/BmT/
- jT26NL8tz9/2MECla3xT7mmednM2lrOtKO9YkYxRJbKBw4/ZUKhHu2z2hd4e4s0X
- uHpTefQzmTO1Gk5zxoBKaRFv+7UzvZuQaavXqM4TW2mrGZC1rxu2Iq+cu5wdvBbz
- 2NKAdW+HbtVByVa0UcvJmQs/rWdfbjOswExwlENK5eCvgjzaTzCnGtFDBuJVqiK/
- 8Pxxfg8t6Zg9SdXB8LvhjJKQQPh0YTQkqRBMEBXM1+nqg5QAYcoQbvTmBCmXvA7t
- NX9tOY/fOMEawj5I+D6trObkEtQSX77gbF9Ng69VZ/SVIR8ByCZNZwV2xQmX9nkO
- Bi8JZA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfew00nc8-1
+ RKa6xeChRoaH9uw0NWPjegEQauJVOAFpyTvUBF7c83g=; b=XkJdHlqyqNNNVJ0T
+ JjR2ex2NYnd8z67RD/PBTYWlKq7fTF4gQvBIchCi2R5y4HILTn/+PVPKSI9+8YI/
+ N6jHuKaxydlsG4+vMcLwyYKAGt7aB0C/yHWs+nOySWnD+lS03xr8vX937RjJkdbm
+ LX7k2QxbGmIFJrMr78lMoCWM5/wzTcXx1KYWN1/4gl/q9p19fy6wgq82u9D+mBAB
+ HD7sT5CyRawMil5ynPmjAkx4ynxInHCYEiR9zUkxhYOtg/GgxyKytYKa/srkhW6X
+ Srvxi2Vxe2VXzMosqtfCa3Apq2h2GLmR219tv8Mczj/a9BbiwvoSJsT1L97unfip
+ H2gDFw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfewkrngr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 12:11:14 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50d831e8083so26152411cf.3
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 05:11:14 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 12:11:17 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8d3bb33c8b8so603127885a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 05:11:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775909474; x=1776514274;
+ d=oss.qualcomm.com; s=google; t=1775909477; x=1776514277;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=VffLj0dx4ChWNgZbhFjLmDZu+t4dULnpnscDgkywfYA=;
- b=DOFxFIM6iPs7gexltnq+/T/Hlz+7eYy20d2eIfBlqL5lbX+dm0JMK2GvVu97cDXMJ8
- BrhmoD/CwcBxKySjyginQofhTAIAIqU4ltyReYgh0XKjTbfI7DU69x/krxU+GAQmHsaB
- YS5jUEKCAcPTcusRDgT40XGeQ+zB1sMOLKYfGp3j9RWrX4ZAZgvZrCpUo6s/Plo6M9I2
- f7osqPW/Uv6cLf7pCF8QSCjfy6Uz2zbQAd4weh/3ge5Cv5ia2ERoynqczVgEBD0EOMX8
- HCNJCm5go0qlgSDT21Ab4S3/3bIlBhzDVbeZJPo8WnJGFCiiDgioDlwUThZPUCtr4KSQ
- gdNg==
+ :reply-to; bh=RKa6xeChRoaH9uw0NWPjegEQauJVOAFpyTvUBF7c83g=;
+ b=PQVtw4GF3CqWp7n6tCp9yKeMSHMj0gPgO5l34YIc8vBoeF8er9WBinZ1EuHxRF3mKN
+ OiIk/PlZuEaoz0q8gd483Klm7ty6HUAtWLXU1KCacodahXho5v61Yvl0yp7DQSl4dUxt
+ d93Nks5wZXETD1hmvdv8ZnRUD1tJxJOmaIIKgeF2b90RF5rf0NHv51vP/b4H3R+UtUVl
+ PxjVe109Ak+RhQDVbbTYy+W97USw8oTwBAfT7DIQpwUoZvZijGZbLOeOk9AurEAomIOd
+ VSfREtzJ1ZSKd3ksP3rHhl0Rt9+nWQoxDMEPbmiC4Wlwda6kFpLT74pDld+xvFI2s2jw
+ xBUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775909474; x=1776514274;
+ d=1e100.net; s=20251104; t=1775909477; x=1776514277;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=VffLj0dx4ChWNgZbhFjLmDZu+t4dULnpnscDgkywfYA=;
- b=Sbq9Eyga7gFeA9re0eIppzaykC+pTmfzaAF1qD0Vzmz2cmXQJ05lNP7uT9vxYTfLJz
- B4W5AOX2csLYIQRF7XbW4d4vcdVgVStTp+GxRz3H99/L8+uRWLAJX+hIYLVDKWZ7fv9s
- 20+G9qeSdY/XBGzy1sXKPPbZAf8HDxydfy4dRIe7zwKqEXHxLvE4fjZ63y3692hPNomd
- JYSGYuQhU5qIXAjOGCdW7TqBlMkuzeceCqn+xqG/SdWDVrXxLKcGclqrcPRo6eT5AX0n
- ob5RclS5eR1XSDBvJbSWTs9OBE8jDkC+7B864jGZ5pLhT4Pixed31E5LNgPtM2Ghz5p8
- emAA==
-X-Gm-Message-State: AOJu0YzkSZDRhtp37KtjI+RhWhFS6CGlslQNPx9Qq1oQjRvxLJNw/MCw
- yfX4A+VRMwb48qmbNOfipKOiyZQc/dem48gTKqDrNo9xGcdAnzjw3TXsh8KKF0qvj1twIcsNz60
- b83g2s0VThy79FdYuuqmkR5NSo2VEpzVARxUher54ZFPzaLstRaMi91KOPB+1BHac/X5lw6w=
-X-Gm-Gg: AeBDieuc35qGIew9nFcq9LI8q6us2hmvwmJ1NfoBXlpdMDkjuuJ0qjAURsvM9AX/Cgu
- NNbxO6VTV6cys2XSvad3AIsXQxHXeLYIE8m9FxQdM8pNCAXn3JyVe9gNroBYq1R0uKN7+vLpTZS
- mV4/Hrh2A6GFOkx36PkR8W/sjP2H6UjWby9l21qEtR/NNwwdtMosCrMfiCzMJPbHj9onRwuivE4
- M3vpErPzgIRB3MWUXurPBg8h0K3B8qKpH1yy7o5hh5xxcBvY8q/Bs7IHPSG2YGtzHA8zPrHXpcT
- MZCE5QcobnsmJkc/HP2Z3F8nRB89e4GUi7wEh6qcmXIDVzg5xCM3NyUP/ptaL1j1IuvRGxJlJJb
- sIIX92peEyR6ynnbHO2olx51ThnEdG9+Nb0ijkGIBg0kV1hsjdcUMi0rlcoV1ud5FYOmR+4u2F4
- /r6KrmyjP/kyZGChfOxEtZj1UluwNYA9Fj6Pg=
-X-Received: by 2002:a05:622a:a410:b0:50d:e1c8:5ed with SMTP id
- d75a77b69052e-50de1c80b8amr43323171cf.52.1775909474420; 
- Sat, 11 Apr 2026 05:11:14 -0700 (PDT)
-X-Received: by 2002:a05:622a:a410:b0:50d:e1c8:5ed with SMTP id
- d75a77b69052e-50de1c80b8amr43322671cf.52.1775909473977; 
- Sat, 11 Apr 2026 05:11:13 -0700 (PDT)
+ bh=RKa6xeChRoaH9uw0NWPjegEQauJVOAFpyTvUBF7c83g=;
+ b=Q78HyXahWxxqd2sULI8ItH7y63OumGLOdvkgq5eULFCztfBZm3AtgGncseInoOc76q
+ NyWpItLQpRB/w2eiMyInGR+EWLdH3lAtYLLnCUM7dBw0JpKxor2YNMz/hVoDlGdKeN5u
+ JOOC8m4OVe6ejaqqmoh6kRopSi8Kiad1+ViAnnvgMBtQPn6SNmbqRE5aOYIwzGCtVWD5
+ zy+zHDx5G7/sU7xhVNKbS+HauedTbIcnH5sT9iOmXYjNgZgqQAaa7BquIQ1bo8++0xyr
+ +muVqYjBWbvsmjIpffXCO16RCVYt2zo2045oCj9p0wDhunYFp7I4kIaPWrqK/HGzjcyi
+ UnSg==
+X-Gm-Message-State: AOJu0Yx+9OilykFM0146H7LxUbDLEqQ626g6CZtJmdSFlwbTieFw6MxC
+ bnuiqK2RKr+MIqASAJ8kRmOmHaXOCBtej4BoMxr+CXzV/cdvZF/tqjpDx8ir2Za+1wa92RvYC7l
+ 6/xqlGXi3oRxJpnbXq6KmynzXT/duGb20yBeJcLU8185LQMd7707/NXK+uvFSSxLMymeHeHM=
+X-Gm-Gg: AeBDieue7HpAn8+YT2qqcVyast7gvFOdfdsVy2+53RLQ3w7+evWVpaKjkffLaUc7oiy
+ AHG7zY+O4gZYNkOFDy8PBpEKHSmGqIL2icufyAt7fxHnWqC9az2V0fF7vIspKbY745baoZNDflC
+ 2fpQGk30fmgAF/kUHYoa2fS/0HKE+qCShQSr2TfqQxPxHKnDVaywv74tnDD8yb7rqMVMBG6n6oX
+ 4pzIjHrBMEIE2qUV46ildZI2Z5atT91CqIXb5rGhkypCtUX6cvlnq2YFdN2HjhIm/ve762U7NVg
+ U24om18wAaK4nD8IhlXnfWH1ekT6f/b8e/NGZ5goSsOR5Wzc3beVDGWLF2VV19AKe4z/VzsJl5h
+ V/617U7/C9U4J2hYWRM2zHb5kSHpjIAIbv0vm6N07TDLKUe3uhhWvxe3Xm5CRSHEgAeU8eg7vOo
+ ZfVGtP/ULQYhpE/wMjN200/meStryio+EY4A8=
+X-Received: by 2002:a05:622a:550d:b0:50b:2876:586 with SMTP id
+ d75a77b69052e-50dd5ad112emr103796281cf.5.1775909477106; 
+ Sat, 11 Apr 2026 05:11:17 -0700 (PDT)
+X-Received: by 2002:a05:622a:550d:b0:50b:2876:586 with SMTP id
+ d75a77b69052e-50dd5ad112emr103795881cf.5.1775909476721; 
+ Sat, 11 Apr 2026 05:11:16 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38e495b4e73sm11906291fa.41.2026.04.11.05.11.11
+ 38308e7fff4ca-38e495b4e73sm11906291fa.41.2026.04.11.05.11.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Apr 2026 05:11:12 -0700 (PDT)
+ Sat, 11 Apr 2026 05:11:14 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sat, 11 Apr 2026 15:10:32 +0300
-Subject: [PATCH v2 12/21] drm/panel: jadard-jd9365da-h3: support variable
- DSI configuration
+Date: Sat, 11 Apr 2026 15:10:33 +0300
+Subject: [PATCH v2 13/21] drm/panel: jadard-jd9365da-h3: set prepare_prev_first
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260411-waveshare-dsi-touch-v2-12-75cdbeac5156@oss.qualcomm.com>
+Message-Id: <20260411-waveshare-dsi-touch-v2-13-75cdbeac5156@oss.qualcomm.com>
 References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
 In-Reply-To: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -113,42 +112,43 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  Riccardo Mereu <r.mereu@arduino.cc>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4724;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1074;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=qxvBzNbPk5EGLmpGBUzeeM1J6/sQ4P9lHmhYV6FObtE=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp2jpGCyNgWS/VQHaa0ne99WdMtW70FVv8Vqmq6
- FSQjKx5p5CJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCado6RgAKCRCLPIo+Aiko
- 1e35B/9opzvZiiuLKmiI1OJgaoCwVAxBS6CoXFP8o0c8sZMNFgzUBiqEY+ts0wffKKWllGxqLto
- EHogyQkv6gmrZs/tHz1n+QB2WM+e1LhzMAMvH3QtbFewJTU8kdsIy4Tjq6z5BP1vfspcOf+rLNB
- gp010f7ELFnKYmzALFbopIxREP2+WHURp2n17Jr6U5DliXqsuuv1HQ5yR/JPC0V/IFCLB1VQSi/
- fBFsBFkbeE8Xm6ETVo26S5iS64uxXCHMSn9iQvNZdm6zNplJdZ3tknF/n16AmJJOEHDaEYMcZzD
- UJkJ5BQ76D6+K8JeD6NMz3UgBfL78rE5HDMPIV97GdnoDP5G
+ bh=ItKhX2Lojt9KIazo72U3GJYoHblfjFW2x10W7iSKuEo=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp2jpGwlOUdLdYTrG2qMsikq5j9EIHjvVUbb/Zc
+ qntYLYJwhSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCado6RgAKCRCLPIo+Aiko
+ 1fm2B/kBk92iEqPsVJKR2/4lISThQL19zM68HkY3kSGFyWIo5pCnoRR2gmnIWYWgNjpV6lysCFI
+ 3gsLs2S2qhux43Cn2EoLEJp05js6ZYHqmGWXqnzpW04Y7GKfFhy8UHLsV4LTwxqdCCvxCjywl5S
+ ha8NsuuYsDO3oDDIhXiQnKzEGPeTi1qThFHMG+9Bkzp21X0SaFvwkOwpIAWa0d3RMdZFTMUqm5k
+ cV4a7v7eV74HJpLF/tSQGvKwl89sSemOm3tvkMP0in1PalkmpFC29Xarx8mNq9JUK72YuFGEsvQ
+ PCWfmPdMRKH7dShTRjzuE3I4GN7mjMh9hRsHsStPodxzWa1k
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDEwMiBTYWx0ZWRfX0iu8Qpea8C7X
- c6u55fuoibIkp/0Y2/Rqt4SUrw0xE2ubIX3d5Tvx5z3NnQi8RRJaZCLNbWnr5eFmdypB0D0XpA0
- 6pQzSd/HwAcc2IqItAa3lqMDxehOVk/dOVq+HByGtEQRjvrrjOEQx7dJaRwZK7hN5cBt6Wo4a1Q
- sJ5im6Do1fUQkF+oJtjycNhjX90du1nozVDL6n3lDVeURp7sTZON6bvS2v7RZGgn55YMyj+h4Cq
- RXvryjRVm9+1qjOghTAfDW3O81ObAI56MOfIMJP67cMepsj7nZ5B2YVm6ljZvo2yLQ3t8/3xqdC
- DbKxntnuLweOy8yyuwOKZQmJPWaIG6cuUiCO/eNJpAcYrJhitVXba/dszjD/3ATPEvBO+1oyGED
- +HUGM4tudCig+4eDGRWjDSdLdnDglZ7/Dso8b/H+MYDt0GPLjzXV0SDQdIplmtAFHgg6E0hhpn3
- EyltbgejrMBaQRPc8/g==
-X-Proofpoint-GUID: w-NRiX8bFdNCuUEufaU_Ryd8TDeLdaxz
-X-Authority-Analysis: v=2.4 cv=AofeGu9P c=1 sm=1 tr=0 ts=69da3a62 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=bcFbluPB c=1 sm=1 tr=0 ts=69da3a65 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=hyEcIN-V0XolZWHaHNkA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: w-NRiX8bFdNCuUEufaU_Ryd8TDeLdaxz
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=ic6V0yA_i5s2A4o5CdYA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDEwMiBTYWx0ZWRfX3pC5o6WC//Hz
+ dlIsh9gxTsuqrvRV4v/VMF+r0woNeHPRnQ6mHwcONl56vTtv35YE2IYr/0Tzkliaji4s/sgGeLN
+ s1xfnUMIqsulovrpZblcTHo0OtaG/ldF4v+YwPzs861qxfCa092Ez3bGMLwEZe5XWF+zf21aIJ9
+ sKR7RBgOsWHZd8vFa839PD/q/XrEJWTI3pD5oowrXayUvJH7+7t1aDBynhP3UkO/snZOYnPRz+i
+ apPYszsHSSgSkRLp4i1VN7rrdna4jYwgOqwL42T9XLHermZ2E7xDNZsl9N8W5YUtiYmS0V4Uizu
+ lAGq+PkJVs6PZgEPgemH2Y1ywUdz+HCJTofMarKvXg6hBhS11P9v47yzDhofBMRcw4uLAH587tz
+ FcseIIcW8VD7SfzwV9gPlKJ0LgZNkkNJsCJbHmvcpqvHupKWGy1aSHxjhMij4UpXrThDoh+aC4L
+ VV75spQ5FpYqipP3UAA==
+X-Proofpoint-ORIG-GUID: yTDRjhQYl5MWRrSaUsRdgg7HDCPHbPSv
+X-Proofpoint-GUID: yTDRjhQYl5MWRrSaUsRdgg7HDCPHbPSv
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-11_03,2026-04-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604110102
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ suspectscore=0 adultscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604110102
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,132 +164,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Several panels support attachment either using 4 DSI lanes or just 2. In
-some cases, this requires a different panel mode to fulfill clock
-requirements. Extend the driver to handle such cases by letting the
-panel description to omit lanes specification and parsing number of
-lanes from the DT.
+Sending DSI commands from the prepare() callback requires DSI link to be
+up at that point. For DSI hosts is guaranteed only if the panel driver
+sets the .prepare_prev_first flag. Set it to let these panels work with
+the DSI hosts which don't power on the link in their .mode_set callback.
 
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 32 +++++++++++++++++-------
- 1 file changed, 23 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-index 1884ad2404cd..5d9db2e1f28f 100644
+index 5d9db2e1f28f..11b7e07c1af8 100644
 --- a/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
 +++ b/drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
-@@ -10,6 +10,7 @@
+@@ -1652,6 +1652,8 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
+ 	if (ret)
+ 		return ret;
  
- #include <drm/drm_mipi_dsi.h>
- #include <drm/drm_modes.h>
-+#include <drm/drm_of.h>
- #include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -23,7 +24,8 @@
- struct jadard;
++	jadard->panel.prepare_prev_first = true;
++
+ 	drm_panel_add(&jadard->panel);
  
- struct jadard_panel_desc {
--	const struct drm_display_mode mode;
-+	const struct drm_display_mode *mode_4ln;
-+	const struct drm_display_mode *mode_2ln;
- 	unsigned int lanes;
- 	enum mipi_dsi_pixel_format format;
- 	int (*init)(struct jadard *jadard);
-@@ -57,7 +59,10 @@ static void jadard_enable_standard_cmds(struct mipi_dsi_multi_context *dsi_ctx)
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe1, 0x93);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe2, 0x65);
- 	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe3, 0xf8);
--	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x03);
-+	if (dsi_ctx->dsi->lanes == 2)
-+		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x01);
-+	else
-+		mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x03);
- }
- 
- static inline struct jadard *panel_to_jadard(struct drm_panel *panel)
-@@ -151,7 +156,10 @@ static int jadard_get_modes(struct drm_panel *panel,
- {
- 	struct jadard *jadard = panel_to_jadard(panel);
- 
--	return drm_connector_helper_get_modes_fixed(connector, &jadard->desc->mode);
-+	if (jadard->dsi->lanes == 2)
-+		return drm_connector_helper_get_modes_fixed(connector, jadard->desc->mode_2ln);
-+	else
-+		return drm_connector_helper_get_modes_fixed(connector, jadard->desc->mode_4ln);
- }
- 
- static enum drm_panel_orientation jadard_panel_get_orientation(struct drm_panel *panel)
-@@ -354,7 +362,7 @@ static int radxa_display_8hd_ad002_init_cmds(struct jadard *jadard)
- };
- 
- static const struct jadard_panel_desc radxa_display_8hd_ad002_desc = {
--	.mode = {
-+	.mode_4ln = &(const struct drm_display_mode) {
- 		.clock		= 70000,
- 
- 		.hdisplay	= 800,
-@@ -586,7 +594,7 @@ static int cz101b4001_init_cmds(struct jadard *jadard)
- };
- 
- static const struct jadard_panel_desc cz101b4001_desc = {
--	.mode = {
-+	.mode_4ln = &(const struct drm_display_mode) {
- 		.clock		= 70000,
- 
- 		.hdisplay	= 800,
-@@ -819,7 +827,7 @@ static int kingdisplay_kd101ne3_init_cmds(struct jadard *jadard)
- };
- 
- static const struct jadard_panel_desc kingdisplay_kd101ne3_40ti_desc = {
--	.mode = {
-+	.mode_4ln = &(const struct drm_display_mode) {
- 		.clock		= (800 + 24 + 24 + 24) * (1280 + 30 + 4 + 8) * 60 / 1000,
- 
- 		.hdisplay	= 800,
-@@ -1070,7 +1078,7 @@ static int melfas_lmfbx101117480_init_cmds(struct jadard *jadard)
- };
- 
- static const struct jadard_panel_desc melfas_lmfbx101117480_desc = {
--	.mode = {
-+	.mode_4ln = &(const struct drm_display_mode) {
- 		.clock		= (800 + 24 + 24 + 24) * (1280 + 30 + 4 + 8) * 60 / 1000,
- 
- 		.hdisplay	= 800,
-@@ -1326,7 +1334,7 @@ static int anbernic_rgds_init_cmds(struct jadard *jadard)
- };
- 
- static const struct jadard_panel_desc anbernic_rgds_display_desc = {
--	.mode = {
-+	.mode_4ln = &(const struct drm_display_mode) {
- 		.clock		= (640 + 260 + 220 + 260) * (480 + 10 + 2 + 16) * 60 / 1000,
- 
- 		.hdisplay	= 640,
-@@ -1562,7 +1570,7 @@ static int taiguan_xti05101_01a_init_cmds(struct jadard *jadard)
- };
- 
- static const struct jadard_panel_desc taiguan_xti05101_01a_desc = {
--	.mode = {
-+	.mode_4ln = &(const struct drm_display_mode) {
- 		.clock		= (800 + 24 + 24 + 24) * (1280 + 30 + 4 + 8) * 60 / 1000,
- 
- 		.hdisplay	= 800,
-@@ -1614,6 +1622,12 @@ static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
- 
- 	dsi->format = desc->format;
- 	dsi->lanes = desc->lanes;
-+	if (!dsi->lanes) {
-+		dsi->lanes = drm_of_get_data_lanes_count_remote(dsi->dev.of_node, 0, -1, 2, 4);
-+		if (dsi->lanes < 0)
-+			return dsi->lanes;
-+	}
-+	dev_dbg(&dsi->dev, "lanes: %d\n", dsi->lanes);
- 
- 	jadard->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
- 	if (IS_ERR(jadard->reset))
+ 	mipi_dsi_set_drvdata(dsi, jadard);
 
 -- 
 2.47.3
