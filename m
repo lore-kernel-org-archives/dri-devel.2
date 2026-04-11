@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5C5F3ED50
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 17:34:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA702F3ED50
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 17:36:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B076910E20D;
-	Sat, 11 Apr 2026 17:34:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB49210E20E;
+	Sat, 11 Apr 2026 17:36:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="aFPTL1ei";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g1R5lksC";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HO6LDDWs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="keCHUr3m";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40FD110E1FE
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 17:34:52 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D614510E20E
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 17:36:49 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63B7uZNU3336122
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 17:34:51 GMT
+ 63B4BR8j653215
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 17:36:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=3Njx8/fv7Km3RsqCz552LOpr
- aHFxUNpjkpMwbhw0bmo=; b=aFPTL1einZDvazwJd5nJLpTWoyNW11KNet5H2lBN
- 2sUMo8FAkoGWwia0XPOveF8YnzfqIn0MX1U/XeQk0tVr/ur2O5O8nQATzJ+QWG5F
- 4Gh9LG1TWi1m1+ATg45ihK2w6EnYcevlVmgRqnjpOVuC9Y4t2JsOXYUOFFyVFbyF
- SP+FeehycvxAzkNt3kXcAv4Q3AMdJBKVwagM+fByP+Psw8Q0GOKp4d7ooyPju7Jg
- WxCI/v8gT8KebS6/Wl333Dt66Wb2Ov5hc78tvbZJj3/0ZGC2njqP4T8v6eevzgz6
- fn3Ibsaj0YPqQe81ddfFULobqdGcbrktaH0ExVLLMKm29g==
+ :references:subject:to; s=qcppdkim1; bh=092FG5gBJ7FcCA6OMLl6+2Cg
+ GW9zz4afSlLEnZPEulU=; b=HO6LDDWsGdRG6LXFKJcTslKFVd+fWpPz/8ruG7jz
+ fAjD896bE60nEb3x2YmyerZTZiX8Yu9Wd3x5QUqL61rb4LyWbbAwKMdyzc5SxGN3
+ 7tuCxNUv2Yclwa+tRtjj4QsNnKcLnHyNkiHJcxtu+RCvoB3E+W0sc6ECfKlDXL9g
+ tkYtco/u9Tkr5DAOB8tjJG3ioNGRocMRcfRxxnyQTdXzE/W5y8UU9Xh7JnHEIY5J
+ z/eqFJYiCLHGhAy5J8JeppXN1CUMZiSG4nfyHleQqbbdvmGpVjxGa264EeSwWxD+
+ MvJuIEick7D9IXi8DD8t4VVFL8mEptAVpF/3JNDr+Dyjkw==
 Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
  [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfjbp8t12-1
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dff2b93u8-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 17:34:51 +0000 (GMT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 17:36:48 +0000 (GMT)
 Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-50b4ca7e7c2so61898801cf.3
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 10:34:51 -0700 (PDT)
+ d75a77b69052e-50d76f460b2so71977901cf.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 10:36:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775928891; x=1776533691;
+ d=oss.qualcomm.com; s=google; t=1775929008; x=1776533808;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3Njx8/fv7Km3RsqCz552LOpraHFxUNpjkpMwbhw0bmo=;
- b=g1R5lksCCHNHMEd/4hhy4wneJAe+HTiq6FaMLzETELWDI6k4q0tgNcNQdYLPx4jb1Q
- EADgBmYMClkaaxuBX0avKpkrGIwH8yan8uNK/viCQ6dC3IZTKUcRh7/99bS7fGsKVEhh
- qKViTqcUi64m0TLg8sgvNnybMhJve12clmNveP6+75We0S6HVQm29KO9KwZaVQfB5SSh
- GZYmPToxQUDBxUD/gxAwqSTJOP3100fG9WMx16ewHe9GPSLD1xTGjtBeG58QI2wxU1Wt
- MEP4KnaR/ov8FIhrmkPYfl3gSWFSFvJhXVqHlaKDgr8doyUpKG3Rferqu+VbZoJF+psh
- nSiA==
+ bh=092FG5gBJ7FcCA6OMLl6+2CgGW9zz4afSlLEnZPEulU=;
+ b=keCHUr3m8wpdtMrMcs2r3Rmm8pNXu1e6jyZi4LLHXQ0VmN/FOLbG9q9VgZWAepckEm
+ MKOyk7H8Y0Z0A8MSbPsyZFlLZTnEuHpJUUs3UBqtuuXCMx5FR/ERxNVDqdf9xccTtP1M
+ nqUqR3Vyn2aAZ6JQOItYeY5Naf6WEHFS4rE70gbKHkttBSA7h9iWl+2h9nCoesuuUwSx
+ oM7acHogp0gWdrhg1a2Ukvs79Bk2BbGiqsvIeCnCt6F+d4iqEboRGdetsoxJEwUF/Gzj
+ Ul54Tw3OfKZS/l2pIksIVi/AOAiHSOtn958Ffx8xJXS0BvndGPb8tZpSUiU4cdzS+wWO
+ 9h4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775928891; x=1776533691;
+ d=1e100.net; s=20251104; t=1775929008; x=1776533808;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3Njx8/fv7Km3RsqCz552LOpraHFxUNpjkpMwbhw0bmo=;
- b=oqw/2Ma9f016pdzwLI13pIkLWKEvtyCbItjGxSiW9wKUj3eNerjcDdWtFGndb6ZaB0
- ZN3cWupx/VkVUtUZbTh0e7W0wHudDubdCeMmCETIJ86WOFZn4Mh3zVaC5rQmmkeYilgH
- 5c6pY+JN9ztK9LCYjPUwIevNKZcagq3A/T9NiyuPyg39TFORGIr/ez+Iide+Uv4BAMP0
- BE264d4kqqUFmsCI5mTkLcdWll18AK4qP4HAqXPiCtmkRhUI01Xxh4qDLVgL2WWIZOz0
- 8hBh4dPOJ19O9ssFXYeVkIkPt589O0MrUFgh/eMEdo4hrkNr/2A4ROfltRdsWab+hwCK
- CG+Q==
+ bh=092FG5gBJ7FcCA6OMLl6+2CgGW9zz4afSlLEnZPEulU=;
+ b=owBC+WebpReZ90SpHvw/yFKnBQoUBsWS88ETMOwRfrOs0M7NoLk4o+G1RmOhaVslO7
+ PCKMKSwsDPcnJOVveLsCVhoNbm9JQ2sGV6+iwfp/RrVwW2JgGtRvTWkVs7+hGQJp8FUz
+ c3dk/2Ck+1ZASmjozhgC9FozfFxXC+HuVQ3VLHfVvF5HEz+NnnnOm5s69/Na52I7kh/s
+ ABT+5aIQMKo/zwya/vm38R+DA38QXIkHcZjd+ePfa/r2wutO1iNW35HkSFSbKfFoIzS3
+ 8rlq7pkIAfCVwNlZmSRn6+lrrvbqWe/M1C+Q5oAAljgfsjvb1f3R4E4Trl5WeT6DzLvS
+ Fz1Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX5G6DHWLmTjT0TnR/m3HEeRtuvyptjVfCAj6GcZ5ycK6UDzKxsd+Lvdr8t6I/t6Fx2dK9Mnee2zGM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzdPdQwYIoR6p+ibijvojMUX8l7qVC8XXjv/Sjs8CfIj0vOp5Rk
- U9ys6iYHOQgD3Uuo6IChdyCkVUvdmFmIDcbEvkXpdLIlB+UjZbepbBsUDwrnN+PsXHQ5+6eSUb5
- /2+FQjnW9d3YG2A3XxBtqYQyu7Lgxjntzealtmwvn805+7DdokewoHUry8w98X8TOzIHBlDo=
-X-Gm-Gg: AeBDieuhSX7iVaMBjeGIG//9Gzq/+egTVKmyORID2DiS8g1cM4CqVKEvWsbe3GP6Hir
- 8ev+PyK0jGbMS8ElHv+zldwp2O7+Q69ROfAqG9Y3IfB0QFt7owbi+aj2lb76Nb6BQtqRageiULc
- V6AVoF8IgBjUsf2l+ejyUI77jzG/33Ga8DbV3KgQCLvMvwC5zAYRtluOKH3lEeH9jGWLxreJVWK
- c4ZLYFViPGQv7CaD4/doN20f9kQ4K3161agCXYLz0BISYSGB1Ylx3c9I0LDB9vXh3fXTkxbIkmx
- 2cMFN2CgtkFP/FhVJHzunHQmR1pnIA8TCGRG8CQTCuOX1YZqm1NP6Bfhi+BjXoIM5c4w+BC82MX
- 7ePDe3dTGvfFbB0Gu184YfL3632ZfDHBviNDilg4hwO333/XGIjp3ZZPQSPcJFbB/ByzX3ohcaw
- ENwvtHq3te/cGavX8vEw1V+B8ZFk9RkEQuInY=
-X-Received: by 2002:ac8:7fcf:0:b0:50d:a8f5:d519 with SMTP id
- d75a77b69052e-50dd5b608d0mr117468131cf.14.1775928890720; 
- Sat, 11 Apr 2026 10:34:50 -0700 (PDT)
-X-Received: by 2002:ac8:7fcf:0:b0:50d:a8f5:d519 with SMTP id
- d75a77b69052e-50dd5b608d0mr117467771cf.14.1775928890304; 
- Sat, 11 Apr 2026 10:34:50 -0700 (PDT)
+ AJvYcCXIkk3T/SRRSvs2s+KUN1nlj6Sd7GFg+f+P6hueOQ+7M5xZLKm1HIwRqztniudalEwvFciKUZ+jXZc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyzEyhDKmJ7WcmGJ/6h8vCuay6T7KeqLAD/0oRC7198rLrOzBmg
+ jXBJLfo7wRJpdGeoEx1wt6V+0fQ7uKwRl8gy8Xx2unM4uBbDkyJAxHqsC5sgNKR4hMIhMQ714W7
+ fOq6cYKYy2FuFIjgAAwsdDap0qj8erkoqXR9Rv8325F1WMgdx55JXE4qn+KHQL/VlCDTraRc=
+X-Gm-Gg: AeBDietCQne6jwh+zUbqTmmJwo5GHgSrkpVP9QIB1tUmig+sHm4db6H6PHfAhj+hLfp
+ /4fmOpzWsCDVTz6e3z10aYXM1zpJP/ctzewVKZnW98Rrt6Guo2c2q+jBj7DH80AXpmQhohy8/ek
+ cJVX57NWwQiM9/4MicMtuWnkgST5HA+8eVrbDTgWpIn0jDy//AEODoZSA/6Hi6ofCTiEbziiD7E
+ /6do8x1aY478CDyEvLtuw0WKp/adyZUPcwryv3Zt77oSCbGTHtK6qHjlrLY5oH27RrPj5C+fxSP
+ +vFZUWa5PAMZ5OiiFht+tm/10gJIkuHj95OU83ywGC4JNl5VlW8ngQi6SwQsfJxJltAlzSq6A7i
+ ySLD32y45PX9zLRAGrIfzAwRGIBsGUiTRX23pWxTpWCkZerYtjSmmuTBzlcV4ymEOpg6M/x2CmR
+ WsNMye7/sVCMZShSIX0X8KnQG+xhPlvh2Rkdw=
+X-Received: by 2002:a05:622a:4d3:b0:50d:a248:68e1 with SMTP id
+ d75a77b69052e-50dd5ca6348mr116165921cf.56.1775929008013; 
+ Sat, 11 Apr 2026 10:36:48 -0700 (PDT)
+X-Received: by 2002:a05:622a:4d3:b0:50d:a248:68e1 with SMTP id
+ d75a77b69052e-50dd5ca6348mr116165581cf.56.1775929007583; 
+ Sat, 11 Apr 2026 10:36:47 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a3eeee11f6sm1524462e87.44.2026.04.11.10.34.47
+ 2adb3069b0e04-5a3eeefcc2asm1550367e87.70.2026.04.11.10.36.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Apr 2026 10:34:49 -0700 (PDT)
-Date: Sat, 11 Apr 2026 20:34:46 +0300
+ Sat, 11 Apr 2026 10:36:46 -0700 (PDT)
+Date: Sat, 11 Apr 2026 20:36:44 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -98,38 +98,38 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
  Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 05/39] drm/msm/dp: splite msm_dp_ctrl_config_ctrl()
- into link parts and stream parts
-Message-ID: <omw63f7fbqiuw2t266dq5drk7rz2kohydpvbbhcrbfiehb7lzh@aucqhfaliams>
+Subject: Re: [PATCH v4 07/39] drm/msm/dp: split link setup from source params
+Message-ID: <2ecuv2mhrwcut5vc53wbosg4wmjea7gdgugs7ady2ychnrjzuy@6lbbumdgh22j>
 References: <20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com>
- <20260410-msm-dp-mst-v4-5-b20518dea8de@oss.qualcomm.com>
+ <20260410-msm-dp-mst-v4-7-b20518dea8de@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260410-msm-dp-mst-v4-5-b20518dea8de@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=PuijqQM3 c=1 sm=1 tr=0 ts=69da863b cx=c_pps
+In-Reply-To: <20260410-msm-dp-mst-v4-7-b20518dea8de@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDE1NCBTYWx0ZWRfX7GAfV7VYh0eI
+ M7uFgRfIuFUoR/nP081w3agUCKzSoECtElHT55qe5xOospV70zjl5Z9ZJbVUOvnz6BI3yCICZMd
+ mwt0+1RJMWmFTZcl78M1odjBkusqyKBv4GNf3D9BIk7z4SbkbUAmuiI78mPRZv7Dif6T4nwuOU/
+ ntAAYuhvAQtx1iOU8DFVCj83tcYv8ZUS+ZFt2DMxyG2SwkhQ9H3v5DT6wBlhSIcni3WqisIPU68
+ nExHNEfh77Xjk4B0K9rwGeB4VgDFHBRQP7hfb7WjJyTFMdZAbAB/DOQi0LjrNdzd1RpaKqsgS6v
+ x/l6FPxGnj9mIXOzGCfkVbyGhQZCoAewyIpqs2MVJFm7oc6HtBUweCCxBMYqYtnxPD6fYB/LJUa
+ QT8eMNyPiKPwlCtg64y1GhqR/H1kZZHFHr0mY0CihGKgNs136gzRTUeLLeOFGZ2JnGvRsCbYYp+
+ SjB+9zsXfhi63+76grg==
+X-Proofpoint-GUID: GtugZHI0Y13lJT4fMsBO7hYhyydLsTSw
+X-Proofpoint-ORIG-GUID: GtugZHI0Y13lJT4fMsBO7hYhyydLsTSw
+X-Authority-Analysis: v=2.4 cv=W4gIkxWk c=1 sm=1 tr=0 ts=69da86b0 cx=c_pps
  a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=lIPaWChcOsILjI9_6t8A:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: sLlidzFrrXPgXOPaUxhoMkppEcOYMQhx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDE1NCBTYWx0ZWRfX5XSYS9UlGxzj
- Y4djlUtVMP6YQlwHMxTFPNzBt2U5kXhheCphW1l0TxBfV362BEcoqZXQKFyFBpGCrYpGx+FzSIL
- qcXs22fatHaEGXWq1HnqhizMavxPQ5xtxy1VS59Q7RYLJKU8xC2bUKBAymgy9rymSHZse/NAfbZ
- lPNl/uD2I2Poyso0Pu9wUd9Okn4mkINWLzsS6uqReRph2aXMr5HFt0t/molIueOw9PauPtqHq1c
- 1TA4FZiwQKZz4HI4hI4742K4Wu0roWUV7itwPZXqeEZY+Ko1Ft9kQTcgso9XCoqC2YBR5r770nw
- ET/nf7kgxYpRPWv95bMwcJlIZX8P1QiecXcMFQ5zhTqe8yZwzMv6ANHM5/9bvKuRl3mXJZS9pHV
- zSwXIqy4xTe5pRmxMy8xqk7vKyADAdwncvt3cZaBW1yceO5wGxUZyniFGQoSkdsyeitQDpKdvQh
- 1YKf9nPyBnzZEg+N3sg==
-X-Proofpoint-GUID: sLlidzFrrXPgXOPaUxhoMkppEcOYMQhx
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=U2n3WS0MpVb9lCSYAfQA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-11_04,2026-04-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0
- malwarescore=0 clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604110154
+ suspectscore=0 bulkscore=0 spamscore=0 clxscore=1015 phishscore=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604110154
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,111 +145,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 10, 2026 at 05:33:40PM +0800, Yongxing Mou wrote:
-> The DP_CONFIGURATION_CTRL register contains both link-level and
-> stream-specific fields. Currently, msm_dp_ctrl_config_ctrl() configures
-> all of them together. Separates the configuration into link parts and
-> streams part for support MST.
+On Fri, Apr 10, 2026 at 05:33:42PM +0800, Yongxing Mou wrote:
+> msm_dp_ctrl_configure_source_params() should only handle stream-related
+> configuration. Move the link setup out of it so MST can program link and
+> stream settings separately.
 > 
 > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/msm/dp/dp_ctrl.c | 43 ++++++++++++++++++++++++++--------------
->  1 file changed, 28 insertions(+), 15 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> index 476346e3ac19..85315467b5d0 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -388,26 +388,41 @@ void msm_dp_ctrl_push_idle(struct msm_dp_ctrl *msm_dp_ctrl)
->  	drm_dbg_dp(ctrl->drm_dev, "mainlink off\n");
->  }
->  
-> -static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
-> +static void msm_dp_ctrl_config_ctrl_streams(struct msm_dp_ctrl_private *ctrl,
-> +					    struct msm_dp_panel *msm_dp_panel)
->  {
->  	u32 config = 0, tbd;
-> +
-> +	config = msm_dp_read_link(ctrl, REG_DP_CONFIGURATION_CTRL);
-> +
-> +	if (msm_dp_panel->msm_dp_mode.out_fmt_is_yuv_420)
-> +		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
-> +
-> +	tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
-> +					      msm_dp_panel->msm_dp_mode.bpp);
-> +
-> +	config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
-> +
-> +	if (msm_dp_panel->psr_cap.version)
-> +		config |= DP_CONFIGURATION_CTRL_SEND_VSC;
-> +
-> +	drm_dbg_dp(ctrl->drm_dev, "stream DP_CONFIGURATION_CTRL=0x%x\n", config);
-> +
-> +	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
 
-You have an RMW cycle here. Please document what prevents it from racing
-with the concurrent msm_dp_ctrl_config_ctrl_link().
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> +}
-> +
-> +static void msm_dp_ctrl_config_ctrl_link(struct msm_dp_ctrl_private *ctrl)
-> +{
-> +	u32 config = 0;
->  	const u8 *dpcd = ctrl->panel->dpcd;
->  
->  	/* Default-> LSCLK DIV: 1/4 LCLK  */
->  	config |= (2 << DP_CONFIGURATION_CTRL_LSCLK_DIV_SHIFT);
->  
-> -	if (ctrl->panel->msm_dp_mode.out_fmt_is_yuv_420)
-> -		config |= DP_CONFIGURATION_CTRL_RGB_YUV; /* YUV420 */
-> -
->  	/* Scrambler reset enable */
->  	if (drm_dp_alternate_scrambler_reset_cap(dpcd))
->  		config |= DP_CONFIGURATION_CTRL_ASSR;
->  
-> -	tbd = msm_dp_link_get_test_bits_depth(ctrl->link,
-> -			ctrl->panel->msm_dp_mode.bpp);
-> -
-> -	config |= tbd << DP_CONFIGURATION_CTRL_BPC_SHIFT;
-> -
->  	/* Num of Lanes */
->  	config |= ((ctrl->link->link_params.num_lanes - 1)
->  			<< DP_CONFIGURATION_CTRL_NUM_OF_LANES_SHIFT);
-> @@ -421,10 +436,7 @@ static void msm_dp_ctrl_config_ctrl(struct msm_dp_ctrl_private *ctrl)
->  	config |= DP_CONFIGURATION_CTRL_STATIC_DYNAMIC_CN;
->  	config |= DP_CONFIGURATION_CTRL_SYNC_ASYNC_CLK;
->  
-> -	if (ctrl->panel->psr_cap.version)
-> -		config |= DP_CONFIGURATION_CTRL_SEND_VSC;
-> -
-> -	drm_dbg_dp(ctrl->drm_dev, "DP_CONFIGURATION_CTRL=0x%x\n", config);
-> +	drm_dbg_dp(ctrl->drm_dev, "link DP_CONFIGURATION_CTRL=0x%x\n", config);
->  
->  	msm_dp_write_link(ctrl, REG_DP_CONFIGURATION_CTRL, config);
->  }
-> @@ -450,7 +462,8 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
->  	msm_dp_ctrl_lane_mapping(ctrl);
->  	msm_dp_setup_peripheral_flush(ctrl);
->  
-> -	msm_dp_ctrl_config_ctrl(ctrl);
-> +	msm_dp_ctrl_config_ctrl_link(ctrl);
-> +	msm_dp_ctrl_config_ctrl_streams(ctrl, ctrl->panel);
->  
->  	test_bits_depth = msm_dp_link_get_test_bits_depth(ctrl->link, ctrl->panel->msm_dp_mode.bpp);
->  	colorimetry_cfg = msm_dp_link_get_colorimetry_config(ctrl->link);
-> @@ -1628,7 +1641,7 @@ static int msm_dp_ctrl_link_train(struct msm_dp_ctrl_private *ctrl,
->  	u8 assr;
->  	struct msm_dp_link_info link_info = {0};
->  
-> -	msm_dp_ctrl_config_ctrl(ctrl);
-> +	msm_dp_ctrl_config_ctrl_link(ctrl);
->  
->  	link_info.num_lanes = ctrl->link->link_params.num_lanes;
->  	link_info.rate = ctrl->link->link_params.rate;
-> 
-> -- 
-> 2.43.0
-> 
 
 -- 
 With best wishes
