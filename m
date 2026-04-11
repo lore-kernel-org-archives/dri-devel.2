@@ -4,86 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D7BF3ED40
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 15:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD607F3ED56
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 15:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E002110EA02;
-	Sat, 11 Apr 2026 15:10:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB28F10EA11;
+	Sat, 11 Apr 2026 15:22:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F2ihkeyY";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="I1ZS4E7j";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KJNh+v1O";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF67B10E9FF
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 15:10:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E76336015B;
- Sat, 11 Apr 2026 15:10:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 89B57C2BCB0;
- Sat, 11 Apr 2026 15:10:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775920247;
- bh=JuZcZzdMcRrLzA+RbPD3qbxn3xkXQ/wDeielE4KC3Ew=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=F2ihkeyYQQCoQIRvxSBUYC9gD/6IkT2xIowLyESnaZOKEng9x4ZUgptyYkuwYBmX4
- rwiSTa2j0fgikx/lsSi7qsvsVCnU5xd/Zb0E8XdKrA4cZQtvd934pmBAuqLYSq3dSB
- LxdXNeY7W9BRZUSXqV4KkpnKnbPoEWt17Oq7ZOjfMYs83hpAouWLWw4VA/+jjHzRnx
- 8jwQC2N+zaT8y3hn0jfBdjWrPFehLWQFPfcZOTCCu6E/0w6Qos9BrJJejI/oBLZ9IW
- NwgZYB2NKuAFyaWirzDkAHYhF7uWY+X6YVPjy3vDerLv2CJqgl4noiL2BRSmZsx9Xx
- qboIpp+54A3Dw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 7406DF3ED50;
- Sat, 11 Apr 2026 15:10:47 +0000 (UTC)
-From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
-Subject: [PATCH v4 0/4] rust: add basic serial device bus abstractions
-Date: Sat, 11 Apr 2026 17:10:34 +0200
-Message-Id: <20260411-rust_serdev-v4-0-845e960c6627@posteo.de>
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E27410EA11
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 15:22:44 +0000 (UTC)
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63B46Seu2624931
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 15:22:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:to; s=
+ qcppdkim1; bh=vKvdTnORaHFuK/1CL2XcGIMBxSPWOIyal4x5nux2nvw=; b=I1
+ ZS4E7jy6AppONFbfFvty63VQDI4VlIKcvxz++6CxuFSOTITFqKTPW6knS4immDtk
+ asWOnOIE/da4BYIJwGFgAFNw0JJWfNbw3iGhic3c7KkTGJbhY1gub5ay6CGCAG80
+ HenB+z8swXy2jpKibHh4AzqpjJkpWp1g4BfNsWQxHkkSwvvNLYz9wBV1kd+6O3m1
+ T2ZANyQS1aZH0LDyOQSMrTuS+6k0N5DFCugx0sAJF5tHCMNCm4QyntRPVoKeP5C6
+ HsVq31BS7mP1zdBr4d5REmzifKmsLm9f8MTXqqMyoNSavdO2lDSzm2MARkMdNi1V
+ YZwivvKw0fZr6abQSRJg==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
+ [209.85.167.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfeyyrxhy-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 15:22:43 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id
+ 5614622812f47-463c632f9a3so3552489b6e.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 08:22:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775920963; cv=none;
+ d=google.com; s=arc-20240605;
+ b=GkatkIkkDV8BF0xA5tqM7CZB1ucCd1eODi6Y0sVm5fJrDGy+UQZPoDIfV76JbYitpQ
+ QAq7OloTtwBAyDCGHs3ozRFN2LluLsWCMbm4sM0/nZS3LTK/aRInqNCvd8JKIQrMkFaG
+ UqUP/X/hFa+0ryDyqvfBlIEH9FjExHXRThPfbplovosO1xflw1QClV9ZNsJpGuzYYopL
+ Y1jt8pT34N02viG5iFOjES7FFD0qiOfoeJhhDdi0OLfrtoKqknsnmBgOl7kAj/eVu1+k
+ Ctcan59gdYBNz7LmwO62JFZqFdorSLHJMtL97O2SFqw1vPA1/6X9je+zGtqYlChme8ox
+ 4r5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:dkim-signature;
+ bh=vKvdTnORaHFuK/1CL2XcGIMBxSPWOIyal4x5nux2nvw=;
+ fh=WdRWe3ezH0n6eiUxkLG1BSKo+QOyMWTBxvsFkSCoY+A=;
+ b=gD1kxwQZXOa+h7tukPcoJW+czRPXJ87J8XTJgYNaAEeTgjTbrEJIQ+/Y366egHpIDA
+ S6UyOCLv+t6Y9+fGZoga4foOJN/Ueaq0wROhmvtfmLeOJVz/JkcpmLwg03FMJaYTzYJ8
+ x+MNPFcBXHwpVpRf9dfxQ/ZZKvc5DIzCDJ1C+NYL26GJrqNXAbKcsqiLgKOmelA/CI2q
+ VV1Jzm3avfOABZGc6x+2BeGKtW5FixWueC9IyjtKs4JtZNZHdaMRJb1vOPR1J23JZsm+
+ SF336QFqf5QsiQ4O9e8lAgkUR/YR1Q5JvtrgZHDJfD3/6ZHpZGRYPBL5CsEW+gGljTHZ
+ 1oKg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775920963; x=1776525763;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=vKvdTnORaHFuK/1CL2XcGIMBxSPWOIyal4x5nux2nvw=;
+ b=KJNh+v1OoH6ahjb0D1Bspqad3jecGjic4ZE3R5u3skbQBKSwVI4uSblmZy5kiiYe8d
+ ZgTBJ9J/xntsWy5v1R4xPxGo0VQWnoGMFi/slPi4eLY4Hx9eEq/TDlIA5P61q4Un5l5o
+ gCdDkrWwsPALEVAc31IJ9SnJCQ0XaqHlTsxpHW4hniBsI1VnXOE7QMpqMethgVXJWu3T
+ QmQlYTJqYRiV3L3Rd6/YsAbayIYw0+R+fqx2rkN+7/Dip9U1xCe2oOEDf0KitY+smoLN
+ GB9E6tMPBF4yrjMlYmb5u6jygt8XZAE8Q7JelHPI7y30lnlDrjqq0UKVbTAsZeLXk5cR
+ JC1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775920963; x=1776525763;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :reply-to:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=vKvdTnORaHFuK/1CL2XcGIMBxSPWOIyal4x5nux2nvw=;
+ b=VKshi4VdTQIz+CapJX9B12jqHPvddTxTFLY9ImHgjI7le9o4bOM5+n4Jaid3Pfw0pZ
+ PZEzPvFjSy8+n03tq7pERhW7CkueIVVGxF04K9RlQ5pwKlMgYcWnjGyhnz+uqcSviv9/
+ FLJYCH97k5pBvNuwqUllaEPp/Y7gEbYRquKayxjUYtICiCGARDSI/o7hj5d3/JVMpfD+
+ ANlv0NmHmp2AF1j0gxil/jKKLTxMQcBiVd3wbUPaJolKkI44wm99ypdrWMhqB6cznA0E
+ E8JgyGObGhoYjXVlFsoCVKgBZymKJoxsINXWyzmcgQEeoDBACKhH9L7dFlCXq0y6rMJb
+ VLHQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXeqU50tb4ioAxnar6IpC9BnnE4gm1J95yc5F72mw8hFEX3dpwG3H7bTTVN+v0ud60N/XXcQeQCo5k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx3z1m9ya2F16npeI4B1iSt1QKhPacvb/twIjiMKTdVQEkCvBAq
+ uhDSx0ml3qXsZr3flRkd/PZYEqMsjORrE0VLQcgMREkJVmL+JM0uRSQ/595Ftooo8xyXpYsPGVB
+ oW1e9lqQFbF+FphIu8ATOyeRSWGjtKXIqwDckcYw6hAA9yv3g1fb2GMe6eDky/mzSDvw38P6Ih6
+ WxTyU1g0V33o3frRsEx+IXxzw6qd+diTvr81UJsWN8wO6/3A==
+X-Gm-Gg: AeBDieus/iDVPIgFArjfxQB9bK16p79WreAPwmvpfXsm/gUw+dR7h8PSVhSb9aJHOjH
+ Sij7jBo9CDsBbSyMlegiz+aTvwa3N8Ds7psJXdYK/u3aPe2Z4vvXzE1Y233fkGSZc0A4KcH8e0T
+ 5fCfqKm5owtYu6TOISrYU50Mu5s1cFbhABiCJBoSUi8iyKvnVkdSB//2yA2/k5MYTY9r/fuemnh
+ PzCcY2hahKEXqWThzajITyIiMxL+PP/e7gjrQ==
+X-Received: by 2002:a05:6808:30a8:b0:450:32f0:4887 with SMTP id
+ 5614622812f47-4789f9ff626mr3831296b6e.31.1775920963043; 
+ Sat, 11 Apr 2026 08:22:43 -0700 (PDT)
+X-Received: by 2002:a05:6808:30a8:b0:450:32f0:4887 with SMTP id
+ 5614622812f47-4789f9ff626mr3831289b6e.31.1775920962630; Sat, 11 Apr 2026
+ 08:22:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGpk2mkC/13MSwrCMBSF4a2UjI0kN6/WkfsQkT5ubCamJDUop
- Xs3LQqtw3Pg+ycSMTiM5FRMJGBy0flHHvJQkLavH3ekrsubAAPFgRsannG8ZdRhoohKlhwrVqq
- WZDEEtO611i7XvHsXRx/eazzx5f12gO06iVNGUUotldFGAz8PPo7ojx2SpZPgZzUTTO8tLLZqQ
- DQSGlDq34qN5WJvRbZtVYvaApfW2K2d5/kD2EMq1R4BAAA=
-X-Change-ID: 20251217-rust_serdev-ee5481e9085c
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3097;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=JuZcZzdMcRrLzA+RbPD3qbxn3xkXQ/wDeielE4KC3Ew=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp2mR0PkwCPw9xoffILIbYfqj8mDwwWNu+k8sFd
- tf+efCo2XGJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCadpkdBsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9IeKA/+PtS/C6x7TV+jdU/RUp9xomoT7Tzb+Lu
- enLDgE3sPSHFPZytWBoWHBgg5yepoQpa+32lVAwKfJ7mZ8CtwrellE1dMiRxPnEAVFdsdoNSzmK
- erLjqrUmzn8046X47U9/6qLalHmb3QjsedlaslSMc/8mJFVd32Lqcj2VRAh2+1AI1dWJ4auOOaQ
- yYjBn18G0XApHHzZ5VObp9PE1L4gzXTXIqX1CeMd8pIG+DkdYrG+FjpCAte6mKP/to9R6PRfk1A
- 7eUyQtvz260ntEYDBm/gCyZrDqN0Wkk9/GfchNci4mAFnDIPf/Tv8Zro3WxReb7UEJjSOHM17KW
- xj3CAXdF9I2K9NNqjoFs4MyaLfwEe/KulOkpSqzXO6q8u+wq/PgCtsisvy5X3vJeTy9bIX3xh09
- 0xF0hPSSZoHBrb1XTw1wvA9wfPqBII3SaWi56SlSiD81e9tFgxeW6UBlesdjGLyot+F0DW0a4nP
- vzQwY9tfjLKv8YaylUJBDXpV+CV2MB1KipRu5e3qCPQO/6IXZodtlQA46e/dWT2cxzhg7j89lj2
- 39G+GkedvFBuSGjDqn9eZjVXdyDEZB4L1JzsU4gye4S60KPgcekD95cUw90slAPY2H0NNpXLz3Q
- /V+GPmeu+GDWCsDsXbNXj1h/CTmnH0IddLoGjKl/eaVulfMTgU9U=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
- auth_id=680
-X-Original-From: Markus Probst <markus.probst@posteo.de>
+References: <20260411-adreno-fix-ubwc-v3-1-4983156f3f80@oss.qualcomm.com>
+In-Reply-To: <20260411-adreno-fix-ubwc-v3-1-4983156f3f80@oss.qualcomm.com>
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Sat, 11 Apr 2026 08:22:31 -0700
+X-Gm-Features: AQROBzAkCg2ixkfheB1sFv6waLyf2e4IBAvktrAUcduCO6-KjO2YWa3wU7mSwEE
+Message-ID: <CACSVV01cT0kQa_iY2se05MXae4nBGvfHiL4K5m8SFQBkWFi4yQ@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/msm/adreno: fix userspace-triggered crash on
+ a2xx-a4xx
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: 7K337znhZekcPKovQ_m6szFEKyPZie2T
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDEzMyBTYWx0ZWRfX193aqwixotHr
+ n9V2YX6Qzw5/IZYBfd0tcFPJK+o2gFyJK4U/IsrtG6M9qsWIRiBxtTUHF+cR7bkTO1NO4b43SJ4
+ ABuQHsZFWEZ6kn6EyTrIOxsYEWeSqRVHNhQC5PdVBxspVKvK9hUWAQpJtuTSvzCR2guCr1IZ8Jg
+ FYxfK4qORgh/EYD4WTcFOj+32h9QjqrWcBc/xG+Y0cm+nBtUovqhjsBuPWnDVY2IoO2E3txICZm
+ IRmq2RmwRn11Bh7iW/lck26yBlMC9o+DwiBkeFl4NyxpqZkjZejisaTbsQYgg/9uUl0aN8MxWz0
+ 5vUxD7uVUc6pSytVNzsAmRFEhz0bhB+1Uim/bAxmvFa42ulXXWuYR9eXnqFPoFnLFs4w4EXEvOH
+ e4XMJrO3FSvXJKgkEnBi208JQylIkOMUag3YYIIMWLrqHm3POUSbj6NLMSzfV/fTxphgque9MNd
+ at2RUHvTsvL+yJLzIBA==
+X-Authority-Analysis: v=2.4 cv=FPQrAeos c=1 sm=1 tr=0 ts=69da6743 cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=eoimf2acIAo5FJnRuUoq:22 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8
+ a=dQ27rmbLVP968nd230MA:9 a=QEXdDO2ut3YA:10 a=pF_qn-MSjDawc0seGVz6:22
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: 7K337znhZekcPKovQ_m6szFEKyPZie2T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-11_04,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 spamscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604110133
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,82 +158,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: markus.probst@posteo.de
+Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series adds the serdev device bus rust abstraction into the
-kernel.
+On Sat, Apr 11, 2026 at 7:59=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> Before a5xx Adreno driver will not try fetching UBWC params (because
+> those generations didn't support UBWC anyway), however it's still
+> possible to query UBWC-related params from the userspace, triggering
+> possible NULL pointer dereference. Check for UBWC config in
+> adreno_get_param() and return sane defaults if there is none.
+>
+> Fixes: a452510aad53 ("drm/msm/adreno: Switch to the common UBWC config st=
+ruct")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-This abstraction will be used by a driver,
-which targets the MCU devices in Synology devices.
+Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
 
-Kari Argillander also messaged me, stating that he wants to write a
-watchdog driver with this abstraction (needing initial device data).
-
-@Rob: Are you willing to maintain these rust abstractions yourself,
-as you are the expert on this subsystem, otherwise I would take care of
-it with a "SERIAL DEVICE BUS [RUST]" section in the MAINTAINERS file. In
-the second case, I assume you are going to pick those patches as-is into
-your tree, after they have been reviewed?
-
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
-Changes in v4:
-- fixed not selecting rust serdev abstraction in sample
-- Link to v3: https://lore.kernel.org/r/20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de
-
-Changes in v3:
-- fix vertical import style
-- add Kconfig entry for the rust abstraction
-- fix documentation in include/linux/serdev.h
-- rename private_data to rust_private_data
-- fix `complete_all` <-> `wait_for_completion` typo
-- move drvdata_borrow call after the completion
-- Link to v2: https://lore.kernel.org/r/20260306-rust_serdev-v2-0-e9b23b42b255@posteo.de
-
-Changes in v2:
-- fix documentation in `serdev::Driver::write` and
-  `serdev::Driver::write_all`
-- remove use of `dev_info` in probe from the sample
-- remove `properties_parse` from the sample
-- add optional `baudrate` property to the sample
-- remove 1. patch
-- remove `TryFrom<&device::Device<Ctx>> for &serdev::Device<Ctx>`
-  implementation
-- fix import style
-- add patch to return reference in `devres::register` to fix safety
-  issue
-- add patch to add private data to serdev_device, to fix
-  `Device.drvdata()` from failing
-- simplify abstraction by removing ability to receive the initial
-  transmission. It may be added later in a separate patch series if
-  needed.
-- Link to v1: https://lore.kernel.org/r/20251220-rust_serdev-v1-0-e44645767621@posteo.de
-
----
-Markus Probst (4):
-      rust: devres: return reference in `devres::register`
-      serdev: add rust private data to serdev_device
-      rust: add basic serial device bus abstractions
-      samples: rust: add Rust serial device bus sample device driver
-
- drivers/tty/serdev/Kconfig         |   7 +
- include/linux/serdev.h             |  15 +-
- rust/bindings/bindings_helper.h    |   1 +
- rust/helpers/helpers.c             |   1 +
- rust/helpers/serdev.c              |  22 ++
- rust/kernel/cpufreq.rs             |   3 +-
- rust/kernel/devres.rs              |  15 +-
- rust/kernel/drm/driver.rs          |   3 +-
- rust/kernel/lib.rs                 |   2 +
- rust/kernel/serdev.rs              | 536 +++++++++++++++++++++++++++++++++++++
- samples/rust/Kconfig               |  11 +
- samples/rust/Makefile              |   1 +
- samples/rust/rust_driver_serdev.rs |  86 ++++++
- 13 files changed, 693 insertions(+), 10 deletions(-)
----
-base-commit: c369299895a591d96745d6492d4888259b004a9e
-change-id: 20251217-rust_serdev-ee5481e9085c
-
-
+> ---
+> Changes in v3:
+> - Switched to UERR (Rob)
+> - Link to v2: https://patch.msgid.link/20260407-adreno-fix-ubwc-v2-1-7ff7=
+3624635e@oss.qualcomm.com
+>
+> Changes in v2:
+> - Changed adreno_get_param() return -ENOENT for affected params (Rob)
+> - Link to v1: https://patch.msgid.link/20260407-adreno-fix-ubwc-v1-1-bb2b=
+09450b87@oss.qualcomm.com
+> ---
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 66f80f2d12f9..02f60b33ea1d 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -424,15 +424,21 @@ int adreno_get_param(struct msm_gpu *gpu, struct ms=
+m_context *ctx,
+>                 *value =3D vm->mm_range;
+>                 return 0;
+>         case MSM_PARAM_HIGHEST_BANK_BIT:
+> +               if (!adreno_gpu->ubwc_config)
+> +                       return UERR(ENOENT, drm, "no UBWC on this platfor=
+m");
+>                 *value =3D adreno_gpu->ubwc_config->highest_bank_bit;
+>                 return 0;
+>         case MSM_PARAM_RAYTRACING:
+>                 *value =3D adreno_gpu->has_ray_tracing;
+>                 return 0;
+>         case MSM_PARAM_UBWC_SWIZZLE:
+> +               if (!adreno_gpu->ubwc_config)
+> +                       return UERR(ENOENT, drm, "no UBWC on this platfor=
+m");
+>                 *value =3D adreno_gpu->ubwc_config->ubwc_swizzle;
+>                 return 0;
+>         case MSM_PARAM_MACROTILE_MODE:
+> +               if (!adreno_gpu->ubwc_config)
+> +                       return UERR(ENOENT, drm, "no UBWC on this platfor=
+m");
+>                 *value =3D adreno_gpu->ubwc_config->macrotile_mode;
+>                 return 0;
+>         case MSM_PARAM_UCHE_TRAP_BASE:
+>
+> ---
+> base-commit: 66672af7a095d89f082c5327f3b15bc2f93d558e
+> change-id: 20260407-adreno-fix-ubwc-6a2564710e21
+>
+> Best regards,
+> --
+> With best wishes
+> Dmitry
+>
