@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A63BDF3ED4F
-	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 14:02:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7C1F3ED51
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 14:07:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6894910E211;
-	Sat, 11 Apr 2026 14:02:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5560410E228;
+	Sat, 11 Apr 2026 14:07:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lfHU50fY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qHr3q0pD";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3290A10E211
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 14:02:08 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A37310E228
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 14:07:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B0A9A42AF9;
- Sat, 11 Apr 2026 14:02:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5576CC4CEF7;
- Sat, 11 Apr 2026 14:02:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6AF9060145;
+ Sat, 11 Apr 2026 14:07:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAD8C4CEF7;
+ Sat, 11 Apr 2026 14:07:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775916127;
- bh=HifjkcugVN1bUR9aUlAaCwwsoa3LDIAOA2z2Ky7FFFU=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=lfHU50fYbMJVnv5moMPuvMFtO2ZbntH9O+ewCs5yyesb/p8nrUXixKYEIAUYN9P7Z
- j547ednK4t31ex6305byYUhlFuEc+W0XU9IsjIbLU8SIUkkyu73ohUGtFQchYLevDy
- SHHMn932dZyV2lOfhshssweJDAga297XOaR9ps20oy8JbNBu/TWzVLgnRtqmTDvfEe
- GyZBks3pvlkPhUpX+3E+7MftcJUQkpgbRfx1r8NQ2cE//FkRiDGnOn7iVb5JKLB3k0
- +eWrYssGh0RvMLK8RtpikZqNpQ4+9G7sXD7g3a/iBW41hB0bPgQa8K3KA3zXSCOygS
- UWLXuhdQAUGOQ==
-Date: Sat, 11 Apr 2026 09:02:05 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+ s=k20201202; t=1775916476;
+ bh=0bYMjjn0En5DfzpuYHB1tqDP4Q+5+XNcpFkkSwY7mac=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=qHr3q0pDgM/vByJ013WSTSXsR5+zPzNWkmTisI6+2NuBTexXCXbQZCpzDC1Fp7eM5
+ zQ/z/Mqxv3ivuVAIVcNlqv0rcSMqaCMfQcBtHN4V8FpJuiodxXD7w/JVg4ZeHkCleM
+ QyVZoD6KjWGUb1/0exv0Q4/+fkwTz063t/9mnRPH5kQG3ypgI0Qwj1IuYqYdklxLOU
+ FzAnosySlXnA7avv8qv0Piw5+FyumIDLps5Z5AseRD7j0jnkw9C50pBkNkKhljyHAJ
+ hmC77Os4cntqjudXJO7zdNytsmTKTG9NQhJpkKaIhQZ/ptiF96KY+iV1lbv0NhfHTo
+ mR2sV7zVc7KAA==
+Date: Sat, 11 Apr 2026 16:07:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Swamil Jain <s-jain1@ti.com>
+Cc: jyri.sarha@iki.fi, tomi.valkeinen@ideasonboard.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, 
+ simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ devarsht@ti.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, praneeth@ti.com, vigneshr@ti.com
+Subject: Re: [PATCH v3] dt-bindings: display: ti, am65x-dss: Fix AM62L DSS
+ reg and clock constraints
+Message-ID: <20260411-resilient-tireless-centipede-cd6fef@quoll>
+References: <20260410105955.843868-1-s-jain1@ti.com>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Cong Yang <yangcong5@huaqin.corp-partner.google.com>, 
- Ondrej Jirman <megi@xff.cz>, Maxime Ripard <mripard@kernel.org>, 
- Linus Walleij <linusw@kernel.org>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, dri-devel@lists.freedesktop.org, 
- Thomas Zimmermann <tzimmermann@suse.de>, Jagan Teki <jagan@edgeble.ai>, 
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Conor Dooley <conor+dt@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-In-Reply-To: <20260411-waveshare-dsi-touch-v2-5-75cdbeac5156@oss.qualcomm.com>
-References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
- <20260411-waveshare-dsi-touch-v2-5-75cdbeac5156@oss.qualcomm.com>
-Message-Id: <177591612547.2802023.3418602345377561200.robh@kernel.org>
-Subject: Re: [PATCH v2 05/21] dt-bindings: dipslay/panel: describe panels
- using Focaltech OTA7290B
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260410105955.843868-1-s-jain1@ti.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,38 +62,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, Apr 10, 2026 at 04:29:55PM +0530, Swamil Jain wrote:
+>    clocks:
+> +    minItems: 2
+>      items:
+>        - description: fck DSS functional clock
+>        - description: vp1 Video Port 1 pixel clock
+>        - description: vp2 Video Port 2 pixel clock
+>  
+>    clock-names:
+> +    minItems: 2
+>      items:
+>        - const: fck
+>        - const: vp1
+> @@ -179,6 +195,20 @@ allOf:
+>          ports:
+>            properties:
+>              port@1: false
+> +        clock-names:
+> +          maxItems: 2
+> +        clocks:
+> +          maxItems: 2
+> +        reg:
+> +          maxItems: 5
 
-On Sat, 11 Apr 2026 15:10:25 +0300, Dmitry Baryshkov wrote:
-> Add schema for the panels using Focaltech OTA7290B controller. For now
-> there is only one such panel, from the Waveshare 8.8 DSI TOUCH-A kit.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  .../bindings/display/panel/focaltech,ota7290b.yaml | 70 ++++++++++++++++++++++
->  1 file changed, 70 insertions(+)
-> 
+Also constrain for reg-names,
 
-My bot found errors running 'make dt_binding_check' on your patch:
+> +    else:
+> +      properties:
+> +        clock-names:
+> +          minItems: 3
+> +        clocks:
+> +          minItems: 3
+> +        reg:
+> +          minItems: 8
 
-yamllint warnings/errors:
+Same here, please.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/panel/focaltech,ota7290b.example.dtb: /example-0/dsi/panel@0: failed to match any schema with compatible: ['waveshare,8.8-dsi-touch-a']
+And if you are sending new version: they should be listed in the same
+order as in top-level properties, so reg, reg-names, clocks and
+clock-names. (juging by the diff)
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260411-waveshare-dsi-touch-v2-5-75cdbeac5156@oss.qualcomm.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+Best regards,
+Krzysztof
 
