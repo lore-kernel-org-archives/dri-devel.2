@@ -4,149 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 018C4F45A0D
-	for <dri-devel@archiver.kernel.org>; Fri, 10 Apr 2026 23:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 550C1F45A18
+	for <dri-devel@archiver.kernel.org>; Sat, 11 Apr 2026 02:19:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 294B310E9DE;
-	Fri, 10 Apr 2026 23:26:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69A2510E03D;
+	Sat, 11 Apr 2026 02:19:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kw5grZTO";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OPlQbhoY";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TIcPTJXI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4F9B10E05E;
- Fri, 10 Apr 2026 23:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775863586; x=1807399586;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=HPebPFh30WAAB7vh4dUtQ80kJh+Qg8SpvmUcPHHMA5g=;
- b=kw5grZTOMXKHTlGzv6TR4ySNrnPhjC03O3J2up9+0JhBBqlOs5DjYEO6
- VaqdrNl2Y+BYMYmuRD6t8tdch0/xiP5UaOiKQKO8EAWh5ACickQCb2PaM
- TFGxKFRnDutVsa6FHSj8eOw0tejzF4UTHZP4/tdfZmq5Li413CWUs3aQL
- +F82mzPXhkCJI46gH4gePDjO17SThBnyY8gU27+SzEdQSKguxWBkJiqlz
- 2SrHwwHtB8LtNpeq2aKO2AjpGD9U/P44A3C9iwfCwOtKa+7zeHN622l86
- A771H9eagHBucKbyGjBbZAuYbNRcG0I3JB46uv0Zlta29rPFJBQtNpJLV A==;
-X-CSE-ConnectionGUID: U8s1kPYwQ2q3qYGJkP0gSQ==
-X-CSE-MsgGUID: jHW+cAUoTcC3eNBqjrxSmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="76960842"
-X-IronPort-AV: E=Sophos;i="6.23,172,1770624000"; d="scan'208";a="76960842"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 16:26:26 -0700
-X-CSE-ConnectionGUID: BXZfgEo/Q3eoZc3nrIpnQA==
-X-CSE-MsgGUID: XkoHWcf7S7mnc4wniTMTPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,172,1770624000"; d="scan'208";a="233294896"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 16:26:26 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 10 Apr 2026 16:26:25 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 10 Apr 2026 16:26:25 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.10) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 10 Apr 2026 16:26:24 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tn2pa9an0e8UqCAohdgi0RC44xjVbHhaE0xNu7TpuRonOUHaR6AS6ePUu+fR5f8BcR9yIT0/CPXbdXMVxawefPXJkoUQDLZXXz4Mjyp7ip2Jy/2P+UDlN+B60sYYIWMB8FG8QuN7cvqdSNast/w4Ft2BrPmpXJ29t58C7JGXYx6uSyDiD9Yr872P+WNXDLUqZ1Yseo5WsKiKJirURz+ED8K6O4J9luLeuM1gbZy5IftK7R/80Vddba+2sevFgCLQO02hHDCLV35c01W5Bf/1IztwZMo+kpH0vqnRTA3J+JyRd66csvA/1uoAZ+sq0kLkCCh4OXjWcFLRA/9gpEGEIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mKJLnEGn75U4tTaJx6HzjJ+7mNAq7BQxIDiCkJNGIXA=;
- b=JWsp6MtBZiMAWjmkPo6MJpPWPdAzoGplbPR1yrZsju8DkqjCiLsr7PdGtGn/f/OMD3bt/VMafppfDzgL2zABdpcE5FxdIDmHomAUX31f6MayeUGZ6RGzunTOYif6K0YLkkTUCCiIJTkfIAlaKzQo42WIO/5EC5C6HZAM8IkSSqEtLWmve1mdv/4+foDWyGfpvT3pMKKe4a1B1lFNcz2g1wXydocQGXz0eGErucUsOpHu+8fVKXG1VSz8l+5sqFP9dNiJ/8uBCSnWW8dX26tdVGJCdCgUmXicZDPH9b8PXvVPJ0HccZUrkxJAaLn1n17ISgPL1cL3fXkPBBOFrB0qrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com (2603:10b6:208:38f::5)
- by PH7PR11MB7002.namprd11.prod.outlook.com (2603:10b6:510:209::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Fri, 10 Apr
- 2026 23:26:19 +0000
-Received: from BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5]) by BL3PR11MB6508.namprd11.prod.outlook.com
- ([fe80::53c9:f6c2:ffa5:3cb5%7]) with mapi id 15.20.9769.016; Fri, 10 Apr 2026
- 23:26:18 +0000
-Date: Fri, 10 Apr 2026 16:26:14 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
- Andrew Morton <akpm@linux-foundation.org>,
- Balbir Singh <balbirs@nvidia.com>, 
- <linux-mm@kvack.org>, <linux-cxl@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] mm/zone_device: Do not touch device folio after calling
- ->folio_free()
-Message-ID: <admHFtANBj9nTtKw@gsse-cloud1.jf.intel.com>
-References: <20260410230346.4009855-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260410230346.4009855-1-matthew.brost@intel.com>
-X-ClientProxiedBy: MW4PR03CA0208.namprd03.prod.outlook.com
- (2603:10b6:303:b8::33) To BL3PR11MB6508.namprd11.prod.outlook.com
- (2603:10b6:208:38f::5)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4399110E03D
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 02:19:55 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63AIipfA4147286
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 02:19:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ gu/teDD23fbBDqFsqXo8me0HScED9ySD1rAeh3K6Hoc=; b=OPlQbhoYxHsfB80l
+ LtswwCJZ06ZS4yDA67ORpWXqiNdDCT7+vCLHYBF8eX8DuJyaw+WUeKM7U3hgEF7U
+ lYNhxfzFAMp4mg71Ng1lCT7lz218ld59cUIfO9F0/9q3IC6CZjRDdqnZgxR1s3dg
+ AoNx1drI2YYzVAxkWfuhnVoUIXzNp/nd8NwN0gtHue3Kocq64TBscLbKcaWupfUB
+ +XMX7invrlqHOVs9mgoitG8Kfh8kp66OC5Q+IOEA4ZGUEjSt+VvUzszwy9AiTVDS
+ G1rQBNuLZ6cfJbdsFXi8KFPBG25Yc5QbXG7x97rqGcghk6jS1KRiZ0xi77XXLn98
+ b8L5IQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4deudgkg41-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 02:19:54 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-82c646e980bso1568578b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 10 Apr 2026 19:19:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1775873993; x=1776478793;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=gu/teDD23fbBDqFsqXo8me0HScED9ySD1rAeh3K6Hoc=;
+ b=TIcPTJXItIU2BrwL3BWqJ1fSxogesuRwArngk9DT5oqi+greZbT25hkpa7lnUeoNKI
+ p8IJldoywgTS+tTT7NfE4G58mJEtv3zfQCvBtn2f2vlIGoAoLoRc9O7dUFzMbp38tN4/
+ +jWxQWi4dwpcyOFMvfziiv8nt+fDwkPf1cKQKpzbkZ51TJn47ct0qcipLhpOGfqLEj0K
+ Y89lWBG0d7G1KVg/oRcEl4xN02mKu2Xdr3ysEgZ6PMFWWd6rYPRkO6fdsjq15SEo+ok9
+ aCwW+BbCBCjd+NSVrOR6mhdVwmELABANoLrcF7h705fhf10jq2bVouJibsNQ7qS5B2lg
+ kzPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775873993; x=1776478793;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=gu/teDD23fbBDqFsqXo8me0HScED9ySD1rAeh3K6Hoc=;
+ b=rLMwGUlHSSUzZHfESE7AGwR2pkAPjxTm8UoeTE4mbCz+FJvNJ7RQQubuVKXcafqPjB
+ w8AlJ2ByeccqGWXkJzYFppqNZpd3a8M6E4r6niqyvISwrX77Er9iVO5ZZqJN3jeNEdqe
+ meJchusqtfg1gJbDEDhQizEATuhx7eaDg5pIlZqqxAzg72KmKTCBkTe2xR0Ukkm21Iq5
+ PwyAzIdLys1TuxNZ/K9FNGxyRH4ooyKkkLETlOUoCRddxjnNYE2kKSxYf9n4labqd1lp
+ g+Wf0PY6xatR23ncvg1iZ96VWznRHuh1lPFSNrkv/yH43/VHeD+NNayb5kWwxC5kNfz6
+ wowQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU4/qoQfAY2G+Tonsuf5sLe3XThO+/3CioEnm4aNpmiOhxnsjnhHAyWMs5vvx7NArIwbD3W8WdIwKw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxzjohu2/sZYOvM2g3j+b9x7T4yq52M/0NjFnSsu10pxh25IPDH
+ SUJbDyOHLQp1y5PAY/l3ZFamyVMqs2ibS7n1Xhpq/1/TpGPQn7GJzmoYAI/v63QWCAUWm1BwiLs
+ EA2TeUssDiErVVuJdfJ0IgIiy0lRRnmCk7Kx5fXRLVtCR7b885nthDfm6S2XOncL7qQu3rzE=
+X-Gm-Gg: AeBDiestTTK4MMqzcaCqSla6WYWQSTIW18UBBJ+zeJ072TdsgFSusa0vT9EHoKWRk7G
+ OVIYkaIjTN3OZXW+vW9f+FVasMa0K2XV8GD5HrGDB2/UZUz4Oi5wsT47BltLcH61j6buRZfVOho
+ LFjLU05AqfKrmeSxGjPbQ3Ae/JsNM2BsX07ssRxh0cj395gPQS6miVv66ig+L/o+H6zq5Uk2jcJ
+ HTvpVmjY+PoqGAmG3x+ZZfUiwoQENYKoYGnP6F1LRT23CZys0WBkCpoB4m1WCC2vWd9aTt2q0sv
+ 1sVlfq2LodCKHgfg3YROcTJ1sQiifq3I2kK+CtKitQTt56+MhEkx5UlPqEJEBrjSYDbeL+D1jA/
+ 1KfPSMgzexJKzPyjqFPgrsJsvZXFH20KKdbLO9Z1arSgeEs5v6S/raagy2zdXiDS4TDn/cOCJF2
+ 3qv4ZJO5z0hg==
+X-Received: by 2002:a05:6a00:2411:b0:82c:d6d3:3190 with SMTP id
+ d2e1a72fcca58-82f0c250e58mr5670312b3a.38.1775873993470; 
+ Fri, 10 Apr 2026 19:19:53 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2411:b0:82c:d6d3:3190 with SMTP id
+ d2e1a72fcca58-82f0c250e58mr5670271b3a.38.1775873992848; 
+ Fri, 10 Apr 2026 19:19:52 -0700 (PDT)
+Received: from [10.133.33.83] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82f0c4b251esm4053702b3a.37.2026.04.10.19.19.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Apr 2026 19:19:52 -0700 (PDT)
+Message-ID: <31e75026-f22e-4bb1-9589-317408081d10@oss.qualcomm.com>
+Date: Sat, 11 Apr 2026 10:19:42 +0800
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL3PR11MB6508:EE_|PH7PR11MB7002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14733355-a2d3-4b17-63e6-08de97589135
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: 5jbgmVvs+MFqptK0H4LcTGzeNNx0/ORZWB0K4B+ornrf8al8ZlrfHF9LQvWKoYKvO23HkJ1cxZTP96vj8w1KjfCh+w8BjWL+V1aZl6WCq3oHqY26qa/qDKsPdfduKQnkQYr/jDQBx59A613PBwKUQI2Jc2CYto96L+VIQdlgxEUiEOWlnWdR+vNbev8o1nCQ9GvBeEpNEvc7rQOX7bGGZs9bUvxxjCY7J9xwLB7edHcI5PZLCKBDH2HyAuxfcU7KzxsKMfRMobiuaxbGsgeqT+Nc2e9ecisyOvfQcaXFggVasodsL7rv06R1/G1vtvhFRMUCFeUjB4UAsldYdJHqwIx5KM/zOsePJnDvgnhW5PRrbWtQuCnJkSqfwefwW8lFZhINyDpn2OKIAmwLS2EzH/uyGTTkm6X+WFhL0nS5dIrVLC4OJEj+hLbSS3xAfVkuo68gy8sWCk4V5x817616c2RjwX0tww9UZy6atd6erUXtmqnHloVN9lS1VijXNy/SK2yN2bahVtySOK8Xo6G/58ygTaMp2+DshinBOozTsXQYXjUzdhv6GzV3+ZQ5+Ipqs2fB4psdpaWqQs1AHc+PC7YLSCv2j6LcYK/UB8Maq4mQU6pnmuNndrJsb6T8MI/6LLYaxc9zXlLo+oK9KcZDtgzCPDzGoOuGDGnU02bZ9FfspgiFlMvlg9t0POEcbmAHaFBb8CKp2WEqEYHTGdxAMxBr1onlWqR7TS9w3T7LA00=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL3PR11MB6508.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?SNVY/FHjEf4h1b6R+xiDIy8W1Vw+zAZ0zFWsHIESdvYN22J2TpnSCBOKW6hX?=
- =?us-ascii?Q?fXycy0MzWwyuNDvXUdpXiMZlFOokqp/Cs50NZU/MvHqoVdsiUg8e3RwCtev5?=
- =?us-ascii?Q?EZLqLNX5tEnHnd5XM2PEtwPmNk7ws3dy24BbLramMByH960Ks+74oMS9Acj2?=
- =?us-ascii?Q?qb5Exd8dtIXBHcHveWxNSElEZmqpDBfYvpwFervmwq8prQyVhfVmGRWxl+e9?=
- =?us-ascii?Q?q62tqZHZe94DOxgVY5N7YkW+R9TAuUUaijTAF89EhxD6qETQ65BU/MuyBSxp?=
- =?us-ascii?Q?BAH5/zHCOwdLAYQlxOLpZgR1jP94HT3IIU/XqlKlDjVCh8AiQZlRx6tDmSXT?=
- =?us-ascii?Q?mkFpSTdQK07Xf7WgOmMKoNYnnYUHuGmfEgwrw1erH6wZjYdarCfq2F3NVc7S?=
- =?us-ascii?Q?sKZhh0t2XxGDZJa+wXocO+Xm2JtNPhUqAawWi81CESVK1A4hfroQTwu4W8FC?=
- =?us-ascii?Q?RjDTbHm3zH9WWIltvWD/4blW2vwp8iQRig0+O1wERHO/vrrMLT50VP/T0SeH?=
- =?us-ascii?Q?wIUJiT6bqqzCk0ClzY0PsO6LU2mo9AUnTBmVmQDjOINa8EuT3K7qisd/pTNG?=
- =?us-ascii?Q?4s1Zbrv37CBuy7ddn1u5HRlwclvMvHJxxHi14xHTDNCs8NPZJdtD1zuQ9XFz?=
- =?us-ascii?Q?WXIgY4k1Fte/QGe54e5r3/p/eQ85bmIJC6QR4je8E6SKhdB6cltUsEadHAW7?=
- =?us-ascii?Q?/B60qdN+014nRfHIXShnBAVk5PTKy0bAk8ezWCtAyzAbfzOyMQnAsA++39Lo?=
- =?us-ascii?Q?ECAxELEE7G3brBra/kCbEOpPsbEY5DpPIeFhstUMPQ259eeo8GD8N++YWUXg?=
- =?us-ascii?Q?x+aBpiVgHlZmJu29kE3M1E0lCDQYbHU9yxilbta4N7AsuPdmNHun2jU1UexS?=
- =?us-ascii?Q?KFTbvkKsKfZOWNIgaD038GM7fPUIWhCmOSWHazMzPqbrVW4QQGv8AnZb/2tx?=
- =?us-ascii?Q?RGt0z+MJUthPhKrEK55oYMltuk40H4LTtpukYVBqtGPfifBK2rdrtstAyETi?=
- =?us-ascii?Q?mEV0v4xfwODu1tBYLgOvZN0byxXSH3gkmIEs9pOdY4/vq+yUEQwd2MbWZJUV?=
- =?us-ascii?Q?mDlPJXNddMvBY5mi3kEFc4sc9iX25ddQIB01BLfOMvY0/nMerT+9cSlzY2kr?=
- =?us-ascii?Q?zuN34KLL5CNUw7BqN6wN/+0UeqbTIr16Xlz6ApdkGK7nPh1S79OU6w76/1Rm?=
- =?us-ascii?Q?XFH3PKJufNMpnQpT2HhUZcmxqw3x4RY/nSAbH/zjd3fQb5rsbzbYx5cgTD6m?=
- =?us-ascii?Q?3ZX467uvyv8fruQ7eiaTp26ucNJ0yqke+B3gWn6s0mWYBOH80oPNJwIcyFiF?=
- =?us-ascii?Q?xTBsBEkTbPO5Vt6TUHP2w7I3qgq6WGPlTK6y3jdn4n5nIUr+0BlTJuBQAXic?=
- =?us-ascii?Q?Ig97pvBSCM0t+hxyL46jLKfFS3oMm356sF3VOLVTbXoBXX+dpj29QKw9c1fC?=
- =?us-ascii?Q?7E+HgfuwyYudFq4JqKRnaUlzcqx16r4jf7r8CkjHVQTt6he3fLs0sYKW/Xa2?=
- =?us-ascii?Q?zPdd9tuJKBTG+QQ0JH9mqPZa6ozHmFWeJkjVkTkfdR3O+YlffRYYaAgU3LNt?=
- =?us-ascii?Q?dMsMIsb7urq1dJ3tvhDXYJncNnwh+a38ULhDM3wTiNxa9xpaYqYGCczFXMq0?=
- =?us-ascii?Q?5f/kwNIxrG5QAq9Rn26FJpua/5iWJOJEBXc2NznX/BfYcQboj6Admnbw+0ds?=
- =?us-ascii?Q?Z8WDiZHX21zclSM2+Fr36jzclhWD1EJNWyVzaSdOiSzI5gvo3biN7+WCv3tg?=
- =?us-ascii?Q?PVL0raIH3mfXZKLK9d5+ec1S1TvXUPY=3D?=
-X-Exchange-RoutingPolicyChecked: N/jcxJcTThFXMbPlewnIRll0suWVfdTA4dx4lsxmDNC0SZTzjpxxW0fsF7YJTtO+3jCZV8Z8TmR/coEg7n3vvc9ItRZisXC/XnpfSQrLl031qWArCZAtaFxYnFKN8kKlm7Z2vlsArOWSntNddyxg+zID2kJFDfgDgkvd9AO0ohhy8t52o6a0IN8E/aynIctawkhmxF+vmjQEcVfOk6YKMyTDbydOtCfklDia3JO401gy4Djf98LXWitGGarKos0B3HF5iHoO65EUTFVVQxiXsFuiNXCj/zR3Hd0SnqjMtV5PQbDEnzYpBCJUfWnZq9Q6yqB6X0nOZn6CoVHHje3Wug==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14733355-a2d3-4b17-63e6-08de97589135
-X-MS-Exchange-CrossTenant-AuthSource: BL3PR11MB6508.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 23:26:18.7992 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tvx1gmtvgEwEFVBz6RR7wRrL+qbRLwUklzN0YPU3VVhlhXSuGlIKxmlHjrpGNNfC+7D5Xxro1xB2POUxNfxXYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7002
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 12/17] drm/msm/a6xx: Add soft fuse detection support
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Antonino Maniscalco <antomani103@gmail.com>,
+ Connor Abbott <cwabbott0@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260327-a8xx-gpu-batch2-v2-0-2b53c38d2101@oss.qualcomm.com>
+ <20260327-a8xx-gpu-batch2-v2-12-2b53c38d2101@oss.qualcomm.com>
+Content-Language: en-US
+From: Jie Gan <jie.gan@oss.qualcomm.com>
+In-Reply-To: <20260327-a8xx-gpu-batch2-v2-12-2b53c38d2101@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: sSHufx61qBfClaJhcQYweEFhMPACPzn6
+X-Proofpoint-GUID: sSHufx61qBfClaJhcQYweEFhMPACPzn6
+X-Authority-Analysis: v=2.4 cv=H/brBeYi c=1 sm=1 tr=0 ts=69d9afca cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=_Z3VJ0DL17_MYGaqnVMA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDExMDAxNiBTYWx0ZWRfX6dUEJZh8Uq6n
+ CF5aqkpEVsKG3QFmNO//p1Lwev5ad3f8qDFX3cvBcMa1NkMRtNZ5uLh0fkkYKKEfegeM1kahdkl
+ 46LsAR6zwgJqxdCy8/0FxKMN8jbxGwEgzkDBOdEnFEeKwuuZtV7cy+2RwKgRCqm4NappP0VEuiC
+ EYkWMK55BElql16qTtNvFQW7CPKbjpMfwhzM22VXT32aYELT0DGeDkAPaQGrDxPTXeXednQ88Jz
+ DLbIe8n+SzUJAAUQwlnps3310s0yiTCsX7XpT6JjMm46BdwpTb7hvIs0YUjZW7JYjTZCX2i08ew
+ 1fq7MDgx8tXjjECfZeqLo0OUbCUCTWSuMWV20LL3eO1rVD7zoPx48O/8TujqW2qWpGN8898E5Rd
+ PPEzymTOs4BrTUjUUABb2KxnllEpvmrRYkJSV93hkksU21ZZD16LfMwwBuY1gKC6ZS+M5uEkuMj
+ Vo/rhUkuaGJKtEkpqOw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-10_07,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604110016
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,77 +153,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 10, 2026 at 04:03:46PM -0700, Matthew Brost wrote:
-> The contents of a device folio can immediately change after calling
-> ->folio_free(), as the folio may be reallocated by a driver with a
-> different order. Instead of touching the folio again to extract the
-> pgmap, use the local stack variable when calling percpu_ref_put_many().
-> 
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Oscar Salvador <osalvador@suse.de>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Balbir Singh <balbirs@nvidia.com>
-> Cc: linux-mm@kvack.org
-> Cc: linux-cxl@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
 
-Cc: <stable@vger.kernel.org>
 
-> Fixes: d245f9b4ab80 ("mm/zone_device: support large zone device private folios")
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+On 3/27/2026 8:14 AM, Akhil P Oommen wrote:
+> Recent chipsets like Glymur supports a new mechanism for SKU detection.
+> A new CX_MISC register exposes the combined (or final) speedbin value
+> from both HW fuse register and the Soft Fuse register. Implement this new
+> SKU detection along with a new quirk to identify the GPUs that has soft
+> fuse support.
 > 
+> There is a side effect of this patch on A4x and older series. The
+> speedbin field in the MSM_PARAM_CHIPID will be 0 instead of 0xffff. This
+> should be okay as Mesa correctly handles it. Speedbin was not even a
+> thing when those GPUs' support were added.
+> 
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
-> Stack trace:
+>   drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |  6 ++++
+>   drivers/gpu/drm/msm/adreno/a6xx_gpu.c         | 41 ++++++++++++++++++++++-----
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  5 ----
+>   drivers/gpu/drm/msm/adreno/adreno_gpu.h       |  1 +
+>   drivers/gpu/drm/msm/registers/adreno/a6xx.xml |  4 +++
+>   5 files changed, 45 insertions(+), 12 deletions(-)
 > 
-> [  631.875165] [IGT] xe_exec_system_allocator: starting subtest threads-many-new-prefetch
-> [  632.282992] Oops: general protection fault, probably for non-canonical address 0x900000000000000: 0000 [#1] SMP NOPTI
-> [  632.293469] CPU: 8 UID: 0 PID: 59267 Comm: xe_exec_system_ Not tainted 7.0.0-rc7-xe+ #281 PREEMPT(full)
-> [  632.316023] RIP: 0010:free_zone_device_folio+0x149/0x240
-> [  632.339782] RSP: 0000:ffffc90023d1fd00 EFLAGS: 00010206
-> [  632.344947] RAX: 0900000000000000 RBX: 0000000000000001 RCX: 0000000094472d4d
-> [  632.351991] RDX: ffffffff8155c76f RSI: 000000006f2213bf RDI: 000000008e84943a
-> [  632.359042] RBP: ffffea0ff4030001 R08: 0000000000000000 R09: 0000000000000001
-> [  632.366094] R10: 0000000000000028 R11: 0000000000000000 R12: ffff88811828e400
-> [  632.373145] R13: 0000000000000000 R14: 000fffffc0000000 R15: 0000000000100073
-> [  632.380194] FS:  00007f2f0fdfe6c0(0000) GS:ffff88890a7e7000(0000) knlGS:0000000000000000
-> [  632.388186] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  632.393870] CR2: 00007f2f002e90f8 CR3: 0000000106708002 CR4: 0000000000f70ef0
-> [  632.400919] PKRU: 55555554
-> [  632.403605] Call Trace:
-> [  632.406039]  <TASK>
-> [  632.408131]  do_swap_page+0x146d/0x18c0
-> [  632.411938]  ? __pte_offset_map+0x3e/0x190
-> [  632.415994]  __handle_mm_fault+0x6e8/0x8d0
-> [  632.420053]  handle_mm_fault+0xbf/0x250
-> [  632.423855]  ? lock_mm_and_find_vma+0x41/0x6f0
-> [  632.428256]  do_user_addr_fault+0x168/0x690
-> [  632.432399]  exc_page_fault+0x74/0x200
-> [  632.436117]  asm_exc_page_fault+0x26/0x30
-> [  632.440092] RIP: 0033:0x5587554ff70d
-> [  632.462142] RSP: 002b:00007f2f0fdfc970 EFLAGS: 00010246
-> [  632.467308] RAX: 0000000000003fc0 RBX: 00007f2f082e1fc0 RCX: 00007f2f12b3287d
-> [  632.474355] RDX: 0000000000000000 RSI: 00000000c048644a RDI: 0000000000000003
-> [  632.481404] RBP: 00007f2f082e1fc0 R08: 00007f2f0fdfc958 R09: 0000000000000066
-> [  632.488450] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
-> [  632.495495] R13: 00007f2f082de000 R14: 0000000000c00002 R15: 00007f2f1319e000
-> [  632.502547]  </TASK>
-> ---
->  mm/memremap.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> index 79a441e91fa1..d7ed3225f635 100644
+> --- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+> @@ -1731,6 +1731,7 @@ static struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
+>   	struct adreno_gpu *adreno_gpu;
+>   	struct msm_gpu *gpu;
+>   	unsigned int nr_rings;
+> +	u32 speedbin;
+>   	int ret;
+>   
+>   	a5xx_gpu = kzalloc(sizeof(*a5xx_gpu), GFP_KERNEL);
+> @@ -1757,6 +1758,11 @@ static struct msm_gpu *a5xx_gpu_init(struct drm_device *dev)
+>   		return ERR_PTR(ret);
+>   	}
+>   
+> +	/* Set the speedbin value that is passed to userspace */
+> +	if (adreno_read_speedbin(&pdev->dev, &speedbin) || !speedbin)
+> +		speedbin = 0xffff;
+> +	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
+> +
+>   	msm_mmu_set_fault_handler(to_msm_vm(gpu->vm)->mmu, gpu,
+>   				  a5xx_fault_handler);
+>   
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> index 5cddfc03828f..fb9662b946d0 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -2546,13 +2546,33 @@ static u32 fuse_to_supp_hw(const struct adreno_info *info, u32 fuse)
+>   	return UINT_MAX;
+>   }
+>   
+> -static int a6xx_set_supported_hw(struct device *dev, const struct adreno_info *info)
+> +static int a6xx_read_speedbin(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+> +		const struct adreno_info *info, u32 *speedbin)
+> +{
+> +	int ret;
+> +
+> +	/* Use speedbin fuse if present. Otherwise, fallback to softfuse */
+> +	ret = adreno_read_speedbin(dev, speedbin);
+> +	if (ret != -ENOENT)
+> +		return ret;
+> +
+> +	if (info->quirks & ADRENO_QUIRK_SOFTFUSE) {
+> +		*speedbin = a6xx_llc_read(a6xx_gpu, REG_A8XX_CX_MISC_SW_FUSE_FREQ_LIMIT_STATUS);
+
+a6xx_llc_read accesses the a6xx_gpu->llcc_mmio without check the 
+validation of the a6xx_gpu->llcc_mmio. If the llcc_mmio is invalid, the 
+subsequent readl() in a6xx_llc_read() will crash with a kernel oops.
+
+Thanks,
+Jie
+
+> +		*speedbin = A8XX_CX_MISC_SW_FUSE_FREQ_LIMIT_STATUS_FINALFREQLIMIT(*speedbin);
+> +		return 0;
+> +	}
+> +
+> +	return -ENOENT;
+> +}
+> +
+> +static int a6xx_set_supported_hw(struct device *dev, struct a6xx_gpu *a6xx_gpu,
+> +		const struct adreno_info *info)
+>   {
+>   	u32 supp_hw;
+>   	u32 speedbin;
+>   	int ret;
+>   
+> -	ret = adreno_read_speedbin(dev, &speedbin);
+> +	ret = a6xx_read_speedbin(dev, a6xx_gpu, info, &speedbin);
+>   	/*
+>   	 * -ENOENT means that the platform doesn't support speedbin which is
+>   	 * fine
+> @@ -2586,11 +2606,13 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>   	struct msm_drm_private *priv = dev->dev_private;
+>   	struct platform_device *pdev = priv->gpu_pdev;
+>   	struct adreno_platform_config *config = pdev->dev.platform_data;
+> +	const struct adreno_info *info = config->info;
+>   	struct device_node *node;
+>   	struct a6xx_gpu *a6xx_gpu;
+>   	struct adreno_gpu *adreno_gpu;
+>   	struct msm_gpu *gpu;
+>   	extern int enable_preemption;
+> +	u32 speedbin;
+>   	bool is_a7xx;
+>   	int ret, nr_rings = 1;
+>   
+> @@ -2613,14 +2635,14 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>   	adreno_gpu->gmu_is_wrapper = of_device_is_compatible(node, "qcom,adreno-gmu-wrapper");
+>   
+>   	adreno_gpu->base.hw_apriv =
+> -		!!(config->info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
+> +		!!(info->quirks & ADRENO_QUIRK_HAS_HW_APRIV);
+>   
+>   	/* gpu->info only gets assigned in adreno_gpu_init(). A8x is included intentionally */
+> -	is_a7xx = config->info->family >= ADRENO_7XX_GEN1;
+> +	is_a7xx = info->family >= ADRENO_7XX_GEN1;
+>   
+>   	a6xx_llc_slices_init(pdev, a6xx_gpu, is_a7xx);
+>   
+> -	ret = a6xx_set_supported_hw(&pdev->dev, config->info);
+> +	ret = a6xx_set_supported_hw(&pdev->dev, a6xx_gpu, info);
+>   	if (ret) {
+>   		a6xx_llc_slices_destroy(a6xx_gpu);
+>   		kfree(a6xx_gpu);
+> @@ -2628,15 +2650,20 @@ static struct msm_gpu *a6xx_gpu_init(struct drm_device *dev)
+>   	}
+>   
+>   	if ((enable_preemption == 1) || (enable_preemption == -1 &&
+> -	    (config->info->quirks & ADRENO_QUIRK_PREEMPTION)))
+> +	    (info->quirks & ADRENO_QUIRK_PREEMPTION)))
+>   		nr_rings = 4;
+>   
+> -	ret = adreno_gpu_init(dev, pdev, adreno_gpu, config->info->funcs, nr_rings);
+> +	ret = adreno_gpu_init(dev, pdev, adreno_gpu, info->funcs, nr_rings);
+>   	if (ret) {
+>   		a6xx_destroy(&(a6xx_gpu->base.base));
+>   		return ERR_PTR(ret);
+>   	}
+>   
+> +	/* Set the speedbin value that is passed to userspace */
+> +	if (a6xx_read_speedbin(&pdev->dev, a6xx_gpu, info, &speedbin) || !speedbin)
+> +		speedbin = 0xffff;
+> +	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
+> +
+>   	/*
+>   	 * For now only clamp to idle freq for devices where this is known not
+>   	 * to cause power supply issues:
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> index 8475802fdde2..f6c39aed50f2 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -1185,7 +1185,6 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>   	struct msm_gpu_config adreno_gpu_config  = { 0 };
+>   	struct msm_gpu *gpu = &adreno_gpu->base;
+>   	const char *gpu_name;
+> -	u32 speedbin;
+>   	int ret;
+>   
+>   	adreno_gpu->funcs = funcs;
+> @@ -1214,10 +1213,6 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+>   			devm_pm_opp_set_clkname(dev, "core");
+>   	}
+>   
+> -	if (adreno_read_speedbin(dev, &speedbin) || !speedbin)
+> -		speedbin = 0xffff;
+> -	adreno_gpu->speedbin = (uint16_t) (0xffff & speedbin);
+> -
+>   	gpu_name = devm_kasprintf(dev, GFP_KERNEL, "%"ADRENO_CHIPID_FMT,
+>   			ADRENO_CHIPID_ARGS(config->chip_id));
+>   	if (!gpu_name)
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> index 29097e6b4253..044ed4d49aa7 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
+> @@ -63,6 +63,7 @@ enum adreno_family {
+>   #define ADRENO_QUIRK_PREEMPTION			BIT(5)
+>   #define ADRENO_QUIRK_4GB_VA			BIT(6)
+>   #define ADRENO_QUIRK_IFPC			BIT(7)
+> +#define ADRENO_QUIRK_SOFTFUSE			BIT(8)
+>   
+>   /* Helper for formating the chip_id in the way that userspace tools like
+>    * crashdec expect.
+> diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+> index 3941e7510754..2309870f5031 100644
+> --- a/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+> +++ b/drivers/gpu/drm/msm/registers/adreno/a6xx.xml
+> @@ -5016,6 +5016,10 @@ by a particular renderpass/blit.
+>   		<bitfield pos="1" name="LPAC" type="boolean"/>
+>   		<bitfield pos="2" name="RAYTRACING" type="boolean"/>
+>   	</reg32>
+> +	<reg32 offset="0x0405" name="CX_MISC_SW_FUSE_FREQ_LIMIT_STATUS" variants="A8XX-">
+> +		<bitfield high="8" low="0" name="FINALFREQLIMIT"/>
+> +		<bitfield pos="24" name="SOFTSKUDISABLED" type="boolean"/>
+> +	</reg32>
+>   </domain>
+>   
+>   </database>
 > 
-> diff --git a/mm/memremap.c b/mm/memremap.c
-> index ac7be07e3361..053842d45cb1 100644
-> --- a/mm/memremap.c
-> +++ b/mm/memremap.c
-> @@ -454,7 +454,7 @@ void free_zone_device_folio(struct folio *folio)
->  		if (WARN_ON_ONCE(!pgmap->ops || !pgmap->ops->folio_free))
->  			break;
->  		pgmap->ops->folio_free(folio);
-> -		percpu_ref_put_many(&folio->pgmap->ref, nr);
-> +		percpu_ref_put_many(&pgmap->ref, nr);
->  		break;
->  
->  	case MEMORY_DEVICE_GENERIC:
-> -- 
-> 2.34.1
-> 
+
