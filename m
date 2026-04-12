@@ -4,77 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C55E937E3
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 12:26:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54966E937E4
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 14:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D903910E2A6;
-	Sun, 12 Apr 2026 12:26:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 318CF10E2C0;
+	Sun, 12 Apr 2026 14:31:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HBBhhzca";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="dXPf69ug";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="dXPf69ug";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01AA810E2A6
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 12:26:43 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c76b87931b8so2162158a12.2
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 05:26:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775996803; x=1776601603; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1LE6huvR6spyj6pXFbXVnPFFoN9AhuKNeTxygPGeaug=;
- b=HBBhhzcaw6CBz29/VBvTTUzmaXZb8p0TdU1naowqBKq41dFtkLLtWpnYIqAShacxaq
- pScV2NLxa9pS0NgIiaNBdOOh9yDsqRlFdT+1H+dK7i+RPsceSd4fC38jy2Fdee9yDYvR
- SPe420Ic+3EBF0usKNc0jAfL8+rQw2hFcKc4QI7Eo07tzb+i26xG4/9toNtddzgFwHmK
- IaCBMX+qf5Ch8rNDG8RQP9o7Kt2iz4pKs5CsQNg5n3PkUzn10lHNgyVOCGP+BR0bx96x
- 7jqq3fOwvha1Yih2DtMBCCHkOJoTHAQUWZDB6LR0F6ii2EPp/RenyYzllDNCGFsLD9qt
- rdQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775996803; x=1776601603;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1LE6huvR6spyj6pXFbXVnPFFoN9AhuKNeTxygPGeaug=;
- b=a533hCSA+UmKoMvTL67h5URHgy+5QwrB20oyqiwMnrMmtGQIRKzeRl9mtt6wCpakyr
- OviUki8xm4J7fLvphMioGJ3MvXvqp34tvLaTycdhWBlcFdQqwxbrcV9jlW01fz1De7oV
- c2IA+UYYOmDkH6uS1h9UywlyHQDuINUPD5lqR+Cg8xEuEg/uW1AqO/7BQ4DiKbGPRwVA
- qFbp/VhPm6IGsWzbcTYY+6hN1VUkFZCtPP9v5obmn6bx1MHGWUNY6wo1DqT4m+057Pof
- rHTc2MOmQ9JY2wM9L3XigGyePhDubQGQpB3EcZfdWNrFDH6zG6+kah0Qs5Gq/bxQ+ZGb
- 4BhA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVhA468YULLD/VA1Q3QBjXKJ7UDDHBU1buJJAzXWmZzAss/kuwefoL0WKn7l3Wiym5cnyI+8tDOqLI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyPF+hNDlUuXIrMLom94w2MOKasyCQ/gA7B1LPn7TeE0XSORvAX
- Fh0+8SaNLj1wU8D6GMma74kAJDmZA0/93kVDu6NNlp2Gu+43S8dKpw/2
-X-Gm-Gg: AeBDiespLPP0DcUbGyi8gaazvLwdfOiIiZI/Kqp8RFu8Udiuy/tE3+HxpEA32G84YRs
- m9UgEXiIHjiaUlDddbI1A2EmgxriUFosmJAV5ZceSSK3JBC07iuoi0SLQhIvbIZFc/nE8MFC9zC
- PpnZxSifX5XqfdIX46FxiCCTzV2PhD0lq8r0mhxiGYIhyOKTJxQRuiqxst93AxLoYJUUV8p4KgJ
- iTj2aYd9VOFhnr5FtxKAjsJiVUwZ3vDDKVNZTNAYHai43E44L3hgzfnTH2Qqe2l6Huxx7k/gLb8
- p0pQn+zBn3XLJNmivGX/GviZdL4PGB5BhCU9Ej00KxuxXgiOPI04o4i8RHCLOkTuklYMCgL+Ly5
- kRt7tXcNN3jl85eUKhPGkchOdX25m2HZM6eKU2sO977QsRO/ptCOVwim7hDBwKYvxfwsIxU2gwq
- LvUBnDCnuMdVNgUw==
-X-Received: by 2002:a05:6a20:1592:b0:39b:e789:7d20 with SMTP id
- adf61e73a8af0-39fe3ff14c3mr10951914637.44.1775996803341; 
- Sun, 12 Apr 2026 05:26:43 -0700 (PDT)
-Received: from lgs.. ([101.32.189.54]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c79218fc462sm7633431a12.8.2026.04.12.05.26.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Apr 2026 05:26:42 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sean Paul <seanpaul@chromium.org>,
- Mark Zhang <markz@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] gpu: host1x: Fix device reference leak in
- host1x_device_parse_dt() error path
-Date: Sun, 12 Apr 2026 20:26:33 +0800
-Message-ID: <20260412122633.2487800-1-lgs201920130244@gmail.com>
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013031.outbound.protection.outlook.com
+ [52.101.83.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A3710E04D
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 14:31:08 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=OgHnAutJIFyN390PtOAXLRde0OQduPQJKsrO8mFG6/jgbT8GlMqSX6Lb/uK7plI5isSITWzuZhpiH919G7v9+B12f0nYEdNlNN7pYLKqgWJh1hMXqvcjS8VtdHupz8axnIuvhIO/D3gjqjdkLRHZUN3zkqf5oeVejD1srCvYE91TRuflU57YHmGKN0PhO03vyR89ue+cT3pX92itPAqtmSYubkkla+HtzHBYFN+6vufQ125DQLBrmp0ZdfVd9c9V3jgKwSQo538sEHBlAtdZevuY+ilOQkansgodgNth2yQpa340+MnQnelSYuaOMRVY/low59/BRxTPCGHPDT0F5g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ykRPRe9fNiDIO52F8lMpCaL8wPmcj0TOr1sZ4js0nV8=;
+ b=YrMd2KONUzyYM+JC0cUX3fLc/IlO0OsKTH46HaM7kVGimGOHqvUcCdbPEp0BTrxfNk4fsHHS+euQMR9LCW6zH60pLQVpZ4gVo2Ujv5ZMnCGSPIFctED417uhjnUqLABEQvNNG2lrmmZlcyOQT9la9KN4MjgmvDRZf3g7ARq4dKs+voPAO74BkOVjpX/tFLxJoQzVYIe1GCr8Vxt1H+znCf4setvIXjt9LUxpNPm0gkDmw5ZOh9aGIuwrx3Qba0sfRCXJyVkDtOfiiU9G0Eojx5UXBxVxQatRtZNtou78EYRzp/Y/KZ3DHDZkU1Sf0QKa2PkbzVrYuzdSGLZgsOmmvg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ykRPRe9fNiDIO52F8lMpCaL8wPmcj0TOr1sZ4js0nV8=;
+ b=dXPf69ugPEpd2FFhEl+QyavDSrG9Za4FE0pzGge6IHxXxHEI9kifLZcfWANVUTR09f/CLRqtABATai/IVEbzvu4MESslIKdwLqKpaDNcEmO2GUgNNIMM4VdBsQxBuHrFf0zhn3KCijTcGYQXkyw3C5wGAChrVA2qDvH+3nRx3PI=
+Received: from CWLP265CA0369.GBRP265.PROD.OUTLOOK.COM (2603:10a6:401:5e::21)
+ by AM8PR08MB5794.eurprd08.prod.outlook.com (2603:10a6:20b:1d6::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.46; Sun, 12 Apr
+ 2026 14:31:03 +0000
+Received: from AM2PEPF0001C711.eurprd05.prod.outlook.com
+ (2603:10a6:401:5e:cafe::74) by CWLP265CA0369.outlook.office365.com
+ (2603:10a6:401:5e::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Sun,
+ 12 Apr 2026 14:31:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM2PEPF0001C711.mail.protection.outlook.com (10.167.16.181) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17
+ via Frontend Transport; Sun, 12 Apr 2026 14:31:02 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kap6l4zyJ+G8hdUzhemgCgoYMweWG2yCl3X4X0zTGUcqmZnubtQlzwewgLmfJ9H6E248A8rJweHHBMAZbtOsBJq1noc6fS0fK1fle7hewwv86JMlGVYs+lZAPBKOhFNfyAuGO3AeHMFN3JJGIqTmal6T/t11DScaEXeC52bfVNGkWmjSPCGCeaKmAmJG4wQfA35dT6kXKYHy08sLC/e7VqaKnJlgPJADahCBeStsCE+Tf1Wa1MclRJ6fn/SaFWqh+EPXgjwCudq40o61+cS9ENYwaAFAID5OX2kkzXiS/pE/rfDHyTIFXDVp3ulxe8ULp+avHTgPbY5ACdZ1bKPjJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ykRPRe9fNiDIO52F8lMpCaL8wPmcj0TOr1sZ4js0nV8=;
+ b=UXsaAQotWdn7XCV82MUnqo3tqzgdHr5lYfFXEPMfjftinITxMGilvSG5kNMr9ZwFwRTYqKtFlCKQBC+FImUPf5VqQTg+U2W7Jj9K9PeeMT7JDMx4k3qdwEVefxraYss5Nwnnl5aaR9YfXFRxO0ibzEyopYsDF4/1/vBOMLLeFcJbOkha1yba2lJyJOKfgW9XJcS+JIH2aRvYQkeStLnuMboM/orgsZokc0rY5wdEy4lerrqUQtYKTX3a+pGot7USCnADDjyrzNCSs1QW86vU5Aiz1DG45rls69K7lf6yV8AP/4Xc11keI8RDKlnpsc7IKKfIMdYj2AQ9c9YY/UAjkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ykRPRe9fNiDIO52F8lMpCaL8wPmcj0TOr1sZ4js0nV8=;
+ b=dXPf69ugPEpd2FFhEl+QyavDSrG9Za4FE0pzGge6IHxXxHEI9kifLZcfWANVUTR09f/CLRqtABATai/IVEbzvu4MESslIKdwLqKpaDNcEmO2GUgNNIMM4VdBsQxBuHrFf0zhn3KCijTcGYQXkyw3C5wGAChrVA2qDvH+3nRx3PI=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
+ (2603:10a6:800:257::18) by DB9PR08MB6556.eurprd08.prod.outlook.com
+ (2603:10a6:10:261::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Sun, 12 Apr
+ 2026 14:30:00 +0000
+Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
+ ([fe80::27c:ea0c:e75a:d41d]) by VI0PR08MB11200.eurprd08.prod.outlook.com
+ ([fe80::27c:ea0c:e75a:d41d%6]) with mapi id 15.20.9769.046; Sun, 12 Apr 2026
+ 14:30:00 +0000
+From: Karunika Choo <karunika.choo@arm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/8] drm/panthor: Pass an iomem pointer to GPU register
+ access helpers
+Date: Sun, 12 Apr 2026 15:29:44 +0100
+Message-ID: <20260412142951.2309135-2-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
+In-Reply-To: <20260412142951.2309135-1-karunika.choo@arm.com>
+References: <20260412142951.2309135-1-karunika.choo@arm.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PR1P264CA0060.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:2ca::13) To VI0PR08MB11200.eurprd08.prod.outlook.com
+ (2603:10a6:800:257::18)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: VI0PR08MB11200:EE_|DB9PR08MB6556:EE_|AM2PEPF0001C711:EE_|AM8PR08MB5794:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05951ee4-c9bb-44b8-38dd-08de98a01fad
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info-Original: 27C0W2cw6X2wo1y08QGWTXPJk3OxqJDJvqie2qRpVmtAJ6YRcdUXAGaYgjSNrptStyU9Uzj3qKkFxhEVna7WbZxKhCVgi4IDenye1L0DWLSFAuex2dpHfbmjOTWtfo6WFPbLY9fL6Uy3IXnXU5/dgCF7g7HuG8h7UhABpWCVv6DRuzeSTD3oH3ng3hTsNKQGN0fyb3rdQ0QAEXE79aKACOhZo77jdJDBWfvvFL9NVqxmKYhcTH4mezqg8TdyHnIFcwO7r7Ju2bs+0Wu75slUBQGIjuGc7IxyCPSY3l2iyqEYbiVtSSFK3qkWGgBqHvvsxAajYBHkgTarv02U8HV6yn3qxXbXdvM4xInpFmWA8nYCo0UfKN3eCOvoWTWKns8Iqd6yqXUcKCUbfq2sNWqKKOAh2sercZ0K47rLo4MJD6xGZDXHGdkD9GMiewKVUaupSABTYquwuK5SMqI6SkxfLk32+DMC3jIb0hgl+1hEIWIu0hNMBUU31TV97mJKUTlt+PMttNuTagAbXFXBMA3AIY92X5ljs+HgTSTVbN8CMXaXhhN+0J77cp//IqJ2Qzn1gqgiOtWBXBUcljsERc6pQIlr9YEcBz0vE0ewLUSPpE7+E8B6zwhSnLuIbIwrMZqhRNftgbAXvi0or73EDWeZJRqGEr7yvk61hPHW8bi6vz2usB8ks1YYB+TK1SKo8zoLH4d7RT3/RRkCEdQh7zFyRiIQRhztWjbZJUm//pocTvo=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI0PR08MB11200.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: nRfh77zwgoqeiLzou2z5EP2B/iNKeebc266zdO34D05xTVcFrGr4A6n7bQirIp0tfaevxAdLPp4B4ulG1gvgGyH0dmrH5KC+9oiCUcIXy01+dLn5hdylQ+qMNNl+Ut5ab3sy+kbqqoN69H8K3d58Pwbg7ZppbXwaeSEIFImT2Pw5v94WEv6BwZS4AbyGqQRG4hCJb182v+qwN+zQHMY/PfZkUIBmS/VN5E5Ai2GujFAH/Euoe0sbwVScyP54NZKX8rmn6yKykG3PaW8rqxcZKiMMY8Uu7+24WMsxCM/d9clRii9h+FrcNnIc4CUcKaYseidBMOuvNh4XW7gCvAaMMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6556
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM2PEPF0001C711.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: f4f37a17-8f78-46fc-2f28-08de989ffa37
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|82310400026|376014|14060799003|35042699022|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: tYKI2JjOxhZG7C3wZ3cymtqpWet1cUBcf6vESAVR5JHYNVxrhRN43vnMaUUR7EUJYoAtx7Zimg5ru623PHkDV3WgOCiiktrl9cPdsgNJxIY8TEQOS5o3Zkq5VnSw+heWX0h7fF2f2BbEN2JTjZwZFOJCSVSmZIXAfLjgPmM14K+fX8hGyhC9Lb9lL2IVT3r3NF+EFaSSI+t3j4O8Vx5LkXZtN4/Vo2ZkLJ6yLo/KPFyx7uKEQR8Nlxax1LmdFsCefE2URvp1YSDmIq8wOzpcElucRjXqSoflKkKk5JxRFiyHUax+Sm7206eArq6oUwVsWpnGtiq83frFNpxWFaYmoXKJvf1yfVO8oBo9pXtxj1cCyFPH9VZaNUJCMeO+HFhtnm/HEIWinvepKVSCHxxSb0hBm4W3i0bvV6v+XdLHIo8XsphPSeVN8EojNeDpJyvQIucxX7GDUT4xqQ3x0Qj3gUrQI+yYrNNryPRtnloduRBcnI93ITcPeJ1N5eKstH1qA+I5ZtCeWoEXKeKtdpHZV0EG4JbbdyUVuLYAtv9vKgPljBQ7n204RE3b01II7p9gaNrn77i5/fjln0VjjIjh7l3kplXHdQ0/8JY5QfkZBZSd74tQoo491DcGXGsGgInBFwKNlexbwuYcuElcSWDQhLqYxN2vCkPaZUhazOJVzQ/HVQ+7AAeHMY++3ekNX/44dkikZJPaToSjr8xCLM2zzNm4NmMxMv4U8aSOEpffd2s3LrqE24C4AZB2lIBmuiABMKDKvUp3VZm9yijOHlKLHQ==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(14060799003)(35042699022)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: uMgzB+LLaEKAbgooqGLiUQfWUueeSFUR4lxzldzwXUJii0mDgXfxGi+GnjXL0y5mNpP8sci/msiTQIvmOxEdOb0L2fKvpRbCHEiKeId+7uwD62qK7O9PfSGEqq1I1m1bM7pP742/M4sNxoyDPBqakf7appUR+7CJx9GgPcB8hpa+eVgQBLHY9MaPPEc72qRFV3d/ZBMPCS86Da9Y8WWgbmfQ4Via3moFYswr5gHJguPKCCR8D7Qr8MP+/a0cXOlXpykYbm4Pf8EKJvJ2VHtK+1zwy2aA8lF0acr+N57Okfys+lzTQy1I4WG2vdJ6/yeBLzYaFWNxAA6ZVg0LNRaEmps0/MT14Rqavc17+ZVkGRyZLFL+egaOaGwxuct2CwAbLQDzcu7XQ7k4BuM+nq1jfz0083/zFAQHYhxGfLXSfAJM9ZxV+hEI5YbeafTN80IP
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2026 14:31:02.5798 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05951ee4-c9bb-44b8-38dd-08de98a01fad
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM2PEPF0001C711.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5794
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,41 +157,835 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After device_initialize(), the embedded struct device in struct
-host1x_device should be released through the device core with
-put_device().
+Convert the Panthor register access helpers to take an iomem pointer
+instead of a panthor_device pointer.
 
-In host1x_device_add(), if host1x_device_parse_dt() fails, the current
-error path frees the object directly with kfree(device). That bypasses
-the normal device lifetime handling and leaks the reference held on the
-embedded struct device.
+This makes the helpers usable with block-local registers instead of
+routing all accesses to go through ptdev->iomem. It is a preparatory
+change for splitting the register space by components and for moving
+callers away from cross-component register accesses.
 
-Fix this by using put_device() in the host1x_device_parse_dt() failure
-path.
+No functional change intended.
 
-Fixes: f4c5cf88fbd50 ("gpu: host1x: Provide a proper struct bus_type")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
 v2:
-  - add Cc: stable@vger.kernel.org
+- Pick up Ack from Boris.
 
- drivers/gpu/host1x/bus.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+---
+ drivers/gpu/drm/panthor/panthor_device.c |  2 +-
+ drivers/gpu/drm/panthor/panthor_device.h | 78 ++++++++++++------------
+ drivers/gpu/drm/panthor/panthor_drv.c    |  6 +-
+ drivers/gpu/drm/panthor/panthor_fw.c     | 22 +++----
+ drivers/gpu/drm/panthor/panthor_gpu.c    | 42 ++++++-------
+ drivers/gpu/drm/panthor/panthor_hw.c     | 47 +++++++-------
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 29 +++++----
+ drivers/gpu/drm/panthor/panthor_pwr.c    | 61 +++++++++---------
+ drivers/gpu/drm/panthor/panthor_sched.c  |  2 +-
+ 9 files changed, 146 insertions(+), 143 deletions(-)
 
-diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
-index 723a80895cd4..f97567e6ae87 100644
---- a/drivers/gpu/host1x/bus.c
-+++ b/drivers/gpu/host1x/bus.c
-@@ -452,7 +452,7 @@ static int host1x_device_add(struct host1x *host1x,
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index bc62a498a8a8..d62017b73409 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -43,7 +43,7 @@ static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+ 	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
+ 	 * ACE protocol has never been supported for command stream frontend GPUs.
+ 	 */
+-	if ((gpu_read(ptdev, GPU_COHERENCY_FEATURES) &
++	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
+ 		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+ 		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+ 		return 0;
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index 5cba272f9b4d..285bf7e4439e 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -505,7 +505,7 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
+ 	struct panthor_device *ptdev = pirq->ptdev;						\
+ 	enum panthor_irq_state old_state;							\
+ 												\
+-	if (!gpu_read(ptdev, __reg_prefix ## _INT_STAT))					\
++	if (!gpu_read(ptdev->iomem, __reg_prefix ## _INT_STAT))					\
+ 		return IRQ_NONE;								\
+ 												\
+ 	guard(spinlock_irqsave)(&pirq->mask_lock);						\
+@@ -515,7 +515,7 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
+ 	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
+ 		return IRQ_NONE;								\
+ 												\
+-	gpu_write(ptdev, __reg_prefix ## _INT_MASK, 0);						\
++	gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, 0);					\
+ 	return IRQ_WAKE_THREAD;									\
+ }												\
+ 												\
+@@ -534,7 +534,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
+ 		 * right before the HW event kicks in. TLDR; it's all expected races we're	\
+ 		 * covered for.									\
+ 		 */										\
+-		u32 status = gpu_read(ptdev, __reg_prefix ## _INT_RAWSTAT) & pirq->mask;	\
++		u32 status = gpu_read(ptdev->iomem, __reg_prefix ## _INT_RAWSTAT) & pirq->mask;	\
+ 												\
+ 		if (!status)									\
+ 			break;									\
+@@ -550,7 +550,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
+ 					   PANTHOR_IRQ_STATE_PROCESSING,			\
+ 					   PANTHOR_IRQ_STATE_ACTIVE);				\
+ 		if (old_state == PANTHOR_IRQ_STATE_PROCESSING)					\
+-			gpu_write(ptdev, __reg_prefix ## _INT_MASK, pirq->mask);		\
++			gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+ 	}											\
+ 												\
+ 	return ret;										\
+@@ -560,7 +560,7 @@ static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)
+ {												\
+ 	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
+ 		atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDING);				\
+-		gpu_write(pirq->ptdev, __reg_prefix ## _INT_MASK, 0);				\
++		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, 0);			\
+ 	}											\
+ 	synchronize_irq(pirq->irq);								\
+ 	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
+@@ -571,8 +571,8 @@ static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)
+ 	guard(spinlock_irqsave)(&pirq->mask_lock);						\
+ 												\
+ 	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_ACTIVE);					\
+-	gpu_write(pirq->ptdev, __reg_prefix ## _INT_CLEAR, pirq->mask);				\
+-	gpu_write(pirq->ptdev, __reg_prefix ## _INT_MASK, pirq->mask);				\
++	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_CLEAR, pirq->mask);			\
++	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);			\
+ }												\
+ 												\
+ static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
+@@ -603,7 +603,7 @@ static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *
+ 	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+ 	 */											\
+ 	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
+-		gpu_write(pirq->ptdev, __reg_prefix ## _INT_MASK, pirq->mask);			\
++		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+ }												\
+ 												\
+ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
+@@ -617,80 +617,80 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
+ 	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
+ 	 */											\
+ 	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
+-		gpu_write(pirq->ptdev, __reg_prefix ## _INT_MASK, pirq->mask);			\
++		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
+ }
  
- 	err = host1x_device_parse_dt(device, driver);
- 	if (err < 0) {
--		kfree(device);
-+		put_device(&device->dev);
- 		return err;
+ extern struct workqueue_struct *panthor_cleanup_wq;
+ 
+-static inline void gpu_write(struct panthor_device *ptdev, u32 reg, u32 data)
++static inline void gpu_write(void __iomem *iomem, u32 reg, u32 data)
+ {
+-	writel(data, ptdev->iomem + reg);
++	writel(data, iomem + reg);
+ }
+ 
+-static inline u32 gpu_read(struct panthor_device *ptdev, u32 reg)
++static inline u32 gpu_read(void __iomem *iomem, u32 reg)
+ {
+-	return readl(ptdev->iomem + reg);
++	return readl(iomem + reg);
+ }
+ 
+-static inline u32 gpu_read_relaxed(struct panthor_device *ptdev, u32 reg)
++static inline u32 gpu_read_relaxed(void __iomem *iomem, u32 reg)
+ {
+-	return readl_relaxed(ptdev->iomem + reg);
++	return readl_relaxed(iomem + reg);
+ }
+ 
+-static inline void gpu_write64(struct panthor_device *ptdev, u32 reg, u64 data)
++static inline void gpu_write64(void __iomem *iomem, u32 reg, u64 data)
+ {
+-	gpu_write(ptdev, reg, lower_32_bits(data));
+-	gpu_write(ptdev, reg + 4, upper_32_bits(data));
++	gpu_write(iomem, reg, lower_32_bits(data));
++	gpu_write(iomem, reg + 4, upper_32_bits(data));
+ }
+ 
+-static inline u64 gpu_read64(struct panthor_device *ptdev, u32 reg)
++static inline u64 gpu_read64(void __iomem *iomem, u32 reg)
+ {
+-	return (gpu_read(ptdev, reg) | ((u64)gpu_read(ptdev, reg + 4) << 32));
++	return (gpu_read(iomem, reg) | ((u64)gpu_read(iomem, reg + 4) << 32));
+ }
+ 
+-static inline u64 gpu_read64_relaxed(struct panthor_device *ptdev, u32 reg)
++static inline u64 gpu_read64_relaxed(void __iomem *iomem, u32 reg)
+ {
+-	return (gpu_read_relaxed(ptdev, reg) |
+-		((u64)gpu_read_relaxed(ptdev, reg + 4) << 32));
++	return (gpu_read_relaxed(iomem, reg) |
++		((u64)gpu_read_relaxed(iomem, reg + 4) << 32));
+ }
+ 
+-static inline u64 gpu_read64_counter(struct panthor_device *ptdev, u32 reg)
++static inline u64 gpu_read64_counter(void __iomem *iomem, u32 reg)
+ {
+ 	u32 lo, hi1, hi2;
+ 	do {
+-		hi1 = gpu_read(ptdev, reg + 4);
+-		lo = gpu_read(ptdev, reg);
+-		hi2 = gpu_read(ptdev, reg + 4);
++		hi1 = gpu_read(iomem, reg + 4);
++		lo = gpu_read(iomem, reg);
++		hi2 = gpu_read(iomem, reg + 4);
+ 	} while (hi1 != hi2);
+ 	return lo | ((u64)hi2 << 32);
+ }
+ 
+-#define gpu_read_poll_timeout(dev, reg, val, cond, delay_us, timeout_us)	\
++#define gpu_read_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+ 	read_poll_timeout(gpu_read, val, cond, delay_us, timeout_us, false,	\
+-			  dev, reg)
++			  iomem, reg)
+ 
+-#define gpu_read_poll_timeout_atomic(dev, reg, val, cond, delay_us,		\
++#define gpu_read_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+ 				     timeout_us)				\
+ 	read_poll_timeout_atomic(gpu_read, val, cond, delay_us, timeout_us,	\
+-				 false, dev, reg)
++				 false, iomem, reg)
+ 
+-#define gpu_read64_poll_timeout(dev, reg, val, cond, delay_us, timeout_us)	\
++#define gpu_read64_poll_timeout(iomem, reg, val, cond, delay_us, timeout_us)	\
+ 	read_poll_timeout(gpu_read64, val, cond, delay_us, timeout_us, false,	\
+-			  dev, reg)
++			  iomem, reg)
+ 
+-#define gpu_read64_poll_timeout_atomic(dev, reg, val, cond, delay_us,		\
++#define gpu_read64_poll_timeout_atomic(iomem, reg, val, cond, delay_us,		\
+ 				       timeout_us)				\
+ 	read_poll_timeout_atomic(gpu_read64, val, cond, delay_us, timeout_us,	\
+-				 false, dev, reg)
++				 false, iomem, reg)
+ 
+-#define gpu_read_relaxed_poll_timeout_atomic(dev, reg, val, cond, delay_us,	\
++#define gpu_read_relaxed_poll_timeout_atomic(iomem, reg, val, cond, delay_us,	\
+ 					     timeout_us)			\
+ 	read_poll_timeout_atomic(gpu_read_relaxed, val, cond, delay_us,		\
+-				 timeout_us, false, dev, reg)
++				 timeout_us, false, iomem, reg)
+ 
+-#define gpu_read64_relaxed_poll_timeout(dev, reg, val, cond, delay_us,		\
++#define gpu_read64_relaxed_poll_timeout(iomem, reg, val, cond, delay_us,	\
+ 					timeout_us)				\
+ 	read_poll_timeout(gpu_read64_relaxed, val, cond, delay_us, timeout_us,	\
+-			  false, dev, reg)
++			  false, iomem, reg)
+ 
+ #endif
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index 73fc983dc9b4..4f926c861fba 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -839,7 +839,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
  	}
  
+ 	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
+-		arg->timestamp_offset = gpu_read64(ptdev, GPU_TIMESTAMP_OFFSET);
++		arg->timestamp_offset = gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
+ 	else
+ 		arg->timestamp_offset = 0;
+ 
+@@ -854,7 +854,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+ 		query_start_time = 0;
+ 
+ 	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+-		arg->current_timestamp = gpu_read64_counter(ptdev, GPU_TIMESTAMP);
++		arg->current_timestamp = gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
+ 	else
+ 		arg->current_timestamp = 0;
+ 
+@@ -870,7 +870,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+ 	}
+ 
+ 	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+-		arg->cycle_count = gpu_read64_counter(ptdev, GPU_CYCLE_COUNT);
++		arg->cycle_count = gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
+ 	else
+ 		arg->cycle_count = 0;
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+index be0da5b1f3ab..69a19751a314 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.c
++++ b/drivers/gpu/drm/panthor/panthor_fw.c
+@@ -1054,7 +1054,7 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
+ 			       GLB_CFG_POWEROFF_TIMER |
+ 			       GLB_CFG_PROGRESS_TIMER);
+ 
+-	gpu_write(ptdev, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
++	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+ 
+ 	/* Kick the watchdog. */
+ 	mod_delayed_work(ptdev->reset.wq, &ptdev->fw->watchdog.ping_work,
+@@ -1069,7 +1069,7 @@ static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
+ 	if (tracepoint_enabled(gpu_job_irq))
+ 		start = ktime_get_ns();
+ 
+-	gpu_write(ptdev, JOB_INT_CLEAR, status);
++	gpu_write(ptdev->iomem, JOB_INT_CLEAR, status);
+ 
+ 	if (!ptdev->fw->booted && (status & JOB_INT_GLOBAL_IF))
+ 		ptdev->fw->booted = true;
+@@ -1097,13 +1097,13 @@ static int panthor_fw_start(struct panthor_device *ptdev)
+ 	ptdev->fw->booted = false;
+ 	panthor_job_irq_enable_events(&ptdev->fw->irq, ~0);
+ 	panthor_job_irq_resume(&ptdev->fw->irq);
+-	gpu_write(ptdev, MCU_CONTROL, MCU_CONTROL_AUTO);
++	gpu_write(ptdev->iomem, MCU_CONTROL, MCU_CONTROL_AUTO);
+ 
+ 	if (!wait_event_timeout(ptdev->fw->req_waitqueue,
+ 				ptdev->fw->booted,
+ 				msecs_to_jiffies(1000))) {
+ 		if (!ptdev->fw->booted &&
+-		    !(gpu_read(ptdev, JOB_INT_STAT) & JOB_INT_GLOBAL_IF))
++		    !(gpu_read(ptdev->iomem, JOB_INT_STAT) & JOB_INT_GLOBAL_IF))
+ 			timedout = true;
+ 	}
+ 
+@@ -1114,7 +1114,7 @@ static int panthor_fw_start(struct panthor_device *ptdev)
+ 			[MCU_STATUS_HALT] = "halt",
+ 			[MCU_STATUS_FATAL] = "fatal",
+ 		};
+-		u32 status = gpu_read(ptdev, MCU_STATUS);
++		u32 status = gpu_read(ptdev->iomem, MCU_STATUS);
+ 
+ 		drm_err(&ptdev->base, "Failed to boot MCU (status=%s)",
+ 			status < ARRAY_SIZE(status_str) ? status_str[status] : "unknown");
+@@ -1128,8 +1128,8 @@ static void panthor_fw_stop(struct panthor_device *ptdev)
+ {
+ 	u32 status;
+ 
+-	gpu_write(ptdev, MCU_CONTROL, MCU_CONTROL_DISABLE);
+-	if (gpu_read_poll_timeout(ptdev, MCU_STATUS, status,
++	gpu_write(ptdev->iomem, MCU_CONTROL, MCU_CONTROL_DISABLE);
++	if (gpu_read_poll_timeout(ptdev->iomem, MCU_STATUS, status,
+ 				  status == MCU_STATUS_DISABLED, 10, 100000))
+ 		drm_err(&ptdev->base, "Failed to stop MCU");
+ }
+@@ -1139,7 +1139,7 @@ static bool panthor_fw_mcu_halted(struct panthor_device *ptdev)
+ 	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+ 	bool halted;
+ 
+-	halted = gpu_read(ptdev, MCU_STATUS) == MCU_STATUS_HALT;
++	halted = gpu_read(ptdev->iomem, MCU_STATUS) == MCU_STATUS_HALT;
+ 
+ 	if (panthor_fw_has_glb_state(ptdev))
+ 		halted &= (GLB_STATE_GET(glb_iface->output->ack) == GLB_STATE_HALT);
+@@ -1156,7 +1156,7 @@ static void panthor_fw_halt_mcu(struct panthor_device *ptdev)
+ 	else
+ 		panthor_fw_update_reqs(glb_iface, req, GLB_HALT, GLB_HALT);
+ 
+-	gpu_write(ptdev, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
++	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+ }
+ 
+ static bool panthor_fw_wait_mcu_halted(struct panthor_device *ptdev)
+@@ -1414,7 +1414,7 @@ void panthor_fw_ring_csg_doorbells(struct panthor_device *ptdev, u32 csg_mask)
+ 	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+ 
+ 	panthor_fw_toggle_reqs(glb_iface, doorbell_req, doorbell_ack, csg_mask);
+-	gpu_write(ptdev, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
++	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+ }
+ 
+ static void panthor_fw_ping_work(struct work_struct *work)
+@@ -1429,7 +1429,7 @@ static void panthor_fw_ping_work(struct work_struct *work)
+ 		return;
+ 
+ 	panthor_fw_toggle_reqs(glb_iface, req, ack, GLB_PING);
+-	gpu_write(ptdev, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
++	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+ 
+ 	ret = panthor_fw_glb_wait_acks(ptdev, GLB_PING, &acked, 100);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index 2ab444ee8c71..bdb72cebccb3 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -56,7 +56,7 @@ struct panthor_gpu {
+ 
+ static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
+ {
+-	gpu_write(ptdev, GPU_COHERENCY_PROTOCOL,
++	gpu_write(ptdev->iomem, GPU_COHERENCY_PROTOCOL,
+ 		  ptdev->gpu_info.selected_coherency);
+ }
+ 
+@@ -75,26 +75,26 @@ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+ 	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(data->asn_hash); i++)
+-		gpu_write(ptdev, GPU_ASN_HASH(i), data->asn_hash[i]);
++		gpu_write(ptdev->iomem, GPU_ASN_HASH(i), data->asn_hash[i]);
+ 
+-	l2_config = gpu_read(ptdev, GPU_L2_CONFIG);
++	l2_config = gpu_read(ptdev->iomem, GPU_L2_CONFIG);
+ 	l2_config |= GPU_L2_CONFIG_ASN_HASH_ENABLE;
+-	gpu_write(ptdev, GPU_L2_CONFIG, l2_config);
++	gpu_write(ptdev->iomem, GPU_L2_CONFIG, l2_config);
+ }
+ 
+ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+ {
+-	gpu_write(ptdev, GPU_INT_CLEAR, status);
++	gpu_write(ptdev->iomem, GPU_INT_CLEAR, status);
+ 
+ 	if (tracepoint_enabled(gpu_power_status) && (status & GPU_POWER_INTERRUPTS_MASK))
+ 		trace_gpu_power_status(ptdev->base.dev,
+-				       gpu_read64(ptdev, SHADER_READY),
+-				       gpu_read64(ptdev, TILER_READY),
+-				       gpu_read64(ptdev, L2_READY));
++				       gpu_read64(ptdev->iomem, SHADER_READY),
++				       gpu_read64(ptdev->iomem, TILER_READY),
++				       gpu_read64(ptdev->iomem, L2_READY));
+ 
+ 	if (status & GPU_IRQ_FAULT) {
+-		u32 fault_status = gpu_read(ptdev, GPU_FAULT_STATUS);
+-		u64 address = gpu_read64(ptdev, GPU_FAULT_ADDR);
++		u32 fault_status = gpu_read(ptdev->iomem, GPU_FAULT_STATUS);
++		u64 address = gpu_read64(ptdev->iomem, GPU_FAULT_ADDR);
+ 
+ 		drm_warn(&ptdev->base, "GPU Fault 0x%08x (%s) at 0x%016llx\n",
+ 			 fault_status, panthor_exception_name(ptdev, fault_status & 0xFF),
+@@ -204,7 +204,7 @@ int panthor_gpu_block_power_off(struct panthor_device *ptdev,
+ 	u32 val;
+ 	int ret;
+ 
+-	ret = gpu_read64_relaxed_poll_timeout(ptdev, pwrtrans_reg, val,
++	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, pwrtrans_reg, val,
+ 					      !(mask & val), 100, timeout_us);
+ 	if (ret) {
+ 		drm_err(&ptdev->base,
+@@ -213,9 +213,9 @@ int panthor_gpu_block_power_off(struct panthor_device *ptdev,
+ 		return ret;
+ 	}
+ 
+-	gpu_write64(ptdev, pwroff_reg, mask);
++	gpu_write64(ptdev->iomem, pwroff_reg, mask);
+ 
+-	ret = gpu_read64_relaxed_poll_timeout(ptdev, pwrtrans_reg, val,
++	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, pwrtrans_reg, val,
+ 					      !(mask & val), 100, timeout_us);
+ 	if (ret) {
+ 		drm_err(&ptdev->base,
+@@ -247,7 +247,7 @@ int panthor_gpu_block_power_on(struct panthor_device *ptdev,
+ 	u32 val;
+ 	int ret;
+ 
+-	ret = gpu_read64_relaxed_poll_timeout(ptdev, pwrtrans_reg, val,
++	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, pwrtrans_reg, val,
+ 					      !(mask & val), 100, timeout_us);
+ 	if (ret) {
+ 		drm_err(&ptdev->base,
+@@ -256,9 +256,9 @@ int panthor_gpu_block_power_on(struct panthor_device *ptdev,
+ 		return ret;
+ 	}
+ 
+-	gpu_write64(ptdev, pwron_reg, mask);
++	gpu_write64(ptdev->iomem, pwron_reg, mask);
+ 
+-	ret = gpu_read64_relaxed_poll_timeout(ptdev, rdy_reg, val,
++	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, rdy_reg, val,
+ 					      (mask & val) == val,
+ 					      100, timeout_us);
+ 	if (ret) {
+@@ -326,7 +326,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+ 	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+ 	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+ 		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+-		gpu_write(ptdev, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
++		gpu_write(ptdev->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+ 	} else {
+ 		ret = -EIO;
+ 	}
+@@ -340,7 +340,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+ 				msecs_to_jiffies(100))) {
+ 		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+ 		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+-		    !(gpu_read(ptdev, GPU_INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
++		    !(gpu_read(ptdev->iomem, GPU_INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+ 			ret = -ETIMEDOUT;
+ 		else
+ 			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+@@ -370,8 +370,8 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+ 	if (!drm_WARN_ON(&ptdev->base,
+ 			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+ 		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+-		gpu_write(ptdev, GPU_INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+-		gpu_write(ptdev, GPU_CMD, GPU_SOFT_RESET);
++		gpu_write(ptdev->iomem, GPU_INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
++		gpu_write(ptdev->iomem, GPU_CMD, GPU_SOFT_RESET);
+ 	}
+ 	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+ 
+@@ -380,7 +380,7 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+ 				msecs_to_jiffies(100))) {
+ 		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+ 		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+-		    !(gpu_read(ptdev, GPU_INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
++		    !(gpu_read(ptdev->iomem, GPU_INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+ 			timedout = true;
+ 		else
+ 			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+index d135aa6724fa..9309d0938212 100644
+--- a/drivers/gpu/drm/panthor/panthor_hw.c
++++ b/drivers/gpu/drm/panthor/panthor_hw.c
+@@ -194,35 +194,38 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
+ {
+ 	unsigned int i;
+ 
+-	ptdev->gpu_info.csf_id = gpu_read(ptdev, GPU_CSF_ID);
+-	ptdev->gpu_info.gpu_rev = gpu_read(ptdev, GPU_REVID);
+-	ptdev->gpu_info.core_features = gpu_read(ptdev, GPU_CORE_FEATURES);
+-	ptdev->gpu_info.l2_features = gpu_read(ptdev, GPU_L2_FEATURES);
+-	ptdev->gpu_info.tiler_features = gpu_read(ptdev, GPU_TILER_FEATURES);
+-	ptdev->gpu_info.mem_features = gpu_read(ptdev, GPU_MEM_FEATURES);
+-	ptdev->gpu_info.mmu_features = gpu_read(ptdev, GPU_MMU_FEATURES);
+-	ptdev->gpu_info.thread_features = gpu_read(ptdev, GPU_THREAD_FEATURES);
+-	ptdev->gpu_info.max_threads = gpu_read(ptdev, GPU_THREAD_MAX_THREADS);
+-	ptdev->gpu_info.thread_max_workgroup_size = gpu_read(ptdev, GPU_THREAD_MAX_WORKGROUP_SIZE);
+-	ptdev->gpu_info.thread_max_barrier_size = gpu_read(ptdev, GPU_THREAD_MAX_BARRIER_SIZE);
+-	ptdev->gpu_info.coherency_features = gpu_read(ptdev, GPU_COHERENCY_FEATURES);
++	ptdev->gpu_info.csf_id = gpu_read(ptdev->iomem, GPU_CSF_ID);
++	ptdev->gpu_info.gpu_rev = gpu_read(ptdev->iomem, GPU_REVID);
++	ptdev->gpu_info.core_features = gpu_read(ptdev->iomem, GPU_CORE_FEATURES);
++	ptdev->gpu_info.l2_features = gpu_read(ptdev->iomem, GPU_L2_FEATURES);
++	ptdev->gpu_info.tiler_features = gpu_read(ptdev->iomem, GPU_TILER_FEATURES);
++	ptdev->gpu_info.mem_features = gpu_read(ptdev->iomem, GPU_MEM_FEATURES);
++	ptdev->gpu_info.mmu_features = gpu_read(ptdev->iomem, GPU_MMU_FEATURES);
++	ptdev->gpu_info.thread_features = gpu_read(ptdev->iomem, GPU_THREAD_FEATURES);
++	ptdev->gpu_info.max_threads = gpu_read(ptdev->iomem, GPU_THREAD_MAX_THREADS);
++	ptdev->gpu_info.thread_max_workgroup_size =
++		gpu_read(ptdev->iomem, GPU_THREAD_MAX_WORKGROUP_SIZE);
++	ptdev->gpu_info.thread_max_barrier_size =
++		gpu_read(ptdev->iomem, GPU_THREAD_MAX_BARRIER_SIZE);
++	ptdev->gpu_info.coherency_features = gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES);
+ 	for (i = 0; i < 4; i++)
+-		ptdev->gpu_info.texture_features[i] = gpu_read(ptdev, GPU_TEXTURE_FEATURES(i));
++		ptdev->gpu_info.texture_features[i] =
++			gpu_read(ptdev->iomem, GPU_TEXTURE_FEATURES(i));
+ 
+-	ptdev->gpu_info.as_present = gpu_read(ptdev, GPU_AS_PRESENT);
++	ptdev->gpu_info.as_present = gpu_read(ptdev->iomem, GPU_AS_PRESENT);
+ 
+ 	/* Introduced in arch 11.x */
+-	ptdev->gpu_info.gpu_features = gpu_read64(ptdev, GPU_FEATURES);
++	ptdev->gpu_info.gpu_features = gpu_read64(ptdev->iomem, GPU_FEATURES);
+ 
+ 	if (panthor_hw_has_pwr_ctrl(ptdev)) {
+ 		/* Introduced in arch 14.x */
+-		ptdev->gpu_info.l2_present = gpu_read64(ptdev, PWR_L2_PRESENT);
+-		ptdev->gpu_info.tiler_present = gpu_read64(ptdev, PWR_TILER_PRESENT);
+-		ptdev->gpu_info.shader_present = gpu_read64(ptdev, PWR_SHADER_PRESENT);
++		ptdev->gpu_info.l2_present = gpu_read64(ptdev->iomem, PWR_L2_PRESENT);
++		ptdev->gpu_info.tiler_present = gpu_read64(ptdev->iomem, PWR_TILER_PRESENT);
++		ptdev->gpu_info.shader_present = gpu_read64(ptdev->iomem, PWR_SHADER_PRESENT);
+ 	} else {
+-		ptdev->gpu_info.shader_present = gpu_read64(ptdev, GPU_SHADER_PRESENT);
+-		ptdev->gpu_info.tiler_present = gpu_read64(ptdev, GPU_TILER_PRESENT);
+-		ptdev->gpu_info.l2_present = gpu_read64(ptdev, GPU_L2_PRESENT);
++		ptdev->gpu_info.shader_present = gpu_read64(ptdev->iomem, GPU_SHADER_PRESENT);
++		ptdev->gpu_info.tiler_present = gpu_read64(ptdev->iomem, GPU_TILER_PRESENT);
++		ptdev->gpu_info.l2_present = gpu_read64(ptdev->iomem, GPU_L2_PRESENT);
+ 	}
+ 
+ 	return overload_shader_present(ptdev);
+@@ -287,7 +290,7 @@ static int panthor_hw_bind_device(struct panthor_device *ptdev)
+ 
+ static int panthor_hw_gpu_id_init(struct panthor_device *ptdev)
+ {
+-	ptdev->gpu_info.gpu_id = gpu_read(ptdev, GPU_ID);
++	ptdev->gpu_info.gpu_id = gpu_read(ptdev->iomem, GPU_ID);
+ 	if (!ptdev->gpu_info.gpu_id)
+ 		return -ENXIO;
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index fa8b31df85c9..0bd07a3dd774 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -522,9 +522,8 @@ static int wait_ready(struct panthor_device *ptdev, u32 as_nr)
+ 	/* Wait for the MMU status to indicate there is no active command, in
+ 	 * case one is pending.
+ 	 */
+-	ret = gpu_read_relaxed_poll_timeout_atomic(ptdev, AS_STATUS(as_nr), val,
+-						   !(val & AS_STATUS_AS_ACTIVE),
+-						   10, 100000);
++	ret = gpu_read_relaxed_poll_timeout_atomic(ptdev->iomem, AS_STATUS(as_nr), val,
++						   !(val & AS_STATUS_AS_ACTIVE), 10, 100000);
+ 
+ 	if (ret) {
+ 		panthor_device_schedule_reset(ptdev);
+@@ -541,7 +540,7 @@ static int as_send_cmd_and_wait(struct panthor_device *ptdev, u32 as_nr, u32 cmd
+ 	/* write AS_COMMAND when MMU is ready to accept another command */
+ 	status = wait_ready(ptdev, as_nr);
+ 	if (!status) {
+-		gpu_write(ptdev, AS_COMMAND(as_nr), cmd);
++		gpu_write(ptdev->iomem, AS_COMMAND(as_nr), cmd);
+ 		status = wait_ready(ptdev, as_nr);
+ 	}
+ 
+@@ -592,9 +591,9 @@ static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
+ 	panthor_mmu_irq_enable_events(&ptdev->mmu->irq,
+ 				      panthor_mmu_as_fault_mask(ptdev, as_nr));
+ 
+-	gpu_write64(ptdev, AS_TRANSTAB(as_nr), transtab);
+-	gpu_write64(ptdev, AS_MEMATTR(as_nr), memattr);
+-	gpu_write64(ptdev, AS_TRANSCFG(as_nr), transcfg);
++	gpu_write64(ptdev->iomem, AS_TRANSTAB(as_nr), transtab);
++	gpu_write64(ptdev->iomem, AS_MEMATTR(as_nr), memattr);
++	gpu_write64(ptdev->iomem, AS_TRANSCFG(as_nr), transcfg);
+ 
+ 	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
+ }
+@@ -629,9 +628,9 @@ static int panthor_mmu_as_disable(struct panthor_device *ptdev, u32 as_nr,
+ 	if (recycle_slot)
+ 		return 0;
+ 
+-	gpu_write64(ptdev, AS_TRANSTAB(as_nr), 0);
+-	gpu_write64(ptdev, AS_MEMATTR(as_nr), 0);
+-	gpu_write64(ptdev, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
++	gpu_write64(ptdev->iomem, AS_TRANSTAB(as_nr), 0);
++	gpu_write64(ptdev->iomem, AS_MEMATTR(as_nr), 0);
++	gpu_write64(ptdev->iomem, AS_TRANSCFG(as_nr), AS_TRANSCFG_ADRMODE_UNMAPPED);
+ 
+ 	return as_send_cmd_and_wait(ptdev, as_nr, AS_COMMAND_UPDATE);
+ }
+@@ -784,7 +783,7 @@ int panthor_vm_active(struct panthor_vm *vm)
+ 	 */
+ 	fault_mask = panthor_mmu_as_fault_mask(ptdev, as);
+ 	if (ptdev->mmu->as.faulty_mask & fault_mask) {
+-		gpu_write(ptdev, MMU_INT_CLEAR, fault_mask);
++		gpu_write(ptdev->iomem, MMU_INT_CLEAR, fault_mask);
+ 		ptdev->mmu->as.faulty_mask &= ~fault_mask;
+ 	}
+ 
+@@ -1712,7 +1711,7 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
+ 	mutex_lock(&ptdev->mmu->as.slots_lock);
+ 	if (vm->as.id >= 0 && size) {
+ 		/* Lock the region that needs to be updated */
+-		gpu_write64(ptdev, AS_LOCKADDR(vm->as.id),
++		gpu_write64(ptdev->iomem, AS_LOCKADDR(vm->as.id),
+ 			    pack_region_range(ptdev, &start, &size));
+ 
+ 		/* If the lock succeeded, update the locked_region info. */
+@@ -1773,8 +1772,8 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+ 		u32 access_type;
+ 		u32 source_id;
+ 
+-		fault_status = gpu_read(ptdev, AS_FAULTSTATUS(as));
+-		addr = gpu_read64(ptdev, AS_FAULTADDRESS(as));
++		fault_status = gpu_read(ptdev->iomem, AS_FAULTSTATUS(as));
++		addr = gpu_read64(ptdev->iomem, AS_FAULTADDRESS(as));
+ 
+ 		/* decode the fault status */
+ 		exception_type = fault_status & 0xFF;
+@@ -1805,7 +1804,7 @@ static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status)
+ 		 * Note that COMPLETED irqs are never cleared, but this is fine
+ 		 * because they are always masked.
+ 		 */
+-		gpu_write(ptdev, MMU_INT_CLEAR, mask);
++		gpu_write(ptdev->iomem, MMU_INT_CLEAR, mask);
+ 
+ 		if (ptdev->mmu->as.slots[as].vm)
+ 			ptdev->mmu->as.slots[as].vm->unhandled_fault = true;
+diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+index ed3b2b4479ca..b77c85ad733a 100644
+--- a/drivers/gpu/drm/panthor/panthor_pwr.c
++++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+@@ -55,7 +55,7 @@ struct panthor_pwr {
+ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
+ {
+ 	spin_lock(&ptdev->pwr->reqs_lock);
+-	gpu_write(ptdev, PWR_INT_CLEAR, status);
++	gpu_write(ptdev->iomem, PWR_INT_CLEAR, status);
+ 
+ 	if (unlikely(status & PWR_IRQ_COMMAND_NOT_ALLOWED))
+ 		drm_err(&ptdev->base, "PWR_IRQ: COMMAND_NOT_ALLOWED");
+@@ -74,14 +74,14 @@ PANTHOR_IRQ_HANDLER(pwr, PWR, panthor_pwr_irq_handler);
+ static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+ {
+ 	if (args)
+-		gpu_write64(ptdev, PWR_CMDARG, args);
++		gpu_write64(ptdev->iomem, PWR_CMDARG, args);
+ 
+-	gpu_write(ptdev, PWR_COMMAND, command);
++	gpu_write(ptdev->iomem, PWR_COMMAND, command);
+ }
+ 
+ static bool reset_irq_raised(struct panthor_device *ptdev)
+ {
+-	return gpu_read(ptdev, PWR_INT_RAWSTAT) & PWR_IRQ_RESET_COMPLETED;
++	return gpu_read(ptdev->iomem, PWR_INT_RAWSTAT) & PWR_IRQ_RESET_COMPLETED;
+ }
+ 
+ static bool reset_pending(struct panthor_device *ptdev)
+@@ -96,7 +96,7 @@ static int panthor_pwr_reset(struct panthor_device *ptdev, u32 reset_cmd)
+ 			drm_WARN(&ptdev->base, 1, "Reset already pending");
+ 		} else {
+ 			ptdev->pwr->pending_reqs |= PWR_IRQ_RESET_COMPLETED;
+-			gpu_write(ptdev, PWR_INT_CLEAR, PWR_IRQ_RESET_COMPLETED);
++			gpu_write(ptdev->iomem, PWR_INT_CLEAR, PWR_IRQ_RESET_COMPLETED);
+ 			panthor_pwr_write_command(ptdev, reset_cmd, 0);
+ 		}
+ 	}
+@@ -185,7 +185,7 @@ static int panthor_pwr_domain_wait_transition(struct panthor_device *ptdev, u32
+ 	u64 val;
+ 	int ret = 0;
+ 
+-	ret = gpu_read64_poll_timeout(ptdev, pwrtrans_reg, val, !(PWR_ALL_CORES_MASK & val), 100,
++	ret = gpu_read64_poll_timeout(ptdev->iomem, pwrtrans_reg, val, !(PWR_ALL_CORES_MASK & val), 100,
+ 				      timeout_us);
+ 	if (ret) {
+ 		drm_err(&ptdev->base, "%s domain power in transition, pwrtrans(0x%llx)",
+@@ -198,17 +198,17 @@ static int panthor_pwr_domain_wait_transition(struct panthor_device *ptdev, u32
+ 
+ static void panthor_pwr_debug_info_show(struct panthor_device *ptdev)
+ {
+-	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", gpu_read64(ptdev, GPU_FEATURES));
+-	drm_info(&ptdev->base, "PWR_STATUS:      0x%016llx", gpu_read64(ptdev, PWR_STATUS));
+-	drm_info(&ptdev->base, "L2_PRESENT:      0x%016llx", gpu_read64(ptdev, PWR_L2_PRESENT));
+-	drm_info(&ptdev->base, "L2_PWRTRANS:     0x%016llx", gpu_read64(ptdev, PWR_L2_PWRTRANS));
+-	drm_info(&ptdev->base, "L2_READY:        0x%016llx", gpu_read64(ptdev, PWR_L2_READY));
+-	drm_info(&ptdev->base, "TILER_PRESENT:   0x%016llx", gpu_read64(ptdev, PWR_TILER_PRESENT));
+-	drm_info(&ptdev->base, "TILER_PWRTRANS:  0x%016llx", gpu_read64(ptdev, PWR_TILER_PWRTRANS));
+-	drm_info(&ptdev->base, "TILER_READY:     0x%016llx", gpu_read64(ptdev, PWR_TILER_READY));
+-	drm_info(&ptdev->base, "SHADER_PRESENT:  0x%016llx", gpu_read64(ptdev, PWR_SHADER_PRESENT));
+-	drm_info(&ptdev->base, "SHADER_PWRTRANS: 0x%016llx", gpu_read64(ptdev, PWR_SHADER_PWRTRANS));
+-	drm_info(&ptdev->base, "SHADER_READY:    0x%016llx", gpu_read64(ptdev, PWR_SHADER_READY));
++	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", gpu_read64(ptdev->iomem, GPU_FEATURES));
++	drm_info(&ptdev->base, "PWR_STATUS:      0x%016llx", gpu_read64(ptdev->iomem, PWR_STATUS));
++	drm_info(&ptdev->base, "L2_PRESENT:      0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PRESENT));
++	drm_info(&ptdev->base, "L2_PWRTRANS:     0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PWRTRANS));
++	drm_info(&ptdev->base, "L2_READY:        0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_READY));
++	drm_info(&ptdev->base, "TILER_PRESENT:   0x%016llx", gpu_read64(ptdev->iomem, PWR_TILER_PRESENT));
++	drm_info(&ptdev->base, "TILER_PWRTRANS:  0x%016llx", gpu_read64(ptdev->iomem, PWR_TILER_PWRTRANS));
++	drm_info(&ptdev->base, "TILER_READY:     0x%016llx", gpu_read64(ptdev->iomem, PWR_TILER_READY));
++	drm_info(&ptdev->base, "SHADER_PRESENT:  0x%016llx", gpu_read64(ptdev->iomem, PWR_SHADER_PRESENT));
++	drm_info(&ptdev->base, "SHADER_PWRTRANS: 0x%016llx", gpu_read64(ptdev->iomem, PWR_SHADER_PWRTRANS));
++	drm_info(&ptdev->base, "SHADER_READY:    0x%016llx", gpu_read64(ptdev->iomem, PWR_SHADER_READY));
+ }
+ 
+ static int panthor_pwr_domain_transition(struct panthor_device *ptdev, u32 cmd, u32 domain,
+@@ -240,13 +240,13 @@ static int panthor_pwr_domain_transition(struct panthor_device *ptdev, u32 cmd,
+ 		return ret;
+ 
+ 	/* domain already in target state, return early */
+-	if ((gpu_read64(ptdev, ready_reg) & mask) == expected_val)
++	if ((gpu_read64(ptdev->iomem, ready_reg) & mask) == expected_val)
+ 		return 0;
+ 
+ 	panthor_pwr_write_command(ptdev, pwr_cmd, mask);
+ 
+-	ret = gpu_read64_poll_timeout(ptdev, ready_reg, val, (mask & val) == expected_val, 100,
+-				      timeout_us);
++	ret = gpu_read64_poll_timeout(ptdev->iomem, ready_reg, val, (mask & val) == expected_val,
++				      100, timeout_us);
+ 	if (ret) {
+ 		drm_err(&ptdev->base,
+ 			"timeout waiting on %s power domain transition, cmd(0x%x), arg(0x%llx)",
+@@ -279,7 +279,7 @@ static int panthor_pwr_domain_transition(struct panthor_device *ptdev, u32 cmd,
+ static int retract_domain(struct panthor_device *ptdev, u32 domain)
+ {
+ 	const u32 pwr_cmd = PWR_COMMAND_DEF(PWR_COMMAND_RETRACT, domain, 0);
+-	const u64 pwr_status = gpu_read64(ptdev, PWR_STATUS);
++	const u64 pwr_status = gpu_read64(ptdev->iomem, PWR_STATUS);
+ 	const u64 delegated_mask = PWR_STATUS_DOMAIN_DELEGATED(domain);
+ 	const u64 allow_mask = PWR_STATUS_DOMAIN_ALLOWED(domain);
+ 	u64 val;
+@@ -288,8 +288,9 @@ static int retract_domain(struct panthor_device *ptdev, u32 domain)
+ 	if (drm_WARN_ON(&ptdev->base, domain == PWR_COMMAND_DOMAIN_L2))
+ 		return -EPERM;
+ 
+-	ret = gpu_read64_poll_timeout(ptdev, PWR_STATUS, val, !(PWR_STATUS_RETRACT_PENDING & val),
+-				      0, PWR_RETRACT_TIMEOUT_US);
++	ret = gpu_read64_poll_timeout(ptdev->iomem, PWR_STATUS, val,
++				      !(PWR_STATUS_RETRACT_PENDING & val), 0,
++				      PWR_RETRACT_TIMEOUT_US);
+ 	if (ret) {
+ 		drm_err(&ptdev->base, "%s domain retract pending", get_domain_name(domain));
+ 		return ret;
+@@ -306,7 +307,7 @@ static int retract_domain(struct panthor_device *ptdev, u32 domain)
+ 	 * On successful retraction
+ 	 * allow-flag will be set with delegated-flag being cleared.
+ 	 */
+-	ret = gpu_read64_poll_timeout(ptdev, PWR_STATUS, val,
++	ret = gpu_read64_poll_timeout(ptdev->iomem, PWR_STATUS, val,
+ 				      ((delegated_mask | allow_mask) & val) == allow_mask, 10,
+ 				      PWR_TRANSITION_TIMEOUT_US);
+ 	if (ret) {
+@@ -333,7 +334,7 @@ static int retract_domain(struct panthor_device *ptdev, u32 domain)
+ static int delegate_domain(struct panthor_device *ptdev, u32 domain)
+ {
+ 	const u32 pwr_cmd = PWR_COMMAND_DEF(PWR_COMMAND_DELEGATE, domain, 0);
+-	const u64 pwr_status = gpu_read64(ptdev, PWR_STATUS);
++	const u64 pwr_status = gpu_read64(ptdev->iomem, PWR_STATUS);
+ 	const u64 allow_mask = PWR_STATUS_DOMAIN_ALLOWED(domain);
+ 	const u64 delegated_mask = PWR_STATUS_DOMAIN_DELEGATED(domain);
+ 	u64 val;
+@@ -362,7 +363,7 @@ static int delegate_domain(struct panthor_device *ptdev, u32 domain)
+ 	 * On successful delegation
+ 	 * allow-flag will be cleared with delegated-flag being set.
+ 	 */
+-	ret = gpu_read64_poll_timeout(ptdev, PWR_STATUS, val,
++	ret = gpu_read64_poll_timeout(ptdev->iomem, PWR_STATUS, val,
+ 				      ((delegated_mask | allow_mask) & val) == delegated_mask,
+ 				      10, PWR_TRANSITION_TIMEOUT_US);
+ 	if (ret) {
+@@ -410,7 +411,7 @@ static int panthor_pwr_delegate_domains(struct panthor_device *ptdev)
+  */
+ static int panthor_pwr_domain_force_off(struct panthor_device *ptdev, u32 domain)
+ {
+-	const u64 domain_ready = gpu_read64(ptdev, get_domain_ready_reg(domain));
++	const u64 domain_ready = gpu_read64(ptdev->iomem, get_domain_ready_reg(domain));
+ 	int ret;
+ 
+ 	/* Domain already powered down, early exit. */
+@@ -471,7 +472,7 @@ int panthor_pwr_init(struct panthor_device *ptdev)
+ 
+ int panthor_pwr_reset_soft(struct panthor_device *ptdev)
+ {
+-	if (!(gpu_read64(ptdev, PWR_STATUS) & PWR_STATUS_ALLOW_SOFT_RESET)) {
++	if (!(gpu_read64(ptdev->iomem, PWR_STATUS) & PWR_STATUS_ALLOW_SOFT_RESET)) {
+ 		drm_err(&ptdev->base, "RESET_SOFT not allowed");
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -482,7 +483,7 @@ int panthor_pwr_reset_soft(struct panthor_device *ptdev)
+ void panthor_pwr_l2_power_off(struct panthor_device *ptdev)
+ {
+ 	const u64 l2_allow_mask = PWR_STATUS_DOMAIN_ALLOWED(PWR_COMMAND_DOMAIN_L2);
+-	const u64 pwr_status = gpu_read64(ptdev, PWR_STATUS);
++	const u64 pwr_status = gpu_read64(ptdev->iomem, PWR_STATUS);
+ 
+ 	/* Abort if L2 power off constraints are not satisfied */
+ 	if (!(pwr_status & l2_allow_mask)) {
+@@ -508,7 +509,7 @@ void panthor_pwr_l2_power_off(struct panthor_device *ptdev)
+ 
+ int panthor_pwr_l2_power_on(struct panthor_device *ptdev)
+ {
+-	const u32 pwr_status = gpu_read64(ptdev, PWR_STATUS);
++	const u32 pwr_status = gpu_read64(ptdev->iomem, PWR_STATUS);
+ 	const u32 l2_allow_mask = PWR_STATUS_DOMAIN_ALLOWED(PWR_COMMAND_DOMAIN_L2);
+ 	int ret;
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index a06d91875beb..7c8d350da02f 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -3372,7 +3372,7 @@ queue_run_job(struct drm_sched_job *sched_job)
+ 		if (resume_tick)
+ 			sched_resume_tick(ptdev);
+ 
+-		gpu_write(ptdev, CSF_DOORBELL(queue->doorbell_id), 1);
++		gpu_write(ptdev->iomem, CSF_DOORBELL(queue->doorbell_id), 1);
+ 		if (!sched->pm.has_ref &&
+ 		    !(group->blocked_queues & BIT(job->queue_idx))) {
+ 			pm_runtime_get(ptdev->base.dev);
 -- 
 2.43.0
 
