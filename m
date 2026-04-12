@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10340E937E4
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 14:31:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F746E937E5
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 14:31:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36FFF10E04D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55BE510E2C4;
 	Sun, 12 Apr 2026 14:31:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Kce/nNao";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Kce/nNao";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="HyPR1FMw";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HyPR1FMw";
 	dkim-atps=neutral
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013045.outbound.protection.outlook.com
- [52.101.83.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7187810E2C3
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 14:31:11 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013007.outbound.protection.outlook.com
+ [40.107.162.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5C9A10E2C3
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 14:31:10 +0000 (UTC)
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=J6BlO4RM5Gne/sLrw4w6AYcn+REkFBohdt13Df7YWVHSi5+Tcvve70GQvOgmvu5ndRYEDVQyrqfJYMeppR8EOd0xqFG7eiXd9QrvfLJ+YKsFdS714GiZTg96EXJjWYL+vxjmUD8O0EJVxcZVhgBi6B8GEZEYeFkGlQxJHx20+6VhpBuTuwPjxxDfLO2Q03U/ix/KEYeHgs3JSgmMojM2+gEHJlmqmusl8QOR8Y7KG7Gk9zrSdOZkOLq7hjKlAM5XDNd2l7IKs62lLAOYXfmKnh+dmG59gyK5JiZlgAKZtWiU56eXj6oObkepyUsDrfkIW0eKACGRq67ZQivfBa/l6A==
+ b=ugt0jxYkNAPjyX5WeuOaE7i4uHs5Qu8/R7irfjM6Q6fTJSDhtXVL4I+eAiI4XHneCpQgd7K2g5tERpj2wI2Q/i2t5CyTR0bFK0NVyNUKjkAfYnelSnTAQZDQ+JMlBQV3VdfPxjsBGwsYfc4i8rfPWsrs8k8kLMWystay5JygQ2xn86ry2HzUSNyUvtfa7C4yopHr/96EwVYjc6tcy0RVK9kxEiCVPmW1uaxYGVTq71ike3qeK+P4Rd+umLhmuXl6nkwYppgl+HBY7xTo+J8pAYU1nDIIlXB0lW2xfoMh9OdNb/DOaysJmUJSlVEoEMB6fvIchpk5+95GEXH++dEp7g==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TdqvkE+0i7uq7t7NNB5IJw/3cM6WFKcfub+nkdOVaBY=;
- b=nfc7Ru3A9ojGxQtbJ5jLB+7bFx6I+6eS+sf2KNuMAvaysxhLDcX7Fsl34OlQrYV1e2+kGbFr99KwmUhkoGk44h7tQeMTNBFS3PSPdrSEwTMCSOHlBa/ZCTMKYTCS+DjUhN8eVjTzcUAOeYW9nMo+3gbb2hW+XVQi5Q0zLePOnxFaTkFGqqkouUrolNanqHKxIv3uqniqU3p+1S4NJB9Dgxz1KBmST4t/KyO/4uJTt0cn3mQXPnYp2/Dpj1Sfa8fovryuG5wM/TuouPKeMZuAiavVeLFbdVARaUCcGchosMVc0OGtVhKL5kRH7gN2VNrVGbmfk4W/VRQh2d2JCTw9Wg==
+ bh=up7Z5vW3TX6Jf1GIlvzXvWkGBL21TmN4xIJMsw6VShI=;
+ b=V7gWZ9V8IfQYtEUs2uiuRethCF3teRZA+uXwvv9FDOv+42EJoDAr3c2ACR4JLyFy6GJ/1VuEzL70EiPvzu4XA3/2vRDlDdXjUkLlgGxyMuSeMNNX92bDdwqAKvUn97d8su23H0ZQLW9XK130n2j5aOqgIK9noMBJBgtEKLsA9J6trDdzkip1J9l7XK9b8GtKvzvuZkrQ1swmx0zAkAAtAJX3rmEuDRg89sdiBHfFTKLIquJA6Tsb7KdpQzsBRqolfDxyOT4TjzFe7NTJCGYxvOZWT+v+fEnmCvqZEE48xpjQcpudg4BQM+w7AQylHEPR/Oz2cMywOK0fIRRXrD69hw==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -33,18 +33,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TdqvkE+0i7uq7t7NNB5IJw/3cM6WFKcfub+nkdOVaBY=;
- b=Kce/nNao8GC0UtmpYBo5r+w4lmdmewE62dveMlwGlE36d66JaKkywRlv+iU1JzgV77g50nfUDWAi4Q/3Afh00HdhNWDGMVHI2bIFJRX18sDulNJdZoxOU/V/VsFZLTyBpkLdTFKDLcfR8iQ8YCoz0tmXzs+VOqWGrwXUBDP+YDg=
-Received: from CWLP265CA0492.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:18a::8)
- by DU0PR08MB9419.eurprd08.prod.outlook.com (2603:10a6:10:422::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Sun, 12 Apr
- 2026 14:31:05 +0000
-Received: from AM3PEPF0000A78F.eurprd04.prod.outlook.com
- (2603:10a6:400:18a:cafe::48) by CWLP265CA0492.outlook.office365.com
- (2603:10a6:400:18a::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.47 via Frontend Transport; Sun,
- 12 Apr 2026 14:31:05 +0000
+ bh=up7Z5vW3TX6Jf1GIlvzXvWkGBL21TmN4xIJMsw6VShI=;
+ b=HyPR1FMw3B/GWIRB0G0JTgqRMFvO4e6oRP8rrRxWYNRrOzv6Jn+++poPZkL5lM7CalHwJjRkVHmlHvLvUCIoqUi10+ueoxdO1HgSYniZ+QtjOrnsGWjmlhP0vasXjec752o1sJzxizuyzLZHv2XxkNijy6Cezn0VF7MJvN/OuEI=
+Received: from DUZPR01CA0043.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:468::6) by VI0PR08MB10710.eurprd08.prod.outlook.com
+ (2603:10a6:800:207::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Sun, 12 Apr
+ 2026 14:31:04 +0000
+Received: from DB5PEPF00014B89.eurprd02.prod.outlook.com
+ (2603:10a6:10:468:cafe::11) by DUZPR01CA0043.outlook.office365.com
+ (2603:10a6:10:468::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Sun,
+ 12 Apr 2026 14:31:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -52,34 +52,34 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM3PEPF0000A78F.mail.protection.outlook.com (10.167.16.118) with Microsoft
+ DB5PEPF00014B89.mail.protection.outlook.com (10.167.8.197) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17
- via Frontend Transport; Sun, 12 Apr 2026 14:31:04 +0000
+ via Frontend Transport; Sun, 12 Apr 2026 14:31:03 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dHIEyfIWFYogjsNE35vBsy5htw9xDgEuzth5bbuG2DSsSjv/xxC5T7bPlQmnpS5Kzi/3WLS7Rw7h7434A2TLVYyqEDGLBjcP9JCaeSuB6nAKWp2IB5+yL9x5JZFs2in6X5PoOlX2KRhb/xNgPbIMJV332KAU6XFOtLfhU3Yy3zbmGsuVZhizO5FApSKp7IJy1OPInSDyHwTzd3GwpAs9eqYbZDuSApOO/Dki1bFdjg2UCRhgCeycss42deNCIYm/zP3TJukWtzhKlFkExjU1ao20iwJu0GRvJN7J9x1gHzByURXbbtCROoTcdZjuLyQEr4jPiM/7280wjsuxXSPewQ==
+ b=sDrfGbVi5qXl7YogXrpb68P8MDJ1A4+PLf0wn2g8JIIlCA1oiXtwRGE1L5y52y0dCt7ui4rw4k++1U/asKcwYcs5jIIOQ9SGsGcXhmjC8U41Uuv/1q0Ggs2vTRnUkPYlqP6aKE3qSZKkw3rz/GgQVLtxCube6LFapq4yH3mQqL5rv3t3BFlM53c96ECB/YlSi2gIL2XlYVQRS/IkFq+I5ikOEoAQjtjCPp2wDkA/BNogsWipKayhX7+un/jfXN9EhgA8PxeWFOsN+fL2FqCEISOdrTEaCDsh6NQBAPwlYjjlsd8dvSbN2baewYMk3U4aWk7uR80qqky0q8j2QecFOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TdqvkE+0i7uq7t7NNB5IJw/3cM6WFKcfub+nkdOVaBY=;
- b=TCJ7HKGGcQ2PJt1neC0UdgJ8RsspPT68VvrDROks4fZnjWNsR43++eGrLgi23lySXLnAe4ZI1TsrCvlXYYbVmUD8w4azMMHatdGLYVi2Rmmr4pVqv/USkox9e+LrbiEncOR7zBl1kEZcIdH+spc3VMTGoqYV69HCkH5HjGfsYQJMJX3tsrPoslBkNrTRI8OhCH0sd0FQtTHqmd0C08iL/H9H7iwyaXKqNCmk/T6LaodQonbOGmxFdcNfwJ1/qqBPh7HYJkZxpIPxGTNZVC0NPKmrs4f+xG+ao6T9ddYbWE723IeXeL+zxHdix7p4CIRTnWlVdFcYd8syKhb1rDsH1A==
+ bh=up7Z5vW3TX6Jf1GIlvzXvWkGBL21TmN4xIJMsw6VShI=;
+ b=njHPDfcLjzDnyekwS94+iW/EbgY2ZkrL0O/etBAYNzpc91IryKnFFLsYmiVnG3Y03cFAz4sbOHyxTwGuxtYvgHq1yo2sF0jp+CGKvtyATuckAYeC2MpT12mAiwuR0LGg5ZeOP7AzTB+sRwkGrA0lXG25KqaxmSPQ//2loIq5H9bsTrLUBBKavm+FxWWWmignHnA3RTUuIMMRIW0afAnFToBx7sDsdk+uvkW/ZpI4RX4DaCKFDL6AyRsqERRY/B5orYrh0zg9VToFHkLcD5JwktE501+8Cm/aZ4PmTs/aRiCDzlJboIs70U8pP6vh1wJz+JBbPPxqHOGx4TQNRmJHFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TdqvkE+0i7uq7t7NNB5IJw/3cM6WFKcfub+nkdOVaBY=;
- b=Kce/nNao8GC0UtmpYBo5r+w4lmdmewE62dveMlwGlE36d66JaKkywRlv+iU1JzgV77g50nfUDWAi4Q/3Afh00HdhNWDGMVHI2bIFJRX18sDulNJdZoxOU/V/VsFZLTyBpkLdTFKDLcfR8iQ8YCoz0tmXzs+VOqWGrwXUBDP+YDg=
+ bh=up7Z5vW3TX6Jf1GIlvzXvWkGBL21TmN4xIJMsw6VShI=;
+ b=HyPR1FMw3B/GWIRB0G0JTgqRMFvO4e6oRP8rrRxWYNRrOzv6Jn+++poPZkL5lM7CalHwJjRkVHmlHvLvUCIoqUi10+ueoxdO1HgSYniZ+QtjOrnsGWjmlhP0vasXjec752o1sJzxizuyzLZHv2XxkNijy6Cezn0VF7MJvN/OuEI=
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
  (2603:10a6:800:257::18) by DB9PR08MB6556.eurprd08.prod.outlook.com
  (2603:10a6:10:261::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Sun, 12 Apr
- 2026 14:30:02 +0000
+ 2026 14:30:01 +0000
 Received: from VI0PR08MB11200.eurprd08.prod.outlook.com
  ([fe80::27c:ea0c:e75a:d41d]) by VI0PR08MB11200.eurprd08.prod.outlook.com
  ([fe80::27c:ea0c:e75a:d41d%6]) with mapi id 15.20.9769.046; Sun, 12 Apr 2026
- 14:30:02 +0000
+ 14:30:01 +0000
 From: Karunika Choo <karunika.choo@arm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
@@ -88,21 +88,20 @@ Cc: nd@arm.com, Boris Brezillon <boris.brezillon@collabora.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/8] drm/panthor: Replace cross-component register accesses
- with helpers
-Date: Sun, 12 Apr 2026 15:29:46 +0100
-Message-ID: <20260412142951.2309135-4-karunika.choo@arm.com>
+Subject: [PATCH v2 2/8] drm/panthor: Split register definitions by components
+Date: Sun, 12 Apr 2026 15:29:45 +0100
+Message-ID: <20260412142951.2309135-3-karunika.choo@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260412142951.2309135-1-karunika.choo@arm.com>
 References: <20260412142951.2309135-1-karunika.choo@arm.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PR3P195CA0009.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:102:b6::14) To VI0PR08MB11200.eurprd08.prod.outlook.com
+X-ClientProxiedBy: PA7P264CA0003.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:2d3::17) To VI0PR08MB11200.eurprd08.prod.outlook.com
  (2603:10a6:800:257::18)
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI0PR08MB11200:EE_|DB9PR08MB6556:EE_|AM3PEPF0000A78F:EE_|DU0PR08MB9419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c877ceb-d006-4624-b015-08de98a0211e
+X-MS-TrafficTypeDiagnostic: VI0PR08MB11200:EE_|DB9PR08MB6556:EE_|DB5PEPF00014B89:EE_|VI0PR08MB10710:EE_
+X-MS-Office365-Filtering-Correlation-Id: e97d849b-84e2-4b9e-8755-08de98a02065
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 NoDisclaimer: true
@@ -110,38 +109,38 @@ X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
  ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info-Original: 4pND6fUbujBved/OV+WJc66XdMDaJ9J0V/oYuNnZcIPbHeOGiiSv2M4rJvT0ar3X8ViSvo9PCSWHK4+agR5UrEe+qUtbKwYWASKWpYaq0BRFy+2racubpVipFtY+UHSV+Gxp6RJ39NQbYYvrLnu5ghkrJJhzOKqhyLk2SamPGQnKAs0LHNZmfZRcHyJaQIdc2YNNyZsKMCkHkvINZujdlRSkGHe4VErVNQtSCSNqqush2Wg43Vt1asP4qSjRxyc7/nIhXhyR/i4LFAGqxwcKgs8EOyOrrNOF2VqplNWq0yUjmLf1DYUts72esUDm7kr63tE7a4dzQ+4BxkExY5Xw3mtGF5OCQ5SloM1deobgfB3U1cW0amDr/fXu9XOuLAQ922/VIBI3V0aexXQ82dKgHOi2ntRTGpIGnO10IHhgqpglCOyGtXlBePpYE+T+Tw5ugmGDZtCPYTg+aPtbdLQzzRtWUlK1NFnUkeMHG/fcykXFaA6hnepLrVQDgSdSdh8zv2egqyifKHUdw62bDmvmPrY9Nidz12VRraj/1WGooj6snwKY1XfmhsetFxqgkNtJSgBlGfiwNbbRB07/p+nthchddjzwMzLrVu+Qp0A3oqzb54bapbdxPDF6HwntwsjhasyqgRNSoDchgmD3liWJBPa1u3eSpFa97J7I/pGA45VMHxr02IbRso/PShcyX28QyUy7Qe4sSWn/luN3QhyLZ3Oexa7M/Z3ulf6AI+h/1cM=
+X-Microsoft-Antispam-Message-Info-Original: JpEGUZAnTyUWtfKcxsDjB0l5S8MP08qSbZ6FKCRDMjd3eo4EXxkKC1Lw/N+l3Un77ptzyfwl/UIvwy5HkFR8+b8OIE16XjzW2nR/HC8dWXmZ+PUq3zCpgyLk/vyvq7U0iNVnUkeXFNiy9HxGRYDMOfYWkSN40dvNj7RJDYptOnv4fyPNLCNP6x6BeYbyxEVybvTD764CBSzqpW/GE111kdfIEc1u2kvlPEotiKopsFgc+Sdj+SfKDt3IpzFcyqO6Gg3Rs53B9yRo45dSipGvbQtCnpsVZpRihMVsSReYuUf4Zh/W7L+1cErhT+2c5aU70VWm/ietxSydQyygqskzL2yrQBnCRwaPL6T4iV28RZctCbuVmrCFsS97HtlamM/mX92gfHvEHW4OqX1jpyT4x9xHwLzysKgqp9wks3dyPcDaincoTA8p+FVEH0P2+B4nWvXi4hTulaBQuGR2/nqYyHKsjg8j6fhyVoBGDq5py0hrjEOc3esnOObCTeqY12sLlyJJyMti4+fl5Yx48oAh1ulX7isMTB2piB/wZd63wRlPNs5vcGfZiGfQXeyzlepgCkpbSTqVJM/qSkeejrB2VcKslZBbU54JPuMLMPDSNgbv8ngXEVHFnrhjVrT6YxWDfb4ws3d8gba97GsRxBg+XCDQtm0+YENIwVXe2mIrK/wm3o0c4B3IEIl18q6Kxb4aSuklrWi+UEf0CtZOUZwcPXWoOcwNA0VjpHHY4e5sBJM=
 X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
  SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI0PR08MB11200.eurprd08.prod.outlook.com;
  PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: RrECsnhxsFLIQ4pLdvWv51v3/SdP2ccZ7KIHzS4TIp4trjSshFZD1lM7CAfw/6lqce/37Thw/HsusoAw5yGYVtf/iCZukkGQqJ4FZOe/z51pz+NU26w4bgqUcKGQ5rbMIJCgwrQvJ55R8iTE5sjtctZNXPqyLyLAJ8wY3kkHtnnPZmT+tBeRrNdj47kxhQcX56lKxVvAtgj6eBV19t2X6Y/SaPrkMp5+wV6bIw6EPS90le3oRRCgVBjPZHYyrWA5hZ2hTtKnjmWGQaRMlGZECN2nwaAyEmtZXEoo52uamsNZdm6/UJHhhGVueaeehm5A3m7nFyUOoDPutVTcuNnrgg==
+X-Exchange-RoutingPolicyChecked: RO+Fn0jrCeC5+Mo4Zehjs6loTtcrAA1OabP6hDkTC6Ls7IMnNN50kp/LGZG6tPP9zcobwNYXlqeAcKQHrFzJP+w7o13xFM7Nb1PrP1aJQLYx3kJ6DHbin6s4eqhw6zU6+8RcOCwzcuDtRi9JySCQkHJfMAAvOjp6ZOUjRPi38EZBPBKmvcWy5NtGL2WAMn63AzJLwov0tnVzUfX7NxlMtF4X5K2PN5Eee++bKdwCNxh6BCg4tAyvQeM8XYguRodYprqVpbTGt20+a8jxS60q57X0J0mC9Nfw8uYnMdQbh9Gh7hHl2Ff9ggoOtvkrF2HWRDUjrnzDzm23n+kZThrZnA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6556
 X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM3PEPF0000A78F.eurprd04.prod.outlook.com
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5PEPF00014B89.eurprd02.prod.outlook.com
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: c1e2e2da-c44a-4caf-8f4d-08de989ffbc0
+X-MS-Office365-Filtering-Correlation-Id-Prvs: ead7bd7f-4eab-408c-a6b0-08de989ffafd
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|14060799003|82310400026|1800799024|376014|35042699022|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: qvK7YeoBIijYw9834bZK+9fPj1fry8c7tMsubSUxGFeHgVm1xWQ6f/SiX3d41QhL1SlmuaqsKea/O4eT48kmOEyy5+goChMJI4yZvR+zCkU4UX/RrBDnP9QBfHS6eckX1dlyzuMgjOCMeYJ6F7ZlnywqEikJ4OBXBze4ULUGdzMS3surFRegUBMfsAbvJgBS+L1MZOKWyIuZ+HzyXXNjPGnnL8bdTHlTkqADWm6gnT98V0LgP/UCzBtsBJffHFi0otuozPO6tvxHWMOP/QmrBVmp0e7fY4DsfK8swWcyZJ5BxB3X3wJST7LVU06YkKQf/UH5HCzfB0aHxTI8LsOmkV4XtNfeSwbU93FSAZEv7l9yfOEVg0pD/xXdPRl1nJ1MHa9nlYC+Iv0MuSkTeZd0wlf6wRxWPAO7Vjh1iZ9wFWqi+h3Dis2bnTQNCOqzglJq0E/MJxA/UBhNvcCxW7W6Kyc0rvunJczE7+IUeoOiJI2o8kdQD0XNOLcdLJFvAsc/l+BTvXIJlX9cplr9VYJLyekO1cuQW812wL03Q4SO5MPg//h5dWCBIVoas1VV1+Ktlfs4yWChmt8AGGhbNkTWGEI5uHJfDiwImd56NtNM+lczxctFfGe005dDEjj8kBFjIJC+epNCJNgqMSZcjd5pas7hR32LfBNhn2cCzp5k1uCVrPI+MAd2Ff6ImYEFqTpG35KZY/PMaVkHsYvDtBi2442yU6nNOw5sHtyJW/0NqX3BXzcbtlS0aFsUMwI+pLNG8CoU3I6UU4ToQU8fFUG79w==
+ ARA:13230040|14060799003|376014|36860700016|1800799024|35042699022|82310400026|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: hrsYR3EawSJxAlBBqWYFJfJMp+lqImukaIo7ziMhmWVHW73W5UKH3/X2an6uz3wuShrI0s+HCzNnXJUz6Q40Qi8CR3ah9fMsETQZR2WLnIAC01VlCmRFZXjaZqqcMo4HvUuxkJSKukBlZ5HTMw95A8FChoE2MXf29ouZe4oxCMo4axlJJh6rc1G+l3j6tjf7EugrQArhoeoflRBuF/jGcXmTT81oYRirRySi6U37wb8I//J6TkWizwvUH1dMl8rB1xYRo2zm6dzSoXxTA5HlcMMwIxcRYWU6D7aff5vfFAQSzZFuk38PByl6Tf9u7vSOVP55xZOSHHKivC92t47Gr28BspUzyMT1+p/AHk9G/yeyINZ9b8agGWFYnvFBPbW8UB4UmoZtGzyIi9mFqkwGY8fyhLR+eEsEgxXFW7bp5aeBBfKmkeFK2HnOclLKEtiDNmrXSk2EJTt5YUADi39EoQAlo1PXOSXlPxBtLc9u3ct1Zf0Uccnz9GTrt5B2cchhBIs4NvM/zSIhbAWgYAtsgxRQSK0b408yIJ60Lot9HPEuW3YbJUhVFWWRwWYkOyIgcW5oOKzb2rHCFI7tsXe5dpozN9be64SOlRcZz52quR1eoBY59qhHQ6ZtIGQtnEM89iA8uzH36zKHpm3PZNFOzZvaxkThFhN90Wf3cExoBA+Ct1RUCM3zx9mEx27FMBdk3v48kXHBBMPfe+KPE1C/7d5t7mm/A0EgrdCJ3lnIgCHgbVedXWDCc1zsVW+r2hTBEkfU0c6eIoRa3our30AVcA==
 X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
  PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(14060799003)(82310400026)(1800799024)(376014)(35042699022)(22082099003)(56012099003)(18002099003);
+ SFS:(13230040)(14060799003)(376014)(36860700016)(1800799024)(35042699022)(82310400026)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ldMs/zF+gq118O8vHc/fVHz+buMT5voyKMx6mhhC5SbaEq/q2A/0bn4s+hMowM7jFAszCV4kE9m+oSDAiQU5LY7//EK5f1jrUcViC63mEgmtlU/iaPLhK+nTmLOFZpe306TE2GLPkKKnWsJ9YO9nIoQkFtJrExZvzzTAtywLG56yUQE7haav8RvIcAMzapcP3W9CrtkyL3yVQLcoLpH0D8DtN/HpZfoiVkur5eU1N2Zq02LhPQUAouH3RMAT7HoR30Crcq3a5JEc4Tg/zxXiw9XelOkuh+H9KU1r7pzOocWhEdihUp53GEzgWmMHwWjtzwBiXAB+rhFBxlzLpCJ+tnLI6bKVb7rucv/QUxj8LV/jCmP2mockDwb+q8j8X5fEESrOs8+2MLWE46TiadmRu4hEDEaAXIa8W49cwCW6V34Jr1awUZHADZlydt8u2b1j
+X-MS-Exchange-AntiSpam-MessageData-0: Leh4SEyMUQ3lyWbw4qsdFfpz2bVV/dpIGmLzq3tOuWikYHKOzeRg68lFf7hqxeQyYM16+yVxJo+D7E3nZgASR8Il3KJqeFrB9ffadprfDPTO9Lit+znvmK/umttWDmiuqsI4QGHEZUqCMSBaAspdlmIXMjqoZFNGZh6fHFoxGlY9UzI1v8UJgNJqmr3YkGWJujsobzHSbYBKzQKFx//E46ekUf8XLw97ZN8G1nizyRVwPDdtLghUZCxAB4XUDS8tENpndZ+T3Os9ycvEMQEk8RqDrXGpazqQtVSq+U+lbcJeAUVVCLcup5zXJOiXVIKLk4S7zBJgnakw/ruXNzI+3PScykbhKsJWP3yOjhHOnR5lHKFrVISXlBGc1p1o4wG6icbp2DBFyo0TVg0SxgNb8YLm3Ric/WY5o5y5gjyHgxfsVcCDuWuA4uW21LjEh4/k
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2026 14:31:04.9944 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c877ceb-d006-4624-b015-08de98a0211e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2026 14:31:03.7790 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e97d849b-84e2-4b9e-8755-08de98a02065
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
  Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM3PEPF0000A78F.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B89.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9419
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB10710
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,267 +156,827 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Stop reaching into other components' registers directly and route those
-operations through the component that owns them.
+Split the panthor register definitions into per-component headers for
+the GPU, MMU, firmware, power and generic hardware registers.
 
-Move the timestamp/coherency helpers into panthor_gpu, add a doorbell
-helper, and update call sites accordingly. This keeps register knowledge
-local to each block and avoids spreading cross-component register
-accesses across the driver.
+This makes the register layout easier to follow and prepares the driver
+for component-local iomem mappings by grouping definitions with the code
+that owns them. The old monolithic panthor_regs.h header can then be
+dropped.
 
-This is a preparatory cleanup for using per-component iomem bases.
+No functional change intended.
 
 v2:
-- Fix incorrect spelling of timestamp helpers
-- Fix unintended trailing backslash
+- Merge GPU_ID definitions into panthor_gpu_regs.h
+- deleted panthor_hw_regs.h
 
 Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c | 27 ----------------
- drivers/gpu/drm/panthor/panthor_drv.c    |  7 ++---
- drivers/gpu/drm/panthor/panthor_fw.c     | 13 +++++---
- drivers/gpu/drm/panthor/panthor_fw.h     |  1 +
- drivers/gpu/drm/panthor/panthor_gpu.c    | 40 ++++++++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_gpu.h    |  6 ++++
- drivers/gpu/drm/panthor/panthor_pwr.c    |  2 +-
- drivers/gpu/drm/panthor/panthor_sched.c  |  2 +-
- 8 files changed, 61 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/panthor/panthor_device.c   |   3 +-
+ drivers/gpu/drm/panthor/panthor_drv.c      |   2 +-
+ drivers/gpu/drm/panthor/panthor_fw.c       |   2 +-
+ drivers/gpu/drm/panthor/panthor_fw_regs.h  |  30 +++
+ drivers/gpu/drm/panthor/panthor_gpu.c      |   2 +-
+ drivers/gpu/drm/panthor/panthor_gpu_regs.h | 120 +++++++++
+ drivers/gpu/drm/panthor/panthor_heap.c     |   2 +-
+ drivers/gpu/drm/panthor/panthor_hw.c       |   3 +-
+ drivers/gpu/drm/panthor/panthor_hw.h       |   2 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c      |   3 +-
+ drivers/gpu/drm/panthor/panthor_mmu_regs.h |  70 +++++
+ drivers/gpu/drm/panthor/panthor_pwr.c      |   3 +-
+ drivers/gpu/drm/panthor/panthor_pwr_regs.h |  83 ++++++
+ drivers/gpu/drm/panthor/panthor_regs.h     | 291 ---------------------
+ drivers/gpu/drm/panthor/panthor_sched.c    |   3 +-
+ 15 files changed, 318 insertions(+), 301 deletions(-)
+ create mode 100644 drivers/gpu/drm/panthor/panthor_fw_regs.h
+ create mode 100644 drivers/gpu/drm/panthor/panthor_gpu_regs.h
+ create mode 100644 drivers/gpu/drm/panthor/panthor_mmu_regs.h
+ create mode 100644 drivers/gpu/drm/panthor/panthor_pwr_regs.h
+ delete mode 100644 drivers/gpu/drm/panthor/panthor_regs.h
 
 diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index f876b13492ae..bd417d6ae8c0 100644
+index d62017b73409..f876b13492ae 100644
 --- a/drivers/gpu/drm/panthor/panthor_device.c
 +++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -22,38 +22,11 @@
- #include "panthor_fw_regs.h"
+@@ -19,12 +19,13 @@
+ #include "panthor_devfreq.h"
+ #include "panthor_device.h"
+ #include "panthor_fw.h"
++#include "panthor_fw_regs.h"
  #include "panthor_gem.h"
  #include "panthor_gpu.h"
--#include "panthor_gpu_regs.h"
++#include "panthor_gpu_regs.h"
  #include "panthor_hw.h"
  #include "panthor_mmu.h"
  #include "panthor_pwr.h"
+-#include "panthor_regs.h"
  #include "panthor_sched.h"
  
--static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
--{
--	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
--	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
--	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
--
--	/* Start with no coherency, and update it if the device is flagged coherent. */
--	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
--	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
--
--	if (!ptdev->coherent)
--		return 0;
--
--	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
--	 * ACE protocol has never been supported for command stream frontend GPUs.
--	 */
--	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
--		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
--		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
--		return 0;
--	}
--
--	drm_err(&ptdev->base, "Coherency not supported by the device");
--	return -ENOTSUPP;
--}
--
- static int panthor_clk_init(struct panthor_device *ptdev)
- {
- 	ptdev->clks.core = devm_clk_get(ptdev->base.dev, NULL);
+ static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
 diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index e63210b01e6e..66996c9147c2 100644
+index 4f926c861fba..e63210b01e6e 100644
 --- a/drivers/gpu/drm/panthor/panthor_drv.c
 +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -34,7 +34,6 @@
+@@ -34,9 +34,9 @@
  #include "panthor_fw.h"
  #include "panthor_gem.h"
  #include "panthor_gpu.h"
--#include "panthor_gpu_regs.h"
++#include "panthor_gpu_regs.h"
  #include "panthor_heap.h"
  #include "panthor_mmu.h"
+-#include "panthor_regs.h"
  #include "panthor_sched.h"
-@@ -839,7 +838,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
- 	}
  
- 	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
--		arg->timestamp_offset = gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
-+		arg->timestamp_offset = panthor_gpu_get_timestamp_offset(ptdev);
- 	else
- 		arg->timestamp_offset = 0;
- 
-@@ -854,7 +853,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
- 		query_start_time = 0;
- 
- 	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
--		arg->current_timestamp = gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
-+		arg->current_timestamp = panthor_gpu_get_timestamp(ptdev);
- 	else
- 		arg->current_timestamp = 0;
- 
-@@ -870,7 +869,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
- 	}
- 
- 	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
--		arg->cycle_count = gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
-+		arg->cycle_count = panthor_gpu_get_cycle_count(ptdev);
- 	else
- 		arg->cycle_count = 0;
- 
+ /**
 diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 4704275b9c8f..4a0c23e987b6 100644
+index 69a19751a314..4704275b9c8f 100644
 --- a/drivers/gpu/drm/panthor/panthor_fw.c
 +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -1054,7 +1054,7 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
- 			       GLB_CFG_POWEROFF_TIMER |
- 			       GLB_CFG_PROGRESS_TIMER);
+@@ -20,11 +20,11 @@
  
--	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-+	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
+ #include "panthor_device.h"
+ #include "panthor_fw.h"
++#include "panthor_fw_regs.h"
+ #include "panthor_gem.h"
+ #include "panthor_gpu.h"
+ #include "panthor_hw.h"
+ #include "panthor_mmu.h"
+-#include "panthor_regs.h"
+ #include "panthor_sched.h"
+ #include "panthor_trace.h"
  
- 	/* Kick the watchdog. */
- 	mod_delayed_work(ptdev->reset.wq, &ptdev->fw->watchdog.ping_work,
-@@ -1156,7 +1156,7 @@ static void panthor_fw_halt_mcu(struct panthor_device *ptdev)
- 	else
- 		panthor_fw_update_reqs(glb_iface, req, GLB_HALT, GLB_HALT);
- 
--	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-+	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
- }
- 
- static bool panthor_fw_wait_mcu_halted(struct panthor_device *ptdev)
-@@ -1400,6 +1400,11 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_slot,
- 	return ret;
- }
- 
-+void panthor_fw_ring_doorbell(struct panthor_device *ptdev, u32 doorbell_id)
-+{
-+	gpu_write(ptdev->iomem, CSF_DOORBELL(doorbell_id), 1);
-+}
+diff --git a/drivers/gpu/drm/panthor/panthor_fw_regs.h b/drivers/gpu/drm/panthor/panthor_fw_regs.h
+new file mode 100644
+index 000000000000..d523d41e18dd
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/panthor_fw_regs.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++/* Copyright 2026 ARM Limited. All rights reserved. */
 +
- /**
-  * panthor_fw_ring_csg_doorbells() - Ring command stream group doorbells.
-  * @ptdev: Device.
-@@ -1414,7 +1419,7 @@ void panthor_fw_ring_csg_doorbells(struct panthor_device *ptdev, u32 csg_mask)
- 	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
- 
- 	panthor_fw_toggle_reqs(glb_iface, doorbell_req, doorbell_ack, csg_mask);
--	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-+	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
- }
- 
- static void panthor_fw_ping_work(struct work_struct *work)
-@@ -1429,7 +1434,7 @@ static void panthor_fw_ping_work(struct work_struct *work)
- 		return;
- 
- 	panthor_fw_toggle_reqs(glb_iface, req, ack, GLB_PING);
--	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
-+	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
- 
- 	ret = panthor_fw_glb_wait_acks(ptdev, GLB_PING, &acked, 100);
- 	if (ret) {
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
-index fbdc21469ba3..a99a9b6f4825 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.h
-+++ b/drivers/gpu/drm/panthor/panthor_fw.h
-@@ -500,6 +500,7 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_id, u32 req_m
- int panthor_fw_glb_wait_acks(struct panthor_device *ptdev, u32 req_mask, u32 *acked,
- 			     u32 timeout_ms);
- 
-+void panthor_fw_ring_doorbell(struct panthor_device *ptdev, u32 doorbell_id);
- void panthor_fw_ring_csg_doorbells(struct panthor_device *ptdev, u32 csg_slot);
- 
- struct panthor_kernel_bo *
++#ifndef __PANTHOR_FW_REGS_H__
++#define __PANTHOR_FW_REGS_H__
++
++#define MCU_CONTROL					0x700
++#define   MCU_CONTROL_ENABLE				1
++#define   MCU_CONTROL_AUTO				2
++#define   MCU_CONTROL_DISABLE				0
++
++#define MCU_STATUS					0x704
++#define   MCU_STATUS_DISABLED				0
++#define   MCU_STATUS_ENABLED				1
++#define   MCU_STATUS_HALT				2
++#define   MCU_STATUS_FATAL				3
++
++#define JOB_INT_RAWSTAT					0x1000
++#define JOB_INT_CLEAR					0x1004
++#define JOB_INT_MASK					0x1008
++#define JOB_INT_STAT					0x100c
++#define   JOB_INT_GLOBAL_IF				BIT(31)
++#define   JOB_INT_CSG_IF(x)				BIT(x)
++
++#define CSF_GPU_LATEST_FLUSH_ID				0x10000
++
++#define CSF_DOORBELL(i)					(0x80000 + ((i) * 0x10000))
++#define CSF_GLB_DOORBELL_ID				0
++
++#endif /* __PANTHOR_FW_REGS_H__ */
 diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-index fecc30747acf..747ac332be64 100644
+index bdb72cebccb3..fecc30747acf 100644
 --- a/drivers/gpu/drm/panthor/panthor_gpu.c
 +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-@@ -427,3 +427,43 @@ void panthor_gpu_resume(struct panthor_device *ptdev)
- 	panthor_hw_l2_power_on(ptdev);
- }
+@@ -19,8 +19,8 @@
  
-+u64 panthor_gpu_get_timestamp(struct panthor_device *ptdev)
-+{
-+	return gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
-+}
-+
-+u64 panthor_gpu_get_timestamp_offset(struct panthor_device *ptdev)
-+{
-+	return gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
-+}
-+
-+u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev)
-+{
-+	return gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
-+}
-+
-+int panthor_gpu_coherency_init(struct panthor_device *ptdev)
-+{
-+	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
-+	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
-+	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
-+
-+	/* Start with no coherency, and update it if the device is flagged coherent. */
-+	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
-+	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
-+
-+	if (!ptdev->coherent)
-+		return 0;
-+
-+	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
-+	 * ACE protocol has never been supported for command stream frontend GPUs.
-+	 */
-+	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
-+		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
-+		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
-+		return 0;
-+	}
-+
-+	drm_err(&ptdev->base, "Coherency not supported by the device");
-+	return -ENOTSUPP;
-+}
-diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
-index 12c263a39928..f615feb05609 100644
---- a/drivers/gpu/drm/panthor/panthor_gpu.h
-+++ b/drivers/gpu/drm/panthor/panthor_gpu.h
-@@ -54,4 +54,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev);
- void panthor_gpu_power_changed_off(struct panthor_device *ptdev);
- int panthor_gpu_power_changed_on(struct panthor_device *ptdev);
+ #include "panthor_device.h"
+ #include "panthor_gpu.h"
++#include "panthor_gpu_regs.h"
+ #include "panthor_hw.h"
+-#include "panthor_regs.h"
  
-+u64 panthor_gpu_get_timestamp(struct panthor_device *ptdev);
-+u64 panthor_gpu_get_timestamp_offset(struct panthor_device *ptdev);
-+u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev);
+ #define CREATE_TRACE_POINTS
+ #include "panthor_trace.h"
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+new file mode 100644
+index 000000000000..75474b7d7341
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+@@ -0,0 +1,120 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++/* Copyright 2026 ARM Limited. All rights reserved. */
 +
-+int panthor_gpu_coherency_init(struct panthor_device *ptdev);
++#ifndef __PANTHOR_GPU_REGS_H__
++#define __PANTHOR_GPU_REGS_H__
 +
- #endif
++#define GPU_ID						0x0
++#define   GPU_ARCH_MAJOR(x)				((x) >> 28)
++#define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
++#define   GPU_ARCH_REV(x)				(((x) & GENMASK(23, 20)) >> 20)
++#define   GPU_PROD_MAJOR(x)				(((x) & GENMASK(19, 16)) >> 16)
++#define   GPU_VER_MAJOR(x)				(((x) & GENMASK(15, 12)) >> 12)
++#define   GPU_VER_MINOR(x)				(((x) & GENMASK(11, 4)) >> 4)
++#define   GPU_VER_STATUS(x)				((x) & GENMASK(3, 0))
++
++#define GPU_L2_FEATURES					0x4
++#define  GPU_L2_FEATURES_LINE_SIZE(x)			(1 << ((x) & GENMASK(7, 0)))
++
++#define GPU_CORE_FEATURES				0x8
++
++#define GPU_TILER_FEATURES				0xC
++#define GPU_MEM_FEATURES				0x10
++#define   GROUPS_L2_COHERENT				BIT(0)
++
++#define GPU_MMU_FEATURES				0x14
++#define  GPU_MMU_FEATURES_VA_BITS(x)			((x) & GENMASK(7, 0))
++#define  GPU_MMU_FEATURES_PA_BITS(x)			(((x) >> 8) & GENMASK(7, 0))
++#define GPU_AS_PRESENT					0x18
++#define GPU_CSF_ID					0x1C
++
++#define GPU_INT_RAWSTAT					0x20
++#define GPU_INT_CLEAR					0x24
++#define GPU_INT_MASK					0x28
++#define GPU_INT_STAT					0x2c
++#define   GPU_IRQ_FAULT					BIT(0)
++#define   GPU_IRQ_PROTM_FAULT				BIT(1)
++#define   GPU_IRQ_RESET_COMPLETED			BIT(8)
++#define   GPU_IRQ_POWER_CHANGED				BIT(9)
++#define   GPU_IRQ_POWER_CHANGED_ALL			BIT(10)
++#define   GPU_IRQ_CLEAN_CACHES_COMPLETED		BIT(17)
++#define   GPU_IRQ_DOORBELL_MIRROR			BIT(18)
++#define   GPU_IRQ_MCU_STATUS_CHANGED			BIT(19)
++#define GPU_CMD						0x30
++#define   GPU_CMD_DEF(type, payload)			((type) | ((payload) << 8))
++#define   GPU_SOFT_RESET				GPU_CMD_DEF(1, 1)
++#define   GPU_HARD_RESET				GPU_CMD_DEF(1, 2)
++#define   CACHE_CLEAN					BIT(0)
++#define   CACHE_INV					BIT(1)
++#define   GPU_FLUSH_CACHES(l2, lsc, oth)		\
++	  GPU_CMD_DEF(4, ((l2) << 0) | ((lsc) << 4) | ((oth) << 8))
++
++#define GPU_STATUS					0x34
++#define   GPU_STATUS_ACTIVE				BIT(0)
++#define   GPU_STATUS_PWR_ACTIVE				BIT(1)
++#define   GPU_STATUS_PAGE_FAULT				BIT(4)
++#define   GPU_STATUS_PROTM_ACTIVE			BIT(7)
++#define   GPU_STATUS_DBG_ENABLED			BIT(8)
++
++#define GPU_FAULT_STATUS				0x3C
++#define GPU_FAULT_ADDR					0x40
++#define GPU_L2_CONFIG					0x48
++#define   GPU_L2_CONFIG_ASN_HASH_ENABLE			BIT(24)
++
++#define GPU_PWR_KEY					0x50
++#define  GPU_PWR_KEY_UNLOCK				0x2968A819
++#define GPU_PWR_OVERRIDE0				0x54
++#define GPU_PWR_OVERRIDE1				0x58
++
++#define GPU_FEATURES					0x60
++#define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
++#define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
++
++#define GPU_TIMESTAMP_OFFSET				0x88
++#define GPU_CYCLE_COUNT					0x90
++#define GPU_TIMESTAMP					0x98
++
++#define GPU_THREAD_MAX_THREADS				0xA0
++#define GPU_THREAD_MAX_WORKGROUP_SIZE			0xA4
++#define GPU_THREAD_MAX_BARRIER_SIZE			0xA8
++#define GPU_THREAD_FEATURES				0xAC
++
++#define GPU_TEXTURE_FEATURES(n)				(0xB0 + ((n) * 4))
++
++#define GPU_SHADER_PRESENT				0x100
++#define GPU_TILER_PRESENT				0x110
++#define GPU_L2_PRESENT					0x120
++
++#define SHADER_READY					0x140
++#define TILER_READY					0x150
++#define L2_READY					0x160
++
++#define SHADER_PWRON					0x180
++#define TILER_PWRON					0x190
++#define L2_PWRON					0x1A0
++
++#define SHADER_PWROFF					0x1C0
++#define TILER_PWROFF					0x1D0
++#define L2_PWROFF					0x1E0
++
++#define SHADER_PWRTRANS					0x200
++#define TILER_PWRTRANS					0x210
++#define L2_PWRTRANS					0x220
++
++#define SHADER_PWRACTIVE				0x240
++#define TILER_PWRACTIVE					0x250
++#define L2_PWRACTIVE					0x260
++
++#define GPU_REVID					0x280
++
++#define GPU_ASN_HASH(n)					(0x2C0 + ((n) * 4))
++
++#define GPU_COHERENCY_FEATURES				0x300
++#define GPU_COHERENCY_PROT_BIT(name)			BIT(GPU_COHERENCY_  ## name)
++
++#define GPU_COHERENCY_PROTOCOL				0x304
++#define   GPU_COHERENCY_ACE_LITE			0
++#define   GPU_COHERENCY_ACE				1
++#define   GPU_COHERENCY_NONE				31
++
++#endif /* __PANTHOR_GPU_REGS_H__ */
+diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+index 1ee30dc7066f..99311abdf1e9 100644
+--- a/drivers/gpu/drm/panthor/panthor_heap.c
++++ b/drivers/gpu/drm/panthor/panthor_heap.c
+@@ -9,9 +9,9 @@
+ 
+ #include "panthor_device.h"
+ #include "panthor_gem.h"
++#include "panthor_gpu_regs.h"
+ #include "panthor_heap.h"
+ #include "panthor_mmu.h"
+-#include "panthor_regs.h"
+ 
+ /*
+  * The GPU heap context is an opaque structure used by the GPU to track the
+diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+index 9309d0938212..9431f16d950f 100644
+--- a/drivers/gpu/drm/panthor/panthor_hw.c
++++ b/drivers/gpu/drm/panthor/panthor_hw.c
+@@ -8,9 +8,10 @@
+ 
+ #include "panthor_device.h"
+ #include "panthor_gpu.h"
++#include "panthor_gpu_regs.h"
+ #include "panthor_hw.h"
+ #include "panthor_pwr.h"
+-#include "panthor_regs.h"
++#include "panthor_pwr_regs.h"
+ 
+ #define GPU_PROD_ID_MAKE(arch_major, prod_major) \
+ 	(((arch_major) << 24) | (prod_major))
+diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
+index 2c28aea82841..f797663893b2 100644
+--- a/drivers/gpu/drm/panthor/panthor_hw.h
++++ b/drivers/gpu/drm/panthor/panthor_hw.h
+@@ -5,7 +5,7 @@
+ #define __PANTHOR_HW_H__
+ 
+ #include "panthor_device.h"
+-#include "panthor_regs.h"
++#include "panthor_gpu_regs.h"
+ 
+ /**
+  * struct panthor_hw_ops - HW operations that are specific to a GPU
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 0bd07a3dd774..b9f6031e24a4 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -33,9 +33,10 @@
+ #include "panthor_device.h"
+ #include "panthor_gem.h"
+ #include "panthor_gpu.h"
++#include "panthor_gpu_regs.h"
+ #include "panthor_heap.h"
+ #include "panthor_mmu.h"
+-#include "panthor_regs.h"
++#include "panthor_mmu_regs.h"
+ #include "panthor_sched.h"
+ 
+ #define MAX_AS_SLOTS			32
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+new file mode 100644
+index 000000000000..cc9cf603cec6
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
+@@ -0,0 +1,70 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++/* Copyright 2026 ARM Limited. All rights reserved. */
++
++#ifndef __PANTHOR_MMU_REGS_H__
++#define __PANTHOR_MMU_REGS_H__
++
++/* MMU regs */
++#define MMU_INT_RAWSTAT					0x2000
++#define MMU_INT_CLEAR					0x2004
++#define MMU_INT_MASK					0x2008
++#define MMU_INT_STAT					0x200c
++
++/* AS_COMMAND register commands */
++
++#define MMU_BASE					0x2400
++#define MMU_AS_SHIFT					6
++#define MMU_AS(as)					(MMU_BASE + ((as) << MMU_AS_SHIFT))
++
++#define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
++#define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
++#define   AS_MEMATTR_AARCH64_INNER_ALLOC_IMPL		(2 << 2)
++#define   AS_MEMATTR_AARCH64_INNER_ALLOC_EXPL(w, r)	((3 << 2) | \
++							 ((w) ? BIT(0) : 0) | \
++							 ((r) ? BIT(1) : 0))
++#define   AS_MEMATTR_AARCH64_SH_MIDGARD_INNER		(0 << 4)
++#define   AS_MEMATTR_AARCH64_SH_CPU_INNER		(1 << 4)
++#define   AS_MEMATTR_AARCH64_SH_CPU_INNER_SHADER_COH	(2 << 4)
++#define   AS_MEMATTR_AARCH64_SHARED			(0 << 6)
++#define   AS_MEMATTR_AARCH64_INNER_OUTER_NC		(1 << 6)
++#define   AS_MEMATTR_AARCH64_INNER_OUTER_WB		(2 << 6)
++#define   AS_MEMATTR_AARCH64_FAULT			(3 << 6)
++#define AS_LOCKADDR(as)					(MMU_AS(as) + 0x10)
++#define AS_COMMAND(as)					(MMU_AS(as) + 0x18)
++#define   AS_COMMAND_NOP				0
++#define   AS_COMMAND_UPDATE				1
++#define   AS_COMMAND_LOCK				2
++#define   AS_COMMAND_UNLOCK				3
++#define   AS_COMMAND_FLUSH_PT				4
++#define   AS_COMMAND_FLUSH_MEM				5
++#define   AS_LOCK_REGION_MIN_SIZE			(1ULL << 15)
++#define AS_FAULTSTATUS(as)				(MMU_AS(as) + 0x1C)
++#define  AS_FAULTSTATUS_ACCESS_TYPE_MASK		(0x3 << 8)
++#define  AS_FAULTSTATUS_ACCESS_TYPE_ATOMIC		(0x0 << 8)
++#define  AS_FAULTSTATUS_ACCESS_TYPE_EX			(0x1 << 8)
++#define  AS_FAULTSTATUS_ACCESS_TYPE_READ		(0x2 << 8)
++#define  AS_FAULTSTATUS_ACCESS_TYPE_WRITE		(0x3 << 8)
++#define AS_FAULTADDRESS(as)				(MMU_AS(as) + 0x20)
++#define AS_STATUS(as)					(MMU_AS(as) + 0x28)
++#define   AS_STATUS_AS_ACTIVE				BIT(0)
++#define AS_TRANSCFG(as)					(MMU_AS(as) + 0x30)
++#define   AS_TRANSCFG_ADRMODE_UNMAPPED			(1 << 0)
++#define   AS_TRANSCFG_ADRMODE_IDENTITY			(2 << 0)
++#define   AS_TRANSCFG_ADRMODE_AARCH64_4K		(6 << 0)
++#define   AS_TRANSCFG_ADRMODE_AARCH64_64K		(8 << 0)
++#define   AS_TRANSCFG_INA_BITS(x)			((x) << 6)
++#define   AS_TRANSCFG_OUTA_BITS(x)			((x) << 14)
++#define   AS_TRANSCFG_SL_CONCAT				BIT(22)
++#define   AS_TRANSCFG_PTW_MEMATTR_NC			(1 << 24)
++#define   AS_TRANSCFG_PTW_MEMATTR_WB			(2 << 24)
++#define   AS_TRANSCFG_PTW_SH_NS				(0 << 28)
++#define   AS_TRANSCFG_PTW_SH_OS				(2 << 28)
++#define   AS_TRANSCFG_PTW_SH_IS				(3 << 28)
++#define   AS_TRANSCFG_PTW_RA				BIT(30)
++#define   AS_TRANSCFG_DISABLE_HIER_AP			BIT(33)
++#define   AS_TRANSCFG_DISABLE_AF_FAULT			BIT(34)
++#define   AS_TRANSCFG_WXN				BIT(35)
++#define   AS_TRANSCFG_XREADABLE				BIT(36)
++#define AS_FAULTEXTRA(as)				(MMU_AS(as) + 0x38)
++
++#endif /* __PANTHOR_MMU_REGS_H__ */
 diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-index 306592ff2227..aafb0c5c7d23 100644
+index b77c85ad733a..306592ff2227 100644
 --- a/drivers/gpu/drm/panthor/panthor_pwr.c
 +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-@@ -199,7 +199,7 @@ static int panthor_pwr_domain_wait_transition(struct panthor_device *ptdev, u32
+@@ -11,9 +11,10 @@
+ #include <drm/drm_print.h>
  
- static void panthor_pwr_debug_info_show(struct panthor_device *ptdev)
- {
--	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", gpu_read64(ptdev->iomem, GPU_FEATURES));
-+	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", ptdev->gpu_info.gpu_features);
- 	drm_info(&ptdev->base, "PWR_STATUS:      0x%016llx", gpu_read64(ptdev->iomem, PWR_STATUS));
- 	drm_info(&ptdev->base, "L2_PRESENT:      0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PRESENT));
- 	drm_info(&ptdev->base, "L2_PWRTRANS:     0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PWRTRANS));
+ #include "panthor_device.h"
++#include "panthor_gpu_regs.h"
+ #include "panthor_hw.h"
+ #include "panthor_pwr.h"
+-#include "panthor_regs.h"
++#include "panthor_pwr_regs.h"
+ 
+ #define PWR_INTERRUPTS_MASK \
+ 	(PWR_IRQ_POWER_CHANGED_SINGLE | \
+diff --git a/drivers/gpu/drm/panthor/panthor_pwr_regs.h b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
+new file mode 100644
+index 000000000000..ad3e446971db
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
+@@ -0,0 +1,83 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++/* Copyright 2026 ARM Limited. All rights reserved. */
++
++#ifndef __PANTHOR_PWR_REGS_H__
++#define __PANTHOR_PWR_REGS_H__
++
++#define PWR_CONTROL_BASE				0x800
++#define PWR_CTRL_REG(x)					(PWR_CONTROL_BASE + (x))
++
++#define PWR_INT_RAWSTAT					PWR_CTRL_REG(0x0)
++#define PWR_INT_CLEAR					PWR_CTRL_REG(0x4)
++#define PWR_INT_MASK					PWR_CTRL_REG(0x8)
++#define PWR_INT_STAT					PWR_CTRL_REG(0xc)
++#define   PWR_IRQ_POWER_CHANGED_SINGLE			BIT(0)
++#define   PWR_IRQ_POWER_CHANGED_ALL			BIT(1)
++#define   PWR_IRQ_DELEGATION_CHANGED			BIT(2)
++#define   PWR_IRQ_RESET_COMPLETED			BIT(3)
++#define   PWR_IRQ_RETRACT_COMPLETED			BIT(4)
++#define   PWR_IRQ_INSPECT_COMPLETED			BIT(5)
++#define   PWR_IRQ_COMMAND_NOT_ALLOWED			BIT(30)
++#define   PWR_IRQ_COMMAND_INVALID			BIT(31)
++
++#define PWR_STATUS					PWR_CTRL_REG(0x20)
++#define   PWR_STATUS_ALLOW_L2				BIT_U64(0)
++#define   PWR_STATUS_ALLOW_TILER			BIT_U64(1)
++#define   PWR_STATUS_ALLOW_SHADER			BIT_U64(8)
++#define   PWR_STATUS_ALLOW_BASE				BIT_U64(14)
++#define   PWR_STATUS_ALLOW_STACK			BIT_U64(15)
++#define   PWR_STATUS_DOMAIN_ALLOWED(x)			BIT_U64(x)
++#define   PWR_STATUS_DELEGATED_L2			BIT_U64(16)
++#define   PWR_STATUS_DELEGATED_TILER			BIT_U64(17)
++#define   PWR_STATUS_DELEGATED_SHADER			BIT_U64(24)
++#define   PWR_STATUS_DELEGATED_BASE			BIT_U64(30)
++#define   PWR_STATUS_DELEGATED_STACK			BIT_U64(31)
++#define   PWR_STATUS_DELEGATED_SHIFT			16
++#define   PWR_STATUS_DOMAIN_DELEGATED(x)		BIT_U64((x) + PWR_STATUS_DELEGATED_SHIFT)
++#define   PWR_STATUS_ALLOW_SOFT_RESET			BIT_U64(33)
++#define   PWR_STATUS_ALLOW_FAST_RESET			BIT_U64(34)
++#define   PWR_STATUS_POWER_PENDING			BIT_U64(41)
++#define   PWR_STATUS_RESET_PENDING			BIT_U64(42)
++#define   PWR_STATUS_RETRACT_PENDING			BIT_U64(43)
++#define   PWR_STATUS_INSPECT_PENDING			BIT_U64(44)
++
++#define PWR_COMMAND					PWR_CTRL_REG(0x28)
++#define   PWR_COMMAND_POWER_UP				0x10
++#define   PWR_COMMAND_POWER_DOWN			0x11
++#define   PWR_COMMAND_DELEGATE				0x20
++#define   PWR_COMMAND_RETRACT				0x21
++#define   PWR_COMMAND_RESET_SOFT			0x31
++#define   PWR_COMMAND_RESET_FAST			0x32
++#define   PWR_COMMAND_INSPECT				0xF0
++#define   PWR_COMMAND_DOMAIN_L2				0
++#define   PWR_COMMAND_DOMAIN_TILER			1
++#define   PWR_COMMAND_DOMAIN_SHADER			8
++#define   PWR_COMMAND_DOMAIN_BASE			14
++#define   PWR_COMMAND_DOMAIN_STACK			15
++#define   PWR_COMMAND_SUBDOMAIN_RTU			BIT(0)
++#define   PWR_COMMAND_DEF(cmd, domain, subdomain)	\
++	(((subdomain) << 16) | ((domain) << 8) | (cmd))
++
++#define PWR_CMDARG					PWR_CTRL_REG(0x30)
++
++#define PWR_L2_PRESENT					PWR_CTRL_REG(0x100)
++#define PWR_L2_READY					PWR_CTRL_REG(0x108)
++#define PWR_L2_PWRTRANS					PWR_CTRL_REG(0x110)
++#define PWR_L2_PWRACTIVE				PWR_CTRL_REG(0x118)
++#define PWR_TILER_PRESENT				PWR_CTRL_REG(0x140)
++#define PWR_TILER_READY					PWR_CTRL_REG(0x148)
++#define PWR_TILER_PWRTRANS				PWR_CTRL_REG(0x150)
++#define PWR_TILER_PWRACTIVE				PWR_CTRL_REG(0x158)
++#define PWR_SHADER_PRESENT				PWR_CTRL_REG(0x200)
++#define PWR_SHADER_READY				PWR_CTRL_REG(0x208)
++#define PWR_SHADER_PWRTRANS				PWR_CTRL_REG(0x210)
++#define PWR_SHADER_PWRACTIVE				PWR_CTRL_REG(0x218)
++#define PWR_BASE_PRESENT				PWR_CTRL_REG(0x380)
++#define PWR_BASE_READY					PWR_CTRL_REG(0x388)
++#define PWR_BASE_PWRTRANS				PWR_CTRL_REG(0x390)
++#define PWR_BASE_PWRACTIVE				PWR_CTRL_REG(0x398)
++#define PWR_STACK_PRESENT				PWR_CTRL_REG(0x3c0)
++#define PWR_STACK_READY					PWR_CTRL_REG(0x3c8)
++#define PWR_STACK_PWRTRANS				PWR_CTRL_REG(0x3d0)
++
++#endif /* __PANTHOR_PWR_REGS_H__ */
+diff --git a/drivers/gpu/drm/panthor/panthor_regs.h b/drivers/gpu/drm/panthor/panthor_regs.h
+deleted file mode 100644
+index 08bf06c452d6..000000000000
+--- a/drivers/gpu/drm/panthor/panthor_regs.h
++++ /dev/null
+@@ -1,291 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 or MIT */
+-/* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+-/* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+-/* Copyright 2023 Collabora ltd. */
+-/*
+- * Register definitions based on mali_kbase_gpu_regmap.h and
+- * mali_kbase_gpu_regmap_csf.h
+- * (C) COPYRIGHT 2010-2022 ARM Limited. All rights reserved.
+- */
+-#ifndef __PANTHOR_REGS_H__
+-#define __PANTHOR_REGS_H__
+-
+-#define GPU_ID						0x0
+-#define   GPU_ARCH_MAJOR(x)				((x) >> 28)
+-#define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
+-#define   GPU_ARCH_REV(x)				(((x) & GENMASK(23, 20)) >> 20)
+-#define   GPU_PROD_MAJOR(x)				(((x) & GENMASK(19, 16)) >> 16)
+-#define   GPU_VER_MAJOR(x)				(((x) & GENMASK(15, 12)) >> 12)
+-#define   GPU_VER_MINOR(x)				(((x) & GENMASK(11, 4)) >> 4)
+-#define   GPU_VER_STATUS(x)				((x) & GENMASK(3, 0))
+-
+-#define GPU_L2_FEATURES					0x4
+-#define  GPU_L2_FEATURES_LINE_SIZE(x)			(1 << ((x) & GENMASK(7, 0)))
+-
+-#define GPU_CORE_FEATURES				0x8
+-
+-#define GPU_TILER_FEATURES				0xC
+-#define GPU_MEM_FEATURES				0x10
+-#define   GROUPS_L2_COHERENT				BIT(0)
+-
+-#define GPU_MMU_FEATURES				0x14
+-#define  GPU_MMU_FEATURES_VA_BITS(x)			((x) & GENMASK(7, 0))
+-#define  GPU_MMU_FEATURES_PA_BITS(x)			(((x) >> 8) & GENMASK(7, 0))
+-#define GPU_AS_PRESENT					0x18
+-#define GPU_CSF_ID					0x1C
+-
+-#define GPU_INT_RAWSTAT					0x20
+-#define GPU_INT_CLEAR					0x24
+-#define GPU_INT_MASK					0x28
+-#define GPU_INT_STAT					0x2c
+-#define   GPU_IRQ_FAULT					BIT(0)
+-#define   GPU_IRQ_PROTM_FAULT				BIT(1)
+-#define   GPU_IRQ_RESET_COMPLETED			BIT(8)
+-#define   GPU_IRQ_POWER_CHANGED				BIT(9)
+-#define   GPU_IRQ_POWER_CHANGED_ALL			BIT(10)
+-#define   GPU_IRQ_CLEAN_CACHES_COMPLETED		BIT(17)
+-#define   GPU_IRQ_DOORBELL_MIRROR			BIT(18)
+-#define   GPU_IRQ_MCU_STATUS_CHANGED			BIT(19)
+-#define GPU_CMD						0x30
+-#define   GPU_CMD_DEF(type, payload)			((type) | ((payload) << 8))
+-#define   GPU_SOFT_RESET				GPU_CMD_DEF(1, 1)
+-#define   GPU_HARD_RESET				GPU_CMD_DEF(1, 2)
+-#define   CACHE_CLEAN					BIT(0)
+-#define   CACHE_INV					BIT(1)
+-#define   GPU_FLUSH_CACHES(l2, lsc, oth)		\
+-	  GPU_CMD_DEF(4, ((l2) << 0) | ((lsc) << 4) | ((oth) << 8))
+-
+-#define GPU_STATUS					0x34
+-#define   GPU_STATUS_ACTIVE				BIT(0)
+-#define   GPU_STATUS_PWR_ACTIVE				BIT(1)
+-#define   GPU_STATUS_PAGE_FAULT				BIT(4)
+-#define   GPU_STATUS_PROTM_ACTIVE			BIT(7)
+-#define   GPU_STATUS_DBG_ENABLED			BIT(8)
+-
+-#define GPU_FAULT_STATUS				0x3C
+-#define GPU_FAULT_ADDR					0x40
+-#define GPU_L2_CONFIG					0x48
+-#define   GPU_L2_CONFIG_ASN_HASH_ENABLE			BIT(24)
+-
+-#define GPU_PWR_KEY					0x50
+-#define  GPU_PWR_KEY_UNLOCK				0x2968A819
+-#define GPU_PWR_OVERRIDE0				0x54
+-#define GPU_PWR_OVERRIDE1				0x58
+-
+-#define GPU_FEATURES					0x60
+-#define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
+-#define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+-
+-#define GPU_TIMESTAMP_OFFSET				0x88
+-#define GPU_CYCLE_COUNT					0x90
+-#define GPU_TIMESTAMP					0x98
+-
+-#define GPU_THREAD_MAX_THREADS				0xA0
+-#define GPU_THREAD_MAX_WORKGROUP_SIZE			0xA4
+-#define GPU_THREAD_MAX_BARRIER_SIZE			0xA8
+-#define GPU_THREAD_FEATURES				0xAC
+-
+-#define GPU_TEXTURE_FEATURES(n)				(0xB0 + ((n) * 4))
+-
+-#define GPU_SHADER_PRESENT				0x100
+-#define GPU_TILER_PRESENT				0x110
+-#define GPU_L2_PRESENT					0x120
+-
+-#define SHADER_READY					0x140
+-#define TILER_READY					0x150
+-#define L2_READY					0x160
+-
+-#define SHADER_PWRON					0x180
+-#define TILER_PWRON					0x190
+-#define L2_PWRON					0x1A0
+-
+-#define SHADER_PWROFF					0x1C0
+-#define TILER_PWROFF					0x1D0
+-#define L2_PWROFF					0x1E0
+-
+-#define SHADER_PWRTRANS					0x200
+-#define TILER_PWRTRANS					0x210
+-#define L2_PWRTRANS					0x220
+-
+-#define SHADER_PWRACTIVE				0x240
+-#define TILER_PWRACTIVE					0x250
+-#define L2_PWRACTIVE					0x260
+-
+-#define GPU_REVID					0x280
+-
+-#define GPU_ASN_HASH(n)					(0x2C0 + ((n) * 4))
+-
+-#define GPU_COHERENCY_FEATURES				0x300
+-#define GPU_COHERENCY_PROT_BIT(name)			BIT(GPU_COHERENCY_  ## name)
+-
+-#define GPU_COHERENCY_PROTOCOL				0x304
+-#define   GPU_COHERENCY_ACE_LITE			0
+-#define   GPU_COHERENCY_ACE				1
+-#define   GPU_COHERENCY_NONE				31
+-
+-#define MCU_CONTROL					0x700
+-#define MCU_CONTROL_ENABLE				1
+-#define MCU_CONTROL_AUTO				2
+-#define MCU_CONTROL_DISABLE				0
+-
+-#define MCU_STATUS					0x704
+-#define MCU_STATUS_DISABLED				0
+-#define MCU_STATUS_ENABLED				1
+-#define MCU_STATUS_HALT					2
+-#define MCU_STATUS_FATAL				3
+-
+-/* Job Control regs */
+-#define JOB_INT_RAWSTAT					0x1000
+-#define JOB_INT_CLEAR					0x1004
+-#define JOB_INT_MASK					0x1008
+-#define JOB_INT_STAT					0x100c
+-#define   JOB_INT_GLOBAL_IF				BIT(31)
+-#define   JOB_INT_CSG_IF(x)				BIT(x)
+-
+-/* MMU regs */
+-#define MMU_INT_RAWSTAT					0x2000
+-#define MMU_INT_CLEAR					0x2004
+-#define MMU_INT_MASK					0x2008
+-#define MMU_INT_STAT					0x200c
+-
+-/* AS_COMMAND register commands */
+-
+-#define MMU_BASE					0x2400
+-#define MMU_AS_SHIFT					6
+-#define MMU_AS(as)					(MMU_BASE + ((as) << MMU_AS_SHIFT))
+-
+-#define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
+-#define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
+-#define   AS_MEMATTR_AARCH64_INNER_ALLOC_IMPL		(2 << 2)
+-#define   AS_MEMATTR_AARCH64_INNER_ALLOC_EXPL(w, r)	((3 << 2) | \
+-							 ((w) ? BIT(0) : 0) | \
+-							 ((r) ? BIT(1) : 0))
+-#define   AS_MEMATTR_AARCH64_SH_MIDGARD_INNER		(0 << 4)
+-#define   AS_MEMATTR_AARCH64_SH_CPU_INNER		(1 << 4)
+-#define   AS_MEMATTR_AARCH64_SH_CPU_INNER_SHADER_COH	(2 << 4)
+-#define   AS_MEMATTR_AARCH64_SHARED			(0 << 6)
+-#define   AS_MEMATTR_AARCH64_INNER_OUTER_NC		(1 << 6)
+-#define   AS_MEMATTR_AARCH64_INNER_OUTER_WB		(2 << 6)
+-#define   AS_MEMATTR_AARCH64_FAULT			(3 << 6)
+-#define AS_LOCKADDR(as)					(MMU_AS(as) + 0x10)
+-#define AS_COMMAND(as)					(MMU_AS(as) + 0x18)
+-#define   AS_COMMAND_NOP				0
+-#define   AS_COMMAND_UPDATE				1
+-#define   AS_COMMAND_LOCK				2
+-#define   AS_COMMAND_UNLOCK				3
+-#define   AS_COMMAND_FLUSH_PT				4
+-#define   AS_COMMAND_FLUSH_MEM				5
+-#define   AS_LOCK_REGION_MIN_SIZE			(1ULL << 15)
+-#define AS_FAULTSTATUS(as)				(MMU_AS(as) + 0x1C)
+-#define  AS_FAULTSTATUS_ACCESS_TYPE_MASK		(0x3 << 8)
+-#define  AS_FAULTSTATUS_ACCESS_TYPE_ATOMIC		(0x0 << 8)
+-#define  AS_FAULTSTATUS_ACCESS_TYPE_EX			(0x1 << 8)
+-#define  AS_FAULTSTATUS_ACCESS_TYPE_READ		(0x2 << 8)
+-#define  AS_FAULTSTATUS_ACCESS_TYPE_WRITE		(0x3 << 8)
+-#define AS_FAULTADDRESS(as)				(MMU_AS(as) + 0x20)
+-#define AS_STATUS(as)					(MMU_AS(as) + 0x28)
+-#define   AS_STATUS_AS_ACTIVE				BIT(0)
+-#define AS_TRANSCFG(as)					(MMU_AS(as) + 0x30)
+-#define   AS_TRANSCFG_ADRMODE_UNMAPPED			(1 << 0)
+-#define   AS_TRANSCFG_ADRMODE_IDENTITY			(2 << 0)
+-#define   AS_TRANSCFG_ADRMODE_AARCH64_4K		(6 << 0)
+-#define   AS_TRANSCFG_ADRMODE_AARCH64_64K		(8 << 0)
+-#define   AS_TRANSCFG_INA_BITS(x)			((x) << 6)
+-#define   AS_TRANSCFG_OUTA_BITS(x)			((x) << 14)
+-#define   AS_TRANSCFG_SL_CONCAT				BIT(22)
+-#define   AS_TRANSCFG_PTW_MEMATTR_NC			(1 << 24)
+-#define   AS_TRANSCFG_PTW_MEMATTR_WB			(2 << 24)
+-#define   AS_TRANSCFG_PTW_SH_NS				(0 << 28)
+-#define   AS_TRANSCFG_PTW_SH_OS				(2 << 28)
+-#define   AS_TRANSCFG_PTW_SH_IS				(3 << 28)
+-#define   AS_TRANSCFG_PTW_RA				BIT(30)
+-#define   AS_TRANSCFG_DISABLE_HIER_AP			BIT(33)
+-#define   AS_TRANSCFG_DISABLE_AF_FAULT			BIT(34)
+-#define   AS_TRANSCFG_WXN				BIT(35)
+-#define   AS_TRANSCFG_XREADABLE				BIT(36)
+-#define AS_FAULTEXTRA(as)				(MMU_AS(as) + 0x38)
+-
+-#define CSF_GPU_LATEST_FLUSH_ID				0x10000
+-
+-#define CSF_DOORBELL(i)					(0x80000 + ((i) * 0x10000))
+-#define CSF_GLB_DOORBELL_ID				0
+-
+-/* PWR Control registers */
+-
+-#define PWR_CONTROL_BASE				0x800
+-#define PWR_CTRL_REG(x)					(PWR_CONTROL_BASE + (x))
+-
+-#define PWR_INT_RAWSTAT					PWR_CTRL_REG(0x0)
+-#define PWR_INT_CLEAR					PWR_CTRL_REG(0x4)
+-#define PWR_INT_MASK					PWR_CTRL_REG(0x8)
+-#define PWR_INT_STAT					PWR_CTRL_REG(0xc)
+-#define   PWR_IRQ_POWER_CHANGED_SINGLE			BIT(0)
+-#define   PWR_IRQ_POWER_CHANGED_ALL			BIT(1)
+-#define   PWR_IRQ_DELEGATION_CHANGED			BIT(2)
+-#define   PWR_IRQ_RESET_COMPLETED			BIT(3)
+-#define   PWR_IRQ_RETRACT_COMPLETED			BIT(4)
+-#define   PWR_IRQ_INSPECT_COMPLETED			BIT(5)
+-#define   PWR_IRQ_COMMAND_NOT_ALLOWED			BIT(30)
+-#define   PWR_IRQ_COMMAND_INVALID			BIT(31)
+-
+-#define PWR_STATUS					PWR_CTRL_REG(0x20)
+-#define   PWR_STATUS_ALLOW_L2				BIT_U64(0)
+-#define   PWR_STATUS_ALLOW_TILER			BIT_U64(1)
+-#define   PWR_STATUS_ALLOW_SHADER			BIT_U64(8)
+-#define   PWR_STATUS_ALLOW_BASE				BIT_U64(14)
+-#define   PWR_STATUS_ALLOW_STACK			BIT_U64(15)
+-#define   PWR_STATUS_DOMAIN_ALLOWED(x)			BIT_U64(x)
+-#define   PWR_STATUS_DELEGATED_L2			BIT_U64(16)
+-#define   PWR_STATUS_DELEGATED_TILER			BIT_U64(17)
+-#define   PWR_STATUS_DELEGATED_SHADER			BIT_U64(24)
+-#define   PWR_STATUS_DELEGATED_BASE			BIT_U64(30)
+-#define   PWR_STATUS_DELEGATED_STACK			BIT_U64(31)
+-#define   PWR_STATUS_DELEGATED_SHIFT			16
+-#define   PWR_STATUS_DOMAIN_DELEGATED(x)		BIT_U64((x) + PWR_STATUS_DELEGATED_SHIFT)
+-#define   PWR_STATUS_ALLOW_SOFT_RESET			BIT_U64(33)
+-#define   PWR_STATUS_ALLOW_FAST_RESET			BIT_U64(34)
+-#define   PWR_STATUS_POWER_PENDING			BIT_U64(41)
+-#define   PWR_STATUS_RESET_PENDING			BIT_U64(42)
+-#define   PWR_STATUS_RETRACT_PENDING			BIT_U64(43)
+-#define   PWR_STATUS_INSPECT_PENDING			BIT_U64(44)
+-
+-#define PWR_COMMAND					PWR_CTRL_REG(0x28)
+-#define   PWR_COMMAND_POWER_UP				0x10
+-#define   PWR_COMMAND_POWER_DOWN			0x11
+-#define   PWR_COMMAND_DELEGATE				0x20
+-#define   PWR_COMMAND_RETRACT				0x21
+-#define   PWR_COMMAND_RESET_SOFT			0x31
+-#define   PWR_COMMAND_RESET_FAST			0x32
+-#define   PWR_COMMAND_INSPECT				0xF0
+-#define   PWR_COMMAND_DOMAIN_L2				0
+-#define   PWR_COMMAND_DOMAIN_TILER			1
+-#define   PWR_COMMAND_DOMAIN_SHADER			8
+-#define   PWR_COMMAND_DOMAIN_BASE			14
+-#define   PWR_COMMAND_DOMAIN_STACK			15
+-#define   PWR_COMMAND_SUBDOMAIN_RTU			BIT(0)
+-#define   PWR_COMMAND_DEF(cmd, domain, subdomain)	\
+-	(((subdomain) << 16) | ((domain) << 8) | (cmd))
+-
+-#define PWR_CMDARG					PWR_CTRL_REG(0x30)
+-
+-#define PWR_L2_PRESENT					PWR_CTRL_REG(0x100)
+-#define PWR_L2_READY					PWR_CTRL_REG(0x108)
+-#define PWR_L2_PWRTRANS					PWR_CTRL_REG(0x110)
+-#define PWR_L2_PWRACTIVE				PWR_CTRL_REG(0x118)
+-#define PWR_TILER_PRESENT				PWR_CTRL_REG(0x140)
+-#define PWR_TILER_READY					PWR_CTRL_REG(0x148)
+-#define PWR_TILER_PWRTRANS				PWR_CTRL_REG(0x150)
+-#define PWR_TILER_PWRACTIVE				PWR_CTRL_REG(0x158)
+-#define PWR_SHADER_PRESENT				PWR_CTRL_REG(0x200)
+-#define PWR_SHADER_READY				PWR_CTRL_REG(0x208)
+-#define PWR_SHADER_PWRTRANS				PWR_CTRL_REG(0x210)
+-#define PWR_SHADER_PWRACTIVE				PWR_CTRL_REG(0x218)
+-#define PWR_BASE_PRESENT				PWR_CTRL_REG(0x380)
+-#define PWR_BASE_READY					PWR_CTRL_REG(0x388)
+-#define PWR_BASE_PWRTRANS				PWR_CTRL_REG(0x390)
+-#define PWR_BASE_PWRACTIVE				PWR_CTRL_REG(0x398)
+-#define PWR_STACK_PRESENT				PWR_CTRL_REG(0x3c0)
+-#define PWR_STACK_READY					PWR_CTRL_REG(0x3c8)
+-#define PWR_STACK_PWRTRANS				PWR_CTRL_REG(0x3d0)
+-
+-#endif
 diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 70b8a22b3ed7..60e7b4e20a13 100644
+index 7c8d350da02f..70b8a22b3ed7 100644
 --- a/drivers/gpu/drm/panthor/panthor_sched.c
 +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -3373,7 +3373,7 @@ queue_run_job(struct drm_sched_job *sched_job)
- 		if (resume_tick)
- 			sched_resume_tick(ptdev);
+@@ -28,11 +28,12 @@
+ #include "panthor_devfreq.h"
+ #include "panthor_device.h"
+ #include "panthor_fw.h"
++#include "panthor_fw_regs.h"
+ #include "panthor_gem.h"
+ #include "panthor_gpu.h"
++#include "panthor_gpu_regs.h"
+ #include "panthor_heap.h"
+ #include "panthor_mmu.h"
+-#include "panthor_regs.h"
+ #include "panthor_sched.h"
  
--		gpu_write(ptdev->iomem, CSF_DOORBELL(queue->doorbell_id), 1);
-+		panthor_fw_ring_doorbell(ptdev, queue->doorbell_id);
- 		if (!sched->pm.has_ref &&
- 		    !(group->blocked_queues & BIT(job->queue_idx))) {
- 			pm_runtime_get(ptdev->base.dev);
+ /**
 -- 
 2.43.0
 
