@@ -4,141 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6490CF3ED4A
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 01:10:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B534F3ED4A
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 01:32:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3C0610E27D;
-	Sun, 12 Apr 2026 01:10:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC3B10E283;
+	Sun, 12 Apr 2026 01:32:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LcCMSJ5X";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Fj330J7V";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="I+fQUUK/";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 801F010E27D
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 01:10:07 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63B48N1U1201965
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 01:10:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Yyw915w7CN2Ucujh2TM/cNADCTu08+fT8ReCAQdEMoY=; b=LcCMSJ5X2Kf8An3D
- hsp9V6uqb94B70aXCltnlTIXtDWAaGYot8JjtDogmmP0wJvvT7A3Nt1UmdCS3jQV
- cn4P1gbx9TWZnE3EmxRodkz/WL0sJVYCJROIxCowjex34V6nwV7DOMbaxHjHACrY
- nSSZhyigGzrb1bI1TeFa5B3We1lvxowBxVJjHOq2n+ZpiB/qkgWIjFHUewZ8fI6b
- Rv8eVApkCt8BzN6u2ioQn8w3X9S16SpqZ0jnq+cHVQmqYxb0TkJ9dAhs3GwBOY8c
- Fz73EaXfZPzVMWhE6+ySWo0zcaGyFLP8ErS21p07p1Rd830kzXL8O2LYT5EGBzfB
- sqqKIg==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dff0jsk96-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 01:10:06 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2adc527eaf5so22915785ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 18:10:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775956205; x=1776561005;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Yyw915w7CN2Ucujh2TM/cNADCTu08+fT8ReCAQdEMoY=;
- b=Fj330J7VM/Ccwdn8H9jEbmUyepJooqjNBikDSliPBQaoeutII9Kk2mB0geYT0+u925
- uGhrjT/NK5m+RwMXzg0xkGliNzPTqfiha7/VleYZ6dWy+BwA8sU9VPnfrbWsE0v/2U/E
- m5bTaWZsqgufV5Gglc6/xP3FSvxRhHSKBZw0LkTmcFcXWd7bJtcV8L5OJOeOB1cmRWEz
- aj+sdU9dgBPUQGueycc8krvoNx0FHZ9aZzfLWJlwZ+tnvJVdPFHWavo+GT7niJy9IA1P
- S2cdop2wFfGAZ2x5QD8IdxDyff6sy16CwSeyrbWfXwzQgNhgzXJzLgL1vgNWnoc1muTi
- BHOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775956205; x=1776561005;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Yyw915w7CN2Ucujh2TM/cNADCTu08+fT8ReCAQdEMoY=;
- b=pCUEqZqIXuvWqQvnRuN/ZJN0R+M4CuFVHe2Vq01bw7FQVTwU35eJdoxapKucUaqpeu
- GoDggIfNtTDOtvxxMoZGxXRUn3ozweKNy38cIrugWBYTmb38ZaECuJm6g3IY+YzxLFCM
- g4/t/szAtnqCarIjPAlqv2ZxOMizxsHitG0VlXjEfnn+O3J/pc6lHxdxFXZUC1e3Tir5
- 2HO0LYFqxtoOXr2imAHChd2gs91UzPyXqsd3/DEDLyX4sf8jJiyrYlDs8ECnWEZ4MG9T
- zJkseYp9zArW9j5L/2M1DpveXXuVv3cStzDSBoZcmP/CPzkS7RwyXJQ3/NGU3hLw/8rS
- Yqig==
-X-Gm-Message-State: AOJu0YwT/xYh5pNKd4stDzl6pakXJ2c2nl5Ug28VoFOfxbILaOZFY/Hz
- H2uO26qyJdh/ZjJJT/f71+6pmkuXXHoveQ01uf440aTV80gxZXULVWZJCItkClAPNLHglcjUImB
- cIklzW3pAEL/ExpuCr6H62X7o0UlJDiZeAIdB+uNAuHLvr3+zSRbAGAohyk/TXY3vSzlZr3Q=
-X-Gm-Gg: AeBDiessXn6Pidx6hCadkLs3X6CVe09bcGezYHlwyGicjPhSL36Ardyi+8wM6Ub+XxA
- mZY9RXngbgjDqlOTuAt0cksnaiYBB8bhCDaEc5cN/UqfPyVSIzVF0mSJqpQfx2FT6gMJ96ntVQ5
- RvWw51K1ZDOqJqIIeFypO7tXv1QD1Hnswc6Sddfp/qZjMplq7J6YNtDKCUmo0teubqMAb4oayj7
- i2dnApkyaP4rVtrxgH3hnnwVkpnWatCjH6wpd8Zu/HoMjypN4vot860+wJkqLlGERiNlNwOSiV+
- qrVO7WV2AQGIb+EWxffIgatbaSfRMsuOMh6JjYjRAEe+qWYezMUF19d4RwE8hHK1oLpwyYeXK0y
- sYmLwwrf93R/CAbD5uRtAQ33pXbXfwmuysZdokn+zkBVerMur927IfXI8sJD+ou1jL4wI/Q7yqd
- x1TSSKW7i6WQ==
-X-Received: by 2002:a17:902:be0a:b0:2b0:663f:6b53 with SMTP id
- d9443c01a7336-2b2d599ab4amr62318745ad.13.1775956204844; 
- Sat, 11 Apr 2026 18:10:04 -0700 (PDT)
-X-Received: by 2002:a17:902:be0a:b0:2b0:663f:6b53 with SMTP id
- d9443c01a7336-2b2d599ab4amr62318525ad.13.1775956204259; 
- Sat, 11 Apr 2026 18:10:04 -0700 (PDT)
-Received: from [10.133.33.83] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b2d4f43994sm72371285ad.80.2026.04.11.18.09.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 11 Apr 2026 18:10:03 -0700 (PDT)
-Message-ID: <b52dc143-5238-408e-9162-632b5a1386fd@oss.qualcomm.com>
-Date: Sun, 12 Apr 2026 09:09:55 +0800
-MIME-Version: 1.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010019.outbound.protection.outlook.com
+ [52.101.193.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B51910E283;
+ Sun, 12 Apr 2026 01:32:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i8UzFPpkBjbTKmYUfmlPaoLtOPT0bGTHjOWltpG6ODLiRgWduFwDVCGs347HKNfpnmuLEu7Y79YUOu5Tv5QxLSPHjEg3Vo7ZT2DSoG4BrGfzjhsXJnb+qzbBZBzICkqGxj2qTQpTN2HOYJVba3w5XDJhNQhspMMyTGmKUHcJsr0XZOgKHBe2QVW07fskm41Y05S2zmjQreL6qKagO2tYqc2sRZcN28maJBIwC1S/3aB51miNO+/pEkv/SB4pnGyWO6PGIa1rulmQnJeW23lr2Uy9hHc6tCK0m5ThyWiJBxvZ4Krry6Hgrn7Tp7Xrm7GXqHGmy1IPMwt5eM9EMAiIuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=96hMw74eE64KSbnsRaJt29cyly9A8JuzZvYS2un1czw=;
+ b=LQms59GxQ9x0c13sTopy6nEGFwfvjWd58tF+Pp8YiGH7rkMkRvRN+8k1O3LqxFZgpSeHcf5bFPj8Qyg3ABaJ4j/kuhCll0SL6mZkAacX7+NRFIu7wes+uu1J7fqBai9tKQdqo1fVMFr9N/pkNfxdYro8VYGsMRpjbqM9DaW5sGdsMKpm4RoJ8pCEMau88agmOHl+IJzIVHzGOf7XgoFsflhRgMSLBgAvnbZCQpIMBBuRMUihFQRzIg/oR7o/tsb250HHnZ7gfhXC9WyGNi1WXZx3mi08gHwb14oeC54dIpf9qaovj3YMwhlxm/Lthn4OpMhlf93zaJAQhWRJ0AFLug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=96hMw74eE64KSbnsRaJt29cyly9A8JuzZvYS2un1czw=;
+ b=I+fQUUK/mOiiPaNIgrQqOsEa2dGN1pgqtzy/cH4M5bmqL8/acNGg3/Po3HXGnrHbAEXa+MUQHgtv5grVtbCpP51y3RubCDUrzoiGMHCDW39cA85UY5KxlzIWsGw2mEmenpx/b8OFy6mF9lOVd4mj1B5p0mDobouF5aClglujABDWR7eo/OMstmbiTjAflIEtsk178KP+P4Moyc+qWvMajyjvX2YHQEir7HANjTPzr23TXaAtVjnYSNJR28Js23OJb5VMS+k027rf7NGpLQluoLmKzN6UKkz79FwNF1VFNtwJeuqeT9S/uWfByQgK2/2ywpwbzTD64ZvxPVf2m42Hxw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH8PR12MB7277.namprd12.prod.outlook.com (2603:10b6:510:223::13)
+ by CY8PR12MB7316.namprd12.prod.outlook.com (2603:10b6:930:50::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.17; Sun, 12 Apr
+ 2026 01:32:19 +0000
+Received: from PH8PR12MB7277.namprd12.prod.outlook.com
+ ([fe80::2920:e6d9:4461:e2b4]) by PH8PR12MB7277.namprd12.prod.outlook.com
+ ([fe80::2920:e6d9:4461:e2b4%5]) with mapi id 15.20.9818.017; Sun, 12 Apr 2026
+ 01:32:18 +0000
+Message-ID: <aaf85ad5-477f-41d1-a4b0-85789640df02@nvidia.com>
+Date: Sun, 12 Apr 2026 11:32:14 +1000
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/21] drm/panel: add driver for Waveshare 8.8" DSI
- TOUCH-A panel
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
- Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>,
- Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
- <20260411-waveshare-dsi-touch-v2-19-75cdbeac5156@oss.qualcomm.com>
+Subject: Re: [PATCH] mm/zone_device: Do not touch device folio after calling
+ ->folio_free()
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260410230346.4009855-1-matthew.brost@intel.com>
 Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260411-waveshare-dsi-touch-v2-19-75cdbeac5156@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Balbir Singh <balbirs@nvidia.com>
+In-Reply-To: <20260410230346.4009855-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEyMDAwOCBTYWx0ZWRfXzV35hxAE+37C
- lMZx+61BMrs8Je0kH+lZ1znmXhlb9gqI3RP8W8YoyNFJSRJnINwmBksJ+pNGDsXeJ7+hcsZc44A
- G2JyCxKtSkD9NThbjybzgIWfR/r4wlNy8+0nYtJ+fmoYtJM8wOi5ZTdXho1//wJWZxtMAYtmdGg
- HBH+4d01i7g60XfUJLNfJ1U7fxP6PxqkIu98MJoZvSNQqo/T9icJswAayK4g6dL60qPOuiVBxZ2
- 32QUkdAjOcuiEUC7B/gkQccOcyv+rs9z89R0DF0D5HJ+kY89uyEyvIO6rbIba0Xt8zGmiP3DiFz
- klbT237waxU+FNlTYCUvtBWcsf+OsSruPnJLRfEMRbTO+NY4LDr7J/qxnjiWoC+mqcumUmn1/LI
- H6VubIBPosnY5Xlar4+PlyrtFWz80VQRm6WHP+auooXunRHdA8ToEohuYGqeLFrF74aJ2d1v2jY
- i5n3/tn8pG7gtywt0vQ==
-X-Proofpoint-ORIG-GUID: h9a0tNat3GWac9mCn78HT8-kgTxKqxDR
-X-Proofpoint-GUID: h9a0tNat3GWac9mCn78HT8-kgTxKqxDR
-X-Authority-Analysis: v=2.4 cv=d/LFDxjE c=1 sm=1 tr=0 ts=69daf0ee cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6uJ51tyDExStV_pVDtAA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-11_07,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604120008
+X-ClientProxiedBy: SJ0PR05CA0187.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::12) To PH8PR12MB7277.namprd12.prod.outlook.com
+ (2603:10b6:510:223::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7277:EE_|CY8PR12MB7316:EE_
+X-MS-Office365-Filtering-Correlation-Id: 780aa992-1b06-4ac6-b8ec-08de983355e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: 7S4guqryE05NDduSJcDtv7LpbdMQXxKiDfYcx2jmFJgiViId8uPQQtdtYqZW2uj9PBxTJRACeowxMbZTrvnsndvWwBoLLYhL0VA/2pUj+FMrj1dYamFAtpPcaSB7fllM5cMHOI+mxQJXcaOdwQ4RmyJa8UFzJ9ZmVX6PLeEqfCmitEZ/DhVLvRViAjBEfssO7JC47Ryo2Aw0c2FQPxx+pYMoMaae3/TRwOuvXkt1yY1GOcB91h5t4KngGQ45qEVF0NklxD9neXfUOv8IsuzEsaagu0FG/IFbJPSC0AKX+l9Zri8f4iKRQbj1Rhd12lYyIom/OPYb7Jobd4+OX/qrR7MH0nICmDyGba1YJYS2bf3KTFJrp1UeWYdRyIEi0Qg407VzhCj2l3IyuJX4WhPSgJVKPU2AR3QC7rBt7iPDmTyFvkWBOY2sqWOCBQnqRz+zz8iITT6Xq07IH1mlL9k/Ydnt2PNIjflPnZq7NLzxgPytADvvFWQ9fJXYzDz2G/qwxBCZHMZ400qzMUrdWYYLZZSjwVrlw7UutQ0+QUr8rQrh0etF1bykj/WzYCovK2jy+G1W17aDIlNYv0vnMvi4U2VtKgf79kR40Qmyc9uj9JAfBL7qMmRo/Cumq4Gsy385N8ABc8S26MpF80X6pdoM98xWlL58boofmJFy7hg4jhxw3jFMsart+nIHPKLmy+mNGgGh8TP/oAVZSuIvhu6IfpGVS7qqB6VJG+Kh7N94d/A=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7277.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXlwSThJMmhJWHB6U3hQWUFqVHpsY0F3cmM1UHh5empBcWdYbVVHWnFmMFlE?=
+ =?utf-8?B?VDVoekwzcUNPc0liTWEybTVCOFlDOWwwazd3SUxJSVM1UUwzSHN6N1Z6MXhP?=
+ =?utf-8?B?YkVoSkpnRmhjSStheHdmUlJzRCs4SHM2MWlrZnAvQ0hPYnFqUHlQWWE1QTZ5?=
+ =?utf-8?B?K0FYcEowajF4UjVtME5Ic3Zmb010N3QxR3ZoL1JOM2hIUVhVRWViV1JWVFpU?=
+ =?utf-8?B?ZStXUmpYa3UzaTNVMzNNdXQ1UGg0Zjg2WmlaMHFxRFpIbGJDVmc0WUpLZkpp?=
+ =?utf-8?B?aVd3SEg5TnRjamljYmhEUU9pZStUMUhzYzY5NEpqY1A1ckMraVVTNWxTQ3N6?=
+ =?utf-8?B?MlAzcm1aa1NpNDR1ZmNCdmw3VUdTci9jeUxOaGduMTZIcmJDZEVCU3BlblBW?=
+ =?utf-8?B?bUZYMjZ1MC9KOTJwbVhKNUQzRVZtcWRKcGpPQyszR1I0U0xldkpFSEpWUzA2?=
+ =?utf-8?B?eGdJc0h5UHQxVFBkVW5ZZUFFZWVwUkRMei96WkZDeHNRQ1h4ZVNUV1pYSm1p?=
+ =?utf-8?B?NUxKSHh0QVJicUg3eVRmS1lhbVpGNmJvdEF4bEsrYWtKWk1TOU5TK2dqVENO?=
+ =?utf-8?B?ZTBwQXRSOC9pWnNoMG1LTmJ5M28zQWxNckJkS1dSdXlXbUljWFpKR0ZIMkd0?=
+ =?utf-8?B?NFI2cXhGUDRxZVdyNW0zdlRib2RxZFpLS2M2aHNjdVlSTUQveGZDZ0ovL1k1?=
+ =?utf-8?B?WlRJM3NqcTRuWXg2M3dJM1NrM0dwRnpWdENXRm5xSmlFOWs3T3p3QXdFaG9S?=
+ =?utf-8?B?MjEwUU9NRGNJSTlKRjNkYWpQcTRSOVhNZGNaT2M0Y3lnWm5HTlpIQXdSZWRk?=
+ =?utf-8?B?RWxsaGkvQzNRdEh0SEZZcU1OazBBckJYbE1LMTRPWDUzc1ExcXZhVFNZQVo3?=
+ =?utf-8?B?WHdoc0dYaVNtQ1p2NXhER0srQ2VnYmNDcGRMQVFlNzJPNlRiSmkxeU1TRzJu?=
+ =?utf-8?B?cmVkR2xRelY4cTlZUmVQeUtkd0wxdUNDTjgxMFFmWDYwNzB5WXdDSDMrNDU0?=
+ =?utf-8?B?eDI5UC84TkN3WVk5b21lVGhIMll3TDdwZm52U1ppTWRCVWFWSFhqVU1Xc21q?=
+ =?utf-8?B?bUVtUDJjeW5Ha3Nlc2lKMWJJRXkzU0VvQ0ZrdjJnNHRCQ05xZk1YS0R3N0xz?=
+ =?utf-8?B?TmtPY2xiWTBrRDFDeUtEYk1PYzUzY21yN0hkYWRDa1JKSEdZallLRTE0UnJ0?=
+ =?utf-8?B?ZVQyWGw3OHp1ODFhd1JMZ2J6SzBLZ0IwaU5Ub21WMWFNMVlRSWlQcStDSGZY?=
+ =?utf-8?B?UGRMbEgrdmN4TVdjV1J2SGJEbmE3MHBneVhteXMzcTl0T3lxNXhLMDlkSThS?=
+ =?utf-8?B?ZlZQOFhkaElUWDhaY3hPRk1EUFFSWVpnT1NhaFgwa0s5U25qRDY2QzRXMmFw?=
+ =?utf-8?B?R3lhY01SUm4wb1RyVUlmQWNjY2NhcUtvNkwxNW8yMG5uWHlTSmJQZVhST1FI?=
+ =?utf-8?B?LzNzekczMU15TGhHZytCYURaMGNLVW1oc3IraHAzbGZnYlB1SjVmL2pEbGt0?=
+ =?utf-8?B?SkMxZldYNjJnOHJzdGU5am1DaUVqcFh3ellnV05qU3lmQWl2Ni8yVzJhazVa?=
+ =?utf-8?B?Szd3YWZDa0dRTkRvanNKQTVOcVBKWmpJN2JQVy9Vcys4a3dxSTZoT3EzZGd1?=
+ =?utf-8?B?NmI0Z1NFUHlDYjEyV2N1emQxVks1NitJYnNKREFTS1lXdnpGOGlpT1ZKSTdv?=
+ =?utf-8?B?NUdkSnhLSHVnV2ROd2Q5UVJ1WjBhR2hmc2huKzVsODdQTWk2ODc2bG9ObXNq?=
+ =?utf-8?B?VllHOHRpY2d6bnBqYUJ2MVErVTVHamF4TWpySGZBZURKOFk0TGpCTFNkQ0cw?=
+ =?utf-8?B?N0dLQW45Qlk5eldyejZ6ZlZzb1I5U2tmVlBNZDl3MXNlL3ZBZkh6eUtYYmxq?=
+ =?utf-8?B?c1czUjVnZ0cvRWhQQjdGMWwxakduMDRadFRFVnRmT0g5cHZkOXJESkRqaEUz?=
+ =?utf-8?B?Vk12NlVudmMwSTNwL0lJOFZKUzNaU1F5MTV6S3FZT2t2cWV4all6TU9jNG1X?=
+ =?utf-8?B?bldKdHJKdnE0YjRzWER5MmhvemtsbmZValAxeVNOY0YwcThhT1RKZkUzRElN?=
+ =?utf-8?B?bFVKUlpmelZYZ1F1RUNkakhjQ0QrbElwR09WS1dxUmN1bk9YaDEyaW45b1Rw?=
+ =?utf-8?B?RnZ2WFhpSFA1aGJ3MzNVS1lKZ2ZGQnowYlZVR0ZZQjRoVEZOSVNHMkxwQlc2?=
+ =?utf-8?B?SFZwVnczOXd1TGlMQVpjbDlIeU9RWWNyMVc2U2RsZWo3dlZPSm82R2p6bzRs?=
+ =?utf-8?B?OEU5NGdqejRkcUR1WGNXbkJEMnlWd2QyVjFESjUrUWl6UFY4cUdlZFFmK3FL?=
+ =?utf-8?B?ZDN6VTlqckYzVXdYclJMSit3OFo5d1cvMjhvbHBzOERnWWJoUEtWdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 780aa992-1b06-4ac6-b8ec-08de983355e2
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7277.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2026 01:32:18.7079 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FAmKBWaXtiQ9e7fBoHMeLpnQtSRB1GYvNmP00GICb610HQKgHUdtQqlT/YI+DYmCJaxR/+NK2Niasb6x5Kaj3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7316
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,276 +140,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 4/11/2026 8:10 PM, Dmitry Baryshkov wrote:
-> Add driver for the panel found on Waveshare 8.8" DSI TOUCH-A kit. It
-> uses ota7290b IC as a controller.
+On 4/11/26 09:03, Matthew Brost wrote:
+> The contents of a device folio can immediately change after calling
+> ->folio_free(), as the folio may be reallocated by a driver with a
+> different order. Instead of touching the folio again to extract the
+> pgmap, use the local stack variable when calling percpu_ref_put_many().
 > 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Oscar Salvador <osalvador@suse.de>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: linux-mm@kvack.org
+> Cc: linux-cxl@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Fixes: d245f9b4ab80 ("mm/zone_device: support large zone device private folios")
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> 
 > ---
->   drivers/gpu/drm/panel/Kconfig                    |  12 ++
->   drivers/gpu/drm/panel/Makefile                   |   1 +
->   drivers/gpu/drm/panel/panel-focaltech-ota7290b.c | 208 +++++++++++++++++++++++
->   3 files changed, 221 insertions(+)
+> Stack trace:
 > 
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index ba527b4d7737..979109c27b9b 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-> @@ -144,6 +144,18 @@ config DRM_PANEL_FEIYANG_FY07024DI26A30D
->   	  Say Y if you want to enable support for panels based on the
->   	  Feiyang FY07024DI26A30-D MIPI-DSI interface.
->   
-> +config DRM_PANEL_FOCALTECH_OTA7290B
-> +	tristate "Focaltech OTA7290B"
-> +	depends on DRM_MIPI_DSI
-> +	depends on I2C
-> +	depends on BACKLIGHT_CLASS_DEVICE
-> +	select DRM_KMS_HELPER
-> +	help
-> +	  Enable support for panels using OTA7290B as a controller (for
-> +	  example, Waveshare 12.3" DSI TOUCH-A panel). Say Y here if you want
-> +	  to enable support for this panel. To compile this driver as a module,
-> +	  choose M here.
-> +
->   config DRM_PANEL_DSI_CM
->   	tristate "Generic DSI command mode panels"
->   	depends on OF
-> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-> index a4291dc3905b..0d694acbfbb6 100644
-> --- a/drivers/gpu/drm/panel/Makefile
-> +++ b/drivers/gpu/drm/panel/Makefile
-> @@ -17,6 +17,7 @@ obj-$(CONFIG_DRM_PANEL_EBBG_FT8719) += panel-ebbg-ft8719.o
->   obj-$(CONFIG_DRM_PANEL_ELIDA_KD35T133) += panel-elida-kd35t133.o
->   obj-$(CONFIG_DRM_PANEL_FEIXIN_K101_IM2BA02) += panel-feixin-k101-im2ba02.o
->   obj-$(CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D) += panel-feiyang-fy07024di26a30d.o
-> +obj-$(CONFIG_DRM_PANEL_FOCALTECH_OTA7290B) += panel-focaltech-ota7290b.o
->   obj-$(CONFIG_DRM_PANEL_HIMAX_HX8279) += panel-himax-hx8279.o
->   obj-$(CONFIG_DRM_PANEL_HIMAX_HX83102) += panel-himax-hx83102.o
->   obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
-> diff --git a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> new file mode 100644
-> index 000000000000..991d6a4caf17
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-> @@ -0,0 +1,208 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2024 Waveshare International Limited
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/regulator/consumer.h>
-> +
-> +#include <drm/drm_mipi_dsi.h>
-> +#include <drm/drm_modes.h>
-> +#include <drm/drm_panel.h>
-> +#include <drm/drm_probe_helper.h>
-> +
-> +struct ota7290b {
-> +	struct drm_panel panel;
-> +	struct mipi_dsi_device *dsi;
-> +
-> +	struct regulator *power;
-> +	struct gpio_desc *reset;
-> +	struct regulator *avdd;
-> +	struct regulator *iovcc;
-> +
-> +	enum drm_panel_orientation orientation;
-> +};
-> +
-> +static inline struct ota7290b *panel_to_ota(struct drm_panel *panel)
-> +{
-> +	return container_of(panel, struct ota7290b, panel);
-> +}
-> +
-> +static int ota7290b_prepare(struct drm_panel *panel)
-> +{
-> +	struct ota7290b *ctx = panel_to_ota(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +	int ret;
-> +
-> +	if (ctx->iovcc) {
-> +		ret = regulator_enable(ctx->iovcc);
-> +		if (ret)
-> +			dev_err(panel->dev, "failed to enable IO regulator: %d\n", ret);
-> +	}
-> +
-> +	if (ctx->avdd) {
-> +		ret = regulator_enable(ctx->avdd);
-> +		if (ret)
-> +			dev_err(panel->dev, "failed to enable AVDD regulator: %d\n", ret);
-> +	}
-> +
-> +	if (ctx->reset) {
-> +		gpiod_set_value_cansleep(ctx->reset, 0);
-> +		msleep(60);
-> +		gpiod_set_value_cansleep(ctx->reset, 1);
-> +		msleep(60);
-> +		gpiod_set_value_cansleep(ctx->reset, 0);
-> +		msleep(60);
-> +	}
-> +
-> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 120);
-> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-> +	mipi_dsi_msleep(&dsi_ctx, 50);
-> +
-> +	if (dsi_ctx.accum_err < 0)
-> +		dev_err(panel->dev, "failed to init panel: %d\n", ret);
-
-better to check dsi_ctx.accum_err instead ret here?
-
-dev_err(panel->dev, "failed to init panel: %d\n", dsi_ctx.accum_err);
-
-Thanks,
-Jie
-
-> +
-> +	return dsi_ctx.accum_err;
-> +}
-> +
-> +static int ota7290b_unprepare(struct drm_panel *panel)
-> +{
-> +	struct ota7290b *ctx = panel_to_ota(panel);
-> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-> +
-> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-> +
-> +	if (ctx->reset) {
-> +		gpiod_set_value_cansleep(ctx->reset, 1);
-> +		msleep(5);
-> +	}
-> +
-> +	if (ctx->avdd)
-> +		regulator_disable(ctx->avdd);
-> +
-> +	if (ctx->iovcc)
-> +		regulator_disable(ctx->iovcc);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct drm_display_mode waveshare_dsi_touch_8_8_a_mode = {
-> +	.clock = 75000,
-> +
-> +	.hdisplay = 480,
-> +	.hsync_start = 480 + 50,
-> +	.hsync_end = 480 + 50 + 50,
-> +	.htotal = 480 + 50 + 50 + 50,
-> +
-> +	.vdisplay = 1920,
-> +	.vsync_start = 1920 + 20,
-> +	.vsync_end = 1920 + 20 + 20,
-> +	.vtotal = 1920 + 20 + 20 + 20,
-> +
-> +	.width_mm = 68,
-> +	.height_mm = 219,
-> +	.type = DRM_MODE_TYPE_DRIVER,
-> +};
-> +
-> +static int ota7290b_get_modes(struct drm_panel *panel,
-> +			      struct drm_connector *connector)
-> +{
-> +	return drm_connector_helper_get_modes_fixed(connector, &waveshare_dsi_touch_8_8_a_mode);
-> +}
-> +
-> +static enum drm_panel_orientation ota7290b_get_orientation(struct drm_panel *panel)
-> +{
-> +	struct ota7290b *ctx = panel_to_ota(panel);
-> +
-> +	return ctx->orientation;
-> +}
-> +
-> +static const struct drm_panel_funcs ota7290b_funcs = {
-> +	.prepare = ota7290b_prepare,
-> +	.unprepare = ota7290b_unprepare,
-> +	.get_modes = ota7290b_get_modes,
-> +	.get_orientation = ota7290b_get_orientation,
-> +};
-> +
-> +static int ota7290b_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct ota7290b *ctx;
-> +	int ret;
-> +
-> +	ctx = devm_drm_panel_alloc(&dsi->dev, struct ota7290b, panel,
-> +				   &ota7290b_funcs,
-> +				   DRM_MODE_CONNECTOR_DSI);
-> +	if (!ctx)
-> +		return -ENOMEM;
-> +	mipi_dsi_set_drvdata(dsi, ctx);
-> +	ctx->dsi = dsi;
-> +
-> +	ctx->reset = devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ctx->reset))
-> +		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->reset),
-> +				     "Couldn't get our reset GPIO\n");
-> +
-> +	ctx->iovcc = devm_regulator_get_optional(&dsi->dev, "iovcc");
-> +	if (IS_ERR(ctx->iovcc))
-> +		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->iovcc),
-> +					"Couldn't get our iovcc supply\n");
-> +
-> +	ctx->avdd = devm_regulator_get_optional(&dsi->dev, "avdd");
-> +	if (IS_ERR(ctx->avdd))
-> +		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->avdd),
-> +					"Couldn't get our avdd supply\n");
-> +
-> +	ret = of_drm_get_panel_orientation(
-> +			dsi->dev.of_node, &ctx->orientation);
-> +	if (ret) {
-> +		dev_err(&dsi->dev, "%pOF: failed to get orientation: %d\n",
-> +			dsi->dev.of_node, ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = drm_panel_of_backlight(&ctx->panel);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ctx->panel.prepare_prev_first = true;
-> +
-> +	ret = devm_drm_panel_add(&dsi->dev, &ctx->panel);
-> +	if (ret)
-> +		return ret;
-> +
-> +	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_HSE |
-> +		MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	dsi->format = MIPI_DSI_FMT_RGB888,
-> +	dsi->lanes = 2;
-> +
-> +	return devm_mipi_dsi_attach(&dsi->dev, dsi);
-> +}
-> +
-> +static const struct of_device_id ota7290b_of_match[] = {
-> +	{ .compatible = "waveshare,8.8-dsi-touch-a", },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, ota7290b_of_match);
-> +
-> +static struct mipi_dsi_driver ota7290b_driver = {
-> +	.probe		= ota7290b_probe,
-> +	.driver = {
-> +		.name		= "focaltech-ota7290b",
-> +		.of_match_table	= ota7290b_of_match,
-> +	},
-> +};
-> +module_mipi_dsi_driver(ota7290b_driver);
-> +
-> +MODULE_DESCRIPTION("Panel driver for Focaltech OTA7290B panels");
-> +MODULE_LICENSE("GPL");
+> [  631.875165] [IGT] xe_exec_system_allocator: starting subtest threads-many-new-prefetch
+> [  632.282992] Oops: general protection fault, probably for non-canonical address 0x900000000000000: 0000 [#1] SMP NOPTI
+> [  632.293469] CPU: 8 UID: 0 PID: 59267 Comm: xe_exec_system_ Not tainted 7.0.0-rc7-xe+ #281 PREEMPT(full)
+> [  632.316023] RIP: 0010:free_zone_device_folio+0x149/0x240
+> [  632.339782] RSP: 0000:ffffc90023d1fd00 EFLAGS: 00010206
+> [  632.344947] RAX: 0900000000000000 RBX: 0000000000000001 RCX: 0000000094472d4d
+> [  632.351991] RDX: ffffffff8155c76f RSI: 000000006f2213bf RDI: 000000008e84943a
+> [  632.359042] RBP: ffffea0ff4030001 R08: 0000000000000000 R09: 0000000000000001
+> [  632.366094] R10: 0000000000000028 R11: 0000000000000000 R12: ffff88811828e400
+> [  632.373145] R13: 0000000000000000 R14: 000fffffc0000000 R15: 0000000000100073
+> [  632.380194] FS:  00007f2f0fdfe6c0(0000) GS:ffff88890a7e7000(0000) knlGS:0000000000000000
+> [  632.388186] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [  632.393870] CR2: 00007f2f002e90f8 CR3: 0000000106708002 CR4: 0000000000f70ef0
+> [  632.400919] PKRU: 55555554
+> [  632.403605] Call Trace:
+> [  632.406039]  <TASK>
+> [  632.408131]  do_swap_page+0x146d/0x18c0
+> [  632.411938]  ? __pte_offset_map+0x3e/0x190
+> [  632.415994]  __handle_mm_fault+0x6e8/0x8d0
+> [  632.420053]  handle_mm_fault+0xbf/0x250
+> [  632.423855]  ? lock_mm_and_find_vma+0x41/0x6f0
+> [  632.428256]  do_user_addr_fault+0x168/0x690
+> [  632.432399]  exc_page_fault+0x74/0x200
+> [  632.436117]  asm_exc_page_fault+0x26/0x30
+> [  632.440092] RIP: 0033:0x5587554ff70d
+> [  632.462142] RSP: 002b:00007f2f0fdfc970 EFLAGS: 00010246
+> [  632.467308] RAX: 0000000000003fc0 RBX: 00007f2f082e1fc0 RCX: 00007f2f12b3287d
+> [  632.474355] RDX: 0000000000000000 RSI: 00000000c048644a RDI: 0000000000000003
+> [  632.481404] RBP: 00007f2f082e1fc0 R08: 00007f2f0fdfc958 R09: 0000000000000066
+> [  632.488450] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
+> [  632.495495] R13: 00007f2f082de000 R14: 0000000000c00002 R15: 00007f2f1319e000
+> [  632.502547]  </TASK>
+> ---
+>  mm/memremap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
+> diff --git a/mm/memremap.c b/mm/memremap.c
+> index ac7be07e3361..053842d45cb1 100644
+> --- a/mm/memremap.c
+> +++ b/mm/memremap.c
+> @@ -454,7 +454,7 @@ void free_zone_device_folio(struct folio *folio)
+>  		if (WARN_ON_ONCE(!pgmap->ops || !pgmap->ops->folio_free))
+>  			break;
+>  		pgmap->ops->folio_free(folio);
+> -		percpu_ref_put_many(&folio->pgmap->ref, nr);
+> +		percpu_ref_put_many(&pgmap->ref, nr);
+>  		break;
+>  
+>  	case MEMORY_DEVICE_GENERIC:
 
+
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
