@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15491EBFD12
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 07:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAC63EBFD0F
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34C4C10E34C;
-	Mon, 13 Apr 2026 07:59:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B24D10E350;
+	Mon, 13 Apr 2026 08:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="YiF7gnnw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O71ZCOlp";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7703610E34C
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:59:24 +0000 (UTC)
-Received: from mors-relay-2501.netcup.net (localhost [127.0.0.1])
- by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4fvKYk34fhz67KB;
- Mon, 13 Apr 2026 09:59:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1776067162;
- bh=LejCnxnvuVcA8k5XFW78fIGB7kn4dCmYvIYPy1OnQd8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=YiF7gnnwOaBS3LIH0gMZqDFPfFu4xTRIskTOfqdGPYQ89agnajSqWVeqqs8eTuCo4
- WvkFNzC1PG9N0zu+ugEvEXN7c+T+DLelmr5vHEQqV+7ojgNY5dsTWdlttkI6+19E4b
- 6/7FHsIX18AThgKWQOR5GYB+P711WwKn/Z5ISwWE4S+3+yd1r2g4ut/NOGsq6+sHoW
- 6a1b1MvJS+u1VSegaDjuXNJDO3xPSEJZgxoMhnO6o22dx4bowApYNGonZtJqH9FHuQ
- mq6Cch0TDgox1orQWDtiSh2fG2GKqFK38sZfQcupNwt8YYRezdAfUWYEBWzSJ8PGac
- OH8dN++in6oCQ==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-2501.netcup.net (Postfix) with ESMTPS id 4fvKYG00hMz4yW8;
- Mon, 13 Apr 2026 09:58:58 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4fvKYD5DF5z8tdJ;
- Mon, 13 Apr 2026 09:58:56 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 16478635EC;
- Mon, 13 Apr 2026 09:58:55 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <9c667182-3a9e-4fa3-a568-1cb5b1b74106@leemhuis.info>
-Date: Mon, 13 Apr 2026 09:58:53 +0200
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A60AC10E08E
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 16:50:00 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-43d72875729so337676f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 09:50:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776012599; x=1776617399; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=zY6yfZkHIbKAhpXHmyMs2cR3FIwM5tf4pW3ivO5AZFE=;
+ b=O71ZCOlpImtCVbYM1VhufUz18XbdR44AfwGLaVqKhJcFcp3iD+/ea7d/tv8PGt/Tlc
+ PpCz0LRVQCzn4nogqRzLwsrh+SeW8Ndv8c4jR1xq8KS69vkqRNKOPuVHdGKH5tfsEZqk
+ WNE5TeutH7RpM48J3w6ZO1xStf2gGfk8Kh1ijkhFH/JNGkEVX2+/Rw1T6ZE0HIyRrQMv
+ nVFddiI6rkibHVR8LJsaygduIcLW3d7Au96+vylQf4Q2kmvL1wgxePjk2w9TAeQWQJjp
+ bb4etA+lASNTgFCpog8lvxwRcLj+8/j05uo2kc3dk+8gqMEu0wfCEk+hk2QL2Yfk2vqt
+ m3Mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776012599; x=1776617399;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zY6yfZkHIbKAhpXHmyMs2cR3FIwM5tf4pW3ivO5AZFE=;
+ b=nSB3pNUbNtoJluhwgXcjgPM1Kc2uFo7iNkaJVJh/qBb1wfMlsXAC2xMPiqC4IOIoId
+ TH0MRto++ZqCKVIHMlHc+evBRQAXn4VjmElHuzr/aHGDPwx2vWw5UJnZu3aPQ0qhD7AA
+ Vv/xdiQf0DosfNAnJV3RmJnpx71oHAbCS8vxjM3NPyhVw/mgMEQPj5LTcyVnfHB4p7Wi
+ ZYz4G3+Vp68NCO1V9SQ/zS5D/atA4HoSby0guAC2OYGRl77DB6ysXieXXTwuKMyYz1So
+ icLpwZQ8zbaLyzO4QPHJM8qS08ImcDbHR4N5v3LX/k1o0QFeXSgnIo7mMJHq2ZX9EK87
+ lusw==
+X-Gm-Message-State: AOJu0YzrofQ1iQEp6HRAyOUUVqwxCK4VTJo6fo1moFvRLAqE3uuB3053
+ JmwUn3KhY/cwaN10h2IVkEve+DlUGMHEGDacE9EdsOuV3jAs1rw3WEIW
+X-Gm-Gg: AeBDiesI19baGYhXDRctTYvBnMfr4iA9HZR66cIizFb6SZojeqRs32N/sCqcEmGWZ6+
+ hIuPV+veSZCco0kxftnXwZBJNCOxltur6q2GC8FogDDp+EU4WerN+Znao14X9kcOOWdhiRGFY3/
+ /DCZLM1bOnPXaK0Mx1DnShv7wy0Jm4zG9uGM72qXx1pjtl0yXk5wtmUks7mKlfSIy+bcfbw6dVS
+ nqvHWEV7LlYaRrAR7EGO58kAqrojHn/E0TTsyDUG4wKCrdiXJZ+v3EvE0yLeDJA+8VgqIrzf89d
+ BNop0WP2ABpFgoWVzX4wml+pn+V+wgo0IKlGkB/UpPortFVZbeEI6o6RJ6sbSS8V5r62JXvATxQ
+ /lR2E1V4EDIAuuIpYD35oMUmwwwBzFQWSSUHOljDx3+brvxnCgp5fsu7a2DVl+ehU2b65GU/J8T
+ 5iUgoFO30dcwB3QuKcWF1T
+X-Received: by 2002:a05:6000:238a:b0:43d:7883:87ce with SMTP id
+ ffacd0b85a97d-43d788389c8mr903275f8f.34.1776012598717; 
+ Sun, 12 Apr 2026 09:49:58 -0700 (PDT)
+Received: from localhost.localdomain ([2a09:bac6:d6c7:2682::3d6:8f])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d63de2999sm24999175f8f.6.2026.04.12.09.49.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 12 Apr 2026 09:49:58 -0700 (PDT)
+From: Baker <mzndmzn@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Baker <mzndmzn@gmail.com>
+Subject: [PATCH] staging: fbtft: fix coding style issue in fbtft-bus.c
+Date: Sun, 12 Apr 2026 11:49:53 -0500
+Message-ID: <20260412164953.1470-1-mzndmzn@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Warnings and errors in drm_mode_config_cleanup when booting
- 6.19.10 and 7.0-rc5
-To: Greg KH <gregkh@linuxfoundation.org>, Matt Fagnani <matt.fagnani@bell.net>
-Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- Sasha Levin <sashal@kernel.org>
-References: <a8f058b3-ea2c-4af1-a19b-9ae2db46754c@bell.net>
- <9652ce0b-bb4c-489d-9e32-89c5af5c8101@leemhuis.info>
- <2026040259-glacial-reversal-9a75@gregkh>
- <35ed8f9a-66c2-40c3-a545-da4af629014f@bell.net>
- <2026040609-script-perpetual-16bb@gregkh>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <2026040609-script-perpetual-16bb@gregkh>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <177606713563.3612511.1360759713173666767@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 16478635EC
-X-NC-CID: rWZXVsGMoy449/T/o1Pn7niXYiHQXQsBzfi/7AgSvrWrnJtBrZU=
+X-Mailman-Approved-At: Mon, 13 Apr 2026 08:01:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,44 +87,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-[CCing Sasha]
+Remove trailing space and comma before closing parenthesis ')' in
+define_fbtft_write_reg macro as reported by checkpatch.pl.
 
-On 4/6/26 10:17, Greg KH wrote:
-> On Mon, Apr 06, 2026 at 03:54:39AM -0400, Matt Fagnani wrote:
->> On 2026-04-02 08:12, Greg KH wrote:
->>> On Sat, Mar 28, 2026 at 11:52:48AM +0100, Thorsten Leemhuis wrote:
->>>> On 3/28/26 11:30, Matt Fagnani wrote:
->>>>> I could try to bisect. The commit
->>>>> e493c135980f90c20308d1a98f2e0d1223951e94 drm: Fix use-after-free on
->>>>> framebuffers and property blobs when calling drm_dev_unplug was included
->>>>> in 6.19.10 and changed drm_mode_config_cleanup https://git.kernel.org/
->>>>> pub/scm/linux/kernel/git/stable/linux.git/commit/?
->>>>> h=linux-6.19.y&id=e493c135980f90c20308d1a98f2e0d1223951e94
->>>> Did a quick search. Turns out this is mainline commit 6bee098b914176
->>>> ("drm: Fix use-after-free on framebuffers and property blobs when
->>>> calling drm_dev_unplug") [...] is turns out that is in the
->>>> process of getting reverted:
->>>>
->>>> See https://lore.kernel.org/all/20260326082217.39941-2-dev@lankhorst.se/
->>>> or 45ebe43ea00d6b ("Revert "drm: Fix use-after-free on framebuffers and
->>>> property blobs when calling drm_dev_unplug"") [next-20260327
->>>> (pending-fixes)].
->>>> Sasha and Greg: you might want to make sure to pick this up.
->>> When it shows up in a Linus-released kernel, can someone remind us?
->> 7.0-rc7 https://lwn.net/Articles/1066405/ had the patch Revert "drm: Fix
->> use-after-free on framebuffers and property blobs when calling
->> drm_dev_unplug" https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?h=v7.0-rc7&id=45ebe43ea00d6b9f5b3e0db9c35b8ca2a96b7e70 Thanks.
-> 
-> Does not apply on 6.6.y or 6.1.y, so can someone provide a working
-> backport for those branches?
+Signed-off-by: Baker <mzndmzn@gmail.com>
+---
+ drivers/staging/fbtft/fbtft-bus.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Hmm, those two got manual backports Sasha did, so he might be in the
-best position to submit the reverts, too.
+diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+index 30e436ff19e4..409770891c54 100644
+--- a/drivers/staging/fbtft/fbtft-bus.c
++++ b/drivers/staging/fbtft/fbtft-bus.c
+@@ -62,9 +62,9 @@ out:									      \
+ }                                                                             \
+ EXPORT_SYMBOL(func);
+ 
+-define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
++define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+ define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+-define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
++define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+ 
+ void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
+ {
+-- 
+2.47.3
 
-But to save you two a few cycles I just prepared those reverts and will
-submit them in reply to this mail. Handle with care, as they are
-untested. Not really sure if this was a wise idea at all. In case of
-problems it might be the best if one of you could redo them from scratch
-in case you have scripts to handle situations like these.
-
-Ciao. Thorsten
