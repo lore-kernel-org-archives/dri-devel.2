@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AE4DF3ED6D
-	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 05:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8455F3ED5A
+	for <dri-devel@archiver.kernel.org>; Sun, 12 Apr 2026 05:38:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3024E10E030;
-	Sun, 12 Apr 2026 05:38:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 457DD10E174;
+	Sun, 12 Apr 2026 05:38:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fyWBBMvN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iSc1B7RF";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 396EA10E030
- for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 05:38:23 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-35da9692ec3so3318175a91.1
- for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 22:38:23 -0700 (PDT)
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
+ [209.85.216.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF3710E174
+ for <dri-devel@lists.freedesktop.org>; Sun, 12 Apr 2026 05:38:34 +0000 (UTC)
+Received: by mail-pj1-f51.google.com with SMTP id
+ 98e67ed59e1d1-35691a231a7so2219540a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 11 Apr 2026 22:38:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775972303; x=1776577103; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=MG2Gz2rlIZHS17fq7+ilm3CRSvnhfoyXdI4FUStwfX8=;
- b=fyWBBMvNhNR8wSPrG6BhctKWOQIj9ptGBXg5wSUg4ar8hvSJW1+N4VqS0HaLP0Jvxr
- stqhT1ukUbI2XF0fXWfOUs+8fOwdfOGUCWW078uE6/g9MgGBHGq9+gEqAJfPF0TAOnPn
- oVrEME38J1ZxRI4r+UQHsf6SNiICwc/jxNNskcRpE9cTuDfH6DFioonVcSZSNa/FeDYi
- R98PJCtw/2RLrWY7uxcrKQ81pKT/knBp0tKk5+eESsbRvshBwAkr6ozp3yWzTtjGHPsG
- 0LznxtaX/tEfR831JItMK+Pj5csl/FjDS/0dGEiU1K95AFogUFPrgW1znegLTOGvLQBF
- U22g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775972303; x=1776577103;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1775972314; x=1776577114; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=MG2Gz2rlIZHS17fq7+ilm3CRSvnhfoyXdI4FUStwfX8=;
- b=pbzGYTp4cx10erzntiq8Koh0pBsvbGhmPyhj8lBwfny2JEcQr3y6ii/taUoQ7eqgbq
- 3DLOnZmqrhcP32EOXvKO7+5R2QUyYGFVu4FaeiR2yYPhDB60Xs5tZN5SN3ufC50H9ji3
- 9tgRFlnK2yLeO5mklPk35LHbLQM9Ac180dz9BTWahhvts1aNj3d/TkKA8G5Mx0mri0Ap
- yXkHopaswgWwEDISni+oyqT47GmI8I1d9+48LBaBZwvSSELKSuHSWrXx/DWg6PHEJANM
- fn3I+cBNrRze9LiF3H3Pk7he80JZ+2iybQwwh4eUzp3aDWyRsvpz9wyc8gFQ1OEIViRv
- BjNw==
+ bh=TDCm//iQqF35Bw+js2MFQOc5fraBJ7IJxDw9OnKDBpA=;
+ b=iSc1B7RFTBQ3/1p4d487Qq/2yu0Mb1Kr5QkFVV690QlrJoLegc03WGIlNmeSy3RoS5
+ BDywnAVJke5D0wt46qX5+Off3uH63ZjqNPG/f6JeXm6MYhyVR4AGHjaZf4uaAk3HyoBF
+ okjT1Tjp8SLmoWriXoAUDsboKmQCCEbiOAnP+dtB+EikhStQB7PRU1qUeVRTOVnXYIEd
+ w7H0sJ1A0TnKH+p06jGO4kkBhZN/MQ1LYWR5iLCJUbt+TTucy4YS/Il0zO2rdIATHzTn
+ 8ZOYFEqnV9gpPsWqPHo4nMJr3TnNJS64QWPEt1KzziUy2+4YU8GBArSePME/1efv+aXz
+ myyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775972314; x=1776577114;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TDCm//iQqF35Bw+js2MFQOc5fraBJ7IJxDw9OnKDBpA=;
+ b=EJXNbBbiI6rZG36HiLEQQYpmcthNKKRkoHJb4zYP+ZpikAo1yT8+OtNTNak7k5fruT
+ PtQm/ZcxVSLlah/5ZMpP6zPhtTaeGACq13bGzGo1Bk4d2jVJ6Ek+B+sEraE3+kgHI6hD
+ tWEWCOE1O0QI8Yn9aVjhOCe6sFAnvvqD3lcKG4f2mix/J1V9jDwq4lINv+FHTElC4h6b
+ C2m1hvR3BLFMPWyFeWxJ1rGmpfgWzHVMfPJWqjwb4t0cku/ag7ujz/1YQ2Im6BAa+7re
+ uqAau+b2Oo2NwH/4H+YEE9cn0NBt/lOsvBEiBdyo7+6PVD/xr203Q1kvDwsLG3Vp/boO
+ ixPw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Curtmu8JZEUkyMcWxvLzkzEbdcKlJCEDt1JoUWmgXEgMAe2DdvNova9bmcAr8WKf6mZvgeAbxfGM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxi9vPVCe7MIJyM7bfcI0/r/nQd1nuWrQ5FqFuPg38jPZqzSPn9
- rTyNP9/0WpC35/Xf8lwQGK6wt+5uDW+EjG11NwKWP0X60AuFHoQC+mvv
-X-Gm-Gg: AeBDieuoX+OOJGQoNm8lnGpCxrdRCZ2gV75W1+XMJ+zD9yn0OihFNuK9BLjGKfCOGGQ
- EqvK2XogtawkRa8kSsBIwSxjFdYeThHmASAP9JbL7qZxvcgBKmYjJFBG/I4M9I6AKiFy869NFsT
- QUM3LP2UM377Jyywso0IFtAJ9j0kr3YCjn8mIYwBZ1lvT+oXqeaWOFZPUKn42p1GtFAtLyPYreJ
- nygLb6/1kmPTLtKVB6ylkMuWN9FL7MG8w5MeaSnUQ6GmuYF5Sew7wLPl0GX/U3i0StahOgB2wPf
- NXoWGP9tmRh6v6EpTKLmCwkWTPfGXTNIfkXhCRno4gogSlAcyG5hSUvoV/lHuViuIrOhZ6gA7bI
- LXjjK5267Q9Kx01/rIMrhXNKPjNXWNYvpe+xqD6GERXTSzeFi6hWQ+nNZGiyKWyyraP9ezewJlK
- KLZrvA9DiRLVLyVw6Xlhp0wISM8mPzBNMsGFHExAskp5QRo9yv
-X-Received: by 2002:a17:90b:3b46:b0:35b:8d89:7199 with SMTP id
- 98e67ed59e1d1-35e42853381mr9447175a91.15.1775972302597; 
- Sat, 11 Apr 2026 22:38:22 -0700 (PDT)
+ AFNElJ+J2oJodEKRLl6xfFsjYlctvGlhjceSO/DUeiWih27IawT7f5FJW65Bj6B/Rn3UPi4sffbcO437gQs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx45RTU7eBkv9RF5J12OTEl4JiX3ADbOy82m69jzblHcx5yXp2G
+ zwr9QW8VhtmOR1umhz4tXMjedVUvMg0M6LggID/xc6CeYe+ZnBVSoh4R
+X-Gm-Gg: AeBDietueA21+RK6U97kJaj08DImpBqdqZt4EQoCTtSq1RyfPQdLLVSIpAOQAw1q+6W
+ U9uU+oLZB9IJtS/QdkqOxZ93KNrD9OGfiME8b2Bbg50PG6Qf3gdMHEO8dReba95lxe+2OWgrymt
+ I9WRNl436M2881p8S1eNRbR1HbmzKGiDtWL8P5LlYvRjjtoc1gPPpQS0gWcmN9tD78UR5lHSTAF
+ 3gX7ScPGmzUN4NPc++Y7/ak0LrkxoU4yZvbAJzKf2uBqu1T44IaJiAyq9UNvarN5jgwAR2x7OFP
+ BvRF2xeeg/QrMTPpKhRyBXfXPNkohzFmGKhifqL6/ixCY2Mp7oUXm0s131FMUsmrdIfuJE2HByo
+ tVqs1up8QGij0bLsuKAF998wOSVhKOi8gVhJ8XnxrvxG/TJjUB9QuR+ld5fwBmNazix8V+dqoAI
+ UE71DVzeZpQ9iZMdCmsFWUhCWHqd1KHWUw/PehjuK6dudEhJGB
+X-Received: by 2002:a17:90b:164c:b0:35f:b288:8e4c with SMTP id
+ 98e67ed59e1d1-35fb288b4e8mr536731a91.15.1775972314034; 
+ Sat, 11 Apr 2026 22:38:34 -0700 (PDT)
 Received: from test-HP-Desktop-Pro-G3.. ([103.218.174.23])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35e41e1196asm2740502a91.1.2026.04.11.22.38.15
+ 98e67ed59e1d1-35e41e1196asm2740502a91.1.2026.04.11.22.38.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Apr 2026 22:38:21 -0700 (PDT)
+ Sat, 11 Apr 2026 22:38:33 -0700 (PDT)
 From: Sudarshan Shetty <tessolveupstream@gmail.com>
 To: andrzej.hajda@intel.com,
 	neil.armstrong@linaro.org,
@@ -72,11 +73,13 @@ Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  luca.ceresoli@bootlin.com, philippe.schenker@toradex.com,
  alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Sudarshan Shetty <tessolveupstream@gmail.com>
-Subject: [PATCH v3 0/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+Subject: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
  stable LVDS output
-Date: Sun, 12 Apr 2026 11:08:10 +0530
-Message-Id: <20260412053811.662461-1-tessolveupstream@gmail.com>
+Date: Sun, 12 Apr 2026 11:08:11 +0530
+Message-Id: <20260412053811.662461-2-tessolveupstream@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260412053811.662461-1-tessolveupstream@gmail.com>
+References: <20260412053811.662461-1-tessolveupstream@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,74 +97,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi all,
- 
-This patch refines dual-link LVDS support in the SN65DSI83/84
-DSI-to-LVDS bridge driver.
- 
-Recent upstream changes added support for dual-link LVDS timing
-adjustments and related fixes:
- - Halving horizontal timing parameters
- - Test pattern handling adjustments
- - DSI clock range correction
- 
-However, during validation on our platform, LVDS output remained
-unstable for certain panels due to the DSI mode configuration.
- 
-Specifically, the following flags were found to cause issues:
- 
- - MIPI_DSI_MODE_VIDEO_NO_HFP
- - MIPI_DSI_MODE_VIDEO_NO_HBP
- 
-These disable transmission of horizontal front porch (HFP) and
-back porch (HBP) timings over the DSI link. The SN65DSI bridge
-relies on complete horizontal timing information to reconstruct
-LVDS timings, and omitting these parameters results in incorrect
-or unstable output.
- 
-Additionally:
- 
- - MIPI_DSI_MODE_VIDEO_BURST
- 
-While supported by the hardware, burst mode operation depends on
-continuous clocking from the DSI host. In practice, this may lead
-to instability depending on the host controller implementation,
-as the link may transition to LP mode between bursts.
- 
-Removing these flags ensures that:
- - Full timing information is transmitted
- - The bridge can correctly reconstruct LVDS timings
- - Output remains stable across tested panels
- 
-This patch updates the DSI mode configuration accordingly.
- 
-This patch is based on recent SN65DSI83 dual-link LVDS fixes:
- - https://lore.kernel.org/lkml/20260309-ti-sn65dsi83-dual-lvds-fixes-and-test-pattern-v2-1-e6aaa7e1d181@bootlin.com/ 
+The current DSI mode configuration enables VIDEO_BURST and disables
+horizontal front porch (HFP) and back porch (HBP) transmission using
+MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP.
 
-Changes in v3:
- - Rebased on top of latest upstream changes
- - Dropped previously proposed dual-link DT property and related handling
-   as equivalent functionality is now available upstream
- - Refined DSI mode flag configuration to ensure stable LVDS output
- - Added detailed justification for removing NO_HFP/NO_HBP and BURST mode
- 
-Changes in v2:
- - Introduced ti,dual-link-video-mode DT property
- - Added DT binding documentation for the new property
- - Update driver to read the DT property and apply dual-link
-   configuration conditionally
- - Adjust DSI mode flags when dual-link video mode is enabled
- - Update commit messages 
+However, the SN65DSI83/84 bridge relies on receiving full horizontal
+timing information over DSI in order to correctly reconstruct the LVDS
+output timings. When HFP and HBP are not transmitted, the bridge cannot
+recreate the required timing parameters, resulting in unstable or
+missing display output on some panels.
 
-Thanks,
-Anusha
+Additionally, while burst mode is supported by the hardware, its use
+depends on continuous clock behavior from the DSI host. In practice,
+burst mode may introduce instability depending on the host controller
+implementation, as the DSI link may transition to low-power state
+between bursts.
 
-Sudarshan Shetty (1):
-  drm: bridge: ti-sn65dsi83: Fix DSI mode flags for stable LVDS output
+In testing, removing burst mode and ensuring full horizontal timing
+transmission results in stable LVDS output across affected panels.
 
+Update the DSI mode flags to:
+  - Drop MIPI_DSI_MODE_VIDEO_BURST
+  - Drop MIPI_DSI_MODE_VIDEO_NO_HFP
+  - Drop MIPI_DSI_MODE_VIDEO_NO_HBP
+
+This aligns with common system configurations where non-burst mode is
+preferred and full timing information is transmitted over DSI.
+
+Signed-off-by: Sudarshan Shetty <tessolveupstream@gmail.com>
+---
  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 5 ++---
  1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index fef6bca3273f..9d51dc2b75bc 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -976,9 +976,8 @@ static int sn65dsi83_host_attach(struct sn65dsi83 *ctx)
+ 
+ 	dsi->lanes = dsi_lanes;
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+-	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+-			  MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
+-			  MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
++	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA |
++			  MIPI_DSI_MODE_NO_EOT_PACKET;
+ 
+ 	ret = devm_mipi_dsi_attach(dev, dsi);
+ 	if (ret < 0) {
 -- 
 2.34.1
 
