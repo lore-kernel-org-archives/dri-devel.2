@@ -4,164 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5018DEBFD1C
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E28BEBFD16
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:58:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7EF010E388;
-	Mon, 13 Apr 2026 08:57:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70D0910E38C;
+	Mon, 13 Apr 2026 08:58:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aP6JWqQS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ya7SXqP6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3825F10E386;
- Mon, 13 Apr 2026 08:57:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776070669; x=1807606669;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=JBe/t7cyaQbvDhBUmryp++Cr8HVOC4NQh/i+K9ArlCw=;
- b=aP6JWqQSjCx1HkxrZDKuvEfJ++Sfti7WP5TE/e6Pt/rHjZjfD7fJo5Ln
- lLP4SM2sY+FniP9cOcrA2z+Mniu0fm9AWpZUgE5CqM9ZSRyr41CQyLhh0
- lCBIZ+55rrzgeopjQh/61CAokm7RpIKoLl8Ma+BmslxDzIHRRVlGTmhFf
- Fko56bLGjwFX/74lS+fNNT49kp5T4iBniQQ7u8lxGoL0ZBFME1U+8Qswf
- Vb4CPmAzzqo/Xgfam47P3eBmxE8RyBxBvwZS4EtgSAnLW2LkP8LR0DFmz
- IkUk2NJyGKRmmTLy/nstiSLGY2EX4uWVcGlyvz54oKoU5p/FuHv6LWyVR g==;
-X-CSE-ConnectionGUID: LsBOa9MdQs6RRTa+yYs0Lg==
-X-CSE-MsgGUID: LdeRlml2TcOGu6pn/4A29Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11757"; a="76709808"
-X-IronPort-AV: E=Sophos;i="6.23,176,1770624000"; d="scan'208";a="76709808"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 01:57:48 -0700
-X-CSE-ConnectionGUID: COyY9oLZSSeyGOj2r5Uedg==
-X-CSE-MsgGUID: affnUhCNTiCbt5eCWJXHZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,176,1770624000"; d="scan'208";a="228693933"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 01:57:48 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 13 Apr 2026 01:57:47 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 13 Apr 2026 01:57:47 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.20) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 13 Apr 2026 01:57:46 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012003.outbound.protection.outlook.com
+ [40.107.200.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B34D10E386;
+ Mon, 13 Apr 2026 08:58:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ei24vgIapeA+jqJk1Od2vdrEKUPfkU8b6xmzVEqLbHJ0mIgLHlW2dy4C9cz2IgEZADgd1/AGlLgAVTQio8qmGHeDWZLWfjKrfmO1RFNJjVsqsss6EOezUikU9LEQN9+h3A5XlFLTPeBk2+qEhhcwu7RHVb+qFjuoiIxIejAG6o37LeYy78NRlGLPC8R49GV/1ITVvwrg7MJGImxpQg+xvOtg/eXrYp8cyQC/81EiudJT49mxrsn++hxzlqOt9kYQBhgHfsjrSOfpfS5Xdh5W3MVmlolcSkXYA7Sdv7MhWIMGRrd8wy476KZjwbR+5/K1l0nNI1xQiIlJTW9PHa80eg==
+ b=P3fLaaupY6wAEx7kZbrY7+wb1de9JzncxObPA5UVlp1dSBhCRaOeYl56Mv//68SpxzHFwuhGoq32PeuqtDgPYQF5puj2p7Cdlt6Omv78ECovEDzWqPz30PnJsj2TbTrdMgv4155qOLVYQnk3qrtplFvL3NuJoCTvwi6mo6bsinQUMLRDJTqbMk4dvCDhOI3e3Q7Zdf5Yac7M77bYTs6Hy4NJGPGZgZx2Yro3lf+ijcHQpvNLqqkQ1DMz27p6kn9eGBSfCD69VxewYzNPjbhDqBm6CPg+Qm1sqh2bVaUI8K8ng5MdYppVy2p5waqJxlfws/qbhacyqmuasDbVPacQRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WgB211tPAXbEWRwMDPmGIigBNK4zqeufD6Uol38mFRQ=;
- b=JwPDKFFv0Z4vwJGvOG5Y/X1UqXjcVjflpHt7ENL0ohylWBZrADyvzXktY0n05U8aLS9QCSF+KCsRgGY9snUO2FEIJ7duZiCwtKJ2BwTqixMcdrL7pFlvRIclloJrJWXVioQs4s4lRTOmv/VUj7tyZGIDydZaUPoDmEhhyZQzexBrZim8JGzctFBJA5B4xYEwObJ8oRV63TPUqAr+pdqE1tCejks1c2Y3IPHrzxjNDUycHRr6rvm5My64qgOuWG/Qt+xFore6302ZswV0ooptAM6Nbrt6NXJd2XckCaxd3D14QEPqbJ+mq1gqzsLVFcu0C3UbshO9b21/PATxNkOOhg==
+ bh=fmYYmJ1pdH1p+mGrX8f/T6nmsij8qV8ZEOWGdWDaG9o=;
+ b=Keu4rf/uwCJ0rjYC8Ad655t0Iw07apr/Ql/wkFLwoHh4MCfGT2egiWYaKbO2PUmg35/LwZQ0FyhOpCdVFDmHy2IRv6FoGouaFlekQcNCoBkq/HAfkqSx+qwXWOhG1iliT1pB88mFrnLZMA/1yHzbA0VwPqBftqABR2DuHzyNulUkVI22JZ53YM52u3eY/I5h5MhTm1LfUVM4gofQV3xSPq6cyOQ04aiM6Y5jFV4mm2jh4J1gTb01x/FzgNNYisSh03o/AXD5io5YE0k0R/H1hJVIoZFXksW0SgRYdTa4wfYa+T11Xb/IpEuF/hjghukZ3OQwtSQWxLh6e6xNpvqrGQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fmYYmJ1pdH1p+mGrX8f/T6nmsij8qV8ZEOWGdWDaG9o=;
+ b=Ya7SXqP6Zf2pVfk6ZF/K2nnTUWBrwQRIKzrRBR6/ba8qWJoReONIMykMvCeg0AFjcV4jsM0ox5AS7x5Df29vEuWcmdSCCSX28JUD2VpLiDT8QJV15DQcnRmIM1hDoSf59wfx3voKo3B+iHTWdmc6lfUMNK0UKiYHUzLM6Wa+7GE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MN0PR11MB6011.namprd11.prod.outlook.com (2603:10b6:208:372::6)
- by IA0PR11MB7694.namprd11.prod.outlook.com (2603:10b6:208:409::6)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV2PR12MB5872.namprd12.prod.outlook.com (2603:10b6:408:173::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 08:57:44 +0000
-Received: from MN0PR11MB6011.namprd11.prod.outlook.com
- ([fe80::3a69:3aa4:9748:6811]) by MN0PR11MB6011.namprd11.prod.outlook.com
- ([fe80::3a69:3aa4:9748:6811%3]) with mapi id 15.20.9769.046; Mon, 13 Apr 2026
- 08:57:43 +0000
-Message-ID: <a7455f4f-ba66-40b6-9de7-9ad95a99c941@intel.com>
-Date: Mon, 13 Apr 2026 10:57:38 +0200
+ 2026 08:58:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
+ 08:58:28 +0000
+Message-ID: <c413710b-4c28-4ed8-88ec-aeb8c4482011@amd.com>
+Date: Mon, 13 Apr 2026 10:58:20 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 1/2] drm/xe/pf: Restrict device query responses in
- admin-only PF mode
-To: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
- <intel-xe@lists.freedesktop.org>
-CC: Rodrigo Vivi <rodrigo.vivi@intel.com>, =?UTF-8?Q?Piotr_Pi=C3=B3rkowski?=
- <piotr.piorkowski@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Micha=C5=82_Winiarski?= <michal.winiarski@intel.com>, "Dunajski
- Bartosz" <bartosz.dunajski@intel.com>, Ashutosh Dixit
- <ashutosh.dixit@intel.com>, <dri-devel@lists.freedesktop.org>
-References: <20260409154423.2499340-4-satyanarayana.k.v.p@intel.com>
- <20260409154423.2499340-5-satyanarayana.k.v.p@intel.com>
+Subject: Re: [PATCH RFC 21/26] dma-buf: Add the Physical Address List DMA
+ mapping type
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Dongwon Kim <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, iommu@lists.linux.dev,
+ Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+References: <21-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
 Content-Language: en-US
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-In-Reply-To: <20260409154423.2499340-5-satyanarayana.k.v.p@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BE1P281CA0232.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:8c::13) To MN0PR11MB6011.namprd11.prod.outlook.com
- (2603:10b6:208:372::6)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <21-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0122.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR11MB6011:EE_|IA0PR11MB7694:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3afd5d6-6d85-446b-e666-08de993ab9a1
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB5872:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0c1f1eb-63ac-41f1-294d-08de993ad43d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: 3wajkv0nV8VdZ6glE9ho/GjQedzD3stexwDzg5MOmXi8HJ8tYCYdrHXMDvB7Bw/tI4biaKPRzDH1MBVk3aIVP7eDduxgLAeIWVuURbWEVrO0k9dfszFQJlhvUxnSmClLMHbVmdTFw/zsfFHDli/hWzfttiEcl9GmUPqZ1n+lnDsNm60FDaJ5JiwdqcP8GMZUq07TSGexHryQg7MEEx2oZ6mcK+h7OSrcsSSsiS3U9r2MrwgYZqtqp4kK8FDawuQ927KUxj2DEBMM3pz/WAh4yR64vQLqOtuZxUozRVnjsW4WJt1fM9r2/Ng2w79VJD3xpwWYLnAsZRX889U6nkfLf6Xk2NUeAlUz82lqY4olvsO+H0wap7C5/1EqF8DWg0ohXNKz/jtZEzSr9RKnvl9E4pFdeNBg+quoF+L2xbyqXHilZV56atVwM+oQ6aKiN0dJeNSMxyPSsIihDOFFEB5oSxzdWzGQIXraTHkFUk+i+Ag/4kGPM/10wTxuyvEQWvo/jxz1Zs82r3j8MNBqbT5anMcvw++2VuPjiV5C5idvECVGd7JyjwQDljjocGstnb6fweD8GFG4HJbWTRzRj7oUEOajqykTe6pM3NI+1BlDkEDgjvDd0IVnT+TA9XohIIbwAazBTmPVmKlYcejTveymZ09zrvEW+qTn1HyA2YbvdtkR0ujJgC191wip/deY43PCFlWyu+faoRl/Lg8G/TOVY26HF9p6LFDMhNGMD768g8U=
+ ARA:13230040|1800799024|366016|7416014|376014|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: VFMAuT+pet7c+l670oZ2PyerScNqa/CsamufZPVfcV8UwgHUkCZ6lq7H0UHmdL8/fAeglCwuN7STwCAONN1IhqlYje9n6yKZKIqgB38qxfytkShzyXeC46JZnGDACWE4W9A5ciDckj4fsZKdHMt8Yt5oeUMOLCv5UoOQDIWvwUJ9W7sbkTzU97yaJGXBxOJMXSdveuD6ANw4Ivt6RC1zT4DkMpxQ8s1+XoyeVfivar4wzuqGy8IaODGqITRMhqUL2c5pxCjcXNi1hSaUfuz1a1cooUM4pMBXsAz3mAirNpofRQ29+nYnVJNQhE4Qzij76rsvWM7oLyy/5tIiYbRWghEqrS3Af0L0/CLdqyjjEBSkmCanq1aszmSR5UebBZS180xPzCxpzzWrlbNVDddQnROQjF6hw2NPwObn/QArYyqdG6DSuXAHUOisULHEHUEtiKHFMPhb2/ybt19R9/g+pqWzHKmy8+ly/ErUkX9BeqPmE4GgVaCNSq5tsKORoR41A5P8TB2n3e87sXds3KaIBRS4IPBdesBU2xMZELhPTbuAj8at+5FFYMk6yih69soF89KZ2HaZ29BNppYljnTKuP3ZFGx85Nj12rJGszt5WXDYpE/QimRguBCO6NflX3onv3kMVp7b68C8Uo9y9nzbgl5B6ufCgk7TBTXzZS1W55t2pR8IFh6aVQseUWF788PN7Z3/hgbVmEcangmhRLCUb6NvdWBUcAgZ7wvEt6A/nXg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR11MB6011.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QmtxUHd6Y280M3ROK0dZWWlRajB1ZCtFRzJvRk9pSEkyWFExUWhicGhMNEQr?=
- =?utf-8?B?VVNpanRsWk1BeTVnRFJ2Mnl5VzlBLytMNFhUV2JmbVBXYWZoY1hoelFlMENw?=
- =?utf-8?B?K2M4TTBWNTVOZUVHb1BZTm5BdXpSbkJpWDNvTmxhdXVRWTFDUWFvUnN5MEdV?=
- =?utf-8?B?Zm9Ga0thbnRaRFBXTTdsQjhJbUV4QXpEVFhneXRlQlpZN1RNSWJFd3BaZEw0?=
- =?utf-8?B?NXEzeUlPZWkwd2V2b2ZxTHRlL2pXaUNtLzRJRVAzZ0h4WDFhMHIxUG5YR3hB?=
- =?utf-8?B?UkFJdGZWSmVJMlRpZ3RhTXpEc3ZFMkFVejRVekRLSTBjcC9RMTZTUVJmT3hz?=
- =?utf-8?B?bk9kN1hQN09Pai9OR0w0RFlrYlVUdkJ3YU9FZmFma2o4VDJ0UkF5by9GTDdx?=
- =?utf-8?B?aXdEendaQ1UxTU5UdS8vZ3NTOENDQVJHTk1zVENCMkNYc3YvMTBvckt6NDFB?=
- =?utf-8?B?UVA5U1BhbW9MN3Q3Z2p2UW16UTZDNTZPenBuYU5rSkVWcUpxNE9FSWR2WS91?=
- =?utf-8?B?SHRnZnFMZnI2MWdqaFhpeWc0TmpqaGg1L0ViZklUMnQyWk5WUmNmVnFNZ2VD?=
- =?utf-8?B?ZnNxTGJmV2V1a2pGcXI3SGQxQVE5K2tEdmJpbFJlVGZRZjZQaCtlWmJDWGFt?=
- =?utf-8?B?MlMwanltN2ZNbW9lUkV6djRTcnlTYUVqY3ZjQWJIMHdDWGhiMENqejJMVE02?=
- =?utf-8?B?NklPb05kTTlWU2F1Z2hRT2xqUGdCNnN5ZzAwQmU4ZHpyQnZqeG1EaTljQUdt?=
- =?utf-8?B?U0ZYUDNaQVJ4bDNyc1dGdWZVTlZ4VWVJS0prY2dablZWQWhmdmRPVGM0KzJ1?=
- =?utf-8?B?YzFxejc0UmN1ZlprTmxqMDIxd2tmYXdBWG9vOXowU3RMMUZweDJaVFF4bURo?=
- =?utf-8?B?MU9jenFrbXF5bGxKRXA5ZmhWbTFtZ3VCVUNUVmpCWmpaTUdlR1JIVFgwMnFM?=
- =?utf-8?B?aDdnVjNnZ1FjeHVmZkhkUjVIRHArWHdxeFdsN0IxVTk3ZEF2bzJxdzhYTTBX?=
- =?utf-8?B?NFFPa1ArQmIwSlJVSnZPc1lvL29oR293OEFmekk4YTBFeFB0Kys5bklMeFVx?=
- =?utf-8?B?WmdsOHpIT1R0ZzUwVUl4b3J2MDAxUWtrUnV0U3F4cHFXOFprM0JTcmgzUW1n?=
- =?utf-8?B?UmRzWW8rdXRmTG5DV0dpMHZGeE82N2hHZDZhZjYvaEJrbzdsMFpRTEpjK2o4?=
- =?utf-8?B?Qk5PT0s1MVZsMmluNVE2dmQySGJrS2JaQ2tycnR2Q0RhVExvaHFsRERDeUhz?=
- =?utf-8?B?RjgvVC8wazUreEZ5cFQrZi9CRUNvdWx4elBKMEFFeWszTHBLTXZWcnFTWklk?=
- =?utf-8?B?enB3aFdudEdkOXJrdFNHWW5FSnJ1VjUza1NOcytWWTQ3L2RvaEtuRXYwVHdS?=
- =?utf-8?B?YlZzYkdidEN0a0c3cUZ1SWJrdU1leWVGTlpWZXMrWnp1b0hxd0dqRjJNRTEy?=
- =?utf-8?B?Z1lQOXVQMWpuKzJBRGpuVmhVclFKVFdXRVdqR20rVFl2Q01Sc2dIZjVmQUpH?=
- =?utf-8?B?SmN4b21Gd3htSHBkRk5mVDhJMWZ3aTJrbzBhZVNuVUU1eHpjeVdEUmtiZS9L?=
- =?utf-8?B?U3g3WDY0bk40TCthTWE2R0t0M1V4UWxKZmRpYUk1VnpldmgxQW0wcG5vSWFX?=
- =?utf-8?B?RmlOcXJXbkhQV1I1WGtvM1FWVDYra21vMlhBcVZVK2R6TWdDdDUzWG5MTUhB?=
- =?utf-8?B?Uld0YjByTUwwY2JndDV2bDVVZk84U2tIWkZiR21TcWJNdFRMV3QrWmZPNzRL?=
- =?utf-8?B?ZGVEN0h1bWJlNVBBRExkSHI4b1lTTHorR25iNjJxR3ZpNmpaSDY2dHlpcjVz?=
- =?utf-8?B?WFBFbFBqNnNHS1QydVFuZnBGOXQ0UmRsZ1BqQnNVejFvSDI1cVRZNFdHVk5L?=
- =?utf-8?B?bU5seXRyWmtMbHRzUE56TWZjSS9aenY3YzRNZzdhN2MvVUwvc0puNXE3aC93?=
- =?utf-8?B?VlVzWXYydmlOTkh0UXZRUHZXRG9ZNDhwN1dsOC85WnFWTEJ2cGJBR3VmSjVI?=
- =?utf-8?B?WWVVRDUrcW9QT296WjhFcllRU1p0ZUN4Q3BTdUdIMmxDdDlmbFR3MndMQjRo?=
- =?utf-8?B?Q2RCL21RRm1HL3BqQ25Oa1FDU24yYVlsblNHWGp5WTNRbmVocWhMYVRjdWtq?=
- =?utf-8?B?NkFmU2g3RHgwRVo4N1N4Q0ExNEZxNnZjWmd1SzNNRVVZaFZCM0ZteWtyNnFX?=
- =?utf-8?B?R0VhbGJERHJWNnNKU3dIRDlCc2N0UE8zTDZEMDg0WG1OZlpDZVBMLyt4S0hP?=
- =?utf-8?B?NnZ3a1lVY0w0ZmdtMnd0YzZLOFpsTWpyQ0Fud2xoMDJTRTRWQ2lDZmtFYXFL?=
- =?utf-8?B?ZWtIMm5jK01BWVVaejNQZloxUTRjaE50QmdwWlV6UE4xamF6ZHRhWENmTHB0?=
- =?utf-8?Q?ugSajDDCRFzZPLQ8=3D?=
-X-Exchange-RoutingPolicyChecked: BeTPgwuT0aO0yAPJg6OkauNlnS8jkjCxU8oW+PH0wWBwjsTGTTNUiX3RqHNEEg9ZPge9NVLdAzvLkRZhE2njkByYJ6gNwTSC9FAIpPb0ywwmYOgIZsCUXU4h9o5E8yOVwHVanOXJaUuuUP/zZpXqFIwC6Su8/zCJbEtrUdq7FSJ3uKbH+tQKVe1kxHQ5RjVUJJzvl6VAFZBkJnU2yLW5s0Dj6dfUXquFlBMHeDKAyNBq43hBDrcR9yOqYtmPlkon2UEoGihfH6XwM2OVm0chGBtCc8mz17dRpEzzGqB0mFihDOM+YyfT5eyrrVWWn/p6V3RAODxQfAK1u126DSb3Wg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3afd5d6-6d85-446b-e666-08de993ab9a1
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6011.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlZBMDNkeXhqakxyNXZmWE80UTFJWnBzMmJ5MEc1QUNUMnQxUjRpYmhhVVkw?=
+ =?utf-8?B?QTRicEdkeE80MVpieTlEYmZoeXlWNlNyc3h1azJNMS9lVXd4REJKUGMrVVVJ?=
+ =?utf-8?B?a1pUZ2FGU1hEbDNDeFQ4WHdGRDhwSXQ3THorbGZtcEtPR0ZYOGxjMmQ4NlRz?=
+ =?utf-8?B?NXRRc292RlI4eFA5eDNONS9FZXVDUU8ycEFnR1hwWEZKT2JYQ01RbG0yTE9G?=
+ =?utf-8?B?Y1RhUFlRVXhaL3RuazkvZk42eE9kU01KY0lRY2pZcmo3NEhwa2FFVE9YNVBB?=
+ =?utf-8?B?N0hEa1NwZm50ZmUzMHpGWmlPY3JoeW4yN2JmUmQwcm1ZNUFWdURQZ2dkUXR1?=
+ =?utf-8?B?dG8xUEdHSUVoZmxvbkJnT1NaVXVORzIxMW5tdWJuTVJSZlE4MEd6RWU5Zk0z?=
+ =?utf-8?B?cFRVMWd0a1A4QUl4MU5KamplVHk5cWZNcE4zcHBtU0toMnpMdDFleUNrMEkw?=
+ =?utf-8?B?QUh1OGFPQy92NGkyeWtLbXF5czRLNEtOemhwTkczaFJrV1FUVmlsU3ZWaElK?=
+ =?utf-8?B?dXdrbVpNdkt4WlA0U084TzRMc3RjYW5oK3RTWm90bmFqZFZ0M3Ezak9BWkda?=
+ =?utf-8?B?QTlRWHdJcmJTNWxWNkVJSFRpZDEwdnVpUTloWTlNaU1WQm5VNEpRVDF1bXIw?=
+ =?utf-8?B?MHZNYThXY1hxSEJUVzR4MHUyRHF1bzlKaWExWmVjcHZNeWQwNGpOTVFoMU5W?=
+ =?utf-8?B?a3M4cm1idTJqSXQ2cWpGOGR5di83QWxNNDJ6TFdPeEZZVTc4elg0MlhOMUFT?=
+ =?utf-8?B?cWtXWlZ6c01OM0ZMSWpaNEo2RGxpVkpibHlQdEsyVVRnVkoxYnpoQ0RkQW9L?=
+ =?utf-8?B?Q0Q5Y0c3TFJ0cGptaHc5SHN4TndnNjlrVHdUWWlZZ2ZyWXA2TkVVZkhpOVdH?=
+ =?utf-8?B?MThLelBFc2E3d3V6ZVlHTGYwU1J0ZFNUb0ZxNUlId1ZONDM2UGZqWkRUTzFj?=
+ =?utf-8?B?SG1yZHhieHNMUGFlYVNqamc3Tk14NUxoemJVZHg2Vlljb1prNU5KbEQ2SUJk?=
+ =?utf-8?B?bkJHR1pxQ2ZPODlXazJURitzQ1UvWjA1VkRYWDVCMkdYTk45Z090VzdSOU5H?=
+ =?utf-8?B?VXV6dWxxWkdEa1A4dUFpeXZpemdoNmhLcnkwL25UTFlwTmlhanJjald1RElD?=
+ =?utf-8?B?eTgyV1lEUjZzeXpiVFU4dVAxZkZiSG9oMHNXVnVEZmRQTlFFekgyOEp2ckJz?=
+ =?utf-8?B?ZVJwSFozQ0lxZzVEQVZwcXVyZDJYYUNXYWZWWnUzZmxaR1FKOXh2N1BGK0dQ?=
+ =?utf-8?B?QVl2ZVJpa0ord0VMUWxEQmJRVXE1cVM1c3NxeEdHUThndXNIU2tKa01XejhN?=
+ =?utf-8?B?YjBESldTQjVzaWduWFBxSVYrSysxUXoxYTBDcWVlOUFsdzJGaGdkMUl0aEI4?=
+ =?utf-8?B?cG5mV0RTZ3VmcllHSDNSeE9qQjloYjhrUnFYdERJenZ5L2hjVlUvbDlGYi9E?=
+ =?utf-8?B?WWJNRnNUVGdpbDkzV29rdXNyNFFpSG1BSmlTQURLWkwya2RpZldXajJvYktG?=
+ =?utf-8?B?RkNvNktCOFZLYTZNdlpMcURWMk1HMWRwUGtpZzVuandjTUFFV2dBcDJBNVNm?=
+ =?utf-8?B?ckY5Qmc4eVcyd1Myb3RoYjczWlVaNitzc3NZUnRYSU5BUFBDcmZSdkxPUzZM?=
+ =?utf-8?B?MXVKd2NIbVJWMWtpZXNKcFM2RGpXVERlQm9nb3N2YlFQODNuOTY2ZjZ1WXh0?=
+ =?utf-8?B?WmY0RlIzdE9rVzEvTHNhMEJSVmpEWXBVQzh0dzBpam45b2FzZWptZS9HbThO?=
+ =?utf-8?B?eFRFUG5nRUZ0M1NodjhveWRKeWdNdGkwM3FBMkNkV2lYVlNGSTlWMUEzUVRM?=
+ =?utf-8?B?UWJ4T2YzYnBwYkN1Y0hKS2lFSFlwNGNuSVR6YjJUdWdvd2Ird0o2Uy9jMVR3?=
+ =?utf-8?B?SGJCSzRyd3BYbGMvdG9QWjN4U3F0RnkrdUlYY3Z0T0g4aWNsTzVlSlpFRmQz?=
+ =?utf-8?B?VG1ISThkZ2FqV2NjamZ4MXdZblVJdVlCb0YzMDBVeTFJdkZjSS9GWWl5blFD?=
+ =?utf-8?B?VGZuRVFoNktRY2Vmb1VURFdmcVBjV0hydmgzelkwUWdXc1puYkRFRlAzVFRW?=
+ =?utf-8?B?b25KUWZmdHU2Tm9KcDR1VVhjSU1STktDYmtocUhjVDVUVWVLK1ExN2tuQnky?=
+ =?utf-8?B?SGk1T1V4MXdIOGhsMUdKUTFMM3ZoZEp5UzBGZGJaWFRqaTBtc0MzN0N3ZVVi?=
+ =?utf-8?B?TEVZS1FzbGtJR1lGaEtQUUY5eDlOaTRTaFVzRzF2QkxLWGdNZS9Wblkwd3o1?=
+ =?utf-8?B?Z0lDdlhSUktqQjdIaG9XZUpCUnhHMWNXc2JCNlVoQkhOTUhDRE9aYk9sNmJj?=
+ =?utf-8?Q?S0h4Nb/ZA0/IuyrH8w?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0c1f1eb-63ac-41f1-294d-08de993ad43d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 08:57:43.8165 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 08:58:28.2891 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ueha7kPQcCOd3RGcfzNmjA1fUhlXiTWJIx7xU6aIM8AQB9HnEZkkpkp7rmhc4vLU0L+08J8YbujmGBO9AxvHFV+klkZlKCbRsAd81h3t9bo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7694
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZNrmYWqfnAQJJzswmB2U5gVYqykb3svm/hFGDSxLzqR8DbMqAsAOa8oVZGzAKGHV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5872
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,87 +144,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 4/9/2026 5:44 PM, Satyanarayana K V P wrote:
-> When a PF is configured in admin-only mode, it is intended for management
-> only and must not expose workload-facing capabilities to userspace.
+On 2/18/26 01:11, Jason Gunthorpe wrote:
+> This type is required by iommufd and kvm as dmabuf importers.
 > 
-> Limit the exposed ioctl set in admin-only PF mode to XE_DEVICE_QUERY and
-> XE_OBSERVATION, and suppress capability-bearing query payloads so that
-> the userspace cannot discover execution-related device details in this
-> mode.
+> Due to sensitivity about abusing physical addresses, restrict importers by
+> using EXPORT_SYMBOL_FOR_MODULES(). Only iommufd can implement an importer,
+> the kernel module loader will enforce this.
 > 
-> Signed-off-by: Satyanarayana K V P <satyanarayana.k.v.p@intel.com>
-> Cc: Michal Wajdeczko <michal.wajdeczko@intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Piotr Piórkowski <piotr.piorkowski@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Michał Winiarski <michal.winiarski@intel.com>
-> Cc: Dunajski Bartosz <bartosz.dunajski@intel.com>
-> Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Acked-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> Allow anything to implement an exporter as there are use cases in
+> DPDK/SPDK to connect GPU memory into VFIO/iommufd and it is hard to abuse
+> the API as an exporter.
+> 
+> The physical address list exporter returns a physical address list in a
+> simple kvalloc'd array of struct phys_vec.
 
-Reviewed-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+As far as I can see that is still a pretty big NO-GO.
+
+We have seen so many problems with direct physical address access by the importer that I clear don't want to repeat that performance.
+
+My main question is why does IOMMUFD need the physical address in the first place?
+
+If that is really strictly necessary then I strongly suggest to not touch drivers/dma-buf in any way, but only do this is private interface between iommufd and KVM.
+
+Regards,
+Christian.
 
 > 
+> For now all entries are assumed to be MMIO and iommufd will map into
+> the IOMMU using the IOMMU_MMIO flag.
+> 
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 > ---
-> V10 -> V11:
-> - Moved xe_device_is_admin_only() definition for !CONFIG_PCI_IOV option
-> as per review comments (Michal).
-> - Fixed some more generic review comments (Michal).
+>  drivers/dma-buf/dma-buf-mapping.c | 63 +++++++++++++++++++++++++++++++
+>  include/linux/dma-buf-mapping.h   | 42 +++++++++++++++++++++
+>  2 files changed, 105 insertions(+)
 > 
-> V9 -> V10:
-> - Moved some parts of admin_only_pf mode under CONFIG_PCI_IOV config
-> option (Michal).
-> - Updated commit message.
-> 
-> V8 -> V9:
-> - Memory regions are skipped in case of admin_only_pf mode (Michal)
-> - removed .dumb_create, .dumb_map_offset and .show_fdinfo device specific
-> operations in admin-only mode (Michal).
-> 
-> V7 -> V8:
-> - Fixed issues reported by CI.Hooks
-> - Updated commit message (Ashutosh)
-> - Removed gem_prime_import from admin_only_driver structure (Michal)
-> 
-> V6 -> V7:
-> - Allowed xe_observation_ioctl as well with admin-only PF (Ashutosh,
-> Michal).
-> - Updated commit message with steps to enable admin-only mode (Rodrigo).
-> 
-> V5 -> V6:
-> - Updated commit message.
-> - Return number of engines and memory regions as zero instead of
-> returning query size as zero (Michal Wajdeczko).
-> - Allow all other query IOCTLs excepts query_engines and
-> query_mem_regions (Michal Wajdeczko).
-> 
-> V4 -> V5:
-> - Updated commit message (Matt B).
-> - Introduced new driver_admin_only_pf structure (Michal Wajdeczko).
-> - Updated all query configs (Michal Wajdeczko).
-> - Renamed xe_device_is_admin_only() to xe_device_is_admin_only_pf()
-> - Fixed other review comments (Michal Wajdeczko).
-> 
-> V3 -> V4:
-> - Suppressed device capabilities in admin-only PF mode. (Wajdeczko)
-> 
-> V2 -> V3:
-> - Introduced new helper function xe_debugfs_create_files() to create
-> debugfs entries based on admin_only_pf mode or normal mode.
-> 
-> V1 -> V2:
-> - Rebased to latest drm-tip.
-> - Update update_minor_dev() to debugfs_minor_dev().
-> ---
->  drivers/gpu/drm/xe/xe_device.c    | 57 ++++++++++++++++++++++++++++---
->  drivers/gpu/drm/xe/xe_device.h    |  9 +++++
->  drivers/gpu/drm/xe/xe_hw_engine.c |  3 ++
->  drivers/gpu/drm/xe/xe_query.c     |  7 ++++
->  4 files changed, 72 insertions(+), 4 deletions(-)
-> 
+> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+> index baa96b37e2c6bd..d9d6b9b5bf05c6 100644
+> --- a/drivers/dma-buf/dma-buf-mapping.c
+> +++ b/drivers/dma-buf/dma-buf-mapping.c
+> @@ -349,3 +349,66 @@ struct dma_buf_mapping_type dma_buf_mapping_sgt_type = {
+>  	.debugfs_dump = dma_buf_sgt_debugfs_dump,
+>  };
+>  EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_sgt_type, "DMA_BUF");
+> +
+> +static const struct dma_buf_mapping_pal_exp_ops *
+> +to_pal_exp_ops(struct dma_buf_attachment *attach)
+> +{
+> +	return container_of(attach->map_type.exp_ops,
+> +			    struct dma_buf_mapping_pal_exp_ops, ops);
+> +}
+> +
+> +/**
+> + * dma_buf_pal_map_phys - Obtain the physical address list for a PAL attachment
+> + * @attach: The DMA-buf attachment
+> + *
+> + * Calls the exporter's map_phys() callback to retrieve the physical address
+> + * list for the buffer. The caller must hold the dma-buf's reservation lock.
+> + *
+> + * This symbol is restricted to iommufd to prevent misuse.
+> + *
+> + * Returns the physical address list on success, or an ERR_PTR on failure.
+> + * The returned list must be freed with dma_buf_pal_unmap_phys().
+> + */
+> +struct dma_buf_phys_list *
+> +dma_buf_pal_map_phys(struct dma_buf_attachment *attach)
+> +{
+> +	dma_resv_assert_held(attach->dmabuf->resv);
+> +	return to_pal_exp_ops(attach)->map_phys(attach);
+> +}
+> +/*
+> + * Restricted, iommufd is the only importer allowed to prevent misuse of this
+> + * API.
+> + */
+> +EXPORT_SYMBOL_FOR_MODULES(dma_buf_pal_map_phys, "iommufd");
+> +
+> +/**
+> + * dma_buf_pal_unmap_phys - Unmap a physical address list
+> + * @attach: The DMA-buf attachment
+> + * @phys: The physical address list returned by dma_buf_pal_map_phys()
+> + *
+> + * Returns the mapping back to the exporter. After this point the importer may
+> + * not touch any of the addresses in any way.
+> + */
+> +void dma_buf_pal_unmap_phys(struct dma_buf_attachment *attach,
+> +			    struct dma_buf_phys_list *phys)
+> +{
+> +	to_pal_exp_ops(attach)->unmap_phys(attach, phys);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(dma_buf_pal_unmap_phys, "DMA_BUF");
+> +
+> +static inline void
+> +dma_buf_pal_finish_match(struct dma_buf_match_args *args,
+> +			 const struct dma_buf_mapping_match *exp,
+> +			 const struct dma_buf_mapping_match *imp)
+> +{
+> +	args->attach->map_type = (struct dma_buf_mapping_match){
+> +		.type = &dma_buf_mapping_pal_type,
+> +		.exp_ops = exp->exp_ops,
+> +	};
+> +}
+> +
+> +struct dma_buf_mapping_type dma_buf_mapping_pal_type = {
+> +	.name = "Physical Address List",
+> +	.finish_match = dma_buf_pal_finish_match,
+> +};
+> +EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_pal_type, "DMA_BUF");
+> diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
+> index ac859b8913edcd..10831ce2e72851 100644
+> --- a/include/linux/dma-buf-mapping.h
+> +++ b/include/linux/dma-buf-mapping.h
+> @@ -269,4 +269,46 @@ DMA_BUF_EMAPPING_SGT_P2P(const struct dma_buf_mapping_sgt_exp_ops *exp_ops,
+>  			.exporter_requires_p2p = DMA_SGT_NO_P2P,         \
+>  		} })
+>  
+> +/*
+> + * Physical Address List mapping type
+> + *
+> + * Use of the Physical Address List type is restricted to prevent abuse of the
+> + * physical addresses API. Please check with the DMA BUF maintainers before
+> + * trying to use it.
+> + */
+> +struct dma_buf_phys_list {
+> +	size_t length;
+> +	struct dma_buf_phys_vec phys[] __counted_by(length);
+> +};
+> +
+> +extern struct dma_buf_mapping_type dma_buf_mapping_pal_type;
+> +
+> +struct dma_buf_mapping_pal_exp_ops {
+> +	struct dma_buf_mapping_exp_ops ops;
+> +	struct dma_buf_phys_list *(*map_phys)(struct dma_buf_attachment *attach);
+> +	void (*unmap_phys)(struct dma_buf_attachment *attach,
+> +			   struct dma_buf_phys_list *phys);
+> +};
+> +
+> +struct dma_buf_phys_list *
+> +dma_buf_pal_map_phys(struct dma_buf_attachment *attach);
+> +void dma_buf_pal_unmap_phys(struct dma_buf_attachment *attach,
+> +			    struct dma_buf_phys_list *phys);
+> +
+> +static inline struct dma_buf_mapping_match DMA_BUF_IMAPPING_PAL(void)
+> +{
+> +	return (struct dma_buf_mapping_match){
+> +		.type = &dma_buf_mapping_pal_type,
+> +	};
+> +}
+> +
+> +static inline struct dma_buf_mapping_match
+> +DMA_BUF_EMAPPING_PAL(const struct dma_buf_mapping_pal_exp_ops *exp_ops)
+> +{
+> +	return (struct dma_buf_mapping_match){
+> +		.type = &dma_buf_mapping_pal_type,
+> +		.exp_ops = &exp_ops->ops,
+> +	};
+> +}
+> +
+>  #endif
+
