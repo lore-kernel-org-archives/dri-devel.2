@@ -4,45 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24119EBFD37
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC14CEBFD3F
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:20:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87FAC10E3F6;
-	Mon, 13 Apr 2026 11:13:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6B610E402;
+	Mon, 13 Apr 2026 11:20:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="f9orTYBR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kU66Kl8V";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 78BD810E3F6
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:13:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DE673594;
- Mon, 13 Apr 2026 04:13:44 -0700 (PDT)
-Received: from [10.57.61.173] (unknown [10.57.61.173])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7A94D3F93E;
- Mon, 13 Apr 2026 04:13:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1776078829; bh=l36ug4gYME6FRhUmruDE4M2EecawGIy2ZRx/0UBZKR0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=f9orTYBRhB2FMICv1FLyag5FYuh1+a4cLoUpgxWYKqK8lby/K/FuCU9NK1fUI3TQs
- vKHnu0XoVlSy4I8KDAfPj1oNfrjYDwbJ5jNVf3CyoDHf7NJROlTPEJYoXT2lLVsnzv
- EzAMC4kFexP3mUErz+K5I3S0WqN9bJDu7XH7dYBY=
-Message-ID: <17b67415-faa2-41a6-86b3-a09981306e40@arm.com>
-Date: Mon, 13 Apr 2026 12:13:45 +0100
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFDB510E402
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:20:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5EAC6400B4;
+ Mon, 13 Apr 2026 11:20:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32921C116C6;
+ Mon, 13 Apr 2026 11:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776079255;
+ bh=UiS601VUn5/ZvPYsy5C4Mul8oOXSARMTv/V7FEYtdJE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=kU66Kl8VXCrcRB9lA+ElZb1UkRrVc6F9u1vRzLrB5Ig72B0rrDu2wJC61n45CViGZ
+ RGytLAU1LikED+X9r0tZ8UBExIySrBBQv/f04PhfN58iRypPYWRoaGYcNMA6SFnkxM
+ tFwcH/5GROwM/OSJRG3LrRJd0j5LalQINWMRrAzFu3XC2jU63PSaQld0i8bPeKgrda
+ 8FAmHsow1pOchE+kItJaP2heb2Vd0Gc5LOcT8pS8pi0lfINFnOOwz8ZvOQ4WjnSiJ4
+ 2d43Z7dR7h+VDmD4uCTWmV2zBoK9tujK6RyhjfZjlFHk1/B1xkEF3aMxgDPv5oXNf9
+ 9QkQyO4XuZbVg==
+Date: Mon, 13 Apr 2026 16:50:47 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, andersson@kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
+Subject: Re: [PATCH v4 2/9] bus: mhi: Move sahara protocol driver under
+ drivers/bus/mhi
+Message-ID: <enwtopztznwtvlhukkggxcdmh4t7v7duoiuapi5gd4zggqwbit@ypb4nxnds53f>
+References: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
+ <20260319-sahara_protocol_new_v2-v4-2-47ad79308762@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/panthor: Avoid potential UAF due to memory reclaim
-To: Akash Goel <akash.goel@arm.com>, boris.brezillon@collabora.com,
- liviu.dudau@arm.com
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, daniel@ffwll.ch, nd@arm.com
-References: <20260413080253.1288157-1-akash.goel@arm.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260413080253.1288157-1-akash.goel@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260319-sahara_protocol_new_v2-v4-2-47ad79308762@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,66 +65,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 13/04/2026 09:02, Akash Goel wrote:
-> Recent changes to add shrinker support introduced a use after free
-> vulnerability.
-> When a BO is evicted from the shrinker callback, all its CPU and GPU
-> mappings are invalidated. It can happen that another GPU mapping is
-> created for the BO after the eviction. Because of the new GPU mapping,
-> BO will be added back to one of the reclaim list but the state of
-> corresponding vm_bo will not be changed.
-> If vm_bo remains in evicted state and shrinker callback is invoked
-> again then the new GPU mapping won't be invalidated. As a result the
-> backing pages, which were acquired on the creation of new GPU mapping,
-> can get reclaimed and reused whilst they are still mapped to the GPU.
+On Thu, Mar 19, 2026 at 12:01:42PM +0530, Kishore Batta wrote:
+> The Sahara protocol driver is currently located under the QAIC
+> accelerator subsystem even though protocol itself is transported over the
+> MHI bus and is used by multiple Qualcomm flashless devices.
 > 
-> To prevent the use after free possibility, this commit removes the
-> evicted check for vm_bo so that all GPU mappings are checked for
-> invalidation.
+> Relocate the Sahara protocol driver to drivers/bus/mhi and register it as
+> an independent MHI protocol driver. This avoids treating Sahara as QAIC
+> specific and makes it available for reuse by other MHI based devices.
 > 
-> v2:
->  - Update comment and add a newline in
->    panthor_vm_evict_bo_mappings_locked().
+> As part of this move, introduce a dedicated Kconfig and Makefile under the
+> MHI subsystem and expose the sahara interface via a common header.
 > 
-> Fixes: fb42964e2a76 ("drm/panthor: Add a GEM shrinker")
-> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Akash Goel <akash.goel@arm.com>
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-Reviewed-by: Steven Price <steven.price@arm.com>
-
+> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
 > ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index fa8b31df85c9..592a6829bee6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2350,14 +2350,20 @@ int panthor_vm_evict_bo_mappings_locked(struct panthor_gem_object *bo)
->  		struct panthor_vm *vm = container_of(vm_bo->vm, struct panthor_vm, base);
->  		struct drm_gpuva *va;
->  
-> -		/* Skip already evicted GPU mappings. */
-> -		if (vm_bo->evicted)
-> -			continue;
-> -
->  		if (!mutex_trylock(&vm->op_lock))
->  			return -EDEADLK;
->  
-> -		drm_gpuvm_bo_evict(vm_bo, true);
-> +		/* It can be that the vm_bo was already evicted but a new
-> +		 * mapping pointing to this BO got created in the meantime,
-> +		 * thus turning the vm_bo in partially evicted state. In that case
-> +		 * we don't call drm_gpuvm_bo_evict() again because this would
-> +		 * mess up with the internal gpuvm lists, but we do walk the
-> +		 * VAs on this vm_bo to make sure the non-evicted ones are
-> +		 * torn down.
-> +		 */
-> +		if (!vm_bo->evicted)
-> +			drm_gpuvm_bo_evict(vm_bo, true);
-> +
->  		drm_gpuvm_bo_for_each_va(va, vm_bo) {
->  			struct panthor_vma *vma = container_of(va, struct panthor_vma, base);
->  
+>  drivers/accel/qaic/Kconfig                      |  1 +
+>  drivers/accel/qaic/Makefile                     |  3 +--
+>  drivers/accel/qaic/qaic_drv.c                   | 11 ++---------
+>  drivers/bus/mhi/Kconfig                         |  1 +
+>  drivers/bus/mhi/Makefile                        |  3 +++
+>  drivers/bus/mhi/sahara/Kconfig                  | 18 ++++++++++++++++++
+>  drivers/bus/mhi/sahara/Makefile                 |  2 ++
 
+Create one more subidr 'clients' and move 'sahara' here:
+	drivers/bus/mhi/host/clients/sahara/
+
+I'm not sure if we are going to have Sahara implementation for the endpoint
+itself. If so, it should be moved under drivers/bus/mhi/common/.
+
+>  drivers/{accel/qaic => bus/mhi/sahara}/sahara.c | 16 +++++++++++-----
+>  {drivers/accel/qaic => include/linux}/sahara.h  |  0
+
+include/linux/mhi/sahara.h
+
+>  9 files changed, 39 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/accel/qaic/Kconfig b/drivers/accel/qaic/Kconfig
+> index 116e42d152ca885b8c59e33c7a87519a0abc6bb3..1e5f1f4fa93c12d8ca8fb37633f2f0bee9997499 100644
+> --- a/drivers/accel/qaic/Kconfig
+> +++ b/drivers/accel/qaic/Kconfig
+> @@ -8,6 +8,7 @@ config DRM_ACCEL_QAIC
+>  	depends on DRM_ACCEL
+>  	depends on PCI && HAS_IOMEM
+>  	depends on MHI_BUS
+> +	select MHI_SAHARA
+>  	select CRC32
+>  	select WANT_DEV_COREDUMP
+>  	help
+> diff --git a/drivers/accel/qaic/Makefile b/drivers/accel/qaic/Makefile
+> index 71f727b74da3bb4478324689f02a7cea24a05c2d..e7b8458800072aa627f7f36c3257883aa56f4ce4 100644
+> --- a/drivers/accel/qaic/Makefile
+> +++ b/drivers/accel/qaic/Makefile
+> @@ -13,7 +13,6 @@ qaic-y := \
+>  	qaic_ras.o \
+>  	qaic_ssr.o \
+>  	qaic_sysfs.o \
+> -	qaic_timesync.o \
+> -	sahara.o
+> +	qaic_timesync.o
+>  
+>  qaic-$(CONFIG_DEBUG_FS) += qaic_debugfs.o
+> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+> index 63fb8c7b4abcbe4f1b76c32106f4e8b9ea5e2c8e..76cc8086825e7949ed756d51fcb56a08f392d228 100644
+> --- a/drivers/accel/qaic/qaic_drv.c
+> +++ b/drivers/accel/qaic/qaic_drv.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/msi.h>
+>  #include <linux/mutex.h>
+>  #include <linux/pci.h>
+> +#include <linux/sahara.h>
+>  #include <linux/spinlock.h>
+>  #include <linux/workqueue.h>
+>  #include <linux/wait.h>
+> @@ -32,7 +33,6 @@
+>  #include "qaic_ras.h"
+>  #include "qaic_ssr.h"
+>  #include "qaic_timesync.h"
+> -#include "sahara.h"
+>  
+>  MODULE_IMPORT_NS("DMA_BUF");
+>  
+> @@ -782,18 +782,12 @@ static int __init qaic_init(void)
+>  	ret = pci_register_driver(&qaic_pci_driver);
+>  	if (ret) {
+>  		pr_debug("qaic: pci_register_driver failed %d\n", ret);
+> -		return ret;
+> +		goto free_pci;
+>  	}
+>  
+>  	ret = mhi_driver_register(&qaic_mhi_driver);
+>  	if (ret) {
+>  		pr_debug("qaic: mhi_driver_register failed %d\n", ret);
+> -		goto free_pci;
+> -	}
+> -
+> -	ret = sahara_register();
+> -	if (ret) {
+> -		pr_debug("qaic: sahara_register failed %d\n", ret);
+>  		goto free_mhi;
+>  	}
+>  
+> @@ -847,7 +841,6 @@ static void __exit qaic_exit(void)
+>  	qaic_ras_unregister();
+>  	qaic_bootlog_unregister();
+>  	qaic_timesync_deinit();
+> -	sahara_unregister();
+>  	mhi_driver_unregister(&qaic_mhi_driver);
+>  	pci_unregister_driver(&qaic_pci_driver);
+>  }
+> diff --git a/drivers/bus/mhi/Kconfig b/drivers/bus/mhi/Kconfig
+> index b39a11e6c624ba00349cca22d74bd876020590ab..4acedb886adccc6f76f69c241d53106da59b491f 100644
+> --- a/drivers/bus/mhi/Kconfig
+> +++ b/drivers/bus/mhi/Kconfig
+> @@ -7,3 +7,4 @@
+>  
+>  source "drivers/bus/mhi/host/Kconfig"
+>  source "drivers/bus/mhi/ep/Kconfig"
+> +source "drivers/bus/mhi/sahara/Kconfig"
+> diff --git a/drivers/bus/mhi/Makefile b/drivers/bus/mhi/Makefile
+> index 354204b0ef3ae4030469a24a659f32429d592aef..e4af535e1bb1bc9481fae60d7eb347700d2e874c 100644
+> --- a/drivers/bus/mhi/Makefile
+> +++ b/drivers/bus/mhi/Makefile
+> @@ -3,3 +3,6 @@ obj-$(CONFIG_MHI_BUS) += host/
+>  
+>  # Endpoint MHI stack
+>  obj-$(CONFIG_MHI_BUS_EP) += ep/
+> +
+> +# Sahara MHI protocol
+> +obj-$(CONFIG_MHI_SAHARA) += sahara/
+> diff --git a/drivers/bus/mhi/sahara/Kconfig b/drivers/bus/mhi/sahara/Kconfig
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..3f1caf6acd979a4af68aaf0e250aa54762e8cda5
+> --- /dev/null
+> +++ b/drivers/bus/mhi/sahara/Kconfig
+> @@ -0,0 +1,18 @@
+> +config MHI_SAHARA
+> +	tristate
+> +	depends on MHI_BUS
+> +	select FW_LOADER_COMPRESS
+> +	select FW_LOADER_COMPRESS_XZ
+> +	select FW_LOADER_COMPRESS_ZSTD
+
+Why suddenly these configs pop up?
+
+> +	help
+> +	  Enable support for the Sahara protocol transported over the MHI bus.
+> +
+> +	  The Sahara protocol is used to transfer firmware images, retrieve
+> +	  memory dumps and exchange command mode DDR calibration data between
+> +	  host and device. This driver is not tied to a specific SoC and may be
+> +	  used by multiple MHI based devices.
+> +
+> +	  If unsure, say N.
+> +
+> +	  To compile this driver as a module, choose M here: the module will be
+> +	  called mhi_sahara.
+> diff --git a/drivers/bus/mhi/sahara/Makefile b/drivers/bus/mhi/sahara/Makefile
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..fc02a25935011cbd7138ea8f24b88cf5b032a4ce
+> --- /dev/null
+> +++ b/drivers/bus/mhi/sahara/Makefile
+> @@ -0,0 +1,2 @@
+> +obj-$(CONFIG_MHI_SAHARA) += mhi_sahara.o
+> +mhi_sahara-y := sahara.o
+> diff --git a/drivers/accel/qaic/sahara.c b/drivers/bus/mhi/sahara/sahara.c
+> similarity index 99%
+> rename from drivers/accel/qaic/sahara.c
+> rename to drivers/bus/mhi/sahara/sahara.c
+> index fd3c3b2d1fd3bb698809e6ca669128e2dce06613..8ff7b6425ac5423ef8f32117151dca10397686a8 100644
+> --- a/drivers/accel/qaic/sahara.c
+> +++ b/drivers/bus/mhi/sahara/sahara.c
+> @@ -1,6 +1,8 @@
+> -// SPDX-License-Identifier: GPL-2.0-only
+> -
+> -/* Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved. */
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
+
+Why are you changing the copyright?
+
+> + *
+> + */
+>  
+>  #include <linux/devcoredump.h>
+>  #include <linux/firmware.h>
+> @@ -9,12 +11,11 @@
+>  #include <linux/minmax.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/overflow.h>
+> +#include <linux/sahara.h>
+>  #include <linux/types.h>
+>  #include <linux/vmalloc.h>
+>  #include <linux/workqueue.h>
+>  
+> -#include "sahara.h"
+> -
+>  #define SAHARA_HELLO_CMD		0x1  /* Min protocol version 1.0 */
+>  #define SAHARA_HELLO_RESP_CMD		0x2  /* Min protocol version 1.0 */
+>  #define SAHARA_READ_DATA_CMD		0x3  /* Min protocol version 1.0 */
+> @@ -928,8 +929,13 @@ int sahara_register(void)
+>  {
+>  	return mhi_driver_register(&sahara_mhi_driver);
+>  }
+> +module_init(sahara_register);
+>  
+>  void sahara_unregister(void)
+>  {
+>  	mhi_driver_unregister(&sahara_mhi_driver);
+>  }
+> +module_exit(sahara_unregister);
+
+Use module_mhi_driver().
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
