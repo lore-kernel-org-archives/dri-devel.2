@@ -4,149 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01883F531C1
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 18:18:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C458F531C2
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 18:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 665F010E4FC;
-	Mon, 13 Apr 2026 18:18:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 879AC10E444;
+	Mon, 13 Apr 2026 18:18:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pRKkzj4e";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EA7T8A2z";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3OEGx3Gm";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE43210E444
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:18:37 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63DF5JpR3750379
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:18:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Cvg9O/QkoL6L++yjzZgvdyr7
- NcHvlP+82mqh/kFxhmE=; b=pRKkzj4eBCLt7MBIHrvfMDHA8m40GRD33k+hBScN
- 2Ygbk73IPzEDe5rG8ZQVNp8xBORszviNd5JgeNCOkbvUnUKjd21Wk49Ec2c5jaWp
- ZuFeKcPeVikXiC5f5XXRfMKFA3nc2UtOSWQeAxW7U6+2nIKSHrkRkL1O7jVf5MJ+
- Pclf8y65gFhT2lcawQlBhx+jbhrc3dT4B4OZEmPqWu5IFEwCz3xMcaRHUpqu/OHE
- 5YdK3FVApL2VjsE7Qc/RzlpqDsG/Xfz7W7golo5D7kaxCNwer0pxx9pFrNarWl1S
- o57bOBJPnO7cOv3F+q6PLIGpZjy9Tks13KdMF9PWNA2ELg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh2tu8p5f-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:18:37 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50d890580e1so86832861cf.3
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:18:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776104316; x=1776709116;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Cvg9O/QkoL6L++yjzZgvdyr7NcHvlP+82mqh/kFxhmE=;
- b=EA7T8A2zhoBoZ4ndtFeUsC0h9QMjOS/OL1vvNrp/rc1LhQOnvjDiqWfUomZaU24wLG
- WSDxTUbfnZKqk6lkScpXeNN5bKiNeHQRBWU1p3SqwQuHwHFc4HSv7MRb3njzerh3q/lK
- wX87hg42MrPhkRDe149Ay+Cpo8KY50VKrI3efNdhZnw+W85smu7tcuULay38gOZNNa94
- ODMl70b5ER5WvAnuvPHHNh9Y8jt29rUhJWrJG3XbDsBmG/6NLzNh7GzI/hKY4HsyUgW9
- alyvUHseHRIkvBTiqup88XfHTyQb5aB2gndJxfCuPPpbu7+Lkxa2IhEzPeT2JWejaTeJ
- Ps6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776104316; x=1776709116;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Cvg9O/QkoL6L++yjzZgvdyr7NcHvlP+82mqh/kFxhmE=;
- b=oL8Dgl9q5hZtb/ikmomXQAjCijUNmdGzfAY6DoGgeaxgrtpUhm0VW3ih13VMluR+eq
- YYszXy4WZWni6UTOhb0Ba6YBGW4cKEozIzZe+kTSiENl6nE1Q4lK7IfeJtWMI/PHgOMN
- ZTtyCGxPUHlbV8bFxeeOpC97o9fm9PT+R6ypeSJWiVtVDlcQHFzgQqH54RdlX8iIOZLM
- k2SBlbviee5ll3bMV8lCAVQAhngt9LPS54OrDcPl0qtEJdIC/A4+VsrJ5OKZPSqWpNZr
- tAKlYUiGiLNANBEGfMkEz4JzIbSvaFZGzYPMOjYkKlBcAdEFnmDm8HuNPVAnvC5UjE6o
- WM9w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+P1mHgT7KIERnzeW+1FnTVdp9CgHH+wqcwquE6olCeTelEhzu6O8oDPIzhyB21hlR/eUHi/vmhLo0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDSSp2sdDHEOQumK9iYaikhZ1kRMMKAl1W5Aidy8PoB6jIl3nT
- FK6EW8sa+4vonOmuFhoSXGkow5Lmqevg1KImar6CNRdta68gjGjVEqxUcaRE3pj0H5CMsovsdkr
- Uvnexs5tEyZJpW/offKfHIcgMPSKqzuxPn5vzkWI+Y+42TgWgkMYrRrY4Jh0iWffTQ9GrYtA=
-X-Gm-Gg: AeBDiesxQlg7Gwx54RAL1BRaXei4an6P2i2Z4d+SdOsh5ZugfuImAGFuhd8G7pGKxwS
- 8SbK91v34vzFn6Ex1DfEGXpUGBx6ESdohPttXdGjgOT08USTM0xWAqhgJLUDCDcTmuuojSeRmHb
- t6f51AEsbF/NHJL5jK9Yxu0gda3g6GGHYlG2BzsuiBIS8Jn34UP5fqH/J7/PQmJAsOHbPS9roDt
- DlBClpjVyAnG6dCX003+ybF0elHpwQLmjU99JkQdYrslQwOlJ/6QxhAiKZWA7ugmNQZi7sRsKo3
- yu/ohWXQj/LQ4Dwdx1AvsAnm3MhQPrhrQHJMjyKZjaxRA+d2F+nOWvmf42uUm+QzZjtpH+XlT2X
- dBFWNbOVazTxHTMyvawUbJXUXnFih1VOGsiqEkSZKslVxCsiUdB5pR5u/kNUg72BX8PYQEkNxw+
- iLnmfD77zeO7l6zgkhZbYqq+oTTszavziNr9NLDxr6PyNRgQ==
-X-Received: by 2002:ac8:5916:0:b0:509:348f:bc1a with SMTP id
- d75a77b69052e-50dd5ad989amr232215951cf.26.1776104316325; 
- Mon, 13 Apr 2026 11:18:36 -0700 (PDT)
-X-Received: by 2002:ac8:5916:0:b0:509:348f:bc1a with SMTP id
- d75a77b69052e-50dd5ad989amr232215361cf.26.1776104315794; 
- Mon, 13 Apr 2026 11:18:35 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38e49298f1csm24034161fa.12.2026.04.13.11.18.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Apr 2026 11:18:33 -0700 (PDT)
-Date: Mon, 13 Apr 2026 21:18:31 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Michal Simek <michal.simek@amd.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 08/10] drm/bridge: lt8713sx: switch to
- of_drm_get_bridge_by_endpoint()
-Message-ID: <5d4juwqjm2wxxzd6vf3rjrsrp3xhg2spklukvocwrdenuepk6v@a7mdfn27fsgt>
-References: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
- <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-8-acd01cd79a1f@bootlin.com>
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1804A10E444
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:18:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lcW+bxlozvQA9YHfxcbrEZcce2sGB8T8i5vdLpXUtT5biL37CzOxl13gRFWxpbP+iUBW5k9bkYk2O76+9zGiBMo66qjxXqv0WKNmcu+IR2lDk4AhKqJzl+nPnhyBLrDnj/AuaB/ngPvx1UWDGV5LwcbRkixrQ5YMpv7LRPTIniuicGnCRdHAYcTuvPUfBP2f/hNlJ0+/ydyqFdjW7kvVr1po2DoEbKpFMHJ7OKJjVJ9MdSXv7pHGHDlIiHWnD9Q+HojO+DwM+sv7Jxl4QQoNqOFtRsbVK0uPGV9p8qNjwqla1p7z3tJsvwDdrQHC6++8rF8MVzY/ekfvsGHfEar1pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V7GkJwlpQGK63K6d2Zv7Gb/BIElZg+IJCgNIMFrBHd8=;
+ b=ATs+PNl2I0yzsI7otrCYRrymifhEqbjiEDG9DqDgfRZq27PjbH/Ir7RsLlv29OeIE4hKKf8jWhKM6U6y4Rux7q+99pxo0JDgVHQZ7rkiCny+R+kVPNAhPJoC5u31JwdNYA1QrZQyV01P8Y+SNQZRmVoYaBfD7Ko9XNQpRzP6y4GipldjmXiw2LBvClLnSM59nkf3S0LC229frYUG/YDIetxbSdgHNjWOAQVzXRlFdZ7ZDBQ6reGqmtNvsHNqs4q0XnYkCAZL0Rv7NcganrP56RCZl/RaZ0C6fCh3EtIcklaH2cmEJzk3T4hVYS8JPk1ri6PzVVLVO+uMYbR6Xs2CYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V7GkJwlpQGK63K6d2Zv7Gb/BIElZg+IJCgNIMFrBHd8=;
+ b=3OEGx3GmbbhUjQOI6K9lAGs8tLmTIQH/TkSAqXxHcAOsHq+g/RJKTRNecCjCw4M6bMy0B9LCDpUVv5BFFI0hD34AK/EaQcWs8CnKaH164uZ5x5M+NVKkD1DhvbhjGn7yOl+e8+qOsNEYmR3a4SYUHeRumHYIgb6YD4BX7y2bceg=
+Received: from DM6PR08CA0053.namprd08.prod.outlook.com (2603:10b6:5:1e0::27)
+ by IA1PR12MB7615.namprd12.prod.outlook.com (2603:10b6:208:428::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
+ 2026 18:18:46 +0000
+Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
+ (2603:10b6:5:1e0:cafe::e3) by DM6PR08CA0053.outlook.office365.com
+ (2603:10b6:5:1e0::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
+ 13 Apr 2026 18:18:46 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Mon, 13 Apr 2026 18:18:46 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 13 Apr
+ 2026 13:18:45 -0500
+Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 13 Apr 2026 13:18:45 -0500
+From: Lizhi Hou <lizhi.hou@amd.com>
+To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+ <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+ <maciej.falkowski@linux.intel.com>
+CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
+ <max.zhen@amd.com>, <sonal.santan@amd.com>
+Subject: [PATCH V1] accel/amdxdna: Fix order of canceled mailbox messages
+Date: Mon, 13 Apr 2026 11:18:43 -0700
+Message-ID: <20260413181843.670796-1-lizhi.hou@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-8-acd01cd79a1f@bootlin.com>
-X-Proofpoint-ORIG-GUID: 91wNY-AelPihuGnRiYz7JHWWXCdDK3xj
-X-Proofpoint-GUID: 91wNY-AelPihuGnRiYz7JHWWXCdDK3xj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDE4MCBTYWx0ZWRfX5eZ/Tznhx2qZ
- B1ei7N8dQNwuIo8ajXNPIN/XzsAQSIk9frJGj8TSiybDT+MOgrWn6FMU5UV3tJ116sA6hWdpQuB
- rT1T78cdGqCoh/Hb+ViDidZwz5f9HWYig3AeTVBq2wJs+pyYpGouPFTso3kTfUWH3MkRXxbRl4T
- ASBqxZR0MZrBwWttr7wurZHQD+cHL4QenVgveVF1bgmUJIhE5ap2PrTYLnVafmf97w6e+X2k6Xg
- g0fctjHl/pennJmAfOsPrOCWcOxBKRDcudhYWDY3ujXO67svDfHS6LZeP1D4dARpKKxePleXj4T
- F88KE0I9b15wd90dzn6QomeDa49Qb6QNMoDd9zXDvA1XJUon99gSxHng6EMkIcRelMObmB6Fuq4
- aaYCtQBdFs/QcYow4ypQkbVMFGNb2IReq13pKZrT0OM/RhQR4UgeqG2l45/tSwAx0f/yTVRcR8z
- uTGYGbA7H+eMriN2FXg==
-X-Authority-Analysis: v=2.4 cv=RJ+D2Yi+ c=1 sm=1 tr=0 ts=69dd337d cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=P-IC7800AAAA:8
- a=EUspDBNiAAAA:8 a=sqxsbOWVCbAVHG9YZwUA:9 a=CjuIK1q_8ugA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-13_03,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 phishscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130180
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|IA1PR12MB7615:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc16ff78-5dbd-4502-5a74-08de99891a53
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|82310400026|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: Fn3O1K0bVrdNavflWdQ4/FDONNLjGQdxyXlYk91Jy6Rnl/cmOsP+tLZu984cOaQoLzgfJdWmGF3fJJrbp7zDKtcgkcGiyah3NJtpIgO5o968QmRrB55N6eZYupMKzaPBlnfjrMT+/wisqrR3ddcUpRf9yLgTLxDvZ0eRXsUCF4IWggfomoZ6m91uOhwSnoMp/WunmdVV2aTcvLXzbkwyjdF9Xssfj4zGVu6t2i3kYOl7I+pcsRY96Hea+bVelL0ySjryGYDCcG9W8oPt1rr31XnnXMd5v6fM8AsFzJ/ua+4fwEftndkFtfkJG32QY3ZIIWMEN8w66IEytvH77a5ebZT1WNHPuscw4W2Z3qkLetSedZUcrpbFz2Y0V9qrABy49qAkJh47ah+LAX/aRt9eyi0Y6b3ohLSgTCACXvWblAjflcS0vpPsvs14EpSqS7rBnLSllWoIXZcbpldM/Er4rlWqrDNxKNpDMlfCfhntaTpuutUV7J9RstmekjrkrqIdOEDrHbQ8L/KttybDK0AEzThROwlczL2z4FxOYyklzt3OunZs9Dn0KQ/bQIBlXnah4Xd92mbUe+e2sHKeivZjUfJIEYXZYsVBYq5APMqRhAQkGX7R2cGkxCHB6RT21WLK2FwPShMK1/lDJ/sKxN91TzNcVqug/t7GmoIh96GLWUwQlh9NHKsYJhOY/2l8s7gZAwOwMURzzlTamjThi9p1qB0t65JfkvM97HuMRSC5cSIbmvrKdRjpqMniaFl6uexr3wpkBzvWEH61y0xHUTXZAA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: V0kWZqwiZIq+m35J21wQO6ShdqWvYPMvaEEmtkC/Oz0E737HOSe69mIQgtl5slWkn02AlR+uekdMuV+oarRr7y6vD7sX84JjgRB9qay/PnouAfeEJFOeqMH7RtLVXJfBhsAagvGsgkxVSBnExmbKm/qH3YWn7qPKycs3ZnmS8YVyZZez+pJT+OSLFa0bRBF3soHCiaj4akZVAIAwguBMM1nzTvmG1pmhx/3PX4gJ4zKNMgL6gtOqJXhkI3DfnL66eFtyrQ3/AXpdoFzUJkWVzsWOnnL6LU25MAoSyGgySy6mxfO75UyX0knJYzQLuAm1GQ7OcmOawriJbfbqpSBTec0GcdKvHItkQZLq6W1h3PMw/Q1/WT+nA8QVQZ/ZNAvczlwxAY5QuiW+55QIv5A6eiQJvN7a8wH30DJG1pqw//mAaKqHmh0Q3/l7UKFNdTtq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 18:18:46.3937 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc16ff78-5dbd-4502-5a74-08de99891a53
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7615
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,25 +111,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 03:58:40PM +0200, Luca Ceresoli wrote:
-> This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
-> @panel parameter, thus using a reduced feature set of that function.
-> Replace this call with the simpler of_drm_get_bridge_by_endpoint().
-> 
-> Since of_drm_get_bridge_by_endpoint() increases the refcount of the
-> returned bridge, ensure it is put on removal. To achieve this, instead of
-> adding an explicit drm_bridge_put(), migrate to the bridge::next_bridge
-> pointer which is automatically put when the bridge is eventually freed.
-> 
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> ---
->  drivers/gpu/drm/bridge/lontium-lt8713sx.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
-> 
+Mailbox message IDs are allocated cyclically. When destroying a mailbox
+channel, pending messages are canceled starting from message ID 0. This
+results in an incorrect cancellation order when the ID of the last posted
+message wraps around and is smaller than the ID of the first posted
+message.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Fix this by canceling pending messages starting from the next available
+message ID, ensuring the correct ordering across wraparound.
 
+Fixes: a37d78470bcc ("accel/amdxdna: Replace idr api with xarray")
+Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 84a7e92562ad..336e5e77f18a 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -549,7 +549,9 @@ void xdna_mailbox_stop_channel(struct mailbox_channel *mb_chann)
+ 	drain_workqueue(mb_chann->work_q);
+ 
+ 	/* We can clean up and release resources */
+-	xa_for_each(&mb_chann->chan_xa, msg_id, mb_msg)
++	xa_for_each_start(&mb_chann->chan_xa, msg_id, mb_msg, mb_chann->next_msgid)
++		mailbox_release_msg(mb_chann, mb_msg);
++	xa_for_each_range(&mb_chann->chan_xa, msg_id, mb_msg, 0, mb_chann->next_msgid - 1)
+ 		mailbox_release_msg(mb_chann, mb_msg);
+ 	xa_destroy(&mb_chann->chan_xa);
+ 
 -- 
-With best wishes
-Dmitry
+2.34.1
+
