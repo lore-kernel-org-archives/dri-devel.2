@@ -4,99 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 951D4F531C0
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 18:13:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B8EF531C1
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 18:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA8A810E4F9;
-	Mon, 13 Apr 2026 18:13:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 256B910E4FB;
+	Mon, 13 Apr 2026 18:17:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pQD+tzXw";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="JTEXXUJA";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iu7D3KeC";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6968310E4F9
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:13:20 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-12c22b9bdabso283524c88.2
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:13:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776104000; cv=none;
- d=google.com; s=arc-20240605;
- b=QJ+5ljJjceoiU28KoR0Q+oleBkYlqvgPExc3yXcYwpC93EonGZU0OR/DTzDaKjI62u
- f0uDG0PqH3ClJQmO954rfAy0NIuGfQhQoEvLwTqMc+PTKxSz2Su902c+stgXKdFW08Lb
- iihNJdginc5ZY083+DWQijyo7jTCO4wKqbHzE34CjqGB21rVO4pNeUS4L3xTBddKnHol
- 7l+r69t7ZBwxSwnfZCN48ru6a69pXDHH1KtginAqUQSLNj3gCjeMAtlOofaQL1BpwsiH
- bYTpG1Wt6/SG9MHpA1EF28ZRJAWPM1mlXU1g8q0nEUlWgz7An8kdh18W12IQieQBAw60
- CSXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=vVVKoC6M8szpkspBmPFev5bUvMCnmAWZCFxFeRDtvro=;
- fh=RGSPmTiu9yDggugg58zz1EdcBPfnylAyQqtdi7Qljag=;
- b=PekIo0J3iFyDBKC5CwwQ0l/TuLDn8hfSany9SqVhntiPM018RKFeJcMFqBl1ff0n3X
- jQuCF9WFoTttYT9MOsk31DCdLYCkyjTjwzJikLxlkqb9hI/G7OaEXysPfdnUOjhICdRT
- wIJWq2iqyWMouxEqToOP16QaCrW8FuhAJDrGec4VYFhSgHAsS6aBwOqxibE1eWX6YUlR
- ODtzbS30uw8VdC11sFTFyN0Gfv90ThXRCYd3U7aAHibGYsbbR3qOzFElu6tjBnSIxdL9
- /ots/3RtdnxDAaOoBBZxU4ubenNfgvI2OiPTWy1pRUjEpje+L+nhn8bjE4os7kCwmzwz
- hzVg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3C5E10E4FC
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:17:43 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63DEJJpt3539275
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:17:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=CKO27PWzOXPgZeFys90Xta2A
+ cRn+O+syI4x+EowrjHE=; b=JTEXXUJA6IL0hyec6XzDL2EEL8O26sMo5Pa8/mAL
+ RvJdS/YjDSS8+rCzn9T8yvmIZj7LRVNWdyveGZJSW4hZQZfsa9uWcysN9Mfpl80O
+ eu4jUxSDx6VZSUVyGG2ateyEqk7DNLP9gO6v30J5BChvWXobgP/Q64gR4sLZl4V2
+ jxmmLdZeGzfBTeTWPTngqe34KKa5ta46EKAn7jvLmZmnk2lW8ByAklizA4Q6l4Qd
+ RWBe2xubr7RBh9zPldXzoGVlAsTw3YzvxfOeauKyayStBO5LFMgpfHU5KGi7T3na
+ iWkSxRy2Df9TD8uwkIo4lXuNPOswwGWBHQ4rdPW57RXv9w==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh258ru9u-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:17:42 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-50d68dbb77bso49833061cf.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:17:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776104000; x=1776708800; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vVVKoC6M8szpkspBmPFev5bUvMCnmAWZCFxFeRDtvro=;
- b=pQD+tzXw8SuQyS05iN0r4bSGggsgngv5gj49tjaQIBj1MYprSd3724z9RC3+VNqDHL
- J/MbpsyUJx5ti4pCjxE0uZb3Q0BaxoCm5GMevB+i8qpwIzUu9x2RmnBSIR0TZKNtlFLl
- IEhrMSQOQAKYZ+NiX0RR+l9tj0VS0KQylpXyfavy4+fF1lvNhluo1aMj6gP6KEfRrXU2
- BC6e43KtlE7f1LqgdZU0s5dnUgUKHalC5iYKo+jXf60Vq348DIafqTZuc8BQnIrJknx9
- XbGBJoqUfxR1KYTPNO/nw/sdJxmorl4fksO9bTnhw4RMZZCucLBu0gmcL9IkGU+bvsz/
- tDtA==
+ d=oss.qualcomm.com; s=google; t=1776104262; x=1776709062;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=CKO27PWzOXPgZeFys90Xta2AcRn+O+syI4x+EowrjHE=;
+ b=iu7D3KeCE2tzVWn7QTMup9GXg18eIhwsCDIB42V4NPZzf7qiSYYX2Zj3Mb8Fv2Nb6E
+ X60axt6qh4sBG+NXSkNXJqArRSg9rnVsPtNG000Hto8px2yH6IoB05PgFHpwGACmcaPG
+ tfJZAqXt3ecvcDyVXwL2F4A0/wfxHJYF8r8e8ngT/IHzbPODY/5p+9oQslkIYvvIABb9
+ 83vF6QJL3WgbNg5cMpj6moPf+Z943iUq6OskWa+f//5S2ZWKdX/iwCCX8aukcwATVwnB
+ A0nxtC3WKhBTh/OgF04GvI/63Yi3sV7/Zgt5gHwTTlIL9LYYCEDZmodER1bzXGqj495I
+ JZwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776104000; x=1776708800;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=vVVKoC6M8szpkspBmPFev5bUvMCnmAWZCFxFeRDtvro=;
- b=l4fo/Q7kS9vwRb/2yT1ZTljWqw+lBZx+5xsbC/YOOgkOqvFWLdb0Uv+ZZsDaBuXvO0
- MloUwJ8zSp9grzdoElmdTK5xnnGpgzKlVqgHU3cKCpEpcC1l28HB0YkuW1TkspqLDZ6+
- b6mqNf9LhMfHaSEjH4JetfUdb++6lQnQk9+a9lVdq9pf5Clq8Y8ucyImItgOJufztTLH
- 6ZXO0S8fRz+buIefMIx7dVcaYoATv5I7lmDFHcjiUzE+5KwiktIgBkfTKnsSVOqzxqQA
- ZU5vC7kUXHU+7RLEnKjtzDny8pVWTvQ/408Gps7jXho7swWFA/xwscPI9lvTrbEdkpq7
- upmw==
+ d=1e100.net; s=20251104; t=1776104262; x=1776709062;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CKO27PWzOXPgZeFys90Xta2AcRn+O+syI4x+EowrjHE=;
+ b=AlUYH7aE7t6Y/nwnO5WzKAkbUws/0RDY+jIoYkqicnKMsAOqVv71ohMW7cCYJ9vl5b
+ XZY/f55+SOKUejq3N09JfVnzmIbEk3hyZk8g7gpycyeQUegHlG4bEakOdEIkuEaAlDiI
+ dPyabiVXdzmVt68jXk4R7Q/9+WxFxoEpJeMWPBtoONzqDQ7Qz+huc5AyLOj/t3r0Utxs
+ 5ZZnBynyMGm5XidEU4oRnZBwZxt/pJIe2UX4QBrUrbDAPyCDOvt/g/eJBiCXV1+XebxE
+ LqnkDn48S8pZyn+uFQcDqeqVSPupwHw0ZX2bYKvyF1oFtMR7uyX8UayyF0jyQkam680Q
+ BE1g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/KehvUt5Fdvily1OIcYFZ9RpId5NGk+2jWx1KRm66NPjO+ZOBP7EvDJNitEPLNSBZlAIzVwDKgvZE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9ulZL/SW2FICQGm2bkWmUwrYI1qQNq4F41AakebB3IbPvlTzv
- 9UEYCRg0GI8NAEOMWkHxkfcrwHX3mHUzx9fU0HKgoPYmFHsFvTYKfnJ1myYepEv8UArTTAmn3Dd
- FSZ5sh3x2pbw6H/YoTMVSIweqgVLXD34=
-X-Gm-Gg: AeBDievngh6T0NyMlwjqbIyLaFSzyCLcf+ofdLcZ3p21gMyh0aQunXeEK5nsNCQxpX8
- B2jyB9fEp7oNyakDQyHpdn23000Wa6xt2NZbQ4HnINMMrKFQMdl+XPR9ivGatzL1Exc6SdfJwxZ
- BkO2iM9m9TZIeQAKed7WBBTKWjo/IgDYheJiUMGsUncXdMrYHBw7n3TZdw9woENHrRIgUGpL/8b
- icS5TYIdaw42Qmz5twSfu3Ok8Sjtzcs4ZpC6QKrNzCaysaRP74Frl/Uvihl/U2HN26jVneJwJUS
- 0fQdyy43XNdjtk+eXWMK4yqN6xLY8o1Eikp3dHn+Eaiw52fD4Oyz9hkcI1zIsPalCQsbCw==
-X-Received: by 2002:a05:7022:672b:b0:119:e56b:46b6 with SMTP id
- a92af1059eb24-12c34dbed15mr3119305c88.0.1776103999545; Mon, 13 Apr 2026
- 11:13:19 -0700 (PDT)
+ AFNElJ+lFUEDxVKce/3ivTlt72y0ySROAO7tiTUZNMI8YRBnntSUTFj1cRkZ7mPqA9/KBHAjaRQ4KrGmt7I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxrISsCCc6B+5IjslYqvon+M+Vx2eXar4hB44HKi8Aq1UGRJO7C
+ k53J9ZXB2+kwxSy8e9xMnBqZgJdkM0of9Om8bCDo9a6IYbQYKXjCi94oPBL1GY/AU7XNGJcD/cE
+ wEzLShubKDNINCwr3d4QecO+d11l+0+7xancmiGs5CKoHE0yAnaX7zYRO+CuAEXPedYS05UI=
+X-Gm-Gg: AeBDiesBaxzN9XWV/e8D1QVvFNzwTOEOH24ioSb6IzywaaYcfjMpRIYgahYXJZje3AP
+ CSnQLGzZjqGtPNzTP2CGmfZ54Hd1IBl/L0OuWgfcYS8zrqJ8WF4JeMRr2ZIGozzddOk++NktIK3
+ NvZIQKjKh3oJoLun3bUxc/kSCcFPBY7fLndGNVjvaCjYxgvDDWhKu4N2yXn5ttyMvee2D9gTt/t
+ ojRnf07UWETsCisO7LzsI2QE4GnkFdsOf3d7GWDk2QVceGms+j6MGkex8O93RlkAo8OS7PaE+8Z
+ e4HKKIP+bdxyu/YGjlm/5V1dEJJtjmf8EkTcb2ZpH7VmPE+Wo+1P5xSs5qdc+Ed4wa1CBWdXN0X
+ G79FajjK+IX1ow/HcWor56kL7GXkfNzn+Vm05fTS02G2uDCRhDZoPtSWOfhxZSy+mvYcNmLFQ54
+ uo9u1eRyddqf+b2Fz57ijWwj705KvTf/gP6nfHk5VTiVB3dQ==
+X-Received: by 2002:a05:622a:d1b:b0:50b:4d3d:496e with SMTP id
+ d75a77b69052e-50dd5c1383amr209571451cf.46.1776104262117; 
+ Mon, 13 Apr 2026 11:17:42 -0700 (PDT)
+X-Received: by 2002:a05:622a:d1b:b0:50b:4d3d:496e with SMTP id
+ d75a77b69052e-50dd5c1383amr209571031cf.46.1776104261646; 
+ Mon, 13 Apr 2026 11:17:41 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a3eee86778sm2672353e87.16.2026.04.13.11.17.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Apr 2026 11:17:40 -0700 (PDT)
+Date: Mon, 13 Apr 2026 21:17:38 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Michal Simek <michal.simek@amd.com>, Hui Pu <Hui.Pu@gehealthcare.com>,
+ Ian Ray <ian.ray@gehealthcare.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 07/10] drm/bridge: adv7511: switch to
+ of_drm_get_bridge_by_endpoint()
+Message-ID: <kcvbx7glrazf6mr7bcb2agj6pdqxdqnrcsujg3y4x5drmhqlbd@pfdb6zcnlwju>
+References: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
+ <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-7-acd01cd79a1f@bootlin.com>
 MIME-Version: 1.0
-References: <20260406225008.2787532-1-werner@verivus.com>
- <20260406225008.2787532-2-werner@verivus.com>
-In-Reply-To: <20260406225008.2787532-2-werner@verivus.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Apr 2026 14:13:06 -0400
-X-Gm-Features: AQROBzAVudQT9b1KEMIQwaqVTOGdwq-wFQfJObhPf6ovAb3esDyy6cLWlE6yctQ
-Message-ID: <CADnq5_PUEMT4n3ZpBuZH0A5QRZdwLjXAGCAnc6nM6CW5td8LmA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: fix integer overflow in
- amdgpu_gem_align_pitch()
-To: Werner Kasselman <werner@verivus.ai>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-7-acd01cd79a1f@bootlin.com>
+X-Proofpoint-GUID: JOcIrq3cfLcMOgR_v7Np54ysc6sGdcgd
+X-Authority-Analysis: v=2.4 cv=Vo4Txe2n c=1 sm=1 tr=0 ts=69dd3346 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=P-IC7800AAAA:8
+ a=EUspDBNiAAAA:8 a=sqxsbOWVCbAVHG9YZwUA:9 a=CjuIK1q_8ugA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-ORIG-GUID: JOcIrq3cfLcMOgR_v7Np54ysc6sGdcgd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDE4MCBTYWx0ZWRfX1MMqEqn1H1D/
+ NTBoMxK0KMYyE82JJRswxjbZIHo98ZviLgWjo5I32FObB5xhS3LQIrR2NRcDFBc6rQQ9MBFPVzL
+ hIqbAZ+PF+o8aLRWqrbgw5IkYSE4SKo4uh5UvAZvBUDJBjEHt4H4ruwK38mCP+8eA1UPEezCIqQ
+ lm9FLdJpPJyIdxlCRAhfZW+YEVFmP/nAMNXdqENlBGdnfwHf6pzqGpLt+UKBO0mKuDty/C4Gis9
+ RM/zf1Ci9IVCz1sMA4Z+AakWaRUkUl06peuS2G9oyISW8PD6AOHfUbZllqLzxEsWBv/O5WxL8KY
+ D4/7WNvTvQcJTweLHdUCuy9yK73nSu0N7RCcx3cpwVPpzzn/6lCE3A3yhuVonFdjWTT9TmSHbmu
+ mUzuASUZVSEo0eCG+kUxAiBvdpgZoovVntUwT1oBApzexpos6ouqs/VKuY3vViz7PcQdK8cJyse
+ j3SIXhZQPJW0YeRG9Sg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-13_03,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 impostorscore=0 bulkscore=0 spamscore=0
+ adultscore=0 phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130180
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,95 +162,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 7, 2026 at 3:41=E2=80=AFAM Werner Kasselman <werner@verivus.ai>=
- wrote:
->
-> amdgpu_gem_align_pitch() uses signed int for the pitch calculation.
-
-Can you convert amdgpu_gem_align_pitch() to use unsigned ints?  The
-width passed to it is always unsigned.  That would simplify things.
-
-Alex
-
-> When alignment rounding pushes the width to a boundary value (e.g.,
-> 2^30 for cpp=3D4), the multiplication 'aligned * cpp' overflows signed
-> 32-bit int, producing 0 or a negative value.
->
-> The overflow guard in drm_mode_create_dumb() validates width * cpp
-> BEFORE the driver callback, but amdgpu_mode_dumb_create() bypasses the
-> generic drm_mode_size_dumb() helper and performs its own alignment
-> rounding, which can push the pitch past the pre-validated range.
->
-> A zero pitch propagates to a zero-size GEM object allocation via
-> amdgpu_gem_object_create(). The 0-byte BO passes
-> amdgpu_bo_validate_size() (since 0 < man->size) and is returned to
-> userspace with a valid handle. This object can then be mmap'd or
-> referenced in GPU command submissions, potentially causing out-of-bounds
-> access to adjacent slab memory.
->
-> DRM_IOCTL_MODE_CREATE_DUMB requires no DRM authentication, so any local
-> user with access to /dev/dri/renderD* can trigger this with e.g.
-> width=3D1073741760, bpp=3D32, height=3D1.
->
-> Add an overflow check in amdgpu_gem_align_pitch() to detect when
-> 'aligned * cpp' would exceed INT_MAX, returning 0 in that case. Add
-> corresponding checks in amdgpu_mode_dumb_create() to reject pitch=3D0
-> and size=3D0 with -EINVAL.
->
-> The proper long-term fix is to convert amdgpu to use
-> drm_mode_size_dumb() which centralizes pitch/size calculation with
-> proper overflow guards, as is being done for other drivers in Thomas
-> Zimmermann's dumb-buffer series.
->
-> Found via AST-based call-graph analysis using sqry.
->
-> Fixes: 087451f372bf ("drm/amdgpu: use generic fb helpers instead of setti=
-ng up AMD own's.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Werner Kasselman <werner@verivus.com>
+On Mon, Apr 13, 2026 at 03:58:39PM +0200, Luca Ceresoli wrote:
+> This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
+> @panel parameter, thus using a reduced feature set of that function.
+> Replace this call with the simpler of_drm_get_bridge_by_endpoint().
+> 
+> Since of_drm_get_bridge_by_endpoint() increases the refcount of the
+> returned bridge, ensure it is put on removal. To achieve this, instead of
+> adding an explicit drm_bridge_put(), migrate to the bridge::next_bridge
+> pointer which is automatically put when the bridge is eventually freed.
+> 
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gem.c
-> index a6107109a2b8..b4341abba20c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -1246,6 +1246,15 @@ static int amdgpu_gem_align_pitch(struct amdgpu_de=
-vice *adev,
->
->         aligned +=3D pitch_mask;
->         aligned &=3D ~pitch_mask;
-> +
-> +       /* Sanity check to avoid integer overflow in aligned * cpp.
-> +        * The caller (drm_mode_create_dumb) validates width * cpp fits
-> +        * in u32 before alignment, but rounding up can push aligned
-> +        * past INT_MAX / cpp, causing signed overflow to 0 or negative.
-> +        */
-> +       if (aligned > INT_MAX / (cpp ? cpp : 1) || aligned <=3D 0)
-> +               return 0;
-> +
->         return aligned * cpp;
->  }
->
-> @@ -1273,8 +1282,12 @@ int amdgpu_mode_dumb_create(struct drm_file *file_=
-priv,
->
->         args->pitch =3D amdgpu_gem_align_pitch(adev, args->width,
->                                              DIV_ROUND_UP(args->bpp, 8), =
-0);
-> +       if (!args->pitch)
-> +               return -EINVAL;
->         args->size =3D (u64)args->pitch * args->height;
->         args->size =3D ALIGN(args->size, PAGE_SIZE);
-> +       if (!args->size)
-> +               return -EINVAL;
->         domain =3D amdgpu_bo_get_preferred_domain(adev,
->                                 amdgpu_display_supported_domains(adev, fl=
-ags));
->         r =3D amdgpu_gem_object_create(adev, args->size, 0, domain, flags=
-,
-> --
-> 2.43.0
->
+>  drivers/gpu/drm/bridge/adv7511/adv7511.h     | 1 -
+>  drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 8 ++++----
+>  2 files changed, 4 insertions(+), 5 deletions(-)
+> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+-- 
+With best wishes
+Dmitry
