@@ -4,87 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75EEAF531C7
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 19:04:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 831C9F531C4
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 19:04:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D40A110E519;
-	Mon, 13 Apr 2026 19:04:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5FE8898F5;
+	Mon, 13 Apr 2026 19:04:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KK2jcVhY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TFT3AYsa";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F41710E50A;
- Mon, 13 Apr 2026 19:04:22 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEE0898F5
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 19:04:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776107062; x=1807643062;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=J6Oy2Os5lNI/CAxu9YtA3xPK4u5JL/xZobEDTIfkwz0=;
- b=KK2jcVhYBNmNCx9yEZB4xsZjkFV3P9wngZpK4SKFaXAxmYeWCdz6PhQI
- THev/BtvbKKuiqMW4hik3hQPoE1FW8B+C4X/hL5YtIi7GCdK3NAQv7pGl
- R+mJc2BAAfigCWfbsWPCsB1Fz13CKNQskz5erwGVEB7j/gwhes8NXA5/Y
- TW4qS6SN8FflB1qxBJGHXjnir+5hidOpIU48c/GbegUuj9K2O0rsLp+fy
- mlS9rueU3V0nFSxID5tUaOkpVtkuo8wHB3+BCO/1d0EnRXGuHMdK0dwHn
- GEUobDksv63QHzjUY2OKUsGATnSDZpjPRRfFv4ZMoH0dudKCmUv/wEqMp w==;
-X-CSE-ConnectionGUID: oM0e9ZtyQSW9Lu5ObdLSSg==
-X-CSE-MsgGUID: WFhn2H0MTP+v+nC2ZCVbSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="99698028"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="99698028"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 12:04:21 -0700
-X-CSE-ConnectionGUID: s581NXHCRZmMfO6wEfwB2g==
-X-CSE-MsgGUID: SbIpZcUdT/a1/749YLYoDQ==
+ t=1776107072; x=1807643072;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=jn6xWTxciiAEnItR5bjtfA0yMvt8iTbLUQUSG5szPbQ=;
+ b=TFT3AYsaeBupXcetTsc2vnHmZVGuPF3XdfoHRwf+bGhXs65jfB5IT1Nq
+ lStfPL7vOeUFUtfb0A2+CcH0Lo9HdVT3iqi2WdwREl0g5BFqrobQOUmcr
+ vVs6V79u8SeUyyHP+jg4VNlCJqhiyLVMJpChxs1P0eI2ZvVdFWNtEaPHA
+ o92+aG7T/yZAkH58PtqwM/lDkNvBvrrW3tMy8Q8ZKoISGyPFeZA8fi7mE
+ QpCUoKRJPStELzF/LbyyMyqxHIS4UFUIcKnJNOZxV518Zh5f7T+NC+eVp
+ UkPgpo6f/LoGn2CrAu/5dUXixLHq/0xo8P/y8zM9UdbRdXEQF1cctCPpH A==;
+X-CSE-ConnectionGUID: XPpT2LcYRjqtmIyjq51MRA==
+X-CSE-MsgGUID: sWGZz31oQO69pZHASh1YhA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="88498894"
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="88498894"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2026 12:04:32 -0700
+X-CSE-ConnectionGUID: kTRfm9hAQc2LsOFcIe4s0g==
+X-CSE-MsgGUID: ijiVWbh2QSmbejQ1kur8AA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="234275702"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.97])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 12:04:11 -0700
-Date: Mon, 13 Apr 2026 22:04:07 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v13 11/27] drm/i915/hdmi: Add YCBCR444 handling for sink
- formats
-Message-ID: <ad0-J35F1kcyZjoG@intel.com>
-References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
- <20260413-color-format-v13-11-ab37d4dfba48@collabora.com>
- <ad08zqpKbyF--Br3@intel.com>
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="229805074"
+Received: from lkp-server01.sh.intel.com (HELO 7b0b59b3a0d4) ([10.239.97.150])
+ by orviesa008.jf.intel.com with ESMTP; 13 Apr 2026 12:04:31 -0700
+Received: from kbuild by 7b0b59b3a0d4 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wCMaB-000000000ln-3M2X;
+ Mon, 13 Apr 2026 19:04:27 +0000
+Date: Tue, 14 Apr 2026 03:03:45 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ "Thomas =?utf-8?Q?Hellstr=C3=B6m"?= <thomas.hellstrom@linux.intel.com>
+Subject: [drm-misc:drm-misc-next 1/5]
+ include/linux/compiler_types.h:706:45: error: call to
+ '__compiletime_assert_354' declared with attribute error: BUILD_BUG failed
+Message-ID: <202604140222.WtXCFc4A-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ad08zqpKbyF--Br3@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=us-ascii
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,80 +69,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 09:58:22PM +0300, Ville Syrjälä wrote:
-> On Mon, Apr 13, 2026 at 12:07:25PM +0200, Nicolas Frattaroli wrote:
-> > In anticipation of userspace being able to explicitly select supported
-> > sink formats, add handling of the YCBCR444 sink format. The AUTO path
-> > does not choose this format, but with explicit format selection added to
-> > the driver, it becomes a possibility.
-> > 
-> > Check for YCBCR444 support on the sink in both sink_bpc_possible, and
-> > sink_format_valid.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_hdmi.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > index 874076a29da4..5ab5b5f85cde 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> > @@ -1966,6 +1966,8 @@ static bool intel_hdmi_sink_bpc_possible(struct drm_connector *_connector,
-> >  
-> >  		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
-> >  			return hdmi->y420_dc_modes & DRM_EDID_YCBCR420_DC_36;
-> > +		else if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR444)
-> > +			return info->edid_hdmi_ycbcr444_dc_modes & DRM_EDID_HDMI_DC_36;
-> >  		else
-> >  			return info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_36;
-> >  	case 10:
-> > @@ -1974,6 +1976,8 @@ static bool intel_hdmi_sink_bpc_possible(struct drm_connector *_connector,
-> >  
-> >  		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
-> >  			return hdmi->y420_dc_modes & DRM_EDID_YCBCR420_DC_30;
-> > +		else if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR444)
-> > +			return info->edid_hdmi_ycbcr444_dc_modes & DRM_EDID_HDMI_DC_30;
-> >  		else
-> >  			return info->edid_hdmi_rgb444_dc_modes & DRM_EDID_HDMI_DC_30;
-> >  	case 8:
-> > @@ -2038,6 +2042,11 @@ intel_hdmi_sink_format_valid(struct intel_connector *connector,
-> >  
-> >  		return MODE_OK;
-> >  	case INTEL_OUTPUT_FORMAT_RGB:
-> > +		return MODE_OK;
-> > +	case INTEL_OUTPUT_FORMAT_YCBCR444:
-> 
-> We'll also want the !has_hdmi_sink check here like for 4:2:0.
-> 
-> And I think we also want something to mirror the ycbcr_420_allowed
-> flag. I guess you could just make it something like:
-> 
-> intel_hdmi_ycbcr_444_allowed(display)
-> {
-> 	return DISPLAY_VER(display) >= 5 && !HAS_GMCH(display);
+tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+head:   5f183b0588eb508ab49022e26923d91698447226
+commit: 37ad039fb3674a36dbf082fa5c864af1b791eccd [1/5] drm/gpusvm: Use dma-map IOVA alloc, link, and sync API in GPU SVM
+config: openrisc-randconfig-r054-20260413 (https://download.01.org/0day-ci/archive/20260414/202604140222.WtXCFc4A-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260414/202604140222.WtXCFc4A-lkp@intel.com/reproduce)
 
-Actually the display version check is redundant there.
-!HAS_GMCH alone is sufficient.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604140222.WtXCFc4A-lkp@intel.com/
 
-> }
-> 
-> That can also be reused when setting up the allowed property values.
-> 
-> > +		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
-> > +			return MODE_BAD;
-> > +
-> >  		return MODE_OK;
-> >  	default:
-> >  		MISSING_CASE(sink_format);
-> > 
-> > -- 
-> > 2.53.0
-> 
-> -- 
-> Ville Syrjälä
-> Intel
+All errors (new ones prefixed by >>):
+
+   In file included from <command-line>:
+   drivers/gpu/drm/drm_gpusvm.c: In function 'drm_gpusvm_get_pages':
+>> include/linux/compiler_types.h:706:45: error: call to '__compiletime_assert_354' declared with attribute error: BUILD_BUG failed
+     706 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |                                             ^
+   include/linux/compiler_types.h:687:25: note: in definition of macro '__compiletime_assert'
+     687 |                         prefix ## suffix();                             \
+         |                         ^~~~~~
+   include/linux/compiler_types.h:706:9: note: in expansion of macro '_compiletime_assert'
+     706 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+         |         ^~~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:40:37: note: in expansion of macro 'compiletime_assert'
+      40 | #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+         |                                     ^~~~~~~~~~~~~~~~~~
+   include/linux/build_bug.h:60:21: note: in expansion of macro 'BUILD_BUG_ON_MSG'
+      60 | #define BUILD_BUG() BUILD_BUG_ON_MSG(1, "BUILD_BUG failed")
+         |                     ^~~~~~~~~~~~~~~~
+   include/linux/huge_mm.h:113:28: note: in expansion of macro 'BUILD_BUG'
+     113 | #define HPAGE_PMD_SHIFT ({ BUILD_BUG(); 0; })
+         |                            ^~~~~~~~~
+   include/linux/huge_mm.h:120:35: note: in expansion of macro 'HPAGE_PMD_SHIFT'
+     120 | #define HPAGE_PMD_SIZE  ((1UL) << HPAGE_PMD_SHIFT)
+         |                                   ^~~~~~~~~~~~~~~
+   drivers/gpu/drm/drm_gpusvm.c:1555:52: note: in expansion of macro 'HPAGE_PMD_SIZE'
+    1555 |                                                    HPAGE_PMD_SIZE ?
+         |                                                    ^~~~~~~~~~~~~~
+
+
+vim +/__compiletime_assert_354 +706 include/linux/compiler_types.h
+
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  692  
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  693  #define _compiletime_assert(condition, msg, prefix, suffix) \
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  694  	__compiletime_assert(condition, msg, prefix, suffix)
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  695  
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  696  /**
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  697   * compiletime_assert - break build and emit msg if condition is false
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  698   * @condition: a compile-time constant condition to check
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  699   * @msg:       a message to emit if condition is false
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  700   *
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  701   * In tradition of POSIX assert, this macro will break the build if the
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  702   * supplied condition is *false*, emitting the supplied error message if the
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  703   * compiler has support to do so.
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  704   */
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  705  #define compiletime_assert(condition, msg) \
+eb5c2d4b45e3d2 Will Deacon 2020-07-21 @706  	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+eb5c2d4b45e3d2 Will Deacon 2020-07-21  707  
+
+:::::: The code at line 706 was first introduced by commit
+:::::: eb5c2d4b45e3d2d5d052ea6b8f1463976b1020d5 compiler.h: Move compiletime_assert() macros into compiler_types.h
+
+:::::: TO: Will Deacon <will@kernel.org>
+:::::: CC: Will Deacon <will@kernel.org>
 
 -- 
-Ville Syrjälä
-Intel
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
