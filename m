@@ -4,119 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55A7DEBFD08
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 07:12:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB981EBFD05
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 07:17:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A10F10E32E;
-	Mon, 13 Apr 2026 07:12:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0628D10E330;
+	Mon, 13 Apr 2026 07:17:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ogAorxhi";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="EMPBYo7m";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZvsBVw15";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EMPBYo7m";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZvsBVw15";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30D0510E32E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:12:16 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-488aa77a06eso69030335e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 00:12:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1776064335; x=1776669135; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=nlmjxh1MtlwNMpIIddLFKoO92223Pp5bRATczu14GeY=;
- b=ogAorxhiuKKKcD1usAI7AQ18HNnP/4kwVMO08K865y0lGdJ7GiLr5SHANKuaan4YMa
- MR5yg/inJYuoETvmIGV5WuyaaiueMtu0LfXksf2ec90lcpNnihvGgg1IRxv3nlmaRcN4
- riPYHxvjjifKvyjbuaF3ksBRx5dNyGUThYskSEdV44QnGqYqNkOMWNP24+57NJm+PK38
- g6kewYi4A2Lp0bRXYsj0gKZGzt/wxinFfYx3gNEmtdxXpwrTq1PfwTIqf6ZnM8fcJDIr
- 0fuyNlhz+nb6k4lbo9ZkHnA1Z40U1yFOMgEpOQphNcPRWiFIpvNc27GL+Vr+VDf97HPW
- kQKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776064335; x=1776669135;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=nlmjxh1MtlwNMpIIddLFKoO92223Pp5bRATczu14GeY=;
- b=o80h6yk/l5OpwKglvD1JI1qzAhWkRhxaglkXLGUdRu4BEbjBTgpiAj+0I/VJLJwSo0
- +GyYMNhF3ty9aFVNUbuzSkfvfM7xRrX9mMuc0rai5zyCQr4qBy1Mbq8jzpfI6qtXpOt8
- Zqieq9hWtWLS/fzrNhFVpLKSoMd4v9AtkjPbl+I1T+dl/RYkIpKZ0oCytBSpHMoN4u4i
- kqFdFaPyXOOQIIB0Du7GpSOSGXJ9e3i7463hNhUEtfFSi2aRaD340gR7wwRVz2orhSvr
- tsvBk1L3cHQGXP4B+o4/refiHHdJ1oDYrxoVwzOYK9gNVv95lljt8JmbbtIlOV/clXXd
- Gb9Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9vgpSpIAbRvhPynI6QV91d3try4aOHUbG1rPsrH9W4IAKyaAXcaWwniRDnFlREW9VufLJDmWL8uSo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPkwO4Fk4y5xhcEPIMKctXkrtKINn650H5y2dT274z25kam59s
- P6Zcihj4i/Tteg9GwhLZZOT3LqWppV13n9oYEat/gyGfi1m3xBr9aZJs3FLTLqCVmf8=
-X-Gm-Gg: AeBDievhxqsXKKuYFDgNmyVwex1UsmQ/sE/rRhOU/OXBadV7k/2pPv/7kO0Sn6HOw62
- KYqAkAeCwaES/TWQXYsJz7TvzDpWEQ4h/9GHWPrTQ0sNer+7qeMmzajINBNyaYgAaCGAdyi8elp
- jmAmLrCHUO5FBpnTHssZGKvs91dVLncFh/fZHUmEW6ewZkeHep2gazjGp5rPTGUq36UmT4l8N6r
- ivUWuCCGQb74k30I4hZOkGHso8FH75JO6M1FOKuBVeXpgiECmpIyGtaARkl3EwNt1KyKr8gYV7s
- iYFogaiSZgQAYl7AetUBCpRxfYdDvM31WvSjaw71tUUZdBhqXl/KpMEM9mmVCOg1bVC2joxzAsa
- LXoGF2/4TX5BDIzu8GDRTX8Dln8cIYdubDlj2GaymYRYo1+IafqpKf5NXaakM+dUu7dKYo0eyFQ
- 7ZrpXM/6F05DaoCZwDLgu24haAnlz1GdghRKBcJo7GF9a0k1s3fLU7wcnVlGnosfo+O1lEHCWwf
- aVMaBo=
-X-Received: by 2002:a05:600c:c16d:b0:488:be21:54ae with SMTP id
- 5b1f17b1804b1-488d66504bfmr174467825e9.0.1776064334547; 
- Mon, 13 Apr 2026 00:12:14 -0700 (PDT)
-Received: from ?IPV6:2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25?
- ([2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488d592db30sm255250805e9.10.2026.04.13.00.12.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Apr 2026 00:12:14 -0700 (PDT)
-Message-ID: <a598a765-531a-4709-99e5-4597427d52b3@linaro.org>
-Date: Mon, 13 Apr 2026 09:12:15 +0200
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E11910E330
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:17:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0D7BB6A7CA;
+ Mon, 13 Apr 2026 07:17:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776064631; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rW5R3xGds9bg8qA2Ep9wnIOEprJ657jFgsGGoKUBMeQ=;
+ b=EMPBYo7maOolaDclqrmqB7DoCjl8hY7R4nEKa6AIy3rB1y3LfX+HoXBy7v/39LT1OKozid
+ PuG7L6eBwWC+Lp1r7PzZRvDZ4NYYI+DPKy1TUuFlIPTi4EdrW/bHW1Z9cjxBUis2Uw17Sw
+ HoiFtvk2JVm4WKbGYsztTjtOmWmQ+QE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776064631;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rW5R3xGds9bg8qA2Ep9wnIOEprJ657jFgsGGoKUBMeQ=;
+ b=ZvsBVw15CdLOkuECwK4FZfeeJL2S20COYfNUOGcCvtUx5gkYos6MV477z2JoIsUf6YWR/H
+ +S/m0SXjg3jbqcDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776064631; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rW5R3xGds9bg8qA2Ep9wnIOEprJ657jFgsGGoKUBMeQ=;
+ b=EMPBYo7maOolaDclqrmqB7DoCjl8hY7R4nEKa6AIy3rB1y3LfX+HoXBy7v/39LT1OKozid
+ PuG7L6eBwWC+Lp1r7PzZRvDZ4NYYI+DPKy1TUuFlIPTi4EdrW/bHW1Z9cjxBUis2Uw17Sw
+ HoiFtvk2JVm4WKbGYsztTjtOmWmQ+QE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776064631;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rW5R3xGds9bg8qA2Ep9wnIOEprJ657jFgsGGoKUBMeQ=;
+ b=ZvsBVw15CdLOkuECwK4FZfeeJL2S20COYfNUOGcCvtUx5gkYos6MV477z2JoIsUf6YWR/H
+ +S/m0SXjg3jbqcDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E7034AD72;
+ Mon, 13 Apr 2026 07:17:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iMDYFXaY3GkWRQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 13 Apr 2026 07:17:10 +0000
+Message-ID: <2fe8ce91-2dc5-4cf2-b7cf-d495e5cff14b@suse.de>
+Date: Mon, 13 Apr 2026 09:17:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [RFC PATCH 1/2] drm: Introduce drm_panel_prepare_for_mode callback
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Val Packett <val@packett.cool>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alicja Michalska <alicja.michalska@9elements.com>,
- dri-devel@lists.freedesktop.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260412113851.355944-1-val@packett.cool>
- <20260412113851.355944-2-val@packett.cool>
- <uckcm7zviwss3jdjrapzd2fpivpdkrdbpcgju2hmrayulfzeaf@2tnli5evjtuh>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <uckcm7zviwss3jdjrapzd2fpivpdkrdbpcgju2hmrayulfzeaf@2tnli5evjtuh>
+Subject: Re: [PATCH 1/8] hv: Select CONFIG_SYSFB only for CONFIG_HYPERV_VMBUS
+To: Saurabh Singh Sengar <ssengar@microsoft.com>,
+ "javierm@redhat.com" <javierm@redhat.com>, "arnd@arndb.de" <arnd@arndb.de>,
+ "ardb@kernel.org" <ardb@kernel.org>,
+ "ilias.apalodimas@linaro.org" <ilias.apalodimas@linaro.org>,
+ "chenhuacai@kernel.org" <chenhuacai@kernel.org>,
+ "kernel@xen0n.name" <kernel@xen0n.name>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>,
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>, KY Srinivasan <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
+ Long Li <longli@microsoft.com>, "deller@gmx.de" <deller@gmx.de>
+Cc: "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "loongarch@lists.linux.dev" <loongarch@lists.linux.dev>,
+ "linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>,
+ "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
+ Michael Kelley <mhklinux@outlook.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <20260402092305.208728-1-tzimmermann@suse.de>
+ <20260402092305.208728-2-tzimmermann@suse.de>
+ <KUZP153MB14449BBE44CBAEEA7621A4A0BE51A@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <KUZP153MB14449BBE44CBAEEA7621A4A0BE51A@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ TO_DN_EQ_ADDR_SOME(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de,outlook.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ RCVD_TLS_ALL(0.00)[]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[27];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[microsoft.com,redhat.com,arndb.de,kernel.org,linaro.org,xen0n.name,linux.intel.com,gmail.com,ffwll.ch,gmx.de];
+ MID_RHS_MATCH_FROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.infradead.org,lists.linux.dev,vger.kernel.org,lists.freedesktop.org,outlook.com,linux.microsoft.com];
+ R_RATELIMIT(0.00)[to_ip_from(RLykjg6e7ifkwtw7jmpw7b9yio)];
+ FROM_EQ_ENVFROM(0.00)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email,
+ imap1.dmz-prg2.suse.org:helo, outlook.com:email, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,32 +162,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/13/26 03:05, Dmitry Baryshkov wrote:
-> On Sun, Apr 12, 2026 at 08:00:44AM -0300, Val Packett wrote:
->> Modern OLED panels often need to vary their prepare commands based on the
->> mode being set (resolution and refresh rate). Introduce a new variant of
->> the drm_panel_prepare callback that passes the chosen mode as an argument
->> to allow for this.
+Hi
+
+Am 02.04.26 um 12:50 schrieb Saurabh Singh Sengar:
+>> Hyperv's sysfb access only exists in the VMBUS support. Therefore only select
+>> CONFIG_SYSFB for CONFIG_HYPERV_VMBUS. Avoids sysfb code on systems
+>> that don't need it.
 >>
->> Signed-off-by: Val Packett <val@packett.cool>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Fixes: 96959283a58d ("Drivers: hv: Always select CONFIG_SYSFB for Hyper-V
+>> guests")
+>> Cc: Michael Kelley <mhklinux@outlook.com>
+>> Cc: Saurabh Sengar <ssengar@linux.microsoft.com>
+>> Cc: Wei Liu <wei.liu@kernel.org>
+>> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+>> Cc: Haiyang Zhang <haiyangz@microsoft.com>
+>> Cc: Dexuan Cui <decui@microsoft.com>
+>> Cc: Long Li <longli@microsoft.com>
+>> Cc: linux-hyperv@vger.kernel.org
+>> Cc: <stable@vger.kernel.org> # v6.16+
 >> ---
->>   drivers/gpu/drm/bridge/panel.c |  8 ++++++--
->>   drivers/gpu/drm/drm_panel.c    | 15 +++++++++++++--
->>   include/drm/drm_panel.h        | 12 ++++++++++++
->>   3 files changed, 31 insertions(+), 4 deletions(-)
+>>   drivers/hv/Kconfig | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
 >>
-> 
-> A (somewhat) better approach would be to let add .atomic_foo callbacks,
-> which would receive drm_atomic_state instance. See  the discussion
-> around [1].
-> 
-> [1] https://lore.kernel.org/dri-devel/nfc6ih43gjpi5u67fpkkxgwwygv53grdldq7tfp5iiukrkiy2u@53fsrtezzkyt/
-> 
+>> diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig index
+>> 7937ac0cbd0f..2d0b3fcb0ff8 100644
+>> --- a/drivers/hv/Kconfig
+>> +++ b/drivers/hv/Kconfig
+>> @@ -9,7 +9,6 @@ config HYPERV
+>>   	select PARAVIRT
+>>   	select X86_HV_CALLBACK_VECTOR if X86
+>>   	select OF_EARLY_FLATTREE if OF
+>> -	select SYSFB if EFI && !HYPERV_VTL_MODE
+>>   	select IRQ_MSI_LIB if X86
+>>   	help
+>>   	  Select this option to run Linux as a Hyper-V client operating @@ -62,6
+>> +61,7 @@ config HYPERV_VMBUS
+>>   	tristate "Microsoft Hyper-V VMBus driver"
+>>   	depends on HYPERV
+>>   	default HYPERV
+>> +	select SYSFB if EFI && !HYPERV_VTL_MODE
+>>   	help
+>>   	  Select this option to enable Hyper-V Vmbus driver.
+>>
+>> --
+>> 2.53.0
+> Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
 
-I agree, the plan to add a new atomic ops if much better.
+This fix is independent from the rest of the series. Do you want to 
+merge it or can I take it into DRM trees?
 
-Neil
+Best regards
+Thomas
+
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
