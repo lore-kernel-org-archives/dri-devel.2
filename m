@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E5AEBFD30
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:30:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F79DEBFD30
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:30:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7984F10E3F3;
-	Mon, 13 Apr 2026 10:30:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 821C210E3F9;
+	Mon, 13 Apr 2026 10:30:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZHaGDlgC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aOuwDKJ9";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013052.outbound.protection.outlook.com
- [40.93.196.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7480510E3F3;
- Mon, 13 Apr 2026 10:30:46 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010023.outbound.protection.outlook.com [52.101.201.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0E9210E3F9;
+ Mon, 13 Apr 2026 10:30:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N6ognKr8YTKm3FgbF/O7RjCpLwTutnNvbqmOJEPFsznAla3B0DVRgvVEGVX0it5hUXWRN90ivVVzERJY4g6Qx2q8qVNnxDnkRhxY2GbGRjx1dgWwjU0mWnOYOETmAtR/GK9GZcOyQQBYIqkSaQTj+tXpX9gk4lGOhf8VZVuiWNZhYEJXbgYmU2v/5S0KTavMdKaLYxnIYdL1//nnyUyGjNkV6a50emunc6UcEeMBDqqqpOm5QeGt4MuuawBH7ARzPtChY99P6znOL7cTuOzPGuk5fox6OjpMx7ptLsixugeRwncxmxLJIZ6lt5ETKDl6vawO5u6/kSZA0V5tZO8Qcw==
+ b=RWNbA/uLSAx/R7AdsZu/bROqhsusAuBaUV9kARmFPx04n48T8NoA/0DoGG3rGik/lAwp4J/R7HQHVzJd1QnJNa7bwKh6QUfceKNSANW3ECJYRZtQADl8TIYEuJ90qYIOt6DbqwSIV1kvc5PgivsSbft/pAZ3tfOgI3WpNsLQJMfkSeQbWhKFuOETqUIUAVtHXTEiYWWywjYt6BYzDAtGfKI0AwzqpMfSEqrMF7e9lLqpWsplZSAbGu6g6Ox2iPM1bc8m2xz/oH+KuwGe3H9NvENzcifH7GjdtdQdeP9a0hlnI0I0vhFP2sy2ssjv29NS8AXTTPUlk4fHhg8Zx/KZeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VakaeL4RgmyM9a244vMMy9g5XRrM8Lnk4EV5MMgmzRg=;
- b=EeBAi7Ol+AWDkBu/ulV3U1gg2GuhiFWClE9HVe8DfIdchnIGpUQ027R8Dtym4LMRhFY0nz1Uj4ycOGjyXMMVkiRMUrAjyJ4mud2Ggd09HxGfectGwgPn7AdzbWIviKiwZwsRF52smSbxbts/3IicG+LXimNPdWVICDm/uTXzhJJDccj3ErRwERsgbINnTJwHgQETJ08xsyTkXIuOZtOi8HU70LRQJAQvMCF7tu6A6lqSlSr/zT0ocGk0LjqKp+A2tsv0x6TVXFg3F0EbXO5UNCMzRzgs+qQcAK+ivbvcGd8FJe4lDbUEgFnboVyLz7K7z+7vCsnTyM6AlPUHt4JbXQ==
+ bh=/wAwSphObC0y1huMcgrIyBNJteksnGeD7l08U0MfgNs=;
+ b=zJvI7Ja5upOcGHeBGgt8ku2js2og6RX6Z2etzxWqr0IDPKyNQeoIOGhy/x9A9VAAo0Y/9bZ9QLo6PlrmM08BqV30HzIHplFAtQCFluTwUPlfOPyFJvU96r0ac6lMN3cr5XNhkLx6EZQUR36J2dhMg2vue1NRQnGFvWMZy/5BdGY7xZalyOlcO0EOLi3+U9SuBazW8vmTs0hE0skYPSyyrJdX6xAvrFuRHBCDxrOhI/8zawZiaY7dQtl6pdFJQPKZ3IuZdagl26zBLZdL/vj7daZ9xxs3tccf3IcixqU29EZCOaatxvwH/Zi+zi4a0rKDjhCCVRZbsjBdQjFfj6f9xQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VakaeL4RgmyM9a244vMMy9g5XRrM8Lnk4EV5MMgmzRg=;
- b=ZHaGDlgC78cGCVZhoFGYr52uj0cnnfk1qBPc/16Oy+8HaBip6LVaesV8zZKNvjFYdrP4J+QceG/Tg1vAM7j4/J7mr/O9/OhjY9Eu1XtKhkMJCgJT9+KpCRRmqWJuLBMWsV0s8PoJZYvjqqjJhHnBfUBDiYgZdut1/CKuL91eZxA=
-Received: from BYAPR06CA0015.namprd06.prod.outlook.com (2603:10b6:a03:d4::28)
- by LV2PR12MB999095.namprd12.prod.outlook.com (2603:10b6:408:353::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Mon, 13 Apr
- 2026 10:30:40 +0000
+ bh=/wAwSphObC0y1huMcgrIyBNJteksnGeD7l08U0MfgNs=;
+ b=aOuwDKJ9s2c03gZJq6bsKBgtR2o4hOMSA6XyTQDrOl+R9DMYA+HZnaAQyJEFHXoIKiW3/5ymabr+McYuTEUxsyEEYAOF25cpNxiClW7oOcuQ92qnrdT7Yp3687cKHONx1GdbGA6CufEsDK0ZQNLme45gUJXhvcoujlvZWv43A8E=
+Received: from BYAPR06CA0022.namprd06.prod.outlook.com (2603:10b6:a03:d4::35)
+ by IA0PPFC855560D7.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::be4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.33; Mon, 13 Apr
+ 2026 10:30:37 +0000
 Received: from SJ5PEPF00000207.namprd05.prod.outlook.com
- (2603:10b6:a03:d4:cafe::bb) by BYAPR06CA0015.outlook.office365.com
- (2603:10b6:a03:d4::28) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:d4:cafe::2c) by BYAPR06CA0022.outlook.office365.com
+ (2603:10b6:a03:d4::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
- 13 Apr 2026 10:30:35 +0000
+ 13 Apr 2026 10:30:34 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SJ5PEPF00000207.mail.protection.outlook.com (10.167.244.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Mon, 13 Apr 2026 10:30:39 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ 15.20.9769.17 via Frontend Transport; Mon, 13 Apr 2026 10:30:36 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 13 Apr
- 2026 05:30:39 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 13 Apr
- 2026 05:30:38 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 13 Apr
+ 2026 05:30:35 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 13 Apr
+ 2026 03:30:35 -0700
 Received: from junhua-PC.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 13 Apr 2026 05:30:35 -0500
+ Transport; Mon, 13 Apr 2026 05:30:32 -0500
 From: Junhua Shen <Junhua.Shen@amd.com>
 To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
  <Christian.Koenig@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
@@ -70,43 +69,38 @@ To: <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
  <honglei1.huang@amd.com>, <Lingshan.Zhu@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <junhshen@amd.com>, Junhua Shen <Junhua.Shen@amd.com>
-Subject: [PATCH v2 1/5] drm/amdgpu: introduce amdgpu_pagemap and kfd pgmap
- accessor
-Date: Mon, 13 Apr 2026 18:30:27 +0800
-Message-ID: <20260413103031.181953-2-Junhua.Shen@amd.com>
+Subject: [PATCH v2 0/5] drm/amdgpu: SVM VRAM migration via drm_pagemap
+Date: Mon, 13 Apr 2026 18:30:26 +0800
+Message-ID: <20260413103031.181953-1-Junhua.Shen@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260413103031.181953-1-Junhua.Shen@amd.com>
-References: <20260413103031.181953-1-Junhua.Shen@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: Junhua.Shen@amd.com does not designate
- permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000207:EE_|LV2PR12MB999095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27665d03-b090-49b1-e7cf-08de9947b569
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000207:EE_|IA0PPFC855560D7:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ec30155-9d2c-4d03-7074-08de9947b368
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|82310400026|921020|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: TiydwQq4fUXq/4hY7/9XAYYOAYGPn31HeFhrnKVQwQkqye3qQ1dHdb/GWZ3KtGnyRRGgYGR3jxYfD08/BxNHS47OLqfAYrAIUovQD2kS81aMm5JMwm3/Qd64isObpujFWWQn1Wg916wmeMBy34Sn0AOHNyx3O1+/QgkRD3uw+D7W4uScQPskU7RssH/mUh8eU7eBKmDFGi4DOVCJq5JMCdsQkoR+G6nasXIKkXr4DXN7H67EfRoovm04yuyssioFMa+cA9H5+Jcj3sSlgy51M5EtrqWZrDlGEnmslBdwCB7rbecHvY1XQbpPuF4y2xUaHjQEv1+7PUHU1Zr09ilA3sXUJ0Zo7dmBCJymcL9XcLbF352CrwmxijkuM6/HWIEUxVd5/lFmhi7dUvnrrs66IUa83fUbgmEK77/ZshkWkOF6+Y0Uf7T/LZqKiUSXGbce71mnYOkjYTyoBNXHIpPPlMofqS8qiwQSjVG/vdKm3GDcVL/0IWsRHNxy+XbkMJLgZCjIad+kpuJKH5nKbOrR9VkT5ArozyfM8N25IcQblasuWXm6JzUPgbTDUFSgMDDKKVDxOMOFwF1mzvYbloYdiTCT9StiUNLRtt3b+Om2T6JzCCsYpcMTN3Oc92VBjb6W+XlQCaI9N8ljZPBunGM+r4+G4firM2hMO90aRc12BoOEwy3ZA5sgShbZID+jCPdH71GntFzpHkHWNJ/OhgPqkzTuEapinBXjOUbDFJ7cgCOXVd+ClFHL02lRBY07WSvvbojCYEOvmQknQF6Ck1uImajBzAXneICjPO1IFDNjE04Zfb43t6dFfjl4m1tvOhQb
+ ARA:13230040|36860700016|376014|82310400026|1800799024|921020|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: lE4Zm5EBCnz5unVXCR9jCk7Vf09Q5sdJNt3hKs4HBPK0LHNTTj6LIfPnr7+5l6ni3m+FXbc1Qrs+TvsaOg/aWKM6da+cytdxVHAaQpbBT26u+U1WHAEgkfxB1CtcbpsBCDIEtb0VFli5U1enHaiRU2mOwv19f00VXTkJQF6yD0L4Y0gAC4O3shOGPRqyHruEghVn3Sl8YaOKHrmuzZZkkAECrMnq5Xs1G3Vwd2nSwIgKRxjZEm11P300tXGb8d8cqFEyVrPXb11403y97M1ex52ZQd5RJSHcdHtTJB1dzJuZSJQ986JgUh0vBrjaaMJe8JGfHBdt24PwQp4wurQ9hNikiZWSOddt5Yo063BBSPlbNhi3yMjR9mgXExH6L01MSzMhg4EssHtVCKZFzlueUcWiIeg7H9tfErCmECVYtEKwmx+SV8Z/+monC9U04yeih8aAJPbtfuDWMI8KMtvd6wIHSH+ib0VgZQIUWe35ZrvC3xx1bKIYw6HZmfNh2yrJjwAN85xsZz0EEaHkLTcK4u4Ce0+F9p98w6rSTROnsKBUa8/aDNIkzBEyOVFSFJ6yB1BU3NXD+Q/9T6dZrDgD9vCV3yggVjJWuQJDmbi4AJMPa7/V0KvmX54x/+JBPCLovf11tBS2Dt8NGQY5p7aPzVdPDWLMVTw/R6WIsglk+eHrE2XivXc6gCpuBpJ0uxvdr/UPa3GrI54UoE2FkSe72PR9W8cKvwLXADLI+5xwzxlFRlvKox6a4dQupz4eq2RH1kjJrlwImuEiR8alv0AKD8ZfwnpSsAgOvjkb7WyzxQhYLlhadlpt5ovTTd63M0aqr6oib37B3DPyXav2VB7pwQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(921020)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(921020)(13003099007)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4DKcxNWYKlcMCjfxeTKCjRNdJpCVGNgowCWZ8PvVBAF4tbm5iltARK/teDQwlZkRiZ1qMVPoFHuJdPfm6x5FtvzQW3GCezvm8IkTx4b8OviFhqFeTkG7X62facJGtLFMWvK9P1Rg4HS6h5N6482NNfTVp4/B9b4ChXlwCWBud+lYKTMUTMXEe4mrmPwCXAc9zlo6l0RnZgS+a1RZ3lU93LTm146+ZIdCPklke32LVVbDokVWuCHBYfAEhlfEQ02ztjG+SrsWcpd7dg6VAB1oyAVJyjb7Ed59ERaL84XWvUrU6koN5N3rz/URe/U7N9+/98JTiMuTH01jOPDu3LzK8OMLi+g8/lYuiMZSk5FXS9Hj3V26GJRvqfEsP/X4DN/wSNMEwKlpSVSknQf8DX2Cmc/2xE/DUFUTI/LihpXK87lw+mYYRVVyPlkxnPpxd0J1
+X-MS-Exchange-AntiSpam-MessageData-0: E+/cNUgupgZOTZmeEOFbj00SLFQW/uMfqIRR1aaRfN96QUF39b9TXq+SzD5sEpUZ7HVXiB4gXxAWg1hJ0H+59JP3YaU7L4/atgR/YBSzSEB0OFuyzg0hLM7lHLdP5P2IJ+kEUFVxR9Gbl69IQ4WMjnqBM9WxvesTeK82UV0K/AIEAqipQZXV8GIiQjIekCO0E12d/XZ2HX9MiP4uHxR47xrsJP6NF4a9oojZUkjoKSYgYFBDr12ziBi7NTxHizxfP7ioih5SmYAGYkAI3asexfFHXai7fwEHdDaXLLunXkMaLtCUqlLSwBVXKqY3t6bESdxndzTWH1eD9eYvnYX2UuM+BG6eFydQ8IMUoCaWOXJUVsYeMbXY8WFWzbpgTIKpTTPSgsN+YkkxlZsQwyq7QidlvqEyb+rxKS+y4Lo/dHu3KhvDvFCrCBzem2PTlm0U
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 10:30:39.7190 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27665d03-b090-49b1-e7cf-08de9947b569
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 10:30:36.3787 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ec30155-9d2c-4d03-7074-08de9947b368
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000207.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999095
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFC855560D7
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,145 +116,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Wrap the bare dev_pagemap inside a new struct amdgpu_pagemap that
-adds drm_pagemap state (dpagemap, adev back-pointer, hpa_base,
-initialized flag) needed by the DRM GPUSVM migration path.
+This series adds VRAM migration support to the amdgpu DRM SVM
+subsystem, building on top of the POC SVM core series [1]. It uses
+the drm_pagemap infrastructure for ZONE_DEVICE based page migration
+between system RAM and GPU VRAM.
 
-Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 42 ++++++++++++++++++++--
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c   |  6 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c       |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h       |  2 +-
- 4 files changed, 44 insertions(+), 8 deletions(-)
+This is NOT a production-ready submission — it is a POC/RFC to
+validate the drm_pagemap migration path and start discussion on
+the design.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index cdbab7f8cee8..844f622f55b0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -38,6 +38,8 @@
- #include "amdgpu_vm.h"
- #include "amdgpu_xcp.h"
- #include "kfd_topology.h"
-+#include <drm/drm_pagemap.h>
-+
- extern uint64_t amdgpu_amdkfd_total_mem_size;
- 
- enum TLB_FLUSH_TYPE {
-@@ -101,6 +103,29 @@ struct amdgpu_amdkfd_fence {
- 	uint16_t context_id;
- };
- 
-+/**
-+ * struct amdgpu_pagemap - VRAM migration infrastructure for drm_pagemap
-+ *
-+ * Wraps struct dev_pagemap with the additional drm_pagemap state needed
-+ * by the DRM GPUSVM migration path. Used in place of bare
-+ * dev_pagemap when CONFIG_DRM_AMDGPU_SVM is enabled.
-+ *
-+ * @dpagemap: drm_pagemap wrapper providing device_map / populate_mm callbacks
-+ * @adev: back-pointer to the owning amdgpu_device for fast lookup from
-+ *        ZONE_DEVICE pages (avoids traversing dpagemap->drm->drm_to_adev)
-+ * @hpa_base: HPA base of the ZONE_DEVICE region (== pgmap.range.start)
-+ * @initialized: true after successful devm_memremap_pages + dpagemap init
-+ * @pgmap: ZONE_DEVICE registration — must be last, contains flexible-array member
-+ */
-+struct amdgpu_pagemap {
-+	struct drm_pagemap dpagemap;
-+	struct amdgpu_device *adev;
-+	resource_size_t hpa_base;
-+	bool initialized;
-+	/* Must be last -- struct dev_pagemap ends in a flexible-array member */
-+	struct dev_pagemap pgmap;
-+};
-+
- struct amdgpu_kfd_dev {
- 	struct kfd_dev *dev;
- 	int64_t vram_used[MAX_XCP];
-@@ -111,12 +136,23 @@ struct amdgpu_kfd_dev {
- 	/* Client for KFD BO GEM handle allocations */
- 	struct drm_client_dev client;
- 
--	/* HMM page migration MEMORY_DEVICE_PRIVATE mapping
--	 * Must be last --ends in a flexible-array member.
--	 */
-+	/* HMM page migration MEMORY_DEVICE_PRIVATE mapping. */
-+#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
-+	struct amdgpu_pagemap apagemap;
-+#else
- 	struct dev_pagemap pgmap;
-+#endif
- };
- 
-+/**
-+ * amdgpu_kfd_pgmap - Get the dev_pagemap for HMM page migration
-+ */
-+#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
-+#define amdgpu_kfd_pgmap(adev)	(&(adev)->kfd.apagemap.pgmap)
-+#else
-+#define amdgpu_kfd_pgmap(adev)	(&(adev)->kfd.pgmap)
-+#endif
-+
- enum kgd_engine_type {
- 	KGD_ENGINE_PFP = 1,
- 	KGD_ENGINE_ME,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index 10bc81ce37cb..289683cabd79 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -212,7 +212,7 @@ svm_migrate_copy_done(struct amdgpu_device *adev, struct dma_fence *mfence)
- unsigned long
- svm_migrate_addr_to_pfn(struct amdgpu_device *adev, unsigned long addr)
- {
--	return (addr + adev->kfd.pgmap.range.start) >> PAGE_SHIFT;
-+	return (addr + amdgpu_kfd_pgmap(adev)->range.start) >> PAGE_SHIFT;
- }
- 
- static void
-@@ -242,7 +242,7 @@ svm_migrate_addr(struct amdgpu_device *adev, struct page *page)
- 	unsigned long addr;
- 
- 	addr = page_to_pfn(page) << PAGE_SHIFT;
--	return (addr - adev->kfd.pgmap.range.start);
-+	return (addr - amdgpu_kfd_pgmap(adev)->range.start);
- }
- 
- static struct page *
-@@ -1037,7 +1037,7 @@ int kgd2kfd_init_zone_device(struct amdgpu_device *adev)
- 	if (adev->apu_prefer_gtt)
- 		return 0;
- 
--	pgmap = &kfddev->pgmap;
-+	pgmap = amdgpu_kfd_pgmap(adev);
- 	memset(pgmap, 0, sizeof(*pgmap));
- 
- 	/* TODO: register all vram to HMM for now.
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 9b4143328371..4c11ed4e8ea3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -185,7 +185,7 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 
- 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
- 				   bo_adev->vm_manager.vram_base_offset -
--				   bo_adev->kfd.pgmap.range.start;
-+				   amdgpu_kfd_pgmap(bo_adev)->range.start;
- 			addr[i] |= SVM_RANGE_VRAM_DOMAIN;
- 			pr_debug_ratelimited("vram address: 0x%llx\n", addr[i]);
- 			continue;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index a63dfc95b602..8059169c7e0d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -200,7 +200,7 @@ void svm_range_list_lock_and_flush_work(struct svm_range_list *svms, struct mm_s
- /* SVM API and HMM page migration work together, device memory type
-  * is initialized to not 0 when page migration register device memory.
-  */
--#define KFD_IS_SVM_API_SUPPORTED(adev) ((adev)->kfd.pgmap.type != 0 ||\
-+#define KFD_IS_SVM_API_SUPPORTED(adev) (amdgpu_kfd_pgmap(adev)->type != 0 ||\
- 					((adev)->apu_prefer_gtt))
- 
- void svm_range_bo_unref_async(struct svm_range_bo *svm_bo);
+Changes since v1
+
+  - Dropped the "eviction fence" patch (was 4/6 in v1) after
+    Christian König pointed out it violates the dma_fence contract.
+    The eviction problem will be addressed separately in a future
+    series.
+
+  - Refactored "integrate VRAM migration into SVM range map path"
+    (now 5/5, was 6/6):
+    * Extracted migration logic into new files
+      amdgpu_svm_range_migrate.{c,h}
+    * Introduced enum amdgpu_svm_migrate_mode (PREFERRED, TO_VRAM,
+      TO_SYSMEM, NONE) to make migration intent explicit throughout
+      the map call chain, replacing the _ex functions used in v1.
+
+Limitations
+
+  - Single GPU only; multi-GPU migration is not addressed
+  - No XNACK-on GPU fault-driven migration
+  - VRAM overcommit / eviction under memory pressure is not yet
+    handled (will be addressed in a follow-up series)
+
+Design
+
+GPU VRAM is registered as a ZONE_DEVICE region via
+devm_memremap_pages(). A new struct amdgpu_pagemap wraps
+dev_pagemap with drm_pagemap state. The drm_pagemap_ops and
+drm_pagemap_devmem_ops callbacks implement SDMA-based data transfer
+through a GART aperture window.
+
+Migration policy is driven by SVM range attributes (preferred
+location, prefetch hints) and integrated into the existing SVM
+range map path.
+
+Testing
+
+  - Hardware: gfx1100 (W7900) and gfx943 (MI300X)
+  - KFD test: same failures as official release, except VRAM
+    overcommit due to lack of eviction mechanism.
+
+Dependencies
+
+This series applies on top of the amdgpu DRM SVM core series [1]
+which provides range management, GPU mapping, and attribute
+infrastructure.
+
+[1] https://lore.kernel.org/amd-gfx/20260317112958.2925370-1-honglei1.huang@amd.com/
+
+v1: https://lore.kernel.org/amd-gfx/20260410113146.146212-1-Junhua.Shen@amd.com/
+
+Junhua Shen (5):
+  drm/amdgpu: introduce amdgpu_pagemap and kfd pgmap accessor
+  drm/amdgpu: register ZONE_DEVICE for drm_pagemap SVM migration
+  drm/amdgpu: implement drm_pagemap SDMA migration callbacks
+  drm/amdgpu: add SVM attr prefetch/force-trigger and in_populate tracking
+  drm/amdgpu: integrate VRAM migration into SVM range map path
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  52 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c   | 787 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h   |  67 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c       |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h       |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c  |  44 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 143 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h |   5 +-
+ .../drm/amd/amdgpu/amdgpu_svm_range_migrate.c | 195 +++++
+ .../drm/amd/amdgpu/amdgpu_svm_range_migrate.h |  53 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h          |   2 +-
+ 16 files changed, 1299 insertions(+), 82 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range_migrate.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range_migrate.h
+
 -- 
 2.34.1
-
