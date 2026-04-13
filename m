@@ -4,53 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99769F34C4D
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 12:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 186B7F34C4E
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 12:34:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B86C10E0D5;
-	Mon, 13 Apr 2026 12:26:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7117510E450;
+	Mon, 13 Apr 2026 12:34:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PJbnMBF/";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="syyNFaz4";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC3410E0D5
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 12:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ag/JUOaFdk9sxg+FZ/AmkquyB95znwr7N44nZeGTJSk=; b=PJbnMBF/sXGtPXVyWelfbjUF4u
- X/J2OnzphWXfM8zuP2BR/k4o0/tKQLU8eMROPE5ikA7yL7Qby9FKmB/aXpb2jgjx2EgkxrgMe6E9o
- GQJ8ClwGMQmXgnL4GUYtNQJNimx0CxE7Oi2eUEPZyb9Z4q8rZT+hn3moVJvYy4Cex2uf4Vo4T103j
- wg1HP88D1MSNHCXxU6CWoZmPjkPuDKJrgv0VIhTvOe1H4GUEiJTmrYBZqe2WyIXHe+u8/rxgyNkRK
- 7Hw4cbz4Pb71huHwX3LxxsTXNBMizyfd5kXxuHCiolooRFqxEi/5Xv/TkoT/L1qCXIhbJPd8y0OBN
- 63S/bhZQ==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wCGMh-00FOjp-7M; Mon, 13 Apr 2026 14:26:07 +0200
-Message-ID: <7efae858-c074-4027-93df-d6efaeba236e@igalia.com>
-Date: Mon, 13 Apr 2026 13:26:06 +0100
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76E9B10E450;
+ Mon, 13 Apr 2026 12:34:17 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id A959C1A31E4;
+ Mon, 13 Apr 2026 12:34:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6D14A5FFB9;
+ Mon, 13 Apr 2026 12:34:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 10AAC10450229; 
+ Mon, 13 Apr 2026 14:34:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776083654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=W8Wq0XFDTnCET+9d1u1+KkWzNdxSiwKVtLFGfiPbxXY=;
+ b=syyNFaz4M5CS3w/qw5wtQg2RUzkQnw7q8wpoWJoj2F/6PjYErOhqgA15EFQePTJFBA4UUF
+ LSoYPrX+6nQZSqeG+B4U4C4xWZ1ulEKEh0Ey4sQyQWMzsQ6tAryHHJei5nGcYHXOoxDecC
+ MEHdbtnzQcIZmpBy0guw4bo6EI9a3soHuL6Iia5wgs5TjoAu7fZyVJG+ga+5ODGi/+U2VG
+ 5Hif4ZnGHGfMoRaK7RFojvStP0nVD+NWuhg11+AM9pkSYzPTLZPJvgxhSIVupZBkt6H3R8
+ zRfNZdNIdvMsN5cINpliwzzvjzglbX6zYtJZaEhq4n3qR6E/vUiX3TK/CIPkKw==
+Date: Mon, 13 Apr 2026 14:34:02 +0200
+From: Kory Maincent <kory.maincent@bootlin.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave
+ Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>, Eric
+ Anholt <eric@anholt.net>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Mark Yacoub <markyacoub@google.com>, Sean
+ Paul <seanpaul@google.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH RFC 10/12] drm/i915/display/dp: Adopt dp_connector
+ helpers to expose link training state
+Message-ID: <20260413143402.76f5c3c9@kmaincent-XPS-13-7390>
+In-Reply-To: <e253ca4fa0b493032a7b35a0a20689b9d9e0c4e7@intel.com>
+References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
+ <20260409-feat_link_cap-v1-10-7069e8199ce2@bootlin.com>
+ <e253ca4fa0b493032a7b35a0a20689b9d9e0c4e7@intel.com>
+Organization: bootlin
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dma-fence: Fix potential tracepoint null pointer
- dereferences
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Philipp Stanner <phasta@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260413100526.15729-1-tvrtko.ursulin@igalia.com>
- <20260413100526.15729-2-tvrtko.ursulin@igalia.com>
- <db5342f2-c098-4b27-9522-8b1f78fdc43a@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <db5342f2-c098-4b27-9522-8b1f78fdc43a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,126 +85,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 10 Apr 2026 19:26:53 +0300
+Jani Nikula <jani.nikula@linux.intel.com> wrote:
 
-On 13/04/2026 12:32, Christian König wrote:
-> On 4/13/26 12:05, Tvrtko Ursulin wrote:
->> Trace_dma_fence_signaled, trace_dma_fence_wait_end and
->> trace_dma_fence_destroy can all dereference a null fence->ops pointer
->> after it has been reset on fence signalling.
->>
->> Lets use the safe string getters for most tracepoints to a void this.
->>
->> But for the signalling tracepoint, we move it to before the fence->ops
->> is reset and special case its definition in order to avoid losing the
->> driver and timeline information.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: Boris Brezillon <boris.brezillon@collabora.com>
->> Cc: linux-media@vger.kernel.org
->> Cc: linaro-mm-sig@lists.linaro.org
->> ---
->>   drivers/dma-buf/dma-fence.c      |  3 ++-
->>   include/trace/events/dma_fence.h | 29 +++++++++++++++++++++++++++--
->>   2 files changed, 29 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->> index a2aa82f4eedd..b3bfa6943a8e 100644
->> --- a/drivers/dma-buf/dma-fence.c
->> +++ b/drivers/dma-buf/dma-fence.c
->> @@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->>   				      &fence->flags)))
->>   		return;
->>   
->> +	trace_dma_fence_signaled(fence);
->> +
->>   	/*
->>   	 * When neither a release nor a wait operation is specified set the ops
->>   	 * pointer to NULL to allow the fence structure to become independent
->> @@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->>   
->>   	fence->timestamp = timestamp;
->>   	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
->> -	trace_dma_fence_signaled(fence);
->>   
->>   	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
->>   		INIT_LIST_HEAD(&cur->node);
->> diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
->> index 3abba45c0601..220bf71446e8 100644
->> --- a/include/trace/events/dma_fence.h
->> +++ b/include/trace/events/dma_fence.h
->> @@ -9,12 +9,37 @@
->>   
->>   struct dma_fence;
->>   
->> +DECLARE_EVENT_CLASS(dma_fence,
->> +
->> +	TP_PROTO(struct dma_fence *fence),
->> +
->> +	TP_ARGS(fence),
->> +
->> +	TP_STRUCT__entry(
->> +		__string(driver, dma_fence_driver_name(fence))
->> +		__string(timeline, dma_fence_timeline_name(fence))
-> 
-> 
-> That requires that we hold the RCU read side lock while doing the trace.
+> On Thu, 09 Apr 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> > Switch the i915 DP connector initialization from drmm_connector_init()
+> > to drmm_connector_dp_init(), providing the source link capabilities
+> > (supported lane counts, link rates, DSC support, voltage swing and
+> > pre-emphasis levels).
+> >
+> > Add intel_dp_report_link_train() to collect the negotiated link
+> > parameters (rate, lane count, DSC enable, per-lane voltage swing and
+> > pre-emphasis) and report them via
+> > drm_connector_dp_set_link_train_properties() once link training complet=
+es
+> > successfully.
+> >
+> > Reset the link training properties via
+> > drm_connector_dp_reset_link_train_properties() when the connector is
+> > reported as disconnected or when the display device is disabled, so
+> > the exposed state always reflects the current link status.
+> >
+> > Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dp.c            | 31
+> > +++++++++++++++++++--- .../gpu/drm/i915/display/intel_dp_link_training.=
+c  |
+> > 25 +++++++++++++++++ 2 files changed, 52 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> > b/drivers/gpu/drm/i915/display/intel_dp.c index
+> > 2af64de9c81de..641406bdc0cc9 100644 ---
+> > a/drivers/gpu/drm/i915/display/intel_dp.c +++
+> > b/drivers/gpu/drm/i915/display/intel_dp.c @@ -45,6 +45,7 @@
+> >  #include <drm/display/drm_hdmi_helper.h>
+> >  #include <drm/drm_atomic_helper.h>
+> >  #include <drm/drm_crtc.h>
+> > +#include <drm/drm_dp_connector.h>
+> >  #include <drm/drm_edid.h>
+> >  #include <drm/drm_fixed.h>
+> >  #include <drm/drm_managed.h>
+> > @@ -6337,8 +6338,10 @@ intel_dp_detect(struct drm_connector *_connector,
+> >  	drm_WARN_ON(display->drm,
+> >  		    !drm_modeset_is_locked(&display->drm->mode_config.connection_mut=
+ex));
+> > =20
+> > -	if (!intel_display_device_enabled(display))
+> > +	if (!intel_display_device_enabled(display)) {
+> > +		drm_connector_dp_reset_link_train_properties(_connector);
+> >  		return connector_status_disconnected;
+> > +	}
+> > =20
+> >  	if (!intel_display_driver_check_access(display))
+> >  		return connector->base.status;
+> > @@ -6388,6 +6391,8 @@ intel_dp_detect(struct drm_connector *_connector,
+> > =20
+> >  		intel_dp_tunnel_disconnect(intel_dp);
+> > =20
+> > +		drm_connector_dp_reset_link_train_properties(_connector);
+> > +
+> >  		goto out_unset_edid;
+> >  	}
+> > =20
+> > @@ -7162,10 +7167,12 @@ intel_dp_init_connector(struct intel_digital_po=
+rt
+> > *dig_port, struct intel_connector *connector)
+> >  {
+> >  	struct intel_display *display =3D to_intel_display(dig_port);
+> > +	struct drm_connector_dp_link_train_caps link_caps;
+> >  	struct intel_dp *intel_dp =3D &dig_port->dp;
+> >  	struct intel_encoder *encoder =3D &dig_port->base;
+> >  	struct drm_device *dev =3D encoder->base.dev;
+> >  	enum port port =3D encoder->port;
+> > +	u32 *rates;
+> >  	int type;
+> > =20
+> >  	if (drm_WARN(dev, dig_port->max_lanes < 1,
+> > @@ -7213,8 +7220,25 @@ intel_dp_init_connector(struct intel_digital_port
+> > *dig_port, type =3D=3D DRM_MODE_CONNECTOR_eDP ? "eDP" : "DP",
+> >  		    encoder->base.base.id, encoder->base.name);
+> > =20
+> > -	drmm_connector_init(dev, &connector->base,
+> > &intel_dp_connector_funcs,
+> > -			    type, &intel_dp->aux.ddc);
+> > +	intel_dp_set_source_rates(intel_dp);
+> > +	link_caps.nlanes =3D DRM_DP_1LANE | DRM_DP_2LANE | DRM_DP_4LANE;
+> > +	link_caps.nrates =3D intel_dp->num_source_rates;
+> > +	rates =3D kzalloc_objs(*rates, intel_dp->num_source_rates);
+> > +	if (!rates)
+> > +		goto fail;
+> > +
+> > +	for (int i =3D 0; i < intel_dp->num_source_rates; i++)
+> > +		rates[i] =3D intel_dp->source_rates[i];
+> > +
+> > +	link_caps.rates =3D rates;
+> > +	link_caps.dsc =3D true; =20
+>=20
+> You have a source, you have a sink, and you have a link between the two.
+>=20
+> Source rates do not reflect the link rates common between source and
+> sink.
+>=20
+> DSC depends on source and sink, and it's not statically "true" for
+> either, and depends on a bunch of things.
 
-True, and actually 3/3 needs to be squashed in 2/3 and then it is all 
-fine. Then all tracepoints which use dma_fence_*_name() helpers are 
-inside rcu_read_lock, and ones which do not use the dma_fence_ops class 
-where they are guaranteed to be be safe.
-
-> Not sure if that can be done inside the DECLARE_EVENT_CLASS() macro.
-
-No idea.
-
->> +		__field(unsigned int, context)
->> +		__field(unsigned int, seqno)
->> +	),
->> +
->> +	TP_fast_assign(
->> +		__assign_str(driver);
->> +		__assign_str(timeline);
->> +		__entry->context = fence->context;
->> +		__entry->seqno = fence->seqno;
->> +	),
->> +
->> +	TP_printk("driver=%s timeline=%s context=%u seqno=%u",
->> +		  __get_str(driver), __get_str(timeline), __entry->context,
->> +		  __entry->seqno)
->> +);
->> +
->>   /*
->>    * Safe only for call sites which are guaranteed to not race with fence
->>    * signaling,holding the fence->lock and having checked for not signaled, or the
->>    * signaling path itself.
->>    */
->> -DECLARE_EVENT_CLASS(dma_fence,
->> +DECLARE_EVENT_CLASS(dma_fence_ops,
->>   
->>   	TP_PROTO(struct dma_fence *fence),
->>   
->> @@ -67,7 +92,7 @@ DEFINE_EVENT(dma_fence, dma_fence_enable_signal,
->>   	TP_ARGS(fence)
->>   );
->>   
->> -DEFINE_EVENT(dma_fence, dma_fence_signaled,
->> +DEFINE_EVENT(dma_fence_ops, dma_fence_signaled,
-> 
-> The signal trace event is actually unproblematic. The question is more what to do with the release event.
-
-Yes, unproblematic after fixed in this patch, or you mean something else?
-
-trace_dma_fence_destroy is fine after this patch AFAICS and I did test it.
+At init, we are reporting the capabilities of the source. So we list every
+link rates that the source can achieve and we report that the source is DSC
+capable which it is IIUC the code. Or maybe I am missing something?
 
 Regards,
-
-Tvrtko
-
->>   	TP_PROTO(struct dma_fence *fence),
->>   
-> 
-
+--=20
+K=C3=B6ry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
