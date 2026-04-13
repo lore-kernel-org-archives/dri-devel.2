@@ -4,145 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C023BEBFD16
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:22:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB7E9EBFD17
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:30:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38A3410E371;
-	Mon, 13 Apr 2026 08:22:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 099DE10E375;
+	Mon, 13 Apr 2026 08:30:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=microsoft.com header.i=@microsoft.com header.b="Ic8JAjCP";
+	dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.b="gR1BfzDa";
 	dkim-atps=neutral
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazon11022140.outbound.protection.outlook.com [52.101.126.140])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7021910E371
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:22:51 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013007.outbound.protection.outlook.com [52.101.72.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E977310E375
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:30:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m2IQj7CT4+2Gsr+Wdck155BJQoAMTloVkcwbhkK0yIWaeu7WpbQTIUkRUt4w3SCJjkoJb7XiTe+MyIh24HMewXE5BlZbbBeh1VAfohAMJcbrnvoSgmjXvHTggDrT3UokUTTnv3r5V/9H5ltUkAEZaxMBUJRCG89Q5IuINlfCJ0xd4f3TJxLQqo/X7CsnEIbwaErAXCGf+XvaVKK7FjyAlfJRBJw7BAEv8CVDhl1UX8LvlG0pAAiAA6SYjyz8kwsVaVntlOD9SUvHTUHHljKnF2thy0tg621t+MJt0yq6udgbPvuCpSJG3bLgcTdezTbG3G3UQ0KqCP/GfJiMaTfh2A==
+ b=g1omWcCQ5cD+oK2WH8AZg47tdkCd41wwBu+0nU8dxL7haznLwiK9fip4XF0M5AyosnzvQiECfGOzDbiF+kyOXjRWBk3UIBmRd5o0d4K+kQvy0QsOCXQYW2euAsEqIsQJd1iGkOKlLrQLxPlJZC5LeQ6BFlliTN3C01g57mtulH6/oi6S5Flse2Y9JBGoTLfOUDIZ/jQBfJ1PG1gK3QbqtBLyaFCCNoaOL6dbp7B6/XmkluE92N7+qGn40/5szMSoaJVj+iapZzzm4UdnpWFdnDE+sl8juT5GzYlLo5nIlSQJxlk4UHq8Zj7/U3odB2XNhP6e+3y6KMJ9mMvDwkUx4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oj3IM4W0nIOuffDuch4Mhpo9XPuJdr9Bhj2brT8H+dw=;
- b=nOZASgSv5pGQ5EUKMMDE4quMoCHTx1DeNVUOA8APheHPnftdN7bcsoiH5uY3/rxnmJ3dQh+ubmwM+iSCUuUeEQlC3Ys8a6wh9aWs9yjc+R6NbxQ/xnw7EKwTRWwrJZyIJyjc6ecgcuSxIUGZucCTvDC6qMM2kOhPSNmArhV4dsg6mQ+fFf3RWptXO15JzbAnvP0gWiTP/3kYaUAWBZ1kQYZ0oqp+zC8RUc75bL06yRjsoTvIIYoGbjMHVSb1+Lgm5tCPkJBOYqHmAd3N+4ml6u27sBx5gfnKnXlOLul+WkEX141nFNiTJMTwewkeItI/R5DnvC8HIya5p8MG+ZTvUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ bh=SRsIjzFRAdgdUITkijWJXayB+2gBt8shsNYSADIVJ1s=;
+ b=sVfTHEl/1dYb3q7/iaytB+2qFwF0g5kx9Xjy7RpoWDKCaO8boJf7ocOxCw2zplAhw0Aa1RaROm5L6v0k/jeaCbxc3JQfDvz64IemU8R4rb+hArqC5MnLS7pBH4CkBDQ0oLIZUo046u1mGcct/DmbMV6Ks7b8Pnfi6YAdC9CBbebCv/xgdK9Ow1M62vRJLIChRf9Pw19c+UFVF9Jy8OeC8B1p1wrX18fuAGfAByf/EhT68MnnJdgRkoDy82/nhFGXKUFmrIGiyqFNqewck7bxazweMflY2Z7fVaKvJeFFFb94XQxuxtVle9Jf10vG+fjQhqde1pWP+kE+5RJRgduc3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oj3IM4W0nIOuffDuch4Mhpo9XPuJdr9Bhj2brT8H+dw=;
- b=Ic8JAjCPc6W5FerLFyUaAA5Pqcx757Dp+4xVmAR/luoD+p6mBERHaDZcqEZ+cxhg4NyQp7srxThptXWTr1vnG5OodV8ESNbandSk68slRPfZ18XGYInhfH5HzcjAot1lLgrHsvtFRYKYQmFJEX5qaksS6XREz+J0zJRCB0Puo0g=
-Received: from KUZP153MB1444.APCP153.PROD.OUTLOOK.COM (2603:1096:d10:36::22)
- by OSNP153MB1643.APCP153.PROD.OUTLOOK.COM (2603:1096:604:48b::6) with
+ bh=SRsIjzFRAdgdUITkijWJXayB+2gBt8shsNYSADIVJ1s=;
+ b=gR1BfzDaIcahwVJotLoFfu0hg1rhpMEILtaR+tzwjw0mx4xgp4A6UNbyGZitLnyBGR8MFZKujrwhl76PkKfuJPGjSIVOWQnnt6nRLN74z79yNxQUXD+U6rdDI+LYNU+ginrMGkMUxu0OF8Kv3LjfcxK9u8hh3L7fJU0L7MjnCXi7SMIjGDQhJaG3RfjZ8nkjtDyI8mgm0PvvUdXpcJlNUf8v6d52enAfc0gZ0S1zHSOklm9CnVtbs35xA7vKcYQQzZrKtnW+E3Q88yK5Gu+08nXKh9QrCFRPwRGAOnMb/YlLWLxccpZZW0b1Lu6iqlrCaE+LqTDGnPXElELD5TQ4+A==
+Received: from CWLP265CA0305.GBRP265.PROD.OUTLOOK.COM (2603:10a6:401:5d::29)
+ by AM0PR10MB3506.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:145::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Mon, 13 Apr
- 2026 08:22:39 +0000
-Received: from KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
- ([fe80::c9fa:b931:702:dbac]) by KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
- ([fe80::c9fa:b931:702:dbac%5]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
- 08:22:39 +0000
-From: Saurabh Singh Sengar <ssengar@microsoft.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, "javierm@redhat.com"
- <javierm@redhat.com>, "arnd@arndb.de" <arnd@arndb.de>, "ardb@kernel.org"
- <ardb@kernel.org>, "ilias.apalodimas@linaro.org"
- <ilias.apalodimas@linaro.org>, "chenhuacai@kernel.org"
- <chenhuacai@kernel.org>, "kernel@xen0n.name" <kernel@xen0n.name>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>, "airlied@gmail.com"
- <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, KY Srinivasan
- <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- "wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <DECUI@microsoft.com>,
- Long Li <longli@microsoft.com>, "deller@gmx.de" <deller@gmx.de>
-CC: "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "loongarch@lists.linux.dev"
- <loongarch@lists.linux.dev>, "linux-efi@vger.kernel.org"
- <linux-efi@vger.kernel.org>, "linux-riscv@lists.infradead.org"
- <linux-riscv@lists.infradead.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-hyperv@vger.kernel.org"
- <linux-hyperv@vger.kernel.org>, "linux-fbdev@vger.kernel.org"
- <linux-fbdev@vger.kernel.org>, Michael Kelley <mhklinux@outlook.com>, Saurabh
- Sengar <ssengar@linux.microsoft.com>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>, Wei Liu <wei.liu@kernel.org>
-Subject: RE: [EXTERNAL] Re: [PATCH 1/8] hv: Select CONFIG_SYSFB only for
- CONFIG_HYPERV_VMBUS
-Thread-Topic: [EXTERNAL] Re: [PATCH 1/8] hv: Select CONFIG_SYSFB only for
- CONFIG_HYPERV_VMBUS
-Thread-Index: AQHcwo6UUBvHYaEr8EK6Q8BbiI9wobXcpfeAgAAR2iA=
-Date: Mon, 13 Apr 2026 08:22:39 +0000
-Message-ID: <KUZP153MB1444885C302B353C02C2FA2FBE242@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
-References: <20260402092305.208728-1-tzimmermann@suse.de>
- <20260402092305.208728-2-tzimmermann@suse.de>
- <KUZP153MB14449BBE44CBAEEA7621A4A0BE51A@KUZP153MB1444.APCP153.PROD.OUTLOOK.COM>
- <2fe8ce91-2dc5-4cf2-b7cf-d495e5cff14b@suse.de>
-In-Reply-To: <2fe8ce91-2dc5-4cf2-b7cf-d495e5cff14b@suse.de>
-Accept-Language: en-IN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=68f474dc-35e8-4341-9b89-6427baf0a9e0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-04-13T08:21:02Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10, 3, 0, 1;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUZP153MB1444:EE_|OSNP153MB1643:EE_
-x-ms-office365-filtering-correlation-id: b0e52200-d9d8-4bef-a66f-08de9935d373
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|921020|38070700021|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: I3U20ShaxuoG82qDbE9AmG2Fz51hvpKldpGKZWDPoC11L7xxI428h2BC/d/ColrU++0jWQiBJPKW9xHcueYyYCgmmi0obTXp8iyVYI/WSEKb+BfX7RXf8ddQD8f41bac+MK/XsfXbAUNuNqqYpOutLRz9KHHme+qK/qsiKfm5QO9sFPAZjHZtGNioszPxfWEc6TaBvJpYCFA9tu7Ja9s/MFcEWHV97qv3hNQAYD7T4AYot6pYHscASSgIp+jdU9VRlBEWTlnFYtWGouGZ8krLDYe0bUTcV08mqyUn/9paVfXm/POpM1S+gqNqccTaDB2BiCP7tZPAUSnbc/8mX5ajlG+Plgd6j9yJNaUtHXs+ubJtMmkpSainpTBTvb4u2PPbzmBtgieT2OyBQEHXHHR3W8lV3eVq3G76DF10bLZA9SbTG8OK/9C8ioHguZrsC7amM6TcYEHBSo6slkLAxcZ/yzAoyXLu74xWmJLdApAYHw7JnKdXZSEVaOt6vZ71y4zeyAKPtPMe8PINxOO8Mb5EsoCGOALCFu3026Q+Yl27KIn0GfCpME8Dl0wnjyLQwNm6WmgxJNLBlKWT0E93TxzOdQvOPisSVVfpxdhKkGYvZ0uwu2hQaE76620HhV11KK5FKI5431wyvJBWpr+I1apYrc5VI9QJYVk7ezHRNNujbr3sI4Tya0R9/OzzaTn0MrQaDuaxIlTzL1ZH4YcrMtZ/6k9xerzv9P7gMEJ+/aTzRUdIl410zOmly+6A3x1aXM0KVTm7k6qoYf+UTIRMZBnuntNnnMjmr0sFvv2D424rpFoUOah6rllJfnijKe2Uj5e
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:KUZP153MB1444.APCP153.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(921020)(38070700021)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DP/3v7cfq2p/Twep2bhGAfX0psnOHmwg8K0Hnp586FDvZuSuP/MwT78PppU0?=
- =?us-ascii?Q?Vy4h+xLi1L++h/2nGv1qAnmQpDzQSDsDm31PcMEAuYrU46BQYIDItCLuFwwt?=
- =?us-ascii?Q?xOq0xhWsMBnJju6dp5tXWYg2TDYDjhJNCAgdrJcHIW4826vxz+9rRhb/26KN?=
- =?us-ascii?Q?c4u5PKvuFLmpJEVSPOjxjUQdDI7BSqMiYIALW1FWRW1opg6uJ8p7ZqemRSlC?=
- =?us-ascii?Q?aYIpc44fvlHAcb6auh/DSyXsjYMSa2nvB8bKeTPhYX9yRNdeReg2uMc+6fLG?=
- =?us-ascii?Q?T4sU+XiuhsHQgrTapRHfHcgKp+zfxu700hyzhDH5LVzEcaBverpH9tzmNeWM?=
- =?us-ascii?Q?ImH5XRh626oG495JZT2008djZCzNfC2lcrM1xC4LZqhEiQjikR0MGwVU7ODL?=
- =?us-ascii?Q?c50R4KQpOVat6zApNkjOVA4bP5u9ujpAgrndRHUwFf77BaDvMfkMITA6w4EX?=
- =?us-ascii?Q?DWhLFgKvIVr2kcPoTH8arhMFr1mvqw2nVWZFCAgNp7pBefdTfJyWAKDrHFkm?=
- =?us-ascii?Q?XQoDTRMSm7dYmsT0Y/jLcQL9AdYXfV/S2YAD9dZYWSWrKdPLc3Ckl62SpBVf?=
- =?us-ascii?Q?S06mMKwYc+nbMITmjZDYxidYqVklhzNeyZImschtWkKRyVH/nycjsOVkTNqk?=
- =?us-ascii?Q?x/JEnvcMJ+CJ0GTfc0ee+KYHIJZXAw9FZJNBVFBJvPatN5A0vxK6uzffWO1D?=
- =?us-ascii?Q?yOY/tcS5NnlfComt+X61IH/XZ7sKiHN8pLU4plpk10+TT/gHASg4Ukn20F2u?=
- =?us-ascii?Q?Y+Kz3QLQKOfdFid798hKnnELg3M/riSohUEJBA3ksxBf5JwuskODz//5ysJS?=
- =?us-ascii?Q?2VWs8aSDGA5kChFsYGjrOA1lv5DOIU5HIJFO2cpUT9WK+E7vSH06LpcSiD7r?=
- =?us-ascii?Q?gE9K77triBPOPoqX5WXzj5HSFBP3lL9ZERHWkkWfNbqE5MDI3ZhsI+t9Ngf4?=
- =?us-ascii?Q?2DXeiQDctDg03XdbGHF+fAW6Pn619si+UTNXnZIX6INI/mWQdj1YY9KBXSoO?=
- =?us-ascii?Q?JzaabPF2BvHLxWpRNEEvKxwW6prOmMGYc9XZBhd5OD4zCZD+iiGQIKWuQVT+?=
- =?us-ascii?Q?tcDfXC1uTpaIMdF+bK2p+TISGSp40ln8r1YY+2szjsj755c5IS/OX2xLMIVV?=
- =?us-ascii?Q?LkI49RAHEVnzUCYLuItCWFFtVjSJm27snegQzUbZIdVZYOec5+wWGn23ydRd?=
- =?us-ascii?Q?UQw8wSVFD4TCDJ1rypZYQhrNBOD0aRfxPzqdhwl8lzEEr68Y2nFFY3ji/G8u?=
- =?us-ascii?Q?kddfboNoG4frIA/JcxH59ngPl0GhjcQHYsr3uvbu0s//dShLlPSQXKp9JFvr?=
- =?us-ascii?Q?dBd1iIHhdp3JBK1ddwOIn2fAuDZTHwe1n5ttocXB5QJkvRdBx4n1dkJHPZxN?=
- =?us-ascii?Q?os+9tt66JojejU8k0hQ97eGmguchXSG4LMIYEfh5dmQVs5GpjzYOp6mKQSPz?=
- =?us-ascii?Q?0lKTrd8oecs7GTayg+PdEH0RrTUoiHva2co9tuaUWA0asuEtuzg/goTjuQLl?=
- =?us-ascii?Q?7zGUbRbJ84d6AqiHNYW5oCYoPJVobvaOCCG9QxpIIyWBgJOsmM8hR3/hjC0j?=
- =?us-ascii?Q?B5VnZgUNh2s0y2DfHJrt8BovCiZHyLmbOtQbDnurED+TRphRy5RHPnaqoRRx?=
- =?us-ascii?Q?HN75gScwGwa5UHbw3du0OGZPsAn0LSKCgiK07vtEdiLgAklp2Y75bdMuMUv5?=
- =?us-ascii?Q?jW+Akw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
+ 2026 08:30:41 +0000
+Received: from AMS0EPF00000194.eurprd05.prod.outlook.com
+ (2603:10a6:401:5d:cafe::5f) by CWLP265CA0305.outlook.office365.com
+ (2603:10a6:401:5d::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
+ 13 Apr 2026 08:30:41 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AMS0EPF00000194.mail.protection.outlook.com (10.167.16.214) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.21 via Frontend Transport; Mon, 13 Apr 2026 08:30:41 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 13 Apr
+ 2026 10:33:48 +0200
+Received: from [10.252.11.107] (10.252.11.107) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 13 Apr
+ 2026 10:30:39 +0200
+Message-ID: <c8cef596-642c-4707-af83-357ba70de02a@foss.st.com>
+Date: Mon, 13 Apr 2026 10:30:38 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUZP153MB1444.APCP153.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0e52200-d9d8-4bef-a66f-08de9935d373
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2026 08:22:39.2445 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VPiXmaOgRbFAAm2fUll+rjiMXM/SiMs67XoBxn68DK73fbfmApE2gnCIKLho+LmN8PJoeyXtHXRWdY4clBtGdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNP153MB1643
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: stm_lvds: Do not fail atomic_check on
+ disabled connector
+To: Marek Vasut <marex@nabladev.com>, <dri-devel@lists.freedesktop.org>
+CC: Alexandre Torgue <alexandre.torgue@foss.st.com>, David Airlie
+ <airlied@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime Ripard
+ <mripard@kernel.org>, Philippe Cornu <philippe.cornu@foss.st.com>, "Simona
+ Vetter" <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, "Yannick
+ Fertre" <yannick.fertre@foss.st.com>, <linux-arm-kernel@lists.infradead.org>, 
+ <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
+References: <20260409024928.344010-1-marex@nabladev.com>
+Content-Language: en-US
+From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+In-Reply-To: <20260409024928.344010-1-marex@nabladev.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.252.11.107]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS0EPF00000194:EE_|AM0PR10MB3506:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef38b35c-e485-4b2f-5d87-08de9936f2b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|36860700016|82310400026|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: +6xq2LVpF0jTI8dY6p1PZATkKQ7j6Jy49CiACQkouBz6VNtACWTkArIiJkkXeElCchZqDy9yTwXLuQni3tDU13IGmVR3SB4Z/UgEzzXZCuReAnsaqJeyvWT/ie2BZzrfDdMm6gO6SRdpbrmkKA3wzjf59Cz36iovjp53TONNHgR1wPoIk7n0wp0EMqNzxcdJjDkEPSqqq+QPHsCX771DduA7hRFkX2AgcAHHJTbpp9S2FXIaHzJbXA+E4Hs7jx5DPAc3pjBOry7iHe58w+h6HNaFjAhvYFafaWNshxpQIe2u8rfxfrUKLcOvYs5CWfAvEegkku2Typam9vGR92xFivpcRRux3nXrlAXcwhGe4R04LFzHaF95WY8/H2N3vylyqdFqG3LEHTmUTbSwuqEmwc9m9EPoKvo08n/vvcR7ApdwuRW2yWiQS19oYnPSb738thg7Ep110H7lsqEx5r7GuOdfC+CtHeBwLtDLaOozrjfWwM4pPTjuyKTESPj4FG9UnSqHU6T7f9ffiM6bXlMS0y7wkdrFpbZb4vyA6pZhyqJm8J+ObDyFDfAXWRfYpYi/8zLL6r9W06aEuX4jYoYIdV583gxJi5y7mUKCVUoDPZOfZBU9zRNQSdg3FwXSt00TXnZBjJZvc+UNFVxAa4rKTUFRie7hLYRKSlElApDQfzYr2e6rlgElgaGNtbsmS+HhLmRQ0AOBzRfYR1aG1VSZ9iADI+zQwtxYGfmfZFuFfvmHT+kGYJYA9r/mToS4fvHc20oKoYpM47rCZttHPQvGRg==
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(36860700016)(82310400026)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: zAQW0ALHEVUOtflQOhMztauFhmVOT6tybvKEKiUipDO4TGxgouD3v7Sx180Ep9UVHZxpS+08grugm0ZpUSL9i3kXfTIIdvnaljyhRjmo39gdh30xN6yVfQRsXpjp2Du6XIx5Lh6Z2Cl0+vxuAdVH6AUGubnRi1Q1EEVTibyf3gUu6PaFQ5yRoQ9E49z3UItVphyLbJEyDDIX2aQgXL+Rf1DYJ3NKr3Aq0PyRduz/THiAM7kMCPyNu/o9c9T0ReGEgIKuquN3Vgb/AhERKnZzoQeL+HqRdKz0AJIqgiL3sWR8ZIXMQCZCAPRAGFNvSr9XpQiu7mgahE+oiMxSyJoTjANqsIrg/smhzjB1uJb2ezA71wMy100Os+RQHSifqCXhuQl0YH/L9S/9fwtzs8PQWEjz4Xn7U34RND79yyrepsYcbl62BFIzf1Rsc9ro+W+8
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 08:30:41.1513 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef38b35c-e485-4b2f-5d87-08de9936f2b4
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF00000194.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB3506
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,61 +123,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Hi
->=20
-> Am 02.04.26 um 12:50 schrieb Saurabh Singh Sengar:
-> >> Hyperv's sysfb access only exists in the VMBUS support. Therefore
-> >> only select CONFIG_SYSFB for CONFIG_HYPERV_VMBUS. Avoids sysfb code
-> >> on systems that don't need it.
-> >>
-> >> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> >> Fixes: 96959283a58d ("Drivers: hv: Always select CONFIG_SYSFB for
-> >> Hyper-V
-> >> guests")
-> >> Cc: Michael Kelley <mhklinux@outlook.com>
-> >> Cc: Saurabh Sengar <ssengar@linux.microsoft.com>
-> >> Cc: Wei Liu <wei.liu@kernel.org>
-> >> Cc: "K. Y. Srinivasan" <kys@microsoft.com>
-> >> Cc: Haiyang Zhang <haiyangz@microsoft.com>
-> >> Cc: Dexuan Cui <decui@microsoft.com>
-> >> Cc: Long Li <longli@microsoft.com>
-> >> Cc: linux-hyperv@vger.kernel.org
-> >> Cc: <stable@vger.kernel.org> # v6.16+
-> >> ---
-> >>   drivers/hv/Kconfig | 2 +-
-> >>   1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig index
-> >> 7937ac0cbd0f..2d0b3fcb0ff8 100644
-> >> --- a/drivers/hv/Kconfig
-> >> +++ b/drivers/hv/Kconfig
-> >> @@ -9,7 +9,6 @@ config HYPERV
-> >>   	select PARAVIRT
-> >>   	select X86_HV_CALLBACK_VECTOR if X86
-> >>   	select OF_EARLY_FLATTREE if OF
-> >> -	select SYSFB if EFI && !HYPERV_VTL_MODE
-> >>   	select IRQ_MSI_LIB if X86
-> >>   	help
-> >>   	  Select this option to run Linux as a Hyper-V client operating @@
-> >> -62,6
-> >> +61,7 @@ config HYPERV_VMBUS
-> >>   	tristate "Microsoft Hyper-V VMBus driver"
-> >>   	depends on HYPERV
-> >>   	default HYPERV
-> >> +	select SYSFB if EFI && !HYPERV_VTL_MODE
-> >>   	help
-> >>   	  Select this option to enable Hyper-V Vmbus driver.
-> >>
-> >> --
-> >> 2.53.0
-> > Reviewed-by: Saurabh Sengar <ssengar@linux.microsoft.com>
->=20
-> This fix is independent from the rest of the series. Do you want to merge=
- it or
-> can I take it into DRM trees?
 
-Please feel free to take it via DRM tree.
-CC : Wei Liu
 
-- Saurabh
+On 4/9/26 04:48, Marek Vasut wrote:
+> If the connector is disabled, the new connector state has .crtc field
+> set to NULL and there is nothing more to validate after that point.
+> The .crtc field being NULL is not an error. Test for .crtc being NULL,
+> and if it is NULL, exit early with return 0.
+>
+> This fixes a failure in suspend/resume path, where the connector is
+> already disabled, but .atomic_check is called, fails, returns -EINVAL
+> and blocks the suspend entry.
+>
+> Fixes: aca1cbc1c986 ("drm/stm: lvds: add new STM32 LVDS Display Interface Transmitter driver")
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+Hi Marek, 
+
+Acked-by: Raphaël Gallais-Pou <raphael.gallais-pou@foss.st.com>
+
+Thanks,
+Best regards, 
+Raphaël
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Philippe Cornu <philippe.cornu@foss.st.com>
+> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>  drivers/gpu/drm/stm/lvds.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c
+> index fe38c0984b2b5..25e2ba98f36ae 100644
+> --- a/drivers/gpu/drm/stm/lvds.c
+> +++ b/drivers/gpu/drm/stm/lvds.c
+> @@ -897,14 +897,14 @@ static int lvds_connector_atomic_check(struct drm_connector *connector,
+>  	if (!conn_state)
+>  		return -EINVAL;
+>  
+> +	if (!conn_state->crtc)
+> +		return 0;
+> +
+>  	if (list_empty(&connector->modes)) {
+>  		drm_dbg(connector->dev, "connector: empty modes list\n");
+>  		return -EINVAL;
+>  	}
+>  
+> -	if (!conn_state->crtc)
+> -		return -EINVAL;
+> -
+>  	panel_mode = list_first_entry(&connector->modes,
+>  				      struct drm_display_mode, head);
+>  
 
