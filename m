@@ -4,131 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E28BEBFD16
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:58:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1ACBEBFD1E
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 09:03:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D0910E38C;
-	Mon, 13 Apr 2026 08:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8DB10E38D;
+	Mon, 13 Apr 2026 09:03:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ya7SXqP6";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ryp78dd9";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PZGItUv1";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012003.outbound.protection.outlook.com
- [40.107.200.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B34D10E386;
- Mon, 13 Apr 2026 08:58:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P3fLaaupY6wAEx7kZbrY7+wb1de9JzncxObPA5UVlp1dSBhCRaOeYl56Mv//68SpxzHFwuhGoq32PeuqtDgPYQF5puj2p7Cdlt6Omv78ECovEDzWqPz30PnJsj2TbTrdMgv4155qOLVYQnk3qrtplFvL3NuJoCTvwi6mo6bsinQUMLRDJTqbMk4dvCDhOI3e3Q7Zdf5Yac7M77bYTs6Hy4NJGPGZgZx2Yro3lf+ijcHQpvNLqqkQ1DMz27p6kn9eGBSfCD69VxewYzNPjbhDqBm6CPg+Qm1sqh2bVaUI8K8ng5MdYppVy2p5waqJxlfws/qbhacyqmuasDbVPacQRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fmYYmJ1pdH1p+mGrX8f/T6nmsij8qV8ZEOWGdWDaG9o=;
- b=Keu4rf/uwCJ0rjYC8Ad655t0Iw07apr/Ql/wkFLwoHh4MCfGT2egiWYaKbO2PUmg35/LwZQ0FyhOpCdVFDmHy2IRv6FoGouaFlekQcNCoBkq/HAfkqSx+qwXWOhG1iliT1pB88mFrnLZMA/1yHzbA0VwPqBftqABR2DuHzyNulUkVI22JZ53YM52u3eY/I5h5MhTm1LfUVM4gofQV3xSPq6cyOQ04aiM6Y5jFV4mm2jh4J1gTb01x/FzgNNYisSh03o/AXD5io5YE0k0R/H1hJVIoZFXksW0SgRYdTa4wfYa+T11Xb/IpEuF/hjghukZ3OQwtSQWxLh6e6xNpvqrGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fmYYmJ1pdH1p+mGrX8f/T6nmsij8qV8ZEOWGdWDaG9o=;
- b=Ya7SXqP6Zf2pVfk6ZF/K2nnTUWBrwQRIKzrRBR6/ba8qWJoReONIMykMvCeg0AFjcV4jsM0ox5AS7x5Df29vEuWcmdSCCSX28JUD2VpLiDT8QJV15DQcnRmIM1hDoSf59wfx3voKo3B+iHTWdmc6lfUMNK0UKiYHUzLM6Wa+7GE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV2PR12MB5872.namprd12.prod.outlook.com (2603:10b6:408:173::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 08:58:28 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
- 08:58:28 +0000
-Message-ID: <c413710b-4c28-4ed8-88ec-aeb8c4482011@amd.com>
-Date: Mon, 13 Apr 2026 10:58:20 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 21/26] dma-buf: Add the Physical Address List DMA
- mapping type
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Dongwon Kim <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, iommu@lists.linux.dev,
- Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
- Matthew Brost <matthew.brost@intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>
-References: <21-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <21-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0122.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E874D10E38D
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 09:03:18 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63D4n0mu3561249
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 09:03:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ oXUF1cdkbsnywS2PX3oceiMZcoIG9dLG2GjPtUBr4wg=; b=Ryp78dd989PduCH/
+ DeBkaW9GFdsXXsDMpl+quFEk31zgyYSo/wNbmmZ4aSdRs69/gkbdN6l6rdsGvCQU
+ OMlx7bfURuKpx2OFgSPa1rpHFIRNtClK9Dnb7UVyDDFXXu2xJCd4/ZtBKVbkJkJs
+ oIaJw3TanayOPIWVFkjENuKNZiutvHAkpPHMbJyABlCeOaRhhV2b15wbr/7mUx78
+ 5zDPYIy/mRuPNvDsv4u8vTUjE8E2p8cSkvBOQ9Wf+0/FWZzXa1xQj6P2p0zIeoeS
+ a7/H+NCbCSuPhfImD1OHv5Q8FhGBzGf1QMfvlOP1ShK3klas1LzF1z3RKoRpetNP
+ tNGS2A==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dffb0mhce-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 09:03:18 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2b2523e0299so98197845ad.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 02:03:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776070997; x=1776675797;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=oXUF1cdkbsnywS2PX3oceiMZcoIG9dLG2GjPtUBr4wg=;
+ b=PZGItUv1/TF8ocO6GWKqinyHa9uKQuHMZaP+l6CWwb+xv9xzbZkLqcyEsx5JyfOXyf
+ GNDvuGX4vWeAl5/0a/7M7BBhpwBeMailRAqeEvUGHrm3zqPRMSsiD3ljICiKaLuP6Wqb
+ R2AqRRHf5CZeqb5NVfTNN1XtU/Ip+Le2zAPLC+K9wAzkhRs0Dgo3y1kdFp785gWWXsZz
+ MrJ35a52pv+2t05GKqs4/CtcUwBRcy7SLj9W3GpOYQCPbW7/jBGase7hTiBIk7G0vubw
+ NilK7qffI5OoYeyXzbqRKWImK4eYasXAOPybTqYRUShQsI42Xl9DACi3GRvge9iTvaKV
+ 54Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776070997; x=1776675797;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=oXUF1cdkbsnywS2PX3oceiMZcoIG9dLG2GjPtUBr4wg=;
+ b=LWhDPwvD96eA9Ht3EeWlAF/2lIK+SN/GzWq0GDFomFfMZ7zV4JVxvWpP9PtIGpC0nB
+ J98Ap/iPKZxZsNgblOdYbaqsfoqPR6zThZ9jkOCBTkpGU5hE5jmRSbLpQ+w3xEw7s907
+ PZjLCHs3SUq3a3E4wBOzKyXx5i7MVL0qBEHHCdhxRTth+620sz1ZilYCTmJTtYokwOV7
+ ecjUu8jHm7pkwWHdl69KaReG623ODvSo6FVDIQ+W9+OjtFSwPDJrcC4+9lxsSvulwyo9
+ /SAb4coHpNIT7RuL973Y7QGfdcgID6JR4X3OtwS5UMYGzE04Vr0oXB73MM6EfYJhH3ni
+ WA8w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9DVWz5zkwOvHqpYgu4zYUypLSn0U9GB3kH4HXpkXaDdJE7Kx2m5+oVhvDF2p0eHZnVGZ+rNT/81ic=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YziDUfpGzjpLoqKiNf9cnlxmEhXEwqKepP9UsoKD17XTgpXYr2n
+ 4LVA7Hvo3nzOKM2P8gSszgtGU+a9TWIlx+uMeSe2LSp/cheyI0Ue8BpkThCR1/NT0SX79DG0ozt
+ nkzUmXaAsgdmIvGwFbyTHkhCJs1diWitvBr4PW27mLw5UUuKK6XywvKN03aF2Q6zEnBKdcUI=
+X-Gm-Gg: AeBDietiJ5F1kZfVnMCE9F4qfSyIgwjS3rxRfZXRMXF0tQifuJRW5BQF5De8GEvwXHW
+ xOKm55QqFymSSqENoRZomOb8cxLH/6XH36pAeBtdsXBF83Ri5KHEBcG9LW37O2yuFtVN7NhRbcD
+ zw0n8/L1AEj3En1ej9BuTHwr7Op3kinZwXMVFxNw856e2OBVXcc2gnG4W8CukJ/EpWcAbii5Nuw
+ 4V0UfAn+g9ykSYqqKUORUW2i6deZtOLoqp/Suk/l8O8vmrP6AEbe//JIOZzSPRyNivuIgbWOl0D
+ 6gmvUyPYJDwBTKweKi//Xw3racayhqDbhAB7SFwzMp+eIr1PofeGnWYlFjGaiQYuMafclHCNRQo
+ p6lLJ9QfW/gbLdetQDRpWF95KSGPLDRR0Hn1Tu/xc+IwcGIOyxuAvaw0=
+X-Received: by 2002:a17:903:40ca:b0:2b2:42da:25cd with SMTP id
+ d9443c01a7336-2b2d5a88d7bmr132828925ad.45.1776070997524; 
+ Mon, 13 Apr 2026 02:03:17 -0700 (PDT)
+X-Received: by 2002:a17:903:40ca:b0:2b2:42da:25cd with SMTP id
+ d9443c01a7336-2b2d5a88d7bmr132828655ad.45.1776070997059; 
+ Mon, 13 Apr 2026 02:03:17 -0700 (PDT)
+Received: from [192.168.0.215] ([49.205.244.213])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b462830bc5sm16069325ad.50.2026.04.13.02.03.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Apr 2026 02:03:16 -0700 (PDT)
+Message-ID: <65e37364-f721-4e86-a105-1058d6267121@oss.qualcomm.com>
+Date: Mon, 13 Apr 2026 14:33:11 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB5872:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0c1f1eb-63ac-41f1-294d-08de993ad43d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: VFMAuT+pet7c+l670oZ2PyerScNqa/CsamufZPVfcV8UwgHUkCZ6lq7H0UHmdL8/fAeglCwuN7STwCAONN1IhqlYje9n6yKZKIqgB38qxfytkShzyXeC46JZnGDACWE4W9A5ciDckj4fsZKdHMt8Yt5oeUMOLCv5UoOQDIWvwUJ9W7sbkTzU97yaJGXBxOJMXSdveuD6ANw4Ivt6RC1zT4DkMpxQ8s1+XoyeVfivar4wzuqGy8IaODGqITRMhqUL2c5pxCjcXNi1hSaUfuz1a1cooUM4pMBXsAz3mAirNpofRQ29+nYnVJNQhE4Qzij76rsvWM7oLyy/5tIiYbRWghEqrS3Af0L0/CLdqyjjEBSkmCanq1aszmSR5UebBZS180xPzCxpzzWrlbNVDddQnROQjF6hw2NPwObn/QArYyqdG6DSuXAHUOisULHEHUEtiKHFMPhb2/ybt19R9/g+pqWzHKmy8+ly/ErUkX9BeqPmE4GgVaCNSq5tsKORoR41A5P8TB2n3e87sXds3KaIBRS4IPBdesBU2xMZELhPTbuAj8at+5FFYMk6yih69soF89KZ2HaZ29BNppYljnTKuP3ZFGx85Nj12rJGszt5WXDYpE/QimRguBCO6NflX3onv3kMVp7b68C8Uo9y9nzbgl5B6ufCgk7TBTXzZS1W55t2pR8IFh6aVQseUWF788PN7Z3/hgbVmEcangmhRLCUb6NvdWBUcAgZ7wvEt6A/nXg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlZBMDNkeXhqakxyNXZmWE80UTFJWnBzMmJ5MEc1QUNUMnQxUjRpYmhhVVkw?=
- =?utf-8?B?QTRicEdkeE80MVpieTlEYmZoeXlWNlNyc3h1azJNMS9lVXd4REJKUGMrVVVJ?=
- =?utf-8?B?a1pUZ2FGU1hEbDNDeFQ4WHdGRDhwSXQ3THorbGZtcEtPR0ZYOGxjMmQ4NlRz?=
- =?utf-8?B?NXRRc292RlI4eFA5eDNONS9FZXVDUU8ycEFnR1hwWEZKT2JYQ01RbG0yTE9G?=
- =?utf-8?B?Y1RhUFlRVXhaL3RuazkvZk42eE9kU01KY0lRY2pZcmo3NEhwa2FFVE9YNVBB?=
- =?utf-8?B?N0hEa1NwZm50ZmUzMHpGWmlPY3JoeW4yN2JmUmQwcm1ZNUFWdURQZ2dkUXR1?=
- =?utf-8?B?dG8xUEdHSUVoZmxvbkJnT1NaVXVORzIxMW5tdWJuTVJSZlE4MEd6RWU5Zk0z?=
- =?utf-8?B?cFRVMWd0a1A4QUl4MU5KamplVHk5cWZNcE4zcHBtU0toMnpMdDFleUNrMEkw?=
- =?utf-8?B?QUh1OGFPQy92NGkyeWtLbXF5czRLNEtOemhwTkczaFJrV1FUVmlsU3ZWaElK?=
- =?utf-8?B?dXdrbVpNdkt4WlA0U084TzRMc3RjYW5oK3RTWm90bmFqZFZ0M3Ezak9BWkda?=
- =?utf-8?B?QTlRWHdJcmJTNWxWNkVJSFRpZDEwdnVpUTloWTlNaU1WQm5VNEpRVDF1bXIw?=
- =?utf-8?B?MHZNYThXY1hxSEJUVzR4MHUyRHF1bzlKaWExWmVjcHZNeWQwNGpOTVFoMU5W?=
- =?utf-8?B?a3M4cm1idTJqSXQ2cWpGOGR5di83QWxNNDJ6TFdPeEZZVTc4elg0MlhOMUFT?=
- =?utf-8?B?cWtXWlZ6c01OM0ZMSWpaNEo2RGxpVkpibHlQdEsyVVRnVkoxYnpoQ0RkQW9L?=
- =?utf-8?B?Q0Q5Y0c3TFJ0cGptaHc5SHN4TndnNjlrVHdUWWlZZ2ZyWXA2TkVVZkhpOVdH?=
- =?utf-8?B?MThLelBFc2E3d3V6ZVlHTGYwU1J0ZFNUb0ZxNUlId1ZONDM2UGZqWkRUTzFj?=
- =?utf-8?B?SG1yZHhieHNMUGFlYVNqamc3Tk14NUxoemJVZHg2Vlljb1prNU5KbEQ2SUJk?=
- =?utf-8?B?bkJHR1pxQ2ZPODlXazJURitzQ1UvWjA1VkRYWDVCMkdYTk45Z090VzdSOU5H?=
- =?utf-8?B?VXV6dWxxWkdEa1A4dUFpeXZpemdoNmhLcnkwL25UTFlwTmlhanJjald1RElD?=
- =?utf-8?B?eTgyV1lEUjZzeXpiVFU4dVAxZkZiSG9oMHNXVnVEZmRQTlFFekgyOEp2ckJz?=
- =?utf-8?B?ZVJwSFozQ0lxZzVEQVZwcXVyZDJYYUNXYWZWWnUzZmxaR1FKOXh2N1BGK0dQ?=
- =?utf-8?B?QVl2ZVJpa0ord0VMUWxEQmJRVXE1cVM1c3NxeEdHUThndXNIU2tKa01XejhN?=
- =?utf-8?B?YjBESldTQjVzaWduWFBxSVYrSysxUXoxYTBDcWVlOUFsdzJGaGdkMUl0aEI4?=
- =?utf-8?B?cG5mV0RTZ3VmcllHSDNSeE9qQjloYjhrUnFYdERJenZ5L2hjVlUvbDlGYi9E?=
- =?utf-8?B?WWJNRnNUVGdpbDkzV29rdXNyNFFpSG1BSmlTQURLWkwya2RpZldXajJvYktG?=
- =?utf-8?B?RkNvNktCOFZLYTZNdlpMcURWMk1HMWRwUGtpZzVuandjTUFFV2dBcDJBNVNm?=
- =?utf-8?B?ckY5Qmc4eVcyd1Myb3RoYjczWlVaNitzc3NZUnRYSU5BUFBDcmZSdkxPUzZM?=
- =?utf-8?B?MXVKd2NIbVJWMWtpZXNKcFM2RGpXVERlQm9nb3N2YlFQODNuOTY2ZjZ1WXh0?=
- =?utf-8?B?WmY0RlIzdE9rVzEvTHNhMEJSVmpEWXBVQzh0dzBpam45b2FzZWptZS9HbThO?=
- =?utf-8?B?eFRFUG5nRUZ0M1NodjhveWRKeWdNdGkwM3FBMkNkV2lYVlNGSTlWMUEzUVRM?=
- =?utf-8?B?UWJ4T2YzYnBwYkN1Y0hKS2lFSFlwNGNuSVR6YjJUdWdvd2Ird0o2Uy9jMVR3?=
- =?utf-8?B?SGJCSzRyd3BYbGMvdG9QWjN4U3F0RnkrdUlYY3Z0T0g4aWNsTzVlSlpFRmQz?=
- =?utf-8?B?VG1ISThkZ2FqV2NjamZ4MXdZblVJdVlCb0YzMDBVeTFJdkZjSS9GWWl5blFD?=
- =?utf-8?B?VGZuRVFoNktRY2Vmb1VURFdmcVBjV0hydmgzelkwUWdXc1puYkRFRlAzVFRW?=
- =?utf-8?B?b25KUWZmdHU2Tm9KcDR1VVhjSU1STktDYmtocUhjVDVUVWVLK1ExN2tuQnky?=
- =?utf-8?B?SGk1T1V4MXdIOGhsMUdKUTFMM3ZoZEp5UzBGZGJaWFRqaTBtc0MzN0N3ZVVi?=
- =?utf-8?B?TEVZS1FzbGtJR1lGaEtQUUY5eDlOaTRTaFVzRzF2QkxLWGdNZS9Wblkwd3o1?=
- =?utf-8?B?Z0lDdlhSUktqQjdIaG9XZUpCUnhHMWNXc2JCNlVoQkhOTUhDRE9aYk9sNmJj?=
- =?utf-8?Q?S0h4Nb/ZA0/IuyrH8w?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0c1f1eb-63ac-41f1-294d-08de993ad43d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 08:58:28.2891 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZNrmYWqfnAQJJzswmB2U5gVYqykb3svm/hFGDSxLzqR8DbMqAsAOa8oVZGzAKGHV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5872
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/9] Add documentation for Sahara protocol.
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, andersson@kernel.org
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ mhi@lists.linux.dev
+References: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
+ <20260319-sahara_protocol_new_v2-v4-1-47ad79308762@oss.qualcomm.com>
+ <a793d256-f0e6-4a95-943d-e5d85c781428@oss.qualcomm.com>
+Content-Language: en-US
+From: Kishore Batta <kishore.batta@oss.qualcomm.com>
+In-Reply-To: <a793d256-f0e6-4a95-943d-e5d85c781428@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=YfmNIQRf c=1 sm=1 tr=0 ts=69dcb156 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=KtsNJ/6bKgz7QsArn2OSsQ==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=05GiTeiPTPDWsqTu57sA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDA4OCBTYWx0ZWRfX8+rMWaP0ByiF
+ WFkh+m3mHFOo9jTsCL8Z+yV6LJWOGmdeys26/0ZNBQqwCVvizFkrcMLIsSwsGlZRkRm3HDiPSl6
+ fct4bkjJHeuFbt0X/U82ajeGQPhpWbL4fdoVzV36hNOMcqrMUwRwu+lCTcz/eNIVGOBPIzP7D4H
+ 3iRMHRKnF+PH8J5LMjM7sm0c2nQpMQnJ86FFu7R7sczmsPV9yH1Kmd+tfV/B3mIpmNdjqhWBMSn
+ VcZLDHY81a6lbovEBpAiM9oahsQWTt04/H+kETMQegK2AoV1E2WoirPOm8Tpzk2+bUb0AAjYW9P
+ Ou3gSyEPdHWr61HH7HbtPFkuPutoSXtJ1Rr9RaStdPsR2PQMxASTq9qO1kRbV3U4WZqVxKA0c6x
+ vdvI+NpMM2PnqkKG/Y984klST155S9HIy+MiPkiIn/9VaWEaZ7IUA4UbkX+y0pnB84TmvCSLSJ3
+ smBQZfdS6dFOhFfASQQ==
+X-Proofpoint-ORIG-GUID: KTXK4XvdFwGWR7omJ28H_fhcm-L9v9Fh
+X-Proofpoint-GUID: KTXK4XvdFwGWR7omJ28H_fhcm-L9v9Fh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-13_02,2026-04-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0 malwarescore=0
+ spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,161 +147,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2/18/26 01:11, Jason Gunthorpe wrote:
-> This type is required by iommufd and kvm as dmabuf importers.
-> 
-> Due to sensitivity about abusing physical addresses, restrict importers by
-> using EXPORT_SYMBOL_FOR_MODULES(). Only iommufd can implement an importer,
-> the kernel module loader will enforce this.
-> 
-> Allow anything to implement an exporter as there are use cases in
-> DPDK/SPDK to connect GPU memory into VFIO/iommufd and it is hard to abuse
-> the API as an exporter.
-> 
-> The physical address list exporter returns a physical address list in a
-> simple kvalloc'd array of struct phys_vec.
 
-As far as I can see that is still a pretty big NO-GO.
+On 4/10/2026 1:17 AM, Jeff Hugo wrote:
+> $SUBJECT is not a complete sentence.  You should drop the full stop ".".
+Sure. I will drop in the next patch.
+>
+> On 3/19/2026 12:31 AM, Kishore Batta wrote:
+>> Introduce documentation for the Sahara protocol, describing its
+>> operational modes and their respective functions. The image transfer 
+>> mode
+>> enables firmware transfer from host to device. The memory debug mode
+>> allows extraction of device memory contents to host. The command mode
+>> facilitates retrieval of DDR training data from the device and also
+>> to restore the training data back to device in subsequent boot of device
+>> to save boot time.
+>
+> Thank you for the documentation.
+>
+>>
+>> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+>> ---
+>>   Documentation/sahara/index.rst           |   14 +
+>>   Documentation/sahara/sahara_protocol.rst | 1241 
+>> ++++++++++++++++++++++++++++++
+>
+> I see from the cover letter that the sahara implementation is moving 
+> under MHI. I expect to have more about that move later in the series, 
+> but MHI already has a documentation directory. I don't see why Sahara 
+> should be at the top level if it is considered to be coupled to MHI.
+>
+Okay. I have shared comments later in the series. Once its concluded, I 
+will move the documentation to the right directory.
+>>   2 files changed, 1255 insertions(+)
+>>
+>> diff --git a/Documentation/sahara/index.rst 
+>> b/Documentation/sahara/index.rst
+>> new file mode 100644
+>> index 
+>> 0000000000000000000000000000000000000000..073002c15a203344524e258b2aa0a6ce839e064b
+>> --- /dev/null
+>> +++ b/Documentation/sahara/index.rst
+>> @@ -0,0 +1,14 @@
+>> +.. SPDX-License-Identifier: GPL-2.0-only
+>> +
+>> +========================
+>> +Qualcomm Sahara protocol
+>> +========================
+>> +
+>> +The Sahara protocol transfers data to and from memory and describes 
+>> packet
+>> +structures, packet flows, and their usage.
+>> +
+>> +.. toctree::
+>> +   :maxdepth: 2
+>> +   :caption: Contents
+>> +
+>> +   sahara_protocol
+>> diff --git a/Documentation/sahara/sahara_protocol.rst 
+>> b/Documentation/sahara/sahara_protocol.rst
+>> new file mode 100644
+>> index 
+>> 0000000000000000000000000000000000000000..91204bb7d170be4fc4c85f142b8f0b93d3c421a0
+>> --- /dev/null
+>> +++ b/Documentation/sahara/sahara_protocol.rst
+>> @@ -0,0 +1,1241 @@
+>> +.. SPDX-License-Identifier: GPL-2.0-only
+>> +
+>> +
+>> +=============================
+>> +Sahara protocol Specification
+>> +=============================
+>> +
+>> +The Qualcomm Sahara protocol driver is primarily designed for 
+>> transferring
+>> +software images from a host device to a target device using a 
+>> simplified data
+>> +transfer mechanism over a link. However, the sahara protocol does 
+>> not support
+>
+> "Sahara" should be capital "S" everywhere in this patch.
 
-We have seen so many problems with direct physical address access by the importer that I clear don't want to repeat that performance.
 
-My main question is why does IOMMUFD need the physical address in the first place?
-
-If that is really strictly necessary then I strongly suggest to not touch drivers/dma-buf in any way, but only do this is private interface between iommufd and KVM.
-
-Regards,
-Christian.
-
-> 
-> For now all entries are assumed to be MMIO and iommufd will map into
-> the IOMMU using the IOMMU_MMIO flag.
-> 
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-> ---
->  drivers/dma-buf/dma-buf-mapping.c | 63 +++++++++++++++++++++++++++++++
->  include/linux/dma-buf-mapping.h   | 42 +++++++++++++++++++++
->  2 files changed, 105 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-> index baa96b37e2c6bd..d9d6b9b5bf05c6 100644
-> --- a/drivers/dma-buf/dma-buf-mapping.c
-> +++ b/drivers/dma-buf/dma-buf-mapping.c
-> @@ -349,3 +349,66 @@ struct dma_buf_mapping_type dma_buf_mapping_sgt_type = {
->  	.debugfs_dump = dma_buf_sgt_debugfs_dump,
->  };
->  EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_sgt_type, "DMA_BUF");
-> +
-> +static const struct dma_buf_mapping_pal_exp_ops *
-> +to_pal_exp_ops(struct dma_buf_attachment *attach)
-> +{
-> +	return container_of(attach->map_type.exp_ops,
-> +			    struct dma_buf_mapping_pal_exp_ops, ops);
-> +}
-> +
-> +/**
-> + * dma_buf_pal_map_phys - Obtain the physical address list for a PAL attachment
-> + * @attach: The DMA-buf attachment
-> + *
-> + * Calls the exporter's map_phys() callback to retrieve the physical address
-> + * list for the buffer. The caller must hold the dma-buf's reservation lock.
-> + *
-> + * This symbol is restricted to iommufd to prevent misuse.
-> + *
-> + * Returns the physical address list on success, or an ERR_PTR on failure.
-> + * The returned list must be freed with dma_buf_pal_unmap_phys().
-> + */
-> +struct dma_buf_phys_list *
-> +dma_buf_pal_map_phys(struct dma_buf_attachment *attach)
-> +{
-> +	dma_resv_assert_held(attach->dmabuf->resv);
-> +	return to_pal_exp_ops(attach)->map_phys(attach);
-> +}
-> +/*
-> + * Restricted, iommufd is the only importer allowed to prevent misuse of this
-> + * API.
-> + */
-> +EXPORT_SYMBOL_FOR_MODULES(dma_buf_pal_map_phys, "iommufd");
-> +
-> +/**
-> + * dma_buf_pal_unmap_phys - Unmap a physical address list
-> + * @attach: The DMA-buf attachment
-> + * @phys: The physical address list returned by dma_buf_pal_map_phys()
-> + *
-> + * Returns the mapping back to the exporter. After this point the importer may
-> + * not touch any of the addresses in any way.
-> + */
-> +void dma_buf_pal_unmap_phys(struct dma_buf_attachment *attach,
-> +			    struct dma_buf_phys_list *phys)
-> +{
-> +	to_pal_exp_ops(attach)->unmap_phys(attach, phys);
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_pal_unmap_phys, "DMA_BUF");
-> +
-> +static inline void
-> +dma_buf_pal_finish_match(struct dma_buf_match_args *args,
-> +			 const struct dma_buf_mapping_match *exp,
-> +			 const struct dma_buf_mapping_match *imp)
-> +{
-> +	args->attach->map_type = (struct dma_buf_mapping_match){
-> +		.type = &dma_buf_mapping_pal_type,
-> +		.exp_ops = exp->exp_ops,
-> +	};
-> +}
-> +
-> +struct dma_buf_mapping_type dma_buf_mapping_pal_type = {
-> +	.name = "Physical Address List",
-> +	.finish_match = dma_buf_pal_finish_match,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_mapping_pal_type, "DMA_BUF");
-> diff --git a/include/linux/dma-buf-mapping.h b/include/linux/dma-buf-mapping.h
-> index ac859b8913edcd..10831ce2e72851 100644
-> --- a/include/linux/dma-buf-mapping.h
-> +++ b/include/linux/dma-buf-mapping.h
-> @@ -269,4 +269,46 @@ DMA_BUF_EMAPPING_SGT_P2P(const struct dma_buf_mapping_sgt_exp_ops *exp_ops,
->  			.exporter_requires_p2p = DMA_SGT_NO_P2P,         \
->  		} })
->  
-> +/*
-> + * Physical Address List mapping type
-> + *
-> + * Use of the Physical Address List type is restricted to prevent abuse of the
-> + * physical addresses API. Please check with the DMA BUF maintainers before
-> + * trying to use it.
-> + */
-> +struct dma_buf_phys_list {
-> +	size_t length;
-> +	struct dma_buf_phys_vec phys[] __counted_by(length);
-> +};
-> +
-> +extern struct dma_buf_mapping_type dma_buf_mapping_pal_type;
-> +
-> +struct dma_buf_mapping_pal_exp_ops {
-> +	struct dma_buf_mapping_exp_ops ops;
-> +	struct dma_buf_phys_list *(*map_phys)(struct dma_buf_attachment *attach);
-> +	void (*unmap_phys)(struct dma_buf_attachment *attach,
-> +			   struct dma_buf_phys_list *phys);
-> +};
-> +
-> +struct dma_buf_phys_list *
-> +dma_buf_pal_map_phys(struct dma_buf_attachment *attach);
-> +void dma_buf_pal_unmap_phys(struct dma_buf_attachment *attach,
-> +			    struct dma_buf_phys_list *phys);
-> +
-> +static inline struct dma_buf_mapping_match DMA_BUF_IMAPPING_PAL(void)
-> +{
-> +	return (struct dma_buf_mapping_match){
-> +		.type = &dma_buf_mapping_pal_type,
-> +	};
-> +}
-> +
-> +static inline struct dma_buf_mapping_match
-> +DMA_BUF_EMAPPING_PAL(const struct dma_buf_mapping_pal_exp_ops *exp_ops)
-> +{
-> +	return (struct dma_buf_mapping_match){
-> +		.type = &dma_buf_mapping_pal_type,
-> +		.exp_ops = &exp_ops->ops,
-> +	};
-> +}
-> +
->  #endif
+Sure. I will make changes accordingly.
 
