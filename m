@@ -4,132 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34D03E937F7
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77797E9380F
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D90510E406;
-	Mon, 13 Apr 2026 11:24:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C820810E104;
+	Mon, 13 Apr 2026 11:27:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lbKdDKlD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XCPJ59tE";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011043.outbound.protection.outlook.com
- [40.93.194.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4303710E405;
- Mon, 13 Apr 2026 11:24:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KnGI4TygzmZQUpVDunEaaMMg8wgUz2SvSCWn0IFBcuoC5Ld21DsjPz9d3vnqBofKjZeeWFP+zmTTLY/E2GAAXmsgCxhekuabm0QF69TIV4KrGEhoYMmxrWQm41U7ozFLXFIkoUmLBejHk3SFYiZo2xvVzVYGDikx1OVQGl+fMgZwTUgssGyRH3tGTw5f8h4arj3oIw/B+Te13EGZDiOrMZWpfj5oVPRA75YB7gZYTZwLr1166yILXuBnBGphpgRzCbYZLBXIQARHxHDMnOtxf+DcBFm5TCh9maZeIcGt4gaznjN/G25lXobfmXtO4/BUWsZbcRJl8DHlFgfEy2rn1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cxXc3dhM4kXqEMYHVZ50tlN7x/BMzw15Iuj6GqQfXtw=;
- b=VXXYzI49v98QTjpas1V8PM+yhyms93C+RxYhFM9BDZE1k5WRK6ns/7ho0Cfn/5KSm6iVbcrOx6pWX6wYqeWcS6Q6J9mHJ1Y4uIx4JiZpYMnc+CZIZzxgt30lZ1ppVQ4zKGLmZB4LM23muaTk9wzq280aWM9YLG2jNkPpl5s6nxVQwFkjtsr788zImok8yNAK2SpthBNcIFe/RDpKiKm2qddsNOYKtpmgO69veCfxIte2R/rGGq8YG855Nv4EeIaKXE0DWJRBxhyJKuD1PGacJtwjz5iF6xczb2t//+kuIzkCiPn8wadJ8G4EdSAqeVQ81ZMLiNPt4iZ7K7/Tq3mvxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cxXc3dhM4kXqEMYHVZ50tlN7x/BMzw15Iuj6GqQfXtw=;
- b=lbKdDKlD/cq6tDuGma9GpkbCOvlWnUL8wlnIBJPln3jIa5hb0GMQgvf6M7u85XhdWfcXChuJPAVUJyxEB9Tcu6Mr4UkfiKxQ0fbbAsLs+HePx38IsW59fdf1Wp8ZynP5spjMixofsYgOX542bGL/CRTkbDyqOC1Wg92urGIaZ8o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW3PR12MB4377.namprd12.prod.outlook.com (2603:10b6:303:55::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Mon, 13 Apr
- 2026 11:24:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
- 11:24:10 +0000
-Message-ID: <855c4188-3701-468f-bd78-8292d6143645@amd.com>
-Date: Mon, 13 Apr 2026 13:24:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] drm/i915/reset: Handle the display vs. GPU reset
- deadlock using a custom dma-fence
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@intel.com>,
- =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
- <20260408233458.22666-6-ville.syrjala@linux.intel.com>
- <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com> <adeLRHQ2omAv93yM@intel.com>
- <cc51ea63-19b0-4352-9299-e5ab63f57ce4@amd.com> <adyzR6ISo_idi38p@intel.com>
- <b93c6c33-2d94-4da8-8e97-04c3bade2575@amd.com> <ady-UMqIQUqmKsLv@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <ady-UMqIQUqmKsLv@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0248.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10f::27) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAF5010E104
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:27:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8003C4426D;
+ Mon, 13 Apr 2026 11:27:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B8DDC116C6;
+ Mon, 13 Apr 2026 11:26:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776079621;
+ bh=e11dG/1PaJPNgRXjK/Zx+/DeJ/ARnA1AtRogWkYiVkc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XCPJ59tEA7udDDdQaPHGGIh0z2VzXgSzuJW5+KEykkNj8I/FwriVWi2P3ANWydQvb
+ Dd1CWPDtQfaAgr2A+BQtrJ2ibklTgojb/og01i8N49cfu456g8J9Qt7fL6PcGMhLaG
+ 7FolTa5snB5gn3Koz2AyYLyZ1F0nA2Z9ZhZ4xHW5Pc+BY7x5MJiTlYDH56h3w06/vL
+ kwKoiGVKvE1+IGb/sTYtKWGqgCeB7ZTUqmYoDqwg/JSmpnbgWdKDnVdpB2i7qZM9JD
+ 6/XS1N8xNGhfD/AbCKoHH+HNveJvQrNbBvojAMi5WzmaIBFAO/qAaPLHmcv264YIYe
+ HS+1HKtk2DO/w==
+Date: Mon, 13 Apr 2026 16:56:53 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Kishore Batta <kishore.batta@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, andersson@kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, mhi@lists.linux.dev
+Subject: Re: [PATCH v4 4/9] bus: mhi: Centralize firmware image table
+ selection at probe time
+Message-ID: <2sykuv6r643v3i6ymdoevzohoxdmgrrodvgpbaystskz7fwgun@fd3p7gcso252>
+References: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
+ <20260319-sahara_protocol_new_v2-v4-4-47ad79308762@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4377:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a5a5b0d-aa05-46a9-c188-08de994f2eb4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: QIQHp6EhlNXeIZpP1EmprAf7Qo8Wu3CwjehlhjqdsEK3mGa/CGnqOnFfeCur+vZoDrA/006X3mwsg9zveuIIo2pwrotU+woNhhU4H/YOfwr9yGnyAOXM2pGhsvG1VsifBRbYZQeaz9GEgiYe/rAyZNHG71JNWHdM7/yvL62SsbJpLm5HA/S60pvNrThKfvvUn1AeHmZkbAOn9kNbBNfSvaMp3MIjORH8R7Pp94mxSv1ChWzKY+vhlgZZEOJqAON+n9izzxKQ3l24cKHru/jA+ii3i+FXij9K5x7hdMZ0zbpZIKeD6L35fENY67+GmQUcR8Q/p0T9RLn2LXLy0c4brE96XxZidzQEudsy0PY+sCOkAGDyYTyfEQQKBV1eV9wJ5Y6BvPTyfFBb+R0YJJ/dCF+j+9YOZv4djO7BLKYCdNI+YQF3VbHHVs/JEGCa1hiw0PAtBYdxXe5pyPXv98XsoMxYf0B0iCta1DbuR2SUS6XwTQO0psdqH4HtSFhnheml8YA1HRHtXOZBIS8mm6Uel4tvrLt8CJSASoRlBfGBMRZlJ9iEZI1zRZU5Wk/HTuGuh9JHHLKRw8P0K7SfrRbS/Uwjzm4jPMyob/AgW5dye5vDONXWhBS5Lqdwkx8gh7EGgE0r0D0GUeeTCNQFsyNnrAfLh6amu/mzKv+TP+P8AvUS5GnsuVWijr9dAO8QsDFQopa6PWfENfIwY9TgdVpHjnUYg03hDfkUy1Ixt06er3I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVBHQUxLOTNRQ1N6NlVsQ1pxUGVoeVZVZzkrd1AzZGdoWmdKTkt5QzEwMFdQ?=
- =?utf-8?B?cDdsd2dTaGZUZ3NNSkc5d01JbDNySUp6aC9EVkJ0aFAwOFJuVCtWNjU3SVlj?=
- =?utf-8?B?Y2sxQ0VseE9OYkRKNTJoSGZiKytSdGhaMG9jRmV5Nmg4L3ZZemx4eWszVHZF?=
- =?utf-8?B?WkxjQ1NCdmJFY044R2pnaSsycnNEajZnekVGczNXTlVHa3FycEJUTmZpZ2Ev?=
- =?utf-8?B?cGhSbnJ1U3ZRVUJ2dHVTd3ozd2plR0dySEJ4Q0xrcXJPUFFsZ2tlZ0FBSUVX?=
- =?utf-8?B?QU1XaGNnNjBBbjUzQmlDVE1Rd3kxZ3NKWVladU43aWplTmVCOGZBbTNkekxI?=
- =?utf-8?B?SWgvWWZ4d3ZOTWhSbzk1UFY0Wkg0LzNLamN2QmVRQXF6a3E4NTFDNHhsaDg1?=
- =?utf-8?B?QjI0TE5jV2hlUTF1VWVkNCtORmJ0VzBDOFJtaUJYNmZWOUtockJucEVtSjMz?=
- =?utf-8?B?WS9mMG82WFdOeUZtdHN6cm9SeUFNa0UwaDdpZTZsMEk2Vnp1SzU0OUlaVUh0?=
- =?utf-8?B?eGlZclFWNEdieDAzN1oyeTZWaG9uQ1BUamJHY3ZSL2tZM0ErNzFUMjFjeHhS?=
- =?utf-8?B?WDNGRDNRZUdUeGxoSGFob2xqNkxKU0xQZHk4T3d3M3prU0x5QW84WkxuVjQ5?=
- =?utf-8?B?OGZzOHM2V0hQSGNOYU5qWUZxYklCL3htUndKOUw3UUNIL1BNV3pIY3BtOFhi?=
- =?utf-8?B?SFVRU0Z5eTBPRGFocTVmT0JsY3F2Ump3bGU1TS9UaFN2Z2wyNXZwczkrQkFP?=
- =?utf-8?B?QXlVbFd6d09aVEowU3lyRVlwUWhHUmZEV0pXdHpmMmR6aDhXUktHTXgvMGpl?=
- =?utf-8?B?NHUvS3F6ZytIa2RudDltc1hScGJrOWI2KzNUZXE2RXdqMVY4ZEZpekUvTjVu?=
- =?utf-8?B?UzFwWnVocGFka2diclVOeVFMQkMxcU1rOTNnK3FCY3FaRjFYUVl5ZFNubVJF?=
- =?utf-8?B?OTAwdDNOMVkxeEF2b0Foc0JCVjl4SVRsMnJINzQ5V0g0bGUwUGYvWXBsOFJW?=
- =?utf-8?B?TlltNXphLzNjYWJmU3krZFRwSGgvMStpWU5kS2tHQi9DYnJDOW1jWDJKVkF0?=
- =?utf-8?B?UDVYeGFJZ3pjeUEwbWtSdWxNSVh2amVETnlSZWJ4cUdyaFZXQko4eUpmS3NM?=
- =?utf-8?B?cEpVbk1tdmFQNis3RjFvdzVPVHpqTnZscXBwVDBqR0Z2RE1EbEF0b2NlOG5k?=
- =?utf-8?B?RVVPQjRpeHF2c001OVpyY0ZCRTI0d3BReFMxU1p5SHFRcFpUbElrOFpNSjdr?=
- =?utf-8?B?Z2t3dE9yeExQUkc3ME1PMzZ6Ukl2Wk1FRkdSa0VkZHZVZ1dnZTN6WHB0Z2Zt?=
- =?utf-8?B?MWZqRXkvbXExUzZsMCtTTi9LT1JoSVJwRy9QNjYwS0UvMUsyMjF4dlJPcTVv?=
- =?utf-8?B?RE5rdXVTWVBFdmxoSGZIZEpRNzk1UkFLTGhJU1cxaGxwWTFHOElBQjFGTGV6?=
- =?utf-8?B?clNhMUg4cVZXN2NTUDNsbHRUYzY0c1Nzc2ppZFB1Y3A4UkpjYnFPMExidlR6?=
- =?utf-8?B?WjdSNDVUcHY5TGxCa00xSmNvUnZyQUdxODUxQjVFRERKRXhxRmoweXBOL0hw?=
- =?utf-8?B?V3pMQmhWb0RMZlVKTVJGTDNMNDdlb2RTZlFweTJVbE9RaVhyS0dtZGp2OGd5?=
- =?utf-8?B?SGlYTVBNTWZPQTFKVGVzd0ZLMzdtRnBlVjNBWmJuUzNnamdSQkQ2ZW8za2hO?=
- =?utf-8?B?WXRabHAwOFE5QXZiSWg5VTBMUG8zMTB0NnRPYVVBenJtVlZ3S3ZMb1lLd1NP?=
- =?utf-8?B?R2R0cHlQNlVkNnFRd1NhL1pPV1VlMHpCajloSi95STlVZEpmODRFL1AwTm4v?=
- =?utf-8?B?Rmp5dk4vckt2dHFxOExpMVNQSThFYU83d1pPUTUvUTc2dEhyR2N5SEtBVjBT?=
- =?utf-8?B?VU1qRndRb0kxTStnb1NlV0xFZllkYkJWYk1LR2JkOVRXdTdsZFo0SS9BV2t0?=
- =?utf-8?B?STQ1MXlXaEE4dGpPMGtjQ0VDR3poWEtZamlqc2FhR05vSzZlb2lZZzJyaHRG?=
- =?utf-8?B?Y2tnY21TZkF3TXpMMWZBWHVhSVp2RnYrWjJDV3BMVVEvWm0zQlpxS1M2MFhI?=
- =?utf-8?B?Wi9CeENFbnpqbEpCTnRQZTkySGI3RU5aTllSTVVqTzV1a2thd1B3eCtJUlJv?=
- =?utf-8?B?WTVKRUlPODlzU0wyYU9TRnZNVDV2MWtDQ1c1YXVmbUFsYVducGRWY2FiU3hs?=
- =?utf-8?B?bldLMWVxaE9neWMwaGN1eEVTVzF3UDIrSW5iVkZuZk1OL2VHaFRUU2RJYUpt?=
- =?utf-8?B?WjJrUVhOYXpEcHpjNDN6Z0dleHVkaGVCeGFsQUtyY09JTlJHWmZ3c2NiS0tK?=
- =?utf-8?B?WVNra1pBYVA1aFdQZnphOWdzb3N3MkFQb2FKYzB4TzhwZkNKQW5kUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a5a5b0d-aa05-46a9-c188-08de994f2eb4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 11:24:09.9844 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: We7DCDJzhFSQpxXad913rEC3MoN/GfpgP0ljnTNcdYpsbhODIKceyaHiF0SbIlza
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4377
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260319-sahara_protocol_new_v2-v4-4-47ad79308762@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,104 +65,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/13/26 11:58, Ville Syrjälä wrote:
-> On Mon, Apr 13, 2026 at 11:35:23AM +0200, Christian König wrote:
->> On 4/13/26 11:11, Ville Syrjälä wrote:
->>>>>> I think something is missing in my picture how that is supposed to work.
->>>>>
->>>>> The problem stems from the fact that on old platforms a GPU reset
->>>>> also resets the display hardware,
->>>>
->>>> Which is true for at least AMD GPUs and I think pretty much everybody else as well, but that wasn't so much of a problem so far.
->>>>
->>>>> and to do that safely we need:
->>>>> 1. shut down display
->>>>> 2. perform the GPU reset
->>>>> 3. restore the display hardware to its orignal state
->>>>
->>>> Mhm, I've recently talked with Michel about it and we confirmed that this is perfectly possible without issues. Adding Michel as well.
->>>>
->>>>> We just do that with essentially with a normal atomic commit.
->>>>
->>>> I think that is the source of the problem.
->>>>
->>>> I'm not an expert on that topic but amdgpu and tons of other drivers seem to just use drm_atomic_helper_shutdown() for that.
->>>
->>> drm_atomic_helper_shutdown() is definitely not the thing to use
->>> for this as it would clobber the stored kms state, leaving everything
->>> permanently disabled. The drm_atomic_helper_commit_duplicated_state()
->>> stuff i915 uses is the correct thing here.
->>>
->>> But for this problem it doesn't even matter which gets used. Either
->>> would get equally stuck behind a previous atomic commit waiting for
->>> its fences.
->>>
->>>>
->>>> What is i915 doing differently?
->>>
->>> I see zero code for any display reset stuff in any other driver. If
->>> amdgpu does anything it must be something completely custom, hidden
->>> somewhere deep.
->>
->> The display is just fully reset by any MODE1 reset, you don't need to do anything special for that.
+On Thu, Mar 19, 2026 at 12:01:44PM +0530, Kishore Batta wrote:
+> The Sahara driver currently selects firmware image tables using
+> scattered, device specific conditionals in the probe path, making the
+> logic harder to  follow and extend.
 > 
-> You can't just ignore the fact that there may be a display hardware
-> reprogramming already happening in parallel. Failing to follow the
-> correct programming sequence is a recipe for even hard system hangs.
-
-Of course not. We have a RW lock to prevent concurrent HW access while a GPU reset is ongoing to prevent that.
-
-I mean granted that it was really hard to make sure that we don't do memory allocation or anything else that cycles back and depends on a dma_fence again, but that is why we have Simona's lockdep annotations.
-
->>
->> Restoring the display after the reset is either not an atomic commit at all or done by an async worker after the reset completed.
+> Refactor firmware image table selection into a single, explicit probe-time
+> mechanism by introducing a variant table that captures device matching,
+> firmware image tables, firmware folder names, and streaming behavior in
+> one place.
 > 
-> Everything is an atomic commit. No one is going to implement a
-> complete second modeset codepath just for resets.
-
-Amdgpu still supports non atomic mode set for really old HW.
-
-I'm not sure how DC actually does it, but I would just put a full blown atomic mode set in a worker and call it a day.
-
-That is not something which needs to be done inside the GPU reset, but just as part of the recovery after doing the reset.
-
->>
->>>>> But a 
->>>>> previous atomic commit may already be waiting for a fence, which
->>>>> won't signal until the GPU reset happens, and the GPU reset is now
->>>>> waiting for that previous atomic commit to finish so that it can do
->>>>> its own atomic commit. In order to break the deadlock we need to
->>>>> abort the fence waits in the atomic commit, and that's what this
->>>>> "reset fence" achieves.
->>>>
->>>> As far as I can see that approach looks strongly like a no-go.
->>>>
->>>> You essentially have a lock inversion here and it is documented that it should *never* be resolved by a timeout, the approach you take now is not much better.
->>>
->>> Unless someone wants to add some kind of extra abort mechanism to
->>> dma_fence_wait*() then I think this is probably the best solution.
->>> And given this is only a thing for one driver on old hardware,
->>> adding extra stuff to dma_fence_wait*() doesn't really seem worth
->>> the hassle.
->>
->> Well adding something to dma_fence_wait() would be a no-go as well.
->>
->> The point is you should *NOT* wait for an atomic commit to finish from your GPU reset at all. Any GPU reset which waits on a DMA-fence in one way or another is a really big bug.
->>
->> That is documented and Simona even came up with tons of lockdep annotation to make sure that drivers comply to that.
->>
->> I'm deeply surprised that a driver like i915 actually tries something like that. And as DMA-buf maintainer I must bluntly NAK that since it goes against documented rules for implementing drivers.
->>
->> I mean what can be is that this isn't really solved with the atomic mode setting helpers, but since multiple drivers use it it shouldn't be anything special at all.
+> This centralizes device specific decisions, simplifies the probe logic,
+> and avoids ad-hoc conditionals while preserving the existing behavior for
+> all supported AIC devices.
 > 
-> There is zero support in the atomic design for reordering commits,
-> which is pretty much what would be needed. A generic solution would
-> more or less involve a full redesign/rewrite of atomic.
+> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+> ---
+>  drivers/bus/mhi/sahara/sahara.c | 66 ++++++++++++++++++++++++++++++++++++-----
+>  1 file changed, 58 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/bus/mhi/sahara/sahara.c b/drivers/bus/mhi/sahara/sahara.c
+> index e3499977e7c6b53bc624a8eb00d0636f2ea63307..8f1c0d72066c0cf80c09d78bfc51df2e482133b9 100644
+> --- a/drivers/bus/mhi/sahara/sahara.c
+> +++ b/drivers/bus/mhi/sahara/sahara.c
+> @@ -180,6 +180,16 @@ struct sahara_context {
+>  	u32				read_data_length;
+>  	bool				is_mem_dump_mode;
+>  	bool				non_streaming;
+> +	const char			*fw_folder;
+> +};
+> +
+> +struct sahara_variant {
+> +	const char *match;
+> +	bool match_is_chan;
 
-Mhm, I need to ask our DC team and other contacts how that is handled at the moment for amdgpu.
+This name makes no sense.
 
-But we clearly have the same problem and it doesn't require any hacks like that one here. So there must be a solution for it already.
+- Mani
 
-Regards,
-Christian.
+> +	const char * const *image_table;
+> +	size_t table_size;
+> +	const char *fw_folder;
+> +	bool non_streaming;
+>  };
+>  
+>  static const char * const aic100_image_table[] = {
+> @@ -224,11 +234,50 @@ static const char * const aic200_image_table[] = {
+>  	[78] = "qcom/aic200/pvs.bin",
+>  };
+>  
+> +static const struct sahara_variant sahara_variants[] = {
+> +	{
+> +		.match = "AIC100",
+> +		.match_is_chan = false,
+> +		.image_table = aic100_image_table,
+> +		.table_size = ARRAY_SIZE(aic100_image_table),
+> +		.fw_folder = "aic100",
+> +		.non_streaming = true,
+> +	},
+> +	{
+> +		.match = "AIC200",
+> +		.match_is_chan = false,
+> +		.image_table = aic200_image_table,
+> +		.table_size = ARRAY_SIZE(aic200_image_table),
+> +		.fw_folder = "aic200",
+> +		.non_streaming = false,
+> +	}
+> +};
+> +
+>  static bool is_streaming(struct sahara_context *context)
+>  {
+>  	return !context->non_streaming;
+>  }
+>  
+> +static const struct sahara_variant *sahara_select_variant(struct mhi_device *mhi_dev,
+> +							  const struct mhi_device_id *id)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(sahara_variants); i++) {
+> +		const struct sahara_variant *v = &sahara_variants[i];
+> +
+> +		if (v->match_is_chan) {
+> +			if (id && id->chan && !strcmp(id->chan, v->match))
+> +				return v;
+> +		} else {
+> +			if (mhi_dev->mhi_cntrl && mhi_dev->mhi_cntrl->name &&
+> +			    !strcmp(mhi_dev->mhi_cntrl->name, v->match))
+> +				return v;
+> +		}
+> +	}
+> +	return NULL;
+> +}
+> +
+>  static int sahara_find_image(struct sahara_context *context, u32 image_id)
+>  {
+>  	int ret;
+> @@ -797,6 +846,7 @@ static void sahara_read_data_processing(struct work_struct *work)
+>  
+>  static int sahara_mhi_probe(struct mhi_device *mhi_dev, const struct mhi_device_id *id)
+>  {
+> +	const struct sahara_variant *variant;
+>  	struct sahara_context *context;
+>  	int ret;
+>  	int i;
+> @@ -809,14 +859,14 @@ static int sahara_mhi_probe(struct mhi_device *mhi_dev, const struct mhi_device_
+>  	if (!context->rx)
+>  		return -ENOMEM;
+>  
+> -	if (!strcmp(mhi_dev->mhi_cntrl->name, "AIC200")) {
+> -		context->image_table = aic200_image_table;
+> -		context->table_size = ARRAY_SIZE(aic200_image_table);
+> -	} else {
+> -		context->image_table = aic100_image_table;
+> -		context->table_size = ARRAY_SIZE(aic100_image_table);
+> -		context->non_streaming = true;
+> -	}
+> +	variant = sahara_select_variant(mhi_dev, id);
+> +	if (!variant)
+> +		return -ENODEV;
+> +
+> +	context->image_table = variant->image_table;
+> +	context->table_size = variant->table_size;
+> +	context->non_streaming = variant->non_streaming;
+> +	context->fw_folder = variant->fw_folder;
+>  
+>  	/*
+>  	 * There are two firmware implementations for READ_DATA handling.
+> 
+> -- 
+> 2.34.1
+> 
 
+-- 
+மணிவண்ணன் சதாசிவம்
