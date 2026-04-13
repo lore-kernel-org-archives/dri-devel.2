@@ -4,71 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5001AF531DD
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 22:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BE4FF531CE
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 22:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4338710E54C;
-	Mon, 13 Apr 2026 22:32:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DE4510E551;
+	Mon, 13 Apr 2026 22:40:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="TNDvf27Q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nD1tTmds";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7660310E54E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 22:32:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776119527; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=AUcWEFrAivccskcgztl9V0gqQSwLavtFYPXa9GbYhGC20j9LdtNBQLtoreLABF3qyrPi32fG5SgPLyLEuEqzuoJ1kGGOPxYPKEFO0bTZ/q4wYe/K2w8Q7Tigj72gi7srvPXQWWQTiZJ++eD6T9u/tdzzYquit5WTCvay5mj+Kys=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776119527;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=0htmUZ7cd0cYpXNM04syGCkizAjtah7yfT8aRdJ9awE=; 
- b=atdncNBfIMbIZ8wj6yuyeaaB5FW9ItRQ+Lt4RjHc1hB2Tcwvrq1tFuVZtjBy/BSTCfQueWu6DtFYKbLkxbtZZgD1cIFbj2DFCbfPXqHkrNgtw7VrpSYR4H7/KxOwDfbZ+LkeIu7f6O5TW8WIl002QdvgvnSWsFZwlQZ2nJYSz+4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776119527; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=0htmUZ7cd0cYpXNM04syGCkizAjtah7yfT8aRdJ9awE=;
- b=TNDvf27QR+YKp7pyYj+UlflxwIrowbIPObatUyhcBvqZgYQ8FYkK2GbQbCnGq5NG
- MjHFwIl2rYkXkaT1kFlqM8l3W8SfUEjVKj3RWFFplYl1zHPLqbZHC492WjTNY2w4FxH
- tG14xuj22tI4rno4NsF8XW9h23DZtgrQCbDnCwpU=
-Received: by mx.zohomail.com with SMTPS id 1776119526912312.1447643201245;
- Mon, 13 Apr 2026 15:32:06 -0700 (PDT)
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Mon, 13 Apr 2026 15:31:48 -0700
-Subject: [PATCH v3 13/13] drm/tyr: add firmware loading and MCU boot
- support
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011036.outbound.protection.outlook.com [52.101.57.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41F9F10E551
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 22:40:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n1h8LOIG96sWoEwO2iANUbUfOi6O5AYI3lz+kFLLZ68zwLvZyFcddBhWu6Po38wSb35c2QwdqNgWE9NkHV/RNpBZYfJ1x182fBLC0cgViXNC0142t6dPoPN0UuM1g37uC2CMBqmbkT0aJt2veE+eerWBV+FgVOCTXxlO1zr2jMudaO6k7iACdkfMrVeBCwuItYX7NaaBjRYdAF1g1mfTB6X/AdavleSCLZ9Jpl1NqHLQnyhOldYqOkm+IN+UjAn9Qw2hhxb8EQOkLbzYXCgXXUof3hxJwxcAS6R19FDrm0mK145VTzahfglFyr2DDqKqHxF52FdCXIwHbeRxaAKSEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4k14k9FG/bKWBiz5PeoJkoDXa33umcsVSII8AO6SSBY=;
+ b=GOsxvH5LN3sT1SZ/+SAn1PAgjJKjQF53Hkd9afgP8m2s25wdEC3l42BjGWTYgXAAzazkC9kBDxFl63GLGZCIevZKPtsQzemReVG+vrySCiLAPYwlMSlAqZwZCZ2XBJYoTYBshIF0WCfG+R1AwxEPDy9MOB9SUy8DXDc7Ym7Flj+yrA+IvOLwIxx3S933soSu/xBjvb69WstxYWK8pnrNsiUqGL5z7XxKEAPofYkNDEG2NpzREGXpo8AZOeWdKAzYqgwi/3D9sjeNnJl6MwqzXnClPQjX/UjdHQ9IMFq4Wl6Zr1aBlOjotMfOEnO3gPsKmrTyhHH7kmJlzYRZy7okrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4k14k9FG/bKWBiz5PeoJkoDXa33umcsVSII8AO6SSBY=;
+ b=nD1tTmdsXTg3Ad/92snTDi1h7mhyJmvmFQs3AEPNq2gCghOJc5aVY87fFjxROGwgprDnMd+/9Xcusahy2kwSdk0i0H27Av6p1oWj8JLsX7xapirbvOGZ0BksQL0oNej1AVPv8mPjl5bZWNg4eciaTTGY4iL3tTECeBjGpgXpA8k=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
+ by PH0PR12MB8150.namprd12.prod.outlook.com (2603:10b6:510:293::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Mon, 13 Apr
+ 2026 22:40:30 +0000
+Received: from SA0PR12MB4557.namprd12.prod.outlook.com
+ ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
+ ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9769.041; Mon, 13 Apr 2026
+ 22:40:30 +0000
+Message-ID: <963b6bc7-f126-4681-977e-c6e04ec66010@amd.com>
+Date: Mon, 13 Apr 2026 17:40:02 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V1] accel/amdxdna: Fix order of canceled mailbox messages
+To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
+ quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
+ maciej.falkowski@linux.intel.com
+Cc: linux-kernel@vger.kernel.org, max.zhen@amd.com, sonal.santan@amd.com
+References: <20260413181843.670796-1-lizhi.hou@amd.com>
+Content-Language: en-US
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260413181843.670796-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-b4-fw-boot-v3-v3-13-b422f3c03885@collabora.com>
-References: <20260413-b4-fw-boot-v3-v3-0-b422f3c03885@collabora.com>
-In-Reply-To: <20260413-b4-fw-boot-v3-v3-0-b422f3c03885@collabora.com>
-To: Daniel Almeida <daniel.almeida@collabora.com>, 
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, boris.brezillon@collabora.com, 
- beata.michalska@arm.com, lyude@redhat.com, acourbot@nvidia.com, 
- work@onurozkan.dev, alvin.sun@linux.dev, 
- Deborah Brouwer <deborah.brouwer@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13544;
- i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=c4q67V7m5J8MVZYjpWxFtUzFl3nup07SAjdC7IcRBEc=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDJl3864Kn+TtM45LuLDpyLujGx2u7fz5M6jIuEvz9CeB4
- OZvbYUqHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEzEKZXhf8onubdzla+8WNT9
- 7EpA+IS6ZT6vTiif/6c2vSc0Sy/85DNGhqnsuh80jh+1jGT9uf/Uht/nquQtLxbeYtiV7J+b8jX
- 1FgMA
-X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
- fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
+X-ClientProxiedBy: BL1PR13CA0212.namprd13.prod.outlook.com
+ (2603:10b6:208:2bf::7) To SA0PR12MB4557.namprd12.prod.outlook.com
+ (2603:10b6:806:9d::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|PH0PR12MB8150:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5560965f-ba61-417b-910f-08de99adaa93
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: LUGjlqDX79d69K1nHcBdxjvnWcCFRhh6cAnuhc5BFjQ4OPDnKKOX6/KThv2kpdIQ01bNftUz8Z8fbZgUAv84CLubzj7+d/68XfEO6Mmh/HA5DW5j3ThEJQCprgGvvq/3NXter2cX1yAeqyn/+ear6OxMHORv8PdJEs6XAc5rktqWsFpykakajBaGW/iK2cAG4unMPqzHLS7nv/QMl1X1mhd+2d0bU5YmTaJbb464NEmIMoEnBzpSrpb0EKJauXWpcxuOaYJe3Dygvfi9s1OMTd16LIQILGA469dJ1F6Tf1GFwjDu0bmEXMxBk2f+lgRTyg2T7ucpX3TeRRDEZIz6ULDZANjk5r5xPhPWpw7Pe6dnqPKqGO+/N/JtXghYbxj3RnPUKpOBmNdFSteFXeRiP0Ffg1PukZyxvym0/aP9eS8xEml9AV75iXI6NOTYcER54wkXB0OUGGz+TJ41DMMMjl+yJf1jTUHPU3ElYWyQShKJZvLpivL1XZ78t4K0e9jgK6nw+9O0jLPIxyLXeQxF11wDO56kym4a25+BDC2wurWb15bz7WnKW0Lhjei3Y2LsGIe+xdvdYMr6wPdeRwMg08smI2BqXTPhjwc4J07ggsU+M9DUmzBPyNcNFcxa1p8HV3Yth3+/2+zWoClEvCG7rCTtP5f1P5nfNn/jRSlNoxJM7AUUVlCEDn2Ve7b3OgGL0Sr+JZ+gUO2FwqxiU/8cGQyNCCAgEtbIrBfJGrEJSn8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ellCaDNMek5ISHo5K0lvdFU5NmdnektTMXNXcG4wZGhyN0VhV0UxNk1JVHNG?=
+ =?utf-8?B?Yk5yQkZEV1FnV2xWb2FqMGpHNE42T1NGSXg5ZWx1R2ZBdjArS2hBSkU4MzBU?=
+ =?utf-8?B?TW9DbThGYUZvUlJ6d1hxbEpxcExGdzZrSzgxY0xvMGNOMTd3MjRNODhIaHhu?=
+ =?utf-8?B?cFZQRS9GNHRGUnkxTlpQSldabXB3YXVWY05lMVRkRk1wWnBZSG95Y3pibFVY?=
+ =?utf-8?B?VHRMa0F0V2xyQTFlUEVKOHZCZXdLdTByVzV4Qkh5bTZVbStOdkl5ekYrS2Z0?=
+ =?utf-8?B?eThYakRndkFwTDQ1VEU1VW8zdTZDUDJWN3FITCtvR3FGbXEwQXRvTHBDa1Ny?=
+ =?utf-8?B?d3ZFeWNTY240V3Z1bzc2YzdqbmtnR1VEdFk3WXdLczRrQXRKRUZrU1RQRktt?=
+ =?utf-8?B?MXBsVHVZUy9ZdHlWUWZxM1dzTi83SVlhWktDNjVHN09MTnhNRUhCd0NSZ2k0?=
+ =?utf-8?B?dVBPd3gvNVQzREJLcWw2dHVnYlE4NmtjYThDUGpORjdtR2MrSkdHcmQwekEw?=
+ =?utf-8?B?WWZ2N25PWmhKWmJ5Wnc1YmN1cXJiSm8zd2t5ZEVVZWN3bmJpQ29LSUU4NkE0?=
+ =?utf-8?B?VHUvL0F3QWJnYll5aURWNmpzM3ZjYmRrRE1WSkhjbGFhUE14KzFZdlMrRURx?=
+ =?utf-8?B?ZWZ3b0JrZDdSUlRya3cycmxFQXFCeS9KaTRia0dtUEJ0bzJseURrTGh0N1dB?=
+ =?utf-8?B?T3VWL2pzcHJDS0FIMnFLVlFyZFhhUEd2TTJwM0pGOGlRZUgyVGpBb0JCOGpn?=
+ =?utf-8?B?Y2M2RHcyTzRWY1JhYmhkS2FwOWExNUF6RXBRS0VNSXhpaDRHV1QyZW5xWkV2?=
+ =?utf-8?B?QWJpWDhySko3TkJSbzlaTjFIdURzS3I4ellZdjhqRzRBMEQraTJvZUVLUUww?=
+ =?utf-8?B?aVVOK296Wi95bWhyVEVQZHF0by9oQmtvN29uUzFyQ1BDQi9VbHhpanRrZFdT?=
+ =?utf-8?B?UjU1czZxNEJXL3BUNFdyN25Tajg5R29qQW82eDRNQ3p6TlV1TllnWVpLend6?=
+ =?utf-8?B?OHdaVzF3cDAwYi8vUkJiUW9SZ0xRUEQ5dEZuVldycStxV0M1ek85dHJJalJl?=
+ =?utf-8?B?RUU5Ty93UWcxVnNMVnNoZzN0YUtwQ1pSczJuRlZBa3k2N05NdWxoNDcxa1Vr?=
+ =?utf-8?B?YVQ5bVo1dUVIb1pOaXlHZ2U0RkJoUXhnVXkyUWx3ZEpJWkxNNkorTG52cG5n?=
+ =?utf-8?B?UnVsL2llSjZocll0OEUxM095Y09iVFZZRFV3SjRWSG9FeXd6azA5cmhTZEYx?=
+ =?utf-8?B?MlM3TEpST3pzU2Evb0JyK2FVaDFmRklZd1grbTJhOGxDQkw0WVVHYUlHaFJE?=
+ =?utf-8?B?Zi9DaUZURTNDNzFDT1VkQ1l6bjNRVmcrSWtxVEkzQ3pnR1QrakREcG53TzZW?=
+ =?utf-8?B?L1JaMnFPeDFkZlJVaTc0a3FyTm9kRm5Qa0U0QmpFSHdrNzdaLytmTi80blht?=
+ =?utf-8?B?WWdsNTRNekJZaXYycC95N21SRmRvcGkwUlcwa09ieHVOM3pCRzAxVWJKS3gw?=
+ =?utf-8?B?LzNrNDlEeXBGVjlwSC9lQXpVOXBOREJFc2tXLzBqdjFGcS9JNTU3Y3NjYXJV?=
+ =?utf-8?B?WmhsUTgxbDNmbVdWSG9GVWVyRFBwUWJJWitYTnZvczZLUUpNODVMb281ZVJH?=
+ =?utf-8?B?Q1phditncDBXankvTEpLVWJLTjYrMEp0YU10eTV2a0s2QmtIUVI5U1JzSXhU?=
+ =?utf-8?B?R3F2ZUc0Yi91V2FmNHp5U3N2MDVlZTJYL3QyWTRubm5SSUkvdFVCclhFcmhj?=
+ =?utf-8?B?RjNEVktXQUEwM1B0MzE4RnBRZVMyOFdtaENtVVZYL01aN1J2MnNLU0szUFpN?=
+ =?utf-8?B?WWlpMXA2NjJUdXBOdTZTVnQ1eW0wdEJja2JORjNUODhTcGtqTzY2Y05TV1BL?=
+ =?utf-8?B?dzNzMlZ1czM1eFhLMTJXaVczRUJHVnF5cWNSUkhqaFEzdElrMmdLaTN1TmJy?=
+ =?utf-8?B?MHJrZ0hGVzdIQnJDQ3BMMzRzZ3RpcEttVVNxS3FXd2dhc0o1Qkp1Y3Iyc0Zi?=
+ =?utf-8?B?SkR3MVo3aFczcExYMWIrc0JsZjVjbXVFRGVWWVdWZi95bVk5NTBsWEhTcGRj?=
+ =?utf-8?B?dldOdGJDRkJScnZTOEducVlCQ09ycDIxd1lSZkVZK0UxVm9uYnpkR2RGSUFF?=
+ =?utf-8?B?WGxvQ3JmRXd4NVN4YnJrNW8xYXJGMHdXV3dKSU96V1Jsd0dYem54cjQ5ckxu?=
+ =?utf-8?B?NFdIQkJFVWcyRHZCNTdBb0hpTXA5Z0xNVEFNdUdLcFFhWWUxOVMxbk9UYjB6?=
+ =?utf-8?B?SFdCMlQrM09EeVROb2JRMXZ5L3RkMHBMUzliOHNBak12Y0MwWU9IdEtHZDV6?=
+ =?utf-8?B?Y3FlR0Z3czZFS1F2Q0VXL2hJM1BPbUxaUTJHaVNsWGRyZ0locEZ0dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5560965f-ba61-417b-910f-08de99adaa93
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 22:40:30.7682 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xII5hLJk/lYJb70+oHDECrBelbtCM/LsO9brlp6lmYJL1b7Bqw9ozh+peEvTam7HheVRR1REdfIu/pzFRiRq7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8150
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,439 +136,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add firmware loading and management for the Mali CSF GPU. This introduces
-the fw module that loads the Mali GPU firmware binary, parses it into
-sections, and maps those sections into the MCU VM at the required
-virtual addresses.
 
-On probe, the firmware is loaded, its sections are mapped and populated,
-the MCU VM is activated, and the MCU is booted.
 
-Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
----
- drivers/gpu/drm/tyr/Kconfig   |   1 +
- drivers/gpu/drm/tyr/driver.rs |  16 ++-
- drivers/gpu/drm/tyr/fw.rs     | 272 ++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/gem.rs    |   3 -
- drivers/gpu/drm/tyr/mmu.rs    |   1 -
- drivers/gpu/drm/tyr/slot.rs   |   1 -
- drivers/gpu/drm/tyr/tyr.rs    |   1 +
- drivers/gpu/drm/tyr/vm.rs     |   1 -
- 8 files changed, 289 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/tyr/Kconfig b/drivers/gpu/drm/tyr/Kconfig
-index 443ce988b570..729643f4db49 100644
---- a/drivers/gpu/drm/tyr/Kconfig
-+++ b/drivers/gpu/drm/tyr/Kconfig
-@@ -18,6 +18,7 @@ config DRM_TYR
- 	select DRM_TYR_STATIC_DEPS
- 	select IOMMU_IO_PGTABLE_LPAE
- 	select RUST_DRM_GEM_SHMEM_HELPER
-+	select RUST_FW_LOADER_ABSTRACTIONS
- 	depends on IOMMU_SUPPORT
- 	default n
- 	help
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 495021a8657d..246bc3cb8580 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -42,6 +42,7 @@
- 
- use crate::{
-     file::TyrDrmFileData,
-+    fw::Firmware,
-     gem::BoData,
-     gpu,
-     gpu::GpuInfo,
-@@ -63,6 +64,8 @@
- pub(crate) struct TyrDrmDeviceData {
-     pub(crate) pdev: ARef<platform::Device>,
- 
-+    pub(crate) fw: Arc<Firmware>,
-+
-     #[pin]
-     clks: Mutex<Clocks>,
- 
-@@ -154,10 +157,21 @@ fn probe(
-         let uninit_ddev = UnregisteredDevice::<TyrDrmDriver>::new(pdev.as_ref())?;
-         let platform: ARef<platform::Device> = pdev.into();
- 
--        let _mmu = Mmu::new(pdev, iomem.as_arc_borrow(), &gpu_info)?;
-+        let mmu = Mmu::new(pdev, iomem.as_arc_borrow(), &gpu_info)?;
-+
-+        let firmware = Firmware::new(
-+            pdev,
-+            iomem.clone(),
-+            &uninit_ddev,
-+            mmu.as_arc_borrow(),
-+            &gpu_info,
-+        )?;
-+
-+        firmware.boot()?;
- 
-         let data = try_pin_init!(TyrDrmDeviceData {
-                 pdev: platform.clone(),
-+                fw: firmware,
-                 clks <- new_mutex!(Clocks {
-                     core: core_clk,
-                     stacks: stacks_clk,
-diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-new file mode 100644
-index 000000000000..cb2546350f0a
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/fw.rs
-@@ -0,0 +1,272 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! Firmware loading and management for Mali CSF GPU.
-+//!
-+//! This module handles loading the Mali GPU firmware binary, parsing it into sections,
-+//! and mapping those sections into the MCU's virtual address space. Each firmware section
-+//! has specific properties (read/write/execute permissions, cache modes) and must be loaded
-+//! at specific virtual addresses expected by the MCU.
-+//!
-+//! See [`Firmware`] for the main firmware management interface and [`Section`] for
-+//! individual firmware sections.
-+//!
-+//! [`Firmware`]: crate::fw::Firmware
-+//! [`Section`]: crate::fw::Section
-+
-+use kernel::{
-+    bits::genmask_u32,
-+    devres::Devres,
-+    drm::{
-+        gem::BaseObject,
-+        Uninit, //
-+    },
-+    impl_flags,
-+    io::{
-+        poll,
-+        Io, //
-+    },
-+    platform,
-+    prelude::*,
-+    str::CString,
-+    sync::{
-+        Arc,
-+        ArcBorrow, //
-+    },
-+    time,
-+    types::ARef, //
-+};
-+
-+use crate::{
-+    driver::{
-+        IoMem,
-+        TyrDrmDevice, //
-+    },
-+    fw::parser::{
-+        FwParser,
-+        ParsedSection, //
-+    },
-+    gem,
-+    gem::{
-+        KernelBo,
-+        KernelBoVaAlloc, //
-+    },
-+    gpu::GpuInfo,
-+    mmu::Mmu,
-+    regs::gpu_control::{
-+        McuControlMode,
-+        McuStatus,
-+        GPU_ID,
-+        MCU_CONTROL,
-+        MCU_STATUS, //
-+    },
-+    vm::Vm, //
-+};
-+
-+mod parser;
-+
-+impl_flags!(
-+    #[derive(Debug, Clone, Default, Copy, PartialEq, Eq)]
-+    pub(super) struct SectionFlags(u32);
-+
-+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-+    pub(super) enum SectionFlag {
-+        Read = 1 << 0,
-+        Write = 1 << 1,
-+        Exec = 1 << 2,
-+        CacheModeNone = 0 << 3,
-+        CacheModeCached = 1 << 3,
-+        CacheModeUncachedCoherent = 2 << 3,
-+        CacheModeCachedCoherent = 3 << 3,
-+        Prot = 1 << 5,
-+        Shared = 1 << 30,
-+        Zero = 1 << 31,
-+    }
-+);
-+
-+pub(super) const CACHE_MODE_MASK: SectionFlags = SectionFlags(genmask_u32(3..=4));
-+
-+pub(super) const CSF_MCU_SHARED_REGION_START: u32 = 0x04000000;
-+
-+impl SectionFlags {
-+    fn cache_mode(&self) -> SectionFlags {
-+        *self & CACHE_MODE_MASK
-+    }
-+}
-+
-+impl TryFrom<u32> for SectionFlags {
-+    type Error = Error;
-+
-+    fn try_from(value: u32) -> Result<Self, Self::Error> {
-+        let valid_flags = SectionFlags::from(SectionFlag::Read)
-+            | SectionFlags::from(SectionFlag::Write)
-+            | SectionFlags::from(SectionFlag::Exec)
-+            | CACHE_MODE_MASK
-+            | SectionFlags::from(SectionFlag::Prot)
-+            | SectionFlags::from(SectionFlag::Shared)
-+            | SectionFlags::from(SectionFlag::Zero);
-+
-+        if value & valid_flags.0 != value {
-+            Err(EINVAL)
-+        } else {
-+            Ok(Self(value))
-+        }
-+    }
-+}
-+
-+/// A parsed section of the firmware binary.
-+struct Section {
-+    // Raw firmware section data for reset purposes
-+    #[expect(dead_code)]
-+    data: KVec<u8>,
-+
-+    // Keep the BO backing this firmware section so that both the
-+    // GPU mapping and CPU mapping remain valid until the Section is dropped.
-+    #[expect(dead_code)]
-+    mem: gem::KernelBo,
-+}
-+
-+/// Loaded firmware with sections mapped into MCU VM.
-+pub(crate) struct Firmware {
-+    /// Platform device reference (needed to access the MCU JOB_IRQ registers).
-+    pdev: ARef<platform::Device>,
-+
-+    /// Iomem need to access registers.
-+    iomem: Arc<Devres<IoMem>>,
-+
-+    /// MCU VM.
-+    vm: Arc<Vm>,
-+
-+    /// List of firmware sections.
-+    #[expect(dead_code)]
-+    sections: KVec<Section>,
-+}
-+
-+impl Drop for Firmware {
-+    fn drop(&mut self) {
-+        // AS slots retain a VM ref, we need to kill the circular ref manually.
-+        self.vm.kill();
-+    }
-+}
-+
-+impl Firmware {
-+    fn init_section_mem(mem: &mut KernelBo, data: &KVec<u8>) -> Result {
-+        if data.is_empty() {
-+            return Ok(());
-+        }
-+
-+        let vmap = mem.bo.vmap::<0>()?;
-+        let size = mem.bo.size();
-+
-+        if data.len() > size {
-+            pr_err!("fw section {} bigger than BO {}\n", data.len(), size);
-+            return Err(EINVAL);
-+        }
-+
-+        for (i, &byte) in data.iter().enumerate() {
-+            vmap.try_write8(byte, i)?;
-+        }
-+
-+        Ok(())
-+    }
-+
-+    fn request(
-+        ddev: &TyrDrmDevice<Uninit>,
-+        gpu_info: &GpuInfo,
-+    ) -> Result<kernel::firmware::Firmware> {
-+        let gpu_id = GPU_ID::from_raw(gpu_info.gpu_id);
-+
-+        let path = CString::try_from_fmt(fmt!(
-+            "arm/mali/arch{}.{}/mali_csffw.bin",
-+            gpu_id.arch_major().get(),
-+            gpu_id.arch_minor().get()
-+        ))?;
-+
-+        kernel::firmware::Firmware::request(&path, ddev.as_ref())
-+    }
-+
-+    fn load(
-+        ddev: &TyrDrmDevice<Uninit>,
-+        gpu_info: &GpuInfo,
-+    ) -> Result<(kernel::firmware::Firmware, KVec<ParsedSection>)> {
-+        let fw = Self::request(ddev, gpu_info)?;
-+        let mut parser = FwParser::new(fw.data());
-+
-+        let parsed_sections = parser.parse()?;
-+
-+        Ok((fw, parsed_sections))
-+    }
-+
-+    /// Load firmware and map sections into MCU VM.
-+    pub(crate) fn new(
-+        pdev: &platform::Device,
-+        iomem: Arc<Devres<IoMem>>,
-+        ddev: &TyrDrmDevice<Uninit>,
-+        mmu: ArcBorrow<'_, Mmu>,
-+        gpu_info: &GpuInfo,
-+    ) -> Result<Arc<Firmware>> {
-+        let vm = Vm::new(pdev, ddev, mmu, gpu_info)?;
-+
-+        let (fw, parsed_sections) = Self::load(ddev, gpu_info)?;
-+
-+        vm.activate()?;
-+
-+        let mut sections = KVec::new();
-+        for parsed in parsed_sections {
-+            let size = (parsed.va.end - parsed.va.start) as usize;
-+            let va = u64::from(parsed.va.start);
-+
-+            let mut mem = KernelBo::new(
-+                ddev,
-+                vm.as_arc_borrow(),
-+                size.try_into().unwrap(),
-+                KernelBoVaAlloc::Explicit(va),
-+                parsed.vm_map_flags,
-+            )?;
-+
-+            let section_start = parsed.data_range.start as usize;
-+            let section_end = parsed.data_range.end as usize;
-+            let mut data = KVec::new();
-+
-+            // Ensure that the firmware slice is not out of bounds.
-+            let fw_data = fw.data();
-+            let bytes = fw_data.get(section_start..section_end).ok_or(EINVAL)?;
-+            data.extend_from_slice(bytes, GFP_KERNEL)?;
-+
-+            Self::init_section_mem(&mut mem, &data)?;
-+
-+            sections.push(Section { data, mem }, GFP_KERNEL)?;
-+        }
-+
-+        let firmware = Arc::new(
-+            Firmware {
-+                pdev: pdev.into(),
-+                iomem,
-+                vm,
-+                sections,
-+            },
-+            GFP_KERNEL,
-+        )?;
-+
-+        Ok(firmware)
-+    }
-+
-+    pub(crate) fn boot(&self) -> Result {
-+        // SAFETY: Boot is currently only called in the probe path, so we're sure we have a bound
-+        // device.
-+        let dev = unsafe { self.pdev.as_ref().as_bound() };
-+        let io = (self.iomem).access(dev)?;
-+        io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
-+
-+        if let Err(e) = poll::read_poll_timeout(
-+            || Ok(io.read(MCU_STATUS)),
-+            |status| status.value() == McuStatus::Enabled,
-+            time::Delta::from_millis(1),
-+            time::Delta::from_millis(100),
-+        ) {
-+            let status = io.read(MCU_STATUS);
-+            pr_err!("MCU failed to boot, status: {:?}", status.value());
-+            return Err(e);
-+        }
-+        Ok(())
-+    }
-+}
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index d032a8ae543f..4ec373e0bcfa 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -94,7 +94,6 @@ pub(crate) fn new_dummy_object<Ctx: DeviceContext>(ddev: &TyrDrmDevice<Ctx>) ->
- /// a [`KernelBo`]. An automatic VA allocation strategy will be added in the future.
- pub(crate) enum KernelBoVaAlloc {
-     /// Explicit VA address specified by the caller.
--    #[expect(dead_code)]
-     Explicit(u64),
- }
- 
-@@ -107,7 +106,6 @@ pub(crate) enum KernelBoVaAlloc {
- /// When dropped, the buffer is automatically unmapped from the GPU VA space.
- pub(crate) struct KernelBo {
-     /// The underlying GEM buffer object.
--    #[expect(dead_code)]
-     pub(crate) bo: ARef<Bo>,
-     /// The GPU VM this buffer is mapped into.
-     vm: Arc<Vm>,
-@@ -121,7 +119,6 @@ impl KernelBo {
-     /// This function allocates a new shmem-backed GEM object and immediately maps
-     /// it into the specified GPU virtual memory space. The mapping is automatically
-     /// cleaned up when the [`KernelBo`] is dropped.
--    #[expect(dead_code)]
-     pub(crate) fn new<Ctx: DeviceContext>(
-         ddev: &TyrDrmDevice<Ctx>,
-         vm: ArcBorrow<'_, Vm>,
-diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
-index 09df98ffc9e3..935e2102ab30 100644
---- a/drivers/gpu/drm/tyr/mmu.rs
-+++ b/drivers/gpu/drm/tyr/mmu.rs
-@@ -12,7 +12,6 @@
- //!
- //! [`AddressSpaceManager`]: address_space::AddressSpaceManager
- //! [`SlotManager`]: crate::slot::SlotManager
--#![allow(dead_code)]
- 
- use core::ops::Range;
- 
-diff --git a/drivers/gpu/drm/tyr/slot.rs b/drivers/gpu/drm/tyr/slot.rs
-index debba75f6204..53abb9eeb970 100644
---- a/drivers/gpu/drm/tyr/slot.rs
-+++ b/drivers/gpu/drm/tyr/slot.rs
-@@ -20,7 +20,6 @@
- //!
- //! [SlotOperations]: crate::slot::SlotOperations
- //! [SlotManager]: crate::slot::SlotManager
--#![allow(dead_code)]
- 
- use core::{
-     mem::take,
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index b3244670dd79..18b0668bb217 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -9,6 +9,7 @@
- 
- mod driver;
- mod file;
-+mod fw;
- mod gem;
- mod gpu;
- mod mmu;
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-index c19300d76194..1ef7e40ccdb5 100644
---- a/drivers/gpu/drm/tyr/vm.rs
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -6,7 +6,6 @@
- //! the illusion of owning the entire virtual address (VA) range, similar to CPU virtual memory.
- //! Each virtual memory (VM) area is backed by ARM64 LPAE Stage 1 page tables and can be
- //! mapped into hardware address space (AS) slots for GPU execution.
--#![allow(dead_code)]
- 
- use core::ops::Range;
- 
-
--- 
-2.53.0
+On 4/13/26 13:18, Lizhi Hou wrote:
+> Mailbox message IDs are allocated cyclically. When destroying a mailbox
+> channel, pending messages are canceled starting from message ID 0. This
+> results in an incorrect cancellation order when the ID of the last posted
+> message wraps around and is smaller than the ID of the first posted
+> message.
+> 
+> Fix this by canceling pending messages starting from the next available
+> message ID, ensuring the correct ordering across wraparound.
+> 
+> Fixes: a37d78470bcc ("accel/amdxdna: Replace idr api with xarray")
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> ---
+>   drivers/accel/amdxdna/amdxdna_mailbox.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+> index 84a7e92562ad..336e5e77f18a 100644
+> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
+> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+> @@ -549,7 +549,9 @@ void xdna_mailbox_stop_channel(struct mailbox_channel *mb_chann)
+>   	drain_workqueue(mb_chann->work_q);
+>   
+>   	/* We can clean up and release resources */
+> -	xa_for_each(&mb_chann->chan_xa, msg_id, mb_msg)
+> +	xa_for_each_start(&mb_chann->chan_xa, msg_id, mb_msg, mb_chann->next_msgid)
+> +		mailbox_release_msg(mb_chann, mb_msg);
+> +	xa_for_each_range(&mb_chann->chan_xa, msg_id, mb_msg, 0, mb_chann->next_msgid - 1)
+>   		mailbox_release_msg(mb_chann, mb_msg);
+>   	xa_destroy(&mb_chann->chan_xa);
+>   
 
