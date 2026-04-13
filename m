@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47260F34C4E
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:59:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 537ABF34C4E
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:59:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD33310E470;
-	Mon, 13 Apr 2026 13:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B336310E467;
+	Mon, 13 Apr 2026 13:59:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="E8vMd4rj";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Gv2FSf7y";
 	dkim-atps=neutral
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B362A10E470;
- Mon, 13 Apr 2026 13:58:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C04410E476
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 13:59:03 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 840DE4E429F0;
- Mon, 13 Apr 2026 13:58:57 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 52F664E42977;
+ Mon, 13 Apr 2026 13:59:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5246E5FFB9;
- Mon, 13 Apr 2026 13:58:57 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 218B65FFB9;
+ Mon, 13 Apr 2026 13:59:02 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D67C91045001B; 
- Mon, 13 Apr 2026 15:58:51 +0200 (CEST)
+ with ESMTPSA id 391FE10450269; 
+ Mon, 13 Apr 2026 15:58:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776088735; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776088740; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=FiMsl19rJD1IVfeYhbmK871odM1dYpv4rqscGsKp4+E=;
- b=E8vMd4rjXXppZok1PPM26OX2QRCpxqxDsHauysoy1TaWuc0RSVJCNNz0WLgRiTReuTeGli
- QFUsjDkpF6UD7xwtbrP2obOTgVtNfORZHiWSog3gxm9iDU8UGlfwipRHsgN9191h1hKhGS
- xEycHcRhVWqb75gBlb7yxHxuDaoVDMzmlY5XnZwlxcfHSgG2uXJeSSvvN24LMlAZUjNT7O
- LMURjH/hI1i1GKe3c8EkVoaZK0JpLM9pvLLlLdv/0R+jwQISt63bg5EFShLfTj1zucfRoL
- 47JVxnoCwFBmMJrT8EZ5UdYvCbipdT/4oBZ1sAXo+gIraE3fs8mcVPJL8dLgOg==
+ bh=wzauR+KKJUv0OQ342MqFlZzgfROujyztvta1hCF81lc=;
+ b=Gv2FSf7y0qPnQBsW+k2lhk7HtC/MvYjLCCIx2zm5Jf2F0JMHeW/2BwWH88Zf8LINWmCcWm
+ oFf8dQmGDtyKmqKTEWnDDwzYrxa7gfEcWvA+NSRn9cE2mgenHRCetEa+MBmb5WtZaoOVBD
+ HD3KhDp2UVzbGG5+AHSqWsX7JBzKV2A7paVVZgCLVp17rHYunP0lxq5sDWHX0vlrBZbcWx
+ qSMzzvZxypHfy5b0LTJS2HgSc2E2EiQL15g+SsrBPKDSzvC/pHVZHoLhFIgefbrduzZoT7
+ qZ1YCWnpmdBt9zqBx3S5h+EjO8L30I7YphkKDNM8Nv81EwL0nTI0E4N+bVZzmQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 13 Apr 2026 15:58:34 +0200
-Subject: [PATCH 02/10] drm/msm/hdmi: switch to of_drm_get_bridge_by_endpoint()
+Date: Mon, 13 Apr 2026 15:58:35 +0200
+Subject: [PATCH 03/10] drm/hisilicon/kirin: switch to
+ of_drm_get_bridge_by_endpoint()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-2-acd01cd79a1f@bootlin.com>
+Message-Id: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-3-acd01cd79a1f@bootlin.com>
 References: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
 In-Reply-To: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -88,34 +89,36 @@ This driver calls drm_of_find_panel_or_bridge() with a NULL pointer in the
 Replace this call with the simpler of_drm_get_bridge_by_endpoint().
 
 Since of_drm_get_bridge_by_endpoint() increases the refcount of the
-returned bridge, ensure it is put on removal.
+returned bridge, ensure it is put on removal. Here the bridge pointer is
+only stored in a temporary variable, so a cleanup action is enough.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
-index 852abb2466f0..90e529b3d0c8 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
-@@ -287,7 +287,7 @@ static int msm_hdmi_dev_probe(struct platform_device *pdev)
- 	spin_lock_init(&hdmi->reg_lock);
- 	mutex_init(&hdmi->state_mutex);
+diff --git a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+index e80debdc4176..7b2ef5ed2c40 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
++++ b/drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c
+@@ -778,7 +778,7 @@ static int dsi_host_init(struct device *dev, struct dw_dsi *dsi)
+ static int dsi_bridge_init(struct drm_device *dev, struct dw_dsi *dsi)
+ {
+ 	struct drm_encoder *encoder = &dsi->encoder;
+-	struct drm_bridge *bridge;
++	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
+ 	struct device_node *np = dsi->dev->of_node;
+ 	int ret;
  
--	ret = drm_of_find_panel_or_bridge(dev_of_node(dev), 1, 0, NULL, &hdmi->next_bridge);
-+	ret = of_drm_get_bridge_by_endpoint(dev_of_node(dev), 1, 0, &hdmi->next_bridge);
- 	if (ret && ret != -ENODEV)
+@@ -786,7 +786,7 @@ static int dsi_bridge_init(struct drm_device *dev, struct dw_dsi *dsi)
+ 	 * Get the endpoint node. In our case, dsi has one output port1
+ 	 * to which the external HDMI bridge is connected.
+ 	 */
+-	ret = drm_of_find_panel_or_bridge(np, 1, 0, NULL, &bridge);
++	ret = of_drm_get_bridge_by_endpoint(np, 1, 0, &bridge);
+ 	if (ret)
  		return ret;
  
-@@ -383,6 +383,7 @@ static void msm_hdmi_dev_remove(struct platform_device *pdev)
- 	component_del(&pdev->dev, &msm_hdmi_ops);
- 
- 	msm_hdmi_put_phy(hdmi);
-+	drm_bridge_put(hdmi->next_bridge);
- }
- 
- static int msm_hdmi_runtime_suspend(struct device *dev)
 
 -- 
 2.53.0
