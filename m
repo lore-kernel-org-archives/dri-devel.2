@@ -4,71 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82586EBFD31
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 09:58:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 049C4EBFD2F
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C82858922E;
-	Mon, 13 Apr 2026 09:58:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64A1C10E3AA;
+	Mon, 13 Apr 2026 10:01:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iX9mg+y5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CEQIE6k0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5769E89209;
- Mon, 13 Apr 2026 09:58:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776074326; x=1807610326;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=qNKMjFoe61j8fuIzfSWj5JZC0y281bsF7isDaWbB+bI=;
- b=iX9mg+y5YCO9FHE/KWS6MRiSPGoJ1j8BOqXN2O0RGdrjL3nGzX6yiyQ+
- t8VRX4MjYfH/vgchN/FH/vOtZVvQr4G6HV9JwG5x0i+ArHPKwZOKTJ43I
- eWor2AUaVrd3bqSwENErvNAPyLZECsDCgDT6zmkqDcksYg74ofWsdxyy4
- e9JJDSOL0TaHCbIjcAgpSr37BFuq8wnCt+LgURdhnjq9yOTkCxyMWhnml
- tcb8YrqhG8kNkhmYBR63B75y8Y3oM3zGSQe1sTscRHxdz1b8xsEA42DcR
- b++cNyhkYve5lfZb+9gUzHFBD1JvM+CU7tl7kRE5OMhoXpMlO2xa67YkY w==;
-X-CSE-ConnectionGUID: aSKzLAuETiuEL7a9IgfXrA==
-X-CSE-MsgGUID: sSeVfMYrSle+IfMDUnDZcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11757"; a="87705883"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="87705883"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 02:58:46 -0700
-X-CSE-ConnectionGUID: +O4F51yhRdS6pTZQyUgF/g==
-X-CSE-MsgGUID: ayS63NDDRjuGf3RCujOzqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="227060762"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.64])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 02:58:43 -0700
-Date: Mon, 13 Apr 2026 12:58:40 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@intel.com>,
- Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Subject: Re: [PATCH 5/6] drm/i915/reset: Handle the display vs. GPU reset
- deadlock using a custom dma-fence
-Message-ID: <ady-UMqIQUqmKsLv@intel.com>
-References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
- <20260408233458.22666-6-ville.syrjala@linux.intel.com>
- <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
- <adeLRHQ2omAv93yM@intel.com>
- <cc51ea63-19b0-4352-9299-e5ab63f57ce4@amd.com>
- <adyzR6ISo_idi38p@intel.com>
- <b93c6c33-2d94-4da8-8e97-04c3bade2575@amd.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B82410E3AA
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 10:01:58 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4C9D060172;
+ Mon, 13 Apr 2026 10:01:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926B5C116C6;
+ Mon, 13 Apr 2026 10:01:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776074517;
+ bh=mlzyEmNbjtIL7vKwRnpEy6oi+2Tn09KmOp9o8MEUcZg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CEQIE6k0EkCZR5gvUuRtGYRFHxBpBCUa0TuPqj77hqQrjQpnn6rBfnWHoQSbph/bT
+ Fe9B/oOgXmRvwX+hiH5/hWAIYcDMNdMw79ZbZGOSTMtKIUvqhLT0R0/n6jPiz+O0wP
+ W6KpUg4uQUk/Y2lnUKta40eTICc/PEDstDblrgFksvzKk99GaAmVm1wCBHteXSnAWr
+ vB+VVor/EgXH1A/WtlIOe1Ts5XuCXa+acSf9oXu9ey5ZE0khuuLLTa22AfdJzlPcPd
+ u9LhjZ+/zXvgbyeZqyXzvQnzLOJGnfd3b0lr15uLDAPgu+5x102R9LYktMfEHh/7ZA
+ ELny7wvyWc3oQ==
+Date: Mon, 13 Apr 2026 13:01:52 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: fengchengwen <fengchengwen@huawei.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
+Subject: Re: [RFC] Proposal: Add sysfs interface for PCIe TPH Steering Tag
+ retrieval and configuration
+Message-ID: <20260413100152.GG21470@unreal>
+References: <6ea4c4c2-774e-aa76-3665-918e2a24cc84@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b93c6c33-2d94-4da8-8e97-04c3bade2575@amd.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <6ea4c4c2-774e-aa76-3665-918e2a24cc84@huawei.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,89 +62,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 11:35:23AM +0200, Christian König wrote:
-> On 4/13/26 11:11, Ville Syrjälä wrote:
-> >>>> I think something is missing in my picture how that is supposed to work.
-> >>>
-> >>> The problem stems from the fact that on old platforms a GPU reset
-> >>> also resets the display hardware,
-> >>
-> >> Which is true for at least AMD GPUs and I think pretty much everybody else as well, but that wasn't so much of a problem so far.
-> >>
-> >>> and to do that safely we need:
-> >>> 1. shut down display
-> >>> 2. perform the GPU reset
-> >>> 3. restore the display hardware to its orignal state
-> >>
-> >> Mhm, I've recently talked with Michel about it and we confirmed that this is perfectly possible without issues. Adding Michel as well.
-> >>
-> >>> We just do that with essentially with a normal atomic commit.
-> >>
-> >> I think that is the source of the problem.
-> >>
-> >> I'm not an expert on that topic but amdgpu and tons of other drivers seem to just use drm_atomic_helper_shutdown() for that.
-> > 
-> > drm_atomic_helper_shutdown() is definitely not the thing to use
-> > for this as it would clobber the stored kms state, leaving everything
-> > permanently disabled. The drm_atomic_helper_commit_duplicated_state()
-> > stuff i915 uses is the correct thing here.
-> > 
-> > But for this problem it doesn't even matter which gets used. Either
-> > would get equally stuck behind a previous atomic commit waiting for
-> > its fences.
-> > 
-> >>
-> >> What is i915 doing differently?
-> > 
-> > I see zero code for any display reset stuff in any other driver. If
-> > amdgpu does anything it must be something completely custom, hidden
-> > somewhere deep.
+On Fri, Apr 10, 2026 at 10:30:52PM +0800, fengchengwen wrote:
+> Hi all,
 > 
-> The display is just fully reset by any MODE1 reset, you don't need to do anything special for that.
+> I'm writing to propose adding a sysfs interface to expose and configure the
+> PCIe TPH
+> Steering Tag for PCIe devices, which is retrieved inside the kernel.
+> 
+> 
+> Background: The TPH Steering Tag is tightly coupled with both a PCIe device
+> (identified
+> by its BDF) and a CPU core. It can only be obtained in kernel mode. To allow
+> user-space
+> applications to fetch and set this value securely and conveniently, we need
+> a standard
+> kernel-to-user interface.
+> 
+> 
+> Proposed Solution: Add several sysfs attributes under each PCIe device's
+> sysfs directory:
+> 1. /sys/bus/pci/devices/<BDF>/tph_mode to query the TPH mode (interrupt or
+> device specific)
+> 2. /sys/bus/pci/devices/<BDF>/tph_enable to control the TPH feature
+> 3. /sys/bus/pci/devices/<BDF>/tph_st to support both read and write
+> operations, e.g.:
+>    Read operation:
+>      echo "cpu=3" > /sys/bus/pci/devices/0000:01:00.0/tph_st
+>      cat /sys/bus/pci/devices/0000:01:00.0/tph_st
+>    Write operation:
+>      echo "index=10 st=123" > /sys/bus/pci/devices/0000:01:00.0/tph_st
+> 
+> 
+> The design strictly follows PCI subsystem sysfs standards and has the
+> following key properties:
+> 
+> 1. Dynamic Visibility: The sysfs attributes will only be present for PCIe
+> devices that
+>    support TPH Steering Tag. Devices without TPH capability will not show
+> these nodes,
+>    avoiding unnecessary user confusion.
+> 
+> 2. Permission Control: The attributes will use 0600 file permissions,
+> ensuring only
+>    privileged root users can read or write them, which satisfies security
+> requirements
+>    for hardware configuration interfaces.
+> 
+> 3. Standard Implementation Location: The interface will be implemented in
+>    drivers/pci/pci-sysfs.c, the canonical location for all PCI device sysfs
+> attributes,
+>    ensuring consistency and maintainability within the PCI subsystem.
+> 
+> 
+> Why sysfs instead of alternatives like VFIO-PCI ioctl:
+> 
+> - Universality: sysfs does not require binding the device to a special
+> driver such as
+>   vfio-pci. It is available to any privileged user-space component,
+> including system
+>   utilities, daemons, and monitoring tools.
+> 
+> - Simplicity: Both user-space usage (cat/echo) and kernel implementation are
+>   straightforward, reducing code complexity and long-term maintenance cost.
+> 
+> - Design Alignment: TPH Steering Tag is a generic PCIe device feature, not
+> specific to
+>   user-space drivers like DPDK or VFIO. Exposing it via sysfs matches the
+> kernel's
+>   standard pattern for hardware capabilities.
+> 
+> 
+> I look forward to your comments about this design before submitting the
+> final patch.
 
-You can't just ignore the fact that there may be a display hardware
-reprogramming already happening in parallel. Failing to follow the
-correct programming sequence is a recipe for even hard system hangs.
+You need to explain more clearly why this write functionality is useful
+and necessary outside the VFIO/RDMA context:
+https://lore.kernel.org/all/20260324234615.3731237-1-zhipingz@meta.com/
+
+AFAIK, for non-VFIO TPH callers, kernel has enough knowledge to set
+right ST values.
+
+There are several comments regarding the implementation, but those can wait
+until the rationale behind the proposal is fully clarified.
+
+Thanks
 
 > 
-> Restoring the display after the reset is either not an atomic commit at all or done by an async worker after the reset completed.
-
-Everything is an atomic commit. No one is going to implement a
-complete second modeset codepath just for resets.
-
+> Best regards,
+> Chengwen Feng
 > 
-> >>> But a 
-> >>> previous atomic commit may already be waiting for a fence, which
-> >>> won't signal until the GPU reset happens, and the GPU reset is now
-> >>> waiting for that previous atomic commit to finish so that it can do
-> >>> its own atomic commit. In order to break the deadlock we need to
-> >>> abort the fence waits in the atomic commit, and that's what this
-> >>> "reset fence" achieves.
-> >>
-> >> As far as I can see that approach looks strongly like a no-go.
-> >>
-> >> You essentially have a lock inversion here and it is documented that it should *never* be resolved by a timeout, the approach you take now is not much better.
-> > 
-> > Unless someone wants to add some kind of extra abort mechanism to
-> > dma_fence_wait*() then I think this is probably the best solution.
-> > And given this is only a thing for one driver on old hardware,
-> > adding extra stuff to dma_fence_wait*() doesn't really seem worth
-> > the hassle.
-> 
-> Well adding something to dma_fence_wait() would be a no-go as well.
-> 
-> The point is you should *NOT* wait for an atomic commit to finish from your GPU reset at all. Any GPU reset which waits on a DMA-fence in one way or another is a really big bug.
-> 
-> That is documented and Simona even came up with tons of lockdep annotation to make sure that drivers comply to that.
-> 
-> I'm deeply surprised that a driver like i915 actually tries something like that. And as DMA-buf maintainer I must bluntly NAK that since it goes against documented rules for implementing drivers.
-> 
-> I mean what can be is that this isn't really solved with the atomic mode setting helpers, but since multiple drivers use it it shouldn't be anything special at all.
-
-There is zero support in the atomic design for reordering commits,
-which is pretty much what would be needed. A generic solution would
-more or less involve a full redesign/rewrite of atomic.
-
--- 
-Ville Syrjälä
-Intel
