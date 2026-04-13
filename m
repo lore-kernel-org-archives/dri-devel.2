@@ -4,96 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6909F34C55
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 14:06:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A43F34C49
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 14:06:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05B2110E49F;
-	Mon, 13 Apr 2026 14:06:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 317B910E4A0;
+	Mon, 13 Apr 2026 14:06:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FrycF7jE";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jLtQzkxG";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="S/MVJl5d";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hiXsOiaT";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E248710E49C
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:06:24 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B69F910E4A0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:06:28 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63DDXW87479867
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:06:24 GMT
+ 63DDSju01224579
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:06:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8LKKLDk/nGutkoYnIlWHeYdiYX58VLqnbBajsoZj2yQ=; b=FrycF7jEDSNkQOIX
- LWGVCkHStfEAfvFYM9Wfl3NK0OETS/GHjvtrzv/A0kPLC0qBhTs5kJin9f1cY1Y2
- 4YAFZxCTX2Y0lAhz+YzzIweGWEGH22+RVqr8PA/FKXP6MiIUP6rmhJtcgSkQg+a7
- xJrvThsBQOy4rlekAm1yFBif7wbqZt6FnXnLonbwjhKISPt/uEwbumWuWCVjOPFK
- zkkOhQVnTuzqfRsvHQMPv7KDNvaumuELeo1VenIFUEf+SxGTU2dgOPalS4x8PcYh
- zyYVAYagHnxnLS18DHdS9imYWlmMDTghZu/gu16WNHrMh7IU8l4wKE5qELFvrTm7
- MJCAUw==
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
- [209.85.167.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dguuj9dqs-1
+ /4NBXSH4Is2yC5xbwXreHyoFBggJh0nMi8dZy/+Iqn0=; b=S/MVJl5dJ9AHE8Fd
+ lHnkXrSW2Xr0GuEP+LDKsA5sd+uRPLFkcPvbZ1X/KuPf12TjcHzv3Sr8SqOmWGpA
+ S3ZMJsAFtHyORpat/e7E7V37Sl6kCmvOs4MVXaivAb5TPD4xQ9+bSxs0/jGNGBBO
+ +I2QxFjF9H5x/WB301k18xgYsLI6t1U/44+3MAHEHWFF2lP6DvDkalsE3fyz6f1S
+ q8SDBb68UeqUFqbyZAKhuVtYzEwacBrN5efgphxl1mjnINNEN8jZKgIas/zeKcqV
+ zAUZO4wVOYswj/au8jhMd0t0FScuomeViEkWdwEnsofp3JjETCinHUAkgpg8Tu+5
+ jUyZnw==
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com
+ [209.85.161.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfexfwnyj-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:06:24 +0000 (GMT)
-Received: by mail-oi1-f198.google.com with SMTP id
- 5614622812f47-47545742ec3so5278071b6e.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:06:24 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:06:27 +0000 (GMT)
+Received: by mail-oo1-f70.google.com with SMTP id
+ 006d021491bc7-66b612efb4aso6519003eaf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776089183; x=1776693983;
+ d=oss.qualcomm.com; s=google; t=1776089187; x=1776693987;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8LKKLDk/nGutkoYnIlWHeYdiYX58VLqnbBajsoZj2yQ=;
- b=jLtQzkxGJTr+a7rD9zSKBGm+XBtoBUl1d7S/h853S61U+UizfXD78X86lywO+mi0pY
- 6A5l+dvxrS72uB/6Zl0QrUmTpGfq+xAdV0pkqSmT+C6aNUcsKwZFLqiGq+oaQr3l0e1p
- A5mO+WyeQ9LFrHbnjJJOIkwITmvpJMXz13bwAR+W8V17+rWbWEFRf9dZSeNwbk1kgsqG
- f/4UmAxrymxk1ll5J7TCL3+XAXwCU1lmWUQ43XrM9JxLHPjHXEO236tKdwEIGTqrGCua
- LsAtS30HOm/PoQf1p0b3rK2TymmCbHJNIJcTgq4fhwJPjHNiC27R0MKi55LBqZOeTYDt
- kUag==
+ :reply-to; bh=/4NBXSH4Is2yC5xbwXreHyoFBggJh0nMi8dZy/+Iqn0=;
+ b=hiXsOiaTsE6XBzYfHetk6yfQlL2lKgmHNxwMcnIay1YSroWZjlVGp1HA4H8j13EJvX
+ 0lozsDLHn/ep0C9wKhpVi/t8Ze5CS5Oe89ymQ18Y6jJ1wZMFczb9MFWBTrJfta3mz20l
+ xzyB5raVxH2FxGyc3M5qYcSz3Ww9iBkxnkV91Sc4Hhw6k21znUSN5eMNofN5JlMmBwRx
+ sOcznPvI5N262Rr+/EOPhocYG2cauEX0blhkFsFDrDINWrvul1sRFliMAd3rZvTJDVNO
+ Q9u5XVtOt+rovfn/2A9fymKoef7mHF57fs7kAC+1SH5/bal8c4E8VbynZNkFLgvSbOBL
+ F+cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776089183; x=1776693983;
+ d=1e100.net; s=20251104; t=1776089187; x=1776693987;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=8LKKLDk/nGutkoYnIlWHeYdiYX58VLqnbBajsoZj2yQ=;
- b=W8z5t7wYBfrGa5kUp5ewIlMU48w5fIEq3m7ilHhKR8aCVUXiADCNaMehABKZjfS+bb
- QJ5YCtvG67nzraxK04ernmZea5PYpedghsJxzTwdF+NxH8BbvoqxeGklwanaW11JVfP4
- queCK5yyRNSV4kVJacPHiKh/izCJMJAZtEVS2K5nyPIOQgAF7yQ55v0iOutPcobtrUrD
- HdYxYWQY4XqBgeRfRtBDgK94ePbmmkm23jGBg6bO00id8uCw4zKUFmS9AKb44Bm7NiTi
- d9LJ9k+NDRBEWvXayZD/1GfsH70BSZVXGhYMTrsuiAeuzY0O/JWBUIgI77M8RH+IiauJ
- DUpw==
-X-Gm-Message-State: AOJu0Yw75TIZA9vW1Wf8zIulQw+/Qxls5QYNUxiO9jLWyAdkW1QdhtsY
- F8h1gpYEsfiCysDpPHNqBRibc1KvdFCd6aAkyqQgh+lslyp/DWptpBPAmilpXQRhM0UxlXkM5OT
- DCqK/qI94RYF+BYpK+CAYJtBKd2vVzJ6zJWoxGMUTD4s+p+LnZuyALCEeKKAkC5asSceAMkk=
-X-Gm-Gg: AeBDiev5xjMjXNWDqyUJEzAqGVavpgW2AZBgu3LcZkHQJahGLvK8pOi96uXxsqjAts9
- E+nS/w++Zb2qc6RjiDB3G52JrUfI56cay44JgppQawqjZHHpxNv9umv9ES4v0pdgcO8znGz9y9i
- ZGFrGzR5OPiLiuLJJ2BcUxSrW1VA75tuJ+x1yr1m9bqeYByKNctyWYVIUyTcUi37N3yVmSHavhj
- db4iyj6Om9yXSozHQ2SZ3sWIzDGkGPGAsXsQqoKM8VTE2ChEMvtfYmL6dJw1lNYJpbEhw5OqgXl
- oOCyeiXkGlnJwUxAxtRnceBy29QLbeV2NdIJrCbc39o4DmSyWBeoK3bO0TXQmec2dhEp+d5LStZ
- 0zey10fI5nLI5QpLG0JbzZb5GQQmbQ910MVBuEFtqaCxDhB27+aj6zPHrv0P0cOFE8oUBM3Iz7i
- d7rlyKJy0eTLChn5kVRbRRV3ik+8y8fivpqKc=
-X-Received: by 2002:a05:6808:660b:b0:467:58e:5d6e with SMTP id
- 5614622812f47-4789f60519cmr6343872b6e.30.1776089183297; 
- Mon, 13 Apr 2026 07:06:23 -0700 (PDT)
-X-Received: by 2002:a05:6808:660b:b0:467:58e:5d6e with SMTP id
- 5614622812f47-4789f60519cmr6343819b6e.30.1776089182771; 
- Mon, 13 Apr 2026 07:06:22 -0700 (PDT)
+ bh=/4NBXSH4Is2yC5xbwXreHyoFBggJh0nMi8dZy/+Iqn0=;
+ b=bfTjNzE5D1ky/x7ysNquptF1zvDmkkFAoI84rebkvy4JXDBpaN4FWHVa4Mb0fhMjLp
+ SlJNaF/tEA0Tm615l8Fr5Snb+Q11EdFQkQaBPkYjhe8yZiFicCN2XLN/OrDhxEOJGUeS
+ KVryAgsz2jEZ8mZN9lhXiTcFiqlfgIRg5lEbTGyHUCwOrvYwlr7TplY+g8drfB1VejOz
+ YSfVfJ35Uun85gj8oJbJnnsbmDMX7YLwdLknLXJX5Ssgj/ko1yolzSpatBQ2qMjyob/9
+ WmZvGd7MniF6qjKQRN3REfNyTuuabQJtcNb5uM8IBJrYcASRGptjEXH8wgxjLDL0IXkQ
+ PlKQ==
+X-Gm-Message-State: AOJu0YxizE7iT14DHG9hXu4esXA6L/7QKV6fOpd4uScgKkYNE8T2wvvk
+ FGk9wK3Cqhcu7RfFrYqpyu7To7eoxgHzw40VdPUTGoTEXLh6sEFrnrZyHbOQ7Bc79o9kKs2hAzG
+ rRUEw2iKAbUB3YPCcG2nshYehf3q5+pkM4Q28YOQHm8xP+ht4EwDu/ggtxlpsSr20ZcCI7bU=
+X-Gm-Gg: AeBDiet+uQJB3cKs9M2MV2WyybY4OqW0QiICixZklSAsUsg4J9XqpGA6UrdFITBndw6
+ YSVGR0m8IvBDsslcDPRl5Q7Bn3r3y7uIFN3aCZY4fRZhrlkDXwSQ37Ec2TE8ctr0dfELuQado+x
+ o2kqGZwuEpC5DZAesh3xAulKuZ9l7GbVpls5vejnwDhgLBjoprEO5SGCb6H8xtblIiOV3L5eh0e
+ LNGHI/jBl5vPUtl9K9l1gf03uEhyJpdroD8RipD0F//97OyfNIAyptWqh2l2T/ZlSKdeEEGy1WL
+ s6ycdHfx7JlJa4vHYZ4inaXLFPN1iK8992xvgAGcKYU5IkLyCjXf7dY/3RlCKTy+k175FG07r/P
+ thX6grRMy0NbBR56T9CCk12OGllFtyibhxQqj1AbALwwBrsN2rQVWocQe0FrVg6ySyo7JYz9qGT
+ 1DtwDuPJVlxk3PC+SgAmBxvyaX9PpHH8fSytM=
+X-Received: by 2002:a05:6820:628d:b0:683:a6e:970a with SMTP id
+ 006d021491bc7-68a6b54c90cmr5991209eaf.40.1776089187146; 
+ Mon, 13 Apr 2026 07:06:27 -0700 (PDT)
+X-Received: by 2002:a05:6820:628d:b0:683:a6e:970a with SMTP id
+ 006d021491bc7-68a6b54c90cmr5991191eaf.40.1776089186646; 
+ Mon, 13 Apr 2026 07:06:26 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a3eee8c91csm2687521e87.19.2026.04.13.07.06.21
+ 2adb3069b0e04-5a3eee8c91csm2687521e87.19.2026.04.13.07.06.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Apr 2026 07:06:21 -0700 (PDT)
+ Mon, 13 Apr 2026 07:06:25 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 13 Apr 2026 17:05:42 +0300
-Subject: [PATCH v3 19/21] drm/panel: add driver for Waveshare 8.8" DSI
- TOUCH-A panel
+Date: Mon, 13 Apr 2026 17:05:44 +0300
+Subject: [PATCH v3 21/21] gpio: add GPIO controller found on Waveshare DSI
+ TOUCH panels
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-waveshare-dsi-touch-v3-19-3aeb53022c32@oss.qualcomm.com>
+Message-Id: <20260413-waveshare-dsi-touch-v3-21-3aeb53022c32@oss.qualcomm.com>
 References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
 In-Reply-To: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
@@ -110,42 +110,42 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Riccardo Mereu <r.mereu@arduino.cc>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8361;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7752;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=ME4roFLF5kQS3ILE+qVmFR5ny/0HVBFtJjwmIHIWOBw=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp3PgpLEhsqxoLgLo3jbYp7nEh2ZBpLYh/4SK12
- 4yCFP0QstiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCadz4KQAKCRCLPIo+Aiko
- 1XTRB/0U4axfmYExh+0IkahMe1OYpyHDQdRsGD8dI4V0s7G/q68sghoH1RC7a9e6sFOtYXMwghb
- MenUT7wsNkxEShmOBkIFWKv1NkBL+8x1Ir6zRKhfRAr3T8xcd28xsFHkN9JR7esKltz+ODuNj2O
- QMZg2oiZzHEa6RyBlW0R5emeNZGRiMZ95bUVTAYPGgvnmw51X8F7wGXbQ3qxmiGLnYehI82mdfW
- XnZowAoMJ9z4j0ay1D8UYaSA5Ql7sXxpGYdAna18ybuVkhcE/Pvt4kYp/yCApRTgCsyvbrLUo9+
- TCYe5ieK+ckMWs9QapsFC4lZCAc1KgBFzeUeMApyTbhT8JGS
+ bh=LLB5S+fq0OkGtz5fZjjGOedSRUpC3QiVTV63iuC2ud8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp3Pgp0CRuEJwBZE0M+s4m5iHBHk23SvG/pqay2
+ 5QqzBFjhz6JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCadz4KQAKCRCLPIo+Aiko
+ 1WLhB/0cpboMrZy9Q/a48/y4YERdx8SOPJoAKVOFjUn0HrVr5HZHrZ8Rrpg0CsYmnGo0jESQzYg
+ H2+46/0JcudTvznVDqZ3TStiWBLo8H82ZGCG4qVj+OvVlmS68e/GMWRCf2eU4EdfdnVYrj8+UUP
+ jmkLp5Z3l1mc5v/gcNN40tzi/sb4O/fLRxHFXKNmIHBGylaOg1Km4jYMs67D2E610WAHvuhMzGP
+ 0GfRy4CXzQ1cecaphhja5AV/hQzAlrstnUzLLgfvmegRby9y0//oJXBcr7IfoyFCpQ2fpaSwja2
+ BXBa4dG1a/tM/B6F9nE3RF+t92n5t1JgqpMpvsYDFy9DZKnD
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDEzOCBTYWx0ZWRfX/XB8Poern8Iz
- wySRFAnBvwOPmTo3EOgip2cSSimJTh0aVzYVfTvG7YYiiQ5Sofq0LFnTrixPSsJjb0wlQayBul8
- BnIYJVub9Jr16nCoaeuTuuPz25s0Jbwv4K1CL02GQTbcATWLGY7TXTl/EpYKPLlbGLBvTnkvnui
- GVqZ9nsj4ohrILqZVoa81394KJCMvIeGQZXwyL5FHAfVaFQG0PS5IA7+QnsQWHHl2q5TrYWk5RT
- g4MrkrBoDNtF0nnp9gDQUgLoLUS/oUBqkTyG4ifqyQHJZVoD9Iu6U8zmBCoo9lIYExDMVFKsRP/
- sLoODlqwt4ayOmIOuW5nAXwqk7y7n2VZChXtaDKkt+9qynKFA9HVf/4ODpZIkEyUBc6JPjRvx7Y
- emPLWujlp5K/wIQEJru0VBFMAia8ZA1sufrUFeHRLZgdmhl5oW56JZj0XUaReMTV8ONxIZVNOwn
- K8kJuI/F/NlE8pLmIvw==
-X-Authority-Analysis: v=2.4 cv=c/ibhx9l c=1 sm=1 tr=0 ts=69dcf860 cx=c_pps
- a=4ztaESFFfuz8Af0l9swBwA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: pdlz7103lDyolGSqH0FrgtI0eUFAK3-f
+X-Authority-Analysis: v=2.4 cv=OpZ/DS/t c=1 sm=1 tr=0 ts=69dcf863 cx=c_pps
+ a=lkkFf9KBb43tY3aOjL++dA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=I0FmcsL6nTCMfcQUCV4A:9 a=QEXdDO2ut3YA:10
- a=TPnrazJqx2CeVZ-ItzZ-:22
-X-Proofpoint-GUID: hIZ3-_5RB1aYkHAzIr2D2g7fGyeIgF2O
-X-Proofpoint-ORIG-GUID: hIZ3-_5RB1aYkHAzIr2D2g7fGyeIgF2O
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=BBJQNc9AFPM2Ar9AcygA:9 a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
+X-Proofpoint-ORIG-GUID: pdlz7103lDyolGSqH0FrgtI0eUFAK3-f
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDEzOCBTYWx0ZWRfXxPscToN0379c
+ PHYVTWGk7ikLMOw2DV9rY/9bX5kgvfuRVpFJwRbZxWSXL0JQpQqimmG4Rs1Iu6QFKzt4YmMspEa
+ dyDnquUa5knBTdf3lQCNp7KBPy8wF23IIuIwEqU13kY4baLrulVeZaLKHMwkaElabIVfdWEy4qT
+ y/TVOL+gXRnDx9DOFm9pAZDQDtWwfX9UeFsfoCIR0eMvqMSw533uvX7uAX3YoSPWy+CsY/TTEOo
+ +1XZfkJdP4cQAc/+xVjt+HeB24ddWm9Act+tunoHLWIs+uzdMTLBVWQ4joh2KjF3cxYS4KGptfE
+ p8Uz4upzdorzHgtg3UjTgN2ickAvCVCkVgklj39mxWpVtyGUosEe1rGiL2N/KHNsw12VYNpErVR
+ eZFF3lxVwG6pLqrnK0L5gzljOxt6iGtnlsj0b1aflI0Ol5XHxkY4a26CfY1QytiSOfwh8ntUTLW
+ HI+olPl0Fdr/xGvCPCA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-13_03,2026-04-13_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1015 malwarescore=0 phishscore=0 suspectscore=0 impostorscore=0
+ impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130138
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -163,283 +163,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add driver for the panel found on Waveshare 8.8" DSI TOUCH-A kit. It
-uses ota7290b IC as a controller.
+The Waveshare DSI TOUCH family of panels has separate on-board GPIO
+controller, which controls power supplies to the panel and the touch
+screen and provides reset pins for both the panel and the touchscreen.
+Also it provides a simple PWM controller for panel backlight. Add
+support for this GPIO controller.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/gpu/drm/panel/Kconfig                    |  12 ++
- drivers/gpu/drm/panel/Makefile                   |   1 +
- drivers/gpu/drm/panel/panel-focaltech-ota7290b.c | 226 +++++++++++++++++++++++
- 3 files changed, 239 insertions(+)
+ drivers/gpio/Kconfig              |  10 ++
+ drivers/gpio/Makefile             |   1 +
+ drivers/gpio/gpio-waveshare-dsi.c | 208 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 219 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index ba527b4d7737..979109c27b9b 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -144,6 +144,18 @@ config DRM_PANEL_FEIYANG_FY07024DI26A30D
- 	  Say Y if you want to enable support for panels based on the
- 	  Feiyang FY07024DI26A30-D MIPI-DSI interface.
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index b45fb799e36c..e24ad7e32034 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -804,6 +804,16 @@ config GPIO_VISCONTI
+ 	help
+ 	  Say yes here to support GPIO on Tohisba Visconti.
  
-+config DRM_PANEL_FOCALTECH_OTA7290B
-+	tristate "Focaltech OTA7290B"
-+	depends on DRM_MIPI_DSI
-+	depends on I2C
++config GPIO_WAVESHARE_DSI_TOUCH
++	tristate "Waveshare GPIO controller for DSI panels"
 +	depends on BACKLIGHT_CLASS_DEVICE
-+	select DRM_KMS_HELPER
++	depends on I2C
++	select REGMAP_I2C
 +	help
-+	  Enable support for panels using OTA7290B as a controller (for
-+	  example, Waveshare 12.3" DSI TOUCH-A panel). Say Y here if you want
-+	  to enable support for this panel. To compile this driver as a module,
-+	  choose M here.
++	  Enable support for the GPIO and PWM controller found on Waveshare DSI
++	  TOUCH panel kits. It provides GPIOs (used for regulator control and
++          resets) and backlight support.
 +
- config DRM_PANEL_DSI_CM
- 	tristate "Generic DSI command mode panels"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index a4291dc3905b..0d694acbfbb6 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -17,6 +17,7 @@ obj-$(CONFIG_DRM_PANEL_EBBG_FT8719) += panel-ebbg-ft8719.o
- obj-$(CONFIG_DRM_PANEL_ELIDA_KD35T133) += panel-elida-kd35t133.o
- obj-$(CONFIG_DRM_PANEL_FEIXIN_K101_IM2BA02) += panel-feixin-k101-im2ba02.o
- obj-$(CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D) += panel-feiyang-fy07024di26a30d.o
-+obj-$(CONFIG_DRM_PANEL_FOCALTECH_OTA7290B) += panel-focaltech-ota7290b.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX8279) += panel-himax-hx8279.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX83102) += panel-himax-hx83102.o
- obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
-diff --git a/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
+ config GPIO_WCD934X
+ 	tristate "Qualcomm Technologies Inc WCD9340/WCD9341 GPIO controller driver"
+ 	depends on MFD_WCD934X && OF_GPIO
+diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+index c05f7d795c43..94f16f0f28d9 100644
+--- a/drivers/gpio/Makefile
++++ b/drivers/gpio/Makefile
+@@ -206,6 +206,7 @@ obj-$(CONFIG_GPIO_VIRTUSER)		+= gpio-virtuser.o
+ obj-$(CONFIG_GPIO_VIRTIO)		+= gpio-virtio.o
+ obj-$(CONFIG_GPIO_VISCONTI)		+= gpio-visconti.o
+ obj-$(CONFIG_GPIO_VX855)		+= gpio-vx855.o
++obj-$(CONFIG_GPIO_WAVESHARE_DSI_TOUCH)	+= gpio-waveshare-dsi.o
+ obj-$(CONFIG_GPIO_WCD934X)		+= gpio-wcd934x.o
+ obj-$(CONFIG_GPIO_WHISKEY_COVE)		+= gpio-wcove.o
+ obj-$(CONFIG_GPIO_WINBOND)		+= gpio-winbond.o
+diff --git a/drivers/gpio/gpio-waveshare-dsi.c b/drivers/gpio/gpio-waveshare-dsi.c
 new file mode 100644
-index 000000000000..8c135697a0fd
+index 000000000000..38f52351bb58
 --- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-focaltech-ota7290b.c
-@@ -0,0 +1,226 @@
++++ b/drivers/gpio/gpio-waveshare-dsi.c
+@@ -0,0 +1,208 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2024 Waveshare International Limited
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#include <linux/delay.h>
-+#include <linux/device.h>
++#include <linux/backlight.h>
 +#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/kernel.h>
++#include <linux/fb.h>
++#include <linux/gpio/driver.h>
 +#include <linux/module.h>
 +#include <linux/of.h>
++#include <linux/regmap.h>
 +
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
++/* I2C registers of the microcontroller. */
++#define REG_TP		0x94
++#define REG_LCD		0x95
++#define REG_PWM		0x96
++#define REG_SIZE	0x97
++#define REG_ID		0x98
++#define REG_VERSION	0x99
 +
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct ota7290b {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+
-+	struct regulator *power;
-+	struct gpio_desc *reset;
-+	struct regulator *avdd;
-+	struct regulator *vdd;
-+	struct regulator *vcc;
-+
-+	enum drm_panel_orientation orientation;
++enum {
++	GPIO_AVDD = 0,
++	GPIO_PANEL_RESET = 1,
++	GPIO_BL_ENABLE = 2,
++	GPIO_IOVCC = 4,
++	GPIO_VCC = 8,
++	GPIO_TS_RESET = 9,
 +};
 +
-+static inline struct ota7290b *panel_to_ota(struct drm_panel *panel)
++#define NUM_GPIO 16
++
++struct waveshare_gpio {
++	struct mutex dir_lock;
++	struct mutex pwr_lock;
++	struct regmap *regmap;
++	u16 poweron_state;
++
++	struct gpio_chip gc;
++};
++
++static const struct regmap_config waveshare_gpio_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = REG_VERSION,
++};
++
++static int waveshare_gpio_get(struct waveshare_gpio *state, unsigned int offset)
 +{
-+	return container_of(panel, struct ota7290b, panel);
++	u16 pwr_state;
++
++	guard(mutex)(&state->pwr_lock);
++	pwr_state = state->poweron_state & BIT(offset);
++
++	return !!pwr_state;
 +}
 +
-+static int ota7290b_prepare(struct drm_panel *panel)
++static int waveshare_gpio_set(struct waveshare_gpio *state, unsigned int offset, int value)
 +{
-+	struct ota7290b *ctx = panel_to_ota(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
++	u16 last_val;
++	int err;
++
++	guard(mutex)(&state->pwr_lock);
++
++	last_val = state->poweron_state;
++	if (value)
++		last_val |= BIT(offset);
++	else
++		last_val &= ~BIT(offset);
++
++	state->poweron_state = last_val;
++
++	err = regmap_write(state->regmap, REG_TP, last_val >> 8);
++	if (!err)
++		err = regmap_write(state->regmap, REG_LCD, last_val & 0xff);
++
++	return err;
++}
++
++static int waveshare_gpio_gpio_get_direction(struct gpio_chip *gc, unsigned int offset)
++{
++	return GPIO_LINE_DIRECTION_OUT;
++}
++
++static int waveshare_gpio_gpio_get(struct gpio_chip *gc, unsigned int offset)
++{
++	struct waveshare_gpio *state = gpiochip_get_data(gc);
++
++	return waveshare_gpio_get(state, offset);
++}
++
++static int waveshare_gpio_gpio_set(struct gpio_chip *gc, unsigned int offset, int value)
++{
++	struct waveshare_gpio *state = gpiochip_get_data(gc);
++
++	return waveshare_gpio_set(state, offset, value);
++}
++
++static int waveshare_gpio_update_status(struct backlight_device *bl)
++{
++	struct waveshare_gpio *state = bl_get_data(bl);
++	int brightness = backlight_get_brightness(bl);
++
++	waveshare_gpio_set(state, GPIO_BL_ENABLE, brightness);
++
++	return regmap_write(state->regmap, REG_PWM, brightness);
++}
++
++static const struct backlight_ops waveshare_gpio_bl = {
++	.update_status = waveshare_gpio_update_status,
++};
++
++static int waveshare_gpio_probe(struct i2c_client *i2c)
++{
++	struct backlight_properties props = {};
++	struct waveshare_gpio *state;
++	struct device *dev = &i2c->dev;
++	struct backlight_device *bl;
++	struct regmap *regmap;
++	unsigned int data;
 +	int ret;
 +
-+	if (ctx->vcc) {
-+		ret = regulator_enable(ctx->vcc);
-+		if (ret)
-+			dev_err(panel->dev, "failed to enable VCC regulator: %d\n", ret);
-+	}
-+
-+	if (ctx->reset) {
-+		gpiod_set_value_cansleep(ctx->reset, 0);
-+		msleep(60);
-+		gpiod_set_value_cansleep(ctx->reset, 1);
-+		msleep(60);
-+	}
-+
-+	if (ctx->vdd) {
-+		ret = regulator_enable(ctx->vdd);
-+		if (ret)
-+			dev_err(panel->dev, "failed to enable VDD regulator: %d\n", ret);
-+	}
-+
-+	if (ctx->reset) {
-+		gpiod_set_value_cansleep(ctx->reset, 0);
-+		msleep(60);
-+	}
-+
-+	if (ctx->avdd) {
-+		ret = regulator_enable(ctx->avdd);
-+		if (ret)
-+			dev_err(panel->dev, "failed to enable AVDD regulator: %d\n", ret);
-+	}
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	if (dsi_ctx.accum_err < 0)
-+		dev_err(panel->dev, "failed to init panel: %d\n", dsi_ctx.accum_err);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int ota7290b_unprepare(struct drm_panel *panel)
-+{
-+	struct ota7290b *ctx = panel_to_ota(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+
-+	if (ctx->avdd)
-+		regulator_disable(ctx->avdd);
-+
-+	if (ctx->reset) {
-+		gpiod_set_value_cansleep(ctx->reset, 1);
-+		msleep(5);
-+	}
-+
-+	if (ctx->vdd)
-+		regulator_disable(ctx->vdd);
-+
-+	if (ctx->vcc)
-+		regulator_disable(ctx->vcc);
-+
-+	return 0;
-+}
-+
-+static const struct drm_display_mode waveshare_dsi_touch_8_8_a_mode = {
-+	.clock = 75000,
-+
-+	.hdisplay = 480,
-+	.hsync_start = 480 + 50,
-+	.hsync_end = 480 + 50 + 50,
-+	.htotal = 480 + 50 + 50 + 50,
-+
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 20,
-+	.vsync_end = 1920 + 20 + 20,
-+	.vtotal = 1920 + 20 + 20 + 20,
-+
-+	.width_mm = 68,
-+	.height_mm = 219,
-+	.type = DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int ota7290b_get_modes(struct drm_panel *panel,
-+			      struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &waveshare_dsi_touch_8_8_a_mode);
-+}
-+
-+static enum drm_panel_orientation ota7290b_get_orientation(struct drm_panel *panel)
-+{
-+	struct ota7290b *ctx = panel_to_ota(panel);
-+
-+	return ctx->orientation;
-+}
-+
-+static const struct drm_panel_funcs ota7290b_funcs = {
-+	.prepare = ota7290b_prepare,
-+	.unprepare = ota7290b_unprepare,
-+	.get_modes = ota7290b_get_modes,
-+	.get_orientation = ota7290b_get_orientation,
-+};
-+
-+static int ota7290b_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct ota7290b *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(&dsi->dev, struct ota7290b, panel,
-+				   &ota7290b_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (!ctx)
++	state = devm_kzalloc(dev, sizeof(*state), GFP_KERNEL);
++	if (!state)
 +		return -ENOMEM;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+	ctx->dsi = dsi;
 +
-+	ctx->reset = devm_gpiod_get_optional(&dsi->dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->reset),
-+				     "Couldn't get our reset GPIO\n");
-+
-+	ctx->vcc = devm_regulator_get_optional(&dsi->dev, "vcc");
-+	if (IS_ERR(ctx->vcc))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->vcc),
-+					"Couldn't get our VCC supply\n");
-+
-+	ctx->avdd = devm_regulator_get_optional(&dsi->dev, "avdd");
-+	if (IS_ERR(ctx->avdd))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->avdd),
-+					"Couldn't get our AVDD supply\n");
-+
-+	ctx->vdd = devm_regulator_get_optional(&dsi->dev, "vdd");
-+	if (IS_ERR(ctx->vdd))
-+		return dev_err_probe(&dsi->dev, PTR_ERR(ctx->vdd),
-+					"Couldn't get our VDD supply\n");
-+
-+	ret = of_drm_get_panel_orientation(
-+			dsi->dev.of_node, &ctx->orientation);
-+	if (ret) {
-+		dev_err(&dsi->dev, "%pOF: failed to get orientation: %d\n",
-+			dsi->dev.of_node, ret);
-+		return ret;
-+	}
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
++	ret = devm_mutex_init(dev, &state->dir_lock);
 +	if (ret)
 +		return ret;
 +
-+	ctx->panel.prepare_prev_first = true;
-+
-+	ret = devm_drm_panel_add(&dsi->dev, &ctx->panel);
++	ret = devm_mutex_init(dev, &state->pwr_lock);
 +	if (ret)
 +		return ret;
 +
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_HSE |
-+		MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	dsi->format = MIPI_DSI_FMT_RGB888,
-+	dsi->lanes = 2;
++	regmap = devm_regmap_init_i2c(i2c, &waveshare_gpio_regmap_config);
++	if (IS_ERR(regmap))
++		return dev_err_probe(dev, PTR_ERR(regmap), "Failed to allocate register map\n");
 +
-+	return devm_mipi_dsi_attach(&dsi->dev, dsi);
++	state->regmap = regmap;
++	i2c_set_clientdata(i2c, state);
++
++	ret = regmap_read(regmap, REG_ID, &data);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to read register\n");
++
++	dev_dbg(dev, "waveshare panel hw id = 0x%x\n", data);
++
++	ret = regmap_read(regmap, REG_SIZE, &data);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to read register\n");
++
++	dev_dbg(dev, "waveshare panel size = %d\n", data);
++
++	ret = regmap_read(regmap, REG_VERSION, &data);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "Failed to read register\n");
++
++	dev_dbg(dev, "waveshare panel mcu version = 0x%x\n", data);
++
++	ret = waveshare_gpio_set(state, GPIO_TS_RESET, 1);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to program GPIOs\n");
++
++	msleep(20);
++
++	state->gc.parent = dev;
++	state->gc.label = i2c->name;
++	state->gc.owner = THIS_MODULE;
++	state->gc.base = -1;
++	state->gc.ngpio = NUM_GPIO;
++
++	/* it is output only */
++	state->gc.get = waveshare_gpio_gpio_get;
++	state->gc.set = waveshare_gpio_gpio_set;
++	state->gc.get_direction = waveshare_gpio_gpio_get_direction;
++	state->gc.can_sleep = true;
++
++	ret = devm_gpiochip_add_data(dev, &state->gc, state);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to create gpiochip\n");
++
++	props.type = BACKLIGHT_RAW;
++	props.max_brightness = 255;
++	props.brightness = 255;
++	bl = devm_backlight_device_register(dev, dev_name(dev), dev, state,
++					    &waveshare_gpio_bl, &props);
++	return PTR_ERR_OR_ZERO(bl);
 +}
 +
-+static const struct of_device_id ota7290b_of_match[] = {
-+	{ .compatible = "waveshare,8.8-dsi-touch-a", },
-+	{}
++static const struct of_device_id waveshare_gpio_dt_ids[] = {
++	{ .compatible = "waveshare,dsi-touch-gpio" },
++	{},
 +};
-+MODULE_DEVICE_TABLE(of, ota7290b_of_match);
++MODULE_DEVICE_TABLE(of, waveshare_gpio_dt_ids);
 +
-+static struct mipi_dsi_driver ota7290b_driver = {
-+	.probe		= ota7290b_probe,
++static struct i2c_driver waveshare_gpio_regulator_driver = {
 +	.driver = {
-+		.name		= "focaltech-ota7290b",
-+		.of_match_table	= ota7290b_of_match,
++		.name = "waveshare-regulator",
++		.of_match_table = of_match_ptr(waveshare_gpio_dt_ids),
 +	},
++	.probe = waveshare_gpio_probe,
 +};
-+module_mipi_dsi_driver(ota7290b_driver);
 +
-+MODULE_DESCRIPTION("Panel driver for Focaltech OTA7290B panels");
++module_i2c_driver(waveshare_gpio_regulator_driver);
++
++MODULE_DESCRIPTION("GPIO controller driver for Waveshare DSI touch panels");
 +MODULE_LICENSE("GPL");
 
 -- 
