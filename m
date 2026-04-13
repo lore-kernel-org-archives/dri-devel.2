@@ -4,95 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 651A2EBFD0F
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21862EBFD10
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:12:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD72C10E0B9;
-	Mon, 13 Apr 2026 08:11:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FDBE10E313;
+	Mon, 13 Apr 2026 08:12:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=canonical-com.20251104.gappssmtp.com header.i=@canonical-com.20251104.gappssmtp.com header.b="PIt/MoM7";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="knSeXNzH";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7E810E0B9
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:11:09 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-b9c745e18a0so472768266b.1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 01:11:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776067868; cv=none;
- d=google.com; s=arc-20240605;
- b=jG7vi2fHKW0pAhxVx6zdFQinqz/5E7YDZbSZOz0J100309+GQ+dmL5noxI7U1ScfEt
- SpuO1ajGWc+2WJGn7VQVbUJad1sjJuJ+xWBkguAu3oiqHjdZ9ugRfXniLPRX3Q18VyBr
- 5IA64oZVq0I/xGs2bvn1PeSCA4wBxidT2livkkVsptDAJPLkkrZ3nTYQarDHieQoImmr
- FRiIVuicr1LRAKSo8kE+d4cL/AaIBho7pwgr8alJ0V8YijOytGM2BIhV+ar+QjqBfdc1
- duc/9fSvspZD945236Ki7MCYkUNd14+FQTdQ4DjXGb45e4R1UQ3nLLzrW/+Esp0rLgKB
- mfzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Cm/2yTJZucI3GwBHuZBqSf0fctqmWzcYTDaRRhyvpf4=;
- fh=9X8Q++H/P/5+qeYBDWrQ+zvETlR8DS9p2OTHiIHP4G8=;
- b=GYY8tQ5afLUguhgLOXSwRj0oDjkp7hMP9GTeUappenHbv6XolSQIMSiA6epyhhL/Bm
- CdCzpkNSPuZkghqoi22+V5bAMJSXH5ZUBSJqVx4RQP6KneDSCkAsnbnSSEoXfLzA3IBH
- 9w7Mf2sjU2PAPF6A+3am2nfu68ebBt1U1XXOjMe7E9evuOt0rUXcW24QUlc6dtCq+21D
- qjdhYXSfwEtUZ7JtEfvFb1BZvztHV3XvgJ1G67A3tMmGo+jF2aujs/0iqOaEngaup57J
- b6qGqZakI9aqZSnrcJd7SPUuHZyc69nSOMjpmxUfHM/XIa3mg2t2VJtWOVa27PbqSN2w
- kptw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=canonical-com.20251104.gappssmtp.com; s=20251104; t=1776067868; x=1776672668;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Cm/2yTJZucI3GwBHuZBqSf0fctqmWzcYTDaRRhyvpf4=;
- b=PIt/MoM7NHIyDR+imQiAKGQwPsBlKcpDT83TmLEL5uQeagsqk0JvQ3EXinbcSKI36h
- TM7oy1+b7CmHgWglKPlBAwRqX4jxDwjXebQO0rGtHD4NLme4hlic7mLXlPdmzMG1+zpl
- GMqkLpJSFaBe5pY4az1QJWD0VATPEXWRu6BgfGCQtBPt9c6hXMkxWPstwkBpICdfCWaU
- LmEoEmp/jPTUFNEp3bh2h0eBAtcyncvvZMBs8rWE4kDRW6ZvvNqNDd+Uu+CHQpK8ju0w
- 0b/ZkdBdpkWrdBFNNnPjgOd9BcCpKz2w7zkuvqbVWP4JunvmhJyzQwSS90l3Ws60PpWs
- TV5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776067868; x=1776672668;
- h=content-transfer-encoding:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Cm/2yTJZucI3GwBHuZBqSf0fctqmWzcYTDaRRhyvpf4=;
- b=Pc5JgAwFCTwVnVxDgKp3AftaxU3afZ/QLykAwjQpFCaMLgkUsBkCXaW7tDuInjT5FD
- lwfkbKoYWI4coPquoBqmivmjeVXBkkNDRvdarP/cbXT0It4zm1nGDivfdaCnR+pwCGc/
- bTnujaP/zTdtqL3ekfTLUli6m+N0EgktiWBXUiJvLad94K+pbLE61hr0dvI/VBJLFemX
- VKhHYVRWjSbxvPg8s/7KjHj0wdXLP3dX2PclQ6CebMRZy1pBXkAo6baKcgKie/us5vkm
- ZN4CRuBAR5zbkfXsLKn7hcGsNAfoRy1+96aOAPkAePlsGyAu/HOvQ7iG+T2yf/zFy/gD
- 5DeA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/Af9it9gqgrw+y9ZeKG3fnu+va8+SXm6GqgBTzSnKIi0CqrLGa0382i5dY7lAZqgHu7LoUhuX2hBo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoH3fxA09zXDi/8G+sldOo+AKmfPYo6V40dq0UwOM27/fTHFiK
- CdMDbJdnPsCuDsk2NSVnAX01r1HQit3NZIHb9i7VCJR6FfsjAYyVlFnhurwsHWQdNumBz/DuKp4
- iivsHjnLz5xV9Ug1/rQRjtDzZzFM23RY=
-X-Gm-Gg: AeBDieuCJ7cU5YDvWAR4mYqEVEwktk61qNSG6ETnDjEnzLqHckWugtPZFZqtkyDuzVJ
- kTmtPoMQouTVRC9SYtVkSrhjLy2DP/81rjSIkX7xaRjcPV1kdZdi5XH+fZ1GGeavcGKdaePgAYy
- ngkmXVWQliUQkspnWtNKuYH1YSFWIggc0uASxGpW68HmOp/yz+5tZEgVAL6AoQBhNVMAbCHoa+X
- ME73roLB0jtJWBO9dxx8s9BzkNKelhDZuwMosDCOj0tz7HWi8wiC5dA8xaXpRC3AS8baTWDP4e4
- VOZZty/omplc8TLufrM=
-X-Received: by 2002:a17:907:1b22:b0:b97:fec5:eced with SMTP id
- a640c23a62f3a-b9d45b64482mr833752966b.0.1776067867411; Mon, 13 Apr 2026
- 01:11:07 -0700 (PDT)
+X-Greylist: delayed 471 seconds by postgrey-1.36 at gabe;
+ Mon, 13 Apr 2026 08:12:19 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.61.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF2E310E313
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:12:19 +0000 (UTC)
+Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4fvKgZ6c75z83c8;
+ Mon, 13 Apr 2026 10:04:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1776067466;
+ bh=IeHkbo8XYL6dePq+h+IBMs1JYaX2SHITQQVbFwCAoOQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=knSeXNzHQ/kUjZ2z/zAXEMHsLE0gQ60R0QMPR97IB9ZZB2wyEUkhifdDpJf0MSR8f
+ uKFVJZmZK/+NxfCEWnMvZeKQLlUn+BkV2levA8ZLTelvUtJPXT0iRZzWhbMgLFcx2B
+ e5AfDNE4nw/dI+Yl6Bu9vyLx7wvXPD1vGxt3McpmsnGE9jnY5+9Njhzo227Gy5neCv
+ 6fy52CpbKNgWg3ravJvTjnoGUH148wJSB74JjQVI7Bub8Fuc3lr21ZreCCHDWaV8f1
+ ssd+3Sh83gTj5A4yrcUYP+PTHzx2hOrczX+EQBO5XxPbni+8GHcX6pjNCbAeeDN2P/
+ NpSBPR2R/2ajg==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4fvKgZ5vTCz83ZT;
+ Mon, 13 Apr 2026 10:04:26 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4fvKgY1Vwpz8sgT;
+ Mon, 13 Apr 2026 10:04:24 +0200 (CEST)
+Received: from luggage.fritz.box (unknown
+ [IPv6:2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 2504B632D3;
+ Mon, 13 Apr 2026 10:04:24 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a8ad:ebd4:6fc6:160)
+ smtp.mailfrom=linux@leemhuis.info smtp.helo=luggage.fritz.box
+Received-SPF: pass (mxe9fb: connection is authenticated)
+From: Thorsten Leemhuis <linux@leemhuis.info>
+To: regressions@leemhuis.info
+Cc: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ matt.fagnani@bell.net, regressions@lists.linux.dev, sashal@kernel.org,
+ stable@vger.kernel.org, Maarten Lankhorst <dev@lankhorst.se>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Guenter Roeck <linux@roeck-us.net>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Thorsten Leemhuis <linux@leemhuis.info>
+Subject: [PATCH 6.6.y] Revert "drm: Fix use-after-free on framebuffers and
+ property blobs when calling drm_dev_unplug"
+Date: Mon, 13 Apr 2026 10:03:33 +0200
+Message-ID: <20260413080333.3079490-1-linux@leemhuis.info>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <9c667182-3a9e-4fa3-a568-1cb5b1b74106@leemhuis.info>
+References: <9c667182-3a9e-4fa3-a568-1cb5b1b74106@leemhuis.info>
 MIME-Version: 1.0
-References: <20260114011917.241196-1-acelan.kao@canonical.com>
-In-Reply-To: <20260114011917.241196-1-acelan.kao@canonical.com>
-From: AceLan Kao <acelan.kao@canonical.com>
-Date: Mon, 13 Apr 2026 16:10:54 +0800
-X-Gm-Features: AQROBzAUM-FyVmyBMIfewJCZMi_4s_1U1SPVgwvrtxpwOIQt1R-Yr616qRFplZw
-Message-ID: <CAMz9Wg_i5Sgewa2N7jfEoNJrp5jMp+O5m+kM=VN9rWKcGLzQXA@mail.gmail.com>
-Subject: Re: [PATCH] dma-buf: set SB_I_NOEXEC and SB_I_NODEV on dmabuf
- filesystem
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <177606746458.3646103.10857321599497945761@mxe9fb.netcup.net>
+X-NC-CID: 4LEqszUZCXp1/3/lQIU2u0ALE/PuW1n9UBMUxH7jr5Qt49yOD0Y=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,58 +83,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Chia-Lin Kao (AceLan) <acelan.kao@canonical.com> =E6=96=BC 2026=E5=B9=B41=
-=E6=9C=8814=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=889:19=E5=AF=AB=E9=
-=81=93=EF=BC=9A
->
-> The VFS now warns if an inode flagged with S_ANON_INODE is located on a
-> filesystem that does not have SB_I_NOEXEC set. dmabuf inodes are
-> created using alloc_anon_inode(), which sets S_ANON_INODE.
->
-> This triggers a warning in path_noexec() when a dmabuf is mmapped, for
-> example by GStreamer's v4l2src element.
->
-> [   60.061328] WARNING: CPU: 2 PID: 2803 at fs/exec.c:125 path_noexec+0xa=
-0/0xd0
-> ...
-> [   60.061637]  do_mmap+0x2b5/0x680
->
-> The warning was introduced by commit 1e7ab6f67824 ("anon_inode: rework
-> assertions") which added enforcement that anonymous inodes must be on
-> filesystems with SB_I_NOEXEC set.
->
-> Fix this by setting SB_I_NOEXEC and SB_I_NODEV on the dmabuf filesystem
-> context, following the same pattern as commit ce7419b6cf23d ("anon_inode:
-> raise SB_I_NODEV and SB_I_NOEXEC") and commit 98f99394a104c ("secretmem:
-> use SB_I_NOEXEC").
->
-> Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
-> ---
->  drivers/dma-buf/dma-buf.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index a4d8f2ff94e46..dea79aaab10ce 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -221,6 +221,8 @@ static int dma_buf_fs_init_context(struct fs_context =
-*fc)
->         if (!ctx)
->                 return -ENOMEM;
->         ctx->dops =3D &dma_buf_dentry_ops;
-> +       fc->s_iflags |=3D SB_I_NOEXEC;
-> +       fc->s_iflags |=3D SB_I_NODEV;
->         return 0;
->  }
->
-> --
-> 2.51.0
->
-Hi all,
+From: Maarten Lankhorst <dev@lankhorst.se>
 
-Please help to review this patch.
-It does the same thing as
-   ce7419b6cf23d ("anon_inode: raise SB_I_NODEV and SB_I_NOEXEC")
-and
-   98f99394a104c ("secretmem: use SB_I_NOEXEC")
-Thanks.
+commit 45ebe43ea00d6b9f5b3e0db9c35b8ca2a96b7e70 upstream.
+
+This reverts commit 6bee098b91417654703e17eb5c1822c6dfd0c01d.
+
+Den 2026-03-25 kl. 22:11, skrev Simona Vetter:
+> On Wed, Mar 25, 2026 at 10:26:40AM -0700, Guenter Roeck wrote:
+>> Hi,
+>>
+>> On Fri, Mar 13, 2026 at 04:17:27PM +0100, Maarten Lankhorst wrote:
+>>> When trying to do a rather aggressive test of igt's "xe_module_load
+>>> --r reload" with a full desktop environment and game running I noticed
+>>> a few OOPSes when dereferencing freed pointers, related to
+>>> framebuffers and property blobs after the compositor exits.
+>>>
+>>> Solve this by guarding the freeing in drm_file with drm_dev_enter/exit,
+>>> and immediately put the references from struct drm_file objects during
+>>> drm_dev_unplug().
+>>>
+>>
+>> With this patch in v6.18.20, I get the warning backtraces below.
+>> The backtraces are gone with the patch reverted.
+>
+> Yeah, this needs to be reverted, reasoning below. Maarten, can you please
+> take care of that and feed the revert through the usual channels? I don't
+> think it's critical enough that we need to fast-track this into drm.git
+> directly.
+>
+> Quoting the patch here again:
+>
+>>  drivers/gpu/drm/drm_file.c| 5 ++++-
+>>  drivers/gpu/drm/drm_mode_config.c | 9 ++++++---
+>>  2 files changed, 10 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>> index ec820686b3021..f52141f842a1f 100644
+>> --- a/drivers/gpu/drm/drm_file.c
+>> +++ b/drivers/gpu/drm/drm_file.c
+>> @@ -233,6 +233,7 @@ static void drm_events_release(struct drm_file *file_priv)
+>>  void drm_file_free(struct drm_file *file)
+>>  {
+>>  struct drm_device *dev;
+>> +int idx;
+>>
+>>  if (!file)
+>>  return;
+>> @@ -249,9 +250,11 @@ void drm_file_free(struct drm_file *file)
+>>
+>>  drm_events_release(file);
+>>
+>> -if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+>> +if (drm_core_check_feature(dev, DRIVER_MODESET) &&
+>> +drm_dev_enter(dev, &idx)) {
+>
+> This is misplaced for two reasons:
+>
+> - Even if we'd want to guarantee that we hold a drm_dev_enter/exit
+>   reference during framebuffer teardown, we'd need to do this
+>   _consistently over all callsites. Not ad-hoc in just one place that a
+>   testcase hits. This also means kerneldoc updates of the relevant hooks
+>   and at least a bunch of acks from other driver people to document the
+>   consensus.
+>
+> - More importantly, this is driver responsibilities in general unless we
+>   have extremely good reasons to the contrary. Which means this must be
+>   placed in xe.
+>
+>>  drm_fb_release(file);
+>>  drm_property_destroy_user_blobs(dev, file);
+>> +drm_dev_exit(idx);
+>>  }
+>>
+>>  if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+>> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+>> index 84ae8a23a3678..e349418978f79 100644
+>> --- a/drivers/gpu/drm/drm_mode_config.c
+>> +++ b/drivers/gpu/drm/drm_mode_config.c
+>> @@ -583,10 +583,13 @@ void drm_mode_config_cleanup(struct drm_device *dev)
+>>   */
+>>  WARN_ON(!list_empty(&dev->mode_config.fb_list));
+>>  list_for_each_entry_safe(fb, fbt, &dev->mode_config.fb_list, head) {
+>> -struct drm_printer p = drm_dbg_printer(dev, DRM_UT_KMS, "[leaked fb]");
+>> +if (list_empty(&fb->filp_head) || drm_framebuffer_read_refcount(fb) > 1) {
+>> +struct drm_printer p = drm_dbg_printer(dev, DRM_UT_KMS, "[leaked fb]");
+>
+> This is also wrong:
+>
+> - Firstly, it's a completely independent bug, we do not smash two bugfixes
+>   into one patch.
+>
+> - Secondly, it's again a driver bug: drm_mode_cleanup must be called when
+>   the last drm_device reference disappears (hence the existence of
+>   drmm_mode_config_init), not when the driver gets unbound. The fact that
+>   this shows up in a callchain from a devres cleanup means the intel
+>   driver gets this wrong (like almost everyone else because historically
+>   we didn't know better).
+>
+>   If we don't follow this rule, then we get races with this code here
+>   running concurrently with drm_file fb cleanups, which just does not
+>   work. Review pointed that out, but then shrugged it off with a confused
+>   explanation:
+>
+>   https://lore.kernel.org/all/e61e64c796ccfb17ae673331a3df4b877bf42d82.camel@linux.intel.com/
+>
+>   Yes this also means a lot of the other drm_device teardown that drivers
+>   do happens way too early. There is a massive can of worms here of a
+>   magnitude that most likely is much, much bigger than what you can
+>   backport to stable kernels. Hotunplug is _hard_.
+
+Back to the drawing board, and fixing it in the intel display driver
+instead.
+
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Fixes: 6bee098b9141 ("drm: Fix use-after-free on framebuffers and property blobs when calling drm_dev_unplug")
+Reported-by: Guenter Roeck <linux@roeck-us.net>
+Tested-by: Guenter Roeck <linux@roeck-us.net>
+Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Link: https://patch.msgid.link/20260326082217.39941-2-dev@lankhorst.se
+[ Thorsten: adjust to the v6.6.y/v6.6.y backports of 6bee098b9141 ]
+Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
+---
+ drivers/gpu/drm/drm_file.c        | 5 +----
+ drivers/gpu/drm/drm_mode_config.c | 9 +++------
+ 2 files changed, 4 insertions(+), 10 deletions(-)
+
+diff --git drivers/gpu/drm/drm_file.c drivers/gpu/drm/drm_file.c
+index b5a5cede4d3d8b..b943221b238f87 100644
+--- drivers/gpu/drm/drm_file.c
++++ drivers/gpu/drm/drm_file.c
+@@ -243,7 +243,6 @@ static void drm_events_release(struct drm_file *file_priv)
+ void drm_file_free(struct drm_file *file)
+ {
+ 	struct drm_device *dev;
+-	int idx;
+ 
+ 	if (!file)
+ 		return;
+@@ -269,11 +268,9 @@ void drm_file_free(struct drm_file *file)
+ 
+ 	drm_events_release(file);
+ 
+-	if (drm_core_check_feature(dev, DRIVER_MODESET) &&
+-	    drm_dev_enter(dev, &idx)) {
++	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+ 		drm_fb_release(file);
+ 		drm_property_destroy_user_blobs(dev, file);
+-		drm_dev_exit(idx);
+ 	}
+ 
+ 	if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+diff --git drivers/gpu/drm/drm_mode_config.c drivers/gpu/drm/drm_mode_config.c
+index f09137046c2bdf..87eb591fe9b5b8 100644
+--- drivers/gpu/drm/drm_mode_config.c
++++ drivers/gpu/drm/drm_mode_config.c
+@@ -546,13 +546,10 @@ void drm_mode_config_cleanup(struct drm_device *dev)
+ 	 */
+ 	WARN_ON(!list_empty(&dev->mode_config.fb_list));
+ 	list_for_each_entry_safe(fb, fbt, &dev->mode_config.fb_list, head) {
+-		if (list_empty(&fb->filp_head) || drm_framebuffer_read_refcount(fb) > 1) {
+-			struct drm_printer p = drm_debug_printer("[leaked fb]");
++		struct drm_printer p = drm_debug_printer("[leaked fb]");
+ 
+-			drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
+-			drm_framebuffer_print_info(&p, 1, fb);
+-		}
+-		list_del_init(&fb->filp_head);
++		drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
++		drm_framebuffer_print_info(&p, 1, fb);
+ 		drm_framebuffer_free(&fb->base.refcount);
+ 	}
+ 
+
+base-commit: 8cee53b8eaeb5d1f7c97b7f2381653ed00ffc26b
+-- 
+2.53.0
+
