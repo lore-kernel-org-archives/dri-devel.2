@@ -4,117 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482A7E9380E
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 04:06:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A13B0E93817
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 05:33:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A18E10E06A;
-	Mon, 13 Apr 2026 04:06:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E307C10E2E6;
+	Mon, 13 Apr 2026 05:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="puRghlxr";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Imhnpx5H";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010067.outbound.protection.outlook.com
- [52.101.193.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38F9C10E06A;
- Mon, 13 Apr 2026 04:06:41 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012055.outbound.protection.outlook.com
+ [40.93.195.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABEC710E2E6;
+ Mon, 13 Apr 2026 05:33:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ek4QhPADZlHrvF1evmLxg891DmWEoF1yBK6WTV7iHyo7RArG28emDVSz1v/7lrq/RtoqG1FJjnTuP0eexydqIFExQ7AHCuWKo6VjyVGW4sMqKte1tYLUiwPu27LonK5nEAku9ClusWVMS8cC/fW9/m4WMQh/UwKpevnlZMi5SVQuVqjaf2zXxGB/IGe66lravR9EPsp/fVek0b0Ws9SkMVT6Sd7/ILXr4bsz88G099RtMDzopjfp1VjJ2xwJRYl9m1vR2NsDW99rLDVwCcnn82TW7gBzWwegplP/akBd6NurgxGPREo9pVoeJJzRl+FCWjA8Qndylc8ixUHW3NCkBg==
+ b=h3XWeZSjfBiblLm3gOqCmdAhrQcqEfk3iQXkZQzBxewHAjSp5R50lsNod3IdBAKiqMPdv9fLwqKRqwiZ9KHBrguhsKUJejzuEWJqPVx6+u/aHoNbkxkR5DKq3jJvGflBrAnXFHYGHL7ZjSWWfgF1ec61EnjXSUOIffVwlBt2cglli95M8brhJkzxvOrDkkYSf0piAAXYr4KN9SWiU8u+ilHOUC6kgpCtl/dO73FphCS6lmdaIwFZcSMz1mfzft+WkjbxRUeUEnbu9rWmP0A6weTHdvZszDB8MR6Bp0T4Wxlapz82pqs0Ip8sCzybqr44UVhMMQPGtuqs4lskVQQbtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IJIDPtvfNal+zRkdTb/po8DsleFJ0qvyBuO3zwp5r30=;
- b=PvZaJMFBvc0KM8QfhUGcv8bgoipV37LUvW9dRZyD18Z5h3BO3fSho7etb6D35TktrbpaOAVwqU09ijX3+FYYqtDa0OpEx6B5AUtTfaPYH2SSm9QLrdM++t9nTuPPLcAKnwELTlI6NTSIXDpjmLO9c9Sf7Tn8mxhZO4AOwnIwxHsYvH12O5DCrQpgVkrM5Pz7i+fCf8QA37heI/KSTfalHJFxFtjCNPrclrkfvqco/dzzuSLXPNDNFfdtGw2Bt5rhFRZrDXo4C63EPBSx2W47Zy92ne+YtfX95WePMD0saYJVNhEaTwFyE2c0F2QQYID6AQCr4o63B98/K94zyCq7ng==
+ bh=0ufeM67LjRdcteoiApXi2hnaCgJwv5c/e/jg11cMSN8=;
+ b=Nf454I1wAH8fC5OtPXlepG7DrmJ1Dbyb2n+iv0EtgvuOE8SSRhVF3ommxQk6vHWoWAL+MtikDUjaKlVESeoLzMZKm8EkyzGfd8wrBYuhP7mWlVEbiy/2Q7piJ3MaXLSHp2KHYbRLBdjyoH+shdzpg78NhOcrlZPgVGoRoPX8MgqoYMV9bh2DtqqgLWzp+0qaQ9MRPflr+ZigKiml/1RJGxSSLUS5kBTRmZI5GWrLBHBfHWyptrZNfTPb9tH62QdtUAP5RUmey4SPewIbFKOJ9AWBjCLkOD3hjfyiUXKQ86N+S6llld6/jwByoHj+5PYjzh4JQkMSmlu8SOj2QyFcxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IJIDPtvfNal+zRkdTb/po8DsleFJ0qvyBuO3zwp5r30=;
- b=puRghlxr/9tnp6NLrWzrcrzj447yO2CtE9x1TmAF1k9xPElNb5Oth7xqjGu8WPV5qqjvFBMuGotbBixusTMUxe4FxNwsoi6c+6qplrsoIr3lt0F8245scTcJgY8Miteh5JxnySLQQAPU0mEO6W5ebZjDzJVR62Lpn0QizUgjof3RoEN9qmUIPnUe9luTrz8KpjejaLf16HEufUREGdeeoGwdEiDGOOsuwy0+ckCNPlHrN2/mAJmSuK6YTjS67jJpX5tBItQ3Mh2JssAf2+aXNCArf/6vo7hmwuyDpnY8nigkwSexvGetG8s6WcwvOiwUrMdlDiLqn7upHVRFDTECNw==
+ bh=0ufeM67LjRdcteoiApXi2hnaCgJwv5c/e/jg11cMSN8=;
+ b=Imhnpx5HNVJcbHQ8Id5hD2xroXK3L4AcbODsgwZ2o2yMbfnfoNVB2vIprvnK3qpOjpo4OaXiRYJ3r71vuw7XNa304iWP48O2ZE4KTqBh5HjNpKjSsBC+OWnJfyVOwkJ5SgFWpIhEpJeBqzEWJtPVqFZtyj7De34dgvPFWuhh3c1/hls43rEFk7yQTHi86J6iqPgTHnUR4T4Lmg44AFStTG/SHpGOyxnKsypKgmTtRZJmdWKJYfb0/X6m4Dro2j3uQWdzT1DWZ1jxhiYz0P9wPpPNJB6bXf0XqorZKy2yb75jvtZm3bMwqzwowaEVntosdC/gA0W3Bjezl0OgDpLj/g==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- PH7PR12MB5620.namprd12.prod.outlook.com (2603:10b6:510:137::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9818.20; Mon, 13 Apr 2026 04:06:36 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
- 04:06:35 +0000
-Date: Mon, 13 Apr 2026 14:06:29 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
- Andrew Morton <akpm@linux-foundation.org>, Balbir Singh <balbirs@nvidia.com>,
- linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/zone_device: Do not touch device folio after calling
- ->folio_free()
-Message-ID: <adxnwZMn-BHD5bAA@nvdebian.thelocal>
-References: <20260410230346.4009855-1-matthew.brost@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260410230346.4009855-1-matthew.brost@intel.com>
-X-ClientProxiedBy: SY6PR01CA0030.ausprd01.prod.outlook.com
- (2603:10c6:10:eb::17) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by SA5PPF5EA4322E1.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8cc) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Mon, 13 Apr
+ 2026 05:33:08 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9818.017; Mon, 13 Apr 2026
+ 05:33:08 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 13 Apr 2026 14:33:04 +0900
+Message-Id: <DHRS5I7ZTI01.27WY0OTHA7ZMQ@nvidia.com>
+Cc: "Alan Stern" <stern@rowland.harvard.edu>, "Andrea Parri"
+ <parri.andrea@gmail.com>, "Will Deacon" <will@kernel.org>, "Peter Zijlstra"
+ <peterz@infradead.org>, "Nicholas Piggin" <npiggin@gmail.com>, "David
+ Howells" <dhowells@redhat.com>, "Jade Alglave" <j.alglave@ucl.ac.uk>, "Luc
+ Maranget" <luc.maranget@inria.fr>, "Paul E. McKenney" <paulmck@kernel.org>,
+ "Akira Yokosawa" <akiyks@gmail.com>, "Daniel Lustig" <dlustig@nvidia.com>,
+ "Joel Fernandes" <joelagnelf@nvidia.com>, <rust-for-linux@vger.kernel.org>,
+ <nouveau@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-arch@vger.kernel.org>, <lkmm@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH 3/3] gpu: nova-core: fix wrong use of barriers in GSP code
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260402152443.1059634-2-gary@kernel.org>
+ <20260402152443.1059634-5-gary@kernel.org>
+In-Reply-To: <20260402152443.1059634-5-gary@kernel.org>
+X-ClientProxiedBy: TYCPR01CA0096.jpnprd01.prod.outlook.com
+ (2603:1096:405:3::36) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|PH7PR12MB5620:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7dd28a6-1939-4ec0-dd1e-08de99120dc4
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|SA5PPF5EA4322E1:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3ed4a32a-1c40-41c1-d0c2-08de991e250b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: cFgSRt9d+Q5asGXoBZI/yweHOzf+lRTJdiSTVjYx1LJpmjcMOpnEL6LkjB3iLafzdxL6UMqLr3XUObQwlAZ5EwSgNGo191kEr6+f6hdRYcTPJ3iTOFNubFmYLZYhlLUpykbCVbDm3U8Y38CJfnz3nVvhcashcQ9dAJkYXtBm2x8ucRu3HXh5lmB9h1U8eY7mi0eN8vtpqivsBDeE8gcQVFWLJHGBUcKb3t7XU20i1VS4ZjUwDNPsNf48YcwwGmC7L3MHqBvbiYlSujTxny80qHc03LYpXXqx3D2dqFaSKAsqKZFBjLmlAs4gpvS3e1lCNWWgZSuBi7gmc9jdFuu7OBxDKho2FJfekC9QwG129uArXvBwEpQsTNxC4d62cV5/73lj42pT3AVikexvNyVcQUy4guEgSw4c2EMd3IJwoXlGE7JwEfRenKM2Tp4daDEJs6+GjBbDM88L9TqH5NG5nak2+CvFR/2/Pm0FMSumK95rX7AQj6a04hi7HPBIhz7QQ1I0uKjbSs2oz+KtlUHg/llnHNPw1PnB1br1p5xVMGH6GOg6uxfmCGAx/eKkK8kAoVBroPUxyWBxa/ElZjaXjvp6oWSBZNmgfyZ52krtQbTI1tkYxEvEt84a7NjWELyFZRcX8uhhQousFwBORY/XgtO/HuR4QtXG7LqSEAGVYST9AW86PZ2+ql/cYiyMENXTmOGz76NVH9O7eCn2DU/xnede3xpOsBaAjGLbeKAtBzo=
+ ARA:13230040|10070799003|366016|1800799024|7416014|376014|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: vHvcTVRW5jzM84i9IPMm0DIIg5ePHfJTxxxj83oXFxTe/VX9DtGwJt3fPCNehtB8w4j3MsJ/+jqxDvVj5zq/rW2/rRJwlljh65kGXbQtGAvDNda0Ok2v+IPMKABnAcX+2j1NbcjQZQzSMbN3kyUo6f+Qs+HTBPedPd0cB13zC8BNjt0J6ylrgcmoFerpb8Ltq+NLiGy/RN1GSxCb4f/Kr2F7QKc/9lHlSyewhHsNhpNRStUGHhI3k698I88QRnKj44vGQAWIlt45bh7AklyNRAGFSQ+VnThN8Q8hzSP8dfdCICZQJ+ir5eRBHhmSvjWFNYkaQRCay6Ml3qE13RJhLzcx78Vq/mcJdI8PQOh7nTj13TYna8jRSDYceKhZcLSMiN1kDwLaGDeT8Rnw651bU2pH+x6BpZ7jNul7hSFIR67zYJ8eWNmKlWGZ4/JLiFI/c0GApUVbnXMI5IkODGcIkWHYRHF9a2IN3z0izGR2yrxxItqRwTnUiMpFRpVBOfVeGjd2HpjlFpY+Q5Cilv0lPZgVF4lX2Uh5gdpw6E8awJcDg+86VzCptk57JatlvhwQDlEvhgvsgAWj85iE9ImQdz4GgTrT45Xt5zvHAIZWTBwaTlwBQa+WZ9xs5jQ8bp3Y4uTT3DaPVWfLcF4DQzM7Den00ZhgegMU1swU7CGyOpJ6nz6luZXMkuI5EFxQey8BtaqKCVWsrz96ycrdbq5X5QxWIUCtAoQa76Z3PBcc7Mm86yO07CXP9Lwnv8oa3WY+Ca34nsOhLu95qR2p3WqOGw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(1800799024)(7416014)(376014)(921020)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+Aa5dTfGkwJoGzwjPY1cxkh14HEOlZl7/XliOgxKsqSfUxXbuSSXJdRp4MO0?=
- =?us-ascii?Q?KJG/TmuvoGBnt+285GYsLzX0cNt7zqnfpb5/8shnHEM6X2rzDd4NYu/ANOHq?=
- =?us-ascii?Q?D2F+cfjwiYz0ORS9KU3Je2osuAhZtXrDLr2rWYwYomV9d8/hSmogWWjJzUDV?=
- =?us-ascii?Q?IXsOLvQnvugQz3Z8MfXrq1tsX00Zog+iOjtWFK5qYcgDjqAzkGMztZDiw74z?=
- =?us-ascii?Q?FTFiOSahUxFhJaQOeaS2vY5xwyoUMX0GLohltsuYXofXrjYGx+ZzBPzYQvpx?=
- =?us-ascii?Q?1OEXgsY9FydiFsDRZ7I7OhMC1zIrdBr5Q7FUB7vAHC8zk+14KZZXPy+uZMHu?=
- =?us-ascii?Q?saRQFUoPybh5MVzS7ANGCpGlHWANHLtq9kOQPY+l2psDfchjo1DhWaSAsjCM?=
- =?us-ascii?Q?Ygh3qWZvg6bjAibh+eG4SdzapuffPOR38salbI98W3eAefz5qe9cV9YIBvWA?=
- =?us-ascii?Q?w0/MgJTuG8DqtzPYUKKdxBzCMzVbF8t/sIbBb3/p0vbUjbplWb+IjaKvmZdH?=
- =?us-ascii?Q?Bcefsrth++XCdh2/UuoezXj+2GCt8W9eUS6UG3MFrSa6hz/eGiS6cGEnvQfv?=
- =?us-ascii?Q?gFFkAwrRm2syovgVf9uzQNGzDDL6mVaLpgSAVK+49gkYHr8LIl/HgwpO8uVg?=
- =?us-ascii?Q?NSUvHC50FrnQpGKmGEUq+/kR2Rm+4xWI6sazUAniHoqG7n0zkAopVj99QcbG?=
- =?us-ascii?Q?ND/LfWavQc7kc/Uh7xLRDKEhHhCsGSL26R9OhEhnRnNeyyLuGjDzVtEY6fFc?=
- =?us-ascii?Q?Th4lpt98JPf4LE8YBUCDbY4lN+evL5kOBBIrX8vme6kRLBF1CGX26fEcn7gT?=
- =?us-ascii?Q?B4ETBed1p1BK71mdJ2LrazfIofuStXtMf7hRkOA4HSMnZh1tcXjHD1++D/cF?=
- =?us-ascii?Q?vNAcGqh/ADwaQjoMrsoQR40j7wgVCDUdBigZQEe3vo0QCVnbCXrULm3Wumr9?=
- =?us-ascii?Q?vtMfXx6TdwLOLJpGeQEWJMwPmNSHCmjnsTVg9W+CH9b5pWfhXPUGlgEw4dSJ?=
- =?us-ascii?Q?mt6FXRsDxOJY9/TN13pyytAVha4eXki1qUvsYmnjUdnnKt0QANtX08ogfvaw?=
- =?us-ascii?Q?+1hf/63g8YQTEVbVI8CMpOPZEnVbl9APdA6tOWSzd9QCmIsrBdt8RwE7X8X0?=
- =?us-ascii?Q?uizUmrmUnrNIRs8Tj/lOCihcwzGzdPB9CK5VcV13bU9uzdtrFfkC/GAOqESK?=
- =?us-ascii?Q?iswBTuWxDX7EhRPum918WcIngsykLi3MaSNQ4PNs2Ivcjvd1oALzT/0O5WlM?=
- =?us-ascii?Q?3R4IEJEsj9UfqTmzU/Ldsm5hLBGfVTOosxhWP2428Mrv4rA0Ag2uOWCZIjs9?=
- =?us-ascii?Q?BWXlxULmmLyd2l50K8nlS5lvt+822dhOo+xKH1rgmPztRa29r9Zt3Ado5Gz3?=
- =?us-ascii?Q?b6z7gwpWeqHTIrNpn6HmeBUjZsgcF8bru2oQiIaBTa7OuSPAaic/17AIs/rz?=
- =?us-ascii?Q?yvWP+g4nOwkLWJbTalHvay03SCoDWPAXbaldASZXJYnuRmYZg/elHEGnLRrg?=
- =?us-ascii?Q?Mmb19T0nLuVaZ0+J3cNXeOC10kFLfCXzLQGBkfyPJhxUJsKrjBnEQEo6Nwyf?=
- =?us-ascii?Q?hBr7TzoK4W9wqAsCgJIU/7SM0zNnbxKqCAHDZBsdp3lazIGjNP833zkizHcD?=
- =?us-ascii?Q?MBgCQFEmjzUVrKZArAZt2B1YoDfK3URj3eNL5c5h1f8A4atO2CvDSgFfe7hj?=
- =?us-ascii?Q?DMcB76YxBbMJVwdTVkQpU/aNPLYqRtih2sgcgWIQuv2pHjIjSqHF/5fQlj54?=
- =?us-ascii?Q?h/JkXa18KA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MU55dzZwcC9RVDIyclE3dWtMeWVpaHpaOFA0eHhPcmZrL245cU41cjJSNEZZ?=
+ =?utf-8?B?YVQ1K2Q3RGh1aTJCWGljWU94V0lqMldFM0g5RTQ0L3NBZUhWUGYxakpRVVVv?=
+ =?utf-8?B?NGlhSDBlKzAzQzlnRHV2WHRGeCtEQWJ3TVBuZFcwS1d6RjZtVzdVbnNabUZW?=
+ =?utf-8?B?U0JXSXBidmhSaUZhMWZRNnRreDl2TmpSU3ZLK2EwUUNBY1N4eE1MRnZtZWVU?=
+ =?utf-8?B?aW1BVzFjS2t2S2IrNHlnajEyTHdrNE5zbUpQNHVkUzVETUdOYk5saGFjZXA5?=
+ =?utf-8?B?bkFGQWZCTUp3OTdVZEZ3ZHl0NTVxeTNkVVJCTGdzUU9QNGcrL2tHWVMvRnNH?=
+ =?utf-8?B?dExYTXlFNWU0SUcwMlZZc1RmeWtycFI2ZkMrQkJERGhhZm05dVlrNVYxRjcx?=
+ =?utf-8?B?eEhIUnN1VFd0bzdZSTJadVNEcklsSjZXdlVoSDVibFhtUzlnSVVLZVVRSC95?=
+ =?utf-8?B?ekt3NlpWVU0rTVduR0RqUTg5cmtjNHp2dmVVeVF0OXdJdm1sVzNQSEUvVjY1?=
+ =?utf-8?B?Z1BIYjJVWEhnT3JvdEVEelNsUEpHRkJqbjhTaFBhb1ZUTWR4MWFTeG1wUVpC?=
+ =?utf-8?B?S040bWpuUnJVT0hYRGpzSkwxRS9tNU96Q2lvMkFxZjd5TmdYTnhjV1RhWlpW?=
+ =?utf-8?B?VzhvWUtIVk1Sa2JBN2FwdE1yV0w2YkpXRUYvNXZQczdTY1hoa2l4c3NZZUhn?=
+ =?utf-8?B?M1FBZFRKL3pTcGJQVk1RSnp0eDFlU2ZRd3V1RDFmY01vUEw3Q1B3WmtBNWFq?=
+ =?utf-8?B?S3ZxenNVclluU0ZCaXFKcXIwS1RvejdScEQ2OXg1ZWx1RTVEd0JBbnBRY1V0?=
+ =?utf-8?B?OUJjTlZEVUxNWitDWTJIMUNUYVZia2ZzUml2d3B5Wi9oN0ZtRDFhNGJBWlZw?=
+ =?utf-8?B?VzU1S1FXTEdNODZNcmlKR1NaYktXbVAxaEdqVkhFdmc3NzM0MlZFcVRQaEFW?=
+ =?utf-8?B?ajN5Yllkb3U0QXNpZUIzRjY0YzAwU1ZLeFVuLy9uWjRxdW1yMFZ6WjV2bUJG?=
+ =?utf-8?B?THV3Z05ISTU0U2ZYSm40VDlVd0dpS3Zyb2dEMk5mS1E1bWtTZkhsUHBXd2lG?=
+ =?utf-8?B?RmNHNnlVRytNa0NSVXYyem9Vb3VXMXhpY2w1NjhJd29mV2ZFbHZ0N2hOREFQ?=
+ =?utf-8?B?WXpmaC9PNCtVS0ZEMDcvMmQ0K0FlbC81T2U5TlJPL2JoU2NoQ1FtajByQlkv?=
+ =?utf-8?B?eE16Z1M1eEdOSllBY2pyWHdjeFhoSGZGRElUblk5Ri9RMGtWUWRzZGs3RWN2?=
+ =?utf-8?B?dWdlOWlveVBNdHQ5Ukt6ZHZzM3BzZlJQYVZKT24xeUZUR29yTC9IYXF5Ump5?=
+ =?utf-8?B?MmZ2WW1WU1lCbnI5WENYdklQRDI1ZUJ4TlF0Vm84cFQ0V3N5T24zYTdsZlgv?=
+ =?utf-8?B?aWRhT1dkbGdZR25JSkZ0VUZYT1dBQlZuZXJhalZOTkM4SVBrOERacU9QQ0xr?=
+ =?utf-8?B?Sm14TXl2bXlwbWtxbnU2R0VvU2FLaWg5LyswdVFGTDU0cCtKbDNPQ3BocTE5?=
+ =?utf-8?B?cHdlczhQR2M3Ti9WRFlkWm1ZdWtvNE0xUWlNMzcrdkxYamUvNWNFVTJXZmw3?=
+ =?utf-8?B?NFpHZTlTcm8xczY2N2k1V3UzWFNzZCtjdmI0UHJhbGRCZEpQbnRLaDFibmQy?=
+ =?utf-8?B?ZEZHNTg5YXJHNkRaNUFpemFicWRNdGhTWHJxS0xRcDNJcVY5dm40a0pwbkxF?=
+ =?utf-8?B?eUFyZDY2NzdVWXNhNVJBcC9JaDBlaEpkbGNETXY1TTVXMjNxSUViUlBLcElC?=
+ =?utf-8?B?WlU4YzZpNDJKVzBscG1RVzc0bjdhaWpjNTcrQ09tK25ibFFTdUVGQS93Ukt4?=
+ =?utf-8?B?ZWdLVFhBU1IvS0ZoVWVLMGZFOGVxUjlwMkduclNJNWQxRFZSeDZOS2tQWU1t?=
+ =?utf-8?B?QnZGUnFQNlk4d1B4SHF0NlluU1lyV1AxK055ZGg4K29kSnpOcXRXT0hFNTdh?=
+ =?utf-8?B?L1lFc1pQdThpa0puakMwck54R0lxdXh0SjdWQ3EzdEYxZ1hISitnNkVGR0Ry?=
+ =?utf-8?B?SzBZMGtqR1pjL3MxcVl1WXpNWjFBWEhXMUoyMkpiSlA3eHZ6UnhSWTF3TVN4?=
+ =?utf-8?B?VktOdGFrNTg4eUtHRTJlcjU4ZXJJeDlkYmJCanlFVTNoMTN1WGl0WWtlTW1H?=
+ =?utf-8?B?L2tuMkp2a2pVRldZdkFKLzF1Y0pWdFpjVEhDNXZYU3BBOUtRaEVieURBalk2?=
+ =?utf-8?B?RTgvckhrOE1kYms5UU9Ga3REQmZXanB1VDVnT0I2azhZOWpadDFsV2pSR3FO?=
+ =?utf-8?B?ZHdLOFIxMStxa2F6bGc5clBjU0phU0M4RnBISXIrVnJvVTYwMTBkakxzT2VF?=
+ =?utf-8?B?OTVMVmZCMEpjTHpXdGk2WGs2dWx0cmpieHd5cktLQm1wSTNxcW02RDFTL0JZ?=
+ =?utf-8?Q?ni10SaNK2/FmBwIaE4RGgPfUOWDsaMV+ytEHaGLxE/6LK?=
+X-MS-Exchange-AntiSpam-MessageData-1: CzuWpURCUK0+eg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7dd28a6-1939-4ec0-dd1e-08de99120dc4
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ed4a32a-1c40-41c1-d0c2-08de991e250b
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 04:06:35.7522 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 05:33:08.6693 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fuuNS+stkb9e8jh/S8zW8t5x7MScyc7Zdnd6nOgjCSJU0xtbbgsi28TZoVE7lfrwpH6/Pma0N/uNRbb1bUIxfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5620
+X-MS-Exchange-CrossTenant-UserPrincipalName: y+F3EDO7RGhGMEa1op4j8PKl9MsesZac/8K13v1XdR38fxqOYVJ0rJ27G0G0CTnvVh4LAHOc+7AkisUlJClUSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF5EA4322E1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,87 +153,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-04-11 at 09:03 +1000, Matthew Brost <matthew.brost@intel.com> wrote...
-> The contents of a device folio can immediately change after calling
-> ->folio_free(), as the folio may be reallocated by a driver with a
-> different order. Instead of touching the folio again to extract the
-> pgmap, use the local stack variable when calling percpu_ref_put_many().
-> 
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Oscar Salvador <osalvador@suse.de>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Balbir Singh <balbirs@nvidia.com>
-> Cc: linux-mm@kvack.org
-> Cc: linux-cxl@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Fixes: d245f9b4ab80 ("mm/zone_device: support large zone device private folios")
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> 
-> ---
-> Stack trace:
-> 
-> [  631.875165] [IGT] xe_exec_system_allocator: starting subtest threads-many-new-prefetch
-> [  632.282992] Oops: general protection fault, probably for non-canonical address 0x900000000000000: 0000 [#1] SMP NOPTI
-> [  632.293469] CPU: 8 UID: 0 PID: 59267 Comm: xe_exec_system_ Not tainted 7.0.0-rc7-xe+ #281 PREEMPT(full)
-> [  632.316023] RIP: 0010:free_zone_device_folio+0x149/0x240
-> [  632.339782] RSP: 0000:ffffc90023d1fd00 EFLAGS: 00010206
-> [  632.344947] RAX: 0900000000000000 RBX: 0000000000000001 RCX: 0000000094472d4d
-> [  632.351991] RDX: ffffffff8155c76f RSI: 000000006f2213bf RDI: 000000008e84943a
-> [  632.359042] RBP: ffffea0ff4030001 R08: 0000000000000000 R09: 0000000000000001
-> [  632.366094] R10: 0000000000000028 R11: 0000000000000000 R12: ffff88811828e400
-> [  632.373145] R13: 0000000000000000 R14: 000fffffc0000000 R15: 0000000000100073
-> [  632.380194] FS:  00007f2f0fdfe6c0(0000) GS:ffff88890a7e7000(0000) knlGS:0000000000000000
-> [  632.388186] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  632.393870] CR2: 00007f2f002e90f8 CR3: 0000000106708002 CR4: 0000000000f70ef0
-> [  632.400919] PKRU: 55555554
-> [  632.403605] Call Trace:
-> [  632.406039]  <TASK>
-> [  632.408131]  do_swap_page+0x146d/0x18c0
-> [  632.411938]  ? __pte_offset_map+0x3e/0x190
-> [  632.415994]  __handle_mm_fault+0x6e8/0x8d0
-> [  632.420053]  handle_mm_fault+0xbf/0x250
-> [  632.423855]  ? lock_mm_and_find_vma+0x41/0x6f0
-> [  632.428256]  do_user_addr_fault+0x168/0x690
-> [  632.432399]  exc_page_fault+0x74/0x200
-> [  632.436117]  asm_exc_page_fault+0x26/0x30
-> [  632.440092] RIP: 0033:0x5587554ff70d
-> [  632.462142] RSP: 002b:00007f2f0fdfc970 EFLAGS: 00010246
-> [  632.467308] RAX: 0000000000003fc0 RBX: 00007f2f082e1fc0 RCX: 00007f2f12b3287d
-> [  632.474355] RDX: 0000000000000000 RSI: 00000000c048644a RDI: 0000000000000003
-> [  632.481404] RBP: 00007f2f082e1fc0 R08: 00007f2f0fdfc958 R09: 0000000000000066
-> [  632.488450] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
-> [  632.495495] R13: 00007f2f082de000 R14: 0000000000c00002 R15: 00007f2f1319e000
-> [  632.502547]  </TASK>
+On Fri Apr 3, 2026 at 12:24 AM JST, Gary Guo wrote:
+> From: Gary Guo <gary@garyguo.net>
+>
+> Currently, in the GSP->CPU messaging path, the current code misses a read
+> barrier before data read. The barrier after read is updated to a DMA
+> barrier (with release ordering desired), instead of the existing (Rust)
+> SeqCst SMP barrier; the location of barrier is also moved to the beginnin=
+g
+> of function, because the barrier is needed to synchronizing between data
+> and ring-buffer pointer, the RMW operation does not internally need a
+> barrier (nor it has to be atomic, as CPU pointers are updated by CPU only=
+).
+>
+> In the CPU->GSP messaging path, the current code misses a write barrier
+> after data write and before updating the CPU write pointer. Barrier is no=
+t
+> needed before data write due to control dependency, this fact is document=
+ed
+> explicitly. This could be replaced with an acquire barrier if needed.
+>
+> Signed-off-by: Gary Guo <gary@garyguo.net>
 
-I'm not sure, but I think Andrew likes the stack traces included in the actual
-commit messages. I've certainly found it helpful when debugging traces reported
-from the field so would prefer it there.
+nit: should this have
+Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings a=
+nd handling")
+
+?
 
 > ---
->  mm/memremap.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/memremap.c b/mm/memremap.c
-> index ac7be07e3361..053842d45cb1 100644
-> --- a/mm/memremap.c
-> +++ b/mm/memremap.c
-> @@ -454,7 +454,7 @@ void free_zone_device_folio(struct folio *folio)
->  		if (WARN_ON_ONCE(!pgmap->ops || !pgmap->ops->folio_free))
->  			break;
->  		pgmap->ops->folio_free(folio);
-> -		percpu_ref_put_many(&folio->pgmap->ref, nr);
-> +		percpu_ref_put_many(&pgmap->ref, nr);
+>  drivers/gpu/nova-core/gsp/cmdq.rs | 19 +++++++++++++++++++
+>  drivers/gpu/nova-core/gsp/fw.rs   | 12 ------------
+>  2 files changed, 19 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gs=
+p/cmdq.rs
+> index 2224896ccc89..7e4315b13984 100644
+> --- a/drivers/gpu/nova-core/gsp/cmdq.rs
+> +++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+> @@ -19,6 +19,12 @@
+>      prelude::*,
+>      sync::{
+>          aref::ARef,
+> +        barrier::{
+> +            dma_mb,
+> +            Read,
+> +            Release,
+> +            Write, //
+> +        },
+>          Mutex, //
+>      },
+>      time::Delta,
+> @@ -258,6 +264,9 @@ fn new(dev: &device::Device<device::Bound>) -> Result=
+<Self> {
+>          let tx =3D self.cpu_write_ptr() as usize;
+>          let rx =3D self.gsp_read_ptr() as usize;
+> =20
+> +        // ORDERING: control dependency provides necessary LOAD->STORE o=
+rdering.
+> +        // `dma_mb(Acquire)` may be used here if we don't want to rely o=
+n control dependency.
+> +
+>          // SAFETY:
+>          // - We will only access the driver-owned part of the shared mem=
+ory.
+>          // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> @@ -311,6 +320,9 @@ fn driver_write_area_size(&self) -> usize {
+>          let tx =3D self.gsp_write_ptr() as usize;
+>          let rx =3D self.cpu_read_ptr() as usize;
+> =20
+> +        // ORDERING: Ensure data load is ordered after load of GSP write=
+ pointer.
+> +        dma_mb(Read);
+> +
+>          // SAFETY:
+>          // - We will only access the driver-owned part of the shared mem=
+ory.
+>          // - Per the safety statement of the function, no concurrent acc=
+ess will be performed.
+> @@ -408,6 +420,10 @@ fn cpu_read_ptr(&self) -> u32 {
+> =20
+>      // Informs the GSP that it can send `elem_count` new pages into the =
+message queue.
+>      fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
+> +        // ORDERING: Ensure read pointer is properly ordered.
 
-It's a pity this was open-coded rather than implementing put_dev_pagemap_many()
-which makes it clearer what this is doing, but that's unrelated to this issue
-and on me for not catching it when reviewing. So for this fix:
+What about a more specific comment that describes exactly what is
+ordered, e.g. something like:
+Ensure all reads of message data by the CPU have completed before writing
+the updated read pointer to the GSP, since it may overwrite that data.
 
-Reviewed-by: Alistair Popple <apopple@nvidia.com>
+Maybe this is just me but it's a lot easier for me to think of the
+orderings as a pair of (load? store? -> load? store?) which works for
+everything hw actually supports except for ll+ls+ss, rather than mapping
+'Release' to (load+store -> store) in my head. e.g. here IIUC we need to
+make sure all loads by the CPU are done before we do the store for the
+pointer, so we need to make sure loads don't cross ahead of this
+barrier but also that stores don't cross behind it, so (load -> store)
+should be sufficient? So, depending on what you want to do with the
+memory model, this could be tightened IMO. Unlike the one below that
+only needs to order stores with eachother (ss).
 
->  		break;
->  
->  	case MEMORY_DEVICE_GENERIC:
-> -- 
-> 2.34.1
-> 
-> 
+> +        //
+
+nit: stray //
+
+> +        dma_mb(Release);
+> +
+>          super::fw::gsp_mem::advance_cpu_read_ptr(&self.0, elem_count)
+>      }
+> =20
+> @@ -422,6 +438,9 @@ fn cpu_write_ptr(&self) -> u32 {
+> =20
+>      // Informs the GSP that it can process `elem_count` new pages from t=
+he command queue.
+>      fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
+> +        // ORDERING: Ensure all command data is visible before updateing=
+ ring buffer pointer.
+> +        dma_mb(Write);
+> +
+>          super::fw::gsp_mem::advance_cpu_write_ptr(&self.0, elem_count)
+>      }
+>  }
+> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/=
+fw.rs
+> index 0c8a74f0e8ac..62c2cf1b030c 100644
+> --- a/drivers/gpu/nova-core/gsp/fw.rs
+> +++ b/drivers/gpu/nova-core/gsp/fw.rs
+> @@ -42,11 +42,6 @@
+> =20
+>  // TODO: Replace with `IoView` projections once available.
+>  pub(super) mod gsp_mem {
+> -    use core::sync::atomic::{
+> -        fence,
+> -        Ordering, //
+> -    };
+> -
+>      use kernel::{
+>          dma::Coherent,
+>          dma_read,
+> @@ -72,10 +67,6 @@ pub(in crate::gsp) fn cpu_read_ptr(qs: &Coherent<GspMe=
+m>) -> u32 {
+> =20
+>      pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &Coherent<GspMem>, co=
+unt: u32) {
+>          let rptr =3D cpu_read_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAG=
+ES;
+> -
+> -        // Ensure read pointer is properly ordered.
+> -        fence(Ordering::SeqCst);
+> -
+>          dma_write!(qs, .cpuq.rx.0.readPtr, rptr);
+>      }
+> =20
+> @@ -87,9 +78,6 @@ pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Cohere=
+nt<GspMem>, count: u32) {
+>          let wptr =3D cpu_write_ptr(qs).wrapping_add(count) % MSGQ_NUM_PA=
+GES;
+> =20
+>          dma_write!(qs, .cpuq.tx.0.writePtr, wptr);
+> -
+> -        // Ensure all command data is visible before triggering the GSP =
+read.
+> -        fence(Ordering::SeqCst);
+>      }
+>  }
+> =20
+
