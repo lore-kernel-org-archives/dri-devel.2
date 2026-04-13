@@ -4,78 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A5C7F34C56
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 14:16:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21E29F34C5F
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 14:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F72310E4A2;
-	Mon, 13 Apr 2026 14:16:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FBD410E4A6;
+	Mon, 13 Apr 2026 14:50:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KnNgj//X";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Su5pzllN";
 	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 502F310E4A1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:16:03 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-82f2aab311eso589965b3a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:16:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776089763; x=1776694563; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=e0zbRRSwXZ7Pwh3Wo3GiTsNe9+S5y60LaaG4gtv9gLI=;
- b=KnNgj//XJq6Yk8E2OMB1wUy2u18LmUGaw854Tkyjp8QZBWaXtFJCteaBgLIpfap7hu
- 33946D2nKD0m4Wp1LfhHz8hTEYKOj+nNiGRxpm8pHPIfo2z5iPBhLlk1SqG+n5UHc6MC
- Uo6qbesQK+6wghEONDWFBuh1CcPsGJShi46whxw2zP/DtQERgXId+ps2Wo1SC9lDNh9p
- uG5wEkpn02YCKyYpprD+cybrDrXq/41fhPZ4L6BSkguNjjwJfN/XSTcxHLXoMh9vmdnm
- oEgWUrkcgwpsamtqqJd73ZBiy9pt0QkhT79HQTtJyupeIOLW5glG4avhjfKBEiCllzMW
- s9iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776089763; x=1776694563;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=e0zbRRSwXZ7Pwh3Wo3GiTsNe9+S5y60LaaG4gtv9gLI=;
- b=rDr4sb6F0sCV8ze2+KVvm2yRDuYkiAixxkcgiu8vO4AzW2DK1pQDxj5ESgcObWFR2f
- I7Ew+2OpO1cGcniozQhZTLiNOTzw+gf5bQU10iIT2IyF2ORv2Hm70HaT8Ze9wKo89cZG
- PM2ilB1EO1sxv3xd21Ynj2bAX4XoIhMPv2ubkDdVsdcRPVVYfvGzvCelG3IVZEEdAeL9
- +CsphKqWnhwcMYm0AI4hP2X2Cpz9Y41ajHxfeFg4jijLB3Gmu2eeK+dJsF4iLBim0f3A
- t8D6QVOY5A+jfjOtVZzkDh0CVEXQbrQ7/YTi0dNe8Gq/tUa9Ns0of5Fx6NOWP/A7Kvnb
- KXjA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/JP5WHtv/exU7tZDPMprnggt2eEOPjWLv3XVuHo6fpusE8CrUvBR+QMypOKmkVrYqaIyamwhchBN8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxjvrAocOuMAaHGcru2OqgEGBILAi4NQiejqb4YBOXbW5nLb7/7
- f5OKAMKgsQjOos3nA62lWcOSuzQltoOPdL+1iY4t+CcQyDYeIfT5+I1v
-X-Gm-Gg: AeBDiet+fkC2VIIudSPWEDx6nD8fIc4JD69fm3n718CW9s2Mysk+ZbYwyEajN4l7HES
- 0JTfOyep4ClVq+rnlLH9n6HXUhFwqPLAnLklbxXPbFuSWeJD4Sk7qD7uLuEWpCglH9gvS3jbXoY
- DZGpJbPcVnhJZVKzIqzKP/VvQD0r6Q8KqgKHHZRLaYMtJtMDlIaOm1+aSuX1jfZWo8SP79w3iKh
- qV6ylAS+LmhN3yWwqbtslqIkgILOrgz1wtxGXp571ufEMVeer2M8C+ipSJD8/av/Pm29J8nq2Xd
- dHNKMWjHv5jg/uoi3aLd1xNezctY6c+hLrsqFZQqJPGpVEklnR9i9GJRcoCqdItAH1v70Mf2wts
- YIIIw8tmqJbdoCOc2B6V2c09tJn9zqxDe6RJP5JO5FVFo2+ndn8qg5SAG+ZhSpaNJTFY8XvpwXp
- R5/vUkACFfAiMMnhNAN8W02wEsAikewRs=
-X-Received: by 2002:a05:6a00:170c:b0:82c:ddbb:7db3 with SMTP id
- d2e1a72fcca58-82f0c21d396mr13302565b3a.25.1776089762689; 
- Mon, 13 Apr 2026 07:16:02 -0700 (PDT)
-Received: from lgs.. ([2409:893d:1188:142d:6c67:74e8:5200:1f39])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82f0c4b17fcsm11396301b3a.33.2026.04.13.07.15.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Apr 2026 07:16:02 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Mark Zhang <markz@nvidia.com>,
- Sean Paul <seanpaul@chromium.org>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] gpu: host1x: Fix device reference leak in
- host1x_device_parse_dt() error path
-Date: Mon, 13 Apr 2026 22:15:26 +0800
-Message-ID: <20260413141526.2961841-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7AE10E4AD
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 14:50:46 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id EF9886091C;
+ Mon, 13 Apr 2026 14:50:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B255C2BCB0;
+ Mon, 13 Apr 2026 14:50:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776091844;
+ bh=RECNt4Lj0uwevLFCfiPVoqNfQbV8zEH+K0iuVtBlQZk=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Su5pzllNMGZfoZ78Xyx8urjSNVj3ZR0SIpjhPPXpOkaycMAP8QQQfC7/7QKSF8v/k
+ fbFCaSv8huvFeyngo0egOXORaznaDj2j3cGwwscED9aAIKEY+8kbz8MtmahFnQ4rg2
+ gsspsWJBfVG/38bmkPuUfTx0USK+BcZkVzmp8xTjnHFS1xmXDKGEyYzz6/bo6oZGV3
+ 7hhIw0azf65hUJEVBlQsZGRwJo6GkxZEAOr1WZQhxQ0WgrDtY0PEe1hoXNK+EaS+4j
+ 1xCov8NQtceNtUNC0a0exjOaT87XfHl7/+1yYKFeaSpHwOMog0m9GcKP1lVtdXE+bI
+ p86g08zQK77Jg==
+Message-ID: <86853aa3-4af2-4670-a58e-342877e81ef9@kernel.org>
+Date: Mon, 13 Apr 2026 14:50:41 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/4] misc: fastrpc: Add polling mode support for
+ fastRPC driver
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, srini@kernel.org,
+ linux-arm-msm@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de,
+ dmitry.baryshkov@oss.qualcomm.com, andersson@kernel.org,
+ konrad.dybcio@oss.qualcomm.com
+References: <20260402054923.3061925-1-ekansh.gupta@oss.qualcomm.com>
+ <20260402054923.3061925-5-ekansh.gupta@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260402054923.3061925-5-ekansh.gupta@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,48 +65,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-After device_initialize(), the embedded struct device in struct
-host1x_device should be released through the device core with
-put_device().
 
-In host1x_device_add(), if host1x_device_parse_dt() fails, the current
-error path frees the object directly with kfree(device). That bypasses
-the normal device lifetime handling and leaks the reference held on the
-embedded struct device.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+On 4/2/26 5:49 AM, Ekansh Gupta wrote:
+> For any remote call to DSP, after sending an invocation message,
+> fastRPC driver waits for glink response and during this time the
+> CPU can go into low power modes. This adds latency to overall fastrpc
+> call as CPU wakeup and scheduling latencies are included. Add polling
+> mode support with which fastRPC driver will poll continuously on a
+> memory after sending a message to remote subsystem which will eliminate
+> CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
+> poll timeout happens, the call will fallback to normal RPC mode.  Poll
+> mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
+> request with FASTRPC_POLL_MODE request id.
+> 
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c      | 132 ++++++++++++++++++++++++++++++++++--
+>  include/uapi/misc/fastrpc.h |  10 +++
+>  2 files changed, 135 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 4363e0cc296b..25f385f4704d 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -24,6 +24,8 @@
+>  #include <linux/of_reserved_mem.h>
+>  #include <linux/bits.h>
+>  #include <linux/bitops.h>
+> +#include <linux/compiler.h>
+> +#include <linux/iopoll.h>
+>  
+>  #define ADSP_DOMAIN_ID (0)
+>  #define MDSP_DOMAIN_ID (1)
+> @@ -38,6 +40,7 @@
+>  #define FASTRPC_CTX_MAX (256)
+>  #define FASTRPC_INIT_HANDLE	1
+>  #define FASTRPC_DSP_UTILITIES_HANDLE	2
+> +#define FASTRPC_MAX_STATIC_HANDLE (20)
+Document please.
 
-Fix this by using put_device() in the host1x_device_parse_dt() failure
-path.
+>  #define FASTRPC_CTXID_MASK GENMASK(15, 8)
+>  #define INIT_FILELEN_MAX (2 * 1024 * 1024)
+>  #define INIT_FILE_NAMELEN_MAX (128)
+> @@ -106,6 +109,12 @@
+>  
+>  #define miscdev_to_fdevice(d) container_of(d, struct fastrpc_device, miscdev)
+>  
+> +/* Poll response number from remote processor for call completion */
+> +#define FASTRPC_POLL_RESPONSE (0xdecaf)
+> +
+> +/* Polling mode timeout limit */
+> +#define FASTRPC_POLL_MAX_TIMEOUT_US (10000)
+> +
+>  struct fastrpc_phy_page {
+>  	dma_addr_t addr;	/* dma address */
+>  	u64 size;		/* size of contiguous region */
+> @@ -236,8 +245,14 @@ struct fastrpc_invoke_ctx {
+>  	u32 sc;
+>  	u64 *fdlist;
+>  	u32 *crc;
+> +	/* Poll memory that DSP updates */
+> +	u32 *poll;
+>  	u64 ctxid;
+>  	u64 msg_sz;
+> +	/* work done status flag */
+> +	bool is_work_done;
+> +	/* process updates poll memory instead of glink response */
+> +	bool is_polled;
+This looks redundant as the user context already has this info.
 
-Fixes: f4c5cf88fbd50 ("gpu: host1x: Provide a proper struct bus_type")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
-v3:
-  - note that the issue was identified by my static analysis tool
-  - and confirmed by manual review
+>  	struct kref refcount;
+>  	struct list_head node; /* list of ctxs */
+>  	struct completion work;
+> @@ -308,6 +323,8 @@ struct fastrpc_user {
+>  	int client_id;
+>  	int pd;
+>  	bool is_secure_dev;
+> +	/* Flags poll mode state */
+> +	bool poll_mode;
+>  	/* Lock for lists */
+>  	spinlock_t lock;
+>  	/* lock for allocations */
+> @@ -923,7 +940,8 @@ static int fastrpc_get_meta_size(struct fastrpc_invoke_ctx *ctx)
+>  		sizeof(struct fastrpc_invoke_buf) +
+>  		sizeof(struct fastrpc_phy_page)) * ctx->nscalars +
+>  		sizeof(u64) * FASTRPC_MAX_FDLIST +
+> -		sizeof(u32) * FASTRPC_MAX_CRCLIST;
+> +		sizeof(u32) * FASTRPC_MAX_CRCLIST +
+> +		sizeof(u32);
+>  
+>  	return size;
+>  }
+> @@ -1019,6 +1037,9 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
+>  	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
+>  	pages = fastrpc_phy_page_start(list, ctx->nscalars);
+>  	ctx->fdlist = (u64 *)(pages + ctx->nscalars);
+> +	ctx->poll = (u32 *)((uintptr_t)ctx->fdlist + sizeof(u64) * FASTRPC_MAX_FDLIST +
+> +			     sizeof(u32) * FASTRPC_MAX_CRCLIST);
+> +
+>  	args = (uintptr_t)ctx->buf->virt + metalen;
+>  	rlen = pkt_size - metalen;
+>  	ctx->rpra = rpra;
+> @@ -1188,6 +1209,74 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
+>  
+>  }
+>  
+> +static inline u32 fastrpc_poll_op(void *p)
+> +{
+> +	struct fastrpc_invoke_ctx *ctx = p;
+> +
+> +	dma_rmb();
+> +	return READ_ONCE(*ctx->poll);
+> +}
+> +
+> +static int poll_for_remote_response(struct fastrpc_invoke_ctx *ctx)
+> +{
+> +	u32 val;
+> +	int ret;
+> +
+> +	/*
+> +	 * Poll until DSP writes FASTRPC_POLL_RESPONSE into *ctx->poll
+> +	 * or until another path marks the work done.
+> +	 */
+> +	ret = read_poll_timeout_atomic(fastrpc_poll_op, val,
+> +				       (val == FASTRPC_POLL_RESPONSE) || ctx->is_work_done, 1,
+> +				       FASTRPC_POLL_MAX_TIMEOUT_US, false, ctx);
 
-v2:
-  - add Cc: stable@vger.kernel.org
+What happens if the dsp sends normal response with rpcmsg callback while
+the loop is still going on?
 
- drivers/gpu/host1x/bus.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +
+> +	if (!ret && val == FASTRPC_POLL_RESPONSE) {
+check redundant?
 
-diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
-index 63fe037c3b65..e3ac85848aec 100644
---- a/drivers/gpu/host1x/bus.c
-+++ b/drivers/gpu/host1x/bus.c
-@@ -452,7 +452,7 @@ static int host1x_device_add(struct host1x *host1x,
- 
- 	err = host1x_device_parse_dt(device, driver);
- 	if (err < 0) {
--		kfree(device);
-+		put_device(&device->dev);
- 		return err;
- 	}
- 
--- 
-2.43.0
+> +		ctx->is_work_done = true;
+> +		ctx->retval = 0;
+> +	}
+> +
+> +	if (ret == -ETIMEDOUT)
+> +		ret = -EIO;
+> +
+> +	return ret;
+> +}
+> +
+> +static inline int fastrpc_wait_for_response(struct fastrpc_invoke_ctx *ctx,
+> +					    u32 kernel)
+> +{
+> +	int err = 0;
+> +
+> +	if (kernel) {
+> +		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
+> +			err = -ETIMEDOUT;
+> +	} else {
+> +		err = wait_for_completion_interruptible(&ctx->work);
+> +	}
+> +
+> +	return err;
+> +}
+> +
+> +static int fastrpc_wait_for_completion(struct fastrpc_invoke_ctx *ctx,
+> +				       u32 kernel)
+> +{
+> +	int err;
+> +
+> +	do {
+> +		if (ctx->is_polled) {
+> +			err = poll_for_remote_response(ctx);
+> +			/* If polling timed out, move to normal response mode */
+> +			if (err)
+> +				ctx->is_polled = false;
+> +		} else {
+> +			err = fastrpc_wait_for_response(ctx, kernel);
+> +			if (err)
+> +				return err;
+> +		}
+> +	} while (!ctx->is_work_done);
+> +
+> +	return 0;
+> +}
+> +
+>  static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+>  				   u32 handle, u32 sc,
+>  				   struct fastrpc_invoke_args *args)
+> @@ -1223,13 +1312,14 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
+>  	if (err)
+>  		goto bail;
+>  
+> -	if (kernel) {
+> -		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
+> -			err = -ETIMEDOUT;
+> -	} else {
+> -		err = wait_for_completion_interruptible(&ctx->work);
+> -	}
+> +	/*
+> +	 * Set message context as polled if the call is for a user PD
+> +	 * dynamic module and user has enabled poll mode.
+> +	 */
+> +	if (handle > FASTRPC_MAX_STATIC_HANDLE && fl->pd == USER_PD && fl->poll_mode)
+> +		ctx->is_polled = true;
+
+There seems to be some level of validation here, which is not clearly
+documented anywhere, can we add this into uapi header please.
+
+>  
+> +	err = fastrpc_wait_for_completion(ctx, kernel);
+>  	if (err)
+>  		goto bail;
+>  
+> @@ -1812,6 +1902,30 @@ static int fastrpc_get_info_from_kernel(struct fastrpc_ioctl_capability *cap,
+>  	return 0;
+>  }
+>  
+> +static int fastrpc_set_option(struct fastrpc_user *fl, char __user *argp)
+> +{
+> +	struct fastrpc_ioctl_set_option opt = {0};
+> +	int i;
+> +
+> +	if (copy_from_user(&opt, argp, sizeof(opt)))
+> +		return -EFAULT;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(opt.reserved); i++) {
+> +		if (opt.reserved[i] != 0)
+> +			return -EINVAL;
+> +	}
+> +
+> +	if (opt.req != FASTRPC_POLL_MODE)
+> +		return -EINVAL;
+> +
+> +	if (opt.value)
+> +		fl->poll_mode = true;
+> +	else
+> +		fl->poll_mode = false;
+> +
+> +	return 0;
+> +}
+> +
+>  static int fastrpc_get_dsp_info(struct fastrpc_user *fl, char __user *argp)
+>  {
+>  	struct fastrpc_ioctl_capability cap = {0};
+> @@ -2167,6 +2281,9 @@ static long fastrpc_device_ioctl(struct file *file, unsigned int cmd,
+>  	case FASTRPC_IOCTL_MEM_UNMAP:
+>  		err = fastrpc_req_mem_unmap(fl, argp);
+>  		break;
+> +	case FASTRPC_IOCTL_SET_OPTION:
+> +		err = fastrpc_set_option(fl, argp);
+> +		break;
+>  	case FASTRPC_IOCTL_GET_DSP_INFO:
+>  		err = fastrpc_get_dsp_info(fl, argp);
+>  		break;
+> @@ -2518,6 +2635,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+>  	}
+>  
+>  	ctx->retval = rsp->retval;
+> +	ctx->is_work_done = true;
+>  	complete(&ctx->work);
+>  
+>  	/*
+> diff --git a/include/uapi/misc/fastrpc.h b/include/uapi/misc/fastrpc.h
+> index c6e2925f47e6..c37e24a764ae 100644
+> --- a/include/uapi/misc/fastrpc.h
+> +++ b/include/uapi/misc/fastrpc.h
+> @@ -16,6 +16,7 @@
+>  #define FASTRPC_IOCTL_INIT_CREATE_STATIC _IOWR('R', 9, struct fastrpc_init_create_static)
+>  #define FASTRPC_IOCTL_MEM_MAP		_IOWR('R', 10, struct fastrpc_mem_map)
+>  #define FASTRPC_IOCTL_MEM_UNMAP		_IOWR('R', 11, struct fastrpc_mem_unmap)
+> +#define FASTRPC_IOCTL_SET_OPTION	_IOWR('R', 12, struct fastrpc_ioctl_set_option)
+>  #define FASTRPC_IOCTL_GET_DSP_INFO	_IOWR('R', 13, struct fastrpc_ioctl_capability)
+>  
+>  /**
+> @@ -67,6 +68,9 @@ enum fastrpc_proc_attr {
+>  /* Fastrpc attribute for memory protection of buffers */
+>  #define FASTRPC_ATTR_SECUREMAP	(1)
+>  
+
+> +/* Set option request ID to enable poll mode */
+
+Some documentation please on this feature and which PD's can use this.
+
+> +#define FASTRPC_POLL_MODE	(1)
+
+Can we also document the values for this request?
+> +
+>  struct fastrpc_invoke_args {
+>  	__u64 ptr;
+>  	__u64 length;
+> @@ -133,6 +137,12 @@ struct fastrpc_mem_unmap {
+>  	__s32 reserved[5];
+>  };
+>  
+> +struct fastrpc_ioctl_set_option {
+> +	__u32 req;	/* request id */
+Can we expand this to proper name, request_id or something?
+> +	__u32 value;	/* value */
+> +	__s32 reserved[6];
+> +};
+> +
+>  struct fastrpc_ioctl_capability {
+>  	__u32 unused; /* deprecated, ignored by the kernel */
+>  	__u32 attribute_id;
 
