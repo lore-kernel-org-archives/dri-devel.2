@@ -4,78 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 209EFEBFD37
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:26:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 953B5EBFD36
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:29:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12FA910E3F2;
-	Mon, 13 Apr 2026 10:26:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04CC410E32A;
+	Mon, 13 Apr 2026 10:29:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="SClcCwRG";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="KS9XAVlq";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8F0710E32A;
- Mon, 13 Apr 2026 10:26:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776075995; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=h02R6SYWbmcMwoKgTR8LoC3h+o9xXPnlKOZgWDVMAOIfszgmHpI899QpLHBqvwiFWX+RKwwE4nLjDgd2c94afqa1TXauKAQ9elb3Jrzj0iDuxzm3EaLjO/ckhtIDBoYv7kZBBaTJdnOcrVX/5blV/hFS/O6mJLb8Hg1nEXExWIM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776075995;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=MBy494F68r0qLKKEsa3LN0mB+quFxcEwe7H5kFBVbr0=; 
- b=Sw/0B9KI3xsgcXQuQvm+LSh3j6xIKGTH2vfNTHYxLh3t0BZNS2a6Z4FSigmlBak0Q/a/hw0toiKTnNNkUHM0uLQFDzPlAEfAbtZ1tlRgfFtjDMhX5OaUV1CfK/Sw3Z5GzltNIVBRoU/BessP6XT2Ou/K/SwtZ15mP9dh771A9Cw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075995; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=MBy494F68r0qLKKEsa3LN0mB+quFxcEwe7H5kFBVbr0=;
- b=SClcCwRGC3ptzz2W6dz6wheJPXh9BWTnc8EClbxkbu1yo2vIJT9PGcBejDaK6Nhe
- rECltZo9KuLaCQbOPkDfPZlGcwqAk5TatoV/zPjCblwvHcZJ8DSzwR1pcUupkpWRkb9
- 0yCeg7taHZbw7dhQ6hUP5rC01qXeRmHCd4WO9fkA=
-Received: by mx.zohomail.com with SMTPS id 1776075993436742.8313316176907;
- Mon, 13 Apr 2026 03:26:33 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9D5B610E32A
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 10:29:57 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C0B516F8
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 03:29:51 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ F14C23F641
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 03:29:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1776076197; bh=00LIVjWWByiSGB/8MkpuDBq/0IcUH17vn5Bq9kGtYKg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=KS9XAVlqSdFMO9AB12B00G1hS8bTcU2wALTnXTWEamIK9nBdVQIziztg6+nmJpAIc
+ lHcZqjfQsRSE4oUe53I9js6eX0bgQqsNvbybeLb4qQd+rNPPl3rQje0V+BbD/ITiZ/
+ nCn0aFWcsEujtIMBn9lg7MngvZPHhIX4E39/FydA=
+Date: Mon, 13 Apr 2026 11:29:55 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Karunika Choo <karunika.choo@arm.com>
+Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Marius Vlad <marius.vlad@collabora.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andy Yan <andyshrk@163.com>
-Subject: Re: [PATCH v13 00/27] Add new general DRM property "color format"
-Date: Mon, 13 Apr 2026 12:26:22 +0200
-Message-ID: <6275841.lOV4Wx5bFT@workhorse>
-In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
-References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/8] drm/panthor: Replace cross-component register
+ accesses with helpers
+Message-ID: <adzFo-9Bk5bK9QrY@e142607>
+References: <20260410164637.549145-1-karunika.choo@arm.com>
+ <20260410164637.549145-4-karunika.choo@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260410164637.549145-4-karunika.choo@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,98 +64,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, 13 April 2026 12:07:14 Central European Summer Time Nicolas Frattaroli wrote:
-> Hello,
+On Fri, Apr 10, 2026 at 05:46:32PM +0100, Karunika Choo wrote:
+> Stop reaching into other components' registers directly and route those
+> operations through the component that owns them.
 > 
-> [snip mucho texto]
+> Move the timestamp/coherency helpers into panthor_gpu, add a doorbell
+> helper, and update call sites accordingly. This keeps register knowledge
+> local to each block and avoids spreading cross-component register
+> accesses across the driver.
 > 
+> This is a preparatory cleanup for using per-component iomem bases.
+> 
+> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
+
+With the spelling of timestamp fixed in the function names,
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
 > ---
-> Nicolas Frattaroli (26):
->       drm/display: hdmi-state-helper: Use default case for unsupported formats
->       drm: Add new general DRM property "color format"
->       drm/connector: Let connectors have a say in their color format
->       drm/display: bridge_connector: Use HDMI color format for HDMI conns
->       drm/bridge: Act on the DRM color format property
->       drm/atomic-helper: Add HDMI bridge output bus formats helper
->       drm/display: hdmi-state-helper: Act on color format DRM property
->       drm/display: hdmi-state-helper: Try subsampling in mode_valid
->       drm/amdgpu: Implement "color format" DRM property
->       drm/i915/hdmi: Add YCBCR444 handling for sink formats
->       drm/i915/dp: Add YCBCR444 handling for sink formats
->       drm/i915: Implement the "color format" DRM property
->       drm/rockchip: Add YUV422 output mode constants for VOP2
->       drm/rockchip: vop2: Add RK3576 to the RG swap special case
->       drm/rockchip: vop2: Recognise 10-bit YUV422 as YUV format
->       drm/rockchip: vop2: Set correct output format for RK3576 YUV422
->       drm/bridge: dw-hdmi-qp: Use common HDMI output bus fmts helper
->       drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property
->       drm/rockchip: dw_hdmi_qp: Set supported_formats platdata
->       drm/connector: Register color format property on HDMI connectors
->       drm/tests: hdmi: Add tests for the color_format property
->       drm/tests: hdmi: Add tests for HDMI helper's mode_valid
->       drm/tests: bridge: Add KUnit tests for bridge chain format selection
->       drm/tests: bridge: Add test for HDMI output bus formats helper
->       drm/bridge: Document bridge chain format selection
->       drm/connector: Update docs of "colorspace" for color format prop
+>  drivers/gpu/drm/panthor/panthor_device.c | 27 ----------------
+>  drivers/gpu/drm/panthor/panthor_drv.c    |  7 ++---
+>  drivers/gpu/drm/panthor/panthor_fw.c     | 15 ++++++---
+>  drivers/gpu/drm/panthor/panthor_fw.h     |  1 +
+>  drivers/gpu/drm/panthor/panthor_gpu.c    | 40 ++++++++++++++++++++++++
+>  drivers/gpu/drm/panthor/panthor_gpu.h    |  6 ++++
+>  drivers/gpu/drm/panthor/panthor_pwr.c    |  2 +-
+>  drivers/gpu/drm/panthor/panthor_sched.c  |  2 +-
+>  8 files changed, 62 insertions(+), 38 deletions(-)
 > 
-> Werner Sembach (1):
->       drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index f876b13492ae..bd417d6ae8c0 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -22,38 +22,11 @@
+>  #include "panthor_fw_regs.h"
+>  #include "panthor_gem.h"
+>  #include "panthor_gpu.h"
+> -#include "panthor_gpu_regs.h"
+>  #include "panthor_hw.h"
+>  #include "panthor_mmu.h"
+>  #include "panthor_pwr.h"
+>  #include "panthor_sched.h"
+>  
+> -static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+> -{
+> -	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
+> -	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
+> -	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
+> -
+> -	/* Start with no coherency, and update it if the device is flagged coherent. */
+> -	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
+> -	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
+> -
+> -	if (!ptdev->coherent)
+> -		return 0;
+> -
+> -	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
+> -	 * ACE protocol has never been supported for command stream frontend GPUs.
+> -	 */
+> -	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
+> -		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+> -		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+> -		return 0;
+> -	}
+> -
+> -	drm_err(&ptdev->base, "Coherency not supported by the device");
+> -	return -ENOTSUPP;
+> -}
+> -
+>  static int panthor_clk_init(struct panthor_device *ptdev)
+>  {
+>  	ptdev->clks.core = devm_clk_get(ptdev->base.dev, NULL);
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index e63210b01e6e..8cd39e6c3f5c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -34,7 +34,6 @@
+>  #include "panthor_fw.h"
+>  #include "panthor_gem.h"
+>  #include "panthor_gpu.h"
+> -#include "panthor_gpu_regs.h"
+>  #include "panthor_heap.h"
+>  #include "panthor_mmu.h"
+>  #include "panthor_sched.h"
+> @@ -839,7 +838,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+>  	}
+>  
+>  	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_OFFSET)
+> -		arg->timestamp_offset = gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
+> +		arg->timestamp_offset = panthor_gpu_get_timestap_offset(ptdev);
+>  	else
+>  		arg->timestamp_offset = 0;
+>  
+> @@ -854,7 +853,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+>  		query_start_time = 0;
+>  
+>  	if (flags & DRM_PANTHOR_TIMESTAMP_GPU)
+> -		arg->current_timestamp = gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
+> +		arg->current_timestamp = panthor_gpu_get_timestap(ptdev);
+>  	else
+>  		arg->current_timestamp = 0;
+>  
+> @@ -870,7 +869,7 @@ static int panthor_query_timestamp_info(struct panthor_device *ptdev,
+>  	}
+>  
+>  	if (flags & DRM_PANTHOR_TIMESTAMP_GPU_CYCLE_COUNT)
+> -		arg->cycle_count = gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
+> +		arg->cycle_count = panthor_gpu_get_cycle_count(ptdev);
+>  	else
+>  		arg->cycle_count = 0;
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 4704275b9c8f..1c13a4884201 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -1054,7 +1054,7 @@ static void panthor_fw_init_global_iface(struct panthor_device *ptdev)
+>  			       GLB_CFG_POWEROFF_TIMER |
+>  			       GLB_CFG_PROGRESS_TIMER);
+>  
+> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
+>  
+>  	/* Kick the watchdog. */
+>  	mod_delayed_work(ptdev->reset.wq, &ptdev->fw->watchdog.ping_work,
+> @@ -1156,7 +1156,7 @@ static void panthor_fw_halt_mcu(struct panthor_device *ptdev)
+>  	else
+>  		panthor_fw_update_reqs(glb_iface, req, GLB_HALT, GLB_HALT);
+>  
+> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
+>  }
+>  
+>  static bool panthor_fw_wait_mcu_halted(struct panthor_device *ptdev)
+> @@ -1400,6 +1400,11 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_slot,
+>  	return ret;
+>  }
+>  
+> +void panthor_fw_ring_doorbell(struct panthor_device *ptdev, u32 doorbell_id)
+> +{
+> +	gpu_write(ptdev->iomem, CSF_DOORBELL(doorbell_id), 1);
+> +}
+> +
+>  /**
+>   * panthor_fw_ring_csg_doorbells() - Ring command stream group doorbells.
+>   * @ptdev: Device.
+> @@ -1413,8 +1418,8 @@ void panthor_fw_ring_csg_doorbells(struct panthor_device *ptdev, u32 csg_mask)
+>  {
+>  	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+>  
+> -	panthor_fw_toggle_reqs(glb_iface, doorbell_req, doorbell_ack, csg_mask);
+> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+> +	panthor_fw_toggle_reqs(glb_iface, doorbell_req, doorbell_ack, csg_mask);\
+> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
+>  }
+>  
+>  static void panthor_fw_ping_work(struct work_struct *work)
+> @@ -1429,7 +1434,7 @@ static void panthor_fw_ping_work(struct work_struct *work)
+>  		return;
+>  
+>  	panthor_fw_toggle_reqs(glb_iface, req, ack, GLB_PING);
+> -	gpu_write(ptdev->iomem, CSF_DOORBELL(CSF_GLB_DOORBELL_ID), 1);
+> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
+>  
+>  	ret = panthor_fw_glb_wait_acks(ptdev, GLB_PING, &acked, 100);
+>  	if (ret) {
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
+> index fbdc21469ba3..a99a9b6f4825 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.h
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.h
+> @@ -500,6 +500,7 @@ int panthor_fw_csg_wait_acks(struct panthor_device *ptdev, u32 csg_id, u32 req_m
+>  int panthor_fw_glb_wait_acks(struct panthor_device *ptdev, u32 req_mask, u32 *acked,
+>  			     u32 timeout_ms);
+>  
+> +void panthor_fw_ring_doorbell(struct panthor_device *ptdev, u32 doorbell_id);
+>  void panthor_fw_ring_csg_doorbells(struct panthor_device *ptdev, u32 csg_slot);
+>  
+>  struct panthor_kernel_bo *
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index fecc30747acf..ef0aca2b7532 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -427,3 +427,43 @@ void panthor_gpu_resume(struct panthor_device *ptdev)
+>  	panthor_hw_l2_power_on(ptdev);
+>  }
+>  
+> +u64 panthor_gpu_get_timestap(struct panthor_device *ptdev)
+> +{
+> +	return gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
+> +}
+> +
+> +u64 panthor_gpu_get_timestap_offset(struct panthor_device *ptdev)
+> +{
+> +	return gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
+> +}
+> +
+> +u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev)
+> +{
+> +	return gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
+> +}
+> +
+> +int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+> +{
+> +	BUILD_BUG_ON(GPU_COHERENCY_NONE != DRM_PANTHOR_GPU_COHERENCY_NONE);
+> +	BUILD_BUG_ON(GPU_COHERENCY_ACE_LITE != DRM_PANTHOR_GPU_COHERENCY_ACE_LITE);
+> +	BUILD_BUG_ON(GPU_COHERENCY_ACE != DRM_PANTHOR_GPU_COHERENCY_ACE);
+> +
+> +	/* Start with no coherency, and update it if the device is flagged coherent. */
+> +	ptdev->gpu_info.selected_coherency = GPU_COHERENCY_NONE;
+> +	ptdev->coherent = device_get_dma_attr(ptdev->base.dev) == DEV_DMA_COHERENT;
+> +
+> +	if (!ptdev->coherent)
+> +		return 0;
+> +
+> +	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
+> +	 * ACE protocol has never been supported for command stream frontend GPUs.
+> +	 */
+> +	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
+> +		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+> +		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+> +		return 0;
+> +	}
+> +
+> +	drm_err(&ptdev->base, "Coherency not supported by the device");
+> +	return -ENOTSUPP;
+> +}
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
+> index 12c263a39928..c22378e5ce48 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.h
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.h
+> @@ -54,4 +54,10 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev);
+>  void panthor_gpu_power_changed_off(struct panthor_device *ptdev);
+>  int panthor_gpu_power_changed_on(struct panthor_device *ptdev);
+>  
+> +u64 panthor_gpu_get_timestap(struct panthor_device *ptdev);
+> +u64 panthor_gpu_get_timestap_offset(struct panthor_device *ptdev);
+> +u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev);
+> +
+> +int panthor_gpu_coherency_init(struct panthor_device *ptdev);
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
+> index 306592ff2227..aafb0c5c7d23 100644
+> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
+> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
+> @@ -199,7 +199,7 @@ static int panthor_pwr_domain_wait_transition(struct panthor_device *ptdev, u32
+>  
+>  static void panthor_pwr_debug_info_show(struct panthor_device *ptdev)
+>  {
+> -	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", gpu_read64(ptdev->iomem, GPU_FEATURES));
+> +	drm_info(&ptdev->base, "GPU_FEATURES:    0x%016llx", ptdev->gpu_info.gpu_features);
+>  	drm_info(&ptdev->base, "PWR_STATUS:      0x%016llx", gpu_read64(ptdev->iomem, PWR_STATUS));
+>  	drm_info(&ptdev->base, "L2_PRESENT:      0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PRESENT));
+>  	drm_info(&ptdev->base, "L2_PWRTRANS:     0x%016llx", gpu_read64(ptdev->iomem, PWR_L2_PWRTRANS));
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 70b8a22b3ed7..60e7b4e20a13 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -3373,7 +3373,7 @@ queue_run_job(struct drm_sched_job *sched_job)
+>  		if (resume_tick)
+>  			sched_resume_tick(ptdev);
+>  
+> -		gpu_write(ptdev->iomem, CSF_DOORBELL(queue->doorbell_id), 1);
+> +		panthor_fw_ring_doorbell(ptdev, queue->doorbell_id);
+>  		if (!sched->pm.has_ref &&
+>  		    !(group->blocked_queues & BIT(job->queue_idx))) {
+>  			pm_runtime_get(ptdev->base.dev);
+> -- 
+> 2.43.0
 > 
->  Documentation/gpu/drm-kms-helpers.rst              |   6 +
->  Documentation/gpu/drm-kms.rst                      |   6 +
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  91 +-
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |   1 +
->  drivers/gpu/drm/display/drm_bridge_connector.c     |  24 +
->  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  53 +-
->  drivers/gpu/drm/drm_atomic_helper.c                |  86 ++
->  drivers/gpu/drm/drm_atomic_uapi.c                  |  11 +
->  drivers/gpu/drm/drm_bridge.c                       | 104 ++-
->  drivers/gpu/drm/drm_connector.c                    | 178 +++-
->  drivers/gpu/drm/i915/display/intel_connector.c     |  10 +
->  drivers/gpu/drm/i915/display/intel_connector.h     |   1 +
->  drivers/gpu/drm/i915/display/intel_dp.c            |  43 +-
->  drivers/gpu/drm/i915/display/intel_hdmi.c          |  47 +-
->  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     | 111 ++-
->  drivers/gpu/drm/rockchip/rockchip_drm_drv.h        |   4 +
->  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  21 +-
->  drivers/gpu/drm/tests/drm_bridge_test.c            | 971 +++++++++++++++++++++
->  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 345 ++++++++
->  include/drm/drm_atomic_helper.h                    |   7 +
->  include/drm/drm_connector.h                        | 120 +++
->  21 files changed, 2203 insertions(+), 37 deletions(-)
-> ---
-> base-commit: e3dc6072028a594d5e9bfc6476165842602d5307
-> change-id: 20251028-color-format-49fd202b7183
-> prerequisite-message-id: <20260409101539.22032-1-ville.syrjala@linux.intel.com>
-> prerequisite-patch-id: f382aeb5da5f2b8f6e2cb22b88eb47f490f2c724
-> prerequisite-patch-id: 20570aeb28e3c31353e6f697b193b23d8b47c47c
-> prerequisite-patch-id: 1b7e24034883b22cd82be025a1cf82ae77170fd0
-> prerequisite-patch-id: 6ec2dc2c05a75391b67cb12d93168f5e8da8ec55
-> prerequisite-patch-id: 32e84581998ef4eef05e1681c7ec36b90f2a6bb7
-> prerequisite-patch-id: 99c2187a846b0c9ac2ea1a892c17483120cb7da1
-> prerequisite-patch-id: fb41b4668a3b7c8c375c67ffd6b178fa3273e86a
-> prerequisite-patch-id: 4c115a36eea0d5f80643dc34310690894ac80e0e
-> prerequisite-patch-id: 6fdec0832cd6062de3cc5c2f363c5d624d8a00f9
-> 
-> Best regards,
-> --  
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
-> 
 
-Oops, forgot to apply the review trailers from last revision. (I did
-actually remember, but didn't remember to explicitly confirm applying
-them, and it defaults to not doing so.)
-
-So these two:
-- drm/atomic-helper: Add HDMI bridge output bus formats helper
-- drm/connector: Register color format property on HDMI connectors
-
-Lack Dmitry Baryshkov's R-b, but I assume it'll get picked up
-on the next `b4 trailers -u` anyway. Just mentioning it though
-to ruin the surprise for any reviewer who feels gaslit otherwise.
-
-Kind regards,
-Nicolas Frattaroli
-
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
