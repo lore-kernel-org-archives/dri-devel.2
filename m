@@ -4,92 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A55BEEBFD01
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 07:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4168CEBFD06
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 07:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00A808920E;
-	Mon, 13 Apr 2026 07:00:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96FA510E32C;
+	Mon, 13 Apr 2026 07:04:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LQ++lAtG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MI/A6nz2";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A56638920E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:00:12 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-66f727d6849so5967831a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 00:00:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776063611; cv=none;
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDAB610E32C
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:04:37 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-6714f678bdaso1370260a12.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 00:04:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776063876; cv=none;
  d=google.com; s=arc-20240605;
- b=MGgTtzLZgAC3keVX1iNB8VxCeKFFB/dWxUWzVfhle9KGB3n+XdHRAV+dhBEojIiPTy
- xTsP0z2jLUF7vTDCGTXdDd0GMmEAzyiT2lFbB6yoyLkBgwjgg/lyjZM5y3I6i/ijKedB
- Txw2NQGxpBhZEUsprpsLziTBA89Mc11eXYJL53tlxubCKPAX2sL+OvtPHjON6m11TFfG
- UmTwcPw7l6re+xbcCos8ZTN1uX9HHvdBFPMSxmZHIQlvxruz8fkryw852+5HlHs5i41+
- XydGoHshwiVe7XTJ3N2x37XUmycn+zAIFVHWjaYc3x6ECN7fQ2TP7tAWke2b+MwUg6vH
- jBtQ==
+ b=I6JmaJkxpewBl2sCIDQWlkaA1A5fIA9wIqtf4QaeVVSwVmbZJR1wPn2c8UHbSACu6F
+ d2jTv56iVSxhCZcS7Ytlw9tekfFOERD77uV0dnduoTTHlJP/S4hCwM606AroYNdDngYi
+ axwRr90f8c34WTiJhVImDM7WOrHNGs8/5X+pH53fraOTb3z9F1ak4VXYG4/SdNojZc1c
+ I96J+O6TeSxd22XS+bdgiTItSJ//qeSq1hGtr+bkiqnUJnDgha6OFN8lR1ybyN/pusIo
+ ovLTAD6g+rk6Oouq2iW44BCY1H/bCH7shk57NMSIA8E7iZGPNJ7d7ig/divo3omMmQPJ
+ eGrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=X6pSeBoMwbk97qHNLEiiR0g4dw8qT9zFAczkuZLFIic=;
- fh=hP0gI/wds6TzU+g4KTgGj/dVm/FucfJm7gCuYMXNn6c=;
- b=EuHAG/8mts6lMbGjxlXU7ch/LZ+nh0uGh7fwLIydh7+mOJdtsP6Oh3qaFUoXX0qd7n
- aDTutvcdL2afW/Hd4Pron0KqpFv5IkPYTA6hKQ7Xx0Yf4tG/La8xmfzim8gF4Ndfxci1
- dcz7cOcP8cFfJqMx7JEbU1Snkm9icc6e9oII+0gnV6mUfs3A0LjBghN5YPflf+poaqO9
- KSKCH2+zSqL+VL3g1A6Tm7CgMGiuecHnzSlw6n0uSujW9xtf2TGIsopj4gVp9Qgy1ZM7
- rfpLyb1NTSLkTIxfxBrWxhO88zO7tYUsC8lR4HlFESXCTs+YjyJh7b0GImgVumdQoNQ7
- zWGA==; darn=lists.freedesktop.org
+ bh=cHUon7mnOsFivonubjEmKa1tqwPu0cNQ4ngoVsPKvwA=;
+ fh=qOVgiA7SoDCE8osp3K1F1yKv92RNO/+5NVQc3GgtcSk=;
+ b=B4VhGF/d401OuT2zP2eAlMTUAFzigrbfI86phiH3AOIyU9QOAb1L3SBjE59CV5+aOk
+ FovXMF5S7CmxXItEh/OYdAYp09ac8FjjLZ47gv7YUJ4H6CA4ec+moX9MAft6U4DIqWMp
+ RQS8N8vClBO2xKlh+REnBMTuA9urHWMFpUWe3g/3j/1LeRlgZcHVkp0lgMQoVbBlGXSv
+ jWHkQKpbK4qoPzZd6gPPEOBq9G06Uklz61OwZkJH1bJVFp6Csuvv6YOdYnk1/UywXifN
+ D3/kvKXfw4lWV1rcuTuKRLYW924PTOKPp22DtHXz6JbJDu9i6CKb+Rv+sBL6STAW4+XO
+ oyYA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776063611; x=1776668411; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776063876; x=1776668676; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=X6pSeBoMwbk97qHNLEiiR0g4dw8qT9zFAczkuZLFIic=;
- b=LQ++lAtGflVzB5LLpNUWWwC8yrVHjuglnJcT1uuur/dbrkFrZyi8hbgj+w+33hLMT9
- dQp3Ov6mDJEO3TOOE2D5x2jzerDWS+shlm+p6+eMqrmQzwmEpFGN/bnNNev7geuLc8ua
- SzCCi+vftjBtDd6M8aB8jxXZhZRNnuPiFpYKt4E57fM7Y48af34GvQ2HHUx2wn3pduCu
- f4Dpb6Ns0QAV6v0qnLwOsK3HLCw0aBBadvvb8excz1trFIJ1ZnUdV8v5FRd8MZEQLQLq
- gUyTdIb4+UlMbE2aI0f547ZCCMzuy/eUa1PXDiIKDl9MDkUGqJLNGBxtbpHYY9xhSiLR
- 3oCQ==
+ bh=cHUon7mnOsFivonubjEmKa1tqwPu0cNQ4ngoVsPKvwA=;
+ b=MI/A6nz2Uz1fMfWVcrJnvqHgqiVXMcL10xKmKN2hXpdziPte41jbrMEnNwmemDHphv
+ wn92+c31fligUpfEbmZfUbgNqNIkgJvKIgYbRgCOOG0E98QqazbDMVfy2tKm8rcf6+Ho
+ C3y8BP0mtxdTLVrrsww2pCIgLdYtwz04TITP/QoER7ecUsvt4kmAMUS1skjTdlvYEYP4
+ 0HE4hZf3la55onvA+CjLB9rk6zTePbyKYw2Cg31E4Jl4PMe7raARN/DnFAkIweqPHxek
+ fiMhdHkVQBjuoKZV9+ryA9NhiriOxPfc7xdkY3hnNb483YZNzofq5OnC+cDXJdJ9tmpk
+ pEzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776063611; x=1776668411;
+ d=1e100.net; s=20251104; t=1776063876; x=1776668676;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=X6pSeBoMwbk97qHNLEiiR0g4dw8qT9zFAczkuZLFIic=;
- b=k6/8UWf6SsdYaLxofLaLlDULeomLvx8ZGjUYr/EGXz2kcNuOTCvTKdKxGiGL9DKKEx
- AVeHwFIyYddVlqK5tggPyGPfzE/6QXhvqkntb6VwqA2uzFa2n6Wo0yW8ZnFSVVgp5+Ur
- yIC7rKmOiok1CWedy6LgZgWhd5wF2mGlo2zqv2abC9Y7ZLTw3TI8DZElOFJhG2HgQ1pT
- 791d/TctTqw/2yBDpWF6jrW2OZ3wXVympv/kcrkH3VvI+DAAJizs2AEg4N+qkz00LRzt
- PoU65L9FTz1cPCYPmFsyc7P3sAEpwkEqd4s8TeoXeYJU9ZfkjYOdy2lL/H6B67aFHf/k
- qRXA==
+ bh=cHUon7mnOsFivonubjEmKa1tqwPu0cNQ4ngoVsPKvwA=;
+ b=G5QiMMv85FxErZYKpQzJDM89KTNwODCE8ZPRQFjBzp7nK04E4cVUeH+UdqrHQGfPa0
+ qGzR2XQUdBhSQa78Fvm/tPI2X4UFcc4aLrcZXGeHPIAuO2SYiz8nQctyGOQ+okSTQDRJ
+ q7Gxr2Y1AYcRZTEnSX5jSFCcNsdOkzLb6/fyiAtO+DDhrVl1CB//u9hw37ImuWiqkyE/
+ BmqMrnTKOhkNel0BXAz9SmyUcVFPQ/LgUqnCFu+5AGaeHvjxBgbRhnMIbcpOk9dd4Aow
+ +C1WaurJLyI7BDLK7TAfwxliw+g1GShjL3hwHjJ1AKn9RilUNeKqHMwQiz7CH0RB6F7G
+ z1dg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXFcwVsH1nP+UZR6H3ERyicCMCTeE9q0RoEbfXH5J1Kz4c95UE1M305SpKGfBF1YxMdVG7tCajTQsY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+BdDdZESSoClitdsV+KBxYIj9o+LpUe8/Kh6y1ndYbDiJpJJu
- n/t1n1lBHZxAauRgXJmiegSF4t9BMjcd1q6ivhumqgbD5vD73GapL3H6NnbIu/YaFDZNX27excp
- q8Jl9doBN70/bHV6WLpNpXr6OvRjw2uc=
-X-Gm-Gg: AeBDiesyTzncJ2DphEg8Haz9bgUW2f2ncPk2E8jV/RKlaLfSDyw/mHcq020/e+WfXeT
- kc/HE6vD+bnHM0bAN22uzcDbmPyqbYt3zZ+q8Q4btVd4i9yvNj8rkEgZ0epxx8of0EIf/GbnEtv
- l9AzHW6T+C1NxGjPxlO2dbxwu+ODSsMBKRzumYkVIi159WaIPXhLyE2kvHfAUZrfa1e0HyLuyCC
- fT9G4AqGJRpOB8tF8NFVJhB5JfdR9vGlHLMM87q513lltSPzKudWp39n+SG6QukoeHUN2+jtc6O
- fbbq6+2V7xVUuK4ZKXep8OqFwz/L9TjnnxqeAeGxSFuVZm8mUMyCMLcEknTc4eDloGQDHQLps6t
- 1vGf9zcc=
-X-Received: by 2002:a17:906:eec7:b0:b9c:69df:4d99 with SMTP id
- a640c23a62f3a-b9d72ad8da9mr652948566b.46.1776063610650; Mon, 13 Apr 2026
- 00:00:10 -0700 (PDT)
+ AFNElJ+EQSl1Y0KlEmEC0uXDI1FbHoQYEAYLC3CpQmluzKWI8hTfV0EnoSRNkt0Qzu4LhawPe10g7uaptko=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxtaPsyKGrGDCMaWhkuJD8uMua5qOIZ3Mb+EWi5XP0aTTLjPVCl
+ PSws1j6t6B1NC9LjREdD0KEKvU+Tc+K1lNiqit2DxpJLehPKIk+qctdXM3PKR1VdvW6asxwrGzV
+ tlgddyIFTluvC7IjJBK0dExnBoTb5HIw=
+X-Gm-Gg: AeBDiesI4yum58CAjSWqeS7y9+qPGgcAvpv00PYoIdyLQIqTnogdifyXvIuuuYwCyE6
+ GvjZPien0XrS+2qjkMGcsQjmE2ExrC7cm0aiX1G6GVgJG9P14b9B8XKP/teg3Ox95vkDUsoWzZ+
+ c+e9gBNcaq/Kyqtk90xLI3IwvKR2+MCRcSF8ed6QG/oEp6DV3TMjXHc6I4N5pm4rmaRPnRvdI/L
+ wYDxri2J0H4Jnq2UjQOcDdtyi7lox5V5ns1qphcdQu9+NuVXVm1nP/exCu44QcQ9nlI6795Y7t+
+ 3f+PvVDa2dB6h9iRG0IxbfCEnEsxKGF4uNx2/LhL+AcvpJkR92D0WJWb4pdiK44GZKOWof8UT/e
+ P8EHTZSE=
+X-Received: by 2002:a17:907:788:b0:b9c:2a5f:41c4 with SMTP id
+ a640c23a62f3a-b9d72683456mr663199566b.40.1776063875616; Mon, 13 Apr 2026
+ 00:04:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20251218061406.8043-1-arjunchangla7@gmail.com>
- <2025121827-lubricant-salad-860c@gregkh>
- <CALO5-psPGGxo9bu4Yjs54Sj=Hpq4x4Zgvp6tEY2MzV+utUfGpA@mail.gmail.com>
-In-Reply-To: <CALO5-psPGGxo9bu4Yjs54Sj=Hpq4x4Zgvp6tEY2MzV+utUfGpA@mail.gmail.com>
+References: <20260412144552.18493-1-mahad.ibrahim.dev@gmail.com>
+In-Reply-To: <20260412144552.18493-1-mahad.ibrahim.dev@gmail.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 13 Apr 2026 09:59:33 +0300
-X-Gm-Features: AQROBzC-kH1OmWCu3fYOKS8_sAHANFaz5pop-O-JWmBJ0plqPTqCm4ToMsiAjdg
-Message-ID: <CAHp75VeZyn+55A3T2_VCGUrvsRwODp2hJpL21Z46UeyOeYyQbg@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: fix spacing before close parenthesis
-To: Arjun Changla <arjunchangla7@gmail.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>, andy@kernel.org, 
+Date: Mon, 13 Apr 2026 10:03:58 +0300
+X-Gm-Features: AQROBzA6J9Pun5_-q9iTAp8nKuVUe_q0RpEZJPgZRxShTkw4gmMnUf4srXfMbNM
+Message-ID: <CAHp75Vdu6pih=NqkYT0CR_oLyr3YgNKBeqYM3+naqVp52UCgVw@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: Use %pe format specifier for error
+ pointers
+To: Mahad Ibrahim <mahad.ibrahim.dev@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kernel-mentees@lists.linuxfoundation.org, 
  dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
  linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -109,61 +111,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 9:58=E2=80=AFAM Arjun Changla <arjunchangla7@gmail.=
-com> wrote:
+On Sun, Apr 12, 2026 at 5:46=E2=80=AFPM Mahad Ibrahim
+<mahad.ibrahim.dev@gmail.com> wrote:
 >
+> The %pe format specifier resolves error pointers to their symbolic
+> representation. Previously %ld with PTR_ERR() was being used, %pe is a
+> better alternative.
 >
+> Fixes the following coccinelle warnings reported by coccicheck:
+> WARNING: Consider using %pe to print PTR_ERR()
 >
-> On Thu, 18 Dec 2025 at 11:50, Greg KH <gregkh@linuxfoundation.org> wrote:
->>
->> On Thu, Dec 18, 2025 at 06:14:06AM +0000, Arjun Changla wrote:
->> > Fix checkpatch error "space prohibited before that close parenthesis"
->> > on line 65 by removing the extra space.
->> >
->> > Signed-off-by: Arjun Changla <arjunchangla7@gmail.com>
->> > ---
->> >  drivers/staging/fbtft/fbtft-bus.c | 2 +-
->> >  1 file changed, 1 insertion(+), 1 deletion(-)
->> >
->> > diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft=
-/fbtft-bus.c
->> > index 30e436ff19e4..2f7c891177fb 100644
->> > --- a/drivers/staging/fbtft/fbtft-bus.c
->> > +++ b/drivers/staging/fbtft/fbtft-bus.c
->> > @@ -62,7 +62,7 @@ out:                                                =
-                              \
->> >  }                                                                    =
-         \
->> >  EXPORT_SYMBOL(func);
->> >
->> > -define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
->> > +define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
->>
->> But you just changed the function definition, does this still work now?
->> If so, how?
->>
->> confused,
->>
->> greg k-h
->
->
-> Hi Greg,
->
-> Thank you for the review. The change only removes extra spacing in
-> the function parameter - no functional changes were made.
->
-> Before:
->     const struct ia_css_output1_configuration *from ,
->
-> After:
->     const struct ia_css_output1_configuration *from,
->
-> I verified the module builds successfully with no errors:
->     make M=3Ddrivers/staging/fbtft
+> Testing: I do not own the hardware, therefore I could not perform
+> hardware testing. Compile tested only.
 
-What are you talking about?
-The original patch we are discussing is totally wrong. Please, compile
-the code before submitting.
+I don't think it makes any difference for this driver. But I am not
+objecting to the change. Up to Greg if he wants to apply or not.
 
 --=20
 With Best Regards,
