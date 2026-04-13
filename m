@@ -4,51 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 065F3F531C7
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 19:19:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD7AFF531C3
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 19:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE3B10E51C;
-	Mon, 13 Apr 2026 19:19:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C68D410E51F;
+	Mon, 13 Apr 2026 19:21:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MmGsJ7lf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oBLx4qZb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6CA10E51C
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 19:19:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 93D6E6183B;
- Mon, 13 Apr 2026 19:19:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8355C2BCAF;
- Mon, 13 Apr 2026 19:19:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776107974;
- bh=7fC589qpS+GJaFNvjmzQN2m+ArqIq5oi7jGwHoB27nI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MmGsJ7lfTQt/voshm8KB3R5LvBY0gn50PRVY3UcQrMa3EKmmRTzk8J9o0eNJEg2uV
- hn/dexiaIHQ1Tk8FAupEQYa5ZTANcV3OgZCgYE0f0tAzohyA3EBX0EJzeVl8XVtqTt
- d05CVGfo0j+sJQ4aKr6g93Et13JvHbDF1umgf8wmhyfrxLGekAApMeY06QMOktfb7Z
- y3+EGk2C8MWPLBeboWahQPuy66DDKcMxUl6wVXvpKZLvHz/GCY/l7JIoQ5ovBK6M6l
- lq54TjxWezrJc4NXQZo8w17+TufO5AmjcUJmdk0fKpOfn1bORwex2vRKmj+CLo+6F+
- mXilSVrEpeqjA==
-Date: Mon, 13 Apr 2026 22:19:30 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: fengchengwen <fengchengwen@huawei.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
-Subject: Re: [RFC] Proposal: Add sysfs interface for PCIe TPH Steering Tag
- retrieval and configuration
-Message-ID: <20260413191930.GP21470@unreal>
-References: <6ea4c4c2-774e-aa76-3665-918e2a24cc84@huawei.com>
- <20260413100152.GG21470@unreal>
- <c3a6c6ca-3b71-476c-947a-5f2393d046bd@huawei.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E63210E0FA;
+ Mon, 13 Apr 2026 19:21:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776108111; x=1807644111;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=/yuxMwENnIRcCPgqrASXBDil5WGzLxAiS5rqQNABMkc=;
+ b=oBLx4qZbjEvbuqzd6Dy2msj+0yA65934zocl3Jf88fGWkWBcnejf+a91
+ 9jVlZPR2IFZM+Cf4nvsxmesz5dkZQDtfok7DOXfjxyrZ7IK5UMOcevQRN
+ FFRZFIYNxr3mTNd5YlY+yMtpaniKtJoZsbVgG2HSNe1C4tyT7dI+kfUpw
+ WzZA8HZyLxyQuHFxazalJdgj3WBo/5Rqo8q984Ctf9MyipwJsRrH6wArn
+ vV07UkYAfycCgr2m0UbI12E9ln3ZRDgFkpIk8eTO5bxx+ZMde9pmoBJpE
+ LqW9iMv8dEECHYS8hXoktkOw3pUR/Ed0tZGLNzbljbrCW+Q6cDUG0Lh0k Q==;
+X-CSE-ConnectionGUID: dDSncvGUQZmERcngReNOLQ==
+X-CSE-MsgGUID: d6gwFR6lSAiH6mzJkFRM8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="88435225"
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="88435225"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2026 12:21:51 -0700
+X-CSE-ConnectionGUID: +JW6UgNqSJaplS0n3VHDFQ==
+X-CSE-MsgGUID: bC1tA4TnQ3+K75+6KoFutQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="225569953"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.97])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2026 12:21:40 -0700
+Date: Mon, 13 Apr 2026 22:21:31 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v13 13/27] drm/i915: Implement the "color format" DRM
+ property
+Message-ID: <ad1CO9-nlaskZQM7@intel.com>
+References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+ <20260413-color-format-v13-13-ab37d4dfba48@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c3a6c6ca-3b71-476c-947a-5f2393d046bd@huawei.com>
+In-Reply-To: <20260413-color-format-v13-13-ab37d4dfba48@collabora.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,135 +99,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 08:04:10PM +0800, fengchengwen wrote:
-> On 4/13/2026 6:01 PM, Leon Romanovsky wrote:
-> > On Fri, Apr 10, 2026 at 10:30:52PM +0800, fengchengwen wrote:
-> >> Hi all,
-> >>
-> >> I'm writing to propose adding a sysfs interface to expose and configure the
-> >> PCIe TPH
-> >> Steering Tag for PCIe devices, which is retrieved inside the kernel.
-> >>
-> >>
-> >> Background: The TPH Steering Tag is tightly coupled with both a PCIe device
-> >> (identified
-> >> by its BDF) and a CPU core. It can only be obtained in kernel mode. To allow
-> >> user-space
-> >> applications to fetch and set this value securely and conveniently, we need
-> >> a standard
-> >> kernel-to-user interface.
-> >>
-> >>
-> >> Proposed Solution: Add several sysfs attributes under each PCIe device's
-> >> sysfs directory:
-> >> 1. /sys/bus/pci/devices/<BDF>/tph_mode to query the TPH mode (interrupt or
-> >> device specific)
-> >> 2. /sys/bus/pci/devices/<BDF>/tph_enable to control the TPH feature
-> >> 3. /sys/bus/pci/devices/<BDF>/tph_st to support both read and write
-> >> operations, e.g.:
-> >>    Read operation:
-> >>      echo "cpu=3" > /sys/bus/pci/devices/0000:01:00.0/tph_st
-> >>      cat /sys/bus/pci/devices/0000:01:00.0/tph_st
-> >>    Write operation:
-> >>      echo "index=10 st=123" > /sys/bus/pci/devices/0000:01:00.0/tph_st
-> >>
-> >>
-> >> The design strictly follows PCI subsystem sysfs standards and has the
-> >> following key properties:
-> >>
-> >> 1. Dynamic Visibility: The sysfs attributes will only be present for PCIe
-> >> devices that
-> >>    support TPH Steering Tag. Devices without TPH capability will not show
-> >> these nodes,
-> >>    avoiding unnecessary user confusion.
-> >>
-> >> 2. Permission Control: The attributes will use 0600 file permissions,
-> >> ensuring only
-> >>    privileged root users can read or write them, which satisfies security
-> >> requirements
-> >>    for hardware configuration interfaces.
-> >>
-> >> 3. Standard Implementation Location: The interface will be implemented in
-> >>    drivers/pci/pci-sysfs.c, the canonical location for all PCI device sysfs
-> >> attributes,
-> >>    ensuring consistency and maintainability within the PCI subsystem.
-> >>
-> >>
-> >> Why sysfs instead of alternatives like VFIO-PCI ioctl:
-> >>
-> >> - Universality: sysfs does not require binding the device to a special
-> >> driver such as
-> >>   vfio-pci. It is available to any privileged user-space component,
-> >> including system
-> >>   utilities, daemons, and monitoring tools.
-> >>
-> >> - Simplicity: Both user-space usage (cat/echo) and kernel implementation are
-> >>   straightforward, reducing code complexity and long-term maintenance cost.
-> >>
-> >> - Design Alignment: TPH Steering Tag is a generic PCIe device feature, not
-> >> specific to
-> >>   user-space drivers like DPDK or VFIO. Exposing it via sysfs matches the
-> >> kernel's
-> >>   standard pattern for hardware capabilities.
-> >>
-> >>
-> >> I look forward to your comments about this design before submitting the
-> >> final patch.
-> > 
-> > You need to explain more clearly why this write functionality is useful
-> > and necessary outside the VFIO/RDMA context:
-> > https://lore.kernel.org/all/20260324234615.3731237-1-zhipingz@meta.com/
-> > 
-> > AFAIK, for non-VFIO TPH callers, kernel has enough knowledge to set
-> > right ST values.
-> > 
-> > There are several comments regarding the implementation, but those can wait
-> > until the rationale behind the proposal is fully clarified.
+On Mon, Apr 13, 2026 at 12:07:27PM +0200, Nicolas Frattaroli wrote:
+> Implement the "color format" DRM property for both DP and HDMI.  The
+> values of the property include RGB, YCbCr420, YCbCr444 and Auto. Auto
+> will pick RGB, with a fallback to YCbCr420.
 > 
-> Thanks for your review and comments.
+> The mask of supported formats by the source exposed by the property is
+> an optimistic scenario, as specific DFP-related caveats can't be
+> established before an EDID is present.
 > 
-> Let me clarify the rationale behind this user-space sysfs interface:
+> Should the explicitly requested color format not be supported by the
+> sink (or by the source in combination with the sink), then an error is
+> returned to userspace, so that it can make a better choice.
 > 
-> 1. VFIO is just one of the user-space device access frameworks.
->    There are many other in-kernel frameworks that expose devices
->    to user space, such as UIO, UACCE, etc., which may also require
->    TPH Steering Tag support.
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_connector.c | 10 +++++++
+>  drivers/gpu/drm/i915/display/intel_connector.h |  1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c        | 38 +++++++++++++++++++++++---
+>  drivers/gpu/drm/i915/display/intel_hdmi.c      | 38 +++++++++++++++++++++++---
+>  4 files changed, 79 insertions(+), 8 deletions(-)
 > 
-> 2. The kernel can automatically program Steering Tags only when
->    the device provides a standard ST table in MSI-X or config space.
->    However, many devices implement vendor-specific or platform-specific
->    Steering Tag programming methods that cannot be fully handled
->    by the generic kernel code.
-> 
-> 3. For such devices, user-space applications or framework drivers
->    need to retrieve and configure TPH Steering Tags directly.
->    A unified sysfs interface allows all user-space frameworks
->    (not just VFIO) to use a common, standard way to manage
->    TPH Steering Tags, rather than implementing duplicated logic
->    in each subsystem.
-> 
-> This interface provides a uniform method for any user-space
-> device access solution to work with TPH, which is why I believe
-> it is useful and necessary beyond the VFIO/RDMA case.
+> diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
+> index 7ef9338d67ab..b1a21dd77af6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_connector.c
+> +++ b/drivers/gpu/drm/i915/display/intel_connector.c
+> @@ -338,3 +338,13 @@ intel_attach_scaling_mode_property(struct drm_connector *connector)
+>  
+>  	connector->state->scaling_mode = DRM_MODE_SCALE_ASPECT;
+>  }
+> +
+> +void
+> +intel_attach_color_format_property(struct drm_connector *connector)
+> +{
+> +	const unsigned long fmts = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+> +				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+> +				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
 
-I understand the rationale for providing a read interface, for example for
-debugging, but I do not see any justification for a write interface.
+We're going to need different formats for different platforms, and 
+for DP vs. HDMI.
 
-TPH is defined by the PCI specification. If a device intends to support it,
-then it should conform to the specification.
+For HDMI it should be fairly simple if we have the
+ycbcr420_allowed and ycbcr444_allowed things to consult.
 
-Thanks
+For DP I'm not sure if we want to advertise YCbCr output support
+for platforms that can't produce it without help from the PCON.
+If we know there is an on board PCON that can do it, then the answer
+is probably yes. But without that it might be best to not advertise
+the relevant formats unless source_can_output() tells us that it can
+be directly output. We could at least start with that, and revisit
+it later if some situations arise where eg. having explicit 4:2:0
+output on older platforms is beneficial.
 
+I think you want to split this to separate DP vs. HDMI patches since
+the two require quite different logic.
 
+> +
+> +	drm_connector_attach_color_format_property(connector, fmts);
+> +}
+> diff --git a/drivers/gpu/drm/i915/display/intel_connector.h b/drivers/gpu/drm/i915/display/intel_connector.h
+> index 0aa86626e646..c77b7aac02cb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_connector.h
+> +++ b/drivers/gpu/drm/i915/display/intel_connector.h
+> @@ -34,5 +34,6 @@ void intel_attach_dp_colorspace_property(struct drm_connector *connector);
+>  void intel_attach_scaling_mode_property(struct drm_connector *connector);
+>  void intel_connector_queue_modeset_retry_work(struct intel_connector *connector);
+>  void intel_connector_cancel_modeset_retry_work(struct intel_connector *connector);
+> +void intel_attach_color_format_property(struct drm_connector *connector);
+>  
+>  #endif /* __INTEL_CONNECTOR_H__ */
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 47bd3d59ea93..3b2293415b55 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3398,10 +3398,10 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+>  }
+>  
+>  static int
+> -intel_dp_compute_formats(struct intel_encoder *encoder,
+> -			 struct intel_crtc_state *crtc_state,
+> -			 struct drm_connector_state *conn_state,
+> -			 bool respect_downstream_limits)
+> +intel_dp_compute_formats_auto(struct intel_encoder *encoder,
+> +			      struct intel_crtc_state *crtc_state,
+> +			      struct drm_connector_state *conn_state,
+> +			      bool respect_downstream_limits)
+>  {
+>  	struct intel_display *display = to_intel_display(encoder);
+>  	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+> @@ -3437,6 +3437,34 @@ intel_dp_compute_formats(struct intel_encoder *encoder,
+>  	return ret;
+>  }
+>  
+> +static int
+> +intel_dp_compute_formats(struct intel_encoder *encoder,
+> +			 struct intel_crtc_state *crtc_state,
+> +			 struct drm_connector_state *conn_state,
+> +			 bool respect_downstream_limits)
+> +{
+> +	switch (conn_state->color_format) {
+> +	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
+> +		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
+> +						      respect_downstream_limits,
+> +						      INTEL_OUTPUT_FORMAT_RGB);
+> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
+> +		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
+> +						      respect_downstream_limits,
+> +						      INTEL_OUTPUT_FORMAT_YCBCR444);
+> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
+> +		return intel_dp_compute_output_format(encoder, crtc_state, conn_state,
+> +						      respect_downstream_limits,
+> +						      INTEL_OUTPUT_FORMAT_YCBCR420);
+> +	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
+> +		return intel_dp_compute_formats_auto(encoder, crtc_state, conn_state,
+> +						     respect_downstream_limits);
+> +	default:
+> +		MISSING_CASE(conn_state->color_format);
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>  void
+>  intel_dp_audio_compute_config(struct intel_encoder *encoder,
+>  			      struct intel_crtc_state *pipe_config,
+> @@ -7025,6 +7053,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
+>  
+>  	if (HAS_VRR(display))
+>  		drm_connector_attach_vrr_capable_property(&connector->base);
+> +
+> +	intel_attach_color_format_property(&connector->base);
+>  }
+>  
+>  static void
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> index 5ab5b5f85cde..632498e3702b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -2307,10 +2307,10 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
+>  	return intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
+>  }
+>  
+> -static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+> -				      struct intel_crtc_state *crtc_state,
+> -				      const struct drm_connector_state *conn_state,
+> -				      bool respect_downstream_limits)
+> +static int intel_hdmi_compute_formats_auto(struct intel_encoder *encoder,
+> +					   struct intel_crtc_state *crtc_state,
+> +					   const struct drm_connector_state *conn_state,
+> +					   bool respect_downstream_limits)
+>  {
+>  	struct intel_display *display = to_intel_display(encoder);
+>  	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+> @@ -2345,6 +2345,35 @@ static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+>  	return ret;
+>  }
+>  
+> +static int intel_hdmi_compute_formats(struct intel_encoder *encoder,
+> +				      struct intel_crtc_state *crtc_state,
+> +				      const struct drm_connector_state *conn_state,
+> +				      bool respect_downstream_limits)
+> +{
+> +	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+> +
+> +	switch (conn_state->color_format) {
+> +	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
+> +		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
+> +							respect_downstream_limits,
+> +							INTEL_OUTPUT_FORMAT_RGB);
+> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
+> +		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
+> +							respect_downstream_limits,
+> +							INTEL_OUTPUT_FORMAT_YCBCR444);
+> +	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
+> +		return intel_hdmi_compute_output_format(encoder, crtc_state, connector,
+> +							respect_downstream_limits,
+> +							INTEL_OUTPUT_FORMAT_YCBCR420);
+> +	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
+> +		return intel_hdmi_compute_formats_auto(encoder, crtc_state, conn_state,
+> +						       respect_downstream_limits);
+> +	default:
+> +		MISSING_CASE(conn_state->color_format);
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>  static bool intel_hdmi_is_cloned(const struct intel_crtc_state *crtc_state)
+>  {
+>  	return crtc_state->uapi.encoder_mask &&
+> @@ -2729,6 +2758,7 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
+>  
+>  	intel_attach_hdmi_colorspace_property(&connector->base);
+>  	drm_connector_attach_content_type_property(&connector->base);
+> +	intel_attach_color_format_property(&connector->base);
+>  
+>  	if (DISPLAY_VER(display) >= 10)
+>  		drm_connector_attach_hdr_output_metadata_property(&connector->base);
 > 
-> Thanks
-> 
-> > 
-> > Thanks
-> > 
-> >>
-> >> Best regards,
-> >> Chengwen Feng
-> >>
-> 
-> 
+> -- 
+> 2.53.0
+
+-- 
+Ville Syrjälä
+Intel
