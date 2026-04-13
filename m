@@ -4,86 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC505F531CA
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 19:08:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 065F3F531C7
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 19:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC33810E51A;
-	Mon, 13 Apr 2026 19:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE3B10E51C;
+	Mon, 13 Apr 2026 19:19:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QttfARdc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MmGsJ7lf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D429C10E075;
- Mon, 13 Apr 2026 19:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776107318; x=1807643318;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=4CaM7wenZxKtG66qKgsfsJsukc+IvRC3EJ8tB66RfKQ=;
- b=QttfARdcQv/8J8zr+fH/UMN73lL1dXP4cDGDxNeu9a86JNs5D/uAtalE
- nCAphRjp8czS6uWHkIP6aE6z+MXDGPRSRujRpohgNNyxK+33sNTWb8Uwz
- rwdYVb6CJQd3EHsfua9UelhGLy+6B0mzda8fNkV8CcHO6tI3k3DGfh3Rn
- +QlyTsEfQz+iaYPjXwQq1pK5Z5AVkTgBCwqHX59oRAcWkrti1basnvLZY
- 080tsLXp1V0uVZWwYjkEBcQyVB0HKA996SsKwa1s6AgqoonJL6NiA2tfK
- E6T0dYQVzY9+EwzN+INBPsYE7B8Q6UKCpT+9kdjDiGpzBV+c2IegyNsNF g==;
-X-CSE-ConnectionGUID: UT3Eq5kOSHaEnEITyJsunA==
-X-CSE-MsgGUID: 91UE6bOvS8OG3GciI2LJzw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="80914443"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="80914443"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 12:08:37 -0700
-X-CSE-ConnectionGUID: LLoqwsUcSQadMQwd692Pcg==
-X-CSE-MsgGUID: c3AdYV8HRbyVMj2WycmQ6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="225137667"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.97])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 12:08:26 -0700
-Date: Mon, 13 Apr 2026 22:08:23 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v13 12/27] drm/i915/dp: Add YCBCR444 handling for sink
- formats
-Message-ID: <ad0_J-wTpGeaxnF8@intel.com>
-References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
- <20260413-color-format-v13-12-ab37d4dfba48@collabora.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6CA10E51C
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 19:19:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 93D6E6183B;
+ Mon, 13 Apr 2026 19:19:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8355C2BCAF;
+ Mon, 13 Apr 2026 19:19:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776107974;
+ bh=7fC589qpS+GJaFNvjmzQN2m+ArqIq5oi7jGwHoB27nI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MmGsJ7lfTQt/voshm8KB3R5LvBY0gn50PRVY3UcQrMa3EKmmRTzk8J9o0eNJEg2uV
+ hn/dexiaIHQ1Tk8FAupEQYa5ZTANcV3OgZCgYE0f0tAzohyA3EBX0EJzeVl8XVtqTt
+ d05CVGfo0j+sJQ4aKr6g93Et13JvHbDF1umgf8wmhyfrxLGekAApMeY06QMOktfb7Z
+ y3+EGk2C8MWPLBeboWahQPuy66DDKcMxUl6wVXvpKZLvHz/GCY/l7JIoQ5ovBK6M6l
+ lq54TjxWezrJc4NXQZo8w17+TufO5AmjcUJmdk0fKpOfn1bORwex2vRKmj+CLo+6F+
+ mXilSVrEpeqjA==
+Date: Mon, 13 Apr 2026 22:19:30 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: fengchengwen <fengchengwen@huawei.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
+Subject: Re: [RFC] Proposal: Add sysfs interface for PCIe TPH Steering Tag
+ retrieval and configuration
+Message-ID: <20260413191930.GP21470@unreal>
+References: <6ea4c4c2-774e-aa76-3665-918e2a24cc84@huawei.com>
+ <20260413100152.GG21470@unreal>
+ <c3a6c6ca-3b71-476c-947a-5f2393d046bd@huawei.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260413-color-format-v13-12-ab37d4dfba48@collabora.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <c3a6c6ca-3b71-476c-947a-5f2393d046bd@huawei.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,47 +64,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 12:07:26PM +0200, Nicolas Frattaroli wrote:
-> In anticipation of userspace being able to explicitly select supported
-> sink formats, add handling of the YCBCR444 sink format. The AUTO path
-> does not choose this format, but with explicit format selection added to
-> the driver, it becomes a possibility.
+On Mon, Apr 13, 2026 at 08:04:10PM +0800, fengchengwen wrote:
+> On 4/13/2026 6:01 PM, Leon Romanovsky wrote:
+> > On Fri, Apr 10, 2026 at 10:30:52PM +0800, fengchengwen wrote:
+> >> Hi all,
+> >>
+> >> I'm writing to propose adding a sysfs interface to expose and configure the
+> >> PCIe TPH
+> >> Steering Tag for PCIe devices, which is retrieved inside the kernel.
+> >>
+> >>
+> >> Background: The TPH Steering Tag is tightly coupled with both a PCIe device
+> >> (identified
+> >> by its BDF) and a CPU core. It can only be obtained in kernel mode. To allow
+> >> user-space
+> >> applications to fetch and set this value securely and conveniently, we need
+> >> a standard
+> >> kernel-to-user interface.
+> >>
+> >>
+> >> Proposed Solution: Add several sysfs attributes under each PCIe device's
+> >> sysfs directory:
+> >> 1. /sys/bus/pci/devices/<BDF>/tph_mode to query the TPH mode (interrupt or
+> >> device specific)
+> >> 2. /sys/bus/pci/devices/<BDF>/tph_enable to control the TPH feature
+> >> 3. /sys/bus/pci/devices/<BDF>/tph_st to support both read and write
+> >> operations, e.g.:
+> >>    Read operation:
+> >>      echo "cpu=3" > /sys/bus/pci/devices/0000:01:00.0/tph_st
+> >>      cat /sys/bus/pci/devices/0000:01:00.0/tph_st
+> >>    Write operation:
+> >>      echo "index=10 st=123" > /sys/bus/pci/devices/0000:01:00.0/tph_st
+> >>
+> >>
+> >> The design strictly follows PCI subsystem sysfs standards and has the
+> >> following key properties:
+> >>
+> >> 1. Dynamic Visibility: The sysfs attributes will only be present for PCIe
+> >> devices that
+> >>    support TPH Steering Tag. Devices without TPH capability will not show
+> >> these nodes,
+> >>    avoiding unnecessary user confusion.
+> >>
+> >> 2. Permission Control: The attributes will use 0600 file permissions,
+> >> ensuring only
+> >>    privileged root users can read or write them, which satisfies security
+> >> requirements
+> >>    for hardware configuration interfaces.
+> >>
+> >> 3. Standard Implementation Location: The interface will be implemented in
+> >>    drivers/pci/pci-sysfs.c, the canonical location for all PCI device sysfs
+> >> attributes,
+> >>    ensuring consistency and maintainability within the PCI subsystem.
+> >>
+> >>
+> >> Why sysfs instead of alternatives like VFIO-PCI ioctl:
+> >>
+> >> - Universality: sysfs does not require binding the device to a special
+> >> driver such as
+> >>   vfio-pci. It is available to any privileged user-space component,
+> >> including system
+> >>   utilities, daemons, and monitoring tools.
+> >>
+> >> - Simplicity: Both user-space usage (cat/echo) and kernel implementation are
+> >>   straightforward, reducing code complexity and long-term maintenance cost.
+> >>
+> >> - Design Alignment: TPH Steering Tag is a generic PCIe device feature, not
+> >> specific to
+> >>   user-space drivers like DPDK or VFIO. Exposing it via sysfs matches the
+> >> kernel's
+> >>   standard pattern for hardware capabilities.
+> >>
+> >>
+> >> I look forward to your comments about this design before submitting the
+> >> final patch.
+> > 
+> > You need to explain more clearly why this write functionality is useful
+> > and necessary outside the VFIO/RDMA context:
+> > https://lore.kernel.org/all/20260324234615.3731237-1-zhipingz@meta.com/
+> > 
+> > AFAIK, for non-VFIO TPH callers, kernel has enough knowledge to set
+> > right ST values.
+> > 
+> > There are several comments regarding the implementation, but those can wait
+> > until the rationale behind the proposal is fully clarified.
 > 
-> Check for sink support of YCBCR444 to intel_dp_sink_format_valid.
+> Thanks for your review and comments.
 > 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 5 +++++
->  1 file changed, 5 insertions(+)
+> Let me clarify the rationale behind this user-space sysfs interface:
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 35b8fb5740aa..47bd3d59ea93 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -1364,6 +1364,11 @@ intel_dp_sink_format_valid(struct intel_connector *connector,
->  
->  		return MODE_OK;
->  	case INTEL_OUTPUT_FORMAT_RGB:
-> +		return MODE_OK;
-> +	case INTEL_OUTPUT_FORMAT_YCBCR444:
-> +		if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)))
-> +			return MODE_BAD;
-
-The DP situation is a lot more more fuzzy than the HDMI situation
-due to the PCON stuff. So I'm not quite sure what we should do here.
-
-At the very least I think we want the equivalent of
-intel_dp_can_ycbcr420() for 444, and the same intel_dp_has_hdmi_sink()
-check that we have for 420.
-
-> +
->  		return MODE_OK;
->  	default:
->  		MISSING_CASE(sink_format);
+> 1. VFIO is just one of the user-space device access frameworks.
+>    There are many other in-kernel frameworks that expose devices
+>    to user space, such as UIO, UACCE, etc., which may also require
+>    TPH Steering Tag support.
 > 
-> -- 
-> 2.53.0
+> 2. The kernel can automatically program Steering Tags only when
+>    the device provides a standard ST table in MSI-X or config space.
+>    However, many devices implement vendor-specific or platform-specific
+>    Steering Tag programming methods that cannot be fully handled
+>    by the generic kernel code.
+> 
+> 3. For such devices, user-space applications or framework drivers
+>    need to retrieve and configure TPH Steering Tags directly.
+>    A unified sysfs interface allows all user-space frameworks
+>    (not just VFIO) to use a common, standard way to manage
+>    TPH Steering Tags, rather than implementing duplicated logic
+>    in each subsystem.
+> 
+> This interface provides a uniform method for any user-space
+> device access solution to work with TPH, which is why I believe
+> it is useful and necessary beyond the VFIO/RDMA case.
 
--- 
-Ville Syrjälä
-Intel
+I understand the rationale for providing a read interface, for example for
+debugging, but I do not see any justification for a write interface.
+
+TPH is defined by the PCI specification. If a device intends to support it,
+then it should conform to the specification.
+
+Thanks
+
+
+> 
+> Thanks
+> 
+> > 
+> > Thanks
+> > 
+> >>
+> >> Best regards,
+> >> Chengwen Feng
+> >>
+> 
+> 
