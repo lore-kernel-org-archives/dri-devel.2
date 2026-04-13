@@ -4,134 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72DB3EBFD21
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 09:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4749EBFD21
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 09:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D829710E39A;
-	Mon, 13 Apr 2026 09:12:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0421810E39D;
+	Mon, 13 Apr 2026 09:17:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="dUQ7X1sy";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EvLkMhtP";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="xQS8sfCH";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92ABA10E39A
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 09:12:30 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63D7SBQx1463124
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 09:12:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=boe8M+Zd0VRIk2uDqCiesZ4O
- +RvgaMRU/Num4Kk0viM=; b=dUQ7X1syiY3kJN8vEwJxdy6YohVfMnWw8yfqMwx3
- iSg+ERDOv9I4cs/ZofAs9FR2+STuvaz8PMfQdYwPwd3c/41NRpR0NQ/FmHmGwk3s
- D1k67QQhEgEpgEsndU3Tx4v97JGfYGNYQ3O/nzyHcQCmHlokl2BVLo4AL6VlSn2z
- UbPlImiy67cPrJ9AKJwdq01HI1Q9AKZbn2huQrvdT87m+G57WjT0olwxMIFdb0o9
- 0B8kuA94Rb+mO1VghGPscMLXqLbn9DY4FdPe1xXk5kmGk/pqb1I168aMQS29NK9+
- U46kEXWyPghJpA+3CwRRvcAeoTpBhLqSbRXxh1oUknR2Ug==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dfexfvm70-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 09:12:29 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c792f3a5c35so1005806a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 02:12:29 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5719410E39B
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 09:17:15 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so66786655e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 02:17:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776071548; x=1776676348;
- darn=lists.freedesktop.org; 
- h=in-reply-to:from:content-language:references:cc:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=boe8M+Zd0VRIk2uDqCiesZ4O+RvgaMRU/Num4Kk0viM=;
- b=EvLkMhtP5igyqKINZMi9pTKKtbm4pApi/CcSPsYJyVzKEcjK1XxwC19Gy6LU2Rrile
- 6DLCR0bDC4R386VQK1XE4wEaHr5nwR1sRNfXDMp2Xhygsy4b4u6Fb8q0S7mWx8O5BpiA
- Xq79onVfditj8/zXv7DBCXaleFEeZOSM/QHCZJ/lpthqTXSI+GJnVKSr0Ven1t1QY2u2
- gd671mNzHj218fXEIM5VF8G425GSVoXA1k/wuj/Qr9hfgX5W3lQMaUANGx9XuBiRAkbA
- VJheXZ/l1ACgRdzNnLaRf+oQV66dP+loa2X24D2tHpsKCbyvz4VXtNvPCrowF1c6iVkv
- 7b8A==
+ d=linaro.org; s=google; t=1776071834; x=1776676634; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=BBXQV8IQIM5Jz+pAvVnKIgGMT01hQYDxhN8tz3TvSyk=;
+ b=xQS8sfCHHcGmr+jAbS74N6Y02gD3XY3oLX6kfX+QMuUvsnC5tzSap61uJ2HCsuVVDm
+ DBAG7khfN00P30MwqfsOzqpE0fBdd9ujcjQOl9DxXjlMimV816zQ+XJf+SJtFD2D2N0x
+ z8X01MKQ9DLIwiShGz8ijn5ILMpt+/ZNy66BJP1r1MM3FjRW13VqqjZunRpxTKag9mgO
+ DutD1zZL9NhpFoX4QW+uJ01HqiTMFoaDfczEbHefzOp3Y6lffzxsVvMS/LW7S+0Ytg3q
+ fYI7WQmTG11LAILGPahH0KWBk1vjNU8XSfuNXsPhSH0xR3xg6INYj5ndBWXv9FAnnrem
+ Dh4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776071548; x=1776676348;
- h=in-reply-to:from:content-language:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=boe8M+Zd0VRIk2uDqCiesZ4O+RvgaMRU/Num4Kk0viM=;
- b=CeE23JAP5pYJM0JySdWcvLG4m3MAln4GHQuUwEM7TZNaev527cJ70y6BrZJy54cpSq
- nB40iwCxFaSsQ0z3OYbrgVgidL99qAG4gsdrWIa+sgspdGHEVvzAQRLKDbS1l1VpNXsC
- NKONZqRTo+iH1jHCvm5A/Adxh4q9VgD9ZfQZjMe2VE4CTn8ufwDozPd+V5lZIkw8KCoh
- bvysC7dJ4O26r2RRyVyRj0Iqhmn3Jhn7FuCMv45NWc0SbtUMJbo/oUt0EInqrTefsdfi
- HcLE0Lw54XnfuUPlCVRAcO8tXQ2vU3S7BII/EKIXKPK0zUqG12Zbjp1re2WvHvpNdmiO
- Ct0g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+ShnGDgM10lL7uYfE87ComC8u7VA2oq/sc4EjwRLtxpq1ZrgW3W7lrXqoSWci4CkC5HYyDsqn2Jtg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7YeWsAkoxlq7ATlZkcsK2ofWv3oDAKrr4GSqs8IVCq01XXlP5
- wl8o+/VNcYQfGhyjHneSRVpErifQeUujSmE4Be6RWAv5uujqbIjQSyaiRwYcGcszNBeiCbUSS/B
- sT5MeQovS3m6kJj4oVwb8Ku2dOu1pdt4pVHVprtUw3FCCg2BqP0m6XARdPkqcoDkTegJLHxQ=
-X-Gm-Gg: AeBDiesUX8/fjYMS+Xigt6ITeCo/GGPC+u5BGVVfu5ShDV6Nc8XydRsycYtIvYrI0cW
- TlqMZJzI24i4W3IPaWH6OGgPWrlYO5Q/NkabtyPxUxcnjuDlQfAErjydM9QEgxamlD2TDq7sZY/
- iuk+o5Y5D5c6jEHhtM+y+nMl39beZo+B/Q7fYq8ciw/sWWuKJQvaYGPpb/Z5hk81n0KTewx1tCa
- SbYA8AXDowAsenZSu/8FGPN0MNkq3x2cQhK5/2xiSvPY/CLBvI65ecODANeZQyiHsbncRnYK83M
- Aihuc+UYlzu0Ljl+K50VV5lBFXCjPfiRET/YPWJARSgdbGlfcE2LOgdXPuVIg2Q4kgP8jNko7Uh
- cnnDDWQ7I2ihsQmrCc7DFXMEog8iLUJwDyizBIVuiaXtlucHRAJcW4Es=
-X-Received: by 2002:a05:6a20:2587:b0:39b:81bf:15ed with SMTP id
- adf61e73a8af0-39fe40a11d7mr13112339637.52.1776071548353; 
- Mon, 13 Apr 2026 02:12:28 -0700 (PDT)
-X-Received: by 2002:a05:6a20:2587:b0:39b:81bf:15ed with SMTP id
- adf61e73a8af0-39fe40a11d7mr13112315637.52.1776071547871; 
- Mon, 13 Apr 2026 02:12:27 -0700 (PDT)
-Received: from [192.168.0.215] ([49.205.244.213])
+ d=1e100.net; s=20251104; t=1776071834; x=1776676634;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BBXQV8IQIM5Jz+pAvVnKIgGMT01hQYDxhN8tz3TvSyk=;
+ b=F2VLB68ZlLguslnsMKlBjcJQTGGeOaxdDDjbnQYFZX2K5grlM7uGATQcwF1erxaIVA
+ v8iiMm7vEGmoyPZEH/r8jm9WZoJIMgJu7f24Q1ywl9k80Mw0R4QlPWY5F80JgP57HD7m
+ ZK0MyglxWK2vf4H+nu2DEqBcGHSbJGcRMpA4tpqnIXabKR2tykeSrXAN+17Dt5wOE6jl
+ QBlgGSI3oQrs32+zbBUlYcnqUud15CrhjtA5ZBN0C3Cgc7bC0b+DW2NSIOVMGhExoSHz
+ GowOw7JLG96QYtWuRjPRBRuayyuhxALQgmm/LQCiP78roRbkUC6/cAZ3ZLhHnZ+D0B2V
+ j6hw==
+X-Gm-Message-State: AOJu0YxpJDZST4lIiIU5Ty+hf23EzmRH09fXY2euGInJjT42BETLuLeu
+ ZMKd5q60sYQWiJ22QMQpB0CmpOYNFQ2XCwSoKmfIAXdO+WrEL+ecFdkE0p6ytw+QRdc=
+X-Gm-Gg: AeBDieteiJ762xyKUsiVsgrSZPWQ6GSvoDWB4fY7HwTtVPGnZ/2aCbV+Qpob+Hkb9iK
+ fWaV0BZBjLtTZwnXyumWbGI5FlvwzjaF4FozYRcmqK88asC6F1IyYb5Fnw9zWfetpeVm84sOL0M
+ kRQ1JqOoHzdHQ0/N4K2eIZ81Py0SXMH/smLxWZOb6dpEfGIR7Qg4snCb1IEfQpLCsp5NHvS6qvV
+ cM0ZAC55FQJbnDcPXzx/IEUoEOUebaMNW2/oUaHsZoQIBX85le+eSdjBaJ1HxG431ZfZZRL5k2T
+ ic3lK8XpRgmLRkHBt/MNJnXslq/8hL7Ai3NHp3s8+7RBrjASNxgIvdHmDcT1d3tyrtAgkiyMZYD
+ jqodfkVweqX4yaqdEE/8vXe+pCFy53FS9zUx80GtCQyW8de7yHQiLMrG/1hZ3LP8ox848eS/8zp
+ RWs39PHEZv4zeEafQw2CNuCS9aQO3eX0SW3QcPMgb+8c/ih1xzdO3QQIoAUjbWJZP04mA7Ohc5g
+ haJHmDo8U53mdlq/A==
+X-Received: by 2002:a05:600c:5298:b0:488:c014:34da with SMTP id
+ 5b1f17b1804b1-488d688687cmr180555835e9.26.1776071833592; 
+ Mon, 13 Apr 2026 02:17:13 -0700 (PDT)
+Received: from ?IPV6:2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25?
+ ([2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c79219c6306sm9326887a12.15.2026.04.13.02.12.23
+ 5b1f17b1804b1-488d5888c12sm332474845e9.3.2026.04.13.02.17.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Apr 2026 02:12:27 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------p4m7dt3v1H0l3XQ7ykl0KqyH"
-Message-ID: <c9042f4b-b6c5-4615-bc16-5e08b2eae36d@oss.qualcomm.com>
-Date: Mon, 13 Apr 2026 14:42:22 +0530
+ Mon, 13 Apr 2026 02:17:13 -0700 (PDT)
+Message-ID: <63870098-5e70-44af-ba18-1fd726b5ef5a@linaro.org>
+Date: Mon, 13 Apr 2026 11:17:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/9] bus: mhi: Add QDU100 variant and image_id firmware
- fallback
-To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, andersson@kernel.org
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mhi@lists.linux.dev
-References: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
- <20260319-sahara_protocol_new_v2-v4-5-47ad79308762@oss.qualcomm.com>
- <65985856-0a01-4856-af97-56caed5430b6@oss.qualcomm.com>
-Content-Language: en-US
-From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-In-Reply-To: <65985856-0a01-4856-af97-56caed5430b6@oss.qualcomm.com>
-X-Proofpoint-GUID: B6K36L8r3LjFpoxxQeilnAD07bGFqp9G
-X-Authority-Analysis: v=2.4 cv=OpZ/DS/t c=1 sm=1 tr=0 ts=69dcb37d cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=KtsNJ/6bKgz7QsArn2OSsQ==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=r77TgQKjGQsHNAKrUKIA:9
- a=EUspDBNiAAAA:8 a=XXnAA5r738JOccR_1D0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=Lpi1qhYQXsosjc3B81gA:9 a=y6ItckR5CYLwWWgH:21 a=_W_S_7VecoQA:10
- a=lqcHg5cX4UMA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: B6K36L8r3LjFpoxxQeilnAD07bGFqp9G
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDEzMDA4OSBTYWx0ZWRfX1Tb7FnVsGOou
- 6525ByzCRUgpxywGMHmVBPriYSLErnqn86voYponoT8SXGLL6D5aRWyioitgT0QgmJsEMgaUtJp
- wBTFIUd1xBgw3kA11uOYy7XRLhvd7RPoOHEkLFL3m4cawYzTiV103njaxo2iLZJ5pf0cEfb+wtW
- 0Swf2kyzkfXfI6M6XGvm1wIReUkPLj72emw2nmH99fVkPwIhB8hct5cofzj6CkbpaZ1q+8rezzg
- Iebj7sXTP4l4NJFUs8NUF03CqehnDl0kXn0wYDs7h5cazG6Ol2ZBbG7dlPD8x2OzJod/OGce8Ds
- YFrNQtFQwGC842Kkoww5UddthPYc5oIFD818HYjs8+07b11USD+rHUmrWYpPYlhSS52Pej3wxMW
- ufgF8vbzUImk6pHIsvCl3a+7nylgbY202r5xH0OVxncQG6FVyvJ760528xS1c7GDWi2SgcBuuUD
- X3w2v2X74RxIgPtsnrA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-13_02,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0 priorityscore=1501
- adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604130089
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 2/2] drm/panel: Add panel driver for ChipWealth
+ CH13726A based panels
+To: webgeek1234@gmail.com, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Teguh Sobirin <teguh@sobir.in>
+References: <20260408-ch13726a-v4-0-9bb1a9b8f329@gmail.com>
+ <20260408-ch13726a-v4-2-9bb1a9b8f329@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260408-ch13726a-v4-2-9bb1a9b8f329@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,588 +121,413 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------p4m7dt3v1H0l3XQ7ykl0KqyH
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 4/8/26 07:32, Aaron Kling via B4 Relay wrote:
+> From: Teguh Sobirin <teguh@sobir.in>
+> 
+> This is used by the AYN Thor for the bottom panel.
+> 
+> Signed-off-by: Teguh Sobirin <teguh@sobir.in>
+> Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> ---
+>   drivers/gpu/drm/panel/Kconfig                     |  11 +
+>   drivers/gpu/drm/panel/Makefile                    |   1 +
+>   drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 339 ++++++++++++++++++++++
+>   3 files changed, 351 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index d6863b28ddc559..e2c00f08f4507d 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -105,6 +105,17 @@ config DRM_PANEL_BOE_TV101WUM_LL2
+>   	  Say Y here if you want to support for BOE TV101WUM-LL2
+>   	  WUXGA PANEL DSI Video Mode panel
+>   
+> +config DRM_PANEL_CHIPWEALTH_CH13726A
+> +	tristate "CHIPWEALTH CH13726A-based DSI panel"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_DP_HELPER
+> +	select DRM_DISPLAY_HELPER
+> +	help
+> +	  Say Y here if you want to enable support for ChipWealth
+> +	  CH13726A-based display panels.
+> +
+>   config DRM_PANEL_EBBG_FT8719
+>   	tristate "EBBG FT8719 panel driver"
+>   	depends on OF
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index a4291dc3905bed..343d283d1620fb 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -9,6 +9,7 @@ obj-$(CONFIG_DRM_PANEL_BOE_TD4320) += panel-boe-td4320.o
+>   obj-$(CONFIG_DRM_PANEL_BOE_TH101MB31UIG002_28A) += panel-boe-th101mb31ig002-28a.o
+>   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_LL2) += panel-boe-tv101wum-ll2.o
+>   obj-$(CONFIG_DRM_PANEL_BOE_TV101WUM_NL6) += panel-boe-tv101wum-nl6.o
+> +obj-$(CONFIG_DRM_PANEL_CHIPWEALTH_CH13726A) += panel-chipwealth-ch13726a.o
+>   obj-$(CONFIG_DRM_PANEL_DSI_CM) += panel-dsi-cm.o
+>   obj-$(CONFIG_DRM_PANEL_LVDS) += panel-lvds.o
+>   obj-$(CONFIG_DRM_PANEL_SIMPLE) += panel-simple.o
+> diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> new file mode 100644
+> index 00000000000000..48a5e20e07c487
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> @@ -0,0 +1,339 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * ChipWealth CH13726A MIPI-DSI panel driver
+> + * Copyright (c) 2024, Teguh Sobirin <teguh@sobir.in>.
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +struct ch13726a_panel {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	struct regulator_bulk_data supplies[4];
+> +	struct gpio_desc *reset_gpio;
+> +	struct ch13726a_desc *desc;
+> +	enum drm_panel_orientation orientation;
+> +	bool prepared;
 
+Drop this, it's handled by the panel core now.
 
-On 4/10/2026 2:44 AM, Jeff Hugo wrote:
-> On 3/19/2026 12:31 AM, Kishore Batta wrote:
->> The Sahara driver currently selects a firmware image table based on the
->> attached device, but it does not recognize QDU100 devices that expose 
->> the
->> protocol on the SAHARA MHI channel. As a result, the host cannot 
->> associate
->> QDU100 devices with the correct firmware namespace during image 
->> transfer.
->>
->> Extend the probe-time variant selection to match the SAHARA MHI channel
->> and associate it with the QDU100 firmware folder. Add an image_id based
->> firmware lookup fallback for cases where an image does not have an 
->> explicit
->> table entry. This allows required images to be provisioned by the 
->> platform
->> without requiring device specific client drivers or additional 
->> registration
->> mechanisms.
->>
->> This change only affects devices matched on the SAHARA channel and 
->> does not
->> change behavior for existing AIC100 and AIC200 devices.
->>
->> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
->> ---
->>   drivers/bus/mhi/sahara/sahara.c | 77 
->> ++++++++++++++++++++++++++++++++++++++---
->>   1 file changed, 72 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/bus/mhi/sahara/sahara.c 
->> b/drivers/bus/mhi/sahara/sahara.c
->> index 
->> 8f1c0d72066c0cf80c09d78bfc51df2e482133b9..4ea14c57774f51a778289d7409372a6ab21fea60 
->> 100644
->> --- a/drivers/bus/mhi/sahara/sahara.c
->> +++ b/drivers/bus/mhi/sahara/sahara.c
->> @@ -234,6 +234,36 @@ static const char * const aic200_image_table[] = {
->>       [78] = "qcom/aic200/pvs.bin",
->>   };
->>   +static const char * const qdu100_image_table[] = {
->> +    [5] = "qcom/qdu100/uefi.elf",
->> +    [8] = "qcom/qdu100/qdsp6sw.mbn",
->> +    [16] = "qcom/qdu100/efs1.bin",
->> +    [17] = "qcom/qdu100/efs2.bin",
->> +    [20] = "qcom/qdu100/efs3.bin",
->> +    [23] = "qcom/qdu100/aop.mbn",
->> +    [25] = "qcom/qdu100/tz.mbn",
->> +    [29] = "qcom/qdu100/zeros_1sector.bin",
->> +    [33] = "qcom/qdu100/hypvm.mbn",
->> +    [34] = "qcom/qdu100/mdmddr.mbn",
->> +    [36] = "qcom/qdu100/multi_image_qti.mbn",
->> +    [37] = "qcom/qdu100/multi_image.mbn",
->> +    [38] = "qcom/qdu100/xbl_config.elf",
->> +    [39] = "qcom/qdu100/abl_userdebug.elf",
->> +    [40] = "qcom/qdu100/zeros_1sector.bin",
->> +    [41] = "qcom/qdu100/devcfg.mbn",
->> +    [42] = "qcom/qdu100/zeros_1sector.bin",
->> +    [45] = "qcom/qdu100/tools_l.elf",
->> +    [46] = "qcom/qdu100/Quantum.elf",
->> +    [47] = "qcom/qdu100/quest.elf",
->> +    [48] = "qcom/qdu100/xbl_ramdump.elf",
->> +    [49] = "qcom/qdu100/shrm.elf",
->> +    [50] = "qcom/qdu100/cpucp.elf",
->> +    [51] = "qcom/qdu100/aop_devcfg.mbn",
->> +    [52] = "qcom/qdu100/fw_csm_gsi_3.0.elf",
->> +    [53] = "qcom/qdu100/qdsp6sw_dtbs.elf",
->> +    [54] = "qcom/qdu100/qupv3fw.elf",
->> +};
->> +
->>   static const struct sahara_variant sahara_variants[] = {
->>       {
->>           .match = "AIC100",
->> @@ -250,6 +280,14 @@ static const struct sahara_variant 
->> sahara_variants[] = {
->>           .table_size = ARRAY_SIZE(aic200_image_table),
->>           .fw_folder = "aic200",
->>           .non_streaming = false,
->> +    },
->> +    {
->> +        .match = "SAHARA",
->> +        .match_is_chan = true,
->
-> Theres a half dozen non-QDU100 devices in pci_generic.c which expose 
-> "SAHARA" channels. Considering those as valid usecases, I don't see 
-> this mechanism working. Everything non-AIC is now going to be treated 
-> as QDU100.
+> +};
+> +
+> +struct ch13726a_desc {
+> +	unsigned int width_mm;
+> +	unsigned int height_mm;
+> +	unsigned int bpc;
+> +
+> +	const struct drm_display_mode *modes;
+> +	unsigned int num_modes;
+> +};
+> +
+> +static inline struct ch13726a_panel *to_ch13726a_panel(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct ch13726a_panel, panel);
+> +}
+> +
+> +static void ch13726a_reset(struct ch13726a_panel *ctx)
+> +{
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(10000, 11000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(10000, 11000);
+> +}
+> +
+> +static int ch13726a_on(struct ch13726a_panel *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xf0, 0x50);
+> +	mipi_dsi_generic_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
+> +
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ch13726a_disable(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 50);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int ch13726a_prepare(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +	struct device *dev = &ctx->dsi->dev;
+> +	int ret;
+> +
+> +	if (ctx->prepared)
+> +		return 0;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ch13726a_reset(ctx);
+> +
+> +	ret = ch13726a_on(ctx);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +		regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> +		return ret;
+> +	}
+> +
+> +	msleep(28);
+> +
+> +	ctx->prepared = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ch13726a_unprepare(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +
+> +	if (!ctx->prepared)
+> +		return 0;
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+> +
+> +	ctx->prepared = false;
+> +	return 0;
+> +}
+> +
+> +static const struct drm_display_mode thor_bottom_modes[] = {
+> +	{
+> +		/* 120Hz */
+> +		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
+> +		.hdisplay = 1080,
+> +		.hsync_start = 1080 + 28,
+> +		.hsync_end = 1080 + 28 + 4,
+> +		.htotal = 1080 + 28 + 4 + 36,
+> +		.vdisplay = 1240,
+> +		.vsync_start = 1240 + 16,
+> +		.vsync_end = 1240 + 16 + 4,
+> +		.vtotal = 1240 + 16 + 4 + 8,
+> +	},
+> +	{
+> +		/* 60Hz */
+> +		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 60 / 1000,
+> +		.hdisplay = 1080,
+> +		.hsync_start = 1080 + 28,
+> +		.hsync_end = 1080 + 28 + 4,
+> +		.htotal = 1080 + 28 + 4 + 36,
+> +		.vdisplay = 1240,
+> +		.vsync_start = 1240 + 16,
+> +		.vsync_end = 1240 + 16 + 4,
+> +		.vtotal = 1240 + 16 + 4 + 8,
+> +	}
+> +};
+> +
+> +static struct ch13726a_desc thor_bottom_desc = {
+> +	.modes = thor_bottom_modes,
+> +	.num_modes = ARRAY_SIZE(thor_bottom_modes),
+> +	.width_mm = 65,
+> +	.height_mm = 75,
+> +	.bpc = 8,
+> +};
+> +
+> +static int ch13726a_get_modes(struct drm_panel *panel,
+> +					struct drm_connector *connector)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +
+> +	for (uint8_t i = 0; i < ctx->desc->num_modes; i++) {
+> +		const struct drm_display_mode *m = &ctx->desc->modes[i];
+> +		struct drm_display_mode *mode;
+> +
+> +		mode = drm_mode_duplicate(connector->dev, m);
+> +		if (!mode) {
+> +			dev_err(&ctx->dsi->dev, "failed to add mode %ux%u@%u\n",
+> +				m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
+> +			return -ENOMEM;
+> +		}
 
+Can you use drm_connector_helper_get_modes_fixed instead ?
 
-ACK. I'll update the variant selection logic to match on the controller 
-name instead of the channel name, so only the QDU100 controller picks 
-the qdu100 image table /fw_folder.
+> +
+> +		mode->type = DRM_MODE_TYPE_DRIVER;
+> +		if (i == 0)
+> +			mode->type |= DRM_MODE_TYPE_PREFERRED;
+> +
+> +		drm_mode_set_name(mode);
+> +		drm_mode_probed_add(connector, mode);
+> +	}
+> +
+> +	connector->display_info.width_mm = ctx->desc->width_mm;
+> +	connector->display_info.height_mm = ctx->desc->height_mm;
+> +	connector->display_info.bpc = ctx->desc->bpc;
+> +
+> +	return ctx->desc->num_modes;
+> +}
+> +
+> +static enum drm_panel_orientation ch13726a_get_orientation(struct drm_panel *panel)
+> +{
+> +	struct ch13726a_panel *ctx = to_ch13726a_panel(panel);
+> +
+> +	return ctx->orientation;
+> +}
+> +
+> +static const struct drm_panel_funcs ch13726a_panel_funcs = {
+> +	.prepare = ch13726a_prepare,
+> +	.unprepare = ch13726a_unprepare,
+> +	.disable = ch13726a_disable,
+> +	.get_modes = ch13726a_get_modes,
+> +	.get_orientation = ch13726a_get_orientation,
+> +};
+> +
+> +static int ch13726a_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	u16 brightness = backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret = mipi_dsi_dcs_set_display_brightness(dsi, brightness);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct backlight_ops ch13726a_bl_ops = {
+> +	.update_status = ch13726a_bl_update_status,
+> +};
+> +
+> +static struct backlight_device *
+> +ch13726a_create_backlight(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct backlight_properties props = {
+> +		.type = BACKLIGHT_RAW,
+> +		.brightness = 255,
+> +		.max_brightness = 255,
+> +	};
+> +
+> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
+> +					      &ch13726a_bl_ops, &props);
+> +}
+> +
+> +static int ch13726a_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	struct ch13726a_panel *ctx;
+> +	int ret;
+> +
+> +	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +	if (!ctx)
+> +		return -ENOMEM;
+> +
+> +	ctx->desc = (struct ch13726a_desc *)of_device_get_match_data(dev);
+> +	if (!ctx->desc)
+> +		return -ENODEV;
+> +
+> +	ctx->supplies[0].supply = "vdd1v2";
+> +	ctx->supplies[1].supply = "vddio";
+> +	ctx->supplies[2].supply = "vdd";
+> +	ctx->supplies[3].supply = "avdd";
+> +
+> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
+> +				      ctx->supplies);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to get regulators\n");
+> +
+Can you switch to devm_regulator_bulk_get_const ?
 
->
->> +        .image_table = qdu100_image_table,
->> +        .table_size = ARRAY_SIZE(qdu100_image_table),
->> +        .fw_folder = "qdu100",
->> +        .non_streaming = false,
->>       }
->>   };
->>   @@ -278,8 +316,21 @@ static const struct sahara_variant 
->> *sahara_select_variant(struct mhi_device *mhi
->>       return NULL;
->>   }
->>   +static int sahara_request_fw(struct sahara_context *context, const 
->> char *path)
->> +{
->> +    int ret;
->> +
->> +    ret = firmware_request_nowarn(&context->firmware, path,
->> +                      &context->mhi_dev->dev);
->> +    if (ret)
->> +        dev_dbg(&context->mhi_dev->dev,
->> +            "Request for file %s failed %d\n", path, ret);
->> +    return ret;
->> +}
->
-> This is a pointless change. Drop it.
+> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Failed to get reset-gpios\n");
+> +
+> +	ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
+> +	if (ret < 0) {
+> +		dev_err(dev, "%pOF: failed to get orientation %d\n", dev->of_node, ret);
+> +		return ret;
+> +	}
+> +
+> +	ctx->dsi = dsi;
+> +	mipi_dsi_set_drvdata(dsi, ctx);
+> +
+> +	dsi->lanes = 4;
+> +	dsi->format = MIPI_DSI_FMT_RGB888;
+> +	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+> +			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+> +
+> +	drm_panel_init(&ctx->panel, dev, &ch13726a_panel_funcs,
+> +		       DRM_MODE_CONNECTOR_DSI);
 
+Please use devm_drm_panel_alloc() instead.
 
-ACK. I will drop this change.
+> +	ctx->panel.prepare_prev_first = true;
+> +
+> +	ctx->panel.backlight = ch13726a_create_backlight(dsi);
+> +	if (IS_ERR(ctx->panel.backlight))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> +				     "Failed to create backlight\n");
+> +
+> +	drm_panel_add(&ctx->panel);
+> +
+> +	ret = mipi_dsi_attach(dsi);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
+> +		drm_panel_remove(&ctx->panel);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void ch13726a_remove(struct mipi_dsi_device *dsi)
+> +{
+> +	struct ch13726a_panel *ctx = mipi_dsi_get_drvdata(dsi);
+> +	int ret;
+> +
+> +	ret = mipi_dsi_detach(dsi);
+> +	if (ret < 0)
+> +		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
+> +
+> +	drm_panel_remove(&ctx->panel);
+> +}
+> +
+> +static const struct of_device_id ch13726a_of_match[] = {
+> +	{ .compatible = "ayntec,thor-panel-bottom", .data = &thor_bottom_desc },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ch13726a_of_match);
+> +
+> +static struct mipi_dsi_driver ch13726a_driver = {
+> +	.probe = ch13726a_probe,
+> +	.remove = ch13726a_remove,
+> +	.driver = {
+> +		.name = "panel-ch13726a-amoled",
+> +		.of_match_table = ch13726a_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(ch13726a_driver);
+> +
+> +MODULE_DESCRIPTION("DRM driver for CH13726A DSI panels");
+> +MODULE_LICENSE("GPL");
+> 
 
->
->> +
->>   static int sahara_find_image(struct sahara_context *context, u32 
->> image_id)
->>   {
->> +    char *fw_path;
->>       int ret;
->>         if (image_id == context->active_image_id)
->> @@ -292,8 +343,26 @@ static int sahara_find_image(struct 
->> sahara_context *context, u32 image_id)
->>       }
->>         if (image_id >= context->table_size || 
->> !context->image_table[image_id]) {
->> -        dev_err(&context->mhi_dev->dev, "request for unknown image: 
->> %d\n", image_id);
->> -        return -EINVAL;
->> +        if (!context->fw_folder) {
->> +            dev_err(&context->mhi_dev->dev,
->> +                "Request for unknown image: %u (no fw folder)\n", 
->> image_id);
->> +            return -EINVAL;
->> +        }
->> +
->> +        fw_path = kasprintf(GFP_KERNEL, "qcom/%s/image_%u.elf",
->> +                    context->fw_folder, image_id);
->> +        if (!fw_path)
->> +            return -ENOMEM;
->> +
->> +        ret = sahara_request_fw(context, fw_path);
->> +        kfree(fw_path);
->> +        if (ret) {
->> +            dev_err(&context->mhi_dev->dev,
->> +                "request for unknown image: %d\n", image_id);
->> +            return -EINVAL;
->> +        }
->> +        context->active_image_id = image_id;
->> +        return 0;
->
-> I don't see a usecase for this fw path search functionality, and I 
-> think it breaks the documented firmware loading guidelines.
->
-For QDU100, there is one boot‑critical image ID (historically requested 
-as kernel_boot.elf) whose filename cannot be referenced in the upstream 
-image table, so the corresponding table entry is intentionally absent 
-upstream.
-
-When the host cannot service this image ID, the target keeps waiting for 
-the response from Sahara and does not make forward progress. Therefore, 
-we need a deterministic way for the host to satisfy such a request when 
-the image table has no entry.
-
-I agree that the current fallback implementation can look like path 
-searching, and that assuming a ".elf" suffix is unnecessary. I will 
-rework this so that it uses a single deterministic mapping only when the 
-image table has no entry:
-
-qcom/<fw_folder>/<image_id>
-
-I will include this change in the next patch version.
-
->>       }
->>         /*
->> @@ -301,9 +370,7 @@ static int sahara_find_image(struct 
->> sahara_context *context, u32 image_id)
->>        * Only the device knows. Suppress error messages that could 
->> suggest an
->>        * a problem when we were actually able to continue.
->>        */
->> -    ret = firmware_request_nowarn(&context->firmware,
->> -                      context->image_table[image_id],
->> -                      &context->mhi_dev->dev);
->> +    ret = sahara_request_fw(context, context->image_table[image_id]);
->>       if (ret) {
->>           dev_dbg(&context->mhi_dev->dev, "request for image id %d / 
->> file %s failed %d\n",
->>               image_id, context->image_table[image_id], ret);
->>
->
---------------p4m7dt3v1H0l3XQ7ykl0KqyH
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 4/10/2026 2:44 AM, Jeff Hugo wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:65985856-0a01-4856-af97-56caed5430b6@oss.qualcomm.com">On
-      3/19/2026 12:31 AM, Kishore Batta wrote:
-      <br>
-      <blockquote type="cite">The Sahara driver currently selects a
-        firmware image table based on the
-        <br>
-        attached device, but it does not recognize QDU100 devices that
-        expose the
-        <br>
-        protocol on the SAHARA MHI channel. As a result, the host cannot
-        associate
-        <br>
-        QDU100 devices with the correct firmware namespace during image
-        transfer.
-        <br>
-        <br>
-        Extend the probe-time variant selection to match the SAHARA MHI
-        channel
-        <br>
-        and associate it with the QDU100 firmware folder. Add an
-        image_id based
-        <br>
-        firmware lookup fallback for cases where an image does not have
-        an explicit
-        <br>
-        table entry. This allows required images to be provisioned by
-        the platform
-        <br>
-        without requiring device specific client drivers or additional
-        registration
-        <br>
-        mechanisms.
-        <br>
-        <br>
-        This change only affects devices matched on the SAHARA channel
-        and does not
-        <br>
-        change behavior for existing AIC100 and AIC200 devices.
-        <br>
-        <br>
-        Signed-off-by: Kishore Batta
-        <a class="moz-txt-link-rfc2396E" href="mailto:kishore.batta@oss.qualcomm.com">&lt;kishore.batta@oss.qualcomm.com&gt;</a>
-        <br>
-        ---
-        <br>
-          drivers/bus/mhi/sahara/sahara.c | 77
-        ++++++++++++++++++++++++++++++++++++++---
-        <br>
-          1 file changed, 72 insertions(+), 5 deletions(-)
-        <br>
-        <br>
-        diff --git a/drivers/bus/mhi/sahara/sahara.c
-        b/drivers/bus/mhi/sahara/sahara.c
-        <br>
-        index
-8f1c0d72066c0cf80c09d78bfc51df2e482133b9..4ea14c57774f51a778289d7409372a6ab21fea60
-        100644
-        <br>
-        --- a/drivers/bus/mhi/sahara/sahara.c
-        <br>
-        +++ b/drivers/bus/mhi/sahara/sahara.c
-        <br>
-        @@ -234,6 +234,36 @@ static const char * const
-        aic200_image_table[] = {
-        <br>
-              [78] = "qcom/aic200/pvs.bin",
-        <br>
-          };
-        <br>
-          +static const char * const qdu100_image_table[] = {
-        <br>
-        +    [5] = "qcom/qdu100/uefi.elf",
-        <br>
-        +    [8] = "qcom/qdu100/qdsp6sw.mbn",
-        <br>
-        +    [16] = "qcom/qdu100/efs1.bin",
-        <br>
-        +    [17] = "qcom/qdu100/efs2.bin",
-        <br>
-        +    [20] = "qcom/qdu100/efs3.bin",
-        <br>
-        +    [23] = "qcom/qdu100/aop.mbn",
-        <br>
-        +    [25] = "qcom/qdu100/tz.mbn",
-        <br>
-        +    [29] = "qcom/qdu100/zeros_1sector.bin",
-        <br>
-        +    [33] = "qcom/qdu100/hypvm.mbn",
-        <br>
-        +    [34] = "qcom/qdu100/mdmddr.mbn",
-        <br>
-        +    [36] = "qcom/qdu100/multi_image_qti.mbn",
-        <br>
-        +    [37] = "qcom/qdu100/multi_image.mbn",
-        <br>
-        +    [38] = "qcom/qdu100/xbl_config.elf",
-        <br>
-        +    [39] = "qcom/qdu100/abl_userdebug.elf",
-        <br>
-        +    [40] = "qcom/qdu100/zeros_1sector.bin",
-        <br>
-        +    [41] = "qcom/qdu100/devcfg.mbn",
-        <br>
-        +    [42] = "qcom/qdu100/zeros_1sector.bin",
-        <br>
-        +    [45] = "qcom/qdu100/tools_l.elf",
-        <br>
-        +    [46] = "qcom/qdu100/Quantum.elf",
-        <br>
-        +    [47] = "qcom/qdu100/quest.elf",
-        <br>
-        +    [48] = "qcom/qdu100/xbl_ramdump.elf",
-        <br>
-        +    [49] = "qcom/qdu100/shrm.elf",
-        <br>
-        +    [50] = "qcom/qdu100/cpucp.elf",
-        <br>
-        +    [51] = "qcom/qdu100/aop_devcfg.mbn",
-        <br>
-        +    [52] = "qcom/qdu100/fw_csm_gsi_3.0.elf",
-        <br>
-        +    [53] = "qcom/qdu100/qdsp6sw_dtbs.elf",
-        <br>
-        +    [54] = "qcom/qdu100/qupv3fw.elf",
-        <br>
-        +};
-        <br>
-        +
-        <br>
-          static const struct sahara_variant sahara_variants[] = {
-        <br>
-              {
-        <br>
-                  .match = "AIC100",
-        <br>
-        @@ -250,6 +280,14 @@ static const struct sahara_variant
-        sahara_variants[] = {
-        <br>
-                  .table_size = ARRAY_SIZE(aic200_image_table),
-        <br>
-                  .fw_folder = "aic200",
-        <br>
-                  .non_streaming = false,
-        <br>
-        +    },
-        <br>
-        +    {
-        <br>
-        +        .match = "SAHARA",
-        <br>
-        +        .match_is_chan = true,
-        <br>
-      </blockquote>
-      <br>
-      Theres a half dozen non-QDU100 devices in pci_generic.c which
-      expose "SAHARA" channels. Considering those as valid usecases, I
-      don't see this mechanism working. Everything non-AIC is now going
-      to be treated as QDU100.
-      <br>
-    </blockquote>
-    <p><br>
-    </p>
-    <p>ACK. I'll update the variant selection logic to match on the
-      controller name instead of the channel name, so only the QDU100
-      controller picks the qdu100 image table /fw_folder.</p>
-    <blockquote type="cite"
-      cite="mid:65985856-0a01-4856-af97-56caed5430b6@oss.qualcomm.com"><br>
-      <blockquote type="cite">+        .image_table =
-        qdu100_image_table,
-        <br>
-        +        .table_size = ARRAY_SIZE(qdu100_image_table),
-        <br>
-        +        .fw_folder = "qdu100",
-        <br>
-        +        .non_streaming = false,
-        <br>
-              }
-        <br>
-          };
-        <br>
-          @@ -278,8 +316,21 @@ static const struct sahara_variant
-        *sahara_select_variant(struct mhi_device *mhi
-        <br>
-              return NULL;
-        <br>
-          }
-        <br>
-          +static int sahara_request_fw(struct sahara_context *context,
-        const char *path)
-        <br>
-        +{
-        <br>
-        +    int ret;
-        <br>
-        +
-        <br>
-        +    ret = firmware_request_nowarn(&amp;context-&gt;firmware,
-        path,
-        <br>
-        +                      &amp;context-&gt;mhi_dev-&gt;dev);
-        <br>
-        +    if (ret)
-        <br>
-        +        dev_dbg(&amp;context-&gt;mhi_dev-&gt;dev,
-        <br>
-        +            "Request for file %s failed %d\n", path, ret);
-        <br>
-        +    return ret;
-        <br>
-        +}
-        <br>
-      </blockquote>
-      <br>
-      This is a pointless change. Drop it.
-      <br>
-    </blockquote>
-    <p><br>
-    </p>
-    <p>ACK. I will drop this change. <br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:65985856-0a01-4856-af97-56caed5430b6@oss.qualcomm.com"><br>
-      <blockquote type="cite">+
-        <br>
-          static int sahara_find_image(struct sahara_context *context,
-        u32 image_id)
-        <br>
-          {
-        <br>
-        +    char *fw_path;
-        <br>
-              int ret;
-        <br>
-                if (image_id == context-&gt;active_image_id)
-        <br>
-        @@ -292,8 +343,26 @@ static int sahara_find_image(struct
-        sahara_context *context, u32 image_id)
-        <br>
-              }
-        <br>
-                if (image_id &gt;= context-&gt;table_size ||
-        !context-&gt;image_table[image_id]) {
-        <br>
-        -        dev_err(&amp;context-&gt;mhi_dev-&gt;dev, "request for
-        unknown image: %d\n", image_id);
-        <br>
-        -        return -EINVAL;
-        <br>
-        +        if (!context-&gt;fw_folder) {
-        <br>
-        +            dev_err(&amp;context-&gt;mhi_dev-&gt;dev,
-        <br>
-        +                "Request for unknown image: %u (no fw
-        folder)\n", image_id);
-        <br>
-        +            return -EINVAL;
-        <br>
-        +        }
-        <br>
-        +
-        <br>
-        +        fw_path = kasprintf(GFP_KERNEL, "qcom/%s/image_%u.elf",
-        <br>
-        +                    context-&gt;fw_folder, image_id);
-        <br>
-        +        if (!fw_path)
-        <br>
-        +            return -ENOMEM;
-        <br>
-        +
-        <br>
-        +        ret = sahara_request_fw(context, fw_path);
-        <br>
-        +        kfree(fw_path);
-        <br>
-        +        if (ret) {
-        <br>
-        +            dev_err(&amp;context-&gt;mhi_dev-&gt;dev,
-        <br>
-        +                "request for unknown image: %d\n", image_id);
-        <br>
-        +            return -EINVAL;
-        <br>
-        +        }
-        <br>
-        +        context-&gt;active_image_id = image_id;
-        <br>
-        +        return 0;
-        <br>
-      </blockquote>
-      <br>
-      I don't see a usecase for this fw path search functionality, and I
-      think it breaks the documented firmware loading guidelines.
-      <br>
-      <br>
-    </blockquote>
-    <span>
-      <div class="scriptor-paragraph"><span>For QDU100, there is one
-          boot‑critical image ID (historically requested as
-          kernel_boot.elf) whose filename cannot be referenced in the
-          upstream image table, so the corresponding table entry is
-          intentionally absent upstream.</span></div>
-      <br class="scriptor-paragraph">
-      <div class="scriptor-paragraph"><span>When the host cannot service
-          this image ID, the target keeps waiting for the response from
-          Sahara and does not make forward progress. Therefore, we need
-          a deterministic way for the host to satisfy such a request
-          when the image table has no entry.</span></div>
-    </span><span><br class="scriptor-paragraph">
-      <div class="scriptor-paragraph"><span>I agree that the current
-          fallback implementation can look like path searching, and that
-          assuming a ".elf" suffix is unnecessary. I will rework this so
-          that it uses a single deterministic mapping only when the
-          image table has no entry:</span></div>
-      <br class="scriptor-paragraph">
-      <div class="scriptor-paragraph"><span>   
-          qcom/&lt;fw_folder&gt;/&lt;image_id&gt;</span></div>
-      <br class="scriptor-paragraph">
-      <div class="scriptor-paragraph"><span>I will include this change
-          in the next patch version.</span></div>
-    </span><br>
-    <blockquote type="cite"
-      cite="mid:65985856-0a01-4856-af97-56caed5430b6@oss.qualcomm.com">
-      <blockquote type="cite">      }
-        <br>
-                /*
-        <br>
-        @@ -301,9 +370,7 @@ static int sahara_find_image(struct
-        sahara_context *context, u32 image_id)
-        <br>
-               * Only the device knows. Suppress error messages that
-        could suggest an
-        <br>
-               * a problem when we were actually able to continue.
-        <br>
-               */
-        <br>
-        -    ret = firmware_request_nowarn(&amp;context-&gt;firmware,
-        <br>
-        -                      context-&gt;image_table[image_id],
-        <br>
-        -                      &amp;context-&gt;mhi_dev-&gt;dev);
-        <br>
-        +    ret = sahara_request_fw(context,
-        context-&gt;image_table[image_id]);
-        <br>
-              if (ret) {
-        <br>
-                  dev_dbg(&amp;context-&gt;mhi_dev-&gt;dev, "request for
-        image id %d / file %s failed %d\n",
-        <br>
-                      image_id, context-&gt;image_table[image_id], ret);
-        <br>
-        <br>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------p4m7dt3v1H0l3XQ7ykl0KqyH--
