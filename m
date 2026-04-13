@@ -4,50 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1628CEBFD26
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 209EFEBFD37
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44AE110E3F5;
-	Mon, 13 Apr 2026 10:23:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12FA910E3F2;
+	Mon, 13 Apr 2026 10:26:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="DB7r64bM";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="SClcCwRG";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2955A10E401
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 10:23:47 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D67EA3549
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 03:23:40 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 1A6153F641
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 03:23:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1776075826; bh=vD/Nyn1B+YRK2yXpN12dPVFAdhVZomPeyYHW/HAiFaU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DB7r64bMziNhWwiA5hMWrYpOXW2xBTMCd8dKWi1YAlAbWWbOt9vZNRZl/LUB0DU94
- 4WWpcEuYT1xJBBrRnzEyNgBubp9ivho4oHBJS5e0QM1g7flzjCmvrt1RQvaxgXT05V
- 6eIYBeaGHm4R0S6116Jmhb/xVXI50ZokBOy1xnPY=
-Date: Mon, 13 Apr 2026 11:23:44 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Karunika Choo <karunika.choo@arm.com>
-Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8F0710E32A;
+ Mon, 13 Apr 2026 10:26:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776075995; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=h02R6SYWbmcMwoKgTR8LoC3h+o9xXPnlKOZgWDVMAOIfszgmHpI899QpLHBqvwiFWX+RKwwE4nLjDgd2c94afqa1TXauKAQ9elb3Jrzj0iDuxzm3EaLjO/ckhtIDBoYv7kZBBaTJdnOcrVX/5blV/hFS/O6mJLb8Hg1nEXExWIM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776075995;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=MBy494F68r0qLKKEsa3LN0mB+quFxcEwe7H5kFBVbr0=; 
+ b=Sw/0B9KI3xsgcXQuQvm+LSh3j6xIKGTH2vfNTHYxLh3t0BZNS2a6Z4FSigmlBak0Q/a/hw0toiKTnNNkUHM0uLQFDzPlAEfAbtZ1tlRgfFtjDMhX5OaUV1CfK/Sw3Z5GzltNIVBRoU/BessP6XT2Ou/K/SwtZ15mP9dh771A9Cw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776075995; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=MBy494F68r0qLKKEsa3LN0mB+quFxcEwe7H5kFBVbr0=;
+ b=SClcCwRGC3ptzz2W6dz6wheJPXh9BWTnc8EClbxkbu1yo2vIJT9PGcBejDaK6Nhe
+ rECltZo9KuLaCQbOPkDfPZlGcwqAk5TatoV/zPjCblwvHcZJ8DSzwR1pcUupkpWRkb9
+ 0yCeg7taHZbw7dhQ6hUP5rC01qXeRmHCd4WO9fkA=
+Received: by mx.zohomail.com with SMTPS id 1776075993436742.8313316176907;
+ Mon, 13 Apr 2026 03:26:33 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/8] drm/panthor: Split register definitions by components
-Message-ID: <adzEMNuYdDDJxPKO@e142607>
-References: <20260410164637.549145-1-karunika.choo@arm.com>
- <20260410164637.549145-3-karunika.choo@arm.com>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Marius Vlad <marius.vlad@collabora.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Andy Yan <andyshrk@163.com>
+Subject: Re: [PATCH v13 00/27] Add new general DRM property "color format"
+Date: Mon, 13 Apr 2026 12:26:22 +0200
+Message-ID: <6275841.lOV4Wx5bFT@workhorse>
+In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260410164637.549145-3-karunika.choo@arm.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,855 +91,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 10, 2026 at 05:46:31PM +0100, Karunika Choo wrote:
-> Split the panthor register definitions into per-component headers for
-> the GPU, MMU, firmware, power and generic hardware registers.
+On Monday, 13 April 2026 12:07:14 Central European Summer Time Nicolas Frattaroli wrote:
+> Hello,
 > 
-> This makes the register layout easier to follow and prepares the driver
-> for component-local iomem mappings by grouping definitions with the code
-> that owns them. The old monolithic panthor_regs.h header can then be
-> dropped.
+> [snip mucho texto]
 > 
-> No functional change intended.
-> 
-> Signed-off-by: Karunika Choo <karunika.choo@arm.com>
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
 > ---
->  drivers/gpu/drm/panthor/panthor_device.c   |   3 +-
->  drivers/gpu/drm/panthor/panthor_drv.c      |   2 +-
->  drivers/gpu/drm/panthor/panthor_fw.c       |   2 +-
->  drivers/gpu/drm/panthor/panthor_fw_regs.h  |  30 +++
->  drivers/gpu/drm/panthor/panthor_gpu.c      |   2 +-
->  drivers/gpu/drm/panthor/panthor_gpu_regs.h | 111 ++++++++
->  drivers/gpu/drm/panthor/panthor_heap.c     |   2 +-
->  drivers/gpu/drm/panthor/panthor_hw.c       |   3 +-
->  drivers/gpu/drm/panthor/panthor_hw.h       |   2 +-
->  drivers/gpu/drm/panthor/panthor_hw_regs.h  |  16 ++
->  drivers/gpu/drm/panthor/panthor_mmu.c      |   3 +-
->  drivers/gpu/drm/panthor/panthor_mmu_regs.h |  70 +++++
->  drivers/gpu/drm/panthor/panthor_pwr.c      |   3 +-
->  drivers/gpu/drm/panthor/panthor_pwr_regs.h |  83 ++++++
->  drivers/gpu/drm/panthor/panthor_regs.h     | 291 ---------------------
->  drivers/gpu/drm/panthor/panthor_sched.c    |   3 +-
->  16 files changed, 325 insertions(+), 301 deletions(-)
->  create mode 100644 drivers/gpu/drm/panthor/panthor_fw_regs.h
->  create mode 100644 drivers/gpu/drm/panthor/panthor_gpu_regs.h
->  create mode 100644 drivers/gpu/drm/panthor/panthor_hw_regs.h
->  create mode 100644 drivers/gpu/drm/panthor/panthor_mmu_regs.h
->  create mode 100644 drivers/gpu/drm/panthor/panthor_pwr_regs.h
->  delete mode 100644 drivers/gpu/drm/panthor/panthor_regs.h
+> Nicolas Frattaroli (26):
+>       drm/display: hdmi-state-helper: Use default case for unsupported formats
+>       drm: Add new general DRM property "color format"
+>       drm/connector: Let connectors have a say in their color format
+>       drm/display: bridge_connector: Use HDMI color format for HDMI conns
+>       drm/bridge: Act on the DRM color format property
+>       drm/atomic-helper: Add HDMI bridge output bus formats helper
+>       drm/display: hdmi-state-helper: Act on color format DRM property
+>       drm/display: hdmi-state-helper: Try subsampling in mode_valid
+>       drm/amdgpu: Implement "color format" DRM property
+>       drm/i915/hdmi: Add YCBCR444 handling for sink formats
+>       drm/i915/dp: Add YCBCR444 handling for sink formats
+>       drm/i915: Implement the "color format" DRM property
+>       drm/rockchip: Add YUV422 output mode constants for VOP2
+>       drm/rockchip: vop2: Add RK3576 to the RG swap special case
+>       drm/rockchip: vop2: Recognise 10-bit YUV422 as YUV format
+>       drm/rockchip: vop2: Set correct output format for RK3576 YUV422
+>       drm/bridge: dw-hdmi-qp: Use common HDMI output bus fmts helper
+>       drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property
+>       drm/rockchip: dw_hdmi_qp: Set supported_formats platdata
+>       drm/connector: Register color format property on HDMI connectors
+>       drm/tests: hdmi: Add tests for the color_format property
+>       drm/tests: hdmi: Add tests for HDMI helper's mode_valid
+>       drm/tests: bridge: Add KUnit tests for bridge chain format selection
+>       drm/tests: bridge: Add test for HDMI output bus formats helper
+>       drm/bridge: Document bridge chain format selection
+>       drm/connector: Update docs of "colorspace" for color format prop
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index d62017b73409..f876b13492ae 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -19,12 +19,13 @@
->  #include "panthor_devfreq.h"
->  #include "panthor_device.h"
->  #include "panthor_fw.h"
-> +#include "panthor_fw_regs.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
->  #include "panthor_mmu.h"
->  #include "panthor_pwr.h"
-> -#include "panthor_regs.h"
->  #include "panthor_sched.h"
->  
->  static int panthor_gpu_coherency_init(struct panthor_device *ptdev)
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 4f926c861fba..e63210b01e6e 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -34,9 +34,9 @@
->  #include "panthor_fw.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
->  #include "panthor_mmu.h"
-> -#include "panthor_regs.h"
->  #include "panthor_sched.h"
->  
->  /**
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 69a19751a314..4704275b9c8f 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -20,11 +20,11 @@
->  
->  #include "panthor_device.h"
->  #include "panthor_fw.h"
-> +#include "panthor_fw_regs.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
->  #include "panthor_hw.h"
->  #include "panthor_mmu.h"
-> -#include "panthor_regs.h"
->  #include "panthor_sched.h"
->  #include "panthor_trace.h"
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw_regs.h b/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> new file mode 100644
-> index 000000000000..d523d41e18dd
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> @@ -0,0 +1,30 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
-> +
-> +#ifndef __PANTHOR_FW_REGS_H__
-> +#define __PANTHOR_FW_REGS_H__
-> +
-> +#define MCU_CONTROL					0x700
-> +#define   MCU_CONTROL_ENABLE				1
-> +#define   MCU_CONTROL_AUTO				2
-> +#define   MCU_CONTROL_DISABLE				0
-> +
-> +#define MCU_STATUS					0x704
-> +#define   MCU_STATUS_DISABLED				0
-> +#define   MCU_STATUS_ENABLED				1
-> +#define   MCU_STATUS_HALT				2
-> +#define   MCU_STATUS_FATAL				3
-> +
-> +#define JOB_INT_RAWSTAT					0x1000
-> +#define JOB_INT_CLEAR					0x1004
-> +#define JOB_INT_MASK					0x1008
-> +#define JOB_INT_STAT					0x100c
-> +#define   JOB_INT_GLOBAL_IF				BIT(31)
-> +#define   JOB_INT_CSG_IF(x)				BIT(x)
-> +
-> +#define CSF_GPU_LATEST_FLUSH_ID				0x10000
-> +
-> +#define CSF_DOORBELL(i)					(0x80000 + ((i) * 0x10000))
-> +#define CSF_GLB_DOORBELL_ID				0
-> +
-> +#endif /* __PANTHOR_FW_REGS_H__ */
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index bdb72cebccb3..fecc30747acf 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -19,8 +19,8 @@
->  
->  #include "panthor_device.h"
->  #include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
-> -#include "panthor_regs.h"
->  
->  #define CREATE_TRACE_POINTS
->  #include "panthor_trace.h"
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> new file mode 100644
-> index 000000000000..7303b7f5ee18
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> @@ -0,0 +1,111 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
-> +
-> +#ifndef __PANTHOR_GPU_REGS_H__
-> +#define __PANTHOR_GPU_REGS_H__
-> +
-> +#define GPU_L2_FEATURES					0x4
-> +#define  GPU_L2_FEATURES_LINE_SIZE(x)			(1 << ((x) & GENMASK(7, 0)))
-> +
-> +#define GPU_CORE_FEATURES				0x8
-> +
-> +#define GPU_TILER_FEATURES				0xC
-> +#define GPU_MEM_FEATURES				0x10
-> +#define   GROUPS_L2_COHERENT				BIT(0)
-> +
-> +#define GPU_MMU_FEATURES				0x14
-> +#define  GPU_MMU_FEATURES_VA_BITS(x)			((x) & GENMASK(7, 0))
-> +#define  GPU_MMU_FEATURES_PA_BITS(x)			(((x) >> 8) & GENMASK(7, 0))
-> +#define GPU_AS_PRESENT					0x18
-> +#define GPU_CSF_ID					0x1C
-> +
-> +#define GPU_INT_RAWSTAT					0x20
-> +#define GPU_INT_CLEAR					0x24
-> +#define GPU_INT_MASK					0x28
-> +#define GPU_INT_STAT					0x2c
-> +#define   GPU_IRQ_FAULT					BIT(0)
-> +#define   GPU_IRQ_PROTM_FAULT				BIT(1)
-> +#define   GPU_IRQ_RESET_COMPLETED			BIT(8)
-> +#define   GPU_IRQ_POWER_CHANGED				BIT(9)
-> +#define   GPU_IRQ_POWER_CHANGED_ALL			BIT(10)
-> +#define   GPU_IRQ_CLEAN_CACHES_COMPLETED		BIT(17)
-> +#define   GPU_IRQ_DOORBELL_MIRROR			BIT(18)
-> +#define   GPU_IRQ_MCU_STATUS_CHANGED			BIT(19)
-> +#define GPU_CMD						0x30
-> +#define   GPU_CMD_DEF(type, payload)			((type) | ((payload) << 8))
-> +#define   GPU_SOFT_RESET				GPU_CMD_DEF(1, 1)
-> +#define   GPU_HARD_RESET				GPU_CMD_DEF(1, 2)
-> +#define   CACHE_CLEAN					BIT(0)
-> +#define   CACHE_INV					BIT(1)
-> +#define   GPU_FLUSH_CACHES(l2, lsc, oth)		\
-> +	  GPU_CMD_DEF(4, ((l2) << 0) | ((lsc) << 4) | ((oth) << 8))
-> +
-> +#define GPU_STATUS					0x34
-> +#define   GPU_STATUS_ACTIVE				BIT(0)
-> +#define   GPU_STATUS_PWR_ACTIVE				BIT(1)
-> +#define   GPU_STATUS_PAGE_FAULT				BIT(4)
-> +#define   GPU_STATUS_PROTM_ACTIVE			BIT(7)
-> +#define   GPU_STATUS_DBG_ENABLED			BIT(8)
-> +
-> +#define GPU_FAULT_STATUS				0x3C
-> +#define GPU_FAULT_ADDR					0x40
-> +#define GPU_L2_CONFIG					0x48
-> +#define   GPU_L2_CONFIG_ASN_HASH_ENABLE			BIT(24)
-> +
-> +#define GPU_PWR_KEY					0x50
-> +#define  GPU_PWR_KEY_UNLOCK				0x2968A819
-> +#define GPU_PWR_OVERRIDE0				0x54
-> +#define GPU_PWR_OVERRIDE1				0x58
-> +
-> +#define GPU_FEATURES					0x60
-> +#define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
-> +#define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
-> +
-> +#define GPU_TIMESTAMP_OFFSET				0x88
-> +#define GPU_CYCLE_COUNT					0x90
-> +#define GPU_TIMESTAMP					0x98
-> +
-> +#define GPU_THREAD_MAX_THREADS				0xA0
-> +#define GPU_THREAD_MAX_WORKGROUP_SIZE			0xA4
-> +#define GPU_THREAD_MAX_BARRIER_SIZE			0xA8
-> +#define GPU_THREAD_FEATURES				0xAC
-> +
-> +#define GPU_TEXTURE_FEATURES(n)				(0xB0 + ((n) * 4))
-> +
-> +#define GPU_SHADER_PRESENT				0x100
-> +#define GPU_TILER_PRESENT				0x110
-> +#define GPU_L2_PRESENT					0x120
-> +
-> +#define SHADER_READY					0x140
-> +#define TILER_READY					0x150
-> +#define L2_READY					0x160
-> +
-> +#define SHADER_PWRON					0x180
-> +#define TILER_PWRON					0x190
-> +#define L2_PWRON					0x1A0
-> +
-> +#define SHADER_PWROFF					0x1C0
-> +#define TILER_PWROFF					0x1D0
-> +#define L2_PWROFF					0x1E0
-> +
-> +#define SHADER_PWRTRANS					0x200
-> +#define TILER_PWRTRANS					0x210
-> +#define L2_PWRTRANS					0x220
-> +
-> +#define SHADER_PWRACTIVE				0x240
-> +#define TILER_PWRACTIVE					0x250
-> +#define L2_PWRACTIVE					0x260
-> +
-> +#define GPU_REVID					0x280
-> +
-> +#define GPU_ASN_HASH(n)					(0x2C0 + ((n) * 4))
-> +
-> +#define GPU_COHERENCY_FEATURES				0x300
-> +#define GPU_COHERENCY_PROT_BIT(name)			BIT(GPU_COHERENCY_  ## name)
-> +
-> +#define GPU_COHERENCY_PROTOCOL				0x304
-> +#define   GPU_COHERENCY_ACE_LITE			0
-> +#define   GPU_COHERENCY_ACE				1
-> +#define   GPU_COHERENCY_NONE				31
-> +
-> +#endif /* __PANTHOR_GPU_REGS_H__ */
-> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-> index 1ee30dc7066f..99311abdf1e9 100644
-> --- a/drivers/gpu/drm/panthor/panthor_heap.c
-> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
-> @@ -9,9 +9,9 @@
->  
->  #include "panthor_device.h"
->  #include "panthor_gem.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
->  #include "panthor_mmu.h"
-> -#include "panthor_regs.h"
->  
->  /*
->   * The GPU heap context is an opaque structure used by the GPU to track the
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
-> index 9309d0938212..9431f16d950f 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
-> @@ -8,9 +8,10 @@
->  
->  #include "panthor_device.h"
->  #include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
->  #include "panthor_pwr.h"
-> -#include "panthor_regs.h"
-> +#include "panthor_pwr_regs.h"
->  
->  #define GPU_PROD_ID_MAKE(arch_major, prod_major) \
->  	(((arch_major) << 24) | (prod_major))
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw.h b/drivers/gpu/drm/panthor/panthor_hw.h
-> index 2c28aea82841..7f134c4b290f 100644
-> --- a/drivers/gpu/drm/panthor/panthor_hw.h
-> +++ b/drivers/gpu/drm/panthor/panthor_hw.h
-> @@ -5,7 +5,7 @@
->  #define __PANTHOR_HW_H__
->  
->  #include "panthor_device.h"
-> -#include "panthor_regs.h"
-> +#include "panthor_hw_regs.h"
->  
->  /**
->   * struct panthor_hw_ops - HW operations that are specific to a GPU
-> diff --git a/drivers/gpu/drm/panthor/panthor_hw_regs.h b/drivers/gpu/drm/panthor/panthor_hw_regs.h
-> new file mode 100644
-> index 000000000000..6295374a69ab
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_hw_regs.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
-> +
-> +#ifndef __PANTHOR_HW_REGS_H__
-> +#define __PANTHOR_HW_REGS_H__
-> +
-> +#define GPU_ID						0x0
-> +#define   GPU_ARCH_MAJOR(x)				((x) >> 28)
-> +#define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
-> +#define   GPU_ARCH_REV(x)				(((x) & GENMASK(23, 20)) >> 20)
-> +#define   GPU_PROD_MAJOR(x)				(((x) & GENMASK(19, 16)) >> 16)
-> +#define   GPU_VER_MAJOR(x)				(((x) & GENMASK(15, 12)) >> 12)
-> +#define   GPU_VER_MINOR(x)				(((x) & GENMASK(11, 4)) >> 4)
-> +#define   GPU_VER_STATUS(x)				((x) & GENMASK(3, 0))
-> +
-> +#endif /* __PANTHOR_HW_REGS_H__ */
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 0bd07a3dd774..b9f6031e24a4 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -33,9 +33,10 @@
->  #include "panthor_device.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
->  #include "panthor_mmu.h"
-> -#include "panthor_regs.h"
-> +#include "panthor_mmu_regs.h"
->  #include "panthor_sched.h"
->  
->  #define MAX_AS_SLOTS			32
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> new file mode 100644
-> index 000000000000..cc9cf603cec6
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> @@ -0,0 +1,70 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
-> +
-> +#ifndef __PANTHOR_MMU_REGS_H__
-> +#define __PANTHOR_MMU_REGS_H__
-> +
-> +/* MMU regs */
-> +#define MMU_INT_RAWSTAT					0x2000
-> +#define MMU_INT_CLEAR					0x2004
-> +#define MMU_INT_MASK					0x2008
-> +#define MMU_INT_STAT					0x200c
-> +
-> +/* AS_COMMAND register commands */
-> +
-> +#define MMU_BASE					0x2400
-> +#define MMU_AS_SHIFT					6
-> +#define MMU_AS(as)					(MMU_BASE + ((as) << MMU_AS_SHIFT))
-> +
-> +#define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
-> +#define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
-> +#define   AS_MEMATTR_AARCH64_INNER_ALLOC_IMPL		(2 << 2)
-> +#define   AS_MEMATTR_AARCH64_INNER_ALLOC_EXPL(w, r)	((3 << 2) | \
-> +							 ((w) ? BIT(0) : 0) | \
-> +							 ((r) ? BIT(1) : 0))
-> +#define   AS_MEMATTR_AARCH64_SH_MIDGARD_INNER		(0 << 4)
-> +#define   AS_MEMATTR_AARCH64_SH_CPU_INNER		(1 << 4)
-> +#define   AS_MEMATTR_AARCH64_SH_CPU_INNER_SHADER_COH	(2 << 4)
-> +#define   AS_MEMATTR_AARCH64_SHARED			(0 << 6)
-> +#define   AS_MEMATTR_AARCH64_INNER_OUTER_NC		(1 << 6)
-> +#define   AS_MEMATTR_AARCH64_INNER_OUTER_WB		(2 << 6)
-> +#define   AS_MEMATTR_AARCH64_FAULT			(3 << 6)
-> +#define AS_LOCKADDR(as)					(MMU_AS(as) + 0x10)
-> +#define AS_COMMAND(as)					(MMU_AS(as) + 0x18)
-> +#define   AS_COMMAND_NOP				0
-> +#define   AS_COMMAND_UPDATE				1
-> +#define   AS_COMMAND_LOCK				2
-> +#define   AS_COMMAND_UNLOCK				3
-> +#define   AS_COMMAND_FLUSH_PT				4
-> +#define   AS_COMMAND_FLUSH_MEM				5
-> +#define   AS_LOCK_REGION_MIN_SIZE			(1ULL << 15)
-> +#define AS_FAULTSTATUS(as)				(MMU_AS(as) + 0x1C)
-> +#define  AS_FAULTSTATUS_ACCESS_TYPE_MASK		(0x3 << 8)
-> +#define  AS_FAULTSTATUS_ACCESS_TYPE_ATOMIC		(0x0 << 8)
-> +#define  AS_FAULTSTATUS_ACCESS_TYPE_EX			(0x1 << 8)
-> +#define  AS_FAULTSTATUS_ACCESS_TYPE_READ		(0x2 << 8)
-> +#define  AS_FAULTSTATUS_ACCESS_TYPE_WRITE		(0x3 << 8)
-> +#define AS_FAULTADDRESS(as)				(MMU_AS(as) + 0x20)
-> +#define AS_STATUS(as)					(MMU_AS(as) + 0x28)
-> +#define   AS_STATUS_AS_ACTIVE				BIT(0)
-> +#define AS_TRANSCFG(as)					(MMU_AS(as) + 0x30)
-> +#define   AS_TRANSCFG_ADRMODE_UNMAPPED			(1 << 0)
-> +#define   AS_TRANSCFG_ADRMODE_IDENTITY			(2 << 0)
-> +#define   AS_TRANSCFG_ADRMODE_AARCH64_4K		(6 << 0)
-> +#define   AS_TRANSCFG_ADRMODE_AARCH64_64K		(8 << 0)
-> +#define   AS_TRANSCFG_INA_BITS(x)			((x) << 6)
-> +#define   AS_TRANSCFG_OUTA_BITS(x)			((x) << 14)
-> +#define   AS_TRANSCFG_SL_CONCAT				BIT(22)
-> +#define   AS_TRANSCFG_PTW_MEMATTR_NC			(1 << 24)
-> +#define   AS_TRANSCFG_PTW_MEMATTR_WB			(2 << 24)
-> +#define   AS_TRANSCFG_PTW_SH_NS				(0 << 28)
-> +#define   AS_TRANSCFG_PTW_SH_OS				(2 << 28)
-> +#define   AS_TRANSCFG_PTW_SH_IS				(3 << 28)
-> +#define   AS_TRANSCFG_PTW_RA				BIT(30)
-> +#define   AS_TRANSCFG_DISABLE_HIER_AP			BIT(33)
-> +#define   AS_TRANSCFG_DISABLE_AF_FAULT			BIT(34)
-> +#define   AS_TRANSCFG_WXN				BIT(35)
-> +#define   AS_TRANSCFG_XREADABLE				BIT(36)
-> +#define AS_FAULTEXTRA(as)				(MMU_AS(as) + 0x38)
-> +
-> +#endif /* __PANTHOR_MMU_REGS_H__ */
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index b77c85ad733a..306592ff2227 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -11,9 +11,10 @@
->  #include <drm/drm_print.h>
->  
->  #include "panthor_device.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_hw.h"
->  #include "panthor_pwr.h"
-> -#include "panthor_regs.h"
-> +#include "panthor_pwr_regs.h"
->  
->  #define PWR_INTERRUPTS_MASK \
->  	(PWR_IRQ_POWER_CHANGED_SINGLE | \
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr_regs.h b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> new file mode 100644
-> index 000000000000..ad3e446971db
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr_regs.h
-> @@ -0,0 +1,83 @@
-> +/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> +/* Copyright 2026 ARM Limited. All rights reserved. */
-> +
-> +#ifndef __PANTHOR_PWR_REGS_H__
-> +#define __PANTHOR_PWR_REGS_H__
-> +
-> +#define PWR_CONTROL_BASE				0x800
-> +#define PWR_CTRL_REG(x)					(PWR_CONTROL_BASE + (x))
-> +
-> +#define PWR_INT_RAWSTAT					PWR_CTRL_REG(0x0)
-> +#define PWR_INT_CLEAR					PWR_CTRL_REG(0x4)
-> +#define PWR_INT_MASK					PWR_CTRL_REG(0x8)
-> +#define PWR_INT_STAT					PWR_CTRL_REG(0xc)
-> +#define   PWR_IRQ_POWER_CHANGED_SINGLE			BIT(0)
-> +#define   PWR_IRQ_POWER_CHANGED_ALL			BIT(1)
-> +#define   PWR_IRQ_DELEGATION_CHANGED			BIT(2)
-> +#define   PWR_IRQ_RESET_COMPLETED			BIT(3)
-> +#define   PWR_IRQ_RETRACT_COMPLETED			BIT(4)
-> +#define   PWR_IRQ_INSPECT_COMPLETED			BIT(5)
-> +#define   PWR_IRQ_COMMAND_NOT_ALLOWED			BIT(30)
-> +#define   PWR_IRQ_COMMAND_INVALID			BIT(31)
-> +
-> +#define PWR_STATUS					PWR_CTRL_REG(0x20)
-> +#define   PWR_STATUS_ALLOW_L2				BIT_U64(0)
-> +#define   PWR_STATUS_ALLOW_TILER			BIT_U64(1)
-> +#define   PWR_STATUS_ALLOW_SHADER			BIT_U64(8)
-> +#define   PWR_STATUS_ALLOW_BASE				BIT_U64(14)
-> +#define   PWR_STATUS_ALLOW_STACK			BIT_U64(15)
-> +#define   PWR_STATUS_DOMAIN_ALLOWED(x)			BIT_U64(x)
-> +#define   PWR_STATUS_DELEGATED_L2			BIT_U64(16)
-> +#define   PWR_STATUS_DELEGATED_TILER			BIT_U64(17)
-> +#define   PWR_STATUS_DELEGATED_SHADER			BIT_U64(24)
-> +#define   PWR_STATUS_DELEGATED_BASE			BIT_U64(30)
-> +#define   PWR_STATUS_DELEGATED_STACK			BIT_U64(31)
-> +#define   PWR_STATUS_DELEGATED_SHIFT			16
-> +#define   PWR_STATUS_DOMAIN_DELEGATED(x)		BIT_U64((x) + PWR_STATUS_DELEGATED_SHIFT)
-> +#define   PWR_STATUS_ALLOW_SOFT_RESET			BIT_U64(33)
-> +#define   PWR_STATUS_ALLOW_FAST_RESET			BIT_U64(34)
-> +#define   PWR_STATUS_POWER_PENDING			BIT_U64(41)
-> +#define   PWR_STATUS_RESET_PENDING			BIT_U64(42)
-> +#define   PWR_STATUS_RETRACT_PENDING			BIT_U64(43)
-> +#define   PWR_STATUS_INSPECT_PENDING			BIT_U64(44)
-> +
-> +#define PWR_COMMAND					PWR_CTRL_REG(0x28)
-> +#define   PWR_COMMAND_POWER_UP				0x10
-> +#define   PWR_COMMAND_POWER_DOWN			0x11
-> +#define   PWR_COMMAND_DELEGATE				0x20
-> +#define   PWR_COMMAND_RETRACT				0x21
-> +#define   PWR_COMMAND_RESET_SOFT			0x31
-> +#define   PWR_COMMAND_RESET_FAST			0x32
-> +#define   PWR_COMMAND_INSPECT				0xF0
-> +#define   PWR_COMMAND_DOMAIN_L2				0
-> +#define   PWR_COMMAND_DOMAIN_TILER			1
-> +#define   PWR_COMMAND_DOMAIN_SHADER			8
-> +#define   PWR_COMMAND_DOMAIN_BASE			14
-> +#define   PWR_COMMAND_DOMAIN_STACK			15
-> +#define   PWR_COMMAND_SUBDOMAIN_RTU			BIT(0)
-> +#define   PWR_COMMAND_DEF(cmd, domain, subdomain)	\
-> +	(((subdomain) << 16) | ((domain) << 8) | (cmd))
-> +
-> +#define PWR_CMDARG					PWR_CTRL_REG(0x30)
-> +
-> +#define PWR_L2_PRESENT					PWR_CTRL_REG(0x100)
-> +#define PWR_L2_READY					PWR_CTRL_REG(0x108)
-> +#define PWR_L2_PWRTRANS					PWR_CTRL_REG(0x110)
-> +#define PWR_L2_PWRACTIVE				PWR_CTRL_REG(0x118)
-> +#define PWR_TILER_PRESENT				PWR_CTRL_REG(0x140)
-> +#define PWR_TILER_READY					PWR_CTRL_REG(0x148)
-> +#define PWR_TILER_PWRTRANS				PWR_CTRL_REG(0x150)
-> +#define PWR_TILER_PWRACTIVE				PWR_CTRL_REG(0x158)
-> +#define PWR_SHADER_PRESENT				PWR_CTRL_REG(0x200)
-> +#define PWR_SHADER_READY				PWR_CTRL_REG(0x208)
-> +#define PWR_SHADER_PWRTRANS				PWR_CTRL_REG(0x210)
-> +#define PWR_SHADER_PWRACTIVE				PWR_CTRL_REG(0x218)
-> +#define PWR_BASE_PRESENT				PWR_CTRL_REG(0x380)
-> +#define PWR_BASE_READY					PWR_CTRL_REG(0x388)
-> +#define PWR_BASE_PWRTRANS				PWR_CTRL_REG(0x390)
-> +#define PWR_BASE_PWRACTIVE				PWR_CTRL_REG(0x398)
-> +#define PWR_STACK_PRESENT				PWR_CTRL_REG(0x3c0)
-> +#define PWR_STACK_READY					PWR_CTRL_REG(0x3c8)
-> +#define PWR_STACK_PWRTRANS				PWR_CTRL_REG(0x3d0)
-> +
-> +#endif /* __PANTHOR_PWR_REGS_H__ */
-> diff --git a/drivers/gpu/drm/panthor/panthor_regs.h b/drivers/gpu/drm/panthor/panthor_regs.h
-> deleted file mode 100644
-> index 08bf06c452d6..000000000000
-> --- a/drivers/gpu/drm/panthor/panthor_regs.h
-> +++ /dev/null
-> @@ -1,291 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0 or MIT */
-> -/* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
-> -/* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-> -/* Copyright 2023 Collabora ltd. */
-> -/*
-> - * Register definitions based on mali_kbase_gpu_regmap.h and
-> - * mali_kbase_gpu_regmap_csf.h
-> - * (C) COPYRIGHT 2010-2022 ARM Limited. All rights reserved.
-> - */
-> -#ifndef __PANTHOR_REGS_H__
-> -#define __PANTHOR_REGS_H__
-> -
-> -#define GPU_ID						0x0
-> -#define   GPU_ARCH_MAJOR(x)				((x) >> 28)
-> -#define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
-> -#define   GPU_ARCH_REV(x)				(((x) & GENMASK(23, 20)) >> 20)
-> -#define   GPU_PROD_MAJOR(x)				(((x) & GENMASK(19, 16)) >> 16)
-> -#define   GPU_VER_MAJOR(x)				(((x) & GENMASK(15, 12)) >> 12)
-> -#define   GPU_VER_MINOR(x)				(((x) & GENMASK(11, 4)) >> 4)
-> -#define   GPU_VER_STATUS(x)				((x) & GENMASK(3, 0))
-> -
-> -#define GPU_L2_FEATURES					0x4
-> -#define  GPU_L2_FEATURES_LINE_SIZE(x)			(1 << ((x) & GENMASK(7, 0)))
-> -
-> -#define GPU_CORE_FEATURES				0x8
-> -
-> -#define GPU_TILER_FEATURES				0xC
-> -#define GPU_MEM_FEATURES				0x10
-> -#define   GROUPS_L2_COHERENT				BIT(0)
-> -
-> -#define GPU_MMU_FEATURES				0x14
-> -#define  GPU_MMU_FEATURES_VA_BITS(x)			((x) & GENMASK(7, 0))
-> -#define  GPU_MMU_FEATURES_PA_BITS(x)			(((x) >> 8) & GENMASK(7, 0))
-> -#define GPU_AS_PRESENT					0x18
-> -#define GPU_CSF_ID					0x1C
-> -
-> -#define GPU_INT_RAWSTAT					0x20
-> -#define GPU_INT_CLEAR					0x24
-> -#define GPU_INT_MASK					0x28
-> -#define GPU_INT_STAT					0x2c
-> -#define   GPU_IRQ_FAULT					BIT(0)
-> -#define   GPU_IRQ_PROTM_FAULT				BIT(1)
-> -#define   GPU_IRQ_RESET_COMPLETED			BIT(8)
-> -#define   GPU_IRQ_POWER_CHANGED				BIT(9)
-> -#define   GPU_IRQ_POWER_CHANGED_ALL			BIT(10)
-> -#define   GPU_IRQ_CLEAN_CACHES_COMPLETED		BIT(17)
-> -#define   GPU_IRQ_DOORBELL_MIRROR			BIT(18)
-> -#define   GPU_IRQ_MCU_STATUS_CHANGED			BIT(19)
-> -#define GPU_CMD						0x30
-> -#define   GPU_CMD_DEF(type, payload)			((type) | ((payload) << 8))
-> -#define   GPU_SOFT_RESET				GPU_CMD_DEF(1, 1)
-> -#define   GPU_HARD_RESET				GPU_CMD_DEF(1, 2)
-> -#define   CACHE_CLEAN					BIT(0)
-> -#define   CACHE_INV					BIT(1)
-> -#define   GPU_FLUSH_CACHES(l2, lsc, oth)		\
-> -	  GPU_CMD_DEF(4, ((l2) << 0) | ((lsc) << 4) | ((oth) << 8))
-> -
-> -#define GPU_STATUS					0x34
-> -#define   GPU_STATUS_ACTIVE				BIT(0)
-> -#define   GPU_STATUS_PWR_ACTIVE				BIT(1)
-> -#define   GPU_STATUS_PAGE_FAULT				BIT(4)
-> -#define   GPU_STATUS_PROTM_ACTIVE			BIT(7)
-> -#define   GPU_STATUS_DBG_ENABLED			BIT(8)
-> -
-> -#define GPU_FAULT_STATUS				0x3C
-> -#define GPU_FAULT_ADDR					0x40
-> -#define GPU_L2_CONFIG					0x48
-> -#define   GPU_L2_CONFIG_ASN_HASH_ENABLE			BIT(24)
-> -
-> -#define GPU_PWR_KEY					0x50
-> -#define  GPU_PWR_KEY_UNLOCK				0x2968A819
-> -#define GPU_PWR_OVERRIDE0				0x54
-> -#define GPU_PWR_OVERRIDE1				0x58
-> -
-> -#define GPU_FEATURES					0x60
-> -#define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
-> -#define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
-> -
-> -#define GPU_TIMESTAMP_OFFSET				0x88
-> -#define GPU_CYCLE_COUNT					0x90
-> -#define GPU_TIMESTAMP					0x98
-> -
-> -#define GPU_THREAD_MAX_THREADS				0xA0
-> -#define GPU_THREAD_MAX_WORKGROUP_SIZE			0xA4
-> -#define GPU_THREAD_MAX_BARRIER_SIZE			0xA8
-> -#define GPU_THREAD_FEATURES				0xAC
-> -
-> -#define GPU_TEXTURE_FEATURES(n)				(0xB0 + ((n) * 4))
-> -
-> -#define GPU_SHADER_PRESENT				0x100
-> -#define GPU_TILER_PRESENT				0x110
-> -#define GPU_L2_PRESENT					0x120
-> -
-> -#define SHADER_READY					0x140
-> -#define TILER_READY					0x150
-> -#define L2_READY					0x160
-> -
-> -#define SHADER_PWRON					0x180
-> -#define TILER_PWRON					0x190
-> -#define L2_PWRON					0x1A0
-> -
-> -#define SHADER_PWROFF					0x1C0
-> -#define TILER_PWROFF					0x1D0
-> -#define L2_PWROFF					0x1E0
-> -
-> -#define SHADER_PWRTRANS					0x200
-> -#define TILER_PWRTRANS					0x210
-> -#define L2_PWRTRANS					0x220
-> -
-> -#define SHADER_PWRACTIVE				0x240
-> -#define TILER_PWRACTIVE					0x250
-> -#define L2_PWRACTIVE					0x260
-> -
-> -#define GPU_REVID					0x280
-> -
-> -#define GPU_ASN_HASH(n)					(0x2C0 + ((n) * 4))
-> -
-> -#define GPU_COHERENCY_FEATURES				0x300
-> -#define GPU_COHERENCY_PROT_BIT(name)			BIT(GPU_COHERENCY_  ## name)
-> -
-> -#define GPU_COHERENCY_PROTOCOL				0x304
-> -#define   GPU_COHERENCY_ACE_LITE			0
-> -#define   GPU_COHERENCY_ACE				1
-> -#define   GPU_COHERENCY_NONE				31
-> -
-> -#define MCU_CONTROL					0x700
-> -#define MCU_CONTROL_ENABLE				1
-> -#define MCU_CONTROL_AUTO				2
-> -#define MCU_CONTROL_DISABLE				0
-> -
-> -#define MCU_STATUS					0x704
-> -#define MCU_STATUS_DISABLED				0
-> -#define MCU_STATUS_ENABLED				1
-> -#define MCU_STATUS_HALT					2
-> -#define MCU_STATUS_FATAL				3
-> -
-> -/* Job Control regs */
-> -#define JOB_INT_RAWSTAT					0x1000
-> -#define JOB_INT_CLEAR					0x1004
-> -#define JOB_INT_MASK					0x1008
-> -#define JOB_INT_STAT					0x100c
-> -#define   JOB_INT_GLOBAL_IF				BIT(31)
-> -#define   JOB_INT_CSG_IF(x)				BIT(x)
-> -
-> -/* MMU regs */
-> -#define MMU_INT_RAWSTAT					0x2000
-> -#define MMU_INT_CLEAR					0x2004
-> -#define MMU_INT_MASK					0x2008
-> -#define MMU_INT_STAT					0x200c
-> -
-> -/* AS_COMMAND register commands */
-> -
-> -#define MMU_BASE					0x2400
-> -#define MMU_AS_SHIFT					6
-> -#define MMU_AS(as)					(MMU_BASE + ((as) << MMU_AS_SHIFT))
-> -
-> -#define AS_TRANSTAB(as)					(MMU_AS(as) + 0x0)
-> -#define AS_MEMATTR(as)					(MMU_AS(as) + 0x8)
-> -#define   AS_MEMATTR_AARCH64_INNER_ALLOC_IMPL		(2 << 2)
-> -#define   AS_MEMATTR_AARCH64_INNER_ALLOC_EXPL(w, r)	((3 << 2) | \
-> -							 ((w) ? BIT(0) : 0) | \
-> -							 ((r) ? BIT(1) : 0))
-> -#define   AS_MEMATTR_AARCH64_SH_MIDGARD_INNER		(0 << 4)
-> -#define   AS_MEMATTR_AARCH64_SH_CPU_INNER		(1 << 4)
-> -#define   AS_MEMATTR_AARCH64_SH_CPU_INNER_SHADER_COH	(2 << 4)
-> -#define   AS_MEMATTR_AARCH64_SHARED			(0 << 6)
-> -#define   AS_MEMATTR_AARCH64_INNER_OUTER_NC		(1 << 6)
-> -#define   AS_MEMATTR_AARCH64_INNER_OUTER_WB		(2 << 6)
-> -#define   AS_MEMATTR_AARCH64_FAULT			(3 << 6)
-> -#define AS_LOCKADDR(as)					(MMU_AS(as) + 0x10)
-> -#define AS_COMMAND(as)					(MMU_AS(as) + 0x18)
-> -#define   AS_COMMAND_NOP				0
-> -#define   AS_COMMAND_UPDATE				1
-> -#define   AS_COMMAND_LOCK				2
-> -#define   AS_COMMAND_UNLOCK				3
-> -#define   AS_COMMAND_FLUSH_PT				4
-> -#define   AS_COMMAND_FLUSH_MEM				5
-> -#define   AS_LOCK_REGION_MIN_SIZE			(1ULL << 15)
-> -#define AS_FAULTSTATUS(as)				(MMU_AS(as) + 0x1C)
-> -#define  AS_FAULTSTATUS_ACCESS_TYPE_MASK		(0x3 << 8)
-> -#define  AS_FAULTSTATUS_ACCESS_TYPE_ATOMIC		(0x0 << 8)
-> -#define  AS_FAULTSTATUS_ACCESS_TYPE_EX			(0x1 << 8)
-> -#define  AS_FAULTSTATUS_ACCESS_TYPE_READ		(0x2 << 8)
-> -#define  AS_FAULTSTATUS_ACCESS_TYPE_WRITE		(0x3 << 8)
-> -#define AS_FAULTADDRESS(as)				(MMU_AS(as) + 0x20)
-> -#define AS_STATUS(as)					(MMU_AS(as) + 0x28)
-> -#define   AS_STATUS_AS_ACTIVE				BIT(0)
-> -#define AS_TRANSCFG(as)					(MMU_AS(as) + 0x30)
-> -#define   AS_TRANSCFG_ADRMODE_UNMAPPED			(1 << 0)
-> -#define   AS_TRANSCFG_ADRMODE_IDENTITY			(2 << 0)
-> -#define   AS_TRANSCFG_ADRMODE_AARCH64_4K		(6 << 0)
-> -#define   AS_TRANSCFG_ADRMODE_AARCH64_64K		(8 << 0)
-> -#define   AS_TRANSCFG_INA_BITS(x)			((x) << 6)
-> -#define   AS_TRANSCFG_OUTA_BITS(x)			((x) << 14)
-> -#define   AS_TRANSCFG_SL_CONCAT				BIT(22)
-> -#define   AS_TRANSCFG_PTW_MEMATTR_NC			(1 << 24)
-> -#define   AS_TRANSCFG_PTW_MEMATTR_WB			(2 << 24)
-> -#define   AS_TRANSCFG_PTW_SH_NS				(0 << 28)
-> -#define   AS_TRANSCFG_PTW_SH_OS				(2 << 28)
-> -#define   AS_TRANSCFG_PTW_SH_IS				(3 << 28)
-> -#define   AS_TRANSCFG_PTW_RA				BIT(30)
-> -#define   AS_TRANSCFG_DISABLE_HIER_AP			BIT(33)
-> -#define   AS_TRANSCFG_DISABLE_AF_FAULT			BIT(34)
-> -#define   AS_TRANSCFG_WXN				BIT(35)
-> -#define   AS_TRANSCFG_XREADABLE				BIT(36)
-> -#define AS_FAULTEXTRA(as)				(MMU_AS(as) + 0x38)
-> -
-> -#define CSF_GPU_LATEST_FLUSH_ID				0x10000
-> -
-> -#define CSF_DOORBELL(i)					(0x80000 + ((i) * 0x10000))
-> -#define CSF_GLB_DOORBELL_ID				0
-> -
-> -/* PWR Control registers */
-> -
-> -#define PWR_CONTROL_BASE				0x800
-> -#define PWR_CTRL_REG(x)					(PWR_CONTROL_BASE + (x))
-> -
-> -#define PWR_INT_RAWSTAT					PWR_CTRL_REG(0x0)
-> -#define PWR_INT_CLEAR					PWR_CTRL_REG(0x4)
-> -#define PWR_INT_MASK					PWR_CTRL_REG(0x8)
-> -#define PWR_INT_STAT					PWR_CTRL_REG(0xc)
-> -#define   PWR_IRQ_POWER_CHANGED_SINGLE			BIT(0)
-> -#define   PWR_IRQ_POWER_CHANGED_ALL			BIT(1)
-> -#define   PWR_IRQ_DELEGATION_CHANGED			BIT(2)
-> -#define   PWR_IRQ_RESET_COMPLETED			BIT(3)
-> -#define   PWR_IRQ_RETRACT_COMPLETED			BIT(4)
-> -#define   PWR_IRQ_INSPECT_COMPLETED			BIT(5)
-> -#define   PWR_IRQ_COMMAND_NOT_ALLOWED			BIT(30)
-> -#define   PWR_IRQ_COMMAND_INVALID			BIT(31)
-> -
-> -#define PWR_STATUS					PWR_CTRL_REG(0x20)
-> -#define   PWR_STATUS_ALLOW_L2				BIT_U64(0)
-> -#define   PWR_STATUS_ALLOW_TILER			BIT_U64(1)
-> -#define   PWR_STATUS_ALLOW_SHADER			BIT_U64(8)
-> -#define   PWR_STATUS_ALLOW_BASE				BIT_U64(14)
-> -#define   PWR_STATUS_ALLOW_STACK			BIT_U64(15)
-> -#define   PWR_STATUS_DOMAIN_ALLOWED(x)			BIT_U64(x)
-> -#define   PWR_STATUS_DELEGATED_L2			BIT_U64(16)
-> -#define   PWR_STATUS_DELEGATED_TILER			BIT_U64(17)
-> -#define   PWR_STATUS_DELEGATED_SHADER			BIT_U64(24)
-> -#define   PWR_STATUS_DELEGATED_BASE			BIT_U64(30)
-> -#define   PWR_STATUS_DELEGATED_STACK			BIT_U64(31)
-> -#define   PWR_STATUS_DELEGATED_SHIFT			16
-> -#define   PWR_STATUS_DOMAIN_DELEGATED(x)		BIT_U64((x) + PWR_STATUS_DELEGATED_SHIFT)
-> -#define   PWR_STATUS_ALLOW_SOFT_RESET			BIT_U64(33)
-> -#define   PWR_STATUS_ALLOW_FAST_RESET			BIT_U64(34)
-> -#define   PWR_STATUS_POWER_PENDING			BIT_U64(41)
-> -#define   PWR_STATUS_RESET_PENDING			BIT_U64(42)
-> -#define   PWR_STATUS_RETRACT_PENDING			BIT_U64(43)
-> -#define   PWR_STATUS_INSPECT_PENDING			BIT_U64(44)
-> -
-> -#define PWR_COMMAND					PWR_CTRL_REG(0x28)
-> -#define   PWR_COMMAND_POWER_UP				0x10
-> -#define   PWR_COMMAND_POWER_DOWN			0x11
-> -#define   PWR_COMMAND_DELEGATE				0x20
-> -#define   PWR_COMMAND_RETRACT				0x21
-> -#define   PWR_COMMAND_RESET_SOFT			0x31
-> -#define   PWR_COMMAND_RESET_FAST			0x32
-> -#define   PWR_COMMAND_INSPECT				0xF0
-> -#define   PWR_COMMAND_DOMAIN_L2				0
-> -#define   PWR_COMMAND_DOMAIN_TILER			1
-> -#define   PWR_COMMAND_DOMAIN_SHADER			8
-> -#define   PWR_COMMAND_DOMAIN_BASE			14
-> -#define   PWR_COMMAND_DOMAIN_STACK			15
-> -#define   PWR_COMMAND_SUBDOMAIN_RTU			BIT(0)
-> -#define   PWR_COMMAND_DEF(cmd, domain, subdomain)	\
-> -	(((subdomain) << 16) | ((domain) << 8) | (cmd))
-> -
-> -#define PWR_CMDARG					PWR_CTRL_REG(0x30)
-> -
-> -#define PWR_L2_PRESENT					PWR_CTRL_REG(0x100)
-> -#define PWR_L2_READY					PWR_CTRL_REG(0x108)
-> -#define PWR_L2_PWRTRANS					PWR_CTRL_REG(0x110)
-> -#define PWR_L2_PWRACTIVE				PWR_CTRL_REG(0x118)
-> -#define PWR_TILER_PRESENT				PWR_CTRL_REG(0x140)
-> -#define PWR_TILER_READY					PWR_CTRL_REG(0x148)
-> -#define PWR_TILER_PWRTRANS				PWR_CTRL_REG(0x150)
-> -#define PWR_TILER_PWRACTIVE				PWR_CTRL_REG(0x158)
-> -#define PWR_SHADER_PRESENT				PWR_CTRL_REG(0x200)
-> -#define PWR_SHADER_READY				PWR_CTRL_REG(0x208)
-> -#define PWR_SHADER_PWRTRANS				PWR_CTRL_REG(0x210)
-> -#define PWR_SHADER_PWRACTIVE				PWR_CTRL_REG(0x218)
-> -#define PWR_BASE_PRESENT				PWR_CTRL_REG(0x380)
-> -#define PWR_BASE_READY					PWR_CTRL_REG(0x388)
-> -#define PWR_BASE_PWRTRANS				PWR_CTRL_REG(0x390)
-> -#define PWR_BASE_PWRACTIVE				PWR_CTRL_REG(0x398)
-> -#define PWR_STACK_PRESENT				PWR_CTRL_REG(0x3c0)
-> -#define PWR_STACK_READY					PWR_CTRL_REG(0x3c8)
-> -#define PWR_STACK_PWRTRANS				PWR_CTRL_REG(0x3d0)
-> -
-> -#endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 7c8d350da02f..70b8a22b3ed7 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -28,11 +28,12 @@
->  #include "panthor_devfreq.h"
->  #include "panthor_device.h"
->  #include "panthor_fw.h"
-> +#include "panthor_fw_regs.h"
->  #include "panthor_gem.h"
->  #include "panthor_gpu.h"
-> +#include "panthor_gpu_regs.h"
->  #include "panthor_heap.h"
->  #include "panthor_mmu.h"
-> -#include "panthor_regs.h"
->  #include "panthor_sched.h"
->  
->  /**
-> -- 
-> 2.43.0
+> Werner Sembach (1):
+>       drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
+> 
+>  Documentation/gpu/drm-kms-helpers.rst              |   6 +
+>  Documentation/gpu/drm-kms.rst                      |   6 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  91 +-
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |   1 +
+>  drivers/gpu/drm/display/drm_bridge_connector.c     |  24 +
+>  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  53 +-
+>  drivers/gpu/drm/drm_atomic_helper.c                |  86 ++
+>  drivers/gpu/drm/drm_atomic_uapi.c                  |  11 +
+>  drivers/gpu/drm/drm_bridge.c                       | 104 ++-
+>  drivers/gpu/drm/drm_connector.c                    | 178 +++-
+>  drivers/gpu/drm/i915/display/intel_connector.c     |  10 +
+>  drivers/gpu/drm/i915/display/intel_connector.h     |   1 +
+>  drivers/gpu/drm/i915/display/intel_dp.c            |  43 +-
+>  drivers/gpu/drm/i915/display/intel_hdmi.c          |  47 +-
+>  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     | 111 ++-
+>  drivers/gpu/drm/rockchip/rockchip_drm_drv.h        |   4 +
+>  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  21 +-
+>  drivers/gpu/drm/tests/drm_bridge_test.c            | 971 +++++++++++++++++++++
+>  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 345 ++++++++
+>  include/drm/drm_atomic_helper.h                    |   7 +
+>  include/drm/drm_connector.h                        | 120 +++
+>  21 files changed, 2203 insertions(+), 37 deletions(-)
+> ---
+> base-commit: e3dc6072028a594d5e9bfc6476165842602d5307
+> change-id: 20251028-color-format-49fd202b7183
+> prerequisite-message-id: <20260409101539.22032-1-ville.syrjala@linux.intel.com>
+> prerequisite-patch-id: f382aeb5da5f2b8f6e2cb22b88eb47f490f2c724
+> prerequisite-patch-id: 20570aeb28e3c31353e6f697b193b23d8b47c47c
+> prerequisite-patch-id: 1b7e24034883b22cd82be025a1cf82ae77170fd0
+> prerequisite-patch-id: 6ec2dc2c05a75391b67cb12d93168f5e8da8ec55
+> prerequisite-patch-id: 32e84581998ef4eef05e1681c7ec36b90f2a6bb7
+> prerequisite-patch-id: 99c2187a846b0c9ac2ea1a892c17483120cb7da1
+> prerequisite-patch-id: fb41b4668a3b7c8c375c67ffd6b178fa3273e86a
+> prerequisite-patch-id: 4c115a36eea0d5f80643dc34310690894ac80e0e
+> prerequisite-patch-id: 6fdec0832cd6062de3cc5c2f363c5d624d8a00f9
+> 
+> Best regards,
+> --  
+> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> 
 > 
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Oops, forgot to apply the review trailers from last revision. (I did
+actually remember, but didn't remember to explicitly confirm applying
+them, and it defaults to not doing so.)
+
+So these two:
+- drm/atomic-helper: Add HDMI bridge output bus formats helper
+- drm/connector: Register color format property on HDMI connectors
+
+Lack Dmitry Baryshkov's R-b, but I assume it'll get picked up
+on the next `b4 trailers -u` anyway. Just mentioning it though
+to ruin the surprise for any reviewer who feels gaslit otherwise.
+
+Kind regards,
+Nicolas Frattaroli
+
+
