@@ -4,141 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C34EEBFD05
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 06:59:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A55BEEBFD01
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 07:00:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8059910E323;
-	Mon, 13 Apr 2026 06:59:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00A808920E;
+	Mon, 13 Apr 2026 07:00:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="N/7K7luW";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qT6KZOnS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qLqGB1RT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="JK8ZUUPL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LQ++lAtG";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8582710E323
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 06:59:24 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E82F36A83A;
- Mon, 13 Apr 2026 06:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776063563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=bL3Vo15HEvCfhTQ/xDYWG9e0yFLeDsIe2Hwfc4O3WLA=;
- b=N/7K7luW3PnQpn9af/kue21IKT4UcwDFalLL4pUlZwLuAr/tfP4iAj1WAQB8qBBI3ulI1A
- ltG3lSuRLLfGsaaSY7F+KL4Xt4CXdu078/vstL3DmsQjCLioWWVUL1UIWs/6vWeytBd9yn
- HhW57NoIQ1qTARDr1omz+bMtAQ8OXkg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776063563;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=bL3Vo15HEvCfhTQ/xDYWG9e0yFLeDsIe2Hwfc4O3WLA=;
- b=qT6KZOnSuavLsTJW59zo08MdIA7Ev/iRWdlT5r/NgjG3OT5BsBrksLgeQbOJcoIkgoieTS
- 3NwdJYh7OZ83mKDA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qLqGB1RT;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=JK8ZUUPL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776063562; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=bL3Vo15HEvCfhTQ/xDYWG9e0yFLeDsIe2Hwfc4O3WLA=;
- b=qLqGB1RTpRT+nGmQrNB/f/5K0Sx1zWrCqbFBkPYE5WIdLyRGXIQEWLWaY5AwAN7eP637l9
- jh6GR8krwWQS3VVXiRFN9i3a1eEbqMXOzDtbH3fi+RGShfAUVJZHzEID3I3Hz4MSWNFiey
- Ufcc67u39AKSbCXPYvorLoIVynbsQhI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776063562;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=bL3Vo15HEvCfhTQ/xDYWG9e0yFLeDsIe2Hwfc4O3WLA=;
- b=JK8ZUUPLlgX5gDmFTBhjNK8i9ZdzpIAtgo6HkW6+itBLyLMRV9JcdKBrTDeIxUtHz5z7di
- VG8k3en3kBdiANAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9FC9A4AD60;
- Mon, 13 Apr 2026 06:59:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id IyDXJUqU3Gm5MgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 13 Apr 2026 06:59:22 +0000
-Message-ID: <5ce643a9-59ec-480a-985e-764bf23e2485@suse.de>
-Date: Mon, 13 Apr 2026 08:59:22 +0200
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A56638920E
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 07:00:12 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-66f727d6849so5967831a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 00:00:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776063611; cv=none;
+ d=google.com; s=arc-20240605;
+ b=MGgTtzLZgAC3keVX1iNB8VxCeKFFB/dWxUWzVfhle9KGB3n+XdHRAV+dhBEojIiPTy
+ xTsP0z2jLUF7vTDCGTXdDd0GMmEAzyiT2lFbB6yoyLkBgwjgg/lyjZM5y3I6i/ijKedB
+ Txw2NQGxpBhZEUsprpsLziTBA89Mc11eXYJL53tlxubCKPAX2sL+OvtPHjON6m11TFfG
+ UmTwcPw7l6re+xbcCos8ZTN1uX9HHvdBFPMSxmZHIQlvxruz8fkryw852+5HlHs5i41+
+ XydGoHshwiVe7XTJ3N2x37XUmycn+zAIFVHWjaYc3x6ECN7fQ2TP7tAWke2b+MwUg6vH
+ jBtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=X6pSeBoMwbk97qHNLEiiR0g4dw8qT9zFAczkuZLFIic=;
+ fh=hP0gI/wds6TzU+g4KTgGj/dVm/FucfJm7gCuYMXNn6c=;
+ b=EuHAG/8mts6lMbGjxlXU7ch/LZ+nh0uGh7fwLIydh7+mOJdtsP6Oh3qaFUoXX0qd7n
+ aDTutvcdL2afW/Hd4Pron0KqpFv5IkPYTA6hKQ7Xx0Yf4tG/La8xmfzim8gF4Ndfxci1
+ dcz7cOcP8cFfJqMx7JEbU1Snkm9icc6e9oII+0gnV6mUfs3A0LjBghN5YPflf+poaqO9
+ KSKCH2+zSqL+VL3g1A6Tm7CgMGiuecHnzSlw6n0uSujW9xtf2TGIsopj4gVp9Qgy1ZM7
+ rfpLyb1NTSLkTIxfxBrWxhO88zO7tYUsC8lR4HlFESXCTs+YjyJh7b0GImgVumdQoNQ7
+ zWGA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776063611; x=1776668411; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=X6pSeBoMwbk97qHNLEiiR0g4dw8qT9zFAczkuZLFIic=;
+ b=LQ++lAtGflVzB5LLpNUWWwC8yrVHjuglnJcT1uuur/dbrkFrZyi8hbgj+w+33hLMT9
+ dQp3Ov6mDJEO3TOOE2D5x2jzerDWS+shlm+p6+eMqrmQzwmEpFGN/bnNNev7geuLc8ua
+ SzCCi+vftjBtDd6M8aB8jxXZhZRNnuPiFpYKt4E57fM7Y48af34GvQ2HHUx2wn3pduCu
+ f4Dpb6Ns0QAV6v0qnLwOsK3HLCw0aBBadvvb8excz1trFIJ1ZnUdV8v5FRd8MZEQLQLq
+ gUyTdIb4+UlMbE2aI0f547ZCCMzuy/eUa1PXDiIKDl9MDkUGqJLNGBxtbpHYY9xhSiLR
+ 3oCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776063611; x=1776668411;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=X6pSeBoMwbk97qHNLEiiR0g4dw8qT9zFAczkuZLFIic=;
+ b=k6/8UWf6SsdYaLxofLaLlDULeomLvx8ZGjUYr/EGXz2kcNuOTCvTKdKxGiGL9DKKEx
+ AVeHwFIyYddVlqK5tggPyGPfzE/6QXhvqkntb6VwqA2uzFa2n6Wo0yW8ZnFSVVgp5+Ur
+ yIC7rKmOiok1CWedy6LgZgWhd5wF2mGlo2zqv2abC9Y7ZLTw3TI8DZElOFJhG2HgQ1pT
+ 791d/TctTqw/2yBDpWF6jrW2OZ3wXVympv/kcrkH3VvI+DAAJizs2AEg4N+qkz00LRzt
+ PoU65L9FTz1cPCYPmFsyc7P3sAEpwkEqd4s8TeoXeYJU9ZfkjYOdy2lL/H6B67aFHf/k
+ qRXA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXFcwVsH1nP+UZR6H3ERyicCMCTeE9q0RoEbfXH5J1Kz4c95UE1M305SpKGfBF1YxMdVG7tCajTQsY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+BdDdZESSoClitdsV+KBxYIj9o+LpUe8/Kh6y1ndYbDiJpJJu
+ n/t1n1lBHZxAauRgXJmiegSF4t9BMjcd1q6ivhumqgbD5vD73GapL3H6NnbIu/YaFDZNX27excp
+ q8Jl9doBN70/bHV6WLpNpXr6OvRjw2uc=
+X-Gm-Gg: AeBDiesyTzncJ2DphEg8Haz9bgUW2f2ncPk2E8jV/RKlaLfSDyw/mHcq020/e+WfXeT
+ kc/HE6vD+bnHM0bAN22uzcDbmPyqbYt3zZ+q8Q4btVd4i9yvNj8rkEgZ0epxx8of0EIf/GbnEtv
+ l9AzHW6T+C1NxGjPxlO2dbxwu+ODSsMBKRzumYkVIi159WaIPXhLyE2kvHfAUZrfa1e0HyLuyCC
+ fT9G4AqGJRpOB8tF8NFVJhB5JfdR9vGlHLMM87q513lltSPzKudWp39n+SG6QukoeHUN2+jtc6O
+ fbbq6+2V7xVUuK4ZKXep8OqFwz/L9TjnnxqeAeGxSFuVZm8mUMyCMLcEknTc4eDloGQDHQLps6t
+ 1vGf9zcc=
+X-Received: by 2002:a17:906:eec7:b0:b9c:69df:4d99 with SMTP id
+ a640c23a62f3a-b9d72ad8da9mr652948566b.46.1776063610650; Mon, 13 Apr 2026
+ 00:00:10 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arch: sh: Include <linux/io.h> in dac.h
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- ysato@users.sourceforge.jp, dalias@libc.org, lee@kernel.org,
- danielt@kernel.org, simona.vetter@ffwll.ch
-Cc: linux-sh@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel test robot <lkp@intel.com>, Jingoo Han <jingoohan1@gmail.com>
-References: <20251028170913.16711-1-tzimmermann@suse.de>
- <e2c0c4686908f38858716a1dcf67df7de488fd33.camel@physik.fu-berlin.de>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <e2c0c4686908f38858716a1dcf67df7de488fd33.camel@physik.fu-berlin.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_CC(0.00)[vger.kernel.org,lists.freedesktop.org,intel.com,gmail.com]; 
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_SEVEN(0.00)[10]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:dkim, suse.de:mid, suse.de:email,
- suse.com:url, intel.com:email]
-X-Rspamd-Queue-Id: E82F36A83A
+References: <20251218061406.8043-1-arjunchangla7@gmail.com>
+ <2025121827-lubricant-salad-860c@gregkh>
+ <CALO5-psPGGxo9bu4Yjs54Sj=Hpq4x4Zgvp6tEY2MzV+utUfGpA@mail.gmail.com>
+In-Reply-To: <CALO5-psPGGxo9bu4Yjs54Sj=Hpq4x4Zgvp6tEY2MzV+utUfGpA@mail.gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 13 Apr 2026 09:59:33 +0300
+X-Gm-Features: AQROBzC-kH1OmWCu3fYOKS8_sAHANFaz5pop-O-JWmBJ0plqPTqCm4ToMsiAjdg
+Message-ID: <CAHp75VeZyn+55A3T2_VCGUrvsRwODp2hJpL21Z46UeyOeYyQbg@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: fix spacing before close parenthesis
+To: Arjun Changla <arjunchangla7@gmail.com>
+Cc: Greg KH <gregkh@linuxfoundation.org>, andy@kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,74 +109,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 12.04.26 um 09:35 schrieb John Paul Adrian Glaubitz:
-> Hi Thomas,
+On Mon, Apr 13, 2026 at 9:58=E2=80=AFAM Arjun Changla <arjunchangla7@gmail.=
+com> wrote:
 >
-> On Tue, 2025-10-28 at 18:07 +0100, Thomas Zimmermann wrote:
->> Include <linux/io.h> to avoid depending on <linux/backlight.h> for
->> including it. Declares __raw_readb() and __raw_writeb().
+>
+>
+> On Thu, 18 Dec 2025 at 11:50, Greg KH <gregkh@linuxfoundation.org> wrote:
 >>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Reported-by: kernel test robot <lkp@intel.com>
->> Closes: https://lore.kernel.org/oe-kbuild-all/202510282206.wI0HrqcK-lkp@intel.com/
->> Fixes: 243ce64b2b37 ("backlight: Do not include <linux/fb.h> in header file")
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Daniel Thompson (RISCstar) <danielt@kernel.org>
->> Cc: Simona Vetter <simona.vetter@ffwll.ch>
->> Cc: Lee Jones <lee@kernel.org>
->> Cc: Daniel Thompson <danielt@kernel.org>
->> Cc: Jingoo Han <jingoohan1@gmail.com>
->> Cc: dri-devel@lists.freedesktop.org
->> ---
->> This is fallout from a recent cleanup of the backlight header file. I don't
->> have the option of building or testing this change, though.
->> ---
->>   arch/sh/include/cpu-sh3/cpu/dac.h | 2 ++
->>   1 file changed, 2 insertions(+)
+>> On Thu, Dec 18, 2025 at 06:14:06AM +0000, Arjun Changla wrote:
+>> > Fix checkpatch error "space prohibited before that close parenthesis"
+>> > on line 65 by removing the extra space.
+>> >
+>> > Signed-off-by: Arjun Changla <arjunchangla7@gmail.com>
+>> > ---
+>> >  drivers/staging/fbtft/fbtft-bus.c | 2 +-
+>> >  1 file changed, 1 insertion(+), 1 deletion(-)
+>> >
+>> > diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft=
+/fbtft-bus.c
+>> > index 30e436ff19e4..2f7c891177fb 100644
+>> > --- a/drivers/staging/fbtft/fbtft-bus.c
+>> > +++ b/drivers/staging/fbtft/fbtft-bus.c
+>> > @@ -62,7 +62,7 @@ out:                                                =
+                              \
+>> >  }                                                                    =
+         \
+>> >  EXPORT_SYMBOL(func);
+>> >
+>> > -define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
+>> > +define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
 >>
->> diff --git a/arch/sh/include/cpu-sh3/cpu/dac.h b/arch/sh/include/cpu-sh3/cpu/dac.h
->> index fd02331608a8..323ec8570bcd 100644
->> --- a/arch/sh/include/cpu-sh3/cpu/dac.h
->> +++ b/arch/sh/include/cpu-sh3/cpu/dac.h
->> @@ -2,6 +2,8 @@
->>   #ifndef __ASM_CPU_SH3_DAC_H
->>   #define __ASM_CPU_SH3_DAC_H
->>   
->> +#include <linux/io.h>
->> +
->>   /*
->>    * Copyright (C) 2003  Andriy Skulysh
->>    */
-> I'm just looking at this patch again and was wondering where <linux/backlight.h> is
-> actually being pulled in on SH3. I assume this is somewhere on the driver side, no?
-
-Oh well, it's been ages...
-
-I've been cleaning up the plenty of places that include <linux/fb.h> and 
-<linux/backlight.h> unnecessarily. Besides the Fixes tag, presumably 
-commit df1445598758 ("backlight: hp680_bl: Do not include <linux/fb.h>") 
-is involved as well. The hp680_bl backlight driver got <linux/io.h> via 
-<linux/fb.h> via <linux/backlight.h> before including <cpu/dac.h>. With 
-fb.h gone from backlight.h gone,  dac.h should best include its 
-dependencies. Hence the patch here.
-
-Best regards
-Thomas
-
-
-
+>> But you just changed the function definition, does this still work now?
+>> If so, how?
+>>
+>> confused,
+>>
+>> greg k-h
 >
-> Adrian
 >
+> Hi Greg,
+>
+> Thank you for the review. The change only removes extra spacing in
+> the function parameter - no functional changes were made.
+>
+> Before:
+>     const struct ia_css_output1_configuration *from ,
+>
+> After:
+>     const struct ia_css_output1_configuration *from,
+>
+> I verified the module builds successfully with no errors:
+>     make M=3Ddrivers/staging/fbtft
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+What are you talking about?
+The original patch we are discussing is totally wrong. Please, compile
+the code before submitting.
 
-
+--=20
+With Best Regards,
+Andy Shevchenko
