@@ -4,58 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35693F34C65
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 15:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75836F34C64
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 16:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 856B410E4C8;
-	Mon, 13 Apr 2026 15:53:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF3EA10E09B;
+	Mon, 13 Apr 2026 16:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="GedZnhB/";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="wOewI4Y4";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9343810E4C8
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 15:53:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776095595; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=NLUtMYbmgECZYfWfaXRo+dxXgOi3MfM+oPXpiIorrwXPrCqDe7rZqsVFciXfcJmOhh2MBM8c77uAerF1S6WlIdHdedVZFkrsPtx52oWy57dvrFxBCoj1nCxYIdptnjUnUJmBSdZebjdB8Fz224IY5WA/U3Lmz/ZVT4mlwjQGz7o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776095595;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=I6DQ0vYPJ7ac4o64pgQkVxvLcCeNatTbss17UFduNBg=; 
- b=IQhMcqqnoSVsGx6rWcWxUWa4yVG+c+vF3IT5jaKNnxBgsJNRkckGQVDouwV3gNWIL/BfdkociVCBvJ8p9u994m8I8kEzAbfu5ejEUhZ5nKJUceYFSpcuVPR9AG6hHzFby27ZxlZfHVhzjR/ZA/2pKkkfGGly0j/VE8MaacNFqN4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
- dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776095595; 
- s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=I6DQ0vYPJ7ac4o64pgQkVxvLcCeNatTbss17UFduNBg=;
- b=GedZnhB/f+Lo5Ksg+aQkUT9K7zIEbFAMW7gaFK/k7vnSW6Fu9zqvrhc5ceKsAO/A
- 2MbUXEKV1wHL6hwFLu6QbBDCO7SDJOS4BdiSU8D6m5b4/WZM9OqPhMuZcWvObRgooWT
- ABAfAtcS6O6BtlsyVnNwjibiWkUd7Jn5qzZ04xqs=
-Received: by mx.zohomail.com with SMTPS id 1776095592323461.8737533352952;
- Mon, 13 Apr 2026 08:53:12 -0700 (PDT)
-Date: Mon, 13 Apr 2026 16:53:08 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- Liviu Dudau <liviu.dudau@arm.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v2 1/2] drm/panthor: Extend VM locked region for remap
- case to be a superset
-Message-ID: <ad0RVR9YgSrvmWNP@sobremesa>
-References: <20260408191228.537625-1-adrian.larumbe@collabora.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 446CE10E09B
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 16:05:17 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id E11474E42978;
+ Mon, 13 Apr 2026 16:05:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AF9AE5FFB9;
+ Mon, 13 Apr 2026 16:05:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 6DEBB10451BA1; 
+ Mon, 13 Apr 2026 18:05:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776096314; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=6NYaxM8+Z4I9FTa2rYGBzSB24QflKaTIQ9WHW5ChvWw=;
+ b=wOewI4Y44/e5Ugt1wMJEqTWeyI7QdMUyKeWAS3i9J1T2rhKjY/W9OlFnfkJ+zluISZMMLz
+ mEA9ZPcVkTjxyEgMyivU7hq9DhhOUbfqypKx/Rz5xRaPfTYxnuRk8eT40tLHJ2iNQWfWDD
+ rs1u7eVmm/PJ2q8C3toMNFq2JXYak1m7bgJi8/8VCQDYgbaKKxPscrDvqTR0YGIQaQAo0a
+ 9MKhUQq0VSxSB4XAzu3vMewQt/wvr710KPGbp+GEhOwQRDnIrfR1h/RoSfQkbTzCVApmYe
+ fChmda3/rQ3qjvZXx3OlgyIxX5CXk1iD3Ihjdp5Ikb69GbhSR3hxMZgJWA/vmQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, inki.dae@samsung.com, 
+ sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org, 
+ jingoohan1@gmail.com, hjc@rock-chips.com, heiko@sntech.de, 
+ andy.yan@rock-chips.com, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, alim.akhtar@samsung.com, 
+ dmitry.baryshkov@oss.qualcomm.com, nicolas.frattaroli@collabora.com, 
+ dianders@chromium.org, m.szyprowski@samsung.com, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org
+In-Reply-To: <20260413132551.1049307-1-damon.ding@rock-chips.com>
+References: <20260413132551.1049307-1-damon.ding@rock-chips.com>
+Subject: Re: [PATCH v14 0/8] Apply drm_bridge_connector and panel_bridge
+ helper for the Analogix DP driver
+Message-Id: <177609630366.308413.12157295287173122177.b4-ty@b4>
+Date: Mon, 13 Apr 2026 18:05:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260408191228.537625-1-adrian.larumbe@collabora.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,52 +73,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Queued to drm-misc-fixes.
 
-On 08.04.2026 20:12, Adrián Larumbe wrote:
-> In the event of an sm_step_remap() that leads to a partial unmap of a
-> transparent huge page, the new locked region required by an extended unmap
-> might not be a superset of the original one. Then, if it leaves a portion
-> of the initially requested one out, the ensuing map will trigger a warning.
->
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index fa8b31df85c9..bd41c892beb7 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -1709,6 +1709,25 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	    start + size <= vm->locked_region.start + vm->locked_region.size)
->  		return 0;
->
-> +	/* sm_step_remap() may need a locked region that isn't a strict superset
-> +	 * of the original one because of having to extend unmap boundaries beyond
-> +	 * it to deal with partial unmaps of transparent huge pages. What we want
-> +	 * in those cases is to lock the union of both regions. The new region must
-> +	 * always overlap with the original one, because the upper and lower unmap
-> +	 * boundaries in a remap operation can only shift up or down respectively,
-> +	 * but never otherwise.
-> +	 */
-> +	if (vm->locked_region.size) {
-> +		u64 end = max(vm->locked_region.start + vm->locked_region.size,
-> +			      start + size);
-> +
-> +		drm_WARN_ON_ONCE(&vm->ptdev->base, (start + size <= vm->locked_region.start) ||
-> +				 (start >= vm->locked_region.start + vm->locked_region.size));
-> +
-> +		start = min(start, vm->locked_region.start);
-> +		size = end - start;
-> +	}
-> +
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && size) {
->  		/* Lock the region that needs to be updated */
-> --
-> 2.53.0
+On Mon, 13 Apr 2026 21:25:43 +0800, Damon Ding wrote:
+> Picked from:
+> https://lore.kernel.org/all/20260409065301.446670-1-damon.ding@rock-chips.com/
+> 
+> PATCH 1 is the preparation for apply drm_bridge_connector helper.
+> PATCH 2 is to apply the drm_bridge_connector helper.
+> PATCH 3-5 are to move the panel/bridge parsing to the Analogix side.
+> PATCH 6 is to attach the next bridge on Analogix side uniformly.
+> PATCH 7-8 are to apply the panel_bridge helper.
+> 
+> [...]
 
-Adrian Larumbe
+Applied, thanks!
+
+[1/8] drm/bridge: analogix_dp: Pass struct drm_atomic_state* for analogix_dp_bridge_mode_set()
+      commit: 3be024d26a576519ce75fabfbdf6972731c19900
+[2/8] drm/bridge: analogix_dp: Apply drm_bridge_connector helper
+      commit: 99a49ff5ef7a5f01e28e724b888d94b6735a88c1
+[3/8] drm/bridge: analogix_dp: Add new API analogix_dp_finish_probe()
+      commit: e9c897c898f9ff32d93380ee4ebc778a6b787aaa
+[4/8] drm/rockchip: analogix_dp: Apply analogix_dp_finish_probe()
+      commit: d35ac0973463f67162d9ee73bf0c828ad5d4d2f9
+[5/8] drm/exynos: exynos_dp: Apply analogix_dp_finish_probe()
+      commit: 02b8a4f240abdc4e99efd6cf95c47378a1015903
+[6/8] drm/bridge: analogix_dp: Attach the next bridge in analogix_dp_bridge_attach()
+      commit: 3076510af7cd01a7fb0ae5103116a39ad35eb5cb
+[7/8] drm/bridge: analogix_dp: Remove bridge disabing and panel unpreparing in analogix_dp_unbind()
+      commit: 2bfc4e192f04260c2eead9b79274d39984f5a143
+[8/8] drm/bridge: analogix_dp: Apply panel_bridge helper
+      commit: 1b86a69b61df411354da70d9528f022833bee4d7
+
+Best regards,
+-- 
+Luca Ceresoli <luca.ceresoli@bootlin.com>
+
