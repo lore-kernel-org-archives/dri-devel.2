@@ -4,73 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7965BF34C42
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E58FCF34C47
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE99B10E40D;
-	Mon, 13 Apr 2026 11:50:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50D5410E2C1;
+	Mon, 13 Apr 2026 11:56:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HO4ZB/8U";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PdSFP9OH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B62110E0F7;
- Mon, 13 Apr 2026 11:50:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776081007; x=1807617007;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Yq89AWeM65x6lSICr/3HDVFJkQA/EojNgtug9VdEils=;
- b=HO4ZB/8UalBPbgK05vqWIYsH9OYumkMK0PS9MFyoFd2wi88RJlwq+p3w
- eKluwhT0+nL8anbLz/20wmLoRDRSsoq0850avW85mkMEt57OBdO0md/n6
- Q5imwxd6cKRtIVFDptqG/XNR2vLY/TEW1cadv9aHJg5buw6AVj9ctfRNn
- 4N041spO/FJATTA8f/PepH9MfcRn3CzvqsuesngBfyocjXbL3R6Xc3AtT
- Ai+bWmb8T3bC8XB+x0VWxERViCkBXTVcuI9Ul34VMTA9L3V82crAzUaam
- 4gHARBTkIzAvpFnL5A/Edv89qMDuz9mDGtS7EpoU6b6CHQXzKCT9Wg9jb Q==;
-X-CSE-ConnectionGUID: nTnU0P3CSduo7824FUfQHg==
-X-CSE-MsgGUID: Q5T/DgEITESW1ZpGYT8+0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11757"; a="76046274"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="76046274"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 04:50:07 -0700
-X-CSE-ConnectionGUID: /fLU7yZLSIOpyKcAJWJoDw==
-X-CSE-MsgGUID: 94GyNh0VQNG5vbuGU7wtnw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="253163879"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.64])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 04:50:03 -0700
-Date: Mon, 13 Apr 2026 14:49:54 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@intel.com>,
- Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Subject: Re: [PATCH 5/6] drm/i915/reset: Handle the display vs. GPU reset
- deadlock using a custom dma-fence
-Message-ID: <adzYYqOkSfY9XP_m@intel.com>
-References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
- <20260408233458.22666-6-ville.syrjala@linux.intel.com>
- <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
- <adeLRHQ2omAv93yM@intel.com>
- <cc51ea63-19b0-4352-9299-e5ab63f57ce4@amd.com>
- <adyzR6ISo_idi38p@intel.com>
- <b93c6c33-2d94-4da8-8e97-04c3bade2575@amd.com>
- <ady-UMqIQUqmKsLv@intel.com>
- <855c4188-3701-468f-bd78-8292d6143645@amd.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0FD310E0F7
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:56:00 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7D0106111B;
+ Mon, 13 Apr 2026 11:55:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B122AC116C6;
+ Mon, 13 Apr 2026 11:55:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1776081359;
+ bh=+GrvEr4Ad/5iehJEwtnzkxjU7cJjjLPujjrKRT9iKuQ=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=PdSFP9OHPuMyUTExVEMoYO0jLzoV97SAvBwGDvufOUAeY5N0ZW9ONXNgTPYfVRPvY
+ MhQR+Odz9qfSSpz3Cvu3LpBBd0js1FyXWIwFSQdmmqjyKjvhWLrHxMl6KYIKb2pvZS
+ IMmBVyUcF5I/Rer7PuTR4ybK7mOyT5NQuY+k3Jrc=
+Subject: Patch "Revert "drm: Fix use-after-free on framebuffers and property
+ blobs when calling drm_dev_unplug"" has been added to the 6.6-stable tree
+To: dev@lankhorst.se, dri-devel@lists.freedesktop.org,
+ e61e64c796ccfb17ae673331a3df4b877bf42d82.camel@linux.intel.com,
+ gregkh@linuxfoundation.org, linux@leemhuis.info, linux@roeck-us.net,
+ matt.fagnani@bell.net, regressions@leemhuis.info, regressions@lists.linux.dev,
+ sashal@kernel.org, simona.vetter@ffwll.ch, thomas.hellstrom@linux.intel.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 13 Apr 2026 13:55:46 +0200
+In-Reply-To: <20260413080333.3079490-1-linux@leemhuis.info>
+Message-ID: <2026041346-jawless-rift-e8ee@gregkh>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=ISO-8859-1
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <855c4188-3701-468f-bd78-8292d6143645@amd.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,79 +59,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 01:24:04PM +0200, Christian König wrote:
-> On 4/13/26 11:58, Ville Syrjälä wrote:
-> > On Mon, Apr 13, 2026 at 11:35:23AM +0200, Christian König wrote:
-> >> On 4/13/26 11:11, Ville Syrjälä wrote:
-> >>>>>> I think something is missing in my picture how that is supposed to work.
-> >>>>>
-> >>>>> The problem stems from the fact that on old platforms a GPU reset
-> >>>>> also resets the display hardware,
-> >>>>
-> >>>> Which is true for at least AMD GPUs and I think pretty much everybody else as well, but that wasn't so much of a problem so far.
-> >>>>
-> >>>>> and to do that safely we need:
-> >>>>> 1. shut down display
-> >>>>> 2. perform the GPU reset
-> >>>>> 3. restore the display hardware to its orignal state
-> >>>>
-> >>>> Mhm, I've recently talked with Michel about it and we confirmed that this is perfectly possible without issues. Adding Michel as well.
-> >>>>
-> >>>>> We just do that with essentially with a normal atomic commit.
-> >>>>
-> >>>> I think that is the source of the problem.
-> >>>>
-> >>>> I'm not an expert on that topic but amdgpu and tons of other drivers seem to just use drm_atomic_helper_shutdown() for that.
-> >>>
-> >>> drm_atomic_helper_shutdown() is definitely not the thing to use
-> >>> for this as it would clobber the stored kms state, leaving everything
-> >>> permanently disabled. The drm_atomic_helper_commit_duplicated_state()
-> >>> stuff i915 uses is the correct thing here.
-> >>>
-> >>> But for this problem it doesn't even matter which gets used. Either
-> >>> would get equally stuck behind a previous atomic commit waiting for
-> >>> its fences.
-> >>>
-> >>>>
-> >>>> What is i915 doing differently?
-> >>>
-> >>> I see zero code for any display reset stuff in any other driver. If
-> >>> amdgpu does anything it must be something completely custom, hidden
-> >>> somewhere deep.
-> >>
-> >> The display is just fully reset by any MODE1 reset, you don't need to do anything special for that.
-> > 
-> > You can't just ignore the fact that there may be a display hardware
-> > reprogramming already happening in parallel. Failing to follow the
-> > correct programming sequence is a recipe for even hard system hangs.
-> 
-> Of course not. We have a RW lock to prevent concurrent HW access while a GPU reset is ongoing to prevent that.
 
-Now that you mention it, I remember that long ago I did something
-very similar for i915, but it required quite a bit of surgery to
-the atomic core code and Sima didn't want it so it never went in.
+This is a note to let you know that I've just added the patch titled
 
-Our modeset state is much more complex these days, so attempting
-to resurrect it now (and actually getting people to accept it)
-just for old hardware doesn't seem worth the effort.
+    Revert "drm: Fix use-after-free on framebuffers and property blobs when calling drm_dev_unplug"
 
-I think apart from the reset fence, the only other *practical* solution
-is to effectively revert Sima's commit 9db529aac938 ("drm/i915: More
-surgically unbreak the modeset vs reset deadlock") and go back to the
-full wedge (== cancel all in flight requests). It's a bit rude since
-it will also penalize completely innocent contexts. But meh.
+to the 6.6-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-> > There is zero support in the atomic design for reordering commits,
-> > which is pretty much what would be needed. A generic solution would
-> > more or less involve a full redesign/rewrite of atomic.
-> 
-> Mhm, I need to ask our DC team and other contacts how that is handled at the moment for amdgpu.
-> 
-> But we clearly have the same problem and it doesn't require any hacks like that one here. So there must be a solution for it already.
+The filename of the patch is:
+     revert-drm-fix-use-after-free-on-framebuffers-and-property-blobs-when-calling-drm_dev_unplug.patch
+and it can be found in the queue-6.6 subdirectory.
 
-The hacks must be on the modeset side, since as mentioned atomic has
-zero support for this at the moment.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
--- 
-Ville Syrjälä
-Intel
+
+From linux@leemhuis.info Mon Apr 13 10:06:33 2026
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Date: Mon, 13 Apr 2026 10:03:33 +0200
+Subject: Revert "drm: Fix use-after-free on framebuffers and property blobs when calling drm_dev_unplug"
+To: regressions@leemhuis.info
+Cc: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, matt.fagnani@bell.net, regressions@lists.linux.dev, sashal@kernel.org, stable@vger.kernel.org, "Maarten Lankhorst" <dev@lankhorst.se>, "Thomas Hellström" <thomas.hellstrom@linux.intel.com>, "Guenter Roeck" <linux@roeck-us.net>, "Simona Vetter" <simona.vetter@ffwll.ch>, "Thorsten Leemhuis" <linux@leemhuis.info>
+Message-ID: <20260413080333.3079490-1-linux@leemhuis.info>
+
+From: Maarten Lankhorst <dev@lankhorst.se>
+
+commit 45ebe43ea00d6b9f5b3e0db9c35b8ca2a96b7e70 upstream.
+
+This reverts commit 6bee098b91417654703e17eb5c1822c6dfd0c01d.
+
+Den 2026-03-25 kl. 22:11, skrev Simona Vetter:
+> On Wed, Mar 25, 2026 at 10:26:40AM -0700, Guenter Roeck wrote:
+>> Hi,
+>>
+>> On Fri, Mar 13, 2026 at 04:17:27PM +0100, Maarten Lankhorst wrote:
+>>> When trying to do a rather aggressive test of igt's "xe_module_load
+>>> --r reload" with a full desktop environment and game running I noticed
+>>> a few OOPSes when dereferencing freed pointers, related to
+>>> framebuffers and property blobs after the compositor exits.
+>>>
+>>> Solve this by guarding the freeing in drm_file with drm_dev_enter/exit,
+>>> and immediately put the references from struct drm_file objects during
+>>> drm_dev_unplug().
+>>>
+>>
+>> With this patch in v6.18.20, I get the warning backtraces below.
+>> The backtraces are gone with the patch reverted.
+>
+> Yeah, this needs to be reverted, reasoning below. Maarten, can you please
+> take care of that and feed the revert through the usual channels? I don't
+> think it's critical enough that we need to fast-track this into drm.git
+> directly.
+>
+> Quoting the patch here again:
+>
+>>  drivers/gpu/drm/drm_file.c| 5 ++++-
+>>  drivers/gpu/drm/drm_mode_config.c | 9 ++++++---
+>>  2 files changed, 10 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+>> index ec820686b3021..f52141f842a1f 100644
+>> --- a/drivers/gpu/drm/drm_file.c
+>> +++ b/drivers/gpu/drm/drm_file.c
+>> @@ -233,6 +233,7 @@ static void drm_events_release(struct drm_file *file_priv)
+>>  void drm_file_free(struct drm_file *file)
+>>  {
+>>  struct drm_device *dev;
+>> +int idx;
+>>
+>>  if (!file)
+>>  return;
+>> @@ -249,9 +250,11 @@ void drm_file_free(struct drm_file *file)
+>>
+>>  drm_events_release(file);
+>>
+>> -if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+>> +if (drm_core_check_feature(dev, DRIVER_MODESET) &&
+>> +drm_dev_enter(dev, &idx)) {
+>
+> This is misplaced for two reasons:
+>
+> - Even if we'd want to guarantee that we hold a drm_dev_enter/exit
+>   reference during framebuffer teardown, we'd need to do this
+>   _consistently over all callsites. Not ad-hoc in just one place that a
+>   testcase hits. This also means kerneldoc updates of the relevant hooks
+>   and at least a bunch of acks from other driver people to document the
+>   consensus.
+>
+> - More importantly, this is driver responsibilities in general unless we
+>   have extremely good reasons to the contrary. Which means this must be
+>   placed in xe.
+>
+>>  drm_fb_release(file);
+>>  drm_property_destroy_user_blobs(dev, file);
+>> +drm_dev_exit(idx);
+>>  }
+>>
+>>  if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+>> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+>> index 84ae8a23a3678..e349418978f79 100644
+>> --- a/drivers/gpu/drm/drm_mode_config.c
+>> +++ b/drivers/gpu/drm/drm_mode_config.c
+>> @@ -583,10 +583,13 @@ void drm_mode_config_cleanup(struct drm_device *dev)
+>>   */
+>>  WARN_ON(!list_empty(&dev->mode_config.fb_list));
+>>  list_for_each_entry_safe(fb, fbt, &dev->mode_config.fb_list, head) {
+>> -struct drm_printer p = drm_dbg_printer(dev, DRM_UT_KMS, "[leaked fb]");
+>> +if (list_empty(&fb->filp_head) || drm_framebuffer_read_refcount(fb) > 1) {
+>> +struct drm_printer p = drm_dbg_printer(dev, DRM_UT_KMS, "[leaked fb]");
+>
+> This is also wrong:
+>
+> - Firstly, it's a completely independent bug, we do not smash two bugfixes
+>   into one patch.
+>
+> - Secondly, it's again a driver bug: drm_mode_cleanup must be called when
+>   the last drm_device reference disappears (hence the existence of
+>   drmm_mode_config_init), not when the driver gets unbound. The fact that
+>   this shows up in a callchain from a devres cleanup means the intel
+>   driver gets this wrong (like almost everyone else because historically
+>   we didn't know better).
+>
+>   If we don't follow this rule, then we get races with this code here
+>   running concurrently with drm_file fb cleanups, which just does not
+>   work. Review pointed that out, but then shrugged it off with a confused
+>   explanation:
+>
+>   https://lore.kernel.org/all/e61e64c796ccfb17ae673331a3df4b877bf42d82.camel@linux.intel.com/
+>
+>   Yes this also means a lot of the other drm_device teardown that drivers
+>   do happens way too early. There is a massive can of worms here of a
+>   magnitude that most likely is much, much bigger than what you can
+>   backport to stable kernels. Hotunplug is _hard_.
+
+Back to the drawing board, and fixing it in the intel display driver
+instead.
+
+Cc: Thomas HellstrÃ¶m <thomas.hellstrom@linux.intel.com>
+Fixes: 6bee098b9141 ("drm: Fix use-after-free on framebuffers and property blobs when calling drm_dev_unplug")
+Reported-by: Guenter Roeck <linux@roeck-us.net>
+Tested-by: Guenter Roeck <linux@roeck-us.net>
+Acked-by: Simona Vetter <simona.vetter@ffwll.ch>
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Link: https://patch.msgid.link/20260326082217.39941-2-dev@lankhorst.se
+[ Thorsten: adjust to the v6.6.y/v6.6.y backports of 6bee098b9141 ]
+Signed-off-by: Thorsten Leemhuis <linux@leemhuis.info>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/drm_file.c        |    5 +----
+ drivers/gpu/drm/drm_mode_config.c |    9 +++------
+ 2 files changed, 4 insertions(+), 10 deletions(-)
+
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -243,7 +243,6 @@ static void drm_events_release(struct dr
+ void drm_file_free(struct drm_file *file)
+ {
+ 	struct drm_device *dev;
+-	int idx;
+ 
+ 	if (!file)
+ 		return;
+@@ -269,11 +268,9 @@ void drm_file_free(struct drm_file *file
+ 
+ 	drm_events_release(file);
+ 
+-	if (drm_core_check_feature(dev, DRIVER_MODESET) &&
+-	    drm_dev_enter(dev, &idx)) {
++	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+ 		drm_fb_release(file);
+ 		drm_property_destroy_user_blobs(dev, file);
+-		drm_dev_exit(idx);
+ 	}
+ 
+ 	if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -546,13 +546,10 @@ void drm_mode_config_cleanup(struct drm_
+ 	 */
+ 	WARN_ON(!list_empty(&dev->mode_config.fb_list));
+ 	list_for_each_entry_safe(fb, fbt, &dev->mode_config.fb_list, head) {
+-		if (list_empty(&fb->filp_head) || drm_framebuffer_read_refcount(fb) > 1) {
+-			struct drm_printer p = drm_debug_printer("[leaked fb]");
++		struct drm_printer p = drm_debug_printer("[leaked fb]");
+ 
+-			drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
+-			drm_framebuffer_print_info(&p, 1, fb);
+-		}
+-		list_del_init(&fb->filp_head);
++		drm_printf(&p, "framebuffer[%u]:\n", fb->base.id);
++		drm_framebuffer_print_info(&p, 1, fb);
+ 		drm_framebuffer_free(&fb->base.refcount);
+ 	}
+ 
+
+
+Patches currently in stable-queue which might be from linux@leemhuis.info are
+
+queue-6.6/revert-drm-fix-use-after-free-on-framebuffers-and-property-blobs-when-calling-drm_dev_unplug.patch
