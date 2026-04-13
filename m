@@ -4,55 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90857F34C55
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:26:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88768F34C4E
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:30:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C55B410E43E;
-	Mon, 13 Apr 2026 13:26:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEDF210E445;
+	Mon, 13 Apr 2026 13:30:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="TEeqF7WQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SjE8lp60";
 	dkim-atps=neutral
-Received: from mail-m21472.qiye.163.com (mail-m21472.qiye.163.com
- [117.135.214.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F78B10E43E
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 13:26:18 +0000 (UTC)
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [58.22.7.114])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3a8976af0;
- Mon, 13 Apr 2026 21:26:11 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, inki.dae@samsung.com,
- sw0312.kim@samsung.com, kyungmin.park@samsung.com, krzk@kernel.org,
- jingoohan1@gmail.com, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, alim.akhtar@samsung.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- nicolas.frattaroli@collabora.com, dianders@chromium.org,
- m.szyprowski@samsung.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v14 8/8] drm/bridge: analogix_dp: Apply panel_bridge helper
-Date: Mon, 13 Apr 2026 21:25:51 +0800
-Message-Id: <20260413132551.1049307-9-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260413132551.1049307-1-damon.ding@rock-chips.com>
-References: <20260413132551.1049307-1-damon.ding@rock-chips.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AA7C10E445;
+ Mon, 13 Apr 2026 13:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776087009; x=1807623009;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=EaZDrPfjh85b39EOno9cB8zfjPEN60TUCM0QTg9HfXk=;
+ b=SjE8lp6033BPXoI0bj3201e3MopBiq/b0LppGhuABs5I/LiEibfzGs/K
+ 1UJZH5CCYsIWCfVfyN9N5FwArbFCQNJMTBsa9aiX2jEwOC1Si3SeMugYz
+ id9zjofUqJ/58oP/LKl29xADPsDyZXdcb1qolWY3sAfQUAB1RR6XqldPI
+ 1rhIjd4STqcc8eZKI18oUgn8WN+KWZ4a5GVzy6HgnYu4FC7y5aWUcjc8y
+ GrtLMcua/aPlIPF+C1cXKQ+kaSLSNS+8yGMJs7BHQg9L35gNgmSLpxLsr
+ 419lRV6ZdsAUNbo8bLVxrI8xhumku7W4z0P/K+B0kZLbcy/cCSAArfcWa A==;
+X-CSE-ConnectionGUID: dH1UFYLxTfKfOz3dr4upiw==
+X-CSE-MsgGUID: kw9VYxOKQnC1KETQz2L1CA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="88403937"
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="88403937"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2026 06:30:09 -0700
+X-CSE-ConnectionGUID: tbwxH7xRTmyJJtkVf0RAUQ==
+X-CSE-MsgGUID: p06gP0HZRyy5S45NUTJScw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="228916730"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.182])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2026 06:29:58 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Kory Maincent <kory.maincent@bootlin.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave
+ Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>, Eric
+ Anholt <eric@anholt.net>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Mark Yacoub <markyacoub@google.com>, Sean
+ Paul <seanpaul@google.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH RFC 00/12] Add support for DisplayPort link training
+ information report
+In-Reply-To: <20260413141000.0e190dcc@kmaincent-XPS-13-7390>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
+ <adgNxaFhbQaxC5E_@intel.com>
+ <u4ononk4cpccx77gvlywtfen5rmyslvr72v7olkhdrjf65aqce@xo777vofhcan>
+ <20260413141000.0e190dcc@kmaincent-XPS-13-7390>
+Date: Mon, 13 Apr 2026 16:29:55 +0300
+Message-ID: <3698b69f20481ff9c6fb1002b46f9862a1fdd03d@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9d870565b503a3kunmf5e06f40656e7b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFDSUNOT01LS0k3V1ktWUFJV1kPCRoVCBIfWUFZGUxOH1ZJTR8aGk9JHh0ZSk1WFRQJFh
- oXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpKQk
- 1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
- b=TEeqF7WQ7niCIEHc2cAobaVPLhm6c9pEpr2UhcpnXSqeZ7o2k0qiPDp95K2T28B+Kt6QNzVomNwHSkXEQ4WiT4cToTrQ/7YTx2bhNccwVZicySQJzpStLRCBk/nSKbBV/eCh+EbW9fxjNg/LzMGqPhTacsXTypg0FF9IMlxpw4Q=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=nfjij6qpBwC0eoezp02dNK98XjMr872rBbzAOyaM1/U=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,162 +96,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In order to unify the handling of the panel and bridge, apply
-panel_bridge helpers for Analogix DP driver. With this patch, the
-bridge support will also become available.
+On Mon, 13 Apr 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> On Fri, 10 Apr 2026 00:36:09 +0300
+> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+>> On Thu, Apr 09, 2026 at 11:36:21PM +0300, Ville Syrj=C3=A4l=C3=A4 wrote:
+>> > On Thu, Apr 09, 2026 at 07:08:16PM +0200, Kory Maincent wrote:=20=20
+>> > > DisplayPort link training negotiates the physical-layer parameters n=
+eeded
+>> > > for a reliable connection: lane count, link rate, voltage swing,
+>> > > pre-emphasis, and optionally Display Stream Compression (DSC). Curre=
+ntly,
+>> > > each driver exposes this state in its own way, often through
+>> > > driver-specific debugfs entries, with no standard interface for user=
+space
+>> > > diagnostic and monitoring tools.
+>> > >=20
+>> > > This series introduces a generic, DRM-managed framework for exposing=
+ DP
+>> > > link training state as standard connector properties, modeled after =
+the
+>> > > existing HDMI helper drmm_connector_hdmi_init().
+>> > >=20
+>> > > The new drmm_connector_dp_init() helper initializes a DP connector a=
+nd
+>> > > registers the following connector properties to expose the negotiate=
+d link
+>> > > state to userspace:
+>> > >=20
+>> > > - num_lanes:      negotiated lane count (1, 2 or 4)
+>> > > - link_rate:      negotiated link rate
+>> > > - dsc_en:         whether Display Stream Compression is active
+>> > > - voltage_swingN: per-lane voltage swing level (lanes 0-3)
+>> > > - pre_emphasisN:  per-lane pre-emphasis level (lanes 0-3)=20=20
+>> >=20
+>> > I don't see why any real userspace would be interested in those (apart
+>> > from maybe DSC). If this is just for diagnostics and whatnot then I
+>> > think sysfs/debugfs could be a better fit.=20=20
+>>=20
+>> I'd agree here. Please consider implementing it as a debugfs interface,
+>> possibly reusing the Intel's format.
+>
+> Sorry, I completely forgot to include a paragraph explaining the rationale
+> behind using DRM properties.
+>
+> This DisplayPort link information report was requested by OSes to allow t=
+hem to
+> assess the capabilities of each DisplayPort connector on the system, and =
+to
+> guide users from the most to least capable ones. It will also enable the =
+OS to
+> warn the user when a cable is too long or experiencing noise (indicated b=
+y high
+> voltage swing and pre-emphasis levels).
 
-The following changes have ben made:
-- Apply plane_bridge helper to wrap the panel as the bridge.
-- Remove the explicit panel APIs calls, which can be replaced with
-  the automic bridge APIs calls wrapped by the panel.
-- Remove the unnecessary analogix_dp_bridge_get_modes().
+The selection of the number of lanes or link rate are at the discretion
+of the driver, or link policy manager in DP spec terms. It does not
+really convey the capabilities of the *connectors* but rather the
+current *link*. Ditto for enabling DSC.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Tested-by: Heiko Stuebner <heiko@sntech.de> # rk3588
+I don't think the voltage swing and pre-emphasis are really diagnostic
+measures either, but a response to measuring and adapting to the
+link. And if the link training failed, the driver may have already
+reduced the number of lanes and link rate to compensate. So you could
+appear to have the perfect link only because it was so bad at high link
+rate that it was reduced already.
 
----
+The policies may also vary from driver to driver, and possibly depending
+on what makes sense for the hardware (e.g. power consumption with or
+without DSC).
 
-Changes in v4:
-- Rename the &analogix_dp_plat_data.bridge to
-  &analogix_dp_plat_data.next_bridge.
+I think "link information report ... requested by OSs" is vague, and I
+don't think the concept has been completely thought through. I can't see
+how you could present reliable and actionable information to the user
+with what the patch at hand provides. Or how it could work in a generic
+manner across drivers.
 
-Changes in v5:
-- Move panel_bridge addition a little forward.
-- Move next_bridge attachment from Analogix side to Rockchip/Exynos
-  side.
+Overall sounds like an XY problem [1]. We should focus on what you're
+trying to achieve first, in userspace, and only then think about what
+the appropriate kernel mechanism should be.
 
-Changes in v6
-- Remove the unnecessary analogix_dp_bridge_get_modes().
-- Not to set DRM_BRIDGE_OP_MODES if the next is a panel.
-- Squash [PATCH v5 15/17]drm/bridge: analogix_dp: Remove panel
-  disabling and enabling in analogix_dp_set_bridge() into this
-  commit.
-- Fix the &drm_bridge->ops to DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT.
+I don't think this is it.
 
-Changes in v9:
-- Add Tested-by tag.
 
-Changes in v13:
-- Modify '(on rk3588)' to '# rk3588' for Tested-by tag.
----
- .../drm/bridge/analogix/analogix_dp_core.c    | 41 +++++--------------
- 1 file changed, 11 insertions(+), 30 deletions(-)
+BR,
+Jani.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index ec56d900f899..460729fdcecd 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -750,9 +750,6 @@ static int analogix_dp_commit(struct analogix_dp_device *dp)
- {
- 	int ret;
- 
--	/* Keep the panel disabled while we configure video */
--	drm_panel_disable(dp->plat_data->panel);
--
- 	ret = analogix_dp_train_link(dp);
- 	if (ret) {
- 		dev_err(dp->dev, "unable to do link train, ret=%d\n", ret);
-@@ -772,9 +769,6 @@ static int analogix_dp_commit(struct analogix_dp_device *dp)
- 		return ret;
- 	}
- 
--	/* Safe to enable the panel now */
--	drm_panel_enable(dp->plat_data->panel);
--
- 	/* Check whether panel supports fast training */
- 	ret = analogix_dp_fast_link_train_detection(dp);
- 	if (ret)
-@@ -859,17 +853,6 @@ static int analogix_dp_disable_psr(struct analogix_dp_device *dp)
- 	return analogix_dp_send_psr_spd(dp, &psr_vsc, true);
- }
- 
--static int analogix_dp_bridge_get_modes(struct drm_bridge *bridge, struct drm_connector *connector)
--{
--	struct analogix_dp_device *dp = to_dp(bridge);
--	int num_modes = 0;
--
--	if (dp->plat_data->panel)
--		num_modes += drm_panel_get_modes(dp->plat_data->panel, connector);
--
--	return num_modes;
--}
--
- static const struct drm_edid *analogix_dp_bridge_edid_read(struct drm_bridge *bridge,
- 							   struct drm_connector *connector)
- {
-@@ -910,7 +893,7 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
- 	struct analogix_dp_device *dp = to_dp(bridge);
- 	enum drm_connector_status status = connector_status_disconnected;
- 
--	if (dp->plat_data->panel || dp->plat_data->next_bridge)
-+	if (dp->plat_data->next_bridge)
- 		return connector_status_connected;
- 
- 	if (!analogix_dp_detect_hpd(dp))
-@@ -996,8 +979,6 @@ static void analogix_dp_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 	/* Don't touch the panel if we're coming back from PSR */
- 	if (old_crtc_state && old_crtc_state->self_refresh_active)
- 		return;
--
--	drm_panel_prepare(dp->plat_data->panel);
- }
- 
- static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
-@@ -1169,16 +1150,12 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
- 	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
- 		return;
- 
--	drm_panel_disable(dp->plat_data->panel);
--
- 	disable_irq(dp->irq);
- 
- 	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
- 
- 	pm_runtime_put_sync(dp->dev);
- 
--	drm_panel_unprepare(dp->plat_data->panel);
--
- 	dp->fast_train_enable = false;
- 	dp->psr_supported = false;
- 	dp->dpms_mode = DRM_MODE_DPMS_OFF;
-@@ -1253,7 +1230,6 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
- 	.atomic_post_disable = analogix_dp_bridge_atomic_post_disable,
- 	.atomic_check = analogix_dp_bridge_atomic_check,
- 	.attach = analogix_dp_bridge_attach,
--	.get_modes = analogix_dp_bridge_get_modes,
- 	.edid_read = analogix_dp_bridge_edid_read,
- 	.detect = analogix_dp_bridge_detect,
- };
-@@ -1499,17 +1475,22 @@ int analogix_dp_bind(struct analogix_dp_device *dp, struct drm_device *drm_dev)
- 		return ret;
- 	}
- 
--	if (dp->plat_data->panel)
--		bridge->ops = DRM_BRIDGE_OP_MODES | DRM_BRIDGE_OP_DETECT;
--	else
--		bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
--
-+	bridge->ops = DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_DETECT;
- 	bridge->of_node = dp->dev->of_node;
- 	bridge->type = DRM_MODE_CONNECTOR_eDP;
- 	ret = devm_drm_bridge_add(dp->dev, &dp->bridge);
- 	if (ret)
- 		goto err_unregister_aux;
- 
-+	if (dp->plat_data->panel) {
-+		dp->plat_data->next_bridge = devm_drm_panel_bridge_add(dp->dev,
-+								       dp->plat_data->panel);
-+		if (IS_ERR(dp->plat_data->next_bridge)) {
-+			ret = PTR_ERR(bridge);
-+			goto err_unregister_aux;
-+		}
-+	}
-+
- 	ret = drm_bridge_attach(dp->encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret) {
- 		DRM_ERROR("failed to create bridge (%d)\n", ret);
--- 
-2.34.1
 
+[1] https://en.wikipedia.org/wiki/XY_problem
+
+
+>
+> Since this is information that OSes will consume on a regular basis, expo=
+sing
+> it directly as DRM properties seems the most appropriate approach.
+
+
+
+
+
+--=20
+Jani Nikula, Intel
