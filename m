@@ -4,55 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCA53EBFD0F
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:06:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9607FEBFD0F
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:07:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 068F010E367;
-	Mon, 13 Apr 2026 08:06:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1F2210E364;
+	Mon, 13 Apr 2026 08:07:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="VwjOXlYT";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vgQjmN4M";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B229310E0CD
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lISybMQp+OaO/Lf3/XZqCWYYTxwbrtzYdJKyH0Xg9hQ=; b=VwjOXlYTFc6VCSbjzlF7+0xvAk
- tYTG6IZPhNQyxh9KJK5VwIPOdmtVTb+xwNW8JIIp/7Q64xhxubf9dPm3EGOdRA0eqKe9jvzb4rhZF
- L/97kXQkOaVBsNdWlm2NIinBKpOYwtCivc4wQFtY+/5rnXQ6aAivTUdmN1qSO7shHcsvIvy4NUqu+
- WN0G/mKIzYC1wHuEKlVvTuJiW8vIJ3EmVgTtMrMXxhXf6ZClGxLi+Y4G4lsvnD4Cm1k+JKhUZ+Ytw
- QfM9lfK85d9jqO7a5/1ZhDtZsMrB6/NMwywgvEXLpCUaACgRc5vmVqycI1kY5mRWINoAAiHDaREpH
- ZVbfhYAw==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wCCJg-00FIUa-Jv; Mon, 13 Apr 2026 10:06:44 +0200
-Message-ID: <6c83b204-0d6b-46d1-8b7e-375826c445b9@igalia.com>
-Date: Mon, 13 Apr 2026 09:06:43 +0100
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6CD810E368
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:07:00 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-488b150559bso32174925e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 01:07:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1776067619; x=1776672419; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=UdgIACL9N5s62AI/UD+N+ywu/reA3cigk1RK/jHdjGA=;
+ b=vgQjmN4MayQd9EFUNWH6Bbvoc2KUyweilZQ4uEMV5dldIBLFNgu5J7tF1Tc8xlRRSf
+ jC23JStPY3EwO50Lsa0lMC26uzv+Rckhcdg5j+OyFfCaxXZEFbo6r3+0E6tX9q551Of+
+ XH0oOMa9MKWfa9pPWLyghasktffq1jPsUaIUkCr9VPJmmMAyGkpG7QTC//aHaNCcV8hk
+ RJdX3U8eYzNZxdxdIPm5HN4ZX13QBATTRES9j8oLWu8W/sQkAdcftnYnoOteZ8xFQnbj
+ YygWPhMv8ZFZBHTAUA5YL7cQv2TIb0a2nq9YiB8L+GJqgHTgH47rY3WQfLJS60l5Iptp
+ GIYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776067619; x=1776672419;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=UdgIACL9N5s62AI/UD+N+ywu/reA3cigk1RK/jHdjGA=;
+ b=Rr4ON5dCYdTVVa923JqaRgFnhYh6pdWbZZhYpuNeMPvtvjCQXkMNj/n+aasMTOAQij
+ +dI2M+jLmn/dLU9LxldBugNtpgXnI9AWD9fbrSkQpURnhe4POya8MQYIJ3d7CAO3urNj
+ GCyIiiyLMiu9JSHfddeS6fm6O8E2thyfJvJ1OnJS2RKC/VsevB44gtcqd8MGwMdgf5AG
+ N1NIxSFIUAHQmq7zpXGn6EGr8aY+vIkYWRdmfNoQdKVAGkhkz/qtR8QCLzK0DxGtbtjz
+ y/nP4iAH5wbu1TSCcqa/nJAlYR3jvOjQY95Wu5VSCyhbnlMv6IhV7JLIBZJNftDRIfVe
+ yvuQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/7M5PNbmzkgR8NdXnx+9iy0yXMrUozYNpGv7rPfMs3wbKviiF3jJ3kRu4lUx2MhkIKRIY7KlIfQng=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx279KEiOaXEBnFmu3wULQTtNL25RCxbeJtKSX/Xm62Mxvcb1zs
+ PBbk/zAmWQve5ZmZ39+VXpoK4UVr1f3MoU7qSQaOSeEcg5zqUrMqZqtPy7k2EIUVrQQ=
+X-Gm-Gg: AeBDievlr0f2mgbjR1Eg6yRQ3wpCLtaFwd9rNVOFFf9yTN+SmY23GnZIUTPHFqtWD0k
+ R9ZHDPezYmYN/7G15MiVVdkHeCUkODT3JVnquhaAPCrThAre3lOQ9bwu2fBAzr0ORrNSgeAn00f
+ voo3EAMxii0cttnYuMgkh/MvpN/9qETpRIT1HHXfgVpeShU3hPCiIKQDaho9++U2kqm7ED087Yk
+ LdxwTt2VZ8hm4qo4Qh1Iqpr8ilN8kApxi+NNjDe9HxHbZNFyjmG9W4bAO7hmLEOdv1xfGxouoIu
+ O6CLWlAXouW4w7PHTKN66OCVzoA8NLCrYrJ1lZ09pnLd/vo+0EzduE76+J8LBHXPvzR3ZqasmR8
+ ioeYPCKTviJFE9RPQimmRjudP5uK/xIvmpGhif0SWiPy+kFhTeXPG8Yh9Qin3lBvGIfh2I7Eg8L
+ NWhqicrenhEPxF+E8OynTRL7lfCgZ9OlP8fvs1PwqgYrlNoDm4+wrOb00dudI1J/vshxtKEfy+Q
+ wj8HxM=
+X-Received: by 2002:a05:600c:528f:b0:488:a82f:bbb4 with SMTP id
+ 5b1f17b1804b1-488d689d0b8mr166171385e9.26.1776067619103; 
+ Mon, 13 Apr 2026 01:06:59 -0700 (PDT)
+Received: from ?IPV6:2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25?
+ ([2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488d683c902sm93012965e9.22.2026.04.13.01.06.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Apr 2026 01:06:58 -0700 (PDT)
+Message-ID: <b7a8a27d-e61d-492b-a5e3-a0a21436045b@linaro.org>
+Date: Mon, 13 Apr 2026 10:06:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-fence: Move signalling tracepoint to before ops detach
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260330133623.17704-1-tvrtko.ursulin@igalia.com>
- <20260331094944.772833c0@fedora>
- <918805b0-2cb9-454a-9048-84cc5bfc8798@igalia.com>
- <2fae926b-a25b-42bc-ab63-caf36505b33d@amd.com>
- <601a78ea-74e7-4b20-afeb-d822a362484a@igalia.com>
- <c09d9dc1-43d1-4d7a-93ef-9707f282ad07@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <c09d9dc1-43d1-4d7a-93ef-9707f282ad07@amd.com>
+From: neil.armstrong@linaro.org
+Subject: Re: [PATCH v3 2/2] drm/panel: panasonic-vvx10f034n00: transition to
+ mipi_dsi wrapped functions
+To: Avinal Kumar <avinal.xlvii@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+References: <20260113091440.43735-1-avinal.xlvii@gmail.com>
+ <20260113091440.43735-3-avinal.xlvii@gmail.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260113091440.43735-3-avinal.xlvii@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,122 +120,54 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 1/13/26 10:14, Avinal Kumar wrote:
+> Changes the panasonic-vvx10f034n00 panel to multi
+> style functions for improved error handling.
+> 
+> Signed-off-by: Avinal Kumar <avinal.xlvii@gmail.com>
+> ---
+>   .../gpu/drm/panel/panel-panasonic-vvx10f034n00.c   | 14 ++++++++++++--
+>   1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+> index 3c3308fc55df..73c5827a15a4 100644
+> --- a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+> +++ b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+> @@ -44,14 +44,24 @@ static inline struct wuxga_nt_panel *to_wuxga_nt_panel(struct drm_panel *panel)
+>   
+>   static int wuxga_nt_panel_on(struct wuxga_nt_panel *wuxga_nt)
+>   {
+> -	return mipi_dsi_turn_on_peripheral(wuxga_nt->dsi);
+> +	struct mipi_dsi_multi_context dsi_ctx = {
+> +		.dsi = wuxga_nt->dsi
+> +	};
+> +
+> +	mipi_dsi_turn_on_peripheral_multi(&dsi_ctx);
+> +	return dsi_ctx.accum_err;
+>   }
+>   
+>   static int wuxga_nt_panel_disable(struct drm_panel *panel)
+>   {
+>   	struct wuxga_nt_panel *wuxga_nt = to_wuxga_nt_panel(panel);
+>   
+> -	return mipi_dsi_shutdown_peripheral(wuxga_nt->dsi);
+> +	struct mipi_dsi_multi_context dsi_ctx = {
+> +		.dsi = wuxga_nt->dsi
+> +	};
+> +
+> +	mipi_dsi_shutdown_peripheral_multi(&dsi_ctx);
+> +	return dsi_ctx.accum_err;
+>   }
+>   
+>   static int wuxga_nt_panel_unprepare(struct drm_panel *panel)
 
-On 13/04/2026 07:52, Christian König wrote:
-> On 4/10/26 17:37, Tvrtko Ursulin wrote:
->>
->> On 10/04/2026 09:58, Christian König wrote:
->>> On 4/9/26 15:58, Tvrtko Ursulin wrote:
->>>>
->>>> On 31/03/2026 08:49, Boris Brezillon wrote:
->>>>> On Mon, 30 Mar 2026 14:36:23 +0100
->>>>> Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
->>>>>
->>>>>> Move the signalling tracepoint to before fence->ops are reset otherwise
->>>>>> tracepoint will dereference a null pointer.
->>>>>
->>>>> I suspect other trace points are impacted too
->>>>> (trace_dma_fence_destroy() is, at the very least).
->>>>
->>>> Indeed. I wonder why that did not trigger for me, while the one I fix here was an insta-crash...
->>>
->>> You need to actually enable the trace points and at least for the destroy one nobody is usually interested in that.
->>
->> Right, but I was pretty sure I was enabling perf record -e 'dma_fence:*' when I hit this. Anyway, it doesn't matter, I could be misremembering.
->>
->>>>
->>>> To fix trace_dma_fence_destroy I think we need a new tracepoint definition ie. move it away from the existing event class - make it just log the context and seqno.
->>>>
->>>> Anyone has a better idea?
->>>
->>> The idea of tracing without accessing fence->ops sounds valid to me.
->>>
->>> Alternatively we could call dma_fence_timeline_name() and dma_fence_driver_name() from the tracepoint as well, but that means the tracepoints now require a RCU read side lock.
->>
->> We could possibly use the helpers. I am not sure if RCU annotation would have to be casted away to keep sparse happy, but more importantly, I think it would not be safe.
->>
->>    thread A                    thread B
->>
->>    dma_fence_signal_timestamp_locked        dma_fence_timeline_name
->>      ..                        ops = rcu_dereference(fence->ops);
->>                          if (!dma_fence_test_signaled_flag(fence))
->>      test_and_set_bit
->>      ..
->>      RCU_INIT_POINTER(fence->ops, NULL);
->>                              return (const char __rcu *)ops->get_driver_name(fence); // OOPS!
->>
->> Apologies for long line length, it did not fit otherwise.
->>
->> Looks like we missed this. Or it is me who is missing something?
-> 
-> See function dma_fence_driver_name() and dma_fence_timeline_name():
-> 
-> ops = rcu_dereference(fence->ops);
-> if (!dma_fence_test_signaled_flag(fence))
-> 	return (const char __rcu *)ops->get_driver_name(fence);
-> 
-> We first grab the ops pointer and then check if the fence is signaled or not. Since we first set the signaled flag and then NULL the ops pointer in the other thread we should be save here.
-> 
-> Could only be that test_bit() is not a memory barrier, but set_bit() is so that would be a bit surprising.
+So yeah we want to use multi functions but in this case I don't think it's appropriate
+when a since dsi function is called in a callback.
 
-You are right, I got confused jumping back and forth between patches 
-last week.
+Dmitry ? Doug ?
 
-So changing to helpers on top of the change from this patch should be 
-enough.
-
-I only need to check if the __rcu needs to be casted away in the 
-tracepoints assignments in case it can upset sparse. I will send a v2 
-when I do that.
-
-Regards,
-
-Tvrtko
-> 
-> Alternatively I would be fine to switching testing ops for NULL instead of calling dma_fence_test_signaled_flag().
-> 
-> Regards,
-> Christian.
-> 
->> Regards,
->>
->> Tvrtko
->>
->>>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>>> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
->>>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>>> Cc: Philipp Stanner <phasta@kernel.org>
->>>>>> Cc: Boris Brezillon <boris.brezillon@collabora.com>
->>>>>> Cc: linux-media@vger.kernel.org
->>>>>> Cc: linaro-mm-sig@lists.linaro.org
->>>>>> ---
->>>>>>     drivers/dma-buf/dma-fence.c | 3 ++-
->>>>>>     1 file changed, 2 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->>>>>> index 1826ba73094c..1c1eaecaf1b0 100644
->>>>>> --- a/drivers/dma-buf/dma-fence.c
->>>>>> +++ b/drivers/dma-buf/dma-fence.c
->>>>>> @@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->>>>>>                           &fence->flags)))
->>>>>>             return;
->>>>>>     +    trace_dma_fence_signaled(fence);
->>>>>> +
->>>>>>         /*
->>>>>>          * When neither a release nor a wait operation is specified set the ops
->>>>>>          * pointer to NULL to allow the fence structure to become independent
->>>>>> @@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->>>>>>           fence->timestamp = timestamp;
->>>>>>         set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
->>>>>> -    trace_dma_fence_signaled(fence);
->>>>>>           list_for_each_entry_safe(cur, tmp, &cb_list, node) {
->>>>>>             INIT_LIST_HEAD(&cur->node);
->>>>>
->>>>
->>>
->>
-> 
-
+Neil
