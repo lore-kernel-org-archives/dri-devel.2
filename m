@@ -4,81 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547B9F34C5E
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 15:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 164A1F34C62
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 15:30:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7AB210E4C4;
-	Mon, 13 Apr 2026 15:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81B7210E4C5;
+	Mon, 13 Apr 2026 15:30:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BwMtSO5Z";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Bd+Mxj8L";
 	dkim-atps=neutral
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A78F010E4C4
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 15:21:26 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-8d68f702851so734697285a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:21:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776093686; x=1776698486; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=IBD/JgVsoz0ZuJmAgbQmjE5N4nkq2J8x1FpFUjapBN4=;
- b=BwMtSO5Zh+uRgetTbq/kvbpKQKkRYvzRSZzvjLu7gWltoNeCqZGjsRv9jcIoqjFhv5
- 8QFwBwE/Jqn/QU3Lvzm2XuUiQcKoBl7hQNogdwHkC2ZFR0VBwOXK4E9kfxFEvInr5Qpu
- YdvyH6pzzBEleDvGc4OLlRpdBVkB7SW/sPf1kFSYvOk8ZnE/KL62K951M8qOaZ5SnvLt
- MyRrsWfjRs83v+jVJVz0MbyV45SWphJNZZZOCJD/1xoYYSZKyFO7cC28P3/j69DsvAFH
- x0cQF44dbnMneElfrPvR3IoO/cN1afvm6pCMgLEGjOpm/9t3A8lIn47kYlsnxm9E37Yf
- 27dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776093686; x=1776698486;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=IBD/JgVsoz0ZuJmAgbQmjE5N4nkq2J8x1FpFUjapBN4=;
- b=nfrmWuTxc6YaW3NJB95EdY5Zf81JX5J107FuVrhyAyga7ixi7MVf67fcFE7EVSrEXj
- p3spz+tRTPdaUYNu6J9sUZbB6f5UX4uEcIR6EriIO5F9vrsxrDZHaK3d/2FagF5M0tBu
- lucsJNiXmmpHMiOZGdYbnnyNeF9aY/KYTv+4jG1mWfqnNi3tijUdgcXrxQUBlBwHa7ji
- uldXHj/nwD9AEF3Fb9tL4U2q2S3A3/S7IUq9U3tljryhTFtMvdYOILy2gHVbhe30ojt0
- ndPAvLwvmbow/jHryHdcIAuBJiyOY9kwWgZrC58Bp5y99xIBh5124nqkeVEOthVekfqZ
- 7AAQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/xSK2yVQqQux0RUBkuj9CzNFo0E5nXlyM+kSTwIwe8+nx0zTJjBrirZObEo4F50Vl0yMpTo9TLXPo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGCxmNlBHF/f3DZVGaIKhpaoAg06MThGqbP4KKY4unC05+TF1t
- 7v/jxq/Baw+PLxRjSy2/eJ3ZoKOpTBd80aQ300Y99PzENeq9+qFZrd25
-X-Gm-Gg: AeBDies/o3NxBMjeLb5V4+b4uRQgXEXufxn4cpnExgCpIJmBeuStYQwch6d0HYFfFmw
- g3iqeIioSHDlGTrU+ShV4QESfJoveRcSg58VQt2Ndai0xJv3iJ4q0q0yXDnFnJ5MLYfWEbv/sgp
- cwqOnSQDXZThPLHoKptRiiAayza402MLLvopp8MeTjHwVjVBIQdgF5CxQ0ZYCn81SQge3lBMZSC
- +lNOXgDIjaAC7Ms6LrrZG1Eszuc1QgZkoC3QjcynZa3IXOqXqlDZfsVlO1dzPHz5jLdiBMFiUA+
- GHdZ0m/tMbpdkeE5NHzR+/jqQkb1v8es5GzcfmW4deEje8TR8vQwxGEuw8nOJiJCMOgXFfvUgVT
- v1TwBWj6gODwp3g8qccswyvSUvygNMGOZtrDpFUSF6yk3utH8ojX/6uc5OWDCBdJons9Ji07hRb
- edYd7EeHQJna+NMm32njQrDLpfaF0YDeevcpwaPsIXnUm2zKdTXP/CDABeIUD2i0IIdwWC+nXNR
- 1d4Z3muFKmZp5Py5RxJ3ZOVqtbf
-X-Received: by 2002:a05:620a:1a11:b0:8cd:b3dc:9d4e with SMTP id
- af79cd13be357-8ddcf1b8049mr2119875185a.32.1776093685356; 
- Mon, 13 Apr 2026 08:21:25 -0700 (PDT)
-Received: from
- TDC4045031631.e0cglfehwr0e5gttmepj3hi3hf.ux.internal.cloudapp.net
- ([20.63.37.123]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8ddb9351afasm864057385a.36.2026.04.13.08.21.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Apr 2026 08:21:25 -0700 (PDT)
-From: Ashutosh Desai <ashutoshdesai993@gmail.com>
-To: mcanal@igalia.com,
-	dri-devel@lists.freedesktop.org
-Cc: itoral@igalia.com, stable@vger.kernel.org,
- Ashutosh Desai <ashutoshdesai993@gmail.com>
-Subject: Re: [PATCH v2] drm/v3d: Limit ioctl extension chain depth to prevent
- infinite loop
-Date: Mon, 13 Apr 2026 15:21:15 +0000
-Message-Id: <20260413152115.3444105-1-ashutoshdesai993@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <80158c8c-a270-498b-b947-bc3276359d4b@igalia.com>
-References: <80158c8c-a270-498b-b947-bc3276359d4b@igalia.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD1F010E4C5;
+ Mon, 13 Apr 2026 15:30:47 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 3528C4E42978;
+ Mon, 13 Apr 2026 15:30:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id ED2C35FFBB;
+ Mon, 13 Apr 2026 15:30:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id D8842104513C6; 
+ Mon, 13 Apr 2026 17:30:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776094244; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=xg8mzFbPBXrLw9j1EK50l3GIhD/98doCuEPkQsBTXYk=;
+ b=Bd+Mxj8LwX8bmTnYNL7sIGdg6fifgVRg5gBnAlj9DJfaOxX3ZMmFgplXr3RpU0G6J0nZsm
+ GsPmX0Cd70dbZe9H37Sg/fs6lNEDwb2HFql8aKBOyyVHYkhs+kOEsc4183IEhRtE/+Y+bn
+ B7Quo8kONLit4TeT3qRtlgQ8aIpLCBKwRueL734GVpuAoGRTWcIVQd8HZh+lml6CSdv5qB
+ 1DIjkVOi1e1GN698Ge5QhGyetJvHFhguVpCbSawA8cwwM0U4oRZqE04EEmUDBhaj9QQqzN
+ 5xK+Sw/bTXn8nBDLQHq455wUR0enHUfQ4/ku2qUCLZV+HGW8lgvFBy129MgmxA==
+Date: Mon, 13 Apr 2026 17:30:32 +0200
+From: Kory Maincent <kory.maincent@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave
+ Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>, Eric
+ Anholt <eric@anholt.net>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Mark Yacoub <markyacoub@google.com>, Sean
+ Paul <seanpaul@google.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH RFC 09/12] drm: Introduce drmm_connector_dp_init() with
+ link training state properties
+Message-ID: <20260413173032.75ee842a@kmaincent-XPS-13-7390>
+In-Reply-To: <bwgzwwlmvlbtnl7qnmnjrkzjaifeyrhllnbjxh7txrd2o24aqi@2ykn2gwyatcx>
+References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
+ <20260409-feat_link_cap-v1-9-7069e8199ce2@bootlin.com>
+ <gmaxonri7y3k43pxsnxfnd23mydgrwsw2322v6m4yjoksqm7aj@4ehgvhzg2ubb>
+ <20260413145930.140ba461@kmaincent-XPS-13-7390>
+ <bwgzwwlmvlbtnl7qnmnjrkzjaifeyrhllnbjxh7txrd2o24aqi@2ykn2gwyatcx>
+Organization: bootlin
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,30 +88,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maíra,
+On Mon, 13 Apr 2026 16:59:43 +0300
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-On 4/13/26 09:16, Maíra Canal wrote:
-> How about checking if (!multisync.in_sync_count &&
-> !multisync.out_sync_count)? After all, it doesn't make any sense to have
-> an empty multisync.
->
-> I believe this is better strategy than using a hard-coded max.
+> On Mon, Apr 13, 2026 at 02:59:30PM +0200, Kory Maincent wrote:
+> > On Fri, 10 Apr 2026 00:53:08 +0300
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> >  =20
+> > > On Thu, Apr 09, 2026 at 07:08:25PM +0200, Kory Maincent wrote: =20
+> > > > Add a managed DisplayPort connector initialization helper,
+> > > > drmm_connector_dp_init(), modeled after the existing HDMI counterpa=
+rt
+> > > > drmm_connector_hdmi_init(). Cleanup is handled automatically via a
+> > > > DRM-managed action.
+> > > >=20
+> > > > The helper creates the following immutable connector properties to
+> > > > expose DP link training capabilities and state to userspace:
+> > > >=20
+> > > >   - num_lanes: bitmask of supported lane counts (1, 2, 4)
+> > > >   - link_rate: Array of supported link rates.
+> > > >   - dsc_en: Display Stream Compression supported
+> > > >   - voltage_swingN: per-lane voltage swing level bitmask
+> > > >   - pre-emphasisN: per-lane pre-emphasis level bitmask
+> > > >=20
+> > > > Link rates are passed by the driver in deca-kbps, following the DRM
+> > > > convention, but exposed to userspace in kbps for clarity.
+> > > >=20
+> > > > Two additional helpers are provided to update and reset those prope=
+rties
+> > > > at runtime:
+> > > >   - drm_connector_dp_set_link_train_properties()
+> > > >   - drm_connector_dp_reset_link_train_properties()
+> > > >  =20
+> >=20
+> > ...
+> >  =20
+> > > > +/**
+> > > > + * struct drm_connector_dp_link_train - DRM DisplayPort link train=
+ing
+> > > > + * information report
+> > > > + */
+> > > > +struct drm_connector_dp_link_train {   =20
+> > >=20
+> > > THese define the current DP state. As such, they definitely make sense
+> > > to be a part of the drm_connector. =20
+> > > > +	/**
+> > > > +	 * @nlanes: The number of lanes used
+> > > > +	 */
+> > > > +	u8 nlanes;
+> > > > +
+> > > > +	/**
+> > > > +	 * @rates: Link rate value selected in deca-kbps
+> > > > +	 */
+> > > > +	u32 rate;
+> > > > +
+> > > > +	/**
+> > > > +	 * @dsc: Display Stream Compression enabled
+> > > > +	 */
+> > > > +	bool dsc_en;
+> > > > +
+> > > > +	/**
+> > > > +	 * @v_swings: Array listing the bitmask voltage swing level per
+> > > > lanes
+> > > > +	 */
+> > > > +	u8 v_swing[4];
+> > > > +
+> > > > +	/**
+> > > > +	 * @pre_emph: Array listing the bitmask pre-emphasis level per
+> > > > lanes
+> > > > +	 */
+> > > > +	u8 pre_emph[4];   =20
+> > >=20
+> > > Please consider following struct phy_configure_opts_dp (or using it as
+> > > is). Overall, please refer the talk and (more important) the lightning
+> > > resumee at this XDC. I have some bits and pieces ready in spite of th=
+at
+> > > proposal, but I didn't have time to finish it. =20
+> >=20
+> > I didn't know this phy_configure_opts_dp struct. This indeed could make
+> > sense to reuse and modify that structure for our needs. =20
+>=20
+> Why would you want to modify it? It is an interface for the PHY drivers.
+> Is there anything that you miss there?
 
-That check makes good semantic sense and directly closes the attack
-vector - I agree an empty multisync isn't useful.
+I was thinking of the DSC, but after a quick look it is not done at the PHY
+level therefore it won't land here.
+=20
+> > About your XDC talk. What were the developments you were talking about?
+> > Could I have a look at them? =20
+>=20
+> I've posted an RFC just before the XDC. Currently I'm looking at the
+> link training generification. Overall, you don't have to wait for that
+> job to be completed, just take some of the notes in account (like reuse
+> of the PHY config structures).
 
-That said, I'd like to raise one thought before sending v3. The reason
-xe and i915 added a general depth limit wasn't just to fix a specific
-known loop - it was to make the extension walker generically robust as
-the extension set grows. If a future extension is added that can also
-tolerate a second visit without erroring out, the unbounded walk
-vulnerability class reappears without a counter. Since the current
-architectural maximum is 2 (one multisync + one CPU job extension),
-capping the walk at 2 would reflect the real limit and provide that
-safety net without being arbitrary.
+Ok, have you a link? I can't find the related series.
 
-Happy to go either way - just wanted to raise it before sending v3.
-What do you think?
-
-Best regards,
-Ashutosh
+Regards,
+--=20
+K=C3=B6ry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
