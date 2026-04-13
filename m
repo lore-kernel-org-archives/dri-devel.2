@@ -4,72 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F2C7EBFD36
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0452EBFD30
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 10:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEBE210E3BD;
-	Mon, 13 Apr 2026 10:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A15D10E3BB;
+	Mon, 13 Apr 2026 10:09:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UNkBm8/9";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="O3e1Ns5J";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D73C10E3B8;
- Mon, 13 Apr 2026 10:09:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776074943; x=1807610943;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=AYVViBzC1UVd6/9kYCdjk4M6Q1A+ZDLIeh3I/2ejIM8=;
- b=UNkBm8/9Q1dKf8tjajBI/PTItNglZi/HmQ8uUDLSDGA5gYpTKv6S462b
- nlfBwlauTaUaE7YbSHkMP26b8yuUz0yCE5yxg/SjOcXMfsjwOO89LLGqU
- TCVS/oVpqUccgK/D3ZUHrZUh4RemY+AXb63kotFKQWDqLF7zcdvqUbr/m
- Ht5anSHr9pmnHF87sa+yyQrk+Y1m1++eH1zSqul0wTmixaw9sI27Z+xvd
- kp8SXMIcruDBQp8CAr3Ju9wJdEpp8EQPLz0dERnuaKtYLIcFU3nLfUnc3
- HxlIeSod18474ggAxpVS0ux1wLFm7AEtDBgIKZmhNEOzgu0e/Ye5rhDGM w==;
-X-CSE-ConnectionGUID: Loq91YdZQnW2WMIXAMwUZA==
-X-CSE-MsgGUID: Ld/HIVT5QjqKcJv/pifW5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11757"; a="94395577"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="94395577"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 03:09:03 -0700
-X-CSE-ConnectionGUID: yCFRKyYcSBC6EzkbF/wa5g==
-X-CSE-MsgGUID: RcbMp991SV+VkCLbiSGoSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="229616762"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.64])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 03:09:00 -0700
-Date: Mon, 13 Apr 2026 13:08:57 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@intel.com>,
- Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Subject: Re: [PATCH 5/6] drm/i915/reset: Handle the display vs. GPU reset
- deadlock using a custom dma-fence
-Message-ID: <adzAuSvOP8DkppZU@intel.com>
-References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
- <20260408233458.22666-6-ville.syrjala@linux.intel.com>
- <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
- <adeLRHQ2omAv93yM@intel.com>
- <cc51ea63-19b0-4352-9299-e5ab63f57ce4@amd.com>
- <adyzR6ISo_idi38p@intel.com>
- <b93c6c33-2d94-4da8-8e97-04c3bade2575@amd.com>
- <ady-UMqIQUqmKsLv@intel.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6C110E3BD;
+ Mon, 13 Apr 2026 10:09:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776074933; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=KJNrW+xd6CsbrX+CLV1OUxkupterS9Bqaiwh+AWh1tvhTs/f2a6JpPVYyLNDtiPSPa4y7m2/qs525jPom7mITxvXWWSIJuQFSCbnCsdBA4WgdLXG9WNZm7cHqhfOcnw3FZ6wCVGUApJNfv8oqt83Y3aqdVzGfZ5z9f6G2z7onMo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776074933;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=5k1vlW62iXZjcOaFsSXyeVWlBMQFrsYlNjKb9M5MyLE=; 
+ b=izgf12nq//iNfxmBrSKKL7j5w54uBLhDPmaW0ps7svBgDJsuXpLlD5innMhkFfdjMhGi1sjMUUhiF1LtM9yVBo549QEB6oSb7HQx4h6ofbEIVoxTEge7J8UZQM649z/nVaOxCUywe8nn2iMbHINNgznJiiwxNg7CAvFBOekHd2A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776074933; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=5k1vlW62iXZjcOaFsSXyeVWlBMQFrsYlNjKb9M5MyLE=;
+ b=O3e1Ns5JGpUNOvqJEaYekci2tHRhWGdHAGiiSJVGZwmlcOzj2ZmEvw7s3likwBUO
+ +XPhHUJ+qYGz5f6GjwVXp423CkBMbbjS1pFbO5eN6xpeWEHULG7KEwlMyFDC3dMVFzR
+ MI/8BpM2PhrnnzkgSe35fVA0Vlv/jlTFckA0q9/8=
+Received: by mx.zohomail.com with SMTPS id 1776074931930102.89146521052896;
+ Mon, 13 Apr 2026 03:08:51 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 13 Apr 2026 12:07:22 +0200
+Subject: [PATCH v13 08/27] drm/display: hdmi-state-helper: Act on color
+ format DRM property
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ady-UMqIQUqmKsLv@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260413-color-format-v13-8-ab37d4dfba48@collabora.com>
+References: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+In-Reply-To: <20260413-color-format-v13-0-ab37d4dfba48@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,54 +90,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 12:58:40PM +0300, Ville Syrjälä wrote:
-> On Mon, Apr 13, 2026 at 11:35:23AM +0200, Christian König wrote:
-> > On 4/13/26 11:11, Ville Syrjälä wrote:
-> > >>>> I think something is missing in my picture how that is supposed to work.
-> > >>>
-> > >>> The problem stems from the fact that on old platforms a GPU reset
-> > >>> also resets the display hardware,
-> > >>
-> > >> Which is true for at least AMD GPUs and I think pretty much everybody else as well, but that wasn't so much of a problem so far.
-> > >>
-> > >>> and to do that safely we need:
-> > >>> 1. shut down display
-> > >>> 2. perform the GPU reset
-> > >>> 3. restore the display hardware to its orignal state
-> > >>
-> > >> Mhm, I've recently talked with Michel about it and we confirmed that this is perfectly possible without issues. Adding Michel as well.
-> > >>
-> > >>> We just do that with essentially with a normal atomic commit.
-> > >>
-> > >> I think that is the source of the problem.
-> > >>
-> > >> I'm not an expert on that topic but amdgpu and tons of other drivers seem to just use drm_atomic_helper_shutdown() for that.
-> > > 
-> > > drm_atomic_helper_shutdown() is definitely not the thing to use
-> > > for this as it would clobber the stored kms state, leaving everything
-> > > permanently disabled. The drm_atomic_helper_commit_duplicated_state()
-> > > stuff i915 uses is the correct thing here.
-> > > 
-> > > But for this problem it doesn't even matter which gets used. Either
-> > > would get equally stuck behind a previous atomic commit waiting for
-> > > its fences.
-> > > 
-> > >>
-> > >> What is i915 doing differently?
-> > > 
-> > > I see zero code for any display reset stuff in any other driver. If
-> > > amdgpu does anything it must be something completely custom, hidden
-> > > somewhere deep.
-> > 
-> > The display is just fully reset by any MODE1 reset, you don't need to do anything special for that.
-> 
-> You can't just ignore the fact that there may be a display hardware
-> reprogramming already happening in parallel. Failing to follow the
-> correct programming sequence is a recipe for even hard system hangs.
+With the introduction of the "color format" DRM property, which allows
+userspace to request a specific color format, the HDMI state helper
+should implement this.
 
-Oh, and skipping the controlled shutdown could violate panel power
-sequencing requirements, which is not good for the panel's health.
+Implement it by translating the requested drm_connector_color_format to
+a drm_output_color_format enum value as per the logic HDMI should use
+for this: Auto is translated to RGB, and a fallback to YUV420 is only
+performed if the original color format was auto.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 31 +++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index a0d88701d236..954f8b2973fc 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -670,8 +670,39 @@ hdmi_compute_config(const struct drm_connector *connector,
+ 	unsigned int max_bpc = clamp_t(unsigned int,
+ 				       conn_state->max_bpc,
+ 				       8, connector->max_bpc);
++	enum drm_output_color_format fmt;
+ 	int ret;
+ 
++	if (conn_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
++		switch (conn_state->color_format) {
++		case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
++			drm_warn(connector->dev, "AUTO format in non-AUTO path.\n");
++			fallthrough;
++		case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_RGB444;
++			break;
++		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR444;
++			break;
++		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR422;
++			break;
++		case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
++			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
++			break;
++		default:
++			drm_dbg_kms(connector->dev, "HDMI does not support color format '%d'.\n",
++				conn_state->color_format);
++			return -EINVAL;
++		}
++
++		return hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc, fmt);
++	}
++
++	/*
++	 * For %DRM_CONNECTOR_COLOR_FORMAT_AUTO, try RGB first, and fall back
++	 * to the less bandwidth-intensive YCBCR420 if RGB fails.
++	 */
+ 	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
+ 				      DRM_OUTPUT_COLOR_FORMAT_RGB444);
+ 	if (ret) {
 
 -- 
-Ville Syrjälä
-Intel
+2.53.0
+
