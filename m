@@ -4,110 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9607FEBFD0F
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:07:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 651A2EBFD0F
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 08:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1F2210E364;
-	Mon, 13 Apr 2026 08:07:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD72C10E0B9;
+	Mon, 13 Apr 2026 08:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="vgQjmN4M";
+	dkim=pass (2048-bit key; unprotected) header.d=canonical-com.20251104.gappssmtp.com header.i=@canonical-com.20251104.gappssmtp.com header.b="PIt/MoM7";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CD810E368
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:07:00 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-488b150559bso32174925e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 01:07:00 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7E810E0B9
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 08:11:09 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-b9c745e18a0so472768266b.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 01:11:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776067868; cv=none;
+ d=google.com; s=arc-20240605;
+ b=jG7vi2fHKW0pAhxVx6zdFQinqz/5E7YDZbSZOz0J100309+GQ+dmL5noxI7U1ScfEt
+ SpuO1ajGWc+2WJGn7VQVbUJad1sjJuJ+xWBkguAu3oiqHjdZ9ugRfXniLPRX3Q18VyBr
+ 5IA64oZVq0I/xGs2bvn1PeSCA4wBxidT2livkkVsptDAJPLkkrZ3nTYQarDHieQoImmr
+ FRiIVuicr1LRAKSo8kE+d4cL/AaIBho7pwgr8alJ0V8YijOytGM2BIhV+ar+QjqBfdc1
+ duc/9fSvspZD945236Ki7MCYkUNd14+FQTdQ4DjXGb45e4R1UQ3nLLzrW/+Esp0rLgKB
+ mfzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Cm/2yTJZucI3GwBHuZBqSf0fctqmWzcYTDaRRhyvpf4=;
+ fh=9X8Q++H/P/5+qeYBDWrQ+zvETlR8DS9p2OTHiIHP4G8=;
+ b=GYY8tQ5afLUguhgLOXSwRj0oDjkp7hMP9GTeUappenHbv6XolSQIMSiA6epyhhL/Bm
+ CdCzpkNSPuZkghqoi22+V5bAMJSXH5ZUBSJqVx4RQP6KneDSCkAsnbnSSEoXfLzA3IBH
+ 9w7Mf2sjU2PAPF6A+3am2nfu68ebBt1U1XXOjMe7E9evuOt0rUXcW24QUlc6dtCq+21D
+ qjdhYXSfwEtUZ7JtEfvFb1BZvztHV3XvgJ1G67A3tMmGo+jF2aujs/0iqOaEngaup57J
+ b6qGqZakI9aqZSnrcJd7SPUuHZyc69nSOMjpmxUfHM/XIa3mg2t2VJtWOVa27PbqSN2w
+ kptw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1776067619; x=1776672419; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:from:to:cc:subject:date:message-id
- :reply-to; bh=UdgIACL9N5s62AI/UD+N+ywu/reA3cigk1RK/jHdjGA=;
- b=vgQjmN4MayQd9EFUNWH6Bbvoc2KUyweilZQ4uEMV5dldIBLFNgu5J7tF1Tc8xlRRSf
- jC23JStPY3EwO50Lsa0lMC26uzv+Rckhcdg5j+OyFfCaxXZEFbo6r3+0E6tX9q551Of+
- XH0oOMa9MKWfa9pPWLyghasktffq1jPsUaIUkCr9VPJmmMAyGkpG7QTC//aHaNCcV8hk
- RJdX3U8eYzNZxdxdIPm5HN4ZX13QBATTRES9j8oLWu8W/sQkAdcftnYnoOteZ8xFQnbj
- YygWPhMv8ZFZBHTAUA5YL7cQv2TIb0a2nq9YiB8L+GJqgHTgH47rY3WQfLJS60l5Iptp
- GIYg==
+ d=canonical-com.20251104.gappssmtp.com; s=20251104; t=1776067868; x=1776672668;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Cm/2yTJZucI3GwBHuZBqSf0fctqmWzcYTDaRRhyvpf4=;
+ b=PIt/MoM7NHIyDR+imQiAKGQwPsBlKcpDT83TmLEL5uQeagsqk0JvQ3EXinbcSKI36h
+ TM7oy1+b7CmHgWglKPlBAwRqX4jxDwjXebQO0rGtHD4NLme4hlic7mLXlPdmzMG1+zpl
+ GMqkLpJSFaBe5pY4az1QJWD0VATPEXWRu6BgfGCQtBPt9c6hXMkxWPstwkBpICdfCWaU
+ LmEoEmp/jPTUFNEp3bh2h0eBAtcyncvvZMBs8rWE4kDRW6ZvvNqNDd+Uu+CHQpK8ju0w
+ 0b/ZkdBdpkWrdBFNNnPjgOd9BcCpKz2w7zkuvqbVWP4JunvmhJyzQwSS90l3Ws60PpWs
+ TV5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776067619; x=1776672419;
- h=content-transfer-encoding:in-reply-to:organization:autocrypt
- :content-language:references:cc:to:subject:reply-to:from:user-agent
- :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=UdgIACL9N5s62AI/UD+N+ywu/reA3cigk1RK/jHdjGA=;
- b=Rr4ON5dCYdTVVa923JqaRgFnhYh6pdWbZZhYpuNeMPvtvjCQXkMNj/n+aasMTOAQij
- +dI2M+jLmn/dLU9LxldBugNtpgXnI9AWD9fbrSkQpURnhe4POya8MQYIJ3d7CAO3urNj
- GCyIiiyLMiu9JSHfddeS6fm6O8E2thyfJvJ1OnJS2RKC/VsevB44gtcqd8MGwMdgf5AG
- N1NIxSFIUAHQmq7zpXGn6EGr8aY+vIkYWRdmfNoQdKVAGkhkz/qtR8QCLzK0DxGtbtjz
- y/nP4iAH5wbu1TSCcqa/nJAlYR3jvOjQY95Wu5VSCyhbnlMv6IhV7JLIBZJNftDRIfVe
- yvuQ==
+ d=1e100.net; s=20251104; t=1776067868; x=1776672668;
+ h=content-transfer-encoding:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Cm/2yTJZucI3GwBHuZBqSf0fctqmWzcYTDaRRhyvpf4=;
+ b=Pc5JgAwFCTwVnVxDgKp3AftaxU3afZ/QLykAwjQpFCaMLgkUsBkCXaW7tDuInjT5FD
+ lwfkbKoYWI4coPquoBqmivmjeVXBkkNDRvdarP/cbXT0It4zm1nGDivfdaCnR+pwCGc/
+ bTnujaP/zTdtqL3ekfTLUli6m+N0EgktiWBXUiJvLad94K+pbLE61hr0dvI/VBJLFemX
+ VKhHYVRWjSbxvPg8s/7KjHj0wdXLP3dX2PclQ6CebMRZy1pBXkAo6baKcgKie/us5vkm
+ ZN4CRuBAR5zbkfXsLKn7hcGsNAfoRy1+96aOAPkAePlsGyAu/HOvQ7iG+T2yf/zFy/gD
+ 5DeA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/7M5PNbmzkgR8NdXnx+9iy0yXMrUozYNpGv7rPfMs3wbKviiF3jJ3kRu4lUx2MhkIKRIY7KlIfQng=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx279KEiOaXEBnFmu3wULQTtNL25RCxbeJtKSX/Xm62Mxvcb1zs
- PBbk/zAmWQve5ZmZ39+VXpoK4UVr1f3MoU7qSQaOSeEcg5zqUrMqZqtPy7k2EIUVrQQ=
-X-Gm-Gg: AeBDievlr0f2mgbjR1Eg6yRQ3wpCLtaFwd9rNVOFFf9yTN+SmY23GnZIUTPHFqtWD0k
- R9ZHDPezYmYN/7G15MiVVdkHeCUkODT3JVnquhaAPCrThAre3lOQ9bwu2fBAzr0ORrNSgeAn00f
- voo3EAMxii0cttnYuMgkh/MvpN/9qETpRIT1HHXfgVpeShU3hPCiIKQDaho9++U2kqm7ED087Yk
- LdxwTt2VZ8hm4qo4Qh1Iqpr8ilN8kApxi+NNjDe9HxHbZNFyjmG9W4bAO7hmLEOdv1xfGxouoIu
- O6CLWlAXouW4w7PHTKN66OCVzoA8NLCrYrJ1lZ09pnLd/vo+0EzduE76+J8LBHXPvzR3ZqasmR8
- ioeYPCKTviJFE9RPQimmRjudP5uK/xIvmpGhif0SWiPy+kFhTeXPG8Yh9Qin3lBvGIfh2I7Eg8L
- NWhqicrenhEPxF+E8OynTRL7lfCgZ9OlP8fvs1PwqgYrlNoDm4+wrOb00dudI1J/vshxtKEfy+Q
- wj8HxM=
-X-Received: by 2002:a05:600c:528f:b0:488:a82f:bbb4 with SMTP id
- 5b1f17b1804b1-488d689d0b8mr166171385e9.26.1776067619103; 
- Mon, 13 Apr 2026 01:06:59 -0700 (PDT)
-Received: from ?IPV6:2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25?
- ([2a01:cb1c:fcf:4600:4cfb:7427:8a08:9d25])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488d683c902sm93012965e9.22.2026.04.13.01.06.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Apr 2026 01:06:58 -0700 (PDT)
-Message-ID: <b7a8a27d-e61d-492b-a5e3-a0a21436045b@linaro.org>
-Date: Mon, 13 Apr 2026 10:06:57 +0200
+ AFNElJ/Af9it9gqgrw+y9ZeKG3fnu+va8+SXm6GqgBTzSnKIi0CqrLGa0382i5dY7lAZqgHu7LoUhuX2hBo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxoH3fxA09zXDi/8G+sldOo+AKmfPYo6V40dq0UwOM27/fTHFiK
+ CdMDbJdnPsCuDsk2NSVnAX01r1HQit3NZIHb9i7VCJR6FfsjAYyVlFnhurwsHWQdNumBz/DuKp4
+ iivsHjnLz5xV9Ug1/rQRjtDzZzFM23RY=
+X-Gm-Gg: AeBDieuCJ7cU5YDvWAR4mYqEVEwktk61qNSG6ETnDjEnzLqHckWugtPZFZqtkyDuzVJ
+ kTmtPoMQouTVRC9SYtVkSrhjLy2DP/81rjSIkX7xaRjcPV1kdZdi5XH+fZ1GGeavcGKdaePgAYy
+ ngkmXVWQliUQkspnWtNKuYH1YSFWIggc0uASxGpW68HmOp/yz+5tZEgVAL6AoQBhNVMAbCHoa+X
+ ME73roLB0jtJWBO9dxx8s9BzkNKelhDZuwMosDCOj0tz7HWi8wiC5dA8xaXpRC3AS8baTWDP4e4
+ VOZZty/omplc8TLufrM=
+X-Received: by 2002:a17:907:1b22:b0:b97:fec5:eced with SMTP id
+ a640c23a62f3a-b9d45b64482mr833752966b.0.1776067867411; Mon, 13 Apr 2026
+ 01:11:07 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: neil.armstrong@linaro.org
-Subject: Re: [PATCH v3 2/2] drm/panel: panasonic-vvx10f034n00: transition to
- mipi_dsi wrapped functions
-To: Avinal Kumar <avinal.xlvii@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Douglas Anderson <dianders@chromium.org>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
-References: <20260113091440.43735-1-avinal.xlvii@gmail.com>
- <20260113091440.43735-3-avinal.xlvii@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260113091440.43735-3-avinal.xlvii@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260114011917.241196-1-acelan.kao@canonical.com>
+In-Reply-To: <20260114011917.241196-1-acelan.kao@canonical.com>
+From: AceLan Kao <acelan.kao@canonical.com>
+Date: Mon, 13 Apr 2026 16:10:54 +0800
+X-Gm-Features: AQROBzAUM-FyVmyBMIfewJCZMi_4s_1U1SPVgwvrtxpwOIQt1R-Yr616qRFplZw
+Message-ID: <CAMz9Wg_i5Sgewa2N7jfEoNJrp5jMp+O5m+kM=VN9rWKcGLzQXA@mail.gmail.com>
+Subject: Re: [PATCH] dma-buf: set SB_I_NOEXEC and SB_I_NODEV on dmabuf
+ filesystem
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,54 +105,61 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 1/13/26 10:14, Avinal Kumar wrote:
-> Changes the panasonic-vvx10f034n00 panel to multi
-> style functions for improved error handling.
-> 
-> Signed-off-by: Avinal Kumar <avinal.xlvii@gmail.com>
+Chia-Lin Kao (AceLan) <acelan.kao@canonical.com> =E6=96=BC 2026=E5=B9=B41=
+=E6=9C=8814=E6=97=A5=E9=80=B1=E4=B8=89 =E4=B8=8A=E5=8D=889:19=E5=AF=AB=E9=
+=81=93=EF=BC=9A
+>
+> The VFS now warns if an inode flagged with S_ANON_INODE is located on a
+> filesystem that does not have SB_I_NOEXEC set. dmabuf inodes are
+> created using alloc_anon_inode(), which sets S_ANON_INODE.
+>
+> This triggers a warning in path_noexec() when a dmabuf is mmapped, for
+> example by GStreamer's v4l2src element.
+>
+> [   60.061328] WARNING: CPU: 2 PID: 2803 at fs/exec.c:125 path_noexec+0xa=
+0/0xd0
+> ...
+> [   60.061637]  do_mmap+0x2b5/0x680
+>
+> The warning was introduced by commit 1e7ab6f67824 ("anon_inode: rework
+> assertions") which added enforcement that anonymous inodes must be on
+> filesystems with SB_I_NOEXEC set.
+>
+> Fix this by setting SB_I_NOEXEC and SB_I_NODEV on the dmabuf filesystem
+> context, following the same pattern as commit ce7419b6cf23d ("anon_inode:
+> raise SB_I_NODEV and SB_I_NOEXEC") and commit 98f99394a104c ("secretmem:
+> use SB_I_NOEXEC").
+>
+> Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
 > ---
->   .../gpu/drm/panel/panel-panasonic-vvx10f034n00.c   | 14 ++++++++++++--
->   1 file changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
-> index 3c3308fc55df..73c5827a15a4 100644
-> --- a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
-> +++ b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
-> @@ -44,14 +44,24 @@ static inline struct wuxga_nt_panel *to_wuxga_nt_panel(struct drm_panel *panel)
->   
->   static int wuxga_nt_panel_on(struct wuxga_nt_panel *wuxga_nt)
->   {
-> -	return mipi_dsi_turn_on_peripheral(wuxga_nt->dsi);
-> +	struct mipi_dsi_multi_context dsi_ctx = {
-> +		.dsi = wuxga_nt->dsi
-> +	};
-> +
-> +	mipi_dsi_turn_on_peripheral_multi(&dsi_ctx);
-> +	return dsi_ctx.accum_err;
->   }
->   
->   static int wuxga_nt_panel_disable(struct drm_panel *panel)
->   {
->   	struct wuxga_nt_panel *wuxga_nt = to_wuxga_nt_panel(panel);
->   
-> -	return mipi_dsi_shutdown_peripheral(wuxga_nt->dsi);
-> +	struct mipi_dsi_multi_context dsi_ctx = {
-> +		.dsi = wuxga_nt->dsi
-> +	};
-> +
-> +	mipi_dsi_shutdown_peripheral_multi(&dsi_ctx);
-> +	return dsi_ctx.accum_err;
->   }
->   
->   static int wuxga_nt_panel_unprepare(struct drm_panel *panel)
+>  drivers/dma-buf/dma-buf.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index a4d8f2ff94e46..dea79aaab10ce 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -221,6 +221,8 @@ static int dma_buf_fs_init_context(struct fs_context =
+*fc)
+>         if (!ctx)
+>                 return -ENOMEM;
+>         ctx->dops =3D &dma_buf_dentry_ops;
+> +       fc->s_iflags |=3D SB_I_NOEXEC;
+> +       fc->s_iflags |=3D SB_I_NODEV;
+>         return 0;
+>  }
+>
+> --
+> 2.51.0
+>
+Hi all,
 
-So yeah we want to use multi functions but in this case I don't think it's appropriate
-when a since dsi function is called in a callback.
-
-Dmitry ? Doug ?
-
-Neil
+Please help to review this patch.
+It does the same thing as
+   ce7419b6cf23d ("anon_inode: raise SB_I_NODEV and SB_I_NOEXEC")
+and
+   98f99394a104c ("secretmem: use SB_I_NOEXEC")
+Thanks.
