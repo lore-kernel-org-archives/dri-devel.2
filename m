@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CACAEBFD03
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 06:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CAD6EBFD03
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 06:52:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DDEB10E322;
-	Mon, 13 Apr 2026 06:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEF8F10E31F;
+	Mon, 13 Apr 2026 06:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ZaJyTE89";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SYNH6BTE";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69D0E10E322
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 06:47:28 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4fvHyk06vQz9vBF;
- Mon, 13 Apr 2026 08:47:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1776062846; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zNqg4//AHBbNZ3RoiPIAfyIUx1byLwQcXw94D/twNTo=;
- b=ZaJyTE89qf1juduquhuXt8/2tzZl7dQFn955XFVGTmoWi7PO7hgkBFKpCqVFDja6D8wnPC
- gc40dRFBbXcUHlfkHTf6HWA32/ZnN8BP5i5mEFp8NQUXHUuzrTr6JTxf2NwXj9bPiHRinm
- 504FlZytfIvlkkVnoQnhws9TmRuG2l1uNlDX2ILNcvuRVb16/M/t6VLJmlIPIOOilmxFgj
- W6KQgn4bGFjCrEavWXmbV510WhuuaViIZTQoKFStWuxP/0uaPGUGIXbXik0ltMAvp2S7HK
- E8V+6gQJYHsDIbLlgDYBYHOUjAzeQcHRNdW4gZ+tzqvdx6VeCJjeElMcEfnfqw==
-Message-ID: <59759507d4fb89d3726092268f17680998d1b4cf.camel@mailbox.org>
-Subject: Re: [PATCH] dma-fence: Clarify external lock use case in
- dma_fence_init() docs
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,  Philipp Stanner
- <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- kernel-dev@igalia.com
-Date: Mon, 13 Apr 2026 08:47:21 +0200
-In-Reply-To: <20260411185756.1887119-4-mcanal@igalia.com>
-References: <20260411185756.1887119-4-mcanal@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B32B010E31F
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 06:52:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7AAF7408DE;
+ Mon, 13 Apr 2026 06:52:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAE24C2BCB1;
+ Mon, 13 Apr 2026 06:52:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776063121;
+ bh=zUqAAQfxQkgm1L+orXnWkgiT2yfCQDcQl2Ic8bOCAt8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SYNH6BTENC4BdUvaXolabjGi1gFboGAhzv/4yOxAfwDslD7CrfvkgvvWqQmC2+10C
+ TpTM4WTvIOMMpAjcE09IBwNeGgsCZKf9/6D0jL7HQbj3K79SYBJ95tmJWhvp2wbR5L
+ AZ3CN0ENARZ+Oe7uGXq40Q8UzJ+rD0lr/1/FlLG1ch6rx4zYns3cNXNG8RnYtJCiCg
+ FvwBzKLd+vqxR2a/sKGHNmcoebIMHjleFBPx9/ZUx+d6fLwcqgUtnWhGxRpK2h/1vB
+ xh1nWhy3IacGpAXO6Dp4iEogQ2GYElSQj/zazf0q6xaHIvKCmMXo7btkINAKT/3Zaq
+ BQ/jC9upJd/mA==
+Date: Mon, 13 Apr 2026 08:51:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Joseph Guo <qijian.guo@nxp.com>, 
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: display: waveshare, dsp2dpi: describe
+ DSI2LVDS setup
+Message-ID: <20260413-thick-lionfish-of-dignity-19d6e9@quoll>
+References: <20260412-ws-lcd-v3-0-db22c2631828@oss.qualcomm.com>
+ <20260412-ws-lcd-v3-1-db22c2631828@oss.qualcomm.com>
 MIME-Version: 1.0
-X-MBO-RS-ID: f9275734e115b506393
-X-MBO-RS-META: t9zjn3p3af6q66cu93yoz5wctseyf7ch
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260412-ws-lcd-v3-1-db22c2631828@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,105 +69,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 2026-04-11 at 15:47 -0300, Ma=C3=ADra Canal wrote:
-> The kerneldoc comment on dma_fence_init() and dma_fence_init64() describe
-> the legacy reason to pass an external lock as a need to prevent multiple
-> fences "from signaling out of order". However, this wording is a bit
-> misleading: a shared spinlock does not (and cannot) prevent the signaler
-> from signaling out of order. Signaling order is the driver's responsibili=
-ty
-> regardless of whether the lock is shared or per-fence.
->=20
-> What a shared lock actually provides is serialization of signaling and
-> observation across fences in a given context, so that observers never
-> see a later fence signaled while an earlier one is not.
->=20
-> Reword both comments to describe this more accurately.
->=20
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+On Sun, Apr 12, 2026 at 08:32:24PM +0300, Dmitry Baryshkov wrote:
+> Several the Waveshare DSI LCD panel kits use DSI2LVDS ICN6202 bridge
+> together with the LVDS panels. Define new compatible for the on-kit
+> bridge setup (it is not itmized and it uses Waveshare prefix since the
+> rest of the integration details are not known).
+> 
+> Note: the ICN6202 / ICN6211 bridges are completely handled by the board
+> itself, they should not be programmed by the host (which otherwise might
+> override correct params), etc. As such, it doesn't make sense to use
+> those in the compat strings. I consider those to be an internal detail
+> of the setup.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
->=20
-> Hi,
->=20
-> While reading the documentation, I found this particular paragraph quite
-> hard to understand. As I understand it, locks don't enforce order, only
-> serialization, but the paragraph seems to communicate the other way aroun=
-d.
+>  .../devicetree/bindings/display/bridge/waveshare,dsi2dpi.yaml    | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 
-Yes, 100%.
-That's one of the reasons why Christian recently moved to using inline-
-locks.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-
-
-> Due to that, I had the impression that the current wording can be
-> misleading for driver developers.
->=20
-> I'm proposing a new wording to better describe the use case of the
-> external lock based on my understanding, but it would be great to hear
-> the feedback and suggestions from more experienced developers who might
-> have more insight about these legacy use cases.
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> =C2=A0drivers/dma-buf/dma-fence.c | 12 ++++++++----
-> =C2=A01 file changed, 8 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index 1826ba73094c..bdc29d1c1b5c 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1102,8 +1102,10 @@ __dma_fence_init(struct dma_fence *fence, const st=
-ruct dma_fence_ops *ops,
-> =C2=A0 * to check which fence is later by simply using dma_fence_later().
-> =C2=A0 *
-> =C2=A0 * It is strongly discouraged to provide an external lock because t=
-his couples
-> - * lock and fence life time. This is only allowed for legacy use cases w=
-hen
-> - * multiple fences need to be prevented from signaling out of order.
-> + * lock and fence lifetime. This is only allowed for legacy use cases th=
-at need
-> + * a shared lock to serialize signaling and observation of fences within=
- a
-> + * context, so that observers never see a later fence signaled while an =
-earlier
-> + * one isn't.
-
-I would probably delete the explanation altogether and just state
-"allowed for legacy reasons". The legacy people know why it's allowed,
-and new users don't need to care. Same below of course.
-
-
-Thx
-P.
-
-> =C2=A0 */
-> =C2=A0void
-> =C2=A0dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops =
-*ops,
-> @@ -1129,8 +1131,10 @@ EXPORT_SYMBOL(dma_fence_init);
-> =C2=A0 * to check which fence is later by simply using dma_fence_later().
-> =C2=A0 *
-> =C2=A0 * It is strongly discouraged to provide an external lock because t=
-his couples
-> - * lock and fence life time. This is only allowed for legacy use cases w=
-hen
-> - * multiple fences need to be prevented from signaling out of order.
-> + * lock and fence lifetime. This is only allowed for legacy use cases th=
-at need
-> + * a shared lock to serialize signaling and observation of fences within=
- a
-> + * context, so that observers never see a later fence signaled while an =
-earlier
-> + * one isn't.
-> =C2=A0 */
-> =C2=A0void
-> =C2=A0dma_fence_init64(struct dma_fence *fence, const struct dma_fence_op=
-s *ops,
+Best regards,
+Krzysztof
 
