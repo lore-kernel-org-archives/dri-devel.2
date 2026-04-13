@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99B98F34C49
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:59:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AC40F34C49
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01CE510E488;
-	Mon, 13 Apr 2026 13:59:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A650810E48B;
+	Mon, 13 Apr 2026 13:59:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="Ti7YMkxF";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="kdwGos7t";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5690F10E488;
- Mon, 13 Apr 2026 13:59:27 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA4C110E489;
+ Mon, 13 Apr 2026 13:59:31 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id C9AD0C5B1B7;
- Mon, 13 Apr 2026 14:00:02 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id CB47B1A322D;
+ Mon, 13 Apr 2026 13:59:30 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 38E8F5FFB9;
- Mon, 13 Apr 2026 13:59:26 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9A89D5FFB9;
+ Mon, 13 Apr 2026 13:59:30 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 93ECC1045001B; 
- Mon, 13 Apr 2026 15:59:20 +0200 (CEST)
+ with ESMTPSA id 1442510450269; 
+ Mon, 13 Apr 2026 15:59:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776088764; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776088768; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=sIWxbJQA95xivsskyZYf1bJ8TvAp33O/yOkG3w0+aXY=;
- b=Ti7YMkxFRGkaAZevJe/bTWTMUX50+gor3lckUgGvafM8UALQp47vTxyshFqarkfTP8/mwP
- XhGRxzV0sm69GiviHCEOTFE66HbMqHJeh2dP94arpTsOzAdB3amykKpre2w8mQmEdefnCN
- rTpEE6ZBjn0hpfRmCllYKUqW78tpiu5uowKDjbT+gvsOm4H7S5aNSyU5bqgt6KwW6f5QyK
- PpdWPZZKtapQP0GjqPCLlG89NuFAwc5IvelZ8qLlSpEC6xvtPU1+YHOCNMuRkaJ9GpkWWS
- 7LcXH4RThk77pup2JWWZnCfPhYD86Ps1PKCJk0UzL9qqXpRoAMBvTfmJ3ehZ0g==
+ bh=hlEFyiDEhRRuwkTtELw5ThG4IvCARhCbv+AFevELw+E=;
+ b=kdwGos7tWaE/u1bs/Q5oTGl9yc59r0ACZMkFuxvswTieNlpLruQ0Fwr3oLvlK3UEX+C41l
+ ohB4KDuW0i2uYVtK6mcw2oFtpUskYBtd24SI7lNuItfujWWlyohqXS0sQEZbGnffP/Kf+H
+ V6ooEdENKJO7qqOVupdzTkUpBTI/BhM/0Qtfa8uNgkkGfkZNtBCQfe33cwXLCj2E7kOQhv
+ TQ8VBncDVqsZxKXATPiSG0A8/yJf8NWbLA7GgEBIUhS/5nNlBRGRISHIip1uOC40kpGh8C
+ CWHVGsrSkage19wVkFXs5sMd4yhbWIq5N5QboXCc+TDVAL++XfwwPIQAbjyKaw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Mon, 13 Apr 2026 15:58:40 +0200
-Subject: [PATCH 08/10] drm/bridge: lt8713sx: switch to
+Date: Mon, 13 Apr 2026 15:58:41 +0200
+Subject: [PATCH 09/10] drm: zynqmp_dp: switch to
  of_drm_get_bridge_by_endpoint()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-8-acd01cd79a1f@bootlin.com>
+Message-Id: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-9-acd01cd79a1f@bootlin.com>
 References: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
 In-Reply-To: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -95,40 +95,50 @@ pointer which is automatically put when the bridge is eventually freed.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/bridge/lontium-lt8713sx.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xlnx/zynqmp_dp.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt8713sx.c b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-index 18fac6a46db4..0bee147633a5 100644
---- a/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt8713sx.c
-@@ -32,7 +32,6 @@ DECLARE_CRC8_TABLE(lt8713sx_crc_table);
- struct lt8713sx {
- 	struct device *dev;
- 	struct drm_bridge bridge;
+diff --git a/drivers/gpu/drm/xlnx/zynqmp_dp.c b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+index 379180fb3004..87a57abcfaef 100644
+--- a/drivers/gpu/drm/xlnx/zynqmp_dp.c
++++ b/drivers/gpu/drm/xlnx/zynqmp_dp.c
+@@ -353,7 +353,6 @@ struct zynqmp_dp_train_set_priv {
+  * @lock: Mutex protecting this struct and register access (but not AUX)
+  * @irq: irq
+  * @bridge: DRM bridge for the DP encoder
+- * @next_bridge: The downstream bridge
+  * @test: Configuration for test mode
+  * @config: IP core configuration from DTS
+  * @aux: aux channel
+@@ -385,7 +384,6 @@ struct zynqmp_dp {
+ 	struct completion aux_done;
+ 	struct mutex lock;
+ 
 -	struct drm_bridge *next_bridge;
- 
- 	struct regmap *regmap;
- 	/* Protects all accesses to registers by stopping the on-chip MCU */
-@@ -458,7 +457,7 @@ static int lt8713sx_bridge_attach(struct drm_bridge *bridge,
- 	struct lt8713sx *lt8713sx = container_of(bridge, struct lt8713sx, bridge);
- 
- 	return drm_bridge_attach(encoder,
--				lt8713sx->next_bridge,
-+				lt8713sx->bridge.next_bridge,
- 				bridge, flags);
- }
- 
-@@ -537,8 +536,8 @@ static int lt8713sx_probe(struct i2c_client *client)
- 	if (IS_ERR(lt8713sx->regmap))
- 		return dev_err_probe(dev, PTR_ERR(lt8713sx->regmap), "regmap i2c init failed\n");
- 
--	ret = drm_of_find_panel_or_bridge(lt8713sx->dev->of_node, 1, -1, NULL,
--					  &lt8713sx->next_bridge);
-+	ret = of_drm_get_bridge_by_endpoint(lt8713sx->dev->of_node, 1, -1,
-+					    &lt8713sx->bridge.next_bridge);
- 	if (ret < 0)
+ 	struct device *dev;
+ 	struct zynqmp_dpsub *dpsub;
+ 	void __iomem *iomem;
+@@ -1494,8 +1492,8 @@ static int zynqmp_dp_bridge_attach(struct drm_bridge *bridge,
  		return ret;
+ 	}
+ 
+-	if (dp->next_bridge) {
+-		ret = drm_bridge_attach(encoder, dp->next_bridge,
++	if (dp->bridge.next_bridge) {
++		ret = drm_bridge_attach(encoder, dp->bridge.next_bridge,
+ 					bridge, flags);
+ 		if (ret < 0)
+ 			goto error;
+@@ -2461,8 +2459,8 @@ int zynqmp_dp_probe(struct zynqmp_dpsub *dpsub)
+ 	 * Acquire the next bridge in the chain. Ignore errors caused by port@5
+ 	 * not being connected for backward-compatibility with older DTs.
+ 	 */
+-	ret = drm_of_find_panel_or_bridge(dp->dev->of_node, 5, 0, NULL,
+-					  &dp->next_bridge);
++	ret = of_drm_get_bridge_by_endpoint(dp->dev->of_node, 5, 0,
++					    &dp->bridge.next_bridge);
+ 	if (ret < 0 && ret != -ENODEV)
+ 		goto err_reset;
  
 
 -- 
