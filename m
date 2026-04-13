@@ -4,51 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89D2CF34C4E
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:46:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7338F34C4E
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB52810E458;
-	Mon, 13 Apr 2026 13:46:20 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 254B410E458
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 13:46:20 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1wCHcB-0001bv-VY; Mon, 13 Apr 2026 15:46:11 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
- helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1wCHcA-005BIh-2P;
- Mon, 13 Apr 2026 15:46:10 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
- (envelope-from <p.zabel@pengutronix.de>) id 1wCHcA-00000000DAF-2j4e;
- Mon, 13 Apr 2026 15:46:10 +0200
-Message-ID: <99fdddde59e1b0fe13d5014182b1c97de4fbec86.camel@pengutronix.de>
-Subject: Re: [PATCH] drm: mxsfb: lcdif: enforce 64-byte pitch alignment for
- scanout
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Advait Dhamorikar <advaitd@mechasystems.com>, marex@denx.de
-Cc: simona@ffwll.ch, imx@lists.linux.dev, festevam@gmail.com, 
- kernel@pengutronix.de, dri-devel@lists.freedesktop.org, Frank.Li@nxp.com, 
- s.hauer@pengutronix.de, maarten.lankhorst@linux.intel.com, 
- linux-kernel@vger.kernel.org, mripard@kernel.org, stefan@agner.ch, 
- tzimmermann@suse.de, airlied@gmail.com, linux-arm-kernel@lists.infradead.org
-Date: Mon, 13 Apr 2026 15:46:10 +0200
-In-Reply-To: <20260413114456.173485-1-advaitd@mechasystems.com>
-References: <20260413114456.173485-1-advaitd@mechasystems.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A91D10E45E;
+	Mon, 13 Apr 2026 13:58:51 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ndG8cFwi";
+	dkim-atps=neutral
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5867E10E45E
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 13:58:50 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 2515EC5B1AB;
+ Mon, 13 Apr 2026 13:59:25 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7141C5FFB9;
+ Mon, 13 Apr 2026 13:58:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 509781045001B; 
+ Mon, 13 Apr 2026 15:58:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776088726; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=kpXfKOvR3np/sIO/bcw5rLSmNmCzh2OkzuwODBfBSCs=;
+ b=ndG8cFwi4OvHrdGhfS6oTekIINOSMhMMJc0IvQBdV5wcq5mE4cXAwZtuYMFvrjJNXIKJR+
+ 9Cp118556v0j2R+3UQyGB3Kmief67FHcsCpElkiOH5Dif3KuVLogPhgOowFAffGWNk2I48
+ 37+HupFaKDXdnAizp9YN4HL8l59UW3FaTiIuY2ZSRQgxPNbmMjq8euFUPxhDMNZ6dK+6CB
+ aahmxJO4mYdQcDAKxLI4HDCnz0COlAyeb6yycqed3yEpLweRehEiVPki+7KscV/NpxU5FK
+ VlV5J8LMOUbcIaMKUVJ8MWWJw01mhkXKALWJvW4/nH7/w8IAY7CLtxPvwkPwoA==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Subject: [PATCH 00/10] drm/bridge: handle refcounting for bridge-only
+ callers of drm_of_find_panel_or_bridge()
+Date: Mon, 13 Apr 2026 15:58:32 +0200
+Message-Id: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAIj23GkC/y2NWwrCMBAAr1L220CSVhGvIlLyWOtKTMImFaH07
+ o3Vz2FgZoGCTFjg0i3A+KZCKTZQhw7cw8QJBfnGoKU+yUFJ4fklLJNvxoSQnJiw5rmKbCKGMfH
+ 4l4M+SmX7MxrjodUy450+++l6+3GZ7RNd/eZhXTcyVXZEiwAAAA==
+X-Change-ID: 20260410-drm-bridge-alloc-getput-panel_or_bridge-42501b38eaad
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Michal Simek <michal.simek@amd.com>
+Cc: Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+X-Mailer: b4 0.15.1
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,30 +85,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+This series converts all the bridge-only callers of the deprecated
+drm_of_find_panel_or_bridge() API to a new, simpler API that handles bridge
+refcounting.
 
-On Mo, 2026-04-13 at 17:14 +0530, Advait Dhamorikar wrote:
-> The LCDIF controller expects framebuffer pitch to be aligned to a
-> 64 byte boundary for reliable scanout.
->
-> While byte-granular pitches are
-> supported by the interface, the i.MX8MP reference manual
-> recommends 64-byte alignment for optimal operation.
->
-> Corrupted output was observed with XR24 framebuffers where a pitch of
-> 4320 bytes caused visible corruption and choppy display, while an aligned
-> pitch of 4352 bytes worked correctly.
+== Series description
 
-This happens to be divisible by 256, which is is the burst size
-currently set in the undocumented CTRLDESCL0_3 register fields,
-according to the comment in lcdif_set_mode().
+ * The first patch introduces of_drm_get_bridge_by_endpoint() as a
+   replacement for bridge-only calls to drm_of_find_panel_or_bridge(); the
+   new function is simpler and returns a refcounted bridge
+ * The following patches convert all bridge-only users to the new API
+ * The last patch forbids new bridge-only calls to
+   drm_of_find_panel_or_bridge()
 
-I wonder if setting 4320 bytes stride works if you reduce the burst
-size, for example by reverting commit 2215cb3be5c2 ("drm: lcdif: change
-burst size to 256B") to test.
+== Grand plan
 
-If that is the case, it might be better to allow unaligned pitches but
-configure the burst size depending on pitch alignment.
+This is part of the work to support hotplug of DRM bridges. The grand plan
+was discussed in [0].
 
-regards
-Philipp
+Here's the work breakdown (➜ marks the current series):
+
+ 1. ➜ add refcounting to DRM bridges struct drm_bridge,
+      based on devm_drm_bridge_alloc()
+    A. ✔ add new alloc API and refcounting (v6.16)
+    B. ✔ convert all bridge drivers to new API (v6.17)
+    C. ✔ kunit tests (v6.17)
+    D. ✔ add get/put to drm_bridge_add/remove() + attach/detach()
+         and warn on old allocation pattern (v6.17)
+    E. ➜ add get/put on drm_bridge accessors
+       1. ✔ drm_bridge_chain_get_first_bridge(), add cleanup action (v6.18)
+       2. ✔ drm_bridge_get_prev_bridge() (v6.18)
+       3. ✔ drm_bridge_get_next_bridge() (v6.19)
+       4. ✔ drm_for_each_bridge_in_chain() (v6.19)
+       5. ✔ drm_bridge_connector_init (v6.19)
+       6. … protect encoder bridge chain with a mutex
+       7. ➜ of_drm_find_bridge
+          a. ✔ add of_drm_get_bridge() (v7.0),
+               convert basic direct users (v7.0-v7.1)
+          b. ✔ convert direct of_drm_get_bridge() users, part 2 (v7.0)
+          c. ✔ convert direct of_drm_get_bridge() users, part 3 (v7.0)
+          d. ✔… convert direct of_drm_get_bridge() users, part 4
+                (some v7.1, some pending)
+          e. ➜ convert bridge-only drm_of_find_panel_or_bridge() users
+       8. drm_of_find_panel_or_bridge, *_of_get_bridge
+       9. ✔ enforce drm_bridge_add before drm_bridge_attach (v6.19)
+    F. ✔ debugfs improvements
+       1. ✔ add top-level 'bridges' file (v6.16)
+       2. ✔ show refcount and list lingering bridges (v6.19)
+ 2. … handle gracefully atomic updates during bridge removal
+    A. ✔ Add drm_bridge_enter/exit() to protect device resources (v7.0)
+    B. … protect private_obj removal from list
+    C. ✔ Add drm_bridge_clear_and_put() (v7.1)
+ 3. … DSI host-device driver interaction
+ 4. ✔ removing the need for the "always-disconnected" connector
+ 5. … Migrate i.MX LCDIF driver to bridge-connector
+ 6.   DRM bridge hotplug
+    A.   Bridge hotplug management in the DRM core
+    B.   Device tree description
+
+[0] https://lore.kernel.org/lkml/20250206-hotplug-drm-bridge-v6-0-9d6f2c9c3058@bootlin.com/#t
+
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+---
+Luca Ceresoli (10):
+      drm/bridge: add of_drm_get_bridge_by_endpoint()
+      drm/msm/hdmi: switch to of_drm_get_bridge_by_endpoint()
+      drm/hisilicon/kirin: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: chrontel-ch7033: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: lontium-lt9611uxc: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: lt9611: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: adv7511: switch to of_drm_get_bridge_by_endpoint()
+      drm/bridge: lt8713sx: switch to of_drm_get_bridge_by_endpoint()
+      drm: zynqmp_dp: switch to of_drm_get_bridge_by_endpoint()
+      drm: of: forbid bridge-only calls to drm_of_find_panel_or_bridge()
+
+ drivers/gpu/drm/bridge/adv7511/adv7511.h     |  1 -
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c |  8 ++---
+ drivers/gpu/drm/bridge/chrontel-ch7033.c     | 24 +++++++--------
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c    |  7 ++---
+ drivers/gpu/drm/bridge/lontium-lt9611.c      |  5 ++-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c   |  5 ++-
+ drivers/gpu/drm/drm_bridge.c                 | 46 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_of.c                     | 26 ++++++++--------
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c |  4 +--
+ drivers/gpu/drm/msm/hdmi/hdmi.c              |  3 +-
+ drivers/gpu/drm/xlnx/zynqmp_dp.c             | 10 +++---
+ include/drm/drm_bridge.h                     |  9 ++++++
+ 12 files changed, 97 insertions(+), 51 deletions(-)
+---
+base-commit: f9ef69563cc82e908e1ce84fd135d3290fb65cde
+change-id: 20260410-drm-bridge-alloc-getput-panel_or_bridge-42501b38eaad
+
+Best regards,
+--  
+Luca Ceresoli <luca.ceresoli@bootlin.com>
+
