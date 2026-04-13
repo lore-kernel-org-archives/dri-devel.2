@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 111F5F34C53
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:32:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AE00F34C4E
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:33:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 797CD10E45B;
-	Mon, 13 Apr 2026 13:32:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3F0010E44E;
+	Mon, 13 Apr 2026 13:32:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JlQ1x4pD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZgKPiaSS";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B46C10E455;
- Mon, 13 Apr 2026 13:32:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3000510E44E;
+ Mon, 13 Apr 2026 13:32:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776087175; x=1807623175;
+ t=1776087178; x=1807623178;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kq6Gkw/8QZBEQa3KLO4uX00J2JXASuixfjJSwcN8r1M=;
- b=JlQ1x4pDVPiShj/E0UxLrRrxwhJCc3CULxfetbf8wNSP8QJEYPhUX1Pu
- LhQcWh9hTr7B6SSqnxZtzeb0zPc+c9wV6rFfAlaMWusaWC5QE0pgzflV+
- cx5/Rc8JXqDOTNQ0/fytxbg5j4Qr+otZYqRjJIt3Yjo1WPEWrtfNK5UFm
- /F4EI8azjxHXKf2wjB8iCauzRT62KZtGqDXssKjfKleYW6XJ3j8skBQj0
- XDKWCriXljONSFf4MhWcrN2LTf2F8gf058UGup0C/Bdm9UzzOrbhHzrrN
- cr6+pClP4NgLr1nvzaJCs1wO+FE+ASRjoFYJQpMZfV4gKCYNN5/zHe276 w==;
-X-CSE-ConnectionGUID: 1Oyz/PX2Ta+DnGiORsifcw==
-X-CSE-MsgGUID: oJmrRm98RKisza4u1RSXmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="94594673"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="94594673"
+ bh=0cvXIurc1UdqWUHQopaYIdoGDYkC71obgDeLZQM9WNo=;
+ b=ZgKPiaSSMneN3+SQ/0VxFsUtEI46Pbw/MlAuq7GbwlTrymqo3nKkY0Pf
+ yTfzp1k5PbrWYA/5FFtMoo4X4+iTh5Kf8GqDUBk7B2gz6/Z1ZFV4xtuke
+ YaR9U+zqL2DgDE31ImzWCI5HcP2up+62ya/LwrrIAYXZdjCKQZHCaI2wv
+ GLTjbB8QzByIbL74Hkpyn3osK/jgKJgoUEiWNLXeIUi+O7bwyVwyLqyyy
+ 5P7FGVoGX2Z3ZRFm1HtOe6l8zifvD8H3KG7uHKu+8XD6j9T387iDFve+V
+ phhOubV9oxJGq4yr5XsCn7jYrM9SdVk/xXbbeEw3eJ3BeeKzXSIWmTW0p Q==;
+X-CSE-ConnectionGUID: +6XUJEGJRBSIr0RdoTL0qg==
+X-CSE-MsgGUID: s4YKA0pgQ6KlIyPTZNeUkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="94594705"
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="94594705"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 06:32:54 -0700
-X-CSE-ConnectionGUID: iQ6Wrf2rR3e4+HmD7aCFkQ==
-X-CSE-MsgGUID: 5jiWQQ6QSAqo6wEtlrE+dg==
+ 13 Apr 2026 06:32:58 -0700
+X-CSE-ConnectionGUID: zje9tYp0QnqdR/h7LgcS4w==
+X-CSE-MsgGUID: aFGmsjqQQwqc9IhGL3FF3w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="229659660"
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="229659694"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa009.jf.intel.com with ESMTP; 13 Apr 2026 06:32:50 -0700
+ by orviesa009.jf.intel.com with ESMTP; 13 Apr 2026 06:32:54 -0700
 From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  rodrigo.vivi@intel.com
@@ -48,9 +48,10 @@ Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
  badal.nilawar@intel.com, riana.tauro@intel.com, karthik.poosa@intel.com,
  sk.anirban@intel.com, raag.jadav@intel.com,
  Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v4 2/4] drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
-Date: Mon, 13 Apr 2026 19:00:16 +0530
-Message-ID: <20260413133013.560239-8-mallesh.koujalagi@intel.com>
+Subject: [PATCH v4 3/4] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET
+ recovery method
+Date: Mon, 13 Apr 2026 19:00:17 +0530
+Message-ID: <20260413133013.560239-9-mallesh.koujalagi@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260413133013.560239-6-mallesh.koujalagi@intel.com>
 References: <20260413133013.560239-6-mallesh.koujalagi@intel.com>
@@ -71,53 +72,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)) recovery method to handle
-scenarios requiring device power cycle.
+When ``WEDGED=cold-reset`` is sent, it indicates a non-recoverable
+device error, only a full power cycle can restore the device.
 
-This method addresses cases where other recovery mechanisms
-(driver reload, PCIe reset, etc.) are insufficient to restore device
-functionality. When set, it indicates to userspace that only device power
-cycle can recover the device from its current error state. The cold reset
-method serves as a last resort when all other recovery options have been
-exhausted.
+v2:
+- Add several instead of number to avoid update. (Jani)
 
 v3:
-- Update any scenario that requires cold-reset. (Riana)
+- Update document with generic scenario. (Riana)
+- Consistent with terminology. (Raag)
+- Remove already covered information.
 
 v4:
-- Rename cold reset to power cyclce. (Raag)
+- Update doc. (Raag/Riana)
+- Change commit message. (Raag)
 
 Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 ---
- drivers/gpu/drm/drm_drv.c | 2 ++
- include/drm/drm_device.h  | 1 +
- 2 files changed, 3 insertions(+)
+ Documentation/gpu/drm-uapi.rst | 60 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 59 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 985c283cf59f..8c0236e2e6a6 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -535,6 +535,8 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
- 		return "bus-reset";
- 	case DRM_WEDGE_RECOVERY_VENDOR:
- 		return "vendor-specific";
-+	case DRM_WEDGE_RECOVERY_COLD_RESET:
-+		return "cold-reset";
- 	default:
- 		return NULL;
- 	}
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index bc78fb77cc27..3e386eb42023 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -37,6 +37,7 @@ struct pci_controller;
- #define DRM_WEDGE_RECOVERY_REBIND	BIT(1)	/* unbind + bind driver */
- #define DRM_WEDGE_RECOVERY_BUS_RESET	BIT(2)	/* unbind + reset bus device + bind */
- #define DRM_WEDGE_RECOVERY_VENDOR	BIT(3)	/* vendor specific recovery method */
-+#define DRM_WEDGE_RECOVERY_COLD_RESET	BIT(4)	/* full device cold reset */
+diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+index 579e87cb9ff7..0b87c8ed760d 100644
+--- a/Documentation/gpu/drm-uapi.rst
++++ b/Documentation/gpu/drm-uapi.rst
+@@ -418,7 +418,7 @@ needed.
+ Recovery
+ --------
  
- /**
-  * struct drm_wedge_task_info - information about the guilty task of a wedge dev
+-Current implementation defines four recovery methods, out of which, drivers
++Current implementation defines several recovery methods, out of which, drivers
+ can use any one, multiple or none. Method(s) of choice will be sent in the
+ uevent environment as ``WEDGED=<method1>[,..,<methodN>]`` in order of less to
+ more side-effects. See the section `Vendor Specific Recovery`_
+@@ -435,6 +435,7 @@ following expectations.
+     rebind          unbind + bind driver
+     bus-reset       unbind + bus reset/re-enumeration + bind
+     vendor-specific vendor specific recovery method
++    cold-reset      unbind + remove device + slot power cycle + rescan
+     unknown         consumer policy
+     =============== ========================================
+ 
+@@ -447,6 +448,14 @@ debug purpose in order to root cause the hang. This is useful because the first
+ hang is usually the most critical one which can result in consequential hangs
+ or complete wedging.
+ 
++Cold Reset Recovery
++-------------------
++
++When ``WEDGED=cold-reset`` is sent, it indicates a non-recoverable device error,
++only a full power cycle can restore the device.
++
++This method is used by devices that are plugged directly into the PCIe slot.
++
+ Vendor Specific Recovery
+ ------------------------
+ 
+@@ -524,6 +533,55 @@ Recovery script::
+     echo -n $DEVICE > $DRIVER/unbind
+     echo -n $DEVICE > $DRIVER/bind
+ 
++Example - cold-reset
++--------------------
++
++Udev rule::
++
++    SUBSYSTEM=="drm", ENV{WEDGED}=="cold-reset", DEVPATH=="*/drm/card[0-9]",
++    RUN+="/path/to/cold-reset.sh $env{DEVPATH}"
++
++Recovery script::
++
++    #!/bin/sh
++
++    [ -z "$1" ] && echo "Usage: $0 <device-path>" && exit 1
++
++    # Get device
++    DEVPATH=$(readlink -f /sys/$1/device 2>/dev/null || readlink -f /sys/$1)
++    DEVICE=$(basename $DEVPATH)
++
++    echo "Cold reset: $DEVICE"
++
++    # Try slot power reset first
++    SLOT=$(find /sys/bus/pci/slots/ -type l 2>/dev/null | while read slot; do
++	    ADDR=$(cat "$slot" 2>/dev/null)
++	    [ -n "$ADDR" ] && echo "$DEVICE" | grep -q "^$ADDR" && basename $(dirname "$slot") && break
++    done)
++
++    if [ -n "$SLOT" ]; then
++	echo "Using slot $SLOT"
++
++	# Unbind driver
++	[ -e "/sys/bus/pci/devices/$DEVICE/driver" ] && \
++	echo "$DEVICE" > /sys/bus/pci/devices/$DEVICE/driver/unbind 2>/dev/null
++
++	# Remove device
++	echo 1 > /sys/bus/pci/devices/$DEVICE/remove
++
++	# Power cycle slot
++	echo 0 > /sys/bus/pci/slots/$SLOT/power
++	sleep 2
++	echo 1 > /sys/bus/pci/slots/$SLOT/power
++	sleep 1
++
++	# Rescan
++	echo 1 > /sys/bus/pci/rescan
++	echo "Done!"
++    else
++	echo "No slot found"
++    fi
++
+ Customization
+ -------------
+ 
 -- 
 2.34.1
 
