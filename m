@@ -4,80 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A46F34C52
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:06:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 704CFF34C51
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 13:09:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A13710E438;
-	Mon, 13 Apr 2026 13:06:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9B6310E356;
+	Mon, 13 Apr 2026 13:09:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EUuZmZib";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jT41lC8D";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2054A10E435;
- Mon, 13 Apr 2026 13:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776085568; x=1807621568;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=m1GPLNSP07gTZEdCOrDIkYV5h1LGGTFSBOSRoqBTE9M=;
- b=EUuZmZibt5qOTeEHOj8Ya/a8UyrnzJ53p4xjOTR2ePxO15AmYKU4hPA0
- tyLRu1Z4kgey8xDRl6AAdZadA1/X66MibGkfij7XFeoxvdqbghbKjxb3U
- mfSzne+MhzB0hmbXnpWSMBYbUChkO8Kcny3f+5+ZAj6Mycd1BHD4uOptQ
- wS14aCzp9kZiDEugVWvnL51NXHWyvS3ZcADppoCrTO4loicAtW3AEyUDu
- ux/9HBUOSv6FXB0IGVh8WMNV2DFb4CsPM9NlLgP7W3ZvxYZolgQxCAQWy
- iVKZeiwcqNsyVM/6rUs/FvNT8eb3hYGwxb2BuK/FwH0jlJlD1DCeMjup0 g==;
-X-CSE-ConnectionGUID: hOdI1zHbSLSaeWWzHY5xqA==
-X-CSE-MsgGUID: C6iXBJUqSk+9L3a3sDDhgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="76926672"
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="76926672"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 06:06:07 -0700
-X-CSE-ConnectionGUID: XTvhLMeDSvSBM281Sg4XIw==
-X-CSE-MsgGUID: Tk8VfxcDR0yDidSuU528tQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="231507270"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.246.182])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2026 06:05:57 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kory Maincent <kory.maincent@bootlin.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave
- Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>, Eric
- Anholt <eric@anholt.net>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Chris Wilson
- <chris@chris-wilson.co.uk>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, Mark Yacoub <markyacoub@google.com>, Sean
- Paul <seanpaul@google.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH RFC 10/12] drm/i915/display/dp: Adopt dp_connector
- helpers to expose link training state
-In-Reply-To: <20260413143402.76f5c3c9@kmaincent-XPS-13-7390>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
- <20260409-feat_link_cap-v1-10-7069e8199ce2@bootlin.com>
- <e253ca4fa0b493032a7b35a0a20689b9d9e0c4e7@intel.com>
- <20260413143402.76f5c3c9@kmaincent-XPS-13-7390>
-Date: Mon, 13 Apr 2026 16:05:53 +0300
-Message-ID: <9f4bb4501c4885f432cbe9b6a10b7d27e40b0876@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF0810E356
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 13:09:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8762760180;
+ Mon, 13 Apr 2026 13:09:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C03C2BCAF;
+ Mon, 13 Apr 2026 13:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776085786;
+ bh=QH4op4dHbe6CRQlnjS84cCg4rHaeQIrs68CfPk8Sve0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=jT41lC8DISD2F4dGfcj6RIGhv7q20V0phG9qjWx36XlwfbVdlOypTzNaIpOQ8Q2ii
+ UtSLRsvtJnn5JVqyZ8HYZS2NVu11vGe8lHEJnqPp/GzxhH/Ux/XlKSJVViP9xlifWc
+ RjGaBUSF/RR8yrW63l0DUgzdPM8MF8vv8wsozHSU25f4xdhWT2eDEuAckKWRMKkU4g
+ bRX2w/1ItePkQrGI8ZU39ySEBmDNvtcRmK28gJNPoS7jOUnIT6SBWuWGtKOrQh7WAC
+ ydicU1JytMrgmTLxCQDMdXz5gfTHK4DS5W6W4vpzEKLri9AW9xE9Q/yG2uGGNiQjea
+ Hzb1wWQyG9MTw==
+Message-ID: <c0506a61-c5fb-4962-8bf1-6715178860b2@kernel.org>
+Date: Mon, 13 Apr 2026 13:09:42 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misc: fastrpc: Add reference counting for fastrpc_user
+ structure
+To: Anandu Krishnan E <anandu.e@oss.qualcomm.com>, srini@kernel.org,
+ linux-arm-msm@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de,
+ ekansh.gupta@oss.qualcomm.com, stable@kernel.org
+References: <20260226151121.818852-1-anandu.e@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260226151121.818852-1-anandu.e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,124 +63,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 13 Apr 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
-> On Fri, 10 Apr 2026 19:26:53 +0300
-> Jani Nikula <jani.nikula@linux.intel.com> wrote:
->
->> On Thu, 09 Apr 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
->> > Switch the i915 DP connector initialization from drmm_connector_init()
->> > to drmm_connector_dp_init(), providing the source link capabilities
->> > (supported lane counts, link rates, DSC support, voltage swing and
->> > pre-emphasis levels).
->> >
->> > Add intel_dp_report_link_train() to collect the negotiated link
->> > parameters (rate, lane count, DSC enable, per-lane voltage swing and
->> > pre-emphasis) and report them via
->> > drm_connector_dp_set_link_train_properties() once link training completes
->> > successfully.
->> >
->> > Reset the link training properties via
->> > drm_connector_dp_reset_link_train_properties() when the connector is
->> > reported as disconnected or when the display device is disabled, so
->> > the exposed state always reflects the current link status.
->> >
->> > Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
->> > ---
->> >  drivers/gpu/drm/i915/display/intel_dp.c            | 31
->> > +++++++++++++++++++--- .../gpu/drm/i915/display/intel_dp_link_training.c  |
->> > 25 +++++++++++++++++ 2 files changed, 52 insertions(+), 4 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
->> > b/drivers/gpu/drm/i915/display/intel_dp.c index
->> > 2af64de9c81de..641406bdc0cc9 100644 ---
->> > a/drivers/gpu/drm/i915/display/intel_dp.c +++
->> > b/drivers/gpu/drm/i915/display/intel_dp.c @@ -45,6 +45,7 @@
->> >  #include <drm/display/drm_hdmi_helper.h>
->> >  #include <drm/drm_atomic_helper.h>
->> >  #include <drm/drm_crtc.h>
->> > +#include <drm/drm_dp_connector.h>
->> >  #include <drm/drm_edid.h>
->> >  #include <drm/drm_fixed.h>
->> >  #include <drm/drm_managed.h>
->> > @@ -6337,8 +6338,10 @@ intel_dp_detect(struct drm_connector *_connector,
->> >  	drm_WARN_ON(display->drm,
->> >  		    !drm_modeset_is_locked(&display->drm->mode_config.connection_mutex));
->> >  
->> > -	if (!intel_display_device_enabled(display))
->> > +	if (!intel_display_device_enabled(display)) {
->> > +		drm_connector_dp_reset_link_train_properties(_connector);
->> >  		return connector_status_disconnected;
->> > +	}
->> >  
->> >  	if (!intel_display_driver_check_access(display))
->> >  		return connector->base.status;
->> > @@ -6388,6 +6391,8 @@ intel_dp_detect(struct drm_connector *_connector,
->> >  
->> >  		intel_dp_tunnel_disconnect(intel_dp);
->> >  
->> > +		drm_connector_dp_reset_link_train_properties(_connector);
->> > +
->> >  		goto out_unset_edid;
->> >  	}
->> >  
->> > @@ -7162,10 +7167,12 @@ intel_dp_init_connector(struct intel_digital_port
->> > *dig_port, struct intel_connector *connector)
->> >  {
->> >  	struct intel_display *display = to_intel_display(dig_port);
->> > +	struct drm_connector_dp_link_train_caps link_caps;
->> >  	struct intel_dp *intel_dp = &dig_port->dp;
->> >  	struct intel_encoder *encoder = &dig_port->base;
->> >  	struct drm_device *dev = encoder->base.dev;
->> >  	enum port port = encoder->port;
->> > +	u32 *rates;
->> >  	int type;
->> >  
->> >  	if (drm_WARN(dev, dig_port->max_lanes < 1,
->> > @@ -7213,8 +7220,25 @@ intel_dp_init_connector(struct intel_digital_port
->> > *dig_port, type == DRM_MODE_CONNECTOR_eDP ? "eDP" : "DP",
->> >  		    encoder->base.base.id, encoder->base.name);
->> >  
->> > -	drmm_connector_init(dev, &connector->base,
->> > &intel_dp_connector_funcs,
->> > -			    type, &intel_dp->aux.ddc);
->> > +	intel_dp_set_source_rates(intel_dp);
->> > +	link_caps.nlanes = DRM_DP_1LANE | DRM_DP_2LANE | DRM_DP_4LANE;
->> > +	link_caps.nrates = intel_dp->num_source_rates;
->> > +	rates = kzalloc_objs(*rates, intel_dp->num_source_rates);
->> > +	if (!rates)
->> > +		goto fail;
->> > +
->> > +	for (int i = 0; i < intel_dp->num_source_rates; i++)
->> > +		rates[i] = intel_dp->source_rates[i];
->> > +
->> > +	link_caps.rates = rates;
->> > +	link_caps.dsc = true;  
->> 
->> You have a source, you have a sink, and you have a link between the two.
->> 
->> Source rates do not reflect the link rates common between source and
->> sink.
->> 
->> DSC depends on source and sink, and it's not statically "true" for
->> either, and depends on a bunch of things.
->
-> At init, we are reporting the capabilities of the source. So we list every
-> link rates that the source can achieve and we report that the source is DSC
-> capable which it is IIUC the code. Or maybe I am missing something?
-
-IMO link caps is the intersection of the source and sink caps. If the
-sink is unknown, i.e. its caps are the empty set, then the link caps
-should also be the empty set.
-
-If you need to know the source caps, then they need to be presented
-separately.
-
-Moreover, the source does not unconditionally support DSC. See
-intel_dp_has_dsc().
 
 
-BR,
-Jani.
+On 2/26/26 3:11 PM, Anandu Krishnan E wrote:
+> Add reference counting using kref to the fastrpc_user structure to
+> prevent use-after-free issues when contexts are freed from workqueue
+> after device release.
+> 
+> The issue occurs when fastrpc_device_release() frees the user structure
+> while invoke contexts are still pending in the workqueue. When the
+> workqueue later calls fastrpc_context_free(), it attempts to access
+> buf->fl->cctx in fastrpc_buf_free(), leading to a use-after-free:
 
--- 
-Jani Nikula, Intel
+I guess these are some of the pending invoke requests that are still
+processing and receive callback after user closes the device.
+
+> 
+>   pc : fastrpc_buf_free+0x38/0x80 [fastrpc]
+>   lr : fastrpc_context_free+0xa8/0x1b0 [fastrpc]
+>   ...
+>   fastrpc_context_free+0xa8/0x1b0 [fastrpc]
+>   fastrpc_context_put_wq+0x78/0xa0 [fastrpc]
+>   process_one_work+0x180/0x450
+>   worker_thread+0x26c/0x388
+> 
+> Implement proper reference counting to fix this:
+> - Initialize kref in fastrpc_device_open()
+> - Take a reference in fastrpc_context_alloc() for each context
+> - Release the reference in fastrpc_context_free() when context is freed
+> - Release the initial reference in fastrpc_device_release()
+> 
+> This ensures the user structure remains valid as long as there are
+> contexts holding references to it, preventing the race condition.
+> 
+> Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
+> Cc: stable@kernel.org
+> Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+> ---
+>  drivers/misc/fastrpc.c | 35 +++++++++++++++++++++++++++++++----
+>  1 file changed, 31 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+> index 47356a5d5804..3ababcf327d7 100644
+> --- a/drivers/misc/fastrpc.c
+> +++ b/drivers/misc/fastrpc.c
+> @@ -310,6 +310,8 @@ struct fastrpc_user {
+>  	spinlock_t lock;
+>  	/* lock for allocations */
+>  	struct mutex mutex;
+> +	/* Reference count */
+> +	struct kref refcount;
+>  };
+>  
+>  /* Extract SMMU PA from consolidated IOVA */
+> @@ -497,15 +499,36 @@ static void fastrpc_channel_ctx_put(struct fastrpc_channel_ctx *cctx)
+>  	kref_put(&cctx->refcount, fastrpc_channel_ctx_free);
+>  }
+>  
+> +static void fastrpc_user_free(struct kref *ref)
+> +{
+> +	struct fastrpc_user *fl = container_of(ref, struct fastrpc_user, refcount);
+> +
+> +	fastrpc_channel_ctx_put(fl->cctx);
+> +	mutex_destroy(&fl->mutex);
+> +	kfree(fl);
+> +}
+> +
+> +static void fastrpc_user_get(struct fastrpc_user *fl)
+> +{
+> +	kref_get(&fl->refcount);
+> +}
+> +
+> +static void fastrpc_user_put(struct fastrpc_user *fl)
+> +{
+> +	kref_put(&fl->refcount, fastrpc_user_free);
+> +}
+> +
+>  static void fastrpc_context_free(struct kref *ref)
+>  {
+>  	struct fastrpc_invoke_ctx *ctx;
+>  	struct fastrpc_channel_ctx *cctx;
+> +	struct fastrpc_user *fl;
+>  	unsigned long flags;
+>  	int i;
+>  
+>  	ctx = container_of(ref, struct fastrpc_invoke_ctx, refcount);
+>  	cctx = ctx->cctx;
+> +	fl = ctx->fl;
+>  
+>  	for (i = 0; i < ctx->nbufs; i++)
+>  		fastrpc_map_put(ctx->maps[i]);
+> @@ -521,6 +544,8 @@ static void fastrpc_context_free(struct kref *ref)
+>  	kfree(ctx->olaps);
+>  	kfree(ctx);
+>  
+> +	/* Release the reference taken in fastrpc_context_alloc() */
+> +	fastrpc_user_put(fl);
+>  	fastrpc_channel_ctx_put(cctx);
+>  }
+>  
+> @@ -628,6 +653,8 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+>  
+>  	/* Released in fastrpc_context_put() */
+>  	fastrpc_channel_ctx_get(cctx);
+> +	/* Take a reference to user, released in fastrpc_context_free() */
+> +	fastrpc_user_get(user);
+>  
+>  	ctx->sc = sc;
+>  	ctx->retval = -1;
+> @@ -658,6 +685,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+>  	spin_lock(&user->lock);
+>  	list_del(&ctx->node);
+>  	spin_unlock(&user->lock);
+> +	fastrpc_user_put(user);
+>  	fastrpc_channel_ctx_put(cctx);
+>  	kfree(ctx->maps);
+>  	kfree(ctx->olaps);
+> @@ -1606,11 +1634,9 @@ static int fastrpc_device_release(struct inode *inode, struct file *file)
+>  	}
+>  
+>  	fastrpc_session_free(cctx, fl->sctx);
+> -	fastrpc_channel_ctx_put(cctx);
+> -
+> -	mutex_destroy(&fl->mutex);
+> -	kfree(fl);
+>  	file->private_data = NULL;
+> +	/* Release the reference taken in fastrpc_device_open */
+> +	fastrpc_user_put(fl);
+
+Now that we are trying to handle(wait) for the cases where wq will get
+callbacks after the fd is closed, how are we making sure that memory
+associated with these invoke, init memory and mmaps are not released?
+
+
+
+Also now that we have a refcount for the fastrpc_user, is it possible to
+ remove the refcount on the context, as this seems redundant now, we
+could just use the user refcount instead. May be other patch..
+
+
+--srini
+>  
+>  	return 0;
+>  }
+> @@ -1654,6 +1680,7 @@ static int fastrpc_device_open(struct inode *inode, struct file *filp)
+>  	spin_lock_irqsave(&cctx->lock, flags);
+>  	list_add_tail(&fl->user, &cctx->users);
+>  	spin_unlock_irqrestore(&cctx->lock, flags);
+> +	kref_init(&fl->refcount);
+>  
+>  	return 0;
+>  }
+
