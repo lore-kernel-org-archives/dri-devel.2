@@ -4,110 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4376F34C43
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7965BF34C42
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 11:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFA0610E40C;
-	Mon, 13 Apr 2026 11:48:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE99B10E40D;
+	Mon, 13 Apr 2026 11:50:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=foss.st.com header.i=@foss.st.com header.b="MpXNKcqE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HO4ZB/8U";
 	dkim-atps=neutral
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013031.outbound.protection.outlook.com
- [40.107.162.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF4E10E40D
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:48:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fWmp1hhP6OqOwt6ucJWalK73XHlUgcIwg/bnEcTxIHpsAZ3nN8C2Jez+uC2oUd+Vxh/yzmcMPTlFwGiPfk4ZpclgmNKgwsm6U8Ms0P/aFRa99aM12KN7x2frN3A5ufXjtX+vikNizPz4YHNILCrHM1PHm1MzDTJUl0xdEaI6pMnEQMDHNyMuLJ6wP0DhaH2eQxuw6hwaogw5/bNA5s94TKD5/dvCoJEx1jcm/VBxnv5ZSCVLrfuCq/2gc0Ntg+0u75dOClrNZ/i8NuU4dYqcCvZaei0q6tUBM11ZWiUVBZgmARuZDKhFcnWrMTJ5A/tpSTK/NQTGHxerHu1L7/+ZaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2cBndj+1OrdzmEv+QgTGSQmNkLH35U4GrGYozwObmUY=;
- b=S6qW77r7FPWwdjWTlbDksuC/rTRmCZVUhxh/6nM+b34R9mnY/O3ibRRZUCQVrxYFfC6nSXqMLSWX4caz+3MKO1rCgH72EWE07+AGo/tON7A9GT6odrfqIyGUW3X5ifU/Pobm/Da+YTp/xfgmaK30WXzdPsiQHhOOhMxYtb6OREZlvppHygyiTSqZIM5kyb/kmHs03wrzx2NdqNJo5Y6NKW0dElB5GM/vm1PYWHoUNkM2c+t3VcijnHmG4tip6MWYSrKyLwJCmsCToq3yim2eu9rkt7QMT4h1VSH4LtHl0Rg4vOSPJE+/kQoMvVuy0zZXstAyEfjzbndU4nVzIAUcgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2cBndj+1OrdzmEv+QgTGSQmNkLH35U4GrGYozwObmUY=;
- b=MpXNKcqEtUDt8tJ17nhf6fYqJep/VELDiVbDcyTFNBLqx/Xce4HnXTUhX5e86xNNKO/DOjv0zBzSDdG+vHLFZ0Md+wzYQWwIClAcAb4mIe40F9d3LtPJ7zYk2O2KxI54FfzKhpAWXTltbcrzYiI3S72NslIzXjuDuVH1tlU3SfZAIETwrRg36PA7sSr3NhAnVkddqEF/tqcD1c0CAtwyeA0ZyCCvJT1ENWMrHB8KrqINp9rqX1M8IK3MmqiRPcn7lU9RmJxz8aR7KQeNMyadGZPpKoAAx6ukahCKFo4myQI/iXERjCfbUTXOUh7E53ph/n4/mtRqP7FuvU7Ig9gRPA==
-Received: from DB7PR05CA0020.eurprd05.prod.outlook.com (2603:10a6:10:36::33)
- by AM0PR10MB3537.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:155::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 11:48:47 +0000
-Received: from DB3PEPF0000885D.eurprd02.prod.outlook.com
- (2603:10a6:10:36:cafe::a) by DB7PR05CA0020.outlook.office365.com
- (2603:10a6:10:36::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
- 13 Apr 2026 11:48:47 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB3PEPF0000885D.mail.protection.outlook.com (10.167.242.8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Mon, 13 Apr 2026 11:48:47 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 13 Apr
- 2026 13:51:54 +0200
-Received: from localhost (10.252.11.107) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 13 Apr
- 2026 13:48:46 +0200
-From: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-To: <dri-devel@lists.freedesktop.org>, Marek Vasut <marex@nabladev.com>
-CC: Alexandre Torgue <alexandre.torgue@foss.st.com>, David Airlie
- <airlied@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Maxime Ripard
- <mripard@kernel.org>, Philippe Cornu <philippe.cornu@foss.st.com>, "Simona
- Vetter" <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, "Yannick
- Fertre" <yannick.fertre@foss.st.com>, <linux-arm-kernel@lists.infradead.org>, 
- <linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
-In-Reply-To: <20260409024928.344010-1-marex@nabladev.com>
-References: <20260409024928.344010-1-marex@nabladev.com>
-Subject: Re: [PATCH] drm/bridge: stm_lvds: Do not fail atomic_check on
- disabled connector
-Message-ID: <177608092576.35288.17760549377022484534.b4-ty@foss.st.com>
-Date: Mon, 13 Apr 2026 13:48:45 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B62110E0F7;
+ Mon, 13 Apr 2026 11:50:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776081007; x=1807617007;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Yq89AWeM65x6lSICr/3HDVFJkQA/EojNgtug9VdEils=;
+ b=HO4ZB/8UalBPbgK05vqWIYsH9OYumkMK0PS9MFyoFd2wi88RJlwq+p3w
+ eKluwhT0+nL8anbLz/20wmLoRDRSsoq0850avW85mkMEt57OBdO0md/n6
+ Q5imwxd6cKRtIVFDptqG/XNR2vLY/TEW1cadv9aHJg5buw6AVj9ctfRNn
+ 4N041spO/FJATTA8f/PepH9MfcRn3CzvqsuesngBfyocjXbL3R6Xc3AtT
+ Ai+bWmb8T3bC8XB+x0VWxERViCkBXTVcuI9Ul34VMTA9L3V82crAzUaam
+ 4gHARBTkIzAvpFnL5A/Edv89qMDuz9mDGtS7EpoU6b6CHQXzKCT9Wg9jb Q==;
+X-CSE-ConnectionGUID: nTnU0P3CSduo7824FUfQHg==
+X-CSE-MsgGUID: Q5T/DgEITESW1ZpGYT8+0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11757"; a="76046274"
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="76046274"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2026 04:50:07 -0700
+X-CSE-ConnectionGUID: /fLU7yZLSIOpyKcAJWJoDw==
+X-CSE-MsgGUID: 94GyNh0VQNG5vbuGU7wtnw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,177,1770624000"; d="scan'208";a="253163879"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.64])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2026 04:50:03 -0700
+Date: Mon, 13 Apr 2026 14:49:54 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Subject: Re: [PATCH 5/6] drm/i915/reset: Handle the display vs. GPU reset
+ deadlock using a custom dma-fence
+Message-ID: <adzYYqOkSfY9XP_m@intel.com>
+References: <20260408233458.22666-1-ville.syrjala@linux.intel.com>
+ <20260408233458.22666-6-ville.syrjala@linux.intel.com>
+ <44fa373c-6216-4cc4-a605-94776b3873ad@amd.com>
+ <adeLRHQ2omAv93yM@intel.com>
+ <cc51ea63-19b0-4352-9299-e5ab63f57ce4@amd.com>
+ <adyzR6ISo_idi38p@intel.com>
+ <b93c6c33-2d94-4da8-8e97-04c3bade2575@amd.com>
+ <ady-UMqIQUqmKsLv@intel.com>
+ <855c4188-3701-468f-bd78-8292d6143645@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
-X-Originating-IP: [10.252.11.107]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB3PEPF0000885D:EE_|AM0PR10MB3537:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7359a7d7-694e-470b-fac7-08de99529f5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: QdCrhCi2txi+JerRjYf6H4gFCC+wdFLQeDr0ZlNCrV7vHiCxTPKcG+SukU9L5b3PhcOcrCpZUTuQn8puwHdP6JFkFlR9YaVEQGBHmivCg8qBDAi1CpFceRd6y7n14ZUEhIhcoQiZY45VvKZm/kBec8tXn87cN/P1I6ONbWB9nZlTXJLn1UgVhxe5iH1NURMRQR48VM0qfzyjnfqA/AJxkQNmtroh5rfmeJ21a3+FpK9rZVms0D+wn5tLOEnJN8KR4KXhAxwtt16VR1/+iC2u9dhE1t4VkjL8CczSqr5L3TTlF8tc1CUAxh3T6Kw+Tq+2ssCBgFhqtoYTvE4ELl7RjEYaNAJc+YY9Yp2MxkQp/bmyZz0DlbN1jelYoDBS7CjTFaA8MYazbQIdarBy+vm4nZVEwDRGSgDPLNLI1heYnFDFIglnkIvCzApJ81A1j51utRVnk51F0tvUhlq3c/CAoKCqpDn6up106L4+yTnfzBZpeKh+Vuw0nKKZnbliJ/92NEPcjpDPRrFJTh4/jEXo/iBoA6sHmKGF4glnvhLUJbYJWnliGWYu9/l553VnlMoQBW4Cc4aZ9qivT+WOG+T3Mwa3tM39s0GTDW4j7kZ5ScK9rABkeocDx9WW2CVjqw7Vqer2pn14TkL4hdAg4okIjeD+PTsd9xsQjUtR5EuaGMUMjYmFqAbhxHssM932V/lIHzX9ArDXQasL8zNjKBaCcv9QWG9SKQ5RZvDTjByFPqZUXzuFFrEn1JYp1TuohwgKlyu/aNboX+ni/Zfeg28J+Q==
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EI0jKnUTLzDxuMvqa9tbcinCFwao1r6oks8anx/Sy1+u+XHkOSHmYQZAp7BR1821zwQQOXkpcfpKbdyJlXTPe34sSvS85QcZATWpM14oSZbdw+hYUZGdKi1TStePgNgkF+yiYjESAaQZm0ymcSrrYuDjeFuEOVKCl6QwLnzyWDe5PlFHQc+HMyjtCKAGOmHwVzuLURFKYTtnjbPFICn8H16Yg7QkQ9CcI3AWhIUGfc+pbjRC377bB/O7N7DM8Kj+7/bImp7Jp2b4Y3CE4JDpZPm3k9p0zNU+9Vsj76D9yvr33JHfJwm52Zk2s8vjlgvGo/gNGNVhnlZO91sxrjtA5GKhi3buGr6R1hds1pG/LpfFcP9UzgEn6Dt6YwXFC7HCDFkpezLVVJDMkIybjpNo+n9j6jBmelY3EnfuyRYuieHgUI1enaLGD6tDZVr3UhHi
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 11:48:47.2291 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7359a7d7-694e-470b-fac7-08de99529f5f
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB3PEPF0000885D.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB3537
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <855c4188-3701-468f-bd78-8292d6143645@amd.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,25 +86,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Thu, 09 Apr 2026 04:48:41 +0200, Marek Vasut wrote:
-> If the connector is disabled, the new connector state has .crtc field
-> set to NULL and there is nothing more to validate after that point.
-> The .crtc field being NULL is not an error. Test for .crtc being NULL,
-> and if it is NULL, exit early with return 0.
+On Mon, Apr 13, 2026 at 01:24:04PM +0200, Christian König wrote:
+> On 4/13/26 11:58, Ville Syrjälä wrote:
+> > On Mon, Apr 13, 2026 at 11:35:23AM +0200, Christian König wrote:
+> >> On 4/13/26 11:11, Ville Syrjälä wrote:
+> >>>>>> I think something is missing in my picture how that is supposed to work.
+> >>>>>
+> >>>>> The problem stems from the fact that on old platforms a GPU reset
+> >>>>> also resets the display hardware,
+> >>>>
+> >>>> Which is true for at least AMD GPUs and I think pretty much everybody else as well, but that wasn't so much of a problem so far.
+> >>>>
+> >>>>> and to do that safely we need:
+> >>>>> 1. shut down display
+> >>>>> 2. perform the GPU reset
+> >>>>> 3. restore the display hardware to its orignal state
+> >>>>
+> >>>> Mhm, I've recently talked with Michel about it and we confirmed that this is perfectly possible without issues. Adding Michel as well.
+> >>>>
+> >>>>> We just do that with essentially with a normal atomic commit.
+> >>>>
+> >>>> I think that is the source of the problem.
+> >>>>
+> >>>> I'm not an expert on that topic but amdgpu and tons of other drivers seem to just use drm_atomic_helper_shutdown() for that.
+> >>>
+> >>> drm_atomic_helper_shutdown() is definitely not the thing to use
+> >>> for this as it would clobber the stored kms state, leaving everything
+> >>> permanently disabled. The drm_atomic_helper_commit_duplicated_state()
+> >>> stuff i915 uses is the correct thing here.
+> >>>
+> >>> But for this problem it doesn't even matter which gets used. Either
+> >>> would get equally stuck behind a previous atomic commit waiting for
+> >>> its fences.
+> >>>
+> >>>>
+> >>>> What is i915 doing differently?
+> >>>
+> >>> I see zero code for any display reset stuff in any other driver. If
+> >>> amdgpu does anything it must be something completely custom, hidden
+> >>> somewhere deep.
+> >>
+> >> The display is just fully reset by any MODE1 reset, you don't need to do anything special for that.
+> > 
+> > You can't just ignore the fact that there may be a display hardware
+> > reprogramming already happening in parallel. Failing to follow the
+> > correct programming sequence is a recipe for even hard system hangs.
 > 
-> This fixes a failure in suspend/resume path, where the connector is
-> already disabled, but .atomic_check is called, fails, returns -EINVAL
-> and blocks the suspend entry.
+> Of course not. We have a RW lock to prevent concurrent HW access while a GPU reset is ongoing to prevent that.
+
+Now that you mention it, I remember that long ago I did something
+very similar for i915, but it required quite a bit of surgery to
+the atomic core code and Sima didn't want it so it never went in.
+
+Our modeset state is much more complex these days, so attempting
+to resurrect it now (and actually getting people to accept it)
+just for old hardware doesn't seem worth the effort.
+
+I think apart from the reset fence, the only other *practical* solution
+is to effectively revert Sima's commit 9db529aac938 ("drm/i915: More
+surgically unbreak the modeset vs reset deadlock") and go back to the
+full wedge (== cancel all in flight requests). It's a bit rude since
+it will also penalize completely innocent contexts. But meh.
+
+> > There is zero support in the atomic design for reordering commits,
+> > which is pretty much what would be needed. A generic solution would
+> > more or less involve a full redesign/rewrite of atomic.
 > 
-> [...]
+> Mhm, I need to ask our DC team and other contacts how that is handled at the moment for amdgpu.
+> 
+> But we clearly have the same problem and it doesn't require any hacks like that one here. So there must be a solution for it already.
 
-Applied, thanks!
+The hacks must be on the modeset side, since as mentioned atomic has
+zero support for this at the moment.
 
-[1/1] drm/bridge: stm_lvds: Do not fail atomic_check on disabled connector
-      commit: eecdd4bd6e47bf0c8ff1e049771fa5bab7074c7c
-
-Best regards,
 -- 
-Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-
+Ville Syrjälä
+Intel
