@@ -4,98 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C458F531C2
-	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 18:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65BA9F531C2
+	for <dri-devel@archiver.kernel.org>; Mon, 13 Apr 2026 18:23:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 879AC10E444;
-	Mon, 13 Apr 2026 18:18:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5AE10E500;
+	Mon, 13 Apr 2026 18:23:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3OEGx3Gm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AqOjuwgL";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1804A10E444
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:18:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lcW+bxlozvQA9YHfxcbrEZcce2sGB8T8i5vdLpXUtT5biL37CzOxl13gRFWxpbP+iUBW5k9bkYk2O76+9zGiBMo66qjxXqv0WKNmcu+IR2lDk4AhKqJzl+nPnhyBLrDnj/AuaB/ngPvx1UWDGV5LwcbRkixrQ5YMpv7LRPTIniuicGnCRdHAYcTuvPUfBP2f/hNlJ0+/ydyqFdjW7kvVr1po2DoEbKpFMHJ7OKJjVJ9MdSXv7pHGHDlIiHWnD9Q+HojO+DwM+sv7Jxl4QQoNqOFtRsbVK0uPGV9p8qNjwqla1p7z3tJsvwDdrQHC6++8rF8MVzY/ekfvsGHfEar1pA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V7GkJwlpQGK63K6d2Zv7Gb/BIElZg+IJCgNIMFrBHd8=;
- b=ATs+PNl2I0yzsI7otrCYRrymifhEqbjiEDG9DqDgfRZq27PjbH/Ir7RsLlv29OeIE4hKKf8jWhKM6U6y4Rux7q+99pxo0JDgVHQZ7rkiCny+R+kVPNAhPJoC5u31JwdNYA1QrZQyV01P8Y+SNQZRmVoYaBfD7Ko9XNQpRzP6y4GipldjmXiw2LBvClLnSM59nkf3S0LC229frYUG/YDIetxbSdgHNjWOAQVzXRlFdZ7ZDBQ6reGqmtNvsHNqs4q0XnYkCAZL0Rv7NcganrP56RCZl/RaZ0C6fCh3EtIcklaH2cmEJzk3T4hVYS8JPk1ri6PzVVLVO+uMYbR6Xs2CYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V7GkJwlpQGK63K6d2Zv7Gb/BIElZg+IJCgNIMFrBHd8=;
- b=3OEGx3GmbbhUjQOI6K9lAGs8tLmTIQH/TkSAqXxHcAOsHq+g/RJKTRNecCjCw4M6bMy0B9LCDpUVv5BFFI0hD34AK/EaQcWs8CnKaH164uZ5x5M+NVKkD1DhvbhjGn7yOl+e8+qOsNEYmR3a4SYUHeRumHYIgb6YD4BX7y2bceg=
-Received: from DM6PR08CA0053.namprd08.prod.outlook.com (2603:10b6:5:1e0::27)
- by IA1PR12MB7615.namprd12.prod.outlook.com (2603:10b6:208:428::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 18:18:46 +0000
-Received: from DS2PEPF000061C8.namprd02.prod.outlook.com
- (2603:10b6:5:1e0:cafe::e3) by DM6PR08CA0053.outlook.office365.com
- (2603:10b6:5:1e0::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
- 13 Apr 2026 18:18:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DS2PEPF000061C8.mail.protection.outlook.com (10.167.23.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Mon, 13 Apr 2026 18:18:46 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 13 Apr
- 2026 13:18:45 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 13 Apr 2026 13:18:45 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <maciej.falkowski@linux.intel.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
- <max.zhen@amd.com>, <sonal.santan@amd.com>
-Subject: [PATCH V1] accel/amdxdna: Fix order of canceled mailbox messages
-Date: Mon, 13 Apr 2026 11:18:43 -0700
-Message-ID: <20260413181843.670796-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECF0E10E13D
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 18:23:34 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1277863a912so391265c88.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:23:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776104614; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bhke5BQryCc+Dkvhq6oxRH0QXaSvCeMqUNXh9YOKgJOexN76TW3N2Akg9dEQB3dBdd
+ hTZiM6MrunM1K/iUPvd26CAVhNl1UtavjmuJqV7T0uMXYNoOGA8WiQ5PO37AyPDJ8TCG
+ PjDHJhLkvBsJw4azAskBjnRtA5zQ7V+bE+O8O6dSJr1o6ZiIDOlcHWD1GmqtlICq5GDh
+ uR3lfwm6kRXmMIofBMV0d/O6krSCy2aST6SPF9vv74rkq2vlJTbWdnYB+13rXpYusaMd
+ 4fXCrjdfaraInI8rcDPPtwnHbMhUl5TD5Hq7VFKkA8y7jnRB0QnVf6/L3qj0sNuOgcpj
+ he9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=An4JK7d4T1eGJnlpfGik9vJYn6Y98TDJK/A6PG9VAsg=;
+ fh=scGfJyHqs+fKJXhD8Eml+DYa50Av3mCtNWA2WMyOWYQ=;
+ b=XD0IpzUOAqm2fhp0N5sKPc53m0Cz1t+tluNW2xepjxfvnEF/3bMR5Bfgs+r2Am2F1u
+ jhD+KzS30xKp074CJjvnkizQOzUKpHt0+yCQH6NG5pIb2GhM2G7ueIsrRyx7wdzWyY1Q
+ nrgXbK3xvKtfSVNmV/kplXedf4xCKBikP0TxBpQkP6Mq1GaIVxu6vSzpQb40RhH2cYev
+ wYE/BJcHdwAMbJmHWLLeozz4mMVEajVkPh8n0AiE8dCBGfiFxW1V/3uCHeFuSz1t8dyZ
+ UxN1T8w1KqoCsRS7BCYJ6LG20eq4QF82yPP0GaZXej/I/Qo/gEWpLnM3dtXsUOa+LJlL
+ Vyrg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776104614; x=1776709414; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=An4JK7d4T1eGJnlpfGik9vJYn6Y98TDJK/A6PG9VAsg=;
+ b=AqOjuwgLkSTr8rOY1uUEbmK7Uls6ih0tqI33cI5bThYkl3JH9+dK+FyyD7mhA5VkxS
+ rmC947xUA/eMnO200N/+O5rvvmvYrkDSO6mcwXrHS2rixNEiucXn8ji6hGU1JbsFz8CT
+ ZOatGxs7rb9j1tvnPCkqfyenlb6V0HYkf4Wbu3OzdxUYZwTnSUpse9K9qC6WRivwZtbX
+ gwdwYzffEKs26fGPBeku8+bfzQP4o2yuds2Y5LM0+v3R/VKiX26DwJb7DDnpIjdnKPbZ
+ pz8cjuK6mQ4M5vZMk6eKrIFHTTKckyG5vmh72D3T+ER9Midk6lXGZQPWO4FXg2/85rQd
+ pyag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776104614; x=1776709414;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=An4JK7d4T1eGJnlpfGik9vJYn6Y98TDJK/A6PG9VAsg=;
+ b=GZdb97Vi3DC78Yqj6OwQOttZhVhoByMuviC4bwZbN82qW1p6EC/YyUrlpCCves7vZf
+ AmIeUuz4nN5xkV8W55S0wpBkjaWp6oWixwpO0z7qlmw/MWXpxDDxXe6ZM+9B3R4kkR4Y
+ EoK97FZxHJFd0ZQxYX8xU6FABbODe2+7NAG2oIX/1Dp9c5yM2PyUCm1ZrLWn37vfLZZJ
+ 0CUVVOXqOtMo1rRSAuoDXytlBndQGIjAFidOzm0m7epU+9f+PO9Exqlw98ea1mc/rUtw
+ r741icmHQgakX82/o88SnPLHyXmFXmGW3MpExMNaYmbJ8u49U1mlNQjB4EdgmHnt0Uj/
+ ARPQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9hlkxB93v3T5tY+w4sXPtx5CRaHxZ6QfvJxLSgO3wVWQns+4j19Y9XRdmQZPHLXKvFDNpU89g78ME=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy33hSkPw7mrxOCfzO19GgRlt67zf3nSv6YQR25FfKvhr6/PHMI
+ aKs5OKigyvUVmqIX+J4i9x084LsrALBiD/wp9SepnKYZG5JwpJNlKLoQkgw5WNmEOmQSMSdNNZV
+ eELsRphrgH2HTElVl6+3KSMjh6Qgw3bk=
+X-Gm-Gg: AeBDietzXIWhB0YTqpLSz7968vV9h+XNvr8Kwx8tjGGC73wEez1zJvq/5eWWzZFBiQ7
+ zkOFv/zWyOQik5WxiEeEsmMPqf06d6vg+qjX2oSUGil0mxyfGhNE/xVc6M40Clm/NpI0A6uM14x
+ rW2uC57NpBfBvNRGXlCnS1qMmk26YTi2bxrLxstYZHvhN/sJ/lixsMfIR/ZgUdzsb2KNMe3r/u4
+ dJwOcjfN0MMyGD4Avgftl3g2JRQCD1mVl+ctp7KWH07OXC6z+qM1Deop1/F6+PzrNRwawRTLnj5
+ 7stN1jtf6jZUdSTvndShy6mQc6lMRtPGigssorWCfecEYNz/5jGfBE2erxl/pm/GNUe+5A==
+X-Received: by 2002:a05:693c:3109:b0:2c4:76a3:bdfc with SMTP id
+ 5a478bee46e88-2d5838e93eemr2983048eec.0.1776104613801; Mon, 13 Apr 2026
+ 11:23:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C8:EE_|IA1PR12MB7615:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc16ff78-5dbd-4502-5a74-08de99891a53
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|376014|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: Fn3O1K0bVrdNavflWdQ4/FDONNLjGQdxyXlYk91Jy6Rnl/cmOsP+tLZu984cOaQoLzgfJdWmGF3fJJrbp7zDKtcgkcGiyah3NJtpIgO5o968QmRrB55N6eZYupMKzaPBlnfjrMT+/wisqrR3ddcUpRf9yLgTLxDvZ0eRXsUCF4IWggfomoZ6m91uOhwSnoMp/WunmdVV2aTcvLXzbkwyjdF9Xssfj4zGVu6t2i3kYOl7I+pcsRY96Hea+bVelL0ySjryGYDCcG9W8oPt1rr31XnnXMd5v6fM8AsFzJ/ua+4fwEftndkFtfkJG32QY3ZIIWMEN8w66IEytvH77a5ebZT1WNHPuscw4W2Z3qkLetSedZUcrpbFz2Y0V9qrABy49qAkJh47ah+LAX/aRt9eyi0Y6b3ohLSgTCACXvWblAjflcS0vpPsvs14EpSqS7rBnLSllWoIXZcbpldM/Er4rlWqrDNxKNpDMlfCfhntaTpuutUV7J9RstmekjrkrqIdOEDrHbQ8L/KttybDK0AEzThROwlczL2z4FxOYyklzt3OunZs9Dn0KQ/bQIBlXnah4Xd92mbUe+e2sHKeivZjUfJIEYXZYsVBYq5APMqRhAQkGX7R2cGkxCHB6RT21WLK2FwPShMK1/lDJ/sKxN91TzNcVqug/t7GmoIh96GLWUwQlh9NHKsYJhOY/2l8s7gZAwOwMURzzlTamjThi9p1qB0t65JfkvM97HuMRSC5cSIbmvrKdRjpqMniaFl6uexr3wpkBzvWEH61y0xHUTXZAA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: V0kWZqwiZIq+m35J21wQO6ShdqWvYPMvaEEmtkC/Oz0E737HOSe69mIQgtl5slWkn02AlR+uekdMuV+oarRr7y6vD7sX84JjgRB9qay/PnouAfeEJFOeqMH7RtLVXJfBhsAagvGsgkxVSBnExmbKm/qH3YWn7qPKycs3ZnmS8YVyZZez+pJT+OSLFa0bRBF3soHCiaj4akZVAIAwguBMM1nzTvmG1pmhx/3PX4gJ4zKNMgL6gtOqJXhkI3DfnL66eFtyrQ3/AXpdoFzUJkWVzsWOnnL6LU25MAoSyGgySy6mxfO75UyX0knJYzQLuAm1GQ7OcmOawriJbfbqpSBTec0GcdKvHItkQZLq6W1h3PMw/Q1/WT+nA8QVQZ/ZNAvczlwxAY5QuiW+55QIv5A6eiQJvN7a8wH30DJG1pqw//mAaKqHmh0Q3/l7UKFNdTtq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 18:18:46.3937 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc16ff78-5dbd-4502-5a74-08de99891a53
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7615
+References: <20260407181407.1052586-2-thorsten.blum@linux.dev>
+In-Reply-To: <20260407181407.1052586-2-thorsten.blum@linux.dev>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 13 Apr 2026 14:23:22 -0400
+X-Gm-Features: AQROBzCf-wMoHRshxqW11QnJtwMo1Vt8jMJXSXXZ-lSPV9mxoaWE_sl-W08jpOM
+Message-ID: <CADnq5_NVfEN9QcmuJJfUAw24MvoqsAoHStnTvM7XhrCj=87_GQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: replace nested min calls with min3
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,36 +107,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Mailbox message IDs are allocated cyclically. When destroying a mailbox
-channel, pending messages are canceled starting from message ID 0. This
-results in an incorrect cancellation order when the ID of the last posted
-message wraps around and is smaller than the ID of the first posted
-message.
+Applied.  Thanks!
 
-Fix this by canceling pending messages starting from the next available
-message ID, ensuring the correct ordering across wraparound.
-
-Fixes: a37d78470bcc ("accel/amdxdna: Replace idr api with xarray")
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/amdxdna_mailbox.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-index 84a7e92562ad..336e5e77f18a 100644
---- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-+++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-@@ -549,7 +549,9 @@ void xdna_mailbox_stop_channel(struct mailbox_channel *mb_chann)
- 	drain_workqueue(mb_chann->work_q);
- 
- 	/* We can clean up and release resources */
--	xa_for_each(&mb_chann->chan_xa, msg_id, mb_msg)
-+	xa_for_each_start(&mb_chann->chan_xa, msg_id, mb_msg, mb_chann->next_msgid)
-+		mailbox_release_msg(mb_chann, mb_msg);
-+	xa_for_each_range(&mb_chann->chan_xa, msg_id, mb_msg, 0, mb_chann->next_msgid - 1)
- 		mailbox_release_msg(mb_chann, mb_msg);
- 	xa_destroy(&mb_chann->chan_xa);
- 
--- 
-2.34.1
-
+On Wed, Apr 8, 2026 at 3:19=E2=80=AFAM Thorsten Blum <thorsten.blum@linux.d=
+ev> wrote:
+>
+> In dce6_available_bandwidth() and dce8_available_bandwidth(), replace
+> nested min() calls with min3().
+>
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> ---
+>  drivers/gpu/drm/radeon/cik.c | 2 +-
+>  drivers/gpu/drm/radeon/si.c  | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+> index 51a3e0fc2f56..a13635443833 100644
+> --- a/drivers/gpu/drm/radeon/cik.c
+> +++ b/drivers/gpu/drm/radeon/cik.c
+> @@ -9063,7 +9063,7 @@ static u32 dce8_available_bandwidth(struct dce8_wm_=
+params *wm)
+>         u32 data_return_bandwidth =3D dce8_data_return_bandwidth(wm);
+>         u32 dmif_req_bandwidth =3D dce8_dmif_request_bandwidth(wm);
+>
+> -       return min(dram_bandwidth, min(data_return_bandwidth, dmif_req_ba=
+ndwidth));
+> +       return min3(dram_bandwidth, data_return_bandwidth, dmif_req_bandw=
+idth);
+>  }
+>
+>  /**
+> diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
+> index 26197aceb001..4681ff28630a 100644
+> --- a/drivers/gpu/drm/radeon/si.c
+> +++ b/drivers/gpu/drm/radeon/si.c
+> @@ -2150,7 +2150,7 @@ static u32 dce6_available_bandwidth(struct dce6_wm_=
+params *wm)
+>         u32 data_return_bandwidth =3D dce6_data_return_bandwidth(wm);
+>         u32 dmif_req_bandwidth =3D dce6_dmif_request_bandwidth(wm);
+>
+> -       return min(dram_bandwidth, min(data_return_bandwidth, dmif_req_ba=
+ndwidth));
+> +       return min3(dram_bandwidth, data_return_bandwidth, dmif_req_bandw=
+idth);
+>  }
+>
+>  static u32 dce6_average_bandwidth(struct dce6_wm_params *wm)
