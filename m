@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7460FED7B9C
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 10:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16DFBED7B9D
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 10:35:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2A7F10E5B9;
-	Tue, 14 Apr 2026 10:27:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 789BB10E443;
+	Tue, 14 Apr 2026 10:35:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="JdIl6pFb";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="h57t1l5Q";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45D2710E5B9
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:27:41 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D34210E443
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:35:25 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id D2C801A3296;
- Tue, 14 Apr 2026 10:27:39 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 8DB0CC5AA9D;
+ Tue, 14 Apr 2026 10:36:00 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 9A2245FFBB;
- Tue, 14 Apr 2026 10:27:39 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 80B935FFBB;
+ Tue, 14 Apr 2026 10:35:23 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 351B410450970; 
- Tue, 14 Apr 2026 12:27:34 +0200 (CEST)
+ with ESMTPSA id F328610450E1B; 
+ Tue, 14 Apr 2026 12:35:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776162458; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776162922; h=from:subject:date:message-id:to:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=h8ey9CmN38Fhwlg8yQDoqTDnddfyH7yrk+3c7ZyI9Ls=;
- b=JdIl6pFb9bdbuXpenlZl46AJrCBnaogmstXLpxMVMJNeW/ib0YQorQO4t42dhhwhfc/qNI
- 900ZBrGyy1QLL7SrPWsWXNmZnqMjZm/V58EGxI23pHxtxSXgLGOZCJTkGVDPbaf5M84PPi
- Z9w/i7dN6FJypePxDlqQ/74HBlFXWO+NwYV9L/cCE9X8US0/i05r4zTCEUleWHsbSGs3Me
- ZnhuwKewgVdYRzt8iN+o+3abC/Q0RO1kby8wbfmdcJMzgE4rMxuR9Y8FssoQuWpA4baDJb
- rx9YXkZl690Y/o9ov7Tk3rUpWH5Hps25hoI5Y3ZML395ChLdxZ8q8W2UnWpHuQ==
+ bh=9IFAkSOFl3Fe8DBfy3FPEFfSzWS/W/Jp51ROqYyJGDU=;
+ b=h57t1l5Q9M447Q2KGx5eypXeu4l7lB3AHt31SZOe/CoMt37LhnWm66bDhaicSQCr5gH1xZ
+ nRbjphb8W6jsjG8RvDTdKpvhrp1nXo8qAYCIGVj1LIesC6XT/uLj+nz4+UGXpFtPBd2bS5
+ r7mU9zkpc88zjp2ZOI/9qmwFf92grsYn129w4yjBJc00WosAuLwnz7SgPgjDu4MQYvJXbr
+ 2ckFX2S5v2Kg6vJ3GvYiP0OACyyZsF+OI7ZpNFSLROw8oKLDFMerVPpBUIXkihtkMhwa+O
+ Jdb4jjVMLCkj3bgW4N1xsnq1OBoELHvcapqOh5NKWGNmwdYFB6Q+ijCxlttoTQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, 
- Alexey Brodkin <abrodkin@synopsys.com>, 
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Hui Pu <Hui.Pu@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Ian Ray <ian.ray@gehealthcare.com>, stable@vger.kernel.org
-In-Reply-To: <20260402-drm-arcgpu-fix-device-node-leak-v2-1-d773cf754ae5@bootlin.com>
-References: <20260402-drm-arcgpu-fix-device-node-leak-v2-1-d773cf754ae5@bootlin.com>
-Subject: Re: [PATCH v2] drm/arcpgu: fix device node leak
-Message-Id: <177616245447.642738.16922563942350413002.b4-ty@b4>
-Date: Tue, 14 Apr 2026 12:27:34 +0200
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
+ Douglas Anderson <dianders@chromium.org>, 
+ Manikandan Muralidharan <manikandan.m@microchip.com>, 
+ Kees Cook <kees@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Osama Abdelkader <osama.abdelkader@gmail.com>
+In-Reply-To: <20260403145208.15890-1-osama.abdelkader@gmail.com>
+References: <20260403145208.15890-1-osama.abdelkader@gmail.com>
+Subject: Re: [PATCH v2] drm/bridge: dw-mipi-dsi: Fix bridge leak when host
+ attach fails
+Message-Id: <177616291553.682248.11063878080834534262.b4-ty@b4>
+Date: Tue, 14 Apr 2026 12:35:15 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -70,21 +74,16 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Thu, 02 Apr 2026 18:42:20 +0200, Luca Ceresoli wrote:
-> This function gets a device_node reference via
-> of_graph_get_remote_port_parent() and stores it in encoder_node, but never
-> puts that reference. Add it.
-> 
-> There used to be a of_node_put(encoder_node) but it has been removed by
-> mistake during a rework in commit 3ea66a794fdc ("drm/arc: Inline
-> arcpgu_drm_hdmi_init").
-> 
-> [...]
+On Fri, 03 Apr 2026 16:52:05 +0200, Osama Abdelkader wrote:
+> dw_mipi_dsi_host_attach() and dw_mipi_dsi2_host_attach() call
+> drm_bridge_add() before pdata->host_ops->attach(). If attach fails,
+> the bridge stayed registered without drm_bridge_remove(), leaking the
+> bridge reference and leaving the device on the global bridge list.
 
 Applied, thanks!
 
-[1/1] drm/arcpgu: fix device node leak
-      commit: ad3ac32a3893a2bbcad545efc005a8e4e7ecf10c
+[1/1] drm/bridge: dw-mipi-dsi: Fix bridge leak when host attach fails
+      commit: be19b43f92fae4794f271ed9e338bdbcfa725aa2
 
 Best regards,
 -- 
