@@ -4,137 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32983ED7B93
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 09:52:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 443DBED7B95
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 09:52:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9281110E2A2;
-	Tue, 14 Apr 2026 09:52:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BA7D10E5BE;
+	Tue, 14 Apr 2026 09:52:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="nw4JxSAB";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HkQ7U3Vc";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bHiqGMki";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FWlKxMGb";
 	dkim-atps=neutral
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73D5810E5BE
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 09:51:59 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A7DB10E5BE
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 09:52:03 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63E6teD93681505
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 09:51:58 GMT
+ 63E6RIA1280834
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 09:52:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- HWChOupg+vdURK7dSsm/hBK2/Y/ha3fMXKiVhsxo7RE=; b=nw4JxSAB+NuLLXc3
- o9eOyVq2tF3RtFloo2HVbRw2HcgLJ7YYbUOgP1fFfY2tzfnlla1SaGqtutP+3KIE
- HqildVx+6zdcomNkiRfQZjBBvj5J8yU1sQAsKAxs5/JcIgPXKUGFM8NGsxVtoa0g
- TdWN9t4JA66fXchKPdVeigBAhjhFC0QVcOzuFtp8B1B9ckBZNsVLHcZDMg3LQsM9
- z4BZ2Pa3hzHGQ/Yuvn/1HG7XR56hBUbksxTQ4kT8vtwye+SYxGyc4yb5AbJGXK6m
- OpXqqfItSmFn47wq3XmBY1E8SxhcK3U+CPdBKE90mv4xb6PHFdIBD1DSwcoPOAEt
- mVyRsQ==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh87d25u1-1
+ 4MF4coyqO5NcC7m2HQ7/LzMIkAyMalp7SpzbxTYvrc4=; b=bHiqGMki65PNXwWu
+ gXNn0tbZTg1G5l8GfGJ4Pkp0yMcVwCUwNSP7dR04q5O8C1WP7ckzIlJu2BdY/BvL
+ LBycAzjEQXg8P+3DzmoMYlm1hB0iKBNIzylpkrssghagOmXAgPAS9k/Fbs/w9HJq
+ DJGj3cxxlP1+T6Br5v/Yd9AGjM1/mdf/HYHjchx16byeoS5rtSy78fE1HsXzif+V
+ ls0LGCwhg3kv21uXUt+2arqD5WPZ5Nyexw0WfRfpOB+kL27XfpYzaV2LZ2O0BBSq
+ syUTun0532GqMH/rXLxEd75Pqckkq+7DDn4KwFl/XPgz2lMzX9CXs8N4ssRm4YhQ
+ nCYIEw==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh86vj58t-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 09:51:58 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-82c7a84a43eso6501108b3a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 02:51:58 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 09:52:02 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-82c8768a704so2688079b3a.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 02:52:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776160317; x=1776765117;
+ d=oss.qualcomm.com; s=google; t=1776160321; x=1776765121;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=HWChOupg+vdURK7dSsm/hBK2/Y/ha3fMXKiVhsxo7RE=;
- b=HkQ7U3VcPJ+U5xJT8p3bRqYgG6SrbielMY8DuGVZjIGS8xf8Rxhk/PExwlsRGffsEw
- 9h5x2CHgkKFAXG8rhBO7sS7tH+lkiIwNyog7Xl4IayRtqoi6uMm7BL7WxwR65N5H+fFL
- LvDVPO0D1ivyOUGvh1wDKtI71teGPlGSSkbq4h1HsHop5aX3lENX/thHvXdcSCJEtKNF
- EtWkVYxVKnFs4bAnmLDXnQeTWp9sSlZKMxyRSGR4X260ZOJgzz0lEjyj3UoqisUSORiy
- Y3wC/EF5V9zJ7aPnwgcYKLv2xq/+/iuEpOaFz+AXpdu4wh2Gny4XrXbZDoKcE0beKV7H
- jIrg==
+ bh=4MF4coyqO5NcC7m2HQ7/LzMIkAyMalp7SpzbxTYvrc4=;
+ b=FWlKxMGbCUyLM7IxLHq59doq30c+cYbs0YOu2cLbfg6MlgZvczUoKl3ra9eW2Ox03w
+ z4evpR4+41uRqD0k3LTnu8m7VtPW6CvGpmYObmtLaTYohYQf2el3LAvTljgpzk9veY3b
+ sSe/bd6/dlYbfecN/87+gwi2NKCfcJzHSKepS3XJVwz7EVoH2PBXNUaOaHKYp+RcfBKF
+ eCG0QMUARkkKGQayrwMPka7EBmhxOyiVrA+ca6HZi/6M9KfrTyT+0ik+g9v3w6f+IZ+x
+ 0FYmM2vkwq9dPtJVa7tcw4CzHdwhYN1A762QwCHVCVJF0n0jGud+q+kPKgSugIW+L9iD
+ a92Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776160317; x=1776765117;
+ d=1e100.net; s=20251104; t=1776160321; x=1776765121;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=HWChOupg+vdURK7dSsm/hBK2/Y/ha3fMXKiVhsxo7RE=;
- b=EKQnwctUrzarEY38wP2OFMwmCPbBz+Oe2tHoR8k0eQPCxl0c3yR6NW8hWPjgZZI/LM
- UvYyZi8ifPgTqULPrJB8eXi4+zosY8d5MdiHRBwWjNhZLM1fTPMU4KvSGKGjQ83xUrm7
- KENtAwHk/MO9g/E/0poC9qQShO4lJbl8Bzba0A+4w7+fu5VrujXAtZog2BteHfzrfNcc
- 9hifZsy8kRXAAKBkcY9I15vEhRxPmPAt3+xW/rZqoTlvKgIQfMPOQQlQ9uH+l21zqRD7
- MayDBHXKSQr2czgsCLx1fuOOdeUomfCaSn+WUUa2ZNuVR5py2Rz6OXD+XQxithzTrMP+
- k9Zw==
+ bh=4MF4coyqO5NcC7m2HQ7/LzMIkAyMalp7SpzbxTYvrc4=;
+ b=QRmrgK+hRqlyoIv+yRVQbA1EqZtJTDQJT3FwjZHmIzW805MsEBfzYcl5KMyJ5mRsXx
+ 4g1w3eFzyru0mC6bC1CNRGHvOhkX3jGd8Wd6TzQFRmB0mSplb5HLW/cOkscw82lNy5mE
+ gh6EfZY2fWslgBPatuWiSpoMmJnd68ptmPx+aeMDwLE5yevWdeV75cYyqwPI0VzxJ5pS
+ tuPhZWmdGzzIH9h8WkRjGzcp24qoT1XjSwp+a2E8upB9Ngj1tipZjowjK1OghZr8e0J+
+ iULSs/jDyBKjn7AFkhTo3JigTSsrD5T6K3gPw5hElqWjJgU1zn1VexAe/hacXMhuNM8e
+ AK+g==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+sKd8XM66w4OcaxX6+E4Au1xhUUrV50cMaPc7GedGnVbf5JU8GmHD1CW24BUPMXxFWwpn+GpmGfAM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQYLQjQUmNZYBbuTyXvHiKSw12vSkusuaeRMl+6HjAgjK/u2SS
- mM/ek6BpvTWrejuiBMyfdbpzmLUEgoPYwGKl/b6WG1THGQrxMx3ag1lvOHkkgEatKEXpFzsu356
- Z0icBO7v5cmcl2CzWJjfe8sZ0KOA+ioJwp3jbP9m8rNVg++F87YuLBIJt33ErUzISEkh22SM=
-X-Gm-Gg: AeBDieso7z8Y1lHExK0ykGNf13vgb9yrtAPgxmizL45/QPSuxnG5U4L7SZlZrnIEJf8
- 1HiyAUDiVrCMB53O0DO3I7oET9m/5OdVSpwBPVlpBoXJZ80ptMZjVwX8qPWArldEWOam2lMVyE6
- Wp/usam3pBycdYOvfVGLONgyZFchE6+Q4yEFN/Uifa5WhxB5rr6Mqzm3ODttsp1DzTt9o32WAY7
- AARZ+Vzz3qD7KbFsi4Ja27CV3liR/J+2NQCr+JxSlXETaSU0a4erIqy2RAmRpxu4kymDLX7mL2m
- OF+X2ZV0KPqXh0VDs02SWnx2lcqC1YgG1UjImxlVKn4yGBmgkGVid3kXZIcS1gvcBsWYcH2M07+
- cfzyMfcvez/qN2GjeJYAw0E9TKOUMKJu+nXSHZ6EYLC9hZj0BYhER9idCqMRKezIzNqiLK6Nl8W
- BO7n/C3HwvEYUxHdpo
-X-Received: by 2002:a05:6a00:9508:b0:82f:50cd:e586 with SMTP id
- d2e1a72fcca58-82f50cded65mr3749896b3a.13.1776160317458; 
- Tue, 14 Apr 2026 02:51:57 -0700 (PDT)
-X-Received: by 2002:a05:6a00:9508:b0:82f:50cd:e586 with SMTP id
- d2e1a72fcca58-82f50cded65mr3749879b3a.13.1776160317029; 
- Tue, 14 Apr 2026 02:51:57 -0700 (PDT)
-Received: from [10.133.33.66] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82f0c343b16sm13872900b3a.23.2026.04.14.02.51.52
+ AFNElJ/5hK66AMvriAy3LGByNj1lst9nruvm8R8sGp2HXvGjCDI4iZrHtudb3bG4VWTGX3owbu8ilRJ8Agg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwKqTGXi6SIDlucP/+nsiUuzK5Bot5L/x2zXOOcEQzMp75xceH0
+ 1Vpun/Vys74PLS8m7A9zR7gWsPX03gCFFrBdzWUkPLFIexz8bxLAHtRbx5F1uXmlJY/PAnNHPHJ
+ LLafogTtEjtLf79I/652YRDNCHHzOcGATxYNf5Cf8ltHJWc0SXqVMQxQo5932PFtCMdWm4Kk=
+X-Gm-Gg: AeBDieuZWzASp6pU2+GHwvQLY+BMdx/j/Qqf9ISx/D+TWdkp31ZDCa38OKSCkJ5HRn1
+ o2Uqz6YArXqPJeKPg2Lhb7v7BEWV6TCeWfNkPXsBk21LkWC+srzUHQkA2FPIbKEr9H1WmHJ08XO
+ 11lMlsITh7c6pM8Nsq1PJnHh+eSVKGwOvFmdsPmfaPuEYnSGGVt6AoTPNSyHOPEwatjEZctsFHV
+ /JrARdJmuoUoppqE4y0xewUQYk0ZzIs4GVoyxMkZUEslrDsWUYhbyN//OW1h3kjHS2R0Gn7QBbA
+ TqBKdAoqvNp6LgWeWzazRx76sOqs0+xuBwTRlZ326SAjM62kWXW1zSlNkZJl1ONPD0y0Aash+fd
+ MEUfJX0PMMaAFXo7qsDLaI5zJd3RWeneJpFb/F0P/GUWGz2+JJjHU9w==
+X-Received: by 2002:a05:6a00:2d85:b0:81f:3bcb:af2a with SMTP id
+ d2e1a72fcca58-82f0c303511mr17536297b3a.26.1776160321548; 
+ Tue, 14 Apr 2026 02:52:01 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d85:b0:81f:3bcb:af2a with SMTP id
+ d2e1a72fcca58-82f0c303511mr17536273b3a.26.1776160321051; 
+ Tue, 14 Apr 2026 02:52:01 -0700 (PDT)
+Received: from [10.217.219.169] ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82f0c330925sm15955528b3a.15.2026.04.14.02.51.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Apr 2026 02:51:56 -0700 (PDT)
-Message-ID: <07ff4730-2efd-4e9d-b632-9fbb517179f9@oss.qualcomm.com>
-Date: Tue, 14 Apr 2026 17:51:51 +0800
+ Tue, 14 Apr 2026 02:52:00 -0700 (PDT)
+Message-ID: <dbcea41f-cf98-4654-bb30-49308a5422db@oss.qualcomm.com>
+Date: Tue, 14 Apr 2026 15:21:56 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 31/38] drm/msm/dp: add HPD callback for dp MST
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Subject: Re: [PATCH v4 5/9] bus: mhi: Add QDU100 variant and image_id firmware
+ fallback
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, andersson@kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>
-References: <20250825-msm-dp-mst-v3-0-01faacfcdedd@oss.qualcomm.com>
- <20250825-msm-dp-mst-v3-31-01faacfcdedd@oss.qualcomm.com>
- <pc4brjias4ixewzlsvnlhqhlz774z4p6aq7j4kldu5ze2e35sh@tsm2mtrkk3zi>
- <b5b3b1b8-ed48-429c-a87f-0278a6632313@oss.qualcomm.com>
- <tlt2ffn2xz3mpeoojcciieh35zc6pyowlkcjtxkkrnaj32enne@mbcrdrnkmaoz>
+ mhi@lists.linux.dev
+References: <20260319-sahara_protocol_new_v2-v4-0-47ad79308762@oss.qualcomm.com>
+ <20260319-sahara_protocol_new_v2-v4-5-47ad79308762@oss.qualcomm.com>
+ <5lfbhyzyyji6cuve3uzd26rfgnqotcupelppgehdj36dq7op6j@hn3jmhtqzntq>
 Content-Language: en-US
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-In-Reply-To: <tlt2ffn2xz3mpeoojcciieh35zc6pyowlkcjtxkkrnaj32enne@mbcrdrnkmaoz>
+From: Kishore Batta <kishore.batta@oss.qualcomm.com>
+In-Reply-To: <5lfbhyzyyji6cuve3uzd26rfgnqotcupelppgehdj36dq7op6j@hn3jmhtqzntq>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA5MiBTYWx0ZWRfXzvL89b+7x4FK
- 0KdzdgeRyCjWEYb1fDc7fqgCODAcVJ3hZ7NIV8dZRiTG0eenm9U9m7rdKKlg7Gcrx1AKVdDSWV+
- Vpf77Vw5eO7m+/ncRexUTGUgRpsCHOnKLvr226EU3D10PK+EIhJaewELps3d3WVQ5B28Xx/Wuyx
- P5RHlucUTSeX+QeOMMxtpVCvPXPJ72HmJ7VWgOny1VQX138YfVtdZaxW2wuaHdjPKxJnJjz857N
- Lj9qn2vz9YUjD5L9boGUGFE8nXnZH0FTPrfEjQj3Vuqk5PVReiQBdM6hi61aFmAQ0BI/01R6nol
- 9hDDQFQLQc3HjFJhW3eACj41PlTWwRkzBB4GnCxsXvjLOHOm2sgGkFgnRTn7sTrYmcRAPLp+iEG
- i8v+u7fnAQj4nCSIm86uXI970NKFIQfwFocJlGmhRWbiIEeRvqTDsnL4YqjHaZjAfE+Gg8d7Nwf
- yEvLA8c7GuDAwifZU5Q==
-X-Authority-Analysis: v=2.4 cv=N+8Z0W9B c=1 sm=1 tr=0 ts=69de0e3e cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: -mEUUOGuTKajmspWHmgho-c4JC5Mjg6q
+X-Authority-Analysis: v=2.4 cv=cffiaHDM c=1 sm=1 tr=0 ts=69de0e42 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=rS42QUC6qLDb_W9ZlKQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: 4gAVjhZ4QJ0_lVX7oQdfHBujxfB4NvaE
-X-Proofpoint-ORIG-GUID: 4gAVjhZ4QJ0_lVX7oQdfHBujxfB4NvaE
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=Io-4PmWlcMg8xS9VqXEA:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19
+ a=QEXdDO2ut3YA:10 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-ORIG-GUID: -mEUUOGuTKajmspWHmgho-c4JC5Mjg6q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDA5MiBTYWx0ZWRfX8PBDW7C4dc7U
+ PWYSzyZX0Ueg7xc1eIaQ0CNXFTm0g6+JH2IhvmbK9dZYmzbqMtLzmioUwRtHnJ1/4cBe2HGSQk4
+ yPfpjIWdq2mm2temb+rPO5jbQu9qC7kV/b2VB7NZxa3A2aGVkwkU8FhorR7bNt3UQXxyAsAyi5+
+ hgITZ9pTAsjhOpa8ZO+Mb1qrqIdS7I7ID7fQnChDZ0dF/bQUgg94hwc751Z0Gh0aBiXnvRMjs19
+ Q8E4Q2KaqWasuWczb0sgh4vOqJmdaX0KUjzFykM5afqzEXORdxqJRZURnoBR/hEKlTUE7A25SoZ
+ RnTVoNjR0imMKgKNpcT5CRKEQR6kkSDt8jxNpzzV1MM5Gc2h/qYGE2XmyFhI45OHD/6cI8IxPpB
+ TZ2wj93Ecg4kzruul7ZsUkpJa9CIfN4rD4JP4nVPZKdh2VGkQK1AR9Pxsubfu2wFTOyP8OIA55H
+ aTO4qwob4vPib1/Nkcg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-14_02,2026-04-13_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 phishscore=0
- priorityscore=1501 impostorscore=0 spamscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 adultscore=0 malwarescore=0 bulkscore=0
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140092
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -153,88 +149,73 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-
-On 3/25/2026 3:30 AM, Dmitry Baryshkov wrote:
-> On Tue, Mar 24, 2026 at 09:04:24PM +0800, Yongxing Mou wrote:
+On 4/13/2026 5:04 PM, Manivannan Sadhasivam wrote:
+> On Thu, Mar 19, 2026 at 12:01:45PM +0530, Kishore Batta wrote:
+>> The Sahara driver currently selects a firmware image table based on the
+>> attached device, but it does not recognize QDU100 devices that expose the
+>> protocol on the SAHARA MHI channel. As a result, the host cannot associate
+>> QDU100 devices with the correct firmware namespace during image transfer.
 >>
+>> Extend the probe-time variant selection to match the SAHARA MHI channel
+>> and associate it with the QDU100 firmware folder. Add an image_id based
+>> firmware lookup fallback for cases where an image does not have an explicit
+>> table entry. This allows required images to be provisioned by the platform
+>> without requiring device specific client drivers or additional registration
+>> mechanisms.
 >>
->> On 8/27/2025 2:40 AM, Dmitry Baryshkov wrote:
->>> On Mon, Aug 25, 2025 at 10:16:17PM +0800, Yongxing Mou wrote:
->>>> From: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>>
->>>> Add HPD callback for the MST module which shall be invoked from the
->>>> dp_display's HPD handler to perform MST specific operations in case
->>>> of HPD. In MST case, route the HPD messages to MST module.
->>>>
->>>> Signed-off-by: Abhinav Kumar <quic_abhinavk@quicinc.com>
->>>> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
->>>> ---
->>>>    drivers/gpu/drm/msm/dp/dp_display.c | 15 ++++++++++++---
->>>>    drivers/gpu/drm/msm/dp/dp_mst_drm.c | 34 ++++++++++++++++++++++++++++++++++
->>>>    drivers/gpu/drm/msm/dp/dp_mst_drm.h |  2 ++
->>>>    3 files changed, 48 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> index abcab3ed43b6da5ef898355cf9b7561cd9fe0404..59720e1ad4b1193e33a4fc6aad0c401eaf9cbec8 100644
->>>> --- a/drivers/gpu/drm/msm/dp/dp_display.c
->>>> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
->>>> @@ -500,9 +500,16 @@ static int msm_dp_display_handle_irq_hpd(struct msm_dp_display_private *dp)
->>>>    static int msm_dp_display_usbpd_attention_cb(struct device *dev)
->>>>    {
->>>> -	int rc = 0;
->>>> -	u32 sink_request;
->>>>    	struct msm_dp_display_private *dp = dev_get_dp_display_private(dev);
->>>> +	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
->>>> +	u32 sink_request;
->>>> +	int rc = 0;
->>>> +
->>>> +	if (msm_dp_display->mst_active) {
->>>> +		if (msm_dp_aux_is_link_connected(dp->aux) != ISR_DISCONNECTED)
->>>> +			msm_dp_mst_display_hpd_irq(&dp->msm_dp_display);
->>>> +		return 0;
->>>> +	}
->>>>    	/* check for any test request issued by sink */
->>>>    	rc = msm_dp_link_process_request(dp->link);
->>>> @@ -1129,8 +1136,10 @@ static irqreturn_t msm_dp_display_irq_thread(int irq, void *dev_id)
->>>>    	if (hpd_isr_status & DP_DP_HPD_UNPLUG_INT_MASK)
->>>>    		msm_dp_display_send_hpd_notification(dp, false);
->>>> -	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK)
->>>> +	if (hpd_isr_status & DP_DP_IRQ_HPD_INT_MASK) {
->>>>    		msm_dp_display_send_hpd_notification(dp, true);
->>>> +		msm_dp_irq_hpd_handle(dp, 0);
->>>
->>> Why is it a part of this patch?? It has nothing to do with MST.
->>>
->> Emm ... maybe here we can directly call msm_dp_mst_display_hpd_irq..
->> I tried an alternative approach by calling the MST IRQ handler from
->> msm_dp_bridge_hpd_notify(). I expected that when hpd_isr_status ==
->> DP_DP_IRQ_HPD_INT_MASK, the hpd_link_status read in
->> msm_dp_bridge_hpd_notify() would be ISR_IRQ_HPD_PULSE_COUNT. That way, we
->> could handle both SST and MST interrupt paths in msm_dp_irq_hpd_handle().
->> However, hpd_link_status only reports ISR_CONNECTED. So I had to move the
->> MST IRQ handling into the IRQ thread. Do you have any suggestions on this?
-> 
-> When are the link status bits updated? Please remember, we need to
-> support all three cases:
-> 
-> - Native DP, native DP HPD pin handling
-> - Native DP, DP HPD pin not handled by the controller
-> - DP AltMode, DP HPD pin not used at all
-> 
-> In the second and the third cases we will not be getting the IRQs.
-> Instead one of the next bridges (connector, EC, AltMode, etc.) will send
-> the HPD event, which lands in the .hpd_notify() callback.
-> 
-I added some logs and did some testing. I think 
-msm_dp_aux_is_link_connected() only shows the current HPD state. Since 
-IRQ HPD Pulse Count is very short, by the time we read 
-REG_DP_DP_HPD_INT_STATUS in the IRQ flow, the HPD state machine has 
-usually already finished pulse classification and returned to Connected.
+>> This change only affects devices matched on the SAHARA channel and does not
+>> change behavior for existing AIC100 and AIC200 devices.
+>>
+>> Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
+>> ---
+>>   drivers/bus/mhi/sahara/sahara.c | 77 ++++++++++++++++++++++++++++++++++++++---
+>>   1 file changed, 72 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/bus/mhi/sahara/sahara.c b/drivers/bus/mhi/sahara/sahara.c
+>> index 8f1c0d72066c0cf80c09d78bfc51df2e482133b9..4ea14c57774f51a778289d7409372a6ab21fea60 100644
+>> --- a/drivers/bus/mhi/sahara/sahara.c
+>> +++ b/drivers/bus/mhi/sahara/sahara.c
+>> @@ -234,6 +234,36 @@ static const char * const aic200_image_table[] = {
+>>   	[78] = "qcom/aic200/pvs.bin",
+>>   };
+>>   
+>> +static const char * const qdu100_image_table[] = {
+>> +	[5] = "qcom/qdu100/uefi.elf",
+>> +	[8] = "qcom/qdu100/qdsp6sw.mbn",
+>> +	[16] = "qcom/qdu100/efs1.bin",
+>> +	[17] = "qcom/qdu100/efs2.bin",
+>> +	[20] = "qcom/qdu100/efs3.bin",
+>> +	[23] = "qcom/qdu100/aop.mbn",
+>> +	[25] = "qcom/qdu100/tz.mbn",
+>> +	[29] = "qcom/qdu100/zeros_1sector.bin",
+>> +	[33] = "qcom/qdu100/hypvm.mbn",
+>> +	[34] = "qcom/qdu100/mdmddr.mbn",
+>> +	[36] = "qcom/qdu100/multi_image_qti.mbn",
+>> +	[37] = "qcom/qdu100/multi_image.mbn",
+>> +	[38] = "qcom/qdu100/xbl_config.elf",
+>> +	[39] = "qcom/qdu100/abl_userdebug.elf",
+>> +	[40] = "qcom/qdu100/zeros_1sector.bin",
+>> +	[41] = "qcom/qdu100/devcfg.mbn",
+>> +	[42] = "qcom/qdu100/zeros_1sector.bin",
+>> +	[45] = "qcom/qdu100/tools_l.elf",
+>> +	[46] = "qcom/qdu100/Quantum.elf",
+>> +	[47] = "qcom/qdu100/quest.elf",
+>> +	[48] = "qcom/qdu100/xbl_ramdump.elf",
+>> +	[49] = "qcom/qdu100/shrm.elf",
+>> +	[50] = "qcom/qdu100/cpucp.elf",
+>> +	[51] = "qcom/qdu100/aop_devcfg.mbn",
+>> +	[52] = "qcom/qdu100/fw_csm_gsi_3.0.elf",
+>> +	[53] = "qcom/qdu100/qdsp6sw_dtbs.elf",
+>> +	[54] = "qcom/qdu100/qupv3fw.elf",
+>> +};
+> Why the Sahara driver hardcodes these firmware names in the first place? Sahara
+> is just a protocol to transfer these images to the device, so this driver
+> shouldn't have any device specific info hardcoded. IMO, this should just act as
+> a pure library. These firmware names should come from MHI controller drivers
+> instead.
+>
+> - Mani
 
-Because of that, the condition hpd_link_status == 
-ISR_IRQ_HPD_PULSE_COUNT will usually not be hit.
-
-do you have any suggestion that in how to distinguish between an IRQ 
-event and a plug event in .hpd_notify() better? We probably don’t want 
-to introduce another state machine.
-
+ACK. I will move these image tables to respective MHI controller drivers 
+by implementing a registration mechanism.
+>
