@@ -4,60 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16DFBED7B9D
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 10:35:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E673BED7B9D
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 10:35:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 789BB10E443;
-	Tue, 14 Apr 2026 10:35:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEC310E591;
+	Tue, 14 Apr 2026 10:35:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="h57t1l5Q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WKPWgq5y";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D34210E443
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:35:25 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8DB0CC5AA9D;
- Tue, 14 Apr 2026 10:36:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 80B935FFBB;
- Tue, 14 Apr 2026 10:35:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id F328610450E1B; 
- Tue, 14 Apr 2026 12:35:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776162922; h=from:subject:date:message-id:to:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=9IFAkSOFl3Fe8DBfy3FPEFfSzWS/W/Jp51ROqYyJGDU=;
- b=h57t1l5Q9M447Q2KGx5eypXeu4l7lB3AHt31SZOe/CoMt37LhnWm66bDhaicSQCr5gH1xZ
- nRbjphb8W6jsjG8RvDTdKpvhrp1nXo8qAYCIGVj1LIesC6XT/uLj+nz4+UGXpFtPBd2bS5
- r7mU9zkpc88zjp2ZOI/9qmwFf92grsYn129w4yjBJc00WosAuLwnz7SgPgjDu4MQYvJXbr
- 2ckFX2S5v2Kg6vJ3GvYiP0OACyyZsF+OI7ZpNFSLROw8oKLDFMerVPpBUIXkihtkMhwa+O
- Jdb4jjVMLCkj3bgW4N1xsnq1OBoELHvcapqOh5NKWGNmwdYFB6Q+ijCxlttoTQ==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- Douglas Anderson <dianders@chromium.org>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Kees Cook <kees@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Osama Abdelkader <osama.abdelkader@gmail.com>
-In-Reply-To: <20260403145208.15890-1-osama.abdelkader@gmail.com>
-References: <20260403145208.15890-1-osama.abdelkader@gmail.com>
-Subject: Re: [PATCH v2] drm/bridge: dw-mipi-dsi: Fix bridge leak when host
- attach fails
-Message-Id: <177616291553.682248.11063878080834534262.b4-ty@b4>
-Date: Tue, 14 Apr 2026 12:35:15 +0200
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B85F10E591
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:35:55 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4436E6011F;
+ Tue, 14 Apr 2026 10:35:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B61C19425;
+ Tue, 14 Apr 2026 10:35:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776162954;
+ bh=SFNQ0GUXZDmko3umJzr38nltBojjjdV+yz2yRE036ik=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=WKPWgq5yvXTwdm6Mn7ddnAlqSEEiLBiWHTaX5mT5aGATcja8JjLui6ZcqNanm6scd
+ CvXrq5dpTAh4lfYq1EVZUX4GCculXV6aUZ8B2O66uXnN4hL8M3IpV0q1QnBYf/Cgl2
+ uXmzZTnbW+Tg8K5+cr8iHrkx2+6e8RjuZe77W4iUy0UXTXGq+qIpq/A/xcKV1UjzsD
+ tSBo0NXcGq1hWol0n071OCMjHVTW3JNe8xQS1eQwar0Cs0wcpqFjwIeRuJfCLbea1B
+ MZfrvQ0InJkZRVLl5oIPVYvATc3jjlfrLG2y30pSPcM877QPNc8FyNTCL8ekqjzoew
+ 0U2KV9PxBXr2w==
+Date: Tue, 14 Apr 2026 13:35:47 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: fengchengwen <fengchengwen@huawei.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
+ netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
+Subject: Re: [RFC] Proposal: Add sysfs interface for PCIe TPH Steering Tag
+ retrieval and configuration
+Message-ID: <20260414103547.GA361495@unreal>
+References: <6ea4c4c2-774e-aa76-3665-918e2a24cc84@huawei.com>
+ <20260413100152.GG21470@unreal>
+ <c3a6c6ca-3b71-476c-947a-5f2393d046bd@huawei.com>
+ <20260413191930.GP21470@unreal>
+ <b95ced54-339f-4859-b3eb-8bf261393ffc@huawei.com>
+ <20260414085723.GR21470@unreal>
+ <84bf119e-fa8c-4c97-9197-3377b7e2b250@huawei.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <84bf119e-fa8c-4c97-9197-3377b7e2b250@huawei.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,19 +68,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Apr 14, 2026 at 05:30:09PM +0800, fengchengwen wrote:
+> On 4/14/2026 4:57 PM, Leon Romanovsky wrote:
+> > On Tue, Apr 14, 2026 at 09:07:23AM +0800, fengchengwen wrote:
+> >> On 4/14/2026 3:19 AM, Leon Romanovsky wrote:
+> >>> On Mon, Apr 13, 2026 at 08:04:10PM +0800, fengchengwen wrote:
+> >>>> On 4/13/2026 6:01 PM, Leon Romanovsky wrote:
+> >>>>> On Fri, Apr 10, 2026 at 10:30:52PM +0800, fengchengwen wrote:
+> >>>>>> Hi all,
+> >>>>>>
+> >>>>>> I'm writing to propose adding a sysfs interface to expose and configure the
+> >>>>>> PCIe TPH
+> >>>>>> Steering Tag for PCIe devices, which is retrieved inside the kernel.
+> >>>>>>
+> >>>>>>
+> >>>>>> Background: The TPH Steering Tag is tightly coupled with both a PCIe device
+> >>>>>> (identified
+> >>>>>> by its BDF) and a CPU core. It can only be obtained in kernel mode. To allow
+> >>>>>> user-space
+> >>>>>> applications to fetch and set this value securely and conveniently, we need
+> >>>>>> a standard
+> >>>>>> kernel-to-user interface.
+> >>>>>>
+> >>>>>>
+> >>>>>> Proposed Solution: Add several sysfs attributes under each PCIe device's
+> >>>>>> sysfs directory:
+> >>>>>> 1. /sys/bus/pci/devices/<BDF>/tph_mode to query the TPH mode (interrupt or
+> >>>>>> device specific)
+> >>>>>> 2. /sys/bus/pci/devices/<BDF>/tph_enable to control the TPH feature
+> >>>>>> 3. /sys/bus/pci/devices/<BDF>/tph_st to support both read and write
+> >>>>>> operations, e.g.:
+> >>>>>>    Read operation:
+> >>>>>>      echo "cpu=3" > /sys/bus/pci/devices/0000:01:00.0/tph_st
+> >>>>>>      cat /sys/bus/pci/devices/0000:01:00.0/tph_st
+> >>>>>>    Write operation:
+> >>>>>>      echo "index=10 st=123" > /sys/bus/pci/devices/0000:01:00.0/tph_st
+> >>>>>>
+> >>>>>>
+> >>>>>> The design strictly follows PCI subsystem sysfs standards and has the
+> >>>>>> following key properties:
+> >>>>>>
+> >>>>>> 1. Dynamic Visibility: The sysfs attributes will only be present for PCIe
+> >>>>>> devices that
+> >>>>>>    support TPH Steering Tag. Devices without TPH capability will not show
+> >>>>>> these nodes,
+> >>>>>>    avoiding unnecessary user confusion.
+> >>>>>>
+> >>>>>> 2. Permission Control: The attributes will use 0600 file permissions,
+> >>>>>> ensuring only
+> >>>>>>    privileged root users can read or write them, which satisfies security
+> >>>>>> requirements
+> >>>>>>    for hardware configuration interfaces.
+> >>>>>>
+> >>>>>> 3. Standard Implementation Location: The interface will be implemented in
+> >>>>>>    drivers/pci/pci-sysfs.c, the canonical location for all PCI device sysfs
+> >>>>>> attributes,
+> >>>>>>    ensuring consistency and maintainability within the PCI subsystem.
+> >>>>>>
+> >>>>>>
+> >>>>>> Why sysfs instead of alternatives like VFIO-PCI ioctl:
+> >>>>>>
+> >>>>>> - Universality: sysfs does not require binding the device to a special
+> >>>>>> driver such as
+> >>>>>>   vfio-pci. It is available to any privileged user-space component,
+> >>>>>> including system
+> >>>>>>   utilities, daemons, and monitoring tools.
+> >>>>>>
+> >>>>>> - Simplicity: Both user-space usage (cat/echo) and kernel implementation are
+> >>>>>>   straightforward, reducing code complexity and long-term maintenance cost.
+> >>>>>>
+> >>>>>> - Design Alignment: TPH Steering Tag is a generic PCIe device feature, not
+> >>>>>> specific to
+> >>>>>>   user-space drivers like DPDK or VFIO. Exposing it via sysfs matches the
+> >>>>>> kernel's
+> >>>>>>   standard pattern for hardware capabilities.
+> >>>>>>
+> >>>>>>
+> >>>>>> I look forward to your comments about this design before submitting the
+> >>>>>> final patch.
+> >>>>>
+> >>>>> You need to explain more clearly why this write functionality is useful
+> >>>>> and necessary outside the VFIO/RDMA context:
+> >>>>> https://lore.kernel.org/all/20260324234615.3731237-1-zhipingz@meta.com/
+> >>>>>
+> >>>>> AFAIK, for non-VFIO TPH callers, kernel has enough knowledge to set
+> >>>>> right ST values.
+> >>>>>
+> >>>>> There are several comments regarding the implementation, but those can wait
+> >>>>> until the rationale behind the proposal is fully clarified.
+> >>>>
+> >>>> Thanks for your review and comments.
+> >>>>
+> >>>> Let me clarify the rationale behind this user-space sysfs interface:
+> >>>>
+> >>>> 1. VFIO is just one of the user-space device access frameworks.
+> >>>>    There are many other in-kernel frameworks that expose devices
+> >>>>    to user space, such as UIO, UACCE, etc., which may also require
+> >>>>    TPH Steering Tag support.
+> >>>>
+> >>>> 2. The kernel can automatically program Steering Tags only when
+> >>>>    the device provides a standard ST table in MSI-X or config space.
+> >>>>    However, many devices implement vendor-specific or platform-specific
+> >>>>    Steering Tag programming methods that cannot be fully handled
+> >>>>    by the generic kernel code.
+> >>>>
+> >>>> 3. For such devices, user-space applications or framework drivers
+> >>>>    need to retrieve and configure TPH Steering Tags directly.
+> >>>>    A unified sysfs interface allows all user-space frameworks
+> >>>>    (not just VFIO) to use a common, standard way to manage
+> >>>>    TPH Steering Tags, rather than implementing duplicated logic
+> >>>>    in each subsystem.
+> >>>>
+> >>>> This interface provides a uniform method for any user-space
+> >>>> device access solution to work with TPH, which is why I believe
+> >>>> it is useful and necessary beyond the VFIO/RDMA case.
+> >>>
+> >>> I understand the rationale for providing a read interface, for example for
+> >>> debugging, but I do not see any justification for a write interface.
+> >>
+> >> Thank you for the comment!
+> >>
+> >> As I explained, read interface is not only for debugging. It was used to
+> >> such device who don't declare ST location in MSI-X or config-space, the following
+> >> is Intel X710 NIC device's lspci output (only TPH part):
+> >>
+> >> 	Capabilities: [1a0 v1] Transaction Processing Hints
+> >> 		Device specific mode supported
+> >> 		No steering table available
+> >>
+> >> So we could not config the ST for device on kernel because it's vendor specific.
+> >> But we could configure ST by it's vendor user-space driver, in this case, we
+> >> should get ST from kernel to user-space.
+> > 
+> > Vendor-specific, in the context of the PCI specification, does not mean the
+> > kernel cannot configure it. It simply means that the ST values are not
+> > stored in the ST table.
+> 
+> Thank you for the clarification!
+> 
+> I agree with your interpretation of "vendor-specific" in PCI spec terms—it
+> does not prevent the kernel from handling TPH in principle. However, the
+> real problem is that the kernel has no standardized way to know where or
+> how to program those vendor-specific ST values.
 
-On Fri, 03 Apr 2026 16:52:05 +0200, Osama Abdelkader wrote:
-> dw_mipi_dsi_host_attach() and dw_mipi_dsi2_host_attach() call
-> drm_bridge_add() before pdata->host_ops->attach(). If attach fails,
-> the bridge stayed registered without drm_bridge_remove(), leaking the
-> bridge reference and leaving the device on the global bridge list.
+No one here is opposed to you implementing the appropriate callbacks or
+extending the existing in-kernel API to support a device‑specific mode.
 
-Applied, thanks!
+> 
+> When a device  reports "No steering table available" and operates in
+> device-specific mode, the method used to set ST values is entirely
+> device-specific and not covered by the PCI specification. If the device
+> is taken over to user-space by UIO framework (e.g. VFIO or IGB_UIO), the
+> generic kernel cannot infer the proper programming sequence or registers
+> for each vendor-specific implementation.
+> 
+> In these cases, the configuration must be done by the vendor’s
+> user-space driver, which is aware of the device’s private programming
+> model. But such a user-space driver still needs to obtain valid,
+> platform-provided ST values (from ACPI _DSM), which it cannot do
+> without a kernel interface.
 
-[1/1] drm/bridge: dw-mipi-dsi: Fix bridge leak when host attach fails
-      commit: be19b43f92fae4794f271ed9e338bdbcfa725aa2
+The objection applies to this point. The PCI device exists in kernel space,
+and the kernel is responsible for managing its internal state.
 
-Best regards,
--- 
-Luca Ceresoli <luca.ceresoli@bootlin.com>
-
+> 
+> This is why a read-only interface to retrieve ST values is still
+> needed: the kernel holds the valid platform tags, while the user-space
+> driver handles the device-specific programming.
+> 
+> Thanks
+> 
+> > 
+> > Thanks
+> 
