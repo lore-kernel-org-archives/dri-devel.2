@@ -4,73 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE01EF9D0EC
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:07:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0295F9D0EC
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:11:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44AED10E061;
-	Tue, 14 Apr 2026 18:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1AF310E041;
+	Tue, 14 Apr 2026 18:11:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pexnh4sr";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="HcQ8DkL5";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h0JcxybM";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C81A710E061
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 18:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=8dERr82ATy6+A+VbClTQaoDLb2l8RDwKmkIC4VlRYDY=; b=pexnh4srs6zZBm87oZHy69Dxim
- UQc35z1RTtElIhGwHcJ7AXq4KPH2qo5ibOhIInj49ne36lWqQ7yvJVP2evNIECqae1tCJYU2sKXEO
- wKevpDRxgSdS8IJl48E2h6hwXEG1pOFI9f49JzpDoE3QLWMxaSk7M5lDdWJa3O5cvRqwa92E39n5P
- /Mm+IYvKeBgq9iCKHAw1pu6OsC60J5ClRm4pLVNySKJkj9OXj+PI3eQ1aK8SeyHZj0oyrDoaVH/ZE
- HctWJ43PovKzXG39YhsDaZofqTEkXnw7m+xqf/GYiSbnjEeJgw9tNHJoeLuJ/zOBC447fvCiqMjJP
- /MfCAPbw==;
-Received: from [189.7.87.169] (helo=[192.168.0.2])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wCiAY-00G0ub-Cy; Tue, 14 Apr 2026 20:07:26 +0200
-Message-ID: <8c2f4d80-2f33-4cd1-a6f0-ac5f23cdb777@igalia.com>
-Date: Tue, 14 Apr 2026 15:07:21 -0300
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0836910E041
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 18:11:21 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63EGgdNH030706
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 18:11:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=J3D1WvWzIUqXKZeMB5J0CZaS
+ azdSgxka7Wv0a/uVx78=; b=HcQ8DkL5wR+z0LAnelrcY9G7YQ7HrPBbUP4vQzXf
+ oDTa04nhEXZuPH8Rh8F0MojcGa6ncsuXiYwir0McDuz7oIY2Tx6BaxLiyUwHmSAa
+ DMT37De5jqu8PcE3kKMZsGEyrt5dOzirj/GU2z6gD3QVRCvRv1kFgiSMf2VPoggs
+ sYJXG7KwaJwb56/WuUcf9at2g4Eb1LyVgpTBynSCzmA7FGmpxJ/u5+xw9cZGNSc+
+ L7QotibucPaXSOA1ZiX8+SQWZX08RmLf4Lh+WSsh798Bahy9Qt9ZGSfrqf5YaWyr
+ e0QwG4M8JPaIWADRbQmbTRSC++rCkHlqmfXt7FbnmCcmVA==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhkgmhrpt-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 18:11:21 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-6056898a01dso4568024137.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 11:11:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776190280; x=1776795080;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=J3D1WvWzIUqXKZeMB5J0CZaSazdSgxka7Wv0a/uVx78=;
+ b=h0JcxybM/U+h6wHl7qGX+JzSo7K7V2pCzrj1J0EMCnhY7njxZ0pCMved113ubGeSYg
+ 91LgfZF+dqF9DLC2ZKSRh6OZTMP8KuTpdoQ4Qo1W+tzZ8R+rEV9N91M+dUrvuDIuSmnr
+ HsDYO39gxEbuJwM3Rdr6Toxq+MUdF58tX5BwlRXKzJowo1cK4Z9AjUdO7qF4tAJoJcgB
+ pzNA9QqJnz6IN/xLJYiGnXVH654iFxFRxki0TX+1eDObh1Bmk9n8sMUKhvSbt+Obxc6y
+ FcMucxy02d0zRxsHNPQ8c2TNqRJN415st8ruSrnwkIMzZJe/OSkSNDIsHDCOHIFC+Phy
+ W8gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776190280; x=1776795080;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=J3D1WvWzIUqXKZeMB5J0CZaSazdSgxka7Wv0a/uVx78=;
+ b=T78z/wNQywV8XsnjsQPR9FirlqCqw9EyKtujyOML9Q/dTqXUoEF481V0HXZRaY5Ymo
+ EIONUnEP6tKxBsQvKgZynliD0xNzA952AVNymeu0qk/MfPGzZLHuicjppeccSlvjRfZx
+ C5fwgORS6K2lcn99uff3h59iQwsYSL+i4HHSUKanSvk+vbuYTsmDwYXhdpVb76h6Gcng
+ +Dip6wfr+Qh3QxInFncZIIn3epSrYO3CDAsy1/3yfceOPRUyhCmITQZyvvqInwte6/L3
+ 1pWELclUHB6qPjTZKdmhbOxR84+pzU14/mj26ddSPqDtIwIm3/CHOomabAi4VFYUSUyI
+ yfJg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ88kn5fJ77dGKMWykc4cfrIOxeG5Vq8eQp40gU/Bv5yeRiz7GHmg9IWiIUVS+mrs+YkZFv4SG04ohM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwdBb8vYmyl0O1sKw+GoHjzbQhPziIx//NLb8X/IHGbjkzf0fm4
+ TM6VeWu5nTRV799dQXSRXHzygaC2pxL2fbAK85G4802n5FaDeJMGDpnxvPXuSnMob/+9gP7LciN
+ 9wWeNS1zd2lFc3BjHsZEPzBSb0SCCb2+onG9XlYTuwvc5lgoyFA8cjpErdLYaY4I7f4RDcfY=
+X-Gm-Gg: AeBDievaxXKJa2UO6bCweQdOiQuQUz5l4V+r/AebQZW5w2Ewj7Jrwjn23xz9mzi8c1y
+ Yn9CFpo6EciPZitx0aizhmbwu1kCrEnQGKO4wTwCIrvAGqN7HnadUCRr6skVA6PPfBFkbXoH/+K
+ GBZIuUdz1at6tKK2EMdOWGhxQPLKu2LBiYM6WWTK0kMy885BC4SxjplVjysdiYqEsRHFq/IC7z+
+ lHeGdWnN9P3dVTuQaZX6CTjjXEcwKPSqNBx5juxJuvn1PgUA60OYIraxuxh4yZg9ZZaBUkVIFaz
+ +TJ+gqcO0XuZNsXz8vULNIQ7nGC48ErIbmQiIBrW3NgyiuMZiB8jTWZcSg8ZSR73baa98TcfNAM
+ etyWuBs34g8hYdSVkBG9PS8GvdoPt8xAEBlHacQQGF2DbQ95ug9JLkAnwEZAe+0tcm8ztMcLskQ
+ pbAMTed9pmuCpUsYsElH3SA6KV4dicFa/iSXWvc6N77ksN9A==
+X-Received: by 2002:a05:6102:3ec4:b0:608:7b2e:4160 with SMTP id
+ ada2fe7eead31-609fe7a6d0cmr8943961137.5.1776190280348; 
+ Tue, 14 Apr 2026 11:11:20 -0700 (PDT)
+X-Received: by 2002:a05:6102:3ec4:b0:608:7b2e:4160 with SMTP id
+ ada2fe7eead31-609fe7a6d0cmr8943935137.5.1776190279941; 
+ Tue, 14 Apr 2026 11:11:19 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38e495455acsm30849991fa.23.2026.04.14.11.11.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Apr 2026 11:11:18 -0700 (PDT)
+Date: Tue, 14 Apr 2026 21:11:17 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Pengyu Luo <mitltlatltl@gmail.com>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm/msm/dsi: fix bits_per_pclk
+Message-ID: <7rzdzfon3mytcwsagddr5c57aypkr5rxco3ubtwe3osc7zkonz@sfskmvme4m5x>
+References: <20260307111250.105772-1-mitltlatltl@gmail.com>
+ <177463970785.3488980.6066718261448635938.b4-ty@b4>
+ <DHSSQYIFSY92.1J57RLTLCH8B@fairphone.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/v3d: Reject empty multisync extension to prevent
- infinite loop
-To: Ashutosh Desai <ashutoshdesai993@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: itoral@igalia.com, stable@vger.kernel.org
-References: <177614548527.3603641.5360701002746181082@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <177614548527.3603641.5360701002746181082@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DHSSQYIFSY92.1J57RLTLCH8B@fairphone.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDE3MCBTYWx0ZWRfX1o1D9ok3ALRy
+ XHzuVKdPNjkUILwBs4H3ldh/BIS6+ZAVCioaovQcf0ZnTws7epXR0gFrKOT1xgh5eLNVev9TGQG
+ /liLqpRF1BLAP02Of+1fM6JGVEAUpnIGgkdGYsGI40X3Xtu+1ufz1ahsZGfA7uZSP1oJDzpiZG+
+ 3dTwcduVzf/EQTCOERk77N/fAbiexZv0JzgSbkKjdnhDT0JZmScIneLi9d5gC9kkrGA7zrbpz4F
+ MxIxXNqOYHp+CWcitylLozQUKZiFd2RQNcGsvsabbxTqzhv4gmCZocP8bBduFACPWH33krqH5Nd
+ VJHR6mUM1C0gRVpzgCMnwUSmH/fU5yCgqoU4Y5P/TMQf9pC/tWPgcUjAzA9kgui+h5fZDkcLazs
+ 5dj12GF0OLJ1SAEvDD3BXKLHYDJBGXcXyB7eD+FZyR4OfyruOvkDk58IYaUgfIJr/tyejYxD/QN
+ 99DZF6Bxi86fZzDO6Nw==
+X-Proofpoint-ORIG-GUID: Nolj-biasZWk6TzeKHFTTn3swqEGH7vp
+X-Proofpoint-GUID: Nolj-biasZWk6TzeKHFTTn3swqEGH7vp
+X-Authority-Analysis: v=2.4 cv=HJLz0Itv c=1 sm=1 tr=0 ts=69de8349 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=e5mUnYsNAAAA:8
+ a=587haw6TKzS2yHxLNCAA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_03,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ clxscore=1015 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140170
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,66 +147,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ashutosh,
+On Tue, Apr 14, 2026 at 12:13:45PM +0200, Luca Weiss wrote:
+> Hi all,
+> 
+> On Fri Mar 27, 2026 at 8:47 PM CET, Dmitry Baryshkov wrote:
+> > On Sat, 07 Mar 2026 19:12:48 +0800, Pengyu Luo wrote:
+> >> mipi_dsi_pixel_format_to_bpp return dst bpp not src bpp, dst bpp may
+> >> not be the uncompressed data size. use src bpc * 3 to get src bpp,
+> >> this aligns with pclk rate calculation.
+> >
+> > Applied to msm-next, thanks!
+> >
+> > [1/2] drm/msm/dsi: fix bits_per_pclk
+> >       https://gitlab.freedesktop.org/lumag/msm/-/commit/2d51cfb77daa
+> > [2/2] drm/msm/dsi: fix hdisplay calculation for CMD mode panel
+> >       https://gitlab.freedesktop.org/lumag/msm/-/commit/82159db4371f
+> 
+> Just wanna document this somewhere, 7.0 is quite broken on QCM6490
+> Fairphone 5 (8-bit cmd mode panel).
+> 
+> Picking these two patches plus "drm/msm/dpu: don't try using 2 LMs if
+> only one DSC is available" on top of 7.0 makes display work again.
 
-On 14/04/26 02:44, Ashutosh Desai wrote:
-> v3d_get_extensions() walks a userspace-provided singly-linked list of
-> ioctl extensions without any bound on the chain length. A local user
-> can craft a self-referential extension (ext->next == &ext) with zero
-> in_sync_count and out_sync_count, which bypasses the existing duplicate-
-> extension guard:
-> 
->      if (se->in_sync_count || se->out_sync_count)
->              return -EINVAL;
-> 
-> The guard never fires because v3d_get_multisync_post_deps() returns
-> immediately when count is zero, leaving both fields at zero on every
-> iteration. The result is an infinite loop in kernel context, blocking
-> the calling thread and pegging a CPU core indefinitely.
-> 
-> Fix this by rejecting a multisync extension where both in_sync_count
-> and out_sync_count are zero in v3d_get_multisync_submit_deps(). An
-> empty multisync carries no synchronization information and serves no
-> useful purpose, so returning -EINVAL for such an extension is the
-> correct defense against this attack vector.
-> 
-> Fixes: 9032d5f633ed ("drm/v3d: Detach job submissions IOCTLs to a new specific file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
-> ---
-> V2 -> V3: drop depth counter; instead reject empty multisync
->            (in_sync_count == 0 && out_sync_count == 0) in
->            v3d_get_multisync_submit_deps()
-> V1 -> V2: change cap from 16 to V3D_MAX_EXTENSIONS (7), add #define
-> 
-> v2: https://lore.kernel.org/dri-devel/20260413055230.3349114-1-ashutoshdesai993@gmail.com/
-> v1: https://lore.kernel.org/dri-devel/20260410013907.2404175-1-ashutoshdesai993@gmail.com/
-> 
->   drivers/gpu/drm/v3d/v3d_submit.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-> index 18f2bf1fe89f..fc74351efad5 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -393,6 +393,11 @@ v3d_get_multisync_submit_deps(struct drm_file *file_priv,
->   if (multisync.pad)
->    -EINVAL;
->   
-> +if (!multisync.in_sync_count && !multisync.out_sync_count) {
-> +drm_dbg(&v3d->drm, "Empty multisync extension
-> ");
-> +return -EINVAL;
-> +}
+Yep. It was a bit too late for 7.0, so the plan (and hope) is for them
+to be picked up into 7.0-stable.
 
-LGTM, but the indentation looks off to me (v1 and v2 were correct).
-Could you check if there is any issue with your e-mail client?
-
-Best regards,
-- Maíra
-
-> +
->   ret = v3d_get_multisync_post_deps(file_priv, se, multisync.out_sync_count,
->   multisync.out_syncs);
->   if (ret)
-
+-- 
+With best wishes
+Dmitry
