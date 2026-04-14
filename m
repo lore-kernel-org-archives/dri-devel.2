@@ -4,111 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98416F9D0F6
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 23:17:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71F58F9D0FB
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 23:40:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7776110E025;
-	Tue, 14 Apr 2026 23:17:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0C9B10E08B;
+	Tue, 14 Apr 2026 23:40:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="St4t5XcA";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="rIf9Mtto";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010065.outbound.protection.outlook.com [52.101.61.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FEA010E025;
- Tue, 14 Apr 2026 23:17:16 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010061.outbound.protection.outlook.com
+ [52.101.193.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A0010E084
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 23:40:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zNCpiIhxyjUgjwMv+Nfwzyv3Skr/isD2NWQczLNuixDFobwdb44RTtovRfu4oxZg0KKhLZuOgQAR3zTpp5M6IoI/ulaCF6ghudNVM44Zlfq7jgAkIyaY66hXwgptb4aWTd4ZkXzxlV9TSsXdJ2luTsd24yCQXiggrjRcKgq/VYTZ9bYimRA4NJcdgx9/PFJVjALZgp5Ksw0tVYsHMuJ1LVxc9GZFz8gh2WjX1sVi7WjjH4+UQRJSQo+rxdtpdwRtGu9G+6W7Nh1y0xhiELSaAE5L/NybSTWeDEN5AkhwpPILX1VLjqYV72k7FZrPH55C42Nio1zfmK7f2QMsS5bFfQ==
+ b=lM3ljMmAlWJ5k8DsMea1nWHiYYuLKGv7bVJdsiqwCcooKoEPUKJlInBAooAYxvbh2wGdoMgTYs+BtLbaifvbs3X/ced7MKKX+81jaXj8zwRXAsVPlFTmOp1BNo4ln0HuSeRbOe5XWkWRMmif/KffIR54VxhsKNMlyrEd5TgsXrX9WtiT8+/zJdkXgXxWdWGThzj95XC9wBwqbBMaje9XUCXPGxWDLRfVtqNIYKIeBxAgkom0Ls9uO2SLe4apm+lFJBACY9c2JrnD63oRxu8XXLq7LD3NWR6/DgpxCCijLofJsGiRuUXpYXI39FuRHWJ080626Pmpiqifl5PSJn5ZcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AHcARKKx3y8Uem8Suwarjf/E35iZ/oSG2D9rXDjB0CM=;
- b=yvf1bWudxaRytaKcPObThie9oyajDAlpxSWPb+5an1Hgm5lRcaiVKzPfrx27B6mM9j2E4IxOhaAliT/M0MTViVfqeIy2nsvv7MRhG6z/3KCynwDVtFMPfP4tomrZEumb78JkNygjC0MPnUhZRyfdYmC4d/HaAr1qiDVz22GzRFvzNb5vnrBar5q9K/I9krsdS3t1GQGitvt/gtxHCzVgRNvqz7Q0z3AGZVGuw2XZ/Ilc/ILM1x1ZbG8Z+iqpZ8qVjoEjM0mAGMi1oPSUDKJtTcTQRh4SFLHt7jpt5eSrvrvdbbqfwn//J265CiIWzh0jY8ASn8j2KP0iSXbl3QByNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=igalia.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=04BW8Dy+nRxoGmrmuttdP6caLauzZ1+dQrtV59E6mhA=;
+ b=RSp+gdgAOd3TpH/8C8Raat58DHWUntqMHbzeoI7iygiCBUknKnFove1sl2M/hSZOMDmYA5mcvwzPNokRvmpNYl7pj7KYIezEeD1hoSXGsIhE3L5Sw4tgjUNjznY4RJfjM1kNLcwVEV6Q6k2EQngaJyBK0vqPuieVSuq+L5UiQIdUy2s+nKvMkxVopHaslmwhD2oSJ+5DOdS7F+dv1igLp6OixlbT+vlCMIaczIu88ZIHkGCtvOOouEIA+yWowNITv+XND3cORawfwBrAmZ07AATmRM7fnLLO+Ua9K0rvdDlPIH/KGsuvlxJEW0NPv75qhVi+fts2v39Ap8rygPnjgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AHcARKKx3y8Uem8Suwarjf/E35iZ/oSG2D9rXDjB0CM=;
- b=St4t5XcAtlO+dThI1JpNyG6cpn+kzjsWHIqVfdiFm7Y0RQzxdon6QpRsM4v4I49p3xzrtFGTQvCGAiBocK14UzU60YnvPeU9dAE4j6YlpdWKNHLl6cQ+RisFSgfIRWPPGa8vUMwoIhNDHUFeQuTfU3yT6OtLjeV2L06UId1l/x0=
-Received: from SJ0PR13CA0080.namprd13.prod.outlook.com (2603:10b6:a03:2c4::25)
- by LV8PR12MB9136.namprd12.prod.outlook.com (2603:10b6:408:18e::5)
+ bh=04BW8Dy+nRxoGmrmuttdP6caLauzZ1+dQrtV59E6mhA=;
+ b=rIf9MttoMZRDrOtHMRBpJAvrcG+QHvKDbBfUYuA/Aoh9220zdKzXpd4kPs+OufhYQsvBN69KFjxorO44bbHQQhaOya9Cdxm1hdGH4B0B3eikAlaqzrL/XR6EG4kz8mk5MKAsdR8k5NJQOXFpe2JWols/SVv3vVFO/iG2u8cHtj12Skni7ii47DYuP1C2XhWpDVYlDSbLGqBx0S/G2UjU/CLGnngCrvETppUV4yUan6zxLVogFU9f+HDEfrP2scrZ5Qflp6gFexqYX9B5f/woHwQxv3qV+8/KI4+rteVNBM/I2PKwtsm37e5siq1Lq0fS/Ecbjftga0WxsgtFpV/baA==
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
+ by PH0PR12MB5645.namprd12.prod.outlook.com (2603:10b6:510:140::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Tue, 14 Apr
- 2026 23:17:11 +0000
-Received: from SJ5PEPF00000204.namprd05.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::e8) by SJ0PR13CA0080.outlook.office365.com
- (2603:10b6:a03:2c4::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
- 14 Apr 2026 23:17:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF00000204.mail.protection.outlook.com (10.167.244.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 23:17:09 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 14 Apr
- 2026 18:17:08 -0500
-Received: from [10.254.92.140] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 14 Apr 2026 18:17:07 -0500
-Message-ID: <67d07c60-a535-42c7-a6fe-79f9dd90c9b4@amd.com>
-Date: Tue, 14 Apr 2026 19:17:01 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/8] drm/amd/display: more drm_edid to AMD display
- driver (partial)
-To: Melissa Wen <mwen@igalia.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, <airlied@gmail.com>, <alexander.deucher@amd.com>,
- <alex.hung@amd.com>, <andrzej.hajda@intel.com>, <christian.koenig@amd.com>,
- <harry.wentland@amd.com>, <jernej.skrabec@gmail.com>, <jonas@kwiboo.se>,
- <Laurent.pinchart@ideasonboard.com>, <maarten.lankhorst@linux.intel.com>,
- <mario.limonciello@amd.com>, <mripard@kernel.org>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <simona@ffwll.ch>,
- <siqueira@igalia.com>, <tzimmermann@suse.de>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Michel Daenzer
- <michel.daenzer@mailbox.org>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <kernel-dev@igalia.com>
-References: <20260225121903.236115-1-mwen@igalia.com>
- <3856874.aCxCBeP46V@timur-hyperion>
- <3d928ea8-dee9-40cc-9fcc-af063b67138a@amd.com>
- <be7debbf-727e-4017-906a-36ee81fd844e@igalia.com>
+ 2026 23:39:59 +0000
+Received: from CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970]) by CY8PR12MB8412.namprd12.prod.outlook.com
+ ([fe80::76e6:4d65:7ed1:6970%6]) with mapi id 15.20.9818.017; Tue, 14 Apr 2026
+ 23:39:59 +0000
+From: Timur Tabi <ttabi@nvidia.com>
+To: Joel Fernandes <joelagnelf@nvidia.com>, Alexandre Courbot
+ <acourbot@nvidia.com>, "dakr@kernel.org" <dakr@kernel.org>, Eliot Courtney
+ <ecourtney@nvidia.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "aliceryhl@google.com" <aliceryhl@google.com>, "simona@ffwll.ch"
+ <simona@ffwll.ch>
+CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Alistair Popple <apopple@nvidia.com>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ "rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 11/11] gpu: nova-core: vbios: reject extra PCI-AT and
+ FWSEC images
+Thread-Topic: [PATCH v2 11/11] gpu: nova-core: vbios: reject extra PCI-AT and
+ FWSEC images
+Thread-Index: AQHczAWI9K0ATWAIWkGj6vQxMH6BvbXfN/YA
+Date: Tue, 14 Apr 2026 23:39:58 +0000
+Message-ID: <acf292dad3656790a37f8b2f7b3a21f0cded50ca.camel@nvidia.com>
+References: <20260414-fix-vbios-v2-0-705d30d16bba@nvidia.com>
+ <20260414-fix-vbios-v2-11-705d30d16bba@nvidia.com>
+In-Reply-To: <20260414-fix-vbios-v2-11-705d30d16bba@nvidia.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <be7debbf-727e-4017-906a-36ee81fd844e@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000204:EE_|LV8PR12MB9136:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a608dc7-8001-44ba-e0ed-08de9a7bf3b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|42112799006|7416014|36860700016|376014|82310400026|13003099007|921020|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: vSHO1BNVFqk/AGWIFKv/tlqVBVSlYW0FAj326dGMbW73Q31WKiJDSxAnKeVIx/GKz/hfOf+ri5p2ZJo9H5HN5/gektYoEMmAUJa22DP0FiFiR0wH8aJmTUk1MZhCwkaDqHVefBgmhiyizFBD9VWmrfOOONt74k4a4ztH7oBEOOH9HD47qR5E1XOvEoHZbdGyi9jdzbG939wPVET1j1bxee3KAO+mqj7la+2i9BY2Mp/2jWB78CiPAJJGC86lCdvbVPlWSotkTdQ4urmBtmNbCT7ELlnbtBJoSptH+Kb5RMPXV71aNl66YYSF0OK/tmPu/oVzd0BlDq1uzs+r1nZ3KRBiR/MbUy9MI5v/E772dGvczuvvawbclww7StrOqXYq0K/ge3MxdAcDbmu9cuQKHc3nYs96WVMfMUeu3W7dMmgo50AB1oPcX+iXpcgzwLFziANjUhOwSLdZtgGnUbAOwJ5HFfusWUgu2oSk7g88za7N+zyCZAPGSCqLJaduun9xUrL5nJ3j8QSObe/1taNuCGD7OEXtqbQf3oc9QYMh4U1/oMEk8uOCVWpWA9CdVNoD3Nv9EiiLONu8gyI6ReWnLI6uUuvDhJp6P0HMMk1FLJiGojjXVN0RqlXcOnFze6q6xjy51LxlZZb5O86eOij3XvR2Pm9tQIhI6QTbLVp6lNKyUMWkMXpWzbR6sePVBvnbruRIG6Y+q25HzRC/m9i2GToeD3xBMMiSKkIfuAtrr0N/1XhxMLfXRpIqlePR3RdX/QggvDukkpUZ+4ikAZtF0w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(42112799006)(7416014)(36860700016)(376014)(82310400026)(13003099007)(921020)(56012099003)(22082099003)(18002099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1.1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB8412:EE_|PH0PR12MB5645:EE_
+x-ms-office365-filtering-correlation-id: e6fcf02f-cc38-46b9-169c-08de9a7f2407
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: FKVnnf4gp9O7GeP1H7/DFjNWgDMxkr8XeF2LwDbVw7ul52nHYaX27bXAdZektsuhDdzMSc1YsaUElhpbf4qvSOtyB4cJzfZUUoit0n3uATp0omOyM5pZoued+wb1x8ElSO5y1E1MrPVe3Wmd9yY5osnAm6uwUH6fVwlW8VCsZjk7LPKLTAYRROhFM5qDyU9RDjGyOauEk6hgsC0dYT1Gb2aGh9qL19C7lKEWMA9P/9beOeEDm3w6OhDW+U1nlJR9xKlFGu7/UbQb8NerBjTtOOpgXbb6AsBU401LLaou1s5EsEpBuCkrEqyaYndOT/gXGhV39veIJ2+Vl/f9quHDI1OBkuYN4dlAIOdrBHezGW0Ui3Mkb7bwylXCrw0aBkTakzJeShzh9mPXh1+m/SjRYXEu5RQNp31kMWVVAj69CafDMLsQsgfb+OyGDn1lQurAcintjB3g9lXmY3kn1n4nis0u19+HJBZAHiGXJf2Vwtr1WO9QF9Bh/fdNzaztjvfsaqtk3KfmPi9fDur9ZZqh9EPapGR4nF+u32jPb57l9io9O+G3z1latlwoVaDA5NNhkCaNVuFUIPCojczK36Mth8MTLZ2v+ru15b6RNKMWayhE5oZkrWf5jSRWjJQqjVbhdG21oOK2ErKyCm02Oh4hPVOZ/BcCTW/FFAj+rD4xJgwNE3tf2tnOuc9cYJmjwUCbA1ugRFi+KgWtSxqMFeAUrWNU1KrpB5pc7KA6mgW5QP2ZrSRgIfzwkW3f8Z2kIGF80IOq4YI47YDVDZxCIBz+zqeQXxVgBuHHeFNjPOJbWQM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB8412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: djPV4o2wNRklSYnu9hmZytYrhTsMZ0RjthfTI1v4c0dpckQVgbAQk6Sp/SQoBwtSJFh9vTdF5XYTJWw7oR6T+pfVGGcPyau0e/o3B8JwbLRioQcapxqXXQozoa18It1eL4nZzI+n+3G+NLBVzGhE/QwT/Z1Ci2mA+xpO4oS7LVcZS66tM3BCf3eb9aTkXm5MfVJdTyeCdmg7BgorvjqQUf9IId9NRuzRNsLxSAGyivZc8pzLcVbn5j4hgtqBZIqDSQuG5HSRjraDDlr+m864EY/zIkhlcK5CJXF8+McLi4cE8sM1YQA8btd1Yp13n5n1JWy4bMocamiyNTJ3i9ScS+1ZjLTZD/LaiKNoEYiU5CFNgRy378IlSN30ZPbKh478GgHo3pFsRLFplXRw9JfXoAwF/MnLx9ysZgifJU65lbmuLdmjKSvdGDP+++UrhNUZ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 23:17:09.2160 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a608dc7-8001-44ba-e0ed-08de9a7bf3b3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000204.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9136
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OUN6dnVTNGxLeXRzYmQzekJCV1dJeGdFWjhpYVhsSTNlZzR2QmJHM0tLeGNI?=
+ =?utf-8?B?ZVppZjlXdE1leHR5QXNIVVJPalpkaHNnbWNUK2FBSmorZ0xxZWphSVoxc2xT?=
+ =?utf-8?B?UzhwN05IVFQ4eU9vdSs2QVhrNnZXNHNIVC8rZWZWSU4rNFI2b2gxc2MxbVhI?=
+ =?utf-8?B?MXY4WmtvK2ZhMzNGMjFzT0lPa0NPN1lPQXFGL1E0cjJkcFRnZEJLVWFuNVg3?=
+ =?utf-8?B?cWFPcENkOUVwMERnUFMxYkhqK2NHUHg4eThKQVV5L2RWRGE1SmdsazZTTWl3?=
+ =?utf-8?B?RXY4TDU4eGdsN0hwaEdWOE1uYkd0YWhFN1Z3bmhXOVA2em9tQXIvSEF1eWRL?=
+ =?utf-8?B?K3NCeFlJeVpaVS9raXdvWXBlTVdjL0REc01BL2lwNUlRc1R5TVVxN0hXaFlm?=
+ =?utf-8?B?djAyRVBhSzVPM1M0cVIyaVkrWlMrZWc3eHFGckF1UkZraFhpMG9YcXdZN0dL?=
+ =?utf-8?B?QnppK0JSa3BzV2V2eVpWdGljRlZNU2FkQmZwdnlNSWc3V2JFcFpNZjRRVTN0?=
+ =?utf-8?B?QmhwZzJSSGNyWUJCRlVIcEQwZjRrbDRoUHI1ZytDSHYxRFJXcktmQ1Y4aHZD?=
+ =?utf-8?B?VGYvTFdrUWFUTG81Y21pM2szakh4bXgrUGNRZERBMzNPcmx4Z0pIdERudjNa?=
+ =?utf-8?B?Z0JCcG9JdW51VWdlVDN4RzJORUI0S3pUeHdCL1NZMnpmamRHb016ZWdyeDM4?=
+ =?utf-8?B?eG1oYlRmVlZuY0N4aXJyRDMrN3phTFVlOTF2ZlQxN2dtVEhSd1hYdzAxVno5?=
+ =?utf-8?B?eHFVbWk2bW1oSTVpODVsU3hSQjA3ajE0MkdWZVM3TXYyU2FHcEk1M1RFOXpi?=
+ =?utf-8?B?RmdISmJ6eW1sdERmdGE2YXplOFZ3cHpoeW1namJaZ1NkcjR2djk3YjF6L2Np?=
+ =?utf-8?B?MlBFb3dtZjlJTGlzL1R6R2Q3aGhQay91R3Y1Z0Vsb2xRc0FDM3FuL0xreHJJ?=
+ =?utf-8?B?VmNiMmVLNjBCQ2FSMm9BUVJjUytENjUvVDZOMTY1eEYrRjlLZHNnT1dvRllE?=
+ =?utf-8?B?NGRXZ21sSFgxU1UrWmFEWTArSzhOSm80WlNSL29HR1daZXRKRUhRU1FFZUJH?=
+ =?utf-8?B?Rzh4T1BsdDJQM29VNDllVEwySHo4aklBNUlDb3YxYjBJVks3U3B4SVVWZ3Rp?=
+ =?utf-8?B?MzhtanZUdXRhU0hEd1E3YjZGS09Rb0I3alZKSEJPR2hvTitoYnFiNkhwKzl4?=
+ =?utf-8?B?blFjK1N0ZVNmRzF4T2hsU3pDZ3JKRHYrUlhDVStPQ3E3MGRYN0ZLTERIMnRI?=
+ =?utf-8?B?cjVXY2drM1RZM0poZ0RvaHhieVpYRXFoOFNVcC9rWkJGWXpOTkw5T085aWwz?=
+ =?utf-8?B?WmlVSVRUTGFqNHNCVVNuZ090MUhCSkVZSWIwRTNzSFZBOGphUDcwZURtZ1d4?=
+ =?utf-8?B?R0FSajF1MVFMY3Q1RUZaR3dPTDVQYXJuazZxcmk1aElVSG1pT1N0VFRjQ1lz?=
+ =?utf-8?B?Zm04ZDRrRjhjSWRraWN5OFE3MThzc3lSNUtXL0ZLZUMzb01oSkVGVGdra3B1?=
+ =?utf-8?B?cFBUVTVPMXlqeXRJRGVRaFlYSTFIMEFldWU3MjJzc0MyZm1haDB5eVRKU2Jx?=
+ =?utf-8?B?RFpGUEFGU052dzBiNUl2ZlAxSWQ2bkZmQVJ2VHBPeFpQQ0N4NnJvRlE0elI0?=
+ =?utf-8?B?bHdaTllRU3NyRHh5cmdRT01SR3l0d2Z5Z3E4MkdFaEN6Nm1nalJ1UytiNmYx?=
+ =?utf-8?B?RkJVd1JRSWxoYTlLWFhxUDQ4bXNHMlVBdzJOeWtzNi84Ti9KS09yVFR2ZXlT?=
+ =?utf-8?B?bnZjUllyMTBGeTVpdUpyanBRRFpjRUxZUXc0NDVxOGw2VDg1SHhjV25Nc0FL?=
+ =?utf-8?B?ZFpDRWx4alF5ZTVRM3RTcllOYTFpVmlSVUhqZi8yYTBvRzNiZzh4cC9JdHcz?=
+ =?utf-8?B?OE13RmZuQUNuVHJaQ20rQkI0VlJPeEZGTWNxKzdKbHVlOGZWM0dLUUpUN21v?=
+ =?utf-8?B?dGNJQ09RbnRhMTJDNnA5SW1Hazc0OUxCa0p5eGtCdnAzRVJmOGFmQ0dsNGx1?=
+ =?utf-8?B?dnc0T3RjQzUyN2JTdkV5ZEdzeWI5Q0JWSDBpQ3lWQ1R2dmhZcjNYZEsrenVP?=
+ =?utf-8?B?YS90MXhua0s5d0dXSnJvT2JFd3h1c054dTQ0eTVRZTI3bFVGZjlCSWVXaURa?=
+ =?utf-8?B?Q0M0QlJGdHh6V1NwU3FmTkRGNGs5dTMxbVBUQjhMazl6T0FaN2dIUllXbTZF?=
+ =?utf-8?B?S2hxRVdnb1hJN2Z0dCtSUzhhd1ZBRVArVklySDNEQTFNUzRVZjVLbHBzNW8v?=
+ =?utf-8?B?U0g3UlMvUzlQV1FFZHhsYUk1MVM4VkhnZFRHZnRuWUh1aEtRN1BQNTMrc3BH?=
+ =?utf-8?B?K213OHRRM0ZScHA1bzJ3S2JSdTlIZkphY0ZaSTltdCtQTW1nM3JOZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <250CD2FC1DBA7443A50122DC656FD94A@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8412.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e6fcf02f-cc38-46b9-169c-08de9a7f2407
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 23:39:58.8721 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: as8L8TMbReBGZq1GqLhAiMHmZ/2k9GGdElV2qfyF5NBV+Azvy4gI2dx0qdiHeBxEYYeW4uFvqyIx2GyjJ/g9mA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5645
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,87 +149,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 2026-04-13 13:51, Melissa Wen wrote:
-> 
-> 
-> On 31/03/2026 12:45, Leo Li wrote:
->>
->> On 2026-02-27 03:52, Timur Kristóf wrote:
->>> On Wednesday, February 25, 2026 1:04:29 PM Central European Standard Time
->>> Melissa Wen wrote:
->>>> Hi,
->>>>
->>>> This is a reduced version of `drm/amd/display: more drm_edid to AMD
->>>> display driver` [1] sent a few months ago only with the less invasive
->>>> changes, i.e., those changes that don't affect DC. This partial focus on
->>>> using more drm_edid helpers instead of raw EDID helpers. Most patches
->>>> here are already reviewed by someone and I think they can be merged
->>>> without major concerns. They can also prevent new initiatives of keeping
->>>> parsing raw EDID as driver specific code, which can make harder for us
->>>> to remove `drm_edid_raw()`. They should focus on moving raw EDID
->>>> handling to the DRM common code instead.
->>>>
->>>> Regarding code changes from previous version, here I added some r-b tags
->>>> (from Mario and Timur), fixed commit message syntax (Mario) and
->>>> centralized error handling (Timur). I'll follow up the changes in DC to
->>>> accept the Linux/DRM opaque object in a separate series since those look
->>>> more sensitive.
->>>>
->>>> [1] https://lore.kernel.org/amd-gfx/20251106165536.161662-1-mwen@igalia.com/
->>>>
->>>> BR,
->>>>
->>>> Melissa
->>>>
->>> Nice work, Melissa.
->>>
->>> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
->>> For this series.
->> Thanks for your patience Melissa, series is also
->> Reviewed-by: Leo Li <sunpeng.li@amd.com>
->>
->> We'll include it in this week's testing.
-> 
-> Hi Leo,
-> 
-> In the end, was this series applied to AMD's branch or do I need to rebase it?
-> 
-> Melissa
-
-Hi Melissa,
-
-During testing, it seems we're failing drm_edid_valid() in this callpath:
-
-    dm_helpers_read_local_edid > dm_helpers_parse_edid_caps > drm_edid_valid.
-
-I'm 90% sure it's because recreating the drm_edid from dc_edid ignores the
-HF-EEODB (HDMI Forum EDID Extension Override Data Block), which can override the
-number of extensions dictated by the base EDID. However, drm_edid_valid() does
-consider the HF-EEODB, causing this line(*) to return false. Commenting it out
-"fixes" the issue
-
-(*)https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/drm_edid.c#L2076
-
-This whole drm_edid to dc_edid conversion in dm_helpers_read_local_edid(), then
-immediately back to drm_edid in parse_edid_caps(), is really not nice... We lose
-the HF-EEODB-aware size by creating dc_edid based on the EDID-advertised
-extension count. It should work if drm_edid is simply passed straight through.
-
-The challenge is dm_helpers* are DC's interface back to DM, and there is another
-OS that depends on it. Plumbing drm_edid through DC would be quite challenging.
-
-Alternatively, It should work if we carry over the drm_edid.size value to
-dc_edid.length. Do you know the motivation behind keeping drm_edid->size
-private? Would it be a good idea to implement a drm_edid_get_size()?
-
-Thanks,
-Leo
-
-> 
->>
->> - Leo
->>>
-> 
-
+T24gVHVlLCAyMDI2LTA0LTE0IGF0IDIwOjU0ICswOTAwLCBFbGlvdCBDb3VydG5leSB3cm90ZToN
+Cj4gQ3VycmVudGx5LCB0aGVzZSBhcmUgc2lsZW50bHkgb3ZlcndyaXR0ZW4uIEluc3RlYWQsIGVy
+cm9yIGlmIHRoZXkgYXBwZWFyDQo+IHR3aWNlIGluIHRoZSBWQklPUy4NCg0KSG93IGRvIHlvdSBr
+bm93IHRoYXQgdGhlcmUgY2FuIG9ubHkgYmUgb25lIFBDSS1BVCBpbWFnZSBvciBubyBtb3JlIHRo
+YW4gMiBGV1NFQyBpbWFnZXM/DQoNCg==
