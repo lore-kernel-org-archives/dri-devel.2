@@ -4,114 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C99CF531EF
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 06:02:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E229F531F4
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 06:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6F9910E200;
-	Tue, 14 Apr 2026 06:02:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ACB510E3C6;
+	Tue, 14 Apr 2026 06:45:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="43xOOq6W";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="f+/FdJ3g";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD5710E0B0;
- Tue, 14 Apr 2026 06:02:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UiZgfB9hZhOQwyK8UeW7l039wZ8nklp/iqv38hcQw/VO4An0R/AHDSEporXgLenx6F/YWUyn29HRiIxjeXLyco+MI3RcIRzQ2gPM2Nplijz4a7PJUYw3RL6FXwBbtxyXgn0NbFfIxyGZWLGNvLNXw7IR4E0aLhuwMv9B6QrkDflP2L+Yvy1q+fI+ylDB28rvyFHblxI2Thsky2aS5Wdu23lj070+atOVaMs1dqk4Snd/7FLINnBfuVGfiV6HUUvw0Mpt4rUoITttBf54kPVIL5LTv97P6FdKh8wTU1JEt0QaAOBrzB4QN8oSrCnak1p4dUVrrJ8LxheoeX4PxvIO7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dtMAVh2hqq04lMjTN/HCPRsVG19QQvnNYwFIfBdoJ+o=;
- b=buZVq0otEvNiF3rnq5PBVnMsDylwKmrxFxfwrIHWL7bo+4HJXoJCUekpjIXr4JhevkW2DJQ+GPS3AdF+4ICQBiX9iX9+wbwYPr52yaveutz5UVdHC+75YyLfRpWZakBH2RINZxM5PcOz9St8GOX4HLAWNh/laBX6x5pAY/v9WXdku4wX1WEIl8VYRi4n8dF9gGNCanxCy0+sy/MpzW+wnbHb+NUFGYq6OqIFCPkJBxY6RS/xR+Vy3G31K2YEj1KRQwqxqkP5fQG1HgQaTgUpnsFYWpYEf4eFgocxl5iRi9FdOvJfsWC2k8mfOapIQKhSGqtRQlAVpA1TZvxLKFgZxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dtMAVh2hqq04lMjTN/HCPRsVG19QQvnNYwFIfBdoJ+o=;
- b=43xOOq6WJAHdLJEoTlAcC1wDGjb4p3MPErfxWzxdXxu7j3yF6U7iwPEGn175yzFtaU42VRWpSxxacTKc9Av9r3HGOuDgT4tnoTEEztrdFlmh4hZ3gyA2CUZe2tOjyFX4OSwaODD9j7J6yaGP3cBfU6crtbXyb1RuU+hBQmYNq50=
-Received: from BN9PR03CA0406.namprd03.prod.outlook.com (2603:10b6:408:111::21)
- by DS7PR12MB8201.namprd12.prod.outlook.com (2603:10b6:8:ef::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
- 2026 06:02:46 +0000
-Received: from BN1PEPF00005FFF.namprd05.prod.outlook.com
- (2603:10b6:408:111:cafe::9a) by BN9PR03CA0406.outlook.office365.com
- (2603:10b6:408:111::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.47 via Frontend Transport; Tue,
- 14 Apr 2026 06:02:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00005FFF.mail.protection.outlook.com (10.167.243.231) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 06:02:46 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 14 Apr
- 2026 01:02:45 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 14 Apr
- 2026 01:02:44 -0500
-Received: from localhost (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17 via Frontend
- Transport; Tue, 14 Apr 2026 01:02:43 -0500
-From: Michal Simek <michal.simek@amd.com>
-To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
- <michal.simek@amd.com>, <git@amd.com>
-CC: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "open list:RADEON and
- AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVERS"
- <dri-devel@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu/jpeg: Fix sprintf buffer overflow warning in
- jpeg_v2_5
-Date: Tue, 14 Apr 2026 08:02:31 +0200
-Message-ID: <1be91839e8b3e41003147a8cdc99e6efd1a87442.1776146550.git.michal.simek@amd.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1397; i=michal.simek@amd.com;
- h=from:subject:message-id; bh=5DhDbjcKaaYATJQJ+CKjPPTHlG32mivH4RjudMGCpQc=;
- b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWTevVGldlPxv9a0hksnZ10otl41T3dilICf9NX8GGu32
- /Jzmrae7yhlYRDjYJAVU2SZzqTjsObbtaViyyPzYeawMoEMYeDiFICJbPVnZDgzV1UvJbTE4rDz
- 5BV95i6nja0sfl99Z++8VXzuOc1rt+oY/vu+EebuvalxZ4rgdw1G72DPzLlr7GJcz7G+7LS57rH
- 1HjcA
-X-Developer-Key: i=michal.simek@amd.com; a=openpgp;
- fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFF:EE_|DS7PR12MB8201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 543bee89-41ab-4131-a682-08de99eb734d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|1800799024|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: wLhZyz1YwohMekNwqdOY2tuhazRCI9Ykn5rmG14Qh+jwyEpV4qdCElcJjhotVHyjMcKwuGDTIGMAvGJ3OuYoqyUcPSca0rZENZDtpI4O0Z8LiPWDnS5n2jV779Gjw64g6KitVyoeus1umTWzgByq8rqJaqikuHKqtGPsOlYSEecWJ3MqdAWPOuHN51sgJbv/eGjJLmal4fx1LOc+VeNX8c+Y8D3eoHYDrDgNPgMw3QEVJGpmaNOPT6MqUwXtE+7gVb65oZgZIrazEyDc2/Jmlm9tNahaJx5kQoD0mzsjVK5HU2qoDaVSv9oFWYse4BtAVJedHAQFDBpX4wDdpPm5CZbVB0mDH2iyiFxlvfpZSpnvGBBN7Jh6yOJX/TivonIo52skHf8NzzqkQwWqG1HhEl6gsWD775EbVIhvbUBRSSh2QKb9tbZjvtLhVj5hfO57usrEgn9oc65baa4C8vvFOCWlt/4CihtIzDtoVB7oh+p0ua1xOPS1iWDsFL0ERWE5iqG5VKu7so9qNkMkdZLhKN9c+jqeaBek7VNIzdZc20AkiJE7XL4W5Xw2Mr20UL024OpltXHbN0mcg43R2KULz+eePBJy9lbS/V1vwAo3Ab+E4zOSwjMleRyJNR2mJAS4doRyfrBeuIATr/hbs8zlWeWWb3iHahl1jkIt9LQCTAubylQzbNjgoK8Gw6Hre3ve+eVgDrpuuz4C033Iv1aqh3WCYMiPBsI1EC2uolJOm+j3n2ay+d9Zwv0uJI6E4GDR6AwxAmmNcH7eMOuMBJHR6w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: uP6hv6b9GcsyxuamCUimVgy61ts9beRaNjuO26YRU1IarV8OG9vYJLtnop+HmKxpnL/wnEeD01jAA3plYOJEh7BZ64hZYhxXBBSq3Fc5b9Xam2fpp9Li1LRLJ1Nt3BPyUZrfWPNEtCF/WuL59qyYRy5nlLjcuzuznZqqXdRs7OoTZIVJ1GEZCsAzMMqldWhI8AGZV/A86sZpGSVNs6bTxIi2RJP9R6KNCIe7b4nfUkj+Kp17D8OZ1SuRzFKlG+IKpj3NZMzkA9yXFAX3qqp4w4rwvkXb+asrMQj8BOgjIl+8uE36oZE3mh5HS8V9/vZbBjDKbAwkQMjli/lp7yFxShFgWiCl5nOBi3oqCVSlcz8c4KQmRlv6Dn8ZcmJn4YAODQReDoTbrQ7uJA1ZLmFIdACKCiUvGyI9SiEnQ8+zKK53yNhtuCM5pVLw9l0Gqkfr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 06:02:46.3632 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 543bee89-41ab-4131-a682-08de99eb734d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8201
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7342910E069;
+ Tue, 14 Apr 2026 06:45:04 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id BA72F4E429F0;
+ Tue, 14 Apr 2026 06:45:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 898E15FFBB;
+ Tue, 14 Apr 2026 06:45:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 745AD10450B1D; 
+ Tue, 14 Apr 2026 08:44:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776149100; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=vj+EQ05FPKBTp1OV46fO5Oedc52PA+zs2hyhcrWvq4Y=;
+ b=f+/FdJ3gFgZicxmZg+3TKsSO2HjLdvbBRDofdKToAwxC33qBRQ8P/OdBuele8fRfK4UKQl
+ oPu7bXBT3oYRrsNRnKLHjc2lXCMhrD7vseb+uh3e3JcLdfl4qE2Xo/XaNcgiLOHQJ+7Fdl
+ PpSRU3G8FBDAsHB50K9vRe3YC0ujuVMYP+5Jb11M33LXw2l/RQBGw/4FFnsbXrbW0723RW
+ 3+Xo5cxuTUThO8Lh9gqqILwQnGxkCHNX/rsWMcbo1SENnBzQon0lO11SMv0jGNUOuRF5gi
+ iZdcqnP0mxCLizVi57yo8M+WvjPhNrEofWGsMNJwur3uxKctJE62SaR9CHo8fQ==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 14 Apr 2026 08:44:47 +0200
+Message-Id: <DHSOAYIAQWWN.2WEM50YWAZZSB@bootlin.com>
+Subject: Re: [PATCH 01/10] drm/bridge: add of_drm_get_bridge_by_endpoint()
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Xinliang Liu" <xinliang.liu@linaro.org>,
+ "Tian Tao" <tiantao6@hisilicon.com>, "Xinwei Kong"
+ <kong.kongxinwei@hisilicon.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ "Yongqin Liu" <yongqin.liu@linaro.org>, "John Stultz" <jstultz@google.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Tomi
+ Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Michal Simek"
+ <michal.simek@amd.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
+ <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-1-acd01cd79a1f@bootlin.com>
+ <u2awvqh2uoc2acuuvyavwwtuvtiaidhbkkj5a2d2wwph2s7j7g@b4j73kwzblgk>
+ <DHS6WZRYGWZQ.1X6ABU4UWF730@bootlin.com>
+ <omlnswxukeqgnatzdvooaashgkfcacjevkvbkm6xt33itgua2k@jcmzll2w6kdq>
+In-Reply-To: <omlnswxukeqgnatzdvooaashgkfcacjevkvbkm6xt33itgua2k@jcmzll2w6kdq>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,38 +84,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace sprintf() with snprintf() to fix the -Werror=format-overflow
-warning when building with allmodconfig:
+Hi Dmitry,
 
-  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c:152:47: error: '%d' directive
-  writing between 1 and 11 bytes into a region of size 7
-  [-Werror=format-overflow=]
-    152 |                 sprintf(ring->name, "jpeg_dec_%d", i);
+On Mon Apr 13, 2026 at 7:56 PM CEST, Dmitry Baryshkov wrote:
+> On Mon, Apr 13, 2026 at 07:07:14PM +0200, Luca Ceresoli wrote:
+>> Hi Dmitry, Maxime,
+>>
+>> thanks Dmitry for the quick feedback!
+>>
+>> On Mon Apr 13, 2026 at 4:58 PM CEST, Dmitry Baryshkov wrote:
+>>
+>> >> --- a/drivers/gpu/drm/drm_bridge.c
+>> >> +++ b/drivers/gpu/drm/drm_bridge.c
+>> >> @@ -1581,6 +1581,52 @@ struct drm_bridge *of_drm_find_bridge(struct d=
+evice_node *np)
+>> >>  	return bridge;
+>> >>  }
+>> >>  EXPORT_SYMBOL(of_drm_find_bridge);
+>> >> +
+>> >> +/**
+>> >> + * of_drm_get_bridge_by_endpoint - return DRM bridge connected to a =
+port/endpoint
+>> >> + * @np: device tree node containing output ports
+>> >> + * @port: port in the device tree node, or -1 for the first port fou=
+nd
+>> >> + * @endpoint: endpoint in the device tree node, or -1 for the first =
+endpoint found
+>> >> + * @bridge: pointer to hold returned drm_bridge, must not be NULL
+>> >> + *
+>> >> + * Given a DT node's port and endpoint number, find the connected no=
+de and
+>> >> + * return the associated drm_bridge device.
+>> >> + *
+>> >> + * The refcount of the returned bridge is incremented. Use drm_bridg=
+e_put()
+>> >> + * when done with it.
+>> >> + *
+>> >> + * Returns zero (and sets *bridge to a valid bridge pointer) if succ=
+essful,
+>> >> + * or one of the standard error codes (and the value in *bridge is
+>> >> + * unspecified) if it fails.
+>> >
+>> > Can we return drm_bridge or error cookie instead?
+>>
+>> (while replying I realized there is a design flaw in my implementation, =
+but
+>> see below)
+>>
+>> I initially thought I'd do it, but I don't like returning an error cooki=
+e
+>> for functions getting a bridge pointer. The main reason is that with bri=
+dge
+>> refcounting the __free() cleanup actions are handy in a lot of places, s=
+o we
+>> are introdugin a lot of code like:
+>>
+>>   struct drm_bridge *foo __free(drm_bridge_put) =3D some_func(...);
+>>
+>> Where some_func can be one of of_drm_find_bridge(),
+>> drm_bridge_get_next_bridge(), drm_bridge_chain_get_{first,last}_bridge()
+>> etc.
+>
+> This is fine even with the functions returning a cookie: the free
+> function can explicitly check and return early if IS_ERR() pointer is
+> passed to it.
+>
+>>
+>> Such code is very handy exactly because these functions return either a
+>> valid pointer or NULL, and thus the cleanup actions always does the righ=
+t
+>> thing. If an error cookie were returned, the caller would have to be ver=
+y
+>> careful in inhibiting the cleanup action by clearing the pointer before
+>> returning. This originate for example this discussion: [0]
+>>
+>> [0] https://lore.kernel.org/lkml/4cd29943-a8d0-4706-b0c5-01d6b33863e4@bo=
+otlin.com/
+>>
+>> So I think never having a negative error value in the bridge pointer is
+>> useful to prevent bugs slipping in drivers. For this we should take one =
+of
+>> these two opposite approaches:
+>>
+>>  1. don't return a bridge pointer which can be an ERR_PTR; return an int
+>>     with the error code and take a **drm_bridge and:
+>>       - on success, set the valid pointer in *bridge
+>>       - on failure, set *bridge =3D NULL (*)
+>>  2. like the above-mentioned functions (of_drm_find_bridge(),
+>>     drm_bridge_get_next_bridge() etc) return a drm_bridge pointer which =
+is
+>>     either a valid pointer or NULL
+>
+> 3. Return pointer or cookie, ignore cookie in the release function.
 
-The ring->name buffer is 16 bytes. Using snprintf() with sizeof()
-ensures the buffer cannot overflow regardless of the integer value.
+Ah, that's a good idea indeed!
 
-Signed-off-by: Michal Simek <michal.simek@amd.com>
----
+It had been proposed recently by Laurent too, but in that case I didn't
+take the suggestion because it was referring to a panel API which IIUC is
+meant to be reworked anyway [0]. I must have archived the idea too much and
+didn't think about using it now! :)
 
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So yes, being of_drm_get_bridge_by_endpoint() a new API that is meant to
+stay, I think it's worth doing.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-index 20983f126b49..fe2b049afac3 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
-@@ -149,7 +149,7 @@ static int jpeg_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
- 		else
- 			ring->vm_hub = AMDGPU_MMHUB0(0);
- 		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 1 + 8 * i;
--		sprintf(ring->name, "jpeg_dec_%d", i);
-+		snprintf(ring->name, sizeof(ring->name), "jpeg_dec_%d", i);
- 		r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst[i].irq,
- 				     0, AMDGPU_RING_PRIO_DEFAULT, NULL);
- 		if (r)
--- 
-2.43.0
+Sadly, I guess that means I have to drop all the R-by you already gave to
+various patches in the series.
 
-base-commit: def01be0116ec66f7903e49ededad78e49717109
-branch: master
+[0] https://lore.kernel.org/all/DH624WYWKT14.5TSCJXZPVN0T@bootlin.com/
+
+>> >> + */
+>> >> +int of_drm_get_bridge_by_endpoint(const struct device_node *np,
+>> >> +				  int port, int endpoint,
+>> >> +				  struct drm_bridge **bridge)
+>> >
+>> > Nit: can it be drm_of_get_bridge_by_endpoint?
+>>
+>> Argh, this convention is changing periodically it seems! :-)
+>>
+>> I previous discussions I was asked to do either drm_of_ [1] of of_drm_ [=
+2],
+>> but since the latter was the last one requested I sticked on it.
+>>
+>> @Maxime, Dmitry, I'm OK with either, just let me know if I need to chang=
+e.
+>
+> I missed Maxime's response, sorry. I'm fine with the suggested
+> convention of using the first argument.
+
+OK, no problem. Based on current discussion, in v2 the new API will be:
+
+/**
+ * of_drm_get_bridge_by_endpoint - return DRM bridge connected to a port/en=
+dpoint
+ * @np: device tree node containing output ports
+ * @port: port in the device tree node, or -1 for the first port found
+ * @endpoint: endpoint in the device tree node, or -1 for the first endpoin=
+t found
+ *
+ * Given a DT node's port and endpoint number, find the connected node and
+ * return the associated drm_bridge device.
+ *
+ * The refcount of the returned bridge is incremented. Use drm_bridge_put()
+ * when done with it.
+ *
+ * Returns a pointer to the connected drm_bridge, or a negative error on fa=
+ilure
+ */
+struct drm_bridge *int of_drm_get_bridge_by_endpoint(const struct device_no=
+de *np,
+                                                     int port, int endpoint=
+);
+
+It would be nice to agree on the API before v2, to avoid the need to rework
+many patches and drop any review tags multiple times.
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
