@@ -4,80 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52046F9D0EC
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:05:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE01EF9D0EC
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:07:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A800810E011;
-	Tue, 14 Apr 2026 18:05:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44AED10E061;
+	Tue, 14 Apr 2026 18:07:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UWaa0U2N";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pexnh4sr";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBE6110E011
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 18:05:23 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so56326645e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 11:05:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776189922; x=1776794722; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=fXXwUnGdo3Yx9sP3zR3t7iA+9QFee9LB/bN9Dc41ll8=;
- b=UWaa0U2NIGKOf+vE8ya8aoTp3cwOQHQShYT0NS2ZCe1lEaTWS5sRvlmRUoXO+xwjte
- rYQ0SiFLvsE9gy6Vl670MnTBAiIDfTlpIpUiPnVLxYduTV2fGv0nD+7vQY5zkHDj+D9S
- vFrJPEILfJDTTndGBmXwy8qwDG5V84l7YEfOrbqS4vPR6J2GLD4O82OFdcUDwy3NIbV1
- CwfGKhn4DH3YnY2U89rT6BPy7SddDmC2/yc9YyG0di77RQBVUNAfmeBKdrQMDRdtdIOm
- l4kDpTindwb11tmFxaZju8TfcdXLs5sEiNrLQxoaqmU6aNgrfmscss3Y0w/oBYcHExoP
- j6aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776189922; x=1776794722;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fXXwUnGdo3Yx9sP3zR3t7iA+9QFee9LB/bN9Dc41ll8=;
- b=KnDwPwW7Vvuo8tIDy/3yiLdg0R6vVgErIfUxyNzK7WkVdrUXGvUJr7Cm7MTHOju6Ri
- iAYPnWywP1BoP1DyOdnlRvUEDT9n49dcCW08A+b+KzqNZWFxyV4kZjReZYenSlVFJWYX
- WO4heF5YJ3gf/Alq/bpgERTSVV9mwvnHUClxYIdGwopiJwSq/fDYadfCtmlZcEgb4Apm
- YZS2K1IG0q6uZSvf0C8o6JutwpbduISqmA1IBMEnGnv4CrckM4NwJGJAGdJh64ZUYWR1
- rRje4vQi2epyrgM7gt6tJNRhtURsnja5mxU2Mcc+Y40+P/Rqy2kh7TppooKJKBn9Ucz/
- RiUQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9WxyNhgN8pgGBqwdHiC+UPAfhZkAOiRdMv/Lc3qiiLOG1T+NK/3gNGFI0iHErEOAPyWEtc9xx94xs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNIx3zOvmneioWtXx656LL0lGPasrC/GnL9p3RMMGwSDpx0DlR
- 6sJmCU8kFwN3ed8dQfDP9Ijw493M0S+HbOr2kt4BW4D9R5NI6MDsH9zu
-X-Gm-Gg: AeBDiet9qxtAX7sBoZDisoIl0LKQ0fdSn5Wp9XdUynKpD0fo8e3lt6WFXpdB6UU2VQW
- 1OecdSJxcrr/bHX3OBuYtAOft9S9Q7onSCkX7/e5w7+IhTytTodp+MM1/+UJ3JGNa5WwXboG5Ds
- leG923RlJgKtLw4ARtYWUlhG5A/AloBT8wv0b/Tj+a+RJV0whqUwYgrwxuxJUvkW4lyefGEnYae
- CYVLcgP8DD6nP/dlVg1SYn4Rrorax7Yrjhlat8P3OEVQfkDZMA70naFqG5+s6AZ5aJWJzv0S4/N
- ZtaOBnkcry5g/EI9XdiF1g4WBgOfp0rbbaq6LNeZIhC6RW2VrBg29mAuDAYLj8+XHgDCoKCDEyO
- UQFbD/AHsJV0CraNYRlHmYPP/bzojr7kgbsPqAT+OI+Ky2SsyOePxIX2HCgcXts6hwEJGztLGdO
- rUZX+SMs2L6dIXE0F4tMB2o7hs7Pmhpe0tBlC79B05E3pC15QKWfP/e5i6qhFL
-X-Received: by 2002:a05:600c:8b38:b0:488:be58:bb77 with SMTP id
- 5b1f17b1804b1-488d6890ee3mr231361435e9.30.1776189922119; 
- Tue, 14 Apr 2026 11:05:22 -0700 (PDT)
-Received: from osama.. ([2a02:908:1b6:8980:cb49:f403:bb20:cc84])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d6ffd3880sm28095884f8f.7.2026.04.14.11.05.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2026 11:05:21 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: luca.ceresoli@bootlin.com, Jagan Teki <jagan@amarulasolutions.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH v2] drm/bridge: chipone-icn6211: use devm_drm_bridge_add
-Date: Tue, 14 Apr 2026 20:05:17 +0200
-Message-ID: <20260414180518.160801-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C81A710E061
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 18:07:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8dERr82ATy6+A+VbClTQaoDLb2l8RDwKmkIC4VlRYDY=; b=pexnh4srs6zZBm87oZHy69Dxim
+ UQc35z1RTtElIhGwHcJ7AXq4KPH2qo5ibOhIInj49ne36lWqQ7yvJVP2evNIECqae1tCJYU2sKXEO
+ wKevpDRxgSdS8IJl48E2h6hwXEG1pOFI9f49JzpDoE3QLWMxaSk7M5lDdWJa3O5cvRqwa92E39n5P
+ /Mm+IYvKeBgq9iCKHAw1pu6OsC60J5ClRm4pLVNySKJkj9OXj+PI3eQ1aK8SeyHZj0oyrDoaVH/ZE
+ HctWJ43PovKzXG39YhsDaZofqTEkXnw7m+xqf/GYiSbnjEeJgw9tNHJoeLuJ/zOBC447fvCiqMjJP
+ /MfCAPbw==;
+Received: from [189.7.87.169] (helo=[192.168.0.2])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wCiAY-00G0ub-Cy; Tue, 14 Apr 2026 20:07:26 +0200
+Message-ID: <8c2f4d80-2f33-4cd1-a6f0-ac5f23cdb777@igalia.com>
+Date: Tue, 14 Apr 2026 15:07:21 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/v3d: Reject empty multisync extension to prevent
+ infinite loop
+To: Ashutosh Desai <ashutoshdesai993@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: itoral@igalia.com, stable@vger.kernel.org
+References: <177614548527.3603641.5360701002746181082@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <177614548527.3603641.5360701002746181082@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,68 +86,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use devm_drm_bridge_add() so the bridge is released if probe fails after
-registration, and drop drm_bridge_remove() from DSI remove.
+Hi Ashutosh,
 
-v2: devm_drm_bridge_add instead of drm_bridge_add + manual remove paths
+On 14/04/26 02:44, Ashutosh Desai wrote:
+> v3d_get_extensions() walks a userspace-provided singly-linked list of
+> ioctl extensions without any bound on the chain length. A local user
+> can craft a self-referential extension (ext->next == &ext) with zero
+> in_sync_count and out_sync_count, which bypasses the existing duplicate-
+> extension guard:
+> 
+>      if (se->in_sync_count || se->out_sync_count)
+>              return -EINVAL;
+> 
+> The guard never fires because v3d_get_multisync_post_deps() returns
+> immediately when count is zero, leaving both fields at zero on every
+> iteration. The result is an infinite loop in kernel context, blocking
+> the calling thread and pegging a CPU core indefinitely.
+> 
+> Fix this by rejecting a multisync extension where both in_sync_count
+> and out_sync_count are zero in v3d_get_multisync_submit_deps(). An
+> empty multisync carries no synchronization information and serves no
+> useful purpose, so returning -EINVAL for such an extension is the
+> correct defense against this attack vector.
+> 
+> Fixes: 9032d5f633ed ("drm/v3d: Detach job submissions IOCTLs to a new specific file")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+> ---
+> V2 -> V3: drop depth counter; instead reject empty multisync
+>            (in_sync_count == 0 && out_sync_count == 0) in
+>            v3d_get_multisync_submit_deps()
+> V1 -> V2: change cap from 16 to V3D_MAX_EXTENSIONS (7), add #define
+> 
+> v2: https://lore.kernel.org/dri-devel/20260413055230.3349114-1-ashutoshdesai993@gmail.com/
+> v1: https://lore.kernel.org/dri-devel/20260410013907.2404175-1-ashutoshdesai993@gmail.com/
+> 
+>   drivers/gpu/drm/v3d/v3d_submit.c | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+> index 18f2bf1fe89f..fc74351efad5 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -393,6 +393,11 @@ v3d_get_multisync_submit_deps(struct drm_file *file_priv,
+>   if (multisync.pad)
+>    -EINVAL;
+>   
+> +if (!multisync.in_sync_count && !multisync.out_sync_count) {
+> +drm_dbg(&v3d->drm, "Empty multisync extension
+> ");
+> +return -EINVAL;
+> +}
 
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
- drivers/gpu/drm/bridge/chipone-icn6211.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+LGTM, but the indentation looks off to me (v1 and v2 were correct).
+Could you check if there is any issue with your e-mail client?
 
-diff --git a/drivers/gpu/drm/bridge/chipone-icn6211.c b/drivers/gpu/drm/bridge/chipone-icn6211.c
-index 5bee10c64265..4bc98c45f65f 100644
---- a/drivers/gpu/drm/bridge/chipone-icn6211.c
-+++ b/drivers/gpu/drm/bridge/chipone-icn6211.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
- #include <drm/drm_of.h>
- #include <drm/drm_print.h>
- #include <drm/drm_mipi_dsi.h>
-@@ -730,12 +731,11 @@ static int chipone_dsi_probe(struct mipi_dsi_device *dsi)
- 
- 	mipi_dsi_set_drvdata(dsi, icn);
- 
--	drm_bridge_add(&icn->bridge);
--
--	ret = chipone_dsi_attach(icn);
-+	ret = devm_drm_bridge_add(dev, &icn->bridge);
- 	if (ret)
--		drm_bridge_remove(&icn->bridge);
-+		return ret;
- 
-+	ret = chipone_dsi_attach(icn);
- 	return ret;
- }
- 
-@@ -758,20 +758,17 @@ static int chipone_i2c_probe(struct i2c_client *client)
- 	dev_set_drvdata(dev, icn);
- 	i2c_set_clientdata(client, icn);
- 
--	drm_bridge_add(&icn->bridge);
-+	ret = devm_drm_bridge_add(dev, &icn->bridge);
-+	if (ret)
-+		return ret;
- 
- 	ret = chipone_dsi_host_attach(icn);
--	if (ret)
--		drm_bridge_remove(&icn->bridge);
- 	return ret;
- }
- 
- static void chipone_dsi_remove(struct mipi_dsi_device *dsi)
- {
--	struct chipone *icn = mipi_dsi_get_drvdata(dsi);
--
- 	mipi_dsi_detach(dsi);
--	drm_bridge_remove(&icn->bridge);
- }
- 
- static const struct of_device_id chipone_of_match[] = {
--- 
-2.43.0
+Best regards,
+- Maíra
+
+> +
+>   ret = v3d_get_multisync_post_deps(file_priv, se, multisync.out_sync_count,
+>   multisync.out_syncs);
+>   if (ret)
 
