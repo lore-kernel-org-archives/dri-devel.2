@@ -4,58 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0E82F531F4
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 06:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC41F531F8
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 07:02:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02CA910E069;
-	Tue, 14 Apr 2026 06:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0DD10E578;
+	Tue, 14 Apr 2026 07:02:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i8Pim6ma";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="OJBuMBRn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5C1710E069
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 06:46:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4B7CB402BE;
- Tue, 14 Apr 2026 06:46:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D567C19425;
- Tue, 14 Apr 2026 06:46:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776149164;
- bh=K4oybcycMxSVWlM7LCJXfJ24fNZzAEJthizWSnJFlmE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=i8Pim6maYQyrcTqM4pWnIiwlti0JxyvKwvwuUlrZSRQVF1WxedvuTiC3i9iC9LAA7
- BRFuRUrlRvkDbXLoopVCe6vAZTp1q/I1QH39ANsGtF5BrpHch+ZmE3Ny01PXO1LUnU
- WXnvs+YrTi4KAM3IkqgyyCMgO8cG5Jwh89ScSDjW3HhuHuSRxSu40AxnjHeCnfnED0
- OWZaczglyJTHNZ9XuLTN/UZ857569LXCd3rHH30JyJIIQTkRhWw8wWjyFh54YXvWwW
- +8YXo5J25iqrV3fo27NHeb9/ZgxfwI/D2P0QsHb/hEDd/yRaUoxDI1P/8JZZtSrvDR
- HJaOsuuef8VAQ==
-Date: Tue, 14 Apr 2026 08:46:01 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>,
- Cong Yang <yangcong5@huaqin.corp-partner.google.com>, 
- Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>, 
- Jagan Teki <jagan@edgeble.ai>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v3 05/21] dt-bindings: dipslay/panel: describe panels
- using Focaltech OTA7290B
-Message-ID: <20260414-silver-chipmunk-of-storm-c6572e@quoll>
-References: <20260413-waveshare-dsi-touch-v3-0-3aeb53022c32@oss.qualcomm.com>
- <20260413-waveshare-dsi-touch-v3-5-3aeb53022c32@oss.qualcomm.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260413-waveshare-dsi-touch-v3-5-3aeb53022c32@oss.qualcomm.com>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0232510E577;
+ Tue, 14 Apr 2026 07:02:43 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 8983F1A329A;
+ Tue, 14 Apr 2026 07:02:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4EA1C5FFBB;
+ Tue, 14 Apr 2026 07:02:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id DE66810450D08; 
+ Tue, 14 Apr 2026 09:02:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776150160; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=GSwJySJHo0hT7GXeWrDOalz8cnz5bMLyfqqv3BHlXRA=;
+ b=OJBuMBRnZ+1k0pvNy34xrHqO2sDtPpDWaR5tU5nqeGGgWSkYmHpD2OCmU8elLppdM+FZfO
+ w0DduviNhyxdv6HA5bPmhN6QWm7zZhJe9bpszUAgTALiVlrDx7Z/J1cBi/t/Ry5rdFzOqu
+ R9JonwE28Dtat/FKH00kCLyUE0whYkGlR+uKNLDuDgfj/Rdw8vBC2f0BPneCgtCaLa/GIJ
+ jH1rCkKR5yfbF2aexL9UkLhqJVKUEXAtibTr52l0hPNZ6RGKDm20chWzXLhfzHC4ky6OIq
+ KWfO9iSdVGivMNMZCB0IM5Bz+oH6rKh94YLpmIIoLEF+6QQz3VK4UTlBsapH1A==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 14 Apr 2026 09:02:27 +0200
+Message-Id: <DHSOOH7FU7Y4.1R63I92H08W86@bootlin.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Subject: Re: [PATCH 10/10] drm: of: forbid bridge-only calls to
+ drm_of_find_panel_or_bridge()
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "Xinliang Liu" <xinliang.liu@linaro.org>,
+ "Tian Tao" <tiantao6@hisilicon.com>, "Xinwei Kong"
+ <kong.kongxinwei@hisilicon.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ "Yongqin Liu" <yongqin.liu@linaro.org>, "John Stultz" <jstultz@google.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Tomi
+ Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Michal Simek"
+ <michal.simek@amd.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
+ <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <freedreno@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>
+X-Mailer: aerc 0.20.1
+References: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
+ <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-10-acd01cd79a1f@bootlin.com>
+ <nligqvm3lq6n556onglmb345arxztd4pc6fboo4yrs3bfu27eu@uiyu2xklnexb>
+In-Reply-To: <nligqvm3lq6n556onglmb345arxztd4pc6fboo4yrs3bfu27eu@uiyu2xklnexb>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,17 +83,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 13, 2026 at 05:05:28PM +0300, Dmitry Baryshkov wrote:
-> Add schema for the panels using Focaltech OTA7290B controller. For now
-> there is only one such panel, from the Waveshare 8.8 DSI TOUCH-A kit.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  .../bindings/display/panel/focaltech,ota7290b.yaml | 70 ++++++++++++++++++++++
->  1 file changed, 70 insertions(+)
+Hello Dmitry, Maxime,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Mon Apr 13, 2026 at 8:04 PM CEST, Dmitry Baryshkov wrote:
+> On Mon, Apr 13, 2026 at 03:58:42PM +0200, Luca Ceresoli wrote:
+>> Up to now drm_of_find_panel_or_bridge() can be called with a bridge poin=
+ter
+>> only, a panel pointer only, or both a bridge and a panel pointers. The
+>> logic to handle all the three cases is somewhat complex to read however.
+>>
+>> Now all bridge-only callers have been converted to
+>> of_drm_get_bridge_by_endpoint(), which is simpler and handles bridge
+>> refcounting. So forbid new bridge-only users by mandating a non-NULL pan=
+el
+>> pointer in the docs and in the sanity checks along with a warning.
+>
+> Are there remaining users which still use either the bridge or the
+> panel? Would it be possible / better to drop the two-arg version?
+
+Yes. I counted ~20 panel+bridge and 4 panel-only callers with this series
+applied, and on top of those there are devm_drm_of_get_bridge() and
+drmm_of_get_bridge() which to me are the real issue because they make it
+impossible to correctly handle bridge lifetime.
+
+We discussed this with both you and Maxime a while back. AFAIK Maxime has a
+plan to make every panel automatically instantiate a panel_bridge. I think
+that's the only reasonable approach to get rid of
+drm_of_find_panel_or_bridge() + *_of_get_bridge() and make bridge lifetime
+easier and safe.
+
+@Maxime, do you have updates on that idea?
 
 Best regards,
-Krzysztof
+Luca
 
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
