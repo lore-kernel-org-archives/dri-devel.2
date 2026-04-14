@@ -4,43 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DAFEF9D0D6
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 15:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D2CFF9D0DA
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 15:49:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91E1E89E2A;
-	Tue, 14 Apr 2026 15:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0D1010E0A2;
+	Tue, 14 Apr 2026 15:49:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="QG1W//EF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="stG6I3gs";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0D2789E2A
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 15:49:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE87310E0A2
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 15:49:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=uCpVefvv5ROP1tgitV0gkmnvwqRDrAl+dZVonDpY3E4=; b=QG1W//EFKWTBHZKufrnx1780WU
- vSHCCSlWfHKTYMu4GxbKaBSYtiG1wUGMEBqTugC/YdBSqnfXshcvbcBWdpFlqV6eLjGlo24Py0j3w
- 77duXuQVHC0x9MkvZqNo+lxy8VaV2NN55q+15zQ0jYknMl2/p9GLrsOv1IE22p/qiGM96tPp6Y5OL
- iR/csl0bzTJRC79vbqrgYCU3b0V4JZGesarX+TtvB1Kxl+0a1s9NEp/RLWy6n/2mcQph1pSv0UzTJ
- IptPQnpWCOMR50HqI3SdBnulxG4LjYv/Z6pC7LUr7mmW3ZCc3PQTKJO0R0NcYRlUiYhPtWvVlPYNg
- FqTV8hJA==;
+ bh=NH3VFhuA4KTmnv2Djo8xtQoIH/0rZEUzxAByURI9vUg=; b=stG6I3gsqgvfdtVZTDguCcJfNf
+ gXAfIrwQpNDQCCp73jOKYg0RMWF2ZbCRMtCWLux1PhBfRjl3JxCp24q1WBMVXh+gvbLqDUvWhTtLd
+ IpfsplhtpS81PL7jXXti/5BA67GVooOBN7cHYPVqn41/s89tywrOJPkvZl3SGtT9l9L1EQzY0eDwk
+ TmnniWZ29CCI6YUMApd+GvKAkYuHfI86lps9/S/iw70sn2UbKPGYpd2kscAaHQmJaosU6YMILMJ+4
+ qQeFlY4kaVm5FQHpGlLZchvWhuSXBWwaUt6MiKwU4zMmt2+6V31lEoIhhj6MxjqA/iAXhaVMneh+B
+ tSxqISlw==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wCg14-00FxmF-K3; Tue, 14 Apr 2026 17:49:30 +0200
+ id 1wCg15-00FxmJ-Ay; Tue, 14 Apr 2026 17:49:31 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 1/2] dma-fence: Silence sparse warning in dma_fence_describe
-Date: Tue, 14 Apr 2026 16:49:27 +0100
-Message-ID: <20260414154928.32934-1-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 2/2] dma-fence: Fix potential tracepoint null pointer
+ dereferences
+Date: Tue, 14 Apr 2026 16:49:28 +0100
+Message-ID: <20260414154928.32934-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260414154928.32934-1-tvrtko.ursulin@igalia.com>
+References: <20260414154928.32934-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -59,43 +64,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Sparse complains about assigning a string to a __rcu annotated local
-variable:
+Trace_dma_fence_signaled, trace_dma_fence_wait_end and
+trace_dma_fence_destroy can all currently dereference a null fence->ops
+pointer after it has been reset on fence signalling.
 
-drivers/dma-buf/dma-fence.c:1040:38: warning: incorrect type in initializer (different address spaces)
-drivers/dma-buf/dma-fence.c:1040:38:    expected char const [noderef] __rcu *timeline
-drivers/dma-buf/dma-fence.c:1040:38:    got char *
-drivers/dma-buf/dma-fence.c:1041:36: warning: incorrect type in initializer (different address spaces)
-drivers/dma-buf/dma-fence.c:1041:36:    expected char const [noderef] __rcu *driver
-drivers/dma-buf/dma-fence.c:1041:36:    got char *
+Lets use the safe string getters for most tracepoints to avoid this class
+of a problem, while for the signal tracepoint we move it to before ops are
+cleared to avoid losing the driver and timeline name information. Apart
+from moving it we also need to add a new tracepoint class to bypass the
+safe name getters since the signaled bit is already set.
 
-It is harmless but lets silence it.
+For dma_fence_init we also need to use the new tracepoint class since the
+rcu read lock is not held there, and we can do the same for the enable
+signaling since there we are certain the fence cannot be signaled while
+we are holding the lock and have even validated the fence->ops.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Fixes: ac364014fd81 ("dma-buf: cleanup dma_fence_describe v3")
+Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
 Cc: Christian König <christian.koenig@amd.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>
 Cc: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
 Cc: linaro-mm-sig@lists.linaro.org
 ---
- drivers/dma-buf/dma-fence.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/dma-buf/dma-fence.c      |  3 ++-
+ include/trace/events/dma_fence.h | 33 ++++++++++++++++++++++++++++----
+ 2 files changed, 31 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 1826ba73094c..a2aa82f4eedd 100644
+index a2aa82f4eedd..b3bfa6943a8e 100644
 --- a/drivers/dma-buf/dma-fence.c
 +++ b/drivers/dma-buf/dma-fence.c
-@@ -1037,8 +1037,8 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
-  */
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
- {
--	const char __rcu *timeline = "";
--	const char __rcu *driver = "";
-+	const char __rcu *timeline = (const char __rcu *)"";
-+	const char __rcu *driver = (const char __rcu *)"";
- 	const char *signaled = "";
+@@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+ 				      &fence->flags)))
+ 		return;
  
- 	rcu_read_lock();
++	trace_dma_fence_signaled(fence);
++
+ 	/*
+ 	 * When neither a release nor a wait operation is specified set the ops
+ 	 * pointer to NULL to allow the fence structure to become independent
+@@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+ 
+ 	fence->timestamp = timestamp;
+ 	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
+-	trace_dma_fence_signaled(fence);
+ 
+ 	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+ 		INIT_LIST_HEAD(&cur->node);
+diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
+index 3abba45c0601..9e0cb9ce2388 100644
+--- a/include/trace/events/dma_fence.h
++++ b/include/trace/events/dma_fence.h
+@@ -9,12 +9,37 @@
+ 
+ struct dma_fence;
+ 
++DECLARE_EVENT_CLASS(dma_fence,
++
++	TP_PROTO(struct dma_fence *fence),
++
++	TP_ARGS(fence),
++
++	TP_STRUCT__entry(
++		__string(driver, dma_fence_driver_name(fence))
++		__string(timeline, dma_fence_timeline_name(fence))
++		__field(unsigned int, context)
++		__field(unsigned int, seqno)
++	),
++
++	TP_fast_assign(
++		__assign_str(driver);
++		__assign_str(timeline);
++		__entry->context = fence->context;
++		__entry->seqno = fence->seqno;
++	),
++
++	TP_printk("driver=%s timeline=%s context=%u seqno=%u",
++		  __get_str(driver), __get_str(timeline), __entry->context,
++		  __entry->seqno)
++);
++
+ /*
+  * Safe only for call sites which are guaranteed to not race with fence
+  * signaling,holding the fence->lock and having checked for not signaled, or the
+  * signaling path itself.
+  */
+-DECLARE_EVENT_CLASS(dma_fence,
++DECLARE_EVENT_CLASS(dma_fence_ops,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
+@@ -46,7 +71,7 @@ DEFINE_EVENT(dma_fence, dma_fence_emit,
+ 	TP_ARGS(fence)
+ );
+ 
+-DEFINE_EVENT(dma_fence, dma_fence_init,
++DEFINE_EVENT(dma_fence_ops, dma_fence_init,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
+@@ -60,14 +85,14 @@ DEFINE_EVENT(dma_fence, dma_fence_destroy,
+ 	TP_ARGS(fence)
+ );
+ 
+-DEFINE_EVENT(dma_fence, dma_fence_enable_signal,
++DEFINE_EVENT(dma_fence_ops, dma_fence_enable_signal,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
+ 	TP_ARGS(fence)
+ );
+ 
+-DEFINE_EVENT(dma_fence, dma_fence_signaled,
++DEFINE_EVENT(dma_fence_ops, dma_fence_signaled,
+ 
+ 	TP_PROTO(struct dma_fence *fence),
+ 
 -- 
 2.52.0
 
