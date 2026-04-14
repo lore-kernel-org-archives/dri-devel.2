@@ -4,126 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67567F9D0F2
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:48:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F807F9D0F1
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D4E10E64F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1B710E64B;
 	Tue, 14 Apr 2026 18:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=verivus.ai header.i=@verivus.ai header.b="VJhZt61+";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=verivus.ai header.i=@verivus.ai header.b="elyC259S";
 	dkim-atps=neutral
-Received: from SY2PR01CU004.outbound.protection.outlook.com
- (mail-australiaeastazon11021088.outbound.protection.outlook.com
- [40.107.39.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 518FC10E09C;
- Tue, 14 Apr 2026 05:08:48 +0000 (UTC)
+Received: from MEUPR01CU001.outbound.protection.outlook.com
+ (mail-australiasoutheastazon11020103.outbound.protection.outlook.com
+ [52.101.152.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39DC310E2AE;
+ Tue, 14 Apr 2026 09:47:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WqjWg/XHfQw08EoMjY2wFWlnTWFfLRuTw0thJzFAmw3sRAPlNC4BrXpXFAgk1VlfLCg+Z0ttBi61OhqsWERDAI4n4S1594tMaUJdBwUsHsttMYckmyD+OquweNnNcnmcUZPMLuTubV93JhStGON8UyB66+oQD1o2yOm9JGOiaUJdJZLGYTodAUrh0/VWt+6MMRZEbEZTjYjps51KtCfHG9DUCdr0KPUycXLzDAh78YHCE79MfZs5z7RhsvMf08E8OYOKBkrH0mCdokFg8cfMRi9LqCWlMcfn96n1BphUUNo3hn2DBRJUIhnJgagSRcQEtUcZerx0EnbihBWWlY7MXg==
+ b=Wq+RHbtsBgPm8vR/PgdgJOZriCUMGDyK9f1i4cpZUMiM9jeHMufjzltBVt/enZEtOZBHqF9XaYoLnvTMzkr079DljLgKPvlOUnYvZTLUNwVddSFWOYW5da7UzHntGTbbf/aYiqQaku2lgYr9jEJMAhbjgow3RbLzvqjPZ9OCq3njhPdMbVmNFQgbazo3lf2GbBoRLlTjgH9cvaiyATiuR29b5WE4d2buUKI4ciJ8H4a6lzvgVmr6dx4msWUx/ABfaqpfct4Um1VXRk+EveyiAzBgKnWMk6X5DlzXx4eDmuHA+0LD11vkL4nWgW8ZWQfeCT+ive7mYX1Nd8l2AKqRTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zchg+lqbHt28YksbX8bCPYnMvLlftotdwl+HJd475Mo=;
- b=seFo4ogoSQHytVv5IFVYAAFgYrrJRezUj4z6jdF3+UIAD/PCWdZqiukzY2E8hPxPbdxieH0ZIM2WVw1tC6xBUysUD4sb0epplPolzGoVlhXvc10geulU2PHmG3KdU9A+pIuKEbN9SbbeQaZyJW99Qhqz7vy4Dw3aZGYc8EU4bFgIbHZ7dqsEB+NlrNQN7EwUkiFrAjOrYt69R2P8LaRmh9NTgalk4xeV0XNfPHdA3YC4DMZCkOkcFYI/xQSjhdRKPh0938ihgiWWlsEQdj/EGOR4x8G49EII7JZ7TEZAFwxuS2iOSxUcA/HaF6zcQ1r50V52t2EWkqbtdmSkNBz/DQ==
+ bh=/YidKchPcy74m7eeNyl9psGVBLy2fw+qIUeu4IN2wFU=;
+ b=fRXxjg5PT6FPID8L0SUhMO8ChYJMrwrLArZcx3ZHmLUUMLSCK+rRoeDVn6roGLVS7CD+uvQvwczOtu4W0Di2PRuVJAlMSX2RQvDEAZpzUemd8Hr853ZR3PjWUXYVDyFv6NRrGcoVOL+WZaIVro55SFSneLqF2A5SM9EoLK592CVmHcUA3SOguLH8zjKnbD+uLxDIkDDzMnCK0UZI6wI+KudrV3eVAeUb1E3wSkkG0Ip24XrorsaeZqh/L5WFJ6xD5U0moflwJxRjKgayYb2MsmyQWX51yCdiy+RxV/LjDPG0KKfeoSXWCsiv/fxH580cRtbvg9lJOO7HtUWvz8VuPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=verivus.ai; dmarc=pass action=none header.from=verivus.ai;
  dkim=pass header.d=verivus.ai; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verivus.ai;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zchg+lqbHt28YksbX8bCPYnMvLlftotdwl+HJd475Mo=;
- b=VJhZt61+FRW2cmtA5wdArkihyL+eDrM1Wo+8H7ljCYYnWC8RyFwehzRovqszWKcpuP8bRIRUMXm7yI2yVnYORJB3sdq+IdTCNGPYbovvximXeAxHNco2UYBECFFqmmFaRdPQbLZsQDtCM95YMkcwmvC1bcvWrk26i9DcLTHjS9ByaCPxr10P8M/4hTdp4+EJkqsEW3Tq5BRzWSxDJZZ+sCHKjpWedFcfY6tauKymAG+Soubt8oxG6AHg/MudBh50YtOno00o/FBZOZn/rP4oLu/cHbr+Z7siRqaBRSojHPhdCtGHXw3siS/CJDAaP8hEoxZnI6vgcB+tNr/tbuosdw==
+ bh=/YidKchPcy74m7eeNyl9psGVBLy2fw+qIUeu4IN2wFU=;
+ b=elyC259SVTMyqBk0l4frCANmCy89K7DpPBTpuRTUMXw947gQDhynzotB9VX37rmI9v8q8mIIMQOAHF6UracYVplg8LnrGWGtPP3H4POWIicZXNX4kMZXavhJYBSCaa5mQ/tzZ09zWrfs21tVBgNv7MpTaInX5bzG8Ghnoup1+qlKcuf6/Q2C4KYzN00ZwpKPvWNdCRd0c9KtRAX9ywcdixDiCcXl2VJX0lw6spnPmhXrxhL2EoO5jfT6w9X8UNDjy3WjZmM6c3DjI2ru1j8rtHCduHxL5+q+633+y1m3UC7XbCSNLGSMoXO9t1r6ZXawXqnMOPSZo7GcuFGsISejZA==
 Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM (2603:10c6:220:22a::5)
- by ME0P300MB0738.AUSP300.PROD.OUTLOOK.COM (2603:10c6:220:22b::11) with
+ by SY7P300MB1436.AUSP300.PROD.OUTLOOK.COM (2603:10c6:10:2c3::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Tue, 14 Apr
- 2026 05:08:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
+ 2026 09:47:43 +0000
 Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
  ([fe80::1e3f:9cb9:4a95:b5a2]) by ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
  ([fe80::1e3f:9cb9:4a95:b5a2%5]) with mapi id 15.20.9818.017; Tue, 14 Apr 2026
- 05:08:42 +0000
+ 09:47:41 +0000
 From: Werner Kasselman <werner@verivus.ai>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
-CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Thomas
- Zimmermann <tzimmermann@suse.de>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
- <stable@vger.kernel.org>
-Subject: [PATCH v2] drm/amdgpu: fix integer overflow in
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/amdgpu: fix integer overflow in
  amdgpu_gem_align_pitch()
 Thread-Topic: [PATCH v2] drm/amdgpu: fix integer overflow in
  amdgpu_gem_align_pitch()
-Thread-Index: AQHcy8zDxF1cRH/ziUyO+ZJ1bKaRhg==
-Date: Tue, 14 Apr 2026 05:08:42 +0000
-Message-ID: <20260414050840.244705-1-werner@verivus.com>
+Thread-Index: AQHcy8zDxF1cRH/ziUyO+ZJ1bKaRhrXeSgiAgAAFv4A=
+Date: Tue, 14 Apr 2026 09:47:41 +0000
+Message-ID: <20260414094721.459068-1-werner@verivus.com>
 References: <20260406225008.2787532-2-werner@verivus.com>
-In-Reply-To: <20260406225008.2787532-2-werner@verivus.com>
+ <20260414050840.244705-1-werner@verivus.com>
+ <8892f093-a98b-481e-b01e-4e640d2edc54@amd.com>
+In-Reply-To: <8892f093-a98b-481e-b01e-4e640d2edc54@amd.com>
 Accept-Language: en-AU, en-AT, en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-mailer: git-send-email 2.43.0
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=verivus.ai;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ME0P300MB0853:EE_|ME0P300MB0738:EE_
-x-ms-office365-filtering-correlation-id: 05ff443b-bf7b-4ef2-c979-08de99e3e5f5
+x-ms-traffictypediagnostic: ME0P300MB0853:EE_|SY7P300MB1436:EE_
+x-ms-office365-filtering-correlation-id: 301cf7e3-4734-4507-29e2-08de9a0adf2c
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|38070700021|18002099003|22082099003|56012099003;
-x-microsoft-antispam-message-info: 8TOefaesFWmDOGEKm8ueJu1Rq+bC+PbrX3BbK9pJNkZywA5KTocUt3CgPwvQLhNAQSStL2mxFBUJo9YzahD6/sBD42i2JxQWGq7BZLhbTLAlEPyHczgcixMyzCaWv+mX1RCd3H0eWByxJ6xE6YLNUZZgPC44XsAwGg1uJhfYnUhseSyW1odPiIlTk3469ZIISC423/7cvfp5zKDEnb5ZtyhiXsx0U2BANJw6nGRK2/jIeRv33UC2AUMTfaryqJiVtzrLqjzaO8ZW2eMeORQuEX40o8Nmba5UQKhg4JKkAxDjWNR0GJGD0Pw2jLJfoFQBKxrjG1BonjtfP1bvBpGOO6j3RAuFPEWjvi9IUCUbXqI/gThRcoDtcQabHNeKE5MYFiJcD5jI0WDJHPX3+05mDqgZF5bZSpEU9qRO46yVd5GjLYCtF1xTRH95qX5+FvmkLB1YXPFenIqZecD3prkYmXrS4VRYLVNKdlpCHpKqMl7GhS5ojeMOIvW/aOcGyXUh+nCywMjzvVJ02BgT8erluRwt1sg6xbduisghPHSC/Qu7C/FdUq5XFZUpXza0//wHuvNS+yNqEBsmEPW6PspEHKwmKbQ0BvsNcnaesoKhsRNOYfelAxLiI5wv+aTbftiP8YrmUzU7f84wOUk6RPKveeAgkEKdn7qpps7kgGxjXAwRT2NnnfQjxkTyQkCkvLxWz8Shg6oIRmI2HuPkNQQyKLS9sI6FIyKdH0uW1tSZsrMAMkmsyAgm2IVLmT6KDixz3k2Ilor3Sm3SuIEUobNTfdunXCg4lmQS9OP2wdnJbnY=
+ ARA:13230040|1800799024|366016|376014|18002099003|56012099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: f3/0xLg0Y38vqpFaDXaFFhcq/7cXXmxBeeFKddsiTB8qKm5Xktl+fEdW6pTUvljABARrt3LQjfZMcoIrrAx5r/6IuIXVugJSDpsdTyw4Z2rhlo2d+3LXELkOEE3sk5uFawhokhj2TezLrZKvHjLghzNeTXo+q6/0e+tx8IJ7R351PIkgGp+UApn2H3/qDhnnt2ghwlK4U61umiecTh246qjlFzc+8FbG8/HgmAtk0t8VrV7wqPEYOECVKvKJecNXVioWn/0aA8Iob42Yx8b+wR8SVNTrdDXGZLYZY0jR2Bd7n+mzk8x5zwVIzpdoD2a2zMAQK4Ek3yenBWujv9+3Dh15Ov2w4aqwJK7yOALPeyZh8XjQsarVGcyDPm8lw1f5DrBpS5Cq26tG+zaV0ZLk0J7LCiOJPcv41tEpfemoPVKDLnspze2iW3OGE7mh1PRdAk7em/NDuvU0fdFxll+fq8e0oGnPaBmolW6oK4rTfKL88IbnY6DBLZFNSSteYt+i4ccovJc1QInCi8U+i4NvU2q/+VDzgjYK0A+juYHiYPIAVN32hja0rMlEOZUc3Y+dP8inNCkS8noM3GrGAHY+mjywOhjHZampuB5qp/6CuMVPsAplf1+Z68l7CYSMjv1Ux5lyOyK9iG5L5RDdo69L4O5YxkOlmwwvQj6DQcoSPwk8HBdCCAfBSMrZQOaAQTw5egzygeHFnKE77v56DU3Nmmj+psSvNIsG9r5gHOkQTxlftBUtQHD7wP905kmJTwsy6Hq81327XPz6xnVbCcF/6sohR528Wkb6zy08+71/gZY=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700021)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(56012099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?qtg7kDWHRw9DYzy4IJXQ+rN2fnIY6tqh1lud1RxDQC5IK+qSnukmNXdTpa?=
- =?iso-8859-1?Q?TuHbeem6+edlYAMFcQP7DgEvU0HSpbq6oV7dgO9d9oSFOxTs29yaORkgjA?=
- =?iso-8859-1?Q?fz6hC9e1WQA1Z7xs1ay3Ova3BSRzmNM6aJoUEsXofVQUwrvyuneJf18Vct?=
- =?iso-8859-1?Q?hfV+kVIwlW+51LN41tal4NdnJuZ8rkWnBIJdDoAon8434qRQS6k/11ZC7S?=
- =?iso-8859-1?Q?viHtTVLA8np9wrt5LlEmxMj2XqsE2TX0RkVWyLPOoLnez6KBhg5o9aixgf?=
- =?iso-8859-1?Q?KOvjTMiqscCJQqbQE5edlsBs1iLnLXxZGO17eo0/PR3Y9ud29BBNNta8gl?=
- =?iso-8859-1?Q?FRSGex/9g4bYpMf+UETeo+DfAQDjWyO14cR3y4085FXFaaGnVlvN7Gl08E?=
- =?iso-8859-1?Q?In0O0QxYKkmIKRGHgI09ztGcHpsM/TI0mwNte6xmPosNxpOwm+fT0Zc24B?=
- =?iso-8859-1?Q?lo+v1ZLKPbzsphKrd4wMJ6hh2efjcn2DhmmPmoCAUf4YRRXSIzA9QDMD7r?=
- =?iso-8859-1?Q?DPBHECaYhtwLZ3qeWlEf8vdGPE1Bya4FVU7ADE/J4WlE+QL8VM8oEvqMfk?=
- =?iso-8859-1?Q?5Hli7VasWT8XLxlY2CdrEC1MRDcbnLeRtASp8W5PYEPuVmXPURcUx0ZxSq?=
- =?iso-8859-1?Q?avnHaQrIakip4H72UWBrqfxIGdMf5SE04z8jUmQETip12Ii8iM8VCSKepI?=
- =?iso-8859-1?Q?JcXs2hVUuIeWQYVexaQP6ZgrmZdXdfpJ4DJmYLDzYe6FnfLIhlb/xVLvmG?=
- =?iso-8859-1?Q?5aOWIbGUgNhnMhfRYgZ7ZC3RewsAQn50SsoTcaEYL/mLY4loSsY2Wk5Sir?=
- =?iso-8859-1?Q?KdNuOxKv+iA8sQnMoW5N/f07OKPpX30x5Q59ZbH3wMLQ9RhySqpgenMx1g?=
- =?iso-8859-1?Q?GHTmxiLQu0UDwtF/u5rYZ6dLqQN3IAQx0bvfro3DAXU75YIK9p2uFXBXwp?=
- =?iso-8859-1?Q?qZjCDpyKSHtsKPRowUVtdaL83oj2pWexM1kUjLvDDD/dQT6PoC48TgvvIe?=
- =?iso-8859-1?Q?YbSI5iDBAt4jtlaTG/50uYc4/nbIK8OfBslhK/2jxwizY8l+sBkzSRJrwG?=
- =?iso-8859-1?Q?oDfc3EG9sohMDHqcD5rLb4YXaAdKfGWAQ4os4UxGVrnwfMIdtxpXOYlqjC?=
- =?iso-8859-1?Q?5+PPsLuocftiovZ7Ljl84EqFT52jFU5bGgMgPvXjzP1jPh4cW8+ajHb2LV?=
- =?iso-8859-1?Q?I2pbPK6pr7HdXrwlggZMHfO06tRXhWGCdPfzUwrx7i1SBvKa2wL9xZNulx?=
- =?iso-8859-1?Q?Pfeaa4Hc4ybb84TWSC2u8ezZL+XjQjhBaqXBvJ59L4RGDvYOYpPSTOul2X?=
- =?iso-8859-1?Q?b90UZY/ByJjnOodrKK2LKBl5A2iA1qo3oAPJ/K7yTT7XGyftjavQMWwEcr?=
- =?iso-8859-1?Q?mNysn58gKWffz32VR/H5LMAfA5j84x7d66UdQt0UFs51i8PMncCmM9GxJ0?=
- =?iso-8859-1?Q?ML8G13vILOh9HFxbfPe0R/qZ/AP+IZKp5Uc3pouO9UlfNYzsj1ngbDbt4x?=
- =?iso-8859-1?Q?15qjmx5qlyN5bo1oO+qkATYXcqeAC8wIPQ++GNx1SDhxMccZEHMHEcLnwh?=
- =?iso-8859-1?Q?LKNhh+bAJtCu85+/srrj6ip2NeDemzevHfXmDCmkth5FQ0aqkA4LRg0sWq?=
- =?iso-8859-1?Q?jBkMgid48oULtl5wRHGozyMmpb9hR4Oo5My/cjBthj7evm6u5NDw163ywU?=
- =?iso-8859-1?Q?2PWlRnHm4KR86prHAW9UDw7xH3Kf+A7UEDX0mkViJ/2IE9apiTUbACaQPB?=
- =?iso-8859-1?Q?HphXbWGIh6+1ZpwejQ3PSeLc0ymW+skJA+5J3X8TVafpFA5X6TTXfzH6++?=
- =?iso-8859-1?Q?OlR1A2GmDg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dUpFdWdDV3BWeTdUdEo0NU0zVVJFTjFOYU5ROFdFS1g4d084U3BNczQ1Q0NI?=
+ =?utf-8?B?RWp4SGNLMUFzUDdIZTRWMmpFbWRQUWNHc09QQmJRWTVtSnFaNEpIWUlmeVZy?=
+ =?utf-8?B?ZjRKZHNHUzlONjNoUTdjcCsxT3BzU3RxWGlDa2VTbjJ4MkVlY3Fhc1BUU0JK?=
+ =?utf-8?B?ODJzZFZURjVHdWxnSFZpemwwY3BxYi9ITjB0YWFFY0JaYm1UaWZyOTFtRGY2?=
+ =?utf-8?B?RmdRU2VVR1ppdHZOUTBYMVZzak12VjlUdjJoTFFMa05FRTJENWd3SDJTd3Zz?=
+ =?utf-8?B?b0ZRRHBrZFNQZUhjNTU0Wi9ldUc4L2VGelBtV3I2SEpuNnd3RVczd0JzMHRz?=
+ =?utf-8?B?ZG1BMmRBVjcxVXVUd1lTOCsrU0syUjZ5NDBXaEFVMjJJREdHTGNMcXpKMGpv?=
+ =?utf-8?B?SjQ5VUYrSmFVdmpJUGRQcWJNamczdDBDQU1tMlQzcU1oZjBxMDNVa0I3clRo?=
+ =?utf-8?B?RzlzQ3dzMzc2akZYSlUwa09ubnZIMDFxZnY4emNCNDFEU3lvQUQ5djg2bytT?=
+ =?utf-8?B?WEdsN3l2WVkrckNCY3grNWk5bXhtbFhPS1ppTnlmQ1owYXRkYnJXNWtoNzRh?=
+ =?utf-8?B?ODNOYXBNREZOb1QzK3RCdnZFSDc0ZVFMMGEzOTZDTEJVK2Rpc2txS0JFd3hk?=
+ =?utf-8?B?a0czL0JNV2YzVmRwUExLY29BeGZIdHlmdGV6NWVjWlJtVmoyWlVzY0dXdkx3?=
+ =?utf-8?B?R3oyTGhiakdpYWFpN2tTL1k3MGtUdjdBNzBuTkcxb1JKVFdKM3FaWjM3aWty?=
+ =?utf-8?B?cmJUcU1odEx0dmxqbE9hS25IWHVaZy9qZE1QU3psRHFMRURhclFYa3lpMVJQ?=
+ =?utf-8?B?Y3BWbFN6SGJhVmh3UWdOK253a2dOS0lhcWM2bG84V3BONGtqRXJsTXJyYzZk?=
+ =?utf-8?B?dTF2SXhQWDBTdjhXV1FtN045VlNDSk1NdVRpTFRBQUVWQmdOTTNvUHhvcnNF?=
+ =?utf-8?B?OWhFdjREck1nVG5hNFEzTnZseitETmdkUW03TE1LeVZndlIyVHNpNW9mTnZx?=
+ =?utf-8?B?VHAweXJ3SWI4YXRBMCt2elB5QVVXVmRkS3Zwb3FJRmQ5bytTcmRWaVpSb2xQ?=
+ =?utf-8?B?d1MvT3lEamc4YkFGNFlOWGYwMUxVTW4yK0lQWVZNS3NEdzNFWEt0aU1KL2o5?=
+ =?utf-8?B?Zlc1dUdZUFVyd3lDKzV0ak0yS0JjeDM5aWlobG1EZDZlL3g0WnpMVlg4c0JS?=
+ =?utf-8?B?Nm93bWh5eXgyT3YvbS9OMDRCZ282WkR1RTFkM3RiVnlJdHM1c2lIcXNPTXJQ?=
+ =?utf-8?B?MEYwcjFLZ0dFNFUyem1Ea2hIK2RpZHhoRXhmcnBJVXh1WHU0NVhMc09TZVg5?=
+ =?utf-8?B?UHEydTZFc2hwODNXaUVaUVZETFhDdUsyWjU3RXlvaVJRNWdSbjZPNGJqL003?=
+ =?utf-8?B?Z1NZQnU2WmQ5VEhQamRPQU02aUFrUndCRmY1UFc4dDk5SlhuTFJGZHNGby9q?=
+ =?utf-8?B?SUUydUFMZmgrclhZWW1GVWNXKzNyd1JSaXdZaG50MmZSOFZWYWo0OSs1OWR6?=
+ =?utf-8?B?QXA4aFFzZWVRWlVaTEpVQjNTbzBQQjkvcE1ZZjIwVFdwZGQrVHRZdGtpaEpo?=
+ =?utf-8?B?RkxhS1hSWk5iRXFZSkRCL0IyOVZLU2VsaTZEQ2t1d3dxZjE0bGdYVyt6NHNV?=
+ =?utf-8?B?UVlxcS9qbDY0SXhNNG05RkV2MGlZdmVtTG9ZVHlRUWNjYWNjWTVaVkpmTWdn?=
+ =?utf-8?B?WnY0Qm1zOWxyM3lpbGZReERKK2xVVWJUNFYwREFVQjdaWWlLTmJJMjBmdmwv?=
+ =?utf-8?B?dVRBRGxJaElGbHgxNFFWbVNGT0UyUUZRT2FxM0JiUzFSRE8rbXYwelUvTFdU?=
+ =?utf-8?B?eUZkS3Z5ajh6N0VCemxWcTJGRWZLWG1peTlrTU56RmZKZ3RrZlVrVnNVcFpi?=
+ =?utf-8?B?QUhZU2hGMkRpbyt4OVlOaytPRUdVU2VXUjU2RWxxaUdYcHlqNUp5ajEycXUw?=
+ =?utf-8?B?QzNOWmJ0SERDRE5GazczeUhPNVBEOVdNY1BmTXpibTQ2RGgxRU1WL0hJRG5Y?=
+ =?utf-8?B?SlN3SFhTclg1OS9uV09yT1E3ZkZiZ3ByTjNqOXRZZWJyOWpRdWhpd2N6Zytp?=
+ =?utf-8?B?cFZheGZMQUNJdjRzcStuY2VUcHhyQ1pWbUw1VEV2T2R2TGk4ZzNXWUVsakpK?=
+ =?utf-8?B?cVA5UWtKZ0o0YlM2dWN3YXFWQllMRmRSNG90c0srbC9sSXlaR1BWSTc0eWZq?=
+ =?utf-8?B?TlEyampRZ282cGp5SlJJOVNDR1RtWmxyRWdXV0dHQmQxeE96NUp3REpVZUcx?=
+ =?utf-8?B?WGwrYUxWMVBOMXo0Q2Z2Ty9yUDVZY3gyMDdsTHZLZ2tsay9PV0NOck9aOWU5?=
+ =?utf-8?B?a3NqdXpJcVMrdFBaKzQ2ZkZnZU4zWmRnbkowcXZKUHJkaXJEU2JGdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <F87C71B660AA7D428ED3056FF26DF5B3@AUSP300.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: verivus.ai
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05ff443b-bf7b-4ef2-c979-08de99e3e5f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 05:08:42.7802 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 301cf7e3-4734-4507-29e2-08de9a0adf2c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 09:47:41.7567 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: ccdcedb0-4edc-4cc8-9791-c44ee6610030
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HWZz8uRa4XuaOVAV6FT3OLdK7QKGg16wdIGvNIDApuPbLKOa3rAnXZjmNVXS05YrmsfOq/xz36nBHYPE25x0bw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME0P300MB0738
+X-MS-Exchange-CrossTenant-userprincipalname: F6RXQxm/g84/9RDGG4qq9qE7vqHqIfxWgMAk9/h3bBpzU4lGpGk4DWMpLGs9bGL9aPyuuEe0LZ88YTXPwsmW5Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7P300MB1436
 X-Mailman-Approved-At: Tue, 14 Apr 2026 18:48:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -140,90 +148,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_gem_align_pitch() is passed u32 width and cpp from dumb buffer=0A=
-creation but uses signed int internally.  The round-up add and the=0A=
-aligned * cpp multiplication can overflow, returning zero or a negative=0A=
-pitch.  A zero pitch propagates to a zero-sized GEM object allocation=0A=
-that reaches userspace via DRM_IOCTL_MODE_CREATE_DUMB.=0A=
-=0A=
-Switch the helper to unsigned int and use check_add_overflow() /=0A=
-check_mul_overflow() so wraparound returns zero.  Reject a zero pitch=0A=
-or size in amdgpu_mode_dumb_create() rather than allocating a zero-=0A=
-byte BO.=0A=
-=0A=
-Fixes: 8e911ab770f7 ("drm: amdgpu: Replace drm_fb_get_bpp_depth() with drm_=
-format_plane_cpp()")=0A=
-Cc: stable@vger.kernel.org=0A=
-Signed-off-by: Werner Kasselman <werner@verivus.com>=0A=
----=0A=
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 25 +++++++++++++++++--------=0A=
- 1 file changed, 17 insertions(+), 8 deletions(-)=0A=
-=0A=
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gem.c=0A=
-index a6107109a2b8..0d9309f792a4 100644=0A=
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=0A=
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=0A=
-@@ -27,6 +27,7 @@=0A=
-  */=0A=
- #include <linux/ktime.h>=0A=
- #include <linux/module.h>=0A=
-+#include <linux/overflow.h>=0A=
- #include <linux/pagemap.h>=0A=
- #include <linux/pci.h>=0A=
- #include <linux/dma-buf.h>=0A=
-@@ -1223,13 +1224,14 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device=
- *dev, void *data,=0A=
- 	return ret;=0A=
- }=0A=
- =0A=
--static int amdgpu_gem_align_pitch(struct amdgpu_device *adev,=0A=
--				  int width,=0A=
--				  int cpp,=0A=
--				  bool tiled)=0A=
-+static unsigned int amdgpu_gem_align_pitch(struct amdgpu_device *adev,=0A=
-+					   unsigned int width,=0A=
-+					   unsigned int cpp,=0A=
-+					   bool tiled)=0A=
- {=0A=
--	int aligned =3D width;=0A=
--	int pitch_mask =3D 0;=0A=
-+	unsigned int aligned =3D width;=0A=
-+	unsigned int pitch_mask =3D 0;=0A=
-+	unsigned int pitch;=0A=
- =0A=
- 	switch (cpp) {=0A=
- 	case 1:=0A=
-@@ -1244,9 +1246,12 @@ static int amdgpu_gem_align_pitch(struct amdgpu_devi=
-ce *adev,=0A=
- 		break;=0A=
- 	}=0A=
- =0A=
--	aligned +=3D pitch_mask;=0A=
-+	if (check_add_overflow(aligned, pitch_mask, &aligned))=0A=
-+		return 0;=0A=
- 	aligned &=3D ~pitch_mask;=0A=
--	return aligned * cpp;=0A=
-+	if (check_mul_overflow(aligned, cpp, &pitch))=0A=
-+		return 0;=0A=
-+	return pitch;=0A=
- }=0A=
- =0A=
- int amdgpu_mode_dumb_create(struct drm_file *file_priv,=0A=
-@@ -1273,8 +1278,12 @@ int amdgpu_mode_dumb_create(struct drm_file *file_pr=
-iv,=0A=
- =0A=
- 	args->pitch =3D amdgpu_gem_align_pitch(adev, args->width,=0A=
- 					     DIV_ROUND_UP(args->bpp, 8), 0);=0A=
-+	if (!args->pitch)=0A=
-+		return -EINVAL;=0A=
- 	args->size =3D (u64)args->pitch * args->height;=0A=
- 	args->size =3D ALIGN(args->size, PAGE_SIZE);=0A=
-+	if (!args->size)=0A=
-+		return -EINVAL;=0A=
- 	domain =3D amdgpu_bo_get_preferred_domain(adev,=0A=
- 				amdgpu_display_supported_domains(adev, flags));=0A=
- 	r =3D amdgpu_gem_object_create(adev, args->size, 0, domain, flags,=0A=
--- =0A=
-2.43.0=0A=
-=0A=
+T24gVHVlLCBBcHIgMTQsIDIwMjYgYXQgMTE6MjYgQU0sIENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
+dGlhbi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj4gVGhlIHBhdGNoIGxvb2tzIHZhbGlkIHRvIG1l
+LCBidXQgSSB0aGluayB3ZSBjYW4gZHJvcCB0aGlzIENDOiBzdGFibGUuCj4KPiBTaW5jZSBkdW1w
+IGJ1ZmZlcnMgYXJlIGEga2VybmVsIG9ubHkgaW50ZXJmYWNlIHRoZSBmaXggaGFzIG5vIHByYWN0
+aWNhbAo+IHJlbGV2YW5jZSBhbmQgaXMgb25seSBvZiBjb3NtZXRpYyBuYXR1cmUuCgpBY2ssIHBs
+ZWFzZSBkcm9wIGl0IGF0IGFwcGx5IHRpbWUuCgpXZXJuZXIK
