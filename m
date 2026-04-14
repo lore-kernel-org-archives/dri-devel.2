@@ -4,76 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4865CF9D0EC
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 17:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43AA0F9D0EB
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 17:55:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9256710E649;
-	Tue, 14 Apr 2026 17:55:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABCC110E644;
+	Tue, 14 Apr 2026 17:55:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="atHnFyN6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dOYwXuf9";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91F7C10E657
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 17:55:20 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-488b00ed86fso61113745e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:55:20 -0700 (PDT)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C08EC10E64C
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 17:55:22 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-43d72875729so1850610f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:55:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776189319; x=1776794119; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776189321; x=1776794121; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=rf8OgzXCc3GK03N8Ybyu1WwrQsy+n9LdPm4jLPj8t8o=;
- b=atHnFyN6sKT3zsG8iLwjC4Bp/A754c4BiJ9K9KuPmnDz4WZY+z3mp/sg3jtI8+VbZ9
- A9NjCSoe5Q78Ff7Ul2Auz0DgVHRVPGJ4tEr/AIYSJV/jXG70uHNMNrPKoCbDQmiDKdj4
- h+sSxetY1CNisSzFmx0lh1ftiiJtAg3k9slVnIbqNGugVrgzswjHrFV6zVQu2tW0jLZA
- i/6UszeaXYbLiiqRIkmhfNEmVfA+DT1rcmMVxJIryH5iYMTCg7Wz1cruG+uU9NM+Dzz9
- yfMIr6dICp2LSQrkYCe4HfL97OSazrucFb2x+aY7QqBvKPuqFi4e61bnukZgovRZ8WIn
- lfcg==
+ bh=4R0CQZ/qrW+yRPLga1sILnx+THT1hscnrJSpkR4Elps=;
+ b=dOYwXuf9sf06LRNnXZT+rr+8eZRCfT+LrSPvj3EOHPFto1zYmCGI03eaSTYqiqYN8R
+ 4tOpk7eIyKeYHx+ptMUy/VyL9pnDLlIrD0jjIi5WI2F+g5OohysieLEBXJsx8GXvC7iM
+ IuepVZhvQL3gGKwKuj460KMu0JFByBzddS/IzyA4jpGQMzd232lz9tCg0RG+g/ZNaOR0
+ jcg/ikmMT5I4ev/faS2VQaTjmFbCMty6/DalZ6P7bgGkWSNNUUbeepw3ojlj2RydsI7H
+ v1mPK3vi7e6kK9GqXA3opBRpQluyGsHoM9cJwgWhjIi4UCi/iVuWztLGahlNzMYFABvQ
+ ugYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776189319; x=1776794119;
+ d=1e100.net; s=20251104; t=1776189321; x=1776794121;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=rf8OgzXCc3GK03N8Ybyu1WwrQsy+n9LdPm4jLPj8t8o=;
- b=hFzkw5O7OyUS/R3oBeHLyAKtuCkIjk4fv/2IpND4nz1Dn4kybv5OhA5/1wNRkDncpd
- mmnLwUVH6x162G8l78Fluoi3OvOAsiof8X2od0d9MboelNcAay6f0lbzK4NORYfj81op
- aeJfktuKFkYMK/z7O7c/dQh55m3PKiXJJIXLom0UGgidJFU0PULqnjMJos6YG6j4YxW1
- RI64u2IMl4M4WDwAylRJx6/eDLt11QMc4rlvHwr0dpsoM4Qpw4DFxbvPi/eDzA4jZ32R
- Jk2R2D8fsLD6TOyPg+aqkVgw05sBZqLt/bLox2cjzwqDs64T2fHbIJYVSVnEKNtFdukW
- l4UQ==
+ bh=4R0CQZ/qrW+yRPLga1sILnx+THT1hscnrJSpkR4Elps=;
+ b=p55f3IAqrfi7QicyZPMXRuFymwN6zh/NrUvGSkkkMaaX3q1LElHxMYpCl5UKJLXk65
+ I7KwkfgsQVNQ4RV/R6oSfdscR3X8WjNdEdAnIxTmMICmLHcQxc20UJIUkmgbWcp1Mk2G
+ 02j1HXQZ6AysusVtEed0OA3DIncU2cAsANkJIgy8SLoqWWYiw1RDgpCF1M9LvgWtF2at
+ jU4IyUkDV294Ldfq5tIrYbTy8SFTEJ/0EgwPeMCebu/Bld9AYDACMwERVVCKuRoGCc4G
+ 9Um146plHdP8Mt0DxomwVTiueQtxD51X750NkYVKHQ8gbpko6jYzMCgfUZQZNnzdWbnW
+ IShg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+IGGYB/zmSZqq0w5bMKDYta0gnWXVVt4fCxAGMLiDGVumXvq3ZmTeS7mIc7qXwLbKGlKescXVzmd0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwU2GftPWEDn6qjEQzXEVOJu9mMR+CfEcQvnRgl7Kwt6L14rsK1
- 54rrxO75cqcwXC5rF9sVKQGYFFTTiCSo/eny66OjDbIs0CVPOgnHzjjH
-X-Gm-Gg: AeBDiethitTpMw81Wg7xArXjLGvUp84jfgMiN5iuDpVWxbvTtUx/WU57UPFtESnRWMr
- WdF3kD0HyYENVPhDRBwLtPAagq2uIq0kWi7DJzymxnSxcG4ec+Z7VnWFpvPQHkKDa/0HYtD1JFQ
- yIcLbx+guT44deJwPwrX+Mt35L+7a5YHu3nlBoSPtrgmXMV1+G11b3yxRyOf521oI6l+sJEMsCO
- 5Lrb3yPqDMAiXHQDqD5cxNabfzxnQ+PvunIBRGYtkeR39o/U93n3bm6BpDQF3jzK+kw/XqS/2Gj
- qCCBGkV3E7K7doxMnDh2G6iNQY96of/A+otYqhkKDUZ6gQ1Ju28o6/rzs2ITRlAcqskwrH1E3Ac
- PtVP9D7uC0ZLbRWQEkm3K7UAkay/kSTwL9eiar7+xl0BDMinZfku5MQgFH28L+u1SvaIxsJ8UhW
- nPWaz4UR3G/ofiqDfZ4Xg1ZIXWAO2F/dLS0cfG67V96RJvn0o+DF0YVYgIi0JazxmeI8bzBYI=
-X-Received: by 2002:a05:600c:5249:b0:485:7f02:afd5 with SMTP id
- 5b1f17b1804b1-488d680079bmr245982525e9.13.1776189318981; 
- Tue, 14 Apr 2026 10:55:18 -0700 (PDT)
+ AFNElJ/6JmBvwhqPixRebWpwRkJo7ilTSAk0fr448k9Lz8b7GtkHaNUIjhxjMUP/tmGtyFSrSDu3RJpNciE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0G5HtaL4htbKE8fs4q6g7NrZs/mXNuhmstdc75nqmXeVuzFlZ
+ 5/c7q1vmHAiS4fOZvLmepToi3ouNyG9/Dr5PYCeeLzSiEZiP+lrYddjj
+X-Gm-Gg: AeBDievgXeGz0vsUP1ldU6SOucTjtu99qojOuESq0H7YFrKSKga4fu5KxfL9mBz2K04
+ 959TdkTfkl/xRYjX6TL93ZZfBfoRyDLPv8t/DpUnXlFzxIHyflJ9KxwPgX2+3bF+sEpLLPyI5dH
+ q0bPGBKHOA3yvuyy9nn24S10hoQqQZaEeE4iJfVnuV+su7StL1nXA9+Uq2qjKXpSABOqml/vYpz
+ Tnexk1Lp+IzipNI4OAL783qJ4U4EA6ji/yO/jif5s1zMFt0Q6SfXaVOF0TxfqDPssfn3yto+51x
+ eNr/uJxTMYaXwbXtJm3NZKLbgyjQ6VSdLzfB5FCYyqftCYDNyFdSGnwl0j85QPTFLDCm3xJQIqr
+ 2CiwBCqRY+3oqa6ULTOU1YTCk5OQcUW8AymvQT4eF8ur6OzasP6rDotYD6NEbzWTXWdH5bKP8zG
+ Yhv9Qvvzzm6YN7Jmymfo5cfgFeVvrsT1AxGQi69/I7QRwI7nkoGlGfYv+1OqJU
+X-Received: by 2002:a05:600c:c088:b0:486:f4d2:eac6 with SMTP id
+ 5b1f17b1804b1-488d67e6776mr181720905e9.13.1776189321058; 
+ Tue, 14 Apr 2026 10:55:21 -0700 (PDT)
 Received: from osama.. ([2a02:908:1b6:8980:cb49:f403:bb20:cc84])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488ede1df12sm150436425e9.4.2026.04.14.10.55.18
+ 5b1f17b1804b1-488ede1df12sm150436425e9.4.2026.04.14.10.55.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2026 10:55:18 -0700 (PDT)
+ Tue, 14 Apr 2026 10:55:20 -0700 (PDT)
 From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: luca.ceresoli@bootlin.com, Alain Volmat <alain.volmat@foss.st.com>,
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+To: luca.ceresoli@bootlin.com, Inki Dae <inki.dae@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH v2 1/3] drm/sti: remove bridge when sti_hda component_add fails
-Date: Tue, 14 Apr 2026 19:54:14 +0200
-Message-ID: <20260414175417.144625-2-osama.abdelkader@gmail.com>
+Subject: [PATCH v2 2/3] drm/exynos: remove bridge when component_add fails
+Date: Tue, 14 Apr 2026 19:54:15 +0200
+Message-ID: <20260414175417.144625-3-osama.abdelkader@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260414175417.144625-1-osama.abdelkader@gmail.com>
 References: <20260414175417.144625-1-osama.abdelkader@gmail.com>
@@ -103,43 +104,37 @@ v2: devm_drm_bridge_add instead of drm_bridge_add + goto remove_bridge
 
 Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 ---
- drivers/gpu/drm/sti/sti_hda.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_mic.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_hda.c b/drivers/gpu/drm/sti/sti_hda.c
-index b7397827889c..360a88ca8f0c 100644
---- a/drivers/gpu/drm/sti/sti_hda.c
-+++ b/drivers/gpu/drm/sti/sti_hda.c
-@@ -741,6 +741,7 @@ static int sti_hda_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	struct sti_hda *hda;
- 	struct resource *res;
-+	int ret;
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_mic.c b/drivers/gpu/drm/exynos/exynos_drm_mic.c
+index 29a8366513fa..e68c954ec3e6 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_mic.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_mic.c
+@@ -423,7 +423,9 @@ static int exynos_mic_probe(struct platform_device *pdev)
  
- 	DRM_INFO("%s\n", __func__);
+ 	mic->bridge.of_node = dev->of_node;
  
-@@ -779,7 +780,9 @@ static int sti_hda_probe(struct platform_device *pdev)
- 		return PTR_ERR(hda->clk_hddac);
- 	}
- 
--	drm_bridge_add(&hda->bridge);
-+	ret = devm_drm_bridge_add(dev, &hda->bridge);
+-	drm_bridge_add(&mic->bridge);
++	ret = devm_drm_bridge_add(dev, &mic->bridge);
 +	if (ret)
-+		return ret;
++		goto err;
  
- 	platform_set_drvdata(pdev, hda);
+ 	pm_runtime_enable(dev);
  
-@@ -788,10 +791,7 @@ static int sti_hda_probe(struct platform_device *pdev)
+@@ -443,12 +445,8 @@ static int exynos_mic_probe(struct platform_device *pdev)
  
- static void sti_hda_remove(struct platform_device *pdev)
+ static void exynos_mic_remove(struct platform_device *pdev)
  {
--	struct sti_hda *hda = platform_get_drvdata(pdev);
+-	struct exynos_mic *mic = platform_get_drvdata(pdev);
 -
- 	component_del(&pdev->dev, &sti_hda_ops);
--	drm_bridge_remove(&hda->bridge);
+ 	component_del(&pdev->dev, &exynos_mic_component_ops);
+ 	pm_runtime_disable(&pdev->dev);
+-
+-	drm_bridge_remove(&mic->bridge);
  }
  
- static const struct of_device_id hda_of_match[] = {
+ static const struct of_device_id exynos_mic_of_match[] = {
 -- 
 2.43.0
 
