@@ -4,92 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FF5AF9D0D3
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 15:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB6BF9D0D5
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 15:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE7810E076;
-	Tue, 14 Apr 2026 15:11:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB3E10E12B;
+	Tue, 14 Apr 2026 15:14:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="E3vbq9Tb";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="j1sSRNQ0";
 	dkim-atps=neutral
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
- [209.85.219.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FBB410E076
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 15:11:28 +0000 (UTC)
-Received: by mail-qv1-f50.google.com with SMTP id
- 6a1803df08f44-8acb550db18so19085056d6.3
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 08:11:28 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1DD310E2E5
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 15:14:34 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-43d734223e4so1669386f8f.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 08:14:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1776179487; x=1776784287; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=KYWxsN8NcBk0hkmTwyrJ9dFetqgCC/fPQOeOuZaqCQI=;
- b=E3vbq9Tbt4XZ4hGOA7RvWRPn4WtatXM1ngB9yp2VBo3g077DRmKTdPpZrCsvC+8rMW
- LxNvxJvWf+WoGBr1i3JNbYpKdBNRvSxUdPHhOl/ihUbmU3egM9sadZp/pqGtn0MaGpGn
- mxz0Y0g+YftIhlJTIlVBx25burqzFU1mzZuv8LbAJVd3Y1SvcFZQ6HOtYK67tb6EnHlf
- jUEWXEGsWKSsCnIats/m0e6skLK4t/6Km+LV5STPWHJbR577rEJADjJlSPHbuhoh1jPL
- 2A2JoEf7F6mQISUr70ZQsiLBtV+ZnrJvKz1sLgmgly6g/MUAWTcJoMopVpnrGIXGtja0
- 5+uA==
+ d=linaro.org; s=google; t=1776179673; x=1776784473; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=TOwZpBzYvLqLifJr7F7A9849bw8ux30LzyeD+wX4bPE=;
+ b=j1sSRNQ0OWJJYMxKiSFytyoe1JK2i8zao3BiIfijWKw237QSBiOTMmIkQW/t/CifiR
+ GNtJGaok0N7X3Zrj8io4AxTANGCe1Y9OmYGxTLP1e9A0xh4WV2CUF6Z1/D3ffJo2ta2M
+ IjsnYLAJxNUu3LQgNY55x3tN0GK3PEVou93/BuCgZq5sogHJ7LkbabYbD18olioHrW4r
+ E63CYGMPykxwlphkzwr1+tDGT7DGNTOPjr/apcgn27ukXxqGWtnEZdaOE2ZI3A6i2cAg
+ ogL4fTZvo7E09wlqkSOnXwRFSYNW5bi0p2IDJ7vTAT6ojj8rwXY6UyMvQKA2upE1Livz
+ WWvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776179487; x=1776784287;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KYWxsN8NcBk0hkmTwyrJ9dFetqgCC/fPQOeOuZaqCQI=;
- b=gc+JadMG6V1KRl+J0RKcHmQrDT8n59zqeNb5CltcZFW95kKVej3ISnEpxAU2TbU0Vd
- HhvbjcpKNVYEIRLP081pkzBshVPXvaRgrt2FOcEcXvm3fbOqRpxkcUGKe4QLoWmHszHG
- FPEo6kJxrXU9NrE56ddny6kCGgAkWoLKyL79rEuRueNYXfgiO8/Xh0dICxsxsRQjdU2Z
- AzGyRHRvyCT/9+EJqymi3cxcFg/vLsF0XinogC/IwJcR3DgcEiVrgT+gMpt7hpxXlBwS
- LWPa9rHRcQRNcmkfCA4Xh3tWSR/rhAsahjpCJT1/7crgmBVKjUfzzKtev/w3Lwr93JJX
- FdNQ==
+ d=1e100.net; s=20251104; t=1776179673; x=1776784473;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TOwZpBzYvLqLifJr7F7A9849bw8ux30LzyeD+wX4bPE=;
+ b=LWa3seXlxCPvSUBn2AKJti4ENhvCwtX52l0tqePAkOZ0IuWel2wzbBSP/7YgCB6tX7
+ IkTHkjdx2Y8LFcs4JnvuXxvJVcrCI1/Jma+E3YllgHPNTWJMCUt+dLE90IbvAwlHaz3W
+ NvXzttMunSk2GET4dhqxJL2akl6cTRyLNYUdFq2a3cKnGFYSbkta8AJ8DozRmBrUNZeZ
+ BjMgFByPNFNP9Y95w4SCee0JpqOId8NJktVxFF+D2udAvL+jKMNavbfMLABRGtOOlV3h
+ jWVVoyjXgqoA/+74iBz1f4WRNaB9OzDse64xU1hfvBtQE8byFBCGb5ksTNP6kb2Wgvxh
+ hUew==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/hHoyMDva68GN5XjlqdKv1FDvhparxC8xjtkn4eN89Lxb/q8SwdBjPnSxDvtI843rZ/qAOR70x4+I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwNEWmae3ePWBJjM0Oi1gg7+SgjGdVYbCC2V5Xh91oS3hpoj1S0
- Bz+2w6fBX9yK9aMxoaYWImxyLnMahz/Si//7gCQfDb4pI24KhJk0N5kCmqJoQG6BQ8E=
-X-Gm-Gg: AeBDieserngifyLZDAbZSe0cfm/oSS0NZnT3hdkyeV8t/V7jmOF6S8KcXJZV2NhAwcN
- g85eUpbNdfbjc3k+uHJVpfow0zKmoLlEIVJJjho9jbYjWBLYUGiqmeBQUnUIDOvaZZnmBqGPiS6
- E3vh4EW7t8qnL2rNIDlRbP2GZzZk+0h507+ksgl3Oo7SEDuc3sw0LDK4Om9VeFzNZKpB75dsu5c
- 5yuA/qpQ7zryxNTMG6CHRaVpkI/SxG5E0+DSWod2dGVtLAHcspqEYs8aO7Kar7UlroiGg3AMJBV
- yQUgqFi0gB9PwUHLhGErP7CjtJ7R1/HtjWPwQh7NSApjnV76lp2qhIXvgkgSR1yD9Fdbpways9V
- HUcLUjBk9gSAXEoHTpSUvJEKg0vDHTM2bPwzcbqFgO1IQ9lqs6pPkpx/lNc5rlLp2WeoH+Ltjac
- lrGlhPCTBXoC5GOxsG4pYoC7BXIIdC+jsQry45xGzgXTaO524yA4qlQ5/S7/sCgFtOA4vWlpO/j
- DXgbA==
-X-Received: by 2002:a05:6214:4a01:b0:89c:8709:d238 with SMTP id
- 6a1803df08f44-8ac862b51e2mr284214856d6.40.1776179487026; 
- Tue, 14 Apr 2026 08:11:27 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8ac849e35afsm159006516d6.3.2026.04.14.08.11.26
+ AFNElJ/PFoy5tjCdFiFf/C63nL2W9zTsmcKf9m3xh9Vt5wsJMgklqC68hBvAp48r+aEa9C6WhH/fXKR6W+s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwU3BGEyNEhI7RcZ2mCZg6d/gU+jUbLdQgKbCEgCSBXJxe8NFdx
+ pzN9XtYf41RPYBzghOhgK/aOBgxf57mfZLHXNEMBW5LsLP5YDs2nNT9xsxz7X+EJ6iA=
+X-Gm-Gg: AeBDiesZUC+dUujxCEKheMPoiUhnhvy+5EaXUX3suwy+wGR7Iu9kfWMb0x7T7aptUmb
+ IFSjgRtfjgZ6/lXaNKWEhUyOSaprKOvyLQ4Eil2p/tvOH/SyyeOP6u/pYWqh+ofFYsafczULp8M
+ e0p/uXPU5CkGZrzbKtpcQeGNEw1tHEJqiZ/YBKj0DH3tvjdXmtmRtOJEkhH7qAOR2dXFurF7Btk
+ BRrc3ZMc6lXiBCgspegcQmbK+/RxT/fPgEgDB9Fd9NCCuN8OkRfPfTP5ppjjbbODjXB5GuQIypT
+ SIVTtP4Wc6AIt6+C+lBcwWOCuuB19g+URULFNTLYxsOB7P0ehztcO/TuUAq3QUGZoFCuyPN3gSR
+ RC/UNerXTD+ZJNJzbaRTdDVOuRSEpk+67AMwNPS3bNI5DBar9X2AdrEuU0dh8zFzHvGBtuix300
+ GZx7X0Q/0imkpGY1m/kmzF2ppeqHao62JpruOpTtIl1P1b6BrJRzjY7uo=
+X-Received: by 2002:a05:6000:2b09:b0:439:adc3:f0e7 with SMTP id
+ ffacd0b85a97d-43d595734admr20994466f8f.9.1776179673287; 
+ Tue, 14 Apr 2026 08:14:33 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d6f4bf2b4sm25956011f8f.20.2026.04.14.08.14.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2026 08:11:26 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wCfQD-0000000BNfx-2aVf;
- Tue, 14 Apr 2026 12:11:25 -0300
-Date: Tue, 14 Apr 2026 12:11:25 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: fengchengwen <fengchengwen@huawei.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
-Subject: Re: [RFC] Proposal: Add sysfs interface for PCIe TPH Steering Tag
- retrieval and configuration
-Message-ID: <20260414151125.GF2577880@ziepe.ca>
-References: <6ea4c4c2-774e-aa76-3665-918e2a24cc84@huawei.com>
- <20260413100152.GG21470@unreal>
- <c3a6c6ca-3b71-476c-947a-5f2393d046bd@huawei.com>
- <20260413191930.GP21470@unreal>
- <b95ced54-339f-4859-b3eb-8bf261393ffc@huawei.com>
- <20260414085723.GR21470@unreal>
- <84bf119e-fa8c-4c97-9197-3377b7e2b250@huawei.com>
- <20260414103547.GA361495@unreal>
- <11eaea26-ec10-264a-db1e-951f6b46078d@huawei.com>
+ Tue, 14 Apr 2026 08:14:32 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Tue, 14 Apr 2026 17:14:30 +0200
+Subject: [PATCH] drm/msm/dpu: fix UV scanlines calculation for YUV UBWC formats
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <11eaea26-ec10-264a-db1e-951f6b46078d@huawei.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260414-topic-sm8x50-msm-dpu1-formats-qc10c-v1-1-0b62325b9030@linaro.org>
+X-B4-Tracking: v=1; b=H4sIANVZ3mkC/yXNQQ6CMBBA0auQWTtJB0HAqxgXpR20JqWlUwwJ4
+ e5WXb7N/zsIJ8cC12qHxG8nLswFdKrAPPX8YHS2GGpVX1RDDeYQnUHx/dYq9OLRxpVwCsnrLLg
+ YUga7fjwPNOiOWgulFBNPbvtdbve/ZR1fbPI3DcfxASTMqpeHAAAA
+X-Change-ID: 20260414-topic-sm8x50-msm-dpu1-formats-qc10c-78b3919a715d
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2274;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=daNW5uhl4d69yIZFZewRQFFqst7fvn+JOIJGQIVovjQ=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBp3lnXjyuO16e83pIqkj/ZpFIanlemWzuLSHOdgp0m
+ eYSOaNyJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCad5Z1wAKCRB33NvayMhJ0VRWD/
+ 42Ak2UHmBvvxPgf3HbVUpdXbs402uEX9kpFKXcY6YabdjNXKa2NLiSJ2zw3IyM3PN1jBfaJ6QgiDRY
+ SzW13IVEVvaiIcroZvqG7dLF/k42Lc9uMbdDOHv4Cgw76Pj6q5oyma9kGa2bUmhobknqEMdnBeTBLU
+ S3fwoTrXnBEYaNPUI2Uu2McTnn0fttzhQwyg012v/fdqY2Xwed5WBzWIQuCMx/WwZnD7+knGiyBpg8
+ P8NWukq3FwqTdxXe39jFCYAq0fv6M5Qjdubnr7oeQSl3B3WNEl9fejybPrfCFkhWrwUlcHXwbzzm6k
+ ECh94yq+U2i4B1qm+Sc/+/j46zGT6uyWc/iG8acUzNdpUqN0j8yZCu2YE5ZV3NN0uvXuR6TkdfWqmo
+ qzrMVRZEVWP+mfWhfIH1dGz389IDXO0v6vfOF4xrOtMxMQpodtZJhKiw3T38jZePBL1U7fVR8LwPuW
+ 1uuQ02EMLNErtQOKbOVUqtsRAjUn385xlYLEZlGwyTG3lOjTg+ABmXhqLqT7+TwoW66/R8onwmpn/X
+ WYBc9ZBjtq2ZmhfrOz60V9gVDQDhisOSe4qtVT8JEP4eglJHDNg35j2TJvILIwniHtgzssFV7j6pAh
+ XWc3gjKguvh/LUaQyP9s0TvhTdnESILpRc+UyKjOSZQm+JqdwSJMfWfDfyHg==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,24 +114,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 14, 2026 at 10:46:00PM +0800, fengchengwen wrote:
->    We have a real platform requirement:
-> 
->      * 1. Devices in TPH Device-Specific Mode with no standard ST table
->      * 2. Steering Tags must be obtained from ACPI _DSM (kernel-only)
->      * 3. Devices are fully managed by userspace drivers (VFIO/UIO)
->      * 4. Userspace must program STs into vendor-specific registers
+The UV scanlines is calculated with (height + 1) / 2 unlike
+the Y scanlines, add back the correct scanlines calculation
+for UBWC YUV formats.
 
-No, this is nonsenscial too.
+Fixes: 2f3ff6ab8f5c ("drm/msm/dpu: use standard functions in _dpu_format_populate_plane_sizes_ubwc()")
+Fixes: ada4a19ed21c ("drm/msm/dpu: rewrite _dpu_format_populate_plane_sizes_ubwc()")
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-If you want to control the steering tags for MMIO BAR memory exposed
-by VFIO then the DMABUF mechanism Keith & co has been working on is
-the correct approach.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+index 6e8883dbfad4..590922c4f69b 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_formats.c
+@@ -61,7 +61,7 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+ 	bool meta = MSM_FORMAT_IS_UBWC(fmt);
+ 
+ 	if (MSM_FORMAT_IS_YUV(fmt)) {
+-		unsigned int stride, sclines;
++		unsigned int stride, y_sclines, uv_sclines;
+ 		unsigned int y_tile_width, y_tile_height;
+ 		unsigned int y_meta_stride, y_meta_scanlines;
+ 		unsigned int uv_meta_stride, uv_meta_scanlines;
+@@ -77,23 +77,25 @@ static int _dpu_format_populate_plane_sizes_ubwc(
+ 				y_tile_width = 32;
+ 			}
+ 
+-			sclines = round_up(fb->height, 16);
++			y_sclines = round_up(fb->height, 16);
++			uv_sclines = round_up((fb->height+1)>>1, 16);
+ 			y_tile_height = 4;
+ 		} else {
+ 			stride = round_up(fb->width, 128);
+ 			y_tile_width = 32;
+ 
+-			sclines = round_up(fb->height, 32);
++			y_sclines = round_up(fb->height, 32);
++			uv_sclines = round_up((fb->height+1)>>1, 32);
+ 			y_tile_height = 8;
+ 		}
+ 
+ 		layout->plane_pitch[0] = stride;
+ 		layout->plane_size[0] = round_up(layout->plane_pitch[0] *
+-			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
++			y_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 
+ 		layout->plane_pitch[1] = stride;
+ 		layout->plane_size[1] = round_up(layout->plane_pitch[1] *
+-			sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
++			uv_sclines, DPU_UBWC_PLANE_SIZE_ALIGNMENT);
+ 
+ 		if (!meta)
+ 			return 0;
 
-If the VFIO user needs to control steering tags for the device it is
-directly controling then it must do that through VFIO ioctls.
+---
+base-commit: 66672af7a095d89f082c5327f3b15bc2f93d558e
+change-id: 20260414-topic-sm8x50-msm-dpu1-formats-qc10c-78b3919a715d
 
-Nobody messes around with other devices under the covers of the
-operating kernel driver. Stop proposing that.
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
-Jason
