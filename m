@@ -4,116 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48281ED7B93
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 10:06:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D27A4ED7B96
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 10:13:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A385C10E58E;
-	Tue, 14 Apr 2026 10:06:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E51110E569;
+	Tue, 14 Apr 2026 10:13:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="Pqw0W08J";
+	dkim=pass (2048-bit key; unprotected) header.d=fairphone.com header.i=@fairphone.com header.b="1UmSMgHO";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A90D10E58E
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:06:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i76p1t+VAlCyvalZTpntD+QbYFOa4j/JXDgZiOrAqftyof/61Jvr3mOEHEbCqPCqLD2MsM+0nz4EAkYzEhHrNMzNXl2BC7I6BBZsHSuugYjoTPkT+nuLHX976PuKwilo5np7iKo9Q3/LT+C3XrUjULFnBScedcOpRsl2AXYMkCJzl2tIZmTdGPFKm6PB0SgE56Lq89h/VEWWKRFiRszBv8mtfzMOVT7/3Xtkp0MWJyrBzMUznJcFcFYFjZiUsU0rWMLuVsc6KSyKOOGesnJtQd3GkqNuCq4tYU5qCjJa3HPkcsVl8xn9GEQ4oDl/s9Yjb7BzPMgtx97ujCUSa9diPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8UGul5mEUK4df3X31+iTBjeWfvUc336KDxRxdsevHSM=;
- b=tdDDOlUWXkGETICpAj8Bga4a++aJUW7tcbvJ59oxfOmkVJ9Z2k08bVc/oDhV2GDVp76jN30EmQzFC8r9yrT8rLIK5eDlwIktOcY8Yt7SSla1RuWRlA/uW/XfAOFRw5qmvRGagrz9hkye9nTr8QU2LOO3zNjHcOGGHe3l8XFHpWNzUKnBorVXdtSnyEGUxD8syCobxMmlavH+/p9XA9oWBUQ5BfTu20O8LMUlCp7Fg9EbJ2HBxzJY4s9gguNndLv0IEkTrT3HdItiC0X8fzkQ/jwHU05ENuTufh+ZJ+PioGVJvXRYDSq2WMT2KyQI5zHyKLRjk7f8uCCXJh5eFfiM/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8UGul5mEUK4df3X31+iTBjeWfvUc336KDxRxdsevHSM=;
- b=Pqw0W08JO9G3oPDb3wSHew5vsE9GwKePptTH+vXu7rc1pfGesZsFto3qxDISsbbEV8ixGykrH35wU1RHjw+QXVPqg4WOWfPTrZd6J+5b/nFZfpa3e+Tjq1oNjM3GoWS572NcvEHIRS07zi6mVVY4rfKOlyHQwCtieKLaRnlYgOk=
-Received: from CY5PR17CA0014.namprd17.prod.outlook.com (2603:10b6:930:17::23)
- by CO1PR10MB4772.namprd10.prod.outlook.com (2603:10b6:303:94::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
- 2026 10:06:46 +0000
-Received: from CY4PEPF0000FCC2.namprd03.prod.outlook.com
- (2603:10b6:930:17:cafe::66) by CY5PR17CA0014.outlook.office365.com
- (2603:10b6:930:17::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
- 14 Apr 2026 10:06:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- CY4PEPF0000FCC2.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 10:06:46 +0000
-Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 14 Apr
- 2026 05:06:25 -0500
-Received: from DLEE208.ent.ti.com (157.170.170.97) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Tue, 14 Apr
- 2026 05:06:25 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE208.ent.ti.com
- (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Tue, 14 Apr 2026 05:06:25 -0500
-Received: from [172.24.233.20] (a0512632.dhcp.ti.com [172.24.233.20])
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63EA6J4M3819006;
- Tue, 14 Apr 2026 05:06:20 -0500
-Message-ID: <15e0c84e-b4cf-4865-89d0-0d5caf1537c2@ti.com>
-Date: Tue, 14 Apr 2026 15:36:18 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: display: ti, am65x-dss: Fix AM62L DSS reg
- and clock constraints
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <jyri.sarha@iki.fi>, <tomi.valkeinen@ideasonboard.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <devarsht@ti.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <praneeth@ti.com>, <vigneshr@ti.com>
-References: <20260410105955.843868-1-s-jain1@ti.com>
- <20260411-resilient-tireless-centipede-cd6fef@quoll>
-Content-Language: en-US
-From: Swamil Jain <s-jain1@ti.com>
-In-Reply-To: <20260411-resilient-tireless-centipede-cd6fef@quoll>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|CO1PR10MB4772:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8903410-b79f-4cdd-a907-08de9a0d8998
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|36860700016|82310400026|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 0oQ1A+gY/oq1/mdMJWijMsDIAGcPJItqvA5p4Uo22OydQNEATq1/gJyBZjoQd/aPDlasL4K1ZFjEUJOAQzh5+33/U03IGMB/WiYAyISS2vMNnddVUm5Xmxfu1Khb0LjfU8zYy9kMFACZWCG6daByZ+gr6flFWgDVLz32aipSEbtHdeCHYrmLdH7UvY+6w7z7c6sghj6QCih1UKybNI+aFaEAAZS3ceKBBEk5balRwGmRuycCv23xusGgJxvsKaFMhepbKUrghJHlzPYCYmZHbmlzY5RFWbe2Gpe1HhXRIZQeeps+0TXaCYDddP2wcZkRQPU44NFoLrutSeS+9gxJzCZWUm0R2LkYQAqwkt+Zp+7LzWDQGA/kGkm2/96gZQLsaDqAYEVK5u+uqalaCjWicXOIAP/u0y7/eoa69WcDCjnJwu/MjqXll2kOjWCUFgNp78kR39mNhK1iuHyTbSFfuVG1HhAfhqBtcFoURhKMK1zJX67hVkgeyT5i+2sakbVbRukjrBjyTP56r7b778gE88QIXAKxFNw1PgTzATFrsJF3Cr21UVE8+NKwIwrYWOj2bxOVRiObuRq/y8P5D+qsP0Vy1a1Dm+1fYzLr+o2+TXUO2bSG5+TkU6AiHo6yuiGhLzt+XBc5A9bPCbKe3Nrqf/xqHUyDT9bm1b6QI8l+VlthLGIfBTtcUJA52B8h1hHPIWE35xnEV33DAROxgdK7w699E4CvpZrG2WrGQTHTTiIqokyggkh7sohjayk1u/ppBvNDCGJVMOQx922ayYpBsQ==
-X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(36860700016)(82310400026)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LD8yWjMWVLCUl5Os8xAmPvod0TeW0ehcbEgevIIp1YtvO1jh4fT1VosN3yE92mMFJJDJr6dLKF1NSgf60nii2xAEzlZ+KLlwn3V/75IAezAI0NpgxniRQncJZj0PCTum159ZwzCnRFxAl7rEfyuXYGcj5johhL/pkYeqd0K+eWjt6Qtz6dmAINlOzxAAHCzi2E2uw1owrkoohtOiOE3On/1lysH5lRjKoIeMPuDKdq+XEnh7rb3A67IsKsphYY1+V5OQzfaxTsgE0nWtcz5oKlR4sq1wQyqxuDiB/co6x5vmP9E5D7vJmW02Ode5XRWu4syJHHm6sRYBBhNVpCCKckxiw6PKrnQsMNz0uH/htFOHOuu90W8MAW/zjhMvwjJnl0a5JpoZcBHu5msbOBwEn9GoC+AI3BlL7V+UZKkDzlvu5WeOY7JJ3VJPmNmzS1Ga
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 10:06:46.6009 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8903410-b79f-4cdd-a907-08de9a0d8998
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
- Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC2.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4772
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D46410E5BB
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:13:48 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-6716a2d9596so2881093a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 03:13:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fairphone.com; s=fair; t=1776161627; x=1776766427; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SJSw8VlpR0SQaT46EC/ZG9s+q9gQW8P2r5D2rKPIRLY=;
+ b=1UmSMgHOR4gEBHpk68iPuIpZS2z8RDTPs3bltex2bAZDhKo4KapQUu14IP/0PV2IOH
+ NQsmXkSqtuxFmbZnmEEV9w0Z9xcH9cVlD/klyNlIGoJrgJwFfF7ZJddtrG2/2CCMmxlW
+ aNASjIABBulyfb7qBQN5kt+iiKN2tm9skeb0jELEFh5HCaR4F3VzTtGN+RmhrjfqqMaJ
+ VMmb1iEH0jbjK1Rcwf7qbiiTeSxwTsisWmZp5HC1Mt8PEJOIWgvVUb167oE3wyJW1HYn
+ rXv7pphn8erGTto5Nh2AMGjkNt2z5VL24ZlzqgigGJAgtvkaSi97dWujprJojnCl+u3w
+ 70Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776161627; x=1776766427;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=SJSw8VlpR0SQaT46EC/ZG9s+q9gQW8P2r5D2rKPIRLY=;
+ b=YxRkE9F6f0lvIUG9ad1AHCjksm3Ld8oE3tOAXybxv6j2wGXoI+HKhn4Ru8D2VOuN4d
+ jFY8aVoXUgxW982ZdEiB36+vwZFAOMP+N8LcoSHKezGp45j3ogVwqPLN+gw3zBFe+xaY
+ MXJv02ISI5gffmabAZmInVG0ZIgzN41N0qDEagdY3pm5fFKvM2Tu5d2PlAquTK8Q3OdI
+ sTkghdpKXp7Hg6kJoRwToMYJ6+XNQgi3yPm4r61LZimJ0w6q4xiAz0b37YN+5jVyWSKb
+ s6h+M+eihATmMk4TnNQnwPPAH7l7k3Od0MhVx60pzhEnm0C6Dy6iiFC9RwXK0ohF51NL
+ uhhQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+TdOqGfEMblrDsm/Gf4iS7i3AoJqjWoyPpSC6rloO6PU9yqj5qZjrq2BSe4boUTZk9BifoZDQS6FM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkmC4RNRCsiWHDbx1uZVEUH4Bs4Y7o4UZQv6uE/J6bQ2kQQmGx
+ lQ1yGXWxWhjpDU9pHPnKIz9PszXx2NfnEKNy13IpbehgR++fsXK1xm1fyJbinkCoAdc=
+X-Gm-Gg: AeBDietmcymzebOtopv5MKEGOPTpPXW6eVZP3xPcLtGF3C/YG4d7KVIm18+36FqPyZ0
+ pwnTNrs9BYh9/1ehZhDHinAl7BBnVX/et0TI4TrOi6FDLH9QXFrdQHDLZRuQlcNDVgfQfJWt/mw
+ IrMogztqumUPUHwYbH0sO/r36iayMkJFdGYlxDJElp5dAUemToKrYE28AIjuL5N3cjXHUkuJR70
+ uO5SU8Z9CiEFUdRI4uTYFbdFISs8GnePBSgOxMx3tjvXSMVu1gPoQsx9THfDAOXhajmBD2r3dQt
+ k+t7SUg0ljTpgDi+toPGiso17PriNKKRHNf5L1HTErShQ9wvYenO2kQTEGm6AzsD3JWIL1HkJHX
+ 80W05q5zxkRbyJSHONYUgvzSg1K6dOclYnWl6NT47uNm6WxwPBkK5xmKeJmcIF4f4sYOUnGIS5n
+ TWcT5IFSOfZPJu9SytHlrmBZDh1ss3TnAbwHHQ9QrqGDkaWjAdjy0yeA1APaLMl+Gu3rYw
+X-Received: by 2002:a17:907:c80e:b0:b9c:b475:90ff with SMTP id
+ a640c23a62f3a-b9d7298086emr974077066b.30.1776161626946; 
+ Tue, 14 Apr 2026 03:13:46 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl.
+ [144.178.202.138]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9d6dee0d9csm386880166b.16.2026.04.14.03.13.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Apr 2026 03:13:46 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 14 Apr 2026 12:13:45 +0200
+Message-Id: <DHSSQYIFSY92.1J57RLTLCH8B@fairphone.com>
+Cc: <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <freedreno@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] drm/msm/dsi: fix bits_per_pclk
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>, "Rob Clark"
+ <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
+ <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
+ <marijn.suijten@somainline.org>, "David Airlie" <airlied@gmail.com>,
+ "Simona Vetter" <simona@ffwll.ch>, "Pengyu Luo" <mitltlatltl@gmail.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260307111250.105772-1-mitltlatltl@gmail.com>
+ <177463970785.3488980.6066718261448635938.b4-ty@b4>
+In-Reply-To: <177463970785.3488980.6066718261448635938.b4-ty@b4>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,61 +96,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Hi all,
 
-On 4/11/26 19:37, Krzysztof Kozlowski wrote:
-> On Fri, Apr 10, 2026 at 04:29:55PM +0530, Swamil Jain wrote:
->>     clocks:
->> +    minItems: 2
->>       items:
->>         - description: fck DSS functional clock
->>         - description: vp1 Video Port 1 pixel clock
->>         - description: vp2 Video Port 2 pixel clock
->>   
->>     clock-names:
->> +    minItems: 2
->>       items:
->>         - const: fck
->>         - const: vp1
->> @@ -179,6 +195,20 @@ allOf:
->>           ports:
->>             properties:
->>               port@1: false
->> +        clock-names:
->> +          maxItems: 2
->> +        clocks:
->> +          maxItems: 2
->> +        reg:
->> +          maxItems: 5
-> 
-> Also constrain for reg-names,
+On Fri Mar 27, 2026 at 8:47 PM CET, Dmitry Baryshkov wrote:
+> On Sat, 07 Mar 2026 19:12:48 +0800, Pengyu Luo wrote:
+>> mipi_dsi_pixel_format_to_bpp return dst bpp not src bpp, dst bpp may
+>> not be the uncompressed data size. use src bpc * 3 to get src bpp,
+>> this aligns with pclk rate calculation.
 >
+> Applied to msm-next, thanks!
+>
+> [1/2] drm/msm/dsi: fix bits_per_pclk
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/2d51cfb77daa
+> [2/2] drm/msm/dsi: fix hdisplay calculation for CMD mode panel
+>       https://gitlab.freedesktop.org/lumag/msm/-/commit/82159db4371f
 
-Sure, will add in v4.
+Just wanna document this somewhere, 7.0 is quite broken on QCM6490
+Fairphone 5 (8-bit cmd mode panel).
 
->> +    else:
->> +      properties:
->> +        clock-names:
->> +          minItems: 3
->> +        clocks:
->> +          minItems: 3
->> +        reg:
->> +          minItems: 8
-> 
-> Same here, please.
-> 
-> And if you are sending new version: they should be listed in the same
-> order as in top-level properties, so reg, reg-names, clocks and
-> clock-names. (juging by the diff)
+Picking these two patches plus "drm/msm/dpu: don't try using 2 LMs if
+only one DSC is available" on top of 7.0 makes display work again.
 
-Yeah, sure, will keep the order. Thanks for the feedback, will
-re-spin the patch.
-
-Regards,
-Swamil.
-
-> 
-> Best regards,
-> Krzysztof
-> 
-
+Regards
+Luca
