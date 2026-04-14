@@ -4,129 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80B13F9D0C9
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 11:55:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC06F9D0C9
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 12:10:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5A8F10E5D9;
-	Tue, 14 Apr 2026 11:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54E4510E5E2;
+	Tue, 14 Apr 2026 12:10:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aStJKqvA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DtrQnCWc";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011061.outbound.protection.outlook.com [40.107.208.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1982810E5D9
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 11:55:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=na5i/bGBbYDzMRrdHYCieDINsomg3y1e34dF7bPMcKOs4xO5mjKaMi+wuQEfs8TBEOZ2wkOUvfR3bFGW460iq4+oN19g/FlisP+LLCDXoXnaKBOnX/Dg11sBTU+vxXe81Ir6fBWfbrA17ttakx7Ytu7oxerKZdCDIkWuyoRdaThJ+HVf27SLunZB4T6jmR4n99JlS15pfTZgdJ8DwhRy72QiOSWUWgx2b2gwFHsWaQFx03Y5NJIIUPMoK4OE2a/S6zdOaO+Oxihccg74nIuizl+GRlUsjCO5/EBF0DUbKHusialyCMT0FANizPZ3Sh5q3+sU3uPJu7wYnfwz/8kgUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fFX5aT0TtBGvw0UctHAvSk5kl90yZs43duVvZjoSx5o=;
- b=WR7cgUb4kkid7YIBQ7r8zImCosK+naPSd+Vj3t6ZDwSnRAuyM/qF2qumLcst+WEeMKZGWI5Tyi3LhvhDyu8q/C8/hwSuiyLS7XKpYILfnbmczlwOS5jI0J1jh41+eiFaejNczALQesFWHHP3dJrWWHjxrq8ieCVmfAL6C3Ukdu4vIZ9ZwlUNOruQdlxDHibR8iyzqjHsRqPmwzYxpskK9iAe6F7lHC1/rkhGyN+N6o3N+E0JSDR8D9rpgqsBhBs09520LaIiwasCqArRrFluNp+6bC3B3VAuW2lXvSS/89SBfEfrtN0RS34oYibzcpebDu35O6jBj+Cs+CsBxSXrew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fFX5aT0TtBGvw0UctHAvSk5kl90yZs43duVvZjoSx5o=;
- b=aStJKqvAT3p+Qlbn56AfjxO53qxiMtQgzQ7X6RBVwJXD7DQ6ky0ADd6Pq8J3TYta4sGj6NF5UgxRWtlxA8Y0oeOk8ulXtgTXgYMoZv9R9BIf+OyIFszPxtPeskf6Jq0xKs/1gEQb2142RDYozan3Dm9pU8ayKNl4jR+Jo36WP5Rk0WYjW8DgHO+fiWfWlFd8xJwkUB0N+d2Bjui7+bQov/9eggkZscWyDi/aA8dTkGlDUZ8clrxAuQrntb7caWmOx//3/GV5W67LMGKihIidYHlKJlhCrGQOsLcfu52XXm85Qj4bRJgeQzg1+hFIxXPzD8ezXUQwI3n8sCuiEznunQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by LV2PR12MB6013.namprd12.prod.outlook.com (2603:10b6:408:171::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.34; Tue, 14 Apr
- 2026 11:55:00 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9818.017; Tue, 14 Apr 2026
- 11:55:00 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Tue, 14 Apr 2026 20:54:14 +0900
-Subject: [PATCH v2 11/11] gpu: nova-core: vbios: reject extra PCI-AT and
- FWSEC images
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260414-fix-vbios-v2-11-705d30d16bba@nvidia.com>
-References: <20260414-fix-vbios-v2-0-705d30d16bba@nvidia.com>
-In-Reply-To: <20260414-fix-vbios-v2-0-705d30d16bba@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Joel Fernandes <joelagnelf@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.1
-X-ClientProxiedBy: TY4P286CA0030.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b2::8) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D002410E5E2
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 12:10:42 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-c742723c863so3528115a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 05:10:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776168642; x=1776773442; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=UWUp3g+LxoslnPkybujRtv0aSTtZxDvWQnt9LN6HDso=;
+ b=DtrQnCWcRcsJxxpskT5Y+/iT7WfpCDvfYVprxOPWbPgRM/IDXCCPagrUR7DXXA1Cmi
+ PxtB+wx94s6jn7P2pC8u8zhrtfGV0N0l8vjIzaqPDNlH49Be9PMOqx/vqUCILw+GaYbu
+ nb2cBmEQgFbCr68yoUbtSwRNlyv9OkJWGDO9uD0aA2w6Aopsig3WbzCvpKhDhfC48Tpt
+ PoMXRkzOzMIz+dPYaL6Pc1WoVqVedJC+Ib5wc4ZHmDWMzHoByPL/G+Iut2nkCQ9IEZys
+ o042PWXubea/55Sqv5Oq+JOW9w6c7KqgdZ9aeyFO4NuVe2hS5b8ZnAo0pE/z40zqA80D
+ 9NXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776168642; x=1776773442;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UWUp3g+LxoslnPkybujRtv0aSTtZxDvWQnt9LN6HDso=;
+ b=Jh4qV/lM8T2XOJi55iImc1Vzx89cHH+PiE+WPd66pbWncA/HciBwUXwW6o8bWObNHB
+ bsqMCk2bsOUkWw+XGBzRvnPSeB/G3kEWvIBgcOqlxECJ2d5uvGqv0Md1y7s/ijbQ1N5T
+ 36rAaAsTjM9g4K+R16OdvhCVJywdxKp7NojSmUIcImY0zzPN6FnecwF48o28gnezIc1E
+ MwCnevkmmHQeoiy+ncaFfzVK9sys7JClbHUZb5rLNIO4BORH+LxCckEZetMDNHtj7l9K
+ aWUxMPiewqep/0YHvwlmwlTvU2b6m3YXrPH28NnxcuUDbd76kMnLvyANgNL164Z1o6Wp
+ tDEQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/GR8p2QQ2MyoPUV5ooR8xO3QsXQ9vTNoS+SxO3WDV1EpRln5fumfy4hsbAoDEogfmt1RqETxZYA2Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzyCWXBRrUhWpz+KnWhwPCVcECfNJodOnDUxluTVT0PJLqvZEWc
+ yra4+s1XN63odNq91nKFF24/++IAlXUytFm1ICOOieU0wixy2omr94qi
+X-Gm-Gg: AeBDietLckB6Av7L8OMQbOrOZHPQba67ncVVxbSTPDTqxp6u5b9nHo5EawzAvsSdewm
+ HsBv8813pxtkmDvpKk1Klpaamzp5tTth5gnK182ADlgGUq7S2nwca1NXuxY69/KHTYz6/O0cX2L
+ 9HoDgtVaOJTTZL0mb9Nbm5nmi42X1l+pYjwX18V315Tv4iW8WlK4r1zfzZdxt27/C+XvETnA8M+
+ QDwOcTIPW2X95nNlFO+PQGw7z/PpNxykDZjWnrO67OZebE7QkRYaDDQD9vwlrb/dFolUWcZOCUz
+ fK+BaqOJRWq8C1yEnG57XHv7cSW44XNZjZWAWiem4+yhon3rF+fWXxrTwBvxCNeMKE7QDU3mdyT
+ U7+i53aALedUqYs8JpZiRkZv2cerQAzmhC8j0xIUGzZRK8vCnxq4Y6nCig2JMDdD0O0kxTlgxQ/
+ mFf9DMsLcnF4kcCQ==
+X-Received: by 2002:a05:6a21:9983:b0:39c:4cc9:9d75 with SMTP id
+ adf61e73a8af0-39fe409bcf7mr18846083637.56.1776168637484; 
+ Tue, 14 Apr 2026 05:10:37 -0700 (PDT)
+Received: from lgs.. ([101.32.189.54]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c794d8f3984sm1241349a12.12.2026.04.14.05.10.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Apr 2026 05:10:36 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Min Ma <mamin506@gmail.com>, Lizhi Hou <lizhi.hou@amd.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ George Yang <George.Yang@amd.com>,
+ Narendra Gutta <VenkataNarendraKumar.Gutta@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] accel/amdxdna: fix IRQ vector leak in aie2_init()
+Date: Tue, 14 Apr 2026 20:10:24 +0800
+Message-ID: <20260414121024.3142118-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|LV2PR12MB6013:EE_
-X-MS-Office365-Filtering-Correlation-Id: b42a1184-49bc-4e1d-824c-08de9a1ca7e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|10070799003|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: yPohLTOYI4/uUewynA3k6OEAWyRFLhR8T8UwQ+JZPFZt0dmbfBukay3xQaLA/TITSRKTQn1TVIw6yclCRhHKjhdqU+jXSQw/gvQVOcB+MyDOw+uryjDJWf/k8ES0xa7vkaoxS1BdkcAs8xdLk+d8aXdEPjCKENo7RLs2h+ZwFuTrKIW5DuOTeyB8HCOkA0yD8PGIlP3Gwf+hm1ArsIfqADZ3QyAg5fDR9nL0f610lgHsNDPrlvCDcJWeI8l5M354UutN/sT8vCNWUM2KXxEjYHaWVEoxMK5bFLrD13ZUE9i4EXw9DuyHo+Uba4YFaGiwvv0Vfy2XAnjrmM8CVol9i2elr+FM3G9cKhYuChn6vZrfUJKXslbjmrHtVK99EYeeW3xe410Td1dT5hn0YsjRJNW3sHukILCakL4mFgnKZVYqxq0tN+XcCVdNpGDsgaH8iNzxIlJSEry4clKYX5OpqouutFTxpgcOlROg4zSb7NN8e2rjp+++FwkC+y2EdXotMdR1om4rdaH585T4bK9vq9mMtR07oNsofXY4G4SlMJSqT2X2Ol6gl5PwmDFuishFHGhCLJFOGNc4Z3lvytgDIJFjkqZH8cnmQHrRVtRKzhg2iJ1MrQtTebitjmtW0QUlKAS1jBakmO9HkoqlhVPtCBYIONmr6HyFzJFR6w2PQR1BMognwG31nCOL74moq2oNM2QvxRO6eD0l0QhLVvoigeP6ZCs0fj2QhVp1gEYP96M=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(10070799003)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckhVUnVFWE1sZzk5czZhOUNkSUVMR3Z1MlF3aEtmNnBIbW9XTWMyMXZucGo3?=
- =?utf-8?B?V1BiRkVRdFdaVFNsYVhodnhrcC81S3pheVBWVFhCeW95NTI5Q2NzcnovTllB?=
- =?utf-8?B?UUhyRk9NemdxL2V5N0lRMWhYQjZpazJ1R282cjJZQUMzeElieHc1Y2Z5U2hp?=
- =?utf-8?B?NzhyTFVpOGRRcWVaK3hGanJ5SmJVaTFiMWtreUExZG5Gd0R4ZnpNQXo4RlRT?=
- =?utf-8?B?WldYZXpEMHQ3dS91UTlPdVI0RFlRc2tNVmZ0Q0Y0bTJUb0g5cnNqT3VQeERv?=
- =?utf-8?B?dUQrSTRZQmxRcUp4MU14MHhFVk15RUZQMDFpRmROM2h4ZnV2RmpQKzBjekJP?=
- =?utf-8?B?RnpGYTFRQ0k5OXdXQnBKeGtwdE5zNTM2YWk5bUd6Skh0NDFDckhGbGFDSWNI?=
- =?utf-8?B?VnJhS1NTNVB3UlZjTnF2ZkRMRSt4Tk1GMkd3cytUd0ttY25abXNMN3ROVFZa?=
- =?utf-8?B?Z2U5QkdjbGxmbTM5M0lxaEVQK1NBd3h6ZE9ieWE1TEZ3RE5oeDVjajlVQzM2?=
- =?utf-8?B?akpSOURNcEpYWWdKTkF4Q0VBeDA5cjhVc2pRendIS0NDQnczNFR2RXlzeHV2?=
- =?utf-8?B?NGpRQUY5RENUVm0vc1JXSmpYT0d6UmhjclZocSt4UmJYZ0NQS1BBUzdGUmF3?=
- =?utf-8?B?UXNzVk1sY1NPQ3kvZkt5WmhHTmwyWGVGb1cydlEva2srbmlrMXdEU1E4ckJD?=
- =?utf-8?B?em51S1dNMFRoZWgzVWdDU1lKT010aHM5cHNnUkg5bldXNXB0cUlOUURya2Z5?=
- =?utf-8?B?OUpPUWM5VUlqWlZqOGNLY1JMRXhkUUpvbWh3WGEzL0VTeGlRa3I4NjRxS0ZF?=
- =?utf-8?B?VlpQSSttSWlvcEwzMzB1ZmFBeHZWQUgzeFdVWFkvVFhzUGxoODFUTE5UM0Vh?=
- =?utf-8?B?RnFqSlRTUjh2Y1lsclpMelgyMktTalNnN1RQcCtDRGVUZ3piSUhMdXp2OXhu?=
- =?utf-8?B?S2wzcWl2MmR0bFdlZjlOS0RrbW9YSDlpNGxPbEJEaFd6bkEzaHQvcTRzY09v?=
- =?utf-8?B?TmpqcjZqWU5NenE5alVQM2hNTHpqM3EyZmwrZ1NvNFNLZmVaVXZ6ZGtkbzQ2?=
- =?utf-8?B?L01SQmQzbmthQkI4Wm53WDFmTjBOUEMyNS96SWx2UXJoMndCcWVUTXNYaDNo?=
- =?utf-8?B?T0Exdk9DWWlXYVJxWGlKeUJia0ltU2lGSTRWRElCdTZ0L1o2QmdzbTk1QlNH?=
- =?utf-8?B?clRmb2ozYmg2dVlhL2dMYWNIZXdJeEJxRzZYb2FnZlJKcExGNVJsVnlBTHMy?=
- =?utf-8?B?TFY0OFhmMFFCek5HbnlSdFB5aXdmY2ZIb1FxL3BKZzV1WHY0NWVRZzZoOCs1?=
- =?utf-8?B?V3VuYVpkb0NTcFIyb0xlRmp4b3lYWTRZMEw2ZnhZbkwwNjlsM2NaZVFhaHBt?=
- =?utf-8?B?Mkx0UEFWRmtsRStZL3F5VjZoVnlNOFRDRHRNQ0RmUVM4S3BUYWNCNXRiSzFZ?=
- =?utf-8?B?QkpTMmpZNXVBQndSV29YVjRlcHZnR3RnNVIzUGdPMnhNZVBDanlmUUJZa2lW?=
- =?utf-8?B?RElza3hMNTg2WUVCUHdnWWFRZC8vQTZpWkdzcW5LUEpsOExzTzBkdU52T2NH?=
- =?utf-8?B?RGJObWJKaHlYdkUxRGNKWUVxYmdnanM1UDB3ZjBNRTlxWUIvbkNySHVoa1BM?=
- =?utf-8?B?YkxMcXBPa2xNdVkzdnI5YXdDUkRkei9BZXlGM0x2MlFXV3pkWWJ5VkM1Tndz?=
- =?utf-8?B?Q21iN0FQSzNuOEdzWCt4RWtxV3YrZkVCRXZvS3E4M3dNVTlyeWJVUTk2V29Q?=
- =?utf-8?B?OGVzN01ZOG1TWGREcTRNYWV2SEx2bDVSeEltZ0hubGVtUVllSVFaUE4vWkxi?=
- =?utf-8?B?ZFVXbk10dnZZZUh4YTJHbDhSdU5zeFBZVld4MUtobGFzZXd5aVFXSm4vUFBZ?=
- =?utf-8?B?WVZVaExaZHRBQUpoVkZtMUtGUGtoUFNIaE1Td0h0MS9qR2pPL0pJaFdSOU12?=
- =?utf-8?B?cEdXd0psRTNxZWtKd1VveU1waGwrN2ZvbkU4VlE3djdHY3JKQ2hkZUlqRjFT?=
- =?utf-8?B?SCtuZWdNdUtUSU5ka0JuM2tNbHNMR0VocXZvWHI2NWFsbVJZcEIrM3hrUDlU?=
- =?utf-8?B?WWFGUjBDQS9BS3ZLNHYyZ0lETTN4Skt6alJvUHdLajJZajFsZTZoZU9HK04r?=
- =?utf-8?B?MjVKVjgzRTZNbUJOTUdGSzVjWFM0eFpXeEdkcmFFbUIwVGh1V1VHYkM0eC9N?=
- =?utf-8?B?RXg4ckcvcHErdHlVRFhxUUViSmY0NW01VlpveTZLYUNWOFJMZTI3ejE3VlVR?=
- =?utf-8?B?SnIrd2swSVl5K3gyNzdjSjg0YkVEdnFLVkJQbmdpOTZHYXFsRE9XOTdSNi95?=
- =?utf-8?B?cTRzNXZocDlrSGdEVDF4RDduWUtXNXBnalpXdVB0K3BINUpoN3BlLy96OXl3?=
- =?utf-8?Q?OL0/lqAB5bI2xqb2csOThm3Eh/o/+Brlr8NrupkPWlmYq?=
-X-MS-Exchange-AntiSpam-MessageData-1: wPLt8gAc1HDGzQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b42a1184-49bc-4e1d-824c-08de9a1ca7e3
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 11:55:00.2170 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZrO7C+OgcEa2qXrzzZ3ThOwWqInKysX8PYQi1lK6QqRfuMDSAGBh6N7JQ18fipIsAivox1a/LPItWGLCjKcPww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB6013
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,41 +89,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, these are silently overwritten. Instead, error if they appear
-twice in the VBIOS.
+aie2_init() allocates MSI-X vectors with pci_alloc_irq_vectors() before
+creating the PSP handle, starting the hardware and initializing the
+resolver.
 
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+When aie2m_psp_create(), aie2_hw_start() or xrsm_init() fails after IRQ
+vectors have been allocated successfully, the function releases the
+firmware and unwinds hardware state, but fails to free the allocated
+IRQ vectors.
+
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review. Add a dedicated error path to free the IRQ
+vectors after pci_alloc_irq_vectors() succeeds.
+
+Fixes: 8c9ff1b181ba ("accel/amdxdna: Add a new driver for AMD AI Engine")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/gpu/nova-core/vbios.rs | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/accel/amdxdna/aie2_pci.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-index 5cc251c73800..a9294b68ea77 100644
---- a/drivers/gpu/nova-core/vbios.rs
-+++ b/drivers/gpu/nova-core/vbios.rs
-@@ -251,13 +251,20 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
-             // Convert to a specific image type
-             match BiosImageType::try_from(image.pcir.code_type) {
-                 Ok(BiosImageType::PciAt) => {
-+                    if pci_at_image.is_some() {
-+                        dev_err!(dev, "More than 1 PCI-AT image found\n");
-+                        return Err(EINVAL);
-+                    }
-                     pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-                 }
-                 Ok(BiosImageType::FwSec) => {
-                     if first_fwsec_image.is_none() {
-                         first_fwsec_image = Some(image);
--                    } else {
-+                    } else if second_fwsec_image.is_none() {
-                         second_fwsec_image = Some(image);
-+                    } else {
-+                        dev_err!(dev, "More than 2 FwSec images found\n");
-+                        return Err(EINVAL);
-                     }
-                 }
-                 _ => {
-
+diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
+index 4924a9da55b6..f05f49f691b5 100644
+--- a/drivers/accel/amdxdna/aie2_pci.c
++++ b/drivers/accel/amdxdna/aie2_pci.c
+@@ -591,14 +591,14 @@ static int aie2_init(struct amdxdna_dev *xdna)
+ 	if (!ndev->psp_hdl) {
+ 		XDNA_ERR(xdna, "failed to create psp");
+ 		ret = -ENOMEM;
+-		goto release_fw;
++		goto free_irq_vectors;
+ 	}
+ 	xdna->dev_handle = ndev;
+ 
+ 	ret = aie2_hw_start(xdna);
+ 	if (ret) {
+ 		XDNA_ERR(xdna, "start npu failed, ret %d", ret);
+-		goto release_fw;
++		goto free_irq_vectors;
+ 	}
+ 
+ 	xrs_cfg.clk_list.num_levels = ndev->max_dpm_level + 1;
+@@ -623,6 +623,8 @@ static int aie2_init(struct amdxdna_dev *xdna)
+ 
+ stop_hw:
+ 	aie2_hw_stop(xdna);
++free_irq_vectors:
++	pci_free_irq_vectors(pdev);
+ release_fw:
+ 	release_firmware(fw);
+ 
 -- 
-2.53.0
+2.43.0
 
