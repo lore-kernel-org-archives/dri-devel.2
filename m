@@ -4,70 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC41F531F8
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 07:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F359F531F8
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 07:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0DD10E578;
-	Tue, 14 Apr 2026 07:02:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A19FD10E577;
+	Tue, 14 Apr 2026 07:05:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="OJBuMBRn";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="biKgmg/q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o7fgph2H";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="biKgmg/q";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="o7fgph2H";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0232510E577;
- Tue, 14 Apr 2026 07:02:43 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 8983F1A329A;
- Tue, 14 Apr 2026 07:02:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4EA1C5FFBB;
- Tue, 14 Apr 2026 07:02:42 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DE66810450D08; 
- Tue, 14 Apr 2026 09:02:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776150160; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=GSwJySJHo0hT7GXeWrDOalz8cnz5bMLyfqqv3BHlXRA=;
- b=OJBuMBRnZ+1k0pvNy34xrHqO2sDtPpDWaR5tU5nqeGGgWSkYmHpD2OCmU8elLppdM+FZfO
- w0DduviNhyxdv6HA5bPmhN6QWm7zZhJe9bpszUAgTALiVlrDx7Z/J1cBi/t/Ry5rdFzOqu
- R9JonwE28Dtat/FKH00kCLyUE0whYkGlR+uKNLDuDgfj/Rdw8vBC2f0BPneCgtCaLa/GIJ
- jH1rCkKR5yfbF2aexL9UkLhqJVKUEXAtibTr52l0hPNZ6RGKDm20chWzXLhfzHC4ky6OIq
- KWfO9iSdVGivMNMZCB0IM5Bz+oH6rKh94YLpmIIoLEF+6QQz3VK4UTlBsapH1A==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 14 Apr 2026 09:02:27 +0200
-Message-Id: <DHSOOH7FU7Y4.1R63I92H08W86@bootlin.com>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH 10/10] drm: of: forbid bridge-only calls to
- drm_of_find_panel_or_bridge()
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Abhinav Kumar" <abhinav.kumar@linux.dev>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Sean Paul" <sean@poorly.run>, "Marijn Suijten"
- <marijn.suijten@somainline.org>, "Xinliang Liu" <xinliang.liu@linaro.org>,
- "Tian Tao" <tiantao6@hisilicon.com>, "Xinwei Kong"
- <kong.kongxinwei@hisilicon.com>, "Sumit Semwal" <sumit.semwal@linaro.org>,
- "Yongqin Liu" <yongqin.liu@linaro.org>, "John Stultz" <jstultz@google.com>,
- "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Tomi
- Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Michal Simek"
- <michal.simek@amd.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>, "Ian Ray"
- <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
- <freedreno@lists.freedesktop.org>, <linux-arm-kernel@lists.infradead.org>
-X-Mailer: aerc 0.20.1
-References: <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-0-acd01cd79a1f@bootlin.com>
- <20260413-drm-bridge-alloc-getput-panel_or_bridge-v1-10-acd01cd79a1f@bootlin.com>
- <nligqvm3lq6n556onglmb345arxztd4pc6fboo4yrs3bfu27eu@uiyu2xklnexb>
-In-Reply-To: <nligqvm3lq6n556onglmb345arxztd4pc6fboo4yrs3bfu27eu@uiyu2xklnexb>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E44C210E577
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 07:05:27 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A17315BD2B;
+ Tue, 14 Apr 2026 07:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776150326; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=okxTiwDMUEzFCUHxjzDk7H2bF838YXZ1/qYc+plhJfA=;
+ b=biKgmg/qGPf/+Rp+JVavaqT0xYGI8MBnjd3QL0K/kub3b3uUtLMiTs5Iq4hdhQy7XHwkd4
+ 1YewsTm3uC8p1geuIZfxh5cfVAsmzPDkdBTXApyecZmSdt87qAjl4bpkw9/M5vbF1U/nZw
+ oHujTy86uFENGKDAy3CGcxwemo2PTZo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776150326;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=okxTiwDMUEzFCUHxjzDk7H2bF838YXZ1/qYc+plhJfA=;
+ b=o7fgph2HDUOKp7UTuEpi2rMFrZLJgKTJiwsOba8vwHmpRR85T/wu4l9DK/gnNH65gnAGjE
+ FIWsM0T+IG1/9YBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776150326; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=okxTiwDMUEzFCUHxjzDk7H2bF838YXZ1/qYc+plhJfA=;
+ b=biKgmg/qGPf/+Rp+JVavaqT0xYGI8MBnjd3QL0K/kub3b3uUtLMiTs5Iq4hdhQy7XHwkd4
+ 1YewsTm3uC8p1geuIZfxh5cfVAsmzPDkdBTXApyecZmSdt87qAjl4bpkw9/M5vbF1U/nZw
+ oHujTy86uFENGKDAy3CGcxwemo2PTZo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776150326;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=okxTiwDMUEzFCUHxjzDk7H2bF838YXZ1/qYc+plhJfA=;
+ b=o7fgph2HDUOKp7UTuEpi2rMFrZLJgKTJiwsOba8vwHmpRR85T/wu4l9DK/gnNH65gnAGjE
+ FIWsM0T+IG1/9YBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D1854B2FF;
+ Tue, 14 Apr 2026 07:05:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id U+VEFTbn3WmIOgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 14 Apr 2026 07:05:26 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jfalempe@redhat.com, airlied@redhat.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 0/4] drm/ast: Fix color formats
+Date: Tue, 14 Apr 2026 09:02:26 +0200
+Message-ID: <20260414070522.33943-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.999];
+ MIME_GOOD(-0.10)[text/plain];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[redhat.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCPT_COUNT_SEVEN(0.00)[8];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,41 +104,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Dmitry, Maxime,
+Fix various issues with ast's handling of color formats. Remove the
+deprecated cpp field form the code and add support for XRGB1555.
 
-On Mon Apr 13, 2026 at 8:04 PM CEST, Dmitry Baryshkov wrote:
-> On Mon, Apr 13, 2026 at 03:58:42PM +0200, Luca Ceresoli wrote:
->> Up to now drm_of_find_panel_or_bridge() can be called with a bridge poin=
-ter
->> only, a panel pointer only, or both a bridge and a panel pointers. The
->> logic to handle all the three cases is somewhat complex to read however.
->>
->> Now all bridge-only callers have been converted to
->> of_drm_get_bridge_by_endpoint(), which is simpler and handles bridge
->> refcounting. So forbid new bridge-only users by mandating a non-NULL pan=
-el
->> pointer in the docs and in the sanity checks along with a warning.
->
-> Are there remaining users which still use either the bridge or the
-> panel? Would it be possible / better to drop the two-arg version?
+Tested on AST26000 hardware by running fbcon and Xorg with the supported
+color formats.
 
-Yes. I counted ~20 panel+bridge and 4 panel-only callers with this series
-applied, and on top of those there are devm_drm_of_get_bridge() and
-drmm_of_get_bridge() which to me are the real issue because they make it
-impossible to correctly handle bridge lifetime.
+Thomas Zimmermann (4):
+  drm/ast: Add constant for VGACR91
+  drm/ast: Remove traces of DRM_FORMAT_RGB888 handling
+  drm/ast: Replace references to struct drm_format_info.cpp
+  drm/ast: Support DRM_FORMAT_XRGB1555 on the primary plane
 
-We discussed this with both you and Maxime a while back. AFAIK Maxime has a
-plan to make every panel automatically instantiate a panel_bridge. I think
-that's the only reasonable approach to get rid of
-drm_of_find_panel_or_bridge() + *_of_get_bridge() and make bridge lifetime
-easier and safe.
+ drivers/gpu/drm/ast/ast_mode.c | 86 ++++++++++++++++++++--------------
+ drivers/gpu/drm/ast/ast_reg.h  | 55 +++++++++++++++++-----
+ 2 files changed, 93 insertions(+), 48 deletions(-)
 
-@Maxime, do you have updates on that idea?
+-- 
+2.53.0
 
-Best regards,
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
