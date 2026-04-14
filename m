@@ -4,55 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E673BED7B9D
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 10:35:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E45F9D0C4
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 11:44:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEC310E591;
-	Tue, 14 Apr 2026 10:35:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36F3210E233;
+	Tue, 14 Apr 2026 11:44:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WKPWgq5y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eSTPwk4Y";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B85F10E591
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:35:55 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4436E6011F;
- Tue, 14 Apr 2026 10:35:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B61C19425;
- Tue, 14 Apr 2026 10:35:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776162954;
- bh=SFNQ0GUXZDmko3umJzr38nltBojjjdV+yz2yRE036ik=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=WKPWgq5yvXTwdm6Mn7ddnAlqSEEiLBiWHTaX5mT5aGATcja8JjLui6ZcqNanm6scd
- CvXrq5dpTAh4lfYq1EVZUX4GCculXV6aUZ8B2O66uXnN4hL8M3IpV0q1QnBYf/Cgl2
- uXmzZTnbW+Tg8K5+cr8iHrkx2+6e8RjuZe77W4iUy0UXTXGq+qIpq/A/xcKV1UjzsD
- tSBo0NXcGq1hWol0n071OCMjHVTW3JNe8xQS1eQwar0Cs0wcpqFjwIeRuJfCLbea1B
- MZfrvQ0InJkZRVLl5oIPVYvATc3jjlfrLG2y30pSPcM877QPNc8FyNTCL8ekqjzoew
- 0U2KV9PxBXr2w==
-Date: Tue, 14 Apr 2026 13:35:47 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: fengchengwen <fengchengwen@huawei.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-rdma@vger.kernel.org, linux-pci@vger.kernel.org,
- netdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Keith Busch <kbusch@kernel.org>, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
-Subject: Re: [RFC] Proposal: Add sysfs interface for PCIe TPH Steering Tag
- retrieval and configuration
-Message-ID: <20260414103547.GA361495@unreal>
-References: <6ea4c4c2-774e-aa76-3665-918e2a24cc84@huawei.com>
- <20260413100152.GG21470@unreal>
- <c3a6c6ca-3b71-476c-947a-5f2393d046bd@huawei.com>
- <20260413191930.GP21470@unreal>
- <b95ced54-339f-4859-b3eb-8bf261393ffc@huawei.com>
- <20260414085723.GR21470@unreal>
- <84bf119e-fa8c-4c97-9197-3377b7e2b250@huawei.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A58E810E233
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 11:44:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776167084; x=1807703084;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=/uifXYhjkpn2JIQXVjganr+ngHnaC65t/JIBOoBeA2s=;
+ b=eSTPwk4Ys48p22f0FooDaxOgVEzNZZ4Uae2lVUxsvBVxDgO4+CAtv5ud
+ ZbgdFyV5lukVuSO2dR4YwJhGfWdpcomKF5T6DxUC810dr6e5V6474Xppu
+ 78LEHmDhbxvdQd5L83JwXxLk/I9bPd4YU5l8c9ZkX/samKskPmCMMzugO
+ aCO0Y2jS38RdSelMUJYss2K8OsHEtHo8d3boO5/LyBPrs4ZJM7jtbMOC2
+ pK1+RjKrFRV45RzBEp3NgjnTYS6auBvdtv8A1NXcdTq/EzeeXa+prVBM5
+ Hq62Y4YhwpOfqpk7N/JEBj6aq0OuOXlQXMJRnmlNxHc5Zw3NAR+u4wiPu w==;
+X-CSE-ConnectionGUID: o/p7NA5dTZSnMi/16GsEQg==
+X-CSE-MsgGUID: 8je6EkG2SiOTKRssndrQqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11758"; a="64656951"
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="64656951"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2026 04:44:41 -0700
+X-CSE-ConnectionGUID: T3APFrp+ROWWVa0psOuu0g==
+X-CSE-MsgGUID: ViKU/xG9TGy2574E8oN0MQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="227419138"
+Received: from lkp-server01.sh.intel.com (HELO 7b0b59b3a0d4) ([10.239.97.150])
+ by fmviesa008.fm.intel.com with ESMTP; 14 Apr 2026 04:44:38 -0700
+Received: from kbuild by 7b0b59b3a0d4 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wCcC4-000000001PR-0SFf;
+ Tue, 14 Apr 2026 11:44:36 +0000
+Date: Tue, 14 Apr 2026 19:43:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Baker <mzndmzn@gmail.com>, andy@kernel.org, gregkh@linuxfoundation.org
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Baker <mzndmzn@gmail.com>
+Subject: Re: [PATCH] staging: fbtft: fix coding style issue in fbtft-bus.c
+Message-ID: <202604141939.LhzKrfey-lkp@intel.com>
+References: <20260412173317.3329-1-mzndmzn@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <84bf119e-fa8c-4c97-9197-3377b7e2b250@huawei.com>
+In-Reply-To: <20260412173317.3329-1-mzndmzn@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,176 +71,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 14, 2026 at 05:30:09PM +0800, fengchengwen wrote:
-> On 4/14/2026 4:57 PM, Leon Romanovsky wrote:
-> > On Tue, Apr 14, 2026 at 09:07:23AM +0800, fengchengwen wrote:
-> >> On 4/14/2026 3:19 AM, Leon Romanovsky wrote:
-> >>> On Mon, Apr 13, 2026 at 08:04:10PM +0800, fengchengwen wrote:
-> >>>> On 4/13/2026 6:01 PM, Leon Romanovsky wrote:
-> >>>>> On Fri, Apr 10, 2026 at 10:30:52PM +0800, fengchengwen wrote:
-> >>>>>> Hi all,
-> >>>>>>
-> >>>>>> I'm writing to propose adding a sysfs interface to expose and configure the
-> >>>>>> PCIe TPH
-> >>>>>> Steering Tag for PCIe devices, which is retrieved inside the kernel.
-> >>>>>>
-> >>>>>>
-> >>>>>> Background: The TPH Steering Tag is tightly coupled with both a PCIe device
-> >>>>>> (identified
-> >>>>>> by its BDF) and a CPU core. It can only be obtained in kernel mode. To allow
-> >>>>>> user-space
-> >>>>>> applications to fetch and set this value securely and conveniently, we need
-> >>>>>> a standard
-> >>>>>> kernel-to-user interface.
-> >>>>>>
-> >>>>>>
-> >>>>>> Proposed Solution: Add several sysfs attributes under each PCIe device's
-> >>>>>> sysfs directory:
-> >>>>>> 1. /sys/bus/pci/devices/<BDF>/tph_mode to query the TPH mode (interrupt or
-> >>>>>> device specific)
-> >>>>>> 2. /sys/bus/pci/devices/<BDF>/tph_enable to control the TPH feature
-> >>>>>> 3. /sys/bus/pci/devices/<BDF>/tph_st to support both read and write
-> >>>>>> operations, e.g.:
-> >>>>>>    Read operation:
-> >>>>>>      echo "cpu=3" > /sys/bus/pci/devices/0000:01:00.0/tph_st
-> >>>>>>      cat /sys/bus/pci/devices/0000:01:00.0/tph_st
-> >>>>>>    Write operation:
-> >>>>>>      echo "index=10 st=123" > /sys/bus/pci/devices/0000:01:00.0/tph_st
-> >>>>>>
-> >>>>>>
-> >>>>>> The design strictly follows PCI subsystem sysfs standards and has the
-> >>>>>> following key properties:
-> >>>>>>
-> >>>>>> 1. Dynamic Visibility: The sysfs attributes will only be present for PCIe
-> >>>>>> devices that
-> >>>>>>    support TPH Steering Tag. Devices without TPH capability will not show
-> >>>>>> these nodes,
-> >>>>>>    avoiding unnecessary user confusion.
-> >>>>>>
-> >>>>>> 2. Permission Control: The attributes will use 0600 file permissions,
-> >>>>>> ensuring only
-> >>>>>>    privileged root users can read or write them, which satisfies security
-> >>>>>> requirements
-> >>>>>>    for hardware configuration interfaces.
-> >>>>>>
-> >>>>>> 3. Standard Implementation Location: The interface will be implemented in
-> >>>>>>    drivers/pci/pci-sysfs.c, the canonical location for all PCI device sysfs
-> >>>>>> attributes,
-> >>>>>>    ensuring consistency and maintainability within the PCI subsystem.
-> >>>>>>
-> >>>>>>
-> >>>>>> Why sysfs instead of alternatives like VFIO-PCI ioctl:
-> >>>>>>
-> >>>>>> - Universality: sysfs does not require binding the device to a special
-> >>>>>> driver such as
-> >>>>>>   vfio-pci. It is available to any privileged user-space component,
-> >>>>>> including system
-> >>>>>>   utilities, daemons, and monitoring tools.
-> >>>>>>
-> >>>>>> - Simplicity: Both user-space usage (cat/echo) and kernel implementation are
-> >>>>>>   straightforward, reducing code complexity and long-term maintenance cost.
-> >>>>>>
-> >>>>>> - Design Alignment: TPH Steering Tag is a generic PCIe device feature, not
-> >>>>>> specific to
-> >>>>>>   user-space drivers like DPDK or VFIO. Exposing it via sysfs matches the
-> >>>>>> kernel's
-> >>>>>>   standard pattern for hardware capabilities.
-> >>>>>>
-> >>>>>>
-> >>>>>> I look forward to your comments about this design before submitting the
-> >>>>>> final patch.
-> >>>>>
-> >>>>> You need to explain more clearly why this write functionality is useful
-> >>>>> and necessary outside the VFIO/RDMA context:
-> >>>>> https://lore.kernel.org/all/20260324234615.3731237-1-zhipingz@meta.com/
-> >>>>>
-> >>>>> AFAIK, for non-VFIO TPH callers, kernel has enough knowledge to set
-> >>>>> right ST values.
-> >>>>>
-> >>>>> There are several comments regarding the implementation, but those can wait
-> >>>>> until the rationale behind the proposal is fully clarified.
-> >>>>
-> >>>> Thanks for your review and comments.
-> >>>>
-> >>>> Let me clarify the rationale behind this user-space sysfs interface:
-> >>>>
-> >>>> 1. VFIO is just one of the user-space device access frameworks.
-> >>>>    There are many other in-kernel frameworks that expose devices
-> >>>>    to user space, such as UIO, UACCE, etc., which may also require
-> >>>>    TPH Steering Tag support.
-> >>>>
-> >>>> 2. The kernel can automatically program Steering Tags only when
-> >>>>    the device provides a standard ST table in MSI-X or config space.
-> >>>>    However, many devices implement vendor-specific or platform-specific
-> >>>>    Steering Tag programming methods that cannot be fully handled
-> >>>>    by the generic kernel code.
-> >>>>
-> >>>> 3. For such devices, user-space applications or framework drivers
-> >>>>    need to retrieve and configure TPH Steering Tags directly.
-> >>>>    A unified sysfs interface allows all user-space frameworks
-> >>>>    (not just VFIO) to use a common, standard way to manage
-> >>>>    TPH Steering Tags, rather than implementing duplicated logic
-> >>>>    in each subsystem.
-> >>>>
-> >>>> This interface provides a uniform method for any user-space
-> >>>> device access solution to work with TPH, which is why I believe
-> >>>> it is useful and necessary beyond the VFIO/RDMA case.
-> >>>
-> >>> I understand the rationale for providing a read interface, for example for
-> >>> debugging, but I do not see any justification for a write interface.
-> >>
-> >> Thank you for the comment!
-> >>
-> >> As I explained, read interface is not only for debugging. It was used to
-> >> such device who don't declare ST location in MSI-X or config-space, the following
-> >> is Intel X710 NIC device's lspci output (only TPH part):
-> >>
-> >> 	Capabilities: [1a0 v1] Transaction Processing Hints
-> >> 		Device specific mode supported
-> >> 		No steering table available
-> >>
-> >> So we could not config the ST for device on kernel because it's vendor specific.
-> >> But we could configure ST by it's vendor user-space driver, in this case, we
-> >> should get ST from kernel to user-space.
-> > 
-> > Vendor-specific, in the context of the PCI specification, does not mean the
-> > kernel cannot configure it. It simply means that the ST values are not
-> > stored in the ST table.
-> 
-> Thank you for the clarification!
-> 
-> I agree with your interpretation of "vendor-specific" in PCI spec terms—it
-> does not prevent the kernel from handling TPH in principle. However, the
-> real problem is that the kernel has no standardized way to know where or
-> how to program those vendor-specific ST values.
+Hi Baker,
 
-No one here is opposed to you implementing the appropriate callbacks or
-extending the existing in-kernel API to support a device‑specific mode.
+kernel test robot noticed the following build errors:
 
-> 
-> When a device  reports "No steering table available" and operates in
-> device-specific mode, the method used to set ST values is entirely
-> device-specific and not covered by the PCI specification. If the device
-> is taken over to user-space by UIO framework (e.g. VFIO or IGB_UIO), the
-> generic kernel cannot infer the proper programming sequence or registers
-> for each vendor-specific implementation.
-> 
-> In these cases, the configuration must be done by the vendor’s
-> user-space driver, which is aware of the device’s private programming
-> model. But such a user-space driver still needs to obtain valid,
-> platform-provided ST values (from ACPI _DSM), which it cannot do
-> without a kernel interface.
+[auto build test ERROR on staging/staging-testing]
 
-The objection applies to this point. The PCI device exists in kernel space,
-and the kernel is responsible for managing its internal state.
+url:    https://github.com/intel-lab-lkp/linux/commits/Baker/staging-fbtft-fix-coding-style-issue-in-fbtft-bus-c/20260414-101811
+base:   staging/staging-testing
+patch link:    https://lore.kernel.org/r/20260412173317.3329-1-mzndmzn%40gmail.com
+patch subject: [PATCH] staging: fbtft: fix coding style issue in fbtft-bus.c
+config: arm-randconfig-r072-20260414 (https://download.01.org/0day-ci/archive/20260414/202604141939.LhzKrfey-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 13.4.0
+smatch: v0.5.0-9007-gcf3ea02b
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260414/202604141939.LhzKrfey-lkp@intel.com/reproduce)
 
-> 
-> This is why a read-only interface to retrieve ST values is still
-> needed: the kernel holds the valid platform tags, while the user-space
-> driver handles the device-specific programming.
-> 
-> Thanks
-> 
-> > 
-> > Thanks
-> 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604141939.LhzKrfey-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/staging/fbtft/fbtft-bus.c:65:53: error: macro "define_fbtft_write_reg" requires 4 arguments, but only 3 given
+      65 | define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+         |                                                     ^
+   drivers/staging/fbtft/fbtft-bus.c:14: note: macro "define_fbtft_write_reg" defined here
+      14 | #define define_fbtft_write_reg(func, buffer_type, data_type, modifier)        \
+         | 
+>> drivers/staging/fbtft/fbtft-bus.c:65:23: error: expected ';' before 'void'
+      65 | define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+         |                       ^
+         |                       ;
+   drivers/staging/fbtft/fbtft-bus.c:67:57: error: macro "define_fbtft_write_reg" requires 4 arguments, but only 3 given
+      67 | define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+         |                                                         ^
+   drivers/staging/fbtft/fbtft-bus.c:14: note: macro "define_fbtft_write_reg" defined here
+      14 | #define define_fbtft_write_reg(func, buffer_type, data_type, modifier)        \
+         | 
+   drivers/staging/fbtft/fbtft-bus.c:67:23: error: expected ';' before 'void'
+      67 | define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+         |                       ^
+         |                       ;
+      68 | 
+      69 | void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
+         | ~~~~                   
+
+
+vim +/define_fbtft_write_reg +65 drivers/staging/fbtft/fbtft-bus.c
+
+    64	
+  > 65	define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8)
+    66	define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+    67	define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16)
+    68	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
