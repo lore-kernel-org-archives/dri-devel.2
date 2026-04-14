@@ -4,84 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92FC1F9D0EC
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:48:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67567F9D0F2
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:48:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEE410E651;
-	Tue, 14 Apr 2026 18:48:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94D4E10E64F;
+	Tue, 14 Apr 2026 18:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b8d98yjb";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=verivus.ai header.i=@verivus.ai header.b="VJhZt61+";
 	dkim-atps=neutral
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43D0B10E34F
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:55:45 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5a2c7427ad9so5076134e87.1
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 03:55:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776164143; x=1776768943; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=W12ofF4X1Wo2C6qvMXRei9SFctcqIrL5xbkSvEXmBW4=;
- b=b8d98yjbbNehRRFcy6c6NTELVQrH5ruke322mtYhhsVv50BX42NOqakUHEI8JpIFE+
- j5J4RVFm1k5JzloAQpftT7gep1kSwiHjhTC4jnbUAFrk53bPBQQFJdjU2a0r29H+PVor
- GBigCD3Q1O8YH3PXYkaNRUkenNzyQPFWHytxrlV7C+O0SqdjOF4MRshIfFyOfNoRvvIM
- FCobVauVJnTYdv2dQBdU3pblVTNtHK+9aZF4IbTM9Q6T6WerJbQ+2+iBxyKQeHHDXX8Q
- hWEy1KoaIKsXpZSLJBXCbdxRjoNHxVt+GooGpZlEsVq7Le8xzAYYzH5rZCW2KV6eXzKQ
- liWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776164143; x=1776768943;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W12ofF4X1Wo2C6qvMXRei9SFctcqIrL5xbkSvEXmBW4=;
- b=KARy4RcruVVkYfZuZ3xcLngAHHLsSbabcoag77BTp78TRK2paO5ReZdLONgB6fIZ2K
- v+G+iLhzzivlGOgND1r0sT+bPAoAMRybmT+GMBBIe5ISf6E5TkGWUUJJYb018P7F6lMr
- FmFshPvIpyftZ9rYZv606G3aIUk2BeuJLDx/NDXeBAauQFH+w+Tlw9cVHK6tKVqr6hqO
- nlEzdC+ACp4q6pBopVkpaP90FsaUc2agEWH0aLuTRL+kbKYSNXtHXI+RhsyhA+/WYT+k
- HGXerdGebQJpK0KPBTKJsAsjTNbH+FPzKDRaCdnzmMT6uHFQhXcwUIf+lXLgSokAYImv
- 6l/A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+0HCxFuhPvQOhSZz7mhu9zpZoe21rWyoOAEcJC7yofVz/yXTi97KBK3zTzI2p35gqO2CAKfp/q6v8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzdc6WQSZWqdkaoqjkgqb350GGi+EhprFfmfwoWXDJqplpWWY3t
- mTFPrETFhcE5H0w/0FUkS7u09CeVzzqSfDZVW459w8sqBLrn+LR9b2NI
-X-Gm-Gg: AeBDieupmszi2DlfsAzsB06FAd1SCJXn2XGFPx6y2Nc8u9gFYWsi69P7zjjazBhOAjb
- TwhKWYvMpmXdzHhPZZxFlJCabyRkNXCaqi4q1cP6AMISxeAg0ljBlt3n64+Zvc4bOK7YeLoS/TA
- +YrGqF/ITX3iRgbteXhKWE153YC0eewbDJfJOBMuRK9mjBVxc1lHfd7+rOMQyDlGS2mHODF21DP
- ZjhzxzbLVlvc9gGTLMdhuWgarAsoHZDQXnRxFpurr3FtUDqiaMBXv959sLw1hNSd5iFdabgmhA1
- tB4nG1zRIxItqPW5mJRSxJ4wOyCcRnKpP0RlNs2KaID/MQkQUJ4k7zERgtY0XexKczn5rrKR9Js
- FfH/mdYxwJ5Y+h04aaTx1PnFN+EMmJC3/gjV/bFLnN3KFVHvl9UaSMwFtCCXC12mMlND3v/0KE+
- PPdUVehgRAmBI+Ea/ZHiNSVu2rX8GJ+8T2GThGGQPe2KNlvP1KNJt9wXW+DQ==
-X-Received: by 2002:a05:6512:a94:b0:5a2:bf05:be77 with SMTP id
- 2adb3069b0e04-5a3efb283fbmr5981911e87.23.1776164142993; 
- Tue, 14 Apr 2026 03:55:42 -0700 (PDT)
-Received: from ghost-mint-vmk.cs.msu.ru (wifi.cs.msu.ru. [188.44.42.48])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a3eeee12fesm3177645e87.40.2026.04.14.03.55.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Apr 2026 03:55:42 -0700 (PDT)
-From: popov.nkv@gmail.com
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Vladimir Popov <popov.nkv@gmail.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Deepak Rawat <drawat@vmware.com>, Sinclair Yeh <syeh@vmware.com>,
- Thomas Hellstrom <thellstrom@vmware.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, lvc-project@linuxtesting.org,
- stable@vger.kernel.org
-Subject: [PATCH 15901/15901] drm/vmwgfx: fix NULL pointer dereference in
- vmw_validation_bo_fence()
-Date: Tue, 14 Apr 2026 13:55:27 +0300
-Message-ID: <20260414105529.9883-1-popov.nkv@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from SY2PR01CU004.outbound.protection.outlook.com
+ (mail-australiaeastazon11021088.outbound.protection.outlook.com
+ [40.107.39.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 518FC10E09C;
+ Tue, 14 Apr 2026 05:08:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WqjWg/XHfQw08EoMjY2wFWlnTWFfLRuTw0thJzFAmw3sRAPlNC4BrXpXFAgk1VlfLCg+Z0ttBi61OhqsWERDAI4n4S1594tMaUJdBwUsHsttMYckmyD+OquweNnNcnmcUZPMLuTubV93JhStGON8UyB66+oQD1o2yOm9JGOiaUJdJZLGYTodAUrh0/VWt+6MMRZEbEZTjYjps51KtCfHG9DUCdr0KPUycXLzDAh78YHCE79MfZs5z7RhsvMf08E8OYOKBkrH0mCdokFg8cfMRi9LqCWlMcfn96n1BphUUNo3hn2DBRJUIhnJgagSRcQEtUcZerx0EnbihBWWlY7MXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zchg+lqbHt28YksbX8bCPYnMvLlftotdwl+HJd475Mo=;
+ b=seFo4ogoSQHytVv5IFVYAAFgYrrJRezUj4z6jdF3+UIAD/PCWdZqiukzY2E8hPxPbdxieH0ZIM2WVw1tC6xBUysUD4sb0epplPolzGoVlhXvc10geulU2PHmG3KdU9A+pIuKEbN9SbbeQaZyJW99Qhqz7vy4Dw3aZGYc8EU4bFgIbHZ7dqsEB+NlrNQN7EwUkiFrAjOrYt69R2P8LaRmh9NTgalk4xeV0XNfPHdA3YC4DMZCkOkcFYI/xQSjhdRKPh0938ihgiWWlsEQdj/EGOR4x8G49EII7JZ7TEZAFwxuS2iOSxUcA/HaF6zcQ1r50V52t2EWkqbtdmSkNBz/DQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=verivus.ai; dmarc=pass action=none header.from=verivus.ai;
+ dkim=pass header.d=verivus.ai; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verivus.ai;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zchg+lqbHt28YksbX8bCPYnMvLlftotdwl+HJd475Mo=;
+ b=VJhZt61+FRW2cmtA5wdArkihyL+eDrM1Wo+8H7ljCYYnWC8RyFwehzRovqszWKcpuP8bRIRUMXm7yI2yVnYORJB3sdq+IdTCNGPYbovvximXeAxHNco2UYBECFFqmmFaRdPQbLZsQDtCM95YMkcwmvC1bcvWrk26i9DcLTHjS9ByaCPxr10P8M/4hTdp4+EJkqsEW3Tq5BRzWSxDJZZ+sCHKjpWedFcfY6tauKymAG+Soubt8oxG6AHg/MudBh50YtOno00o/FBZOZn/rP4oLu/cHbr+Z7siRqaBRSojHPhdCtGHXw3siS/CJDAaP8hEoxZnI6vgcB+tNr/tbuosdw==
+Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM (2603:10c6:220:22a::5)
+ by ME0P300MB0738.AUSP300.PROD.OUTLOOK.COM (2603:10c6:220:22b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Tue, 14 Apr
+ 2026 05:08:42 +0000
+Received: from ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::1e3f:9cb9:4a95:b5a2]) by ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
+ ([fe80::1e3f:9cb9:4a95:b5a2%5]) with mapi id 15.20.9818.017; Tue, 14 Apr 2026
+ 05:08:42 +0000
+From: Werner Kasselman <werner@verivus.ai>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+CC: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Thomas
+ Zimmermann <tzimmermann@suse.de>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+ <stable@vger.kernel.org>
+Subject: [PATCH v2] drm/amdgpu: fix integer overflow in
+ amdgpu_gem_align_pitch()
+Thread-Topic: [PATCH v2] drm/amdgpu: fix integer overflow in
+ amdgpu_gem_align_pitch()
+Thread-Index: AQHcy8zDxF1cRH/ziUyO+ZJ1bKaRhg==
+Date: Tue, 14 Apr 2026 05:08:42 +0000
+Message-ID: <20260414050840.244705-1-werner@verivus.com>
+References: <20260406225008.2787532-2-werner@verivus.com>
+In-Reply-To: <20260406225008.2787532-2-werner@verivus.com>
+Accept-Language: en-AU, en-AT, en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: git-send-email 2.43.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=verivus.ai;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ME0P300MB0853:EE_|ME0P300MB0738:EE_
+x-ms-office365-filtering-correlation-id: 05ff443b-bf7b-4ef2-c979-08de99e3e5f5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: 8TOefaesFWmDOGEKm8ueJu1Rq+bC+PbrX3BbK9pJNkZywA5KTocUt3CgPwvQLhNAQSStL2mxFBUJo9YzahD6/sBD42i2JxQWGq7BZLhbTLAlEPyHczgcixMyzCaWv+mX1RCd3H0eWByxJ6xE6YLNUZZgPC44XsAwGg1uJhfYnUhseSyW1odPiIlTk3469ZIISC423/7cvfp5zKDEnb5ZtyhiXsx0U2BANJw6nGRK2/jIeRv33UC2AUMTfaryqJiVtzrLqjzaO8ZW2eMeORQuEX40o8Nmba5UQKhg4JKkAxDjWNR0GJGD0Pw2jLJfoFQBKxrjG1BonjtfP1bvBpGOO6j3RAuFPEWjvi9IUCUbXqI/gThRcoDtcQabHNeKE5MYFiJcD5jI0WDJHPX3+05mDqgZF5bZSpEU9qRO46yVd5GjLYCtF1xTRH95qX5+FvmkLB1YXPFenIqZecD3prkYmXrS4VRYLVNKdlpCHpKqMl7GhS5ojeMOIvW/aOcGyXUh+nCywMjzvVJ02BgT8erluRwt1sg6xbduisghPHSC/Qu7C/FdUq5XFZUpXza0//wHuvNS+yNqEBsmEPW6PspEHKwmKbQ0BvsNcnaesoKhsRNOYfelAxLiI5wv+aTbftiP8YrmUzU7f84wOUk6RPKveeAgkEKdn7qpps7kgGxjXAwRT2NnnfQjxkTyQkCkvLxWz8Shg6oIRmI2HuPkNQQyKLS9sI6FIyKdH0uW1tSZsrMAMkmsyAgm2IVLmT6KDixz3k2Ilor3Sm3SuIEUobNTfdunXCg4lmQS9OP2wdnJbnY=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700021)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?qtg7kDWHRw9DYzy4IJXQ+rN2fnIY6tqh1lud1RxDQC5IK+qSnukmNXdTpa?=
+ =?iso-8859-1?Q?TuHbeem6+edlYAMFcQP7DgEvU0HSpbq6oV7dgO9d9oSFOxTs29yaORkgjA?=
+ =?iso-8859-1?Q?fz6hC9e1WQA1Z7xs1ay3Ova3BSRzmNM6aJoUEsXofVQUwrvyuneJf18Vct?=
+ =?iso-8859-1?Q?hfV+kVIwlW+51LN41tal4NdnJuZ8rkWnBIJdDoAon8434qRQS6k/11ZC7S?=
+ =?iso-8859-1?Q?viHtTVLA8np9wrt5LlEmxMj2XqsE2TX0RkVWyLPOoLnez6KBhg5o9aixgf?=
+ =?iso-8859-1?Q?KOvjTMiqscCJQqbQE5edlsBs1iLnLXxZGO17eo0/PR3Y9ud29BBNNta8gl?=
+ =?iso-8859-1?Q?FRSGex/9g4bYpMf+UETeo+DfAQDjWyO14cR3y4085FXFaaGnVlvN7Gl08E?=
+ =?iso-8859-1?Q?In0O0QxYKkmIKRGHgI09ztGcHpsM/TI0mwNte6xmPosNxpOwm+fT0Zc24B?=
+ =?iso-8859-1?Q?lo+v1ZLKPbzsphKrd4wMJ6hh2efjcn2DhmmPmoCAUf4YRRXSIzA9QDMD7r?=
+ =?iso-8859-1?Q?DPBHECaYhtwLZ3qeWlEf8vdGPE1Bya4FVU7ADE/J4WlE+QL8VM8oEvqMfk?=
+ =?iso-8859-1?Q?5Hli7VasWT8XLxlY2CdrEC1MRDcbnLeRtASp8W5PYEPuVmXPURcUx0ZxSq?=
+ =?iso-8859-1?Q?avnHaQrIakip4H72UWBrqfxIGdMf5SE04z8jUmQETip12Ii8iM8VCSKepI?=
+ =?iso-8859-1?Q?JcXs2hVUuIeWQYVexaQP6ZgrmZdXdfpJ4DJmYLDzYe6FnfLIhlb/xVLvmG?=
+ =?iso-8859-1?Q?5aOWIbGUgNhnMhfRYgZ7ZC3RewsAQn50SsoTcaEYL/mLY4loSsY2Wk5Sir?=
+ =?iso-8859-1?Q?KdNuOxKv+iA8sQnMoW5N/f07OKPpX30x5Q59ZbH3wMLQ9RhySqpgenMx1g?=
+ =?iso-8859-1?Q?GHTmxiLQu0UDwtF/u5rYZ6dLqQN3IAQx0bvfro3DAXU75YIK9p2uFXBXwp?=
+ =?iso-8859-1?Q?qZjCDpyKSHtsKPRowUVtdaL83oj2pWexM1kUjLvDDD/dQT6PoC48TgvvIe?=
+ =?iso-8859-1?Q?YbSI5iDBAt4jtlaTG/50uYc4/nbIK8OfBslhK/2jxwizY8l+sBkzSRJrwG?=
+ =?iso-8859-1?Q?oDfc3EG9sohMDHqcD5rLb4YXaAdKfGWAQ4os4UxGVrnwfMIdtxpXOYlqjC?=
+ =?iso-8859-1?Q?5+PPsLuocftiovZ7Ljl84EqFT52jFU5bGgMgPvXjzP1jPh4cW8+ajHb2LV?=
+ =?iso-8859-1?Q?I2pbPK6pr7HdXrwlggZMHfO06tRXhWGCdPfzUwrx7i1SBvKa2wL9xZNulx?=
+ =?iso-8859-1?Q?Pfeaa4Hc4ybb84TWSC2u8ezZL+XjQjhBaqXBvJ59L4RGDvYOYpPSTOul2X?=
+ =?iso-8859-1?Q?b90UZY/ByJjnOodrKK2LKBl5A2iA1qo3oAPJ/K7yTT7XGyftjavQMWwEcr?=
+ =?iso-8859-1?Q?mNysn58gKWffz32VR/H5LMAfA5j84x7d66UdQt0UFs51i8PMncCmM9GxJ0?=
+ =?iso-8859-1?Q?ML8G13vILOh9HFxbfPe0R/qZ/AP+IZKp5Uc3pouO9UlfNYzsj1ngbDbt4x?=
+ =?iso-8859-1?Q?15qjmx5qlyN5bo1oO+qkATYXcqeAC8wIPQ++GNx1SDhxMccZEHMHEcLnwh?=
+ =?iso-8859-1?Q?LKNhh+bAJtCu85+/srrj6ip2NeDemzevHfXmDCmkth5FQ0aqkA4LRg0sWq?=
+ =?iso-8859-1?Q?jBkMgid48oULtl5wRHGozyMmpb9hR4Oo5My/cjBthj7evm6u5NDw163ywU?=
+ =?iso-8859-1?Q?2PWlRnHm4KR86prHAW9UDw7xH3Kf+A7UEDX0mkViJ/2IE9apiTUbACaQPB?=
+ =?iso-8859-1?Q?HphXbWGIh6+1ZpwejQ3PSeLc0ymW+skJA+5J3X8TVafpFA5X6TTXfzH6++?=
+ =?iso-8859-1?Q?OlR1A2GmDg=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: verivus.ai
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ME0P300MB0853.AUSP300.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ff443b-bf7b-4ef2-c979-08de99e3e5f5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 05:08:42.7802 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: ccdcedb0-4edc-4cc8-9791-c44ee6610030
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HWZz8uRa4XuaOVAV6FT3OLdK7QKGg16wdIGvNIDApuPbLKOa3rAnXZjmNVXS05YrmsfOq/xz36nBHYPE25x0bw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME0P300MB0738
 X-Mailman-Approved-At: Tue, 14 Apr 2026 18:48:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,69 +140,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vladimir Popov <popov.nkv@gmail.com>
-
-If vmw_execbuf_fence_commands() call fails in
-vmw_kms_helper_validation_finish(), it sets *p_fence = NULL. If 
-ctx->bo_list is not empty, the caller, vmw_kms_helper_validation_finish(),
-passes the fence through a chain of functions to dma_fence_is_array(),
-which causes a NULL pointer dereference in dma_fence_is_array():
-
-vmw_kms_helper_validation_finish() // pass NULL fence
-  vmw_validation_done()
-    vmw_validation_bo_fence()
-      ttm_eu_fence_buffer_objects() // pass NULL fence
-        dma_resv_add_fence()
-          dma_fence_is_container()
-            dma_fence_is_array() // NULL deref
-
-Fix this by adding a NULL check in vmw_validation_bo_fence(): if the fence
-is NULL, fall back to ttm_eu_backoff_reservation()to safely release
-the buffer object reservations without attempting to add a NULL fence to
-dma_resv. This is safe because when fence is NULL, vmw_fallback_wait()
-has already been called inside vmw_execbuf_fence_commands() to synchronize
-the GPU.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: 038ecc503236 ("drm/vmwgfx: Add a validation module v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vladimir Popov <popov.nkv@gmail.com>
----
- drivers/gpu/drm/vmwgfx/vmwgfx_validation.h | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
-index 353d837907d8..fc04555ca505 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
-@@ -127,16 +127,23 @@ vmw_validation_bo_reserve(struct vmw_validation_context *ctx,
-  * vmw_validation_bo_fence - Unreserve and fence buffer objects registered
-  * with a validation context
-  * @ctx: The validation context
-+ * @fence: Fence with which to fence all buffer objects taking part in the
-+ * command submission.
-  *
-  * This function unreserves the buffer objects previously reserved using
-- * vmw_validation_bo_reserve, and fences them with a fence object.
-+ * vmw_validation_bo_reserve, and fences them with a fence object if the
-+ * given fence object is not NULL.
-  */
- static inline void
- vmw_validation_bo_fence(struct vmw_validation_context *ctx,
- 			struct vmw_fence_obj *fence)
- {
--	ttm_eu_fence_buffer_objects(&ctx->ticket, &ctx->bo_list,
--				    (void *) fence);
-+	/* fence is able to be NULL if vmw_execbuf_fence_commands() fails */
-+	if (fence)
-+		ttm_eu_fence_buffer_objects(&ctx->ticket, &ctx->bo_list,
-+					    (void *)fence);
-+	else
-+		ttm_eu_backoff_reservation(&ctx->ticket, &ctx->bo_list);
- }
- 
- /**
--- 
-2.43.0
-
+amdgpu_gem_align_pitch() is passed u32 width and cpp from dumb buffer=0A=
+creation but uses signed int internally.  The round-up add and the=0A=
+aligned * cpp multiplication can overflow, returning zero or a negative=0A=
+pitch.  A zero pitch propagates to a zero-sized GEM object allocation=0A=
+that reaches userspace via DRM_IOCTL_MODE_CREATE_DUMB.=0A=
+=0A=
+Switch the helper to unsigned int and use check_add_overflow() /=0A=
+check_mul_overflow() so wraparound returns zero.  Reject a zero pitch=0A=
+or size in amdgpu_mode_dumb_create() rather than allocating a zero-=0A=
+byte BO.=0A=
+=0A=
+Fixes: 8e911ab770f7 ("drm: amdgpu: Replace drm_fb_get_bpp_depth() with drm_=
+format_plane_cpp()")=0A=
+Cc: stable@vger.kernel.org=0A=
+Signed-off-by: Werner Kasselman <werner@verivus.com>=0A=
+---=0A=
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 25 +++++++++++++++++--------=0A=
+ 1 file changed, 17 insertions(+), 8 deletions(-)=0A=
+=0A=
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gem.c=0A=
+index a6107109a2b8..0d9309f792a4 100644=0A=
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=0A=
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c=0A=
+@@ -27,6 +27,7 @@=0A=
+  */=0A=
+ #include <linux/ktime.h>=0A=
+ #include <linux/module.h>=0A=
++#include <linux/overflow.h>=0A=
+ #include <linux/pagemap.h>=0A=
+ #include <linux/pci.h>=0A=
+ #include <linux/dma-buf.h>=0A=
+@@ -1223,13 +1224,14 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device=
+ *dev, void *data,=0A=
+ 	return ret;=0A=
+ }=0A=
+ =0A=
+-static int amdgpu_gem_align_pitch(struct amdgpu_device *adev,=0A=
+-				  int width,=0A=
+-				  int cpp,=0A=
+-				  bool tiled)=0A=
++static unsigned int amdgpu_gem_align_pitch(struct amdgpu_device *adev,=0A=
++					   unsigned int width,=0A=
++					   unsigned int cpp,=0A=
++					   bool tiled)=0A=
+ {=0A=
+-	int aligned =3D width;=0A=
+-	int pitch_mask =3D 0;=0A=
++	unsigned int aligned =3D width;=0A=
++	unsigned int pitch_mask =3D 0;=0A=
++	unsigned int pitch;=0A=
+ =0A=
+ 	switch (cpp) {=0A=
+ 	case 1:=0A=
+@@ -1244,9 +1246,12 @@ static int amdgpu_gem_align_pitch(struct amdgpu_devi=
+ce *adev,=0A=
+ 		break;=0A=
+ 	}=0A=
+ =0A=
+-	aligned +=3D pitch_mask;=0A=
++	if (check_add_overflow(aligned, pitch_mask, &aligned))=0A=
++		return 0;=0A=
+ 	aligned &=3D ~pitch_mask;=0A=
+-	return aligned * cpp;=0A=
++	if (check_mul_overflow(aligned, cpp, &pitch))=0A=
++		return 0;=0A=
++	return pitch;=0A=
+ }=0A=
+ =0A=
+ int amdgpu_mode_dumb_create(struct drm_file *file_priv,=0A=
+@@ -1273,8 +1278,12 @@ int amdgpu_mode_dumb_create(struct drm_file *file_pr=
+iv,=0A=
+ =0A=
+ 	args->pitch =3D amdgpu_gem_align_pitch(adev, args->width,=0A=
+ 					     DIV_ROUND_UP(args->bpp, 8), 0);=0A=
++	if (!args->pitch)=0A=
++		return -EINVAL;=0A=
+ 	args->size =3D (u64)args->pitch * args->height;=0A=
+ 	args->size =3D ALIGN(args->size, PAGE_SIZE);=0A=
++	if (!args->size)=0A=
++		return -EINVAL;=0A=
+ 	domain =3D amdgpu_bo_get_preferred_domain(adev,=0A=
+ 				amdgpu_display_supported_domains(adev, flags));=0A=
+ 	r =3D amdgpu_gem_object_create(adev, args->size, 0, domain, flags,=0A=
+-- =0A=
+2.43.0=0A=
+=0A=
