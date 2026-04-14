@@ -4,75 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB69F9D0F0
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:48:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92FC1F9D0EC
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 18:48:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32B3A10E611;
-	Tue, 14 Apr 2026 18:48:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEE410E651;
+	Tue, 14 Apr 2026 18:48:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mechasystems-com.20251104.gappssmtp.com header.i=@mechasystems-com.20251104.gappssmtp.com header.b="URgiXXSR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b8d98yjb";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8F6110E0F7
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 11:47:32 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-82f2385724aso1177921b3a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 13 Apr 2026 04:47:32 -0700 (PDT)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43D0B10E34F
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 10:55:45 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5a2c7427ad9so5076134e87.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 03:55:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mechasystems-com.20251104.gappssmtp.com; s=20251104; t=1776080852;
- x=1776685652; darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1776164143; x=1776768943; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=b/LOXITNDN/uMhBAVQruWsPEexWMWJ2BqlDUKp8QBqI=;
- b=URgiXXSRWyCt/Zc/GhYBL8KZ+TDsWcN9SfeDBga6oZ7DKEiS/v56ggQIzJSWIDgOiO
- BU3lgrFYPBB949poAaHtmEdjDue2tpa0fr0nlGd24erjrV8XAkYMpd4wD4VvpNdWslKb
- DQVma3RruBOzS9hfjdO1OmUz3r471xbm/hhkCSnUE/0IKxhbnRBcEsMT9nVNTg85dgsq
- pUm8n3XTWbO2dsHQ4oYWxIdj9Gv8/hs1b2nP3nqumxDODkcLcs3Uc6AimxKVijNUuIru
- pVTUdVcMfDvUAGMnu2iPjzVa726bRTfFXAbHTvaVagDgVIuHemmZxf9JefI9uYcRsUb4
- qYtQ==
+ bh=W12ofF4X1Wo2C6qvMXRei9SFctcqIrL5xbkSvEXmBW4=;
+ b=b8d98yjbbNehRRFcy6c6NTELVQrH5ruke322mtYhhsVv50BX42NOqakUHEI8JpIFE+
+ j5J4RVFm1k5JzloAQpftT7gep1kSwiHjhTC4jnbUAFrk53bPBQQFJdjU2a0r29H+PVor
+ GBigCD3Q1O8YH3PXYkaNRUkenNzyQPFWHytxrlV7C+O0SqdjOF4MRshIfFyOfNoRvvIM
+ FCobVauVJnTYdv2dQBdU3pblVTNtHK+9aZF4IbTM9Q6T6WerJbQ+2+iBxyKQeHHDXX8Q
+ hWEy1KoaIKsXpZSLJBXCbdxRjoNHxVt+GooGpZlEsVq7Le8xzAYYzH5rZCW2KV6eXzKQ
+ liWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776080852; x=1776685652;
+ d=1e100.net; s=20251104; t=1776164143; x=1776768943;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b/LOXITNDN/uMhBAVQruWsPEexWMWJ2BqlDUKp8QBqI=;
- b=IXzOS5vhM64tmTOeljsoVo/LRrRGLRMygYb8zl0qGTHJFEUEEQnxsVBxZ5jH9H1X/2
- hutu6D+JfksxFi86sDEoksqgHyb/BYBgPjoC2LHmngUBuPloksMxoW61R0fxYCe65Cn4
- vdCWCsi+TMG3n6LsTMvqBCi74X8Mu0ZyEbsSm8qkXE7OhBTCkcm20fy8R7rKpxHiHN8S
- qOVMkuDvY0/qaBKipf1ffcfVZvGVALr5rCU5JX4ynarmFws+OZ+Gouj2ezeSuy5nQI6+
- nB/Qlehikev2hW/IxR6gSldzuQyuG+r6KfTahjR2Gm0foIzbWy947p2nHm72PTdh7oTO
- PG6w==
+ bh=W12ofF4X1Wo2C6qvMXRei9SFctcqIrL5xbkSvEXmBW4=;
+ b=KARy4RcruVVkYfZuZ3xcLngAHHLsSbabcoag77BTp78TRK2paO5ReZdLONgB6fIZ2K
+ v+G+iLhzzivlGOgND1r0sT+bPAoAMRybmT+GMBBIe5ISf6E5TkGWUUJJYb018P7F6lMr
+ FmFshPvIpyftZ9rYZv606G3aIUk2BeuJLDx/NDXeBAauQFH+w+Tlw9cVHK6tKVqr6hqO
+ nlEzdC+ACp4q6pBopVkpaP90FsaUc2agEWH0aLuTRL+kbKYSNXtHXI+RhsyhA+/WYT+k
+ HGXerdGebQJpK0KPBTKJsAsjTNbH+FPzKDRaCdnzmMT6uHFQhXcwUIf+lXLgSokAYImv
+ 6l/A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+su1HW7N9mJOAZFDTkv1xe0cSUKS9/wWGF3EyXbiwgLSumYyqCjSG+OTCi60u/jKuZpTSYM2I5ipE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRKGUScPRY2Cid2d9shyMl6FJ7miJvjcBu3TVlpAJF6qWJMFXh
- M9m/3LondNk8N5Pzdmb0sFnfRxzcT1BQiymGrtc/faeMUGVu84YNKtLAxXDZKHsXQTg=
-X-Gm-Gg: AeBDieuI3Zk5chxmvNZAYeMwN5adMvgl8Xlx8jdBPcQ7s6HQocvF3m6tXQtQzDZzu3D
- p5Jigu3qObNrqbC4QsyJBi6EQkXoxkAj3J8eS+PEQfLgxLDYDK1fjMcW4spN0oOnY+k1bxiHx2/
- xCa1ATRCtIJI92L2JTxYKZd3cHYKBFAail8y6EgDb5g2WfzEuIxjUzW6v9ni8m1TTx+oCaVSu7S
- 0xnKVwOkFbg1CGEQ6dymlmnW/xxug5jbz2VAFy+zZCZxqmidUF+FwvqlGsW34VGVSZ/OqXj2XAd
- fU87+hH6OubhoEVRuKQUMWtP9oJQOzjV3rslUAumb/yXwpOcgM6NQjzc5dB7R/iXWnHWcX6b7hh
- DXx+FhTzB5f8Ew75n29Nhe1DJEzX8rbhtACDHl3d7qriHetu283epIDmLWN8nSR82wuhY2VQa6k
- CcLZtikZXeFN8sFLB+JENlTIkVLoyxdkDDBwfp
-X-Received: by 2002:a05:6a00:39a9:b0:82c:e3f4:f5e9 with SMTP id
- d2e1a72fcca58-82f0c219ccfmr14135131b3a.18.1776080852304; 
- Mon, 13 Apr 2026 04:47:32 -0700 (PDT)
-Received: from advait-work.lan ([2001:df0:e1c0:3414:7eaf:93c5:46f:fbe4])
+ AFNElJ+0HCxFuhPvQOhSZz7mhu9zpZoe21rWyoOAEcJC7yofVz/yXTi97KBK3zTzI2p35gqO2CAKfp/q6v8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzdc6WQSZWqdkaoqjkgqb350GGi+EhprFfmfwoWXDJqplpWWY3t
+ mTFPrETFhcE5H0w/0FUkS7u09CeVzzqSfDZVW459w8sqBLrn+LR9b2NI
+X-Gm-Gg: AeBDieupmszi2DlfsAzsB06FAd1SCJXn2XGFPx6y2Nc8u9gFYWsi69P7zjjazBhOAjb
+ TwhKWYvMpmXdzHhPZZxFlJCabyRkNXCaqi4q1cP6AMISxeAg0ljBlt3n64+Zvc4bOK7YeLoS/TA
+ +YrGqF/ITX3iRgbteXhKWE153YC0eewbDJfJOBMuRK9mjBVxc1lHfd7+rOMQyDlGS2mHODF21DP
+ ZjhzxzbLVlvc9gGTLMdhuWgarAsoHZDQXnRxFpurr3FtUDqiaMBXv959sLw1hNSd5iFdabgmhA1
+ tB4nG1zRIxItqPW5mJRSxJ4wOyCcRnKpP0RlNs2KaID/MQkQUJ4k7zERgtY0XexKczn5rrKR9Js
+ FfH/mdYxwJ5Y+h04aaTx1PnFN+EMmJC3/gjV/bFLnN3KFVHvl9UaSMwFtCCXC12mMlND3v/0KE+
+ PPdUVehgRAmBI+Ea/ZHiNSVu2rX8GJ+8T2GThGGQPe2KNlvP1KNJt9wXW+DQ==
+X-Received: by 2002:a05:6512:a94:b0:5a2:bf05:be77 with SMTP id
+ 2adb3069b0e04-5a3efb283fbmr5981911e87.23.1776164142993; 
+ Tue, 14 Apr 2026 03:55:42 -0700 (PDT)
+Received: from ghost-mint-vmk.cs.msu.ru (wifi.cs.msu.ru. [188.44.42.48])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82f0c330925sm12822137b3a.15.2026.04.13.04.47.24
+ 2adb3069b0e04-5a3eeee12fesm3177645e87.40.2026.04.14.03.55.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Apr 2026 04:47:31 -0700 (PDT)
-From: Advait Dhamorikar <advaitd@mechasystems.com>
-To: marex@denx.de
-Cc: stefan@agner.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, Frank.Li@nxp.com,
- s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Advait Dhamorikar <advaitd@mechasystems.com>
-Subject: [PATCH] drm: mxsfb: lcdif: enforce 64-byte pitch alignment for scanout
-Date: Mon, 13 Apr 2026 17:14:56 +0530
-Message-ID: <20260413114456.173485-1-advaitd@mechasystems.com>
+ Tue, 14 Apr 2026 03:55:42 -0700 (PDT)
+From: popov.nkv@gmail.com
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Vladimir Popov <popov.nkv@gmail.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Deepak Rawat <drawat@vmware.com>, Sinclair Yeh <syeh@vmware.com>,
+ Thomas Hellstrom <thellstrom@vmware.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, lvc-project@linuxtesting.org,
+ stable@vger.kernel.org
+Subject: [PATCH 15901/15901] drm/vmwgfx: fix NULL pointer dereference in
+ vmw_validation_bo_fence()
+Date: Tue, 14 Apr 2026 13:55:27 +0300
+Message-ID: <20260414105529.9883-1-popov.nkv@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -92,47 +98,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The LCDIF controller expects framebuffer pitch to be aligned to a
-64 byte boundary for reliable scanout. While byte-granular pitches are
-supported by the interface, the i.MX8MP reference manual
-recommends 64-byte alignment for optimal operation.
+From: Vladimir Popov <popov.nkv@gmail.com>
 
-Corrupted output was observed with XR24 framebuffers where a pitch of
-4320 bytes caused visible corruption and choppy display, while an aligned
-pitch of 4352 bytes worked correctly.
+If vmw_execbuf_fence_commands() call fails in
+vmw_kms_helper_validation_finish(), it sets *p_fence = NULL. If 
+ctx->bo_list is not empty, the caller, vmw_kms_helper_validation_finish(),
+passes the fence through a chain of functions to dma_fence_is_array(),
+which causes a NULL pointer dereference in dma_fence_is_array():
 
-Ensure that only framebuffers with properly aligned pitch are accepted
-by rejecting invalid configurations in lcdif_plane_atomic_check().
-This allows userspace to fall back to a compatible allocation.
+vmw_kms_helper_validation_finish() // pass NULL fence
+  vmw_validation_done()
+    vmw_validation_bo_fence()
+      ttm_eu_fence_buffer_objects() // pass NULL fence
+        dma_resv_add_fence()
+          dma_fence_is_container()
+            dma_fence_is_array() // NULL deref
 
-Signed-off-by: Advait Dhamorikar <advaitd@mechasystems.com>
+Fix this by adding a NULL check in vmw_validation_bo_fence(): if the fence
+is NULL, fall back to ttm_eu_backoff_reservation()to safely release
+the buffer object reservations without attempting to add a NULL fence to
+dma_resv. This is safe because when fence is NULL, vmw_fallback_wait()
+has already been called inside vmw_execbuf_fence_commands() to synchronize
+the GPU.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 038ecc503236 ("drm/vmwgfx: Add a validation module v2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vladimir Popov <popov.nkv@gmail.com>
 ---
- drivers/gpu/drm/mxsfb/lcdif_kms.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/vmwgfx/vmwgfx_validation.h | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_kms.c b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-index 72eb0de46b54..8e574e9a591a 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_kms.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_kms.c
-@@ -674,6 +674,18 @@ static int lcdif_plane_atomic_check(struct drm_plane *plane,
- 	crtc_state = drm_atomic_get_new_crtc_state(state,
- 						   &lcdif->crtc);
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
+index 353d837907d8..fc04555ca505 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_validation.h
+@@ -127,16 +127,23 @@ vmw_validation_bo_reserve(struct vmw_validation_context *ctx,
+  * vmw_validation_bo_fence - Unreserve and fence buffer objects registered
+  * with a validation context
+  * @ctx: The validation context
++ * @fence: Fence with which to fence all buffer objects taking part in the
++ * command submission.
+  *
+  * This function unreserves the buffer objects previously reserved using
+- * vmw_validation_bo_reserve, and fences them with a fence object.
++ * vmw_validation_bo_reserve, and fences them with a fence object if the
++ * given fence object is not NULL.
+  */
+ static inline void
+ vmw_validation_bo_fence(struct vmw_validation_context *ctx,
+ 			struct vmw_fence_obj *fence)
+ {
+-	ttm_eu_fence_buffer_objects(&ctx->ticket, &ctx->bo_list,
+-				    (void *) fence);
++	/* fence is able to be NULL if vmw_execbuf_fence_commands() fails */
++	if (fence)
++		ttm_eu_fence_buffer_objects(&ctx->ticket, &ctx->bo_list,
++					    (void *)fence);
++	else
++		ttm_eu_backoff_reservation(&ctx->ticket, &ctx->bo_list);
+ }
  
-+	/*
-+	 * While byte granularity is supported, LCDIF requires
-+	 * that framebuffer pitch be aligned to 64 bytes.
-+	 */
-+	if (plane_state->fb &&
-+	    !IS_ALIGNED(plane_state->fb->pitches[0], 64)) {
-+		DRM_DEV_DEBUG_DRIVER(plane->dev->dev,
-+							"Framebuffer pitch (%u bytes) must be aligned to 64 bytes\n",
-+							plane_state->fb->pitches[0]);
-+		return -EINVAL;
-+	}
-+
- 	return drm_atomic_helper_check_plane_state(plane_state, crtc_state,
- 						   DRM_PLANE_NO_SCALING,
- 						   DRM_PLANE_NO_SCALING,
+ /**
 -- 
 2.43.0
 
