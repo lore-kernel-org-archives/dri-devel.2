@@ -4,101 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA158F9D0D0
-	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 13:45:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48069F9D0D1
+	for <dri-devel@archiver.kernel.org>; Tue, 14 Apr 2026 14:23:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2805010E59E;
-	Tue, 14 Apr 2026 13:45:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A78F810E278;
+	Tue, 14 Apr 2026 14:23:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cjsh8qHT";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cuNWqQaZ";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OCdIVo9b";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C1310E4AF
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 13:45:56 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-12c373ee97fso432424c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 06:45:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776174355; cv=none;
- d=google.com; s=arc-20240605;
- b=Jn8Sc6IxAc+2x0WU/IK9DxvmnruUHBrHx6d7E00Ku1eSAvAKgd1QsD3UP7qKRBcu7W
- qjOEt1S3XLsUQKuJWvDhqz028I0YvRDBbU/U+uYXek924kpOh3F50Y3ZmT13k2XAZvyV
- I9+Zn88XVIj+K1ASb0p/f/1CpRbVjG2Kg41CGsoaz3Ptnkk5oelD7kyhpA7UhlOVuN9k
- BXixADZdUv5HwxqLiJgCExPBZ0QlycX+XTF8aiSiKJ73y9JYJM4puA9Tmr1A5/X+A1iN
- 4zbW+jYLlmg+IbYhCTQckn7LqIRTOrEcNXjcyE7d44rEtN9Espgv6GyosxXYSb9D3t8I
- xLBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=lYOfHK/ZyzICl1CErMqKGJ2Pz+BBND+WxitKhXSQRzk=;
- fh=sgKzRcxP8toWnjTX0k0gWBZ0QvAW9fTXORFVsMVTmJY=;
- b=jOjXUU8ES7t3PyM/Uh0zGvHM/mB1HE01x+F59GThRtNmYz5tiHIA3nw1lDSakceIHQ
- yxF6C025rXESNp13I0xD08CupoMTv8AyvnZC81g4x58BAVXfZKnBofsPIqH8SX1uLXvb
- Q9QY3wv6CbnXhv3KPFUwoDr3HnOhukhu54pvt0apDCPhPSktHfFGBSeWCICc9/W3HMBb
- aXkVStb8sSfD/5u70UxmBhoa+PQ22T4jdV7LL0QWWh0xVS51NrbOwMhAT5HuUoY6a0cC
- gRSGMn742++QQlqOYcInE1f/XLG8e1uxrHhMjg6pv/GXOiuGqK5R9zeMVTB3w0z3/FTG
- VCbw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0980510E5AF
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 14:23:26 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63EBt18F3505295
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 14:23:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ sLvdqakjvhjZspo80osPg3QWx7e/vaJVprphVoJc/zc=; b=cuNWqQaZ/3VSN4zt
+ w5CqmpH93jbEC2l9n3Ca5OLx82e/EuAxShtJ1HU5/0kbccas2rSgAlQa6a2Vx8V4
+ stn57V8bC23VudyMs2cuM/5dDq3eF+DpiD38gggqI2W3qT4ASQw1WY1lQUnG+7dT
+ tIbGapBdjOBArcXki865hsmXyRc6uu4d8GW4rAd46yRqMVYKJDOHqLlvBMowuI4I
+ /OGqO7VZi+rJm2aIE4eM9VwhhdGAMwfrHN4GHf3Y9tfgeLxJ8mUI/Y9duOkBggAy
+ cwADcq9M1s6L0LBDzzH7HBjc8ukxYu80HnmrwfsdQ4l4DEM6oQz1Pfq3dFEJrrFw
+ 5CI0yw==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dh870k3e9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 14:23:25 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id
+ 71dfb90a1353d-56f71af9dddso142722e0c.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 07:23:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776174355; x=1776779155; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lYOfHK/ZyzICl1CErMqKGJ2Pz+BBND+WxitKhXSQRzk=;
- b=cjsh8qHT+NL1kQ5dXAYfBsabNAstj+k1aIQlJJF/P1sDkpRtFCvJAsfem40hhZRHzX
- iAOhNHPhJutnHwouko2qUtqVLntiiD14cHPbp9ltPfTXjT+1+dqX+AVjjUS8Z+E8mRms
- yraQyKVXiQXTwf756c1poZxoJOXuj/OuyCvnQCZ8Q2Sy2WBVNNqsLsVBOtKEoN0Q7VgM
- hsBTg6Oz7+UW7XGsvokhwoTPoNWV3KVRVGPl6477tLPRojhTOZbdVDdrRivUkUMxRPLd
- oyREoo5L3EFjqLzu7dv9H8zAfs9ispZjn9LbYv2oiwfaGz2i75sUsTkDJdj8iCKEHDtZ
- 1NAA==
+ d=oss.qualcomm.com; s=google; t=1776176604; x=1776781404;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=sLvdqakjvhjZspo80osPg3QWx7e/vaJVprphVoJc/zc=;
+ b=OCdIVo9bhnlS+7Hmels5MSDCeyVGvwF46KAQk0KVsq60svleZd/TxF+dzZR/fUXJJu
+ NoWFk8wqHSfNTCeRXZu084nzXi/u37t7mlWGN5xlinBH+B+overvE3yqdzymatLCDiXb
+ VuzRZ2bD6HcsitvqeNLdLhB/2nKqb/LEI1bLZXXfmgW8A2N8rD3jXfcuvvTlh0cKwVH5
+ AAdTeTd7hTOa+JNBU3fvcGzH1+zAAFsacwmzWk5yMqcYbuWcwZNYbqPGWk39etkhLVod
+ GvX6Lhqb64WIHlLOtkylIH2h6xNufWxl7O5QbOW1fd6H72pc3PRNW6BJFL+NvFWwwnEi
+ +QBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776174355; x=1776779155;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=lYOfHK/ZyzICl1CErMqKGJ2Pz+BBND+WxitKhXSQRzk=;
- b=H+8iFeqG1+iFGLOU1xHi2QzMImt2D67veACoWoMJ2mkEul46k73wRjdEsGqsfifUcD
- 4fteD/8vaQDQ14yRcFlBe2q742wX1b/axiaPaDt10PSTr61rmLncnBLmulmek+RHfvZc
- BkmirgWE4oXuVF/yVbCi7Om91v0X/tw9GqwyJxb3SzNSHsBG32BZYsiC0MtVrebazBBY
- K52bOWl+gIHbsKBsCWpUWQECk3pln19GqPkqEoWbgcFznEipEfPjSCwR+807i2CoFbz3
- rFyhxh5mSW19ivUxLJZ1jDYVsRPvLNlUXLrs7QlKnk1nvpFCPDr9vYdINprMYD0ZALdk
- Mj5A==
+ d=1e100.net; s=20251104; t=1776176604; x=1776781404;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=sLvdqakjvhjZspo80osPg3QWx7e/vaJVprphVoJc/zc=;
+ b=IBMJzcGRgjgqbp58j6DoIb0w+yS5Z5mIvygPMkPce4zfxa+t2utIvRz9vPES2XNmAu
+ aEsP0zARv9SkOzhPOVpLFXGxq6uKqFBFAic3odLNkW6Fp33XKHqKHmXrzNPzgZZ/V8/v
+ lHVYLpdCJlulyNXUYSL540pkoG8tOL3ZJSkr/u5XnPBCPCChf/md7XoVzf3VfSd/a8B2
+ 9y4vWvGcNdMQNJgNfKApp9Hdqtr1sq5sSbNsRkGFw773719XE5uqIugVRwlS6Kjj5kpp
+ 7eI5J3m/i75PjmUEvghG9hM97B+ZnPvfUXzc/hHbZRsH3kp0Bb+NCoPCM8vkI4hFD7Nj
+ Mhww==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/h01qAwUPw6stBzvqE40UlfMCygQcI/9UACYHm9KKurB4HRYCvwggz8nX8gPL0TaV32it/kTuIIT8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgwtjkTbnmece9aqGoast+uVzQZ1A8mlUn/LOLs6EjClXpbAuP
- QgB59Y2d94h7Pmxqh1li4GQHWjxHzq3W094JxVAA8zvngRPXdv7LGVem7b6662FD4Xcyl40vVDg
- pyqz61jwozd28dObqY3xihEads/K6CKs=
-X-Gm-Gg: AeBDies09O5UsdooMJ920I5SoM+yVxVmuyuxl8NBenNpEP/cQyj6m+7NGsVocoFEP8G
- hpZSM6z67ImBGWoMHGw6S/cKaqMv7FRSfZSWhdz7p11EXmIvdx6uWY2rCaa9uzYLxR9RxUe/kP0
- UvymT6CLTqEEuNbWQB2iLCCMTqFYrWTZst0CpYgN3cdKzO/H+9uNdeFegqOXwZX7FuomNOWdB3D
- Dy4LZdJ7rGheLXNiCkVRnRjwzBq6ghrJbF6ATsyTaDdiPHdyDwi8xHEO31nt6AozYJYx+/P6lEq
- Bnw76peHTuEhrC207tIIu6ttKPPlQhoJGm85gSNwKSS9AnzH34J+etwzpzuMrj8f8G/MjxLWLG1
- RXDpl
-X-Received: by 2002:a05:7301:fa0b:b0:2c7:2cac:814c with SMTP id
- 5a478bee46e88-2d58979bc41mr3694192eec.3.1776174355323; Tue, 14 Apr 2026
- 06:45:55 -0700 (PDT)
+ AFNElJ8e3OwRX8giE8YEWIssMng3zDbg6RUTLlcHN6RUOPnWTUEzilPHKe5LsEbxBlZW4adVMW3Q18qYAu8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwZYl9vPTgp/5jB7aWNdFUSjmGPRNaQ7yqHlpBA1/ICl9+gwDcU
+ Bqx0UievcQTGgu2AGBNljwfuTSDTosGhi4mqMyDBX/IXNj9LZik+K8o/ihd6TKj5rO0BvremoC1
+ Su+cIobruvWVCRqtulLBLDHWqkDNC7kOccUy3T3vclQD5aZI6Badxli7NcoXNsDtScRJHXFk=
+X-Gm-Gg: AeBDietGD0vK/JVCx7QPSmCV39zIXK7mkRTsvviYQOMIWt0VMGfFfx3adwbs5xLOsez
+ wVuKv6/NeqnUP4mUOAr/NLkFjE7vfnjA2j38POz6ztXKoIPlEysIMGXAGC0XD9jsZUqCBqGjDuL
+ +JziESuBYDem452M59IZBjI4gxi4Qe15s2d9F/jy8POc5ApDvmH3O0DFdIOXX0hNzdN8fq65sRZ
+ hFc/v7OLGX7a790w/R0lH85E4tDXZAFJ4xlGhLXRvq3KsB/se7PiW3HwdAwmszXESktNiBYaM02
+ Sfa3eybg/LkFK1Xw7B1l6EYJqaPdsgfCqfhkS8WHXrRdeN1U0DMlY2ekshOlb57RtE/3cD5vzXz
+ AcvFk0K2BA4TZ9rB/9gyya+9XgwGqWkVnKO2clQ5Xp1OyAVsP1wFej4Mj0v3fEGO3ykdsJ9wZ9b
+ grzzTyv31hHxBq/Q==
+X-Received: by 2002:a05:6122:25db:b0:56a:9e65:3e30 with SMTP id
+ 71dfb90a1353d-56f3bd2bb38mr2929641e0c.3.1776176604299; 
+ Tue, 14 Apr 2026 07:23:24 -0700 (PDT)
+X-Received: by 2002:a05:6122:25db:b0:56a:9e65:3e30 with SMTP id
+ 71dfb90a1353d-56f3bd2bb38mr2929614e0c.3.1776176603819; 
+ Tue, 14 Apr 2026 07:23:23 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-670703f1340sm3272004a12.10.2026.04.14.07.23.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Apr 2026 07:23:22 -0700 (PDT)
+Message-ID: <4f335d60-1cae-4027-9e87-b1212e01772e@oss.qualcomm.com>
+Date: Tue, 14 Apr 2026 16:23:18 +0200
 MIME-Version: 1.0
-References: <20260406225008.2787532-2-werner@verivus.com>
- <20260414050840.244705-1-werner@verivus.com>
- <8892f093-a98b-481e-b01e-4e640d2edc54@amd.com>
- <20260414094721.459068-1-werner@verivus.com>
-In-Reply-To: <20260414094721.459068-1-werner@verivus.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 14 Apr 2026 09:45:43 -0400
-X-Gm-Features: AQROBzCrernNciiyxTUg584Ae9KLnD-_2RN0ZVtAyto5bBcJMjMxlTeTPH8_8EY
-Message-ID: <CADnq5_Mq2SVsLd1=Ax1285UyEbwybbCeeKXxt4Xy6e7hKX3TAA@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix integer overflow in
- amdgpu_gem_align_pitch()
-To: Werner Kasselman <werner@verivus.ai>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] clk: qcom: gdsc: Add custom disable callback for GX
+ GDSC
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
+ <20260407-gfx-clk-fixes-v1-1-4bb5583a5054@oss.qualcomm.com>
+ <6149513e-2c0f-4f01-a467-b4a213d65609@oss.qualcomm.com>
+ <404ca234-1bab-4094-b7dc-c4d0b072d929@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <404ca234-1bab-4094-b7dc-c4d0b072d929@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE0MDEzNSBTYWx0ZWRfX0syDc2tlSYYt
+ TL4BpX1Jqq/y1uh/zgxZ77SJG0awCDIQ2rUDoc/ILOzLbvfsehHkDfNeueiYfrgea9Fw5xmFCu4
+ IIfT5ZwQXqnBipoiKVa+OgOUEpm3+xjPQvERlIvsw0NJzCvuAEQrKGcMfbJHbzs3D0kbYGt1RrI
+ 9zKwSQe5AdcBmwW6Fb9hJaMYSECp+Eag83c9t+TDyJ7Gr4DleHSQsUW+sYsJ/Vu4aa0PnVG6PvS
+ J/smI0VjKE1qYvYWhfsdHnnKmlo1CwM99E18fl5MUwF0yxVSKHyr9IkGi/dnP4zzAZ44o9Qk4Et
+ H63kY6w/emjhWNBe5ddONoYZvE0oyzGwUbYH0tgVOafR8bf4Iskf6sgVOyvAM7c8eTPkb2jmgq+
+ I7odG1wyZvowrgUiJ6tauA2G63sCUrt3oUrp6CUadXfdF36kmJn05dCx6L4iWjN0Z6324c7DHlw
+ yvhYoN2LICyDCIgwHaQ==
+X-Proofpoint-ORIG-GUID: LFqtwWg9-nNxxpRTpRkH_q3uwzhmivKF
+X-Proofpoint-GUID: LFqtwWg9-nNxxpRTpRkH_q3uwzhmivKF
+X-Authority-Analysis: v=2.4 cv=btZ8wkai c=1 sm=1 tr=0 ts=69de4ddd cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=LiNkUCdodsQKAq62uNgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_03,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604140135
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,20 +159,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied thanks!
+On 4/8/26 9:26 AM, Taniya Das wrote:
+> 
+> 
+> On 4/7/2026 4:26 PM, Konrad Dybcio wrote:
+>>> @@ -675,3 +675,25 @@ int gdsc_gx_do_nothing_enable(struct generic_pm_domain *domain)
+>>>  	return ret;
+>>>  }
+>>>  EXPORT_SYMBOL_GPL(gdsc_gx_do_nothing_enable);
+>>> +
+>>> +/*
+>>> + * GX GDSC is a special power domain. Normally, its disable sequence
+>>> + * is managed by the GMU firmware, and high level OS must not attempt
+>> nit: "and high level OS must not attempt" -> "and the OS must not attempt"
+>>
+> 
+> Sure, will update in the next patch.
+> 
+>>
+>>> + * to disable it. The only exception is during GMU recovery, where the
+>>> + * GMU driver can set GenPD’s synced_poweroff flag to allow explicitly
+>>> + * disable GX GDSC in hardware.
+>>> + */
+>>> +int gdsc_gx_disable(struct generic_pm_domain *domain)
+>>> +{
+>>> +	struct gdsc *sc = domain_to_gdsc(domain);
+>>> +
+>>> +	if (domain->synced_poweroff)
+>>> +		return gdsc_disable(domain);
+>> Can we use this version to replace gdsc_gx_do_nothing_enable() too?
+> 
+> No, Konrad, the enable should be always a no-op in every scenario.
+> synced_poweroff can't be used to handle enable of GDSC.
 
-Alex
+You're right, I completely glanced over the fact that one is an enable
+function and the other's a disable..
 
-On Tue, Apr 14, 2026 at 9:06=E2=80=AFAM Werner Kasselman <werner@verivus.ai=
-> wrote:
->
-> On Tue, Apr 14, 2026 at 11:26 AM, Christian K=C3=B6nig <christian.koenig@=
-amd.com> wrote:
-> > The patch looks valid to me, but I think we can drop this CC: stable.
-> >
-> > Since dump buffers are a kernel only interface the fix has no practical
-> > relevance and is only of cosmetic nature.
->
-> Ack, please drop it at apply time.
->
-> Werner
+Konrad
