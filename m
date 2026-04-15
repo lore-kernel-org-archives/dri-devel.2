@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3450F43854
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 16:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26BF7F43854
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 16:41:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC0A610E140;
-	Wed, 15 Apr 2026 16:34:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46A9610E1D1;
+	Wed, 15 Apr 2026 16:41:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HLlYqIZh";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="LW9TohWP";
 	dkim-atps=neutral
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 048C110E140
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 16:34:12 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-66b2d49ffb0so9169661a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:34:12 -0700 (PDT)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0E610E1D1
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 16:41:16 +0000 (UTC)
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-66d65646c65so5148453a12.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:41:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=google; t=1776270851; x=1776875651;
+ d=linux-foundation.org; s=google; t=1776271275; x=1776876075;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=SVtPfhgGSMK7VhUt7eWOmIDqvBPOmQt89lyJEcl6ojk=;
- b=HLlYqIZhooM8xkqTBJja9n3QcJ5oDGH19cRmlQY5iRHXofbzMKYa/qNiLNdeqdbUik
- B4Gj1KFPwiRZ9VIqm9VcgIG5eMM/Z+RVdvRhHLe85HZCFmVhIRMdGpbGPn3qkosu5jsT
- trHj6XMAIcQ/ZhJpd+ZnumFz1WiDQu46wdipo=
+ bh=y7Lb39tX80cyqh4EoAouwl4tDKxTNBcVjFCL5GxqOEY=;
+ b=LW9TohWP/DstWBTR4GKNbo91+AsuljF+5crXxPrQgKfMY2Xg8yfRBs9PBArEgSlmMg
+ aUSaD2o5MI2ozRTJJuZXoR2+GNvGoQa/Oo5BvV9eBzp8XzbzlpqanGmfa0ZAtoqrhURn
+ ZWN3A8YnB61Cezf8UtpjzknRP3VU8W/79884c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776270851; x=1776875651;
+ d=1e100.net; s=20251104; t=1776271275; x=1776876075;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SVtPfhgGSMK7VhUt7eWOmIDqvBPOmQt89lyJEcl6ojk=;
- b=Y6w4i5QWO8mIseQM1TzuINCqg1CL7lvgz0YuhjSUprPOHqkBm+t8nosFdCjcr2seSj
- Fi+p9tLPlmJANuHiqk2cZHQDLl6KSlacnUKiKIUub07zYXlroJXNaHcteGqQ7b+bxChP
- FTxahV8RSIRPTE1dbw451baDOy7fQlPCyCWrmxdnUocG7nOkyYJugq4b9YBw8oq+UAbV
- +eUxC3wc0rUIQcuXINKY/LbP5xUnQ7rf9Fk6ff1LLk5F3CwWa3/ZDp5orSFmA0fR6qPo
- 7N8uL8E19HiFhBVnL1PlthtzkDM6TqhPke697mABF274rFtQv1wxK02ZPaHfdJwBWnxG
- TAzQ==
+ bh=y7Lb39tX80cyqh4EoAouwl4tDKxTNBcVjFCL5GxqOEY=;
+ b=bt6Jd6e2NhDceCD70ki0kDo59YjDxdCVm7VpXMW1W2prLfHhx/TJV0sW8qJ4kgTLza
+ fFrgRLsTjih0PO2JOQzItMGIfFsio9IwBmhW/xv0W10OSzWBMLMvTkuKFZ0S+dKyegtj
+ XdWeAfk3qBJVWOp4wX+f96idDOYIedgcm1gXvIpjs+cjqEZIAFY7VsIWuXPHJKn4/MVy
+ N9/cWwzl9PlFq0uDrimt6wr5PCtOiCaq5mu1qHARUeK3UJCSxziSkhldCJFfzJd571uy
+ Xs3CYaqB9tAAZDJHChPx7ua3TBnvI06mjq4YylOoMlJOW0fkqTL6SrlaEGmRK2gHf2XX
+ M8Gw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+kWe1/EtUZ2E57IGcZdjyx7tKoMh9+tZbKpNeGh8gC8tewSq1Aedq5/7+bq/GdZA/NifLkDL5D4EE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yylpz0D0/D3t1HgZ6154d4LtuI7KYs7yGH97i5ErKMAqFQlArgG
- ak5cv50Yw41oolTZSdZh/Nwhtou020LUbiFHbw9NYfsfmWCuc51rfVaehJG5Ku1dOwuN8tFsn3z
- rj8bbp+E=
-X-Gm-Gg: AeBDietEnV8Q6EpcYEa4zfB9IcC7f4iUqVmgw0YhWgy425hN0tveRkGhXSJILUGtl41
- 5YyGPJv9OMbIZTFs2oXPcwqB08iXBx+D05V4HnXQLr2x3AatSygR6Jvrfq+4mepqyQNMICRa5bz
- f5U5akNqz6O49RER5ltzlnLf579+ZOeoiTnHsMlHP9CKS1Vx/q2B9t4u7/N3wP4ivdDJB6w5HC0
- 84TT+Uo0nX8xqXkepj7xYZVBuRTyKQ942mTAOsgCrZ4P8nP+C8aTe8VSbPg3G66cY78rnXQ9jrt
- 4pHGg73cfRhe7f1eQJE7c+nT9HH/VOi7xq4NilWDo4SosYsu+qSxoZxjn88AiNamml/XS4xLasS
- IcO6zjSalSjhuFfCM37ojWdtkQ8Q8lsJVNEHXasFqGYZzYcPts2d/ofH5W/SWWL5E8DnAh1qsuZ
- j0TLg7jcBiOImSiOU9Vt6v3kr/k0hhN3OgJvhaCpRp/Srje7e9Nv1lpYVJ6jSElCrdRIQmCFwq
-X-Received: by 2002:a05:6402:1f48:b0:66e:bad3:1ca0 with SMTP id
- 4fb4d7f45d1cf-6707a475baamr11217504a12.13.1776270851079; 
- Wed, 15 Apr 2026 09:34:11 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com.
- [209.85.218.53]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-67237d78933sm568536a12.6.2026.04.15.09.34.10
+ AFNElJ+uAzQnCUnKbQ7oHrU+s7+RborakHYkogUxb+HjOgL7oz/oXFGz9e/T79eRtwaxEdTWSFahlxNgFko=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzmeCK3N7mFMl0rnLq7XjasI99WIvg0JSt+V5+D5E7U9Q8mLJQL
+ j5eHf1/lr1NwCLztodqq46BbQmSrCdvgVnl6sfejlF86Ap2k3vAZWuVVxZSGpCdJb8ZQypj1GbF
+ 6W0wOdhE=
+X-Gm-Gg: AeBDievDlO61dZQAU1QbMGRndVQg5RbJgQXRpualg6ms+MTlFYjC3Hq6ULvghwfUdjZ
+ +OIU0xJGC2lMFgJ9dyedNm/4HnlBp5zzcEhhBxb2czPu69pUSDE6pvvg+wn6a5Vx11ZB5b6OiP1
+ 5yRe3xnxGYzNt7vDN1NnwnK4sKaUYXYAaMlt/BnLxih0iOas2u/gxm/qKSxD+I/COqw+2l9Wgkk
+ ydjByZszO5CF/EVaVF8ovMXz/u00Ju5aPy0CXpC/i0drVLcSr5W2IcF8Kamw4xH4Lli7D05jGHK
+ FeAmIWoM5N2wgzHjdsx3tZ4FgzPk81osNKqdp9/S0Kd5+c4ou2s8GB/qJpilmfNkEyYM2hNFmKH
+ p6QsMHXpUYLd/JpNfA/QRdluBT4dhUKMs4FzesoZ+B35yZt8DKNOVNuoxcZkYt6Y3/yUx5gXzXQ
+ 3mEORsI+TOOf5ThuGtIBypVehqqbXuAmstxIFOResdAdLjEvYdd30nLrLaxIPeZv+I889LkvSYN
+ NamFDxEFxI=
+X-Received: by 2002:aa7:d1da:0:b0:671:d016:df0f with SMTP id
+ 4fb4d7f45d1cf-672711b1328mr110675a12.4.1776271274751; 
+ Wed, 15 Apr 2026 09:41:14 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com.
+ [209.85.208.41]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-67237d7888dsm602825a12.2.2026.04.15.09.41.13
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Apr 2026 09:34:10 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-b97f9587e6eso980311566b.3
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:34:10 -0700 (PDT)
+ Wed, 15 Apr 2026 09:41:13 -0700 (PDT)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-66bd4e0560fso8921982a12.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:41:13 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ8uX5yMcDn63Q1jzolJxm6MaN0J4sBHcTozFGfXSjqUcvfMMWX3pNz4EYlmypVW2pNrJrWz920cT8Y=@lists.freedesktop.org
-X-Received: by 2002:a17:907:9801:b0:b9d:31c2:37f9 with SMTP id
- a640c23a62f3a-b9d724f01a5mr1184257666b.2.1776270512082; Wed, 15 Apr 2026
- 09:28:32 -0700 (PDT)
+ AFNElJ9SeOT6IpS6BzP410e29KJWrJ4CSj5slcUj1XPckS8RDa6xqerUJnlBxwak6qnTXElzN8HkR0ftmF0=@lists.freedesktop.org
+X-Received: by 2002:aa7:d88c:0:b0:66f:76c8:f747 with SMTP id
+ 4fb4d7f45d1cf-672711c49b4mr83740a12.6.1776271272830; Wed, 15 Apr 2026
+ 09:41:12 -0700 (PDT)
 MIME-Version: 1.0
 References: <d69501d53c233386d70ed10290af24aafebf434f@intel.com>
-In-Reply-To: <d69501d53c233386d70ed10290af24aafebf434f@intel.com>
+ <CAHk-=wiAGevirr3=xC=u5_kN+m63JtjqA0C9NJLrd5PGrM0suw@mail.gmail.com>
+In-Reply-To: <CAHk-=wiAGevirr3=xC=u5_kN+m63JtjqA0C9NJLrd5PGrM0suw@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 15 Apr 2026 09:28:15 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiAGevirr3=xC=u5_kN+m63JtjqA0C9NJLrd5PGrM0suw@mail.gmail.com>
-X-Gm-Features: AQROBzAwO_jXF6Cc0zC7gGmeVDHe5c1N_2hgiklfnxVR1DaUU6j-D3KNwiqGohU
-Message-ID: <CAHk-=wiAGevirr3=xC=u5_kN+m63JtjqA0C9NJLrd5PGrM0suw@mail.gmail.com>
+Date: Wed, 15 Apr 2026 09:40:55 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjmTh4ESQE7ntR=ddF5JBToNerf4Dzt2zQQ2-Y3OEre-A@mail.gmail.com>
+X-Gm-Features: AQROBzAzrmt1r9Lcsx11hYqA7ZFPDheNDl4Usu75n-ImSxQhTSjJgoByqAuzn5w
+Message-ID: <CAHk-=wjmTh4ESQE7ntR=ddF5JBToNerf4Dzt2zQQ2-Y3OEre-A@mail.gmail.com>
 Subject: Re: [PULL] topic/pipe-reorder for drm-intel-next and possibly v7.1-rc1
 To: Jani Nikula <jani.nikula@intel.com>
 Cc: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>, 
@@ -108,18 +110,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 15 Apr 2026 at 09:09, Jani Nikula <jani.nikula@intel.com> wrote:
+On Wed, 15 Apr 2026 at 09:28, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> We're fully aware this is beyond feature deadlines for v7.1 and it
-> hasn't seen linux-next. But in the off-chance you might consider also
-> pulling this as a fix for v7.1 (and really, distros might want this to
-> be backported to stable) I'm sending this as a separate topic pull
-> request.
+> I guess I'll test it just to verify, but if this fixes that known
+> issue I'm all for getting this fixed sooner rather than later.
 
-Does this basically obviate the hack that I've been running for
-several months now for my dual 6k setup?
+Well, that was easy enough. I assume this was expected, but I can
+indeed verify that that branch works for me as a replacement for (two
+versions) of the local patch I have been running for the last six
+months or so.
 
-I guess I'll test it just to verify, but if this fixes that known
-issue I'm all for getting this fixed sooner rather than later.
+And maybe I'm the only person on the planet that runs this setup, but
+it gets an ack from me. So I'm ok with a late pull as a fix, but
+somebody who can better judge the risks for other setups should
+eventually make the judgement call.
 
-                 Linus
+                Linus
