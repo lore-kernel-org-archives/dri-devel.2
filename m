@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60D79F4199A
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 12:16:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C50B7F4199B
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 12:19:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADF010E05F;
-	Wed, 15 Apr 2026 12:16:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BB5410E6D3;
+	Wed, 15 Apr 2026 12:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="t4My7gSK";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="VAyfx/xw";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 554B410E05F
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 12:16:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7206A10E6D3
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 12:19:50 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 38F22165C
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:16:37 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 41BA2339A
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:19:44 -0700 (PDT)
 Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 8C6BF3F86F
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:16:42 -0700 (PDT)
+ 802DB3F86F
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:19:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1776255402; bh=UoxiOPcofUW+KNtAUeJy3E3/GdZ5nJu/cX4cDAQBdxc=;
+ t=1776255589; bh=VZ5KRyPiDH13u+mLCvg2412IC6lFys4xEnMiZARTLr8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=t4My7gSKRtErzufHALsDrwbE6poNfoQKBNH3Ygbb6TjUduNvF+uNmFeRVUxj4buRp
- qkwZvqMfx/boRazy+wmHTBQSmmj4GkMsawGjJ5HHsyeoj47yAWEzve8HYtmgTYgrUT
- xLmrMHM/k+ozeyWPcLv2O60JI77UmMp0/D1sQDVw=
-Date: Wed, 15 Apr 2026 13:16:40 +0100
+ b=VAyfx/xwU68qJWX7/DI90bgmwxMf2qqJxQPWiz2XjaV+ULMyrHjiARnoxw5aNPJYv
+ tVLO6kNtj0VVCAaboKjhi4NBPm0xF78aKn0HewwTWPrMmDaDxsKOgUGj/BFHkjVMQ9
+ klQrft6D7AKycR43PlbYwiDcPmRaRwp3WIiEfsMU=
+Date: Wed, 15 Apr 2026 13:19:47 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Karunika Choo <karunika.choo@arm.com>
 Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
@@ -39,16 +39,16 @@ Cc: dri-devel@lists.freedesktop.org, nd@arm.com,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/8] drm/panthor: Store IRQ register base iomem
- pointer in panthor_irq
-Message-ID: <ad-BqEG17ljEbqNg@e142607>
+Subject: Re: [PATCH v2 5/8] drm/panthor: Use a local iomem base for GPU
+ registers
+Message-ID: <ad-CY5sUncJvhdYB@e142607>
 References: <20260412142951.2309135-1-karunika.choo@arm.com>
- <20260412142951.2309135-5-karunika.choo@arm.com>
+ <20260412142951.2309135-6-karunika.choo@arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260412142951.2309135-5-karunika.choo@arm.com>
+In-Reply-To: <20260412142951.2309135-6-karunika.choo@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,20 +64,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Apr 12, 2026 at 03:29:47PM +0100, Karunika Choo wrote:
-> Update common IRQ handling code to work from an IRQ-local iomem base
-> instead of referencing block-specific interrupt register offsets.
+On Sun, Apr 12, 2026 at 03:29:48PM +0100, Karunika Choo wrote:
+> Add a GPU_CONTROL-local iomem pointer to struct panthor_gpu and use it
+> for GPU register accesses.
 > 
-> Store the interrupt base address iomem pointer in struct panthor_irq and
-> switch the shared IRQ helpers to use generic INT_* offsets from that
-> local base. This removes the need for each caller to expose absolute IRQ
-> register addresses while keeping the common IRQ flow unchanged.
+> This limits GPU register accesses to the GPU block instead of using the
+> device-wide MMIO mapping directly. Interrupt register accesses continue
+> to use the IRQ-local base provided by the common IRQ helpers. Update
+> panthor_gpu_info_init() to also use a local iomem offset for GPU
+> features and capability.
 > 
-> No functional change intended.
+> This is a refactoring only and does not change behaviour.
 > 
 > v2:
-> - Change IRQ request function to accept an iomem pointer instead of
->   computing it from an offset argument.
+> - Update panthor_gpu_info_init() to use block-local iomem pointer.
 > 
 > Signed-off-by: Karunika Choo <karunika.choo@arm.com>
 
@@ -87,277 +87,298 @@ Best regards,
 Liviu
 
 > ---
->  drivers/gpu/drm/panthor/panthor_device.h   | 32 ++++++++++++++--------
->  drivers/gpu/drm/panthor/panthor_fw.c       |  5 ++--
->  drivers/gpu/drm/panthor/panthor_fw_regs.h  |  2 ++
->  drivers/gpu/drm/panthor/panthor_gpu.c      |  6 ++--
->  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  3 ++
->  drivers/gpu/drm/panthor/panthor_mmu.c      |  5 ++--
->  drivers/gpu/drm/panthor/panthor_mmu_regs.h |  3 ++
->  drivers/gpu/drm/panthor/panthor_pwr.c      |  6 ++--
->  8 files changed, 42 insertions(+), 20 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_gpu.c      | 61 +++++++++++++---------
+>  drivers/gpu/drm/panthor/panthor_gpu_regs.h |  4 --
+>  drivers/gpu/drm/panthor/panthor_hw.c       | 38 +++++++-------
+>  3 files changed, 56 insertions(+), 47 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 285bf7e4439e..4e4607bca7cc 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -82,6 +82,9 @@ struct panthor_irq {
->  	/** @ptdev: Panthor device */
->  	struct panthor_device *ptdev;
->  
-> +	/** @iomem: CPU mapping of IRQ base address */
-> +	void __iomem *iomem;
-> +
->  	/** @irq: IRQ number. */
->  	int irq;
->  
-> @@ -488,6 +491,11 @@ panthor_exception_is_fault(u32 exception_code)
->  const char *panthor_exception_name(struct panthor_device *ptdev,
->  				   u32 exception_code);
->  
-> +#define INT_RAWSTAT 0x0
-> +#define INT_CLEAR   0x4
-> +#define INT_MASK    0x8
-> +#define INT_STAT    0xc
-> +
->  /**
->   * PANTHOR_IRQ_HANDLER() - Define interrupt handlers and the interrupt
->   * registration function.
-> @@ -498,14 +506,13 @@ const char *panthor_exception_name(struct panthor_device *ptdev,
->   *
->   * void (*handler)(struct panthor_device *, u32 status);
->   */
-> -#define PANTHOR_IRQ_HANDLER(__name, __reg_prefix, __handler)					\
-> +#define PANTHOR_IRQ_HANDLER(__name, __handler)							\
->  static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)			\
->  {												\
->  	struct panthor_irq *pirq = data;							\
-> -	struct panthor_device *ptdev = pirq->ptdev;						\
->  	enum panthor_irq_state old_state;							\
->  												\
-> -	if (!gpu_read(ptdev->iomem, __reg_prefix ## _INT_STAT))					\
-> +	if (!gpu_read(pirq->iomem, INT_STAT))							\
->  		return IRQ_NONE;								\
->  												\
->  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
-> @@ -515,7 +522,7 @@ static irqreturn_t panthor_ ## __name ## _irq_raw_handler(int irq, void *data)
->  	if (old_state != PANTHOR_IRQ_STATE_ACTIVE)						\
->  		return IRQ_NONE;								\
->  												\
-> -	gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, 0);					\
-> +	gpu_write(pirq->iomem, INT_MASK, 0);							\
->  	return IRQ_WAKE_THREAD;									\
->  }												\
->  												\
-> @@ -534,7 +541,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
->  		 * right before the HW event kicks in. TLDR; it's all expected races we're	\
->  		 * covered for.									\
->  		 */										\
-> -		u32 status = gpu_read(ptdev->iomem, __reg_prefix ## _INT_RAWSTAT) & pirq->mask;	\
-> +		u32 status = gpu_read(pirq->iomem, INT_RAWSTAT) & pirq->mask;			\
->  												\
->  		if (!status)									\
->  			break;									\
-> @@ -550,7 +557,7 @@ static irqreturn_t panthor_ ## __name ## _irq_threaded_handler(int irq, void *da
->  					   PANTHOR_IRQ_STATE_PROCESSING,			\
->  					   PANTHOR_IRQ_STATE_ACTIVE);				\
->  		if (old_state == PANTHOR_IRQ_STATE_PROCESSING)					\
-> -			gpu_write(ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
-> +			gpu_write(pirq->iomem, INT_MASK, pirq->mask);				\
->  	}											\
->  												\
->  	return ret;										\
-> @@ -560,7 +567,7 @@ static inline void panthor_ ## __name ## _irq_suspend(struct panthor_irq *pirq)
->  {												\
->  	scoped_guard(spinlock_irqsave, &pirq->mask_lock) {					\
->  		atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDING);				\
-> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, 0);			\
-> +		gpu_write(pirq->iomem, INT_MASK, 0);						\
->  	}											\
->  	synchronize_irq(pirq->irq);								\
->  	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_SUSPENDED);					\
-> @@ -571,17 +578,18 @@ static inline void panthor_ ## __name ## _irq_resume(struct panthor_irq *pirq)
->  	guard(spinlock_irqsave)(&pirq->mask_lock);						\
->  												\
->  	atomic_set(&pirq->state, PANTHOR_IRQ_STATE_ACTIVE);					\
-> -	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_CLEAR, pirq->mask);			\
-> -	gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);			\
-> +	gpu_write(pirq->iomem, INT_CLEAR, pirq->mask);						\
-> +	gpu_write(pirq->iomem, INT_MASK, pirq->mask);						\
->  }												\
->  												\
->  static int panthor_request_ ## __name ## _irq(struct panthor_device *ptdev,			\
->  					      struct panthor_irq *pirq,				\
-> -					      int irq, u32 mask)				\
-> +					      int irq, u32 mask, void __iomem *iomem)		\
->  {												\
->  	pirq->ptdev = ptdev;									\
->  	pirq->irq = irq;									\
->  	pirq->mask = mask;									\
-> +	pirq->iomem = iomem;									\
->  	spin_lock_init(&pirq->mask_lock);							\
->  	panthor_ ## __name ## _irq_resume(pirq);						\
->  												\
-> @@ -603,7 +611,7 @@ static inline void panthor_ ## __name ## _irq_enable_events(struct panthor_irq *
->  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
->  	 */											\
->  	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
-> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
-> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
->  }												\
->  												\
->  static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq *pirq, u32 mask)\
-> @@ -617,7 +625,7 @@ static inline void panthor_ ## __name ## _irq_disable_events(struct panthor_irq
->  	 * If the IRQ is suspended/suspending, the mask is restored at resume time.		\
->  	 */											\
->  	if (atomic_read(&pirq->state) == PANTHOR_IRQ_STATE_ACTIVE)				\
-> -		gpu_write(pirq->ptdev->iomem, __reg_prefix ## _INT_MASK, pirq->mask);		\
-> +		gpu_write(pirq->iomem, INT_MASK, pirq->mask);					\
->  }
->  
->  extern struct workqueue_struct *panthor_cleanup_wq;
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index 4a0c23e987b6..73ef07a37e22 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -1088,7 +1088,7 @@ static void panthor_job_irq_handler(struct panthor_device *ptdev, u32 status)
->  		trace_gpu_job_irq(ptdev->base.dev, status, duration);
->  	}
->  }
-> -PANTHOR_IRQ_HANDLER(job, JOB, panthor_job_irq_handler);
-> +PANTHOR_IRQ_HANDLER(job, panthor_job_irq_handler);
->  
->  static int panthor_fw_start(struct panthor_device *ptdev)
->  {
-> @@ -1470,7 +1470,8 @@ int panthor_fw_init(struct panthor_device *ptdev)
->  	if (irq <= 0)
->  		return -ENODEV;
->  
-> -	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0);
-> +	ret = panthor_request_job_irq(ptdev, &fw->irq, irq, 0,
-> +				      ptdev->iomem + JOB_INT_BASE);
->  	if (ret) {
->  		drm_err(&ptdev->base, "failed to request job irq");
->  		return ret;
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw_regs.h b/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> index d523d41e18dd..eeb41aff249b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_fw_regs.h
-> @@ -15,6 +15,8 @@
->  #define   MCU_STATUS_HALT				2
->  #define   MCU_STATUS_FATAL				3
->  
-> +#define JOB_INT_BASE					0x1000
-> +
->  #define JOB_INT_RAWSTAT					0x1000
->  #define JOB_INT_CLEAR					0x1004
->  #define JOB_INT_MASK					0x1008
 > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index 747ac332be64..f00f3d9be240 100644
+> index f00f3d9be240..e52c5675981f 100644
 > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
 > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -110,7 +110,7 @@ static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
->  	}
->  	spin_unlock(&ptdev->gpu->reqs_lock);
+> @@ -29,6 +29,9 @@
+>   * struct panthor_gpu - GPU block management data.
+>   */
+>  struct panthor_gpu {
+> +	/** @iomem: CPU mapping of GPU_CONTROL iomem region */
+> +	void __iomem *iomem;
+> +
+>  	/** @irq: GPU irq. */
+>  	struct panthor_irq irq;
+>  
+> @@ -56,12 +59,13 @@ struct panthor_gpu {
+>  
+>  static void panthor_gpu_coherency_set(struct panthor_device *ptdev)
+>  {
+> -	gpu_write(ptdev->iomem, GPU_COHERENCY_PROTOCOL,
+> +	gpu_write(ptdev->gpu->iomem, GPU_COHERENCY_PROTOCOL,
+>  		  ptdev->gpu_info.selected_coherency);
 >  }
-> -PANTHOR_IRQ_HANDLER(gpu, GPU, panthor_gpu_irq_handler);
-> +PANTHOR_IRQ_HANDLER(gpu, panthor_gpu_irq_handler);
 >  
->  /**
->   * panthor_gpu_unplug() - Called when the GPU is unplugged.
-> @@ -162,7 +162,9 @@ int panthor_gpu_init(struct panthor_device *ptdev)
->  	if (irq < 0)
->  		return irq;
+>  static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+>  {
+> +	struct panthor_gpu *gpu = ptdev->gpu;
+>  	const struct panthor_soc_data *data = ptdev->soc_data;
+>  	u32 l2_config;
+>  	u32 i;
+> @@ -75,26 +79,28 @@ static void panthor_gpu_l2_config_set(struct panthor_device *ptdev)
+>  	}
 >  
-> -	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq, GPU_INTERRUPTS_MASK);
-> +	ret = panthor_request_gpu_irq(ptdev, &ptdev->gpu->irq, irq,
-> +				      GPU_INTERRUPTS_MASK,
-> +				      ptdev->iomem + GPU_INT_BASE);
->  	if (ret)
+>  	for (i = 0; i < ARRAY_SIZE(data->asn_hash); i++)
+> -		gpu_write(ptdev->iomem, GPU_ASN_HASH(i), data->asn_hash[i]);
+> +		gpu_write(gpu->iomem, GPU_ASN_HASH(i), data->asn_hash[i]);
+>  
+> -	l2_config = gpu_read(ptdev->iomem, GPU_L2_CONFIG);
+> +	l2_config = gpu_read(gpu->iomem, GPU_L2_CONFIG);
+>  	l2_config |= GPU_L2_CONFIG_ASN_HASH_ENABLE;
+> -	gpu_write(ptdev->iomem, GPU_L2_CONFIG, l2_config);
+> +	gpu_write(gpu->iomem, GPU_L2_CONFIG, l2_config);
+>  }
+>  
+>  static void panthor_gpu_irq_handler(struct panthor_device *ptdev, u32 status)
+>  {
+> -	gpu_write(ptdev->iomem, GPU_INT_CLEAR, status);
+> +	struct panthor_gpu *gpu = ptdev->gpu;
+> +
+> +	gpu_write(gpu->irq.iomem, INT_CLEAR, status);
+>  
+>  	if (tracepoint_enabled(gpu_power_status) && (status & GPU_POWER_INTERRUPTS_MASK))
+>  		trace_gpu_power_status(ptdev->base.dev,
+> -				       gpu_read64(ptdev->iomem, SHADER_READY),
+> -				       gpu_read64(ptdev->iomem, TILER_READY),
+> -				       gpu_read64(ptdev->iomem, L2_READY));
+> +				       gpu_read64(gpu->iomem, SHADER_READY),
+> +				       gpu_read64(gpu->iomem, TILER_READY),
+> +				       gpu_read64(gpu->iomem, L2_READY));
+>  
+>  	if (status & GPU_IRQ_FAULT) {
+> -		u32 fault_status = gpu_read(ptdev->iomem, GPU_FAULT_STATUS);
+> -		u64 address = gpu_read64(ptdev->iomem, GPU_FAULT_ADDR);
+> +		u32 fault_status = gpu_read(gpu->iomem, GPU_FAULT_STATUS);
+> +		u64 address = gpu_read64(gpu->iomem, GPU_FAULT_ADDR);
+>  
+>  		drm_warn(&ptdev->base, "GPU Fault 0x%08x (%s) at 0x%016llx\n",
+>  			 fault_status, panthor_exception_name(ptdev, fault_status & 0xFF),
+> @@ -147,6 +153,7 @@ int panthor_gpu_init(struct panthor_device *ptdev)
+>  	if (!gpu)
+>  		return -ENOMEM;
+>  
+> +	gpu->iomem = ptdev->iomem + GPU_CONTROL_BASE;
+>  	spin_lock_init(&gpu->reqs_lock);
+>  	init_waitqueue_head(&gpu->reqs_acked);
+>  	mutex_init(&gpu->cache_flush_lock);
+> @@ -203,10 +210,11 @@ int panthor_gpu_block_power_off(struct panthor_device *ptdev,
+>  				u32 pwroff_reg, u32 pwrtrans_reg,
+>  				u64 mask, u32 timeout_us)
+>  {
+> +	struct panthor_gpu *gpu = ptdev->gpu;
+>  	u32 val;
+>  	int ret;
+>  
+> -	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, pwrtrans_reg, val,
+> +	ret = gpu_read64_relaxed_poll_timeout(gpu->iomem, pwrtrans_reg, val,
+>  					      !(mask & val), 100, timeout_us);
+>  	if (ret) {
+>  		drm_err(&ptdev->base,
+> @@ -215,9 +223,9 @@ int panthor_gpu_block_power_off(struct panthor_device *ptdev,
 >  		return ret;
+>  	}
 >  
+> -	gpu_write64(ptdev->iomem, pwroff_reg, mask);
+> +	gpu_write64(gpu->iomem, pwroff_reg, mask);
+>  
+> -	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, pwrtrans_reg, val,
+> +	ret = gpu_read64_relaxed_poll_timeout(gpu->iomem, pwrtrans_reg, val,
+>  					      !(mask & val), 100, timeout_us);
+>  	if (ret) {
+>  		drm_err(&ptdev->base,
+> @@ -246,10 +254,11 @@ int panthor_gpu_block_power_on(struct panthor_device *ptdev,
+>  			       u32 pwron_reg, u32 pwrtrans_reg,
+>  			       u32 rdy_reg, u64 mask, u32 timeout_us)
+>  {
+> +	struct panthor_gpu *gpu = ptdev->gpu;
+>  	u32 val;
+>  	int ret;
+>  
+> -	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, pwrtrans_reg, val,
+> +	ret = gpu_read64_relaxed_poll_timeout(gpu->iomem, pwrtrans_reg, val,
+>  					      !(mask & val), 100, timeout_us);
+>  	if (ret) {
+>  		drm_err(&ptdev->base,
+> @@ -258,9 +267,9 @@ int panthor_gpu_block_power_on(struct panthor_device *ptdev,
+>  		return ret;
+>  	}
+>  
+> -	gpu_write64(ptdev->iomem, pwron_reg, mask);
+> +	gpu_write64(gpu->iomem, pwron_reg, mask);
+>  
+> -	ret = gpu_read64_relaxed_poll_timeout(ptdev->iomem, rdy_reg, val,
+> +	ret = gpu_read64_relaxed_poll_timeout(gpu->iomem, rdy_reg, val,
+>  					      (mask & val) == val,
+>  					      100, timeout_us);
+>  	if (ret) {
+> @@ -319,6 +328,7 @@ int panthor_gpu_l2_power_on(struct panthor_device *ptdev)
+>  int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  			     u32 l2, u32 lsc, u32 other)
+>  {
+> +	struct panthor_gpu *gpu = ptdev->gpu;
+>  	unsigned long flags;
+>  	int ret = 0;
+>  
+> @@ -328,7 +338,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+>  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		gpu_write(ptdev->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> +		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+>  	} else {
+>  		ret = -EIO;
+>  	}
+> @@ -342,7 +352,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  				msecs_to_jiffies(100))) {
+>  		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+>  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+> -		    !(gpu_read(ptdev->iomem, GPU_INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+> +		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+>  			ret = -ETIMEDOUT;
+>  		else
+>  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> @@ -365,6 +375,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>   */
+>  int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  {
+> +	struct panthor_gpu *gpu = ptdev->gpu;
+>  	bool timedout = false;
+>  	unsigned long flags;
+>  
+> @@ -372,8 +383,8 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  	if (!drm_WARN_ON(&ptdev->base,
+>  			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+> -		gpu_write(ptdev->iomem, GPU_INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> -		gpu_write(ptdev->iomem, GPU_CMD, GPU_SOFT_RESET);
+> +		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+> +		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+>  	}
+>  	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+> @@ -382,7 +393,7 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  				msecs_to_jiffies(100))) {
+>  		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+>  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+> -		    !(gpu_read(ptdev->iomem, GPU_INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+> +		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+>  			timedout = true;
+>  		else
+>  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> @@ -431,17 +442,17 @@ void panthor_gpu_resume(struct panthor_device *ptdev)
+>  
+>  u64 panthor_gpu_get_timestamp(struct panthor_device *ptdev)
+>  {
+> -	return gpu_read64_counter(ptdev->iomem, GPU_TIMESTAMP);
+> +	return gpu_read64_counter(ptdev->gpu->iomem, GPU_TIMESTAMP);
+>  }
+>  
+>  u64 panthor_gpu_get_timestamp_offset(struct panthor_device *ptdev)
+>  {
+> -	return gpu_read64(ptdev->iomem, GPU_TIMESTAMP_OFFSET);
+> +	return gpu_read64(ptdev->gpu->iomem, GPU_TIMESTAMP_OFFSET);
+>  }
+>  
+>  u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev)
+>  {
+> -	return gpu_read64_counter(ptdev->iomem, GPU_CYCLE_COUNT);
+> +	return gpu_read64_counter(ptdev->gpu->iomem, GPU_CYCLE_COUNT);
+>  }
+>  
+>  int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+> @@ -460,7 +471,7 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+>  	/* Check if the ACE-Lite coherency protocol is actually supported by the GPU.
+>  	 * ACE protocol has never been supported for command stream frontend GPUs.
+>  	 */
+> -	if ((gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES) &
+> +	if ((gpu_read(ptdev->gpu->iomem, GPU_COHERENCY_FEATURES) &
+>  		      GPU_COHERENCY_PROT_BIT(ACE_LITE))) {
+>  		ptdev->gpu_info.selected_coherency = GPU_COHERENCY_ACE_LITE;
+>  		return 0;
 > diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> index 75474b7d7341..3f60c45985a7 100644
+> index 3f60c45985a7..4c5b953796e4 100644
 > --- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
 > +++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
-> @@ -4,6 +4,8 @@
->  #ifndef __PANTHOR_GPU_REGS_H__
->  #define __PANTHOR_GPU_REGS_H__
->  
-> +#define GPU_CONTROL_BASE				0x0
-> +
->  #define GPU_ID						0x0
->  #define   GPU_ARCH_MAJOR(x)				((x) >> 28)
->  #define   GPU_ARCH_MINOR(x)				(((x) & GENMASK(27, 24)) >> 24)
-> @@ -28,6 +30,7 @@
->  #define GPU_AS_PRESENT					0x18
+> @@ -31,10 +31,6 @@
 >  #define GPU_CSF_ID					0x1C
 >  
-> +#define GPU_INT_BASE					0x20
->  #define GPU_INT_RAWSTAT					0x20
->  #define GPU_INT_CLEAR					0x24
->  #define GPU_INT_MASK					0x28
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index b9f6031e24a4..501dc0ea3ae7 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -584,7 +584,7 @@ static u32 panthor_mmu_as_fault_mask(struct panthor_device *ptdev, u32 as)
->  
->  /* Forward declaration to call helpers within as_enable/disable */
->  static void panthor_mmu_irq_handler(struct panthor_device *ptdev, u32 status);
-> -PANTHOR_IRQ_HANDLER(mmu, MMU, panthor_mmu_irq_handler);
-> +PANTHOR_IRQ_HANDLER(mmu, panthor_mmu_irq_handler);
->  
->  static int panthor_mmu_as_enable(struct panthor_device *ptdev, u32 as_nr,
->  				 u64 transtab, u64 transcfg, u64 memattr)
-> @@ -3229,7 +3229,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  		return -ENODEV;
->  
->  	ret = panthor_request_mmu_irq(ptdev, &mmu->irq, irq,
-> -				      panthor_mmu_fault_mask(ptdev, ~0));
-> +				      panthor_mmu_fault_mask(ptdev, ~0),
-> +				      ptdev->iomem + MMU_INT_BASE);
->  	if (ret)
->  		return ret;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu_regs.h b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> index cc9cf603cec6..de460042651d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu_regs.h
-> @@ -5,6 +5,9 @@
->  #define __PANTHOR_MMU_REGS_H__
->  
->  /* MMU regs */
-> +
-> +#define MMU_INT_BASE					0x2000
-> +
->  #define MMU_INT_RAWSTAT					0x2000
->  #define MMU_INT_CLEAR					0x2004
->  #define MMU_INT_MASK					0x2008
-> diff --git a/drivers/gpu/drm/panthor/panthor_pwr.c b/drivers/gpu/drm/panthor/panthor_pwr.c
-> index aafb0c5c7d23..11c43de1ddd5 100644
-> --- a/drivers/gpu/drm/panthor/panthor_pwr.c
-> +++ b/drivers/gpu/drm/panthor/panthor_pwr.c
-> @@ -70,7 +70,7 @@ static void panthor_pwr_irq_handler(struct panthor_device *ptdev, u32 status)
->  	}
->  	spin_unlock(&ptdev->pwr->reqs_lock);
->  }
-> -PANTHOR_IRQ_HANDLER(pwr, PWR, panthor_pwr_irq_handler);
-> +PANTHOR_IRQ_HANDLER(pwr, panthor_pwr_irq_handler);
->  
->  static void panthor_pwr_write_command(struct panthor_device *ptdev, u32 command, u64 args)
+>  #define GPU_INT_BASE					0x20
+> -#define GPU_INT_RAWSTAT					0x20
+> -#define GPU_INT_CLEAR					0x24
+> -#define GPU_INT_MASK					0x28
+> -#define GPU_INT_STAT					0x2c
+>  #define   GPU_IRQ_FAULT					BIT(0)
+>  #define   GPU_IRQ_PROTM_FAULT				BIT(1)
+>  #define   GPU_IRQ_RESET_COMPLETED			BIT(8)
+> diff --git a/drivers/gpu/drm/panthor/panthor_hw.c b/drivers/gpu/drm/panthor/panthor_hw.c
+> index 9431f16d950f..80aa151d5936 100644
+> --- a/drivers/gpu/drm/panthor/panthor_hw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_hw.c
+> @@ -195,28 +195,30 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
 >  {
-> @@ -464,7 +464,9 @@ int panthor_pwr_init(struct panthor_device *ptdev)
->  	if (irq < 0)
->  		return irq;
+>  	unsigned int i;
 >  
-> -	err = panthor_request_pwr_irq(ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK);
-> +	err = panthor_request_pwr_irq(
-> +		ptdev, &pwr->irq, irq, PWR_INTERRUPTS_MASK,
-> +		ptdev->iomem + GPU_CONTROL_BASE + PWR_CONTROL_BASE);
->  	if (err)
->  		return err;
+> -	ptdev->gpu_info.csf_id = gpu_read(ptdev->iomem, GPU_CSF_ID);
+> -	ptdev->gpu_info.gpu_rev = gpu_read(ptdev->iomem, GPU_REVID);
+> -	ptdev->gpu_info.core_features = gpu_read(ptdev->iomem, GPU_CORE_FEATURES);
+> -	ptdev->gpu_info.l2_features = gpu_read(ptdev->iomem, GPU_L2_FEATURES);
+> -	ptdev->gpu_info.tiler_features = gpu_read(ptdev->iomem, GPU_TILER_FEATURES);
+> -	ptdev->gpu_info.mem_features = gpu_read(ptdev->iomem, GPU_MEM_FEATURES);
+> -	ptdev->gpu_info.mmu_features = gpu_read(ptdev->iomem, GPU_MMU_FEATURES);
+> -	ptdev->gpu_info.thread_features = gpu_read(ptdev->iomem, GPU_THREAD_FEATURES);
+> -	ptdev->gpu_info.max_threads = gpu_read(ptdev->iomem, GPU_THREAD_MAX_THREADS);
+> +	void __iomem *gpu_iomem = ptdev->iomem + GPU_CONTROL_BASE;
+> +
+> +	ptdev->gpu_info.csf_id = gpu_read(gpu_iomem, GPU_CSF_ID);
+> +	ptdev->gpu_info.gpu_rev = gpu_read(gpu_iomem, GPU_REVID);
+> +	ptdev->gpu_info.core_features = gpu_read(gpu_iomem, GPU_CORE_FEATURES);
+> +	ptdev->gpu_info.l2_features = gpu_read(gpu_iomem, GPU_L2_FEATURES);
+> +	ptdev->gpu_info.tiler_features = gpu_read(gpu_iomem, GPU_TILER_FEATURES);
+> +	ptdev->gpu_info.mem_features = gpu_read(gpu_iomem, GPU_MEM_FEATURES);
+> +	ptdev->gpu_info.mmu_features = gpu_read(gpu_iomem, GPU_MMU_FEATURES);
+> +	ptdev->gpu_info.thread_features = gpu_read(gpu_iomem, GPU_THREAD_FEATURES);
+> +	ptdev->gpu_info.max_threads = gpu_read(gpu_iomem, GPU_THREAD_MAX_THREADS);
+>  	ptdev->gpu_info.thread_max_workgroup_size =
+> -		gpu_read(ptdev->iomem, GPU_THREAD_MAX_WORKGROUP_SIZE);
+> +		gpu_read(gpu_iomem, GPU_THREAD_MAX_WORKGROUP_SIZE);
+>  	ptdev->gpu_info.thread_max_barrier_size =
+> -		gpu_read(ptdev->iomem, GPU_THREAD_MAX_BARRIER_SIZE);
+> -	ptdev->gpu_info.coherency_features = gpu_read(ptdev->iomem, GPU_COHERENCY_FEATURES);
+> +		gpu_read(gpu_iomem, GPU_THREAD_MAX_BARRIER_SIZE);
+> +	ptdev->gpu_info.coherency_features = gpu_read(gpu_iomem, GPU_COHERENCY_FEATURES);
+>  	for (i = 0; i < 4; i++)
+>  		ptdev->gpu_info.texture_features[i] =
+> -			gpu_read(ptdev->iomem, GPU_TEXTURE_FEATURES(i));
+> +			gpu_read(gpu_iomem, GPU_TEXTURE_FEATURES(i));
 >  
+> -	ptdev->gpu_info.as_present = gpu_read(ptdev->iomem, GPU_AS_PRESENT);
+> +	ptdev->gpu_info.as_present = gpu_read(gpu_iomem, GPU_AS_PRESENT);
+>  
+>  	/* Introduced in arch 11.x */
+> -	ptdev->gpu_info.gpu_features = gpu_read64(ptdev->iomem, GPU_FEATURES);
+> +	ptdev->gpu_info.gpu_features = gpu_read64(gpu_iomem, GPU_FEATURES);
+>  
+>  	if (panthor_hw_has_pwr_ctrl(ptdev)) {
+>  		/* Introduced in arch 14.x */
+> @@ -224,9 +226,9 @@ static int panthor_gpu_info_init(struct panthor_device *ptdev)
+>  		ptdev->gpu_info.tiler_present = gpu_read64(ptdev->iomem, PWR_TILER_PRESENT);
+>  		ptdev->gpu_info.shader_present = gpu_read64(ptdev->iomem, PWR_SHADER_PRESENT);
+>  	} else {
+> -		ptdev->gpu_info.shader_present = gpu_read64(ptdev->iomem, GPU_SHADER_PRESENT);
+> -		ptdev->gpu_info.tiler_present = gpu_read64(ptdev->iomem, GPU_TILER_PRESENT);
+> -		ptdev->gpu_info.l2_present = gpu_read64(ptdev->iomem, GPU_L2_PRESENT);
+> +		ptdev->gpu_info.shader_present = gpu_read64(gpu_iomem, GPU_SHADER_PRESENT);
+> +		ptdev->gpu_info.tiler_present = gpu_read64(gpu_iomem, GPU_TILER_PRESENT);
+> +		ptdev->gpu_info.l2_present = gpu_read64(gpu_iomem, GPU_L2_PRESENT);
+>  	}
+>  
+>  	return overload_shader_present(ptdev);
 > -- 
 > 2.43.0
 > 
