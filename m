@@ -4,133 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40B89FA0C30
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 05:43:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B38FA0C33
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 06:09:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB8910E676;
-	Wed, 15 Apr 2026 05:43:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35C1F10E0F5;
+	Wed, 15 Apr 2026 06:09:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PQTpZRvR";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jwQFd2N/";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="TKqqlwJ6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t9JFNFUS";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="dfX3skgD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="wxXogbEL";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3899010E676
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:43:22 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63F3CTZi030706
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:43:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- rI/VDmFKtZChyz+72XqrS31+1Ai9jjzqnhk2Yjgr/4o=; b=PQTpZRvRseAAFNOQ
- 3J1Bixsbz+BBc11k5tOGql4a6BHu/OPxBgcIu4Hi3NQWjcZrES5Ban3tSSUxXQru
- tduqIhUwMBc6NiqryC9k6IlDiGISNbLaeyJI8enmL3zVUgSGiPgevngRJn/Vd1nd
- KmhhFlkgG1VVbj4zNiCI8df4aRaEIgr4HwJQWssKVkSRGxp4tCUnJYgRbxgaZRn0
- 3PtT2XC/39WVhxHJrWPJ7B3lKibNILnIkkJuKQUntWaqKUktVhmA+YqU7mrLD3d0
- K5ZLnhL/cjjzviKqvePTuYWlM8yB2jw3DOakz9jDmbpSKg1W77gReGsl1WCJbtI4
- WvTuPg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
- [209.85.215.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhkgmkh2s-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:43:20 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id
- 41be03b00d2f7-c76b6db8bb2so3871662a12.3
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 22:43:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776231800; x=1776836600;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=rI/VDmFKtZChyz+72XqrS31+1Ai9jjzqnhk2Yjgr/4o=;
- b=jwQFd2N/iKsoqAUhzctKEBY4Ipj61NNpr0f2K0DKep0SHuW1CZOTVWtvw9XLEt+dHo
- 7QofFUSdIkVkd/bm9E1+CRDsPqFQgQ70vEHijnPHVjJ/rH1onY4ryfh/TqCka5H0PoOe
- wVbKlZyX8LKD7ZJOozZljFsNxb28HpZ+rr3xg/c6AmEqhmmCFXnRQy+G7JdZChm8Fdef
- egC5Iz8RcSXz9VAPlaBqFLWxe6c0QuJr8UHWR+eWmD3SM/aZLExqy4DwXU5a51RfooXb
- hxu1qs04szdV/haLEO0MVZWyDztNMIGvbSvp/KYtDvOwi/ImMeSww7rs6Nh90X7tv3s/
- gk0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776231800; x=1776836600;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=rI/VDmFKtZChyz+72XqrS31+1Ai9jjzqnhk2Yjgr/4o=;
- b=auo5b5ENrP/WXhalxdZ8jWPIX56r7kjSQ304Kavi5SvNgfK//cPEEK7juO6mnHA5T2
- AEKZngQbCB6jG1bMG/UFL3C7A1fzAqVmUvLovLA3y15sNaXT3MYSE+AZch1SnndPz4aF
- HNywT3Wedx7wVLTZ+e05Hxi2IuMlHf+obUWwa4ccq1m6tWoxt7t2lg9GxKDjx4+mzvo4
- FQQCRd4gPvqWIXVMZw9F7ZhHupJCkdPVu0l05kPgxSwR90qdmCMiqerO5HA5mJTsRBka
- zYQJQrw/BzqlvCdFn61JmI7sh+hx5zp5RDHk+CkEpUJeKDCY7oXA0WxubBp4gOLtg9iU
- QXgA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ99Z6Db6Xvv7I8XpiPZuU5ES+ICLo+IVVvR8K6+0/0SZh5vFwVjis8TFE4SbWaqDEUXxB0kpQMGbtE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxQyCdDUPS7ppMjbh8JGngScU5Woi2rZaHjzMtPSySR29cSNCTd
- b5luCLXa7jSBvUPdGOEZci/gTwLDleqM0YptrA5fGHaTgOVtnKV8x9JGqXf6eYla4xVw2y/dl+I
- BuqEBjjHSHs6q1dA54pg9ytWAQw35R8GfeZVxT8kQfsgs5awvNoSKWssa7OAjIMq6xBAYz5c=
-X-Gm-Gg: AeBDievSXopsPOaPtmILPiW9OU9IgkDgLYdeKC4chSCxRPW3vaVwwnMVLzT/z0YRnI4
- dprR4Bg7AS4JCvh3gswlHOn6CpmHep/KRkyehQO32C4I3N3rTjKLKfvhE3U/M7gEPLCmafxoYDA
- bANvCopbFzHKAm18AbZqLimNHzQKwwc5tQauQdPGoeQPAF5olGi+7NM0Pz0W9Q6yVi96fGiWGHp
- Ox49dwsr1nTRNyyM0LU2zaHc6e4NacBczb79PRq2tPqwAtjZfhiFWksvXuIyDlBGniu9vc1CJhu
- kgGE+tTLuYzIFjBnV/eVhkkCu5n/er2d3mnYAH2V2Z00w+1luJC7I/PnT/xV8KvOEn+OO3mM1mS
- JuiPBVNN5TW82hDmYKDcmLXP25bRl76OWyzepNSCmk5XjMHc4C+MCrY6uoyxm1A==
-X-Received: by 2002:a05:6a20:a122:b0:39c:787:f17a with SMTP id
- adf61e73a8af0-39fe3fae289mr22107223637.41.1776231799740; 
- Tue, 14 Apr 2026 22:43:19 -0700 (PDT)
-X-Received: by 2002:a05:6a20:a122:b0:39c:787:f17a with SMTP id
- adf61e73a8af0-39fe3fae289mr22107185637.41.1776231799167; 
- Tue, 14 Apr 2026 22:43:19 -0700 (PDT)
-Received: from [10.204.78.192] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c79581a2fc2sm630150a12.21.2026.04.14.22.43.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Apr 2026 22:43:18 -0700 (PDT)
-Message-ID: <9b69ad77-9aba-4df0-95ac-d8832f7e9f9d@oss.qualcomm.com>
-Date: Wed, 15 Apr 2026 11:13:13 +0530
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D00010E0F5
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 06:09:26 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1F5575BDFC;
+ Wed, 15 Apr 2026 06:09:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776233365; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kHMPLy7s1GXBV0H5yYDYDF1b1j44/dHbNL91eI03PuQ=;
+ b=TKqqlwJ6tOdN9NEil0KcCFbqo2K6fROSGbh2lDiFHNDwvWebPYA0FPMSU0Rf3Q96bImBwx
+ a7q8ltZ7C2I1KJtc8e/+J+VEBlsmoz21BNABCTCM0x3ObHNGRIozqvEvQkSYzHK3bK9QxZ
+ tM5xkvIwjUZlOvKUh3hREix5loJkIM4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776233365;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kHMPLy7s1GXBV0H5yYDYDF1b1j44/dHbNL91eI03PuQ=;
+ b=t9JFNFUSKO3DCs1SLe/wa2o9AACQnKYASR0ZqaityB+3wF4QPHrnMnGZ/dNc90HHCH4iK4
+ fHvqIMcxI3Eqj0Bw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=dfX3skgD;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wxXogbEL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776233364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kHMPLy7s1GXBV0H5yYDYDF1b1j44/dHbNL91eI03PuQ=;
+ b=dfX3skgDG4awo8/WimpVqdw5RsNdLJ7E81QCIVAcw4KTl3Ow7tdyKoUs6Ox1rQy+sJynwD
+ AXsa0f5US3R+dfxXhQIdCsWmgQCT+vCG5fyoFX05Wz/2VaX3ROZOK43ngQAECfulHjjqhe
+ Iqs1tJ69IQXkZsC3bfYzuk7Rgjn8weE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776233364;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=kHMPLy7s1GXBV0H5yYDYDF1b1j44/dHbNL91eI03PuQ=;
+ b=wxXogbEL+Aa8XfhQNmhG2d1leBO/X6WcN0VmtTKXW8bc/n+0+UIaEpc2oQM4gfrKBClN9l
+ jDuR8GFKu2L317Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9DB644B86A;
+ Wed, 15 Apr 2026 06:09:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id JoVlJJMr32kuMQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 15 Apr 2026 06:09:23 +0000
+Message-ID: <80e2d151-6774-4285-87bb-d68682c8c342@suse.de>
+Date: Wed, 15 Apr 2026 08:09:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 4/4] misc: fastrpc: Add polling mode support for
- fastRPC driver
-To: Srinivas Kandagatla <srini@kernel.org>, linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de,
- dmitry.baryshkov@oss.qualcomm.com, andersson@kernel.org,
- konrad.dybcio@oss.qualcomm.com
-References: <20260402054923.3061925-1-ekansh.gupta@oss.qualcomm.com>
- <20260402054923.3061925-5-ekansh.gupta@oss.qualcomm.com>
- <86853aa3-4af2-4670-a58e-342877e81ef9@kernel.org>
+Subject: Re: [PATCH 2/4] drm/hibmc: Fix list of formats on the primary plane
+To: Yongbang Shi <shiyongbang@huawei.com>, xinliang.liu@linaro.org,
+ tiantao6@hisilicon.com, kong.kongxinwei@hisilicon.com,
+ sumit.semwal@linaro.org, yongqin.liu@linaro.org, jstultz@google.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, Rongrong Zou <zourongrong@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ Baihan Li <libaihan@huawei.com>, stable@vger.kernel.org
+References: <20260413085037.17491-1-tzimmermann@suse.de>
+ <20260413085037.17491-3-tzimmermann@suse.de>
+ <0668b6ec-b844-4fef-804c-91e488b39516@huawei.com>
 Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <86853aa3-4af2-4670-a58e-342877e81ef9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA1MCBTYWx0ZWRfX4+l66X5MGeXx
- z/jSiizGaJy1Yf0Azv5P7r67EH1J7UEDIC1lv4/WOU3YBk4LBa+Eb6f5PwouTSUjN3XuH91a4OH
- S0zRRUXnGEm0pfmPOGadgGK8O9C/8cZ8LoPSXOnzKTd1IZ6vOGy2CaAlv8A45kX46fz8Xnw9WmQ
- bclPz+ovH8kMsgOKiu+W7dk48kSC5pYuceyle6aPbRLLHncIfCsuj3b5eIgTCYmfa+CZrNsOX3q
- ztyHb1Jz1Fk5M87r8W85+O0fzANHsTWCaWsj+FPCuJWny7e4MIHxvRziEgGYi8LIGt8be0y8KMs
- sq05rYZfyxP/kuOcWidS86CXI/elJS9Dx99hS31lwqdPE0vKmL+0uDypMriDa3pl9XD7q0LAfhq
- QUo6x2HxCWdk4D0KuMAwLZC41ptXrK4hAdY8dB0S8g+KMi7BfvxbcGbZWgzYk24De+YVbWm/emG
- coIbyUvpfzUCsAwbkvQ==
-X-Proofpoint-ORIG-GUID: jwTklLoftQCdbCA6Hy01iZee6mCSvgff
-X-Proofpoint-GUID: jwTklLoftQCdbCA6Hy01iZee6mCSvgff
-X-Authority-Analysis: v=2.4 cv=HJLz0Itv c=1 sm=1 tr=0 ts=69df2578 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=5DFYxTXXmBTTg87Ck3YA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- clxscore=1015 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150050
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <0668b6ec-b844-4fef-804c-91e488b39516@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[huawei.com,linaro.org,hisilicon.com,google.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,gmail.com,chromium.org,kernel.org,huawei.com,vger.kernel.org];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:dkim, suse.de:mid,
+ huawei.com:email, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Queue-Id: 1F5575BDFC
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,319 +157,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 13-04-2026 20:20, Srinivas Kandagatla wrote:
-> 
-> 
-> On 4/2/26 5:49 AM, Ekansh Gupta wrote:
->> For any remote call to DSP, after sending an invocation message,
->> fastRPC driver waits for glink response and during this time the
->> CPU can go into low power modes. This adds latency to overall fastrpc
->> call as CPU wakeup and scheduling latencies are included. Add polling
->> mode support with which fastRPC driver will poll continuously on a
->> memory after sending a message to remote subsystem which will eliminate
->> CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
->> poll timeout happens, the call will fallback to normal RPC mode.  Poll
->> mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
->> request with FASTRPC_POLL_MODE request id.
->>
->> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
->> ---
->>  drivers/misc/fastrpc.c      | 132 ++++++++++++++++++++++++++++++++++--
->>  include/uapi/misc/fastrpc.h |  10 +++
->>  2 files changed, 135 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
->> index 4363e0cc296b..25f385f4704d 100644
->> --- a/drivers/misc/fastrpc.c
->> +++ b/drivers/misc/fastrpc.c
->> @@ -24,6 +24,8 @@
->>  #include <linux/of_reserved_mem.h>
->>  #include <linux/bits.h>
->>  #include <linux/bitops.h>
->> +#include <linux/compiler.h>
->> +#include <linux/iopoll.h>
->>  
->>  #define ADSP_DOMAIN_ID (0)
->>  #define MDSP_DOMAIN_ID (1)
->> @@ -38,6 +40,7 @@
->>  #define FASTRPC_CTX_MAX (256)
->>  #define FASTRPC_INIT_HANDLE	1
->>  #define FASTRPC_DSP_UTILITIES_HANDLE	2
->> +#define FASTRPC_MAX_STATIC_HANDLE (20)
-> Document please.
-ack
-> 
->>  #define FASTRPC_CTXID_MASK GENMASK(15, 8)
->>  #define INIT_FILELEN_MAX (2 * 1024 * 1024)
->>  #define INIT_FILE_NAMELEN_MAX (128)
->> @@ -106,6 +109,12 @@
->>  
->>  #define miscdev_to_fdevice(d) container_of(d, struct fastrpc_device, miscdev)
->>  
->> +/* Poll response number from remote processor for call completion */
->> +#define FASTRPC_POLL_RESPONSE (0xdecaf)
->> +
->> +/* Polling mode timeout limit */
->> +#define FASTRPC_POLL_MAX_TIMEOUT_US (10000)
->> +
->>  struct fastrpc_phy_page {
->>  	dma_addr_t addr;	/* dma address */
->>  	u64 size;		/* size of contiguous region */
->> @@ -236,8 +245,14 @@ struct fastrpc_invoke_ctx {
->>  	u32 sc;
->>  	u64 *fdlist;
->>  	u32 *crc;
->> +	/* Poll memory that DSP updates */
->> +	u32 *poll;
->>  	u64 ctxid;
->>  	u64 msg_sz;
->> +	/* work done status flag */
->> +	bool is_work_done;
->> +	/* process updates poll memory instead of glink response */
->> +	bool is_polled;
-> This looks redundant as the user context already has this info.
-this is context specific flag. Not all context for a particular process
-will go in polling path, so need to identify the same after sending
-message to DSP.
-> 
->>  	struct kref refcount;
->>  	struct list_head node; /* list of ctxs */
->>  	struct completion work;
->> @@ -308,6 +323,8 @@ struct fastrpc_user {
->>  	int client_id;
->>  	int pd;
->>  	bool is_secure_dev;
->> +	/* Flags poll mode state */
->> +	bool poll_mode;
->>  	/* Lock for lists */
->>  	spinlock_t lock;
->>  	/* lock for allocations */
->> @@ -923,7 +940,8 @@ static int fastrpc_get_meta_size(struct fastrpc_invoke_ctx *ctx)
->>  		sizeof(struct fastrpc_invoke_buf) +
->>  		sizeof(struct fastrpc_phy_page)) * ctx->nscalars +
->>  		sizeof(u64) * FASTRPC_MAX_FDLIST +
->> -		sizeof(u32) * FASTRPC_MAX_CRCLIST;
->> +		sizeof(u32) * FASTRPC_MAX_CRCLIST +
->> +		sizeof(u32);
->>  
->>  	return size;
->>  }
->> @@ -1019,6 +1037,9 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
->>  	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
->>  	pages = fastrpc_phy_page_start(list, ctx->nscalars);
->>  	ctx->fdlist = (u64 *)(pages + ctx->nscalars);
->> +	ctx->poll = (u32 *)((uintptr_t)ctx->fdlist + sizeof(u64) * FASTRPC_MAX_FDLIST +
->> +			     sizeof(u32) * FASTRPC_MAX_CRCLIST);
->> +
->>  	args = (uintptr_t)ctx->buf->virt + metalen;
->>  	rlen = pkt_size - metalen;
->>  	ctx->rpra = rpra;
->> @@ -1188,6 +1209,74 @@ static int fastrpc_invoke_send(struct fastrpc_session_ctx *sctx,
->>  
->>  }
->>  
->> +static inline u32 fastrpc_poll_op(void *p)
->> +{
->> +	struct fastrpc_invoke_ctx *ctx = p;
->> +
->> +	dma_rmb();
->> +	return READ_ONCE(*ctx->poll);
->> +}
->> +
->> +static int poll_for_remote_response(struct fastrpc_invoke_ctx *ctx)
->> +{
->> +	u32 val;
->> +	int ret;
->> +
->> +	/*
->> +	 * Poll until DSP writes FASTRPC_POLL_RESPONSE into *ctx->poll
->> +	 * or until another path marks the work done.
->> +	 */
->> +	ret = read_poll_timeout_atomic(fastrpc_poll_op, val,
->> +				       (val == FASTRPC_POLL_RESPONSE) || ctx->is_work_done, 1,
->> +				       FASTRPC_POLL_MAX_TIMEOUT_US, false, ctx);
-> 
-> What happens if the dsp sends normal response with rpcmsg callback while
-> the loop is still going on?
-the condition check also carries ctx->work_done which will get set in
-case DSP sends normal response, hence the polling will stop in that case.
-> 
->> +
->> +	if (!ret && val == FASTRPC_POLL_RESPONSE) {
-> check redundant?
-could be needed in normal response case, or in case polling fails.
-> 
->> +		ctx->is_work_done = true;
->> +		ctx->retval = 0;
->> +	}
->> +
->> +	if (ret == -ETIMEDOUT)
->> +		ret = -EIO;
->> +
->> +	return ret;
->> +}
->> +
->> +static inline int fastrpc_wait_for_response(struct fastrpc_invoke_ctx *ctx,
->> +					    u32 kernel)
->> +{
->> +	int err = 0;
->> +
->> +	if (kernel) {
->> +		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
->> +			err = -ETIMEDOUT;
->> +	} else {
->> +		err = wait_for_completion_interruptible(&ctx->work);
->> +	}
->> +
->> +	return err;
->> +}
->> +
->> +static int fastrpc_wait_for_completion(struct fastrpc_invoke_ctx *ctx,
->> +				       u32 kernel)
->> +{
->> +	int err;
->> +
->> +	do {
->> +		if (ctx->is_polled) {
->> +			err = poll_for_remote_response(ctx);
->> +			/* If polling timed out, move to normal response mode */
->> +			if (err)
->> +				ctx->is_polled = false;
->> +		} else {
->> +			err = fastrpc_wait_for_response(ctx, kernel);
->> +			if (err)
->> +				return err;
->> +		}
->> +	} while (!ctx->is_work_done);
->> +
->> +	return 0;
->> +}
->> +
->>  static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->>  				   u32 handle, u32 sc,
->>  				   struct fastrpc_invoke_args *args)
->> @@ -1223,13 +1312,14 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->>  	if (err)
->>  		goto bail;
->>  
->> -	if (kernel) {
->> -		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
->> -			err = -ETIMEDOUT;
->> -	} else {
->> -		err = wait_for_completion_interruptible(&ctx->work);
->> -	}
->> +	/*
->> +	 * Set message context as polled if the call is for a user PD
->> +	 * dynamic module and user has enabled poll mode.
->> +	 */
->> +	if (handle > FASTRPC_MAX_STATIC_HANDLE && fl->pd == USER_PD && fl->poll_mode)
->> +		ctx->is_polled = true;
-> 
-> There seems to be some level of validation here, which is not clearly
-> documented anywhere, can we add this into uapi header please.
-Ack. I'll add this detail when defining FASTRPC_POLL_MODE in uapi.
-> 
->>  
->> +	err = fastrpc_wait_for_completion(ctx, kernel);
->>  	if (err)
->>  		goto bail;
->>  
->> @@ -1812,6 +1902,30 @@ static int fastrpc_get_info_from_kernel(struct fastrpc_ioctl_capability *cap,
->>  	return 0;
->>  }
->>  
->> +static int fastrpc_set_option(struct fastrpc_user *fl, char __user *argp)
->> +{
->> +	struct fastrpc_ioctl_set_option opt = {0};
->> +	int i;
->> +
->> +	if (copy_from_user(&opt, argp, sizeof(opt)))
->> +		return -EFAULT;
->> +
->> +	for (i = 0; i < ARRAY_SIZE(opt.reserved); i++) {
->> +		if (opt.reserved[i] != 0)
->> +			return -EINVAL;
->> +	}
->> +
->> +	if (opt.req != FASTRPC_POLL_MODE)
->> +		return -EINVAL;
->> +
->> +	if (opt.value)
->> +		fl->poll_mode = true;
->> +	else
->> +		fl->poll_mode = false;
->> +
->> +	return 0;
->> +}
->> +
->>  static int fastrpc_get_dsp_info(struct fastrpc_user *fl, char __user *argp)
->>  {
->>  	struct fastrpc_ioctl_capability cap = {0};
->> @@ -2167,6 +2281,9 @@ static long fastrpc_device_ioctl(struct file *file, unsigned int cmd,
->>  	case FASTRPC_IOCTL_MEM_UNMAP:
->>  		err = fastrpc_req_mem_unmap(fl, argp);
->>  		break;
->> +	case FASTRPC_IOCTL_SET_OPTION:
->> +		err = fastrpc_set_option(fl, argp);
->> +		break;
->>  	case FASTRPC_IOCTL_GET_DSP_INFO:
->>  		err = fastrpc_get_dsp_info(fl, argp);
->>  		break;
->> @@ -2518,6 +2635,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
->>  	}
->>  
->>  	ctx->retval = rsp->retval;
->> +	ctx->is_work_done = true;
->>  	complete(&ctx->work);
->>  
->>  	/*
->> diff --git a/include/uapi/misc/fastrpc.h b/include/uapi/misc/fastrpc.h
->> index c6e2925f47e6..c37e24a764ae 100644
->> --- a/include/uapi/misc/fastrpc.h
->> +++ b/include/uapi/misc/fastrpc.h
->> @@ -16,6 +16,7 @@
->>  #define FASTRPC_IOCTL_INIT_CREATE_STATIC _IOWR('R', 9, struct fastrpc_init_create_static)
->>  #define FASTRPC_IOCTL_MEM_MAP		_IOWR('R', 10, struct fastrpc_mem_map)
->>  #define FASTRPC_IOCTL_MEM_UNMAP		_IOWR('R', 11, struct fastrpc_mem_unmap)
->> +#define FASTRPC_IOCTL_SET_OPTION	_IOWR('R', 12, struct fastrpc_ioctl_set_option)
->>  #define FASTRPC_IOCTL_GET_DSP_INFO	_IOWR('R', 13, struct fastrpc_ioctl_capability)
->>  
->>  /**
->> @@ -67,6 +68,9 @@ enum fastrpc_proc_attr {
->>  /* Fastrpc attribute for memory protection of buffers */
->>  #define FASTRPC_ATTR_SECUREMAP	(1)
->>  
-> 
->> +/* Set option request ID to enable poll mode */
-> 
-> Some documentation please on this feature and which PD's can use this.
-ack
-> 
->> +#define FASTRPC_POLL_MODE	(1)
-> 
-> Can we also document the values for this request?
-ack
->> +
->>  struct fastrpc_invoke_args {
->>  	__u64 ptr;
->>  	__u64 length;
->> @@ -133,6 +137,12 @@ struct fastrpc_mem_unmap {
->>  	__s32 reserved[5];
->>  };
->>  
->> +struct fastrpc_ioctl_set_option {
->> +	__u32 req;	/* request id */
-> Can we expand this to proper name, request_id or something?
-I'll change it to request_id.
+Hi
 
-Thanks,
-Ekansh
->> +	__u32 value;	/* value */
->> +	__s32 reserved[6];
->> +};
->> +
->>  struct fastrpc_ioctl_capability {
->>  	__u32 unused; /* deprecated, ignored by the kernel */
->>  	__u32 attribute_id;
-> 
+Am 15.04.26 um 05:19 schrieb Yongbang Shi:
+[...]
+> Also, I looked at the commit history, and this format was already
+> present in the first version of the hibmc driver. This is a historic
+> issue, and it's a bit difficult to determine why it was implemented this
+> way.
+
+It's probably left over from the prototype. Back then, DRM was also less 
+well structured and it might have been harder to see what's really needed.
+
+>>
+>> Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+
+Thanks.
+
+Best regards
+Thomas
+
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
