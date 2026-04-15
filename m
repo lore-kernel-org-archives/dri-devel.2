@@ -4,67 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22506FA0C3B
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 06:57:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DDFCFA0C3D
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 07:14:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3984F10E0FE;
-	Wed, 15 Apr 2026 06:57:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B55E710E5CA;
+	Wed, 15 Apr 2026 07:14:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="q7aXrrG4";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="1jt44X/V";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B0AE10E0FE
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 06:57:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0A47160127;
- Wed, 15 Apr 2026 06:57:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CC51C19424;
- Wed, 15 Apr 2026 06:57:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776236255;
- bh=kGxHkwuajsqPzKzACuGpkIM3KPBsa1RsKd1WBe82kfs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q7aXrrG434LMA8+2kL8zkHyOvd5zpxEeqxkMECeA0tBGBbG66MJX5Yc0dXjAczDTy
- 05zQJ5j7KqoU/TfYgGicBsUlr+PJ4gtKwbov0BWe6IcZbzTP9LJY47XO1P3KqeXMpt
- phV/EvwVib5ztbxmy4SHZHF4nxNp2FAxA6VGJleKy/OSEpgNyaWSvwrBGHtPCy2hhQ
- Krsx8rqneQhtEmR6Lyf/sEyvIQqMC5nUwc8HbsH9Dd7CqaXSnR10xR0PuEmFWcw9OC
- QLAoNsHFCMMTukZtVvmwZU1ECWf457mv1x5gU1HxtiEQjakQx6eGES70U8FG5vpXmG
- de5ZceN/I36DQ==
-Date: Wed, 15 Apr 2026 08:57:33 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Dennis Gilmore <dennis@ausil.us>
-Cc: Alexey Charkov <alchark@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, FUKAUMI Naoki <naoki@radxa.com>, 
- Heiko Stuebner <heiko@sntech.de>, Hsun Lai <i@chainsx.cn>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jimmy Hon <honyuenkwun@gmail.com>, 
- John Clark <inindev@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Michael Opdenacker <michael.opdenacker@rootcommit.com>,
- Michael Riesch <michael.riesch@collabora.com>, 
- Mykola Kvach <xakep.amatop@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Peter Robinson <pbrobinson@gmail.com>,
- Quentin Schulz <quentin.schulz@cherry.de>, 
- Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH v7 2/6] dt-bindings: display: bridge: simple: document
- the Lontium LT8711UXD DP-to-HDMI bridge
-Message-ID: <20260415-wondrous-premium-hamster-f8eccf@quoll>
-References: <20260414214104.1363987-1-dennis@ausil.us>
- <20260414214104.1363987-3-dennis@ausil.us>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260414214104.1363987-3-dennis@ausil.us>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0514110E5CA
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 07:14:02 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 669FC4E429FB;
+ Wed, 15 Apr 2026 07:14:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 28D1860420;
+ Wed, 15 Apr 2026 07:14:01 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id C5B6B10451BC6; 
+ Wed, 15 Apr 2026 09:13:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776237240; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=iygYfs8OpmDj7EArekkpuMFiF4SNkAQXIDO0MbSPk1k=;
+ b=1jt44X/VHX7vc5fMwQRP6HQk0nq4iNKzijy4m3ZrruuZ7Cshdkf3HdB8EgDePX3j9pJEum
+ WGcJkENB7V333mLkx4o/nx7giqakav5UhfdrDCTTS4GC4k0Y7HkBHRIJsWvnZVyNUF0wtH
+ 5NAv+Pq0CQZkc1QNhJc9cbvKN6hDD2/jl8WJMnuESumcp58+Pcr5QWrFfuRERqlk6zuMVF
+ Yf2gMKUKPs1DQTdvXySbnoagMQXLPG2YErsOJuDU2to0O4OOyEuOWifoxJJe55FuI/v60c
+ OtIVB4XmAUhDnU3DX8UUbQGcDh8BkEsuuhiNjZIqX+Csb36JI578kVRs8qEb2w==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 15 Apr 2026 09:13:52 +0200
+Message-Id: <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags
+ for stable LVDS output
+Cc: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+ <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <marex@denx.de>, <valentin@compulab.co.il>,
+ <philippe.schenker@toradex.com>, <alexander.stein@ew.tq-group.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: "Sudarshan Shetty" <tessolveupstream@gmail.com>,
+ <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.20.1
+References: <20260412053811.662461-1-tessolveupstream@gmail.com>
+ <20260412053811.662461-2-tessolveupstream@gmail.com>
+In-Reply-To: <20260412053811.662461-2-tessolveupstream@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,18 +69,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 14, 2026 at 04:40:53PM -0500, Dennis Gilmore wrote:
-> The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
-> to HDMI2.0 converter, designed to connect a USB Type-C source or
-> a DP1.4 source to an HDMI2.0 sink.
-> 
-> Signed-off-by: Dennis Gilmore <dennis@ausil.us>
-> ---
->  .../devicetree/bindings/display/bridge/simple-bridge.yaml        | 1 +
->  1 file changed, 1 insertion(+)
+Hello Sudarshan,
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On Sun Apr 12, 2026 at 7:38 AM CEST, Sudarshan Shetty wrote:
+> The current DSI mode configuration enables VIDEO_BURST and disables
+> horizontal front porch (HFP) and back porch (HBP) transmission using
+> MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP.
+>
+> However, the SN65DSI83/84 bridge relies on receiving full horizontal
+> timing information over DSI in order to correctly reconstruct the LVDS
+> output timings. When HFP and HBP are not transmitted, the bridge cannot
+> recreate the required timing parameters, resulting in unstable or
+> missing display output on some panels.
+>
+> Additionally, while burst mode is supported by the hardware, its use
+> depends on continuous clock behavior from the DSI host. In practice,
+> burst mode may introduce instability depending on the host controller
+> implementation, as the DSI link may transition to low-power state
+> between bursts.
+>
+> In testing, removing burst mode and ensuring full horizontal timing
+> transmission results in stable LVDS output across affected panels.
+>
+> Update the DSI mode flags to:
+>   - Drop MIPI_DSI_MODE_VIDEO_BURST
+>   - Drop MIPI_DSI_MODE_VIDEO_NO_HFP
+>   - Drop MIPI_DSI_MODE_VIDEO_NO_HBP
+>
+> This aligns with common system configurations where non-burst mode is
+> preferred and full timing information is transmitted over DSI.
+>
+> Signed-off-by: Sudarshan Shetty <tessolveupstream@gmail.com>
 
-Best regards,
-Krzysztof
+Thanks for having gone into the details and provide a good explanation for
+the removal of these three flags.
 
+It would be still great to have authoritative info from TI, possibly as an
+update to the documentation.
+
+I managed to test on a board with i.MX93, a TI SN65DSI84 and a 1920x1080p60
+panel, and:
+
+ - no image shown with the current mainline driver
+ - it works by removing only MIPI_DSI_MODE_VIDEO_BURST (my current setup)
+ - it works with this patch applied
+
+Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # imx93 1920x1080p60
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
