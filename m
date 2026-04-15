@@ -4,145 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC51F433C2
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 21:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D218BF433C5
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 21:30:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7B3310E7C9;
-	Wed, 15 Apr 2026 21:08:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B45B10E77E;
+	Wed, 15 Apr 2026 21:30:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nJNmCEuZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MYOFxehO";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010068.outbound.protection.outlook.com
- [40.93.198.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6753610E7C4;
- Wed, 15 Apr 2026 21:08:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dKfCSgx570HsRyVRuMsoYQomFn2OMlgR6KZkZMNz1eIISmKMLTe+COPbWTZBZwSGF/5bYMg7WoJUwdAYqE15Z7TKuAGYjVl5f8nI8Sbve1ggrIibgDJRTJ5/YPfVx14mBFfZdUV2Ju8HWzSVMqiY3+CM4xnHxrVuWJV277xpbnHgNPDHs9kATLHGtHPlFhmzwNhVi9MO40/4LrvqZ/F3YxHFqps38DshH/C0HDU043DLrSgcniNAD9T4fGFCdXaKFgfiX9qSuw2EE2Edpkhwr9wQbAxAuB5cqGpRvXRZWFo97QDFaP1SRKbmSacE2luEJIZtKZHZ7iyWrOsGUUfE6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Z5ekdCAL+z0+qFAGmXWpRhnb7mvYZZHEwk7q/UhNy0=;
- b=ceQK2SpKIyic3tzHwHYPN/tG3ST5aa9wQg4wJz0N7Rp40JupEDKsWt+umlf1iy2maiL3alaAsBtIy2en47zqJ93jm/jD1Q0jgCfMGUFbbrSRIdHAPz2tdcSq3WDGrNBF7Hr25ISjXurzwkQckBp3nUPawHl4bGgmZ/gGkAKOrV1VQM7f7Ir1JmvnV7lbofatwW2tsp6ql5g5Bg+bmjdJu7aFS4eXkTeK1/QEVSiV+sod9QIbboVFK63mWfSxgsYMcutnB+G0TSMfKCryO9rk4wpz3AWNtWrfB1MIed92Eo4QUVmowNheYCd+iGruUjW5FgNqgoTOAiCQ4uXXZpwx/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Z5ekdCAL+z0+qFAGmXWpRhnb7mvYZZHEwk7q/UhNy0=;
- b=nJNmCEuZhqXpG3dVZBf+yjGbY7CRKPlcdW3JM8hQcAzS/hfylL50a4Gc4oCDkkEgoMUD7k436rTLXlmt7UciuyU5frhGFUPwqxqxmg46yGchEHs/YbKICfZFfcMwJrAs2v6FXqfUu5M14bEMr90ksobul0Nei8gWnrh4OGkYrE3PGMbUp7Jl+rAaNawDDJJ1nKnOx9aPes0zRhIfDJZv6XltBpnKrtQRWHwISqtY5i7gaJMjnpCLwFT3NIA6WUn5wny1KLHtA4l3poYHuOtsx1tbGzi8GPGJ5m80FmZc0UWEO7APP3O3Kc/S861SfvuRdvs9g7WDLqawOZSpDzIy4w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- CH3PR12MB8993.namprd12.prod.outlook.com (2603:10b6:610:17b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
- 2026 21:06:28 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Wed, 15 Apr 2026
- 21:06:28 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v11 14/20] gpu: nova-core: mm: Add Virtual Memory Manager
-Date: Wed, 15 Apr 2026 17:05:41 -0400
-Message-Id: <20260415210548.3776595-14-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260415210548.3776595-1-joelagnelf@nvidia.com>
-References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CY5PR15CA0005.namprd15.prod.outlook.com
- (2603:10b6:930:14::18) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B756A10E77E
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 21:30:10 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3A53C43EAD;
+ Wed, 15 Apr 2026 21:30:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 10AEEC19424;
+ Wed, 15 Apr 2026 21:30:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776288610;
+ bh=wWh9BFGSeePJdiAQl4B72hJgYrgbq4DhVBsbTMTNLKU=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=MYOFxehO/Vwd0XZv9BTiZC8Z0NTyqjS3Cr5uMISkx3g5dCCJqAT9bQuwAlyi3PzzH
+ WMmHir7I7O8lFyNO9M/k3EO6rdoEQseSkkMK0V/WrPbq1pCzu5Wo5RbIEAYfWvXncF
+ VJOLAZ9tkdqkrZ2Z0ePfJaelpGS5WCttHT4OhnfaQ8zfDO2c7f+n/WXCyltIRQh+1V
+ c45corIYFUMw/Xty9OEnz/ZiHGiU4+eRfzbYe/KVNC4kgDveIhzpoNPWYJ4/3xaHvA
+ os4iSxoij9L1LxPiDvpUczMVR790VrK3n5zKB4e8w51yMQkLNNibfV/TT5iPDl8S+D
+ +RoCCBWUYOlTw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id E89F5F433C9;
+ Wed, 15 Apr 2026 21:30:09 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 15 Apr 2026 23:30:05 +0200
+Subject: [PATCH] drm/panel: visionox-rm69299: Make use of
+ prepare_prev_first
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CH3PR12MB8993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10a4c091-81e6-4c16-eb89-08de9b32dc82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: QZDP9TJKRCZr6rvMLFgyQGZMKjHwDIktdJGI2MUEQ1YgabXNUYD8dH/JAuZBC9GbpICv5oBKhJhTSgjvc3OKX+Ra2cIxDNP/ehlb7lbMeBHWx0E+HWeu4KBgWCC8ypx4S5Ek97LjxoB3ocAxuYp0TVshTM2nUjI1lPeSUfROj1f/cWoCTfO1UoKkCrKYle5O1PFyQ6/2MkGzC40NLE6rYTN0Kzw7e2SqPqNimZj15Y279BH9qUEpT12qn5ppTnX4a10SQo7mbSQcAL71UcIO/sj5wUa7zokwhruxRtNPAZSTVIcdvDsENIGOztC5rq+nd370t7l2mq4FWVLzdssA7qLKdzzf6bPC64GUuKwA4GmHJqbzWPoJzTHe6R98yI10pojM5Vm7ziT3pFZidi7D97SjQkKkSWv1X410DLl7tshRbMxvpLnbTQLueeM0/vGTc69GWTOlQ1v/YMhU7KwU1zkB9yhaex24b/zc2aUMyB11uzyzos2Jeq4OTpKNTKXnl/juvjaQCJI3NGOzYGyYfRRdN8T3LBu+rUGUmpoqoMAIsT7f1xC7HqrF7QVlp+I2lVqFIAYoJbd+iFYNndCLoK5dIXp6AcBPUmkI6TdggWgWDFVb4ljNSHb1bx48daJiOXRqfSD+BjnyN4oZJSgYSkxkTZ7rLwahksRfFvvVKW/ObBT9/A+OcNzZGUvllpAzqlypAwhvc5WfFg+yyARBWiDa0dnGrQ1GqG/lYXwQ9fo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Df865shGFde/arM9IQ+iRbMVYLuFvnoccOdxy1pzxTulwuqEiz1JkSba96MO?=
- =?us-ascii?Q?vEdwGaS0vuv4tybKyezZ/pt3obnC2gC7X6CFo0x6V35/RoZRuxpKMWYt5jLB?=
- =?us-ascii?Q?W2PEVPie3w1G+pJdZyFHD1PQYhwjMssDnQzhksC1nfoGtMkCj0BcwiuyS63R?=
- =?us-ascii?Q?g0KzUxoBjyxp5Z1wE4JUI9BZZS6lZn8aaN3Wi+0obbtsf+OqA4whJ9YUBdgQ?=
- =?us-ascii?Q?Ie8WpaJa5LVQus2RWXIIKK4soSboJAtspKqd+UONpiJghBTr31PEzHJJaw5J?=
- =?us-ascii?Q?xcyetmyliiTYqQomVm7WrQIsMeYKt7gjAqm+qvyxfBEZ8pxSgBcuXIkvPRyj?=
- =?us-ascii?Q?BJxwFFWvstRUHusTibB2LzykEPZUI9j55/mJUCFMzO02DveJs+p5BBl5LlwF?=
- =?us-ascii?Q?OY38dxjLDgTJPG0zT1A74eMMEk0klGfH7AzpxIQFvGjwPJibmjbzllHt3eYc?=
- =?us-ascii?Q?zLiwneI396hGgQBAt3EN3Q/V37/VE6Qk91RTC2XY6+2FeCdE+g9q1io5xQMZ?=
- =?us-ascii?Q?Vp8a+CnyVdMtaarxuheLbzXVPqbhKSRHm6v2gQ/78eg3cy5L7uP86hZkjfC6?=
- =?us-ascii?Q?V4qjtnpeDKPlqZt7pD3IKeYNl8LuWldpGNxpVFf8mAQ+UdNOBC+QWwsNhH7L?=
- =?us-ascii?Q?pOz3i2J1XkO/9oWkGgFavcloI0gTXVYER+MWqvF3FopuNEi2uaDD/j0ccpg9?=
- =?us-ascii?Q?FzxHkspOXPcNROrgiAIcdnPY+HO2yinx3HRky17jeF5shZRbmQ7+Xjchp1B+?=
- =?us-ascii?Q?9Axl3ASinTYA21TBKeB0DPzV87Fgwt98xrBTgmekdx77oqc8AtPjf3so+w1/?=
- =?us-ascii?Q?lrEGxC/2coS/WcnYsm+sAxvMJEKGRF5F3XMXtJldrdvrJfhb+mCXU+leu6YL?=
- =?us-ascii?Q?W7ciZFWH8I3ecFWOyo7z13IPzRZ345ZEaToWOnNu+IuqqmwPuC8HjsN4c3OH?=
- =?us-ascii?Q?8JoVlE7vs2blk/pPJedEynCkySGrDF9698SsfU8RWB2sZdoJZm56HEEfdtPu?=
- =?us-ascii?Q?umTnbdpb9181wfWoZdN94j16JIb05jxY7MshWxduhAnU8tFfuLxV2yjLYr07?=
- =?us-ascii?Q?XaSbaBO+Sy42i1CAMn9PMUrvWAJuqM6m9VSTGW24NJ1UWyujamobHvYv2rUk?=
- =?us-ascii?Q?Pk8e5XI8BvecuVwywx3O7Q89nO24iaZcYqSHB3GHndkwIk+L5Yzn2mt0O7QX?=
- =?us-ascii?Q?YCretmlGmCoaHdRPu2vpjWUJ8bJVxeH1lM9M5k6q4V6BHfF5x0P9GZgl2apo?=
- =?us-ascii?Q?ksgu5sKi3hJzp8s31Bdf81mrB7nUsSXy4a/p3e33Hb1JNGaRQdMzPHxiqOpz?=
- =?us-ascii?Q?eejQcfW1I51RbxZ0i8/UqlnXS7nIktjpquel3/Ndz2wKg2aaoZOkgBHSDMan?=
- =?us-ascii?Q?cozUHgZQGRDat2PQumgydeFCEEDhN+pbO7Cy92zxyREraH+8lIoQGC3obM0Z?=
- =?us-ascii?Q?muKVkocHwjyuB8vFaHbRrGTXTR/Gb1bEnBvLYF6rvRFS8RA82nZio4Roe8SB?=
- =?us-ascii?Q?q2prgFhh3J81hhp+VnnQicsDegkeir3UEoxJsmy8IRh7a76hsBq7xPmTp5ew?=
- =?us-ascii?Q?3DgACSA48e07HO/EQe29NDmSbRKJM0PCF8QPP6InzsKhW6AkNzZiXOZgHqFL?=
- =?us-ascii?Q?F0HoLo9nZU6oaCxZx1FroGG/NKspIH29Lxy7GBZw3egLfJRZ9JSWCeqqc3fD?=
- =?us-ascii?Q?bB5uwh9oe+dag8aOhbkC/0Y76CoZOqvgswQff9jlGyL9C2iO5fiRvuTbFBw3?=
- =?us-ascii?Q?6LCl9zi/tA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10a4c091-81e6-4c16-eb89-08de9b32dc82
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 21:06:28.5725 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LzaGZQ6B9oHYySBFJVeKiERhd6a7aqjNldunq6PHN/dB4WCONqNp1oYdsMw4PiPY9c4lAlLuwzOOO9bE+Ta8vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8993
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260415-axolotl-display-v1-1-7abb2d248355@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAF0D4GkC/x3MQQqAIBBA0avErBM01KKrRAvRqQYkQyMM8e5Jy
+ 7f4v0DCSJhg7gpEfChROBtE34E9zLkjI9cMAx80l0Ixk4MPt2eO0uXNy0ahLEqhUdkJWnVF3Cj
+ /x2Wt9QMaKA/jYQAAAA==
+X-Change-ID: 20260415-axolotl-display-715ce416e5c8
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Douglas Anderson <dianders@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1248; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=bF7lrbD9lXIuwu2O8jm2gideODLb8OyFdzCi29iX97M=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp4ANgdDifmNfMWBOu+NsugDOUVuFeFEJSZeEVn
+ fmxJqsjIJKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaeADYAAKCRBgAj/E00kg
+ cvRlD/9WtZm5zQDZ+cGcDnNwbkI7VpIUXrL3lvwzDUdTsj6D16FeQ03ji8oROCHp36ZOzLZbd4a
+ OuOdcT3ujSQWnk3yk/+O4uhuCEBouxuRpSmhKrnvBtSpzTIvnARZbnX+Z88/97X53bNRouSiImj
+ hg1B2zuhjkr5vbjUP6t3C9l6RbisS4BhSYh2otzbS1oAat9lCs7QMS5m2R4QxES0bVdBuEuCqvR
+ 4F+Uc9nVJiVwTfsmEu0Xg0gnWNtzi+R+Lssxn8AtDYTUXFw25frSojydgX5u7OcLRJbc0SMsCXJ
+ OE6f5/FD/YGqzqbNNRSghshvIsJt7V2m4d5Vcfsi7hjWuRJOJ6etPpd5eYxW41XLBx9kQSIdHaZ
+ TGxcaVD/KZaPLUI2U932sxQ1yMVdnfOXOsehXp+F01oALKde00WiVYHVmOMXTeE68gXXCCmAwVs
+ 8IRDa/H8+BO0Y/94/Usw3WvXpPIY/4ZkcYdNHkVW4VEVwdxDJFht8op6qjScfj8Y3Yz2i7CrA+K
+ +62e5VZMP0X4AKtLR3lx4+Yus6u8qeBqsKAb9lcRJZtNjI8oQifhDQDPeiWcaOduCKpxpq6gz5i
+ V3NJne1oyksIqiGidAmzQLjyLKewE1JLL2jdD2qV+XjUsBypCh2BwtBpn8rYFZ6CpNjAHNPPbNj
+ EtbUhI6QE3FLh0A==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,106 +90,42 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the Virtual Memory Manager (VMM) infrastructure for GPU address
-space management. Each Vmm instance manages a single address space
-identified by its Page Directory Base (PDB) address, used for Channel,
-BAR1 and BAR2 mappings.
+From: Guido Günther <agx@sigxcpu.org>
 
-Mapping APIs and virtual address range tracking are added in later
-commits.
+The DSI link must be powered up to let panel driver to talk to the panel
+during prepare() callback execution. Set the prepare_prev_first flag to
+guarantee this.
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+Fixes: 9e15123eca79 ("drm/msm/dsi: Stop unconditionally powering up DSI hosts at modeset")
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/nova-core/mm.rs     |  1 +
- drivers/gpu/nova-core/mm/vmm.rs | 63 +++++++++++++++++++++++++++++++++
- 2 files changed, 64 insertions(+)
- create mode 100644 drivers/gpu/nova-core/mm/vmm.rs
+ drivers/gpu/drm/panel/panel-visionox-rm69299.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index af398e94dd16..87fd6f0b956e 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -27,6 +27,7 @@ fn from(pfn: Pfn) -> Self {
- pub(super) mod pagetable;
- pub(crate) mod pramin;
- pub(super) mod tlb;
-+pub(super) mod vmm;
- 
- use kernel::{
-     bitfield,
-diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
-new file mode 100644
-index 000000000000..d92495a4579d
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/vmm.rs
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Virtual Memory Manager for NVIDIA GPU page table management.
-+//!
-+//! The [`Vmm`] provides high-level page mapping and unmapping operations for GPU
-+//! virtual address spaces (Channels, BAR1, BAR2). It wraps the page table walker
-+//! and handles TLB flushing after modifications.
-+
-+use kernel::{
-+    gpu::buddy::AllocatedBlocks,
-+    prelude::*, //
-+};
-+
-+use crate::mm::{
-+    pagetable::{
-+        walk::{PtWalk, WalkResult},
-+        MmuVersion, //
-+    },
-+    GpuMm,
-+    Pfn,
-+    Vfn,
-+    VramAddress, //
-+};
-+
-+/// Virtual Memory Manager for a GPU address space.
-+///
-+/// Each [`Vmm`] instance manages a single address space identified by its Page
-+/// Directory Base (`PDB`) address. The [`Vmm`] is used for Channel, BAR1 and
-+/// BAR2 mappings.
-+pub(crate) struct Vmm {
-+    /// Page Directory Base address for this address space.
-+    pdb_addr: VramAddress,
-+    /// MMU version used for page table layout.
-+    mmu_version: MmuVersion,
-+    /// Page table allocations required for mappings.
-+    page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
-+}
-+
-+impl Vmm {
-+    /// Create a new [`Vmm`] for the given Page Directory Base address.
-+    pub(crate) fn new(pdb_addr: VramAddress, mmu_version: MmuVersion) -> Result<Self> {
-+        // Only MMU v2 is supported for now.
-+        if mmu_version != MmuVersion::V2 {
-+            return Err(ENOTSUPP);
-+        }
-+
-+        Ok(Self {
-+            pdb_addr,
-+            mmu_version,
-+            page_table_allocs: KVec::new(),
-+        })
-+    }
-+
-+    /// Read the [`Pfn`] for a mapped [`Vfn`] if one is mapped.
-+    pub(super) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
-+        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
-+
-+        match walker.walk_to_pte_lookup(mm, vfn)? {
-+            WalkResult::Mapped { pfn, .. } => Ok(Some(pfn)),
-+            WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
-+        }
-+    }
-+}
+diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+index e5e688cf98fdc..0e33454650d13 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
++++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+@@ -387,6 +387,7 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
+ 	dsi->format = MIPI_DSI_FMT_RGB888;
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM |
+ 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
++	ctx->panel.prepare_prev_first = true;
+ 	ret = mipi_dsi_attach(dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "dsi attach failed ret = %d\n", ret);
+
+---
+base-commit: e6efabc0afca02efa263aba533f35d90117ab283
+change-id: 20260415-axolotl-display-715ce416e5c8
+
+Best regards,
 -- 
-2.34.1
+David Heidelberg <david@ixit.cz>
+
 
