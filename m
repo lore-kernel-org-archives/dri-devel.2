@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5389AF43853
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 15:57:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 955F8F43848
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 15:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA9910E0BB;
-	Wed, 15 Apr 2026 15:57:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F419910E13C;
+	Wed, 15 Apr 2026 15:57:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Pakgb2Fh";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="UROCsJF4";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9761C10E0BB
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 15:57:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776268636; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BA8410E0BB
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 15:57:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776268640; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=dzoxuTON9g0T5v2VW4RIJSwOzmosZ/19+p4KWdsex6D/83FL21+k2FZxt2s1hHNuvE7kHty44ft9urmtwTCmLu64cPut2/90DGWgkXTBieJsNVkzq6lfYlr3MpcBzUelsNWx5JhE5LeM+Rg1ZqnSwpbsXtPlJe1fGqj/iDlZlQE=
+ b=YT8/bT1HBfff6nZ6JK13mK/JDazXdn+n8xsVsPf2W/VkuSkEqDWCZplW0Q0z3+/aHYPVxi2e4PTGlWJGOra7DlzQzpjLqgEjIa8QrrH7gbEtGAmC+yZwkjVHCO8dZayNRrhun1/N5cpZKHsQuNkaE/iJxZK3KensR0tgf7EDOqs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776268636;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=tcWc/YGZhuBbUG2ZzxFM4v6CdUOrEnfjslywxPvcmNY=; 
- b=RDuGYOcAD17avP0O3tcVTKBnag24ClX2zCbs9H5oIqnR+yQtNTFAxf1W/lrnizzb0YDLwCU1HOPSDllho1opNMaROrxz7sVU44Z5/LFzOeVqvCityAEkissr/yGpOAcyq3y6FJEMeNYvnS0RbUlu5asEceUt62IIAueSkN4L1Jc=
+ s=zohoarc; t=1776268640;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Bqd9FzwWq7KiLaT/1JUu11utyc7XKPue9idZFDeOEGY=; 
+ b=gcCXG3j2nq85g7heLV2KTUNk8u7WFhGVy7b2nBv7Hi7tzEtzjr8aU8rSKuInFOAzwUnZPfFHsatRqB0D4cGqviEw6WGKB9EWFjzFAtjRcUbtxdwodHpZeuQKxaD64vRFGnU9P0KYMKEtToXj9Af+j8C/LxayNoaGPXq7VsxMrsg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776268636; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776268640; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=tcWc/YGZhuBbUG2ZzxFM4v6CdUOrEnfjslywxPvcmNY=;
- b=Pakgb2FhXRG4nc4XA2gx/ni5cGsYttQq6ZZdEr9s+f0o4s82Xky5FSUAvqZuIivn
- KhSMg+PfihDMHopZOld14ofsALbSNV+COAU71R31QJvJ2avQDtCo0h8WpeQzi1Gi26C
- 1RCjZslc9JTLTt1mCsIEfgEFke87A8OF3wNul7ds=
-Received: by mx.zohomail.com with SMTPS id 17762686337951.9665345468235955;
- Wed, 15 Apr 2026 08:57:13 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=Bqd9FzwWq7KiLaT/1JUu11utyc7XKPue9idZFDeOEGY=;
+ b=UROCsJF48F+RuRP2FxgS8ufWA0of5NxcqPNmEIpQ01RogTblMbmzTNZskdCdWxUb
+ XGB50koYx50yOTAqxrL2nbMUAxoGb027pO0G+BXL+TIUMuv8/E7ny4rODbeWTeGnkKJ
+ SpCKNRN5ellvzjzpgTt6Am3MtLyaGAzjgbNMz7vs=
+Received: by mx.zohomail.com with SMTPS id 1776268638712152.84997227807446;
+ Wed, 15 Apr 2026 08:57:18 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH 0/2] Add SCDC information to connector debugfs
-Date: Wed, 15 Apr 2026 17:56:41 +0200
-Message-Id: <20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com>
+Date: Wed, 15 Apr 2026 17:56:42 +0200
+Subject: [PATCH 1/2] drm/scdc-helper: Add scdc_status debugfs entry
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NTQ6CMBCFr0Jm7URKDRGuYliUdrSjtEBbjAnh7
- lZh9fLl/a0QKTBFaIsVAr058ugziFMB2ir/IGSTGaqyqsuLkBi10Tiwf6ElNSSL10ZmS0jT1Bp
- ybQp0589/8tbtHJf+STr9do5EoHnJX2mPQa8ioR6d49QWJjhMPJ0PhW7bvt90xPKnAAAA
-X-Change-ID: 20260413-scdc-link-health-89326013d96c
+Message-Id: <20260415-scdc-link-health-v1-1-8e731e88eaf0@collabora.com>
+References: <20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com>
+In-Reply-To: <20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -74,31 +72,349 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HDMI uses the DDC I2C bus for communicating various bits of link status
-out of band with the actual HDMI video signal. This information can be
-useful for debugging issues like questionable cables sabotaged by feline
-teeth, Enthusiast Grade cables made of cow fencing wire, and other such
-problems that ruin one's media viewing plans.
+SCDC provides status information on the current display link. At the
+very least, it may be useful to expose this info through debugfs.
 
-Consequently, this series exposes various bits of pertinent information
-from the SCDC protocol in an HDMI connector's debugfs. To continually
-poll the link status, userspace can poll the debugfs file.
+Add a debugfs entry for it under the connector, which displays a few
+more details parsed out of the SCDC registers. A new
+drm_scdc_debugfs_init function can be called by the connector
+implementation to initialise the debugfs file.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
-Nicolas Frattaroli (2):
-      drm/scdc-helper: Add scdc_status debugfs entry
-      drm/display: bridge_connector: init scdc debugfs for HDMI
+ drivers/gpu/drm/display/drm_scdc_helper.c | 229 ++++++++++++++++++++++++++++++
+ include/drm/display/drm_scdc_helper.h     |  56 ++++++++
+ 2 files changed, 285 insertions(+)
 
- drivers/gpu/drm/display/drm_bridge_connector.c |   4 +
- drivers/gpu/drm/display/drm_scdc_helper.c      | 229 +++++++++++++++++++++++++
- include/drm/display/drm_scdc_helper.h          |  56 ++++++
- 3 files changed, 289 insertions(+)
----
-base-commit: 4c59525db84aca677fd9f052e662912ad9d88448
-change-id: 20260413-scdc-link-health-89326013d96c
+diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
+index df878aad4a36..d582ba38a610 100644
+--- a/drivers/gpu/drm/display/drm_scdc_helper.c
++++ b/drivers/gpu/drm/display/drm_scdc_helper.c
+@@ -24,11 +24,14 @@
+ #include <linux/export.h>
+ #include <linux/i2c.h>
+ #include <linux/slab.h>
++#include <linux/debugfs.h>
+ #include <linux/delay.h>
++#include <linux/overflow.h>
+ 
+ #include <drm/display/drm_scdc_helper.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_device.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
+ 
+ /**
+@@ -55,6 +58,11 @@
+ 
+ #define SCDC_I2C_SLAVE_ADDRESS 0x54
+ 
++struct scdc_debugfs_priv {
++	struct drm_connector *connector;
++	struct drm_scdc_state state;
++};
++
+ /**
+  * drm_scdc_read - read a block of data from SCDC
+  * @adapter: I2C controller
+@@ -276,3 +284,224 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
+ 	return true;
+ }
+ EXPORT_SYMBOL(drm_scdc_set_high_tmds_clock_ratio);
++
++/**
++ * drm_scdc_read_status0_flags - Read SCDC "Status Flags" Register
++ * @connector: pointer to &struct drm_connector to issue the scdc request on
++ * @flags: pointer to the caller's &struct drm_scdc_status_flags to output to
++ *
++ * Reads the SCDC Status Flags 0 register, and outputs its contents to the
++ * destination @flags. Contents of @flags.status0 is only valid if function
++ * returns 0.
++ *
++ * Returns: %0 on success, negative errno on error.
++ */
++int drm_scdc_read_status0_flags(struct drm_connector *connector,
++				struct drm_scdc_status_flags *flags)
++{
++	int ret;
++
++	ret = drm_scdc_writeb(connector->ddc, SCDC_UPDATE_0, SCDC_STATUS_UPDATE);
++	if (ret)
++		return ret;
++
++	return drm_scdc_readb(connector->ddc, SCDC_STATUS_FLAGS_0, &flags->status0.data);
++}
++EXPORT_SYMBOL(drm_scdc_read_status0_flags);
++
++/**
++ * drm_scdc_read_error_counters - Read and clear SCDC error counters
++ * @connector: pointer to &struct drm_connector to issue the scdc request on
++ * @counter: Caller's u16 array with 3 elements to write the counter values into
++ *
++ * Read the SCDC channel error counters. If the count of channel *n* is valid,
++ * write it into counter[n]. Otherwise, set counter[n] to 0. Reads all counters
++ * in one read chunk, then clears every counter, as is mandated.
++ *
++ * Returns: %0 on success, negative errno on error.
++ */
++int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3])
++{
++	u8 buf[7] = { 0 };
++	ssize_t ret;
++	u8 sum = 0;
++	int i;
++
++	ret = drm_scdc_writeb(connector->ddc, SCDC_UPDATE_0, SCDC_CED_UPDATE);
++	if (ret)
++		return ret;
++
++	/* why in the fucking fuck does this return a ssize_t */
++	ret = drm_scdc_read(connector->ddc, SCDC_ERR_DET_0_L, buf, ARRAY_SIZE(buf));
++	if (ret)
++		return ret;
++
++	/*
++	 * Verify the "checksum", i.e. sum up everything including the checksum
++	 * register as a wrapping unsigned 8-bit addition and verify it's 0.
++	 */
++	for (i = 0; i < ARRAY_SIZE(buf); i++)
++		sum = wrapping_add(u8, sum, buf[i]);
++
++	if (sum)
++		return -EPROTO;
++
++	for (i = 0; i < ARRAY_SIZE(buf) - 1; i += 2) {
++		if (buf[i + 1] & SCDC_CHANNEL_VALID)
++			counter[i / 2] = buf[i] | (buf[i + 1] & ~SCDC_CHANNEL_VALID) << 8;
++		else
++			counter[i / 2] = 0;
++
++		buf[i] = 0;
++		buf[i + 1] = 0;
++	}
++	buf[ARRAY_SIZE(buf) - 1] = 0;
++
++	return drm_scdc_write(connector->ddc, SCDC_ERR_DET_0_L, buf, ARRAY_SIZE(buf));
++}
++EXPORT_SYMBOL(drm_scdc_read_error_counters);
++
++/**
++ * drm_scdc_read_state - Update state from SCDC
++ * @connector: pointer to a &struct drm_connector on which to operate on
++ * @state: pointer to a &struct drm_scdc_state to fill
++ *
++ * Reads update flags from SCDC, and updates the parts of @state that SCDC
++ * claims have changed, as well as populating those where such a distinction
++ * can't be made.
++ *
++ * Returns: %0 on success, negative errno on failure.
++ */
++int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *state)
++{
++	u8 upd_flags[2] = { 0 };
++	struct i2c_adapter *ddc;
++	struct drm_scdc *scdc;
++	int ret;
++	u8 val;
++
++	if (!state || !connector)
++		return -ENODEV;
++
++	scdc = &connector->display_info.hdmi.scdc;
++	ddc = connector->ddc;
++
++	if (!scdc->supported)
++		return -EOPNOTSUPP;
++
++	ret = drm_scdc_readb(ddc, SCDC_TMDS_CONFIG, &val);
++	if (ret)
++		return ret;
++
++	state->scrambling_enabled = !!(val & SCDC_SCRAMBLING_ENABLE);
++	state->tmds_bclk_x40 = !!(val & SCDC_TMDS_BIT_CLOCK_RATIO_BY_40);
++
++	state->scrambling_detected = drm_scdc_get_scrambling_status(connector);
++
++	ret = drm_scdc_read(ddc, SCDC_UPDATE_0, &upd_flags, sizeof(upd_flags));
++	if (ret)
++		return ret;
++
++	if (upd_flags[0] & SCDC_STATUS_UPDATE) {
++		ret = drm_scdc_read_status0_flags(connector, &state->stf);
++		if (ret)
++			return ret;
++	}
++
++	if (upd_flags[0] & SCDC_CED_UPDATE) {
++		ret = drm_scdc_read_error_counters(connector, state->error_count);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_scdc_read_state);
++
++#define scdc_print_str(_f, key, s) \
++	(seq_printf((_f), "%-30s: %s\n", (key), (s)))
++#define scdc_print_flag(_f, key, val) \
++	(scdc_print_str((_f), (key), str_yes_no((val))))
++#define scdc_print_dec(_f, key, val) \
++	(seq_printf((_f), "%-30s: %d\n", (key), (val)))
++
++static int scdc_status_show(struct seq_file *m, void *data)
++{
++	struct scdc_debugfs_priv *priv = m->private;
++	struct drm_scdc_state *st = &priv->state;
++	struct drm_connector *connector = priv->connector;
++	struct drm_scdc *scdc = &connector->display_info.hdmi.scdc;
++	int ret;
++
++	drm_connector_get(connector);
++
++	if (connector->status != connector_status_connected) {
++		ret = -ENODEV;
++		goto err_conn_put;
++	}
++
++	scdc_print_flag(m, "SCDC Supported", scdc->supported);
++	if (!scdc->supported) {
++		ret = 0;
++		goto err_conn_put;
++	}
++
++	scdc_print_flag(m, "Sink Read Request Capable", scdc->read_request);
++	scdc_print_flag(m, "Scrambling Supported", scdc->scrambling.supported);
++	scdc_print_flag(m, "Low Rate Scrambling Supported", scdc->scrambling.low_rates);
++
++	ret = drm_scdc_read_state(connector, st);
++	drm_connector_put(connector);
++	if (ret)
++		return ret;
++
++	scdc_print_flag(m, "Scrambling Enabled", st->scrambling_enabled);
++	scdc_print_flag(m, "Scrambling Detected", st->scrambling_detected);
++
++	if (st->tmds_bclk_x40)
++		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/40");
++	else
++		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/10");
++
++	scdc_print_flag(m, "Clock Detected", st->stf.status0.flags.clock_detected);
++	scdc_print_flag(m, "Channel 0 Locked", st->stf.status0.flags.ch0_locked);
++	scdc_print_flag(m, "Channel 1 Locked", st->stf.status0.flags.ch1_locked);
++	scdc_print_flag(m, "Channel 2 Locked", st->stf.status0.flags.ch2_locked);
++
++	scdc_print_dec(m, "Channel 0 Errors", st->error_count[0]);
++	scdc_print_dec(m, "Channel 1 Errors", st->error_count[1]);
++	scdc_print_dec(m, "Channel 2 Errors", st->error_count[2]);
++
++	return 0;
++
++err_conn_put:
++	drm_connector_put(connector);
++
++	return ret;
++}
++DEFINE_SHOW_ATTRIBUTE(scdc_status);
++
++/**
++ * drm_scdc_debugfs_init - Initialize scdc files in connector debugfs
++ * @connector: pointer to &struct drm_connector to operate on
++ * @root: debugfs &struct dentry for the debugfs root of @connector
++ *
++ * Creates SCDC-related debugfs files for @connector. Must be called after
++ * @root is already created.
++ */
++void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root)
++{
++	struct scdc_debugfs_priv *priv;
++
++	if (!root || !connector)
++		return;
++
++	priv = drmm_kzalloc(connector->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return;
++
++	priv->connector = connector;
++
++	debugfs_create_file("scdc_status", 0444, root, priv, &scdc_status_fops);
++}
++EXPORT_SYMBOL(drm_scdc_debugfs_init);
+diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
+index 34600476a1b9..b597e24a2976 100644
+--- a/include/drm/display/drm_scdc_helper.h
++++ b/include/drm/display/drm_scdc_helper.h
+@@ -30,6 +30,55 @@
+ 
+ struct drm_connector;
+ struct i2c_adapter;
++struct dentry;
++
++struct drm_scdc_status_flags {
++	/* Status Register 0 */
++	union {
++		struct {
++			bool clock_detected : 1;
++			bool ch0_locked : 1;
++			bool ch1_locked : 1;
++			bool ch2_locked : 1;
++			bool rsvd_4 : 1;
++			bool rsvd_5 : 1;
++			bool rsvd_6 : 1;
++			bool rsvd_7 : 1;
++		} flags __packed;
++		u8 data;
++	} status0;
++
++	/* Status Register 1 */
++	union {
++		struct {
++			bool rsvd_0 : 1;
++			bool rsvd_1 : 1;
++			bool rsvd_2 : 1;
++			bool rsvd_3 : 1;
++			bool rsvd_4 : 1;
++			bool rsvd_5 : 1;
++			bool rsvd_6 : 1;
++			bool rsvd_7 : 1;
++		} flags __packed;
++		u8 data;
++	} status1;
++};
++
++struct drm_scdc_state {
++	/** @stf: contents of the status flag registers */
++	struct drm_scdc_status_flags stf;
++	/** @scramling_enabled: true if TMDS scrambling is on */
++	bool scrambling_enabled;
++	/** @scrambling_detected: true if the sink actually detected scrambling */
++	bool scrambling_detected;
++	/**
++	 * @tmds_bclk_x40: true if TMDS bit period is 1/40th of the TMDS
++	 * clock period, false if it's 1/10th of the clock period.
++	 */
++	bool tmds_bclk_x40;
++	/** @error_count: character error counts for each channel */
++	u16 error_count[3];
++};
+ 
+ ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
+ 		      size_t size);
+@@ -77,4 +126,11 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector);
+ bool drm_scdc_set_scrambling(struct drm_connector *connector, bool enable);
+ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector, bool set);
+ 
++int drm_scdc_read_status0_flags(struct drm_connector *connector,
++				struct drm_scdc_status_flags *flags);
++int drm_scdc_read_state(struct drm_connector *connector,
++			struct drm_scdc_state *state);
++int drm_scdc_read_error_counters(struct drm_connector *connector, u16 counter[3]);
++void drm_scdc_debugfs_init(struct drm_connector *connector, struct dentry *root);
++
+ #endif
 
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+-- 
+2.53.0
 
