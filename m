@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B645F42100
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 18:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB5EEF42100
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 18:00:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2681D10E72E;
-	Wed, 15 Apr 2026 18:00:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DD6110E74C;
+	Wed, 15 Apr 2026 18:00:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="dL02vGEU";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Fl8roNM0";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D9D110E72E;
- Wed, 15 Apr 2026 18:00:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776276006; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F85410E73A;
+ Wed, 15 Apr 2026 18:00:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776276010; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=isSt4nV2sbA24BLpgxx8aP50mpocM7khHu8gtlwOU1e72MbAH8deM3nsgr+G00xY/M4uGnvyDBQYb/Pg43TxlINBYYQ8GWHw0KiO0R1IEuCe0uEwSGhlewpxi0ugbVshkMz1hjSvljCCTv43lpFyqZm6EgQ3DKzX0tarhAW/vgc=
+ b=eEt+Y2K1ueU8liDeOfdoYz+iiq2ngj+JzQQj/PpRKsMEmOG6/sfyvFnOTxP8pWSxf7Gc7QwuAsa+mIO4tIFw7vRNXFvTFZf7FJGAqrjq6uBKnsfp/wp61IELY+UxB1s55aNb+3jL8LZTTX9QuLChsTcF98LoAnOJy8KKlJAHf8w=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776276006;
+ s=zohoarc; t=1776276010;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=CJ9S9SYweRejpCw9A46ovCcBNk/A0W+USSJumRpgMy4=; 
- b=EdIV9KLXIMIcDLKa5LadDDzRJ6LWaakNR9cExDI+TKRCi+Pc1a+vkPNagLFdkI+JvPzSU8byaSSy2AFUVffxb+7pxfBq7tR2xgT6qZu4sXKPEbVV79XF+bOadEn9pjH6Pb2DQsjTtDc4xvpyAuEqn1hwyZcOH/n+lMIxrm80zvE=
+ bh=IdcPwzm8ONcc+M8gR9eizacihnA4BnZBM3/FGNqzBko=; 
+ b=aHWIbOT0lhhYApBGajwz3tuBrduR33pz1uKdoBVtlcDLlpBLeI7W7aYwfCsavMP+7aSttB/+yCUm5gjMinMo77uHmQOwNwaWn9F/O4k2hzxI8X/2TDVsYhKa1n98Ivq7wh0UB2AeqPXyfabF9jUljt2SPvWUp7S7A0iwQ1lBE1c=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776276006; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776276010; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=CJ9S9SYweRejpCw9A46ovCcBNk/A0W+USSJumRpgMy4=;
- b=dL02vGEU8p4jD64v4rpPuLCe5jLaP5fRZ1sFqdK2qp+GXeWV+rS1pjkPkMwFoJdA
- IS/8orBl/HmNAJ1e74W1GfJDoEenddV4TE+n413/PWTkpkW2uB7qXvLY9hTmXiJfvtc
- CYeDDLk24KFt5jAr9XUJZQ6/zDoBdbsI2/KsFhBc=
-Received: by mx.zohomail.com with SMTPS id 1776276004760751.849826698265;
- Wed, 15 Apr 2026 11:00:04 -0700 (PDT)
+ bh=IdcPwzm8ONcc+M8gR9eizacihnA4BnZBM3/FGNqzBko=;
+ b=Fl8roNM0tWk5eFzdXu46oWE+FEM9IhGP9MLFp1IgSXflsUG9N2VUaOq7JKzCIc3k
+ vzfD0eeEy3O7BA0VaJbdnraf7GXYeM+2tzNyVpX36p3iBztDu8ws1yEp+3ogT0+hsNA
+ lCFZvDi9aQh4I2rxCKw3oOefuFjifY0vYu0fjEdI=
+Received: by mx.zohomail.com with SMTPS id 1776276009203817.5967290824977;
+ Wed, 15 Apr 2026 11:00:09 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 15 Apr 2026 19:59:39 +0200
-Subject: [PATCH RESEND v7 1/2] drm: Introduce pending_hp to drm_connector
+Date: Wed, 15 Apr 2026 19:59:40 +0200
+Subject: [PATCH RESEND v7 2/2] drm: Send per-connector hotplug events
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260415-hot-plug-passup-v7-1-9a27ef5e2428@collabora.com>
+Message-Id: <20260415-hot-plug-passup-v7-2-9a27ef5e2428@collabora.com>
 References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
 In-Reply-To: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
 To: =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
@@ -79,111 +79,63 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Marius Vlad <marius.vlad@collabora.com>
 
-Introduce a new boolean variable used to track whether a connector has
-changed its status since the last hotplug event for it was sent to
-userspace. It is used by both the polling and HPD path.
+Use the new pending_hp member of drm_connector to always send
+per-connector hotplug events for those connectors that need it, rather
+than sending a global event, or only an event for one connector.
 
-A subsequent change will make use of this new member to propagate
-per-connector udev hotplug events to userspace, rather than sending a
-global hotplug event.
+On the HPD (Hot Plug Detect) path this change notifies all connectors,
+rather than just first changed connector.
+
+The polling path is changed to no longer send a connector-less hotplug
+event, but similarly send a hotplug event for each changed connector.
 
 Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c    |  1 +
- drivers/gpu/drm/drm_probe_helper.c | 17 +++++++++++++++++
- drivers/gpu/drm/drm_sysfs.c        |  2 ++
- include/drm/drm_connector.h        |  3 +++
- 4 files changed, 23 insertions(+)
+ drivers/gpu/drm/drm_probe_helper.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 3fa4d2082cd7..b1abdef6778a 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -274,6 +274,7 @@ static int drm_connector_init_only(struct drm_device *dev,
- 
- 	/* provide ddc symlink in sysfs */
- 	connector->ddc = ddc;
-+	connector->pending_hp = false;
- 
- 	INIT_LIST_HEAD(&connector->head);
- 	INIT_LIST_HEAD(&connector->global_connector_list_entry);
 diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index d4dc8cb45bce..f8cbd6713960 100644
+index f8cbd6713960..5c39f27ada1d 100644
 --- a/drivers/gpu/drm/drm_probe_helper.c
 +++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -732,6 +732,17 @@ EXPORT_SYMBOL(drm_helper_probe_single_connector_modes);
-  */
- void drm_kms_helper_hotplug_event(struct drm_device *dev)
- {
-+	struct drm_connector *connector;
-+	struct drm_connector_list_iter conn_iter;
-+
-+	mutex_lock(&dev->mode_config.mutex);
-+	drm_connector_list_iter_begin(dev, &conn_iter);
-+	drm_for_each_connector_iter(connector, &conn_iter) {
-+		connector->pending_hp = false;
+@@ -860,8 +860,14 @@ static void output_poll_execute(struct work_struct *work)
+ 	mutex_unlock(&dev->mode_config.mutex);
+ 
+ out:
+-	if (changed)
+-		drm_kms_helper_hotplug_event(dev);
++	if (changed) {
++		drm_connector_list_iter_begin(dev, &conn_iter);
++		drm_for_each_connector_iter(connector, &conn_iter) {
++			if (connector->pending_hp)
++				drm_kms_helper_connector_hotplug_event(connector);
++		}
++		drm_connector_list_iter_end(&conn_iter);
 +	}
-+	drm_connector_list_iter_end(&conn_iter);
-+	mutex_unlock(&dev->mode_config.mutex);
-+
- 	drm_sysfs_hotplug_event(dev);
- 	drm_client_dev_hotplug(dev);
- }
-@@ -748,6 +759,10 @@ void drm_kms_helper_connector_hotplug_event(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
  
-+	mutex_lock(&dev->mode_config.mutex);
-+	connector->pending_hp = false;
-+	mutex_unlock(&dev->mode_config.mutex);
-+
- 	drm_sysfs_connector_hotplug_event(connector);
- 	drm_client_dev_hotplug(dev);
- }
-@@ -837,6 +852,7 @@ static void output_poll_execute(struct work_struct *work)
- 				    old_epoch_counter, connector->epoch_counter);
- 
- 			changed = true;
-+			connector->pending_hp = true;
- 		}
- 	}
+ 	if (repoll)
+ 		schedule_delayed_work(delayed_work, DRM_OUTPUT_POLL_PERIOD);
+@@ -1124,10 +1130,16 @@ bool drm_helper_hpd_irq_event(struct drm_device *dev)
  	drm_connector_list_iter_end(&conn_iter);
-@@ -1101,6 +1117,7 @@ bool drm_helper_hpd_irq_event(struct drm_device *dev)
- 				first_changed_connector = connector;
- 			}
+ 	mutex_unlock(&dev->mode_config.mutex);
  
-+			connector->pending_hp = true;
- 			changed++;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
-index ef4e923a8728..47a6b322e873 100644
---- a/drivers/gpu/drm/drm_sysfs.c
-+++ b/drivers/gpu/drm/drm_sysfs.c
-@@ -216,6 +216,8 @@ static ssize_t status_store(struct device *device,
- 			    connector->base.id, connector->name,
- 			    old_force, connector->force);
+-	if (changed == 1)
++	if (changed == 1) {
+ 		drm_kms_helper_connector_hotplug_event(first_changed_connector);
+-	else if (changed > 0)
+-		drm_kms_helper_hotplug_event(dev);
++	} else if (changed > 0) {
++		drm_connector_list_iter_begin(dev, &conn_iter);
++		drm_for_each_connector_iter(connector, &conn_iter) {
++			if (connector->pending_hp)
++				drm_kms_helper_connector_hotplug_event(connector);
++		}
++		drm_connector_list_iter_end(&conn_iter);
++	}
  
-+		connector->pending_hp = true;
-+
- 		connector->funcs->fill_modes(connector,
- 					     dev->mode_config.max_width,
- 					     dev->mode_config.max_height);
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 3e422a4f2e72..70a740301089 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2251,6 +2251,9 @@ struct drm_connector {
- 	/** @force: a DRM_FORCE_<foo> state for forced mode sets */
- 	enum drm_connector_force force;
- 
-+	/** @pending_hp: true if connector changed since last hotplug event */
-+	bool pending_hp;
-+
- 	/**
- 	 * @edid_override: Override EDID set via debugfs.
- 	 *
+ 	if (first_changed_connector)
+ 		drm_connector_put(first_changed_connector);
 
 -- 
 2.53.0
