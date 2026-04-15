@@ -4,146 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEE4EF428F5
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 20:51:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EA7FF428FE
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 21:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D7D10E74E;
-	Wed, 15 Apr 2026 20:51:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B7610E769;
+	Wed, 15 Apr 2026 21:06:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ng5BTxKh";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UaPvDUf9";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oBNjk5jd";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F01A310E74E
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 20:51:31 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63FINCom2772758
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 20:51:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- uQkGrBvY1Q6Phw3ZndsRhOHv20pp4HB0vkTp3Pi0WBs=; b=ng5BTxKh1LnpJvZF
- Dr4EpzBnHj0FodO3QYrpfICS57mZGnKyqpTHGC6imcUxDsLQ4hl9N1Pz9caxfUuJ
- D8sZqGPQvnLloWQjuEqpEBEtRP+alrOBWFMLOzGMO9+wY8MapPJ/f/ODwEE5ILTn
- m5kycPBXjlVj5+YO8VYK8jXHjcaP4Bkk0nQPqr3z2PP560Ymq1GrTlwwtIp1L+Mn
- BaidGiNlV1qj41Tpi/TOGrjk475/bUZVgu1U97u8kVGryeiGnkVggF+y+z6OQy4S
- X0cLpm5RESI3oz2TDib+P3BGgS9ZAEqKdVW/HcI0dTZHrvHUIbGsh6CGZLv3Wk3d
- tGtGVg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dj50v33n8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 20:51:30 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-35842aa350fso13606488a91.0
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 13:51:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776286290; x=1776891090;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=uQkGrBvY1Q6Phw3ZndsRhOHv20pp4HB0vkTp3Pi0WBs=;
- b=UaPvDUf923rvj3WPI3Yuc7Yrd87v2TpupDXWpS05GgCb379b7lHNOJo9Ur2S6aJIJZ
- hpbwaYpDXuv6quZrzq6e2fHOSApz/Hw2muT7WVeGy5NpW1f9SUGR+i1TKupMWx7Q4r6f
- 55TwXWkpCob7i9a2FvD3oaZ7y/0G1Bz2FpmbSRRZHjOFvCY9J58QZhmzaS9vrgbhEgEc
- nJKIgDJ30Gzc2TeneS0PNV0157ePYxBm247Qr8v6T52q+8Ojib0vZDjXe2YYr6Makxif
- o/BC8d5ZX5mvd8XMd0Mn4f4tmDoDMGpWde7JvCbCPESLS+2FpDHv9lxVPn1/1rP2OwLK
- xNwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776286290; x=1776891090;
- h=content-transfer-encoding:in-reply-to:content-language:from
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=uQkGrBvY1Q6Phw3ZndsRhOHv20pp4HB0vkTp3Pi0WBs=;
- b=qeemHf4OQyW00OAv9NxebP7WMp+NXIAqrCMmwKI3Lccp71ahlofhrA4K/ri0IQEi0V
- LHjAvQDJUtZJ0e/Jant75587oSCYz5SR6rM1IpicTjdV5sBJUAwPo46n3Wi/ogksrAx7
- DWdO7ZR4khyKQzvSSkn+jWpcXBgf9jQ3sf9C+VSxDGWJdfvQoVUAfxQoZdeNuFSD3NDF
- duPivSbnVhxCtNJnYOa4PIGEW20w6aiO0nEAQvtlmX8plI00rhCECk0Cgbcu7aWxTMO2
- m3cKBBCCnPCX60NWkLE2i7HOwJOhB1wTqlSU21x2TzWJflln0bQNIJxwakt8Y+65UQ5K
- ZTaw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/0pQBdjv1S4w3KYaC2bVv7+11+j/zgAc0SIRevrQ6cJ2zLWMvCEcLr3ssWnHdeDI4ESRe7h1AzrQQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPjW8+7k3HU4+QoR4fXdxoYHf0rz4HlI/47ZvB8a2se+Z6lULI
- s/5pAFVsM2UQ3lRUaeM7A1zdS9pkj2ecx1ID5lIbDBBYuNJegSOlY+eB+au2L5lx56HfCtjRyYU
- /hbfqsELOoDFHp6t0Bbhh906B9lDF02Ipc3g5mMtTDuQatDe1S3lXyrGAXcExP9cz7lcysrs=
-X-Gm-Gg: AeBDiesYwX9w+dDwnCIbZQ7U3ILycZrtvFkYDMu7AJYXWP6+Mj9S+cju+U+NloUDzpQ
- qcQGrVBE2W1nUeWkALWEdtBcKvGfbHIITto4d1SzqJ8ie4r1eQqp2xB1xp75zEQd++WuOdAoBZM
- nPbPDnALmlul6Agr9kiJSpTUTIV+xyWdv7ye9KL+xzIcmxmLHdqTF0TVl34on1PPu3rNnYkA2h7
- vrUPpEHexYxf70O0u2gSxoU1TjsC2+h5/KEhY3wn3f4ARTRWI3BNRLNlkgEMlrc4x9brDRLSMDn
- wmA+QBqTrm1mflan1N2H6V6BYYCse5rOBpzhx2qDJI5JK6l579/IqJmD4l3OPNsMUGOhQJmdCXG
- hTtN5yZ0kmCzNBYLAIv1P19mtezGLrA43+cY0JSDwMbBVmrWJX6FPvNw=
-X-Received: by 2002:a05:6a20:a111:b0:398:89b6:1b41 with SMTP id
- adf61e73a8af0-39fe3f5a009mr26877740637.32.1776286290209; 
- Wed, 15 Apr 2026 13:51:30 -0700 (PDT)
-X-Received: by 2002:a05:6a20:a111:b0:398:89b6:1b41 with SMTP id
- adf61e73a8af0-39fe3f5a009mr26877711637.32.1776286289726; 
- Wed, 15 Apr 2026 13:51:29 -0700 (PDT)
-Received: from [10.206.103.12] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c79581a3015sm2487185a12.16.2026.04.15.13.51.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Apr 2026 13:51:28 -0700 (PDT)
-Message-ID: <a7cbd382-49ec-4b3c-b8f9-b47646d6b0aa@oss.qualcomm.com>
-Date: Thu, 16 Apr 2026 02:21:20 +0530
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012033.outbound.protection.outlook.com [52.101.48.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAC8910E767;
+ Wed, 15 Apr 2026 21:06:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KFT3PBHbp5jnvy6VgVNm6cP818//kyZF7XCqONeHapAz/tLrsZCYNScZRSKNNsmUsj1nZpogRrrOIw3SVFc0+OSJog01LGMTIUzm95nbwj8a/SMTTJdH/2tEuSWzupgMxusWf5ZGBTpIhVUep/SiL3GsxeQc0HWSQfR3gB8PXv+Q/IudJmKREbvRp2eXi1JjdQepQjlUvym4DHGcw7sXVv9pf6bqMge2CB+bblZSis7JbD9cmWr5CQngpHOkq0hHOumgAtgdale6oSiqS+l+B8bz7vLifU3uYeXmBQRsiAyN5rmY5z0elIiu+btrN5+wy6w6vO21kvm7kJ2jqZ+tfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jbkv6deyFA8VUp/Xclb3wW4+57BApH83wi0d4//6qI0=;
+ b=wBVOxhm5vm2LBfknm3cDMv0RrDz+9YPGxsdDfYYooWBHa1fbHA0g7DWSZVXVa/X8cs/a6DHhPzPXtmKliqFwZjK16ZlFLyyebMk6bUPntZ2dhIVURpDHk3mxf5GyB0CaAuT385Gqmqy6F1HXjsrsnTde8fsJeDiRWi0lEw/ngl/A9v7V7Spj2WRo4LD52egCLwj0S9Zf9VkzG/QFZrq3L26AbrNoHJ6sMMYVNFtd/AjC2pTlkMnJ/eRwKgveUYPWpdhbGKqUSkmcy8dn4cUEu2NE7uw63fAmra6vGo8PMKF9sq8JtH3YKWVNPL/c45H7OXsJYR8KGp+chR5YQ7WMeA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jbkv6deyFA8VUp/Xclb3wW4+57BApH83wi0d4//6qI0=;
+ b=oBNjk5jdM0Asl1r198i8FzYT50vDIdV+waHFjgPxzAGd2CuDrm23SmayD3HZpygT6QSUxk/fAjOJn7iCJvq4gZjIJSqRy9GyFpos4x0Zfv3hS06iuGHVMOqwJJA2S27KARZ23Gl/e9ZbjDpSgy+EHQER5V1KXSx33f9nwlNf1AfFCLBjnU0qraTCcRuQ01IJe4IPFGxNCyHPRYDqLKwccoTTifKe7vh2e/S2kcqnsc5F+zlPL9ceHpwrYzzTwRTkZj/7dt3Q0mE7DxkrS854tKm3ds1GezBSaypeeEBRT9Gmly6IpOPhzv8qyaKNjcbPpAAVY2z2bVmYQPAoXB1c5g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ SA3PR12MB9177.namprd12.prod.outlook.com (2603:10b6:806:39d::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9818.20; Wed, 15 Apr 2026 21:06:00 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Wed, 15 Apr 2026
+ 21:06:00 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v11 02/20] gpu: nova-core: gsp: Extract usable FB region from
+ GSP
+Date: Wed, 15 Apr 2026 17:05:29 -0400
+Message-Id: <20260415210548.3776595-2-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260415210548.3776595-1-joelagnelf@nvidia.com>
+References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CY8PR11CA0044.namprd11.prod.outlook.com
+ (2603:10b6:930:4a::9) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] drm/msm/a6xx: Limit GXPD votes to recovery in A8x
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
- <20260407-gfx-clk-fixes-v1-6-4bb5583a5054@oss.qualcomm.com>
- <8f5ffecc-007e-4a8a-9c5e-9994e7841659@oss.qualcomm.com>
- <df708bd9-466a-4526-ba74-548896b45e74@oss.qualcomm.com>
- <eebff16b-2671-4c7f-9930-dc4b3fa903e1@oss.qualcomm.com>
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <eebff16b-2671-4c7f-9930-dc4b3fa903e1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: L_cysYkduPfByqPKotbUrwGMOlI1RuSA
-X-Authority-Analysis: v=2.4 cv=eLMjSnp1 c=1 sm=1 tr=0 ts=69dffa52 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=tjBgj1cQHot02RtnpFkA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDE5NSBTYWx0ZWRfX8UFzG06+Ys2u
- kruuL8fWCHfDLoHe8VqXlJPNn9nXaai0bgLlh8NvKPFSbdRqlY2jis6xMmnmka3XTdRexqycmba
- 2ghN1PdwiVIAiFWCqsN2yaUszODoxZ3J/EWQ6K17gEO08yiROzYZeZ/kmLXbCzVippdxdoiAfZ8
- 583VVYbyax/OBoPAueR9+MhXaAZ6inEgWUUzAo8UMvDzii6vH/HfBOEFZb4shfdga0mXjdtR6Ys
- HNiaZgx7+sq21F5H5+ARF5WGUAVZjExZ7ugtsKcQ6O05GctG/e0J1m74+zs+fv6BREip/ABf/j4
- lRv4cjKVKZ7uw09suP1SG27Mis/id8xOe43Rgo1yH+Iql0yUXPGOR2W1cWkdeyJ/8YBs0mttytt
- ecXr5dcXCJ682INq5OQn+u/ICec/rO/priIkYqne55qD1lfhg/jN2rDmmMiV6Xqohl2qPNpHp+9
- LgoKW6tNYvtKcaVWUIg==
-X-Proofpoint-ORIG-GUID: L_cysYkduPfByqPKotbUrwGMOlI1RuSA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-15_01,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0 impostorscore=0
- suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150195
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA3PR12MB9177:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8258ee3e-c01b-4b34-26c6-08de9b32cb94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: jM9LYpE0i9Qnj8tCdeC9y0FLUocCEt3Zn9frXqPtATy86DmOaJOtAFAqvlO0Il2UPXR43Uxf0KQQeTJkCbt8qDvuKKAj9gzcYB1ws+MtKy9Y62l3cFc8LqTPzHwmpGZVT6UXqzlLTBxPJhOBY+3eTUhb6UDlzHuz9YMaasMkhAm9ftedn5H7EXunh3XBKacmK5kdW18WowU1x7uCdXT8g2QksgHKdRU6JM3EDI0YlBMOZTHW0kArA8Ytwu/ROGCloPnaTiWN2tT976ucT8LN3RqbCkLGo9qGm4SHfV6MYf5vUx59g4QI1vGaQMy1y3D8jOPa8UBlUNscEg4tyBMiwFwKMkc/UsqXothHYt2Q07+cMQ/mepD+Utac9TjvrxCcLNPQ15zyTYZithg7vF94qCIhVXTK9e5NiK/Km0xsF+umXrqJ1+wE6N0nkM1fnWjqYwAQASO1nZXAPJaqzrWO45ncPyJTT6hDC2ShJS4peAQO//xKmuZOZVzU0s3utHXybPsaYYiYLGUwq3KYydgThEXrCJRfVYXZ6IIUDQLbmlJUOXlF10jqt8kJHJiZ6CYKpw3GO4Bk5MrZiJ5hOt6D24uusDEaKLr9/4qnotWJBPlfnvCikMJ6YBx2usi90qBjisJXRs+ikHHsgqApOw3F7D1Zvw+pKHCK6WVPlJuCrNvXYHsbtfX9OWpuDHYuh3+BoesvsvWWx3akPVM6IqdTlfeCJtE2/gy6x15Az6fYu2I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ge+cRBzYXWV7tVuWdmdyOfnpokxUbPGRGtSQ0ovO75VoT+VqMjzcCnfbcHPE?=
+ =?us-ascii?Q?tmvFd4f0IwoYq5bUSnzqJ4ETk/3gcUs95o8X7R6pziGQvbnrJ/K3vUWMhWI3?=
+ =?us-ascii?Q?1VbjhQosd/kmpL9Hcu0wRNlj9wcRWuIGOWj1o4sdQRroWqs397nhQ3i9Tfyn?=
+ =?us-ascii?Q?+i3LLLv/Q7S3MGCHLnjEff3T2ja0w4wac2PTc/7OhlsvCCAaTw67zbHwUlRc?=
+ =?us-ascii?Q?e/NDsmsLO8jUjNYH5qEmNRx9GYtrl8/Rt2LPoq3pxT8u7yvZ6XvZBYJJPEze?=
+ =?us-ascii?Q?RWqiQeRik27NNqwjxocskEVZgnSf0t8trHYIGbhC9f7sY5Y1uFwjuMZDjK0S?=
+ =?us-ascii?Q?4W5/HBJ5W0FbfXIBSdeAJz7QiLGflvbR5cIj2RCv01/jazhIlUoCMHAgrm/h?=
+ =?us-ascii?Q?eQD24ZJq+CIK6jiV92DM9sofAlQq0jmLBpFA53ngqL4do1Xu9cu/mV2hekHw?=
+ =?us-ascii?Q?9mA9w5rxZFed+h+VXY3zaFhp4xuGNuLTX0tDLQmEvDohrduW1j9dT+BgcG8a?=
+ =?us-ascii?Q?flGY8ydBF/XJOIew9eEOIVV9VAVndzNmhVIVWtnEdO/Z/Wmxqge4H7jXK4yr?=
+ =?us-ascii?Q?OCdbvqBabGlncdyzSYw8efnfoAXCeakIOgiaqGkmfM5oLSjur0Qk2ivCJfK3?=
+ =?us-ascii?Q?2+VBrS63j5I7m8G1zgVLN4Vqgw6zq73VMu9p4QNcBY5+d5rrZ1XcCcBRZWtA?=
+ =?us-ascii?Q?5vqRFOZPsFkydi/GKE3Q714oRaJneXDMXgZah+ZNGWS7NyFnmsgLxlMeI0C4?=
+ =?us-ascii?Q?8Zb1Dg3KE/MFQvyYFMHgh0tCsFFBd98vsP7iuRhiqsPTqxKu1lvD12aQs/Iw?=
+ =?us-ascii?Q?CRTS5v7fsrQZRQL/fLE/Yw6tjwslWzRgkPc4fG2gEJxAUkEMkt3qWAR3FfkD?=
+ =?us-ascii?Q?mNqxaD6jSKJP+2DH0n1Cv9laPqzqGnF7DufiPY5uhoJpV0vWzc9OauTO5aNZ?=
+ =?us-ascii?Q?OSrdlZE8EaSsx1s1KkWh5eK7Uq5ST6fitCkl7TXd8PD3ttz0AKNocbM1UfVO?=
+ =?us-ascii?Q?uG9tcpPzfX3EkLh+l4V/rGv63+TqhJg6TSNodXWwPVDh5qKIjppL6EzFso68?=
+ =?us-ascii?Q?iVM37ln1OYfCKhZuCiyRj4GsRZXbrSRXPpXPq695Fe7D+ilpth4pqk4bi8CC?=
+ =?us-ascii?Q?6VcxSVgyh5TnOlv0pL81X7ECmPwc8EMaEIGuTV0T5sLpA7m+ckHCc7ETSM67?=
+ =?us-ascii?Q?DSekpaEClhTyDwlpqT7bMSYkygbWBBibGhXei5g99hJ3j5XNzEXcO5XGW5Rj?=
+ =?us-ascii?Q?DoT3exAb5oHDX5B9IZGZezax3ob8zOw7Kb+x0IwuGE7IBdLuvSoEr7W1KHYF?=
+ =?us-ascii?Q?CsMno3wSWrrBxnBoZjodDuSq4DJVWFfwZ7qT1b8RFcTNanBLCp7wt19bFDq+?=
+ =?us-ascii?Q?oZYN9VThKTqjVVeaGoXr6md/B3SEbkp5UB/T1BpTNVY3nMf6g8hYFBO3+JuD?=
+ =?us-ascii?Q?BRyDQ9A2wYl6hQHLnlD6zf1q+AHoqt3VS+v/uBTCKXYkMOZsKOsGI0HAmwj9?=
+ =?us-ascii?Q?QKIuc2rTqhZ1G33Epl7tUAgzcUdnz7y37rwyVOVWroszmH/E7IGNIUDJyWXR?=
+ =?us-ascii?Q?SzfTiDFshq9pNOzTSKgjWWEBUk2rxw013ur2NWX491u971NpQchyGxP1TxqH?=
+ =?us-ascii?Q?dTv6oaassbHq+TPPv055AJJRzCzjOXG9NuLu8CEY/AzYCO8xdIy7OHMfUDm2?=
+ =?us-ascii?Q?poh0F/Ag33QI16yQShyybzSI/Zz4/NV3vEQHM2ja0Rnsm/Qg1R2S9Q8r/8M4?=
+ =?us-ascii?Q?/MQ1t/pw3A=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8258ee3e-c01b-4b34-26c6-08de9b32cb94
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 21:06:00.1604 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: psGvM8rP1ASf7WhwvuCzKj2oLW7dtzNO/YJ9ipMCYEkMW57hB+ybqxfwyQg35AS0EgIEM0vF9ptiDAOpCoE5xA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9177
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,57 +158,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/14/2026 7:58 PM, Konrad Dybcio wrote:
-> On 4/7/26 9:16 PM, Akhil P Oommen wrote:
->> On 4/7/2026 4:31 PM, Konrad Dybcio wrote:
->>> On 4/7/26 11:30 AM, Taniya Das wrote:
->>>> From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>>
->>>> In A8x GPUs, the GX GDSC is moved to a separate block called GXCLKCTL
->>>> which is under the GX power domain. Due to the way the support for this
->>>> block is implemented in its driver, pm_runtime votes result in a vote on
->>>> GX/GMxC/MxC rails from the APPS RSC. This is against the Adreno
->>>> architecture which require GMU to be the sole voter of these collapsible
->>>> rails on behalf of GPU, except during the GPU/GMU recovery.
->>>>
->>>> To align with this architectural requirement and to realize the power
->>>> benefits of the IFPC feature, remove the GXPD votes during gmu resume
->>>> and suspend. And during the recovery sequence, enable/disable the GXPD
->>>> along with the 'synced_poweroff' genpd hint to force collapse this GDSC.
->>>>
->>>> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
->>>> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
->>>> ---
->>>
->>> Can we simply make this change unconditional on the gen, so as not to
->>> maintain 2 separate code paths that try to achieve mostly the same thing?
->>
->> We can skip the gdsc vote on A8x because the 'gdsc disable' callback is
->> dummy when the synced_poweroff hint is not set. Otherwise, gdsc may get
->> disabled during system resume while GMU assumes the ownership. Taniya
->> touched upon this point in the cover letter:
->>
->> """
->> when GX GDSC is managed through the generic GenPD runtime PM
->> framework, it can be unintentionally disabled by the OS during system
->> resume (resume_noirq/complete phases) or runtime PM suspend paths.
->> """
-> 
-> Right, but if we made the GDSC.disable() a dummy on all platforms this
-> could be done.
-> 
-> On a second thought though, this won't work for gmu_wrapper, so we'd
-> need two paths either way.
+Add first_usable_fb_region() to GspStaticConfigInfo to extract the first
+usable FB region from GSP's fbRegionInfoParams. Usable regions are those
+that are not reserved or protected.
 
-gmu_wrapper uses a different code path for pm_resume/suspend anyway. So,
-that is not a problem.
+The extracted region is stored in GetGspStaticInfoReply and exposed as
+usable_fb_region field for use by the memory subsystem.
 
-Perhaps, we can explore this separately as it would impact a lot of
-chipsets. I would like the get this series merged ASAP to unblock A8x
-support.
+Cc: Nikola Djukic <ndjukic@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ drivers/gpu/nova-core/gsp/commands.rs    | 11 ++++--
+ drivers/gpu/nova-core/gsp/fw/commands.rs | 45 +++++++++++++++++++++++-
+ 2 files changed, 52 insertions(+), 4 deletions(-)
 
--Akhil.
-
-> 
-> Konrad
+diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
+index c89c7b57a751..d18abd8b5f04 100644
+--- a/drivers/gpu/nova-core/gsp/commands.rs
++++ b/drivers/gpu/nova-core/gsp/commands.rs
+@@ -4,6 +4,7 @@
+     array,
+     convert::Infallible,
+     ffi::FromBytesUntilNulError,
++    ops::Range,
+     str::Utf8Error, //
+ };
+ 
+@@ -189,15 +190,18 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+     }
+ }
+ 
+-/// The reply from the GSP to the [`GetGspInfo`] command.
++/// The reply from the GSP to the [`GetGspStaticInfo`] command.
+ pub(crate) struct GetGspStaticInfoReply {
+     gpu_name: [u8; 64],
++    /// Usable FB (VRAM) region for driver memory allocation.
++    #[expect(dead_code)]
++    pub(crate) usable_fb_region: Range<u64>,
+ }
+ 
+ impl MessageFromGsp for GetGspStaticInfoReply {
+     const FUNCTION: MsgFunction = MsgFunction::GetGspStaticInfo;
+     type Message = GspStaticConfigInfo;
+-    type InitError = Infallible;
++    type InitError = Error;
+ 
+     fn read(
+         msg: &Self::Message,
+@@ -205,6 +209,7 @@ fn read(
+     ) -> Result<Self, Self::InitError> {
+         Ok(GetGspStaticInfoReply {
+             gpu_name: msg.gpu_name_str(),
++            usable_fb_region: msg.first_usable_fb_region().ok_or(ENODEV)?,
+         })
+     }
+ }
+@@ -233,7 +238,7 @@ pub(crate) fn gpu_name(&self) -> core::result::Result<&str, GpuNameError> {
+     }
+ }
+ 
+-/// Send the [`GetGspInfo`] command and awaits for its reply.
++/// Send the [`GetGspStaticInfo`] command and awaits for its reply.
+ pub(crate) fn get_gsp_info(cmdq: &Cmdq, bar: &Bar0) -> Result<GetGspStaticInfoReply> {
+     cmdq.send_command(bar, GetGspStaticInfo)
+ }
+diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
+index db46276430be..3d5180e6b1e0 100644
+--- a/drivers/gpu/nova-core/gsp/fw/commands.rs
++++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
++use core::ops::Range;
++
+ use kernel::{
+     device,
+     pci,
+@@ -10,7 +12,10 @@
+     }, //
+ };
+ 
+-use crate::gsp::GSP_PAGE_SIZE;
++use crate::{
++    gsp::GSP_PAGE_SIZE,
++    num::IntoSafeCast, //
++};
+ 
+ use super::bindings;
+ 
+@@ -121,6 +126,44 @@ impl GspStaticConfigInfo {
+     pub(crate) fn gpu_name_str(&self) -> [u8; 64] {
+         self.0.gpuNameString
+     }
++
++    /// Returns an iterator over valid FB regions from GSP firmware data.
++    fn fb_regions(
++        &self,
++    ) -> impl Iterator<Item = &bindings::NV2080_CTRL_CMD_FB_GET_FB_REGION_FB_REGION_INFO> {
++        let fb_info = &self.0.fbRegionInfoParams;
++        fb_info
++            .fbRegion
++            .iter()
++            .take(fb_info.numFBRegions.into_safe_cast())
++            .filter(|reg| reg.limit >= reg.base)
++    }
++
++    /// Extracts the first usable FB region from GSP firmware data.
++    ///
++    /// Returns the first region suitable for driver memory allocation as a [`Range<u64>`].
++    /// Usable regions are those that satisfy all the following properties:
++    /// - Are not reserved for firmware internal use.
++    /// - Are not protected (hardware-enforced access restrictions).
++    /// - Support compression (can use GPU memory compression for bandwidth).
++    /// - Support ISO (isochronous memory for display requiring guaranteed bandwidth).
++    ///
++    /// TODO: Multiple discontinuous usable regions of RAM are possible in
++    /// special cases. We need to support it (to also match Nouveau's behavior).
++    pub(crate) fn first_usable_fb_region(&self) -> Option<Range<u64>> {
++        self.fb_regions().find_map(|reg| {
++            // Filter: not reserved, not protected, supports compression and ISO.
++            if reg.reserved == 0
++                && reg.bProtected == 0
++                && reg.supportCompressed != 0
++                && reg.supportISO != 0
++            {
++                reg.limit.checked_add(1).map(|end| reg.base..end)
++            } else {
++                None
++            }
++        })
++    }
+ }
+ 
+ // SAFETY: Padding is explicit and will not contain uninitialized data.
+-- 
+2.34.1
 
