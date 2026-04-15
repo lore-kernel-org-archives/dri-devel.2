@@ -4,125 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C851CF428D0
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 20:10:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87245F428E3
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 20:24:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 234A589954;
-	Wed, 15 Apr 2026 20:10:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4BF610E749;
+	Wed, 15 Apr 2026 20:24:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0U+y9T9H";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oQ+FlXBZ";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010047.outbound.protection.outlook.com [52.101.85.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D425789954
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 20:10:18 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013008.outbound.protection.outlook.com
+ [40.93.201.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ABCC10E1A5;
+ Wed, 15 Apr 2026 20:24:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kD0SUefiwPE3Z0Wz82h4GQYPDRvxj2KCX8ha4BxsLiY76ouDeealE2QY/D00gKGANCE33VX2dlJoPZ6FFURojot6yco0vmG/D+gaupC1zOwEUWih8/iYjRPLNsJRN9zInm9g/IgaRx+3orSlp+R+By8u7KBddQthMyydkCzkUhm+LbONHnlJEnxAZTXU9fLf5vMuHENoIrpK4EaX5EcIFCCERe4pRRGZyU2gQzxu/e6Dxk2oMe9TUf0Aq7DUXS3BaLkQI0dl1njDrYPaKI4gR/u4eiqNNodC0/x8+XYqCRQagpjONKcZoEjfr8/grXFUl0lxmHudOdkRfG0H00Viqw==
+ b=yvKTiWxWvtN2GqpvOsMfdF9w6t6ll8MozRFfiF+9UsdQAQZIhcZgQXqFDyLvyslm+xBFgcvbT0G/6Of8Wgs1OfXL9PLxW8Ou4m9GDF8idXER0ZmudLGnPZwSXMT3BOOpU15i+DHlNSY1vhVyma6S/jX6LsRGR9k41CBR56dzqM+9q6u0k/FLSmGiJUfGLKdJu5Z8A2YmKMGS4NFfGcQWZ+kHpWs8qcfFITaW9h3bxf++Cz1Cucppzu7ncQ69oL3BUcOvMheC56ZNE/lDuh4ZDTWpYxLEkAyPI+vhgqNbRb2gcLrD98j9/s4uKnt4qwiGR3NJrDs5I4A4G/9YhsL5SA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j0Bt0gNOePNorLAwDqSanw4XjhQhGG3XYh0S9VGjyuU=;
- b=XvWfX7mGOM+hnCV1QY+6BzIynOHqJgm0I5t7+p5HaqB5atb4CfVPkfc5m8ebi6crDVFiT0mZMAOyCXsOABCtqJzsUsP26o9wG0Ox2IOPieOzSiXXURjOQvJVbb5gACqG/Fjlr4MSci0gqnBEdTtAqJ22eqYW2oXAdk6ZSizIxQjgiKDv/REDPgWVQcBqB3T0pDlMSs9aY+t7XQ7ZCFFvhisy4NmWEgO2JvYc/tDvBJHs3AogNPJ8tsN2NyjioWMP+ok+7pbDIggjx4ylhSutfEh5m1igXvk9KrR703hf17bEJDfMYTtfOUCywPxImUkSMIGcsheqUKgHCYljz1xpmQ==
+ bh=8je6p7zPaNHtFPeoTbEBQmkecXTx+FEXZTCvMp0In+E=;
+ b=gK3sJS74tVWrwWPW0ZCpXLniC5lDLnCjvYARYCTErDqBmXfkC0g4kXXjCuBcLqu6LD3HKD0nc3+Z0c7K7Vo4C1lEp/5uYe54L3/EbpezsGxNfDYk/U2t3jxCQrYqpOIIYLuDqpkpiiNB7Lhd4OFdJQiFN4SkHU+cLSZBoHc84JN+xCLII/CYjLD301FYXOhkg7nCLfgM3ZWwkt29heADtGVPDDQoFlfmkeCS3gaISprPpZ/GH9YnA8xDSyL89ZlrCaDZ33bECF64cJ54ye1VQgUL37Aschne3LtxrGBGzRpaj21w+XtWqsLIa1ZkQBbJdrYRKcQCk6TNIsJwtpNy4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j0Bt0gNOePNorLAwDqSanw4XjhQhGG3XYh0S9VGjyuU=;
- b=0U+y9T9HDysDN7cQhpsC9eiSdi280lJgjOG0T7Uq/tK9+ueEi4G9DUx4mIuVdhbU+sVuxb4v61HDsMog8fS7zx6vz+OmKfxd6DGe91nXPEv//BxACV7zV6wGZaD1YVBgZ4iCoPTXaZQL3urIYjM7l6rGjFcCdPpqqzLhHJ+1qAU=
+ bh=8je6p7zPaNHtFPeoTbEBQmkecXTx+FEXZTCvMp0In+E=;
+ b=oQ+FlXBZXqyMviY1f7J6eKkvzO92rylaP9TXt3pKC9Z79iVFPjKpAw6K6QleVYW/Qz0ctNQjf7jGYa9XoLHRD0ko5wRNcedrokxyApae32m0fHmvokPh4P3f6pk93AIfUXzGH69LPeqD0lGt3TMaY2fG7TyV06aY7kAo2fXJomqUQv91EECYhfRE4hhB3ngxC8TjTj6WHoJ/Qa4R4MEL81SyC0jlZtAlcYkNeYiw6q1h0D+9tqMeuh7hgmjzT5+CCgQIXHuzrjv7btA0Yk0QeDrGWx1PussAqKBhqdJ6JEvkPGzFJ/PxCBzO/VD96X/k2u/6QcSODBlPMDzToUvcrw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by CY5PR12MB6645.namprd12.prod.outlook.com (2603:10b6:930:42::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 20:10:12 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9818.017; Wed, 15 Apr 2026
- 20:10:11 +0000
-Message-ID: <ba510c73-b487-4c97-bf1c-3ae1823c0d79@amd.com>
-Date: Wed, 15 Apr 2026 15:10:09 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2] accel/amdxdna: Add hardware scheduler time quantum
- support
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com
-Cc: Max Zhen <max.zhen@amd.com>, linux-kernel@vger.kernel.org,
- sonal.santan@amd.com
-References: <20260415171139.904947-1-lizhi.hou@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260415171139.904947-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0227.namprd04.prod.outlook.com
- (2603:10b6:806:127::22) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ DM4PR12MB6208.namprd12.prod.outlook.com (2603:10b6:8:a5::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9818.20; Wed, 15 Apr 2026 20:23:48 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Wed, 15 Apr 2026
+ 20:23:48 +0000
+Date: Wed, 15 Apr 2026 16:23:46 -0400
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ joel@joelfernandes.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v10 21/21] gpu: nova-core: Use runtime BAR1 size instead
+ of hardcoded 256MB
+Message-ID: <20260415202346.GA3214126@joelbox2>
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-1-joelagnelf@nvidia.com>
+ <20260331212048.2229260-22-joelagnelf@nvidia.com>
+ <DHIFPXAGCWU7.300NRYPR06KDG@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DHIFPXAGCWU7.300NRYPR06KDG@nvidia.com>
+X-ClientProxiedBy: BL1P221CA0040.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:5b5::15) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|CY5PR12MB6645:EE_
-X-MS-Office365-Filtering-Correlation-Id: dab66073-1d02-4030-56ec-08de9b2affa1
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DM4PR12MB6208:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4672f9f8-80dc-4fe3-3425-08de9b2ce679
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: HuS0hsrJ28rpJsZCyIQwoSbATCwXkjm+4cvCgXtQPUAT0101T126+rOtf0EtEZnerguf/155jYpbG91uv1katQmKF12P95d5iwDX9F0womyLnH8S8GjFa7dCirGggN5OfU5d9sbxCSBYF+u9QBiA/3A+TaqcvQTTSaF4nPzc4Jh3dO6wFZhiPSO6QVH19Fpf2VPMF/GZHrqz2PFWNRxhzZ93tJT9zybtneUqo7mwhn66StTlAn+Bd41n1lSVuily4XegLUL2Fj76b/EQ2puvvyeNVXGYfhqj2fjEoFUQcHvtjyyreruzVVMLYKc+FQGt82gM6osTFDTyQd6R7txYMs3R3W1bdVho3EwBkkVgSuac2jz/qfD1J/ppwONO7vBCo5vuwm9UStzECCHxL+JjRkAAPAbVLC8LANAlvSMrYnLaTI+tA4lbHjcAPI+Bj8Tcyf+O/T1iifyfvslSZEQZZm1m1xixSI+98qxxdEUCaCfXckhihpE7PhviZb7HwI1ZnFn3keZV6mIXFBIa46qkas6uy6VShLZxNK2YZ7PbsjXn9o3/g1ANAAIWaUl8Roq7cYG0qEJG9nHRvN0CmtURL3UlXSu8Umq2seq0G5ALojFB9O5N4ipShAeckng2RUkZV5QyqUGg7CR9sm/I1CHDB2Uh0cKpPFCP4lHae4TJVGbdUZSZc0JCPM/UTKiXL6S3/eATt9cOD5AxC7O/2jewvWtSuExLSubRPsvoC1a2jxw=
+ ARA:13230040|1800799024|366016|7416014|376014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 5x9bbklJd3/twgRYQHWLqvno4KaVhdIgLQ7tfAxLSUnm2drlffx4F9g8O1LP6KYk4slAPKmddRT4obmggGbUEC0AUpPhBbIh5IUsDHq2MMpLR65ySeU5zzsi2bslr/kbN6t+kOpEhceHgUhgOznSxf+KT4y/GgYZlsMxIZVm48rYCG1pHW8ulgweXeMkX3V5BUnA9DV1gtm3y+7omolYe73QVJeoX0vsgUUr2TQcYcAH+SfosCJB1lEpBz/6kp1udOme2nKkFlXZkmhGLrzDHYS1uoXpAp5jY2O4eHFIEMw9lbn+msGm9kiIoiY6eXqkzxYZ/z4wBXeO6/PRM+SlI0yhEQbzwOdgWHXU0EuwSK31AI9qxuwbBLhhMhYiBLSzbBvwiGQVBsibgeL5jgZxDWCyJB+Lx1P98Rq4K3QTayxmEm67Ry/sZMea/L7nmdDIHRw9SAcKY5jDEkYsUtRwjn7GlNI4XbXO/rceSta4ntSd6QwsP7NEcK1FslKasC1eYfxcjNph/J3h82C7T1rZOqqm7haiA79E5sgBhajbNtxCwQ6lXiVzLt6gHfuPwZr8IbbpjdnPxa4GTbmBExIP3JX3PlsdEPRgZkZO8tC2e2kJ5x2e1yU8wmphv3kmFmPpXWizCAEKKlDw0F9ZtorCQ3tpNeY8VXtnrKbVIfKK2o+dnfmZeZY8X5scKFNeYuRZiIsPtYcJ9+tymPpnhRp5ukDmgr5iKWeUHnyyguSbKIM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUNjUlpJSTducnNvTWtRR0Rna3F2Sk9ROHJRQVdNS0xBRFBXVjdJc2FWWDQy?=
- =?utf-8?B?TmRLYm9MRlVyYTBNT1VqMkFxS3NRQW9tYjFwRXFyMnR3ZVlGVEpJNjI5M1Ez?=
- =?utf-8?B?OWM0a1JUb3ZKbUIrUGVBT3l3SkJySUdreUJvZzBWcGo0TFVVYmFyOG1XNGls?=
- =?utf-8?B?MDc0UXFoYnNHYWhFMmpYK0FZVWczQkdWdnViRzlOUnA4RjBOVGhaZ0dYNnFG?=
- =?utf-8?B?a1pmOVZvQmIyZno1OFZhdCtYUjRsRnphNmw2bTRub3VNTTVuVFJzUWhuSUJy?=
- =?utf-8?B?T3hyQWVQVUF1cEdmVU5iUHpKd25oNmEvRnllUXE1VStYOCtZZkFwMmFkdzYv?=
- =?utf-8?B?QkxFeGYyNzBnZzRqeTZXQkM1WmxJOHNhUEUxQmxQUHBKR2dFa3lmZlREdDlu?=
- =?utf-8?B?SkRqdE5UeXZSNmIrd0NBeU4vWDYzQmdUNXlqcy9wRHVXLzgvTE5McXdDMU9K?=
- =?utf-8?B?eHVWWm5VMlQreGhIVzRsbTlwRnpuOE05WlBaWTNTYjJ6NDU0bDRvY2ducU9I?=
- =?utf-8?B?NHFGSFkxSXNCYjRzTzBzSmttV2YvamJzZU85blZwSUNDckZJc2RUcHJSaW1n?=
- =?utf-8?B?L3R5M1AxanlJRkpKa01NZ0VOcm1BWHRtSXFsVzY0ek9wYlBOUzRXZU5qUUUr?=
- =?utf-8?B?WU9aMStmWm5PZGtwclpYL1lobEYwVmV5L2UyZGU5YWZjZEoxU25YNHZMMTND?=
- =?utf-8?B?TUN1M25lL1Bua2M1OE9yWFF4TDJTZDlmL0NXNExPaEpmR1RTRWt1aEJaWFRm?=
- =?utf-8?B?Q1ptSnZhUDdIV3Iwc3J5WDhIdDNoSzlKMkh5R1JmTVZCSko5V1pkOUROTkNF?=
- =?utf-8?B?dTBaSzkwNWl6ZDN2R25mMVF3d1RPNFpwVmZTd0sxWGg2M0lnTWFjaENYTjZ6?=
- =?utf-8?B?bTBWZXBUOUc0YnFWSGlaME9rZkRCdlpZbDJoU2g1Q2VrZjJxWWdWNU9vWVVY?=
- =?utf-8?B?UFhkUjFRWXdaZGFkc2VBWVhCbG1tT2VDc2ZweGptWll4eUJLYXVIM1E3ZzVx?=
- =?utf-8?B?VzkvUFExejEvOWdSeXkvWVN0VTBKV1JMc2haWVJUdWhkNWJHSWVUaFo3UmhB?=
- =?utf-8?B?b3NJa1dIc09KNm5UZVBhUDVKeGpQNkJMSTc0NGFheW9aclY5Z2o2SjRDWUlz?=
- =?utf-8?B?Vm9XT0xGTDZaMVNWNldDem8rZHNkc2hZSDlsdE1zcmtLeCthNEp3WmZNTnMw?=
- =?utf-8?B?K1U3dmdRQWVFZ0ZST2hCOFFVSHRIK0VQT0VXdnBJNmFJbTJLVzNiSE95Y1d5?=
- =?utf-8?B?eDVpdk5JWGNGL0h1WGNaUXM2djk2YlZ0L1dTYnliV3VMUEZ1YnlSdDlBb3RX?=
- =?utf-8?B?bVU4bnk1WUI3RE52VTVDWkFOZS9TYVBSdHJYMFpocm0yQzYvZVQ1cFpWcHhP?=
- =?utf-8?B?eUVSeWhDdWdZRlgrc0JVWXFFM2pqRG1hOWtmOTZsRWQ2clRhU0hJcytXVUdj?=
- =?utf-8?B?RDRodXU1bkNySFJ1WWlkQXJ1UEtvMzlmbWFZZ1ZiNzF0VE0xNVAreWR6alhP?=
- =?utf-8?B?VUZlQ3JXKy9CUm1UcTliU0psSCs1bTFSVHFHSHRMY3MzL3VQVGpmQ28vaENm?=
- =?utf-8?B?aHdJdVhXU3lXcTIyUnlnYUQ4QjNmRXlaWEk2eXFUV0F5bHE1L0RxVDQ1ZUsv?=
- =?utf-8?B?Z3RjSFpGaVBlWEtYMjdBZEdzcGtsVXhoVUpMQ3gzQWZUL0pkaW80UEpmUHhq?=
- =?utf-8?B?djcxV3pDUkw0cVVpWm1FWnFSNDYrcllIa2tzb2pvYzdUVkt2MndoNzJTT1lQ?=
- =?utf-8?B?V01VTXVBUU1LMzdTRk13QWJlRkxGeXA4ekhNWG83bU5HVUFUYUtpczF0N29C?=
- =?utf-8?B?QnBGZlhTRkE5TFlxSHNEaE9Dc1M2UUs3UlY5Z2loR2ZHUEo0d2pTcmluOUJG?=
- =?utf-8?B?SXpkT3JuTDFMNWlLbnRMV1hpUjlWMVdid0RaMzBOQWh6RzhUWnBxckJFQVR4?=
- =?utf-8?B?WDVXNEZFRGhMZjRCN0ZCaWZJaTg0V09RWHV6Mm5zTkpuRmFzTEovNTdVdUFG?=
- =?utf-8?B?dy8ra0pOY2NvMzB4UlpjSVlJWW9ZeGRKYmNiTzZzYlNGS0V3Q0lXcytFbXZI?=
- =?utf-8?B?eWxNOC9Hbkl3Nm9pYUJwN2RUc2E3bkl2VTk2MzV3L0hPckd2VmxzRWs2a3lX?=
- =?utf-8?B?VEUwdFN0czdUMFBYVzE1TzRFTk95bzNxMnNmd1hyODM1UWc4dThadDM0RkZ1?=
- =?utf-8?B?S1FMWFJ3b0V3cGJnV281Rm8rMjdWaVdLV3EvRGhaaGxtNnZYRlFHUU9GTDgx?=
- =?utf-8?B?K00xUkVPSGRJNWZidmtKTXRjNXFhUWxDZXRQY2tkdmo1bEpaMXE5YnAxVTAv?=
- =?utf-8?Q?LraKKVPKUshrgOcEAj?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dab66073-1d02-4030-56ec-08de9b2affa1
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?DGLHDFlai46ojyuPllX5t2fDV1PdomIa5+XWMMl1LVd1lmfSK+pr7jQmK0H3?=
+ =?us-ascii?Q?UMzvlYwDfobc7TaE3EqAEyUvoTc8erXThdCuPMlDpuCeyLU+gWHRAqnzjATT?=
+ =?us-ascii?Q?/eBvtspmlCn6iVSFzgpQ7+B4bxrnSN1nziH5RvwokY/bwJ/So6GGwLrg/xOD?=
+ =?us-ascii?Q?AQYyap0yQkdmkSjS7zkCaEgnfwc3GioLE39pnw3gM2juX2c/YZ1WTMrkQN3l?=
+ =?us-ascii?Q?Gnqg8Ok+Gss7U8wVWBq8e3Zo6/IphzJA64KFYJxdLermSzxanUhn2FLDo9D5?=
+ =?us-ascii?Q?SmlMmgR6Z3zW45Qf934/4xhiIN+oQtu/bw2kLSYhT/dBVf4Oaxb6cL8+gYoA?=
+ =?us-ascii?Q?GrQ8yExvwo2UDWppt1Odf7zBfWtBZj6OFFihBNZT1SE9PFp23PDFvKgP6Csz?=
+ =?us-ascii?Q?weXoj8WHSWDqNHH/b5Y76Jyah5jxn+rbHqbEI3wyd6XngJ5rNKN435x3HJe1?=
+ =?us-ascii?Q?T9IvnJppg+8GtyQMKc+NC1fSPqQGy8hYJ+XJs3kq8/z5e0r+PEXlK3kCn4NZ?=
+ =?us-ascii?Q?OtFAgLZBV1iOe92a5Yvd93c9RKQo+NeO4b2DY/Clynr6qFfdjc5Jpc6/aXTq?=
+ =?us-ascii?Q?qh02sIEOd6XoWXnB6/f47lzVZGjZ2t7og+rrsHbW2/xJPsI8oVFuhlg7YpvV?=
+ =?us-ascii?Q?WaOjGEw86bcfUSX8d7t34AqSzlbaFDrtTro/0USTW3iEAq8V+aUEOmqYwAm+?=
+ =?us-ascii?Q?1lbQf2CKmgOj2kTozXkBJA5neNkPnlsj6VFBD1JZ+AXrX5KoR14MLZu5KZft?=
+ =?us-ascii?Q?tosifDOSCay0hSsCkkXktrLWp9acbpb9HgFFL52hZc3KKDqo4b7Q+9X3UGTR?=
+ =?us-ascii?Q?HbQSw0QXbIvwxqZsu+YbmfrEhEOMXDAD1q0owdKVnvonzmQ1vlj7wAczg+7J?=
+ =?us-ascii?Q?IzMsRgcC1v8Ozt7GyHCwC5AnWVFRUFcNrz5HXPCVbxIAtcFflPYLddttKQJ0?=
+ =?us-ascii?Q?7RtcQ2CaBUREOldAT1ysz5xjqSkn2YtpTyo6aoFAGmy9uEd9wRkMcrEdKakx?=
+ =?us-ascii?Q?xLcqOpExom80d51wk82GVSe/yA6fzFpv6G+c7pI4eHh/QsgVT3pWCYsdRuXq?=
+ =?us-ascii?Q?DujE6++hZPdEeiSoALLv32WKaM/lym6NeLe6Gdy2XlilyPReg1vgsTQgTHmm?=
+ =?us-ascii?Q?T1inCzAoWIgpr/mnAtZfzxqWLEGHU+8klQISFLD++OSDAC+uboq/Tmdg1n+O?=
+ =?us-ascii?Q?UIuBJYhQ7a1AITAkHa5xvTPHWALi0jb4mxoVkxIXuxwHDQvBkBW5gBR0zz8x?=
+ =?us-ascii?Q?n9vhrojvzZbqxLLOKRN2m2m3wskDNfay6jz+ttg0bUn7LYnI/qqIOx/PwnBG?=
+ =?us-ascii?Q?UhqUrd0yIGgoeRGG3LuOhT5vZWaCjDCqAyto0rWpiwV8q5Tz0GpbNTEea2kB?=
+ =?us-ascii?Q?CmFT+k6oJ7PBuFqGNfNzc5/qY0451GkSTQurcQBXMWjG/wldAtP9Y1beQzGj?=
+ =?us-ascii?Q?R+HL3w1/UW8PbIEMhNdpJdU/X6CqSpYdXLWBsWN4sEUeYF26JFVP0bosIITj?=
+ =?us-ascii?Q?MWbD2bf+sMI9lfJtspBNrGj0+HdAD5Td1C59eY8s6ZVGsy/90Xt0mKiq96HG?=
+ =?us-ascii?Q?tMfs9VTpoEEayXT8+Trr1WyBjFprERAj3XcvphPeRz73dogJv3QjOlhdmaU3?=
+ =?us-ascii?Q?TB9Sm0sLeAzOcozhzsq/pfAUX4VLibM/n7tmbb5tDfsua/NlI/sYmSY/R4Pj?=
+ =?us-ascii?Q?2uudgbwhHQ/dZcpmvA/PsF04olbuMm3ZNuGsKfxVDyYvZAtwDs7MOkmgIh/D?=
+ =?us-ascii?Q?7gM9PkGXjg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4672f9f8-80dc-4fe3-3425-08de9b2ce679
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 20:10:11.4710 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 20:23:48.2578 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zqsrbeI/XHX/B/fW9tf8LzYc6HjJUSTjHfwNrbunH0O2tBBZVFd1o8v7qyypU2Yf/+wtaTG9ulp91TyPOfel0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6645
+X-MS-Exchange-CrossTenant-UserPrincipalName: aaQ4m31TNf2AF3fHUzDDH83kVF+PFqHxyd1MQ0jH+pmYPaIlzusOBeYm5x3X5cn8uao5shPFFe4lLZcps7eXiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6208
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,176 +163,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Apr 02, 2026 at 02:54:30PM +0900, Eliot Courtney wrote:
+> On Wed Apr 1, 2026 at 6:20 AM JST, Joel Fernandes wrote:
+> > From: Zhi Wang <zhiw@nvidia.com>
+> >
+> > Remove the hardcoded BAR1_SIZE = SZ_256M constant. On GPUs like L40 the
+> > BAR1 aperture is larger than 256MB; using a hardcoded size prevents large
+> > BAR1 from working and mapping it would fail.
+> >
+> > Signed-off-by: Zhi Wang <zhiw@nvidia.com>
+> > Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> > ---
+> >  drivers/gpu/nova-core/driver.rs | 8 ++------
+> >  drivers/gpu/nova-core/gpu.rs    | 7 +------
+> >  2 files changed, 3 insertions(+), 12 deletions(-)
+> >
+> > diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
+> > index b1aafaff0cee..6f95f8672158 100644
+> > --- a/drivers/gpu/nova-core/driver.rs
+> > +++ b/drivers/gpu/nova-core/driver.rs
+> > @@ -13,10 +13,7 @@
+> >          Vendor, //
+> >      },
+> >      prelude::*,
+> > -    sizes::{
+> > -        SZ_16M,
+> > -        SZ_256M, //
+> > -    },
+> > +    sizes::SZ_16M,
+> >      sync::{
+> >          atomic::{
+> >              Atomic,
+> > @@ -40,7 +37,6 @@ pub(crate) struct NovaCore {
+> >  }
+> >  
+> >  const BAR0_SIZE: usize = SZ_16M;
+> > -pub(crate) const BAR1_SIZE: usize = SZ_256M;
+> >  
+> >  // For now we only support Ampere which can use up to 47-bit DMA addresses.
+> >  //
+> > @@ -51,7 +47,7 @@ pub(crate) struct NovaCore {
+> >  const GPU_DMA_BITS: u32 = 47;
+> >  
+> >  pub(crate) type Bar0 = pci::Bar<BAR0_SIZE>;
+> > -pub(crate) type Bar1 = pci::Bar<BAR1_SIZE>;
+> > +pub(crate) type Bar1 = pci::Bar;
+> >  
+> >  kernel::pci_device_table!(
+> >      PCI_TABLE,
+> > diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+> > index 8206ec015b26..ba6f1f6f0485 100644
+> > --- a/drivers/gpu/nova-core/gpu.rs
+> > +++ b/drivers/gpu/nova-core/gpu.rs
+> > @@ -353,16 +353,11 @@ pub(crate) fn run_selftests(
+> >  
+> >      #[cfg(CONFIG_NOVA_MM_SELFTESTS)]
+> >      fn run_mm_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bound>) -> Result {
+> > -        use crate::driver::BAR1_SIZE;
+> > -
+> >          // PRAMIN aperture self-tests.
+> >          crate::mm::pramin::run_self_test(pdev.as_ref(), self.mm.pramin(), self.spec.chipset)?;
+> >  
+> >          // BAR1 self-tests.
+> > -        let bar1 = Arc::pin_init(
+> > -            pdev.iomap_region_sized::<BAR1_SIZE>(1, c"nova-core/bar1"),
+> > -            GFP_KERNEL,
+> > -        )?;
+> > +        let bar1 = Arc::pin_init(pdev.iomap_region(1, c"nova-core/bar1"), GFP_KERNEL)?;
+> >          let bar1_access = bar1.access(pdev.as_ref())?;
+> >  
+> >          crate::mm::bar_user::run_self_test(
+> 
+> Can we move this directly after patch 17 which adds the fixed bar1? Or
+> alternatively fold it in while preserving Zhi's attribution (I am not
+> sure what the conventional method for this is).
 
+Generally, squashing and attribution works. I will do that with attribution.
+(Zhi did tell me he would be Ok with that as well in this instance).
 
-On 4/15/26 12:11, Lizhi Hou wrote:
-> From: Max Zhen <max.zhen@amd.com>
-> 
-> Add support for configuring the hardware scheduler time quantum to
-> improve fairness across concurrent contexts.
-> 
-> The scheduler enforces a fixed time slice per context, preventing
-> long-running workloads from monopolizing the device and allowing
-> other contexts to make forward progress.
-> 
-> The default time quantum is 30ms and can be configured via the
-> time_quantum_ms module parameter.
-> 
-> Signed-off-by: Max Zhen <max.zhen@amd.com>
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/accel/amdxdna/aie2_message.c  | 44 +++++++++++++++++++++++++++
->   drivers/accel/amdxdna/aie2_msg_priv.h | 16 ++++++++++
->   drivers/accel/amdxdna/aie2_pci.c      |  8 +++++
->   drivers/accel/amdxdna/aie2_pci.h      |  2 ++
->   drivers/accel/amdxdna/npu4_regs.c     |  3 +-
->   5 files changed, 72 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
-> index e52dc7ea9fc7..976ad6281078 100644
-> --- a/drivers/accel/amdxdna/aie2_message.c
-> +++ b/drivers/accel/amdxdna/aie2_message.c
-> @@ -1200,3 +1200,47 @@ int aie2_query_app_health(struct amdxdna_dev_hdl *ndev, u32 context_id,
->   	aie2_free_msg_buffer(ndev, buf_size, buf, dma_addr);
->   	return ret;
->   }
-> +
-> +static int
-> +aie2_runtime_update_ctx_prop(struct amdxdna_dev_hdl *ndev,
-> +			     struct amdxdna_hwctx *ctx, u32 type, u32 value)
-> +{
-> +	DECLARE_AIE_MSG(update_property, MSG_OP_UPDATE_PROPERTY);
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +	int ret;
-> +
-> +	if (!AIE_FEATURE_ON(&ndev->aie, AIE2_UPDATE_PROPERTY))
-> +		return -EOPNOTSUPP;
-> +
-> +	if (ctx)
-> +		req.context_id = ctx->fw_ctx_id;
-> +	else
-> +		req.context_id = AIE2_UPDATE_PROPERTY_ALL_CTX;
-> +
-> +	req.time_quota_us = value;
-> +	req.type = type;
-> +
-> +	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-> +	if (ret) {
-> +		XDNA_ERR(xdna, "%s update property failed, type %d ret %d",
-> +			 ctx ? ctx->name : "ctx.all", type, ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us)
-> +{
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
-> +	int ret;
-> +
-> +	ret = aie2_runtime_update_ctx_prop(ndev, NULL, UPDATE_PROPERTY_TIME_QUOTA, us);
-> +	if (ret == -EOPNOTSUPP) {
-> +		XDNA_DBG(xdna, "update time quota not support, skipped");
-> +		ret = 0;
-> +	} else if (!ret) {
-> +		XDNA_DBG(xdna, "Ctx exec time quantum updated to %u us", us);
-> +	}
-> +	return ret;
-> +}
-> diff --git a/drivers/accel/amdxdna/aie2_msg_priv.h b/drivers/accel/amdxdna/aie2_msg_priv.h
-> index f18e89a39e35..fc2e99510980 100644
-> --- a/drivers/accel/amdxdna/aie2_msg_priv.h
-> +++ b/drivers/accel/amdxdna/aie2_msg_priv.h
-> @@ -31,6 +31,7 @@ enum aie2_msg_opcode {
->   	MSG_OP_SET_RUNTIME_CONFIG          = 0x10A,
->   	MSG_OP_GET_RUNTIME_CONFIG          = 0x10B,
->   	MSG_OP_REGISTER_ASYNC_EVENT_MSG    = 0x10C,
-> +	MSG_OP_UPDATE_PROPERTY             = 0x113,
->   	MSG_OP_GET_APP_HEALTH              = 0x114,
->   	MSG_OP_MAX_DRV_OPCODE,
->   	MSG_OP_GET_PROTOCOL_VERSION        = 0x301,
-> @@ -503,4 +504,19 @@ struct get_app_health_resp {
->   	__u32 required_buffer_size;
->   	__u32 reserved[7];
->   } __packed;
-> +
-> +struct update_property_req {
-> +#define UPDATE_PROPERTY_TIME_QUOTA 0
-> +	__u32 type;
-> +#define AIE2_UPDATE_PROPERTY_ALL_CTX	0xFF
-> +	__u8 context_id;
-> +	__u8 reserved[7];
-> +	__u32 time_quota_us;
-> +	__u32 reserved1;
-> +} __packed;
-> +
-> +struct update_property_resp {
-> +	enum aie2_msg_status status;
-> +} __packed;
-> +
->   #endif /* _AIE2_MSG_PRIV_H_ */
-> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-> index c9c23c889c78..afbe3f8f67ce 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.c
-> +++ b/drivers/accel/amdxdna/aie2_pci.c
-> @@ -33,6 +33,8 @@ static int aie2_max_col = XRS_MAX_COL;
->   module_param(aie2_max_col, uint, 0600);
->   MODULE_PARM_DESC(aie2_max_col, "Maximum column could be used");
->   
-> +#define DEFAULT_TIME_QUANTUM 30000 /* microseconds */
-> +
->   static char *npu_fw[] = {
->   	"npu_7.sbin",
->   	"npu.sbin"
-> @@ -186,6 +188,12 @@ static int aie2_mgmt_fw_init(struct amdxdna_dev_hdl *ndev)
->   		return ret;
->   	}
->   
-> +	ret = aie2_update_prop_time_quota(ndev, DEFAULT_TIME_QUANTUM);
-> +	if (ret) {
-> +		XDNA_ERR(ndev->aie.xdna, "Failed to update execution time quantum");
-> +		return ret;
-> +	}
-> +
->   	ret = aie2_xdna_reset(ndev);
->   	if (ret) {
->   		XDNA_ERR(ndev->aie.xdna, "Reset firmware failed");
-> diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-> index f83deca2b51a..69b53c7bcb86 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.h
-> +++ b/drivers/accel/amdxdna/aie2_pci.h
-> @@ -222,6 +222,7 @@ enum aie2_fw_feature {
->   	AIE2_PREEMPT,
->   	AIE2_TEMPORAL_ONLY,
->   	AIE2_APP_HEALTH,
-> +	AIE2_UPDATE_PROPERTY,
->   	AIE2_FEATURE_MAX
->   };
->   
-> @@ -308,6 +309,7 @@ int aie2_sync_bo(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
->   		 int (*notify_cb)(void *, void __iomem *, size_t));
->   int aie2_config_debug_bo(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
->   			 int (*notify_cb)(void *, void __iomem *, size_t));
-> +int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us);
->   void *aie2_alloc_msg_buffer(struct amdxdna_dev_hdl *ndev, u32 *size,
->   			    dma_addr_t *dma_addr);
->   void aie2_free_msg_buffer(struct amdxdna_dev_hdl *ndev, size_t size,
-> diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
-> index a3b6df56abd0..6ebf75ad5fb4 100644
-> --- a/drivers/accel/amdxdna/npu4_regs.c
-> +++ b/drivers/accel/amdxdna/npu4_regs.c
-> @@ -93,9 +93,10 @@ const struct dpm_clk_freq npu4_dpm_clk_table[] = {
->   
->   const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[] = {
->   	{ .major = 6, .min_minor = 12 },
-> -	{ .features = BIT_U64(AIE2_NPU_COMMAND), .major = 6, .min_minor = 15 },
->   	{ .features = BIT_U64(AIE2_PREEMPT), .major = 6, .min_minor = 12 },
->   	{ .features = BIT_U64(AIE2_TEMPORAL_ONLY), .major = 6, .min_minor = 12 },
-> +	{ .features = BIT_U64(AIE2_NPU_COMMAND), .major = 6, .min_minor = 15 },
-> +	{ .features = BIT_U64(AIE2_UPDATE_PROPERTY), .major = 6, .min_minor = 15 },
->   	{ .features = BIT_U64(AIE2_APP_HEALTH), .major = 6, .min_minor = 18 },
->   	{ .features = AIE2_ALL_FEATURES, .major = 7 },
->   	{ 0 }
+thanks,
+
+--
+Joel Fernandes
+
 
