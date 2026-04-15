@@ -4,53 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E94F43858
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 16:50:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE004F43848
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 16:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 151B110E252;
-	Wed, 15 Apr 2026 16:50:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D39E10E17A;
+	Wed, 15 Apr 2026 16:52:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hHLAntJ5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YmQOhjm2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D10A10E252
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 16:50:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1AD2744381;
- Wed, 15 Apr 2026 16:50:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38FFC2BCB5;
- Wed, 15 Apr 2026 16:50:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776271853;
- bh=vjkcHT+XKAvyD4BzJrBgqseQQr8P7CstbX+4l0FdhrY=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
- b=hHLAntJ5lyU/7/b5jWaDbnoOd880Qb1UsYRR1OvhfYjnSurO4pPnWYGIMpYsWZuF7
- 5Lva3RPq2mp9SaY9gvnaVqwOyHo5nogQUHVJPM5YwwavGKFufuHO2cprOrY2f3w224
- WN/HX+kwwFZEI0MGGkE30ebZS7EoTmUaYgCY2yNPOCKIYZmlmlgqfoh/pvkS+uTvg5
- 2NyY7nPOBRvu0+kF9YymHsM70+2EMPTLt3sR743eDsEk1s4IZwaKZ2vwQDA5mJdhte
- YjqzCkYAm/9m4uHmzq4faqLdgMSAxgentHInW95EyRlprfOaLt9KTwQ83/Gveu96Ve
- H15767vaDgfiQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- B9FFB380A963; Wed, 15 Apr 2026 16:50:23 +0000 (UTC)
-Subject: Re: [git pull] drm for 7.1
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9tyvKEU6-6O=Le9wVjTJqd3NdrUr-pA_eHxt3Bj-Cv7zMw@mail.gmail.com>
-References: <CAPM=9tyvKEU6-6O=Le9wVjTJqd3NdrUr-pA_eHxt3Bj-Cv7zMw@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9tyvKEU6-6O=Le9wVjTJqd3NdrUr-pA_eHxt3Bj-Cv7zMw@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-next-2026-04-15
-X-PR-Tracked-Commit-Id: 83e8d8bbffa8161e94f3aeee4dd09a35062a78c8
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 4a57e0913e8c7fff407e97909f4ae48caa84d612
-Message-Id: <177627182260.2328436.15463233574545419711.pr-tracker-bot@kernel.org>
-Date: Wed, 15 Apr 2026 16:50:22 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012019.outbound.protection.outlook.com [52.101.53.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 950C610E17A
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 16:52:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GA1C5HPhj5UsS28W7AoFEEV0WIDW7UJddt7EOX45TTdtfZUjszRTG7ZxoBRr3dtpS7OYaqwwUpZ+v9zjwHCkmjiUXxc4F66k8H39S0VQkxSg0iH29SNFOF0xQSEmwohskbS+UZVF/hL1XVt/G5s1vUXSdBTd7emAsTbjQw+g44NwGo4qCtn8xE34oIfs51yJK51XZKMeXFeBymXhZgDifdgLHCjKvFPvtt84oxnvrMb/jRENIH4325/ysAzO3VY3C4CLMRCCMzkwBjCdvHkgQzxd5sb6fQ3iBto8UlLL1bYL+bEHK1XrjhQERgFt7IJuu1uzi87Ejq/vMby7THngOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9DwMq2RTJYydRxJ6G0CYeJQMxCJq5u39Mt31BdEV7Hw=;
+ b=FkrzAyCRItUIYG+N7UK/lN+yx3z9R3J2UgKcsXaWYZXcspJchs4BWsMNeGoN/2t3iF5cp+vwjLTVIceqHvpDm9ZJR3m2RIacLM2YGadHfts5VElWBSEEuzp1caOl1Q0AeuN/igLOJdLYwMulKRwMyuRwRralpuInnwyOF07oz6plPZfY8t9FlwdpKelDs9zDf/mgWEXjGXeWNDC4FiToXwAY0nz6nNCdciOXu9PYQHwrN5Qbm85mlgR2ypmjIpK3c7eoEg/2Pwss0H+2BNlLrVEvUsnjMu5AIxG5hSieFVHbK8RkyKPUXeQmXvLzq5WTXuHMH9f9lHXIXDciBOjA6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9DwMq2RTJYydRxJ6G0CYeJQMxCJq5u39Mt31BdEV7Hw=;
+ b=YmQOhjm2O77W+6VmGqDbii8I+Uw2dKW1BRmybi+6fhUIohWdd+oek98YRjSqWliBwNjZ8bOSWgFFf4Z5N3kqE2d5aoJds41qUcrbhnacn+/dMAQE/7jt47pIDLzL/JYvVkSESmiNR4ruEswg9j9UQ/TXNIIeglJ+9GSjG5UpAkk=
+Received: from BN0PR04CA0010.namprd04.prod.outlook.com (2603:10b6:408:ee::15)
+ by IA1PR12MB8240.namprd12.prod.outlook.com (2603:10b6:208:3f2::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
+ 2026 16:52:24 +0000
+Received: from BN1PEPF00004681.namprd03.prod.outlook.com
+ (2603:10b6:408:ee:cafe::37) by BN0PR04CA0010.outlook.office365.com
+ (2603:10b6:408:ee::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Wed,
+ 15 Apr 2026 16:52:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00004681.mail.protection.outlook.com (10.167.243.87) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 16:52:23 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 15 Apr
+ 2026 11:52:23 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 15 Apr 2026 11:52:22 -0500
+Message-ID: <78a955ce-8990-8594-1ebc-e7d4da14dce0@amd.com>
+Date: Wed, 15 Apr 2026 09:52:21 -0700
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/qaic: Address potential out-of-bounds read in
+ resp_worker()
+Content-Language: en-US
+To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
+ <jeff.hugo@oss.qualcomm.com>, <carl.vanderlip@oss.qualcomm.com>,
+ <troy.hanson@oss.qualcomm.com>, <zachary.mckevitt@oss.qualcomm.com>
+CC: <ogabbay@kernel.org>, <karol.wachowski@linux.intel.com>,
+ <linux-arm-msm@vger.kernel.org>, <dri-devel@lists.freedesktop.org>, Ruikai
+ Peng <ruikai@pwno.io>
+References: <20260414173249.3672053-1-youssef.abdulrahman@oss.qualcomm.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260414173249.3672053-1-youssef.abdulrahman@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004681:EE_|IA1PR12MB8240:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43759456-af29-48b9-8a70-08de9b0f5dd7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|7416014|376014|82310400026|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 2qxNpik867QVXIj8H1ggjCPMM6TTyb+OVxmuyFcKzg+On/T4ssBD3jaTLuYG73zLmua356VIYBJbNrfxVsAwUVK1EaC9fEWpcErZJ7GI7D8lD+MKIYoqDtF7XYMCaMlLqCbToHUabiRT7fHZSTmWLiOzCbtT6JXCGv9yfMKwft4T1nN50HAT4nrasNigjKiMglCJpqk1xUuU5VA/kqUJ3EQPA3odd7gSoShCft6DtBk4Th1SE/EYpSs6Yb7MPjP/xKAFl6hRqVQZ3Zno7aJZ6hAwB02ibduyqRuFFXtUCCbYDOmn2gehqCbPphk5WRGmzScGJt1oB2rT4Pyl5Pu6glah1AKUotYpse9XnawTWQfy/l3/PiJMy2//DOXKNefpszbLFzL+Yc0ViMmZy5C24eVlr74KiBZ1E+bgRcKO6Fw8LIg9MIk+V6qSp8f+DudSK47TwfyGmNTC0WPaFKH60fT9+tZMZmqML+b1Rg/9nOzvjVjygEcY43QF8OV2kYhiYxNrq7QcP3RZDENVD/xD8HiEV8weKPowgcaLwGwJmZzgV+p1uoWS+WN9/VG6Y17pv6q9VOlwQqQjSFhaceGoQA/zVmzMZDoqAzQywx5uPhsEAYbq5zypntGvZwjBABP2Alu90t3XdAn2qVmVa0uNpIi9tpXH1pquya/+JIuj4Xsde4trT1P7Bwzv/e+9P+7GsbvG7hapcyDmvamm1WKTr+6L0+l/fLEXbOUEyGosz4gh2Pdc3fuDplO91pLx1v9UCGWWl1M9PKL5WGsEQknSpw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(82310400026)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ONn0WQv0So/8KJQFzp0UJPONmt/E/0EAf+6uQgf5lIuFV5CIKmFqijWTrJvvV3h4ofQk/k3sFgEcmC7fKoieMMVz8PAIAFLP5fXDcM2yf5/fkjTBbINKWRGOidvLeE1lVTV9ofQWkFDHuHSjya3CQqxra5tTXuxZ6uJvNMAFmCo6P/KqhjUn9wzADTEnfM48fdigMb4ik7YWIkp5wGPW2v8EFYCBNC68gmM0VEs32Z26WPSP+A/f4cjc+Y79yI2j8wzJmvVPT//Yhx1NR79BaQzdDuQjNyvBj/TNrCzBWHHBkUM3QgC5tpm1OChiIZved7f9zaKvhmyXDo0tQRfBaL6ZbhQpTyBPJ/j6fK8l76bPR+1s9ZxbswhRsTP4Z8WldY0P/wjxH3uYUsISrGSzCGiaQyt3HIoiOYZk8I/E0zGaEOUrCej6bTGiSKm5/BDi
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 16:52:23.3988 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43759456-af29-48b9-8a70-08de9b0f5dd7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004681.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8240
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,15 +117,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Wed, 15 Apr 2026 16:42:38 +1000:
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-next-2026-04-15
+On 4/14/26 10:32, Youssef Samir wrote:
+> Although 'commit 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation if the
+> owner went away")' fixes the scenario it was intended for by walking the
+> message and only decoding QAIC_TRANS_DEACTIVATE_FROM_DEV, if present, it
+> skipped over the bounds checking code that is included in decode_message().
+> This could lead to issues such as reading past the slab allocation's end,
+> infinite loops or kernel panics. For those issues to happen, a malformed
+> wire message is needed to be sent from the device.
+>
+> Instead of duplicating the bounds checking code already present in
+> decode_message(), use the function inside resp_worker().
+>
+> Reported-by: Ruikai Peng <ruikai@pwno.io>
+> Fixes: 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation if the owner went away")
+> Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+> ---
+>   drivers/accel/qaic/qaic_control.c | 48 ++++++++++++++++---------------
+>   1 file changed, 25 insertions(+), 23 deletions(-)
+>
+> diff --git a/drivers/accel/qaic/qaic_control.c b/drivers/accel/qaic/qaic_control.c
+> index b21e6b5b3a10..818a77adde2a 100644
+> --- a/drivers/accel/qaic/qaic_control.c
+> +++ b/drivers/accel/qaic/qaic_control.c
+> @@ -1075,11 +1075,13 @@ static int decode_status(struct qaic_device *qdev, void *trans, struct manage_ms
+>   
+>   static int decode_message(struct qaic_device *qdev, struct manage_msg *user_msg,
+>   			  struct wire_msg *msg, struct ioctl_resources *resources,
+> -			  struct qaic_user *usr)
+> +			  struct qaic_user *usr, bool orphaned_deactivate)
+>   {
+> +	u32 msg_hdr_count = le32_to_cpu(msg->hdr.count);
+>   	u32 msg_hdr_len = le32_to_cpu(msg->hdr.len);
+>   	struct wire_trans_hdr *trans_hdr;
+>   	u32 msg_len = 0;
+> +	int trans_type;
+>   	int ret;
+>   	int i;
+>   
+> @@ -1089,13 +1091,15 @@ static int decode_message(struct qaic_device *qdev, struct manage_msg *user_msg,
+>   		return -EINVAL;
+>   	}
+>   
+> -	user_msg->len = 0;
+> -	user_msg->count = le32_to_cpu(msg->hdr.count);
+> +	if (user_msg) {
+> +		user_msg->len = 0;
+> +		user_msg->count = msg_hdr_count;
+> +	}
+>   
+>   	trace_qaic_manage_dbg(qdev->qddev, "Number of transaction to decode is %llu.",
+> -			      user_msg->count);
+> +			      msg_hdr_count);
+>   
+> -	for (i = 0; i < user_msg->count; ++i) {
+> +	for (i = 0; i < msg_hdr_count; ++i) {
+>   		u32 hdr_len;
+>   
+>   		if (msg_len > msg_hdr_len - sizeof(*trans_hdr))
+> @@ -1110,7 +1114,20 @@ static int decode_message(struct qaic_device *qdev, struct manage_msg *user_msg,
+>   		trace_qaic_manage_dbg(qdev->qddev, "Decoding transaction %llu.",
+>   				      le32_to_cpu(trans_hdr->type));
+>   
+> -		switch (le32_to_cpu(trans_hdr->type)) {
+> +		trans_type = le32_to_cpu(trans_hdr->type);
+> +		/*
+> +		 * orphaned_deactivate is the case where a deactivate response
+> +		 * is received from the device after the user owning the DBC,
+> +		 * and the message requesting deactivation, has gone away.
+> +		 * In this case, only process QAIC_TRANS_DEACTIVATE_FROM_DEV
+> +		 * transaction and skip the others.
+> +		 */
+> +		if (orphaned_deactivate && trans_type != QAIC_TRANS_DEACTIVATE_FROM_DEV) {
+> +			msg_len += hdr_len;
+> +			continue;
+> +		}
+> +
+> +		switch (trans_type) {
+>   		case QAIC_TRANS_PASSTHROUGH_FROM_DEV:
+>   			ret = decode_passthrough(qdev, trans_hdr, user_msg, &msg_len);
+>   			break;
+> @@ -1430,7 +1447,7 @@ static int qaic_manage(struct qaic_device *qdev, struct qaic_user *usr, struct m
+>   		goto dma_cont_failed;
+>   	}
+>   
+> -	ret = decode_message(qdev, user_msg, rsp, &resources, usr);
+> +	ret = decode_message(qdev, user_msg, rsp, &resources, usr, false);
+>   
+>   dma_cont_failed:
+>   	free_dbc_buf(qdev, &resources);
+> @@ -1607,22 +1624,7 @@ static void resp_worker(struct work_struct *work)
+>   		 * response to the QAIC_TRANS_TERMINATE_TO_DEV transaction,
+>   		 * otherwise, the user can issue an soc_reset to the device.
+>   		 */
+> -		u32 msg_count = le32_to_cpu(msg->hdr.count);
+> -		u32 msg_len = le32_to_cpu(msg->hdr.len);
+> -		u32 len = 0;
+> -		int j;
+> -
+> -		for (j = 0; j < msg_count && len < msg_len; ++j) {
+> -			struct wire_trans_hdr *trans_hdr;
+> -
+> -			trans_hdr = (struct wire_trans_hdr *)(msg->data + len);
+> -			if (le32_to_cpu(trans_hdr->type) == QAIC_TRANS_DEACTIVATE_FROM_DEV) {
+> -				if (decode_deactivate(qdev, trans_hdr, &len, NULL))
+> -					len += le32_to_cpu(trans_hdr->len);
+> -			} else {
+> -				len += le32_to_cpu(trans_hdr->len);
+> -			}
+> -		}
+> +		decode_message(qdev, NULL, msg, NULL, NULL, true);
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/4a57e0913e8c7fff407e97909f4ae48caa84d612
+This seems changing the previous behavior. The original code will 
+continue the loop when decode_deactivate() returns error. And 
+decode_message() will error immediately when decode_deactivate() returns 
+error.
 
-Thank you!
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Lizhi
+
+>   		/* request must have timed out, drop packet */
+>   		trace_qaic_manage(NULL, "Packet dropped.", -ETIME);
+>   		kfree(msg);
