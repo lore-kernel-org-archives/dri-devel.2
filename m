@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C9D9F428D0
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 19:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF14F428D3
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 19:58:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB78F10E746;
-	Wed, 15 Apr 2026 19:58:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BEA010E756;
+	Wed, 15 Apr 2026 19:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="i1lyYKl2";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="s51LaD46";
 	dkim-atps=neutral
 Received: from LO3P265CU004.outbound.protection.outlook.com
  (mail-uksouthazon11020081.outbound.protection.outlook.com [52.101.196.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BFEC10E18F;
- Wed, 15 Apr 2026 19:58:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69F8E10E18F;
+ Wed, 15 Apr 2026 19:58:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YDZrCHGyy8kVmcEI+3B4aS/ElN+e1OoTKHzuzycRmAQ/Mq6zTlkbNCfnFAzwcgP3Uj4Nv5wd8Hc7Pux9vSYlvdLYlDtTWKngnxicwbY8e0S7hvXYjvGxS6PHYGZvmC2jxaSeZf/LMRb9UKsqhPKXRYtjfsmEhiAwLBwKUgBJ0QwIwTGgS98hJtWkphO6c+dc7IfAUo18s2GC8aoUg0E+d9SixXezgVUJqU1soYmXNN3J8oM2AdQiP+HCTwRfedUtAhk96DxSeLVfcZo7ljIl+6KjPfdOz7dlMzLG9KsltDZcsTGMdoCeagJNKG9whia8RydOuSN7Bi9GNMkTnENcoA==
+ b=S3LxmAmMK92zSvQhTfJ5tRqp5myOaXRt2qruGB+Qw7EETknxaFSXc47JNZzy4Di9WtGgCDaimKbgrL/y+THBLTnaZX5EUoJ8z/PRKUr/UNMkBwmtrMgmgmt/12X1OFTGlrYDmWOzgbHkokZ9c4tSDS5+SEq8cgTgXV1nEU90brlQENLoVAe98g41zgXO2wPKoiVhkfe41QFzgHuJddp4xOQw6pgmCYThKymxFBkFFK9Aw5G79BqrfbiWFfRdUQ/fm40POvucgQ/6AYy1M8KHfFqyiT+lvwWMo3PotVVMnDoYzwsCtkiYmVdYa+zUBygoEQjQ5CciRmqRUW5Jrb6QFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wpjY6jK4dzuJg9RjHWUzuRc9xXXEwcexrr4wnzfgOEA=;
- b=w3DNtADwPg+rZKTaEilPzaSwn7KsFVQDItqALct9Bm+VfU6FiFdQ/E5F7QIVFY4rfFkCwupy8OrcKHDRJeW9nC6EHv82a6JtmQIUFvBMp47tsy/wDbxgxpFp8odXrVmF+2Xf8XprdRtmgop9/+ddSxlEGACApuudPIsUKcGFc4Inyt5UjDDGs6I6DtrvLJUS9zMPVAsAyq25BVrXuR/W8d/NllHJXDJ55aUq82yDZMPdIrmQCZ/DPhPzgyOkZlxcDHNpIifQGNpu22LD+BYj2cEThRPwJmO5dbVZdgFIQVA69wx1Y6cfbpxBBUh+EmrD3DcCpCnYRGCjMVk0WKItDg==
+ bh=VZIiLi9x3fE+V2ejFmr/3EeY3ITUEFCcTPgkvfGfqBo=;
+ b=NgTuOH+Lhje9QqpOjzob/iuvfm4191vesW7+bsyRs1wUSdmYSUXbg7sSqrT9A1c1hiAGHGtGWHa4VYzQixTfAjW8oiQrlylHdl6cvnzcFDVHhLRvvxEr1ybtaGZwpSVULEaI/t2xpOt9TBsLPFYEDSdwlHMs5TtdSpOIuwATupXrC9YZghjeJ1i3rr5UXdKXsSXiso+cJrEvN8ORPOIU7swR1L5xXtHNbCa6ac4oPJXtSD9i3sQC6tSO5EqyOaS27573Az3G1Zc/lXQ0u92QdwyVhPCK8u3wQm+JoDUKQubSvCElRAC9QzIED2cvXeNKJ5GmSC7uwNdi6SmUH3f7KA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wpjY6jK4dzuJg9RjHWUzuRc9xXXEwcexrr4wnzfgOEA=;
- b=i1lyYKl2kq/V8MCz7evJnpkarle+mt6aOzwLsAI4Dmzjfvyzz8famE1zQP64zBq2flRqAuJExLzWOUhUfFE0CN6rFJA3/IlqAcxT7DA7/i+j3d3mbUFRhe/+kwC4rv92qrE18Sd/535OyPFjwJISwUtaKrjvtdQrXMGbMEx+ETc=
+ bh=VZIiLi9x3fE+V2ejFmr/3EeY3ITUEFCcTPgkvfGfqBo=;
+ b=s51LaD46gcbqlh4HbxSZicIvvJEfw1CqYxDVdDTPw0wevDUOkc8sJe6yW6VNMeYQoZDqCZvCNuwcOedU0nHVbT2NOoLi1r5QAowo/T09BpmGPIGc7ckXkYFRD8AMROsb6OZjyflSbqfuVAxzlhrlLHT225CFNoPXyDyzQ29a1tc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
  by CWXP265MB1910.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:32::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 19:58:06 +0000
+ 2026 19:58:07 +0000
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9769.046; Wed, 15 Apr 2026
  19:58:06 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Wed, 15 Apr 2026 20:57:13 +0100
-Subject: [PATCH 2/5] rust: dma: update to keyworded index projection syntax
+Date: Wed, 15 Apr 2026 20:57:14 +0100
+Subject: [PATCH 3/5] gpu: nova-core: convert to keyworded projection syntax
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260415-projection-syntax-rework-v1-2-450723cb3727@garyguo.net>
+Message-Id: <20260415-projection-syntax-rework-v1-3-450723cb3727@garyguo.net>
 References: <20260415-projection-syntax-rework-v1-0-450723cb3727@garyguo.net>
 In-Reply-To: <20260415-projection-syntax-rework-v1-0-450723cb3727@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, 
@@ -64,11 +64,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org, 
  dri-devel@lists.freedesktop.org, Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776283085; l=3112;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776283085; l=1889;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=UhRRiSC/fJzIqFGzc8d2bQlud9AWS1icv1eLsg8ynFw=;
- b=XcUKIpsjnLXZz7tCTlpJYhdM4xH9EH99h2FgvwhakbOolu9FZF2B0xOB2zikPnrKO2qd+9Uw0
- y5lVGkvsUsXBl/B4jF4ug48bFcdQbGVAoLEd49rPNNFGHxBqP/b5f/I
+ bh=vQiN78STvYTW9CBHlHELFu0E4dV6C/Imopr+6r4WBnk=;
+ b=Jo5DImdT15KQ7gh5mFVa00sTqdvX/mWnC62kLa+/x6sRnCdDU/CbxeSg5m/EH6OscR7eo83kz
+ DfLocvnVtgJBtWYbcprgT09VC7PlAcCBRKwmQ0ejnHNpdb72LLRo9Yi
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0276.GBRP123.PROD.OUTLOOK.COM
@@ -77,65 +77,65 @@ X-ClientProxiedBy: LO4P123CA0276.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWXP265MB1910:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3f8dca8-7780-461e-7701-08de9b294f9e
+X-MS-Office365-Filtering-Correlation-Id: 445bf1ea-2926-4f85-1f53-08de9b294fd7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|10070799003|1800799024|366016|7416014|376014|22082099003|921020|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: C4/qb2tSAuoQud72PPIeEaCeAJ+mk6wpbaxXbaHJaLd//5HdkD6/dAEJyErHvTMLAVnArmZXmiMEOrrQrPVyXMbXLqIdKZVsQn/VWU7XY0vtuMFO4TyzcMh2p3IXTZ3GOJwyU/qKy/XYpgYK8WqC97chSvDsUop1w3fFYnGGCGFurj2cmBZ/akWMeZYkFlCUmfLWMopjEnfgi4ZLnYKB3p20kHGe5428uskesQTMrGxiA3jjRD7llQd0V9Ovl0ExFyI+LXYN2f37HZwE0ftcaWYuCGdIj8MRYSli1KBUpyuZCRrYMWTxAoNO3rOiL3//7giMVGieDURWvYYZfzDqZkbp62br1YEm0Ybuor83zgkHBGY6SjGADr7P1qFym/sZWcTvcZZJzCWYC2TCVKtJQPWKmLzq26p9HDT7NHB7bGArQrBKbKwDImgONNuDZxoXugMfiu7hpvCyBoGeg/E7eBCY2gzoNIOjYzZTPELM7jHVi2LgCsHyXm/cbn171J7uVsmwCOkm1hSCNFZsOWokonnZvRSLOZ5AqMnPOr5Tn9nF/nFj9Ga9nPdMK6GlY0kBGjS9LEpOrkAP6BLSo5rGX+M4h9S4e/mKhA9kWK0wdizKGA1+QdLjZ/mnG88uDNB26jwMcvq8kYhwcg+qliMwVzfR/KhU7K5XYorcIJWakIOSXt6VB7q3qKMM48dQisyGoO2id+wQu31yxfjEYVl5Wi7yjrxl/OCfets2Y4WMa5EMoSfjr8kZ6LK/1oCgAm4FFsPHLWYkwXl4Pv2J91QMhA==
+X-Microsoft-Antispam-Message-Info: G2uvZw/EZOpTi9yWTSNH30Kk033nuYspih9BjNlBTq0jiXCyYzLGVKaW8kRr6ZjdE7lC/US3YX0wKM1JGAqa50td550ZUQDNPcN7HcorKiRbYamYsuYBb3L0xVhaP3+mFlj2pelEGuDlEp8rpwkbkQlOdwPP+Yue2/DGzNhFwbJlIyJ1Ol0lj0OKPzIMo+f/4xvK2+MQE0Is/nKbHLmePMAjwRqfSYHIayoOJ3xHBV/Hr4ZpQIICPXHV09XTKQA6BSFWRqjpNOJ3WN0ulQ554d8Tbd5upOoqO5JWL4GPQIBimBVoAOmttFQA4eIhzdaHjpDuLC84KhZiz73rk1S0gQ4giAvPU3jJAIBi3E9uT5SGpaTjdkdRmQfATBYZVBntzvYz0eNuVumVBmkyvK6wUdfI/cuC+35L1LCcybc/lW03R0ChWnMhnG4dmynNwgT72Uw++aa+lX4qq4bd5/ntOptLohnmWodrIuEGYASlimtWVlHE4TyCf/XJQmhNKGHUR88nMt8qvPQLVKVpG6lbqlmCzdmdsPUXrks0NU/E2wb8g+LW4aZYnD91Tc/LsbpNx8hRO93Tm1GmvJ4ifaPyEpuNEGqD/rkV1qgbVlqitbatgiEwyAojEhl3Tihr+DKc0wPTkZrqscUFdbxciRbWutfck4CeasPZ6L+4G64ZOM82o6tr00LbxafXKN4PdQp0KE3TFT/BTZ0cIkR31bGlWaKAAUn2Dzdve9LHZEgpszWYyjga2s+uC2kN8HlfCs/zeJ9lRUEfivLT+wklKjW0ZA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(22082099003)(921020)(56012099003)(18002099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QlpSN1M1eWxyVERFQlF2bXYvQXVjcW1qWGo2MktYN0NhdjFhQTVETkd1MmQx?=
- =?utf-8?B?cE9lSlBoNi9lZnNYNzRIS0xQN2Y4U2JyTklGNG1venBMMStYN3VXdm4vNUgz?=
- =?utf-8?B?OVUvSXlRek1PdTZVcnQrZ3kranMvTUxFOW4ra1Y3SWltRFJPNVJyQmxUME1r?=
- =?utf-8?B?WlpSK2VuMUtVbUZQREVEd2FzWUZ2UnpROWtyeDV5VjFnUjJZUzBMdkYrRGdI?=
- =?utf-8?B?SU5TNlJJRVUyUndsUFZMVUFkNjNOblF5MkkrbXl4bkh5b25aWjBaWm10T2J5?=
- =?utf-8?B?aVluaVZETkdyelo2ZFlNUHFWUVpaWks0TDlrNEMzQmFWd1ZUS2R2ajJTaE5T?=
- =?utf-8?B?czFFaXlMSnZPSmhLcmFDNXF6NkNMK09nM0NkWEFHRDM0ZXVaYmZSRS9xL21T?=
- =?utf-8?B?bE54MXNIaWEya1ZaVFpCOGZpV2xRMmcwa1NOUTIxYkwyUDVGSnRxSHF2NUJn?=
- =?utf-8?B?OUQrR1RrY3NhRFd5NDh4LzBZOUd2Q3VsSVgwdXpJcTNmcmZFV3VpN1lML2lk?=
- =?utf-8?B?NHIwdkd5VXUvT2dUMTFWOHowTHI5NjNCMzRqQzhHVHloalNleFNXVkpuUWIr?=
- =?utf-8?B?RzBGbERaMExmcHI0a0hjVFQzMW9BMDhKMzZwR29pUmc0b2NlNnBlQzZsM29v?=
- =?utf-8?B?WlhMeW4yWkZ1c3lrUVZWUE1HaHFiY09WTHlqWTQ0SnovWXhIK25lU1RxZG1V?=
- =?utf-8?B?SjFSM3lXZnZhUldBcmUyS0FyaWx5dlF2M0JrQU1odWk0NUw3UGdpK3lpajQ5?=
- =?utf-8?B?SUQ1cGFDN1g5djAvcGNhaG95Mmp0dVkwMzRFRUlCMGFFOUpIVGUrTTRFSnRB?=
- =?utf-8?B?dmtrOGFuUExHRFJIWjEyNEU5N2pqM3lVMmMwc0dmR1F2MW1lbzdLMWlndGNx?=
- =?utf-8?B?Snl1aWROR21LVFpYVi93bGNkcGxsVGt5YmhCUzlBUVl1UEdjVys3cTloamFX?=
- =?utf-8?B?cFRVVVJtTjNibjNNUkpJcmhTYy9UK1c5cG0yR1BxeTBKOE8vUmFZaDNOczhY?=
- =?utf-8?B?U3o5U1NQVWUvTndIeGR4OUxUN2JTRnhTQ2VLZGRtcXo4RHNJMG5IZVE3Q0JB?=
- =?utf-8?B?SlJ5emRWa01ZVTV1eUtMRkUvN2ZaM1VzVkZHMGlSYk9lMkFLWks0clVOb2lp?=
- =?utf-8?B?YUc2SUNmUkNSQlZwWUZFU3JaSTlXWVJicGNYbW5GUEhVOVY5aktrR01VckR6?=
- =?utf-8?B?Z0tjRUpQdXAraXhJeVFPQmtJZmk4bVdjK1FBejgzWGJZNHdwc3VRL2xtcW1S?=
- =?utf-8?B?UjJaTDNPV2EzSUZUZkthVnB3VzJIbGtib1QzYi9zbE1yNHVCSGNWbm1rVTdM?=
- =?utf-8?B?OCsyWStHd2c1ZjZWVEdwWHJ1TWFLbVI3QjNRVE9RU29rU0ZyckpxMGdNVXh2?=
- =?utf-8?B?emlaTHQ1amtGbXY4aVNnZE1QUU5ZWDBKS1VmQTJxeWkwcnM3dEtyYWFJeVRR?=
- =?utf-8?B?TXJoQ2ZidGZXdHJnVk10Q3RORWZsellreGg4RVRiNExuUUg4NDc2M3gzTXJK?=
- =?utf-8?B?QlA3ODN3aEpLN0VFdldRaHY0ZjQ5d3FkdllWaEx4V1E1b3ZjS1QwdkxmM1Rh?=
- =?utf-8?B?TzMxL1VyMk82K0pwbXVaT2pvWm9MSEdlK1FXVUswNHdsaHJ6WnVTUGg5YjZJ?=
- =?utf-8?B?VWE0UkpCYnFEajZpMzBPOHIvTHNSbzh6dnM0NmRSenhPdGNOa1BmbTZiNXNH?=
- =?utf-8?B?clNiSFhoR0IvNmswUWU4dE14ZUc3WE9Dd3R1Yks1Z09mNDhIaVp6VDl1SFdK?=
- =?utf-8?B?aU9YWXRiYWMvb0grVjBJZ2duVWxoR0xSVFhuQklUUTM4cTdsY3N0bmVjZ1Zj?=
- =?utf-8?B?UXBZSlN0ZGFNbllNdnY1NUNKemM2RFVWMFVFS2ZlNkRzU2tUOG5OT1AwbTht?=
- =?utf-8?B?cGdDdFZiK0MwQXQrY05JMmJkSEk0aE85cnNtRHVtOWFvcHZJYkFFKzlsYlNs?=
- =?utf-8?B?SSt4WldJU01pMWR1eW1tRHV2dkNOVFVzQnpOdVgwbFVob2J3QlBqSlRtNlBp?=
- =?utf-8?B?elkxTXFNRkpjakc0c0diTjA1RzZPSTR3M3VrWmNYNElPNzJSbzBBRk1Bcm1T?=
- =?utf-8?B?NjZNYmhQanRWcGZmdWZIWXJ2M2dXbmJmVGVpRHkxK2NUZ2pYTWZ5RDhwbDZP?=
- =?utf-8?B?d3cvbHViU3FDNE56TmZ3QnFRQ3daSVZvdzFNYjlYbnhjNVNxRmtGRWRMN0k2?=
- =?utf-8?B?L2xhZU95Mm9QZ0s5cTZBTGY0b1dzSEdrbzVQV3AxMlZKUUZRZVRlUjBIVDB0?=
- =?utf-8?B?RWtkYjNKUEdjeUF4N1VNeW85VE5BTUwvM1dVdXNBZm1lNUhPTkcyTnlrTVB4?=
- =?utf-8?B?dldMeEtaR3pLSm9aOUcvQ0FadVBDaU5LTnFFQkJoT1A5d2J1Q1kzdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SnVuQll1ckpyWEo4aHZ6ZldCSFI3KzB0ZXNEN1F0bThQZ2paS0I4QXVhaEJU?=
+ =?utf-8?B?ZWllVW56VU01U0ZLTngzQXpOeG5pRStUbUU1N2FDbmJuTEpES2lRMjJENzhZ?=
+ =?utf-8?B?VVNhT2x6c0xodE5GbXBYTHVNbEgrVW9GUnBLdi9JMzFMMTR2U3EzeW5MY1RM?=
+ =?utf-8?B?L0RRdmhvNjdCOGhGRjZESlBTVDczZk03alpTTXNwN2dXN3BUS2dxQ25la2NJ?=
+ =?utf-8?B?b1FzNHpKSDl2TVY1RSt4UnNuUkhoalVuSGcxcnlXNXoxTVN2NGJZL0YrdHdv?=
+ =?utf-8?B?dzV4NW1GMk9PcVdpTjgyNUNqS20vYkdRTEs5YUZpWHhQOGYzTC9ib1JxRjlu?=
+ =?utf-8?B?eUZITDFmdzdid0hiNXNzdytFWTFVMUUrMU56TW9XOEpEYW90NWh6VUlvQ0Nq?=
+ =?utf-8?B?WXFKZk8xejUrek16RDBwNmMvN1BsdldZa01nUjVlUmE5Wm9paEJHa1FWb3ND?=
+ =?utf-8?B?OWpqUWtlN0NBeVJTTGJkQVRUcmZQYURCS094Z0dPUDdJT2VmNkMyNEpROXNF?=
+ =?utf-8?B?d250SnIwU080R1l5MVhEZy9YbjdTT2xudzBjMmZqdllDYVhQNVV0ckt4UWhH?=
+ =?utf-8?B?dk01S0h3TWZMaWgwL1ZzRExCTk1kaksrNGtkQnNXUTNQR2RoOG5RZnlIQjJv?=
+ =?utf-8?B?bzU4d3BVY0Fza0ZzYk1kc3VSWXZoZDg0RmQvMExLZk9yeWRMS2ZCamVNLzJT?=
+ =?utf-8?B?NzRIT0FyOGFERkVFTnJVZW9FbkxMbGQ3Q0tZYzhpTm9KaGZvd0pzRENhNWZ5?=
+ =?utf-8?B?Wlhnc0JJUFJQMkNlNm1TK1RVNjJaNmtrTlArZ3VVU2dtRWJMMEduQkh4eDVL?=
+ =?utf-8?B?M2hMRjZHSFhHNDdsMWx2ZXFaaks1VlV4VWZEWXAzZU9MWnUxbkF4K05SUnBK?=
+ =?utf-8?B?cDBaNmhFQ3pHMGJHbUltS2U4amhOYlorbEREK216VXBpM1JHNG9KY2ZrOEFF?=
+ =?utf-8?B?Y3kycStsYWhhakNlS1VXaTkvR1F4bE5Xc0xadWFtVU5uQVY1cFdaZlZzZmdn?=
+ =?utf-8?B?MC9KbGt4cERVRTR4OWViWWNiVUpldVhyenBOSWEzOFZkajVPODYwRkQ0cWdI?=
+ =?utf-8?B?cGhremFOYTgybWZwUmZ2b0tpK1Vjek5WV3JRMWVkcFhxdGprdHpFR3BjTENM?=
+ =?utf-8?B?V1RaUGkvYjFIWWc1MSs4QnpLOC8xRERLS214SVdCQ1JJTEkxcUtRSjBBYkM2?=
+ =?utf-8?B?VlArcHFSNjJ0WnpEQTJqN2N3dzh3SXQvKzQ4cDIzR0JFdGgzakZscUVYT0Uw?=
+ =?utf-8?B?MzdWa0FRNkRvdWY0RFZqKzcwTE92Z0RxZUJvYlQyVWRmaC9VWEFhaFpVL1JZ?=
+ =?utf-8?B?WnlaU2ZrTlpyZ1c0cG5jRE9XSEdkamJJNjJ3M2pyYWNlMENUU0RBVDFQVlBa?=
+ =?utf-8?B?UE40U3BuOWNOa01kRHpGZzZjOXJ5TlB5a1d4cWdsK3c5YWdOaDVibFBRamFF?=
+ =?utf-8?B?TVVqeUVJa0ZuKzQ1cEhrTFUrNXZTQXd2VlkzQ3A5Z3NaVFZGVzVxSU5IRVNl?=
+ =?utf-8?B?QmpQZ1RxYVFOQ3pleFhsV3lsUUc0aCtmUExyd21VYmlod21iSzZFcktsVDhY?=
+ =?utf-8?B?RWVYeHIwSjRKUmd2a3ZQSHRqMXhLU1JyYlM4cGk0bDIrN0llTXB0N3NuSmxL?=
+ =?utf-8?B?dG44Si84T1BzdEZOZXR2YU01K3dMOHZuVzIzejU0a3pDdm56SVJyUFJCTzV1?=
+ =?utf-8?B?eDJEdHF3bnFrVUlLcEs3SHJwREtxbUh1eXVQQmJTSWVCMkluL0tMejFqN0VS?=
+ =?utf-8?B?eHJObGZZNnJSVXlMOUJiMnpPS1Qwb2lza1FsLzNUS3N3WDhHekJWd3Y1ejFU?=
+ =?utf-8?B?VzJXTWovU2ZwRkFDWm5oZzNhN3lURUlXZWdDWEZVZkRNMGxHRmdEajlJUFpu?=
+ =?utf-8?B?QzIzOGtQUzF0ZWNyeS9DZmJvcklVVHpFNThObG9CcHlLcy9Xd2xWaTlxWDcy?=
+ =?utf-8?B?STZWb05mNFBHSFBBMk1YNVlSMldMaWVaMmxJSjczaWpaWXBKeXYvZFc3Ym0v?=
+ =?utf-8?B?S1Y1eno0ZndQazFyOEdjbzVTRGxCdnhVTnVvTWIxWEFteXRlZjFQKzVuVytG?=
+ =?utf-8?B?MGsxT3p5VXNhcXZVNEZDL1JBZXNLSGx3K0dLbXk3aUZhTDlEbk4wUnEweWZ1?=
+ =?utf-8?B?TENGc2lGRFNHOFVEZmlUKzZZMXZCZkhXRWRsV2E2blZGVlhMV0JPWjNEcjRQ?=
+ =?utf-8?B?TjVmdy9vdjZqcWFQMVN1bU5LNUsrL0FaU1h0MTZhQ3hVZldaVUM1YytUOGlv?=
+ =?utf-8?B?OHlNUDNKRjhod2RjZS9LY3g1NDR3TjR1OW9EUm1sKzZrOS9oM1VwSFg0Nk5h?=
+ =?utf-8?B?dzhIMG9aZjJvQ3dmODg3bDJhZVo5Tk5RVXRtc1BSdktkMHhZMnBNZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3f8dca8-7780-461e-7701-08de9b294f9e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 445bf1ea-2926-4f85-1f53-08de9b294fd7
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 19:58:06.5657 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 19:58:06.9423 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /z3JXxufy70e3FLJOk7A/4c6UZM7xFJYalr92MELxDmBaEj8Et2GBU8cNvR5GaOlgvh/Sbw1S3V6tW80cEJoPA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4PqoxCme4zarxLzsI5mfxzbUDon2XjzsRWn3p4J6B/+3r359PP/dJAoSBowPwNzWjAezXXKV6GCvhc9ySiaLZQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB1910
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -152,84 +152,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Demonstrate the preferred syntax of index projection in DMA documentation
-and examples. A few `[i]?` cases are converted to demonstrate the new
-variant.
+Use "build" to denote that the index bounds checking here is performed at
+build time.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/dma.rs       |  8 ++++----
- samples/rust/rust_dma.rs | 12 +++++-------
- 2 files changed, 9 insertions(+), 11 deletions(-)
+ drivers/gpu/nova-core/gsp/cmdq.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-index 3e4d44749aaf..d6382904a90d 100644
---- a/rust/kernel/dma.rs
-+++ b/rust/kernel/dma.rs
-@@ -1152,8 +1152,8 @@ unsafe impl Sync for CoherentHandle {}
- /// unsafe impl kernel::transmute::AsBytes for MyStruct{};
- ///
- /// # fn test(alloc: &kernel::dma::Coherent<[MyStruct]>) -> Result {
--/// let whole = kernel::dma_read!(alloc, [2]?);
--/// let field = kernel::dma_read!(alloc, [1]?.field);
-+/// let whole = kernel::dma_read!(alloc, [try: 2]);
-+/// let field = kernel::dma_read!(alloc, [panic: 1].field);
- /// # Ok::<(), Error>(()) }
- /// ```
- #[macro_export]
-@@ -1189,8 +1189,8 @@ macro_rules! dma_read {
- /// unsafe impl kernel::transmute::AsBytes for MyStruct{};
- ///
- /// # fn test(alloc: &kernel::dma::Coherent<[MyStruct]>) -> Result {
--/// kernel::dma_write!(alloc, [2]?.member, 0xf);
--/// kernel::dma_write!(alloc, [1]?, MyStruct { member: 0xf });
-+/// kernel::dma_write!(alloc, [try: 2].member, 0xf);
-+/// kernel::dma_write!(alloc, [panic: 1], MyStruct { member: 0xf });
- /// # Ok::<(), Error>(()) }
- /// ```
- #[macro_export]
-diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
-index 129bb4b39c04..a2c34bb74273 100644
---- a/samples/rust/rust_dma.rs
-+++ b/samples/rust/rust_dma.rs
-@@ -73,7 +73,7 @@ fn probe(pdev: &pci::Device<Core>, _info: &Self::IdInfo) -> impl PinInit<Self, E
-                 Coherent::zeroed_slice(pdev.as_ref(), TEST_VALUES.len(), GFP_KERNEL)?;
- 
-             for (i, value) in TEST_VALUES.into_iter().enumerate() {
--                kernel::dma_write!(ca, [i]?, MyStruct::new(value.0, value.1));
-+                kernel::dma_write!(ca, [try: i], MyStruct::new(value.0, value.1));
-             }
- 
-             let size = 4 * page::PAGE_SIZE;
-@@ -91,16 +91,14 @@ fn probe(pdev: &pci::Device<Core>, _info: &Self::IdInfo) -> impl PinInit<Self, E
- }
- 
- impl DmaSampleDriver {
--    fn check_dma(&self) -> Result {
-+    fn check_dma(&self) {
-         for (i, value) in TEST_VALUES.into_iter().enumerate() {
--            let val0 = kernel::dma_read!(self.ca, [i]?.h);
--            let val1 = kernel::dma_read!(self.ca, [i]?.b);
-+            let val0 = kernel::dma_read!(self.ca, [panic: i].h);
-+            let val1 = kernel::dma_read!(self.ca, [panic: i].b);
- 
-             assert_eq!(val0, value.0);
-             assert_eq!(val1, value.1);
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 275da9b1ee0e..1c9b2085f5e4 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -237,7 +237,7 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+         let start = gsp_mem.dma_handle();
+         // Write values one by one to avoid an on-stack instance of `PteArray`.
+         for i in 0..GspMem::PTE_ARRAY_SIZE {
+-            dma_write!(gsp_mem, .ptes.0[i], PteArray::<0>::entry(start, i)?);
++            dma_write!(gsp_mem, .ptes.0[build: i], PteArray::<0>::entry(start, i)?);
          }
--
--        Ok(())
-     }
- }
  
-@@ -109,7 +107,7 @@ impl PinnedDrop for DmaSampleDriver {
-     fn drop(self: Pin<&mut Self>) {
-         dev_info!(self.pdev, "Unload DMA test driver.\n");
+         dma_write!(
+@@ -260,7 +260,7 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+         let rx = self.gsp_read_ptr();
  
--        assert!(self.check_dma().is_ok());
-+        self.check_dma();
+         // Pointer to the first entry of the CPU message queue.
+-        let data = ptr::project!(mut self.0.as_mut_ptr(), .cpuq.msgq.data[0]);
++        let data = ptr::project!(mut self.0.as_mut_ptr(), .cpuq.msgq.data[build: 0]);
  
-         for (i, entry) in self.sgt.iter().enumerate() {
-             dev_info!(
+         let (tail_end, wrap_end) = if rx == 0 {
+             // The write area is non-wrapping, and stops at the second-to-last entry of the command
+@@ -322,7 +322,7 @@ fn driver_write_area_size(&self) -> usize {
+         let rx = self.cpu_read_ptr();
+ 
+         // Pointer to the first entry of the GSP message queue.
+-        let data = ptr::project!(self.0.as_ptr(), .gspq.msgq.data[0]);
++        let data = ptr::project!(self.0.as_ptr(), .gspq.msgq.data[build: 0]);
+ 
+         let (tail_end, wrap_end) = if rx <= tx {
+             // Read area is non-wrapping and stops right before `tx`.
 
 -- 
 2.51.2
