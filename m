@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5077AF419A4
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 13:10:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 602C5F419A4
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 13:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC07D10E226;
-	Wed, 15 Apr 2026 13:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C16BA10E6DB;
+	Wed, 15 Apr 2026 13:12:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dbH/HisP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BMv+oRRG";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3560B10E226
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 13:10:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB6810E6DB
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 13:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1776258618;
- bh=3GVMTIzOAz5VDJleaYw4BrAw2svn2De6ZgUg6RNAFWg=;
+ s=mail; t=1776258718;
+ bh=Hn7dHbj19hvnNcRyqHlaA81avrusCKypnz1mphNGTZ8=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dbH/HisPEdrFCHPNaE2zye0RV2q7leFnjp90oX5lEN3izHTdueZeTdkEQFDYmCj9Q
- 9hrv0A0DwAXZcR1djBAjy8UkXZJ25k2VMO189FvAAUp7djw3MBmKZYCOTNuyDm+iwo
- e10dpv23eCjFu6gkX7I9Cs44toeSCAxoapPZ4h+hZh6dYatjV7mv34lLq+bKhplUj8
- qvmw/6zrL22/1zi3c/iNWioxIgRi5a8bVB/4GnJ3oaOzsTKqij+3M54JdIray6ATIv
- aRP/t/9uxhevX4h+7evp9dMZYqpbmvAUM9PHtSf7XMkpGppGt1oeqMh59ag5eqY7jB
- 8ETi88o/38FHg==
+ b=BMv+oRRGonWkqx2tqSyJCR/iaZ2ZKj4Yp5FSyZORaUanwyGUOFbVxTkzCPVt3vaQH
+ KfmslQDhBZXSYIvJzxrYmFL7eglOyOJ7mR0dkDEJt/SoF1Uu4VMeCkSE6d2aD4b3ef
+ zh1LEPvzB4l7H/LSFU1xs4VUxsfWyXJbGS34qyqgIOY1ykGRvqokRwNp1BjPDLXtC4
+ roxfQsrIjFWRgenFM5S7UR5WMDp1qXMsRAx1UoPW/2FbuKv6YUiO1gxAdM6y75+TMS
+ 9ShshYCorHw5fV2Lqrz5s8nFWiaTmDaKEqXdKgTgVWr+p8M1/k1MGRYGntt3int1TZ
+ 0gTQvu4qTM2Pg==
 Received: from fedora (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
  server-digest SHA256) (No client certificate requested)
  (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3BC3117E1356;
- Wed, 15 Apr 2026 15:10:18 +0200 (CEST)
-Date: Wed, 15 Apr 2026 15:10:13 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 583D217E1388;
+ Wed, 15 Apr 2026 15:11:58 +0200 (CEST)
+Date: Wed, 15 Apr 2026 15:11:53 +0200
 From: Boris Brezillon <boris.brezillon@collabora.com>
 To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
@@ -41,13 +41,13 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
  <liviu.dudau@arm.com>, Maarten Lankhorst
  <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH v7 1/6] drm/panthor: Expose GPU page sizes to UM
-Message-ID: <20260415151013.4d9c6bb0@fedora>
-In-Reply-To: <20260415112900.681834-2-adrian.larumbe@collabora.com>
+ Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v7 2/6] drm/panthor: Pass vm_bind_op to
+ vm_prepare_map_op_ctx
+Message-ID: <20260415151153.36c6b125@fedora>
+In-Reply-To: <20260415112900.681834-3-adrian.larumbe@collabora.com>
 References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
- <20260415112900.681834-2-adrian.larumbe@collabora.com>
+ <20260415112900.681834-3-adrian.larumbe@collabora.com>
 Organization: Collabora
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
@@ -68,152 +68,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 15 Apr 2026 12:28:45 +0100
+On Wed, 15 Apr 2026 12:28:46 +0100
 Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> In future commits that will implement repeated mappings, only repeat
-> values multiple of GPU page sizes will be tolerated. That means these
-> values must be made known to UM. Do it through a queriable GPU info
-> value.
+> Instead of passing its constituent elements, pass the whole struct to
+> simplify the function prototype.
 >=20
 > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 
 > ---
->  drivers/gpu/drm/panthor/panthor_device.h |  3 +++
->  drivers/gpu/drm/panthor/panthor_drv.c    |  8 ++++++++
->  drivers/gpu/drm/panthor/panthor_mmu.c    |  9 ++++++++-
->  include/uapi/drm/panthor_drm.h           | 13 +++++++++++++
->  4 files changed, 32 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 27 ++++++++++++++-------------
+>  1 file changed, 14 insertions(+), 13 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/p=
-anthor/panthor_device.h
-> index 5cba272f9b4d..d856a4fe1d61 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -158,6 +158,9 @@ struct panthor_device {
->  	/** @csif_info: Command stream interface information. */
->  	struct drm_panthor_csif_info csif_info;
-> =20
-> +	/** @mmu_info: MMU info */
-> +	struct drm_panthor_mmu_info mmu_info;
-> +
->  	/** @hw: GPU-specific data. */
->  	struct panthor_hw *hw;
-> =20
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/pant=
-hor/panthor_drv.c
-> index 73fc983dc9b4..a8090bc4e33c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -175,6 +175,7 @@ panthor_get_uobj_array(const struct drm_panthor_obj_a=
-rray *in, u32 min_stride,
->  	_Generic(_obj_name, \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_gpu_info, tiler_present), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_csif_info, pad), \
-> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_mmu_info, page_size_bitmap), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestam=
-p), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
->  		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
-> @@ -946,6 +947,10 @@ static int panthor_ioctl_dev_query(struct drm_device=
- *ddev, void *data, struct d
->  			args->size =3D sizeof(ptdev->csif_info);
->  			return 0;
-> =20
-> +		case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
-> +			args->size =3D sizeof(ptdev->mmu_info);
-> +			return 0;
-> +
->  		case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
->  			args->size =3D sizeof(timestamp_info);
->  			return 0;
-> @@ -966,6 +971,9 @@ static int panthor_ioctl_dev_query(struct drm_device =
-*ddev, void *data, struct d
->  	case DRM_PANTHOR_DEV_QUERY_CSIF_INFO:
->  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
-> =20
-> +	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
-> +		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
-> +
->  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
->  		ret =3D copy_struct_from_user(&timestamp_info,
->  					    sizeof(timestamp_info),
 > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
 hor/panthor_mmu.c
-> index bd41c892beb7..01577be88933 100644
+> index 01577be88933..d9e2f8afb8fb 100644
 > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2769,7 +2769,7 @@ panthor_vm_create(struct panthor_device *ptdev, boo=
-l for_mcu,
->  	refcount_set(&vm->as.active_cnt, 0);
+> @@ -1275,9 +1275,7 @@ static int panthor_vm_op_ctx_prealloc_pts(struct pa=
+nthor_vm_op_ctx *op_ctx)
+>  static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ct=
+x,
+>  					 struct panthor_vm *vm,
+>  					 struct panthor_gem_object *bo,
+> -					 u64 offset,
+> -					 u64 size, u64 va,
+> -					 u32 flags)
+> +					 const struct drm_panthor_vm_bind_op *op)
+>  {
+>  	struct drm_gpuvm_bo *preallocated_vm_bo;
+>  	struct sg_table *sgt =3D NULL;
+> @@ -1286,12 +1284,12 @@ static int panthor_vm_prepare_map_op_ctx(struct p=
+anthor_vm_op_ctx *op_ctx,
+>  	if (!bo)
+>  		return -EINVAL;
 > =20
->  	pgtbl_cfg =3D (struct io_pgtable_cfg) {
-> -		.pgsize_bitmap	=3D SZ_4K | SZ_2M,
-> +		.pgsize_bitmap	=3D ptdev->mmu_info.page_size_bitmap,
->  		.ias		=3D va_bits,
->  		.oas		=3D pa_bits,
->  		.coherent_walk	=3D ptdev->coherent,
-> @@ -3214,6 +3214,11 @@ static void panthor_mmu_release_wq(struct drm_devi=
-ce *ddev, void *res)
->  	destroy_workqueue(res);
->  }
+> -	if ((flags & ~PANTHOR_VM_BIND_OP_MAP_FLAGS) ||
+> -	    (flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) !=3D DRM_PANTHOR_VM_BIND=
+_OP_TYPE_MAP)
+> +	if ((op->flags & ~PANTHOR_VM_BIND_OP_MAP_FLAGS) ||
+> +	    (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) !=3D DRM_PANTHOR_VM_=
+BIND_OP_TYPE_MAP)
+>  		return -EINVAL;
 > =20
-> +static void panthor_mmu_info_init(struct panthor_device *ptdev)
-> +{
-> +	ptdev->mmu_info.page_size_bitmap =3D SZ_4K | SZ_2M;
-> +}
-> +
->  /**
->   * panthor_mmu_init() - Initialize the MMU logic.
->   * @ptdev: Device.
-> @@ -3226,6 +3231,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
->  	struct panthor_mmu *mmu;
->  	int ret, irq;
+>  	/* Make sure the VA and size are in-bounds. */
+> -	if (size > bo->base.size || offset > bo->base.size - size)
+> +	if (op->size > bo->base.size || op->bo_offset > bo->base.size - op->siz=
+e)
+>  		return -EINVAL;
 > =20
-> +	panthor_mmu_info_init(ptdev);
-> +
->  	mmu =3D drmm_kzalloc(&ptdev->base, sizeof(*mmu), GFP_KERNEL);
->  	if (!mmu)
->  		return -ENOMEM;
-> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_dr=
-m.h
-> index 0e455d91e77d..dc2704fc2829 100644
-> --- a/include/uapi/drm/panthor_drm.h
-> +++ b/include/uapi/drm/panthor_drm.h
-> @@ -246,6 +246,9 @@ enum drm_panthor_dev_query_type {
->  	/** @DRM_PANTHOR_DEV_QUERY_CSIF_INFO: Query command-stream interface in=
-formation. */
->  	DRM_PANTHOR_DEV_QUERY_CSIF_INFO,
+>  	/* If the BO has an exclusive VM attached, it can't be mapped to other =
+VMs. */
+> @@ -1299,7 +1297,7 @@ static int panthor_vm_prepare_map_op_ctx(struct pan=
+thor_vm_op_ctx *op_ctx,
+>  	    bo->exclusive_vm_root_gem !=3D panthor_vm_root_gem(vm))
+>  		return -EINVAL;
 > =20
-> +	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
-> +	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
-> +
->  	/** @DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO: Query timestamp information.=
- */
->  	DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO,
+> -	panthor_vm_init_op_ctx(op_ctx, size, va, flags);
+> +	panthor_vm_init_op_ctx(op_ctx, op->size, op->va, op->flags);
 > =20
-> @@ -487,6 +490,16 @@ struct drm_panthor_timestamp_info {
->  	__u64 cpu_timestamp_nsec;
->  };
+>  	ret =3D panthor_vm_op_ctx_prealloc_vmas(op_ctx);
+>  	if (ret)
+> @@ -1328,7 +1326,7 @@ static int panthor_vm_prepare_map_op_ctx(struct pan=
+thor_vm_op_ctx *op_ctx,
+>  	}
 > =20
-> +/**
-> + * struct drm_panthor_mmu_info - MMU information
-> + *
-> + * Structure grouping all queryable information relating to the MMU.
-> + */
-> +struct drm_panthor_mmu_info {
-> +	/** @page_size_bitmap: Allowed page sizes */
+>  	op_ctx->map.vm_bo =3D drm_gpuvm_bo_obtain_prealloc(preallocated_vm_bo);
+> -	op_ctx->map.bo_offset =3D offset;
+> +	op_ctx->map.bo_offset =3D op->bo_offset;
+> =20
+>  	ret =3D panthor_vm_op_ctx_prealloc_pts(op_ctx);
+>  	if (ret)
+> @@ -2849,10 +2847,7 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *fi=
+le,
+>  		gem =3D drm_gem_object_lookup(file, op->bo_handle);
+>  		ret =3D panthor_vm_prepare_map_op_ctx(op_ctx, vm,
+>  						    gem ? to_panthor_bo(gem) : NULL,
+> -						    op->bo_offset,
+> -						    op->size,
+> -						    op->va,
+> -						    op->flags);
+> +						    op);
+>  		drm_gem_object_put(gem);
+>  		return ret;
+> =20
+> @@ -3048,10 +3043,16 @@ int panthor_vm_bind_exec_sync_op(struct drm_file =
+*file,
+>  int panthor_vm_map_bo_range(struct panthor_vm *vm, struct panthor_gem_ob=
+ject *bo,
+>  			    u64 offset, u64 size, u64 va, u32 flags)
+>  {
+> +	struct drm_panthor_vm_bind_op op =3D {
 
-Maybe add more info there: like, page size is a power of two, and each
-bit encodes a particular page size.
+You could even make it const here, but I think you're adjusting some
+fields after the initialization in one of the following patches.
 
-> +	__u64 page_size_bitmap;
-> +};
-> +
->  /**
->   * struct drm_panthor_group_priorities_info - Group priorities informati=
-on
->   *
+> +		.bo_offset =3D offset,
+> +		.size =3D size,
+> +		.va =3D va,
+> +		.flags =3D flags,
+> +	};
+>  	struct panthor_vm_op_ctx op_ctx;
+>  	int ret;
+> =20
+> -	ret =3D panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, offset, size, va=
+, flags);
+> +	ret =3D panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, &op);
+>  	if (ret)
+>  		return ret;
+> =20
 
