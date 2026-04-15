@@ -4,55 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F9FCF43832
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 15:27:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40A4DF43844
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 15:30:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F63710E708;
-	Wed, 15 Apr 2026 15:27:10 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="cFy0QtH9";
-	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 292E110E708
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 15:27:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1776266827;
- bh=QvZygflp5gbv3cc6ZILJtpC0burqmrknSs/Tw3pqw7E=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=cFy0QtH90WS4EuWi69TwTFItQjPlgvVZquZUXAJ6YsTQEwKICxvTqaJL+UnI0CDQ0
- 63GaO6Pn8dO8jy4mlofkCnRr7+snR4NkgaYOJFpERtPmiAtcfe++Hql06t+v0HyNzu
- l5XZvN4vzQY9lmr9bARNz7NlfMfS+HluGSzh4uTUt3dV+D5Ip15Ku61bVrm3ConPqR
- f6csNUzhTrTz5/5N0ypqU7ncRZqqL459sD5crmJXw9gtyR1msvpF9I5JNLXMW3I6jc
- 1oFDR0invihXpGS5wHb99p1jVkKLzjQ4rMc9cbpyagDEZs7pK3ddOI1+2hy/H+DHR6
- /tXoBUaPBNHMw==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B15A17E0F7B;
- Wed, 15 Apr 2026 17:27:07 +0200 (CEST)
-Date: Wed, 15 Apr 2026 17:27:02 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
- Price <steven.price@arm.com>, kernel@collabora.com, Liviu Dudau
- <liviu.dudau@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v7 6/6] drm/panthor: Bump the driver version to 1.9
-Message-ID: <20260415172702.250ef4fb@fedora>
-In-Reply-To: <20260415172233.543c6d81@fedora>
-References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
- <20260415112900.681834-7-adrian.larumbe@collabora.com>
- <20260415172233.543c6d81@fedora>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95BA710E70A;
+	Wed, 15 Apr 2026 15:30:07 +0000 (UTC)
+X-Greylist: delayed 1549 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Apr 2026 15:30:07 UTC
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13E9010E70A
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 15:30:07 +0000 (UTC)
+Received: from local
+ by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
+ id 1wD1ms-000000002Nq-3tYX; Wed, 15 Apr 2026 15:04:19 +0000
+Date: Wed, 15 Apr 2026 16:04:16 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Junzhi Zhao <junzhi.zhao@mediatek.com>,
+ Jie Qiu <jie.qiu@mediatek.com>, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH 2/2] drm/mediatek: hdmi: report jack plugged state from
+ bridge enable/disable
+Message-ID: <c4d62fc2244fb72207855c5a366ff10fad419f2d.1776265222.git.daniel@makrotopia.org>
+References: <a3e22cbae528c9a38d854a586d1736b860998d41.1776265222.git.daniel@makrotopia.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a3e22cbae528c9a38d854a586d1736b860998d41.1776265222.git.daniel@makrotopia.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,40 +52,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 15 Apr 2026 17:22:33 +0200
-Boris Brezillon <boris.brezillon@collabora.com> wrote:
+Notify hdmi-codec of the current sink plugged state from
+mtk_hdmi_bridge_atomic_enable() and mtk_hdmi_bridge_atomic_disable()
+via mtk_hdmi_update_plugged_status(). This matches the pattern used
+by dw-hdmi, which invokes handle_plugged_change() from the bridge
+enable and disable paths so that ASoC jack state stays in sync with
+the actual sink presence across atomic commit cycles, and not only
+on CEC HPD transitions.
 
-> On Wed, 15 Apr 2026 12:28:50 +0100
-> Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
->=20
-> > Bump the driver version to reflect the new MMU info query ioctl
-> > parameter and the VM_BIND map sparse flag.
-> >=20
-> > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> =20
->=20
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Userspace audio daemons (e.g. pipewire) rely on the jack state to
+route streams, restore per-sink volume levels, and recover the last
+used device after a reconnect. Without this, those transitions are
+missed whenever the sink change is driven by a mode set rather than
+by a bare HPD event.
 
-After actually bumping the version number, as pointed out by Jani.
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+ drivers/gpu/drm/mediatek/mtk_hdmi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
->=20
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_drv.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >=20
-> > diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/pa=
-nthor/panthor_drv.c
-> > index a8090bc4e33c..c8fb63ede62c 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> > @@ -1787,6 +1787,8 @@ static void panthor_debugfs_init(struct drm_minor=
- *minor)
-> >   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
-> >   *       - adds drm_panthor_gpu_info::selected_coherency
-> >   * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
-> > + * - 1.9 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
-> > + *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag
-> >   */
-> >  static const struct drm_driver panthor_drm_driver =3D {
-> >  	.driver_features =3D DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ | =20
->=20
-
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+index 9050d7785f109..565bb72c9b63a 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+@@ -1013,6 +1013,8 @@ static void mtk_hdmi_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	hdmi->curr_conn = NULL;
+ 
+ 	hdmi->enabled = false;
++
++	mtk_hdmi_update_plugged_status(hdmi);
+ }
+ 
+ static void mtk_hdmi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+@@ -1082,6 +1084,8 @@ static void mtk_hdmi_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	mtk_hdmi_clk_enable_audio(hdmi);
+ 
+ 	hdmi->enabled = true;
++
++	mtk_hdmi_update_plugged_status(hdmi);
+ }
+ 
+ static const struct drm_bridge_funcs mtk_hdmi_bridge_funcs = {
+-- 
+2.53.0
