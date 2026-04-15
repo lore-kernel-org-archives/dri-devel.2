@@ -4,104 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2CB3F8A144
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 08:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AB7BF8A147
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 08:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F40E10E84C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F63410E847;
 	Thu, 16 Apr 2026 08:39:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A+5cPSIo";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="vzJLddTH";
 	dkim-atps=neutral
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC67D10E1A5
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 18:58:05 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-79a2ee65171so94357777b3.2
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 11:58:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776279484; cv=none;
- d=google.com; s=arc-20240605;
- b=E7zCjLoI8C8Lju0UY1bnWJF+f7cuqQ7rz2w1LuihJmzOaM5u1YvSLqinyp8wNPjzym
- yfpPGuMZU3vJGrMN434l7wPd7IfrE1s9XpoBGCbxeHX8FLalbVVYeb+CZUzriGuiDM69
- 9en1GY3lRH2jyvMGyCvhdGGCs+we99x+Fqr1SMMZ6v9e03vTfsLiELOYziayJ64qQqqx
- ZlFfvPFb9CCyhgJFQfWxPFEWDXSrWUTS7J1fZQWZNH+Xmp1OvYTRuQWLsejTUns/Rw5j
- O2Pu6pIKnpJpsUop/+ng2Lij7mreILeeshOSJCawXkFLFrGVWOnZGujMUb0er8PO3Irx
- 1adQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=WJkNgpmjAJUMNFAZy462pqUkCnGxIcK8Oj4tXgu3x7I=;
- fh=PdDHGwoYwC6Re7ephasiT6DVzKCeTlIPiuKFCysHSM8=;
- b=H/XWqZrpoQfVdzF8uvDTK0zBhaTIEgzObzYzr/oBgQcZ0bhxdkWUPL1z7rbYXDK2bo
- 2Tb9OVXTvumR3C4lA7xTkX0MY/5WXuoopKOJV4+WVdh93pfqpjbmszMoKzNcgjurF5PE
- CJwJJBIahn+UYnv3Xrrh4COos0jannHNUChPSrHVf9rJcsSGa3U7afIP/vm1M8qLFq3G
- cIRHxpxy/FAIrBHxTmZQxAm57Cv9KmZSnrhqZNEgM8OmeuTeJ72egHo6b+akXVH2oO8S
- WqbL9RgU35DX4rFNeKbqAyd9KtEZG6zAhAim9RyGLBi9/YOQ3keu8DLxFJZLtDHQw0Am
- ockw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD32010E24C
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 16:41:14 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-127337e3870so1002163c88.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:41:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776279484; x=1776884284; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WJkNgpmjAJUMNFAZy462pqUkCnGxIcK8Oj4tXgu3x7I=;
- b=A+5cPSIo5Pdinjpr55kZL6KifVycNhrUmZJ8T+i47vbrmm4vrUdSXDFFRyNN+YbKPL
- DpIPykiydDZujjEaadIi9PpIUQNc/U6jCOX+UKskiyiGKKUcnZ8BrOxRChwLAnLxwerI
- 1q6qugCdkqFqUeBDp/vpFX7NVXBBTVFRo8NXUV9DecJV4FI6Jl4JYt7V5ftLUXEjyJqY
- EEYI224dIJP+W8M4h02O95OpdotrdA7sQNQnar4vM32i6PhZvPRyV9j6pgNdMZudtPpa
- j5uQuRqxWA0aD9JoeL2aBjONS0JBushm7oy50UWUH9OGwIumHqS9CVObNGrwAlhoIkuE
- mDPQ==
+ d=usp.br; s=usp-google; t=1776271274; x=1776876074; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=oXcD9MfeX1GJ1n1RE7y6mO2yX5tgwCmyUH9mMTiyKCs=;
+ b=vzJLddTHVGQM3owW4UJlJLuIYvjw63Rl2/uJz9NDSGw5aFMOEmcP+7dB+ZHQOol7Xv
+ VZsapBg0NdikzPZwK4CDOrzRz4Y81+Rb121KbxbxeAbeCCX1oN03b2/WDKivBKVSKaPe
+ IDyGWJftwEfJ8tOxuBYlgCdYjbDM9sQB4bPwaZAIVQTpBLe1kun7EzJL8SVveSrTo6hT
+ tVT9FRe03apyGL8xP4KjkzAndLzDYJBMwa64FgB8TOCEvFZzDuaAaD05qH4a/Ra6aimS
+ dTPIpcX6C7iVScfntyH7uuMyfEWKsd8kxfl71+BUflIlY7Y5wXbf7h1aToxiunnI5J9m
+ 2uDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776279484; x=1776884284;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=WJkNgpmjAJUMNFAZy462pqUkCnGxIcK8Oj4tXgu3x7I=;
- b=LtjEsj4giDhbvkj8ZvQ5tiy6cLbnE71rZ7YDXg30qRXZUVvSy7JnyAg/rpXTZ8UO3k
- ZeVEHldyMcapoAQ7iV2x0D3PBmfMviCYDqJ3VMaO8ogu052L/9jEZOG2YqeBWbz6kXf+
- I6NzIjcbR3bGEJSh+KUU9mdOd4wvD5NUOf3as2NAUAYYuwvhWKcGfgsE1hNPJ0OUdJo8
- Q85O3bkANm6te1ggS29tFT88u1EtJq2ctzpkZ5tpRu2v+5dRco5Z10OF9u3ogSSNRz3V
- d3vAJH27Iv/8dyEWwvK6rJYGlrXhs2AD4oXJew8CzA4T4dkuGx1bDDcMuvozj8uyW5eN
- b6Dg==
+ d=1e100.net; s=20251104; t=1776271274; x=1776876074;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oXcD9MfeX1GJ1n1RE7y6mO2yX5tgwCmyUH9mMTiyKCs=;
+ b=cphHf79c3jB7gyWV2N6ze2X9nmgZ+taibzGiH7y5+zQHxmx/6k20kJsLbumFq5TDu3
+ fWrDNRmwp4SVNGCDlYfiS6nUh8kPBxWDuY9jB6Ij3xoIZMaZNW04BTAuB//h1/nFbz8Y
+ 2bdGuC++xUgbvvO47uA8jM+3T+x58DwpBqBB9zuw+4Upm23exikON82BJXISx7IFm3UA
+ wEWKHd8yHRKAUU4U9uNbiXgvU0UoqaQhfT6p+2Kn+8/fX89puFtXwg1vFS5Ccb8kkTcH
+ bnV84vvXUa0Sgu3yMDwjydSSx+TLDl1RI9Zda/d2UH1a1Cwenv19QzLJqxbYo6bt4Kx1
+ /YAw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+ZpGagYPUPNItFRNq2wNl+6Ki+6GbayxsERdhDCSsySeTzzHIiTklLdyLUGV8FQ3lY2xq5ffX1pBU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+/zqPlWI09kq1Lq3fzfGDuUVIu5vr1XYLmdBLD/kvpS4JahIY
- Dqc2WvJvuPbU2R50927H4xTUsyli5zVfoGrTLXmN8zUu5LQHS3sgnsqePRbGPALojGi4VVShVCJ
- tGHwIa/Hg6M3d+V9qVIz5TSc7D8JHrPQ=
-X-Gm-Gg: AeBDieuCbRqGi37sJidwdmqtyAWnlnzM87wsbL9YAwIy38glsS4RLpyl0ZN+zsDvYlm
- sFkp9D0FkjSle1A2JFuhhLXitF6LAboKvHLG+Dq07PuaBVKVT9lLRVmGD9N55FFngoiJd0N4u6o
- yvI3XCdXldSdcP1BCS7cceeyrFqsWaBbt0NnTQZWubW4sH5b89HGJZjXyxgXwdPj7tmlpkQvtJo
- z83OikibXpeE43vwOE4saqxvSPM78XngK5AvBLp3xG4R1Vijrj/zB6VnrAE0mnH8cxjw3Elou6X
- EnMl2KceyaPe0/l3z5HO0I+fERF8EqGwJSqFdEHumYM+9UAlNUFAby/TDe0=
-X-Received: by 2002:a53:c450:0:b0:650:3952:3d2a with SMTP id
- 956f58d0204a3-65198a398cemr16592573d50.8.1776279484532; Wed, 15 Apr 2026
- 11:58:04 -0700 (PDT)
+ AFNElJ++gE5c0K0UvAKa/B4AJ8O4k6MtWHsVooRCMWiAmijOqWY6p45tIfZNFbSas3QpdyRxv4OZctGkmf0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfaK+umkdpLESRL5isMa0qpArGapSTmc0CmUTIp9zlrsKVpy8t
+ l8ydfpL4J29cLKplQ9QSzsO/R9blJPFf8fn7Xuc/Glmss+uS2+frZltqhCH5yJw8wnM=
+X-Gm-Gg: AeBDieuZns1MTxz716jVbcy2VB3n9TnQWqXMaE6tyf/MOloDJif+d080K9kX/oK5Pka
+ UJjORAdKCIgPwDFPLOE60fRPJ11d96Izxvd1z0gJ/w388H5GZN1g9k7xsAkIpMWiOuiBrzEIS6r
+ vQlmtQ824y6pRNZbDRx8ksQkaJXZHJ7yZe2eSaea8Cr5SGDeFUoW8S+qu3pZU9SwbjtKneMSurm
+ syCUM+00jcuP60C/hP4iQt8kV2Gmw86buDyOZtl0ajB1+UYqI5UeZEHDzTzX2jQ8ksLQmXgj6lL
+ N3mrbrQxGhk9EaYYrPzCGVR3q9G/zoHbsAiggmUEsDFuBjOgngRCnBGcQCZ+Wu9X4nxLO7bGHm5
+ SV/GoTHf89cqBxGc4eYJYglc2kSVHcONUboddgCYF0vvOjf1XJ5oVhBqbqXpsk46+GyTRYFRHqP
+ gigMcDVNUMgSwsHVsxjqPfijrjKEl4kICX2XACq3CqZ4xu1twt6xH8UnrP/UI=
+X-Received: by 2002:a05:7022:6085:b0:12a:6d14:df9c with SMTP id
+ a92af1059eb24-12c5d455d04mr739574c88.1.1776271273580; 
+ Wed, 15 Apr 2026 09:41:13 -0700 (PDT)
+Received: from Haru.. ([2804:1b1:f982:8e77:e072:4b8:656c:6b18])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-12c5f3f3d93sm1830325c88.15.2026.04.15.09.41.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Apr 2026 09:41:12 -0700 (PDT)
+From: Leonardo Cesar <leonardocesar@usp.br>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Leonardo Cesar <leonardocesar@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: deduplicate ring preempt ib function
+Date: Wed, 15 Apr 2026 13:40:23 -0300
+Message-ID: <20260415164029.52537-1-leonardocesar@usp.br>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
-In-Reply-To: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
-From: Julian Orth <ju.orth@gmail.com>
-Date: Wed, 15 Apr 2026 20:57:53 +0200
-X-Gm-Features: AQROBzBSkv10qEpBfcDzfj3FA35dTp3Lau1TYsbQZLiEyzMQViUrWPUksWPwSQ4
-Message-ID: <CAHijbEXcrhB=ipaa4-DPD8atQYCkokGfueLafwkeQpxCBkc0bw@mail.gmail.com>
-Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
- user-space
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniel.stone@collabora.com>,
- Ian Forbes <ian.forbes@broadcom.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- wayland-devel@lists.freedesktop.org, Marius Vlad <marius.vlad@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 16 Apr 2026 08:39:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,125 +87,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 15, 2026 at 8:19=E2=80=AFPM Nicolas Frattaroli
-<nicolas.frattaroli@collabora.com> wrote:
->
-> I will be taking over this series from Marius Vlad.
->
-> This series addresses a shortcoming whereby a hot plug event is sent
-> without it being passed the actual connector that caused it. This takes
-> into consideration both the polling path and the HPD (Hot Plug Detect)
-> path. It also adds support for the vkms driver (using ConfigFS) for
-> propagating the connector ID when changing the connector's status.
->
-> The motivation is that user-space applications such as Weston would
-> previously receive non-connector-specific hotplug events, and then have
-> to figure out themselves which connector needs to have a modeset
-> executed on. This notably did not work when the hotplug events came in
-> too fast, resulting in Weston missing an on-off-on transition of a
-> connector, seeing that its state was unchanged from "on" so can't be the
-> one that was hotplugged, and skipping reinitialising it as it looks
-> through the other connectors that could've caused it.
+The ring preemption function is identical for both gfx_v11_0 and
+gfx_v12_0. This patch refactors the code by moving the core logic
+into a generic function inside amdgpu_gfx.c to reduce code
+duplication and simplify future maintenance.
 
-Have you considered adding a u64 serial number as a DRM connector
-property that is incremented every time the connector changes in some
-way? Userspace could then check this serial number to see if the
-connector has changed since the last time it queried the serial
-number.
+Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 51 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 47 +----------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 47 +----------------------
+ 4 files changed, 55 insertions(+), 92 deletions(-)
 
->
-> The real world implication is that on setups with slightly sketchy HDMI
-> connections, a brief flicker in the HPD signal could result in video
-> output bidding farewell entirely until a manual proper re-plug was
-> performed.
->
-> By sending connector specific hotplug events, this ambiguity is
-> resolved without any change to the user-space API.
->
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
-> Changes in v7 RESEND:
-> - None, other than removing the leftover diffstat from the cover letter
-> - Link to v7: https://lore.kernel.org/r/20260217-hot-plug-passup-v7-0-f82=
-21b2aab51@collabora.com
->
-> Changes in v7:
-> - Drop the two vkms patches, as I don't want them to be blocked on
->   review. I still think they're correct, but they're not essential and
->   don't need to block this series.
-> - Link to v6: https://lore.kernel.org/r/20260123-hot-plug-passup-v6-0-aaa=
-f61d960bb@collabora.com
->
-> Changes in v6:
-> - Rewrote cover letter to explain the motivation for this series more
->   plainly
-> - Rename "status_changed" to "pending_hp"
-> - Set "pending_hp" in the existing path that would also affect
->   epoch_counter
-> - No longer set the boolean in drm_helper_probe_single_connector_modes,
->   as it does not appear to be necessary
-> - Reword commits to better justify the changes
-> - Link to v5: https://lore.kernel.org/r/20251111162338.15141-1-marius.vla=
-d@collabora.com/
->
-> Changes in v5:
-> - vkms: add support for sending the CONNECTOR ID when hot-plugging throug=
-h
->   ConfigFS - as reported by Louis, vkms can now make use of ConfigFS to
->   simulate connector status.
-> - vkms: add a small change to ignore previous/old drm connector status
->   when sending out hot-plug uevent.
-> - Link to v4: https://lore.kernel.org/r/20251103174558.7709-1-marius.vlad=
-@collabora.com/
->
-> Changes in v4:
-> - removed the "This patch" bit - Dmitry
-> - added a short note when the flag is set and cleared - Dmitry
-> - address double dead-locking detected - kbot: https://lore.kernel.org/dr=
-i-devel/202509251410.fdfbcac3-lkp@intel.com/
-> - virtual connectors do not seem have any kind of hotplug - added
->   polling in vkms - as noted by Ian
-> - Link to v3: https://lore.kernel.org/r/20250923083636.4749-1-marius.vlad=
-@collabora.com/
->
-> Changes in v3:
-> - Address comments from Dmitry:
->   - guard connector status write with mode_config.mutex
->   - avoid setting up the connector status and immediately unset it. Do th=
-e
->     unset in drm_kms_helper_hotplug_event/drm_kms_helper_connector_hotplu=
-g_event
-> - Link to v2: https://lore.kernel.org/r/20250729165708.9947-1-marius.vlad=
-@collabora.com/
->
-> Changes in v2:
-> - Address comments from Daniel:
->   - split patch into 2, one that introduces a bool to track connector
->     connection status change and a patch that uses that to be able to sen=
-d
->     hot plug events with the proper CONNECTOR ID to udev and further pass
->     that down to user-space
->   - nuke out mutex when iterating connector list
->   - fix typo
-> - Link to v1: https://lore.kernel.org/r/20250627131751.2004-1-marius.vlad=
-@collabora.com/
->
-> ---
-> Marius Vlad (2):
->       drm: Introduce pending_hp to drm_connector
->       drm: Send per-connector hotplug events
->
->  drivers/gpu/drm/drm_connector.c    |  1 +
->  drivers/gpu/drm/drm_probe_helper.c | 39 ++++++++++++++++++++++++++++++++=
-+-----
->  drivers/gpu/drm/drm_sysfs.c        |  2 ++
->  include/drm/drm_connector.h        |  3 +++
->  4 files changed, 40 insertions(+), 5 deletions(-)
-> ---
-> base-commit: 4c59525db84aca677fd9f052e662912ad9d88448
-> change-id: 20260121-hot-plug-passup-f8ed03f7c202
->
-> Best regards,
-> --
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 2956e45c9..a157cbd8e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -2684,3 +2684,54 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
+ #endif
+ }
+ 
++int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
++{
++	int i, r = 0;
++	struct amdgpu_device *adev = ring->adev;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
++	struct amdgpu_ring *kiq_ring = &kiq->ring;
++	unsigned long flags;
++
++	if (adev->enable_mes)
++		return -EINVAL;
++
++	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
++		return -EINVAL;
++
++	spin_lock_irqsave(&kiq->ring_lock, flags);
++
++	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
++		spin_unlock_irqrestore(&kiq->ring_lock, flags);
++		return -ENOMEM;
++	}
++
++	/* assert preemption condition */
++	amdgpu_ring_set_preempt_cond_exec(ring, false);
++
++	/* assert IB preemption, emit the trailing fence */
++	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
++					ring->trail_fence_gpu_addr,
++					++ring->trail_seq);
++	amdgpu_ring_commit(kiq_ring);
++
++	spin_unlock_irqrestore(&kiq->ring_lock, flags);
++
++	/* poll the trailing fence */
++	for (i = 0; i < adev->usec_timeout; i++) {
++		if (ring->trail_seq ==
++			le32_to_cpu(*(ring->trail_fence_cpu_addr)))
++			break;
++		udelay(1);
++	}
++
++	if (i >= adev->usec_timeout) {
++		r = -EINVAL;
++		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
++	}
++
++	/* deassert preemption condition */
++	amdgpu_ring_set_preempt_cond_exec(ring, true);
++	return r;
++}
++
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index a0cf0a3b4..77050f988 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -664,6 +664,8 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 count);
+ void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
+ 
++int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring);
++
+ static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+ {
+ 	switch (mode) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 5097de940..ef9c61d9a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6208,52 +6208,7 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
+ 
+ static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
+ {
+-	int i, r = 0;
+-	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+-	struct amdgpu_ring *kiq_ring = &kiq->ring;
+-	unsigned long flags;
+-
+-	if (adev->enable_mes)
+-		return -EINVAL;
+-
+-	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+-		return -EINVAL;
+-
+-	spin_lock_irqsave(&kiq->ring_lock, flags);
+-
+-	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+-		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-		return -ENOMEM;
+-	}
+-
+-	/* assert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, false);
+-
+-	/* assert IB preemption, emit the trailing fence */
+-	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
+-				   ring->trail_fence_gpu_addr,
+-				   ++ring->trail_seq);
+-	amdgpu_ring_commit(kiq_ring);
+-
+-	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-
+-	/* poll the trailing fence */
+-	for (i = 0; i < adev->usec_timeout; i++) {
+-		if (ring->trail_seq ==
+-		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+-			break;
+-		udelay(1);
+-	}
+-
+-	if (i >= adev->usec_timeout) {
+-		r = -EINVAL;
+-		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+-	}
+-
+-	/* deassert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, true);
+-	return r;
++	return amdgpu_gfx_ring_preempt_ib(ring);
+ }
+ 
+ static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 65c33823a..fc5ec2778 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -4613,52 +4613,7 @@ static unsigned gfx_v12_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
+ 
+ static int gfx_v12_0_ring_preempt_ib(struct amdgpu_ring *ring)
+ {
+-	int i, r = 0;
+-	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
+-	struct amdgpu_ring *kiq_ring = &kiq->ring;
+-	unsigned long flags;
+-
+-	if (adev->enable_mes)
+-		return -EINVAL;
+-
+-	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+-		return -EINVAL;
+-
+-	spin_lock_irqsave(&kiq->ring_lock, flags);
+-
+-	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+-		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-		return -ENOMEM;
+-	}
+-
+-	/* assert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, false);
+-
+-	/* assert IB preemption, emit the trailing fence */
+-	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
+-				   ring->trail_fence_gpu_addr,
+-				   ++ring->trail_seq);
+-	amdgpu_ring_commit(kiq_ring);
+-
+-	spin_unlock_irqrestore(&kiq->ring_lock, flags);
+-
+-	/* poll the trailing fence */
+-	for (i = 0; i < adev->usec_timeout; i++) {
+-		if (ring->trail_seq ==
+-		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+-			break;
+-		udelay(1);
+-	}
+-
+-	if (i >= adev->usec_timeout) {
+-		r = -EINVAL;
+-		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+-	}
+-
+-	/* deassert preemption condition */
+-	amdgpu_ring_set_preempt_cond_exec(ring, true);
+-	return r;
++	return amdgpu_gfx_ring_preempt_ib(ring);
+ }
+ 
+ static void gfx_v12_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
+-- 
+2.43.0
+
