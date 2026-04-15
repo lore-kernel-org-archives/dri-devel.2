@@ -4,99 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8386F419A0
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 12:59:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5077AF419A4
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 13:10:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE6DE10E6DA;
-	Wed, 15 Apr 2026 12:59:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC07D10E226;
+	Wed, 15 Apr 2026 13:10:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aadVevOC";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dbH/HisP";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CCE610E6DA
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 12:59:19 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-12736a0147cso505799c88.1
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:59:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776257958; cv=none;
- d=google.com; s=arc-20240605;
- b=R83kWN61YUGzShIyQLlorBfgT3p7cxeS7VHS1dshbdd1RoKXzrxrCE6FkhwADXyqNG
- XFeagBZff0jADNwEXFVspi+36mNoiRYp2pmAihwDmAXdrF+sFRCIxQRJS1PQUTwa0urj
- dtUQK1o0dhva14aWo2jMv5S401w61F08sTieA5U2aCI7s2RZzS1kFjgNc8CYmJVioZ6a
- Gr/5ekGQLYGsQP2EXxwEYZA7fDPCHyXPiC6tdbK+vRqd7pwBXjWPqbce+r4xJuZMPqbA
- bgyRcgf17ClFt467YWY15YtUjIDP7PNzNcazzShY21Z1U8RkpqwhICdMvd0dumZ2s6sh
- JuYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=YbAg75inuAX6qfe171ed5cAQ3ilGhu1WuPU93+xAM3I=;
- fh=nGmgvWRGv+/+RkB58zGsnDm7BIxVJhwwTbQ34TJuFLw=;
- b=fm53FXPiF059MvpW9nLYtK6Z7baDnB0hpfOjO90p1nyHvoRjfDmOidQEoASLfXPk/u
- qlZyphIswmyThaAtr2Pg7kUzja6kwPClm3pRBiQiubR8JlWG+5znzeM9CVFK9EC2dyNl
- 6+Ci7y7LPeE+ZR3JNwndcJV8Q9DZcxC/4kMdGePRIPyQ1pyO+JppXIzuiZZyAK8FBf8H
- /qHOrYcXLBUvVVXd4tCnMWfwD2INfu65u778JRXwyyd1NRF3pElajmruGeyjr6cgfv8K
- aMhcskizwik57eum8wFOMpQvkZANUbEH3QcZOkcEs3ELJh0KVx5WTdP9cvgpCyH1ypC4
- aYMA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776257958; x=1776862758; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YbAg75inuAX6qfe171ed5cAQ3ilGhu1WuPU93+xAM3I=;
- b=aadVevOCeOwdfmbXK7v5CfA4evDlzDcqOZ755Sok2EvmVOFv5OHs5QpYCTS+6cxvpR
- 7rNvvTEQwlHNgluAvHjkIJ6vpaVer2KTd13rRoFkZ3SWfUvDySJ1RUeddsTZGxnScsue
- RK/wBwGVoMm6rHujzWuczz/528cZchfFpC3ipIxHAQu2oXCrGHY1PEl5hndpNJjx2dzB
- duzNaGtSqMn512CbQ+tfEkPnEQFEY9dtsfTHwBstzkKU/YlTRFmoAMHsTUGL7+Wi+4ey
- WaLXFYDHJhsnvrCTM0yQZltqGARMyO/Q+YYuA9qNryNTtHjz/yCYLUwbEFroaSofJHf9
- MrgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776257958; x=1776862758;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=YbAg75inuAX6qfe171ed5cAQ3ilGhu1WuPU93+xAM3I=;
- b=jiM9kU4rBem04qqwb+hRCVufQQxtuJY4A0JLipPFlOiZBLKCseUIE4vcyNuYKGcDxT
- dhIatnIWBVi1aerOtQdhP6kLbUNsTb2uvq6vDJwujUaoQ1OLJLunHfS3NTCP5x8dCG/1
- hJNvV2aEHuR9FknLaqARPNrjrmAtbS+g9zaOGohsOaqP3aR6ahUthEaVM7dvWl4t5ZPQ
- V4ClNJQ4kjga5txTOIsO7IJ+dbkADF0V+alpWjwaCrKVQIWKp9LotlHZy4DY5rnMduSh
- LtztCQ3S9/ukj5iN5fzpzpOo7CWahv9zM4SZfNIHk4LCACRWFZ1iAv+nFu/mOW0xAPux
- wHkA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ99RRiAIK5tk0pDKtGjR2vM9bSl4g18cesnNAhhtpsY9COcqH9esF7utDm4U3mOTS9tAbfdBOw8+zg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQ/RFZjc61gi73cf+/CDLDB5rKq/n0nz1ZRdzim2DW4SMr2p7z
- I0d4rIWqgpa36jfQqWGiijREVLIWoA6BwtMFLl6EOu7t2E/w7zcNtujz0bb4R25INsleRS3x2Ik
- M4k1j9INlM0FEqu50s+gspJZwolrpDUU=
-X-Gm-Gg: AeBDieuyCP0BgipcqKPyZj6rXAHYq9hN0qBHMr/YkwdazzleDUjt9lp7EOeJ8JFHLty
- 3sf7t5Xt3S6TxtAP8HZ6gmMxsywFPTpnXvj0Ern2tC0H8aDGARLX0j1ytbuCCe8lJMTCqnUgRXW
- e+JyFohNKxlQXQCT9kQr1hjfwO3fxLZrVMnUWqBkPIeZ2XxlEkCmPEx+aiq7KrxdZ8bM4FqzqQj
- bkoutHfNtnYmTmio1QwprAZP21OLs8/l1poN4WjffQAluHhausW7JfJSCpAPh0ZGKQYa6Cdc5yG
- NtnqcCXlQ1c+hc+87zL6dVFUU4QmGzsmezBRo6tzjkvUXWyZF4fdhetuP8UNFg3w2FjmJg==
-X-Received: by 2002:a05:7022:618c:b0:127:332d:63e with SMTP id
- a92af1059eb24-12c5d4d0c7dmr506525c88.5.1776257958465; Wed, 15 Apr 2026
- 05:59:18 -0700 (PDT)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3560B10E226
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 13:10:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1776258618;
+ bh=3GVMTIzOAz5VDJleaYw4BrAw2svn2De6ZgUg6RNAFWg=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=dbH/HisPEdrFCHPNaE2zye0RV2q7leFnjp90oX5lEN3izHTdueZeTdkEQFDYmCj9Q
+ 9hrv0A0DwAXZcR1djBAjy8UkXZJ25k2VMO189FvAAUp7djw3MBmKZYCOTNuyDm+iwo
+ e10dpv23eCjFu6gkX7I9Cs44toeSCAxoapPZ4h+hZh6dYatjV7mv34lLq+bKhplUj8
+ qvmw/6zrL22/1zi3c/iNWioxIgRi5a8bVB/4GnJ3oaOzsTKqij+3M54JdIray6ATIv
+ aRP/t/9uxhevX4h+7evp9dMZYqpbmvAUM9PHtSf7XMkpGppGt1oeqMh59ag5eqY7jB
+ 8ETi88o/38FHg==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3BC3117E1356;
+ Wed, 15 Apr 2026 15:10:18 +0200 (CEST)
+Date: Wed, 15 Apr 2026 15:10:13 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
+ Price <steven.price@arm.com>, kernel@collabora.com, Liviu Dudau
+ <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v7 1/6] drm/panthor: Expose GPU page sizes to UM
+Message-ID: <20260415151013.4d9c6bb0@fedora>
+In-Reply-To: <20260415112900.681834-2-adrian.larumbe@collabora.com>
+References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
+ <20260415112900.681834-2-adrian.larumbe@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-References: <CADnq5_OVN+uCioTWNeuHkGpkUU-VhEio_uMEBMVur6-hWXwtug@mail.gmail.com>
- <20260414211437.154315-1-werner@verivus.com>
-In-Reply-To: <20260414211437.154315-1-werner@verivus.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 15 Apr 2026 08:59:06 -0400
-X-Gm-Features: AQROBzAeYix9JIhJ4gNGCdBtQrUS7rMQvoooy6xeRQZh2Q7drV282ZxpZgFSuFU
-Message-ID: <CADnq5_Prw=X66ByOAutSV_jFCJ7guuRSMPWnEqttr+xe_j_Y4g@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/radeon: fix integer overflow in
- radeon_align_pitch()
-To: Werner Kasselman <werner@verivus.ai>
-Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, 
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,81 +68,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Can you squash this with the previous radeon patch?  I only applied
-the amdgpu patch at this point.
+On Wed, 15 Apr 2026 12:28:45 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Alex
+> In future commits that will implement repeated mappings, only repeat
+> values multiple of GPU page sizes will be tolerated. That means these
+> values must be made known to UM. Do it through a queriable GPU info
+> value.
+>=20
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-On Tue, Apr 14, 2026 at 5:14=E2=80=AFPM Werner Kasselman <werner@verivus.ai=
-> wrote:
->
-> radeon_align_pitch() has the same kind of overflow issue as the old
-> amdgpu helper: the alignment round-up add and the final 'aligned * cpp'
-> calculation can overflow signed int.
->
-> If that wraps to 0, radeon_mode_dumb_create() can end up with an invalid
-> pitch value from DRM_IOCTL_MODE_CREATE_DUMB.
->
-> Fix this by using check_add_overflow() for the alignment round-up and
-> check_mul_overflow() for the final pitch calculation, returning 0 on
-> overflow.
->
-> Found via AST-based call-graph analysis using sqry.
->
-> Fixes: ff72145badb8 ("drm: dumb scanout create/mmap for intel/radeon (v3)=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Werner Kasselman <werner@verivus.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
 > ---
-> v2:
-> - Use overflow helpers like amdgpu.
-> - Drop the stale zero pitch/size change from the original submission.
-> - Fix the changelog wording around reachability.
->
->  drivers/gpu/drm/radeon/radeon_gem.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
-/radeon_gem.c
-> index 2cd179fef347..8ce180e22d1d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -28,6 +28,7 @@
->
->  #include <linux/debugfs.h>
->  #include <linux/iosys-map.h>
-> +#include <linux/overflow.h>
->  #include <linux/pci.h>
->
->  #include <drm/drm_device.h>
-> @@ -812,6 +813,7 @@ int radeon_align_pitch(struct radeon_device *rdev, in=
-t width, int cpp, bool tile
->         int aligned =3D width;
->         int align_large =3D (ASIC_IS_AVIVO(rdev)) || tiled;
->         int pitch_mask =3D 0;
-> +       int pitch;
->
->         switch (cpp) {
->         case 1:
-> @@ -826,14 +828,12 @@ int radeon_align_pitch(struct radeon_device *rdev, =
-int width, int cpp, bool tile
->                 break;
->         }
->
-> -       aligned +=3D pitch_mask;
-> +       if (check_add_overflow(aligned, pitch_mask, &aligned))
-> +               return 0;
->         aligned &=3D ~pitch_mask;
-> -
-> -       /* Guard against integer overflow in aligned * cpp. */
-> -       if (aligned > INT_MAX / (cpp ? cpp : 1) || aligned <=3D 0)
-> +       if (check_mul_overflow(aligned, cpp, &pitch))
->                 return 0;
-> -
-> -       return aligned * cpp;
-> +       return pitch;
+>  drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+>  drivers/gpu/drm/panthor/panthor_drv.c    |  8 ++++++++
+>  drivers/gpu/drm/panthor/panthor_mmu.c    |  9 ++++++++-
+>  include/uapi/drm/panthor_drm.h           | 13 +++++++++++++
+>  4 files changed, 32 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/p=
+anthor/panthor_device.h
+> index 5cba272f9b4d..d856a4fe1d61 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -158,6 +158,9 @@ struct panthor_device {
+>  	/** @csif_info: Command stream interface information. */
+>  	struct drm_panthor_csif_info csif_info;
+> =20
+> +	/** @mmu_info: MMU info */
+> +	struct drm_panthor_mmu_info mmu_info;
+> +
+>  	/** @hw: GPU-specific data. */
+>  	struct panthor_hw *hw;
+> =20
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/pant=
+hor/panthor_drv.c
+> index 73fc983dc9b4..a8090bc4e33c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -175,6 +175,7 @@ panthor_get_uobj_array(const struct drm_panthor_obj_a=
+rray *in, u32 min_stride,
+>  	_Generic(_obj_name, \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_gpu_info, tiler_present), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_csif_info, pad), \
+> +		 PANTHOR_UOBJ_DECL(struct drm_panthor_mmu_info, page_size_bitmap), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestam=
+p), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
+>  		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
+> @@ -946,6 +947,10 @@ static int panthor_ioctl_dev_query(struct drm_device=
+ *ddev, void *data, struct d
+>  			args->size =3D sizeof(ptdev->csif_info);
+>  			return 0;
+> =20
+> +		case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+> +			args->size =3D sizeof(ptdev->mmu_info);
+> +			return 0;
+> +
+>  		case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+>  			args->size =3D sizeof(timestamp_info);
+>  			return 0;
+> @@ -966,6 +971,9 @@ static int panthor_ioctl_dev_query(struct drm_device =
+*ddev, void *data, struct d
+>  	case DRM_PANTHOR_DEV_QUERY_CSIF_INFO:
+>  		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
+> =20
+> +	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+> +		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
+> +
+>  	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+>  		ret =3D copy_struct_from_user(&timestamp_info,
+>  					    sizeof(timestamp_info),
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pant=
+hor/panthor_mmu.c
+> index bd41c892beb7..01577be88933 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2769,7 +2769,7 @@ panthor_vm_create(struct panthor_device *ptdev, boo=
+l for_mcu,
+>  	refcount_set(&vm->as.active_cnt, 0);
+> =20
+>  	pgtbl_cfg =3D (struct io_pgtable_cfg) {
+> -		.pgsize_bitmap	=3D SZ_4K | SZ_2M,
+> +		.pgsize_bitmap	=3D ptdev->mmu_info.page_size_bitmap,
+>  		.ias		=3D va_bits,
+>  		.oas		=3D pa_bits,
+>  		.coherent_walk	=3D ptdev->coherent,
+> @@ -3214,6 +3214,11 @@ static void panthor_mmu_release_wq(struct drm_devi=
+ce *ddev, void *res)
+>  	destroy_workqueue(res);
 >  }
->
->  int radeon_mode_dumb_create(struct drm_file *file_priv,
-> --
-> 2.43.0
+> =20
+> +static void panthor_mmu_info_init(struct panthor_device *ptdev)
+> +{
+> +	ptdev->mmu_info.page_size_bitmap =3D SZ_4K | SZ_2M;
+> +}
+> +
+>  /**
+>   * panthor_mmu_init() - Initialize the MMU logic.
+>   * @ptdev: Device.
+> @@ -3226,6 +3231,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	struct panthor_mmu *mmu;
+>  	int ret, irq;
+> =20
+> +	panthor_mmu_info_init(ptdev);
+> +
+>  	mmu =3D drmm_kzalloc(&ptdev->base, sizeof(*mmu), GFP_KERNEL);
+>  	if (!mmu)
+>  		return -ENOMEM;
+> diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_dr=
+m.h
+> index 0e455d91e77d..dc2704fc2829 100644
+> --- a/include/uapi/drm/panthor_drm.h
+> +++ b/include/uapi/drm/panthor_drm.h
+> @@ -246,6 +246,9 @@ enum drm_panthor_dev_query_type {
+>  	/** @DRM_PANTHOR_DEV_QUERY_CSIF_INFO: Query command-stream interface in=
+formation. */
+>  	DRM_PANTHOR_DEV_QUERY_CSIF_INFO,
+> =20
+> +	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
+> +	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
+> +
+>  	/** @DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO: Query timestamp information.=
+ */
+>  	DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO,
+> =20
+> @@ -487,6 +490,16 @@ struct drm_panthor_timestamp_info {
+>  	__u64 cpu_timestamp_nsec;
+>  };
+> =20
+> +/**
+> + * struct drm_panthor_mmu_info - MMU information
+> + *
+> + * Structure grouping all queryable information relating to the MMU.
+> + */
+> +struct drm_panthor_mmu_info {
+> +	/** @page_size_bitmap: Allowed page sizes */
+
+Maybe add more info there: like, page size is a power of two, and each
+bit encodes a particular page size.
+
+> +	__u64 page_size_bitmap;
+> +};
+> +
+>  /**
+>   * struct drm_panthor_group_priorities_info - Group priorities informati=
+on
+>   *
+
