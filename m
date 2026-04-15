@@ -4,53 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67955F433CA
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 21:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50DCCF433C6
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 21:50:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A855D10E6F3;
-	Wed, 15 Apr 2026 21:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1A910E73F;
+	Wed, 15 Apr 2026 21:50:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="scRZqE6d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MlqArUIt";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D14B610E6F3
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 21:50:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 456ED10E73F
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 21:50:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C0DA960120;
- Wed, 15 Apr 2026 21:50:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56112C19424;
- Wed, 15 Apr 2026 21:50:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BEF3460121;
+ Wed, 15 Apr 2026 21:50:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4488BC19424;
+ Wed, 15 Apr 2026 21:50:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776289825;
- bh=JRxXzR3g5c+cTy2Vb+XX5fGSgff3dULT39nwMELm/1E=;
+ s=k20201202; t=1776289835;
+ bh=zZv3Mkww8nTphQwh1V0TwOj+YI2ytEb4tFmarZkhVo4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=scRZqE6drykXztWxgLVlag+FWAjBkp+hyOpwqD2qp6+lA7Vwlfcd6Vo+W2ApYowkB
- eir5G3qnfmcwG6mwB53yTHN6iZGPSTTKarnYvTe0ThmXdyH+6Zvxu4n9TIk8OMgQO7
- tJw4nkS3RNSi8CLWw6Tzbn2UTuFBoGC0KbZmiJp8ZKwNAgwmXB1+xNwGwNgI1Z67u8
- OmJL1u2WNkVtF4L1lPNwUpVOYk3zowxofzVOPlQ2tWBg500F35rzf/jtKV02k4ycu7
- 3PRNQ2ML2IeGsM149D/FPs9oaP4vXA1HO4kqRrm1eOc0w0NbvtpC6Qy5pbcjEx/VwV
- OKxCDCfC+rFHw==
-Date: Wed, 15 Apr 2026 16:50:23 -0500
+ b=MlqArUIty+a0OApUZ12tW4aq169oko7YF+TVnZdlYgY7AwZ4dfcKl9duUROBwu61l
+ 4WzqqB8HnPQjCN9ReZNFnZ1ce3KPKWVTM9EovAr1b92lgoWavPxCC00T4+HmRbtR3f
+ qLvtovadTHg3hlDtV1+6WHC5gjwZp64/F8NZ/ttWCF6mKt/x/x0Y5jcGG1DH1JKY8G
+ ExeRwV75468Rj83sWoqTM2SGs/2MYQbEXXAnl7gmaNSToCD6kAIx7GclWh9teykIG3
+ 7TPi151l2CpKdqotHNWOaJffCj3lhz/RvLjQu5iCyNfifzgLKZaQGJSwAfbaNZCS76
+ cRCrt1/t5X7Rw==
+Date: Wed, 15 Apr 2026 16:50:33 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Marek Vasut <marex@nabladev.com>
-Cc: Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- devicetree@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Liu Ying <victor.liu@nxp.com>, Maxime Ripard <mripard@kernel.org>,
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- David Airlie <airlied@gmail.com>,
+ Sam Ravnborg <sam@ravnborg.org>, Simona Vetter <simona@ffwll.ch>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
  Thierry Reding <thierry.reding@gmail.com>,
- linux-kernel@vger.kernel.org, Sam Ravnborg <sam@ravnborg.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, Conor Dooley <conor+dt@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: simple: Move AUO 21.5" FHD to
- dual-link
-Message-ID: <177628982188.714526.9119915024836476194.robh@kernel.org>
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Liu Ying <victor.liu@nxp.com>, linux-kernel@vger.kernel.org,
+ David Airlie <airlied@gmail.com>
+Subject: Re: [PATCH 2/2] dt-bindings: display: simple: Move Innolux
+ G156HCE-L01 panel to dual-link
+Message-ID: <177628983155.716321.7276086940642809806.robh@kernel.org>
 References: <20260404034321.341210-1-marex@nabladev.com>
+ <20260404034321.341210-2-marex@nabladev.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260404034321.341210-1-marex@nabladev.com>
+In-Reply-To: <20260404034321.341210-2-marex@nabladev.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,11 +69,12 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Sat, 04 Apr 2026 05:42:49 +0200, Marek Vasut wrote:
-> AU Optronics Corporation 21.5" FHD (1920x1080) color TFT LCD panel
-> is a dual-link LVDS panel. Move it into the correct schema, which is
-> panel-simple-lvds-dual-ports.yaml.
+On Sat, 04 Apr 2026 05:42:50 +0200, Marek Vasut wrote:
+> The Innolux G156HCE-L01 15.6" 1920x1080 24bpp dual-link LVDS TFT panel
+> is exactly that, dual-link LVDS panel. Move it into the correct schema,
+> which is panel-simple-lvds-dual-ports.yaml.
 > 
+> Fixes: 3c5e8aa44dfc ("dt-bindings: display: simple: Add Innolux G156HCE-L01 panel")
 > Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
 > Cc: Conor Dooley <conor+dt@kernel.org>
