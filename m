@@ -4,164 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 942D3F4199C
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 12:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15C08F419A2
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 12:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB71B10E21F;
-	Wed, 15 Apr 2026 12:24:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACF3210E6F7;
+	Wed, 15 Apr 2026 12:42:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D8PhQD+i";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IdAogUoH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57BFF10E21F;
- Wed, 15 Apr 2026 12:24:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776255870; x=1807791870;
- h=content-transfer-encoding:date:message-id:to:cc:subject:
- from:references:in-reply-to:mime-version;
- bh=ifjsNmHXzyrMNNxLpG4FzSE9yJqxjryDBDiiLTncpN4=;
- b=D8PhQD+iRKxk06d2nBZpKfJDPdCIekv+5YyiiZ5piBG+V0OXPTp4Qj1H
- hkT5sobJ0QB0laeRc91v9gI/WgH9yZbPt4dQv7K7SWaNAXz0uMkFh0zD1
- 2U0q96QlJpXPjPO1Y4ylwAA8xs277JBf63143KQv4kxZ7rGlhnxvUO79J
- mu+Z3/LhLbNn9sAlFy6LaPGKl2+/uUrtEKzd6ceXjqx1mvrFlbH4ivzRe
- q9o4uuOAav2FZAvJnMFG5wHb+R4nwp012DaSLoHVdpdc+cbHqCyxv6fgM
- j14+lV50ESrZ774tT4Rv/4TUQE5YSPWbvwxOjTVmGeY5Uexx8YjkOLUVA g==;
-X-CSE-ConnectionGUID: HTEi9eKGTXW11NKtxGQ7ZA==
-X-CSE-MsgGUID: s3LPB/+7RKe+ltWj8ackbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11759"; a="64774842"
-X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="64774842"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2026 05:24:30 -0700
-X-CSE-ConnectionGUID: jOT0HePmSiOMxoyvPCS3mw==
-X-CSE-MsgGUID: JDZCbAumQH+N5XpawB+DWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="227756240"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2026 05:24:30 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 15 Apr 2026 05:24:29 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Wed, 15 Apr 2026 05:24:29 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.28)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Wed, 15 Apr 2026 05:24:27 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J0y1VmhE80FHSZGzYqRn6WcVHhPN/scoWe5/kU3bnERH0wslUFom86d2bYbd/27HUEZLk876eHeWXCOoP0Ta7kHKKLExZ5EnYT4Z/euij8DNwZR2hazAe4Oafalh6QvQT4zzMk2f0LiEci3eECry0DXqln8X8uFAK60hPgGU0qvbKsfSTrZaaNe1wJtgjnoLGsFUBHAVVFk6YKnpHbEyfH047cDQTyWOSfNERQmUDUe2ctxFCsf737Seo3BnOAnbzw3iIREgloC6QQVU7JBvaQgru8tMT11GCqurPJ/o/8pAak1EGvdutgBkZj2SNwGzgDaeQf/Hj4bfXoQLRNG+2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cU0J+1SVol62TDZWuNQ0/xtrgbFw7iK0ba4kwK6qMXo=;
- b=aSaix+4ydOkUHoONpJRrWR44Rmdweyf3fhxr4QXQk6QVH4R/j3piokx5c4oC4EAUFfKOjePRPESBS3XTjlSq9Lsu2wZD014AvxnPdELcpRMvXNX7EG6Pys9TaZEBHOhdcr88o5Mjno6vOirOe5Tz1AcSYi9WSmfYdv5V+wAEH3MPn52UHWPSjlZqxsER1Ngpoh8kkjr3biea7lN2Dqk1TOBaEI3oafr+5Att8NR2vCr88TSUhSv7nVdv1gBWLddkGG+FBIAEx8uRtR9ddAHN1Fbk4WUX9glcMCRCF1TneUPX5eZ5Kwt3nDx7k8VbeLPNs+gm+FhcrDdm+May/OJcWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
- by PH0PR11MB4920.namprd11.prod.outlook.com (2603:10b6:510:41::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
- 2026 12:24:20 +0000
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::9eab:962:806:3794]) by MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::9eab:962:806:3794%4]) with mapi id 15.20.9769.046; Wed, 15 Apr 2026
- 12:24:20 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 15 Apr 2026 14:24:27 +0200
-Message-ID: <DHTQ5KJVKH6P.38S6Z11FUX4DU@intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- <intel-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Simona Vetter <simona@ffwll.ch>,
- "Chris Wilson" <chris.p.wilson@intel.com>,
- =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, Andi
- Shyti <andi.shyti@linux.intel.com>, Krzysztof Karas
- <krzysztof.karas@intel.com>, Krzysztof Niemiec <krzysztof.niemiec@intel.com>, 
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-Subject: Re: [PATCH] drm/i915: Fix VMA UAF in execbuf setup
-From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-X-Mailer: aerc 0.21.0
-References: <20260414195834.115460-2-janusz.krzysztofik@linux.intel.com>
-In-Reply-To: <20260414195834.115460-2-janusz.krzysztofik@linux.intel.com>
-X-ClientProxiedBy: VI1PR06CA0107.eurprd06.prod.outlook.com
- (2603:10a6:803:8c::36) To MW4PR11MB6909.namprd11.prod.outlook.com
- (2603:10b6:303:224::12)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D72810E6E3
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 12:42:10 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1273c690e5bso1193617c88.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 05:42:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776256930; cv=none;
+ d=google.com; s=arc-20240605;
+ b=SBCmZfZ4ZoAoYRYXdtK5Fe/LhaTiyE438v+s8KDLjLtacOtA5JWHAfHPZP9He5oHkh
+ FwTcOMV7oDpdfuoAW0fBK3FkZtIVoiS2JKDd56JfRmquj7EGuHAWifn2JVHjQhCGpnJ0
+ /mTAfhOeP4liK3zTMUWZwzm2yOp3iFafPppIWQ+VaIYCNAIM6VTV0F9Nwp6ezrLMQXRY
+ SAp0r4WLHb3DUGvUA2Z2a9Oe6nsuw5CA2HTK61WZTlb1/V94kwBMwQZQAjPSBzOBw1B5
+ XM4ZN7ndZdLb8T4/qY45rq/JYtA0rLTZH8ZnWyN+XIbvcx6URPJOiZzbmwNTPbaoml4/
+ h18Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=m6mhDh8ZVimpaQsmL7r1x1xR/f0QJ/vDpnN2yyq/t1k=;
+ fh=bOm5I5Dt1ktxmpy0DxD2Bovjo8CiJdDvFXE2XzrmWHo=;
+ b=AVWtzu8//MTCmWUbkefBWx5KKz/KKxowjEBjVJTmpHQvC0CyDcBaWT7rSnL0Qrmob4
+ DikEr1cepXOr9BEz0a1y1v9CL6QbDpoxzlhUcDcsi9kjUguzdQIOM7ggsfxPOwG3KVzz
+ f7XHK9DyK2kSPCLs7+ZA6lhYVY0hrCAiqWgPvMUHxDIVzdfUKb8k9qmDt7kUp7bdVCLH
+ XF361fYSkH3Vj3ekvL6r03WTsaLC2XG4KB6ES5Pc47kr/qabMBIZtz19YHACvF92m1/x
+ ZtTyJGe3qGwDZm6Imf8B5rGoKQNpFLzKAn4h1aS4RxbP8l9tN6FcnwfU+5O5mWY6uATP
+ Arow==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776256930; x=1776861730; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=m6mhDh8ZVimpaQsmL7r1x1xR/f0QJ/vDpnN2yyq/t1k=;
+ b=IdAogUoHqovoxMB+5nBOxrgHTq6YA1hk1CamLTW+R2c63+F3cysk76vvf0cWXrlIBc
+ pS6cvZeumHKXRu34T5Iv+JH0M1ZTLo2SVn1Ls/NWxt54LoyX4j7Pgy1PYlDNsxZyeOJq
+ g8+m1mpBIYlPrs0p2xXNcaaQaGGVUc/Dwzsdfd6newn77BQRk6X+h6htasoQbbW5oX/o
+ EeNLCOvGXieFTuDBoNYlB4C5I2+0yATtcbNUDpmqpKqzw5/ZJ5CSVp1ynR6b8f2hMGaa
+ pDhPAT+7aK7dQBD2onLHfxPz95Ldbwj2Okfj46UdFYyPwcjRpvXzIIey8d4weT8Nl6SR
+ scqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776256930; x=1776861730;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=m6mhDh8ZVimpaQsmL7r1x1xR/f0QJ/vDpnN2yyq/t1k=;
+ b=VJ41bMDGqyBMtvHs2UO1MU03fu7dlp1B/lwTxoGK+flFjRBBVOi9CRcVBQByLiEzyf
+ BzCzH6bBPdRgSfTNxBGFVZ60n+lqJZiiAMUJ1zagANXvoi4Rihe2voLDlTC6dsHaUE3z
+ q20sx7pqWFcE2wyc6/V2nTexMYxVIaXVl0YoY5q2AQZxpC5b801RKrPF96hN3EkYu05/
+ /fBCUTRtCRqRCBVt7Wx8FGFNtVVIwhBzS1ygVYtpnHaGj+QPWs7Xv8WqE6f45lXyinid
+ Ofa7lIafevZKFHqCng6Z25oXhEY3hKID026AQrWrLoZ/ft9EH+goWnBzzPFjNivvAMX0
+ Sz3w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/WyC/qb2aboUqHJDaEG0xTDmpvPhq3GViWJthq/azBfwzXl5dQ3DmVl1q7GCkw/SQzEMn9vf+qlQE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxwrREvElgvtl+64H2ddljG+4IFG0L4RgBI6uLbHE3JgjOdGjhs
+ b2eivNPM2Q52U72s3mjOU+zWapBdPHrN4l2oBo3U0ppb07XurqIlseF80qa2ByPO6Uc9VwRR/gB
+ 4w/dqXuiNQyoZuSL3vHv5RQpa3iOcBzo=
+X-Gm-Gg: AeBDievWLboCp5lSg4nxHzJ4/l8u88c1u3oryo/HO//fBLjYmybZbwrPJ0k+qUVtyiu
+ 5MDVk5F6/1cnPDLcAeZO/11RnwF47JZmYNaPHe+hjAd7zKxgY5b+gmp2zDIiRPnI3uZkaDxPRhC
+ bbyMnVcC1yQ59dIZbP/OrFJIuc369sC7bneR6p2rtgFhi+4Q3HEfirnDrMXO4SDoyLRAEVviPhv
+ 3lXs6D/VzaolzSycTKHwefdSZm3OJMr9GuN6q8nc0NgFC+VxHV1DPTocVa9OQkKAFRveeKU/biq
+ G+vZtn6cY+bVLsPhCGwClOamHFtLtJ2z37g7so7xBB32Dxcxfddu65MwaQm0YXy2EINeFg==
+X-Received: by 2002:a05:7022:6288:b0:128:d4d5:93b9 with SMTP id
+ a92af1059eb24-12c5d4f349emr470556c88.7.1776256929440; Wed, 15 Apr 2026
+ 05:42:09 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|PH0PR11MB4920:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95b3b5e4-4b72-4375-b142-08de9ae9eb3d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: abE8InfRyarQS1wxnnmxyXbxeWPscsz44x7V5Awn8CUnps1QJI6O3HyzPxRrJeJndzBkRlPwbycWyo6OkdSmsaYUHqjro19hoVPoz5vMMB9vpJTVLjwNnsG7cR8ZinNM0Ng15ffZPsWDCA35RtK/EIAYWNOjbQwdZeyYen80AGcwXHZzb9J98xUC8pSWlw8KaNW+CUpR6trgT9SeGvaRHBis5KImhRgyEQ9S+TOrGohaJA400xE6MBErAIzlR/xWgZtKvXYoMBI15RXpg+MbZ3ThwKQrxhQVmQKCRRCOG/ZHSZhLtZHI5ENsR5uHLDl3iYsHK+jRpuF5T14EuFgpN9eGb6lLP7qgA89uZLg8zaZEUlpyM6cDv0bsZmiIHhQH1L3KbSzDQMUyxVkKqIPwlRbdw9ILHqchXHs32xUAVd3BwGmkjc2OwD8VNXN7LZemXPwvyG0WbtK/KNbxiKtrUoDQkuKTQ7uftFFEEU16JSnx/taABAS6kgPRUXpkKAGQ3ZzCd9GpDENLVVjWl3Wnov4CckAbH2CaXv3hek74qnCqnJ/jvo1Z16qxfd8lkzupvxGFpqMY+CtfKWSSY1/nIQ0K4rXFq8Gy5N6wZF6+qKre5qdE0ZFYWz0V2IqJzN8GvOqXVyALWL+2f95X4e4UojcWf8TPJQHzHvMTeIUzfZlCIQu8Ml5hPwZpUIqUOAFj/UA0TYObBDu4Dyfni0hzaCKzblxmL+0cCNaJNUKCDs0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q3RWZnBid1ZLL0IzNWVaQzZiNkh3N0Q3TXZxeVBhSjdSZTNoNHZkSGszQS9K?=
- =?utf-8?B?a3lNOUcxS05jM0taeko5QUJjcmx6SEVmS2VkRmExbUlYUElRQlJvbnhoVHNk?=
- =?utf-8?B?MTA5OVlhYnRDU2cxYWYrMkdya0NORzJaWU9ZcUdvVVRudFBpb2RCZU1ZejAr?=
- =?utf-8?B?d2RKMEY3UThvMytENE5nSmcrVko1YWEvc0xnY2d1WWdwOUsvWXZCWC8rQWw5?=
- =?utf-8?B?aDJxQW5ncHhHODVNTThZZXhWTi90Q0J3L01JUXo3ZHh3UitySlExNWp3RzV6?=
- =?utf-8?B?K0U0eHRFSWUyZXZzT3NTYyttNVpSWEVXdURqaUZZQkFUNDY0Vml0ekxESk1l?=
- =?utf-8?B?VzN6Q1RmUUh3c1NvbVA1VUowaFFwWDFYbU42bHhuWFJ4TVViWldUaGI3Um5Q?=
- =?utf-8?B?ejI4SmhoWDVxcnREZjBXbm5raFhTSVlpM2hKY0FCYnVYRGNlQzc4Sm5zMXkv?=
- =?utf-8?B?b013Y1lOS1ZHa3ZGYWlkajBsL3JUcHVrY0NaU2JCZVhTcUhEbFFDY3VkWFha?=
- =?utf-8?B?bVZzSTNDRDR6U2s2c25qUTVzRnhmUHNDSlpBNGMzV0Jxd3R1cldGaDJtU1N2?=
- =?utf-8?B?YU1rNllMcGljYks4VXp2UmlMU2JzOGtGeEtjV3FUMkJodFF0RkhIL1RyWjFK?=
- =?utf-8?B?VzVzVlZ3SDFwVzAwUGVnRzF6cUgwUlZadWtFSXpROGd0TlZwNmZRU2g0Z3NS?=
- =?utf-8?B?SnZVVmRjb2ZVeFB2c0NZcVNnTCtyM1BXSG9YVDEycjVZeDFVSEJjckhBS29w?=
- =?utf-8?B?SFZYdVdZeWpSTG95ckc5YVUxemNTb3RuZjNLcGJNYk5HQ1NVWWYxQlo4dnJ0?=
- =?utf-8?B?TGtTa1pmMU9ETEM2OHRlL21BUzNSWWJVdklkam1nVXFTeWQ4Rk15Y3ZhY1k3?=
- =?utf-8?B?L08wODlWNGNHV29YYUxzYWhFUDZZNnB4TUd1YUVobnNjOTZMSkNuK2h5NHE1?=
- =?utf-8?B?L2JRMjBZUU5hN0FFeUtzUkJSdDhTbVAyempySlRYMUlnUzJ0STdKZTRnc2hr?=
- =?utf-8?B?d3RyUkJkOHhVSkV3emU1SDYxTFBKU0tScU5laHZqTlRyQmFlWkpYRXZBYzU3?=
- =?utf-8?B?OGRkdGNvNk9BcjQxR2Z3UnhoVksraWhqTFBacitNKzg3a0tqVmpVRHgzMVJa?=
- =?utf-8?B?cnhleGRSNThqUS9PL0NFcXFYL3R2OXY0dmc4ODFLTFhxU3lGblZraGhmeEtz?=
- =?utf-8?B?STM2eDNDZUFyajU4NVl5T0x5cURldVE0dkh4TGRTMGVtS3FQcDhsbXZrajE1?=
- =?utf-8?B?bEFvY2JvK0FFbXRwUzBKVkQ5MlV3a0txOGdsUXJWbXpaZGhZWVlTZnYrS28w?=
- =?utf-8?B?bmE3M3JqaEFpbSs0dXNjNTl3ck1oUk5oeU9MNC9ZdnhJZGpYWS9lbEhuNExy?=
- =?utf-8?B?R3c3dnhMdnZvWUUyZFREZ2QwSVlCSW9IZDVBMStxeEJTVzU2SC80OGdpNTBJ?=
- =?utf-8?B?OU5iVmhNNGZ1Y09NUFJ3UnFZajZORDR1eDVvSWZhK3dnMklwTDdWc3hUQmJN?=
- =?utf-8?B?cytoUjhGVnUvWXpnNTBQMkxnbEI2RFNZOURLM1h6S2NaVVNuNjNhWU9GQXk1?=
- =?utf-8?B?QzE0OVRxcU5RVFRjR1FpTE1Jb1VmS0dOOFNMSVhLdEhzZUZXMmZvUDdEYmph?=
- =?utf-8?B?SHZ3M0lVSTdkdlpxYVFWWGFZUVp0ZjlBNzBFbmFCWHJ1M2I1ZFNOMVliNXZC?=
- =?utf-8?B?eEUzL0dJeDVPMzNQUHlHL1RSZUJ1QmZNaFA4dXp0VHdLVEhteFVxczNhcWZm?=
- =?utf-8?B?RWdybUdsaTAya0lubHFFNE1jbnJUZjZpTHFtTjlxS0tBRTJkWUs3UllteW5V?=
- =?utf-8?B?V3RVTllpelI4SWtUSGZ6VFgxbjJLSUI4VmpIcmMveVNYYzg5blVFOE1zUDUy?=
- =?utf-8?B?TVJqNU1YNFk5M3ROQUJRbm9wOG9TMTdPa1IyZ0tDVGNZamNoRjlTbzZPZzJL?=
- =?utf-8?B?cG54MmkvYlRFcjZFUUltbzRkcUNJaGtlV3NVdTQvL0Q2b296SkNRUDZtR1Zq?=
- =?utf-8?B?Zy84ZE1zTDloWWIra2FCR3U1NVNDY3M0ZllwZUxHZG9ZM2RMWVFZYU5qVnVw?=
- =?utf-8?B?dFJ0ZFErZ0NKdWs5QUg1bER0aER0MWhsdHVhT3dGdy81OWJZZnk2YUZQUGdD?=
- =?utf-8?B?QkZ5TDFpUWJ4YWdUUFFpdW5SaWI4UE5rd0xTQWFDa2sxa01YdnNDdGxVb3g3?=
- =?utf-8?B?M0JibklTaktsdGpDQWZVTVp5SUlPc2RRQWlER2dmMXNlLzdNbllwTkZBUGh3?=
- =?utf-8?B?SjMxaEM3WnpDOFdHUWRZNlducGE0U0sycWRWbi82TGhGZDdrVUNuQkxDei9p?=
- =?utf-8?B?YklhNjJkeU9OZzl5M1owOTUrd3U0T0x2SDcxZ2FJLzRhQm5ESWEvUkhnMGVH?=
- =?utf-8?Q?NAzQKXSdEIkHxZ0g=3D?=
-X-Exchange-RoutingPolicyChecked: YdfPycb0YjCLDd03kHMLFJF7RVHkNkYWYQxehbsVdPXyFC6dLHfuIn6N/xVJfFpGFXtEGMnzuDqZX0wD7vq/WLk8SVijB4ez0GlynEdk3fMwEUN31SQQB/2KB9Ei4Lc8yidTgauTINH8TDroTPc7JrhudVAUi1Hu7MMiU1oew8W7Fac2a1KQlMXfXP0mmN4EKjFxVyYI9CC6S/H6c8mHSTaglS/noPI5dV+q2s0MjUchU3HLZfN9rTECnHib4p66JGpVY/2hJ7SB/sB9J+D9r51wuz5AlWbD5jhX6xclVHJO/WwxqgAVN52catLtfLWB9RM9sRQWN8QJ4xSQPXdO/Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95b3b5e4-4b72-4375-b142-08de9ae9eb3d
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 12:24:20.1003 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N7TAoVOCqH4MDqtrnKMMpCI9IRc092s+Jay4RmpwaSRzyhKnhkkQ35HCaebBlahFQjZMwzFA+kS4408gfGBm8Yls3HPpz5n2m4C8cjV2/8g=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4920
-X-OriginatorOrg: intel.com
+References: <20260403214329.2976329-1-alexander.deucher@amd.com>
+In-Reply-To: <20260403214329.2976329-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 15 Apr 2026 08:41:56 -0400
+X-Gm-Features: AQROBzBw9xzWFFRU4nNxAhqgJRDrt_tA99Kk_T2mlZd3GoHhkm4ke_mPtIzELW4
+Message-ID: <CADnq5_OG-R0AVesZyxoAxS+yQFaEigA0yu5wZSyukm4PH8bjug@mail.gmail.com>
+Subject: Re: [pull] amdgpu, amdkfd, radeon, drm drm-next-7.1
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ airlied@gmail.com, simona.vetter@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,73 +104,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 14, 2026 at 9:57 PM CEST, Janusz Krzysztofik wrote:
-> We now depend on RCU protection when looking up VMAs associated with GEM
-> objects of an execbuf task in a radix tree based lookup table of a user
-> GEM context for that execbuf.  That's not sufficient.  While the radix
-> tree itself, as well as GEM objects, freed by RCU, are safe, VMA items ar=
-e
-> not, and memory they occupy can be freed concurrently if another thread i=
-s
-> doing a cleanup.
->
-> [550.183466] Oops: general protection fault, probably for non-canonical a=
-ddress 0x6b6b6b6b6b6b6b6b: 0000 [#1] SMP PTI
-> [550.183490] CPU: 6 UID: 0 PID: 18815 Comm: gem_reloc_race Tainted: G S  =
- U       L   N  7.0.0-CI_DRM_18329-g4e3f5ea9aacc+ #1 PREEMPT(lazy)
-> [550.183508] Tainted: [S]=3DCPU_OUT_OF_SPEC, [U]=3DUSER, [L]=3DSOFTLOCKUP=
-, [N]=3DTEST
-> [550.183517] Hardware name: Dell Inc. XPS 8300  /0Y2MRG, BIOS A06 10/17/2=
-011
-> [550.183527] RIP: 0010:eb_lookup_vma+0x89/0x770 [i915]
-> [550.183909] Code: 00 00 00 49 8b 44 24 38 4c 89 f6 48 8d b8 20 02 00 00 =
-e8 1a 65 c2 e1 48 89 c3 48 85 c0 0f 84 c8 00 00 00 48 8b b8 c0 00 00 00 <8b=
-> 17 85 d2 0f 84 b7 00 00 00 8d 4a 01 89 d0 f0 0f b1 0f 0f 85 53
-> [550.183928] RSP: 0018:ffffc90001aeb7e8 EFLAGS: 00010282
-> [550.183938] RAX: ffff888175b4cb40 RBX: ffff888175b4cb40 RCX: 00000000000=
-00000
-> [550.183948] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 6b6b6b6b6b6=
-b6b6b
-> [550.183957] RBP: ffffc90001aeb848 R08: 0000000000000000 R09: 00000000000=
-00000
-> [550.183966] R10: 0000000000000000 R11: 0000000000000000 R12: ffffc90001a=
-eb8b8
-> [550.183975] R13: 0000000000000003 R14: 0000000000000003 R15: ffffffffa0c=
-ed6f2
-> [550.183984] FS:  00007a83cce026c0(0000) GS:ffff8882a3997000(0000) knlGS:=
-0000000000000000
-> [550.183995] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [550.184004] CR2: 00007b5f1317e428 CR3: 0000000179690003 CR4: 00000000000=
-626f0
-> [550.184016] Call Trace:
-> [550.184021]  <TASK>
-> [550.184031]  i915_gem_do_execbuffer+0xc84/0x36e0 [i915]
-> [550.184362]  ? lock_release+0xd0/0x2b0
-> [550.184376]  ? is_bpf_text_address+0x74/0x140
-> [550.184387]  ? kernel_text_address+0x139/0x150
-> [550.184398]  ? unwind_get_return_address+0x25/0x50
-> [550.184410]  ? __lock_acquire+0x43e/0x2790
-> [550.184421]  ? stack_depot_save_flags+0x28/0x960
-> [550.184435]  ? __lock_acquire+0x43e/0x2790
-> [550.184446]  ? find_held_lock+0x31/0x90
-> [550.184455]  ? __create_object+0x68/0xc0
-> [550.184470]  ? lock_acquire+0xc4/0x2f0
-> [550.184479]  ? find_held_lock+0x31/0x90
-> [550.184489]  ? __might_fault+0x53/0xb0
-> [550.184505]  i915_gem_execbuffer2_ioctl+0x169/0x320 [i915]
->
-> Protect a VMA item retrieved from the context lookup table with a mutex
-> associated with that table while taking a reference to an underlying GEM
-> object.
->
-> Fixes: f7ce8639f6ff7 ("drm/i915/gem: Split the context's obj:vma lut into=
- its own mutex")
-> Cc: stable@vger.kernel.org # v5.9+
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> ---
-Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Hi, looks like this got missed.  Can you still pick it up?
 
---=20
-Best regards,
-Sebastian
+Thanks,
 
+Alex
+
+On Fri, Apr 3, 2026 at 6:09=E2=80=AFPM Alex Deucher <alexander.deucher@amd.=
+com> wrote:
+>
+> Hi Dave, Simona,
+>
+> A few last changes for 7.1.
+>
+> The following changes since commit 512f9f150f367176fa9e5f4613b4863409a6f6=
+86:
+>
+>   Merge tag 'drm-msm-next-2026-04-02' of https://gitlab.freedesktop.org/d=
+rm/msm into drm-next (2026-04-03 18:57:00 +1000)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.1-20=
+26-04-03
+>
+> for you to fetch changes up to 7b15fc2d1f1a00fb99f0146e404ff2600999ec74:
+>
+>   drm/amdgpu: dump job ibs in the devcoredump (2026-04-03 16:16:25 -0400)
+>
+> ----------------------------------------------------------------
+> amd-drm-next-7.1-2026-04-03:
+>
+> amdgpu:
+> - Audio regression fix
+> - Use drm edid parser for AMD VSDB
+> - Misc cleanups
+> - VCE cs parse fixes
+> - VCN cs parse fixes
+> - RAS fixes
+> - Clean up and unify vram reservation handling
+> - GPU Partition updates
+> - system_wq cleanups
+> - Add CONFIG_GCOV_PROFILE_AMDGPU kconfig option
+> - SMU vram copy updates
+> - SMU 15 fixes
+> - SMU 13 fixes
+> - SMU 14 fixes
+> - UserQ fixes
+> - Replace pasid idr with an xarray
+> - Dither handling fix
+> - Enable amdgpu by default for CIK APUs
+> - Add IBs to devcoredump
+>
+> amdkfd:
+> - system_wq cleanups
+>
+> radeon:
+> - system_wq cleanups
+>
+> drm:
+> - Add support for AMD VSDB parsing to drm_edid
+>
+> ----------------------------------------------------------------
+> Benjamin Cheng (5):
+>       drm/amdgpu: Add bounds checking to ib_{get,set}_value
+>       drm/amdgpu/vce: Prevent partial address patches
+>       drm/amdgpu/vcn3: Prevent OOB reads when parsing dec msg
+>       drm/amdgpu/vcn4: Prevent OOB reads when parsing dec msg
+>       drm/amdgpu/vcn4: Prevent OOB reads when parsing IB
+>
+> Ce Sun (1):
+>       drm/amd/ras: enable uniras via IP version check
+>
+> Chenyu Chen (2):
+>       drm/edid: Parse AMD Vendor-Specific Data Block
+>       drm/amd/display: Use drm_display_info for AMD VSDB data
+>
+> Ionut Nechita (1):
+>       drm/amd/display: Wire up dcn10_dio_construct() for all pre-DCN401 g=
+enerations
+>
+> Lijo Lazar (17):
+>       drm/amdgpu: Add reserved region ids
+>       drm/amdgpu: Add stolen vga reserve-region
+>       drm/amdgpu: Add extended stolen vga reserve-region
+>       drm/amdgpu: Add stolen_reserved reserve-region
+>       drm/amdgpu: Add fw_reserved reserve-region
+>       drm/amdgpu: Add firmware extended reserve-region
+>       drm/amdgpu: Add fw vram usage reserve-region
+>       drm/amdgpu: Add host driver reserved-region
+>       drm/amdgpu: Add memory training reserve-region
+>       drm/amdgpu: Group filling reserve region details
+>       drm/amdgpu: Add function to fill fw reserve region
+>       drm/amdgpu: Add function to fill training region
+>       drm/amdgpu: Move validation of reserve region info
+>       drm/amdgpu: Consolidate reserve region allocations
+>       drm/amd/pm: Add smu vram copy function
+>       drm/amd/pm: Use smu vram copy in SMUv13
+>       drm/amd/pm: Use smu vram copy in SMUv15
+>
+> Linus Probert (2):
+>       drm/amd/display: Replace inline NUM_ELEMENTS macro with ARRAY_SIZE
+>       drm/amd/display: Remove unused NUM_ELEMENTS macros
+>
+> Marco Crivellari (5):
+>       drm/amd/display: Replace use of system_wq with system_percpu_wq
+>       drm/amdgpu: replace use of system_unbound_wq with system_dfl_wq
+>       drm/amdgpu: replace use of system_wq with system_dfl_wq
+>       amd/amdkfd: add WQ_UNBOUND to alloc_workqueue users
+>       drm/radeon: add WQ_PERCPU to alloc_workqueue users
+>
+> Mario Kleiner (1):
+>       drm/amd/display: Change dither policy for 10 bpc output back to dit=
+hering
+>
+> Mikhail Gavrilov (1):
+>       drm/amdgpu: replace PASID IDR with XArray
+>
+> Pierre-Eric Pelloux-Prayer (4):
+>       drm/amdgpu: save ring content before resetting the device
+>       drm/amdgpu: extract amdgpu_vm_lock_by_pasid from amdgpu_vm_handle_f=
+ault
+>       drm/amdgpu: store ib info for devcoredump
+>       drm/amdgpu: dump job ibs in the devcoredump
+>
+> Prike Liang (2):
+>       drm/amdgpu: rework userq fence driver alloc/destroy
+>       drm/amdgpu: make userq fence_drv drop explicit in queue destroy
+>
+> Srinivasan Shanmugam (3):
+>       drm/amd/display: Fix dc_is_fp_enabled name mismatch
+>       drm/amd/display: Fix parameter mismatch in panel self-refresh helpe=
+r
+>       drm/amd/display: Fix missing parameter details in amdgpu_dm_ism
+>
+> Sunil Khatri (5):
+>       drm/amdgpu/userq: dont need check for return values in amdgpu_userq=
+_evict
+>       drm/amdgpu/userq: fence wait for max time in amdgpu_userq_wait_for_=
+signal
+>       drm/amdgpu/userq: add the return code too in error condition
+>       drm/amdgpu/userq: call dma_resv_wait_timeout without test for signa=
+lled
+>       drm/amdgpu/userq: use dma_fence_wait_timeout without test for signa=
+lled
+>
+> Timur Krist=C3=B3f (1):
+>       drm/amdgpu: Use amdgpu by default for CIK APUs too
+>
+> Vitaly Prosyak (1):
+>       drm/amdgpu: add CONFIG_GCOV_PROFILE_AMDGPU Kconfig option
+>
+> Xiaogang Chen (1):
+>       drm/amdgpu: add an option to allow gpu partition allocate all avail=
+able memory
+>
+> Yang Wang (4):
+>       drm/amd/pm: correct mem_busy_percent display due to calculation err=
+ors
+>       drm/amd/pm: fix null pointer dereference issue in smu_v15_0_8_get_p=
+ower_limit()
+>       drm/amd/pm: optimize logic and remove unnecessary checks in smu v15=
+.0.8
+>       drm/amd/pm: fix memleak issue in smu_v15_0_8_get_gpu_metrics()
+>
+>  drivers/gpu/drm/amd/amdgpu/Kconfig                 |  17 +
+>  drivers/gpu/drm/amd/amdgpu/Makefile                |   4 +
+>  drivers/gpu/drm/amd/amdgpu/aldebaran.c             |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   5 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |   5 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c       |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c   |  18 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   | 191 +++++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |  21 ++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  39 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h            |  17 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  23 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h            |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c            |  39 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  13 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |   1 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c          |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |  11 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 362 +++++++++------=
+------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h            |  53 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  81 ++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |   6 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  32 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.h    |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c            |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |  50 +--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  89 +++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   3 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c            |   1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h            |   2 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             |  11 +-
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |   2 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c             |   2 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c             |   2 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c              |   2 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c              |   2 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c              |   2 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |   2 -
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c             |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c             |  10 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              |  23 +-
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              |  44 ++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c           |   3 +-
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 128 ++++----
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |  14 -
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  21 +-
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |   9 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.c     |   2 +-
+>  .../gpu/drm/amd/display/dc/core/dc_hw_sequencer.c  |   5 +-
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   2 +-
+>  .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |   6 +-
+>  .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp_cm.c    |   3 -
+>  .../drm/amd/display/dc/dpp/dcn401/dcn401_dpp_cm.c  |   3 -
+>  .../gpu/drm/amd/display/dc/mpc/dcn20/dcn20_mpc.c   |   2 -
+>  .../gpu/drm/amd/display/dc/mpc/dcn30/dcn30_mpc.c   |   4 -
+>  .../amd/display/dc/resource/dcn10/dcn10_resource.c |  41 +++
+>  .../amd/display/dc/resource/dcn20/dcn20_resource.c |  42 +++
+>  .../display/dc/resource/dcn201/dcn201_resource.c   |  41 +++
+>  .../amd/display/dc/resource/dcn21/dcn21_resource.c |  34 ++
+>  .../amd/display/dc/resource/dcn30/dcn30_resource.c |  42 +++
+>  .../display/dc/resource/dcn301/dcn301_resource.c   |  42 +++
+>  .../display/dc/resource/dcn302/dcn302_resource.c   |  41 +++
+>  .../display/dc/resource/dcn303/dcn303_resource.c   |  41 +++
+>  .../amd/display/dc/resource/dcn31/dcn31_resource.c |  40 +++
+>  .../display/dc/resource/dcn314/dcn314_resource.c   |  40 +++
+>  .../display/dc/resource/dcn315/dcn315_resource.c   |  40 +++
+>  .../display/dc/resource/dcn316/dcn316_resource.c   |  40 +++
+>  .../amd/display/dc/resource/dcn32/dcn32_resource.c |  43 +++
+>  .../display/dc/resource/dcn321/dcn321_resource.c   |  43 +++
+>  .../amd/display/dc/resource/dcn35/dcn35_resource.c |  43 +++
+>  .../display/dc/resource/dcn351/dcn351_resource.c   |  43 +++
+>  .../amd/display/dc/resource/dcn36/dcn36_resource.c |  43 +++
+>  drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |  17 +
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  10 +-
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  |   9 +-
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  19 +-
+>  .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  10 +-
+>  .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  10 +-
+>  .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c   |  76 ++---
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |  12 +
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |   3 +
+>  drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c   |   9 +-
+>  .../gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c  |  16 +-
+>  drivers/gpu/drm/drm_edid.c                         |  72 ++++
+>  drivers/gpu/drm/radeon/radeon_display.c            |   3 +-
+>  drivers/gpu/drm/radeon/radeon_drv.c                |   3 +-
+>  include/drm/drm_connector.h                        |  38 +++
+>  92 files changed, 1756 insertions(+), 703 deletions(-)
