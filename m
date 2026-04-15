@@ -4,98 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C39D6F4385A
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 17:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87BD2F43848
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 17:16:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CBF610E180;
-	Wed, 15 Apr 2026 17:11:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5A6E10E727;
+	Wed, 15 Apr 2026 17:16:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sByCOLwo";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DJlDCc+P";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="L3ZZOKEh";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010025.outbound.protection.outlook.com [52.101.61.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0930710E180
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 17:11:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=adZP+Gv+KOCGHz1ksEmdRJ4m6jKZU29jFlhfCVUnKpqehfNEZwmi2J/uDgQKCN2yiPzekw7wd9TkzKDs6OZoxHyOLRz4j/Y0KNaiTOgA4ikAlJ6LHmfTBpRwYD2Ey0w0zf3G01PzN6HCOM0NtP/UkxBFwv1ZB02s+PXihwhIlZruFZRzQSnRHoPBMSVc08hhrjEtTV0zT6GZ48viBkqYXyPYS10iEqf/PyKDVZY7k2rRXGz8VIEl4Jx4F1qS8/vf4/xUyqxDQN5uzxRzqZOtTcweDoKDzW6fknEgylJv1oBpc0Q5thDM2daMEc7V5s+xYg/9elJea2P0L1BJLvaTdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kz7sMBgpou/hun9wQHidVHX1XReczPK5j2Ln77d957o=;
- b=CtRV723A1BY4WEYLwFSa6GGnm6461kmnSjLjQPRY37aOvIix+wlm5MSo+L5MZFCvQxENfCevzT3VPNVwOZFWTUeYw4ZKLbZPTNpTycNQ1CK+NNpyROCnQnx/kKSAW8ztawpL734b6fJPtieLrYks3stdsHxi0+9stFmf+zldhLAImUNLoD7AvU9jKEFcCTcBnUzLyJX4V9VN3arAfO+ouVF1eSz5fP365hPNQfNo0AQFOYjhi3vELRPZhax6p46q69/w0GhkUmuwFEgEPbA276v64Od2dpmjyTqoqyBLMPPfCInDf2rAtc4gTEEzny8dDdt7G9p3WsXKaHhBSRSasg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kz7sMBgpou/hun9wQHidVHX1XReczPK5j2Ln77d957o=;
- b=sByCOLwo4sH/7Dp4BhcMAhML/Rsq39R7AHHuvUARuimDz8zh9qpDHfls6Bc4X3yfLT+/KzIOQs4Wnj/cDP//jShZhmmegcNl0lrq5PWMpgzW/kncRKzdsorpKk6jZGzgiwGN6zESrCQ+6O2Wmeli47ShUgiwXrbtoOnpPPARQpQ=
-Received: from MN0P222CA0019.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::25)
- by IA0PR12MB8905.namprd12.prod.outlook.com (2603:10b6:208:484::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
- 2026 17:11:42 +0000
-Received: from BL6PEPF0001AB50.namprd04.prod.outlook.com
- (2603:10b6:208:531:cafe::3e) by MN0P222CA0019.outlook.office365.com
- (2603:10b6:208:531::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Wed,
- 15 Apr 2026 17:11:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB50.mail.protection.outlook.com (10.167.242.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 17:11:41 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 15 Apr
- 2026 12:11:41 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 15 Apr 2026 12:11:40 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
- <dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
- <maciej.falkowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>, Lizhi Hou <lizhi.hou@amd.com>
-Subject: [PATCH V2] accel/amdxdna: Add hardware scheduler time quantum support
-Date: Wed, 15 Apr 2026 10:11:39 -0700
-Message-ID: <20260415171139.904947-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7918A10E727
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 17:16:26 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63FF4X42862252
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 17:16:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ RXvT4zjNncbaQTzuRUGDRSkWnu4bijnWhJgtWj2vfqg=; b=DJlDCc+P7kvAcR3W
+ 1i9+1MbX2YXxQYZ/Z48HaSJr9AdMUgXqCSWSChH6RoDXEE2xBPyKp9anBuYiWgxS
+ bqS9J0ixRzZwbUaxsx6M9EtAnU0bUKxa17zlMssX+JUzW/RcLm9LWjHcfmH6Hagj
+ q073QblXiX5Zec20+sZ/rKek5Wv46TrczYvsEH9l6hs1TPcj89bGrALmS14g7u4/
+ lk+qWOq7Q3Ynwx/jB7RAcRVSRPd2vUaqjZa70JGyLcS8pJeuJUisDox8hLY3aeFR
+ WmtZvKh4MTnzwgQjNEtyazblgy3ItIlwsOrJn3pbrBF9nDkIKHcxdDXZr+RYjJqv
+ k9VjJw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djd0e8f9y-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 17:16:25 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2aad5fec175so100427085ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 10:16:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776273384; x=1776878184;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=RXvT4zjNncbaQTzuRUGDRSkWnu4bijnWhJgtWj2vfqg=;
+ b=L3ZZOKEhc/ezsd/eplkXsexGS8Dhfw0wxBs4ZVQyqswgAxjV/H5L0/Zn210lLYfwCh
+ cGpQG72zvbbXPcu2RyqJSpZf54H7lew2RwNte+G4wPjjeR8wrPJgnzZk2h7wB72bzX2K
+ kx8vhEhM7ZRbjD4JlPzzpIhA/GSs89N4IaC68d663fEXUnPfukycVdDaQvJXKvQFsyIx
+ d1rpPClJObR7fVfNUr8NuGChiM7w/LxEDRu7STn0XjuGqk1hS6VWRcAR10+7DjcGlF4k
+ i/EQ5rmqwQFk5h2r6K4ehgcOoaDh1RD152kxT7o8Gmb5CvsBIKlVzfbKo0/h3i7kfyYh
+ 4pSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776273384; x=1776878184;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RXvT4zjNncbaQTzuRUGDRSkWnu4bijnWhJgtWj2vfqg=;
+ b=EacgQ2XeplhtxUGHDcTUG0MV7nUdvJwrUrM5dOOZ2HmNotxtVFWOB+TrsbvZ++Mgo0
+ lcPomM+2z9dc9KeNmWfpuQy8lk5N/5dM7rfthY6CtucXdzTI5XFcJYqkA0wwoIbgXosJ
+ e2Ki8u6wFAmBJ6LnhGWF3RiteznsGmlNZSuoZHVJyFwGbPvMlPnD9BbfVjVvi/AJ03M5
+ wiB3xv30J0ro2pBjfmt6TRtA/syPyM/qmXCFv/9EzO1nq1OyBy66Yy30Ua3Y5dW4mrZ9
+ guf7cRS4da6Tf2KUqYUFLXroKHScB8EydS9n+dl8wuxFGCIQPmmxUIsuRsLhmFQVpTzG
+ XahQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ92jKgFT69/tF9ZkGuUEt8069qXW5fo/FTmB2iGlwNAqkAFPzYpAHhE72gfMYbJ8P9D63yHBxE0Gac=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzMNl9PJfzUqEr6X/iJiDNtkgYaw5TEhZt3NnhwtAFZyiy7N3jb
+ 7rhxSAenSuZ8/qBcqw2LejoQjpUOiS7j7UZ1PJh4LMqYuiFVmb06/5w74DEamznk7TdLkb4quwY
+ 1QJxkvJDa2Dj/H2bxey6nnmCez/WVIKGH5hscWsDnPX4atUPTD4T9CahLo4Fm6DS89oD/Nio=
+X-Gm-Gg: AeBDies0ogXZSsVcNQOMKOxSOex6Uvl7TMAW6YG1UDV0nTdx0oogOsiyx7Inxf35TuS
+ ZOdYvQP+gH7UFIQ3DyinQaEpB+xsRq3xJQoh+6MgsJT769JjJfYPENMXLc2Wxk+VCVM59D4LHqs
+ xhWARLzXdyBchLefDiCYlr2fRKNiTjFcnPvtMGYpqb1K/37G7yi2kwlxvYFz0jqu55J0hNt5rKY
+ C55x0wCkKhciYB9fg3AtQZrALOx3LhkOIrgsufCVLddcvf8mDCHHLXlmMtgcgJ2zXq3J37aGU1v
+ 6UgZp0iR7DDp1Z00WYRqeDgBfgjPPpQ+VbWFRtX4+6eDyjBvo4kbUP6NF5I2D//JLXvnRAwHbwP
+ QuO20X9PuGaVMB4XJxxbXUxECuNAENkKRCMyhw8m8EMAkp4433h7uWg==
+X-Received: by 2002:a17:902:cf05:b0:2b2:42da:25c4 with SMTP id
+ d9443c01a7336-2b2d59adee5mr234505615ad.14.1776273384140; 
+ Wed, 15 Apr 2026 10:16:24 -0700 (PDT)
+X-Received: by 2002:a17:902:cf05:b0:2b2:42da:25c4 with SMTP id
+ d9443c01a7336-2b2d59adee5mr234505285ad.14.1776273383593; 
+ Wed, 15 Apr 2026 10:16:23 -0700 (PDT)
+Received: from [10.206.105.200] ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b47826e306sm27292945ad.46.2026.04.15.10.16.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Apr 2026 10:16:22 -0700 (PDT)
+Message-ID: <75191131-2eb5-a7d3-0222-8c03a5ded45a@oss.qualcomm.com>
+Date: Wed, 15 Apr 2026 22:46:13 +0530
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB50:EE_|IA0PR12MB8905:EE_
-X-MS-Office365-Filtering-Correlation-Id: f77f8ddc-a8f4-44fa-4eb3-08de9b121051
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: vdRPlR9JEqJ2676ZpiC/Yttt56cOtGC/UEx7u7v50BHfXDN2GmKGtmV4ZglHwn+EFecfEwC2QXzYI07sTw+o8zCvM3mIHxG//NiPaooomfyRKkwzyyAPrL4JhMjhsoFcVpG+zFObPOfC1BzTq9gt6eDjolLBw/mOZ2pG+B4T+jxDKYKwmgHN7wSN9MjmN2abmHEbf2V9KdkzC07melptCaJ8VN36GGWH/ohTVhIh9IAGdYdiRn6IuQz4AliSRdT1mYUBg6IJG0U+vNOg5OaovJkzL8D1EcKrCI3GuHnJ4C6VAV8dB/ZrfcmNRXNMyWjApz/SZmZTrWZk2l/rBUnd/AR4YNf8BP4dXV8xIe3Z0KqKlkBc+OEqgg64qE8fftkZj9mFeHChhq5E7XEMeMVYlQRVxLsgcHuKtLbAo299krwQ0tEznlciNCNuFTWM0Z24+vJkRpXgneKGmdUwqI/C7v9IO1AY+ilQFcP85UzGwZOCgF1vJ1/S7kAh5BeQydB0aWcAtXFFTVrr2Ndga6Xjyo0zYyJWkGnG8bZzPI3DmJ8cUtkWIN2RcQs+NeRazlbxH075ld7UGgb1RE9oGQe/xmiwiunpzCWx0mvLQgcYUY4LyBzXBkxPXq9+R8SpxlXryq1O0oYI2pj8+agEqrpjGXdkBh2vyb3JWONOSMAMI/8JbyNCtvmzEmZJguNYw7qh2NHHcdRMZ6Czh1ccogesjiZutwSUfOYZbRBDmOxai+HQc3mJrlxnC7g/tjQ4/377KMiawfxjz8YrXiiWwmNt7Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: czsRezN1lfo5AKtovmDgCHJGwdR/C7Aa+BTHJ122SuZSjJpdCHVTrawQ0bmK1Mcn1vtkZIt6VyNVwadk3XhRsHUOMfT0AmUBO0hbGQbVBA712tOvvM4/xB49Me/ss253JdecbsXOKStZf3H+YemGuQ3BEFNqrUcP7KGXOMEZchJVos4KWmn7wSMnhRF5qcHZ5ZC4mQePqkxaHNgPE9EBqMICpoFlXOedfpUoM4lS0CLq+x7fZHCu++wpfG3wRoo/37R08MgnLZS78xDIi0R3wnhrx3RsHds54cwXeK+X5RGmvGtNsr8Vh9UnQB9A6M3vxogcbksBB9hJKgbA85bBkAOj8SOfoJIRKQP8M6h+hZA69cWepsVIPWhdSi1h5zFtmh6LeV+oxOHNS1Un95fL3ZrRwIjB+sO7VVTSyjs4AkvPXO50C2uINtNzn2dL7CJJ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 17:11:41.8237 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f77f8ddc-a8f4-44fa-4eb3-08de9b121051
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB50.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8905
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 1/3] drivers: base: Add generic context device bus
+Content-Language: en-US
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org
+References: <20260414-computebus-v1-0-4d904d40926a@oss.qualcomm.com>
+ <20260414-computebus-v1-1-4d904d40926a@oss.qualcomm.com>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260414-computebus-v1-1-4d904d40926a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: rVjkcMTA2y3VHlcR5D9-5ZDRlS9qJJP6
+X-Proofpoint-ORIG-GUID: rVjkcMTA2y3VHlcR5D9-5ZDRlS9qJJP6
+X-Authority-Analysis: v=2.4 cv=GP441ONK c=1 sm=1 tr=0 ts=69dfc7e9 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=m666xMD4OwuZyzqZ95sA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDE2MSBTYWx0ZWRfX9XsqkZ3efaro
+ YQFRy/DcwMo+Z+4vaOpDTpRGqISWqyHKHQ4fN/kq8b7Z7rPXP31b/qGO7WRjsv6O8Cbzlzh7YKQ
+ 93GDmmQmomDV/cDnsvDpgBQkFhVWiATOT0uCYVPo97SRmad0mUyZFzfvVHaaZN17xAflKOTDby4
+ 9nQwQXNrMHQO9giPuR2JJO+ia0GMh9eXsX6yalQYUycWrRrpYUBvRN2SEoyAyNe6nZTXem/paqA
+ 3l6CdC0XdI9jkQhbOpgFvstrYSBhaeVUF+0FMM/V6wpLhi0MBXNa3zwwLS9RHT6M8V3lluNo8w+
+ JWEKLFLyZ12jftSRwQ87mmlnynxJIOdCmjowmaaYHpmF1AOF6qwiByGDvKZgMAAtrBQjWB05DJJ
+ IOK0u6122ShKLo97rGTKznHwPJL7HeRLZzjDYz4k3WaTn3ueq51p8j41fq32b+An1lAC+r9nt+M
+ xjF/Pc/JlPgJsj/5nCg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-15_01,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 clxscore=1015 adultscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 suspectscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604150161
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,174 +157,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Max Zhen <max.zhen@amd.com>
 
-Add support for configuring the hardware scheduler time quantum to
-improve fairness across concurrent contexts.
 
-The scheduler enforces a fixed time slice per context, preventing
-long-running workloads from monopolizing the device and allowing
-other contexts to make forward progress.
+On 4/14/2026 10:01 PM, Ekansh Gupta wrote:
+> Introduce a new generic bus type for synthetic context bank devices
+> that require IOMMU context isolation. This bus provides a shared
+> infrastructure for accelerator and GPU drivers that create virtual
+> devices representing IOMMU context banks.
+> 
+> Currently, drivers like host1x implement their own bus types for
+> context devices. This generic implementation allows multiple drivers
+> to share the same bus infrastructure, simplifying the IOMMU subsystem
+> integration and reducing code duplication.
+> 
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
+>   drivers/base/Kconfig        |  3 +++
+>   drivers/base/Makefile       |  1 +
+>   drivers/base/context_bus.c  | 24 ++++++++++++++++++++++++
+>   include/linux/context_bus.h | 15 +++++++++++++++
+>   4 files changed, 43 insertions(+)
+> 
+> diff --git a/drivers/base/Kconfig b/drivers/base/Kconfig
+> index f7d385cbd3ba..479bc4bb442b 100644
+> --- a/drivers/base/Kconfig
+> +++ b/drivers/base/Kconfig
+> @@ -4,6 +4,9 @@ menu "Generic Driver Options"
+>   config AUXILIARY_BUS
+>   	bool
+>   
+> +config CONTEXT_DEVICE_BUS
+> +	bool
+> +
+>   config UEVENT_HELPER
+>   	bool "Support for uevent helper"
+>   	help
+> diff --git a/drivers/base/Makefile b/drivers/base/Makefile
+> index 8074a10183dc..ab9a0b2dc73b 100644
+> --- a/drivers/base/Makefile
+> +++ b/drivers/base/Makefile
+> @@ -8,6 +8,7 @@ obj-y			:= component.o core.o bus.o dd.o syscore.o \
+>   			   topology.o container.o property.o cacheinfo.o \
+>   			   swnode.o faux.o
+>   obj-$(CONFIG_AUXILIARY_BUS) += auxiliary.o
+> +obj-$(CONFIG_CONTEXT_DEVICE_BUS) += context_bus.o
+>   obj-$(CONFIG_DEVTMPFS)	+= devtmpfs.o
+>   obj-y			+= power/
+>   obj-$(CONFIG_ISA_BUS_API)	+= isa.o
+> diff --git a/drivers/base/context_bus.c b/drivers/base/context_bus.c
+> new file mode 100644
+> index 000000000000..6ddb6c27bf69
+> --- /dev/null
+> +++ b/drivers/base/context_bus.c
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +// Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> +
+> +#include <linux/context_bus.h>
+> +#include <linux/init.h>
+> +
+> +const struct bus_type context_device_bus_type = {
+> +	.name = "context-device",
 
-The default time quantum is 30ms and can be configured via the
-time_quantum_ms module parameter.
+add the .dma_configure callback instead of calling from the client driver.
 
-Signed-off-by: Max Zhen <max.zhen@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie2_message.c  | 44 +++++++++++++++++++++++++++
- drivers/accel/amdxdna/aie2_msg_priv.h | 16 ++++++++++
- drivers/accel/amdxdna/aie2_pci.c      |  8 +++++
- drivers/accel/amdxdna/aie2_pci.h      |  2 ++
- drivers/accel/amdxdna/npu4_regs.c     |  3 +-
- 5 files changed, 72 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
-index e52dc7ea9fc7..976ad6281078 100644
---- a/drivers/accel/amdxdna/aie2_message.c
-+++ b/drivers/accel/amdxdna/aie2_message.c
-@@ -1200,3 +1200,47 @@ int aie2_query_app_health(struct amdxdna_dev_hdl *ndev, u32 context_id,
- 	aie2_free_msg_buffer(ndev, buf_size, buf, dma_addr);
- 	return ret;
- }
-+
-+static int
-+aie2_runtime_update_ctx_prop(struct amdxdna_dev_hdl *ndev,
-+			     struct amdxdna_hwctx *ctx, u32 type, u32 value)
-+{
-+	DECLARE_AIE_MSG(update_property, MSG_OP_UPDATE_PROPERTY);
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	int ret;
-+
-+	if (!AIE_FEATURE_ON(&ndev->aie, AIE2_UPDATE_PROPERTY))
-+		return -EOPNOTSUPP;
-+
-+	if (ctx)
-+		req.context_id = ctx->fw_ctx_id;
-+	else
-+		req.context_id = AIE2_UPDATE_PROPERTY_ALL_CTX;
-+
-+	req.time_quota_us = value;
-+	req.type = type;
-+
-+	ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
-+	if (ret) {
-+		XDNA_ERR(xdna, "%s update property failed, type %d ret %d",
-+			 ctx ? ctx->name : "ctx.all", type, ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us)
-+{
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
-+	int ret;
-+
-+	ret = aie2_runtime_update_ctx_prop(ndev, NULL, UPDATE_PROPERTY_TIME_QUOTA, us);
-+	if (ret == -EOPNOTSUPP) {
-+		XDNA_DBG(xdna, "update time quota not support, skipped");
-+		ret = 0;
-+	} else if (!ret) {
-+		XDNA_DBG(xdna, "Ctx exec time quantum updated to %u us", us);
-+	}
-+	return ret;
-+}
-diff --git a/drivers/accel/amdxdna/aie2_msg_priv.h b/drivers/accel/amdxdna/aie2_msg_priv.h
-index f18e89a39e35..fc2e99510980 100644
---- a/drivers/accel/amdxdna/aie2_msg_priv.h
-+++ b/drivers/accel/amdxdna/aie2_msg_priv.h
-@@ -31,6 +31,7 @@ enum aie2_msg_opcode {
- 	MSG_OP_SET_RUNTIME_CONFIG          = 0x10A,
- 	MSG_OP_GET_RUNTIME_CONFIG          = 0x10B,
- 	MSG_OP_REGISTER_ASYNC_EVENT_MSG    = 0x10C,
-+	MSG_OP_UPDATE_PROPERTY             = 0x113,
- 	MSG_OP_GET_APP_HEALTH              = 0x114,
- 	MSG_OP_MAX_DRV_OPCODE,
- 	MSG_OP_GET_PROTOCOL_VERSION        = 0x301,
-@@ -503,4 +504,19 @@ struct get_app_health_resp {
- 	__u32 required_buffer_size;
- 	__u32 reserved[7];
- } __packed;
-+
-+struct update_property_req {
-+#define UPDATE_PROPERTY_TIME_QUOTA 0
-+	__u32 type;
-+#define AIE2_UPDATE_PROPERTY_ALL_CTX	0xFF
-+	__u8 context_id;
-+	__u8 reserved[7];
-+	__u32 time_quota_us;
-+	__u32 reserved1;
-+} __packed;
-+
-+struct update_property_resp {
-+	enum aie2_msg_status status;
-+} __packed;
-+
- #endif /* _AIE2_MSG_PRIV_H_ */
-diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-index c9c23c889c78..afbe3f8f67ce 100644
---- a/drivers/accel/amdxdna/aie2_pci.c
-+++ b/drivers/accel/amdxdna/aie2_pci.c
-@@ -33,6 +33,8 @@ static int aie2_max_col = XRS_MAX_COL;
- module_param(aie2_max_col, uint, 0600);
- MODULE_PARM_DESC(aie2_max_col, "Maximum column could be used");
- 
-+#define DEFAULT_TIME_QUANTUM 30000 /* microseconds */
-+
- static char *npu_fw[] = {
- 	"npu_7.sbin",
- 	"npu.sbin"
-@@ -186,6 +188,12 @@ static int aie2_mgmt_fw_init(struct amdxdna_dev_hdl *ndev)
- 		return ret;
- 	}
- 
-+	ret = aie2_update_prop_time_quota(ndev, DEFAULT_TIME_QUANTUM);
-+	if (ret) {
-+		XDNA_ERR(ndev->aie.xdna, "Failed to update execution time quantum");
-+		return ret;
-+	}
-+
- 	ret = aie2_xdna_reset(ndev);
- 	if (ret) {
- 		XDNA_ERR(ndev->aie.xdna, "Reset firmware failed");
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index f83deca2b51a..69b53c7bcb86 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -222,6 +222,7 @@ enum aie2_fw_feature {
- 	AIE2_PREEMPT,
- 	AIE2_TEMPORAL_ONLY,
- 	AIE2_APP_HEALTH,
-+	AIE2_UPDATE_PROPERTY,
- 	AIE2_FEATURE_MAX
- };
- 
-@@ -308,6 +309,7 @@ int aie2_sync_bo(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 		 int (*notify_cb)(void *, void __iomem *, size_t));
- int aie2_config_debug_bo(struct amdxdna_hwctx *hwctx, struct amdxdna_sched_job *job,
- 			 int (*notify_cb)(void *, void __iomem *, size_t));
-+int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us);
- void *aie2_alloc_msg_buffer(struct amdxdna_dev_hdl *ndev, u32 *size,
- 			    dma_addr_t *dma_addr);
- void aie2_free_msg_buffer(struct amdxdna_dev_hdl *ndev, size_t size,
-diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/amdxdna/npu4_regs.c
-index a3b6df56abd0..6ebf75ad5fb4 100644
---- a/drivers/accel/amdxdna/npu4_regs.c
-+++ b/drivers/accel/amdxdna/npu4_regs.c
-@@ -93,9 +93,10 @@ const struct dpm_clk_freq npu4_dpm_clk_table[] = {
- 
- const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[] = {
- 	{ .major = 6, .min_minor = 12 },
--	{ .features = BIT_U64(AIE2_NPU_COMMAND), .major = 6, .min_minor = 15 },
- 	{ .features = BIT_U64(AIE2_PREEMPT), .major = 6, .min_minor = 12 },
- 	{ .features = BIT_U64(AIE2_TEMPORAL_ONLY), .major = 6, .min_minor = 12 },
-+	{ .features = BIT_U64(AIE2_NPU_COMMAND), .major = 6, .min_minor = 15 },
-+	{ .features = BIT_U64(AIE2_UPDATE_PROPERTY), .major = 6, .min_minor = 15 },
- 	{ .features = BIT_U64(AIE2_APP_HEALTH), .major = 6, .min_minor = 18 },
- 	{ .features = AIE2_ALL_FEATURES, .major = 7 },
- 	{ 0 }
--- 
-2.34.1
-
+> +};
+> +EXPORT_SYMBOL_GPL(context_device_bus_type);
+> +
+> +static int __init context_device_bus_init(void)
+> +{
+> +	int err;
+> +
+> +	err = bus_register(&context_device_bus_type);
+> +	if (err < 0) {
+> +		pr_err("context-device bus registration failed: %d\n", err);
+> +		return err;
+> +	}
+> +
+> +	return 0;
+> +}
+> +postcore_initcall(context_device_bus_init);
+> diff --git a/include/linux/context_bus.h b/include/linux/context_bus.h
+> new file mode 100644
+> index 000000000000..0cd44cb5b147
+> --- /dev/null
+> +++ b/include/linux/context_bus.h
+> @@ -0,0 +1,15 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __LINUX_CONTEXT_BUS_H
+> +#define __LINUX_CONTEXT_BUS_H
+> +
+> +#include <linux/device.h>
+> +
+> +#ifdef CONFIG_CONTEXT_DEVICE_BUS
+> +extern const struct bus_type context_device_bus_type;
+> +#endif
+> +
+> +#endif /* __LINUX_CONTEXT_BUS_H */
+> 
