@@ -4,112 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED8C9FA0C26
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 03:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E78EFA0C26
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 04:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2647B10E03B;
-	Wed, 15 Apr 2026 03:58:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A22C10E670;
+	Wed, 15 Apr 2026 04:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="ZUypafw4";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="Uvk+ZQar";
 	dkim-atps=neutral
-Received: from mail-qt1-f226.google.com (mail-qt1-f226.google.com
- [209.85.160.226])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1027410E03B
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 03:58:10 +0000 (UTC)
-Received: by mail-qt1-f226.google.com with SMTP id
- d75a77b69052e-50b69bf5638so68728101cf.1
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 20:58:10 -0700 (PDT)
+Received: from mail-vk1-f226.google.com (mail-vk1-f226.google.com
+ [209.85.221.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ABCB10E670
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 04:02:09 +0000 (UTC)
+Received: by mail-vk1-f226.google.com with SMTP id
+ 71dfb90a1353d-56a9076813bso3076667e0c.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 21:02:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776225490; x=1776830290;
+ d=1e100.net; s=20251104; t=1776225728; x=1776830528;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=BANB/iieo/1R0HSfYtGTIvn5A73RnuZ2+gO22EyqIKU=;
- b=ma8h1XHOmDtnYJsNjX3PNfRv6RqeoUaY/kxfGRjRT0WrremBkrDWzTZyY8Gvz3CYU4
- dibTCO7m3a1aSr0ssdT8Dwcj9TNlWCNtQSjM1vi5wdRh5FTDpmF2HYy/SZfjii+BbliY
- y8uWt9NyI+nx6c+KQXSkrfedVGi7H9355sNmPcBI5zPKzGnWGxnWPNjXHl6dxY54IOWK
- 3/37jKPl+NmDObLt1+DDYFJHQZ81ywQGalSJ39YPv5oJIQKjAFvF9jM/XtYUV0aAlNZy
- 0P9YeORHG9VA/6b0LxgMsMLqfibVxCl3xVZJE26NeSVQJQOgXaiIVggSyPFa79Uj6obj
- PIrA==
-X-Gm-Message-State: AOJu0YyyHZcOUsji1gOrUXpYwv75Qu14gnV+c0oHuY724gR89eSKTVHm
- tQ0BoSMmCZhRG7RCLxtQAOS/7UminN+YthZSFekjJSIgqfmmJllGW/1dnObvP3ANxwoKuy65i3O
- TxXDNI43sqcEXq6rHhsu/XpPTlAjuehUmXBd3mxxhqG9fGeuJfLG9shEZn0fH1lJ5/AxJuuAD2P
- aZZi1oQV3HtF8SFOEHO/RzSo1RFPiv2+e7EfnAjiCZCFQtIMcxkA4iev14FSYyD26YwGO8MZtyc
- k3gBL/CGnSXiEPnnupk
-X-Gm-Gg: AeBDieso7aJTWOeGQqHpvolYI722sQB7mIoYLkcgidwY1POOxFUShOWwlTUcRL7g8Ta
- 6HdsypM+ZT9mh/CehcjS0LqTyrR6Xwk/gpPbazDRb6c6d8G+WRxg+vIqYqPjVwP/x3qWbk5bPyf
- VHTeSxglNy/jfBkMMcIsc4QQU8dHb6R+WaQAJOl5x5SmjSEQWp2oEqxFRoBW6AI6LMzWNsZQVE+
- agxdr26KhJB/8usK+f49bZf9f/13rHuj3OtBvSj1WVNeV8jNNaZ3Bry8I0MOvCBILKmn+nFVZeU
- 0j7pX1p5fkjhhot9rw2XwalsBbVqtNsFQ+rpPNMl1bEPbsUjJQbzBXBmBFBvCoQ7VPCl1EowkyG
- eOE9FvEsjCp2h0HXuY5xDhH1vAqthqYKX5+zDW5R8qS8M+tymHAmDuUhoaTkaO4EP2n88TYfHaS
- qp1JMnz6DTJxDxoIHmvtWULdveqTJEPhActztuVk/oe/zI03r/P3MX1wCl41EHyU3Y
-X-Received: by 2002:a05:622a:5910:b0:50d:a5e8:39e9 with SMTP id
- d75a77b69052e-50dd5bd9b74mr297175201cf.20.1776225489377; 
- Tue, 14 Apr 2026 20:58:09 -0700 (PDT)
+ bh=R9W+Z0h/YBBr++LWPyH6qIXUx6e2r49TM61f5f9RoiY=;
+ b=InIBWoBk/C85kHFXQTtG9ptwJHeBk5Xn4p+djlHFQu+glppNJoUtTgzHgI/rax+rE8
+ iKK16vJlElQSZoX6YXq9/iN2WphPHjTJr8Y1LrHdxTKx4D5Mu0ZGI/UsggAimdBCKjlM
+ mkwlEfqwSx9igAVx7LnMmp7wKg7x18iz7KlkwKpqwqES5rfrrzzEtDnz+dCFpGtTxRc/
+ +/2qsvOt85anVyOkf34BDXEzOicJ/DnIeM/eeCFm/0fPMbaPZtCUhcBFqUrEcRerFpTu
+ 9KSo2fVfkTrqMYqyoWXheseP03Nf/XTTadLF8y3cshXOBYPJDLay2/3RL4kO4MeHoxUb
+ 4rFw==
+X-Gm-Message-State: AOJu0YxyETduqKRJh409zPMmjpD6Eunem6f/aASwWrJrgMSjjkfWPfcE
+ Cd3F1C4zDx7NkatjpM9H4b1UCqR+g4/w+KAfXCvywBxSAVg9gGAWGaykZOlh4KkHFJp2m+TxnM9
+ R+m0p7keGuiI1QKleI7tFub6+iqOzijt++NsR8lI4Z7mUuVk/iAMGEStqHQVZS2RWJiOiEya5OD
+ mKgOXhVHuGh+HT/LnObYW48tOBMqZlQ1Ql4t6SJdnPcs2CNzUMGh6nNzT0tCvg0Ms5uKZ1RmBWQ
+ hBPRDq87vv3wTHv9cqm
+X-Gm-Gg: AeBDieuGpqQYQGZUTVevqDvdu1GjuKuqlUIZpT+mvTtCj1MMyGtlfPuP02x/5YEidGB
+ YBoO/+CRpesdOemzH/Cb1PMxmTBVSvYcZiYoMJ4U2iGIRzw28D3EEagxNY7l9oi4j8AzjrkTypO
+ ++zaQ5DWojT2Ud1xI5uIodXicCSnx4iLxaDEThS/xZ6C2/T4HPRWa3En1y00jgbZxGel1lQdhOM
+ Ggr2oYym7DrE7t3bhbj4eJnPbeYDz33oPM05o2GtrnJK4w+g9TiNx0GQI5PagPNmGgb0bG7tZHW
+ PEUkvbNiumgnAsU4emoFSZ7swKoKso6uECqIvsQxT71zRhm1oQrzQhhS1tFfgty37/U8ZKE/CWJ
+ b/kxS1tZu6OQLFdbgngu5ihCrcfevgN/t4aUVSTjshbqkwy52UiLktY43WUTOdaj6ofSznGDY2N
+ j+kEC4/JFDAHOS3uWIViMFNAOZy0Xi8TFtFXJB8dme88SS9liBiCXAsAJkEqReuvne
+X-Received: by 2002:a05:6122:1c07:b0:56e:e68e:9fc2 with SMTP id
+ 71dfb90a1353d-56f3bc864fcmr9204348e0c.10.1776225728041; 
+ Tue, 14 Apr 2026 21:02:08 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-24.dlp.protect.broadcom.com. [144.49.247.24])
+ (address-144-49-247-15.dlp.protect.broadcom.com. [144.49.247.15])
  by smtp-relay.gmail.com with ESMTPS id
- 6a1803df08f44-8ae6c95f866sm319026d6.10.2026.04.14.20.58.08
+ 71dfb90a1353d-56f89dacc1asm67600e0c.1.2026.04.14.21.02.06
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 14 Apr 2026 20:58:09 -0700 (PDT)
+ Tue, 14 Apr 2026 21:02:08 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-59e0abad4fbso4265751e87.2
- for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 20:58:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776225487; cv=none;
+ 2adb3069b0e04-5a409cef179so232006e87.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 14 Apr 2026 21:02:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776225725; cv=none;
  d=google.com; s=arc-20240605;
- b=ZV5qFpNSboGpnvQmpe2AYeJEADGr9rFWDiIMzzx0X7xPE4Y+hDYbYzPTU9Al4CRVEw
- bijXupgPllCTgSi/7XEhv9ritd4DKQJiqd/IHy7cPc9W+M67ely8R8PtIsmo/p2RSG++
- eUidDbdzaIkjAvXA/55wdonrS3gq5v/sNl+8gEG5+y8Zh3oz+lCb3FAnrMxqOCqZEKxV
- ruUQNnFEWtjTiLEor006LIQ0y3jc+cbP40w8iDUloRz59+aF+LT+tOB3WfGlHiMm8J1p
- POppSxDpxxUPV6rq2aS6CyVbaQ4O0AZ0nte0oqZB2BPbJzNuEr/js7KXqS8yUv4fHUxt
- GHKA==
+ b=IcMFK772TkpOw+kJtrUIlVXgwD6jwpsuedDhLA/sm1YX0reFrEetrzQH/iPtyozB9/
+ GN6i3Hwuf9ricXwtQCpWMg4T9QcMhxF4k3zes00M6gQ9crcq1unBJgeBRpesBR4sxMd0
+ 0bDjjJPo9+iFMl3ICUCJpLvEVeExOeHEmWyyH8tzrwDrODP/qy/39lC4Gi/A8B7bLmQX
+ 2TDhUQkk7rYGns1RofhHNH671/mbmuSJAZbxn8jED80S9EKSUyWEfZBbSHuYX84iOzLs
+ sKd55V3mRKIZwNGZcuf6xErsdH+azlB0SBWwZiR1FnjZvl+KKaZV9KOxJXszRLph9eWV
+ 7bAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=BANB/iieo/1R0HSfYtGTIvn5A73RnuZ2+gO22EyqIKU=;
+ bh=R9W+Z0h/YBBr++LWPyH6qIXUx6e2r49TM61f5f9RoiY=;
  fh=C8L4Ny/oMoH2FLKj7MTKKcp0UPsC4jwKK82I1KzYgTY=;
- b=cyXw1CL1EnvrB7NDQup1xGzjqQX8Dh5Sd8wtFn+lusfPatDsMD7JnhI46NmgGAlIWJ
- 56ceQLlHylDm9NPf8CVVR9Iyv/5bDNLQluBPisakeGAmbSRrjDS3L6BGuVLm1dMVdUAo
- tdY79/iBxaqY1RT1rwKY9D3STnHyhgC5363LQ/3xnrIpdCQEde4Tv/zP3s4FHbMbfZgF
- cIR20m1vWw4fktgGHAx/gqaJ8sGVZUy3FI75k8JEaYy6/i57+p+r3d3Xs/u2K0g31pSo
- NX0f2G5wfCe0mYtjo5jSDVRApIGRFWpeVVGLK/ZTQ6lMTVcs5TVtZ/LDWcdG8FXOQ3DQ
- zL/g==; darn=lists.freedesktop.org
+ b=QBj8EXn6bf0HJ9zSgRhGtK+SqcqrVVJyauBsq/GLuIhXJMy/rCTitZZ8m44W0eXyyM
+ ahNKujO6miCJwHzVbxhsrfhxvurPWKc6nB7IiZbYgah7ZLyOoAuV1BjJI2T+NfUGSje5
+ 04wHG6yaPlre7vAsiyZtkIE8YJWKA5NrQLqkPdYFraN+ozUzGMFUc9E5auxL0sJRB+lv
+ 2weC/7/Afz22eI5RkqZLfbzmhvpF+F2EPmJEJfrjTvi73syTx5rj2zJe2SOMrZ23Hrlj
+ 8y0sKi9Ea6rD5fCLaz5l03r77RbUj0tEuoyrm2Wndql4+co3wIiNDCYZ8r3yjEO269D+
+ sFzg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1776225487; x=1776830287;
+ d=broadcom.com; s=google; t=1776225725; x=1776830525;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=BANB/iieo/1R0HSfYtGTIvn5A73RnuZ2+gO22EyqIKU=;
- b=ZUypafw4BaPxtZBmd4LyNT1GG2Y6JMnGnEDpnm01JURkh75nkW7Ow0TO9l2NMgnyZy
- L6L0qFFDqu4Vfr99o1wV6zsG5EJsd4pRulsqDqPFiXcOhNjK74kINGP0IaVKGaLxen7X
- lXFkT8oYp68Iym0Zkf1NibXKOzi0cOwEWEZO4=
-X-Received: by 2002:a05:6512:3ca0:b0:5a2:82d2:c50e with SMTP id
- 2adb3069b0e04-5a3ef90d3e7mr6043560e87.19.1776225487536; 
- Tue, 14 Apr 2026 20:58:07 -0700 (PDT)
-X-Received: by 2002:a05:6512:3ca0:b0:5a2:82d2:c50e with SMTP id
- 2adb3069b0e04-5a3ef90d3e7mr6043553e87.19.1776225487006; Tue, 14 Apr 2026
- 20:58:07 -0700 (PDT)
+ bh=R9W+Z0h/YBBr++LWPyH6qIXUx6e2r49TM61f5f9RoiY=;
+ b=Uvk+ZQarjzKdch5C1sd655l/IxWVMIGjY0WC4gFvr/5tWMioPEHpxD9ZqFcGVbd7GD
+ e4s1IvCocwxG6WvuXGaOM3qXUM6bmA1d1l1ICRg/m4beKXy03ooZmMD8qhR3E3g0925d
+ WEWhtRvqzEvoxtjp+H9znBRa2zgoQq6ONwUQg=
+X-Received: by 2002:a05:6512:12d2:b0:5a2:c453:3658 with SMTP id
+ 2adb3069b0e04-5a3efe92a0dmr5380804e87.43.1776225725338; 
+ Tue, 14 Apr 2026 21:02:05 -0700 (PDT)
+X-Received: by 2002:a05:6512:12d2:b0:5a2:c453:3658 with SMTP id
+ 2adb3069b0e04-5a3efe92a0dmr5380800e87.43.1776225724761; Tue, 14 Apr 2026
+ 21:02:04 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260414200819.88506-1-ian.forbes@broadcom.com>
- <20260414200819.88506-2-ian.forbes@broadcom.com>
-In-Reply-To: <20260414200819.88506-2-ian.forbes@broadcom.com>
+In-Reply-To: <20260414200819.88506-1-ian.forbes@broadcom.com>
 From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Tue, 14 Apr 2026 23:57:52 -0400
-X-Gm-Features: AQROBzA4Q_r3WIxWye4EL8OmPLWUUGztgqweUVJLdLwilbgTwOuILdnor3LxGq4
-Message-ID: <CABQX2QPeCWGHRfLciRFPwBdLtmWmmiRiXcWrL0Z6Zagsqoqkhg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] drm/vmwgfx: Check for cursor plane changes earlier in
- prepare_fb
+Date: Wed, 15 Apr 2026 00:01:52 -0400
+X-Gm-Features: AQROBzBGypBww_A5aRm_Wogojp41jK7M_2DHb3N8iZHvzRBBy5sgmqRm73gOlwU
+Message-ID: <CABQX2QP_N49mWN4LJOD=fGpFqDte9KU=U-adQ7N3ZEvPmxGtuA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/vmwgfx: Store cursor source mappings in
+ plane_state
 To: Ian Forbes <ian.forbes@broadcom.com>
 Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com, 
  maaz.mombasawala@broadcom.com
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="0000000000003ffc4c064f77b958"
+ micalg=sha-256; boundary="0000000000006d0234064f77c77d"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,78 +124,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---0000000000003ffc4c064f77b958
+--0000000000006d0234064f77c77d
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Tue, Apr 14, 2026 at 4:08=E2=80=AFPM Ian Forbes <ian.forbes@broadcom.com=
 > wrote:
 >
-> We can avoid extra work if we check for changes earlier in prepare_fb.
-> This avoids mapping a number of BOs.
+> We aren't tracking the map/unmap sequences correctly for the cursor
+> plane's source buffer mapping during atomic commits. Instead relying
+> on ref counting in vmw_bo_map_and_cache to paper over these mistakes.
 >
+> map_and_cache is not thread safe and requires the BO to be reserved but w=
+e
+> shouldn't reserve, or map, in atomic_update where we incorrectly assume t=
+he
+> mapping is always cached.
+>
+> Under stress test like IGT's kms_cursor_legacy the unmap at the start of
+> prepare_fb can unmap the mapping and the map_and_cache in atomic_update
+> will either need to redo the mapping or will crash because the mapping
+> was removed while in use.
+>
+> The best solution is simply to move the mapping to the plane_state and
+> not duplicate it ensuring the each mapping is local to each atomic commit=
+.
+>
+> Fixes: 965544150d1c ("drm/vmwgfx: Refactor cursor handling")
 > Signed-off-by: Ian Forbes <ian.forbes@broadcom.com>
 > ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 21 ++++++++++----------
->  1 file changed, 11 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 84 +++++---------------
+>  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.h |  4 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c          |  1 +
+>  3 files changed, 25 insertions(+), 64 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/d=
 rm/vmwgfx/vmwgfx_cursor_plane.c
-> index 125080c2a018..4f009aa586ac 100644
+> index c46f17ba7236..125080c2a018 100644
 > --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
 > +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> @@ -588,6 +588,17 @@ int vmw_cursor_plane_prepare_fb(struct drm_plane *pl=
-ane,
->                 break;
->         case VMW_CURSOR_UPDATE_GB_ONLY:
->         case VMW_CURSOR_UPDATE_MOB: {
-> +               if (!vmw_user_object_is_null(&vps->uo)) {
-> +                       if (!vmw_cursor_plane_changed(vps, old_vps) &&
-> +                           !vmw_cursor_buffer_changed(vps, old_vps)) {
-> +                               vps->cursor.update_type =3D VMW_CURSOR_UP=
-DATE_NONE;
-> +                               return 0;
-> +                       }
-> +                       if (vps->cursor.update_type =3D=3D VMW_CURSOR_UPD=
-ATE_MOB) {
-> +                               vmw_cursor_mob_get(vcp, vps);
-> +                               vmw_cursor_mob_map(vps);
-> +                       }
-> +               }
->                 bo =3D vmw_user_object_buffer(&vps->uo);
->                 if (bo) {
->                         u32 size;
-> @@ -617,16 +628,6 @@ int vmw_cursor_plane_prepare_fb(struct drm_plane *pl=
-ane,
->                         ttm_bo_kmap(&bo->tbo, 0, PFN_UP(size), &vps->curs=
-or.src_map);
->                         ttm_bo_unreserve(&bo->tbo);
->                 }
-> -               if (!vmw_user_object_is_null(&vps->uo)) {
-> -                       if (!vmw_cursor_plane_changed(vps, old_vps) &&
-> -                           !vmw_cursor_buffer_changed(vps, old_vps)) {
-> -                               vps->cursor.update_type =3D
-> -                                       VMW_CURSOR_UPDATE_NONE;
-> -                       } else {
-> -                               vmw_cursor_mob_get(vcp, vps);
-> -                               vmw_cursor_mob_map(vps);
-> -                       }
-> -               }
->         }
->                 break;
->         case VMW_CURSOR_UPDATE_NONE:
-> --
-> 2.53.0
+> @@ -112,10 +112,12 @@ static void vmw_cursor_update_mob(struct vmw_privat=
+e *vmw,
+>  {
+>         SVGAGBCursorHeader *header;
+>         SVGAGBAlphaCursorHeader *alpha_header;
+> -       struct vmw_bo *bo =3D vmw_user_object_buffer(&vps->uo);
+> -       u32 *image =3D vmw_bo_map_and_cache(bo);
+> +       bool is_iomem;
+> +       u32 *image =3D ttm_kmap_obj_virtual(&vps->cursor.src_map, &is_iom=
+em);
+>         const u32 image_size =3D vps->base.crtc_w * vps->base.crtc_h * si=
+zeof(*image);
 >
+> +       WARN_ON(is_iomem || !image);
+> +
+>         header =3D vmw_bo_map_and_cache(vps->cursor.mob);
+>         alpha_header =3D &header->header.alphaHeader;
+>
+> @@ -132,7 +134,6 @@ static void vmw_cursor_update_mob(struct vmw_private =
+*vmw,
+>         memcpy(header + 1, image, image_size);
+>         vmw_write(vmw, SVGA_REG_CURSOR_MOBID, vmw_bo_mobid(vps->cursor.mo=
+b));
+>
+> -       vmw_bo_unmap(bo);
+>         vmw_bo_unmap(vps->cursor.mob);
+>  }
+>
+> @@ -469,9 +470,16 @@ vmw_cursor_plane_cleanup_fb(struct drm_plane *plane,
+>  {
+>         struct vmw_cursor_plane *vcp =3D vmw_plane_to_vcp(plane);
+>         struct vmw_plane_state *vps =3D vmw_plane_state_to_vps(old_state)=
+;
+> +       struct ttm_buffer_object *bo =3D vps->cursor.src_map.bo;
+> +       int ret;
+>
+> -       if (!vmw_user_object_is_null(&vps->uo))
+> -               vmw_user_object_unmap(&vps->uo);
+> +       if (bo) {
+> +               ret =3D ttm_bo_reserve(bo, false, false, NULL);
+> +               ttm_bo_kunmap(&vps->cursor.src_map);
+> +               ttm_bo_unpin(bo);
 
-That's going to leak if ttm_bo_reserve or ttm_bo_validate fail.
-cleanup_fb will only be called if prepared_fb succeeds. So, you'll
-either need to skip this patch or create local unwind logic for
-vmw_cursor_mob_get.
+Minor nit: if ttm_bo_reserve fails then this ttm_bo_unpin is going to
+be a problem because unpin requires a reservation. Minor because
+ttm_bo_reserve is unlikely to fail here but we should still handle it.
 
 z
 
---0000000000003ffc4c064f77b958
+--0000000000006d0234064f77c77d
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -288,13 +304,13 @@ iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
 b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
 VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
 VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIE4X
-jdp+ZO2bHFr0jTsaYN27DqbFGJiYDZnBz/Cs1XeIMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDQxNTAzNTgwN1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIKuC
+rGDcmpepOEZBq4ioUJua0GCqbQoMiZrplP48aP4jMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDQxNTA0MDIwNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
 ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFEgJpZRB/ovGNGVA5aTo15MGscAvzgYnTF9RbaX
-/L9nX50u16eJHe2OZPhm7Ukc3KlMnMUwZpMiZIhT4YRwIL+g5cGWgMerrsDMdWcg+Gv90xa5DYwX
-ZHER811i0KWSD1yy/lV2vPmzTNp4Hnz9VkpzwbH/XkhwsLvXVQSNkjb1wGU9Jv2/jTGPsxgCdTil
-yHVEagNph5A7lLDlOySsavUm/k1slCVfLz5VQ6x7s3CueMtAL/Nf/Ft/DqrP5d5IDFYwWjs+NwSh
-uFCh0Jk1udaBpbi6gYXul6zx9fBSP7RPxAS7//HTQqFcWevERG5EQv6CyGOUo8SDNEJSSMgDgzo=
---0000000000003ffc4c064f77b958--
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAElVwT0MsmvWyuEbhXDvH0LHlUHLep5PcJ0fHAfm
+apz6wZYOy2CfflcGksz23kKskIXVEEIOKiFQb1MMu5ITRCEIi3FHcawZHiShd/ewLVhIA+rGpQPZ
++WRzRRBHwLrvgHp33iBIARs91ToIpQfaMlseRe0lGBU3Uj6GD8T/jERlQkRgf5P79z0LtG03XCJS
+hP0uUlZrgYxdrBsd+QrJ9C/5NlyE+EqoECrvp6LPmWxt/yTvbd/N6q19XBOHYsMiJDWU4CzBS4Qd
+8lKI5ETGIJ+4FDZ5S6Ulhlg+YmTZdvfLSvtQ2xNLcU0X5Oo246sGOspF3d8O0JbWl4S5P2qWTUI=
+--0000000000006d0234064f77c77d--
