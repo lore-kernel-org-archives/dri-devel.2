@@ -4,129 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86C7F531E3
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 09:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A130DF531E9
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 09:09:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4363C10E6A8;
-	Wed, 15 Apr 2026 09:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D99A010E6AB;
+	Wed, 15 Apr 2026 09:09:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PT15r90J";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="MvbVJdaB";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SWxr2J3L";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011036.outbound.protection.outlook.com [52.101.57.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4B9010E6A8
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:04:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jc4Xnvg9E3fO+r2R55YXzNJfInZ7bA/hDvrb0o5t4+T7TU5T4xGuw1p3Kb1dXJDX20qV6TQnoG2kitY3wWngc7yOTdHSzPMquqBJN7WjLeBOfp/fXJn5+2Pp1/ZvXI/oVjREmJdlTlc6vQthP/LhU2C1EdyIZyOFEYU11qYCVL8ud6EBsiubHZjPUBJJR4csPLs3q3JgkKF4cQMpaI/iyU2qXPnVALKXArYeZEcYGEnepCwJxr7jXINX3LhJfS4iErK//TJawDyxK9r5gdzaG/qAeTeCjGqCRf7NpaSYtqo7TSitG5jInd8Ukrt8Cs9FvPt2OQwW6S7cSJKMoRR3Ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j1kOfE6NqCqt4yK4SKwGgbG1AioFStsMZ8Z4q2tl/oQ=;
- b=U/mEUslFIpilkNq9z+B6AkxHVKBDKbCf1yIFJHqo66Y+GHTCsSEsgPn4ts7JVjuNl4SsJ2Bs8FBveY9yHPjfPN06FJAefARHpoq4eqLZTWBD0a87FIQsYQKHv8vnJzBGbc1BXj2CW3e3Vy9MWAAjBOE9IiIOb10b5+XyHsColPT39sqzC8ar/6P21YJNGyU9mMCf6jH4AD5zmg8A5JZJMf8FbCTLWIKeMs93Be+S+iKnjyE4SWv9ns1jyiH1AB1HFCpUvJN0OS4R6ICiQp1xGToCyEVwSlatGARbcOQMW64hC8GveLzPj8ShUz0R/tg9XXUI9rimKljlxwEnAGMs5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j1kOfE6NqCqt4yK4SKwGgbG1AioFStsMZ8Z4q2tl/oQ=;
- b=PT15r90JNchjYT89fh/FbYCvDlpNloFkj47I5Kme+Y+qta8Jv1N1KK1le5Y67Jb20WDrrQLr/NtTCn80n87uf/px5/NtoKsI/K6Hc31RHsB9u79t3SZBmud93zi6m4UPFYbPQ7lscLNGAB5NZ15ksDpiA0wxswENs+2VkhCqt84=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB6009.namprd12.prod.outlook.com (2603:10b6:8:69::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 09:04:24 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Wed, 15 Apr 2026
- 09:04:24 +0000
-Message-ID: <b1d05f17-c726-478f-8ee8-691b6c389f5a@amd.com>
-Date: Wed, 15 Apr 2026 11:04:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dma-fence: Fix potential tracepoint null pointer
- dereferences
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Philipp Stanner <phasta@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260414154928.32934-1-tvrtko.ursulin@igalia.com>
- <20260414154928.32934-2-tvrtko.ursulin@igalia.com>
- <650e835e-b60d-44fd-b212-47f8a9d18c15@amd.com>
- <5fea79b5-ab5a-4a98-95c8-6452b20e83c4@igalia.com>
- <b3b75077-878b-4d4e-b18e-4976765c63db@amd.com>
- <dcd9e1e9-8297-4429-94be-af88c7b41399@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <dcd9e1e9-8297-4429-94be-af88c7b41399@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: IA1P220CA0015.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:464::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 797A310E6AB
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:09:49 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63F8NmEN2972580
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:09:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ c5CT1Jp/CdKTDY6Qft+lN/F8XFsY9d2RcRwPpRnUkDI=; b=MvbVJdaBirpNMH1H
+ Qd0xP2cb43lG8iJF+zyx08lBmlrYDKZPCGOzhpQW+lSRlGYAfhb8BXiRBxTyYRyo
+ VxCb1GvEN6Hw+8QORCoZidwGft76gjxYBFwtMZ+CSBDIPsH2zV62bhGFhZBQ3XCe
+ /AV6se7FlW6PtEEbKzMJUGqCPXs1LFqYltFZEpaHxZw8tU8cJRBtf4PuTAif05Gj
+ CMxekpgJIYHZ5JHkSIJDIBExAkziKqHK1tn3VKC0/XMyafI/epg0KUk/bfLI3ysX
+ +wEHi3/R4LFeN/mZdVRth5pnWy1WY1wJfSPYJCeYa3boaeW9o+EaVTy9Hn/CaS7m
+ nayFBQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dj74g857s-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 09:09:48 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-35da86144daso7572508a91.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 02:09:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776244187; x=1776848987;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=c5CT1Jp/CdKTDY6Qft+lN/F8XFsY9d2RcRwPpRnUkDI=;
+ b=SWxr2J3L23XG4T114dKfTskthjMafjCsEGD/TahsJpOKt+0SwWWPTMzeS4uKT83ERu
+ 3z6DscBVjcmyEQ+xVkcm9QSp90F4U7kK/zWvGUzFBMlVBhiKtzgmfClm0QLkGfGOi3fm
+ ZDKtt4hImXJPDQZv55PARoVUrCf7WO8Tj6knZDogOFIDGGD2ROALO63hFZ+iZLwb/SR3
+ h/3igcYVKwyhHm97+2MwfPgLggdzVMws8x27HjOiqsiFZTzbaDOL5Xsesdf5WK+tO/dw
+ cPDiCSMCp3oX0lGgCSjF8WzLnmE6pv3PE0d4YUtB4xaXDEByCR6iq9bfBZgK7Fywmrlk
+ 73qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776244187; x=1776848987;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=c5CT1Jp/CdKTDY6Qft+lN/F8XFsY9d2RcRwPpRnUkDI=;
+ b=GILkgsENM+f+X9wUwrCXLbDSlEm1Fk8BgbOgpJ2BQmol3f2aJfL63e9n0gtrbLpSR1
+ I6pgzdoCPwj2pbR6TOIiKcA3DH0Up9qKBoYhdYztXbHkh016oHdqiEI07Pk6yRa+TWzt
+ T58BGcBnnkG0zi7VOzDDJye4Lmd+yik7hqRXS3mPSHmj5IUpvUwWKVY4hdSVelS4/U9O
+ LwOgv5qtcIoUGRmmT1k7EXvV9uzMO0dXZBCAmXdupFT2+lRCgge7UP+HC3zqGoBVTALX
+ Lsx3JfvMeJta2DVKaVyEOEMl+aQblZ4nFQEoQ6kMaf54aKeJq6c1ntlryBNeqBmhbNjT
+ kDEw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9FIg86RLVbM2ILCML4dO0f73x7kviaoecBiz4P5XqycytQuK94kBFDjVR5prwzY+SzmKNtZs1GQUk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrEfw68x19kOR4vbJ2+oUaA91qO8FvcQ0mNrYfjnEm/ty1QiNU
+ LgCKxasosh0RwoyLqv+d8FjADois4twC3QaHXD9FbA9y4ctJtt1WABer4adWgfZqCQo9Yt9Cslj
+ lvC3gOhNeMs0z0hejvYams2QoxLTZ8JrL45LuFfrrhdYi90zMfggoAbbmKPGQ6mEcRWm9kiU=
+X-Gm-Gg: AeBDieuOzVPHODL2eUuAxWHVOyDL7UzhXZxAqK0+7eMco0xE7bsZhHeGWm6iL20QzhG
+ BCHBsD5T3mdhy9nyzB7gstlnsYiocozqW2a5RS7/51klMTPIBySL02iclMFOouI0HNcYrKXf/So
+ MepnwR8phaDm3eWJzYleb+XY3dNdlN/cJLdoQBHGgW7w/pU+BfKW4Y8CJwgQbWQhfhGWFcqQXo4
+ DEHJA4Z0GNOEdwyT8CzC7Nuz7Ud9xng4qa4NuQOveL+C27SvZNHBbr/lfAjNnjPYLiieq45fCHV
+ S+/Q5b8WFVpfvics9KeFVUVwsCTiD6qApG55T8uB6Dlz6x9fzfYvRRa4qRGB9NNx9c0n8uPz0HR
+ lqNjcfnc4uRjbAAsvwwRu737nFBqmSgtmOBB6vjGlrCQgWpxr8L8g4QtKAfoF
+X-Received: by 2002:a17:90b:33ca:b0:35f:b4c7:b626 with SMTP id
+ 98e67ed59e1d1-35fb4c7bb12mr11763266a91.18.1776244187380; 
+ Wed, 15 Apr 2026 02:09:47 -0700 (PDT)
+X-Received: by 2002:a17:90b:33ca:b0:35f:b4c7:b626 with SMTP id
+ 98e67ed59e1d1-35fb4c7bb12mr11763219a91.18.1776244186933; 
+ Wed, 15 Apr 2026 02:09:46 -0700 (PDT)
+Received: from [10.217.217.166] ([202.46.22.19])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35fd2010246sm2343736a91.6.2026.04.15.02.09.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Apr 2026 02:09:46 -0700 (PDT)
+Message-ID: <bf8a56f6-d7f7-428f-ad95-801eb16f1cc5@oss.qualcomm.com>
+Date: Wed, 15 Apr 2026 14:39:38 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB6009:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae5e3c5d-b97e-4639-3b80-08de9acdfd3c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: ygtgacFU1w7dUgjM8We3tBES7qkSpcA2Xn1sHtaGXFgYH4NeIm1Tp3dWLuoeQmFykzt89Tm7Hoj8vy0EwszSZbAzRUVTBC1NjUbJkMbxenRc0o0W/wNEl6RIgmEj8N53UYf+gykyP4hZ6ucEvg03+kqs91aiTlntOZXsVXX4ennW9OZe3sBlllxWn9j8oJCOnkQCUET822BRzef8TzWVmvmWvIaepmes5lv1rEl8wqSJ2lu/9gCeDFfsaDBHDKZbaGrQaWmF5GkCHnaT8L1m+UroAf9HZkdnEZluVFzfKZpCDLK5CobdX88PeT3vp+SAGTqDEeZA2JaVTyxdEdELEUJSWmlIM/zZ5Wl0MDquR1GgN7GNf0L8RdOanA/foF5Y5UhaYmNW/ogTF5BoeiDIuQwUL/8vmAcsqu6GAxjlzmU36J1Dd7tsmWB/eC3oYW303dlP0AmbfbkQeykmXRBrvsSHUvVk7ngA+rNmI9iuLc9T1nHFrdaeg31wBbP/ddXH3cMSWiMT6AyZAgyrA9d62PXfPNCNrJ5pBYr//EIGKfupH9ePxyQ+TQ8kpuNshpT83G8VYNBy+eKzzw7LfK0eBK0vvROAqltQz7eZqq6amdGjyP7RhDt8x+tJfeLyWEAQoSEZKXbAe9VkKpjeqJ2yMavvsx53pPttfdIgzEQv6ZpvAWXffplRJkYjxQvvfRIB/PtABwZL1IvACcoJIb6CDA16AtZl0vUcWMAW6ebcD0U1HEflAdnl1vVuxZVK2YY6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YmppakVidC9TdTFCMm1qdE5aaDVQeHFSYS8xNEhzcE1qV1BVeWlnN1YrMVRj?=
- =?utf-8?B?Sit6RVFJQ0drNVRia0JKSUpDdVZHaXBMZ3c0ZHVmcXZRS1NOZ1dsbjFDenYy?=
- =?utf-8?B?dHpoMnR1NGNMZFExanAzTzBrWDBzZm16SkFBRG9HV1RLTEVxeXBOVzduWHlP?=
- =?utf-8?B?N1hRUCt0VkxaQjEwRlE4dDdDYjVvVUJBNjNjVlE4YlJhbm5odS90ZXN4YTBO?=
- =?utf-8?B?ZGhUQS9WSHJOZ0Fmay85eHRaT0ZRcTN5WnZHa2dUbVhWZ2hDb1VUYWdaZVhI?=
- =?utf-8?B?TXIyTDRJTXkxK0F6dFgrcUxmY25RK1A4NHdMejBBcno3bmoxK0lRblZUYSsy?=
- =?utf-8?B?V1pTTjZqK3p2ZzE1Yjh3TExKc1YrOVV6djJYdzYzVTBnR2FRR2kzZVFpRk8z?=
- =?utf-8?B?RGFMclF3KzRVVFJDYlBRcWxHWUJpdk5PYStlUzRtZHJZbm5LeXVSY2ZxcXBB?=
- =?utf-8?B?aGdFN1lVeW9LY2krU2dKRFJYN1d4R0paMzhNSEJUVXptSmZJMGx3QWhYRmQx?=
- =?utf-8?B?ejM5aHVWbXBqVmttQ01YWi9XWFp1dVlNRXZVS3BwVDFTcjlFSGV2UkpyeDNo?=
- =?utf-8?B?QXdSSHdIWUVJR2pTWW5lQWNzQ3BvcHFndWsrMEtOeTVzNmlPUFFpbEIvemwy?=
- =?utf-8?B?QTZwVDBQaExBYitWdzZncWZpSVBuVjhKVmJRQTY2WVhpRCtyY3I2bkpCL3RD?=
- =?utf-8?B?YndlYTQxd1UwZWRrd2ZBUWExOWRDelBxbVNPWFFUTlJZYkorM1ZzdDdxMEl1?=
- =?utf-8?B?QVJIMFQ1ZERpT1hKcmt2RmVxR0xoOG12U3hEZTc3SE5mNWR4cTRhYmQ4Q2Qx?=
- =?utf-8?B?bENiN3NWell1MlYzWkNHN0pKMWNGaG5VeHJNYjljZUkvVk9NV2J6Ly9ubmRB?=
- =?utf-8?B?SlR6eHdYaTkxRjJZeHlTeCtRNDVkREJPNW1MS2xzNWdnblVSYm1JQ3JLU2d2?=
- =?utf-8?B?N0ptQU5QVnY1VEpvdUozZStYYVVHWDQ0Q2xjUkw4bFVaVXhUbXpFTDdHWDJa?=
- =?utf-8?B?WUxNVEZ3OU0zQjl3MjVuS2Q0NDlqMjJsNTl0dVZVZ0dJRVZscUh6cG40L0Qw?=
- =?utf-8?B?Uk8wdEpkdFE5QXVSVTNWVEFwV1FycXBTbDdLTVd3Kys2QnFnL09rNTh5aGM2?=
- =?utf-8?B?ckFxUEs1TEsyUk00cnVCR2o4dUxpbmw4ZTZMNUQ4ckRsSzFlWDhjU3FscFNC?=
- =?utf-8?B?TFFiazBwRmJRMm5sRXhvcHgzVmxSd29WdjlYQnh2ZmJJWDB4MlYxSGZ5Zjho?=
- =?utf-8?B?aWc5ZTRTQTZBRzJQZy9YNEY2VFBxZDM2ZU4rMU1zUk5qMS9aZldPeTJmaURj?=
- =?utf-8?B?dG1yeFlZYjdnZlRTV3JIL0syUkhXOHF3QnJXYW50aFlONVlLeTd3KzBTMWJp?=
- =?utf-8?B?ZWEyV3RqQ2dNT2Yza1lpdjNYcC9EMURMbS9aN3AxUHFrdlhkQldPSGFHaFJI?=
- =?utf-8?B?VjFlWEJVUk5PSndndWJRbXF0VG9keEhiaHlmRmxnYnRJRTh6aEtCVlBhUXRr?=
- =?utf-8?B?VnZXVTBMblNSRUhiUlVYTHQ0c1UvVGxaSU50eGhiM0RCeFZVVjAwSGIzL2JL?=
- =?utf-8?B?YXVTZXREazFBZU9TdUxPMDFCbHlrYitadGltaDdhckIyMFVQWmFma0lpaFQw?=
- =?utf-8?B?b1Rnb2x4aE1GYkloeE1nUW1yeG9hczZLSy9wNmx6cWNtQThYUmFtSnl4OXJE?=
- =?utf-8?B?Z3VFM3hCRjFmUFlYM2JPMFZNZjlGT0tzNVc4TURnMUxmRW8yWjVucGJaa3V3?=
- =?utf-8?B?azZZQ0d1Si9SRWdlZDFNVzNCMmNTRFpSOG9BTlVpVFdwMEFWbC9ZMzMzMEFC?=
- =?utf-8?B?bkNVMnl4VEhTcWNvTDU1ZjlVU29RbHJEcXg4WkgrZ2RpZUxLYnFVcHBoUnBi?=
- =?utf-8?B?cmNuK3BML0p2TWxaSjE1azRaR2dzNHdVdmFhdmpqKytPbEFKZHU5MWdxOGEv?=
- =?utf-8?B?NTlDMlVrSzA3MytvdW1RWmpoZ1dpZU5HOVZ0blA4VC9Xb3d5N1lZNE9yWGJm?=
- =?utf-8?B?UVpwdFQwN0VrRmY5cHFLRWxDdkpnRkRCeE5YSUgrK1lSQnc4OG9oUFFXZmVw?=
- =?utf-8?B?MUxIVGFVbFM1UjhrcWdyaE4yTXdvaTJiOElsK2RZS29uc0ZHY1dzTHgwTDBY?=
- =?utf-8?B?Mnp3ZGF2NkVveFZnelBPdzlwemlmS1JLZDhEdEl5TFFUN2lRWVVDZ2RiSnN0?=
- =?utf-8?B?aWJ1ZkwrZmdKNEhGcjQ3aXpGRElJSHVxdXg2VFhzam9KVmlLdnN6MWRpQTVT?=
- =?utf-8?B?U1RZZm11WUFZcVNjdkthWDdUUmFLTzRQUHdRN3haL2tZSEx6KzZDeDZabnFq?=
- =?utf-8?Q?ht6bD9nR5iKIRvs55r?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae5e3c5d-b97e-4639-3b80-08de9acdfd3c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 09:04:24.2402 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LpOeloLWOH9ZtK118Zbx1fuVTowd0IPW3M9EZFyuOFZmrDAlyso7nesLhd8MVZtV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6009
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] clk: qcom: common: ensure runtime PM suspend
+ completes on probe
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+References: <20260407-gfx-clk-fixes-v1-0-4bb5583a5054@oss.qualcomm.com>
+ <20260407-gfx-clk-fixes-v1-3-4bb5583a5054@oss.qualcomm.com>
+ <c72e02c7-57d8-4353-a6d8-9dbf4f7a7e37@oss.qualcomm.com>
+ <38aa8c0b-fb29-44c9-a346-363220264c7c@oss.qualcomm.com>
+ <8d7baebc-db38-403e-b724-d4b214b5a51a@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <8d7baebc-db38-403e-b724-d4b214b5a51a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDA4MiBTYWx0ZWRfXwQH+QISu2ZQb
+ yAEbuNgQIU0ZjyO33aWcU96sGcPlAomYZrm7PqkQ14EpH7uI0Coel7tHiL8mNY1cXK3t868wCuK
+ iyZ2w3I4zAAtIxihO+LAralYyZkdm/gOLEcUO8E+gPtSeLy+SeAZaUZfh15Pi2vy9W+aysU8o2A
+ YvnyuGUzSN7h/aoknUkqIjJqSQRjTC3xlBDE2PaacNLFiQCLSeO8V22UT5ikQtl731pex7mnX1+
+ lwZ24fqU+zM+vex8FlnxSQQZSXUjz/HQXzwWPJPXAcfy8H7yPR1wVB3iX5JNJ9tik2N9ygu5sP9
+ VupSeFXazTOuyxK/o7qN/LSnsb+TkbnMD5mBCf9Bgdj/2MVbScNbNKOgatV4CNWlGKaQ2UkpVMU
+ m0G2DDIYqtnqETKwQbrNLX3Sl7MlhHGmj9bw64oVWJ+OFDtWD6ZMPx3bm2PLiRtbdMhzKdSFRvP
+ HPSUrL9doXCt9YLH98Q==
+X-Proofpoint-ORIG-GUID: JP6S9kIxUmrtYGC38UpaR6jThiVi-akA
+X-Authority-Analysis: v=2.4 cv=ZIfnX37b c=1 sm=1 tr=0 ts=69df55dc cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=rYsFMFq4sQQjBG46XAoA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: JP6S9kIxUmrtYGC38UpaR6jThiVi-akA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604150082
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,156 +158,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/15/26 10:33, Tvrtko Ursulin wrote:
-> 
-> On 15/04/2026 09:13, Christian König wrote:
->> On 4/15/26 09:58, Tvrtko Ursulin wrote:
->>>
->>> On 14/04/2026 19:30, Christian König wrote:
->>>> On 4/14/26 17:49, Tvrtko Ursulin wrote:
->>>>> Trace_dma_fence_signaled, trace_dma_fence_wait_end and
->>>>> trace_dma_fence_destroy can all currently dereference a null fence->ops
->>>>> pointer after it has been reset on fence signalling.
->>>>>
->>>>> Lets use the safe string getters for most tracepoints to avoid this class
->>>>> of a problem, while for the signal tracepoint we move it to before ops are
->>>>> cleared to avoid losing the driver and timeline name information. Apart
->>>>> from moving it we also need to add a new tracepoint class to bypass the
->>>>> safe name getters since the signaled bit is already set.
->>>>>
->>>>> For dma_fence_init we also need to use the new tracepoint class since the
->>>>> rcu read lock is not held there, and we can do the same for the enable
->>>>> signaling since there we are certain the fence cannot be signaled while
->>>>> we are holding the lock and have even validated the fence->ops.
->>>>>
->>>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>>> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
->>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>> Cc: Philipp Stanner <phasta@kernel.org>
->>>>> Cc: Boris Brezillon <boris.brezillon@collabora.com>
->>>>> Cc: linux-media@vger.kernel.org
->>>>> Cc: linaro-mm-sig@lists.linaro.org
->>>>> ---
->>>>>    drivers/dma-buf/dma-fence.c      |  3 ++-
->>>>>    include/trace/events/dma_fence.h | 33 ++++++++++++++++++++++++++++----
->>>>>    2 files changed, 31 insertions(+), 5 deletions(-)
->>>>>
->>>>> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
->>>>> index a2aa82f4eedd..b3bfa6943a8e 100644
->>>>> --- a/drivers/dma-buf/dma-fence.c
->>>>> +++ b/drivers/dma-buf/dma-fence.c
->>>>> @@ -363,6 +363,8 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->>>>>                          &fence->flags)))
->>>>>            return;
->>>>>    +    trace_dma_fence_signaled(fence);
->>>>> +
->>>>>        /*
->>>>>         * When neither a release nor a wait operation is specified set the ops
->>>>>         * pointer to NULL to allow the fence structure to become independent
->>>>> @@ -377,7 +379,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
->>>>>          fence->timestamp = timestamp;
->>>>>        set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
->>>>> -    trace_dma_fence_signaled(fence);
->>>>
->>>> I think this part here should be a separate patch.
->>>
->>> I had that in https://lore.kernel.org/dri-devel/20260330133623.17704-1-tvrtko.ursulin@igalia.com/ but the discussion fizzled out before an rb.
->>>
->>>>
->>>>>          list_for_each_entry_safe(cur, tmp, &cb_list, node) {
->>>>>            INIT_LIST_HEAD(&cur->node);
->>>>> diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
->>>>> index 3abba45c0601..9e0cb9ce2388 100644
->>>>> --- a/include/trace/events/dma_fence.h
->>>>> +++ b/include/trace/events/dma_fence.h
->>>>> @@ -9,12 +9,37 @@
->>>>>      struct dma_fence;
->>>>>    +DECLARE_EVENT_CLASS(dma_fence,
->>>>> +
->>>>> +    TP_PROTO(struct dma_fence *fence),
->>>>> +
->>>>> +    TP_ARGS(fence),
->>>>> +
->>>>> +    TP_STRUCT__entry(
->>>>> +        __string(driver, dma_fence_driver_name(fence))
->>>>> +        __string(timeline, dma_fence_timeline_name(fence))
->>>>> +        __field(unsigned int, context)
->>>>> +        __field(unsigned int, seqno)
->>>>> +    ),
->>>>> +
->>>>> +    TP_fast_assign(
->>>>> +        __assign_str(driver);
->>>>> +        __assign_str(timeline);
->>>>> +        __entry->context = fence->context;
->>>>> +        __entry->seqno = fence->seqno;
->>>>> +    ),
->>>>> +
->>>>> +    TP_printk("driver=%s timeline=%s context=%u seqno=%u",
->>>>> +          __get_str(driver), __get_str(timeline), __entry->context,
->>>>> +          __entry->seqno)
->>>>> +);
->>>>> +
->>>>
->>>> Mhm, I'm strongly in favor to just use this approach for all trace points.
->>>>
->>>> The minimal extra overhead shouldn't really matter at all.
->>>
->>> Yeah, I am a bit on the fence. It would required a bit of an ugly rcu_read_lock around trace_dma_fence_signal_init
->>
->> I think as long as we only grab the RCU read side lock when the tracepoint is actually enabled then that shouldn't matter.
->>
->> I do remember patches flying by which optimized this use case for the whole trace subsystem but didn't took a closer look how to do that now.
->>
->>> and trace_dma_fence_signaled would lose the driver/timeline info _unless_ name helpers would also be changed to look at fence->ops instead of "is signaled". Those have no memory barriers so not sure I want to think about racyness and how to solve it.
->>
->> Mhm, that is a bit more problematic.
->>
->> ops is only set to NULL when neither free nor wait is specified, so checking is signaled is still the right thing to do for drivers which uses those callbacks but still want to have the RCU protection of the returned strings.
-> 
-> Hm yes, that too.
-> 
-> 
->> Ok, feel free to go ahead with this approach for now but please add a /* TODO: clean that up when most drivers switched to independent fences */.
-> 
-> Thank you, I've sent an updated version with a comment to this effect placed to the event class definition. I put your r-b so please double check if you are happy with that version.
 
-Yeah works for me, feel free to push to drm-misc-next.
 
+On 4/14/2026 8:12 PM, Konrad Dybcio wrote:
+> Please mention that you want to do it on a clock controller device
+> registered through this function, because currently it doesn't seem
+> to have a functional impact on the existing paths
+
+Sure, Konrad. I will update this in the next patch.
+
+-- 
 Thanks,
-Christian.
-
-> 
-> Regards,
-> 
-> Tvrtko
->>>>>    /*
->>>>>     * Safe only for call sites which are guaranteed to not race with fence
->>>>>     * signaling,holding the fence->lock and having checked for not signaled, or the
->>>>>     * signaling path itself.
->>>>>     */
->>>>> -DECLARE_EVENT_CLASS(dma_fence,
->>>>> +DECLARE_EVENT_CLASS(dma_fence_ops,
->>>>>          TP_PROTO(struct dma_fence *fence),
->>>>>    @@ -46,7 +71,7 @@ DEFINE_EVENT(dma_fence, dma_fence_emit,
->>>>>        TP_ARGS(fence)
->>>>>    );
->>>>>    -DEFINE_EVENT(dma_fence, dma_fence_init,
->>>>> +DEFINE_EVENT(dma_fence_ops, dma_fence_init,
->>>>>          TP_PROTO(struct dma_fence *fence),
->>>>>    @@ -60,14 +85,14 @@ DEFINE_EVENT(dma_fence, dma_fence_destroy,
->>>>>        TP_ARGS(fence)
->>>>>    );
->>>>>    -DEFINE_EVENT(dma_fence, dma_fence_enable_signal,
->>>>> +DEFINE_EVENT(dma_fence_ops, dma_fence_enable_signal,
->>>>>          TP_PROTO(struct dma_fence *fence),
->>>>>          TP_ARGS(fence)
->>>>>    );
->>>>>    -DEFINE_EVENT(dma_fence, dma_fence_signaled,
->>>>> +DEFINE_EVENT(dma_fence_ops, dma_fence_signaled,
->>>>>          TP_PROTO(struct dma_fence *fence),
->>>>>    
->>>>
->>>
->>
-> 
+Taniya Das
 
