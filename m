@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E66DDF43824
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 14:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAB82F43821
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 14:21:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 413E010E6E7;
-	Wed, 15 Apr 2026 14:05:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32DAD10E6F2;
+	Wed, 15 Apr 2026 14:21:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JvNGQ3UN";
+	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="mK+rrhy9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE0E910E6E7;
- Wed, 15 Apr 2026 14:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776261943; x=1807797943;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=9njCnj0ljW7mjEsIQu6VwZ7tNTOCCrlFVlHzSDzxMTE=;
- b=JvNGQ3UNy64gg60NXy+HvbvnrADUbceWwLsPJzty5kpB8cs+vHYekQmB
- 627er6321SiZV//VU+vfsiANEE1HAr3ARhiViJ5eorMsxWVP3OZFGhG58
- Lp9WaHBgAVAQSlSueIPiukFMuHHazPi3AQhryRWsX8nygjLcp3At5d9Ks
- CazrlGXmSsyyxnz83ZUzsd3lzsWw3uu5+krwhhw6O+xJSO3MBgDpJfs21
- iajqvveFyiSIptMuoEh5XQQLC2BdCpShdCLo04Tt6qu/GxKq1gfA7R1jF
- 56esvfMZOOKIYy91FxoJfHmMNULH2FqHGjqNNL+QkykGcCMfnP83ppXy1 w==;
-X-CSE-ConnectionGUID: uiET7WMVRA63u2C2u85fCQ==
-X-CSE-MsgGUID: sjoRzNwjTTGoFchVaE2Fvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11759"; a="88688666"
-X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="88688666"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2026 07:05:42 -0700
-X-CSE-ConnectionGUID: E7QDPJx2TmWEI6tDzngyaw==
-X-CSE-MsgGUID: sMlgLw9wSPa4pHWIq8M6pA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="229403274"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.108])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2026 07:05:40 -0700
-Date: Wed, 15 Apr 2026 17:05:37 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jake S <j@metarealtyinc.ca>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jani.nikula@intel.com, rodrigo.vivi@intel.com
-Subject: Re: [PATCH 0/2] drm: Enable eDP VRR for panels with DisplayID
- Adaptive Sync
-Message-ID: <ad-bMVzfARer7fMo@intel.com>
-References: <20260415130626.10523-1-j@metarealtyinc.ca>
+X-Greylist: delayed 937 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Apr 2026 14:21:16 UTC
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com
+ [203.205.221.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D8510E6F2
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 14:21:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1776262874;
+ bh=X423UGRy0ZAt+/V3gZHEoyo/x53TY58dVujUIeUwt54=;
+ h=From:To:Cc:Subject:Date;
+ b=mK+rrhy9UhjXVbbndzIt89ley6iOJjKigvcsHL09N7Y2ZZ1RQBgNfgglVtLIs8hrG
+ i65m0ErQ0zEiVgnlADr4iQA6h6zpFsDuMnNmE2+076OHOXHRa7OmRyEFeVnEGJWNSB
+ j0TUSbhCTBiZdRL2PRiUzITZw1UWx8oUYUPwMRns=
+Received: from localhost.localdomain ([171.223.89.103])
+ by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+ id 15D1AA0B; Wed, 15 Apr 2026 22:05:29 +0800
+X-QQ-mid: xmsmtpt1776261929tv2p75q34
+Message-ID: <tencent_516ECD6F12A7B8D859A1752D090236D2AC05@qq.com>
+X-QQ-XMAILINFO: NT7uTz3cNku2MZfqQBUSGlXDFAuplL9vYEoRLr0LYx+fxn3ouHGV68HFF2wdVT
+ m7J+hnvPHLVml45ITgD4T89j/dTRInU2lZqoRR5TH16cFBxMUQaGcTZ2mG6dbItLgAj5Kq/QtqLh
+ qoKMUnHPARGvy8jfpIv70vTy0eExf5vd2kqFC9xWc2A/hDOlmVM5pFNpLra9kqOqkFIDOKxCTx5e
+ 3ak2z6h9G/lApyWsBsvmBp9TSH13WjReieY1vYwSZVpI7jc78QcEBSSNFakxu4wDheVbxP28vOlx
+ +vnFrHbuItoF+MuSOsw0klP6Jy3ZawoR6zvElDJGnC8+yz13148U9kk1pg39Dyx7kPR4R8VlmsiR
+ boPj0fpnx3Q4dUuFhqol+L8B2eMom22ePMOoOWfDMJenNxBedUT5whsUnHx6zoENkCFS8VcIoi5h
+ eS2lHnoOPsmHduwKJcduWrDrbKRcBlrF7Lx9GeMvtjLkkXYI3toYlmop1+CyQEPKZjprH6NxS+bx
+ qpiZ5n7JmLmOspvcJXkzrAfQN41gCuIxQQfR+MAHRk+IM/2XALi3eKpJUIz69sC1cHPWmisRr6sf
+ q4iu4GhuQjm4WovxNbpP+Wy0yUXjjT/qjg2JEMdSWM1IUsSqPyAwiYSktPypi/5UU6SZsFVY+zlS
+ g8dtbTHxU5ksGkojOpuROlTY1uqLC15+yjJZoVOaeSWEWippE+YUmjKXs4cx+L0gY/valgCsMaYf
+ tIPy0oNX/dcCXh+c6Uz25YpqBgUbTbzN3gs2ixf0qb+P0+iFvppKMiT18vpDJAkSvg+VX3/FoOMI
+ psORiDX25zHTr+tMD2o91XeJcylRrODyyr8Ejtt+lAwwtOm43anRY9azWFuxhhQVYk7SkBfxiXyj
+ x1GaFbsyKZzHCVivJdTE6A68DPOrunFCJ2NPneehxSELANPHoDCYX0gd30b1M05/AViE4uqshrHA
+ BpaUDsCfBAHPdBa5UtMupJgW/XVNHI57QdCRk+otlFz1VyEkGcFhmOP9HoDVyRbB/+GfXNFFQU5V
+ M0ODDXvsI3biGUl5TwzUse2NueQC0xExAjXiIHa4S8u9TmwI2X8HJM1yYb2x9X7qfJGZmt3g==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Renjun Wang <renjunw0@foxmail.com>
+To: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Renjun Wang <renjunw0@foxmail.com>
+Subject: [PATCH] drm/rockchip: dw-mipi-dsi2: add sentinel to rk3588_chip_data
+ table
+Date: Wed, 15 Apr 2026 22:05:09 +0800
+X-OQ-MSGID: <20260415140509.8325-1-renjunw0@foxmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260415130626.10523-1-j@metarealtyinc.ca>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,55 +75,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 15, 2026 at 09:06:24AM -0400, Jake S wrote:
-> Many 2025-2026 laptops (Dell XPS, Framework, etc.) ship with OLED eDP
-> panels that support VRR 20-120Hz. These panels advertise their VRR
-> capability through a DisplayID v2.0 Adaptive Sync Data Block (tag 0x2B)
-> in their EDID. VRR works fine on Windows.
-> 
-> On Linux, VRR is broken due to two issues:
-> 
-> 1. The DRM EDID parser (drm_edid.c) only reads monitor range from the
->    base EDID Display Range Limits descriptor (tag 0xFD). It does not
->    parse the DisplayID Adaptive Sync block. This leaves monitor_range
->    zeroed. AMD's driver has a private workaround; the generic DRM
->    layer does not.
-> 
-> 2. The Intel display driver (intel_vrr.c) gates eDP VRR on a VBT
->    (Video BIOS Table) firmware flag. Most OEMs don't set this flag
->    because the Windows driver doesn't need it. This blocks VRR even
->    when the EDID clearly declares support.
-> 
-> This series fixes both issues:
->  - Patch 1 adds generic DisplayID Adaptive Sync parsing to drm_edid.c,
->    benefiting all DRM drivers.
->  - Patch 2 relaxes the Intel eDP VRR gate to also accept EDID-based
->    capability when the VBT flag is absent.
-> 
-> Tested on Dell XPS 2026 (Intel Panther Lake, xe driver, LG Display
-> OLED 3200x2000). VRR 20-120Hz confirmed via kernel vblank event
-> tracing -- display dynamically varies between 32Hz (idle) and 120Hz
-> (active rendering).
-> 
-> Related work: Adriano Vero posted a similar DisplayID range parsing
-> patch to LKML (2026-03-28) which has not yet been merged.
+The while loop walks rockchip_dw_dsi2_chip_data  entries until reg
+is zero in function dw_mipi_dsi2_rockchip_probe(), so rk3588 needs
+the same sentinel termination as rk3576 to avoid reading past the
+end of the array.
 
-Why did you post a different version?
+Signed-off-by: Renjun Wang <renjunw0@foxmail.com>
+---
+ drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> 
-> GitHub: https://github.com/jibsta210/edp-vrr-linux
-> 
-> Jake S (2):
->   drm/edid: populate monitor_range from DisplayID Adaptive Sync block
->   drm/i915/display: allow eDP VRR when EDID has adaptive sync range
-> 
->  gpu/drm/drm_edid.c               | 53 ++++++++++++++++++++++++++++++++
->  gpu/drm/i915/display/intel_vrr.c |  7 ++++-
->  2 files changed, 59 insertions(+), 1 deletion(-)
-> 
-> -- 
-> 2.53.0
-
+diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
+index 0aea764e29b2..8fd4653520df 100644
+--- a/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi2-rockchip.c
+@@ -483,7 +483,8 @@ static const struct rockchip_dw_dsi2_chip_data rk3588_chip_data[] = {
+ 		.reg = 0xfde30000,
+ 		.grf_regs = rk3588_dsi1_grf_reg_fields,
+ 		.max_bit_rate_per_lane = 4500000ULL,
+-	}
++	},
++	{ /* sentinel */ }
+ };
+ 
+ static const struct of_device_id dw_mipi_dsi2_rockchip_dt_ids[] = {
 -- 
-Ville Syrjälä
-Intel
+2.47.3
+
