@@ -4,111 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE52F4198E
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 11:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B877F41986
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 11:25:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38CDA10E1F6;
-	Wed, 15 Apr 2026 11:04:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82CBE10E161;
+	Wed, 15 Apr 2026 11:25:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="DwAAGQeU";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="TV1SR84Q";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TmmEhkZ0";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010060.outbound.protection.outlook.com [52.101.56.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC79C10E1F6
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 11:04:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IDR6xNcgV5uRUTd/Idylb7BWB+bELTqWSmPSmCOZm+4Kn47PoJWPldKdNCXQeKzX8tZegDboFGAeuDgf5Ne+md47nWbw0UvfDIgkQDlHINskg/nBQiyYxvQGZM2g9UoakwKRJ0Y96WJVoez53YjWZ0CPgQudzOfCoksvouKmgzrRCeDhi4GG+GRB/BSRBiJ1bCq7H2amSuLSj1yHe+oMe7puDSLw8qbNIe8Cf9TPZPRiv7GJz0/r0bUmLsWJ3BWRZHX3W/1Xn2YbocCVoQfG3LD7b9REI3qMPZ1YyCTGRu+jm+/0aGXa6YxWjmhTUQJPrVjKk4Pqowmq2LmAfBUdxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pAAKTBFbQHIVsGK4ozRLR5YPW8kNgbxFHKNk1KShpbI=;
- b=SpII9qurV8lZ+dEMxE7DhpaYRdlSSRB90gki00OaN/fL/dZdoI/41BEWNb/OpcvCr3lmTqm+9dm9ap8IFKIvMpcdrL0HRwSaXFIseVE+xIv0vkGuLWWKXgFdWH/6J0mhzuxyShHtuK1UOyoIAzx+arVyO04e/aLoB69pDvozktw/gnAejrn4kBwCH+2Q56hlrP3YKSuHdKYFUH7FMasI4bMkMAjo2haW2Eh2X2leQYwllaDfuIuwuxBcE0bAb+rwjAiztr6zo4H1zbxidloSjapfEiot61opybD1FE8m2bqHiQuk+VHSYgBanMtyyF13Ar9JK+rWOldvrJ/s+XHYmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pAAKTBFbQHIVsGK4ozRLR5YPW8kNgbxFHKNk1KShpbI=;
- b=DwAAGQeUEWlEBgpZEGX3eCEQctaN3w+KuwHN0AsWvS4YCK1r0NyWhfAjZwD9N9fW1lCAwMSZpZuHsk0iAEk/mi2sihCfEBTp+JMVLj46LQrHxIFgcaib5Gn7AOGrI+oftgj/AjFlWklBK6jL0urkc0u4IgT11e3Kw32zTQgHG4k=
-Received: from BY3PR03CA0013.namprd03.prod.outlook.com (2603:10b6:a03:39a::18)
- by SA1PR10MB6519.namprd10.prod.outlook.com (2603:10b6:806:2b1::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Wed, 15 Apr
- 2026 11:04:16 +0000
-Received: from SJ5PEPF000001CF.namprd05.prod.outlook.com
- (2603:10b6:a03:39a:cafe::9c) by BY3PR03CA0013.outlook.office365.com
- (2603:10b6:a03:39a::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Wed,
- 15 Apr 2026 11:04:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SJ5PEPF000001CF.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Wed, 15 Apr 2026 11:04:15 +0000
-Received: from DFLE213.ent.ti.com (10.64.6.71) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 06:04:15 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 06:04:14 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 15 Apr 2026 06:04:14 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
- by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63FB49382077152;
- Wed, 15 Apr 2026 06:04:10 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <jyri.sarha@iki.fi>, <tomi.valkeinen@ideasonboard.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <devarsht@ti.com>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <praneeth@ti.com>, <vigneshr@ti.com>,
- <s-jain1@ti.com>
-Subject: [PATCH v4] dt-bindings: display: ti,
- am65x-dss: Fix AM62L DSS reg and clock constraints
-Date: Wed, 15 Apr 2026 16:34:09 +0530
-Message-ID: <20260415110409.2577633-1-s-jain1@ti.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3589D10E161
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 11:25:38 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63F8fbpX2005518
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 11:25:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=L5W9eUth5C6sQLYvD1LwKVnbRfoQjFfPpVJ
+ CNUqAszk=; b=TV1SR84Q/uktgKfoyhVMSkb0ZB5zTpkdVSgayF7ky+uOpKrn+o1
+ D7e8Tr0uQN/fv+YDd5If1ebqtqtB1g8QKEFEci4kYg4DMOSp8kxfurVrfbsEtqPP
+ oYiiIUeNVTeoIBMSmsYjLRFI5QtKLX/jGnM5CsgIr1OHDGx/Zsd4PbAgUI0p86Np
+ jncxP5PulufO//A1FjC5YboaFegppirzTY77Qyd2HsBR87rKgz9Cv5kvI0kExRSf
+ 44nkdvLSMlhwcPVirwQbLL9UjIp2lItEgPRZeEpyA9aqUUkGUhMjESLAn54OweDz
+ qh68yYyRrz5SGMQWbhtxMU9ciP5qOFOa9iw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dhrsjufb2-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 11:25:37 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2b4678c6171so29181435ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 04:25:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776252336; x=1776857136;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=L5W9eUth5C6sQLYvD1LwKVnbRfoQjFfPpVJCNUqAszk=;
+ b=TmmEhkZ0YUeGB/KtgL5QcKdQtJuRMh1Zwb4gct98CMWHTR6xwn3IiNZVOB1xB2BjJu
+ loJOZV5VLFKz0/zuz7Slv9URRvShjIvE44merdhriyif1I6qUQ/ZOWhmd+IX1qdypPyh
+ qU5FeTAa0HmXjXCS5YZgENfgmzfBLXE5Cn84NRvLmtpEFjz4ttDfF1rnbjjY3BjOOqdT
+ SMa9NJT+L0gaHMMKVB/n83z0Ri4kvrZqI7ENHANHrsC8xiIhEP7qesqR4rUmaUzoQIky
+ ZqHQpfVKNFzCrUWUnB5aVI3LjWTMqKwrrELyeb9bJ8lX++L6blhOECWp144PGHI8lZmq
+ nq4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776252336; x=1776857136;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L5W9eUth5C6sQLYvD1LwKVnbRfoQjFfPpVJCNUqAszk=;
+ b=CKZaMhFl5UrjTopkrSJBgVmwYA+zYmsK+yrGMNs8EEgl7C21SePAzLNoFwgkH8V1ca
+ S5Z8AHzsEf3sR4aM1eVU1z/wQPkOHsgvcK8km5aefZpuGPDK4lqmg6bQiYk8HlaSfz8q
+ 5sqG+Qo7qEpovR2QQlvsaxb30RgHeHcM/P1Tdk4XHDiVdROWDRdbHq2Fshtrp4+1yD2K
+ +QZ6ZejstfsgPd9NQOEAJV101vTpvZNMPhwAsvhGbMWewqvZu5wPJcgcNa+QyIaIAOv2
+ DSv8liPQ7RA4xvqhH3MKvd07qG829TF2Cs04J9yvHzExohDlWyZJVVbujsERuFb5zagf
+ dlHw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ85HorlGmFefKux84p+BCEB1VH2kNsYXFRBUJofUWWq0XUp5I2HaoBeyiaQn24PSjgXyvdYdTxD6EE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIiq6DUqibv3/OQGdad0JrfMzHjzQzp/Y7fAkzsQW7Esgxhtut
+ BvCAtU3ZLSReiXQ+DuRKoQzhtChHp+6sWUZ/cRunW9wNHIj6gF3YDD69Rhn3PiZYIbrZRuszUpF
+ 0L8Dsg7uZ+6XZ+VWLMzbg2a6b7os/jHqDUZU0FFieZUskqCrPJCH0PuIcQOrITNT1mpTvlrw=
+X-Gm-Gg: AeBDiesla58K90xJQX6RTA0nqBS8B2vfZF3FK51zghTNHPc5DHSHmnXcnIahxDyQSOE
+ hEs2QMSMP7emHFCag8tRDnqEsuddEkNYHniCYvt8B2C4TxNel8T2D2LHJzMx8QLsDOjkAasacN1
+ 7x0bHQNO5qRi89pMoG1hn4kDshdNOTAb9pfzblpaGUq6wNzheGUV+weFKIeFYsavXY83FdlXLU0
+ SpSY2MPvEwKTh0ixbkQbhLBJxBPZBeUEvM5ViWwXTotztdGYnsnc0Rb0OfmjXCCALJQxJFjWCAt
+ vxrkOY799QAENTzVP56lvJwDbY4ub/nds8YDiQJFwNYEUGOq8CGcK9QXyRlavtjCe8fllRFGrZ5
+ jgjV0Pr6y4ifYDFgKn2P+9xvevHfmkpJgkg3SY6Khny3ga7N6cfkWsHXKVApJjvBg
+X-Received: by 2002:a17:902:7003:b0:2b2:5258:a23d with SMTP id
+ d9443c01a7336-2b2d59808d0mr153165855ad.14.1776252336171; 
+ Wed, 15 Apr 2026 04:25:36 -0700 (PDT)
+X-Received: by 2002:a17:902:7003:b0:2b2:5258:a23d with SMTP id
+ d9443c01a7336-2b2d59808d0mr153165585ad.14.1776252335662; 
+ Wed, 15 Apr 2026 04:25:35 -0700 (PDT)
+Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b4782b6fd8sm26794325ad.73.2026.04.15.04.25.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Apr 2026 04:25:35 -0700 (PDT)
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+To: srini@kernel.org, linux-arm-msm@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de,
+ dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
+ andersson@kernel.org
+Subject: [PATCH v8 0/4] misc: fastrpc: Add polling mode support
+Date: Wed, 15 Apr 2026 16:55:26 +0530
+Message-Id: <20260415112530.4083240-1-ekansh.gupta@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CF:EE_|SA1PR10MB6519:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7fdd2ba-2bac-46bc-2515-08de9adebbdd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|82310400026|36860700016|921020|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: ZqduviPV6F+mRPfKcrg4dxIh0vjbK5KDzrVECujKYRmP3AQ18pWTan6k5g0Zgn2tLQPxQJwIzyucCJzzkHViMouaz65MeDglzch6NSTzO8i9ynnN/4UuGvVH/TU8XH7hLsxpJBjWGMk/63CEOHIk1t67moImotmGy9B6MEj8oWhedEJ8/ZG1/YJf22diE6g7CFV1PXSrAmTuTxS5HA358gsdihzjsdX4dRl9r8Wr6KPg2zGKGQj646fifoEGoBmbVrchPbnwPUxQNChDNQRNpmrifFey6wgkuRWG6hztsRt2ZuzD8xwNXZXiQ4t+RIuSJezgQpQTT1qkbpyZyMonfHgGo6GF5YIivlwOq2crYeOl2NujTzZDgT49W/spx3tw4zwlydKXaBtzXtNmwNjxlDyGb2WFHwgtRRVmcK/AQxvOpVy/XiASUoMZ/1Gu4ZEoW5lRiRvjhG4FkUY5vyqP0avHFAeCiHmtW0vOnQ1AQ1ugHtF2NRscm6niU2dU3zX+CaRl3eHo/yDTZmNL1Peo55VUBJYFBvkecoFdiw6fOLjalb34T4u2ZDD4YjR++6ykcxyCN3F7UlGx0gfGVfLzRKay22V2on+lpOVTTaXViQXuXa273wyD/PA5AitcTRAKIBXxzHaiG+7i0iwKNRi9cW0XnteLRAfCzOi2oVSez0UzHkdi6FhoQ7AL0amlS9W7qBmyHuGzHYowxirzteDTBqIyrfs55QBV5/UocY1oIVlQghkZQaludiO1Lou4uR6ffNTCbj5pPZk37mRHzPjQmSOeDdFv5aLXCpg3GD1mLZhWNOdckpkuXTt3at47xOdN6eWwiN4ICyXAN1xgCJL31Q==
-X-Forefront-Antispam-Report: CIP:198.47.21.195; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:flwvzet201.ext.ti.com; PTR:ErrorRetry; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(82310400026)(36860700016)(921020)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: QrEKDeGkQGlGAoGQ3MC+XohDLB8ZwIiYgPs2D1lH3Vg792tfE5r/+npDlf5JSOl8WF4g7AvnspSQ184b1jnrJwH/1vVtUv5rURhGudkQ+BQkVeWBma88uiipmcTdqUHPEqc4HNIy2DIK02Phnwq+/ZDSJUlPObln/qvu0XjXfjyzzKPa2xJxO8ypyWjX88NimD5RVMxstN181VNipA8czBXtbTsqHYpj10sTUCjNmaBIM+BXaLydnu4WTINp32ZRVcKYIqi10ANJYpGrXQ8fDdTwH2jyW6uqjnxszOVrbIBbEkT7bxLi2nfLbEok8KkIGOLF55eOiilDhcpe64tBFICTkkweLQABXXtO6Vtabxj5znwKqbwsI/DV5yLQ+PakjX4Tp1IlGr4e690kHjzdEpxm3CIfudGd5R5nSS0A14UUQvLmQuoa/Aa4qa4zdnzI
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 11:04:15.7157 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7fdd2ba-2bac-46bc-2515-08de9adebbdd
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.21.195];
- Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB6519
+X-Authority-Analysis: v=2.4 cv=WKhPmHsR c=1 sm=1 tr=0 ts=69df75b1 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FeUw2I9XaFYL6OdlDaEA:9
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: 3OU_rS914pjxB69s7ST_iNx5_p3N4Cyi
+X-Proofpoint-GUID: 3OU_rS914pjxB69s7ST_iNx5_p3N4Cyi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE1MDEwNSBTYWx0ZWRfX5Wtsbv2TbVsQ
+ 8mOPfG5K3WjLOnnIqTWwq9wNS9Yhc+z9r5swWtbi1n8/QXD1E5fpYKQWEVrJYbDrqjgkoUKqhOx
+ 69zzfb2l46qTLGYmdX/PFZ/V4gCzZsTFxkgobj4FzVSnc/EtTHIZHu1r0C8ko6/17hKPUBumrzI
+ QKTy0K1YEH151jNmnAxJZ4vbFHhqj9FVraYJeyGYOn8oYZktn50ZzNceKPTj39IsSoWfatda157
+ stpPxtodDiQCVTB5C3s3WemVeo9C2MHkXMut/58Fh1LiATTB3cxOoAvS8K0agLnVvd8G/1RC/cU
+ 2yWeoDYdJGbg6n83kfPwJyFJCuCueLT/9BRKzA6yXq7Jxcxwa3eSeI9NMXqHCagwVlinvpSlaRH
+ jBTvMM1HgRN7odhjcpUAP0sGeaXZTSbkKmZDEIWoBa+U/KJx0O3XooUtme0c2fD916i0fBUDJ5Y
+ HO8HTiBv2KyuAkRbokw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-14_04,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
+ definitions=main-2604150105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,147 +137,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The AM62L DSS [1] support incorrectly used the same register and
-clock constraints as AM65x, but AM62L has a single video port
+This patch series adds polling mode feature that have been missing in
+upstream FastRPC driver.
 
-Fix this by adding conditional constraints that properly define the
-register regions and clocks for AM62L DSS (single video port) versus
-other AM65x variants (dual video port).
+- Add changes to move fdlist to ctx structure to avoid code duplicacy.
+- Update context mask to support polling mode.
+- Add changes to support polling feature.
 
-[1]: Section 12.7 (Display Subsystem and Peripherals)
-Link : https://www.ti.com/lit/pdf/sprujb4
+Userspace change: https://github.com/qualcomm/fastrpc/pull/258
+Patch [v7]: https://lore.kernel.org/all/20260402054923.3061925-1-ekansh.gupta@oss.qualcomm.com/
 
-Fixes: cb8d4323302c ("dt-bindings: display: ti,am65x-dss: Add support for AM62L DSS")
-Cc: stable@vger.kernel.org
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
-Validated the changes with some examples:
-https://gist.github.com/swamiljain/79f30568c9ece89f5a20218f52647486
+Changes in v8:
+  - Added more comments.
 
-Changelog:
-v3->v4:
-- Add reg-names constraint
-- Re-order constraints to make it consistent with the properties order
+Changes in v7:
+  - Fixed warnings.
+  - Fixed commit text.
+  - Addressed clean-up comments.
 
-Link to v3:
-https://lore.kernel.org/all/20260410105955.843868-1-s-jain1@ti.com/
+Changes in v6:
+  - Fixed poll memory calculation.
+  - Added few formatting changes.
 
-v2->v3:
-- Reduce redundancy and use constraints suggested by maintainers
-- Remove blank line between the tags
+Changes in v5:
+  - Add more details in commit text.
 
-Link to v2:
-https://lore.kernel.org/all/20260129150601.185882-1-s-jain1@ti.com/
+Changes in v4:
+  - Replace hardcoded ctxid mask with GENMASK.
+  - Fixed commit text.
 
-v1->v2:
-- Remove oneOf from top level constraints, it makes bindings redundant
-- Remove minItems from top level constraints
-- "dma-coherent" property shouldn't be changed in v1 itself
-- Add description for reg-names, clock and clock-names
-- Add constraints specific to AM62L and for other SoCs within allOf
-  check
+Changes in v3:
+  - Resolve compilation warning.
 
-Link to v1:
-https://lore.kernel.org/all/20251224133150.2266524-1-s-jain1@ti.com/
----
- .../bindings/display/ti/ti,am65x-dss.yaml     | 70 ++++++++++++++-----
- 1 file changed, 52 insertions(+), 18 deletions(-)
+Changes in v2:
+  - Added comments and fixed commit text.
+  - Defined context id position as a macro.
+  - Added new IOCTL to control polling mode as always enabling
+    it might cause excess power consumption.
+  - Cleaned up polling mode implementation.
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-index 38fcee91211e..49a007cbcd3a 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
-@@ -36,34 +36,50 @@ properties:
-   reg:
-     description:
-       Addresses to each DSS memory region described in the SoC's TRM.
--    items:
--      - description: common DSS register area
--      - description: VIDL1 light video plane
--      - description: VID video plane
--      - description: OVR1 overlay manager for vp1
--      - description: OVR2 overlay manager for vp2
--      - description: VP1 video port 1
--      - description: VP2 video port 2
--      - description: common1 DSS register area
-+    oneOf:
-+      - items:
-+          - description: common DSS register area
-+          - description: VIDL1 light video plane
-+          - description: VID video plane
-+          - description: OVR1 overlay manager for vp1
-+          - description: OVR2 overlay manager for vp2
-+          - description: VP1 video port 1
-+          - description: VP2 video port 2
-+          - description: common1 DSS register area
-+      - items:
-+          - description: common DSS register area
-+          - description: VIDL1 light video plane
-+          - description: OVR1 overlay manager for vp1
-+          - description: VP1 video port 1
-+          - description: common1 DSS register area
- 
-   reg-names:
--    items:
--      - const: common
--      - const: vidl1
--      - const: vid
--      - const: ovr1
--      - const: ovr2
--      - const: vp1
--      - const: vp2
--      - const: common1
-+    oneOf:
-+      - items:
-+          - const: common
-+          - const: vidl1
-+          - const: vid
-+          - const: ovr1
-+          - const: ovr2
-+          - const: vp1
-+          - const: vp2
-+          - const: common1
-+      - items:
-+          - const: common
-+          - const: vidl1
-+          - const: ovr1
-+          - const: vp1
-+          - const: common1
- 
-   clocks:
-+    minItems: 2
-     items:
-       - description: fck DSS functional clock
-       - description: vp1 Video Port 1 pixel clock
-       - description: vp2 Video Port 2 pixel clock
- 
-   clock-names:
-+    minItems: 2
-     items:
-       - const: fck
-       - const: vp1
-@@ -179,6 +195,24 @@ allOf:
-         ports:
-           properties:
-             port@1: false
-+        reg:
-+          maxItems: 5
-+        reg-names:
-+          maxItems: 5
-+        clocks:
-+          maxItems: 2
-+        clock-names:
-+          maxItems: 2
-+    else:
-+      properties:
-+        reg:
-+          minItems: 8
-+        reg-names:
-+          minItems: 8
-+        clocks:
-+          minItems: 3
-+        clock-names:
-+          minItems: 3
- 
-   - if:
-       properties:
+Ekansh Gupta (4):
+  misc: fastrpc: Move fdlist to invoke context structure
+  misc: fastrpc: Replace hardcoded ctxid mask with GENMASK
+  misc: fastrpc: Expand context ID mask for DSP polling mode support
+  misc: fastrpc: Add polling mode support for fastRPC driver
+
+ drivers/misc/fastrpc.c      | 159 +++++++++++++++++++++++++++++++-----
+ include/uapi/misc/fastrpc.h |  25 ++++++
+ 2 files changed, 164 insertions(+), 20 deletions(-)
+
+-- 
+2.34.1
+
