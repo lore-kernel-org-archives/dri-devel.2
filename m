@@ -4,57 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F6DF419B9
-	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 13:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C1FF419BB
+	for <dri-devel@archiver.kernel.org>; Wed, 15 Apr 2026 13:54:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05B7D10E1EA;
-	Wed, 15 Apr 2026 13:51:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9EDD10E6E0;
+	Wed, 15 Apr 2026 13:54:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="VSRIQxVA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Nw1IkhAX";
 	dkim-atps=neutral
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3643F10E6E0
- for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 13:51:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
- bh=lhottTYc7RM1jdLqnyonzT5k/dg3DnW974HgNK0Q368=; b=VSRIQxVA2pT1LTIND1TMdSWd80
- ic6mtIRWFAj5GY4vG412A2Q7V8ELw8+w6A4EarnxgZFBy+vXpO4YOs4AcdDbTGKmS1yuIh+x7ueoQ
- AeD4aDl3Hz6an8CXI4LdkClsyqdjJIjDvW5nU4HY0sQCmiVkBc1j+Lot/SWUM/Ig1xJ5FcTU3BpDq
- q9AsIYAnD/Y52SedKPvlfiTzxXXQYhsiCSdcEwaK0f3bDpkWQg53bh3XyYzeUg/kegWRC8dWdLfhX
- 5VGaCKVq6K9AaM0jy+pZ+7KXAXis3xUqxRL4Z5t6zSbh4oj/G1LiAoaE8OC0dDPIUz/XKNrIqM3XK
- IU0UAxng==;
-Received: from sslproxy08.your-server.de ([78.47.166.52])
- by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1wD0eB-000B8k-1X; Wed, 15 Apr 2026 15:51:15 +0200
-Received: from localhost ([127.0.0.1])
- by sslproxy08.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
- (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
- id 1wD0eA-000OuZ-05; Wed, 15 Apr 2026 15:51:14 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- Sudarshan Shetty <tessolveupstream@gmail.com>
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- marex@denx.de, valentin@compulab.co.il, luca.ceresoli@bootlin.com,
- philippe.schenker@toradex.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sudarshan Shetty <tessolveupstream@gmail.com>
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
- stable LVDS output
-Date: Wed, 15 Apr 2026 15:51:13 +0200
-Message-ID: <6721341.e9J7NaK4W3@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260412053811.662461-2-tessolveupstream@gmail.com>
-References: <20260412053811.662461-1-tessolveupstream@gmail.com>
- <20260412053811.662461-2-tessolveupstream@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AAD610E6E0
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 13:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776261254; x=1807797254;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=coLVlYR6NEY7VBueTqak62GHfbDwf6EkVP+t/bPcVJ4=;
+ b=Nw1IkhAXmTXZujZcDPRtOa6x6lFGXSuiP9IO2INU56WtGN8YNFXbMhEq
+ 6vHFpI1TNc8KmvSbrZSpAkPOtRdYtnxlRBWtwpcEAqSSTZ5dyOWcex8ac
+ BprQJyyiysbXVxN/4cHED0vsYAovVWDoumnwuacyrHyPbVMUKJCWWDqlC
+ 9cc4a6WGir5YN5nDzajUXqQSS+R6sjUGnjFVKT6lELpWd2tgB/u4rq4QA
+ jhqjO9Sqbu9XjhU+VPQJoQHZ1PVMtx08xNPBXf0vvSwd5AFy5A0GMEulT
+ YwSJjRVGzO+QVeF6OcutOUBAofYL2YaVptJJ91xdE5tOGsC40jjsXrbSJ A==;
+X-CSE-ConnectionGUID: WrZgYWvjT2KC3+WRJPlPvg==
+X-CSE-MsgGUID: 3XyqS74uTVaitAleUsC19g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11759"; a="88687040"
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="88687040"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2026 06:54:14 -0700
+X-CSE-ConnectionGUID: RD6rgY1UQMqoG4yXLUt1bA==
+X-CSE-MsgGUID: +DsdquomRgCUS7/gLA8aGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="229399969"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.25])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2026 06:54:10 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>,
+ linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>, Liviu Dudau
+ <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH v7 6/6] drm/panthor: Bump the driver version to 1.9
+In-Reply-To: <20260415112900.681834-7-adrian.larumbe@collabora.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
+ <20260415112900.681834-7-adrian.larumbe@collabora.com>
+Date: Wed, 15 Apr 2026 16:54:06 +0300
+Message-ID: <65fecdade3d25886c2c110d399517408b7a8ea34@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/27972/Wed Apr 15 08:24:27 2026)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,73 +78,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am Sonntag, 12. April 2026, 07:38:11 CEST schrieb Sudarshan Shetty:
-> The current DSI mode configuration enables VIDEO_BURST and disables
-> horizontal front porch (HFP) and back porch (HBP) transmission using
-> MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP.
->=20
-> However, the SN65DSI83/84 bridge relies on receiving full horizontal
-> timing information over DSI in order to correctly reconstruct the LVDS
-> output timings. When HFP and HBP are not transmitted, the bridge cannot
-> recreate the required timing parameters, resulting in unstable or
-> missing display output on some panels.
->=20
-> Additionally, while burst mode is supported by the hardware, its use
-> depends on continuous clock behavior from the DSI host. In practice,
-> burst mode may introduce instability depending on the host controller
-> implementation, as the DSI link may transition to low-power state
-> between bursts.
->=20
-> In testing, removing burst mode and ensuring full horizontal timing
-> transmission results in stable LVDS output across affected panels.
->=20
-> Update the DSI mode flags to:
->   - Drop MIPI_DSI_MODE_VIDEO_BURST
->   - Drop MIPI_DSI_MODE_VIDEO_NO_HFP
->   - Drop MIPI_DSI_MODE_VIDEO_NO_HBP
->=20
-> This aligns with common system configurations where non-burst mode is
-> preferred and full timing information is transmitted over DSI.
->=20
-> Signed-off-by: Sudarshan Shetty <tessolveupstream@gmail.com>
+On Wed, 15 Apr 2026, Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wro=
+te:
+> Bump the driver version to reflect the new MMU info query ioctl
+> parameter and the VM_BIND map sparse flag.
 
-Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com># imx8mq, imx8m=
-m, imx8mm
+You're not actually bumping the version, just adding to the comment.
 
-on both tm070jvhg33 and g133han01 displays.
+Does the version actually work for you for checking stuff? Do you have
+userspace checking it? Should it be some capability thing instead?
 
-Best regards
-Alexander
+BR,
+Jani.
 
+>
+> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 > ---
->  drivers/gpu/drm/bridge/ti-sn65dsi83.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi83.c
-> index fef6bca3273f..9d51dc2b75bc 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> @@ -976,9 +976,8 @@ static int sn65dsi83_host_attach(struct sn65dsi83 *ct=
-x)
-> =20
->  	dsi->lanes =3D dsi_lanes;
->  	dsi->format =3D MIPI_DSI_FMT_RGB888;
-> -	dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-> -			  MIPI_DSI_MODE_VIDEO_NO_HFP | MIPI_DSI_MODE_VIDEO_NO_HBP |
-> -			  MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
-> +	dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_NO_HSA |
-> +			  MIPI_DSI_MODE_NO_EOT_PACKET;
-> =20
->  	ret =3D devm_mipi_dsi_attach(dev, dsi);
->  	if (ret < 0) {
->=20
+>  drivers/gpu/drm/panthor/panthor_drv.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/pant=
+hor/panthor_drv.c
+> index a8090bc4e33c..c8fb63ede62c 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1787,6 +1787,8 @@ static void panthor_debugfs_init(struct drm_minor *=
+minor)
+>   *       - adds DRM_IOCTL_PANTHOR_BO_QUERY_INFO ioctl
+>   *       - adds drm_panthor_gpu_info::selected_coherency
+>   * - 1.8 - extends DEV_QUERY_TIMESTAMP_INFO with flags
+> + * - 1.9 - adds DRM_PANTHOR_DEV_QUERY_MMU_INFO query
+> + *       - adds DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE flag
+>   */
+>  static const struct drm_driver panthor_drm_driver =3D {
+>  	.driver_features =3D DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ |
 
-
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
-
+--=20
+Jani Nikula, Intel
