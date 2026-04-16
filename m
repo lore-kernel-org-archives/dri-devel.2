@@ -4,111 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27FB3F8D75F
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 15:58:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97224F8D761
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 16:13:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E86410E8EF;
-	Thu, 16 Apr 2026 15:58:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE0AB10E8D9;
+	Thu, 16 Apr 2026 16:13:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d94KFnYS";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="UMb3TL8X";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013041.outbound.protection.outlook.com
- [40.93.196.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68F0110E8EF
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 15:58:50 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011057.outbound.protection.outlook.com [52.101.52.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5451610E8D9
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 16:13:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TKjFjf1D6LMTz/KbyveVnYc0m5kDNtgJUwX9u4S5ffHYQJG7Nlg/xkTrdofxCSpD/+kA54EGehTEHTGTxjqwqmc9LIxi3Q2/NrnRBuqQq/dAzc0NQxIbbB3aVjc1PeidR9z5YjxLcFcPmlnOcH0aBX69HvbF2rra84bOdennX+smXfoNOKrfIxl3nbcrVIML58ipuqjZhv1ROEecI7+V5ExdB+TMKyMEctDT3P8ANxT3QaLZpyzzLyi755zRgUonbNOqVSx64flig7iKkgB+PSk5vrS/AW1f6/g8IV3msBKTJZA3cJA9WzWeh9ts4DrL6nlnb4d9aZv5rmu/yJ6VTA==
+ b=qwFZzWTmrRQOfF1SSOHpjwSR8MED6jyNVMOKAMj1zq2874Se/AyqVGChGftOOew6e8AGy+Kly9w6aaZ8tgb0S98zhGK0Dxgx/TQFddFZkPvYfq8Ldpd/54tJUjNXZJUgj0JBKzF5Nm81pH7YlthNX7mhaI77NgBtS5v5nvDU1C5d6tn4i6mO66ESTGZrg3uOBuqz2ssplcnMbikG/PWyhOFh1UZ4HQ0YNrOrfRQwJC3GNynlmk4r1n6cAIdVXVVUaHoROLdgM0G95yxIqDE3uOouMgRv9G69jotoyZqmvluz0sk9QZYGcgeTdutIMcmaSojbpiPouk78A6XoXlgAdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gldoj89DSvE64bQRhhOSVhQB+tkX7JU/e8EMnj6Vft0=;
- b=ZQs8KV9UIT/bM4mEsprUQGj+8WcFlaoSfbOjhns1KadRJkjJVmCOvs8mzaV4BljJTICcjqZWnEGznYoSt7VDG9DJbV3XPoBAHx98PExEA9xvyAl4Tgs98LYJhV1w+9I8w6J8kIljDqhKvtd+Rd2WrvGtAF309/rnVGgcpBZhjDLofaPvm90BXPDybuov52lW6FOgtSU18OigWHh06SxDVk+YGEa4G8wwxpJpdvvr4eGSmoLWdFQuRvfB+1UYgLlIOfo8dbj5Jg3jM8w/rMEdUUmvs5lRuyY//E2cD0Xaio3Xh7xekzrgLh9sTH2b5yLdaWUGaXtNOiDaGm+g0d3HCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=FGCT93BeJjLkupxkB8pOkRVFW7/pb44AbEoiob74G1E=;
+ b=EpYKpwivPxtYhQlmbHdHY0AKlgylEkWoDO75NllFQ31oO0uHs+Sgew8DHUFOuEeyeDz4s3xyQya/UbS1AjW+hyUHo9S70VqEf8+xLyasiX3venCDQqYKVxa9Trn4x1us7RdQGFo8h3USoBIRElE5StqVlS2xd/ldIBdduylBsthHbia2FlL2hJU749LOZ1+X5d8yM8cr8P0yY3m1gBeXrOXhU94rnFklwYwkEDGwHXg4r7/4D+O/vNGyXLvkzD9JmT8trNjqlj/+/e7UKmggsZOOEpcS7/gO1q3eFDyk1rQRqsiNwml3WMSuQ1gtGLeeeQHnZSgWFb5DMMaoEDKRjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gldoj89DSvE64bQRhhOSVhQB+tkX7JU/e8EMnj6Vft0=;
- b=d94KFnYSGDoyj+m80YOFMUBayu+syPyF1n9hchQKR6k4FfTrDKEstA8pt1gkpV86wHZ0A/ZwrL9qpPP+7jbSy85svTZ5Bey1zfC39nxjggYhL+li6EFmbIcSD+reNe2SfVNEMoOCF1IpXnRqZkueeFSoIPzIjFg2DO8rlpZpLuo=
-Received: from BYAPR06CA0046.namprd06.prod.outlook.com (2603:10b6:a03:14b::23)
- by DS7PR12MB6238.namprd12.prod.outlook.com (2603:10b6:8:96::11) with
+ bh=FGCT93BeJjLkupxkB8pOkRVFW7/pb44AbEoiob74G1E=;
+ b=UMb3TL8XQd52AaCbLcSINf0HSOQbKN1BH/X6zPiofYZ/7chpSjtebotv1IviDSy2t8VtZH0e4ov0nyG79rhvjIGnOOm+b3zesoHh0FctOBZgZYGM7137FgwhSu4GbIH3ZVLB/75Ry2IfGs9cqw75HRyB/L23ZTAJD+b6yvyNLnUZLgjNW8UdtiZs0tDtTn8ORHeczOA/CqIDZhvJg8x30TZoDb0Bq74KS/LUf+vo5om7IPgU/+iLBOXiJ3SA/xX+s4xqRMefMFTMM1hNsBB+lO+9/SQcnAe7ZmmrH4VNQbRrmmnRA+b43RNHrIoRQffNeJJCRTXRWzldLww4kjuTvA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ MW5PR12MB5624.namprd12.prod.outlook.com (2603:10b6:303:19d::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
- 2026 15:58:42 +0000
-Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
- (2603:10b6:a03:14b:cafe::d5) by BYAPR06CA0046.outlook.office365.com
- (2603:10b6:a03:14b::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.52 via Frontend Transport; Thu,
- 16 Apr 2026 15:58:42 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Thu, 16 Apr 2026 15:58:41 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 16 Apr
- 2026 10:58:41 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 16 Apr
- 2026 10:58:40 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 16 Apr 2026 10:58:40 -0500
-Message-ID: <2753aa0d-cc87-2578-1cda-dd0cd3ea7c80@amd.com>
-Date: Thu, 16 Apr 2026 08:58:40 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V2] accel/amdxdna: Add hardware scheduler time quantum
- support
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Thu, 16 Apr
+ 2026 16:13:37 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
+ 16:13:37 +0000
+Message-ID: <54b13fa0-9405-4fc8-ae41-fd1d310c7aa9@nvidia.com>
+Date: Thu, 16 Apr 2026 12:13:34 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/11] gpu: nova-core: vbios: compute FWSEC-relative
+ Falcon data offset
+To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
+ <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260414-fix-vbios-v2-0-705d30d16bba@nvidia.com>
+ <20260414-fix-vbios-v2-8-705d30d16bba@nvidia.com>
 Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <maciej.falkowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-References: <20260415171139.904947-1-lizhi.hou@amd.com>
- <ba510c73-b487-4c97-bf1c-3ae1823c0d79@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <ba510c73-b487-4c97-bf1c-3ae1823c0d79@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: lizhi.hou@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20260414-fix-vbios-v2-8-705d30d16bba@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CY8PR22CA0005.namprd22.prod.outlook.com
+ (2603:10b6:930:45::9) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|DS7PR12MB6238:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee38ffd3-52a2-4469-2262-08de9bd10812
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|MW5PR12MB5624:EE_
+X-MS-Office365-Filtering-Correlation-Id: d70b4af1-dda5-4d67-046e-08de9bd31d7b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: fKXF55C//VDBcAvqBXJdv7O3+ZCjWV+VGWViTzXp3CnWdNzLatNJ3TjOAzTkDHWZnWr/OaurCPBR2DqFhtEABCMszEZsjQdaDtu+F3CaQIGT2+VrrUfe9Z3Nw9+g6e4ziN8gS2p992hF4UKk/hKFFLR2o06FqDHGOQkE7Ts7akbAynn/YngFPDEoG+sFNxkuMN9o7LtldVlfPlxC42E/4Kb4NQ4IZUUfrwDBzEAbPl4BReTfZXi+WtvxyRfRVHkSy/xHb5T65N7iZq5SNroP992+zy3bHM9IJWJ0qJsTLRtozHhDcZPkCTz6ai6HT7MkV3EzdceTooCeIxFIc2C32QGtg34phu8JAOuoYv7l3bOfI//OJVl7Hf9Z1xcKrrOpKCXVgmM1/x3hBnU3GNPei7HOnQsVJ84QBtf+QLzTbTOpMN7hlcOkZqOk6bBGk6lKWYxo5hp7F88QnX7f2tnY3UGdMz3cISa39ygfJ34nRbpJGDc7FbSYgpZyTacUB/KHTTkbBmGsRIKLECPTV2NC72GVd7nj5cHO1yLvNRZxKzUwEDieTBKjPeGEEgCxiwn3JL5Ltq2lSRE6XqdqCkC7Na+UUS/5X+DdXUyKATlL4c9CE0KHotsS8W1MHj7UubP+z/LmD1vkY9SzKF99MVlTZz6hf5WD5b4OIIEZ9JC2XsqFFrb4hyIkrsxFGSaOouyOu3WHfdViDWECVqmrgXoNNyymTTh9rWiknZBvRxsNprEdA3OW4kEU3FIXnX2Dl3F4Qzlhp1uU07dvtf/ySDyQSQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003);
+ ARA:13230040|376014|1800799024|366016|18002099003|56012099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: kqIzntjiClOW48HnOMRppeuSByJbzciNo0YYX5UNT1ndKcpHC3QhyNvpUPicbqpoKUZOS571x1PlVAio8tB0odZkJVn9QsHjBOPkOI+Sg6tO0s8h+CFYAtHRZBu+kdyCo+fZwP7FLCG9aOIS/GE1zj5H7JvO/+jziN9DZ1sJ2DHhV0h7o63ebp949mc/4QfqQbAx5iZ8DxBBbF9f3xHQ10820YcnWMIS6JC7b77WQq6Zn7fYGUKmEmKzQ16ZrLNunJVBcc4uRekjDKrCY822DOJNSksMH4T6n1nqf/wHi8AxXszsnX6SoClMWY8VFBArhb9Tbe7Vim7lmB2MJ7CqZFfIkZ8/Nxg8NKF4JkepmCODZw/DIIdLKTFm2nC/uiPqcCHLlus1+fMwed69RYXrAa9hFkBt1y0kjivHyTq6OMTTyJDMY7XcNeeVJApjDBT6fHWKc2kkBCf/9SSqgnuNJ48Ob1wP6yADNzwzmdjdFNNgF9z61l0r4eolCg/PcDcenSJ1RrgWBULR8uaVOWJcwWR2WEBD49fiV3LuiW8Xjq0l5hamWtV1G95jG5VXmCBHi/22WZcDuRDpHQ4anNJzBSDfYqIMfU6ADZoaatIwadAc/469dmZrHtd2Hi9RbvjL91qoQ3t9hMEu8wL4FsLoXKPpeL2/ED01XSOsj0BkrVuFSx2HR+mncA0ZNLoYXapZvFwx3bYjWH4h+qLyZUt/tNVvfJxcKAiJ//ZgcyHeIuM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: wNDsNFd2MDdN4nEvdv7hEzqZxM3stFOl9VJx4SLOM1bt0NvOOtwEhYtWR0x6KQMmCDF7WCXfDEzX+NPTbmJEK0ZpEYr77bp7oC3fH3LxQ6BgNRA35FnSLnBt0dmkaUrFGPR1o6ul+t1mo0MMfRYQzrWBS9soBrD6p28lvGCfFwL0pm4lfWMB0bOvAffcna/oDNy3y3dxzpox4ZpbErYw7c/298EpXsV8wpiSijTGgIdEeZidlPKJyHUhClrNCLVmqmsppyeAunMZKSjlvNJE0WPCCv6q+MegNPkXj0AindnWadyBn+oKfaCX+p4m1Jqa84RyXlQ5RkPK/RhNtKIYMmRhb4c5n1br7J1uqMf6pGSrCizHU4KeGIBmsXlFqMXjZBtBA5W7EPUo+rBYekrqoKbD/+TefZHTyH4HrBpGSQkEowCRcQ6XDt4fBAqx4jhk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 15:58:41.7728 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee38ffd3-52a2-4469-2262-08de9bd10812
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE16.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6238
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q1E5REJ0SHhuOUxLc0FaemhCenBlY2MxUUxUclMyTm4wNWNuQXg3RVBVL0di?=
+ =?utf-8?B?aVZkTjMxTDRjdHd4NlZIbzhhNnVaeFB4MlMvdUsxdE5heWpCMFdPYkczL2lq?=
+ =?utf-8?B?emRvWm9reElsMmVNbTRmNzhzTWFQWFpVWldBVmQ0YzdCTTlUNEdOV2I5QUNz?=
+ =?utf-8?B?aFdLSGE4aVhicGN3TzY2cFAydXBaZ24xQ3BVdzJjK29RUVVuQ2Z3cm82Q1Mw?=
+ =?utf-8?B?bHo5eUsrM0hsZVdNdFVpYzVhaFQ1Tk5CTzQ2UUFOdU1tQjI5aUpzVU9EVXF1?=
+ =?utf-8?B?UHJUV2xmcXpEWXNQWERXaFlGTEFManFuNkNzbG85TlhZS1RWZ1ZiZmVkdGFq?=
+ =?utf-8?B?aHZaTnRKem1XWnFVUTg4U0t1RVBWald4bU55cWt2S3ZvMVRubkhFbERaVSty?=
+ =?utf-8?B?VFZYS1hEWGJ3QlN5VWJ1K1dPQWM5a2JyY0MvdWJPL1hZNzRGM1M4VHlXVDYz?=
+ =?utf-8?B?YTM0WU9LK2ZabHJBS0JpemZwSTNyV09QV1RIRGRrRTcyRCt2K1BFMjRLa1hH?=
+ =?utf-8?B?RVB4RHRKY1hYYjA2T2RJc3ZodUN0cllsZ1NKaUkzM0V5T003dkJZMGRPdjFF?=
+ =?utf-8?B?MW01d09CQ051MTZIZ2ZQS1I0T1dRcUdKWTNCUkdrZzR6SFlYUGVmd0Y1N1Nh?=
+ =?utf-8?B?MlJWeEF0ejEzNW1UeHMvUUNTeXZiZXl0bHVCTGlkdWRZQ1pGVjljeXRDZUgy?=
+ =?utf-8?B?ejRBMmNlY3dETUJRbS9kQjNYWmRaSmsrdFp2eXkwbjllNTJRUUhjSHFLZ1JU?=
+ =?utf-8?B?NVU5bHVRT3dKaVRmNy9YZ0lEbHdqQnFYVGNJaWIyWVU3bm5UYzBWUExEeVR4?=
+ =?utf-8?B?Sjk3R2hOSmxtUWkwejJlSVozYnpYL0F3U2NNT3RMODE5Y3ZyNC9SYjUrL281?=
+ =?utf-8?B?MzFGMTU1ZzFQajNGL3Avc0dDZnV3eWk1WVhwWldBYjdkYjNsb1NQRkFtYWVS?=
+ =?utf-8?B?OWNRRC85UGNiVGQrQTcwTXZ3T0JYRDg3b1YzMVBlQmdiNytSM1VJUHFtOHor?=
+ =?utf-8?B?eHJHTTVEeG9ubVFJY3VXYThtS212dnZzTVlYNlBPRk5JL0lZcXNJQ3NJZ3hr?=
+ =?utf-8?B?REE2a1IzSWxIbFpMdEEwOTc0VGkyNndWcXlQYUlMaDRqRFgrLzU2Z3Q4QmNW?=
+ =?utf-8?B?WnVlK3FxVzlybys2ZjliMW1OYjhVSE5uY2pPQ0VmeVc0Z2l5MWVMSHIyWWs1?=
+ =?utf-8?B?NmVKTUUvTmlGTE9MZVFiNk5KVWdmWTRrN0p3ODZpUjhKang5R1dPR3I3K2Fv?=
+ =?utf-8?B?UkxYWURyeU5XTDBUZkdQVC9wOTJ5c0hkQUJ1ZmtxWng4d2dhL0F6VXBlSGs4?=
+ =?utf-8?B?QU1wS0lIK2NxV0o5ZEdmV25NaFBsNVJSekVpNFFaZDJ5dDdpTUE2Q1ZXb0lO?=
+ =?utf-8?B?amNRYzhQNjhhZHJvcFppMEhIRW82N0plMko1QmE1cDk4OHl4Z0R1b3lWWUJE?=
+ =?utf-8?B?TXNzUUEvLzlwOVllRGZXcmpNR09qTElqNWsrSkVRV1NWUDZWTUptK0ZpNkE5?=
+ =?utf-8?B?akRBRktZcXVIUlNXZXN4dk90Z3NyRDBUQWVaSlNqVGhiVXVkOTRIbUU4UU1s?=
+ =?utf-8?B?enRBR3hpeVFhbjUwaHo0c01yVUx3TkswaGhjOWJyeXM1Nm5COE9tSHVtdFVF?=
+ =?utf-8?B?UGdXMEl5QUdMWjR2cFdyYS9kRUdlRUNtVXFoamJ0L3lGd1ZRdjhlSHFVanJV?=
+ =?utf-8?B?ckhXRzdXRmVMV0ZvTFlKZGRkazllOFp2WGd2TDl0VlZKeWdRczd2NklMdGw5?=
+ =?utf-8?B?RDEwQ0FhTk8wNEE3dUxYWWhkWEJCcnNTaXRrSlFJQjRmUlhoQ2FJQnBWVlNI?=
+ =?utf-8?B?UGxjaGxZZ1I1RW9uR3lvcmJGaVFlQlhTa1V6K1B3SDVOUG9YalFkc1k5Zkxa?=
+ =?utf-8?B?eGRrdHgyeFNlanZNdE1rTmdCcjk1ZFhsYTJrMkNHUFJZTXlCOWZhalc1d3FH?=
+ =?utf-8?B?WjJsWVFJQ3dNL3pseGtOME0rMElZWE1uU0NzaEM3aTJrUW9XZ29OS0dwMXlr?=
+ =?utf-8?B?Rll1T1VQOFVGaytpbG14MUVhV0NrYkQxMzJacmZXL3JHTmEyL2FQQ05TQVZ3?=
+ =?utf-8?B?clMrUDRpejJrbldJYVZHKzNEL3Q3anUwUFlyUXZuT0JCOXM5UTlESHovWUFv?=
+ =?utf-8?B?Und0R3YzSmsvekNEZGpNRnZtRDJOYkpXcnJyOE9pWUdRSEl4ODN3ajRkTy9L?=
+ =?utf-8?B?QTN4Y3poNUh2RFNscnhDRVVPQTg0RnFpbWZ2dkNFQzFUNjdlSG02dVYwN1p3?=
+ =?utf-8?B?RTVkQk5ycjIrems1bVJyV2FLNXhVNTY5ejJYVk53NmpEMlhFMjVJK3VMeFpy?=
+ =?utf-8?B?RnRtUkY0aGdZczZXTUhxb1lpb3BqQUVtaEZUU3dJTFNtTUNXdU1iQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d70b4af1-dda5-4d67-046e-08de9bd31d7b
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 16:13:37.2767 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cOrqXxiiYckT9luchbr+Tx76nYGQuk36RQOHnwBr9xrZJODUaPg2qhFMaafawnhPm2AsBVrkfp8Yfn92wt8SAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5624
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,192 +142,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied to drm-misc-next.
+On 4/14/2026 7:54 AM, Eliot Courtney wrote:
+> Push the computation of the falcon data offset into a helper function.
+> The subtraction to create the offset should be checked, and by doing
+> this the check can be folded into the existing check in
+> `falcon_data_ptr`.
+> 
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/vbios.rs | 48 +++++++++++++++++-------------------------
+>  1 file changed, 19 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
+> index 01f65d50cbb3..0c0e0402e715 100644
+> --- a/drivers/gpu/nova-core/vbios.rs
+> +++ b/drivers/gpu/nova-core/vbios.rs
+> @@ -765,33 +765,29 @@ fn get_bit_token(&self, token_id: u8) -> Result<BitToken> {
+>          BitToken::from_id(self, token_id)
+>      }
+>  
+> -    /// Find the Falcon data pointer structure in the [`PciAtBiosImage`].
+> +    /// Find the Falcon data offset from the start of the FWSEC region.
 
-On 4/15/26 13:10, Mario Limonciello wrote:
->
->
-> On 4/15/26 12:11, Lizhi Hou wrote:
->> From: Max Zhen <max.zhen@amd.com>
->>
->> Add support for configuring the hardware scheduler time quantum to
->> improve fairness across concurrent contexts.
->>
->> The scheduler enforces a fixed time slice per context, preventing
->> long-running workloads from monopolizing the device and allowing
->> other contexts to make forward progress.
->>
->> The default time quantum is 30ms and can be configured via the
->> time_quantum_ms module parameter.
->>
->> Signed-off-by: Max Zhen <max.zhen@amd.com>
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->> ---
->>   drivers/accel/amdxdna/aie2_message.c  | 44 +++++++++++++++++++++++++++
->>   drivers/accel/amdxdna/aie2_msg_priv.h | 16 ++++++++++
->>   drivers/accel/amdxdna/aie2_pci.c      |  8 +++++
->>   drivers/accel/amdxdna/aie2_pci.h      |  2 ++
->>   drivers/accel/amdxdna/npu4_regs.c     |  3 +-
->>   5 files changed, 72 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/accel/amdxdna/aie2_message.c 
->> b/drivers/accel/amdxdna/aie2_message.c
->> index e52dc7ea9fc7..976ad6281078 100644
->> --- a/drivers/accel/amdxdna/aie2_message.c
->> +++ b/drivers/accel/amdxdna/aie2_message.c
->> @@ -1200,3 +1200,47 @@ int aie2_query_app_health(struct 
->> amdxdna_dev_hdl *ndev, u32 context_id,
->>       aie2_free_msg_buffer(ndev, buf_size, buf, dma_addr);
->>       return ret;
->>   }
->> +
->> +static int
->> +aie2_runtime_update_ctx_prop(struct amdxdna_dev_hdl *ndev,
->> +                 struct amdxdna_hwctx *ctx, u32 type, u32 value)
->> +{
->> +    DECLARE_AIE_MSG(update_property, MSG_OP_UPDATE_PROPERTY);
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> +    int ret;
->> +
->> +    if (!AIE_FEATURE_ON(&ndev->aie, AIE2_UPDATE_PROPERTY))
->> +        return -EOPNOTSUPP;
->> +
->> +    if (ctx)
->> +        req.context_id = ctx->fw_ctx_id;
->> +    else
->> +        req.context_id = AIE2_UPDATE_PROPERTY_ALL_CTX;
->> +
->> +    req.time_quota_us = value;
->> +    req.type = type;
->> +
->> +    ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
->> +    if (ret) {
->> +        XDNA_ERR(xdna, "%s update property failed, type %d ret %d",
->> +             ctx ? ctx->name : "ctx.all", type, ret);
->> +        return ret;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us)
->> +{
->> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->> +    int ret;
->> +
->> +    ret = aie2_runtime_update_ctx_prop(ndev, NULL, 
->> UPDATE_PROPERTY_TIME_QUOTA, us);
->> +    if (ret == -EOPNOTSUPP) {
->> +        XDNA_DBG(xdna, "update time quota not support, skipped");
->> +        ret = 0;
->> +    } else if (!ret) {
->> +        XDNA_DBG(xdna, "Ctx exec time quantum updated to %u us", us);
->> +    }
->> +    return ret;
->> +}
->> diff --git a/drivers/accel/amdxdna/aie2_msg_priv.h 
->> b/drivers/accel/amdxdna/aie2_msg_priv.h
->> index f18e89a39e35..fc2e99510980 100644
->> --- a/drivers/accel/amdxdna/aie2_msg_priv.h
->> +++ b/drivers/accel/amdxdna/aie2_msg_priv.h
->> @@ -31,6 +31,7 @@ enum aie2_msg_opcode {
->>       MSG_OP_SET_RUNTIME_CONFIG          = 0x10A,
->>       MSG_OP_GET_RUNTIME_CONFIG          = 0x10B,
->>       MSG_OP_REGISTER_ASYNC_EVENT_MSG    = 0x10C,
->> +    MSG_OP_UPDATE_PROPERTY             = 0x113,
->>       MSG_OP_GET_APP_HEALTH              = 0x114,
->>       MSG_OP_MAX_DRV_OPCODE,
->>       MSG_OP_GET_PROTOCOL_VERSION        = 0x301,
->> @@ -503,4 +504,19 @@ struct get_app_health_resp {
->>       __u32 required_buffer_size;
->>       __u32 reserved[7];
->>   } __packed;
->> +
->> +struct update_property_req {
->> +#define UPDATE_PROPERTY_TIME_QUOTA 0
->> +    __u32 type;
->> +#define AIE2_UPDATE_PROPERTY_ALL_CTX    0xFF
->> +    __u8 context_id;
->> +    __u8 reserved[7];
->> +    __u32 time_quota_us;
->> +    __u32 reserved1;
->> +} __packed;
->> +
->> +struct update_property_resp {
->> +    enum aie2_msg_status status;
->> +} __packed;
->> +
->>   #endif /* _AIE2_MSG_PRIV_H_ */
->> diff --git a/drivers/accel/amdxdna/aie2_pci.c 
->> b/drivers/accel/amdxdna/aie2_pci.c
->> index c9c23c889c78..afbe3f8f67ce 100644
->> --- a/drivers/accel/amdxdna/aie2_pci.c
->> +++ b/drivers/accel/amdxdna/aie2_pci.c
->> @@ -33,6 +33,8 @@ static int aie2_max_col = XRS_MAX_COL;
->>   module_param(aie2_max_col, uint, 0600);
->>   MODULE_PARM_DESC(aie2_max_col, "Maximum column could be used");
->>   +#define DEFAULT_TIME_QUANTUM 30000 /* microseconds */
->> +
->>   static char *npu_fw[] = {
->>       "npu_7.sbin",
->>       "npu.sbin"
->> @@ -186,6 +188,12 @@ static int aie2_mgmt_fw_init(struct 
->> amdxdna_dev_hdl *ndev)
->>           return ret;
->>       }
->>   +    ret = aie2_update_prop_time_quota(ndev, DEFAULT_TIME_QUANTUM);
->> +    if (ret) {
->> +        XDNA_ERR(ndev->aie.xdna, "Failed to update execution time 
->> quantum");
->> +        return ret;
->> +    }
->> +
->>       ret = aie2_xdna_reset(ndev);
->>       if (ret) {
->>           XDNA_ERR(ndev->aie.xdna, "Reset firmware failed");
->> diff --git a/drivers/accel/amdxdna/aie2_pci.h 
->> b/drivers/accel/amdxdna/aie2_pci.h
->> index f83deca2b51a..69b53c7bcb86 100644
->> --- a/drivers/accel/amdxdna/aie2_pci.h
->> +++ b/drivers/accel/amdxdna/aie2_pci.h
->> @@ -222,6 +222,7 @@ enum aie2_fw_feature {
->>       AIE2_PREEMPT,
->>       AIE2_TEMPORAL_ONLY,
->>       AIE2_APP_HEALTH,
->> +    AIE2_UPDATE_PROPERTY,
->>       AIE2_FEATURE_MAX
->>   };
->>   @@ -308,6 +309,7 @@ int aie2_sync_bo(struct amdxdna_hwctx *hwctx, 
->> struct amdxdna_sched_job *job,
->>            int (*notify_cb)(void *, void __iomem *, size_t));
->>   int aie2_config_debug_bo(struct amdxdna_hwctx *hwctx, struct 
->> amdxdna_sched_job *job,
->>                int (*notify_cb)(void *, void __iomem *, size_t));
->> +int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us);
->>   void *aie2_alloc_msg_buffer(struct amdxdna_dev_hdl *ndev, u32 *size,
->>                   dma_addr_t *dma_addr);
->>   void aie2_free_msg_buffer(struct amdxdna_dev_hdl *ndev, size_t size,
->> diff --git a/drivers/accel/amdxdna/npu4_regs.c 
->> b/drivers/accel/amdxdna/npu4_regs.c
->> index a3b6df56abd0..6ebf75ad5fb4 100644
->> --- a/drivers/accel/amdxdna/npu4_regs.c
->> +++ b/drivers/accel/amdxdna/npu4_regs.c
->> @@ -93,9 +93,10 @@ const struct dpm_clk_freq npu4_dpm_clk_table[] = {
->>     const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[] = {
->>       { .major = 6, .min_minor = 12 },
->> -    { .features = BIT_U64(AIE2_NPU_COMMAND), .major = 6, .min_minor 
->> = 15 },
->>       { .features = BIT_U64(AIE2_PREEMPT), .major = 6, .min_minor = 
->> 12 },
->>       { .features = BIT_U64(AIE2_TEMPORAL_ONLY), .major = 6, 
->> .min_minor = 12 },
->> +    { .features = BIT_U64(AIE2_NPU_COMMAND), .major = 6, .min_minor 
->> = 15 },
->> +    { .features = BIT_U64(AIE2_UPDATE_PROPERTY), .major = 6, 
->> .min_minor = 15 },
->>       { .features = BIT_U64(AIE2_APP_HEALTH), .major = 6, .min_minor 
->> = 18 },
->>       { .features = AIE2_ALL_FEATURES, .major = 7 },
->>       { 0 }
->
+The comment change is incorrect, this subtraction is just for normalizing.
+It basically normalizes the pointer wrt the PciAt image.
+
+It is only after the following in the caller that we get the true offset
+within the FWSEC.
+            offset -= first_fwsec.base.data.len();
+
+I suggest, let us rename falcon_data_offset() to
+falcon_normalize_fwsec_offset() and update the comment above.
+
+With these changed, please add:
+
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+
+Thanks.
+
+
+>      ///
+> -    /// This is just a 4 byte structure that contains a pointer to the Falcon data in the FWSEC
+> -    /// image.
+> -    fn falcon_data_ptr(&self) -> Result<u32> {
+> +    /// The BIT table contains a 4-byte pointer to the Falcon data. Testing shows this pointer
+> +    /// treats the PCI-AT and FWSEC images as logically contiguous even when an EFI image sits in
+> +    /// between them, so subtract the PCI-AT image size here to convert it to a FWSEC-relative
+> +    /// offset.
+> +    fn falcon_data_offset(&self) -> Result<usize> {
+>          let token = self.get_bit_token(BIT_TOKEN_ID_FALCON_DATA)?;
+> -
+> -        // Make sure we don't go out of bounds
+> -        if usize::from(token.data_offset) + 4 > self.base.data.len() {
+> -            return Err(EINVAL);
+> -        }
+> -
+> -        // read the 4 bytes at the offset specified in the token
+>          let offset = usize::from(token.data_offset);
+> -        let bytes: [u8; 4] = self.base.data[offset..offset + 4].try_into().map_err(|_| {
+> -            dev_err!(self.base.dev, "Failed to convert data slice to array\n");
+> -            EINVAL
+> -        })?;
+>  
+> -        let data_ptr = u32::from_le_bytes(bytes);
+> +        // Read the 4-byte falcon data pointer at the offset specified in the token.
+> +        let data = &self.base.data;
+> +        let (ptr, _) = data
+> +            .get(offset..)
+> +            .and_then(u32::from_bytes_copy_prefix)
+> +            .ok_or(EINVAL)?;
+>  
+> -        if (usize::from_safe_cast(data_ptr)) < self.base.data.len() {
+> -            dev_err!(self.base.dev, "Falcon data pointer out of bounds\n");
+> -            return Err(EINVAL);
+> -        }
+> -
+> -        Ok(data_ptr)
+> +        usize::from_safe_cast(ptr)
+> +            .checked_sub(data.len())
+> +            .ok_or(EINVAL)
+> +            .inspect_err(|_| {
+> +                dev_err!(self.base.dev, "Falcon data pointer out of bounds\n");
+> +            })
+>      }
+>  }
+>  
+> @@ -908,15 +904,9 @@ fn setup_falcon_data(
+>          pci_at_image: &PciAtBiosImage,
+>          first_fwsec: &FwSecBiosBuilder,
+>      ) -> Result {
+> -        let mut offset = usize::from_safe_cast(pci_at_image.falcon_data_ptr()?);
+> +        let mut offset = pci_at_image.falcon_data_offset()?;
+>          let mut pmu_in_first_fwsec = false;
+>  
+> -        // The falcon data pointer assumes that the PciAt and FWSEC images
+> -        // are contiguous in memory. However, testing shows the EFI image sits in
+> -        // between them. So calculate the offset from the end of the PciAt image
+> -        // rather than the start of it. Compensate.
+> -        offset -= pci_at_image.base.data.len();
+> -
+>          // The offset is now from the start of the first Fwsec image, however
+>          // the offset points to a location in the second Fwsec image. Since
+>          // the fwsec images are contiguous, subtract the length of the first Fwsec
+> 
+
