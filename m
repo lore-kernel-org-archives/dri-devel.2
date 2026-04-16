@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2303F8809B
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 07:34:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06DA9F43841
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 07:36:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6512110E82A;
-	Thu, 16 Apr 2026 07:34:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4523010E82C;
+	Thu, 16 Apr 2026 07:36:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="X47SUuTh";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="PScGlPUk";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A354710E82A
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 07:34:38 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5841110E82B
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 07:36:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1776324877;
+ s=mimecast20190719; t=1776325006;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bnlRvzmY75mUjJ7sNAMOXVyw0CFaDzBmi+rJzDRayDM=;
- b=X47SUuThG5yamTsoaLWEMykRM8KPcXmK86lWv2D5fO0py05q8J6i3BAB3TAm1Md5bldgQV
- OmgDB3ByJvKeddto9hxoP8emi4eTEaLiaIlbcR3HRJXqHBSMNpzURUq2AhEPJejLcqtqnF
- QfJS9oEoLCJK+noOskjF4407Yj2ABgo=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=mPMrTm4H8fDxjSoEZyRxfpnrf0F4yH31d3iIteE5eHY=;
+ b=PScGlPUk2xQKzt10lfRPXHKCAEWTavREOZsdvl2xvonCK+IWIQbgu5guFgdOJ2D/agELIF
+ ZJxLTEEMwMHJTLb1v2CAIDl+9QDB6H44xYkFt06nLXyzdQOzd/KaIdngBWitDfBleJg7tM
+ s5/jUAGd0XsZzp9E6/eIYnG6XAwbaU8=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-638-SHU14F5QOSSjc6HW7_Efkg-1; Thu, 16 Apr 2026 03:34:36 -0400
-X-MC-Unique: SHU14F5QOSSjc6HW7_Efkg-1
-X-Mimecast-MFC-AGG-ID: SHU14F5QOSSjc6HW7_Efkg_1776324875
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-43ea728e38cso2458376f8f.2
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 00:34:36 -0700 (PDT)
+ us-mta-433-W6o8spJgNaSOph_IKQAtPA-1; Thu, 16 Apr 2026 03:36:43 -0400
+X-MC-Unique: W6o8spJgNaSOph_IKQAtPA-1
+X-Mimecast-MFC-AGG-ID: W6o8spJgNaSOph_IKQAtPA_1776325002
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-488d3eec9bcso39167675e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 00:36:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776324875; x=1776929675;
+ d=1e100.net; s=20251104; t=1776325002; x=1776929802;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=bnlRvzmY75mUjJ7sNAMOXVyw0CFaDzBmi+rJzDRayDM=;
- b=Y6DsFg09TJujZoPW7xbKehr1xwIteAvRAUDovt+BEeb4Mao9EGDuuxsuMgwPmDLU4H
- kh/HDDGPhEMFwaXHPZTl7foq1OWRypPdMmC0idM1ZWcAVsQdF4AOnOcLPCRdIIL5Gfpv
- Iba8boCjcL1fmKi3pGI5qaApe81wIL5Z0V+/brjgr17rPb/ORadLELO2pjuoz5s58oRu
- QmwTQ/3LYeU/9+KMvlFn4qxXmLqyyWlFAgzx/bTbWqzL5Sf8MmcG/l5A2+rwCVWwL0ok
- fEFTTL5pg2MnaLtXt0GX6UFF9eQbaux4ohK2/1Ighpu2v9YeXFRwLMNijjISaNgI2dY1
- VFSQ==
-X-Gm-Message-State: AOJu0YwNM2lYSc0ECQ8eJG1FIeLhVY9o0qLsXxyrAawsajvrVQu34pZN
- vWyneycdZ6iComaSDwIOBmEBeHg3+OF3XVIRHj+AsB0WHqwvC/Hlt9PWvLVbu4BSCc5eXZ0PUHB
- YYqz2IZq/9VGh/gl6EaiAcHGZ8DmxF9iA940TCmBEQ3HMGs45qltu9UV/JbiL/f2z8rK6zg==
-X-Gm-Gg: AeBDieueKRwz4Xy6iWDKxVgwkdVE51pFudT6hgHVMYYduWRUYeWcyiKu+5dCui2mr98
- 6z5cg3ngNeCJE9u9cKWt5JLgRLgrLPyD0363/reC20BkxWOJ/Ru047CI9KThKl/dAXRw4yLnyMr
- fbfr/59H5ZZxenl9XNTULOnG7uaqct50dIi4iqGvRR9dsPty8HVXDHV+vCAcr6m8Bs2vZPj40w9
- R9SwSs3r16I4hkHlGQboSOqsEnOs+D4ikc3rxS0urtcfxRGzjiu8Ly7pu7k07+c8dsfH3ZtJGTt
- 6kIOiQu9nZhmFzKiMz200zuYKn4Aggkut7ZTR4Bu1s0ZP20ymBA8MIc7+0eih7tTA63Xd9M6Iv+
- 2UO2mKiOWtPEfgyiJH6X0DO0tCewP5//r0kGBfGAv6mPqzKvogadHQR7wAN/e8Q==
-X-Received: by 2002:a05:6000:144c:b0:43d:761e:e57a with SMTP id
- ffacd0b85a97d-43d761ee6dbmr25932016f8f.1.1776324875049; 
- Thu, 16 Apr 2026 00:34:35 -0700 (PDT)
-X-Received: by 2002:a05:6000:144c:b0:43d:761e:e57a with SMTP id
- ffacd0b85a97d-43d761ee6dbmr25931953f8f.1.1776324874516; 
- Thu, 16 Apr 2026 00:34:34 -0700 (PDT)
+ bh=mPMrTm4H8fDxjSoEZyRxfpnrf0F4yH31d3iIteE5eHY=;
+ b=YORT/DTUC3KDJ1rD6FOIrGaDuo3dxaTjkYTYU9dInuK/Iz4PxdYRaXDXzkwbg8hLVN
+ BCHrGSZIcRKAPJ7sEe8ylh5A9qPyYRvLNpDEDzcArgGhX6sPUVn5isFX8sFMRfb0lOsG
+ PbloHn3URbecfst9RbD4+J7thjwugmo5rjA8wP0Ijh5tA5Dqlqlu4yWco2lbPTJ2DCjn
+ okNm+DT0CTEvElTQUrkAXLqJY0G6KBDamdjd8GEqgTr6Rqc/E5wjRpfK9gZiSJkPcrr7
+ 9ue+BdM86WvO93MDZxMK4lah4G71FWjI21d6lbqcjnjgKA06pdffrGAg89PduPYyfcU5
+ 6geQ==
+X-Gm-Message-State: AOJu0Yz6KSh0eAc7i/T1ykyxI8+iYPCYRCmo9wBxa/XzSbdv3bFf6t2h
+ jTt6HfSGETWQdeHtFCRT2dmFmb8othBEPUR70uHt6mjWj9Sj5DvRnNGMaE2WmYTva8S6op7qorU
+ /6c4vppZs9GCcb2HmAArprfxAE3Xv8gD62olWggcq0fzlOPRlN3eYbABkMDs135QeIRfM2Q==
+X-Gm-Gg: AeBDieuQvRpgLCb16YiLbg1gfgk67xH2zrUHnyp1fzsczt7x8gXzVcBojfkhbEtXDYQ
+ 2hJMNt/qA39mb/UAQJk0IHwNtfQpE8/sdvsyhUTurpXnasEHTCR4Du0QHfXNXFy84GtGYJkvWAD
+ B51YGyYEyROYWetbjVG050peET7mAtoCryLZt5KvZOHQ6igOZMyEgWHJBFYkTjRgSghcs3jm9TN
+ Xa0mqGrHaadLDir+kc/gDz3VnWmgo62ZKd8SW2jRI7ARMGY80TgmH2mVlVcmArN1ZTivKvgMl3r
+ 4nYYQVLqQyTUMo0plpGy0e+DezoxD9naYQk5M3D1iS+sp4erlr7ciDyJVdYOtzraCEsEh8CyJOx
+ CM96MCXgAmDPtztCExywjmZM5j3qnzgt8biEtv0pPQz5uNz+PiaCvH9vmT+ckCQ==
+X-Received: by 2002:a05:600c:c0da:b0:487:1fc:14f9 with SMTP id
+ 5b1f17b1804b1-488d685b7c9mr291569895e9.15.1776325001802; 
+ Thu, 16 Apr 2026 00:36:41 -0700 (PDT)
+X-Received: by 2002:a05:600c:c0da:b0:487:1fc:14f9 with SMTP id
+ 5b1f17b1804b1-488d685b7c9mr291569565e9.15.1776325001369; 
+ Thu, 16 Apr 2026 00:36:41 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:c:37e0:8998:e0cf:68cc:1b62?
  ([2a01:e0a:c:37e0:8998:e0cf:68cc:1b62])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43ead3f92f4sm9751836f8f.34.2026.04.16.00.34.33
+ ffacd0b85a97d-43ead3e89ddsm10929137f8f.30.2026.04.16.00.36.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 00:34:34 -0700 (PDT)
-Message-ID: <99d0ae68-9168-4c1c-ac72-993f650e5dd9@redhat.com>
-Date: Thu, 16 Apr 2026 09:34:32 +0200
+ Thu, 16 Apr 2026 00:36:40 -0700 (PDT)
+Message-ID: <c7fec90f-79f2-4929-9a95-3598bf9a1fc3@redhat.com>
+Date: Thu, 16 Apr 2026 09:36:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] drm/mgag200: Simplify offset calculation
+Subject: Re: [PATCH 4/6] drm/mgag200: g200se: Set hiprilvl from DRM format
 To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@redhat.com,
  maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
  airlied@gmail.com
 Cc: dri-devel@lists.freedesktop.org
 References: <20260415152625.101710-1-tzimmermann@suse.de>
- <20260415152625.101710-4-tzimmermann@suse.de>
+ <20260415152625.101710-5-tzimmermann@suse.de>
 From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260415152625.101710-4-tzimmermann@suse.de>
+In-Reply-To: <20260415152625.101710-5-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 7mkWlyRn9Fo9Y6LXn1XVuHT1oTR8sOxcP1j1JUOarUo_1776324875
+X-Mimecast-MFC-PROC-ID: APW6PjiVYNLdwqJqrnevZSGT59q5uyr39zXNG0iKWes_1776325002
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -104,68 +104,46 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 15/04/2026 17:23, Thomas Zimmermann wrote:
-> The offset value sets the distance in bytes between two consecutive
-> scanlines. Reduce the calculation to the minimum.
+> Replace the deprecated cpp field from struct drm_format_info with the
+> format's 4CC code when setting the hiprilvl field in CRTCEXT6.
 > 
-> According to the Matrox programming manual, Sec 4.6.5, the offset
-> is the scanline pitch in bits divided by 128. The field pitches[0] in
-> struct drm_framebuffer stores the scanline pitch in bytes, so we have
-> to divide by 16 only. Reducing the existing bpp-shift look-up and
-> offset calculations also returns exactly this for all formats.
-> 
-I've sent a similar patch a few years ago with:
-https://patchwork.freedesktop.org/patch/531878/?series=116381&rev=1
+> Using a bpp of 32 for RGB888 is a bit dubious, but we keep it for now
+> to avoid changing behavior. Otherwise, bpp could also be retrieved by
+> calling drm_format_info_bpp().
 
-So that looks good to me.
+Thanks, it looks good to me.
 
 Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-
+> 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/mgag200/mgag200_mode.c | 28 +-------------------------
->   1 file changed, 1 insertion(+), 27 deletions(-)
+>   drivers/gpu/drm/mgag200/mgag200_g200se.c | 12 +++++++++---
+>   1 file changed, 9 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/mgag200/mgag200_mode.c b/drivers/gpu/drm/mgag200/mgag200_mode.c
-> index 5b526aebaeb8..57c9f731a4bf 100644
-> --- a/drivers/gpu/drm/mgag200/mgag200_mode.c
-> +++ b/drivers/gpu/drm/mgag200/mgag200_mode.c
-> @@ -298,37 +298,11 @@ void mgag200_set_mode_regs(struct mga_device *mdev, const struct drm_display_mod
->   	WREG8(MGA_MISC_OUT, misc);
->   }
+> diff --git a/drivers/gpu/drm/mgag200/mgag200_g200se.c b/drivers/gpu/drm/mgag200/mgag200_g200se.c
+> index a0ac19ee0353..746ce11b75fb 100644
+> --- a/drivers/gpu/drm/mgag200/mgag200_g200se.c
+> +++ b/drivers/gpu/drm/mgag200/mgag200_g200se.c
+> @@ -76,12 +76,18 @@ static void mgag200_g200se_set_hiprilvl(struct mga_device *mdev,
+>   		unsigned int bpp;
+>   		unsigned long mb;
 >   
-> -static u8 mgag200_get_bpp_shift(const struct drm_format_info *format)
-> -{
-> -	static const u8 bpp_shift[] = {0, 1, 0, 2};
-> -
-> -	return bpp_shift[format->cpp[0] - 1];
-> -}
-> -
-> -/*
-> - * Calculates the HW offset value from the framebuffer's pitch. The
-> - * offset is a multiple of the pixel size and depends on the display
-> - * format.
-> - */
-> -static u32 mgag200_calculate_offset(struct mga_device *mdev,
-> -				    const struct drm_framebuffer *fb)
-> -{
-> -	u32 offset = fb->pitches[0] / fb->format->cpp[0];
-> -	u8 bppshift = mgag200_get_bpp_shift(fb->format);
-> -
-> -	if (fb->format->cpp[0] * 8 == 24)
-> -		offset = (offset * 3) >> (4 - bppshift);
-> -	else
-> -		offset = offset >> (4 - bppshift);
-> -
-> -	return offset;
-> -}
-> -
->   static void mgag200_set_offset(struct mga_device *mdev,
->   			       const struct drm_framebuffer *fb)
->   {
->   	u8 crtc13, crtcext0;
-> -	u32 offset = mgag200_calculate_offset(mdev, fb);
-> +	u32 offset = fb->pitches[0] / 16;
+> -		if (format->cpp[0] * 8 > 16)
+> +		switch (format->format) {
+> +		case DRM_FORMAT_XRGB8888:
+> +		case DRM_FORMAT_RGB888:
+>   			bpp = 32;
+> -		else if (format->cpp[0] * 8 > 8)
+> +			break;
+> +		case DRM_FORMAT_RGB565:
+>   			bpp = 16;
+> -		else
+> +			break;
+> +		case DRM_FORMAT_C8:
+>   			bpp = 8;
+> +			break;
+> +		}
 >   
->   	RREG_ECRT(0, crtcext0);
->   
+>   		mb = (mode->clock * bpp) / 1000;
+>   		if (mb > 3100)
 
