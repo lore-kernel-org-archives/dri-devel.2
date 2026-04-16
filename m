@@ -4,128 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AAA1F8D760
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 16:14:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC4E2F8D761
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 16:14:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA50110E8DB;
-	Thu, 16 Apr 2026 16:13:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C63610E8EC;
+	Thu, 16 Apr 2026 16:14:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B9LxP3ag";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="UBxyPG63";
 	dkim-atps=neutral
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DA6410E8DB
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 16:13:58 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-7982c3b7da9so80794127b3.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:13:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776356037; x=1776960837; darn=lists.freedesktop.org;
- h=in-reply-to:autocrypt:from:content-language:references:cc:to
- :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=aKeq+ClKB8J3uZixIAuda8HLzZ03MqGpWTD3Q1TgjH8=;
- b=B9LxP3agUszUtBJcQYDOHFOYvCXzWelo2GalDyD1llqFHr5TzGLcbABYIvSvJ/OC9B
- 8gX5A2kZAN5TyeOZBSZNU77L1ZHkn9CAvdCL2pdim4/wJ5Z99wRbc/mUTfxUCgrPHUHn
- UjK/Ngk9BGgmIogmnj3VTY/N5Mv5crdqqjkHLHTPF+tr78Ozy+qtrUzlhMGt4vBoF8Th
- ATxrDDruK7ooyrbbGWfXTm5qkbO2Fjn10GPqjzgu/YFbfMxHLC0RIJcacEPMzJTJzmXK
- L5iEXNbnnKe5djOjTggUQnX4vsnJ7AZNQWpYelJw6wllGXFuqQzxhqPsWHejSi1i0ZrG
- irqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776356037; x=1776960837;
- h=in-reply-to:autocrypt:from:content-language:references:cc:to
- :subject:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aKeq+ClKB8J3uZixIAuda8HLzZ03MqGpWTD3Q1TgjH8=;
- b=mT7ljbml0vgvHxvboBeH5AcesgOqRYW4YQ9MceRk5b5/kHc5e9FoNDtmT3onMDAUdK
- KhF4CozvKhSBX/0inWEFTNzSaW6lMGF+2fyOitMOhCacylnOljTBPLS2BE5VP+tC+M1z
- /j6AMD+MUE/HGh0Kuppj6yeJLdIs37JyQB0szYmV0EIJOQgelLdFpmIWRAMTUEZh40Dp
- OsdmtCJ9kCe+cAhNyDomBeBj5bBFSfohJ3C23dh+KT2K5R8j2FuVwkc+V7WCqrmMNyoQ
- 5ZEzStq0FW637qOueKFn72n7GcyRyrvqiCZ+oWtFguXpWtx7OwZBRcppmcyo0/Wi2oBU
- WMCQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+ef9z5u46oBewqo5ZECPuR3QimufQIwQ5EQnKz7YepOvpZB5gmy3P3nk3RTFUluYdB6l0+jhB5e+Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzSR+GNg2nijd52cgX1oYuf9uSqIlBY+qt0kE+mOziMWVRvjCZ/
- BIMcdbgAOuyW55o3HwjLZYh5sTMQo9hMQJHyKTRPbhMoJGuH/1YxJEeAhUhpMw==
-X-Gm-Gg: AeBDiesiYl/XxVAtCeDoiod0F15tjOuMvfm13Y7VDYUWm5qa7WRbLsLxBAXloR6oK0O
- NOdZJLtpHnXpFd0Bsi4L83SiO3xnji9yQGPm+gP8M6kwFjodwOkdRlPbczkjIarHV+MTClvTPpW
- 3BzXF2YKN9Sq8P3zBRFtw1TRrTcSoyRHz4sYG230cqmUxOZPGdd4cD/ZUJDY96f1ijmy2OvrC9X
- wb9aG/ZW6zVqOkHSB6rAV2arcmjQSIdzJ/r+I20lkpHEv0R3BsDF3JHXVaik1B4Iu2rVnlP9lu7
- 9BwAQWLxBumWY42BXU63OXRwpQXCXfyyqlSA/acsrNFtGUQ1HVU1HKgeMgqXnY/S3OfK7CIK4yY
- veSXLcn2nv5xaZbNc1uGnRE3KFX0YvhDzYuEq66meEyB/uxGpcLdjBDXzNMazNGd6OW2Q5ozspx
- TaQSyMZS8M5BMNY9Ims+KzE851sagMLBmI+cUSCtQk8pjcuqkpv5+DzlREV5cXEq3MdchCbG+af
- wBTmw4/zuVcazwmy6fg57L6NvK5ufDt7rd7I5ovKZz0f5E=
-X-Received: by 2002:a05:690c:ec5:b0:7b1:d1af:4b95 with SMTP id
- 00721157ae682-7b1d1af5e2amr226110517b3.45.1776356036969; 
- Thu, 16 Apr 2026 09:13:56 -0700 (PDT)
-Received: from [10.138.34.110]
- (h96-60-57-129.cncrtn.broadband.dynamic.tds.net. [96.60.57.129])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-7b766216908sm26399407b3.8.2026.04.16.09.13.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 09:13:56 -0700 (PDT)
-Message-ID: <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
-Date: Thu, 16 Apr 2026 12:13:34 -0400
-MIME-Version: 1.0
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011048.outbound.protection.outlook.com [52.101.62.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49D9D10E8EC
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 16:14:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=zDsdpRbwYDpUAruaeQde+dLDiY5OGJYnOtuxowRnp3vRgKqa07xlfhXQwvm1PCKwsmQJsMiGGaNenQKkcxAXhPycHJZ9pbKmpKVH83SXPkjxme1a203Pid7uvjJnaUICsrTmwysA//T0ERwVQkykUKqcsUEHmsdQVUo0Lu8radDnmKM8u2FYVzNg+hKC5KnmMG86bAMdqZHPp+B47NXIxyqn1bNyhB3d2aqtp67dCT0SYbxa2XWqx9OOsBRQVWei0uiJMTPPNCyO4PABMeTa5hWAA4rbtWQc9iOc1z6mFLoibREIuEHcD88cNwQKBnWfuYMmYCKAg6POxhq+GjRf7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SpCkr/gEm+RifmZpreE22SvbH9SaeHdRcjMA2u8P+CI=;
+ b=l5B7/dDbs8NjQ9BYR18EDtHzqyrqtd4cYWoeu3XxXxEVbADPnvW/QDpxp4im0UcPNIljJslZ6ZTuYpXemEzV0VQk6f/Mxmf4TXNL06NKTFQsm/85bG5ixxWqwK327j0Nl+bKEXPsFWcllxNi1lKAuuXBpgnPXdDWJcXNDulLgwbu3e8A+iAD/uxuVC7vQzhUTQid8oaPlTQIaCOYnVTCX5HIZICFKpM1BzrJACqdFJ3ikYmDEP1RL4jgO4afMjMrBjGRroHVFcoqcDnKE1dMtwihe0eQMdX7K4As2G/5j9pNJo2IzWiULRPaNip4B14elH7Z8GATIIrEcwHqHeRLxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SpCkr/gEm+RifmZpreE22SvbH9SaeHdRcjMA2u8P+CI=;
+ b=UBxyPG63nJE2TIuSLAow4qW8zs+uS7Jep23iPMCKgY9Klqh6i9gK2aecRFwsIHyPteaT1GxklJa8z7VICW51fchJcTkm9WdkqFsEEAmVSsvJp2fkdMvHBa4Xk5UHlRjLh6HMIhwowQRBNMMQLBPcuKk5PTRambq8+XHqSvyvYXD+FJM+XvCdVKsI+YunZOwXxTLW0++NgUV0pxj1YbKdSXUOfZrgsAjiw2uyjju0LJ8hw2/OkSyKm6EtZ0//lgORE7IXyS6X5PH8rSPSx2kne43wx19DLZJfy9YHSa9bBQ09nJkWTbde8z/ooUYF/TzameC0RD8uz1MtGnN2Vsxe7Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ DS7PR12MB6142.namprd12.prod.outlook.com (2603:10b6:8:9a::11) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9818.20; Thu, 16 Apr 2026 16:14:09 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
+ 16:14:09 +0000
+Message-ID: <a0f1d610-92e0-4cbf-ba15-0bc3ae8614ef@nvidia.com>
+Date: Thu, 16 Apr 2026 12:14:07 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- linux-media@vger.kernel.org
-Cc: Val Packett <val@invisiblethingslab.com>,
- Suwit Semal <sumit.semwal@linaro.org>
-References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
- <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+Subject: Re: [PATCH v2 06/11] gpu: nova-core: vbios: drop unused
+ falcon_data_offset from FwSecBiosBuilder
+To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
+ <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
+ Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260414-fix-vbios-v2-0-705d30d16bba@nvidia.com>
+ <20260414-fix-vbios-v2-6-705d30d16bba@nvidia.com>
 Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
- aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
- Z7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/UorR+FaSuVwT7rqzGrTlscnT
- DlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7MMPCJwI8JpPlBedRpe9tfVyfu3euTPLPx
- wcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9Hzx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR
- 6h3nBc3eyuZ+q62HS1pJ5EvUT1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl
- 5FMWo8TCniHynNXsBtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2
- Bkg1b//r6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
- 9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nSm9BBff0N
- m0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQABzTxEZW1pIE1hcmll
- IE9iZW5vdXIgKGxvdmVyIG9mIGNvZGluZykgPGRlbWlvYmVub3VyQGdtYWlsLmNvbT7CwXgE
- EwECACIFAlp+A0oCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJELKItV//nCLBhr8Q
- AK/xrb4wyi71xII2hkFBpT59ObLN+32FQT7R3lbZRjVFjc6yMUjOb1H/hJVxx+yo5gsSj5LS
- 9AwggioUSrcUKldfA/PKKai2mzTlUDxTcF3vKx6iMXKA6AqwAw4B57ZEJoMM6egm57TV19kz
- PMc879NV2nc6+elaKl+/kbVeD3qvBuEwsTe2Do3HAAdrfUG/j9erwIk6gha/Hp9yZlCnPTX+
- VK+xifQqt8RtMqS5R/S8z0msJMI/ajNU03kFjOpqrYziv6OZLJ5cuKb3bZU5aoaRQRDzkFIR
- 6aqtFLTohTo20QywXwRa39uFaOT/0YMpNyel0kdOszFOykTEGI2u+kja35g9TkH90kkBTG+a
- EWttIht0Hy6YFmwjcAxisSakBuHnHuMSOiyRQLu43ej2+mDWgItLZ48Mu0C3IG1seeQDjEYP
- tqvyZ6bGkf2Vj+L6wLoLLIhRZxQOedqArIk/Sb2SzQYuxN44IDRt+3ZcDqsPppoKcxSyd1Ny
- 2tpvjYJXlfKmOYLhTWs8nwlAlSHX/c/jz/ywwf7eSvGknToo1Y0VpRtoxMaKW1nvH0OeCSVJ
- itfRP7YbiRVc2aNqWPCSgtqHAuVraBRbAFLKh9d2rKFB3BmynTUpc1BQLJP8+D5oNyb8Ts4x
- Xd3iV/uD8JLGJfYZIR7oGWFLP4uZ3tkneDfYzsFNBFp+A0oBEAC9ynZI9LU+uJkMeEJeJyQ/
- 8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd8xD57ue0eB47bcJv
- VqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPpI4gfUbVEIEQuqdqQyO4GAe+M
- kD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalql1/iSyv1WYeC1OAs+2BLOAT2NEggSiVO
- txEfgewsQtCWi8H1SoirakIfo45Hz0tk/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJ
- riwoaRIS8N2C8/nEM53jb1sH0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcN
- fRAIUrNlatj9TxwivQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6
- dCxN0GNAORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
- rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog2LNtcyCj
- kTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZAgrrnNz0iZG2DVx46
- x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJELKItV//nCLBwNIP/AiIHE8b
- oIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwjjVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGj
- gn0TPtsGzelyQHipaUzEyrsceUGWYoKXYyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8fr
- RHnJdBcjf112PzQSdKC6kqU0Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2
- E0rW4tBtDAn2HkT9uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHM
- OBvy3EhzfAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
- Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVssZ/rYZ9+5
- 1yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aWemLLszcYz/u3XnbO
- vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
- HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------fKtr6APMKplfqUUUg4ENHwUG"
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20260414-fix-vbios-v2-6-705d30d16bba@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CY8PR22CA0003.namprd22.prod.outlook.com
+ (2603:10b6:930:45::8) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DS7PR12MB6142:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36b511b0-13f3-442b-ba0c-08de9bd330fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: k2vayuolAybKr2P0Gvpkxla3sUuXmwzXvCNZCPmNGpx6skEJUhrgjMVqdvuuzAoXkgsD6E0WYvV5ele0fs1Ck/ukd28Z6ZrROlwyKW/zr+oqsT4/inxt5up6JH07kRL5ZA/KGxwJnLMDA1dHc6bztOouIECw1JF+U013bGVKxPQTNgU4NKwZIVzFcy/iqVNNBlRzdK0tSbqr0JvmmSQDXIxdW6BGxkzEhKvwr1BWNVq+VQCgU+59+L6/mN7Zd4XeuzQNwa2CKYcidC8DG/TrXkPduSBYdMge/E2p3M/Ws/jsEAdzvCB04fMZv6FslVja5Z0Ea8jwFln+XqneazppfdotlFG4pOBmjqqkO2GuZvYHyaBjNS7r8NDO5+3pE57myLFDI/5jZND2Srnw8ciaKezSSeu5ILNEvd8AgarV0ohQGQmAwKOIdFqkRbp4EZP7Dgdq7y8T4oyCZFELUOMwvHB/poV3uQ8v1WjCMw8vaTg6KU3tX1dL52vbXCXqnfQ/qoidFaKcLj9MHilS+8vxk4yaR4vKFwYEptXDKwceonNwkh7Xt8Si2/VyYUe0F1lUkz9grnmpLIR+dsfFOSsgsZFzafJn9wj5KPBlMky+LSpGbjAPg+jcuPx+4QANaGYNl+/dptPWl7ag2v0Q2t4+M2T9JZiAXZA4fw4uCAMjwQtYiiw8FZAhUz21iod1QVZkg0dBg4Rcc5EMfKUDUBCORt2xWjWXT42QJGxFC1VP0pQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cGhFYnRaOXRwc29SM1F0QXp1NkUzU3d2alQzZE1PTlBFNlgxNXlOYkhPcVA3?=
+ =?utf-8?B?ODhBQk91eXBxSXU4NkNMeGt5Z0NlYjBGT01BVG9yVVZxTFdtN0V6Zml0T0Nr?=
+ =?utf-8?B?Q2kzbjMvTFhiMmhHZVVVNjdLeUJhcnBucXAvOHdiRXpScXdIYTk2bE9ETHdw?=
+ =?utf-8?B?bDlsMUJkZDNxUWk0TnlFRjlvNzNSZVM0SlEvL1BMOUpBdGU0UG5Mdmowcnlv?=
+ =?utf-8?B?MkxnOHRrbzdLWWN1Zkw3ZDBuRlJrR3BGQ1p3NDJsdDZQTnVNeGdYdDJmT3Np?=
+ =?utf-8?B?UGt6Z0p6MjJyd2R4Q3NEY2hFbnk5T2ZjU3NKMXVpSUVaUnZwVkFtL3hBRWRW?=
+ =?utf-8?B?TkNYeFF5ZU1lTHZyU2p5SkdDNkpkRUNsYUgzaDFPM08rZHUzOEx5Qmh2UVIz?=
+ =?utf-8?B?K09ITnRIMlQvcXA2NUZEa2tzc2k1VWlVdWVWZHdna08zOU9zc1NCakFlb1kr?=
+ =?utf-8?B?TzYxS2F0TFRTemxCKzNUWitzNTBJeWJCSTdUSDZLUVJWRWdTQkhSQlpvZGhR?=
+ =?utf-8?B?MjlEa2wrNGZ4SlFNUUlPcForMUtFcmVHOTlFeDJ4bnNNTUtJa25IVFFPNnRR?=
+ =?utf-8?B?R3RsZXNkbHZRMUQ5VkdGWk5ENTA4ajhOWDRGT3k4enRpeTd3bFVQOXR3MUt0?=
+ =?utf-8?B?dFZiUjNYcXdkVTlpTnRFM3Y0QlV0NEZIalgyc29KR3p5Q0pWdm5COUtlV3FH?=
+ =?utf-8?B?alU2TWxkeWd3OUlWVjBBRUQzYmhWbSsreWVTQWw2L0dQcThBVFI3UGlPUWc2?=
+ =?utf-8?B?cFZFK3FXUkkyeTBRRFBZQ3p0NkJSUlcrNWhDTjBaN1gybUNOcDJQR2d6bUxT?=
+ =?utf-8?B?ZFNMbHZ5MHFsN1ZCbjBFeldDQWY2eE9aeDRRYUFtU3JHYVp0dVVHeWhZZk5N?=
+ =?utf-8?B?dU1hZXlGaDRlaTNIVzE1bEN5Y0FQWSt4ZXN5TG81M1J3NEprSkJDMmRJS2da?=
+ =?utf-8?B?VGN6U2pDUk43a29ZZ3lWYVVKS0N3MndIN3pCUHZqb2diWENVZWZJMVl1eUo2?=
+ =?utf-8?B?QmhJVk1udlMxS09jMDVrWkhiSDhYUmpMWmduNm9jbHpXTnRUdXdnZ3orV1I5?=
+ =?utf-8?B?aFRlRGhCbmN5dG04NE84RnhhbGVYT0EyZDJMbWlxMDZ5U2VNVDRvY1JnSjhV?=
+ =?utf-8?B?c09kbS9PdzA3K3pRZm1SVGJNQitpVFBqL1VjSzBVenFKdXhJblJ5SHdITGUx?=
+ =?utf-8?B?azBNVlIrQW1RMTV5MUFBZzNYUVdTajFweVNodG1zbHRpSCtKY1ZrbUkvZFpX?=
+ =?utf-8?B?dEgyTHFpOCt4WGZwWExMSjNzQ0ZKYVprSE1ra3c4VkdpVnZJRmZqVHBPSVhF?=
+ =?utf-8?B?WGFOOXZWa2lSMDFwQmFBYWthblZpbXI0M3hlVjVxUjRnNUFBWVc1RHBaZ3NC?=
+ =?utf-8?B?K0RqM25NdC93SGhseTJvUVFGM3hPWFF4aHlHVlJtWE9wUmRyNkZFcy9lZURN?=
+ =?utf-8?B?STZqM1ZWb1hZM0RTOGV1RElKNHlGRk9jU2FLdU1NWTJzWEJBZTZxc0R2aUlF?=
+ =?utf-8?B?bzI2RzZjUHlPR0lyVUFDWjYzQWxicXlRZFA3bnZ2dDIzVVBjTVBtRnA3bjN1?=
+ =?utf-8?B?d3ZyVFR1bEJJZzluWngvSlNZRzZqMUVKWWJIV2RQNVFqUnlreTdWQzVxZDg5?=
+ =?utf-8?B?MTJIOU8xUjQ2QkFoZGZ2eDEycXRZcG9TVkc1NGllRjE0ejZlNDJwNmhTSkZ4?=
+ =?utf-8?B?aUd0TEVid1VLaGNrYUxSSytycTFoV29qK3pGQWQ4b3N6eW0weERKQkRibHIz?=
+ =?utf-8?B?QTdVSVpMZGZlNGtGcC8ySXhsUEJXTWFBMmc4RkZvZ01LZXpFWHdiOWxTRWRi?=
+ =?utf-8?B?KzhCTGdtVjVQdW1jYjZMQXNRay9kenFEUkh6YzN6cVVmcVZBZ3U4MndSdHlE?=
+ =?utf-8?B?OGZZVWx0bGhCQ0ZFWisrWXh3NmhjR1RVY2VUVzUyd0FjQk1JRFFUSTVwSWFX?=
+ =?utf-8?B?NWVjcFRSZVVFdnFXa1ZUY1Q1WkdlM0taejV4bnZJNTluVlp6R2FrdW1JRm9Q?=
+ =?utf-8?B?TEVGb3hlK045d2xOUTRHUjBYUEhRN0cydkFqTlIveEVtZDVaN2YrZTVFTGhU?=
+ =?utf-8?B?WnY2aWZ3UGQ5dHFJVWFDaUE3UHYrSHVVZ3ZyZ1VabC8rZk1ENGp6UUJKakRD?=
+ =?utf-8?B?RVg5U3lpK005c3NXRzA3ODZLbjdMSVpDenE5VWZ0bW4zOVBSUTFrcWdwNzVK?=
+ =?utf-8?B?VzlaeStuaTNSREQ0YzIxRm1GMUdLRHg1dUJzY3pFaFMwYWwvTExiUzR1Y2dT?=
+ =?utf-8?B?SEJ0RVhsOGtFSGlIaGhpb3ZGblhtcXV2VC90cGo5OWtJNUlFc3hGOW0yWGwx?=
+ =?utf-8?B?QkZYVS8vakx4c1ExZ1BZWFhNRnRsSitTV0VTSkVLZlkwRjhDWXMzZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36b511b0-13f3-442b-ba0c-08de9bd330fe
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 16:14:09.7151 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ljlCEUE3vgNqGfZ2M/75goHJ+A6HITO5A3A08gSe8WFqUfEnOwiCdKoxR2tLZlMZd/BBYB/viHdKj88n8og3Vg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6142
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,274 +142,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------fKtr6APMKplfqUUUg4ENHwUG
-Content-Type: multipart/mixed; boundary="------------FoCuIYfAKM7AmMdOnB0smfE5";
- protected-headers="v1"
-Message-ID: <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
-Date: Thu, 16 Apr 2026 12:13:34 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- linux-media@vger.kernel.org
-Cc: Val Packett <val@invisiblethingslab.com>,
- Suwit Semal <sumit.semwal@linaro.org>
-References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
- <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
 
---------------FoCuIYfAKM7AmMdOnB0smfE5
-Content-Type: multipart/mixed; boundary="------------OSrLV2efYOWdGoySTNAye0Q0"
 
---------------OSrLV2efYOWdGoySTNAye0Q0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On 4/14/2026 7:54 AM, Eliot Courtney wrote:
+> This is unused, so we can remove it.
+> 
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-On 4/16/26 05:57, Christian K=C3=B6nig wrote:
-> On 4/16/26 01:27, Demi Marie Obenour wrote:
->> Is it safe to assume that if a dmabuf exporter cannot handle
->> non-revocable, pinned importers, it will fail the import?  Or is
->> using dma_buf_pin() unsafe if one does not know the exporter?
->=20
-> Neither.
->=20
-> dma_buf_pin() makes sure that the importer doesn't get any invalidation=
- notifications because the exporter moves the backing store of the buffer=
- around for memory management.
->=20
-> But what is still possible is that the exporter is hot removed, in whic=
-h case the importer should basically terminate it's DMA operation as soon=
- as possible.
->=20
-> GPU drivers usually reject pin requests to VRAM from DMA-buf importers =
-when that isn't restricted by cgroups for example, because that can other=
-wise easily result in a deny of service.
->=20
-> Amdgpu only recently started to allow pinning into VRAM to support RDMA=
- without ODP (I think it was ODP, but could be that I mixed up the RDMA t=
-hree letter code for that feature).
->=20
->> For context, Xen grant tables do not support revocation.  One can ask
->> the guest to unmap the grants, but if the guest doesn't obey the only
->> recourse is to ungracefully kill it.  They also do not support page
->> faults, so the pages must be pinned.  Right now, grant tables don't
->> support PCI BAR mappings, but that's fixable.
->=20
-> That sounds like an use case for the DMA-buf pin interface.
->=20
->> How badly is this going to break with dGPU VRAM, if at all?  I know
->> that AMDGPU has a fallback when the BAR isn't mappable.  What about
->> other drivers?  Supporting page faults the way KVM does is going to
->> be extremely hard, so pinned mappings and DMA transfers are vastly
->> preferable.
->=20
-> Well if you only want to share a fixed amount of VRAM then that is pret=
-ty much ok.
->=20
-> But when the client VM can trigger pinning on demand without any limita=
-tion you can pretty easily have deny of service against the host. That is=
- usually a rather bad idea.
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
 
-Is there a reasonable way to choose such an amount?  Unless I am
-mistaken, client workloads are highly non-uniform: a single game or
-compute job might well use more VRAM than every other program on the
-system combined.  Are these workloads impossible to make work well
-with pinning?
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------OSrLV2efYOWdGoySTNAye0Q0
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Thanks.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-YXJpZSBPYmVub3VyIChJVEwgRW1haWwgS2V5KSA8ZGVtaUBpbnZpc2libGV0aGlu
-Z3NsYWIuY29tPsLBjgQTAQgAOBYhBHaHTZ8TNroiWQcccbKItV//nCLBBQJgOEV+
-AhsDBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJELKItV//nCLBKwoP/1WSnFdv
-SAD0g7fD0WlF+oi7ISFT7oqJnchFLOwVHK4Jg0e4hGn1ekWsF3Ha5tFLh4V/7UUu
-obYJpTfBAA2CckspYBqLtKGjFxcaqjjpO1I2W/jeNELVtSYuCOZICjdNGw2Hl9yH
-KRZiBkqc9u8lQcHDZKq4LIpVJj6ZQV/nxttDX90ax2No1nLLQXFbr5wb465LAPpU
-lXwunYDij7xJGye+VUASQh9datye6orZYuJvNo8Tr3mAQxxkfR46LzWgxFCPEAZJ
-5P56Nc0IMHdJZj0Uc9+1jxERhOGppp5jlLgYGK7faGB/jTV6LaRQ4Ad+xiqokDWp
-mUOZsmA+bMbtPfYjDZBz5mlyHcIRKIFpE1l3Y8F7PhJuzzMUKkJi90CYakCV4x/a
-Zs4pzk5E96c2VQx01RIEJ7fzHF7lwFdtfTS4YsLtAbQFsKayqwkGcVv2B1AHeqdo
-TMX+cgDvjd1ZganGlWA8Sv9RkNSMchn1hMuTwERTyFTr2dKPnQdA1F480+jUap41
-ClXgn227WkCIMrNhQGNyJsnwyzi5wS8rBVRQ3BOTMyvGM07j3axUOYaejEpg7wKi
-wTPZGLGH1sz5GljD/916v5+v2xLbOo5606j9dWf5/tAhbPuqrQgWv41wuKDi+dDD
-EKkODF7DHes8No+QcHTDyETMn1RYm7t0RKR4zsFNBFp+A0oBEAC9ynZI9LU+uJkM
-eEJeJyQ/8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd
-8xD57ue0eB47bcJvVqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPp
-I4gfUbVEIEQuqdqQyO4GAe+MkD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalq
-l1/iSyv1WYeC1OAs+2BLOAT2NEggSiVOtxEfgewsQtCWi8H1SoirakIfo45Hz0tk
-/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJriwoaRIS8N2C8/nEM53jb1sH
-0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcNfRAIUrNlatj9Txwi
-vQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6dCxN0GNA
-ORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
-rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog
-2LNtcyCjkTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZA
-grrnNz0iZG2DVx46x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJ
-ELKItV//nCLBwNIP/AiIHE8boIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwj
-jVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGjgn0TPtsGzelyQHipaUzEyrsceUGWYoKX
-YyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8frRHnJdBcjf112PzQSdKC6kqU0
-Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2E0rW4tBtDAn2HkT9
-uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHMOBvy3Ehz
-fAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
-Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVss
-Z/rYZ9+51yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aW
-emLLszcYz/u3XnbOvUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPt
-hZlDnTnOT+C+OTsh8+m5tos8HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj
-6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E+MYSfkEjBz0E8CLOcAw7JIwAaeBTzsFN
-BGbyLVgBEACqClxh50hmBepTSVlan6EBq3OAoxhrAhWZYEwN78k+ENhK68KhqC5R
-IsHzlL7QHW1gmfVBQZ63GnWiraM6wOJqFTL4ZWvRslga9u28FJ5XyK860mZLgYhK
-9BzoUk4s+dat9jVUbq6LpQ1Ot5I9vrdzo2p1jtQ8h9WCIiFxSYy8s8pZ3hHh5T64
-GIj1m/kY7lG3VIdUgoNiREGf/iOMjUFjwwE9ZoJ26j9p7p1U+TkKeF6wgswEB1T3
-J8KCAtvmRtqJDq558IU5jhg5fgN+xHB8cgvUWulgK9FIF9oFxcuxtaf/juhHWKMO
-RtL0bHfNdXoBdpUDZE+mLBUAxF6KSsRrvx6AQyJs7VjgXJDtQVWvH0PUmTrEswgb
-49nNU+dLLZQAZagxqnZ9Dp5l6GqaGZCHERJcLmdY/EmMzSf5YazJ6c0vO8rdW27M
-kn73qcWAplQn5mOXaqbfzWkAUPyUXppuRHfrjxTDz3GyJJVOeMmMrTxH4uCaGpOX
-Z8tN6829J1roGw4oKDRUQsaBAeEDqizXMPRc+6U9vI5FXzbAsb+8lKW65G7JWHym
-YPOGUt2hK4DdTA1PmVo0DxH00eWWeKxqvmGyX+Dhcg+5e191rPsMRGsDlH6KihI6
-+3JIuc0y6ngdjcp6aalbuvPIGFrCRx3tnRtNc7He6cBWQoH9RPwluwARAQABwsOs
-BBgBCgAgFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmbyLVgCGwICQAkQsoi1X/+c
-IsHBdCAEGQEKAB0WIQSilC2pUlbVp66j3+yzNoc6synyUwUCZvItWAAKCRCzNoc6
-synyU85gD/0T1QDtPhovkGwoqv4jUbEMMvpeYQf+oWgm/TjWPeLwdjl7AtY0G9Ml
-ZoyGniYkoHi37Gnn/ShLT3B5vtyI58ap2+SSa8SnGftdAKRLiWFWCiAEklm9FRk8
-N3hwxhmSFF1KR/AIDS4g+HIsZn7YEMubBSgLlZZ9zHl4O4vwuXlREBEW97iL/FSt
-VownU2V39t7PtFvGZNk+DJH7eLO3jmNRYB0PL4JOyyda3NH/J92iwrFmjFWWmmWb
-/Xz8l9DIs+Z59pRCVTTwbBEZhcUc7rVMCcIYL+q1WxBG2e6lMn15OQJ5WfiE6E0I
-sGirAEDnXWx92JNGx5l+mMpdpsWhBZ5iGTtttZesibNkQfd48/eCgFi4cxJUC4PT
-UQwfD9AMgzwSTGJrkI5XGy+XqxwOjL8UA0iIrtTpMh49zw46uV6kwFQCgkf32jZM
-OLwLTNSzclbnA7GRd8tKwezQ/XqeK3dal2n+cOr+o+Eka7yGmGWNUqFbIe8cjj9T
-JeF3mgOCmZOwMI+wIcQYRSf+e5VTMO6TNWH5BI3vqeHSt7HkYuPlHT0pGum88d4a
-pWqhulH4rUhEMtirX1hYx8Q4HlUOQqLtxzmwOYWkhl1C+yPObAvUDNiHCLf9w28n
-uihgEkzHt9J4VKYulyJM9fe3ENcyU6rpXD7iANQqcr87ogKXFxknZ97uEACvSucc
-RbnnAgRqZ7GDzgoBerJ2zrmhLkeREZ08iz1zze1JgyW3HEwdr2UbyAuqvSADCSUU
-GN0vtQHsPzWl8onRc7lOPqPDF8OO+UfN9NAfA4wl3QyChD1GXl9rwKQOkbvdlYFV
-UFx9u86LNi4ssTmU8p9NtHIGpz1SYMVYNoYy9NU7EVqypGMguDCL7gJt6GUmA0sw
-p+YCroXiwL2BJ7RwRqTpgQuFL1gShkA17D5jK4mDPEetq1d8kz9rQYvAR/sTKBsR
-ImC3xSfn8zpWoNTTB6lnwyP5Ng1bu6esS7+SpYprFTe7ZqGZF6xhvBPf1Ldi9UAm
-U2xPN1/eeWxEa2kusidmFKPmN8lcT4miiAvwGxEnY7Oww9CgZlUB+LP4dl5VPjEt
-sFeAhrgxLdpVTjPRRwTd9VQF3/XYl83j5wySIQKIPXgT3sG3ngAhDhC8I8GpM36r
-8WJJ3x2yVzyJUbBPO0GBhWE2xPNIfhxVoU4cGGhpFqz7dPKSTRDGq++MrFgKKGpI
-ZwT3CPTSSKc7ySndEXWkOYArDIdtyxdE1p5/c3aoz4utzUU7NDHQ+vVIwlnZSMiZ
-jek2IJP3SZ+COOIHCVxpUaZ4lnzWT4eDqABhMLpIzw6NmGfg+kLBJhouqz81WITr
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
+> ---
+>  drivers/gpu/nova-core/vbios.rs | 5 -----
+>  1 file changed, 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
+> index d8633e61178b..d63af95eb642 100644
+> --- a/drivers/gpu/nova-core/vbios.rs
+> +++ b/drivers/gpu/nova-core/vbios.rs
+> @@ -256,7 +256,6 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
+>                  Ok(BiosImageType::FwSec) => {
+>                      let fwsec = FwSecBiosBuilder {
+>                          base: image,
+> -                        falcon_data_offset: None,
+>                          pmu_lookup_table: None,
+>                          falcon_ucode_offset: None,
+>                      };
+> @@ -631,8 +630,6 @@ struct FwSecBiosBuilder {
+>      /// Once FwSecBiosBuilder is constructed, the `falcon_ucode_offset` will be copied into a new
+>      /// [`FwSecBiosImage`].
+>      ///
+> -    /// The offset of the Falcon data from the start of Fwsec image.
+> -    falcon_data_offset: Option<usize>,
+>      /// The [`PmuLookupTable`] starts at the offset of the falcon data pointer.
+>      pmu_lookup_table: Option<PmuLookupTable>,
+>      /// The offset of the Falcon ucode.
+> @@ -934,8 +931,6 @@ fn setup_falcon_data(
+>              offset -= first_fwsec.base.data.len();
+>          }
+>  
+> -        self.falcon_data_offset = Some(offset);
+> -
+>          if pmu_in_first_fwsec {
+>              self.pmu_lookup_table = Some(PmuLookupTable::new(
+>                  &self.base.dev,
+> 
 
---------------OSrLV2efYOWdGoySTNAye0Q0--
-
---------------FoCuIYfAKM7AmMdOnB0smfE5--
-
---------------fKtr6APMKplfqUUUg4ENHwUG
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmnhCrwACgkQszaHOrMp
-8lOFbw//fphFbdgO6aTfImk7b9BpxgwIl2B7NcoyXrF7iPDp4cwDc7IOOFFeZ5NM
-WrR10hFLcxNtDjM3zhNnWbf/N5wwmgM8wiyWADAAJdnKcOxyqP6SK5Rdhl1Ckvoz
-lgsHw+5SAyRhXLaHnkGKZfcjo6jHjgim3EmltybwyVzdLvgmNRvHbn6AxC4uMR1y
-pVD+jxs4lCb2zBOEkhIBC3cIQ/wfUBRhsufqy29zwmP0S2bmkKWehYVhWWDm4Lyh
-d6bzXSbzZXo7keLVblci0N5r6B34XC4wbroghZAzjJk55OGgRFhWMXmPxg8tm7FR
-9lMDE9+/pe2r8/kIkhvxHC6zf5kHO+4LxhshXFmRzQ6RwU9iqGVohJQsuUMy+uze
-pNi2l9PqSTroleiQmsKVG1donp1rTjNQe6TS0BSHX2Cg6Q3Bjuyg6xvYq+U1rIud
-8Ufc4TJsiNYig8oJdhnnwM5zsCqtUjLyKGASRXe14glxB374xIC3oZWOJFb7uhzq
-WuKXUCcu31wnc1hGbdpAL1kJzHV3RCTDZrPWX6MPAca2dNFig6NXEIINy1aN55cl
-pFwDtWDiPmeJxCWQXo1RuV6dgA6hNvW8477KUlutS5DO5pMu1nW/sXE6Qwgo7bEI
-o7kcj9LlEkwLYf3/rUJk+P+rHax1BfrPjZX4DBmGjdFmV2CihsI=
-=Mx8Q
------END PGP SIGNATURE-----
-
---------------fKtr6APMKplfqUUUg4ENHwUG--
