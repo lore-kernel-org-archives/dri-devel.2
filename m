@@ -4,77 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5E4CF8E4B5
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:06:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E967F8E4B4
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:06:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6689110E97F;
-	Fri, 17 Apr 2026 07:06:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76D2210E974;
+	Fri, 17 Apr 2026 07:06:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ky8QV3o4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ARit3EPN";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A91810E84B
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:32:06 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2ab08e6c553so7974165ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 02:32:06 -0700 (PDT)
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
+ [74.125.224.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22EBA10E1D7
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 13:16:53 +0000 (UTC)
+Received: by mail-yx1-f50.google.com with SMTP id
+ 956f58d0204a3-6530287803cso419112d50.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 06:16:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776345412; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Wu282fSWjiXzWx69JzOf5cByAv2lrie+sO0fcVINBuOgGE7GdznN67moGE2/HaOy4f
+ x75TcvFX3ftBHEOYZ+nE0y0Rewn+DKIEjYy89awrVIcbhSeD2d2talOkQqzkIl1J40HA
+ w/H0EJ+E4BJBA/E53j19QlDek82AbeI6Kz7B0DFiMMfmjYKZkpIxc+ZZo8SBuUr3+8vF
+ I4/qAkMM9DyBCfUssshUEBG0+aw2lJrXxBD50QzHOAy9xIsBoltBkOUnNbHwbEw58Yw9
+ 6LKyA1+FDJAjW1BDs8MqlO02cNVW4a2DEYkD76m4FAMeTsKaZlN/nRatnlDc/+Ew9C5M
+ XcYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=8Y4TTlp7lhh5Kw+bAxWFhzr/KZXrxFFbfx+tWQSmcLo=;
+ fh=X+ySa8Me5lant0q9Lbo6tgyvqqxVfrOiYJUMKRZ3I5M=;
+ b=kbMlXK/An6Tfbo+LRs14oKmoMyQb225C9jTG8WsYfZp9j6jpN/qtU3Efl0ZupuOLZ9
+ 2/n4T9G+Gijv8WWPwTO7FrjGHdbCmwpf8Q/P9eKIbgOoZBNni1yZ/qXrDfVQ8GN7ejkO
+ Db4MLkptVzycUbj/eAEgKetGjIKFXsyp485byHfjESgr6wJW1ZB2znmsahcaD93XnQTg
+ BUH98LoUIBwLKZK/9lVUgRytecwvFDtbIwyANrHy3ZFmfGdYWMia7E/VWbIYIeri55py
+ dx9cqlNzuqeWNdRcJNDAD0mSd2VwOXpM9gfoniS46jBcaME3F0qdo6CetQqnx95n4EjH
+ BtFg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776331926; x=1776936726; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ziW1kBAvi5eeUGJnyi0Kk8txQ47lAeHn3mhssBVXCLs=;
- b=ky8QV3o4SSnr6HskUYqzYD3dkDucWNqEC14OcUfCppRMkU/OyMeOebliLuBaMhDSZD
- XUgLa4Ir+vk50uJd2zxWo3ItodC8CfED7i8lbR2XLvbHqDfZSqEOimDUH62FHK6m4eft
- 0DHb/1A54I7bB62+g5JTopaJJwJhPdJJ7WxPvCvPUSEFg83EAqVz/pMprKCxfEFq/X3y
- X4d75veCAiwbbPkl1na2tkT25PQimscVM2D0mgLn4UL9RaqtgPf2TeWXweC4qK/Th76N
- pOhwjM8JlP+8YYkEFJf/Pul0rXQBxJpo503hJPgL3ZujvwaX9W+rHEUjHEqsY396qVUn
- OD+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776331926; x=1776936726;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776345412; x=1776950212; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ziW1kBAvi5eeUGJnyi0Kk8txQ47lAeHn3mhssBVXCLs=;
- b=b9iY1tmsQtL74oC5BXwlVvIBhvNpAm6EMXrO7xHdKaHjMqtt9uQcFgK0HfEHsKQra3
- 6Prk7QbqeanYe2lNEyb/pE0P0RbegCzdR/x+wE6YhqIJDTqvSv9aNlR4Wm0W+4Lk14IG
- JldvcTJH2TeYrMuZoljMvTt1qG3jYq4pkQEwjGM8zGUn9P+kdxFqcMCCdP9/DbC1pHEg
- 5HPXfD2EGHdxVIZIXCX0YCqIM6ztLT+HZ2L1B94NZddbUTndSav3k5D0y86rBblGaVe9
- SXXMt8y0U3D3DYh5SDHs6Xxb00kF6YTt16GLHxB3iooqXoyAAfSoti6/etHTTHPjzNik
- D9pg==
+ bh=8Y4TTlp7lhh5Kw+bAxWFhzr/KZXrxFFbfx+tWQSmcLo=;
+ b=ARit3EPNtmaya/VdVlhJ5xzn1FHR6ixJNBoKCivxLsfKVBGWo9SFzmg23WGSdYb2aM
+ TuPyk0o5DenkArLorXJ32iFJylOvqij0HYQrY6+0WVN+vVu8JRHW9xfAe+wGTNNcEfNc
+ 8e5cgWHlHr384H/McttmpkQP35sQCaEtuGy5zaRPg0yi6yOEYOUMagc9QPhIvjBdsdJp
+ awYqNBwO+xYH95SaBllHwFv2DY5ey/m3ffzQ2rXv/BV0pSNuImGnuy4yLkRbStE5qasl
+ IvzBZCmi7SbUpeOPamxehvaIxjQczEPe35F512rK2Pnzr7VKna/0/hjRPBDT8fCpfMQp
+ y3/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776345412; x=1776950212;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=8Y4TTlp7lhh5Kw+bAxWFhzr/KZXrxFFbfx+tWQSmcLo=;
+ b=nulK9Xt9/iEIEY0DNGtPxS3QbOJONdayLntJMQj0kXhCc6MWGF5f6pboOlhpJXn7Q0
+ hkfEoyJckGQFDOUzY50ailR219t0grJzI9niE8VVDvWU7lNC+SyAM/rYDf/xmx4QrXL1
+ NvpwaELyyi3JSdqydpolx0KzqA7baDntW+xgtY2J4lXtrFbEkevxNjRyK1bjCM+R77Ml
+ kvH/eqW5XnfZoc6D52Z9/0MAYi1AJgCF6TKYO9lD3LueWZSChZWzYjHL4fDSC7iddsLA
+ oPnWhLO0zVDa8HMnXXST6mI9ZHd1ZeYBvMxmO9AT+3qQuMBM+PdwYgcJelarZV12Ejwh
+ dkOw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/2Xwool7omgSE9LTKecs59dhs9KN4KaORWULMO8zWnJo58sRPa1iAd4iqRG/TLdajo0mqttC6ypIo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4QPenmnfyoUXwC98GFHG8YscTSDvQ0wV4yvpm4pau+D+r7dvM
- 0mEWCsU+tZTk2JnKLQvJNT1HY6TXBc4N3g3u3Gl2wiWLk1VSDOpD+/cQ
-X-Gm-Gg: AeBDiesccmoBidSB/cz0tC0Ml03FWM4xfaBgw9Bze2kiFGGUlUTRkf6BEc5Ajjx4gm4
- zeKhiJAyneCxMDoR9en759lHyMz1lEJJ4T+ZxdmmzTCsPc1HK5OvOMTlmF3b4Die6AZVaqQ5FOz
- X1XV0R24wO3/uD2jcLGdR4Ow7h4aIaPVwNXI0vn5oULYx4jt6cZL16cAded+BPAlEYttor+A1ic
- 23riATR3nF25YRvg+NvYGokWQK8jgZS6PagMj/ufleZM9V35zW56SLcW4TOMQBrbYG9KdeTxZ4M
- 7aOdvJ+D5obh82YmJanZFQRKem2TivLdvMqzzkEwCca6GgO3fiyon5R0fVnwUMPy2UpI/I92ssE
- eANIM8T5lhXfvSAH7IkTq/GYm/++8Pv4/7ZssSNatj9ZWnqBGaOblmcyYtmUT0GCue4BncchBbP
- xyOKX5ru6LQ7ns27RofFbO3JCvveWBBCGxlx1delE6AGM9CuGMVX7kwYxTBVnx3gn5jYqYYJXr
-X-Received: by 2002:a17:903:903:b0:2b2:5857:5847 with SMTP id
- d9443c01a7336-2b5eda46fd0mr11515325ad.5.1776331925536; 
- Thu, 16 Apr 2026 02:32:05 -0700 (PDT)
-Received: from fedora.izzigo.tv (45.62.127.193.16clouds.com. [45.62.127.193])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b478292053sm60643655ad.56.2026.04.16.02.31.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 02:32:04 -0700 (PDT)
-From: Frank Zhang <rmxpzlb@gmail.com>
-To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY
- is down
-Date: Thu, 16 Apr 2026 17:31:50 +0800
-Message-ID: <20260416093150.13853-1-rmxpzlb@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ AFNElJ/5gu1rJ0p0uzvFwlpWtwfD8DM9w9r35WHONKol0snKerTzxu3BR99ghq7eC67l78t3y1zyAWm9dI4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0tWJDY/eKMTZNhia+xNasP+hP6Il7CI9hVyNUDvdpvV/hLZKW
+ uzLxGBPKoAUbsfGHhrW2aOB5KKZOlJL89JYCpT1dZIwKpEPdsFjZCl0s95wugg1fYOf9kKz/1RK
+ CImv8TsWVrWeHZCebglG4UiLBmSimNiA=
+X-Gm-Gg: AeBDies3zEx/bgU932R2C90Q6liGVMfHyUuibU5XllseTMRyIeDN0yOspixckwHfgPH
+ EXBR6mH55hIgQa5fevieRlbQpO1+Kt/YM23wbKpcQRClYnYH3XqQSWfUevZ7sjDfFopXcv3xUVo
+ 53MJ0H7d/BZ9pIMMcEOL2zGCoxex8wpiL/6or8ufZIAw/jDpi6Yy0OS00aly/ero/mY1d6q3b2j
+ PQ2je+zz5AC9zZvCxXnV6KsvAwKa+dmVG9MSOQkODrD/dgoeFoNfBeOTUr9rg7u6u9S/y5pV8W0
+ nnnpeuwm8vUWFaVfGmAm68UIwGltN2B1iShf9pHTTZeyc0YlB4QDFLTJj+M=
+X-Received: by 2002:a05:690e:dcb:b0:651:bd70:1622 with SMTP id
+ 956f58d0204a3-651bd701d12mr16765260d50.10.1776345411845; Thu, 16 Apr 2026
+ 06:16:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
+ <CAHijbEXcrhB=ipaa4-DPD8atQYCkokGfueLafwkeQpxCBkc0bw@mail.gmail.com>
+ <7472926.DvuYhMxLoT@workhorse>
+In-Reply-To: <7472926.DvuYhMxLoT@workhorse>
+From: Julian Orth <ju.orth@gmail.com>
+Date: Thu, 16 Apr 2026 15:16:39 +0200
+X-Gm-Features: AQROBzBXbJ7d6HAJlKXhd63gAm5FBuT7JpsUTNIQW2l7uUKkWF7FcPplO8eQEEU
+Message-ID: <CAHijbEViae+=Fcnh3v0ODxwTPUaRgU1H4OVGM3VFPSLMPzJzOA@mail.gmail.com>
+Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
+ user-space
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniel.stone@collabora.com>,
+ Ian Forbes <ian.forbes@broadcom.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ wayland-devel@lists.freedesktop.org, Marius Vlad <marius.vlad@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 17 Apr 2026 07:06:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,59 +120,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The following panic was observed during system reboot:
+On Thu, Apr 16, 2026 at 9:46=E2=80=AFAM Nicolas Frattaroli
+<nicolas.frattaroli@collabora.com> wrote:
+>
+> On Wednesday, 15 April 2026 20:57:53 Central European Summer Time Julian =
+Orth wrote:
+> > On Wed, Apr 15, 2026 at 8:19=E2=80=AFPM Nicolas Frattaroli
+> > <nicolas.frattaroli@collabora.com> wrote:
+> > >
+> > > I will be taking over this series from Marius Vlad.
+> > >
+> > > This series addresses a shortcoming whereby a hot plug event is sent
+> > > without it being passed the actual connector that caused it. This tak=
+es
+> > > into consideration both the polling path and the HPD (Hot Plug Detect=
+)
+> > > path. It also adds support for the vkms driver (using ConfigFS) for
+> > > propagating the connector ID when changing the connector's status.
+> > >
+> > > The motivation is that user-space applications such as Weston would
+> > > previously receive non-connector-specific hotplug events, and then ha=
+ve
+> > > to figure out themselves which connector needs to have a modeset
+> > > executed on. This notably did not work when the hotplug events came i=
+n
+> > > too fast, resulting in Weston missing an on-off-on transition of a
+> > > connector, seeing that its state was unchanged from "on" so can't be =
+the
+> > > one that was hotplugged, and skipping reinitialising it as it looks
+> > > through the other connectors that could've caused it.
+> >
+> > Have you considered adding a u64 serial number as a DRM connector
+> > property that is incremented every time the connector changes in some
+> > way? Userspace could then check this serial number to see if the
+> > connector has changed since the last time it queried the serial
+> > number.
+>
+> The connector internally already has an epoch_counter member which
+> could be used for this. However, for the particular thing this
+> series fixes, I don't think exposing it through the uAPI is necessary
+> or desirable. Sending hotplug events specific to the connector does
+> not need any additional handling on the userspace side as long as it
+> already listens to the per-connector hotplug events in order to
+> avoid the pitfall described in the cover letter.
 
-Kernel panic - not syncing: Asynchronous SError Interrupt
-CPU: 7 UID: 1000 PID: 2637 Comm: pipewire ... 6.19.10-300.fc44.aarch64
-Call trace:
- ...
- regmap_update_bits_base+0x5c/0x90
- dw_hdmi_qp_bridge_clear_infoframe+0xb0/0x120 [dw_hdmi_qp]
- drm_bridge_connector_clear_infoframe+0x28/0x48 [drm_display_helper]
- ...
- dw_hdmi_qp_audio_disable+0x24/0xb8 [dw_hdmi_qp]
- drm_bridge_connector_audio_shutdown+0x30/0x60 [drm_display_helper]
- drm_connector_hdmi_audio_shutdown+0x24/0x38 [drm_display_helper]
- hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
- ...
- snd_pcm_release_substream.part.0+0x44/0xd8 [snd_pcm]
- snd_pcm_release+0x60/0xe8 [snd_pcm]
- ...
+I currently do not handle per-connector hotplug events. Instead,
+whenever I get a UDEV change event for a device, I re-fetch the entire
+kernel state for the device. That is
 
-The root cause is pipewire tries to close the HDMI audio device after
-atomic_disable(), which sets tmds_char_rate to 0 and disable the PHY.
+- DRM_IOCTL_MODE_GETRESOURCES
+- DRM_IOCTL_MODE_OBJ_GETPROPERTIES for each connector, crtc, plane
+- DRM_IOCTL_MODE_GETCONNECTOR for each connector
+- DRM_IOCTL_MODE_GETPROPERTY for each connector property
+- DRM_IOCTL_MODE_GETPROPBLOB for the EDID
 
-In this case, dw_hdmi_qp_audio_disable() will call
-clear_audio_infoframe(), accessing registers without checking
-tmds_char_rate.
+Once I have the new state, I compare it against the desired compositor
+state and perform a modeset if necessary.
 
-Add a tmds_char_rate check in dw_hdmi_qp_bridge_clear_audio_infoframe()
-to skip the register write when the PHY is inactive.
+This makes it robust against the situation you're describing, but also
+means that a lot of work is done for unchanged objects. If the change
+makes a modeset necessary, then that work is almost negligible
+compared to the time the modeset takes.
 
-Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+I don't know if your patches will cause more change events to be sent
+or if they will just add the connector property to existing events. If
+there are additional events, then I'd prefer to have an early out for
+some of this work. E.g. by having access to the epoch_counter.
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index d649a1cf07f5..f963dff81dc6 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -886,11 +886,12 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
--	dw_hdmi_qp_mod(hdmi, 0,
--		       PKTSCHED_ACR_TX_EN |
--		       PKTSCHED_AUDS_TX_EN |
--		       PKTSCHED_AUDI_TX_EN,
--		       PKTSCHED_PKT_EN);
-+	if (hdmi->tmds_char_rate)
-+		dw_hdmi_qp_mod(hdmi, 0,
-+			       PKTSCHED_ACR_TX_EN |
-+			       PKTSCHED_AUDS_TX_EN |
-+			       PKTSCHED_AUDI_TX_EN,
-+			       PKTSCHED_PKT_EN);
- 
- 	return 0;
- }
--- 
-2.53.0
-
+>
+> Kind regards,
+> Nicolas Frattaroli
+>
+> > >
+> > > The real world implication is that on setups with slightly sketchy HD=
+MI
+> > > connections, a brief flicker in the HPD signal could result in video
+> > > output bidding farewell entirely until a manual proper re-plug was
+> > > performed.
+> > >
+> > > By sending connector specific hotplug events, this ambiguity is
+> > > resolved without any change to the user-space API.
+> > >
+> > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > > ---
+> > > Changes in v7 RESEND:
+> > > - None, other than removing the leftover diffstat from the cover lett=
+er
+> > > - Link to v7: https://lore.kernel.org/r/20260217-hot-plug-passup-v7-0=
+-f8221b2aab51@collabora.com
+> > >
+> > > Changes in v7:
+> > > - Drop the two vkms patches, as I don't want them to be blocked on
+> > >   review. I still think they're correct, but they're not essential an=
+d
+> > >   don't need to block this series.
+> > > - Link to v6: https://lore.kernel.org/r/20260123-hot-plug-passup-v6-0=
+-aaaf61d960bb@collabora.com
+> > >
+> > > Changes in v6:
+> > > - Rewrote cover letter to explain the motivation for this series more
+> > >   plainly
+> > > - Rename "status_changed" to "pending_hp"
+> > > - Set "pending_hp" in the existing path that would also affect
+> > >   epoch_counter
+> > > - No longer set the boolean in drm_helper_probe_single_connector_mode=
+s,
+> > >   as it does not appear to be necessary
+> > > - Reword commits to better justify the changes
+> > > - Link to v5: https://lore.kernel.org/r/20251111162338.15141-1-marius=
+.vlad@collabora.com/
+> > >
+> > > Changes in v5:
+> > > - vkms: add support for sending the CONNECTOR ID when hot-plugging th=
+rough
+> > >   ConfigFS - as reported by Louis, vkms can now make use of ConfigFS =
+to
+> > >   simulate connector status.
+> > > - vkms: add a small change to ignore previous/old drm connector statu=
+s
+> > >   when sending out hot-plug uevent.
+> > > - Link to v4: https://lore.kernel.org/r/20251103174558.7709-1-marius.=
+vlad@collabora.com/
+> > >
+> > > Changes in v4:
+> > > - removed the "This patch" bit - Dmitry
+> > > - added a short note when the flag is set and cleared - Dmitry
+> > > - address double dead-locking detected - kbot: https://lore.kernel.or=
+g/dri-devel/202509251410.fdfbcac3-lkp@intel.com/
+> > > - virtual connectors do not seem have any kind of hotplug - added
+> > >   polling in vkms - as noted by Ian
+> > > - Link to v3: https://lore.kernel.org/r/20250923083636.4749-1-marius.=
+vlad@collabora.com/
+> > >
+> > > Changes in v3:
+> > > - Address comments from Dmitry:
+> > >   - guard connector status write with mode_config.mutex
+> > >   - avoid setting up the connector status and immediately unset it. D=
+o the
+> > >     unset in drm_kms_helper_hotplug_event/drm_kms_helper_connector_ho=
+tplug_event
+> > > - Link to v2: https://lore.kernel.org/r/20250729165708.9947-1-marius.=
+vlad@collabora.com/
+> > >
+> > > Changes in v2:
+> > > - Address comments from Daniel:
+> > >   - split patch into 2, one that introduces a bool to track connector
+> > >     connection status change and a patch that uses that to be able to=
+ send
+> > >     hot plug events with the proper CONNECTOR ID to udev and further =
+pass
+> > >     that down to user-space
+> > >   - nuke out mutex when iterating connector list
+> > >   - fix typo
+> > > - Link to v1: https://lore.kernel.org/r/20250627131751.2004-1-marius.=
+vlad@collabora.com/
+> > >
+> > > ---
+> > > Marius Vlad (2):
+> > >       drm: Introduce pending_hp to drm_connector
+> > >       drm: Send per-connector hotplug events
+> > >
+> > >  drivers/gpu/drm/drm_connector.c    |  1 +
+> > >  drivers/gpu/drm/drm_probe_helper.c | 39 ++++++++++++++++++++++++++++=
++++++-----
+> > >  drivers/gpu/drm/drm_sysfs.c        |  2 ++
+> > >  include/drm/drm_connector.h        |  3 +++
+> > >  4 files changed, 40 insertions(+), 5 deletions(-)
+> > > ---
+> > > base-commit: 4c59525db84aca677fd9f052e662912ad9d88448
+> > > change-id: 20260121-hot-plug-passup-f8ed03f7c202
+> > >
+> > > Best regards,
+> > > --
+> > > Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > >
+> >
+>
+>
+>
+>
