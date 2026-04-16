@@ -4,75 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEB4EF8DFC9
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 21:45:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C859F8DFCB
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 21:51:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10A3C10E93A;
-	Thu, 16 Apr 2026 21:45:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D0BE10E93C;
+	Thu, 16 Apr 2026 21:51:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kshxNV/M";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QBhDuywR";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E33810E937;
- Thu, 16 Apr 2026 21:45:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3462B10E93C
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:51:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 28CDB60139;
- Thu, 16 Apr 2026 21:45:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DB3C2BCAF;
- Thu, 16 Apr 2026 21:45:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1560D6012A
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:50:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8531C2BCAF
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:50:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776375946;
- bh=/AIHtk5dGaoSaB87dJf/1eE9xbVWkZ5BUf/GM/VtbXg=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=kshxNV/Mf/SAOfzwvPLHm/KFEujozISoNfYRy6l3ouTWw9jmEQXcjQ+iGPsd6zP5c
- ZEAWOkywRdxIlMW1KuPs1t3NkXIMbaKjh29VPqTvcbgocmGxgcTswvkFoPSc3KWS8W
- 08CZV0yL+7c0ow8wCZhluF2S/K8P/wzyAW999r0xg/l1Ubd3AId9oLABnxMLA4X/Sh
- MkxiGhj9qoMuWpHjVGAjnZS/L0O6cxr8QUFQ+NCutGBi2wJLWRkNiZAt0Wi5RNZuKC
- nDAW7K/hGMdCp2YooKNSgWuIXcFCuILbKSQ4ltxO5bkZC5EHEzCXvs4V1eqR+afVGz
- SP/rfsLzw0Avg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 16 Apr 2026 23:45:35 +0200
-Message-Id: <DHUWPQX14ZGZ.26BV7GQCJDZQI@kernel.org>
-Subject: Re: [PATCH v11 07/20] gpu: nova-core: mm: Add TLB flush support
-Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Bjorn Roy
- Baron" <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Dave Airlie"
- <airlied@redhat.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Koen Koning" <koen.koning@linux.intel.com>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- "Nikola Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
- <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>, "Christian
- Koenig" <christian.koenig@amd.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
- "Matthew Auld" <matthew.auld@intel.com>, "Lucas De Marchi"
- <lucas.demarchi@intel.com>, "Thomas Hellstrom"
- <thomas.hellstrom@linux.intel.com>, "Helge Deller" <deller@gmx.de>, "Alex
- Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer" <epeer@nvidia.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea Righi"
- <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
- <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <joel@joelfernandes.org>, <linux-doc@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
- <20260415210548.3776595-7-joelagnelf@nvidia.com>
- <20260416212312.GA667928@joelbox2>
-In-Reply-To: <20260416212312.GA667928@joelbox2>
+ s=k20201202; t=1776376258;
+ bh=aG0vDFPQ35XSz8NFTuZVdur3QC6+5/Wwqk+iYQ3iORE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QBhDuywR3lGxmonIUEt9bFyXI6A+p9PtbVP0m1Y74IL0TME6SbB0BHxPFqPHbzePO
+ L914Z5ZXFSDGTRVuIRt4Zj+kZofxHADlnAOIXuB0pqaQnL+LXmoLnGvTxL3YS+Y9Ov
+ PPAKRatwriRBySdtw21/IWwCmSJFzMfy0lwru8BEv6jg4Ju8y8rF6+o0ArbT83w1q+
+ YfyDoXM2cF6sNntKMS/TE7W0jMK7hZVHOJRdHTMOktAXnNFiJ4qbCS9u5a5IrG/zNQ
+ UnJ1CFofjYncpMSFoi+hX50yynKhBrqC+aLhYZDG48ksYG1R2ooQTOpcc/cQvaXkut
+ gcrbF3SM7hiZg==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfauth.phl.internal (Postfix) with ESMTP id B7556F4007D;
+ Thu, 16 Apr 2026 17:50:57 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Thu, 16 Apr 2026 17:50:57 -0400
+X-ME-Sender: <xms:wVnhab4Dg1V4SvYlP0zcwNc9cHOaXhkxtE7tYIecxelmVnzRhWgw4g>
+ <xme:wVnhaQeLa_PtYuifqr27E7oSrLrqr-qMgUUuMHapfB54lzARfOSKyWliCpNr1WJ4G
+ of9D_eUlrQOUYVaB1mRLCY8QfjioKT1q7jHwwDV0SAvXcPKHH6RTcY>
+X-ME-Received: <xmr:wVnhaWwPomKMk1yPh2xpOt3nY_RMDUK34RWXPXtKJaxxX7uCoAs8x4sX2IZu492neqYcDl8bnBbEhh4Dj8Pu1Bf0KCjJyNY5>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdegkedufecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+ ihhlohhuthemuceftddtnecunecujfgurhepfffhvfevuffkfhggtggugfgjsehtkeortd
+ dttddunecuhfhrohhmpeeuohhquhhnucfhvghnghcuoegsohhquhhnsehkvghrnhgvlhdr
+ ohhrgheqnecuggftrfgrthhtvghrnhepgeefkeefleevgfejveejtdeludevgfekffdutd
+ dtffehffeiieevledtjedvhefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
+ pehmrghilhhfrhhomhepsghoqhhunhdomhgvshhmthhprghuthhhphgvrhhsohhnrghlih
+ hthidqudeijedtleekgeejuddqudejjeekheehhedvqdgsohhquhhnpeepkhgvrhhnvghl
+ rdhorhhgsehfihigmhgvrdhnrghmvgdpnhgspghrtghpthhtohepudegpdhmohguvgepsh
+ hmthhpohhuthdprhgtphhtthhopeifohhrkhesohhnuhhrohiikhgrnhdruggvvhdprhgt
+ phhtthhopegurghkrheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprghlihgtvghrhi
+ hhlhesghhoohhglhgvrdgtohhmpdhrtghpthhtohepuggrnhhivghlrdgrlhhmvghiuggr
+ segtohhllhgrsghorhgrrdgtohhmpdhrtghpthhtoheprghirhhlihgvugesghhmrghilh
+ drtghomhdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpdhrtghpthhtohep
+ ughrihdquggvvhgvlheslhhishhtshdrfhhrvggvuggvshhkthhophdrohhrghdprhgtph
+ htthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrghdprhgt
+ phhtthhopehruhhsthdqfhhorhdqlhhinhhugiesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:wVnhaeoYTLnJZqCLLDZy6KVX8JrAY6u_KLwb_2DMrUz4w0brJORF5g>
+ <xmx:wVnhacxoPGoXg9LMl8FX7W_zZoLyNmWTzNSMarqBCTmNG-mx9AYfww>
+ <xmx:wVnhaar7JI3Lv6THMpPwZkVny2rBRyUgH9Mf4OBa8vlvx67A7sr--Q>
+ <xmx:wVnhaUeDWGx2qcBiHSQbR_7HHEHckVsg6-lZ-HOOq8gocbwEmQN3Qg>
+ <xmx:wVnhaVrTfFotw65ZhuAJsUC6cLAx5S0TFqArRXpqem-0gI1vwnCLJExX>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 16 Apr 2026 17:50:57 -0400 (EDT)
+Date: Thu, 16 Apr 2026 14:50:56 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ jiangshanlai@gmail.com, paulmck@kernel.org, josh@joshtriplett.org,
+ rostedt@goodmis.org
+Subject: Re: [PATCH v2 1/4] rust: add SRCU abstraction
+Message-ID: <aeFZwCsuhSrQATRM@tardis.local>
+References: <20260416171838.206128-1-work@onurozkan.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260416171838.206128-1-work@onurozkan.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,26 +95,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Apr 16, 2026 at 11:23 PM CEST, Joel Fernandes wrote:
-> Btw, I changed this to doing it in 2 phases to avoid holding the RCU read=
-lock
-> across read_poll_timeout, which can sleep. Will squash it in for v12.
+On Thu, Apr 16, 2026 at 08:18:37PM +0300, Onur Özkan wrote:
+> Add a Rust abstraction for sleepable RCU (SRCU), backed by
+> srcu_struct. Provide FFI helpers and a safe wrapper with a
+> guard-based API for read-side critical sections.
+> 
+> Signed-off-by: Onur Özkan <work@onurozkan.dev>
+> ---
+>  rust/helpers/helpers.c   |   1 +
+>  rust/helpers/srcu.c      |  18 +++++++
+>  rust/kernel/sync.rs      |   2 +
+>  rust/kernel/sync/srcu.rs | 109 +++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 130 insertions(+)
+>  create mode 100644 rust/helpers/srcu.c
+>  create mode 100644 rust/kernel/sync/srcu.rs
+> 
+> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+> index 875a9788ad40..052fef89d5f0 100644
+> --- a/rust/helpers/helpers.c
+> +++ b/rust/helpers/helpers.c
+> @@ -60,6 +60,7 @@
+>  #include "signal.c"
+>  #include "slab.c"
+>  #include "spinlock.c"
+> +#include "srcu.c"
+>  #include "sync.c"
+>  #include "task.c"
+>  #include "time.c"
+> diff --git a/rust/helpers/srcu.c b/rust/helpers/srcu.c
+> new file mode 100644
+> index 000000000000..b372b733eb89
+> --- /dev/null
+> +++ b/rust/helpers/srcu.c
+> @@ -0,0 +1,18 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/srcu.h>
+> +
+> +__rust_helper int rust_helper_init_srcu_struct(struct srcu_struct *ssp)
+> +{
+> +	return init_srcu_struct(ssp);
 
-Why do we need the try_access() dance in the first place? I assume this end=
-s up
-being called from the BarAccess destructor?
+init_srcu_struct() is defined as a macro when LOCKDEP=y so that each
+srcu_struct has a own lock_class_key. Using a binding helper like this
+will make all srcu_struct share the same key. You can refer to how
+rust_helper___spin_lock_init() does (including how new_spinlock!()
+works).
 
-If so, I think this is solvable. Gary and me are currently working on
-higher-ranked types and a chained Devres type.
+> +}
+> +
+> +__rust_helper int rust_helper_srcu_read_lock(struct srcu_struct *ssp)
+> +{
+> +	return srcu_read_lock(ssp);
+> +}
+> +
+> +__rust_helper void rust_helper_srcu_read_unlock(struct srcu_struct *ssp, int idx)
+> +{
+> +	srcu_read_unlock(ssp, idx);
+> +}
+> \ No newline at end of file
+> diff --git a/rust/kernel/sync.rs b/rust/kernel/sync.rs
+> index 993dbf2caa0e..0d6a5f1300c3 100644
+> --- a/rust/kernel/sync.rs
+> +++ b/rust/kernel/sync.rs
+> @@ -21,6 +21,7 @@
+>  pub mod rcu;
+>  mod refcount;
+>  mod set_once;
+> +pub mod srcu;
+>  
+>  pub use arc::{Arc, ArcBorrow, UniqueArc};
+>  pub use completion::Completion;
+> @@ -31,6 +32,7 @@
+>  pub use locked_by::LockedBy;
+>  pub use refcount::Refcount;
+>  pub use set_once::SetOnce;
+> +pub use srcu::Srcu;
+>  
+>  /// Represents a lockdep class.
+>  ///
+> diff --git a/rust/kernel/sync/srcu.rs b/rust/kernel/sync/srcu.rs
+> new file mode 100644
+> index 000000000000..cf0c16248ea3
+> --- /dev/null
+> +++ b/rust/kernel/sync/srcu.rs
+> @@ -0,0 +1,109 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Sleepable read-copy update (SRCU) abstraction.
+> +//!
+> +//! C header: [`include/linux/srcu.h`](srctree/include/linux/srcu.h)
+> +
+> +use crate::{
+> +    bindings,
+> +    error::to_result,
+> +    prelude::*,
+> +    types::{
+> +        NotThreadSafe,
+> +        Opaque, //
+> +    },
+> +};
+> +
+> +use pin_init::pin_data;
+> +
+> +/// Creates an [`Srcu`] initialiser.
+> +#[macro_export]
+> +macro_rules! new_srcu {
+> +    () => {
+> +        $crate::sync::Srcu::new()
+> +    };
+> +}
+> +
+> +/// Sleepable read-copy update primitive.
+> +///
+> +/// SRCU readers may sleep while holding the read-side guard.
+> +#[repr(transparent)]
+> +#[pin_data(PinnedDrop)]
+> +pub struct Srcu {
+> +    #[pin]
+> +    inner: Opaque<bindings::srcu_struct>,
+> +}
+> +
+> +impl Srcu {
+> +    /// Creates a new SRCU instance.
+> +    pub fn new() -> impl PinInit<Self, Error> {
+> +        try_pin_init!(Self {
+> +            inner <- Opaque::try_ffi_init(|ptr: *mut bindings::srcu_struct| {
+> +                // SAFETY: `ptr` points to valid uninitialised memory for a `srcu_struct`.
+> +                to_result(unsafe { bindings::init_srcu_struct(ptr) })
+> +            }),
+> +        })
+> +    }
+> +
+> +    /// Enters an SRCU read-side critical section.
+> +    pub fn read_lock(&self) -> Guard<'_> {
+> +        // SAFETY: By the type invariants, `self.inner.get()` is a valid initialized `srcu_struct`.
+> +        let idx = unsafe { bindings::srcu_read_lock(self.inner.get()) };
+> +
+> +        Guard {
+> +            srcu: self,
+> +            idx,
+> +            _nts: NotThreadSafe,
+> +        }
+> +    }
+> +
+> +    /// Waits until all pre-existing SRCU readers have completed.
+> +    pub fn synchronize(&self) {
+> +        // SAFETY: By the type invariants, `self.inner.get()` is a valid initialized `srcu_struct`.
+> +        unsafe { bindings::synchronize_srcu(self.inner.get()) };
+> +    }
+> +
+> +    /// Waits until all pre-existing SRCU readers have completed, expedited.
+> +    ///
+> +    /// This requests a lower-latency grace period than [`Srcu::synchronize`] typically
+> +    /// at the cost of higher system-wide overhead. Prefer [`Srcu::synchronize`] by default
+> +    /// and use this variant only when reducing reset or teardown latency is more important
+> +    /// than the extra cost.
+> +    pub fn synchronize_expedited(&self) {
+> +        // SAFETY: By the type invariants, `self.inner.get()` is a valid initialized `srcu_struct`.
+> +        unsafe { bindings::synchronize_srcu_expedited(self.inner.get()) };
+> +    }
+> +}
+> +
+> +#[pinned_drop]
+> +impl PinnedDrop for Srcu {
+> +    fn drop(self: Pin<&mut Self>) {
+> +        // SAFETY: `self` is pinned and `inner` contains a valid initialized `srcu_struct`.
 
-With that, such use-cases should be cleanly solvable without the need for
-try_access().
+I think we need srcu_barrier() here to ensure all SRCU callbacks have
+finished. Otherwise if there is a pending callback, one of the "leak it"
+branch will be taken, and we cannot free the srcu_struct since other
+thread may still access it. (It's impossible for the current API to
+allow this happen since call_srcu() is not supported yet, but that's a
+natural extension after the initial support).
 
-Besides that, I can't find where BarAccess is ever constructed.
+Please do double-check whether other "leak it" conditions can happen or
+not in cleanup_srcu_struct().
 
-It already has a lifetime 'a for &'a Bar1, so I don't see why you can't do =
-the
-same for Bar0.
+> +        unsafe { bindings::cleanup_srcu_struct(self.as_ref().get_ref().inner.get()) };
+> +    }
+> +}
+> +
+> +// SAFETY: `srcu_struct` may be shared and used across threads.
+> +unsafe impl Send for Srcu {}
+> +// SAFETY: `srcu_struct` may be shared and used concurrently.
+> +unsafe impl Sync for Srcu {}
+> +
+> +/// Guard for an active SRCU read-side critical section on a particular [`Srcu`].
+> +pub struct Guard<'a> {
+> +    srcu: &'a Srcu,
+> +    idx: core::ffi::c_int,
+> +    _nts: NotThreadSafe,
 
-But again, I don't see this being constructed and I'm not sure the whole
-construct works in the first place.
+Just want to bring this up for completeness, if we use
+srcu_{up,down}_read() then the Guard is Send. Not sure there is a need
+for this at the moment, just make a note in case that anyone might need
+it.
+
+Regards,
+Boqun
+
+> +}
+> +
+> +impl Guard<'_> {
+> +    /// Explicitly exits the SRCU read-side critical section.
+> +    pub fn unlock(self) {}
+> +}
+> +
+> +impl Drop for Guard<'_> {
+> +    fn drop(&mut self) {
+> +        // SAFETY: `Guard` is only constructible through `Srcu::read_lock()`,
+> +        // which returns a valid index for the SRCU instance.
+> +        unsafe { bindings::srcu_read_unlock(self.srcu.inner.get(), self.idx) };
+> +    }
+> +}
+> -- 
+> 2.51.2
+> 
+> 
