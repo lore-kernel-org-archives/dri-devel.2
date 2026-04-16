@@ -4,130 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36150F8D753
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 15:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F332CF8D753
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 15:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91F1910E8EE;
-	Thu, 16 Apr 2026 15:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56A1B10E908;
+	Thu, 16 Apr 2026 15:58:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="j+85DSsq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TrYOwCmQ";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013012.outbound.protection.outlook.com
- [40.107.201.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5731310E8EE
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 15:57:07 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010016.outbound.protection.outlook.com [52.101.85.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A46F10E8FE
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 15:58:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Pg7Lu0JGPpd6lQBbeiRAWoM94l8caJTnGHzYmhJFNAZDlUEs/TNqN126UvfZ1JFkA7/Mk05ZjY+qqgiOLG5YlA4xq4+qUkQWbtTfSKgYcTO3tgcovjO0P5s624uDeAn1FbC1pHYUekRxiKUBe6kPDVA9kjJwwd4+zLu3A5bGajpFjtTb//VIBc8ogcJxlohiTEOpEcbkJ/hbrPCjOOYhEMMe/jYxXcB5Ciqh0OvEhK73YWZpq9nrFTknSGaa05ElTFW8p5C5tz3IlmbwloOhocpxYtqFChxwOt7cvTvaMeW3koEu9k80jFsWc2II7WCNH0YgAh0BNdMfbtPZD7Xt1Q==
+ b=nixYgatQRROQPLNGNov9sGUtHi1ji2hUTztJRzoBsW3abWP6R7xFBxiSLoNHcoLSa66pFdjWWOiioE2bwxd9uQ72haMIUzVCdHND4GeHcYmoSbB9k1KL1ArPytP07RSlv9irgtrKYw6HG2kN7c3WuIa8VtHZUbbsCPRqexQ1mb61W9p8EZ/LClpqIChe7KyWoU7yKviFAjeST11LOgqWAMWjnBTuxviqV2iuv4fvOZeYaC6UKw9mC6Xc+P2BgkqYYXvWaQGqAtRjy08gpQcgmRpsVxAXFCqhTlpU3hueL4gS51+Tu+9h1e3eAhGmwkplSkcm1VlkbHZrjmo97VUnIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zcd+X0Q015augMVaSXn3WcntCeVW+GWm5Yj0NxfSihw=;
- b=e8UaRjGK+7QqTaYE9UE5cvaV1HtVCnfmbaWXcqFc+6LRPuACETkqpiDEw3n8yEEYdKll9hQTpVR0wOYYAaBrM+ldTQzlCVsFUokfu/sVrLj8el/Wt8E+aQLgLVMuZVFBz/oaTdSWi5MHd+4nqzK7w1Xa1++Au+k6jaaE+e8L47GppBUfMuOav77m8nfFsvd2EzHJlNh57t7cpTxD2RkNjr15mkC7Iohh5tEorCW2kh/zsJizRONTEXEwdTHxiNEuPbBXauZd91jN71WuKkBw+G9ztzehBgZRUWoI9pRP+dXHET1/lh3kxCmi+UcnCd4hpYQ0Yxo9VSVkgBPWvF2Ypg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=4Z1lzkg6ITJQ//qr2pUXBKQj5GtBUCUJdesbQJIskwg=;
+ b=J/+0/mNdKOzPWdmix/fLz7ATj0/25s2LmK/ejE6Z34WpKnM1co1AAHzLcNKWAODh28eQdJOi1loIUd71+CDZNPcplBHtPnGn34B5WQVJdUhNiPX/hgFWvhvYi0+XyWURrC25RX3Xv0gbTqVBb9/uAB+LTmUthQ5NAxzb4UuLkkk0taab9ZmYI/81VA3OXWJbYFwQDZDTsEjkkFAyATzsOdwNZFUF9yweDB+9B73sZKLLIdr1I012SbLPbkFMUuavOt94D5l3BQOSn+cDFs2Gi3IeWrwjRn2AMXnlh4LGcDf9jOuWTX5wwtoJPU1hRG2tuaqcoVfaEIwAd26PErJsPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zcd+X0Q015augMVaSXn3WcntCeVW+GWm5Yj0NxfSihw=;
- b=j+85DSsqIGGVeDhPsvXIlUM1SVEucB1GNST+YjL7jxRBkip/s66sXRCDas9l1j4c/M2S/sR+nv4HXvyYH+wXo6l9iAfUrIosXqoquHAENm7Qz0CGcZzic7Z0rncbPWBjeAvRcB1ntF6U+62VZvjeayJZUt27DIqGGC3QmMDpSsvrTHIy5iSxiAUXexSteJa1Y0In6/5pm7per6tVPM43em3eaaJTjiH8OTo4Ae6V1HrHdbGj63+U5LaNR7inq2XsTvI7WIQbB0oyKvL7lLVwWrNKQQQ7kDPCVQt/tpW0Mcm/rCnSsllCTw4MSU/ueiA0GhNqBSQ/9p+W9SJLGwYf5g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- DM3PR12MB9352.namprd12.prod.outlook.com (2603:10b6:0:4a::20) with
- Microsoft
+ bh=4Z1lzkg6ITJQ//qr2pUXBKQj5GtBUCUJdesbQJIskwg=;
+ b=TrYOwCmQkwiME8GszG7AZZHdk2hWtXkT9OcE8yIq+o5/I3LfP8YmlxuS8ZkBtm/OExoi+BLBAdgrBTi7+nTcJJIwNLVLbDBZ29IvFfJ21WUqKF4b4gPaGs0CppD96D6VE3XYv1Bh0MK51RN/r8tzTBjhCV9iWrNpE16zb9srob8=
+Received: from BYAPR03CA0014.namprd03.prod.outlook.com (2603:10b6:a02:a8::27)
+ by CY1PR12MB9584.namprd12.prod.outlook.com (2603:10b6:930:fe::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Thu, 16 Apr
+ 2026 15:58:20 +0000
+Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
+ (2603:10b6:a02:a8:cafe::f8) by BYAPR03CA0014.outlook.office365.com
+ (2603:10b6:a02:a8::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.51 via Frontend Transport; Thu,
+ 16 Apr 2026 15:58:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9818.25; Thu, 16 Apr 2026 15:57:02 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
- 15:57:01 +0000
-Message-ID: <87656950-23e4-414b-994c-d31adf55c5d5@nvidia.com>
-Date: Thu, 16 Apr 2026 11:56:59 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/11] gpu: nova-core: vbios: keep PmuLookupTable local
- in setup_falcon_data
-To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
- <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260414-fix-vbios-v2-0-705d30d16bba@nvidia.com>
- <20260414-fix-vbios-v2-7-705d30d16bba@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <20260414-fix-vbios-v2-7-705d30d16bba@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0126.namprd03.prod.outlook.com
- (2603:10b6:408:fe::11) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ 15.20.9769.17 via Frontend Transport; Thu, 16 Apr 2026 15:58:20 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 16 Apr
+ 2026 10:58:17 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 16 Apr
+ 2026 10:58:17 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 16 Apr 2026 10:58:16 -0500
+Message-ID: <a44e8da0-289e-bd13-db30-d2a614da368e@amd.com>
+Date: Thu, 16 Apr 2026 08:58:11 -0700
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH] accel/amdxdna: Fix memory leak in amdxdna_iommu_alloc()
+Content-Language: en-US
+To: Felix Gu <ustc.gu@gmail.com>, Min Ma <mamin506@gmail.com>, Oded Gabbay
+ <ogabbay@kernel.org>, "Mario Limonciello (AMD)" <superm1@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260416-amdxdna-v1-1-30c13008365c@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260416-amdxdna-v1-1-30c13008365c@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: lizhi.hou@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DM3PR12MB9352:EE_
-X-MS-Office365-Filtering-Correlation-Id: e88bab53-7469-420d-d6ca-08de9bd0cc17
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|CY1PR12MB9584:EE_
+X-MS-Office365-Filtering-Correlation-Id: b31d6e3b-556e-4b6c-3bfb-08de9bd0fb46
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: sXKQnvD1quRXY28Z2VA7rewbMiOhso/gxEAg1t8vuuClG0KzDeUqDsVRcT/iENGl4Tme/s976/KE+MdI98aHKjSVmb/EI5W5ZfpT6lcNPWdzy2aArP+ypbVavgKZHtGsLsU2jodBp9V2vmTUTpKEfWj0H3APNSqHUE/s4tkFzGeqoL9TjKlWQm7piizdTgPS5yeHJjhvK3mhcpI82hWuHV/9q9qWd3NXD7W5pWNmLlUgoOfXEtR3dKNij5wxoy4yi3wV1oFm4QyDybyd+bV9WRSa4gGq3tMkjuMDDhLM+iPOf7omQ+gPwrcEgNPfVNCyYuwXXkKeMd8MEWqzGDzSGVaD0RDYtb8QiiufyhIlK3UDSgZzG5lbXm8BNU1hE/7c2FWYzvBlvhwkdYI2+BT3Ej5gzv0w0mZ0VgoB7eeMaY1qQLRekyDR5bMUXKUGMvF6EFRN4FkHFIMe+S35W0B6FmRttM4rghsAqox4BINoUvONLxiNXXDgQQm31JGA+XwxEf+jcx06XXvA8ikzRKyVk82+gm4liWyY24hxvdb41Im8/KB9Eff058xlxHA5SP5Sxd8iX8a13U6pgXQm8FYJs4t1155cag/9SZxxTS8DqY6BGmhXqAk13F8H2Y5mLaFoP+3up0u+08FILhiqG+QTbMGSDxEVci1D/wxu+uC/94ee/P2lWNT2tM2gKwIvnLOntSsaqvBeBF0NHfnhHZr4ol32FN/82131Et8M6fkxqVw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|82310400026|376014|1800799024|36860700016|13003099007|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: CI4mTcQSSo0O7xthqFbN6QFHWvyS4mLufS19oZzQ95kR9y3yO0mCxFTkcnnjzv8n1W4CxyFyGxNE9dsuBWzx/brP/hxO0YJiUMnSL1Iaq2UrHa8U7WyVxMMMjoyXAp+ggC0UUXbF01ET8iaR0LkVEaqmkoSMfn8B95rJPWGZuxws30XXhy9IdAtAtYypvNaMLDKVxAEClcQsrNmEHkuuhbYAQuZF6JkEhMBmiUeeoWQj7QCOkXTCNuquvzGmUA0w52kq1e8SX685G7bJUndScH30zY32lVPe2nR3bxOU/O+aayN0+J1CFlvcw6/zOQBoPV5aAnRDhfkL58WASs2fGdtVRNiDLehVeRHwg7a8BKYY3K4rDaCiWfy/pGXFKDQCOiQUc9xcBvhiLqB0tZxHR0sjvst1qGj8k6yPRrzsVepSdGQRtkazvlqlVRBT82mwWjT7EPNRt4RlgdHUNAE+1nqC8jQX6UwCw32vmHnd5WgIc/VlDv3JsmOdws1PI/SZQl5PxIRO8ba4U2wmTIwouU/zASYeQcHenCPyEGlsKAyTF+p/yNwVdmQWEqXSSenB/pEWxt8ZJxtYQPZptVm91YkCQlDUMqpVfLqCfAeWKGlC/+olEfIc4n6FtDpG+4LKXA+3Gd/9ZJn04NoLWz1LHi02gmDQgU0X6xNn42eU9MvvE0SnsJSfK7vdeMjG1/1SquF18D9tUJZoWiGOnu+mCEeDyeYy87T7C+ZiClhnLNH+idQ0PFfWwFHrZBY3vpwqWQ8DGu3Q7tJEIBl+jAy2Ow==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(13003099007)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0NFZ251eTQ5WUVxZmVqUFhKbSt5Q3V2MjQyOWlRUDZzczhjenFVbTIxekJh?=
- =?utf-8?B?dzY5SzgxZmRwUG5iSDk4OUZpUTlIUHpxTm1oblRKRk9Md29CVEkvL2pMSDlt?=
- =?utf-8?B?Z3EzNVNUTjNTM2JsNEM0RFZaMld3dEM1QlVVNHg3VHVrSmF6RE5FK0xlWTk2?=
- =?utf-8?B?S2UxemNpcDBFUDRjME9Ec2w0VXRIUHFtN2EvVDErVUtWVUVlNDM2WnA0NTJI?=
- =?utf-8?B?SURGREZ4Q2dXeEtQTGdRVWozSTBsUUpQMFRaeWd0LzRxOGZLS1c5WkJ5dGVD?=
- =?utf-8?B?VmZ5cUpkbVdNVFl0SVdHdEdsVjFCdjVUcVliQjdUSExGYmREYW5xdmwxWnF6?=
- =?utf-8?B?RXdvVlBSaGZpdkdsV3lBeEZIZGFNYlFpRXZYSE83aU1uMENqREhzK0tDOGcy?=
- =?utf-8?B?M05WTFRxS3RKNXpBZnhnRlNQWW0wZysyTng5QVdUUkFZRVVuc25BY2Z1ZmdF?=
- =?utf-8?B?ZmZMU001b2d5akJ0NXVySXExUUJMaEFydDNPMEU1RG9vTG9Tc3B3bmFSQkNz?=
- =?utf-8?B?T1NMZUVXcDIrNE4veXZYb2xPcm1hRi9mc1VtbTJKUzFERFNnUUhOT01ob3Jq?=
- =?utf-8?B?bG5WRjhvZlZ2eTZDeVdJQVB1Z2diVS9jOTBXRk1NNWRsMHJ4d1pIUHRUVnJr?=
- =?utf-8?B?V1JxeFZjMWU2SGljcEU2Vk1HSTlQeVpoektOMWVtUThYT2JVOTNjZ3B0V05i?=
- =?utf-8?B?aEt5ejY0OThoSVJ3RzBPbUs1YThkNGo1a3FqM0xLY1A5UituNWNzMFhEcVJH?=
- =?utf-8?B?NG03L085Yzk0aGs1d1hjN0wzSUVqWGJmbEJCWWErYkU1TUpFVHlqL2FJVUVr?=
- =?utf-8?B?SmYwQ3ZPNEw1V0doekVuc3JVTExVeW5NUkdZckxhbUZ4clg5ZENtUW96di9O?=
- =?utf-8?B?N3YwdHpIdmJTVnExM0tBQ1kxOXREN3BWT1lhS2dHMGIrOFlvbHIvTUE3N29p?=
- =?utf-8?B?bEx4UWlCZUdLZkVCZEdlY0tEeFVxelgra0syaXpGY0xrZEx6Znk4ei9aS2Ry?=
- =?utf-8?B?SDlrUE9uUjJQS1BmV2Z1bnp2T0lWTmtXT1dRTUxOVUdiTHNPdkNicHMyTFRJ?=
- =?utf-8?B?U2dvTTRrak5rdEhnakpXK1hsb3VlT0NDSUk4dVcrRXhEVjQ2VGwxNlVzeEl5?=
- =?utf-8?B?L0M1YXJOWUszcVcvQ3I5cENRVmhKRkYrd0xpQThzTnpDb0VTUmhmRDZlUjY3?=
- =?utf-8?B?b1BvL01QMU5wSTZaMld2dHFqdW5VbWFURG5UcDN2emdXeUtUSEUzTUxKckxx?=
- =?utf-8?B?aVg3bEVHZlM0cGtSandwZnZ4RkpDemJ6ZFArU1pTcm5QWHFITk5oMlNkN0pO?=
- =?utf-8?B?Y1V2OEl3YlI0allMY0NnQzZCK3pXejlzUDFqNDFXcXlESHNHWXVYRXROUTRp?=
- =?utf-8?B?RHlsMGp5aXQ0bkN6ZlFQRG84Q3hpSFB5bVp1MVRoNlhQUW1jNWJheFZwdXpM?=
- =?utf-8?B?aUt5RmRoOXBRL1p2UGpLWEtQUmw1T1B1MEJDUHJoM053em5oNXdLRlVFeUpx?=
- =?utf-8?B?ZW9KRUNjN2pWZFV0SGNvWERDUXYzYTgxQy9FYkRWUGtQb0V1eS9mRFVpRGMr?=
- =?utf-8?B?MXo2WjNaN05iL2RYZzRMWHpIcDBnYlA3Q0R6dDNselUrVVFmT0svYk9ONEJP?=
- =?utf-8?B?N1hqUmFQbU8vWUx5bnlTdEc0d1ZvdGVOQlZxRk1NSVJpOXdiWkQxNzkxUnkz?=
- =?utf-8?B?VWtLeUovVmVmOGlNTWFDS3Y0Z2o0Y04wL0svMWVUQXhQUE1yQkNDWThXcVJX?=
- =?utf-8?B?cDZzaGxMaTdVZ2d6NnF6b0RZZllGMU9VV3QveWw2QmYyTVd6Qmpha1Y2REFF?=
- =?utf-8?B?UVFPMFNPQUtONlpwWmxtWjA3RUt5bTNsNU9pUXFudnBubDloNVViVzA1b3kr?=
- =?utf-8?B?ZzFJYlIzVUxHanlmcmpIMzFDSjZHamNCNXBMZ1ZRMGdHZHovRVZhV1RyZ3h2?=
- =?utf-8?B?cm8rVS9Ba3puaGc1anBWcmh2YWxmZy9OV3l3RlZvbW00SkJPTXlIV0ZycE41?=
- =?utf-8?B?T2NyTU9YNHprQU5FTG9QV21RRFJ1UUFsZ2Z1TUtBTzd4M2FSTEp6SmxRMjU5?=
- =?utf-8?B?SFpOcW8zWHcvTjIyYnU1NEVMS0RETWdmSURQU0tINlgzbzVpOGhVYVdWcWJj?=
- =?utf-8?B?TGJ0eEMxRFA3QUtlcWhTUktGYlVnSmVjVkp0Q3p4SGY5VUhPWXRXdnFUMGxR?=
- =?utf-8?B?Vzd4eXM2dFdKbSt6S09LNzJVelQ5QWNRVmZLWjMzZFNUcXlMT2VJazFnY3M2?=
- =?utf-8?B?M3JWbnBJTVpFQ2YvVDkxSFVtNmpCclhYR0dKUTViR1ZiQnlmTFZsNGJtM2tP?=
- =?utf-8?B?U0RNcmNsbjFxa1FSaHNaQW9UWDRld1VQNHRUMmM1Z003aG5ETG5qUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e88bab53-7469-420d-d6ca-08de9bd0cc17
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 15:57:01.6332 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f3n8+cdGOkbv3Uj0Z7mtgjbBAoZICJYrRdfgB1Ys2MIkuQ8SNNJzg2VGgfkcHHd/xzNHT9TZT+ddtvg67p9mxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9352
+X-MS-Exchange-AntiSpam-MessageData-0: lcJXIqxIHn7vM7vjJslgKohDV5gu19isRhe1xy1Iv5CUiYKKuOHBfQzywYkyy7odPtU6ASWL/8cuv+skOcMCMFrtWn0P42MAucjcFPstZwdoZEX+cZep6fSKVl3+eF9UK2tqMY0KTzAhc/PaqyKg6iO01EddxaRkHfZKpyon0jL7+S/trMyy921hvvTubMn6bwHjoqKKwS1RaXCkvQ1FkA4FX6X+4kQ+nJFXmHpZCA7AWOOD3az6Fnio6hRlUUDujFNP9Tu0YT8xj7O1gZztHkBYZ0b+WMr9Yl8kXJQrMRZ+QKSf4OmB3WxHBb5QRLUZw2eUym9QehioXxl8w6q6wXkYE2Wu157VBnK3ERvl07GB7r0Zqg9ftT7YE3/dWtE1/dha+E5plA+Aq1e6Bem/SDBpoJhJGToujy+wVP7tigV0fOcpmI5Eh2fTkgqsGX8/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 15:58:20.3269 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b31d6e3b-556e-4b6c-3bfb-08de9bd0fb46
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE17.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9584
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,75 +119,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Applied to drm-misc-next
 
-
-On 4/14/2026 7:54 AM, Eliot Courtney wrote:
-> This does not need to be stored, so we can remove it.
-
-Need more words/description, but patch is good.
-
-Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
-
-Thanks.
-
-
-> 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+On 4/16/26 06:37, Felix Gu wrote:
+> [You don't often get email from ustc.gu@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> In amdxdna_iommu_alloc(), if iommu_map() fails after successfully
+> allocating both iova and cpu_addr, the code jumps to free_iova
+> which only frees the iova, leaking the allocated pages.
+>
+> Fixes: ece3e8980907 ("accel/amdxdna: Allow forcing IOVA-based DMA via module parameter")
+> Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 > ---
->  drivers/gpu/nova-core/vbios.rs | 25 ++++++-------------------
->  1 file changed, 6 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-> index d63af95eb642..01f65d50cbb3 100644
-> --- a/drivers/gpu/nova-core/vbios.rs
-> +++ b/drivers/gpu/nova-core/vbios.rs
-> @@ -256,7 +256,6 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
->                  Ok(BiosImageType::FwSec) => {
->                      let fwsec = FwSecBiosBuilder {
->                          base: image,
-> -                        pmu_lookup_table: None,
->                          falcon_ucode_offset: None,
->                      };
->                      if first_fwsec_image.is_none() {
-> @@ -630,8 +629,6 @@ struct FwSecBiosBuilder {
->      /// Once FwSecBiosBuilder is constructed, the `falcon_ucode_offset` will be copied into a new
->      /// [`FwSecBiosImage`].
->      ///
-> -    /// The [`PmuLookupTable`] starts at the offset of the falcon data pointer.
-> -    pmu_lookup_table: Option<PmuLookupTable>,
->      /// The offset of the Falcon ucode.
->      falcon_ucode_offset: Option<usize>,
->  }
-> @@ -931,24 +928,14 @@ fn setup_falcon_data(
->              offset -= first_fwsec.base.data.len();
->          }
->  
-> -        if pmu_in_first_fwsec {
-> -            self.pmu_lookup_table = Some(PmuLookupTable::new(
-> -                &self.base.dev,
-> -                &first_fwsec.base.data[offset..],
-> -            )?);
-> +        let pmu_lookup_data = if pmu_in_first_fwsec {
-> +            &first_fwsec.base.data[offset..]
->          } else {
-> -            self.pmu_lookup_table = Some(PmuLookupTable::new(
-> -                &self.base.dev,
-> -                &self.base.data[offset..],
-> -            )?);
-> -        }
-> +            self.base.data.get(offset..).ok_or(EINVAL)?
-> +        };
-> +        let pmu_lookup_table = PmuLookupTable::new(&self.base.dev, pmu_lookup_data)?;
->  
-> -        match self
-> -            .pmu_lookup_table
-> -            .as_ref()
-> -            .ok_or(EINVAL)?
-> -            .find_entry_by_type(FALCON_UCODE_ENTRY_APPID_FWSEC_PROD)
-> -        {
-> +        match pmu_lookup_table.find_entry_by_type(FALCON_UCODE_ENTRY_APPID_FWSEC_PROD) {
->              Ok(entry) => {
->                  self.falcon_ucode_offset = Some(
->                      usize::from_safe_cast(entry.data)
-> 
-
+>   drivers/accel/amdxdna/amdxdna_iommu.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_iommu.c b/drivers/accel/amdxdna/amdxdna_iommu.c
+> index 4626434d4180..a2e8d8ac0901 100644
+> --- a/drivers/accel/amdxdna/amdxdna_iommu.c
+> +++ b/drivers/accel/amdxdna/amdxdna_iommu.c
+> @@ -110,10 +110,12 @@ void *amdxdna_iommu_alloc(struct amdxdna_dev *xdna, size_t size, dma_addr_t *dma
+>                          iova_align(&xdna->iovad, size),
+>                          IOMMU_READ | IOMMU_WRITE, GFP_KERNEL);
+>          if (ret)
+> -               goto free_iova;
+> +               goto free_cpu_addr;
+>
+>          return cpu_addr;
+>
+> +free_cpu_addr:
+> +       free_pages((unsigned long)cpu_addr, get_order(size));
+>   free_iova:
+>          __free_iova(&xdna->iovad, iova);
+>          return ERR_PTR(ret);
+>
+> ---
+> base-commit: 936c21068d7ade00325e40d82bfd2f3f29d9f659
+> change-id: 20260416-amdxdna-f46d045130aa
+>
+> Best regards,
+> --
+> Felix Gu <ustc.gu@gmail.com>
+>
