@@ -4,64 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A77F8A174
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 13:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B061F8A176
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 13:28:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C309B10E8A1;
-	Thu, 16 Apr 2026 13:22:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35DDF10E1E5;
+	Thu, 16 Apr 2026 13:28:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="WocJTjmp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MoonP/c0";
 	dkim-atps=neutral
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com
- [113.46.200.225])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 736BC10E8A1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 13:22:56 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=Pwlh0abOnFff5n5KRi3X7bo6L3aBYfKagCs00mSYgO8=;
- b=WocJTjmp2A1CJyQk5au/RTseLJr20e11Sv+iLpf7xPiN0KbfYhitSohvGXsqrF5iMZLsfHPqK
- 9IX1D2b4v8WGQcS/BhGOS8AMTIHinRe65EHiJ8QRz/Awu9gP5vnO0J2u3Sb4gDsetXI//rnEo8p
- f6ycpMC9+KNO5VNjueQcYwI=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
- by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4fxJSM73FQz1K9D8;
- Thu, 16 Apr 2026 21:16:35 +0800 (CST)
-Received: from dggemv705-chm.china.huawei.com (unknown [10.3.19.32])
- by mail.maildlp.com (Postfix) with ESMTPS id C541940539;
- Thu, 16 Apr 2026 21:22:52 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv705-chm.china.huawei.com (10.3.19.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 16 Apr 2026 21:22:52 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 16 Apr 2026 21:22:51 +0800
-Message-ID: <fffc172f-6bfe-4947-8f3b-52a1534b1d3b@huawei.com>
-Date: Thu, 16 Apr 2026 21:22:51 +0800
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2C7D10E1E5
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 13:28:08 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-2d9b27e4aa3so185383eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 06:28:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776346088; cv=none;
+ d=google.com; s=arc-20240605;
+ b=LdMBpyJUKHA8TbpJPPzGe+Qmw2/TPJWIpa37Jgi3P3wCvRLlS4zPGYZQyyINp4M4KZ
+ kZaKPyg2/A1+xlY1QLRWUoPlx3RU2zew4mpt+li5jItA7hl5Jhu2ZLXRE+xSZY9OeJbh
+ mDs2CSwUe6WF9nWoUspz9y8ttgx0KiBcqjW10PApvFI5o+RGcrh6QGr//sUWkCBnzl+P
+ xRhylatCTU6y75U5frfFijX4yuJKVxmw+s8ZTnXZ40R+g+dhAXk0Kbs3lm2OdxeTiUD6
+ xItgH/Cj8zHMPb0dxPKe0stUa0XMDtxtkX0Wdq9/SDIueM5pY7iaQu0hiY0ooed1yOS5
+ hAuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=jwhq/rWJv+hSIncbqP+T4zRf5Z8JAVJckW0Tn/6VCys=;
+ fh=mWlmI8fyiNvvP12RzMimJojmEy66muhiPHwSUCQduv4=;
+ b=Ic4UH1nP4uraNRFEJJ90PIPQTYa3WojvWbbeziCjiqOkqFUAawJrzS8D8QwyPqRv39
+ ZvH73xOWy52vAEXShsNo2nVmPrDqARr3QwRaLYH4K7mhAFzuiZ67pftO1MRCxzViqKQ8
+ S7Iu/wWgSvx133OGSSyh9ORSSXHrqhNGwmq33GWWYzR2jqVo1x/KztyC96tYnwYkbBH3
+ ld0oLAo2ZZ7MZ0XZlm/XqBYNCHmCRIKpSDCeuxsdcnMpgmjmymEBVe9L6+ndFtrPYiIY
+ G0cy5UGgpMUp/ANDG4Ls2pd/x+L5xa+cRBVdnJG1hQ11E0eeWFru1O7KhAcF+m2qA/wJ
+ iZBA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776346088; x=1776950888; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=jwhq/rWJv+hSIncbqP+T4zRf5Z8JAVJckW0Tn/6VCys=;
+ b=MoonP/c0aocnapVDPtFcfopjTw9ri/Y8AfmaXmwSCcVWhAIroKIOCMct76rTF4dTjs
+ IvRFxvlLy9Xpdtk4fhuNAMZr1a7/5IrsrbgYykMMVSFEvUJAYYQrc/Na+iywmVn485EV
+ zbUW3L7+wo85cgFNZWGXesrtWpzgc1xJr8EetfLMt7d7kF9DdFYrhG/cmfQgxnnTgh2c
+ gxWaMulobxEVtLlPIFTXuvxLFrFjZeNml738+EaoM8QekR2JdR+p1rzw02VQTk3FnmCM
+ 00lOguYr1MjVmzPHYgFhbF4vSV3q5PJ4648u69al5qKjPUfyuzG+yoHhx7gU8PceQuIy
+ ogug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776346088; x=1776950888;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=jwhq/rWJv+hSIncbqP+T4zRf5Z8JAVJckW0Tn/6VCys=;
+ b=gJH8dK658MMKAQNrZB/GcX1rUvoi+1Ulfsj8WQ4MaQAipk4YDvcXRLORJI2QGlo2dG
+ NPolEUnmyzLMcZFWz+f8v4/FBPw+QuJYc4XAXRhGgSPrqfABz7AdG0axxrIIrFtF0plH
+ 7QwfT85LW4Ei0xYNAdIynwmsOU7+GipCZ+1gBoVzKPLWz2srJ2ckFgyejPR6Xo9Th77V
+ NOVcsRn7DYFyHs0Z911hW1uawFih+yDIyN4qNXdm2ud4GfdRvxdpQJsjijf7vZJkmoYQ
+ PCHptTWcJgSeh7e3ypZxdOH8haVLaeAX9akRQWphkcnJWqEz7rl2hJ2DF9FEZ7Gu5jbI
+ btgQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8bpNQiRso3FO/3u2vQaHynZGBLslLC2ubl0YJeCjkQ39/+1emqN7Bntf5JijShYhOIVKH/dal3hVQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwSKQz+CGf4uEsJeaKJ27OU58UI0Isnx2I3/Ym18Q8RXb0Ie/fY
+ IworUYvmqObIpR4fgriL+OhewJ6weir/V2r0D4RAmJvUIisSK18DrrmU2LLk/ONBLL/jhALdqMG
+ wcH0xaR1qkaCQ97UChKCZ7UiOdZAwidY=
+X-Gm-Gg: AeBDies3kviPnj61KE04OgKabMDvPXc9c/UfA1A1oqN73wLm35iNOUMX/xxiA0GQXWT
+ OBZeHhRa5CsnWnV3hFhOQh6a9PPIFz0f+Fye+AdHdETQp1yuuRf9M14io4R6+TiBzr66wqEZ+WG
+ py0i0M8YJim2+VvmI2LIzMbJxYF27MzdyJabcaJF1G6umkXDsVM8VOHZ3QwFDIWdzBNbpyeQvt3
+ d+bGq8Xf88RS+IL3KbdiA29x+B78CasPWfZ5aaAcHa9y2WGLEV/+Ot9P9wun85E/yqePFC3RHfE
+ pHGN/Xs3HxzP3O9tEvJjuJVgKfwOepEbT4YzvroytekLcZznHuqRHQIVcpbyeRIdwTgtwQ==
+X-Received: by 2002:a05:7022:698e:b0:127:def:dd72 with SMTP id
+ a92af1059eb24-12c65906a48mr552300c88.2.1776346087791; Thu, 16 Apr 2026
+ 06:28:07 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
-To: Thomas Zimmermann <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
- <kong.kongxinwei@hisilicon.com>, <sumit.semwal@linaro.org>,
- <yongqin.liu@linaro.org>, <jstultz@google.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <airlied@gmail.com>, <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, Rongrong Zou <zourongrong@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
- <stable@vger.kernel.org>, "Liangjian(Jim,Kunpeng Solution Development Dept)"
- <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "fengsheng
- (A)" <fengsheng5@huawei.com>, "helin (T)" <helin52@h-partners.com>
-References: <20260413085037.17491-1-tzimmermann@suse.de>
- <20260413085037.17491-2-tzimmermann@suse.de>
- <7fd5022a-9a5d-4976-9d4a-1e0fa2022eae@huawei.com>
- <1805a7d4-a4a0-48ee-ac6e-33e5d9d5fdc9@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <1805a7d4-a4a0-48ee-ac6e-33e5d9d5fdc9@suse.de>
+References: <20260415164029.52537-1-leonardocesar@usp.br>
+In-Reply-To: <20260415164029.52537-1-leonardocesar@usp.br>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Apr 2026 09:27:54 -0400
+X-Gm-Features: AQROBzABpaNT6X8DJN-YvzCXN2JUjZTRyimTed_f2ZFWFV7TJ7I7jo0CAlHdb0I
+Message-ID: <CADnq5_MbpE9AT8qZiLQkYZ7QZ2YWwmu2U8vj3+C+umR1dnJL9A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: deduplicate ring preempt ib function
+To: Leonardo Cesar <leonardocesar@usp.br>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,241 +106,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Apr 16, 2026 at 4:54=E2=80=AFAM Leonardo Cesar <leonardocesar@usp.b=
+r> wrote:
+>
+> The ring preemption function is identical for both gfx_v11_0 and
+> gfx_v12_0. This patch refactors the code by moving the core logic
+> into a generic function inside amdgpu_gfx.c to reduce code
+> duplication and simplify future maintenance.
+>
+> Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 51 +++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 47 +----------------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 47 +----------------------
+>  4 files changed, 55 insertions(+), 92 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 2956e45c9..a157cbd8e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -2684,3 +2684,54 @@ void amdgpu_debugfs_compute_sched_mask_init(struct=
+ amdgpu_device *adev)
+>  #endif
+>  }
+>
+> +int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
+> +{
+> +       int i, r =3D 0;
+> +       struct amdgpu_device *adev =3D ring->adev;
+> +       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> +       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> +       unsigned long flags;
+> +
+> +       if (adev->enable_mes)
+> +               return -EINVAL;
+> +
+> +       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+> +               return -EINVAL;
+> +
+> +       spin_lock_irqsave(&kiq->ring_lock, flags);
+> +
+> +       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+> +               spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> +               return -ENOMEM;
+> +       }
+> +
+> +       /* assert preemption condition */
+> +       amdgpu_ring_set_preempt_cond_exec(ring, false);
+> +
+> +       /* assert IB preemption, emit the trailing fence */
+> +       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
+P,
+> +                                       ring->trail_fence_gpu_addr,
+> +                                       ++ring->trail_seq);
+> +       amdgpu_ring_commit(kiq_ring);
+> +
+> +       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> +
+> +       /* poll the trailing fence */
+> +       for (i =3D 0; i < adev->usec_timeout; i++) {
+> +               if (ring->trail_seq =3D=3D
+> +                       le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+> +                       break;
+> +               udelay(1);
+> +       }
+> +
+> +       if (i >=3D adev->usec_timeout) {
+> +               r =3D -EINVAL;
+> +               DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+> +       }
+> +
+> +       /* deassert preemption condition */
+> +       amdgpu_ring_set_preempt_cond_exec(ring, true);
+> +       return r;
+> +}
+> +
+> +
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.h
+> index a0cf0a3b4..77050f988 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -664,6 +664,8 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 cou=
+nt);
+>  void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
+>  void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
+>
+> +int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring);
+> +
+>  static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+>  {
+>         switch (mode) {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 5097de940..ef9c61d9a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6208,52 +6208,7 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct =
+amdgpu_ring *ring,
+>
+>  static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
+>  {
+> -       int i, r =3D 0;
+> -       struct amdgpu_device *adev =3D ring->adev;
+> -       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> -       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> -       unsigned long flags;
+> -
+> -       if (adev->enable_mes)
+> -               return -EINVAL;
+> -
+> -       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+> -               return -EINVAL;
+> -
+> -       spin_lock_irqsave(&kiq->ring_lock, flags);
+> -
+> -       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+> -               spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> -               return -ENOMEM;
+> -       }
+> -
+> -       /* assert preemption condition */
+> -       amdgpu_ring_set_preempt_cond_exec(ring, false);
+> -
+> -       /* assert IB preemption, emit the trailing fence */
+> -       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
+P,
+> -                                  ring->trail_fence_gpu_addr,
+> -                                  ++ring->trail_seq);
+> -       amdgpu_ring_commit(kiq_ring);
+> -
+> -       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> -
+> -       /* poll the trailing fence */
+> -       for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               if (ring->trail_seq =3D=3D
+> -                   le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+> -                       break;
+> -               udelay(1);
+> -       }
+> -
+> -       if (i >=3D adev->usec_timeout) {
+> -               r =3D -EINVAL;
+> -               DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+> -       }
+> -
+> -       /* deassert preemption condition */
+> -       amdgpu_ring_set_preempt_cond_exec(ring, true);
+> -       return r;
+> +       return amdgpu_gfx_ring_preempt_ib(ring);
 
-> Hi
-> 
-> Am 16.04.26 um 08:53 schrieb Yongbang Shi:
->>> Call drm_atomic_helper_check_plane_state() from the primary plane's
->>> atomic-check helper and replace the custom implementation.
->>>
->>> All plane's implementations of atomic_check should call the shared
->>> _check_plane_state() helper first. It adjusts the plane state for
->>> correct positioning, rotation and scaling of the plane. If the plane
->>> is not visible, it clears the corresponding flag in the plane state.
->>>
->>> On errors or if the plane is not visible, the atomic-check helper can
->>> return early. Implement all this in hibmc and drop the custom code
->>> that does some of it.
->>>
->>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display
->>> engine")
->>> Cc: Rongrong Zou <zourongrong@gmail.com>
->>> Cc: Sean Paul <seanpaul@chromium.org>
->>> Cc: Xinliang Liu <xinliang.liu@linaro.org>
->>> Cc: Dmitry Baryshkov <lumag@kernel.org>
->>> Cc: Baihan Li <libaihan@huawei.com>
->>> Cc: Yongbang Shi <shiyongbang@huawei.com>
->>> Cc: <stable@vger.kernel.org> # v4.10+
->>> ---
->>>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
->>>   1 file changed, 14 insertions(+), 32 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/
->>> drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->>> index 89bed78f1466..8fa2a95bcdd1 100644
->>> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->>> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->>> @@ -55,46 +55,28 @@ static const struct hibmc_dislay_pll_config
->>> hibmc_pll_table[] = {
->>>   static int hibmc_plane_atomic_check(struct drm_plane *plane,
->>>                       struct drm_atomic_state *state)
->>>   {
->>> -    struct drm_plane_state *new_plane_state =
->>> drm_atomic_get_new_plane_state(state,
->>> -                                         plane);
->>> -    struct drm_framebuffer *fb = new_plane_state->fb;
->>> -    struct drm_crtc *crtc = new_plane_state->crtc;
->>> -    struct drm_crtc_state *crtc_state;
->>> -    u32 src_w = new_plane_state->src_w >> 16;
->>> -    u32 src_h = new_plane_state->src_h >> 16;
->>> -
->>> -    if (!crtc || !fb)
->>> -        return 0;
->>> +    struct drm_plane_state *new_plane_state =
->>> +        drm_atomic_get_new_plane_state(state, plane);
->>> +    struct drm_crtc_state *new_crtc_state = NULL;
->>> +    int ret;
->>>   -    crtc_state = drm_atomic_get_crtc_state(state, crtc);
->>> -    if (IS_ERR(crtc_state))
->>> -        return PTR_ERR(crtc_state);
->>> +    if (new_plane_state->crtc)
->>> +        new_crtc_state = drm_atomic_get_new_crtc_state(state,
->>> new_plane_state->crtc);
->>>   -    if (src_w != new_plane_state->crtc_w || src_h !=
->>> new_plane_state->crtc_h) {
->>> -        drm_dbg_atomic(plane->dev, "scale not support\n");
->>> -        return -EINVAL;
->>> -    }
->>> -
->>> -    if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
->>> -        drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is
->>> invalid\n");
->>> -        return -EINVAL;
->>> -    }
->>> -
->>> -    if (!crtc_state->enable)
->>> +    ret = drm_atomic_helper_check_plane_state(new_plane_state,
->>> new_crtc_state,
->>> +                          DRM_PLANE_NO_SCALING,
->>> +                          DRM_PLANE_NO_SCALING,
->>> +                          false, true);
->> The last parameter, "can_update_disabled", if set to true, causes the
->> condition "if (!crtc_state->enable && !can_update_disabled)" in the
->> function `drm_atomic_helper_check_plane_state` to always evaluate to
->> false, meaning `crtc_state->enable` will not be checked. This differs
->> from the behavior prior to the modification.
->>
->> before:
->>     - crtc_state->enable(true)  --> continue check
->>     - crtc_state->enable(false) --> return 0(atomic check success)
->>
->> after:
->>     - crtc_state->enable(true)   --> _helper_check_plane_ ->  continue
->> check
->>     - crtc_state->enable(false)  --> _helper_check_plane_ ->  continue
->> check
-> 
-> Isn't this what the hardware supports? The plane's hardware registers
-> can be updated even if the plane's CRTC is off?
-> 
+There's no need to wrap this.  Just replace the call sites with the
+new function.
 
-Sure, The plane's hardware registers could be update after disable
-plane's crtc.
+Alex
 
-> In the old case, atomic check returned success. If we set
-> can_update_disable to false, it would return an error in such as case. 
-> Settings it ti true keeps the success for disabled CRTCs. The semantics
-> of the returned value don't change. It's just that the helper fills a
-> few more fields in drm_plane_state.
-> 
-
-Yes, can_update_disable couldn't be false.
-
-I just wanted to confirm this change. There is a slight difference
-between the original code and the modified version. In the original
-code, at location [1], it returns "check success" directly without
-checking the subsequent "new_plane_state->fb->pitches[0]" at [2],
-whereas the modified version continues to perform the full check.
-
-However, I believe the modified version is the better implementation,
-the plane check should be complete even if the CRTC is not enabled.
-
-[1]
-https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c#L84
-[2]
-https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c#L94
-
-
-> 
-> 
->>
->>
->>> +    if (ret)
->>> +        return ret;
->>> +    else if (!new_plane_state->visible)
->>>           return 0;
->>>   -    if (new_plane_state->crtc_x + new_plane_state->crtc_w >
->>> -        crtc_state->adjusted_mode.hdisplay ||
->>> -        new_plane_state->crtc_y + new_plane_state->crtc_h >
->>> -        crtc_state->adjusted_mode.vdisplay) {
->>> -        drm_dbg_atomic(plane->dev, "visible portion of plane is
->>> invalid\n");
->>> -        return -EINVAL;
->>> -    }
->>> -
->> The purpose of this check is to ensure that the right and bottom
->> boundaries of the plane do not extend beyond the crtc. In
->> `drm_atomic_helper_check_plane_state`, `drm_mode_get_hv_timing` is
->> called to retrieve the crtc boundaries, and `drm_rect_clip_scaled` is
->> used to clip the plane, any portions extending beyond the right and
->> bottom boundaries are discarded.
->>
->> I'd like to confirm that my understanding is correct? previously, the
->> check failed if the plane exceeded the boundaries, but now, after
->> `drm_atomic_helper_check_plane_state` is called, the plane is clipped to
->> fit within the boundaries.
-> 
-> Yes. This sets plane_state->dst, which is clipped to the size of the
-> display mode. But it also tests that the primary plane covers the whole
-> display.
-> 
->>
->> in function drm_rect_clip_scaled:
->>
->> diff = dst->x2 - clip->x2;
->> if (diff > 0) {
->>     ...
->>     dst->x2 -= diff;
->> }
->> diff = dst->y2 - clip->y2;
->> if (diff > 0) {
->>     ...
->>     dst->y2 -= diff;
->> }
-> 
-> I agree, the logic in drm_atomic_helper_check_plane_state() is hard to
-> understand. It sets the clip rectangle to the size of the display mode
-> (or zero if the CRTC is off) at [1].  Then is clips the source and
-> destination coordinates against the clipping rectangle at [2].
-> 
-> Because we set can_position to false, it tests if the destination and
-> clipping rectangles are equal at [3]. This is similar to the that is
-> being replaced, but with plane state correctly adjusted. If both
-> rectangles are equal, it returns success. If the destination is too
-> small, it fails with an errno code and a warning.
-> 
-> If the plane is not visible, the helper already returned at [4].
-> 
-> [1] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
-> drm_atomic_helper.c#L943
-> [2] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
-> drm_atomic_helper.c#L945
-> [3] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
-> drm_atomic_helper.c#L959
-> [4] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
-> drm_atomic_helper.c#L949
-> 
-> It is now possible to have a primary plane that is larger than the
-> display mode. This is a feature of the DRM API.
-> 
-
-Thank you so much for the explanation. It's much clearer to understand
-drm_atomic_helper_check_plane_state.
-
-By the way, we ran some basic tests on this set of patches using the
-latest BMC chip, and everything worked fine.
-
-
-Thanks.
-
-Best regards
-Yongbang.
-
-
-> Best regards
-> Thomas
-> 
-> 
->>
->>
->> Thanks.
->>
->> Best regards
->> Yongbang.
->>
->>
->>>       if (new_plane_state->fb->pitches[0] % 128 != 0) {
->>>           drm_dbg_atomic(plane->dev, "wrong stride with 128-byte
->>> aligned\n");
->>>           return -EINVAL;
->>>       }
->>> +
->>>       return 0;
->>>   }
->>>   
-> 
-
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
-
-
+>  }
+>
+>  static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool r=
+esume)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index 65c33823a..fc5ec2778 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -4613,52 +4613,7 @@ static unsigned gfx_v12_0_ring_emit_init_cond_exec=
+(struct amdgpu_ring *ring,
+>
+>  static int gfx_v12_0_ring_preempt_ib(struct amdgpu_ring *ring)
+>  {
+> -       int i, r =3D 0;
+> -       struct amdgpu_device *adev =3D ring->adev;
+> -       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
+> -       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
+> -       unsigned long flags;
+> -
+> -       if (adev->enable_mes)
+> -               return -EINVAL;
+> -
+> -       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
+> -               return -EINVAL;
+> -
+> -       spin_lock_irqsave(&kiq->ring_lock, flags);
+> -
+> -       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
+> -               spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> -               return -ENOMEM;
+> -       }
+> -
+> -       /* assert preemption condition */
+> -       amdgpu_ring_set_preempt_cond_exec(ring, false);
+> -
+> -       /* assert IB preemption, emit the trailing fence */
+> -       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
+P,
+> -                                  ring->trail_fence_gpu_addr,
+> -                                  ++ring->trail_seq);
+> -       amdgpu_ring_commit(kiq_ring);
+> -
+> -       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> -
+> -       /* poll the trailing fence */
+> -       for (i =3D 0; i < adev->usec_timeout; i++) {
+> -               if (ring->trail_seq =3D=3D
+> -                   le32_to_cpu(*(ring->trail_fence_cpu_addr)))
+> -                       break;
+> -               udelay(1);
+> -       }
+> -
+> -       if (i >=3D adev->usec_timeout) {
+> -               r =3D -EINVAL;
+> -               DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
+> -       }
+> -
+> -       /* deassert preemption condition */
+> -       amdgpu_ring_set_preempt_cond_exec(ring, true);
+> -       return r;
+> +       return amdgpu_gfx_ring_preempt_ib(ring);
+>  }
+>
+>  static void gfx_v12_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t =
+reg,
+> --
+> 2.43.0
+>
