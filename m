@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBCB4F8E4B1
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:04:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0AACF8E49D
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C90B10E291;
-	Fri, 17 Apr 2026 07:04:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4684910E965;
+	Fri, 17 Apr 2026 07:06:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nMbHhbsv";
+	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="fgKuowTf";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04F1C10E291
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 07:04:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6DE5260128;
- Fri, 17 Apr 2026 06:55:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 19334C19425;
- Fri, 17 Apr 2026 06:55:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776408946;
- bh=BUM1sFfc4z+gNHol3L3e6w/35+hoaRKwg5VUfwrXLdE=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=nMbHhbsvhFuKS17AdiBMfoaIvdOwn9vUmoGOZL475/6lsy/6HyIbeWMTzoxEhjonY
- yjvsUgKIASBtwRgmELj0Dg+r3INSCGq3r1OCAUv1Qk/FDHKLKbuqUb81KHiDaGqseK
- 5iLbkGvK400ES9Ndn14Q2CI5L4q407ZS9FklD18nKXXKbAXnKjI2rZRBLOeUE6muE1
- 5oQnFLwwS9TS92evz+b5ngGPo9cLVlNfirqnYOgkhoIizlWLdMeWdseNFA3h2FhGCZ
- KZ1Sf5JOmLUigrt6hFdfpducUfKk3aD91uzxEyJOakZmEXemfjckVbdzTn52lMwpb2
- BkFr9dL3OAwTg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 03B91F8E4A7;
- Fri, 17 Apr 2026 06:55:46 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 17 Apr 2026 08:55:42 +0200
-Subject: [PATCH v2] drm/panel: visionox-rm69299: Make use of prepare_prev_first
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3295110E1E7
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 13:19:05 +0000 (UTC)
+Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63GDClxn292577; Thu, 16 Apr 2026 06:18:55 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
+ bh=OnXpacRUCWVmj2ZhEhbENFViXZJLK6k7he2hDqU0XWA=; b=fgKuowTfbhMc
+ LpD6qO8c8yeBGBeIuAN712xR/ZRGjstUM7BrwY/5k7kWAfKarMPtnsx5R52+WMfk
+ 69BEruQpJbj/30yDaTt0XB52tbIGNLgz7CNAvsZkMeNh8+qryBSDCKYNLapa76VW
+ 2FDAb/s9iwN+60V98bPHo5x9nQVMIj1W++67kQ4NNIs8qUWykeIn+qJfd9GD2pxg
+ 0LLf32QaC3zYOrjwNqvXO3RNH0Y0bfLRgtMoeNQuySGS+mYnaRN/sDGM786SJAxu
+ dfvouwvFsogFBqgu7bpMxuFYt8V95Nu3HbXJIbUxUIg21YsqP0he7VP/0pTPv+8J
+ cxXt1OafpQ==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dh84tt06k-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 16 Apr 2026 06:18:55 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:fe::f072) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.37; Thu, 16 Apr
+ 2026 13:18:54 +0000
+From: Matt Evans <mattev@meta.com>
+To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+CC: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal
+ <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+ <kvm@vger.kernel.org>
+Subject: [PATCH 9/9] vfio/pci: Add mmap() attributes to DMABUF feature
+Date: Thu, 16 Apr 2026 06:17:52 -0700
+Message-ID: <20260416131815.2729131-10-mattev@meta.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260416131815.2729131-1-mattev@meta.com>
+References: <20260416131815.2729131-1-mattev@meta.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260417-axolotl-display-v2-1-8ce5341e46c2@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAG3Z4WkC/3WNwQ6DIBAFf8XsuTRCQU1P/Y/GA8K2bkLEACFaw
- 7+Xeu9xJnnzDogYCCPcmwMCZorklwri0oCZ9fJGRrYyiFZ0reSK6c07nxyzFFend9ZzZVDyDpU
- ZoK7WgC/azuJzrDxTTD7s50HmP/u/lTnjrNfTJKyQw02pB22UruYDYynlCwCuFoOsAAAA
-X-Change-ID: 20260415-axolotl-display-715ce416e5c8
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <quic_abhinavk@quicinc.com>, 
- Douglas Anderson <dianders@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1693; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=9qaIOk2jaDgB2Cwe96XjpEy/bDYDz7aCW+7/jIamQeA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp4dlwDVNUHkEYKJ4EK7EcKFKl9f3Jw1BBY493q
- Y324AJTfe6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaeHZcAAKCRBgAj/E00kg
- cttsD/9m2anpA36jjz0zc5Pmrdj7RngeZZnHIPytR2ydyH1jeLbPHn2F3Ibnu+mYJPis3syIgUk
- KLSCVr7eT56sD8tETG37D/OvZfDqkCyG9fNoKC1m1+I9pw912f32cPe+GsC6mVIEcsOD+RTIAyD
- YDddEQRCYz8hTnlm+9pNpYU5iIYzRRurP12ItgvLGRTToPtJ8SOYudEiDnTsN4AO1iF0o6MUDhl
- ce70P+RizgTNbVt58vdBANuGmQ3NomKt/Al/UfTT/cSse836BevvVkmyXEfBHyU7lDzSA7MaZ3y
- DWX3iYRulpWJN+xY3iDujFthoZZj0W8z0W3Q8DtZWYguIKEH92785pu4TAtA3HHasKDFdc3Apih
- JyKhDwFhhQQCZ6LZUPG+BKTrH1a8wBDqE/F8RXW3+xN0Sp7yzXlXvdXTtrtXmO6iOGb2pIcOBhr
- 0zomRSKVy7xoI0T5t8TAwpyvIEYpAaf23uioV+yXyPiH7+VMNTylg8Z7zU81mWOmgmgqgi9ldp4
- ehxKx7DtYVYHWReGTKS8zCkRxzBnxbcUkbEau2JLOhGjR4+smPCLAodZYHDYtbUBoji3xoiomMt
- 2Yuiz1fmJuyDWbgAFI6AS3uLVjEdNBuR08wfr0ZvoFZ1XpM71s5jAkR2yZRFZA/GYrzMlduEqiT
- O16IDSInnSNhg1g==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Type: text/plain
+X-Originating-IP: [2620:10d:c0a8:fe::f072]
+X-Authority-Analysis: v=2.4 cv=DeknbPtW c=1 sm=1 tr=0 ts=69e0e1bf cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=GbPsI2Ihf5RTnMjR_gZv:22 a=VabnemYjAAAA:8 a=ZZip-zt6qTTd7FoaoeoA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDEyNiBTYWx0ZWRfX+tFyEUII+htx
+ zqwYV0dvl9D+Yw505382/FK3ILPMyAC418PRnZqUDx+oll9uXnun/Z+BrsRoSzzs2WlaYS2W9dh
+ gt2K/IopaUAFYYMziA/d9FPa/C9LQH5wdyC0sSi3ntjiA4/s8UbH9ERH7uM2Z9bWNkPZgFbQvI0
+ Kxb4/vjYaXCqT4Qjs0npsBl8qcX/6PFfOdd/xZYLSqfx/2Dmzs3VR2hTBgWd3WEF4oE6swai/Bi
+ 8MsxvROtCG+xdthlcWrgCmCWhQZSdHVRyj+pv3d9KJyFJ/0U8N1DBSht0fL8TJc51Y4b29jrb8a
+ F1thlt0Jz/aIP8oEaiHLYBfPcBJYCE7ov0bI6WZ8NQ5ImrzE3dwRhUjt0qpD2pjStgYI00w5Slv
+ JSX088HrUF78v9dWd/U7btiZexNZHznyZF/KvPghTxYTWW2/3klJC9VdG34NbNq488M5weruVde
+ mtD87JYknNYlzwyZOxw==
+X-Proofpoint-GUID: G5a8D1fswKo3D1yySENReTX4evzXtV9I
+X-Proofpoint-ORIG-GUID: G5a8D1fswKo3D1yySENReTX4evzXtV9I
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-16_03,2026-04-16_02,2025-10-01_01
+X-Mailman-Approved-At: Fri, 17 Apr 2026 07:06:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,57 +91,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Guido Günther <agx@sigxcpu.org>
+A new field is reserved in vfio_device_feature_dma_buf.flags to
+request CPU-facing memory type attributes for mmap()s of the buffer.
+Add a flag VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC, which results in WC
+PTEs for the DMABUF's BAR region.
 
-The DSI link must be powered up to let panel driver to talk to the panel
-during prepare() callback execution. Set the prepare_prev_first flag to
-guarantee this.
-
-Fixes: 9e15123eca79 ("drm/msm/dsi: Stop unconditionally powering up DSI hosts at modeset")
-Signed-off-by: Guido Günther <agx@sigxcpu.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Matt Evans <mattev@meta.com>
 ---
-Changes in v2:
-- Move the prepare_prev_first before drm_panel_add(). (Douglas)
-- Link to v1: https://lore.kernel.org/r/20260415-axolotl-display-v1-1-7abb2d248355@ixit.cz
----
- drivers/gpu/drm/panel/panel-visionox-rm69299.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 15 +++++++++++++--
+ drivers/vfio/pci/vfio_pci_priv.h   |  1 +
+ include/uapi/linux/vfio.h          | 12 +++++++++---
+ 3 files changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-index e5e688cf98fdc..f1430370ff942 100644
---- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-+++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
-@@ -371,16 +371,18 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
- 		return ret;
+diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+index 48ec4da2db8b..00cedfe3a57d 100644
+--- a/drivers/vfio/pci/vfio_pci_dmabuf.c
++++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+@@ -43,7 +43,10 @@ static int vfio_pci_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *
+ 	if (req_start + req_len > priv->size)
+ 		return -EINVAL;
  
- 	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
- 	if (IS_ERR(ctx->reset_gpio)) {
- 		dev_err(dev, "cannot get reset gpio %ld\n", PTR_ERR(ctx->reset_gpio));
- 		return PTR_ERR(ctx->reset_gpio);
- 	}
+-	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
++	if (priv->attrs == VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC)
++		vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
++	else
++		vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 	vma->vm_page_prot = pgprot_decrypted(vma->vm_page_prot);
  
-+	ctx->panel.prepare_prev_first = true;
+ 	/* See comments in vfio_pci_core_mmap() re VM_ALLOW_ANY_UNCACHED. */
+@@ -370,6 +373,12 @@ static int validate_dmabuf_input(struct vfio_device_feature_dma_buf *dma_buf,
+ 	size_t length = 0;
+ 	u32 i;
+ 
++	if ((dma_buf->flags != 0) &&
++	    ((dma_buf->flags & ~VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_MASK) ||
++	     ((dma_buf->flags & VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_MASK) !=
++	      VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC)))
++		return -EINVAL;
 +
- 	ctx->panel.backlight = visionox_rm69299_create_backlight(ctx);
- 	if (IS_ERR(ctx->panel.backlight))
- 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
- 				     "Failed to create backlight\n");
+ 	for (i = 0; i < dma_buf->nr_ranges; i++) {
+ 		u64 offset = dma_ranges[i].offset;
+ 		u64 len = dma_ranges[i].length;
+@@ -413,7 +422,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 	if (copy_from_user(&get_dma_buf, arg, sizeof(get_dma_buf)))
+ 		return -EFAULT;
  
- 	drm_panel_add(&ctx->panel);
+-	if (!get_dma_buf.nr_ranges || get_dma_buf.flags)
++	if (!get_dma_buf.nr_ranges)
+ 		return -EINVAL;
  
- 	dsi->lanes = 4;
-
----
-base-commit: e6efabc0afca02efa263aba533f35d90117ab283
-change-id: 20260415-axolotl-display-715ce416e5c8
-
-Best regards,
+ 	/*
+@@ -457,6 +466,7 @@ int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+ 	priv->vdev = vdev;
+ 	priv->nr_ranges = get_dma_buf.nr_ranges;
+ 	priv->size = length;
++	priv->attrs = get_dma_buf.flags & VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_MASK;
+ 	ret = vdev->pci_ops->get_dmabuf_phys(vdev, &priv->provider,
+ 					     get_dma_buf.region_index,
+ 					     priv->phys_vec, dma_ranges,
+@@ -542,6 +552,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+ 	 */
+ 	priv->vdev = vdev;
+ 	priv->nr_ranges = nr_ranges;
++	priv->attrs = 0;
+ 	priv->size = (vma->vm_pgoff << PAGE_SHIFT) + req_len;
+ 	priv->provider = pcim_p2pdma_provider(vdev->pdev, res_index);
+ 	if (!priv->provider) {
+diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+index eac5606ca161..aeffd9f7f3b5 100644
+--- a/drivers/vfio/pci/vfio_pci_priv.h
++++ b/drivers/vfio/pci/vfio_pci_priv.h
+@@ -40,6 +40,7 @@ struct vfio_pci_dma_buf {
+ 	u32 nr_ranges;
+ 	struct kref kref;
+ 	struct completion comp;
++	u32 attrs;
+ 	enum vfio_pci_dma_buf_status status;
+ };
+ 
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index 77225ed8115f..93eef95dc7f3 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -1535,7 +1535,9 @@ struct vfio_device_feature_bus_master {
+  * etc. offset/length specify a slice of the region to create the dmabuf from.
+  * nr_ranges is the total number of (P2P DMA) ranges that comprise the dmabuf.
+  *
+- * flags should be 0.
++ * flags contains:
++ * - A field for userspace mapping attribute: by default, suitable for regular
++ *   MMIO. Alternate attributes (such as WC) can be selected.
+  *
+  * Return: The fd number on success, -1 and errno is set on failure.
+  */
+@@ -1549,8 +1551,12 @@ struct vfio_region_dma_range {
+ struct vfio_device_feature_dma_buf {
+ 	__u32	region_index;
+ 	__u32	open_flags;
+-	__u32   flags;
+-	__u32   nr_ranges;
++	__u32	flags;
++	/* Flags sub-field reserved for attribute enum */
++#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_MASK		(0xfU << 28)
++#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_UC		(0 << 28)
++#define VFIO_DEVICE_FEATURE_DMA_BUF_ATTR_WC		(1 << 28)
++	__u32	nr_ranges;
+ 	struct vfio_region_dma_range dma_ranges[] __counted_by(nr_ranges);
+ };
+ 
 -- 
-David Heidelberg <david@ixit.cz>
-
+2.47.3
 
