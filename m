@@ -4,61 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8383F8A14A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 09:05:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B91FFF8A146
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 09:11:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42F0710E872;
-	Thu, 16 Apr 2026 09:05:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1912110E012;
+	Thu, 16 Apr 2026 09:11:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="b92akC9B";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pwp6eOQo";
 	dkim-atps=neutral
-X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
- Thu, 16 Apr 2026 09:05:21 UTC
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com
- [162.62.57.210])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DEF010E86B
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:05:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1776330317; bh=N3ramACyPhXUAZW93RdREYCDRdJX0tWNQOLNEHoTlPA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=b92akC9B3XLudN/a03P0UBz2cgnHqLB43/OLylUmeijb4rHSxpm42juktMeUoffb8
- T/+m9pAuVohkQdro+XpdfErvmVodNRG9k/8Oj8vrHkfuM+zYsECmmKcFKeHvu7muzi
- E2VXJjY3++Rz/GZ1nwkDY+F0iYFa5XTXQ4rCGJio=
-Received: from lxu-ped-host.. ([111.198.231.89])
- by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
- id E74866E2; Thu, 16 Apr 2026 16:57:52 +0800
-X-QQ-mid: xmsmtpt1776329872tly3okefn
-Message-ID: <tencent_937883A1C441576C3765C6C5F36B43636905@qq.com>
-X-QQ-XMAILINFO: NcnCCMbb94woXpv83bjolnxJvqW/8oBO4r0cPzDfFIjDMkBEQzNPnhutruWrom
- OhR7HV9G06Zne68/LX9OOSMez26cGldGKItWg7Gi/23/+y6nno9xv2JtEEfupAarfbLDdBbEE07s
- VJMtK/X8BRHrHBQbKfZM5YiclNXqQpbz42sGbRW4VqUmDxgT5Afjv5OxbwrX++a5jBJDH2ajvmcb
- 0alJA6/7TGd8WORIthFWO/wgwd6/tbEv8Fmkyhc/C8BHkWpLgusopPCs3N04g0D1ERNfuVSWfYIA
- UDpDsE498YZkIN8ashuwTQVsbWmBQEfr+fVuJhCbwnIS6dlkQXgOh25FMGJaWt5FqGFD1Vz/dWFZ
- fm7adrXJ8MCjYd6OaMVrxiICgQmW+85vT3JI01Eu1FjiOUGCTyIx6ExL2DDVKcOv2vRUIXOnyRy/
- i7a43brLNwx4GWTpTken0oCARtdB0Z/ZLpWfZrOw7lG65VWz16Jze+qsz70IIbK3O6YkqP7XhauW
- N5ktRpAT0xs8RGeME61rkxHYNLXERwlclv8fVno5xpmtrBeHE8U0w/fnAqcDMl9i+Cjydz2BhVCi
- GY94o0vjX4WACL3eYEfpOym1gdidrYWFoNOxQb6xxPJHSYIMHywv963FalQOF5uLGD4R22JEGPgc
- saMcMiuGVu0h5wIV+pSfvZyy8XJ3zWizFUckpCOFHqPeM00BuN1drQ6jge2AnkWUZCqmJg/wN6yG
- 7KkH2+WzShfZREKym9IkYeXhjhydjDQdlC1znAYbhcsU0be0OHL5dgxOYI0bvQWoqIcYxafxPznc
- Xzp9wmHGi1fvXpMdQFrNvXFWSxq4qyl5Eoj0+ua+nXYyV8g8LsFbn/jwSqBK7usiN+NXX7BSDj8u
- Bx9zk28tPaEplo264yhF2gykfGP+o169rmPJWOeDsJAqpM6pKk7iIKaaHbPRQkHid7UZLb7N+/UE
- MJKGSFbPNqqepu+YdxK7OKUnqBaD91iy9zT8q8JW8/eY3HdByzAOnzI+qxQ6XL/+wGAxhu0PLC3b
- 3BP7g2DmTHxf6tvwJn
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Edward Adam Davis <eadavis@qq.com>
-To: syzbot+b2e951687503f32f74ce@syzkaller.appspotmail.com
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, syzkaller-bugs@googlegroups.com,
- tzimmermann@suse.de
-Subject: [PATCH] drm: Avoid the chaotic interleaving of change and delete
- handle
-Date: Thu, 16 Apr 2026 16:57:52 +0800
-X-OQ-MSGID: <20260416085752.381974-2-eadavis@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <69dd24f4.a00a0220.468cb.004a.GAE@google.com>
-References: <69dd24f4.a00a0220.468cb.004a.GAE@google.com>
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0E9310E012
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:11:03 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2a9296b3926so43727765ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 02:11:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776330663; x=1776935463; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Uts+5T2o2pECzjgqC6qN0D7jUAdgSuIUUSPWJQhrdKg=;
+ b=pwp6eOQordoF50wF8unQdEUHiJIhmLsnJ6f9wMrpP3aKKL+7S2uFtSOml0yVI3OLkZ
+ PXRfEScsggANL98I1lvQgtoXaRpBj56nULPQR6AejMNYJFfuOCPayx/kE3LAWZ+BTHrn
+ FjSrdonpaHW0HSZaeotsC/9XuNmQBY3iG/CHtQDCosNNE+4yX0bWrVz05u2syerBlg2I
+ W5p59M5JKFgSootoCIuEJeAINwZM+BpR+U7/6H7ERSaUU0sdxyEYlfVSs+xLM4GYb485
+ aNR0HARP7/T+kG258AECmYIhKKJdyEOfey1u3prh9Yr6JfUs3mQqn8elKMcBkftHbq/J
+ kuZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776330663; x=1776935463;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Uts+5T2o2pECzjgqC6qN0D7jUAdgSuIUUSPWJQhrdKg=;
+ b=Oq34OW3+WmkHKNjKjSCnPFwmmlaokFdGMlTkbcJPUDASvsF/TVfVMb0ai16CDmFBrU
+ LvPsWuhmMn3rdnoEnwMfHUC0HBqLH3FwRpZoax7XI3eIcLXFM/uUY7MkpiENEbXUMGOj
+ hTSVyrYe4x4DS7T75IIXVBhf63FbcGniM2lysGKyCXoIiCtUVIaqyOICM5b8c9Cknj5v
+ 4tNXqWTrkS0JM1yYIKRr57j27B1ga21WS8440AoDAaWgGu5Kl0K3aO5v+NAH8ocOCifN
+ MMXww5pzz/Onxhycxa5b3nyEXYpRsZ7GXqDodN88zLEQi0ILYxQ5X0R0Sv/GD1eFOb3R
+ whRA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8+E6jqJPFJBpTmYg7I40yYSC3J1+cwuoJmAjGGPA9G4zhXp5jezAkDY+BjvGKU9gqoVfS145I+mMU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcmPcVq74e9oM1qoARTosNb7/EclSfVb3Mz9ZKzxIWKYC3O5vz
+ VHdtISoUqDj5dqpoV8/+YwCHLqp+tqwckXVjyjIKNzjl9eCLrwFtCrFu
+X-Gm-Gg: AeBDies3bD41eNq73bpaOhfj8wClAvZN0jybhaCFhJWi3njJI7554gfnAxg7REll4Rq
+ MxyTHsmOcW7n7ZIujRUwExt5OAfqXez6lesyO9ftNRMp61dOfJORKAM6Q1KD/kF/ZKV8pCbLkzE
+ 0qogRa6d6PR9htzOsllIT95BS7sRlFXDgEkrAvOXgxuVyFv03GRHhmAxiYutJfQjI5ga7zjF7o0
+ +LQyseMEIkZJuzFdNglLx4IHLRc+7QZo9w0nYmLIOdh+Wi6iOH65/CbUK+jaz+ebm+thKGz6R04
+ +1i3OwWat1sR3nMpdG+soVJwhuZOqmDgHaqe7+f/4lkwCH2eCcSSLLlEVeaYKPOYX0TAaqDrAZW
+ 8c4EdGV5Fn3U2SwP6qDPSzM+LBd5PMAFGM6QQd0BkFONizznt/n1R7hcjrNP0rbIxLuT7KtwU48
+ mTtprsakxJ3iZUIg5y7mQqLPUiBgB0nlaAo8mQh1D28cqOPdyFrcf2CmBS1w==
+X-Received: by 2002:a17:902:c94d:b0:2b2:5da8:14be with SMTP id
+ d9443c01a7336-2b2d5a76e9amr256282835ad.41.1776330663005; 
+ Thu, 16 Apr 2026 02:11:03 -0700 (PDT)
+Received: from [172.16.20.13] ([136.226.252.245])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b4780ef429sm46710925ad.4.2026.04.16.02.10.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Apr 2026 02:11:02 -0700 (PDT)
+Message-ID: <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
+Date: Thu, 16 Apr 2026 14:40:52 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+ stable LVDS output
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ marex@denx.de, valentin@compulab.co.il, philippe.schenker@toradex.com,
+ alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260412053811.662461-1-tessolveupstream@gmail.com>
+ <20260412053811.662461-2-tessolveupstream@gmail.com>
+ <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
+Content-Language: en-US
+From: tessolveupstream@gmail.com
+In-Reply-To: <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,153 +100,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-First, let's take a look at how GEM object is freed:
-CPU0					CPU1
-====					====
-drm_gem_change_handle_ioctl()
- drm_gem_object_lookup() // got GEM obj and refcnt is 2
- ... blocks on prime.lock
-					drm_gem_handle_delete()
-	                                 drm_gem_object_release_handle()
-					  ... acquires prime.lock
-					  drm_prime_remove_buf_handle()
-					  ... unlock prime.lock
-					  drm_gem_object_handle_put_unlocked()
-					   drm_gem_object_put() // obj refcnt is 1
- ... acquires prime.lock
- drm_gem_object_put() // obj refcnt is 0
-  drm_gem_shmem_free() // obj is freed
 
-After a GEM object has been freed, a Use-After-Free vulnerability [1]
-is triggered when closes the DRM file, as the drm_gem_release() function
-attempts to access the already-freed GEM object.
 
-Adjust the change handle ioctl and handle delete ioctl to be atomic
-operations; this prevents simultaneous change and delete operations
-on the same GEM object from interfering with the release of the GEM
-object during the closing of the DRM file.
+On 15-04-2026 12:43, Luca Ceresoli wrote:
+> Hello Sudarshan,
+> 
+> On Sun Apr 12, 2026 at 7:38 AM CEST, Sudarshan Shetty wrote:
+>> The current DSI mode configuration enables VIDEO_BURST and disables
+>> horizontal front porch (HFP) and back porch (HBP) transmission using
+>> MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP.
+>>
+>> However, the SN65DSI83/84 bridge relies on receiving full horizontal
+>> timing information over DSI in order to correctly reconstruct the LVDS
+>> output timings. When HFP and HBP are not transmitted, the bridge cannot
+>> recreate the required timing parameters, resulting in unstable or
+>> missing display output on some panels.
+>>
+>> Additionally, while burst mode is supported by the hardware, its use
+>> depends on continuous clock behavior from the DSI host. In practice,
+>> burst mode may introduce instability depending on the host controller
+>> implementation, as the DSI link may transition to low-power state
+>> between bursts.
+>>
+>> In testing, removing burst mode and ensuring full horizontal timing
+>> transmission results in stable LVDS output across affected panels.
+>>
+>> Update the DSI mode flags to:
+>>   - Drop MIPI_DSI_MODE_VIDEO_BURST
+>>   - Drop MIPI_DSI_MODE_VIDEO_NO_HFP
+>>   - Drop MIPI_DSI_MODE_VIDEO_NO_HBP
+>>
+>> This aligns with common system configurations where non-burst mode is
+>> preferred and full timing information is transmitted over DSI.
+>>
+>> Signed-off-by: Sudarshan Shetty <tessolveupstream@gmail.com>
+> 
+> Thanks for having gone into the details and provide a good explanation for
+> the removal of these three flags.
+> 
+> It would be still great to have authoritative info from TI, possibly as an
+> update to the documentation.
+> 
+> I managed to test on a board with i.MX93, a TI SN65DSI84 and a 1920x1080p60
+> panel, and:
+> 
+>  - no image shown with the current mainline driver
+>  - it works by removing only MIPI_DSI_MODE_VIDEO_BURST (my current setup)
+>  - it works with this patch applied
+> 
+> Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # imx93 1920x1080p60
+> 
 
-[1]
-BUG: KASAN: slab-use-after-free in drm_gem_object_release_handle+0x4b/0x1e0 drivers/gpu/drm/drm_gem.c:374
-Call Trace:
- drm_gem_object_release_handle+0x4b/0x1e0 drivers/gpu/drm/drm_gem.c:374
- idr_for_each+0x1c6/0x2a0 lib/idr.c:210
- drm_gem_release+0x28/0x40 drivers/gpu/drm/drm_gem.c:1088
- drm_file_free+0x729/0xa00 drivers/gpu/drm/drm_file.c:261
- drm_close_helper drivers/gpu/drm/drm_file.c:290 [inline]
- drm_release+0x2de/0x3f0 drivers/gpu/drm/drm_file.c:438
-
-Allocated by task 6090:
- __drm_gem_shmem_create+0xc4/0x2e0 drivers/gpu/drm/drm_gem_shmem_helper.c:130
- drm_gem_shmem_create drivers/gpu/drm/drm_gem_shmem_helper.c:157 [inline]
- drm_gem_shmem_create_with_handle drivers/gpu/drm/drm_gem_shmem_helper.c:460 [inline]
- drm_gem_shmem_dumb_create+0x72/0x120 drivers/gpu/drm/drm_gem_shmem_helper.c:549
- 
-Freed by task 6093:
- drm_gem_object_release_handle+0xc2/0x1e0 drivers/gpu/drm/drm_gem.c:385
- drm_gem_handle_delete+0x7b/0xb0 drivers/gpu/drm/drm_gem.c:413
- drm_ioctl_kernel+0x2df/0x3b0 drivers/gpu/drm/drm_ioctl.c:804
-
-Fixes: 53096728b891 ("drm: Add DRM prime interface to reassign GEM handle")
-Reported-by: syzbot+b2e951687503f32f74ce@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b2e951687503f32f74ce
-Tested-by: syzbot+b2e951687503f32f74ce@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@qq.com>
----
- drivers/gpu/drm/drm_gem.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 891c3bff5ae0..63a8d7e980b5 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -374,14 +374,8 @@ drm_gem_object_release_handle(int id, void *ptr, void *data)
- 	if (obj->funcs->close)
- 		obj->funcs->close(obj, file_priv);
- 
--	mutex_lock(&file_priv->prime.lock);
--
- 	drm_prime_remove_buf_handle(&file_priv->prime, id);
--
--	mutex_unlock(&file_priv->prime.lock);
--
- 	drm_vma_node_revoke(&obj->vma_node, file_priv);
--
- 	drm_gem_object_handle_put_unlocked(obj);
- 
- 	return 0;
-@@ -401,13 +395,16 @@ drm_gem_handle_delete(struct drm_file *filp, u32 handle)
- {
- 	struct drm_gem_object *obj;
- 
-+	mutex_lock(&filp->prime.lock);
- 	spin_lock(&filp->table_lock);
- 
- 	/* Check if we currently have a reference on the object */
- 	obj = idr_replace(&filp->object_idr, NULL, handle);
- 	spin_unlock(&filp->table_lock);
--	if (IS_ERR_OR_NULL(obj))
-+	if (IS_ERR_OR_NULL(obj)) {
-+		mutex_unlock(&filp->prime.lock);
- 		return -EINVAL;
-+	}
- 
- 	/* Release driver's reference and decrement refcount. */
- 	drm_gem_object_release_handle(handle, obj, filp);
-@@ -416,6 +413,7 @@ drm_gem_handle_delete(struct drm_file *filp, u32 handle)
- 	spin_lock(&filp->table_lock);
- 	idr_remove(&filp->object_idr, handle);
- 	spin_unlock(&filp->table_lock);
-+	mutex_unlock(&filp->prime.lock);
- 
- 	return 0;
- }
-@@ -1012,17 +1010,18 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 		return -EINVAL;
- 	handle = args->new_handle;
- 
-+	mutex_lock(&file_priv->prime.lock);
- 	obj = drm_gem_object_lookup(file_priv, args->handle);
--	if (!obj)
-+	if (!obj) {
-+		mutex_unlock(&file_priv->prime.lock);
- 		return -ENOENT;
-+	}
- 
- 	if (args->handle == handle) {
- 		ret = 0;
--		goto out;
-+		goto out_unlock;
- 	}
- 
--	mutex_lock(&file_priv->prime.lock);
--
- 	spin_lock(&file_priv->table_lock);
- 	ret = idr_alloc(&file_priv->object_idr, obj, handle, handle + 1,
- 			GFP_NOWAIT);
-@@ -1051,9 +1050,8 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 	spin_unlock(&file_priv->table_lock);
- 
- out_unlock:
--	mutex_unlock(&file_priv->prime.lock);
--out:
- 	drm_gem_object_put(obj);
-+	mutex_unlock(&file_priv->prime.lock);
- 
- 	return ret;
- }
-@@ -1085,8 +1083,10 @@ drm_gem_open(struct drm_device *dev, struct drm_file *file_private)
- void
- drm_gem_release(struct drm_device *dev, struct drm_file *file_private)
- {
-+	mutex_lock(&file_private->prime.lock);
- 	idr_for_each(&file_private->object_idr,
- 		     &drm_gem_object_release_handle, file_private);
-+	mutex_unlock(&file_private->prime.lock);
- 	idr_destroy(&file_private->object_idr);
- }
- 
--- 
-2.43.0
-
+Thanks for testing the patch and for the Tested-by tag. 
+I’ll reach out to TI for clarification on the DSI mode flag behavior and
+any documentation updates, and will share any feedback I receive, though I
+cannot guarantee a response.
+> Luca
+> 
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 
