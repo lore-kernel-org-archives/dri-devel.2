@@ -4,128 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 693B0F8D762
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 18:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9C2F8D765
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 18:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2B0510E210;
-	Thu, 16 Apr 2026 18:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F04F10E212;
+	Thu, 16 Apr 2026 18:25:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IPCo9Dlc";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="QhSbVEtj";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010018.outbound.protection.outlook.com
- [52.101.193.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E6910E210
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 18:24:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UNycrkIw6h7HA/IkHEFuwU9MjVmNKgeRrCH4wpxWg2lqUse2X0IXelSv6Q3Dq89t0DXjXrvZ0A2l/f7lA3wXmzIObRGnj+JTJZmGEpCR0KAQAz0eel1PhDu3isADvlG6eR2qxLaLLUdexFfjWwiAMJZSYIkB8tUsrPOmHoSHCO0c7a/Ul8UY0M8FGESSQAa3LXKNca5zWWOWbb/Pkx4c6YoV20Wi0SdLyDDSh5csOpAsRcVzae4yKMUuKW3BVKll3EPSXJOOT3b9wosMOC+Wq8lniC1j0++IILPtcbijwhFaewLCDxy2So0lAXv6LUvc1iGb3WPkcVk8FQAoAk5b1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MpXGGGEZn7WXRFWFuMopw7NVOga49anPQW8A+0+1/q0=;
- b=LbDlByds5NEKvRZA2e7WlgqdFx+1svReW1OQ8Ne+bu+hOXecB94YS6eyVgi/IRvzs+aEiWXuHvEbIMyTtZ2GSLwuDaPrgHBGPVVn6W7CF7S/XypOO2udIVEDl8Jqc4LYjjXniBa2v9jdJBOpmkJw9P56p0n/+WLrhk8IQ09HOwNJIAL/9p+L/oGcTlztvjEyR/uoX192QQvbL9huvbujr8RLsR1XGwrdRRKFoM5nVdA0rUhZBD+vkRRAlRYzQzIC4EGg+dl0b1irrH0YJpGYRH4wP3VaeKwelApF9Nk9jS1qAHphRaIPQbOQt1ii1D2jbqD/vvs4ZlmaBpeFbuMd8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MpXGGGEZn7WXRFWFuMopw7NVOga49anPQW8A+0+1/q0=;
- b=IPCo9DlcNpujuuFnNC67sReAiUALyMlg7M4InldsP8DJ1gYW/7H79kAZM2+Rvz6hfLYADiFQtDtcTe9k8rARoCQl2FsK9AS2PIcL/gqsBpPRCAJfP9aaa4Wbh21XAs1HFgRw+uq4DxPH6jvi/goeZRUe7CBAJskSUfwGI4wEkKo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by CH2PR12MB4295.namprd12.prod.outlook.com (2603:10b6:610:a7::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Thu, 16 Apr
- 2026 18:24:12 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9818.023; Thu, 16 Apr 2026
- 18:24:12 +0000
-Message-ID: <a2f6ecb4-c38a-4eba-b582-3912e1bf5362@amd.com>
-Date: Thu, 16 Apr 2026 13:24:09 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Get device revision to derive VBNV
- string
-Content-Language: en-US
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com
-Cc: Max Zhen <max.zhen@amd.com>, linux-kernel@vger.kernel.org,
- sonal.santan@amd.com
-References: <20260416174825.1032109-1-lizhi.hou@amd.com>
- <71b1a245-1e19-46b2-862c-11db6f920c00@amd.com>
- <dd0219f8-31ea-3904-a0b8-f88c1e2d729e@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <dd0219f8-31ea-3904-a0b8-f88c1e2d729e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0247.namprd03.prod.outlook.com
- (2603:10b6:610:e5::12) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D87D610E212
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 18:25:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776363907; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Wc6eXUdUMP/+iLKFQEd9DLEfjv6U9IOmFUTYGlKWdh8UKZb4CYl9WGfnwKZJimiUg8cOPezc8Y4Ge56Z7eyndTNy900CfX2JVCRVm9CcT26Vf2ZbNmBjtQi7ntDme8FVLU9QTFjccVVTKUAJ+ZivlgQHuiRGrzu1GeB3DFzcIS8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776363907;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=xVmWLpFhpZ4FZhHRf5xi5kR7T9O4Gr+7roIZrm4hG7A=; 
+ b=JC0kIu+5yWbtAUev/qevSRbiXWuE6KL8E9Bz+XL6FZX2PwO8GgEd8pp5j7YRrtrmwsy1oNqt9+KcjbUeZxsxx2n/mVUeqD7ZF9IHuYn5IChl9/JJbbPLmvPoFYHTGFBE7OJQ35Bh8muK/fMRjSgbb9totj4/DsvFhy1glekzXfk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776363907; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+ bh=xVmWLpFhpZ4FZhHRf5xi5kR7T9O4Gr+7roIZrm4hG7A=;
+ b=QhSbVEtjY35ZbgPDi1jiYprSILzbakBh32xZq3lAJWfRnZewpqmY/c6+wVWufEMf
+ yLza8GsE9EbhVkUnITKjaGocMWAW+WYZkMgXyZW6pEgT/JUxj9P+qXEeBH3juQK3ZvR
+ VDnGz2WydMocqaphrMoA3R3PhkNjiUzMj7NUcFXM=
+Received: by mx.zohomail.com with SMTPS id 177636390603458.54285483546141;
+ Thu, 16 Apr 2026 11:25:06 -0700 (PDT)
+Date: Thu, 16 Apr 2026 19:25:01 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Steven Price <steven.price@arm.com>, kernel@collabora.com,
+ Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v7 5/6] drm/panthor: Support sparse mappings
+Message-ID: <aeEpRJhu2b3UWbCs@sobremesa>
+References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
+ <20260415112900.681834-6-adrian.larumbe@collabora.com>
+ <20260415171247.3701e116@fedora>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|CH2PR12MB4295:EE_
-X-MS-Office365-Filtering-Correlation-Id: f82caa7f-e958-4c54-1861-08de9be55b88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 7gKqk24+ISxH8EFR7e21uY8SzP+ajBsCdYfzzzjlarGJ+n45H5VvSR6gEaudDb1ofijiiYb/JdmCKiL+mV5r73txKvqAZWXAp2LzzUihIOA4uAdhDNlE/mEotGz0jeuLdNF19r+SJ1ub2pkwwuVtThDYq1Hvzyf5ruZ9uXB3HTfy0fFgkfftI3KCLY3P9RHZW0rT+kwOkTwdzKR4G79qaEBe4OM1NBx6F1x5bw84F7ZNb0UEIpfFtvvZkvR1gkvaa7E7Jlw4S80P4YQY0/W8oqDa8/HyOUv/88GlMrxGO2WWltf3FxfNUpJXDnfMEX0c1/+VLlYcZDCoOpAUTc7C7oOMOZAgUqNwGe9PiYmwMuGAFlqNJ3JAAKVWvr/siq+VFU4SKgUx8hKHgCbJiV6opUuTMmBl/2lUQbguyH3/chDhrR9Hc5/7REhHKvh8qmTwLkVwOojHIotwYtM1vAriEzZ1dl1juYIMT0JhJC7HG4PgFOaS4ImDURngCPhlzAGio3krqS0+EkKGtAOqLQWGFVKWJBrUwEUe1RjVY3+ON8Xhe81xGbzohpGaRw6INC4LvWYsqzrow4GSHEXHnkHD+P4sw29ksDNzQQ7PHlg5Wx1KAlNy3/UDaOWUW/yhJ5lilDEE9dz6GFsVwL61IZVM9wN3LVc04RC6oNSSiEmIeNKIVyo60LaHqBcNmte44DVq/O36ipP3sRlFn37md06JPDPIQrlMHdGDFMxlytV/UdM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2EyZ0tIVnY4ZlphRjNCNVpNV3BoSk43eFZhem5KRm0yR0NGQ0dVM3BIcFFW?=
- =?utf-8?B?cHdSSUFnQXdHNnRWNTFuTHJJbUkwb0FjMEVnUFVxcFBpNklJdUhtMUZ5bWNt?=
- =?utf-8?B?amxsTVVpaDhMend6eEhWb3pRa0s2Q3ZpOUh1eHlHK1hrNzNmMzZTajBEY1RG?=
- =?utf-8?B?b0hKVkVQdjQyazNYdnFFbVFSVTJJaHVBS2lTRlFOV2hFbXJKZlp3N0RJQ0ZE?=
- =?utf-8?B?VVd2NGVNMFBuTG1NaDFiUlhEMHlkNUdyYXBBdUd0MVRoUGVtN2E4clZTNzY0?=
- =?utf-8?B?Ty9WSmFzNE5hK3JiVjJJQmpkUlk2V0ErVzZyTnBFVjl5cnpGMnZaQlhOSEhM?=
- =?utf-8?B?ckFSSFRhUTRiek12bklESVdSU1ViZEZSTDVLOUhjays5UVluL00rb3BGZUFv?=
- =?utf-8?B?TnljNjF3dlhNZ3A5QjhpV2tCWGV5dHYrK1lvQy84MVBGajROeTBVa3FndnNr?=
- =?utf-8?B?anJHOTg1czVKRWtWNTVSWitoTUt0R3VGTUdSUEhXVnFFTVJGRVZtVGVVZndq?=
- =?utf-8?B?RzNMM3M1V28zNjgvOU5vaXRhU1kxLzlnT25UZk1wMWg2c1dPSW0xLzg4T2Vs?=
- =?utf-8?B?TVRaaU95QlMrOFNpeWhEY01veE1HWUhlMGJmMzgxRUlrMlhmazJFN0tuc3c0?=
- =?utf-8?B?RXhYWHp4YytMcU5CQWZUelFkU3ZGQytWZnIwcFdCU2U1RHo0N0JzRzRHVGVU?=
- =?utf-8?B?Smk1MWpKWEFMV2FDdzYwSk5DZEFabDN5eTJTVVVUZGdPYnVxVjF4bUJWNmJF?=
- =?utf-8?B?L3h3dklKQ1NBTmpFZk5COE83aSs2b1JUMjUydlFxMlMyVnpsRytNYllwak9W?=
- =?utf-8?B?Wk1XSnBTY1VWdVI2M2lLek9YWWozTFc3WDZaWit1SC8vay81QTR0aThlWkFG?=
- =?utf-8?B?Y2M1VnlYbjN0RlBDd0VCdGc3ZkhEenZ2SXl6aTRYWklVd0lRVTVMU1ZkRGYw?=
- =?utf-8?B?T2ZEWG9oWnpiZHRGMlpKL2w2OURhdFZOTlNwSWp0SllwU0ZCb0hpVEEvOU5G?=
- =?utf-8?B?aytaWEhER0ZUSGdabWZ4SFZ0UGpuRUJZNHpqc0dmbS9zZEtOUDczMVlNcnNl?=
- =?utf-8?B?d3dkbmV5Vkh4RE9ES3NJaDZEYzllQkJHNHp3U3FvNTgwUk1HRUYvVFl4LzJu?=
- =?utf-8?B?cEJUdzk4bEF3bzlleFFZVSs4MFBnVC9uMWozSmhSQUlzYWtETGtvdUNnQnFK?=
- =?utf-8?B?KzJNclIwYU4wVzVRVWNmYTc2YXpXYk5sRGJUb0RqekJQOXFXMEJkY3lFd25Z?=
- =?utf-8?B?WGk1b1pUbWNDWHVXRVdFRDUralJDeld2SEJ1cjIrdnRvK3FvRTlObGFxdnB3?=
- =?utf-8?B?bkdjT1B1SHNaOWx4WDNTRlFZQzFTaFdrNGJrWUlzdjBYSEUrOTMxSzJHR2My?=
- =?utf-8?B?U3hTd3BNdHhqekNzNEMvK3lnK0xpdmNsbDlGRjdXTUhHRXIrNThZaWFjdmxv?=
- =?utf-8?B?bE1VRG0rQzFuSmhwL3FLR2lLS3QxaFhvaytpRTRWYmkvVkVnRldjVys1aHRj?=
- =?utf-8?B?V3J0UTVlbmdUSWhLNUtFWW1ISHNIQmwyc0wvd3pnTjdMM2dJbkEzRjZpMWgy?=
- =?utf-8?B?TnFWOVkzL25TRUtsTEduQkJWVFpuN29xbXQ2Q2VGVXhWOXFuM1BmbzlZZXVt?=
- =?utf-8?B?b2sxWmdFWUhqUW8zNU9BRXorWjhXK1R6d3hBTWRYYUFlUTNvZzVqNnY0SmE0?=
- =?utf-8?B?TVhjMnVQbEI2emdGQzlINUxsUlQrY1dUVkp2ZkVVdGRISXNJSGpWVFNRbTF3?=
- =?utf-8?B?M05leWVxMGYyUUFyOUJhUk9NVlZEdXBhdS82UENZMEY0dmRJeVE2c3ZlbHF2?=
- =?utf-8?B?dG5jQS9jVXdDcXBWRnBTOUdsbGl4NUhwNTVNVC9ZZ0VURERXbUxRVFhBSE04?=
- =?utf-8?B?UitlUENEYllMUGdxdEpnTTNHVmZYTzJTM0crQTEvRXI3T3BQWjdSQTRtOW1I?=
- =?utf-8?B?MUZkZFp1S3lPaENJKytOSVA3bEU0cjAwb01XWWZ6c2NrNVo2T3dSRnVXdEFM?=
- =?utf-8?B?WHNJUjl1ZG5xT2xFOG5QZFlGUVpUMzB0TUpnUStxWklYenRyUXVoM1RQR3lZ?=
- =?utf-8?B?Q2ZkZk8vSGNOZVFlZ2Erd2FXdGlZMXFIMnhtNjJaVHdDT2sxVEExdW5XdVBm?=
- =?utf-8?B?aHBUbTlObDNJdkJZVUhhQVViSzNQdi9ieWJsd1Irem1yb3NKcHJ5bVdHbU4w?=
- =?utf-8?B?LzdoVUltNWdQTnRhc1A0QTljcTZhcGxoV2I1Y0c4VmloMlZ1c2NYQWtFT3Rz?=
- =?utf-8?B?MXFwSWVON2VHeW5DQ1g5RUNUZHpxZ3BZZFRhYnNxQWtxcURBcVVvd1NpcjVR?=
- =?utf-8?B?U3dsWStjRER0VUg1eGNhbGlJU1VkN1RZUGZ4by9sWG85NG5hMk9YQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f82caa7f-e958-4c54-1861-08de9be55b88
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 18:24:11.9848 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QuFJhor63KgA9GFW9WePkvcq4atwIQHi/HZ49NpbyN1C3gYXHBnlKNGCNV6KBiQ8bVsKXa3vtJHpv4rRL11eGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4295
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260415171247.3701e116@fedora>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,460 +73,583 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 15.04.2026 17:12, Boris Brezillon wrote:
+> On Wed, 15 Apr 2026 12:28:49 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+>
+> > Allow UM to bind sparsely populated memory regions by cyclically mapping
+> > virtual ranges over a kernel-allocated dummy BO. This alternative is
+> > preferable to the old method of handling sparseness in the UMD, because it
+> > relied on the creation of a buffer object to the same end, despite the fact
+> > Vulkan sparse resources don't need to be backed by a driver BO.
+> >
+> > The choice of backing sparsely-bound regions with a Panhtor BO was made so
+> > as to profit from the existing shrinker reclaim code. That way no special
+> > treatment must be given to the dummy sparse BOs when reclaiming memory, as
+> > would be the case if we had chosen a raw kernel page implementation.
+> >
+> > A new dummy BO is allocated per open file context, because even though the
+> > Vulkan spec mandates that writes into sparsely bound regions must be
+> > discarded, our implementation is still a workaround over the fact Mali CSF
+> > GPUs cannot support this behaviour on the hardware level, so writes still
+> > make it into the backing BO. If we had a global one, then it could be a
+> > venue for information leaks between file contexts, which should never
+> > happen in DRM.
+> >
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_gem.c |  35 +++++
+> >  drivers/gpu/drm/panthor/panthor_gem.h |   2 +
+> >  drivers/gpu/drm/panthor/panthor_mmu.c | 192 ++++++++++++++++++++++----
+> >  include/uapi/drm/panthor_drm.h        |  12 ++
+> >  4 files changed, 215 insertions(+), 26 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> > index 13295d7a593d..e27251ef113b 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> > @@ -1345,6 +1345,41 @@ panthor_kernel_bo_create(struct panthor_device *ptdev, struct panthor_vm *vm,
+> >  	return ERR_PTR(ret);
+> >  }
+> >
+> > +/**
+> > + * panthor_dummy_bo_create() - Create a Panthor BO meant to back sparse bindings.
+> > + * @ptdev: Device.
+> > + *
+> > + * Return: A valid pointer in case of success, an ERR_PTR() otherwise.
+> > + */
+> > +struct panthor_gem_object *
+> > +panthor_dummy_bo_create(struct panthor_device *ptdev)
+> > +{
+> > +	u32 dummy_flags = DRM_PANTHOR_BO_NO_MMAP;
+> > +	struct panthor_gem_object *bo;
+> > +	struct page **pages;
+> > +
+> > +	bo = panthor_gem_create(&ptdev->base, SZ_2M, dummy_flags, NULL, 0);
+> > +	if (IS_ERR_OR_NULL(bo))
+> > +		return bo;
+> > +
+> > +	pages = drm_gem_get_pages(&bo->base);
+>
+> Why not use panthor_gem_backing_get_pages_locked() here? Also,
+> drm_gem_get_pages() doesn't give any guarantee that you'll get a huge
+> page, nor can you guarantee that the 2M won't be reclaimed and later
+> on be re-allocated as 4k chunks. I'd probably keep things simple for
+> now, and
+>
+> - keep it a 2M GEM object
+> - force the page allocation at map time, just like we do for regular BOs
 
+On a second thought, if I force page allocation at map time, then there's no need to wait
+until a sparse vm_bind operation to create the dummy BO. I can just do it at VM creation time
+and then let the vm_bind ioctl path allocate the pages.
 
-On 4/16/26 13:18, Lizhi Hou wrote:
-> 
-> On 4/16/26 11:05, Mario Limonciello wrote:
->>
->>
->> On 4/16/26 12:48, Lizhi Hou wrote:
->>> From: Max Zhen <max.zhen@amd.com>
->>>
->>> Add support for querying the device revision from firmware.
->>>
->>> Use the returned revision to look up the VBNV string during device
->>> initialization, and fall back to the default VBNV when the revision
->>> query is not supported or no mapping is found.
->>>
->>> This allows the driver to report the accurate VBNV for devices that
->>> share the same vendor/device ID but differ by hardware revision.
->>>
->>> Signed-off-by: Max Zhen <max.zhen@amd.com>
->>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->>> ---
->>>   drivers/accel/amdxdna/aie.c             | 32 +++++++++++++++++++++++++
->>>   drivers/accel/amdxdna/aie.h             |  7 ++++++
->>>   drivers/accel/amdxdna/aie2_message.c    | 25 +++++++++++++++++++
->>>   drivers/accel/amdxdna/aie2_msg_priv.h   | 23 ++++++++++++++++++
->>>   drivers/accel/amdxdna/aie2_pci.c        | 17 +++++++++++++
->>>   drivers/accel/amdxdna/aie2_pci.h        |  3 +++
->>>   drivers/accel/amdxdna/aie4_pci.c        |  1 +
->>>   drivers/accel/amdxdna/amdxdna_pci_drv.h |  6 ++++-
->>>   drivers/accel/amdxdna/amdxdna_sysfs.c   |  5 +++-
->>>   drivers/accel/amdxdna/npu1_regs.c       |  2 +-
->>>   drivers/accel/amdxdna/npu3_regs.c       |  2 +-
->>>   drivers/accel/amdxdna/npu4_regs.c       | 16 ++++++++++++-
->>>   drivers/accel/amdxdna/npu5_regs.c       |  3 ++-
->>>   drivers/accel/amdxdna/npu6_regs.c       |  3 ++-
->>>   14 files changed, 138 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/drivers/accel/amdxdna/aie.c b/drivers/accel/amdxdna/aie.c
->>> index 4b3d4493128e..f4e07d90b8a0 100644
->>> --- a/drivers/accel/amdxdna/aie.c
->>> +++ b/drivers/accel/amdxdna/aie.c
->>> @@ -87,3 +87,35 @@ int aie_check_protocol(struct aie_device *aie, u32 
->>> fw_major, u32 fw_minor)
->>>         return found ? 0 : -EOPNOTSUPP;
->>>   }
->>> +
->>> +static const char *amdxdna_lookup_vbnv(const struct amdxdna_rev_vbnv 
->>> *tbl, u32 rev)
->>> +{
->>> +    int i;
->>> +
->>> +    if (!tbl)
->>> +        return NULL;
->>> +
->>> +    for (i = 0; tbl[i].vbnv; i++) {
->>> +        if (tbl[i].revision == rev)
->>> +            return tbl[i].vbnv;
->>> +    }
->>> +    return NULL;
->>> +}
->>> +
->>> +void amdxdna_vbnv_init(struct amdxdna_dev *xdna)
->>> +{
->>> +    const struct amdxdna_dev_info *info = xdna->dev_info;
->>> +    u32 rev;
->>> +
->>> +    xdna->vbnv = info->default_vbnv;
->>> +
->>> +    if (!info->ops->get_dev_revision)
->>> +        return;
->>> +
->>> +    if (info->ops->get_dev_revision(xdna, &rev))
->>> +        return;
->>
->> When either of these two if blocks fail don't you still want to have 
->> the default value?
->>
->> I wonder if what you really want is something like this:
->>
->>     if (!info->ops->get_dev_revision)
->>         goto fallback;
->>
->>     if (info->ops->get_dev_revision(xdna, &rev))
->>         goto fallback;
->>
->>     xdna->vbnv = amdxdna_lookup_vbnv(info->rev_vbnv_tbl, rev);
->>
->> fallback:
->>     if (!xdna->vbnv)
->>         xdna->vbnv = info->default_vbnv;
-> 
-> vbnv string is set to default before the first check.
-> 
-> Lizhi
-Oh thanks.  Then what you have works fine.
+> > +	if (PTR_ERR(pages) == -ENOMEM) {
+> > +		drm_gem_object_put(&bo->base);
+> > +		bo = panthor_gem_create(&ptdev->base, SZ_4K, dummy_flags, NULL, 0);
+> > +		if (IS_ERR_OR_NULL(bo))
+> > +			return bo;
+> > +		pages = drm_gem_get_pages(&bo->base);
+> > +	}
+> > +
+> > +	if (IS_ERR_OR_NULL(pages)) {
+> > +		drm_gem_object_put(&bo->base);
+> > +		return ERR_CAST(pages);
+> > +	}
+> > +
+> > +	bo->backing.pages = pages;
+> > +	return bo;
+> > +}
+> > +
+> >  static bool can_swap(void)
+> >  {
+> >  	return get_nr_swap_pages() > 0;
+> > diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
+> > index ae0491d0b121..dcf9cdd51d93 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_gem.h
+> > +++ b/drivers/gpu/drm/panthor/panthor_gem.h
+> > @@ -264,6 +264,8 @@ void panthor_gem_kernel_bo_set_label(struct panthor_kernel_bo *bo, const char *l
+> >  int panthor_gem_sync(struct drm_gem_object *obj,
+> >  		     u32 type, u64 offset, u64 size);
+> >
+> > +struct panthor_gem_object *panthor_dummy_bo_create(struct panthor_device *ptdev);
+> > +
+> >  struct drm_gem_object *
+> >  panthor_gem_prime_import(struct drm_device *dev,
+> >  			 struct dma_buf *dma_buf);
+> > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > index cea78e5f0591..6585fd6b5d04 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > @@ -112,6 +112,23 @@ struct panthor_mmu {
+> >  struct panthor_vm_pool {
+> >  	/** @xa: Array used for VM handle tracking. */
+> >  	struct xarray xa;
+> > +
+> > +	/** @dummy: Dummy drm object related fields
+>
+> 	/**
+> 	 * @dummy: Dummy drm object related fields.
+>
+> > +	 *
+> > +	 * Sparse bindings map virtual address ranges onto a dummy
+> > +	 * BO in a modulo fashion. Even though sparse writes are meant
+> > +	 * to be discarded and reads undefined, writes are still reflected
+> > +	 * in the dummy buffer. That means we must keep a dummy object per
+> > +	 * file context, to avoid data leaks between them.
+> > +	 *
+> > +	 */
+> > +	struct {
+> > +		/** @dummy.obj: Dummy object used for sparse mappings. */
+> > +		struct panthor_gem_object *obj;
+> > +
+> > +		/** @dummy.lock: Lock protecting against races on dummy object. */
+> > +		struct mutex lock;
+> > +	} dummy;
+> >  };
+> >
+> >  /**
+> > @@ -391,6 +408,15 @@ struct panthor_vm {
+> >  		 */
+> >  		struct list_head lru_node;
+> >  	} reclaim;
+> > +
+> > +	/** @dummy: Dummy object used for sparse mappings.
+>
+> 	/**
+> 	 * @dummy: Dummy object used for sparse mappings.
+>
+> > +	 *
+> > +	 * VM's must keep a reference to the file context-wide dummy BO because
+> > +	 * they can outlive the file context, which includes the VM pool holding
+> > +	 * the original dummy BO reference.
+> > +	 *
+> > +	 */
+> > +	struct panthor_gem_object *dummy;
+> >  };
+> >
+> >  /**
+> > @@ -1020,6 +1046,46 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
+> >  	return 0;
+> >  }
+> >
+> > +static int
+> > +panthor_vm_map_sparse(struct panthor_vm *vm, u64 iova, int prot,
+> > +		      struct sg_table *sgt, u64 size)
+> > +{
+> > +	u64 first_iova = iova;
+>
+> s/first_iova/orig_iova/
+>
+> > +	u64 first_size = size;
+> > +	int ret;
+> > +
+> > +	if (iova & (SZ_2M - 1)) {
+> > +		u64 unaligned_size = min(ALIGN(iova, SZ_2M) - iova, size);
+> > +
+> > +		ret = panthor_vm_map_pages(vm, iova, prot, sgt,
+> > +					   0, unaligned_size);
+> > +		if (ret)
+> > +			return ret;
+> > +
+> > +		size -= unaligned_size;
+> > +		iova += unaligned_size;
+> > +	}
+> > +
+> > +	/* TODO: we should probably optimize this at the io_pgtable level. */
+> > +	while (size > 0) {
+> > +		u64 next_size = min(size, sg_dma_len(sgt->sgl));
+> > +
+> > +		ret = panthor_vm_map_pages(vm, iova, prot,
+> > +					   sgt, 0, next_size);
+> > +		if (ret)
+> > +			goto err_unmap;
+> > +
+> > +		size -= next_size;
+> > +		iova += next_size;
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +err_unmap:
+> > +	panthor_vm_unmap_pages(vm, first_iova, first_size - size);
+>
+> If you do:
+>
+> 	panthor_vm_unmap_pages(vm, orig_iova, iova - orig_iova);
+>
+> you can get rid of the first_size variable.
+>
+> > +	return ret;
+> > +}
+> > +
+> >  static int flags_to_prot(u32 flags)
+> >  {
+> >  	int prot = 0;
+> > @@ -1258,38 +1324,71 @@ static int panthor_vm_op_ctx_prealloc_pts(struct panthor_vm_op_ctx *op_ctx)
+> >  	return 0;
+> >  }
+> >
+> > +static struct panthor_gem_object *
+> > +panthor_vm_get_dummy_obj(struct panthor_vm_pool *pool,
+> > +			 struct panthor_vm *vm)
+> > +{
+> > +	scoped_guard(mutex, &pool->dummy.lock) {
+> > +		if (!vm->dummy) {
+> > +			if (!pool->dummy.obj) {
+> > +				struct panthor_gem_object *obj =
+> > +					panthor_dummy_bo_create(vm->ptdev);
+> > +				if (IS_ERR(obj))
+> > +					return obj;
+> > +
+> > +				pool->dummy.obj = obj;
+> > +			}
+> > +
+> > +			drm_gem_object_get(&pool->dummy.obj->base);
+> > +			vm->dummy = pool->dummy.obj;
+> > +		}
+> > +	}
+>
+> The lock is taken for the whole function scope, you you can simply use
+> guard(mutex)() and get rid  of two indentation levels:
+>
+> 	guard(mutex)(&pool->dummy.lock);
+> 	if (vm->dummy)
+> 		return vm->dummy;
+>
+> 	if (!pool->dummy.obj) {
+> 		struct panthor_gem_object *obj;
+>
+> 		obj = panthor_dummy_bo_create(vm->ptdev);
+> 		if (IS_ERR(obj))
+> 			return obj;
+>
+> 		pool->dummy.obj = obj;
+> 	}
+>
+> 	drm_gem_object_get(&pool->dummy.obj->base);
+> 	vm->dummy = pool->dummy.obj;
+> 	return vm->dummy;
+>
+>
+> > +
+> > +	return vm->dummy;
+> > +}
+> > +
+> >  #define PANTHOR_VM_BIND_OP_MAP_FLAGS \
+> >  	(DRM_PANTHOR_VM_BIND_OP_MAP_READONLY | \
+> >  	 DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC | \
+> >  	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED | \
+> > +	 DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE | \
+> >  	 DRM_PANTHOR_VM_BIND_OP_TYPE_MASK)
+> >
+> >  static int panthor_vm_prepare_map_op_ctx(struct panthor_vm_op_ctx *op_ctx,
+> > +					 struct panthor_vm_pool *pool,
+>
+> Can't we just make sure vm->dummy is allocated before
+> panthor_vm_prepare_map_op_ctx() is called in case this is
+> a sparse map request? This would prevent the conditional check on
+> pool != NULL, but only when is_sparse=true, and you wouldn't have to
+> pass the pool around.
+>
+> >  					 struct panthor_vm *vm,
+> >  					 struct panthor_gem_object *bo,
+> >  					 const struct drm_panthor_vm_bind_op *op)
+> >  {
+> > +	bool is_sparse = op->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+> >  	struct drm_gpuvm_bo *preallocated_vm_bo;
+> >  	struct sg_table *sgt = NULL;
+> >  	int ret;
+> >
+> > -	if (!bo)
+> > -		return -EINVAL;
+> > -
+> >  	if ((op->flags & ~PANTHOR_VM_BIND_OP_MAP_FLAGS) ||
+> >  	    (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) != DRM_PANTHOR_VM_BIND_OP_TYPE_MAP)
+> >  		return -EINVAL;
+> >
+> >  	/* Make sure the VA and size are in-bounds. */
+> > -	if (op->size > bo->base.size || op->bo_offset > bo->base.size - op->size)
+> > +	if (bo && (is_sparse || op->size > bo->base.size ||
+> > +		   op->bo_offset > bo->base.size - op->size))
+> >  		return -EINVAL;
+> > +	else if (is_sparse && (!pool || op->bo_handle || op->bo_offset))
+> > +		return -EINVAL;
+> > +
+> > +	if (is_sparse) {
+> > +		bo = panthor_vm_get_dummy_obj(pool, vm);
+>
+> Actually, you assign bo here, so you might as well just pass the dummy
+> BO to panthor_vm_prepare_map_op_ctx() and keep the
+>
+> 	if (!bo)
+> 		return -EINVAL;
+>
+> check.
+>
+> As a side note, if gpuva.gem.obj != NULL for sparse mappings, it messes up
+> with the can_merge checks done by gpuvm, which is not a problem right now
+> because we simply ignore the .keep hint passed to unmap_op, but that's
+> probably worth a comment somewhere.
+>
+> > +		if (IS_ERR_OR_NULL(bo))
+> > +			return PTR_ERR(bo);
+> > +	}
+> >
+> >  	/* If the BO has an exclusive VM attached, it can't be mapped to other VMs. */
+> >  	if (bo->exclusive_vm_root_gem &&
+> >  	    bo->exclusive_vm_root_gem != panthor_vm_root_gem(vm))
+> >  		return -EINVAL;
+> >
+> > -	panthor_vm_init_op_ctx(op_ctx, op->size, op->va, op->flags);
+> > +	panthor_vm_init_op_ctx(op_ctx, op->size, op->va, op->flags
+> > +			       | ((is_sparse) ? DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC : 0));
+>
+> I would actually enforce NOEXEC is set and return EINVAL if
+> that's not the case.
+>
+> >
+> >  	ret = panthor_vm_op_ctx_prealloc_vmas(op_ctx);
+> >  	if (ret)
+> > @@ -1634,6 +1733,13 @@ void panthor_vm_pool_destroy(struct panthor_file *pfile)
+> >  	xa_for_each(&pfile->vms->xa, i, vm)
+> >  		panthor_vm_destroy(vm);
+> >
+> > +	scoped_guard(mutex, &pfile->vms->dummy.lock) {
+> > +		struct panthor_gem_object *bo = pfile->vms->dummy.obj;
+> > +
+> > +		if (bo)
+> > +			drm_gem_object_put(&bo->base);
+> > +	}
+>
+> Missing
+>
+> 	mutex_destroy(&pfile->vms->dummy.lock);
+>
+> > +
+> >  	xa_destroy(&pfile->vms->xa);
+> >  	kfree(pfile->vms);
+> >  }
+> > @@ -1651,6 +1757,8 @@ int panthor_vm_pool_create(struct panthor_file *pfile)
+> >  		return -ENOMEM;
+> >
+> >  	xa_init_flags(&pfile->vms->xa, XA_FLAGS_ALLOC1);
+> > +
+> > +	mutex_init(&pfile->vms->dummy.lock);
+> >  	return 0;
+> >  }
+> >
+> > @@ -1987,6 +2095,9 @@ static void panthor_vm_free(struct drm_gpuvm *gpuvm)
+> >
+> >  	free_io_pgtable_ops(vm->pgtbl_ops);
+> >
+> > +	if (vm->dummy)
+> > +		drm_gem_object_put(&vm->dummy->base);
+> > +
+> >  	drm_mm_takedown(&vm->mm);
+> >  	kfree(vm);
+> >  }
+> > @@ -2146,7 +2257,26 @@ static void panthor_vma_init(struct panthor_vma *vma, u32 flags)
+> >  #define PANTHOR_VM_MAP_FLAGS \
+> >  	(DRM_PANTHOR_VM_BIND_OP_MAP_READONLY | \
+> >  	 DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC | \
+> > -	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED)
+> > +	 DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED | \
+> > +	 DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)
+> > +
+> > +static int
+> > +panthor_vm_exec_map_op(struct panthor_vm *vm, u32 flags,
+> > +		       const struct drm_gpuva_op_map *op)
+> > +{
+> > +	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
+> > +	int prot = flags_to_prot(flags);
+> > +
+> > +	if (!op->va.range)
+> > +		return 0;
+>
+> Do we really expect a range of zero here? If not, I'd either drop
+> the check, or at the very least, make it a drm_WARN_ON_ONCE().
+>
+> > +
+> > +	if (flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE)
+> > +		return panthor_vm_map_sparse(vm, op->va.addr, prot,
+> > +					     bo->dmap.sgt, op->va.range);
+> > +
+> > +	return panthor_vm_map_pages(vm, op->va.addr, prot, bo->dmap.sgt,
+> > +				    op->gem.offset, op->va.range);
+> > +}
+> >
+> >  static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
+> >  {
+> > @@ -2160,9 +2290,7 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
+> >
+> >  	panthor_vma_init(vma, op_ctx->flags & PANTHOR_VM_MAP_FLAGS);
+> >
+> > -	ret = panthor_vm_map_pages(vm, op->map.va.addr, flags_to_prot(vma->flags),
+> > -				   op_ctx->map.bo->dmap.sgt, op->map.gem.offset,
+> > -				   op->map.va.range);
+> > +	ret = panthor_vm_exec_map_op(vm, vma->flags, &op->map);
+> >  	if (ret) {
+> >  		panthor_vm_op_ctx_return_vma(op_ctx, vma);
+> >  		return ret;
+> > @@ -2178,13 +2306,15 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
+> >  }
+> >
+> >  static bool
+> > -iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr)
+> > +iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr, bool is_sparse)
+> >  {
+> >  	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
+> >  	const struct page *pg;
+> >  	pgoff_t bo_offset;
+> >
+> >  	bo_offset = addr - op->va.addr + op->gem.offset;
+> > +	if (is_sparse)
+> > +		bo_offset %= bo->base.size;
+>
+> If this is a sparse mapping, we just have to check the first page
+> (so bo_offset=0).
+>
+> >  	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+> >
+> >  	return folio_size(page_folio(pg)) >= SZ_2M;
+> > @@ -2194,6 +2324,8 @@ static void
+> >  unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
+> >  		     u64 *unmap_start, u64 *unmap_range)
+> >  {
+> > +	struct panthor_vma *unmap_vma = container_of(op->unmap->va, struct panthor_vma, base);
+> > +	bool is_sparse = unmap_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+> >  	u64 aligned_unmap_start, aligned_unmap_end, unmap_end;
+> >
+> >  	unmap_end = *unmap_start + *unmap_range;
+> > @@ -2205,7 +2337,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
+> >  	 */
+> >  	if (op->prev && aligned_unmap_start < *unmap_start &&
+> >  	    op->prev->va.addr <= aligned_unmap_start &&
+> > -	    iova_mapped_as_huge_page(op->prev, *unmap_start)) {
+> > +	    (iova_mapped_as_huge_page(op->prev, *unmap_start, is_sparse))) {
+> >  		*unmap_range += *unmap_start - aligned_unmap_start;
+> >  		*unmap_start = aligned_unmap_start;
+> >  	}
+> > @@ -2215,7 +2347,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
+> >  	 */
+> >  	if (op->next && aligned_unmap_end > unmap_end &&
+> >  	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
+> > -	    iova_mapped_as_huge_page(op->next, unmap_end - 1)) {
+> > +	    (iova_mapped_as_huge_page(op->next, *unmap_start, is_sparse))) {
+> >  		*unmap_range += aligned_unmap_end - unmap_end;
+> >  	}
+> >  }
+> > @@ -2251,14 +2383,17 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+> >  	}
+> >
+> >  	if (op->remap.prev) {
+> > -		struct panthor_gem_object *bo = to_panthor_bo(op->remap.prev->gem.obj);
+> > -		u64 offset = op->remap.prev->gem.offset + unmap_start - op->remap.prev->va.addr;
+> > -		u64 size = op->remap.prev->va.addr + op->remap.prev->va.range - unmap_start;
+> > +		const struct drm_gpuva_op_map map_op = {
+> > +			.va.addr = unmap_start,
+> > +			.va.range =
+> > +			op->remap.prev->va.addr + op->remap.prev->va.range - unmap_start,
+> > +			.gem.obj = op->remap.prev->gem.obj,
+> > +			.gem.offset =
+> > +			op->remap.prev->gem.offset + unmap_start - op->remap.prev->va.addr,
+>
+> I believe it should be forced to zero if this is a sparse
+> mapping, no? This makes me think we probably want this to be
+> NULL, in the case of a sparse mapping. It shouldn't prevent
+> reclaim from happening on the dummy BO, because the drm_gpuva
+> has a separate vm_bo field. Yes it forces us to add bunch of
+> is_sparse checks in a few other places, but I find it cleaner
+> than pretending this is a regular BO.
+>
+> > +		};
+> >
+> >  		if (!unmap_vma->evicted) {
+> > -			ret = panthor_vm_map_pages(vm, unmap_start,
+> > -						   flags_to_prot(unmap_vma->flags),
+> > -						   bo->dmap.sgt, offset, size);
+> > +			ret = panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
+> >  			if (ret)
+> >  				return ret;
+> >  		}
+> > @@ -2269,14 +2404,15 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+> >  	}
+> >
+> >  	if (op->remap.next) {
+> > -		struct panthor_gem_object *bo = to_panthor_bo(op->remap.next->gem.obj);
+> > -		u64 addr = op->remap.next->va.addr;
+> > -		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
+> > +		const struct drm_gpuva_op_map map_op = {
+> > +			.va.addr = op->remap.next->va.addr,
+> > +			.va.range = unmap_start + unmap_range - op->remap.next->va.addr,
+> > +			.gem.obj = op->remap.next->gem.obj,
+> > +			.gem.offset = op->remap.next->gem.offset,
+>
+> Same here, I'd rather have gem.obj=NULL and gem.offset=0 when
+> remapping a porting of sparse mapping.
+>
+> > +		};
+> >
+> >  		if (!unmap_vma->evicted) {
+> > -			ret = panthor_vm_map_pages(vm, addr, flags_to_prot(unmap_vma->flags),
+> > -						   bo->dmap.sgt, op->remap.next->gem.offset,
+> > -						   size);
+> > +			ret = panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
+> >  			if (ret)
+> >  				return ret;
+> >  		}
+> > @@ -2826,6 +2962,7 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
+> >  			       const struct drm_panthor_vm_bind_op *op,
+> >  			       struct panthor_vm_op_ctx *op_ctx)
+> >  {
+> > +	struct panthor_file *pfile = file->driver_priv;
+> >  	ssize_t vm_pgsz = panthor_vm_page_size(vm);
+> >  	struct drm_gem_object *gem;
+> >  	int ret;
+> > @@ -2837,7 +2974,7 @@ panthor_vm_bind_prepare_op_ctx(struct drm_file *file,
+> >  	switch (op->flags & DRM_PANTHOR_VM_BIND_OP_TYPE_MASK) {
+> >  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP:
+> >  		gem = drm_gem_object_lookup(file, op->bo_handle);
+> > -		ret = panthor_vm_prepare_map_op_ctx(op_ctx, vm,
+> > +		ret = panthor_vm_prepare_map_op_ctx(op_ctx, pfile->vms, vm,
+> >  						    gem ? to_panthor_bo(gem) : NULL,
+> >  						    op);
+> >  		drm_gem_object_put(gem);
+> > @@ -3044,7 +3181,10 @@ int panthor_vm_map_bo_range(struct panthor_vm *vm, struct panthor_gem_object *bo
+> >  	struct panthor_vm_op_ctx op_ctx;
+> >  	int ret;
+> >
+> > -	ret = panthor_vm_prepare_map_op_ctx(&op_ctx, vm, bo, &op);
+> > +	if (drm_WARN_ON(&vm->ptdev->base, flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE))
+> > +		return -EINVAL;
+> > +
+> > +	ret = panthor_vm_prepare_map_op_ctx(&op_ctx, NULL, vm, bo, &op);
+> >  	if (ret)
+> >  		return ret;
+> >
+> > diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+> > index 42c901ebdb7a..1a9bcfc8f4cd 100644
+> > --- a/include/uapi/drm/panthor_drm.h
+> > +++ b/include/uapi/drm/panthor_drm.h
+> > @@ -614,6 +614,18 @@ enum drm_panthor_vm_bind_op_flags {
+> >  	 */
+> >  	DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED = 1 << 2,
+> >
+> > +	/**
+> > +	 * @DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE: Repeat a BO range
+> > +	 *
+> > +	 * Only valid with DRM_PANTHOR_VM_BIND_OP_TYPE_MAP.
+> > +	 *
+> > +	 * When this flag is set, the whole vm_bind range is mapped over a dummy  object in a cyclic
+> > +	 * fashion, and all GPU reads from addresses in the range return undefined values. This flag
+> > +	 * being set means drm_panthor_vm_bind_op:offset and drm_panthor_vm_bind_op::handle must
+> > +	 * both be set to 0.
+> > +	 */
+> > +	DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE = 1 << 3,
+> > +
+> >  	/**
+> >  	 * @DRM_PANTHOR_VM_BIND_OP_TYPE_MASK: Mask used to determine the type of operation.
+> >  	 */
 
-It's a little awkward though - why bother setting xdna->vbnv to NULL and 
-then resetting it?
-
-Maybe rename amdxdna_lookup_vbnv to amdxdna_update_vbnv and pass the 
-pointer in?  Then you can set it only when you need to.
-
-> 
->>
->>> +
->>> +    xdna->vbnv = amdxdna_lookup_vbnv(info->rev_vbnv_tbl, rev);
->>> +    if (!xdna->vbnv)
->>> +        xdna->vbnv = info->default_vbnv;
->>> +}
->>> diff --git a/drivers/accel/amdxdna/aie.h b/drivers/accel/amdxdna/aie.h
->>> index ba4c9ee21823..7a68b114f235 100644
->>> --- a/drivers/accel/amdxdna/aie.h
->>> +++ b/drivers/accel/amdxdna/aie.h
->>> @@ -82,11 +82,18 @@ struct psp_config {
->>>       u32            notify_val;
->>>   };
->>>   +/* Device revision to VBNV string mapping table entry */
->>> +struct amdxdna_rev_vbnv {
->>> +    u32        revision;
->>> +    const char    *vbnv;
->>> +};
->>> +
->>>   /* aie.c */
->>>   void aie_dump_mgmt_chann_debug(struct aie_device *aie);
->>>   void aie_destroy_chann(struct aie_device *aie, struct 
->>> mailbox_channel **chann);
->>>   int aie_send_mgmt_msg_wait(struct aie_device *aie, struct 
->>> xdna_mailbox_msg *msg);
->>>   int aie_check_protocol(struct aie_device *aie, u32 fw_major, u32 
->>> fw_minor);
->>> +void amdxdna_vbnv_init(struct amdxdna_dev *xdna);
->>>     /* aie_psp.c */
->>>   struct psp_device *aiem_psp_create(struct drm_device *ddev, struct 
->>> psp_config *conf);
->>> diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/ 
->>> amdxdna/aie2_message.c
->>> index 976ad6281078..6e98af7b74db 100644
->>> --- a/drivers/accel/amdxdna/aie2_message.c
->>> +++ b/drivers/accel/amdxdna/aie2_message.c
->>> @@ -1244,3 +1244,28 @@ int aie2_update_prop_time_quota(struct 
->>> amdxdna_dev_hdl *ndev, u32 us)
->>>       }
->>>       return ret;
->>>   }
->>> +
->>> +int aie2_get_dev_revision(struct amdxdna_dev_hdl *ndev, enum 
->>> aie2_dev_revision *rev)
->>> +{
->>> +    DECLARE_AIE_MSG(get_dev_revision, MSG_OP_GET_DEV_REVISION);
->>> +    struct amdxdna_dev *xdna = ndev->aie.xdna;
->>> +    int ret;
->>> +
->>> +    if (!AIE_FEATURE_ON(&ndev->aie, AIE2_GET_DEV_REVISION))
->>> +        return -EOPNOTSUPP;
->>> +
->>> +    ret = aie_send_mgmt_msg_wait(&ndev->aie, &msg);
->>> +    if (ret)
->>> +        return ret;
->>> +
->>> +    *rev = resp.rev;
->>> +
->>> +    if (*rev < AIE2_DEV_REVISION_STXA || *rev >= 
->>> AIE2_DEV_REVISION_UNKN) {
->>> +        XDNA_ERR(xdna, "Unknown device revision: %d (raw fuse: 0x%x)",
->>> +             *rev, resp.raw_fuse_data);
->>> +        return -EINVAL;
->>> +    }
->>> +
->>> +    XDNA_DBG(xdna, "Device revision: %d (raw fuse: 0x%x)", *rev, 
->>> resp.raw_fuse_data);
->>> +    return 0;
->>> +}
->>> diff --git a/drivers/accel/amdxdna/aie2_msg_priv.h b/drivers/accel/ 
->>> amdxdna/aie2_msg_priv.h
->>> index b10552c627ee..a41c9797e265 100644
->>> --- a/drivers/accel/amdxdna/aie2_msg_priv.h
->>> +++ b/drivers/accel/amdxdna/aie2_msg_priv.h
->>> @@ -33,6 +33,7 @@ enum aie2_msg_opcode {
->>>       MSG_OP_REGISTER_ASYNC_EVENT_MSG    = 0x10C,
->>>       MSG_OP_UPDATE_PROPERTY             = 0x113,
->>>       MSG_OP_GET_APP_HEALTH              = 0x114,
->>> +    MSG_OP_GET_DEV_REVISION            = 0x117,
->>>       MSG_OP_MAX_DRV_OPCODE,
->>>       MSG_OP_GET_PROTOCOL_VERSION        = 0x301,
->>>       MSG_OP_MAX_OPCODE
->>> @@ -519,4 +520,26 @@ struct update_property_resp {
->>>       enum aie2_msg_status status;
->>>   } __packed;
->>>   +enum aie2_dev_revision {
->>> +    AIE2_DEV_REVISION_STXA = 1,
->>> +    AIE2_DEV_REVISION_STXB,
->>> +    AIE2_DEV_REVISION_KRK1,
->>> +    AIE2_DEV_REVISION_KRK2,
->>> +    AIE2_DEV_REVISION_HALO,
->>> +    AIE2_DEV_REVISION_GPT1,
->>> +    AIE2_DEV_REVISION_GPT2,
->>> +    AIE2_DEV_REVISION_GPT3,
->>> +    AIE2_DEV_REVISION_UNKN,
->>> +};
->>> +
->>> +struct get_dev_revision_req {
->>> +    __u32            place_holder;
->>> +} __packed;
->>> +
->>> +struct get_dev_revision_resp {
->>> +    enum aie2_msg_status    status;
->>> +    enum aie2_dev_revision    rev;
->>> +    __u32            raw_fuse_data;
->>> +} __packed;
->>> +
->>>   #endif /* _AIE2_MSG_PRIV_H_ */
->>> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/ 
->>> amdxdna/aie2_pci.c
->>> index afbe3f8f67ce..1d1fb012294a 100644
->>> --- a/drivers/accel/amdxdna/aie2_pci.c
->>> +++ b/drivers/accel/amdxdna/aie2_pci.c
->>> @@ -608,6 +608,7 @@ static int aie2_init(struct amdxdna_dev *xdna)
->>>         release_firmware(fw);
->>>       aie2_msg_init(ndev);
->>> +    amdxdna_vbnv_init(xdna);
->>>       amdxdna_pm_init(xdna);
->>>       return 0;
->>>   @@ -1255,6 +1256,21 @@ static int aie2_set_state(struct 
->>> amdxdna_client *client,
->>>       return ret;
->>>   }
->>>   +static int aie2_get_dev_rev(struct amdxdna_dev *xdna, u32 *rev)
->>> +{
->>> +    struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
->>> +    enum aie2_dev_revision aie2_rev;
->>> +    int ret;
->>> +
->>> +    drm_WARN_ON(&xdna->ddev, !mutex_is_locked(&xdna->dev_lock));
->>> +    ret = aie2_get_dev_revision(ndev, &aie2_rev);
->>> +
->>> +    if (!ret)
->>> +        *rev = (u32)aie2_rev;
->>> +
->>> +    return ret;
->>> +}
->>> +
->>>   const struct amdxdna_dev_ops aie2_ops = {
->>>       .init = aie2_init,
->>>       .fini = aie2_fini,
->>> @@ -1269,4 +1285,5 @@ const struct amdxdna_dev_ops aie2_ops = {
->>>       .cmd_submit = aie2_cmd_submit,
->>>       .hmm_invalidate = aie2_hmm_invalidate,
->>>       .get_array = aie2_get_array,
->>> +    .get_dev_revision = aie2_get_dev_rev,
->>>   };
->>> diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/ 
->>> amdxdna/aie2_pci.h
->>> index 69b53c7bcb86..c44616065058 100644
->>> --- a/drivers/accel/amdxdna/aie2_pci.h
->>> +++ b/drivers/accel/amdxdna/aie2_pci.h
->>> @@ -223,6 +223,7 @@ enum aie2_fw_feature {
->>>       AIE2_TEMPORAL_ONLY,
->>>       AIE2_APP_HEALTH,
->>>       AIE2_UPDATE_PROPERTY,
->>> +    AIE2_GET_DEV_REVISION,
->>>       AIE2_FEATURE_MAX
->>>   };
->>>   @@ -258,6 +259,7 @@ extern const struct dpm_clk_freq 
->>> npu4_dpm_clk_table[];
->>>   extern const struct rt_config npu1_default_rt_cfg[];
->>>   extern const struct rt_config npu4_default_rt_cfg[];
->>>   extern const struct amdxdna_fw_feature_tbl npu4_fw_feature_table[];
->>> +extern const struct amdxdna_rev_vbnv npu4_rev_vbnv_tbl[];
->>>   extern const struct aie2_hw_ops npu4_hw_ops;
->>>     /* aie2_pm.c */
->>> @@ -286,6 +288,7 @@ int aie2_query_firmware_version(struct 
->>> amdxdna_dev_hdl *ndev,
->>>                   struct amdxdna_fw_ver *fw_ver);
->>>   int aie2_query_app_health(struct amdxdna_dev_hdl *ndev, u32 
->>> context_id,
->>>                 struct app_health_report *report);
->>> +int aie2_get_dev_revision(struct amdxdna_dev_hdl *ndev, enum 
->>> aie2_dev_revision *rev);
->>>   int aie2_create_context(struct amdxdna_dev_hdl *ndev, struct 
->>> amdxdna_hwctx *hwctx);
->>>   int aie2_destroy_context(struct amdxdna_dev_hdl *ndev, struct 
->>> amdxdna_hwctx *hwctx);
->>>   int aie2_map_host_buf(struct amdxdna_dev_hdl *ndev, u32 context_id, 
->>> u64 addr, u64 size);
->>> diff --git a/drivers/accel/amdxdna/aie4_pci.c b/drivers/accel/ 
->>> amdxdna/aie4_pci.c
->>> index f50e0bc566e4..87f80f804f91 100644
->>> --- a/drivers/accel/amdxdna/aie4_pci.c
->>> +++ b/drivers/accel/amdxdna/aie4_pci.c
->>> @@ -471,6 +471,7 @@ static int aie4_init(struct amdxdna_dev *xdna)
->>>           return ret;
->>>       }
->>>   +    amdxdna_vbnv_init(xdna);
->>>       XDNA_DBG(xdna, "aie4 init finished");
->>>       return 0;
->>>   }
->>> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h b/drivers/accel/ 
->>> amdxdna/amdxdna_pci_drv.h
->>> index eabbf57f2b38..bdd0dc83f92e 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
->>> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
->>> @@ -65,6 +65,7 @@ struct amdxdna_dev_ops {
->>>       int (*get_aie_info)(struct amdxdna_client *client, struct 
->>> amdxdna_drm_get_info *args);
->>>       int (*set_aie_state)(struct amdxdna_client *client, struct 
->>> amdxdna_drm_set_state *args);
->>>       int (*get_array)(struct amdxdna_client *client, struct 
->>> amdxdna_drm_get_array *args);
->>> +    int (*get_dev_revision)(struct amdxdna_dev *xdna, u32 *rev);
->>>   };
->>>     struct amdxdna_fw_feature_tbl {
->>> @@ -89,7 +90,8 @@ struct amdxdna_dev_info {
->>>       u32                dev_mem_buf_shift;
->>>       u64                dev_mem_base;
->>>       size_t                dev_mem_size;
->>> -    char                *vbnv;
->>> +    const char            *default_vbnv;
->>> +    const struct amdxdna_rev_vbnv    *rev_vbnv_tbl;
->>>       const struct amdxdna_dev_priv    *dev_priv;
->>>       const struct amdxdna_fw_feature_tbl *fw_feature_tbl;
->>>       const struct amdxdna_dev_ops    *ops;
->>> @@ -117,6 +119,8 @@ struct amdxdna_dev {
->>>       struct iommu_group        *group;
->>>       struct iommu_domain        *domain;
->>>       struct iova_domain        iovad;
->>> +    /* Accurate board name queried from firmware, or default_vbnv as 
->>> fallback */
->>> +    const char            *vbnv;
->>>   };
->>>     /*
->>> diff --git a/drivers/accel/amdxdna/amdxdna_sysfs.c b/drivers/accel/ 
->>> amdxdna/amdxdna_sysfs.c
->>> index f27e4ee960a0..d9e359ee8182 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_sysfs.c
->>> +++ b/drivers/accel/amdxdna/amdxdna_sysfs.c
->>> @@ -17,7 +17,10 @@ static ssize_t vbnv_show(struct device *dev, 
->>> struct device_attribute *attr, char
->>>   {
->>>       struct amdxdna_dev *xdna = dev_get_drvdata(dev);
->>>   -    return sprintf(buf, "%s\n", xdna->dev_info->vbnv);
->>> +    if (!xdna->vbnv)
->>> +        return sprintf(buf, "\n");
->>> +
->>> +    return sprintf(buf, "%s\n", xdna->vbnv);
->>>   }
->>>   static DEVICE_ATTR_RO(vbnv);
->>>   diff --git a/drivers/accel/amdxdna/npu1_regs.c b/drivers/accel/ 
->>> amdxdna/npu1_regs.c
->>> index f1141a65e64d..d7e50c6b06ef 100644
->>> --- a/drivers/accel/amdxdna/npu1_regs.c
->>> +++ b/drivers/accel/amdxdna/npu1_regs.c
->>> @@ -137,7 +137,7 @@ const struct amdxdna_dev_info dev_npu1_info = {
->>>       .dev_mem_buf_shift = 15, /* 32 KiB aligned */
->>>       .dev_mem_base      = AIE2_DEVM_BASE,
->>>       .dev_mem_size      = AIE2_DEVM_SIZE,
->>> -    .vbnv              = "RyzenAI-npu1",
->>> +    .default_vbnv      = "RyzenAI-npu1",
->>>       .device_type       = AMDXDNA_DEV_TYPE_KMQ,
->>>       .dev_priv          = &npu1_dev_priv,
->>>       .fw_feature_tbl    = npu1_fw_feature_table,
->>> diff --git a/drivers/accel/amdxdna/npu3_regs.c b/drivers/accel/ 
->>> amdxdna/npu3_regs.c
->>> index 5a0bbc916094..acece0faddf2 100644
->>> --- a/drivers/accel/amdxdna/npu3_regs.c
->>> +++ b/drivers/accel/amdxdna/npu3_regs.c
->>> @@ -69,7 +69,7 @@ const struct amdxdna_dev_info dev_npu3_pf_info = {
->>>       .sram_bar        = NPU3_MBOX_BUFFER_BAR,
->>>       .psp_bar                = NPU3_PSP_BAR_INDEX,
->>>       .smu_bar        = NPU3_SMU_BAR_INDEX,
->>> -    .vbnv            = "RyzenAI-npu3-pf",
->>> +    .default_vbnv        = "RyzenAI-npu3-pf",
->>>       .device_type        = AMDXDNA_DEV_TYPE_PF,
->>>       .dev_priv        = &npu3_dev_priv,
->>>       .fw_feature_tbl        = npu3_fw_feature_table,
->>> diff --git a/drivers/accel/amdxdna/npu4_regs.c b/drivers/accel/ 
->>> amdxdna/npu4_regs.c
->>> index 6ebf75ad5fb4..935999ced70f 100644
->>> --- a/drivers/accel/amdxdna/npu4_regs.c
->>> +++ b/drivers/accel/amdxdna/npu4_regs.c
->>> @@ -98,6 +98,7 @@ const struct amdxdna_fw_feature_tbl 
->>> npu4_fw_feature_table[] = {
->>>       { .features = BIT_U64(AIE2_NPU_COMMAND), .major = 6, .min_minor 
->>> = 15 },
->>>       { .features = BIT_U64(AIE2_UPDATE_PROPERTY), .major = 
->>> 6, .min_minor = 15 },
->>>       { .features = BIT_U64(AIE2_APP_HEALTH), .major = 6, .min_minor 
->>> = 18 },
->>> +    { .features = BIT_U64(AIE2_GET_DEV_REVISION), .major = 
->>> 6, .min_minor = 24 },
->>>       { .features = AIE2_ALL_FEATURES, .major = 7 },
->>>       { 0 }
->>>   };
->>> @@ -142,6 +143,18 @@ const struct aie2_hw_ops npu4_hw_ops = {
->>>       .update_counters = npu4_update_counters,
->>>   };
->>>   +const struct amdxdna_rev_vbnv npu4_rev_vbnv_tbl[] = {
->>> +    { AIE2_DEV_REVISION_STXA, "NPU Strix" },
->>> +    { AIE2_DEV_REVISION_STXB, "NPU Strix" },
->>> +    { AIE2_DEV_REVISION_KRK1, "NPU Krackan 1" },
->>> +    { AIE2_DEV_REVISION_KRK2, "NPU Krackan 2" },
->>> +    { AIE2_DEV_REVISION_HALO, "NPU Strix Halo" },
->>> +    { AIE2_DEV_REVISION_GPT1, "NPU Gorgon Point 1" },
->>> +    { AIE2_DEV_REVISION_GPT2, "NPU Gorgon Point 2" },
->>> +    { AIE2_DEV_REVISION_GPT3, "NPU Gorgon Point 3" },
->>> +    { 0 }
->>> +};
->>> +
->>>   static const struct amdxdna_dev_priv npu4_dev_priv = {
->>>       .fw_path        = "amdnpu/17f0_10/",
->>>       .rt_config    = npu4_default_rt_cfg,
->>> @@ -185,8 +198,9 @@ const struct amdxdna_dev_info dev_npu4_info = {
->>>       .dev_mem_buf_shift = 15, /* 32 KiB aligned */
->>>       .dev_mem_base      = AIE2_DEVM_BASE,
->>>       .dev_mem_size      = AIE2_DEVM_SIZE,
->>> -    .vbnv              = "RyzenAI-npu4",
->>> +    .default_vbnv      = "RyzenAI-npu4",
->>>       .device_type       = AMDXDNA_DEV_TYPE_KMQ,
->>> +    .rev_vbnv_tbl      = npu4_rev_vbnv_tbl,
->>>       .dev_priv          = &npu4_dev_priv,
->>>       .fw_feature_tbl    = npu4_fw_feature_table,
->>>       .ops               = &aie2_ops, /* NPU4 can share NPU1's 
->>> callback */
->>> diff --git a/drivers/accel/amdxdna/npu5_regs.c b/drivers/accel/ 
->>> amdxdna/npu5_regs.c
->>> index 6d4596b9e61e..795bd1996845 100644
->>> --- a/drivers/accel/amdxdna/npu5_regs.c
->>> +++ b/drivers/accel/amdxdna/npu5_regs.c
->>> @@ -105,8 +105,9 @@ const struct amdxdna_dev_info dev_npu5_info = {
->>>       .dev_mem_buf_shift = 15, /* 32 KiB aligned */
->>>       .dev_mem_base      = AIE2_DEVM_BASE,
->>>       .dev_mem_size      = AIE2_DEVM_SIZE,
->>> -    .vbnv              = "RyzenAI-npu5",
->>> +    .default_vbnv      = "RyzenAI-npu5",
->>>       .device_type       = AMDXDNA_DEV_TYPE_KMQ,
->>> +    .rev_vbnv_tbl      = npu4_rev_vbnv_tbl,
->>>       .dev_priv          = &npu5_dev_priv,
->>>       .fw_feature_tbl    = npu4_fw_feature_table,
->>>       .ops               = &aie2_ops,
->>> diff --git a/drivers/accel/amdxdna/npu6_regs.c b/drivers/accel/ 
->>> amdxdna/npu6_regs.c
->>> index 76181345b6d1..3125d1ce45ab 100644
->>> --- a/drivers/accel/amdxdna/npu6_regs.c
->>> +++ b/drivers/accel/amdxdna/npu6_regs.c
->>> @@ -106,8 +106,9 @@ const struct amdxdna_dev_info dev_npu6_info = {
->>>       .dev_mem_buf_shift = 15, /* 32 KiB aligned */
->>>       .dev_mem_base      = AIE2_DEVM_BASE,
->>>       .dev_mem_size      = AIE2_DEVM_SIZE,
->>> -    .vbnv              = "RyzenAI-npu6",
->>> +    .default_vbnv      = "RyzenAI-npu6",
->>>       .device_type       = AMDXDNA_DEV_TYPE_KMQ,
->>> +    .rev_vbnv_tbl      = npu4_rev_vbnv_tbl,
->>>       .dev_priv          = &npu6_dev_priv,
->>>       .fw_feature_tbl    = npu4_fw_feature_table,
->>>       .ops               = &aie2_ops,
->>
-
+Adrian Larumbe
