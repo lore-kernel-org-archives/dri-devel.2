@@ -4,87 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B91FFF8A146
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 09:11:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D44B6F8A146
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 09:14:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1912110E012;
-	Thu, 16 Apr 2026 09:11:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 464D110E84D;
+	Thu, 16 Apr 2026 09:14:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pwp6eOQo";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="LOTNfhZM";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0E9310E012
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:11:03 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2a9296b3926so43727765ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 02:11:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776330663; x=1776935463; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=Uts+5T2o2pECzjgqC6qN0D7jUAdgSuIUUSPWJQhrdKg=;
- b=pwp6eOQordoF50wF8unQdEUHiJIhmLsnJ6f9wMrpP3aKKL+7S2uFtSOml0yVI3OLkZ
- PXRfEScsggANL98I1lvQgtoXaRpBj56nULPQR6AejMNYJFfuOCPayx/kE3LAWZ+BTHrn
- FjSrdonpaHW0HSZaeotsC/9XuNmQBY3iG/CHtQDCosNNE+4yX0bWrVz05u2syerBlg2I
- W5p59M5JKFgSootoCIuEJeAINwZM+BpR+U7/6H7ERSaUU0sdxyEYlfVSs+xLM4GYb485
- aNR0HARP7/T+kG258AECmYIhKKJdyEOfey1u3prh9Yr6JfUs3mQqn8elKMcBkftHbq/J
- kuZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776330663; x=1776935463;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=Uts+5T2o2pECzjgqC6qN0D7jUAdgSuIUUSPWJQhrdKg=;
- b=Oq34OW3+WmkHKNjKjSCnPFwmmlaokFdGMlTkbcJPUDASvsF/TVfVMb0ai16CDmFBrU
- LvPsWuhmMn3rdnoEnwMfHUC0HBqLH3FwRpZoax7XI3eIcLXFM/uUY7MkpiENEbXUMGOj
- hTSVyrYe4x4DS7T75IIXVBhf63FbcGniM2lysGKyCXoIiCtUVIaqyOICM5b8c9Cknj5v
- 4tNXqWTrkS0JM1yYIKRr57j27B1ga21WS8440AoDAaWgGu5Kl0K3aO5v+NAH8ocOCifN
- MMXww5pzz/Onxhycxa5b3nyEXYpRsZ7GXqDodN88zLEQi0ILYxQ5X0R0Sv/GD1eFOb3R
- whRA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8+E6jqJPFJBpTmYg7I40yYSC3J1+cwuoJmAjGGPA9G4zhXp5jezAkDY+BjvGKU9gqoVfS145I+mMU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcmPcVq74e9oM1qoARTosNb7/EclSfVb3Mz9ZKzxIWKYC3O5vz
- VHdtISoUqDj5dqpoV8/+YwCHLqp+tqwckXVjyjIKNzjl9eCLrwFtCrFu
-X-Gm-Gg: AeBDies3bD41eNq73bpaOhfj8wClAvZN0jybhaCFhJWi3njJI7554gfnAxg7REll4Rq
- MxyTHsmOcW7n7ZIujRUwExt5OAfqXez6lesyO9ftNRMp61dOfJORKAM6Q1KD/kF/ZKV8pCbLkzE
- 0qogRa6d6PR9htzOsllIT95BS7sRlFXDgEkrAvOXgxuVyFv03GRHhmAxiYutJfQjI5ga7zjF7o0
- +LQyseMEIkZJuzFdNglLx4IHLRc+7QZo9w0nYmLIOdh+Wi6iOH65/CbUK+jaz+ebm+thKGz6R04
- +1i3OwWat1sR3nMpdG+soVJwhuZOqmDgHaqe7+f/4lkwCH2eCcSSLLlEVeaYKPOYX0TAaqDrAZW
- 8c4EdGV5Fn3U2SwP6qDPSzM+LBd5PMAFGM6QQd0BkFONizznt/n1R7hcjrNP0rbIxLuT7KtwU48
- mTtprsakxJ3iZUIg5y7mQqLPUiBgB0nlaAo8mQh1D28cqOPdyFrcf2CmBS1w==
-X-Received: by 2002:a17:902:c94d:b0:2b2:5da8:14be with SMTP id
- d9443c01a7336-2b2d5a76e9amr256282835ad.41.1776330663005; 
- Thu, 16 Apr 2026 02:11:03 -0700 (PDT)
-Received: from [172.16.20.13] ([136.226.252.245])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b4780ef429sm46710925ad.4.2026.04.16.02.10.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 02:11:02 -0700 (PDT)
-Message-ID: <c4c33f14-0da0-447a-ab82-2e2f65c09c07@gmail.com>
-Date: Thu, 16 Apr 2026 14:40:52 +0530
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com
+ [113.46.200.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B329910E870
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:14:31 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=vMW8vxgFzwqasxK5Yc+iahhJv6rwiKjWUvfTv57t/YM=;
+ b=LOTNfhZMNENVczJO7o4xC5zTbVKWB4vEyE7PXJsaMOqjhiWr+7XnDAVwcnulbVoIMI3+SNKdP
+ nWNVdYU5PQVcDaLkr7rSazJ/H2aBOfPTCkjreDJ3rMseUNejXfGIc7bQwnhjRq6TeM72MMMuQpi
+ gT2TUKODk8K0ZLokN2CFUnI=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+ by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4fxBxm50jxznTX7;
+ Thu, 16 Apr 2026 17:08:12 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id 1E07940571;
+ Thu, 16 Apr 2026 17:14:30 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 16 Apr 2026 17:14:29 +0800
+Received: from localhost.huawei.com (10.169.71.169) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 16 Apr 2026 17:14:29 +0800
+From: Yongbang Shi <shiyongbang@huawei.com>
+To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
+ <tiantao6@hisilicon.com>, <xinliang.liu@linaro.org>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <daniel@ffwll.ch>, <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
+ <fengsheng5@huawei.com>, <shiyongbang@huawei.com>, <helin52@h-partners.com>,
+ <shenjian15@huawei.com>, <shaojijie@huawei.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH for drm-misc-fixes v3 3/4] drm/hisilicon/hibmc: move display
+ contrl config to hibmc_probe()
+Date: Thu, 16 Apr 2026 17:05:41 +0800
+Message-ID: <20260416090542.1984002-4-shiyongbang@huawei.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20260416090542.1984002-1-shiyongbang@huawei.com>
+References: <20260416090542.1984002-1-shiyongbang@huawei.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
- stable LVDS output
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- marex@denx.de, valentin@compulab.co.il, philippe.schenker@toradex.com,
- alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260412053811.662461-1-tessolveupstream@gmail.com>
- <20260412053811.662461-2-tessolveupstream@gmail.com>
- <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
-Content-Language: en-US
-From: tessolveupstream@gmail.com
-In-Reply-To: <DHTJJRKD65L4.1P7X5O20V1W2Q@bootlin.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.169.71.169]
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,65 +73,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Lin He <helin52@huawei.com>
 
+If there's no VGA output, this encoder modeset won't be called, which
+will cause displaying data from GPU being cut off. It's actually a
+common display config for DP and VGA, so move the vdac encoder modeset
+to driver load stage.
 
-On 15-04-2026 12:43, Luca Ceresoli wrote:
-> Hello Sudarshan,
-> 
-> On Sun Apr 12, 2026 at 7:38 AM CEST, Sudarshan Shetty wrote:
->> The current DSI mode configuration enables VIDEO_BURST and disables
->> horizontal front porch (HFP) and back porch (HBP) transmission using
->> MIPI_DSI_MODE_VIDEO_NO_HFP and MIPI_DSI_MODE_VIDEO_NO_HBP.
->>
->> However, the SN65DSI83/84 bridge relies on receiving full horizontal
->> timing information over DSI in order to correctly reconstruct the LVDS
->> output timings. When HFP and HBP are not transmitted, the bridge cannot
->> recreate the required timing parameters, resulting in unstable or
->> missing display output on some panels.
->>
->> Additionally, while burst mode is supported by the hardware, its use
->> depends on continuous clock behavior from the DSI host. In practice,
->> burst mode may introduce instability depending on the host controller
->> implementation, as the DSI link may transition to low-power state
->> between bursts.
->>
->> In testing, removing burst mode and ensuring full horizontal timing
->> transmission results in stable LVDS output across affected panels.
->>
->> Update the DSI mode flags to:
->>   - Drop MIPI_DSI_MODE_VIDEO_BURST
->>   - Drop MIPI_DSI_MODE_VIDEO_NO_HFP
->>   - Drop MIPI_DSI_MODE_VIDEO_NO_HBP
->>
->> This aligns with common system configurations where non-burst mode is
->> preferred and full timing information is transmitted over DSI.
->>
->> Signed-off-by: Sudarshan Shetty <tessolveupstream@gmail.com>
-> 
-> Thanks for having gone into the details and provide a good explanation for
-> the removal of these three flags.
-> 
-> It would be still great to have authoritative info from TI, possibly as an
-> update to the documentation.
-> 
-> I managed to test on a board with i.MX93, a TI SN65DSI84 and a 1920x1080p60
-> panel, and:
-> 
->  - no image shown with the current mainline driver
->  - it works by removing only MIPI_DSI_MODE_VIDEO_BURST (my current setup)
->  - it works with this patch applied
-> 
-> Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # imx93 1920x1080p60
-> 
+Fixes: 5294967f4ae4 ("drm/hisilicon/hibmc: Add support for VDAC")
+Signed-off-by: Lin He <helin52@huawei.com>
+Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+---
+ChangeLog:
+v1 -> v2:
+  - remove tag "Reviewed-by: Tao Tian <tiantao6@hisilicon.com>", witch will
+    be given in public.
+  - add 'drm-misc-fixes' in subject prefix.
+---
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 14 ++++++++++++
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c  | 22 -------------------
+ 2 files changed, 14 insertions(+), 22 deletions(-)
 
-Thanks for testing the patch and for the Tested-by tag. 
-I’ll reach out to TI for clarification on the DSI mode flag behavior and
-any documentation updates, and will share any feedback I receive, though I
-cannot guarantee a response.
-> Luca
-> 
-> --
-> Luca Ceresoli, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index 289304500ab0..c7ce44a5370b 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -214,6 +214,18 @@ void hibmc_set_current_gate(struct hibmc_drm_private *priv, unsigned int gate)
+ 	writel(gate, mmio + gate_reg);
+ }
+ 
++static void hibmc_display_ctrl(struct hibmc_drm_private *priv)
++{
++	u32 reg;
++
++	reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
++	reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
++	reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
++	reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
++	reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
++	writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
++}
++
+ static void hibmc_hw_config(struct hibmc_drm_private *priv)
+ {
+ 	u32 reg;
+@@ -245,6 +257,8 @@ static void hibmc_hw_config(struct hibmc_drm_private *priv)
+ 	reg |= HIBMC_MSCCTL_LOCALMEM_RESET(1);
+ 
+ 	writel(reg, priv->mmio + HIBMC_MISC_CTRL);
++
++	hibmc_display_ctrl(priv);
+ }
+ 
+ static int hibmc_hw_map(struct hibmc_drm_private *priv)
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+index 806d54120d89..f5c7857c6586 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c
+@@ -86,26 +86,6 @@ static const struct drm_connector_funcs hibmc_connector_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+ };
+ 
+-static void hibmc_encoder_mode_set(struct drm_encoder *encoder,
+-				   struct drm_display_mode *mode,
+-				   struct drm_display_mode *adj_mode)
+-{
+-	u32 reg;
+-	struct drm_device *dev = encoder->dev;
+-	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
+-
+-	reg = readl(priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
+-	reg |= HIBMC_DISPLAY_CONTROL_FPVDDEN(1);
+-	reg |= HIBMC_DISPLAY_CONTROL_PANELDATE(1);
+-	reg |= HIBMC_DISPLAY_CONTROL_FPEN(1);
+-	reg |= HIBMC_DISPLAY_CONTROL_VBIASEN(1);
+-	writel(reg, priv->mmio + HIBMC_DISPLAY_CONTROL_HISILE);
+-}
+-
+-static const struct drm_encoder_helper_funcs hibmc_encoder_helper_funcs = {
+-	.mode_set = hibmc_encoder_mode_set,
+-};
+-
+ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+ {
+ 	struct drm_device *dev = &priv->dev;
+@@ -128,8 +108,6 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+ 		goto err;
+ 	}
+ 
+-	drm_encoder_helper_add(encoder, &hibmc_encoder_helper_funcs);
+-
+ 	ret = drm_connector_init_with_ddc(dev, connector,
+ 					  &hibmc_connector_funcs,
+ 					  DRM_MODE_CONNECTOR_VGA,
+-- 
+2.33.0
 
