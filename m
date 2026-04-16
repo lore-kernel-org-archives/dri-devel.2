@@ -4,54 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70683F8D74A
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 14:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E262FF8D74B
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 14:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC91A10E1B1;
-	Thu, 16 Apr 2026 14:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4653A10E1FD;
+	Thu, 16 Apr 2026 14:22:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KAsbVRh3";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="A7wUTAQo";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B90A610E1B1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 14:16:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=AxaU4roYAXRUzT4kvaq28MKdVGPEB4EvRk7ZZxnE3/E=; b=KAsbVRh3iyfbXMlvwa1vnAWdtl
- q1l4W860nz2YifvlYosjDUNvyDbLz2ZrUlzl222lfKgHmpSH71i/YYhiU/+AtqnFIbA8+LfbA/vye
- THWjWuBxr7CELq9lEORG/UXJsCu8ElfMJYKkjaNSjQMLBrixy2WWR8s9jwi01A9vQmKOCMn2iOQZk
- 1+1bAq+9xrQxhkBczyLvQKUWQWi1CN102TKyEjzvkqcb72dLcGFvAgmyj7IbCyfN1jVawYANcOjkf
- rUNBnZaMcKAw5DwVohsytS/B2nHb4slC0gEMImyVeMM5sP3xQZpBp3AeySHR9D74gBqljsyPFJyOn
- hhrW9WyA==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wDNWO-00H1NF-Lx; Thu, 16 Apr 2026 16:16:44 +0200
-Message-ID: <252f5247-f475-4918-b5ce-217af82aa5a2@igalia.com>
-Date: Thu, 16 Apr 2026 15:16:43 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/10] drm/v3d: Introduce struct v3d_submit and convert
- CL/TFU/CSD ioctls
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22BFD10E1FD;
+ Thu, 16 Apr 2026 14:22:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776349318; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=lyCSpASUysdJ/1FZC+rvl/jTqqRnswZx1bAcPdawhj0AYHcJZisMt4ayrO1yqC3jBFZ9MDyeo6KrMNZTalwNU7Ma/lMaenAhAQPls5A4bPxBZh3QIHNjf0soNQC+gC6UA+RlJZgZJnNy+4oASsKJhvlOLD5o/DjoVh0Lt0TerlQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776349318;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=34qmR7b2ElegFJW94CbQDjfTQXNI9OIIGbOEJgOSC68=; 
+ b=GtjCn2U8TzZqEcpzxvh35Fgp30DXqs8g7VZgrjndJ6S/YF3konW0ap+prp1AA7IFobNnYpZjJ1OBa4+/rBs8OWhuXByTf4iMnYhGoC+Io+/qUbvysQBSJqwH3yrRBvGfldE6EeafK0ZjBxRIGguBM/slRsYylmh6VbHSuctWt10=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776349318; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=34qmR7b2ElegFJW94CbQDjfTQXNI9OIIGbOEJgOSC68=;
+ b=A7wUTAQo1aNiHEZ8DWg7VK9gVGvII+nx4au6VaPYnAvySV/M6TAZfvo0DT990RcN
+ o0W/0yvUBWHvxrtvRXz3m9X/WLzlNBziWVRlN07sPY+NEyybyGIqEpphTzJBq3wyMyv
+ kSrpE56XRD+ThGvRFPIxHHyvlTJa1n7FYS+kdMZg=
+Received: by mx.zohomail.com with SMTPS id 1776349315605672.3983268488863;
+ Thu, 16 Apr 2026 07:21:55 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Marius Vlad <marius.vlad@collabora.com>, Julian Orth <ju.orth@gmail.com>
+Cc: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260413-v3d-sched-misc-fixes-v1-0-bac63a8ceb6c@igalia.com>
- <20260413-v3d-sched-misc-fixes-v1-8-bac63a8ceb6c@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260413-v3d-sched-misc-fixes-v1-8-bac63a8ceb6c@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Daniel Stone <daniel.stone@collabora.com>,
+ Ian Forbes <ian.forbes@broadcom.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, wayland-devel@lists.freedesktop.org
+Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
+ user-space
+Date: Thu, 16 Apr 2026 16:21:49 +0200
+Message-ID: <4528526.e9J7NaK4W3@workhorse>
+In-Reply-To: <CAHijbEWpsMNyskhe=nTY-Aa2B6bNC1G+Pm+C8OChvByRfS9NqA@mail.gmail.com>
+References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
+ <aeDlhJjzS8sxumNn@xpredator>
+ <CAHijbEWpsMNyskhe=nTY-Aa2B6bNC1G+Pm+C8OChvByRfS9NqA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,628 +77,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thursday, 16 April 2026 15:55:52 Central European Summer Time Julian Ort=
+h wrote:
+> On Thu, Apr 16, 2026 at 3:35=E2=80=AFPM Marius Vlad <marius.vlad@collabor=
+a.com> wrote:
+> >
+> > On Thu, Apr 16, 2026 at 03:16:39PM +0200, Julian Orth wrote:
+> > > On Thu, Apr 16, 2026 at 9:46=E2=80=AFAM Nicolas Frattaroli
+> > > <nicolas.frattaroli@collabora.com> wrote:
+> > > >
+> > > > On Wednesday, 15 April 2026 20:57:53 Central European Summer Time J=
+ulian Orth wrote:
+> > > > > On Wed, Apr 15, 2026 at 8:19=E2=80=AFPM Nicolas Frattaroli
+> > > > > <nicolas.frattaroli@collabora.com> wrote:
+> > > > > >
+> > > > > > I will be taking over this series from Marius Vlad.
+> > > > > >
+> > > > > > This series addresses a shortcoming whereby a hot plug event is=
+ sent
+> > > > > > without it being passed the actual connector that caused it. Th=
+is takes
+> > > > > > into consideration both the polling path and the HPD (Hot Plug =
+Detect)
+> > > > > > path. It also adds support for the vkms driver (using ConfigFS)=
+ for
+> > > > > > propagating the connector ID when changing the connector's stat=
+us.
+> > > > > >
+> > > > > > The motivation is that user-space applications such as Weston w=
+ould
+> > > > > > previously receive non-connector-specific hotplug events, and t=
+hen have
+> > > > > > to figure out themselves which connector needs to have a modeset
+> > > > > > executed on. This notably did not work when the hotplug events =
+came in
+> > > > > > too fast, resulting in Weston missing an on-off-on transition o=
+f a
+> > > > > > connector, seeing that its state was unchanged from "on" so can=
+'t be the
+> > > > > > one that was hotplugged, and skipping reinitialising it as it l=
+ooks
+> > > > > > through the other connectors that could've caused it.
+> > > > >
+> > > > > Have you considered adding a u64 serial number as a DRM connector
+> > > > > property that is incremented every time the connector changes in =
+some
+> > > > > way? Userspace could then check this serial number to see if the
+> > > > > connector has changed since the last time it queried the serial
+> > > > > number.
+> > > >
+> > > > The connector internally already has an epoch_counter member which
+> > > > could be used for this. However, for the particular thing this
+> > > > series fixes, I don't think exposing it through the uAPI is necessa=
+ry
+> > > > or desirable. Sending hotplug events specific to the connector does
+> > > > not need any additional handling on the userspace side as long as it
+> > > > already listens to the per-connector hotplug events in order to
+> > > > avoid the pitfall described in the cover letter.
+> > >
+> > > I currently do not handle per-connector hotplug events. Instead,
+> > > whenever I get a UDEV change event for a device, I re-fetch the entire
+> > > kernel state for the device. That is
+> > >
+> > > - DRM_IOCTL_MODE_GETRESOURCES
+> > > - DRM_IOCTL_MODE_OBJ_GETPROPERTIES for each connector, crtc, plane
+> > With this change you wouldn't need to go over all of them as the kernel
+> > will supply the connector ID that has changed.
+>=20
+> Is this change only going to add the connector property to existing
+> events or will it send additional events with the connector property
+> set?
 
-On 13/04/2026 16:03, Maíra Canal wrote:
-> As the V3D driver grew with time, different types of submission were added
-> and the submission code grew more complex, but the driver stuck with the
-> same abstractions.
-> 
-> Nowadays, the submission ioctls don't submit a single job, but a
-> chain of jobs:
-> 
-> 1. v3d_submit_cl_ioctl() submits a BIN job (optional), RENDER job
->     (mandatory), and a CLEAN_CACHE job (optional).
-> 2. v3d_submit_csd_ioctl() submits a CSD, and a CLEAN_CACHE job.
-> 3. v3d_submit_tfu_ioctl() submits a TFU job.
-> 
-> Therefore, each ioctl submits a chain of jobs in which each job depends on
-> the previous one. However, this concept is not well represented in software
-> at the moment.
-> 
-> To address this, introduce a new concept: the struct v3d_submit, which
-> groups the submission state and represents the submission chain formed by
-> an ordered array of jobs.
-> 
-> Add new helpers to allocate, add jobs to the chain and submit jobs to
-> the scheduler, all based on the new struct. Convert v3d_submit_cl_ioctl(),
-> v3d_submit_tfu_ioctl() and v3d_submit_csd_ioctl() to the new pattern. Each
-> ioctl now follows the same flow: add jobs -> lookup BOs -> lock
-> reservations -> attach perfmon -> submit chain -> attach fences -> put
-> jobs.
-> 
-> The CPU ioctl is left on the old helpers for now; its indirect CSD path
-> requires some restructuring that will be addressed in the next commit.
-> 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/v3d/v3d_drv.h    |  21 +++
->   drivers/gpu/drm/v3d/v3d_submit.c | 348 ++++++++++++++++++++++-----------------
->   2 files changed, 215 insertions(+), 154 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-> index 788a45c60290..fc12e5215fb0 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.h
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-> @@ -288,6 +288,27 @@ to_v3d_fence(struct dma_fence *fence)
->   #define V3D_CORE_READ(core, offset) readl(v3d->core_regs[core] + offset)
->   #define V3D_CORE_WRITE(core, offset, val) writel(val, v3d->core_regs[core] + offset)
->   
-> +#define V3D_MAX_JOBS_PER_SUBMISSION 3
-> +
-> +/* Per-ioctl submission context */
-> +struct v3d_submit {
-> +	struct v3d_dev *v3d;
-> +
-> +	struct drm_file *file_priv;
-> +
-> +	/* DRM exec context for this submission. */
-> +	struct drm_exec exec;
+It sends additional events if you happen to have multiple connectors
+undergoing a hotplug at the same time. This should not be a cause for
+concern; it's bounded by the number of connectors in the system (which
+is a single digit number, usually).
 
-I see, the very thing I mentioned while reading 7/10, cool.
+Kind regards,
+Nicolas Frattaroli
 
-> +
-> +	/* Ordered array of jobs forming the submission chain. Jobs are
-> +	 * appended via v3d_submit_add_job(), then chained and pushed to
-> +	 * the scheduler by v3d_submit_jobs().
-> +	 */
-> +	struct v3d_job *jobs[V3D_MAX_JOBS_PER_SUBMISSION];
-> +
-> +	/* Number of jobs currently in @jobs. */
-> +	u32 job_count;
-> +};
-> +
->   struct v3d_job {
->   	struct drm_sched_job base;
->   
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-> index 6aa8c65e873c..5b519a892985 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -241,6 +241,81 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
->   	return ret;
->   }
->   
-> +static int
-> +v3d_submit_add_job(struct v3d_submit *submit, void **container, size_t size,
-> +		   void (*free)(struct kref *ref), enum v3d_queue queue)
-> +{
-> +	struct v3d_file_priv *v3d_priv = submit->file_priv->driver_priv;
-> +	struct v3d_dev *v3d = submit->v3d;
-> +	struct v3d_job *job;
-> +	int ret;
-> +
-> +	*container = kcalloc(1, size, GFP_KERNEL);
-> +	if (!*container)
-> +		return -ENOMEM;
-
-I still think we could do better than void * and also dont' see why 
-kcalloc but okay, it can be revisited later.
-
-> +
-> +	job = *container;
-> +	job->v3d = v3d;
-> +	job->free = free;
-> +	job->file_priv = v3d_priv;
-> +
-> +	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
-> +				 1, v3d_priv, submit->file_priv->client_id);
-> +	if (ret)
-> +		goto fail_free;
-> +
-> +	/* CPU jobs don't require hardware resources */
-> +	if (queue != V3D_CPU) {
-> +		ret = v3d_pm_runtime_get(v3d);
-> +		if (ret)
-> +			goto fail_sched_job;
-> +		job->has_pm_ref = true;
-> +	}
-> +
-> +	kref_init(&job->refcount);
-> +
-> +	job->client_stats = v3d_stats_get(v3d_priv->stats[queue]);
-> +	job->global_stats = v3d_stats_get(v3d->queue[queue].stats);
-> +
-> +	submit->jobs[submit->job_count++] = job;
-> +
-> +	return 0;
-> +
-> +fail_sched_job:
-> +	drm_sched_job_cleanup(&job->base);
-> +fail_free:
-> +	kfree(*container);
-> +	*container = NULL;
-> +	return ret;
-> +}
-> +
-> +static int
-> +v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
-> +{
-> +	struct v3d_file_priv *v3d_priv = submit->file_priv->driver_priv;
-> +	struct v3d_dev *v3d = submit->v3d;
-> +	struct v3d_perfmon *perfmon;
-> +
-> +	if (!perfmon_id)
-> +		return 0;
-> +
-> +	if (v3d->global_perfmon)
-> +		return -EAGAIN;
-> +
-> +	perfmon = v3d_perfmon_find(v3d_priv, perfmon_id);
-> +	if (!perfmon)
-> +		return -ENOENT;
-> +
-> +	for (int i = 0; i < submit->job_count; i++) {
-> +		submit->jobs[i]->perfmon = perfmon;
-> +		v3d_perfmon_get(perfmon);
-> +	}
-> +
-> +	v3d_perfmon_put(perfmon);
-
-I suppose you could save one atomic by adding a conditional in the loop 
-(to skip get on first job for example) but maybe it would be a bit ugly, 
-not sure.
-
-> +
-> +	return 0;
-> +}
-> +
->   static void
->   v3d_push_job(struct v3d_job *job)
->   {
-> @@ -254,6 +329,30 @@ v3d_push_job(struct v3d_job *job)
->   	drm_sched_entity_push_job(&job->base);
->   }
->   
-> +static int
-> +v3d_submit_jobs(struct v3d_submit *submit)
-> +{
-> +	struct v3d_dev *v3d = submit->v3d;
-> +	int ret;
-> +
-> +	guard(mutex)(&v3d->sched_lock);
-> +
-> +	for (int i = 0; i < submit->job_count; i++) {
-> +		struct v3d_job *job = submit->jobs[i];
-> +
-> +		v3d_push_job(job);
-> +
-> +		if (i + 1 < submit->job_count) {
-> +			ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]->base,
-> +							   dma_fence_get(job->done_fence));
-
-Alternative to i + 1 is to track prev. Not sure what is nicer, just 
-thinking out loud.
-
-> +			if (ret)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static void
->   v3d_attach_fences_and_unlock_reservation(struct drm_file *file_priv,
->   					 struct v3d_job *job,
-> @@ -896,18 +995,19 @@ int
->   v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->   		    struct drm_file *file_priv)
->   {
-> -	struct v3d_dev *v3d = to_v3d_dev(dev);
-> -	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
-> +	struct v3d_submit submit = {
-> +		.v3d = to_v3d_dev(dev),
-> +		.file_priv = file_priv,
-> +		.job_count = 0
-
-Zero is implied.
-
-> +	};
->   	struct drm_v3d_submit_cl *args = data;
->   	struct v3d_submit_ext se = {0};
->   	struct v3d_bin_job *bin = NULL;
->   	struct v3d_render_job *render = NULL;
->   	struct v3d_job *clean_job = NULL;
-> -	struct v3d_job *last_job;
-> -	struct drm_exec exec;
-> -	int ret = 0;
-> +	int ret;
->   
-> -	trace_v3d_submit_cl_ioctl(&v3d->drm, args->rcl_start, args->rcl_end);
-> +	trace_v3d_submit_cl_ioctl(dev, args->rcl_start, args->rcl_end);
->   
->   	if (args->pad)
->   		return -EINVAL;
-> @@ -927,131 +1027,84 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> -	ret = v3d_job_allocate(v3d, (void *)&render, sizeof(*render));
-> -	if (ret)
-> -		return ret;
-> -
-> -	ret = v3d_job_init(v3d, file_priv, &render->base,
-> -			   v3d_render_job_free, args->in_sync_rcl, &se, V3D_RENDER);
-> -	if (ret) {
-> -		v3d_job_deallocate((void *)&render);
-> -		goto fail;
-> -	}
-> -
-> -	render->start = args->rcl_start;
-> -	render->end = args->rcl_end;
-> -	INIT_LIST_HEAD(&render->unref_list);
-> -
->   	if (args->bcl_start != args->bcl_end) {
-> -		ret = v3d_job_allocate(v3d, (void *)&bin, sizeof(*bin));
-> +		ret = v3d_submit_add_job(&submit, (void **)&bin, sizeof(*bin),
-> +					 v3d_job_free, V3D_BIN);
->   		if (ret)
->   			goto fail;
->   
-> -		ret = v3d_job_init(v3d, file_priv, &bin->base,
-> -				   v3d_job_free, args->in_sync_bcl, &se, V3D_BIN);
-> -		if (ret) {
-> -			v3d_job_deallocate((void *)&bin);
-> -			goto fail;
-> -		}
-> -
->   		bin->start = args->bcl_start;
->   		bin->end = args->bcl_end;
->   		bin->qma = args->qma;
->   		bin->qms = args->qms;
->   		bin->qts = args->qts;
-> -		bin->render = render;
-> -	}
->   
-> -	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
-> -		ret = v3d_job_allocate(v3d, (void *)&clean_job, sizeof(*clean_job));
-> +		ret = v3d_job_add_syncobjs(&bin->base, file_priv,
-> +					   args->in_sync_bcl, &se, V3D_BIN);
->   		if (ret)
->   			goto fail;
-> -
-> -		ret = v3d_job_init(v3d, file_priv, clean_job,
-> -				   v3d_job_free, 0, NULL, V3D_CACHE_CLEAN);
-> -		if (ret) {
-> -			v3d_job_deallocate((void *)&clean_job);
-> -			goto fail;
-> -		}
-> -
-> -		last_job = clean_job;
-> -	} else {
-> -		last_job = &render->base;
->   	}
->   
-> -	ret = v3d_lookup_bos(dev, file_priv, last_job,
-> +	ret = v3d_submit_add_job(&submit, (void **)&render, sizeof(*render),
-> +				 v3d_render_job_free, V3D_RENDER);
-> +	if (ret)
-> +		goto fail;
-> +
-> +	INIT_LIST_HEAD(&render->unref_list);
-> +	render->start = args->rcl_start;
-> +	render->end = args->rcl_end;
-> +
-> +	if (bin)
-> +		bin->render = render;
-> +
-> +	ret = v3d_job_add_syncobjs(&render->base, file_priv, args->in_sync_rcl,
-> +				   &se, V3D_RENDER);
-> +	if (ret)
-> +		goto fail;
-> +
-> +	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
-> +		ret = v3d_submit_add_job(&submit, (void **)&clean_job,
-> +					 sizeof(*clean_job), v3d_job_free,
-> +					 V3D_CACHE_CLEAN);
-> +		if (ret)
-> +			goto fail;
-> +	}
-> +
-> +	ret = v3d_lookup_bos(dev, file_priv,
-> +			     submit.jobs[submit.job_count - 1],
->   			     args->bo_handles, args->bo_handle_count);
-
-Could bo lookup be before job creation? Just because it is the step much 
-more likely to fail. I think at least.. It is only a question.
-
->   	if (ret)
->   		goto fail;
->   
-> -	ret = v3d_lock_bo_reservations(last_job, &exec);
-> +	ret = v3d_lock_bo_reservations(submit.jobs[submit.job_count - 1],
-
-job_count - 1 I think ends up repeated around four times in this 
-function so perhaps it could be worth having a helper such as 
-v3d_submit_last_job(&submit)? It wouldn't be any shorted so not sure.
-
-> +				       &submit.exec);
->   	if (ret)
->   		goto fail;
->   
-> -	if (args->perfmon_id) {
-> -		if (v3d->global_perfmon) {
-> -			ret = -EAGAIN;
-> -			goto fail_perfmon;
-> -		}
-> +	ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
-> +	if (ret)
-> +		goto fail_perfmon;
->   
-> -		render->base.perfmon = v3d_perfmon_find(v3d_priv,
-> -							args->perfmon_id);
-> -
-> -		if (!render->base.perfmon) {
-> -			ret = -ENOENT;
-> -			goto fail_perfmon;
-> -		}
-> -	}
-> -
-> -	mutex_lock(&v3d->sched_lock);
-> -	if (bin) {
-> -		bin->base.perfmon = render->base.perfmon;
-> -		v3d_perfmon_get(bin->base.perfmon);
-> -		v3d_push_job(&bin->base);
-> -
-> -		ret = drm_sched_job_add_dependency(&render->base.base,
-> -						   dma_fence_get(bin->base.done_fence));
-> -		if (ret)
-> -			goto fail_unreserve;
-> -	}
-> -
-> -	v3d_push_job(&render->base);
-> -
-> -	if (clean_job) {
-> -		struct dma_fence *render_fence =
-> -			dma_fence_get(render->base.done_fence);
-> -		ret = drm_sched_job_add_dependency(&clean_job->base,
-> -						   render_fence);
-> -		if (ret)
-> -			goto fail_unreserve;
-> -		clean_job->perfmon = render->base.perfmon;
-> -		v3d_perfmon_get(clean_job->perfmon);
-> -		v3d_push_job(clean_job);
-> -	}
-> -
-> -	mutex_unlock(&v3d->sched_lock);
-> +	ret = v3d_submit_jobs(&submit);
-> +	if (ret)
-> +		goto fail_perfmon;
->   
->   	v3d_attach_fences_and_unlock_reservation(file_priv,
-> -						 last_job,
-> -						 &exec,
-> -						 args->out_sync,
-> -						 &se,
-> -						 last_job->done_fence);
-> +						 submit.jobs[submit.job_count - 1],
-> +						 &submit.exec,
-> +						 args->out_sync, &se,
-> +						 submit.jobs[submit.job_count - 1]->done_fence);
->   
-> -	v3d_job_put(&bin->base);
-> -	v3d_job_put(&render->base);
-> -	v3d_job_put(clean_job);
-> +	for (int i = 0; i < submit.job_count; i++)
-> +		v3d_job_put(submit.jobs[i]);
-
-Worth having v3d_submit_put_jobs()?
-
->   
->   	return 0;
->   
-> -fail_unreserve:
-> -	mutex_unlock(&v3d->sched_lock);
->   fail_perfmon:
-> -	drm_exec_fini(&exec);
-> +	drm_exec_fini(&submit.exec);
->   fail:
-> -	v3d_job_cleanup((void *)bin);
-> -	v3d_job_cleanup((void *)render);
-> -	v3d_job_cleanup(clean_job);
-> +	for (int i = 0; i < submit.job_count; i++)
-> +		v3d_job_cleanup(submit.jobs[i]);
-
-And/or v3d_submit_cleanup_jobs()?
-
-
->   	v3d_put_multisync_post_deps(&se);
->   
->   	return ret;
-> @@ -1070,14 +1123,17 @@ int
->   v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
->   		     struct drm_file *file_priv)
->   {
-> -	struct v3d_dev *v3d = to_v3d_dev(dev);
-> +	struct v3d_submit submit = {
-> +		.v3d = to_v3d_dev(dev),
-> +		.file_priv = file_priv,
-> +		.job_count = 0
-> +	};
->   	struct drm_v3d_submit_tfu *args = data;
->   	struct v3d_submit_ext se = {0};
->   	struct v3d_tfu_job *job = NULL;
-> -	struct drm_exec exec;
->   	int ret = 0;
->   
-> -	trace_v3d_submit_tfu_ioctl(&v3d->drm, args->iia);
-> +	trace_v3d_submit_tfu_ioctl(dev, args->iia);
->   
->   	if (args->flags && !(args->flags & DRM_V3D_SUBMIT_EXTENSION)) {
->   		drm_dbg(dev, "invalid flags: %d\n", args->flags);
-> @@ -1092,16 +1148,14 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
->   		}
->   	}
->   
-> -	ret = v3d_job_allocate(v3d, (void *)&job, sizeof(*job));
-> +	ret = v3d_submit_add_job(&submit, (void **)&job, sizeof(*job),
-> +				 v3d_job_free, V3D_TFU);
-> +	if (ret)
-> +		goto fail;
-> +
-> +	ret = v3d_job_add_syncobjs(&job->base, file_priv, args->in_sync, &se, V3D_TFU);
->   	if (ret)
-> -		return ret;
-> -
-> -	ret = v3d_job_init(v3d, file_priv, &job->base,
-> -			   v3d_job_free, args->in_sync, &se, V3D_TFU);
-> -	if (ret) {
-> -		v3d_job_deallocate((void *)&job);
->   		goto fail;
-> -	}
->   
->   	job->base.bo = kzalloc_objs(*job->base.bo, ARRAY_SIZE(args->bo_handles));
->   	if (!job->base.bo) {
-> @@ -1130,24 +1184,25 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
->   		job->base.bo[job->base.bo_count] = bo;
->   	}
->   
-> -	ret = v3d_lock_bo_reservations(&job->base, &exec);
-> +	ret = v3d_lock_bo_reservations(&job->base, &submit.exec);
-
-You could almost wrap these in somthing like 
-v3d_submit_lock_reservations(&submit) since it is always the last bo.
-
->   	if (ret)
->   		goto fail;
->   
-> -	mutex_lock(&v3d->sched_lock);
-> -	v3d_push_job(&job->base);
-> -	mutex_unlock(&v3d->sched_lock);
-> +	ret = v3d_submit_jobs(&submit);
-> +	if (ret)
-> +		goto fail_submit;
->   
->   	v3d_attach_fences_and_unlock_reservation(file_priv,
-> -						 &job->base, &exec,
-> -						 args->out_sync,
-> -						 &se,
-> +						 &job->base, &submit.exec,
-> +						 args->out_sync, &se,
->   						 job->base.done_fence);
->   
->   	v3d_job_put(&job->base);
->   
->   	return 0;
->   
-> +fail_submit:
-> +	drm_exec_fini(&submit.exec);
-
-The drm_exec now sticks out since nothing else in the function 
-"mentions" it. v3d_submit_unlock_reservations(&submit)?
-
->   fail:
->   	v3d_job_cleanup((void *)job);
->   	v3d_put_multisync_post_deps(&se);
-> @@ -1168,21 +1223,23 @@ int
->   v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
->   		     struct drm_file *file_priv)
->   {
-> -	struct v3d_dev *v3d = to_v3d_dev(dev);
-> -	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
-> +	struct v3d_submit submit = {
-> +		.v3d = to_v3d_dev(dev),
-> +		.file_priv = file_priv,
-> +		.job_count = 0
-> +	};
->   	struct drm_v3d_submit_csd *args = data;
->   	struct v3d_submit_ext se = {0};
->   	struct v3d_csd_job *job = NULL;
->   	struct v3d_job *clean_job = NULL;
-> -	struct drm_exec exec;
->   	int ret;
->   
-> -	trace_v3d_submit_csd_ioctl(&v3d->drm, args->cfg[5], args->cfg[6]);
-> +	trace_v3d_submit_csd_ioctl(dev, args->cfg[5], args->cfg[6]);
->   
->   	if (args->pad)
->   		return -EINVAL;
->   
-> -	if (!v3d_has_csd(v3d)) {
-> +	if (!v3d_has_csd(submit.v3d)) {
->   		drm_warn(dev, "Attempting CSD submit on non-CSD hardware\n");
-
-As a side note, if userspace can trigger this drm_warn it probably 
-should be removed.
-
->   		return -EINVAL;
->   	}
-> @@ -1201,51 +1258,34 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
->   	}
->   
->   	ret = v3d_setup_csd_jobs_and_bos(file_priv, v3d, args,
-> -					 &job, &clean_job, &se, &exec);
-> +					 &job, &clean_job, &se, &submit.exec);
-
-You cannot turn around v3d_setup_csd_jobs_and_bos() to be based on 
-v3d_submit? Or not just yet?
-
->   	if (ret)
->   		goto fail;
->   
-> -	if (args->perfmon_id) {
-> -		if (v3d->global_perfmon) {
-> -			ret = -EAGAIN;
-> -			goto fail_perfmon;
-> -		}
-> +	submit.jobs[submit.job_count++] = &job->base;
-> +	submit.jobs[submit.job_count++] = clean_job;
->   
-> -		job->base.perfmon = v3d_perfmon_find(v3d_priv,
-> -						     args->perfmon_id);
-> -		if (!job->base.perfmon) {
-> -			ret = -ENOENT;
-> -			goto fail_perfmon;
-> -		}
-> -	}
-> -
-> -	mutex_lock(&v3d->sched_lock);
-> -	v3d_push_job(&job->base);
-> -
-> -	ret = drm_sched_job_add_dependency(&clean_job->base,
-> -					   dma_fence_get(job->base.done_fence));
-> +	ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
->   	if (ret)
-> -		goto fail_unreserve;
-> +		goto fail_perfmon;
->   
-> -	v3d_push_job(clean_job);
-> -	mutex_unlock(&v3d->sched_lock);
-> +	ret = v3d_submit_jobs(&submit);
-> +	if (ret)
-> +		goto fail_perfmon;
->   
->   	v3d_attach_fences_and_unlock_reservation(file_priv,
->   						 clean_job,
-> -						 &exec,
-> -						 args->out_sync,
-> -						 &se,
-> +						 &submit.exec,
-> +						 args->out_sync, &se,
->   						 clean_job->done_fence);
->   
-> -	v3d_job_put(&job->base);
-> -	v3d_job_put(clean_job);
-> +	for (int i = 0; i < submit.job_count; i++)
-> +		v3d_job_put(submit.jobs[i]);
->   
->   	return 0;
->   
-> -fail_unreserve:
-> -	mutex_unlock(&v3d->sched_lock);
->   fail_perfmon:
-> -	drm_exec_fini(&exec);
-> +	drm_exec_fini(&submit.exec);
->   fail:
->   	v3d_job_cleanup((void *)job);
->   	v3d_job_cleanup(clean_job);
-> 
-
-Small comments aside, on the overall to me this looks like a great and 
-worthwhile consolidation which makes things much easier to follow! At 
-least for someone like me who is not at home in v3d.
-
-Regards,
-
-Tvrtko
 
