@@ -4,55 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B297F88084
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 06:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302AAF8806B
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 06:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 679A410E81A;
-	Thu, 16 Apr 2026 06:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DDA510E06B;
+	Thu, 16 Apr 2026 06:53:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WGz72Q9B";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="vYtJAln5";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F81D10E7D4;
- Thu, 16 Apr 2026 06:50:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=tmZTUrHDRo5mVF0PV1foMoEtKPOBO22Kz07r1jnfnlY=; b=WGz72Q9BE8xJ0+t0LMGBtsfMtp
- A3vDTbPA8DvEzBfJApX+zGPzVlsUdJbQ4st+IJCv1FAOZqTy+MW/JUmWBQyUDdn0plB5Ck0MMwJ0T
- CsOHBkw6awha7FzSXuNB1YJzTw6/p+tkjVOJxgvEIBHjqgg58JXh/jvqvdwNCHkeeXoz/rGzKNjew
- nMh8Cq6XfqlhrmgwxAjXQMXfvqa1fJWcza2ilsgGq4txBediCVLXTbSeLp5ATOE5pcqLcczEYHAMz
- fy1nmeqFHpVhEIA1d2m7qFTw4n8q5qoB4iyRV2+0I+3Ig+14x4Wi25W98aiMSNnYqU53I+UNVRrlE
- qOerw4Kg==;
-Received: from [90.240.106.137] (helo=localhost)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wDGYD-00Grci-N2; Thu, 16 Apr 2026 08:50:09 +0200
-Date: Thu, 16 Apr 2026 07:50:08 +0100
-From: Tvrtko Ursulin <tursulin@igalia.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-next-fixes
-Message-ID: <aeCGoL4FFwT66bF4@linux>
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com
+ [113.46.200.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95AE110E06B
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 06:53:54 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=V6ooxnaYpS3IiydCIisIXi5SzkIIL+iBCuoiXM/KiGY=;
+ b=vYtJAln5CXv+lKgXQ9cmYQu4cOsJc171iRk50A7szCv7Xx5Z/J7V69qpnMJ8RRb24LSgzYojf
+ 1wnsULHCtjHv9Q+ocSaufinrl5dgUSukj7qwDYzUkO30KDs5dit9EQdkHrHNyODs2UeRKoatJl8
+ otVhB240MDb4AYfKhnmnH/o=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+ by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4fx7qS4KHgzRhR4;
+ Thu, 16 Apr 2026 14:47:32 +0800 (CST)
+Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
+ by mail.maildlp.com (Postfix) with ESMTPS id 7C6FD40572;
+ Thu, 16 Apr 2026 14:53:51 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 16 Apr 2026 14:53:49 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 16 Apr 2026 14:53:48 +0800
+Message-ID: <7fd5022a-9a5d-4976-9d4a-1e0fa2022eae@huawei.com>
+Date: Thu, 16 Apr 2026 14:53:47 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
+To: Thomas Zimmermann <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
+ <kong.kongxinwei@hisilicon.com>, <sumit.semwal@linaro.org>,
+ <yongqin.liu@linaro.org>, <jstultz@google.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, Rongrong Zou <zourongrong@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ <stable@vger.kernel.org>, <shiyongbang@huawei.com>, "Liangjian(Jim,Kunpeng
+ Solution Development Dept)" <liangjian010@huawei.com>, Chenjianmin
+ <chenjianmin@huawei.com>, "fengsheng (A)" <fengsheng5@huawei.com>
+References: <20260413085037.17491-1-tzimmermann@suse.de>
+ <20260413085037.17491-2-tzimmermann@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <20260413085037.17491-2-tzimmermann@suse.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,41 +76,143 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-Hi Dave, Sima,
+> Call drm_atomic_helper_check_plane_state() from the primary plane's
+> atomic-check helper and replace the custom implementation.
+> 
+> All plane's implementations of atomic_check should call the shared
+> _check_plane_state() helper first. It adjusts the plane state for
+> correct positioning, rotation and scaling of the plane. If the plane
+> is not visible, it clears the corresponding flag in the plane state.
+> 
+> On errors or if the plane is not visible, the atomic-check helper can
+> return early. Implement all this in hibmc and drop the custom code
+> that does some of it.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
+> Cc: Rongrong Zou <zourongrong@gmail.com>
+> Cc: Sean Paul <seanpaul@chromium.org>
+> Cc: Xinliang Liu <xinliang.liu@linaro.org>
+> Cc: Dmitry Baryshkov <lumag@kernel.org>
+> Cc: Baihan Li <libaihan@huawei.com>
+> Cc: Yongbang Shi <shiyongbang@huawei.com>
+> Cc: <stable@vger.kernel.org> # v4.10+
+> ---
+>  .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
+>  1 file changed, 14 insertions(+), 32 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> index 89bed78f1466..8fa2a95bcdd1 100644
+> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
+> @@ -55,46 +55,28 @@ static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
+>  static int hibmc_plane_atomic_check(struct drm_plane *plane,
+>  				    struct drm_atomic_state *state)
+>  {
+> -	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
+> -										 plane);
+> -	struct drm_framebuffer *fb = new_plane_state->fb;
+> -	struct drm_crtc *crtc = new_plane_state->crtc;
+> -	struct drm_crtc_state *crtc_state;
+> -	u32 src_w = new_plane_state->src_w >> 16;
+> -	u32 src_h = new_plane_state->src_h >> 16;
+> -
+> -	if (!crtc || !fb)
+> -		return 0;
+> +	struct drm_plane_state *new_plane_state =
+> +		drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_crtc_state *new_crtc_state = NULL;
+> +	int ret;
+>  
+> -	crtc_state = drm_atomic_get_crtc_state(state, crtc);
+> -	if (IS_ERR(crtc_state))
+> -		return PTR_ERR(crtc_state);
+> +	if (new_plane_state->crtc)
+> +		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
+>  
+> -	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
+> -		drm_dbg_atomic(plane->dev, "scale not support\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
+> -		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	if (!crtc_state->enable)
+> +	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
+> +						  DRM_PLANE_NO_SCALING,
+> +						  DRM_PLANE_NO_SCALING,
+> +						  false, true);
 
-Two fixes for the merge window - one to correct the backlight available
-feature check and second to check correct plane DDB programming.
+The last parameter, "can_update_disabled", if set to true, causes the
+condition "if (!crtc_state->enable && !can_update_disabled)" in the
+function `drm_atomic_helper_check_plane_state` to always evaluate to
+false, meaning `crtc_state->enable` will not be checked. This differs
+from the behavior prior to the modification.
 
-Thanks,
+before:
+	- crtc_state->enable(true)  --> continue check
+	- crtc_state->enable(false) --> return 0(atomic check success)
 
-Tvrtko
+after:
+	- crtc_state->enable(true)   --> _helper_check_plane_ ->  continue check
+	- crtc_state->enable(false)  --> _helper_check_plane_ ->  continue check
 
-drm-intel-next-fixes-2026-04-16:
-- Fix VESA backlight possible check condition [backlight] (Suraj Kandpal)
-- Verify the correct plane DDB entry [wm] (Ville Syrjälä)
-The following changes since commit 83e8d8bbffa8161e94f3aeee4dd09a35062a78c8:
 
-  Merge tag 'drm-misc-next-fixes-2026-04-09' of https://gitlab.freedesktop.org/drm/misc/kernel into drm-next (2026-04-10 11:15:22 +1000)
+> +	if (ret)
+> +		return ret;
+> +	else if (!new_plane_state->visible)
+>  		return 0;
+>  
+> -	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
+> -	    crtc_state->adjusted_mode.hdisplay ||
+> -	    new_plane_state->crtc_y + new_plane_state->crtc_h >
+> -	    crtc_state->adjusted_mode.vdisplay) {
+> -		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
+> -		return -EINVAL;
+> -	}
+> -
 
-are available in the Git repository at:
+The purpose of this check is to ensure that the right and bottom
+boundaries of the plane do not extend beyond the crtc. In
+`drm_atomic_helper_check_plane_state`, `drm_mode_get_hv_timing` is
+called to retrieve the crtc boundaries, and `drm_rect_clip_scaled` is
+used to clip the plane, any portions extending beyond the right and
+bottom boundaries are discarded.
 
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-fixes-2026-04-16
+I'd like to confirm that my understanding is correct? previously, the
+check failed if the plane exceeded the boundaries, but now, after
+`drm_atomic_helper_check_plane_state` is called, the plane is clipped to
+fit within the boundaries.
 
-for you to fetch changes up to a97c88a176b6b8d116f4d3f508f3bd02bc77b462:
+in function drm_rect_clip_scaled:
 
-  drm/i915/wm: Verify the correct plane DDB entry (2026-04-14 08:04:47 +0100)
+diff = dst->x2 - clip->x2;
+if (diff > 0) {
+	...
+	dst->x2 -= diff;
+}
+diff = dst->y2 - clip->y2;
+if (diff > 0) {
+	...
+	dst->y2 -= diff;
+}
 
-----------------------------------------------------------------
-- Fix VESA backlight possible check condition [backlight] (Suraj Kandpal)
-- Verify the correct plane DDB entry [wm] (Ville Syrjälä)
 
-----------------------------------------------------------------
-Suraj Kandpal (1):
-      drm/i915/backlight: Fix VESA backlight possible check condition
+Thanks.
 
-Ville Syrjälä (1):
-      drm/i915/wm: Verify the correct plane DDB entry
+Best regards
+Yongbang.
 
- drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 9 +++++++--
- drivers/gpu/drm/i915/display/skl_watermark.c          | 4 ++--
- 2 files changed, 9 insertions(+), 4 deletions(-)
+
+>  	if (new_plane_state->fb->pitches[0] % 128 != 0) {
+>  		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
+>  		return -EINVAL;
+>  	}
+> +
+>  	return 0;
+>  }
+>  
+
