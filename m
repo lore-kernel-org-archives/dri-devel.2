@@ -4,132 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83808F8A160
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 11:26:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B03AAF8A163
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 11:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C342710E830;
-	Thu, 16 Apr 2026 11:26:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 186C310E88E;
+	Thu, 16 Apr 2026 11:39:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YQti7CYW";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FaFY9+Te";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TKENET24";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEE7910E830
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 11:26:34 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63G6JNR71668219
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 11:26:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=GKL3L0XkFJrjV8Cp1bcdi/Q3
- KrqtkofJoOm2RAC2cTw=; b=YQti7CYW/gJaJXc0L7SXwUciwn71kiIwWBJm6YMY
- pWR1fgdL3yD+aolzlOAaRPTBi3PCPibERW/ixrAQ242XdDFWqmlA5prE7uuGqYEB
- nJ25D8Ia/5EOtOzERKxWVFE6M+DLVYVAYfuFwLbYUEI2u89WzyVvYqyAAnpDppiq
- dMV5BHpP4YTMK+btFmxcvNNN3fI/nR/z71BlH0d70p4IhJLTOGYivZKIgq2952Xf
- B/nIDquXavphms25JnbYVG16Ta5pg/n+q/A06qDhcSr0yBaMINc6zb+jtTlXtxKh
- RrAyEOPm4LbIUhlzWM67KWz7ipnSi8LnNEjPBtprscMU9g==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djtd91467-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 11:26:33 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50d63962d83so189376341cf.2
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 04:26:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776338793; x=1776943593;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=GKL3L0XkFJrjV8Cp1bcdi/Q3KrqtkofJoOm2RAC2cTw=;
- b=FaFY9+Teu8pgUsMk87RxDdQd4dabycb7ExPbbEsSyemi0pR7WsJyWnbsw58AvLZaLy
- kTdqKNsyXqB+v6RflT7aThr0hh2tSZeoRYyCAAjYzebdhm5N07GI2LqjENRKZ0o0j1o0
- CBk2tLpn3i1zAZjYkVDZJ7Vz5xma3UFv68biHsumm3byMl/ZQj5hKf7ORthCCj0468j0
- ns9b0QVmininmwiGkHTTamtdRLzLjE6xiAGCSGT/0xPPtNkXuba5MOIHW/f5ZlmqFVzC
- GkAkW4wjoWut1HeATK9mtgTL/8RjUvdRL9mO48dPxFqgwzMlYYgEfhAthd+xj3mUbnul
- ysww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776338793; x=1776943593;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GKL3L0XkFJrjV8Cp1bcdi/Q3KrqtkofJoOm2RAC2cTw=;
- b=qpKc54gGvlIQ0jK87w4BgdWXVDt7AMbsKFRnOKnepNn39OxAb6Dz++tDXQfonzIiAY
- wBXwO0D7EnIkja5mVJjyPrE1zKtswSeuSOpynAtRcojHe4iu3JDJAimBWd+r1gNtCNQ+
- M5MzjRwbsrT6cdOFEoTr80RL7xOnjVscBIajGs0u5Y3HjwPQkKPqnJ5JLUNMgTiWNl1Q
- rSbonJ1DqSt5gHMwq9zkOPxM/P5w9PaAPNupQ5gprr86k5KjJpd0JHx+AeS6eJgEgCSd
- 4JNWrgVS44AhopYbh0UQsW3UlzWidPsoMc/hng5tuVzfrmxzYT5vguqZMDAHoj0rTI4D
- gjQA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ88l8YPnHAo22Tf94qpNjf03aeLDSqdUK3M7DzmYG8hJAs41mGVMRm1vjM+a0VhhUd8Y/PQ9e1jSPY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1W+B+r6F8reNow+L67mGifxEdrMlNb65xWDqW3iWyrHhqBVGG
- 5TZi2rYGT3Osj/FX061uz23c/+a1q7hIElFVCOwTkl4WApGLwD24nR4DrrfvZqQshm40jO/ibxA
- jaX6DHbCcjmxUudMi22yjGP27Z4Uy7DPC05L0qwzBHlsbTw+88lG92crTpuvO9EAaSe8RJo4=
-X-Gm-Gg: AeBDietbM3d1BcMY8rmY9eafcOTU33aQA6RT+XSzyzf4dbIaL5xX3PfyqCXmmhEI6Vw
- 8T5RY4VDdfy3PhxXyxzD839322aVUwO8JZHCCMRTSmjnFhlhSc8oCrMpat2tF/wHMqZ1gYk/nd5
- hFTU2OtejK3reY2yMQtj67PIJ2rFb/uacpxhTb+7SMJJsd7MKuare719fUvY7sjvilM6ePOvsZ0
- 8jMJZNDI4B0nxGByMPlxht8sj303nyokuGEPwzb80B972OJL2EOdRfuXojr4xsIRaC1Qaw712jY
- EIdPtAGUTaPTkQKABWzHh3lVnjdkZzgwu1zHkqk5ypXvsamkiiViy5cvK8InL5sml9gcLio+Lwr
- unpJS8210ORIkzf0VjaonBE+4jIbuIMQI3d+b8Xi57UZ6XMY5oo+ZBlT+5LJ3EN0kLDpJ+h89jD
- cNychQoZHnV9vMYSqwj67GKLTFWQbJ1yWB/S/t+bpztXLZQg==
-X-Received: by 2002:ac8:5889:0:b0:50d:a8f5:1bff with SMTP id
- d75a77b69052e-50dd5b30fb6mr376511711cf.9.1776338793075; 
- Thu, 16 Apr 2026 04:26:33 -0700 (PDT)
-X-Received: by 2002:ac8:5889:0:b0:50d:a8f5:1bff with SMTP id
- d75a77b69052e-50dd5b30fb6mr376511431cf.9.1776338792630; 
- Thu, 16 Apr 2026 04:26:32 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a40a272852sm1220326e87.10.2026.04.16.04.26.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 04:26:31 -0700 (PDT)
-Date: Thu, 16 Apr 2026 14:26:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jianping Li <jianping.li@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Abel Vesa <abelvesa@kernel.org>,
- Jorge Ramirez-Ortiz <jorge.ramirez-ortiz@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, ekansh.gupta@oss.qualcomm.com,
- quic_chennak@quicinc.com
-Subject: Re: [PATCH v4 3/4] misc: fastrpc: Allocate entire reserved memory
- for Audio PD in probe
-Message-ID: <czcgifek5luglduvk25u3d2kltwis56333icdvol2vh7dvhgta@3qfddjrsvmte>
-References: <20260409062617.1182-1-jianping.li@oss.qualcomm.com>
- <20260409062617.1182-4-jianping.li@oss.qualcomm.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DB1910E88B
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 11:39:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1ryApl0KHNaIlHZVg70CJmK/AIQvWYmEt+Uc65xyRec=; b=TKENET24zDtl0pO8PB+wQpKwqM
+ N3kBYmmGuZ9nAb761l+ousF2hyV36naVScxZoaPwzLVfIgYhsQdMdcjTnjlTrPTYAqm3rqLHE/soQ
+ VAB/g53lnTYPLywOS60Qogsz7PolGT2MtPvVDWMPxNDaARTu4hf1tE6xpYflytvLOkh2+bT/XVt6z
+ EkTed1XGU9nYpYNOBkMkOl/ApDs7bkiVd9h596rXl8rBztz2T3cWR+QwKxb2qCVpg6uauJ0epIDZ5
+ p09+LVtwM/AL3eDLQUpE7sBuxMSWeXQyswvzqIZFkjEA+kBugEdd0hiElAP1Lcx4NfY55U62q7DHz
+ nHBDFfsw==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wDL49-00GxQX-Gf; Thu, 16 Apr 2026 13:39:25 +0200
+Message-ID: <59d03f0f-068a-4a86-b52c-cd47742edf6e@igalia.com>
+Date: Thu, 16 Apr 2026 12:39:24 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260409062617.1182-4-jianping.li@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDEwOCBTYWx0ZWRfXy5bbUmweyPb6
- gPM41bdyYEPYwdlHTprY9KwSI7owy/sTi9AgJwjfmdfApTWhQ6ko66y4f9UoBttHKuOGfNuMSfN
- EUpi541FvLkyms6ytYP9V89w1yOwx7HwO2QHZaHo05q3UrqahXGlDycJ4+EMeAQs+AW0QOeKnK6
- HbBMxGOJb67qvFMVKzYzFgUvQ5u2riGGSSqHKtDgmD/+Mkw6B1K60TGqDDj77yutNiVFZI5VNXx
- cVOJceNdosrRhqamcEG76iY2JMw9nRMCXWL296XLImcdoBch1vaUTg7puugrS6EeUDYZtOgmwlF
- 9SGOowDg7IRxosZl/TP3XtT3BpW3Tvoq+kMkcC+7zZ6MDrzXAeGcLbhdTQHh8H70seFQbBFM+nM
- NyiZjTsDIgbfqLkFcj9WIM7OBoeW9pva4Xbtz2LIVxs3nuLac71iCbR95S3nDihdeDQRCMkzUYp
- 864S2CvaV/Y0oNOq+nw==
-X-Authority-Analysis: v=2.4 cv=avuCzyZV c=1 sm=1 tr=0 ts=69e0c769 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=qAkFtAADdWEuSrs4xykA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: bswemHu0JZN8KyZvdArENSAuR-1Rx0mI
-X-Proofpoint-ORIG-GUID: bswemHu0JZN8KyZvdArENSAuR-1Rx0mI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-16_03,2026-04-13_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- adultscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604160108
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/10] drm/v3d: Clear queue->active_job when
+ v3d_fence_create() fails
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260413-v3d-sched-misc-fixes-v1-0-bac63a8ceb6c@igalia.com>
+ <20260413-v3d-sched-misc-fixes-v1-2-bac63a8ceb6c@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260413-v3d-sched-misc-fixes-v1-2-bac63a8ceb6c@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,26 +67,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 09, 2026 at 02:26:16PM +0800, Jianping Li wrote:
-> Allocating and freeing Audio PD memory from userspace is unsafe because
-> the kernel cannot reliably determine when the DSP has finished using the
-> memory. Userspace may free buffers while they are still in use by the DSP,
-> and remote free requests cannot be safely trusted.
+
+On 13/04/2026 16:03, Maíra Canal wrote:
+> The run_job() callbacks for BIN, RENDER, TFU and CSD assign the incoming
+> job to queue->active_job before calling v3d_fence_create(). If
+> v3d_fence_create() fails, the callback returns NULL without clearing
+> active_job, leaving a dangling pointer.
+
+I don't know the driver well enough to know if this can be hit, or under 
+which circumstances (spurious interrupt?), but the fix looks correct 
+regardless.
+
+One small doubt below.
+
+> Create a failure path in all run_job() callbacks that clears the active
+> job before returning NULL. The BIN path takes queue->queue_lock around the
+> clear as it races against v3d_overflow_mem_work(); RENDER, TFU and CSD
+> paths have no concurrent reader, so the clear is lock-free.
 > 
-> Allocate the entire Audio PD reserved-memory region upfront during rpmsg
-> probe and tie its lifetime to the rpmsg channel. This avoids userspace-
-> controlled alloc/free and ensures memory is reclaimed only when the DSP
-> shuts down.
-> 
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> Fixes: a783a09ee76d ("drm/v3d: Refactor job management.")
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > ---
->  drivers/misc/fastrpc.c | 104 +++++++++++++++++++++--------------------
->  1 file changed, 53 insertions(+), 51 deletions(-)
+>   drivers/gpu/drm/v3d/v3d_sched.c | 52 ++++++++++++++++++++++++-----------------
+>   1 file changed, 30 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sched.c
+> index 1855ef5b3b5f..d42db75e639b 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -206,12 +206,8 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
+>   	struct dma_fence *fence;
+>   	unsigned long irqflags;
+>   
+> -	if (unlikely(job->base.base.s_fence->finished.error)) {
+> -		spin_lock_irqsave(&queue->queue_lock, irqflags);
+> -		queue->active_job = NULL;
+> -		spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> -		return NULL;
+> -	}
+> +	if (unlikely(job->base.base.s_fence->finished.error))
+> +		goto out_clean_job;
+>   
+>   	/* Lock required around bin_job update vs
+>   	 * v3d_overflow_mem_work().
+> @@ -228,7 +224,7 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
+>   
+>   	fence = v3d_fence_create(v3d, V3D_BIN);
+>   	if (IS_ERR(fence))
+> -		return NULL;
+> +		goto out_clean_job;
+
+I wonder whether it would be feasible to simply only assign to 
+queue->active_job after fence has been created and have a smaller diff 
+for backporting?
+
+Either way the patch looks correct to me:
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+
+Regards,
+
+Tvrtko
+
+>   
+>   	if (job->base.irq_fence)
+>   		dma_fence_put(job->base.irq_fence);
+> @@ -256,6 +252,12 @@ static struct dma_fence *v3d_bin_job_run(struct drm_sched_job *sched_job)
+>   	V3D_CORE_WRITE(0, V3D_CLE_CT0QEA, job->end);
+>   
+>   	return fence;
+> +
+> +out_clean_job:
+> +	spin_lock_irqsave(&queue->queue_lock, irqflags);
+> +	queue->active_job = NULL;
+> +	spin_unlock_irqrestore(&queue->queue_lock, irqflags);
+> +	return NULL;
+>   }
+>   
+>   static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
+> @@ -265,10 +267,8 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
+>   	struct drm_device *dev = &v3d->drm;
+>   	struct dma_fence *fence;
+>   
+> -	if (unlikely(job->base.base.s_fence->finished.error)) {
+> -		v3d->queue[V3D_RENDER].active_job = NULL;
+> -		return NULL;
+> -	}
+> +	if (unlikely(job->base.base.s_fence->finished.error))
+> +		goto out_clean_job;
+>   
+>   	v3d->queue[V3D_RENDER].active_job = &job->base;
+>   
+> @@ -282,7 +282,7 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
+>   
+>   	fence = v3d_fence_create(v3d, V3D_RENDER);
+>   	if (IS_ERR(fence))
+> -		return NULL;
+> +		goto out_clean_job;
+>   
+>   	if (job->base.irq_fence)
+>   		dma_fence_put(job->base.irq_fence);
+> @@ -303,6 +303,10 @@ static struct dma_fence *v3d_render_job_run(struct drm_sched_job *sched_job)
+>   	V3D_CORE_WRITE(0, V3D_CLE_CT1QEA, job->end);
+>   
+>   	return fence;
+> +
+> +out_clean_job:
+> +	v3d->queue[V3D_RENDER].active_job = NULL;
+> +	return NULL;
+>   }
+>   
+>   static struct dma_fence *
+> @@ -313,16 +317,14 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
+>   	struct drm_device *dev = &v3d->drm;
+>   	struct dma_fence *fence;
+>   
+> -	if (unlikely(job->base.base.s_fence->finished.error)) {
+> -		v3d->queue[V3D_TFU].active_job = NULL;
+> -		return NULL;
+> -	}
+> +	if (unlikely(job->base.base.s_fence->finished.error))
+> +		goto out_clean_job;
+>   
+>   	v3d->queue[V3D_TFU].active_job = &job->base;
+>   
+>   	fence = v3d_fence_create(v3d, V3D_TFU);
+>   	if (IS_ERR(fence))
+> -		return NULL;
+> +		goto out_clean_job;
+>   
+>   	if (job->base.irq_fence)
+>   		dma_fence_put(job->base.irq_fence);
+> @@ -350,6 +352,10 @@ v3d_tfu_job_run(struct drm_sched_job *sched_job)
+>   	V3D_WRITE(V3D_TFU_ICFG(v3d->ver), job->args.icfg | V3D_TFU_ICFG_IOC);
+>   
+>   	return fence;
+> +
+> +out_clean_job:
+> +	v3d->queue[V3D_TFU].active_job = NULL;
+> +	return NULL;
+>   }
+>   
+>   static struct dma_fence *
+> @@ -361,10 +367,8 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+>   	struct dma_fence *fence;
+>   	int i, csd_cfg0_reg;
+>   
+> -	if (unlikely(job->base.base.s_fence->finished.error)) {
+> -		v3d->queue[V3D_CSD].active_job = NULL;
+> -		return NULL;
+> -	}
+> +	if (unlikely(job->base.base.s_fence->finished.error))
+> +		goto out_clean_job;
+>   
+>   	v3d->queue[V3D_CSD].active_job = &job->base;
+>   
+> @@ -372,7 +376,7 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+>   
+>   	fence = v3d_fence_create(v3d, V3D_CSD);
+>   	if (IS_ERR(fence))
+> -		return NULL;
+> +		goto out_clean_job;
+>   
+>   	if (job->base.irq_fence)
+>   		dma_fence_put(job->base.irq_fence);
+> @@ -399,6 +403,10 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
+>   	V3D_CORE_WRITE(0, csd_cfg0_reg, job->args.cfg[0]);
+>   
+>   	return fence;
+> +
+> +out_clean_job:
+> +	v3d->queue[V3D_CSD].active_job = NULL;
+> +	return NULL;
+>   }
+>   
+>   static void
 > 
 
-This patch applies neither to linux-next nor to the 7.0 branch. What was
-the base for this series?
-
--- 
-With best wishes
-Dmitry
