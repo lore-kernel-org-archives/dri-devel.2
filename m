@@ -4,80 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9406BF8E4B4
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:06:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64222F8E4B1
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:06:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B90710E963;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21ABF10E95E;
 	Fri, 17 Apr 2026 07:06:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="E9q2FNnQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kkMs3uR5";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1960D10E1D7
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 13:18:53 +0000 (UTC)
-Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63G4Q9pW3203131; Thu, 16 Apr 2026 06:18:45 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=iTNAuwSiBRgPAjZmQLfOkizde4HCQ7hisKa2aJG19b4=; b=E9q2FNnQLmSa
- quxk3DncgPKrbkIYi9lB3nr2phNOoFkscrZTlnxACXmFyI2NwAPjcf/iLlRjj8sE
- TAULw7QlVh0Qzlb+bkaNCXNMaVd7LdswBMdJk5nv5INkHV9UfBDjD9ZnOaov4o4Z
- v8vuoYod7YMiErd/AV8adAb/uqE0Xekxkj5hmCZx2l3jopOsMc4LxV8iIAb+1PL4
- ufXFon8jCcUMu4M1HkSSVnpaw/5czBWp87t3Pyxh2v8Djet09RUsa+unyW2v+0sb
- zvaozCTHZf3c5hlbs8NDxLf/SAH/XkJwuS/02rb2XIFCkGTwC5wZqmtKcjamnL3L
- Z1hWNPrL9Q==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dh8551x0w-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 16 Apr 2026 06:18:45 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1c::1b) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.37; Thu, 16 Apr
- 2026 13:18:44 +0000
-From: Matt Evans <mattev@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-CC: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal
- <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <kvm@vger.kernel.org>
-Subject: [PATCH 5/9] vfio/pci: Provide a user-facing name for BAR mappings
-Date: Thu, 16 Apr 2026 06:17:48 -0700
-Message-ID: <20260416131815.2729131-6-mattev@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260416131815.2729131-1-mattev@meta.com>
-References: <20260416131815.2729131-1-mattev@meta.com>
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8BD810E8E2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 16:47:14 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-82f69adeecbso937441b3a.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:47:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776358034; x=1776962834; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CzDxwYfpurj8xr015y/mH2mke+/hLRvGAF/fQ7dIVG4=;
+ b=kkMs3uR5/9zhSeQ7ZJ5F35+39YZy2FQgpSewo2VCQ9HX1XJ9U+0hNugiwDOV1EwYbF
+ f9o3XQMZXm2xMtxAWkSs0L3lZNslujs6DfF2FZ9oy+hUMFkzUH9JvAN08GoN6MA3nfFd
+ 5k0/PM+T/yx1/BGkZWaFmcUQ03812RzilcOIxW3TEHc4XaaHuQkYNPDSUJNvcg1YHs4r
+ GOHXy7t1ObtrwmvqjvcNkg4Kw9ITWxoACaWml/zri81RwNEoXStJa+bGNkjy0Gpofled
+ EiqAfPnScGXF6/61jxKnoyHeN/4ylX6dTa7slGqPo35z6hfB98CIg05V6XwQaCa7ypFb
+ sQlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776358034; x=1776962834;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CzDxwYfpurj8xr015y/mH2mke+/hLRvGAF/fQ7dIVG4=;
+ b=I7Q5wEtFfzzRMyi3fGXb+plqkBnK8Y/PrR8fLU9FGwf15Y3HtzmT1NTMDBtpeDABzs
+ N2ZzGTjr+Xe3SQ8RX+i0VI5Le/SuvwMD3WGvK7hAqkjgfAa5Q9pNO1l5AYRljD/SghHF
+ y6hG18AXey1UmAiPSH7M0uBnX7zpLEtUUGel9+z6a9hyGsPPTvzSWA5oh2t41L5pI39d
+ u9u+WgEiT1yDzZztPbF8N+iSVTGuH6LfkcwbDa66DAPxOLStRhRe+hfIG1PNc2vwby5k
+ fhpFqxF0rM5Mwj94Q4808B4l4iou0T+KL+hygXLszLGBqOJhpJBCEMIiPRTROdZMKVXI
+ rp0A==
+X-Gm-Message-State: AOJu0YwUXjjipLqmeXC+0CqEaPMpydGQr0O66hR0eqdOPz29VOzxVSMW
+ /8YOqO5av9enx0Vwrkuv38mUbG44akMRRscCP6SGFqCN4gLDasVLEXwqTC9kIMUFOcY=
+X-Gm-Gg: AeBDietMrOm+DzY0YDfQFFsYL1lp4tHx0ZYxiA0/TyJbScCeiPgA9GuZ1wYmce8TdPh
+ HiaJ+9rLZ/5AB+KF+TTwAyvguC9ho6aQINRl3E5njE/S8wy4HGVU7T7YOoLLQ31DGQ41EgnH0KH
+ gel9Kxyrd5k1q2V2fXqwJgXHz1Ov7VvQ/iAEXOYz5z2WycZ6yKS57Av+HM5p54NE+5EJ3g4Q/xi
+ ggW5bdce4OrL25Q42+e5HovA6DhQ9Yz9MKo2vsbxWiAEW11f4g7M/dHiRG2Pl29ubFmoaVFALvq
+ cqJLfT8us4Z5bmpkvhOO6C87rZ4Vuczf4IxNx1QXsYlKWoVPFos8uAl3BzZsuPeBH+i3cN7Ut9o
+ YRUt8vDxYbV5qgW1yQpkkh+Ylq4liVz9TaYRXhztIWPh71MY2+y7Ey8h6YopGsxerJ6zOgtQDiI
+ zeSigVdzt6ovc1sm4clnUCWnOJVFXGpP+gWeYX1ITwMb0AF8rkbhFgWt21UQbSKc3bLAiYT7RAX
+ UxSwivauvCxP3n+syQ+AOGCrS06Kj4lliI=
+X-Received: by 2002:a05:6a00:21d5:b0:82f:2070:2683 with SMTP id
+ d2e1a72fcca58-82f887eb97fmr103721b3a.21.1776358034016; 
+ Thu, 16 Apr 2026 09:47:14 -0700 (PDT)
+Received: from lucifer-Victus-by-HP-Gaming-Laptop-15-fa1xxx.iitbhu.local
+ ([103.151.209.194]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82f88a57cd1sm28808b3a.34.2026.04.16.09.47.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Apr 2026 09:47:13 -0700 (PDT)
+From: Sachin Kumar <sachinkumar905846@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Sachin Kumar <sachinkumar905846@gmail.com>
+Subject: [PATCH] staging: fbtft: clarify TODO comment in fbtft-core
+Date: Thu, 16 Apr 2026 22:16:43 +0530
+Message-ID: <20260416164643.153765-1-sachinkumar905846@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [2620:10d:c0a8:1c::1b]
-X-Authority-Analysis: v=2.4 cv=Fuw1OWrq c=1 sm=1 tr=0 ts=69e0e1b5 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=kkcUborcUVj0H7zxAXTl:22 a=VabnemYjAAAA:8 a=3OuInECnMAfxEXBjkJUA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: KtX4RQyQeJBe1k-4hJ-K_Qc_DBJP82zF
-X-Proofpoint-GUID: KtX4RQyQeJBe1k-4hJ-K_Qc_DBJP82zF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDEyNiBTYWx0ZWRfXyIzy/ycBhTVA
- vgHGBcFtAf77DgN8K4R6LrcYubNhG87+p9fIC9r4rPVeMA9bHO3AHATEDhirQvUHlA9GW7ojm5g
- zJ6aS0D1QhrVkaO8TRCpRsr1v6N4/JM4IOQqw1GVwLOI5AgpiGMmYvTE9iK9bTc9UAQSwMN+l2o
- 6j2qc4DG7Q3orzdJbQtSBy/gviSj6r7izI9LSHiqaH+vGz6bxA4UZ+vCz/feu4R4mokVAb/Nam1
- XLhARODJwUhHLqufnpiZ57c5V+Cblju/Y1e87UxV80MwtqIwwL0z2/pPuxoqDbENPIs6pwAzS3P
- BWIAdEViJ3IZCNHY0lLcuypYu7X5GisqE9lUKVdzZnVLCAmHDeZ/QMzAPdZybdKeN5sWwZm5B0w
- mPuHlOcgq127JG5S8vxaWaLQiF3ZFZBwPxAM+K80YHiMbK4FD41M29SJLmbfepqqqAQaYW87YRI
- TMk96/pRjwKbdTtrueg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-16_03,2026-04-16_02,2025-10-01_01
 X-Mailman-Approved-At: Fri, 17 Apr 2026 07:06:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,94 +88,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since converting BAR mmap()s to using DMABUFs, we lose the original
-device path in /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented
-synthetic 'filename' based on the cdev, plus BDF, plus resource index.
+Improve wording of a TODO comment to better describe the
+intended optimization. The comment now clearly states that
+only the changed display area should be updated instead of
+refreshing the entire screen.
 
-This applies only to BAR mappings via the VFIO device fd, as
-explicitly-exported DMABUFs are named by userspace via the
-DMA_BUF_SET_NAME ioctl.
-
-Signed-off-by: Matt Evans <mattev@meta.com>
+Signed-off-by: Sachin Kumar <sachinkumar905846@gmail.com>
 ---
- drivers/vfio/pci/vfio_pci_dmabuf.c | 27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+ drivers/staging/fbtft/fbtft-core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index a12432825e5e..04c7733fe712 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -4,6 +4,7 @@
- #include <linux/dma-buf-mapping.h>
- #include <linux/pci-p2pdma.h>
- #include <linux/dma-resv.h>
-+#include <uapi/linux/dma-buf.h>
- 
- #include "vfio_pci_priv.h"
- 
-@@ -467,6 +468,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
+index f427c0914..4984aad9c 100644
+--- a/drivers/staging/fbtft/fbtft-core.c
++++ b/drivers/staging/fbtft/fbtft-core.c
+@@ -414,7 +414,9 @@ static void fbtft_ops_damage_range(struct fb_info *info, off_t off, size_t len)
  {
- 	struct vfio_pci_dma_buf *priv;
- 	const unsigned int nr_ranges = 1;
-+	char *bufname;
- 	int ret;
+ 	struct fbtft_par *par = info->par;
  
- 	priv = kzalloc_obj(*priv);
-@@ -479,6 +481,20 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 		goto err_free_priv;
- 	}
- 
-+	bufname = kzalloc(DMA_BUF_NAME_LEN, GFP_KERNEL);
-+	if (!bufname) {
-+		ret = -ENOMEM;
-+		goto err_free_phys;
-+	}
-+
-+	/*
-+	 * Maximum size of the friendly debug name is
-+	 * vfio1234567890:ffff:ff:3f.7-9 = 30, which fits within
-+	 * DMA_BUF_NAME_LEN.
+-	/* TODO: only mark changed area update all for now */
++	/* TODO: Optimize to update only the changed area instead of
++	 * refreshing the entire display
 +	 */
-+	snprintf(bufname, DMA_BUF_NAME_LEN, "%s:%s/%x",
-+		 dev_name(&vdev->vdev.device), pci_name(vdev->pdev), res_index);
-+
- 	/*
- 	 * The mmap() request's vma->vm_offs might be non-zero, but
- 	 * the DMABUF is created from _offset zero_ of the BAR.  The
-@@ -501,7 +517,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 	priv->provider = pcim_p2pdma_provider(vdev->pdev, res_index);
- 	if (!priv->provider) {
- 		ret = -EINVAL;
--		goto err_free_phys;
-+		goto err_free_name;
- 	}
+ 	par->fbtftops.mkdirty(info, -1, 0);
+ }
  
- 	priv->phys_vec[0].paddr = phys_start;
-@@ -509,7 +525,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 
- 	ret = vfio_pci_dmabuf_export(vdev, priv, O_CLOEXEC | O_RDWR);
- 	if (ret)
--		goto err_free_phys;
-+		goto err_free_name;
- 
- 	/*
- 	 * The VMA gets the DMABUF file so that other users can locate
-@@ -521,8 +537,15 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
- 	vma->vm_file = priv->dmabuf->file;
- 	vma->vm_private_data = priv;
- 
-+	spin_lock(&priv->dmabuf->name_lock);
-+	kfree(priv->dmabuf->name);
-+	priv->dmabuf->name = bufname;
-+	spin_unlock(&priv->dmabuf->name_lock);
-+
- 	return 0;
- 
-+err_free_name:
-+	kfree(bufname);
- err_free_phys:
- 	kfree(priv->phys_vec);
- err_free_priv:
 -- 
-2.47.3
+2.43.0
 
