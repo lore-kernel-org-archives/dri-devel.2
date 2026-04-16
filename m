@@ -4,137 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7B1F8A146
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 09:41:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 520A1F8A14D
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 09:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55D1910E098;
-	Thu, 16 Apr 2026 09:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B242110E077;
+	Thu, 16 Apr 2026 09:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="OjB2r7bf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="71hEbbXv";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OjB2r7bf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="71hEbbXv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CyJJqhpz";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6201110E098
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:41:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0CFAC6A7F4;
- Thu, 16 Apr 2026 09:41:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776332506; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hh76HKGGEAlo+atWjMCKYJIGIzrcjr+dYrwWi459E7Q=;
- b=OjB2r7bfPcIyYfQYotQKQmJCiRMtr54bwA1gKjnn/yWHUvT2fbVDFywOjvm98ry9RfDXyO
- TYIldr/BrH28+ouVXCbbPafbQUOrJ/fyoxCjHdK/itRuRM5SMT/1mbBqhXiIMmv8gfJm27
- 1ZYYKvB0eoe+Gx6JLQgZPOMgK0u/CRU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776332506;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hh76HKGGEAlo+atWjMCKYJIGIzrcjr+dYrwWi459E7Q=;
- b=71hEbbXvGGjINEQL8lmQzHOOCHCJSlljOUeHTgY5lvWyqhyznUG6PuWvIFKU1nI3yyM4IG
- aM4BTUk5ytNlqEDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776332506; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hh76HKGGEAlo+atWjMCKYJIGIzrcjr+dYrwWi459E7Q=;
- b=OjB2r7bfPcIyYfQYotQKQmJCiRMtr54bwA1gKjnn/yWHUvT2fbVDFywOjvm98ry9RfDXyO
- TYIldr/BrH28+ouVXCbbPafbQUOrJ/fyoxCjHdK/itRuRM5SMT/1mbBqhXiIMmv8gfJm27
- 1ZYYKvB0eoe+Gx6JLQgZPOMgK0u/CRU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776332506;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hh76HKGGEAlo+atWjMCKYJIGIzrcjr+dYrwWi459E7Q=;
- b=71hEbbXvGGjINEQL8lmQzHOOCHCJSlljOUeHTgY5lvWyqhyznUG6PuWvIFKU1nI3yyM4IG
- aM4BTUk5ytNlqEDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8A9944BEC2;
- Thu, 16 Apr 2026 09:41:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id dmLsH9mu4Gl9dwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 16 Apr 2026 09:41:45 +0000
-Message-ID: <1805a7d4-a4a0-48ee-ac6e-33e5d9d5fdc9@suse.de>
-Date: Thu, 16 Apr 2026 11:41:45 +0200
-MIME-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012066.outbound.protection.outlook.com [40.107.209.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3956410E023
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 09:57:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RXXlVG1dQJLXjVrgGeZZq6HbdbICRjcBy69j7Rv1CieE0ppJVrUfy2Tr4T6sGD+LWaapRqDQc4spYq3kDRrb7OtINrXzNiLJQ/h3cPdzYoH9DCtAMU71z99WYgjTIFH56qq+st2RHazWl60PlE4vOsI5CQD7r8V5ojqElnh5P2A6tPJckELRq2jnitewB4KWvznNm6ue32J0prMijXxh4L7btAHV+oy934qN3V8ZAiBh7KfBImdQYdNhkQiqODigBRTWtnwziMLyKszstGUk59gEG1gxb1hGMupibgJq2FjEvb5y8qjP8gWiDtWm5yIZJmnijQq391tbcKucHVa57Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qsN0idFbzoo5Al6u3mb1og5Of2nRQw6pc/2+X8L36XM=;
+ b=TUI2cjQOM/gDb7sTRpphCyoJRB0ZXhZYFrBcBg20ZAMZ7rXTmisGmrdK1yMZvz8UXpRE3vKirVSpLpWGRac3AfPYF/ho5D6IQ8DaBe5gLujf51NPJvE1OvCxAAChlKIejJRVnM4UdV2+NXjdtXuxAkkHAB2B/jp6nS/h70Ub1Hc8tJyk/90PwU0akoaVtnl+KidwzD5jS045gIeGANqLsVBYyQkXNYuzHMZKlOwVPrNfV/Fmp9v+dgQa2oggfOjTBw8z29Ne2igMw1xBJ+ICANfBooaL/iLVFsuIEm9a1TRwUueFsuar98eYinFZaWrV2YD48eVPd/R2Y83X2Ol88Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qsN0idFbzoo5Al6u3mb1og5Of2nRQw6pc/2+X8L36XM=;
+ b=CyJJqhpzXmn2+iu5KpqNT3BVjwHOZ6ThAgEuZaUHQlhyHnR4XH223X6/vdB3/l3h1tRc8zCa2Wz99gTvY3jhGEMRupohCIdKHXNifUXF+oijjHwcURfKAekhgZjuUpOxV/O9aR6orUEa5G4NYbDfcL5Asi8/5q+o3BkUrPJR5ZE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by LV5PR12MB9778.namprd12.prod.outlook.com (2603:10b6:408:300::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
+ 2026 09:57:43 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
+ 09:57:43 +0000
+Message-ID: <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+Date: Thu, 16 Apr 2026 11:57:37 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
-To: Yongbang Shi <shiyongbang@huawei.com>, tiantao6@hisilicon.com,
- kong.kongxinwei@hisilicon.com, sumit.semwal@linaro.org,
- yongqin.liu@linaro.org, jstultz@google.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, Rongrong Zou <zourongrong@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
- stable@vger.kernel.org, "Liangjian(Jim,Kunpeng Solution Development Dept)"
- <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>,
- "fengsheng (A)" <fengsheng5@huawei.com>
-References: <20260413085037.17491-1-tzimmermann@suse.de>
- <20260413085037.17491-2-tzimmermann@suse.de>
- <7fd5022a-9a5d-4976-9d4a-1e0fa2022eae@huawei.com>
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Val Packett <val@invisiblethingslab.com>,
+ Suwit Semal <sumit.semwal@linaro.org>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7fd5022a-9a5d-4976-9d4a-1e0fa2022eae@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWELVE(0.00)[18]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[huawei.com,hisilicon.com,linaro.org,google.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,gmail.com,chromium.org,kernel.org,vger.kernel.org,huawei.com];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, chromium.org:email, suse.de:mid,
- suse.de:email, linaro.org:email, huawei.com:email, bootlin.com:url,
- imap1.dmz-prg2.suse.org:helo]
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4P288CA0019.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d4::21) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV5PR12MB9778:EE_
+X-MS-Office365-Filtering-Correlation-Id: c51b83ef-8ffe-43bb-880d-08de9b9e9a68
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: ptIBcFwCh7uxp3YWoK17/bPQie2C69dn4TvYoltDKzWKEoIyDd8AqL8BW58hqMoG8gVr0MEhLZr0gie9rx9Sb2S+1cRY2ZzDijFmxMIVWq2yWrNtDcoV6RmgYN453Q2QpDmMYQJnm/O5N/QhfIV+gZ2waYUJ++lCC2/P6cVqug/7AxMh0hlt5q914MtRaww/We1VIC+qpLVaV+evn+SHAEhM9DAsv4I3fyMHtFeNh7TaFZrblkyn0IOhW8+qZ40Y1aVczI7VWZ1Ck9blxKK0ycVcBMlWSwRQRMoqFnabldpBtaHjZxEDEQLTPA3LlFk4+QTByDkzGi7Qo5kAeNH1TRo0YPfiapxFyLy9bbypb7LnvBfznSP48p+tCcBEBeptKF8XFbCSiVFe2M0wg4uzqEUzD6AdeKbqEmpjgRkPsbYbhXHM5qAVR37AXXWjGKUOP5Yn5y9NEsVIhJZVxYt//mI4Zc+8Gcm1Q4pGhldEAGuSC0MTd3YWhlNij46VCgT2zlMb2h/wT0+rlw1KEh4n9kHMVqlQ8OuYruHXDwWcqb/fukPk2PUg9csUiQbvmacbx+Sk7JSAP+w0r7vVnBhmKAiIMVWybFFZeBgWZF/55s0H+AHz4EVPG7i1uDXRYbgTt/Qj0FBgEVcfFg773uozZ+cY+5ActPYajWkiO2a2cOSDrzRRY9viA62p9HmMfeLmIfD4lGqNyJwjcPqTxePepqSsXdlwZRXJtAVLmUcVU6Y=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d0NvTi9ON0ZuZTY3aDhTYy8xNHRoVXJCTlpkckJHeFVJYWVDWDVJcG1XU1VK?=
+ =?utf-8?B?Y082K1Q5bXpiT3RNVHVUSnJRbWdlYzZlVkV0dXl4VHMyRUJvRmNaelY3ZFpJ?=
+ =?utf-8?B?Uk1RQldWTlJmUXhQbGtYUTI5V0lYaWtFNGM3cmEvanFnbWNySGp6Yk5QQmtU?=
+ =?utf-8?B?ZXBtc0Fnam5lSVB0RWI2eVJCM3RqSHJ4WDJxRzVNTVczZDFaNGhaWUpkNmFr?=
+ =?utf-8?B?Vm9wWnBCYWVTN2l5YjFWUE1iK25RSklCZ1pYb1hjMkxMSk5CcE55eE5GR1E1?=
+ =?utf-8?B?QlBSSk5jVHdXMjROaUNrck9iT2xwZ0I5dUZaL1BRd25KSUc4WHp1YlByRGwr?=
+ =?utf-8?B?a0pNaXYrUEExcG5XbkJUTHVUV0JzMnNCT2o0U2FHZ3lzZ3BhQWw3dEZnNGZ4?=
+ =?utf-8?B?aFVYWWRESFA1a2lSd0t1NURQME40ZGdtQ0Z5a2owRGtKZ3BhZ21KUC9Wekly?=
+ =?utf-8?B?UkZrSU5qSWlOUGRBdDdzZXY5aTdoaWx4WGc5ZnUwb3JvcGowa2lNcCtDenFG?=
+ =?utf-8?B?MVk0YWFFQjgwWGF0VUJVVlQ5Q2oxTm5ETEpXSkhYZnR6RVdJNjJBaHpQS3Uv?=
+ =?utf-8?B?Z0lmYld3V3hZU3RBMXo1bXlUZDZCWnRmV0tXY3ozb3lETmJsOHdpbUF0YXdM?=
+ =?utf-8?B?NmN4STE0eFk0M0lCM2JXb1hYL2tDOHZzWVVSbjdDeDR6TmQ5OW5HZzJKa2Nl?=
+ =?utf-8?B?UXV6WVpjUDJPcHU1ODRtcTZQRThIa20zZE5jaFdPZG1MK3cxOGtXd2owdjl3?=
+ =?utf-8?B?NUtsN24ralFqcU5vQVJFWFZpSW5TdDc4aml6SXR6N1NVNmlqMTZuSFIxQmJi?=
+ =?utf-8?B?aEJzQ0NCdXRDOW9mNm1uQjI5M0NXb1lXQmppNldVSEVYdXMxNzlVUjN0NVNM?=
+ =?utf-8?B?a2dwL2ZHU1FTYU9NdkVkV0N2Rm9pL0ZUSEJsNVcyeEJTMXdQcEhQK0YzYVlQ?=
+ =?utf-8?B?WWV4cVN0bkZQS3hNWnBGeEtsV3BYekd4RG1WMW1GUTJUZmJhZzRlekdjYktX?=
+ =?utf-8?B?bDZSTW5KajR3TEJMOVZ1eUVTT3pXRGJRU1FwRSsvMmpMMkI3R1B6R0gzNHVQ?=
+ =?utf-8?B?UzhNWUo1aUhGRllya0ZYS3BTQ3FITVQraFdMclZXMFNyUU5VQ2VOTmdVam1k?=
+ =?utf-8?B?akhVRHhPcWNoS0hhdklidW44MTdwenBvL3c3ZytmVXozUVRzL1MydHArMFRq?=
+ =?utf-8?B?QWxTZXdYWWttS0ZHclFSOTVwYUFITkc3Y1ZCWXA0MjFrNXcxd0RNR0RNQ2lm?=
+ =?utf-8?B?ZVdnVDZqZUsxb0xlWWNldkFOVC9CcGFWY0diSUxhejFLayt0dnR2WGY3bzd2?=
+ =?utf-8?B?Z0VvSUVQQVdlV3pRR2lZekx0Rm96VW5KWkhwTEUzMlU1UnN4Z3VpT2dpTmpV?=
+ =?utf-8?B?emFTbUVzZVZ5b1RDMTlIUFpZeFRlcHNsMFgybG5XZGNwbElnWFp6cHpsbm5U?=
+ =?utf-8?B?TktZdnV0VmVmWDhXZE52NkRJNVppdFI4aC85Z2lSQzJSNnpWTllhcGVpejNJ?=
+ =?utf-8?B?cmJ2eE1EbEUrM210b291b1Fkak9uS3NtR28xbk1uWjBxRGk2OEVmNnF6Zm5W?=
+ =?utf-8?B?MDRNS3Vac1BjYWFkRWQ2S1ltRVhTeHMxSmRYZFcwTG5QaW13SWpkRWZGYzBz?=
+ =?utf-8?B?SjAzSEtINmIyUEhwMUVhY3hFeUhNYlJ4d3dtK3Yzd3BRRis1bFcvMFZOOVRk?=
+ =?utf-8?B?SThFV3E1SWVFNnBpalVmZDlTOU9RUTBITXVtZUhsVy84d0grUysyZm5TQ3g4?=
+ =?utf-8?B?clBjdm1CYXQvOTZRUnVFei9YTi9ZcWRrQmpNVGdDak1zYTc2b3VObytsTXBn?=
+ =?utf-8?B?Umo2cGQ3UDVpd1BlQUN4YTdaZUJ4WVNBV2xONEhiUk8vNE1IKzVITGdMNmZB?=
+ =?utf-8?B?MmQxd1dJd3FVK3hoSGthTHQrU1VSYVlHV0Z0aHh5UE9mRC9iWUsyZHFnUENa?=
+ =?utf-8?B?NDVWNXFvR3dPR2pwMjFxay9ZUGFTdDlZeVBrVXBnOVl2ZXF4cVdGZ1g4Nm93?=
+ =?utf-8?B?ei9udmVWYVVuNmQ1YjJJZk9JTDJ0ZUkwTllhOTBsMFJCSDVnMzkzK3cwb2ds?=
+ =?utf-8?B?OGYxb2p0NE95c0V2MzZIWTBzR0hISjliaUVVYjUrWXdUcnVpamdrRzdRSFUv?=
+ =?utf-8?B?V3czVHZQc3BLMnV6TER6UG1PRW5vUlNJbU0zRjNnSFVBYllKMy9teXR4N0ky?=
+ =?utf-8?B?RzM0MnppU1lBVnhCNnVnaDB3ZVpVU21Ob3VGTUdieVp5Wnh6NHUxMlVsVnRo?=
+ =?utf-8?B?eExWUkVvVm9sd25kcnByUFBLdE1JOTlQTVJ4eVZpYVQzOWxubXJ5R2NJdkdv?=
+ =?utf-8?Q?CVEtoCP9Vo79hTusMh?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c51b83ef-8ffe-43bb-880d-08de9b9e9a68
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 09:57:43.2392 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cypUYnP/gDSas/DR7hgdKggJ5QncsdlARt5R3FHs4O8mNuvGgY/xETSqkiCuOybC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9778
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,200 +138,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On 4/16/26 01:27, Demi Marie Obenour wrote:
+> Is it safe to assume that if a dmabuf exporter cannot handle
+> non-revocable, pinned importers, it will fail the import?  Or is
+> using dma_buf_pin() unsafe if one does not know the exporter?
 
-Am 16.04.26 um 08:53 schrieb Yongbang Shi:
->> Call drm_atomic_helper_check_plane_state() from the primary plane's
->> atomic-check helper and replace the custom implementation.
->>
->> All plane's implementations of atomic_check should call the shared
->> _check_plane_state() helper first. It adjusts the plane state for
->> correct positioning, rotation and scaling of the plane. If the plane
->> is not visible, it clears the corresponding flag in the plane state.
->>
->> On errors or if the plane is not visible, the atomic-check helper can
->> return early. Implement all this in hibmc and drop the custom code
->> that does some of it.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
->> Cc: Rongrong Zou <zourongrong@gmail.com>
->> Cc: Sean Paul <seanpaul@chromium.org>
->> Cc: Xinliang Liu <xinliang.liu@linaro.org>
->> Cc: Dmitry Baryshkov <lumag@kernel.org>
->> Cc: Baihan Li <libaihan@huawei.com>
->> Cc: Yongbang Shi <shiyongbang@huawei.com>
->> Cc: <stable@vger.kernel.org> # v4.10+
->> ---
->>   .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
->>   1 file changed, 14 insertions(+), 32 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->> index 89bed78f1466..8fa2a95bcdd1 100644
->> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
->> @@ -55,46 +55,28 @@ static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
->>   static int hibmc_plane_atomic_check(struct drm_plane *plane,
->>   				    struct drm_atomic_state *state)
->>   {
->> -	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
->> -										 plane);
->> -	struct drm_framebuffer *fb = new_plane_state->fb;
->> -	struct drm_crtc *crtc = new_plane_state->crtc;
->> -	struct drm_crtc_state *crtc_state;
->> -	u32 src_w = new_plane_state->src_w >> 16;
->> -	u32 src_h = new_plane_state->src_h >> 16;
->> -
->> -	if (!crtc || !fb)
->> -		return 0;
->> +	struct drm_plane_state *new_plane_state =
->> +		drm_atomic_get_new_plane_state(state, plane);
->> +	struct drm_crtc_state *new_crtc_state = NULL;
->> +	int ret;
->>   
->> -	crtc_state = drm_atomic_get_crtc_state(state, crtc);
->> -	if (IS_ERR(crtc_state))
->> -		return PTR_ERR(crtc_state);
->> +	if (new_plane_state->crtc)
->> +		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
->>   
->> -	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
->> -		drm_dbg_atomic(plane->dev, "scale not support\n");
->> -		return -EINVAL;
->> -	}
->> -
->> -	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
->> -		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
->> -		return -EINVAL;
->> -	}
->> -
->> -	if (!crtc_state->enable)
->> +	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
->> +						  DRM_PLANE_NO_SCALING,
->> +						  DRM_PLANE_NO_SCALING,
->> +						  false, true);
-> The last parameter, "can_update_disabled", if set to true, causes the
-> condition "if (!crtc_state->enable && !can_update_disabled)" in the
-> function `drm_atomic_helper_check_plane_state` to always evaluate to
-> false, meaning `crtc_state->enable` will not be checked. This differs
-> from the behavior prior to the modification.
->
-> before:
-> 	- crtc_state->enable(true)  --> continue check
-> 	- crtc_state->enable(false) --> return 0(atomic check success)
->
-> after:
-> 	- crtc_state->enable(true)   --> _helper_check_plane_ ->  continue check
-> 	- crtc_state->enable(false)  --> _helper_check_plane_ ->  continue check
+Neither.
 
-Isn't this what the hardware supports? The plane's hardware registers 
-can be updated even if the plane's CRTC is off?
+dma_buf_pin() makes sure that the importer doesn't get any invalidation notifications because the exporter moves the backing store of the buffer around for memory management.
 
-In the old case, atomic check returned success. If we set 
-can_update_disable to false, it would return an error in such as case.  
-Settings it ti true keeps the success for disabled CRTCs. The semantics 
-of the returned value don't change. It's just that the helper fills a 
-few more fields in drm_plane_state.
+But what is still possible is that the exporter is hot removed, in which case the importer should basically terminate it's DMA operation as soon as possible.
 
+GPU drivers usually reject pin requests to VRAM from DMA-buf importers when that isn't restricted by cgroups for example, because that can otherwise easily result in a deny of service.
 
+Amdgpu only recently started to allow pinning into VRAM to support RDMA without ODP (I think it was ODP, but could be that I mixed up the RDMA three letter code for that feature).
 
->
->
->> +	if (ret)
->> +		return ret;
->> +	else if (!new_plane_state->visible)
->>   		return 0;
->>   
->> -	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
->> -	    crtc_state->adjusted_mode.hdisplay ||
->> -	    new_plane_state->crtc_y + new_plane_state->crtc_h >
->> -	    crtc_state->adjusted_mode.vdisplay) {
->> -		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
->> -		return -EINVAL;
->> -	}
->> -
-> The purpose of this check is to ensure that the right and bottom
-> boundaries of the plane do not extend beyond the crtc. In
-> `drm_atomic_helper_check_plane_state`, `drm_mode_get_hv_timing` is
-> called to retrieve the crtc boundaries, and `drm_rect_clip_scaled` is
-> used to clip the plane, any portions extending beyond the right and
-> bottom boundaries are discarded.
->
-> I'd like to confirm that my understanding is correct? previously, the
-> check failed if the plane exceeded the boundaries, but now, after
-> `drm_atomic_helper_check_plane_state` is called, the plane is clipped to
-> fit within the boundaries.
+> For context, Xen grant tables do not support revocation.  One can ask
+> the guest to unmap the grants, but if the guest doesn't obey the only
+> recourse is to ungracefully kill it.  They also do not support page
+> faults, so the pages must be pinned.  Right now, grant tables don't
+> support PCI BAR mappings, but that's fixable.
 
-Yes. This sets plane_state->dst, which is clipped to the size of the 
-display mode. But it also tests that the primary plane covers the whole 
-display.
+That sounds like an use case for the DMA-buf pin interface.
 
->
-> in function drm_rect_clip_scaled:
->
-> diff = dst->x2 - clip->x2;
-> if (diff > 0) {
-> 	...
-> 	dst->x2 -= diff;
-> }
-> diff = dst->y2 - clip->y2;
-> if (diff > 0) {
-> 	...
-> 	dst->y2 -= diff;
-> }
+> How badly is this going to break with dGPU VRAM, if at all?  I know
+> that AMDGPU has a fallback when the BAR isn't mappable.  What about
+> other drivers?  Supporting page faults the way KVM does is going to
+> be extremely hard, so pinned mappings and DMA transfers are vastly
+> preferable.
 
-I agree, the logic in drm_atomic_helper_check_plane_state() is hard to 
-understand. It sets the clip rectangle to the size of the display mode 
-(or zero if the CRTC is off) at [1].  Then is clips the source and 
-destination coordinates against the clipping rectangle at [2].
+Well if you only want to share a fixed amount of VRAM then that is pretty much ok.
 
-Because we set can_position to false, it tests if the destination and 
-clipping rectangles are equal at [3]. This is similar to the that is 
-being replaced, but with plane state correctly adjusted. If both 
-rectangles are equal, it returns success. If the destination is too 
-small, it fails with an errno code and a warning.
+But when the client VM can trigger pinning on demand without any limitation you can pretty easily have deny of service against the host. That is usually a rather bad idea.
 
-If the plane is not visible, the helper already returned at [4].
-
-[1] 
-https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/drm_atomic_helper.c#L943
-[2] 
-https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/drm_atomic_helper.c#L945
-[3] 
-https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/drm_atomic_helper.c#L959
-[4] 
-https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/drm_atomic_helper.c#L949
-
-It is now possible to have a primary plane that is larger than the 
-display mode. This is a feature of the DRM API.
-
-Best regards
-Thomas
-
-
->
->
-> Thanks.
->
-> Best regards
-> Yongbang.
->
->
->>   	if (new_plane_state->fb->pitches[0] % 128 != 0) {
->>   		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
->>   		return -EINVAL;
->>   	}
->> +
->>   	return 0;
->>   }
->>   
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+Regards,
+Christian.
