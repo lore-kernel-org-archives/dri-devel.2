@@ -4,135 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4974DF8D74E
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 14:10:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70683F8D74A
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 14:17:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C62810E8CD;
-	Thu, 16 Apr 2026 14:10:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC91A10E1B1;
+	Thu, 16 Apr 2026 14:17:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="XqjGIXZd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kHtHWopE";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KAsbVRh3";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4717C10E8CD
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 14:10:34 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63GDqpIT2596395
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 14:10:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- olONKICAQIN5WecCXZoB05Va0xoXxi3BtToDJt2JvlU=; b=XqjGIXZdw6NKQMIj
- hSdPAXMczheOQYqH98Bq4weVCFDDFn4Zl9dpgUgwEA0k6WsX6U5CdxHcdpikXQ7I
- osU9HlveeflD3qM1vNr9ljKCejtLeubry2wpPTOPiclUymeC3eF06EVlH6SlR4jV
- 1Uh5MPrhLPMk0lQIwaNs1LdmIlInNKAYvidiw08ZmneMzSWnRoroYB9Yg7kyLU3D
- 0XeKNpgw4tok3ZAlx3r6RONqmRy3Rdn4RycrT99ZTnszi2EZVnOawonyeWfylSV5
- HCyH90Yqe4uIR75M6mt0P2Rk+k9EmjsU7XGSzRifJSks8W0s1UqK5vMDGjGdWEl2
- 8ThZ0Q==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
- [74.125.224.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dk11r824q-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 14:10:33 +0000 (GMT)
-Received: by mail-yx1-f72.google.com with SMTP id
- 956f58d0204a3-644548b1dcfso12668872d50.3
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 07:10:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776348632; x=1776953432;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=olONKICAQIN5WecCXZoB05Va0xoXxi3BtToDJt2JvlU=;
- b=kHtHWopE7yKDo8SgoPJObKTla99ODf2HIBtgBToL15HQMgCHRKPbV/sKUW7xHdRg63
- dTshqvNvps/79WRBJxV9GsBXJFE3UWmpzFquIymLViX4steHu6cRMBs4jqrN3YYXT0Vn
- w+LJhDTCPWZEA4V2emTZTsMEIH6IGuDtwS5rLaD1/U7B+Vs/WaTLOz9PCYhzf8a5hoC+
- OlMUyBlkKb20yv8i6Mfqa5PFchxUoSYOGmjxR+2Y/nSUvJ7gKGIV8qDn+rjdQvSos3lA
- pb6awDTngjJRGo6aKQeeTiaZ7ZTbBdJOjpGHuqvMIIm0J6yJ2xq/jvp1F/yfJ19e1dOs
- N72Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776348632; x=1776953432;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=olONKICAQIN5WecCXZoB05Va0xoXxi3BtToDJt2JvlU=;
- b=R7R+KdEgWg7qAEHaR+VmwtqIcb70hl1iuk74bAvvxwsGHJWpGKU+Y14PUog/GHlXWW
- mulPJvLKfR3c92Yz7J48ooLhZxNOYJhJJ/YsJEpS4TvoWaEyMpD490HsnzPV3YIGpgbo
- Qg4QfkD9QaP54716cjR7rCosNtA/4ZdbTnivPYmguwPQ2m2TYt08KQ65n5bY61IA1nvU
- oecbOGhfCLclruuJ28AOblLLR3IHEf2WVNlS5wtc22pBKVDNXiSjEms8ph7yxI2MIMPR
- tkZ4Pm4690q/NPm8YIVAxHkDod8yLWUjMUQ5rndMcsFx5GIM2gVAX45OiJ0UdO8Ophvg
- DvFw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/l5m0UOgA8xBL8g2dFX1u9Dkj/a8gMKgTRtW7EXxzxC9P7l9nECPncnrCVT5uS7j4bjgTwJgbFVhg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzbR/sbLzEHvNbNAU4F3PnSBq124kUSXC4wlV6j6GFE8RhQL8PK
- Q4ML6VIVRLeT7kIY10QilEvZ3FoHiAo2gWwBrrqy0jEDq4rSLQjy9beK72QPEk7ln7c5c7cCVSZ
- Bgo45oUGs9iPd1PfFl+WssYIpFx+d9T85jOy9oNpSe9dz2sg73jI90RVRGxiFi56Rdo/7skE=
-X-Gm-Gg: AeBDieucbcCII6nI7GNiFel2bLLQVW4FVKhC+QiaLI3QPDko57D/HbWvREtJCbAhpXd
- yQXbFhc9gFSewN61Q8EHcHKg1B99UyB2vZbmfvXLU4I+HcBohyiNTN9+BSK3EnFxfLl9C8dGm5Q
- mMnQGSse/CVGmkzq4jdgD46bUxQMJIx2ezj4i1bx22nPjGJKV5zJxVqKqJMiKiRydoM0jyXBBMs
- AlV1pV5bI64C7lFAxpTAimaGCVx0TeFc32KrjhzDZ2N7x0IdfYKRKydNPf3M6EaLYAiGHuL7l3h
- WYPQdmeSC8jwQIDlSUqWc8ncv532+fJPvw2XXRaneEIt580nxsxKEZ/KDf9DsgdIQNPCdlD4Wrr
- flqBY1FB4CkAAGDOma1e0PNVrjKKhy1sUOEWu97cj6ruc40PZ6J8=
-X-Received: by 2002:a53:cf05:0:b0:650:4aec:29fa with SMTP id
- 956f58d0204a3-65198b734cbmr16936295d50.38.1776348632100; 
- Thu, 16 Apr 2026 07:10:32 -0700 (PDT)
-X-Received: by 2002:a53:cf05:0:b0:650:4aec:29fa with SMTP id
- 956f58d0204a3-65198b734cbmr16936245d50.38.1776348631578; 
- Thu, 16 Apr 2026 07:10:31 -0700 (PDT)
-Received: from hu-batta-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-652e47ba4a3sm2084691d50.17.2026.04.16.07.10.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 07:10:31 -0700 (PDT)
-From: Kishore Batta <kishore.batta@oss.qualcomm.com>
-Date: Thu, 16 Apr 2026 19:39:48 +0530
-Subject: [PATCH v5 7/7] bus: mhi: Expose DDR training data via controller sysfs
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B90A610E1B1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 14:16:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=AxaU4roYAXRUzT4kvaq28MKdVGPEB4EvRk7ZZxnE3/E=; b=KAsbVRh3iyfbXMlvwa1vnAWdtl
+ q1l4W860nz2YifvlYosjDUNvyDbLz2ZrUlzl222lfKgHmpSH71i/YYhiU/+AtqnFIbA8+LfbA/vye
+ THWjWuBxr7CELq9lEORG/UXJsCu8ElfMJYKkjaNSjQMLBrixy2WWR8s9jwi01A9vQmKOCMn2iOQZk
+ 1+1bAq+9xrQxhkBczyLvQKUWQWi1CN102TKyEjzvkqcb72dLcGFvAgmyj7IbCyfN1jVawYANcOjkf
+ rUNBnZaMcKAw5DwVohsytS/B2nHb4slC0gEMImyVeMM5sP3xQZpBp3AeySHR9D74gBqljsyPFJyOn
+ hhrW9WyA==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wDNWO-00H1NF-Lx; Thu, 16 Apr 2026 16:16:44 +0200
+Message-ID: <252f5247-f475-4918-b5ce-217af82aa5a2@igalia.com>
+Date: Thu, 16 Apr 2026 15:16:43 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260416-sahara_protocol_new_v2-v5-7-6aebf005e4ba@oss.qualcomm.com>
-References: <20260416-sahara_protocol_new_v2-v5-0-6aebf005e4ba@oss.qualcomm.com>
-In-Reply-To: <20260416-sahara_protocol_new_v2-v5-0-6aebf005e4ba@oss.qualcomm.com>
-To: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Carl Vanderlip <carl.vanderlip@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- mhi@lists.linux.dev, Kishore Batta <kishore.batta@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776348592; l=5329;
- i=kishore.batta@oss.qualcomm.com; s=20260206; h=from:subject:message-id;
- bh=ED34D8b+KIsBJGlgWYmYp+bxz9nF9W6dhG3Lu+L8T+Y=;
- b=wr3vSGs78JSxGrL9+BaCDjQaV430OdwRmfmRxGfEA18NdKlc7cPBYHUMyREr7q9wjEQydgh2n
- fowGZKpD2eLBYkBvWD8gp2LTGudSo2ECATeMbqaMDKsHQlDphB0Yaf9
-X-Developer-Key: i=kishore.batta@oss.qualcomm.com; a=ed25519;
- pk=vJo8RvTf+HZpRLK2oOIljmbn9l3zFkibCGh+blaqZCw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDEzNiBTYWx0ZWRfXyx1UGMsl2Imd
- pgrWsv/dMquNAWOmoS3JrN8DZItK/2R3FGWb9VoZ80H1e8+3MeK75Fq3lzWPHdIaZA3tU5cOWXy
- 4sBXth9hNaIL+GYB6I6f1co45zdeWAthN5wbjqHxCsJKdmiRXgS5F2njLF8GagIMmIcsk69WD9e
- GHQqE3eTg1XxEQHG8Zm/ZCQY/GlAdwd9w9vjkX3ocFqnOL5uS8CDsF8eIZFDno685VodmehWKut
- L11DnjiR+T3v4PtV1cJfuATXHpJnr+hUgOLi9Hkz0b/61jnUemTksQI1zfyRCi+FTDVTUbtDAYw
- goSTnGla1ESlnSDPA/4B10OuXitFzOL3X8yMUfXbaTx1a7ZUZhzeYcQaiYH2CoQUPGFa5ZSMSBI
- gCcYCuOn1zG/mxyq/y2G63fxgS8f8LuL9oryIn4J/ej97mPTrxob9o7qfpPbwHSu1HrIkGV1Nek
- yfG/V36yTSMomwTKcHg==
-X-Authority-Analysis: v=2.4 cv=ZPznX37b c=1 sm=1 tr=0 ts=69e0edd9 cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=6t33SRJ6vQwVIDTtI9kA:9 a=QEXdDO2ut3YA:10
- a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-ORIG-GUID: qbPr61-Rpyyz3ZrHRcVIdodgG_sOvR4J
-X-Proofpoint-GUID: qbPr61-Rpyyz3ZrHRcVIdodgG_sOvR4J
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-16_03,2026-04-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0 spamscore=0
- adultscore=0 bulkscore=0 malwarescore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604160136
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/10] drm/v3d: Introduce struct v3d_submit and convert
+ CL/TFU/CSD ioctls
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
+References: <20260413-v3d-sched-misc-fixes-v1-0-bac63a8ceb6c@igalia.com>
+ <20260413-v3d-sched-misc-fixes-v1-8-bac63a8ceb6c@igalia.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260413-v3d-sched-misc-fixes-v1-8-bac63a8ceb6c@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,153 +67,628 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DDR training data captured during Sahara command mode needs to be
-accessible to userspace so it can be persisted and reused on subsequent
-boots. Currently, the training data is stored internally in the driver
-but has no external visibility once the Sahara channel is torn down.
 
-Expose the captured DDR training data via a read-only binary sysfs
-attribute on the MHI controller device:
+On 13/04/2026 16:03, Maíra Canal wrote:
+> As the V3D driver grew with time, different types of submission were added
+> and the submission code grew more complex, but the driver stuck with the
+> same abstractions.
+> 
+> Nowadays, the submission ioctls don't submit a single job, but a
+> chain of jobs:
+> 
+> 1. v3d_submit_cl_ioctl() submits a BIN job (optional), RENDER job
+>     (mandatory), and a CLEAN_CACHE job (optional).
+> 2. v3d_submit_csd_ioctl() submits a CSD, and a CLEAN_CACHE job.
+> 3. v3d_submit_tfu_ioctl() submits a TFU job.
+> 
+> Therefore, each ioctl submits a chain of jobs in which each job depends on
+> the previous one. However, this concept is not well represented in software
+> at the moment.
+> 
+> To address this, introduce a new concept: the struct v3d_submit, which
+> groups the submission state and represents the submission chain formed by
+> an ordered array of jobs.
+> 
+> Add new helpers to allocate, add jobs to the chain and submit jobs to
+> the scheduler, all based on the new struct. Convert v3d_submit_cl_ioctl(),
+> v3d_submit_tfu_ioctl() and v3d_submit_csd_ioctl() to the new pattern. Each
+> ioctl now follows the same flow: add jobs -> lookup BOs -> lock
+> reservations -> attach perfmon -> submit chain -> attach fences -> put
+> jobs.
+> 
+> The CPU ioctl is left on the old helpers for now; its indirect CSD path
+> requires some restructuring that will be addressed in the next commit.
+> 
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/v3d/v3d_drv.h    |  21 +++
+>   drivers/gpu/drm/v3d/v3d_submit.c | 348 ++++++++++++++++++++++-----------------
+>   2 files changed, 215 insertions(+), 154 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
+> index 788a45c60290..fc12e5215fb0 100644
+> --- a/drivers/gpu/drm/v3d/v3d_drv.h
+> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
+> @@ -288,6 +288,27 @@ to_v3d_fence(struct dma_fence *fence)
+>   #define V3D_CORE_READ(core, offset) readl(v3d->core_regs[core] + offset)
+>   #define V3D_CORE_WRITE(core, offset, val) writel(val, v3d->core_regs[core] + offset)
+>   
+> +#define V3D_MAX_JOBS_PER_SUBMISSION 3
+> +
+> +/* Per-ioctl submission context */
+> +struct v3d_submit {
+> +	struct v3d_dev *v3d;
+> +
+> +	struct drm_file *file_priv;
+> +
+> +	/* DRM exec context for this submission. */
+> +	struct drm_exec exec;
 
-/sys/bus/mhi/devices/<mhi_cntrl>/ddr_training_data
+I see, the very thing I mentioned while reading 7/10, cool.
 
-The sysfs read callback serves data directly from controller scoped storage
-and protects access with the controller training data lock. The attribute
-lifetime is tied to the controller device via devres, allowing the data to
-remain readable after Sahara channel teardown and ensuring automatic
-cleanup when controller device is removed.
+> +
+> +	/* Ordered array of jobs forming the submission chain. Jobs are
+> +	 * appended via v3d_submit_add_job(), then chained and pushed to
+> +	 * the scheduler by v3d_submit_jobs().
+> +	 */
+> +	struct v3d_job *jobs[V3D_MAX_JOBS_PER_SUBMISSION];
+> +
+> +	/* Number of jobs currently in @jobs. */
+> +	u32 job_count;
+> +};
+> +
+>   struct v3d_job {
+>   	struct drm_sched_job base;
+>   
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+> index 6aa8c65e873c..5b519a892985 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -241,6 +241,81 @@ v3d_job_init(struct v3d_dev *v3d, struct drm_file *file_priv,
+>   	return ret;
+>   }
+>   
+> +static int
+> +v3d_submit_add_job(struct v3d_submit *submit, void **container, size_t size,
+> +		   void (*free)(struct kref *ref), enum v3d_queue queue)
+> +{
+> +	struct v3d_file_priv *v3d_priv = submit->file_priv->driver_priv;
+> +	struct v3d_dev *v3d = submit->v3d;
+> +	struct v3d_job *job;
+> +	int ret;
+> +
+> +	*container = kcalloc(1, size, GFP_KERNEL);
+> +	if (!*container)
+> +		return -ENOMEM;
 
-Userspace flow:
-1. For each controller device, userspace reads the ddr_training_data sysfs
-   attribute.
-2. If the read returns non-zero data, userspace persists it using a
-   serial specific filename (for example, mdmddr_0x<serial_no>.mbn).
-3. On subsequent boots, the Sahara driver attempts to load this serial
-   specific DDR training image before falling back to the default
-   training image, restoring DDR calibration data and avoiding retraining.
+I still think we could do better than void * and also dont' see why 
+kcalloc but okay, it can be revisited later.
 
-Add ABI documentation for the DDR training data sysfs attribute exposed by
-Sahara MHI driver.
+> +
+> +	job = *container;
+> +	job->v3d = v3d;
+> +	job->free = free;
+> +	job->file_priv = v3d_priv;
+> +
+> +	ret = drm_sched_job_init(&job->base, &v3d_priv->sched_entity[queue],
+> +				 1, v3d_priv, submit->file_priv->client_id);
+> +	if (ret)
+> +		goto fail_free;
+> +
+> +	/* CPU jobs don't require hardware resources */
+> +	if (queue != V3D_CPU) {
+> +		ret = v3d_pm_runtime_get(v3d);
+> +		if (ret)
+> +			goto fail_sched_job;
+> +		job->has_pm_ref = true;
+> +	}
+> +
+> +	kref_init(&job->refcount);
+> +
+> +	job->client_stats = v3d_stats_get(v3d_priv->stats[queue]);
+> +	job->global_stats = v3d_stats_get(v3d->queue[queue].stats);
+> +
+> +	submit->jobs[submit->job_count++] = job;
+> +
+> +	return 0;
+> +
+> +fail_sched_job:
+> +	drm_sched_job_cleanup(&job->base);
+> +fail_free:
+> +	kfree(*container);
+> +	*container = NULL;
+> +	return ret;
+> +}
+> +
+> +static int
+> +v3d_attach_perfmon_to_jobs(struct v3d_submit *submit, u32 perfmon_id)
+> +{
+> +	struct v3d_file_priv *v3d_priv = submit->file_priv->driver_priv;
+> +	struct v3d_dev *v3d = submit->v3d;
+> +	struct v3d_perfmon *perfmon;
+> +
+> +	if (!perfmon_id)
+> +		return 0;
+> +
+> +	if (v3d->global_perfmon)
+> +		return -EAGAIN;
+> +
+> +	perfmon = v3d_perfmon_find(v3d_priv, perfmon_id);
+> +	if (!perfmon)
+> +		return -ENOENT;
+> +
+> +	for (int i = 0; i < submit->job_count; i++) {
+> +		submit->jobs[i]->perfmon = perfmon;
+> +		v3d_perfmon_get(perfmon);
+> +	}
+> +
+> +	v3d_perfmon_put(perfmon);
 
-Signed-off-by: Kishore Batta <kishore.batta@oss.qualcomm.com>
----
- .../ABI/testing/sysfs-bus-mhi-ddr_training_data    | 19 ++++++
- drivers/bus/mhi/host/clients/sahara/sahara.c       | 69 ++++++++++++++++++++++
- 2 files changed, 88 insertions(+)
+I suppose you could save one atomic by adding a conditional in the loop 
+(to skip get on first job for example) but maybe it would be a bit ugly, 
+not sure.
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
-new file mode 100644
-index 0000000000000000000000000000000000000000..810b487b5a5fdba133d81255f9879844e3938a10
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-mhi-ddr_training_data
-@@ -0,0 +1,19 @@
-+What:                   /sys/bus/mhi/devices/<mhi-cntrl>/ddr_training_data
-+
-+Date:                   March 2026
-+
-+Contact:                Kishore Batta <kishore.batta@oss.qualcomm.com>
-+
-+Description:            Contains the DDR training data for the Qualcomm device
-+                        connected. MHI driver populates different controller
-+                        nodes for each device. The DDR training data is exposed
-+                        to userspace to read and save the training data file to
-+                        the filesystem. In the subsequent boot up of the device,
-+                        the training data is restored from host to device
-+                        optimizing the boot up time of the device.
-+
-+Usage:                  Example for reading DDR training data:
-+                        cat /sys/bus/mhi/devices/mhi0/ddr_training_data
-+
-+Permissions:            The file permissions are set to 0444 allowing read
-+                        access.
-diff --git a/drivers/bus/mhi/host/clients/sahara/sahara.c b/drivers/bus/mhi/host/clients/sahara/sahara.c
-index 07bc743aa061dd2fa85638067d494562152474e3..fef5dc1d8884133397d204f23361584fd1d9b075 100644
---- a/drivers/bus/mhi/host/clients/sahara/sahara.c
-+++ b/drivers/bus/mhi/host/clients/sahara/sahara.c
-@@ -273,6 +273,73 @@ static struct sahara_cntrl_training_data *sahara_cntrl_training_get(struct devic
- 	return ct;
- }
- 
-+static ssize_t ddr_training_data_read(struct file *filp, struct kobject *kobj,
-+				      const struct bin_attribute *attr, char *buf,
-+				      loff_t offset, size_t count)
-+{
-+	struct device *dev = kobj_to_dev(kobj);
-+	struct sahara_cntrl_training_data *ct;
-+	size_t available;
-+
-+	ct = sahara_cntrl_training_get(dev);
-+	if (!ct)
-+		return -ENODEV;
-+
-+	mutex_lock(&ct->lock);
-+
-+	/* No data yet or offset past end */
-+	if (!ct->data || offset >= ct->size) {
-+		mutex_unlock(&ct->lock);
-+		return 0;
-+	}
-+
-+	available = ct->size - offset;
-+	count = min(count, available);
-+	memcpy(buf, (u8 *)ct->data + offset, count);
-+
-+	mutex_unlock(&ct->lock);
-+
-+	return count;
-+}
-+
-+static const struct bin_attribute ddr_training_data_attr = {
-+	.attr = {
-+		.name = "ddr_training_data",
-+		.mode = 0444,
-+	},
-+	.read = ddr_training_data_read,
-+};
-+
-+static void sahara_sysfs_devres_release(struct device *dev, void *res)
-+{
-+	device_remove_bin_file(dev, &ddr_training_data_attr);
-+}
-+
-+static void sahara_sysfs_create(struct mhi_device *mhi_dev)
-+{
-+	struct device *dev = &mhi_dev->mhi_cntrl->mhi_dev->dev;
-+	void *cookie;
-+	int ret;
-+
-+	if (devres_find(dev, sahara_sysfs_devres_release, NULL, NULL))
-+		return;
-+
-+	ret = device_create_bin_file(dev, &ddr_training_data_attr);
-+	if (ret) {
-+		dev_warn(&mhi_dev->dev,
-+			 "Failed to create DDR training sysfs node (%d)\n", ret);
-+		return;
-+	}
-+
-+	cookie = devres_alloc(sahara_sysfs_devres_release, 1, GFP_KERNEL);
-+	if (!cookie) {
-+		device_remove_bin_file(dev, &ddr_training_data_attr);
-+		return;
-+	}
-+
-+	devres_add(dev, cookie);
-+}
-+
- static int sahara_find_image(struct sahara_context *context, u32 image_id)
- {
- 	char *fw_path;
-@@ -1131,6 +1198,8 @@ static int sahara_mhi_probe(struct mhi_device *mhi_dev, const struct mhi_device_
- 		return ret;
- 	}
- 
-+	sahara_sysfs_create(mhi_dev);
-+
- 	return 0;
- }
- 
+> +
+> +	return 0;
+> +}
+> +
+>   static void
+>   v3d_push_job(struct v3d_job *job)
+>   {
+> @@ -254,6 +329,30 @@ v3d_push_job(struct v3d_job *job)
+>   	drm_sched_entity_push_job(&job->base);
+>   }
+>   
+> +static int
+> +v3d_submit_jobs(struct v3d_submit *submit)
+> +{
+> +	struct v3d_dev *v3d = submit->v3d;
+> +	int ret;
+> +
+> +	guard(mutex)(&v3d->sched_lock);
+> +
+> +	for (int i = 0; i < submit->job_count; i++) {
+> +		struct v3d_job *job = submit->jobs[i];
+> +
+> +		v3d_push_job(job);
+> +
+> +		if (i + 1 < submit->job_count) {
+> +			ret = drm_sched_job_add_dependency(&submit->jobs[i + 1]->base,
+> +							   dma_fence_get(job->done_fence));
 
--- 
-2.34.1
+Alternative to i + 1 is to track prev. Not sure what is nicer, just 
+thinking out loud.
+
+> +			if (ret)
+> +				return ret;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static void
+>   v3d_attach_fences_and_unlock_reservation(struct drm_file *file_priv,
+>   					 struct v3d_job *job,
+> @@ -896,18 +995,19 @@ int
+>   v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+>   		    struct drm_file *file_priv)
+>   {
+> -	struct v3d_dev *v3d = to_v3d_dev(dev);
+> -	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+> +	struct v3d_submit submit = {
+> +		.v3d = to_v3d_dev(dev),
+> +		.file_priv = file_priv,
+> +		.job_count = 0
+
+Zero is implied.
+
+> +	};
+>   	struct drm_v3d_submit_cl *args = data;
+>   	struct v3d_submit_ext se = {0};
+>   	struct v3d_bin_job *bin = NULL;
+>   	struct v3d_render_job *render = NULL;
+>   	struct v3d_job *clean_job = NULL;
+> -	struct v3d_job *last_job;
+> -	struct drm_exec exec;
+> -	int ret = 0;
+> +	int ret;
+>   
+> -	trace_v3d_submit_cl_ioctl(&v3d->drm, args->rcl_start, args->rcl_end);
+> +	trace_v3d_submit_cl_ioctl(dev, args->rcl_start, args->rcl_end);
+>   
+>   	if (args->pad)
+>   		return -EINVAL;
+> @@ -927,131 +1027,84 @@ v3d_submit_cl_ioctl(struct drm_device *dev, void *data,
+>   		}
+>   	}
+>   
+> -	ret = v3d_job_allocate(v3d, (void *)&render, sizeof(*render));
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret = v3d_job_init(v3d, file_priv, &render->base,
+> -			   v3d_render_job_free, args->in_sync_rcl, &se, V3D_RENDER);
+> -	if (ret) {
+> -		v3d_job_deallocate((void *)&render);
+> -		goto fail;
+> -	}
+> -
+> -	render->start = args->rcl_start;
+> -	render->end = args->rcl_end;
+> -	INIT_LIST_HEAD(&render->unref_list);
+> -
+>   	if (args->bcl_start != args->bcl_end) {
+> -		ret = v3d_job_allocate(v3d, (void *)&bin, sizeof(*bin));
+> +		ret = v3d_submit_add_job(&submit, (void **)&bin, sizeof(*bin),
+> +					 v3d_job_free, V3D_BIN);
+>   		if (ret)
+>   			goto fail;
+>   
+> -		ret = v3d_job_init(v3d, file_priv, &bin->base,
+> -				   v3d_job_free, args->in_sync_bcl, &se, V3D_BIN);
+> -		if (ret) {
+> -			v3d_job_deallocate((void *)&bin);
+> -			goto fail;
+> -		}
+> -
+>   		bin->start = args->bcl_start;
+>   		bin->end = args->bcl_end;
+>   		bin->qma = args->qma;
+>   		bin->qms = args->qms;
+>   		bin->qts = args->qts;
+> -		bin->render = render;
+> -	}
+>   
+> -	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
+> -		ret = v3d_job_allocate(v3d, (void *)&clean_job, sizeof(*clean_job));
+> +		ret = v3d_job_add_syncobjs(&bin->base, file_priv,
+> +					   args->in_sync_bcl, &se, V3D_BIN);
+>   		if (ret)
+>   			goto fail;
+> -
+> -		ret = v3d_job_init(v3d, file_priv, clean_job,
+> -				   v3d_job_free, 0, NULL, V3D_CACHE_CLEAN);
+> -		if (ret) {
+> -			v3d_job_deallocate((void *)&clean_job);
+> -			goto fail;
+> -		}
+> -
+> -		last_job = clean_job;
+> -	} else {
+> -		last_job = &render->base;
+>   	}
+>   
+> -	ret = v3d_lookup_bos(dev, file_priv, last_job,
+> +	ret = v3d_submit_add_job(&submit, (void **)&render, sizeof(*render),
+> +				 v3d_render_job_free, V3D_RENDER);
+> +	if (ret)
+> +		goto fail;
+> +
+> +	INIT_LIST_HEAD(&render->unref_list);
+> +	render->start = args->rcl_start;
+> +	render->end = args->rcl_end;
+> +
+> +	if (bin)
+> +		bin->render = render;
+> +
+> +	ret = v3d_job_add_syncobjs(&render->base, file_priv, args->in_sync_rcl,
+> +				   &se, V3D_RENDER);
+> +	if (ret)
+> +		goto fail;
+> +
+> +	if (args->flags & DRM_V3D_SUBMIT_CL_FLUSH_CACHE) {
+> +		ret = v3d_submit_add_job(&submit, (void **)&clean_job,
+> +					 sizeof(*clean_job), v3d_job_free,
+> +					 V3D_CACHE_CLEAN);
+> +		if (ret)
+> +			goto fail;
+> +	}
+> +
+> +	ret = v3d_lookup_bos(dev, file_priv,
+> +			     submit.jobs[submit.job_count - 1],
+>   			     args->bo_handles, args->bo_handle_count);
+
+Could bo lookup be before job creation? Just because it is the step much 
+more likely to fail. I think at least.. It is only a question.
+
+>   	if (ret)
+>   		goto fail;
+>   
+> -	ret = v3d_lock_bo_reservations(last_job, &exec);
+> +	ret = v3d_lock_bo_reservations(submit.jobs[submit.job_count - 1],
+
+job_count - 1 I think ends up repeated around four times in this 
+function so perhaps it could be worth having a helper such as 
+v3d_submit_last_job(&submit)? It wouldn't be any shorted so not sure.
+
+> +				       &submit.exec);
+>   	if (ret)
+>   		goto fail;
+>   
+> -	if (args->perfmon_id) {
+> -		if (v3d->global_perfmon) {
+> -			ret = -EAGAIN;
+> -			goto fail_perfmon;
+> -		}
+> +	ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
+> +	if (ret)
+> +		goto fail_perfmon;
+>   
+> -		render->base.perfmon = v3d_perfmon_find(v3d_priv,
+> -							args->perfmon_id);
+> -
+> -		if (!render->base.perfmon) {
+> -			ret = -ENOENT;
+> -			goto fail_perfmon;
+> -		}
+> -	}
+> -
+> -	mutex_lock(&v3d->sched_lock);
+> -	if (bin) {
+> -		bin->base.perfmon = render->base.perfmon;
+> -		v3d_perfmon_get(bin->base.perfmon);
+> -		v3d_push_job(&bin->base);
+> -
+> -		ret = drm_sched_job_add_dependency(&render->base.base,
+> -						   dma_fence_get(bin->base.done_fence));
+> -		if (ret)
+> -			goto fail_unreserve;
+> -	}
+> -
+> -	v3d_push_job(&render->base);
+> -
+> -	if (clean_job) {
+> -		struct dma_fence *render_fence =
+> -			dma_fence_get(render->base.done_fence);
+> -		ret = drm_sched_job_add_dependency(&clean_job->base,
+> -						   render_fence);
+> -		if (ret)
+> -			goto fail_unreserve;
+> -		clean_job->perfmon = render->base.perfmon;
+> -		v3d_perfmon_get(clean_job->perfmon);
+> -		v3d_push_job(clean_job);
+> -	}
+> -
+> -	mutex_unlock(&v3d->sched_lock);
+> +	ret = v3d_submit_jobs(&submit);
+> +	if (ret)
+> +		goto fail_perfmon;
+>   
+>   	v3d_attach_fences_and_unlock_reservation(file_priv,
+> -						 last_job,
+> -						 &exec,
+> -						 args->out_sync,
+> -						 &se,
+> -						 last_job->done_fence);
+> +						 submit.jobs[submit.job_count - 1],
+> +						 &submit.exec,
+> +						 args->out_sync, &se,
+> +						 submit.jobs[submit.job_count - 1]->done_fence);
+>   
+> -	v3d_job_put(&bin->base);
+> -	v3d_job_put(&render->base);
+> -	v3d_job_put(clean_job);
+> +	for (int i = 0; i < submit.job_count; i++)
+> +		v3d_job_put(submit.jobs[i]);
+
+Worth having v3d_submit_put_jobs()?
+
+>   
+>   	return 0;
+>   
+> -fail_unreserve:
+> -	mutex_unlock(&v3d->sched_lock);
+>   fail_perfmon:
+> -	drm_exec_fini(&exec);
+> +	drm_exec_fini(&submit.exec);
+>   fail:
+> -	v3d_job_cleanup((void *)bin);
+> -	v3d_job_cleanup((void *)render);
+> -	v3d_job_cleanup(clean_job);
+> +	for (int i = 0; i < submit.job_count; i++)
+> +		v3d_job_cleanup(submit.jobs[i]);
+
+And/or v3d_submit_cleanup_jobs()?
+
+
+>   	v3d_put_multisync_post_deps(&se);
+>   
+>   	return ret;
+> @@ -1070,14 +1123,17 @@ int
+>   v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+>   		     struct drm_file *file_priv)
+>   {
+> -	struct v3d_dev *v3d = to_v3d_dev(dev);
+> +	struct v3d_submit submit = {
+> +		.v3d = to_v3d_dev(dev),
+> +		.file_priv = file_priv,
+> +		.job_count = 0
+> +	};
+>   	struct drm_v3d_submit_tfu *args = data;
+>   	struct v3d_submit_ext se = {0};
+>   	struct v3d_tfu_job *job = NULL;
+> -	struct drm_exec exec;
+>   	int ret = 0;
+>   
+> -	trace_v3d_submit_tfu_ioctl(&v3d->drm, args->iia);
+> +	trace_v3d_submit_tfu_ioctl(dev, args->iia);
+>   
+>   	if (args->flags && !(args->flags & DRM_V3D_SUBMIT_EXTENSION)) {
+>   		drm_dbg(dev, "invalid flags: %d\n", args->flags);
+> @@ -1092,16 +1148,14 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+>   		}
+>   	}
+>   
+> -	ret = v3d_job_allocate(v3d, (void *)&job, sizeof(*job));
+> +	ret = v3d_submit_add_job(&submit, (void **)&job, sizeof(*job),
+> +				 v3d_job_free, V3D_TFU);
+> +	if (ret)
+> +		goto fail;
+> +
+> +	ret = v3d_job_add_syncobjs(&job->base, file_priv, args->in_sync, &se, V3D_TFU);
+>   	if (ret)
+> -		return ret;
+> -
+> -	ret = v3d_job_init(v3d, file_priv, &job->base,
+> -			   v3d_job_free, args->in_sync, &se, V3D_TFU);
+> -	if (ret) {
+> -		v3d_job_deallocate((void *)&job);
+>   		goto fail;
+> -	}
+>   
+>   	job->base.bo = kzalloc_objs(*job->base.bo, ARRAY_SIZE(args->bo_handles));
+>   	if (!job->base.bo) {
+> @@ -1130,24 +1184,25 @@ v3d_submit_tfu_ioctl(struct drm_device *dev, void *data,
+>   		job->base.bo[job->base.bo_count] = bo;
+>   	}
+>   
+> -	ret = v3d_lock_bo_reservations(&job->base, &exec);
+> +	ret = v3d_lock_bo_reservations(&job->base, &submit.exec);
+
+You could almost wrap these in somthing like 
+v3d_submit_lock_reservations(&submit) since it is always the last bo.
+
+>   	if (ret)
+>   		goto fail;
+>   
+> -	mutex_lock(&v3d->sched_lock);
+> -	v3d_push_job(&job->base);
+> -	mutex_unlock(&v3d->sched_lock);
+> +	ret = v3d_submit_jobs(&submit);
+> +	if (ret)
+> +		goto fail_submit;
+>   
+>   	v3d_attach_fences_and_unlock_reservation(file_priv,
+> -						 &job->base, &exec,
+> -						 args->out_sync,
+> -						 &se,
+> +						 &job->base, &submit.exec,
+> +						 args->out_sync, &se,
+>   						 job->base.done_fence);
+>   
+>   	v3d_job_put(&job->base);
+>   
+>   	return 0;
+>   
+> +fail_submit:
+> +	drm_exec_fini(&submit.exec);
+
+The drm_exec now sticks out since nothing else in the function 
+"mentions" it. v3d_submit_unlock_reservations(&submit)?
+
+>   fail:
+>   	v3d_job_cleanup((void *)job);
+>   	v3d_put_multisync_post_deps(&se);
+> @@ -1168,21 +1223,23 @@ int
+>   v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+>   		     struct drm_file *file_priv)
+>   {
+> -	struct v3d_dev *v3d = to_v3d_dev(dev);
+> -	struct v3d_file_priv *v3d_priv = file_priv->driver_priv;
+> +	struct v3d_submit submit = {
+> +		.v3d = to_v3d_dev(dev),
+> +		.file_priv = file_priv,
+> +		.job_count = 0
+> +	};
+>   	struct drm_v3d_submit_csd *args = data;
+>   	struct v3d_submit_ext se = {0};
+>   	struct v3d_csd_job *job = NULL;
+>   	struct v3d_job *clean_job = NULL;
+> -	struct drm_exec exec;
+>   	int ret;
+>   
+> -	trace_v3d_submit_csd_ioctl(&v3d->drm, args->cfg[5], args->cfg[6]);
+> +	trace_v3d_submit_csd_ioctl(dev, args->cfg[5], args->cfg[6]);
+>   
+>   	if (args->pad)
+>   		return -EINVAL;
+>   
+> -	if (!v3d_has_csd(v3d)) {
+> +	if (!v3d_has_csd(submit.v3d)) {
+>   		drm_warn(dev, "Attempting CSD submit on non-CSD hardware\n");
+
+As a side note, if userspace can trigger this drm_warn it probably 
+should be removed.
+
+>   		return -EINVAL;
+>   	}
+> @@ -1201,51 +1258,34 @@ v3d_submit_csd_ioctl(struct drm_device *dev, void *data,
+>   	}
+>   
+>   	ret = v3d_setup_csd_jobs_and_bos(file_priv, v3d, args,
+> -					 &job, &clean_job, &se, &exec);
+> +					 &job, &clean_job, &se, &submit.exec);
+
+You cannot turn around v3d_setup_csd_jobs_and_bos() to be based on 
+v3d_submit? Or not just yet?
+
+>   	if (ret)
+>   		goto fail;
+>   
+> -	if (args->perfmon_id) {
+> -		if (v3d->global_perfmon) {
+> -			ret = -EAGAIN;
+> -			goto fail_perfmon;
+> -		}
+> +	submit.jobs[submit.job_count++] = &job->base;
+> +	submit.jobs[submit.job_count++] = clean_job;
+>   
+> -		job->base.perfmon = v3d_perfmon_find(v3d_priv,
+> -						     args->perfmon_id);
+> -		if (!job->base.perfmon) {
+> -			ret = -ENOENT;
+> -			goto fail_perfmon;
+> -		}
+> -	}
+> -
+> -	mutex_lock(&v3d->sched_lock);
+> -	v3d_push_job(&job->base);
+> -
+> -	ret = drm_sched_job_add_dependency(&clean_job->base,
+> -					   dma_fence_get(job->base.done_fence));
+> +	ret = v3d_attach_perfmon_to_jobs(&submit, args->perfmon_id);
+>   	if (ret)
+> -		goto fail_unreserve;
+> +		goto fail_perfmon;
+>   
+> -	v3d_push_job(clean_job);
+> -	mutex_unlock(&v3d->sched_lock);
+> +	ret = v3d_submit_jobs(&submit);
+> +	if (ret)
+> +		goto fail_perfmon;
+>   
+>   	v3d_attach_fences_and_unlock_reservation(file_priv,
+>   						 clean_job,
+> -						 &exec,
+> -						 args->out_sync,
+> -						 &se,
+> +						 &submit.exec,
+> +						 args->out_sync, &se,
+>   						 clean_job->done_fence);
+>   
+> -	v3d_job_put(&job->base);
+> -	v3d_job_put(clean_job);
+> +	for (int i = 0; i < submit.job_count; i++)
+> +		v3d_job_put(submit.jobs[i]);
+>   
+>   	return 0;
+>   
+> -fail_unreserve:
+> -	mutex_unlock(&v3d->sched_lock);
+>   fail_perfmon:
+> -	drm_exec_fini(&exec);
+> +	drm_exec_fini(&submit.exec);
+>   fail:
+>   	v3d_job_cleanup((void *)job);
+>   	v3d_job_cleanup(clean_job);
+> 
+
+Small comments aside, on the overall to me this looks like a great and 
+worthwhile consolidation which makes things much easier to follow! At 
+least for someone like me who is not at home in v3d.
+
+Regards,
+
+Tvrtko
 
