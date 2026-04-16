@@ -4,129 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADE1F8DFCC
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 21:30:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73DC3F8DFC9
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 21:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73C0610E92A;
-	Thu, 16 Apr 2026 21:30:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 976D210E929;
+	Thu, 16 Apr 2026 21:45:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="CDMgfbEr";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="CuoWRUR9";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013064.outbound.protection.outlook.com
- [40.93.196.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3E8310E277
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:30:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rWt5IGGAmh9XF5uyXFvP3bgJ819vADVfZDfK7LK6dF0g2OIcrbYWVnIPII/+LlP0ixSCRxBpn1nfLsgze2OVvyiXOWiYcKY7GqEyWr25SVTmiBKJgQ3ejXe5TrGMldHVBIVjJFTIrMztuC3P1Nw9AKXug57oZYPqIglzvf/AOevMfFIqLWTkXlWDZCDnI3RaFGVrqkmeGEdW8JZngSsDP5/e0ofRB948MhLSOO47uU3djUQOpP3hsb3OEK7BHtZ3G3YuElnxI+avlPQvIR2qZ1PoX6kwDPStQQLfJ7XGMAwynO5xvO2oNuHTxnr0RdZc0UDl9zf1FY5tDLdRQtublg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L2/tyvanjkoYD11pPRzrArlHt8gIDLCpz0W7vqiwKx8=;
- b=UJqN+g4TKZKRCKD/AjjBKeLgqg0qK+Irtt8l6P4nfl7WOn7Hy9TMLEOaPUSmzxelPYwA3T9/cbErqJy82f8w9VJ0hrr5cBtqqDZmf+rkrNcDR4dxOlEtlS1PrSdXXlVRQvgPvHyHXYw1pc73xQKdXZgsWWgI7qN4V9ED7l9uWbrbfpBuPENLz87gwptzDmODA4+fttPckNTAQKm9Kkj0cod/lj65etNMZN5B2slEIwvk++LdcDJIQULzZgNE4rCBYO0PrHPtzuPBm+a3N57XzikTrAi4RpP6uGn3dWIkP3/h+8M6octH0AK6rJOFfDNnUFQEiu4ea0AwHNvAoF3biQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L2/tyvanjkoYD11pPRzrArlHt8gIDLCpz0W7vqiwKx8=;
- b=CDMgfbErsCBtewudTuIU9D0rarwgmkgG9bZKpZEjyXPV0LhvpKAc/5dW/PQCmjx5OJdzxrMAoJRsdQChz6k77OY/Wcd6iKNBbVPT/EaNKafBKr0ke6wqDB7ByJ2HninQkHOkOiHo3jWsy6ks9DFCoptFv/kjcnrIy9w492vpwEOtYHodwkwo53hatkc2pKRlhKBG8suHlAOgJNQYie1XisMilhDnr8WBczYKcQR9Mseh8d/MxcomsreLzdeuHC6lgqxTfPbdxLDGExF6NgEyfEYK6NlrsrzMDOziLA7lqUrR6Id3fpWlj/R5o0LGjaGjjIsqxzOOyRC1QTA9gR6YOg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- PH7PR12MB6883.namprd12.prod.outlook.com (2603:10b6:510:1b9::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
- 2026 21:30:11 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
- 21:30:11 +0000
-Message-ID: <fdd6e890-f6b0-4ea0-b5a2-e97f880eb472@nvidia.com>
-Date: Thu, 16 Apr 2026 17:30:09 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] gpu: nova-core: gsp: add RM control command
- infrastructure
-To: Eliot Courtney <ecourtney@nvidia.com>, Danilo Krummrich
- <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, 
- Timur Tabi <ttabi@nvidia.com>, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260325-rmcontrol-v3-0-f3101093484e@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <20260325-rmcontrol-v3-0-f3101093484e@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0163.namprd03.prod.outlook.com
- (2603:10b6:208:32f::7) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1412810E929
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:45:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776375905; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=IV8olarTYX7xxqXewZrvkzAHUwUaLMLw0w0jkSoMZRTDi8vjxj9BJYago0j3F2YNIZzUoMT5QF++YxWwpscezDa13xLqbX7Fb8RPKLhXyQqEWgfkiRxzvXsI055qjiSZ4UKnio4MRvVAS8RCNDv6jrD6Ttt2rYMi0AAc8mVzy14=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776375905;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=3Cg1Ox3FKFalQ4eghVVZYj6JMmvLtiv/ntEtxts+/g4=; 
+ b=fGB+IuUWeIM7R1SiUYff1pi+5bwcF/hwD+n14yw3l7aw+VRc/CU2L0i+e7JcLinmZRcEVtQNRlMEzMaKji8DdH42mc3vPcfb4B84jdAtY20OgamwUHH+hxX+saIPUdM/Zc2QaURD4ZxPLiodDRJmlJU1WaqRztXsu4TjUotDa0A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776375905; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=3Cg1Ox3FKFalQ4eghVVZYj6JMmvLtiv/ntEtxts+/g4=;
+ b=CuoWRUR91M/DP+oLHk781FREdwU4p2cDZHP54hDvkQ2lSGqZyBIJSVxIV43HWIfb
+ 4DqJX8ZW95+ZoHwnGtFkPnDQidPe3va3hUP+6+qzrrwAIlCr+WuWiXbFjZnpTR3EDvj
+ Y/POcFMqn/xl9uM89UdONlmg529Okj2YvK38YfGs=
+Received: by mx.zohomail.com with SMTPS id 1776375903502321.02872404585503;
+ Thu, 16 Apr 2026 14:45:03 -0700 (PDT)
+From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v8 0/6]  Support sparse mappings in Panthor
+Date: Thu, 16 Apr 2026 22:43:46 +0100
+Message-ID: <20260416214453.112332-1-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH7PR12MB6883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 617ff8e8-75c4-4f15-fc81-08de9bff56dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: Hd5aFUTNiwVkvpZYlk/3xfRWK7IrnmsVImtOU3sk/FQuli4svlVT39+kP0wjO5jjlPspP7ulL5geF37crAilYUesLc7FKlY0YFBIqXkMuhbw78KKZHbK/ODk4ouKVzTRXCtP+RyGpfQlqX+a/NZL/uOHXQJy2GALkNM94AX3xakzFyE3+4Hj0W25qRUSnSjZv64w+gHQJzNLaX4zmTpIf2oejuaE+DK2cVD660HSEkumS5a2pRcjqA3TrUMtct2cDeIAm25IJR7e5+tq+SZYm+7t2zbppm86hZmzrJev+NpDVVZZzXSL0YdNMQz5SmY9JHNigcV9h4gC8dEUDZYBqrWnHy8ofC70LBYqePvXk9agf9WVqIaK/3ZXZaDq1sZJzSlwdSMpl23Clkd2rf/8tKM6f30oFcOd2dTuzakrgr2PUi+p2NzqUOnoD8cd3pTimA6vg8ezhzDUSb5RCP3ULdApGzRLrMsFATuYmv6hk+wOgj4bT0FHnbf2vkmQLqqArEBGVf+g6XOkAS8MU2MMJj/jzPC8MdO+rf02x1gnK53j0qfOdBgKPat/wEv2EjyHkxIzf0iVUoDRnDruEAIjgbYofUNdLG8qeIHlSbN+SVDZfJ8iKPuERh+iAA2mkdzKQ/9LaMRapW1c1ktW8qr/uE+5vxE9KYpg0gpTqtVIZAt8YwZu+F820OG9MV8xIiTjaZHZs8o90JDFx49zt82Xb4Cr/LtL/x6TaG2oFTNhfBU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aDI1ckhjNGRmcVhCSzV6NU9sZFhyWkYxQnB2YTd3V1Fzb3dQcjg4ZUo5a2J5?=
- =?utf-8?B?MDQzQWNjUEZsZUlIQW5SdUZaUXdxSXhwY1JVY1A4cGkvN3dCZDlSWGNOejZ6?=
- =?utf-8?B?TEorclVhRmEzSHdLQkxVeUVqTmRnZXdIRjVvc0tJWVZMdzNVNVI0RHVjSW1r?=
- =?utf-8?B?QzRhRVdlL040d25XdXR6YkRiWGgyMWxvKy8yNVhlUEw4Q1BKY2p3NlovUndp?=
- =?utf-8?B?VjhyMzhKdlNaM1p5V2tENkI4K0dvbHlUZzdSTzlWZDlvam1VaCtMb21sMWpS?=
- =?utf-8?B?Nkd6bVdvUUptcGtsSkdRRGtQZWRXdmFacDJFb3hYRjV6UnNkcEh1a0hzSXR6?=
- =?utf-8?B?Q0FLL1VkYmRaQXI2a0pXRm00bHV1RjBkYnpULy9HZ2ZqMTduTjZYVjd3aXd1?=
- =?utf-8?B?UmtvcnZiNzFNQ3JGaE45NW0rWFFGRUVFSmgxZUhjV0lLS0NkaWFDZ05rRU1i?=
- =?utf-8?B?Q2FHUnNKZ0t1aTQ1d2pQZy9NajJTS3dmd3I2T2dUM3orOTF0QkJWZHNmSVI3?=
- =?utf-8?B?LzRVNmgyL1lYRzB3TlNQVHN5NHJCMVgwSVl3S3J1Unh6c04vMnRGVnpacVJF?=
- =?utf-8?B?WHNjc3hYZ29pR0F2b0ZnclVIUmYreGRGdlFtMjNGczRubkVrTWtEcWRXNWRV?=
- =?utf-8?B?Y1RQQ2F3OWM1dGhRU1p4RTNWM3BvTkJIc1NsV3pmRXI0TGJ2U05GbnlvbHYz?=
- =?utf-8?B?QU1QYmxNbUc2YjFGUEc2cmlQTFB5ckpvSnQ0aWdKc3Y4d0JFV3k0WWpCei8x?=
- =?utf-8?B?QnNUV2NzRWNXYmYwdkd5MXI4MkNBTGFEQ1BTcExxSnowYWJLaUxDQnR5cTRX?=
- =?utf-8?B?L0xWUXZqUytwU0FHNkpqd1lNVUk1bHVkQlF4dWRNY3FZRTJNM3JCN09ZSldP?=
- =?utf-8?B?ZEs1Ukh5RVZxQW1pZitSVXNjY3JiQWZmcTlpdU1EM1RlTDNDZEZYU1VWVFRj?=
- =?utf-8?B?NFIwbWNZNEV4WlZPQnJOWUZzaUZwV0ZvOTFMVDA3dml0OUcvcVlFQldQZUF3?=
- =?utf-8?B?RHFaenlvdVhMRWk5M3hVRzNRSjRva0RCd09LelpnNldMUWVmanBQb0k5elRj?=
- =?utf-8?B?SGdDU1hldmFIaFZoRU1Wd003L2VaYU8veWRhQ09QaEZzNFhNeUhSNTA0dmJj?=
- =?utf-8?B?MTVyem9UQVJWSndFbFdqeEFZVCt5d1Y3LzdsU2ozNW0zY2w0NFFrRkZqbU40?=
- =?utf-8?B?bjRic3RXR2ZqT0x2YVQybmJub3BJckNiYkszVTRDSWk1Qm8xSFdtbVU3WDAy?=
- =?utf-8?B?R0RSWGQ1RzZiMDZPdGF6eVJNNi9sRjRCcWpENU4rb0tSNW1NUUZWbmJDMXly?=
- =?utf-8?B?ejhTS3dsQmhNVzRrUGhFSGNxSjV6cXdlTkFSSXhzZFRvQkdHeTNnUjhkMUJO?=
- =?utf-8?B?ZjJ6NWMyWDdEQUlwbzYyWkdrTlBkanRnQlk2RUdjclo0OWtCMlRyUVkxbTAx?=
- =?utf-8?B?SjR0eVF1U0NCcTZtbGp6TzBOR1hmUmdjdTYyK3M5by91RWIxQnBOTDk2QlJL?=
- =?utf-8?B?NmVmWkdxZXlWdXJsai9kR0QvZG00OHpScFNSTWdGN2kvQk4wbjVYQ050L2hZ?=
- =?utf-8?B?VEVGUW1SSnBWU1dyeStDaVYwV1UxRmpKOGJOUUQ3dHpPcW03S0huZjdPUS8y?=
- =?utf-8?B?elpIU3I3S1hXNmZNTURmN0UrTE1yYzVmREFQVnNUYjl2QVplQzE0Qmt0M0hq?=
- =?utf-8?B?YkdTRWd6cGt0d3gzK1crbDA3dVVibklkSFRML20zY2dlZHF2a2x5Sm92eFZX?=
- =?utf-8?B?K1NtN2pwanJvdkNFQTV3TGdlRVpQN0t0VHZyNkwzOXhGREhwSFgrMTdKNUZQ?=
- =?utf-8?B?SExLTEk0RFErSGZCNHBjSTVDZTlmdHdTbFhSUk5BRm9HZktiRm5DVHF3c2hM?=
- =?utf-8?B?RHdjZm1BalpvVE53YStYSThUZUh0ay9ubzEyWnRFZ1hRY2d2N3JOa2M3b052?=
- =?utf-8?B?a3ZXNjJ5WmdKaUFmR2FDUWJmNFZTNFNQTithendHM2RxNk9XRk9PdHdYTHA0?=
- =?utf-8?B?ZktsdUVqMEdGaTgxQzlvdkJndGJUbDdWeXFodFdVeWcyYVo0WDdRMS9DbGJL?=
- =?utf-8?B?eWpkK0creEVGS0dPQ0hRNERqV2FVQ1JlUmtUL3dKVDlhMFRQZjlkTHpUaTJ4?=
- =?utf-8?B?eGx3UjlsYWw3dnorT1BKdFdHWUtKMnZwdVhjRVpYRlZIcGkvM3lPczVCZUk1?=
- =?utf-8?B?OUErUm9jdlErZUNFcTVvUVl2RTVQckdUVVlqTndsTlVySjNzMHROV0FnVnFr?=
- =?utf-8?B?YklzelVlU2ZiaHNKMnpnZEFFSjZEQk4xZURjdUVieHNVSm9YVnQ4K0kwZE5v?=
- =?utf-8?B?dUxTYkFEd2V4UWJTTE5RQktvVjVGcGhvRFhIcnAvbXVIcFlGYzBZUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 617ff8e8-75c4-4f15-fc81-08de9bff56dd
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 21:30:11.1333 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KTXLMhO/qUh3xlUkw1OE7Dl2YP0D+OB196zKjEW6P8Bi53FJJQHfA3aFmqha89aNh9H+pvQxzZzcR3IrZalD1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6883
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,89 +64,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patch series implements sparse mappings in Panthor. Owing to the lack of HW MMU
+features for sparse page table entries, this had to be implemented using a dummy object
+over which sparse mappings requested over VM_BIND are mapped cyclically.
+
+To that end, a new VM_BIND flag was added in the driver's uAPI.
+
+The end goal of this patch series is to improve support of Vulkan sparse
+resources. At the moment, to implement this feature on Mali hardware, Vulkan
+sparse map is implemented by mapping the specified region to a "dummy bo" so
+that the accesses do not fault. A newly created sparse resource starts off
+unmapped, and therefore also has to be mapped to the "dummy bo".  This "dummy
+bo" is small (a page size) in comparison to the sizes of va ranges that we might
+want to map to it, and a large number of vm_bind ops can be necessary. For
+example, if the user were to create a 100e6-byte sparse resident resource, we'd
+have to poke VM_BIND with ceil(100e6/0x1000)=24415 map operations.
+
+The new VM_BIND sparse mapping feature addresses this particular inefficiency by
+letting us implement a single Vulkan sparse map operation and sparse resident
+resource initialization with just one map operation.
+
+Link to the conversation for the previous patch series revision at:
+https://lore.kernel.org/dri-devel/20260415112900.681834-1-adrian.larumbe@collabora.com/
+
+Changes in v8:
+ - Allocate a single 2MiB BO as a dummy buffer for sparse mappings. Let its pages
+ be retrieved just like for any other BO during a map operation.
+ - Removed locking around allocation of the dummy BO by doing it right at the
+  time of a VMA pool creation.
+ - Some minor style fixes.
+ - Refactor low level page mapping code in sm_remap and sm_map.
+ - Made NO_EXEC a mandatory flag for sparse mappings.
+ - Actually bumped the driver's minor revision number.
+
+Changes in v7:
+ - Switched back to Panthor BO-backed dummy object instead of raw pages so as to profit from
+ the existing shrinker reclaim paths.
+ - Created Dummy BO's per file context to avoid information leaking between them.
+ - Reorganised some of the low-level page mapping code.
+ - Added commits deleting spurious white space and unused op contex field.
+
+Changes in v6:
+ - Moved all the GPUVM core code into the driver backend.
+ - Discarded commits that touch on the gpuvm core too.
+ - Redesigned the uAPI so that no repeat range or user BO is supplied for sparse mappings.
+ - Replaced user-supplied BO with a kernel-allocated array of raw pages.
+
+Changes in v5:
+ - Minor fixes to drm_gpuvm.c.
+ - Add panthor MMU page sizes device queriable param.
+ - Add helper to make sure unmaps of repeated regions are correct.
+ - Some fixes to Panthor's repeat mappings implementation.
+ - Lump arguments to panthor_vm_prepare_map_op_ctx into a single struct.
+
+Changes in v4:
+ - Fixed the warnings reported by the kernel test robot.
+  https://lore.kernel.org/oe-kbuild-all/202507041635.WyDu3TQ1-lkp@intel.com/
+ - Fixed the warnings reported by the CI.
+  https://patchwork.freedesktop.org/series/151264/
+
+No changes in v3.
+
+Changes in v2:
+ - Make panthor use this stuff.
+ - Make it possible to express a repeated mappina of any suitably sized
+  and aligned range of a BO, rather than strictly the page size -sized
+  prefix, generalizing the API. Rename DRM_GPUVA_SINGLE_PAGE to
+  DRM_GPUVA_REPEAT.
+ - Clean up parts of drm/gpuvm affected by these changes.
+
+Adrián Larumbe (6):
+  drm/panthor: Expose GPU page sizes to UM
+  drm/panthor: Pass vm_bind_op to vm_prepare_map_op_ctx
+  drm/panthor: Delete spurious whitespace from uAPI header
+  drm/panthor: Remove unused operation context field
+  drm/panthor: Support sparse mappings
+  drm/panthor: Bump the driver version to 1.9
+
+ drivers/gpu/drm/panthor/panthor_device.h |   3 +
+ drivers/gpu/drm/panthor/panthor_drv.c    |  12 +-
+ drivers/gpu/drm/panthor/panthor_gem.c    |  18 ++
+ drivers/gpu/drm/panthor/panthor_gem.h    |   2 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 200 ++++++++++++++++++-----
+ include/uapi/drm/panthor_drm.h           |  26 ++-
+ 6 files changed, 217 insertions(+), 44 deletions(-)
 
 
-On 3/25/2026 8:13 AM, Eliot Courtney wrote:
-> Add the infrastructure for sending RM control RPCs. This is needed e.g.
-> for channel allocation.
-> 
-> This series adds:
-> - `NV_STATUS` bindings and wrapping `NvStatus` enum (used by RM control
->   RPCs)
-> - The necessary bindings for the RM control RPCs.
-> - `RmControlMsgFunction` to identify individual control commands, like
->   `MsgFunction` for GSP commands.
-> - `SBufferIter::read_to_vec` (using KVVec) for reading large RPC payloads
-> - A typed `RmControl` command that can send RM control commands.
-> - One usage of `RmControl`: the `FaultMethodBufferSize`
->   RPC. This is useful for channel allocation later.
-> 
-> Each new RM control command can be added by extending
-> `RmControlMsgFunction`, adding the bindings and wrappers for their
-> parameters, and writing a type-safe wrapper to send and receive the
-> reply for the RM control rpc, using `RmControl`.
-> 
-> This series applies on latest drm-rust-next with the listed
-> pre-requisites.
-> 
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
-
-For all except patch #2,
-
-Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
-
-For patch #2, I have the same concerns as John mentioned.
-
-Thanks.
-
-
-> ---
-> Changes in v3:
-> - Remove `send_rm_control` in favour of a typed `RmControl`
-> - Print out fault method buffer size at gsp boot
-> - Remove Reviewed-by and Tested-by on some patches that have changed
->   substantively.
-> - Link to v2: https://lore.kernel.org/r/20260318-rmcontrol-v2-0-9a9fa6f1c4c3@nvidia.com
-> 
-> Changes in v2:
-> - Introduce typed Handle<T> for RM objects.
-> - Improve naming
-> - Improve doc comments
-> - Change SBufferIter to always use KVVec
-> - flush_into_kvec -> read_to_vec
-> - Rebased on latest cmdq locking
-> - Link to v1: https://lore.kernel.org/r/20260227-rmcontrol-v1-0-86648e4869f9@nvidia.com
-> 
-> ---
-> Eliot Courtney (9):
->       gpu: nova-core: gsp: add NV_STATUS error code bindings
->       gpu: nova-core: gsp: add NvStatus enum for RM control errors
->       gpu: nova-core: gsp: expose GSP-RM internal client and subdevice handles
->       gpu: nova-core: gsp: add RM control RPC structure binding
->       gpu: nova-core: gsp: add types for RM control RPCs
->       gpu: nova-core: use KVVec for SBufferIter flush
->       gpu: nova-core: gsp: add RM control command infrastructure
->       gpu: nova-core: gsp: add CE fault method buffer size bindings
->       gpu: nova-core: gsp: add FaultMethodBufferSize RM control command
-> 
->  drivers/gpu/nova-core/gsp.rs                      |   1 +
->  drivers/gpu/nova-core/gsp/boot.rs                 |  11 +
->  drivers/gpu/nova-core/gsp/commands.rs             |  62 ++++
->  drivers/gpu/nova-core/gsp/fw.rs                   | 402 ++++++++++++++++++++++
->  drivers/gpu/nova-core/gsp/fw/commands.rs          |  19 +-
->  drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs | 161 +++++++++
->  drivers/gpu/nova-core/gsp/fw/rm.rs                | 106 ++++++
->  drivers/gpu/nova-core/gsp/rm.rs                   |   3 +
->  drivers/gpu/nova-core/gsp/rm/commands.rs          | 167 +++++++++
->  drivers/gpu/nova-core/gsp/sequencer.rs            |   4 +-
->  drivers/gpu/nova-core/sbuffer.rs                  |   6 +-
->  11 files changed, 936 insertions(+), 6 deletions(-)
-> ---
-> base-commit: dff8302ca1d0e773c90dbeeb05e759f995c95482
-> change-id: 20260225-rmcontrol-bd8a06fc3a0d
-> 
-> Best regards,
-> --  
-> Eliot Courtney <ecourtney@nvidia.com>
-> 
-
+base-commit: 62a36c2da774800bef893bc4bf8922fb9c07c1d0
+prerequisite-patch-id: 0000000000000000000000000000000000000000
+--
+2.53.0
