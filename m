@@ -4,115 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEEF4F433E1
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 04:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71BFFF433E3
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 05:41:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D83010E172;
-	Thu, 16 Apr 2026 04:09:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF84E10E179;
+	Thu, 16 Apr 2026 05:41:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ti.com header.i=@ti.com header.b="kCx0n8A5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IynrFTzC";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010016.outbound.protection.outlook.com [52.101.46.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF8210E80D
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 04:09:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pR84dOT814+i21E1ruKPKWlqbNfzi9tMj7S0aBmwIXzF+Kn7vwQ85fXfGx7z+YBzy+Dl/leUNWNR/ChIlwviIDRV/TW8ARhTo4mqoB3as1694sV5K06PqNPIdXaTwGz96DRQILx9MqOC/usz4pumZlBWY8Krtns+IuklY0WMSjPNgIVMNAJAeKjAcEyIlpUVlUHCRv/phC1n2AzEVd9KK5YtyxYTaTRLkwwrZ+ekno4oK4HpRpXPpK0GxZQSLwvwAyjOy4yHvvCpzafIx0wWtKtM4rakOdVWkrIFxvA5MZgutxil2RxnY/VldP4NEQdQmgfQFfEICQZZibE0XSoh+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Fe9i+7s/83O+IgPet/Um9U4En9JwppwD1GXBDM1f9MY=;
- b=EjKr0K3ixuMKJA5HB4v+yHRIz6UTS6Nkkp6Clmao4TBeQWFQGBCfR3uPONZthHfKqJcbub8Yv4FoGJni7DUGMG1v3M4FGM4R+k/ugU4JxcS8Q4BSZfBp4w1tyvFy6oH7b0LQ2nCylycp04PQF3L8FGCRLPsvvTxx1LwsCKSWdVpG+fu3E9wG1NHnGY8ItizXPhMXEUoKLvKfGSvjCxn0Wg7KbpwLj1GVrQVJE2sZy1+oireQXwZjwT7rG5n+kGEL3gCMTenc5PUbhYs/f01KpQvlljQp+cI0hJv9rPN+m2sp1KkL9IaGHtVVkAE8umDzGCnRsIfoowaR8QYwIzVscw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fe9i+7s/83O+IgPet/Um9U4En9JwppwD1GXBDM1f9MY=;
- b=kCx0n8A56mkpsKIwUdv2oIeWddYc/k7JJSQufUu0opadNCzzXxhIjPbi1fL//ENf2x+kICZ0lOTQzW6UPVy+65uWVG80W6rfrkYFvEVGoIsQAyMGAptMoAhK5bkB/E9zSsVRiOUWZKzFdX8kFq5KKGm5nS5Rn/o4pAClQLKOGeU=
-Received: from BYAPR08CA0009.namprd08.prod.outlook.com (2603:10b6:a03:100::22)
- by CH0PR10MB7535.namprd10.prod.outlook.com (2603:10b6:610:187::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Thu, 16 Apr
- 2026 04:09:49 +0000
-Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
- (2603:10b6:a03:100:cafe::e7) by BYAPR08CA0009.outlook.office365.com
- (2603:10b6:a03:100::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Thu,
- 16 Apr 2026 04:09:48 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Thu, 16 Apr 2026 04:09:48 +0000
-Received: from DLEE212.ent.ti.com (157.170.170.114) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 23:09:47 -0500
-Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 15 Apr
- 2026 23:09:47 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
- Transport; Wed, 15 Apr 2026 23:09:47 -0500
-Received: from udit-HP-Z2-Tower-G9-Workstation-Desktop-PC.dhcp.ti.com
- (udit-hp-z2-tower-g9-workstation-desktop-pc.dhcp.ti.com [10.24.53.178])
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 63G49fxN3241105;
- Wed, 15 Apr 2026 23:09:42 -0500
-From: Udit Kumar <u-kumar1@ti.com>
-To: <andrzej.hajda@intel.com>, <vigneshr@ti.com>, <b-padhi@ti.com>,
- <devarsht@ti.com>, <y-d@ti.com>, <neil.armstrong@linaro.org>,
- <rfoss@kernel.org>, <yamonkar@cadence.com>, <sjakhade@cadence.com>
-CC: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, Udit Kumar <u-kumar1@ti.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH] drm/bridge/cdns-mhdp8546: Fix incorrect register clear in
- j721e disable
-Date: Thu, 16 Apr 2026 09:39:33 +0530
-Message-ID: <20260416040933.3052831-1-u-kumar1@ti.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E699810E179
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 05:41:15 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2b2503753efso66843005ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 15 Apr 2026 22:41:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776318075; x=1776922875; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language:subject
+ :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Cag2ptL6wrm0V5bGbrcQIfwBYr+GeQUuV1iySRth4GY=;
+ b=IynrFTzC04Ls+gDqpiw5j/4c/nvm0wCpqKe588TSQuiNPpZ5s1sg9gKMeBxlnRyhv+
+ nJFzzzABxHuF/A8sTrqc5uynwcdMv3huITl6vgD1aDYW+etYCHoeTjBe1nB0Opm7n+Dt
+ Yi2iwJXs6RFCBpBzLdfJSAsxABfYOJa4xy1NQmcMmSTv9JgTqcKGUZgyy68Fj/M5u05G
+ WkGhb/nFFlKzcO2nJDzkVdY3IFZfyBKFQriA9Nqp6Ws6q+txmwuQB61YHoVo/izaPzSc
+ gAardGW6OE98//BTr+nIQ24c9zVe9rmenNnOY5h94LO/NybLxQtZK2u7LY+EVGLxOynV
+ O5yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776318075; x=1776922875;
+ h=content-transfer-encoding:in-reply-to:from:content-language:subject
+ :references:cc:to:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Cag2ptL6wrm0V5bGbrcQIfwBYr+GeQUuV1iySRth4GY=;
+ b=Te5jpiHq/88ss4naNptWF3ZTv9lT6sHLjpdZbyWe/JajZ3dE0oca1Tsz4V/OBA4kvd
+ Sb75Su7eqA2ulSvEdD112S9zi1q4BNuoYZNnrxQtFx1kN7Y0TP1hlLPTHwUrtOfDpefq
+ UAYwapig+/SrLCkQz31iIPFDqspBF5th52Vx+B6qWgRdbnENTHw7WJe7a1Bi3MBQKzK8
+ 4c1/AoVqY2qbLdFz3efbRBz5JCg/steAJbIMM+JTm2x35sHnAqnG65ZUoye68DNwH9qe
+ xfKRd+y6uuWlaXs+J54DIxLF+W/4gfj5rpmaUwK43wkNU1HIn+EJeSY8PS6rLxLI2F75
+ 0hFQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/SKxjrhGUzfypixd2RDZiRiGjaf8F3UFSBJlTPABEZpJdYIrqJTPebxu1P7W3URIg3zoZLwoPrcLc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yysaf/xYgAZ5UB+AjpNfzmL3JHTU+/ZMHDsdYvD2zys2Y7LP6C9
+ aHtAQ6tTA+C9uPmcgUpqwLhy8XviuIb0QBO+Xs+UFQ92FkXV7CL7S93J
+X-Gm-Gg: AeBDiet2h6v/cV4RwBmhAqL+xFYanAie3WAwha9NeKxTL6fwiJ5eE1R14oDkRt/0ZII
+ 3xJUxb7rdSiju0UDy/u7sRUuAFBcAnHfoY5NK5qxPNFxzf5taSOXO6BFjkt++ZHet45FC/61g1w
+ u3UxDIyMPnxGxglF5EuQB5d775w+KYW1dLc8WmLca0jP4em9+DSWvhsrhFQSghBiXxPb0dlj3GK
+ V+vWoxrEWgqtXCXWNdCrHtVsh8hXsDr8hs1YfUKUn9xS9yvQiD9oJ2S/Hn58KLbh9GRnYWlH/wJ
+ 8u2d35wlK7mZC2uKLLGzm+qCG+ja74niStB5/A/89Tq+povKqW0+5UbdGN7HwQkLw7Pu1YURVE5
+ x2QY1j5xob8jhnyZAnSFEnNcUECU69et4XTijFSnb2uV3QJ1cwiub/o2OaVPc7iIYdJSqVFzeSy
+ uasmv60xKAbA/Pe1J2hIZDIwjHYeokaGflu9wNnXLAitjOpF4Ergc6MYmnGDsk67KsfGg4
+X-Received: by 2002:a17:902:c94d:b0:2b2:3eec:c75f with SMTP id
+ d9443c01a7336-2b2d5a3837emr259023135ad.28.1776318075370; 
+ Wed, 15 Apr 2026 22:41:15 -0700 (PDT)
+Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp.
+ [106.167.137.155]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b4782b6704sm55716045ad.75.2026.04.15.22.41.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 15 Apr 2026 22:41:14 -0700 (PDT)
+Message-ID: <6d754f54-d1c8-4175-a0f0-dd51eb26930d@gmail.com>
+Date: Thu, 16 Apr 2026 14:41:12 +0900
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: sanjayembeddedse@gmail.com
+Cc: airlied@gmail.com, corbet@lwn.net, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ skhan@linuxfoundation.org, tzimmermann@suse.de
+References: <A2B5F0ED-8C58-4A88-A4EA-8DA50289ECB5@gmail.com>
+Subject: Re: [PATCH] Documentation/gpu: resolve kerneldoc duplicate
+ declaration warning
+Content-Language: en-US
+From: Akira Yokosawa <akiyks@gmail.com>
+In-Reply-To: <A2B5F0ED-8C58-4A88-A4EA-8DA50289ECB5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|CH0PR10MB7535:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1179502-2025-479e-a3c1-08de9b6e005d
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|36860700016|1800799024|82310400026|18096099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: KILqRrsR8oL2M3UaEjK5TjMf5KtzE5RMFYEQH3fTdiobIaQrzZ5cy5ZUUG6cP3N8j7hdC7KsNGfdRmyMPmyxzvromXW4Xa7SFNf3R9nrWhQW05dcfpEUrQ5Pe/jYP703s/kQj6HkZpxDXwKqnxbs3JNCnnC+SckMktfROasO1WHjp7u+5FuzsbA3jAFNn6yj6qtlU9DH0IBJ2gQACqgIKW8dw0BHFc+pWKe0Ms5uMyu76GHlGlvU2Ef84gguAzJ6wfmlSeN2eULb8mLMlQiwt92cXAg1RQL5LW2rnffwDMAhJ2Q5+fJYkWRvx2+WMemGXiRAL9hWv4nrN+5uKvQn3LexEgnpm5pywFGF72kaTiBhT/NMx6gb14KRhHUehrl/Ol3knx86HnRi8OWVgUQ0WzEx1NZdBgajs0GCANsa3q2VcwTaFwrDQw4r7Pq/a6yV+j1WW7xhvVWRZNMU2looWg9d8LjoFrrnIRLepA190xzWhqTyqYG4CTKmUqZAjKaCc83UzxnB5bKs/2oKN5uLVndXvZZo85k9bV7MNiQ5kfni4msTJYFsuEnA7M8TSWuT+5nBL0RduYhpekfw56X9f95RVnYntdtMFTyAyUzmS79tRzBmvNQynE4pkNbUEeoZ5iBqo7VNHxax54xUew/IuOkyNWSysSgky0L6zCycFAeRd4fJzEmio6q2uoLVAz5R9mPCD+RiWCT4QRC8IXkDuA5Ag5MYM6ZZr267f3W85zO+NDMeWeKjRT2wszPB0y2vywOyx+SXp+5F2tW0X0HuxA==
-X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
- CAT:NONE;
- SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(82310400026)(18096099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: w1AAQwhzkSXqjLaKnKuGlCzzqkPVMJ0RD7tfSOVN51txEwdwVJjgIHSdvXsvsCl8A8F5B3welbiwwhg5zDw5icbEeCBdYK69ut7+nRreYyOc+9ODCf8Y1EAnXbK/Otxj0mDP9qEL2ymWYp+JWqdtbrt0+3B10oJwR2Px1ANnc2bZzZHsXjFZ/E3SLKVexG78J3vp9NEKYlQ4EWuXjztRH/I0uJdgTgi8niOHDmwJaBl/ahpW8RFlx1fkEkeVUPxKXp2c+JZJnrxRsBF9yGhodaRyKwDcU4F7RDqsvWDLHKYo+26N1+bMgikOoVlBUiZI+NPbBdWWcWuzLsbOlankwrRgfmirl0p6HkpFv2NU9vhb1Oqn4/xXTw5B28PS5BJ3CWAwlhTP3KXq00/r+oo9jwYk9SnZGaPbXpI09fg/4XjLJXuJBqXZ0Di6Ko8IOoBa
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 04:09:48.6675 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1179502-2025-479e-a3c1-08de9b6e005d
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
- Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE16.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB7535
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,33 +94,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix the cdns_mhdp_j721e_disable() function to clear the correct register.
-The function should clear DPTX_SRC_CFG (video source configuration) instead
-of DPTX_DSC_CFG (DSC configuration) when disabling the display interface.
+Hello,
 
-Clearing DPTX_SRC_CFG properly resets all video source settings (VIF enable
-bits and DPI selections) to their default state.
+> On 18 March 2026 8:06:12 pm IST, Sanjay Chitroda <sanjayembeddedse@gmail.com> wrote:
+>>From: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+>>
+>>kernel-doc build with `make htmldocs` reports following WARNINGS.
+>>
+>>  Documentation/gpu/drm-kms:360: ../drivers/gpu/drm/drm_fourcc.c:397:
+>>  WARNING: Duplicate C declaration, also defined at gpu/drm-kms:35.
+>>  Declaration is '.. c:function::
+>>  const struct drm_format_info * drm_format_info (u32 format)'.
+>>
+>>  Documentation/gpu/drm-kms:491: ../drivers/gpu/drm/drm_modeset_lock.c:377:
+>>  WARNING: Duplicate C declaration, also defined at gpu/drm-kms:48.
+>>  Declaration is '.. c:function:: int drm_modeset_lock
+>>  (struct drm_modeset_lock *lock, struct drm_modeset_acquire_ctx *ctx)'.
+>>
+>>  Documentation/gpu/drm-uapi:607: ../drivers/gpu/drm/drm_ioctl.c:923:
+>>  WARNING: Duplicate C declaration, also defined at gpu/drm-uapi:69.
+>>  Declaration is '.. c:function::
+>>  bool drm_ioctl_flags (unsigned int nr, unsigned int *flags)'.
+>>
+>>Add :no-identifiers: to prevent duplicate identifier generation and
+>>keep the function documented at its implementation site.
+>>
+>>No functional change.
+>>
+>>Link: https://lore.kernel.org/oe-kbuild-all/202512302319.1PGGt3CN-lkp@intel.com/
+>>Signed-off-by: Sanjay Chitroda <sanjayembeddedse@gmail.com>
+>>---
+>> Documentation/gpu/drm-kms.rst  | 2 ++
+>> Documentation/gpu/drm-uapi.rst | 3 ++-
+>> 2 files changed, 4 insertions(+), 1 deletion(-)
+>>
+>>diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
+>>index 2292e65f044c..0f0f90b3186d 100644
+>>--- a/Documentation/gpu/drm-kms.rst
+>>+++ b/Documentation/gpu/drm-kms.rst
+>>@@ -356,6 +356,7 @@ Format Functions Reference
+>> 
+>> .. kernel-doc:: include/drm/drm_fourcc.h
+>>    :internal:
+>>+   :no-identifiers: drm_format_info
+>> 
+>> .. kernel-doc:: drivers/gpu/drm/drm_fourcc.c
+>>    :export:
+>>@@ -487,6 +488,7 @@ KMS Locking
+>> 
+>> .. kernel-doc:: include/drm/drm_modeset_lock.h
+>>    :internal:
+>>+   :no-identifiers: drm_modeset_lock
+>> 
+>> .. kernel-doc:: drivers/gpu/drm/drm_modeset_lock.c
+>>    :export:
+>>diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.rst
+>>index d98428a592f1..73b49e0dcda8 100644
+>>--- a/Documentation/gpu/drm-uapi.rst
+>>+++ b/Documentation/gpu/drm-uapi.rst
+>>@@ -603,6 +603,7 @@ DRM specific patterns. Note that ENOTTY has the slightly unintuitive meaning of
+>> 
+>> .. kernel-doc:: include/drm/drm_ioctl.h
+>>    :internal:
+>>+   :no-identifiers: drm_ioctl_flags
+>> 
+>> .. kernel-doc:: drivers/gpu/drm/drm_ioctl.c
+>>    :export:
+>>@@ -761,4 +762,4 @@ Stable uAPI events
+>> From ``drivers/gpu/drm/scheduler/gpu_scheduler_trace.h``
+>> 
+>> .. kernel-doc::  drivers/gpu/drm/scheduler/gpu_scheduler_trace.h
+>>-   :doc: uAPI trace events
+>>\ No newline at end of file
+>>+   :doc: uAPI trace events
+> 
+> Hi all,
+> 
+> Requesting your input on the change.
+> Is there anything that I missed or required correction ?
 
-Cc: stable@vger.kernel.org
-Fixes: afba7e6c5fc19 ("drm: bridge: cdns-mhdp8546: Add TI J721E wrapper")
-Signed-off-by: Udit Kumar <u-kumar1@ti.com>
----
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-j721e.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Your patch is ignored because there is no duplicate in those identifiers.
+As you are well aware of, you can have a function and a struct of
+the same name.
 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-j721e.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-j721e.c
-index 12d04be4e242..5f92436ffa0a 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-j721e.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-j721e.c
-@@ -62,7 +62,7 @@ static void cdns_mhdp_j721e_enable(struct cdns_mhdp_device *mhdp)
- static void cdns_mhdp_j721e_disable(struct cdns_mhdp_device *mhdp)
- {
- 	/* Put everything to defaults  */
--	writel(0, mhdp->j721e_regs + DPTX_DSC_CFG);
-+	writel(0, mhdp->j721e_regs + DPTX_SRC_CFG);
- }
- 
- const struct mhdp_platform_ops mhdp_ti_j721e_ops = {
--- 
-2.34.1
+It is a long-standing bug (almost 6 years now!) in Sphinx C-domain support.
+
+Please have a look at my earlier email:
+
+    https://lore.kernel.org/f735ce0b-db1e-49bc-86ac-b5ab8e4aec31@gmail.com/
+
+It is dated "26 Mar 2024", but the issue remains unresolved.
+
+I'd appreciate if you could make some contribution for fixing the Sphinx
+bug.
+
+Regards, Akira
+
+PS: Please ignore several typos I made in the earlier email ;-)
 
