@@ -4,62 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302AAF8806B
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 06:53:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28838F8806B
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 06:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DDA510E06B;
-	Thu, 16 Apr 2026 06:53:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2B810E0A9;
+	Thu, 16 Apr 2026 06:55:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="vYtJAln5";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WkQgc3/A";
 	dkim-atps=neutral
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com
- [113.46.200.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95AE110E06B
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 06:53:54 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=V6ooxnaYpS3IiydCIisIXi5SzkIIL+iBCuoiXM/KiGY=;
- b=vYtJAln5CXv+lKgXQ9cmYQu4cOsJc171iRk50A7szCv7Xx5Z/J7V69qpnMJ8RRb24LSgzYojf
- 1wnsULHCtjHv9Q+ocSaufinrl5dgUSukj7qwDYzUkO30KDs5dit9EQdkHrHNyODs2UeRKoatJl8
- otVhB240MDb4AYfKhnmnH/o=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
- by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4fx7qS4KHgzRhR4;
- Thu, 16 Apr 2026 14:47:32 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
- by mail.maildlp.com (Postfix) with ESMTPS id 7C6FD40572;
- Thu, 16 Apr 2026 14:53:51 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 16 Apr 2026 14:53:49 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 16 Apr 2026 14:53:48 +0800
-Message-ID: <7fd5022a-9a5d-4976-9d4a-1e0fa2022eae@huawei.com>
-Date: Thu, 16 Apr 2026 14:53:47 +0800
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62FBF10E0A9
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 06:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1776322542;
+ bh=iVXocKTZmYJGC0WoAS800VksTIgZCs1qZSpnUGiK1qk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=WkQgc3/AsBYe2F5Zc4Ha1DJOxsuoT/z3IIuecVxLrvjB8GvDA/RzIAlgu6IAvti7e
+ 2NrnTAEJ8ewhS8f/yzuc2ySWYukShS1I56gOaRVS/C2yrKg08U1fT8EDYeLebS2gKb
+ vEEMDrdfbbz0cY13LrF08UcS2noAs9O/3UW3U7Pfrr7y+vqbhnecMeNOVSWjvKL7gq
+ UJnVHBTPycqHLuvL3+zkyN7zxElHiXhjVct4qbOhSdzJ97cHo/Z0m07XzsoDC0wu8W
+ BRqu8OOs6IwF4CoPJztpTqHHdQDozSkjH/MZuGtccXALP+ndbu/f9rT2SEPxF26wW0
+ tBwkZ+A0o3x7A==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9119F17E11F5;
+ Thu, 16 Apr 2026 08:55:41 +0200 (CEST)
+Date: Thu, 16 Apr 2026 08:55:37 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
+ Price <steven.price@arm.com>, kernel@collabora.com, Liviu Dudau
+ <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v7 5/6] drm/panthor: Support sparse mappings
+Message-ID: <20260416085537.6af9e2c8@fedora>
+In-Reply-To: <aeAMgA7XCHXc3Hch@sobremesa>
+References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
+ <20260415112900.681834-6-adrian.larumbe@collabora.com>
+ <20260415171247.3701e116@fedora> <aeAMgA7XCHXc3Hch@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
-To: Thomas Zimmermann <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
- <kong.kongxinwei@hisilicon.com>, <sumit.semwal@linaro.org>,
- <yongqin.liu@linaro.org>, <jstultz@google.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <airlied@gmail.com>, <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, Rongrong Zou <zourongrong@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
- <stable@vger.kernel.org>, <shiyongbang@huawei.com>, "Liangjian(Jim,Kunpeng
- Solution Development Dept)" <liangjian010@huawei.com>, Chenjianmin
- <chenjianmin@huawei.com>, "fengsheng (A)" <fengsheng5@huawei.com>
-References: <20260413085037.17491-1-tzimmermann@suse.de>
- <20260413085037.17491-2-tzimmermann@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <20260413085037.17491-2-tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,144 +69,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, 15 Apr 2026 23:09:17 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-> Call drm_atomic_helper_check_plane_state() from the primary plane's
-> atomic-check helper and replace the custom implementation.
-> 
-> All plane's implementations of atomic_check should call the shared
-> _check_plane_state() helper first. It adjusts the plane state for
-> correct positioning, rotation and scaling of the plane. If the plane
-> is not visible, it clears the corresponding flag in the plane state.
-> 
-> On errors or if the plane is not visible, the atomic-check helper can
-> return early. Implement all this in hibmc and drop the custom code
-> that does some of it.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
-> Cc: Rongrong Zou <zourongrong@gmail.com>
-> Cc: Sean Paul <seanpaul@chromium.org>
-> Cc: Xinliang Liu <xinliang.liu@linaro.org>
-> Cc: Dmitry Baryshkov <lumag@kernel.org>
-> Cc: Baihan Li <libaihan@huawei.com>
-> Cc: Yongbang Shi <shiyongbang@huawei.com>
-> Cc: <stable@vger.kernel.org> # v4.10+
-> ---
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
->  1 file changed, 14 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> index 89bed78f1466..8fa2a95bcdd1 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> @@ -55,46 +55,28 @@ static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
->  static int hibmc_plane_atomic_check(struct drm_plane *plane,
->  				    struct drm_atomic_state *state)
->  {
-> -	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
-> -										 plane);
-> -	struct drm_framebuffer *fb = new_plane_state->fb;
-> -	struct drm_crtc *crtc = new_plane_state->crtc;
-> -	struct drm_crtc_state *crtc_state;
-> -	u32 src_w = new_plane_state->src_w >> 16;
-> -	u32 src_h = new_plane_state->src_h >> 16;
-> -
-> -	if (!crtc || !fb)
-> -		return 0;
-> +	struct drm_plane_state *new_plane_state =
-> +		drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc_state *new_crtc_state = NULL;
-> +	int ret;
->  
-> -	crtc_state = drm_atomic_get_crtc_state(state, crtc);
-> -	if (IS_ERR(crtc_state))
-> -		return PTR_ERR(crtc_state);
-> +	if (new_plane_state->crtc)
-> +		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
->  
-> -	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
-> -		drm_dbg_atomic(plane->dev, "scale not support\n");
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
-> -		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (!crtc_state->enable)
-> +	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  false, true);
+> > > @@ -2251,14 +2383,17 @@ static int panthor_gpuva_sm_step_remap(struct=
+ drm_gpuva_op *op,
+> > >  	}
+> > >
+> > >  	if (op->remap.prev) {
+> > > -		struct panthor_gem_object *bo =3D to_panthor_bo(op->remap.prev->ge=
+m.obj);
+> > > -		u64 offset =3D op->remap.prev->gem.offset + unmap_start - op->rema=
+p.prev->va.addr;
+> > > -		u64 size =3D op->remap.prev->va.addr + op->remap.prev->va.range - =
+unmap_start;
+> > > +		const struct drm_gpuva_op_map map_op =3D {
+> > > +			.va.addr =3D unmap_start,
+> > > +			.va.range =3D
+> > > +			op->remap.prev->va.addr + op->remap.prev->va.range - unmap_start,
+> > > +			.gem.obj =3D op->remap.prev->gem.obj,
+> > > +			.gem.offset =3D
+> > > +			op->remap.prev->gem.offset + unmap_start - op->remap.prev->va.add=
+r, =20
+> >
+> > I believe it should be forced to zero if this is a sparse
+> > mapping, no? This makes me think we probably want this to be
+> > NULL, in the case of a sparse mapping. It shouldn't prevent
+> > reclaim from happening on the dummy BO, because the drm_gpuva
+> > has a separate vm_bo field. Yes it forces us to add bunch of
+> > is_sparse checks in a few other places, but I find it cleaner
+> > than pretending this is a regular BO. =20
+>=20
+> The .gem.offset field is assigned here unconditionally, but discarded in =
+cases it's a sparse mapping
+> when calling panthor_vm_map_sparse() (which takes no offset argument). I =
+assume what you mean is that
+> in panthor_vm_exec_op(), I should abstain from assining .map.gem.obj and =
+.map.gem.offset. However,
+> if I do that, the 'va->vm_bo =3D drm_gpuvm_bo_get(vm_bo);' will never hap=
+pen inside drm_gpuva_link().
 
-The last parameter, "can_update_disabled", if set to true, causes the
-condition "if (!crtc_state->enable && !can_update_disabled)" in the
-function `drm_atomic_helper_check_plane_state` to always evaluate to
-false, meaning `crtc_state->enable` will not be checked. This differs
-from the behavior prior to the modification.
-
-before:
-	- crtc_state->enable(true)  --> continue check
-	- crtc_state->enable(false) --> return 0(atomic check success)
-
-after:
-	- crtc_state->enable(true)   --> _helper_check_plane_ ->  continue check
-	- crtc_state->enable(false)  --> _helper_check_plane_ ->  continue check
-
-
-> +	if (ret)
-> +		return ret;
-> +	else if (!new_plane_state->visible)
->  		return 0;
->  
-> -	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
-> -	    crtc_state->adjusted_mode.hdisplay ||
-> -	    new_plane_state->crtc_y + new_plane_state->crtc_h >
-> -	    crtc_state->adjusted_mode.vdisplay) {
-> -		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
-> -		return -EINVAL;
-> -	}
-> -
-
-The purpose of this check is to ensure that the right and bottom
-boundaries of the plane do not extend beyond the crtc. In
-`drm_atomic_helper_check_plane_state`, `drm_mode_get_hv_timing` is
-called to retrieve the crtc boundaries, and `drm_rect_clip_scaled` is
-used to clip the plane, any portions extending beyond the right and
-bottom boundaries are discarded.
-
-I'd like to confirm that my understanding is correct? previously, the
-check failed if the plane exceeded the boundaries, but now, after
-`drm_atomic_helper_check_plane_state` is called, the plane is clipped to
-fit within the boundaries.
-
-in function drm_rect_clip_scaled:
-
-diff = dst->x2 - clip->x2;
-if (diff > 0) {
-	...
-	dst->x2 -= diff;
-}
-diff = dst->y2 - clip->y2;
-if (diff > 0) {
-	...
-	dst->y2 -= diff;
-}
-
-
-Thanks.
-
-Best regards
-Yongbang.
-
-
->  	if (new_plane_state->fb->pitches[0] % 128 != 0) {
->  		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
->  		return -EINVAL;
->  	}
-> +
->  	return 0;
->  }
->  
-
+Ah, crap! I thought drm_gpuva_link() was only considering vm_bo. Okay,
+let's keep it the way you did it then, and just add a comment
+explaining unmap_op.keep can't be trusted when the mapping is sparse.
