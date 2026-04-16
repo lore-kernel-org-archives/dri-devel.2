@@ -4,93 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B061F8A176
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 13:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C557BF8A176
+	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 13:29:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35DDF10E1E5;
-	Thu, 16 Apr 2026 13:28:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2660C10E8A9;
+	Thu, 16 Apr 2026 13:29:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MoonP/c0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="S+wQZwaW";
 	dkim-atps=neutral
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2C7D10E1E5
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 13:28:08 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-2d9b27e4aa3so185383eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 06:28:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776346088; cv=none;
- d=google.com; s=arc-20240605;
- b=LdMBpyJUKHA8TbpJPPzGe+Qmw2/TPJWIpa37Jgi3P3wCvRLlS4zPGYZQyyINp4M4KZ
- kZaKPyg2/A1+xlY1QLRWUoPlx3RU2zew4mpt+li5jItA7hl5Jhu2ZLXRE+xSZY9OeJbh
- mDs2CSwUe6WF9nWoUspz9y8ttgx0KiBcqjW10PApvFI5o+RGcrh6QGr//sUWkCBnzl+P
- xRhylatCTU6y75U5frfFijX4yuJKVxmw+s8ZTnXZ40R+g+dhAXk0Kbs3lm2OdxeTiUD6
- xItgH/Cj8zHMPb0dxPKe0stUa0XMDtxtkX0Wdq9/SDIueM5pY7iaQu0hiY0ooed1yOS5
- hAuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=jwhq/rWJv+hSIncbqP+T4zRf5Z8JAVJckW0Tn/6VCys=;
- fh=mWlmI8fyiNvvP12RzMimJojmEy66muhiPHwSUCQduv4=;
- b=Ic4UH1nP4uraNRFEJJ90PIPQTYa3WojvWbbeziCjiqOkqFUAawJrzS8D8QwyPqRv39
- ZvH73xOWy52vAEXShsNo2nVmPrDqARr3QwRaLYH4K7mhAFzuiZ67pftO1MRCxzViqKQ8
- S7Iu/wWgSvx133OGSSyh9ORSSXHrqhNGwmq33GWWYzR2jqVo1x/KztyC96tYnwYkbBH3
- ld0oLAo2ZZ7MZ0XZlm/XqBYNCHmCRIKpSDCeuxsdcnMpgmjmymEBVe9L6+ndFtrPYiIY
- G0cy5UGgpMUp/ANDG4Ls2pd/x+L5xa+cRBVdnJG1hQ11E0eeWFru1O7KhAcF+m2qA/wJ
- iZBA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776346088; x=1776950888; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jwhq/rWJv+hSIncbqP+T4zRf5Z8JAVJckW0Tn/6VCys=;
- b=MoonP/c0aocnapVDPtFcfopjTw9ri/Y8AfmaXmwSCcVWhAIroKIOCMct76rTF4dTjs
- IvRFxvlLy9Xpdtk4fhuNAMZr1a7/5IrsrbgYykMMVSFEvUJAYYQrc/Na+iywmVn485EV
- zbUW3L7+wo85cgFNZWGXesrtWpzgc1xJr8EetfLMt7d7kF9DdFYrhG/cmfQgxnnTgh2c
- gxWaMulobxEVtLlPIFTXuvxLFrFjZeNml738+EaoM8QekR2JdR+p1rzw02VQTk3FnmCM
- 00lOguYr1MjVmzPHYgFhbF4vSV3q5PJ4648u69al5qKjPUfyuzG+yoHhx7gU8PceQuIy
- ogug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776346088; x=1776950888;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jwhq/rWJv+hSIncbqP+T4zRf5Z8JAVJckW0Tn/6VCys=;
- b=gJH8dK658MMKAQNrZB/GcX1rUvoi+1Ulfsj8WQ4MaQAipk4YDvcXRLORJI2QGlo2dG
- NPolEUnmyzLMcZFWz+f8v4/FBPw+QuJYc4XAXRhGgSPrqfABz7AdG0axxrIIrFtF0plH
- 7QwfT85LW4Ei0xYNAdIynwmsOU7+GipCZ+1gBoVzKPLWz2srJ2ckFgyejPR6Xo9Th77V
- NOVcsRn7DYFyHs0Z911hW1uawFih+yDIyN4qNXdm2ud4GfdRvxdpQJsjijf7vZJkmoYQ
- PCHptTWcJgSeh7e3ypZxdOH8haVLaeAX9akRQWphkcnJWqEz7rl2hJ2DF9FEZ7Gu5jbI
- btgQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8bpNQiRso3FO/3u2vQaHynZGBLslLC2ubl0YJeCjkQ39/+1emqN7Bntf5JijShYhOIVKH/dal3hVQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwSKQz+CGf4uEsJeaKJ27OU58UI0Isnx2I3/Ym18Q8RXb0Ie/fY
- IworUYvmqObIpR4fgriL+OhewJ6weir/V2r0D4RAmJvUIisSK18DrrmU2LLk/ONBLL/jhALdqMG
- wcH0xaR1qkaCQ97UChKCZ7UiOdZAwidY=
-X-Gm-Gg: AeBDies3kviPnj61KE04OgKabMDvPXc9c/UfA1A1oqN73wLm35iNOUMX/xxiA0GQXWT
- OBZeHhRa5CsnWnV3hFhOQh6a9PPIFz0f+Fye+AdHdETQp1yuuRf9M14io4R6+TiBzr66wqEZ+WG
- py0i0M8YJim2+VvmI2LIzMbJxYF27MzdyJabcaJF1G6umkXDsVM8VOHZ3QwFDIWdzBNbpyeQvt3
- d+bGq8Xf88RS+IL3KbdiA29x+B78CasPWfZ5aaAcHa9y2WGLEV/+Ot9P9wun85E/yqePFC3RHfE
- pHGN/Xs3HxzP3O9tEvJjuJVgKfwOepEbT4YzvroytekLcZznHuqRHQIVcpbyeRIdwTgtwQ==
-X-Received: by 2002:a05:7022:698e:b0:127:def:dd72 with SMTP id
- a92af1059eb24-12c65906a48mr552300c88.2.1776346087791; Thu, 16 Apr 2026
- 06:28:07 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EF6610E1E9;
+ Thu, 16 Apr 2026 13:29:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hq9qivWqDj5QmC/f7R7c8KgV7i+BCyYriYjNY6bYV4M=; b=S+wQZwaWys1gy8P7a+cL2tOK1L
+ 2gUQ7qvkr3XwfvSHvJDzmQ2minckq+4qHsZPxiNTOdW+omQBlS0pULfII6BW7c5aVtu7zvG4GVSuf
+ fR+H5XK7uxaToMYPdnUGyRipdScQmBgKKU8S60dJy+G/A5zgASP2mZQF9es9XXp/BMelHwZvpqhpW
+ ad2ar/qLXl7yl/gl1TTlT8IqJVGY0dE/BFfwdzHt/SZcjjwvxaKbH13fs49Vr4yxS7aDtlHUMh2CO
+ kWf5aN8pc6KHA58I9746p2VXXf2bdcqO/X2fKLVTsyyAtpmSJZzicPouY9VdhSeMBlx04FmvnClHb
+ rAx8ijsA==;
+Received: from [186.208.73.228] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wDMmJ-00H02p-SU; Thu, 16 Apr 2026 15:29:08 +0200
+Message-ID: <278b236a-ae47-4413-8dcd-dde4a582430b@igalia.com>
+Date: Thu, 16 Apr 2026 10:28:59 -0300
 MIME-Version: 1.0
-References: <20260415164029.52537-1-leonardocesar@usp.br>
-In-Reply-To: <20260415164029.52537-1-leonardocesar@usp.br>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Apr 2026 09:27:54 -0400
-X-Gm-Features: AQROBzABpaNT6X8DJN-YvzCXN2JUjZTRyimTed_f2ZFWFV7TJ7I7jo0CAlHdb0I
-Message-ID: <CADnq5_MbpE9AT8qZiLQkYZ7QZ2YWwmu2U8vj3+C+umR1dnJL9A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: deduplicate ring preempt ib function
-To: Leonardo Cesar <leonardocesar@usp.br>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/8] drm/amd/display: more drm_edid to AMD display
+ driver (partial)
+To: Leo Li <sunpeng.li@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, airlied@gmail.com, alexander.deucher@amd.com,
+ alex.hung@amd.com, andrzej.hajda@intel.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, jernej.skrabec@gmail.com, jonas@kwiboo.se,
+ Laurent.pinchart@ideasonboard.com, maarten.lankhorst@linux.intel.com,
+ mario.limonciello@amd.com, mripard@kernel.org, neil.armstrong@linaro.org,
+ rfoss@kernel.org, simona@ffwll.ch, siqueira@igalia.com, tzimmermann@suse.de
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Michel Daenzer <michel.daenzer@mailbox.org>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, kernel-dev@igalia.com
+References: <20260225121903.236115-1-mwen@igalia.com>
+ <3856874.aCxCBeP46V@timur-hyperion>
+ <3d928ea8-dee9-40cc-9fcc-af063b67138a@amd.com>
+ <be7debbf-727e-4017-906a-36ee81fd844e@igalia.com>
+ <67d07c60-a535-42c7-a6fe-79f9dd90c9b4@amd.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <67d07c60-a535-42c7-a6fe-79f9dd90c9b4@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,229 +73,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 16, 2026 at 4:54=E2=80=AFAM Leonardo Cesar <leonardocesar@usp.b=
-r> wrote:
->
-> The ring preemption function is identical for both gfx_v11_0 and
-> gfx_v12_0. This patch refactors the code by moving the core logic
-> into a generic function inside amdgpu_gfx.c to reduce code
-> duplication and simplify future maintenance.
->
-> Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 51 +++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 47 +----------------------
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 47 +----------------------
->  4 files changed, 55 insertions(+), 92 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.c
-> index 2956e45c9..a157cbd8e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -2684,3 +2684,54 @@ void amdgpu_debugfs_compute_sched_mask_init(struct=
- amdgpu_device *adev)
->  #endif
->  }
->
-> +int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
-> +{
-> +       int i, r =3D 0;
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
-> +       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
-> +       unsigned long flags;
-> +
-> +       if (adev->enable_mes)
-> +               return -EINVAL;
-> +
-> +       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-> +               return -EINVAL;
-> +
-> +       spin_lock_irqsave(&kiq->ring_lock, flags);
-> +
-> +       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-> +               spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> +               return -ENOMEM;
-> +       }
-> +
-> +       /* assert preemption condition */
-> +       amdgpu_ring_set_preempt_cond_exec(ring, false);
-> +
-> +       /* assert IB preemption, emit the trailing fence */
-> +       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
-P,
-> +                                       ring->trail_fence_gpu_addr,
-> +                                       ++ring->trail_seq);
-> +       amdgpu_ring_commit(kiq_ring);
-> +
-> +       spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> +
-> +       /* poll the trailing fence */
-> +       for (i =3D 0; i < adev->usec_timeout; i++) {
-> +               if (ring->trail_seq =3D=3D
-> +                       le32_to_cpu(*(ring->trail_fence_cpu_addr)))
-> +                       break;
-> +               udelay(1);
-> +       }
-> +
-> +       if (i >=3D adev->usec_timeout) {
-> +               r =3D -EINVAL;
-> +               DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
-> +       }
-> +
-> +       /* deassert preemption condition */
-> +       amdgpu_ring_set_preempt_cond_exec(ring, true);
-> +       return r;
-> +}
-> +
-> +
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_gfx.h
-> index a0cf0a3b4..77050f988 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -664,6 +664,8 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 cou=
-nt);
->  void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
->  void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
->
-> +int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring);
-> +
->  static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
->  {
->         switch (mode) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index 5097de940..ef9c61d9a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6208,52 +6208,7 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct =
-amdgpu_ring *ring,
->
->  static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
->  {
-> -       int i, r =3D 0;
-> -       struct amdgpu_device *adev =3D ring->adev;
-> -       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
-> -       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
-> -       unsigned long flags;
-> -
-> -       if (adev->enable_mes)
-> -               return -EINVAL;
-> -
-> -       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-> -               return -EINVAL;
-> -
-> -       spin_lock_irqsave(&kiq->ring_lock, flags);
-> -
-> -       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-> -               spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> -               return -ENOMEM;
-> -       }
-> -
-> -       /* assert preemption condition */
-> -       amdgpu_ring_set_preempt_cond_exec(ring, false);
-> -
-> -       /* assert IB preemption, emit the trailing fence */
-> -       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
-P,
-> -                                  ring->trail_fence_gpu_addr,
-> -                                  ++ring->trail_seq);
-> -       amdgpu_ring_commit(kiq_ring);
-> -
-> -       spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> -
-> -       /* poll the trailing fence */
-> -       for (i =3D 0; i < adev->usec_timeout; i++) {
-> -               if (ring->trail_seq =3D=3D
-> -                   le32_to_cpu(*(ring->trail_fence_cpu_addr)))
-> -                       break;
-> -               udelay(1);
-> -       }
-> -
-> -       if (i >=3D adev->usec_timeout) {
-> -               r =3D -EINVAL;
-> -               DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
-> -       }
-> -
-> -       /* deassert preemption condition */
-> -       amdgpu_ring_set_preempt_cond_exec(ring, true);
-> -       return r;
-> +       return amdgpu_gfx_ring_preempt_ib(ring);
 
-There's no need to wrap this.  Just replace the call sites with the
-new function.
 
-Alex
+On 14/04/2026 20:17, Leo Li wrote:
+>
+> On 2026-04-13 13:51, Melissa Wen wrote:
+>>
+>> On 31/03/2026 12:45, Leo Li wrote:
+>>> On 2026-02-27 03:52, Timur Kristóf wrote:
+>>>> On Wednesday, February 25, 2026 1:04:29 PM Central European Standard Time
+>>>> Melissa Wen wrote:
+>>>>> Hi,
+>>>>>
+>>>>> This is a reduced version of `drm/amd/display: more drm_edid to AMD
+>>>>> display driver` [1] sent a few months ago only with the less invasive
+>>>>> changes, i.e., those changes that don't affect DC. This partial focus on
+>>>>> using more drm_edid helpers instead of raw EDID helpers. Most patches
+>>>>> here are already reviewed by someone and I think they can be merged
+>>>>> without major concerns. They can also prevent new initiatives of keeping
+>>>>> parsing raw EDID as driver specific code, which can make harder for us
+>>>>> to remove `drm_edid_raw()`. They should focus on moving raw EDID
+>>>>> handling to the DRM common code instead.
+>>>>>
+>>>>> Regarding code changes from previous version, here I added some r-b tags
+>>>>> (from Mario and Timur), fixed commit message syntax (Mario) and
+>>>>> centralized error handling (Timur). I'll follow up the changes in DC to
+>>>>> accept the Linux/DRM opaque object in a separate series since those look
+>>>>> more sensitive.
+>>>>>
+>>>>> [1] https://lore.kernel.org/amd-gfx/20251106165536.161662-1-mwen@igalia.com/
+>>>>>
+>>>>> BR,
+>>>>>
+>>>>> Melissa
+>>>>>
+>>>> Nice work, Melissa.
+>>>>
+>>>> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
+>>>> For this series.
+>>> Thanks for your patience Melissa, series is also
+>>> Reviewed-by: Leo Li <sunpeng.li@amd.com>
+>>>
+>>> We'll include it in this week's testing.
+>> Hi Leo,
+>>
+>> In the end, was this series applied to AMD's branch or do I need to rebase it?
+>>
+>> Melissa
+> Hi Melissa,
+>
+> During testing, it seems we're failing drm_edid_valid() in this callpath:
+>
+>      dm_helpers_read_local_edid > dm_helpers_parse_edid_caps > drm_edid_valid.
+>
+> I'm 90% sure it's because recreating the drm_edid from dc_edid ignores the
+> HF-EEODB (HDMI Forum EDID Extension Override Data Block), which can override the
+> number of extensions dictated by the base EDID. However, drm_edid_valid() does
+> consider the HF-EEODB, causing this line(*) to return false. Commenting it out
+> "fixes" the issue
+>
+> (*)https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/drm_edid.c#L2076
+>
+> This whole drm_edid to dc_edid conversion in dm_helpers_read_local_edid(), then
+> immediately back to drm_edid in parse_edid_caps(), is really not nice... We lose
+> the HF-EEODB-aware size by creating dc_edid based on the EDID-advertised
+> extension count. It should work if drm_edid is simply passed straight through.
+Hi Leo,
 
->  }
+Thanks for testing and debugging the issue.
+Can you share a reproducer, IGT test or setup to trigger this failure?
+Anyway, I'll try to come up with another approach for this...
+
+Also, I'm confident that we can avoid these ugly conversions with my 
+second half migration series [1] plus the series to move AMD VSDB 
+parsing in drm_edid [2].
+
+[1] https://lore.kernel.org/amd-gfx/20251106165536.161662-1-mwen@igalia.com/
+[2] 
+https://lore.kernel.org/dri-devel/20260327082342.1286878-1-chen-yu.chen@amd.com/
+
+BR,
+
+Melissa
 >
->  static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool r=
-esume)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index 65c33823a..fc5ec2778 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -4613,52 +4613,7 @@ static unsigned gfx_v12_0_ring_emit_init_cond_exec=
-(struct amdgpu_ring *ring,
+> The challenge is dm_helpers* are DC's interface back to DM, and there is another
+> OS that depends on it. Plumbing drm_edid through DC would be quite challenging.
 >
->  static int gfx_v12_0_ring_preempt_ib(struct amdgpu_ring *ring)
->  {
-> -       int i, r =3D 0;
-> -       struct amdgpu_device *adev =3D ring->adev;
-> -       struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[0];
-> -       struct amdgpu_ring *kiq_ring =3D &kiq->ring;
-> -       unsigned long flags;
-> -
-> -       if (adev->enable_mes)
-> -               return -EINVAL;
-> -
-> -       if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-> -               return -EINVAL;
-> -
-> -       spin_lock_irqsave(&kiq->ring_lock, flags);
-> -
-> -       if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-> -               spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> -               return -ENOMEM;
-> -       }
-> -
-> -       /* assert preemption condition */
-> -       amdgpu_ring_set_preempt_cond_exec(ring, false);
-> -
-> -       /* assert IB preemption, emit the trailing fence */
-> -       kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMA=
-P,
-> -                                  ring->trail_fence_gpu_addr,
-> -                                  ++ring->trail_seq);
-> -       amdgpu_ring_commit(kiq_ring);
-> -
-> -       spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> -
-> -       /* poll the trailing fence */
-> -       for (i =3D 0; i < adev->usec_timeout; i++) {
-> -               if (ring->trail_seq =3D=3D
-> -                   le32_to_cpu(*(ring->trail_fence_cpu_addr)))
-> -                       break;
-> -               udelay(1);
-> -       }
-> -
-> -       if (i >=3D adev->usec_timeout) {
-> -               r =3D -EINVAL;
-> -               DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
-> -       }
-> -
-> -       /* deassert preemption condition */
-> -       amdgpu_ring_set_preempt_cond_exec(ring, true);
-> -       return r;
-> +       return amdgpu_gfx_ring_preempt_ib(ring);
->  }
+> Alternatively, It should work if we carry over the drm_edid.size value to
+> dc_edid.length. Do you know the motivation behind keeping drm_edid->size
+> private? Would it be a good idea to implement a drm_edid_get_size()?
 >
->  static void gfx_v12_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t =
-reg,
-> --
-> 2.43.0
+> Thanks,
+> Leo
 >
+>>> - Leo
+
