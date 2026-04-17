@@ -4,118 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5CEAF8E498
-	for <dri-devel@archiver.kernel.org>; Thu, 16 Apr 2026 23:40:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF29F8E49B
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 00:15:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D70D10E24A;
-	Thu, 16 Apr 2026 23:40:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5A8610E24F;
+	Fri, 17 Apr 2026 00:15:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nTesowU0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c/2ICTXH";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA0B610E24A;
- Thu, 16 Apr 2026 23:40:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qz+K39BEpl8/GUFimN465wuaDSLPPd1kv1G3EkwCEMY0fRVjEamlNrq5I7C6G9Mc3eUHCyK5758Yd5ZQSgSDw7KbICU4gf432UHpCyePwfEq1v1+k59Dab91qCY/01QCCfrpBEcEd6/wLbjn7D8WujnLVEbeBStVkZ5wRIFGsnRKEexk/pVNKxsGDwdeAZeNltRAiR4TF8RyrQlsZiaBCx7mShATajPA6p7cPSABF5QMuyz1apP14q8cdxCCcQJB6qeKHY7qMdO6k9ThiTucFkPH55/7e63yk5OYBMDQdhOhTAsHE7g4DIlx71SzpdeFfnSauPSC6c9fceVOv/CLYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jhmYoC4ODHDeyby25JBWiCrCvINHvQrEv1PMPYSB5pk=;
- b=xaW7Eif80Ww5nzx1dbC2L2v5uRzBGMcrMVUJydkb+F23+XIEdvNQ04CG7zyv7/mA845oLeyjGKeDWahLM9XQgFDV8k82gJsZPkKPYBwAgnw/N9yG783S7/K/FGlNAZnvhgDiiEl0zcDxTW56NUKI0IP2ccTADo45oWojiYMvWmv1XcOupAc+z2BOe+ua9toQ29JfG+z1u3Z+1dldYBR5ab4OoKuaeI10Eaxn4rFlfMh2kJoSyAEzCo0CHizWxLyOEwvyou5yY3wCkYY100zSiBCVBgJB/lNeydZv0fts188EHqL1OeS95a9A1b/Jd4DsmVL+bIwSkMeIulFQXhD2eQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jhmYoC4ODHDeyby25JBWiCrCvINHvQrEv1PMPYSB5pk=;
- b=nTesowU0O4WkHqjKBgFph+z9OeEZE/YQRHFrSwylzcQ2zdlK5y58Uf8rNhIO5nLx3FMSFBXhM2My0khwIaejohRprffg54kzHRI6FH91k4sD77484b37kIZc70MHrWBNaHByZ7A3oUrngpM/LT1eiqVJ/39Ok3jF78Qf8AW0rvJQkK7KAd/8gBqnr+XflQkTPrc7r4JRBzShfjGWTdNRL5EPmHvQVhrcDwy6Dy+AM6yyySvmyNG+V1MRuiVsZonzPscqs63ZSENJUuT6uvj/Z5aVMdTStJfntKkHb/fOy736tFgPI8Fa4o0giYkwprYvO3TSqc/HEG8Ohc8LPHzgBw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
- DS0PR12MB9039.namprd12.prod.outlook.com (2603:10b6:8:de::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9818.25; Thu, 16 Apr 2026 23:40:11 +0000
-Received: from DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
- ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.20.9818.023; Thu, 16 Apr 2026
- 23:40:11 +0000
-Date: Fri, 17 Apr 2026 09:40:05 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
- Balbir Singh <balbirs@nvidia.com>, linux-mm@kvack.org,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/zone_device: Do not touch device folio after calling
- ->folio_free()
-Message-ID: <aeFva5qU7gSmlQpE@nvdebian.thelocal>
-References: <20260410230346.4009855-1-matthew.brost@intel.com>
- <adxnwZMn-BHD5bAA@nvdebian.thelocal>
- <7c5cffc5-f4db-490f-b8aa-6604c32b34f2@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7c5cffc5-f4db-490f-b8aa-6604c32b34f2@kernel.org>
-X-ClientProxiedBy: SYBPR01CA0155.ausprd01.prod.outlook.com
- (2603:10c6:10:d::23) To DS0PR12MB7726.namprd12.prod.outlook.com
- (2603:10b6:8:130::6)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com
+ [209.85.208.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D65FE10E0A7
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 00:15:14 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-38df1889fb9so1099701fa.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 17:15:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776384913; x=1776989713; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ZYFo5pjfQWejx/RnAQZuantyr8hBTxOsgdc4wrhteOo=;
+ b=c/2ICTXHqkWQldo1KVQ52X+4VVBEpjiUTWg0MUSWKvRj1andoFbwblrxoSUZbkcVxs
+ guScbIv0GCl8HfJX26AzWE22yRmWiXu2Zx0INgzmnQB7fJJw8kSXB9s762m1qQ8424Ui
+ dzOeaJy2SUdeFskLQrO+XTQVW8hxY0HMNv1BnIDQbAmURZp/61sFY2adtwHSlNeaHBkV
+ sykqU37QiQxcaCDUYGOMv0Ef6tdUbP9R/eZ5E71moXkinQtGgQD3qG8yM4NrWCIAIEfN
+ lRb4fFSVa9xRjHSGTSc4QxJtkrH9CjlkK6xVDRFb4CsHXk8vekFTeCxlYk++RaCWDfUp
+ 1Ejg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776384913; x=1776989713;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZYFo5pjfQWejx/RnAQZuantyr8hBTxOsgdc4wrhteOo=;
+ b=BktYMXIX8uuo3tfHDqS8Sd1r1h2Nvw8RFVhIvBHAdXvtkjVBgca986J37/yvr69e/w
+ o6Rr+lOQls8eu3r7+WA521/HLCeN07aF4SZc4qqIfP3OdHHap4Cb+ypq5QeHh/Qb4DMK
+ UUkQuyMmtLXuYzfeHDxi+2bTIaxY6DC+p8TwX78MHHYw0IswbYe5hv16h1b9/K20Uuzf
+ C/yc2weWPL83pFJ5TK7uQlU+mNDbnDte/mMsY1LAwDHmFEb+SRXcR02gIfs3AkDPuZGe
+ 7XMch+ZCdATJHTQ5s78vMbpEG3x6EhNbR55wTRmfQo4eyFjJjnfTA7CBh3WpWFlBWIH0
+ D0wg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9F9xxhSY2KVIGl2t4DH6OTVYH9iw8OW9BA1LNEIVU0tGD9hBNR02wOSYBDbPABaRadOK3crvDOPtM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxv7/i+OpWmwKdXCENbbwdWyF6gdXe5TriIzWAwfDlKR1iWQ2fF
+ I+hGKuL+JZFjXL1/QISEtkC4c14QU4pu5SBImz1AQ9sXabzZ2vHNPj19
+X-Gm-Gg: AeBDieuPBDC2Q6KExjkBg4fPhlSE3xaxDpXChOm/8vVp96blawfgWetNeD62tEob9df
+ 8qNZiMih3GbWlz2kemgtPv4zMDHwMehADME/dooW6WzlOW3a+/NBEB+XdsAC1kJ1lXli8kRVBLT
+ QByJ24OFE7ax3VM+TT32cfi2lc3/jL9Tt2OvO1jLyaAKzCnYywEs4C1ejVeTF+pqplxDLQMvwfL
+ 6CJvwpi/UzYTw2lIroijlSdAWm/8I4w5u/Oq8/1MAS2yWc+Og1hozTGQZC74o7V2sSiMKrn1XZn
+ lJieERbXyZccStfuAB7U5a2QKYWqyAhkEu5crbw8aOY/tA+jbZyf1ZQBX+XSB1vEAEI4ta0a0/Q
+ 6AVx6+H/Sea4vAzzAnAdU/VnyRkxLHeqdin4jsvF8P9Y9pm8HSwIYDCFowGdsqTudl6vx9rHw6L
+ 6H6CI2LACwWR6TlmBSg6Y4wQ2vY/0Af/F9RWEJQAWMJyaI
+X-Received: by 2002:a05:6512:b86:b0:5a4:11e:5c70 with SMTP id
+ 2adb3069b0e04-5a4172d0312mr116683e87.14.1776384912616; 
+ Thu, 16 Apr 2026 17:15:12 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4178dc9a2sm66200e87.56.2026.04.16.17.15.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Apr 2026 17:15:10 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ Rafal Ostrowski <rafal.ostrowski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH] drm/amd/display: Add FPU guards around dcn31/315/316
+ update_bw_bounding_box
+Date: Fri, 17 Apr 2026 05:15:03 +0500
+Message-ID: <20260417001503.26147-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|DS0PR12MB9039:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29df0309-a45b-4933-fd3c-08de9c118013
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|22082099003|56012099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 4fs45Iv2esk6B9tH2c1MZ/CM+WGfR5F4rESMFVL03lbCAXfUFb7uUk2nFmO79UTsMtXByP/IJhpvf/ScZsiUMxMSZhctU4Il1zog2aP65Lh+XV75Oaxq8Q8pma7OcQMdt0KQVUEwmw1+nTrr9d3tr+YiLhgeXtEBt7fbhEddIDoukvahqAaWUs1CBBYSC7b1+e8kx/D8MD/SXhMCICKhuAt1a11dKT2vDiMggAQDQ+MBeAutRqwyH4WaiuvqJUihgV4rxqUu6WCq9be4uIoGDTYcBhhVOtIbnc+THiRQKlDQO/p/cU3QEC29vbITA4MtQUv74wkPHhwk3o20vLjTGV6fe2arEDdIwPNwV8NTO3yAILX35Rz8HS1WsxnxCb576rxjpFGWqjYlygm9Ma7+8ReMYbGAi3wU0lz/xMAjSVsiFcbtUIMc/Y2v2j+gRi7npHA0HqMj6cwo/beFxL9CiqU547khT62S2vcEduh9iO7H9l7qR2BOEirU8h4sdFGbYm/nNMclcE9IMlA0vK/7KfjEUYn13ryNIQyZ5mQxhVIywbWxuoudU7gLG/i4LExciAPtmUoTj9O813WyCVOBBDPL0iAZfe7HtEXuGcWdPUHadTl2mm+/UupBweIXzlerM1IY0qUkyPZ509eQk1aNhhwk0lBiKqm9zYtvg91W64/hw3V0FkCql8l1lTbameC2TWH2X2ivewZWPwpFnilUuaasTZJe8ZStDpfjG1zNcxE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fKZLQyYgG9laWF+KDS5YpOz02PpxbLNn3yM5U7fSDkWP70EpyHAH4bQw0Afw?=
- =?us-ascii?Q?mKDYQjUX+jLZdC9/7ya6fGbXEiORWMNeIaUBMhlNeUpBnLuWIhsCyHnvsrCl?=
- =?us-ascii?Q?M8pgMYxe7xCrk+5G76A0EGOWIEmEThPi9D30CDr3M3tbo7DlVfZuiXedAvLv?=
- =?us-ascii?Q?lHYGraEFvSIR8k48I1mt3V1uIUk/SpAnLvCBKeN391ifjzKQt/bZeoygiVSa?=
- =?us-ascii?Q?Q5FqUhlgGcGWYp8ZpKgFXGh0956AGoYTSOs0zg5YS0rdhVx6KwKhgEg8uuBX?=
- =?us-ascii?Q?47D38+JK0Gy72GijqOBaO+5aeRum9f1u9aQ/9KbCuwBfgktPeWwGRGI7Iwp4?=
- =?us-ascii?Q?ykv7IOoLs4qivJHE6d1tEwgE85qx2LKxpYHixPADYiNxNxzaD71nFtcSLyMG?=
- =?us-ascii?Q?Bh6RDfUl3/iR2m774AjEIKZPwVSe30Cl8UjZ+OLXhDe8cS5CAHQCguKF6HQv?=
- =?us-ascii?Q?OIPAKRyJEL/GpH6v5OLmeCBRZ4ZfQLVVqBYKVq2d+S0dbfWftGrVrlsYwXhu?=
- =?us-ascii?Q?d9NwYBzp3UrTv+sJfq1M1aJlvXdT/nu0zEj6cC9H/xUvn+dN0Lt6/6jtAfWG?=
- =?us-ascii?Q?ldugxumuG4NH9h642iINztB90xgNqTT6TZumlMJ8Jnh764piaRVI+UI7D4jW?=
- =?us-ascii?Q?N+xnmApaSLd2m6V6EdcyA+Y9Uuwbuy87s9oZuY1Clw8coBNBYDIiOnOpVXH8?=
- =?us-ascii?Q?k5KGyRp0g6XL9vRUG4zQJoZRZKqSHxT5sbFFXiRc2O3Gyq8tBCA8mPgRhqrx?=
- =?us-ascii?Q?uqn+S6n0kMn03MYp5eFakhyTYJipqoDc9XpxpK6loGZhJ7/b3Id1yAflGkaw?=
- =?us-ascii?Q?0X9b7q70O1iVYOZrrIpkYhyTMVTrfWmiV03bRjgauyv2oSyIxXmLmDAWo+bv?=
- =?us-ascii?Q?X820xZ9hmRvC5pfltyZzXyoq2mrWWs9P5UYVs6ja5//nNFVEy7xA/IZ5FSpn?=
- =?us-ascii?Q?idy4VS7IEDVvBa27k+QhHOzuiQksaRHa4bwds3DuwYRO92LDgDfgZ+XMbKkN?=
- =?us-ascii?Q?pHW26xTvWd/88o5bOnDj7RT1ahRULaQVDI/d/RVxAPyXKD0l4M3kBmvQaWrj?=
- =?us-ascii?Q?tagf6RUAThWjiySKF2wNT5jK7DwGoRGFbbvAJB7QyQ+c7ZWGl7pB8JQ9gDie?=
- =?us-ascii?Q?FHM8C4Myaxh9d/znDLLlUAucPn8rLM2I2AgK69dXBeKwIcMvsGmLD+NwcxJd?=
- =?us-ascii?Q?mxE8IrA+HlaEqegnnxbzVd8QHr9z5+YMB9UAoTdDi8nFO7HHwA1D0xnKhLOD?=
- =?us-ascii?Q?fx7OG/GNDbMCEkjl8G7d7zG3j2eLIAggbWmJcuzKjIv/nqeGy0L83viOz2Wy?=
- =?us-ascii?Q?XWu6VoGOj9Q3Pi6aEomkH5gZZmSCcLeNFAY5avlBTNM1gmtLWtiFgqBqO3B1?=
- =?us-ascii?Q?c+x/P4GCdDkiOsfHEx0JlBdaD7/nETLrC7WKVe6AWwyDQ6mZfyZgLj7nqJ8q?=
- =?us-ascii?Q?6yyERy9pXJwd3xKMydaov+Hdi/BetsKqVATz5FXD+ADCinm7vNvZQoCAZnYu?=
- =?us-ascii?Q?E571pKnNIV3gR4mF92v6yhLcedaH+Q6LNC73xNv0iEysdDWRN6XdzcwQdIXE?=
- =?us-ascii?Q?fwEcvsjWmC4v2gr23A3NtPf8HX2W3YxzaBIYfGnrhQo59TFkooCSLR7S19fe?=
- =?us-ascii?Q?/TRIo76HJtlVZWGqdyzcupgdaCxCzJ8mDdI3DTOSPGmSQ6vzx3CtXtBph3py?=
- =?us-ascii?Q?Tjqr1y7dBRZCMWX85E8tj2d7Pep3pKQSWcZsLFC8YRP9+bAUIakiIMmtbGwl?=
- =?us-ascii?Q?heOjMWCxCg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29df0309-a45b-4933-fd3c-08de9c118013
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 23:40:11.2327 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WLkQdWXEuibGbzIkQkebha798vtLVs63/9EKhj/4VetAThzBSjaBIngL598p7r7m+hn70rohhfHdaYw3c/ATrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9039
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,103 +93,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2026-04-16 at 18:52 +1000, "David Hildenbrand (Arm)" <david@kernel.org> wrote...
-> On 4/13/26 06:06, Alistair Popple wrote:
-> > On 2026-04-11 at 09:03 +1000, Matthew Brost <matthew.brost@intel.com> wrote...
-> >> The contents of a device folio can immediately change after calling
-> >> ->folio_free(), as the folio may be reallocated by a driver with a
-> >> different order. Instead of touching the folio again to extract the
-> >> pgmap, use the local stack variable when calling percpu_ref_put_many().
-> >>
-> >> Cc: David Hildenbrand <david@kernel.org>
-> >> Cc: Oscar Salvador <osalvador@suse.de>
-> >> Cc: Andrew Morton <akpm@linux-foundation.org>
-> >> Cc: Balbir Singh <balbirs@nvidia.com>
-> >> Cc: linux-mm@kvack.org
-> >> Cc: linux-cxl@vger.kernel.org
-> >> Cc: linux-kernel@vger.kernel.org
-> >> Fixes: d245f9b4ab80 ("mm/zone_device: support large zone device private folios")
-> >> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> >>
-> >> ---
-> >> Stack trace:
-> >>
-> >> [  631.875165] [IGT] xe_exec_system_allocator: starting subtest threads-many-new-prefetch
-> >> [  632.282992] Oops: general protection fault, probably for non-canonical address 0x900000000000000: 0000 [#1] SMP NOPTI
-> >> [  632.293469] CPU: 8 UID: 0 PID: 59267 Comm: xe_exec_system_ Not tainted 7.0.0-rc7-xe+ #281 PREEMPT(full)
-> >> [  632.316023] RIP: 0010:free_zone_device_folio+0x149/0x240
-> >> [  632.339782] RSP: 0000:ffffc90023d1fd00 EFLAGS: 00010206
-> >> [  632.344947] RAX: 0900000000000000 RBX: 0000000000000001 RCX: 0000000094472d4d
-> >> [  632.351991] RDX: ffffffff8155c76f RSI: 000000006f2213bf RDI: 000000008e84943a
-> >> [  632.359042] RBP: ffffea0ff4030001 R08: 0000000000000000 R09: 0000000000000001
-> >> [  632.366094] R10: 0000000000000028 R11: 0000000000000000 R12: ffff88811828e400
-> >> [  632.373145] R13: 0000000000000000 R14: 000fffffc0000000 R15: 0000000000100073
-> >> [  632.380194] FS:  00007f2f0fdfe6c0(0000) GS:ffff88890a7e7000(0000) knlGS:0000000000000000
-> >> [  632.388186] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> >> [  632.393870] CR2: 00007f2f002e90f8 CR3: 0000000106708002 CR4: 0000000000f70ef0
-> >> [  632.400919] PKRU: 55555554
-> >> [  632.403605] Call Trace:
-> >> [  632.406039]  <TASK>
-> >> [  632.408131]  do_swap_page+0x146d/0x18c0
-> >> [  632.411938]  ? __pte_offset_map+0x3e/0x190
-> >> [  632.415994]  __handle_mm_fault+0x6e8/0x8d0
-> >> [  632.420053]  handle_mm_fault+0xbf/0x250
-> >> [  632.423855]  ? lock_mm_and_find_vma+0x41/0x6f0
-> >> [  632.428256]  do_user_addr_fault+0x168/0x690
-> >> [  632.432399]  exc_page_fault+0x74/0x200
-> >> [  632.436117]  asm_exc_page_fault+0x26/0x30
-> >> [  632.440092] RIP: 0033:0x5587554ff70d
-> >> [  632.462142] RSP: 002b:00007f2f0fdfc970 EFLAGS: 00010246
-> >> [  632.467308] RAX: 0000000000003fc0 RBX: 00007f2f082e1fc0 RCX: 00007f2f12b3287d
-> >> [  632.474355] RDX: 0000000000000000 RSI: 00000000c048644a RDI: 0000000000000003
-> >> [  632.481404] RBP: 00007f2f082e1fc0 R08: 00007f2f0fdfc958 R09: 0000000000000066
-> >> [  632.488450] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000001
-> >> [  632.495495] R13: 00007f2f082de000 R14: 0000000000c00002 R15: 00007f2f1319e000
-> >> [  632.502547]  </TASK>
-> > 
-> > I'm not sure, but I think Andrew likes the stack traces included in the actual
-> > commit messages. I've certainly found it helpful when debugging traces reported
-> > from the field so would prefer it there.
-> 
-> Agreed.
-> 
-> > 
-> >> ---
-> >>  mm/memremap.c | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/mm/memremap.c b/mm/memremap.c
-> >> index ac7be07e3361..053842d45cb1 100644
-> >> --- a/mm/memremap.c
-> >> +++ b/mm/memremap.c
-> >> @@ -454,7 +454,7 @@ void free_zone_device_folio(struct folio *folio)
-> >>  		if (WARN_ON_ONCE(!pgmap->ops || !pgmap->ops->folio_free))
-> >>  			break;
-> >>  		pgmap->ops->folio_free(folio);
-> >> -		percpu_ref_put_many(&folio->pgmap->ref, nr);
-> >> +		percpu_ref_put_many(&pgmap->ref, nr);
-> > 
-> 
-> I assume the ref keeps pgmap alive, such that that cannot go away after
-> the folio_free().
+Commit 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC -
+Part 1") moved DC_FP_START/DC_FP_END out of the DML FPU units into the
+DC resource layer for dcn35, dcn351, dcn36, dcn401 and dcn42, but missed
+the dcn31 family: the dcn31, dcn315 and dcn316 resource pools still wire
+their .update_bw_bounding_box callback directly to the FPU-unit
+functions dcn31_update_bw_bounding_box(), dcn315_update_bw_bounding_box()
+and dcn316_update_bw_bounding_box() defined in dml/dcn31/dcn31_fpu.c.
+Those functions call dc_assert_fp_enabled() on entry, which now fires
+on every amdgpu probe on affected parts because no caller wraps them in
+DC_FP_START/DC_FP_END anymore.
 
-Drivers keep the pgmap alive by holding the initial pgmap->ref from the
-percpu_ref_init() initialisation in memremap_pages(). They release it when done
-with the range as part of memunmap_pages() which the driver should only call
-when all pages have been freed (at least for PRIVATE/COHERENT pages).
+Triggered on amdgpu probe on a Ryzen 7000 (Raphael) iGPU, which uses
+dcn315:
 
-In practice we could drop the whole pgmap->ref counting for ZONE_DEVICE pages
-(certainly for PRIVATE and COHERENT variants anyway). Now they are refcounted
-normally we could just scan the page range as a BUG/WARN_ON check to see if any
-are in use. I haven't really felt the need to do that though because the check
-already exists and scanning the whole pgmap range for pages with a non-zero
-refcount would be slow just for a debug check.
+ WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:58
+          at dc_assert_fp_enabled+0x14/0x20 [amdgpu]
+ RIP: 0010:dc_assert_fp_enabled+0x14/0x20 [amdgpu]
+ Call Trace:
+  dcn315_update_bw_bounding_box+0x1c/0x17a0 [amdgpu]
+  dc_create_resource_pool+0x4a0/0x770 [amdgpu]
+  dc_construct+0xa0a/0x13b0 [amdgpu]
+  dc_create+0x6f/0x8b0 [amdgpu]
+  amdgpu_dm_init+0x740/0xc80 [amdgpu]
+  dm_hw_init+0x45/0x150 [amdgpu]
+  amdgpu_device_ip_init+0xe21/0x11e1 [amdgpu]
+  amdgpu_device_init.cold+0xc03/0x1819 [amdgpu]
+  amdgpu_driver_load_kms+0x19/0xa0 [amdgpu]
+  amdgpu_pci_probe+0x371/0xbc0 [amdgpu]
 
- - Alistair
+Apply the same pattern the offending commit used for dcn35 (and that
+dcn314 already followed before the commit): rename the FPU-unit entry
+points with an _fpu suffix and add non-FPU static wrappers in the
+resource files which provide DC_FP_START/DC_FP_END around the call.
 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> -- 
-> Cheers,
-> 
-> David
+Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
+
+Tested on Ryzen 7000 (Raphael) with RX 7900 XTX discrete GPU, debug
+kernel (KASAN + LOCKDEP + PREEMPT_FULL). Without the patch, the WARN
+fires on every boot during amdgpu probe for the iGPU (dcn315). With
+the patch applied, amdgpu probes cleanly and no dc_assert_fp_enabled
+warnings occur.
+
+ drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c       | 6 +++---
+ drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h       | 6 +++---
+ .../gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c | 7 +++++++
+ .../drm/amd/display/dc/resource/dcn315/dcn315_resource.c   | 7 +++++++
+ .../drm/amd/display/dc/resource/dcn316/dcn316_resource.c   | 7 +++++++
+ 5 files changed, 27 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+index 1a28061bb9ff..ad23215da9f8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.c
+@@ -587,7 +587,7 @@ void dcn31_calculate_wm_and_dlg_fp(
+ 	context->bw_ctx.bw.dcn.compbuf_size_kb = context->bw_ctx.dml.ip.config_return_buffer_size_in_kbytes - total_det;
+ }
+ 
+-void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++void dcn31_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params)
+ {
+ 	struct _vcs_dpi_voltage_scaling_st *s = dc->scratch.update_bw_bounding_box.clock_limits;
+ 	struct clk_limit_table *clk_table = &bw_params->clk_table;
+@@ -665,7 +665,7 @@ void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params
+ 	dml_init_instance(&dc->dml, &dcn3_1_soc, &dcn3_1_ip, DML_PROJECT_DCN31);
+ }
+ 
+-void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++void dcn315_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params)
+ {
+ 	struct clk_limit_table *clk_table = &bw_params->clk_table;
+ 	int i, max_dispclk_mhz = 0, max_dppclk_mhz = 0;
+@@ -726,7 +726,7 @@ void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
+ 	dml_init_instance(&dc->dml, &dcn3_15_soc, &dcn3_15_ip, DML_PROJECT_DCN315);
+ }
+ 
+-void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++void dcn316_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params)
+ {
+ 	struct _vcs_dpi_voltage_scaling_st *s = dc->scratch.update_bw_bounding_box.clock_limits;
+ 	struct clk_limit_table *clk_table = &bw_params->clk_table;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
+index dfcc5d50071e..0b7fcbbfd17b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/dcn31_fpu.h
+@@ -44,9 +44,9 @@ void dcn31_calculate_wm_and_dlg_fp(
+ 		int pipe_cnt,
+ 		int vlevel);
+ 
+-void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
+-void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
+-void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params);
++void dcn31_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params);
++void dcn315_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params);
++void dcn316_update_bw_bounding_box_fpu(struct dc *dc, struct clk_bw_params *bw_params);
+ int dcn_get_max_non_odm_pix_rate_100hz(struct _vcs_dpi_soc_bounding_box_st *soc);
+ int dcn_get_approx_det_segs_required_for_pstate(
+ 		struct _vcs_dpi_soc_bounding_box_st *soc,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+index ee4bc2c2e73a..d5215a028626 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn31/dcn31_resource.c
+@@ -1854,6 +1854,13 @@ static struct dc_cap_funcs cap_funcs = {
+ 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap
+ };
+ 
++static void dcn31_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++{
++	DC_FP_START();
++	dcn31_update_bw_bounding_box_fpu(dc, bw_params);
++	DC_FP_END();
++}
++
+ static struct resource_funcs dcn31_res_pool_funcs = {
+ 	.destroy = dcn31_destroy_resource_pool,
+ 	.link_enc_create = dcn31_link_encoder_create,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+index 2ca673114841..c48ac609ce7c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
+@@ -1849,6 +1849,13 @@ static struct dc_cap_funcs cap_funcs = {
+ 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap
+ };
+ 
++static void dcn315_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++{
++	DC_FP_START();
++	dcn315_update_bw_bounding_box_fpu(dc, bw_params);
++	DC_FP_END();
++}
++
+ static struct resource_funcs dcn315_res_pool_funcs = {
+ 	.destroy = dcn315_destroy_resource_pool,
+ 	.link_enc_create = dcn31_link_encoder_create,
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+index 2242df112a3f..914d91df174c 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
+@@ -1725,6 +1725,13 @@ static struct dc_cap_funcs cap_funcs = {
+ 	.get_dcc_compression_cap = dcn20_get_dcc_compression_cap
+ };
+ 
++static void dcn316_update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
++{
++	DC_FP_START();
++	dcn316_update_bw_bounding_box_fpu(dc, bw_params);
++	DC_FP_END();
++}
++
+ static struct resource_funcs dcn316_res_pool_funcs = {
+ 	.destroy = dcn316_destroy_resource_pool,
+ 	.link_enc_create = dcn31_link_encoder_create,
+-- 
+2.53.0
+
