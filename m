@@ -4,98 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31FC8F99C6B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E57AF99C6C
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A19E10E00B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 542DC10EAA1;
 	Fri, 17 Apr 2026 21:55:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tB+tarb7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fbUXYcB/";
 	dkim-atps=neutral
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45F2410E04D
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 14:51:08 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-6729c6f0ca7so1024104a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 07:51:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776437467; cv=none;
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E83EE10E0B5
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 11:31:20 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-7986e538decso5110567b3.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 04:31:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776425480; cv=none;
  d=google.com; s=arc-20240605;
- b=Yiw+X4+X0Z4U6tdKmTR7q290PXEniOvTq4iy/+Y25eqhsFZhRVj4RZ3iS8jqhiDn3+
- Mgw53x5E30nIgqaFe62qr/X9jlytcsVa37hEvhWht9eMxYrlWW8PnbtBDkhP41jDLtrY
- t7vR6nxch3FWflHgJfJhUOkiuOJ+8mEgjfCoTvJeopS+lL4opW3ZwixeTl5PXayDEyCs
- wl/gsfE2vP8Qjz/36QdVZ5/Z3YC6AlMb3DEZN+Hfna8IyVOLl7nVdT++vSek7TSK26/R
- x6kLYPzLEN1m0RAHJXV735ncPP0azT88eQcDnT1mcOVzcYfKtQiEtAA1j4VQH5MhcgH3
- AlXw==
+ b=Hugv5bkJ077FD0olBjI4cT97gwLJWhpluszgSj846NI2aRpyJ98lCT3cjZMnKHMWBC
+ WdNaznSUxdhpPnONHmrPpyvQ+A+KaPIZiFLVDg53/xBTwUHFgl4XDFc24V+Ri0LgOA05
+ KVz6eROqYteU0n4zbYPCsrmhuPvNxn7Z7C+atEZR0HCMDkmx6zQjrjB/5HYfLUIbbhm/
+ fQMfSh3xKjtbgHK76x4VDzOKE0xAV6MR63z5xdOsNjIWnLBO/W24KkFTPeSRuexD4zBs
+ WSENjZ2i4b9H5dHaQnUMl7dsLZxuO9gYRHsouszL66HSnVK8is82JSI2pDMFdRtdS1bf
+ LMJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=GqspcooKgst7WD1YTyYSebsG6+WnjIGRXNERmo7wEPU=;
- fh=rhgRfbCG8wWeIUAqAbSS+1V48l0H7MsVsPW4rKSkqB0=;
- b=Yn/rb/N/qPc92uALDFSv0CVh5bEe5TGDQ26QAGAyF8sceeEwCsui6ddlxlL4W6bM1I
- iSGqdy7Tb4AiuFGmdL8F65icP+aaePYon6XASAzC5m6kc+cXyQUDtHgpWwYS75bChClr
- M+HdO1wxNEv4oys5PrjufHLzLmPQfKjwoVAVXlsq3KHIgYw214QrJd05CtWGK+skKa74
- mdZU+mL1Ay3aCTAmzQzSB8thcN49mdlRlzoQulEImc96+DdCKZPyxMEOaoRH33r6+DKM
- F4shOHY6OhxVVtB6d3OGBSkrwmgdiPKZD+kwOByIYDOCUBOPp/e64obGOMVPpHwp8C1g
- tE3g==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=z+zpHgYozD7vQZSnn9bC/lwPA6OaHSKhotflLOWUpro=;
+ fh=pO2JzZcFeCDjbeR5WXCs3uvF/r+QhppIGF2p25XeWgI=;
+ b=OhfOC/K9dVgCpUH7fViVjLER/s/KlDzcP86hkJ5hS5av/O1jvrHWpXJ8IHSadfA9IK
+ S7aQYm4M5dKATeeTtz1k1n8w5jsJqSS+HxjcoOPBB51Zsc+gdZHN5M+1FEm0+ffPl9ho
+ +uyJWIs5+8cg/kWlALDIwDLBvkbLOyDStDC3wwoLBIWdIHLUlXD4LBqEmsq8J5X2bE5W
+ FDAqs2oYgYzkIOdb0fbOhX7IbM+3LD/6rmbopAHPnf5/9Hqs/SaXoharWl8pis9zKdfL
+ mxuCwjbLfupGZnRHsM6Z02i7CAV8CnkEYo30Vr0iHh5BvucnnJhVfXlg4JWcVwChcFmX
+ 46xw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776437467; x=1777042267; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GqspcooKgst7WD1YTyYSebsG6+WnjIGRXNERmo7wEPU=;
- b=tB+tarb7x7a9ZHzL09LlUJMvki6nFqHVGNwd9p/xSMVmV9LSDygpXaYcsyYSdqTZDQ
- 4HBMZReBwUdw+7NAWCtBRJUHsH1GvEupE/F2K1rlbSF06rV2oxLO68dSZ0EOZvs3UJ6w
- 6oJeN4avA/6hfYQRwocX80HfRDGS/0Plt1Z7L73ZzxGCGbfN8VFhcALuquEkxCJ7ZeGX
- kBlqo3vk7iEfdDqHpgJ7Hh/7GREILwq+87mxOMYu7t7/0xchu9BsNx0LizGfVeBSFvPG
- n9MLX2ATxtbbq2JS0mt56FRms5mwotjkpKU5cc6Y2rhHT03js/oYJeQrmaL+3FZsfIrC
- A6aQ==
+ d=gmail.com; s=20251104; t=1776425480; x=1777030280; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=z+zpHgYozD7vQZSnn9bC/lwPA6OaHSKhotflLOWUpro=;
+ b=fbUXYcB/K/o3AhtAZlofDgi9Tnj9fE6ogTENEEL6QSaoRR3KMHtk3Dk2TKq/dl+M7q
+ wRHlx0riCfRnxRHGfRfLhGFB8Ch4Ov54fBrXkAgGRQ6VxtGTR5YR76LbeeLQFyW9yC0z
+ vpj5ISqYOk3Y9wr2o6flug0w2jImSyISUHkglIwyKz80/OolO1JGROotPRUiyodwFC10
+ oTS1fgaqfgQXDBFpZCo/yzkUJTucIMUR0D4ho41y3nc8SZHIkc8OD0Um6B/6AL+NgIqP
+ B0n8uaT7UiUDBsd+UQzWcMuYyB8YnFmfP+gZTXsL/LMi9IBAIrAJnGS+7BfUetg2qsZU
+ 1DIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776437467; x=1777042267;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=GqspcooKgst7WD1YTyYSebsG6+WnjIGRXNERmo7wEPU=;
- b=Z+Wg1ZhGJIsM5+mSVsXR58wTxAlglcgjzueDGS8g25Z9BB3sywXDVljGkE3b6tULQT
- aLCl9Fv1MlrXFTAh/IG5kpR4QeSGkG/eXeCgsgC2u3PTWRm2+jBc3gQbBrHCM7vv9ti1
- KGlowrCia/46h0Pb07TYtmSh3mXqiwLnTlcdv9e8ITJzAB7A/L94Jfh0ozilDLrpmwAT
- maeggAYoUs/tWaWUG3+O/X/CgccOAhmcTWGs6/1/GpLruMiB89N1BXk1+tpjB2aORrUx
- D3301RP3LpV4N2u2BlhzSoINlQ7bzin/kPQps8PTBxjla49DO+dgxXSPiyC7cGeM+23v
- 4U7Q==
+ d=1e100.net; s=20251104; t=1776425480; x=1777030280;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=z+zpHgYozD7vQZSnn9bC/lwPA6OaHSKhotflLOWUpro=;
+ b=OAtIZ6N14Jg1EN+ISi0Q8mtIlFSvoxsJVFfHnGRdQt+u+ZVRVbuqbmNLl2c4VVfNps
+ ZjJdUeMo8MhyRsO4v8oUUhK/jDDTMUNlmVhFmWkdaDSrzcHPzqEYFxLyBK1c/b2dDbo5
+ ZfLnLh9yHbJMFyN1X0pZnA1sfBzP/viLRbx0PXsPdkgnZRgEsAOFeJ1ulXUEZ7wVeOft
+ e63I6QuxUIX7EVhfR5uzlK9X0q4rORz2jy/d4yUk9PtqPcijUdxlRMgVc2mkGmxoY1LH
+ zoCgc/ijFy4ETOi14uWydSq22xledEVjXrzbjo0R+WghgPD7ZfYZD+MJ2E488HXY/rkw
+ UpMQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/DZmPSRC75wj+mpF47kx++ru1amUoC6HbA4fc0mUdMf2u6eHJ3kvWgnVtXnlfFiw+rjqkmT1o4FZg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPBBSJLIIiSUdUn49w1g+c87bXctVEB0FV9hVFuifMdyEovnMP
- jSNY/hPTotub74nSyNdfVgNi4p+XvFltn6BziIqG90Q8tLwAyhwRxh6Zd40Fmy+gcLisoyB6mRb
- MtS6U4Z/2uBLcPMbVGX1xlbo8ikni8kU=
-X-Gm-Gg: AeBDiest/iq1D75irDzNo08oVpLRQSMuiHFRCIjRU8jMQvCIZekAcrK9ds8CrWoUnmn
- Jp3oj1L8h+IhGC2LjqHEYCWZRflKYuLOH9FqEy4lZjs9QCse09Pep9e3DRT8c6Ud8Z7s2Pv4l2w
- SYOmAO0qQKuh7z8BfgERO7LOM73dwYijpjn6lgq1gOg6/vjJO64DCvZsJsvA4rdSRb7RtdR+7CT
- eGd3yfbKNtnmNPSGWchFfUf0EtJqdoKhZxTqa6+o1AmrpyIAvODmdN5a1Cc34i6xqVdqoGtz88R
- +xmg7+22rljm8HKd
-X-Received: by 2002:a05:6402:2b99:b0:672:f75:5095 with SMTP id
- 4fb4d7f45d1cf-672bfd82182mr1549620a12.4.1776437466608; Fri, 17 Apr 2026
- 07:51:06 -0700 (PDT)
+ AFNElJ+X+n5+BfEXHEmAjLXVnfg/yxRLP9wlZfLpiOSZpgdDArppqlaPAxnlGEp38IcHPo3BkqqTnGvOA5A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfvChVSCxrTqfmxpoAKmy2yzKi2Kn6gSqQ4sXKxSevu8jZGJoG
+ GvlnkAETdg7asrffl6qkmgInqP+Cw2fu2A32oU3XDFmpNqhe1Ma8AFyzbJ7WpvdWUvau+3BDJP3
+ A6cMqHm638lBYpuxjaR4M5Z9bHL39Wmw=
+X-Gm-Gg: AeBDietg7LlZx3qtdsV43T+0WE62nm/X5Y5OXt8UHaC1a7sfn/dsz7kSLr/YB+6QL9P
+ 8NCRtPIlzXLD5sbpLEDdQgotALVnsQm7ic8pgMxQityKqfjXPtFKKtIB5x2+dpIQVJYpBtD5K6y
+ e5bns6FF6cAEAXUVw2kTETwanehZCDdjzTIzZxqCgDjeNAIRQ9xSB8QslKMlvTu8eN4HSb6DsEN
+ WzqK7dMsd02zCibBh/RZtXKheL1fy8FgLKQbgTAKgUpFAYcES2k65qyMD2/s1sHxjF9UUQScCjh
+ Q0Hw2V2vM3ngLfFrJA==
+X-Received: by 2002:a05:690c:e3ea:b0:7b3:c611:7ef5 with SMTP id
+ 00721157ae682-7b9ece75f00mr23911117b3.6.1776425479720; Fri, 17 Apr 2026
+ 04:31:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260416195537.3632-1-dbgh9129@gmail.com>
- <CADnq5_NrVgGwAYbBGgGc9t-ke5xt_0iJNExXARb7LxdnHSwDQA@mail.gmail.com>
-In-Reply-To: <CADnq5_NrVgGwAYbBGgGc9t-ke5xt_0iJNExXARb7LxdnHSwDQA@mail.gmail.com>
-From: =?UTF-8?B?7LWc7Jyg7Zi4?= <dbgh9129@gmail.com>
-Date: Fri, 17 Apr 2026 10:50:54 -0400
-X-Gm-Features: AQROBzC7i9ei1CiJnYg6HROzf4GBLzx1H6GJ7IgyCxXJkBfyW-5LW2DspgZwtVg
-Message-ID: <CACrCO_VKvhA-zx1KPhDxbOR4HzDs87Hsbdtc5SZXgvLeK9ZX=A@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/radeon: fix memory leak in radeon_ring_restore()
- on lock failure
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- "Kim, Taegyu" <tmk5904@psu.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20260417101457.7599-1-prasaanth2k@gmail.com>
+ <aeIXfMcia6e8cQvy@ashevche-desk.local>
+In-Reply-To: <aeIXfMcia6e8cQvy@ashevche-desk.local>
+From: Prasaanth Sakthivel <prasaanth2k@gmail.com>
+Date: Fri, 17 Apr 2026 17:01:08 +0530
+X-Gm-Features: AQROBzBwNdsVGp0JXxrk_7GMJHIBG6rRktYO_czLRjSB807ioahagedf6nuwujA
+Message-ID: <CAHPaVe=vpcNopxmpvV7GMY9_mpDdfarQwyNp_TsD4fHHG4sreQ@mail.gmail.com>
+Subject: Re: [PATCH] staging: fbtft: fb_tinylcd: fix alignment in write_reg
+ call
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: linux-staging@lists.linux.dev, andy@kernel.org, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="000000000000b0511f064fa6490d"
 X-Mailman-Approved-At: Fri, 17 Apr 2026 21:55:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,57 +107,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dear Alex,
+--000000000000b0511f064fa6490d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for applying the patch.
+Thanks for the feedback, I understand.
 
-Best regards,
-Yuho Choi
+I=E2=80=99ll look for more meaningful issues to work on.
 
-On Fri, 17 Apr 2026 at 10:05, Alex Deucher <alexdeucher@gmail.com> wrote:
+On Fri, Apr 17, 2026 at 4:50=E2=80=AFPM Andy Shevchenko <andriy.shevchenko@=
+intel.com>
+wrote:
+
+> On Fri, Apr 17, 2026 at 03:44:57PM +0530, Prasaanth wrote:
+> > Fix alignment of multiline arguments in write_reg() call to
+> > match kernel coding style
+> >
+> > Reported by checkpatch.pl
 >
-> Applied.  Thanks!
+> NAK. Use a common sense.
 >
-> On Fri, Apr 17, 2026 at 3:06=E2=80=AFAM Yuho Choi <dbgh9129@gmail.com> wr=
-ote:
-> >
-> > radeon_ring_restore() takes ownership of the data buffer allocated by
-> > radeon_ring_backup(). The caller (radeon_gpu_reset()) only frees it in
-> > the non-restore branch; in the restore branch it relies on
-> > radeon_ring_restore() to free it.
-> >
-> > If radeon_ring_lock() fails, the function returned early without callin=
-g
-> > kvfree(data), leaking the ring backup buffer on every GPU reset that
-> > fails at the lock stage. During repeated GPU resets this causes
-> > cumulative kernel memory exhaustion.
-> >
-> > Free data before returning the error.
-> >
-> > Fixes: 55d7c22192be ("drm/radeon: implement ring saving on reset v4")
-> > Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-> > ---
-> >  drivers/gpu/drm/radeon/radeon_ring.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_ring.c b/drivers/gpu/drm/rad=
-eon/radeon_ring.c
-> > index 581ae20c46e4b..a5dff072c1ac0 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_ring.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_ring.c
-> > @@ -356,8 +356,10 @@ int radeon_ring_restore(struct radeon_device *rdev=
-, struct radeon_ring *ring,
-> >
-> >         /* restore the saved ring content */
-> >         r =3D radeon_ring_lock(rdev, ring, size);
-> > -       if (r)
-> > +       if (r) {
-> > +               kvfree(data);
-> >                 return r;
-> > +       }
-> >
-> >         for (i =3D 0; i < size; ++i) {
-> >                 radeon_ring_write(ring, data[i]);
-> > --
-> > 2.50.1 (Apple Git-155)
-> >
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
+>
+
+--000000000000b0511f064fa6490d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks for the feedback, I understand.<br><br>I=E2=80=99ll=
+ look for more meaningful issues to work on.</div><br><div class=3D"gmail_q=
+uote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, A=
+pr 17, 2026 at 4:50=E2=80=AFPM Andy Shevchenko &lt;<a href=3D"mailto:andriy=
+.shevchenko@intel.com">andriy.shevchenko@intel.com</a>&gt; wrote:<br></div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">On Fri, Apr 17, 2026 at 0=
+3:44:57PM +0530, Prasaanth wrote:<br>
+&gt; Fix alignment of multiline arguments in write_reg() call to<br>
+&gt; match kernel coding style<br>
+&gt; <br>
+&gt; Reported by <a href=3D"http://checkpatch.pl" rel=3D"noreferrer" target=
+=3D"_blank">checkpatch.pl</a><br>
+<br>
+NAK. Use a common sense.<br>
+<br>
+-- <br>
+With Best Regards,<br>
+Andy Shevchenko<br>
+<br>
+<br>
+</blockquote></div>
+
+--000000000000b0511f064fa6490d--
