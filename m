@@ -4,80 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA66EF8E4A8
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 04:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D4DEF8E4A7
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 04:36:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4799610E28C;
-	Fri, 17 Apr 2026 04:21:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5EB410E106;
+	Fri, 17 Apr 2026 04:36:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dHb/EEmG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y9Vjn8q4";
 	dkim-atps=neutral
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
- [209.85.222.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2B6310E8BC
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 04:21:08 +0000 (UTC)
-Received: by mail-qk1-f176.google.com with SMTP id
- af79cd13be357-8d65f4073bfso36984785a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:21:08 -0700 (PDT)
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
+ [209.85.219.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7892E10E106
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 04:36:12 +0000 (UTC)
+Received: by mail-qv1-f50.google.com with SMTP id
+ 6a1803df08f44-89fc4147f2eso3009326d6.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:36:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776399668; x=1777004468; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776400571; x=1777005371; darn=lists.freedesktop.org;
  h=in-reply-to:autocrypt:from:content-language:references:cc:to
  :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
  :date:message-id:reply-to;
- bh=YAwqAUgFWlz1WbkXOJLiW/ZHx5MHrngRVjGH/BFqAUA=;
- b=dHb/EEmGuwLG8bcI5UgN4xIDMBAzqt3ei6JmQ6RruQhfKYuODLRtg9cjxEn6HeQiRx
- /5EibZcCbo2OOtnNR36c0ukLo2tHlQ6xriWgYtp1qwVq8qOz8YNSnDatkH/2wjrmt8r3
- 4NoUSXvZ9Yf8FUdAgbtskay3JUnZE0ZtqCQwdqAx7x6UbHsvK641bud7o58EYRf5YJU3
- 7Y1PsgfRJOprwt3mM7Mob9Ek3q+8PwjZLJ3tjbjHLyptPWR0WmtwgzbBrlOaS+ZMtcP/
- iW1MRPZfJTnrx3V8ABScVAbRrPVeIirr37K+pahMGcxBI8d/MHujKPawcwHCBt9YidK6
- JM/w==
+ bh=wJCWVp8OC7bbbAgdbMwdNkUeylvTtEVIhbLpUvTx1Rk=;
+ b=Y9Vjn8q46aFuUaOasaLmyIHepBaiMfH4Si7JUZKLTvmilciLU8UPiBl/vBjBk+g6Ts
+ E+40wLexVcsZiJ4WFjQrHiYL0Cq9Zjx0hwcEXUU0Zcu01KH/OXIrpCY1heAL/SDMgnAw
+ NLIwPmtKDmmnZZgHJLWb39pEoyUPJcaFDPENwxSO7cSDslpqQLZ7wHrNPLy/5SLaRcQg
+ Xo1szlhbH3XRAHYZnMfEb9XX+7JS2jPYfeS3AI/+3EcM8pb/Pt6DnUmqQcEsOhW3fYOK
+ FAbq3doVUBLuRj72jQAv9KRgflfMQKO2P82Ul6lqmwKc4CWg9+0G84um/81BryJJG3ia
+ voVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776399668; x=1777004468;
+ d=1e100.net; s=20251104; t=1776400571; x=1777005371;
  h=in-reply-to:autocrypt:from:content-language:references:cc:to
  :subject:user-agent:mime-version:date:message-id:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YAwqAUgFWlz1WbkXOJLiW/ZHx5MHrngRVjGH/BFqAUA=;
- b=eBBarS2NSc6aKALImkRZ2ZdViWKE5CegwbAUbsGICm7Bp4VqWD0NqPG5uij2egFofQ
- mB5nhvpp+6tFp6XMpLwIIA/IOm9y5fR1CE3OA5VFa8zizvy8obUb7cRbBv5OTUtgon/d
- Rj21DbEiMTFJcd8KiM1L6SWioI0j4bbJnBwGAUGTTYOsJNTvAfDLCggHnSFwo9aOVsWp
- wSJHnGgFmdGsAigDN5THmOOZhSeDrwht978nRQqcpusOzStIGeN588WqH7z6H1rIwUGm
- 2FdvdLJimIsBzMTe1jwGp0x9MrC9mSKg/GQze74rVEA5kjSukRiUBenypw7iKQLISIef
- s+lw==
-X-Gm-Message-State: AOJu0YwOoEi1arUKm6IjZXRllXMNRkzThu+QYTMG1CJhOAPkyL2NATCV
- ckqXATUNlYo24P32zNq4L899v4xWcRi6gcATXrQFbnBx7I/gwUMrqMud
-X-Gm-Gg: AeBDieuYJPZ+ZMCaUgLra1vZmfzWBMUC9lU2WmpnbK7sLpHSBDwIOy8O/h/yvUA+Bdx
- IDzH55Oz/L8QZVlrsjLR3skW+zCcBKcJzGrYQx7QX9+VCYAVH/gLCnTZbXRgMNr8rZsjKSL7ULg
- MMWR7TKCaMXr0aYVsVYLovO0HEBqSmBWhDrl0QjUpkMWij05HPhGcFu6JXwDLk4i12rJo10KpFr
- jxjTfgPXmsXhmlyBRMdlebGkV+SXiu/PLFgqVJVKNuT/wBF3lRR7pjnuOsXBz9X8exw+6ZnwWSw
- sxZsc3I6h4wU9aTGC6QWQhaOLn0Hn/1hAe5+txmZi2JIxmn2BKEKwo/XZ8cVMgCxjk7GOmOvMSG
- gFj07oQXf8qdi/L5CBIZRRk4c+IkgJZSWoSP8sMCfJ1aTF0bKqOMlxdWzxF4hCqtVj0XSAUHGkL
- IzprQFJVdErizol/rE3m1w0x684B7nIoAwhDPiCiwF5IwGsnjjNNd4t1U38QQ=
-X-Received: by 2002:a05:620a:4591:b0:8d3:e8d1:e2b9 with SMTP id
- af79cd13be357-8e792466e29mr155598085a.57.1776399667789; 
- Thu, 16 Apr 2026 21:21:07 -0700 (PDT)
+ bh=wJCWVp8OC7bbbAgdbMwdNkUeylvTtEVIhbLpUvTx1Rk=;
+ b=YZinD5JiWIsGXChpF80w1a/gNu5Pr93+njB/YTgQAvMjJbkpx/NM6Q1k1RRmNiJLOs
+ YIPnZnBiK8xrhAuWfH1uw7S2M3TNOwi8FC8QvI79A+/DG7xm1oWOcLVyQVYqy/Pu2VP9
+ 53FOypCvwuFot/3JEuwfQEa8c0ojWUaIT819knDaTNbRxwN6UMtsVQV7LwJ1xx8a+Vbz
+ D/D/Hb8X34o35phZ6gesPyswSLS9ohiaoEQvNDh0LNGtFCY+xQGSVYLV7otdlqaTenF8
+ Ju/jNFu4e6cp5ef92+Rsi9IA/Nlt7O27RkqfCIplkFDCZtubPN3HOxR7uPszebmCVkvX
+ Zzqg==
+X-Gm-Message-State: AOJu0YzsvHUxFjM1yoreDX3/zYXaBzfElrMvKgiPLw5RL+xow8WuvgW/
+ TcVXcaogfc6KizIA9ZnSN/onJSKLV/KIa6dvgd9uJIoY34aR/R/Fgfyf
+X-Gm-Gg: AeBDiesMjj3r9qckpnkJE8rL8QEBt0w1HmiNmw0gL6P1PFTbi/8W/ywE0rV/bq39qmy
+ emb3SeuBYpFM2NSMZHpagELAgwOgs6haCTanS5h4Qw/TygOg1lVExWCTS0qJOxBY5QKJcPN+eDh
+ DfW0ScsqGtpP6jv+Ewu5N2w1isx9smgKfKIaxkgwc0ZrmojSZXNm9kcLTrVlmeCNLteYqPiEtAC
+ BV2QX4m6VdxoMT6Fvib9dnD3tJTfAKQR20m1ZkFlES2tolO3qAUEeQgvxGICOCKwrJs5UtfIemb
+ Ju4B9GMo4njFDSvi31DnAA+9shBOnmjgwNWnxdtFx2ifJhIBs6lptDF9839tJUTwfleQ5E7R92s
+ mKjuOrkdlloDnd51X0pxpcp5IGhVQ5/9T6K2WKhh5U5Z1PHIF3kPxmd8s3f8xeqDiRO+KpvmM1L
+ MxYF44c4GJ1+ohn5DlaacWEsfKTjwDXCYu7TQ7AMCWHdG6OhMk
+X-Received: by 2002:a05:6214:4a08:b0:89c:ac72:2f6e with SMTP id
+ 6a1803df08f44-8b02813f8e0mr21757356d6.43.1776400571385; 
+ Thu, 16 Apr 2026 21:36:11 -0700 (PDT)
 Received: from [192.168.2.25] ([184.146.175.99])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8e7d8edb772sm23405485a.27.2026.04.16.21.21.05
+ 6a1803df08f44-8b02ac72915sm2745626d6.15.2026.04.16.21.36.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 21:21:06 -0700 (PDT)
-Message-ID: <bf14d241-1505-4082-980f-e43ef20ea13d@gmail.com>
-Date: Fri, 17 Apr 2026 00:20:54 -0400
+ Thu, 16 Apr 2026 21:36:10 -0700 (PDT)
+Message-ID: <7b4509b0-9c35-40ca-9388-881236c82a32@gmail.com>
+Date: Fri, 17 Apr 2026 00:35:58 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:136.0) Gecko/20100101
  Thunderbird/136.0
-Subject: Re: [PATCH] drm/gpuvm: Do not prepare NULL objects
-To: Danilo Krummrich <dakr@kernel.org>,
- "Cavitt, Jonathan" <jonathan.cavitt@intel.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Gupta, Saurabhg" <saurabhg.gupta@intel.com>, "Zuo, Alex"
- <alex.zuo@intel.com>, "Brost, Matthew" <matthew.brost@intel.com>,
- "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
- "aliceryhl@google.com" <aliceryhl@google.com>,
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
-References: <20260130191953.61718-2-jonathan.cavitt@intel.com>
- <DHUUHT136HPP.1L7OL7DR568Q6@kernel.org>
- <CH0PR11MB54449980CA120479A4ACC019E5232@CH0PR11MB5444.namprd11.prod.outlook.com>
- <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
+Subject: Re: [PATCH v2 1/2] drm/sched: Make drm_sched_entity_kill() a public
+ function
+To: Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Dave Airlie <airlied@redhat.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260415144956.272506-2-phasta@kernel.org>
 Content-Language: en-CA, en-US
 From: Luben Tuikov <ltuikov89@gmail.com>
 Autocrypt: addr=ltuikov89@gmail.com; keydata=
@@ -89,10 +89,10 @@ Autocrypt: addr=ltuikov89@gmail.com; keydata=
  cCE8uGe7FWo8C+nTSyWPXKTx9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl
  10wVR5QxozSvBQJlOiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKo
  aMDzO9eGz69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA==
-In-Reply-To: <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
+In-Reply-To: <20260415144956.272506-2-phasta@kernel.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------oPqUmnfDT5d4OpDoMDs31wmN"
+ boundary="------------tyfpZ8tXo0NFX30pwA0Og5IZ"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,81 +109,95 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------oPqUmnfDT5d4OpDoMDs31wmN
-Content-Type: multipart/mixed; boundary="------------5pKB70xWtUaRpNN7p57yzLlk";
+--------------tyfpZ8tXo0NFX30pwA0Og5IZ
+Content-Type: multipart/mixed; boundary="------------gaPimzysG4nviCSPOZwz55y1";
  protected-headers="v1"
 From: Luben Tuikov <ltuikov89@gmail.com>
-To: Danilo Krummrich <dakr@kernel.org>,
- "Cavitt, Jonathan" <jonathan.cavitt@intel.com>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Gupta, Saurabhg" <saurabhg.gupta@intel.com>, "Zuo, Alex"
- <alex.zuo@intel.com>, "Brost, Matthew" <matthew.brost@intel.com>,
- "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
- "aliceryhl@google.com" <aliceryhl@google.com>,
- dri-devel <dri-devel-bounces@lists.freedesktop.org>
-Message-ID: <bf14d241-1505-4082-980f-e43ef20ea13d@gmail.com>
-Subject: Re: [PATCH] drm/gpuvm: Do not prepare NULL objects
-References: <20260130191953.61718-2-jonathan.cavitt@intel.com>
- <DHUUHT136HPP.1L7OL7DR568Q6@kernel.org>
- <CH0PR11MB54449980CA120479A4ACC019E5232@CH0PR11MB5444.namprd11.prod.outlook.com>
- <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
-In-Reply-To: <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
+To: Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Dave Airlie <airlied@redhat.com>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <7b4509b0-9c35-40ca-9388-881236c82a32@gmail.com>
+Subject: Re: [PATCH v2 1/2] drm/sched: Make drm_sched_entity_kill() a public
+ function
+References: <20260415144956.272506-2-phasta@kernel.org>
+In-Reply-To: <20260415144956.272506-2-phasta@kernel.org>
 
---------------5pKB70xWtUaRpNN7p57yzLlk
-Content-Type: multipart/mixed; boundary="------------qN5IEXfVoPdSHjs6ZwKMaUWX"
+--------------gaPimzysG4nviCSPOZwz55y1
+Content-Type: multipart/mixed; boundary="------------5h2gFf0j1Vd2PHE5Iw2i7zdd"
 
---------------qN5IEXfVoPdSHjs6ZwKMaUWX
+--------------5h2gFf0j1Vd2PHE5Iw2i7zdd
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 2026-04-16 16:44, Danilo Krummrich wrote:
-> On Thu Apr 16, 2026 at 10:23 PM CEST, Jonathan Cavitt wrote:
->> Question for the future:
->> Is Lankhorst, Maarten a proper maintainer for this component?=20
+On 2026-04-15 10:49, Philipp Stanner wrote:
+> Some drivers do not care on teardown whether the last jobs pending in a=
+n
+> entity are actually executed before teardown completed. For such
+> scenarios, drm_sched_entity_flush() is not the ideal function since it'=
+s
+> intended to wait for jobs to complete.
 >=20
-> Maarten is one of the drm-misc tree maintainers.
->=20
-> DRM is a bit special in this regard compared to other kernel subsystems=
-, as DRM
-> also allows non-maintainers to push to development trees. Yet, those de=
-velopment
-> trees still need to be run by someone and those people are the tree mai=
-ntainers.
->=20
-> Additionally, there are people maintaining the individual components, d=
-rivers,
-> etc. and those are usually the people with the strongest domain knowled=
-ge.
->=20
-> Patches should be sent to both the tree maintainers and the component
-> maintainers.
->=20
->> If not, is there a list I can reference to determine who the proper
->> maintainers I should be contacting are?
->=20
-> Absolutely, everything is documented in the MAINTAINERS file in the ker=
-nel tree.
->=20
-> The best way to figure out who to send patches to is to use
-> ./scripts/get_maintainer.pl. The script should provide you with the ful=
-l list of
-> all relevant maintainers and reviewers for your patch.
->=20
-> Additionally, it also outputs people who have been involved in the corr=
-esponding
-> component and may be worth Cc'ing as well.
->=20
-> If you run it for your patch you should get the output below.
->=20
-> I hope this helps!
+> Make drm_sched_entity_kill() public for that use-case and update the
+> documentation.
 
-That's a great response! Indeed, the get_maintainer.pl is a good tool to =
-use.
+This is a good patch and great suggestion by Danilo.
+
+>=20
+> Suggested-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> ---
+> Changes in v2:
+>   - Improve wording, fix typo.
+> ---
+>  drivers/gpu/drm/scheduler/sched_entity.c | 13 +++++++++++--
+>  include/drm/gpu_scheduler.h              |  1 +
+>  2 files changed, 12 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm=
+/scheduler/sched_entity.c
+> index 61a4818cc87b..7be5811b90cd 100644
+> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+> @@ -267,8 +267,16 @@ static void drm_sched_entity_kill_jobs_cb(struct d=
+ma_fence *f,
+>  	schedule_work(&job->work);
+>  }
+> =20
+> -/* Remove the entity from the scheduler and kill all pending jobs */
+> -static void drm_sched_entity_kill(struct drm_sched_entity *entity)
+> +/**
+> + * drm_sched_entity_kill - kill an entity's pending jobs and remove it=
+
+> + * @entity: the entity to remove
+> + *
+> + * Removes the entity from the scheduler's run queue and kills all pen=
+ding jobs.
+> + *
+> + * This function should be used over drm_sched_entity_flush() if it is=
+ not
+> + * desired to actually wait for all pending jobs to finish.
+> + */
+
+I felt that the email body above describing this patch was somewhat clear=
+er. Perhaps something like:
+(Notice the change "if" --> "when".)
+
+"Use this function over drm_sched_entity_flush(), when the caller is not =
+interested to wait
+ for pending jobs to complete. This function kills any pending jobs."
 
 --=20
 Regards,
 Luben
---------------qN5IEXfVoPdSHjs6ZwKMaUWX
+
+--------------5h2gFf0j1Vd2PHE5Iw2i7zdd
 Content-Type: application/pgp-keys; name="OpenPGP_0x4C15479431A334AF.asc"
 Content-Disposition: attachment; filename="OpenPGP_0x4C15479431A334AF.asc"
 Content-Description: OpenPGP public key
@@ -203,21 +217,21 @@ z69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA=3D=3D
 =3DqCaZ
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------qN5IEXfVoPdSHjs6ZwKMaUWX--
+--------------5h2gFf0j1Vd2PHE5Iw2i7zdd--
 
---------------5pKB70xWtUaRpNN7p57yzLlk--
+--------------gaPimzysG4nviCSPOZwz55y1--
 
---------------oPqUmnfDT5d4OpDoMDs31wmN
+--------------tyfpZ8tXo0NFX30pwA0Og5IZ
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCaeG1JgUDAAAAAAAKCRBMFUeUMaM0r8uh
-AQCv9AxF10p8kqP1ks+jBMinUjAXh2QJKAZTOhNTmSFVCQEAhU3gAaLhpyO349MiHeeFpRqceXwt
-Zc6PCQu2fumyigA=
-=UIDm
+wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCaeG4rgUDAAAAAAAKCRBMFUeUMaM0r6j4
+AQDr7lP/kQhrH/SqboZz98qXO5P5Ea7iUmqRubR6r9+G/gEAqaquNDOvBw2OUFmYIobPxbdWZ2if
+glf+8pI8YLWZ9g0=
+=vuh+
 -----END PGP SIGNATURE-----
 
---------------oPqUmnfDT5d4OpDoMDs31wmN--
+--------------tyfpZ8tXo0NFX30pwA0Og5IZ--
