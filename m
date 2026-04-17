@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 890DFF4368A
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 12:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A6B3F43698
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 12:04:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB5CD10E0B5;
-	Fri, 17 Apr 2026 12:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A2810E2AA;
+	Fri, 17 Apr 2026 12:04:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J7Xiw4JE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jeZxORJt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B011510E0B5
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:00:42 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B5A6560128;
- Fri, 17 Apr 2026 12:00:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB39AC19425;
- Fri, 17 Apr 2026 12:00:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776427241;
- bh=tZPmJ+F0Q+5+qbyQORfl3ivntWS2W2QdCwZg4NBs7Uc=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To:From;
- b=J7Xiw4JEQZQqZ5x6r4n41db5MYpX8tURzAJLjwAY7HRmmOjw1Z5ua5wfZE+VevU3t
- PaOwqX+p2JSGnTFdWT2fIxbZpu3IIQy/LTQkB7DU2St0p8ussbmz3W1Tiv8JrP0MW3
- wkPruLs49mi36bHyqU3f0AtYpTtlsLQeRFOZ4v+A2C+Cm/6H0veYZg0x4n814hDyWH
- eh1jqil+SqaleOBQgU6VR/gwOCXSg1IbTvMPYpFNUFUomdLpwjX/sBc2+J2Lq4TA91
- gtPAuQXxNDESSrowarkT6TYYdITFIn0Fnh9sFbT3VPDd5A1fMbq/2/USiIc4s4vgxh
- qZNm2tKQ/NMGg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 17 Apr 2026 14:00:34 +0200
-Message-Id: <DHVEWDBHYKQF.XBXZ704CMXCF@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 0/3] rust: add `bitfield!` macro
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Yury
- Norov" <yury.norov@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Mark Brown"
- <broonie@kernel.org>
-References: <20260409-bitfield-v2-0-23ac400071cb@nvidia.com>
- <798e83e6-eb7b-4502-85e7-5a0f6d9c6281@nvidia.com>
- <DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org>
- <CANiq72k0FXcekxs=E+xLe3=wyu+KHr4yM0wLj1VgtgTUb_K4MQ@mail.gmail.com>
-In-Reply-To: <CANiq72k0FXcekxs=E+xLe3=wyu+KHr4yM0wLj1VgtgTUb_K4MQ@mail.gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C150610E2AA
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:04:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776427440; x=1807963440;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=XRnNIrcsMnEVq95YKOZf7K6BMN+ywiHLZr9nGpX1sd0=;
+ b=jeZxORJt98j7m6syeMOwW37lSXylSF9lzi0MXz9zDS2CBLbx4dmKwiMg
+ V/cd0bd30cg0rlsISzjvKJnJg67YhjNukChM2ny3Na8Rj7i5BVzGxv2dB
+ WpzY4Z+rQosOwzvWYrw+4ZdUzIvCKY9+V1tJkrrzqKhoncXJfxtVwpyAN
+ kvI/xTEZkQKVhQMwNiC3CrRHRNBMRQxO/fWz3lv7ZVZQb8HJTAidc85ld
+ 1PJ9Yo7x2n6xcLUcpJweElzrNbA/t5rYBv+HoRE+hWwX/9d8qs7RdpdZ9
+ wXiNFFaBZVKK+lVdHGr0LhdsZV73+BDM+1y1n9nEH8I09tCQNbJoGHoRf g==;
+X-CSE-ConnectionGUID: iTCuO2PzRyi8rKRDgDCcvw==
+X-CSE-MsgGUID: XAGI4m2DRRK9X/68+HEXSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="80029830"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="80029830"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 05:04:00 -0700
+X-CSE-ConnectionGUID: 02vpZtdORFu3FDE4eA8c8g==
+X-CSE-MsgGUID: X6eHqJniQ0qtpFQZ8odHfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="235399324"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.127])
+ by orviesa004-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:03:57 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: sai madhu <suryasaimadhu369@gmail.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, sai madhu
+ <suryasaimadhu369@gmail.com>
+Subject: Re: [PATCH] drm/mediatek: hdmi: Convert DRM_ERROR() to drm_err()
+In-Reply-To: <20260417113310.2903091-1-suryasaimadhu369@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260417113310.2903091-1-suryasaimadhu369@gmail.com>
+Date: Fri, 17 Apr 2026 15:03:54 +0300
+Message-ID: <6fd252e6c41a1a6a0b57fb381d33f2e0813b5b14@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,52 +72,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Apr 17, 2026 at 7:55 AM CEST, Miguel Ojeda wrote:
-> I think that for branches going into linux-next, in general, new
-> material is not meant to be added until the merge window closes, e.g.
-> from last -next:
+On Fri, 17 Apr 2026, sai madhu <suryasaimadhu369@gmail.com> wrote:
+> The DRM_ERROR() macro is deprecated in favor of drm_err() which
+> provides device-specific logging.
 >
->     The merge window is open, so please to not addd any v7.1 material
->     to your linux-next included branches until after the merge window clo=
-ses.
+> Replace DRM_ERROR() with drm_err() in the Mediatek HDMI bridge
+> driver and pass the drm_device pointer via bridge->dev.
 >
-> Some things do target future merge windows (e.g. Rust itself was such
-> a case for a long time), so it may be fine when adding it before the
-> merge window opens, but I think the idea is mostly to avoid too much
-> movement during the merge window to avoid interfering with other
-> maintainers finishing their trees for Linus etc.
+> No functional change intended.
 >
-> But not sure how flexible this is -- Cc'ing Mark.
+> Signed-off-by: sai madhu <suryasaimadhu369@gmail.com>
+>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+> index 1ea259854780..f431fc9adca5 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+> @@ -981,8 +981,9 @@ static int mtk_hdmi_bridge_attach(struct drm_bridge *bridge,
+>  	int ret;
+>  
+>  	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
+> -		DRM_ERROR("%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n",
+> -			  __func__);
+> +		drm_err(bridge->dev,
+> +			"%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n",
+> +			__func__);
 
-This all builds on the assumption that we don't have a process in place tha=
-t
-covers this.
+We really shouldn't be logging __func__ either. Errors should be
+unambigious anyway, and drm_dbg* logging uses
+__builtin_return_address(0) to achieve the same with a much smaller
+footprint.
 
-However, all major DRM trees run the above process and handle linux-next in=
- the
-following way.
+BR,
+Jani.
 
-  * -next
-        Features; open at all times.
+>  		return -EINVAL;
+>  	}
 
-  * -next-fixes
-        Fixes for features in -next that have been included before -rc6; ac=
-tive
-        between -rc6 and the next -rc1.
-
-  * -fixes
-        Fixes targeting the current -rc cycle.
-
-These are mapped to two additional branches that linux-next pulls from:
-
-  * for-linux-next
-        Normally points to -next. Between -rc6 and -rc1 it switches to
-        -next-fixes instead.
-
-  * for-linux-next-fixes
-        Always points to -fixes.
-
-The same thing is going to happen for drm-rust tree, once everything is set=
- up.
-
-- Danilo
+-- 
+Jani Nikula, Intel
