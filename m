@@ -4,137 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13630F8E4A7
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0029FF8E4A7
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:18:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 739DB10E954;
-	Fri, 17 Apr 2026 06:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61F6310E956;
+	Fri, 17 Apr 2026 06:18:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="s570TsgY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rhgN9YaQ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="s570TsgY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rhgN9YaQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rh1af8Fg";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3008B10E954
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:18:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B20725BD5A;
- Fri, 17 Apr 2026 06:17:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776406675; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vF/g1RxnoC67U6Gdw0O+q+70x7Y8fx1UBEis0Zy5ZfM=;
- b=s570TsgYPLdFJ1rIchXJQipPVHqBDzH+qnSGrOQanSSEBNNrgVP13BvKfDDmZ5CcKUfqE2
- PdYuB5JBrNck4kHvsbSi2s2xcG7Pw0e4fjN2jixsi22wxP7RZ8SN8EN7vvnpl9+/CKCUE0
- rwzOuMPyJGp/XO3NYBUMgJnVFMiASyU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776406675;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vF/g1RxnoC67U6Gdw0O+q+70x7Y8fx1UBEis0Zy5ZfM=;
- b=rhgN9YaQWct27+QgwS1TQCk5jN9zSj6vmNkdOZIf7ZaFO7T+/DJvTVZZwkMk/oo+/gXJmb
- 6ixjQ0LzM+SNJvAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776406675; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vF/g1RxnoC67U6Gdw0O+q+70x7Y8fx1UBEis0Zy5ZfM=;
- b=s570TsgYPLdFJ1rIchXJQipPVHqBDzH+qnSGrOQanSSEBNNrgVP13BvKfDDmZ5CcKUfqE2
- PdYuB5JBrNck4kHvsbSi2s2xcG7Pw0e4fjN2jixsi22wxP7RZ8SN8EN7vvnpl9+/CKCUE0
- rwzOuMPyJGp/XO3NYBUMgJnVFMiASyU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776406675;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vF/g1RxnoC67U6Gdw0O+q+70x7Y8fx1UBEis0Zy5ZfM=;
- b=rhgN9YaQWct27+QgwS1TQCk5jN9zSj6vmNkdOZIf7ZaFO7T+/DJvTVZZwkMk/oo+/gXJmb
- 6ixjQ0LzM+SNJvAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 313E0593AE;
- Fri, 17 Apr 2026 06:17:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id JDSZCpPQ4WmdPAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 17 Apr 2026 06:17:55 +0000
-Message-ID: <34ecfa0c-a6f5-48b0-b706-27e1f9868dd7@suse.de>
-Date: Fri, 17 Apr 2026 08:17:54 +0200
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86A2810E956
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:18:58 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-35da2d35eccso251413a91.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:18:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776406737; x=1777011537; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Fe4W3HnVO+YZd9jb3JNthV1TX4F0wRs5lu3mbDk9034=;
+ b=Rh1af8FggWf4Yz1a+8+Q5W1OzPXdRi+s2eTaRDJ8suVyS5MVaX5OouOofDizyNUuqw
+ XJoPhDOtYHyHiwLL2VtHqTwWgJhH1ivtAGm0MFhxJjPisy6E6DtWnPKZIrBNkEvpfoxs
+ 1AZ67uN1N281kABFRo39Nl9GtT22Hq32uD6Eh1r4KbRyWjzvIjWFT/alasc42MKOCFnI
+ r8iTeOcSsnovSPHToLJwuSKo2CqcqDU5VfHstv9LhhralXhtjXoonAiQQMunFT51O/Aw
+ pJiyrptXfhhaTv+RoheTIS+ihyu3SsI7PYR4aeDk/wzjnmQxetpPq7/c66Fu0XcAX0g3
+ Z6Lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776406737; x=1777011537;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Fe4W3HnVO+YZd9jb3JNthV1TX4F0wRs5lu3mbDk9034=;
+ b=kv4brtljMkt6I39LuxWgltPLChbalJp4g47Eb3l1CQ8ju8pcz2ow1IX2kTZzNVkfpy
+ SYcWONa2rIeBynzg4exL+2ShMT3Ch7zn2ALpTo+vcy1F0UpkJB5lg80RuhVJyjXP03CV
+ C9xnJIu/JkDUHFrQiGXNvPHF/MTTwf0BPofdlznPk+vyeu64GskjRaHUM4A4PSdDMc9Y
+ EF9NHKiSYHxA7Mysw3NzZv0+OIpkm8dA3Fb8/HGhdWe7/5rXD4L1SIZ7YxrHBolFC6nV
+ vguXvBvVOUUdLV2FQpGkwhk/GG0ct3R1GETzhGwkvxcYNqWRjOmx4vvri14OWXyPHDye
+ Bxng==
+X-Gm-Message-State: AOJu0YzFV0fT/YSfI0UieL1BgtQRjn1T68HaeYHNfBzwx91Z/0XoWi8Z
+ 9ruGlIT22lPJSYkFMOnNtQmBQ/kPYHaTgOi7NU9GtpZ51CNJ/Hw8zf7tmyy4wiOM
+X-Gm-Gg: AeBDieuEJRVkTFqj0xpFNi6u2joFf3ziO+L0dNvqBBNMp6Xz+EZU82+Tm7EPemlp64I
+ iy7O8nUXZGTm+eyi+uhJwmQVO952bUOSGqTctdJtp59Bn+MgDurnQg4uUgrogZP+WuLOjViFIbJ
+ EJrkPsXE3PomnAlJwEakx11mk/c2Y4ynF4he/HaoB0Mt/f1tluz7IIth6UGuCxRXvhhZ/z3Fiwm
+ g0fkDVeQi+zoELsfSI2ALRYVK0uN5GLFoBw26+CYFVlz9Ra/P5b/hdbm9twvmA0ZX9NI0QapiHf
+ zZ4R6E3LZEACN3L98SjwbAKtr+vgKzlBzfLSuTmo3vdHJZhwo3gMBAeVR+eRSNfofEous5NKI0O
+ 4qYPjgxKDKtviSAlUa6SmPz6Qq6N2VhFJROO7+ypDkqLrNrV+/8IbFm5u1pPg5qm9nUmXsyrQty
+ qMK2RzgWJtIQAU9Z2BlY4Kei80nxf218Dq7lMqzqIJOdrb4Da77skRaxzdFoYVUD2OuA==
+X-Received: by 2002:a17:90b:5890:b0:35e:5723:85e3 with SMTP id
+ 98e67ed59e1d1-361403f12ddmr1614648a91.9.1776406737233; 
+ Thu, 16 Apr 2026 23:18:57 -0700 (PDT)
+Received: from fedoraemon.neon-universe.ts.net
+ ([2406:7400:11d:a9dc:9a14:72eb:1a60:868a])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b5fab40786sm9046225ad.79.2026.04.16.23.18.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Apr 2026 23:18:56 -0700 (PDT)
+From: Avinal Kumar <avinal.xlvii@gmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ neil.armstrong@linaro.org, dianders@chromium.org
+Cc: lumag@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Subject: [PATCH v5 0/2] drm/panel: panasonic-vvx10f034n00: transition to
+ mipi_dsi wrapped functions
+Date: Fri, 17 Apr 2026 11:48:40 +0530
+Message-ID: <20260417061842.66631-1-avinal.xlvii@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
-To: Yongbang Shi <shiyongbang@huawei.com>, tiantao6@hisilicon.com,
- kong.kongxinwei@hisilicon.com, sumit.semwal@linaro.org,
- yongqin.liu@linaro.org, jstultz@google.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, Rongrong Zou <zourongrong@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
- stable@vger.kernel.org, "Liangjian(Jim,Kunpeng Solution Development Dept)"
- <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>,
- "fengsheng (A)" <fengsheng5@huawei.com>, "helin (T)" <helin52@h-partners.com>
-References: <20260413085037.17491-1-tzimmermann@suse.de>
- <20260413085037.17491-2-tzimmermann@suse.de>
- <7fd5022a-9a5d-4976-9d4a-1e0fa2022eae@huawei.com>
- <1805a7d4-a4a0-48ee-ac6e-33e5d9d5fdc9@suse.de>
- <fffc172f-6bfe-4947-8f3b-52a1534b1d3b@huawei.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <fffc172f-6bfe-4947-8f3b-52a1534b1d3b@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCPT_COUNT_TWELVE(0.00)[19];
- FREEMAIL_TO(0.00)[huawei.com,hisilicon.com,linaro.org,google.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- ARC_NA(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,gmail.com,chromium.org,kernel.org,vger.kernel.org,huawei.com,h-partners.com];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,138 +87,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+Changes from v4:
+    - simplified code after removing redundant error printout
+    - there was a branch mismatch on my local and that resulted in a
+    typo, it was fixed in v3 but I had my v2 changes open and I
+    mistook it as 'serial' rather than 'several'. Apologies, fixed it now :)
+    - updated commit body 
 
-Am 16.04.26 um 15:22 schrieb Yongbang Shi:
-[...]
-> However, I believe the modified version is the better implementation,
-> the plane check should be complete even if the CRTC is not enabled.
+Avinal Kumar (2):
+  drm/mipi-dsi: add mipi_dsi_shutdown_peripheral_multi
+  drm/panel: panasonic-vvx10f034n00: transition to mipi_dsi wrapped
+    functions
 
-Great.
-
-I agree that the logic in the helper is non-intuitive. I'll send you an 
-updated series with an improved commit message next week.
-
-Best regards
-Thomas
-
->
-> [1]
-> https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c#L84
-> [2]
-> https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c#L94
->
->
->>
->>>
->>>> +    if (ret)
->>>> +        return ret;
->>>> +    else if (!new_plane_state->visible)
->>>>            return 0;
->>>>    -    if (new_plane_state->crtc_x + new_plane_state->crtc_w >
->>>> -        crtc_state->adjusted_mode.hdisplay ||
->>>> -        new_plane_state->crtc_y + new_plane_state->crtc_h >
->>>> -        crtc_state->adjusted_mode.vdisplay) {
->>>> -        drm_dbg_atomic(plane->dev, "visible portion of plane is
->>>> invalid\n");
->>>> -        return -EINVAL;
->>>> -    }
->>>> -
->>> The purpose of this check is to ensure that the right and bottom
->>> boundaries of the plane do not extend beyond the crtc. In
->>> `drm_atomic_helper_check_plane_state`, `drm_mode_get_hv_timing` is
->>> called to retrieve the crtc boundaries, and `drm_rect_clip_scaled` is
->>> used to clip the plane, any portions extending beyond the right and
->>> bottom boundaries are discarded.
->>>
->>> I'd like to confirm that my understanding is correct? previously, the
->>> check failed if the plane exceeded the boundaries, but now, after
->>> `drm_atomic_helper_check_plane_state` is called, the plane is clipped to
->>> fit within the boundaries.
->> Yes. This sets plane_state->dst, which is clipped to the size of the
->> display mode. But it also tests that the primary plane covers the whole
->> display.
->>
->>> in function drm_rect_clip_scaled:
->>>
->>> diff = dst->x2 - clip->x2;
->>> if (diff > 0) {
->>>      ...
->>>      dst->x2 -= diff;
->>> }
->>> diff = dst->y2 - clip->y2;
->>> if (diff > 0) {
->>>      ...
->>>      dst->y2 -= diff;
->>> }
->> I agree, the logic in drm_atomic_helper_check_plane_state() is hard to
->> understand. It sets the clip rectangle to the size of the display mode
->> (or zero if the CRTC is off) at [1].  Then is clips the source and
->> destination coordinates against the clipping rectangle at [2].
->>
->> Because we set can_position to false, it tests if the destination and
->> clipping rectangles are equal at [3]. This is similar to the that is
->> being replaced, but with plane state correctly adjusted. If both
->> rectangles are equal, it returns success. If the destination is too
->> small, it fails with an errno code and a warning.
->>
->> If the plane is not visible, the helper already returned at [4].
->>
->> [1] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
->> drm_atomic_helper.c#L943
->> [2] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
->> drm_atomic_helper.c#L945
->> [3] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
->> drm_atomic_helper.c#L959
->> [4] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
->> drm_atomic_helper.c#L949
->>
->> It is now possible to have a primary plane that is larger than the
->> display mode. This is a feature of the DRM API.
->>
-> Thank you so much for the explanation. It's much clearer to understand
-> drm_atomic_helper_check_plane_state.
->
-> By the way, we ran some basic tests on this set of patches using the
-> latest BMC chip, and everything worked fine.
->
->
-> Thanks.
->
-> Best regards
-> Yongbang.
->
->
->> Best regards
->> Thomas
->>
->>
->>>
->>> Thanks.
->>>
->>> Best regards
->>> Yongbang.
->>>
->>>
->>>>        if (new_plane_state->fb->pitches[0] % 128 != 0) {
->>>>            drm_dbg_atomic(plane->dev, "wrong stride with 128-byte
->>>> aligned\n");
->>>>            return -EINVAL;
->>>>        }
->>>> +
->>>>        return 0;
->>>>    }
->>>>    
-> Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
->
->
+ drivers/gpu/drm/drm_mipi_dsi.c                | 28 +++++++++++++++++++
+ .../drm/panel/panel-panasonic-vvx10f034n00.c  | 24 ++++++++--------
+ include/drm/drm_mipi_dsi.h                    |  1 +
+ 3 files changed, 42 insertions(+), 11 deletions(-)
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.53.0
 
