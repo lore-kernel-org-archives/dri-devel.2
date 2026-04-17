@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97607F436B8
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 15:34:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95F3AF436B8
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 15:34:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1278810EA7F;
-	Fri, 17 Apr 2026 15:34:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0141310EA8A;
+	Fri, 17 Apr 2026 15:34:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Vh45ZKsx";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DsRwyo2x";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012007.outbound.protection.outlook.com
- [40.93.195.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71A3D10EA7F
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 15:34:03 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012025.outbound.protection.outlook.com [40.107.209.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F93510EA8A
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 15:34:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RUnvXSzgD8OyPZE8S2ljGKJunFod3gvRDZeNjRut+T4Y1O5wMIafQV/xgSoQhVuLIYQzOnDY9OfigVS+gtK4NCzmSLIgSE6Dvkw/aLVbHx8v+r8Ytir8bjwqoYNZtzhjm4EryjcPJElSlttZ79OoK44jdCfdJ85iy9nZ77UKYjkuBQ4Z14qBs/43L3m/b2xkbGQomk1uzfC9mB4rfDnYJlt7+GzSRhUVC3DlTDUM0Lyp+e7Zj8zHspnBq5EeoXr1d3if+5yr0C0gAZi1hcnXXbrJYOxjo7XWrLV+I2Hvm4cx7PNXPF7QrUFnOa8sI4OQcWYTIggATKFwEmHkEmZBaQ==
+ b=ljb72/DmfcltfAzTDHP5uh8enLt53F/P9k5luVIrgd2noK5g10wwTjpkOuVv0/U0paAHCDF64Bi+6va2l2UWR5Q7v7HjZ/cTgdVvC8ZgJoA3+ehZHO9tRQ2TZQgkfwhWPX5FiyTDzOeKdK06VucK3Rq86kGo7N5bQu2QgyDAWA6URiIno5N2FlF3b3a0zrZw/RUtcGvU6LUtPrQd4DOmHfBCgNCb1bUXUr4rZAZyEjpOeLniQjhPTu5jOo0wsLX7DYmJgnuXsWpkQjI8/TikiHtYiUiSqChoaPRDSdW0Ve8wopZG8dyHZ0Qz+9YwLlB45VjD1+/I5I/eDbUc2y3VzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kL8APXnDlLX95vpD9YtCmQFLBfTezkb/NWK05oABTko=;
- b=ujwF2CZPyrRKAZu5VPYNSJkA4ygiV7N5d0huksIQvUfxX/UIsltd/W6lHNH30KhTYTSDnkc3YKLw3kHRGSH+aV1e6m3rFsO29Jz+tbnPrF2BMcRIjYuWtXWoZ3/p85U0UmgibwhgleFE+3OnECHeD6U+4HKX6BALxvpt2X/kVQLD2k8ZkbJquZffO/76HCNDPbcQvrFGPuvXEYJxfmGfDcFB6Q05w0dsfialcfFXrmVJUF6KbbqBmlHJRBRWlrCDFidaetCNttRYj52nL8qdu02o0C9G4uxXrIxiZuoAItAUDUoJN98MVbA53+6bJvFtUDjJHJSDGFycZ2Y81kFtFg==
+ bh=98AABtFxaTQwBmaeWSNV2GTK0DFahs3+qDZs4Up5nj4=;
+ b=j+87a+M4UZY59A76Oo5UrukoCOP0tSF55ZTyFnt+O7aoavCNO5XHt8qXBtmpw9UBs07GcWYK+2l2RyhUa+2lXzXJ7fNXinBH5I7XMBHZfxIibb57S/drOSBd4HeZgzZkgsqXrsDFb0g9FvLKbQdCRGlZrW0AxpUJa23kH9b+h2fbQwlu4MMCtjvX002zL5fJKI7W0Tlk1WvfshCFJE4NMgUMj5xepclhwrAXwthJxrBtTirRU30oRUfKNpt91/VAv9naMNJLvRpgfaTEOcTD+bGU4vyqRAOkP39B1X7GOMVc18mpHQXQZErSfkn3I8jCDgw/y1uDHBNt2WTC5vkzdQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kL8APXnDlLX95vpD9YtCmQFLBfTezkb/NWK05oABTko=;
- b=Vh45ZKsxiLpL/XseFkZi1EH6WEoLjEqUi2UaS7EmEDUOzwFrYc4zZhPOhX2GVgpYcgZrsTR2WcBYi2dYMRA/SRRLlKg+sUc0whUmtJF/rit72AhMg5zvDUoEo+1RSAwsqJrjt+yNGdBCwJd4A4NFpE22HBQprlZKNUZXV0h4BU0hqFeV/4i0El9md4+IfxQvIp67ihBbj4TT4bVv8JrWO3WUjSRVuUb4SRx1Rkzm7DI9dDstfGShkKBrcu6AHAQ14tIHwvI0Kkuvz3NGo9x9xpMaJCK/MdB/xDsd4kjSknazuV37K3qDOnHF9oQu7Kj2SSeBiEu/09mPA/JtDhvwkw==
+ bh=98AABtFxaTQwBmaeWSNV2GTK0DFahs3+qDZs4Up5nj4=;
+ b=DsRwyo2xXXAzKHisRi8LTXO/dWzG5DuTqNsqFddKEfjY+ohTnUPNeF62//1PKQm7BHfHHV5nqz1QB0sLd7GZmdt3UefSvbEkrHEO4T9B2HIJMLcM0OKpNcFzlzbWFqTVVLY4KJFLerPIbzbUL6XhM86OsQdtYiWPecw3DhbbYn/loRaC1S7hltbCe3bjhrqTLDwfE+dQm6n9OTtvtoSH6v3b9/FBEoHaAeXDpCgig7IGMSRsWCjlvJhZqKKsf/OHpKWNG6F2/ONuNqYS3x4//G24gooxaySTeBO6WgVnTGR9waqAsbhayQoigfsExfFZ8iV+QN5aCD9GsOtT4DoRTg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
  by DM3PR12MB9389.namprd12.prod.outlook.com (2603:10b6:0:46::9) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9818.25; Fri, 17 Apr 2026 15:33:58 +0000
+ 15.20.9818.25; Fri, 17 Apr 2026 15:34:01 +0000
 Received: from BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
  ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9818.023; Fri, 17 Apr 2026
- 15:33:58 +0000
+ 15:34:01 +0000
 From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Sat, 18 Apr 2026 00:29:25 +0900
-Subject: [PATCH v4 7/8] gpu: nova-core: use KVVec for SBufferIter flush
+Date: Sat, 18 Apr 2026 00:29:26 +0900
+Subject: [PATCH v4 8/8] gpu: nova-core: gsp: add RM control command
+ infrastructure
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260418-rmcontrol-v4-7-fda8c76dbb95@nvidia.com>
+Message-Id: <20260418-rmcontrol-v4-8-fda8c76dbb95@nvidia.com>
 References: <20260418-rmcontrol-v4-0-fda8c76dbb95@nvidia.com>
 In-Reply-To: <20260418-rmcontrol-v4-0-fda8c76dbb95@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -59,73 +59,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
  rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: DS7PR03CA0243.namprd03.prod.outlook.com
- (2603:10b6:5:3b3::8) To BL0PR12MB2353.namprd12.prod.outlook.com
+X-ClientProxiedBy: DM6PR02CA0039.namprd02.prod.outlook.com
+ (2603:10b6:5:177::16) To BL0PR12MB2353.namprd12.prod.outlook.com
  (2603:10b6:207:4c::31)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|DM3PR12MB9389:EE_
-X-MS-Office365-Filtering-Correlation-Id: f63fd262-eafd-48f1-a1c0-08de9c96be06
+X-MS-Office365-Filtering-Correlation-Id: fdb7a1d7-b4e0-4a41-670d-08de9c96bfef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|10070799003|376014|366016|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: LNfCyqJ0wRCTbnz9StWbT6I3bQmHRCQRkY9hY/SHbqoAMx/48KhI9F99WsWHL8XiRoKxEXj9B5p5qww7l0N7JTFn51inl/xnQC+PnHmXyFV9ODVdMXyQYabKzmy11doFFX/NlhkeIC2vfdOnR1/qAjatSZ9O7cBS0nNO9F7h3lJX3c3crb4IyfMInD6DgLNI3ZS6XkyVYBNX2gfA9DUqyGqpIjSj6YTVA9mWt3cXL7Ogpob3i/lz2Fbr4e387O89Yl8x9yANDM5iJm5gS0YuUkjY7rZin1NQKulOPZJRblffm/hGc+b4czxZqMiW6K8R9Wf8cD4QNw39fWCMVxyBO3IAijHVUIPDhIrbY4YT/DrjH4T5yln+/1FkXC78uZxffcdQXz9l0axoDUCwifNNH5LT2J+B6I0/W9wGXpXyQoBJVy1G2Uv0/0CZ1kQcVa+jD969agIwSsZRmzpBHRgBQRboBRv4Y0iOWvsPyUrYTP0fm4Jm7a6+7fan/uTcht7KWzgYKBpbhG9pgLEudqncnAfQL8MUJwuNlzrN5W5lPTCsn8gId/9kivmpaefRXL4t+HjYd07mxoQ9YJBL9Vx31VS3AVmeM+gCK7IHUouXXbLXCmhGnCCjWp1jZXcBrkwRe4wWJ2JlP8w0QoUEDra90aWIQTjUA0wMWPONGGE8SGDSYXMqdjNDjRyP/nQHDnrgfmhh4eVaRpd9uSrMTPcdE2zTCvZguz4+KxcYEDd8YX4=
+X-Microsoft-Antispam-Message-Info: T0MI5CrZu1QH7O8K52Qp12bhV2HNtyEEdjEjzAZ3k83zcow59ORlzV9rvKxNWyyXUAIWIchRbVdkFIfgOWr16R9YfQKMeER61DKq/MgOTPJcZpeWufdzs7dwSyBfmGZObwrkhTEt1y1OMsMZudHTODU/Bd6l+Im0nBpXzDJvkEWavTQB0gyIzONPa5gnZNnIYUQ7zGOtu0s4gggR6i0jfrVOR/NR1J6IVrqGX56ulAREd4hhYsfv5rA/ZBfrC23hwmOvFB1a0ye06Q8yPIcoZhx3bqA4ei+k550BfS03OY3H5V+MfZ6NJjXegfMKNYSsi581h08hgMvmxvT3LkHoVrHL+6ZfMvwrZAYXCZviGiuVH78Tt9DrVZfXMU+ulKyGXVirpP4vvqkPmQQGf9L2Rch3OLdciCdY53ffBZyndjWWAApNwkO3LT79w+GAny2JTn3S3hhwrQ+8gZZzSew7C6UKcmKGm/cQ7rAzjjGLmq5Qf8xxOv2Wfew/uyNE21L2nKSwyQazyJLSofMz4fuq36cOfgelu4tpIQcJFQfAn+p0Sxyfd3tqutgqRfsWlVZi68BWMej3MLfnFoASmpDD48GCd8NhU1//ASedy8Id5f/5nE0HM11c0ChF6XFY+vzf7WGJ6bq4isBqHjf+X1wu+rhau6Xe4Z9E4oqRIzMavA95RoL3HkuRrHN8Trbso55qv9Mqrx5YJeAj6rOXiv+vWx9T2U3z8hT5Jnq8CO1C67c=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(10070799003)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2M3WUhXQlA3ZDJnTGtyMEFTWmgrS1psMGphUmswM0FscWgvbHNkcVpCU0Zk?=
- =?utf-8?B?Q1RDR2M3M0JkRjZiWVhXOVNyQmNtOEsxU2xNRTJDZ2Y0WGhMRGk2VEd4bytM?=
- =?utf-8?B?L094YUJUbkpnYldBUktwUGl5YmxDMmxOS055RDFyYzhnTzZMdUhlWG9KMkMy?=
- =?utf-8?B?TXkybEhYM0o4RXhiZUJDRlY3ZFQ0VG1ZekNqNU5XMUZRcUgzQldUd2d1dkJM?=
- =?utf-8?B?Uml5SmN3ZTJmek9Wdk5WQTFBK3BobmlTN3Nvbnc4RXIvWmRxNE16MkJQSW1G?=
- =?utf-8?B?SlE3Q1ExV0pPSytGaDMyRzhDRHNHT3VBSEJLZENFQzhlaFlNd1RlV3c3dXZY?=
- =?utf-8?B?R0c5azIyWExhV2Fqd1pwVHRxNHhtNDh5NWwyZlY0d1hiaUl0b3crK1I1dy9O?=
- =?utf-8?B?MXl5N0pKTEtGYzErTkU0MWpzMnVxUjdrNlZLM25mK2hObjR5VUd6MVc1aXRK?=
- =?utf-8?B?MWptbEloWkk2TEVJNlo4RVNyV2IxRW45WGxGTTNvaVpXUlRrREhDUXo1WURz?=
- =?utf-8?B?T3A4Zk5sWHdXb000OW9IVndDQ3krOGJBWUlISjNWUDVxNmI3c0lLc1VWalB5?=
- =?utf-8?B?NHZwV2k4bjVIVmxLaWxyUHI0TnQ4VUYwMVB2bGV5SzBCazlRUVd6NXc5NG84?=
- =?utf-8?B?UkRnNHMvUTBXK0FaWUliU2FIOThFZmFuR2JTaE5CN1pUZk9NTDg4ODBmcFhz?=
- =?utf-8?B?cHNlNWtTanh0R0tLa3czSUlaYVNodFNHaHpBVGZGTlBCR0NoOW1nV2xyV2d4?=
- =?utf-8?B?UGFsSHRFMGwzd0dkQjNBalNZUDc5c2ZOU3hhZWJMKzRRYk1yUUxSSmVSbzVJ?=
- =?utf-8?B?aHBnRHoxcEFUSUtiaHVDdFlrYTNwTGhvcEZKaThvbDcvOXB4WlVwUUp0VnBs?=
- =?utf-8?B?MEZocENZbG1BMjkyRHlLWjg5Lzk2OFduelh5aEJwOUhTTHMzNWk4OXpJWDc0?=
- =?utf-8?B?VnpnOHYybU9NUWgrbnVNOVA3N0g0dXo1SEVEdWdPMU15VnBkWmpEZ3pDaWhJ?=
- =?utf-8?B?NTVISDJPYzkrOEhOclFCTFphWHZKRlRUdm83WGhwZ1lTQlZycFZxNW1nT21Z?=
- =?utf-8?B?aVZGUHhNZW50Z05SZDI0S29pQ0Vvek1sdTNjODBuelhRSUptbFpVbENRSFRk?=
- =?utf-8?B?YU92K1Z3Tmx3QVlGZ1Z0QmUwRUdlNG1Oemc5aklDWm1xUHNzM3JObVFMbWYw?=
- =?utf-8?B?VUc5QkdWVmRoRmx0YlpwNHAranFhMXNiWlVUVlViY2VodGpFRVpjL1VibTgx?=
- =?utf-8?B?RzJFdG5HczI3blMvejJXVG5LdHQ4eWVxKzA5MGVQQ1hqeTh2TEdZTk9vTnly?=
- =?utf-8?B?ZTJOb1Y1c2tsL1Jmb1U5aExnWUFZNHFJYWE3SXVJNUhhTmVnK1F4SnNENEdz?=
- =?utf-8?B?Y284aXBENnlCdm81d0JXN3pYdW5nUk5kV1FkTGVTZlFGa0FtZzFZMjhlVi8z?=
- =?utf-8?B?Q2dLR21yYXJTM0dwaUhCQjdLMW9zamw5OTJiQ1l5Z3RNZmVXd1BDM1VndFB2?=
- =?utf-8?B?Si9rVVBjWTZIVlYrOUtoTGF2Q3BQQmJKM1YzK1dpRENUVFZZZVBNNEdEY1Ra?=
- =?utf-8?B?eG1FVmw3bnI3RFM4WDZQMlN5eXoxV251eW9SNDFmU2FjamdOUTBmcTRBcXFQ?=
- =?utf-8?B?VytJbUZLS2l1em9yQjZ5ellpQ3J1TVk2QzV4WEkySlVMUVFsYlpJUUZ5SW1l?=
- =?utf-8?B?QUxoNVY1M2ZydzdRSHZ4cGxqODI5Q0UxdmdLREMrc3dweTgzdzdSZmxYMXBh?=
- =?utf-8?B?WTdkWXIvRUN3SzQrZXpYWDNzWDU4aHY0OTJPL2c2TUM2dE1DUUdXNTZrRkN5?=
- =?utf-8?B?SEhSMm9ma2phZERVY0VWWG5sSGh0dHh5NER1R1JZNVBrTkEwRkhqS1JjNmow?=
- =?utf-8?B?V1R4VU8xWWVpVkYrRkROVEkzeVIrY1hZV1BSZlA5RUF0Q3JOT0c3VG5GMW1W?=
- =?utf-8?B?QUF3N1h5aUVYNnZvdDRqVmM2T3AvSjhRa2gyUHN5S25VSEFyam1neTVXZjFu?=
- =?utf-8?B?di9NbEVFY01kYWVyL3lxRWFpWXE5RFZkNW0zY3RxVmZSSDZSeXo3M0JiK0ZW?=
- =?utf-8?B?bDFoekZwYTI5Q2NzRkN6aFFQa2l5TWdKZVdqUWpLa0hvYTlHa21oS2VHNW1D?=
- =?utf-8?B?RWRDdGgwUzJ1cmY0VCtkWEx6djYvZjZ4NDUvdEdlU2szUS95Tit0WWVJZTh3?=
- =?utf-8?B?T2FIWWl6NnYvQTZWY0h3bHJjZTRmV09MdFBYQzZnMGlQdmVUdzlGclFoSncv?=
- =?utf-8?B?NUtLQjVoRkxqVVNTREJsbWQyZWs5WWxJVmVSNXlJaWpPdENrbEpGMUdXZVRw?=
- =?utf-8?B?TVZnUHZBOURybEpNN1c4ZmlrVE9iM3F6bUVtMi9MMFJPamxPYi8wZlZ0MStB?=
- =?utf-8?Q?PzW+moyzs4VvDjA8VqGAcAJXx5lLFal+PrfAUrKdc279E?=
-X-MS-Exchange-AntiSpam-MessageData-1: naHR1pWucYVcdA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cENzOVhVeHh2bEladlNYZHh3dHF0ZzMwcnlCaHlrdHhCNk92MGgwM1lKU24r?=
+ =?utf-8?B?MDJPT25YZkFtVTVPblM5bU0vK0cwYU9sK2V5R0poUUVMT1RlMXpaTU8yaEEx?=
+ =?utf-8?B?K2xQd3NiRWdweUVUZ0hvd0t3azhtbEx1dEJXWlVadDZuNm1malpzZnFQK1NW?=
+ =?utf-8?B?akxLYXFJeVY4VUVDNmN2Y053L00wZFI3dkVnK0k0d3ZBOHBNTFVuYml3Umtn?=
+ =?utf-8?B?U1pnYnRUbW1sSWdYeWNzTGNQUWl1NEVRaEdRMWlSVkZwSzdySC9EMXJuTDFV?=
+ =?utf-8?B?V2k1UTd0YmsxQ3c4UGZFZUYrTGFhSkdpenFzNS8rajlBQWROSTF6QW1qM2t3?=
+ =?utf-8?B?dy9vaHFhN01qWDBXTTY2KzZtUFhHNngvNEVlejVDVk9vMVlTOEtSeFVmQmhk?=
+ =?utf-8?B?N3JDKzkyRnV0R3dRRTdyMDd3bTIzOExiQTQyeE84SVB5UklDSGpqWTFmVS81?=
+ =?utf-8?B?RVFMWHpFVnVjdGNmRmZtKzA1NWNISXFpQkxRWTlpQnV2OXlzcnV3MlNxZ0NS?=
+ =?utf-8?B?MzBmb1ZtcFpqWDhsVnNYNXcwZUxTd1U3Zkx5bXRSdVlLVWtXMVNLWFJzZnhy?=
+ =?utf-8?B?UmJ1M1RXdzlhY2NQSE9VOGYrbVh3ZkwyL21oVDgwV29ENFU5VTdhZkpPRTNZ?=
+ =?utf-8?B?M2VmZW85UEY1ajFSQ05Kak5kRW5GK3h5Mk1TcUdPRVo3VTRsdFNPVkkzeWVk?=
+ =?utf-8?B?MUFiMzU2d3laejdvMklkQ0djZlZHbnJldSt0ZmV4akNkVTE2ZzdISytDVjE0?=
+ =?utf-8?B?eXdSMkVFcWJEUzFCS3NuYVJhZ1gyUk4xMkFLWDBiSkFIdmx6SjNzWHpkQThh?=
+ =?utf-8?B?S0dtb2hqVzhNbFhrMXVWUTVCc1dHNnFIYzNTc29yNHFaRzlnaU5FT094UXVp?=
+ =?utf-8?B?V2tId3czUHBjV2lrVVdrT3locjZSOU04NlJ3Nm9BOXZ0TEZPc3ZUeDk1S0JF?=
+ =?utf-8?B?SEUxb0FuNldUWGhjbHh3cEdoeUVsbDA2dnNLNUFkb2ZUcklWVXhJRGdWRElE?=
+ =?utf-8?B?WXJ2Y1ExTVFHRE9yYnorZzJwZzVKT3VDRDBlTFBWQzZVWlRUY0ZzWUJZY2JK?=
+ =?utf-8?B?aUNXcTJSUng4UVVWU0dzcE1RTzRBYTJrM01OcjB2V25EOFFpZ3IwOHdDVWl4?=
+ =?utf-8?B?SzQ2WUVtOU1DekRnZEFFMmhBWVVWTEE3VUdzSGxaRFlVTklzSjJlYzFGMVNW?=
+ =?utf-8?B?amtOb3ptci9lYjNKZitkMllSMU1KRXUvdGFidE53TURweEFUdFg2emdaZGpw?=
+ =?utf-8?B?NmxsYURERW5rUk4yTWRoeEk3aUlNVWpDZmxRTjVsWDZacHpkRFNPekY0RFRK?=
+ =?utf-8?B?d3BhcHAyTXhtMEJidVcrS1VjQlJYbkdoMHBIYkh6VVpzckQ2cTBaWVdVa3pD?=
+ =?utf-8?B?SjVFQ3VRMWhWSU5RcXkrVEZYZzg2L3BncWZ2MHI1NnZQQ2ZPV0Q2MVlWUncz?=
+ =?utf-8?B?aWY3OXQ3S2MrclRUUXk1Z1FXWjZLL0ljV3d5akVhc2ZpSGRlMWk1a1Jjd0pC?=
+ =?utf-8?B?RmlOWmxBSlJPVTdIZ2o2ZzJxaVhlNW9UYjFvNkduYVZHOG1FS0JGbVBYclMy?=
+ =?utf-8?B?MmR0ZU5MdVE4YTZCSVROWDlndlcrYWRrK2VsUHpVN21LVUVFd0pEdmJ0VWV2?=
+ =?utf-8?B?NW9tdDVlTWJWMW9veE1GcVdlSmpnaHNxU3laUm1ieCtlb1R3cWUvYzJYY2xt?=
+ =?utf-8?B?MkRpVzlXVm5uSGVZeEhDY3ZVNjdUbVUwaEtBMmZCaUZoR2g1UENISVE4YjFF?=
+ =?utf-8?B?cGQxYXloTW9Sd3puMmFIdThVNTBIN2QwZXJNQ2dIamFNakxlZCs3MlVJdkl4?=
+ =?utf-8?B?TVlKcWwzWWV1VnA0YmdoSzRhU0VIWWt4LzZ5UzhVRndlMUg4Yk9HNFBjb00r?=
+ =?utf-8?B?elpRNzcrY0ZTdmZsVHVSRGxacEV1cHRZeWgrZURxZ0UrUjJBWUNxVGEya3ox?=
+ =?utf-8?B?NkU4UEpOQXZ1dk9DdnNJYmd5T3crblQxV1RpSnhoRmkrWFdSc1ZNcXlSOUVy?=
+ =?utf-8?B?SE13T3FlNTdlQUZKZ0ZOYkRNNGpqVkJSTDVHeXhlbjBPYmJsYVBJclJFK3Vw?=
+ =?utf-8?B?UENBQTF3SzVXR3M5b1FKNXUwVlcrYTMwN3ZUaUh1VU1oSTNWTmdFU2sydlc2?=
+ =?utf-8?B?T1VsUnVlck1BK1hnbnQyaWZOQ0ZrY08xSFN1UmkvSUM4dW5YMkJKNHdxTG0z?=
+ =?utf-8?B?R0dYU2M0UHFHSmhod0dSK01mVEJxZTFCVkJ6YVA5VktUZllDVGVxWkgwRkdV?=
+ =?utf-8?B?VHdOendxRFFDaTEvT0Ewc0FVYUhiOTh3eEQwcnhQaXZubG4yWUNZNTVaRmlZ?=
+ =?utf-8?B?djhxbjRIaTlxckoxNlI4U2NybTB4VTlvdDFBbElZSEEveFduL0pZTWlXUm1u?=
+ =?utf-8?Q?Hl9uqyat8Sm4JyJz9t8Lo822qOe1JRqiVqQr8I1y0o4LE?=
+X-MS-Exchange-AntiSpam-MessageData-1: OjFUpwMXkc8ZXw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f63fd262-eafd-48f1-a1c0-08de9c96be06
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdb7a1d7-b4e0-4a41-670d-08de9c96bfef
 X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 15:33:58.1361 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 15:34:01.3504 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vGh/14xkWErIv4k10+VWI6aod1aB9paNJ1PhRwi39NZoHWen2vMYfWeemi24qJqUYtilqReAdo58JtAHILaYxA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: eNC/iFVFOLcYHJpx0m2IImh5ihEZh1Wq3D+nIcp34xqH1ntXbXOodQj51ziuaVOSIk4yySWNt8JixLYgecxVgw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9389
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,60 +142,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Change flush_into_kvec to return KVVec instead of KVec. KVVec uses
-vmalloc for large allocations, which is appropriate since RPC reply
-payloads can be large (>=20 KiB).
+Add `RawRmControl` which implements CommandToGsp for sending RM control
+RPCs. Add `RmControlReply` which implements MessageFromGsp for getting
+the reply back. Add the `RmControlCommand` trait for defining an RM
+control message.
 
-Update GspSequence to use KVVec accordingly.
+Add `RmControl` which sends an RM control RPC via the command queue
+using the above structures.
 
-Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+This gives a generic way to send each RM control RPC. Each new RM
+control RPC can be added by extending RmControlMsgFunction, adding its
+bindings wrappers and writing an implementation of `RmControlCommand`
+that can be sent using `RmControl`.
+
 Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/sequencer.rs | 4 ++--
- drivers/gpu/nova-core/sbuffer.rs       | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/nova-core/gsp.rs             |   1 +
+ drivers/gpu/nova-core/gsp/fw/rm.rs       |   1 -
+ drivers/gpu/nova-core/gsp/rm.rs          |   3 +
+ drivers/gpu/nova-core/gsp/rm/commands.rs | 155 +++++++++++++++++++++++++++++++
+ 4 files changed, 159 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
-index 672c7d6c3cf6..62aab20ce8c6 100644
---- a/drivers/gpu/nova-core/gsp/sequencer.rs
-+++ b/drivers/gpu/nova-core/gsp/sequencer.rs
-@@ -43,7 +43,7 @@ struct GspSequence {
-     /// Current command index for error reporting.
-     cmd_index: u32,
-     /// Command data buffer containing the sequence of commands.
--    cmd_data: KVec<u8>,
-+    cmd_data: KVVec<u8>,
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index ba5b7f990031..58e3d7d21557 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -21,6 +21,7 @@
+ pub(crate) mod cmdq;
+ pub(crate) mod commands;
+ mod fw;
++pub(crate) mod rm;
+ mod sequencer;
+ 
+ pub(crate) use fw::{
+diff --git a/drivers/gpu/nova-core/gsp/fw/rm.rs b/drivers/gpu/nova-core/gsp/fw/rm.rs
+index e51fdcec1f27..baa3857533e5 100644
+--- a/drivers/gpu/nova-core/gsp/fw/rm.rs
++++ b/drivers/gpu/nova-core/gsp/fw/rm.rs
+@@ -54,7 +54,6 @@ pub(crate) struct GspRmControl {
+     inner: bindings::rpc_gsp_rm_control_v03_00,
  }
  
- impl MessageFromGsp for GspSequence {
-@@ -55,7 +55,7 @@ fn read(
-         msg: &Self::Message,
-         sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
-     ) -> Result<Self, Self::InitError> {
--        let cmd_data = sbuffer.flush_into_kvec(GFP_KERNEL)?;
-+        let cmd_data = sbuffer.read_to_vec(GFP_KERNEL)?;
-         Ok(GspSequence {
-             cmd_index: msg.cmd_index(),
-             cmd_data,
-diff --git a/drivers/gpu/nova-core/sbuffer.rs b/drivers/gpu/nova-core/sbuffer.rs
-index 3a41d224c77a..ae2facdcbdd4 100644
---- a/drivers/gpu/nova-core/sbuffer.rs
-+++ b/drivers/gpu/nova-core/sbuffer.rs
-@@ -162,11 +162,11 @@ pub(crate) fn read_exact(&mut self, mut dst: &mut [u8]) -> Result {
-         Ok(())
-     }
- 
--    /// Read all the remaining data into a [`KVec`].
-+    /// Read all the remaining data into a [`KVVec`].
-     ///
-     /// `self` will be empty after this operation.
--    pub(crate) fn flush_into_kvec(&mut self, flags: kernel::alloc::Flags) -> Result<KVec<u8>> {
--        let mut buf = KVec::<u8>::new();
-+    pub(crate) fn read_to_vec(&mut self, flags: kernel::alloc::Flags) -> Result<KVVec<u8>> {
-+        let mut buf = KVVec::<u8>::new();
- 
-         if let Some(slice) = core::mem::take(&mut self.cur_slice) {
-             buf.extend_from_slice(slice, flags)?;
+-#[expect(dead_code)]
+ impl GspRmControl {
+     /// Creates a new RM control command.
+     pub(crate) fn new<T>(
+diff --git a/drivers/gpu/nova-core/gsp/rm.rs b/drivers/gpu/nova-core/gsp/rm.rs
+new file mode 100644
+index 000000000000..10e879a3e842
+--- /dev/null
++++ b/drivers/gpu/nova-core/gsp/rm.rs
+@@ -0,0 +1,3 @@
++// SPDX-License-Identifier: GPL-2.0
++
++pub(crate) mod commands;
+diff --git a/drivers/gpu/nova-core/gsp/rm/commands.rs b/drivers/gpu/nova-core/gsp/rm/commands.rs
+new file mode 100644
+index 000000000000..33be7a663a8c
+--- /dev/null
++++ b/drivers/gpu/nova-core/gsp/rm/commands.rs
+@@ -0,0 +1,155 @@
++// SPDX-License-Identifier: GPL-2.0
++
++use core::array;
++
++use kernel::{
++    device,
++    prelude::*, //
++};
++
++use crate::{
++    driver::Bar0,
++    gsp::{
++        cmdq::{
++            Cmdq,
++            CommandToGsp,
++            GspRpcError,
++            MessageFromGsp, //
++        },
++        commands::{
++            Client,
++            Handle, //
++        },
++        fw::{
++            rm::*,
++            GspMsgRmStatus,
++            MsgFunction, //
++        },
++    },
++    sbuffer::SBufferIter, //
++};
++
++/// Wraps a [`RmControl`] command to provide the infrastructure for sending it on the command queue.
++struct RawRmControl<'a, T>(&'a RmControl<T>)
++where
++    T: RmControlCommand;
++
++impl<'a, T: RmControlCommand> CommandToGsp for RawRmControl<'a, T> {
++    const FUNCTION: MsgFunction = MsgFunction::GspRmControl;
++    type Command = GspRmControl;
++    type Reply = RmControlReply;
++    type InitError = Error;
++
++    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
++        let params_size: u32 = T::LEN.try_into()?;
++        Ok(GspRmControl::new(
++            self.0.client,
++            self.0.object,
++            T::FUNCTION,
++            params_size,
++        ))
++    }
++
++    fn variable_payload_len(&self) -> usize {
++        T::LEN
++    }
++
++    fn init_variable_payload(
++        &self,
++        dst: &mut SBufferIter<array::IntoIter<&mut [u8], 2>>,
++    ) -> Result {
++        self.0.cmd.write_payload(dst)
++    }
++}
++
++/// Command for sending an RM control message to the GSP.
++///
++/// RM control messages are used to query or control RM objects (see [`Handle`] for more info on RM
++/// objects). It takes a client handle and an RM object handle identifying the target of the
++/// message, within the given client.
++pub(crate) struct RmControl<T>
++where
++    T: RmControlCommand,
++{
++    /// The client handle under which `object` is allocated.
++    client: Handle<Client>,
++    /// The RM object handle to query or control.
++    object: Handle<T::Target>,
++    /// The specific RM control command to send.
++    cmd: T,
++}
++
++#[expect(unused)]
++impl<T: RmControlCommand> RmControl<T> {
++    /// Creates a new RM control command.
++    pub(crate) fn new(client: Handle<Client>, object: Handle<T::Target>, cmd: T) -> Self {
++        Self {
++            client,
++            object,
++            cmd,
++        }
++    }
++
++    /// Sends an RM control command, checks the reply status, and returns the reply.
++    pub(crate) fn send(
++        self,
++        dev: &device::Device,
++        cmdq: &Cmdq,
++        bar: &Bar0,
++    ) -> Result<T::Reply, GspRpcError> {
++        let reply = cmdq.send_command(bar, RawRmControl(&self))?;
++
++        reply
++            .status
++            .log_if_warning(dev, T::FUNCTION)
++            .map_err(GspRpcError::Rm)?;
++
++        self.cmd
++            .parse_reply(&reply.params)
++            .map_err(GspRpcError::Transport)
++    }
++}
++
++/// Response from an RM control message.
++struct RmControlReply {
++    status: GspMsgRmStatus,
++    params: KVVec<u8>,
++}
++
++impl MessageFromGsp for RmControlReply {
++    const FUNCTION: MsgFunction = MsgFunction::GspRmControl;
++    type Message = GspRmControl;
++    type InitError = Error;
++
++    fn read(
++        msg: &Self::Message,
++        sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
++    ) -> Result<Self, Self::InitError> {
++        Ok(RmControlReply {
++            status: msg.status()?,
++            params: sbuffer.read_to_vec(GFP_KERNEL)?,
++        })
++    }
++}
++
++/// Trait for RM control commands that can be sent using [`RmControl`].
++pub(crate) trait RmControlCommand {
++    /// The specific RM control message kind to send.
++    const FUNCTION: RmControlMsgFunction;
++
++    /// Length of the command-specific payload to send with the RM control message.
++    const LEN: usize;
++
++    /// The type of the reply after parsing the raw bytes from the RM control reply message.
++    type Reply;
++
++    /// The type of the RM object that this command targets.
++    type Target;
++
++    /// Writes the payload of the command into `dst`.
++    fn write_payload(&self, dst: &mut SBufferIter<array::IntoIter<&mut [u8], 2>>) -> Result;
++
++    /// Parses the reply bytes from an RM control reply message into the command-specific
++    /// reply type.
++    fn parse_reply(&self, params: &[u8]) -> Result<Self::Reply>;
++}
 
 -- 
 2.53.0
