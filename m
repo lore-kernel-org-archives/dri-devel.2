@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6259F43688
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5ABEF43688
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:58:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B20610E9AD;
-	Fri, 17 Apr 2026 09:58:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 318BA10E9AF;
+	Fri, 17 Apr 2026 09:58:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="vXktKOdC";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TgFu7Thb";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A0B110E9AD
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:58:06 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E770110E9AF
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:58:09 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 423991A3329;
- Fri, 17 Apr 2026 09:58:05 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 690824E42A2A;
+ Fri, 17 Apr 2026 09:58:08 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1605760497;
- Fri, 17 Apr 2026 09:58:05 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3EC4460497;
+ Fri, 17 Apr 2026 09:58:08 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D58FF104609D2; 
- Fri, 17 Apr 2026 11:58:01 +0200 (CEST)
+ with ESMTPSA id 2461A104609D4; 
+ Fri, 17 Apr 2026 11:58:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776419883; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776419887; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=0I11BniKPdLENgLgcpCP9hdy8L46qlgggIlzbOkzGWU=;
- b=vXktKOdCZcGYXlUMehX55FjF7u9v8m/F9IhpaTsGkfhKx23rUBPFcCgv5ArzjRnnIn10EA
- klt9R/SZZgdYv4SgwbMRdNgjXO9fDdAcwc8IWUI9tOfop6ggMEG4iVryalerEz7HcovV5W
- kNtFauPJfA2S0W3kU36IIFi3ZHjq04AEcFnyKLTZhqwgEe2BMwOaYoTPBoK84zDoMOD/Ur
- HiY1Osky+3KatUNPIb9Bq0rangVfAGTQhUlYG3xVFiieLxW88CatMbh91eS8tLDyoenLOX
- kLEpa19SICceoyF6AjEa5yyB4i+eYJzemlTjVc7j7DQ5s3lvl5yErCKt6cFD4A==
+ bh=aHaNwGRsoUdIwFjwTHJYKxtK/qocJVFaiYxjNfS379g=;
+ b=TgFu7ThbzlwDxuhfVbdr8GWV1T0O5KC2H+YhHJzCyyNVkVV7ROVcB1q+gVHYBl6C/lXD9y
+ RaB5KYSu2MWxD+HCp7dh23/CTo3Rtw/gR5T2xeBaS4QDP1+mp9x8ldPDsiyufizvPce9iq
+ qJzLm706WzxEtQ1hZI5QzxbJoauV7XOaKucm9bQjgyFIQMN+fS37AdBffdi9demgWOhjIZ
+ wWCR5157SgvZjZU+8uYkOeatm0TiutV2Os8Vx3j6lHwL1oywvlwNA8yCkZpjiSUNPAITfw
+ nmWn4dLBtqBkF2DsUihruQM3YTJMbdayyl9ZkYkglKHF7Cycd9y59sarEnMvww==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 17 Apr 2026 11:57:49 +0200
-Subject: [PATCH 01/41] drm/display: bridge-connector: attach the encoder to
- the created connector
+Date: Fri, 17 Apr 2026 11:57:50 +0200
+Subject: [PATCH 02/41] drm: adp: remove now-redundant call to
+ drm_connector_attach_encoder()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-1-67b8b8fb872a@bootlin.com>
+Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-2-67b8b8fb872a@bootlin.com>
 References: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 In-Reply-To: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
@@ -72,33 +72,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently all users of the bridge-connector must call
-drm_connector_attach_encoder() immediately after a successful
+drm_connector_attach_encoder() is now called by
 drm_bridge_connector_init().
-
-This is an unnecessary burden for users. Move the call to the end of
-drm_bridge_connector_init() so all callers can be simplified.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/adp/adp_drv.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 39cc18f78eda..bba8327fe3f7 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -1055,6 +1055,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
- 		drm_connector_attach_content_protection_property(connector, true);
+diff --git a/drivers/gpu/drm/adp/adp_drv.c b/drivers/gpu/drm/adp/adp_drv.c
+index 4554cf75565e..0a11820d5b8a 100644
+--- a/drivers/gpu/drm/adp/adp_drv.c
++++ b/drivers/gpu/drm/adp/adp_drv.c
+@@ -444,8 +444,6 @@ static int adp_setup_mode_config(struct adp_drv_private *adp)
+ 	if (IS_ERR(adp->connector))
+ 		return PTR_ERR(adp->connector);
  
-+	ret = drm_connector_attach_encoder(connector, encoder);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	return connector;
- }
- EXPORT_SYMBOL_GPL(drm_bridge_connector_init);
+-	drm_connector_attach_encoder(adp->connector, adp->encoder);
+-
+ 	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
+ 	if (ret < 0) {
+ 		drm_err(drm, "failed to initialize vblank");
 
 -- 
 2.53.0
