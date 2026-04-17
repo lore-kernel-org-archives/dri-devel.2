@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 158F0F99C63
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:21:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 585E2F99C63
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:21:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59D7910EAA7;
-	Fri, 17 Apr 2026 21:21:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD72C10EAAD;
+	Fri, 17 Apr 2026 21:21:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Aa3ATqBG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G2WiY7bj";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A80C510E120;
- Fri, 17 Apr 2026 21:21:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67DE810EAAA;
+ Fri, 17 Apr 2026 21:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776460900; x=1807996900;
+ t=1776460906; x=1807996906;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hhtKPD+UrLoNsc7JuzSCdZWQRmyuzBiguM1d997uzQI=;
- b=Aa3ATqBGNvNGNT7XNF7VGFxwb1hvHaDAotP9p8Z7rCWSUeV2Mz92ZHJc
- Mzik1b9b0L5HpXIiK0mYVtw2aCXoeZtV8vx3rrOoaNOaTm9pbe2kbgeeu
- HTkYtwxKHQ0VvLwGz8k4ErvBHlyL5mBn5tKArzU2TvfrSX8VU+Uxrwxru
- x4juG9dtXwMyS+4lNq9oAtt9zy7P702gKz/0JHQ7Apr6/dBalMrrtTx+6
- 7+VPm3URPifnwrKxdOaXzqjJK+4V2amJhEPUq/bNvP7Jrhupk0IMc4g5T
- VFAU1zpFZJQQL3u0xK0lgiyvLgJD65isI7o22LblyQRR0D9fQ9YMN5WBS Q==;
-X-CSE-ConnectionGUID: YLaVvjyBSjKQ5FFADTibOQ==
-X-CSE-MsgGUID: zEGpLaCNQuqp90yI8JYIqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="95046159"
-X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="95046159"
+ bh=NbQ6WR+oGMWv16zpBRdIVtEzLrs6ykwNXTAZSCGP1IM=;
+ b=G2WiY7bjfBRkDIMR4uWZ/Cn39GqQDtV6KqIx+k4SxaagYd5n7sy3+Nc7
+ bol2CwoEuoLs75lB7nwvfnSd0c7GWC7b2spKaVHD4rIYnW8UcUj1l7s79
+ qHtcS1TCH5wHXjntzFc9ABQqfaGbQQFVW6SHIZ3QRExDwmJyKFaAu1R2M
+ IHRrLgMlwP1j/mJXDiigrA43SnZQXW7lTaqVuvLgZRhnQvI7Jd6xmf1oq
+ WSw2ccEg4d87161KQ0jxDCsi6wROHWJumLwSRXAewBi1++2MkwYgA82uq
+ aVG/8pFO5YKM0yQeQQpDtA8UuWF029id7JN0InNptfh1gsw2NRCv+wVTT w==;
+X-CSE-ConnectionGUID: vmO+FeLGT/6JuR6iitM1Gg==
+X-CSE-MsgGUID: muyliI0WS5+u8fxp+2KKww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="95046182"
+X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="95046182"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2026 14:21:39 -0700
-X-CSE-ConnectionGUID: +TJPFypySe6ooMpDjKUbwA==
-X-CSE-MsgGUID: CO8WdA/4SfiuA3K0tSwojQ==
+ 17 Apr 2026 14:21:46 -0700
+X-CSE-ConnectionGUID: +DKyFXsBTpGpFbfXCNySPw==
+X-CSE-MsgGUID: Ex+vtyDiQ4W/lnOCFnwciA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="235503843"
+X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="235503860"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa004.jf.intel.com with ESMTP; 17 Apr 2026 14:21:34 -0700
+ by orviesa004.jf.intel.com with ESMTP; 17 Apr 2026 14:21:40 -0700
 From: Raag Jadav <raag.jadav@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  netdev@vger.kernel.org
@@ -52,9 +52,9 @@ Cc: simona.vetter@ffwll.ch, airlied@gmail.com, kuba@kernel.org,
  mallesh.koujalagi@intel.com, soham.purkait@intel.com,
  anoop.c.vijay@intel.com, aravind.iddamsetty@linux.intel.com,
  Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v1 06/11] drm/xe/sysctrl: Add system controller event support
-Date: Sat, 18 Apr 2026 02:46:41 +0530
-Message-ID: <20260417211730.837345-7-raag.jadav@intel.com>
+Subject: [PATCH v1 07/11] drm/xe/ras: Introduce correctable error handling
+Date: Sat, 18 Apr 2026 02:46:42 +0530
+Message-ID: <20260417211730.837345-8-raag.jadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260417211730.837345-1-raag.jadav@intel.com>
 References: <20260417211730.837345-1-raag.jadav@intel.com>
@@ -76,282 +76,255 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-System controller reports different types of events to GFX endpoint for
-different usecases, add initial support for them. This will be further
-extended to service those usecases.
+Add initial support for correctable error handling which is serviced
+using system controller event. Currently we only log the errors in
+dmesg but this serves as a foundation for RAS infrastructure and will
+be further extended to facilitate other RAS features.
 
 Signed-off-by: Raag Jadav <raag.jadav@intel.com>
 Reviewed-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 ---
- drivers/gpu/drm/xe/Makefile                   |  1 +
- drivers/gpu/drm/xe/xe_sysctrl.c               | 11 +++
- drivers/gpu/drm/xe/xe_sysctrl.h               |  1 +
- drivers/gpu/drm/xe/xe_sysctrl_event.c         | 86 +++++++++++++++++++
- drivers/gpu/drm/xe/xe_sysctrl_event_types.h   | 57 ++++++++++++
- drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h | 18 ++++
- drivers/gpu/drm/xe/xe_sysctrl_types.h         |  3 +
- 7 files changed, 177 insertions(+)
- create mode 100644 drivers/gpu/drm/xe/xe_sysctrl_event.c
- create mode 100644 drivers/gpu/drm/xe/xe_sysctrl_event_types.h
+ drivers/gpu/drm/xe/Makefile           |  1 +
+ drivers/gpu/drm/xe/xe_ras.c           | 92 +++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_ras.h           | 15 +++++
+ drivers/gpu/drm/xe/xe_ras_types.h     | 73 +++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sysctrl_event.c |  3 +-
+ 5 files changed, 183 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_ras.c
+ create mode 100644 drivers/gpu/drm/xe/xe_ras.h
+ create mode 100644 drivers/gpu/drm/xe/xe_ras_types.h
 
 diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
-index 3fceda259834..1c863b711ae9 100644
+index 1c863b711ae9..22f17bd1082d 100644
 --- a/drivers/gpu/drm/xe/Makefile
 +++ b/drivers/gpu/drm/xe/Makefile
-@@ -126,6 +126,7 @@ xe-y += xe_bb.o \
- 	xe_survivability_mode.o \
- 	xe_sync.o \
- 	xe_sysctrl.o \
-+	xe_sysctrl_event.o \
- 	xe_sysctrl_mailbox.o \
- 	xe_tile.o \
- 	xe_tile_sysfs.o \
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl.c b/drivers/gpu/drm/xe/xe_sysctrl.c
-index 7de3e73bd8e0..6a7da5d2794a 100644
---- a/drivers/gpu/drm/xe/xe_sysctrl.c
-+++ b/drivers/gpu/drm/xe/xe_sysctrl.c
-@@ -12,6 +12,7 @@
- #include "regs/xe_sysctrl_regs.h"
- #include "xe_device.h"
- #include "xe_mmio.h"
-+#include "xe_pm.h"
- #include "xe_soc_remapper.h"
- #include "xe_sysctrl.h"
- #include "xe_sysctrl_mailbox.h"
-@@ -39,6 +40,12 @@ static void sysctrl_fini(void *arg)
- 
- static void xe_sysctrl_work(struct work_struct *work)
- {
-+	struct xe_sysctrl *sc = container_of(work, struct xe_sysctrl, work);
-+	struct xe_device *xe = sc_to_xe(sc);
-+
-+	guard(xe_pm_runtime)(xe);
-+	guard(mutex)(&sc->work_lock);
-+	xe_sysctrl_event(sc);
- }
- 
- /**
-@@ -74,6 +81,10 @@ int xe_sysctrl_init(struct xe_device *xe)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(xe->drm.dev, &sc->work_lock);
-+	if (ret)
-+		return ret;
-+
- 	xe->soc_remapper.set_sysctrl_region(xe, SYSCTRL_MAILBOX_INDEX);
- 	xe_sysctrl_mailbox_init(sc);
- 	INIT_WORK(&sc->work, xe_sysctrl_work);
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl.h b/drivers/gpu/drm/xe/xe_sysctrl.h
-index f7469bfc9324..090dffb6d55f 100644
---- a/drivers/gpu/drm/xe/xe_sysctrl.h
-+++ b/drivers/gpu/drm/xe/xe_sysctrl.h
-@@ -16,6 +16,7 @@ static inline struct xe_device *sc_to_xe(struct xe_sysctrl *sc)
- 	return container_of(sc, struct xe_device, sc);
- }
- 
-+void xe_sysctrl_event(struct xe_sysctrl *sc);
- int xe_sysctrl_init(struct xe_device *xe);
- void xe_sysctrl_irq_handler(struct xe_device *xe, u32 master_ctl);
- void xe_sysctrl_pm_resume(struct xe_device *xe);
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl_event.c b/drivers/gpu/drm/xe/xe_sysctrl_event.c
+@@ -114,6 +114,7 @@ xe-y += xe_bb.o \
+ 	xe_pxp_submit.o \
+ 	xe_query.o \
+ 	xe_range_fence.o \
++	xe_ras.o \
+ 	xe_reg_sr.o \
+ 	xe_reg_whitelist.o \
+ 	xe_ring_ops.o \
+diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
 new file mode 100644
-index 000000000000..74163e0bafe2
+index 000000000000..08e91348c459
 --- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_sysctrl_event.c
-@@ -0,0 +1,86 @@
++++ b/drivers/gpu/drm/xe/xe_ras.c
+@@ -0,0 +1,92 @@
 +// SPDX-License-Identifier: MIT
 +/*
 + * Copyright © 2026 Intel Corporation
 + */
 +
-+#include "xe_device.h"
-+#include "xe_irq.h"
 +#include "xe_printk.h"
++#include "xe_ras.h"
++#include "xe_ras_types.h"
 +#include "xe_sysctrl.h"
 +#include "xe_sysctrl_event_types.h"
-+#include "xe_sysctrl_mailbox.h"
-+#include "xe_sysctrl_mailbox_types.h"
 +
-+static void get_pending_event(struct xe_sysctrl *sc, struct xe_sysctrl_mailbox_command *command)
++/* Severity of detected errors  */
++enum xe_ras_severity {
++	XE_RAS_SEV_NOT_SUPPORTED = 0,
++	XE_RAS_SEV_CORRECTABLE,
++	XE_RAS_SEV_UNCORRECTABLE,
++	XE_RAS_SEV_INFORMATIONAL,
++	XE_RAS_SEV_MAX
++};
++
++/* Major IP blocks/components where errors can originate */
++enum xe_ras_component {
++	XE_RAS_COMP_NOT_SUPPORTED = 0,
++	XE_RAS_COMP_DEVICE_MEMORY,
++	XE_RAS_COMP_CORE_COMPUTE,
++	XE_RAS_COMP_RESERVED,
++	XE_RAS_COMP_PCIE,
++	XE_RAS_COMP_FABRIC,
++	XE_RAS_COMP_SOC_INTERNAL,
++	XE_RAS_COMP_MAX
++};
++
++static const char *const xe_ras_severities[] = {
++	[XE_RAS_SEV_NOT_SUPPORTED]		= "Not Supported",
++	[XE_RAS_SEV_CORRECTABLE]		= "Correctable Error",
++	[XE_RAS_SEV_UNCORRECTABLE]		= "Uncorrectable Error",
++	[XE_RAS_SEV_INFORMATIONAL]		= "Informational Error",
++};
++static_assert(ARRAY_SIZE(xe_ras_severities) == XE_RAS_SEV_MAX);
++
++static const char *const xe_ras_components[] = {
++	[XE_RAS_COMP_NOT_SUPPORTED]		= "Not Supported",
++	[XE_RAS_COMP_DEVICE_MEMORY]		= "Device Memory",
++	[XE_RAS_COMP_CORE_COMPUTE]		= "Core Compute",
++	[XE_RAS_COMP_RESERVED]			= "Reserved",
++	[XE_RAS_COMP_PCIE]			= "PCIe",
++	[XE_RAS_COMP_FABRIC]			= "Fabric",
++	[XE_RAS_COMP_SOC_INTERNAL]		= "SoC Internal",
++};
++static_assert(ARRAY_SIZE(xe_ras_components) == XE_RAS_COMP_MAX);
++
++static inline const char *sev_to_str(u8 sev)
 +{
-+	struct xe_sysctrl_event_response *response = command->data_out;
-+	struct xe_device *xe = sc_to_xe(sc);
-+	u32 count = XE_SYSCTRL_EVENT_FLOOD;
-+	size_t len;
-+	int ret;
++	if (sev >= XE_RAS_SEV_MAX)
++		sev = XE_RAS_SEV_NOT_SUPPORTED;
 +
-+	do {
-+		memset(response, 0, sizeof(*response));
-+
-+		ret = xe_sysctrl_send_command(sc, command, &len);
-+		if (ret) {
-+			xe_err(xe, "sysctrl: failed to get pending event %d\n", ret);
-+			return;
-+		}
-+
-+		if (len != sizeof(*response)) {
-+			xe_err(xe, "sysctrl: unexpected event response length %zu (expected %zu)\n",
-+			       len, sizeof(*response));
-+			return;
-+		}
-+
-+		if (response->event == XE_SYSCTRL_EVENT_THRESHOLD_CROSSED)
-+			xe_warn(xe, "[RAS]: counter threshold crossed\n");
-+		else
-+			xe_err(xe, "sysctrl: unexpected event %#x\n", response->event);
-+
-+		if (!--count) {
-+			xe_err(xe, "sysctrl: event flooding\n");
-+			return;
-+		}
-+
-+		xe_dbg(xe, "sysctrl: %u events pending\n", response->count);
-+	} while (response->count);
++	return xe_ras_severities[sev];
 +}
 +
-+static void event_request_prepare(struct xe_device *xe, struct xe_sysctrl_app_msg_hdr *header,
-+				  struct xe_sysctrl_event_request *request)
++static inline const char *comp_to_str(u8 comp)
 +{
-+	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
++	if (comp >= XE_RAS_COMP_MAX)
++		comp = XE_RAS_COMP_NOT_SUPPORTED;
 +
-+	header->data = REG_FIELD_PREP(APP_HDR_GROUP_ID_MASK, XE_SYSCTRL_GROUP_GFSP) |
-+		       REG_FIELD_PREP(APP_HDR_COMMAND_MASK, XE_SYSCTRL_CMD_GET_PENDING_EVENT);
-+
-+	request->vector = xe_device_has_msix(xe) ? XE_IRQ_DEFAULT_MSIX : 0;
-+	request->fn = PCI_FUNC(pdev->devfn);
++	return xe_ras_components[comp];
 +}
 +
-+/**
-+ * xe_sysctrl_event() - Handler for System Controller events
-+ * @sc: System Controller instance
-+ *
-+ * Handle events generated by System Controller.
-+ */
-+void xe_sysctrl_event(struct xe_sysctrl *sc)
++void xe_ras_counter_threshold_crossed(struct xe_device *xe,
++				      struct xe_sysctrl_event_response *response)
 +{
-+	struct xe_sysctrl_mailbox_command command = {};
-+	struct xe_sysctrl_event_response response = {};
-+	struct xe_sysctrl_event_request request = {};
-+	struct xe_sysctrl_app_msg_hdr header = {};
++	struct xe_ras_threshold_crossed *pending = (void *)&response->data;
++	struct xe_ras_error_class *errors = pending->counters;
++	u32 counter_id, ncounters = pending->ncounters;
 +
-+	xe_device_assert_mem_access(sc_to_xe(sc));
-+	event_request_prepare(sc_to_xe(sc), &header, &request);
++	if (!ncounters || ncounters > XE_RAS_NUM_COUNTERS) {
++		xe_err(xe, "sysctrl: unexpected counter threshold crossed %u\n", ncounters);
++		return;
++	}
 +
-+	command.header = header;
-+	command.data_in = &request;
-+	command.data_in_len = sizeof(request);
-+	command.data_out = &response;
-+	command.data_out_len = sizeof(response);
++	BUILD_BUG_ON(sizeof(response->data) < sizeof(*pending));
++	xe_warn(xe, "[RAS]: counter threshold crossed, %u new errors\n", ncounters);
 +
-+	get_pending_event(sc, &command);
++	for (counter_id = 0; counter_id < ncounters; counter_id++) {
++		u8 severity, component;
++
++		severity = errors[counter_id].common.severity;
++		component = errors[counter_id].common.component;
++
++		xe_warn(xe, "[RAS]: %s %s detected\n",
++			comp_to_str(component), sev_to_str(severity));
++	}
 +}
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl_event_types.h b/drivers/gpu/drm/xe/xe_sysctrl_event_types.h
+diff --git a/drivers/gpu/drm/xe/xe_ras.h b/drivers/gpu/drm/xe/xe_ras.h
 new file mode 100644
-index 000000000000..4d444ba40b9b
+index 000000000000..ea90593b62dc
 --- /dev/null
-+++ b/drivers/gpu/drm/xe/xe_sysctrl_event_types.h
-@@ -0,0 +1,57 @@
++++ b/drivers/gpu/drm/xe/xe_ras.h
+@@ -0,0 +1,15 @@
 +/* SPDX-License-Identifier: MIT */
 +/*
 + * Copyright © 2026 Intel Corporation
 + */
 +
-+#ifndef _XE_SYSCTRL_EVENT_TYPES_H_
-+#define _XE_SYSCTRL_EVENT_TYPES_H_
++#ifndef _XE_RAS_H_
++#define _XE_RAS_H_
++
++struct xe_device;
++struct xe_sysctrl_event_response;
++
++void xe_ras_counter_threshold_crossed(struct xe_device *xe,
++				      struct xe_sysctrl_event_response *response);
++
++#endif
+diff --git a/drivers/gpu/drm/xe/xe_ras_types.h b/drivers/gpu/drm/xe/xe_ras_types.h
+new file mode 100644
+index 000000000000..4e63c67f806a
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_ras_types.h
+@@ -0,0 +1,73 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2026 Intel Corporation
++ */
++
++#ifndef _XE_RAS_TYPES_H_
++#define _XE_RAS_TYPES_H_
 +
 +#include <linux/types.h>
 +
-+#define XE_SYSCTRL_EVENT_DATA_LEN		59
-+
-+/* Modify as needed */
-+#define XE_SYSCTRL_EVENT_FLOOD			16
++#define XE_RAS_NUM_COUNTERS			16
 +
 +/**
-+ * enum xe_sysctrl_event - Events reported by System Controller
-+ *
-+ * @XE_SYSCTRL_EVENT_THRESHOLD_CROSSED: Error counter threshold crossed
++ * struct xe_ras_error_common - Error fields that are common across all products
 + */
-+enum xe_sysctrl_event {
-+	XE_SYSCTRL_EVENT_THRESHOLD_CROSSED	= 0x01,
-+};
-+
-+/**
-+ * struct xe_sysctrl_event_request - Request structure for pending event
-+ */
-+struct xe_sysctrl_event_request {
-+	/** @vector: MSI-X vector that was triggered */
-+	u32 vector;
-+	/** @fn: Function index (0-7) of PCIe device */
-+	u32 fn:8;
-+	/** @reserved: Reserved for future use */
-+	u32 reserved:24;
-+	/** @reserved2: Reserved for future use */
-+	u32 reserved2[2];
++struct xe_ras_error_common {
++	/** @severity: Error severity */
++	u8 severity;
++	/** @component: IP block where error originated */
++	u8 component;
 +} __packed;
 +
 +/**
-+ * struct xe_sysctrl_event_response - Response structure for pending event
++ * struct xe_ras_error_unit - Error unit information
 + */
-+struct xe_sysctrl_event_response {
-+	/** @count: Pending event count, decremented by fw on each response */
-+	u32 count;
-+	/** @event: Pending event type */
-+	u32 event;
-+	/** @timestamp: Timestamp of most recent event */
-+	u64 timestamp;
-+	/** @extended: Event has extended payload */
-+	u32 extended:1;
-+	/** @reserved: Reserved for future use */
-+	u32 reserved:31;
-+	/** @data: Generic event data */
-+	u32 data[XE_SYSCTRL_EVENT_DATA_LEN];
++struct xe_ras_error_unit {
++	/** @tile: Tile identifier */
++	u8 tile;
++	/** @instance: Instance identifier specific to IP */
++	u32 instance;
 +} __packed;
 +
-+#endif /* _XE_SYSCTRL_EVENT_TYPES_H_ */
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-index 89456aec6097..84d7c647e743 100644
---- a/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-+++ b/drivers/gpu/drm/xe/xe_sysctrl_mailbox_types.h
-@@ -10,6 +10,24 @@
- 
- #include "abi/xe_sysctrl_abi.h"
- 
 +/**
-+ * enum xe_sysctrl_group - System Controller command groups
-+ *
-+ * @XE_SYSCTRL_GROUP_GFSP: GFSP group
++ * struct xe_ras_error_cause - Error cause information
 + */
-+enum xe_sysctrl_group {
-+	XE_SYSCTRL_GROUP_GFSP			= 0x01,
-+};
++struct xe_ras_error_cause {
++	/** @cause: Cause/checker */
++	u32 cause;
++	/** @reserved: For future use */
++	u8 reserved;
++} __packed;
 +
 +/**
-+ * enum xe_sysctrl_gfsp_cmd - Commands supported by GFSP group
-+ *
-+ * @XE_SYSCTRL_CMD_GET_PENDING_EVENT: Retrieve pending event
++ * struct xe_ras_error_product - Error fields that are specific to the product
 + */
-+enum xe_sysctrl_gfsp_cmd {
-+	XE_SYSCTRL_CMD_GET_PENDING_EVENT	= 0x07,
-+};
++struct xe_ras_error_product {
++	/** @unit: Unit within IP block */
++	struct xe_ras_error_unit unit;
++	/** @cause: Cause/checker */
++	struct xe_ras_error_cause cause;
++} __packed;
 +
- /**
-  * struct xe_sysctrl_mailbox_command - System Controller mailbox command
-  */
-diff --git a/drivers/gpu/drm/xe/xe_sysctrl_types.h b/drivers/gpu/drm/xe/xe_sysctrl_types.h
-index 5f408d6491ef..95359af691c9 100644
---- a/drivers/gpu/drm/xe/xe_sysctrl_types.h
-+++ b/drivers/gpu/drm/xe/xe_sysctrl_types.h
-@@ -31,6 +31,9 @@ struct xe_sysctrl {
- 
- 	/** @work: Pending events worker */
- 	struct work_struct work;
++/**
++ * struct xe_ras_error_class - Combines common and product-specific parts
++ */
++struct xe_ras_error_class {
++	/** @common: Common error type and component */
++	struct xe_ras_error_common common;
++	/** @product: Product-specific unit and cause */
++	struct xe_ras_error_product product;
++} __packed;
 +
-+	/** @work_lock: Mutex protecting pending events */
-+	struct mutex work_lock;
- };
++/**
++ * struct xe_ras_threshold_crossed - Data for threshold crossed event
++ */
++struct xe_ras_threshold_crossed {
++	/** @ncounters: Number of error counters that crossed thresholds */
++	u32 ncounters;
++	/** @counters: Array of error counters that crossed threshold */
++	struct xe_ras_error_class counters[XE_RAS_NUM_COUNTERS];
++} __packed;
++
++#endif
+diff --git a/drivers/gpu/drm/xe/xe_sysctrl_event.c b/drivers/gpu/drm/xe/xe_sysctrl_event.c
+index 74163e0bafe2..e96af8be07a2 100644
+--- a/drivers/gpu/drm/xe/xe_sysctrl_event.c
++++ b/drivers/gpu/drm/xe/xe_sysctrl_event.c
+@@ -6,6 +6,7 @@
+ #include "xe_device.h"
+ #include "xe_irq.h"
+ #include "xe_printk.h"
++#include "xe_ras.h"
+ #include "xe_sysctrl.h"
+ #include "xe_sysctrl_event_types.h"
+ #include "xe_sysctrl_mailbox.h"
+@@ -35,7 +36,7 @@ static void get_pending_event(struct xe_sysctrl *sc, struct xe_sysctrl_mailbox_c
+ 		}
  
- #endif
+ 		if (response->event == XE_SYSCTRL_EVENT_THRESHOLD_CROSSED)
+-			xe_warn(xe, "[RAS]: counter threshold crossed\n");
++			xe_ras_counter_threshold_crossed(xe, response);
+ 		else
+ 			xe_err(xe, "sysctrl: unexpected event %#x\n", response->event);
+ 
 -- 
 2.43.0
 
