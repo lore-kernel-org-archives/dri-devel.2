@@ -4,132 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5810F4369E
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 13:18:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A0AF436A0
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 13:21:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5292A10E2BB;
-	Fri, 17 Apr 2026 13:18:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1218710EA0A;
+	Fri, 17 Apr 2026 13:21:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pDIb4ftP";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MiopBoSn";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="OuU/G+hV";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Kso4GLZs";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B34B910E2BB
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 13:18:34 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63H8LJLL1872475
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 13:18:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=/o4OAij5cU+4lIvQWD99hEqb
- Gigke6tlElxv00jgEao=; b=pDIb4ftPbTWuv2zFN++lT0LqPW28pAfqwCn+8Iih
- wkHjFctAJF/Jbiy+Zy7ebFziAgTTCn91FKEkgSY6kYUtm6QbwFax1bbE8WGqpLfe
- KZP3Eu4cUUJ9esPJ1zBCYEiPXeG0k7yKhUJpPV1HbGXGwo+082I4ZnrZaF1GUIbB
- 2u74tVRZALo8pE0/ie89t/h2blRTQ2Z0oqoEjrcpxQuzYrywyB46vvLXEv6pISrA
- XTfEa/qtORzHFJIwhQY2uwYebTHm7Wmtq4M10eo4X3Ic59g4Sz9WKdp1RTqNIG4A
- aS2KZEZqo8bXt7Yiwad0AoollxRmVaG/hW8evskFWmcBlg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dk2knc4sf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 13:18:33 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-610478c6ba8so289698137.2
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776431913; x=1777036713;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=/o4OAij5cU+4lIvQWD99hEqbGigke6tlElxv00jgEao=;
- b=MiopBoSnBjbf0jOeYg6fLBGm04rWd/Prl50KVuLLX4L0h4YAnB2LO34esKWUZHTRAF
- 1b7kSp2y5NUE8OBuAdzq/E64v2PWJSqd41iBLqIvNtKqjvwlkf1jQ4rPgPmLOZWRBlPl
- VpNoDDi9lvwVpi1pZXQqoQKLZmSg57kufYev+YkP547MdhPWtFZeF9xZcwYlH6V+Rho5
- dwKHettfiiHrrHFzmbhAuLTnta6MxYSRjr8gTh7qRZ8VPMB9hxcz5eFGdvGpms+D6vya
- c+YsP7of/nhR5qlZKosg3GHOZsvMZpIkppdxhzLYz8LS5Cil3z20G6Xg0z1Eagp6vOcr
- fzfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776431913; x=1777036713;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/o4OAij5cU+4lIvQWD99hEqbGigke6tlElxv00jgEao=;
- b=an5a7iYjMc38ErNspGkE5Ts2cRXczTyZ7hM5rOFvJPmCktBPeHLRnpLo4hjixsPOvU
- NDGh9V2m8NA0o8AX03PGLiA+Ga1H8GBeykZHvO/STp0KuWMXZm/ViQXjG8bRUCesONFC
- kVfL8fBZl/ChO7g/ZuYavr5JL2AtMIbcXAGIMDrTA36CuqEFzFrN8OdRbViym3njpc7x
- y3tYu6B0oGcwMNHn2/x6H/UtggfQdutFRENJpOpKX8khR3XpFj/hOGFat6YbR+3Yuqrj
- 2nlB7I4JNhcuSgMeLNWunvj1mCgY2IdDOlSD9CSo3SHV9ZJMKUwt+9BGT2Lypr2bGci9
- JQgA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8b4OHwOAgRBiY8E3X9r+sY4x+Cajxzhj2xN1r5xeybz0oDqqbICQo3yq8mpQEMArjIWlHqaPev1nk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSHyVBsjwA2panP3Gv7OoheLi3NrwepQPhOZw82E/ETjiwdEbN
- mUJlM6JqyLnD7SXe/4eb2i9bby3Oy0gzU12oaV4HhRErT2stYnBiki9F9iSAO5grs20nP8ZyRsG
- /Po4dmajKnDPywalKVVvj1K5/C9UXxW5Vo9pt/niYbEe06EapiSn0wF7lXMH1+hQu6MYXD7c=
-X-Gm-Gg: AeBDievyb4mWO6Wtt5kw//69x8Mv2uEWsSiC9/7GIK6GZ3xOHSTKOIfRCAxvrFIq+z+
- MGZ3UzAXWqui0LL61+sDYm8bZSOHSLtMHUv3+6ugA18/q4HB4cleZgTMyEAmLW9l0Nq+oYhRqia
- W607liTIkZL5qXThcKDQDDm1OySDPQfX3I7m+ZNOvLmcieP27TDAd7NhzqVXKZaPJLz2ovhmeeC
- RAMZfoJ7eA4fE8NO+uXrgYnETd+RBIUZlcuW/S/ddCBlfUxeC234VIBiRh/gx5qD7vPJQWAhF0V
- xHVUgfcfor+VjpwzZYdUgc0BZlxF4cqQ58zc7AVsoA/EHMl45xO612ZGAUXDYeZC0O4myTTxAgX
- O9ec06P8nysnIF+9lmKhSgbY/WMJqPg80rNSxgbouP+pwxZEbQpD/X1yypvGSbO+lyda61IxH8w
- q+e5X6R7p4OjSPFP7Gf2Bzf+NMyv1zWqbksnOlDw3m0I6OPA==
-X-Received: by 2002:a05:6102:4a90:b0:611:17bb:934a with SMTP id
- ada2fe7eead31-616f88b456amr1072768137.28.1776431912882; 
- Fri, 17 Apr 2026 06:18:32 -0700 (PDT)
-X-Received: by 2002:a05:6102:4a90:b0:611:17bb:934a with SMTP id
- ada2fe7eead31-616f88b456amr1072719137.28.1776431912455; 
- Fri, 17 Apr 2026 06:18:32 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4187e11ecsm390368e87.47.2026.04.17.06.18.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Apr 2026 06:18:31 -0700 (PDT)
-Date: Fri, 17 Apr 2026 16:18:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: srini@kernel.org, linux-arm-msm@vger.kernel.org,
- gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de,
- konrad.dybcio@oss.qualcomm.com, andersson@kernel.org
-Subject: Re: [PATCH v8 4/4] misc: fastrpc: Add polling mode support for
- fastRPC driver
-Message-ID: <sol4d2y3jbvlljg2nigtsjmc6iugya36y6vdsu4xyqjyvb5gwi@54vzpkaxzd3r>
-References: <20260415112530.4083240-1-ekansh.gupta@oss.qualcomm.com>
- <20260415112530.4083240-5-ekansh.gupta@oss.qualcomm.com>
- <ymieeagodsfbygq7fsejsqriajmncoubzvor7t3ll6ntomtbeg@l65yihnixwbu>
- <0bab12c2-48f3-45a2-a87b-b33b60b5a7df@oss.qualcomm.com>
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68A4310E2B8;
+ Fri, 17 Apr 2026 13:21:23 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fxwWP49msz9v1l;
+ Fri, 17 Apr 2026 15:21:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1776432081; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AvRXgzD6+ssvrwhuL/u05Ihx+sCA1sq60lkpNgmwME0=;
+ b=OuU/G+hVtWXLxRkLGaurEiJl9PDraLyC5LC10HxGHeM63vipZOTs3bsXztW8+Mcz6E9CLV
+ 1ndTvfOVPIP6sPvi38KZnH2oALLXIg+ZvfVm8M7Qq0Z8vR3FnVRmi35ZrUuidD7z9tqjV+
+ /kWhRuiij6Yl88jRW8vxa/JqaFE/kUTvn3ofta1xgJisal+sKYkCUOZ63ZqY9FBaLDAuzt
+ G8o1QrQBKCm/GMojOeiRXN9S06YYgPUHWCsHHHvcNioFCPbITpPzzY32wRMtX11IaMsXxW
+ lFyTUj7Hojy6Y44nH9B9fXkjzThTl2s7DSDpl3drXahVyo3GDIjoBzt0JSBNxQ==
+Message-ID: <b59eb5afb036b0357ce7d5f6d0c9fda7aee17bfa.camel@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1776432079; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=AvRXgzD6+ssvrwhuL/u05Ihx+sCA1sq60lkpNgmwME0=;
+ b=Kso4GLZseJPFIMAyms84QQMqb+KUJpl2Af+p4nGhll4LMEGmU9Iuun6Owd1ZfXakNgucPP
+ Ci6P/CQG/5Uh41QXDAf3ExhyR8SieXLzDPLuIiDUeXlr+4pO21ulTXUuhmodYN7OUIgvw2
+ 1RpNpMHM9ViQqAQiyqQ0ogzA+JEsXXrAsMkfT1mrYx6ObsWIMZlL/5KUlEQ5XnrEkhVF9d
+ DXErWucZ3cv4CE+kHHB4SFeQ0aBEyrJCJkVOUpC/3Edjzo2o8cXQBz1ybBF23bmKPcdmcL
+ ACLAnej7HumNm1N/aLObR1C59vOPPfXqNCyi4w/GoPVzLHOYTtd7ipSlzXzfGQ==
+Subject: Re: [PATCH v8 00/29] *Fair(er) DRM scheduler
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org,  dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, kernel-dev@igalia.com, Danilo Krummrich
+ <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Leo Liu
+ <Leo.Liu@amd.com>, Lucas Stach <l.stach@pengutronix.de>, Matthew Brost
+ <matthew.brost@intel.com>,  Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Michel =?ISO-8859-1?Q?D=E4nzer?=
+ <michel.daenzer@mailbox.org>,  Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Boris
+ Brezillon <boris.brezillon@collabora.com>
+Date: Fri, 17 Apr 2026 15:21:11 +0200
+In-Reply-To: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
+References: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0bab12c2-48f3-45a2-a87b-b33b60b5a7df@oss.qualcomm.com>
-X-Proofpoint-GUID: dTA2YGv8TcnODjemrfZ5OEpXnnZEBPuZ
-X-Authority-Analysis: v=2.4 cv=XNoAjwhE c=1 sm=1 tr=0 ts=69e23329 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=ltOAzfauH0U5bMVrslcA:9 a=CjuIK1q_8ugA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: dTA2YGv8TcnODjemrfZ5OEpXnnZEBPuZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDEzMSBTYWx0ZWRfX11Lt5UL72+GE
- ZgPPrWtGviYJYoneY+JSUBu0qAnl2pja+tAhp4r7SDiXBjBRLwp0YiBTmt1a3pux+AnvDvRKQFV
- OB5jInLIop9L0Es/D+T2n7+0z1o+dhAR/2HR4b1FFOLTiUQ9+Oz2IpdfPWswM0a1ZX+VMGijagA
- x9VLKAXmx9/WQeuPJy48jzJexcme4sbm8I+vJ6Wm34F46U+EyN1BysV0wFt71vpyqEK1ut4zgtw
- 384ubQ6Dfrq4txh+GS+nK0SKq3CbholnZPBluzuFPATe67YL9mHDkdkCLmgLTRu99Cj2SVAjg+R
- EE2/HYlnlvjWy6cvZfwHULj5gt9/P2yrb6kEwIEqdCcx8ZTdAkYFpxQpZsr/y14Evz7B7f8oUL7
- /6Sv9uI84FAtvQFEbWIvnkRi8oUSop9ryoM3oYLxNx91M/ikg+Kl5Y0u+5Kxp1mfGNEb608WoZa
- 3EdiOzLFWqJVXF9ZxSw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 priorityscore=1501 suspectscore=0 spamscore=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170131
+X-MBO-RS-ID: 64c3f30d8a62795b568
+X-MBO-RS-META: 6xdzcz81hrwsu48ni489rd63se8mi3yh
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,77 +82,469 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 16, 2026 at 07:32:43PM +0530, Ekansh Gupta wrote:
-> On 16-04-2026 16:25, Dmitry Baryshkov wrote:
-> > On Wed, Apr 15, 2026 at 04:55:30PM +0530, Ekansh Gupta wrote:
-> >> For any remote call to DSP, after sending an invocation message,
-> >> fastRPC driver waits for glink response and during this time the
-> >> CPU can go into low power modes. This adds latency to overall fastrpc
-> >> call as CPU wakeup and scheduling latencies are included. Add polling
-> >> mode support with which fastRPC driver will poll continuously on a
-> >> memory after sending a message to remote subsystem which will eliminate
-> >> CPU wakeup and scheduling latencies and reduce fastRPC overhead. In case
-> >> poll timeout happens, the call will fallback to normal RPC mode.  Poll
-> >> mode can be enabled by user by using FASTRPC_IOCTL_SET_OPTION ioctl
-> >> request with FASTRPC_POLL_MODE request id.
-> >>
-> >> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >> ---
-> >>  drivers/misc/fastrpc.c      | 137 ++++++++++++++++++++++++++++++++++--
-> >>  include/uapi/misc/fastrpc.h |  25 +++++++
-> >>  2 files changed, 155 insertions(+), 7 deletions(-)
-> >>
-> >> @@ -1813,6 +1908,30 @@ static int fastrpc_get_info_from_kernel(struct fastrpc_ioctl_capability *cap,
-> >>  	return 0;
-> >>  }
-> >>  
-> >> +static int fastrpc_set_option(struct fastrpc_user *fl, char __user *argp)
-> >> +{
-> >> +	struct fastrpc_ioctl_set_option opt = {0};
-> >> +	int i;
-> >> +
-> >> +	if (copy_from_user(&opt, argp, sizeof(opt)))
-> >> +		return -EFAULT;
-> >> +
-> >> +	for (i = 0; i < ARRAY_SIZE(opt.reserved); i++) {
-> >> +		if (opt.reserved[i] != 0)
-> >> +			return -EINVAL;
-> >> +	}
-> >> +
-> >> +	if (opt.request_id != FASTRPC_POLL_MODE)
-> >> +		return -EINVAL;
-> >> +
-> >> +	if (opt.value)
-> >> +		fl->poll_mode = true;
-> > 
-> > This will enable poll mode on the platforms where it is not supported,
-> > later silinently changing back to the normal mode. Please don't surprise
-> > users and make this call fail if polling mode is not supported.
-> Ack. Working on adding compatible based checks for supporting platforms
-> by reading the root compatible string, something like pdmapper[1].
+(intentional top-post since I refer everything below)
 
-SGTM
++Cc Thomas, Dave, Sima, Boris
 
-> 
-> [1]
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/soc/qcom/qcom_pd_mapper.c#n643
-> 
-> Thanks,
-> Ekansh
-> 
-> > 
-> >> +	else
-> >> +		fl->poll_mode = false;
-> >> +
-> >> +	return 0;
-> >> +}
-> >> +
-> > 
-> 
+Pushed to drm-misc-next.
 
--- 
-With best wishes
-Dmitry
+Thanks a lot and congratulations for your hard work and endurance,
+Tvrtko! Good to finally get this significant cleanup in.
+
+
+dim, however, does report a merge conflict with drm-tip. I looked at
+the diff and at first and second glance it doesn't seem to be caused by
+this series? The diff I see circles around panthor_gem.c, drm_edid.c,
+amdgpu_dm.c.
+
+How can we help resolve it?
+
+
+P.
+
+
+On Fri, 2026-04-17 at 11:37 +0100, Tvrtko Ursulin wrote:
+> [disclaimer]
+> Please note that as this series includes patches which touch a good numbe=
+r of
+> drivers, I did not copy everyone on everything. Assumption is people are
+> subscribed to dri-devel and for context can look at the whole series ther=
+e.
+> [/disclaimer]
+>=20
+> As a summary, the new scheduling algorithm is insipired by the original L=
+inux
+> CFS and so far no scheduling regressions have been found relative to FIFO=
+.
+> There are improvements in fairness and scheduling of interactive clients =
+when
+> running in parallel with a heavy GPU load (for example Pierre-Eric has on=
+e
+> viewperf medical test which shows a nice improvement with amdgpu).
+>=20
+> On the high level main advantages of the series are:
+>=20
+> =C2=A01. Scheduling quality - schedules better than FIFO, solves priority=
+ starvation.
+> =C2=A02. Code simplification - no more multiple run queues and multiple a=
+lgorithms.
+> =C2=A03. Virtual GPU time based scheduling enables relatively simple addi=
+tion
+> =C2=A0=C2=A0=C2=A0 of a scheduling cgroup controller in the future.
+>=20
+> There is a little bit more detailed write up on the motivation and result=
+s in
+> the form of a blog post which may be easier to read:
+> https://blogs.igalia.com/tursulin/fair-er-drm-gpu-scheduler/
+>=20
+> First patches add some unit tests which allow for easy evaluation of sche=
+duling
+> behaviour against different client submission patterns. From there onward=
+s it is
+> hopefully a natural progression of cleanups, enablers, adding the fair po=
+licy,
+> and finally removing FIFO and RR and simplifying the code base due no mor=
+e need
+> for multiple run queues.
+>=20
+> Series is structured in a way where we could apply the first 12 patches (=
+up to
+> and including "drm/sched: Switch default policy to fair") in one kernel r=
+elease
+> and then follow up with the rest of the cleanups after a release or two i=
+f
+> things will be looking fine. Until the remainder of the series would be m=
+erged
+> it would be easy to flip the default algorithm back.
+>=20
+> Onto the performance evaluation. As a headline result I have tested three
+> simultaneous clients on the Steam Deck:
+>=20
+> One instance of a deferredmultisampling Vulkan demo running with low prio=
+rity,
+> one normal priority instance of the same demo, and the Unigine Heaven ben=
+chmark.
+>=20
+> With the FIFO scheduler we can see that the low priority client is comple=
+tely
+> starved and the GPU time distribution between the other two clients is un=
+even:
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/fifo-starvation.png
+>=20
+> Switching to the fair scheduler, GPU time distribution is almost equal an=
+d the
+> low priority client does get a small share of the GPU:
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/fair-no-starvation.png
+>=20
+> Moving onto the synthetic submission patterns, they are about two simulta=
+neous
+> clients which broadly cover the following categories:
+>=20
+> =C2=A0* Deep queue clients
+> =C2=A0* Hogs versus interactive
+> =C2=A0* Priority handling
+>=20
+> Lets look at the results:
+>=20
+> 1. Two normal priority deep queue clients.
+>=20
+> These ones submit one second worth of 8ms jobs. As fast as they can, no
+> dependencies etc. There is no difference in runtime between FIFO and fair=
+ but
+> the latter allows both clients to progress with work more evenly:
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/normal-normal.png
+>=20
+> (X axis is time, Y is submitted queue-depth, hence lowering of qd corresp=
+onds
+> =C2=A0 with work progress for both clients, tested with both schedulers s=
+eparately.)
+>=20
+> Round-robin is the same as fair here.
+>=20
+> 2. Same two clients but one is now low priority.
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/normal-low.png
+>=20
+> Normal priority client is a solid line, low priority dotted. We can see h=
+ow FIFO
+> completely starves the low priority client until the normal priority is f=
+ully
+> done. Only then the low priority client gets any GPU time.
+>=20
+> In constrast, fair scheduler allows some GPU time to the low priority cli=
+ent.
+>=20
+> Here round-robin flavours are the same as FIFO (same starvation issue).
+>=20
+> 3. Same clients but now high versus normal priority.
+>=20
+> Similar behaviour as in the previous one with normal a bit less de-priori=
+tised
+> relative to high, than low was against normal.
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/high-normal.png
+>=20
+> And again round-robin flavours are the same as FIFO.
+>=20
+> 4. Heavy load vs interactive client.
+>=20
+> Heavy client emits a 75% GPU load in the format of 3x 2.5ms jobs followed=
+ by a
+> 2.5ms wait. Interactive client emits a 10% GPU load in the format of 1x 1=
+ms job
+> followed by a 9ms wait.
+>=20
+> This simulates an interactive graphical client used on top of a relativel=
+y heavy
+> background load but no GPU oversubscription.
+>=20
+> Graphs show the interactive client only and from now on, instead of looki=
+ng at
+> the client's queue depth, we look at its "fps".
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-heavy-vs-inter=
+active.png
+>=20
+> Here round-robin and round-robin rewritten on top of FIFO are best, with =
+the
+> fair algorithm being very close. FIFO is clearly the worst.
+>=20
+> 5. An even heavier load vs interactive client.
+>=20
+> This one is oversubscribing the GPU by submitting 4x 50ms jobs and waitin=
+g for
+> only one microsecond before repeating the cycle. Interactive client is th=
+e same
+> 10% as above.
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-very-heavy-vs-=
+interactive.png
+>=20
+> Here FIFO is even worse and fair is again almost as good as the two round=
+-robin
+> flavours.
+>=20
+> 6. Low priority GPU hog versus heavy-interactive.
+>=20
+> Low priority client: 3x 2.5ms jobs client followed by a 0.5ms wait.
+> Interactive client: 1x 0.5ms job followed by a 10ms wait.
+>=20
+> https://people.igalia.com/tursulin/drm-sched-fair/251008/4-low-hog-vs-int=
+eractive.png
+>=20
+> All schedulers appear to handle this almost equally well but FIFO could s=
+till be
+> the last while fair has a slight lead.
+>=20
+> As before, I am looking for feedback, ideas for what other kinds of submi=
+ssion
+> scenarios to test, testing on different GPUs and of course reviews.
+>=20
+> v2:
+> =C2=A0* Fixed many rebase errors.
+> =C2=A0* Added some new patches.
+> =C2=A0* Dropped single shot dependecy handling.
+>=20
+> v3:
+> =C2=A0* Added scheduling quality unit tests.
+> =C2=A0* Refined a tiny bit by adding some fairness.
+> =C2=A0* Dropped a few patches for now.
+>=20
+> v4:
+> =C2=A0* Replaced deadline with fair!
+> =C2=A0* Refined scheduling quality unit tests.
+> =C2=A0* Pulled one cleanup patch earlier.
+> =C2=A0* Fixed "drm/sched: Avoid double re-lock on the job free path".
+>=20
+> v5:
+> =C2=A0* Rebase on top of latest upstream DRM scheduler changes.
+> =C2=A0* Kerneldoc fixup.
+> =C2=A0* Improve commit message justification for one patch. (Philipp)
+> =C2=A0* Add comment in drm_sched_alloc_wq. (Christian)
+>=20
+> v6:
+> =C2=A0* Rebase for "drm/sched: De-clutter drm_sched_init" getting merged.
+> =C2=A0* Avoid NULL rq dereference from a bad rebase. (Maira)
+> =C2=A0* Added some kerneldoc throughout. (Maira)
+> =C2=A0* Removed some lockdep annotations not belonging to one patch. (Mai=
+ra)
+> =C2=A0* Use dma_fence_is_signaled in "drm/sched: Avoid double re-lock on =
+the job free path". (Maira, Philipp)
+>=20
+> v7:
+> =C2=A0* Rebase for some prep patches getting merged.
+> =C2=A0* Dropped submit all ready jobs patch.
+> =C2=A0* Fixed 64-bit division in unit tests.
+> =C2=A0* Fixed some more rebase and patch re-ordering mistakes.
+> =C2=A0* Preserve entity RR order when re-entering the queue.
+> =C2=A0* Fine tuned the queue re-enter logic for better behaviour with int=
+eractive
+> =C2=A0=C2=A0 clients.
+> =C2=A0* Removed some static inlines.
+> =C2=A0* Added more kerneldoc.
+> =C2=A0* Done some benchmarks in the round-robin scheduling modes.
+>=20
+> v8:
+> =C2=A0* Rebased for upstream changes.
+> =C2=A0* Added assert for reverse numerical order of DRM_SCHED_PRIORITY en=
+ums.
+> =C2=A0* Fixed head of rq priority updates.
+>=20
+> *** RFC -> PATCH change log version reset. ***
+>=20
+> v9 / v1:
+> =C2=A0* RFC -> PATCH for the series as agreed during the XDC.
+> =C2=A0* Updated interactive benchmark graphs.
+> =C2=A0* Improved handling of interactive clients by replacing the random =
+noise on tie
+> =C2=A0=C2=A0 approach with the average job duration statistics.
+> =C2=A0* Document in code why we track entity GPU stats in a reference cou=
+nted structures.
+> =C2=A0* Document the new structure fields added by the fair policy.
+> =C2=A0* Undo some tab vs spaces damage.
+> =C2=A0* More accurate wording in the fair policy commit message.
+> =C2=A0* Default to fair policy in a separate patch.
+> =C2=A0* Renamed drm_sched_rq_select_entity to drm_sched_select_entity and=
+ make it only take sched.
+> =C2=A0* Fixed kerneldoc after removing scheduling policies and renaming t=
+he rq.
+> =C2=A0* Reversed arguments of drm_sched_rq_init and cleanup callers. (New=
+ patch)
+> =C2=A0* Removed unused num_rqs from struct drm_sched_args. (New patches)
+> =C2=A0* Unit tests:
+> =C2=A0=C2=A0 * Added wait duration comments.
+> =C2=A0=C2=A0 * Data structure comments.
+> =C2=A0=C2=A0 * Better name for a local variable.
+> =C2=A0=C2=A0 * Added comment to the short job duration assert.
+> =C2=A0=C2=A0 * Added comment for cond_resched().
+> =C2=A0=C2=A0 * Tweaked some comments
+> =C2=A0=C2=A0 * Added client_done() helper and documented the READ_ONCE.
+> =C2=A0=C2=A0 * Clarified cycles per second calculation.
+>=20
+> v2:
+> =C2=A0* Dropped the sched_rq_init() argument re-order patch.
+> =C2=A0* Pulled run queue management consolidation patches to start of the=
+ series.
+> =C2=A0* Drm_sched_rq_get_rr_ts() renamed to drm_sched_rq_next_rr_ts().
+> =C2=A0* Added DRM_SCHED_PRIORITY_INVALID local define.
+> =C2=A0* Added locking around the ktime_t vruntime read.
+> =C2=A0* Expanded comment relating to the unlocked entity->priority read.
+> =C2=A0* Expanded comment relating to the unlocked scheduler average job d=
+uration read.
+> =C2=A0* Various kerneldoc tweaks.
+> =C2=A0* Undo some tab vs spaces damage harder.
+> =C2=A0* Undo one empty line rebase damage.
+> =C2=A0* Reworded commit message for the FIFO and RR removal patch.
+> =C2=A0* Various commit message spelling, grammar and typo fixes.
+> =C2=A0* Unit tests:
+> =C2=A0=C2=A0 * Various style changes.
+> =C2=A0=C2=A0 * More descriptive test names.
+> =C2=A0=C2=A0 * Print legend for measured metrics.
+> =C2=A0=C2=A0 * Check for memory allocation failures.
+>=20
+> v3:
+> =C2=A0* Marked fair policy as default in the correct patch.
+> =C2=A0* Further improved comment in drm_sched_rq_update_prio().
+> =C2=A0* Moved DRM_SCHED_PRIORITY_INVALID to gpu_scheduler.h.
+> =C2=A0* Added description of the GPU time to vruntime scaling factors.
+> =C2=A0* Recorded more collected acks.
+>=20
+> v4:
+> =C2=A0* Rebased, collect ackes and r-b-s receives so far.
+> =C2=A0* New patch in the series for handling the new ethosu accel driver.
+> =C2=A0* Bump lower priorities lower down in the run queue when they re-jo=
+in, in order
+> =C2=A0=C2=A0 to penalize them a bit more than simply making them second i=
+n the line to
+> =C2=A0=C2=A0 run as it was in v3.
+>=20
+> v5:
+> =C2=A0* Rebased, collect ackes and r-b-s received so far.
+> =C2=A0* Fix lost return statement introduced in v2 refactoring.
+> =C2=A0* Use virtual runtime based on average job durations when placing t=
+he re-
+> =C2=A0=C2=A0 joining lower priority entity in the run-queue.
+>=20
+> v6:
+> =C2=A0* Renamed drm_sched_entity_stats_alloc to drm_sched_entity_stats_ne=
+w.
+> =C2=A0* Moved drm_sched_entity_stats_job_add_gpu_time to sched_entity.c.
+> =C2=A0* Improved kerneldoc for struct drm_sched_entity_stats.
+> =C2=A0* Explained GPU accounting placement in the respective commit text.
+> =C2=A0* Removed duplicated sched list assignment int the embedding the ru=
+n-queue
+> =C2=A0=C2=A0 patch.
+>=20
+> v7:
+> =C2=A0* Rebased to catchup with upstream changes.
+> =C2=A0* Dropped the two amdgpu dependencies from the series - they have b=
+een merged
+> =C2=A0=C2=A0 and have propagated to drm-next and drm-tip.
+> =C2=A0* Applied acks/reviews received since v6.
+>=20
+> v8:
+> =C2=A0* Checkpatch special edition:
+> =C2=A0=C2=A0 * Typos, double blank lines, missing SPDX, broken line align=
+ment, kerneldoc,
+> =C2=A0=C2=A0=C2=A0=C2=A0 repeated words, bare unsigned type, kzalloc_obj.
+>=20
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> CC: Leo Liu <Leo.Liu@amd.com>
+> Cc: Lucas Stach <l.stach@pengutronix.de>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Cc: Michel D=C3=A4nzer <michel.daenzer@mailbox.org>
+>=20
+> Tvrtko Ursulin (29):
+> =C2=A0 drm/sched: Disallow initializing entities with no schedulers
+> =C2=A0 drm/sched: Consolidate entity run queue management
+> =C2=A0 drm/sched: Move run queue related code into a separate file
+> =C2=A0 drm/sched: Add some scheduling quality unit tests
+> =C2=A0 drm/sched: Add some more scheduling quality unit tests
+> =C2=A0 drm/sched: Implement RR via FIFO
+> =C2=A0 drm/sched: Free all finished jobs at once
+> =C2=A0 drm/sched: Account entity GPU time
+> =C2=A0 drm/sched: Remove idle entity from tree
+> =C2=A0 drm/sched: Add fair scheduling policy
+> =C2=A0 drm/sched: Favour interactive clients slightly
+> =C2=A0 drm/sched: Switch default policy to fair
+> =C2=A0 drm/sched: Remove FIFO and RR and simplify to a single run queue
+> =C2=A0 drm/sched: Embed run queue singleton into the scheduler
+> =C2=A0 accel/amdxdna: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 accel/rocket: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 accel/ethosu: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/etnaviv: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/imagination: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/lima: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/msm: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/nouveau: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/panfrost: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/panthor: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/sched: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/v3d: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/xe: Remove drm_sched_init_args->num_rqs usage
+> =C2=A0 drm/sched: Remove drm_sched_init_args->num_rqs
+>=20
+> =C2=A0drivers/accel/amdxdna/aie2_ctx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/accel/ethosu/ethosu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/accel/rocket/rocket_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c=C2=A0=C2=A0=C2=A0 |=C2=
+=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 27 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 5 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0=C2=A0 8 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 8 +-
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 8 +-
+> =C2=A0drivers/gpu/drm/etnaviv/etnaviv_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/msm/msm_gem_vma.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/msm/msm_ringbuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/panfrost/panfrost_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/scheduler/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 | 162 ++--
+> =C2=A0drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 2 +-
+> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 70 +-
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 351 +------
+> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 | 383 ++++++++
+> =C2=A0drivers/gpu/drm/scheduler/tests/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 3 +-
+> =C2=A0.../gpu/drm/scheduler/tests/mock_scheduler.c=C2=A0 |=C2=A0=C2=A0 1 =
+-
+> =C2=A0.../gpu/drm/scheduler/tests/tests_scheduler.c | 882 +++++++++++++++=
++++
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/xe/xe_dep_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/xe/xe_execlist.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0drivers/gpu/drm/xe/xe_gpu_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 -
+> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 44 +-
+> =C2=A033 files changed, 1498 insertions(+), 481 deletions(-)
+> =C2=A0create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
+> =C2=A0create mode 100644 drivers/gpu/drm/scheduler/tests/tests_scheduler.=
+c
+>=20
+
