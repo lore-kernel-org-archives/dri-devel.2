@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B7AEF43683
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0A72F4368A
 	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A04610E9B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E035810E9BC;
 	Fri, 17 Apr 2026 09:58:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="azqxaupb";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="C+RUJlTG";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3F310E9BC
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:58:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6924210E9BC
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:58:41 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id D075FC5C3DB;
- Fri, 17 Apr 2026 09:59:20 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id A70BBC5C3D8;
+ Fri, 17 Apr 2026 09:59:18 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6F88560497;
- Fri, 17 Apr 2026 09:58:42 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 45ACD60497;
+ Fri, 17 Apr 2026 09:58:40 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 83DD7104609D8; 
- Fri, 17 Apr 2026 11:58:39 +0200 (CEST)
+ with ESMTPSA id CBF05104609DA; 
+ Fri, 17 Apr 2026 11:58:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776419921; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776419919; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=h7tngk5oxFYGQhOqDFb3xv0RU5JfGadtu0n1GsLavVA=;
- b=azqxaupb4y5oFvedHvExJf+vEkQdoYxA1YabRNfJPakjxzlW3Ua8dv6vCUff8NTYnjo5TG
- WoQI73nnp712puf69AmYweSbDc/DP2UNmyYIEtS36Vnv3XzsTiIN2cEhe02wfGyCvAm9Tb
- C2Gd7rodeIoCPwt0F5wTK/2sKrNmAPuoIo2Q3vJCHSISBU27xlAVrQLmDDQxGJ9gyXcrQW
- GKBAEhSQJkO8u0uaXVrWLM/o0/tJtYLWO4/Yzq//r988ThP/F/pw4y8XaSbcAw4K5iHMku
- uXeKHRMc20yTdTLO5HLw98FjxRamKJMe8rH+nrREo8viHlW7ypomwmopTzu/SA==
+ bh=CoQi3K/0LtPjlkd/ofY2xQBOg7L8vrBg6bgv49zK/6I=;
+ b=C+RUJlTGeTM2Sa30MKCeIhH09qyjzNhqM9P2AjaNGVOHU9NW0BxgxQAhzxcyMVGkYPQdZd
+ c4zPIyZd4dJQyGhqFmttmGh6ZKfp7AleP4+OdrUaU2a/eZkZDLCu/ZU4Qn6IoK0VlOBhMD
+ 1O6CG82oPcve42V7FF7pk9mPpRTnt3T9zrJcT6uZiNNwSRkiDLiNCRo9WMJ8g5dAH9uPXa
+ LfBciDggjryDlKEkEdQpbjmDcPX2y9ceQKetJ5b+L73ezg6KoQslQ9Gz9p1dwhQ13wIEdZ
+ OTTFH2xx925cplt08ZBiDDgEifmvFDsqeDOhw+4FA2jYlFLCh4MpvYgTbare/g==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 17 Apr 2026 11:58:03 +0200
-Subject: [PATCH 15/41] drm/meson: encoder_hdmi: remove now-redundant call
+Date: Fri, 17 Apr 2026 11:58:02 +0200
+Subject: [PATCH 14/41] drm/meson: encoder_cvbs: remove now-redundant call
  to drm_connector_attach_encoder()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-15-67b8b8fb872a@bootlin.com>
+Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-14-67b8b8fb872a@bootlin.com>
 References: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 In-Reply-To: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
@@ -77,22 +77,22 @@ drm_bridge_connector_init().
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/meson/meson_encoder_hdmi.c | 2 --
+ drivers/gpu/drm/meson/meson_encoder_cvbs.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-index 1abb0572bb5f..8e00ae6edbb1 100644
---- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-+++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
-@@ -433,8 +433,6 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
- 				    "Unable to create HDMI bridge connector\n");
- 		goto err_put_node;
- 	}
--	drm_connector_attach_encoder(meson_encoder_hdmi->connector,
--				     &meson_encoder_hdmi->encoder);
+diff --git a/drivers/gpu/drm/meson/meson_encoder_cvbs.c b/drivers/gpu/drm/meson/meson_encoder_cvbs.c
+index 41071d6e05e5..41ba6d2139ee 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_cvbs.c
++++ b/drivers/gpu/drm/meson/meson_encoder_cvbs.c
+@@ -279,8 +279,6 @@ int meson_encoder_cvbs_probe(struct meson_drm *priv)
+ 		return dev_err_probe(priv->dev, PTR_ERR(connector),
+ 				     "Unable to create CVBS bridge connector\n");
  
- 	/*
- 	 * We should have now in place:
+-	drm_connector_attach_encoder(connector, &meson_encoder_cvbs->encoder);
+-
+ 	priv->encoders[MESON_ENC_CVBS] = meson_encoder_cvbs;
+ 
+ 	return 0;
 
 -- 
 2.53.0
