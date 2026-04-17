@@ -4,71 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23FD4F8E4AD
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:19:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C69DEF8E4A7
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81CA310E955;
-	Fri, 17 Apr 2026 06:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3699A10E957;
+	Fri, 17 Apr 2026 06:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JMlhfLfP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e8QQWTXK";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E1D610E957
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:19:09 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2a9296b3926so1757285ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:19:09 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1305A10E957
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:19:19 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2ab39b111b9so1169255ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:19:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776406748; x=1777011548; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776406758; x=1777011558; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=51ANuS+IBW0WksB7NRSMxwOMBhRVSyM31rcxOrdTixs=;
- b=JMlhfLfPWW6J0UmagByxaubPVldsvFltIPRBb7kINKdiuU7ALQ92gaMovpHHtfhCrD
- 9ae19Wk2x5rlNxUzxArm2w7xGih6AGWY8vJOrE+FFjDSDHjFoXSCvjCcMpLJ+nk8fsLN
- qTyDYF8S8A5gTmd8hpZpWUIqnpTO3oQnO3x2JIxmVrafcINtZmkcp5o2RPfvPh8mPgzc
- dSwL8e4mQpIKxQ8V2+eBWrYLzIIQ7mByLtwus0RJSLbxcF1rwaZrsZeeVEYrciR2RlAx
- 30cs4SIepkFYQMu6S4YvSvjHidOVy5+28PH6nbcRAVjOUTmwi61Gsl1q9M8+M4X+iDyb
- mhfw==
+ bh=6ce4kj1e/j21mTp4sR9FlUv6X17cBMM3lqzUbVzs/6I=;
+ b=e8QQWTXKX1K2ip6/K7xvbF8iS27+MoVYGNbmEEcT9oIqZn6CbMlo6Ljls3rg0xoP76
+ 5KoWdN5J/PV/RpigISH/jTuXkxmYabJ2MaVm1f5zDYMw/VM/2+xXs4ThOKMx9+qc9/ae
+ z1GiikFA197HOswTc8dav7rPLh2AVn2ef3EKQUzXa36dn8Q8UeQsNwEn/LpEKKg33E0D
+ DWurikU0Y1QFWKtyOk1yeWf0eM4HD9CqfdhJfZH385b36BfcPVOTEPDbLZuBisNJeCIl
+ a5wAb3L1oKiTTkuibKVBHanwnKbEyeQfu0g4+0M+gfvIPhN1VnbsK0wGFR8ugK+AQq7i
+ Ckgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776406748; x=1777011548;
+ d=1e100.net; s=20251104; t=1776406758; x=1777011558;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=51ANuS+IBW0WksB7NRSMxwOMBhRVSyM31rcxOrdTixs=;
- b=iLgBFjd8iAv98N/u0oFXUwtp+Kx7LKkmjVDRL5MpnMVX8485qA4EB8RM8aZ6+nKq40
- V6lRZDyybQRDXiKWKsBSLqcSXHHUiZeOOpL1jQIxprtf/Q0ls2D8fBFVH8pIhchX2vZt
- tzQ7B/xmDWftiqvz1Px6YEZy9lhiaOZYGk0brsGnEqBVv5Q1PgF1LmDOlNoAW2SHRw2Y
- xU/f8b/geRHzJZ9xxihIMfL+KESvPmmybtY3WoDj5UhhYtgA8YI/F77jEH8kT/czIbQB
- i4qxoPJ34+WSagou4jr5Fqt5QaeNM+UCXfTHccE4O9j3lrJbQCZqit64yxS6E7uQFDcj
- lS1Q==
-X-Gm-Message-State: AOJu0YzZxBa0FXVqVSeuieaaYl76Hj331cQGJ0mBQi6sFrl6yMjGi1ys
- NQPBA1YsCaIeWxjNWFCrLq9dTYkHSgp7BjY0efGs5NzYIsqJZg3Ujywp7z80HmVN
-X-Gm-Gg: AeBDiesxsEpvzFQODpwJ761S0OaJYM51gur/r+cf4IjLoq3WlfsdWetdwWfTPiFORyV
- RBeWTVjEbSQ/E6JHj/JAzAv799zETkFZpOUrep953tE6eZ0uLuNt1HFaeza+8ix/AsMswX77lmz
- CtQmVNsaflMsET4fiOZnkdMufhiMWx26UroCoLUEhb0SM2KGIyGo77CjTG43ADzP6QI2KOqF5j6
- oCUwY5HSJ0yvJWKcQfx6DilaDugJCCivWPXevGVyk8dnEdMK7mIZebh1YmXsEfIZVZd6MYKd5pO
- wy9kwqzZC+TAMDVQ2UVzibPgBkCRliqc2vqM/a6Z53+gGOMiU34Pb1lCNPfqtR0k1UFxJd6FJU4
- UzZKl6czfvH+Kq0yPtsh35xGrcoSU7OFNB3LPTvCHHiNXytR720E2HiHCUtUNL93qfnJsx79JPQ
- 2Gbbh0jZccXgVVp9WjUeImXs5j+Y/ghL1k3Cj9CdSWqEJx0jnDpy2j3NV1WEhsIJdSgg==
-X-Received: by 2002:a17:902:cec6:b0:2b2:49a7:a5ca with SMTP id
- d9443c01a7336-2b5f9e8f561mr15384865ad.5.1776406747608; 
- Thu, 16 Apr 2026 23:19:07 -0700 (PDT)
+ bh=6ce4kj1e/j21mTp4sR9FlUv6X17cBMM3lqzUbVzs/6I=;
+ b=hSnoAPiA+yffWKM8IVwEVU7vz/ceOvmtDWVpGl5agbUxNqB/V9DQhMhINUJq+WxHvj
+ QR5pHnuGn1YAR8UdlKfPafQ0pRBGVd7akmtM0t9Yj3LuVP3wBDkRS5Bw9WJ3HlSgfrhM
+ kedy7bXDUUTIY52lx/sabd2d9wAT9JpADo12fl+rT1+4QB4Lc4DZw2eDhB1kJECIdrF5
+ tYR53DfT5TyKvVFcC/fX0LRsfa45woxetnReti0uC1RQQHRpsVbMiaVxJ0jQxP1jMR1p
+ Qnn4ksUTS0bWjsL1FpuT152fEXelZkZPR1qulo3ogg8RLaeiIJR9Oxwp633MbtLupYWr
+ wUMg==
+X-Gm-Message-State: AOJu0YwAmbNl7o9TZhb5NC/otSlMqyhv7ARK/t9KgMIjmMN1sVKZisma
+ 5ZKIFTq127HGNVQf+jbRx583624CVnucdq5bqfV09cRdHEIJ++DduuDQ8bxOVw0R
+X-Gm-Gg: AeBDievxhp5YV5aZJ+vdd8+nr6KAdDdnNUE9H/pQaiqlhydKFxfWFz+OcBO1wIz8CAu
+ YZKYWCGMRgX81YznSrGedQWWi4urfZRISye4PLAwPE3WVZMNit0u2TaedzzhA9am0FxYN9WmBNg
+ eHDKZG71FtzamTHhnInH5KLK0bfNuEEHJzwOTpzeO7rR4vyqAmFwaRORaA8flPIJHBeEuxziqEP
+ qoHcmwgGT1KClgmsgvDaoYNezV94fbPPQ2CP7BHD7uEQcQewRB0KU+2p+fn/Hzy1/xPceJbPgxY
+ QWbRdBhAWSQR07ypp0WUT3fyI0NyUaQvjbIBeW2fCNrTBMqrD22E733tyrFHom9EVopzNmZnlvM
+ 6SqeQRDk+AhTi0VptKcGfLSdM8f0vGiuOqRmo27Z+olkm9E0NLt1PRD6To2nX4L3oiIn+EK5ZPP
+ qLbXQj/Mvkzi7DEZZpsQQzDtb6jYVNvVzrvtKKIdapigiNFgRZjulLCok18KvsHZPsAon7zBj+g
+ WtD
+X-Received: by 2002:a17:902:7585:b0:2b2:5704:5715 with SMTP id
+ d9443c01a7336-2b5f9eaea6bmr9483285ad.15.1776406758105; 
+ Thu, 16 Apr 2026 23:19:18 -0700 (PDT)
 Received: from fedoraemon.neon-universe.ts.net
  ([2406:7400:11d:a9dc:9a14:72eb:1a60:868a])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b5fab40786sm9046225ad.79.2026.04.16.23.19.04
+ d9443c01a7336-2b5fab40786sm9046225ad.79.2026.04.16.23.19.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 23:19:07 -0700 (PDT)
+ Thu, 16 Apr 2026 23:19:17 -0700 (PDT)
 From: Avinal Kumar <avinal.xlvii@gmail.com>
 To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  neil.armstrong@linaro.org, dianders@chromium.org
 Cc: lumag@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
  tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
-Subject: [PATCH v5 1/2] drm/mipi-dsi: add mipi_dsi_shutdown_peripheral_multi
-Date: Fri, 17 Apr 2026 11:48:41 +0530
-Message-ID: <20260417061842.66631-2-avinal.xlvii@gmail.com>
+Subject: [PATCH v5 2/2] drm/panel: panasonic-vvx10f034n00: transition to
+ mipi_dsi wrapped functions
+Date: Fri, 17 Apr 2026 11:48:42 +0530
+Message-ID: <20260417061842.66631-3-avinal.xlvii@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260417061842.66631-1-avinal.xlvii@gmail.com>
 References: <20260417061842.66631-1-avinal.xlvii@gmail.com>
@@ -89,73 +91,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add mipi_dsi_shutdown_peripheral_multi function and mark
-mipi_dsi_shutdown_peripheral function as deprecated.
+Change the panasonic-vvx10f034n00 panel to multi
+style functions for improved error handling and
+remove redundant error printout.
 
 Signed-off-by: Avinal Kumar <avinal.xlvii@gmail.com>
 ---
- drivers/gpu/drm/drm_mipi_dsi.c | 28 ++++++++++++++++++++++++++++
- include/drm/drm_mipi_dsi.h     |  1 +
- 2 files changed, 29 insertions(+)
+ .../drm/panel/panel-panasonic-vvx10f034n00.c  | 24 ++++++++++---------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
-index 0390e14d3157..3ac1dd5ad640 100644
---- a/drivers/gpu/drm/drm_mipi_dsi.c
-+++ b/drivers/gpu/drm/drm_mipi_dsi.c
-@@ -587,6 +587,9 @@ EXPORT_SYMBOL(mipi_dsi_create_packet);
-  * mipi_dsi_shutdown_peripheral() - sends a Shutdown Peripheral command
-  * @dsi: DSI peripheral device
-  *
-+ * This function is deprecated. Use mipi_dsi_shutdown_peripheral_multi()
-+ * instead.
-+ *
-  * Return: 0 on success or a negative error code on failure.
-  */
- int mipi_dsi_shutdown_peripheral(struct mipi_dsi_device *dsi)
-@@ -1980,6 +1983,31 @@ void mipi_dsi_dcs_set_tear_scanline_multi(struct mipi_dsi_multi_context *ctx,
- }
- EXPORT_SYMBOL(mipi_dsi_dcs_set_tear_scanline_multi);
+diff --git a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+index 3c3308fc55df..d21d93a0700e 100644
+--- a/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
++++ b/drivers/gpu/drm/panel/panel-panasonic-vvx10f034n00.c
+@@ -44,14 +44,23 @@ static inline struct wuxga_nt_panel *to_wuxga_nt_panel(struct drm_panel *panel)
  
-+/**
-+ * mipi_dsi_shutdown_peripheral_multi() - sends a Shutdown Peripheral command
-+ * @ctx: Context for multiple DSI transactions
-+ *
-+ * Like mipi_dsi_shutdown_peripheral() but deals with errors in a way that
-+ * makes it convenient to make several calls in a row.
-+ */
-+void mipi_dsi_shutdown_peripheral_multi(struct mipi_dsi_multi_context *ctx)
-+{
-+	struct mipi_dsi_device *dsi = ctx->dsi;
-+	struct device *dev = &dsi->dev;
-+	int ret;
-+
-+	if (ctx->accum_err)
-+		return;
-+
-+	ret = mipi_dsi_shutdown_peripheral(dsi);
-+	if (ret < 0) {
-+		ctx->accum_err = ret;
-+		dev_err(dev, "Failed to shutdown peripheral: %d\n",
-+			ctx->accum_err);
-+	}
-+}
-+EXPORT_SYMBOL(mipi_dsi_shutdown_peripheral_multi);
-+
- static int mipi_dsi_drv_probe(struct device *dev)
+ static int wuxga_nt_panel_on(struct wuxga_nt_panel *wuxga_nt)
  {
- 	struct mipi_dsi_driver *drv = to_mipi_dsi_driver(dev->driver);
-diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-index 2ab651a36115..b429acde4f71 100644
---- a/include/drm/drm_mipi_dsi.h
-+++ b/include/drm/drm_mipi_dsi.h
-@@ -393,6 +393,7 @@ void mipi_dsi_dcs_set_page_address_multi(struct mipi_dsi_multi_context *ctx,
- void mipi_dsi_dcs_set_tear_scanline_multi(struct mipi_dsi_multi_context *ctx,
- 					  u16 scanline);
- void mipi_dsi_dcs_set_tear_off_multi(struct mipi_dsi_multi_context *ctx);
-+void mipi_dsi_shutdown_peripheral_multi(struct mipi_dsi_multi_context *ctx);
+-	return mipi_dsi_turn_on_peripheral(wuxga_nt->dsi);
++	struct mipi_dsi_multi_context dsi_ctx = {
++		.dsi = wuxga_nt->dsi
++	};
++
++	mipi_dsi_turn_on_peripheral_multi(&dsi_ctx);
++	return dsi_ctx.accum_err;
+ }
  
- /**
-  * mipi_dsi_generic_write_seq_multi - transmit data using a generic write packet
+ static int wuxga_nt_panel_disable(struct drm_panel *panel)
+ {
+ 	struct wuxga_nt_panel *wuxga_nt = to_wuxga_nt_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = {
++		.dsi = wuxga_nt->dsi
++	};
+ 
+-	return mipi_dsi_shutdown_peripheral(wuxga_nt->dsi);
++	mipi_dsi_shutdown_peripheral_multi(&dsi_ctx);
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int wuxga_nt_panel_unprepare(struct drm_panel *panel)
+@@ -94,15 +103,8 @@ static int wuxga_nt_panel_prepare(struct drm_panel *panel)
+ 	msleep(250);
+ 
+ 	ret = wuxga_nt_panel_on(wuxga_nt);
+-	if (ret < 0) {
+-		dev_err(panel->dev, "failed to set panel on: %d\n", ret);
+-		goto poweroff;
+-	}
+-
+-	return 0;
+-
+-poweroff:
+-	regulator_disable(wuxga_nt->supply);
++	if (ret < 0)
++		regulator_disable(wuxga_nt->supply);
+ 
+ 	return ret;
+ }
 -- 
 2.53.0
 
