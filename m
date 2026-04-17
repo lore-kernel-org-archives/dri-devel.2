@@ -4,80 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED9EF8E4AE
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:50:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBCB4F8E4B1
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:04:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17CF510E95A;
-	Fri, 17 Apr 2026 06:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C90B10E291;
+	Fri, 17 Apr 2026 07:04:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sLpqCkuP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nMbHhbsv";
 	dkim-atps=neutral
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
- [209.85.167.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6054F10E96B
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:50:07 +0000 (UTC)
-Received: by mail-lf1-f54.google.com with SMTP id
- 2adb3069b0e04-59dea72099eso302615e87.0
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:50:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776408606; x=1777013406; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rkFD0nTtiMecWdiMYsq45f5KZ8ZJ53Zo2JaKZseIkhs=;
- b=sLpqCkuP7vwnwlbDxnf6mvu77GV1HT13MCIFl9IqadliKPO3LyqICYKMdjG9OGPgYa
- F0gaACHrbKexuY7N+MTWx5XIBwAp6/3O2O6hmKs+jueRUS9dRH7eoR47nxfKlasfu183
- k0MlBFGowSWaoLxYnRQgOC+MbY4J0Lnpwilwr4G9p3RBU4A65n2km5DTDo6lApwGn3ba
- zzTjuP2nhaXJlbS+z5X6o92BloiuEisCYihDfhFkKqj3Si3tlmxnr5HSWeIaozo1FMv8
- x8+78Is14Mc4nDlgB69+Qwfuvg/jbU6/09DSqeCs9A9//zjLhcemCZtsU7Lp5e1fe5NF
- 438A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776408606; x=1777013406;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rkFD0nTtiMecWdiMYsq45f5KZ8ZJ53Zo2JaKZseIkhs=;
- b=Qqs7naUHqGbatz8tUjidtuSleCi05e5SrcMxuRtM8x/Lo8lDbsr/E4SQJwnzbeKBc0
- N0WgptOXfTMMJ2+kw0uMUJL0ehK3U8jigAeusHDUinjmoJZCP/AX3nDx7Dg3xeJLXUoN
- ykfSk5tSWL4bxeni/sW45IzJHcx5/RiFUoEm4Nn7sAiSgnFswNOZsHygLSslxFHJfVMX
- h/scJUhGetODBYpPXKJQeenbLCb1fCp9G2zdN8r9uSQXVkqrU6ZnSwzrdQQ11ZOfimvt
- 3szcwbcCjR98Mfthc3zskODpRMnM/Ln30gqnVylKAQ6h1C7QzZwBQFoy3wxnbaAZSZ1p
- 8GOQ==
-X-Gm-Message-State: AOJu0YzKUT6LZ8ZyEmX75ju5iXPR0x1UfaSFktzijiH8QcQOhbO8+0wU
- t4trNCOyotPX1d+RkHl7k8Lrc5W436ZOXjz3z76vjcTpk11EZlkrZiwp
-X-Gm-Gg: AeBDiesFYCeiUyGvqrZ3L2xjQQSfTsN4yXVBwTVmTcpmM/j5bGgiGh8mNBP36eIKUIm
- TcBDZcbw6DlWHymSWICyzQ8T5BKsFEkjPT5BW61SwYvopY/1QnqKYDuHlnasTqaxlSf7hA6MKnd
- BcHCBwC3fhz4gcw0eisSZUr2qZ4xjfOjiqEdCLxsIX8f0cUpEFZolm5+b/0qf7U0YtI3FmHY75V
- r7byD1Ddi54lBPvVtYpJyZPMVuKTrL79siDFSOrDDIbRPr7zSDDvS9ove6JPHIfxW147VB51ULY
- qTsoFs84Jm2/jDIQK6E3WTRTf+7+7rdJjFQGv7g4DCDAqxaj86CO8mTVGpXYTk0nkopnWRO29tY
- rKR1uR31Xf3g05YR1KzaI1SBfsHcH34Cjc64GZ//CIuziTrtE7QRpm7ZRFwN7tOFk1TdaDelMBe
- oxS7CiaTMLl/r9y2uHn5NB+r8=
-X-Received: by 2002:a05:6512:3ca7:b0:5a4:d34:5b38 with SMTP id
- 2adb3069b0e04-5a4172b7ba1mr423053e87.2.1776408605519; 
- Thu, 16 Apr 2026 23:50:05 -0700 (PDT)
-Received: from xeon ([188.163.112.56]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185ad143sm153202e87.7.2026.04.16.23.50.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 23:50:05 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 3/3 RESEND] drm/bridge: simple-bridge: Add support for
- MStar TSUMU88ADT3-LF-1
-Date: Fri, 17 Apr 2026 09:49:53 +0300
-Message-ID: <20260417064953.20511-4-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260417064953.20511-1-clamor95@gmail.com>
-References: <20260417064953.20511-1-clamor95@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04F1C10E291
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 07:04:57 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6DE5260128;
+ Fri, 17 Apr 2026 06:55:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 19334C19425;
+ Fri, 17 Apr 2026 06:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776408946;
+ bh=BUM1sFfc4z+gNHol3L3e6w/35+hoaRKwg5VUfwrXLdE=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=nMbHhbsvhFuKS17AdiBMfoaIvdOwn9vUmoGOZL475/6lsy/6HyIbeWMTzoxEhjonY
+ yjvsUgKIASBtwRgmELj0Dg+r3INSCGq3r1OCAUv1Qk/FDHKLKbuqUb81KHiDaGqseK
+ 5iLbkGvK400ES9Ndn14Q2CI5L4q407ZS9FklD18nKXXKbAXnKjI2rZRBLOeUE6muE1
+ 5oQnFLwwS9TS92evz+b5ngGPo9cLVlNfirqnYOgkhoIizlWLdMeWdseNFA3h2FhGCZ
+ KZ1Sf5JOmLUigrt6hFdfpducUfKk3aD91uzxEyJOakZmEXemfjckVbdzTn52lMwpb2
+ BkFr9dL3OAwTg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 03B91F8E4A7;
+ Fri, 17 Apr 2026 06:55:46 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Fri, 17 Apr 2026 08:55:42 +0200
+Subject: [PATCH v2] drm/panel: visionox-rm69299: Make use of prepare_prev_first
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260417-axolotl-display-v2-1-8ce5341e46c2@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAG3Z4WkC/3WNwQ6DIBAFf8XsuTRCQU1P/Y/GA8K2bkLEACFaw
+ 7+Xeu9xJnnzDogYCCPcmwMCZorklwri0oCZ9fJGRrYyiFZ0reSK6c07nxyzFFend9ZzZVDyDpU
+ ZoK7WgC/azuJzrDxTTD7s50HmP/u/lTnjrNfTJKyQw02pB22UruYDYynlCwCuFoOsAAAA
+X-Change-ID: 20260415-axolotl-display-715ce416e5c8
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, 
+ Douglas Anderson <dianders@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1693; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=9qaIOk2jaDgB2Cwe96XjpEy/bDYDz7aCW+7/jIamQeA=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBp4dlwDVNUHkEYKJ4EK7EcKFKl9f3Jw1BBY493q
+ Y324AJTfe6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaeHZcAAKCRBgAj/E00kg
+ cttsD/9m2anpA36jjz0zc5Pmrdj7RngeZZnHIPytR2ydyH1jeLbPHn2F3Ibnu+mYJPis3syIgUk
+ KLSCVr7eT56sD8tETG37D/OvZfDqkCyG9fNoKC1m1+I9pw912f32cPe+GsC6mVIEcsOD+RTIAyD
+ YDddEQRCYz8hTnlm+9pNpYU5iIYzRRurP12ItgvLGRTToPtJ8SOYudEiDnTsN4AO1iF0o6MUDhl
+ ce70P+RizgTNbVt58vdBANuGmQ3NomKt/Al/UfTT/cSse836BevvVkmyXEfBHyU7lDzSA7MaZ3y
+ DWX3iYRulpWJN+xY3iDujFthoZZj0W8z0W3Q8DtZWYguIKEH92785pu4TAtA3HHasKDFdc3Apih
+ JyKhDwFhhQQCZ6LZUPG+BKTrH1a8wBDqE/F8RXW3+xN0Sp7yzXlXvdXTtrtXmO6iOGb2pIcOBhr
+ 0zomRSKVy7xoI0T5t8TAwpyvIEYpAaf23uioV+yXyPiH7+VMNTylg8Z7zU81mWOmgmgqgi9ldp4
+ ehxKx7DtYVYHWReGTKS8zCkRxzBnxbcUkbEau2JLOhGjR4+smPCLAodZYHDYtbUBoji3xoiomMt
+ 2Yuiz1fmJuyDWbgAFI6AS3uLVjEdNBuR08wfr0ZvoFZ1XpM71s5jAkR2yZRFZA/GYrzMlduEqiT
+ O16IDSInnSNhg1g==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,36 +89,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Maxim Schwalm <maxim.schwalm@gmail.com>
+From: Guido Günther <agx@sigxcpu.org>
 
-A simple HDMI bridge used in ASUS Transformer AiO P1801-T.
+The DSI link must be powered up to let panel driver to talk to the panel
+during prepare() callback execution. Set the prepare_prev_first flag to
+guarantee this.
 
-Signed-off-by: Maxim Schwalm <maxim.schwalm@gmail.com>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Reviewed-by: Robert Foss <rfoss@kernel.org>
+Fixes: 9e15123eca79 ("drm/msm/dsi: Stop unconditionally powering up DSI hosts at modeset")
+Signed-off-by: Guido Günther <agx@sigxcpu.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Changes in v2:
+- Move the prepare_prev_first before drm_panel_add(). (Douglas)
+- Link to v1: https://lore.kernel.org/r/20260415-axolotl-display-v1-1-7abb2d248355@ixit.cz
+---
+ drivers/gpu/drm/panel/panel-visionox-rm69299.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-index 8aa31ca3c72d..cc13c98f9be6 100644
---- a/drivers/gpu/drm/bridge/simple-bridge.c
-+++ b/drivers/gpu/drm/bridge/simple-bridge.c
-@@ -270,6 +270,11 @@ static const struct of_device_id simple_bridge_match[] = {
- 		.data = &(const struct simple_bridge_info) {
- 			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
- 		},
-+	}, {
-+		.compatible = "mstar,tsumu88adt3-lf-1",
-+		.data = &(const struct simple_bridge_info) {
-+			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
-+		},
- 	}, {
- 		.compatible = "parade,ps185hdm",
- 		.data = &(const struct simple_bridge_info) {
+diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+index e5e688cf98fdc..f1430370ff942 100644
+--- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
++++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+@@ -371,16 +371,18 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
+ 		return ret;
+ 
+ 	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+ 	if (IS_ERR(ctx->reset_gpio)) {
+ 		dev_err(dev, "cannot get reset gpio %ld\n", PTR_ERR(ctx->reset_gpio));
+ 		return PTR_ERR(ctx->reset_gpio);
+ 	}
+ 
++	ctx->panel.prepare_prev_first = true;
++
+ 	ctx->panel.backlight = visionox_rm69299_create_backlight(ctx);
+ 	if (IS_ERR(ctx->panel.backlight))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+ 				     "Failed to create backlight\n");
+ 
+ 	drm_panel_add(&ctx->panel);
+ 
+ 	dsi->lanes = 4;
+
+---
+base-commit: e6efabc0afca02efa263aba533f35d90117ab283
+change-id: 20260415-axolotl-display-715ce416e5c8
+
+Best regards,
 -- 
-2.51.0
+David Heidelberg <david@ixit.cz>
+
 
