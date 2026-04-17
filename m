@@ -4,132 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C386F43696
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 18:31:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9FE2F436BF
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 18:50:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B559110EA62;
-	Fri, 17 Apr 2026 18:31:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3544A10E2D5;
+	Fri, 17 Apr 2026 18:50:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QVR+d2ym";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BwE3K8cN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SFrYm3h8";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3754F10EA62
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 18:31:06 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63HG4ZSo974928
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 18:31:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=zJHWa2uZRpV/rmjTXEG/PvVZ
- 8/IZn5LnPOQKv/Tfa3k=; b=QVR+d2ymTJhbZoPBWGqgcN+Xzmxckyz8lwnTEkFl
- YfZ2W1FGTraUKgN7h5WSkHrEXAPFCd66VsdtsKotSAcx1Ix9odFToiSmlK8tbfZ0
- 4porw56HNVI30h2IqEcv5Atpf8HQEl8eqEsucs/lg4EEJskwp0I6YH6U+i/ZtOGp
- VnHRlZyBh0FtrEVT7Hx3Jx2bx/hT63kWGdTieeouc/pfi0bvoBc7WUEU6vX5I6RV
- CooIEKO6BirS5tjMe8frlR4oC0js+waHUggUmhK02uF0+B6z1G/3Fu0z9Jfk2kSn
- 1MPajWUCvvB4m/1P5mlSouZ+XPx8HF3pm51ivuSF3qp83w==
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkg7rtf5h-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 18:31:05 +0000 (GMT)
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-472d903d34eso1582565b6e.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 11:31:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776450664; x=1777055464;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zJHWa2uZRpV/rmjTXEG/PvVZ8/IZn5LnPOQKv/Tfa3k=;
- b=BwE3K8cNBW+2Z3t+tHuEIZGD96QSu+rqHKLMZokKceUu3k4SAl/8gFwGc5ZosS0PIs
- O+37fAnN/56y0aX1MuKvb5cPDcoIliotGObeVsTYQcWJJig3DkNccbIYfQIsCkwJhSXR
- goKW3jloN4GMTMd55Ozvy3ZzsxK+CCYWmNuZH13X9dorsmtuOUfbDvntlfh+T2REug7y
- 1WAiCH0ispwF4o4uVfL/7nRsQ1olX4qzeviIO1hpmOlOsETJHwIgnHyl7RDqFh9ADFR8
- sALRpYbhOgalcY8eGWKuZFrZ53mRyAd4piv9Do71UwtZeCOCMQhQKDo0MIR6PFcE8qw+
- nfrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776450664; x=1777055464;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=zJHWa2uZRpV/rmjTXEG/PvVZ8/IZn5LnPOQKv/Tfa3k=;
- b=lmXjlzoWL6lLK0itQ186aDvw+9X2ykBhgiLggS51FBxzTxqFOILNWaCVVw0rDP3uIy
- VVhVYxmi3p+jAQ6b4xeQMVu8+fO63XU883Pm5nVradBHP284ZBO6GFH4F1k9DUNB3Hsi
- l8OKYtfAXL0IRpl2CeW/vhbtxFeNZ9lZDUgX7OZYAV2klxGEr8r19FFYBvX5Dl5xYXoG
- XzySYEk6CPPyb2lKozbs2IbFEFfrYPA1Z86Y+WNDsRbwRFhZ5/jebvAZrkrp6FJ+aUrv
- rMNdtQwiZh4Ci+tqPimD4rwQdZEF0suM6wzgYKvhRyUda79GCuDKRfia1vmLU89tAXog
- 4ahA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9jDLxh5zdTTEMcDupXiPctYamE2Ns2zRZrDOFOZ2Tnejf+ARAG3Zo5vNYJq7Y0we9B79oCadSzBHo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhexuCnDUySl+nK8h4JCUyRZZ7muDlMz9DfVzO4jKTlBWIfIzQ
- z/V1KbfubTwj8JGeU/rDFtZr+J4sk+tXBSw+X2uY4LKrfOzKeA4srPFHQJWOdrEQYndkaOWTtbI
- GEqz0/QPq2e/9BIDLbV9GHIn0epIu4hypwcYQOmjZoX4dIvnaISKD5hdMXx43SlkZ7FEU7io=
-X-Gm-Gg: AeBDietsz3VRlRPPpib9Bj8dZgDaEXVpCUgVAaUuj6wUO3P0uH2PCQhpRYxLV48BmSs
- 9sT2+X9im4ZhKLjyw4d7GMGZ4HEhA5Wu0dX2xoHwZVZpsCjTmEKpIEf5shV6+FNRVhRf839s8E9
- 3ktj4XfKkSMw9Gke3WkgkyYi5f0ncGTDN6BJLQjbyIuU8Q1gcNajVJz9xNkmJsPHkH53ihTesUP
- Vn0EdN2667cE8o9p4oLuHBtYC/LXOzezyc7f/ZDqLhFVXcNd0le/M0PCbl4C7pvqrkmJPSK0zSS
- jPJa4xJ2cNtd6vnQ5D6ShBZNkw/Xst2ZAr9RyXDyWJVNzbcBS4nBzf2t08sZnKSHiGnLrTyvhs2
- IjwQx+jXe5uLE6OadaakrKbA+gQpJatYoYnHnnwAyXQ7IKQpd7+ts9/KJzHfn60kaiHhODUoJvu
- HxArJfq7PHwtsNpApEO4NTVoKfLqbK2fYntiaBg+ic3VG6WA==
-X-Received: by 2002:a05:6808:220f:b0:472:cd4c:c36f with SMTP id
- 5614622812f47-4799c873bb6mr2096904b6e.3.1776450664453; 
- Fri, 17 Apr 2026 11:31:04 -0700 (PDT)
-X-Received: by 2002:a05:6808:220f:b0:472:cd4c:c36f with SMTP id
- 5614622812f47-4799c873bb6mr2096860b6e.3.1776450663882; 
- Fri, 17 Apr 2026 11:31:03 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185bc333sm629956e87.24.2026.04.17.11.31.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Apr 2026 11:31:02 -0700 (PDT)
-Date: Fri, 17 Apr 2026 21:31:01 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jianping Li <jianping.li@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Abel Vesa <abelvesa@kernel.org>,
- Jorge Ramirez-Ortiz <jorge.ramirez-ortiz@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, ekansh.gupta@oss.qualcomm.com,
- quic_chennak@quicinc.com
-Subject: Re: [PATCH v4 3/4] misc: fastrpc: Allocate entire reserved memory
- for Audio PD in probe
-Message-ID: <7rfiwbbunlbzmhdjvsfqccltdx7cveahbgg2rk6kkom2jesta4@nnbas4vn63we>
-References: <20260409062617.1182-1-jianping.li@oss.qualcomm.com>
- <20260409062617.1182-4-jianping.li@oss.qualcomm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0848710E2D5;
+ Fri, 17 Apr 2026 18:50:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776451825; x=1807987825;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=JnBrBkZjJ2LXs1U/Ai/RF5t66of/0KGzKyVR3aan6Qc=;
+ b=SFrYm3h8KIfr111vFDkSNtHZQ5x0/4jk5wd3vbyEN7Ri4HY90TbiUD/i
+ zYbx+3P1F5/XZQrcbqHQ/RGFmW4biyAl0JjkCQV+1mDWBG/9I7Uha5Wqj
+ tO1lKU6tVUE9xc6tLx02/7EevqnnFd/2v9lClWcddLa+DJRM1Lm2Kn969
+ VsFEjzybBBee/yc5Gc8ixHo3QMq11KFdoxfv5/GggH7VL8cv+WV+Q4LCY
+ fxWHt8Jbhgx5/VMDfPSun/9xRVvaLxma766abirfopJbeBZtcA4mO3Oq4
+ i+bay2C5u2R3CKZFC4CKpcfKRYU6MFLAyD+E6r4lRauQS+vO9WyuSaL83 Q==;
+X-CSE-ConnectionGUID: gl6IwFpPSrePzjeuANfjfQ==
+X-CSE-MsgGUID: rnKpkW00TeO2L2Z4zp13cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="81350808"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="81350808"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 11:50:24 -0700
+X-CSE-ConnectionGUID: FE+npJuhTpumtIhDGufprg==
+X-CSE-MsgGUID: OIDsrWyISHa4kUOj4/md5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="232861031"
+Received: from zzombora-mobl1 (HELO localhost) ([10.245.245.176])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 11:50:19 -0700
+Date: Fri, 17 Apr 2026 21:50:16 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Cc: Julian Orth <ju.orth@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Daniel Stone <daniel.stone@collabora.com>,
+ Ian Forbes <ian.forbes@broadcom.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, wayland-devel@lists.freedesktop.org,
+ Marius Vlad <marius.vlad@collabora.com>, Imre Deak <imre.deak@intel.com>
+Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
+ user-space
+Message-ID: <aeKA6D7Iei612FKa@intel.com>
+References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
+ <CAHijbEXcrhB=ipaa4-DPD8atQYCkokGfueLafwkeQpxCBkc0bw@mail.gmail.com>
+ <7472926.DvuYhMxLoT@workhorse>
+ <CAHijbEViae+=Fcnh3v0ODxwTPUaRgU1H4OVGM3VFPSLMPzJzOA@mail.gmail.com>
+ <1297f150-b3b4-4a53-ad05-ecb05b8ec420@mailbox.org>
+ <aeISNnh6IWGA7P8C@intel.com>
+ <63a3d617-6603-438c-b22b-62acedb951e1@mailbox.org>
+ <aeJJ4lKAZDwBuW_U@intel.com>
+ <3196f1fc-f241-4295-b5b8-380ee93e95da@mailbox.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260409062617.1182-4-jianping.li@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: f2-jLSslZc7RvgUXH4aDl37LFcdGnwAw
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDE4NiBTYWx0ZWRfX/af7uub/8aVK
- KRGBo/mioMwEEvxKeE/CKDwvwYinQ5Ckg7vqSlTU72phvUfGIIyzmc57vxk8xg0/S5Y+zXFduQi
- JX4vYULC9ZjylopTO/urgILkXHC83TSjH7j5/ucydw/BgCLj89XYZwdfFs8ovJW4C2DnijE5T0H
- k/64Lpx9SDCuoVuRm/RqmXCNsfPBxYyB2rJb+ud2pqSVh9semqeGWAQzN3VyFAvOc4CimGdKx8B
- cmOR/pcfF/MJem56gVIQyzjustBuLGpF7qFgEdSvkgndB35RZFecs5OjOhGxKS/PBCxAoYPA9K4
- kd7uUuMUIxqWA3layKk24NXetgILYW7pWz8Ou6WCbvdR8PkqxoBJYAOSN9IV304QSTyyGUJ0YMT
- LTItmkiJax04LzeHkXQkylo6NUYYQcXOR6KSfCBBCyotEBba/MNuKkYMgXzcTjUIjq/yc8Y1ea9
- nrLk4me2Sh3bunOF3Pg==
-X-Authority-Analysis: v=2.4 cv=b4mCJNGx c=1 sm=1 tr=0 ts=69e27c69 cx=c_pps
- a=WJcna6AvsNCxL/DJwPP1KA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=xL7owM3MNuM7HuHup6QA:9 a=CjuIK1q_8ugA:10 a=_Y9Zt4tPzoBS9L09Snn2:22
-X-Proofpoint-GUID: f2-jLSslZc7RvgUXH4aDl37LFcdGnwAw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- phishscore=0 clxscore=1015 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604170186
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3196f1fc-f241-4295-b5b8-380ee93e95da@mailbox.org>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,61 +94,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Apr 09, 2026 at 02:26:16PM +0800, Jianping Li wrote:
-> Allocating and freeing Audio PD memory from userspace is unsafe because
-> the kernel cannot reliably determine when the DSP has finished using the
-> memory. Userspace may free buffers while they are still in use by the DSP,
-> and remote free requests cannot be safely trusted.
+On Fri, Apr 17, 2026 at 06:40:51PM +0200, Michel Dänzer wrote:
+> On 4/17/26 16:55, Ville Syrjälä wrote:
+> > On Fri, Apr 17, 2026 at 04:17:45PM +0200, Michel Dänzer wrote:
+> >> On 4/17/26 12:57, Ville Syrjälä wrote:
+> >>> On Fri, Apr 17, 2026 at 09:49:36AM +0200, Michel Dänzer wrote:
+> >>>> On 4/16/26 15:16, Julian Orth wrote:
+> >>>>> On Thu, Apr 16, 2026 at 9:46 AM Nicolas Frattaroli
+> >>>>> <nicolas.frattaroli@collabora.com> wrote:
+> >>>>>> On Wednesday, 15 April 2026 20:57:53 Central European Summer Time Julian Orth wrote:
+> >>>>>>> On Wed, Apr 15, 2026 at 8:19 PM Nicolas Frattaroli
+> >>>>>>> <nicolas.frattaroli@collabora.com> wrote:
+> >>>>>>>>
+> >>>>>>>> This series addresses a shortcoming whereby a hot plug event is sent
+> >>>>>>>> without it being passed the actual connector that caused it. This takes
+> >>>>>>>> into consideration both the polling path and the HPD (Hot Plug Detect)
+> >>>>>>>> path. It also adds support for the vkms driver (using ConfigFS) for
+> >>>>>>>> propagating the connector ID when changing the connector's status.
+> >>>>>>>>
+> >>>>>>>> The motivation is that user-space applications such as Weston would
+> >>>>>>>> previously receive non-connector-specific hotplug events, and then have
+> >>>>>>>> to figure out themselves which connector needs to have a modeset
+> >>>>>>>> executed on. This notably did not work when the hotplug events came in
+> >>>>>>>> too fast, resulting in Weston missing an on-off-on transition of a
+> >>>>>>>> connector, seeing that its state was unchanged from "on" so can't be the
+> >>>>>>>> one that was hotplugged, and skipping reinitialising it as it looks
+> >>>>>>>> through the other connectors that could've caused it.
+> >>>>>>>
+> >>>>>>> Have you considered adding a u64 serial number as a DRM connector
+> >>>>>>> property that is incremented every time the connector changes in some
+> >>>>>>> way? Userspace could then check this serial number to see if the
+> >>>>>>> connector has changed since the last time it queried the serial
+> >>>>>>> number.
+> >>>>>>
+> >>>>>> The connector internally already has an epoch_counter member which
+> >>>>>> could be used for this. However, for the particular thing this
+> >>>>>> series fixes, I don't think exposing it through the uAPI is necessary
+> >>>>>> or desirable. Sending hotplug events specific to the connector does
+> >>>>>> not need any additional handling on the userspace side as long as it
+> >>>>>> already listens to the per-connector hotplug events in order to
+> >>>>>> avoid the pitfall described in the cover letter.
+> >>>>>
+> >>>>> I currently do not handle per-connector hotplug events. Instead,
+> >>>>> whenever I get a UDEV change event for a device, I re-fetch the entire
+> >>>>> kernel state for the device. That is
+> >>>>>
+> >>>>> - DRM_IOCTL_MODE_GETRESOURCES
+> >>>>> - DRM_IOCTL_MODE_OBJ_GETPROPERTIES for each connector, crtc, plane
+> >>>>> - DRM_IOCTL_MODE_GETCONNECTOR for each connector
+> >>>>> - DRM_IOCTL_MODE_GETPROPERTY for each connector property
+> >>>>> - DRM_IOCTL_MODE_GETPROPBLOB for the EDID
+> >>>>>
+> >>>>> Once I have the new state, I compare it against the desired compositor
+> >>>>> state and perform a modeset if necessary.
+> >>>>
+> >>>> mutter is doing something similar as well.
+> >>>>
+> >>>>
+> >>>> Note that some are arguing a modeset is always required after a hotplug event, even if the state hasn't changed.
+> >>>>
+> >>>> The most convincing argument I've seen is the scenario of a GPU reset, after which a modeset is required to light up the displays again.
+> >>>
+> >>> GPU reset should relight the display on its own really. That's what
+> >>> i915 does, albeit somewhat badly at the moment.
+> >>>
+> >>>> A hotplug event seems the only mechanism available for the kernel to request a modeset from the compositor. (The kernel may not be able to reliably do the modeset on its own, e.g. due to interactions with user-space atomic commits)
+> >>>
+> >>> There's nothing preventing the kernel from doing extra atomic
+> >>> commits whenever it wants.
+> >>
+> >> I made that same argument at first.
+> >>
+> >> Then it occurred to me the kernel-internal atomic modeset commit could cause spurious EBUSY failures for user-space atomic commits overlapping with it.
+> > 
+> > Not so. Everything just gets blocked on the kms mutexes and the -EBUSY 
+> > stuff never even comes into play.
 > 
-> Allocate the entire Audio PD reserved-memory region upfront during rpmsg
-> probe and tie its lifetime to the rpmsg channel. This avoids userspace-
-> controlled alloc/free and ensures memory is reclaimed only when the DSP
-> shuts down.
+> Makes things easier in that case. I followed up accordingly in the other thread.
 > 
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-> ---
->  drivers/misc/fastrpc.c | 104 +++++++++++++++++++++--------------------
->  1 file changed, 53 insertions(+), 51 deletions(-)
 > 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 148085c3b61a..a67ae991c0b0 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
->  	struct kref refcount;
->  	/* Flag if dsp attributes are cached */
->  	bool valid_attributes;
-> +	/* Flag if audio PD init mem was allocated */
-> +	bool audio_init_mem;
->  	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
->  	struct fastrpc_device *secure_fdevice;
->  	struct fastrpc_device *fdevice;
-> @@ -1295,15 +1297,16 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->  	struct fastrpc_init_create_static init;
->  	struct fastrpc_invoke_args *args;
->  	struct fastrpc_phy_page pages[1];
-> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
+> >>> But if you want to punt the thing to userspace then the kernel must set the link-status
+> >>> property to bad, and then fire the hotplug uevent.
+> >>
+> >> I later suggested using the link-status property for this as well.
+> >>
+> >> Checking with others on IRC and reading documentation / code though, I realized my recollection of its semantics was wrong, it actually doesn't look suitable for this. In particular, the expected user space response to link-status bad is to set a *different* mode (since the mode may be relevant for the link failure), not the same one which was already set.
+> > 
+> > The expected response it to retry with the same mode, at least if
+> > that mode is still on the connector's mode list. If the mode got
+> > pruned then there's perhaps no point in trying it again.
+> 
+> On re-reading the link-status documentation in drivers/gpu/drm/drm_connector.c, I agree.
+> 
+> I'm afraid you're optimistic in terms of user space support for link-status though.
+> 
+> Neither mutter nor weston even look at it yet.
+> 
+> KWin reacts to link-status bad with a modeset, not sure it handles the current mode disappearing though. Seems good enough for the scenarios we're discussing here.
+> 
+> wlroots seems to handle it properly.
+> 
+> (Any compositors which don't handle it yet need to be fixed, just pointing out it might not make a difference with existing releases of some of them)
+> 
+> 
+> >>> I think the userspace behaviour there was that you get a disconnected,
+> >>> defer processing it, and then you get a reconnect, and then decide that
+> >>> nothing actually changed and a modeset is not needed after all. That is
+> >>> not correct IMO. Clearly a ->disconnect->reconnect should count as a
+> >>> change in the connector's state, and a full modeset is thus required.
+> >>
+> >> While that makes sense to me in principle, as Julian pointed out, the kernel can't rely on user space seeing the intermittent disconnected state.
+> >>
+> >> Seems like another argument for a serial number property. That would make the need for a modeset unambiguous.
+> > 
+> > [...]
+> > 
+> > But for the case where the kernel only sends the per-connector uevents
+> > and the drm master sees all of them the serial number would do nothing.
+> > In that case the kernel wouldn't even send the uevent unless the
+> > serial number has changed.
+> 
+> The serial number is still necessary in cases where status flip-flops connected → disconnected → connected, user space never sees the disconnected state though.
 
-What was the base for this series? It doesn't apply to linux-next. The
-code here is different.
+I suppose that could happen if the flip flop is fast enough that the
+status has changed back to connected by the time userspace gets to
+process the first uevent. Although the fact that the uevent was sent
+in the first place (assuming it's the per-connector one) would imply
+that something did in fact change. But I do agree that having a clear
+signal in the form of the changed serial number would avoid a lot of
+weird guesswork in userspace.
 
->  	char *name;
->  	int err;
-> -	bool scm_done = false;
->  	struct {
->  		int client_id;
->  		u32 namelen;
->  		u32 pageslen;
+> >> Note that the referenced issue is about a different scenario though:
+> >>
+> >> 1. mutter does modeset for DPMS off
+> >> 2. hotplug events during DPMS off (presumably triggered by the monitor scanning its inputs)
+> >> 3. mutter does modeset for DPMS on
+> >>
+> >> The monitor stays off after step 3. The argument in the comment I referenced is that mutter should repeat step 1 before step 3.
+> > 
+> > That can't be it. We don't do anything if you try to disable an already  
+> > disabled output. And the analysis of the logs indicated that the disable
+> > (DPMS off) was completely missing.
+> The mutter debug log in https://gitlab.gnome.org/GNOME/mutter/-/issues/4145#note_2457199 disagrees.
 
-This struct is way bigger.
-
->  	} inbuf;
->  	u32 sc;
-> +	unsigned long flags;
->  
->  	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
->  	if (!args)
+I only see two modeset commits in that log. Both with CRTC 134 being
+enabled with connector 250. So far I can't find any DPMS off in there.
+Am I just blind?
 
 -- 
-With best wishes
-Dmitry
+Ville Syrjälä
+Intel
