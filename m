@@ -4,99 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5C6CF436A4
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 13:34:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6479FF436A8
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 14:05:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8028710EA1D;
-	Fri, 17 Apr 2026 13:34:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9C2488CBF;
+	Fri, 17 Apr 2026 14:05:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SuUQ3+Ep";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TKdUM3Z7";
 	dkim-atps=neutral
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC9E10EA0F
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 13:34:55 +0000 (UTC)
-Received: by mail-dl1-f50.google.com with SMTP id
- a92af1059eb24-124a7216c9cso30408c88.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:34:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776432894; cv=none;
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E551488CBF
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 14:05:49 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-2e59d6b11e5so31915eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 07:05:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776434749; cv=none;
  d=google.com; s=arc-20240605;
- b=iYPTYSyQj6KwxIEAeX0vpxhXiw1P+/C1JWFazG4/lIKEBF1NCDuzOoh7ySBGjU83Tq
- 1/b4ma4NE5TBkZp8yGj+nCcRvaHr5+Rl/NZRmomoYTIvR8BKlZd7hzREV7sSh4HYu/ky
- AHlM16fcRtTZpsy1hgwmX311XmyJMDiKq4weL/WQ224xZS4Nb76gxkX6FBRP2cmhsIuA
- p4tdC51W3lttwpRF/j1KV/v1OdniPpjvovIPpWR+wtLBu1fASyruEQNERapcuDiSXdBb
- zBz9/99eHYW6IuM/ajSIhEzYtXB5zchDz1SJBulTQFZuLWb2QcsVM/MaOD/sqj0f1D0z
- KLfQ==
+ b=fjk24T909WlfSpSC8vMwzCnA/kkRauc6X5NdDRhWaJP92Q/uekyZu+8dpgZPvRstVU
+ OivZia7I1ysoalr6/GYxNyr62PE368mbp0cG2+4wUn7Sbh8IIkdy20qd0bnQAknWz9hL
+ rG4DV9aC2kZxVeEpRBSmLd22IJ1chmblEzUSBnB4N4KAGDi8eSmVbvU8LZeqBSphKXOy
+ qQXsdWfrfmcOrJ2tYqkYeLq1QZUPAdQewXXxaazk2kFc2yBv+ihSZsTDHn4j3uFbvv/1
+ PSzRzJyP/mAOcdUv/Nh6NFmBSFCvxd2pTzBBoXlMMFGOy5NvCLJmPhwZ1voKxNauamdL
+ M99g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=H5SQjdAFcyv8NdqIsfRQOzzA0lu5rNy+ZmGTAor1otU=;
- fh=YzV4BPyDf6KQ1zhAlcAEhV957Kmp1mWQWlW93f1owZA=;
- b=cVlCCQe8UtTdknQPnNBoRxVaRZYlmuLWGPn/U/+elbg9UHAyCg2/oA0VwE4U8UxFWQ
- t5Jx0Xjm8W2nz63wHVr2fckb/Oia8rg2rCwwCaXZ3PajDNvCtCDdfZn6k5/2UHgDs61o
- Xde4OJM9vsxn9r2913Y4gf5ggF1Plp4Dv04oZClTZr8+4od4/o1R0X8JhwgxonbWrlKJ
- pIsnxIC3XQmjVVUs208GYPE4xOA6r5m3D5YwB2MTsfnMCBMvFZPDouWiGe3LmDb0AEdu
- GqAK8ougQ5flGgz+LUSpvaSsTulSP918MkDVblf3955qEydx4T1VyMCkO/49WtA7Hhhz
- kaZw==; darn=lists.freedesktop.org
+ bh=H7S+DeEeooS5wykJOGH/mnHWINMYQqyyV2qSC32frrU=;
+ fh=4lPEMVM56OftQj1L6zotPpgEV77wIA6IiNqtw6YncrM=;
+ b=Nr/WdL6amv5+KiOVOoi+kVmo8TNn7eV7gB9twWc6S8vQ/Gzxqutpqty6CCRqb3Sbrl
+ BVI4TcajrM9QxqNR5ZHPowa3bjjk8TJsD3axXQQq/oHvKK9jZryxtNE+qZ7FN1Q10+dE
+ uFw6pklAoF/Z6LlpVj/M5QlxyLH/n35jKBTpMhyfGJ0NcarlzCWxXAV2xyW3VeFeJl+8
+ lmR57Vm78l0xarPfharm2OlhT08/3EBAoyoBWlbRLPY4OdfPASgAnVog0v7yMnr6BetA
+ A5gH9FSilqkfnTPWPdNI9qixG6mDMjyP8Q+6QZUfi2wMonMBHGHtq2adb66u4SmKjtlw
+ zOng==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776432894; x=1777037694; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776434749; x=1777039549; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=H5SQjdAFcyv8NdqIsfRQOzzA0lu5rNy+ZmGTAor1otU=;
- b=SuUQ3+Epprzx87ktui4oWAwGtBml/z7LXmDoLB2Crhz5DnYFDnMMsdTpLO5hBxdT5i
- z4l4SpfTzgfG/DQh0bDnHSvuMNQKUBmtkq0lZXCUoMXaSkrBvxBvdaaAqqM/DqZGWnUT
- GUWdVGrF74goxAAc59PJbf2PtDq/HjVYsP1rXbqUFyxT32at0c9I0T2z7cC38HwDObNl
- BvlviT5rc4CICSvTvSBZsbhl+OdCUKbPCJua7yTwSp9GywHNU5sePbKqC5dNXv/hczqN
- oimpXm3/Tw4xIvjBUoEZEL1UVDMpWxGUtCWNZAmzj0rSPQGkoIy5K9/qCQWVUtbcFp1S
- 7TuA==
+ bh=H7S+DeEeooS5wykJOGH/mnHWINMYQqyyV2qSC32frrU=;
+ b=TKdUM3Z7KGZxoUsLcUIrC3E2HCPC8Kn+RD50wVWWBJVFeYE5K0zxmWlNR0Sf3f+nBc
+ phMRhMU1+Mhojct9RfhrpKZQ+U/ICPw8qbM/z6YPuHOCtkypvx4gWQqqc8DwrsOqKUCo
+ frhjxQ+sbIYMHJdhu9Vp5VtHKj49zRFcU/P0gSJ7hP/0HaqDVaxY5hH4im3BB72eiWzP
+ /BuFpRX6ewozCJoHduIJboxDCoJtC7ei+LxLLp/EODBpRLXBZUQJ37AVq3KjU3yjNTgc
+ LC9wjet8s8hgsfdZ8ps3DvNMTTHYlcl3cAf1XUoO06/Gnd3piQOnEZJO9fvPuGgocy2W
+ /5fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776432894; x=1777037694;
+ d=1e100.net; s=20251104; t=1776434749; x=1777039549;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=H5SQjdAFcyv8NdqIsfRQOzzA0lu5rNy+ZmGTAor1otU=;
- b=lDa4ZYbEDthf4outY51q68hvLtQbvFgFjsNdR903HYt4vSOl9y8J0dFr0FlR9J1UqA
- c91erw7U58hM3uuwU3UY6/gyE3JNr6l9ktrOlzJX8Zlb0O2gL0vp6PY35lpvfvzXkUEz
- EPjiVpDKJ5TNL9+it9O3DFQdM/QoEAZgO13qREIvgClCyta+/7ibttCqQJQvm8cRMWkq
- DQYNACa9Jmvsz1vmhIY+KNhaIyH2lZWoMTgoxbSD2ilOLJj6hWeT/p9xXoJ345mPUKvM
- A4tF+v5bYGpk6zhgmgBOLwn9I9edmC00JBlfxt9JcLTMhtei7mLo0ljupOawej72xLHJ
- qmuQ==
+ bh=H7S+DeEeooS5wykJOGH/mnHWINMYQqyyV2qSC32frrU=;
+ b=bQ1q1oQY/kz/yqLrLqU+Ex993TRQoWRW0Lm7WpXBKKFAZD9pb4FSiRGxgFEWsCyTX3
+ nZcNKK5+tR1hCDvjC+b9vPspA8Q4ExXfJOmzoHXQaovAQGv89pCTroUvxN4dclgTjWw3
+ MjniWGFid5KfaP8ogze10b8dTrZgTjcn5EXKc7zydH6w3HsN/+0sVVfjBFiPhdxeASuO
+ nui7aVcSig6cOmCXbftiJY/2tcb/yhY3s45H1duGagKUyPnt+VJKTwTRK4SoxQcyTLfW
+ 7uFP8c2aQVOPoCXpjKjdFF59GIocjJpS43J5FxOimrikvMhD1faABmeQOlEai/SYELKn
+ xNjg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Z3lTGX9tm5tbGAs0XA+k6L2h+rco0mGhG2vtZQg+AM2KgSLOWMUFOm1kV6OCAgjfEOc5F11q/PXo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7P/WZNK6728Axri2BKpLA96+jeF0CI+CNJg96NkomsTERqiBP
- mdknKgeIvBk+EOsRroIZKfVj7pHR9dZPif/zDdSLRBXB3GB6qe94orkHH7qj1JfB8aLzXCsxxHL
- LNeSoJhRHXJRLOdxf2jGKzFtiK90mqrc=
-X-Gm-Gg: AeBDietOHkp9yOxDfMwbzn8oGu9uBYfuN4SA9X0ztKAgRIrwEgWePlkbb6iAyGrgLLj
- +P1wHY5aNxkm8+INbcsvOmLRe18PYvfab1M/EOFa82CtkY5VkB//R8VdNFdjSoqmZwtP6FDsiwJ
- rlpxiS8+ce0+PGeIDANkKJyFQ+yM0D0ucKe5UVl7i3bHj2ZPoUVnwn0QPeHlVCBojkw7oeam2OE
- 1V1EEHKMwKy5z8eCrLQs4ycDqboJcO/gG3h+xB7XFY51upDTmD+rRWd7A+IWWFBYlmNNswLAdgW
- aM5v6rHasQCVSUApvaNLuNcLGCvso+nrh2mlX6ZzIB55BgtWKMEqLjy/RO1okhswYY3u978SXxd
- +6XoS
-X-Received: by 2002:a05:7022:928:b0:12c:33dd:fa0b with SMTP id
- a92af1059eb24-12c73f69c12mr560921c88.2.1776432894188; Fri, 17 Apr 2026
- 06:34:54 -0700 (PDT)
+ AFNElJ/M9RH3ySzFdIp7PTCAQvt8u1sZ2nKe9coUGD1Apq6wdp7dga7RzuXmCuvQeTwb11bvVAIQgsKfDUs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPcalbYOOUA2oV4sQ/WJkfxN2l62evwjDuMPIlETy51Jc1Nwnc
+ 64zgZTcXQEYdlzYVv6daVcYgDrPZuSSuSiPt/PNa+kb00+nLiI/GvWMN8VMSU0jeZrucKty5y75
+ 9ETpVz7a2HbI4Zj9CC5Nfc0DSlje9jiI=
+X-Gm-Gg: AeBDies2JN0zLbPdJcwZ/lqBOh+blUVY8Wsog1Zs2TnLxgVkz+RcqoRGUShdU7bgS8I
+ Ew50jqn4GCszXCpsXgDeDjMtayEUhJ3mx9GC6A5r95Mdy9ljYOv4u5m6V1CdWLKSNigGXeLDzu6
+ QiRJIhpjcSeGb09gqyX30u8M3kMoQGVBXzLX7CNQD+zlLi82tGUcnw5UHxlZ9YrJReSQwmv5oSa
+ ou1M+w5SuJAo/v4pailKcRkit/yca4oak+29nGqrJIQi97ZxHssu2HmqR55P3OCta38imyGH72i
+ Aib5YfnvTTWv/zrIzBM5PEt879sAyaqqof0dzrEE3Q3LVhVcGO2SuH3ArgI+p7C3w7AGmP3+cKZ
+ Bz+zb
+X-Received: by 2002:a05:693c:3011:b0:2c7:2cac:8149 with SMTP id
+ 5a478bee46e88-2e4871fe6bamr672967eec.7.1776434749018; Fri, 17 Apr 2026
+ 07:05:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <CADnq5_Prw=X66ByOAutSV_jFCJ7guuRSMPWnEqttr+xe_j_Y4g@mail.gmail.com>
- <20260415221350.1178094-1-werner@verivus.com>
-In-Reply-To: <20260415221350.1178094-1-werner@verivus.com>
+References: <20260416195537.3632-1-dbgh9129@gmail.com>
+In-Reply-To: <20260416195537.3632-1-dbgh9129@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 17 Apr 2026 09:34:41 -0400
-X-Gm-Features: AQROBzBNKLgUz5j7LnoNFi5Ad4rOoyX0l8ZAuNVWt5YQYXWOh6GE9S_RYf361NE
-Message-ID: <CADnq5_M4Rr2ifOoCrvLqiqj9H6tRgKOY3Tn6NqyUB3YziicqZw@mail.gmail.com>
-Subject: Re: [PATCH v3] drm/radeon: fix integer overflow in
- radeon_align_pitch()
-To: Werner Kasselman <werner@verivus.ai>
-Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "airlied@gmail.com" <airlied@gmail.com>, 
- "simona@ffwll.ch" <simona@ffwll.ch>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "stable@vger.kernel.org" <stable@vger.kernel.org>
+Date: Fri, 17 Apr 2026 10:05:36 -0400
+X-Gm-Features: AQROBzDAAqMZZoPqgJldN_PKeIHlbSL12FRIFysUQMxrUkIadk_kNeR4nycyTco
+Message-ID: <CADnq5_NrVgGwAYbBGgGc9t-ke5xt_0iJNExXARb7LxdnHSwDQA@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/radeon: fix memory leak in radeon_ring_restore()
+ on lock failure
+To: Yuho Choi <dbgh9129@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -116,87 +112,45 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Wed, Apr 15, 2026 at 6:14=E2=80=AFPM Werner Kasselman <werner@verivus.ai=
-> wrote:
+On Fri, Apr 17, 2026 at 3:06=E2=80=AFAM Yuho Choi <dbgh9129@gmail.com> wrot=
+e:
 >
-> radeon_align_pitch() has the same kind of overflow issue as the old
-> amdgpu helper: both the alignment round-up add and the final
-> 'aligned * cpp' calculation can overflow signed int.
+> radeon_ring_restore() takes ownership of the data buffer allocated by
+> radeon_ring_backup(). The caller (radeon_gpu_reset()) only frees it in
+> the non-restore branch; in the restore branch it relies on
+> radeon_ring_restore() to free it.
 >
-> If that wraps, radeon_mode_dumb_create() can end up returning an
-> invalid pitch or creating a zero-sized dumb buffer.
+> If radeon_ring_lock() fails, the function returned early without calling
+> kvfree(data), leaking the ring backup buffer on every GPU reset that
+> fails at the lock stage. During repeated GPU resets this causes
+> cumulative kernel memory exhaustion.
 >
-> Fix this by using check_add_overflow() for the alignment round-up and
-> check_mul_overflow() for the final pitch calculation, returning 0 on
-> overflow. Also reject zero pitch and size in
-> radeon_mode_dumb_create().
+> Free data before returning the error.
 >
-> Found via AST-based call-graph analysis using sqry.
->
-> Fixes: ff72145badb8 ("drm: dumb scanout create/mmap for intel/radeon (v3)=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Werner Kasselman <werner@verivus.com>
+> Fixes: 55d7c22192be ("drm/radeon: implement ring saving on reset v4")
+> Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
 > ---
-> v3:
-> - Squash this fix with the earlier zero pitch/size validation change.
-> - Use overflow helpers for both the alignment round-up and final
->   pitch calculation.
+>  drivers/gpu/drm/radeon/radeon_ring.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >
->  drivers/gpu/drm/radeon/radeon_gem.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
+> diff --git a/drivers/gpu/drm/radeon/radeon_ring.c b/drivers/gpu/drm/radeo=
+n/radeon_ring.c
+> index 581ae20c46e4b..a5dff072c1ac0 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ring.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ring.c
+> @@ -356,8 +356,10 @@ int radeon_ring_restore(struct radeon_device *rdev, =
+struct radeon_ring *ring,
 >
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon=
-/radeon_gem.c
-> index 20fc87409f2e..8ce180e22d1d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -28,6 +28,7 @@
+>         /* restore the saved ring content */
+>         r =3D radeon_ring_lock(rdev, ring, size);
+> -       if (r)
+> +       if (r) {
+> +               kvfree(data);
+>                 return r;
+> +       }
 >
->  #include <linux/debugfs.h>
->  #include <linux/iosys-map.h>
-> +#include <linux/overflow.h>
->  #include <linux/pci.h>
->
->  #include <drm/drm_device.h>
-> @@ -812,6 +813,7 @@ int radeon_align_pitch(struct radeon_device *rdev, in=
-t width, int cpp, bool tile
->         int aligned =3D width;
->         int align_large =3D (ASIC_IS_AVIVO(rdev)) || tiled;
->         int pitch_mask =3D 0;
-> +       int pitch;
->
->         switch (cpp) {
->         case 1:
-> @@ -826,9 +828,12 @@ int radeon_align_pitch(struct radeon_device *rdev, i=
-nt width, int cpp, bool tile
->                 break;
->         }
->
-> -       aligned +=3D pitch_mask;
-> +       if (check_add_overflow(aligned, pitch_mask, &aligned))
-> +               return 0;
->         aligned &=3D ~pitch_mask;
-> -       return aligned * cpp;
-> +       if (check_mul_overflow(aligned, cpp, &pitch))
-> +               return 0;
-> +       return pitch;
->  }
->
->  int radeon_mode_dumb_create(struct drm_file *file_priv,
-> @@ -842,8 +847,12 @@ int radeon_mode_dumb_create(struct drm_file *file_pr=
-iv,
->
->         args->pitch =3D radeon_align_pitch(rdev, args->width,
->                                          DIV_ROUND_UP(args->bpp, 8), 0);
-> +       if (!args->pitch)
-> +               return -EINVAL;
->         args->size =3D (u64)args->pitch * args->height;
->         args->size =3D ALIGN(args->size, PAGE_SIZE);
-> +       if (!args->size)
-> +               return -EINVAL;
->
->         r =3D radeon_gem_object_create(rdev, args->size, 0,
->                                      RADEON_GEM_DOMAIN_VRAM, 0,
+>         for (i =3D 0; i < size; ++i) {
+>                 radeon_ring_write(ring, data[i]);
 > --
-> 2.43.0
+> 2.50.1 (Apple Git-155)
+>
