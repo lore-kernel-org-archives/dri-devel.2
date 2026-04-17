@@ -4,55 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3902F433DE
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 08:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E8E6F8DFCE
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 08:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0216210E29B;
-	Fri, 17 Apr 2026 08:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDB3810E2D3;
+	Fri, 17 Apr 2026 08:23:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oIwRTj+C";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="csWpib2b";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B71D910E29B
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 08:19:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1776413981;
- bh=p8Qg+u7FXG0U0+sR4wmac5rL1X0J1pM2yQmUYCZGfYc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=oIwRTj+C05g60wAK4lGlTo4FwzwqBL34l9tikxRCCS5tpctXHj4t81l98lxQUTEyb
- LcqhkMJA7eIozkBfVICmdmwqjBD2Kj2+0ajvuBBJpp0VflT/BVBj5KeQHS1S+ekY2g
- qAXy6ot59t/g5GPtS9EKYgsZUEU857PDpALn+wRBp7qm34qMmczGXyPMG8y33NwQwT
- +ZNypPuJkpD9sTjEkWfaalUYaFirg0H8idsimai9IUp8n9BrvU/aTrHkTli2+3LuyE
- 28knU9zOihbSidn7goZk7HY7AnvRbHMchFlR7iEVz/FgfbfEBZuvHn42EsOeEDKuf1
- DSHjozriGX2eg==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9AE0117E10A4;
- Fri, 17 Apr 2026 10:19:40 +0200 (CEST)
-Date: Fri, 17 Apr 2026 10:19:34 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
- Price <steven.price@arm.com>, kernel@collabora.com, Liviu Dudau
- <liviu.dudau@arm.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Almeida
- <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH v7 5/6] drm/panthor: Support sparse mappings
-Message-ID: <20260417101934.7320f562@fedora>
-In-Reply-To: <aeEpRJhu2b3UWbCs@sobremesa>
-References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
- <20260415112900.681834-6-adrian.larumbe@collabora.com>
- <20260415171247.3701e116@fedora> <aeEpRJhu2b3UWbCs@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA50210E2D3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 08:23:09 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ 46e09a7af769-7dbec19732eso402514a34.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 01:23:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776414189; cv=none;
+ d=google.com; s=arc-20240605;
+ b=KNBS8Pvc9YCF6hppfdXxaEVeHgiPsrZJ+vVtL0YgIo73El2ARVYY6KF1EgLhDIfDYj
+ j3+nIjQcit2lE5yieB/gadJjURFSDMbjOa5d2JFuSaoH+r55Ggdp1EOTM598D+xye32A
+ 3cfhAl+RRzRh0/vtqz/5xZvPAbAb6NIl99la00v92l2iRgNHK5p4DIAFqiCTilkaR8cE
+ teChf6P1jeM9SPeSms/Rtp+cdG146eVMjpF4Rses0VgM3p28/bFD3q6HdgcyjPiqsCl7
+ CVnae6zRaOXTBqf8evDSRCH4adj72wNDrR3vpVFh+76m0orew4ash9ALLsNTy8mrcC65
+ egBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=woDoqLHIajnMivWv45ENu9wE6nY7bLc4DhmibJPzpDk=;
+ fh=Z4P8NdJ5BVWb9KL5LRI54MoasMbuUf9wM+m1qDS+hjA=;
+ b=VMgRBu+5vTO9w9fX5qhBaxYw3vZBg6pnm3nPkKjgrXsNoTLU5yavCQXNkEiB2q04PP
+ mQSz4FIzki3l/umtv/Wj3/eItpBfSxuIrIH04F2w+S/186tTp7ubIkVKUPvyYvByIAky
+ mDixihzNDM8PaQ/03EXMtU8I+56rXCSvJe47Tjc2r+MUiHu6tC/b3l2sRVvKjzgPNflg
+ /PQos0s5/C2DBL6pass5pXSm+4x3E6tgSSHDOWJHVgwMUqPF0IeVXcDVBhdUSvljo7UB
+ U75im1W74/MAoPBE+3lPjRxRM8WdqVVNPPfzv4XEApxYZZ9UFnG/++1itx2Wic2Z5LuA
+ FH1Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776414189; x=1777018989; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=woDoqLHIajnMivWv45ENu9wE6nY7bLc4DhmibJPzpDk=;
+ b=csWpib2bR9AQyUw0JLB1H6xKcrZa4FzbQxxo33sSY15yffkKxlSyWip58tJFrQWSnF
+ hAefpS0YqTrTROsSArUGf6IsFr4yNwXoA1gwMmTUiXNA88gyQReL491/lsoiGtr1f0oc
+ kYqk8gENygZ3tteLJ21obxPyAOuzuR1VxnDKdvNXha6WKZh6ubyRsNt0kWxYfOxk1SDX
+ Ia0BN7yjiZzDGs2St6sTfwjZQHAJiXKDNsMZ0acSe4dKQAad+/IyDfc+FcjGziSV1Rk+
+ O7NyRCYp8xfZT/btLmb4s4TeCQw/Va4gn5NQwsByZBlewZ2eEA98R53M9N5cWKvWQqzf
+ oR8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776414189; x=1777018989;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=woDoqLHIajnMivWv45ENu9wE6nY7bLc4DhmibJPzpDk=;
+ b=Z8G8zCwEb+8a6kGdXnA9ABMHkFidZ2ufbae6gvCO4wdZtnX1q9jgkrQqYAgEn4/NG5
+ XHNvO4b9Gyxa4OnlZ6p9A0rX27LTzY2cwYanIcSepp9Rrng7FbQXLfghCGlHlyq7ewJX
+ wxjiw1DvjkjxA3Wh4tKIuCEqa37vc/ohx5+Dy3lMnLKZW7XxqC2pH8SWCspgzqUjJczG
+ uoj7qtU0KCbnqb89+qAZTo0LO/i5mqmmFmvoIZt92XDWOiMhUfVh9DIcxerNBN1S9FeM
+ Gk2zpyNi1oeYDP94ogU/vFVp1kddwH7+PH3mU/J8ms8VX2r/M/+jguDY3GSvUF289bdp
+ 9vTw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ819Agpe0t0kMtMvFZWtzgjX4yNRpSGdXxcds8uICe1fnDedNd2VoXvOiCuQXld5PSWUWKa6GXHw9U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzE8D1s4Ym5eeX+j/adyxTPLdh+nzZhe8ckH8Zsx3l70hj/Uhzd
+ 8MJIdGqzQ0uLaT1aAOJAb/vAGL9U52AmSLL/RfEPMUQA0Mea2rgv4uy0c7odP2uGfk2xDEzKCXj
+ ca1DFSpMK0GvlI2nFVpJCMCzXidCSquE=
+X-Gm-Gg: AeBDieuJwHCnHs6q6KB6hW82bHY4QiqVyYzAN/Mf5oYP7O4b+S5/Sa68LnfvBJ0kaXU
+ fzzN3aulaVpqeZy2fQGPBKtlDfASG3smzfrtAmytoSyEpyoqlChqG0M4hB8cxAx0J04Gha52sLM
+ rdAU445rA/7nqdO/3atw2X0V0CXdIZr67O8hRla3llaV6vTYpcNoO8WlOWo0k+RhnIyleOnbcNA
+ idL9TcTsrB1R4oREA+KRGZUXCLPOOh+wzclwul7Q/3EWCl7BH3/tQOmALRiI7RAoNulnHK/5Ogi
+ kvPc1+gJ+Jq3t9j3xZM2seK9+Jt9K00=
+X-Received: by 2002:a05:6830:81ed:b0:7d9:b58e:55ed with SMTP id
+ 46e09a7af769-7dc9522b228mr1064055a34.25.1776414188878; Fri, 17 Apr 2026
+ 01:23:08 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260417001503.26147-1-mikhail.v.gavrilov@gmail.com>
+ <IA1PR12MB63074B99C20B81C7D5DFD7C5F8202@IA1PR12MB6307.namprd12.prod.outlook.com>
+In-Reply-To: <IA1PR12MB63074B99C20B81C7D5DFD7C5F8202@IA1PR12MB6307.namprd12.prod.outlook.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Fri, 17 Apr 2026 13:22:56 +0500
+X-Gm-Features: AQROBzCXwvgzZjV7RJEnXadzoOfi3sm37MeeW-RH5FptvuaBgU_TAR3aHCn8pW4
+Message-ID: <CABXGCsMnz+m3cHSQMAjOsGEz35u4usQ2TJuxSwZHQuSBEThF-A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Add FPU guards around dcn31/315/316
+ update_bw_bounding_box
+To: "Ostrowski, Rafal" <Rafal.Ostrowski@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, 
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Zheng,
+ Austin" <Austin.Zheng@amd.com>, "Lei, Jun" <Jun.Lei@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, "Hung, Alex" <Alex.Hung@amd.com>, 
+ "Varone, Dillon" <Dillon.Varone@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,46 +116,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 16 Apr 2026 19:25:01 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On Fri, Apr 17, 2026 at 11:50=E2=80=AFAM Ostrowski, Rafal
+<Rafal.Ostrowski@amd.com> wrote:
+>
+> Hi Mikhail,
+>
+> Sorry for problems that occured on your platform.
+> This issue is correctly fixed as part of this change: https://patchwork.f=
+reedesktop.org/patch/718415/
+> Your change seems to be duplicate of above change.
+> Please retest using mentioned patch. If it works correctly, please discar=
+d your change. If problem still occurs please share me details and I will w=
+ork on resolving it.
 
-> > > +/**
-> > > + * panthor_dummy_bo_create() - Create a Panthor BO meant to back spa=
-rse bindings.
-> > > + * @ptdev: Device.
-> > > + *
-> > > + * Return: A valid pointer in case of success, an ERR_PTR() otherwis=
-e.
-> > > + */
-> > > +struct panthor_gem_object *
-> > > +panthor_dummy_bo_create(struct panthor_device *ptdev)
-> > > +{
-> > > +	u32 dummy_flags =3D DRM_PANTHOR_BO_NO_MMAP;
-> > > +	struct panthor_gem_object *bo;
-> > > +	struct page **pages;
-> > > +
-> > > +	bo =3D panthor_gem_create(&ptdev->base, SZ_2M, dummy_flags, NULL, 0=
-);
-> > > +	if (IS_ERR_OR_NULL(bo))
-> > > +		return bo;
-> > > +
-> > > +	pages =3D drm_gem_get_pages(&bo->base); =20
-> >
-> > Why not use panthor_gem_backing_get_pages_locked() here? Also,
-> > drm_gem_get_pages() doesn't give any guarantee that you'll get a huge
-> > page, nor can you guarantee that the 2M won't be reclaimed and later
-> > on be re-allocated as 4k chunks. I'd probably keep things simple for
-> > now, and
-> >
-> > - keep it a 2M GEM object
-> > - force the page allocation at map time, just like we do for regular BO=
-s =20
->=20
-> On a second thought, if I force page allocation at map time, then there's=
- no need to wait
-> until a sparse vm_bind operation to create the dummy BO. I can just do it=
- at VM creation time
-> and then let the vm_bind ioctl path allocate the pages.
+Hi Rafal,
 
-Yep, you can do that, indeed.
+Confirmed =E2=80=94 patch 718415 fixes the warning on my hardware.
+Dropping this submission as duplicate.
 
+Tested-by sent to the original thread:
+https://lore.kernel.org/all/a59292d686e3d5c17fe36e20b55996208d36a6fb.camel@=
+gmail.com/
+
+--=20
+Thanks,
+Mike Gavrilov.
