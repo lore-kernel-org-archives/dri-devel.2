@@ -4,54 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8E88F436B4
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 15:05:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E268EF436B7
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 15:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41DEE10EA67;
-	Fri, 17 Apr 2026 15:05:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D9F110E2C0;
+	Fri, 17 Apr 2026 15:19:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nEQDCipx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FQVgggpj";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6885A10EA67
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 15:05:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9aZUNLH0K50eNll5YlW8x3R7aQgPtRFD5PhzilctVG4=; b=nEQDCipxFKNna/Rgnano9QgiFl
- YZdDHf8An3oHbZfcpxRTlF7vpDNJg9ceKXSXU8dmHz/nFypGJfm18EJvYo1ovQrN9wIcbgm6XvjGe
- 0twZwH6URp1msDUR7pHCnmhwyL+vkIIQcFW4Oq8Fo0t4IWkPL5S81wYnk0ju7voKyDKnbPU25OAXR
- EIeTAAUr2XNFCjzlKyMLozHkCfcWkhtEolANNZbpdOQwaaqu3uwvZpiRUyFijYT/Y9dj9iaARNBTI
- WmSNTeICN49Sbh+S/Wyfxh8y0G4NAnr7RTLYnOY+VwUOq5lzQuuPQnhxwxyscTnb+ChIi6xM/yZEk
- umN+oINA==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wDkl9-00HWCd-H7; Fri, 17 Apr 2026 17:05:31 +0200
-Message-ID: <c4c5d16c-ed79-46de-8d3a-42af821c7332@igalia.com>
-Date: Fri, 17 Apr 2026 16:05:30 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/10] drm/v3d: Reject invalid syncobj handles in submit
- ioctls
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75BD610E2C0;
+ Fri, 17 Apr 2026 15:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776439196; x=1807975196;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=8Ribu0mx6B+vvE2Mwq99HqyjC8jT4TmqC1ck/RrBEdI=;
+ b=FQVgggpjvaOBfxqYnLr48s0TqmA2LmHoytS6zmbhQzKgzbKNdjx6WNYU
+ VvnpjDJgbcDYGKNfKnFcP/9YNCgeFR04rBuYfzybcTrQVuV3fwAbT90OC
+ QdY6RjgmZwEHy3jrfY2OFnDarKwC0kEav7mqLmbmNHHfW2SBnSp50g2mL
+ ZXmazRkiFzsXZJ8wcsHECsa8GeYdOOmUCUXsZ30BFrhKNWPDms6Fd7WYO
+ AqN0bFdams1VMiERqa/hqCwBZH/TVtfySTJimLsl/q62jsXiIvUHHHfT4
+ /Up0OncBhdzgfWWqmrpbqAJSBBDOLZQiLpO4fGalhlPx9IUKBna53p8Ml A==;
+X-CSE-ConnectionGUID: DFl2OU2qT1u8XNCHLwNh6Q==
+X-CSE-MsgGUID: ORt2I8V2QcioVIA4U5MXWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="81334690"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="81334690"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 08:19:56 -0700
+X-CSE-ConnectionGUID: baOP0N0GTLinZDFi7GOVSg==
+X-CSE-MsgGUID: vM7knwh8StaUKq0W+Jjemg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="236043688"
+Received: from zzombora-mobl1 (HELO localhost) ([10.245.245.176])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 08:19:50 -0700
+Date: Fri, 17 Apr 2026 18:19:47 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Julian Orth <ju.orth@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-References: <20260413-v3d-sched-misc-fixes-v1-0-bac63a8ceb6c@igalia.com>
- <20260413-v3d-sched-misc-fixes-v1-6-bac63a8ceb6c@igalia.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <20260413-v3d-sched-misc-fixes-v1-6-bac63a8ceb6c@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Daniel Stone <daniel.stone@collabora.com>,
+ Ian Forbes <ian.forbes@broadcom.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, wayland-devel@lists.freedesktop.org,
+ Marius Vlad <marius.vlad@collabora.com>, Imre Deak <imre.deak@intel.com>
+Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
+ user-space
+Message-ID: <aeJPkxDNI4VzDl13@intel.com>
+References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
+ <6501274.LvFx2qVVIh@workhorse> <aeJAofA04bOuxlGA@intel.com>
+ <5186396.44csPzL39Z@workhorse>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <5186396.44csPzL39Z@workhorse>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,70 +88,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 13/04/2026 16:03, Maíra Canal wrote:
-> drm_sched_job_add_syncobj_dependency() returns -ENOENT both when the
-> handle is zero and when the handle is non-zero but does not find a
-> corresponding existing syncobj (userspace bug). The driver previously
-> ignored -ENOENT in both cases, silently accepting broken handles.
+On Fri, Apr 17, 2026 at 05:00:10PM +0200, Nicolas Frattaroli wrote:
+> On Friday, 17 April 2026 16:16:01 Central European Summer Time Ville Syrjälä wrote:
+> > On Fri, Apr 17, 2026 at 02:42:36PM +0200, Nicolas Frattaroli wrote:
+> > > On Friday, 17 April 2026 12:57:58 Central European Summer Time Ville Syrjälä wrote:
+> > > > On Fri, Apr 17, 2026 at 09:49:36AM +0200, Michel Dänzer wrote:
+> > > > > On 4/16/26 15:16, Julian Orth wrote:
+> > > > > > On Thu, Apr 16, 2026 at 9:46 AM Nicolas Frattaroli
+> > > > > > <nicolas.frattaroli@collabora.com> wrote:
+> > > > > >> On Wednesday, 15 April 2026 20:57:53 Central European Summer Time Julian Orth wrote:
+> > > > > >>> On Wed, Apr 15, 2026 at 8:19 PM Nicolas Frattaroli
+> > > > > >>> <nicolas.frattaroli@collabora.com> wrote:
+> > > > > >>>>
+> > > > > >>>> This series addresses a shortcoming whereby a hot plug event is sent
+> > > > > >>>> without it being passed the actual connector that caused it. This takes
+> > > > > >>>> into consideration both the polling path and the HPD (Hot Plug Detect)
+> > > > > >>>> path. It also adds support for the vkms driver (using ConfigFS) for
+> > > > > >>>> propagating the connector ID when changing the connector's status.
+> > > > > >>>>
+> > > > > >>>> The motivation is that user-space applications such as Weston would
+> > > > > >>>> previously receive non-connector-specific hotplug events, and then have
+> > > > > >>>> to figure out themselves which connector needs to have a modeset
+> > > > > >>>> executed on. This notably did not work when the hotplug events came in
+> > > > > >>>> too fast, resulting in Weston missing an on-off-on transition of a
+> > > > > >>>> connector, seeing that its state was unchanged from "on" so can't be the
+> > > > > >>>> one that was hotplugged, and skipping reinitialising it as it looks
+> > > > > >>>> through the other connectors that could've caused it.
+> > > > > >>>
+> > > > > >>> Have you considered adding a u64 serial number as a DRM connector
+> > > > > >>> property that is incremented every time the connector changes in some
+> > > > > >>> way? Userspace could then check this serial number to see if the
+> > > > > >>> connector has changed since the last time it queried the serial
+> > > > > >>> number.
+> > > > > >>
+> > > > > >> The connector internally already has an epoch_counter member which
+> > > > > >> could be used for this. However, for the particular thing this
+> > > > > >> series fixes, I don't think exposing it through the uAPI is necessary
+> > > > > >> or desirable. Sending hotplug events specific to the connector does
+> > > > > >> not need any additional handling on the userspace side as long as it
+> > > > > >> already listens to the per-connector hotplug events in order to
+> > > > > >> avoid the pitfall described in the cover letter.
+> > > > > > 
+> > > > > > I currently do not handle per-connector hotplug events. Instead,
+> > > > > > whenever I get a UDEV change event for a device, I re-fetch the entire
+> > > > > > kernel state for the device. That is
+> > > > > > 
+> > > > > > - DRM_IOCTL_MODE_GETRESOURCES
+> > > > > > - DRM_IOCTL_MODE_OBJ_GETPROPERTIES for each connector, crtc, plane
+> > > > > > - DRM_IOCTL_MODE_GETCONNECTOR for each connector
+> > > > > > - DRM_IOCTL_MODE_GETPROPERTY for each connector property
+> > > > > > - DRM_IOCTL_MODE_GETPROPBLOB for the EDID
+> > > > > > 
+> > > > > > Once I have the new state, I compare it against the desired compositor
+> > > > > > state and perform a modeset if necessary.
+> > > > > 
+> > > > > mutter is doing something similar as well.
+> > > > > 
+> > > > > 
+> > > > > Note that some are arguing a modeset is always required after a hotplug event, even if the state hasn't changed.
+> > > > > 
+> > > > > The most convincing argument I've seen is the scenario of a GPU reset, after which a modeset is required to light up the displays again.
+> > > > 
+> > > > GPU reset should relight the display on its own really. That's what
+> > > > i915 does, albeit somewhat badly at the moment.
+> > > > 
+> > > > > A hotplug event seems the only mechanism available for the kernel to request a modeset from the compositor. (The kernel may not be able to reliably do the modeset on its own, e.g. due to interactions with user-space atomic commits)
+> > > > 
+> > > > There's nothing preventing the kernel from doing extra atomic
+> > > > commits whenever it wants. But if you want to punt the thing to
+> > > > userspace then the kernel must set the link-status property to
+> > > > bad, and then fire the hotplug uevent.
+> > > > 
+> > > > > If this "modeset required after hotplug event" rule is confirmed, it means that after a hotplug event without connector ID, the compositor must do a modeset for all connectors.
+> > > > 
+> > > > Only for connectors where things changed, or the link-status shows bad.
+> > > > 
+> > > > > 
+> > > > > 
+> > > > > P.S. https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/14420#note_2984697 even argued that two modesets are required after a hotplug event, one which turns things off and another one which turns them on again. I don't agree with that though, a single modeset should suffice.
+> > > > 
+> > > > The actual argument is that you should not defer the hotplug
+> > > > handling when things get disconnected, mainly because of crap type-c
+> > > > firmware.
+> > > > 
+> > > > I think the userspace behaviour there was that you get a disconnected,
+> > > > defer processing it, and then you get a reconnect, and then decide that
+> > > > nothing actually changed and a modeset is not needed after all. That is
+> > > > not correct IMO. Clearly a ->disconnect->reconnect should count as a
+> > > > change in the connector's state, and a full modeset is thus required.
+> > > > The kernel can of course then decide that the full modeset is not
+> > > > actually required and skip the modeset part during the commit. But
+> > > > userspace cannot make that determination.
+> > > 
+> > > So just to loop around to the patches here: is sending per-connector
+> > > hotplug events not acceptable? Your review[1] on v5 indicated you had
+> > > a problem with the implementation, not a fundamental issue with the
+> > > behaviour the patch tried to change.
+> > 
+> > What I was saying is that we already have the epoch_counter. If
+> > there are gaps in the implementation then those should just be
+> > fixed. We don't want a second implementation of the same
+> > mechanism.
 > 
-> Distinguish the two: skip the call entirely when the handle is zero, as
-> there is no dependency, and let -ENOENT propagate for non-zero handles
-> that don't resolve, turning the error into a proper return to userspace.
+> epoch_counter is explicitly documented as "used to detect any other changes
+> in connector, besides status".
 
-I was reminded of this patch while reading the rest of the series. 
-Specifically I wondered if v3d_attach_fences_and_unlock_reservation() 
-has the same problem of silently ignoring invalid syncobj handles?
+That's just some nonsense that got in by accident. It was always
+meant to be a "did anything for this connector change?" type of thing.
 
-Regards,
+Looks like the bogus docs were part of the original commit, but
+it even disagrees with the commit message itself.
 
-Tvrtko
-
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/v3d/v3d_submit.c | 23 ++++++++++++-----------
->   1 file changed, 12 insertions(+), 11 deletions(-)
+> pending_hp is changed if the status changes.
 > 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-> index 054367ba533d..fe8b5757c3e8 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -171,12 +171,11 @@ v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
->   	int ret = 0;
->   
->   	if (!has_multisync) {
-> -		ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv,
-> -							   in_sync, 0);
-> -		// TODO: Investigate why this was filtered out for the IOCTL.
-> -		if (ret && ret != -ENOENT)
-> -			return ret;
-> -		return 0;
-> +		/* Ignore syncobj if its handle is NULL */
-> +		if (in_sync)
-> +			ret = drm_sched_job_add_syncobj_dependency(&job->base, file_priv,
-> +								   in_sync, 0);
-> +		return ret;
->   	}
->   
->   	if (se->in_sync_count && se->wait_stage == queue) {
-> @@ -190,11 +189,13 @@ v3d_job_add_syncobjs(struct v3d_job *job, struct drm_file *file_priv,
->   				return -EFAULT;
->   			}
->   
-> -			ret = drm_sched_job_add_syncobj_dependency(&job->base,
-> -								   file_priv, in.handle, 0);
-> -			// TODO: Investigate why this was filtered out for the IOCTL.
-> -			if (ret && ret != -ENOENT)
-> -				return ret;
-> +			/* Ignore syncobj if its handle is NULL */
-> +			if (in.handle) {
-> +				ret = drm_sched_job_add_syncobj_dependency(&job->base,
-> +									   file_priv, in.handle, 0);
-> +				if (ret)
-> +					return ret;
-> +			}
->   		}
->   	}
->   
+> If we use epoch_counter for this, I think we'll need to keep track of the
+> last epoch_counter an hpd was sent for each connector, so we wouldn't win
+> anything in reduced state being tracked.
+
+What's wrong with just looking at the epoch before and after the detect?
+
+> 
+> > > 
+> > > > I suppose what we could maybe do there to force userspace's hand is set
+> > > > the link-status to bad already when the thing gets disconnected, and keep
+> > > > it like that until a full disable+re-enable cycle has been done. Then
+> > > > userspace could not think that the ->disconnect->reconnect is a NOP
+> > > > (which I still think is incorrect behaviour).
+> > > 
+> > > The documentation of drm_connector_set_link_status_property explicitly
+> > > states:
+> > > 
+> > >     * Note: Drivers cannot rely on userspace to support this property and
+> > >     * issue a modeset. As such, they may choose to handle issues (like
+> > >     * re-training a link) without userspace's intervention.
+> > > 
+> > > which I think conflicts with your suggestion.
+> > 
+> > In i915 we do the retraining in kernel. IIRC we only really use the bad
+> > link stuff once retraining has failed hard enough that userspace
+> > intervention is needed, ie. when we cannot reduce the link parameters
+> > anymore without userspace selecting a mode with a lower resolution.
+> > 
+> > I think some more recent drivers may have opted to forego all in kernel
+> > retraining and just punt it all to userspace. I think the link-status
+> > property has existed for long enough that any userspace that doesn't
+> > support it could simply be considered broken.
+> 
+> Is breaking userspace a better choice than sending per-connector hotplug
+> events rather than a single global hotplug event? I get where you're
+> coming from, in that userspace should not be trying to optimise away
+> modesets, as that's something the kernel can do in a race-free way. I'm
+> just not familiar enough with the landscape to know whether setting
+> link-status to bad will actually result in userspace doing a modeset,
+> and whether drivers in practice then optimise that modeset away if it
+> wasn't needed.
+
+I'm not suggesting using link-status for normal hotplug events
+where something on the connector actually changed. In those cases
+userspace should really be doing a full modeset anyway.
+
+> 
+> > Actually I know of a single "userspace" that to my knowledge doesn't
+> > implement the link-status stuff, and that is the in kernel fb helper.
+> > That should probably be remedied...
+> 
+> Kind regards,
+> Nicolas Frattaroli
 > 
 
+-- 
+Ville Syrjälä
+Intel
