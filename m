@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9238EF43683
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC458F43683
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:59:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC63610E9D3;
-	Fri, 17 Apr 2026 09:59:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AD3810E9D4;
+	Fri, 17 Apr 2026 09:59:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="MDk58mML";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="FNeTbkvD";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8630610E9CD
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:59:52 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A92A410E9D4
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:59:57 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id C905EC5C3D8;
- Fri, 17 Apr 2026 10:00:29 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 9278C4E42A25;
+ Fri, 17 Apr 2026 09:59:56 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 67D0D60497;
- Fri, 17 Apr 2026 09:59:51 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 68CFA60497;
+ Fri, 17 Apr 2026 09:59:56 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6B461104609D4; 
- Fri, 17 Apr 2026 11:59:48 +0200 (CEST)
+ with ESMTPSA id 54AE6104609D5; 
+ Fri, 17 Apr 2026 11:59:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776419990; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776419995; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=3cttf5YdBexUf4oWFDQ9uR8eixjOWVceTB39RdjUzMY=;
- b=MDk58mML1zvR1PG0DBIgNZjvVvjnH/YVLEXayDLQ+dZimrsd4GXahfbFbMwTbxnI70S6/u
- oH6kiQMlsel+qudF7DHUoLBzTXfIVleaa9ya03Cgw8w3KCLEj8aeoJKrqhm3JnPOeh5XTZ
- p2Rq8WyVMobYvUO0K3a9vkruX1/JCOpoLMvymQxJ8Nbm7BJfrIFCV8wPFGwbHi6EC8tydh
- 9FPuNmz5W2BfXuy6j3HXzXH37OiLaZ8UmmjHSxNEN2yOpavtrugYxeVw1CsXekDDJJJOxP
- GtSWfE2CT+osJx7w4Lb0523cIDuXgCt8SdXv4DxbXKERrNxrpewERj14BOOKtA==
+ bh=+QIHtHUMcO9F86hTiuiJpGPGWUZLxjQrLZgX7pjvlBY=;
+ b=FNeTbkvD1FWGaqAoQXMgjAXINjLxB/iZnvTgLSA+GwnhanyZHEJGADyZAHJi8qbGH+Dguc
+ AO9I4efbS9hWipiTBqD8C5vmUJf0Y6WGVYrWuvzkKji5ctwvGKOOY9KdOAPxhs4+wLonW9
+ SnH77862xybkO3hfRWbPP3bb964GSA4SeX0zuig9lQK3BxCktzK8qbLpIqPB8irtPSLpNU
+ CrNBf5bs5D0/hUR5lgUWcftOqPCwnWZD7oC+op3HZyXCSaidTeJ3VcjF+kovUDDY2tY75z
+ 1Gz42VsXFtc6DhBvpYBzZ6wlTcyH6m+vyvYsRw277x/fywIWXBeOQf7N2jBLxw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 17 Apr 2026 11:58:25 +0200
-Subject: [PATCH 37/41] drm/tilcdc: remove now-redundant call to
+Date: Fri, 17 Apr 2026 11:58:27 +0200
+Subject: [PATCH 39/41] drm/imx: remove now-redundant call to
  drm_connector_attach_encoder()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-37-67b8b8fb872a@bootlin.com>
+Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-39-67b8b8fb872a@bootlin.com>
 References: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 In-Reply-To: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
@@ -77,26 +77,28 @@ drm_bridge_connector_init().
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/tilcdc/tilcdc_encoder.c | 6 ------
- 1 file changed, 6 deletions(-)
+ drivers/gpu/drm/imx/dc/dc-kms.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/tilcdc/tilcdc_encoder.c b/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
-index 680a2ac6ab59..ac4b5beb2dd5 100644
---- a/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
-+++ b/drivers/gpu/drm/tilcdc/tilcdc_encoder.c
-@@ -35,12 +35,6 @@ int tilcdc_attach_bridge(struct drm_device *ddev, struct drm_bridge *bridge)
- 		return PTR_ERR(connector);
+diff --git a/drivers/gpu/drm/imx/dc/dc-kms.c b/drivers/gpu/drm/imx/dc/dc-kms.c
+index 2b18aa37a4a8..0f8cfaf4c4d1 100644
+--- a/drivers/gpu/drm/imx/dc/dc-kms.c
++++ b/drivers/gpu/drm/imx/dc/dc-kms.c
+@@ -81,13 +81,7 @@ static int dc_kms_init_encoder_per_crtc(struct dc_drm_device *dc_drm,
+ 		return ret;
  	}
  
--	ret = drm_connector_attach_encoder(connector, &priv->encoder->base);
--	if (ret) {
--		drm_err(ddev, "attaching encoder to connector failed\n");
--		return ret;
--	}
+-	ret = drm_connector_attach_encoder(connector, encoder);
+-	if (ret)
+-		dev_err(dev,
+-			"failed to attach encoder to connector for CRTC%u: %d\n",
+-			crtc->index, ret);
 -
- 	priv->connector = connector;
- 	return 0;
+-	return ret;
++	return 0;
  }
+ 
+ int dc_kms_init(struct dc_drm_device *dc_drm)
 
 -- 
 2.53.0
