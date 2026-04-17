@@ -4,59 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A6B3F43698
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 12:04:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B470EF43699
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 12:18:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8A2810E2AA;
-	Fri, 17 Apr 2026 12:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4BDD10E036;
+	Fri, 17 Apr 2026 12:18:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jeZxORJt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bRjPIkEH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C150610E2AA
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:04:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776427440; x=1807963440;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=XRnNIrcsMnEVq95YKOZf7K6BMN+ywiHLZr9nGpX1sd0=;
- b=jeZxORJt98j7m6syeMOwW37lSXylSF9lzi0MXz9zDS2CBLbx4dmKwiMg
- V/cd0bd30cg0rlsISzjvKJnJg67YhjNukChM2ny3Na8Rj7i5BVzGxv2dB
- WpzY4Z+rQosOwzvWYrw+4ZdUzIvCKY9+V1tJkrrzqKhoncXJfxtVwpyAN
- kvI/xTEZkQKVhQMwNiC3CrRHRNBMRQxO/fWz3lv7ZVZQb8HJTAidc85ld
- 1PJ9Yo7x2n6xcLUcpJweElzrNbA/t5rYBv+HoRE+hWwX/9d8qs7RdpdZ9
- wXiNFFaBZVKK+lVdHGr0LhdsZV73+BDM+1y1n9nEH8I09tCQNbJoGHoRf g==;
-X-CSE-ConnectionGUID: iTCuO2PzRyi8rKRDgDCcvw==
-X-CSE-MsgGUID: XAGI4m2DRRK9X/68+HEXSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="80029830"
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="80029830"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2026 05:04:00 -0700
-X-CSE-ConnectionGUID: 02vpZtdORFu3FDE4eA8c8g==
-X-CSE-MsgGUID: X6eHqJniQ0qtpFQZ8odHfw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="235399324"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.127])
- by orviesa004-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Apr 2026 05:03:57 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: sai madhu <suryasaimadhu369@gmail.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, sai madhu
- <suryasaimadhu369@gmail.com>
-Subject: Re: [PATCH] drm/mediatek: hdmi: Convert DRM_ERROR() to drm_err()
-In-Reply-To: <20260417113310.2903091-1-suryasaimadhu369@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260417113310.2903091-1-suryasaimadhu369@gmail.com>
-Date: Fri, 17 Apr 2026 15:03:54 +0300
-Message-ID: <6fd252e6c41a1a6a0b57fb381d33f2e0813b5b14@intel.com>
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com
+ [209.85.217.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED6210E2AF
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:18:11 +0000 (UTC)
+Received: by mail-vs1-f44.google.com with SMTP id
+ ada2fe7eead31-6058a955e04so431204137.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 05:18:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776428290; cv=none;
+ d=google.com; s=arc-20240605;
+ b=PByyHwMr01OPNLB/40Oj/62dKjUvYoA14MiksdBmEvxDlykftI6QZkq3N1FTzDW3Kc
+ Fav8nkvqgQjJtcvL2C2irFG+HxWiY5IDp++pZniFMZ56KiTyeeovxPAcq0uD0RExgyse
+ hHHzsOMEGyNwcmabhZbNtwA4OjEZhu0UlV3rHhlnRu7YX+z/MaUZadZqibYETmlxJ1x7
+ Rqz+7fqyvkFSXmeOXJ2AQgPlKemqRloSLsBPgstfGjLW1OdoCcPBq+R3IIHoDxAdVWeW
+ 5IQKJSWZbpuelKKDCdLtKPzJ8C9632cZHSYbniUhqoFWdV7HAmPTc/+Z5pKSEo6tvFWW
+ 98ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=cDMhKxQZOBW41kLl446l1EJd+PVPbWKyXfIiDzkTED4=;
+ fh=ZwZdrWf1KuHrT7pAYG5Sl5wU7S++jwKQVV3HfilKfQ4=;
+ b=b467Hcff6Goqr9QsF+AIK7HlNy+X+OIGugqnO1cv1WwH2R2jeXryhhj/NQ229I9a4D
+ 3a1ZI1WXxaWToH+LLLMs3ttxrpbCPVuE7vPxxveqrttDftHjnWYtW+IDPx6EplCAScJb
+ zz2zqdbpfEf/zODox6pEjva0KgxT+b3swh3+SRJQu5ABEnrlM29rVX+OUsERiD4gz2m6
+ 5qw+mDmbZ3Y/GVGqMkxtJLFwECev7BzI1C+mE9ER32+66hByOAuBcE2l4jk8uV2VDkgZ
+ jIRtuwMQmhAOxK3t/XuqSYKXoUD0aRgWzMCMK5d1xXM8NZzdVp9N4jXhC1ZzuZGrkLZ0
+ hrWA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776428290; x=1777033090; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cDMhKxQZOBW41kLl446l1EJd+PVPbWKyXfIiDzkTED4=;
+ b=bRjPIkEH3YZ6zkrUU0L0mCtsbhdFrJVBkeldrhNPs+m0yr4+QpHPn95+YAuGQQ04yL
+ iodv7FtvR6Rv5Yt0ODWguCFw33fI9xk8/IEzw3mWn0f6N0yRb+fJv0hyC6GLZ2k1I9Ol
+ 93fGeDfWVegZoaIE45zD8tur3DkV8ck+gjzYTbYJSDH3EhhaJNndY72DDzZXlyKVtTd8
+ UMEvRzz6CUYx0bOmLMvjmci8puDEjDy2wudHvYBHwCgMf1gub7mB910kpCA67xudVmaO
+ xMFFUDARZFvbSSJublaHazTHjkbnnJtuA1R4YEnxmH6wYVCpnbYhkOT+t2/mISqFrgIR
+ CsDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776428290; x=1777033090;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=cDMhKxQZOBW41kLl446l1EJd+PVPbWKyXfIiDzkTED4=;
+ b=iR5f9spjJ/3I8R/xP4TMWXBfF+PZ+RmSKtCdGwBK1Tf7hB7A5Xmp7YjqKhq/w0L4uA
+ CQZKTtI3nB+yBVdiJ7Xc5vnbC5bJ/bHUQ79GIydDmkdeF4Pchmz+wxRdMc81RZeNuq0E
+ gnYxBRFRcR/fYIKbPWeVcTi5zoveB/PkLfqUQ39Qda7W1MhTSOibC/lepBseeNU2Qf+e
+ bH+vDocDqvuwmyOC5myEI0ZjbT5biuwKz1NW0QKoypW4/MH+s49Fi+URElmD5ynZvCFs
+ lSBGwKKXPQSemXLMbrw9+iJ9pw4bZuJEw+ytlutl7jnsUBM1tHWaJBtG29YK3LziCn+6
+ pR6w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9kNlKrFq+1yvXLJdODcQ0TV9npb8hg9Z4/MkJ0xmWGgsW9WHQHfT5ZbuURX3F8USLUP/U+f/ZsLd4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxep2barzFbZQSXDzdxB96vcrjl0SFCSys7xNBccRWtVB1AchYn
+ S+hlz/o0tCsGK8SrlfCZJ6lCgIdHS5S4Tub+PiEsz7PLDXvHv0VEgqARGPdwc78aZpkKBPTDiWo
+ MTpP5U+lJvy4+HpD5viO5utOnJXX10/k=
+X-Gm-Gg: AeBDiesXX2cK98N6kOe59l266DPSEoOfY3FZnD+1e4j66n3nF6Cm1NJMUPblR2hnaIt
+ 4iwRTs7IeCCUdKClz/60GLxjvOwnWoqVhNj7LmAAARqnS5IR7BR6dSPKkbPikuZ57g7x7lDRL2y
+ ndj0npVn5ddwqpHcSjzCfsLJOAoGfa4nBSst4+/kFGRJY8CGTjRfFSj453oJ50D+egpqaQEQQPU
+ O3UaoON5f7iw6ri/eAXW6UJL7LWJMfFxInHgW2rwCHxeA8DMMrpbxndDejHkj+hxgYNjJcIoK2f
+ SMDFHn+5qZe9i0Rduw==
+X-Received: by 2002:a67:e703:0:b0:602:afbc:ae78 with SMTP id
+ ada2fe7eead31-616fb89ea6emr791230137.2.1776428289898; Fri, 17 Apr 2026
+ 05:18:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com>
+ <20260416-hpd-irq-events-v1-6-1ab1f1cfb2b2@oss.qualcomm.com>
+In-Reply-To: <20260416-hpd-irq-events-v1-6-1ab1f1cfb2b2@oss.qualcomm.com>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Fri, 17 Apr 2026 20:17:26 +0800
+X-Gm-Features: AQROBzDTVswzyUjJ6xkXYjkzbvzXgr8nk22CVU17PBSoxKtVUOrPnYmdya4d4B0
+Message-ID: <CAH2e8h4rLZB3E8Rdwy_LtfwtwAKZCOgL18fRFVqGBx32Cm2N2Q@mail.gmail.com>
+Subject: Re: [PATCH 6/6] usb: typec: ucsi: huawei-gaokun: pass down HPD_IRQ
+ events
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Nikita Travkin <nikita@trvn.ru>, 
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,41 +134,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 17 Apr 2026, sai madhu <suryasaimadhu369@gmail.com> wrote:
-> The DRM_ERROR() macro is deprecated in favor of drm_err() which
-> provides device-specific logging.
+On Thu, Apr 16, 2026 at 7:22=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
 >
-> Replace DRM_ERROR() with drm_err() in the Mediatek HDMI bridge
-> driver and pass the drm_device pointer via bridge->dev.
+> Pass IRQ_HPD events to the HPD bridge, letting those to be delivered to
+> the DisplayPort driver.
 >
-> No functional change intended.
->
-> Signed-off-by: sai madhu <suryasaimadhu369@gmail.com>
->
-> diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-> index 1ea259854780..f431fc9adca5 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-> @@ -981,8 +981,9 @@ static int mtk_hdmi_bridge_attach(struct drm_bridge *bridge,
->  	int ret;
->  
->  	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
-> -		DRM_ERROR("%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n",
-> -			  __func__);
-> +		drm_err(bridge->dev,
-> +			"%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n",
-> +			__func__);
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-We really shouldn't be logging __func__ either. Errors should be
-unambigious anyway, and drm_dbg* logging uses
-__builtin_return_address(0) to achieve the same with a much smaller
-footprint.
+Reviewed-by: Pengyu Luo <mitltlatltl@gmail.com>
 
-BR,
-Jani.
-
->  		return -EINVAL;
->  	}
-
--- 
-Jani Nikula, Intel
+Best wishes,
+Pengyu
