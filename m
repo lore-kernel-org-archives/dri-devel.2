@@ -4,97 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1197DF8E499
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 03:54:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47897F8E4A1
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 03:57:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4646A10E1E6;
-	Fri, 17 Apr 2026 03:54:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B5E510E283;
+	Fri, 17 Apr 2026 03:57:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ByysIorp";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="HXtdhiao";
 	dkim-atps=neutral
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3969110E1E6
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 03:54:31 +0000 (UTC)
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-8cb5c9ba82bso45144285a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 20:54:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776398070; x=1777002870; darn=lists.freedesktop.org;
- h=in-reply-to:autocrypt:from:content-language:references:cc:to
- :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=H5nrjef/FNz3f6JHFm8YF5SJcuEuUksqxelV8c7Plq0=;
- b=ByysIorp4qg/mlIoF6kxtsOIIGG22h8ZDquQUdhX+w05yPcDSPfH5xXcpeEr0U1VN1
- lDp2BrmKe4zBn6DDrONFbt71Ewjfado05uahVMj6WmNrznLaWPpRBXLZV/k9OqHkEtYg
- KSfX37j7hOkrky3xysSLdZrS/XAf/OPQkMPIytXVQCzkzLFdZ7bn+142C6+96uwA2HtW
- pZXAuiKadisjJvbpdo9UfXgq3mYhR5xU+P1ygLpedjTF+93yrU+5p7n0Qjd3GiTx2tFl
- +tPOAtbnid41z9opzrPic1rQ79ynDTZ/1CA70JvtPWAZQhOny/ln9BFPAJfyWanqbLTd
- V7Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776398070; x=1777002870;
- h=in-reply-to:autocrypt:from:content-language:references:cc:to
- :subject:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=H5nrjef/FNz3f6JHFm8YF5SJcuEuUksqxelV8c7Plq0=;
- b=CxoMrO6/2RkqGuuk6/QJjozz2FDhJuDxH5TYnm+1ulrPsCTvNuEzFl7oDKhOxbGDzj
- xX+aRXiqwy3Bu4IgCDInWQl90Mq8gziaUyS5y4ZfiencsKAlxZAtvgvTl1oDLIFNITKn
- mqOLq3moWSdKh/76CMLGUV5aZa8FxOS4ZIxv8pVIjCLZpPNRujQ/MGFHAjOCi3uwqREi
- BWajkfi8sfI9rcsR900QDdNmHgOEezUxwhtUFbIyas/NIjtwmHrNv71sbxMk4ay7W18n
- l4BY14LFXq9BCI9OCMfkrmG2KsQ1wYw2c1t143K7jhyWRJFOtoO1xGG5z2jUFSp7H8IM
- blIA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9ou4qlYD3VIAjeTPo8vSQAZC9XDkTE3X33PrwAhvj1kClFV8eBYBlwi7JQ2sMx5Bk2r7spCuQE7q0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWY23yIx5od8ubMyj4MqqwvCWSke24YM7iUG7rwuymsVftlFCN
- 8OxvvH0xYEMqgEt+h96xlLeIaTIWckXzX3dY4fWPnR+FDKq2zx0kmBmX
-X-Gm-Gg: AeBDievd9OFBofzKU5EsRfampPGRarpbMC08efre6klAM5bgG/yaVjBEnDWA26y3/+i
- N4hSrS7y+CZbfdvwe2SB4s7y3a0hAMEdzGDdLlIKI+pyXiZHMbHIpcSpbY7mmAyJqszW2rNWUFC
- tV/GYc2vVhnY9Xop7rKEd2Sk04xhQLneGR3CoxfbDfrZ2YyiDF9ZF91SQ8xacWp6pG3JK5AE6xT
- YPveN1Fz45NOpYhifOaS35R7K/3erymj6Yj0kWX21aA5FA7jnyueAS3f7NXeyojZtNjQM0bEMtE
- MUPiVmjmerFqL5BvOYyYyU3J8M6U+jiLIimTsi9pjjdDw+IrP6jI6AS4qtDbMnpmyl3n9J3Z4Zw
- c2KY9YWc1huqwAQVr79MDd7zAQDWycFeVYlkuOYiBrFSXEx4dkyzeTEpj54ulhoWue9/oeoh7/N
- aYZmS20dxoMwysk81Am/3c8t560JDXIm8ieuYyZfHnw/e2oCzS
-X-Received: by 2002:a05:620a:7083:b0:8c9:fb69:e708 with SMTP id
- af79cd13be357-8e78fd216d0mr145680285a.25.1776398069972; 
- Thu, 16 Apr 2026 20:54:29 -0700 (PDT)
-Received: from [192.168.2.25] ([184.146.175.99])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8e7d64cbbdbsm22553685a.12.2026.04.16.20.54.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 20:54:29 -0700 (PDT)
-Message-ID: <4fd08215-c9f4-493f-ac49-141e9a486b02@gmail.com>
-Date: Thu, 16 Apr 2026 23:54:17 -0400
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010040.outbound.protection.outlook.com [52.101.46.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CCCB10E283
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 03:57:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vGE4c1WEXlQ3OqZoiP0bYq40klcpGZFSP5IPF5jTh21ZBb4mA7ZZacYljI6Px2rZxn8ukvFC+6D4cEvEJuTEtIwnwihxg5aeR7Wl6TybASpknPeX16UPRBG3WG2emtuuPzuNjUtTtrOrnFVaQ+s/bNTRyt8rB7h0CF6KZy3YszSpkHKeBdfL6wmGGt+ZKiOc224f+nSmEmTuu0bg9IWSk9AEL3eg+DgaLYWmEvGEIYkNauR08tVSI0C+tfD/x3IpqcOqm/bhq5gRawmliUNFQQeGGvLH9Jvl8d4rGsL/lm9NIiLkXsrR5IMQzcuAk7AuYDjsPz6OdZlktMA9fkJGhQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RNgZTEwQzo/5lSWOxZ5WAhq3h/Wt4Y6x9ToCdA0ccsQ=;
+ b=dU4WYFgcLtNTcaHoglbXt75CPPDr+wC/JERBmX1nEnvztQ4R8FShCZdR4xSWIeBFBZMA71Z4ymT+iJBnQL0OI9K/czsK3YumX06sMw98HbjQH1fp+Pvyq99q7xT7xDSJltR/dtl9LoArW6lzZhXrQ9rKuz2XsibLzuxHdR88YRhAwQfQJZ2EByqlvBqWV03l+IbgL45ny+HemT++hV144oveVtWQXkqFfGCySJTAqkmsrpNSh8gBiMIeqQUGt37FZ3uFCzaaoJo5wOMqczfAoX3aKpH58HdRBhau+IPLvKiCALYvwpSQX8jHIqwLkra1eZBk0fVppY4gg/GCWC3QSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RNgZTEwQzo/5lSWOxZ5WAhq3h/Wt4Y6x9ToCdA0ccsQ=;
+ b=HXtdhiaogsPZkrQ4sGssucYvQ5Y8PG1Xzg1Fde2qsAOpwMeipRlxWRrK17D3r1bhE06jQ1LpybtDeJj/uSUxGj5Lv1qDDrRX8aJwq0iVgg+civKqN/uCdbdwx6p9ZY2kyfr20qm0KsE+7TX2duxMCBYPmqUUYr20IoQMbUJqHg9XgvVNDUI6yMWuBOzDA2WGSF5cgUmL9K+IwYWSua+Uh/y0XVCD9ixNRIazVfkRggJ+AtHxqD6hCrEBq1gDosk+c4w5sjtIFLbxp/+74X1jjxUSVoCkiYIPWp6hoTQEU5695uTn7yHZgXKQKYtiATKGiYRl649QbgnN13jhhpb8hA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by MW6PR12MB8735.namprd12.prod.outlook.com (2603:10b6:303:245::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
+ 2026 03:57:34 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9818.017; Fri, 17 Apr 2026
+ 03:57:34 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 17 Apr 2026 12:57:30 +0900
+Message-Id: <DHV4MIBWUT0S.2S1QWXGU4LFK3@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Joel Fernandes"
+ <joelagnelf@nvidia.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Alistair Popple" <apopple@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <driver-core@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v2 0/3] rust: add `bitfield!` macro
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+References: <20260409-bitfield-v2-0-23ac400071cb@nvidia.com>
+ <798e83e6-eb7b-4502-85e7-5a0f6d9c6281@nvidia.com>
+ <DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org>
+ <DHV1K1097C27.33XRWLMZM6QZA@nvidia.com>
+ <DHV3N3R9NJU3.2HXR63MP02NPO@nvidia.com>
+ <fc4b9204-b4c5-415f-8435-e7ae03418dcc@nvidia.com>
+In-Reply-To: <fc4b9204-b4c5-415f-8435-e7ae03418dcc@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0032.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29d::10) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:136.0) Gecko/20100101
- Thunderbird/136.0
-Subject: Re: [PATCH v8 4/4] misc: fastrpc: Add polling mode support for
- fastRPC driver
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, srini@kernel.org,
- linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de,
- dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
- andersson@kernel.org
-References: <20260415112530.4083240-1-ekansh.gupta@oss.qualcomm.com>
- <20260415112530.4083240-5-ekansh.gupta@oss.qualcomm.com>
- <8dc8c094-63ab-4f9c-867a-96b615dff2cf@gmail.com>
- <90c2f6d5-21cd-4ba1-86e4-458100c8f830@oss.qualcomm.com>
-Content-Language: en-CA, en-US
-From: Luben Tuikov <ltuikov89@gmail.com>
-Autocrypt: addr=ltuikov89@gmail.com; keydata=
- xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1APnbnnRHN
- Ikx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoAQRYhBJkj7+VmFO9b
- eaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
- AAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlTMqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfy
- JwktF7REl1yt7IU2Sye1qmQMfJxdt9JMbMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSP
- cCE8uGe7FWo8C+nTSyWPXKTx9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl
- 10wVR5QxozSvBQJlOiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKo
- aMDzO9eGz69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA==
-In-Reply-To: <90c2f6d5-21cd-4ba1-86e4-458100c8f830@oss.qualcomm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------u6hXa02bmrzTrAKCf5rbNvPB"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MW6PR12MB8735:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4aa610a-dd88-4d0b-638f-08de9c3574d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|10070799003|366016|7416014|376014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: xBiLzM7qNp2bcvf985Sn5WiUCGidTTYX2DYE0Sg5gMLXIxavCzhcdj8qci0IH5WpP1nYjDaeZvW8tgyOY9OhOqfTyQK4vvuLhom//WqpzxyArMgpWpvvEmMR93LNaucsQN26YlvU2Mz9CX+IAOcVVF/VBQwP1ksrRB6nTgBkUaHeOkKsNZQS0QXsGp9/wvVCec/GXGyE2PyOcI++2FQKSfuiJQ+YAa3QftraJ281aQM3uqS9BstgBnt2lNU7NKP7POvEA0NCmM75ZXQejxua1w+dNAVLNZMeBCM8yhtvfN03dRyt2YX1ubs0WwNlLvH0i7s/bxbjAjlGUa0OrSAwoAi0446GpiBOv5xzv6SxegRSvKy2CinEmwSGnzOVKTYyff/ohsQK9O+4o16/RkJxKMTpLo7KBHPVBtEyDaepm2HJAZiMHjBeDoyY/pg1yVGolI348BIrTlQPVARvoYcuo2zepjUjd63n3AnYp1yIIRpy0deqS3Y7iMgde63MRn76jEPhK7w9cNu9bGI/82B2Pb8g5RDC7KObjHwaqKi04ylzp4uhE60RlPnzowlPNfv6utJthZvhP/lSJKgEmc8XixM8xsmPeU8ZktP290ZTqhMBB7m0O66HRcPbSN1cRVZYhrF+jHFeje89gtsf0kRxTGe2S4cok2IErwXcbruaguP4hx0L+6YjlQAVxm2go6dXnUfgPtt/Vir37s7SHktSyr84Iwc4RtX7p7kj5RCNazA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(366016)(7416014)(376014)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V1FyMHBxMDZETEpWcVVXSXpneDRtZENUYmlvZWl0TitGUnhsb2lHVzFTTnEv?=
+ =?utf-8?B?YytZZTRtaHpINGtzN3Fsd2FVT09rYlFSejVCVHBYeW9XVEJLdnViWHVvcTkr?=
+ =?utf-8?B?MlBZOFRaMmx5UTgrclpXSGJQMUZKc0x0Qm80Z0t0UkRRU0h5MzQxNHFCUU5n?=
+ =?utf-8?B?YzZSRWp6SXoyZlMxbXVqd1czZVJlYWhjU2pPTlRldURkK1lOWk1qdC9SNVhp?=
+ =?utf-8?B?VWFTTVpkQ3pyeGFMMThCN0V4WmdLNXpTN2xHMG56L0hXR3Q2aVhzM1ZhL09l?=
+ =?utf-8?B?VFNpZVU3S1RsOUl0K2k1ZGE5ak4rMFFoRFJzdlRpQlVVaWZmMkNpZ0tvLzJB?=
+ =?utf-8?B?eXViUW5TNTZ5cXF3NkFiU2dEQzc5L1lGL2RuOE5URDhBUlQ0Mi94RU9PU2ZM?=
+ =?utf-8?B?Rk1RMVVsckJrdCt4R1gzS0NJaW1pajh6TDNDeHNoU08yRWNzK1pZOC9Yc1RG?=
+ =?utf-8?B?c1J4VzVZVk5HMFZVWlNpd0QzZkRXZGxWcFkvU1Y4aC92UENBb3owNXVteEVO?=
+ =?utf-8?B?ZlQ4dVhsOVJwSEwvbnJLTUovSXQ2bEhpVzdWUWpmMXpFbjgxNTVSSmxIKzZp?=
+ =?utf-8?B?Z0JDWGp1Qk1VUVI3SFVhTC9zNGhNVk1pN0tCeEFNdXkyVEgyRTlaWGRMNmM2?=
+ =?utf-8?B?SFJ3QWkvRzBoNmQvdXQyc2k1R0N2S0htODRmYm1xc2dMVVJSc094V2J2OE00?=
+ =?utf-8?B?Y29QaURpaC96aUVoRjRzUDZzOWJObk5DcW1ueE16b0FuazUrRDlhTWJmZVRW?=
+ =?utf-8?B?ZTdoTThLaHdUdnQ2VkN3MTdPandqdzd5STVCWGV5YlhRZHgyc0dYZnE5S1M0?=
+ =?utf-8?B?dExibTA5RklsR0tabThRSHVyWnpGTjN3cFBnNnYzS0szbDQ2QXNtTmNkdmxR?=
+ =?utf-8?B?djBGNEZocjRzWncvNFIyZU5hclRXM0p2Z1ZRais0UkJjTjJNdUNaeEpnNUdn?=
+ =?utf-8?B?a1FqZlMrNDBiemk1bUUyKzlMTDRrMWNDemFQenVaVHRZZHJFd3hGTnYrNnR5?=
+ =?utf-8?B?UUZ5SGh4U0xLeTc4MmRSRUFRMlBXQWdQR0NpM3c2czhMSlRCS1lPNDJpUTBF?=
+ =?utf-8?B?UWpDSExGVDM4TEZkeXdLS25DVGF3MXROWXRPRmpVVjNQSmsxakNWTnQwR0tT?=
+ =?utf-8?B?ekwzekRwZ2JVd0dMekVTa21xV3lzQWpITWVQZE55NnRCelJPbnZZVThtampP?=
+ =?utf-8?B?b3JHcjNGc1kyaU9ITTljRkROOHF4VkdaSHlqK1QyZDNnUmFKRCtIem90clQ4?=
+ =?utf-8?B?UGNFL090SGNaM0MrclhwaXN1ZEJxUkV0elo2Y25JbDdENWY0bC9UcGpvcWlJ?=
+ =?utf-8?B?eXFUK2xnZENqVTgwaXV1QW01VUJLL0s5UFRjazVLNWhtUU40bkY0QXRQSlZp?=
+ =?utf-8?B?YUcwUkhGOE1Qek9FZU92SGxqSzk3SjZ4L0xtaktBaE9lMU1FbS9ZakJlRE5U?=
+ =?utf-8?B?RG1qOXFoa0ZNdGdneFNWdHpmeDgySHRTdGMrNDBzMVBHdmFpay9ZemlTd2RI?=
+ =?utf-8?B?MVp0RVVmb2tjUTZDZWk3YzJmbUFjejY2TzBpODhzcGF3dUtaYzQ5eGloTWRl?=
+ =?utf-8?B?VkpCSlVjai9ndUptNUNWeWcyOVhuMHExbDFDdVcvVFEwbExsZG5BTkJTVDM5?=
+ =?utf-8?B?QTd0TENJK0g0YU5FWDBZM0R5VVArd05LYnNJTEVaUjBBTjVGdVp5WHloZ3Z2?=
+ =?utf-8?B?eDMzYXI4NHNyQjI3bFVoK29xaWczSU8vVUp4MGNTUTR2SUduTXpYN01NWWor?=
+ =?utf-8?B?cmJvbXdrSVJXZVgzOTJMTVR2Yy9NU3BGc2dVOGRmdDVPZGpwazhJTVVzT0pM?=
+ =?utf-8?B?UHF5bFFVbFNvQnhNTjFUczZsK3VoeGVzOFlmZ2d4TVdUdVBuUlFSZ0tZdVZp?=
+ =?utf-8?B?Mnp0QThPODR0a3g3MnRDbGxjK0xaajFPeW9qaXRzaXZCWDR3WTBLR00vaHl1?=
+ =?utf-8?B?QWdZME85T3UwdG11OVYvU25wZTJwbXJ1dXk5dzliRUlKNHJPNzBxTjFUZVRz?=
+ =?utf-8?B?SHdVaG5URDJnc054RXFHN2VIanVkUElJRnA2OG9ubk5vNWhEQitOdHl4T3hM?=
+ =?utf-8?B?WHRkUVZqOEIrRnQyR2Q2NzVwdEVYK3VLcWpESE5jem5QQ2dGZEVabDhtNjl2?=
+ =?utf-8?B?SnV4dXJhdGVPbC82QXh5N1pWd21wV0ljMGVwcEZxc013SGpXNjV0OVMwaFhV?=
+ =?utf-8?B?UWl4MWdvMEVtTVVuT08wejF3d2VWbU9sL1FtUVBEVzdoVG4rbllScytoQUhw?=
+ =?utf-8?B?eGt4Nnp5WHRjZTlpMG5ocW85Sjc5T1lVU2VFMFpSRTM2WEpjOWorQjJMdGZ3?=
+ =?utf-8?B?dk5VMTZRY3VnY0daSVd4ME91cER5M0lLZW5MRUJJYjRQZ2ljZ0tmeWJ6V1hj?=
+ =?utf-8?Q?HlIW2WRig8gPK33+5LDDr05uCrBWhez8QDZPdstcev3/U?=
+X-MS-Exchange-AntiSpam-MessageData-1: 9SKD0FIlEj9YSA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4aa610a-dd88-4d0b-638f-08de9c3574d5
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 03:57:34.1983 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2+7rcfCB6yYBELXIJ7+UTC6AEy2534w+26v/pzxKxnWOLyUNSXdLRxiZqL8DgtoVW28v2wjuvFqlaAHknBO5Hg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8735
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,157 +152,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------u6hXa02bmrzTrAKCf5rbNvPB
-Content-Type: multipart/mixed; boundary="------------q7nzm1aCz6wjRQL5UEw8NoVY";
- protected-headers="v1"
-From: Luben Tuikov <ltuikov89@gmail.com>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, srini@kernel.org,
- linux-arm-msm@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
- dri-devel@lists.freedesktop.org, arnd@arndb.de,
- dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
- andersson@kernel.org
-Message-ID: <4fd08215-c9f4-493f-ac49-141e9a486b02@gmail.com>
-Subject: Re: [PATCH v8 4/4] misc: fastrpc: Add polling mode support for
- fastRPC driver
-References: <20260415112530.4083240-1-ekansh.gupta@oss.qualcomm.com>
- <20260415112530.4083240-5-ekansh.gupta@oss.qualcomm.com>
- <8dc8c094-63ab-4f9c-867a-96b615dff2cf@gmail.com>
- <90c2f6d5-21cd-4ba1-86e4-458100c8f830@oss.qualcomm.com>
-In-Reply-To: <90c2f6d5-21cd-4ba1-86e4-458100c8f830@oss.qualcomm.com>
+On Fri Apr 17, 2026 at 12:19 PM JST, John Hubbard wrote:
+> On 4/16/26 8:11 PM, Alexandre Courbot wrote:
+>> On Fri Apr 17, 2026 at 10:33 AM JST, Alexandre Courbot wrote:
+>>> On Fri Apr 17, 2026 at 7:18 AM JST, Danilo Krummrich wrote:
+>>>> On Thu Apr 16, 2026 at 1:22 AM CEST, John Hubbard wrote:
+>>>>> Can we please put this into your drm-rust-next-staging ASAP? I don't
+>>>>> think we have any comments that would really need to hold that up.
+> ...
+>>>> But now it seems to develop into some semi-official "shadow infrastruc=
+ture" for
+>>>> when the drm-rust tree is closed after -rc6 and during the merge windo=
+w, and
+>>>> it's not part of the official drm-rust workflow and other maintainers =
+don't have
+>>>> oversight of it.
+>>>>
+>>>> So, in order to not motivate workarounds, starting from the next cycle=
+, the
+>>>> drm-rust-next branch will be open for new features at all times.
+>>>>
+>>>> Consequently, all patches applied to drm-rust-next after -rc6 do not t=
+arget the
+>>>> upcoming merge window, but the next one.
+>>>
+>>> If that doesn't add any burden to you and Alice, then I think that's a
+>>> definitely an improvement to our process.
+>>=20
+>> Actually thinking more about this, this might not be the improvement I
+>> expected at first.
+>>=20
+>> Take for instance the current time of the merge window: both `rust-next`
+>> and `drm-rust-next` have been merged into `master`, which provides us an
+>> ideal base for sending patches that will target `-rc1`.
+>>=20
+>> But if we keep submitting to the pre-merge `drm-rust-next`, then we are
+>> in a situation where the extra patches sent to `drm-rust-next` need to
+>> be rebased when `-rc1` is released, with a clear potential for
+>> conflicts.
+>
+> Yes, some conflicts, but probably not too bad, due to the much
+> newer base, right?
 
---------------q7nzm1aCz6wjRQL5UEw8NoVY
-Content-Type: multipart/mixed; boundary="------------0hdEhfg1Mjy6CiCPDwuTIK8u"
+Most of the time, hopefully. But that's still labor shifted from us (as
+I would address the conflicts before merging the patches) to the
+drm-rust maintainers.
 
---------------0hdEhfg1Mjy6CiCPDwuTIK8u
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+>
+>>=20
+>> So at the end of the day, it would still be cleaner to use `master` in
+>> prevision of the `-rc1` tagging and we would be in more or less the same
+>> situation as today. `drm-rust-next-staging` is currently based on
+>> `master`.
+>>=20
+>> I guess the problem is that my internal process has leaked a bit, when
+>> it is really intended to be a temporary convenience (both for me and for
+>> NVIDIA contributors) and something drm-rust maintainers can completely
+>> ignore.
+>
+> The only reason that it leaked is because there was an underlying unmet
+> need, to begin with, which is: how to continue developing on some
+> "appropriate" branch during two weeks (20% of the year) when our main
+> branch is locked down and stale?
 
-On 2026-04-16 09:58, Ekansh Gupta wrote:
-> On 16-04-2026 13:47, Luben Tuikov wrote:
->> Hi Ekansh,
->>
->> Good work. A couple of notes below:
---cut--->>> +static inline int fastrpc_wait_for_response(struct fastrpc_i=
-nvoke_ctx *ctx,
->>> +					    u32 kernel)
->>
->> What is "kernel" and why is it a u32 when it is used as a "bool"? Perh=
-aps a better name can be had?
-> This reflects kernel message. As of now, just propagated the same that
-> is used across the driver, maybe can address this as a separate patch.
+It's actually 4 weeks (from -rc6 to release, plus 2 weeks until -rc1).
 
-I can see that its origin is internal to the driver, as a boolean. Perhap=
-s "kernel_message" or "kmessage" or something descriptive like that. I th=
-ink it's more important that it is a "message", rather than "kernel messa=
-ge".
-
-Yes, a separate patch indeed makes sense for this.
-
---cut--->>> +static int fastrpc_wait_for_completion(struct fastrpc_invoke=
-_ctx *ctx,
->>> +				       u32 kernel)
->>> +{
->>> +	int err;
->>> +
->>> +	do {
->>> +		if (ctx->is_polled) {
->>> +			err =3D poll_for_remote_response(ctx);
->>> +			/* If polling timed out, move to normal response mode */
->>> +			if (err)
->>> +				ctx->is_polled =3D false;
->>> +		} else {
->>> +			err =3D fastrpc_wait_for_response(ctx, kernel);
->>> +			if (err)
->>> +				return err;
->>> +		}
->>> +	} while (!ctx->is_work_done);
->>
->> Perhaps you want to also check "err" here to make the exit condition m=
-ore explicit. (The invariant in do-while loops is generally directly dete=
-rmined by something within the loop and generally not implicit.)
-> The reason to not keep "err" check is because the call should fallback
-> to normal response(fastrpc_wait_for_response()) in case
-> poll_for_remote_response() fails.
->>
->> Is it possible that in poll_for_remote_response() you get 0 as a poll =
-result and val is not equal to FASTRCPC_POLL_RESPONSE? In such a case, th=
-is may hang. (Is a hang desired here?)
-> That's actually a good point, let me try making it more robust, this
-> condition might get encountered in case normal response is sent instead=
-
-> of poll memory update.
-
-Right. We want to avoid this dependency. If the device hangs for whatever=
- reason (defective device, cosmic ray, etc.) this should not result in a =
-process or a kernel execution context hanging.
-
->> Is it possible that if polling is enabled, then you want to poll only =
-once, and if unsuccessful, or successful but "!work_done", then transitio=
-n to fastrpc_wait_for_response() and return, without looping? (since poll=
-ing is looping after all...)
-> This is correct, the intention is the poll until it returns, continue i=
-f
-> successful and fallback to normal response if unsuccessful.
-
-Right. So this was obvious by reading the contents of the do-while loop. =
-If you prefer, you can remove the do-while loop, or at least take out the=
- poll_for_remote_response() out, and only leave the fastrpc_wait_for_resp=
-onse() inside the loop, and decide how many time intervals you want to wa=
-it. If that is once, then you don't need the do-while loop. (Effectively,=
- you've waited once in the poll and 2nd time in the fast_wait_for_respons=
-e().)
-
-We just want to avoid hangs.
-
-> Thanks, Luben, for taking the time to review this change and for
-> providing insightful comments.
-
-Yes, no problem. Good work and thank you for your work and contribution!
-> [1]
-> https://lore.kernel.org/all/wipphezpxtuuxtwhpwamsmvhwgwuesexmy5ev5pcqb6=
-5vov5kz@vuzzyyqnu7ci/
-Ah, thank you for this reference.
---=20
-Regards,
-Luben
---------------0hdEhfg1Mjy6CiCPDwuTIK8u
-Content-Type: application/pgp-keys; name="OpenPGP_0x4C15479431A334AF.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x4C15479431A334AF.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1A
-PnbnnRHNIkx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoA
-QRYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiIC
-BhUKCQgLAgQWAgMBAh4HAheAAAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlT
-MqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfyJwktF7REl1yt7IU2Sye1qmQMfJxdt9JM
-bMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSPcCE8uGe7FWo8C+nTSyWPXKTx
-9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJl
-OiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKoaMDzO9eG
-z69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA=3D=3D
-=3DqCaZ
------END PGP PUBLIC KEY BLOCK-----
-
---------------0hdEhfg1Mjy6CiCPDwuTIK8u--
-
---------------q7nzm1aCz6wjRQL5UEw8NoVY--
-
---------------u6hXa02bmrzTrAKCf5rbNvPB
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCaeGu6gUDAAAAAAAKCRBMFUeUMaM0r8Uw
-AQCj0T0Np+w+vi9aTASsrtwXtdly3Jx3m+hcYafBMLCqjwD/cgjN4ZlugPcnrjYw28n1jlreTfj7
-JnhDdObDz82HrQI=
-=iqZA
------END PGP SIGNATURE-----
-
---------------u6hXa02bmrzTrAKCf5rbNvPB--
+I agree it would be nice to improve the situation - I'm just not sure
+that keeping drm-rust-next open is the optimal solution here.
