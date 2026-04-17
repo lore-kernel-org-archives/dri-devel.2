@@ -4,93 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E57AF99C6C
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:55:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9191F99C63
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 542DC10EAA1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59F0E10EAA9;
 	Fri, 17 Apr 2026 21:55:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fbUXYcB/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QXrTLsz2";
 	dkim-atps=neutral
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E83EE10E0B5
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 11:31:20 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-7986e538decso5110567b3.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 04:31:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776425480; cv=none;
- d=google.com; s=arc-20240605;
- b=Hugv5bkJ077FD0olBjI4cT97gwLJWhpluszgSj846NI2aRpyJ98lCT3cjZMnKHMWBC
- WdNaznSUxdhpPnONHmrPpyvQ+A+KaPIZiFLVDg53/xBTwUHFgl4XDFc24V+Ri0LgOA05
- KVz6eROqYteU0n4zbYPCsrmhuPvNxn7Z7C+atEZR0HCMDkmx6zQjrjB/5HYfLUIbbhm/
- fQMfSh3xKjtbgHK76x4VDzOKE0xAV6MR63z5xdOsNjIWnLBO/W24KkFTPeSRuexD4zBs
- WSENjZ2i4b9H5dHaQnUMl7dsLZxuO9gYRHsouszL66HSnVK8is82JSI2pDMFdRtdS1bf
- LMJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=z+zpHgYozD7vQZSnn9bC/lwPA6OaHSKhotflLOWUpro=;
- fh=pO2JzZcFeCDjbeR5WXCs3uvF/r+QhppIGF2p25XeWgI=;
- b=OhfOC/K9dVgCpUH7fViVjLER/s/KlDzcP86hkJ5hS5av/O1jvrHWpXJ8IHSadfA9IK
- S7aQYm4M5dKATeeTtz1k1n8w5jsJqSS+HxjcoOPBB51Zsc+gdZHN5M+1FEm0+ffPl9ho
- +uyJWIs5+8cg/kWlALDIwDLBvkbLOyDStDC3wwoLBIWdIHLUlXD4LBqEmsq8J5X2bE5W
- FDAqs2oYgYzkIOdb0fbOhX7IbM+3LD/6rmbopAHPnf5/9Hqs/SaXoharWl8pis9zKdfL
- mxuCwjbLfupGZnRHsM6Z02i7CAV8CnkEYo30Vr0iHh5BvucnnJhVfXlg4JWcVwChcFmX
- 46xw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B62810E058
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 10:17:53 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-3591cc98871so237255a91.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 03:17:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776425480; x=1777030280; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=z+zpHgYozD7vQZSnn9bC/lwPA6OaHSKhotflLOWUpro=;
- b=fbUXYcB/K/o3AhtAZlofDgi9Tnj9fE6ogTENEEL6QSaoRR3KMHtk3Dk2TKq/dl+M7q
- wRHlx0riCfRnxRHGfRfLhGFB8Ch4Ov54fBrXkAgGRQ6VxtGTR5YR76LbeeLQFyW9yC0z
- vpj5ISqYOk3Y9wr2o6flug0w2jImSyISUHkglIwyKz80/OolO1JGROotPRUiyodwFC10
- oTS1fgaqfgQXDBFpZCo/yzkUJTucIMUR0D4ho41y3nc8SZHIkc8OD0Um6B/6AL+NgIqP
- B0n8uaT7UiUDBsd+UQzWcMuYyB8YnFmfP+gZTXsL/LMi9IBAIrAJnGS+7BfUetg2qsZU
- 1DIg==
+ d=gmail.com; s=20251104; t=1776421073; x=1777025873; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=8iE4usfHbukw4GyIkJMsnZ0QQYr3hxZC7HTo6J/YluM=;
+ b=QXrTLsz2178OrzJAqcFLKOATG5sq8jMc8lGaITPKCeqZobHS3FZPC9RaYF2bdNW+l5
+ tCghIQeLHyydxiHJXAcC9uyc/gg44v3bd8kuMMhqUOIVL0xhdZjSAnceDdqNDeNPFr7/
+ oifzuG+gUlrfPW7UhQijG32Vmpf6jO+aHKbVyxObBTUv3w41CAKobEZSDIeRSEwFFvPA
+ C7UoaKTN+K7SJ/6kQSkoPChMvAYDmDh+MjEq11Zy3c3B0vRwwosRkB0HKRxbPs8KPEov
+ Qn843MXfsoduuNtLibQfVePcVVIfr0P9NcgmMvSjqftQY+kPIJU+Wy6NNka1v3Rl80IW
+ iC+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776425480; x=1777030280;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1776421073; x=1777025873;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=z+zpHgYozD7vQZSnn9bC/lwPA6OaHSKhotflLOWUpro=;
- b=OAtIZ6N14Jg1EN+ISi0Q8mtIlFSvoxsJVFfHnGRdQt+u+ZVRVbuqbmNLl2c4VVfNps
- ZjJdUeMo8MhyRsO4v8oUUhK/jDDTMUNlmVhFmWkdaDSrzcHPzqEYFxLyBK1c/b2dDbo5
- ZfLnLh9yHbJMFyN1X0pZnA1sfBzP/viLRbx0PXsPdkgnZRgEsAOFeJ1ulXUEZ7wVeOft
- e63I6QuxUIX7EVhfR5uzlK9X0q4rORz2jy/d4yUk9PtqPcijUdxlRMgVc2mkGmxoY1LH
- zoCgc/ijFy4ETOi14uWydSq22xledEVjXrzbjo0R+WghgPD7ZfYZD+MJ2E488HXY/rkw
- UpMQ==
+ bh=8iE4usfHbukw4GyIkJMsnZ0QQYr3hxZC7HTo6J/YluM=;
+ b=Ew1H54BuX5TdaEhjFDocQ/zV1cGIedMg8LdmQX5ZVPHVIsUZJzJzQId1++zdAS/jB3
+ WTXmvEQ8aTLYAi9gpTX4i3C+fOtjtSCX6mL/MUxnRuhzYij5k3R8zV/U04y4/JylWp8Y
+ Thsj6K9obL94PVT47is667tSm1DI8TbpZxPmY5sOPQ6/4nHBEk1HBNFH0oxoVlFXlzI4
+ kIpBZS8sKIJTZIMUZ57Q0zM38lFE8U7cHGGQgn6DTKgxHNac7VvzeFeOI95tLzqPUVcz
+ JQlPIigWQJUjvFCCnui7GfRSfhXwnBjudDfE6eUNwxjgTj7V+OsqAqjHjMWgHmw1T8OZ
+ G5KA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+X+n5+BfEXHEmAjLXVnfg/yxRLP9wlZfLpiOSZpgdDArppqlaPAxnlGEp38IcHPo3BkqqTnGvOA5A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwfvChVSCxrTqfmxpoAKmy2yzKi2Kn6gSqQ4sXKxSevu8jZGJoG
- GvlnkAETdg7asrffl6qkmgInqP+Cw2fu2A32oU3XDFmpNqhe1Ma8AFyzbJ7WpvdWUvau+3BDJP3
- A6cMqHm638lBYpuxjaR4M5Z9bHL39Wmw=
-X-Gm-Gg: AeBDietg7LlZx3qtdsV43T+0WE62nm/X5Y5OXt8UHaC1a7sfn/dsz7kSLr/YB+6QL9P
- 8NCRtPIlzXLD5sbpLEDdQgotALVnsQm7ic8pgMxQityKqfjXPtFKKtIB5x2+dpIQVJYpBtD5K6y
- e5bns6FF6cAEAXUVw2kTETwanehZCDdjzTIzZxqCgDjeNAIRQ9xSB8QslKMlvTu8eN4HSb6DsEN
- WzqK7dMsd02zCibBh/RZtXKheL1fy8FgLKQbgTAKgUpFAYcES2k65qyMD2/s1sHxjF9UUQScCjh
- Q0Hw2V2vM3ngLfFrJA==
-X-Received: by 2002:a05:690c:e3ea:b0:7b3:c611:7ef5 with SMTP id
- 00721157ae682-7b9ece75f00mr23911117b3.6.1776425479720; Fri, 17 Apr 2026
- 04:31:19 -0700 (PDT)
+ AFNElJ/b/KC7E65NsHV+JMp4QlAKQoNr5BC+1Xsd71SRL5z5xoDMYlXPvZNPenlHH9rKK73z2bMfUTFYRs0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/O4ZQTNgG8yWK8uZlkZsz2JEjGh2EVukdS6sPZzapB/faoCM7
+ OkdQ0SVy9tJzLFVkMZ5fC9t2bICirBdKFtSXTTwbqHQv4OsLNdCuHTiR
+X-Gm-Gg: AeBDievH4zprUhYSeYZER3V0ayyRAkrKMP9/kEhcLSYL7YEpVHSrVhZaAJRJUvOfAiM
+ 7CNWdDV1jBwJpUP+XVJfZaV2pYVM/dOVFcC7njK1VWMinlQOoIxc9eWJopD5guGY1blWgHydR5I
+ zS2laQotDp8bf4ZP6qSLiFG0MXdpOv+3H0mSkx6NO8SGhFWGWpxfrY/xglU9yYqNSVv2Vo0OMU5
+ 60BzPXiMItRCWS+1FKFdn8aNY0/W3B+knn4E0s/rJZMfkMSZgh5N2t1zzHPIp6pjK6WHMPn3Kny
+ pdsmpbhfkkt6JO1eDIl0yRSZ5IlLqAa7bxsP0IgwNqidJIpl0BFr+H54nbDUM1SstgAEzknU59T
+ I+b+gEeP9N02aBKeTw5/sUHOZ+gNoelV+AY3lF9c0rCql+9sst+HoxSZYnar9d4dtWw/4HXmNdB
+ bMFD1bMLcIgi0Hik4DV/iNq5ftaNbN
+X-Received: by 2002:a17:90b:4a09:b0:35f:b7f5:9cd with SMTP id
+ 98e67ed59e1d1-36140490614mr2164284a91.20.1776421073015; 
+ Fri, 17 Apr 2026 03:17:53 -0700 (PDT)
+Received: from fedora ([157.20.226.20]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-c7976f8f370sm1280728a12.7.2026.04.17.03.17.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2026 03:17:52 -0700 (PDT)
+From: Prasaanth <prasaanth2k@gmail.com>
+To: linux-staging@lists.linux.dev
+Cc: andy@kernel.org, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Prasaanth <prasaanth2k@gmail.com>
+Subject: [PATCH] staging: fbtft: fb_tinylcd: fix alignment in write_reg call
+Date: Fri, 17 Apr 2026 15:44:57 +0530
+Message-ID: <20260417101457.7599-1-prasaanth2k@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260417101457.7599-1-prasaanth2k@gmail.com>
- <aeIXfMcia6e8cQvy@ashevche-desk.local>
-In-Reply-To: <aeIXfMcia6e8cQvy@ashevche-desk.local>
-From: Prasaanth Sakthivel <prasaanth2k@gmail.com>
-Date: Fri, 17 Apr 2026 17:01:08 +0530
-X-Gm-Features: AQROBzBwNdsVGp0JXxrk_7GMJHIBG6rRktYO_czLRjSB807ioahagedf6nuwujA
-Message-ID: <CAHPaVe=vpcNopxmpvV7GMY9_mpDdfarQwyNp_TsD4fHHG4sreQ@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: fb_tinylcd: fix alignment in write_reg
- call
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: linux-staging@lists.linux.dev, andy@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: multipart/alternative; boundary="000000000000b0511f064fa6490d"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 17 Apr 2026 21:55:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,58 +87,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000b0511f064fa6490d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Fix alignment of multiline arguments in write_reg() call to
+match kernel coding style
 
-Thanks for the feedback, I understand.
+Reported by checkpatch.pl
 
-I=E2=80=99ll look for more meaningful issues to work on.
+Signed-off-by: Prasaanth <prasaanth2k@gmail.com>
+---
+ drivers/staging/fbtft/fb_tinylcd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Fri, Apr 17, 2026 at 4:50=E2=80=AFPM Andy Shevchenko <andriy.shevchenko@=
-intel.com>
-wrote:
+diff --git a/drivers/staging/fbtft/fb_tinylcd.c b/drivers/staging/fbtft/fb_tinylcd.c
+index 9469248f2..60cda57bc 100644
+--- a/drivers/staging/fbtft/fb_tinylcd.c
++++ b/drivers/staging/fbtft/fb_tinylcd.c
+@@ -38,7 +38,7 @@ static int init_display(struct fbtft_par *par)
+ 	write_reg(par, 0xE5, 0x00);
+ 	write_reg(par, 0xF0, 0x36, 0xA5, 0x53);
+ 	write_reg(par, 0xE0, 0x00, 0x35, 0x33, 0x00, 0x00, 0x00,
+-		       0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
++		  0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
+ 	write_reg(par, MIPI_DCS_SET_PIXEL_FORMAT, 0x55);
+ 	write_reg(par, MIPI_DCS_EXIT_SLEEP_MODE);
+ 	udelay(250);
+-- 
+2.53.0
 
-> On Fri, Apr 17, 2026 at 03:44:57PM +0530, Prasaanth wrote:
-> > Fix alignment of multiline arguments in write_reg() call to
-> > match kernel coding style
-> >
-> > Reported by checkpatch.pl
->
-> NAK. Use a common sense.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
->
-
---000000000000b0511f064fa6490d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks for the feedback, I understand.<br><br>I=E2=80=99ll=
- look for more meaningful issues to work on.</div><br><div class=3D"gmail_q=
-uote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, A=
-pr 17, 2026 at 4:50=E2=80=AFPM Andy Shevchenko &lt;<a href=3D"mailto:andriy=
-.shevchenko@intel.com">andriy.shevchenko@intel.com</a>&gt; wrote:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">On Fri, Apr 17, 2026 at 0=
-3:44:57PM +0530, Prasaanth wrote:<br>
-&gt; Fix alignment of multiline arguments in write_reg() call to<br>
-&gt; match kernel coding style<br>
-&gt; <br>
-&gt; Reported by <a href=3D"http://checkpatch.pl" rel=3D"noreferrer" target=
-=3D"_blank">checkpatch.pl</a><br>
-<br>
-NAK. Use a common sense.<br>
-<br>
--- <br>
-With Best Regards,<br>
-Andy Shevchenko<br>
-<br>
-<br>
-</blockquote></div>
-
---000000000000b0511f064fa6490d--
