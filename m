@@ -4,109 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E99BF43699
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 12:21:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03288F43699
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 12:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9158C10E2A5;
-	Fri, 17 Apr 2026 12:21:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE5F10E2AC;
+	Fri, 17 Apr 2026 12:27:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qpea8p9e";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q06A8yiT";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A62E10E2A5
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:21:21 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-2d99367957eso26941eec.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 05:21:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776428480; cv=none;
- d=google.com; s=arc-20240605;
- b=XkSSnUNk5gaIs7SuyLDMuVAAw85IF3SeZlVpGP1MjVUvNGsi0w74zNVHqAlIlxLVYX
- 66MCwbGRJ56Byb61gF7Qv0MQwvbgGy/eWD+LH8dWaVf5+vruCT3dUnzV7H4pn0xG4IhQ
- K9aUEJmG594lYVMKUP3SyYzrZI/j5emUDmJhs+lCLWwp4WeLZFdg7o/oYtTjwk2uyIov
- 6L92YrcIdVc7P3J2CItPrFiaHSIYZHyWPSA3xL/fF52Feo44A39MjB36rJ60w56KdJZe
- n8MGTsWxh04vLj8e1QUiQg0yU+xPQgBJuCG04pds4xx2R/ku/WmHwKOE/tV0MZEBoCHK
- zUww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=rl+p+AaNveQQn7NLxvMrIdc/G5AP3TAJtJkZcc0GLPE=;
- fh=zHNEIBZYGV5eEYeFvwCMFR9yTv8xvVDJJJvu4lQgOsE=;
- b=OtiKhT/p2d6fSKTzO2KX7NQ/fGJSQGdMjsXaKAEZ90GUi1zrM+EDoPh7mz0d7TVPha
- rbdV054ExAmTuBMIa4K9/pW5sTzVwIvq7x5/KyklDAG8UlHYaZoLg/FOX+9mb/awrAo5
- tADZkoHoheCssGy9kSC90EC57vNDNG22krrdnr8V2uG9eB7tJ3cTr7SERtOzS9GAi/30
- m0pGPybR6bSwCw1UBGFaOCdYYPFM6y43955pY8Zc1paroPjy3ZO7DoHKsYtO6T58a1Fb
- Un431ZO4NTx9NYX9iM1ltMIstxDNrJOJEPH1SNhz1x9/ifa4ArQdEv7as5l+ezZiPQ8y
- 4Cdg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4A0410E2AC
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:27:38 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-35fc258aaa4so407847a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 05:27:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776428480; x=1777033280; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rl+p+AaNveQQn7NLxvMrIdc/G5AP3TAJtJkZcc0GLPE=;
- b=Qpea8p9eRO0ySI8hqD+abD1pqyzTWhN/JxXU7cg4uF/Q+VnAMzLtGUBSn022SXIhuI
- EqTIDw/vaf7+Bs7u10wFB7MDWAh0pp88TV3nlUsw9wRU1JtUpIgxMW1sBqPPC6+IQxPt
- BQh+kEKOYj/zoyfTjOHu0T6D8R8rPSY2S9KBNq9Yr5+59rUTl8ESHj0Y1Du2cpmXKZ9i
- 3F7MX/TMeFDhZ70v17lg3aU5Z2rR1prfJv+BI3DA0YRojX3do+8oS15UZWAAzKx81Mcj
- xAScND8wmQn1pRWFRZCTif/GGV7fB0bbVXUEdWJuTbLvbtWRPtH4ckW4wkdsvdXtkV9m
- oWBQ==
+ d=gmail.com; s=20251104; t=1776428858; x=1777033658; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7B1zAJzyc2aJm8FtQJrwknWWRUXny98vqjyGldOGID0=;
+ b=Q06A8yiTes/eOpGlKOZxtoujbTrGpzE+EPmk2j+t3XOKHGBLPQoz4KMpxtruc4h2pA
+ FxRmoNN/xR7YgLHbg3H5vuA7MnWS3o49m3V7WwPQy0OD7WTSiJ0XAoeeyC43N5eSfgQ7
+ VGv05wlzebGPOxaeP/TCmUVtxysC1RJzHiMlAhinx6LSp0Cj1PniGeZbjKzCZzVFAIUR
+ aibiNZiXB4zrAsKEST7QsZXmsQN1nY7Iz1dxpfiTq/q7Lb8GGzRARlPR6di6ATyrjeye
+ 1GAyuRdF4T4i39HbXFHerdESdoOqEYuDXj3jxx95vSFHF5PaRdMH+TLPfuiND4y6eADC
+ 57fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776428480; x=1777033280;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rl+p+AaNveQQn7NLxvMrIdc/G5AP3TAJtJkZcc0GLPE=;
- b=jxEbhn64193z9iUZasIlqWzhTcbD9nu+uszGS9PLw7Ul6TfFAKjdaBUAXU8yxYFOgX
- JrC4v0Xr78eYQo0lN/BEtVSPdB/PTP1yI7aKVbduTTwn0rkOIH4gnmgpJvXjOzJ52SlN
- mN4V1telxjvLeShB3r2iXa5Av4B1IQbYDmKB0kjUJa+tizBRzUlRCtd0sd+2tVANtBGg
- fGNJX3Nvsykw7/URFy6gafB+vfTB4X21+uiaU84eIEKWoZ0pov28uF5QraVlIOq+NM/s
- B5xly7qMP9SrRFsL2jRyw6kJaOXhrpiEk4cop6DhbVm99SrrFzy0/ITFDnJCEoaqw4qy
- aPSg==
+ d=1e100.net; s=20251104; t=1776428858; x=1777033658;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7B1zAJzyc2aJm8FtQJrwknWWRUXny98vqjyGldOGID0=;
+ b=TwesPr59uiCSgaNriAEwaDuk4TguQQEovwuOHDogbjWzoZC9v04dkfFOKH08c2qUF7
+ kV73YhnYg9SgVW1Hh+0T7zxf4hrUmGmEPXzM9KSIhslFzVgcvjzP9UlhFTZVXSCBHLAA
+ 3bD390DFeLMYEWp3VUQ2an0axwYA91NWVXjlPYqs5i6dD2qYZwC6eX/8lyj0HNpHeEs8
+ KSJ2y+1lrsdapq3kqXP6I+jwrtYfrL1RFPtdYJRAecmt6F4FnJLW3WDhASAzSog8lK/5
+ MY/J+qhVidQZte52D7YkhgprkuQaJ2YlrBjo0SqltQVtj2NAdF8sELDhAxLFrMiWr3zL
+ PuAg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/sAjmhDI6/JWuWjaSDQjCDu0f9rp4NiSlVqK0rp5hdcECCy/Vj+rFXwkPRtF3tff7Exxnb4Buf6Fc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwY6Nnn5soxkWnjxZSeNRzg2ODIsp2Ywp24DlV6mlmY0xO+oEae
- xJvX6k+FfZK/vr6kPSoi+slQ97B30h9AuJsrvSArKUiCanxGAEmNhKw8QilbXvynNsNIIyAOQd8
- boCYJBTvKbRVMSteHZXu8Y6vBADycrVk=
-X-Gm-Gg: AeBDievhEO03yiNBCuhK128Y6xtaqEidKYRXj7VpziP6ZU3vUhLyuX+wnvkFpxtdf11
- Kow5YASaawq+jnZkHvt1O2NzQsEj3Iv8NpH67hXDDDR1yqtS23Gkuz6Oq9GNh1J2/H2jOkSn6oC
- ko40fiu3lGnsmBE0BQ1wjmOsiKBYLpe/gTszvK1vomcmfgbs3UtNNl4H5RE6PNzsnf2TXWkA/eI
- DukakMF/kNQkdDwDX3+jiIjJ3oE0NxUHBhj95BeeW9nkalyurw4KuTWNtEVvhta6+dyV0Gyb6o6
- 6xfLGYe4NTsWDfshCyUTTF/6cfhuskGPWPZMRHqfey7+sLD6qpkfqwCSeQT2W6TiBlEEUn+H3IN
- 8393XO/j3Nl5AA5dABFwJG8Ob4wGkV022jQ==
-X-Received: by 2002:a05:7300:d70b:b0:2d4:62f0:b2e1 with SMTP id
- 5a478bee46e88-2e452bb2b57mr527795eec.0.1776428480348; Fri, 17 Apr 2026
- 05:21:20 -0700 (PDT)
+ AFNElJ+sHLG8hVdj3HTipxffd4W0xwXrqtXNCRWNZ7vf9W9aPrhK49sWeCMY+2I1HUa8q+ao3NDLhPj4FdY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz2Dw4V3LoogjkMKGZjUPFkDjJWEmvLQf3J25UiTZu6xwfgQeNP
+ 9cr8pT5mAZ7Lm1I74SW7Oi9ZiKg6u/qYUJoRQMmGpUHDyRDTLEPY5HEfejaeMSCC
+X-Gm-Gg: AeBDievoLHveJ7x28tKaCCgru/tJ0EczYHS0MNl3EDNI5dmGGXVp1gN8tOs9a7Yd2w5
+ Owd6WV6sGARfX8KR20ngVB0DCrpoCHvUY0vXCI4HeIP7/64WmhqthQH7sya5WPRwasgyqoVN6eI
+ wQls89pQ1E3KnBCquqs59MMfXvDI6XvU/IjDFuDDHgl/4w7W4c/PgcHkNLf99b9xmbol701uU9w
+ 3Tq1sbi5B1k/QgCYs1ItAerwt1shW9fKtpBxux3zvQFhjQvESrTWKlYLldo8OIf0NdGXTqEaj+d
+ Z7DKdbhCujpZq6lKaCVfCAiD7VVvtM/XUfe/btipZ8BhfpjCZv9y3vDnQVVGlvarMsO+QYoUbL/
+ jC9Awq3elJeZxzMhB6H/cM1PhXsXvq/eIKgRE1rOmMrAHWVGas3A7fZOKq25Wye6vQQSDpanLuw
+ I/rqeuAhvxd5HBcM1ZifUbpkMHxTu9T2b9DJEy/Y39g1qhnZLn8mrOQw==
+X-Received: by 2002:a17:90b:1e0b:b0:35d:a542:2dcb with SMTP id
+ 98e67ed59e1d1-3614048a731mr2630632a91.16.1776428858176; 
+ Fri, 17 Apr 2026 05:27:38 -0700 (PDT)
+Received: from dbc5pt3-os.ban-spse ([165.204.156.251])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-361410cc196sm2074491a91.17.2026.04.17.05.27.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2026 05:27:37 -0700 (PDT)
+From: sai madhu <suryasaimadhu369@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ sai madhu <suryasaimadhu369@gmail.com>
+Subject: [PATCH v2] drm/mediatek: hdmi: Convert DRM_ERROR() to drm_err()
+Date: Fri, 17 Apr 2026 12:27:26 +0000
+Message-Id: <20260417122726.2948518-1-suryasaimadhu369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260409-bitfield-v2-0-23ac400071cb@nvidia.com>
- <798e83e6-eb7b-4502-85e7-5a0f6d9c6281@nvidia.com>
- <DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org>
- <CANiq72k0FXcekxs=E+xLe3=wyu+KHr4yM0wLj1VgtgTUb_K4MQ@mail.gmail.com>
- <DHVEWDBHYKQF.XBXZ704CMXCF@kernel.org>
-In-Reply-To: <DHVEWDBHYKQF.XBXZ704CMXCF@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 17 Apr 2026 14:21:08 +0200
-X-Gm-Features: AQROBzBxmAoyKatwLVEj-ovr7OXihWaqmDt3TqAdX7jALMUhbTGV97pdxOBe1oM
-Message-ID: <CANiq72mNP4J_czVo25d1yRdWxBNFKaT9OPOC7k5EDzZ9YmdEww@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] rust: add `bitfield!` macro
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>,
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, 
- Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,18 +88,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 2:00=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> This all builds on the assumption that we don't have a process in place t=
-hat
-> covers this.
+The DRM_ERROR() macro is deprecated in favor of drm_err() which
+provides device-specific logging.
 
-It builds on what happens today. From what I saw, Mark merges
-`drm-rust-next`, which is why I mentioned it, i.e. to help prevent
-something unexpected around `linux-next`.
+Replace DRM_ERROR() with drm_err() in the Mediatek HDMI bridge
+driver and pass the drm_device pointer via bridge->dev.
 
-If the branches going into `linux-next` change, then great!
+No functional change intended.
 
-Cheers,
-Miguel
+Signed-off-by: sai madhu <suryasaimadhu369@gmail.com>
+---
+ drivers/gpu/drm/mediatek/mtk_hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+index 1ea259854780..4ddcdbf7bc8c 100644
+--- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
++++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
+@@ -981,8 +981,8 @@ static int mtk_hdmi_bridge_attach(struct drm_bridge *bridge,
+ 	int ret;
+ 
+ 	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
+-		DRM_ERROR("%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n",
+-			  __func__);
++		drm_err(bridge->dev,
++			"DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n");
+ 		return -EINVAL;
+ 	}
+ 
+-- 
+2.34.1
+
