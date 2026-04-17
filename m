@@ -4,42 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDA9AF8E4B7
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 08:02:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3902F433DE
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 08:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6243210E98A;
-	Fri, 17 Apr 2026 08:02:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0216210E29B;
+	Fri, 17 Apr 2026 08:19:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="cz0N/xDc";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oIwRTj+C";
 	dkim-atps=neutral
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch
- [79.135.106.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96EFB10E98A
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 08:02:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1776412959; x=1776672159;
- bh=oZT21xVms6KRsm9WahXjn1zVvI7GSjc+hC4hDo4rYG0=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=cz0N/xDcE5bEdLBrH3t0c5Q77t6NmO37lu0wFY9o24NbWwvmB5WHqLRq5NenQKGu5
- lgvSYHzGHP6O1HPvoeJD2s4XoqKXRNe8mzjeawx3ZJRn/Gpv3LHffPoJYgqVYaephR
- I4bEoAcIN+q96bIa3sPmGEpb0TAddnQWy9KQcUxaRJ+ptMz/ClK4qdQcl6rlvnXr9J
- EKNC9vCceNtuf0C7G3Ry//qCgLR37N1BuMEP9ur3xgP0t2h9g22TA/FTZDHXPWcZmV
- 4/QY021mEAaMvoPBgoSPx13JXLZuhKJjUq0tnPhvIB/TcCFv37hx510N5IfE6HaR7A
- lfQSkg56D7J0A==
-X-Pm-Submission-Id: 4fxnRc60pJz2ScNh
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Boqun Feng <boqun@kernel.org>
-Cc: dakr@kernel.org, aliceryhl@google.com, daniel.almeida@collabora.com,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] drm/tyr: implement GPU reset API
-Date: Fri, 17 Apr 2026 11:02:32 +0300
-Message-ID: <20260417080234.111992-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <aeEuZKgnvaz2Y6WO@tardis.local>
-References: <20260416171728.205141-1-work@onurozkan.dev>
- <20260416172347.209317-1-work@onurozkan.dev> <aeEuZKgnvaz2Y6WO@tardis.local>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B71D910E29B
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 08:19:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1776413981;
+ bh=p8Qg+u7FXG0U0+sR4wmac5rL1X0J1pM2yQmUYCZGfYc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=oIwRTj+C05g60wAK4lGlTo4FwzwqBL34l9tikxRCCS5tpctXHj4t81l98lxQUTEyb
+ LcqhkMJA7eIozkBfVICmdmwqjBD2Kj2+0ajvuBBJpp0VflT/BVBj5KeQHS1S+ekY2g
+ qAXy6ot59t/g5GPtS9EKYgsZUEU857PDpALn+wRBp7qm34qMmczGXyPMG8y33NwQwT
+ +ZNypPuJkpD9sTjEkWfaalUYaFirg0H8idsimai9IUp8n9BrvU/aTrHkTli2+3LuyE
+ 28knU9zOihbSidn7goZk7HY7AnvRbHMchFlR7iEVz/FgfbfEBZuvHn42EsOeEDKuf1
+ DSHjozriGX2eg==
+Received: from fedora (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9AE0117E10A4;
+ Fri, 17 Apr 2026 10:19:40 +0200 (CEST)
+Date: Fri, 17 Apr 2026 10:19:34 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, Steven
+ Price <steven.price@arm.com>, kernel@collabora.com, Liviu Dudau
+ <liviu.dudau@arm.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>
+Subject: Re: [PATCH v7 5/6] drm/panthor: Support sparse mappings
+Message-ID: <20260417101934.7320f562@fedora>
+In-Reply-To: <aeEpRJhu2b3UWbCs@sobremesa>
+References: <20260415112900.681834-1-adrian.larumbe@collabora.com>
+ <20260415112900.681834-6-adrian.larumbe@collabora.com>
+ <20260415171247.3701e116@fedora> <aeEpRJhu2b3UWbCs@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
@@ -58,115 +69,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 16 Apr 2026 11:45:56 -0700=0D
-Boqun Feng <boqun@kernel.org> wrote:=0D
-=0D
-> On Thu, Apr 16, 2026 at 08:23:45PM +0300, Onur =C3=96zkan wrote:=0D
-> > On Thu, 16 Apr 2026 20:17:26 +0300=0D
-> > Onur =C3=96zkan <work@onurozkan.dev> wrote:=0D
-> > =0D
-> > > This series adds GPU reset handling support for Tyr in a new module=0D
-> > > drivers/gpu/drm/tyr/driver.rs which encapsulates the low-level reset=
-=0D
-> > > controller internals and exposes a ResetHandle API to the driver.=0D
-> > > =0D
-> > > This series is based on Alice's "Creation of workqueues in Rust" [1]=
-=0D
-> > > series.=0D
-> > > =0D
-> > > Changes since v1:=0D
-> > >   - Removed OrderedQueue and using Alice's workqueue implementation [=
-1] instead.=0D
-> > >   - Added Resettable trait with pre_reset and post_reset hooks to be =
-implemented by=0D
-> > >     reset-managed hardwares.=0D
-> > >   - Added SRCU abstraction and used it to synchronize the reset work =
-and hardware access.=0D
-> > > =0D
-> > > 3 important points:=0D
-> > >   - There is no hardware using this API yet.=0D
-> > >   - On post_reset() failure, we don't do anything for now. We should =
-unplug the GPU (that's=0D
-> > >     what Panthor does) but we don't have the infrastructure for that =
-yet (see [2]).=0D
-> > >   - In schedule(), similar to panthor_device_schedule_reset(), we sho=
-uld have a PM check=0D
-> > >     but similar to the note above, we don't have the infrastructure f=
-or that yet.=0D
-> > > =0D
-> > > Link: https://lore.kernel.org/all/20260312-create-workqueue-v4-0-ea39=
-c351c38f@google.com/ [1]=0D
-> > > Link: https://gitlab.freedesktop.org/panfrost/linux/-/work_items/29#n=
-ote_3391826 [2]=0D
-> > > Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28=0D
-> > > =0D
-> > > Onur =C3=96zkan (4):=0D
-> > >   rust: add SRCU abstraction=0D
-> > >   MAINTAINERS: add Rust SRCU files to SRCU entry=0D
-> > >   rust: add Work::disable_sync=0D
-> > >   drm/tyr: add reset management API=0D
-> > > =0D
-> > >  MAINTAINERS                          |   3 +=0D
-> > >  drivers/gpu/drm/tyr/driver.rs        |  40 +---=0D
-> > >  drivers/gpu/drm/tyr/reset.rs         | 293 +++++++++++++++++++++++++=
-++=0D
-> > >  drivers/gpu/drm/tyr/reset/hw_gate.rs | 155 ++++++++++++++=0D
-> > >  drivers/gpu/drm/tyr/tyr.rs           |   1 +=0D
-> > >  rust/helpers/helpers.c               |   1 +=0D
-> > >  rust/helpers/srcu.c                  |  18 ++=0D
-> > >  rust/kernel/sync.rs                  |   2 +=0D
-> > >  rust/kernel/sync/srcu.rs             | 109 ++++++++++=0D
-> > >  rust/kernel/workqueue/mod.rs         |  15 ++=0D
-> > >  10 files changed, 607 insertions(+), 30 deletions(-)=0D
-> > >  create mode 100644 drivers/gpu/drm/tyr/reset.rs=0D
-> > >  create mode 100644 drivers/gpu/drm/tyr/reset/hw_gate.rs=0D
-> > >  create mode 100644 rust/helpers/srcu.c=0D
-> > >  create mode 100644 rust/kernel/sync/srcu.rs=0D
-> > > =0D
-> > > -- =0D
-> > > 2.51.2=0D
-> > > =0D
-> > =0D
-> > I messed up when sending the series (part of it was sent as a separate =
-series=0D
-> > [1]. I will resend this properly, sorry for the noise.=0D
-> > =0D
-> =0D
-> FWIW, I didn't receive your patch #3 (even from my subscription on=0D
-> rust-for-linux list).=0D
-> =0D
-=0D
-Interesting, it's actually sent to rust-for-linux list [1]. But yeah, I tot=
-ally=0D
-messed up with sending this series...=0D
-=0D
-[1]: https://lore.kernel.org/all/20260416171728.205141-2-work@onurozkan.dev=
-/=0D
-=0D
-> Could you add a doc test for disable_sync(), I'm curious about it=0D
-> because you may disable a work that has not be executed yet, and=0D
-> wouldn't that be leaking memory (IIUC, we rely on Arc::drop() in=0D
-> WorkItemPointer::run() to decrease the refcounts), but maybe I'm missing=
-=0D
-> something subtle.=0D
-=0D
-I was expecting the C call to handle the teardown properly over the pointer=
- but=0D
-I wasn't aware about the Rust side internals on the workqueue abstraction. =
-I=0D
-will check that in more detail during next week and I will definitely add t=
-he=0D
-test on v3.=0D
-=0D
-Thanks,=0D
-Onur=0D
-=0D
-> =0D
-> Regards,=0D
-> Boqun=0D
-> =0D
-> > [1]: https://lore.kernel.org/all/20260416171728.205141-1-work@onurozkan=
-.dev/=0D
-> > =0D
-> > -Onur=0D
-> > =0D
+On Thu, 16 Apr 2026 19:25:01 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+
+> > > +/**
+> > > + * panthor_dummy_bo_create() - Create a Panthor BO meant to back spa=
+rse bindings.
+> > > + * @ptdev: Device.
+> > > + *
+> > > + * Return: A valid pointer in case of success, an ERR_PTR() otherwis=
+e.
+> > > + */
+> > > +struct panthor_gem_object *
+> > > +panthor_dummy_bo_create(struct panthor_device *ptdev)
+> > > +{
+> > > +	u32 dummy_flags =3D DRM_PANTHOR_BO_NO_MMAP;
+> > > +	struct panthor_gem_object *bo;
+> > > +	struct page **pages;
+> > > +
+> > > +	bo =3D panthor_gem_create(&ptdev->base, SZ_2M, dummy_flags, NULL, 0=
+);
+> > > +	if (IS_ERR_OR_NULL(bo))
+> > > +		return bo;
+> > > +
+> > > +	pages =3D drm_gem_get_pages(&bo->base); =20
+> >
+> > Why not use panthor_gem_backing_get_pages_locked() here? Also,
+> > drm_gem_get_pages() doesn't give any guarantee that you'll get a huge
+> > page, nor can you guarantee that the 2M won't be reclaimed and later
+> > on be re-allocated as 4k chunks. I'd probably keep things simple for
+> > now, and
+> >
+> > - keep it a 2M GEM object
+> > - force the page allocation at map time, just like we do for regular BO=
+s =20
+>=20
+> On a second thought, if I force page allocation at map time, then there's=
+ no need to wait
+> until a sparse vm_bind operation to create the dummy BO. I can just do it=
+ at VM creation time
+> and then let the vm_bind ioctl path allocate the pages.
+
+Yep, you can do that, indeed.
+
