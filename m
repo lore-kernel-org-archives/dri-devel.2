@@ -4,111 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77CDCF99C63
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD42F99C6B
 	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D91A510EAB9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3405910EAB6;
 	Fri, 17 Apr 2026 21:55:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ldGg/dju";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="aXaqUJuV";
 	dkim-atps=neutral
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
- [74.125.224.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A32D610E2B7
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:36:24 +0000 (UTC)
-Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-652fcd5a6d7so779825d50.2
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 05:36:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776429384; cv=none;
- d=google.com; s=arc-20240605;
- b=ZKAec1AOwCktlyFZBBqT8EZt7JvEwNB9JgikTZme+JnJYBS8XURjJR1r9cPnvUxNSB
- NyjUnQLT/NiIrV7dWAMViDriPPyuwU9MDLskm4TCyCLkax6mrcgsioX/b3z6tXIvM3nl
- VjvfyzGEh5r7cF1dm/O4BgZ7bheS0yJ+0HYOiXjPeES9sflHz+FXqmajoRlckegqzQf6
- ladKa2EHWx7uHzXkbdg6jZ9nnqfNFUrc1yVKS40O9yqqwphDZQZQoar3i7lW2NgidHBs
- 5HVaXUvGPZUoo51Qh7KrPZNJyeAQMyH+7X9qs4IOnoq9JpC/4jkBGqpaxtILZQaQPxLt
- T3hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=AvWeNtsSDCdBx/HW9jVIkg9xCkQ+v+rgtbFwy9bAGkw=;
- fh=8Pj442Hqz/hz7ubKBTeSBiH1+nVF8VrBZOfKktBdg2I=;
- b=d9WYZHdAz87aMuXFZl54qpfecBXE3sln+eWHzaOWNMHDiB+c8/3jaMOpznRSsNoBqq
- 2auzytFc4S86UPB59QgOoOpsh1p2F8FzClt1KlkWhxthkEUotQG2hW/W61MLRpFQn2v/
- amSs5aZn4Nk61jdiOQtMlpNOnyiRnhpX2wug2p+dNx3W2+Kk/rR8N75H2sPbmcWtazBG
- o6m9WLobWvC8u2yGsUepe2NkNVQbXoy5lu6Ajfn8V3ctZuWNWZwiGLWCtLBhN7jvCT84
- mI/MyZY1wC9FHWexTKPCuSSoPEZe4amKDPCSRw89eYqmaneq7Et0J5jPASAv1Ol7DEaP
- gfrQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABF5310E9A0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:09:12 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-2d891442388so803836eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 02:09:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776429384; x=1777034184; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AvWeNtsSDCdBx/HW9jVIkg9xCkQ+v+rgtbFwy9bAGkw=;
- b=ldGg/djuAjFeOJ8sMSIYFdGQOHvTAvgb4jnEE59MdZfT/2RegS0DvfaDkNLkjqWxDJ
- tRSSg4mxMq/gCcMHeHnQteyWwBkdw4KKofH1zF5UWvW9l8Mv+EOYkfR4N/a9dH9sBALr
- JEKrbwHR+d0dTLqpcQDBf4154Nj42iqAlXMSu56F6FWMbCUSnNx7E9IO5ylIIGI5ORIX
- P2Gf8VQj5VBtUKL8vaqBTFQ42lBhSBYeyTkiCKHacFg4Tte/yIdCMNnne8dran8ow6Ej
- X/utTQMrYz5rxPq/ArnsVjwj9wgQgcDrTYz9QPSZNQTz+0BaT4KrFm/HxVzOuGR6pe8f
- kgCw==
+ d=usp.br; s=usp-google; t=1776416952; x=1777021752; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=C2wKA1yVcMsJu1M0EUhRteBa/Co3QmXF+nojHfyR9YE=;
+ b=aXaqUJuVYKcooJk+BD3Q8S4usDBX3oE3CCJbFcmZRteQZv+t6psF6zCkAG8DMamaD+
+ CYE/KdWTl9tVR2KPj7eixSR0wHq18glSca+ZJSR0YjOvk56zZyzHVxxroLTYayzkHoF3
+ 91DuhzlhWsRLaJvEZdltjmy+gBpSmydyU8KMdApJnK5F5Cgjppum7Tsdzd6lb3nKdQRh
+ WiLfV9h+4kqzb8583qQEgh1jdF5e/6uRJwZjE2uah9KAfAKv8B/UqpU7VtAMhBmboV2i
+ fisLo2qHXjtlvfUEQwjXc9KcBAwnnJYN5nHMA5qCm9yOOGVQHVoooxj81FzlVcKjW2wo
+ b4Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776429384; x=1777034184;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=AvWeNtsSDCdBx/HW9jVIkg9xCkQ+v+rgtbFwy9bAGkw=;
- b=ZYddwgNclJVFfe7AuECtKPUebgi6Mdp1CdAJlPTchXL5DDGaewcjVWLTfgoYOJPP80
- GFO83dS0lHjuxC/EoS7t7DpJxQCB/WVe/MAtJJSWj/Sa629cqRyHFjMPgA95PB2J6w+R
- TYmuALtGD5VshSBGDo2wtuuxmspnJR+grgtcY4KAx0BDaAkHAKzKXxUGKY3yEJsm8+yT
- bNudLMNRwO5CERVJBGLRvQobJM18w0bExu86/QzSJoD+dyl4DYGSVJr1Hc0ZkfkRE9Ko
- Brok0IL/+QWeiezFoxs5qoUxQ9/wbeQih06Ss1MmuQE3du9co3KQEow3TwddyCierRsE
- BdgQ==
+ d=1e100.net; s=20251104; t=1776416952; x=1777021752;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=C2wKA1yVcMsJu1M0EUhRteBa/Co3QmXF+nojHfyR9YE=;
+ b=H2yFtElGx9dw33yN3sqyAG5QtAvjEq+E/yE4HJao3s7/cAMKz6VAbvfXHz3ZsUAyKJ
+ Wp128m0LMRqHGYcTF+eZApcwNJDng8i/C4IbDJpPpvUFlxxhEXB4Su50n4EAjsnizhdi
+ ZjsiLPo/VWCr2tA+FGFDFifcfkyzd3oMQSLNMPcInQEkCH8ZLzn3CvQh2XB+ttEIT8ab
+ 0ylMEYqyt8stcE5YLJ4EUw1e6peXwbfY+EE5heKvg+y+Tc2ylInkg5ElLrvXjzOtcEYh
+ qiWycJqzO/ILUgb4XnSKQ9btCDcRZ+q8ayU1WkPV/bnX/yAqabt3UqXDwNymZAY+dLpM
+ hPMQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/GmgmYRYVcgJWGLFtgOCy5OGNvbm72Abqv59+wNA7LMFWF4zWOqxmgGH3phI6IMKF0LOEklkel0Xg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRBF7ghg8YDg5wQ1gd/Ifv76zO7mz7V/xfkP5dl0/4zXJFAP6N
- gUBPGM/Ei4AryuZbt0JFMqRhlkuskmqiJFhL7MS0EX4jTNuS5t+pPu3HPARe1p3pD1sNioxQTq9
- XnAW3/yoVagb+UxPybfWee8wB+BAwJAA=
-X-Gm-Gg: AeBDietVRGGCC2p4ahOPs1jglhJf7Dn9YILWCod1H5gxriCui8+0xn95muLgdbUwRpB
- S5KE9TSNb1NnwJw3liv8XiBtHytfLsSm5WX7dlWbtVCQg4garM9TwChQq7E/mjgUZbqDioZQWoe
- Nd9QK+eDzgGbRXQ+KgL4/nlosgTKjPDBkG32nJP/4HOnJc/3XW/zDsugbPJHQUUFP7IPdl6N8l5
- 8Wko1CxFH/uCYQb/QMfH6LIETiUhux80L2DSB6pBTxAm7E2gr2DA+lLC7J0KtKVQWRQAMbpVB2t
- rspjBC9AdYelrhihaFZO+xSG78wIWs8BGgkqFE6mihejweLku1cViP/NjvVu/QgpSCEX6Q==
-X-Received: by 2002:a05:690e:155a:20b0:651:ce1e:4e82 with SMTP id
- 956f58d0204a3-653107f8e21mr1891836d50.3.1776429383627; Fri, 17 Apr 2026
- 05:36:23 -0700 (PDT)
+ AFNElJ+X6420F3a23mAXz5ySBg91um8RBEAUFWAkH08AFIHM2f4Id/Jo3yRWaEuamdQNAj52eIaXHbwL1aA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz8rC51Yxbf/VtW2g+2IpAu+BWZsAs34yiXtiv2RQhwaFekznvR
+ jMXBTj30ogCzIfKzsNg3yTjuN/5dlI7vHoi8YtlyZDtcAfrTlPmUwmhJEeDBLzc8m9s=
+X-Gm-Gg: AeBDietpEF7n9Lw9gygZnskCh9BKq61+TTOJIEMd8YicmgGIiKZEpWwT0yTacKjJWnx
+ Gyzn5E11nbqWbPVLIc3UGReBkm/8IJeJYKotwhaHUaeqT5uDQgye3IqcfltKpTALoZj4XByRunh
+ 7v7XmlWSjy0iVnBKIWuhY8nLYYjycitIwNv4KjJIyxtM0Bb3sEpZRtTm82NXYyLFi5XS+hFX4Wg
+ YSa/C2l4RqC+YaY+HIE2gBNNERCNYPtT/3gFaxnf6i4yvPPiUpbHuPnDwpyKyw7wCQ1qd9BlM5j
+ wWhjpVdWUMQsEuYv4mhLl/VVWBs57mxjjvPJjjF8arcUQY2n/m8VIf2C1P/Svw+4an4PZYELzkV
+ QGWeMYQUMRd3lDO5QrIP0KYC/ramlcnQsoXXq2hpHfHxVyONetKHJzT8RBvUdYsh+ESLiYcn2Vm
+ YrEzYU
+X-Received: by 2002:a05:7301:168d:b0:2c5:50fe:c771 with SMTP id
+ 5a478bee46e88-2e47930a618mr949576eec.29.1776416951823; 
+ Fri, 17 Apr 2026 02:09:11 -0700 (PDT)
+Received: from nitro.. ([2804:7f0:bb81:28ee:8f54:2ff9:60b8:deac])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2e53d8b3dd9sm1284328eec.27.2026.04.17.02.09.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2026 02:09:11 -0700 (PDT)
+From: Erick Henrique <erick.am@usp.br>
+X-Google-Original-From: Erick Henrique
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Erick Henrique De Araujo Moreira <erick.am@usp.br>,
+ Lais Alves Da Costa <laisalvesc@usp.br>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Deduplicate eop_irq v11/v12 functions to use
+ helper
+Date: Fri, 17 Apr 2026 06:07:52 -0300
+Message-ID: <20260417090841.6190-1-erick.am@usp.br>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
- <CAHijbEXcrhB=ipaa4-DPD8atQYCkokGfueLafwkeQpxCBkc0bw@mail.gmail.com>
- <7472926.DvuYhMxLoT@workhorse>
- <CAHijbEViae+=Fcnh3v0ODxwTPUaRgU1H4OVGM3VFPSLMPzJzOA@mail.gmail.com>
- <1297f150-b3b4-4a53-ad05-ecb05b8ec420@mailbox.org>
- <aeISNnh6IWGA7P8C@intel.com>
-In-Reply-To: <aeISNnh6IWGA7P8C@intel.com>
-From: Julian Orth <ju.orth@gmail.com>
-Date: Fri, 17 Apr 2026 14:36:11 +0200
-X-Gm-Features: AQROBzBsykWATxp_4Dhlwvae7E_j9sX8dyoeCleqlXrVYqQjj3mph9sqNlqrjKY
-Message-ID: <CAHijbEW7ZUSAf4HWBGnzC5fOYT9cbQNPNkzL3rL5w8k_-bME3w@mail.gmail.com>
-Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
- user-space
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniel.stone@collabora.com>,
- Ian Forbes <ian.forbes@broadcom.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel@collabora.com, 
- wayland-devel@lists.freedesktop.org, Marius Vlad <marius.vlad@collabora.com>, 
- Imre Deak <imre.deak@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 17 Apr 2026 21:55:06 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -125,136 +91,233 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 12:58=E2=80=AFPM Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> On Fri, Apr 17, 2026 at 09:49:36AM +0200, Michel D=C3=A4nzer wrote:
-> > On 4/16/26 15:16, Julian Orth wrote:
-> > > On Thu, Apr 16, 2026 at 9:46=E2=80=AFAM Nicolas Frattaroli
-> > > <nicolas.frattaroli@collabora.com> wrote:
-> > >> On Wednesday, 15 April 2026 20:57:53 Central European Summer Time Ju=
-lian Orth wrote:
-> > >>> On Wed, Apr 15, 2026 at 8:19=E2=80=AFPM Nicolas Frattaroli
-> > >>> <nicolas.frattaroli@collabora.com> wrote:
-> > >>>>
-> > >>>> This series addresses a shortcoming whereby a hot plug event is se=
-nt
-> > >>>> without it being passed the actual connector that caused it. This =
-takes
-> > >>>> into consideration both the polling path and the HPD (Hot Plug Det=
-ect)
-> > >>>> path. It also adds support for the vkms driver (using ConfigFS) fo=
-r
-> > >>>> propagating the connector ID when changing the connector's status.
-> > >>>>
-> > >>>> The motivation is that user-space applications such as Weston woul=
-d
-> > >>>> previously receive non-connector-specific hotplug events, and then=
- have
-> > >>>> to figure out themselves which connector needs to have a modeset
-> > >>>> executed on. This notably did not work when the hotplug events cam=
-e in
-> > >>>> too fast, resulting in Weston missing an on-off-on transition of a
-> > >>>> connector, seeing that its state was unchanged from "on" so can't =
-be the
-> > >>>> one that was hotplugged, and skipping reinitialising it as it look=
-s
-> > >>>> through the other connectors that could've caused it.
-> > >>>
-> > >>> Have you considered adding a u64 serial number as a DRM connector
-> > >>> property that is incremented every time the connector changes in so=
-me
-> > >>> way? Userspace could then check this serial number to see if the
-> > >>> connector has changed since the last time it queried the serial
-> > >>> number.
-> > >>
-> > >> The connector internally already has an epoch_counter member which
-> > >> could be used for this. However, for the particular thing this
-> > >> series fixes, I don't think exposing it through the uAPI is necessar=
-y
-> > >> or desirable. Sending hotplug events specific to the connector does
-> > >> not need any additional handling on the userspace side as long as it
-> > >> already listens to the per-connector hotplug events in order to
-> > >> avoid the pitfall described in the cover letter.
-> > >
-> > > I currently do not handle per-connector hotplug events. Instead,
-> > > whenever I get a UDEV change event for a device, I re-fetch the entir=
-e
-> > > kernel state for the device. That is
-> > >
-> > > - DRM_IOCTL_MODE_GETRESOURCES
-> > > - DRM_IOCTL_MODE_OBJ_GETPROPERTIES for each connector, crtc, plane
-> > > - DRM_IOCTL_MODE_GETCONNECTOR for each connector
-> > > - DRM_IOCTL_MODE_GETPROPERTY for each connector property
-> > > - DRM_IOCTL_MODE_GETPROPBLOB for the EDID
-> > >
-> > > Once I have the new state, I compare it against the desired composito=
-r
-> > > state and perform a modeset if necessary.
-> >
-> > mutter is doing something similar as well.
-> >
-> >
-> > Note that some are arguing a modeset is always required after a hotplug=
- event, even if the state hasn't changed.
-> >
-> > The most convincing argument I've seen is the scenario of a GPU reset, =
-after which a modeset is required to light up the displays again.
->
-> GPU reset should relight the display on its own really. That's what
-> i915 does, albeit somewhat badly at the moment.
->
-> > A hotplug event seems the only mechanism available for the kernel to re=
-quest a modeset from the compositor. (The kernel may not be able to reliabl=
-y do the modeset on its own, e.g. due to interactions with user-space atomi=
-c commits)
->
-> There's nothing preventing the kernel from doing extra atomic
-> commits whenever it wants. But if you want to punt the thing to
-> userspace then the kernel must set the link-status property to
-> bad, and then fire the hotplug uevent.
->
-> > If this "modeset required after hotplug event" rule is confirmed, it me=
-ans that after a hotplug event without connector ID, the compositor must do=
- a modeset for all connectors.
->
-> Only for connectors where things changed, or the link-status shows bad.
->
-> >
-> >
-> > P.S. https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/14420#=
-note_2984697 even argued that two modesets are required after a hotplug eve=
-nt, one which turns things off and another one which turns them on again. I=
- don't agree with that though, a single modeset should suffice.
->
-> The actual argument is that you should not defer the hotplug
-> handling when things get disconnected, mainly because of crap type-c
-> firmware.
->
-> I think the userspace behaviour there was that you get a disconnected,
-> defer processing it, and then you get a reconnect, and then decide that
-> nothing actually changed and a modeset is not needed after all. That is
-> not correct IMO. Clearly a ->disconnect->reconnect should count as a
-> change in the connector's state, and a full modeset is thus required.
-> The kernel can of course then decide that the full modeset is not
-> actually required and skip the modeset part during the commit. But
-> userspace cannot make that determination.
->
-> I suppose what we could maybe do there to force userspace's hand is set
-> the link-status to bad already when the thing gets disconnected, and keep
-> it like that until a full disable+re-enable cycle has been done. Then
-> userspace could not think that the ->disconnect->reconnect is a NOP
-> (which I still think is incorrect behaviour).
+From: Erick Henrique De Araujo Moreira <erick.am@usp.br>
 
-I don't think the kernel can make the assumption that userspace sees
-any udev events. For example, say such a disconnect/reconnect cycle
-happens that leaves the connector in a state that would require two
-modeset. Nobody acts on these modesets and some time later the
-compositor starts. Obviously the compositor is not going to receive
-any udev events for the disconnect/reconnect cycle that happened long
-ago. This would leave the connector in a permanently unusable state.
+Identical code implementations to handle the ISR for the EOP signal from the
+graphics and compute engines of AMD GPUS on the gfx_v11_0_eop_irq()
+and gfx_v12_0_eop_irq() functions.
 
->
-> --
-> Ville Syrj=C3=A4l=C3=A4
-> Intel
+Introduce a shared helper amdgpu_gfx_eop_irq() and convert the EOP
+implementations to use it.
+
+This reduces duplication and improves maintainability without
+changing behaviour.
+
+No functional changes intended.
+
+Signed-off-by: Erick Henrique De Araujo Moreira <erick.am@usp.br>
+Co-developed-by: Lais Alves Da Costa <laisalvesc@usp.br>
+Signed-off-by: Lais Alves Da Costa <laisalvesc@usp.br>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 55 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  4 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 48 +--------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 48 +--------------------
+ 4 files changed, 61 insertions(+), 94 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 2956e45c9..3ac7d9305 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_xcp.h"
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_mes.h"
++#include "amdgpu_userq_fence.h"
+ #include "nvd.h"
+ 
+ /* delay 0.1 second to enable gfx off feature */
+@@ -2684,3 +2685,57 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
+ #endif
+ }
+ 
++int amdgpu_gfx_eop_irq(struct amdgpu_device *adev,
++			     struct amdgpu_irq_src *source,
++			     struct amdgpu_iv_entry *entry)
++{
++	u32 doorbell_offset = entry->src_data[0];
++		u8 me_id, pipe_id, queue_id;
++		struct amdgpu_ring *ring;
++		int i;
++
++		DRM_DEBUG("IH: CP EOP\n");
++
++		if (adev->enable_mes && doorbell_offset) {
++			struct xarray *xa = &adev->userq_doorbell_xa;
++			struct amdgpu_usermode_queue *queue;
++			unsigned long flags;
++
++			xa_lock_irqsave(xa, flags);
++			queue = xa_load(xa, doorbell_offset);
++			if (queue)
++				amdgpu_userq_fence_driver_process(queue->fence_drv);
++			xa_unlock_irqrestore(xa, flags);
++		} else {
++			me_id = (entry->ring_id & 0x0c) >> 2;
++			pipe_id = (entry->ring_id & 0x03) >> 0;
++			queue_id = (entry->ring_id & 0x70) >> 4;
++
++			switch (me_id) {
++			case 0:
++				if (pipe_id == 0)
++					amdgpu_fence_process(&adev->gfx.gfx_ring[0]);
++				else
++					amdgpu_fence_process(&adev->gfx.gfx_ring[1]);
++				break;
++			case 1:
++			case 2:
++				for (i = 0; i < adev->gfx.num_compute_rings; i++) {
++					ring = &adev->gfx.compute_ring[i];
++					/* Per-queue interrupt is supported for MEC starting from VI.
++					* The interrupt can only be enabled/disabled per pipe instead
++					* of per queue.
++					*/
++					if ((ring->me == me_id) &&
++						(ring->pipe == pipe_id) &&
++						(ring->queue == queue_id))
++						amdgpu_fence_process(ring);
++				}
++				break;
++			}
++		}
++
++		return 0;
++
++}
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index a0cf0a3b4..a180d1903 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -664,6 +664,10 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 count);
+ void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
+ 
++int amdgpu_gfx_eop_irq(struct amdgpu_device *adev,
++			     struct amdgpu_irq_src *source,
++			     struct amdgpu_iv_entry *entry);
++
+ static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+ {
+ 	switch (mode) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 5097de940..767887d7d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6494,53 +6494,7 @@ static int gfx_v11_0_eop_irq(struct amdgpu_device *adev,
+ 			     struct amdgpu_irq_src *source,
+ 			     struct amdgpu_iv_entry *entry)
+ {
+-	u32 doorbell_offset = entry->src_data[0];
+-	u8 me_id, pipe_id, queue_id;
+-	struct amdgpu_ring *ring;
+-	int i;
+-
+-	DRM_DEBUG("IH: CP EOP\n");
+-
+-	if (adev->enable_mes && doorbell_offset) {
+-		struct amdgpu_usermode_queue *queue;
+-		struct xarray *xa = &adev->userq_doorbell_xa;
+-		unsigned long flags;
+-
+-		xa_lock_irqsave(xa, flags);
+-		queue = xa_load(xa, doorbell_offset);
+-		if (queue)
+-			amdgpu_userq_fence_driver_process(queue->fence_drv);
+-		xa_unlock_irqrestore(xa, flags);
+-	} else {
+-		me_id = (entry->ring_id & 0x0c) >> 2;
+-		pipe_id = (entry->ring_id & 0x03) >> 0;
+-		queue_id = (entry->ring_id & 0x70) >> 4;
+-
+-		switch (me_id) {
+-		case 0:
+-			if (pipe_id == 0)
+-				amdgpu_fence_process(&adev->gfx.gfx_ring[0]);
+-			else
+-				amdgpu_fence_process(&adev->gfx.gfx_ring[1]);
+-			break;
+-		case 1:
+-		case 2:
+-			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+-				ring = &adev->gfx.compute_ring[i];
+-				/* Per-queue interrupt is supported for MEC starting from VI.
+-				 * The interrupt can only be enabled/disabled per pipe instead
+-				 * of per queue.
+-				 */
+-				if ((ring->me == me_id) &&
+-				    (ring->pipe == pipe_id) &&
+-				    (ring->queue == queue_id))
+-					amdgpu_fence_process(ring);
+-			}
+-			break;
+-		}
+-	}
+-
+-	return 0;
++	return amdgpu_gfx_eop_irq(adev, source, entry);
+ }
+ 
+ static int gfx_v11_0_set_priv_reg_fault_state(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 65c33823a..aadebb4d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -4846,53 +4846,7 @@ static int gfx_v12_0_eop_irq(struct amdgpu_device *adev,
+ 			     struct amdgpu_irq_src *source,
+ 			     struct amdgpu_iv_entry *entry)
+ {
+-	u32 doorbell_offset = entry->src_data[0];
+-	u8 me_id, pipe_id, queue_id;
+-	struct amdgpu_ring *ring;
+-	int i;
+-
+-	DRM_DEBUG("IH: CP EOP\n");
+-
+-	if (adev->enable_mes && doorbell_offset) {
+-		struct xarray *xa = &adev->userq_doorbell_xa;
+-		struct amdgpu_usermode_queue *queue;
+-		unsigned long flags;
+-
+-		xa_lock_irqsave(xa, flags);
+-		queue = xa_load(xa, doorbell_offset);
+-		if (queue)
+-			amdgpu_userq_fence_driver_process(queue->fence_drv);
+-		xa_unlock_irqrestore(xa, flags);
+-	} else {
+-		me_id = (entry->ring_id & 0x0c) >> 2;
+-		pipe_id = (entry->ring_id & 0x03) >> 0;
+-		queue_id = (entry->ring_id & 0x70) >> 4;
+-
+-		switch (me_id) {
+-		case 0:
+-			if (pipe_id == 0)
+-				amdgpu_fence_process(&adev->gfx.gfx_ring[0]);
+-			else
+-				amdgpu_fence_process(&adev->gfx.gfx_ring[1]);
+-			break;
+-		case 1:
+-		case 2:
+-			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+-				ring = &adev->gfx.compute_ring[i];
+-				/* Per-queue interrupt is supported for MEC starting from VI.
+-				 * The interrupt can only be enabled/disabled per pipe instead
+-				 * of per queue.
+-				 */
+-				if ((ring->me == me_id) &&
+-				    (ring->pipe == pipe_id) &&
+-				    (ring->queue == queue_id))
+-					amdgpu_fence_process(ring);
+-			}
+-			break;
+-		}
+-	}
+-
+-	return 0;
++	return amdgpu_gfx_eop_irq(adev, source, entry);
+ }
+ 
+ static int gfx_v12_0_set_priv_reg_fault_state(struct amdgpu_device *adev,
+-- 
+2.43.0
+
