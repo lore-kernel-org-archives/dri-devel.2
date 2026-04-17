@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3FBCF8E4AE
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:47:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB1CF8E4AE
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:47:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B70A10E95C;
-	Fri, 17 Apr 2026 06:47:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18AFA10E248;
+	Fri, 17 Apr 2026 06:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oeUMhVq8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UVl8gZtY";
 	dkim-atps=neutral
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A59F10E95A
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:47:19 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5a2c77c62d7so411989e87.0
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:47:19 -0700 (PDT)
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com
+ [209.85.167.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 921AD10E95F
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:47:20 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5a40cfab24dso394061e87.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:47:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776408438; x=1777013238; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=cla95yKUKTBsgVaDvfogIRMWaCGGOWq4z1TFG4Fvu4Q=;
- b=oeUMhVq8soAL/Gs/O+mL6tEpFMUqF7TSMSjHnYsnBz7tNVoNJwMEQz6VEPwpDquSjF
- RuQsYmYkGvmWScx4ZSW1brCvNff5BHzg9UBpcnsTlQjBuWfBQIN+Mh03fW4X3zpHgWSP
- 7MQdc3JiuYv4jn7gtTRoG2PZazPkTv5+xZMDevBpb79ewcV7A2t30wode/MM/EacmAZo
- 4cOwEMu54zfw8nyKncR3S77nPVhs3lL1tiwMzwWXO+5jjNuvPiVvre9h9blxATrCGJqA
- oXGMl6wvgIRRb5z7jLZPcQVIHrsUXp3WLnWFeQFTruqlAGGZu74x03ug91uUFADK3MTe
- tvjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776408438; x=1777013238;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776408439; x=1777013239; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cla95yKUKTBsgVaDvfogIRMWaCGGOWq4z1TFG4Fvu4Q=;
- b=NuMQnKI7tc9W16ue8wEEadPmt6MzriU32tmZyAzRqXkszX1TYYYODP4ef9hpWkZxXn
- BBUTQ3M0izUtgWgG0ZaNGWKbp40PrqqGHHrE/q/2/v0lJ1MdSNFT/Bv0qhB9XNNCgFAV
- jCQE9clfWTJfsOjYI8oYv8/VMI5WV3vc4cQ8qSPUETbwMJFWv2msHwIggjIo/QLQq4da
- O++zNpup++w5qeR8A06YDETjj2Rvrjmlrnhm6mL4I1E8EBKHwERPQcWPNn9LFtOM8HEs
- S8yX8VPIBnxYWgJduZlEuszc+0YCjNnwuDKvPRiWpLes+MhAihMigK7uOchuq24soNLk
- CCCw==
-X-Gm-Message-State: AOJu0Yypqf97DD0rPcoff6jAZ5nD+K0K+Xnx1IM0JxFEwGJbnCYi3i5U
- LHUWJ6NxnQZ2h2m+xiAIjz33BmelnQXw29WRK6LU27EOfgZcC/S53BBw
-X-Gm-Gg: AeBDiesEeKtV54PhKyk7883LscP8/Hyjwr9yV6P8V3zm+Zkttcb4J6hAWW97mmaqw+M
- Q3zr8MRm/BhFxfR9L4+wGZkJi4yn2QCYj+SoCw+neJ1fbWvb2EM/R3LOxyzrT315vSXVzHKODfq
- EU1LfaDXcGL3BbWbkTrpVQH1ZRKyw7AaWFofsao0h7G/5BEl74m7TpFpbp0n1iVQYQx0b7myg8S
- e/rLxJr4ALquawUfdyQhMGpgqQ59n+wamd+ugoRN51LJqqggXOSBgDvlc7IKWJd3AQM7rMkgVLG
- OSBn08k07iA6SwbKbc5ThCxadTASUPrJF4LbQLXuSxAd7ZVhJL1kskcgNEvpJqkPLnVaLwrT+vk
- OmGoSLRdwzh+NA2r/4UkI0PJ3C5CgVoiHccL2yDYOtI+1YQ6EGo9FmCeZMSMBYzX5T0RvqvD7jn
- 600y2piQIXsamX7/nTGt0yZ08=
-X-Received: by 2002:a05:6512:138e:b0:5a2:b8cf:39ce with SMTP id
- 2adb3069b0e04-5a4172bd2c3mr417584e87.10.1776408437508; 
- Thu, 16 Apr 2026 23:47:17 -0700 (PDT)
+ bh=MiuoIrxNKK6hZD8s7gRYWwj4CEpCWmzbv6ZdQWdvne4=;
+ b=UVl8gZtYQvMBiHRl5j5dq4Mgph6rXIPKqV42gJ+vc0nqSEOgIICWB8RtbAJ6Xrz7vd
+ biuN6DNilfKg0UMZdFSTwRcMYuDSmCIncKpPKjyrezNnTCyqxfKY0gzydkTD7WvsuNQC
+ lwOGy+cTacNcqLeZe0twK6AYsdv2UF2Jdk1LT8rXY1fhhl/9DnFlZvL70sVUc4YxsBl2
+ scwA/epjf8PFBZ5QIIdZemlb6QrlKFUdXnJq5yKpejwk8oJAvPMiXx+WOV+SKoQ44/cX
+ kpFU3Yu9Qnc1AFjB1h4AnBXy3n63QVmu/+b2akcnrjjx4Enz7vLpGtdtjlTA2NI1Xjld
+ TzyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776408439; x=1777013239;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=MiuoIrxNKK6hZD8s7gRYWwj4CEpCWmzbv6ZdQWdvne4=;
+ b=hQkC6JO0P1tCEqU1mY5+Q+7xSKdm0/aWyU/eAtRevKx2Msznl6pHWAE/hVo/zcSYVy
+ z7BvZ03yfmzBYOQbWu5LXR6HMBgYEnB2ija3Vu2wm2tNWRYMu5atXmdZ16v9C4H8dUqc
+ zU9rBADki03+JpqXj0Q/Fcce+6QgQQazDJymvmolP7uMMuzzxNj/f3oylsbRWXmLoMco
+ wjj49RzUR3rZuHMPQ9P9shRW8yTFSJbmXIGFL1d+ICI0GwHgqst2IhbO/aeEpLUp9Zxz
+ FjZpyscua4F+ctzxHQCAkdGDSOviYxjHyRQ5/exhQNPymEJ24ce8SO9e6UJfEYo8Pa29
+ +E4w==
+X-Gm-Message-State: AOJu0YyqzsbnnZ8+/qIfI3k26sIq1rNc1t+XcMw1k+7LNzDrUDvjtXDL
+ VpRN+e+MOIM+6q1+nBKI/yVwp6KIlAZvrWIcVBy+PmkD6GsVRdPm78Gl
+X-Gm-Gg: AeBDietmpkrZWURUv9L/SutWm6/modfIbm/GAJvlV30qH5WX9vRfny3fJ7n5I+ZLcQh
+ rtS4e9W0jYFHvqxoLCAO1LtdHD/TXayIWR9cu3mSG9z8qJE9jsJ0CmoqqkHEm9j1mO7ybPNIHbM
+ tCmfis2qQEDcD7u/OMvW7cJ5TvbDaB/cepif6arnwf0n4uPEI/9lAp9uETj/TYisFTyeBti+V7a
+ Pe4fqqZEmNwNnzbP1b5TeS//HKFWbDPY4+cApirdGrb951backMfia8lAXIAsI0AfDLusMH9yTn
+ WHsq0wOJ1gj3ZMizg/y8S8JgsdeSkUu3ZtEr7ZC33wimcWxh4W9BCrPWpAL6xXJzfb6Koyh9XQ0
+ hDwE+P+s9Kf1VuHCllbqSMB+WLGCqvy5XlDVlFG8/KdUFkxKuUYGhM/S/HBIRywTHK+Mx7mp0ca
+ pHPSS5so6pjPGnYaOMyXW9Zt5UuiEXmb2kdg==
+X-Received: by 2002:a05:6512:692:b0:5a4:2bf:28b9 with SMTP id
+ 2adb3069b0e04-5a4172ea032mr465325e87.43.1776408438577; 
+ Thu, 16 Apr 2026 23:47:18 -0700 (PDT)
 Received: from xeon ([188.163.112.56]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4187ec365sm141768e87.83.2026.04.16.23.47.16
+ 2adb3069b0e04-5a4187ec365sm141768e87.83.2026.04.16.23.47.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 23:47:17 -0700 (PDT)
+ Thu, 16 Apr 2026 23:47:18 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -69,11 +70,13 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Simona Vetter <simona@ffwll.ch>, Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v1 0/1 RESEND] dt-bindings: display: bridge: ssd2825: inherit
+Subject: [PATCH v1 1/1 RESEND] dt-bindings: display: bridge: ssd2825: inherit
  dsi-controller properties
-Date: Fri, 17 Apr 2026 09:46:56 +0300
-Message-ID: <20260417064657.20293-1-clamor95@gmail.com>
+Date: Fri, 17 Apr 2026 09:46:57 +0300
+Message-ID: <20260417064657.20293-2-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260417064657.20293-1-clamor95@gmail.com>
+References: <20260417064657.20293-1-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,13 +97,33 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 SSD2825 being RGB-DSI bridge should inherit dsi-controller properties same
 way other DSI controllers and DSI bridges do.
 
-Svyatoslav Ryhel (1):
-  dt-bindings: display: bridge: ssd2825: inherit dsi-controller
-    properties
-
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
  .../devicetree/bindings/display/bridge/solomon,ssd2825.yaml    | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/Documentation/devicetree/bindings/display/bridge/solomon,ssd2825.yaml b/Documentation/devicetree/bindings/display/bridge/solomon,ssd2825.yaml
+index e2d293d623b8..760645493031 100644
+--- a/Documentation/devicetree/bindings/display/bridge/solomon,ssd2825.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/solomon,ssd2825.yaml
+@@ -10,6 +10,7 @@ maintainers:
+   - Svyatoslav Ryhel <clamor95@gmail.com>
+ 
+ allOf:
++  - $ref: /schemas/display/dsi-controller.yaml#
+   - $ref: /schemas/spi/spi-peripheral-props.yaml#
+ 
+ properties:
+@@ -86,7 +87,7 @@ required:
+   - compatible
+   - ports
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
 -- 
 2.51.0
 
