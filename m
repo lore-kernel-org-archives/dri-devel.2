@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C70F43689
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:42:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24DCCF43688
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BF5A10E9A3;
-	Fri, 17 Apr 2026 09:42:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F88610E9A5;
+	Fri, 17 Apr 2026 09:42:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="WZxkLVj6";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="VPuURuMX";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 906E710E9A3
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:42:39 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63H63uhb137357; Fri, 17 Apr 2026 10:42:23 +0100
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C17A10E9A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:42:46 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63H5ncOp1582430; Fri, 17 Apr 2026 10:42:27 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=dk201812; bh=tzqCqQc+O5NquTMmQHuIIe1
- CnNrl1+zrK6XaidCKjWI=; b=WZxkLVj6x9xjOKHFdydt+UqrTkgkKZMoY/u+VEc
- +LYhaQTcW2h8IiE83V0M18oeqWU5AeIqwL1c3mCNCOwQj0gLbH+COn6h6ZYNDrKU
- djeFApK0IJv/r498dMlPFq3dvDbWC3l993Pszj/q9vD6i/ySNxGjt7ExEFV2JFbt
- xNQUbyu6HB7kacGrQhrgAoHNmCAKyYq7LWaRZ1MpR93toukALc6YXNYbO9NH5xaP
- iagU7GRU77/TFqx3G3WJ5hZy3TAMqWi7TweKvjjPmoe8tTzEzdfAKpH9rSbVKPCo
- Pk0zdZHvJiitp9uLJw+lMI9MXpeAY/GlDdj7JFO3LlTl30Q==
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=a
+ 2TYZdUNJ6OxzgTGpbG7PpBhsV6LeoTIB5SQIKM3Wcg=; b=VPuURuMXkghxC//kw
+ VFD3ZcPS4Wo1B76FADvmHRox36Wf08htq9h6gBqtxRpMGikvhexy71n0nTxGOY47
+ JQhe7JYF62TwSlZX1jkSkmRmAoelfOrmiqvtJN610bSb13eXOZKDpNO/O/taLv4x
+ KkB4ST/he1WffBgoK6WolXCTdabiXxHtg46dOhBtctgPeToVK3zwSIGfwg2Db4iR
+ lceXOcHiBw4S17RwwRpMZD7JY1f8qlIsDYnDxjgYSCbc1c63TQ3aYmaawdnw5JN7
+ yhma+e7XGE/b0CAPBbIcTEhiFWdgDw7XZqx6vy/L1kqiTcWsR/lcVfm1LT4iRlTI
+ o6APw==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4dfcjr52f8-1
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4djar3sxfs-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Apr 2026 10:42:23 +0100 (BST)
+ Fri, 17 Apr 2026 10:42:27 +0100 (BST)
 Received: from [127.0.1.1] (172.25.128.214) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 17 Apr
- 2026 10:42:20 +0100
+ 2026 10:42:23 +0100
 From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Subject: [PATCH 0/2] drm/imagination: FW trace bug fix and configuration update
-Date: Fri, 17 Apr 2026 15:12:12 +0530
-Message-ID: <20260417-ftrace_fix-v1-0-9fefe194592a@imgtec.com>
+Date: Fri, 17 Apr 2026 15:12:13 +0530
+Subject: [PATCH 1/2] drm/imagination: Fix segfault when updating ftrace
+ mask
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHQA4mkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDE0Nz3bSSosTk1Pi0zApd05RUE/MUIxMTi2QDJaCGgqJUoDDYsOjY2lo
- AOb99CVwAAAA=
+Message-ID: <20260417-ftrace_fix-v1-1-9fefe194592a@imgtec.com>
+References: <20260417-ftrace_fix-v1-0-9fefe194592a@imgtec.com>
+In-Reply-To: <20260417-ftrace_fix-v1-0-9fefe194592a@imgtec.com>
 To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -57,30 +58,30 @@ To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
 CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
  "Brajesh Gupta" <brajesh.gupta@imgtec.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776418940; l=502;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776418940; l=3744;
  i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
- bh=zzQbFcb0ncRKQZKnaviwR3p8SyTA4Z0XB4T8or2sRlE=;
- b=o7yemzSjysoOrTQ2fYWlufV4KQ1lSpIXU9WU65gC2+WK4WKg0AlRKn8OFgZvfv1Nv2vaNAMdF
- xlV9Fuy1op2AGvEGPrlyZjgcqSBpR3dKzlDs1ibued8Q1zvtJlrL+h6
+ bh=iI4pzedBFuc1gdGmNvqBIOmod0AVVzIXCWdqln1KXCM=;
+ b=Sq5r8Ug7ou9E3oaU/idMfPdv/WlanjRhpSj6wsDKn5DtR/Ug6e4cuhGYviqSbvU7ZmO8tnZ0a
+ 8DjWW/JIoLzCmWKjluXCbuzSrZBZ2cbojRr4xPdfKqtWIpsoIhI8pTr
 X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
  pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
 X-Originating-IP: [172.25.128.214]
-X-Proofpoint-ORIG-GUID: SuufwWMdxRqLnAhEXazzNyEbpgEUI1mI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA5NiBTYWx0ZWRfX+kAEGzgOF6xH
- N8QDaHekqclgmTP3vVnNuEwbAkb/MMGwmipkwiXKXaXnhj3yA84B3FflpAKsdJJpipyiYZBxrSY
- guEbMfuVf1BtxPtAyg3x97Mk/LC+NkcpYg+6jmSrO0BacULq1neDpSjOH51YvRVtCFdwjOVF8eU
- Y3DdIqkU49VQCG5D+i7ko3YHfUMK3oN/9LLD8aLqb6+uwIcHSgSJimECEARyGM5f0Hwdghhu53Z
- aPxh/U2K3RdV75XdfQ3WGb8qZx5QJ/kO/fgFKl6rB6hEi8qUe4V9YApyfvFgU7gGC5il859GSyT
- H3+YDdS7ciBpAynpzTDSwCaUfLf3rhzSFUcPTiXRn2jZvsq+4+zsFeLY299+yBlAfYFjWFUUHxf
- qARYTW3V1Zx9VQNXsTaxy6UofQirMKk4tsx6HYw0UWYAlrAOm8sLXEH+74NeL5gnvqV5MVPUXF7
- c68NoNPYaNHqgMTC8mw==
-X-Proofpoint-GUID: SuufwWMdxRqLnAhEXazzNyEbpgEUI1mI
-X-Authority-Analysis: v=2.4 cv=a4sAM0SF c=1 sm=1 tr=0 ts=69e2007f cx=c_pps
+X-Authority-Analysis: v=2.4 cv=e402j6p/ c=1 sm=1 tr=0 ts=69e20083 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=aRQ8HefCnzIA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=Z6cX24XRCVU5nlZxIyQA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=fGhLjsSNAAAA:8 a=r_1tXGB3AAAA:8 a=vXDThwzsE87Lt0EVRWoA:9 a=QEXdDO2ut3YA:10
+ a=LYKFdyShAPKLkGq8p7WX:22 a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: E0mV8Nx5M6pjcKqzx368WFd1fSUD1BIj
+X-Proofpoint-ORIG-GUID: E0mV8Nx5M6pjcKqzx368WFd1fSUD1BIj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA5NiBTYWx0ZWRfX37FpopftDpEw
+ K+J35PHd+8p3xxwDyMtAkIQN0kCC246EWjuv/Hh24k87opwTO5UpVVbBZFyenmYELCHy9LHx5S8
+ 8aRJ3hWMGDMdaCZUMEbxvDAuWH4UVxn3s3lc0PklM08qpMqvM9gVxd6cFIN4lZGxSl2W34EDTdM
+ ID+pvIUjCJaBnrsnsxOh1/d40n3K4e7vPfyjpp/Vz9k/MbXSD3WUCK1nN6XBXG5doW2093d8FfM
+ B32BIZW8YcZHaSaSG/438vwqqzvFE7IpH1W/ZctWw7anf0RpwJ5QjW8mycddA/NGQnescPF2UVA
+ Mzj8sa5JaJzf4F8xRGYlHzMGpUzob2SCLqXoN9N9sOYn3YGx3tleUemj68hldYNQnBKeHzze16D
+ Zy5b9CPYQTuwi/o3CRwPbQFKpSh2iLsIo8gdLkBbPdBUAySK1cA5B6Hjyv05AOEzM8fHNBYmbIO
+ +/eOK6JY/kYM1IutIeQ==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,19 +97,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Fix invalid data access by passing right data for debugfs entry.
+
+[  171.549793] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+[  171.559248] Mem abort info:
+[  171.562173]   ESR = 0x0000000096000044
+[  171.566227]   EC = 0x25: DABT (current EL), IL = 32 bits
+[  171.573108]   SET = 0, FnV = 0
+[  171.576448]   EA = 0, S1PTW = 0
+[  171.579745]   FSC = 0x04: level 0 translation fault
+[  171.584760] Data abort info:
+[  171.588012]   ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
+[  171.593734]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+[  171.598962]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+[  171.604471] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000083837000
+[  171.611358] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
+[  171.618500] Internal error: Oops: 0000000096000044 [#1]  SMP
+[  171.624222] Modules linked in: powervr drm_shmem_helper drm_gpuvm...
+[  171.656580] CPU: 0 UID: 0 PID: 549 Comm: bash Not tainted 7.0.0-rc2-g730b257ba723-dirty #13 PREEMPT
+[  171.665773] Hardware name: BeagleBoard.org BeaglePlay (DT)
+[  171.671296] pstate: 20000005 (nzCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[  171.678306] pc : pvr_fw_trace_mask_set+0x78/0x154 [powervr]
+[  171.683959] lr : pvr_fw_trace_mask_set+0x4c/0x154 [powervr]
+[  171.689593] sp : ffff8000835ebb90
+[  171.692929] x29: ffff8000835ebc00 x28: ffff000005c60f80 x27: 0000000000000000
+[  171.700130] x26: 0000000000000000 x25: ffff00000504af28 x24: 0000000000000000
+[  171.707324] x23: ffff00000504af50 x22: 0000000000000203 x21: 0000000000000000
+[  171.714518] x20: ffff000005c44a80 x19: ffff000005c457b8 x18: 0000000000000000
+[  171.721715] x17: 0000000000000000 x16: 0000000000000000 x15: 0000aaaae8887580
+[  171.728908] x14: 0000000000000000 x13: 0000000000000000 x12: ffff8000835ebc30
+[  171.736095] x11: ffff00000504af2a x10: ffff00008504af29 x9 : 0fffffffffffffff
+[  171.743286] x8 : ffff8000835ebbf8 x7 : 0000000000000000 x6 : 000000000000002a
+[  171.750479] x5 : ffff00000504af2e x4 : 0000000000000000 x3 : 0000000000000010
+[  171.757674] x2 : 0000000000000203 x1 : 0000000000000000 x0 : ffff8000835ebba0
+[  171.764871] Call trace:
+[  171.767342]  pvr_fw_trace_mask_set+0x78/0x154 [powervr] (P)
+[  171.772984]  simple_attr_write_xsigned.isra.0+0xe0/0x19c
+[  171.778341]  simple_attr_write+0x18/0x24
+[  171.782296]  debugfs_attr_write+0x50/0x98
+[  171.786341]  full_proxy_write+0x6c/0xa8
+[  171.790208]  vfs_write+0xd4/0x350
+[  171.793561]  ksys_write+0x70/0x108
+[  171.796995]  __arm64_sys_write+0x1c/0x28
+[  171.800952]  invoke_syscall+0x48/0x10c
+[  171.804740]  el0_svc_common.constprop.0+0x40/0xe0
+[  171.809487]  do_el0_svc+0x1c/0x28
+[  171.812834]  el0_svc+0x34/0x108
+[  171.816013]  el0t_64_sync_handler+0xa0/0xe4
+[  171.820237]  el0t_64_sync+0x198/0x19c
+[  171.823939] Code: 32000262 b90ac293 1a931056 9134e293 (b9000036)
+[  171.830073] ---[ end trace 0000000000000000 ]---
+
+Fixes: a331631496a0 ("drm/imagination: Simplify module parameters")
 Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
 ---
-Brajesh Gupta (2):
-      drm/imagination: Fix segfault when updating ftrace mask
-      drm/imagination: Restrict pvr_fw_trace_init_mask module param to read only
+ drivers/gpu/drm/imagination/pvr_fw_trace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/imagination/pvr_fw_trace.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
----
-base-commit: 3bce3fdd1ff2ba242f76ab66659fff27207299f1
-change-id: 20260417-ftrace_fix-5de47d2448c0
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
+index e154cb35f604..6193811ef7be 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
+@@ -558,6 +558,6 @@ pvr_fw_trace_debugfs_init(struct pvr_device *pvr_dev, struct dentry *dir)
+ 				    &pvr_fw_trace_fops);
+ 	}
+ 
+-	debugfs_create_file("trace_mask", 0600, dir, fw_trace,
++	debugfs_create_file("trace_mask", 0600, dir, pvr_dev,
+ 			    &pvr_fw_trace_mask_fops);
+ }
 
-Best regards,
 -- 
-Brajesh Gupta <brajesh.gupta@imgtec.com>
+2.43.0
 
