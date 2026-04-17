@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E99B2F4369B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 10:38:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9170F43696
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 10:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A427710EA23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E754F10EA25;
 	Fri, 17 Apr 2026 10:38:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="T/YkNMVP";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="B2yb4ecw";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BCF910EA17;
- Fri, 17 Apr 2026 10:38:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC9BE10EA21;
+ Fri, 17 Apr 2026 10:38:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,27 +22,27 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=RQTUcL1I/8jadncAL2XKGoKxgkmVYQD7qHlBDYb7ynk=; b=T/YkNMVP8AGMm1QSBA0TClh+lz
- WgqqaVyeNIkjF8lJowNfRc+5xpXfsFWOR2Adp6IgD8f1dOr4mKVD28CubLl0/dbNcp1RAI87Sb7ql
- KVuHqCNJeDC37fR1azUFu97/0aEma9kI0bsGhP2BebY8ll5GJnIj1XUFdYJ0DT+9xIT0pVrfUTYxb
- KeqhYmADzD1HjxN5Yct/nHH3EDloscZLC/wCIhXXKwaODW+x6Pky+n0UiPRYvTMunbc37VmvmyYNw
- jT8lPb5Z5iPp+Mx5aG9S2dmVS2NH9vjobYg4jahKZHTQiG88j6jAS5MDDYbl7h/SRyxLf14Cy3EyI
- Py2eZ+eQ==;
+ bh=jLng5OsTKr6AEl/Yp77vaNcqlbhbA1PGlsi4axocR3w=; b=B2yb4ecwJF0PArUc8KB8Zj8LdO
+ BEMqrr9/5VpxKHfA4ePVxjAx4UgZbnWo6Zd5mcfMcdafHjvOHdyoPeZIBT7oVDhyVjfCz95ngNNpc
+ R9oE/b+JbCBh/iu5Ny7qD6nAGOy6jKj5SOQk+yRysBSPrc51RXCnyKXNMnI4Qxu+x47rlfqFzmAz/
+ qPurd+6ZzamdCQ2imZCd3OEpzr+DFAfkSGrC0FQ/EX9N1mMS72hW/pAHvnsU/3s+wwlFSk7j/OKqw
+ OiEy9u5xjctBxKgkk1U+e7EqOUTNad1GRBRYiLiwoUauCMiwCR6Y0u8nD6KccPr/RAfrm2bt8AIQ3
+ bWJZHo2w==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wDgaM-00HPU1-8b; Fri, 17 Apr 2026 12:38:06 +0200
+ id 1wDgaL-00HPTq-Ga; Fri, 17 Apr 2026 12:38:05 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, kernel-dev@igalia.com,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Lyude Paul <lyude@redhat.com>,
- nouveau@lists.freedesktop.org
-Subject: [PATCH v8 23/29] drm/nouveau: Remove drm_sched_init_args->num_rqs
- usage
-Date: Fri, 17 Apr 2026 11:37:38 +0100
-Message-ID: <20260417103744.76020-24-tvrtko.ursulin@igalia.com>
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: [PATCH v8 22/29] drm/msm: Remove drm_sched_init_args->num_rqs usage
+Date: Fri, 17 Apr 2026 11:37:37 +0100
+Message-ID: <20260417103744.76020-23-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
 References: <20260417103744.76020-1-tvrtko.ursulin@igalia.com>
@@ -66,27 +66,38 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: nouveau@lists.freedesktop.org
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org
 ---
- drivers/gpu/drm/nouveau/nouveau_sched.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/msm/msm_gem_vma.c    | 1 -
+ drivers/gpu/drm/msm/msm_ringbuffer.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
-index 5546be488795..179edf90a531 100644
---- a/drivers/gpu/drm/nouveau/nouveau_sched.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
-@@ -405,7 +405,6 @@ nouveau_sched_init(struct nouveau_sched *sched, struct nouveau_drm *drm,
- 	struct drm_sched_entity *entity = &sched->entity;
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 1a952b171ed7..271691ae32c3 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -841,7 +841,6 @@ msm_gem_vm_create(struct drm_device *drm, struct msm_mmu *mmu, const char *name,
+ 	if (!managed) {
+ 		struct drm_sched_init_args args = {
+ 			.ops = &msm_vm_bind_ops,
+-			.num_rqs = 1,
+ 			.credit_limit = 1,
+ 			.timeout = MAX_SCHEDULE_TIMEOUT,
+ 			.name = "msm-vm-bind",
+diff --git a/drivers/gpu/drm/msm/msm_ringbuffer.c b/drivers/gpu/drm/msm/msm_ringbuffer.c
+index 30ddb5351e98..a7dafa7ab4b1 100644
+--- a/drivers/gpu/drm/msm/msm_ringbuffer.c
++++ b/drivers/gpu/drm/msm/msm_ringbuffer.c
+@@ -67,7 +67,6 @@ struct msm_ringbuffer *msm_ringbuffer_new(struct msm_gpu *gpu, int id,
+ {
  	struct drm_sched_init_args args = {
- 		.ops = &nouveau_sched_ops,
+ 		.ops = &msm_sched_ops,
 -		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit = credit_limit,
- 		.timeout = msecs_to_jiffies(NOUVEAU_SCHED_JOB_TIMEOUT_MS),
- 		.name = "nouveau_sched",
+ 		.credit_limit = num_hw_submissions,
+ 		.timeout = MAX_SCHEDULE_TIMEOUT,
+ 		.dev = gpu->dev->dev,
 -- 
 2.52.0
 
