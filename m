@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E3A8F4368D
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 11:00:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C095CF4368D
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 11:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81C4910EA17;
-	Fri, 17 Apr 2026 11:00:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1804910EA1E;
+	Fri, 17 Apr 2026 11:04:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZFMFYZf0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZBelgqYO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C40B10EA17
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 11:00:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E4026012A;
- Fri, 17 Apr 2026 11:00:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43440C19425;
- Fri, 17 Apr 2026 10:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776423604;
- bh=R3sQwuUL9lgxVct/Vxl6PTaKIe98221a3QegCmhibzw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZFMFYZf0W31/boqDoKkcj+d/wPaB9YwsgBj4+G0j+O9B7p793NDaf09zGTE52FnDn
- VslJMxtbKrxzCoqOc40OQeZoyJymXdjGIenSg+QT9ECh6okIX5SColMTRRN0qlJmPF
- FewtCVyy4UAbqQnWiTCaJYas+Toa1DkoWG7Dq/Z7V1cnrsPS+CFR95/8zjDNSUCnRO
- 9H/FrDVyUiZMUQDbXweC7FGc81eVNKi8j7jI2Owl71+ZohAhKAi3REZZkKXOGk1PI1
- t4oO51Cd28L6ryFr+AZMYWdkTuhHAaKrQ5R9P0zwfGryavjrMA3ChW7fbeGs8n3w20
- 3SaEDxLxPhn0g==
-Date: Fri, 17 Apr 2026 11:59:56 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 0/3] rust: add `bitfield!` macro
-Message-ID: <5a0b7de0-3bfe-4e71-9e0e-3d9396e1d9d5@sirena.org.uk>
-References: <20260409-bitfield-v2-0-23ac400071cb@nvidia.com>
- <798e83e6-eb7b-4502-85e7-5a0f6d9c6281@nvidia.com>
- <DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org>
- <CANiq72k0FXcekxs=E+xLe3=wyu+KHr4yM0wLj1VgtgTUb_K4MQ@mail.gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CD4410EA05;
+ Fri, 17 Apr 2026 11:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776423844; x=1807959844;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=CS8+wPNve0d5RmijPI+grh6X7/tS2Tyrtio87nCPnuA=;
+ b=ZBelgqYOnQAVYf7CObxHfZkn7UIsyH6Cz3FgrJPrcFX2b9/WmXxItpvG
+ VAbTWeUsESiMC2JYgeeb5sF7u1ww8HIYJXzgKp1OjlaTAspFjNZ0OT7Di
+ rtx36iFy2MQyv1pLRrYLn4/crshNjZwVYwrQt6eBUy9F8vylL5Y0NX4MK
+ /wokdEg7xcVgvw70NBlRYu4zZGI90g85M0OMXRrKXaNLuuzTV6RyQ/zJx
+ 5iP9FqFA8DGZAvna0QYKz2QHMRGLdx1Sfo5z2Zv11jP1sYenasGLYqa3/
+ k6D9TfLKeVwqgCTSk2CjidRvDMOQwzVq0wYIEbVhA1lIGIFUiQjxAqgdm w==;
+X-CSE-ConnectionGUID: OFPjl6rpRx+07tHNzqlYUw==
+X-CSE-MsgGUID: 9Y9RO4HJRR+g5wjuHv4v8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77313395"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="77313395"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 04:04:04 -0700
+X-CSE-ConnectionGUID: YpvLb5AFTzCIiMWYVRtVSA==
+X-CSE-MsgGUID: 25lMKpo+SGyWSAHPKyILkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="232758987"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.245.184])
+ ([10.245.245.184])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 04:04:02 -0700
+Message-ID: <34a9f1ee6ef7b3cbecad9ce3ec2b112a9e7d2f69.camel@linux.intel.com>
+Subject: Re: [PATCH v7 2/5] drm/pagemap: Drop source_peer_migrates flag and
+ assume true
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Francois Dugast <francois.dugast@intel.com>
+Date: Fri, 17 Apr 2026 13:03:49 +0200
+In-Reply-To: <20260410205929.3914474-3-matthew.brost@intel.com>
+References: <20260410205929.3914474-1-matthew.brost@intel.com>
+ <20260410205929.3914474-3-matthew.brost@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="VLmRQ1k2zFsSA7iR"
-Content-Disposition: inline
-In-Reply-To: <CANiq72k0FXcekxs=E+xLe3=wyu+KHr4yM0wLj1VgtgTUb_K4MQ@mail.gmail.com>
-X-Cookie: Uh-oh!!  I'm having TOO MUCH FUN!!
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,69 +73,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 2026-04-10 at 13:59 -0700, Matthew Brost wrote:
+> All current users of DRM pagemap set source_peer_migrates to true
+> during
+> migration, and it is unclear whether any user would ever want to
+> disable
+> this for performance reasons or for features such as compression. It
+> is
+> also questionable whether this flag could be made to work with
+> high-speed fabric mapping APIs.
+>=20
+> Drop the flag and make DRM pagemap unconditionally assume that
+> source_peer_migrates is true.
+>=20
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Reviewed-by: Francois Dugast <francois.dugast@intel.com>
 
---VLmRQ1k2zFsSA7iR
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-On Fri, Apr 17, 2026 at 07:55:57AM +0200, Miguel Ojeda wrote:
-> On Fri, Apr 17, 2026 at 12:19=E2=80=AFAM Danilo Krummrich <dakr@kernel.or=
-g> wrote:
 
-> > So, in order to not motivate workarounds, starting from the next cycle,=
- the
-> > drm-rust-next branch will be open for new features at all times.
-
-> > Consequently, all patches applied to drm-rust-next after -rc6 do not ta=
-rget the
-> > upcoming merge window, but the next one.
-
-> I think that for branches going into linux-next, in general, new
-> material is not meant to be added until the merge window closes, e.g.
-> from last -next:
-
->     The merge window is open, so please to not addd any v7.1 material
->     to your linux-next included branches until after the merge window clo=
-ses.
-
-> Some things do target future merge windows (e.g. Rust itself was such
-> a case for a long time), so it may be fine when adding it before the
-> merge window opens, but I think the idea is mostly to avoid too much
-> movement during the merge window to avoid interfering with other
-> maintainers finishing their trees for Linus etc.
-
-> But not sure how flexible this is -- Cc'ing Mark.
-
-Yes, the idea is that at the end of the merge window -next should only
-have a few fixes in it since everything should've been sent to Linus.
-This also applies to things being added after you've sent your pulls to
-the DRM core maintainers, if something isn't going to go in during the
-merge window you shouldn't be adding it to -next. =20
-
-For the most part nobody's actually checking that other than the reports
-I send to Linus highlighting which trees have the most commits in -next
-so if you're not disruptive the chances are nobody will notice but you
-shouldn't do it.  As Miguel says it's trying to avoid causing issues for
-other people, plus the general concept of -next is that it's covering
-what's currently scheduled to go into Linus' tree.
-
-Of course, nothing stops you maintaining a branch which isn't in -next
-and is open all the time and that won't have any wider impact.
-
---VLmRQ1k2zFsSA7iR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmniEqsACgkQJNaLcl1U
-h9Cwbgf/SeM+1u2oEbqfWp7OMKk+1V/N/Jnw0XeozlmS6jRDPegqQTK+PVIMdIwy
-I5FqKQsDYYj3RnGT0UJVg8xjkqNJ5HbgIFlrejwZ4IsDOMQg7Om+DV10AB0vE8RA
-ydC0ijnfBRXW1hNJ5+rOXfXEuy/eWnFvM61V901tjOhUjApDfAz+Z3/oMzsGFVyd
-ThJxpiqJZOILDKvvhoZ8Zv5nWazM9fkjkarbnkPAGnwPnwp8wBt+vvM1zvtD3LSL
-cVWmWraKy5rFhQ3ivMR30FFHWCkLRwCj7HE0N0Bp0R3qP8qIQ0P4UK+N9VpBndRw
-5i6z5dJcIco0pFhlhmVe3rb4wLxFMQ==
-=BVky
------END PGP SIGNATURE-----
-
---VLmRQ1k2zFsSA7iR--
+> ---
+> =C2=A0drivers/gpu/drm/drm_pagemap.c | 10 ++++------
+> =C2=A0drivers/gpu/drm/xe/xe_svm.c=C2=A0=C2=A0 |=C2=A0 1 -
+> =C2=A0include/drm/drm_pagemap.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 9 ++-----=
+--
+> =C2=A03 files changed, 6 insertions(+), 14 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_pagemap.c
+> b/drivers/gpu/drm/drm_pagemap.c
+> index 5002049e0198..63f32cf6e1a7 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+> @@ -651,12 +651,10 @@ int drm_pagemap_migrate_to_devmem(struct
+> drm_pagemap_devmem *devmem_allocation,
+> =C2=A0				own_pages++;
+> =C2=A0				goto next;
+> =C2=A0			}
+> -			if (mdetails->source_peer_migrates) {
+> -				cur.dpagemap =3D src_zdd->dpagemap;
+> -				cur.ops =3D src_zdd-
+> >devmem_allocation->ops;
+> -				cur.device =3D cur.dpagemap->drm->dev;
+> -				pages[i] =3D src_page;
+> -			}
+> +			cur.dpagemap =3D src_zdd->dpagemap;
+> +			cur.ops =3D src_zdd->devmem_allocation->ops;
+> +			cur.device =3D cur.dpagemap->drm->dev;
+> +			pages[i] =3D src_page;
+> =C2=A0		}
+> =C2=A0		if (!pages[i]) {
+> =C2=A0			cur.dpagemap =3D NULL;
+> diff --git a/drivers/gpu/drm/xe/xe_svm.c
+> b/drivers/gpu/drm/xe/xe_svm.c
+> index ba67355f64cb..e1651e70c8f0 100644
+> --- a/drivers/gpu/drm/xe/xe_svm.c
+> +++ b/drivers/gpu/drm/xe/xe_svm.c
+> @@ -1055,7 +1055,6 @@ static int xe_drm_pagemap_populate_mm(struct
+> drm_pagemap *dpagemap,
+> =C2=A0	struct xe_pagemap *xpagemap =3D container_of(dpagemap,
+> typeof(*xpagemap), dpagemap);
+> =C2=A0	struct drm_pagemap_migrate_details mdetails =3D {
+> =C2=A0		.timeslice_ms =3D timeslice_ms,
+> -		.source_peer_migrates =3D 1,
+> =C2=A0	};
+> =C2=A0	struct xe_vram_region *vr =3D xe_pagemap_to_vr(xpagemap);
+> =C2=A0	struct dma_fence *pre_migrate_fence =3D NULL;
+> diff --git a/include/drm/drm_pagemap.h b/include/drm/drm_pagemap.h
+> index 75e6ca58922d..95eb4b66b057 100644
+> --- a/include/drm/drm_pagemap.h
+> +++ b/include/drm/drm_pagemap.h
+> @@ -329,17 +329,12 @@ struct drm_pagemap_devmem {
+> =C2=A0 * struct drm_pagemap_migrate_details - Details to govern migration=
+.
+> =C2=A0 * @timeslice_ms: The time requested for the migrated pagemap pages
+> to
+> =C2=A0 * be present in @mm before being allowed to be migrated back.
+> - * @can_migrate_same_pagemap: Whether the copy function as indicated
+> by
+> - * the @source_peer_migrates flag, can migrate device pages within a
+> - * single drm_pagemap.
+> - * @source_peer_migrates: Whether on p2p migration, The source
+> drm_pagemap
+> - * should use the copy_to_ram() callback rather than the destination
+> - * drm_pagemap should use the copy_to_devmem() callback.
+> + * @can_migrate_same_pagemap: Whether the copy function can migrate
+> + * device pages within a single drm_pagemap.
+> =C2=A0 */
+> =C2=A0struct drm_pagemap_migrate_details {
+> =C2=A0	unsigned long timeslice_ms;
+> =C2=A0	u32 can_migrate_same_pagemap : 1;
+> -	u32 source_peer_migrates : 1;
+> =C2=A0};
+> =C2=A0
+> =C2=A0#if IS_ENABLED(CONFIG_ZONE_DEVICE)
