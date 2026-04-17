@@ -4,84 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24DCCF43688
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:42:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65933F43683
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F88610E9A5;
-	Fri, 17 Apr 2026 09:42:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC5F710E9A6;
+	Fri, 17 Apr 2026 09:51:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="VPuURuMX";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ypxLLPd6";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C17A10E9A5
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:42:46 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63H5ncOp1582430; Fri, 17 Apr 2026 10:42:27 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=a
- 2TYZdUNJ6OxzgTGpbG7PpBhsV6LeoTIB5SQIKM3Wcg=; b=VPuURuMXkghxC//kw
- VFD3ZcPS4Wo1B76FADvmHRox36Wf08htq9h6gBqtxRpMGikvhexy71n0nTxGOY47
- JQhe7JYF62TwSlZX1jkSkmRmAoelfOrmiqvtJN610bSb13eXOZKDpNO/O/taLv4x
- KkB4ST/he1WffBgoK6WolXCTdabiXxHtg46dOhBtctgPeToVK3zwSIGfwg2Db4iR
- lceXOcHiBw4S17RwwRpMZD7JY1f8qlIsDYnDxjgYSCbc1c63TQ3aYmaawdnw5JN7
- yhma+e7XGE/b0CAPBbIcTEhiFWdgDw7XZqx6vy/L1kqiTcWsR/lcVfm1LT4iRlTI
- o6APw==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4djar3sxfs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Apr 2026 10:42:27 +0100 (BST)
-Received: from [127.0.1.1] (172.25.128.214) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 17 Apr
- 2026 10:42:23 +0100
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Fri, 17 Apr 2026 15:12:13 +0530
-Subject: [PATCH 1/2] drm/imagination: Fix segfault when updating ftrace
- mask
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E637210E9A6
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:51:14 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so4176835e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 02:51:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1776419473; x=1777024273; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:from:to:cc:subject:date:message-id
+ :reply-to; bh=P0uCHuAKeS6uUlnZaQ00rIBdMGYxOjfO74lX8NHxdEo=;
+ b=ypxLLPd6W2gqHCdqLFYoU+WIGC9XPPQkmNy5GGibf0APJ/inrfjG9z/9F+ndEa0sie
+ tvUBPiXUNWqO6r2aZIwBY82UPFLW8qXSExbi/4efX3VDaipJtF8MY9NhW2xHayvYXx3u
+ BNHuio/uxm1xLrveu5Fng7rSAqlyeOsSygotHnVnuqVdXxL2n9YqVkfGyMu8WRVyhzmH
+ 8q5CJpSGpcl0toe47xLWKyJFJe7cwdYxuW4jXraptGpi5l7UG8jvyNBHHhv20GO0YdX7
+ TDMFlXGdKbg1CnM45hLhNrA8UDlqMLD/r3ZXfzFE+3MBxSGUU2iqbQh/tK1gMefAvm9t
+ 0phA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776419473; x=1777024273;
+ h=content-transfer-encoding:in-reply-to:organization:autocrypt
+ :content-language:references:cc:to:subject:reply-to:from:user-agent
+ :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=P0uCHuAKeS6uUlnZaQ00rIBdMGYxOjfO74lX8NHxdEo=;
+ b=cIjtEtfTCg9F/8JdFU+nRRqqEf3NGjPys2fOZEh5+rdMDSHnoLh+5meGeL3PZneloL
+ ApnwKOsFpSpqAon/SJZ5ysGoxi36BaKe698ZbjOkM/YCNwPFU0zb4RhkFKzOImg2XYaP
+ yIftDSLKUZctEXGLw3p/y5FySd2SRssGWME81Q0DdThW9mcq2B02e+ZFE0+bQC7vGu89
+ rWZmuEYhSz5h1Zhf/95snftrCoj/cDjLRgTHEbG3qCZppXYIC5eNwNA73QYBi/74kaya
+ tlXVPJAgcP/qaHsc8T4M5jk176nfJ0TdCWkpMBZOxDtqFvRg2C6bpphYE8FDHHNL9KuP
+ tCsQ==
+X-Gm-Message-State: AOJu0YzqpcBUwyAmCU76kaLzMsQPBRq3mM72uXKIRQVS1EJKXkITrCsu
+ O8Kat51Jtqi8orLrsu4KvmJZc9aCiuDF0pt2KB94wB4CT0syHw5dh6jtmFph8EdUMCw=
+X-Gm-Gg: AeBDiesasHmvbPeEjUJmb3TG4iVoSPjkcW7WWCcgo+9vEAAbb0P8/2MwM/UR6hy3lzK
+ 4mX/zBIAxbVFts+Fu+LBmGifsj9Z/l265dD/aTGRTgst1+27RWWUmBR9jT+4ez5L7Mebsf8ds2r
+ N7d2v03k/CD+juS7HKQCSdG8Z3oh2yNLkXU2pC7LRiCKliwEEH+UoaQtxhraLBVf8uCGgf197gk
+ GM++1VXS8oH5HF8XL8a0uz0lJNg5mPoGjFKPqZlpa9XXvFifFSIMoXW2IZ97bJ632Tmrri2Lb7v
+ h++rDdfLgfdu2zsfM1DmVqfY1WbvsvfV4JfBmbBWYdHfDKyfK6/wS8kM+buoFT6Ka4qZICRtt2R
+ nkqoht4naynDHQ5g7Ntafa/XDKcARCMzEbbsnj3RaeVstGj8CC1gbh4XNgP4cdypXCJs4aoNLx/
+ n3LSj171TxJj+wXFrQSK+suRHL3+A4+GONLilLbLobeD9whqD0a6UUBkdIztEtsj+LdN5cXQBDg
+ EDk5s6LIVDZCrQtSw==
+X-Received: by 2002:a05:600c:3110:b0:487:243f:dc3e with SMTP id
+ 5b1f17b1804b1-488fb739cf6mr27616865e9.6.1776419473355; 
+ Fri, 17 Apr 2026 02:51:13 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:9b0a:b8df:9ec3:b505?
+ ([2a01:e0a:106d:1080:9b0a:b8df:9ec3:b505])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fc14a61asm30946315e9.15.2026.04.17.02.51.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Apr 2026 02:51:13 -0700 (PDT)
+Message-ID: <a8031b65-62bf-46fd-b360-54dc84c58d13@linaro.org>
+Date: Fri, 17 Apr 2026 11:51:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260417-ftrace_fix-v1-1-9fefe194592a@imgtec.com>
-References: <20260417-ftrace_fix-v1-0-9fefe194592a@imgtec.com>
-In-Reply-To: <20260417-ftrace_fix-v1-0-9fefe194592a@imgtec.com>
-To: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2] drm/panel: visionox-rm69299: Make use of
+ prepare_prev_first
+To: david@ixit.cz, Jessica Zhang <jesszhan0024@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alessio Belle <alessio.belle@imgtec.com>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- "Brajesh Gupta" <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776418940; l=3744;
- i=brajesh.gupta@imgtec.com; s=20260417; h=from:subject:message-id;
- bh=iI4pzedBFuc1gdGmNvqBIOmod0AVVzIXCWdqln1KXCM=;
- b=Sq5r8Ug7ou9E3oaU/idMfPdv/WlanjRhpSj6wsDKn5DtR/Ug6e4cuhGYviqSbvU7ZmO8tnZ0a
- 8DjWW/JIoLzCmWKjluXCbuzSrZBZ2cbojRr4xPdfKqtWIpsoIhI8pTr
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=ed25519;
- pk=vDcrSP6vOpWKs914T986xUbB/vY0/cU7mRRb16MRkcg=
-X-Originating-IP: [172.25.128.214]
-X-Authority-Analysis: v=2.4 cv=e402j6p/ c=1 sm=1 tr=0 ts=69e20083 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=aRQ8HefCnzIA:10 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=fGhLjsSNAAAA:8 a=r_1tXGB3AAAA:8 a=vXDThwzsE87Lt0EVRWoA:9 a=QEXdDO2ut3YA:10
- a=LYKFdyShAPKLkGq8p7WX:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: E0mV8Nx5M6pjcKqzx368WFd1fSUD1BIj
-X-Proofpoint-ORIG-GUID: E0mV8Nx5M6pjcKqzx368WFd1fSUD1BIj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDA5NiBTYWx0ZWRfX37FpopftDpEw
- K+J35PHd+8p3xxwDyMtAkIQN0kCC246EWjuv/Hh24k87opwTO5UpVVbBZFyenmYELCHy9LHx5S8
- 8aRJ3hWMGDMdaCZUMEbxvDAuWH4UVxn3s3lc0PklM08qpMqvM9gVxd6cFIN4lZGxSl2W34EDTdM
- ID+pvIUjCJaBnrsnsxOh1/d40n3K4e7vPfyjpp/Vz9k/MbXSD3WUCK1nN6XBXG5doW2093d8FfM
- B32BIZW8YcZHaSaSG/438vwqqzvFE7IpH1W/ZctWw7anf0RpwJ5QjW8mycddA/NGQnescPF2UVA
- Mzj8sa5JaJzf4F8xRGYlHzMGpUzob2SCLqXoN9N9sOYn3YGx3tleUemj68hldYNQnBKeHzze16D
- Zy5b9CPYQTuwi/o3CRwPbQFKpSh2iLsIo8gdLkBbPdBUAySK1cA5B6Hjyv05AOEzM8fHNBYmbIO
- +/eOK6JY/kYM1IutIeQ==
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Douglas Anderson <dianders@chromium.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+References: <20260417-axolotl-display-v2-1-8ce5341e46c2@ixit.cz>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260417-axolotl-display-v2-1-8ce5341e46c2@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,79 +121,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix invalid data access by passing right data for debugfs entry.
+On 4/17/26 08:55, David Heidelberg via B4 Relay wrote:
+> From: Guido Günther <agx@sigxcpu.org>
+> 
+> The DSI link must be powered up to let panel driver to talk to the panel
+> during prepare() callback execution. Set the prepare_prev_first flag to
+> guarantee this.
+> 
+> Fixes: 9e15123eca79 ("drm/msm/dsi: Stop unconditionally powering up DSI hosts at modeset")
+> Signed-off-by: Guido Günther <agx@sigxcpu.org>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+> Changes in v2:
+> - Move the prepare_prev_first before drm_panel_add(). (Douglas)
+> - Link to v1: https://lore.kernel.org/r/20260415-axolotl-display-v1-1-7abb2d248355@ixit.cz
+> ---
+>   drivers/gpu/drm/panel/panel-visionox-rm69299.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-visionox-rm69299.c b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+> index e5e688cf98fdc..f1430370ff942 100644
+> --- a/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+> +++ b/drivers/gpu/drm/panel/panel-visionox-rm69299.c
+> @@ -371,16 +371,18 @@ static int visionox_rm69299_probe(struct mipi_dsi_device *dsi)
+>   		return ret;
+>   
+>   	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+>   	if (IS_ERR(ctx->reset_gpio)) {
+>   		dev_err(dev, "cannot get reset gpio %ld\n", PTR_ERR(ctx->reset_gpio));
+>   		return PTR_ERR(ctx->reset_gpio);
+>   	}
+>   
+> +	ctx->panel.prepare_prev_first = true;
+> +
+>   	ctx->panel.backlight = visionox_rm69299_create_backlight(ctx);
+>   	if (IS_ERR(ctx->panel.backlight))
+>   		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+>   				     "Failed to create backlight\n");
+>   
+>   	drm_panel_add(&ctx->panel);
+>   
+>   	dsi->lanes = 4;
+> 
+> ---
+> base-commit: e6efabc0afca02efa263aba533f35d90117ab283
+> change-id: 20260415-axolotl-display-715ce416e5c8
+> 
+> Best regards,
 
-[  171.549793] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-[  171.559248] Mem abort info:
-[  171.562173]   ESR = 0x0000000096000044
-[  171.566227]   EC = 0x25: DABT (current EL), IL = 32 bits
-[  171.573108]   SET = 0, FnV = 0
-[  171.576448]   EA = 0, S1PTW = 0
-[  171.579745]   FSC = 0x04: level 0 translation fault
-[  171.584760] Data abort info:
-[  171.588012]   ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
-[  171.593734]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
-[  171.598962]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-[  171.604471] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000083837000
-[  171.611358] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
-[  171.618500] Internal error: Oops: 0000000096000044 [#1]  SMP
-[  171.624222] Modules linked in: powervr drm_shmem_helper drm_gpuvm...
-[  171.656580] CPU: 0 UID: 0 PID: 549 Comm: bash Not tainted 7.0.0-rc2-g730b257ba723-dirty #13 PREEMPT
-[  171.665773] Hardware name: BeagleBoard.org BeaglePlay (DT)
-[  171.671296] pstate: 20000005 (nzCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[  171.678306] pc : pvr_fw_trace_mask_set+0x78/0x154 [powervr]
-[  171.683959] lr : pvr_fw_trace_mask_set+0x4c/0x154 [powervr]
-[  171.689593] sp : ffff8000835ebb90
-[  171.692929] x29: ffff8000835ebc00 x28: ffff000005c60f80 x27: 0000000000000000
-[  171.700130] x26: 0000000000000000 x25: ffff00000504af28 x24: 0000000000000000
-[  171.707324] x23: ffff00000504af50 x22: 0000000000000203 x21: 0000000000000000
-[  171.714518] x20: ffff000005c44a80 x19: ffff000005c457b8 x18: 0000000000000000
-[  171.721715] x17: 0000000000000000 x16: 0000000000000000 x15: 0000aaaae8887580
-[  171.728908] x14: 0000000000000000 x13: 0000000000000000 x12: ffff8000835ebc30
-[  171.736095] x11: ffff00000504af2a x10: ffff00008504af29 x9 : 0fffffffffffffff
-[  171.743286] x8 : ffff8000835ebbf8 x7 : 0000000000000000 x6 : 000000000000002a
-[  171.750479] x5 : ffff00000504af2e x4 : 0000000000000000 x3 : 0000000000000010
-[  171.757674] x2 : 0000000000000203 x1 : 0000000000000000 x0 : ffff8000835ebba0
-[  171.764871] Call trace:
-[  171.767342]  pvr_fw_trace_mask_set+0x78/0x154 [powervr] (P)
-[  171.772984]  simple_attr_write_xsigned.isra.0+0xe0/0x19c
-[  171.778341]  simple_attr_write+0x18/0x24
-[  171.782296]  debugfs_attr_write+0x50/0x98
-[  171.786341]  full_proxy_write+0x6c/0xa8
-[  171.790208]  vfs_write+0xd4/0x350
-[  171.793561]  ksys_write+0x70/0x108
-[  171.796995]  __arm64_sys_write+0x1c/0x28
-[  171.800952]  invoke_syscall+0x48/0x10c
-[  171.804740]  el0_svc_common.constprop.0+0x40/0xe0
-[  171.809487]  do_el0_svc+0x1c/0x28
-[  171.812834]  el0_svc+0x34/0x108
-[  171.816013]  el0t_64_sync_handler+0xa0/0xe4
-[  171.820237]  el0t_64_sync+0x198/0x19c
-[  171.823939] Code: 32000262 b90ac293 1a931056 9134e293 (b9000036)
-[  171.830073] ---[ end trace 0000000000000000 ]---
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Fixes: a331631496a0 ("drm/imagination: Simplify module parameters")
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_fw_trace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-index e154cb35f604..6193811ef7be 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-@@ -558,6 +558,6 @@ pvr_fw_trace_debugfs_init(struct pvr_device *pvr_dev, struct dentry *dir)
- 				    &pvr_fw_trace_fops);
- 	}
- 
--	debugfs_create_file("trace_mask", 0600, dir, fw_trace,
-+	debugfs_create_file("trace_mask", 0600, dir, pvr_dev,
- 			    &pvr_fw_trace_mask_fops);
- }
-
--- 
-2.43.0
-
+Thanks,
+Neil
