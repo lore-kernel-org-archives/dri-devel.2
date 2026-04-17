@@ -4,77 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85610F4368A
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 10:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E3A8F4368D
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 11:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A98FB10E29A;
-	Fri, 17 Apr 2026 10:58:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C4910EA17;
+	Fri, 17 Apr 2026 11:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FsMcJhFr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZFMFYZf0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B16E910E29A;
- Fri, 17 Apr 2026 10:58:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776423487; x=1807959487;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=CwKibyJzVRDoAIal+h4Z67Sw/g/2BPRlilO0CkcylXE=;
- b=FsMcJhFrW9Q4mcZRPSGSuocHWJCVn+Bk/InH1KNkwhHUWE0iv1ulHkZU
- R1viGHDZs12hXtr6DawO/fYAy6EXaBR+H/bkr65j02vYDZoLJwqKVr2az
- TYHPnLx1tsNyboObP1l1sxngWn6sfUFXYm8DnOpZzdDgjCzwht7AuxFMX
- z5T9Lz5+jCB2VBr2SZLI2JNitCASN5xU4KvHVJBpzKrLVDaSuRsGm1FCQ
- QXfc3A2E0y0qUACbJTwK34xk7faGJHlWgbUS/TQ0jQXtWtV4WaUKAWHEW
- 2gvHgwVVTZeGbLz3RmO2wyZAv+AUGqMVe++hsYpSFLfUik4KD6BKjOdKQ Q==;
-X-CSE-ConnectionGUID: Lwczr35qT3meYxbQhFOsbA==
-X-CSE-MsgGUID: l9ONWZNpRJ+cPqGY9j0Qng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77312686"
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="77312686"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2026 03:58:06 -0700
-X-CSE-ConnectionGUID: HlHsWSjbQQqm6l4HYki6eg==
-X-CSE-MsgGUID: cIpGX+cTSl6YE4Owot/H0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="232755769"
-Received: from zzombora-mobl1 (HELO localhost) ([10.245.245.176])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2026 03:58:01 -0700
-Date: Fri, 17 Apr 2026 13:57:58 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
-Cc: Julian Orth <ju.orth@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C40B10EA17
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 11:00:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4E4026012A;
+ Fri, 17 Apr 2026 11:00:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43440C19425;
+ Fri, 17 Apr 2026 10:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776423604;
+ bh=R3sQwuUL9lgxVct/Vxl6PTaKIe98221a3QegCmhibzw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ZFMFYZf0W31/boqDoKkcj+d/wPaB9YwsgBj4+G0j+O9B7p793NDaf09zGTE52FnDn
+ VslJMxtbKrxzCoqOc40OQeZoyJymXdjGIenSg+QT9ECh6okIX5SColMTRRN0qlJmPF
+ FewtCVyy4UAbqQnWiTCaJYas+Toa1DkoWG7Dq/Z7V1cnrsPS+CFR95/8zjDNSUCnRO
+ 9H/FrDVyUiZMUQDbXweC7FGc81eVNKi8j7jI2Owl71+ZohAhKAi3REZZkKXOGk1PI1
+ t4oO51Cd28L6ryFr+AZMYWdkTuhHAaKrQ5R9P0zwfGryavjrMA3ChW7fbeGs8n3w20
+ 3SaEDxLxPhn0g==
+Date: Fri, 17 Apr 2026 11:59:56 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, John Hubbard <jhubbard@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>,
- Melissa Wen <melissa.srw@gmail.com>,
- Daniel Stone <daniel.stone@collabora.com>,
- Ian Forbes <ian.forbes@broadcom.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com, wayland-devel@lists.freedesktop.org,
- Marius Vlad <marius.vlad@collabora.com>, Imre Deak <imre.deak@intel.com>
-Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
- user-space
-Message-ID: <aeISNnh6IWGA7P8C@intel.com>
-References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
- <CAHijbEXcrhB=ipaa4-DPD8atQYCkokGfueLafwkeQpxCBkc0bw@mail.gmail.com>
- <7472926.DvuYhMxLoT@workhorse>
- <CAHijbEViae+=Fcnh3v0ODxwTPUaRgU1H4OVGM3VFPSLMPzJzOA@mail.gmail.com>
- <1297f150-b3b4-4a53-ad05-ecb05b8ec420@mailbox.org>
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 0/3] rust: add `bitfield!` macro
+Message-ID: <5a0b7de0-3bfe-4e71-9e0e-3d9396e1d9d5@sirena.org.uk>
+References: <20260409-bitfield-v2-0-23ac400071cb@nvidia.com>
+ <798e83e6-eb7b-4502-85e7-5a0f6d9c6281@nvidia.com>
+ <DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org>
+ <CANiq72k0FXcekxs=E+xLe3=wyu+KHr4yM0wLj1VgtgTUb_K4MQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="VLmRQ1k2zFsSA7iR"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1297f150-b3b4-4a53-ad05-ecb05b8ec420@mailbox.org>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <CANiq72k0FXcekxs=E+xLe3=wyu+KHr4yM0wLj1VgtgTUb_K4MQ@mail.gmail.com>
+X-Cookie: Uh-oh!!  I'm having TOO MUCH FUN!!
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,100 +74,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 09:49:36AM +0200, Michel Dänzer wrote:
-> On 4/16/26 15:16, Julian Orth wrote:
-> > On Thu, Apr 16, 2026 at 9:46 AM Nicolas Frattaroli
-> > <nicolas.frattaroli@collabora.com> wrote:
-> >> On Wednesday, 15 April 2026 20:57:53 Central European Summer Time Julian Orth wrote:
-> >>> On Wed, Apr 15, 2026 at 8:19 PM Nicolas Frattaroli
-> >>> <nicolas.frattaroli@collabora.com> wrote:
-> >>>>
-> >>>> This series addresses a shortcoming whereby a hot plug event is sent
-> >>>> without it being passed the actual connector that caused it. This takes
-> >>>> into consideration both the polling path and the HPD (Hot Plug Detect)
-> >>>> path. It also adds support for the vkms driver (using ConfigFS) for
-> >>>> propagating the connector ID when changing the connector's status.
-> >>>>
-> >>>> The motivation is that user-space applications such as Weston would
-> >>>> previously receive non-connector-specific hotplug events, and then have
-> >>>> to figure out themselves which connector needs to have a modeset
-> >>>> executed on. This notably did not work when the hotplug events came in
-> >>>> too fast, resulting in Weston missing an on-off-on transition of a
-> >>>> connector, seeing that its state was unchanged from "on" so can't be the
-> >>>> one that was hotplugged, and skipping reinitialising it as it looks
-> >>>> through the other connectors that could've caused it.
-> >>>
-> >>> Have you considered adding a u64 serial number as a DRM connector
-> >>> property that is incremented every time the connector changes in some
-> >>> way? Userspace could then check this serial number to see if the
-> >>> connector has changed since the last time it queried the serial
-> >>> number.
-> >>
-> >> The connector internally already has an epoch_counter member which
-> >> could be used for this. However, for the particular thing this
-> >> series fixes, I don't think exposing it through the uAPI is necessary
-> >> or desirable. Sending hotplug events specific to the connector does
-> >> not need any additional handling on the userspace side as long as it
-> >> already listens to the per-connector hotplug events in order to
-> >> avoid the pitfall described in the cover letter.
-> > 
-> > I currently do not handle per-connector hotplug events. Instead,
-> > whenever I get a UDEV change event for a device, I re-fetch the entire
-> > kernel state for the device. That is
-> > 
-> > - DRM_IOCTL_MODE_GETRESOURCES
-> > - DRM_IOCTL_MODE_OBJ_GETPROPERTIES for each connector, crtc, plane
-> > - DRM_IOCTL_MODE_GETCONNECTOR for each connector
-> > - DRM_IOCTL_MODE_GETPROPERTY for each connector property
-> > - DRM_IOCTL_MODE_GETPROPBLOB for the EDID
-> > 
-> > Once I have the new state, I compare it against the desired compositor
-> > state and perform a modeset if necessary.
-> 
-> mutter is doing something similar as well.
-> 
-> 
-> Note that some are arguing a modeset is always required after a hotplug event, even if the state hasn't changed.
-> 
-> The most convincing argument I've seen is the scenario of a GPU reset, after which a modeset is required to light up the displays again.
 
-GPU reset should relight the display on its own really. That's what
-i915 does, albeit somewhat badly at the moment.
+--VLmRQ1k2zFsSA7iR
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> A hotplug event seems the only mechanism available for the kernel to request a modeset from the compositor. (The kernel may not be able to reliably do the modeset on its own, e.g. due to interactions with user-space atomic commits)
+On Fri, Apr 17, 2026 at 07:55:57AM +0200, Miguel Ojeda wrote:
+> On Fri, Apr 17, 2026 at 12:19=E2=80=AFAM Danilo Krummrich <dakr@kernel.or=
+g> wrote:
 
-There's nothing preventing the kernel from doing extra atomic
-commits whenever it wants. But if you want to punt the thing to
-userspace then the kernel must set the link-status property to
-bad, and then fire the hotplug uevent.
+> > So, in order to not motivate workarounds, starting from the next cycle,=
+ the
+> > drm-rust-next branch will be open for new features at all times.
 
-> If this "modeset required after hotplug event" rule is confirmed, it means that after a hotplug event without connector ID, the compositor must do a modeset for all connectors.
+> > Consequently, all patches applied to drm-rust-next after -rc6 do not ta=
+rget the
+> > upcoming merge window, but the next one.
 
-Only for connectors where things changed, or the link-status shows bad.
+> I think that for branches going into linux-next, in general, new
+> material is not meant to be added until the merge window closes, e.g.
+> from last -next:
 
-> 
-> 
-> P.S. https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/14420#note_2984697 even argued that two modesets are required after a hotplug event, one which turns things off and another one which turns them on again. I don't agree with that though, a single modeset should suffice.
+>     The merge window is open, so please to not addd any v7.1 material
+>     to your linux-next included branches until after the merge window clo=
+ses.
 
-The actual argument is that you should not defer the hotplug
-handling when things get disconnected, mainly because of crap type-c
-firmware.
+> Some things do target future merge windows (e.g. Rust itself was such
+> a case for a long time), so it may be fine when adding it before the
+> merge window opens, but I think the idea is mostly to avoid too much
+> movement during the merge window to avoid interfering with other
+> maintainers finishing their trees for Linus etc.
 
-I think the userspace behaviour there was that you get a disconnected,
-defer processing it, and then you get a reconnect, and then decide that
-nothing actually changed and a modeset is not needed after all. That is
-not correct IMO. Clearly a ->disconnect->reconnect should count as a
-change in the connector's state, and a full modeset is thus required.
-The kernel can of course then decide that the full modeset is not
-actually required and skip the modeset part during the commit. But
-userspace cannot make that determination.
+> But not sure how flexible this is -- Cc'ing Mark.
 
-I suppose what we could maybe do there to force userspace's hand is set
-the link-status to bad already when the thing gets disconnected, and keep
-it like that until a full disable+re-enable cycle has been done. Then
-userspace could not think that the ->disconnect->reconnect is a NOP
-(which I still think is incorrect behaviour).
+Yes, the idea is that at the end of the merge window -next should only
+have a few fixes in it since everything should've been sent to Linus.
+This also applies to things being added after you've sent your pulls to
+the DRM core maintainers, if something isn't going to go in during the
+merge window you shouldn't be adding it to -next. =20
 
--- 
-Ville Syrjälä
-Intel
+For the most part nobody's actually checking that other than the reports
+I send to Linus highlighting which trees have the most commits in -next
+so if you're not disruptive the chances are nobody will notice but you
+shouldn't do it.  As Miguel says it's trying to avoid causing issues for
+other people, plus the general concept of -next is that it's covering
+what's currently scheduled to go into Linus' tree.
+
+Of course, nothing stops you maintaining a branch which isn't in -next
+and is open all the time and that won't have any wider impact.
+
+--VLmRQ1k2zFsSA7iR
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmniEqsACgkQJNaLcl1U
+h9Cwbgf/SeM+1u2oEbqfWp7OMKk+1V/N/Jnw0XeozlmS6jRDPegqQTK+PVIMdIwy
+I5FqKQsDYYj3RnGT0UJVg8xjkqNJ5HbgIFlrejwZ4IsDOMQg7Om+DV10AB0vE8RA
+ydC0ijnfBRXW1hNJ5+rOXfXEuy/eWnFvM61V901tjOhUjApDfAz+Z3/oMzsGFVyd
+ThJxpiqJZOILDKvvhoZ8Zv5nWazM9fkjkarbnkPAGnwPnwp8wBt+vvM1zvtD3LSL
+cVWmWraKy5rFhQ3ivMR30FFHWCkLRwCj7HE0N0Bp0R3qP8qIQ0P4UK+N9VpBndRw
+5i6z5dJcIco0pFhlhmVe3rb4wLxFMQ==
+=BVky
+-----END PGP SIGNATURE-----
+
+--VLmRQ1k2zFsSA7iR--
