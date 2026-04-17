@@ -4,128 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F20EF8E4BB
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:54:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CE73F8E4BC
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:55:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEB4410E988;
-	Fri, 17 Apr 2026 07:54:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E11C10E07D;
+	Fri, 17 Apr 2026 07:55:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3PzlDWYG";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Gtk/tTYp";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="913YzevT";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="KkTj4Owh";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="njvlYx5p";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013004.outbound.protection.outlook.com
- [40.107.201.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D2B210E988
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 07:54:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iwwfUQNOsZyMgVOxTdoZhcOP+NTpog2V3nabtDcbgvjR/HltgFj/lTD8pUia4edheIbLi+1dofd5zQSF5v+lNS7d6/L/XWRvi/qleQc8k/ciH4suXj5/hVtvuHgMdvCZ0o3EqciSgCsfQTdq19uwy2Gp/VDNLjIu3B5ZuWTFpMKnbA42284Yv885dyPUaMNNONnGwQAHWMKH936gvcxKKA/eeNprOncE1sb6obQUE/9IetbA7NrxcJaF48uQKLcsQGYSk2JOfV1QU7rBKDUMXTVlR28ShbKAJwPkN8n64c/6VYhq2rePysadV9pbPUQH0svq2mmmy7KLjeh8AImVLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xI41eCdxT3vHHUSP6mcueoyvicczs1k4tmRDnqD8o30=;
- b=ESRXJ3T8IjwDYBQuza0F+Nc8luOf83vdiANBkzFC3o8SSnV91/QeGW1EizU2HPAZqV7HSQ/6jGyA6ijNeXZG+Az2XpcFVMlLbLrsK3LhRbeEc6wXsJszFIt8yQxQykl6TSwpl66E7OiynWKKAbEsHJAu9fWH03vA0CNLAmGKRPjEa3TMNRb1sW9tDJTm3AHQV9KpjhII4nh6U6mhdqqTAOpfzgCbakR/qxJINPSfvTZpV9ITQOCxW4NlgP1LHIDpra3+j4VwsKw74PgilGTZ6omsxWLmn6otqIKXt4S0HZVq2sRrQu0TR/CzPUFy4Ua7XVeA07yn+p3KLJ/KZLY2XQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xI41eCdxT3vHHUSP6mcueoyvicczs1k4tmRDnqD8o30=;
- b=3PzlDWYGm7TSFEYUyYlkIXM+nkedqQ13z/8sgOLxHx/L3mgXKai8u9s7NysYBTfShb1xGQjwQQrLqudd0AsULLW0o/v06PiRtCEf0IcqYrB97SxHyp13yIlbWXB28I8wR31T1j25i5HI6k5CVtqI6XhF6UiTis9bH8g4lGz7Vr4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB7828.namprd12.prod.outlook.com (2603:10b6:8:14b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9791.35; Fri, 17 Apr
- 2026 07:53:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9818.017; Fri, 17 Apr 2026
- 07:53:57 +0000
-Message-ID: <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
-Date: Fri, 17 Apr 2026 09:53:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- dri-devel@lists.freedesktop.org,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- linux-media@vger.kernel.org
-Cc: Val Packett <val@invisiblethingslab.com>,
- Suwit Semal <sumit.semwal@linaro.org>
-References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
- <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
- <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0278.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6086610E07D
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 07:55:00 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E860D6A992;
+ Fri, 17 Apr 2026 07:54:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776412499; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rMJ89j4lZ3N+QyxWsfXEJr/ZM+8yzljB3OTk7alDZag=;
+ b=Gtk/tTYpG6ESgdSghRgTvt1HYEXd36x/2RDcmzVg1DCTJaKk4xkj2Pyk9V6Y3NRmfw4a+3
+ jRaoye/tt3QQx1FZFYMyxy20lNYULi2tJl17s82Pi3TWCr8Ywm35XRnS+YJB8h9I4jJKBZ
+ x65LBUhsgQ4hG2ssDCFYvdsc/NjIAlY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776412499;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rMJ89j4lZ3N+QyxWsfXEJr/ZM+8yzljB3OTk7alDZag=;
+ b=913YzevTdIBVVHjYMZkn/LqpK8PXq6RuhQEx9IM999uvxtej6Rls4KRZCq5MaJxWqRBC+a
+ xH9FdRMMu/QauEDQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=KkTj4Owh;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=njvlYx5p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776412498; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rMJ89j4lZ3N+QyxWsfXEJr/ZM+8yzljB3OTk7alDZag=;
+ b=KkTj4OwhCY8vZFAgOHDQ3AY87jBtYYDQlZAWjzVbAhUNTouPVvsEkYZOwEAGNnG0mrAIHA
+ FnP+XkU5+DoX3Xd0zUNvhY0ZQkSczPNddAgDA6Zw4xLS7N2qgKw3vTt1nTSC+DZ0gEH74d
+ 3wO4EaX2EI+PEGRG2gr0FIvOnWE4ZBA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776412498;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=rMJ89j4lZ3N+QyxWsfXEJr/ZM+8yzljB3OTk7alDZag=;
+ b=njvlYx5pTtlxpw4ul24tjPFNHTKf36Kccmqgv333iaz4FHZrN/PJc2DnsXsnVysQ/6YHIl
+ B6+N4VZygK0yUpBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72B35593AE;
+ Fri, 17 Apr 2026 07:54:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id N9OyGlLn4WkeHAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 17 Apr 2026 07:54:58 +0000
+Message-ID: <cb1f80ec-20af-4e59-a32e-b1e61e66af0d@suse.de>
+Date: Fri, 17 Apr 2026 09:54:57 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB7828:EE_
-X-MS-Office365-Filtering-Correlation-Id: f35a9599-72f5-410d-f3b8-08de9c567a9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: nFBNT3vY5ZJiYdKs5fpP3kdfuCuiAHbWxymth6xkdMN5vZ41HlTeRTBF9J02Z/4WMfM2j/za6pRzpVGRcVuxMwjG5yMpHkiE6t1jjjyN8dq0Y+GPgd+Ai3K4wT1QRLJMgMmzTm/g6UGHwdDA3UwZYeyDFhG6EuDGAlmaUoMevriyYIeg07AaEmhWjQzhYubf/mlMRw0ph2plzWSHNYy/asCmsfGvu3lnt2GSIyzpgTGzbzsapaHCmMjJebNeNBWVYa+CPnwWvJx3PsguvYNFpQGM6Ce+ubodJjURmBACNGdJRzXIgcObmtcri/MIpqv6OVWl30Zj+OIsi0fdAWJTTcFu+o9SUJIXbICJtst4T1KekWAP0+d3QVvzhSVEMz2uRubhqkfi+GkZxXjEZT4nx0bXbO1HYWIImPoeDZmqINzIHi0cPXbYIK/R9QBrtMhs3ab6HKtrFagRS4IJrTs7++n8BSmqCurNF8qB4YoDxAyzlB4ihPB94CiCz29XR+/htP6h8UIAuZ1Ym3mxEozg8IEBkx7isVysDYyENXYdJ1I0cRO7FG/9B+zoZQCeUsILIiwDNvh/xZmg2OOBDCCFkDAxSULahFdlDlVCNKX0xHZnBQIh2m2uR9M2HJcz/ltHb7b6Kz0+gEVjeLcyf0lNd+UfiBc8k4ALTJGC9Wqi/DPVJTxENZxTem7Db5PR1adLcRKp18k8g6YYE17MaPfA37tJdsoBjX631mu96YgYS+A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEtjWC8vRzcvK1ArNGk2SUZ0OUgyVE5lbFBDSkgxZFZFYzFNWFE4WHl1c3Q2?=
- =?utf-8?B?K3g1OHk4VlJ2U0g1bklnL0xVMTdqOFFUY25DSm11a08zUGVjWUZMaG5ORmNF?=
- =?utf-8?B?N0lDU050TU94K3lMS3QrVHBLdlhKVmZiM2RWOGR4cUJ2T1pqa3IwbWN1Q1lu?=
- =?utf-8?B?ZmRDS2hObGdKa09zSEx6cU9waG0wU09Oc00xSDhSZm4yWGkxdGptaHYvMEV6?=
- =?utf-8?B?M2czQ3A1Z0Vya0xTNGJra2JPT3BJNzFVOEFEUEpyTjA1S3Z6cFFLVEozcjdr?=
- =?utf-8?B?dzJWdXhIMVV4d2h2KzMweHZDNVdTNTdCeS9FaUtEdi9SS09sbXpuTHN1YTdv?=
- =?utf-8?B?WUlGSGVaQmo3NDdiZkNLM0FCRDkrTzlkMDlOTTZaZysyNmRWOEkzM1kwZzFE?=
- =?utf-8?B?Rk1XMityaFNEbStValY5dHRYTmdzWml5SWkwcExsZjQ5VklYd2orbEVWOWNp?=
- =?utf-8?B?MGdLUHFSRmFzU0xjdkZDN21TMm1pTEFPc2VjQzlxZWh6cmEzUkZtdWorcm54?=
- =?utf-8?B?b1pXNEVnWXlHY0lrUzkvRDNtY2VSYVpKZ05NM2luRDNLc0hYWFRpN053aGc1?=
- =?utf-8?B?T3ByV0t2OWoyNFFjYkZRZWVuOFpXaEI1RFpkMjlDMmUxbVN4SlFFWlhaazFB?=
- =?utf-8?B?cHczK1Rhc0J4UDBhVXA0WGg1Nmg1WjhTSXJCMW45S1VlKzNZcWc5NVNPY0Fi?=
- =?utf-8?B?R1NMMStPVU9TMmRMU2tseHRpMjdDNWgzQU9xTkVhb3JjeHRiRllvTUlmR2ds?=
- =?utf-8?B?NmgwQ0ZUOU9uRGx2YWNUR0pPUEEzcG1pVDlXeU9DbXU1aGgxdG02N1RKdUdr?=
- =?utf-8?B?OXRUSE9IbllZUk8xbWdZc2JJMFNDNmZTaTk3emRibWJGYjNORnJNYkJsUkJ0?=
- =?utf-8?B?bWJQNGVPK2h5bHBvajIwTHh0ZTV6aDVYRUZYeE05WjdZTUoxbFlRbnZQalZD?=
- =?utf-8?B?QktMWWZENUNXRDVoVU10NGtuVEtZNFhqM20wTkpKaW5ZNEtEOVlHb1QxaWtQ?=
- =?utf-8?B?alFldVg4bjNWcW5MYUZnVTd5NXlPdTJBRW1DZ2VIYkhXci8vYlAyQU9jU0hj?=
- =?utf-8?B?VGtVSFdTUUFsTUpRc3hMMlM1YVp1UmpuRCs5QXRMcndJcWljV2xDdm01bmZI?=
- =?utf-8?B?NUNSKzVnMm5HeWxOOXJOVStUVEQ4OW15ZUJBdkg4M25RSVZNaS8ralQxdEFa?=
- =?utf-8?B?QWNGS1ZvandTRlhGQUV3aExOeWhONzEvM0QwMUNCVEJnYWlmR1hQY0ovZkZO?=
- =?utf-8?B?eURkYllBNEI1cko5bk1HNUUreXEyQnpYSzNMd2tGRnk1SnhlbE9CU3B5d0Rl?=
- =?utf-8?B?RWxHRCtkRUgvTm5KSDBZb0dmeG9HUCsvemowbFQ5aVdjeDZEZm5wS0ViK2V0?=
- =?utf-8?B?UkdnVzhiNlhna3ExN1BDQ1ZvTzdhOFVHaWQxRWRIVEVSVHlYRHd5MlVacGpD?=
- =?utf-8?B?cmdqVmZuVEk0ZFZDOENaRk5PRU5pbWRiMGU3T2h3VS9IUUdnRFJlbkFSRWN4?=
- =?utf-8?B?WTgxWlRybGVrUXEzL1d0MG1mbHdLKzR4SFFScHlhd29DVWlubjJ5WXhDS1gv?=
- =?utf-8?B?MUNkV3duWGpJdHBHTVZ1SldIU0ZKc0VLMHcvbFNyV3NiOHlac05wVkN6aFJX?=
- =?utf-8?B?WmxRc1hJNS91QVY3MmZCUDdQZjRzNFhFY0xxdGlwTjd3ekRwZW1PRXdmN2ZF?=
- =?utf-8?B?ZWJJTTRrN284V1VzWnEyUlpERGZ6YVNCK25NNjF6RDNMVno5a0xFODF6THRx?=
- =?utf-8?B?TThNczc2eldpOWtVYkxzeHh4YmdiVWt1cjE0TTNBSUJ0N3BGYWVOQ0VocFQ1?=
- =?utf-8?B?QXhJZWpRZnRDZVlCdmIrUTlneVdsZ2xHdGxGTXNHb2VGOWFLUkQxZmRBVHNu?=
- =?utf-8?B?SUFsb0xHbjZRTlAveDBXMDZ2VW0zRURpUmRLeUpQcXZvVkE0WjQ5amVoZm1W?=
- =?utf-8?B?aHNjTVh5Z2VpcTRpOUdpVFlhSXJ0OU56eWlsdHd5eDdrOEpJaGxqYjlZVDRB?=
- =?utf-8?B?ODdCV1lXNkoxUlBrcm45M2JoMmNidElrSm9mQmg5cUZsWXBpSWFiZVdBUXha?=
- =?utf-8?B?a245dFhkc0txRHR1QzdSRlQyWkhGbkdmU3VBaEh0ZERiOC9jeXFNQkxBeDNL?=
- =?utf-8?B?dm1CdlpGUy83bCtDV2ZnQ2NVTzR5ZkJkb01abGZ3czlXT2M3T3c3UG5EVCtV?=
- =?utf-8?B?WEg0NzNkNUdCZEVCZzdsQWR3VVUrRndyWitjc0tLME81MnFYRmx0RnFKRkJk?=
- =?utf-8?B?czZqazBCM05LMzhpRDc0UVBxKzYvVmdsUUw1SXh2eVBMUVdNT3hQTGNaWk1C?=
- =?utf-8?B?U0RLSlBsd215THFqb2t2alhrZTdlTFZRRTJFNlRVYWFzZk11WGZFdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f35a9599-72f5-410d-f3b8-08de9c567a9c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 07:53:57.3314 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N+xG0bwEoNMrEr1vVN2SdFt23CoUIzKqbpZpvITcdQhTGf1XG31042aZyKufwVoo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7828
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for drm-misc-fixes v4 2/4] drm/hisilicon/hibmc: fix no
+ showing when no connectors connected
+To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
+ tiantao6@hisilicon.com, xinliang.liu@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
+Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
+ helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260416092455.1990632-1-shiyongbang@huawei.com>
+ <20260416092455.1990632-3-shiyongbang@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260416092455.1990632-3-shiyongbang@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
+ MIME_TRACE(0.00)[0:+]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid, suse.de:email,
+ huawei.com:email, suse.com:url]
+X-Rspamd-Queue-Id: E860D6A992
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,59 +156,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/16/26 18:13, Demi Marie Obenour wrote:
-> On 4/16/26 05:57, Christian König wrote:
->> On 4/16/26 01:27, Demi Marie Obenour wrote:
->>> Is it safe to assume that if a dmabuf exporter cannot handle
->>> non-revocable, pinned importers, it will fail the import?  Or is
->>> using dma_buf_pin() unsafe if one does not know the exporter?
->>
->> Neither.
->>
->> dma_buf_pin() makes sure that the importer doesn't get any invalidation notifications because the exporter moves the backing store of the buffer around for memory management.
->>
->> But what is still possible is that the exporter is hot removed, in which case the importer should basically terminate it's DMA operation as soon as possible.
->>
->> GPU drivers usually reject pin requests to VRAM from DMA-buf importers when that isn't restricted by cgroups for example, because that can otherwise easily result in a deny of service.
->>
->> Amdgpu only recently started to allow pinning into VRAM to support RDMA without ODP (I think it was ODP, but could be that I mixed up the RDMA three letter code for that feature).
->>
->>> For context, Xen grant tables do not support revocation.  One can ask
->>> the guest to unmap the grants, but if the guest doesn't obey the only
->>> recourse is to ungracefully kill it.  They also do not support page
->>> faults, so the pages must be pinned.  Right now, grant tables don't
->>> support PCI BAR mappings, but that's fixable.
->>
->> That sounds like an use case for the DMA-buf pin interface.
->>
->>> How badly is this going to break with dGPU VRAM, if at all?  I know
->>> that AMDGPU has a fallback when the BAR isn't mappable.  What about
->>> other drivers?  Supporting page faults the way KVM does is going to
->>> be extremely hard, so pinned mappings and DMA transfers are vastly
->>> preferable.
->>
->> Well if you only want to share a fixed amount of VRAM then that is pretty much ok.
->>
->> But when the client VM can trigger pinning on demand without any limitation you can pretty easily have deny of service against the host. That is usually a rather bad idea.
-> 
-> Is there a reasonable way to choose such an amount?
+Hi
 
-Not really.
+Am 16.04.26 um 11:24 schrieb Yongbang Shi:
+> From: Lin He <helin52@huawei.com>
+>
+> Our chip support KVM over IP feature, so hibmc driver need to support
+> displaying without any connectors plugged in. If no connectors are
+> connected, the vdac connector status should be set to 'connected' to
+> ensure proper KVM display functionality. Additionally, for
+> previous-generation products that may lack hardware link support and
+> thus cannot detect the monitor, the same approach should be applied
+> to ensure VGA display functionality. Add phys_state in the struct of
+> dp and vdac to check all physical outputs.
+>
+> For get_modes: using BMC modes for connector if no display is attached to
+> phys VGA cable, otherwise use EDID modes by drm_connector_helper_get_modes,
+> because KVM doesn't provide EDID reads.
+>
+> Fixes: 4c962bc929f1 ("drm/hisilicon/hibmc: Add vga connector detect functions")
+> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Closes: https://lore.kernel.org/all/0eb5c509-2724-4c57-87ad-74e4270d5a5a@suse.de/
 
-> Unless I am
-> mistaken, client workloads are highly non-uniform: a single game or
-> compute job might well use more VRAM than every other program on the
-> system combined.
+The bug I reported is that the DDC does not return an EDID at all. 
+Therefore hibmc fails to detect the connected VGA monitor. AFAIU that's 
+not what is being fixed in this patch.
 
-Yeah, perfectly correct.
+> Signed-off-by: Lin He <helin52@huawei.com>
+> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+> ---
+[...]
+> +static int hibmc_vdac_detect(struct drm_connector *connector,
+> +			     struct drm_modeset_acquire_ctx *ctx,
+> +			     bool force)
+> +{
+> +	struct hibmc_drm_private *priv = to_hibmc_drm_private(connector->dev);
+> +	struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+> +
+> +	vdac->phys_state = drm_connector_helper_detect_from_ddc(connector,
+> +								ctx, force);
+> +
+> +	/* If the DP connectors are disconnected, the hibmc_vdac_detect function
+> +	 * must return a connected state to ensure KVM display functionality.
+> +	 * Additionally, for previous-generation products that may lack hardware
+> +	 * link support and thus cannot detect the monitor, hibmc_vdac_detect
+> +	 * should also return a connected state.
+> +	 */
+> +	if (priv->dp.phys_state != connector_status_connected)
+> +		return connector_status_connected;
+> +
+> +	return vdac->phys_state;
 
-> Are these workloads impossible to make work well with pinning?
+This will break user-space compositors if DP and VGA are connected at 
+the same time. I know, because we had such logic in ast and mgag200.
 
-No, as long as you don't know the workload beforehand, e.g. when you define the limit.
+Today's compositors expect a single encoder-connector pair on each CRTC. 
+That's what most contemporary hardware provides.  But the server 
+chipsets usually come with one a single CRTC and multiple connectors 
+attached to it.  Compositors fail to configure that. When we had this in 
+ast and mgag200, Gnome would display garbage to the screen and 
+mode-setting would fail. The bug report is at [1].
 
-I mean that's why basically everybody avoids pinning and assigning fixed amounts of resources.
+In ast and mgag200, only one connector would be installed on a single 
+system. So we could avoid the problem. It looks like that this is not an 
+option with hibmc. VGA always seems to be present and DP seems optional. 
+I would advice to only report one of the connectors as 'connected' if 
+both are installed on a system.
 
-Even if you can make it work technically pinning usually results in a rather bad end user experience.
+You also need to increment the connector's epoch_counter if the physical 
+status changed. Doing this will trigger DRM clients to re-read the 
+connector state and reconfigure display.
 
-Regards,
-Christian.
+Something like that
+
+dp_detect()
+{
+     dp.phys_state = detect_from_hw()
+
+     if (dp.phys_state changed)
+         ++epoch_counter
+     return connected
+}
+
+vdac_detect()
+{
+     if (dp.phys_state == connected)
+         return disconnected
+
+     vdac.phys_state = detect_from_hw()
+
+     if (vdac.phys_state changed)
+         ++epoch_counter
+     return connected
+}
+
+This handles the KVM in each connector's helper. The ast driver is 
+probably the best reference for the current logic. See [2].
+
+[1] https://gitlab.gnome.org/GNOME/mutter/-/issues/3858
+[2] 
+https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/ast/ast_vga.c#L47
+
+Best regards
+Thomas
+
+> +}
+> +
+>   static const struct drm_connector_helper_funcs
+>   	hibmc_connector_helper_funcs = {
+>   	.get_modes = hibmc_connector_get_modes,
+> -	.detect_ctx = drm_connector_helper_detect_from_ddc,
+> +	.detect_ctx = hibmc_vdac_detect,
+>   };
+>   
+>   static const struct drm_connector_funcs hibmc_connector_funcs = {
+> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>   
+>   	connector->polled = DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
+>   
+> +	vdac->phys_state = connector_status_connected;
+> +
+>   	return 0;
+>   
+>   err:
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
