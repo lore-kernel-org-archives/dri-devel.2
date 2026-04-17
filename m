@@ -4,81 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89435F8E49D
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:06:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C57BF8E4B4
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 07:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 200D510E97A;
-	Fri, 17 Apr 2026 07:06:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7534710E982;
+	Fri, 17 Apr 2026 07:08:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="p7vUccaA";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="r0E/a2T3";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0590B10E1D7
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 13:18:38 +0000 (UTC)
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63FLgjRH3451039; Thu, 16 Apr 2026 06:18:29 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=gniy3uTDgAbZRbr2JvoSRDyzFG9cFS4I3MN/SyLSvY4=; b=p7vUccaANRfh
- uTeB35EDElC5PodjZQnqgRVrRBLLyEHsU8GW85yEenF7szOfkyrXbtuRG3Jkq13r
- JjSlyb/QuyfAQyKSwPcj8vh3c23QLtR3tp/dj1lNelftY1O+bHKpML8dYFbNqar/
- Q7cK0zguBdtJGh/RLaW3GFP2gGGKtfvkMdNRyEeO8gZlKMcwTKkDnv1MAqq7MqZm
- T0FpEv6RpMdR7emzzXsmvxM0lbXeZoOiSX+1Rh0Ol5JpZ74Ph+1dAJtidNROBkOW
- V7VKHltLd59wyuHJ9q0lQgNo9TwG1EfTCfMbiPobkZ+ZAfJJpFtrT7AF00gWwNM3
- JTYdpSPsow==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4dh84tt04h-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 16 Apr 2026 06:18:29 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.37; Thu, 16 Apr
- 2026 13:18:28 +0000
-From: Matt Evans <mattev@meta.com>
-To: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-CC: Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal
- <ankita@nvidia.com>, Pranjal Shrivastava <praan@google.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
- <kvm@vger.kernel.org>
-Subject: [PATCH 1/9] vfio/pci: Fix vfio_pci_dma_buf_cleanup() double-put
-Date: Thu, 16 Apr 2026 06:17:44 -0700
-Message-ID: <20260416131815.2729131-2-mattev@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260416131815.2729131-1-mattev@meta.com>
-References: <20260416131815.2729131-1-mattev@meta.com>
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com
+ [113.46.200.224])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBBB310E981
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 07:08:53 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=pzBLAWMzasZLljpmq7lbj2ABnUU+Y1nf8FDUPyoPiNA=;
+ b=r0E/a2T3VlqKtj5pItApGfhv8ZkQUnvCfSmrN+X9OXPnXWhmE7sKS599EO3f/we3F8ZvPm5LL
+ qNYtnd52KIGNGixM115H/KvGxPl6w5KIM3DueYSJ8lLRLgHLnbGPsIRxW/Z4aNHMSohxnXJSZtn
+ gUfbqaHA5hoSxJaedZHsGl4=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+ by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4fxm6H0JM6z1cyQc;
+ Fri, 17 Apr 2026 15:02:31 +0800 (CST)
+Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
+ by mail.maildlp.com (Postfix) with ESMTPS id BCED74061D;
+ Fri, 17 Apr 2026 15:08:49 +0800 (CST)
+Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
+ dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 17 Apr 2026 15:08:49 +0800
+Received: from [10.159.167.44] (10.159.167.44) by
+ kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 17 Apr 2026 15:08:48 +0800
+Message-ID: <93568f17-2eeb-47bf-96b6-ccadec00e84c@huawei.com>
+Date: Fri, 17 Apr 2026 15:08:48 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/hibmc: Use drm_atomic_helper_check_plane_state()
+To: Thomas Zimmermann <tzimmermann@suse.de>, <tiantao6@hisilicon.com>,
+ <kong.kongxinwei@hisilicon.com>, <sumit.semwal@linaro.org>,
+ <yongqin.liu@linaro.org>, <jstultz@google.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <airlied@gmail.com>, <simona@ffwll.ch>
+CC: <dri-devel@lists.freedesktop.org>, Rongrong Zou <zourongrong@gmail.com>,
+ Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
+ <stable@vger.kernel.org>, "Liangjian(Jim,Kunpeng Solution Development Dept)"
+ <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "fengsheng
+ (A)" <fengsheng5@huawei.com>, "helin (T)" <helin52@h-partners.com>,
+ <shiyongbang@huawei.com>
+References: <20260413085037.17491-1-tzimmermann@suse.de>
+ <20260413085037.17491-2-tzimmermann@suse.de>
+ <7fd5022a-9a5d-4976-9d4a-1e0fa2022eae@huawei.com>
+ <1805a7d4-a4a0-48ee-ac6e-33e5d9d5fdc9@suse.de>
+ <fffc172f-6bfe-4947-8f3b-52a1534b1d3b@huawei.com>
+ <34ecfa0c-a6f5-48b0-b706-27e1f9868dd7@suse.de>
+From: Yongbang Shi <shiyongbang@huawei.com>
+In-Reply-To: <34ecfa0c-a6f5-48b0-b706-27e1f9868dd7@suse.de>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [2620:10d:c0a8:1b::30]
-X-Authority-Analysis: v=2.4 cv=DeknbPtW c=1 sm=1 tr=0 ts=69e0e1a5 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=GbPsI2Ihf5RTnMjR_gZv:22 a=VabnemYjAAAA:8 a=3E3Mp2m-XbClQYvposQA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDEyNiBTYWx0ZWRfX6FrByzlxctLn
- wXqFi+OEBYpJxxVODVtu6SpBggSjDgAiAHLcltsTCM/zsc2q7fMcowKkqBvDg+F3mdxiJjRku4x
- moO+QPW9snLGiEsDNnJy3N4zXUvQ2tVR3cpwKAua53JLjzBoycprZupI/4rVZKfEhcXVUouMnNr
- HNgbDSgN5azCjjyCQJnRB5rYl9X0y8NiIRX0b3nEjUbmGFa0AR9XfM8UxcR8FlamtzUv0FvjYM9
- eFLtMeY0dqRCzbm8yw6J91BscZDm6VBZq8fkoO8Xd/htuaf2ohoC1gG+ySaqyDnehcclWiF15oi
- Kc+upQye6m2ofs5zKo/O7qskgsnANL8dQUhs+RAzsF1KCLZKAXsxkGg523KhhJAYk+kvCQuw5lU
- YiVuU1oPCxsujxrnm3eIAF+VQgc3QX2O7kpDTJH6c8S2iuAkC5KQcvu2nUQ5WYjOzJLsHad0orA
- AMb08PIytGU/JZ7BJEw==
-X-Proofpoint-GUID: rldl6TLxiGrFUZss98IienREl0Moymje
-X-Proofpoint-ORIG-GUID: rldl6TLxiGrFUZss98IienREl0Moymje
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-16_03,2026-04-16_02,2025-10-01_01
-X-Mailman-Approved-At: Fri, 17 Apr 2026 07:06:15 +0000
+X-Originating-IP: [10.159.167.44]
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemq100007.china.huawei.com (7.202.195.175)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,60 +80,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-vfio_pci_dma_buf_cleanup() assumed all VFIO device DMABUFs need to be
-revoked.  However, if vfio_pci_dma_buf_move() revokes DMABUFs before
-the fd/device closes, then vfio_pci_dma_buf_cleanup() would do a
-second/underflowing kref_put() then wait_for_completion() on a
-completion that never fires.  Fixed by predicating on revocation
-status.
 
-This could happen if PCI_COMMAND_MEMORY is cleared before closing the
-device fd (but the scenario is more likely to hit when future commits
-add more methods to revoke DMABUFs).
+> Hi
+> 
+> Am 16.04.26 um 15:22 schrieb Yongbang Shi:
+> [...]
+>> However, I believe the modified version is the better implementation,
+>> the plane check should be complete even if the CRTC is not enabled.
+> 
+> Great.
+> 
+> I agree that the logic in the helper is non-intuitive. I'll send you an
+> updated series with an improved commit message next week.
+> 
 
-Fixes: 1a8a5227f2299 ("vfio: Wait for dma-buf invalidation to complete")
-Signed-off-by: Matt Evans <mattev@meta.com>
----
+Looking forward to the updated series next week, and I appreciate the
+improved commit message as well.
 
-(Just a fix, but later "vfio/pci: Convert BAR mmap() to use a DMABUF"
-and "vfio/pci: Permanently revoke a DMABUF on request" depend on this
-context, so including in this series.)
+Thanks,
+Yongbang.
 
-drivers/vfio/pci/vfio_pci_dmabuf.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index 281ba7d69567..04478b7415a0 100644
---- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-+++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -395,20 +395,25 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
- 
- 	down_write(&vdev->memory_lock);
- 	list_for_each_entry_safe(priv, tmp, &vdev->dmabufs, dmabufs_elm) {
-+		bool was_revoked;
-+
- 		if (!get_file_active(&priv->dmabuf->file))
- 			continue;
- 
- 		dma_resv_lock(priv->dmabuf->resv, NULL);
- 		list_del_init(&priv->dmabufs_elm);
- 		priv->vdev = NULL;
-+		was_revoked = priv->revoked;
- 		priv->revoked = true;
- 		dma_buf_invalidate_mappings(priv->dmabuf);
- 		dma_resv_wait_timeout(priv->dmabuf->resv,
- 				      DMA_RESV_USAGE_BOOKKEEP, false,
- 				      MAX_SCHEDULE_TIMEOUT);
- 		dma_resv_unlock(priv->dmabuf->resv);
--		kref_put(&priv->kref, vfio_pci_dma_buf_done);
--		wait_for_completion(&priv->comp);
-+		if (!was_revoked) {
-+			kref_put(&priv->kref, vfio_pci_dma_buf_done);
-+			wait_for_completion(&priv->comp);
-+		}
- 		vfio_device_put_registration(&vdev->vdev);
- 		fput(priv->dmabuf->file);
- 	}
--- 
-2.47.3
+> Best regards
+> Thomas
+> 
+>>
+>> [1]
+>> https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
+>> hisilicon/hibmc/hibmc_drm_de.c#L84
+>> [2]
+>> https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
+>> hisilicon/hibmc/hibmc_drm_de.c#L94
+>>
+>>
+>>>
+>>>>
+>>>>> +    if (ret)
+>>>>> +        return ret;
+>>>>> +    else if (!new_plane_state->visible)
+>>>>>            return 0;
+>>>>>    -    if (new_plane_state->crtc_x + new_plane_state->crtc_w >
+>>>>> -        crtc_state->adjusted_mode.hdisplay ||
+>>>>> -        new_plane_state->crtc_y + new_plane_state->crtc_h >
+>>>>> -        crtc_state->adjusted_mode.vdisplay) {
+>>>>> -        drm_dbg_atomic(plane->dev, "visible portion of plane is
+>>>>> invalid\n");
+>>>>> -        return -EINVAL;
+>>>>> -    }
+>>>>> -
+>>>> The purpose of this check is to ensure that the right and bottom
+>>>> boundaries of the plane do not extend beyond the crtc. In
+>>>> `drm_atomic_helper_check_plane_state`, `drm_mode_get_hv_timing` is
+>>>> called to retrieve the crtc boundaries, and `drm_rect_clip_scaled` is
+>>>> used to clip the plane, any portions extending beyond the right and
+>>>> bottom boundaries are discarded.
+>>>>
+>>>> I'd like to confirm that my understanding is correct? previously, the
+>>>> check failed if the plane exceeded the boundaries, but now, after
+>>>> `drm_atomic_helper_check_plane_state` is called, the plane is
+>>>> clipped to
+>>>> fit within the boundaries.
+>>> Yes. This sets plane_state->dst, which is clipped to the size of the
+>>> display mode. But it also tests that the primary plane covers the whole
+>>> display.
+>>>
+>>>> in function drm_rect_clip_scaled:
+>>>>
+>>>> diff = dst->x2 - clip->x2;
+>>>> if (diff > 0) {
+>>>>      ...
+>>>>      dst->x2 -= diff;
+>>>> }
+>>>> diff = dst->y2 - clip->y2;
+>>>> if (diff > 0) {
+>>>>      ...
+>>>>      dst->y2 -= diff;
+>>>> }
+>>> I agree, the logic in drm_atomic_helper_check_plane_state() is hard to
+>>> understand. It sets the clip rectangle to the size of the display mode
+>>> (or zero if the CRTC is off) at [1].  Then is clips the source and
+>>> destination coordinates against the clipping rectangle at [2].
+>>>
+>>> Because we set can_position to false, it tests if the destination and
+>>> clipping rectangles are equal at [3]. This is similar to the that is
+>>> being replaced, but with plane state correctly adjusted. If both
+>>> rectangles are equal, it returns success. If the destination is too
+>>> small, it fails with an errno code and a warning.
+>>>
+>>> If the plane is not visible, the helper already returned at [4].
+>>>
+>>> [1] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
+>>> drm_atomic_helper.c#L943
+>>> [2] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
+>>> drm_atomic_helper.c#L945
+>>> [3] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
+>>> drm_atomic_helper.c#L959
+>>> [4] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/
+>>> drm_atomic_helper.c#L949
+>>>
+>>> It is now possible to have a primary plane that is larger than the
+>>> display mode. This is a feature of the DRM API.
+>>>
+>> Thank you so much for the explanation. It's much clearer to understand
+>> drm_atomic_helper_check_plane_state.
+>>
+>> By the way, we ran some basic tests on this set of patches using the
+>> latest BMC chip, and everything worked fine.
+>>
+>>
+>> Thanks.
+>>
+>> Best regards
+>> Yongbang.
+>>
+>>
+>>> Best regards
+>>> Thomas
+>>>
+>>>
+>>>>
+>>>> Thanks.
+>>>>
+>>>> Best regards
+>>>> Yongbang.
+>>>>
+>>>>
+>>>>>        if (new_plane_state->fb->pitches[0] % 128 != 0) {
+>>>>>            drm_dbg_atomic(plane->dev, "wrong stride with 128-byte
+>>>>> aligned\n");
+>>>>>            return -EINVAL;
+>>>>>        }
+>>>>> +
+>>>>>        return 0;
+>>>>>    }
+>>>>>    
+>> Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+>>
+>>
+> 
 
