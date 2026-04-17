@@ -4,102 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 231AFF436BD
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 17:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F792F8DFFF
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 17:52:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E58F10E090;
-	Fri, 17 Apr 2026 17:01:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90B4910E08E;
+	Fri, 17 Apr 2026 17:52:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IVhJzk8l";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SZROceg1";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D64B210E090
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 17:01:52 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-12c555f886dso1218540c88.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 10:01:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776445312; cv=none;
- d=google.com; s=arc-20240605;
- b=TNncySM9N9zIf3eK0aGdoY+MBPnCrBD6FzMsEzoiKzGoGTkyeQz24aD7ECqLaS67/7
- y8rnk1rJ1VmWoJQilRCFb8Min1QIZdzr6vrP5sIEOusydM/46+wiGfakodgBrpWjFITD
- Ndtyk9Af3TEG9fxKWFBYdHqkjpPAAJArv2uFH50b4hwuZilVrgTtEQcZaHxCAruXcTbB
- NqEbFnsc7AmGjDzmwcIYQHZJ9fjYlh6AorXXOa6PZDGuk9/UUKjS5uAGrwTALwXdqgAl
- FKTjUrAOoaXFc6Yww1wmUIcEqmLMFezrJUzjvcMlNMRBCDF+3OYYXMTfQ885SyNG9tJq
- tvpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=EdXbw8ruQnDuxyXud9pqLO7P6ne13TbWgACZPF9q6l4=;
- fh=8c0pJb0x/JHrOQoX6OdtVDGrRgtF8ToMKcgmDIYzc7w=;
- b=d8rO3NdWwvyR+8Hjl0XSbIafjGq0SdxCqRuxu0k+fz391C7FozLuLytdwa/mzxXG9n
- iQaYnGnoA2URtCbtSHWqN8dOq7SpWAwrh2ESlQe1lnnFuKRqtWgQ6h4EIDR5dljfc63U
- TaHhQtflf9PmfmRoGuQCX7s5DFhwdg9ow3tcKbcbQs2dmuR16pFLF+aORaxkJWajnvlQ
- ezs1smg2SVPV8kRaTmpq9JXAE0e3Ol51/pFW0PjwxoZfdNQEdK16gUQFZHeeSwLRMdLh
- BWXJfDAIeGHMj5ZW1zg9+t3LvjmD2AhRvlqk2QDd3e6JoXVEGN1NQVQAFd/NjPT79UyI
- BKKA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35FF410E08E
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 17:52:39 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-488ba6366a7so12692805e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 10:52:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776445312; x=1777050112; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EdXbw8ruQnDuxyXud9pqLO7P6ne13TbWgACZPF9q6l4=;
- b=IVhJzk8lHeUGwH5W0txwihTJyqn8aLB237xGIAJwev0RPWeV29fDcI1CbESwVVGCse
- jUMl8mjyHc+WOjI0oIV3Ji/B9DyrBjYKBEnzzNoI99kHWo4msguwDCChp+xcalc+fjg3
- /hdu143UBbvfcvAX7Ack3dausZEwmmTmK/hrMZHsYgNsUqGIgJO/PFYfsh3OdUo0U13a
- cEQafrJc3xGb6hgpycrZlu5+Z5pAqdgLsU4FbZfnM/G8FaaCMeQC4qTz4qJgYsYPSDQ6
- 8PH7IRpDRF3Kt1X5d0qM7XF8MjVUpG2slz7VnJGMpDf8Yzd8eLPNAbYP/R48MBWKFKk7
- IFPg==
+ d=gmail.com; s=20251104; t=1776448358; x=1777053158; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=kcWSZcx8tUSQRJOSIW4G17Zl7J0Fx/Boua0I4nA8bg0=;
+ b=SZROceg1iX2S5jnGpK5jCeafist20SJx9Mbv+1rJwjJ43z4X6xZe8TP3/uJ5EjzgUj
+ 4glrEDF1mDWz0rQD1QiFdjJbOkDGhl2m/Y9mzit/nn/2iE3mApx7c3DAn5xU3MdA15nG
+ d7SsvyaPh5fOmwvlmVE6z76nigubbhhyeW3/0oSwHR6MUz0FmFefFZVdYaKnBbzMSklv
+ QXXCx2w4vK3VlasXZIp9cGqDB1yw6mVHOeqG+S702xqq/IO+2MtHluVp+seq1AoRJhwJ
+ m6fiIiE21GblAjVT5pQLmKWeNQh90VTlnpNhmdviz+KLrTi0KBUQT0vmMvFbdCK127SY
+ 4hsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776445312; x=1777050112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=EdXbw8ruQnDuxyXud9pqLO7P6ne13TbWgACZPF9q6l4=;
- b=b0ByXQaOyV7cWg2/btLk6Re91B6dj6g515pS9LZ1OAJE96fHQW7lvbSUm/wZR/5P5u
- Ik6kcVdrWuBwnIqlctl/WFu63tM3AK0TXGUF4AeigR23IdRtH6aOIKeWY2R4/bIVmCLh
- HQb3tXOyiFtPuiGXDJJ0YtBb5L90ryI3SqngZ7m1+xFTVNiVJ8pvgXxcSnf22VKu8/C9
- tkXtPBkBmeXmSdwNdH1N0ueffupwEgWvT7FxaLtySm7O8wor687fF450nApNti2yAeh9
- Cg+aOqe5dh/sBvO4gseDWwhQcjsc/khG9qa2VqaABGurkmPyfessaQvNQ47fzOFQInZw
- 26yQ==
+ d=1e100.net; s=20251104; t=1776448358; x=1777053158;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kcWSZcx8tUSQRJOSIW4G17Zl7J0Fx/Boua0I4nA8bg0=;
+ b=drkFeZYfyLyZdJk9ukvKShvKe/qKQSgAAdsSueukAIYznIcydd4bbRKI0QPbvm/8k8
+ tMYi8OXWrKI2up0mPqahXl5VPx4p/EljPC0D0t5G4gkpdF8afKEav+g4MrIpNqHx5dJd
+ Ge1k2iFFzAC8E7H0dfk+XmTSECQC23ONia1roEwm8d9qpMjq9sFOOnHefSUh3exvc+6k
+ R6wwBrPuvJEJceQv/BeaKIGHMTnPLZe0YlzJih09Id14GxOJEgo0VOdiTmb3XgjOrM16
+ p54TavnBVZ+DjNEAamQYwfUVFkZ9Z8o4s2rSv5ZPhOcouHgsz3WOtfTK99zA02Z+Ux7T
+ h9jA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ//qiDZ9whe2UBZkeE6OU1zNBg20TS+3z39biEeSjLBmPLmOc6+jJgCULU+NSYJeSqRbxdUqk8NV10=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyEjk3LYJouNH8hGpNmdDQ2/sjTbs6zKEd7mf2WerY2D+5jJ7zz
- yqj5gZet6oDiTSPVH4YHDJrFpD0424Sd4cxAWacVH81qV0KkpiLhAmBVwgzeEI381v77dGk1Bxv
- MtTy3x+KQMGIhoqzxXlazScaS4EqA9og=
-X-Gm-Gg: AeBDiesuBsgxRQbDs18nid3pxfpWQbeTPM1xi0WQt3D9e8RbdbAFalOSz5eS9tYmiZP
- a+hwJVC6turKW+T8idToU4QQ+yikI94ZidpinG+vXB9tIwD2XfJ7+DA+xBY78MQphuZDbbwCz19
- H5Us8cKXTQ/IUlgGNtVdKYpMvLxuh77mRSOjT31fzdRjihXHk2xYpO0ttzuv1gZrQ+HaIj4cpMP
- HNYnmLGu+HIwPF7P9R9gG8xhWr9jVoZwonJlvVKjjNCpTCPqN8z2uNiXM2N1n0d3o3KZFGTkijg
- EsEhspxSbt+WiuzwM47jlvgy2SB+UALgrwFK1JM7aQ+9QaNRHxtU3/dfzdMMZVWsKZ18kho6vrq
- tDUkuQ16jQWIKGAxpkNAWGltztS5vg3fi9agqKpSimShPXzHK
-X-Received: by 2002:a05:7022:985:b0:128:d7a7:526b with SMTP id
- a92af1059eb24-12c73f957c5mr1805488c88.22.1776445311456; Fri, 17 Apr 2026
- 10:01:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
-In-Reply-To: <20260330-job-submission-fixes-cleanup-v1-0-7de8c09cef8c@imgtec.com>
-From: Robert Nelson <robertcnelson@gmail.com>
-Date: Fri, 17 Apr 2026 12:01:24 -0500
-X-Gm-Features: AQROBzAmoDifysD6gsakq-ejyyvsk094ITMTDrSQ37RcrzyThndYubnsOWLSElk
-Message-ID: <CAOCHtYg6_Gob1uQ3RBp_vrjunJ5F2qi_Yvd6Z0OpKktVXuSuXg@mail.gmail.com>
-Subject: Re: [PATCH 0/8] drm/imagination: Job submission fixes and cleanup
-To: Alessio Belle <alessio.belle@imgtec.com>
-Cc: Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>,
- Brajesh Gupta <brajesh.gupta@imgtec.com>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>, 
+ AFNElJ+fSWX7GwHGGc2BJiOQcva29g7OjP1ea1NgB248K21I7hfaotCNEFyhqFPqSsKn9J75VhisTCd03tU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyPiACtJJBtpL4TYCqLt4p3Uu3wUT2K2aBzs0F8psiDCY2t20YR
+ lTlreXBYvzmEeKzc7BHZGWzYsc9Uh0HOYL3TOzaaF7bsZPTcOPhD7DdX
+X-Gm-Gg: AeBDietPhsCGCiSn8nOXozKBqS5ZE5lY0luzqghYSinU6Ptu0sgHpip3m3VYFckfv1t
+ GmHjOqXhN+PjYOhmC02YwptQw9E60xe/MvYTsLxmJGAWEPR4ZzLnA6sUQycG8Caxm0mden0bT2P
+ 2ltorZJxfmLw+ayUX8U3bE0EBJu01DsAJdCzytEVj19gsEZOv5siFwHL7zDNkHztT1lKW7+/VWv
+ naRQMXGIiZjBMAxC4gHYCDNT8x8Gygrj4jCK2vQ4Nq1+te7yNlSnifn0GhxpSNSGjI6dadb+J/D
+ SUlynr6OrgQ35K6xLJH4Pb8r8idWzUZav6R0UNLy/Rkn3o/z4QhhlRD5upOnD6OnIsOijKcnic/
+ vnzM5BPfElWUHOK3n3g/RlmnQyadKMBDpQq5ztINyHOO2MJtDjO+ePIaJuKc+a8sAaZKWI/oH3n
+ vWAMqV1wQdKwqdevTj9Ahvk/mREBaG3PmZqA5ItP9/
+X-Received: by 2002:a05:600c:350e:b0:488:a82f:bb95 with SMTP id
+ 5b1f17b1804b1-488fb7861c0mr52097255e9.29.1776448357547; 
+ Fri, 17 Apr 2026 10:52:37 -0700 (PDT)
+Received: from biju.lan ([2a00:23c4:a758:8a01:528c:590:5bef:9bc8])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fc1c773fsm56166535e9.12.2026.04.17.10.52.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Apr 2026 10:52:37 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Simona Vetter <simona@ffwll.ch>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH 0/3] Add support for Renesas RZ/G3L LVDS encoder
+Date: Fri, 17 Apr 2026 18:52:27 +0100
+Message-ID: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,60 +102,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 3:21=E2=80=AFAM Alessio Belle <alessio.belle@imgtec=
-.com> wrote:
->
-> The first two commits fix rare bugs and should be backported to stable
-> branches.
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Yeap, that triggered on BeaglePlay v7.0.0, Mesa 26.1.0-rc1 and xserver
-21.1.20-1 overnight..  testing now (and updating xserver to 21.1.22 as
-more glamor changes)..
+Add support for the RZ/G3L LVDS encoder driver. It operates in single-link
+mode with 4 lanes (Data) + 1 lane (Clock) and supports pixel clock rates
+from 25 to 87 MHz. The LVDS module cannot be used at the same time as
+MIPI-DSI. However, LVDS and the DSI interface share a peripheral clock and
+the MIPI_DSI_PRESET_N reset signal. Also, the MIPI_DSI_CMN_RSTB and
+MIPI_DSI_ARESET_N reset signals must be asserted before using the LVDS
+module.
 
-https://gist.github.com/RobertCNelson/5e1dcf4c648a5bffaaf970c5a50e5c96
+Biju Das (3):
+  dt-bindings: mfd: syscon: Document the LVDS_CMN syscon for the RZ/G3L
+  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
+  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
 
-Regards,
+ .../bridge/renesas,r9a08g046-lvds.yaml        | 128 +++++++
+ .../devicetree/bindings/mfd/syscon.yaml       |   1 +
+ drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
+ drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 333 ++++++++++++++++++
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.h    |  22 ++
+ .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  26 ++
+ 7 files changed, 524 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.h
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
 
->
-> The rest is an attempt to cleanup and document the code to make it
-> a bit easier to understand.
->
-> Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-> ---
-> Alessio Belle (8):
->       drm/imagination: Count paired job fence as dependency in prepare_jo=
-b()
->       drm/imagination: Fit paired fragment job in the correct CCCB
->       drm/imagination: Skip check on paired job fence during job submissi=
-on
->       drm/imagination: Rename pvr_queue_fence_is_ufo_backed() to reflect =
-usage
->       drm/imagination: Rename fence returned by pvr_queue_job_arm()
->       drm/imagination: Move repeated job fence check to its own function
->       drm/imagination: Update check to skip prepare_job() for fragment jo=
-bs
->       drm/imagination: Minor improvements to job submission code document=
-ation
->
->  drivers/gpu/drm/imagination/pvr_job.c              |   8 +-
->  drivers/gpu/drm/imagination/pvr_queue.c            | 154 +++++++++++++--=
-------
->  drivers/gpu/drm/imagination/pvr_queue.h            |   2 +-
->  .../gpu/drm/imagination/pvr_rogue_fwif_shared.h    |  10 +-
->  drivers/gpu/drm/imagination/pvr_sync.c             |   8 +-
->  drivers/gpu/drm/imagination/pvr_sync.h             |   2 +-
->  6 files changed, 110 insertions(+), 74 deletions(-)
-> ---
-> base-commit: 3bce3fdd1ff2ba242f76ab66659fff27207299f1
-> change-id: 20260330-job-submission-fixes-cleanup-83e01196c3e9
->
-> Best regards,
-> --
-> Alessio Belle <alessio.belle@imgtec.com>
->
->
+-- 
+2.43.0
 
-
---=20
-Robert Nelson
-https://rcn-ee.com/
