@@ -4,141 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 048A5F8E4A7
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 04:15:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA66EF8E4A8
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 04:21:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF8B10E28A;
-	Fri, 17 Apr 2026 04:15:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4799610E28C;
+	Fri, 17 Apr 2026 04:21:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="itIY8XBi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dHb/EEmG";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012045.outbound.protection.outlook.com [40.107.209.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAF1D10E28A
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 04:15:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ENly3vsaN8gLngNMjjjot325tYZDI3pUBqAUvy1hahw9zUaHAtUXiLvgYBrY8Ce5kBLp0pUEp58ZcP6U7vzL8i02dfZZSfsFY0AY3YMHz/fVKkPSSyBZfO79eAXTH4lAq71z3nwsygPbsAvC7GlnVHWOS0KtbS5zOZanI+GOfagV6dNteP1ACGSjCQfrSOIxS+8Td4abcznJjio0Npylw3Kbz6CaJZxLsV/eUYIXUp7Nd4Zh4kHtc3k2DLvLHFx18Pv0ObSRDdG9iZ4SoMhIkG4UXE1wts1/uUYfqGyHgL1HfhqJhT5Mx9YkkrlMtBWx23Kan/uOUgwjEdAR52ndlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J+0CNKKULV3617X0njKRH0X+mdhmVMAxW2rHx52qpns=;
- b=gDZ+M91rN4Ck/yG6O1iIIucX05VKoKpODdn5biHIJ0fxgeOlZUCk8nuF5uCkBnsWB4trCIRFuU852Wshay6Daxk2OEj6eXgZP8NnKigY9zDr1naSFrl6Neuc7gMNPT27/zAuj5GpHNdsI0U7NArKqpCftJZcNZhFZ+xfnbuR0t3NleBMuXA3Le3YsWh12/3dw68B0TAmJhGTRBGDQDe1mDNZcA1lLBL1cjeX17OH7VtoVYlSvHMKrNlPNSDO6ykrYUEBAI9RhK2LGnxdp3uwEXeW6GzlYCarK2hsWYXjl/2Q1ekkHarMCQ3gPZ+ANIUzHFXlC9rBVunuoy6RdUx7FA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J+0CNKKULV3617X0njKRH0X+mdhmVMAxW2rHx52qpns=;
- b=itIY8XBiA9omEQWC5M7ecGtg0SpqOmfb/8H9zkkBtUNrr38cPHd6mbnKgB2uSq//em7j4XnsyBn0s/xaWW0ZPmLZF3BbEYX5wuWuf78HUuoD/l3naYceKBYc4fmaVJc/BeFNtBqlWkNz3TbgUh24I9cCxY5Thi4+CcVmAmaV22fF2K7sZU/85w7roXB7SHioi7ToXo0afJ9153QvU0GBDlFyMasGpv8B1OLWFIQRRwwdplGk6c6M0QCBEbOuVv+fRcMeB7hj0POmEObfjHytS8Fy+FTWepORRj5FUjy6YefcHTIwu4sB44ociI1+hs42kh+cXUo+xFPqxRBTqWcM+g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- IA0PR12MB8205.namprd12.prod.outlook.com (2603:10b6:208:400::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 04:15:08 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%5]) with mapi id 15.20.9818.023; Fri, 17 Apr 2026
- 04:15:08 +0000
-Message-ID: <71bc5290-a3f1-407a-bdc4-115e31a995b9@nvidia.com>
-Date: Thu, 16 Apr 2026 21:15:03 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] rust: add `bitfield!` macro
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Joel Fernandes
- <joelagnelf@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org
-References: <20260409-bitfield-v2-0-23ac400071cb@nvidia.com>
- <798e83e6-eb7b-4502-85e7-5a0f6d9c6281@nvidia.com>
- <DHUXFAD38G5Y.6X6QNTANYNGH@kernel.org>
- <DHV1K1097C27.33XRWLMZM6QZA@nvidia.com>
- <DHV3N3R9NJU3.2HXR63MP02NPO@nvidia.com>
- <fc4b9204-b4c5-415f-8435-e7ae03418dcc@nvidia.com>
- <DHV4MIBWUT0S.2S1QWXGU4LFK3@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DHV4MIBWUT0S.2S1QWXGU4LFK3@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN1PR13CA0009.namprd13.prod.outlook.com
- (2603:10b6:408:e2::14) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2B6310E8BC
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 04:21:08 +0000 (UTC)
+Received: by mail-qk1-f176.google.com with SMTP id
+ af79cd13be357-8d65f4073bfso36984785a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 21:21:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776399668; x=1777004468; darn=lists.freedesktop.org;
+ h=in-reply-to:autocrypt:from:content-language:references:cc:to
+ :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=YAwqAUgFWlz1WbkXOJLiW/ZHx5MHrngRVjGH/BFqAUA=;
+ b=dHb/EEmGuwLG8bcI5UgN4xIDMBAzqt3ei6JmQ6RruQhfKYuODLRtg9cjxEn6HeQiRx
+ /5EibZcCbo2OOtnNR36c0ukLo2tHlQ6xriWgYtp1qwVq8qOz8YNSnDatkH/2wjrmt8r3
+ 4NoUSXvZ9Yf8FUdAgbtskay3JUnZE0ZtqCQwdqAx7x6UbHsvK641bud7o58EYRf5YJU3
+ 7Y1PsgfRJOprwt3mM7Mob9Ek3q+8PwjZLJ3tjbjHLyptPWR0WmtwgzbBrlOaS+ZMtcP/
+ iW1MRPZfJTnrx3V8ABScVAbRrPVeIirr37K+pahMGcxBI8d/MHujKPawcwHCBt9YidK6
+ JM/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776399668; x=1777004468;
+ h=in-reply-to:autocrypt:from:content-language:references:cc:to
+ :subject:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=YAwqAUgFWlz1WbkXOJLiW/ZHx5MHrngRVjGH/BFqAUA=;
+ b=eBBarS2NSc6aKALImkRZ2ZdViWKE5CegwbAUbsGICm7Bp4VqWD0NqPG5uij2egFofQ
+ mB5nhvpp+6tFp6XMpLwIIA/IOm9y5fR1CE3OA5VFa8zizvy8obUb7cRbBv5OTUtgon/d
+ Rj21DbEiMTFJcd8KiM1L6SWioI0j4bbJnBwGAUGTTYOsJNTvAfDLCggHnSFwo9aOVsWp
+ wSJHnGgFmdGsAigDN5THmOOZhSeDrwht978nRQqcpusOzStIGeN588WqH7z6H1rIwUGm
+ 2FdvdLJimIsBzMTe1jwGp0x9MrC9mSKg/GQze74rVEA5kjSukRiUBenypw7iKQLISIef
+ s+lw==
+X-Gm-Message-State: AOJu0YwOoEi1arUKm6IjZXRllXMNRkzThu+QYTMG1CJhOAPkyL2NATCV
+ ckqXATUNlYo24P32zNq4L899v4xWcRi6gcATXrQFbnBx7I/gwUMrqMud
+X-Gm-Gg: AeBDieuYJPZ+ZMCaUgLra1vZmfzWBMUC9lU2WmpnbK7sLpHSBDwIOy8O/h/yvUA+Bdx
+ IDzH55Oz/L8QZVlrsjLR3skW+zCcBKcJzGrYQx7QX9+VCYAVH/gLCnTZbXRgMNr8rZsjKSL7ULg
+ MMWR7TKCaMXr0aYVsVYLovO0HEBqSmBWhDrl0QjUpkMWij05HPhGcFu6JXwDLk4i12rJo10KpFr
+ jxjTfgPXmsXhmlyBRMdlebGkV+SXiu/PLFgqVJVKNuT/wBF3lRR7pjnuOsXBz9X8exw+6ZnwWSw
+ sxZsc3I6h4wU9aTGC6QWQhaOLn0Hn/1hAe5+txmZi2JIxmn2BKEKwo/XZ8cVMgCxjk7GOmOvMSG
+ gFj07oQXf8qdi/L5CBIZRRk4c+IkgJZSWoSP8sMCfJ1aTF0bKqOMlxdWzxF4hCqtVj0XSAUHGkL
+ IzprQFJVdErizol/rE3m1w0x684B7nIoAwhDPiCiwF5IwGsnjjNNd4t1U38QQ=
+X-Received: by 2002:a05:620a:4591:b0:8d3:e8d1:e2b9 with SMTP id
+ af79cd13be357-8e792466e29mr155598085a.57.1776399667789; 
+ Thu, 16 Apr 2026 21:21:07 -0700 (PDT)
+Received: from [192.168.2.25] ([184.146.175.99])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8e7d8edb772sm23405485a.27.2026.04.16.21.21.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 16 Apr 2026 21:21:06 -0700 (PDT)
+Message-ID: <bf14d241-1505-4082-980f-e43ef20ea13d@gmail.com>
+Date: Fri, 17 Apr 2026 00:20:54 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|IA0PR12MB8205:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e178713-ce4f-4e19-b0d9-08de9c37e8df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|366016|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 2K6wfdBshw0BhuA9GaqmxO58Qv8k92KJCbreQtfUzHoMOiuEtNjeBOWTRDLnMXtyFTFD3FsJqnb0lUV2OxAfj/5A565DKO7wtllRTnOrEGbd5PuVTjknssjlL6krc1/Y7uaZVgnBwSZiY/YB1mF41HoBLdhkHT9ECLNVkj/EyNi8Ve5CpUM618GhmI1RGU/Tp4LA/buIas7OcdIutiil+U3FCxW0+XZqvCGebmcpIPwOGw5Pf5eKG+BIUAjjPYrFeaP9V5w4af0tiAk6vvsdT2jXCC9w1n3KwlxgAVGOlzpxXWjzFN3Ri2GJjp0le3b5EmaU11UYRjAiUVFBkpLi53GqHddDLZIuwIKJWfdAk8UTrg0vei7n5xXZO7YSH2nxBBtXvNVuL7XNIjyopWbLysnpeU92CboHUfw7358f7QwqPHuJXlWxiJ1Fl5e5sdcccwngMcIUG6+ey4+nSb/2UJ6co3Ibo6zIlQwf4juO1xDrRsn6WCqkRFrx5MZmeuKbXslOwQbvY+cQtVRUSdFHRjfkafwYF/LNov76bZgXWJA4N8uRCM2yskwQwvhqbeK/kE2xei3yXMhuhwxWLue5jGHu8hXsr3fIfOP+Lmtk/Z+u1t1/5AoQlhboMackYIUBqw90zy2aGyHpmF9xTkvkpj5TmgW0iWWg7x7enwKpVWoGleY9l9SH96o9OVtReoIqwO8NSwQNUIeunoPN9sU1Zptj8P/Hy7PjJJgWMRSnxog=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2JjVlB1ZFdTQjAxeTUrcjE1TWtUNnlwWldEVzQ0c0FUdVVlaUZvQXUxYVd2?=
- =?utf-8?B?RjZEQ2VkUXRXRFgxbG9vRi93SXRNdmlPWHI5Q05LWFkwbGgyVXZGT0R2UU1v?=
- =?utf-8?B?ZGRJUkpkWVAxMHRtaDRuR3Y3b1FtOTc1T3hRU2s5RkpKNGNOKzhqNGVzYW1o?=
- =?utf-8?B?QmZzclJ5L0c1WklSUVhaUWQ1OWx5VHdWL3plQjNYK3lPYzhTNkhBWHg1L3pM?=
- =?utf-8?B?MDg4KzRSWHBmLzBBU1JWU1pNRGg4U1g0Z1RVU2wxa2FUdkFNYXU2YmIydnVn?=
- =?utf-8?B?aHJEemt2T09nMEQzVzhIVUl0MHdCc0NhOHVUU2lid0FaTWl0a1NhZkVKdW14?=
- =?utf-8?B?WFRtWjNFdXdiV2picFN5LytTNjNwbkNMdlJtdTZpdktsM3VRK1VFcXN5RDAw?=
- =?utf-8?B?OUFURGFNM21qamlZdjVNay80ejcrb0FySWk4TUlhZmZqUWk0QzV6Z0tZVVNV?=
- =?utf-8?B?T01EcmN6V3RqcDdZWEZxWVIzYVJPL2xvZ1VjRUNqdFlMSHdxaWJ6b0Q4RVl1?=
- =?utf-8?B?VUZ4em5TVHdFaVl0TSt3TmxzY3VSanR6RkJuOTNwd0RRUko1blMzSVRtYU0y?=
- =?utf-8?B?Z0hQbWt4RzRQL3hVWFIzYkhOREU2aHptbTdxb0FjQldRTythdTcyTTdhcjFl?=
- =?utf-8?B?RzBzNmFTMVk1Mlh0dnh6a3NrbjFJWWpJOXVuUDhrcklqdDV3NVlJOUJ4OFBK?=
- =?utf-8?B?Mk1zSFZuVExnbHp6RkhFUVVxSHpVRmo2S3V6QkdIcUprWmlzdEtVV3JvR25s?=
- =?utf-8?B?MFlrSjZLUGVhTDZlWE9GSDNEcXkvdVYrOVc2S0czL05NeXNkMWI4ajhSNlVq?=
- =?utf-8?B?S2ZKb3ZGd0F5VzZqOExXY2ZPY2pPczJDVC95WVB5Q3FUQVcvcDdYdlB6OVVE?=
- =?utf-8?B?eWZqckZQMi9DUEU4THhKM0dQRWhHdkRZa0NpZVNKd0ZSdGdvTDlQTnFEK0Fm?=
- =?utf-8?B?MXI0TEVyeFlMM3lleWI4QmptdTNlcisrck9UTXZsekRUUGtUUkFLaWJEL3Y2?=
- =?utf-8?B?VUxPakxMblFqZWx1ZmRXamZNUFZWWkhmSkJ6dDJWQi93RDVPMnpJQTdkVXYw?=
- =?utf-8?B?cTltdGZFQXNQbVpMTzNJWllyakJCTkQ0WFp5bzM5R1FrVkF6Y1d6RkliQ3Zs?=
- =?utf-8?B?UGxqbGZsQk9tQ3l2bVFoai9ablo2ZkRSd1J2Tmc1RzdaMDJwNVFwdEZOcXBC?=
- =?utf-8?B?WHovNFc3RUU4ZmFkcVk0TVZKamxJNUdkdlpLa0hhTEsvb2xTOEh2WUdTdHZq?=
- =?utf-8?B?N013aGFtQmcweWtkQ1RiOFRXcEUxUnBsY2ttbGllSWpPSmpvbWlMSXFqRGE1?=
- =?utf-8?B?TmpKa2srQUNVZ040Q1BGdzRQdi9UTGRNWE54eXZMaldXRjVJQmdyOE9DNWtD?=
- =?utf-8?B?akdGWWovMU4xNk9HcTd1cm1hK3JkSWxSaDJ5L25VNjZSbnNwOEd6cDNIRi9Q?=
- =?utf-8?B?ZnRPektVZlN6d2hVK0pWZFRWNktyUGNMczc1bXQ3OU9OQzNIOStrV083QWd0?=
- =?utf-8?B?Q1lJaktoQVpOeEpsZnVyWDlTenV4Q2dnNTkxUUlYUjBONUs1YW42WmxJT3pZ?=
- =?utf-8?B?Uk5EWUo0enZvb1FleDFQTzgwOUJCdVFwZVNhMEM4MnNLUjN1c2NHeHpHak82?=
- =?utf-8?B?NUFlZzh3TXZVd3p6dlFNWmtlMjBWOFdIMU4zNGR1U1d1cWtBWUQ2aTFyMkdU?=
- =?utf-8?B?eUJkZjhwdFhqdlphVkpRekhsbVJuY1BPWlVYa2JPeGFhTEhKbEZGWVRFSXVw?=
- =?utf-8?B?T05FYUYwUDJEYUJFT20yeHhUMGd3VDdiS2VSQlQ2VFJwYXBJMUNuZFBCMFll?=
- =?utf-8?B?QmhFZFJ0Nm81NCs3UHQvMFlWcEVuUURscDBaOThZc0VSRDJ6SVlnL21ya2tS?=
- =?utf-8?B?Z1JkRHdmYnkvdFQvNjNObFp6L1k5Zmp3RTljeEpWakhjTm96NWtPNEhRMkRX?=
- =?utf-8?B?d0dDN21qRUtnOTJFaXBkODdXR21scUZxSUw4VG8yTU1acWoyQ0pPVHZJR21r?=
- =?utf-8?B?SGNmYXlXOTdXaC9ENm9NSUx0VlYzRUQ4YVJ5VFhtVGsrblp3bUg2TjlKR0li?=
- =?utf-8?B?OHc5RVJCREFGZEdUVDdndzNEWXNscUgyOXNubFA0WHpZQ3NhSXd6SFJGbVV0?=
- =?utf-8?B?aUNjaFh5dkNXUGVSdEpxU1AxaVkyeEVXY2RDMmFNUFJMdjViejFna1RqeHE2?=
- =?utf-8?B?VnhuYTk4anpGWkQ4dUlvcDNzeUxqdktuM3VyTzNsZTlPVUNMTzVDb3YyNFFr?=
- =?utf-8?B?WDBQVjVSeGZDU0ozSEM1UjczOFlPS3M1eEJFN2VGcWEzYnpQTjZncmhOa3la?=
- =?utf-8?B?b1Y1b3FXUWhBY2NucDdKRXcxT1FqU0xuUTZod0o3R0hHRll2bmxQQUFJMVlz?=
- =?utf-8?Q?Z//5HnZ8fJyPfz7o=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e178713-ce4f-4e19-b0d9-08de9c37e8df
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 04:15:08.0021 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D/OlH3S2HWICEPu4Zk2LUbf4XaEaOYokWeYuOo0IDQq81MhqOFX9kEVcaxrBwQElXNWHEH2cEBt85owFf1Z0qQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8205
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:136.0) Gecko/20100101
+ Thunderbird/136.0
+Subject: Re: [PATCH] drm/gpuvm: Do not prepare NULL objects
+To: Danilo Krummrich <dakr@kernel.org>,
+ "Cavitt, Jonathan" <jonathan.cavitt@intel.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Gupta, Saurabhg" <saurabhg.gupta@intel.com>, "Zuo, Alex"
+ <alex.zuo@intel.com>, "Brost, Matthew" <matthew.brost@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "aliceryhl@google.com" <aliceryhl@google.com>,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+References: <20260130191953.61718-2-jonathan.cavitt@intel.com>
+ <DHUUHT136HPP.1L7OL7DR568Q6@kernel.org>
+ <CH0PR11MB54449980CA120479A4ACC019E5232@CH0PR11MB5444.namprd11.prod.outlook.com>
+ <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
+Content-Language: en-CA, en-US
+From: Luben Tuikov <ltuikov89@gmail.com>
+Autocrypt: addr=ltuikov89@gmail.com; keydata=
+ xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1APnbnnRHN
+ Ikx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoAQRYhBJkj7+VmFO9b
+ eaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheA
+ AAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlTMqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfy
+ JwktF7REl1yt7IU2Sye1qmQMfJxdt9JMbMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSP
+ cCE8uGe7FWo8C+nTSyWPXKTx9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl
+ 10wVR5QxozSvBQJlOiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKo
+ aMDzO9eGz69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA==
+In-Reply-To: <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------oPqUmnfDT5d4OpDoMDs31wmN"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,35 +108,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/16/26 8:57 PM, Alexandre Courbot wrote:
-...
->> Yes, some conflicts, but probably not too bad, due to the much
->> newer base, right?
-> 
-> Most of the time, hopefully. But that's still labor shifted from us (as
-> I would address the conflicts before merging the patches) to the
-> drm-rust maintainers.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------oPqUmnfDT5d4OpDoMDs31wmN
+Content-Type: multipart/mixed; boundary="------------5pKB70xWtUaRpNN7p57yzLlk";
+ protected-headers="v1"
+From: Luben Tuikov <ltuikov89@gmail.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+ "Cavitt, Jonathan" <jonathan.cavitt@intel.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "Gupta, Saurabhg" <saurabhg.gupta@intel.com>, "Zuo, Alex"
+ <alex.zuo@intel.com>, "Brost, Matthew" <matthew.brost@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "aliceryhl@google.com" <aliceryhl@google.com>,
+ dri-devel <dri-devel-bounces@lists.freedesktop.org>
+Message-ID: <bf14d241-1505-4082-980f-e43ef20ea13d@gmail.com>
+Subject: Re: [PATCH] drm/gpuvm: Do not prepare NULL objects
+References: <20260130191953.61718-2-jonathan.cavitt@intel.com>
+ <DHUUHT136HPP.1L7OL7DR568Q6@kernel.org>
+ <CH0PR11MB54449980CA120479A4ACC019E5232@CH0PR11MB5444.namprd11.prod.outlook.com>
+ <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
+In-Reply-To: <DHUVF2NYOGWV.2DQ3FJIPDF4B1@kernel.org>
 
-This point would carry some real weight, were it not for the fact that
-one of the drm-rust maintainers is the one who suggested this approach!
+--------------5pKB70xWtUaRpNN7p57yzLlk
+Content-Type: multipart/mixed; boundary="------------qN5IEXfVoPdSHjs6ZwKMaUWX"
 
-Please let's take "yes" for an answer here.
+--------------qN5IEXfVoPdSHjs6ZwKMaUWX
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-...
-> It's actually 4 weeks (from -rc6 to release, plus 2 weeks until -rc1).
+On 2026-04-16 16:44, Danilo Krummrich wrote:
+> On Thu Apr 16, 2026 at 10:23 PM CEST, Jonathan Cavitt wrote:
+>> Question for the future:
+>> Is Lankhorst, Maarten a proper maintainer for this component?=20
+>=20
+> Maarten is one of the drm-misc tree maintainers.
+>=20
+> DRM is a bit special in this regard compared to other kernel subsystems=
+, as DRM
+> also allows non-maintainers to push to development trees. Yet, those de=
+velopment
+> trees still need to be run by someone and those people are the tree mai=
+ntainers.
+>=20
+> Additionally, there are people maintaining the individual components, d=
+rivers,
+> etc. and those are usually the people with the strongest domain knowled=
+ge.
+>=20
+> Patches should be sent to both the tree maintainers and the component
+> maintainers.
+>=20
+>> If not, is there a list I can reference to determine who the proper
+>> maintainers I should be contacting are?
+>=20
+> Absolutely, everything is documented in the MAINTAINERS file in the ker=
+nel tree.
+>=20
+> The best way to figure out who to send patches to is to use
+> ./scripts/get_maintainer.pl. The script should provide you with the ful=
+l list of
+> all relevant maintainers and reviewers for your patch.
+>=20
+> Additionally, it also outputs people who have been involved in the corr=
+esponding
+> component and may be worth Cc'ing as well.
+>=20
+> If you run it for your patch you should get the output below.
+>=20
+> I hope this helps!
 
-I knew it felt longer than 20%. So yes, 40% of the year. This is a real
-gap.
+That's a great response! Indeed, the get_maintainer.pl is a good tool to =
+use.
 
-> 
-> I agree it would be nice to improve the situation - I'm just not sure
-> that keeping drm-rust-next open is the optimal solution here.
+--=20
+Regards,
+Luben
+--------------qN5IEXfVoPdSHjs6ZwKMaUWX
+Content-Type: application/pgp-keys; name="OpenPGP_0x4C15479431A334AF.asc"
+Content-Disposition: attachment; filename="OpenPGP_0x4C15479431A334AF.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Me neither, but I'm *very* convinced that it is a solid improvement over
-what we have been doing. I really don't see the case against doing this.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
+xjMEZTohOhYJKwYBBAHaRw8BAQdAWSq76k+GsENjDTMVCy9Vr4fAO9Rb57/bPT1A
+PnbnnRHNIkx1YmVuIFR1aWtvdiA8bHR1aWtvdjg5QGdtYWlsLmNvbT7CmQQTFgoA
+QRYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJlOiE6AhsDBQkJZgGABQsJCAcCAiIC
+BhUKCQgLAgQWAgMBAh4HAheAAAoJEEwVR5QxozSvSm4BAOwCpX53DTQhE20FBGlT
+MqKCOQyJqlMcIQ9SO1qPWX1iAQCv3vfyJwktF7REl1yt7IU2Sye1qmQMfJxdt9JM
+bMNNBs44BGU6IToSCisGAQQBl1UBBQEBB0BT9wSPcCE8uGe7FWo8C+nTSyWPXKTx
+9F0gpEnlqReRBwMBCAfCfgQYFgoAJhYhBJkj7+VmFO9beaAl10wVR5QxozSvBQJl
+OiE6AhsMBQkJZgGAAAoJEEwVR5QxozSvSsYA/2LIFjbxQ2ikbU5S0pKoaMDzO9eG
+z69uNhNWJcvIKJK6AQC9228Mqc1JeZMIyjYWr2HKYHi8S2q2/zHrSZwAWYYwDA=3D=3D
+=3DqCaZ
+-----END PGP PUBLIC KEY BLOCK-----
 
-thanks,
--- 
-John Hubbard
+--------------qN5IEXfVoPdSHjs6ZwKMaUWX--
 
+--------------5pKB70xWtUaRpNN7p57yzLlk--
+
+--------------oPqUmnfDT5d4OpDoMDs31wmN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQSZI+/lZhTvW3mgJddMFUeUMaM0rwUCaeG1JgUDAAAAAAAKCRBMFUeUMaM0r8uh
+AQCv9AxF10p8kqP1ks+jBMinUjAXh2QJKAZTOhNTmSFVCQEAhU3gAaLhpyO349MiHeeFpRqceXwt
+Zc6PCQu2fumyigA=
+=UIDm
+-----END PGP SIGNATURE-----
+
+--------------oPqUmnfDT5d4OpDoMDs31wmN--
