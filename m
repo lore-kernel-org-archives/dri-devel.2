@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30835F4368B
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B02D2F43688
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 09:58:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DACD10E9BD;
-	Fri, 17 Apr 2026 09:58:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2021C10E9BF;
+	Fri, 17 Apr 2026 09:58:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="HfhGuMDf";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="ZX5rdvih";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA1910E9BF
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:58:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 467DB10E9BF
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:58:52 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id DC4BB1A3327;
- Fri, 17 Apr 2026 09:58:44 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 3BA221A3327;
+ Fri, 17 Apr 2026 09:58:51 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id B1F0F60497;
- Fri, 17 Apr 2026 09:58:44 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 0D01060497;
+ Fri, 17 Apr 2026 09:58:51 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BDB0C104609DB; 
- Fri, 17 Apr 2026 11:58:41 +0200 (CEST)
+ with ESMTPSA id 119F4104609DC; 
+ Fri, 17 Apr 2026 11:58:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776419923; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776419925; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=aP1cAIf4IdqPdF56lzrRtzWCPGqEg7cHlOdR2pRXag0=;
- b=HfhGuMDfvfPmY/eFeig1njHpJYeXVF5zCTL+ikGzGCVOkqccZeL2hmYArVAtN+VgCUPHFj
- +xUGxEBeGe5jRWLeH2Wpd7WaLuVxH9EvPiVu/oIi8gHV+hwmUwU+GQUiSd+PAtM//O4Iow
- BQDZRKWlNddsLc7ncxw4AYXnpe5nHVJDBtHOVEnN4/iUIloh0YAkefu2PmVSWPyjjxcKue
- nwFYnpcZm7QIduQktzh5eOgJezo7ah8b43Mp9u++9R9bFqtbm8LBHnmv7bEzqX9ykvVg7/
- xv/WZJBqlUGfs90AWbfb7p8CU2PsvLCx68AvlL3HuTGdZny8eWY3m2WVfEZakA==
+ bh=mTr/IIajAwGCIv+kwylPwhlq0SeQk9XFlc9qfuQfAdQ=;
+ b=ZX5rdvihBWTGihineHRhqLIiZILXPNkRrZFng4zSZHN0YU4coSJa/7ruKfSdqOzm9BERvf
+ jEGrVGPD3PvZk5NVQl5V/Ph+IBJ5F+jb3q8jq5GKNHNsQlU5fs7AcLYpyGaHjk7yMwHShq
+ q3a3Bvd3wr/FR9i5Sh4YzyQoDD/gXFXkyjNRxL1O0AQ9s+v96iZu+VHePPfjVuooMbLqFO
+ Rwd9Z2BuZ+2GqMf77ztj+xMSW94JhqaTfUFKKj9Q5njWNLlkb8HRPZvOciFrZMcv2rFFPo
+ TdGGKmjZu4mW0duO2zmc3Y5TlShrCSK8drG9tQP+HKhhFl6VmqBW/pVFBriHIA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 17 Apr 2026 11:58:04 +0200
-Subject: [PATCH 16/41] drm/msm/dp: remove now-redundant call to
+Date: Fri, 17 Apr 2026 11:58:05 +0200
+Subject: [PATCH 17/41] drm/msm/hdmi: remove now-redundant call to
  drm_connector_attach_encoder()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-16-67b8b8fb872a@bootlin.com>
+Message-Id: <20260417-drm-bridge-connector-attach_encoder-v1-17-67b8b8fb872a@bootlin.com>
 References: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 In-Reply-To: <20260417-drm-bridge-connector-attach_encoder-v1-0-67b8b8fb872a@bootlin.com>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
@@ -77,21 +77,22 @@ drm_bridge_connector_init().
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/msm/dp/dp_drm.c | 2 --
+ drivers/gpu/drm/msm/hdmi/hdmi.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index fd6443d2b6ce..333fce3d44ed 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -376,7 +376,5 @@ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
- 	if (!msm_dp_display->is_edp)
- 		drm_connector_attach_dp_subconnector_property(connector);
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi.c b/drivers/gpu/drm/msm/hdmi/hdmi.c
+index 852abb2466f0..d9491aac1a89 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi.c
+@@ -190,8 +190,6 @@ int msm_hdmi_modeset_init(struct hdmi *hdmi,
+ 		goto fail;
+ 	}
  
--	drm_connector_attach_encoder(connector, encoder);
+-	drm_connector_attach_encoder(hdmi->connector, hdmi->encoder);
 -
- 	return connector;
- }
+ 	ret = devm_request_irq(dev->dev, hdmi->irq,
+ 			msm_hdmi_irq, IRQF_TRIGGER_HIGH,
+ 			"hdmi_isr", hdmi);
 
 -- 
 2.53.0
