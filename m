@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2A40F8E4AF
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:50:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81B89F8E4AE
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 06:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C31910E96A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5F9F10E972;
 	Fri, 17 Apr 2026 06:50:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MbSWpLLP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EcKQrtdC";
 	dkim-atps=neutral
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CA0A10E95F
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:50:04 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5a0ff30b240so441150e87.0
- for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:50:04 -0700 (PDT)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com
+ [209.85.208.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E25410E96B
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 06:50:07 +0000 (UTC)
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-38c620f1699so2893981fa.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 16 Apr 2026 23:50:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776408603; x=1777013403; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=PV5yIQv/6bTdgVUZVXXsO9kP+vu/b8exNKt22mhgJ3E=;
- b=MbSWpLLPU99oujLFuGw6aeJCD0f8ylx1snmnFKlFhtHMzLBz1tSpIXaL919CTw1R4z
- Cgbd4mPoGMq7M6MT5sLj5iH4QbCFRkSo0vm4ha+jHkFDyrlBE2awejL9JeaZvAjw9STQ
- aFnwMGzOhfbECrkoK+pMKfZyNpFyVzXmviDCxvmIB2NLJnqGmQTRDKhdZR8CcXBTzPdq
- KWitlkFy0/ARAy4u2tWwDtNBkld5Ulk/qSmsE9GmOACLwEpUXrrmq4QaCQz8iigWvIcv
- OIfzCEsgtnqPjk1KjFBiz4B4nl938eMbFksjAoD0Lwa4g8dujMPFweKpbX7LsBmrztvs
- 3ExA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776408603; x=1777013403;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776408605; x=1777013405; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PV5yIQv/6bTdgVUZVXXsO9kP+vu/b8exNKt22mhgJ3E=;
- b=dLjDW+q8NzZyI95w/iAwoW1UWuBPWijOYYf6L3Nuy0p7dB7pP64Qz8yQmJFm12ofEP
- feuRXiKFe3YCImejJXzw35Mk7aXdSS2rHP1eErkNiiuZxSnjg613s7A8FR5Vvgb3PIYf
- mS+8SbziWBHhH2dwR0dro9BHLdOMFhK7IRMzlWXnXM/K38oXAPIAeXXQ6CVE+bU05kWO
- RH+lORSNY0l9Rj17IUzNPZCU9XBcvXoCAYNI5bOZB0PuRwGmigQKsgSclqUstpw1DnZC
- G9eK4+eYXO6PQTF/SmsQGg3/XQgLAY/d6PyFKoduLnIWERrMCn6yfD1NaA/ArtmILMQ1
- 89dQ==
-X-Gm-Message-State: AOJu0YyvXeuFY7tmdA0+xJg3zznADe2tylbOTbxIA6UtQuusgIWQLJEF
- UcSPDjyvW1p4AE20HeDTUXqgnz+xVuQhx2zhj31qa2RhJsYNTLCvzA8t
-X-Gm-Gg: AeBDiet8huvrtDMC0mtZkY7veCISolnXgHVKdxKa/dAfmlKbWSkeklu5woL6z7sYNZf
- Sv9IzAHpCKwQclyuJpttHjt8IuxoJ6vtAYopOTRRExYypA8VL1tud4xckZ//tew70Rs7CHn7Eb7
- 20QC7eDXzpV/qjtEgAF/GNReSghKkLekVNTPKqQ5ozgU0ekV4t6CFByw3YhlmIJDCP7MXpJP1+1
- +ign6u2L5MWGpiLtOIoZWdDHZb1CfJ6QQGzaczH1Zxr+uHvFlAZ9hXeEgFMoIrDTV9MbIzmnGiC
- +xqsHXs6iG8d2jNNKBMagWMcEICantMf5uYCTRaa29W3ucBthXq54zVeJzDhFoCrXYdtqp8LSUr
- I5JLrZHFFNXKP6fJc1OvN0HNYleLAYdAvkba6llgY/qgXPjBaGE6SZVP9uCtxOg7dcev0GUMQDB
- z53kg9wBWd84+aQkwW4tAveyYZszA2pGD7Vg==
-X-Received: by 2002:a05:6512:124d:b0:5a4:b2d:25c2 with SMTP id
- 2adb3069b0e04-5a4172dd846mr452741e87.27.1776408602436; 
- Thu, 16 Apr 2026 23:50:02 -0700 (PDT)
+ bh=VSTYwE59cdM0X+83Cupw2VCvDy7g8S/i6/wXCW+hROU=;
+ b=EcKQrtdCxLtjk4H5g3HHlaNos8Q/4eHr8H8P9lYQDRX5ZlNaYbfXfqjxNM1DPelDFP
+ pYvsXnraojhfXoMwDbBEuYT9JCqcJcYYGIglAKW/jZWZCxCRczhOjYTNQJ+3RnFQwyft
+ LMIXKFl9u2X7anu7f8xpxrUz2tgJD1r0iDrW/y3F6j+5j0uluoicyOMwSNEbazDLewQM
+ nD0/V8SmhiGuFlVAFYrSLNKRpzr0R+F1mI45kZ8xj0ktpfsXmJvIBEI69JcBPkvyckTS
+ JLbtQpnyFJxbhgtdlseLKtQtkFL2CHXD7MvQNYoOytIB1SLjkoZyynOqeWWSktCLbERP
+ wquQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776408605; x=1777013405;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=VSTYwE59cdM0X+83Cupw2VCvDy7g8S/i6/wXCW+hROU=;
+ b=VLx+Y1vC8kyQxjV7prYeG8vVdcENh7BKfwA0ayFXVrBoB8H3aSE/DtMZlBXDcyfOXt
+ tikAYGPCnVT+y4XmBF9qrAuZoM9ktJIRQN5ivCzOQgU1SSLQuPK49tfVdA6tRMyGfai9
+ SxLuWoATcherquwzzqm6qTr9Z/M8LNpQqhDML6H9fueSeTxe1JNQ0uzIZrioWjo5k14u
+ ekLi8Zs2H5oqqh9erPuzfkQTMQlZc0QcB6yrgmliQC2gdcTtMowx23tQU7k0hHeYXs1s
+ vCbiPlkW0KujI5tOduWUep21hQwJK+oRhSG5EElCHhVcApPsL67u+YP0Twsl4PMLe6ge
+ 2VlQ==
+X-Gm-Message-State: AOJu0Yzo7/ICWK4BCO9pA4D/dRVelh2LFmsP4LqgC5+wTPk/eayE509Z
+ rZXZSHojdh3ofehZHb/Zjw5jFXHRv6QBT46y/N33j739GT5nTiomJoGR
+X-Gm-Gg: AeBDiesXyCbmxWtRvwyJkrQkyoxLwIcba1iFe/Ry4HGsdRTo90eEQi5RX0G+caCFCGO
+ kSTkj/9qTSnrHp4cwf56glENbI/h+tmOXG4vYWoImcfvO8viZHjDr0qAqcbduMccepEztdML27H
+ lOEvaFYaX962xKor7P/obCI15/W/s2SSuwIfGtQFHUGHEZ/1C5Srx8YrWQX6x/uUhxh7sc16loR
+ FTr7NMEXPsf3B9We8rxN2MXQdpIGW7zQM9L3B333EhA3hKutyd5W8WNZG3+LxUSylTyaHfUypix
+ f1FMKYJN0zDXcBw+QM/rMVyQOSfRdlHUgL5/iEwUdFvb6nb45SJM9mIGLUtB9Jq7MeKdh1HyzBH
+ JlHvF8LcWqh8BazrOcNmynNp313ToBbWdleIo2unfx96wEU62xAEnioztlnpCcJfqvA5dSW9Wbl
+ Qo8By5ifr/71oLtBoppiIe7ls=
+X-Received: by 2002:a05:6512:6cb:b0:5a3:ffc0:882d with SMTP id
+ 2adb3069b0e04-5a4172eabc4mr447159e87.41.1776408604501; 
+ Thu, 16 Apr 2026 23:50:04 -0700 (PDT)
 Received: from xeon ([188.163.112.56]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185ad143sm153202e87.7.2026.04.16.23.50.01
+ 2adb3069b0e04-5a4185ad143sm153202e87.7.2026.04.16.23.50.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2026 23:50:02 -0700 (PDT)
+ Thu, 16 Apr 2026 23:50:04 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -68,10 +69,13 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Simona Vetter <simona@ffwll.ch>, Svyatoslav Ryhel <clamor95@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/3 RESEND] drm: bridge: add support for Triple 10-BIT
-Date: Fri, 17 Apr 2026 09:49:50 +0300
-Message-ID: <20260417064953.20511-1-clamor95@gmail.com>
+Subject: [PATCH v4 2/3 RESEND] dt-bindigs: display: extend the simple bridge
+ with MStar TSUMU88ADT3-LF-1 bridge
+Date: Fri, 17 Apr 2026 09:49:52 +0300
+Message-ID: <20260417064953.20511-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260417064953.20511-1-clamor95@gmail.com>
+References: <20260417064953.20511-1-clamor95@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -89,40 +93,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Triple 10-BIT LVDS Transmitter is used in Microsoft Surface RT and
-MStar TSUMU88ADT3-LF-1 HDMI bridge is used in ASUS Transformer AiO
-P1801-T.
+A simple bridge used in ASUS Transformer AiO P1801-T.
 
-Link to v3: https://lore.kernel.org/lkml/20250824092728.105643-1-clamor95@gmail.com/
-
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Robert Foss <rfoss@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-Changes on switching from v3 to v4:
-- rebased on top of v7.0
+ .../devicetree/bindings/display/bridge/simple-bridge.yaml        | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes on switching from v2 to v3:
-- place mstar,tsumu88adt3-lf-1 alphabetically
-- fix typos
-
-Changes on switching from v1 to v2:
-- sort compatible alphabetically in schema
----
-
-David Heidelberg (1):
-  dt-bindigs: display: extend the LVDS codec with Triple 10-BIT LVDS
-    Transmitter
-
-Maxim Schwalm (1):
-  drm/bridge: simple-bridge: Add support for MStar TSUMU88ADT3-LF-1
-
-Svyatoslav Ryhel (1):
-  dt-bindigs: display: extend the simple bridge with MStar
-    TSUMU88ADT3-LF-1 bridge
-
- .../devicetree/bindings/display/bridge/lvds-codec.yaml       | 1 +
- .../devicetree/bindings/display/bridge/simple-bridge.yaml    | 1 +
- drivers/gpu/drm/bridge/simple-bridge.c                       | 5 +++++
- 3 files changed, 7 insertions(+)
-
+diff --git a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+index e6808419f625..7636c24906ba 100644
+--- a/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml
+@@ -30,6 +30,7 @@ properties:
+           - algoltek,ag6311
+           - asl-tek,cs5263
+           - dumb-vga-dac
++          - mstar,tsumu88adt3-lf-1
+           - parade,ps185hdm
+           - radxa,ra620
+           - realtek,rtd2171
 -- 
 2.51.0
 
