@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AEC0F99C6A
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:22:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C8BF99C6A
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFED510EAAF;
-	Fri, 17 Apr 2026 21:22:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2B0710EAB2;
+	Fri, 17 Apr 2026 21:22:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PKQ31+2o";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ihs1zBhm";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7944110EAAF;
- Fri, 17 Apr 2026 21:22:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88AA210EAB1;
+ Fri, 17 Apr 2026 21:22:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776460924; x=1807996924;
+ t=1776460930; x=1807996930;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Oyt9MrhcLOpBiVDxuBegMnlAznf2Vvn3Nn3jGErX18s=;
- b=PKQ31+2ofp1GNrZWFtvwZD2qSc5PTfvkQbj7GR79wt78HmFT6zrNwMnU
- WoXdoAEnyM4l1Py2OiWcwGWetiWcTv1qBuRlhwm4rP+MlQW+Om6e5250d
- Y7AiFCMmRwc06KaQkm79+vRogsqAQB7iwK+7zHVNoCn4OSUDmVj7JmNjH
- YO+GWfkMW8O3Q8qGlHUlta4QGKEtx4mXNoDFlOfWQ03dI2Me6RJ0cE5/j
- WVIy/kajFaiUv100BrwZSXnTfW6R3SGPLkJzlsghXKTFMgPtcpDLJo1tj
- yVMSgAK+OATeqvIz25smn9T3fLq9QSc5ZmEqMN1qwEDdck8eiXtztW9CG g==;
-X-CSE-ConnectionGUID: q/tpoIk+T3ejSZqNvPvIMQ==
-X-CSE-MsgGUID: JvXp2F5nQ++m+BuYHNYjiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="95046234"
-X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="95046234"
+ bh=YUSqL9DlAf/n46deV+1A69QjiVg/CWd6tIqN/O+vudE=;
+ b=ihs1zBhmKXSLPsip1eSHq0L0dFitok22l1FoW5Bs7/GsaiTkjfeaaiJj
+ bDo6XSSVApaiIHrGeIW109/YyvxHgYtszlqg29xKBWnToTO8v3xzy3rt2
+ HNYUbyrhliKtsh+LnupAN/b6DQR8FvflmE7XCQzg0gJBnsfVA7w/yzrj3
+ 8bwEd3eaY+SA24AH8zbAlHYa5N1VhALC3OsdlZUYei5B7rd2AP0w6UyPI
+ /plrrV4khoZp1+khC0a0JNiHC+6F1iJhyCRjKBzfYvFyRFuY6BPRFvDNm
+ M0qXQNrHM3pD9OzBOJVLGKM8wQ3TeNAAwqRmFTsmtKUamVjH4HaStYOaL Q==;
+X-CSE-ConnectionGUID: xcQnF/NoQWSQovUSSaYdcg==
+X-CSE-MsgGUID: tt1dve6IRqyf1aZYKEM4gg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="95046247"
+X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="95046247"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2026 14:22:04 -0700
-X-CSE-ConnectionGUID: wHxm8N5cQFCwS1Xisk5WZw==
-X-CSE-MsgGUID: GlcMDf4NQf+KI2L+2XjM7g==
+ 17 Apr 2026 14:22:10 -0700
+X-CSE-ConnectionGUID: VkUmDxybRiifmcHBXL+6aw==
+X-CSE-MsgGUID: U+8CMBnhSs608EmIiTWmBw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="235503920"
+X-IronPort-AV: E=Sophos;i="6.23,185,1770624000"; d="scan'208";a="235503943"
 Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa004.jf.intel.com with ESMTP; 17 Apr 2026 14:21:58 -0700
+ by orviesa004.jf.intel.com with ESMTP; 17 Apr 2026 14:22:04 -0700
 From: Raag Jadav <raag.jadav@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  netdev@vger.kernel.org
@@ -52,9 +52,9 @@ Cc: simona.vetter@ffwll.ch, airlied@gmail.com, kuba@kernel.org,
  mallesh.koujalagi@intel.com, soham.purkait@intel.com,
  anoop.c.vijay@intel.com, aravind.iddamsetty@linux.intel.com,
  Raag Jadav <raag.jadav@intel.com>
-Subject: [PATCH v1 10/11] drm/xe/drm_ras: Wire up error threshold callbacks
-Date: Sat, 18 Apr 2026 02:46:45 +0530
-Message-ID: <20260417211730.837345-11-raag.jadav@intel.com>
+Subject: [PATCH v1 11/11] drm/xe/ras: Add flag for Xe RAS
+Date: Sat, 18 Apr 2026 02:46:46 +0530
+Message-ID: <20260417211730.837345-12-raag.jadav@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260417211730.837345-1-raag.jadav@intel.com>
 References: <20260417211730.837345-1-raag.jadav@intel.com>
@@ -75,78 +75,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that we have get/set error threshold support in xe driver, wire them
-up to drm_ras so that the user can make use of both functionalities.
+From: Riana Tauro <riana.tauro@intel.com>
 
-$ sudo ynl --family drm_ras --do get-error-threshold --json \
-  '{"node-id":0, "error-id":2}'
-{'error-id': 2, 'error-name': 'soc-internal', 'error-threshold': 0}
+Add a flag for RAS. If enabled, XE driver registers with
+drm_ras and exposes supported counters.
 
-$ sudo ynl --family drm_ras --do set-error-threshold --json \
-  '{"node-id":0, "error-id":2, "error-threshold":8}'
-None
+Currently this is enabled for PVC and CRI.
 
-Signed-off-by: Raag Jadav <raag.jadav@intel.com>
+Signed-off-by: Riana Tauro <riana.tauro@intel.com>
 ---
- drivers/gpu/drm/xe/xe_drm_ras.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/xe/xe_device_types.h | 2 ++
+ drivers/gpu/drm/xe/xe_hw_error.c     | 2 +-
+ drivers/gpu/drm/xe/xe_pci.c          | 3 +++
+ drivers/gpu/drm/xe/xe_pci_types.h    | 1 +
+ 4 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_drm_ras.c b/drivers/gpu/drm/xe/xe_drm_ras.c
-index e07dc23a155e..824dabd5c29e 100644
---- a/drivers/gpu/drm/xe/xe_drm_ras.c
-+++ b/drivers/gpu/drm/xe/xe_drm_ras.c
-@@ -11,6 +11,7 @@
+diff --git a/drivers/gpu/drm/xe/xe_device_types.h b/drivers/gpu/drm/xe/xe_device_types.h
+index 31df9debcbb0..7a8afd06e6b8 100644
+--- a/drivers/gpu/drm/xe/xe_device_types.h
++++ b/drivers/gpu/drm/xe/xe_device_types.h
+@@ -191,6 +191,8 @@ struct xe_device {
+ 		u8 has_ctx_tlb_inval:1;
+ 		/** @info.has_range_tlb_inval: Has range based TLB invalidations */
+ 		u8 has_range_tlb_inval:1;
++		/** @info.has_ras: Device supports RAS (Reliability, Availability, Serviceability) */
++		u8 has_ras:1;
+ 		/** @info.has_soc_remapper_sysctrl: Has SoC remapper system controller */
+ 		u8 has_soc_remapper_sysctrl:1;
+ 		/** @info.has_soc_remapper_telem: Has SoC remapper telemetry support */
+diff --git a/drivers/gpu/drm/xe/xe_hw_error.c b/drivers/gpu/drm/xe/xe_hw_error.c
+index 2a31b430570e..3ab0fceb151f 100644
+--- a/drivers/gpu/drm/xe/xe_hw_error.c
++++ b/drivers/gpu/drm/xe/xe_hw_error.c
+@@ -520,7 +520,7 @@ void xe_hw_error_irq_handler(struct xe_tile *tile, const u32 master_ctl)
  
- #include "xe_device_types.h"
- #include "xe_drm_ras.h"
-+#include "xe_ras.h"
- 
- static const char * const error_components[] = DRM_XE_RAS_ERROR_COMPONENT_NAMES;
- static const char * const error_severity[] = DRM_XE_RAS_ERROR_SEVERITY_NAMES;
-@@ -47,6 +48,27 @@ static int query_correctable_error_counter(struct drm_ras_node *ep, u32 error_id
- 	return hw_query_error_counter(info, error_id, name, val);
- }
- 
-+static int query_correctable_error_threshold(struct drm_ras_node *ep, u32 error_id,
-+					     const char **name, u32 *val)
-+{
-+	struct xe_device *xe = ep->priv;
-+
-+	if (!xe->info.has_sysctrl)
-+		return -EOPNOTSUPP;
-+
-+	return xe_ras_get_threshold(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_id, val);
-+}
-+
-+static int set_correctable_error_threshold(struct drm_ras_node *ep, u32 error_id, u32 val)
-+{
-+	struct xe_device *xe = ep->priv;
-+
-+	if (!xe->info.has_sysctrl)
-+		return -EOPNOTSUPP;
-+
-+	return xe_ras_set_threshold(xe, DRM_XE_RAS_ERR_SEV_CORRECTABLE, error_id, val);
-+}
-+
- static struct xe_drm_ras_counter *allocate_and_copy_counters(struct xe_device *xe)
+ static int hw_error_info_init(struct xe_device *xe)
  {
- 	struct xe_drm_ras_counter *counter;
-@@ -92,10 +114,13 @@ static int assign_node_params(struct xe_device *xe, struct drm_ras_node *node,
- 	if (IS_ERR(ras->info[severity]))
- 		return PTR_ERR(ras->info[severity]);
+-	if (xe->info.platform != XE_PVC)
++	if (!xe->info.has_ras)
+ 		return 0;
  
--	if (severity == DRM_XE_RAS_ERR_SEV_CORRECTABLE)
-+	if (severity == DRM_XE_RAS_ERR_SEV_CORRECTABLE) {
- 		node->query_error_counter = query_correctable_error_counter;
--	else
-+		node->query_error_threshold = query_correctable_error_threshold;
-+		node->set_error_threshold = set_correctable_error_threshold;
-+	} else {
- 		node->query_error_counter = query_uncorrectable_error_counter;
-+	}
+ 	return xe_drm_ras_init(xe);
+diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
+index 278c2860a4f6..10ff207affa9 100644
+--- a/drivers/gpu/drm/xe/xe_pci.c
++++ b/drivers/gpu/drm/xe/xe_pci.c
+@@ -365,6 +365,7 @@ static const __maybe_unused struct xe_device_desc pvc_desc = {
+ 	.vm_max_level = 4,
+ 	.vram_flags = XE_VRAM_FLAGS_NEED64K,
+ 	.has_mbx_power_limits = false,
++	.has_ras = true,
+ };
  
- 	return 0;
- }
+ static const struct xe_device_desc mtl_desc = {
+@@ -472,6 +473,7 @@ static const struct xe_device_desc cri_desc = {
+ 	.require_force_probe = true,
+ 	.va_bits = 57,
+ 	.vm_max_level = 4,
++	.has_ras = true,
+ };
+ 
+ static const struct xe_device_desc nvlp_desc = {
+@@ -761,6 +763,7 @@ static int xe_info_init_early(struct xe_device *xe,
+ 	xe->info.has_page_reclaim_hw_assist = desc->has_page_reclaim_hw_assist;
+ 	xe->info.has_pre_prod_wa = desc->has_pre_prod_wa;
+ 	xe->info.has_pxp = desc->has_pxp;
++	xe->info.has_ras = desc->has_ras;
+ 	xe->info.has_soc_remapper_sysctrl = desc->has_soc_remapper_sysctrl;
+ 	xe->info.has_soc_remapper_telem = desc->has_soc_remapper_telem;
+ 	xe->info.has_sriov = xe_configfs_primary_gt_allowed(to_pci_dev(xe->drm.dev)) &&
+diff --git a/drivers/gpu/drm/xe/xe_pci_types.h b/drivers/gpu/drm/xe/xe_pci_types.h
+index 5b85e2c24b7b..70a9d4995cbd 100644
+--- a/drivers/gpu/drm/xe/xe_pci_types.h
++++ b/drivers/gpu/drm/xe/xe_pci_types.h
+@@ -54,6 +54,7 @@ struct xe_device_desc {
+ 	u8 has_pre_prod_wa:1;
+ 	u8 has_page_reclaim_hw_assist:1;
+ 	u8 has_pxp:1;
++	u8 has_ras:1;
+ 	u8 has_soc_remapper_sysctrl:1;
+ 	u8 has_soc_remapper_telem:1;
+ 	u8 has_sriov:1;
 -- 
 2.43.0
 
