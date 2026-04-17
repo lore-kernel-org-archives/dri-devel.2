@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2CB8F99C63
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:55:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77CDCF99C63
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 21:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DCFD10EAB3;
-	Fri, 17 Apr 2026 21:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D91A510EAB9;
+	Fri, 17 Apr 2026 21:55:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iFokpvu/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ldGg/dju";
 	dkim-atps=neutral
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com
- [74.125.224.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29C8310E2AC
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:18:42 +0000 (UTC)
-Received: by mail-yx1-f51.google.com with SMTP id
- 956f58d0204a3-64eaf8aa893so478126d50.3
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 05:18:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776428321; cv=none;
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
+ [74.125.224.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A32D610E2B7
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 12:36:24 +0000 (UTC)
+Received: by mail-yx1-f41.google.com with SMTP id
+ 956f58d0204a3-652fcd5a6d7so779825d50.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 05:36:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776429384; cv=none;
  d=google.com; s=arc-20240605;
- b=T+vctrXdNpNdupKL9HUN9WwmRBJxXD51G8DXQuidg6EAGOAMTL9zGjJYTaqNRUBtri
- 5XNL4mihKcQsQjPAu4a57LWYdI2ptPzCP3b6spe3dBmnuuRFDZ2PBvaNFiK2ANlBW3Mz
- DN6gEOsnPDPjdmg1S/e9uosZpJ6I3SwN6nSYbu6/uCObQ+JpHdIMl+Mn0ZP3ddunGMWS
- 0LXt/KOBqLmFmip+ayJCMzGUelibv5+tk5uydESiWwGL0quBiQj9WXXqWtON3gbmZgOq
- /nmcHD19PC6rq5mQHfbqvt4VPq7g+bXDFUlwUZAUQgPWyQV19erT0TK0DIOIc8xNzHmJ
- Dngg==
+ b=ZKAec1AOwCktlyFZBBqT8EZt7JvEwNB9JgikTZme+JnJYBS8XURjJR1r9cPnvUxNSB
+ NyjUnQLT/NiIrV7dWAMViDriPPyuwU9MDLskm4TCyCLkax6mrcgsioX/b3z6tXIvM3nl
+ VjvfyzGEh5r7cF1dm/O4BgZ7bheS0yJ+0HYOiXjPeES9sflHz+FXqmajoRlckegqzQf6
+ ladKa2EHWx7uHzXkbdg6jZ9nnqfNFUrc1yVKS40O9yqqwphDZQZQoar3i7lW2NgidHBs
+ 5HVaXUvGPZUoo51Qh7KrPZNJyeAQMyH+7X9qs4IOnoq9JpC/4jkBGqpaxtILZQaQPxLt
+ T3hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=SVbVVT/pTu8XYbWjBmeh7tdkypyk9XNWT6IkWwbvxR0=;
- fh=HE8rjNOtYOTNpH4bjbSi64FdkewinLgYmUNH+zx6G6Y=;
- b=Wa7sb9lvIaSuiIXes7EW0RF5TEO//6FDSfxOj9T+AzNRS//kaIP4RB8ai4FGlewsdp
- YHfGqsqZWw3y1QCGBTKXfsPJ45Cj7u/+0528PCbqu1++DlKj8XVJxUi4y2wm25dPJTSI
- hnXE/+SBFEB25ptsnNE2ENaffue6uRxKDEcJibLmtAdUVmQT2DodoTIlpbuZZwBf7mo4
- SVo3fKyfsBV1gHt/42iDzaPZQ3n6XwW367O6xrjILdwlZDXQP2nmxrv5eYgSUL5rmCa1
- ClEjj/llSuvOASPgUEXM1A7xjzPdy3Hwl0s7d9zNucSRxi/OVp5CkLIn5MILpTcayWkA
- MsIA==; darn=lists.freedesktop.org
+ bh=AvWeNtsSDCdBx/HW9jVIkg9xCkQ+v+rgtbFwy9bAGkw=;
+ fh=8Pj442Hqz/hz7ubKBTeSBiH1+nVF8VrBZOfKktBdg2I=;
+ b=d9WYZHdAz87aMuXFZl54qpfecBXE3sln+eWHzaOWNMHDiB+c8/3jaMOpznRSsNoBqq
+ 2auzytFc4S86UPB59QgOoOpsh1p2F8FzClt1KlkWhxthkEUotQG2hW/W61MLRpFQn2v/
+ amSs5aZn4Nk61jdiOQtMlpNOnyiRnhpX2wug2p+dNx3W2+Kk/rR8N75H2sPbmcWtazBG
+ o6m9WLobWvC8u2yGsUepe2NkNVQbXoy5lu6Ajfn8V3ctZuWNWZwiGLWCtLBhN7jvCT84
+ mI/MyZY1wC9FHWexTKPCuSSoPEZe4amKDPCSRw89eYqmaneq7Et0J5jPASAv1Ol7DEaP
+ gfrQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776428321; x=1777033121; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776429384; x=1777034184; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=SVbVVT/pTu8XYbWjBmeh7tdkypyk9XNWT6IkWwbvxR0=;
- b=iFokpvu/+tbwADmXfDnDGuf+50c23zcUKUtmNYfcYSO5FWaJfSWhtcYDzUJ54pcvLa
- Z+6bq6hS4ufohJkgDVlpjXdc+lFXp7qk+QJDVu61dW+ZtyaIapsxGS633h0xIxBJ//bV
- MSaE6F8IbNzojtm4WjvSQLZt9ZH/zWBChjRx2Y+uZStUxuekBknAq3lQwfBqmu10oExd
- l++tVBdJNlGaGoeNXVXHIVE3dHQCTROxiFGM8PLQJZPI5+DOocVOWzZxDzcoInv3joI7
- 5F41/T1FaP323SXH57F5tRwLBBIJXR5+VoUAO0ZWMqPgeXvlXtvRglhK1dU8r+LX8oWj
- mRSg==
+ bh=AvWeNtsSDCdBx/HW9jVIkg9xCkQ+v+rgtbFwy9bAGkw=;
+ b=ldGg/djuAjFeOJ8sMSIYFdGQOHvTAvgb4jnEE59MdZfT/2RegS0DvfaDkNLkjqWxDJ
+ tRSSg4mxMq/gCcMHeHnQteyWwBkdw4KKofH1zF5UWvW9l8Mv+EOYkfR4N/a9dH9sBALr
+ JEKrbwHR+d0dTLqpcQDBf4154Nj42iqAlXMSu56F6FWMbCUSnNx7E9IO5ylIIGI5ORIX
+ P2Gf8VQj5VBtUKL8vaqBTFQ42lBhSBYeyTkiCKHacFg4Tte/yIdCMNnne8dran8ow6Ej
+ X/utTQMrYz5rxPq/ArnsVjwj9wgQgcDrTYz9QPSZNQTz+0BaT4KrFm/HxVzOuGR6pe8f
+ kgCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776428321; x=1777033121;
+ d=1e100.net; s=20251104; t=1776429384; x=1777034184;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=SVbVVT/pTu8XYbWjBmeh7tdkypyk9XNWT6IkWwbvxR0=;
- b=fyPLEiRTcDGG6+VCCJQJWai9w/5ObiNibYwi79EAH49NUMrJP4SvZzkFdWAn+eXn+c
- dQg/yiLOix73CjBKjXjPF+Z6mXp3UOQ3YFeNgjZVS9rflS8PF7jBGEstyLtWD0KE/S/e
- 1YX4ZZnzoVFRSzEPNkt7wVMSzw3ojRFRAnImQIYNXyK4GYqyMUG1SkYobhkieUYEeRYu
- 5oojvs5G8U0kCRyE62lpyUPof48tGoqBznBh//Sjkzai1jZ25rQJuPLwS4Jki+Cao+fj
- 3o5of6ALlWGhMnZF9Yk6ZxGRB8d/4Zgw5OrVyeQNsImOsvqlyZI4KB5H4nlJzzXrQZjH
- sdLQ==
+ bh=AvWeNtsSDCdBx/HW9jVIkg9xCkQ+v+rgtbFwy9bAGkw=;
+ b=ZYddwgNclJVFfe7AuECtKPUebgi6Mdp1CdAJlPTchXL5DDGaewcjVWLTfgoYOJPP80
+ GFO83dS0lHjuxC/EoS7t7DpJxQCB/WVe/MAtJJSWj/Sa629cqRyHFjMPgA95PB2J6w+R
+ TYmuALtGD5VshSBGDo2wtuuxmspnJR+grgtcY4KAx0BDaAkHAKzKXxUGKY3yEJsm8+yT
+ bNudLMNRwO5CERVJBGLRvQobJM18w0bExu86/QzSJoD+dyl4DYGSVJr1Hc0ZkfkRE9Ko
+ Brok0IL/+QWeiezFoxs5qoUxQ9/wbeQih06Ss1MmuQE3du9co3KQEow3TwddyCierRsE
+ BdgQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8QHa6pFml/HUO8kJlVbQDWXjwh50xvLlK76aHmg8OL50j2EtuXWBl17l8pVoNUAUd2yYjuM93JhFE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywp4oS9nBRf3AeiKciY/bVYQ+ZQTRytGfZv8r8vF0d8paZouKfx
- ZHr4Dcvzf97Se0ep8/Q5qk/d29YVletzVA6hIcAFRTxNUz3nkM6fQhuZhvs4cR4sTB33GlVpYsu
- WvtkyyVhppZ+A7fRMffBftcof50V7yuo=
-X-Gm-Gg: AeBDievyfdVwzFKbQ9sAv2vcckQt2VlSRYfkrtnq3cfkxn/2JGWTBrK9pscwbHisVbY
- wuWgVwOT1lJ1l3P+BWtEjNOJeqH2BivNxj7KOeM/2TUFtOE1lxp33s/Y6m/zaZFlu2x/GkvW0h6
- JzlfNwR29PoUob7OKsk2eqFNQT46GcEMFGsQIyGS27uxr0nSXv5WZK+H5t0RpQwBXOB5vw2NPwz
- OM3dwqnlcKRsmtNmfz4CvNMuQTIXD6NQ60zJpbSOqvkcltrC+ByKQZRScOfZWkQykxeRrR+dSoP
- ftLmX2zA/MBdRmhbvddbEhGZAarNpVkphXc6XyY7sCgyDec3jeQ4t3dlLfs=
-X-Received: by 2002:a05:690e:dcd:b0:64e:d610:71cf with SMTP id
- 956f58d0204a3-65310b56e9fmr2406291d50.58.1776428321028; Fri, 17 Apr 2026
- 05:18:41 -0700 (PDT)
+ AFNElJ/GmgmYRYVcgJWGLFtgOCy5OGNvbm72Abqv59+wNA7LMFWF4zWOqxmgGH3phI6IMKF0LOEklkel0Xg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRBF7ghg8YDg5wQ1gd/Ifv76zO7mz7V/xfkP5dl0/4zXJFAP6N
+ gUBPGM/Ei4AryuZbt0JFMqRhlkuskmqiJFhL7MS0EX4jTNuS5t+pPu3HPARe1p3pD1sNioxQTq9
+ XnAW3/yoVagb+UxPybfWee8wB+BAwJAA=
+X-Gm-Gg: AeBDietVRGGCC2p4ahOPs1jglhJf7Dn9YILWCod1H5gxriCui8+0xn95muLgdbUwRpB
+ S5KE9TSNb1NnwJw3liv8XiBtHytfLsSm5WX7dlWbtVCQg4garM9TwChQq7E/mjgUZbqDioZQWoe
+ Nd9QK+eDzgGbRXQ+KgL4/nlosgTKjPDBkG32nJP/4HOnJc/3XW/zDsugbPJHQUUFP7IPdl6N8l5
+ 8Wko1CxFH/uCYQb/QMfH6LIETiUhux80L2DSB6pBTxAm7E2gr2DA+lLC7J0KtKVQWRQAMbpVB2t
+ rspjBC9AdYelrhihaFZO+xSG78wIWs8BGgkqFE6mihejweLku1cViP/NjvVu/QgpSCEX6Q==
+X-Received: by 2002:a05:690e:155a:20b0:651:ce1e:4e82 with SMTP id
+ 956f58d0204a3-653107f8e21mr1891836d50.3.1776429383627; Fri, 17 Apr 2026
+ 05:36:23 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
  <CAHijbEXcrhB=ipaa4-DPD8atQYCkokGfueLafwkeQpxCBkc0bw@mail.gmail.com>
@@ -86,9 +86,9 @@ References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
  <aeISNnh6IWGA7P8C@intel.com>
 In-Reply-To: <aeISNnh6IWGA7P8C@intel.com>
 From: Julian Orth <ju.orth@gmail.com>
-Date: Fri, 17 Apr 2026 14:18:29 +0200
-X-Gm-Features: AQROBzBgmKJHrijC1xijlucn_ZLH51yx-q8EK-bG-7hZF5Q558K1IOplMnVlicY
-Message-ID: <CAHijbEXQcLoy8krX4DP4LgZ3WLdwPLwDXyv_ww097HvtefAZKQ@mail.gmail.com>
+Date: Fri, 17 Apr 2026 14:36:11 +0200
+X-Gm-Features: AQROBzBsykWATxp_4Dhlwvae7E_j9sX8dyoeCleqlXrVYqQjj3mph9sqNlqrjKY
+Message-ID: <CAHijbEW7ZUSAf4HWBGnzC5fOYT9cbQNPNkzL3rL5w8k_-bME3w@mail.gmail.com>
 Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
  user-space
 To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
@@ -236,14 +236,6 @@ nt, one which turns things off and another one which turns them on again. I=
 > nothing actually changed and a modeset is not needed after all. That is
 > not correct IMO. Clearly a ->disconnect->reconnect should count as a
 > change in the connector's state, and a full modeset is thus required.
-
-The connector state, AIUI from userspace, is the set of all DRM
-connector properties. If the true state changes in a way that requires
-userspace to act but the DRM properties are unchanged, then I would
-argue that that is a kernel bug.
-
-The link-status property seems like it is perfect for this.
-
 > The kernel can of course then decide that the full modeset is not
 > actually required and skip the modeset part during the commit. But
 > userspace cannot make that determination.
@@ -253,6 +245,15 @@ The link-status property seems like it is perfect for this.
 > it like that until a full disable+re-enable cycle has been done. Then
 > userspace could not think that the ->disconnect->reconnect is a NOP
 > (which I still think is incorrect behaviour).
+
+I don't think the kernel can make the assumption that userspace sees
+any udev events. For example, say such a disconnect/reconnect cycle
+happens that leaves the connector in a state that would require two
+modeset. Nobody acts on these modesets and some time later the
+compositor starts. Obviously the compositor is not going to receive
+any udev events for the disconnect/reconnect cycle that happened long
+ago. This would leave the connector in a permanently unusable state.
+
 >
 > --
 > Ville Syrj=C3=A4l=C3=A4
