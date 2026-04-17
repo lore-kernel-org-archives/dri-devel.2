@@ -4,75 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20E4AF4368D
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 11:33:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16CB1F4368A
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 11:42:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8856610E2A1;
-	Fri, 17 Apr 2026 11:33:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FEF510E2A7;
+	Fri, 17 Apr 2026 11:42:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IsPLB2wT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mka+WAN8";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 319AF10E2A1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 11:33:20 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-823c56765fdso310238b3a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 04:33:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776425600; x=1777030400; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=EJE1EtDskVc3fllBZ5ebizZXuuApx+bNxnjPDCy6KQM=;
- b=IsPLB2wTwWH9jjt8Y6Id7AhoU8s/mepI8bta5YGrfEKJ9AjqEzWxfAhKDHZzpiYrOZ
- GfjXdwKPMlxlrJVJufWYRqNgaIAY81+QQz3f3nPShbCvtITp/xU7AliBaAgMIoC0C6wZ
- cN55irRUSY8xM+rt4UDl4DJ0V9RUkc/DAvO+G8y0Btu8IQtdAh2HjzqLrVoTaeP/lPkR
- jrtwfB3O3M/bc4152oFsFOa2cpWpsP/EsV29LkncZB0F8GWS3C0nWDePXVuiay/+xcsM
- sm+B9wnO7OPGwXWDHScmFkg/xiDRoq6A8KcxQbHiIWW5wkG+TpGrTt6KqDMPxBMg6oSG
- zTfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776425600; x=1777030400;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EJE1EtDskVc3fllBZ5ebizZXuuApx+bNxnjPDCy6KQM=;
- b=NmJ60b16zwKQzI57HqCu+3btQYtgWj7p3LY/VuHndGM3U7tCtA3k8J1oiX6YvdwRpB
- ng0wTX6CPHLyZIPRHnq+hKrNW9ivBukmOv2MeijLTPxZciNF4njfNVdhvZdLMIXdsiYa
- zvgJI/Fb2mgRuFmduEIyKR1rltvxLANTvHjM/H7xsD6btXMT7yu6sm1zWnbL9hLcEi+N
- dhptgTYL0S56vRaAZxoCUdsIwEWkO/xXZ45FbzmFyCBN0EcTfi1qKWEoLG0Lj8i0sfr2
- D27MxwqLXneOcKhSwzhfwSd0YG9XbBljwxNRVUA4uQwFB7C+dRosKYTb+JfOZ+BRo6z5
- Wtgw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9deqWQqsoVRFySRVNqKjn+0wIeN5FiQt+siertyFvoppv977YvPMJgA7SIiCkcqwWhCjWtM8nE8cE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPPGn4NcG/yFI6jjwGCkR3Ah+EYcAHY5O8y9/xymC2YgbR4mYm
- 2ACoGpC5Da2gBns2rcuTUNyk1uK7CBfsk78tTzSG1vFGdnW+ttKG3D0d
-X-Gm-Gg: AeBDieuzvwDeoL2s2kyl+xXfrb4gHV39aNSXqHN0S0OFLPk14nMnTZXlAe+I7WHMFxm
- zCQ+mpWpOy3BPe/Lfg1fz72wnlsRE017S8MwzJyMK6g7Mj8tS1yTCTvziOmLSOOHwzP4ZXZsZQR
- oIdl4o0UvF/5VgAswsGiWh9M2HKrfvgJl2U03UifsnM/0FmQdh8Ikh3STx/GXs34ubTehkOc1KJ
- YX5sZFfe5iuOE+qOqIyvW4PPeZIjnYezW+nk/nj+kTJ8K1y9kqtKKUg52NvX6eU3rVcjC+g9v9t
- DxLlO2YGySUpWMM6eeToAnnktUrc1gc5H9kvUSWxARKyHKcWdwl0aPkkrEMsGmQn0El1zJrodHv
- hsVqsMSSanfHrayrHceuktiA9AcaNpRRMDPmDnlTsFVZ1t5Aj7POvHc25s5R+qddRq1+qgdonwh
- Enf7bQrQPUsNxPYZXSLVbRelTl3ZsOlCamHgnAjwPPmWUNGFpW7LNMCg==
-X-Received: by 2002:a05:6a00:bc10:b0:82a:64c7:8c6d with SMTP id
- d2e1a72fcca58-82f8c8bc5famr2390055b3a.25.1776425599584; 
- Fri, 17 Apr 2026 04:33:19 -0700 (PDT)
-Received: from dbc5pt3-os.ban-spse ([165.204.156.251])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82f8ebb38f2sm1610998b3a.30.2026.04.17.04.33.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Apr 2026 04:33:19 -0700 (PDT)
-From: sai madhu <suryasaimadhu369@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- sai madhu <suryasaimadhu369@gmail.com>
-Subject: [PATCH] drm/mediatek: hdmi: Convert DRM_ERROR() to drm_err()
-Date: Fri, 17 Apr 2026 11:33:10 +0000
-Message-Id: <20260417113310.2903091-1-suryasaimadhu369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C98D10E2A4;
+ Fri, 17 Apr 2026 11:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776426133; x=1807962133;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=+yMaBGkT5GLi27mf+7rNlL0AO1QJDf3A+Ucoz5SkT7Q=;
+ b=mka+WAN8n/TYyZBJ5DcU5X4CSKGD1DJHxC2JW+pD5HKCLj9DCB4IuKx5
+ WJCIpY8n/lltPAWFTU6xwMrb/44y4Xd43+1cYdrPcXFG0yv4q/31gvzE4
+ WjLOSZ9zLA3dX42TtGZfpb8EETsEfVtJLtZ/tLYj8zJzfp9cGT3+lLtdx
+ nj5QdZUkjfKhNOeg5coWT0cKg3jtMwAYQChicpQJ1QGe+NKU4MsKIzKRc
+ ZRhVApcKPc2WzD+vsR/OS8aSJG7jxxJIugVIPxgEWd+5H4x6oChx7SQsX
+ W2Kvwa98YlvVeHh30TbSnT7nJSxqx54ECZSlmIk5iPB4m5lyi9azS3Ytw g==;
+X-CSE-ConnectionGUID: OMgohNZHQQ6CQ7asagJDUA==
+X-CSE-MsgGUID: VcniIuzMRh6/kfBc0ep2IQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11761"; a="77315713"
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="77315713"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 04:42:13 -0700
+X-CSE-ConnectionGUID: STjVfVrtT6mdLkG7BgdJkw==
+X-CSE-MsgGUID: zcAzm+/6RHSlYlBhRrg1Ug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,184,1770624000"; d="scan'208";a="227886606"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.245.184])
+ ([10.245.245.184])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2026 04:42:11 -0700
+Message-ID: <aff8ca0727ba41ca69f3e8c8255a33219727b4be.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/gpusvm, pagemap: Do not assume DRM pagemap owns
+ device pages
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: francois.dugast@intel.com, himal.prasad.ghimiray@intel.com
+Date: Fri, 17 Apr 2026 13:42:09 +0200
+In-Reply-To: <20260409015512.3670302-1-matthew.brost@intel.com>
+References: <20260409015512.3670302-1-matthew.brost@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,32 +72,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DRM_ERROR() macro is deprecated in favor of drm_err() which
-provides device-specific logging.
+On Wed, 2026-04-08 at 18:55 -0700, Matthew Brost wrote:
+> Update drm_pagemap_page_zone_device_data() to derive the pgmap ops
+> from
+> the page and compare them against the DRM pagemap ops. If the ops do
+> not
+> match, return NULL.
+>=20
+> Also harden two risky call sites by checking for NULL after
+> hmm_range_fault() or migrate_vma_setup() when migrating to device
+> memory, as it is possible to encounter device pages that are not
+> owned
+> by DRM pagemap.
+>=20
+> Suggested-by: sashiko.dev
 
-Replace DRM_ERROR() with drm_err() in the Mediatek HDMI bridge
-driver and pass the drm_device pointer via bridge->dev.
+Is there a proper (fake) email we can use?
 
-No functional change intended.
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+> =C2=A0drivers/gpu/drm/drm_gpusvm.c=C2=A0 |=C2=A0 5 +++++
+> =C2=A0drivers/gpu/drm/drm_pagemap.c | 14 ++++++++++----
+> =C2=A0include/drm/drm_pagemap.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++++-
+> =C2=A03 files changed, 19 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c
+> b/drivers/gpu/drm/drm_gpusvm.c
+> index 365a9c0b522a..b3cccd047a21 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
+> @@ -1506,6 +1506,11 @@ int drm_gpusvm_get_pages(struct drm_gpusvm
+> *gpusvm,
+> =C2=A0			struct drm_pagemap_zdd *__zdd =3D
+> =C2=A0				drm_pagemap_page_zone_device_data(pa
+> ge);
+> =C2=A0
+> +			if (!__zdd) {
+> +				err =3D -EINVAL;
+> +				goto err_unmap;
+> +			}
+> +
 
-Signed-off-by: sai madhu <suryasaimadhu369@gmail.com>
+Here, __zdd is never dereferenced. As I understand it, the current
+behaviour (before this patch) is that pages from mixed pagemaps are
+generating an -EOPNOTSUPP, re-trying migration, which I think is the
+correct behaviour, save possibly for foreign device-coherent pages.
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-index 1ea259854780..f431fc9adca5 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-@@ -981,8 +981,9 @@ static int mtk_hdmi_bridge_attach(struct drm_bridge *bridge,
- 	int ret;
- 
- 	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
--		DRM_ERROR("%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n",
--			  __func__);
-+		drm_err(bridge->dev,
-+			"%s: The flag DRM_BRIDGE_ATTACH_NO_CONNECTOR must be supplied\n",
-+			__func__);
- 		return -EINVAL;
- 	}
- 
--- 
-2.34.1
+Also see below reasoning WRT "owner".
 
+> =C2=A0			if (!ctx->allow_mixed &&
+> =C2=A0			=C2=A0=C2=A0=C2=A0 zdd !=3D __zdd && i > 0) {
+> =C2=A0				err =3D -EOPNOTSUPP;
+> diff --git a/drivers/gpu/drm/drm_pagemap.c
+> b/drivers/gpu/drm/drm_pagemap.c
+> index d82ea7ccb8da..95c951c5b569 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+> @@ -753,10 +753,16 @@ int drm_pagemap_migrate_to_devmem(struct
+> drm_pagemap_devmem *devmem_allocation,
+> =C2=A0				own_pages++;
+> =C2=A0				goto next;
+> =C2=A0			}
+> -			cur.dpagemap =3D src_zdd->dpagemap;
+> -			cur.ops =3D src_zdd->devmem_allocation->ops;
+> -			cur.device =3D cur.dpagemap->drm->dev;
+> -			pages[i] =3D src_page;
+> +			if (src_zdd) {
+> +				cur.dpagemap =3D src_zdd->dpagemap;
+> +				cur.ops =3D src_zdd-
+> >devmem_allocation->ops;
+> +				cur.device =3D cur.dpagemap->drm->dev;
+> +				pages[i] =3D src_page;
+> +			} else {
+
+This shouldn't happen, because we select device_private pages based on
+dev_private owner. IMO we shouldn't allow non drm_pagemap
+device_private pages sharing owner because we wouldn't now how to
+migrate them.
+
+> +				npages =3D i;
+> +				err =3D -EINVAL;
+> +				goto err_finalize;
+> +			}
+> =C2=A0		}
+> =C2=A0		if (!pages[i]) {
+> =C2=A0			cur.dpagemap =3D NULL;
+> diff --git a/include/drm/drm_pagemap.h b/include/drm/drm_pagemap.h
+> index 95eb4b66b057..9b7c50932db5 100644
+> --- a/include/drm/drm_pagemap.h
+> +++ b/include/drm/drm_pagemap.h
+> @@ -367,12 +367,15 @@ int drm_pagemap_reinit(struct drm_pagemap
+> *dpagemap);
+> =C2=A0 * drm_pagemap_page_zone_device_data() - Page to zone_device_data
+> =C2=A0 * @page: Pointer to the page
+> =C2=A0 *
+> - * Return: Page's zone_device_data
+> + * Return: Page's zone_device_data if owned by DRM pagemap, NULL
+> otherwise
+> =C2=A0 */
+> =C2=A0static inline struct drm_pagemap_zdd
+> *drm_pagemap_page_zone_device_data(struct page *page)
+> =C2=A0{
+> =C2=A0	struct folio *folio =3D page_folio(page);
+> =C2=A0
+> +	if (WARN_ON_ONCE(page_pgmap(page)->ops !=3D
+> drm_pagemap_pagemap_ops_get()))
+
+Driver could be handing a separate ops. Like if we wanted to check for
+wedging / unplug before trying to migrate back to system, so this
+wouldn't work.
+
+So in general I don't think this patch is correct. Perhaps we should
+look at updating the docs around owner assignment, though and also
+perhaps make drm_gpusvm_get_pages() a bit more permissive?
+
+/Thomas
+
+
+> +		return NULL;
+> +
+> =C2=A0	return folio_zone_device_data(folio);
+> =C2=A0}
+> =C2=A0
