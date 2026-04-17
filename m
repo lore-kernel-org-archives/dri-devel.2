@@ -4,126 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7BC4F436BD
-	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 16:42:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84DD0F436BB
+	for <dri-devel@archiver.kernel.org>; Fri, 17 Apr 2026 16:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4095F10EA7E;
-	Fri, 17 Apr 2026 16:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AEEF10EA5E;
+	Fri, 17 Apr 2026 16:46:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OVxpG0FH";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cOYaxYk0";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="kxHnnlDD";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A6B010EA7E
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 16:42:33 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63HG4iRL2669985
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 16:42:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=W7Nil3ecXcj
- 6h98aqBWWZjhPtJLGkI6jnT03x/3dt5s=; b=OVxpG0FHfDhisAA84Imu2jNoHrk
- ur50hhXxKLhjankYxhqcY165Zwce30QWhedsWqDIswjE2a5EaT3L0SmPlsjHWrCs
- 0Mn7TzIQq3feYCKMoY3pGttWOv+NpbkpEsO8085SOvhfHO131iBOSOwWhq7CFZtK
- 3E7Hh8rzM1Aobu2hbrK+RrTuONBfvvS7TTeoy3un07o7WzqHXkIWA2NhxsPYl9aM
- Yan3KlWta8QVZxDnNGTzgsNMrJYyNTyAHf+/8aI15RYv/M39M9P/WVW+IKADDRN0
- Fu8EzldaPBWEhzLNtDfB22k/X8h4RbtCAzXaWNSicGyvSknc3epTidtxOJQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkaxcu1pp-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 16:42:33 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-50d5aa81907so19739181cf.0
- for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 09:42:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776444152; x=1777048952;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W7Nil3ecXcj6h98aqBWWZjhPtJLGkI6jnT03x/3dt5s=;
- b=cOYaxYk0OJrkevwbXXl5G5kyQc15IF6E+Dzut5MIytHbauPZeeOyhOoCPodMgPWudl
- IJFla7431YmcyYx6EayMKspzyutSOTQoxKvYTW1CluUfuM1qWg+X3g0/aMu8GBSh/0my
- 5598natoMVkm9dhKdUSMR8+88maEiMNcM911zlQgHwy8DA6f4/aPfvKCNeRZkOr4RZiy
- GiQq+O7i1E3VcvWJGgyTxAPmAoENaB5XG9D05tCAz96LR+tENnoW36e62pMR5MPMHMbA
- Uoq1i2X22E5yFiMU+W3ccG/O5CnrQ3GWYFt/UwVlenMUiv0Vu+gJQ2DMagmqLzvDH8lT
- qlJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776444152; x=1777048952;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=W7Nil3ecXcj6h98aqBWWZjhPtJLGkI6jnT03x/3dt5s=;
- b=PPL08v6zimGZrL1nj9shfsCuoEnn01rGwUgrmBfmuaxPAoQHOsp2j9eShcYgshEmRZ
- 2P5R+VIRKYBjeQdvu3edGajnruTpZc7HGtkEZ6cU0OtdJVutLWdZ3f+xxxkki/Z1Zztb
- i5UEYB0cJQnBqEJypzwzsVCId6E2Y5oF094J1UhBG5gepmMUSn5GzxpxcGZXll/H8T4W
- MD6DEUdmEXNHWSgFLVP9PHVGGPav3Mtx95/Y4YC2LBjTqsprRInKOt1r1Paj+Oe7HOt/
- fN5ZwWf1PRWbLCiqMaV5Qpj48UyDl6zDJht0Q+pDg1kWdRIU0Q0+yW8hGJOduHr/Y93T
- ZsHg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ83jqipBSDXdFvnf7+2gMEisD8UIOnJQhUifbUvGJtPFlNakBySeurEJ7RDKOXhkQZCidxfjLbMyTI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzasGOytFud7264zHJdPe3gMLHw9XL3QwM3hYHbwi8d+bp8bClN
- E6F8r9BRyoeIHKZRVK22Wx3kZ4BESDcsbpY5ptkhghQKG3cmON6GR8NBd+A9WhunifISjcpkyje
- 5Yyc/75J2GdE1YjPm9wllgmGxS95z3wYButMUol6TiyVL7YivxkQiLE0Phmv/EVQ6Es+wYIg=
-X-Gm-Gg: AeBDieuQvIB2FFdha17J0fzszwUyKt9Tq04KhHNwUIJFCuF8ObcLaZUzAsDtWoHk4Si
- XvvCRtuhVdjKSnctnkqLtb7SqPlXEUX5qfugVNQCBf7SsHahYyZ3Q+uYU8JDHF455vToY5ryLuf
- bK2YcCjDVenijoCIoJ8LKrCAidd/fW9SjRkKqA0F9rlVr2gSHSvl+Fh9r4Tb2vSXeRhNUn21txo
- uJYUUl59YXKnJUYNezj6jBCCfj70anFSt6Eupkiisz9WVANl8x3BIdjV/prvMd4TU9j7eMktCBm
- wUJotNuZu3ennxAaZYMo4RrAtaQyWCe3mFIAn2bd08DDgXJjy+ngUn3GftIumJPQCxopODL/TTQ
- B2EqQBtkwTNfecsJm8MXPgR991QdmU6QdO/uW1AcvG85Hpt3bHs41G0pcVKzskUuQ/YEXu7Xv
-X-Received: by 2002:ac8:7c56:0:b0:50d:9b07:9c2b with SMTP id
- d75a77b69052e-50e36c8da62mr51569141cf.56.1776444152545; 
- Fri, 17 Apr 2026 09:42:32 -0700 (PDT)
-X-Received: by 2002:ac8:7c56:0:b0:50d:9b07:9c2b with SMTP id
- d75a77b69052e-50e36c8da62mr51568571cf.56.1776444152093; 
- Fri, 17 Apr 2026 09:42:32 -0700 (PDT)
-Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ba45553e502sm71796466b.61.2026.04.17.09.42.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Apr 2026 09:42:31 -0700 (PDT)
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-To: rosenp@gmail.com
-Cc: carl.vanderlip@oss.qualcomm.com, dri-devel@lists.freedesktop.org,
- gustavoars@kernel.org, jeff.hugo@oss.qualcomm.com, kees@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, ogabbay@kernel.org
-Subject: Re: [PATCHv2] accel/qaic: kcalloc + kzalloc to kzalloc
-Date: Fri, 17 Apr 2026 18:42:30 +0200
-Message-ID: <20260417164230.3158014-1-youssef.abdulrahman@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260401220643.12802-1-rosenp@gmail.com>
-References: <20260401220643.12802-1-rosenp@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E3F810EA5E
+ for <dri-devel@lists.freedesktop.org>; Fri, 17 Apr 2026 16:46:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776444381; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=gNyRgBDuwXgOu0QFDA9npEsNOsuVHDKaai6nilfJlmsPRZF4+vXft3EhQ79MYWEerIBTT/MpvaBA+cCHBkSPYz0xrXlhNwljUXkXt7bOT34LsYi1hYOKfoc3FPA99XOVJqfzaAdEIRIcdzKdGkVZsxrzwnuRyBzznk5oEgRVevA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776444381;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=oGlX3d40W6MY4p3k5QtkXjQ1vrtcvfTbzXPALvl67to=; 
+ b=eXKGcAWkWM30UK5Sl+9c8UTn6YSoVS34pTvNtox6gHhvVOiTr3cTi7xktbgSxzWLs9VEAoyTRb0VSyPzE7usLNOS4az+MKIDttbKmRhCFgba0JMpp7QZaGk+l1SE+es9wcsy1uvz2kPxza3643o2Rf97b2Qup56+INxfGTJy1rk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+ dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776444381; 
+ s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=oGlX3d40W6MY4p3k5QtkXjQ1vrtcvfTbzXPALvl67to=;
+ b=kxHnnlDDfhFNHg1KsP0omgrvxFOObycmIAHfqPCcHkXfkoOev7/cWyzxfeKoYvSp
+ iA9lxM+uh0hAWCfRpSsfGwO3WmE9EoabYXIyNVbuAQmxZ4GcbfvwOBHLFGRa2BjyvB3
+ 0n9azn1elX+ErDLUq+dYfBcuDC/rrESPXjQfknBQ=
+Received: by mx.zohomail.com with SMTPS id 1776444379512769.9061064604867;
+ Fri, 17 Apr 2026 09:46:19 -0700 (PDT)
+Message-ID: <422b01a9-7b8f-4910-b153-5ffa6a1d3b4a@collabora.com>
+Date: Fri, 17 Apr 2026 12:46:12 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=JcqMa0KV c=1 sm=1 tr=0 ts=69e262f9 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=pGLkceISAAAA:8 a=1lcS69py3Ix-9TsBHUMA:9 a=zgiPjhLxNE0A:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE3MDE2OCBTYWx0ZWRfXzyTNXclt2BIE
- wyzsJGrC37CK1PhKxQsFVJHG77RbtfuN/oO/YNFjCgkC4fKVG4dY7bJ3EaY2Trw41glf6PfhcAa
- o1rsMLwwO99PI1PKQsw3VlnNRgdJsR5bzdwBE1sFniF5WS6HFuUfY2NRB4z6GSJU7tkqZwZlsl7
- 81fgQECC0Yfb/whg+gDrkW2jYG6PZuQowC2LJcivdILgj/kfXCZCQbcpil9F/G2FydZ5RPUplR0
- QG3ngkwnL1t6ies2BffvEVjxTs515JaVWhqetuSMXnjt5+IiZLfDBrJylv2MpERcwvxFOv8t3/Z
- MfH+FNbiKl6uxHlU5jLJgSpIRSwvTPtC6MvTA3EWVMINOVPDt1nqT56esBLduSIItAgcRJ/GKKW
- 0D4SN+vugRRq2L1nutpBdKwsLnmKNbfAQ5goUlRX8yM+RN8Sm1Uy/ub7AKHhMAdcD9Yarx6S2XG
- cVeVI9TPq6Dne2GIv/w==
-X-Proofpoint-GUID: lPqSQnYvIx3YSlwJOM_M0h6M1PYYsAqg
-X-Proofpoint-ORIG-GUID: lPqSQnYvIx3YSlwJOM_M0h6M1PYYsAqg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-17_01,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 malwarescore=0 phishscore=0
- suspectscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604170168
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when
+ PHY is down
+To: Frank Zhang <rmxpzlb@gmail.com>, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260416093150.13853-1-rmxpzlb@gmail.com>
+Content-Language: en-US
+From: Detlev Casanova <detlev.casanova@collabora.com>
+In-Reply-To: <20260416093150.13853-1-rmxpzlb@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,20 +73,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/1/2026 11:06 PM, Rosen Penev wrote:
-> Consolidate the two-element allocation into a single allocation using a
-> flexible array member. This reduces memory fragmentation and simplifies
-> the error path by eliminating the need to check for allocation failure
-> between the two allocations.
-> 
-> Add __counted_by for runtime bounds checking.
+Hi Frank,
+
+Please add me to CC if you send a v2.
+
+On 4/16/26 05:31, Frank Zhang wrote:
+> The following panic was observed during system reboot:
 >
-I've tested this on AI100 and it works fine.
+> Kernel panic - not syncing: Asynchronous SError Interrupt
+> CPU: 7 UID: 1000 PID: 2637 Comm: pipewire ... 6.19.10-300.fc44.aarch64
+> Call trace:
+>   ...
+>   regmap_update_bits_base+0x5c/0x90
+>   dw_hdmi_qp_bridge_clear_infoframe+0xb0/0x120 [dw_hdmi_qp]
+>   drm_bridge_connector_clear_infoframe+0x28/0x48 [drm_display_helper]
+>   ...
+>   dw_hdmi_qp_audio_disable+0x24/0xb8 [dw_hdmi_qp]
+>   drm_bridge_connector_audio_shutdown+0x30/0x60 [drm_display_helper]
+>   drm_connector_hdmi_audio_shutdown+0x24/0x38 [drm_display_helper]
+>   hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+>   ...
+>   snd_pcm_release_substream.part.0+0x44/0xd8 [snd_pcm]
+>   snd_pcm_release+0x60/0xe8 [snd_pcm]
+>   ...
+>
+> The root cause is pipewire tries to close the HDMI audio device after
+> atomic_disable(), which sets tmds_char_rate to 0 and disable the PHY.
+>
+> In this case, dw_hdmi_qp_audio_disable() will call
+> clear_audio_infoframe(), accessing registers without checking
+> tmds_char_rate.
+>
+> Add a tmds_char_rate check in dw_hdmi_qp_bridge_clear_audio_infoframe()
+> to skip the register write when the PHY is inactive.
+>
+> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+Add a "Fixes:" tag so this gets backported were needed.
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> index d649a1cf07f5..f963dff81dc6 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -886,11 +886,12 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+>   {
+>   	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+>   
+> -	dw_hdmi_qp_mod(hdmi, 0,
+> -		       PKTSCHED_ACR_TX_EN |
+> -		       PKTSCHED_AUDS_TX_EN |
+> -		       PKTSCHED_AUDI_TX_EN,
+> -		       PKTSCHED_PKT_EN);
+> +	if (hdmi->tmds_char_rate)
+I'd rather move the call to 
+drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside the if 
+(hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+There is no need to check for tmds_char_rate in every 
+dw_hdmi_qp_bridge_clear_audio_infoframe() call.
+> +		dw_hdmi_qp_mod(hdmi, 0,
+> +			       PKTSCHED_ACR_TX_EN |
+> +			       PKTSCHED_AUDS_TX_EN |
+> +			       PKTSCHED_AUDI_TX_EN,
+> +			       PKTSCHED_PKT_EN);
+>   
+>   	return 0;
+>   }
 
-Tested-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-
-Thanks
-- Youssef
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
-
+Regards,
+Detlev.
