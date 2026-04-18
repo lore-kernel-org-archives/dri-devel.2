@@ -4,50 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63A8CF99C66
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Apr 2026 07:36:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5B5F99C7D
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Apr 2026 10:20:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3AED10E028;
-	Sat, 18 Apr 2026 07:36:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE1DD10E323;
+	Sat, 18 Apr 2026 10:20:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M/f0b64z";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jSTnOyW9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 872F910E028
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Apr 2026 07:36:04 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 34A7A60138;
- Sat, 18 Apr 2026 07:36:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55573C19424;
- Sat, 18 Apr 2026 07:36:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1776497762;
- bh=gTiXdDA1m36BPQIbbpznxBOamYJaGxQ+XahQj8kEMXM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=M/f0b64zecCZyXr+LWO4QSZDLvjmgzHJREDVPpTBz7IGgJk0sL121jNpp/V+o4Jm2
- HBukvXvvM7b/rJ73KfVncgTWTpFdTGlU4De1H4WsdTi8GSCcdfCCvVJQqDSGIJ5FBc
- uSgkyaCLCOvbHdzdifuKclGA6dgis9hxxag5TV2k=
-Date: Sat, 18 Apr 2026 09:35:30 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com, Max Zhen <max.zhen@amd.com>,
- linux-kernel@vger.kernel.org, sonal.santan@amd.com
-Subject: Re: [PATCH V1] accel/amdxdna: Add hardware scheduler time quantum
- support
-Message-ID: <2026041818-tricky-breeching-73d1@gregkh>
-References: <20260414165602.788811-1-lizhi.hou@amd.com>
- <f233b761-ca66-4790-bdba-8407e696006b@amd.com>
- <54e62560-22a8-7f1b-642e-21042fc1f081@amd.com>
- <d58e78d3-dd94-4dc5-a80c-5f38836c4495@amd.com>
- <295f2c5c-1c16-96ab-b9b7-c465cc6ee16e@amd.com>
- <1be1c328-f807-45a7-9b54-a265c627e890@amd.com>
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23C7E10E0B9
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Apr 2026 10:20:00 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2a8720818aeso2430945ad.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Apr 2026 03:20:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776507599; x=1777112399; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xqAYAaB98xsAiWaW3K7BAxJ1Wdz7VTsIiYzGAY8PX4g=;
+ b=jSTnOyW9TrgTP62xLY4ZysYU4FqrgdT192/bYldjjJJMdf21j6vDquVIy1u7YuP3Vx
+ NfqJoMka/kYzjPOqqiy0JyOXzcop0QQ8S1CfutwMZOcrbX3lqyMbWa+5WglK4lRPlAvp
+ M2tFr0HV8zvMAe7uw1+a9tQtp+7OVXjBzvwN5DbilKhz9RfZIAQ0IMvbH0CiOJ3DrJ9Y
+ oHwybX9BvYjh+21PEu16+kylOprY1iJnqer93sWjVIYswloqZQeXvqMjhGjRx4pw1TvU
+ MaaZWq0GlFklut41SJGH6fz8GUf0N2EcegxboThLVE5h5gDKTgZsB1yhAE0VhjLORUHp
+ m43w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776507600; x=1777112400;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xqAYAaB98xsAiWaW3K7BAxJ1Wdz7VTsIiYzGAY8PX4g=;
+ b=hmPISiTSt0xUXXVvpolhqlhuySgS9L82OJ/hP/sA64lMyyJMpv4U6FdvfPDmIJcqHT
+ JBnzM5vS1dQYoO2RRWRCyll55zlbzuI+BBKdzgXcPER4dInG/vnSkcmqoU6u3HLdGKqE
+ LgohXMuoviVOJQT/hHPvHcSI5/Iih+m6eZVMe9rn31zaUqBe1SlGcykfT6I6fHdUW8zy
+ Va4SoHPa8D3ouuNqUFWuBjtTTTaOMI6DCgYDaRfrtwM1C/5bs90/DSO0wvq0OI+pdMpb
+ LrDGPCGIou40Iobdk/9LUsVIWHRxnr0lPIifpTS/u4rDWB20LFvYHdbzEuBI5CVncji4
+ aG0w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8WMA7MB1GBhucCvjOJnJO18QFiscELzFSPsKGMASO1766AevUdxIEpsVpRbu5vdubh4M9wcKQ9ZGQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyTPh8ekyEAZ5WyTN22rBKwfZj7DWWv3TooAGhW1Oz/MgxRSSe1
+ rIEVnhif4VVBE8JJ9Wfm4tlnzaU93/nuXlsA5mTBWcyHJ76xr7lmwjy8
+X-Gm-Gg: AeBDiesAITfQOCCu722jGjS5E1+YP0E4DT3hZGH4eAzh+SvfLbsDzJurTFrr5z1c7Ie
+ E4Mp0Kys8Rw94GOoOQp6wuEDQ7HbjN70J4WzUfn6L7HJRByJBNfaZRk0dJ9TdkYnK/vHKpU3506
+ XiGO015K4pdyuWs0NrztX0aO+Ya5NAGhuAh3wtM5osad2HG3F8uMjHtE9hA/BEZJ9ED1JlIX3eI
+ ropQxkgAjDtnCHTZvoL/yMk38Kt6M1WWlo0r9Py7IpQkYc/bfg9vsmygDhSlXeAH6+ODcO3RQlW
+ 4PCjipeTU7xzs7W+M8s9R7oxK6H6c91XwtO/qx9FvVCrrcZDsiJGO2d5LN+glLLVi4Y/Yn5qJUF
+ 3UwZIe5TbKw109z+PWSNEtRs9PdBwY9YqiPl8m5wOyvbZ0aLDc18Je5RHIDiwve+KeVTV/QGPa0
+ Od6dwbmkanDTiamuCTH8RkUFYiqxg7YGAIG2KSES+M9tv4Ye7DgP2k8ZRatikveg==
+X-Received: by 2002:a17:903:907:b0:2b2:eb6b:72f2 with SMTP id
+ d9443c01a7336-2b5f9fff1e5mr33840955ad.7.1776507599529; 
+ Sat, 18 Apr 2026 03:19:59 -0700 (PDT)
+Received: from fedora.izzigo.tv (45.62.127.193.16clouds.com. [45.62.127.193])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b5fa9ff39csm46674525ad.4.2026.04.18.03.19.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 18 Apr 2026 03:19:58 -0700 (PDT)
+From: Frank Zhang <rmxpzlb@gmail.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: detlev.casanova@collabora.com, cristian.ciocaltea@collabora.com,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when
+ PHY is down
+Date: Sat, 18 Apr 2026 18:19:36 +0800
+Message-ID: <20260418101936.7731-1-rmxpzlb@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1be1c328-f807-45a7-9b54-a265c627e890@amd.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,70 +91,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 14, 2026 at 12:32:20PM -0500, Mario Limonciello wrote:
-> 
-> 
-> On 4/14/26 12:28, Lizhi Hou wrote:
-> > 
-> > On 4/14/26 10:17, Mario Limonciello wrote:
-> > > 
-> > > 
-> > > On 4/14/26 12:16, Lizhi Hou wrote:
-> > > > 
-> > > > On 4/14/26 09:58, Mario Limonciello wrote:
-> > > > > 
-> > > > > 
-> > > > > On 4/14/26 11:56, Lizhi Hou wrote:
-> > > > > > From: Max Zhen <max.zhen@amd.com>
-> > > > > > 
-> > > > > > Add support for configuring the hardware scheduler time quantum to
-> > > > > > improve fairness across concurrent contexts.
-> > > > > > 
-> > > > > > The scheduler enforces a fixed time slice per context, preventing
-> > > > > > long-running workloads from monopolizing the device and allowing
-> > > > > > other contexts to make forward progress.
-> > > > > > 
-> > > > > > The default time quantum is 30ms and can be configured via the
-> > > > > > time_quantum_ms module parameter.
-> > > > > 
-> > > > > Can you talk more about how you want to use it?  Adding new
-> > > > > module parameters is generally frowned upon in lieu of doing
-> > > > > something with debugfs at runtime.
-> > > > 
-> > > > This is a static setting which is not supposed to change at
-> > > > runtime. So module parameter is used.
-> > > 
-> > > But so what happens if user loads driver with default setting and
-> > > then unloads driver and loads with a different setting as module
-> > > option?
-> > > 
-> > > Does this flow fall apart because the driver initially programmed 30ms?
-> > 
-> > Reloading with new setting will overwrite the default setting. After the
-> > module is loaded, it is not supposed to change before unloading the
-> > module.
-> > 
-> 
-> + Greg
-> 
-> Greg,
-> 
-> How do you feel about a module parameter for this purpose?  Any other
-> suggestions if you don't like it?
+The following panic was observed during system reboot:
 
-module parameters should almost never never never be added to the
-kernel, ESPECIALLY if it is for a device-specific thing (like in a
-driver like this.)  Please don't do that.
+Kernel panic - not syncing: Asynchronous SError Interrupt
+CPU: 7 UID: 1000 PID: 2637 Comm: pipewire ... 6.19.10-300.fc44.aarch64
+Call trace:
+ ...
+ regmap_update_bits_base+0x5c/0x90
+ dw_hdmi_qp_bridge_clear_infoframe+0xb0/0x120 [dw_hdmi_qp]
+ drm_bridge_connector_clear_infoframe+0x28/0x48 [drm_display_helper]
+ ...
+ dw_hdmi_qp_audio_disable+0x24/0xb8 [dw_hdmi_qp]
+ drm_bridge_connector_audio_shutdown+0x30/0x60 [drm_display_helper]
+ drm_connector_hdmi_audio_shutdown+0x24/0x38 [drm_display_helper]
+ hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+ ...
+ snd_pcm_release_substream.part.0+0x44/0xd8 [snd_pcm]
+ snd_pcm_release+0x60/0xe8 [snd_pcm]
+ ...
 
-> I was thinking a debugfs file still makes sense, but either the debugfs file
-> can do unbind/rebind internally or user using debugfs file can do the
-> unbind/bind sequence in sysfs after touching the debugfs file.
+The root cause is pipewire tries to close the HDMI audio device after
+atomic_disable(), which sets tmds_char_rate to 0 and disable the PHY.
 
-debugfs is for debugging, don't require it for functionality that a
-user/admin actually wants to do for a device as many distros and systems
-disable it entirely due to all of the security holes it exposes to
-admins.
+In this case, dw_hdmi_qp_audio_disable() will call
+drm_atomic_helper_connector_hdmi_clear_audio_infoframe() directly,
+accessing registers without checking tmds_char_rate.
 
-thanks,
+Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside the
+if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
 
-greg k-h
+Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+
+---
+Changes in v2:
+- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
+  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index d649a1cf07f5..7760527484c8 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -526,10 +526,10 @@ static void dw_hdmi_qp_audio_disable(struct drm_bridge *bridge,
+ {
+ 	struct dw_hdmi_qp *hdmi = dw_hdmi_qp_from_bridge(bridge);
+ 
+-	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
+-
+-	if (hdmi->tmds_char_rate)
++	if (hdmi->tmds_char_rate) {
++		drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
+ 		dw_hdmi_qp_audio_disable_regs(hdmi);
++	}
+ }
+ 
+ static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
+-- 
+2.53.0
+
