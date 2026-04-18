@@ -4,57 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E928F99C95
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Apr 2026 20:43:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF85FF99C98
+	for <dri-devel@archiver.kernel.org>; Sat, 18 Apr 2026 23:05:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CB9F10E031;
-	Sat, 18 Apr 2026 20:43:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lNq7Vf0q";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEF5F10E031;
- Sat, 18 Apr 2026 20:43:14 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 716DD40B0D;
- Sat, 18 Apr 2026 20:43:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8294BC19424;
- Sat, 18 Apr 2026 20:43:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776544994;
- bh=y/wvlviY2ep26rl/rICAKXuCCJlaF96Y446O19jE1Vw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=lNq7Vf0qw/0F20NcL1nBMAbzhKn8MPKLaiXV99y/a/upM8s9N/gS4SDgvRVYN6wPS
- GXawJEm1zIiRWmYOol1gXTrSDG275LTi5rffwaWVBO6Fg2PB4ZXTOp/5hc0nBC3OTq
- 4pQQ7SwUqUjMWFIY97vUQNi5j73MZCZPLslvJddv5i+qP1dbuQBawGET40JlCbYg7v
- f/MFo2uH3Rg/JVTe6JFKsdAINUOpzfuHPT0Kyb88N09icAA6WTvknMvRIBoAgzdJ58
- y75WgLM9YGhrMNo7CHA8euBklXIFaEPnMYwlXbESZLvgIWEdviGHQnKYgGSRJ28bO6
- kwNnvmBL2lErQ==
-Message-ID: <9e835632-0882-4fee-a66c-3cdfec5a410f@kernel.org>
-Date: Sat, 18 Apr 2026 22:43:10 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id C985510E260;
+	Sat, 18 Apr 2026 23:05:38 +0000 (UTC)
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com
+ [216.40.44.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A465810E260
+ for <dri-devel@lists.freedesktop.org>; Sat, 18 Apr 2026 23:05:37 +0000 (UTC)
+Received: from omf17.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay01.hostedemail.com (Postfix) with ESMTP id 3A610E4C26;
+ Sat, 18 Apr 2026 23:05:34 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf17.hostedemail.com (Postfix) with ESMTPA id D63C017; 
+ Sat, 18 Apr 2026 23:05:02 +0000 (UTC)
+Date: Sat, 18 Apr 2026 19:04:56 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Jens
+ Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
+ Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon
+ Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco
+ Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Jiri Pirko
+ <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz
+ <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Huang Rui
+ <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, Len
+ Brown <lenb@kernel.org>, Srinivas Pandruvada
+ <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org, MyungJoo
+ Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, Eddie James <eajames@linux.ibm.com>, Andrew
+ Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
+ linux-fsi@lists.ozlabs.org, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Danilo
+ Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
+ <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, Chris
+ Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>, Andrew
+ Morton <akpm@linux-foundation.org>, SeongJae Park <sj@kernel.org>,
+ linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/19] tracepoint: Avoid double static_branch
+ evaluation at guarded call sites
+Message-ID: <20260418190456.631df6f3@fedora>
+In-Reply-To: <20260323160052.17528-1-vineeth@bitbyteword.org>
+References: <20260323160052.17528-1-vineeth@bitbyteword.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/nouveau/gsp: Fix possible NULL pointer dereference
- warning in r535_dmac_alloc
-To: Timur Tabi <ttabi@nvidia.com>
-Cc: "simona@ffwll.ch" <simona@ffwll.ch>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- "sunliming@linux.dev" <sunliming@linux.dev>,
- "sunliming@kylinos.cn" <sunliming@kylinos.cn>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>
-References: <20260418071412.86022-1-sunliming@linux.dev>
- <DHW9RZVWDN6Y.2G2RKSJMF5ESB@kernel.org>
- <abb12ec2c8d72d6a369ef7b29d0453736a07f90c.camel@nvidia.com>
- <DHWGN6Y2J9X6.3FMWWDU2NQ2LV@kernel.org>
- <f3ea592561af59cf0d677e66a70165e2d7b7edbb.camel@nvidia.com>
-From: Danilo Krummrich <dakr@kernel.org>
-Content-Language: en-US
-In-Reply-To: <f3ea592561af59cf0d677e66a70165e2d7b7edbb.camel@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 14j39sducs3tg3aey13ys76m4wq4pf1a
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: D63C017
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18uI1/Yo7/rI1+CwnTJAuzOiDhDTcHCmFM=
+X-HE-Tag: 1776553502-227936
+X-HE-Meta: U2FsdGVkX19V5aRBuQVgNrwFYqJny3DiV29cPCLORtmFjnJgNsHv2iodpq+DK7eFwvzFvhgzZ+I=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,61 +95,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/18/26 7:44 PM, Timur Tabi wrote:
-> On Sat, 2026-04-18 at 19:35 +0200, Danilo Krummrich wrote:
->>> I posted a patch a couple months ago that cleans up an IS_ERR check, but it was never picked
->>> up:
->>
->> Thanks! Can you please make sure to send patches to all maintainers? If they
->> don't land in my inbox, I can't pick them up. :(
-> 
-> M:  Lyude Paul <lyude@redhat.com>
-> M:  Danilo Krummrich <dakr@kernel.org>
-> 
-> Hmmmm.... I did CC Lyude, but you're right.  I should update my git-email script to catch these
-> better.
-> 
-> While I have your attention, I do have other patches that I neglected to CC you on:
-> 
->   2. [PATCH 6/6] drm/nouveau/gsp: enable FWSEC-SB on GA100
->      - by Timur Tabi @ 2026-04-07 19:21 UTC [95%]
-> 
->   3. [PATCH 2/6] drm/nouveau/bios: specify correct display fuse register for Ampere and Ada
->      - by Timur Tabi @ 2026-04-07 19:21 UTC [95%]
-> 
->   4. [PATCH 1/6] drm/nouveau: check for GA100 specifically when calculating FRTS size
->      - by Timur Tabi @ 2026-04-07 19:21 UTC [91%]
-> 
->   5. [PATCH 4/6] drm/nouveau/gsp: require GSP-RM for GA100 support
->      - by Timur Tabi @ 2026-04-07 19:21 UTC [97%]
-> 
->   6. [PATCH 3/6] drm/nouveau/bios: skip the IFR header if present
->      - by Timur Tabi @ 2026-04-07 19:21 UTC [75%]
-> 
->   7. [PATCH 5/6] drm/nouveau: parse the VBIOS on GA100
->      - by Timur Tabi @ 2026-04-07 19:21 UTC [99%]
-> 
->   8. [PATCH 0/6] drm/nouveau: fix GA100 issues
->      - by Timur Tabi @ 2026-04-07 19:21 UTC [93%]
-> 
->   9. [PATCH] drm/nouveau: expose VBIOS via debugfs on GSP-RM systems
->      - by Timur Tabi @ 2026-04-07 18:53 UTC [95%]
+On Mon, 23 Mar 2026 12:00:19 -0400
+"Vineeth Pillai (Google)" <vineeth@bitbyteword.org> wrote:
 
-Ok, I will take a look in the next days.
+>   if (trace_foo_enabled() && cond)
+>       trace_call__foo(args);   /* calls __do_trace_foo() directly */
+
+Hi Vineeth,
+
+Could you rebase this series on top of 7.1-rc1 when it comes out?
+Several of these patches were accepted already. Obviously drop those.
+They were the patches that added the feature, and any where the
+maintainer acked the patch.
+
+Now that the feature has been accepted, if you post the patch series
+again after 7.1-rc1 with all the patches that haven't been accepted
+yet, then the maintainers can simply take them directly. As the feature
+is now accepted, there's no dependency on it, and they don't need to go
+through the tracing tree.
 
 Thanks,
-Danilo
 
->>> https://lore.freedesktop.org/nouveau/20260103000756.1002890-1-ttabi@nvidia.com/T/#u
->>>
->>> I'm quite certain that there are other similar issues in Nouveau w.r.t. IS_ERR_OR_NULL.
->>
->> Yeah, that sounds likely.
->>
->>> I think an audit of the Nouveau error paths is in order.  I suspect that Ben's big refactors
->>> over the past year have resulted in some invalid error paths.
->>
->> Are you planning to look into this?
-> 
-> No, but it does sound like something that Claude could figure out pretty quick.
-
+-- Steve
