@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B1FEA719D
-	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 20:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1B3EA719D
+	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 20:16:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C04210E057;
-	Sun, 19 Apr 2026 20:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B534510E0DE;
+	Sun, 19 Apr 2026 20:16:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fZKySIqx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IsKUyjy/";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44FC510E057
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:16:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CAF210E0DE
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:16:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 084B94414F
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:16:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD132C2BCAF
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:16:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5409E44596
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:16:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A112C2BCF5
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:16:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776629773;
- bh=GDhTvkiJqhINQX5MFA+xMV3KNOf+hKPswGRtUCHk2Eo=;
+ s=k20201202; t=1776629799;
+ bh=hlN82U3u5JGIfEK3aCxmpqJVvZHn8H0jsQ+771+7n0s=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=fZKySIqx759C0B5DAtD3vJfzO4j7Sdarm83OG9RGYY4dXRpBpdL5wS21CedxDP8T9
- h25+qF68ZMlU5K+FoJ7GjfNusGnbgZI88NzgSOsSNsP82rI8LwQOvLwQMUvP4Mvj6C
- u0pNN5VYY4dupjIs3/dIjNmGjBnaXGFUVVSrFkXZ9HtkIguCax80rRyCCw3QxAvr22
- VnUycuFTlvaeGd1KdWTax6aJ64Ran0KVPH4tm0HneF0YopVjEb4NTVyndAWo4PPbst
- AOqG7m4xKu03HHY8iUCEEmSn9rsNynnmBimNn3ToLQwrrNpsWHb51Iko7lEJKHvlsp
- B4bUP5ILNxV2A==
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-38eab6cf7d8so23409641fa.1
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 13:16:13 -0700 (PDT)
+ b=IsKUyjy/vvwOFYoWiOM6lZZoizOKwCFEO4N+EyDgTKdb7zqwGo4asI5K+rQ10Vuwj
+ jMl5Zm9uYs9lq9UO4MYdB4/5JZfXbuRdY/lxVC/p2T/EyiUrllwSkx9U8WfGDh0u3g
+ CWw2je+DxwFgkMDoPwTDBVZdFc5TJqKhBjYc+qd2j0YICJ3l0c8No1NZvVQuBBpXLZ
+ c0xA9P5GnrDpb11BzLJKViQcuSMGAfXMAm9rcbcb3CbYQGNEp0GjkaX0K5oW/b9bAa
+ QT+A2klQhexiRQ4AXZ7G7ff62QniZWuVd69nVeZbjVVzFXbQFqqBBliGEKp9z3jvNh
+ 4QezrBYaP9/tg==
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-5a40b2bc96dso2760273e87.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 13:16:38 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ+eMYTl2S9LArJXXHZkzp4cJU5/JGakeBS+qfMIBZBiI2QhSikOWF/HRe3tBIzys9ZAMnxntKy0C6s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyC4gVWlHhNiMkiETxewXYOKybZEVbZJyv8oDyLoy0TvqFng9PB
- GZHzqsF0W73QaiZXtjAzYFCaB7tCfw3MvLFA8Y1CRYOStsPUo5f/g0JX9rz4p0xpFQVEMLwtiXQ
- XJ1/r8Rl2O4WWx8KgkIjzcAQ9gCcYm14=
-X-Received: by 2002:a05:6512:61a2:b0:5a3:ffdc:1d22 with SMTP id
- 2adb3069b0e04-5a4172e4ffamr3383211e87.36.1776629772615; Sun, 19 Apr 2026
- 13:16:12 -0700 (PDT)
+ AFNElJ97y5C/mFXWVmzhWVz4L058KOMfALBqxH9R5ITm9KW8Wuwg9cy/ivQOdOOqVg6WI1UQ0uUq4pwMZsQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwEL2Xjh38FrY7F0GlrvI2aJ5oCUR8u1J8U0i+SDvZQjIZdEySZ
+ mrmO/ogqmFk5R3Ogxk2TBhVXPFIp+11V0QgcDx/YXTxuxqKPuiCnJKqsvtF8TdrE5qg5MaycJ9d
+ mISSUX64YdG0nctDOf8LDZllVODzpIGU=
+X-Received: by 2002:a05:6512:ba1:b0:5a2:c05c:118e with SMTP id
+ 2adb3069b0e04-5a4172c36e1mr3505118e87.11.1776629797744; Sun, 19 Apr 2026
+ 13:16:37 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260411-waveshare-dsi-touch-v2-0-75cdbeac5156@oss.qualcomm.com>
- <20260411-waveshare-dsi-touch-v2-14-75cdbeac5156@oss.qualcomm.com>
-In-Reply-To: <20260411-waveshare-dsi-touch-v2-14-75cdbeac5156@oss.qualcomm.com>
+ <20260411-waveshare-dsi-touch-v2-15-75cdbeac5156@oss.qualcomm.com>
+In-Reply-To: <20260411-waveshare-dsi-touch-v2-15-75cdbeac5156@oss.qualcomm.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 19 Apr 2026 22:16:01 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=iJmYKB2psb0A=RUAFZhKtc6KQmsB9HED1-LQAAFbYmA@mail.gmail.com>
-X-Gm-Features: AQROBzDjOWLTCpwVHd-bfYDfUqw6vHHRtJrX45Wrd5GY8ZZuzBfZra5z61yRT00
-Message-ID: <CAD++jL=iJmYKB2psb0A=RUAFZhKtc6KQmsB9HED1-LQAAFbYmA@mail.gmail.com>
-Subject: Re: [PATCH v2 14/21] drm/panel: jadard-jd9365da-h3: support Waveshare
- round DSI panels
+Date: Sun, 19 Apr 2026 22:16:26 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=0i4Z_xt7E4e_1JYJ7J7bGDGpEunS30DxZw3=ioh35jw@mail.gmail.com>
+X-Gm-Features: AQROBzDnFYGHHrw3HiuqBxQobwvrUSVyXOaQI0N4JGjLUJJBSKx7_rBzcGkbSOI
+Message-ID: <CAD++jL=0i4Z_xt7E4e_1JYJ7J7bGDGpEunS30DxZw3=ioh35jw@mail.gmail.com>
+Subject: Re: [PATCH v2 15/21] drm/panel: jadard-jd9365da-h3: support Waveshare
+ WXGA DSI panels
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -87,8 +87,8 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Sat, Apr 11, 2026 at 2:11=E2=80=AFPM Dmitry Baryshkov
 <dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-> Add configuration for Waveshare 3.4" and 4.0" round DSI panels using
-> JD9365 controller.
+> Add configuration for several Waveshare 8.0" and 10.1" WXGA DSI panels
+> using JD9365 controller
 >
 > Tested-by: Riccardo Mereu <r.mereu@arduino.cc>
 > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
