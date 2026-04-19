@@ -4,82 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF85FF99C98
-	for <dri-devel@archiver.kernel.org>; Sat, 18 Apr 2026 23:05:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 201AAF99C95
+	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 00:16:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C985510E260;
-	Sat, 18 Apr 2026 23:05:38 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com
- [216.40.44.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A465810E260
- for <dri-devel@lists.freedesktop.org>; Sat, 18 Apr 2026 23:05:37 +0000 (UTC)
-Received: from omf17.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay01.hostedemail.com (Postfix) with ESMTP id 3A610E4C26;
- Sat, 18 Apr 2026 23:05:34 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf17.hostedemail.com (Postfix) with ESMTPA id D63C017; 
- Sat, 18 Apr 2026 23:05:02 +0000 (UTC)
-Date: Sat, 18 Apr 2026 19:04:56 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Jens
- Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
- Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon
- Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco
- Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Jiri Pirko
- <jiri@resnulli.us>, Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz
- <koby.elbaz@intel.com>, dri-devel@lists.freedesktop.org, "Rafael J.
- Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Huang Rui
- <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, Len
- Brown <lenb@kernel.org>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org, MyungJoo
- Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- linaro-mm-sig@lists.linaro.org, Eddie James <eajames@linux.ibm.com>, Andrew
- Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
- linux-fsi@lists.ozlabs.org, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Danilo
- Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
- <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
- <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
- Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, Chris
- Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
- linux-btrfs@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>, Andrew
- Morton <akpm@linux-foundation.org>, SeongJae Park <sj@kernel.org>,
- linux-mm@kvack.org, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 00/19] tracepoint: Avoid double static_branch
- evaluation at guarded call sites
-Message-ID: <20260418190456.631df6f3@fedora>
-In-Reply-To: <20260323160052.17528-1-vineeth@bitbyteword.org>
-References: <20260323160052.17528-1-vineeth@bitbyteword.org>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: 14j39sducs3tg3aey13ys76m4wq4pf1a
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: D63C017
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18uI1/Yo7/rI1+CwnTJAuzOiDhDTcHCmFM=
-X-HE-Tag: 1776553502-227936
-X-HE-Meta: U2FsdGVkX19V5aRBuQVgNrwFYqJny3DiV29cPCLORtmFjnJgNsHv2iodpq+DK7eFwvzFvhgzZ+I=
+	by gabe.freedesktop.org (Postfix) with ESMTP id D58CE10E3B3;
+	Sun, 19 Apr 2026 00:15:59 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ICKNsE+O";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D596510E3B3
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 00:15:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776557758; x=1808093758;
+ h=date:from:to:cc:subject:message-id;
+ bh=0f831QMgV5m08OSru3grZxpQxwfcHwj2qjqR7bdSiIc=;
+ b=ICKNsE+O8hZI56qd7EfXiRPLYDSSj916uT5zjHjlqZKoBaBWdAqUJtEk
+ 4IwRbUN3vg6eDidKqoG4nrBfIGKHOzDPZ7R7Rt7mD+k6QlGDBEZAXDGF6
+ yQhs5vBcpoCApvh660PmLdSCcVkZNOiFYjAZvCWYR+zPn9ApxLHEMN7cq
+ Dkdq+V8hfOreSR8QMUPcB3j9sDD5nfC413c0T5cQ8uQHsre1CznF5rzBL
+ OiY6VhcQ/3w2QVMcoU+Z6d+Y1vSuQGWXYerE9HEpLcKqwv5NdSK/RSEYf
+ O+lfipGoktio1wpKqU+ovxLpavhuV1IeF1ade7WSqjYEnD5wi4pJroXzX A==;
+X-CSE-ConnectionGUID: mND7I2i/TeGaO0BBbMx7Uw==
+X-CSE-MsgGUID: HDNT1DpLR5KmevDn+yWcUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77228044"
+X-IronPort-AV: E=Sophos;i="6.23,187,1770624000"; d="scan'208";a="77228044"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2026 17:15:57 -0700
+X-CSE-ConnectionGUID: oZmluQoeQFqEjC7wu6zylQ==
+X-CSE-MsgGUID: j/9mLiTdRjmddm3ESwgxkg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,187,1770624000"; d="scan'208";a="224868987"
+Received: from lkp-server01.sh.intel.com (HELO 7e48d0ff8e22) ([10.239.97.150])
+ by fmviesa009.fm.intel.com with ESMTP; 18 Apr 2026 17:15:55 -0700
+Received: from kbuild by 7e48d0ff8e22 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wEFpJ-000000001bs-0Pex;
+ Sun, 19 Apr 2026 00:15:53 +0000
+Date: Sun, 19 Apr 2026 08:15:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Linus Walleij <linusw@kernel.org>
+Subject: [drm-misc:drm-misc-next 16/19] Warning:
+ drivers/gpu/drm/drm_panel.c:119 function parameter 'dev' not described in
+ 'devm_drm_panel_add'
+Message-ID: <202604190843.wiFWsofZ-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,25 +67,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 23 Mar 2026 12:00:19 -0400
-"Vineeth Pillai (Google)" <vineeth@bitbyteword.org> wrote:
+tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+head:   17394e05b295e4936e0ed50d2f02ed7f08fd4f7d
+commit: e43a8e3ad8fa3c2c2220a06fa46545c7ff82a9b7 [16/19] drm/panel: add devm_drm_panel_add() helper
+config: openrisc-randconfig-r071-20260419 (https://download.01.org/0day-ci/archive/20260419/202604190843.wiFWsofZ-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 15.2.0
+smatch: v0.5.0-9007-gcf3ea02b
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260419/202604190843.wiFWsofZ-lkp@intel.com/reproduce)
 
->   if (trace_foo_enabled() && cond)
->       trace_call__foo(args);   /* calls __do_trace_foo() directly */
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604190843.wiFWsofZ-lkp@intel.com/
 
-Hi Vineeth,
+All warnings (new ones prefixed by >>):
 
-Could you rebase this series on top of 7.1-rc1 when it comes out?
-Several of these patches were accepted already. Obviously drop those.
-They were the patches that added the feature, and any where the
-maintainer acked the patch.
+>> Warning: drivers/gpu/drm/drm_panel.c:119 function parameter 'dev' not described in 'devm_drm_panel_add'
+>> Warning: drivers/gpu/drm/drm_panel.c:119 function parameter 'dev' not described in 'devm_drm_panel_add'
 
-Now that the feature has been accepted, if you post the patch series
-again after 7.1-rc1 with all the patches that haven't been accepted
-yet, then the maintainers can simply take them directly. As the feature
-is now accepted, there's no dependency on it, and they don't need to go
-through the tracing tree.
-
-Thanks,
-
--- Steve
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
