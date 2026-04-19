@@ -4,84 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80E1BEA7189
-	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 07:20:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E2EEA7194
+	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 10:06:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A127510E10A;
-	Sun, 19 Apr 2026 07:20:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22CD110E072;
+	Sun, 19 Apr 2026 10:06:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P0Bxz+De";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="puSwcU6p";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SvX7U5fX";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7160110E10A
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 07:20:01 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-354a18c48b5so2003575a91.1
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 00:20:01 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9FF10E072
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 10:06:51 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63ILjNoY2379609
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 10:06:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ XI5BNpMIZ8Y0V/s2/V6NIC81LF/72Sofa7E3Xufqt5U=; b=puSwcU6p8iHAqE6n
+ 8aa7KUtBbfYH30jSmF1QmXGZkuZ1WYrwNBPOa6Q5ERDF07aPMgfDXN9sH1TRKD5R
+ WbkhF/MmAAXWfKqRK2D2FtwC9rZB1YdBbN+YBswcrCd9jngSQRiJVaUGIj8E8ENo
+ GVjritebgRtkjUrd4vNNCrM8VkfOsfgDPG0czGpyQQG1Le3765Z76e3JSdJVZJTM
+ FfHitXht1Bh2cb/sth8EqcNfmEDpyy5DL/mPtwqUY2mezDkeiITG3sxH2NP+kyKu
+ v5eT+ExIqAwaKP3k61uowgp63xgcamOpOrEMKAtUFGxtmdAKjqyrLMk9vq3PAhRA
+ Loamrw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm0wr2fnn-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 10:06:50 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id
+ 98e67ed59e1d1-35d9467e85aso2066553a91.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 03:06:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776583201; x=1777188001; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W0uptcA/nPT9b5VoNX/H/wV7A62sl2YDH38WqrqI4Qc=;
- b=P0Bxz+DepLBejsAkQocULAPLdsTg122cS9fyqf6XUVTedJFLnbFJmPvHnlz7tQ2SdS
- BMrzOFi3FZ5kGbwaVX0Ub4I/Gc2Q2f43qe2CvWVsW2f7pddLQ8O57P3sj5sO605F7oV5
- 0izcOViqPv5hNfJQK2R/cNcV88EMvnf3GPYLzR7Fb347h24O5sF823/Fxbleab0/OSX7
- 7anYOhvg17pz1CRKSnJrpG0f4CjZotJWdH6Il7TSZpGonhG2KBNC0Vwph+UoVCxMymSH
- JBD9nXZFY8DloCaaF8kvpba1fIPfbH1EiuB489pFcTWLcMEm7I5B7pBIAx1bbZlssgCB
- UAMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776583201; x=1777188001;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=oss.qualcomm.com; s=google; t=1776593210; x=1777198010;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:cc:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=W0uptcA/nPT9b5VoNX/H/wV7A62sl2YDH38WqrqI4Qc=;
- b=CDPlY1paBjP/VAmv4ml10zGqV3cfzFaxwHaQDtX6j77xbrcvuA9PMDxdBYJfNndY4M
- oTvxsmoeFA9TqLKPXIPxxqya095cFeIP8Yh6PwHffjoxHTjTg/cEw4O2BJWrdpbw3Anz
- UUkbUmu2/a13mxkUyMDwL0IURLP1Ira11sIUueNC437stcU6g+YPwydIqHlYCxwU6nxO
- vfud6jNxuay+MbaJmkaViS84k08WleQy+9qSwcp4rMZvT0Wb+DnIfNUzejAkd4/KKKq2
- AoPb6olIkfOiqKntvURZOR7iB9WGu+bD4IZBBBfRpKTeS7aXfN5X3kpSHo0XaLsMlHVG
- z/jA==
+ bh=XI5BNpMIZ8Y0V/s2/V6NIC81LF/72Sofa7E3Xufqt5U=;
+ b=SvX7U5fXPXFtUygXArO5LIbMR0wQ0IltNwNrZjEaYetVxF9d45AlOE9tKMejCL6i3x
+ vcm16NJhlMMJkeP0FotujHeiDRQCJmoeJe9tdrEdihcQVJCG/9bcqLFAq0j7sCJtFY90
+ FVJngbJMdIGhswSt9VNSpZ8e4ORh96g6OnP0LIg2T7uRS0dH41US16qufgvpre7gZ1vJ
+ DhQLhRfjqbuTuMtS5uuHh2DAVbjjzumbhOxpcDb4eJXBEaZDPxzyI5wCpL9wdu684/lI
+ 5kjxrej9O0gVh34tfhgCTFdeVpnFxnwcS7GNaGTxpzhRXO/eTy05fAGaDltkDCFdzInk
+ Pd8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776593210; x=1777198010;
+ h=content-transfer-encoding:in-reply-to:cc:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XI5BNpMIZ8Y0V/s2/V6NIC81LF/72Sofa7E3Xufqt5U=;
+ b=be1M7nvitKZApVS2dyDyazSX3zhsQMXtLf+z/lShDq6FBPe1S1Xz2qMETMo6U+gz4L
+ OsZ9+oG0Ry0Y+dc0XGjTHCdBzo9jksOabCXSWTVHU8alVme/egLRIPhjgl3QjoIgm0wC
+ +IrsXUDg/lAGnOFGxqoL1aVPFIjtIq3cuogeFgSuVjbafmGqBxaZIioRm6+CcWP1oh22
+ Zi7PNlMgqWBX/wUtCH4Oc9sVrszyCE3pdWDl/0YpE5SlmZUwfzR4N3fB/PJXEP5kjfTf
+ VbOSoaBNyvLHKvTjCla+lxi4gv6b4fOEEPSZLcftk3K/JLpK+88LHMEsKE89r3sBrrkc
+ WcBw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/WWJXfSlUOqRhpjte7Bl4l6KLDNcxNPrMxJwR6GBSs8MleS3eciRJlXVvb86LlXM3pvS7kUfnKLy4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwjiwFj8NxgEC7iTWA0PeYWZRGXIHCq7tpv0s4hlwOGd4CJ+zbw
- DL+RHIkjyycWK9EHCI/lE+z/KHEKzikahz5HtUURIWAFntP0PPMbgZ75
-X-Gm-Gg: AeBDievKMZJ7V6dXKNK7PvJPDnyDozrfKSDOZDleEmbNjZE8MZGQEwbYFLi9S/z5sX6
- cPXz5/79y6e8yV0XQolh9nj754qH3eKYHNeb3vMdUuD8ePnW9ryGV/6394TNo7k6ymxAtg37Ti2
- 5N0mC+dQdmTS7SrT0KTqa/Ea2HMG5TAF8F6is9CXhjdfSf/bidcQkj/BN/6u5UHV8EeNPOzWTCU
- 8+SJe41KtLCT6gGq7D5XBSRnzXOmkxQzyjlTisQHuiuAeqx6Mp9G+NkUbGXKLZDDTzgHNSG4WTE
- ptpT64jRz6bYpXERKP6SOXvt7XKPPWqkfOzdml5A3TiuUyuGuc74bGTTu/4NCPun+WzNk6+Cqyg
- 9eKZ/NdTyRXzsru8qSTaesZbO1/uKg8T4n932LdpFqnIPplFzvlI9ZxPhjr3NaMrexnbMqVojvP
- egKSocmGYotkfGvJ3eIgaI+f/tc2X/nFWXxSnz
-X-Received: by 2002:a17:90b:5185:b0:35f:b7f5:9b3 with SMTP id
- 98e67ed59e1d1-361403b18c9mr9692965a91.3.1776583200994; 
- Sun, 19 Apr 2026 00:20:00 -0700 (PDT)
-Received: from gye-SER8.. ([1.243.227.27]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3614198f775sm7730486a91.16.2026.04.19.00.19.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Apr 2026 00:20:00 -0700 (PDT)
-From: Gyeyoung Baek <gye976@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Gyeyoung Baek <gye976@gmail.com>,
- stable@vger.kernel.org
-Subject: [PATCH v1 2/2] drm/panfrost: Fix wait_bo ioctl leaking positive
- return from dma_resv_wait_timeout()
-Date: Sun, 19 Apr 2026 16:17:16 +0900
-Message-ID: <fe33f82fded7be1c18e2e0eb2db451d5a738cf39.1776581974.git.gye976@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1776581974.git.gye976@gmail.com>
-References: <cover.1776581974.git.gye976@gmail.com>
+ AFNElJ/UHGcT+tYlXTbnPQ+e/Z7chUQ6rNZsUFKTh9jGSIwkQlzI88vELxDfNvrCfNeE1CbAPUq3KDSGI/k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyaAsCmuWi1iB3KXHyO6qF/OU/G2uPGwSKDzokdEa1NtxU6c+Jc
+ lP7DqdcD53WXBhOZN3TZBzbogluntNRjITKxhq8vaEGHBmNd/6BQ+U9fTZYm/QgFQxXymiodUSD
+ xdr71hRqw7GABT8xN7gO0mKWrb0FCuoRvWD3dBlCnKbWKv66mbkZLFkpMACdKFSuM45s8vhvqjp
+ ToEUv3tw==
+X-Gm-Gg: AeBDieubGOO0PjbD8iru9Zva5xoUrSYNELGdkFRVjpqPvSWiOJrE5YXQhwNI+W1Igg3
+ 4SSQNYajAx+hhQfKeqs2XIdHrAJqMhHP3+WWmnH4QXYYfyjcKHN3PW/NLw2v/D2lJm9WW/VBy2H
+ 1o25qQ3Lx6ix45VBU9X+E9btpUbJGWLbOtIINIcKNiB6cs29+U3s68ePOPYV+ABmgrTb3oPiUlX
+ 11Xsfdi9lLnDVUktsynJxCzOkI6r9T+VY1GmpZfApPTbYu2nl9GIjKV7e3ljOjORSWN962VdjE0
+ iHw7lL+yLn7gcxVziaem6mRxEc58SsUm7ZYM4lgtgje3L1GNCjxbOpygtaw46zFcUDa4Hr0ZNMh
+ OT8nP9CXBXUGdMZm/B9sxGqqf/wYpXyLFQEOckDwhwgoKdGaofPdm+UNVP7ZB/BpXFJ8mq0PcBi
+ /7xhQKodobKApIuFgkfXx2YqlyQg==
+X-Received: by 2002:a17:90b:380c:b0:35f:b5df:448 with SMTP id
+ 98e67ed59e1d1-3614049ed12mr9946211a91.24.1776593209571; 
+ Sun, 19 Apr 2026 03:06:49 -0700 (PDT)
+X-Received: by 2002:a17:90b:380c:b0:35f:b5df:448 with SMTP id
+ 98e67ed59e1d1-3614049ed12mr9946186a91.24.1776593209087; 
+ Sun, 19 Apr 2026 03:06:49 -0700 (PDT)
+Received: from [10.133.33.90] (tpe-colo-wan-fw-bordernet.qualcomm.com.
+ [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-361410a7cb5sm7357149a91.9.2026.04.19.03.06.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 19 Apr 2026 03:06:48 -0700 (PDT)
+Message-ID: <cf0b6133-e15b-49fa-b9ba-e67ac8bcf7d3@oss.qualcomm.com>
+Date: Sun, 19 Apr 2026 18:06:35 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/4] misc: fastrpc: Allocate entire reserved memory for
+ Audio PD in probe
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260409062617.1182-1-jianping.li@oss.qualcomm.com>
+ <20260409062617.1182-4-jianping.li@oss.qualcomm.com>
+ <7rfiwbbunlbzmhdjvsfqccltdx7cveahbgg2rk6kkom2jesta4@nnbas4vn63we>
+Content-Language: en-US
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+Cc: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
+ gregkh@linuxfoundation.org, abelvesa@kernel.org,
+ jorge.ramirez-ortiz@linaro.org, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, quic_chennak@quicinc.com
+In-Reply-To: <7rfiwbbunlbzmhdjvsfqccltdx7cveahbgg2rk6kkom2jesta4@nnbas4vn63we>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE5MDEwNSBTYWx0ZWRfX9cy899PDOR3Z
+ GH1txZ4vl4+oORW8XeLy1Bff/XLXD89zA2ISF+SJuFsp8kKidhF+A855o6TSAuBmagf+sY8BoYJ
+ cFReE1yIvla+mCEWSKE3NywpdAdL/0H85hSPW68O7iXsVhjs7XHtirXW19fECdr32NLo38NTCup
+ ihXD8kbRNnpbckXrFIgumMP259ol3v5dY5RYN+KjQUa6wk4c3DgaCF5X0yeIXI+5NZNBNMPZ2nH
+ eSCq5skJ5Z+d09tWDK/pmieWnVVaI+Nb5i3fSQCvStIUcPRD9Xxq8KkzLi0hY+U6SOtUU8jSOoN
+ hDrkakeKq37t17hCTH4jaqI2XJMMza5eMvC0UnZGOaZRLdFWr/8iAnow5o7cfogeMlMYqWqV2Y6
+ yOC8+uOu37wnhJQcqsWb/4qJiXOm10EjztL2clayKTOdvluvTpCcF/pdrmkD3cbNbEHG9h4EbOI
+ SHWVb2n/ILSaJSEdP1w==
+X-Authority-Analysis: v=2.4 cv=G9Ys1dk5 c=1 sm=1 tr=0 ts=69e4a93a cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=LlW_7vAnNt5ooDS3Xh8A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: JcaZh23sC0BqWyflLw5MbRKxREBvczTF
+X-Proofpoint-GUID: JcaZh23sC0BqWyflLw5MbRKxREBvczTF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-19_03,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604190105
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,33 +148,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dma_resv_wait_timeout() returns a positive 'remaining jiffies' value
-on success, 0 on timeout, and -errno on failure.
 
-panfrost_ioctl_wait_bo() returns this 'long' result from an int-typed
-ioctl handler, so positive values reach userspace as bogus errors.
-Explicitly set ret to 0 on the success path.
+On 4/18/2026 2:31 AM, Dmitry Baryshkov wrote:
+> On Thu, Apr 09, 2026 at 02:26:16PM +0800, Jianping Li wrote:
+>> Allocating and freeing Audio PD memory from userspace is unsafe because
+>> the kernel cannot reliably determine when the DSP has finished using the
+>> memory. Userspace may free buffers while they are still in use by the DSP,
+>> and remote free requests cannot be safely trusted.
+>>
+>> Allocate the entire Audio PD reserved-memory region upfront during rpmsg
+>> probe and tie its lifetime to the rpmsg channel. This avoids userspace-
+>> controlled alloc/free and ensures memory is reclaimed only when the DSP
+>> shuts down.
+>>
+>> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+>> ---
+>>   drivers/misc/fastrpc.c | 104 +++++++++++++++++++++--------------------
+>>   1 file changed, 53 insertions(+), 51 deletions(-)
+>>
+>> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+>> index 148085c3b61a..a67ae991c0b0 100644
+>> --- a/drivers/misc/fastrpc.c
+>> +++ b/drivers/misc/fastrpc.c
+>> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
+>>   	struct kref refcount;
+>>   	/* Flag if dsp attributes are cached */
+>>   	bool valid_attributes;
+>> +	/* Flag if audio PD init mem was allocated */
+>> +	bool audio_init_mem;
+>>   	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+>>   	struct fastrpc_device *secure_fdevice;
+>>   	struct fastrpc_device *fdevice;
+>> @@ -1295,15 +1297,16 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+>>   	struct fastrpc_init_create_static init;
+>>   	struct fastrpc_invoke_args *args;
+>>   	struct fastrpc_phy_page pages[1];
+>> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
+> What was the base for this series? It doesn't apply to linux-next. The
+> code here is different.
 
-Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
----
- drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+This series is based on the patch submitted last month. I will redo the next version of
+the patch based on the latest linux-next submission.
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 3d0bdba2a..784e36d72 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -390,6 +390,8 @@ panfrost_ioctl_wait_bo(struct drm_device *dev, void *data,
- 				    true, timeout);
- 	if (!ret)
- 		ret = timeout ? -ETIMEDOUT : -EBUSY;
-+	else if (ret > 0)
-+		ret = 0;
- 
- 	drm_gem_object_put(gem_obj);
- 
--- 
-2.43.0
+Thanks,
+Jianping.
 
+>
+>>   	char *name;
+>>   	int err;
+>> -	bool scm_done = false;
+>>   	struct {
+>>   		int client_id;
+>>   		u32 namelen;
+>>   		u32 pageslen;
+> This struct is way bigger.
+
+In the fastrpc_init_create_static_process function, the
+inbuf structure has only three members; it only becomes bigger in the
+fastrpc_init_create_process function.
+
+>
+>>   	} inbuf;
+>>   	u32 sc;
+>> +	unsigned long flags;
+>>   
+>>   	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+>>   	if (!args)
