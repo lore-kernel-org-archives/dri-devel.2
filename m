@@ -4,135 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E2EEA7194
-	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 10:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D27DEA718A
+	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 12:21:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22CD110E072;
-	Sun, 19 Apr 2026 10:06:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 943AF10E205;
+	Sun, 19 Apr 2026 12:21:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="puSwcU6p";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SvX7U5fX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gT7iqvyM";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9FF10E072
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 10:06:51 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63ILjNoY2379609
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 10:06:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XI5BNpMIZ8Y0V/s2/V6NIC81LF/72Sofa7E3Xufqt5U=; b=puSwcU6p8iHAqE6n
- 8aa7KUtBbfYH30jSmF1QmXGZkuZ1WYrwNBPOa6Q5ERDF07aPMgfDXN9sH1TRKD5R
- WbkhF/MmAAXWfKqRK2D2FtwC9rZB1YdBbN+YBswcrCd9jngSQRiJVaUGIj8E8ENo
- GVjritebgRtkjUrd4vNNCrM8VkfOsfgDPG0czGpyQQG1Le3765Z76e3JSdJVZJTM
- FfHitXht1Bh2cb/sth8EqcNfmEDpyy5DL/mPtwqUY2mezDkeiITG3sxH2NP+kyKu
- v5eT+ExIqAwaKP3k61uowgp63xgcamOpOrEMKAtUFGxtmdAKjqyrLMk9vq3PAhRA
- Loamrw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm0wr2fnn-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 10:06:50 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id
- 98e67ed59e1d1-35d9467e85aso2066553a91.0
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 03:06:50 -0700 (PDT)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3646C10E205
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 12:21:56 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-82f8892d4d6so897800b3a.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 05:21:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776593210; x=1777198010;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:cc:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=XI5BNpMIZ8Y0V/s2/V6NIC81LF/72Sofa7E3Xufqt5U=;
- b=SvX7U5fXPXFtUygXArO5LIbMR0wQ0IltNwNrZjEaYetVxF9d45AlOE9tKMejCL6i3x
- vcm16NJhlMMJkeP0FotujHeiDRQCJmoeJe9tdrEdihcQVJCG/9bcqLFAq0j7sCJtFY90
- FVJngbJMdIGhswSt9VNSpZ8e4ORh96g6OnP0LIg2T7uRS0dH41US16qufgvpre7gZ1vJ
- DhQLhRfjqbuTuMtS5uuHh2DAVbjjzumbhOxpcDb4eJXBEaZDPxzyI5wCpL9wdu684/lI
- 5kjxrej9O0gVh34tfhgCTFdeVpnFxnwcS7GNaGTxpzhRXO/eTy05fAGaDltkDCFdzInk
- Pd8A==
+ d=gmail.com; s=20251104; t=1776601316; x=1777206116; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pmWG7OM2EB7RxxwskQ0/zeTI1Kmre4JByGl1ksiUCqU=;
+ b=gT7iqvyMAcAs+TFiIgQeMVCU90Axqvjgx3SeqCvS6ejgZHGsFMwD8a2Lm/uMnjs7qU
+ eG5ZoZrjqCRNlEnEtkULlCRTk68XzNcV2LeR7V58ZohV7oUx4o2hN0FNWK9QZu0JOgs4
+ lPuQsZCHL5brb6f10ZgL8+m4eF+AkRKABSMva7vHpH3XZA890uRTgx0TMxH18oQWHMtv
+ bu7za4YF1GG+5M1BDqHmebZqU7QYDNP5avNP9tJ7ecZ4lpLVcW8ZMAd6zlVE4JjQ4CIr
+ i/c3jnq9KXJV02TQx5vG2JZ3BOvPgKVLpRED/jz76vIiLoBPaQmecB/uHH5vlggPXW2a
+ Lomw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776593210; x=1777198010;
- h=content-transfer-encoding:in-reply-to:cc:from:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XI5BNpMIZ8Y0V/s2/V6NIC81LF/72Sofa7E3Xufqt5U=;
- b=be1M7nvitKZApVS2dyDyazSX3zhsQMXtLf+z/lShDq6FBPe1S1Xz2qMETMo6U+gz4L
- OsZ9+oG0Ry0Y+dc0XGjTHCdBzo9jksOabCXSWTVHU8alVme/egLRIPhjgl3QjoIgm0wC
- +IrsXUDg/lAGnOFGxqoL1aVPFIjtIq3cuogeFgSuVjbafmGqBxaZIioRm6+CcWP1oh22
- Zi7PNlMgqWBX/wUtCH4Oc9sVrszyCE3pdWDl/0YpE5SlmZUwfzR4N3fB/PJXEP5kjfTf
- VbOSoaBNyvLHKvTjCla+lxi4gv6b4fOEEPSZLcftk3K/JLpK+88LHMEsKE89r3sBrrkc
- WcBw==
+ d=1e100.net; s=20251104; t=1776601316; x=1777206116;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pmWG7OM2EB7RxxwskQ0/zeTI1Kmre4JByGl1ksiUCqU=;
+ b=Oco9rov8ZvsN2+zgUwS43XB20aJg2crUp7BAz2DK85GIv38AYGzrKUUCPekFGiKNK9
+ IoOAnDsx9oHrkkvMHCZ6QB7ARwTxx5NPS6PAVjRJhblZBdr1aRTyZnnsc7HcboT9mak/
+ dNolKaao43MHSJT383mFeKdPdTUDtozSINvbQlaQqSQ06Q149p6KmXVkzj/iMLUtJPrc
+ FDEM+VyfuMKC1mgytfu1eJ1/RMWtnXKj0V5xXi3+MPxvoKhhFziC0i29Mk1DpvwE2bpS
+ skNydcQ/178OTzd/DTkQzcx7pu+MgnaFyOC+VCKdTu5W73e67NK2o4UIpZamb/36nlXa
+ m4jQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/UHGcT+tYlXTbnPQ+e/Z7chUQ6rNZsUFKTh9jGSIwkQlzI88vELxDfNvrCfNeE1CbAPUq3KDSGI/k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyaAsCmuWi1iB3KXHyO6qF/OU/G2uPGwSKDzokdEa1NtxU6c+Jc
- lP7DqdcD53WXBhOZN3TZBzbogluntNRjITKxhq8vaEGHBmNd/6BQ+U9fTZYm/QgFQxXymiodUSD
- xdr71hRqw7GABT8xN7gO0mKWrb0FCuoRvWD3dBlCnKbWKv66mbkZLFkpMACdKFSuM45s8vhvqjp
- ToEUv3tw==
-X-Gm-Gg: AeBDieubGOO0PjbD8iru9Zva5xoUrSYNELGdkFRVjpqPvSWiOJrE5YXQhwNI+W1Igg3
- 4SSQNYajAx+hhQfKeqs2XIdHrAJqMhHP3+WWmnH4QXYYfyjcKHN3PW/NLw2v/D2lJm9WW/VBy2H
- 1o25qQ3Lx6ix45VBU9X+E9btpUbJGWLbOtIINIcKNiB6cs29+U3s68ePOPYV+ABmgrTb3oPiUlX
- 11Xsfdi9lLnDVUktsynJxCzOkI6r9T+VY1GmpZfApPTbYu2nl9GIjKV7e3ljOjORSWN962VdjE0
- iHw7lL+yLn7gcxVziaem6mRxEc58SsUm7ZYM4lgtgje3L1GNCjxbOpygtaw46zFcUDa4Hr0ZNMh
- OT8nP9CXBXUGdMZm/B9sxGqqf/wYpXyLFQEOckDwhwgoKdGaofPdm+UNVP7ZB/BpXFJ8mq0PcBi
- /7xhQKodobKApIuFgkfXx2YqlyQg==
-X-Received: by 2002:a17:90b:380c:b0:35f:b5df:448 with SMTP id
- 98e67ed59e1d1-3614049ed12mr9946211a91.24.1776593209571; 
- Sun, 19 Apr 2026 03:06:49 -0700 (PDT)
-X-Received: by 2002:a17:90b:380c:b0:35f:b5df:448 with SMTP id
- 98e67ed59e1d1-3614049ed12mr9946186a91.24.1776593209087; 
- Sun, 19 Apr 2026 03:06:49 -0700 (PDT)
-Received: from [10.133.33.90] (tpe-colo-wan-fw-bordernet.qualcomm.com.
- [103.229.16.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-361410a7cb5sm7357149a91.9.2026.04.19.03.06.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 19 Apr 2026 03:06:48 -0700 (PDT)
-Message-ID: <cf0b6133-e15b-49fa-b9ba-e67ac8bcf7d3@oss.qualcomm.com>
-Date: Sun, 19 Apr 2026 18:06:35 +0800
+ AFNElJ/lH476xhFMkPwaGuZEeLcTb1KZPitdwI/1vOZTQDP9g9ERF5Ri81rEC6U52aqpcaP7MjO9pgkadS4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxpCNUvnv8EeUJIsyc63IAMCv95X64P/0gx+6TSJvBU1aYFXc1Z
+ /GOnRgTv2l/P76XJBMC4e4/Ha+tD/ayS2mJEc8QWG7PcCntAGjM+3p32
+X-Gm-Gg: AeBDietYI+Ht36Amf2yR5GNArrj0mTl2up05S8HfeduNRROJcWp4brM5RIkgKOVu47Q
+ uvqvPfVDOb6vz27fnEyPB8ZKU2KViQg471Bt68w8UxrpeDMSAJTP58Vely0Su5mmbmDyhPH81Aa
+ vOX9qFxc2sLQin0JgRQPnUtuDvi0jTDqjsoeH6dTvhz0Cu3y8J2tUZ/TdinOilkkL8piwZkaYdE
+ VFFBA+dilukrsTq/Zwv4ZBKWTWCqfqgxFn6oPh5igtccp+2lRvvJsgiM0nqFj7vwNkMpaagbYQD
+ nNXR8TycnR2KWv9v6Qch4vwO09m7lruWG9WQLUG2lX2qUDsTw6T9kxEryda2pKh8Jmu/+zDR1NL
+ vM81X0E86fTsq0namqebemSUsAPrTDXjq33lm9QR88vPH4zNm4HnsiSmftiICOj9vzcFLIfBGF2
+ OZfGtUrDhj4XknYuZf+VLVN/7ihCCn6d3S
+X-Received: by 2002:a05:6a00:2d8d:b0:82f:1d38:f68f with SMTP id
+ d2e1a72fcca58-82f8c8bee86mr10893475b3a.31.1776601315542; 
+ Sun, 19 Apr 2026 05:21:55 -0700 (PDT)
+Received: from lgs.. ([2408:8417:d50:4775:fc0:88de:ed15:556b])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82f8e9d2fa9sm7700034b3a.16.2026.04.19.05.21.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Apr 2026 05:21:55 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/bridge: imx8qxp-pxl2dpi: avoid of_node_put() on ERR_PTR()
+Date: Sun, 19 Apr 2026 20:21:34 +0800
+Message-ID: <20260419122134.97529-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] misc: fastrpc: Allocate entire reserved memory for
- Audio PD in probe
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260409062617.1182-1-jianping.li@oss.qualcomm.com>
- <20260409062617.1182-4-jianping.li@oss.qualcomm.com>
- <7rfiwbbunlbzmhdjvsfqccltdx7cveahbgg2rk6kkom2jesta4@nnbas4vn63we>
-Content-Language: en-US
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-Cc: srini@kernel.org, amahesh@qti.qualcomm.com, arnd@arndb.de,
- gregkh@linuxfoundation.org, abelvesa@kernel.org,
- jorge.ramirez-ortiz@linaro.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, quic_chennak@quicinc.com
-In-Reply-To: <7rfiwbbunlbzmhdjvsfqccltdx7cveahbgg2rk6kkom2jesta4@nnbas4vn63we>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE5MDEwNSBTYWx0ZWRfX9cy899PDOR3Z
- GH1txZ4vl4+oORW8XeLy1Bff/XLXD89zA2ISF+SJuFsp8kKidhF+A855o6TSAuBmagf+sY8BoYJ
- cFReE1yIvla+mCEWSKE3NywpdAdL/0H85hSPW68O7iXsVhjs7XHtirXW19fECdr32NLo38NTCup
- ihXD8kbRNnpbckXrFIgumMP259ol3v5dY5RYN+KjQUa6wk4c3DgaCF5X0yeIXI+5NZNBNMPZ2nH
- eSCq5skJ5Z+d09tWDK/pmieWnVVaI+Nb5i3fSQCvStIUcPRD9Xxq8KkzLi0hY+U6SOtUU8jSOoN
- hDrkakeKq37t17hCTH4jaqI2XJMMza5eMvC0UnZGOaZRLdFWr/8iAnow5o7cfogeMlMYqWqV2Y6
- yOC8+uOu37wnhJQcqsWb/4qJiXOm10EjztL2clayKTOdvluvTpCcF/pdrmkD3cbNbEHG9h4EbOI
- SHWVb2n/ILSaJSEdP1w==
-X-Authority-Analysis: v=2.4 cv=G9Ys1dk5 c=1 sm=1 tr=0 ts=69e4a93a cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=LlW_7vAnNt5ooDS3Xh8A:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: JcaZh23sC0BqWyflLw5MbRKxREBvczTF
-X-Proofpoint-GUID: JcaZh23sC0BqWyflLw5MbRKxREBvczTF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-19_03,2026-04-17_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0
- phishscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604190105
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,69 +99,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+imx8qxp_pxl2dpi_get_available_ep_from_port() may return ERR_PTR(-ENODEV)
+or ERR_PTR(-EINVAL). imx8qxp_pxl2dpi_find_next_bridge() stores that
+value in a __free(device_node) variable and then immediately checks
+IS_ERR(ep).
 
-On 4/18/2026 2:31 AM, Dmitry Baryshkov wrote:
-> On Thu, Apr 09, 2026 at 02:26:16PM +0800, Jianping Li wrote:
->> Allocating and freeing Audio PD memory from userspace is unsafe because
->> the kernel cannot reliably determine when the DSP has finished using the
->> memory. Userspace may free buffers while they are still in use by the DSP,
->> and remote free requests cannot be safely trusted.
->>
->> Allocate the entire Audio PD reserved-memory region upfront during rpmsg
->> probe and tie its lifetime to the rpmsg channel. This avoids userspace-
->> controlled alloc/free and ensures memory is reclaimed only when the DSP
->> shuts down.
->>
->> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
->> ---
->>   drivers/misc/fastrpc.c | 104 +++++++++++++++++++++--------------------
->>   1 file changed, 53 insertions(+), 51 deletions(-)
->>
->> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
->> index 148085c3b61a..a67ae991c0b0 100644
->> --- a/drivers/misc/fastrpc.c
->> +++ b/drivers/misc/fastrpc.c
->> @@ -276,6 +276,8 @@ struct fastrpc_channel_ctx {
->>   	struct kref refcount;
->>   	/* Flag if dsp attributes are cached */
->>   	bool valid_attributes;
->> +	/* Flag if audio PD init mem was allocated */
->> +	bool audio_init_mem;
->>   	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
->>   	struct fastrpc_device *secure_fdevice;
->>   	struct fastrpc_device *fdevice;
->> @@ -1295,15 +1297,16 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
->>   	struct fastrpc_init_create_static init;
->>   	struct fastrpc_invoke_args *args;
->>   	struct fastrpc_phy_page pages[1];
->> +	struct fastrpc_channel_ctx *cctx = fl->cctx;
-> What was the base for this series? It doesn't apply to linux-next. The
-> code here is different.
+On the error path, returning from the function triggers the cleanup
+handler for __free(device_node). Since the device_node cleanup helper
+only checks for NULL before calling of_node_put(), this results in
+of_node_put(ERR_PTR(...)), which may lead to an invalid kobject_put()
+dereference and crash the kernel.
 
-This series is based on the patch submitted last month. I will redo the next version of
-the patch based on the latest linux-next submission.
+Fix it by avoiding __free(device_node) for the endpoint pointer and
+releasing it explicitly after obtaining the remote port parent.
 
-Thanks,
-Jianping.
+This issue was found by a custom static analysis tool.
 
->
->>   	char *name;
->>   	int err;
->> -	bool scm_done = false;
->>   	struct {
->>   		int client_id;
->>   		u32 namelen;
->>   		u32 pageslen;
-> This struct is way bigger.
+Fixes: ceea3f7806a10 ("drm/bridge: imx8qxp-pxl2dpi: simplify put of device_node pointers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-In the fastrpc_init_create_static_process function, the
-inbuf structure has only three members; it only becomes bigger in the
-fastrpc_init_create_process function.
+diff --git a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
+index 441fd32dc91c..3610ca94a8e6 100644
+--- a/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
++++ b/drivers/gpu/drm/bridge/imx/imx8qxp-pxl2dpi.c
+@@ -264,12 +264,15 @@ imx8qxp_pxl2dpi_get_available_ep_from_port(struct imx8qxp_pxl2dpi *p2d,
+ 
+ static int imx8qxp_pxl2dpi_find_next_bridge(struct imx8qxp_pxl2dpi *p2d)
+ {
+-	struct device_node *ep __free(device_node) =
+-		imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 1);
++	struct device_node *ep;
++
++	ep = imx8qxp_pxl2dpi_get_available_ep_from_port(p2d, 1);
+ 	if (IS_ERR(ep))
+ 		return PTR_ERR(ep);
+ 
+ 	struct device_node *remote __free(device_node) = of_graph_get_remote_port_parent(ep);
++	of_node_put(ep);
++
+ 	if (!remote || !of_device_is_available(remote)) {
+ 		DRM_DEV_ERROR(p2d->dev, "no available remote\n");
+ 		return -ENODEV;
+-- 
+2.43.0
 
->
->>   	} inbuf;
->>   	u32 sc;
->> +	unsigned long flags;
->>   
->>   	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
->>   	if (!args)
