@@ -4,80 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D943FF327B3
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F338F327B6
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8913310EB79;
-	Tue, 21 Apr 2026 07:09:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6B3110E81A;
+	Tue, 21 Apr 2026 07:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q2EgJpUE";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="FgHUVZmw";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 147DA10E422
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 06:34:45 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-35fb166b0c6so1854098a91.0
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 23:34:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776666884; x=1777271684; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=LZw6M1+Kjv5eGAQmOik2U10ct5aJbT9e2mhLsFRjRQA=;
- b=q2EgJpUEqmCl7ZJvHkLXEs0LmJr1x/ABa4GeaBpKIu7SWleVDVhHhv7DcfdSOF/qjp
- hFc0sBLwa8GTtpp9H4rHOwFX/q7gFQUaT+f4PXf5pR+zm/VOMc+CbvanvRAuA0N8mmbh
- glL4i+5ysTYOT2hBm8LooGdcHmNAXqRtb1XzAMRg81/0kLaWgLZSXcGWcXgY7OD/XE+H
- /m63z8ArSokkojXg8XMYdPEe9Co442buEiuiuOdOFRhUhO8jk7L7WqJmyl1LSwtIyDu5
- 8oDi/DCKbXzGjU9x7+ZD4ylzEjWcXawU6MwYf6fpfJiwhPZiYX5nCd0sj5r5fxvOWKtO
- fBpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776666884; x=1777271684;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LZw6M1+Kjv5eGAQmOik2U10ct5aJbT9e2mhLsFRjRQA=;
- b=H/3oG4rzXXCV2625BEgKla4xj2tkAet8MTEvQzZ+ybS3ClXgJqmnGxThK3zpxJuzj6
- xi9izswAJioLg7xow4AK9kJLo2tqMZNOi6BbhKir/Mg5qIkYSNT53qvZVpcOEaAPYeCA
- XvxJDGr/KPdks7Af2Z8nh5H6ufudUWQ6nl27LyYxE8jV+tGqKB8wkXPPQjgm1Zzs1feD
- su1pRhFitHsEKlkVQ3cqitl7tR+GZzCfxaEsiKfdSRqtWRu/noK26KM0a4cqp8G6DYSd
- ua8bkaFgfzCuejV1i+iT2RIQwZBvWVm0EWgqZ64s6I0hXgt2IvFByI6yTLSQHcD6jQ9V
- lFfQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ++q6gFsdPuRcYkmi1IWwA/+7RAcf8XIIwmQLZR99bQf8jiIWKari3qs71+DUbcKPAFlpMnYOi1StE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPWGMQ1bG/8iJvr5nofiOD/7Y+GiEAg0ylZT9fy6bSAgmfJJpT
- 0k8kwPjcgE/ogBT8RRJBvuIaHzG0XSPOZrJOHRr1PgsI4dj5dkCK5NU=
-X-Gm-Gg: AeBDiesr19P0ZTYbs7IwSl4xHr7sjRvCNtOUcXtkoy1HD8aS+Hi2crXi2ZN58F8zzpX
- 2ZVYk8turAT75eBPOWjtJkUU9HMUe4JWBGLXvIVKV6sLGEs2N1iaRC7SyHVXyxNzSQ4q5IFIc36
- 3h5nmry2G1aFjP5hCehIW5s5Or/UCe7EpZ6u8L5yUFAYZ/V8Aj/IIiINOQeg54W5bIZM58E0+SY
- bE+6l3AbCVGuOQR/4adcx7rRHCD4XyugYcBvIDNrNrKTcZl2qO2MUOkyaOFbDrjntuKIxB9f5T0
- GngZZw1c03R3Gqqp6l4MhrfHGyZ11U5mab3hBIUooiDFk4hjvzAk4N3pWvcLDlrbBPWn2DDuuR9
- Lfbe6EcmognzBdw5VzkYVI2GSUJ+3DtjszlWPNppP/eQblRVfPCd8KPyRWR8wOvmOhlC6vzZ5DM
- 08fG33+2Ki0p9s52/d31OSFsExznVBJ4eWLCrVf7mo1jruy++OGlVTnuz1OQkYq/0eZV6Alpkd4
- BTOxSMsUA==
-X-Received: by 2002:a17:90a:51c3:b0:35f:b230:5889 with SMTP id
- 98e67ed59e1d1-361401ec4a7mr6196933a91.6.1776666884455; 
- Sun, 19 Apr 2026 23:34:44 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36148706043sm3862825a91.1.2026.04.19.23.34.41
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 19 Apr 2026 23:34:43 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Myeonghun Pak <mhun512@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>,
- Taegyu Kim <tmk5904@psu.edu>, Yuho Choi <dbgh9129@gmail.com>
-Subject: [PATCH v1] drm/panel: ili9881c: remove panel on DSI attach failure
-Date: Mon, 20 Apr 2026 15:34:08 +0900
-Message-ID: <20260420063435.91650-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A2E10EB24
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 20:07:23 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout02.posteo.de (Postfix) with ESMTPS id C65CB240101
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:07:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+ t=1776715641; bh=1+6551Sf13t+0oF0TOc0fC/L54oCs1wq0JHsHBSVy2w=;
+ h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:To:Cc:Autocrypt:OpenPGP:From;
+ b=FgHUVZmwRrNUEQbjxnv24Y47XswR7Xnkd6xbKK1XVbEqtHmVF1n4QKVRzQncCcsJZ
+ /LRMdoNDBipuGDeC0Hq8ZwoVWJS5MqwN3l+yjElPTQGHC0lcqafVrM2wO9k2IPy8+y
+ sa7SWMN/iQuaVbVDzq7vtuoWQ0URrSAEjZ89TrypiTSZkrjk/DCst845Kbd39TZs8r
+ RtjWCqB6a4e9gFATUmeDfmGJu7tCdnE+Xr6LhMw6fxpGLlEbnMHMWa/VJdoWj4O47e
+ xmWwGJiuiwgeAE0tvZH07psgOWAqR1W/5kf/Os6s/pTer5SgY8d3Fg3ht+ljaIe+fe
+ SzOm46MxwMAFA==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4fzxNQ1vRPz9rxN;
+ Mon, 20 Apr 2026 22:07:18 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Subject: [PATCH v5 0/4] rust: add basic serial device bus abstractions
+Date: Mon, 20 Apr 2026 20:07:20 +0000
+Message-Id: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGmH5mkC/13QTW7CMBAF4KtEXtfIMx7bCaveo6qq/EyKF2Cwj
+ dUKcfc60KqE5RvN9xbvIhJHz0lsm4uIXHzy4VCDeWnEuOsPnyz9VLNAhQYQnIznlD8qmrhIZkM
+ tcKdaM4oqjpFn/3Vre3uveedTDvH7Vl5guf72oFr1FJBKMpEl46yzCK/HkDKHzcRi6Sn4Z63Sy
+ q4tLrYbUA+EAxrzbPWDBb22utqx63U/I9Ds5mdL/5YA1paqbclwZ9VoLbpHe72PEfl0rovm+yJ
+ i6BPLMez3Pm+b4jaqPl5/AAEcMH2CAQAA
+X-Change-ID: 20251217-rust_serdev-ee5481e9085c
+To: Rob Herring <robh@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Kari Argillander <kari.argillander@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3234;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=20nazrtrqob9Bm8caReoB9mvxFIwBL60Sks6rrSfzo0=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp5od1FAGOX5mm0XyPbTpWCEaSautE9y6o32J3E
+ 3BYgYti8CCJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaeaHdRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KJ7g/7BYobyKSYCPfY6BJHMfiFpSvIT73Gcck
+ sKMFukGzHHCJbeIuNyYjbeIQ7rXB2ODHA1mXasDdIK/J7dvEPL0cLJHdOhAgj0Me0c52B/pV8SP
+ wFPad8xbh42q8/x3seFO6z0QsCyJRgpaSZ4PHA8x52q5iNIKGmu2fFOCPZauACWXRobz93X3d+p
+ JPrNoWaLS/x8uaHJTdAcfMltaIL649umTKweUFADqXcL5iucfqMxs3Z6xtjw7+fsC58Re1ztZSv
+ ECKGY2hy8k4purE1bca4E8H74976wrnVtvzmW1I1CjIlDh2H1ENUmy+Q62uuqR0EISSxveNoEez
+ 2t9cOPptoQa62YRzJc93kIkjoUTA9kH67M6gaYSLnf16kIv3qlSDvVAkBX8EG58CIM2y1Tsngxe
+ RrIkqk3gA5Dfx9xN7pMu2I0x/VXasA2xqUtW9uwjssbLbCU/pW10IjaXUINAV6amyXduTP3eVZ8
+ j4Miip6rmxHjZ0hkiNsesSwy4YfgbMWLKIQv+VesUaNMxL9bAjBbJN7+tEr/ZuRU0P4L3xLopwY
+ zVG87GjoiiFmVtZx41cmQnuJaXuAFm61MXcF2Vn4CSGbscbeaHDsw2qSRmsbCd70T/1Uip2C/jL
+ 3/1t7rN3jl2wRemYCqLxNzvTXNJQwX2c8roOSEtXQPX6nBZ0AoV8=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,46 +137,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The probe path calls drm_panel_add() before mipi_dsi_attach().
+This patch series adds the serdev device bus rust abstraction into the
+kernel.
 
-If mipi_dsi_attach() fails, the driver returns without calling
+This abstraction will be used by a driver,
+which targets the MCU devices in Synology devices.
 
-drm_panel_remove(), leaving the panel registered in the global DRM
-panel list. The driver's .remove() callback does not handle this case
-because failed probe does not transition through the normal bound-device
-removal path.
+Kari Argillander also messaged me, stating that he wants to write a
+watchdog driver with this abstraction (needing initial device data).
 
-Fix this by unwinding drm_panel_add() when mipi_dsi_attach() fails.
+@Rob: Are you willing to maintain these rust abstractions yourself,
+as you are the expert on this subsystem, otherwise I would take care of
+it with a "SERIAL DEVICE BUS [RUST]" section in the MAINTAINERS file. In
+the second case, I assume you are going to pick those patches as-is into
+your tree, after they have been reviewed?
 
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
-Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
-Co-developed-by: Yuho Choi <dbgh9129@gmail.com>
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Changes in v5:
+- fix typo in documentation
+- Link to v4: https://lore.kernel.org/r/20260411-rust_serdev-v4-0-845e960c6627@posteo.de
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-index 947b47841..be5e58658 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2359,7 +2359,13 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->lanes = ctx->desc->lanes;
- 
--	return mipi_dsi_attach(dsi);
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret) {
-+		drm_panel_remove(&ctx->panel);
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- static void ili9881c_dsi_remove(struct mipi_dsi_device *dsi)
--- 
-2.47.1
+Changes in v4:
+- fixed not selecting rust serdev abstraction in sample
+- Link to v3: https://lore.kernel.org/r/20260313-rust_serdev-v3-0-c9a3af214f7f@posteo.de
+
+Changes in v3:
+- fix vertical import style
+- add Kconfig entry for the rust abstraction
+- fix documentation in include/linux/serdev.h
+- rename private_data to rust_private_data
+- fix `complete_all` <-> `wait_for_completion` typo
+- move drvdata_borrow call after the completion
+- Link to v2: https://lore.kernel.org/r/20260306-rust_serdev-v2-0-e9b23b42b255@posteo.de
+
+Changes in v2:
+- fix documentation in `serdev::Driver::write` and
+  `serdev::Driver::write_all`
+- remove use of `dev_info` in probe from the sample
+- remove `properties_parse` from the sample
+- add optional `baudrate` property to the sample
+- remove 1. patch
+- remove `TryFrom<&device::Device<Ctx>> for &serdev::Device<Ctx>`
+  implementation
+- fix import style
+- add patch to return reference in `devres::register` to fix safety
+  issue
+- add patch to add private data to serdev_device, to fix
+  `Device.drvdata()` from failing
+- simplify abstraction by removing ability to receive the initial
+  transmission. It may be added later in a separate patch series if
+  needed.
+- Link to v1: https://lore.kernel.org/r/20251220-rust_serdev-v1-0-e44645767621@posteo.de
+
+---
+Markus Probst (4):
+      rust: devres: return reference in `devres::register`
+      serdev: add rust private data to serdev_device
+      rust: add basic serial device bus abstractions
+      samples: rust: add Rust serial device bus sample device driver
+
+ drivers/tty/serdev/Kconfig         |   7 +
+ include/linux/serdev.h             |  15 +-
+ rust/bindings/bindings_helper.h    |   1 +
+ rust/helpers/helpers.c             |   1 +
+ rust/helpers/serdev.c              |  22 ++
+ rust/kernel/cpufreq.rs             |   3 +-
+ rust/kernel/devres.rs              |  15 +-
+ rust/kernel/drm/driver.rs          |   3 +-
+ rust/kernel/lib.rs                 |   2 +
+ rust/kernel/serdev.rs              | 536 +++++++++++++++++++++++++++++++++++++
+ samples/rust/Kconfig               |  11 +
+ samples/rust/Makefile              |   1 +
+ samples/rust/rust_driver_serdev.rs |  86 ++++++
+ 13 files changed, 693 insertions(+), 10 deletions(-)
+---
+base-commit: 3131ff5a117498bb4b9db3a238bb311cbf8383ce
+change-id: 20251217-rust_serdev-ee5481e9085c
+
