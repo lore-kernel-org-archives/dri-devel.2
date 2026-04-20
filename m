@@ -4,99 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69A80F5A8C6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 20:56:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02172F5A8C5
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 21:14:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C86D610E747;
-	Mon, 20 Apr 2026 20:56:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D7DC10E18F;
+	Mon, 20 Apr 2026 21:14:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ji4HIU0v";
+	dkim=pass (1024-bit key; unprotected) header.d=renesas.com header.i=@renesas.com header.b="Ltir4qsg";
 	dkim-atps=neutral
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
- [209.85.208.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6D4010E747
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 20:56:12 +0000 (UTC)
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-670ab084a39so5330988a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:56:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776718571; cv=none;
- d=google.com; s=arc-20240605;
- b=ChEtJ/z5yi/PWYXxaKp4UfrpPWQ6en6FxKYExWhaFRbGaIMAMvl84hMM3DCG7CA+Er
- rRse2Up65OqPj3e07DetefxDCOtVSQMTASprT+LmmOAE/6taCs51FYMs1KQwb5GLbVbO
- HJ1NNLLG2TroUWzXPw6o7Ak8gFWUg0CuGpZnC8O4Ec8S5xF14l1TXVIeoyHpwN+Hc4F8
- sxxarJbB0/bU1seIg+Qgpiwm9e9KmH4EjBdokCttWj/GtFdGehJECWoREjbVJ91cBFwv
- dSGcj3EfqtUty0Zy3VXPEyREXfY+x5hO65xFBF5gHpRwYZLHb1gj5VRd/iwjZ+VSz/zZ
- CiqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=P7+4wLenAVvJjKZLpFwLBcie9mbCuyFuXvL1EWX93f4=;
- fh=A4e7rnu22SJ6+yVQdm6lA2raE98e7NhD7NXzH8BDtks=;
- b=hSwvscPaLB8AmxNbUCV2DKctyBWampO/KDHh06WZnWXLfanc6sIPwXNgl1j5KbIgjJ
- gzjkyb1RWzhCN6RhehTAtTGPf7OKPyeeSpE+ZR9zrT+K0ssOQQZP5t6cQUIadcsRUfv1
- s+/6R+WfYMZM9jfCHbByk0L1PcAu451QbVihahOlLHpEboGbOCExtzjBcldho9GZgtzS
- XA/Uj4QHtbNFZS4gjjE/NQeub4B6FMjACvwNROKdEOhwU8kton73vat7CklJV0H6nzgN
- KWJRstNpnEb7fiFcFffbhyG96RRHBBq6JGi/+4Wwxfb9mgcm9DNKOuqnTfPJDl74uMY0
- 2ndg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776718571; x=1777323371; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=P7+4wLenAVvJjKZLpFwLBcie9mbCuyFuXvL1EWX93f4=;
- b=Ji4HIU0vidgEAmofx253i1wS/IBPZd+wF6aLoOpxKbYcx2rBJJJLh0e0fWz40rYTko
- NTTF+xUhqmNHhpYSdIdez/1sH8UugZfbLB6TdelHNv7KEzn/BNWG2ncHhTXwlY5Cj+/9
- kkGd1d4qYrqGqYPiKxrpDQIJDh4JPMd+HptepdxQ3hBeuDsFjg3mGnCKvZ8fgAn9xOvN
- 6wTohi+j0xGgUGjpdNSdeOsR8MEfQ3dvsZXbXBu1JVbwg5iw8ZFknEfPGHgOlIbJNLmO
- 8+GUKyq+0NFlPaHl/vxOlxAu9N8TKQRf0ICr7Rb5Fzgzps9geK8AAuQ7Ie1IxBxrozhb
- XXmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776718571; x=1777323371;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=P7+4wLenAVvJjKZLpFwLBcie9mbCuyFuXvL1EWX93f4=;
- b=MWTzcQYMUhQtxYTkktcnvSGRsbC0erOSUFyejQxwI6BEi1oyebzwudtDel1RVywi2R
- YL/+flki9AurmBBfuGQYq8/MOK4uH8pQN4csAzURABRK1g4viKv7ea8Ghx6E9HoVMMoF
- 6BM/PITYmh8jOTdlbF4/QCyP8dDEwU0lCHyadm75Wv4Q43ApzusF1kuA1mtr5u1y/PHe
- 5U05hyZr4YR8dZs79LwmfEBeJPA5Mxz/JU5ceKHGEVKxKODby72zZb/dwj8OcVklopRw
- NnSyRS8nx2ZqmjyPQDKXFvTIwo0MJxQQt+Gsd6XDUkhVdLL7yXTiQUo+NpUrPtnBB3fh
- VIaw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+P2l4XpP10TwQKntGJi0xYnMJ59Q1gehDn2zYWl95njxflKaTcVJjEQZV9A9aEepu0B6asiJulqL4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwqkfrSvzQBE0ZrsXyDxRhb+7Af1jhNhP/PnsJiNwSm2LmgiAAo
- xyfzIFyfDrs2tsx/BNNc/MEdlnf4v+b1TesV67mjUWv+XFkUdjjpTWMw9VVVnY6dGP7Nh9RKvB/
- y6qbWXRqEjuvYvk0Kdpe6J4JbVuUssB0=
-X-Gm-Gg: AeBDiestD2vovaVZRJquobPyetFcyn5zMZZhobIR2fWJOCQ0St60wvlsXpryoGULvdR
- kvtrgdDmR0faKzE0GX6/0kpKcl6XSfMNOEGb+6tGtyfrOOwiNhdNnegF5t2J9/J9j2s7v5b3rU5
- ICNRVwHWVrmPxZXUXDCoJK7P8TSxLBnd0fSpsmyWnsitVGMANZUqvRYnqifCGWoVLgptWYA0HaL
- T2yIKBCNek5WdJZzn9avEHjA1L3KE/VwA3HrqsNMp6uTRotkUq91mhcPCD1j7DhZ6KQB4YPC3Dw
- NNaPnXivBv1Ao1/+sg==
-X-Received: by 2002:a05:6402:90b:b0:66e:8ca6:e79f with SMTP id
- 4fb4d7f45d1cf-672bfdc9488mr6320068a12.13.1776718570988; Mon, 20 Apr 2026
- 13:56:10 -0700 (PDT)
+Received: from OS0P286CU010.outbound.protection.outlook.com
+ (mail-japanwestazon11011031.outbound.protection.outlook.com [40.107.74.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6852310E18F
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 21:14:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AIBkV9I1eAkcMaWMdwovX4PM9E+uOH9VQveGhc2FAmMHufeGh7sr8JTQZpNU8uS+o+43n1nqqynpUDd05BBVlMDtF4n6M+53EYE7p2ufysKPLcbifzofP+fWEkKhtkAzVD1Cn4OuBcrZEWE8+cWlgBb8YmgZmwUq3xEUgioL7WIPO/5WGZoVflO5G2pg5bkDvvtD99S5HK5DwVD9HogKNKOORD36NXqOFpN2uKlOmcbY8vUpwi7L/RM61U0dhqO4RNoH+cDFV9pbFe47U0ZKThCsjFuVmoqIm6g/mvQabWN98/FRmtvTWDYB42w5Lk0sODTYSzm+4/mGHPQFscuKjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JOdeLmwD342cDeVNuc8v2ygUz/lXc4J9knB6PGfpegw=;
+ b=c9HHl/TFrkUbLM3EJE47dzkZTEF4Ed4xzuwYDjMnMPIYS1tNWuWnU6ICMKJvszOTYDvqLju7IVw36QbRQjBTG4E9wWLyFMIo0NcPaUvIDz0Tp6lZGgWm0gZS9T7TShZpHMnvBoIUNi/rVi1EEP2+e+0Ir3GfoNHi4TRuEHbWb4NV+PbJ36ezfPqX+l2Y/As+ItoI1d0ZlwjB0vLwiQz08acJ3Rut+bYsab8JKpYQnHzxKRDQ9Fd/Clk4NnZuqMosOn9YRXTcsU+jlSd78kaj47JNSOMAS0hZ6uBpB8PJElXu+k2FslJZYsoAMAr6N2Kc0SXru8bzFdwW4kqUsyrOHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JOdeLmwD342cDeVNuc8v2ygUz/lXc4J9knB6PGfpegw=;
+ b=Ltir4qsgAVx3TTpkD/sb1QtMdMLtGp0/AiAvibUnozfALu9GVersvYzEGZ/x10sxEsXTocDRcaBOMqsNa9ntveTa4klMQMPiI7OD4zLIOYgGOr6GQrtv2kQ+Q6/KoRpFveoZKhHUp9WSTX33gP1mZS0fP5WI1sc8/qLY720dadw=
+Received: from OS3PR01MB8319.jpnprd01.prod.outlook.com (2603:1096:604:1a2::11)
+ by TYYPR01MB10611.jpnprd01.prod.outlook.com (2603:1096:400:30b::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.33; Mon, 20 Apr
+ 2026 21:14:09 +0000
+Received: from OS3PR01MB8319.jpnprd01.prod.outlook.com
+ ([fe80::6473:1660:bdc2:c983]) by OS3PR01MB8319.jpnprd01.prod.outlook.com
+ ([fe80::6473:1660:bdc2:c983%4]) with mapi id 15.20.9818.033; Mon, 20 Apr 2026
+ 21:14:09 +0000
+From: Chris Brandt <Chris.Brandt@renesas.com>
+To: geert <geert@linux-m68k.org>
+CC: Biju Das <biju.das.jz@bp.renesas.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Pavel Machek <pavel@nabladev.com>, Hugo
+ Villeneuve <hugo@hugovil.com>, "linux-renesas-soc@vger.kernel.org"
+ <linux-renesas-soc@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>
+Subject: RE: [PATCH] drm: renesas: rz-du: mipi_dsi: Fix return path on error
+Thread-Topic: [PATCH] drm: renesas: rz-du: mipi_dsi: Fix return path on error
+Thread-Index: AQHcznLuB+8+YFONMkeG/G/+SBPB87XnlqUAgADe/aA=
+Date: Mon, 20 Apr 2026 21:14:09 +0000
+Message-ID: <OS3PR01MB83197FBDFCDECBA1220BF52B8A2F2@OS3PR01MB8319.jpnprd01.prod.outlook.com>
+References: <20260417140231.3972749-1-chris.brandt@renesas.com>
+ <CAMuHMdUVCtzxumM6yniuGTKfqG_z6BuySHNcZYE9UHP5AuDoLw@mail.gmail.com>
+In-Reply-To: <CAMuHMdUVCtzxumM6yniuGTKfqG_z6BuySHNcZYE9UHP5AuDoLw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OS3PR01MB8319:EE_|TYYPR01MB10611:EE_
+x-ms-office365-filtering-correlation-id: 8e238aeb-7b20-4d7c-162e-08de9f21c340
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: nhFXE4dEBIR3G4N0u2fns52eV60ayf7Ymix/xd6mL0PhLGctJ+KtzRD7Jy2ZOipSg4iPU1mZnkdCTKMuBgYu1lYy8hWi+D+CPAIo4eFBX9NbDZ4IDgdsdH2kQSdZjyGZi8l6+RwqU7WAV9E8E0ab3XRpjJkLa7bIm99w+7FLOoe7VG9NN33L1gOZHYHPlP+ICRuJb4AslNsYmNhQZeA4rTQBjwGkcpyJNEJaFeYvn1UVEpvHfqD5lSax8PvmB0AQ2Uc3yBcxSw5PTOJGgNA4kwggN000cz0TOSAa0IEv/WjUb9KRUEXE4tFxE601Ny5yNFGuKg3p9PWdMyAUhD46IwbHqO1kbph0Is7R92SHddDRV2v+Sc/U7N4vfYQqLWzXOVTBR0OzeC1W+bpQ4jSC8T1zAqB8JMw28dbZyncQKm1ZjyNFtcQGsx7EmojZILUVYGNdrDlFd1tfUqQnRdReDC4jRtumuzXW3VkW+msuLpstYhS6sOIbWOVOqsU+nXkSQi7HydXMd9814dfYCa6lNXDE733Am4VtRqoMxGIiDwgVFOfo57U1bPNpTxAnGXVi+83GuMvkUWTZIVNtKFEKn8Na0NZwlTEv71U4S3OyLhl03nOeBvGeGKEBHJdYSWgsu4h7OtomrbLGLSrjsDWhqAuYfB1j/r2DtJQdyxqsfp+cQRkBwlETvXJbmHKGZ0SikuV38jMDcNHeNKgvLtHkJPOSXc3y6uzZ2UDrnGpw+bJHDJll6YnbZvWfjXqqNJzLjsuWScDaUgBAYRQlWUVKdrJQPMraKSOKahKAkgf24ew=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:OS3PR01MB8319.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UXpTaXcyUkFYMTJYazRoY091ankxTlR6MWNhdnMyWHpLcEpSVGcwMFh6N1l1?=
+ =?utf-8?B?cmdxYzlMeDFoNlR5WndzMEk3Y2ZCblZrRXBoWXYzQ051YTBacjlJMGkwNnp0?=
+ =?utf-8?B?ZFA1YkFvaytIWUNWVEg2MTl4RnVtMC9JU29YQ1dxZFEyYy91T05DMlE1U0ls?=
+ =?utf-8?B?d2FJS0Y3aUlYK2hoczlLTTVHWUZZN0hsK3dVbGlpZ20zdCs0ODNIRXdERnd0?=
+ =?utf-8?B?V2xQUmRHRS83THZiWFR5THdDb2FMSktUMnRsREJnbmUvZEhHZXJEbjBTSmFl?=
+ =?utf-8?B?alJOWjFSSjRFZVN5TUdFUDMxTGVJa3BNVlFVa0R4WCszQ1NaaEV0ZnZGRnlM?=
+ =?utf-8?B?N0xBVSs5Z056QTlTU3c4U2xqZFdvQjdkTlp3aVVPNkliVnFIRjNRclIwSUdI?=
+ =?utf-8?B?azAxd3N1YUgvTnIxS0R0TjVZWjJ6d3p3Q2VVRUxaaVVGQWppcWZoMGZ2SG1T?=
+ =?utf-8?B?RUdtMlN6TDh2ZHU2bW9kVTQvV3FES1R0Rk5zNmY2amZUMG9EbDNJa29JeTBj?=
+ =?utf-8?B?NU50QWNmVG5XVzJvRnNtMnlXTU1LUXNRM2Y2Tzh0Q3NrME1aS3Bkd3NZenk3?=
+ =?utf-8?B?RVhyMDQ0MWJsM3orbHdYNWhOLzdsK3hlazZibnhlcURWRWhXRmM2U0JyVllW?=
+ =?utf-8?B?c0lMY2RBdWwvVENiY3BOL3lSWkVacmlxNjZKTTFTcThWM0FQN3pOZnpGT1pO?=
+ =?utf-8?B?VEpqR3daZkU0b1dPdE9Ba2lNb3I5TnNOZVljTnFEQ2k3TjhPbzRWdmlPT3pu?=
+ =?utf-8?B?Ulc3SVliWkp3cFA0RThIOEJ5cUJyZXp5QnBQamJCWUpPczV6M3VhTzZsVjJ5?=
+ =?utf-8?B?S243VjRPL3J0Tnk4Y0pNTXI3aFo2amJpbU9HN3Qvc0VOT1ZFV0hUMDVhbmR2?=
+ =?utf-8?B?azhBL3A1OExqVDNyUVN4SnpaeVg4OXBBSlp4YmZtMjNGSnpnZDhPc3VCb2hk?=
+ =?utf-8?B?cU91bm0xN21nbkhGcjNuK1NkWlpwNGluWURnWkx3Tis4U1VUVVkvazRvam5Q?=
+ =?utf-8?B?ZkNjOCtkU01hcG5zZjM3ajZod2J4ZXEwUlAvejhrK2hOYjl1b2lzc0pYRUVG?=
+ =?utf-8?B?SCtmM0xPQmtGT3ZQYkJxVjh1SmZzU1pTaENmZmlXNnVIcjYySlgwbmhiL3dD?=
+ =?utf-8?B?UXRrcG1uU0Z3V0Fham9qdXZackRoTlR1WGszVWtZS21jdEl6RUdONUd5cEJZ?=
+ =?utf-8?B?dFZ2aHFPYWs0cFFSbXBFT3poMGNzV3hkYjliaUxjcmtEMXNZZ0I5c2szWkV6?=
+ =?utf-8?B?MEJCOTk5Yk5aSEJqWHhIZGxxTCtLbFdXZlNzM20wVWdRcENVK2tPQVlwYXlD?=
+ =?utf-8?B?QzA4Zm00RGI0N1B1S3VEaXAvazVSbFh2ZzdtcWJvVlpxUWxxKzZGQ1RURlNI?=
+ =?utf-8?B?UFBIRVhZNVRVWGJVYTcvMGpDbTVHMDVzWDB6N1d3Z2VDUzQwVmlYd3h0ekx4?=
+ =?utf-8?B?Y2Z0eXlIQ2JiejhoVEhXaFdZMi9WYXJrL3NET1JKSkt1Wm9TSDVkNVNtQ2JQ?=
+ =?utf-8?B?Slk5dzVQNFdudkdHYjg3aC9Zdy91RzhzaHVBQyt5RUgvK0xoV1VBL0pzUWFi?=
+ =?utf-8?B?eDNwN2o2WlZqTUE4SUVCZ2hJYTZNcmQra3k1TFkxMy9GUk4yTncycnNKYjVo?=
+ =?utf-8?B?Umg5L3lhMzdHV0o0VkdIQTRiSHpUcW5KUW4yZ0JpNUxkazNuM012TkhJTEhV?=
+ =?utf-8?B?ci9RTWliWHZ2WWtDeWFLNitrbG1hUWFkL2ZlcUFXMGZSa2w2Y3orb0Z5ZmNh?=
+ =?utf-8?B?dXNLMDhMNWpaTW5mYnI0bCs0TDF4K0JkZE9HaUFKTzI5eGFBekMzN2NSVHln?=
+ =?utf-8?B?aDJRMlVZN1d4TjV4OVQ0dGgxZTY4L2FyUFZ0Y25malBwYjBqQU5kQnhPYUhH?=
+ =?utf-8?B?ZmZvakpEKzNOT0dkTCthdkpVQWwxTWsyUGVKR1NwK0JmZkdhblhHR25CdlEx?=
+ =?utf-8?B?UHJ6ZWdFRnI2ZS9XY2JRNWdmZnNQaWxtRVluWS9PQ0syZFNQcGxmeTVTZnJn?=
+ =?utf-8?B?MGF6R2VJQ24yU244dWFsc0RjK3Y2eVJYUXR1WlNlQkgweWZaM2lRbzRlTG42?=
+ =?utf-8?B?NEJTVUpSU093ZFllUTFPNG5YaFIvc01yQTRkcURuYy85djFNSzUyYi8xeEhh?=
+ =?utf-8?B?QjZjdzRzV3R0M2YwYTlVRzVCdysyOXVBLzl0b3JJUDFPQ2ZIQkkxa0gyVEtF?=
+ =?utf-8?B?bTZNSFlnczluLzJFQ0t0T09iMHpVc3o1LzEweXhIc3F3czNnRU5LeVRlUTV3?=
+ =?utf-8?B?cTBHVEpBWUpRU3VsK29VM3ZYZDVDTHdoWUV1dFJDZ0J1eHNDUGtVT3dpWGZY?=
+ =?utf-8?B?SVpCeGZoOWdjUk5YYm96RndReVJWUzRYdGxsb2NNYmVRME5vdm1WQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20260420002513.216-1-dbgh9129@gmail.com>
- <17620d92-70ee-4bc4-8944-4075bb50a54e@suse.de>
-In-Reply-To: <17620d92-70ee-4bc4-8944-4075bb50a54e@suse.de>
-From: =?UTF-8?B?7LWc7Jyg7Zi4?= <dbgh9129@gmail.com>
-Date: Mon, 20 Apr 2026 16:55:59 -0400
-X-Gm-Features: AQROBzDpwYfnd0Kb00kmzALLsIrFR9BQA24i8aVhbVrfhqEwJ07kJ0sxy4uFiKM
-Message-ID: <CACrCO_UK-XtK+0=AVO5uw_pi7rxfaP70cjU0bTkJAF-g0z+08w@mail.gmail.com>
-Subject: Re: [PATCH v1] drm/sysfb: ofdrm: fix PCI device reference leaks
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, 
- Myeonghun Pak <mhun512@gmail.com>, Ijae Kim <ae878000@gmail.com>,
- Taegyu Kim <tmk5904@psu.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8319.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e238aeb-7b20-4d7c-162e-08de9f21c340
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2026 21:14:09.1087 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6oCWzc5KrWNbal8JKuqNAA6JlrrxsSihpJPVjdUpuG2iY4E/6O0CrArzkA4yKNtaGqBxETCQsxPkD8DgEx7KJjsJUrMYGtPsqqSPbCnKuyI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB10611
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,92 +144,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dear Thomas,
-
-This issue was identified during our ongoing static-analysis research
-while reviewing
-kernel code. Specifically, an experimental static analysis tool found
-that we are currently
-developing. The tool is not public yet, so I prefer not to disclose
-further project details
-at this stage. AI was used only for cross-review, not as the primary
-means of finding or
-fixing the bug. I manually reviewed the code and verified the issue
-before sending
-the patch.
-
-Best regards,
-Yuho Choi
-
-
-On Mon, 20 Apr 2026 at 02:21, Thomas Zimmermann <tzimmermann@suse.de> wrote=
-:
->
-> Hi,
->
-> thanks for the patch.
->
-> Am 20.04.26 um 02:25 schrieb Yuho Choi:
-> > display_get_pci_dev_of() gets a referenced PCI device via
-> > pci_get_device(). Drop that reference when pci_enable_device() fails an=
-d
-> > release it during the managed teardown path after pci_disable_device().
-> >
-> > Without that, ofdrm leaks the pci_dev reference on both the error path
-> > and the normal cleanup path.
->
-> Did you use an AI to find or fix this bug?
->
-> https://docs.kernel.org/process/coding-assistants.html
->
-> Best regards
-> Thomas
->
-> >
-> > Fixes: c8a17756c425 ("drm/ofdrm: Add ofdrm for Open Firmware framebuffe=
-rs")
-> > Co-developed-by: Myeonghun Pak <mhun512@gmail.com>
-> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> > Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
-> > Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
-> > Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
-> > ---
-> >   drivers/gpu/drm/sysfb/ofdrm.c | 2 ++
-> >   1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdr=
-m.c
-> > index d38ba70f4e0d3..247cf13c80a05 100644
-> > --- a/drivers/gpu/drm/sysfb/ofdrm.c
-> > +++ b/drivers/gpu/drm/sysfb/ofdrm.c
-> > @@ -350,6 +350,7 @@ static void ofdrm_pci_release(void *data)
-> >       struct pci_dev *pcidev =3D data;
-> >
-> >       pci_disable_device(pcidev);
-> > +     pci_dev_put(pcidev);
-> >   }
-> >
-> >   static int ofdrm_device_init_pci(struct ofdrm_device *odev)
-> > @@ -375,6 +376,7 @@ static int ofdrm_device_init_pci(struct ofdrm_devic=
-e *odev)
-> >       if (ret) {
-> >               drm_err(dev, "pci_enable_device(%s) failed: %d\n",
-> >                       dev_name(&pcidev->dev), ret);
-> > +             pci_dev_put(pcidev);
-> >               return ret;
-> >       }
-> >       ret =3D devm_add_action_or_reset(&pdev->dev, ofdrm_pci_release, p=
-cidev);
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG N=C3=
-=BCrnberg)
->
->
+SGkgR2VlcnQsDQoNCk9uIE1vbiwgQXByIDIwLCAyMDI2IDM6NDYgQU0sIEdlZXJ0IFV5dHRlcmhv
+ZXZlbiB3cm90ZToNCg0KPiA+IC0gICAgICAgaWYgKCFkc2ktPmRjc19idWZfdmlydCkNCj4gPiAt
+ICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07DQo+ID4gKyAgICAgICBpZiAoIWRzaS0+ZGNz
+X2J1Zl92aXJ0KSB7DQo+ID4gKyAgICAgICAgICAgICAgIHJldCA9IC1FTk9NRU07DQo+ID4gKyAg
+ICAgICAgICAgICAgIGdvdG8gZXJyX3BtX2Rpc2FibGU7DQo+IA0KPiBTaG91bGRuJ3QgeW91IGNh
+bGwgbWlwaV9kc2lfaG9zdF91bnJlZ2lzdGVyKCZkc2ktPmhvc3QpIGZpcnN0Pw0KDQpHb29kIHBv
+aW50Lg0KDQpTaW5jZSBpdCBkb2Vzbid0IHJlYWxseSBtYXR0ZXIgLXdoZW4tIHRoYXQgbWVtb3J5
+IGlzIGFsbG9jYXRlZCBpbiBwcm9iZSwgbWF5YmUgSSdsbCBqdXN0IGtlZXAgdGhlIG9yaWdpbmFs
+IGxpbmVzLCBqdXN0IG1vdmUgdGhlbSBlYXJsaWVyIGluIHRoZSBmdW5jdGlvbiB3aGVuIGFsbCB0
+aGUgb3RoZXIgcmVzb3VyY2VzIGFyZSBiZWluZyBhbGxvY2F0ZWQgdXNpbmcgZGV2bV94eHguDQoN
+ClRoZW4gSSBkb24ndCBoYXZlIHRvIHdvcnJ5IGFib3V0IHRoZSBpdCBhbnltb3JlLg0KDQpUaGFu
+a3MsDQpDaHJpcw0KDQo=
