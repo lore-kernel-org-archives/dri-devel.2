@@ -4,50 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10548F588E4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 15:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6600FF588E1
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 15:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 782BC10E696;
-	Mon, 20 Apr 2026 15:08:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE6C510E698;
+	Mon, 20 Apr 2026 15:10:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mGEuyqDW";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OLE7xbFZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F27A010E696
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 15:08:18 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A1AF544704;
- Mon, 20 Apr 2026 15:08:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2223C19425;
- Mon, 20 Apr 2026 15:08:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776697698;
- bh=Lm07FRYIKpA8U6ZJrO9wQ8KmSm2Q2i2gtVveDLehFiM=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
- b=mGEuyqDWjiHHC23jeDEmZ5Nkuft1cLcQDZ7YMWQ7dVJ8ue2+v85tWXbw+FKorMx0q
- HJyo8lD54osLtE2j9K/SUH54XbPmje4/dSD/WtyCcdr1EaoedwzjwFc6vbuqy8M9zu
- O2GjA/iW+qqp8Xddj9SyZYfa8XZk0M8Z6IBP1l5NXloHDGY9YfPrBiwGrUDp5NI+rt
- uqSaN4oPht0t0GAWmtNWwq2ti8mRrIFXygHnPJ6T8o7RKn+96EvN2uWjMiBr7oSpBp
- 7JL0uRS12qKwxz8SDhwu7mz/kkcdMzvHRuHTBz/+IzjdVPTT7gL+oyTLxr5O5nq2nr
- dATHCIeKzj1xw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 20 Apr 2026 17:08:15 +0200
-Message-Id: <DHY2RPB300R2.1XXG87NPYFRCI@kernel.org>
-To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] drm/gpuvm: take refcount on DRM device
-Cc: "Alice Ryhl" <aliceryhl@google.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20260416-gpuvm-drm-dev-get-v1-1-f3bc06571e73@google.com>
- <544c97fe296f39da35e5349ba1fc0af05f2ff643.camel@linux.intel.com>
- <DHVOJ6ILGSLK.3OWKA4RV2HB5C@kernel.org>
- <215f305ff04ddf8a426871e895aaf520b02e89bf.camel@linux.intel.com>
-In-Reply-To: <215f305ff04ddf8a426871e895aaf520b02e89bf.camel@linux.intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA6F710E249;
+ Mon, 20 Apr 2026 15:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=1A2gZfmuuFzMfgpSkaTph9ulEpUua3g24igjYTyVDlc=; b=OLE7xbFZY3StImkpQ6yGjH9dK7
+ uytiRiucDEmTX96vYeKtGbvSsN7OTADf6FiSwaiFppxE8ecWXzbHzvEguE/mc7wtQI3efus/RvUSO
+ OjgaLqmdT+TBvGoLO6tmIPeVXBZq7VRKFbucGiC+ktqoo5g0slZtytMTgdyWIuxVuGRJnhOB0pVE/
+ sFOYAEKR7KsQZyN67iKoxiGZwhAGVQl+7n3qAKS7weB1htWwWfWFAMZk2PtlzhtiKCrAIRUCEUPLa
+ zasHcs7Zpf6L4Uq29eLsvs/Q5KIoIwdP9NIFjb7tIIcMDK027bY3Oht5RJ318qWrsPI4XxgpxrTnU
+ A0pMyMiw==;
+Received: from [186.208.73.228] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wEqGB-001DeD-9d; Mon, 20 Apr 2026 17:10:03 +0200
+Message-ID: <afa2404c-03b4-4293-aaa7-7ca2f8002f9f@igalia.com>
+Date: Mon, 20 Apr 2026 12:09:56 -0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] VRR not detected on a DisplayPort monitor using an
+ AMD GPU
+To: Thorsten Leemhuis <regressions@leemhuis.info>,
+ Ivan Sergeev <ivan8215145640@gmail.com>,
+ Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, regressions@lists.linux.dev,
+ mario.limonciello@amd.com, alex.hung@amd.com, daniel.wheeler@amd.com,
+ rodrigo.siqueira@amd.com, alexander.deucher@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, christian.koenig@amd.com, huangalex409@gmail.com,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+References: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
+ <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
+ <DGJFVPAQJA15.378GMU7XZXLU@gmail.com> <DGJGDIRQWDG7.XHHKF6UQP0HG@gmail.com>
+ <c70fe261-7fb0-4af5-b755-f02b193c8c5f@kernel.org>
+ <DGJH30US2XMK.S2HOHR14LIW0@gmail.com>
+ <bed447c7-07a3-46a8-9bcf-da352810883b@igalia.com>
+ <DGK98QFUDRR2.1RCLDXI8XRBFR@gmail.com>
+ <f0b79dd8-00e8-4352-b9ac-20ee6c114086@leemhuis.info>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <f0b79dd8-00e8-4352-b9ac-20ee6c114086@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,38 +75,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Apr 20, 2026 at 11:28 AM CEST, Thomas Hellstr=C3=B6m wrote:
-> I agree with your reasoning here, but current fact is that most (if not
-> all) holders of a drm device reference (files, pagemaps, dma-bufs)
-> currently also hold a module reference to protect against this, and
-> drm_gpuvm would be an outlier.
 
-I'm not convinced; if the DRM device has the requirement to not outlive the
-module it is associated with, then the DRM device code has to take care of =
-this
-requirement, and not every caller of drm_dev_get().
 
-Besides that, if GPUVM holds the module reference count on behalf of the DR=
-M
-device, it has the same effect that you rightfully point out below -- it br=
-eaks
-rmmod.
-
-> To fix this properly (lifting that requirement) one could introduce a
-> drm device count in the module and have the module exit function wait
-> for it to become zero, *and* that the code that did the last decrement
-> finished executing.
+On 20/04/2026 11:48, Thorsten Leemhuis wrote:
+> On 2/21/26 02:39, Ivan Sergeev wrote:
+>> On Sat Feb 21, 2026 at 1:47 AM MSK, Melissa Wen wrote:
+>>> Can you check if the attached patch resolves the issue?
+>> The patch does resolve the issue!
+> Melissa, was this ever resolved? I saw that you posted the patch Ivan
+> tested as RFC here:
+> https://lore.kernel.org/dri-devel/20260223203528.213275-1-mwen@igalia.com/
 >
-> https://patchwork.freedesktop.org/patch/712146/?series=3D163298&rev=3D1
+> But from the outside it looks like nothing happened since then, which
+> made me wonder if this regression was ever resolved.
+Hi Thorsten,
 
-This looks like a reasonable fix to me. And it makes me conclude that we
-basically agree on everything. :)
+It wasn't. I didn't get the necessary ack...
+Let me resume the discussion.
 
-Regarding the reference count in the meantime, it remains that omitting it =
-does
-not solve the underlying problem, i.e. I still think it is orthogonal.
+Melissa
+>
+> Ciao, Thorsten
 
-> Or one could also have the drm device hold a reference count on the
-> driver module, but that would block unloading without previous unbind
-> which is not typical driver behaviour and would likely be seen as a
-> regression.
