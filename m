@@ -4,119 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE6EF5A8BC
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 20:26:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29FA6F5A8BC
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 20:47:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B301A10EB47;
-	Mon, 20 Apr 2026 20:26:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34DAF10EB60;
+	Mon, 20 Apr 2026 20:47:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Lw623vbh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Rb+G+phM";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011034.outbound.protection.outlook.com [40.107.208.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DDEA10E743;
- Mon, 20 Apr 2026 20:26:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24FF010EB4F;
+ Mon, 20 Apr 2026 20:47:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776718054; x=1808254054;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=NrgDvptQjwP0NocK+GxPRCWs+4qfXFZ2iiNheV/ib3s=;
+ b=Rb+G+phM8+D6Xo6y7nCWBQ/EO0IxiuxQSQNK+7Luh9wu+MLDbZmGPat3
+ CO8tKBDHGHWYtztl8kSw5pWcOVA8oaNHghXOV60rE2KxGEB5VHq1whjoO
+ xfOMn495vnHRykVX2QEXasDZlIeZxJWCjO6MaXF2nJXqEKnS5UsCyjjKa
+ H9rim7XYWkMbipJxf1o1k4eXONJ5F3tq6U2yb9CDS4w2UALQXCNTbDCyh
+ p7VYLxpzdWoCFUXjp+PCUpXgvsrqZx5piHsgANxUtnA/cR+SJwylaXhLD
+ YRFUTJHPLlZ7B97MZUrgb1uLANIxsMAeic57swDh3d3t8JaQLd31EWa5g Q==;
+X-CSE-ConnectionGUID: 3LfpKFi2SkWhOyH8LPX8iw==
+X-CSE-MsgGUID: l+CJFLrDSBG4qddpTbVA8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="95201197"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="95201197"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 13:47:34 -0700
+X-CSE-ConnectionGUID: sc5LPoLpQrCK0hNA4TQROw==
+X-CSE-MsgGUID: uV+ZE3BQRQSSoCNxRbv2NA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="227187545"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 13:47:35 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 13:47:34 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 20 Apr 2026 13:47:34 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.1) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 13:47:32 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aY0dhdnTrFf24P85nU+/5dy3XpqGKkWmd7zS7lGThDrCMiRz3V31z8hPrcjHzYi1XCKgAiFNURPtrjzEcMxw8QenyVaoxC+wl486GOSyBMjFRHSOHu7T1969AauIUCZ5hm2V7o0jg4wDNlTIymQ3UKKiOaMCYZVDP5nZaEV5kNIAPt1F0ZEPj1179S9gAsO7PJBdCxLaKsvo0vlNCXp1fXE06K4gOBq5bbWGA+20PAdtmAzBA2KExEBDrXGpcrbjDh0xastGINs+ZxRAGG/owRhRvNtC1rznOKiChmxkBT/L7xhD5fUgKc+VByXkDRmtCidhY/avsdyBAXKYWpXONA==
+ b=MdYDuivtGpWso/xjh7be8THBYbNm9T9Dj443oLhB7+unowr3HkH9cRDgzoJ71b8myKlESvpWAI1SpKcj0DGqIuiMsQ4Rf/MUsconCU+5/alhzFBbF18kxMxXQW4Jh/aukfyQHQavXCswDvQPrlgZ9fdbnD9MPZWt+lfYHJPvkHgshiXN3Zv7AgbglDh7Im7cNuFtOaNWy6Q/1JHCWh3R8MYraetkP9y8qyhd2CUTFKt1oZkwa+mxzv6HKkad8AADrvoA+VLP54yIrk2QG3jFdpO9TLdue7JOYU96ULyK8FGknF6dxVoppqlteVtl8XqfusxQYaY4wsq9V0Aaknw15A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nAdIqfr/7Am2BO8vQ5MDeHkeuVpGUvJ+wAQUs2+wH7o=;
- b=o4QSsxQbi+uc2QKKaAhDo/BAcSyDdjRODu5vvAf7aIkiwriZJMC5lxQnlJsdQi60VoFGZrUp/I5IbEVbNWj5CmGWGpPEvy7o8C51lwoHp6vIIyzNAP688PT9fmjEqquXF02SJlrre8VLWS9wD3o99VtYCMiQVIksiEVanLyqbiD4tf4hoe5Jsxw8FeMwxSPWUmzP/gk6znoO3JMcskOV8jPnzEk5i2OKPOx/pzcz3Xm0GH5vgTwya+DjGkaD4Ap7dJwiDWhZ352pQhRTxEsM1pFrKQyCtdDF/voASeLA427Yvi69XR5O9McgDRCPPMzczfXIhzCElkYTSdJZRcFAcQ==
+ bh=Gc4fjLX8q1X9rfXstSi1viAHwLrx2KibCsCAbJte4/k=;
+ b=NdZaGuLtI4E49uJ1oR/u0szGKespT5LTK2sHVnI/dUltbwH1hZtte5xkpQaHy+zMqCkIgilnHDRlusxUgts7MlvsxB/tigwqiY62yAd2N99sGbfar3CEdt01x7LovotlmEMW3/8bV415OvnhfBCyYGLLxMYvOU3oyIbQXuVSHoavL2+RsKMmfXhxUAkvbhoun3bJAlGG++P0I9XDRqwyqBCWETOegV7j6hth9DsRWwyBll5o8O8LEEk1reRNwYJbmvU8pA/LSjLTMFsWH3sWKvBVSrO3+We8lAPIVeK73luTe22AJx7fzrfT1iw8j3svybCm1vM+hOheUsT4UuZwTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nAdIqfr/7Am2BO8vQ5MDeHkeuVpGUvJ+wAQUs2+wH7o=;
- b=Lw623vbhlW6r6rwbwH3HW1SIvSFBY5rA7Dkr+TDXMYJ6YWXyrP1FkUl4Kxb4qXMt6AvTwkmTSD393UL/UHCOOzPG6I4dM4Mw4DH3fxMZxY3ur6mZmwpxmE6Zeeo1VCFiADu2Il5qvUx3svTyuD4FE/QUrWgGKhMOIMHVkqKRpZRmR3Z2ZDqchzulrfAGHFoqrZvbs1cfI2D8EugQANzMNiY2QUG3VRqIs4JDlnIMln3SbvHCOyXgEF9Po9lo49vg6Xgb9MJVu/j3HkzYQAyNE2WxetYRSOgM+2ySLecg8c8R2UmrufAcP5Y4Y3rFCEOhCVQQp+UWXxvf/PEoThu/bA==
-Received: from DM6PR12MB4028.namprd12.prod.outlook.com (2603:10b6:5:1ce::29)
- by CH1PR12MB9575.namprd12.prod.outlook.com (2603:10b6:610:2ad::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 20:26:47 +0000
-Received: from DM6PR12MB4028.namprd12.prod.outlook.com
- ([fe80::90c9:9291:d4fa:8e8e]) by DM6PR12MB4028.namprd12.prod.outlook.com
- ([fe80::90c9:9291:d4fa:8e8e%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
- 20:26:47 +0000
-From: Vidith Madhu <vmadhu@nvidia.com>
-To: =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
+ by MW5PR11MB5930.namprd11.prod.outlook.com (2603:10b6:303:1a1::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Mon, 20 Apr
+ 2026 20:47:30 +0000
+Received: from CYYPR11MB8430.namprd11.prod.outlook.com
+ ([fe80::1d86:a34:519a:3b0d]) by CYYPR11MB8430.namprd11.prod.outlook.com
+ ([fe80::1d86:a34:519a:3b0d%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 20:47:30 +0000
+Date: Mon, 20 Apr 2026 16:47:25 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Francesco Orro <ncesco@interstellar.eu>,
+ <intel-gfx@lists.freedesktop.org>, Imre Deak <imre.deak@intel.com>, Ville
+ =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, Uma Shankar
+ <uma.shankar@intel.com>
 CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "wayland-devel@lists.freedesktop.org" <wayland-devel@lists.freedesktop.org>,
- Simon Ser <contact@emersion.fr>, "xorg-devel@lists.x.org"
- <xorg-devel@lists.x.org>
-Subject: Re: Native DisplayID support in core DRM
-Thread-Topic: Native DisplayID support in core DRM
-Thread-Index: AQHc0P8PmiPN2H8b7kWTLgwF4bCJVbXoYxsAgAAB2o8=
-Date: Mon, 20 Apr 2026 20:26:46 +0000
-Message-ID: <DM6PR12MB40286F71A9B723681F2D62EEAB2F2@DM6PR12MB4028.namprd12.prod.outlook.com>
-References: <55f5affb-e8f5-7f8e-fce6-47c5b379d557@nvidia.com>
- <aeaJlED2e1ZXsLlt@intel.com>
-In-Reply-To: <aeaJlED2e1ZXsLlt@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB4028:EE_|CH1PR12MB9575:EE_
-x-ms-office365-filtering-correlation-id: b1895102-fe53-4126-7536-08de9f1b252b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: OBshKSD9RcmMtfmSjIUej5OjtPcQu/UlbwUe9vmg1eTuvosH3BBD4rLvOV6rnkrixFfb/UZeevdaw/QQ/kAdSY9oAGKpeq8G5OLM60g/nMGOSms7301gs72P6aKc2YjndE0KNy9LLK2YS3hYE4N27Z1LAFbsPHy8J7iJbJ3q/S+1l45NcBwJDUGH5AqBkaju7rKYB4tj7bbxWtRsXlEZVm0Z0hBuKtjIPbbHD+YJ6xMA75M7kDxzA934EDMZV+y7IXXT2lCYkcV0POrRKaJhO1tiNsWH9l4Ip5kk0mrgvx4VNPH7zsPxmhsghl5vKPT/+IvTTQFPbrJDcbLTf8ddzleMSn9bnIpeqC41K8xXyicINqAYQi+0eIiFqy5hUqxNBZ+NJadPwG9C48MxA+TudGCyMMbJ+bIR2fBmEi8bztCgb4WLlqZds6xDX/6Gd33cMTC8QJhhttfQ3IfxFNZVeOoqkcP4VCb8QoaqxqDIb1pCSOQvdyOEQABcx2lGXOzwelppkYYao3btqh5zVozTSQEsZQv/PLuZPY7Nndxs8mCbdK+hj5PrLuqYUjB1xs11WHNbRVqvzXcwwjqN5MVqnZjQwTP49e267H+irL8ARVLYMtYf6gMv6VvWseVxF6k71DOU4d+Zdhr84C1GZSSHGmHracbD8zb9Gt+4hAOVLxme7QqxGXw119nvBw8JsGPKeDL/irXdH67iU8B6HZGBdZUli6wzXR4GOAORv3PZIz+cEQOA7S1CdJhUuw5GyIUsg+gshnB+ZbXFycBcidvpoDd+7HirINLIBYmWqV/dOHI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4028.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?2G0D7ceZW3VzyEGj92sW6dzVjkADuLcuXGXpyH0EUfmoPoYcO+V9TsexPB?=
- =?iso-8859-1?Q?V9go+bbuM7NZ9ZI8FXXaiGmr+K1KlYzR8fIGqWt+oenLioHWaVe2d+jJC1?=
- =?iso-8859-1?Q?ZuPIgjijjNTdr92flZsgJB5GGgISvvGLm1CqM8lleJDmlpbjcTRYFY6Jj3?=
- =?iso-8859-1?Q?dsN9Oh6lwo2TSKENOb+exnnWkGjmV177eyVUQbNJ5dIjCi2uxxSjz+CQyN?=
- =?iso-8859-1?Q?cDdCfGM+ra9MH6i831/eogrqrF/fg1f5No9hs1CJVSwaRXtC+TKWLzoMdp?=
- =?iso-8859-1?Q?Z4aaPZyNWaPwy5um60KrlVBVtswdal6K6YIUg3BoxVuFLO+ehO4Y8Wy13Y?=
- =?iso-8859-1?Q?Gx+9+bqQy9JKMDwI+33lrNH4SZhor0PrXbsK17cSWq86Af0P/j9eJO4Gq2?=
- =?iso-8859-1?Q?IDqhn8jDYnp1hKqvMfe+BiUH2XT50YkFsw39uKg6yAFXZ4TAycdLgZSb/J?=
- =?iso-8859-1?Q?v3/NdIlrAAoBzP5BYuVnnQLJD1LLl/i5hcy04pOKNsl5s0J+EbIZ8tEYe3?=
- =?iso-8859-1?Q?KEkSWpRXHr9rtzrL9HbUFYnWiQFFMT8E9RM+S1Eqqd51tNctlb/s8WIQjm?=
- =?iso-8859-1?Q?O8leyzpSw8cfzO+VYtbUXUr7lg99/1fXwkfiI+vr/KkikS9hCdjhuvJRH5?=
- =?iso-8859-1?Q?GQJIcNaPB7Lo5lrPxHBO+PWp1z6A/kWqvZy2WqfasdefeOpEjFWi8iLotZ?=
- =?iso-8859-1?Q?ckuZ3EGOwsY3kfuNWRdkaqdowa1rUm3+gJgvaWQKicv4frZvICHRJ4uPjA?=
- =?iso-8859-1?Q?7FkmRhn686/IzdfS1K+15ywe0O026iA2V36lxXDS4rjtw8SvvZwQK137EU?=
- =?iso-8859-1?Q?+b1oEs6WGTujZC8he7Rr5N9/MESIu3c12NgOkBmeleSZc5VXOfuzFFdDma?=
- =?iso-8859-1?Q?js5iRHEyjMRwYjPCcd7yKDtS7Yip4nlIcY3kEBAEa5whlBuRXy9vcixcBU?=
- =?iso-8859-1?Q?/MrZaIgMkJPFABDkTLkThsqlWHw9U0r5MPKXc7g7+wLSdvLQQESJY9WrWG?=
- =?iso-8859-1?Q?3Q1oBTWQlSviKN2Ov5oVscitFP4UjCJVC37JwKEk1WXO0yyL3Ul/fOB2UA?=
- =?iso-8859-1?Q?Wq9F5uNK3XnkSx45E/P5+mySnU1pZUCi5pjNc2n3ykm7DRgAbVO2arPUc1?=
- =?iso-8859-1?Q?0pzR7TDw+KOs4unMPe8JxpMDArOu1DRDX1ZRu9cr/xAFZWkmno5hF1VG8f?=
- =?iso-8859-1?Q?yGH+NT8zvRBtnbTLi76cH+oXM7pA4TRxGU/xECWSDrbr/GPnRY0yNztk/y?=
- =?iso-8859-1?Q?SzKT0ZisnRTuAUGOjbUtTrpgnQBVwGeWOoCrcYWef886ruIyOPGalDztVs?=
- =?iso-8859-1?Q?5P30Cz/yZ6lSm5phBNjoqmqlbJ78xcIUihRqWWsvUR5CS2TNhwj+mmhDo2?=
- =?iso-8859-1?Q?d2yWoQ/FWsTpTTkGjQg2Dle4wuNjMrCoX3FrM2XhqrbE9EZXsH2SnsH7qJ?=
- =?iso-8859-1?Q?p4MUglv1NHO6dqNYzErCdeMblxEbl1JliRgQorVXu7GilxU4S0rAuZlcRo?=
- =?iso-8859-1?Q?xv96oT5DRAH4K/0lP8nSwXIsa2rTYNVPjVzbQn7FshMk8/CoAHSZEe0Yke?=
- =?iso-8859-1?Q?qrz5LYZZe8dslvORNsEAspD6QBd39BPjLdHQNnDIqc2cSaVJAIIx7rHG7g?=
- =?iso-8859-1?Q?0aOd8LXSm/e4ps4hPTH0mybrU/JnVvbt8EANrijxFVv3slrx0bn76Od/U6?=
- =?iso-8859-1?Q?khTyrMPTERXsvNIqOCZD6Dq66td1TIEPaj8THnetlWL+o6J8MTpes5lSVt?=
- =?iso-8859-1?Q?KkunG+NxoaHJmLBeATl7zlpW5C/jqvxiJ1U5dF4tD3ppCu?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, Mika Westerberg
+ <mika.westerberg@linux.intel.com>, Jani Nikula <jani.nikula@linux.intel.com>
+Subject: Re: DP routing from iGPU to discrete Barlow Ridge TB5 on HP ZBook
+ Fury G1i
+Message-ID: <aeaQ3Vlh6bp8-rwW@intel.com>
+References: <pCmilDgt3Xijjdzu7H1d30dzm8IJbXFnle3yQ5nSR1Pj-snchn5xNpcq9Gb7hlh5bnsA3Efnm9cOR_VKi9RyxcRJxHlrqTW7WRPG36UgY5Q=@interstellar.eu>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <pCmilDgt3Xijjdzu7H1d30dzm8IJbXFnle3yQ5nSR1Pj-snchn5xNpcq9Gb7hlh5bnsA3Efnm9cOR_VKi9RyxcRJxHlrqTW7WRPG36UgY5Q=@interstellar.eu>
+X-ClientProxiedBy: SJ0PR03CA0050.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::25) To CYYPR11MB8430.namprd11.prod.outlook.com
+ (2603:10b6:930:c6::19)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|MW5PR11MB5930:EE_
+X-MS-Office365-Filtering-Correlation-Id: 761f13bf-db16-4cfa-00a5-08de9f1e0a08
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: UAfQA2+Bn+InO5si01Cv1bEklSjJg2RccOUyvF6Xv3iSzlx4h/fxIfTyErZpB6nZTxsNZfCP3rvrTPGpM7iBkn4rexsCClJewuDJHFtw+70XGVxj8sQX93MOPCXfPxY8cdz133KJHoAZpVUouzRzhCp/dYvz7smdtNdq6z5J0/EwNSCWF1FHkSCSIxsYvEHzFkMkBamKwOPQPXzkR9FAm2NeUt6mPCKWeP1zOIxkdkpKI+zxA+lSVlTdTrVlET+vDAsCv8jiQUPPGZ9P0ApaOqdwVeE+mEBsNg74pryPC2Tgnfc7va9ReVhCGprVMKuQWzc5PQpa/zEPyLL9PzFl+w1sAKAacAx1SznXPRBy2zHNZAZYsJFtRXQvt16I3AOvZQOo9qvivPZJmzkAZJamsCysMfTLAVU+qZ4xMO6TH2R1MJ3UQkj3r7YQqYBS/BBVRqKJh8ZBWuMsA0v3AfcXZLIvlqiTShQyG+Oc+5pD8YCidhuqfiuVtVvMqQmSSDRvtkgoZH8w5bxCvTcpwR/EJaSLF7CkVrp9dDR8A18a8Y+IwUmR//lu2cvQMXu+WEjX6bNm8XB0/Mg/TMGKbUhvnbX9wzTWahdkdg+W4wW7ibLic53w3facoP6b1OycIX7fYIQh33WFrEX7DqMoq4QSx8kEuUobzqtnXI5GwMy9V+ltERyyAP4e9jygfVQusNMEPbLh566mU7hzNIP0BX+Jr7GtI4Unr5NHJ1eVisSLa3s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZXI3vdMlExbOcwhK1amgFvcrCR5kBLeEY3R9Usx5qXgSt07GnJRLwbYR1q6V?=
+ =?us-ascii?Q?rmM1mwQBliHiprd1r71rWCDq+DW+8I4LkCfv0eBNMKtkefHnqBqYz9rffsbL?=
+ =?us-ascii?Q?8biknsO35ZiAhxjGGhCxuoHTkFIhr+llmEVGCmo7SkE2LtxZbo4XjQ8j//lH?=
+ =?us-ascii?Q?epm5b9OZAKXElwfi8VNdZCvKGiSEYDDTAXcB8wDfNyuMpgh0VytTaI4soCtm?=
+ =?us-ascii?Q?9vFr7+xEEkOOHNaWFss3ts68f8GRwLm8I3fAeJ1GrHKp/aMP3+O9WujA0+RQ?=
+ =?us-ascii?Q?/oEcr8Oyf7t3xArQRinHPrJZDtE/wvWOjIsA5PShEXLQYDDgce0lLejSKX4k?=
+ =?us-ascii?Q?8e8XamSyTsfpTLzWx+vfDdTKoDaOMnHaOuG2DgVpZn42QJpx8mMlCFTpdFs0?=
+ =?us-ascii?Q?s0lNw157eW4ibHrZ4z9/nSasIg5geI7AJGg3m75978Wqn8EO7mjggz2exRwU?=
+ =?us-ascii?Q?QH4Lv+h/EE7+rsta3I3Jk3h1jkIw9piSiH04LzLn1JGs61XMzzOXPxe+Eab9?=
+ =?us-ascii?Q?JsH3gq7f31KVzza2CrR/Aagg7zbZQiF2mtdVRfau82WWxuW5bjEoKTv4xEq6?=
+ =?us-ascii?Q?ESX5TocD3+Ezqn/sOxS2P63zAX8ipTfSt7Ht229qmFxxXHmSBhsU7WA/m2wS?=
+ =?us-ascii?Q?52jcEre4opVLQjPR7DyuejxBZohAsKwtyo5EnakUW10JAJtITWqhJfl3PJnG?=
+ =?us-ascii?Q?Iu2R9N4oOjHJK6LYmM/VCNXczR77PTN2nFjQnhDZjMOhF3/FtGcHiCinXVsa?=
+ =?us-ascii?Q?b5c52myed6aTffoq2186/9dmOs5sGDV/eD00tHVGcknGAtt9C5L2v+Q2t6RU?=
+ =?us-ascii?Q?omnbV/kZX7wgxE8FjuKsou+UmGpZ79aG1QbP8eijonyUHgdXsIiBwIn/LzFi?=
+ =?us-ascii?Q?4iZT3KEfBRbG8Eagjx1KPN3E9cgnZBFWkkGk4Go989fhxhMuaYZ3nfvV8Gp1?=
+ =?us-ascii?Q?GtjTCzDo+mXFdn1tWpcyAUe815GXBvX+chfSIMfPx4Csj+5UM1v10FccOcYz?=
+ =?us-ascii?Q?TeY0Hpq83PykHVFlllVfJ77wr8bu9mchMAGn4CU1Wj7Z2rvKflKjt9DOiNxN?=
+ =?us-ascii?Q?2G8/wNv92qfdKCMbAEhyu30UhLcm8KERPtkj+6i0iUZhcUR7htRHrHnyUrz2?=
+ =?us-ascii?Q?TCU72mTbHfns62nCGcFVq8RHjNbUP+pnRlO6QVWfwMstRldncRgYNEE1SbDo?=
+ =?us-ascii?Q?dZaInp+x5OHWQLxuHA+lCoSqRsE1hZfw3APtqiV/EYL7Wh1uS6mOwOrgz3no?=
+ =?us-ascii?Q?bH/z6R6yKRBmqO1wD8TBbUkKPkLA3K0aB4whv/Qnej2oV84gIBiEI/tzbIWU?=
+ =?us-ascii?Q?qPtIhfASXlybfLWZm4RtMcAwQDw0D7dz4S2xaxwRvGhpB4C6YoKBkKxbD7ug?=
+ =?us-ascii?Q?9ajV8sY+EAjAJdhqzLyeyvt3OAo6+ZgzTNjJKAK0n3Aqd3h/Rgko1yW6xTgp?=
+ =?us-ascii?Q?g2wa80qccJ0rT/Sk55q9gS4q3rK6Yxn5OCHhJoLt9FNI23qDRzSFdkrX6ZNd?=
+ =?us-ascii?Q?5QIkpuzFb/AKSDu5cXU8zE59w6tWhTxEcoUiWwKM23cr9h0XJf0UI3AzKnEN?=
+ =?us-ascii?Q?KdH5PEBnjntb53f+OKYNLsuj/IIALf6yOi6ivn+di8kbp/+on6e+wbB6M1dC?=
+ =?us-ascii?Q?8xJrJG5CzUgXAYNyaZzhEsPChLcuUvrYjTrOwzBWBd+v97lxenw6oyjKPv79?=
+ =?us-ascii?Q?pDr2i/bqoiFUoSpeIY8hZYTiUKMIwnPkai2ZvSoKMHBiQXXrDM1nlqAJue4v?=
+ =?us-ascii?Q?DMCVnhLGdQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: X2V/KpISmewG5WrgMECGdV1/6GbkAwbvKZS/gc2Tb5FC+8U1H1RWbIwnyQbNzSIzWLEvNgwBNbiVkWF94hCsJNs0jZ8JXJl9iv5hRrxZO8pepkXOU6MsKvHVsaXvi7QxHxirPA1qIYboci/q7674teoLPWyzJAaLdngYvNZwzqSa60rrX6pLb/a4AF/0SdCj0/VTSyu++iRDVNBL8jV1gMYXw2u9+PPQiceopR7dH7fpIYW4A/Lav/Eqg50CevY15GunR6+ra0i7w3v3MM7aEcM/B+SK4GYYPR+eA4idtiX9WUYLaQmp6LBncphhmQJXG8A2BNxg9FO0Dt1V3c2u9w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 761f13bf-db16-4cfa-00a5-08de9f1e0a08
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4028.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1895102-fe53-4126-7536-08de9f1b252b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2026 20:26:46.9705 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: arK+s2JYZe6Cb5HM2uaNaf9dv/nOqlNwkZqoFEJGjVZ1fjXpFdqeJbdXuM+u3HiScZGBA8AVmbk8fQQKoAl2Lg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9575
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 20:47:30.1191 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M1zp/451a7IL8bphhaQNw/768Jm2Vrs2WgsK1vnpSE4+K4y+UKSd6u+xUIR8G3gBIr0QFQbHeXnEtHbah2WXEA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR11MB5930
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,130 +163,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thanks,
-I agree with sample blobs being required for testing. DP2.1 CTS display ana=
-lyzers provide this (what we used for our testing), but I understand that m=
-ay not be a
-feasible option especially for userspace developers. It might be possible t=
-o hack together some samples by harvesting DisplayID2.0 EDID extensions and=
- adding any
-necessary data based on the spec requirements.
-Thanks,
-Vidith
+On Mon, Apr 20, 2026 at 04:04:02PM +0000, Francesco Orro wrote:
+> Hi,
+> 
+> Setup:
+>   HP ZBook Fury G1i 16 inch, BIOS X96 01.03.04
+>   Intel Arrow Lake-HX + Nvidia RTX PRO 1000 Blackwell (hybrid graphics)
+>   Kernel 6.19.13
+> 
+> The laptop exposes Thunderbolt 5 on both the integrated MTL iTBT (right
+> USB-C, domain0, 00:0d.2) and a discrete Intel Barlow Ridge (left USB-C,
+> domain1, 00:06.1 -> 05:00.0).
+> 
+> - Right port: i915 drives a DP tunnel over the iTBT host without issues.
+> - Left port: no i915 connector ever sees the external monitor. The TB
+>   driver allocates a DP tunnel on demand but DPRX reads time out, no DP
+>   source is feeding the Barlow DP_IN adapter.
+> - With nvidia-drm.modeset=1, a DP-MST connector on the Nvidia DRM device
+>   sees the monitor via the left port (EDID readable, modes negotiated).
+>   The path Nvidia -> Barlow DP_IN is functional.
+> 
+> Current hypothesis: on this board the discrete Barlow Ridge DP_IN is
+> either hardwired to a Nvidia output or behind a firmware-programmed mux
+> that BIOS latches to Nvidia at POST and is not exposed to the OS. i915
+> would therefore have no path to drive the left ports, by design.
 
-________________________________________
-From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-Sent: Monday, April 20, 2026 3:16 PM
-To: Vidith Madhu
-Cc: dri-devel@lists.freedesktop.org; wayland-devel@lists.freedesktop.org; S=
-imon Ser; xorg-devel@lists.x.org
-Subject: Re: Native DisplayID support in core DRM
+yes, that is usually the case.
 
-External email: Use caution opening links or attachments
+> 
+> Tests done that did not surface an OS-visible lever:
+> - i2cdetect across all SMBus/i801 busses: no DP mux/retimer at plausible
+>   addresses (0x60-0x7F).
+> - DSDT/SSDT dump (iasl -d): no Device/Method referring to DP routing,
+>   DPMUX, retimer programming, or dock display source selection.
+> - HP WMI + /sys/devices/virtual/firmware-attributes/hp-bioscfg attribute
+>   enumeration: nothing switching dock display source. "Graphics"
+>   attribute only offers Hybrid/Discrete.
+> - PCI config dump of Barlow Ridge: standard USB4 NHI, no vendor-specific
+>   capability hinting at source selection.
+> - acpi.no_usb4_osc kernel param (locally patched) to opt out of OSC USB4
+>   native support: no change in i915 visibility of the dock.
+> 
+> Is there any known way to route an Intel DDI output to a PCIe-attached
+> Barlow Ridge DP_IN adapter, or is this strictly a design where the dGPU
+> is the only valid DP source for the discrete TB controller on this class
+> of HP workstations?
 
+I believe this is physically connected or static mux without any way to
+re-route this. But I might be wrong.
 
-On Mon, Apr 20, 2026 at 02:51:18PM -0500, Vidith Madhu wrote:
-> Hi all,
+So, bringing some more folks to the discussion.
 
-Exposing the native DisplayID blob will need userspace support as well.
-CCing some folks...
-
-I think if people want to implement this before actual displays are
-available then what would be needed are some reasonable sample
-DisplayIDs so that the code can actually be tested.
-
-> I would like to inquire about adding native DisplayID support to core DRM=
-.
-> Native DisplayID is the anticipated successor to EDID for display metadat=
-a reporting.
-> DisplayID is already available as an EDID extension block and is widely
-> used by newer monitors and eDP notebook panels. Native DisplayID was
-> officially introduced rather recently in DisplayID 2.1 (Nov 2021) and
-> requires reading the DisplayID structure directly over i2c/DDC in a
-> similar fashion to EDID. Overall, the native DisplayID structure/data
-> blocks are the same as the DisplayID2.1 EDID extension, but there are som=
-e
-> specific requirements for what sinks must populate in the native
-> structure, due to the lack of an EDID base block.
->
-> While no consumer displays currently utilize native DisplayID, beginning
-> this year VESA has mandated it be supported for new DP2.1 source device
-> certification submissions. Therefore, display certification
-> on Linux is the most pressing motivation for native DisplayID support.
-> Beyond that, ensuring this support is present by the time consumer
-> displays start adopting it will provide a seamless consumer experience fo=
-r all Linux
-> display driver vendors, including NVIDIA.
->
-> Here are some issues I have identified in core DRM that need to be
-> considered for native DisplayID support:
->     1. A mechanism for reading and validating native DisplayID needs to b=
-e
->        added. EDID reads in amdgpu and i915 appear to leverage
->        drm_edid_read_ddc() -> drm_do_probe_ddc_edid(), and _drm_do_get_ed=
-id() for
->        validation. These utilities are all supplied through core DRM. Sim=
-ilar
->        functions should exist for native DisplayID.
->
->     2. drm_edid_info needs to be updated to support a native DisplayID 2.=
-1
->        structure (i.e. have a drm_edid_info::displayid in addition to
->        drm_edid_info::edid, perhaps in a union). To do this, I think we
->        first need to maintain the full layout of a DID2.1 structure.
->        Currently, in drm_displayid_internal.h, there are a few block stru=
-cts
->        present (e.g. displayid_tiled_block,  displayid_formula_ timing_bl=
-ock,
->        displayid_detailed_timing_block), but there are several more data
->        block types in DID2.1 that may be relevant if no EDID base block i=
-s
->        present (e.g. Product Identification Data Block for name, manuf. d=
-ata,
->        serial number, etc).
->        Also, drm_connector should have some way to indicate that its edid=
-_blob_ptr
->        contains DisplayID data.
->
->     3. update_display_info() needs to handle the case where native Displa=
-yID is
->        being used. All of the fields of drm_display_info that are being
->        populated from the EDID will need to be accordingly updated.
->        This includes the EDID extension work in drm_parse_cea_ext() and d=
-rm_edid_to_eld().
->        In addition, _drm_edid_connector_add_modes() will need to just par=
-se the
->        displayid timing blocks (already being done today from the EDID
->        extension).
->
->     4. There is also the question of how the user interfaces for overridi=
-ng and reading
->        EDID will need to change (/sys/class/drm/cardX/edid and /lib/firmw=
-are). Should there
->        be separate nodes for native DisplayID, or should they just deal w=
-ith an opaque blob
->        of bytes, and leave it up to the user/DRM to interpret whether it =
-is EDID or native
->        DisplayID?
->
-> We are rolling out native DisplayID support in the NVIDIA Linux drivers i=
-n an upcoming
-> release; we have implemented our own reading/parsing and are able to popu=
-late
-> drm_connector::probed_modes with native DisplayID supplied modes. However=
-,
-> due to the current gaps, we are unable to populate drm_connector::edid_bl=
-ob_ptr if
-> native DisplayID is being used, which leads to inconsistent state.
->
->
-> Would like to hear any thoughts on this topic, or if there is a roadmap f=
-rom any in-tree
-> vendors to add this support.
->
-> Thanks,
-> Vidith
-
---
-Ville Syrj=E4l=E4
-Intel
+> 
+> Happy to share the DSDT dump, lspci -vvv, full dmesg, or run any test.
+> 
+> Regards,
+> Francesco Orro
