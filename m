@@ -4,71 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3587FF327B5
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1379AF327B6
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC6A310E801;
-	Tue, 21 Apr 2026 07:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E19310EB70;
+	Tue, 21 Apr 2026 07:09:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="RCgYpsx5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qTq2C/Jy";
 	dkim-atps=neutral
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 890E410E0AD
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 03:29:17 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-2d8ffdc31d0so6395976eec.0
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:29:17 -0700 (PDT)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EE2410E1F2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:45:02 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so47516635e9.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 06:45:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1776655756; x=1777260556; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=2YUykogMSTzdKl7l1H7YGxOELJxyyASGqYoQwq+uteU=;
- b=RCgYpsx5YH4sEXktyP/rBVXutHaF/0WaILkgpqzZv36U9r3ueZbslSrjtp179B7Y5h
- mqfsnTE5dLG5ZbWwi9GXC6iPKFalhDO/mNLcwlP4qJmqSutm55I69++gcywn2bbEVk1T
- 0+yYQDTU9meTqM5x0cMpuFGa9I0P8g/SA3q0+xfXtaR+QMbMZFv7Cxgqd6ogYoZpU/lH
- k+6jesyqB2kiyFlT07BKfFMNb1cDTlZFUilLHRzNewjjpQEvbL3swvU9m5m/5s1QQDAO
- B9c/3F1UmkoKSwLglYo284lidKAq0IK6qRdY1sBFDh8+0YunZWoCHsW2h8PE6ZdE6X5F
- EXJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776655756; x=1777260556;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776692701; x=1777297501; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=2YUykogMSTzdKl7l1H7YGxOELJxyyASGqYoQwq+uteU=;
- b=Svt3uw3KUWtXe+1iF1lj2sIzuKFfIqlc0avID9kaj2iY/5fKNapROPHvddkgbwpCyg
- Xuma/nsdJtlTQD65kkf9LBUYZaLrtCCxI/KpOcF5gZBgHKSv1KFfsN61mzD1vKjB9ihV
- 0c09+btBa6yC/M4N/bZL9kjJKr4aehm3CyyimY3WpqucAYRPd57pmsd7dS2mDBXUgEzO
- ANjXvFKDfHGk5GKKMN3ovrq9pyuSZ5WeeI2RnM5Li9VLDRAUC6H1epXwn79jnDCBpzgo
- G8Phz0EOVDT0QJG42kJuLPtVCDfCDOB3uAIqaUUum6HgMZVVA6tQeMpUXhEcSyVQqYAj
- rk8A==
+ bh=lA60hJOVBSJE2U3bgFqAWxtT9r0e0fushLu59yGaJZQ=;
+ b=qTq2C/Jy+ahwzTBRSzWUEg1deIHD/lY3ULAcyKplfZkQvYPoCEWLDCWLNhsyjsSFSa
+ warNQJTi2H1qBF5yyfOjk9oY3yl8w7976thriINrbtAp6DUPrj1dOa5OlOM/eXmrUMT7
+ RhSigKeckQPsNzB/OZi0hBgxtvU/fiMCuIRo9IkY8tQG7GRfUKY3Hc3h715vbN2nlHoo
+ jIymmU0nxldIbvu1i1Gop6+rTkgqyJuVnIVh1OWperUI54gzDHC1O8J1YvP5x1TiHqvz
+ RdRY92Clt5WONZ5Sj8l3TCdSrQ9GYTd20EK0PTyBQffnMy54FtACydz4VTlWj8FxGjYY
+ sxeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776692701; x=1777297501;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=lA60hJOVBSJE2U3bgFqAWxtT9r0e0fushLu59yGaJZQ=;
+ b=fnDKIwBB6VO1WEufv572V3NHbgBu/QaTy1gom0JMjsK/989qcTZ0BAUjldsGVo0vXs
+ xUtdBJ8CrRFb//8CvQ1fMq+apf0+1vGC8k+pequ2D1tc1kzxBwhafT84Q2BmfztViO69
+ yvVkcojjlpztGp0ZSlxNRg6p6Ju+dQENcFBqCpf3bsx0s8TD9cOURB3100ySIrBt7V7K
+ 57gMAym9OhX/aJkKW71ETKfDKqGM83Qzqv7d/hFpwrV341t0Hkvd7O/08APchAx8rUje
+ 8c1/YRL2p/vGafiHFBGnNpJNYR2ReioQLyZwWQX0zIy9sORK6dtFa2hoOrKlxnHGkVk7
+ UXaQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8ZZYljNSDuX+2+64ZEkER4MIF4Hxo0Dj5obhqCs43gHVJcQq9MgsJddwJI4Gihfuk2hMQ+2NC7FEw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy8PWH0bV9FPGjbwWxDO61TqEKxyfc3e48HcNIuf3mEFqUoioN4
- 1yZQPQNz0CNeb7H51IA1l0A4GkOadDZRgJsiCJOWdpyoHyuKl3liJ+PnsFQbnXn0x2w=
-X-Gm-Gg: AeBDievfA0O4bodX22cwTjF0BrnOYHe70f7jOfLTatml2acAo0O65lUEw+f4kXY/Z3N
- C27s87C1LVc9yxvPIy1LppSQ5c7mJABrawpL9va0EVjkGtx05dhGPauyCnnp2zc3H1R8HhNhu+B
- vIo4vu4GlkaNPkOQi+GI29zvMW+tRlA5aE139wZtBGqw4oSU91rA1WiXVPgZVMwSWLXyQ2XvwAQ
- MPHdoUunQ382QjBIZ0Hd5z7tKDIHdf0bUiUyvI/CiLTIqB90ot2ACRgGBzc2107+8ZVwfJHPFrG
- B2rtw4gyc1zDhKFNXK6uFFBuyH+ly4Fuj8Gi+SbpgbwsH3DyA7XHLz4OPGILhfi6uyVyXPEh6q/
- FNr5zG8R5aHfxoou2Gt5ZVGFSXXM+rhzxd5s91pnXVFRychXv7EsVq+82QbMORKjbo29cAkhiS0
- i8EHHCOkWpMX7JDKwDHdeafZUBT08=
-X-Received: by 2002:a05:693c:2c10:b0:2c0:e404:8b08 with SMTP id
- 5a478bee46e88-2e479418ac1mr6479116eec.29.1776655756266; 
- Sun, 19 Apr 2026 20:29:16 -0700 (PDT)
-Received: from fedora ([187.21.59.138]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2e53a4a80c7sm15358484eec.10.2026.04.19.20.29.13
+ AFNElJ8/T/6nmbE5nAXpqQmiylXwZ/cZdrhoNH8Iad7TCh495npldo1VvfKStXdwfq97QBudrQKmqTg5mcc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxg6I/GSNcEkXf1srEoEho2jDXuHmQQT653/QHEqGIMEJuaSTUS
+ jRzVBzqp0FHmSMqgGKtOwSHO3JbcbygIPumvAQ5tXAZox+j3it1bF3Sd
+X-Gm-Gg: AeBDies/Wv8oVI4ac2Gql0LiXE2taYRMFDCture4sjqIWkrQWrM7ekBTAeADq4tlP4i
+ 2grFg007kWsLKq2P0sTGixQ1x5ADLjGGmIacQSy+JiSQnYrm8YHKgK/muecKW2p79EnYvdN/Zlv
+ LWYxEeHTbOZNc1C4R1SNW6nqDxvcUkUlLC8C4ZRfP08rNPkBruo2jS2FTh2KnrLNvWF+o1NEGzc
+ Wqa7lW8IOVzhSdH4hR5QU1codIVVTj0NbxpexWS2Ly2mMu/ANzR9POQDopccb+hUYhi8XhRLQF4
+ xqgKder/OBIXAVi+EK9OSaP6ZBEsPJ+lowqXoDkD8ifovfmZQzHGgWDvq/tvD5afYiX8omegzhf
+ bL/3GwwOefshoZzz03O9yNqN3lyWp+VINkzStUu/Tf20UJJ+ey0RlD036sbsJzmlcPpXXOuGJ72
+ GujwYiNn8EKbO8YsPC+IvoUwAp8ZV8Mga4tvv8tZdL
+X-Received: by 2002:a05:6000:1ac9:b0:441:1c06:17e4 with SMTP id
+ ffacd0b85a97d-4411c061807mr2455722f8f.39.1776692700590; 
+ Mon, 20 Apr 2026 06:45:00 -0700 (PDT)
+Received: from anthony ([2a06:c701:499d:3e00:12ff:e0ff:fea5:3d2e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4cc2cacsm29302178f8f.13.2026.04.20.06.44.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Apr 2026 20:29:15 -0700 (PDT)
-From: Giovanna Uchoa <giovannauchoa@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/amdgpu: consolidate SDMA trap IRQ handler
-Date: Mon, 20 Apr 2026 00:28:56 -0300
-Message-ID: <20260420032858.10286-1-giovannauchoa@usp.br>
+ Mon, 20 Apr 2026 06:45:00 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: deller@gmx.de
+Cc: thomas.zimmermann@suse.de, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Amit Barzilai <amit.barzilai22@gmail.com>
+Subject: [PATCH 1/3] fbdev: cobalt_lcdfb: Request memory region
+Date: Mon, 20 Apr 2026 16:44:22 +0300
+Message-ID: <20260420134424.77494-2-amit.barzilai22@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260420134424.77494-1-amit.barzilai22@gmail.com>
+References: <20260420134424.77494-1-amit.barzilai22@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
@@ -87,271 +90,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the amdgpu_sdma_process_trap_irq handler from version-specific
-implementations (cik_sdma, sdma_v2_4, sdma_v3_0) to the common SDMA
-module (amdgpu_sdma). This eliminates code duplication and centralizes
-the trap interrupt handling logic, which is identical across all SDMA
-versions.
+Use devm_platform_get_and_ioremap_resource() instead of open-coding
+platform_get_resource() and devm_ioremap() separately. The helper
+requests the memory region before mapping it, which registers the range
+in /proc/iomem and prevents another driver from mapping the same
+registers.
 
-Update the trap_irq_funcs in each version-specific module to reference
-the common handler implementation.
-
-Signed-off-by: Giovanna Uchoa <giovannauchoa@usp.br>
+Assisted-by: Claude:claude-sonnet-4-6
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 41 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  3 ++
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 43 +-----------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 42 +----------------------
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 42 +----------------------
- 5 files changed, 47 insertions(+), 124 deletions(-)
+ drivers/video/fbdev/cobalt_lcdfb.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index 321310ba2..4f15334ce 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -147,6 +147,47 @@ int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
- 	return 0;
- }
+diff --git a/drivers/video/fbdev/cobalt_lcdfb.c b/drivers/video/fbdev/cobalt_lcdfb.c
+index 308967b5096a..f7faa95fefd3 100644
+--- a/drivers/video/fbdev/cobalt_lcdfb.c
++++ b/drivers/video/fbdev/cobalt_lcdfb.c
+@@ -295,19 +295,13 @@ static int cobalt_lcdfb_probe(struct platform_device *dev)
+ 	if (!info)
+ 		return -ENOMEM;
  
-+int amdgpu_sdma_process_trap_irq(struct amdgpu_device *adev,
-+				     struct amdgpu_irq_src *source,
-+				     struct amdgpu_iv_entry *entry)
-+{
-+	u8 instance_id, queue_id;
-+
-+	instance_id = (entry->ring_id & 0x3) >> 0;
-+	queue_id = (entry->ring_id & 0xc) >> 2;
-+	DRM_DEBUG("IH: SDMA trap\n");
-+	switch (instance_id) {
-+	case 0:
-+		switch (queue_id) {
-+		case 0:
-+			amdgpu_fence_process(&adev->sdma.instance[0].ring);
-+			break;
-+		case 1:
-+			/* XXX compute */
-+			break;
-+		case 2:
-+			/* XXX compute */
-+			break;
-+		}
-+		break;
-+	case 1:
-+		switch (queue_id) {
-+		case 0:
-+			amdgpu_fence_process(&adev->sdma.instance[1].ring);
-+			break;
-+		case 1:
-+			/* XXX compute */
-+			break;
-+		case 2:
-+			/* XXX compute */
-+			break;
-+		}
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
- static int amdgpu_sdma_init_inst_ctx(struct amdgpu_sdma_instance *sdma_inst)
- {
- 	uint16_t version_major;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-index 2bf365609..ca4fd94ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-@@ -203,6 +203,9 @@ int amdgpu_sdma_process_ras_data_cb(struct amdgpu_device *adev,
- int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
- 				      struct amdgpu_irq_src *source,
- 				      struct amdgpu_iv_entry *entry);
-+int amdgpu_sdma_process_trap_irq(struct amdgpu_device *adev,
-+				     struct amdgpu_irq_src *source,
-+				     struct amdgpu_iv_entry *entry);
- int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
- 			       bool duplicate);
- void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-index 120da838a..1bf1af633 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-@@ -1141,47 +1141,6 @@ static int cik_sdma_set_trap_irq_state(struct amdgpu_device *adev,
- 	return 0;
- }
+-	res = platform_get_resource(dev, IORESOURCE_MEM, 0);
+-	if (!res) {
++	info->screen_base = devm_platform_get_and_ioremap_resource(dev, 0, &res);
++	if (IS_ERR(info->screen_base)) {
+ 		framebuffer_release(info);
+-		return -EBUSY;
++		return PTR_ERR(info->screen_base);
+ 	}
  
--static int cik_sdma_process_trap_irq(struct amdgpu_device *adev,
--				     struct amdgpu_irq_src *source,
--				     struct amdgpu_iv_entry *entry)
--{
--	u8 instance_id, queue_id;
--
--	instance_id = (entry->ring_id & 0x3) >> 0;
--	queue_id = (entry->ring_id & 0xc) >> 2;
--	DRM_DEBUG("IH: SDMA trap\n");
--	switch (instance_id) {
--	case 0:
--		switch (queue_id) {
--		case 0:
--			amdgpu_fence_process(&adev->sdma.instance[0].ring);
--			break;
--		case 1:
--			/* XXX compute */
--			break;
--		case 2:
--			/* XXX compute */
--			break;
--		}
--		break;
--	case 1:
--		switch (queue_id) {
--		case 0:
--			amdgpu_fence_process(&adev->sdma.instance[1].ring);
--			break;
--		case 1:
--			/* XXX compute */
--			break;
--		case 2:
--			/* XXX compute */
--			break;
--		}
--		break;
+ 	info->screen_size = resource_size(res);
+-	info->screen_base = devm_ioremap(&dev->dev, res->start,
+-					 info->screen_size);
+-	if (!info->screen_base) {
+-		framebuffer_release(info);
+-		return -ENOMEM;
 -	}
--
--	return 0;
--}
--
- static int cik_sdma_process_illegal_inst_irq(struct amdgpu_device *adev,
- 					     struct amdgpu_irq_src *source,
- 					     struct amdgpu_iv_entry *entry)
-@@ -1270,7 +1229,7 @@ static void cik_sdma_set_ring_funcs(struct amdgpu_device *adev)
  
- static const struct amdgpu_irq_src_funcs cik_sdma_trap_irq_funcs = {
- 	.set = cik_sdma_set_trap_irq_state,
--	.process = cik_sdma_process_trap_irq,
-+	.process = amdgpu_sdma_process_trap_irq,
- };
- 
- static const struct amdgpu_irq_src_funcs cik_sdma_illegal_inst_irq_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-index 93ec52c1f..545077897 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-@@ -1035,46 +1035,6 @@ static int sdma_v2_4_set_trap_irq_state(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static int sdma_v2_4_process_trap_irq(struct amdgpu_device *adev,
--				      struct amdgpu_irq_src *source,
--				      struct amdgpu_iv_entry *entry)
--{
--	u8 instance_id, queue_id;
--
--	instance_id = (entry->ring_id & 0x3) >> 0;
--	queue_id = (entry->ring_id & 0xc) >> 2;
--	DRM_DEBUG("IH: SDMA trap\n");
--	switch (instance_id) {
--	case 0:
--		switch (queue_id) {
--		case 0:
--			amdgpu_fence_process(&adev->sdma.instance[0].ring);
--			break;
--		case 1:
--			/* XXX compute */
--			break;
--		case 2:
--			/* XXX compute */
--			break;
--		}
--		break;
--	case 1:
--		switch (queue_id) {
--		case 0:
--			amdgpu_fence_process(&adev->sdma.instance[1].ring);
--			break;
--		case 1:
--			/* XXX compute */
--			break;
--		case 2:
--			/* XXX compute */
--			break;
--		}
--		break;
--	}
--	return 0;
--}
--
- static int sdma_v2_4_process_illegal_inst_irq(struct amdgpu_device *adev,
- 					      struct amdgpu_irq_src *source,
- 					      struct amdgpu_iv_entry *entry)
-@@ -1159,7 +1119,7 @@ static void sdma_v2_4_set_ring_funcs(struct amdgpu_device *adev)
- 
- static const struct amdgpu_irq_src_funcs sdma_v2_4_trap_irq_funcs = {
- 	.set = sdma_v2_4_set_trap_irq_state,
--	.process = sdma_v2_4_process_trap_irq,
-+	.process = amdgpu_sdma_process_trap_irq,
- };
- 
- static const struct amdgpu_irq_src_funcs sdma_v2_4_illegal_inst_irq_funcs = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-index 3fde9be74..b3eab4e11 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-@@ -1373,46 +1373,6 @@ static int sdma_v3_0_set_trap_irq_state(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static int sdma_v3_0_process_trap_irq(struct amdgpu_device *adev,
--				      struct amdgpu_irq_src *source,
--				      struct amdgpu_iv_entry *entry)
--{
--	u8 instance_id, queue_id;
--
--	instance_id = (entry->ring_id & 0x3) >> 0;
--	queue_id = (entry->ring_id & 0xc) >> 2;
--	DRM_DEBUG("IH: SDMA trap\n");
--	switch (instance_id) {
--	case 0:
--		switch (queue_id) {
--		case 0:
--			amdgpu_fence_process(&adev->sdma.instance[0].ring);
--			break;
--		case 1:
--			/* XXX compute */
--			break;
--		case 2:
--			/* XXX compute */
--			break;
--		}
--		break;
--	case 1:
--		switch (queue_id) {
--		case 0:
--			amdgpu_fence_process(&adev->sdma.instance[1].ring);
--			break;
--		case 1:
--			/* XXX compute */
--			break;
--		case 2:
--			/* XXX compute */
--			break;
--		}
--		break;
--	}
--	return 0;
--}
--
- static int sdma_v3_0_process_illegal_inst_irq(struct amdgpu_device *adev,
- 					      struct amdgpu_irq_src *source,
- 					      struct amdgpu_iv_entry *entry)
-@@ -1601,7 +1561,7 @@ static void sdma_v3_0_set_ring_funcs(struct amdgpu_device *adev)
- 
- static const struct amdgpu_irq_src_funcs sdma_v3_0_trap_irq_funcs = {
- 	.set = sdma_v3_0_set_trap_irq_state,
--	.process = sdma_v3_0_process_trap_irq,
-+	.process = amdgpu_sdma_process_trap_irq,
- };
- 
- static const struct amdgpu_irq_src_funcs sdma_v3_0_illegal_inst_irq_funcs = {
+ 	info->fbops = &cobalt_lcd_fbops;
+ 	info->fix = cobalt_lcdfb_fix;
 -- 
 2.53.0
 
