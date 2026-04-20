@@ -4,119 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF14DF327B4
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFD47F327B6
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8595710EB88;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 381E710EB7C;
 	Tue, 21 Apr 2026 07:10:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="C9jC7fvc";
+	dkim=pass (2048-bit key; unprotected) header.d=poorly.run header.i=@poorly.run header.b="dHjrsxb+";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 907E010EB24
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 20:07:25 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 1CE45240104
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:07:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1776715644; bh=75iCErYdyp9Wiyr3L13jLe2X/q5ye8h5xDYdqwVoNnc=;
- h=From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
- b=C9jC7fvcSWDKE0/nygIIUrJhLbQS2vpQC4vWYnG+2q7WbCleL+PLxl4r9fgzcdAdB
- xjt0JByazirBydUcx7GIx/5BvgLNYKX5u93LQACA+EKhYb/iLcRqourynjp/eeDYII
- DQYs2XClCXKqlFGhTbHsCIb3gKPTtE/G/9xjsYUT9V4dRvvuaY6OoGKAbOgvapidTU
- Sqy/1HArPszkqipWFUY68Q2waChbP+QdACRoV9pi59HiRscn1ppR6aR8byEv/EZnjF
- iZD9HiAHTNATyFycQaoZ1rcbH/sN/fFmWKM7xZflsyEFrUEPEk/gdPy3g6qS5WT5Az
- Z8vxI7hBs5N+g==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fzxNT6Kc9z9rxP;
- Mon, 20 Apr 2026 22:07:21 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Mon, 20 Apr 2026 20:07:23 +0000
-Subject: [PATCH v5 2/4] serdev: add rust private data to serdev_device
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A31910E6D9
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:04:29 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-470145d7e6fso989673b6e.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:04:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=poorly.run; s=google; t=1776701068; x=1777305868; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=xJw/OZgfob/yF2Gz/mIIFeBzC60vy16cxgxQvBlE7c8=;
+ b=dHjrsxb+BnX0HQpt3nHOc8j0l8g3Buo17tIqjGlPxf9IYiWDKb8+hAFgPL3bBLk79T
+ xDag6wIrPnmlrlplGkdrseIhYKQxspLJQPrd1uJvnuZ5db9cIHrnoeUeDxWwktXu3xRH
+ ZmhMMDzsA2M5wskuFHRJcYhanclZ3lddX/jO5ryCD5wEw7AZ5G5ZZ3SfUQK83tYzYzat
+ tZbdG+Y9ltljemIHnO8c4sAOMCSyy6cIkVPZFYF5cRRlQXLTupGQ8fM21EnMJdpksG0T
+ DEicjB/x2xTDAfPKaUxi333h2k429TVv4hilKXyZ6urFqkaO137GQ0JeCeE0ac4QlFBX
+ Xuiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776701068; x=1777305868;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=xJw/OZgfob/yF2Gz/mIIFeBzC60vy16cxgxQvBlE7c8=;
+ b=Yy4pGSPL0xk11L6hft5YVLwxgGxOsk+kTEosWy0rEnvh6L/CeNLNDa7RqMIgrnffmj
+ tVJHag+zRPXQATjFeWD+kGRh5pCYj+7SNg1psYccnjI5OwPVE292TOPd33aklXsePhFe
+ O7HxLOh10NoE0JN3x37K/ASoiW1Xmlz6jYozDrAq2lp2r94p0ycKlFfJ3DwjvschIVtP
+ hx+j2urSXUUoVDbO8Qb5bAfvzd7XQS7a3FyKOXZKLugbs163nqrwRKye3CXjZBeSQdt6
+ 3TLK+xXLXlvRuGR0uGR6cclIij0i3DvAh4/YQ61+7j+wu2Hfa0m3fZIO24ufuHqPmLot
+ uB1g==
+X-Gm-Message-State: AOJu0YxtHb1R/5XOuLgyxk+xh8DqEkuL98HeAML2+ndYg4g+hE+l6IBZ
+ brqDuVqRdfBW1tcBetCj93KNKH84aLgmgjYWB956zUMldd7hEQKZ5DgEq24dSAaQ92SEz8Dmlaw
+ dlGOeAFz/yg==
+X-Gm-Gg: AeBDiet/7Qr6nwxdfPMZ7f/BBIdjCsTyU2SO26pzAYHURKfJEcks3+COLW//61xt49J
+ d1+rjd0hV1ULaU756YpJhupPctWB1AKP0Xj3JQVRuvQupxUO6pc7qK2cm5nOD+5TbY8FbQ9I9Zo
+ JFeI3Oi3CXJLbTEHZCWvLmqcDG+1IxVx2xnCIGubpbiYXZnCzLQ9Ds3i5vP6dLpc2PeAhHskuaE
+ AW8aZE9c8mtiDDJnefd/FRy3ZmktSgA4lOtjUdyz5xqi4HRZL2WfwkW2B3pVYTJ17kWEu8KrSFc
+ OdReHQJJeGJP53/wXEwrItmRmSGORFXHUuZ8IukmjX6AZ83o9YQNjfbt8gvPThWV1VfQ8Mvd823
+ s7sWgSee7+4B4wPaSJ+wYCwsfXsrs3pdU0AZOzl3tuqt4R92O/cql6k5dFDWM+eQHPwVOFmQKPU
+ vPn4YGBXRhu1b7F6qZ6K7fBrTP/6y7wLXrO/3Pdqoq2g2oG99MVGF6O9Ijy7KwSSDVG8p7VfE0w
+ rPb
+X-Received: by 2002:a05:6808:690b:b0:45e:fefd:8993 with SMTP id
+ 5614622812f47-4799c8b346bmr6387244b6e.11.1776701067975; 
+ Mon, 20 Apr 2026 09:04:27 -0700 (PDT)
+Received: from localhost (21.179.150.34.bc.googleusercontent.com.
+ [34.150.179.21]) by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-65314eed05csm5434127d50.20.2026.04.20.09.04.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2026 09:04:27 -0700 (PDT)
+From: Sean Paul <sean@poorly.run>
+To: dri-devel@lists.freedesktop.org
+Cc: Sean Paul <seanpaul@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH] drm: Fix DYNAMIC_DEBUG_MODULE propagation to subdirectories
+Date: Mon, 20 Apr 2026 16:04:08 +0000
+Message-ID: <20260420160425.3919114-1-sean@poorly.run>
+X-Mailer: git-send-email 2.54.0.rc1.513.gad8abe7a5a-goog
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-rust_serdev-v5-2-57e8ba0519f3@posteo.de>
-References: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
-In-Reply-To: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1717;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=ECl35l4KVjDGQ1987vPeXlJAH328JZDbp6x8p1+V+Tw=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp5od1wFU2BjgkAwCXkHSHrQ6mmOtQhPWG0ZSjR
- iYFsdtqevOJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaeaHdRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9IA9Q/+KliGPWJYDKmrtnnvitJ3KvTF9WNFZyM
- BwUW1VKH3OdFheSJ5Nz7VHExfcnD9B0+g2G4i3D1L+p3JqEflJpav9g40/27gUJfMboTheu8q0T
- azs9S6Q/AnNBdEmix6wDtbdsbTP5LwOx2QRO/BWJG6rVmy+09o3jgzVaIow/Ghc9pfaF84gWM1S
- EjD9lLzAF7FBSk3TYIACahmVSuREQme4pkgkRfKwgOFw1fWFyEpTYXZ8ZzRXovCBBXQfon73DW2
- v6T/R64ndQK8qjRA3XXOs03VB8JZEbsp3q/O52TFfpqS7uOKLAOjmXsjpCvctWSm+ojGQjTVZ0Y
- b/tjjV+lOT6tcdfxC7JA21hjtvXu8qOkSuqdPsSgNblTPf0m0v5RMpeYTccPpOYEoufLOIxZ9uW
- oYhozLqqCY+A7gyfUlKHECMaV2tcc3w1VUCTZbBpPe0RbPhARCzmytbpjGoMm7TUdC5TQ8ulaf2
- xGy2waTyB2r/SnXMz0fcMNV3lagyVf3HNl/C6+x9dZYW9pisPgeRhd4Pta/H7Mg+G/DnXMEAl77
- OBSjBO1RSaK27HzMPq6kpu014Al5bUSAbwqBpE73E1WgVcKN5/5Kht6rI6RnorxNWutHbPaJUqm
- 5yDq673WGrmA7XmFt32YtZoznUoF57WPisNBQ20CZGGsS9kbZzQA=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,49 +90,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add rust private data to `struct serdev_device`, as it is required by the
-rust abstraction added in the following commit
-(rust: add basic serial device bus abstractions).
+From: Sean Paul <seanpaul@google.com>
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
+Switch incompatible CFLAGS-y to ccflags-* and propagate the flag
+to subdirectories to avoid implicit declaration errors for
+_dynamic_func_call_cls when DRM_USE_DYNAMIC_DEBUG is enabled.
+
+Note that this flag is still disabled due to depends on BROKEN.
+
+Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
+Signed-off-by: Sean Paul <seanpaul@google.com>
 ---
- include/linux/serdev.h | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/serdev.h b/include/linux/serdev.h
-index 5654c58eb73c..c74c345d60ae 100644
---- a/include/linux/serdev.h
-+++ b/include/linux/serdev.h
-@@ -33,12 +33,14 @@ struct serdev_device_ops {
- 
- /**
-  * struct serdev_device - Basic representation of an serdev device
-- * @dev:	Driver model representation of the device.
-- * @nr:		Device number on serdev bus.
-- * @ctrl:	serdev controller managing this device.
-- * @ops:	Device operations.
-- * @write_comp	Completion used by serdev_device_write() internally
-- * @write_lock	Lock to serialize access when writing data
-+ * @dev:	       Driver model representation of the device.
-+ * @nr:		       Device number on serdev bus.
-+ * @ctrl:	       serdev controller managing this device.
-+ * @ops:	       Device operations.
-+ * @write_comp:	       Completion used by serdev_device_write() internally
-+ * @write_lock:	       Lock to serialize access when writing data
-+ * @rust_private_data: Private data for the rust abstraction. This should
-+ *		       not be used by the C drivers.
-  */
- struct serdev_device {
- 	struct device dev;
-@@ -47,6 +49,7 @@ struct serdev_device {
- 	const struct serdev_device_ops *ops;
- 	struct completion write_comp;
- 	struct mutex write_lock;
-+	void *rust_private_data;
- };
- 
- static inline struct serdev_device *to_serdev_device(struct device *d)
+a wild seanpaul appears...
 
+ drivers/gpu/drm/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e97faabcd783..7082ff6449fb 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -3,7 +3,8 @@
+ # Makefile for the drm device driver.  This driver provides support for the
+ # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+ 
+-CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
++subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
+ 
+ # Unconditionally enable W=1 warnings locally
+ # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
 -- 
-2.52.0
+Sean Paul, Software Engineer, Google / Chromium OS
 
