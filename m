@@ -4,56 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 338C1F557EB
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 09:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E8FF557F4
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 09:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9298110E47C;
-	Mon, 20 Apr 2026 09:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3231510E484;
+	Mon, 20 Apr 2026 09:29:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="cB90nWFp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hXpQbZ40";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A7A010E47C
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:18:55 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4fzg05575rz9tR9;
- Mon, 20 Apr 2026 11:18:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1776676725; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=H52iZf47nyQwwRpseIanj6FLrUv+KwPcCKT1CAjDrAg=;
- b=cB90nWFp3jlKw5PuENi9paPeOvYUuP3SbfRNJVBKJl5AaEtNm20KgqH3NeGpNQav6zlRCW
- yiF2WReABU7bNov5V24qy2HcUxOBsdv/0a949udS+L+R73Gtv1qlpNFe1hfyV1i9Bx9r5v
- VGhDvAdlcXJL5cJdysKl5m4MsbChPAFurUBzPPHRNTvQm4Hx3aqYCrTnK1bKZbETzzGDku
- CDVWjv6dOIZdq6gIhSRmtxbSElW9nk5dtDJ/QiK9iY3N2KWpK8SN7EzeQTMO7IUayXPAqX
- g7MPytBFwquP0eMyjQKlO1El/rIodE7Ez74KctIt/TYBFUIcGylXWdIstt4Y9g==
-Message-ID: <6389c57fd1453b545709c15c5fa74aa76a3d9afa.camel@mailbox.org>
-Subject: Re: [PATCH v2] dma-fence: Clarify external lock use case in
- dma_fence_init() docs
-From: Philipp Stanner <phasta@mailbox.org>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Christian
- =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Boris Brezillon <boris.brezillon@collabora.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,  Philipp Stanner
- <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
- kernel-dev@igalia.com
-Date: Mon, 20 Apr 2026 11:18:40 +0200
-In-Reply-To: <20260419134943.54833-2-mcanal@igalia.com>
-References: <20260419134943.54833-2-mcanal@igalia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2944A10E484
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:29:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776677343; x=1808213343;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=IOIIi6BpyEQxc8UGvmrUSxbmwGNgl1HgV0zF2Gewvfk=;
+ b=hXpQbZ40sOK2E+OjW7BoCvV2wALgZ4SnjcMQbrtLcfqNd+sLl9tQ05xG
+ yBprDWrl/cLdAKsSS/1VAyW8UA8/2HCV/mNHd1eAlYKWIIqYmuschQggw
+ JLdJp9tiJoeGN5AnKzDj5TZX5KYjjxNFLQdBKvWtDwNLm/zw1AktTVqkg
+ ngywDmi4TOkJsmiTnuAmGBS2+fO/2N8SWlqZdO3TFImx9vNyYR3VwjErx
+ HNkq2IC+VADjx4lCatIIf17dcHaDTRi3vYotdjWDYMdwNwGZXQqZyVA0p
+ zMDVY6xJ8VNWdHZQKdph6rpt35bGULXDej/Z/krTEdia0chP5bmyBzkFj w==;
+X-CSE-ConnectionGUID: EY/9Kn6RQLSvgO+OLD5qrA==
+X-CSE-MsgGUID: lgSMBD7HQ8Gf1Gj+/m6YhQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="81460454"
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; d="scan'208";a="81460454"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 02:29:03 -0700
+X-CSE-ConnectionGUID: 7pHbgv0DRyKnv1FRobpATw==
+X-CSE-MsgGUID: 2XYOGYhESaeTRvXTn5ORDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; d="scan'208";a="227041892"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.133])
+ ([10.245.244.133])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 02:29:00 -0700
+Message-ID: <215f305ff04ddf8a426871e895aaf520b02e89bf.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/gpuvm: take refcount on DRM device
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Matthew Brost
+ <matthew.brost@intel.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Mon, 20 Apr 2026 11:28:48 +0200
+In-Reply-To: <DHVOJ6ILGSLK.3OWKA4RV2HB5C@kernel.org>
+References: <20260416-gpuvm-drm-dev-get-v1-1-f3bc06571e73@google.com>
+ <544c97fe296f39da35e5349ba1fc0af05f2ff643.camel@linux.intel.com>
+ <DHVOJ6ILGSLK.3OWKA4RV2HB5C@kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MBO-RS-META: kwjkcgbza3jqjwbqyuokp8iq1c9thwkr
-X-MBO-RS-ID: dd32fd36144395c208b
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,85 +73,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, 2026-04-19 at 10:48 -0300, Ma=C3=ADra Canal wrote:
-> The kerneldoc comment on dma_fence_init() and dma_fence_init64() describe
-> the legacy reason to pass an external lock as a need to prevent multiple
-> fences "from signaling out of order". However, this wording is a bit
-> misleading: a shared spinlock does not (and cannot) prevent the signaler
-> from signaling out of order. Signaling order is the driver's responsibili=
-ty
-> regardless of whether the lock is shared or per-fence.
+On Fri, 2026-04-17 at 21:33 +0200, Danilo Krummrich wrote:
+> On Fri Apr 17, 2026 at 4:41 PM CEST, Thomas Hellstr=C3=B6m wrote:
+> > This is problematic since typically you also need a module
+> > reference
+> > when taking a drm device reference.
+> >=20
+> > The reason for this is that the devres reference on the drm device
+> > expects to be the last one, since it might be called from the
+> > module
+> > exit function of the driver.
 >=20
-> What a shared lock actually provides is serialization of signaling and
-> observation across fences in a given context, so that observers never
-> see a later fence signaled while an earlier one is not.
+> No, this is not how it works; if this would be true then drmm_* would
+> be pretty
+> pointless in the first place, as one could just use devm_* for
+> everything.
 >=20
-> Reword both comments to describe this more accurately.
+> Citing the commit introducing drmm_* APIs:
 >=20
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
+> 	"The biggest wrong pattern is that developers use devm_,
+> which ties the
+> 	release action to the underlying struct device, whereas all
+> the
+> 	userspace visible stuff attached to a drm_device can long
+> outlive that
+> 	one (e.g. after a hotunplug while userspace has open files
+> and mmap'ed
+> 	buffers)."
 
-Reviewed-by: Philipp Stanner <phasta@kernel.org>
+Yeah, I was a bit unclear and partly incorrect. This only happens *if
+there are no other holders of the driver module reference. (But see
+below WRT potential other holders)-
+
+driver_module_unload()->...->pci_dev_remove -> devm_release->
+drm_dev_put-><module is unloaded>.
+
+So if, at this point there are additional drm device references,
+they'd point to dangling devices.
 
 >=20
-> ---
+> > Now if there is an additional reference held at that point the
+> > driver module
+> > can be unloaded with a dangling reference to the drm device.
+> >=20
+> > On the other hand, if you in addition take a module reference then
+> > that
+> > blocks the driver module from being unloaded while held, just like
+> > a
+> > drm file reference. This leads to complicated module release
+> > schemes
+> > like the one in drm_pagemap where the module refcount is released
+> > from
+> > a work item that is waited on in the drm_pagemap exit function.
+> >=20
+> > I'm working to lift the module refcount requirement, but meanwhile
+> > I'd
+> > recommend that in the file close callback, we'd make sure all
+> > drm_gpuvms have called their drm_gpuvm_free() function, because
+> > then we
+> > are sure that the drm_device is still alive and the module still
+> > pinned.
 >=20
-> v1 -> v2: https://lore.kernel.org/dri-devel/20260411185756.1887119-4-mcan=
-al@igalia.com/
+> If GPUVM has a pointer to the DRM device, it implies shared ownership
+> and hence
+> GPUVM should account for this shared ownership and take a reference
+> count.
 >=20
-> - Be more explicit about not allowing new users to use an external lock.
-> - De-duplicate the explanation in dma_fence_init64() by pointing to the
-> =C2=A0 dma_fence_init() documentation.
-> ---
-> =C2=A0drivers/dma-buf/dma-fence.c | 13 +++++++------
-> =C2=A01 file changed, 7 insertions(+), 6 deletions(-)
+> The fact that GPUVM must not outlive module unload when it has driver
+> callbacks
+> attached is an orthogonal requirement.
 >=20
-> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> index 1c1eaecaf1b0..63b349ba9a34 100644
-> --- a/drivers/dma-buf/dma-fence.c
-> +++ b/drivers/dma-buf/dma-fence.c
-> @@ -1102,9 +1102,11 @@ __dma_fence_init(struct dma_fence *fence, const st=
-ruct dma_fence_ops *ops,
-> =C2=A0 * context and seqno are used for easy comparison between fences, a=
-llowing
-> =C2=A0 * to check which fence is later by simply using dma_fence_later().
-> =C2=A0 *
-> - * It is strongly discouraged to provide an external lock because this c=
-ouples
-> - * lock and fence life time. This is only allowed for legacy use cases w=
-hen
-> - * multiple fences need to be prevented from signaling out of order.
-> + * External locks are a relic from legacy use cases that needed a shared=
- lock
-> + * to serialize signaling and observation of fences within a context, so=
- that
-> + * observers never see a later fence signaled while an earlier one isn't=
-. New
-> + * users MUST NOT use external locks, as they force the issuer to outliv=
-e all
-> + * fences that reference the lock.
-> =C2=A0 */
-> =C2=A0void
-> =C2=A0dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops =
-*ops,
-> @@ -1129,9 +1131,8 @@ EXPORT_SYMBOL(dma_fence_init);
-> =C2=A0 * Context and seqno are used for easy comparison between fences, a=
-llowing
-> =C2=A0 * to check which fence is later by simply using dma_fence_later().
-> =C2=A0 *
-> - * It is strongly discouraged to provide an external lock because this c=
-ouples
-> - * lock and fence life time. This is only allowed for legacy use cases w=
-hen
-> - * multiple fences need to be prevented from signaling out of order.
-> + * New users MUST NOT use external locks. Check the documentation in
-> + * dma_fence_init() to understand the motives behind the legacy use case=
-s.
-> =C2=A0 */
-> =C2=A0void
-> =C2=A0dma_fence_init64(struct dma_fence *fence, const struct dma_fence_op=
-s *ops,
+> The module lifetime / callback issue is a separate problem that
+> exists
+> regardless of whether you hold a device refcount. Not taking the
+> refcount
+> doesn't make the module problem go away, it just adds a second,
+> independent bug.
+>=20
+> If struct drm_device itself, e.g. due to drm_dev_release() requires a
+> module
+> refcount, then this is on struct drm_device to ensure this constraint
+> (or remove
+> the requirement).
+>=20
+> IOW, if I get to choose between a DRM component that has a pointer to
+> a DRM
+> device stalls module unload and a DRM component that has a pointer to
+> a DRM
+> device oopses the kernel when used wrongly, I prefer the former.
 
+I agree with your reasoning here, but current fact is that most (if not
+all) holders of a drm device reference (files, pagemaps, dma-bufs)
+currently also hold a module reference to protect against this, and
+drm_gpuvm would be an outlier.
+
+To fix this properly (lifting that requirement) one could introduce a
+drm device count in the module and have the module exit function wait
+for it to become zero, *and* that the code that did the last decrement
+finished executing.
+
+https://patchwork.freedesktop.org/patch/712146/?series=3D163298&rev=3D1
+
+Or one could also have the drm device hold a reference count on the
+driver module, but that would block unloading without previous unbind
+which is not typical driver behaviour and would likely be seen as a
+regression.
+
+/Thomas
+
+
+
+
+
+
+
+>=20
+> - Danilo
