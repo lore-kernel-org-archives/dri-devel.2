@@ -4,78 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D802F5A8AA
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 18:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8367EF5A8AA
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 19:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82ECB10EB14;
-	Mon, 20 Apr 2026 18:58:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A5910E19B;
+	Mon, 20 Apr 2026 19:10:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="jnuippCf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UW2bnJsA";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9715A10EB14
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 18:58:33 +0000 (UTC)
-Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
- by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 63K4jI3m3207128
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 11:58:32 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=s2048-2025-q2;
- bh=DGqOu01vpSuNphcdtrhRRkwLn0VqkagmIQlTluku0bA=; b=jnuippCfhRbm
- HkPxmEAYYUi2QERkMuRu+8exogPBuVqeUQk+QsD2paT+AJA4Uff+XHVqyhhD5rrZ
- kbkalvv7jUat0+5FhZuI0DmhU+NzckxDXnU4aZMZNnb0RPYc52dZs5EL99NzYOt1
- dWTrKN4qAFnFMaLBtjeK9AKyuwzRnWDOTnQS1SkeURvLLHZWw3rycsa8q829GwpA
- 4d6/71Pfcfuxu22I+N5+a0j9AIZhqskybM9fznRu13B46hsB4rAI4H+G7C3gjKb5
- 6YiZoh/aQQcBm4Fh0ZfLLNuRzoFadx627hnW1bc/km3rr+PkOK+eSOv+4pMjqiQd
- DFwD7SVBfg==
-Received: from mail.thefacebook.com ([163.114.134.16])
- by m0089730.ppops.net (PPS) with ESMTPS id 4dm5embck1-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 11:58:32 -0700 (PDT)
-Received: from twshared77462.17.frc2.facebook.com (2620:10d:c085:108::150d) by
- mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.37; Mon, 20 Apr 2026 18:58:24 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id F065D113E69D0; Mon, 20 Apr 2026 11:51:21 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Stanislav Fomichev <sdf@meta.com>, Keith Busch <kbusch@kernel.org>
-CC: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Bjorn
- Helgaas <helgaas@kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <netdev@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, Yochai Cohen <yochai@nvidia.com>, Yishai
- Hadas <yishaih@nvidia.com>, Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v1 2/2] RDMA/mlx5: get tph for p2p access when registering
- dma-buf mr
-Date: Mon, 20 Apr 2026 11:39:16 -0700
-Message-ID: <20260420183920.3626389-3-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260420183920.3626389-1-zhipingz@meta.com>
-References: <20260420183920.3626389-1-zhipingz@meta.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 527D610EB31
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 19:10:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776712237; x=1808248237;
+ h=message-id:date:subject:to:references:from:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=hvLFW+nW63ArnDGCfm1gOovWk3EtFU1b5lIBHBqdJ2Q=;
+ b=UW2bnJsAZFvP/8O29AHTDefhs90c2/WFB64QIWOoUV3X+JVqieSVGXNc
+ SbqDptTGxc8k9Nv1mJnWYUvCYHaUwEsFxPvSHhStLZZu7Xou+H9FX+DMv
+ Ut0bguFH7G2iYWWB+IDJda09PTtWiijcQ+8sraOBbNiutLJV/qIy029Ek
+ T8w4yp+HAIHn6f7zOp8fC2oRwiEkX46FJC446nxWqUf9zPDeGUW9dnNwp
+ gThFA5u6HygTFMUE3OeVJSXZ4Vj3fVfB4mC1+M/2rPmwhOy2pHQ/ucNzE
+ Uz1Gh6kFPO2daeJEeW9dOtKH5kmMjuX64JMRi7R2fI08QdqkQyrCZn71o Q==;
+X-CSE-ConnectionGUID: m+gqq8VVTJChs2O9m8QhPg==
+X-CSE-MsgGUID: 0D9qVuTeTJajrWTJT9kEvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="65172487"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="65172487"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 12:10:37 -0700
+X-CSE-ConnectionGUID: GFZbaH6FR/mYbcVMpCasTQ==
+X-CSE-MsgGUID: QR1vylOqSFufB3Bb4pDhFA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="233568448"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 12:10:37 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 12:10:36 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 20 Apr 2026 12:10:36 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.64) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 12:10:36 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aDGta6i5lm/acgrdoocf7r0zsORw7cCjAamCbZqzvqht9fO8wpnvS8bYute01PDKfuFaKdmujUvlaheu5jwyr5mitujslBrSWiM71MhYJkdOWDVFZTSO17I3dIK5rkUBedBJG40gsyTQuxPRI8uU7FzZ7XpipP1N9Am2DLV6aYcBs6e3oem2ImZYhkTlq9u8/Ddz0Q1OSJ0ft8PBHfyeHwTuNmK6fODmhv1QbDHMZkzozyg1R4t/4ZV4x4glNfgaSX5FTuT5y+7u/DNO80C5PgiSv+fueVshCrPSNC/JZcKJunIGTLYUnYrO2sFI9HNoi/weptSLQkpSELpXC16iTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1DnLv7RavFSBJUqgCy8PQrNHA5nEj4OxGP55g2wrEtU=;
+ b=eCjZzq4aheAlY4wrPRwKhfquHZHfGQ74Uhe7TiHNreezv/7kLwFUw9GhBBG92LJSFU5n9VioQ2gkGC3SkmFwL1A+x+08f7MLvhF9+SqAaygdpaJ7twpCUajwnMbYVXCu8FEwucA3tPr7sOQ5jHWtpjhY+L7Zf/wIzGLPRHnjVXebiqjtPDGpviGgv7ppuDnM24IexxusnwSeEb4JrqKQNUY133Sqo/WDNMz+U+v974LuuME6tRRndEsG0SUpF5tx8ZZUcrWQOl3CuWl1eiHXx3wNAmcj+h7gP9kr3b+K5vmZWohxad/tzhuXrm0fb/Q0uRxnRsyFqxHhujhatVpy2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA1PR11MB5900.namprd11.prod.outlook.com (2603:10b6:806:238::21)
+ by IA0PR11MB7354.namprd11.prod.outlook.com (2603:10b6:208:434::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Mon, 20 Apr
+ 2026 19:10:33 +0000
+Received: from SA1PR11MB5900.namprd11.prod.outlook.com
+ ([fe80::d294:7b1f:a7a2:e803]) by SA1PR11MB5900.namprd11.prod.outlook.com
+ ([fe80::d294:7b1f:a7a2:e803%7]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 19:10:33 +0000
+Message-ID: <97d3d711-1e59-4c78-ba1b-e7ad7087523c@intel.com>
+Date: Mon, 20 Apr 2026 21:10:20 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/auth: Only drm_drop_master if it exists
+To: <dri-devel@lists.freedesktop.org>
+References: <20260416210047.3904106-1-jonathan.cavitt@intel.com>
+Content-Language: en-US
+From: Maciej Patelczyk <maciej.patelczyk@intel.com>
+In-Reply-To: <20260416210047.3904106-1-jonathan.cavitt@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DU6P191CA0022.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:10:540::13) To SA1PR11MB5900.namprd11.prod.outlook.com
+ (2603:10b6:806:238::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=fcOdDUQF c=1 sm=1 tr=0 ts=69e67758 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=A5OVakUREuEA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=855S8uPTkML1Oy45N9_h:22 a=VabnemYjAAAA:8 a=c4au4WjlRKfxtgWlyl4A:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-GUID: GC_fx0I9HxbuzSHpTjvvwePaC51NX9iq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDE4NCBTYWx0ZWRfX4R1cgWqW3iAc
- fsQweoLCRxXfYXt2kcUobRRdOeBq4ubF42WOHB36jE/0+GjzNNXeCDVTpjXw46bykc2HFfT/mTE
- gWRAwzTqI8cfgSKA3fSoowTnUCR99qJHCFSMDZW0fX7ExVMnarhaJEHvT7zZ3BO1vZefFzb9Ik8
- lLbFHX8ZbZzMVULEf6HqpdEZradEFZW6MooRmsBc/UNj4OIV90kjU86V3DN7tEjHQmAkpLdsbQX
- IcvFNvWWvVY86MXglHWVZNzJXJo49U1OFYAzH/rKHStIvs2coI4sp26AhGZRWQJ7562d2uq9Mc2
- rypIQoAUR1YnoL8ObOTGLh7dJlrpVHWoP+4kkh76/4nW6iOdj/bImpHr9uI1/mv6Lw+B6gQtOaH
- rInNKr409mcvCezPWSVxHcPe8cxIewK5VODCo1GdrZmDvF3/+W7o5fhkOYnW1BQxdB/N/Hvf6bn
- S14LSoGGJS/m8BY0U5Q==
-X-Proofpoint-ORIG-GUID: GC_fx0I9HxbuzSHpTjvvwePaC51NX9iq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-20_03,2026-04-20_02,2025-10-01_01
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR11MB5900:EE_|IA0PR11MB7354:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dffb6c5-fb90-447c-fb8c-08de9f107eda
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: omLuqaqMiJn/8zn3vNDfF9QZpw/u8Y7gXgAZNAiyLKwex4WF9dzL5Ih0BhGtXUgYgaa55IVbspRp3v3E5zELmN0ci7LVRNq/8bEcwo6q1IREcT+fNQKh1cgUPI/EIKKSWgfAIC2vfCeUXoaCkDIVCVeH8dy1LUxXtI/2xlyy1bq/oZPGqu1UoY9cvrhYo/oUp36ptaeYwg1SKyaXAy8cfRsROur6gaBEzQxFQkBjY0/sx/au0X2azUq0eklrq+vo/YfyXqphSfehylnIXmHNQ038HsLBKN481e/XrMCGtf0bnnTw9VYno0crLWTb3S9Fp13xfl5Q9Ook9asgj74MUQVBTuOL6qL1b+O9iJU8AGMO+m3sxpeh10poRE3YKY9AEWks+3lglRdVn9Sx80AccSuKy6MgL8QUIKnQF6NfJu5OofwOrOYxbNG+go3l6vR6B8SDMR5cpS4Bd9M1cQ6AJozpfVV/7b//2pbs1GQBy67/n2+NvrHPP3BLj1RcReO8/A/ObwQ/8Xk+xs3Fxg+asLdR3vQXEDmcGjJASZwj0JX+9tsNEWc6E2nNHGcMJ5Dy4NlPhVNJcRY067nwJ/FBDWpTOezm+x+PSSy8l2KBQp9AbJwOYXszgqA1IOOSKZPiqvQGaLdCEmun4GpW1RO498jxcQsoU1NxeHcydV2z16neRm46GzcMcZ6sL7XbvY4lJyQja9aEj7IKtpIngRwsVw4qrredtZ0HuDBy5u/o5YE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR11MB5900.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFdMSDVPZXRVV01nNjVHVkxCODNsNzBUbHNFWHQ3MHh5enk5eFdwd3lYMUww?=
+ =?utf-8?B?aU9aVklPbXF0clY3V25FMUJNeHF2Nkt5Qm02MUJVUzBvalNHbzQyTVFiSk1m?=
+ =?utf-8?B?eXlQbGtaZ3d3TjI0RlAwQUoxWjIxMEd3V3lYOFptMnFMd0E2Q08wN2ZZUWE5?=
+ =?utf-8?B?Wm1qZWZFYWt1OU56TTRUdExhTVJxRHMvNHliZEpyOVNvL2I3TlVzbnAvUW4x?=
+ =?utf-8?B?dXRCQjcwUE1TNDRLd01ZSk1HSXJiY0MvNEpqSTU4cDM5TDhBNXQwbW1mczR5?=
+ =?utf-8?B?RklaNFNtMnJmVjhha2FkN0dLYnFpTWhwczg0alN2K2ZzVWNPeEc4S2ZHZTl5?=
+ =?utf-8?B?VFpValFjejVkYUJONFJtbGlCV2JZQWNzNU1MRStPUE9GZW9JQk80d1hzVDI2?=
+ =?utf-8?B?ZmY0a3lLQjJ0aEkvNWFyTDVHaGhKK2lrL2I4T25kY09BV0VoSXRzblBQdUo1?=
+ =?utf-8?B?VloxV0V0Z0dId3NZVWprNjR1d0RJWUw1MHk2NVpiZG1hamQwS3NaMFlzTzJ1?=
+ =?utf-8?B?Qm5WUXZTTTdjUnlzRDVkbzNVQjMyZ0h5ckxyOHZ2NHlJRFpRMVFaYWtwbHM4?=
+ =?utf-8?B?M0M3VlJVV1c4NjNRU294eVQ3ekRtTUxERXdHZWVZeWd4QzZKT3NnR1crSXQy?=
+ =?utf-8?B?YU5taE1LZ2E4dWs1b25NZU9FcTZ0elM4TVcrMCtyd2N1QXZkeTd1YzZMSnpE?=
+ =?utf-8?B?NW9oQlJueTA4SVNqYy9SR0pXbXl3Q2l6WUl3cmtXM2dYZTA5cC93NEhZd0pG?=
+ =?utf-8?B?MnhKUUpPSXRVNGRhRWhKQlB4cUlLQ0FMWGRCWnd6anplSnU1Qi9mc3A1ZURo?=
+ =?utf-8?B?Nld2WVNrWkhUekNYUTNTTXpiWDZ1YTF3Z09wVGNmSC9qQ2tGQUxUeThNdUw4?=
+ =?utf-8?B?dGM4T0hTVlEwYzJ6Z3pJSVkzTlM0S2VWYjZWYnlaeXpaUGxadTVYd1hOZjM5?=
+ =?utf-8?B?dnRvK2t0MXdBeDJVQ0JRZlJmL3pybWtVUmM2YU12VDczNE5DNjNTSkRNdmVW?=
+ =?utf-8?B?NTgwd1pHSThyNnExSExvOTJ0bTIva2ZvWjVCYkdRbmJrZ25Icndwc1NQaU9o?=
+ =?utf-8?B?aWY0SDVhblJ3S1M4UU9nSHB5b0ZFQStmVDYvWGlEVGhuTmMzRk5TSmxiSXN1?=
+ =?utf-8?B?LytzNytZUmJITDVXTG8xdXNEK2xFTDV0ZWZnTW1MM1VVbnYzdzU2YU9lTzdy?=
+ =?utf-8?B?WXZyZmExOW00Rm9RUVI5RTR1ZHVoMU0xRWVhNVljWmhPU1hTNGtZS1pmNUhh?=
+ =?utf-8?B?Z01zUUUxWlhqYW5UWU1Uc0t6OTAyOWIrZzlkVmhBQXRRTi95MTdGVHdjUjB6?=
+ =?utf-8?B?aUM3a09SQVMxRWw4NjZJUXM5UzV0cHd2aUpZak8ySnQ2K3ZZOHJJbmd0dHdI?=
+ =?utf-8?B?NjRZeHBpNW4wY2RWU2l2OXNqL2VpVzAzMURsek5DQ3NUMEEwTXA0S1kySFhX?=
+ =?utf-8?B?YWUzV3hLTHJEY3FlV1ViZnRDVUtvNkJqWXEwRWErV1Facm5BNzc4YjgwMXNI?=
+ =?utf-8?B?c2tKYnVldmRqd2JWMFhWMlVMcVFzMDEvWUZnV20vU1BqeC9vS216cmhBbDV4?=
+ =?utf-8?B?RUc1TktCRlJ6cDQvZWlzNElnWGpvK0VhN0ZtZEc3ZUFwT1ZWMTYwcm1zUEsv?=
+ =?utf-8?B?c2VWR2owRGZXMjFCT3Y1OURCTmNEMEJLVVlEZVhCdjMwdFJqVHhwbzRzaWxD?=
+ =?utf-8?B?YS9paWtCaFN5a1lZUi9HTUNDMFZpOXBJQ0xML2RDdTBEZ3RnQUJxL2cyUThK?=
+ =?utf-8?B?V0dFY0tVUTlCM3ZHWmFqUlk5ZmlCV05KdVZpSCtFd21wUUhka0Z3b0pvTTBr?=
+ =?utf-8?B?SlVYbHZpUGhLTkQrbEpXdnU3a1ljTUdFbTZoNWduRzMwWnNTaDhsalRISUlr?=
+ =?utf-8?B?S1ZiT25rV2ZaYkhYRW5FZkl4MXFtMWozV2JJYm9sQ3RhdjhwZmpTN0NHZ3Jm?=
+ =?utf-8?B?emo3UzZRb2ZsK0ExcW5ZZ2xMRGlNVGtpV3Y3MVBlQndPK2EvaG84MVAvWTFu?=
+ =?utf-8?B?dktINHErU1o1cXpFc3RnWHBOeXhnSUREVzFyTU5VaHF5UU9hNElERU44a3lQ?=
+ =?utf-8?B?bzU0Vm5jYlNHcjlOWlgwVjJGd0NyOWw2alViZHlMT0ovVDlkK202bmxuQ2Zn?=
+ =?utf-8?B?ZkJlK25DR3p3NkdpUzQ0azBGT1cxSkM4bE9wV2Q1ZVpkNWxobUZnOFBadVQz?=
+ =?utf-8?B?ZVNzWlN3ZFhGVUd3ZFlhQ1Q2Nmo5UUQyeDhHQnFESU0xREJvcTdsL2ZPUG9R?=
+ =?utf-8?B?WUZlQ200Z1g5VnB3VFV0S2t0YkErV2Rad3hKNWQ1cmFodkFXNUh1Tkc5TzIr?=
+ =?utf-8?B?LzcxUVRjTlN2OGNBMVRGV1B1Vnl3YldqcUY2cjBmWGtvWWk4bmZvSnFvbGVI?=
+ =?utf-8?Q?WMFlZkKwi/ylzj1M=3D?=
+X-Exchange-RoutingPolicyChecked: lREEvTBHaeJzSIrPNwpcTmedvlKHp3k72P89S26JI+gF3LUc7H4tmZc0uBZ8LDwyHEY7Dc05Ami953TqRIdQAUm8VTNAq2SK5/qgMTDtqXdydSRXPi2mR8JIP8aK3k/hXps+cAjHoN5k3xEbVG3beDNCfPLPmnYjsWtqBGuoZ79F2/HgrfOqmBhP7Kihs+Bw932KTXlsjEYAvuxuI7D3/fh0hIR6bwNfb8nk2/NQ4l5wjI7Qa+AdJYb6LIB+PK98A9kXzi+IKkHRUPRb43zVktqzpebhceCZBvZzzRmK4PBYtBy64nPCeKmuoPMOUxvw9NBT70SroRmX+7Y43ulJJQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dffb6c5-fb90-447c-fb8c-08de9f107eda
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB5900.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 19:10:33.1154 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N7xQO2gtWVz2jpZvOwY44wuY3GZdOdfZiK9gRgMdcw1D2l/6U07ESBqjyjJwMnz3oT/6Veo+pXlZIGG/BzYrg5ad3DU/sKGm8/S3p1rz8U4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7354
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,183 +168,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Query dma-buf TPH metadata when registering a dma-buf MR for peer to
-peer access and translate the raw steering tag into an mlx5 steering tag
-index. Factor mlx5_st_alloc_index() so callers that already have a raw
-steering tag can allocate the corresponding mlx5 index directly. Keep the
-DMAH path as the first priority and only fall back to dma-buf metadata wh=
-en
-no DMAH is supplied.
 
-Pass the device's supported ST width (8 or 16 bit, derived from
-pdev->tph_req_type) to get_tph() so the exporter can reject tags that
-exceed the consumer's capability. Initialize ret in mlx5_st_create() so t=
-he
-cached steering-tag path returns success cleanly under clang builds.
-
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
----
- drivers/infiniband/hw/mlx5/mr.c               | 38 +++++++++++++++++++
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  | 25 ++++++++----
- include/linux/mlx5/driver.h                   |  7 ++++
- 3 files changed, 62 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
-/mr.c
-index 665323b90b64..618c84815d48 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -46,6 +46,8 @@
- #include "data_direct.h"
- #include "dmah.h"
-=20
-+MODULE_IMPORT_NS("DMA_BUF");
-+
- enum {
- 	MAX_PENDING_REG_MR =3D 8,
- };
-@@ -1622,6 +1624,40 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_at=
-tach_ops =3D {
- 	.move_notify =3D mlx5_ib_dmabuf_invalidate_cb,
- };
-=20
-+static void get_tph_mr_dmabuf(struct mlx5_ib_dev *dev, int fd, u16 *st_i=
-ndex,
-+			      u8 *ph)
-+{
-+	struct pci_dev *pdev =3D dev->mdev->pdev;
-+	struct dma_buf *dmabuf;
-+	u16 steering_tag;
-+	u8 st_width;
-+	int ret;
-+
-+	st_width =3D (pdev->tph_req_type =3D=3D PCI_TPH_REQ_EXT_TPH) ? 16 : 8;
-+
-+	dmabuf =3D dma_buf_get(fd);
-+	if (IS_ERR(dmabuf))
-+		return;
-+
-+	if (!dmabuf->ops->get_tph)
-+		goto end_dbuf_put;
-+
-+	ret =3D dmabuf->ops->get_tph(dmabuf, &steering_tag, ph, st_width);
-+	if (ret) {
-+		mlx5_ib_dbg(dev, "get_tph failed (%d)\n", ret);
-+		goto end_dbuf_put;
-+	}
-+
-+	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag, st_index);
-+	if (ret) {
-+		*ph =3D MLX5_IB_NO_PH;
-+		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
-+	}
-+
-+end_dbuf_put:
-+	dma_buf_put(dmabuf);
-+}
-+
- static struct ib_mr *
- reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
- 		   u64 offset, u64 length, u64 virt_addr,
-@@ -1664,6 +1700,8 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device =
-*dma_device,
- 		ph =3D dmah->ph;
- 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
- 			st_index =3D mdmah->st_index;
-+	} else {
-+		get_tph_mr_dmabuf(dev, fd, &st_index, &ph);
- 	}
-=20
- 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
-et/ethernet/mellanox/mlx5/core/lib/st.c
-index 997be91f0a13..724b67c3f3a6 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-@@ -29,7 +29,7 @@ struct mlx5_st *mlx5_st_create(struct mlx5_core_dev *de=
-v)
- 	u8 direct_mode =3D 0;
- 	u16 num_entries;
- 	u32 tbl_loc;
--	int ret;
-+	int ret =3D 0;
-=20
- 	if (!MLX5_CAP_GEN(dev, mkey_pcie_tph))
- 		return NULL;
-@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
- 	kfree(st);
- }
-=20
--int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
--			unsigned int cpu_uid, u16 *st_index)
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index)
- {
- 	struct mlx5_st_idx_data *idx_data;
- 	struct mlx5_st *st =3D dev->st;
- 	unsigned long index;
- 	u32 xa_id;
--	u16 tag;
- 	int ret;
-=20
- 	if (!st)
- 		return -EOPNOTSUPP;
-=20
--	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
--	if (ret)
--		return ret;
--
- 	if (st->direct_mode) {
- 		*st_index =3D tag;
- 		return 0;
-@@ -152,6 +147,20 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
-num tph_mem_type mem_type,
- 	mutex_unlock(&st->lock);
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
-+
-+int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
-+			unsigned int cpu_uid, u16 *st_index)
-+{
-+	u16 tag;
-+	int ret;
-+
-+	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
-+	if (ret)
-+		return ret;
-+
-+	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
-+}
- EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
-=20
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
-diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
-index 04dcd09f7517..c1d2d603bd96 100644
---- a/include/linux/mlx5/driver.h
-+++ b/include/linux/mlx5/driver.h
-@@ -1177,10 +1177,17 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
-dev, enum mlx5_sw_icm_type type
- 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
-=20
- #ifdef CONFIG_PCIE_TPH
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index);
- int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
- 			unsigned int cpu_uid, u16 *st_index);
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
- #else
-+static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
-+					     u16 tag, u16 *st_index)
-+{
-+	return -EOPNOTSUPP;
-+}
- static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
- 				      enum tph_mem_type mem_type,
- 				      unsigned int cpu_uid, u16 *st_index)
---=20
-2.52.0
-
+On 16/04/2026 23:00, Jonathan Cavitt wrote:
+> It is possible that both dev->master and file_priv->master are NULL when
+> passed to drm_master_release, which would result in dev being passed to
+> drm_drop_master (as NULL == NULL here).  This would result in a NULL
+> pointer dereference when passing dev->master to drm_master_put in
+> drm_drop_master.
+>
+> Only call drm_drop_master if dev->master exists.  Also, make sure the
+> original calling requirement is maintained (dev->master ==
+> file_priv->master).
+>
+> This fixes a static analysis issue.
+>
+> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> ---
+>   drivers/gpu/drm/drm_auth.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_auth.c b/drivers/gpu/drm/drm_auth.c
+> index e17bb0f1f9e0..e5013b870ba0 100644
+> --- a/drivers/gpu/drm/drm_auth.c
+> +++ b/drivers/gpu/drm/drm_auth.c
+> @@ -347,7 +347,7 @@ void drm_master_release(struct drm_file *file_priv)
+>   	if (!drm_is_current_master_locked(file_priv))
+>   		goto out;
+>   
+> -	if (dev->master == file_priv->master)
+> +	if (dev->master && dev->master == file_priv->master)
+>   		drm_drop_master(dev, file_priv);
+>   out:
+>   	if (drm_core_check_feature(dev, DRIVER_MODESET) && file_priv->is_master) {
+Reviewed-by: Maciej Patelczyk <maciej.patelczyk@intel.com>
