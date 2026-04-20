@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EC9CF588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:24:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6543F588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C1010E60B;
-	Mon, 20 Apr 2026 13:24:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3276910E608;
+	Mon, 20 Apr 2026 13:24:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o0k7Eqpm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VyXqcnNC";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF4F110E5FC;
- Mon, 20 Apr 2026 13:24:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66B5110E604;
+ Mon, 20 Apr 2026 13:24:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 950524097A;
- Mon, 20 Apr 2026 13:24:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B2AC2BCB6;
- Mon, 20 Apr 2026 13:24:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2BE8B4380F;
+ Mon, 20 Apr 2026 13:24:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D7DC19425;
+ Mon, 20 Apr 2026 13:24:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691442;
- bh=GJALDK3NgxUrEXYG6meOs/y9B/fAwbD5dYUuAZTMqDw=;
+ s=k20201202; t=1776691472;
+ bh=DPtaWdyhUp8H1tWTXq5W9Jp5ki8Hc4CFyVzacyf3Vjw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=o0k7Eqpm/HEH59Q9CSgRHe2ogRw5VUTsKJWgmUWXqKKBYVAI0H2Q0fwfztCnc9qJj
- vLQKf1Ib1HXsIYnpM1gX8+yfKnPUNXKJPX6/f/GAYmBQXxeECE2pEctPUEcduWModZ
- 8g82ztfClfoxhQH+gbrDjSPLwf1m6z2oqXv8XPxO9cy00ly2qRSWneacKupZG3Nibq
- Td7qj/ICse+qIxOzzBr979yrrY2+8ZUevsqxMelatG0Z6Re6LyM2TozVhyG1B52hLM
- 6yoNGQs1rS/RvpKY53fbsaoO9LH0PHLPYzpftaZ84IaB4MaR9fj2okedGkW5QCbT6V
- Jh0FUvEEL2U5g==
+ b=VyXqcnNCBCo86IRtIH72mspN4kaeOXGQdi8n0fV5Zl6BS9diZ9wx3YSXy6pKwiGNo
+ 5ava8KqjyTyVEXY1fpy92Ft/3SOC4GnqDxnLl/0H3pqUs5AVsOy+irasYt7TnV7OMw
+ c8lC4L2Ckb2q0eWPDVFHTSzfgsyKlUlHeZpke9FDdtycEGW+PKQbHjlRsj3/APAnmO
+ ZV4c+F8tl6uwJbXoaYvjpvA1nX/W+uBoF4N7ZQ0D0wJpLxH6YV4QD/w46dUeqw9haZ
+ 1iGnMOt1u/vw/RG/xfN7ufI7JNBwMh+1Xh7CbkZ9EC34mzSiWQjbgcUEFTGmYO4tdC
+ up0LCX6joFvxQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Chuanyu Tseng <chuanyu.tseng@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: unlock cancel_delayed_work_sync
- for hang_detect_work
-Date: Mon, 20 Apr 2026 09:17:04 -0400
-Message-ID: <20260420132314.1023554-30-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.1] drm/amd/display: Merge pipes for validate
+Date: Mon, 20 Apr 2026 09:17:23 -0400
+Message-ID: <20260420132314.1023554-49-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,437 +67,363 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunil Khatri <sunil.khatri@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-[ Upstream commit f802f7b0bc0917023f4b5938246fd7abf23fa5e3 ]
+[ Upstream commit 606f6b171326152ef08d0ef0ad49f52034edca07 ]
 
-cancel_delayed_work_sync for work hand_detect_work should not be
-locked since the amdgpu_userq_hang_detect_work also need the same
-mutex and when they run together it could be a deadlock.
+Validation expects to operate on non-split pipes. This is
+seen in dcn20_fast_validate_bw, which merges pipes for
+validation. We weren't doing that in the non-fast path
+which lead to validation failures when operating with
+4-to-1 MPC and a writeback connector.
 
-we do not need to hold the mutex for
-cancel_delayed_work_sync(&queue->hang_detect_work). With this in place
-if cancel and worker thread run at same time they will not deadlock.
+Co-developed by Claude Sonnet 4.5
 
-Due to any failures if there is a hand detect and reset that there a
-deadlock scenarios between cancel and running the main thread.
-
-[ 243.118276] task:kworker/9:0 state:D stack:0 pid:73 tgid:73 ppid:2 task_flags:0x4208060 flags:0x00080000
-[ 243.118283] Workqueue: events amdgpu_userq_hang_detect_work [amdgpu]
-[ 243.118636] Call Trace:
-[ 243.118639] <TASK>
-[ 243.118644] __schedule+0x581/0x1810
-[ 243.118649] ? srso_return_thunk+0x5/0x5f
-[ 243.118656] ? srso_return_thunk+0x5/0x5f
-[ 243.118659] ? wake_up_process+0x15/0x20
-[ 243.118665] schedule+0x64/0xe0
-[ 243.118668] schedule_preempt_disabled+0x15/0x30
-[ 243.118671] __mutex_lock+0x346/0x950
-[ 243.118677] __mutex_lock_slowpath+0x13/0x20
-[ 243.118681] mutex_lock+0x2c/0x40
-[ 243.118684] amdgpu_userq_hang_detect_work+0x63/0x90 [amdgpu]
-[ 243.118888] process_scheduled_works+0x1f0/0x450
-[ 243.118894] worker_thread+0x27f/0x370
-[ 243.118899] kthread+0x1ed/0x210
-[ 243.118903] ? __pfx_worker_thread+0x10/0x10
-[ 243.118906] ? srso_return_thunk+0x5/0x5f
-[ 243.118909] ? __pfx_kthread+0x10/0x10
-[ 243.118913] ret_from_fork+0x10f/0x1b0
-[ 243.118916] ? __pfx_kthread+0x10/0x10
-[ 243.118920] ret_from_fork_asm+0x1a/0x30
-
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Assisted-by: Claude:claude-sonnet-4.5
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have the full picture. Here is my complete analysis.
+Now I have all the information needed for a complete analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: PARSE THE SUBJECT LINE
-Record: [drm/amdgpu/userq] [unlock/fix] Move `cancel_delayed_work_sync`
-for `hang_detect_work` outside the mutex to prevent a deadlock.
+### Step 1.1: Subject Line
+- **Subsystem**: `drm/amd/display` (AMD display driver, DCN30
+  specifically)
+- **Action verb**: "Merge" (in the sense of merging split pipes before
+  validation)
+- **Summary**: Adds pipe merge step before validation in dcn30 non-fast
+  path, matching the fast path behavior.
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-- **Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>** - author,
-  regular AMD GPU contributor
-- **Reviewed-by: Christian Konig <christian.koenig@amd.com>** - key
-  DRM/AMDGPU maintainer/reviewer
-- **Signed-off-by: Alex Deucher <alexander.deucher@amd.com>** - AMDGPU
-  subsystem maintainer who committed it
-- No Fixes: tag (expected for candidates under review)
-- No Cc: stable (expected)
-- No Reported-by tag, but includes a stack trace showing the actual
-  deadlock
+Record: [drm/amd/display] [merge/fix] [Add missing pipe merge call
+before validation to match fast-validate path]
 
-Record: Reviewed by Christian Konig (senior AMDGPU developer), committed
-by Alex Deucher (subsystem maintainer). Stack trace provided.
+### Step 1.2: Tags
+- **Fixes:** NONE (expected for autosel candidate)
+- **Cc: stable:** NONE (expected for autosel candidate)
+- **Co-developed by Claude Sonnet 4.5** - AI-assisted development
+- **Assisted-by:** Claude:claude-sonnet-4.5
+- **Reviewed-by:** Nicholas Kazlauskas (AMD display engineer)
+- **Signed-off-by:** Harry Wentland (AMD display developer), Chuanyu
+  Tseng, Alex Deucher (AMD DRM maintainer)
+- **Reported-by:** NONE
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-The commit describes a classic AB-BA deadlock:
-- `amdgpu_userq_destroy()` holds `userq_mutex` and calls
-  `cancel_delayed_work_sync(&queue->hang_detect_work)`
-- `amdgpu_userq_hang_detect_work()` tries to acquire `userq_mutex`
-- When both run concurrently, deadlock occurs: destroy waits for work to
-  finish, work waits for mutex
+Record: No Fixes tag, no Cc stable, no Reported-by. Reviewed by AMD
+display expert. Signed by AMD DRM maintainer. No user bug reports.
 
-The commit includes a full kernel stack trace showing the deadlock in
-action (task stuck in `D` state waiting on `__mutex_lock` inside the
-workqueue worker for `amdgpu_userq_hang_detect_work`).
+### Step 1.3: Commit Body Text
+The commit says: "Validation expects to operate on non-split pipes. This
+is seen in dcn20_fast_validate_bw, which merges pipes for validation. We
+weren't doing that in the non-fast path which lead to validation
+failures when operating with 4-to-1 MPC and a writeback connector."
 
-Record: Classic deadlock. Symptom is system hang (task in D state).
-Triggered when queue destruction races with pending hang detection work.
+Bug: `dcn30_internal_validate_bw` passes split pipe configurations to
+DML validation, but DML expects merged (non-split) pipes.
+Symptom: Validation failures with 4-to-1 MPC split + writeback
+connector.
+Root cause: Missing `dcn20_merge_pipes_for_validate()` call that
+dcn20_fast_validate_bw already has.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-This is explicitly a deadlock fix, not disguised at all. The title says
-"unlock" and the body describes the deadlock mechanism clearly.
+Record: [Validation expects non-split pipes; DCN30 non-fast path missed
+merge call] [Validation failures with 4-to-1 MPC + writeback] [No
+version info] [Same pattern as dcn20/dcn21 fast-validate]
 
-Record: Not hidden. Explicit deadlock fix.
+### Step 1.4: Hidden Bug Fix Detection
+This is NOT hidden - it clearly describes a validation failure bug and
+the fix.
 
-## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+Record: [Explicit bug fix - validation failures on specific
+configuration]
 
-### Step 2.1: INVENTORY THE CHANGES
-- **File**: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
-- **Function modified**: `amdgpu_userq_destroy()`
-- **Lines added**: ~4 (cancel + NULL assignment moved)
-- **Lines removed**: ~4 (old placement removed)
-- **Scope**: Single-file, single-function surgical fix
+## PHASE 2: DIFF ANALYSIS
 
-Record: 1 file, 1 function, net change ~0 lines (code reorganization).
-Surgical fix.
+### Step 2.1: Inventory
+- **Files**: 1 file (`dcn30_resource.c`), +2 lines added (function call
+  + blank line)
+- **Functions modified**: `dcn30_internal_validate_bw`
+- **Scope**: Single-file, single-line surgical fix
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-**Before**: `cancel_delayed_work_sync(&queue->hang_detect_work)` was
-called INSIDE `mutex_lock(&uq_mgr->userq_mutex)`, conditionally (only if
-`hang_detect_fence` is set).
+Record: [1 file, +2 lines] [dcn30_internal_validate_bw] [Single-line
+surgical fix]
 
-**After**: `cancel_delayed_work_sync(&queue->hang_detect_work)` is
-called BEFORE `mutex_lock(&uq_mgr->userq_mutex)`, unconditionally. Then
-`queue->hang_detect_fence = NULL` is set after acquiring the mutex.
+### Step 2.2: Code Flow Change
+- **Before**: `dcn30_internal_validate_bw` immediately proceeds to set
+  DML parameters and populate DML pipes without merging previously-split
+  pipes.
+- **After**: Before setting DML parameters, it calls
+  `dcn20_merge_pipes_for_validate(dc, context)` to merge ODM-split and
+  MPC-split pipes back into their head pipes, matching what
+  `dcn20_fast_validate_bw` does.
 
-Record: cancel_delayed_work_sync moved outside mutex scope; conditional
-removed (cancel is safe to call unconditionally).
+The merge function (already existing in dcn20_resource.c, lines
+1792-1849):
+1. Merges ODM-split pipes by unlinking the chain
+2. Merges MPC-split pipes by removing bottom_pipe entries
+3. Both needed "since mode support needs to make the decision"
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-**Category**: Deadlock (ABBA lock ordering)
+Record: [Before: validate with split pipes (wrong)] [After: merge pipes
+first, then validate (correct, matching dcn20/dcn21)]
 
-The deadlock path:
-1. Thread A (destroy path): `mutex_lock(&uq_mgr->userq_mutex)` ->
-   `cancel_delayed_work_sync(&queue->hang_detect_work)` [waits for work
-   to finish]
-2. Thread B (worker): `amdgpu_userq_hang_detect_work()` ->
-   `mutex_lock(&uq_mgr->userq_mutex)` [waits for mutex]
+### Step 2.3: Bug Mechanism
+This is a **logic/correctness fix**. The DML validation expects a single
+non-split pipe view and makes its own split decisions. When pipes are
+already split from a previous configuration, the validation gets
+confused about pipe counts and resources, leading to false validation
+failures.
 
-Thread A holds the mutex and waits for the work to complete. The work
-holds the CPU and waits for the mutex. Classic deadlock.
+Record: [Logic correctness bug] [DML fed split pipes when it expects
+non-split pipes; fixes false validation failures]
 
-Record: ABBA deadlock between userq_mutex and cancel_delayed_work_sync.
+### Step 2.4: Fix Quality
+- **Obviously correct**: YES - directly matches the established pattern
+  in `dcn20_fast_validate_bw` (line 2057) and dcn21's validate function
+  (line 812)
+- **Minimal/surgical**: YES - 1 line of actual code
+- **Regression risk**: Extremely low - calling existing, well-tested
+  function at the correct location
+- **Red flags**: None
 
-### Step 2.4: ASSESS THE FIX QUALITY
-- **Obviously correct**: Yes. Moving `cancel_delayed_work_sync` outside
-  the mutex breaks the deadlock cycle. `cancel_delayed_work_sync` is
-  documented as safe to call on uninitialized or never-scheduled work
-  items.
-- **Minimal/surgical**: Yes. Only reorders existing operations in one
-  function.
-- **Regression risk**: Very low. Removing the conditional `if
-  (queue->hang_detect_fence)` check is safe because
-  `cancel_delayed_work_sync` on a work that hasn't been scheduled is a
-  no-op. Setting `hang_detect_fence = NULL` after the mutex is acquired
-  is still correct as it's protecting the shared state.
+Record: [Obviously correct, matches established pattern] [No regression
+risk from the fix itself]
 
-Record: Obviously correct, minimal, very low regression risk.
+## PHASE 3: GIT HISTORY
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+### Step 3.1: Blame
+- `dcn30_internal_validate_bw` was introduced by `5dba4991fd338d`
+  (2020-05-21, "drm/amd/display: Add DCN3 Resource")
+- The merge logic was available via `dcn20_merge_pipes_for_validate`
+  since `ea817dd5ad7950` (2020-09-18, "drm/amd/display: add dcn21 bw
+  validation")
+- The bug has existed since DCN3 was first added (v5.9)
+- `dcn20_resource.h` is already included by dcn30_resource.c (line 34)
 
-### Step 3.1: BLAME THE CHANGED LINES
-The buggy code was introduced by commit `fc3336be9c629` (Jesse.Zhang,
-2026-01-13) which first appeared in v7.0-rc1. This commit added the
-`hang_detect_work` mechanism and placed the `cancel_delayed_work_sync`
-call inside the mutex lock in `amdgpu_userq_destroy`.
+Record: [Buggy code from 5dba4991fd338d, introduced in v5.9] [Bug
+present in all stable trees with DCN3 support]
 
-Record: Buggy code introduced in fc3336be9c629, first present in
-v7.0-rc1.
+### Step 3.2: Fixes Tag
+No Fixes: tag present. The bug was introduced when DCN3 resource was
+added without the merge call.
 
-### Step 3.2: FOLLOW THE FIXES TAG
-No Fixes: tag present. However, the implicit Fixes target is
-`fc3336be9c629` which added the hang_detect_work feature with the
-deadlock bug.
+### Step 3.3: Related Changes
+- Commit `269c1d1443d668` (2025-05-14) changed `fast_validate` to `enum
+  dc_validate_mode` - affects function signature but NOT the insertion
+  point
+- Commit `71c4ca2d3b079d` (2023-02-01) added `allow_self_refresh_only`
+  parameter
 
-Record: Implicitly fixes fc3336be9c629 (v7.0-rc1).
+Record: [Standalone fix, no prerequisites] [May need minor context
+adjustment for older stable trees]
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-The file has been heavily modified. Notable: commit `65b5c326ce410`
-(refcount userqueues, 2026-03-02) also touches `amdgpu_userq_destroy()`
-but did NOT fix this deadlock. That refcount commit has `Cc:
-stable@vger.kernel.org`.
+### Step 3.4: Author
+Harry Wentland is a well-known AMD display developer and regular
+contributor. Alex Deucher is the AMD DRM maintainer.
 
-Record: The refcount commit (already marked for stable) still has this
-deadlock. The fix is standalone.
+Record: [Authored by established AMD display developer, signed off by
+subsystem maintainer]
 
-### Step 3.4: CHECK THE AUTHOR
-Sunil Khatri is a regular AMD GPU driver contributor with 10+ commits in
-this subsystem. The fix was reviewed by Christian Konig, a key AMDGPU
-maintainer.
+### Step 3.5: Dependencies
+The commit calls `dcn20_merge_pipes_for_validate()` which has existed
+since v5.10+. The function is declared in `dcn20_resource.h` which is
+already included. No new dependencies.
 
-Record: Experienced contributor; reviewed by subsystem expert.
+Record: [No dependencies, function already exists and is accessible]
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-The fix applies to the code as it exists in v7.0 (post-fc3336be9c629).
-The refcount rework (`65b5c326ce410`) changed the function signature but
-did not change the deadlock pattern. The fix needs to be checked for
-whether it applies to the pre- or post-refcount version of the code. In
-v7.0, the code has the old (non-refcount) signature. The fix targets the
-post-refcount version (based on the diff showing
-`amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct
-amdgpu_usermode_queue *queue)` instead of `amdgpu_userq_destroy(struct
-drm_file *filp, int queue_id)`).
+## PHASE 4: MAILING LIST RESEARCH
 
-Record: The fix targets the post-refcount version. For v7.0.y, the
-refcount commit (`65b5c326ce410`) would need to be applied first (it's
-already marked Cc: stable).
+I was unable to find the original patch submission on lore.kernel.org
+due to anti-bot protections. Web searches found related AMD display work
+by the same authors but not this specific patch.
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1-4.5
-b4 dig could not find the specific commit because it hasn't been
-committed to mainline yet (it's a candidate). The refcount commit series
-was found on lore. Web search for the deadlock fix patch was blocked by
-Anubis bot protection on lore.kernel.org.
-
-Record: Lore investigation limited by anti-scraping measures. Based on
-code analysis alone, the deadlock is verified.
+Record: [UNVERIFIED - could not find original lore discussion] [No
+stable-specific discussion found]
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: KEY FUNCTIONS
-- `amdgpu_userq_destroy()` - the function being fixed
-- `amdgpu_userq_hang_detect_work()` - the work handler that creates the
-  deadlock
+### Step 5.1: Functions Modified
+Only `dcn30_internal_validate_bw` is modified.
 
-### Step 5.2: TRACE CALLERS
-`amdgpu_userq_destroy()` is called from `amdgpu_userq_kref_destroy()`
-(line 680), which is the kref release callback. This is triggered via
-`amdgpu_userq_put()` (line 701), called when the last reference to a
-userqueue is dropped. This happens during:
-- Queue destruction IOCTL (user-initiated)
-- fini path (cleanup on file descriptor close)
+### Step 5.2: Callers
+`dcn30_internal_validate_bw` is called from:
+1. `dcn30_validate_bandwidth` (dcn30_resource.c:2091) - main validation
+   entry point for DCN3.0
+2. `dcn31_validate_bandwidth` (dcn31_resource.c:1812) - DCN3.1
+3. `dcn314_validate_bandwidth` (dcn314_resource.c:1751) - DCN3.14
+4. `dcn30_fpu.c` (lines 342, 634) - called in loops for dummy pstate and
+   watermark calculations
 
-Record: Called during normal queue teardown - common user-triggered
-operation.
+This means the fix affects ALL DCN 3.x generations.
 
-### Step 5.3-5.4: CALL CHAIN
-User -> IOCTL -> `amdgpu_userq_put()` -> `kref_put()` ->
-`amdgpu_userq_kref_destroy()` -> `amdgpu_userq_destroy()` [holds mutex]
--> `cancel_delayed_work_sync()` [deadlocks if work is running].
+### Step 5.3-5.4: Call Chain
+Display mode validation → `dcn30_validate_bandwidth` →
+`dcn30_internal_validate_bw` → DML validation
+This is triggered during every mode set/display configuration change.
 
-The hang detect work is scheduled during normal fence operations via
-`amdgpu_userq_start_hang_detect_work()`, called from
-`amdgpu_userq_fence.c`.
+Record: [Called during every mode set on DCN 3.0/3.1/3.14 hardware]
+[Affects RDNA 2 GPUs (RX 6000), Rembrandt APUs, Phoenix APUs]
 
-Record: Both paths are reachable from normal userspace operations. The
-race window is between submitting GPU work (which schedules hang
-detection) and destroying a queue.
+### Step 5.5: Similar Patterns
+Confirmed: `dcn20_fast_validate_bw` at line 2057 and dcn21's validate
+function at line 812 both already call `dcn20_merge_pipes_for_validate`
+in the exact same position.
 
-### Step 5.5: SIMILAR PATTERNS
-The `cancel_delayed_work_sync(&uq_mgr->resume_work)` calls throughout
-the file are already placed OUTSIDE the mutex (e.g., lines 632, 1391,
-1447, etc.), demonstrating the correct pattern. The `hang_detect_work`
-cancellation was the only instance that violated this pattern.
+## PHASE 6: STABLE TREE ANALYSIS
 
-Record: All other cancel_delayed_work_sync calls in this file follow the
-correct pattern (outside mutex).
+### Step 6.1: Buggy Code in Stable Trees
+DCN3 support (and `dcn30_internal_validate_bw`) has been present since
+v5.9. All active stable trees (6.1.y, 6.6.y, 6.12.y) contain this code.
 
-## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+### Step 6.2: Backport Complications
+The function signature changed over time:
+- v6.1/v6.6: has `bool fast_validate` parameter
+- v6.12+: has `enum dc_validate_mode validate_mode`
+- The insertion point (after `if (!pipes) return false;`, before
+  `maxMpcComb = 0`) is stable across versions
+- Minor context adjustment may be needed for older trees
 
-### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
-- **v6.19.y**: `hang_detect_work` does NOT exist. The file exists but
-  the feature was not added until v7.0-rc1.
-- **v7.0.y**: The bug EXISTS. The `hang_detect_work` was introduced in
-  v7.0-rc1 by `fc3336be9c629`.
-- No earlier stable trees (6.12.y, 6.6.y, etc.) are affected.
+Record: [Likely clean apply or trivial conflict on most stable trees]
 
-Record: Bug exists ONLY in 7.0.y.
+### Step 6.3: Related Fixes Already in Stable
+No related fixes found for the same issue.
 
-### Step 6.2: BACKPORT COMPLICATIONS
-The fix's diff shows the post-refcount function signature
-(`amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct
-amdgpu_usermode_queue *queue)`). The v7.0 release has the OLD signature.
-The refcount commit (`65b5c326ce410`) is already marked `Cc: stable` and
-must be applied first for this fix to apply cleanly.
+## PHASE 7: SUBSYSTEM CONTEXT
 
-Record: Needs refcount commit as prerequisite. Minor conflicts possible
-if refcount is not applied.
+### Step 7.1: Subsystem Criticality
+- **Subsystem**: drm/amd/display - display driver for AMD GPUs
+- **Criticality**: IMPORTANT - AMD RDNA 2/3 GPUs are among the most
+  widely deployed discrete GPUs
+- DCN3.0 covers RX 6000 series, DCN3.1 covers Ryzen 6000 mobile APUs
 
-### Step 6.3: RELATED FIXES ALREADY IN STABLE
-No related fix for this specific deadlock has been found.
-
-Record: No alternative fix exists.
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: SUBSYSTEM AND CRITICALITY
-- **Subsystem**: DRM/AMDGPU (GPU drivers)
-- **Criticality**: IMPORTANT - AMD GPUs are widely used in desktops,
-  laptops, and workstations. Userqueues are a new feature in 7.0 for
-  user-mode GPU scheduling.
-
-Record: IMPORTANT subsystem. Affects AMD GPU users with userqueue-
-enabled hardware.
-
-### Step 7.2: SUBSYSTEM ACTIVITY
-The file has 59 commits between v6.19 and v7.0 - extremely active
-development. Userqueue support is new infrastructure being actively
-developed.
-
-Record: Very active subsystem. New feature code.
+### Step 7.2: Subsystem Activity
+Very active subsystem with frequent changes.
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: WHO IS AFFECTED
-Users with AMD GPUs that use the new userqueue feature
-(AMDGPU_CAP_USERQ). This is new GPU scheduling infrastructure.
+### Step 8.1: Affected Users
+Users with AMD RDNA 2+ hardware (RX 6000 series, Ryzen 6000+ APUs) who
+use display configurations triggering 4-to-1 MPC split with writeback.
+This is driver-specific but on very popular hardware.
 
-Record: AMD GPU users with userqueue support enabled.
+### Step 8.2: Trigger Conditions
+- Requires 4-to-1 MPC pipe split (high resolution/bandwidth scenarios)
+- Plus writeback connector active (screen capture, virtual display)
+- Not a common everyday trigger, but can occur with specific display
+  configurations
 
-### Step 8.2: TRIGGER CONDITIONS
-The deadlock is triggered when:
-1. A delayed `hang_detect_work` is pending (scheduled after a fence
-   submission)
-2. The user destroys the queue (via IOCTL or process exit)
-3. The work fires and tries to acquire the mutex at the same time
+### Step 8.3: Failure Mode
+Validation failure → mode set fails → display configuration rejected
+Severity: MEDIUM-HIGH (can cause display output failure)
 
-This is a realistic race window, especially during error scenarios (the
-hang detection work has a timeout-based delay).
-
-Record: Triggered during queue destruction with pending hang detection.
-Realistic race window.
-
-### Step 8.3: FAILURE MODE SEVERITY
-**CRITICAL**: System deadlock. Tasks enter D state (uninterruptible
-sleep) and cannot be killed. The stack trace in the commit message
-confirms this - the system hangs.
-
-Record: System deadlock/hang. Severity: CRITICAL.
-
-### Step 8.4: RISK-BENEFIT RATIO
-- **Benefit**: Prevents a deadlock that hangs the system. HIGH benefit.
-- **Risk**: Minimal. Reordering a cancel_delayed_work_sync before a
-  mutex_lock is obviously correct. The pattern matches all other similar
-  calls in the same file. VERY LOW risk.
-
-Record: Benefit HIGH, Risk VERY LOW. Strongly favorable ratio.
+### Step 8.4: Risk-Benefit Ratio
+- **Benefit**: Prevents display validation failures on widely deployed
+  hardware
+- **Risk**: Extremely low (1-line change, calling existing well-tested
+  function)
+- **Ratio**: Strongly favorable for backporting
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: COMPILE THE EVIDENCE
+### Step 9.1: Evidence Summary
 
-**Evidence FOR backporting:**
-- Fixes a real, reproducible deadlock (stack trace provided)
-- Deadlock leads to system hang (CRITICAL severity)
-- Small, surgical fix (reordering ~4 lines in one function)
-- Obviously correct (matches the pattern used everywhere else in the
-  file)
-- Reviewed by Christian Konig (key AMDGPU maintainer)
-- Committed by Alex Deucher (subsystem maintainer)
-- The bug exists in v7.0 release
+**FOR backporting:**
+- Fixes a real validation failure bug (display config rejection)
+- Extremely surgical: 1 line of actual code
+- Matches established pattern in dcn20/dcn21 (proven correct)
+- Zero regression risk
+- Affects widely deployed hardware (AMD RDNA 2+)
+- Affects multiple DCN generations (3.0, 3.1, 3.14 all call this
+  function)
+- Bug has existed since v5.9 (long-standing)
+- Reviewed by AMD display expert (Nicholas Kazlauskas)
+- Signed off by AMD DRM maintainer (Alex Deucher)
+- Function already exists and is included via header
 
-**Evidence AGAINST backporting:**
-- No Fixes: tag (expected, not a negative signal)
-- The feature (`hang_detect_work`) is new in v7.0, so only affects 7.0.y
-  stable
-- May require the refcount prerequisite commit (`65b5c326ce410`, already
-  Cc: stable) to apply cleanly
+**AGAINST backporting:**
+- Specific trigger condition (4-to-1 MPC + writeback)
+- No Fixes: tag, no Cc: stable (expected)
+- No user bug reports (Reported-by)
+- Writeback connector usage is relatively niche
+- Co-developed with AI (unusual, though reviewed by expert)
 
-**UNRESOLVED:**
-- Could not verify if the exact commit SHA exists in mainline (the fix
-  may be pending in a subsystem tree)
-- Mailing list discussion not accessible due to lore anti-scraping
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **YES** - matches exact pattern in
+   dcn20/dcn21
+2. Fixes a real bug? **YES** - validation failures with specific
+   configuration
+3. Important issue? **MEDIUM** - display config rejection, not
+   crash/security
+4. Small and contained? **YES** - 1 line in 1 file
+5. No new features or APIs? **YES** - just calls existing function
+6. Can apply to stable? **YES** - insertion point is stable across
+   versions
 
-### Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. **Obviously correct and tested?** YES - stack trace demonstrates the
-   bug, fix is logically obvious
-2. **Fixes a real bug?** YES - deadlock
-3. **Important issue?** YES - system deadlock/hang (CRITICAL)
-4. **Small and contained?** YES - ~8 line change in one function
-5. **No new features or APIs?** YES - just reorders existing code
-6. **Can apply to stable trees?** YES (7.0.y), with refcount commit
-   prerequisite
+### Step 9.3: Exception Categories
+Not an exception category - this is a standard bug fix.
 
-### Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Not an exception category - this is a standard bug fix (deadlock).
-
-### Step 9.4: MAKE YOUR DECISION
-This is a clear deadlock fix for code in v7.0. The fix is small,
-obviously correct, reviewed by the right people, and prevents a system
-hang. It meets all stable kernel criteria.
+### Step 9.4: Decision
+The fix is extremely low risk (single function call, well-established
+pattern) and prevents real validation failures on popular AMD hardware.
+While the specific trigger (4-to-1 MPC + writeback) is not common in
+everyday use, the fix has virtually zero regression potential and
+corrects a clear inconsistency between the DCN20/21 and DCN30 validation
+paths.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Christian Konig, Signed-off-by Alex
-  Deucher (subsystem maintainer). Stack trace in commit message.
-- [Phase 2] Diff analysis: ~8 lines changed in `amdgpu_userq_destroy()`,
-  moves `cancel_delayed_work_sync` before `mutex_lock`
-- [Phase 2] Verified `amdgpu_userq_hang_detect_work()` acquires
-  `uq_mgr->userq_mutex` at line 168
-- [Phase 2] Verified `amdgpu_userq_destroy()` acquires same mutex at
-  line 633, then calls `cancel_delayed_work_sync` at line 637 while
-  holding it
-- [Phase 3] git blame: buggy code introduced by `fc3336be9c629`
-  (Jesse.Zhang, 2026-01-13), first in v7.0-rc1
-- [Phase 3] `git tag --contains fc3336be9c629`: confirmed present in
-  v7.0-rc1 and v7.0
-- [Phase 3] Author Sunil Khatri has 10+ commits in amdgpu subsystem
-- [Phase 5] Verified all other `cancel_delayed_work_sync` calls in the
-  file are placed OUTSIDE the mutex (correct pattern)
-- [Phase 5] Traced call chain: IOCTL -> `amdgpu_userq_put()` ->
-  `kref_put()` -> `amdgpu_userq_kref_destroy()` ->
-  `amdgpu_userq_destroy()`
-- [Phase 6] Verified `hang_detect_work` does NOT exist in v6.19.12 (grep
-  returned 0 matches)
-- [Phase 6] Bug exists ONLY in v7.0.y
-- [Phase 6] Prerequisite: refcount commit `65b5c326ce410` (already Cc:
-  stable) may be needed for clean apply
-- UNVERIFIED: Could not access lore.kernel.org discussion due to anti-
-  scraping protection
-- UNVERIFIED: Could not confirm the mainline commit SHA (the fix is not
-  yet in this tree's git log)
+- [Phase 1] Parsed tags: Reviewed-by Nicholas Kazlauskas, SOBs from
+  Wentland/Tseng/Deucher, Co-developed by AI
+- [Phase 2] Diff analysis: +2 lines (1 function call + blank line) in
+  dcn30_internal_validate_bw
+- [Phase 2] Verified dcn20_fast_validate_bw at line 2057 already has
+  identical call
+- [Phase 2] Verified dcn21 validate function at line 812 already has
+  identical call
+- [Phase 3] git blame: dcn30_internal_validate_bw introduced in
+  5dba4991fd338d (2020-05-21, v5.9)
+- [Phase 3] git blame: dcn20_merge_pipes_for_validate introduced in
+  ea817dd5ad7950 (2020-09-18)
+- [Phase 3] Verified dcn30_resource.c includes dcn20/dcn20_resource.h at
+  line 34
+- [Phase 3] Verified function signature changes: validate_mode in
+  269c1d1443d66 (2025), allow_self_refresh_only in 71c4ca2d3b079d (2023)
+- [Phase 5] Confirmed callers: dcn30_validate_bandwidth, dcn31, dcn314,
+  dcn30_fpu.c (multiple call sites)
+- [Phase 5] Verified dcn20_merge_pipes_for_validate function body (lines
+  1792-1849): merges ODM and MPC splits
+- [Phase 6] Confirmed DCN3 present in stable trees since v5.9 (tag
+  contains check)
+- [Phase 6] maxMpcComb=0 line (context) confirmed present since v6.1
+  (4931ce22eca6ed)
+- UNVERIFIED: Could not access lore.kernel.org for mailing list
+  discussion due to anti-bot protections
+- UNVERIFIED: Could not find original patch submission via b4 dig or web
+  search
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index e8d12556d690a..ad39460b54dc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -630,13 +630,14 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	int r = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+index 87b7b4ee04c64..b00054ea18178 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn30/dcn30_resource.c
+@@ -1675,6 +1675,8 @@ noinline bool dcn30_internal_validate_bw(
+ 	if (!pipes)
+ 		return false;
  
- 	cancel_delayed_work_sync(&uq_mgr->resume_work);
++	dcn20_merge_pipes_for_validate(dc, context);
 +
-+	/* Cancel any pending hang detection work and cleanup */
-+	cancel_delayed_work_sync(&queue->hang_detect_work);
-+
- 	mutex_lock(&uq_mgr->userq_mutex);
-+	queue->hang_detect_fence = NULL;
- 	amdgpu_userq_wait_for_last_fence(queue);
--	/* Cancel any pending hang detection work and cleanup */
--	if (queue->hang_detect_fence) {
--		cancel_delayed_work_sync(&queue->hang_detect_work);
--		queue->hang_detect_fence = NULL;
--	}
-+
- 	r = amdgpu_bo_reserve(queue->db_obj.obj, true);
- 	if (!r) {
- 		amdgpu_bo_unpin(queue->db_obj.obj);
+ 	context->bw_ctx.dml.vba.maxMpcComb = 0;
+ 	context->bw_ctx.dml.vba.VoltageLevel = 0;
+ 	context->bw_ctx.dml.vba.DRAMClockChangeSupport[0][0] = dm_dram_clock_change_vactive;
 -- 
 2.53.0
 
