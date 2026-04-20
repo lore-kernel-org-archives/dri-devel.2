@@ -4,53 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A50EFF588E1
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:33:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACC69F588E1
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B63010E67E;
-	Mon, 20 Apr 2026 14:33:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D879310E69A;
+	Mon, 20 Apr 2026 14:40:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lvY87at9";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="ehYdEZXR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F18DD10E67E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 14:33:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B74D1444DD;
- Mon, 20 Apr 2026 14:33:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647AAC2BCB4;
- Mon, 20 Apr 2026 14:33:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776695625;
- bh=P28JjJyeQsLcizRVuelUNaPqYIj5AsoRGrZR1HPwgmA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lvY87at9iO7B7ik5tLUNmUlPeerAWH+F7UhIHsjnoqJWnlTg5mkGtPu+IBLq32Mtd
- DRY3YdzoH0ZhiT3wtG9shcI1zHKSSRLlVRcU4yLweYrdfC+NLDZIxjHoGVq0m2ha10
- SLRFcdhbbel3OPHDn0KyTktjXra95nYAUSFriWFXgHC8B/mBk7oES4d+wSpHm+Si4c
- YY6gr0oBWsCUtX+GWD2rMiHbcXMNTk69zrXefiakBYCgDCGbJjfsf90GP2z3vTzMm2
- wXZ4w+DkGzrC0luBd0wcU6EAQuthr8syEMxWZSNliXi22Z45g0T8QoikrxbWLqnKgj
- uyhHfjO7XC/ag==
-Date: Mon, 20 Apr 2026 09:33:43 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCC5D10E680
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 14:40:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=pGs/abDUFl+Xn8ohH5DgfcUY3QuLPfIW9B2LPcXATbw=; b=ehYdEZXRGArG1O+qe4e5vVUtg1
+ ClPETC8QRVHzsdYZcpli9GQIk5UB+sHlvknF8KXUndqod0WqbILKT2PczaDMtsBy3dieWSvMJgUGe
+ mVCc8YTbqxfO3xe8CgZ06FAptfAuvPZeBVRN8qP1LTXqK1d+cQHOBjD4oK1RjCOQcPHcZeBH+oh2S
+ eIfwdvvgk0PYtdUnJyJfaTEW6WBWIS12xYURlJZbXSWRqLcO3KCs9M57umy0UsnL0h5kTmaWUnJuF
+ LDBhrCsT8BLphpc2hk8or4hipZu0CKiNacyQ3WNrwX9Um4hyLDpVjrPjLBGQS8+kPc5htpryjkjqX
+ +LWIK5wg==;
+Received: from
+ 2001-1c00-8d85-4b00-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl
+ ([2001:1c00:8d85:4b00:266e:96ff:fe07:7dcc]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1wEpmy-00000008CqD-340i; Mon, 20 Apr 2026 14:39:52 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 20861301BDE; Mon, 20 Apr 2026 16:39:51 +0200 (CEST)
+Date: Mon, 20 Apr 2026 16:39:51 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Albert Esteve <aesteve@redhat.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, David Airlie <airlied@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- devicetree@vger.kernel.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
-Subject: Re: [PATCH v1 1/1 RESEND] dt-bindings: display: bridge: ssd2825:
- inherit dsi-controller properties
-Message-ID: <177669562148.2456487.17336642131288149446.robh@kernel.org>
-References: <20260417064657.20293-1-clamor95@gmail.com>
- <20260417064657.20293-2-clamor95@gmail.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
+ linux-doc@vger.kernel.org, Alessandro Carminati <acarmina@redhat.com>,
+ Guenter Roeck <linux@roeck-us.net>, Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH v7 1/5] bug/kunit: Core support for suppressing warning
+ backtraces
+Message-ID: <20260420143951.GJ3102624@noisy.programming.kicks-ass.net>
+References: <20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com>
+ <20260420-kunit_add_support-v7-1-e8bc6e0f70de@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260417064657.20293-2-clamor95@gmail.com>
+In-Reply-To: <20260420-kunit_add_support-v7-1-e8bc6e0f70de@redhat.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,17 +73,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On Fri, 17 Apr 2026 09:46:57 +0300, Svyatoslav Ryhel wrote:
-> SSD2825 being RGB-DSI bridge should inherit dsi-controller properties same
-> way other DSI controllers and DSI bridges do.
+On Mon, Apr 20, 2026 at 02:28:03PM +0200, Albert Esteve wrote:
+> From: Alessandro Carminati <acarmina@redhat.com>
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> ---
->  .../devicetree/bindings/display/bridge/solomon,ssd2825.yaml    | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Some unit tests intentionally trigger warning backtraces by passing bad
+> parameters to kernel API functions. Such unit tests typically check the
+> return value from such calls, not the existence of the warning backtrace.
 > 
+> Such intentionally generated warning backtraces are neither desirable
+> nor useful for a number of reasons:
+> - They can result in overlooked real problems.
+> - A warning that suddenly starts to show up in unit tests needs to be
+>   investigated and has to be marked to be ignored, for example by
+>   adjusting filter scripts. Such filters are ad hoc because there is
+>   no real standard format for warnings. On top of that, such filter
+>   scripts would require constant maintenance.
+> 
+> Solve the problem by providing a means to identify and suppress specific
+> warning backtraces while executing test code. Support suppressing multiple
+> backtraces while at the same time limiting changes to generic code to the
+> absolute minimum.
+> 
+> Implementation details:
+> Suppression is checked at two points in the warning path:
+> - In warn_slowpath_fmt(), the check runs before any output, fully
+>   suppressing both message and backtrace.
+> - In __report_bug(), the check runs before __warn() is called,
+>   suppressing the backtrace and stack dump. Note that on this path,
+>   the WARN() format message may still appear in the kernel log since
+>   __warn_printk() runs before the trap that enters __report_bug().
 
-Applied, thanks!
+This is for architectures that implement __WARN_FLAGS but not
+__WARN_printf right? (which is arm64, loongarch, parisc, powerpc, riscv,
+sh, afaict). ARM64 should eventually get __WARN_printf, but other than
+that this should be fixable by moving __WARN_FLAGS() into
+__warn_printk() or so. This is the only __warn_printk() user anyway.
 
+
+> diff --git a/include/kunit/bug.h b/include/kunit/bug.h
+> new file mode 100644
+> index 0000000000000..e52c9d21d9fe6
+> --- /dev/null
+> +++ b/include/kunit/bug.h
+> @@ -0,0 +1,56 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * KUnit helpers for backtrace suppression
+> + *
+> + * Copyright (C) 2025 Alessandro Carminati <acarmina@redhat.com>
+> + * Copyright (C) 2024 Guenter Roeck <linux@roeck-us.net>
+> + */
+> +
+> +#ifndef _KUNIT_BUG_H
+> +#define _KUNIT_BUG_H
+> +
+> +#ifndef __ASSEMBLY__
+> +
+> +#include <linux/kconfig.h>
+> +
+> +struct kunit;
+> +
+> +#ifdef CONFIG_KUNIT_SUPPRESS_BACKTRACE
+> +
+> +#include <linux/types.h>
+> +
+> +struct task_struct;
+> +
+> +struct __suppressed_warning {
+> +	struct list_head node;
+> +	struct task_struct *task;
+> +	int counter;
+> +};
+> +
+> +struct __suppressed_warning *
+> +__kunit_start_suppress_warning(struct kunit *test);
+> +void __kunit_end_suppress_warning(struct kunit *test,
+> +				  struct __suppressed_warning *warning);
+> +int __kunit_suppressed_warning_count(struct __suppressed_warning *warning);
+> +bool __kunit_is_suppressed_warning(void);
+> +
+> +#define KUNIT_START_SUPPRESSED_WARNING(test) \
+> +	struct __suppressed_warning *__kunit_suppress =	\
+> +		__kunit_start_suppress_warning(test)
+> +
+> +#define KUNIT_END_SUPPRESSED_WARNING(test) \
+> +	__kunit_end_suppress_warning(test, __kunit_suppress)
+
+We have __cleanup for this?
+
+> +
+> +#define KUNIT_SUPPRESSED_WARNING_COUNT() \
+> +	__kunit_suppressed_warning_count(__kunit_suppress)
+> +
+> +#else /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> +
+> +#define KUNIT_START_SUPPRESSED_WARNING(test)
+> +#define KUNIT_END_SUPPRESSED_WARNING(test)
+> +#define KUNIT_SUPPRESSED_WARNING_COUNT() 0
+> +static inline bool __kunit_is_suppressed_warning(void) { return false; }
+> +
+> +#endif /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> +#endif /* __ASSEMBLY__ */
+> +#endif /* _KUNIT_BUG_H */
+
+> diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
+> index 656f1fa35abcc..fe177ff3ebdef 100644
+> --- a/lib/kunit/Makefile
+> +++ b/lib/kunit/Makefile
+> @@ -16,8 +16,10 @@ ifeq ($(CONFIG_KUNIT_DEBUGFS),y)
+>  kunit-objs +=				debugfs.o
+>  endif
+>  
+> -# KUnit 'hooks' are built-in even when KUnit is built as a module.
+> -obj-$(if $(CONFIG_KUNIT),y) +=		hooks.o
+> +# KUnit 'hooks' and bug handling are built-in even when KUnit is built
+> +# as a module.
+> +obj-$(if $(CONFIG_KUNIT),y) +=		hooks.o \
+> +					bug.o
+>  
+>  obj-$(CONFIG_KUNIT_TEST) +=		kunit-test.o
+>  obj-$(CONFIG_KUNIT_TEST) +=		platform-test.o
+> diff --git a/lib/kunit/bug.c b/lib/kunit/bug.c
+> new file mode 100644
+> index 0000000000000..356c8a5928828
+> --- /dev/null
+> +++ b/lib/kunit/bug.c
+> @@ -0,0 +1,84 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * KUnit helpers for backtrace suppression
+> + *
+> + * Copyright (C) 2025 Alessandro Carminati <acarmina@redhat.com>
+> + * Copyright (C) 2024 Guenter Roeck <linux@roeck-us.net>
+> + */
+> +
+> +#include <kunit/bug.h>
+> +#include <kunit/resource.h>
+> +#include <linux/export.h>
+> +#include <linux/rculist.h>
+> +#include <linux/sched.h>
+> +
+> +#ifdef CONFIG_KUNIT_SUPPRESS_BACKTRACE
+> +
+> +static LIST_HEAD(suppressed_warnings);
+> +
+> +static void __kunit_suppress_warning_remove(struct __suppressed_warning *warning)
+> +{
+> +	list_del_rcu(&warning->node);
+> +	synchronize_rcu(); /* Wait for readers to finish */
+> +}
+> +
+> +KUNIT_DEFINE_ACTION_WRAPPER(__kunit_suppress_warning_cleanup,
+> +			    __kunit_suppress_warning_remove,
+> +			    struct __suppressed_warning *);
+> +
+> +struct __suppressed_warning *
+> +__kunit_start_suppress_warning(struct kunit *test)
+> +{
+> +	struct __suppressed_warning *warning;
+> +	int ret;
+> +
+> +	warning = kunit_kzalloc(test, sizeof(*warning), GFP_KERNEL);
+> +	if (!warning)
+> +		return NULL;
+> +
+> +	warning->task = current;
+> +	list_add_rcu(&warning->node, &suppressed_warnings);
+
+What if anything serializes this global list?
+
+> +
+> +	ret = kunit_add_action_or_reset(test,
+> +					__kunit_suppress_warning_cleanup,
+> +					warning);
+> +	if (ret)
+> +		return NULL;
+> +
+> +	return warning;
+> +}
+> +EXPORT_SYMBOL_GPL(__kunit_start_suppress_warning);
+> +
+> +void __kunit_end_suppress_warning(struct kunit *test,
+> +				  struct __suppressed_warning *warning)
+> +{
+> +	if (!warning)
+> +		return;
+> +	kunit_release_action(test, __kunit_suppress_warning_cleanup, warning);
+> +}
+> +EXPORT_SYMBOL_GPL(__kunit_end_suppress_warning);
+> +
+> +int __kunit_suppressed_warning_count(struct __suppressed_warning *warning)
+> +{
+> +	return warning ? warning->counter : 0;
+> +}
+> +EXPORT_SYMBOL_GPL(__kunit_suppressed_warning_count);
+> +
+> +bool __kunit_is_suppressed_warning(void)
+> +{
+> +	struct __suppressed_warning *warning;
+> +
+> +	rcu_read_lock();
+> +	list_for_each_entry_rcu(warning, &suppressed_warnings, node) {
+> +		if (warning->task == current) {
+> +			warning->counter++;
+> +			rcu_read_unlock();
+> +			return true;
+> +		}
+> +	}
+> +	rcu_read_unlock();
+> +
+> +	return false;
+> +}
+> +
+> +#endif /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> 
+> -- 
+> 2.52.0
+> 
