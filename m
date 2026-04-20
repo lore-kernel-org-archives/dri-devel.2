@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75427F327B5
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B080F327B2
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2FA10EB6D;
-	Tue, 21 Apr 2026 07:09:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16FE310EB86;
+	Tue, 21 Apr 2026 07:09:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="WTPjHrdi";
+	dkim=pass (2048-bit key; secure) header.d=interstellar.eu header.i=@interstellar.eu header.b="fGXYTsrm";
 	dkim-atps=neutral
-Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com
- [115.124.28.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04D6310E0DC
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 06:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1776665811; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
- bh=fz8ZCV6KPGHfcgLZir30aImQqrHMaqA6nm9Cs0iqeIw=;
- b=WTPjHrdi8fOcq+TsUy5m4XAwOxZVY4yjQqZ3RzBojVfv2DyETuzcEeMFRM2C4Yi+7XAHool11FWy7NM5dicw9UfX61mnBACZVOuGcz336Xyk5GyvyDs7G+YVYd3sckijSd2SEgRBKp+zCqrtgNe+iwlqZ7xP02TRYkzIVQzGhMNBVzD9h1D5ZMfqAkolZt1CyNh9BvHdMBswymWy1BRd6W+jcR+VerNntnQvtfclR/rw+FkdlrgOXO56437jqGL+T3aOM0TTB7cS2inPEcZomB46xry6QU8YgdZPtIrzJDOrVDDEKVhrvAWNyCNJbKtM2GAyPze1sdncfFMNTLSRBw==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.09271921|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.0545463-0.00504074-0.940413;
- FP=10089197397812664209|0|0|0|0|-1|-1|-1;
- HT=maildocker-contentspam033045220102; MF=syyang@lontium.com; NM=1; PH=DS;
- RN=19; RT=19; SR=0; TI=SMTPD_---.hFz0LvD_1776665808; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hFz0LvD_1776665808 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 20 Apr 2026 14:16:50 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
- Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v3 1/2] dt-bindings: bridge: This patch adds new content to
- the lontium, lt9611.yaml binding file
-Date: Mon, 20 Apr 2026 14:16:43 +0800
-Message-Id: <20260420061644.1251070-2-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260420061644.1251070-1-syyang@lontium.com>
-References: <20260420061644.1251070-1-syyang@lontium.com>
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF01010E6DD
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:10:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=interstellar.eu;
+ s=protonmail; t=1776701051; x=1776960251;
+ bh=EHD+jNGmtCIwewdl2slSqoZLTvzslQVmqjzLxGpvjH8=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=fGXYTsrmNcjgrAt9o9YXSIxZ3IEHaB82H7BSSoqNGns7HAbtkskRbOYlItfiWA6zD
+ fHxIuGcEZHhmaajLBAY5dhwuLePD2p/e2X7FPmJu1HhmcyPIngoirZNf4ruGiENa4y
+ biE60iqbRNxMzIzSyqLwcn9wgAN5y9r/o8R++np6RlVlhK/Gxz/9I2hDeHJOUatETZ
+ mFTeaDZOTpn5/pH6oddAgbDmnaOXq7nbM6KBlLwu3dvkOa24iTJFPdRgm4UryYXTiZ
+ T1ZMnRf4kf6gWlqcaG+hRVmYZsQEPOaB9rCroSawwIbd+ALjWGezrOUhr/Wpnd2z7R
+ 8ropNTyJGLixg==
+Date: Mon, 20 Apr 2026 16:04:02 +0000
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>
+From: Francesco Orro <ncesco@interstellar.eu>
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: DP routing from iGPU to discrete Barlow Ridge TB5 on HP ZBook Fury G1i
+Message-ID: <pCmilDgt3Xijjdzu7H1d30dzm8IJbXFnle3yQ5nSR1Pj-snchn5xNpcq9Gb7hlh5bnsA3Efnm9cOR_VKi9RyxcRJxHlrqTW7WRPG36UgY5Q=@interstellar.eu>
+Feedback-ID: 1431670:user:proton
+X-Pm-Message-ID: a6fec4719cc597c7f6e7f78b765ddbf4c1ff23ad
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,69 +57,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
+Hi,
 
-Add lt9611c,lt9611ex,lt9611uxd to the lontium,lt9611.yaml file.
-LT9611C(EX/UXD) is a high performance Single/Dual-Port MIPI to
-HDMI 1.4/2.0 converter:
+Setup:
+  HP ZBook Fury G1i 16 inch, BIOS X96 01.03.04
+  Intel Arrow Lake-HX + Nvidia RTX PRO 1000 Blackwell (hybrid graphics)
+  Kernel 6.19.13
 
--Single/Dual-port MIPI DSI Receiver
- 1. Compliantwith D-PHY1.2&DSI-2 1.0
- 2. 1/2configurable ports
- 3. 1 clock lane and 1/2/3/4 configurable data lanes per port
- 4. 80Mbps~2.5Gbps per data lane
- 5. Support RGB666, loosely RGB666, RGB888, RGB565,16-bit YCbCr4:2:2
+The laptop exposes Thunderbolt 5 on both the integrated MTL iTBT (right
+USB-C, domain0, 00:0d.2) and a discrete Intel Barlow Ridge (left USB-C,
+domain1, 00:06.1 -> 05:00.0).
 
--HDMI 1.4/2.0 Transmitter
- 1.Data rate up to 6Gbps
- 2.Support HDCP1.4/2.3
- 3.Support CEC,HDR10
- 4.Support lane swap
+- Right port: i915 drives a DP tunnel over the iTBT host without issues.
+- Left port: no i915 connector ever sees the external monitor. The TB
+  driver allocates a DP tunnel on demand but DPRX reads time out, no DP
+  source is feeding the Barlow DP_IN adapter.
+- With nvidia-drm.modeset=3D1, a DP-MST connector on the Nvidia DRM device
+  sees the monitor via the left port (EDID readable, modes negotiated).
+  The path Nvidia -> Barlow DP_IN is functional.
 
--audio
- 1.sample rates of 32~192 KHz and sample sizes
-   of 16~24 bits
- 2.SPDIF interface supports PCM, Dolbydigital, DTS digital audio
-   at up to 192KHz frame rate
+Current hypothesis: on this board the discrete Barlow Ridge DP_IN is
+either hardwired to a Nvidia output or behind a firmware-programmed mux
+that BIOS latches to Nvidia at POST and is not exposed to the OS. i915
+would therefore have no path to drive the left ports, by design.
 
--Miscellaneous
- 1.CSC:RGB<->YUV444<->YUV422
+Tests done that did not surface an OS-visible lever:
+- i2cdetect across all SMBus/i801 busses: no DP mux/retimer at plausible
+  addresses (0x60-0x7F).
+- DSDT/SSDT dump (iasl -d): no Device/Method referring to DP routing,
+  DPMUX, retimer programming, or dock display source selection.
+- HP WMI + /sys/devices/virtual/firmware-attributes/hp-bioscfg attribute
+  enumeration: nothing switching dock display source. "Graphics"
+  attribute only offers Hybrid/Discrete.
+- PCI config dump of Barlow Ridge: standard USB4 NHI, no vendor-specific
+  capability hinting at source selection.
+- acpi.no_usb4_osc kernel param (locally patched) to opt out of OSC USB4
+  native support: no change in i915 visibility of the dock.
 
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
----
- .../bindings/display/bridge/lontium,lt9611.yaml           | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Is there any known way to route an Intel DDI output to a PCIe-attached
+Barlow Ridge DP_IN adapter, or is this strictly a design where the dGPU
+is the only valid DP source for the discrete TB controller on this class
+of HP workstations?
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-index 429a06057ae8..a67e63a5c87e 100644
---- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-@@ -4,19 +4,23 @@
- $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-+title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI to HDMI Bridge
- 
- maintainers:
-   - Vinod Koul <vkoul@kernel.org>
- 
- description: |
--  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-+  The LT9611、LT9611UXC、LT9611C、LT9611EX and LT9611UXD 
-+  are bridge devices which convert DSI to HDMI
- 
- properties:
-   compatible:
-     enum:
-       - lontium,lt9611
-       - lontium,lt9611uxc
-+      - lontium,lt9611c
-+      - lontium,lt9611ex
-+      - lontium,lt9611uxd
- 
-   reg:
-     maxItems: 1
--- 
-2.34.1
+Happy to share the DSDT dump, lspci -vvv, full dmesg, or run any test.
 
+Regards,
+Francesco Orro
