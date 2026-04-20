@@ -4,104 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6BC8F588C6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 872B8F588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 051E510E5EB;
-	Mon, 20 Apr 2026 13:18:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E62D110E5F8;
+	Mon, 20 Apr 2026 13:23:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="iUFqg2k5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="13F8sboR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="iUFqg2k5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="13F8sboR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bd9SDOXH";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED5AA10E5EB
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:18:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 908CA6AD9D;
- Mon, 20 Apr 2026 13:18:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776691115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
- b=iUFqg2k5l4US5d2suXIUtIsMHp4MTF3TMZh17ksF9AVlq41PUQsQL5mRhgh8RLtRdeU1MC
- WH3Qy5MMxGGOa1tArqsJdIL1sIeet2dkYJz6+qUmmk6OXm05g22ZqgWWf9xZZIeNzjGAPH
- mkDJtppZvaILZVaNL749xJY6IV2HdjM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776691115;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
- b=13F8sboRDeIkvoksanrOoKTN4gmJzekhtlahfx692kF3JsSUpbCNzXuIirnh0grL3TUvSj
- aVUFdlPQyv511NCQ==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=iUFqg2k5;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=13F8sboR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776691115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
- b=iUFqg2k5l4US5d2suXIUtIsMHp4MTF3TMZh17ksF9AVlq41PUQsQL5mRhgh8RLtRdeU1MC
- WH3Qy5MMxGGOa1tArqsJdIL1sIeet2dkYJz6+qUmmk6OXm05g22ZqgWWf9xZZIeNzjGAPH
- mkDJtppZvaILZVaNL749xJY6IV2HdjM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776691115;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
- b=13F8sboRDeIkvoksanrOoKTN4gmJzekhtlahfx692kF3JsSUpbCNzXuIirnh0grL3TUvSj
- aVUFdlPQyv511NCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5227E593AE;
- Mon, 20 Apr 2026 13:18:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 98qyEqsn5mklJgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Apr 2026 13:18:35 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: louis.chauvet@bootlin.com, hamohammed.sa@gmail.com, simona@ffwll.ch,
- melissa.srw@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH] drm/vkms: Clean up artifacts from old vblank timer
-Date: Mon, 20 Apr 2026 15:18:08 +0200
-Message-ID: <20260420131831.242882-1-tzimmermann@suse.de>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8553010E5F8;
+ Mon, 20 Apr 2026 13:23:20 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 238D3438F0;
+ Mon, 20 Apr 2026 13:23:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00E7C2BCB4;
+ Mon, 20 Apr 2026 13:23:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776691400;
+ bh=ilHKaWdBK9xAIgteGoH8Gkqxmn+NqMVwZI2GHoTdqIE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Bd9SDOXHWs2S0ECF3LnSmz1dpo5hqs0mAWu+oJbfVkIy6qAXPEqgVRFdPjs2xsPKS
+ 0vFHCaPr5UY38wyEi/nd2zcIUV0NNCf4FkRxbaTJxrJ/BgqnYVgpSwbJYRPj86jO0f
+ 4WQTVbzITeeXEg5ZIQUih20r6w/9Ozs9DRWJybNdZ6nUGlYxSVBcRXX3iAppQ0TfNS
+ tjzrUhAYbBL6cVbhsQa5+UX4gKElMUfhLtFjzBLVC2HRtryZFgNk3y2Oos8WelU8cF
+ ruMryhFDZplHMUmpXpdm1VQmOTBgc1riB6Ic5QIe65rJej2ZH7/Zch1n//1ft8rQOO
+ j1K0yk+Zi9Tzw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Cc: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.12] drm/amdgpu: fix DF NULL pointer issue for
+ soc24
+Date: Mon, 20 Apr 2026 09:16:37 -0400
+Message-ID: <20260420132314.1023554-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
+References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-1.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- FREEMAIL_TO(0.00)[bootlin.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org]; 
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,bootlin.com:email,lists.freedesktop.org:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- FROM_EQ_ENVFROM(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- RCPT_COUNT_SEVEN(0.00)[9];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCVD_COUNT_TWO(0.00)[2]; TAGGED_RCPT(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Queue-Id: 908CA6AD9D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,68 +66,355 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Vkms uses DRM's shared vblank timer. Do not include hrtimer.h and
-fix comments referring to the original implementation. This should
-have been done as part of commit 02e2681ffe1a ("drm/vkms: Convert
-to DRM's vblank timer").
+From: Likun Gao <Likun.Gao@amd.com>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 02e2681ffe1a ("drm/vkms: Convert to DRM's vblank timer")
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Melissa Wen <melissa.srw@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
+[ Upstream commit 50808826a64b4957b7088c789e539dd0a75a1560 ]
+
+If DF function not initialized, NULL pointer issue
+will happen on soc24.
+
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/vkms/vkms_composer.c | 4 ++--
- drivers/gpu/drm/vkms/vkms_drv.h      | 5 -----
- 2 files changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 83d217085ad0..db940eff43d7 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -595,7 +595,7 @@ static int compose_active_planes(struct vkms_writeback_job *active_wb,
-  *
-  * Work handler for composing and computing CRCs. work_struct scheduled in
-  * an ordered workqueue that's periodically scheduled to run by
-- * vkms_vblank_simulate() and flushed at vkms_atomic_commit_tail().
-+ * vkms_crtc_handle_vblank_timeout() and flushed at vkms_atomic_commit_tail().
-  */
- void vkms_composer_worker(struct work_struct *work)
- {
-@@ -637,7 +637,7 @@ void vkms_composer_worker(struct work_struct *work)
- 	spin_unlock_irq(&out->composer_lock);
+LLM Generated explanations, may be completely bogus:
+
+Now I have all the information I need. Let me compile the full analysis.
+
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: PARSE THE SUBJECT LINE
+- **Subsystem:** `drm/amdgpu` (AMD GPU driver)
+- **Action verb:** "fix" - explicitly a bug fix
+- **Summary:** Fix NULL pointer dereference when DF functions are not
+  initialized on soc24
+
+Record: [drm/amdgpu] [fix] [NULL pointer dereference when df.funcs is
+NULL in soc24_common_hw_init]
+
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+- **Signed-off-by:** Likun Gao (author)
+- **Reviewed-by:** Hawking Zhang (AMD architect/maintainer for amdgpu)
+- **Signed-off-by:** Alex Deucher (amdgpu subsystem maintainer)
+- No Fixes: tag, no Cc: stable tag, no Reported-by (expected for manual
+  review)
+
+Record: Reviewed by Hawking Zhang (AMD subsystem architect) and merged
+by Alex Deucher (amdgpu maintainer). Strong trust signal.
+
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+The body says: "If DF function not initialized, NULL pointer issue will
+happen on soc24." This describes a concrete crash scenario: when
+`adev->df.funcs` is NULL and code dereferences it to check `->hw_init`.
+
+Record: [Bug: NULL pointer dereference] [Symptom: kernel oops/crash
+during GPU hw_init or resume] [Root cause: missing NULL check before
+dereferencing df.funcs pointer]
+
+### Step 1.4: DETECT HIDDEN BUG FIXES
+Not hidden - this is an explicit "fix" for a NULL pointer dereference.
+
+Record: Not a hidden fix, explicitly labeled as a fix.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: INVENTORY THE CHANGES
+- **Files:** 1 file changed (`drivers/gpu/drm/amd/amdgpu/soc24.c`)
+- **Lines:** 1 line modified (replacing one condition with a guarded
+  condition)
+- **Function:** `soc24_common_hw_init()`
+- **Scope:** Single-line surgical fix
+
+Record: [soc24.c: 1 line changed in soc24_common_hw_init()] [Scope:
+single-line surgical fix]
+
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Before:
+
+```481:481:drivers/gpu/drm/amd/amdgpu/soc24.c
+        if (adev->df.funcs->hw_init)
+```
+
+After:
+```c
+        if (adev->df.funcs && adev->df.funcs->hw_init)
+```
+
+The code was dereferencing `adev->df.funcs` (which can be NULL) to check
+`hw_init`. The fix adds a NULL guard.
+
+Record: [Before: unconditional dereference of df.funcs -> After: guarded
+dereference with NULL check first]
+
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+**Category: NULL pointer dereference (d)**
+- `adev->df.funcs` can be NULL if the DF IP version doesn't match any
+  known version in `amdgpu_discovery.c`
+- The code dereferences this NULL pointer to check `->hw_init`
+- This causes a kernel oops
+
+Record: [NULL pointer dereference] [df.funcs can be NULL when DF IP
+version is unrecognized; the fix adds a standard guard consistent with
+soc15.c patterns]
+
+### Step 2.4: ASSESS THE FIX QUALITY
+- Obviously correct: the pattern `if (ptr && ptr->member)` is idiomatic
+  C null-guard
+- Consistent: `soc15.c` already uses `if (adev->df.funcs &&
+  adev->df.funcs->hw_init)` and `if (adev->df.funcs &&
+  adev->df.funcs->sw_init)` - the exact same pattern
+- Minimal: single condition addition, no behavior change when df.funcs
+  is non-NULL
+- Regression risk: zero - the only change is skipping the call when
+  funcs is NULL (which would crash otherwise)
+
+Record: [Obviously correct, minimal, zero regression risk. Matches
+existing patterns in soc15.c]
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: BLAME THE CHANGED LINES
+The buggy line was introduced by commit `73048bda46c308` ("drm/amdgpu:
+Fix atomics on GFX12") by David Belanger on 2024-06-10. This commit
+added the DF hw_init call to soc24_common_hw_init but omitted the NULL
+check for `adev->df.funcs`, unlike how soc15.c handles it.
+
+Record: [Buggy code introduced by 73048bda46c308, present in v6.11+]
+
+### Step 3.2: FOLLOW THE FIXES TAG
+No Fixes: tag present (expected for review candidates).
+
+Record: [No Fixes: tag, but the implicit fix target is 73048bda46c308]
+
+### Step 3.3: CHECK FILE HISTORY
+soc24.c was created by `98b912c50e449` (first in v6.11). The buggy
+commit `73048bda46c308` was also added in v6.11. The file has had ~20
+subsequent commits (refactoring handle pointers, etc.), but none touched
+this specific df.funcs line.
+
+Record: [Standalone fix, no prerequisites beyond the original buggy
+commit]
+
+### Step 3.4: CHECK THE AUTHOR
+Likun Gao is a regular AMD GPU contributor with multiple recent commits
+to the amdgpu subsystem. The reviewer (Hawking Zhang) is the original
+soc24.c creator and AMD architect.
+
+Record: [Author is a regular AMD contributor; reviewer is the subsystem
+architect]
+
+### Step 3.5: DEPENDENCIES
+This fix has no dependencies. It simply adds a NULL check guard to an
+existing conditional. It will apply to any tree that contains commit
+`73048bda46c308`.
+
+Record: [No dependencies, standalone fix]
+
+---
+
+## PHASE 4: MAILING LIST RESEARCH
+
+### Step 4.1: PATCH DISCUSSION
+Found the original submission at
+[spinics](https://www.spinics.net/lists/amd-gfx/msg138858.html).
+Submitted by Alex Deucher on March 6, 2026. No objections or NAKs
+visible. It was part of a batch of AMD GPU fixes.
+
+Record: [Found submission on amd-gfx list, no objections, submitted in a
+batch of fixes by the maintainer]
+
+### Step 4.2: REVIEWERS
+Reviewed by Hawking Zhang (AMD architect), signed off by Alex Deucher
+(subsystem maintainer). Both are the top-level amdgpu maintainers.
+
+Record: [Reviewed and merged by subsystem maintainers]
+
+### Step 4.3-4.5: BUG REPORT / RELATED PATCHES / STABLE HISTORY
+No syzbot report, no explicit bug report URL. This appears to be an
+internally-discovered issue at AMD.
+
+Record: [Internal AMD finding, no external bug report]
+
+---
+
+## PHASE 5: CODE SEMANTIC ANALYSIS
+
+### Step 5.1-5.2: KEY FUNCTIONS AND CALLERS
+`soc24_common_hw_init()` is called:
+1. During GPU initialization via the `amd_ip_funcs` table (line 588:
+   `.hw_init = soc24_common_hw_init`)
+2. During resume via `soc24_common_resume()` (line 524-527)
+
+Both are common execution paths for any system with soc24 hardware.
+
+### Step 5.3-5.4: WHY df.funcs CAN BE NULL
+In `amdgpu_discovery.c`, `adev->df.funcs` is set in a switch on
+`DF_HWIP` version. The default case is `break` (no assignment). If a
+soc24 device has a DF IP version not in the list, `df.funcs` remains
+NULL. This is the exact trigger.
+
+### Step 5.5: SIMILAR PATTERNS
+Verified: `soc15.c` consistently uses the guarded pattern:
+- Line 1253: `if (adev->df.funcs && adev->df.funcs->sw_init)`
+- Line 1264: `if (adev->df.funcs && adev->df.funcs->sw_fini)`
+- Line 1498: `if (adev->df.funcs &&
+  adev->df.funcs->get_clockgating_state)`
+- `gmc_v9_0.c` also guards with `if (adev->df.funcs && ...)`
+
+soc24.c is the ONLY file missing this guard.
+
+Record: [All other callers guard df.funcs with NULL check; soc24.c is
+the sole exception]
+
+---
+
+## PHASE 6: STABLE TREE ANALYSIS
+
+### Step 6.1: BUGGY CODE IN STABLE TREES
+- `soc24.c` first appeared in v6.11
+- The buggy commit `73048bda46c308` is in v6.11+
+- Therefore the bug exists in stable trees: **6.11.y, 6.12.y, 7.0.y**
+- Not present in 6.6.y or earlier (soc24.c doesn't exist there)
+
+Record: [Bug exists in 6.11.y, 6.12.y, 7.0.y]
+
+### Step 6.2: BACKPORT COMPLICATIONS
+The fix is a single-line change. No conflicting refactoring has touched
+this specific line. Clean apply expected.
+
+Record: [Expected clean apply to all affected stable trees]
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: SUBSYSTEM CRITICALITY
+- **Subsystem:** GPU driver (drm/amdgpu) - IMPORTANT
+- AMD GPUs are extremely common in desktop and laptop systems
+- soc24 corresponds to RDNA4 generation (GC 12.0.x) - recent and
+  actively shipping hardware
+
+Record: [drm/amdgpu] [IMPORTANT - affects users of recent AMD GPUs]
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: WHO IS AFFECTED
+All users with soc24 (RDNA4) AMD GPU hardware where the DF IP version
+doesn't match a listed version in discovery.
+
+### Step 8.2: TRIGGER CONDITIONS
+The crash triggers during:
+- GPU hardware initialization (every boot)
+- GPU resume from suspend (every suspend/resume cycle)
+These are unavoidable common paths.
+
+### Step 8.3: FAILURE MODE SEVERITY
+**CRITICAL** - NULL pointer dereference causes a kernel oops, crashing
+the system during boot or resume. The GPU driver is essential for
+display output.
+
+### Step 8.4: RISK-BENEFIT RATIO
+- **Benefit:** Prevents kernel oops on boot/resume for soc24 users -
+  VERY HIGH
+- **Risk:** 1-line addition of a NULL check, zero chance of regression -
+  VERY LOW
+- **Ratio:** Extremely favorable
+
+Record: [Benefit: VERY HIGH (prevents crash), Risk: VERY LOW (1-line
+NULL guard)]
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: EVIDENCE COMPILATION
+
+**FOR backporting:**
+- Fixes a NULL pointer dereference (kernel oops/crash)
+- Affects GPU init and resume paths (common, unavoidable paths)
+- Single-line fix, obviously correct
+- Matches existing defensive patterns in soc15.c, gmc_v9_0.c,
+  amdgpu_ras.c
+- Reviewed by AMD architect (Hawking Zhang), merged by subsystem
+  maintainer (Alex Deucher)
+- Zero regression risk
+- Affects actively-shipping hardware (RDNA4)
+
+**AGAINST backporting:**
+- None identified
+
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **YES** - standard NULL guard, matches
+   existing patterns, reviewed by maintainers
+2. Fixes a real bug? **YES** - NULL pointer dereference → kernel oops
+3. Important issue? **YES** - system crash during GPU init/resume
+   (CRITICAL)
+4. Small and contained? **YES** - 1 line changed in 1 file
+5. No new features or APIs? **YES** - purely defensive check
+6. Can apply to stable? **YES** - clean apply expected for 6.11.y+
+
+### Step 9.3: EXCEPTION CATEGORIES
+Not an exception case; this is a standard bug fix that meets all normal
+criteria.
+
+### Step 9.4: DECISION
+This is a textbook stable backport candidate: a one-line NULL pointer
+check that prevents a kernel oops during GPU initialization and resume
+on recent AMD hardware.
+
+---
+
+## Verification
+
+- [Phase 1] Parsed tags: Reviewed-by: Hawking Zhang, SOB: Likun Gao,
+  Alex Deucher
+- [Phase 2] Diff analysis: 1 line changed in soc24_common_hw_init(),
+  adds `adev->df.funcs &&` guard
+- [Phase 3] git blame: buggy code introduced in commit 73048bda46c308
+  (v6.11), "Fix atomics on GFX12"
+- [Phase 3] git merge-base: confirmed 73048bda46c308 is in v6.11+,
+  soc24.c first added in v6.11
+- [Phase 4] Found original submission at spinics amd-gfx list, no NAKs
+  or concerns
+- [Phase 5] Grep for `adev->df.funcs`: soc15.c, gmc_v9_0.c, amdgpu_ras.c
+  all use NULL guard; soc24.c is the only exception
+- [Phase 5] amdgpu_discovery.c: df.funcs assignment has a `default:
+  break` that leaves funcs NULL for unrecognized DF versions
+- [Phase 5] soc24_common_resume() calls soc24_common_hw_init(),
+  confirming crash on both init and resume
+- [Phase 6] Bug exists in 6.11.y, 6.12.y, 7.0.y; not in 6.6.y or earlier
+  (soc24.c not present)
+- [Phase 8] Failure mode: NULL deref -> kernel oops during GPU
+  init/resume, severity CRITICAL
+
+**YES**
+
+ drivers/gpu/drm/amd/amdgpu/soc24.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/amdgpu/soc24.c
+index ecb6c3fcfbd15..984262936545f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc24.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+@@ -484,7 +484,7 @@ static int soc24_common_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (adev->nbio.funcs->remap_hdp_registers)
+ 		adev->nbio.funcs->remap_hdp_registers(adev);
  
- 	/*
--	 * We raced with the vblank hrtimer and previous work already computed
-+	 * We raced with the vblank timer and previous work already computed
- 	 * the crc, nothing to do.
- 	 */
- 	if (!crc_pending)
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 0933e4ce0ff0..3b5bdf39c031 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -3,8 +3,6 @@
- #ifndef _VKMS_DRV_H_
- #define _VKMS_DRV_H_
+-	if (adev->df.funcs->hw_init)
++	if (adev->df.funcs && adev->df.funcs->hw_init)
+ 		adev->df.funcs->hw_init(adev);
  
--#include <linux/hrtimer.h>
--
- #include <drm/drm.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem.h>
-@@ -205,9 +203,6 @@ struct vkms_crtc_state {
-  * @encoder: DRM encoder used for this output
-  * @connector: DRM connector used for this output
-  * @wb_connecter: DRM writeback connector used for this output
-- * @vblank_hrtimer: Timer used to trigger the vblank
-- * @period_ns: vblank period, in nanoseconds, used to configure @vblank_hrtimer and to compute
-- *	       vblank timestamps
-  * @composer_workq: Ordered workqueue for @composer_state.composer_work.
-  * @lock: Lock used to protect concurrent access to the composer
-  * @composer_enabled: Protected by @lock, true when the VKMS composer is active (crc needed or
+ 	/* enable the doorbell aperture */
 -- 
 2.53.0
 
