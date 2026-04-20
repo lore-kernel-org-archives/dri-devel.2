@@ -4,123 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC329F557FE
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 10:46:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96E6EF5580C
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 11:02:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 140C810E18E;
-	Mon, 20 Apr 2026 10:46:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0216210E4E2;
+	Mon, 20 Apr 2026 11:02:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="vh04S0GJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Ju65x4/";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="vh04S0GJ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Ju65x4/";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wZRLo91Y";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF23B10E18E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 10:46:29 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6652A6A7D2;
- Mon, 20 Apr 2026 10:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776681988; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=S8rZaVzw+5ne+If2UmQFfqWGq9WDQpgK5rs4ZzAutCQ=;
- b=vh04S0GJxwaEJyg4seKdaWymx3oTubVeADNaEh8EcNCIUbXkCIPnwn3wXcQGlkaMAa7RHT
- OdpyP4mDVo05+ExPyVvrlnkjBhL2U9olZ34/7VfgQfxfYHQqrWF8ENggqLjacdaH/7dSEH
- +UdVoVuCCNFHUzwzvDTnvqQ5jchgXy4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776681988;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=S8rZaVzw+5ne+If2UmQFfqWGq9WDQpgK5rs4ZzAutCQ=;
- b=6Ju65x4/xDvhbmieszwXyH78MBxp5KBvn2q3E1Ug1500O63cnzwOgouo9GFs3J/X314xDJ
- F52zuPTsG0lnHKBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776681988; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=S8rZaVzw+5ne+If2UmQFfqWGq9WDQpgK5rs4ZzAutCQ=;
- b=vh04S0GJxwaEJyg4seKdaWymx3oTubVeADNaEh8EcNCIUbXkCIPnwn3wXcQGlkaMAa7RHT
- OdpyP4mDVo05+ExPyVvrlnkjBhL2U9olZ34/7VfgQfxfYHQqrWF8ENggqLjacdaH/7dSEH
- +UdVoVuCCNFHUzwzvDTnvqQ5jchgXy4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776681988;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=S8rZaVzw+5ne+If2UmQFfqWGq9WDQpgK5rs4ZzAutCQ=;
- b=6Ju65x4/xDvhbmieszwXyH78MBxp5KBvn2q3E1Ug1500O63cnzwOgouo9GFs3J/X314xDJ
- F52zuPTsG0lnHKBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 14290593AE;
- Mon, 20 Apr 2026 10:46:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8jh+AwQE5mlvFAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Apr 2026 10:46:28 +0000
-Message-ID: <118d6fa3-55f7-4dfa-9a25-02a1bbecc79d@suse.de>
-Date: Mon, 20 Apr 2026 12:46:27 +0200
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 49D1610E4C1;
+ Mon, 20 Apr 2026 11:02:04 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 61711E45;
+ Mon, 20 Apr 2026 13:00:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1776682826;
+ bh=3GoDVjcVfcMdyNd/4s5GQU45wo7ysjQ0yDXPdAnGTVg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=wZRLo91Yw4q2iLo7Jpebvtoz34atXay7MgSGlDzNv5NZVZHMvk/k71YVcMfV3/ohH
+ 2QZCeKuMvVhNlNgoEBaLNUG1SEYNKvpF9tLlomfvYAxYy2+RkkHymazLhbC6O8mkYf
+ SSaJvybVWgwoS54+ar342tLiLzBET4kE7euo+MqA=
+Message-ID: <f74ecd0a-3ff3-45b4-935e-44b89cd0c92d@ideasonboard.com>
+Date: Mon, 20 Apr 2026 14:01:57 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] drm/vmwgfx: Use DRM's vblank timer
-To: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org
-References: <20260305134122.246884-1-tzimmermann@suse.de>
+Subject: Re: [PATCH 1/6] drm/connector: report IRQ_HPD events to
+ drm_connector_oob_hotplug_event()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Pengyu Luo <mitltlatltl@gmail.com>,
+ Nikita Travkin <nikita@trvn.ru>, Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+References: <20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com>
+ <20260416-hpd-irq-events-v1-1-1ab1f1cfb2b2@oss.qualcomm.com>
+ <51b7c44e-36c9-461f-983a-eaa86eeb8cfd@ideasonboard.com>
+ <6z572fdjkvjqvedifwvotgdy4lcrifiqvkjpnutousjqc6764r@zepfzkqy2kbu>
+ <a2e60e74-a1be-469d-8f4d-ecce1f30b517@ideasonboard.com>
+ <3vrqk67oivkgo26xdc3r774rvj3jn3t6sfydhlytyrfiftubhg@cipain7xxcjz>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260305134122.246884-1-tzimmermann@suse.de>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <3vrqk67oivkgo26xdc3r774rvj3jn3t6sfydhlytyrfiftubhg@cipain7xxcjz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCPT_COUNT_FIVE(0.00)[5]; RCVD_COUNT_TWO(0.00)[2];
- MID_RHS_MATCH_FROM(0.00)[]; TO_DN_NONE(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- suse.com:url]
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,43 +88,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Gentle reminder to give this series a review.
+Hi,
 
-Am 05.03.26 um 14:39 schrieb Thomas Zimmermann:
-> Replace vmwgfx's vblank timer with DRM's shared implementation. The
-> common code is mostly equivalent, but provides additional protection
-> against concurrent changes to the vblank counter.
->
-> Patches 1 and 2 align vmwgfx with the shared code, so that it can be
-> converted easily.
->
-> The conversion is on patch 3. It replaces vmwgfx's custom timer with
-> calls to DRM's vblank interfaces. Initialization happens internally.
->
-> This series should get some more testing.
->
-> Thomas Zimmermann (3):
->    drm/vmwgfx: Determine lock-waiting timeout from vblank state
->    drm/vmwgfx: Move vblank handling into separate helper
->    drm/vmwgfx: Convert to DRM vblank timers
->
->   drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  2 -
->   drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  |  1 +
->   drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c |  1 +
->   drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c |  1 +
->   drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c | 68 ++++++++--------------------
->   drivers/gpu/drm/vmwgfx/vmwgfx_vkms.h |  2 +-
->   6 files changed, 22 insertions(+), 53 deletions(-)
->
->
-> base-commit: 3594e3a9ce7d4ad237f43ff907e9744446108603
+On 20/04/2026 12:50, Dmitry Baryshkov wrote:
+> On Mon, Apr 20, 2026 at 07:50:46AM +0300, Tomi Valkeinen wrote:
+>> Hi,
+>>
+>> On 18/04/2026 01:32, Dmitry Baryshkov wrote:
+>>> On Thu, Apr 16, 2026 at 11:10:03AM +0300, Tomi Valkeinen wrote:
+>>>> Hi,
+>>>>
+>>>> On 16/04/2026 02:22, Dmitry Baryshkov wrote:
+>>>>> The DisplayPort standard defines a special kind of events called IRQ.
+>>>>> These events are used to notify DP Source about the events on the Sink
+>>>>> side. It is extremely important for DP MST handling, where the MST
+>>>>> events are reported through this IRQ.
+>>>>>
+>>>>> In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+>>>>> events are ported through the bits in the AltMode VDOs.
+>>>>>
+>>>>> Extend the drm_connector_oob_hotplug_event() interface and report IRQ
+>>>>> events to the DisplayPort Sink drivers.
+>>>>>
+>>>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>>>> ---
+>>>>>     drivers/gpu/drm/drm_connector.c          |  4 +++-
+>>>>>     drivers/usb/typec/altmodes/displayport.c | 12 ++++++++----
+>>>>>     include/drm/drm_connector.h              |  3 ++-
+>>>>>     3 files changed, 13 insertions(+), 6 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>>>>> index 47dc53c4a738..5fdacbd84bd7 100644
+>>>>> --- a/drivers/gpu/drm/drm_connector.c
+>>>>> +++ b/drivers/gpu/drm/drm_connector.c
+>>>>> @@ -3510,6 +3510,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+>>>>>      * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
+>>>>>      * @connector_fwnode: fwnode_handle to report the event on
+>>>>>      * @status: hot plug detect logical state
+>>>>> + * @irq_hpd: HPD pulse detected
+>>>>>      *
+>>>>>      * On some hardware a hotplug event notification may come from outside the display
+>>>>>      * driver / device. An example of this is some USB Type-C setups where the hardware
+>>>>> @@ -3520,7 +3521,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+>>>>>      * a drm_connector reference through calling drm_connector_find_by_fwnode().
+>>>>>      */
+>>>>>     void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+>>>>> -				     enum drm_connector_status status)
+>>>>> +				     enum drm_connector_status status,
+>>>>> +				     bool irq_hpd)
+>>>> I find the "IRQ HPD" naming always confusing, even if I'm somewhat familiar
+>>>> with DP, but if someone has mainly worked on HDMI, I'm sure it's even worse.
+>>>>
+>>>> Can we define this a bit more precisely? Is 'irq_hpd' only for displayport?
+>>>> If so, perhaps 'dp_irq_hpd' or 'displayport_irq_hpd'. I might even call it
+>>>> 'dp_hpd_pulse', but maybe that's not good as the spec talks about HPD pulse
+>>>> for both short and long ones (although in the kernel doc you just write "HPD
+>>>> pulse")... The kernel doc could be expanded a bit to make it clear what this
+>>>> flag indicates.
+>>>
+>>> I attempted to stay away from defining a DP-specific flag, keeping it
+>>> generic enough. HDMI is pretty close (IMO) to requiring separate flag in
+>>
+>> If it's not specifically the DP IRQ HPD, then we need to define what it
+>> means. I tried to think what it would mean with HDMI, but I didn't come up
+>> with anything.
+> 
+> I might be mistaken, but I had someting like HEAC HPD / EDID status
+> changes in mind (or HDCP-triggered HPD status changes). But here I
+> admit, I hadn't checked if it is actually applicable or not.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+Possibly, I'm not familiar with those.
 
+> Anyway, for e.g. DVI or VGA that means nothing. But, my point really is
+> to abstain from defining someting as DP-only in the top-level API.
+
+I'm fine with that, but then it really has to be defined =).
+
+>>> Linux. Likewise I'd rather not use "pulse". The DP AltMode defines a bit
+>>> in the VDO rather than a pulse.
+>>>
+>>> Anyway, if irq_hpd doesn't sound precise enough, what about "bool
+>>> extra_irq"? This would convey that this is the extra hpd-related IRQ,
+>>> but it would also be obvious that it's not related to the HPD pin
+>>> itself.
+>> We'd still need to define what exactly it means. I think it might be better
+>> to just define it as the DP IRQ HPD, as then the meaning is clear.
+>>
+>> Also, would an enum flags parameter be better than a bool parameter?
+> 
+> Maybe not enum, but u32 param. Then it can become:
+> 
+> @extra_status: additional type-specific information provided by the sink
+> without changing the HPD state
+> 
+> void drm_connector_oob_hotplug_event(..., u32 extra_status);
+> 
+> /* DP short HPD pulse or corresponding AltMode flag */
+> #define DRM_CONNECTOR_OOB_DP_IRQ_HPD BIT(0)
+> /* DP long HPD pulse, debounced XXX: do we need this? */
+> #define DRM_CONNECTOR_OOB_DP_REPLUG BIT(1)
+
+Why is u32 better than enum? So that we could e.g. pass short values 
+inside the extra_status?
+
+> For HDMI we might want to define:
+> 
+> /* HDMI 1.4b 8.5, HPD pulse */
+> #define DRM_CONNECTOR_OOB_HDMI_REPLUG BIT(0)
+> 
+> Or might not, 100ms is long enough for all debouncers.
+
+As I read the spec, there's no usable HPD pulse in HDMI as such. It just 
+means that if HPD is low less than 100ms, it should be ignored, and if 
+it's low more than 100ms, it should be handled. In other words, from 
+spec perspective there's no difference between HPD being low 105ms or 
+five days, there's no upper limit for the "pulse".
+
+Still, we probably want to handle the case where the HPD is low only for 
+a short period, so that we don't do a full disable/enable-cycle. We can 
+interpret it as the same monitor still being connected, we just need to 
+check the EDID again.
+
+But isn't that just a drm_connector_hotplug_event with 
+drm_connector_status staying connected? The callee can see that the 
+connector was connected before, it's connected now, but we got an event, 
+so let's read the EDID again.
+
+  Tomi
 
