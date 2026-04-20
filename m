@@ -4,54 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A82DF588EE
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:17:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27B32F588F0
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54CE10E6FB;
-	Mon, 20 Apr 2026 16:17:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7131910E6E6;
+	Mon, 20 Apr 2026 16:19:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bv1DGRZ/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P8KADZI1";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2893B10E6E6
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:17:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1776701859;
- bh=hbCGr4qqckJLAH+LL01HYy0RfcdwgCsY0WT2LD2F9OY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bv1DGRZ/9PfOPMdFwQ5ZHvs2NkRg52Ac2/6KHD/XtluL/vSHV0Cm0z32J7oniMdvA
- VtnDXdcVWgA5YcXm5OVSJ3Jn5yBJrYGctXIyFwfAO7QAwLbpKbKpCUXj+vwkdFxKol
- ISNUJrE1w2HIuUb7Cdb+irjP1hlmLoXLqCeg+6pU0x5U7mza3CI8dxNpxpDhyiBPQO
- y877AE8DYs9XWKhW90VTvf7ZL4jp/BROuiUb9FldbNft20W4Bk+LVvG2ZuE4ADj9kE
- XGWUzVIOOZOx+ugsISe0tpj/ux1FamSzZ3ZZS2QPM262YrMSn6TVbQ388uFA8Bppsz
- WXLVIvuhp3a7A==
-Received: from fedora (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5F85817E0F7F;
- Mon, 20 Apr 2026 18:17:39 +0200 (CEST)
-Date: Mon, 20 Apr 2026 18:17:35 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH 2/2] drm/panthor: Implement evicted status for GEM objects
-Message-ID: <20260420181735.2990999e@fedora>
-In-Reply-To: <20260420-panthor-bo-reclaim-observability-v1-2-a4d1a36ee84f@collabora.com>
-References: <20260420-panthor-bo-reclaim-observability-v1-0-a4d1a36ee84f@collabora.com>
- <20260420-panthor-bo-reclaim-observability-v1-2-a4d1a36ee84f@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD6010E6E6
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:19:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776701948; x=1808237948;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=9WCaWT1uDDnVbHnYE/bKi6RTzJIo5ibhmjljjeuufuY=;
+ b=P8KADZI10l0UNzthls9LPvZaHi9KV9aWOuAgNxtes19kh3l+0ky50WoU
+ Ux/62Zs3IP4Q2yxtC1XM3l8J6HpVAskf64BifNj2Puhvj5s6Z+YjRoQul
+ VWveYoVBx5meA4src7K3jY3YNUVW+KdI1cDGr3pTyMD47VGxosi+Aq2+w
+ 55dpssn+q6H+lENOl/D92dY/IHk78/DEpqBYg68HMeb4kvl0wmz7KmDp6
+ Lc73AtYMi4Jjw2kFKeUYMu64cWKJgSuva8fmBixDk9MbR2fptDaZIAKbV
+ A4SaG/7UM15vljVIVmh+URR7yChrbviWC7EXmsFrpJh+uyR4KLvQ0NjsX Q==;
+X-CSE-ConnectionGUID: 71q5P7sJStCr/0bjKyM3Qw==
+X-CSE-MsgGUID: 8Uevqk65TMaIcIoKSq15YA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="76786333"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="76786333"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 09:19:07 -0700
+X-CSE-ConnectionGUID: tUbecKS0R8GanHV116mIPg==
+X-CSE-MsgGUID: McHq/mSiS9+07DjgwDZ2eA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="225272466"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.133])
+ ([10.245.244.133])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 09:19:05 -0700
+Message-ID: <c9ce94ae6c7956d63ca51f6e979100ec713f68f2.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/gpuvm: take refcount on DRM device
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Matthew Brost
+ <matthew.brost@intel.com>,  Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann	 <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Date: Mon, 20 Apr 2026 18:19:02 +0200
+In-Reply-To: <DHY2RPB300R2.1XXG87NPYFRCI@kernel.org>
+References: <20260416-gpuvm-drm-dev-get-v1-1-f3bc06571e73@google.com>
+ <544c97fe296f39da35e5349ba1fc0af05f2ff643.camel@linux.intel.com>
+ <DHVOJ6ILGSLK.3OWKA4RV2HB5C@kernel.org>
+ <215f305ff04ddf8a426871e895aaf520b02e89bf.camel@linux.intel.com>
+ <DHY2RPB300R2.1XXG87NPYFRCI@kernel.org>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,125 +78,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 20 Apr 2026 17:47:00 +0200
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+On Mon, 2026-04-20 at 17:08 +0200, Danilo Krummrich wrote:
+> On Mon Apr 20, 2026 at 11:28 AM CEST, Thomas Hellstr=C3=B6m wrote:
+> > I agree with your reasoning here, but current fact is that most (if
+> > not
+> > all) holders of a drm device reference (files, pagemaps, dma-bufs)
+> > currently also hold a module reference to protect against this, and
+> > drm_gpuvm would be an outlier.
+>=20
+> I'm not convinced; if the DRM device has the requirement to not
+> outlive the
+> module it is associated with, then the DRM device code has to take
+> care of this
+> requirement, and not every caller of drm_dev_get().
+>=20
+> Besides that, if GPUVM holds the module reference count on behalf of
+> the DRM
+> device, it has the same effect that you rightfully point out below --
+> it breaks
+> rmmod.
+>=20
+> > To fix this properly (lifting that requirement) one could introduce
+> > a
+> > drm device count in the module and have the module exit function
+> > wait
+> > for it to become zero, *and* that the code that did the last
+> > decrement
+> > finished executing.
+> >=20
+> > https://patchwork.freedesktop.org/patch/712146/?series=3D163298&rev=3D1
+>=20
+> This looks like a reasonable fix to me. And it makes me conclude that
+> we
+> basically agree on everything. :)
 
-> For fdinfo to be able to fill its evicted counter with data, panthor
-> needs to keep track of whether a GEM object has ever been reclaimed.
-> Just checking whether the pages are resident isn't enough, as newly
-> allocated objects also won't be resident.
-> 
-> Do this with a new atomic_t member on panthor_gem_object. It's increased
-> when an object gets evicted by the shrinker. While it's allowed to wrap
-> around to below zero and assume a value less than a previous observed
-> value, the reclaim counter will never return to 0 for any particular
-> object once it's been reclaimed at least once.
-> 
-> Use this new member to then set the appropriate DRM_GEM_OBJECT_EVICTED
-> status flag for fdinfo, and use it in the gems debugfs. It's possible to
-> distinguish evicted non-resident pages from newly allocated non-resident
-> pages by checking whether reclaimed_count is != 0.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_gem.c | 10 ++++++++++
->  drivers/gpu/drm/panthor/panthor_gem.h | 11 +++++++++++
->  2 files changed, 21 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 69cef05b6ef7..4b761b39565d 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -687,6 +687,10 @@ static void panthor_gem_evict_locked(struct panthor_gem_object *bo)
->  	if (drm_WARN_ON_ONCE(bo->base.dev, !bo->backing.pages))
->  		return;
->  
-> +	/* Don't ever wrap around as far as 0, jump from INT_MIN to 1 */
-> +	if (!atomic_inc_unless_negative(&bo->reclaimed_count))
-> +		atomic_set(&bo->reclaimed_count, 1);
+Yes, unless we'd want to do a similar wait for gpuvms before returning
+from the close() callback: If we assume all GPUVMs are tied to an open
+drm file, that would conceptually be nicer IMO but I agree if gpuvm
+drivers implement something like the above per-driver device count,
+that would be unnecessary.
 
-Can't we just go
+Thanks,
+Thomas
 
-	atomic_add_unless(&bo->reclaimed_count, 1, INT_MAX);
 
-here, to handle the INT_MAX saturation?
-
-> +
->  	panthor_gem_dev_map_cleanup_locked(bo);
->  	panthor_gem_backing_cleanup_locked(bo);
->  	panthor_gem_update_reclaim_state_locked(bo, NULL);
-> @@ -788,6 +792,8 @@ static enum drm_gem_object_status panthor_gem_status(struct drm_gem_object *obj)
->  
->  	if (drm_gem_is_imported(&bo->base) || bo->backing.pages)
->  		res |= DRM_GEM_OBJECT_RESIDENT;
-> +	else if (atomic_read(&bo->reclaimed_count))
-> +		res |= DRM_GEM_OBJECT_EVICTED;
->  
->  	return res;
->  }
-> @@ -1595,6 +1601,7 @@ static void panthor_gem_debugfs_print_flag_names(struct seq_file *m)
->  	static const char * const gem_state_flags_names[] = {
->  		[PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT] = "imported",
->  		[PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT] = "exported",
-> +		[PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT] = "evicted",
->  	};
->  
->  	static const char * const gem_usage_flags_names[] = {
-> @@ -1648,6 +1655,9 @@ static void panthor_gem_debugfs_bo_print(struct panthor_gem_object *bo,
->  
->  	if (drm_gem_is_imported(&bo->base))
->  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED;
-> +	else if (!resident_size && atomic_read(&bo->reclaimed_count))
-> +		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED;
-
-I think it'd be interesting to know the number of times a BO got
-evicted.
-
-> +
->  	if (bo->base.dma_buf)
->  		gem_state_flags |= PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-> index ae0491d0b121..1ab573f03330 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.h
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.h
-> @@ -19,12 +19,16 @@ struct panthor_vm;
->  enum panthor_debugfs_gem_state_flags {
->  	PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT = 0,
->  	PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT = 1,
-> +	PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT = 2,
->  
->  	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED: GEM BO is PRIME imported. */
->  	PANTHOR_DEBUGFS_GEM_STATE_FLAG_IMPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_IMPORTED_BIT),
->  
->  	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED: GEM BO is PRIME exported. */
->  	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EXPORTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EXPORTED_BIT),
-> +
-> +	/** @PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED: GEM BO is evicted to swap. */
-> +	PANTHOR_DEBUGFS_GEM_STATE_FLAG_EVICTED = BIT(PANTHOR_DEBUGFS_GEM_STATE_EVICTED_BIT),
->  };
->  
->  enum panthor_debugfs_gem_usage_flags {
-> @@ -172,6 +176,13 @@ struct panthor_gem_object {
->  	/** @reclaim_state: Cached reclaim state */
->  	enum panthor_gem_reclaim_state reclaim_state;
->  
-> +	/**
-> +	 * @reclaimed_count: How many times object has been evicted to swap.
-
-	 *
-
-> +	 * Never returns to 0 once incremented even on wrap-around, but may
-> +	 * become < 0 and < the previous value if wrap-around occurs.
-
-With the saturation I suggested, I'd just add that when INT_MAX is
-reached, it will stay there.
-
-> +	 */
-> +	atomic_t reclaimed_count;
-> +
->  	/**
->  	 * @exclusive_vm_root_gem: Root GEM of the exclusive VM this GEM object
->  	 * is attached to.
-> 
-
+>=20
+> Regarding the reference count in the meantime, it remains that
+> omitting it does
+> not solve the underlying problem, i.e. I still think it is
+> orthogonal.
+>=20
+> > Or one could also have the drm device hold a reference count on the
+> > driver module, but that would block unloading without previous
+> > unbind
+> > which is not typical driver behaviour and would likely be seen as a
+> > regression.
