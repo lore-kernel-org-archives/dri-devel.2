@@ -4,85 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3643F588EF
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:20:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BD95F588F2
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:21:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 343E310E6EB;
-	Mon, 20 Apr 2026 16:20:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7696810E6F4;
+	Mon, 20 Apr 2026 16:21:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="dkyDDQsr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sVqBnMsi";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFD6C10E6EB
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:20:21 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48374014a77so42347725e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:20:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1776702020; x=1777306820; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=OdYPpUkMeCBk1OjhiaGOqWLSXmyMXptKmdQdv1p8ctw=;
- b=dkyDDQsrXFXG0QtFpqrMz/DJIyC5bw9j+uqawk2d27qeTKTDKz9WFK8dz9YtXs+UM0
- URiwzc46KnY0SVYDi2P/fgU3emb0DOi9nXNLOWyXuba1VE/Eh/Ac+jceSA0BnzdMR+pR
- 3/gylSb+q5HBsg81Xokt9m4kKb0Dy29RQGcXx7Wa7wrw8BvmN1ChkFEiDGQ5NYmF2mtH
- 9cRdbUr195CoYOux8W8DlKcjA1gTLAxGE1NeaBKAI8OefjEFVgGfEio586cCxBX5PzBf
- 1FHtcLBXXmgUjNLYCdJeai3uCeohlzlN4pK569azI+qwx8DhDX7M5jF+Y5mL7rY2I+V4
- yLGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776702020; x=1777306820;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=OdYPpUkMeCBk1OjhiaGOqWLSXmyMXptKmdQdv1p8ctw=;
- b=DnQIjLoVUCIxhd/SmhcKukuSvNLCydUaKk0DAXBmdy/2To/6Is8ovKT3N9Ue6fQq7T
- tOfAQcybR40rEAbFDW9IrsuiTxWvmmP8vdc0+LfrUqUwQNPPjod456BphPhlBf59M0ZY
- 6t3snDGGiREIN63H7JMgY0fVh7Kv5SmN8/GFGdAnOGW4DDd4EFnlwxokIYUpzCGISIXi
- A8OvCrZvtj8QBLXzag2HzMYhTxcrWKUMKz3oj65potnZNJXSZ430b+5P520DbTTQuZKW
- UgBhanoTIfFLBwc8oaDjDFW5iu9bI6VayGtXe0GLEGVZ248ozZ5VII399HaAkk9BUhl0
- Aa0Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9PuvNbu9ILQLVFYHFS8HNASMxKhvURpB26/AVM4C79YXmDZx6T+07OOM9dDa+Ox30FXYHfDQl4/Xs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCukvMtLyWV4ypgUPbXhwZG8uNRj1QvayPqBKvBCwwt7Hru8Fh
- wAqTvAGzQgeJTnkidLqB7AvCRv8sa4oldxiVQEmv8b/54Oagbuofc2/+pNBmRLnBIUc=
-X-Gm-Gg: AeBDietKMeIXTa3FIEAf5cjvjiuBH7xNzWRybX6cQWA6bnSqrN28UzNrRqnj3Puz/jk
- rVoQTsQvHogT+MePEnUxvHOf8x7Omtp2s2Udk2Uuuc1J+OXNLYiUyBY5c06eOfqN06BuwYNoXXK
- tbt8A3Q/DXHGmtEeIeHSzhHytgCphMxdEdej+/U6Ths2TyKk3ClrCWF8fclJVh61YHESqZtDIfE
- BlseXrfAw8mMPdjAF/HFr4NP5Xmih5B53yJpe7qkdyJwtKVbhOTXupHj1Qp0gGneNFrDyiBjU23
- v871qzZO23eLO2djv0is9mC/qspS8gANUefX7zvbcuowCsSqbZoJTYqY5Gw5BMHQiJohggupH75
- 6yaAWhD/1l40/SqMY63TI+AwT9AQpDTQVvlEQGAEdBb/Cje8n8ZjVkyJ+eBSUICWhGWTJGk5s7Z
- bkPOYn21mLyIEI9KLVrJ2jUvHTPXAtmzqHRXsIFy+S30xnhVYgXAJpEA==
-X-Received: by 2002:a05:600c:a108:b0:488:a82f:bbb4 with SMTP id
- 5b1f17b1804b1-488fb78a0famr170297225e9.26.1776702020135; 
- Mon, 20 Apr 2026 09:20:20 -0700 (PDT)
-Received: from blackdock.suse.cz (nat2.prg.suse.com. [195.250.132.146])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43fe4c221cdsm30182533f8f.0.2026.04.20.09.20.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Apr 2026 09:20:19 -0700 (PDT)
-Date: Mon, 20 Apr 2026 18:20:17 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: Maarten Lankhorst <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>, Natalie Vock <natalie.vock@gmx.de>, 
- Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com
-Subject: Re: [PATCH v2 0/3] cgroup/dmem: allow atomic irrestrictive writes to
- dmem.max
-Message-ID: <p6cazw2amahycpvmim5364t46b7wrkw7quzo7dnsug7grlolxh@w7foqs6zs7wo>
-References: <20260319-dmem_max_ebusy-v2-0-b5ce97205269@igalia.com>
- <b099d9248df084fed8d4252e3c6fc485@kernel.org>
- <88f89d75-1e1f-4457-8c1f-57e934c251cc@lankhorst.se>
- <acF6PMV-aezq3dWc@quatroqueijos.cascardo.eti.br>
- <f1edec8a-f446-4fdc-b39b-1dbb690ff57e@lankhorst.se>
- <acVPnzeUS0jiUioj@quatroqueijos.cascardo.eti.br>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0EC10E6F4
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:21:44 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id EEA99417DD;
+ Mon, 20 Apr 2026 16:21:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A14C19425;
+ Mon, 20 Apr 2026 16:21:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1776702103;
+ bh=nmfX6/AshaYubNu33nzp7Oq3mIT9AkbEmqQpS4dhMw8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=sVqBnMsi8O56tRjoHgjv541agVfC6vIyEgGmu9sXX3BkZF87yjuY8FU4Ct5VK8uhN
+ jwnHyS04zs0+o8m7EqN/JXyBxrwJU/bVLt2q7UM0iIzaD4gaPbmhabwk9egItZbYCB
+ zFZFZB/2hRWm082+7PgAeiZKzQ8FBmKMuGaXGCLcEBRTwCOp1E5FiTuXEHaTKhXDFI
+ r4yApK460wGpo0Bh5E6M3BIiF91rktoDF4hR7jigdYBne1gtj7Bmcd+3ap8XhSWt9q
+ vY7vXjJ1rE2kJK1gJM74woMCBMs2QkLES+JCOYkSZTupyizbFuBMM34KYpEhHftRya
+ eg4+pRYPLCrzA==
+Date: Mon, 20 Apr 2026 17:21:37 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Biju <biju.das.au@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 2/3] dt-bindings: display: bridge: Document Renesas
+ RZ/G3L LVDS encoder
+Message-ID: <20260420-cost-ocean-11c35168acb5@spud>
+References: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
+ <20260417175235.224809-3-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="23iuyz5d2rkbqv6i"
+ protocol="application/pgp-signature"; boundary="UcF7L8cDFJ7eoYqW"
 Content-Disposition: inline
-In-Reply-To: <acVPnzeUS0jiUioj@quatroqueijos.cascardo.eti.br>
+In-Reply-To: <20260417175235.224809-3-biju.das.jz@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,34 +75,34 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---23iuyz5d2rkbqv6i
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--UcF7L8cDFJ7eoYqW
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v2 0/3] cgroup/dmem: allow atomic irrestrictive writes to
- dmem.max
-MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 26, 2026 at 12:24:15PM -0300, Thadeu Lima de Souza Cascardo <cascardo@igalia.com> wrote:
-> Is there any reason to keep the support for handling multiple regions in a
-> single write?
+On Fri, Apr 17, 2026 at 06:52:29PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> Document the LVDS encoder IP found on the RZ/G3L SoC. It supports
+> single-link mode. LVDS and the DSI interface share a peripheral clock and
+> the MIPI_DSI_PRESET_N reset signal. However, the LVDS module cannot be
+> used at the same time as MIPI-DSI.
+>=20
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-+1
-(I can't think of any. Additionaly, there's nothing like atomic charging
-across multiple regions, so the charging side could still race against
-the limit changes.)
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Michal
-
---23iuyz5d2rkbqv6i
+--UcF7L8cDFJ7eoYqW
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaeZSPRsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Ai3VQD+JXDA1+znyDGKCvPc+cJ9
-Jol+l1WquVsZ7KLxdCWVbFwA/27lAKMrEiht4cAqlLRcW/tsFlA2xU7fN0yVxCsb
-hMEE
-=3Xdt
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZSkQAKCRB4tDGHoIJi
+0qPEAP9pUYTcU8KoPFuGpouNSZCnlUw8AghZWG2NklflqHNNpwEA73qYEerYVFm+
+jYPEq9I0hexnWrBO7vPTyEw26WladgA=
+=yV67
 -----END PGP SIGNATURE-----
 
---23iuyz5d2rkbqv6i--
+--UcF7L8cDFJ7eoYqW--
