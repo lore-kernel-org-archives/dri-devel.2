@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD1D5F588C6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 12:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBA18F588C8
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 12:54:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3874510E5AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5CF110E5B0;
 	Mon, 20 Apr 2026 12:54:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rPUMCUty";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Td/n/nE0";
 	dkim-atps=neutral
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
  [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D25310E5A1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 12:54:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF2410E5A3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 12:54:52 +0000 (UTC)
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
  [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id AA8363836;
- Mon, 20 Apr 2026 14:53:06 +0200 (CEST)
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id A6E99312A;
+ Mon, 20 Apr 2026 14:53:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1776689587;
- bh=eECXnZn8vnRWVId75kkhXIP55XTyydw1o/Xi8IowENA=;
+ s=mail; t=1776689594;
+ bh=8J+VqbKIZnuNKJTfQMG3Tz1bHzMlB/oCigDNqinSXf8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=rPUMCUtyjG5UVWO6zcGn4+JbcJzemkYSikQmCf6EUWZf95KpRmQocmPV5YxM3jVtP
- 0bO3d2mcHx75Ptn45m56jqMvFGiAr5BKHW1+uz+f1wFdXCO3K2r/ENbMChEs/KP0pp
- +9Ep6cAcYcplCRBbI8MY42/evIkLRr6leRh4otLc=
+ b=Td/n/nE08rfm0hYZ38+ubC1sbIEphAOIWWncN4EpB1hw4VGnSYA1qmc7jYmZCCRuu
+ jWmdbt6V29QIrJh9wFHawT9kynBIUaXh71/4mJKQy/+VbBt8pQiffOv2RpK7YRotkr
+ uVK4/fTWZVSkrENDOhE1ygJovBfe5E97/HdDXl4E=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Mon, 20 Apr 2026 15:54:16 +0300
-Subject: [PATCH 09/15] drm/tidss: Add external data and sync signal edge
- configuration
+Date: Mon, 20 Apr 2026 15:54:22 +0300
+Subject: [PATCH 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display and
+ audio
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-beagley-ai-display-v1-9-f628543dfd14@ideasonboard.com>
+Message-Id: <20260420-beagley-ai-display-v1-15-f628543dfd14@ideasonboard.com>
 References: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
 In-Reply-To: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,23 +48,23 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrew Davis <afd@ti.com>
 X-Mailer: b4 0.15-dev-c25d1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3289;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7630;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=eECXnZn8vnRWVId75kkhXIP55XTyydw1o/Xi8IowENA=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iIGgWMuo21BHn03Y0oLtgs9TLh/AJ97JqgUH
- Y0YFJGj2BqJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYiBgAKCRD6PaqMvJYe
- 9ZMSD/0f6Goa7w7n0Og5IkTlnxiXQEFmCIPd3kXeBkIT6Zo6noFeKY8v5cLeo+iispAQP6Fti89
- wYhEe6l7OxOJL27px9Op1xtn5mX1IfAADJRBj6PlAPQKXwie51RjChtJh/KDLTNmUJVondV5Ftg
- r/oEg7SvV69ySu36r/CzIJiiAoIgCAh2lKiGn4lREqRcvclsez+KVa0teeYOmstkfNGBrQKrbXW
- p6RJq4OK0Vi5vPRRD2ET9Ti8HHT3gPTcGc+6H5JJoF/eQrw9kemXtPpsogs3c+8r33gAT6/hwPD
- pCjPuk9DzvAKa7Dbm87BWdXl4dW1sawsr2J9TWAswvip0zsaL3QMXWh9GLvRtClwBrWyu6SiNIL
- AAK69QzEGQgbBXQfFawD7sSXucUMiSvB1NsJw/9fhII+nDcS3FPrWARTj2Q5qU5jUVtboUyXfl4
- rQwTo6WbkKahSGU6cO4KbgeTNPPDL2QepeDQoD/0SrXaO4lKXFlYwerL1psQVW3DU1R/nkkiP1e
- zGnm5RC180WPe+YIRX3Qf+tFs+qAZcKfxRhPWV96mipcEkblQrJfQFSHOSL6iOHQ4l41kGgCNrY
- YXHZ28u8OhOjL77/6dpFB/taB9Y+y1JNF+/ysVCSrmJiKwhWtscNbrZU36Y6LsMCrJWiHqnrxCK
- 8kA//2337ZRlL8g==
+ bh=ef00AEEpZLBoZS13pee46fVX47tvacOEQxIpd0yH3/4=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iIIpMXK+ys3lB6QqFrLhAroXUwaPU9mySplY
+ 8qXUHRF3umJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYiCAAKCRD6PaqMvJYe
+ 9eMYD/4xWdOQUmY/A99L949Yd+Z93eoPbFuQihhQZcI7w8PKRrLRuWKx24XT0uQnocVejlteWlm
+ vhQP4xSO2z6hNe/ubS8kuY0/Fk5vpK4sxVCJEsISAq+3cSRgIqJIOcWkxkwC/eg/e40e3kh58cw
+ HhtT0y5oeExyLGYTSBUpRRJlA4RQmn6h3ms1oIG7divwDxhWmSdRyf6QnQrYs5MZsoKVn/mx9Ai
+ 3AFXhp/23OS4wQpv4m9cADwp4CM5Y7yTUQS5sSWNZUalnmRCdrns4WpieyjTXKofNA6EtxvIat3
+ 8oBt21ag+/5tegsclp61rYRZ32Mk36aLOrFf5M3CFBJl6t5IOdUWyFKqlr7CFUG2lVPjzxEBq3M
+ kIl6HSUbtZ0iHd7s5WAd8hY37eW1Is6ojHw1jrsBvhU1m6WALQjvpV0fu+dqxfoc0G68T7mMgYx
+ boqpvibQPToTGq0NMVA+Rnn4oe4HPMNzbIfDt4ssAFZ2CU3eE/HCfW730zZjaxUdMjksy/ALQ2/
+ tVRYRi6d0WyjdgKRJtueh8oJfusN48Z7qZkqYhy0WFrFDqVivU45oTThAnwryvbwp9r4KUdwByZ
+ H2NC5lmPI7l8WpdIW7rUfUlV0A4OwmVcgx89e/mgav4AQITo5zUPBxiTeCO/hGDw8+P2KGtl3yM
+ Q2lP9PXK93rbRVw==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -82,88 +82,261 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DPI output pipeline in K3 SoCs contains the display subsystem (DSS)
-which produces the in-SoC parallel video signal, and a DPI block which
-adjusts the signal to the external MIPI DPI output.
+From: Andrew Davis <afd@ti.com>
 
-The DSS IP has registers to configure whether the data and sync signals
-are driven on rising or falling clock edge, and on some SoCs these are
-automatically conveyed to the DPI block which needs that configuration
-to properly output the MIPI DPI signal.
+Enable HDMI support for BeagleY-AI platform. The display controller used is
+TIDSS and the HDMI bridge used is IT66122.
 
-However, on some SoCs the DPI block configuration has to be done
-manually, using an extra register outside the DSS, DPI0_CLK_CTRL from
-MAIN_CTRL_MMR_CFG0 block, which controls the DPI block's behavior.
-
-The register is exposed to DSS via syscon 'ti,dpi-io-ctrl' node.
-
-Add the support to get the regmap to the register, and configure the
-bits before enabling the video output.
-
-Original patch from Louis Chauvet <louis.chauvet@bootlin.com>
-
+Based on DT by: Robert Nelson <robertcnelson@gmail.com>
+Signed-off-by: Andrew Davis <afd@ti.com>
+Signed-off-by: Swamil Jain <s-jain1@ti.com>
+[tomi.valkeinen: cosmetic fixes]
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/tidss/tidss_dispc.c      | 18 ++++++++++++++++++
- drivers/gpu/drm/tidss/tidss_dispc_regs.h |  4 ++++
- 2 files changed, 22 insertions(+)
+ arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts | 197 +++++++++++++++++++++++++
+ 1 file changed, 197 insertions(+)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index c21ac3f51720..0f68e60b902b 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -467,6 +467,7 @@ struct dispc_device {
- 	const struct dispc_features *feat;
- 
- 	struct clk *fclk;
-+	struct regmap *syscon_dpi_io_ctrl;
- 
- 	bool is_enabled;
- 
-@@ -1201,6 +1202,12 @@ void dispc_vp_prepare(struct dispc_device *dispc, u32 hw_videoport,
- 				  mode->crtc_hdisplay - 1) |
- 		       FIELD_PREP(DISPC_VP_SIZE_SCREEN_VDISPLAY_MASK,
- 				  mode->crtc_vdisplay - 1));
+diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
+index 5255e04b9ac7..b7bcc90005d7 100644
+--- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
++++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
+@@ -146,6 +146,34 @@ led-1 {
+ 			default-state = "on";
+ 		};
+ 	};
 +
-+	if (dispc->vp_data[hw_videoport].dpi_output && dispc->syscon_dpi_io_ctrl) {
-+		regmap_write(dispc->syscon_dpi_io_ctrl, 0x0,
-+			     (!ipc ? DPI0_CLK_CTRL_DATA_CLK_INVDIS : 0) |
-+			     (rf ? DPI0_CLK_CTRL_SYNC_CLK_INVDIS : 0));
-+	}
- }
- 
- void dispc_vp_enable(struct dispc_device *dispc, u32 hw_videoport)
-@@ -2989,6 +2996,17 @@ int dispc_init(struct tidss_device *tidss)
- 
- 	dispc_init_errata(dispc);
- 
-+	dispc->syscon_dpi_io_ctrl = syscon_regmap_lookup_by_compatible("ti,am625-dss-dpi0-clk-ctrl");
-+	if (IS_ERR(dispc->syscon_dpi_io_ctrl)) {
-+		if (PTR_ERR(dispc->syscon_dpi_io_ctrl) != -ENODEV) {
-+			r = dev_err_probe(dispc->dev, PTR_ERR(dispc->syscon_dpi_io_ctrl),
-+					  "DISPC: syscon_regmap_lookup_by_phandle failed.\n");
-+			return r;
-+		}
++	hdmi0: connector-hdmi {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "d";
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&it66122_out>;
++			};
++		};
++	};
 +
-+		dispc->syscon_dpi_io_ctrl = NULL;
-+	}
++	sound0: sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "it66122 HDMI";
++		simple-audio-card,format = "i2s";
++		simple-audio-card,bitclock-master = <&hdmi_dailink_master>;
++		simple-audio-card,frame-master = <&hdmi_dailink_master>;
 +
- 	dispc->fourccs = devm_kcalloc(dev, ARRAY_SIZE(dispc_color_formats),
- 				      sizeof(*dispc->fourccs), GFP_KERNEL);
- 	if (!dispc->fourccs)
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc_regs.h b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-index 382027dddce8..4cdde24d8372 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc_regs.h
-@@ -333,4 +333,8 @@ enum oldi_mode_reg_val { SPWG_18 = 0, JEIDA_24 = 1, SPWG_24 = 2 };
- 
- #define AM65X_OLDI_PWRDN_TX		BIT(8)
- 
-+/* Bits in the MAIN_CTRL_MMR_CFG0_DPI0_CLK_CTRL register */
-+#define DPI0_CLK_CTRL_DATA_CLK_INVDIS BIT(8)
-+#define DPI0_CLK_CTRL_SYNC_CLK_INVDIS BIT(9)
++		hdmi_dailink_master: simple-audio-card,cpu {
++			sound-dai = <&mcasp1>;
++			system-clock-direction-out;
++		};
 +
- #endif /* __TIDSS_DISPC_REGS_H */
++		simple-audio-card,codec {
++			sound-dai = <&it66122>;
++		};
++	};
+ };
+ 
+ &main_pmx0 {
+@@ -185,6 +213,20 @@ J722S_IOPAD(0x0240, PIN_INPUT, 7) /* (B24) MMC1_SDCD.GPIO1_48 */
+ 		bootph-all;
+ 	};
+ 
++	main_i2c1_pins_default: main-i2c1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x01e8, PIN_INPUT_PULLUP, 0) /* (C24) I2C1_SCL */
++			J722S_IOPAD(0x01ec, PIN_INPUT_PULLUP, 0) /* (A22) I2C1_SDA */
++		>;
++		bootph-all;
++	};
++
++	main_gpio0_ioexp_intr_pins_default: main-gpio0-ioexp-intr-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x0110, PIN_INPUT, 7) /* (G27) MMC2_DAT1.GPIO0_67 */
++		>;
++	};
++
+ 	mdio_pins_default: mdio-default-pins {
+ 		pinctrl-single,pins = <
+ 			J722S_IOPAD(0x0160, PIN_OUTPUT, 0) /* (AC24) MDIO0_MDC */
+@@ -227,6 +269,47 @@ vdd_3v3_sd_pins_default: vdd-3v3-sd-default-pins {
+ 			J722S_IOPAD(0x0254, PIN_OUTPUT, 7) /* (E25) USB0_DRVVBUS.GPIO1_50 */
+ 		>;
+ 	};
++
++	dss1_pins_default: dss1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x0100, PIN_OUTPUT, 0) /* (AB23) VOUT0_VSYNC */
++			J722S_IOPAD(0x00f8, PIN_OUTPUT, 0) /* (AB24) VOUT0_HSYNC */
++			J722S_IOPAD(0x0104, PIN_OUTPUT, 0) /* (AC26) VOUT0_PCLK */
++			J722S_IOPAD(0x00fc, PIN_OUTPUT, 0) /* (AC27) VOUT0_DE */
++			J722S_IOPAD(0x00b8, PIN_OUTPUT, 0) /* (W27) VOUT0_DATA0 */
++			J722S_IOPAD(0x00bc, PIN_OUTPUT, 0) /* (W25) VOUT0_DATA1 */
++			J722S_IOPAD(0x00c0, PIN_OUTPUT, 0) /* (W24) VOUT0_DATA2 */
++			J722S_IOPAD(0x00c4, PIN_OUTPUT, 0) /* (W23) VOUT0_DATA3 */
++			J722S_IOPAD(0x00c8, PIN_OUTPUT, 0) /* (W22) VOUT0_DATA4 */
++			J722S_IOPAD(0x00cc, PIN_OUTPUT, 0) /* (W21) VOUT0_DATA5 */
++			J722S_IOPAD(0x00d0, PIN_OUTPUT, 0) /* (Y26) VOUT0_DATA6 */
++			J722S_IOPAD(0x00d4, PIN_OUTPUT, 0) /* (Y27) VOUT0_DATA7 */
++			J722S_IOPAD(0x00d8, PIN_OUTPUT, 0) /* (AA24) VOUT0_DATA8 */
++			J722S_IOPAD(0x00dc, PIN_OUTPUT, 0) /* (AA27) VOUT0_DATA9 */
++			J722S_IOPAD(0x00e0, PIN_OUTPUT, 0) /* (AA25) VOUT0_DATA10 */
++			J722S_IOPAD(0x00e4, PIN_OUTPUT, 0) /* (AB25) VOUT0_DATA11 */
++			J722S_IOPAD(0x00e8, PIN_OUTPUT, 0) /* (AA23) VOUT0_DATA12 */
++			J722S_IOPAD(0x00ec, PIN_OUTPUT, 0) /* (AA22) VOUT0_DATA13 */
++			J722S_IOPAD(0x00f0, PIN_OUTPUT, 0) /* (AB26) VOUT0_DATA14 */
++			J722S_IOPAD(0x00f4, PIN_OUTPUT, 0) /* (AB27) VOUT0_DATA15 */
++			J722S_IOPAD(0x005c, PIN_OUTPUT, 1) /* (AC25) GPMC0_AD8.VOUT0_DATA16 */
++			J722S_IOPAD(0x0060, PIN_OUTPUT, 1) /* (U26) GPMC0_AD9.VOUT0_DATA17 */
++			J722S_IOPAD(0x0064, PIN_OUTPUT, 1) /* (V27) GPMC0_AD10.VOUT0_DATA18 */
++			J722S_IOPAD(0x0068, PIN_OUTPUT, 1) /* (V25) GPMC0_AD11.VOUT0_DATA19 */
++			J722S_IOPAD(0x006c, PIN_OUTPUT, 1) /* (V26) GPMC0_AD12.VOUT0_DATA20 */
++			J722S_IOPAD(0x0070, PIN_OUTPUT, 1) /* (V24) GPMC0_AD13.VOUT0_DATA21 */
++			J722S_IOPAD(0x0074, PIN_OUTPUT, 1) /* (V22) GPMC0_AD14.VOUT0_DATA22 */
++			J722S_IOPAD(0x0078, PIN_OUTPUT, 1) /* (V23) GPMC0_AD15.VOUT0_DATA23 */
++		>;
++	};
++
++	main_mcasp1_pins_default: main-mcasp1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x0090, PIN_INPUT, 2) /* (P27) GPMC0_BE0n_CLE.MCASP1_ACLKX */
++			J722S_IOPAD(0x0098, PIN_INPUT, 2) /* (V21) GPMC0_WAIT0.MCASP1_AFSX */
++			J722S_IOPAD(0x008c, PIN_INPUT, 2) /* (N23) GPMC0_WEn.MCASP1_AXR0 */
++		>;
++	};
+ };
+ 
+ &cpsw3g {
+@@ -284,6 +367,13 @@ J722S_MCU_IOPAD(0x050, PIN_INPUT_PULLUP, 0)	/* (C6) WKUP_I2C1_SDA */
+ 		>;
+ 		bootph-all;
+ 	};
++
++	hdmi_gpio_pins_default: hdmi-gpio-default-pins {
++		pinctrl-single,pins = <
++			J722S_MCU_IOPAD(0x0038, PIN_INPUT_PULLUP | PIN_DEBOUNCE_CONF6, 7) /* (D8) MCU_MCAN0_RX.MCU_GPIO0_14 HDMI_INTn */
++			J722S_MCU_IOPAD(0x0034, PIN_OUTPUT_PULLUP, 7) /* (B2) MCU_MCAN0_TX.MCU_GPIO0_13 HDMI_RSTn */
++		>;
++	};
+ };
+ 
+ &wkup_uart0 {
+@@ -385,6 +475,63 @@ rtc: rtc@68 {
+ 	};
+ };
+ 
++&main_i2c1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_i2c1_pins_default>;
++	clock-frequency = <400000>;
++	bootph-all;
++
++	it66122: bridge-hdmi@4c {
++		compatible = "ite,it66122";
++		reg = <0x4c>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&hdmi_gpio_pins_default>;
++		vcn33-supply = <&vdd_3v3>;
++		vcn18-supply = <&buck2_reg>;
++		vrf12-supply = <&ldo2_reg>;
++		reset-gpios = <&mcu_gpio0 13 GPIO_ACTIVE_LOW>;
++		interrupt-parent = <&mcu_gpio0>;
++		interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
++		#sound-dai-cells = <0>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			/*
++			 * HDMI can be serviced with 3 potential VPs -
++			 * (DSS0 VP1 / DSS1 VP0 / DSS1 VP1).
++			 * For now, we will service it with DSS1 VP1.
++			 */
++			port@0 {
++				reg = <0>;
++
++				it66122_in: endpoint {
++					bus-width = <24>;
++					remote-endpoint = <&dss1_dpi0_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				it66122_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++				};
++			};
++		};
++	};
++};
++
++&main_gpio0 {
++	status = "okay";
++};
++
++&mcu_gpio0 {
++	status = "okay";
++};
++
+ &sdhci1 {
+ 	/* SD/MMC */
+ 	vmmc-supply = <&vdd_mmc1>;
+@@ -399,4 +546,54 @@ &sdhci1 {
+ 	status = "okay";
+ };
+ 
++&dss1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&dss1_pins_default>;
++
++	clocks = <&k3_clks 232 8>,
++		 <&k3_clks 232 0>,
++		 <&k3_clks 232 4>;
++
++	assigned-clocks = <&k3_clks 241 0>, /* DSS1-VP0 */
++			  <&k3_clks 240 0>, /* DSS1-VP1 */
++			  <&k3_clks 245 0>; /* DPI Output */
++
++	assigned-clock-parents = <&k3_clks 241 2>, /* PLL 17 HDMI */
++				 <&k3_clks 240 1>, /* PLL 18 DSI */
++				 <&k3_clks 245 2>; /* DSS1-DPI0 */
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		/* DSS1-VP1: DPI/HDMI Output */
++		port@0 {
++			reg = <0>;
++
++			dss1_dpi0_out: endpoint {
++				remote-endpoint = <&it66122_in>;
++			};
++		};
++	};
++};
++
++&mcasp1 {
++	status = "okay";
++	#sound-dai-cells = <0>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_mcasp1_pins_default>;
++	auxclk-fs-ratio = <2177>;
++	op-mode = <0>; /* MCASP_IIS_MODE */
++	tdm-slots = <2>;
++	serial-dir = <  /* 0: INACTIVE, 1: TX, 2: RX */
++		1 0 0 0
++		0 0 0 0
++		0 0 0 0
++		0 0 0 0
++	>;
++	tx-num-evt = <32>;
++	rx-num-evt = <32>;
++};
++
+ #include "k3-j722s-ti-ipc-firmware.dtsi"
 
 -- 
 2.43.0
