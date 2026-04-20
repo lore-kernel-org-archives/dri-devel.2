@@ -4,119 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25DF3F327B3
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23077F327B2
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0DB010E818;
-	Tue, 21 Apr 2026 07:09:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51EB510EB71;
+	Tue, 21 Apr 2026 07:09:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="XP8JbMOk";
+	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="iXEj3hOy";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A696910EB24
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 20:07:26 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id 7D6E5240101
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:07:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1776715645; bh=9BVVkQvTK0Q4Ju+erfl0HYsVIsERHC2fL8foASC9pSw=;
- h=From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
- b=XP8JbMOkGTWWncdv1msSHek++kZx3u1nTksBhM9nVN4g8XvMgIRuJjH+Fk6VSYYao
- xjZ5P0SSiXFp4Bm2XQjMFzBQSO4IUFNvF7zIcgfLzqx55ekHbbA62FdwybwteGF08h
- PUuCWDFA5b95bKvdmxv9y/BcxEe1SbhghW30C20lygRTT0n0u6tdruQbivnTzD73q1
- 8CwwNV8DTsmWRZBOVHQzPp6zm7rmeG1YFPWEfXmFgoZcsWGrBXOKSRP9A+hz9tRFdQ
- Ew0F5ZYCTScYXTEx8clahJb/vm/KdFR0lqUFnlq9No+eZvH/Zcv98jz3A9boVGHGtR
- F9bXF87MVFVzg==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fzxNW2cbRz9rxM;
- Mon, 20 Apr 2026 22:07:23 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Mon, 20 Apr 2026 20:07:24 +0000
-Subject: [PATCH v5 3/4] rust: add basic serial device bus abstractions
+Received: from out28-147.mail.aliyun.com (out28-147.mail.aliyun.com
+ [115.124.28.147])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD4810E10C
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 02:39:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
+ t=1776652749; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
+ bh=Ir0KxAAn4FerualjHK4s3pLwwnuJV0oEPtqxTbJrSq0=;
+ b=iXEj3hOyU2zf+2E1nK6+K71i0EazzY49iNqUicILBMK4SKbW4umlBEDuHrqBEI0ljo5V5+nIzGA3JutOEdxvMnynhAiMN7U8MxBypjfUAS1yTACaW7KAiM1G1P8IyH4F41Loj9rZ46qKsnyBE2jtB9VfdOjwHZkVVJ0LYZyEniKGrs5jNu8b9lDnOYR7HUXidmZBtzVZlGBQxoqGl5J/k8aY1in2EuF1kKIaNoWBEBIfO3PZUAttYwjQL2vFfSYdRj/3/5SVxH4dqxoqA+btl6sd2PpOqp/7tVnAeGk3EMqO1VaM9lw46CcDm4M4aDI4EMTrvr3FXuWoJgpKM/wAYw==
+X-Alimail-AntiSpam: AC=CONTINUE; BC=0.07436259|-1; CH=green;
+ DM=|CONTINUE|false|;
+ DS=CONTINUE|ham_system_inform|0.00847375-0.000234493-0.991292;
+ FP=13482438463041654523|0|0|0|0|-1|-1|-1;
+ HT=maildocker-contentspam033032062159; MF=syyang@lontium.com; NM=1; PH=DS;
+ RN=19; RT=19; SR=0; TI=SMTPD_---.hFmvE5U_1776652444; 
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
+ fp:SMTPD_---.hFmvE5U_1776652444 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 20 Apr 2026 10:34:05 +0800
+From: syyang@lontium.com
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
+ rfoss@kernel.org, mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@ideasonboard.com,
+ jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
+ Sunyun Yang <syyang@lontium.com>
+Subject: [PATCH 2/2] drm/bridge: Add LT7911EXC edp to mipi bridge driver
+Date: Mon, 20 Apr 2026 10:33:54 +0800
+Message-Id: <20260420023354.1192642-3-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260420023354.1192642-1-syyang@lontium.com>
+References: <20260420023354.1192642-1-syyang@lontium.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-rust_serdev-v5-3-57e8ba0519f3@posteo.de>
-References: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
-In-Reply-To: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=23561;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=cyeN4EFJX7c1cSiIKXz60hYxYq34HKv2FAfPXqGL92A=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp5od1pcuOxAlBVWEHMRn7IVX8matYeM0aPo7Lq
- RdHyG6igXKJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaeaHdRsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KPUhAAqy8MxNW1itxT14POFz0t1WHbxLppUWW
- BCFbK30eesxNhhjn3m1hABSjJnDZW94rjxe81g5ACYzPFuLyc04Zp8fpqOEyRrBc/lu60R5+egA
- jTYJPDJy/FZU3fB3M/l0dlzOBbeOj5eKmCnJeugr7wWRIw0L4LbZXGxxMBoR+5kkniOU5sVV/z/
- jcjt6ezlptRXQmLonoIK4OLJC7WZAFEGnqAL7uyXy6Qzks/ph16O6hsgK2Olch0fwG5LjLCuxbs
- T8Xa4Gtvzb9V0CzY85/v/U5sdnOm7BDnCTDY0YHGmiBs/SPQ1wDVsuQwY1ZWvE87VdShcrbm19A
- /G5I+oyi9Z4y8nbBZRrNqEJhFVBlSmr67li4Lhyg1LwLwUroGupUhD2X742hOWyZkmbq/zl309v
- TYT4GAT98+ss8PLF5GeYuj9B/+iC5m5HLzCosHryCBhonitFvYVlsfTCskAoW8koMoMulTdbvzW
- FhDTGRMo6rXoD5v77gimzHT2OAq1Db7/LMu0x6VCD/WqMsjTlKTJV7rlP+d234RQkxHEXeE2qYD
- hHAznKgt1TOKIZlMBvp/VwYacNosZX2mxpoWQI6dA5r5eWfKcTrSiYwv+3TGFAmhuTlv/IzkI3U
- zii2yZ5nhddcI9whA78Eui8HdWO+Zx2IiQeIX3Lp1YBTi3XTWwbM=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -133,654 +64,651 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement the basic serial device bus abstractions required to write a
-serial device bus device driver with or without the need for initial device
-data. This includes the following data structures:
+From: Sunyun Yang <syyang@lontium.com>
 
-The `serdev::Driver` trait represents the interface to the driver.
+LT7911EXC is a high performance  eDP1.4 to MIPI chip for 
+VR/Display application.
 
-The `serdev::Device` abstraction represents a `struct serdev_device`.
+-eDP1.4Receiver 
+ 1.Support SSC
+ 2.Support 1/2/4 lanes
+ 3.Support up to 4K@60HzRGB/YCbCr4:4:48bpc
+ 4.Support lane swap and PN swap
 
-In order to provide the Serdev specific parts to a generic
-`driver::Registration` the `driver::RegistrationOps` trait is
-implemented by `serdev::Adapter`.
+-MIPI Transmitter
+ 1.CompliantwithD-PHY1.2&DSI1.1&CSI-22.0；1 clock lane,
+   and1/2/3/4 configurable data lanes:2.5Gbpsperdatalane
+ 2.CompliantwithC-PHY1.0&DSI-21.0&CSI-22.0;
+   1/2/3 configurable data trio；2.5Gsps perdatatrio
+ 3.Support1/2configurable ports
+ 4.DSISupport16/20/24-bit YCbCr4:2:2,16/18/24/30-bit RGB
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
 ---
- drivers/tty/serdev/Kconfig      |   7 +
- rust/bindings/bindings_helper.h |   1 +
- rust/helpers/helpers.c          |   1 +
- rust/helpers/serdev.c           |  22 ++
- rust/kernel/lib.rs              |   2 +
- rust/kernel/serdev.rs           | 536 ++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 569 insertions(+)
+ drivers/gpu/drm/bridge/Kconfig             |  18 +
+ drivers/gpu/drm/bridge/Makefile            |   1 +
+ drivers/gpu/drm/bridge/lontium-lt7911exc.c | 571 +++++++++++++++++++++
+ 3 files changed, 590 insertions(+)
+ create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
 
-diff --git a/drivers/tty/serdev/Kconfig b/drivers/tty/serdev/Kconfig
-index 46ae732bfc68..e6dfe949ad01 100644
---- a/drivers/tty/serdev/Kconfig
-+++ b/drivers/tty/serdev/Kconfig
-@@ -9,6 +9,13 @@ menuconfig SERIAL_DEV_BUS
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index c3209b0f4678..bae8cdaea666 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -202,6 +202,24 @@ config DRM_LONTIUM_LT8713SX
+ 	  to 3 configurable Type-C/DP1.4/HDMI2.0 outputs
+ 	  Please say Y if you have such hardware.
  
- 	  Note that you typically also want to enable TTY port controller support.
- 
-+config RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-+	bool "Rust Serial device bus abstractions"
-+	depends on RUST
-+	select SERIAL_DEV_BUS
++config DRM_LONTIUM_LT9611C
++	tristate "Lontium LT9611C DSI/HDMI bridge"
++	select SND_SOC_HDMI_CODEC if SND_SOC
++	depends on OF
++	select CRC8
++	select FW_LOADER
++	select DRM_PANEL_BRIDGE
++	select DRM_KMS_HELPER
++	select DRM_MIPI_DSI
++	select DRM_DISPLAY_HELPER
++	select DRM_DISPLAY_HDMI_STATE_HELPER
++	select REGMAP_I2C
 +	help
-+	  This enables the Rust abstraction for the serial device bus API.
++	  Driver for Lontium DSI to HDMI bridge
++	  chip driver that converts dual DSI and I2S to
++	  HDMI signals
++	  Please say Y if you have such hardware.
 +
- if SERIAL_DEV_BUS
- 
- config SERIAL_DEV_CTRL_TTYPORT
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 083cc44aa952..ab521ba42673 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -80,6 +80,7 @@
- #include <linux/regulator/consumer.h>
- #include <linux/sched.h>
- #include <linux/security.h>
-+#include <linux/serdev.h>
- #include <linux/slab.h>
- #include <linux/sys_soc.h>
- #include <linux/task_work.h>
-diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-index a3c42e51f00a..9b87e9591cfd 100644
---- a/rust/helpers/helpers.c
-+++ b/rust/helpers/helpers.c
-@@ -53,6 +53,7 @@
- #include "regulator.c"
- #include "scatterlist.c"
- #include "security.c"
-+#include "serdev.c"
- #include "signal.c"
- #include "slab.c"
- #include "spinlock.c"
-diff --git a/rust/helpers/serdev.c b/rust/helpers/serdev.c
+ config DRM_ITE_IT66121
+ 	tristate "ITE IT66121 HDMI bridge"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
+index beab5b695a6e..54b293d1663e 100644
+--- a/drivers/gpu/drm/bridge/Makefile
++++ b/drivers/gpu/drm/bridge/Makefile
+@@ -18,6 +18,7 @@ obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
+ obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
+ obj-$(CONFIG_DRM_LONTIUM_LT9611UXC) += lontium-lt9611uxc.o
+ obj-$(CONFIG_DRM_LONTIUM_LT8713SX) += lontium-lt8713sx.o
++obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
+ obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
+ obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) += megachips-stdpxxxx-ge-b850v3-fw.o
+ obj-$(CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER) += microchip-lvds.o
+diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
 new file mode 100644
-index 000000000000..c52b78ca3fc7
+index 000000000000..d1c1d9e073ef
 --- /dev/null
-+++ b/rust/helpers/serdev.c
-@@ -0,0 +1,22 @@
++++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+@@ -0,0 +1,571 @@
 +// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Lontium Semiconductor, Inc.
++ */
 +
-+#include <linux/serdev.h>
++#include <linux/crc32.h>
++#include <linux/firmware.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/regmap.h>
++#include <drm/drm_of.h>
 +
-+__rust_helper
-+void rust_helper_serdev_device_driver_unregister(struct serdev_device_driver *sdrv)
-+{
-+	serdev_device_driver_unregister(sdrv);
-+}
++#define FW_SIZE (64 * 1024)
++#define LT_PAGE_SIZE 32
++#define FW_FILE  "LT7911EXC.bin"
++#define LT7911EXC_PAGE_CONTROL 0xff
 +
-+__rust_helper
-+void rust_helper_serdev_device_put(struct serdev_device *serdev)
-+{
-+	serdev_device_put(serdev);
-+}
++struct lt7911exc {
++	struct device *dev;
++	struct i2c_client *client;
++	struct drm_bridge bridge;
++	struct drm_bridge *panel_bridge;
++	struct regmap *regmap;
++	/* Protects all accesses to registers by stopping the on-chip MCU */
++	struct mutex ocm_lock;
++	struct regulator_bulk_data supplies[2];
 +
-+__rust_helper
-+void rust_helper_serdev_device_set_client_ops(struct serdev_device *serdev,
-+					      const struct serdev_device_ops *ops)
-+{
-+	serdev_device_set_client_ops(serdev, ops);
-+}
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index d93292d47420..5107c9c1be07 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -144,6 +144,8 @@
- pub mod scatterlist;
- pub mod security;
- pub mod seq_file;
-+#[cfg(CONFIG_RUST_SERIAL_DEV_BUS_ABSTRACTIONS)]
-+pub mod serdev;
- pub mod sizes;
- pub mod slice;
- #[cfg(CONFIG_SOC_BUS)]
-diff --git a/rust/kernel/serdev.rs b/rust/kernel/serdev.rs
-new file mode 100644
-index 000000000000..f1464e6a3fd6
---- /dev/null
-+++ b/rust/kernel/serdev.rs
-@@ -0,0 +1,536 @@
-+// SPDX-License-Identifier: GPL-2.0
++	struct gpio_desc *reset_gpio;
++	const struct firmware *fw;
++	int fw_version;
++	u32 fw_crc;
 +
-+//! Abstractions for the serial device bus.
-+//!
-+//! C header: [`include/linux/serdev.h`](srctree/include/linux/serdev.h)
-+
-+use crate::{
-+    acpi,
-+    device,
-+    devres,
-+    driver,
-+    error::{
-+        from_result,
-+        to_result,
-+        VTABLE_DEFAULT_ERROR, //
-+    },
-+    of,
-+    prelude::*,
-+    sync::Completion,
-+    time::{
-+        msecs_to_jiffies,
-+        Jiffies,
-+        Msecs, //
-+    },
-+    types::{
-+        AlwaysRefCounted,
-+        Opaque, //
-+    }, //
++	bool enabled;
 +};
 +
-+use core::{
-+    cell::UnsafeCell,
-+    marker::PhantomData,
-+    mem::offset_of,
-+    num::NonZero,
-+    ptr::NonNull, //
++static const struct regmap_range_cfg lt7911exc_ranges[] = {
++	{
++		.name = "register_range",
++		.range_min =  0,
++		.range_max = 0xffff,
++		.selector_reg = LT7911EXC_PAGE_CONTROL,
++		.selector_mask = 0xff,
++		.selector_shift = 0,
++		.window_start = 0,
++		.window_len = 0x100,
++	},
 +};
 +
-+/// Parity bit to use with a serial device.
-+#[repr(u32)]
-+pub enum Parity {
-+    /// No parity bit.
-+    None = bindings::serdev_parity_SERDEV_PARITY_NONE,
-+    /// Even partiy.
-+    Even = bindings::serdev_parity_SERDEV_PARITY_EVEN,
-+    /// Odd parity.
-+    Odd = bindings::serdev_parity_SERDEV_PARITY_ODD,
++static const struct regmap_config lt7911exc_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = 0xffff,
++	.ranges = lt7911exc_ranges,
++	.num_ranges = ARRAY_SIZE(lt7911exc_ranges),
++};
++
++static u32 cal_crc32_custom(const u8 *data, u64 length)
++{
++	u32 crc = 0xffffffff;
++	u8 buf[4];
++	u64 i;
++
++	for (i = 0; i < length; i += 4) {
++		buf[0] = data[i + 3];
++		buf[1] = data[i + 2];
++		buf[2] = data[i + 1];
++		buf[3] = data[i + 0];
++		crc = crc32_be(crc, buf, 4);
++		}
++
++	return crc;
 +}
 +
-+/// Timeout in Jiffies.
-+pub enum Timeout {
-+    /// Wait for a specific amount of [`Jiffies`].
-+    Jiffies(NonZero<Jiffies>),
-+    /// Wait for a specific amount of [`Msecs`].
-+    Milliseconds(NonZero<Msecs>),
-+    /// Wait as long as possible.
-+    ///
-+    /// This is equivalent to [`kernel::task::MAX_SCHEDULE_TIMEOUT`].
-+    Max,
++static inline struct lt7911exc *
++		bridge_to_lt7911exc(struct drm_bridge *bridge)
++{
++	return container_of(bridge, struct lt7911exc, bridge);
 +}
 +
-+impl Timeout {
-+    fn into_jiffies(self) -> isize {
-+        match self {
-+            Self::Jiffies(value) => value.get().try_into().unwrap_or_default(),
-+            Self::Milliseconds(value) => {
-+                msecs_to_jiffies(value.get()).try_into().unwrap_or_default()
-+            }
-+            Self::Max => 0,
-+        }
-+    }
++static int lt7911exc_regulator_enable(struct lt7911exc *lt7911exc)
++{
++	int ret;
++
++	ret = regulator_enable(lt7911exc->supplies[0].consumer);
++	if (ret < 0)
++		return ret;
++
++	usleep_range(5000, 10000);
++
++	ret = regulator_enable(lt7911exc->supplies[1].consumer);
++	if (ret < 0) {
++		regulator_disable(lt7911exc->supplies[0].consumer);
++		return ret;
++	}
++
++	return 0;
 +}
 +
-+/// An adapter for the registration of serial device bus device drivers.
-+pub struct Adapter<T: Driver>(T);
++static int lt7911exc_regulator_disable(struct lt7911exc *lt7911exc)
++{
++	int ret;
 +
-+// SAFETY:
-+// - `bindings::serdev_device_driver` is a C type declared as `repr(C)`.
-+// - `Drvdata<T>` is the type of the driver's device private data.
-+// - `struct serdev_device_driver` embeds a `struct device_driver`.
-+// - `DEVICE_DRIVER_OFFSET` is the correct byte offset to the embedded `struct device_driver`.
-+unsafe impl<T: Driver + 'static> driver::DriverLayout for Adapter<T> {
-+    type DriverType = bindings::serdev_device_driver;
-+    type DriverData = T;
-+    const DEVICE_DRIVER_OFFSET: usize = core::mem::offset_of!(Self::DriverType, driver);
++	ret = regulator_disable(lt7911exc->supplies[1].consumer);
++	if (ret < 0)
++		return ret;
++
++	ret = regulator_disable(lt7911exc->supplies[0].consumer);
++	if (ret < 0)
++		return ret;
++
++	return 0;
 +}
 +
-+// SAFETY: A call to `unregister` for a given instance of `DriverType` is guaranteed to be valid if
-+// a preceding call to `register` has been successful.
-+unsafe impl<T: Driver + 'static> driver::RegistrationOps for Adapter<T> {
-+    unsafe fn register(
-+        sdrv: &Opaque<Self::DriverType>,
-+        name: &'static CStr,
-+        module: &'static ThisModule,
-+    ) -> Result {
-+        let of_table = match T::OF_ID_TABLE {
-+            Some(table) => table.as_ptr(),
-+            None => core::ptr::null(),
-+        };
++static void lt7911exc_reset(struct lt7911exc *lt7911exc)
++{
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
++	msleep(20);
 +
-+        let acpi_table = match T::ACPI_ID_TABLE {
-+            Some(table) => table.as_ptr(),
-+            None => core::ptr::null(),
-+        };
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
++	msleep(20);
 +
-+        // SAFETY: It's safe to set the fields of `struct serdev_device_driver` on initialization.
-+        unsafe {
-+            (*sdrv.get()).driver.name = name.as_char_ptr();
-+            (*sdrv.get()).probe = Some(Self::probe_callback);
-+            (*sdrv.get()).remove = Some(Self::remove_callback);
-+            (*sdrv.get()).driver.of_match_table = of_table;
-+            (*sdrv.get()).driver.acpi_match_table = acpi_table;
-+        }
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
++	msleep(400);
 +
-+        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-+        to_result(unsafe { bindings::__serdev_device_driver_register(sdrv.get(), module.0) })
-+    }
-+
-+    unsafe fn unregister(sdrv: &Opaque<Self::DriverType>) {
-+        // SAFETY: `sdrv` is guaranteed to be a valid `DriverType`.
-+        unsafe { bindings::serdev_device_driver_unregister(sdrv.get()) };
-+    }
++	dev_dbg(lt7911exc->dev, "lt7911exc reset");
 +}
 +
-+#[pin_data]
-+struct PrivateData {
-+    #[pin]
-+    probe_complete: Completion,
-+    error: UnsafeCell<bool>,
++static int lt7911exc_parse_dt(struct lt7911exc *lt7911exc)
++{
++	int ret;
++
++	lt7911exc->supplies[0].supply = "vcc";
++	lt7911exc->supplies[1].supply = "vdd";
++
++	ret = devm_regulator_bulk_get(lt7911exc->dev, 2, lt7911exc->supplies);
++	if (ret) {
++		dev_err(lt7911exc->dev, "failed get regulator\n");
++		return ret;
++	}
++
++	lt7911exc->reset_gpio = devm_gpiod_get(lt7911exc->dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(lt7911exc->reset_gpio)) {
++		dev_err(lt7911exc->dev, "failed to acquire reset gpio\n");
++		return PTR_ERR(lt7911exc->reset_gpio);
++	}
++
++	return 0;
 +}
 +
-+impl<T: Driver + 'static> Adapter<T> {
-+    const OPS: &'static bindings::serdev_device_ops = &bindings::serdev_device_ops {
-+        receive_buf: if T::HAS_RECEIVE {
-+            Some(Self::receive_buf_callback)
-+        } else {
-+            None
-+        },
-+        write_wakeup: Some(bindings::serdev_device_write_wakeup),
-+    };
++static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
++{
++	u8 buf[2];
++	int ret;
 +
-+    extern "C" fn probe_callback(sdev: *mut bindings::serdev_device) -> kernel::ffi::c_int {
-+        // SAFETY: The serial device bus only ever calls the probe callback with a valid pointer to
-+        // a `struct serdev_device`.
-+        //
-+        // INVARIANT: `sdev` is valid for the duration of `probe_callback()`.
-+        let sdev = unsafe { &*sdev.cast::<Device<device::CoreInternal>>() };
-+        let id_info = <Self as driver::Adapter>::id_info(sdev.as_ref());
++	ret = regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, 3);
++	if (ret)
++		return ret;
 +
-+        from_result(|| {
-+            let private_data = devres::register(
-+                sdev.as_ref(),
-+                try_pin_init!(PrivateData {
-+                    probe_complete <- Completion::new(),
-+                    error: false.into(),
-+                }),
-+                GFP_KERNEL,
-+            )?;
-+
-+            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid pointer to `serdev_device`.
-+            unsafe {
-+                (*sdev.as_raw()).rust_private_data =
-+                    (&raw const *private_data).cast::<c_void>().cast_mut()
-+            };
-+
-+            // SAFETY: `sdev.as_raw()` is guaranteed to be a valid pointer to `serdev_device`.
-+            unsafe { bindings::serdev_device_set_client_ops(sdev.as_raw(), Self::OPS) };
-+
-+            // SAFETY: The serial device bus only ever calls the probe callback with a valid pointer
-+            // to a `serdev_device`.
-+            to_result(unsafe {
-+                bindings::devm_serdev_device_open(sdev.as_ref().as_raw(), sdev.as_raw())
-+            })?;
-+
-+            let data = T::probe(sdev, id_info);
-+            let result = sdev.as_ref().set_drvdata(data);
-+
-+            // SAFETY: We have exclusive access to `private_data.error`.
-+            unsafe { *private_data.error.get() = result.is_err() };
-+
-+            private_data.probe_complete.complete_all();
-+
-+            result.map(|()| 0)
-+        })
-+    }
-+
-+    extern "C" fn remove_callback(sdev: *mut bindings::serdev_device) {
-+        // SAFETY: The serial device bus only ever calls the remove callback with a valid pointer
-+        // to a `struct serdev_device`.
-+        //
-+        // INVARIANT: `sdev` is valid for the duration of `remove_callback()`.
-+        let sdev = unsafe { &*sdev.cast::<Device<device::CoreInternal>>() };
-+
-+        // SAFETY: `remove_callback` is only ever called after a successful call to
-+        // `probe_callback`, hence it's guaranteed that `Device::set_drvdata()` has been called
-+        // and stored a `Pin<KBox<T>>`.
-+        let data = unsafe { sdev.as_ref().drvdata_borrow::<T>() };
-+
-+        T::unbind(sdev, data);
-+    }
-+
-+    extern "C" fn receive_buf_callback(
-+        sdev: *mut bindings::serdev_device,
-+        buf: *const u8,
-+        length: usize,
-+    ) -> usize {
-+        // SAFETY: The serial device bus only ever calls the receive buf callback with a valid
-+        // pointer to a `struct serdev_device`.
-+        //
-+        // INVARIANT: `sdev` is valid for the duration of `receive_buf_callback()`.
-+        let sdev = unsafe { &*sdev.cast::<Device<device::CoreInternal>>() };
-+
-+        // SAFETY:
-+        // - The serial device bus only ever calls the receive buf callback with a valid pointer to
-+        //   a `struct serdev_device`.
-+        // - `receive_buf_callback` is only ever called after a successful call to
-+        //   `probe_callback`, hence it's guaranteed that `sdev.private_data` is a pointer
-+        //   to a valid `PrivateData`.
-+        let private_data = unsafe { &*(*sdev.as_raw()).rust_private_data.cast::<PrivateData>() };
-+
-+        private_data.probe_complete.wait_for_completion();
-+
-+        // SAFETY: No one has exclusive access to `private_data.error`.
-+        if unsafe { *private_data.error.get() } {
-+            return length;
-+        }
-+
-+        // SAFETY: `receive_buf_callback` is only ever called after a successful call to
-+        // `probe_callback`, hence it's guaranteed that `Device::set_drvdata()` has been called
-+        // and stored a `Pin<KBox<T>>`.
-+        let data = unsafe { sdev.as_ref().drvdata_borrow::<T>() };
-+
-+        // SAFETY: `buf` is guaranteed to be non-null and has the size of `length`.
-+        let buf = unsafe { core::slice::from_raw_parts(buf, length) };
-+
-+        T::receive(sdev, data, buf)
-+    }
++	return (buf[0] << 16) | (buf[1] << 8) | buf[2];
 +}
 +
-+impl<T: Driver + 'static> driver::Adapter for Adapter<T> {
-+    type IdInfo = T::IdInfo;
-+
-+    fn of_id_table() -> Option<of::IdTable<Self::IdInfo>> {
-+        T::OF_ID_TABLE
-+    }
-+
-+    fn acpi_id_table() -> Option<acpi::IdTable<Self::IdInfo>> {
-+        T::ACPI_ID_TABLE
-+    }
++static void lt7911exc_lock(struct lt7911exc *lt7911exc)
++{
++	mutex_lock(&lt7911exc->ocm_lock);
++	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
 +}
 +
-+/// Declares a kernel module that exposes a single serial device bus device driver.
-+///
-+/// # Examples
-+///
-+/// ```ignore
-+/// kernel::module_serdev_device_driver! {
-+///     type: MyDriver,
-+///     name: "Module name",
-+///     authors: ["Author name"],
-+///     description: "Description",
-+///     license: "GPL v2",
-+/// }
-+/// ```
-+#[macro_export]
-+macro_rules! module_serdev_device_driver {
-+    ($($f:tt)*) => {
-+        $crate::module_driver!(<T>, $crate::serdev::Adapter<T>, { $($f)* });
-+    };
++static void lt7911exc_unlock(struct lt7911exc *lt7911exc)
++{
++	regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
++	mutex_unlock(&lt7911exc->ocm_lock);
 +}
 +
-+/// The serial device bus device driver trait.
-+///
-+/// Drivers must implement this trait in order to get a serial device bus device driver registered.
-+///
-+/// # Examples
-+///
-+///```
-+/// # use kernel::{
-+///     acpi,
-+///     bindings,
-+///     device::{
-+///         Bound,
-+///         Core, //
-+///     },
-+///     of,
-+///     serdev, //
-+/// };
-+///
-+/// struct MyDriver;
-+///
-+/// kernel::of_device_table!(
-+///     OF_TABLE,
-+///     MODULE_OF_TABLE,
-+///     <MyDriver as serdev::Driver>::IdInfo,
-+///     [
-+///         (of::DeviceId::new(c"test,device"), ())
-+///     ]
-+/// );
-+///
-+/// kernel::acpi_device_table!(
-+///     ACPI_TABLE,
-+///     MODULE_ACPI_TABLE,
-+///     <MyDriver as serdev::Driver>::IdInfo,
-+///     [
-+///         (acpi::DeviceId::new(c"LNUXBEEF"), ())
-+///     ]
-+/// );
-+///
-+/// #[vtable]
-+/// impl serdev::Driver for MyDriver {
-+///     type IdInfo = ();
-+///     const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+///     const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
-+///
-+///     fn probe(
-+///         sdev: &serdev::Device<Core>,
-+///         _id_info: Option<&Self::IdInfo>,
-+///     ) -> impl PinInit<Self, Error> {
-+///         sdev.set_baudrate(115200);
-+///         sdev.write_all(b"Hello\n", serdev::Timeout::Max)?;
-+///         Ok(MyDriver)
-+///     }
-+/// }
-+///```
-+#[vtable]
-+pub trait Driver: Send {
-+    /// The type holding driver private data about each device id supported by the driver.
-+    // TODO: Use associated_type_defaults once stabilized:
-+    //
-+    // ```
-+    // type IdInfo: 'static = ();
-+    // ```
-+    type IdInfo: 'static;
++static int lt7911exc_prepare_firmware_data(struct lt7911exc *lt7911exc)
++{
++	struct device *dev = lt7911exc->dev;
++	int ret;
++	u8 *buffer;
++	size_t total_size = FW_SIZE - 4;
 +
-+    /// The table of OF device ids supported by the driver.
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = None;
++	ret = request_firmware(&lt7911exc->fw, FW_FILE, dev);
++	if (ret) {
++		dev_err(dev, "failed load file '%s', error type %d\n", FW_FILE, ret);
++		return ret;
++	}
 +
-+    /// The table of ACPI device ids supported by the driver.
-+    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = None;
++	if (lt7911exc->fw->size > total_size) {
++		dev_err(dev, "firmware too large (%zu > %zu)\n", lt7911exc->fw->size, total_size);
++		release_firmware(lt7911exc->fw);
++		lt7911exc->fw = NULL;
++		return -EINVAL;
++	}
 +
-+    /// Serial device bus device driver probe.
-+    ///
-+    /// Called when a new serial device bus device is added or discovered.
-+    /// Implementers should attempt to initialize the device here.
-+    fn probe(
-+        sdev: &Device<device::Core>,
-+        id_info: Option<&Self::IdInfo>,
-+    ) -> impl PinInit<Self, Error>;
++	dev_dbg(dev, "firmware size: %zu bytes\n", lt7911exc->fw->size);
 +
-+    /// Serial device bus device driver unbind.
-+    ///
-+    /// Called when a [`Device`] is unbound from its bound [`Driver`]. Implementing this callback
-+    /// is optional.
-+    ///
-+    /// This callback serves as a place for drivers to perform teardown operations that require a
-+    /// `&Device<Core>` or `&Device<Bound>` reference. For instance.
-+    ///
-+    /// Otherwise, release operations for driver resources should be performed in `Self::drop`.
-+    fn unbind(sdev: &Device<device::Core>, this: Pin<&Self>) {
-+        let _ = (sdev, this);
-+    }
++	buffer = kzalloc(total_size, GFP_KERNEL);
++	if (!buffer) {
++		release_firmware(lt7911exc->fw);
++		lt7911exc->fw = NULL;
++		return -ENOMEM;
++	}
 +
-+    /// Serial device bus device data receive callback.
-+    ///
-+    /// Called when data got received from device.
-+    ///
-+    /// Returns the number of bytes accepted.
-+    fn receive(sdev: &Device<device::Bound>, this: Pin<&Self>, data: &[u8]) -> usize {
-+        let _ = (sdev, this, data);
-+        build_error!(VTABLE_DEFAULT_ERROR)
-+    }
++	memset(buffer, 0xff, total_size);
++	memcpy(buffer, lt7911exc->fw->data, lt7911exc->fw->size);
++
++	lt7911exc->fw_crc = cal_crc32_custom(buffer, total_size);
++	dev_dbg(dev, "firmware crc: 0x%08x\n", lt7911exc->fw_crc);
++
++	kfree(buffer);
++	return 0;
 +}
 +
-+/// The serial device bus device representation.
-+///
-+/// This structure represents the Rust abstraction for a C `struct serdev_device`. The
-+/// implementation abstracts the usage of an already existing C `struct serdev_device` within Rust
-+/// code that we get passed from the C side.
-+///
-+/// # Invariants
-+///
-+/// A [`Device`] instance represents a valid `struct serdev_device` created by the C portion of
-+/// the kernel.
-+#[repr(transparent)]
-+pub struct Device<Ctx: device::DeviceContext = device::Normal>(
-+    Opaque<bindings::serdev_device>,
-+    PhantomData<Ctx>,
-+);
++static void lt7911exc_block_erase(struct lt7911exc *lt7911exc)
++{
++	struct device *dev = lt7911exc->dev;
++	const u32 addr = 0x00;
 +
-+impl<Ctx: device::DeviceContext> Device<Ctx> {
-+    fn as_raw(&self) -> *mut bindings::serdev_device {
-+        self.0.get()
-+    }
++	const struct reg_sequence seq_write[] = {
++		REG_SEQ0(0xe0ee, 0x01),
++		REG_SEQ0(0xe054, 0x01),
++		REG_SEQ0(0xe055, 0x06),
++		REG_SEQ0(0xe051, 0x01),
++		REG_SEQ0(0xe051, 0x00),
++		REG_SEQ0(0xe054, 0x05),
++		REG_SEQ0(0xe055, 0xd8),
++		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
++		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
++		REG_SEQ0(0xe05c, addr & 0xff),
++		REG_SEQ0(0xe051, 0x01),
++		REG_SEQ0(0xe050, 0x00),
++	};
++
++	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
++
++	msleep(200);
++	dev_dbg(dev, "erase flash done.\n");
 +}
 +
-+impl Device<device::Bound> {
-+    /// Set the baudrate in bits per second.
-+    ///
-+    /// Common baudrates are 115200, 9600, 19200, 57600, 4800.
-+    ///
-+    /// Use [`Device::write_flush`] before calling this if you have written data prior to this call.
-+    pub fn set_baudrate(&self, speed: u32) -> Result<(), u32> {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        let ret = unsafe { bindings::serdev_device_set_baudrate(self.as_raw(), speed) };
-+        if ret == speed {
-+            Ok(())
-+        } else {
-+            Err(ret)
-+        }
-+    }
++static void lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
++{
++	const struct reg_sequence seq_write[] = {
++		REG_SEQ0(0xe0ee, 0x01),
++		REG_SEQ0(0xe05f, 0x01),
++		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
++		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
++		REG_SEQ0(0xe05c, addr & 0xff),
++	};
 +
-+    /// Set if flow control should be enabled.
-+    ///
-+    /// Use [`Device::write_flush`] before calling this if you have written data prior to this call.
-+    pub fn set_flow_control(&self, enable: bool) {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        unsafe { bindings::serdev_device_set_flow_control(self.as_raw(), enable) };
-+    }
-+
-+    /// Set parity to use.
-+    ///
-+    /// Use [`Device::write_flush`] before calling this if you have written data prior to this call.
-+    pub fn set_parity(&self, parity: Parity) -> Result {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        to_result(unsafe { bindings::serdev_device_set_parity(self.as_raw(), parity as u32) })
-+    }
-+
-+    /// Write data to the serial device until the controller has accepted all the data or has
-+    /// been interrupted by a timeout or signal.
-+    ///
-+    /// Note that any accepted data has only been buffered by the controller. Use
-+    /// [`Device::wait_until_sent`] to make sure the controller write buffer has actually been
-+    /// emptied.
-+    ///
-+    /// Returns the number of bytes written (less than `data.len()` if interrupted).
-+    /// [`kernel::error::code::ETIMEDOUT`] or [`kernel::error::code::ERESTARTSYS`] if interrupted
-+    /// before any bytes were written.
-+    pub fn write_all(&self, data: &[u8], timeout: Timeout) -> Result<usize> {
-+        // SAFETY:
-+        // - `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        // - `data.as_ptr()` is guaranteed to be a valid array pointer with the size of
-+        //   `data.len()`.
-+        let ret = unsafe {
-+            bindings::serdev_device_write(
-+                self.as_raw(),
-+                data.as_ptr(),
-+                data.len(),
-+                timeout.into_jiffies(),
-+            )
-+        };
-+        // CAST: negative return values are guaranteed to be between `-MAX_ERRNO` and `-1`,
-+        // which always fit into a `i32`.
-+        to_result(ret as i32).map(|()| ret.unsigned_abs())
-+    }
-+
-+    /// Write data to the serial device.
-+    ///
-+    /// If you want to write until the controller has accepted all the data, use
-+    /// [`Device::write_all`].
-+    ///
-+    /// Note that any accepted data has only been buffered by the controller. Use
-+    /// [ Device::wait_until_sent`] to make sure the controller write buffer has actually been
-+    /// emptied.
-+    ///
-+    /// Returns the number of bytes written (less than `data.len()` if not enough room in the
-+    /// write buffer).
-+    pub fn write(&self, data: &[u8]) -> Result<u32> {
-+        // SAFETY:
-+        // - `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        // - `data.as_ptr()` is guaranteed to be a valid array pointer with the size of
-+        //   `data.len()`.
-+        let ret =
-+            unsafe { bindings::serdev_device_write_buf(self.as_raw(), data.as_ptr(), data.len()) };
-+
-+        to_result(ret as i32).map(|()| ret.unsigned_abs())
-+    }
-+
-+    /// Send data to the serial device immediately.
-+    ///
-+    /// Note that this doesn't guarantee that the data has been transmitted.
-+    /// Use [`Device::wait_until_sent`] for this purpose.
-+    pub fn write_flush(&self) {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        unsafe { bindings::serdev_device_write_flush(self.as_raw()) };
-+    }
-+
-+    /// Wait for the data to be sent.
-+    ///
-+    /// After this function, the write buffer of the controller should be empty.
-+    pub fn wait_until_sent(&self, timeout: Timeout) {
-+        // SAFETY: `self.as_raw()` is guaranteed to be a pointer to a valid `serdev_device`.
-+        unsafe { bindings::serdev_device_wait_until_sent(self.as_raw(), timeout.into_jiffies()) };
-+    }
++	regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
 +}
 +
-+// SAFETY: `serdev::Device` is a transparent wrapper of `struct serdev_device`.
-+// The offset is guaranteed to point to a valid device field inside `serdev::Device`.
-+unsafe impl<Ctx: device::DeviceContext> device::AsBusDevice<Ctx> for Device<Ctx> {
-+    const OFFSET: usize = offset_of!(bindings::serdev_device, dev);
++static int lt7911exc_write_data(struct lt7911exc *lt7911exc, u64 addr)
++{
++	struct device *dev = lt7911exc->dev;
++	int ret;
++	int page = 0, num = 0, page_len = 0;
++	u64 size, offset;
++	const u8 *data;
++
++	data = lt7911exc->fw->data;
++	size = lt7911exc->fw->size;
++	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
++	if (page * LT_PAGE_SIZE > FW_SIZE) {
++		dev_err(dev, "firmware size out of range\n");
++		return -EINVAL;
++	}
++
++	dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
++
++	for (num = 0; num < page; num++) {
++		offset = num * LT_PAGE_SIZE;
++		page_len = (offset + LT_PAGE_SIZE <= size) ? LT_PAGE_SIZE : (size - offset);
++		lt7911exc_prog_init(lt7911exc, addr);
++
++		ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, &data[offset], page_len);
++		if (ret) {
++			dev_err(dev, "write error at page %d\n", num);
++			return ret;
++		}
++
++		if (page_len < LT_PAGE_SIZE) {
++			regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
++			regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
++			//hardware requires delay
++			usleep_range(1000, 2000);
++		}
++
++		regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
++		addr += LT_PAGE_SIZE;
++	}
++
++	return 0;
 +}
 +
-+// SAFETY: `Device` is a transparent wrapper of a type that doesn't depend on `Device`'s generic
-+// argument.
-+kernel::impl_device_context_deref!(unsafe { Device });
-+kernel::impl_device_context_into_aref!(Device);
++static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u64 addr)
++{
++	u8 crc[4];
++	int ret;
 +
-+// SAFETY: Instances of `Device` are always reference-counted.
-+unsafe impl AlwaysRefCounted for Device {
-+    fn inc_ref(&self) {
-+        self.as_ref().inc_ref();
-+    }
++	crc[0] = lt7911exc->fw_crc & 0xff;
++	crc[1] = (lt7911exc->fw_crc >> 8) & 0xff;
++	crc[2] = (lt7911exc->fw_crc >> 16) & 0xff;
++	crc[3] = (lt7911exc->fw_crc >> 24) & 0xff;
 +
-+    unsafe fn dec_ref(obj: NonNull<Self>) {
-+        // SAFETY: The safety requirements guarantee that the refcount is non-zero.
-+        unsafe { bindings::serdev_device_put(obj.cast().as_ptr()) }
-+    }
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
++	regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
++	regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
++	regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
++
++	ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
++	if (ret)
++		return ret;
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
++	usleep_range(1000, 2000);
++	regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
++
++	return 0;
 +}
 +
-+impl<Ctx: device::DeviceContext> AsRef<device::Device<Ctx>> for Device<Ctx> {
-+    fn as_ref(&self) -> &device::Device<Ctx> {
-+        // SAFETY: By the type invariant of `Self`, `self.as_raw()` is a pointer to a valid
-+        // `struct serdev_device`.
-+        let dev = unsafe { &raw mut (*self.as_raw()).dev };
++static int lt7911exc_firmware_upgrade(struct lt7911exc *lt7911exc)
++{
++	struct device *dev = lt7911exc->dev;
++	int ret;
 +
-+        // SAFETY: `dev` points to a valid `struct device`.
-+        unsafe { device::Device::from_raw(dev) }
-+    }
++	ret = lt7911exc_prepare_firmware_data(lt7911exc);
++	if (ret < 0)
++		return ret;
++
++	dev_dbg(dev, "starting firmware upgrade, size: %zu bytes\n", lt7911exc->fw->size);
++
++	lt7911exc_block_erase(lt7911exc);
++
++	ret = lt7911exc_write_data(lt7911exc, 0);
++	if (ret < 0) {
++		dev_err(dev, "failed to write firmware data\n");
++		return ret;
++	}
++
++	release_firmware(lt7911exc->fw);
++	lt7911exc->fw = NULL;
++
++	ret = lt7911exc_write_crc(lt7911exc, FW_SIZE - 4);
++	if (ret < 0) {
++		dev_err(dev, "failed to write firmware crc\n");
++		return ret;
++	}
++
++	return 0;
 +}
 +
-+// SAFETY: A `Device` is always reference-counted and can be released from any thread.
-+unsafe impl Send for Device {}
++static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc)
++{
++	struct device *dev = lt7911exc->dev;
++	u32 read_hw_crc = 0;
++	u8 crc_tmp[4];
++	int ret;
 +
-+// SAFETY: `Device` can be shared among threads because all methods of `Device`
-+// (i.e. `Device<Normal>) are thread safe.
-+unsafe impl Sync for Device {}
-
++	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
++	regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
++	regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
++	msleep(150);
++	ret = regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, 4);
++	if (ret) {
++		dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
++		return ret;
++	}
++
++	read_hw_crc = crc_tmp[0] << 24 | crc_tmp[1] << 16 |
++				crc_tmp[2] << 8 | crc_tmp[3];
++
++	if (read_hw_crc != lt7911exc->fw_crc) {
++		dev_err(dev, "lt7911exc firmware upgrade failed, expected CRC=0x%08x, read CRC=0x%08x\n",
++			lt7911exc->fw_crc, read_hw_crc);
++		return -EIO;
++	}
++
++	dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=0x%08x\n", read_hw_crc);
++	return 0;
++}
++
++static void lt7911exc_pre_enable(struct drm_bridge *bridge)
++{
++	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
++	int ret;
++
++	if (lt7911exc->enabled)
++		return;
++
++	ret = lt7911exc_regulator_enable(lt7911exc);
++	if (ret)
++		return;
++
++	lt7911exc_reset(lt7911exc);
++
++	lt7911exc->enabled = true;
++}
++
++static void lt7911exc_disable(struct drm_bridge *bridge)
++{
++	/* Delay after panel is disabled */
++	msleep(20);
++}
++
++static void lt7911exc_post_disable(struct drm_bridge *bridge)
++{
++	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
++	int ret;
++
++	if (!lt7911exc->enabled)
++		return;
++
++	lt7911exc->enabled = false;
++
++	ret = lt7911exc_regulator_disable(lt7911exc);
++	if (ret)
++		return;
++
++	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
++}
++
++static int lt7911exc_attach(struct drm_bridge *bridge,
++			    struct drm_encoder *encoder,
++			    enum drm_bridge_attach_flags flags)
++{
++	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
++
++	return drm_bridge_attach(lt7911exc->bridge.encoder, lt7911exc->panel_bridge,
++				 &lt7911exc->bridge, flags);
++}
++
++static const struct drm_bridge_funcs lt7911exc_bridge_funcs = {
++	.pre_enable = lt7911exc_pre_enable,
++	.disable = lt7911exc_disable,
++	.post_disable = lt7911exc_post_disable,
++	.attach = lt7911exc_attach,
++};
++
++static int lt7911exc_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct lt7911exc *lt7911exc;
++	struct drm_bridge *panel_bridge;
++	bool fw_updated = false;
++	int ret;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
++		dev_err(dev, "device doesn't support I2C\n");
++		return -ENODEV;
++	}
++
++	lt7911exc = devm_drm_bridge_alloc(dev, struct lt7911exc, bridge,
++					  &lt7911exc_bridge_funcs);
++	if (IS_ERR(lt7911exc))
++		return PTR_ERR(lt7911exc);
++
++	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, 0);
++	if (IS_ERR(panel_bridge))
++		return PTR_ERR(panel_bridge);
++
++	lt7911exc->panel_bridge = panel_bridge;
++	lt7911exc->client = client;
++	lt7911exc->dev = dev;
++	i2c_set_clientdata(client, lt7911exc);
++	mutex_init(&lt7911exc->ocm_lock);
++
++	lt7911exc->regmap = devm_regmap_init_i2c(client, &lt7911exc_regmap_config);
++	if (IS_ERR(lt7911exc->regmap)) {
++		dev_err(dev, "regmap i2c init failed\n");
++		return PTR_ERR(lt7911exc->regmap);
++	}
++
++	ret = lt7911exc_parse_dt(lt7911exc);
++	if (ret)
++		return ret;
++
++	ret = lt7911exc_regulator_enable(lt7911exc);
++	if (ret)
++		return ret;
++
++	lt7911exc_reset(lt7911exc);
++	lt7911exc->enabled = true;
++	lt7911exc_lock(lt7911exc);
++
++retry:
++	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
++	if (lt7911exc->fw_version < 0) {
++		dev_err(dev, "failed to read FW version\n");
++		lt7911exc_unlock(lt7911exc);
++		goto err_disable_regulators;
++
++	} else if (lt7911exc->fw_version == 0) {
++		if (!fw_updated) {
++			fw_updated = true;
++			ret = lt7911exc_firmware_upgrade(lt7911exc);
++			if (ret < 0) {
++				lt7911exc_unlock(lt7911exc);
++				goto err_disable_regulators;
++			}
++
++			lt7911exc_reset(lt7911exc);
++
++			ret = lt7911exc_upgrade_result(lt7911exc);
++			if (ret < 0) {
++				lt7911exc_unlock(lt7911exc);
++				goto err_disable_regulators;
++			}
++
++			goto retry;
++
++		} else {
++			dev_err(dev, "fw version 0x%04x, update failed\n", lt7911exc->fw_version);
++			ret = -EOPNOTSUPP;
++			lt7911exc_unlock(lt7911exc);
++			goto err_disable_regulators;
++		}
++	}
++
++	lt7911exc_unlock(lt7911exc);
++
++	lt7911exc->bridge.type = DRM_MODE_CONNECTOR_DSI;
++	lt7911exc->bridge.of_node = dev->of_node;
++	drm_bridge_add(&lt7911exc->bridge);
++
++	return 0;
++
++err_disable_regulators:
++	regulator_bulk_disable(ARRAY_SIZE(lt7911exc->supplies), lt7911exc->supplies);
++	if (lt7911exc->fw) {
++		release_firmware(lt7911exc->fw);
++		lt7911exc->fw = NULL;
++	}
++
++	return ret;
++}
++
++static void lt7911exc_remove(struct i2c_client *client)
++{
++	struct lt7911exc *lt7911exc = i2c_get_clientdata(client);
++
++	drm_bridge_remove(&lt7911exc->bridge);
++	mutex_destroy(&lt7911exc->ocm_lock);
++}
++
++static const struct i2c_device_id lt7911exc_i2c_table[] = {
++	{"lontium, lt7911exc", 0},
++	{ /* sentinel */ }
++};
++
++MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
++
++static const struct of_device_id lt7911exc_devices[] = {
++	{.compatible = "lontium,lt7911exc",},
++	{}
++};
++MODULE_DEVICE_TABLE(of, lt7911exc_devices);
++
++static struct i2c_driver lt7911exc_driver = {
++	.id_table	= lt7911exc_i2c_table,
++	.probe		= lt7911exc_probe,
++	.remove		= lt7911exc_remove,
++	.driver		= {
++		.name	= "lt7911exc",
++		.of_match_table = lt7911exc_devices,
++	},
++};
++module_i2c_driver(lt7911exc_driver);
++
++MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
++MODULE_DESCRIPTION("Lontium lt7911exc edp to mipi dsi bridge driver");
++MODULE_LICENSE("GPL v2");
 -- 
-2.52.0
+2.34.1
 
