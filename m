@@ -4,128 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED5EF5A8CE
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 23:49:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED339F5A8CE
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 23:50:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E43E710E761;
-	Mon, 20 Apr 2026 23:49:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C2910E774;
+	Mon, 20 Apr 2026 23:50:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="b+F4Qf9o";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gYpn4gEq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="cqgpgIvB";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GEIbZ5rF";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 467B710E0BA
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:49:32 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE73910E0BA
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:50:10 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63KJNvbP1011924
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:49:31 GMT
+ 63KHYYR53015175
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:50:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=zHnZexhHnQeNIKB6YK7141fC
- RTRiqEvP2iL5Zdf5row=; b=b+F4Qf9oFOFzD6Fp4mfwV07FxDKISP8xLeAmlVMY
- P5RS1qzqgd61/2CUnPPmB/q7MTKitaaUqg8441mGVHvSagDSxBQq3FrTBN4QMNvJ
- mjvK/FD2ywlfZwOIelJOhIvNFMJRJbCkRoSGAss9i/k0rsMAiuYxPVtNClbHqdsP
- +y4aHTaKAOVVIXeN9HjygCwZ1H/BwyTAkFSwkTHQjo3q7yAf+wz6eFibw3hFV5QD
- 2aTr8Q/c7fjNHQqXJ/rPPe+AHRltcI7NIUEpaWG1CTzwMuMA4jNr2jw813vJSoNq
- 6mJAkXNLVhO5FrkV2InVUFJUMg8mHuxGRp3FPAJ+64Cg+w==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnt900n41-1
+ :references:subject:to; s=qcppdkim1; bh=lFeVto6DtjU/NMUp/BHqlwRu
+ TqkDdZTaowkflqaDISI=; b=cqgpgIvBM9otV9/ZJ4c98JG6Y5U9PrWnFJd6cTSj
+ V2jZ1ygHqbMkTU8JhGrsVFY5lkKDNs5/OI+RgvHgFo5uXI5Wr571ET2tCCFR6ogv
+ eErNrn5RTje0ywEw9JfM5CSkVcAglkJsPrLEBVI+Zmc2ZYoifidkcW2r0QEiQckI
+ wqJ38bc+atq9Bmn7Lg+gWWSTTCKKHwoDAOW5IqRBftrV9ppagSDNCFqy+uXU+V8s
+ RI9lySZvr61vThZoWwskqh1F2mJYGWKJ84srhfYB5+huZ0uNNv8AtF1PgPfTXArc
+ jNALR1o5PLKUIwNKxk+HtKM1ZXmnWCKZlvxqZZPxccw9LQ==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
+ [209.85.222.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnjukthun-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:49:31 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-8aca4660827so105244936d6.3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:49:31 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:50:10 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id
+ a1e0cc1a2514c-9539bc7e2d0so6533096241.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:50:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776728971; x=1777333771;
+ d=oss.qualcomm.com; s=google; t=1776729009; x=1777333809;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zHnZexhHnQeNIKB6YK7141fCRTRiqEvP2iL5Zdf5row=;
- b=gYpn4gEqOvMBHTmcRgwTF5nyM7rban/bDxA9GGh4C8ilnNkSPRFRh267rhka6MVGOO
- Vpm2i3froEFfwLZp4IZVjs2F2UPYIqWmZzjnV7/DvK+xGKW1q2Sj7S2r+tg31e7TJ+3h
- tZOSsvAKc0Qf7DgQbORgLpZj2hu81KTsd5KBJ7X/Uxuzi6/gKgVVOdLYNf1Afajwii7d
- cqCprePga9kN+97mYPrV9fZj4R4rJUOHFAy4z5w0Il3mHDM2V5o01K5cytLe7DU4Cl0z
- 6qbSpThmnZJJEFWVLJKiFUH1+0GZYbfYGum0sm/8k+EbLh7cGVr7z1r5xZJ7HEddl2Jt
- hkdA==
+ bh=lFeVto6DtjU/NMUp/BHqlwRuTqkDdZTaowkflqaDISI=;
+ b=GEIbZ5rF2enpBTWrmIbqX9e4Y5i59CQHgRQ32qsuhhlUQhrUZF6Hfflw0CXlPPPYvk
+ AXvjgUPaTuBiCjt9qR3fhI99gKtGKaDn1+dl04m5r0Ixe7ErlCFD1baipnb6wYPCq34w
+ bf1ONb9U5ImS3DBuf+AyBMDjFP5cz4tboD0niiSej7ZMaU++f2oFgMDvCVlFpjZd5ZIJ
+ rUAVj1OrdpCKnB3yhv8R2CqvXyAlNDiRfScKCZvZhhExRl90eoL1EEK1TRARb1J+Lofx
+ tqnilCpWBSKuC+Rmd7rN7PkzPVc0FD7oi2YzjHhLP/NbQU7ionerKX23sJo/D1Ip2Cb3
+ 2fGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776728971; x=1777333771;
+ d=1e100.net; s=20251104; t=1776729009; x=1777333809;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zHnZexhHnQeNIKB6YK7141fCRTRiqEvP2iL5Zdf5row=;
- b=DdEl/40RPXCjQEhePMRtm2tHZci/t/HSRPhgTRpVxMBC6kQKZfdbe1AIe7VCUN/ej9
- aqwykYPxToP3SiJzL9pNMc3WKPO8q96xOjwKS1dINV3jokn/yGBD6Uk3MHDh5YhgAXMf
- kS83JgPdsiaU78g0p07It+zMzbk3k+OtyyMY2GxSxnzByDpYiJSxUB8eRnm+XmZMroD0
- J4C9KickMVu54XcylQ6eeGd/sZkGjdXiY7FguUyTT4c1YAFj3yGySqvH3a4F3vdA0uve
- ifRz8Zui2DbRMIxxg/nFVZa4GM0KZUeCa8opd2GL650sQiwWF9elbYx7Kfjmn6FAAv0J
- QToA==
-X-Gm-Message-State: AOJu0YxRP1+qbONf4iCJCmyCnoHYT9StbHHzUKLhLxwSlHByLHfpxoM2
- QMRUdUZx4HhiXzPJ6tQz63CAkSgCPxfwqodlakr0GTLgjyprqXezHFe2yekfOtDASwbuUlPGF32
- lPekA1Qrgcj7gvp2vc+CsTA5bH2TH7cDLhxbc3yhSpWFxKCEiiEyeriltHjzI4vEgqPnrdt8=
-X-Gm-Gg: AeBDieuiAGGL3KR3vraKwHkyRoMKEDYSe6PG+f0DX0fD9GNxWi+as/nzIBdjR4kTR8D
- vrksu84xyOi+43aJqxZlFvSjiEVNkJ0+rkHGf9EwYhZC6yGI6cfuUwNX3QIMJKcyiBy1XhHvyX8
- zfCxvnzosM+QLpOh7fh2Nl28fPlg9T9jW+C5lrJSiDPJPr9sbuf69DyPJs8AucEzM5dJaSa3Oxj
- LVvrMfy6bGVL6ziV/4NJ1vn5VUHvn3p7m4PMbFzagrI+8HiBIT3O77modoO9PqcPkafnIBTLSbO
- AEZ5lvBdYyHImTAPsC3f47s4gRTLzpEDUcvUTmv+Nl5ES2f/+XBiG85rFuRPjASLs4FDiSa7ogT
- pSfyOcDl8tZigCvpMdqryQEnYL5M6itb/ikcqEghFIME3hWDDRJY10xBTDUy+MrYXbGYeWLZoV1
- 92CA6B1kmbh79SylA1AWGAPYkwf6U1FgxMZySRc+88k26YaQ==
-X-Received: by 2002:a05:6214:29e9:b0:8ac:a611:740e with SMTP id
- 6a1803df08f44-8b0280ee523mr251407816d6.28.1776728970764; 
- Mon, 20 Apr 2026 16:49:30 -0700 (PDT)
-X-Received: by 2002:a05:6214:29e9:b0:8ac:a611:740e with SMTP id
- 6a1803df08f44-8b0280ee523mr251407446d6.28.1776728970288; 
- Mon, 20 Apr 2026 16:49:30 -0700 (PDT)
+ bh=lFeVto6DtjU/NMUp/BHqlwRuTqkDdZTaowkflqaDISI=;
+ b=A1jEFcJAPdEnKf1qcKldxZ14Ej9f8UgAERMTXZak0luEuARPYkfbDxRPtP05/LKQlo
+ J1egBjKG+vMLQdxMwzafHjmpvjxZQiAbFqZ6fKgEyThgFFPo+Z+Y3zdWoLfzQ4Fb2Bx5
+ X37lKZVRowkwqB1UFDnG6iVyEAmk4hm/9skCl0nRkhIKetDaVsonfS71LfJN/yGuivz4
+ Q3OXa01kNL38gP3Ckj2C+hCoFMU0j/oX0zlWHjHrWr9eg5BA95h24q+L9RwLyRE6ilCa
+ qYf3je6+HTpwaDQuCZFwZcngEX9+QYu7fVLtmjHw5+I0oIYWjupRCcT8J3ZlkLg6GUc7
+ eYCA==
+X-Gm-Message-State: AOJu0YzSDQTE+NIlf3Dst0xzty+vAHXN2H+FpXOGxYDsEbK9olDiSbNq
+ 3xCFJu0SEF+nxA8ZHvRLAgZi8eCwYRkJhtA/FVw/B1h+jmbr0wR3bVr4EBadhWhFdHa7Kdt47PC
+ q5CiEAu59l9keZO+6sKcgxOVSGzPiX7HDvUyut9PFohIZY/PIyuSzSBFo7ELHiiIDWXKWD18=
+X-Gm-Gg: AeBDietRZPnE+Wy713F3Qqvn54c42JuEyewcYv1Xh3bqCua88CFtoX7VMckVAYp7hpD
+ p1OMfBsgAshGbzy7KVttpFz0nx2Ux4R0jNYsTkqQTkFF02VCA6L0PUDd28zCACYR1wYnKHoIRta
+ lI6rlS0dMU3iVgA/1/CQEA88PNwVreI7osZYb5cOc/kpro7wrjSSif7md3bXQLYwY/CUkFXJ3jh
+ fR51SaWy8BixQwLKZ/MQyCWnIyIet1WJG6Degn3iBXJ6SQXIH7vcM2sXyy0aBhuS8Oujlo8Rg2p
+ LesdfZNQVHeID/ETDRLOd6WLzbUv/RFB+n1B1ae2zfmvFupBET4PihbcMnY6XJHGnokDhVatT75
+ rMVx8j5N1zQrrhz8mh5G8TZG7PJkDfsPBGxJiOkaS07zhfZax2QjTDTMFsP9p6jJd1Fc+u6/5c4
+ dFulXwW65I4DCmc+Uhz6pY+gd3GOkedSIfxgcffre6ZF/VwQ==
+X-Received: by 2002:a05:6102:5e94:b0:610:347f:9f3b with SMTP id
+ ada2fe7eead31-616fb8a0537mr5184440137.3.1776729009489; 
+ Mon, 20 Apr 2026 16:50:09 -0700 (PDT)
+X-Received: by 2002:a05:6102:5e94:b0:610:347f:9f3b with SMTP id
+ ada2fe7eead31-616fb8a0537mr5184428137.3.1776729009057; 
+ Mon, 20 Apr 2026 16:50:09 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185bc297sm3247435e87.18.2026.04.20.16.49.27
+ 38308e7fff4ca-38ecb4f5012sm26460691fa.3.2026.04.20.16.50.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Apr 2026 16:49:28 -0700 (PDT)
-Date: Tue, 21 Apr 2026 02:49:26 +0300
+ Mon, 20 Apr 2026 16:50:06 -0700 (PDT)
+Date: Tue, 21 Apr 2026 02:50:03 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
  open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 01/13] drm/msm: Remove obsolete perf infrastructure
-Message-ID: <sidcsgvqxddatwwflohsd6gjzm5ehbs4alwaejh3pnjnlhj7vm@nqxhdtxxxizs>
+Subject: Re: [PATCH 02/13] drm/msm/adreno: Sync registers from mesa
+Message-ID: <yc6istybrtnzwft7uyl4bjfruapcfsso2mvfgnhcxrzntoi4rf@bubhdghwswj5>
 References: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
- <20260420222621.417276-2-robin.clark@oss.qualcomm.com>
+ <20260420222621.417276-3-robin.clark@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260420222621.417276-2-robin.clark@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=KfbidwYD c=1 sm=1 tr=0 ts=69e6bb8b cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260420222621.417276-3-robin.clark@oss.qualcomm.com>
+X-Proofpoint-GUID: MBPJ6kgE0qUY4KN7npfrm1lrrzyzK58e
+X-Proofpoint-ORIG-GUID: MBPJ6kgE0qUY4KN7npfrm1lrrzyzK58e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDIzMyBTYWx0ZWRfX4x/LNpymBOfu
+ nrwzjE9GuKrNEyVrAIt0J+0WNKgrt4qgXniFCyFeV2oPlX9WIH+blgFm8X2kLXe9JXxOeq9XZzb
+ WnH02VTD85/jXxqnGt7ez4mId6TG7aNFskZgevUnUq8lr0V+llqKMmf6JWGWBJvRMIEcSVMWs3K
+ e2Q3vWUSLj216b7t1G9Q8ID2LNdKGsNU1y6zCoxzhT72pfqloC8Lo12X383DL43bQWFi9G8RkG4
+ spGCnDRVP5plgUSp6VNsHyVwCn5wURBbFmQjQxFtSBS2BXc+xxKb4FswBv5ffqWfVyZXtNo03Ay
+ hmlsMqJgfyH5Sx8QSvwnsxzpJK5ombR4brnl5Zs6xoajbD6L6rtRn16dFyFNRrZvAAK32Tsr5lZ
+ GlVcb0ABk1cWpCb/BKoG/cBNW+n8/TQuIge9HHkB0KgyPy7n8VS/yHgPcVvbDqcNbQU+ggpLONw
+ PEH83JkM5MD4PK952gA==
+X-Authority-Analysis: v=2.4 cv=WuUb99fv c=1 sm=1 tr=0 ts=69e6bbb2 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=Xavkbbgx95yDZ5mQW4sA:9 a=CjuIK1q_8ugA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-ORIG-GUID: Bqo6nsv6jA4uenZgkoQ_rPysDmhM0Uki
-X-Proofpoint-GUID: Bqo6nsv6jA4uenZgkoQ_rPysDmhM0Uki
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDIzMyBTYWx0ZWRfX0BQFA8jzrUyM
- cQForXcWk5ue+n28fcaH5JFbphRoYk2JMfToLcwHs/U4HkMXMMMW+9yKsnShmeyqcoNprGQYdot
- OSwiC/2Ikmm5qeiBUhFNpJfQZVj0RtyQMD6ONqcm+9xe6c2aYuyVuG74bgGpdbvKBTFJFomBaoe
- yMjJDsCN94EPiBftvIc7LaI+fvu2EXJD8v77XSV4FLfgg8yEe0WohRbPd1x7IHuKfdNn8C2JDC2
- nIxp5SKZGdWOnf8xvqp89ejseGC0Owx2Hs6WmjrhChBL3iOQqbFs6FReg45TLKyraDiHPJ17gvf
- FWSfEvjjyNvB1V7BNlrLHP6JkFpGc9ijcaINAAFbgrCst3z+9+t4/2e7HPa8vwkIOOsEeA1QXTb
- l9EZ4YnEm5W3i3n2d8wmIhXf65zHFY28Isl7Bgoxvb5ZLgeJ/bQVkDTp1/W45r3/lkYTRglAZ+n
- QlOpumMB3et52f1VkIg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=YSpEM1VExy63LNwymm8A:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-20_04,2026-04-20_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 impostorscore=0 clxscore=1015
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200233
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -143,36 +144,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 20, 2026 at 03:25:23PM -0700, Rob Clark wrote:
-> Outside of a3xx, this was never really used.  And it low-key gets in the
-> way of the new perfcntr support (or at least it is confusing to have two
-> things called "perf").  So lets remove it.
+On Mon, Apr 20, 2026 at 03:25:24PM -0700, Rob Clark wrote:
+> Most of the churn is just reworking the usage attribute on the mesa
+> side.
 > 
-> This drops the "perf" debugfs file.  But these days, nvtop is a better
-> option.  (Plus perfetto for newer gens.)
-
-Would it be possible to resurrect "perf" later? It was really useful.
-
-Other than that,
+> Sync from mesa commit 4d4a951ac622 ("fd: add a8xx perfcntr countables").
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/Makefile          |   1 -
->  drivers/gpu/drm/msm/adreno/a2xx_gpu.c |   7 -
->  drivers/gpu/drm/msm/adreno/a3xx_gpu.c |  16 --
->  drivers/gpu/drm/msm/adreno/a4xx_gpu.c |   3 -
->  drivers/gpu/drm/msm/msm_debugfs.c     |   6 -
->  drivers/gpu/drm/msm/msm_drv.c         |   1 -
->  drivers/gpu/drm/msm/msm_drv.h         |   5 -
->  drivers/gpu/drm/msm/msm_gpu.c         | 107 ------------
->  drivers/gpu/drm/msm/msm_gpu.h         |  31 ----
->  drivers/gpu/drm/msm/msm_perf.c        | 235 --------------------------
->  10 files changed, 412 deletions(-)
->  delete mode 100644 drivers/gpu/drm/msm/msm_perf.c
-> 
 
 -- 
 With best wishes
