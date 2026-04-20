@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A70AFF588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81ED2F588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0032610E5FD;
-	Mon, 20 Apr 2026 13:23:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E493710E600;
+	Mon, 20 Apr 2026 13:23:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="agOoEhVX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KLRfZq4g";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2927010E5F9
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:23:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 545CC10E5FC;
+ Mon, 20 Apr 2026 13:23:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0AE48438F0;
- Mon, 20 Apr 2026 13:23:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76A64C19425;
- Mon, 20 Apr 2026 13:23:20 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 37D7D440AE;
+ Mon, 20 Apr 2026 13:23:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3462FC19425;
+ Mon, 20 Apr 2026 13:23:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691401;
- bh=gHSdlz2rtebhoe2uY5NJV8MntLpDaDpVvBaXmU/yos8=;
+ s=k20201202; t=1776691429;
+ bh=tndVcEmccZTuxB7kpIPKtjzN2f1jeKsWT0kgomyoWLA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=agOoEhVX1qB4KgRbbYPjQq03xd/+E2tE1uUyYu1/sjMiT9Pt2Cw7rFoS2Xa+b/ntz
- 5nWMedRRsuTfKLlPYPa8h/lfFN/Js8zFX97BtCiJ8LVKRZG+aAZXj1YtSodq23rEGh
- YsCnmz+DXvYeRib/BfDYJWBpeCI0Kxif/sNtbh0y8Yb4kXRCE7J+qRTDR43hQRD/d0
- mgej/W8LBXfVy/fQno5j/gzaRcRr1LQOKiaTxuf8FLGPVqlov1JmnggZKjyvbcFr3A
- CWB1T9DJIPMrQW9XUqBTOeA3S+K7vnf2jYkyQXVX4XeqGwAryvht7D5GgOX6ZPahxo
- H5P9rY/HWbuQQ==
+ b=KLRfZq4gdZNce3MVuoxP9tPjvXW6o2pwIwc61+ndqjrRJvIAAAg0CTxQZVEnXmqT+
+ CpnKRRq/9TVJtoD+Ju03SZcjNAmvFVB9Kr2BeXqwegChEO1f6Ut7NhuOBqnQkHaUQg
+ lHPrJ0JnWu01Q5yvSiIo6cVYMr8CLuu+YxG0hpcRxkFYeVm6OFt9e5FvcmlhwqI/1D
+ zoR6pwYShyUdfjZEpkDfyV0UCi9JrVOBVb0A+V3y/uqVo4cdPAXCu8kc37Hhyn6zNr
+ 3L1MF+zBjo5eJ5bllM/2mYZQgHLHnDXOvxB+TdpaDlCvV9Zxk0drfUzT7Vghz6GDDH
+ RFrzgaCPok5zw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <dev@lankhorst.se>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koening@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- ray.huang@amd.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/ttm: Avoid invoking the OOM killer when
- reading back swapped content
-Date: Mon, 20 Apr 2026 09:16:38 -0400
-Message-ID: <20260420132314.1023554-4-sashal@kernel.org>
+Cc: Tomasz Lis <tomasz.lis@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ Sasha Levin <sashal@kernel.org>, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.19] drm/xe/vf: Wait for all fixups before using
+ default LRCs
+Date: Mon, 20 Apr 2026 09:16:55 -0400
+Message-ID: <20260420132314.1023554-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,427 +67,434 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+From: Tomasz Lis <tomasz.lis@intel.com>
 
-[ Upstream commit c6135f67aa37a4a744869f726d706bda091e6dfa ]
+[ Upstream commit f3fb5f1ebbf39e685dd2885c9dbc8bb0a80be7c6 ]
 
-In situations where the system is very short on RAM, the shmem
-readback from swap-space may invoke the OOM killer.
+When a context is being created during save/restore, the LRC creation
+needs to wait for GGTT address space to be shifted. But it also needs
+to have fixed default LRCs. This is mandatory to avoid the situation
+where LRC will be created based on data from before the fixups, but
+reference within exec queue will be set too late for fixups.
 
-However, since this might be a recoverable situation where the caller
-is indicating this by setting
-struct ttm_operation_ctx::gfp_retry_mayfail to true, adjust the gfp
-value used by the allocation accordingly.
+This fixes an issue where contexts created during save/restore have
+a large chance of having one unfixed LRC, due to the xe_lrc_create()
+being synced for equal start to race with default LRC fixups.
 
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
-Acked-by: Christian König <christian.koening@amd.com>
-Link: https://patch.msgid.link/20260317141856.237876-3-thomas.hellstrom@linux.intel.com
+v2: Move the fixups confirmation further, behind all fixups.
+  Revert some renames.
+
+Signed-off-by: Tomasz Lis <tomasz.lis@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Link: https://patch.msgid.link/20260226212701.2937065-4-tomasz.lis@intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a thorough analysis. Let me
-compile everything.
+Now I have all the information needed. Let me compile the complete
+analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-- **Subsystem**: `drm/ttm` (DRM Translation Table Manager - GPU memory
-  management)
-- **Action verb**: "Avoid" (implies fixing an undesirable behavior)
-- **Summary**: Prevent OOM killer invocation when reading back swapped
-  GPU buffer content
+**Step 1.1: Subject Line**
+- Subsystem: `drm/xe/vf` (Intel Xe GPU driver, VF/SR-IOV path)
+- Action verb: "Wait for" (= ensure, prevent — indicates fixing
+  incorrect behavior)
+- Summary: Wait for all fixups to complete before using default LRCs
+  during VF migration recovery
 
-Record: [drm/ttm] [Avoid] [Prevents unnecessary OOM killer invocation
-during shmem readback]
+Record: [drm/xe/vf] [Wait for / ensure] [Delays ggtt_need_fixes
+completion signal until after all fixups, not just GGTT shift]
 
-### Step 1.2: Tags
-- **Signed-off-by**: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-  (author, TTM/Xe maintainer)
-- **Reviewed-by**: Maarten Lankhorst <dev@lankhorst.se> (DRM subsystem
-  reviewer)
-- **Acked-by**: Christian König <christian.koening@amd.com> (TTM co-
-  maintainer at AMD)
-- **Link**: https://patch.msgid.link/20260317141856.237876-3-
-  thomas.hellstrom@linux.intel.com
+**Step 1.2: Tags**
+- Signed-off-by: Tomasz Lis (author, Intel contributor with 30 commits
+  in Xe driver)
+- Reviewed-by: Matthew Brost (co-author of the original buggy commit
+  3c1fa4aa60b14)
+- Signed-off-by: Michal Wajdeczko (maintainer-level committer, 15
+  commits to this file)
+- Link: patch.msgid.link/20260226212701.2937065-4-tomasz.lis@intel.com
+- No Fixes: tag, no Reported-by:, no Cc: stable (expected for autosel
+  candidate)
 
-Record: Reviewed by Maarten Lankhorst, Acked by Christian König (TTM
-maintainer). No Fixes: tag, no Reported-by tag. No syzbot link.
+Record: Reviewed by subsystem expert (Brost), committed by subsystem
+lead (Wajdeczko). No explicit stable nomination.
 
-### Step 1.3: Commit Body
-The commit explains that when the system is very short on RAM, the shmem
-readback from swap-space may invoke the OOM killer. Since the caller may
-be indicating a recoverable situation via `gfp_retry_mayfail = true`,
-the GFP value used by the shmem allocation should be adjusted to include
-`__GFP_RETRY_MAYFAIL` (try hard but don't OOM-kill) and `__GFP_NOWARN`
-(don't log warnings).
+**Step 1.3: Commit Body Analysis**
+- Bug: LRC creation during save/restore can race with default LRC fixups
+- Symptom: "contexts created during save/restore have a large chance of
+  having one unfixed LRC"
+- Root cause: `xe_lrc_create()` synced for "equal start to race with
+  default LRC fixups" — meaning `ggtt_need_fixes` is cleared too early
+  (after GGTT shift only, before default LRC hwsp rebase)
+- Cover letter (from b4 dig): "Tests which create a lot of exec queues
+  were sporadically failing due to one of LRCs having its state within
+  VRAM damaged"
 
-Record: Bug: OOM killer can be triggered during TTM swap readback even
-when the operation context indicates the situation is recoverable.
-Symptom: Random processes killed by OOM killer unnecessarily. Root
-cause: `ttm_backup_copy_page()` used `shmem_read_folio()` with default
-GFP flags that don't include `__GFP_RETRY_MAYFAIL`.
+Record: Real race condition causing VRAM state corruption in LRC during
+VF migration. Sporadic test failures observed.
 
-### Step 1.4: Hidden Bug Fix Detection
-This is explicitly described as avoiding OOM killer invocation, which is
-a real behavioral bug. The `gfp_retry_mayfail` flag was already
-respected in the page allocation path (`__ttm_pool_alloc`) and in the
-restore structure allocation (`ttm_pool_restore_and_alloc`), but NOT in
-the swap readback path - an inconsistency that results in incorrect
-behavior.
+**Step 1.4: Hidden Bug Fix Detection**
+This IS explicitly described as a fix ("This fixes an issue where...").
+Not hidden.
 
-Record: Yes, this is a genuine bug fix - the swap readback path was not
-honoring the `gfp_retry_mayfail` flag that other paths already
-respected.
+Record: Explicit bug fix for a race condition.
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-- **`drivers/gpu/drm/ttm/ttm_backup.c`**: +4/-2 (function signature +
-  shmem_read_folio_gfp call)
-- **`drivers/gpu/drm/ttm/ttm_pool.c`**: +5/-2 (building additional_gfp
-  and passing it)
-- **`include/drm/ttm/ttm_backup.h`**: +1/-1 (header declaration update)
-- **Total**: ~10 lines changed
-- **Functions modified**: `ttm_backup_copy_page()`,
-  `ttm_pool_restore_commit()`
+**Step 2.1: Inventory**
+- `xe_gt_sriov_vf.c`: ~15 lines changed. Removes 5 lines from
+  `vf_get_ggtt_info()`, adds new function
+  `vf_post_migration_mark_fixups_done()` (5 lines), adds 1 call in
+  `vf_post_migration_recovery()`, updates 1 comment.
+- `xe_gt_sriov_vf_types.h`: 1 line comment update.
+- Scope: Single-file surgical fix (functionally), trivial doc change in
+  header.
 
-Record: 3 files, ~10 net lines. Single-purpose surgical fix. Scope: very
-small.
+Record: 2 files changed, ~15 net lines modified. Functions:
+`vf_get_ggtt_info()` (code removed), new
+`vf_post_migration_mark_fixups_done()`, `vf_post_migration_recovery()`
+(call added). Scope: surgical.
 
-### Step 2.2: Code Flow Change
-**Hunk 1** (`ttm_backup.c`): `ttm_backup_copy_page()` gains an
-`additional_gfp` parameter. The call changes from
-`shmem_read_folio(mapping, idx)` to `shmem_read_folio_gfp(mapping, idx,
-mapping_gfp_mask(mapping) | additional_gfp)`. When `additional_gfp` is
-0, behavior is identical to before (since `shmem_read_folio()` is a
-wrapper that calls `shmem_read_folio_gfp()` with
-`mapping_gfp_mask(mapping)`).
+**Step 2.2: Code Flow Change**
+- **Before**: `ggtt_need_fixes` set to `false` + `wake_up_all()` in
+  `vf_get_ggtt_info()`, which is the FIRST step of
+  `vf_post_migration_fixups()`. This means waiters (LRC creators) are
+  released while `xe_sriov_vf_ccs_rebase()`,
+  `xe_gt_sriov_vf_default_lrcs_hwsp_rebase()`, and
+  `xe_guc_contexts_hwsp_rebase()` are still pending.
+- **After**: `ggtt_need_fixes` cleared and waiters woken ONLY after
+  `vf_post_migration_fixups()` returns, meaning ALL fixups (GGTT shift,
+  CCS rebase, default LRC hwsp rebase, contexts hwsp rebase) are
+  complete before `xe_lrc_create()` can proceed.
 
-**Hunk 2** (`ttm_pool.c`): In `ttm_pool_restore_commit()`, when
-`ctx->gfp_retry_mayfail` is true, `additional_gfp` is set to
-`__GFP_RETRY_MAYFAIL | __GFP_NOWARN`; otherwise 0.
+Record: Moves the "fixups done" signal from midway through fixups to
+after ALL fixups complete. Eliminates a race window where LRC creation
+proceeds with stale default LRC data.
 
-**Hunk 3** (`ttm_backup.h`): Declaration updated.
+**Step 2.3: Bug Mechanism**
+Category: Race condition. Specifically:
+1. Migration triggers recovery, sets `ggtt_need_fixes = true`
+2. `vf_post_migration_fixups()` calls `xe_gt_sriov_vf_query_config()` →
+   `vf_get_ggtt_info()`, which sets `ggtt_need_fixes = false` and wakes
+   waiters
+3. Concurrent `xe_lrc_create()` (in `__xe_exec_queue_init()`) was
+   waiting on `ggtt_need_fixes` via `xe_gt_sriov_vf_wait_valid_ggtt()` —
+   now it proceeds
+4. But default LRC hwsp rebase hasn't happened yet — `xe_lrc_create()`
+   uses unfixed default LRC data
+5. Result: LRC created with stale VRAM state
 
-Record: Before: swap readback always used default GFP (may invoke OOM).
-After: when caller opts into retry_mayfail, swap readback also respects
-it. Unchanged when flag is false.
+Record: [Race condition] The `ggtt_need_fixes` flag is cleared after
+GGTT shift but before default LRC fixups, allowing `xe_lrc_create()` to
+use stale default LRC data.
 
-### Step 2.3: Bug Mechanism
-This is a **logic/correctness fix**: an existing flag
-(`gfp_retry_mayfail`) was inconsistently applied. The page allocation
-path already honored it, but the swap readback path did not. The
-consequence is unnecessary OOM killer invocation, which kills user
-processes.
+**Step 2.4: Fix Quality**
+- Obviously correct: moves signaling to logically correct location
+  (after ALL fixups)
+- Minimal/surgical: only moves existing code, creates a small helper
+  function
+- Regression risk: Very low. The only change is that waiters wait
+  slightly longer (for all fixups instead of just GGTT shift). This
+  cannot cause deadlock since the fixups are sequential and bounded.
 
-Record: [Logic/correctness fix] The `gfp_retry_mayfail` flag was not
-propagated to the shmem readback path in `ttm_backup_copy_page()`. When
-the system was low on RAM and GPU content needed to be restored from
-swap, the OOM killer could fire instead of returning an error to the
-caller.
-
-### Step 2.4: Fix Quality
-- Obviously correct: uses the same pattern already present in other TTM
-  paths
-- Minimal and surgical: only 10 lines changed
-- No regression risk: when `gfp_retry_mayfail` is false, `additional_gfp
-  = 0`, making the behavior identical to before
-- The `shmem_read_folio_gfp()` function already exists and is used by
-  `ttm_backup_backup_page()` in the same file (line 105)
-
-Record: Fix quality: excellent. Minimal, obviously correct, follows
-existing pattern, reviewed by maintainer. Regression risk: very low.
+Record: Fix is obviously correct, minimal, and has negligible regression
+risk.
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-The buggy code in `ttm_backup_copy_page()` was introduced in
-`e7b5d23e5d470` ("drm/ttm: Provide a shmem backup implementation") by
-Thomas Hellström on 2025-03-05. This first appeared in v6.15-rc1.
+**Step 3.1: Blame**
+The buggy code (clearing `ggtt_need_fixes` in `vf_get_ggtt_info`) was
+introduced by commit `3c1fa4aa60b14` (Matthew Brost, 2025-10-08,
+"drm/xe: Move queue init before LRC creation"). This commit first
+appeared in v6.19.
 
-Record: Buggy code introduced in e7b5d23e5d470, first in v6.15-rc1.
+Record: Buggy code introduced in 3c1fa4aa60b14, first present in v6.19.
+Exists in 6.19.y and 7.0.y stable trees.
 
-### Step 3.2: Fixes Tag
-No Fixes: tag present (expected for candidates needing manual review).
+**Step 3.2: Fixes tag**
+No explicit Fixes: tag in this commit. However, the series cover letter
+and patch 1/4 have `Fixes: 3c1fa4aa60b1`.
 
-Record: No Fixes: tag. The implicit fix target is e7b5d23e5d470
-(introduced the backup code).
+Record: Implicitly fixes 3c1fa4aa60b14 which is in v6.19 and v7.0.
 
-### Step 3.3: File History
-The ttm_backup.c file has had 8 changes since its introduction (mostly
-restructuring, export fixes, mm API changes). The core
-`ttm_backup_copy_page()` function has remained stable since
-introduction.
+**Step 3.3: File History / Related Commits**
+20+ commits to this file between v6.19 and v7.0. The VF migration
+infrastructure is actively developed. Patch 1/4 of the same series
+(99f9b5343cae8) is already in the tree.
 
-Record: File is relatively new (v6.15), stable code. No conflicting
-changes found.
+Record: Active development area. Patch 1/4 already merged. Patches 2/4
+and 4/4 not yet in tree.
 
-### Step 3.4: Author Context
-Thomas Hellström is the Intel TTM/Xe maintainer and the original author
-of the backup implementation. He wrote both the buggy code and the fix.
-This is the highest possible trust level for a patch author.
+**Step 3.4: Author**
+Tomasz Lis has 30 commits in the xe driver, is an active contributor.
+Matthew Brost (reviewer) authored the original buggy commit and is a key
+xe/VF contributor. Michal Wajdeczko (committer) has 15 commits to this
+specific file.
 
-Record: Author is the subsystem maintainer and original code author.
+Record: Author and reviewers are all established subsystem contributors.
 
-### Step 3.5: Dependencies
-This is patch 2/3 of a 3-patch series:
-- Patch 1/3: Adds `__GFP_NOWARN` in `__ttm_pool_alloc` (different code
-  path, independent)
-- Patch 2/3: This commit (swap readback path)
-- Patch 3/3: Kerneldoc update (independent)
+**Step 3.5: Dependencies**
+This patch is standalone. It does NOT depend on patches 2/4 or 4/4:
+- Patch 2/4 adds lrc_lookup_lock wrappers (separate race protection)
+- Patch 4/4 adds LRC re-creation logic (a further improvement)
+- This patch (3/4) only moves existing code and adds one call
 
-Patch 2/3 is fully self-contained and applies independently.
+Record: Standalone fix. No dependencies on other unmerged patches.
 
-Record: No dependencies on other patches in the series. Can apply
-standalone.
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-## PHASE 4: MAILING LIST RESEARCH
+**Step 4.1: Original Discussion**
+Found via `b4 dig`. Series went through 4 versions (v1 through v4).
+Cover letter title: "drm/xe/vf: Fix exec queue creation during post-
+migration recovery". The series description confirms sporadic test
+failures with VRAM-damaged LRC state.
 
-### Step 4.1: Original Discussion
-Found via b4 mbox. The series was submitted as v2 on 2026-03-17. The
-cover letter describes it as "two small patches around the
-gfp_retry_mayfail behaviour." The author described the changes as
-"completely non-controversial."
+Record: lore URL:
+patch.msgid.link/20260226212701.2937065-4-tomasz.lis@intel.com. 4
+revisions. Applied version is v4 (latest).
 
-### Step 4.2: Reviewers
-- **Reviewed-by**: Maarten Lankhorst (DRM developer)
-- **Acked-by**: Christian König (TTM maintainer at AMD)
-- CI passed: Xe.CI.BAT success, Xe.CI.FULL success, CI.KUnit success
+**Step 4.2: Reviewers**
+CC'd: intel-xe@lists.freedesktop.org, Michał Winiarski, Michał
+Wajdeczko, Piotr Piórkowski, Matthew Brost. All Intel Xe subsystem
+experts.
 
-### Step 4.3: Bug Report
-No specific bug report linked. This appears to be a code-review-
-identified issue where the author noticed the inconsistency between the
-page allocation path and the swap readback path.
+Record: Appropriate subsystem experts were all involved in review.
 
-### Step 4.4: Related Patches
-Patch 1/3 is a related but independent fix. Patch 3/3 is documentation
-only.
+**Step 4.3-4.5: Bug Reports / Stable Discussion**
+No explicit syzbot or external bug reports. The issue was found
+internally through testing. No explicit stable discussion found.
 
-Record: [Lore thread found] [v2 is the applied version] [Reviewed by
-Maarten Lankhorst, Acked by Christian König] [No specific stable
-nomination in discussion] [No concerns raised]
+Record: Internal testing found the bug. No external bug reports or
+stable nominations.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-- `ttm_backup_copy_page()` - modified to accept additional GFP flags
-- `ttm_pool_restore_commit()` - modified to compute and pass additional
-  GFP flags
+**Step 5.1-5.2: Functions Modified**
+- `vf_get_ggtt_info()`: Called from `xe_gt_sriov_vf_query_config()`,
+  which is called from `vf_post_migration_fixups()` during migration
+  recovery.
+- New `vf_post_migration_mark_fixups_done()`: Called from
+  `vf_post_migration_recovery()`.
+- `xe_gt_sriov_vf_wait_valid_ggtt()`: Called from
+  `__xe_exec_queue_init()` which is called during exec queue creation —
+  a common GPU path.
 
-### Step 5.2: Callers
-`ttm_backup_copy_page()` is called only from
-`ttm_pool_restore_commit()`. `ttm_pool_restore_commit()` is called from
-`ttm_pool_restore_and_alloc()` and `__ttm_pool_alloc()`.
-`ttm_pool_restore_and_alloc()` is called from `ttm_tt_restore()`, which
-is called from `xe_tt_populate()` (Intel Xe driver).
+Record: The wait function is called during exec queue creation, which is
+a common user-triggered path. The fix ensures correctness of this common
+path during VF migration.
 
-The call chain: GPU buffer access -> page fault -> xe_tt_populate ->
-ttm_tt_restore -> ttm_pool_restore_and_alloc -> ttm_pool_restore_commit
--> ttm_backup_copy_page -> shmem_read_folio
+**Step 5.4: Call Chain**
+User creates exec queue → `xe_exec_queue_create()` →
+`__xe_exec_queue_init()` → `xe_gt_sriov_vf_wait_valid_ggtt()` →
+`xe_lrc_create()`. The buggy path is directly reachable from userspace
+GPU operations during VF migration.
 
-### Step 5.3-5.4: Call Chain Reachability
-This path is triggered when GPU buffer objects that were previously
-swapped out need to be restored - a normal operation when the system is
-under memory pressure. It's reachable during any GPU workload after swap
-has occurred.
+Record: Path is reachable from userspace GPU operations.
 
-Record: The buggy path is reachable during normal GPU operations (page
-fault handling for restored buffer objects). Users of Intel Xe and
-potentially AMD/Nouveau drivers are affected.
+## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
 
-## PHASE 6: STABLE TREE ANALYSIS
+**Step 6.1: Buggy Code in Stable Trees**
+The buggy commit 3c1fa4aa60b14 exists in v6.19 and v7.0. The bug does
+NOT exist in v6.18 or earlier (the VF migration wait mechanism was added
+in that commit).
 
-### Step 6.1: Code Existence in Stable
-The `ttm_backup.c` file was introduced in v6.15-rc1. The buggy code
-exists in stable trees v6.15.y and later. For this 7.0 tree, the
-relevant stable trees are 6.15.y, 6.16.y, 6.17.y, 6.18.y, 6.19.y.
+Record: Bug exists in 6.19.y and 7.0.y stable trees only.
 
-Record: Buggy code exists in 6.15.y+ stable trees.
+**Step 6.2: Backport Complications**
+The patch should apply cleanly to the 7.0 tree. For 6.19, there may be
+minor context differences but the code structure is the same.
 
-### Step 6.2: Backport Complications
-The patch should apply cleanly to 6.15.y+ trees since the code has been
-relatively stable. The `d4ad53adfe21d` ("Remove the struct ttm_backup
-abstraction") commit changed the function signatures in 6.15, so stable
-trees should have the same code structure.
+Record: Expected clean apply for 7.0.y. Minor conflicts possible for
+6.19.y.
 
-Record: Expected clean apply for 6.15.y+.
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-## PHASE 7: SUBSYSTEM CONTEXT
+**Step 7.1: Subsystem Criticality**
+- Subsystem: `drivers/gpu/drm/xe` (Intel discrete GPU driver), VF/SR-IOV
+  migration
+- Criticality: PERIPHERAL — affects SR-IOV VF GPU users
+  (cloud/virtualization deployments with Intel GPUs)
 
-### Step 7.1: Subsystem Criticality
-DRM/TTM is the memory manager for GPU drivers (AMD, Intel, Nouveau).
-It's used by virtually all desktop/laptop Linux users with discrete or
-integrated GPUs.
-
-Record: [DRM/TTM] [IMPORTANT - affects all GPU users]
+Record: PERIPHERAL criticality, but important for Intel GPU
+virtualization users.
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Affected Users
-All users with DRM/TTM GPU drivers (Intel Xe, AMD, Nouveau) who
-experience memory pressure during GPU workloads.
+**Step 8.1: Who is Affected**
+Users running Intel Xe GPU in SR-IOV VF mode with live migration
+support. This is relevant for cloud/virtualization environments.
 
-### Step 8.2: Trigger Conditions
-- System must be under significant memory pressure
-- GPU buffer objects must have been swapped out to shmem
-- Application then needs those buffer objects restored
-- This is a realistic scenario: heavy GPU workload + many applications =
-  memory pressure
+**Step 8.2: Trigger Conditions**
+Triggered when exec queue creation (GPU workload submission setup)
+happens concurrently with VF post-migration recovery. The cover letter
+says "tests which create a lot of exec queues were sporadically
+failing."
 
-### Step 8.3: Failure Mode Severity
-**OOM killer invocation** - kills user processes. This is a **HIGH**
-severity issue. The OOM killer is one of the most disruptive events in
-Linux - it selects and kills a process to free memory. Here, it fires
-unnecessarily because the caller indicated the situation is recoverable.
+**Step 8.3: Failure Mode Severity**
+LRC created with stale VRAM state → corrupted GPU context → GPU errors,
+potential hangs, incorrect rendering. Severity: HIGH for affected users
+(data corruption in GPU state).
 
-Record: Severity: HIGH (unnecessary OOM killer invocation killing user
-processes)
+**Step 8.4: Risk-Benefit**
+- BENEFIT: Fixes sporadic GPU state corruption during VF migration.
+  Important for virtualized GPU workloads.
+- RISK: Very low. The fix moves 5 lines of signaling code to a later
+  point. No new locking, no API changes, no functional changes beyond
+  delaying the wake-up.
+- Ratio: High benefit / Very low risk.
 
-### Step 8.4: Risk-Benefit
-- **Benefit**: HIGH - prevents unnecessary OOM kills during GPU memory
-  restoration
-- **Risk**: VERY LOW - 10 lines, follows existing pattern, zero behavior
-  change when flag is false
-- **Ratio**: Strongly favorable for backport
+Record: [HIGH benefit for VF migration users] [VERY LOW risk] [Favorable
+ratio]
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
-**FOR backporting:**
-- Fixes unnecessary OOM killer invocation (HIGH severity)
-- Small, surgical fix (10 lines across 3 files)
-- Follows existing pattern in the same codebase
-- Written by subsystem maintainer
-- Reviewed by DRM developer, Acked by TTM co-maintainer
-- CI passed fully
-- No dependencies on other patches
-- Affects real users with GPU hardware under memory pressure
+**Step 9.1: Evidence Compilation**
+FOR backporting:
+- Fixes a real race condition causing GPU state corruption during VF
+  migration
+- Small, surgical fix (~15 lines, moves existing code)
+- Obviously correct (signals fixups done after ALL fixups, not just one)
+- Reviewed by the original code author (Brost) and committed by
+  subsystem lead (Wajdeczko)
+- 4 revisions of review before merge
+- Standalone fix (does not require other patches from the series)
+- Buggy code exists in 6.19.y and 7.0.y stable trees
 
-**AGAINST backporting:**
-- No explicit Fixes: tag or Cc: stable (expected for manual review
-  candidates)
-- No specific user bug report (code-review identified)
-- Only affects relatively new code (v6.15+)
+AGAINST backporting:
+- Part of a 4-patch series (but standalone as analyzed)
+- Niche use case (SR-IOV VF migration on Intel Xe GPUs)
+- No explicit Fixes: tag or Cc: stable (expected for autosel candidates)
+- No syzbot or external bug reports
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct? **YES** - follows existing pattern, reviewed by
-   maintainers
-2. Fixes a real bug? **YES** - OOM killer invoked unnecessarily
-3. Important issue? **YES** - OOM killer kills user processes
-4. Small and contained? **YES** - 10 lines, single purpose
-5. No new features? **YES** - extends existing flag handling to a
-   missing code path
-6. Applies to stable? **YES** - code exists in 6.15.y+
+**Step 9.2: Stable Rules Checklist**
+1. Obviously correct and tested? YES — logically obvious, reviewed, went
+   through CI, 4 revisions
+2. Fixes a real bug? YES — race condition causing LRC corruption during
+   migration
+3. Important issue? YES — GPU state corruption
+4. Small and contained? YES — ~15 lines in one functional file
+5. No new features or APIs? YES — no new features
+6. Can apply to stable? YES — should apply cleanly to 7.0
 
-### Step 9.3: Exception Categories
-Not an exception category - this is a straightforward bug fix.
+**Step 9.3: Exception Categories**
+Not an exception category — this is a standard bug fix.
+
+**Step 9.4: Decision**
+This is a clear, small, well-reviewed race condition fix that prevents
+GPU state corruption during VF migration. It is standalone, obviously
+correct, and meets all stable kernel criteria.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Maarten Lankhorst, Acked-by
-  Christian König, Link to lore
-- [Phase 2] Diff analysis: ~10 lines across 3 files; changes
-  `shmem_read_folio()` to `shmem_read_folio_gfp()` with optional GFP
-  flags
-- [Phase 2] Verified `shmem_read_folio()` is wrapper for
-  `shmem_read_folio_gfp(mapping, idx, mapping_gfp_mask(mapping))` at
-  include/linux/shmem_fs.h:179-182
-- [Phase 3] git blame: buggy code in `ttm_backup_copy_page()` introduced
-  in e7b5d23e5d470 (v6.15-rc1)
-- [Phase 3] Verified existing `gfp_retry_mayfail` handling in
-  `__ttm_pool_alloc()` at line 728-729 and
-  `ttm_pool_restore_and_alloc()` at line 858-859 - confirms
-  inconsistency
-- [Phase 3] git describe: TTM backup code first appeared in v6.15-rc1
-- [Phase 4] b4 mbox retrieved 12-message thread; cover letter describes
-  "two small patches around gfp_retry_mayfail behaviour"
-- [Phase 4] Christian König acked the series; Thomas Hellström called
-  changes "completely non-controversial"
-- [Phase 4] Patch 1/3 modifies different code path (independent); patch
-  3/3 is kerneldoc only
-- [Phase 5] `ttm_backup_copy_page()` called from
-  `ttm_pool_restore_commit()` -> `ttm_pool_restore_and_alloc()` ->
-  `ttm_tt_restore()` -> `xe_tt_populate()`
-- [Phase 5] Verified `gfp_retry_mayfail = true` is set by Intel Xe (6
-  call sites), AMD amdgpu (2 call sites), Nouveau (1 call site)
-- [Phase 6] Code exists in 6.15.y+ stable trees
-- [Phase 8] Failure mode: OOM killer invocation, severity HIGH
+- [Phase 1] Parsed tags: Reviewed-by Matthew Brost, Signed-off-by Michal
+  Wajdeczko (committer), Link to lore. No Fixes: tag (expected).
+- [Phase 2] Diff analysis: Removes 5 lines from `vf_get_ggtt_info()`
+  (ggtt_need_fixes clearing), adds new 5-line helper
+  `vf_post_migration_mark_fixups_done()`, adds 1 call in
+  `vf_post_migration_recovery()` after `vf_post_migration_fixups()`.
+  Updates 2 comments.
+- [Phase 3] git blame: Buggy code introduced in 3c1fa4aa60b14 (Oct 2025,
+  v6.19), confirmed via `git blame` and `git tag --contains`.
+- [Phase 3] git show 3c1fa4aa60b14: Confirmed this commit added the
+  `ggtt_need_fixes` mechanism in `vf_get_ggtt_info()` with the premature
+  clearing.
+- [Phase 3] File history: 20+ commits between v6.19 and v7.0, active
+  development area.
+- [Phase 3] Patch 1/4 (99f9b5343cae8) already in tree. Patches 2/4 and
+  4/4 not in tree. Verified patch 3/4 is standalone by reading diffs.
+- [Phase 4] b4 dig: Found series at
+  patch.msgid.link/20260226212701.2937065-2-tomasz.lis@intel.com. Series
+  went v1→v4.
+- [Phase 4] b4 dig -w: CC'd to intel-xe list, 4 Intel engineers.
+- [Phase 4] Cover letter confirms: "sporadic failures due to one of LRCs
+  having its state within VRAM damaged."
+- [Phase 5] `xe_gt_sriov_vf_wait_valid_ggtt()` called from
+  `__xe_exec_queue_init()` in `xe_exec_queue.c:318`, confirming the wait
+  is in the LRC creation path.
+- [Phase 5] `vf_post_migration_fixups()` confirmed to call
+  `xe_gt_sriov_vf_query_config()` (which calls `vf_get_ggtt_info()`)
+  FIRST, then `xe_sriov_vf_ccs_rebase()`,
+  `xe_gt_sriov_vf_default_lrcs_hwsp_rebase()`,
+  `xe_guc_contexts_hwsp_rebase()` — confirming the early clearing race.
+- [Phase 6] Bug exists in v6.19 and v7.0 (verified via `git tag
+  --contains 3c1fa4aa60b14`).
+- [Phase 8] Failure mode: GPU state corruption in LRC during VF
+  migration, severity HIGH.
+- UNVERIFIED: Exact backport applicability to 6.19.y (context may differ
+  slightly due to intermediate commits).
 
 **YES**
 
- drivers/gpu/drm/ttm/ttm_backup.c | 6 ++++--
- drivers/gpu/drm/ttm/ttm_pool.c   | 5 ++++-
- include/drm/ttm/ttm_backup.h     | 2 +-
- 3 files changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_gt_sriov_vf.c       | 16 +++++++++-------
+ drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h |  2 +-
+ 2 files changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
-index 6bd4c123d94cd..81df4cb5606b4 100644
---- a/drivers/gpu/drm/ttm/ttm_backup.c
-+++ b/drivers/gpu/drm/ttm/ttm_backup.c
-@@ -44,18 +44,20 @@ void ttm_backup_drop(struct file *backup, pgoff_t handle)
-  * @dst: The struct page to copy into.
-  * @handle: The handle returned when the page was backed up.
-  * @intr: Try to perform waits interruptible or at least killable.
-+ * @additional_gfp: GFP mask to add to the default GFP mask if any.
-  *
-  * Return: 0 on success, Negative error code on failure, notably
-  * -EINTR if @intr was set to true and a signal is pending.
-  */
- int ttm_backup_copy_page(struct file *backup, struct page *dst,
--			 pgoff_t handle, bool intr)
-+			 pgoff_t handle, bool intr, gfp_t additional_gfp)
+diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_vf.c b/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
+index 30e8c2cf5f09a..b50f7181ce7a9 100644
+--- a/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
++++ b/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
+@@ -529,12 +529,6 @@ static int vf_get_ggtt_info(struct xe_gt *gt)
+ 		xe_tile_sriov_vf_fixup_ggtt_nodes_locked(gt_to_tile(gt), shift);
+ 	}
+ 
+-	if (xe_sriov_vf_migration_supported(gt_to_xe(gt))) {
+-		WRITE_ONCE(gt->sriov.vf.migration.ggtt_need_fixes, false);
+-		smp_wmb();	/* Ensure above write visible before wake */
+-		wake_up_all(&gt->sriov.vf.migration.wq);
+-	}
+-
+ 	return 0;
+ }
+ 
+@@ -839,6 +833,13 @@ static void xe_gt_sriov_vf_default_lrcs_hwsp_rebase(struct xe_gt *gt)
+ 		xe_default_lrc_update_memirq_regs_with_address(hwe);
+ }
+ 
++static void vf_post_migration_mark_fixups_done(struct xe_gt *gt)
++{
++	WRITE_ONCE(gt->sriov.vf.migration.ggtt_need_fixes, false);
++	smp_wmb();	/* Ensure above write visible before wake */
++	wake_up_all(&gt->sriov.vf.migration.wq);
++}
++
+ static void vf_start_migration_recovery(struct xe_gt *gt)
  {
- 	struct address_space *mapping = backup->f_mapping;
- 	struct folio *from_folio;
- 	pgoff_t idx = ttm_backup_handle_to_shmem_idx(handle);
+ 	bool started;
+@@ -1373,6 +1374,7 @@ static void vf_post_migration_recovery(struct xe_gt *gt)
+ 	if (err)
+ 		goto fail;
  
--	from_folio = shmem_read_folio(mapping, idx);
-+	from_folio = shmem_read_folio_gfp(mapping, idx, mapping_gfp_mask(mapping)
-+					  | additional_gfp);
- 	if (IS_ERR(from_folio))
- 		return PTR_ERR(from_folio);
++	vf_post_migration_mark_fixups_done(gt);
+ 	vf_post_migration_rearm(gt);
  
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index c0d95559197c6..4912ab53f6f92 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -530,6 +530,8 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 		p = first_page[i];
- 		if (ttm_backup_page_ptr_is_handle(p)) {
- 			unsigned long handle = ttm_backup_page_ptr_to_handle(p);
-+			gfp_t additional_gfp = ctx->gfp_retry_mayfail ?
-+				__GFP_RETRY_MAYFAIL | __GFP_NOWARN : 0;
+ 	err = vf_post_migration_resfix_done(gt, marker);
+@@ -1507,7 +1509,7 @@ static bool vf_valid_ggtt(struct xe_gt *gt)
+ }
  
- 			if (IS_ENABLED(CONFIG_FAULT_INJECTION) && ctx->interruptible &&
- 			    should_fail(&backup_fault_inject, 1)) {
-@@ -543,7 +545,8 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 			}
+ /**
+- * xe_gt_sriov_vf_wait_valid_ggtt() - VF wait for valid GGTT addresses
++ * xe_gt_sriov_vf_wait_valid_ggtt() - wait for valid GGTT nodes and address refs
+  * @gt: the &xe_gt
+  */
+ void xe_gt_sriov_vf_wait_valid_ggtt(struct xe_gt *gt)
+diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h b/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h
+index 4ef881b9b6623..fca18be589db9 100644
+--- a/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h
++++ b/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h
+@@ -73,7 +73,7 @@ struct xe_gt_sriov_vf_migration {
+ 	bool recovery_queued;
+ 	/** @recovery_inprogress: VF post migration recovery in progress */
+ 	bool recovery_inprogress;
+-	/** @ggtt_need_fixes: VF GGTT needs fixes */
++	/** @ggtt_need_fixes: VF GGTT and references to it need fixes */
+ 	bool ggtt_need_fixes;
+ };
  
- 			ret = ttm_backup_copy_page(backup, restore->alloced_page + i,
--						   handle, ctx->interruptible);
-+						   handle, ctx->interruptible,
-+						   additional_gfp);
- 			if (ret)
- 				break;
- 
-diff --git a/include/drm/ttm/ttm_backup.h b/include/drm/ttm/ttm_backup.h
-index c33cba111171f..29b9c855af779 100644
---- a/include/drm/ttm/ttm_backup.h
-+++ b/include/drm/ttm/ttm_backup.h
-@@ -56,7 +56,7 @@ ttm_backup_page_ptr_to_handle(const struct page *page)
- void ttm_backup_drop(struct file *backup, pgoff_t handle);
- 
- int ttm_backup_copy_page(struct file *backup, struct page *dst,
--			 pgoff_t handle, bool intr);
-+			 pgoff_t handle, bool intr, gfp_t additional_gfp);
- 
- s64
- ttm_backup_backup_page(struct file *backup, struct page *page,
 -- 
 2.53.0
 
