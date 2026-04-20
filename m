@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81ED2F588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C88AF588C2
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E493710E600;
-	Mon, 20 Apr 2026 13:23:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D6A10E607;
+	Mon, 20 Apr 2026 13:23:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KLRfZq4g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HIQmwqvE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 545CC10E5FC;
- Mon, 20 Apr 2026 13:23:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE5310E604;
+ Mon, 20 Apr 2026 13:23:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 37D7D440AE;
- Mon, 20 Apr 2026 13:23:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3462FC19425;
- Mon, 20 Apr 2026 13:23:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 813F34409A;
+ Mon, 20 Apr 2026 13:23:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6F9C2BCB4;
+ Mon, 20 Apr 2026 13:23:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691429;
- bh=tndVcEmccZTuxB7kpIPKtjzN2f1jeKsWT0kgomyoWLA=;
+ s=k20201202; t=1776691435;
+ bh=A+lz1RTkj2e9lOQtV5fCe9QkLphGB6D5KjK3efFNNvo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KLRfZq4gdZNce3MVuoxP9tPjvXW6o2pwIwc61+ndqjrRJvIAAAg0CTxQZVEnXmqT+
- CpnKRRq/9TVJtoD+Ju03SZcjNAmvFVB9Kr2BeXqwegChEO1f6Ut7NhuOBqnQkHaUQg
- lHPrJ0JnWu01Q5yvSiIo6cVYMr8CLuu+YxG0hpcRxkFYeVm6OFt9e5FvcmlhwqI/1D
- zoR6pwYShyUdfjZEpkDfyV0UCi9JrVOBVb0A+V3y/uqVo4cdPAXCu8kc37Hhyn6zNr
- 3L1MF+zBjo5eJ5bllM/2mYZQgHLHnDXOvxB+TdpaDlCvV9Zxk0drfUzT7Vghz6GDDH
- RFrzgaCPok5zw==
+ b=HIQmwqvEtlCadL/Et0zBZe15EzcZ7z9V72sBJ2USWVjVPwJ+4eLhQXT1jK2n5jMPS
+ 2F1hh7oiCO6mPdRcreE0oXcrZaXtn+frOCNOc0tH7PmaboCR8ZcRJ+jojtuMQ4QdI+
+ O6xvhmBQ8qomoWVNKlRsXgrdUK6cGBM0mliy8tz9EmKtal+Qd3+KXm/sbAzop/o2K8
+ R4X0edLPgwsbenVNRqsi7vOjTPyHumO3fzSVvjCY43ZqzqOq+Yfyu9D5Oaiyb6m7r2
+ rQi5zGiUcfKyQbRNYGrYrDom10F3M0gRucHqYyFaVX7GJKRwS3lXscNii9quRO3J4t
+ BOLyd3n6A0FrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Tomasz Lis <tomasz.lis@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Michal Wajdeczko <michal.wajdeczko@intel.com>,
- Sasha Levin <sashal@kernel.org>, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.19] drm/xe/vf: Wait for all fixups before using
- default LRCs
-Date: Mon, 20 Apr 2026 09:16:55 -0400
-Message-ID: <20260420132314.1023554-21-sashal@kernel.org>
+Cc: Erik Kurzinger <ekurzinger@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: remove duplicate format
+ modifier
+Date: Mon, 20 Apr 2026 09:16:59 -0400
+Message-ID: <20260420132314.1023554-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -67,433 +66,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Tomasz Lis <tomasz.lis@intel.com>
+From: Erik Kurzinger <ekurzinger@gmail.com>
 
-[ Upstream commit f3fb5f1ebbf39e685dd2885c9dbc8bb0a80be7c6 ]
+[ Upstream commit 6736c8ff9d63e847a3b694aeaeb78d4e8ad42464 ]
 
-When a context is being created during save/restore, the LRC creation
-needs to wait for GGTT address space to be shifted. But it also needs
-to have fixed default LRCs. This is mandatory to avoid the situation
-where LRC will be created based on data from before the fixups, but
-reference within exec queue will be set too late for fixups.
+amdgpu_dm_plane_get_plane_modifiers always adds DRM_FORMAT_MOD_LINEAR to
+the list of modifiers. However, with gfx12,
+amdgpu_dm_plane_add_gfx12_modifiers also adds that modifier to the list.
+So we end up with two copies. Most apps just ignore this but some
+(Weston) don't like it.
 
-This fixes an issue where contexts created during save/restore have
-a large chance of having one unfixed LRC, due to the xe_lrc_create()
-being synced for equal start to race with default LRC fixups.
+As a fix, we change amdgpu_dm_plane_add_gfx12_modifiers to not add
+DRM_FORMAT_MOD_LINEAR to the list, matching the behavior of analogous
+functions for other chips.
 
-v2: Move the fixups confirmation further, behind all fixups.
-  Revert some renames.
-
-Signed-off-by: Tomasz Lis <tomasz.lis@intel.com>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Link: https://patch.msgid.link/20260226212701.2937065-4-tomasz.lis@intel.com
+Signed-off-by: Erik Kurzinger <ekurzinger@gmail.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed. Let me compile the complete
-analysis.
+Now I have all the information needed for the analysis. Let me compile
+the findings.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-- Subsystem: `drm/xe/vf` (Intel Xe GPU driver, VF/SR-IOV path)
-- Action verb: "Wait for" (= ensure, prevent — indicates fixing
-  incorrect behavior)
-- Summary: Wait for all fixups to complete before using default LRCs
-  during VF migration recovery
-
-Record: [drm/xe/vf] [Wait for / ensure] [Delays ggtt_need_fixes
-completion signal until after all fixups, not just GGTT shift]
+Record: [drm/amd/display] [remove] Remove duplicate
+DRM_FORMAT_MOD_LINEAR format modifier in gfx12 modifiers list.
 
 **Step 1.2: Tags**
-- Signed-off-by: Tomasz Lis (author, Intel contributor with 30 commits
-  in Xe driver)
-- Reviewed-by: Matthew Brost (co-author of the original buggy commit
-  3c1fa4aa60b14)
-- Signed-off-by: Michal Wajdeczko (maintainer-level committer, 15
-  commits to this file)
-- Link: patch.msgid.link/20260226212701.2937065-4-tomasz.lis@intel.com
-- No Fixes: tag, no Reported-by:, no Cc: stable (expected for autosel
-  candidate)
+- Signed-off-by: Erik Kurzinger <ekurzinger@gmail.com> (author)
+- Acked-by: Alex Deucher <alexander.deucher@amd.com> (AMD subsystem
+  maintainer)
+- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (merged by
+  maintainer)
+- No Fixes: tag, no Cc: stable, no Reported-by — all expected for
+  AUTOSEL candidates.
 
-Record: Reviewed by subsystem expert (Brost), committed by subsystem
-lead (Wajdeczko). No explicit stable nomination.
+**Step 1.3: Commit Body**
+The commit message clearly describes:
+`amdgpu_dm_plane_get_plane_modifiers` always adds
+`DRM_FORMAT_MOD_LINEAR` at the end of the modifier list for all chips
+(line 769). But `amdgpu_dm_plane_add_gfx12_modifiers` also includes
+`DRM_FORMAT_MOD_LINEAR` in its own `gfx12_modifiers[]` array, causing it
+to appear twice. Most compositors ignore duplicates, but Weston
+compositor breaks when it encounters them.
 
-**Step 1.3: Commit Body Analysis**
-- Bug: LRC creation during save/restore can race with default LRC fixups
-- Symptom: "contexts created during save/restore have a large chance of
-  having one unfixed LRC"
-- Root cause: `xe_lrc_create()` synced for "equal start to race with
-  default LRC fixups" — meaning `ggtt_need_fixes` is cleared too early
-  (after GGTT shift only, before default LRC hwsp rebase)
-- Cover letter (from b4 dig): "Tests which create a lot of exec queues
-  were sporadically failing due to one of LRCs having its state within
-  VRAM damaged"
+Record: Bug = duplicate format modifier in the kernel-to-userspace
+modifier list for gfx12 GPUs. Symptom = Weston compositor malfunctions
+on gfx12 hardware.
 
-Record: Real race condition causing VRAM state corruption in LRC during
-VF migration. Sporadic test failures observed.
+**Step 1.4: Hidden Bug Fix**
+This is unambiguously a bug fix — it fixes incorrect behavior that
+breaks a real compositor (Weston). The word "remove" understates the fix
+— this corrects a real user-visible bug.
 
-**Step 1.4: Hidden Bug Fix Detection**
-This IS explicitly described as a fix ("This fixes an issue where...").
-Not hidden.
-
-Record: Explicit bug fix for a race condition.
+---
 
 ## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- `xe_gt_sriov_vf.c`: ~15 lines changed. Removes 5 lines from
-  `vf_get_ggtt_info()`, adds new function
-  `vf_post_migration_mark_fixups_done()` (5 lines), adds 1 call in
-  `vf_post_migration_recovery()`, updates 1 comment.
-- `xe_gt_sriov_vf_types.h`: 1 line comment update.
-- Scope: Single-file surgical fix (functionally), trivial doc change in
-  header.
+- 1 file changed:
+  `drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c`
+- ~4 lines of functional change within
+  `amdgpu_dm_plane_add_gfx12_modifiers()`
+- Scope: single-file, single-function surgical fix
 
-Record: 2 files changed, ~15 net lines modified. Functions:
-`vf_get_ggtt_info()` (code removed), new
-`vf_post_migration_mark_fixups_done()`, `vf_post_migration_recovery()`
-(call added). Scope: surgical.
-
-**Step 2.2: Code Flow Change**
-- **Before**: `ggtt_need_fixes` set to `false` + `wake_up_all()` in
-  `vf_get_ggtt_info()`, which is the FIRST step of
-  `vf_post_migration_fixups()`. This means waiters (LRC creators) are
-  released while `xe_sriov_vf_ccs_rebase()`,
-  `xe_gt_sriov_vf_default_lrcs_hwsp_rebase()`, and
-  `xe_guc_contexts_hwsp_rebase()` are still pending.
-- **After**: `ggtt_need_fixes` cleared and waiters woken ONLY after
-  `vf_post_migration_fixups()` returns, meaning ALL fixups (GGTT shift,
-  CCS rebase, default LRC hwsp rebase, contexts hwsp rebase) are
-  complete before `xe_lrc_create()` can proceed.
-
-Record: Moves the "fixups done" signal from midway through fixups to
-after ALL fixups complete. Eliminates a race window where LRC creation
-proceeds with stale default LRC data.
+**Step 2.2: Code Flow Changes**
+1. `gfx12_modifiers[]` array: `DRM_FORMAT_MOD_LINEAR` removed from the
+   array (5 elements → 4)
+2. DCC loop: `ARRAY_SIZE(gfx12_modifiers) - 1` →
+   `ARRAY_SIZE(gfx12_modifiers)` (now iterates over ALL tiled modifiers
+   for DCC, since there's no LINEAR to skip)
+3. Comments updated to explain the caller adds LINEAR for all chips
 
 **Step 2.3: Bug Mechanism**
-Category: Race condition. Specifically:
-1. Migration triggers recovery, sets `ggtt_need_fixes = true`
-2. `vf_post_migration_fixups()` calls `xe_gt_sriov_vf_query_config()` →
-   `vf_get_ggtt_info()`, which sets `ggtt_need_fixes = false` and wakes
-   waiters
-3. Concurrent `xe_lrc_create()` (in `__xe_exec_queue_init()`) was
-   waiting on `ggtt_need_fixes` via `xe_gt_sriov_vf_wait_valid_ggtt()` —
-   now it proceeds
-4. But default LRC hwsp rebase hasn't happened yet — `xe_lrc_create()`
-   uses unfixed default LRC data
-5. Result: LRC created with stale VRAM state
-
-Record: [Race condition] The `ggtt_need_fixes` flag is cleared after
-GGTT shift but before default LRC fixups, allowing `xe_lrc_create()` to
-use stale default LRC data.
+Category: Logic/correctness fix. The gfx12 function inconsistently added
+LINEAR while all other gfx functions (gfx9, gfx10_1, gfx10_3, gfx11)
+rely on the caller to add it. Verified by grepping — only gfx12 had
+LINEAR in its internal list.
 
 **Step 2.4: Fix Quality**
-- Obviously correct: moves signaling to logically correct location
-  (after ALL fixups)
-- Minimal/surgical: only moves existing code, creates a small helper
-  function
-- Regression risk: Very low. The only change is that waiters wait
-  slightly longer (for all fixups instead of just GGTT shift). This
-  cannot cause deadlock since the fixups are sequential and bounded.
+Obviously correct — makes gfx12 match the pattern of all other chip
+functions. Minimal, surgical. Zero regression risk to other chips. The
+loop bound fix is critical: without it, removing LINEAR from the array
+would cause the DCC loop to skip the last real modifier (mod_256b).
 
-Record: Fix is obviously correct, minimal, and has negligible regression
-risk.
+---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: Blame**
-The buggy code (clearing `ggtt_need_fixes` in `vf_get_ggtt_info`) was
-introduced by commit `3c1fa4aa60b14` (Matthew Brost, 2025-10-08,
-"drm/xe: Move queue init before LRC creation"). This commit first
-appeared in v6.19.
+The buggy `DRM_FORMAT_MOD_LINEAR` in the `gfx12_modifiers[]` array was
+introduced by commit `21e6f6085bbc97` ("drm/amd/display: Allow display
+DCC for DCN401", Aurabindo Pillai, 2024-07-03), which restructured the
+gfx12 function to add DCC support. The original gfx12 function
+(`a64a521231a46`, 2024-02-02) also had LINEAR inline, but pre-DCC. Both
+are in v6.11+.
 
-Record: Buggy code introduced in 3c1fa4aa60b14, first present in v6.19.
-Exists in 6.19.y and 7.0.y stable trees.
+**Step 3.2: Fixes target**
+No Fixes: tag. The bug was introduced by `21e6f6085bbc97` (v6.11). This
+commit exists in stable trees 6.11.y, 6.12.y, 6.13.y, 6.14.y.
 
-**Step 3.2: Fixes tag**
-No explicit Fixes: tag in this commit. However, the series cover letter
-and patch 1/4 have `Fixes: 3c1fa4aa60b1`.
-
-Record: Implicitly fixes 3c1fa4aa60b14 which is in v6.19 and v7.0.
-
-**Step 3.3: File History / Related Commits**
-20+ commits to this file between v6.19 and v7.0. The VF migration
-infrastructure is actively developed. Patch 1/4 of the same series
-(99f9b5343cae8) is already in the tree.
-
-Record: Active development area. Patch 1/4 already merged. Patches 2/4
-and 4/4 not yet in tree.
+**Step 3.3: File History**
+Recent changes to the file are unrelated (color pipeline, kmalloc
+conversions). No prerequisites or dependencies found.
 
 **Step 3.4: Author**
-Tomasz Lis has 30 commits in the xe driver, is an active contributor.
-Matthew Brost (reviewer) authored the original buggy commit and is a key
-xe/VF contributor. Michal Wajdeczko (committer) has 15 commits to this
-specific file.
-
-Record: Author and reviewers are all established subsystem contributors.
+Erik Kurzinger is a DRM contributor (drm/syncobj patches). Alex Deucher,
+who Acked and merged, is the AMD subsystem maintainer.
 
 **Step 3.5: Dependencies**
-This patch is standalone. It does NOT depend on patches 2/4 or 4/4:
-- Patch 2/4 adds lrc_lookup_lock wrappers (separate race protection)
-- Patch 4/4 adds LRC re-creation logic (a further improvement)
-- This patch (3/4) only moves existing code and adds one call
+The fix is completely standalone. The only context dependency is that
+`max_comp_block[] = {2, 1, 0}` in v6.15+ vs `{1, 0}` in 6.11-6.14 (from
+commit `3855f1d925d4f`), but this is in context lines, not in the
+changed lines. Minor context fuzz at most.
 
-Record: Standalone fix. No dependencies on other unmerged patches.
+---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## PHASE 4: MAILING LIST RESEARCH
 
-**Step 4.1: Original Discussion**
-Found via `b4 dig`. Series went through 4 versions (v1 through v4).
-Cover letter title: "drm/xe/vf: Fix exec queue creation during post-
-migration recovery". The series description confirms sporadic test
-failures with VRAM-damaged LRC state.
+- Patch v1 was posted on Feb 10, 2026. Alex Deucher immediately Acked
+  it.
+- v2 was submitted the same day with improved comments and the loop
+  bound fix. Alex Deucher Acked v2 as well.
+- No NAKs or concerns raised. No explicit stable nomination, but also no
+  objection.
+- b4 dig could not find the AMD patches on lore (AMD patches go through
+  freedesktop gitlab, not always indexed by b4).
 
-Record: lore URL:
-patch.msgid.link/20260226212701.2937065-4-tomasz.lis@intel.com. 4
-revisions. Applied version is v4 (latest).
-
-**Step 4.2: Reviewers**
-CC'd: intel-xe@lists.freedesktop.org, Michał Winiarski, Michał
-Wajdeczko, Piotr Piórkowski, Matthew Brost. All Intel Xe subsystem
-experts.
-
-Record: Appropriate subsystem experts were all involved in review.
-
-**Step 4.3-4.5: Bug Reports / Stable Discussion**
-No explicit syzbot or external bug reports. The issue was found
-internally through testing. No explicit stable discussion found.
-
-Record: Internal testing found the bug. No external bug reports or
-stable nominations.
+---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1-5.2: Functions Modified**
-- `vf_get_ggtt_info()`: Called from `xe_gt_sriov_vf_query_config()`,
-  which is called from `vf_post_migration_fixups()` during migration
-  recovery.
-- New `vf_post_migration_mark_fixups_done()`: Called from
-  `vf_post_migration_recovery()`.
-- `xe_gt_sriov_vf_wait_valid_ggtt()`: Called from
-  `__xe_exec_queue_init()` which is called during exec queue creation —
-  a common GPU path.
+**Step 5.1-5.4: Function and Call Chain**
+- `amdgpu_dm_plane_add_gfx12_modifiers()` is called from
+  `amdgpu_dm_plane_get_plane_modifiers()` for AMDGPU_FAMILY_GC_12_0_0
+  devices.
+- `amdgpu_dm_plane_get_plane_modifiers()` is called during plane
+  initialization (`amdgpu_dm_plane_init()`), which runs for every
+  display plane on every gfx12 GPU.
+- The modifier list is exported to userspace via the DRM plane
+  properties and queried by compositors like Weston when selecting
+  buffer formats.
 
-Record: The wait function is called during exec queue creation, which is
-a common user-triggered path. The fix ensures correctness of this common
-path during VF migration.
+**Step 5.5: Similar Patterns**
+Confirmed: gfx9, gfx10_1, gfx10_3, and gfx11 functions do NOT add
+`DRM_FORMAT_MOD_LINEAR`. Only gfx12 was inconsistent.
 
-**Step 5.4: Call Chain**
-User creates exec queue → `xe_exec_queue_create()` →
-`__xe_exec_queue_init()` → `xe_gt_sriov_vf_wait_valid_ggtt()` →
-`xe_lrc_create()`. The buggy path is directly reachable from userspace
-GPU operations during VF migration.
+---
 
-Record: Path is reachable from userspace GPU operations.
+## PHASE 6: STABLE TREE ANALYSIS
 
-## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
-
-**Step 6.1: Buggy Code in Stable Trees**
-The buggy commit 3c1fa4aa60b14 exists in v6.19 and v7.0. The bug does
-NOT exist in v6.18 or earlier (the VF migration wait mechanism was added
-in that commit).
-
-Record: Bug exists in 6.19.y and 7.0.y stable trees only.
+**Step 6.1: Buggy Code Presence**
+- gfx12 modifiers introduced in v6.11 (a64a521231a46)
+- DCC restructuring (introducing the duplicate) also in v6.11
+  (21e6f6085bbc97)
+- Bug exists in: **6.11.y, 6.12.y, 6.13.y, 6.14.y** stable trees
+- Not in v6.10 or earlier (no gfx12 support)
 
 **Step 6.2: Backport Complications**
-The patch should apply cleanly to the 7.0 tree. For 6.19, there may be
-minor context differences but the code structure is the same.
+For 6.11-6.14: `max_comp_block[] = {1, 0}` (context-only difference from
+`{2, 1, 0}` in 6.15+). The actual changed lines are identical. Should
+apply with minor fuzz or a trivial context adjustment.
 
-Record: Expected clean apply for 7.0.y. Minor conflicts possible for
-6.19.y.
+---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1: Subsystem Criticality**
-- Subsystem: `drivers/gpu/drm/xe` (Intel discrete GPU driver), VF/SR-IOV
-  migration
-- Criticality: PERIPHERAL — affects SR-IOV VF GPU users
-  (cloud/virtualization deployments with Intel GPUs)
+**Step 7.1:** drm/amd/display — IMPORTANT subsystem. AMD GPUs
+(especially gfx12 = RDNA4) are widely used in desktops and embedded
+systems. Display bugs affect all users of the GPU.
 
-Record: PERIPHERAL criticality, but important for Intel GPU
-virtualization users.
+**Step 7.2:** The file is actively maintained with frequent changes.
+
+---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: Who is Affected**
-Users running Intel Xe GPU in SR-IOV VF mode with live migration
-support. This is relevant for cloud/virtualization environments.
+**Step 8.1: Affected Users**
+All users of gfx12 (AMDGPU RDNA4) GPUs running Weston compositor. Also
+potentially affects other compositors that validate modifier lists
+strictly.
 
 **Step 8.2: Trigger Conditions**
-Triggered when exec queue creation (GPU workload submission setup)
-happens concurrently with VF post-migration recovery. The cover letter
-says "tests which create a lot of exec queues were sporadically
-failing."
+100% triggered on every gfx12 GPU initialization — the duplicate
+modifier is always present in the exported list.
 
 **Step 8.3: Failure Mode Severity**
-LRC created with stale VRAM state → corrupted GPU context → GPU errors,
-potential hangs, incorrect rendering. Severity: HIGH for affected users
-(data corruption in GPU state).
+Weston compositor fails to work properly with gfx12 GPUs. Severity:
+MEDIUM-HIGH. This prevents a major compositor from functioning on new
+AMD hardware.
 
 **Step 8.4: Risk-Benefit**
-- BENEFIT: Fixes sporadic GPU state corruption during VF migration.
-  Important for virtualized GPU workloads.
-- RISK: Very low. The fix moves 5 lines of signaling code to a later
-  point. No new locking, no API changes, no functional changes beyond
-  delaying the wake-up.
-- Ratio: High benefit / Very low risk.
+- Benefit: HIGH — fixes Weston on gfx12, corrects API contract (DRM
+  modifiers should not have duplicates)
+- Risk: VERY LOW — 4-line change in a single function, matching
+  established pattern of all other chip functions, Acked by maintainer
+- Ratio: Very favorable
 
-Record: [HIGH benefit for VF migration users] [VERY LOW risk] [Favorable
-ratio]
+---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1: Evidence Compilation**
-FOR backporting:
-- Fixes a real race condition causing GPU state corruption during VF
-  migration
-- Small, surgical fix (~15 lines, moves existing code)
-- Obviously correct (signals fixups done after ALL fixups, not just one)
-- Reviewed by the original code author (Brost) and committed by
-  subsystem lead (Wajdeczko)
-- 4 revisions of review before merge
-- Standalone fix (does not require other patches from the series)
-- Buggy code exists in 6.19.y and 7.0.y stable trees
+**Evidence FOR backporting:**
+- Fixes a real bug that breaks Weston compositor on gfx12 hardware
+- Small, surgical, obviously correct (4 functional line changes)
+- Matches the established pattern of all other chip generations
+- Acked by subsystem maintainer (Alex Deucher)
+- Bug present in all stable trees with gfx12 support (6.11+)
+- Zero regression risk to other chips
+- No new features or APIs
 
-AGAINST backporting:
-- Part of a 4-patch series (but standalone as analyzed)
-- Niche use case (SR-IOV VF migration on Intel Xe GPUs)
-- No explicit Fixes: tag or Cc: stable (expected for autosel candidates)
-- No syzbot or external bug reports
+**Evidence AGAINST backporting:**
+- Impact is limited to Weston users on gfx12 (most compositors tolerate
+  duplicates)
+- No CVE, no crash, no data corruption
 
-**Step 9.2: Stable Rules Checklist**
-1. Obviously correct and tested? YES — logically obvious, reviewed, went
-   through CI, 4 revisions
-2. Fixes a real bug? YES — race condition causing LRC corruption during
-   migration
-3. Important issue? YES — GPU state corruption
-4. Small and contained? YES — ~15 lines in one functional file
-5. No new features or APIs? YES — no new features
-6. Can apply to stable? YES — should apply cleanly to 7.0
+**Stable Rules Checklist:**
+1. Obviously correct and tested? **YES** — matches all other chip
+   functions, Acked by maintainer
+2. Fixes a real bug? **YES** — duplicate modifier breaks Weston
+3. Important issue? **MEDIUM-HIGH** — prevents compositor from working
+   on new hardware
+4. Small and contained? **YES** — 4 lines, 1 function, 1 file
+5. No new features or APIs? **YES**
+6. Can apply to stable? **YES** — may need minor context adjustment for
+   6.11-6.14
 
-**Step 9.3: Exception Categories**
-Not an exception category — this is a standard bug fix.
-
-**Step 9.4: Decision**
-This is a clear, small, well-reviewed race condition fix that prevents
-GPU state corruption during VF migration. It is standalone, obviously
-correct, and meets all stable kernel criteria.
+---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Matthew Brost, Signed-off-by Michal
-  Wajdeczko (committer), Link to lore. No Fixes: tag (expected).
-- [Phase 2] Diff analysis: Removes 5 lines from `vf_get_ggtt_info()`
-  (ggtt_need_fixes clearing), adds new 5-line helper
-  `vf_post_migration_mark_fixups_done()`, adds 1 call in
-  `vf_post_migration_recovery()` after `vf_post_migration_fixups()`.
-  Updates 2 comments.
-- [Phase 3] git blame: Buggy code introduced in 3c1fa4aa60b14 (Oct 2025,
-  v6.19), confirmed via `git blame` and `git tag --contains`.
-- [Phase 3] git show 3c1fa4aa60b14: Confirmed this commit added the
-  `ggtt_need_fixes` mechanism in `vf_get_ggtt_info()` with the premature
-  clearing.
-- [Phase 3] File history: 20+ commits between v6.19 and v7.0, active
-  development area.
-- [Phase 3] Patch 1/4 (99f9b5343cae8) already in tree. Patches 2/4 and
-  4/4 not in tree. Verified patch 3/4 is standalone by reading diffs.
-- [Phase 4] b4 dig: Found series at
-  patch.msgid.link/20260226212701.2937065-2-tomasz.lis@intel.com. Series
-  went v1→v4.
-- [Phase 4] b4 dig -w: CC'd to intel-xe list, 4 Intel engineers.
-- [Phase 4] Cover letter confirms: "sporadic failures due to one of LRCs
-  having its state within VRAM damaged."
-- [Phase 5] `xe_gt_sriov_vf_wait_valid_ggtt()` called from
-  `__xe_exec_queue_init()` in `xe_exec_queue.c:318`, confirming the wait
-  is in the LRC creation path.
-- [Phase 5] `vf_post_migration_fixups()` confirmed to call
-  `xe_gt_sriov_vf_query_config()` (which calls `vf_get_ggtt_info()`)
-  FIRST, then `xe_sriov_vf_ccs_rebase()`,
-  `xe_gt_sriov_vf_default_lrcs_hwsp_rebase()`,
-  `xe_guc_contexts_hwsp_rebase()` — confirming the early clearing race.
-- [Phase 6] Bug exists in v6.19 and v7.0 (verified via `git tag
-  --contains 3c1fa4aa60b14`).
-- [Phase 8] Failure mode: GPU state corruption in LRC during VF
-  migration, severity HIGH.
-- UNVERIFIED: Exact backport applicability to 6.19.y (context may differ
-  slightly due to intermediate commits).
+- [Phase 1] Parsed tags: Acked-by Alex Deucher (AMD maintainer), no
+  Fixes/Cc-stable (expected)
+- [Phase 2] Diff analysis: 4 functional lines changed in
+  `amdgpu_dm_plane_add_gfx12_modifiers()`, removes LINEAR from array and
+  fixes loop bound
+- [Phase 2] Confirmed all other gfx add functions (gfx9, gfx10_1,
+  gfx10_3, gfx11) do NOT add LINEAR — verified via grep
+- [Phase 2] Confirmed caller `amdgpu_dm_plane_get_plane_modifiers()`
+  adds LINEAR at line 769 for ALL chips — verified via Read
+- [Phase 3] git blame: buggy line 707 introduced by commit
+  21e6f6085bbc97 (v6.11, 2024-07-03)
+- [Phase 3] git show a64a521231a46: original gfx12 function also had
+  LINEAR (duplicate from day one)
+- [Phase 3] Verified gfx12 NOT in v6.10, IS in v6.11+ via `git merge-
+  base --is-ancestor`
+- [Phase 3] 3855f1d925d4f (max_comp_block context change) in v6.15 only
+  — minor context fuzz for older stables
+- [Phase 4] Found patch v1 and v2 on freedesktop.org mailing list
+  archives
+- [Phase 4] v1 (1-line change) and v2 (4-line change with improved
+  comments/loop) both Acked by Alex Deucher
+- [Phase 4] No NAKs, no concerns raised in discussion
+- [Phase 5] Verified call chain: `amdgpu_dm_plane_init()` →
+  `amdgpu_dm_plane_get_plane_modifiers()` →
+  `amdgpu_dm_plane_add_gfx12_modifiers()` — runs on every gfx12 display
+  plane init
+- [Phase 6] Bug present in 6.11.y, 6.12.y, 6.13.y, 6.14.y stable trees
+  (verified)
+- [Phase 8] Failure mode: Weston compositor broken on gfx12, severity
+  MEDIUM-HIGH
 
 **YES**
 
- drivers/gpu/drm/xe/xe_gt_sriov_vf.c       | 16 +++++++++-------
- drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h |  2 +-
- 2 files changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_vf.c b/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
-index 30e8c2cf5f09a..b50f7181ce7a9 100644
---- a/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
-+++ b/drivers/gpu/drm/xe/xe_gt_sriov_vf.c
-@@ -529,12 +529,6 @@ static int vf_get_ggtt_info(struct xe_gt *gt)
- 		xe_tile_sriov_vf_fixup_ggtt_nodes_locked(gt_to_tile(gt), shift);
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 127207e18dcb0..bc19438211dd3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -704,21 +704,21 @@ static void amdgpu_dm_plane_add_gfx12_modifiers(struct amdgpu_device *adev,
+ 	uint8_t max_comp_block[] = {2, 1, 0};
+ 	uint64_t max_comp_block_mod[ARRAY_SIZE(max_comp_block)] = {0};
+ 	uint8_t i = 0, j = 0;
+-	uint64_t gfx12_modifiers[] = {mod_256k, mod_64k, mod_4k, mod_256b, DRM_FORMAT_MOD_LINEAR};
++	/* Note, linear (no DCC) gets added to the modifier list for all chips by the caller. */
++	uint64_t gfx12_modifiers[] = {mod_256k, mod_64k, mod_4k, mod_256b};
  
--	if (xe_sriov_vf_migration_supported(gt_to_xe(gt))) {
--		WRITE_ONCE(gt->sriov.vf.migration.ggtt_need_fixes, false);
--		smp_wmb();	/* Ensure above write visible before wake */
--		wake_up_all(&gt->sriov.vf.migration.wq);
--	}
--
- 	return 0;
- }
+ 	for (i = 0; i < ARRAY_SIZE(max_comp_block); i++)
+ 		max_comp_block_mod[i] = AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, max_comp_block[i]);
  
-@@ -839,6 +833,13 @@ static void xe_gt_sriov_vf_default_lrcs_hwsp_rebase(struct xe_gt *gt)
- 		xe_default_lrc_update_memirq_regs_with_address(hwe);
- }
+ 	/* With DCC: Best choice should be kept first. Hence, add all 256k modifiers of different
+ 	 * max compressed blocks first and then move on to the next smaller sized layouts.
+-	 * Do not add the linear modifier here, and hence the condition of size-1 for the loop
+ 	 */
+-	for (j = 0; j < ARRAY_SIZE(gfx12_modifiers) - 1; j++)
++	for (j = 0; j < ARRAY_SIZE(gfx12_modifiers); j++)
+ 		for (i = 0; i < ARRAY_SIZE(max_comp_block); i++)
+ 			amdgpu_dm_plane_add_modifier(mods, size, capacity,
+ 						     ver | dcc | max_comp_block_mod[i] | gfx12_modifiers[j]);
  
-+static void vf_post_migration_mark_fixups_done(struct xe_gt *gt)
-+{
-+	WRITE_ONCE(gt->sriov.vf.migration.ggtt_need_fixes, false);
-+	smp_wmb();	/* Ensure above write visible before wake */
-+	wake_up_all(&gt->sriov.vf.migration.wq);
-+}
-+
- static void vf_start_migration_recovery(struct xe_gt *gt)
- {
- 	bool started;
-@@ -1373,6 +1374,7 @@ static void vf_post_migration_recovery(struct xe_gt *gt)
- 	if (err)
- 		goto fail;
- 
-+	vf_post_migration_mark_fixups_done(gt);
- 	vf_post_migration_rearm(gt);
- 
- 	err = vf_post_migration_resfix_done(gt, marker);
-@@ -1507,7 +1509,7 @@ static bool vf_valid_ggtt(struct xe_gt *gt)
- }
- 
- /**
-- * xe_gt_sriov_vf_wait_valid_ggtt() - VF wait for valid GGTT addresses
-+ * xe_gt_sriov_vf_wait_valid_ggtt() - wait for valid GGTT nodes and address refs
-  * @gt: the &xe_gt
-  */
- void xe_gt_sriov_vf_wait_valid_ggtt(struct xe_gt *gt)
-diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h b/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h
-index 4ef881b9b6623..fca18be589db9 100644
---- a/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h
-+++ b/drivers/gpu/drm/xe/xe_gt_sriov_vf_types.h
-@@ -73,7 +73,7 @@ struct xe_gt_sriov_vf_migration {
- 	bool recovery_queued;
- 	/** @recovery_inprogress: VF post migration recovery in progress */
- 	bool recovery_inprogress;
--	/** @ggtt_need_fixes: VF GGTT needs fixes */
-+	/** @ggtt_need_fixes: VF GGTT and references to it need fixes */
- 	bool ggtt_need_fixes;
- };
+-	/* Without DCC. Add all modifiers including linear at the end */
++	/* Without DCC. */
+ 	for (i = 0; i < ARRAY_SIZE(gfx12_modifiers); i++)
+ 		amdgpu_dm_plane_add_modifier(mods, size, capacity, gfx12_modifiers[i]);
  
 -- 
 2.53.0
