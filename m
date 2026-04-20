@@ -4,54 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9024EF588C6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38969F588C4
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2AE310E63C;
-	Mon, 20 Apr 2026 13:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8A0710E642;
+	Mon, 20 Apr 2026 13:30:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FYWdt0+Q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uteaJHAw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 824B510E63B;
- Mon, 20 Apr 2026 13:30:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4D166435DE;
- Mon, 20 Apr 2026 13:30:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B90CC19425;
- Mon, 20 Apr 2026 13:30:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691844;
- bh=LDBsa2lH87nC/8hnNwfaUBqp4kitb5/tu/BziOxOUlQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FYWdt0+Qtt132laXdPORMRHt8zo7/aIpD82A2khBySo8QBQbYXwTpPvIEyN6BORiA
- Tp2/P/spwpZvXwKAW810R44S/1Dd0L3mDAtWXFEafMwGMZ4yySWOS0DjuGsWarz2Vs
- 5jSsFg6vYr4f5sPs8jDMuua0ebXkkys96UiidLkTYpOLc4dTzbIDgWItg76xzESwx1
- 13PyCmKBAmmcqNQ6UmmOF5FWfIUJhnfcHKMy3RxPxY9+PVfhnSJjTQxzea9HI63Iyo
- HAVsv0SL/CmXYIQ/WMr/qvNYNsMeeeAziS1ak+Hpf0GwC6r0h/m9yVGFuYsSUq5tFL
- Hde/9Vz0VzQew==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu/userq: fix dma_fence refcount
- underflow in userq path
-Date: Mon, 20 Apr 2026 09:20:21 -0400
-Message-ID: <20260420132314.1023554-227-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
-References: <20260420132314.1023554-1-sashal@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011045.outbound.protection.outlook.com [40.107.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47DCA10E642;
+ Mon, 20 Apr 2026 13:30:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h0ncuuHX0dXMZlK1ICdqurywAUsY5qwCQEEqqh7TU5ZgnyAItmn8xM87Bb8AqvNfpx/8asWqfByHLxZMDYERrvtx8obGYp9Dxn3Sf/1Mj2JZXKa1WvoIxgHs40bbSTfHEgh5+4VUOQavh/TF21/5+E54zdaQVmnoEN0ayFE/doD61gyZ8Jilr3PO2NwwedroAVx00lklVd2OZQq5kKcY/lXVVrdLtLVknc9nLgVqcwAOTuDN4khffWRWJW+gOhdGdP877jD+k/hbkAxspnKW4oeHZtX4VIbAznRlLPgiinVnkwr7pyfH/G3PfzGxkvNoi6Q1cDRg4hlGZcbw0IyeiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HSR4Dt0DMbjTiBcQuhyG6YL0SMSyFZpks+YxFuV0rOk=;
+ b=VmIaacZp7zv2MGnEA51YQG3EUJlQraE2vXXfp8ZfAF3RdT2adumCxlYCjdpaF1GcQnuKPyWSmtu7OxgI998AP0/FOIKXHBWvCKNRE5fwAUgRzFYqK75iN2/zecFARAXlDdb+MlCaCjrjXQFuNZeAgLiSguASMhWZ6npi4xeSv66yHLIjJpp7fqhLaHg0TZd4/4LPYWnkvjc62KDva5W3Z4UzP9hU7KUWbxIKTY4X+/OobcUJ1kQSBmSIsQdabnc8KMthvRfXmER493q3zKeTcSpz0VT96a/SIsLoW81iUvdMo9yPFAGYkM84n4MO5/+rvkqWXosE2rlfk+XTe5tzIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HSR4Dt0DMbjTiBcQuhyG6YL0SMSyFZpks+YxFuV0rOk=;
+ b=uteaJHAwR0cPQ1QBynYwoxf8IRos7uRSVqYGuS6vOkZyh2zSaoI5P3bgrRtdWq6C8nUWhKz+c7P5GLLzlYTCYlX1YrQH/WJAluuYyXb29fTD5opud8X1FwmuiKCb7aC/v18j/EzMnRpyTddIMGytcCOdpmeZQuidOY5DaQGfhQI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
+ by CYYPR12MB8962.namprd12.prod.outlook.com (2603:10b6:930:c4::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Mon, 20 Apr
+ 2026 13:30:38 +0000
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2]) by IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2%5]) with mapi id 15.20.9846.007; Mon, 20 Apr 2026
+ 13:30:38 +0000
+Message-ID: <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+Date: Mon, 20 Apr 2026 21:30:26 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+Content-Language: en-US
+From: "Huang, Honglei1" <honghuan@amd.com>
+Cc: Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Oak.Zeng@amd.com,
+ Jenny-Jing.Liu@amd.com, Philip.Yang@amd.com, Xiaogang.Chen@amd.com,
+ Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
+ matthew.brost@intel.com, rodrigo.vivi@intel.com,
+ thomas.hellstrom@linux.intel.com, dakr@kernel.org, aliceryhl@google.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR02CA0018.apcprd02.prod.outlook.com
+ (2603:1096:4:194::18) To IA1PR12MB6435.namprd12.prod.outlook.com
+ (2603:10b6:208:3ad::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|CYYPR12MB8962:EE_
+X-MS-Office365-Filtering-Correlation-Id: a59f9ea2-2867-4857-9e1b-08de9ee10291
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: 5tlzkJ90JzCZ8BG3N3v3mDN4HetcBga9uNhvfn91CmZseCzipLGBaZ3gKH7t8DlfD3gtaOOPJnbK9jdWImP5j1CFcBln00KnF/S+J2Sd9po9Hpt5IgQTpgrJKL+vCjReyRHGKiXiLSs3QW4Sw6/HM1+mcHSMli8hACV6hf58FFrHqvTfqSHLyi87J6MJlDSTNa1/vvTDGvCIuvS+a03FbFgDhcIGxJlyd6fdN4LkfYUMX5etrkMCLLprguSJA3W7Wej8O1yIBk8rpOdUPC7478XUUN/0Fs6Y437SA55R2QFA4EwhAIvf0ajvEJAp/H+cRbG+udz98YtjbWY/I8nrAmF0SEHtFYtGAJvAq7df0hqAxIjzNexkfxBrEGE3s+M5Db97nb0YqPJOlL5uVEYS0lotoGkel0k4QghT61zqJ8ZC0JE7jWwwKSqbjRqY8uDVRufkuBHZacopjmISebmfdgrPOt8qiI6NsjeYefeSw0z48Ryj5yHTVnzmVolovCysn2QoZIAG8z3k1jJFc5Qn/UTytA16Fv+XhZXZ1o4LkUnMLUrDZYW/dIOi1q0jUuNZoV9UEgUI+lXZT/5BWZdYvwGhWadkgV3jVoWlZddE2uOzLlExpc72WsMfajbJTCEey+7IQZsQeH7xBvPILgwcuGo9F/Gowg4lj/8NMY5lJMI7jX32raAkN2C6vKaHi0gPUYGzwRl4eEG8n4VVo+pQpUchc/atPYP2hyNnMeqdNE8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cTFFaWE4MVdqR2xUcjRFbC85MUgvVHpmOFFjU0VuY3FkTlJKdFkwZnFab29G?=
+ =?utf-8?B?N1BNalduNjFPbEppd0lraGx3RGljZXlVNmNOckx4LzBtNnBRbk5xdGpRQWZO?=
+ =?utf-8?B?YVlWd0NBL3NvT0VCUGtjSmRtVjZOUVJVM0JTQWpmZXJmQnN1Sks5eUNNVkxK?=
+ =?utf-8?B?U2x3SDJKdFhOdEtJYzRDR3RON2NDd3ZZWTJqNmVyRElQTjhUSG5kWlkxQTlG?=
+ =?utf-8?B?Vy9KT05Wc2hwaGdhYmdkVXpONEt5NS96MmRGU1I5VHB1aUYzZTA3amlMcG1H?=
+ =?utf-8?B?UjdhaDJYSFN6Q0xuZ2xDMFdJQ21Beno4dFVRRFA0cTdta2ZTYjQzaFV0VGZE?=
+ =?utf-8?B?MzRjZk1EWkx4UU05Q1ZZRnB3ZG9DazlyZytUOXJUKyt0WXZBRDFnc0U3SzMr?=
+ =?utf-8?B?RzV3ZmVoV1BBRkF4MEtoaStmcU95VXR3QU5pMnc2UGNQSzFrdE5LbXA0OHJi?=
+ =?utf-8?B?dnhObWlWK1E2S2ZNMmRxYzFwZ0ZHTWp6UHNEck9QcWRMekwvb09XdVhvZnBp?=
+ =?utf-8?B?MXF5bDl1MnB6b2RHSTJ4RW1VcERUNU8zSmRkdTNuYnVkZVVRYy84Q21tdFVC?=
+ =?utf-8?B?cHpoNm1FdUFsdkovbEVPUXljejFVTllLWDJ5SXE5dmpjTnE5NG1yTnVpcXkr?=
+ =?utf-8?B?dW5Ra0N6MFgrQXJiRXJYbkpEVnRTZXJJTFlTOU91QlBHWm1sUjk5aEVLTFZB?=
+ =?utf-8?B?YXpKTlc4aVJoU1FuSFFBc25pSDdxbzNKcmw4d0ovL0JPTklFZ1puMkZpbVVE?=
+ =?utf-8?B?ekd3dXFiSGpMSWJ4Vlk3ajBKc3Vld25tUmliRGEvWFhIMUlQQ3BuRS8vY0pu?=
+ =?utf-8?B?aUV2M0docm9GbXpEb2RXcDkxNG5SbS9Dc1dVN283NnpqTTUrQUp2VGFEM1RR?=
+ =?utf-8?B?RGxlVUhHMXNyaGR0dnBvTXB2VjZhdDJNRzdGSURiZGp2L3RhSE4xaUsrY1Z0?=
+ =?utf-8?B?MTNtcmwrYkVLeEVXQzJCZVlhR0NZVlpzMkdMOU9MN2l2bEx3SmljdUtwUzVa?=
+ =?utf-8?B?eHpoVWFySWtkMTZhcTNuQ2gwZDk2ejZVV1JZQ2pBNE8wL3lmeXBnYUFpQ05i?=
+ =?utf-8?B?V0NEaFFGNUlJeEl5R2ExRFEzWTRTVVJnSWlGSUszU0VsQmNWZzd1WUVnRWIy?=
+ =?utf-8?B?Y3NOUWhocndwUTNWVWpCSnY2czQ2bmtYYXhJeWZ2akxjZndSc1hBdWR5K0Fj?=
+ =?utf-8?B?RmJpbmVUbStpbzdyNjIySlVlS2NzNXJXbVB4cjM0WGc1RzFXS3RtTFg1bEpT?=
+ =?utf-8?B?UTkxSFp6dmdlSmRRRzdibElBbzBDRjladDBWcUoxRWUrdmNCMlFabVNBZSs5?=
+ =?utf-8?B?UXpKUXV0bHp3YlZwblBUVng3ejZIK05Pa2RCTVFJcm02a081MXRPWXdROUhk?=
+ =?utf-8?B?a05od2N6VFJNNGxoU2pnRlgwdjMyQmFIR253aFlCNGJHb242Y3BqNERoWWs4?=
+ =?utf-8?B?YnR0UFRIV2gydzhOaHQ4SkpWYktRc1FMcldFYy9DVUl3dngyenRxUkhWOTFz?=
+ =?utf-8?B?QkltZTVtblZ2VEgxRXN3VEVlZDlIWXdsdE5pOFc3U2lnaVczQTBBZjdkTmxm?=
+ =?utf-8?B?SFNlVzUxaXFVc2VwM0lnNDRKcG5qUmhyZTJ1a2FwNTVlVCtMSEJlK2libnFo?=
+ =?utf-8?B?czJrdDRDSXA3UmtiS0t4VXNuS3dWZ1JzUU1ET3hjaE9FOFZValI0enVKdHk3?=
+ =?utf-8?B?NnowTjRkZjh6T0g5eEtURFhpdGtZZXNrcVNVR1hZUVJRb2hTTHFKWkZaYlV6?=
+ =?utf-8?B?OE1zWU1VWnZRM1YyR3JjQ3lJc0I3RWw2RzFqbW1WbUR5emN2aldzdzhIWnV4?=
+ =?utf-8?B?ei8xVFhUOGNzOS9TVEpQRjk3U1NoUldqaHZnUnBLTUZQRFNHZDIwN0JoS2hy?=
+ =?utf-8?B?aFZxdCtBNmxweklUOGpPTVJORzVrazhxUGFveXJCaHhmMGYvaHc5RDB1aFRi?=
+ =?utf-8?B?eVN2VEpjN0xJa2h3OXlSdTMrMGtEMGtzcjEyeS9PWFVQUHBMODNpK2Z1Rkw5?=
+ =?utf-8?B?d3FFTHBkS3JCMDlJOG1xSXlBSTJRSEppbi9TYWVoZ1Bta21DYXBSMGw2SFMr?=
+ =?utf-8?B?RUlxN1dxWWRPRzhkNEpKWThQWHF6OU5vc1daZ1NHcE9EbndPOUEyY2c5OUtX?=
+ =?utf-8?B?Zmg4NDdZQ0FIZStvTk5JNzI1K1NYN25GQUJJYUozUjhNZmJMMDVXMGduNUJ1?=
+ =?utf-8?B?OWs2YlMyeDNzbXRScDFzbDBtVE5LS3QyYTExT0ZYVVh4VllwNS9ETG5ya2Ux?=
+ =?utf-8?B?TEs0Yy9rdkhYUWpZeVVzdXRlUm85bmI5cFdIVVNyZEN3N0F1OWJROGpUVURC?=
+ =?utf-8?Q?+mlZizd8QMwMkoHNai?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a59f9ea2-2867-4857-9e1b-08de9ee10291
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6435.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 13:30:38.3625 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VP5WJKt/OglnyPxAwhHBB0jouzHh3YO0ut4aoS9yRyGN/aEDshsIZDx29NjnIQjk7+GdGGZqBckEecRigLH/aA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8962
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,392 +141,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunil Khatri <sunil.khatri@amd.com>
 
-[ Upstream commit 7a14a4e9b3fda05b907d0445a3be9e7c0e887f4e ]
 
-An extra dma_fence_put() can drop the last reference to a fence while it is
-still attached to a dma_resv object. This frees the fence prematurely via
-dma_fence_release() while other users still hold the pointer.
-
-Later accesses through dma_resv iteration may then operate on the freed
-fence object, leading to refcount underflow warnings and potential hangs
-when walking reservation fences.
-
-Fix this by correcting the fence lifetime so the dma_resv object retains a
-valid reference until it is done with the fence.i
-
-[   31.133803] refcount_t: underflow; use-after-free.
-[   31.133805] WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x58/0x90, CPU#18: kworker/u96:1/188
-
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-Now I have all the information needed. Let me compile the full analysis.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: PARSE THE SUBJECT LINE
-- **Subsystem**: drm/amdgpu/userq (AMD GPU user queue fence handling)
-- **Action verb**: "fix" - explicitly states it's a bug fix
-- **Summary**: Fixes dma_fence refcount underflow (double-put) in the
-  userqueue wait ioctl path
-
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-- **Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>** - Author, AMD
-  employee, regular contributor to amdgpu
-- **Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>** - Major
-  DRM subsystem contributor
-- **Reviewed-by: Christian König <christian.koenig@amd.com>** - AMD DRM
-  maintainer, very strong endorsement
-- **Signed-off-by: Alex Deucher <alexander.deucher@amd.com>** - amdgpu
-  subsystem maintainer who committed it
-- **No Fixes: tag** - expected for AUTOSEL candidates; the mailing list
-  discussion confirmed it should be `Fixes: bea29bb0dd29
-  ("drm/amdgpu/userq: Consolidate wait ioctl exit path")`
-- **No explicit Cc: stable** - expected for AUTOSEL
-
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-- **Bug description**: An extra `dma_fence_put()` drops the last
-  reference to a fence still attached to a `dma_resv` object, freeing it
-  prematurely
-- **Symptom**: refcount underflow warnings (`refcount_t: underflow; use-
-  after-free`) followed by soft lockup (`watchdog: BUG: soft lockup -
-  CPU#9 stuck for 26s!`)
-- **Root cause**: After the "Consolidate wait ioctl exit path" commit
-  merged both exit paths into one, fences get double-put: once inside
-  the processing loop and once in the shared cleanup path
-- **Stack traces**: Two crash traces provided - the refcount underflow
-  in `drm_sched_entity_pop_job` and a 26s soft lockup in
-  `dma_resv_iter_walk_unlocked` from `amdgpu_bo_kmap`
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-This is a clear, explicit bug fix, not a hidden one.
-
-Record: This is a direct fix for a use-after-free / refcount underflow
-caused by double `dma_fence_put()`.
-
----
-
-## PHASE 2: DIFF ANALYSIS - LINE BY LINE
-
-### Step 2.1: INVENTORY THE CHANGES
-- **Files changed**: 1
-  (`drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c`)
-- **Lines removed**: 5 (three `dma_fence_put(fences[i])` calls and
-  associated braces)
-- **Lines added**: 1 (reformatting `if (r)` to single line)
-- **Net change**: -4 lines
-- **Functions modified**: `amdgpu_userq_wait_ioctl()`
-- **Scope**: Single-file, single-function surgical fix
-
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-**Hunk 1 (non-userq fence path)**: Removes `dma_fence_put(fences[i])` on
-both the error and success branches of the `dma_fence_wait()` call for
-non-userq fences.
-
-**Hunk 2 (userq fence path)**: Removes `dma_fence_put(fences[i])` after
-extracting fence_info for userq fences.
-
-**Cleanup path** (unchanged): The `free_fences:` label at the end
-already iterates through ALL fences and puts them:
-```c
-while (num_fences-- > 0)
-    dma_fence_put(fences[num_fences]);
-```
-
-**Before**: Fences were put inside the loop (3 locations) AND again in
-the cleanup loop = double-put.
-**After**: Fences are only put in the cleanup loop = correct single put.
-
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-- **Category**: Reference counting bug / double-free / use-after-free
-- **Mechanism**: The `fences[]` array holds references obtained via
-  `dma_fence_get()`. After the exit path consolidation (commit
-  bea29bb0dd29), all exits go through `free_fences` which puts every
-  fence. But the loop was also putting fences individually, resulting in
-  each processed fence getting put twice. This drops the refcount below
-  zero, triggering `refcount_warn_saturate()`, and may free the fence
-  while `dma_resv` still holds the pointer, leading to use-after-free
-  and hangs.
-
-### Step 2.4: ASSESS THE FIX QUALITY
-- **Obviously correct**: Yes. The cleanup loop handles all fence puts
-  correctly. Removing the in-loop puts ensures exactly one put per get.
-- **Minimal/surgical**: Yes, -4 net lines, only removing erroneous calls
-- **Regression risk**: Extremely low - this purely removes double-puts.
-  No new logic introduced.
-- **Red flags**: None
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: BLAME THE CHANGED LINES
-- The in-loop `dma_fence_put` calls originated in commit
-  `15e30a6e479282` (Arunpravin Paneer Selvam, 2024-10-30) - "Add wait
-  IOCTL timeline syncobj support"
-- The cleanup loop `free_fences` was modified by commit `048c1c4e51715`
-  (Tvrtko Ursulin, 2026-02-23) - "Consolidate wait ioctl exit path",
-  cherry-picked from mainline `bea29bb0dd29`
-- The consolidation commit merged the success and error exit paths into
-  one, creating the double-put
-
-### Step 3.2: FOLLOW THE FIXES: TAG
-The mailing list discussion confirms `Fixes: bea29bb0dd29
-("drm/amdgpu/userq: Consolidate wait ioctl exit path")`. This commit is
-present in the 7.0 stable tree as `048c1c4e51715`.
-
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Only one commit after the consolidation: `65b5c326ce410` (refcount
-userqueues), which modifies different parts of the function (queue
-lookup, not the fence loop). The fix is standalone.
-
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Sunil Khatri is a regular AMD contributor with multiple commits to the
-amdgpu userq subsystem. He authored the refcount userqueues commit and
-multiple input validation fixes.
-
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-This is patch 3/3 in a series, but it is self-contained. Patch 1/3 deals
-with gem object lookup optimization and patch 2/3 with kvfree usage -
-neither affects the same code or is needed for this fix.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
-Found at: https://lists.freedesktop.org/archives/amd-
-gfx/2026-March/140504.html
-
-**Tvrtko Ursulin** (the author of the commit that introduced the bug)
-reviewed the fix, confirmed it's correct, and acknowledged he introduced
-the bug:
-> "I have to say the commit message confused me a bit, but the fix looks
-correct. I say confused because isn't it a simple case of
-amdgpu_userq_wait_ioctl() doing a potential double put? First one when
-the dma_fence_wait() above fails or succeeds, and the second one in the
-unwind loop. Which means it was me who broke it yet again."
-
-He provided: `Fixes: bea29bb0dd29 ("drm/amdgpu/userq: Consolidate wait
-ioctl exit path")` and added his `Reviewed-by`.
-
-### Step 4.2: REVIEWER ANALYSIS
-- **Tvrtko Ursulin** (Reviewed-by) - major DRM contributor and the
-  author of the bug-introducing commit
-- **Christian König** (Reviewed-by) - AMD DRM co-maintainer
-- **Alex Deucher** (Signed-off-by) - amdgpu maintainer who applied the
-  fix
-- All key stakeholders reviewed and approved
-
-### Step 4.3: BUG REPORT
-The commit message includes a full kernel stack trace showing the actual
-crash on real hardware (X570 AORUS ELITE with AMD GPU, running
-6.19.0-amd-staging-drm-next). The bug was found through actual testing,
-not just code review.
-
-### Step 4.4/4.5: SERIES AND STABLE CONTEXT
-The other patches in the series (1/3 and 2/3) are unrelated
-optimizations. This patch is fully standalone.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1-5.4: FUNCTION AND CALL CHAIN ANALYSIS
-- **Modified function**: `amdgpu_userq_wait_ioctl()` - a DRM ioctl
-  handler
-- **Call chain**: `__se_sys_ioctl` -> `drm_ioctl` -> `amdgpu_drm_ioctl`
-  -> `amdgpu_userq_wait_ioctl`
-- **Reachability**: Directly reachable from userspace via ioctl syscall
-  - any userspace GPU application using userqueues can trigger this
-- **Impact**: The crash occurs in the GPU scheduler workqueue
-  (`drm_sched_run_job_work`) when it encounters the freed fence, and
-  causes a 26-second soft lockup
-
----
-
-## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
-Yes. The buggy "Consolidate wait ioctl exit path" commit was cherry-
-picked into the 7.0 stable tree as `048c1c4e51715`. The double-put is
-confirmed present in the current code at lines 949-977 and 991-995.
-
-### Step 6.2: BACKPORT COMPLICATIONS
-The diff should apply cleanly or with minimal offset. The code context
-matches the current tree state. The intervening `65b5c326ce410` commit
-modifies different parts of the function.
-
-### Step 6.3: RELATED FIXES IN STABLE
-No other fix for this specific double-put issue exists in the stable
-tree.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: SUBSYSTEM CRITICALITY
-- **Subsystem**: drm/amdgpu (AMD GPU driver) - IMPORTANT
-- **Sub-component**: userqueue fence handling - used by userspace GPU
-  workloads
-- **Impact scope**: All AMD GPU users running userqueue-enabled
-  applications
-
-### Step 7.2: SUBSYSTEM ACTIVITY
-The file has 48 commits and is actively developed. The userqueue feature
-is relatively new (introduced late 2024), so this is actively used by
-new GPU workloads.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: WHO IS AFFECTED
-All users with AMD GPUs that use the userqueue IOCTL path (driver-
-specific, but a major driver).
-
-### Step 8.2: TRIGGER CONDITIONS
-The bug triggers during normal GPU operations - the stack trace shows it
-happening during `glxgears:cs0` workload via the signal ioctl path
-walking reservation fences. Any userspace application exercising the
-wait/signal ioctl path can trigger this.
-
-### Step 8.3: FAILURE MODE SEVERITY
-- **Primary**: `refcount_t: underflow; use-after-free` WARNING
-- **Secondary**: Soft lockup (CPU stuck for 26s) in
-  `dma_resv_iter_walk_unlocked`
-- **Severity**: CRITICAL - system hang/lockup, potential data corruption
-  from use-after-free
-
-### Step 8.4: RISK-BENEFIT RATIO
-- **BENEFIT**: Very high - prevents use-after-free, refcount underflow,
-  and system hangs for AMD GPU users
-- **RISK**: Very low - 4 net lines removed, no new logic, obviously
-  correct, reviewed by the person who introduced the bug and by the
-  subsystem maintainer
-- **Ratio**: Extremely favorable
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: EVIDENCE COMPILATION
-
-**FOR backporting:**
-- Fixes a real, reproducible use-after-free and refcount underflow
-- Causes system soft lockup (26 seconds) - CRITICAL severity
-- Triggered via normal GPU ioctl usage path
-- Extremely small and surgical (-4 net lines)
-- Reviewed by 2 DRM experts (Tvrtko Ursulin, Christian König)
-- Applied by subsystem maintainer (Alex Deucher)
-- Bug-introducing commit (bea29bb0dd29/048c1c4e51715) is already in this
-  stable tree
-- Full stack trace demonstrating the crash on real hardware
-- Standalone fix with no dependencies on other patches
-
-**AGAINST backporting:**
-- None identified
-
-### Step 9.2: STABLE RULES CHECKLIST
-1. **Obviously correct and tested?** YES - confirmed by author,
-   reviewers, and the person who introduced the bug; tested on real
-   hardware
-2. **Fixes a real bug?** YES - double dma_fence_put causing use-after-
-   free and soft lockup
-3. **Important issue?** YES - system hang (soft lockup), use-after-free,
-   refcount underflow
-4. **Small and contained?** YES - 4 net lines removed in a single
-   file/function
-5. **No new features or APIs?** CORRECT - purely removes erroneous calls
-6. **Can apply to stable trees?** YES - the buggy commit is present in
-   this tree
-
-### Step 9.3: EXCEPTION CATEGORIES
-Not applicable - this is a standard critical bug fix.
-
-### Step 9.4: DECISION
-This is a textbook stable backport candidate: a small, obviously correct
-fix for a critical bug (use-after-free + system hang) that was
-introduced by a commit already present in the stable tree.
-
----
-
-## Verification
-
-- [Phase 1] Parsed commit message: explicit "fix" in subject, refcount
-  underflow description, stack traces showing soft lockup and use-after-
-  free warning
-- [Phase 1] Tags: Reviewed-by Tvrtko Ursulin and Christian König;
-  Signed-off-by Alex Deucher (maintainer)
-- [Phase 2] Diff: removes 3 `dma_fence_put(fences[i])` calls from loop
-  in `amdgpu_userq_wait_ioctl()`, -4 net lines
-- [Phase 2] Cleanup path at `free_fences:` already calls
-  `dma_fence_put()` on all fences, confirmed at lines 991-995
-- [Phase 3] git blame: in-loop puts from commit 15e30a6e479282
-  (2024-10-30); cleanup loop modified by 048c1c4e51715 (consolidation)
-- [Phase 3] Consolidation commit `048c1c4e51715` confirmed present in
-  7.0 tree (cherry-picked from bea29bb0dd29)
-- [Phase 3] Current code at lines 949-977 confirmed still has the
-  double-put (fix not yet applied)
-- [Phase 3] Only one intervening commit (65b5c326ce410, refcount
-  userqueues) which touches different code areas
-- [Phase 4] Mailing list discussion found at
-  https://lists.freedesktop.org/archives/amd-gfx/2026-March/140504.html
-- [Phase 4] Tvrtko Ursulin confirmed the fix is correct and acknowledged
-  he introduced the bug
-- [Phase 4] Tvrtko provided the Fixes tag: `Fixes: bea29bb0dd29`
-- [Phase 4] No NAKs, no objections; unanimous approval from reviewers
-- [Phase 5] `amdgpu_userq_wait_ioctl()` is reachable from userspace
-  ioctl syscall path
-- [Phase 6] Bug-introducing commit IS in this stable tree
-  (048c1c4e51715)
-- [Phase 6] Fix should apply cleanly - code context matches
-- [Phase 7] amdgpu is an IMPORTANT subsystem; userqueue fence code is
-  actively developed
-- [Phase 8] Failure: use-after-free + 26s soft lockup; severity
-  CRITICAL; triggered during normal GPU operations
-
-**YES**
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 5239b06b9ab03..bb390067c26ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -947,12 +947,9 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
- 				 * be good for now
- 				 */
- 				r = dma_fence_wait(fences[i], true);
--				if (r) {
--					dma_fence_put(fences[i]);
-+				if (r)
- 					goto free_fences;
--				}
- 
--				dma_fence_put(fences[i]);
- 				continue;
- 			}
- 
-@@ -974,7 +971,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
- 			fence_info[cnt].va = fence_drv->va;
- 			fence_info[cnt].value = fences[i]->seqno;
- 
--			dma_fence_put(fences[i]);
- 			/* Increment the actual userq fence count */
- 			cnt++;
- 		}
--- 
-2.53.0
+On 4/20/2026 8:15 PM, Christian König wrote:
+> 
+> 
+> On 4/20/26 14:07, Honglei Huang wrote:
+>> From: Honglei Huang <honghuan@amd.com>
+>>
+>> Add amdgpu drm SVM API definitions built on the
+>> DRM GPUSVM framework.
+>>
+>> This includes:
+>> - DRM_AMDGPU_GEM_SVM ioctl
+>> - AMDGPU_SVM_FLAG_* flags
+>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+>> - AMDGPU_SVM_ATTR_* attribute types
+>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+>>
+>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>> ---
+>>   include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+>>   1 file changed, 39 insertions(+)
+>>
+>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>> index 406a42be4..bed71ed9b 100644
+>> --- a/include/uapi/drm/amdgpu_drm.h
+>> +++ b/include/uapi/drm/amdgpu_drm.h
+>> @@ -58,6 +58,7 @@ extern "C" {
+>>   #define DRM_AMDGPU_USERQ_SIGNAL		0x17
+>>   #define DRM_AMDGPU_USERQ_WAIT		0x18
+>>   #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
+>> +#define DRM_AMDGPU_GEM_SVM		0x1a
+>>   
+>>   #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>> @@ -79,6 +80,7 @@ extern "C" {
+>>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+>>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+>> +#define DRM_IOCTL_AMDGPU_GEM_SVM	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+>>   
+>>   /**
+>>    * DOC: memory domains
+>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+>>   	__u64 matrix[12];
+>>   };
+>>   
+>> +#define AMDGPU_SVM_FLAG_HOST_ACCESS		0x00000001
+>> +#define AMDGPU_SVM_FLAG_COHERENT		0x00000002
+>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL		0x00000004
+>> +#define AMDGPU_SVM_FLAG_GPU_RO			0x00000008
+>> +#define AMDGPU_SVM_FLAG_GPU_EXEC		0x00000010
+>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY		0x00000020
+>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED	0x00000040
+>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT		0x00000080
+>> +
+>> +#define AMDGPU_SVM_OP_SET_ATTR		0
+>> +#define AMDGPU_SVM_OP_GET_ATTR		1
+>> +
+>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC		0
+>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC		1
+> 
+> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
+> 
+>> +#define AMDGPU_SVM_ATTR_ACCESS			2
+>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE		3
+>> +#define AMDGPU_SVM_ATTR_NO_ACCESS		4
+> 
+> Why are those separate attributes? What is the difference between those?
+
+Really thanks for the comments, I have some content mistaken in V2, so I 
+updated the V3 to fix that. For the header they are same. for other 
+content please review the V3, sorry about that. And will fix the concern 
+you raised in next version.
+
+So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS 
+are clear, GPU can access it or not, and the SVM can set the preferred 
+location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can 
+be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+it can not migrate, GPU only can access it in the initial place.
+
+> 
+>> +#define AMDGPU_SVM_ATTR_SET_FLAGS		5
+>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS		6
+> 
+> Why is that separated into set and clear flags?
+
+This method inherits from KFD and is also designed to be compatible with 
+upper layer applications such as ROCR.
+
+
+> 
+>> +#define AMDGPU_SVM_ATTR_GRANULARITY		7
+>> +
+>> +#define AMDGPU_SVM_LOCATION_SYSMEM		0
+>> +#define AMDGPU_SVM_LOCATION_UNDEFINED		0xffffffff
+> 
+> No location for device local memory?
+
+Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd 
+for device local memory.
+
+> 
+>> +
+>> +struct drm_amdgpu_svm_attribute {
+>> +	__u32 type;
+>> +	__u32 value;
+>> +};
+>> +
+>> +struct drm_amdgpu_gem_svm {
+>> +	__u64 start_addr;
+>> +	__u64 size;
+>> +	__u32 operation;
+>> +	__u32 nattr;
+>> +	__u64 attrs_ptr;
+>> +};
+> 
+> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+> 
+> And we usually use unions in this header to separate the input from the output parameters.
+
+Got it will add documentation for it and will use unions in next 
+version. Really thanks for the comments.
+
+Regards,
+Honglei
+
+> 
+> Regards,
+> Christian.
+> 
+>> +
+>>   #if defined(__cplusplus)
+>>   }
+>>   #endif
+> 
 
