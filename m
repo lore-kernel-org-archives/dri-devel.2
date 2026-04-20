@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F5ECF588C4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07CFAF588C9
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 974E410E649;
-	Mon, 20 Apr 2026 13:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DC5110E647;
+	Mon, 20 Apr 2026 13:31:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X+/f6is4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o/melf3f";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D229610E640;
- Mon, 20 Apr 2026 13:30:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 120DB10E647;
+ Mon, 20 Apr 2026 13:31:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4854D60583;
- Mon, 20 Apr 2026 13:30:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DE3C2BCB4;
- Mon, 20 Apr 2026 13:30:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1E06460142;
+ Mon, 20 Apr 2026 13:31:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557E4C2BCB4;
+ Mon, 20 Apr 2026 13:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691857;
- bh=GoDU3myU5m73/KG3MfZbNHoQd8XmLXOs56QN8owq69I=;
+ s=k20201202; t=1776691874;
+ bh=gvyXCCMJAH//t5bxq4mcivXbyjUIsK1an0vvgrVeBnc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=X+/f6is49+D7YAy+K0d3BpfaQYBB3EqvdyEhxFDD0gJ3HabvZWjM9AUnOHTeLxdfO
- ieZjQ/WgV2ENgvA0S5vrbKZ48/XbbCimMJi0FvYw6lrvrbxHI7esyONyOGjuUHwQ8K
- rOQFSc1XpCnRYcMnBR3m8qrm6eXCSDMmzuC/PgktgVQqxMjOdpgVLX7v8hzMYilH0t
- pW4vwoY88JGTvsKbQvPFttVrd3bLhs8RxsiXv0EfjWg375j9KDG4i3rHuJiSxM2pLr
- CnAKmSfeOaDKzWKnYCzOh6XsTYSGL/ZOljNCpG+FycmcBWrwKLDsB7kb8AhNXsoohO
- 7W9T5e7GjKxXw==
+ b=o/melf3fBFQ89Mf2fHjCDkF/ZVQ8I2vOkI2bvtMlCwuBcKXY8504QiHM/xGiakwuA
+ Tjyysh5xRS2VcyBg+2E7xAISu+IN4qWBQI3ruZkpe5Hk/zI+/9WOwNzC6Jyxo+Psdz
+ ndRJXznPIK5VjRkZ+S7rnovatHTVefFY9P238d8qFe9KuHTe8WZxb3LLs2pge+IkKB
+ wi1MZgJEQGN0CnT5Qden5prasKOzxAL6RPipcOjYs9qtTojAPuwIfC38TytWL+9csx
+ aN1Vaku8IIgrXnIQ9s9w8CvbbD5N31vZxb6Mqx1vlo5S/BeVv8jhhkZyILNFDKiTw8
+ ZQn8cCvWYJvcg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Charlene Liu <charlene.liu@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>,
+Cc: Sreekant Somasekharan <Sreekant.Somasekharan@amd.com>,
+ Mukul Joshi <mukul.joshi@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amd/display: Avoid turning off the PHY
- when OTG is running for DVI
-Date: Mon, 20 Apr 2026 09:20:28 -0400
-Message-ID: <20260420132314.1023554-234-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: Revert setting up Retry based
+ Thrashing on GFX 12.1
+Date: Mon, 20 Apr 2026 09:20:39 -0400
+Message-ID: <20260420132314.1023554-245-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -51,6 +50,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,38 +67,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Sreekant Somasekharan <Sreekant.Somasekharan@amd.com>
 
-[ Upstream commit ee212b0208a18831d2b537865da56708c17af90d ]
+[ Upstream commit 29756a7535facdaed39d0b5572201068a7746812 ]
 
-[Why]
-The OTG's virtual pixel clock source for DVI comes from the PHY.
+Bug found with retry based thrashing mechanism. Revert to the old
+thrashing method.
 
-If the signal type is DVI then the OTG can become stuck on pre DCN401
-ASIC when DPMS off occurs because the OTG remains running but the
-PHY transmitter is disabled.
-
-[How]
-There exists logic to keep track of the OTG running refcount on the
-link to determine if the link needs to go to PLL_EN instead of TX_EN
-but the logic only checks for HDMI TMDS on older ASIC.
-
-DVI is still a TMDS signal type so the constraint should also apply.
-
-Replace the checks for dc_is_hdmi_tmds_signal with dc_is_tmds_signal to
-cover both HDMI and DVI for the symclk refcount workaround.
-
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
+Signed-off-by: Sreekant Somasekharan <Sreekant.Somasekharan@amd.com>
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for the complete analysis. Let me
+Now I have enough information to complete the full analysis. Let me
 compile everything.
 
 ---
@@ -106,431 +90,270 @@ compile everything.
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 ### Step 1.1: Subject Line
-- **Subsystem:** drm/amd/display (AMD display driver)
-- **Action verb:** "Avoid" (implies preventing an undesirable condition
-  - strong bug fix indicator)
-- **Summary:** Prevent PHY from being turned off when OTG is running for
-  DVI signals
-
-Record: [drm/amd/display] [Avoid] [Prevents PHY shutdown while OTG is
-running for DVI, which causes OTG to get stuck]
+- **Subsystem:** drm/amdgpu (AMD GPU driver)
+- **Action verb:** "Revert" - undoing a previous feature that's buggy
+- **Summary:** Revert the retry-based thrashing prevention mechanism on
+  GFX 12.1 hardware
 
 ### Step 1.2: Tags
-- **Reviewed-by:** Dillon Varone <dillon.varone@amd.com> - AMD display
-  team member
-- **Reviewed-by:** Charlene Liu <charlene.liu@amd.com> - AMD display
-  team member (senior contributor)
-- **Signed-off-by:** Nicholas Kazlauskas <nicholas.kazlauskas@amd.com> -
-  Author, prolific AMD display contributor
-- **Signed-off-by:** Chuanyu Tseng <chuanyu.tseng@amd.com> - Co-
-  author/submitter
-- **Signed-off-by:** Alex Deucher <alexander.deucher@amd.com> - AMD DRM
-  maintainer
-- No Fixes: tag, no Cc: stable (expected for autosel candidates)
+- **Signed-off-by:** Sreekant Somasekharan (AMD employee, author)
+- **Reviewed-by:** Mukul Joshi (the original author of the reverted
+  feature)
+- **Signed-off-by:** Alex Deucher (AMD GPU subsystem maintainer)
+- No Fixes:, Reported-by:, Cc: stable, or Link: tags (expected for
+  autosel candidates)
 
-Record: Two Reviewed-by from AMD display engineers. Author is an active
-AMD display subsystem contributor with many commits. Applied by the
-subsystem maintainer.
+### Step 1.3: Commit Body
+The message says: "Bug found with retry based thrashing mechanism.
+Revert to the old thrashing method." This is terse, but the prior revert
+of the same mechanism (commit `127770bcfccc2`) was more explicit:
+"causing **data mismatch and slowness issues with multiple HIP tests**."
+Data mismatch is a data corruption symptom.
 
-### Step 1.3: Commit Body Analysis
-**Bug description:** On pre-DCN401 ASICs, when using a DVI output, DPMS
-off causes the PHY transmitter to be disabled while the OTG (Output
-Timing Generator) is still running. The OTG's virtual pixel clock source
-for DVI comes from the PHY, so disabling the PHY causes the OTG to
-become stuck.
-
-**Root cause:** The symclk reference count tracking logic that prevents
-premature PHY shutdown only checked for HDMI TMDS signals
-(`dc_is_hdmi_tmds_signal`), but DVI is also a TMDS signal type that has
-the same clock dependency.
-
-**Fix approach:** Replace `dc_is_hdmi_tmds_signal` with
-`dc_is_tmds_signal` to cover both HDMI and DVI signal types.
-
-Record: Hardware hang bug on DVI output during DPMS off. OTG gets stuck
-because PHY providing its clock is disabled. Root cause is incomplete
-signal type check. Severity: CRITICAL (system hang).
-
-### Step 1.4: Hidden Bug Fix Detection
-This is NOT a hidden bug fix - it's explicitly described as preventing a
-hardware hang condition. The commit clearly articulates the bug
-mechanism, root cause, and fix.
-
-Record: Explicitly described bug fix, not disguised.
+### Step 1.4: Hidden Bug Fix?
+This is an explicit revert of a buggy hardware feature enablement. No
+hidden fix — it's straightforward.
 
 ## PHASE 2: DIFF ANALYSIS
 
 ### Step 2.1: Inventory
-- **dce110_hwseq.c**: 2 lines changed (line 1571, line 2421)
-- **dcn20_hwseq.c**: 2 lines changed (line 896, line 2859)
-- **dcn31_hwseq.c**: 1 line changed (line 552)
-- **dcn401_hwseq.c**: 1 line changed (line 2024)
-- **Total**: 6 single-line changes across 4 files
-- **Functions modified:** `dce110_enable_stream_timing`,
-  `dce110_reset_hw_ctx_wrap`, `dcn20_enable_stream_timing`,
-  `dcn20_reset_back_end_for_pipe`, `dcn31_reset_back_end_for_pipe`,
-  `dcn401_reset_back_end_for_pipe`
-- **Scope:** Small, surgical, single-purpose
-
-Record: 6 lines changed, 4 files, all changes are identical substitution
-of one function call for another.
+- **Files:** 1 file modified: `drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c`
+- **Lines:** 0 added, 19 removed (pure deletion)
+- **Functions modified:**
+  - `gfx_v12_1_xcc_setup_tcp_thrashing_ctrl` (entirely removed)
+  - `gfx_v12_1_init_golden_registers` (one call removed)
+- **Scope:** Single-file surgical removal
 
 ### Step 2.2: Code Flow Change
-Every change is identical: `dc_is_hdmi_tmds_signal()` ->
-`dc_is_tmds_signal()`.
-
-- `dc_is_hdmi_tmds_signal()`: returns true only for
-  `SIGNAL_TYPE_HDMI_TYPE_A`
-- `dc_is_tmds_signal()`: returns true for `SIGNAL_TYPE_DVI_SINGLE_LINK`,
-  `SIGNAL_TYPE_DVI_DUAL_LINK`, AND `SIGNAL_TYPE_HDMI_TYPE_A`
-
-The change extends the signal check to include DVI signals in addition
-to HDMI. This ensures:
-1. **Enable path**: symclk_ref_cnts.otg is set to 1 and symclk_state is
-   properly tracked for DVI (not just HDMI)
-2. **Disable/reset path**: symclk_ref_cnts.otg is properly cleared for
-   DVI, enabling the proper PHY shutdown sequence
-
-Record: Before: Only HDMI gets symclk tracking. After: Both HDMI and DVI
-get symclk tracking. This prevents PHY shutdown while OTG still needs
-the clock.
+- **Before:** `gfx_v12_1_init_golden_registers()` called
+  `gfx_v12_1_xcc_setup_tcp_thrashing_ctrl()` for each XCC, which
+  programmed the TCP_UTCL0_THRASHING_CTRL register with retry-based
+  thrashing settings (THRASHING_EN=0x2,
+  RETRY_FRAGMENT_THRESHOLD_UP_EN=1, RETRY_FRAGMENT_THRESHOLD_DOWN_EN=1)
+- **After:** That function and its call are removed. The hardware's
+  default (non-retry-based) thrashing prevention is used instead.
 
 ### Step 2.3: Bug Mechanism
-**Category:** Hardware hang / OTG stuck due to clock dependency
-- The OTG needs a clock from the PHY for TMDS signals (both HDMI and
-  DVI)
-- Without proper symclk reference counting for DVI, the PHY could be
-  powered off while the OTG is still running
-- This causes the OTG to become stuck (hardware hang)
-
-Record: Hardware hang in DPMS off path for DVI output on pre-DCN401
-ASICs. The fix extends symclk ref counting to cover all TMDS signals.
+This is a **hardware workaround** — the retry-based thrashing mode in
+GFX 12.1's TCP UTCL0 has bugs causing data mismatch and performance
+issues. Reverting to the old thrashing method avoids triggering the
+hardware bug.
 
 ### Step 2.4: Fix Quality
-- **Obviously correct:** YES - `dc_is_tmds_signal` is a strict superset
-  of `dc_is_hdmi_tmds_signal`, and the commit message clearly explains
-  why DVI needs the same treatment
-- **Minimal/surgical:** YES - 6 identical one-line substitutions
-- **Regression risk:** Very low - the only behavioral change is that DVI
-  now gets symclk tracking (which it should have had). For HDMI,
-  behavior is unchanged. For non-TMDS signals, behavior is unchanged.
-- **Red flags:** None
-
-Record: Fix is obviously correct, minimal, and very low regression risk.
+- Obviously correct: pure deletion of a function and its call site
+- Minimal/surgical: only removes the problematic code, nothing else
+  changes
+- Regression risk: essentially zero — only reverts to the previous
+  (working) behavior
+- Reviewed by the feature's original author
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-The buggy code (`dc_is_hdmi_tmds_signal` used for symclk tracking) was
-introduced by commit `9c75891feef0f9` ("drm/amd/display: rework recent
-update PHY state commit") by Wenjing Liu, which went into v6.1-rc1. This
-commit introduced the symclk reference counting workaround but only for
-HDMI TMDS signals.
-
-Record: Buggy code introduced in v6.1-rc1 by commit 9c75891feef0f9.
-Present in all stable trees >= v6.1.
+The buggy function `gfx_v12_1_xcc_setup_tcp_thrashing_ctrl` was
+introduced in commit `a41d94a7bb962` ("Setup Retry based thrashing
+prevention on GFX 12.1") by Mukul Joshi. This commit IS in v7.0.
 
 ### Step 3.2: Fixes Tag
-No explicit Fixes: tag present (expected for autosel candidate).
-However, the implicit fix target is `9c75891feef0f9` which is present
-since v6.1-rc1.
-
-Record: Implicitly fixes 9c75891feef0f9 (v6.1-rc1).
+No Fixes: tag present. However, this commit effectively fixes/reverts
+`a41d94a7bb962`.
 
 ### Step 3.3: File History
-Related commits in the same area:
-- `dff45f03f508` (v6.8-rc1): "Only clear symclk otg flag for HDMI" -
-  this was a NARROWING of the check (from unconditional to HDMI-only) to
-  fix a SubVP phantom pipe issue. It actually made the DVI bug worse by
-  adding the hdmi-only condition to the reset path too.
-- `4589712e01113`: "Ensure link output is disabled in backend reset for
-  PLL_ON" - ports DCN401 behavior to DCN31
-- `75372d75a4e23`: "Adjust PHY FSM transition to TX_EN-to-PLL_ON for
-  TMDS on DCN35" - related PHY FSM fix
+The history reveals a pattern:
+1. An earlier version of retry-based thrashing was in the original file
+2. It was reverted in `127770bcfccc2` due to "data mismatch and slowness
+   issues with multiple HIP tests"
+3. It was re-added with different register settings in `a41d94a7bb962`
+4. This commit (`29756a7535fac`) reverts it again because bugs persist
 
-Record: The fix is standalone. No prerequisites needed beyond the
-already-present code.
-
-### Step 3.4: Author
-Nicholas Kazlauskas is a prolific AMD display contributor (20+ commits
-in the hwss directory alone) with deep knowledge of the PHY state
-machine and clock management. He authored the DCN35 TMDS fix and the
-link output disable fix as well.
-
-Record: Author is a core AMD display contributor with extensive
-subsystem expertise.
+### Step 3.4: Author Context
+Sreekant Somasekharan is an AMD employee working on the AMDGPU driver.
+The reviewer Mukul Joshi is the author of both the feature and the first
+revert. Alex Deucher is the subsystem maintainer.
 
 ### Step 3.5: Dependencies
-The patch is self-contained. It only changes function calls that already
-exist. Both `dc_is_tmds_signal` and `dc_is_hdmi_tmds_signal` have been
-in the codebase since well before v6.1. No new functions, structures, or
-APIs are introduced.
+The revert is standalone — it removes code without requiring any other
+changes. It will apply cleanly to v7.0 as verified by checking the exact
+state of the file in v7.0.
 
-Record: No dependencies. Applies standalone.
+## PHASE 4: MAILING LIST RESEARCH
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+### Step 4.1-4.5
+b4 dig could not find the patch on lore.kernel.org (both for the revert
+and the original commit). This is common for AMD GPU patches that may go
+through internal review or GitLab merge requests. Web searches also did
+not find the specific patch thread.
 
-### Steps 4.1-4.5
-b4 is not available and lore.kernel.org blocks automated access. Web
-search found:
-- The related DCN35 PHY FSM fix was submitted as part of a 21-patch
-  series
-- The "Ensure link output is disabled in backend reset for PLL_ON" fix
-  was also part of stable backport discussions
-- Both related fixes were included in stable backport attempts (6.19
-  stable patches)
-
-Record: Related fixes in the same PHY/OTG area have been submitted for
-stable. The commit was reviewed by two AMD engineers and the maintainer.
+The related patch "gfx 12.1 cleanups" (found on spinics.net) confirms
+this file was actively being cleaned up in the same timeframe,
+validating that GFX 12.1 support was being actively refined.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Functions Modified
-1. `dce110_enable_stream_timing` - used by DCE110 hardware
-2. `dce110_reset_hw_ctx_wrap` - used by DCE110 hardware
-3. `dcn20_enable_stream_timing` - shared by DCN20, DCN21, DCN30, DCN301,
-   DCN31, DCN314, DCN32, DCN35, DCN351
-4. `dcn20_reset_back_end_for_pipe` - used by DCN20, DCN21, DCN30,
-   DCN301, DCN32
-5. `dcn31_reset_back_end_for_pipe` - used by DCN31, DCN314, DCN35,
-   DCN351
-6. `dcn401_reset_back_end_for_pipe` - used by DCN401
+### Step 5.1-5.4
+- `gfx_v12_1_xcc_setup_tcp_thrashing_ctrl` is called from
+  `gfx_v12_1_init_golden_registers`
+- `gfx_v12_1_init_golden_registers` is called from `gfx_v12_1_hw_init` —
+  the hardware initialization path during GPU probe/resume
+- This is a **normal initialization path** hit every time the GPU is
+  initialized (boot, resume, GPU reset)
+- The buggy register programming affects all GFX 12.1 users on every GPU
+  init
 
-Record: The fix covers the majority of AMD display hardware generations.
-
-### Step 5.2: Callers
-These functions are called during display mode set and DPMS operations -
-common display operations triggered by user actions
-(connecting/disconnecting monitors, screen off/on, suspend/resume).
-
-Record: Functions are called in normal display operation paths - common
-trigger.
-
-### Step 5.3-5.5
-The `dc_is_tmds_signal` function already exists and is used correctly in
-other parts of the DCN401 code (lines 711, 740, 747, 936, 1063),
-confirming the pattern. The DCN35 code also uses `dc_is_tmds_signal`
-correctly (line 1765). The inconsistency is specifically in the symclk
-tracking code in the older HWSEQ implementations.
-
-Record: Pattern is consistent with existing correct usage in DCN35 and
-DCN401.
+### Step 5.5: Similar Patterns
+The TCP_UTCL0_THRASHING_CTRL register only exists in GFX 12.1 headers.
+No other GFX versions use this specific register in the same way.
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-### Step 6.1: Code in Stable
-The buggy code was introduced in v6.1-rc1 by `9c75891feef0f9`. It exists
-in all active stable trees >= v6.1.
-
-Record: Buggy code present in stable trees 6.1.y, 6.6.y, 6.12.y.
+### Step 6.1: Does the buggy code exist in stable?
+- `gfx_v12_1.c` does **NOT exist** in v6.12, v6.13, or v6.19 (verified
+  via `git show v6.X:...`)
+- The file was introduced during the v7.0-rc1 cycle
+- The buggy commit `a41d94a7bb962` **IS in v7.0** (verified via `git
+  merge-base --is-ancestor`)
+- The revert `29756a7535fac` is **NOT in v7.0** (verified)
+- **Only v7.0.y stable is affected**
 
 ### Step 6.2: Backport Complications
-The fix only changes function call names in-place. No structural changes
-to the surrounding code are needed. The 4 files modified have been
-present since v6.1. The `dc_is_tmds_signal` function has existed since
-before v6.1.
-
-Note: For older stable trees (6.1, 6.6), the dcn401_hwseq.c file may not
-exist (DCN401 was added later). The patch would need to be trimmed for
-those trees, but the other 3 files should apply cleanly or with minimal
-fuzz.
-
-Record: Should apply cleanly to 6.12.y. May need minor trimming for
-6.1.y and 6.6.y (dcn401 file may not exist).
-
-### Step 6.3: No related fix already in stable for this specific DVI
-issue.
+The patch should apply cleanly — the state of
+`gfx_v12_1_init_golden_registers` in v7.0 exactly matches the diff
+context (verified by examining the v7.0 tree).
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
 ### Step 7.1
-**Subsystem:** drm/amd/display - AMD GPU display driver
-**Criticality:** IMPORTANT - affects all AMD GPU users with DVI
-connections
+- **Subsystem:** GPU driver (drm/amdgpu) — IMPORTANT for AMD GPU users
+- GFX 12.1 is new AMD hardware (likely RDNA/CDNA generation)
 
 ### Step 7.2
-The AMD display subsystem is very actively developed with constant
-updates.
+The file has extremely active development (~30 commits since
+introduction), expected for new hardware enablement.
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Affected Users
-All AMD GPU users with DVI monitors on pre-DCN401 hardware (which covers
-the vast majority of AMD GPUs supporting DVI).
+### Step 8.1: Who is affected?
+All users with GFX 12.1 AMD GPUs running v7.0.y kernels.
 
-### Step 8.2: Trigger Conditions
-- Trigger: DPMS off on a DVI-connected display (screen blank, suspend,
-  monitor power off)
-- This is a common operation that any DVI user would hit
-- Not timing-dependent or race-related - deterministic bug
+### Step 8.2: Trigger conditions
+The bug triggers on **every GPU initialization** — boot, resume, GPU
+reset. It's not a rare race or edge case.
 
-### Step 8.3: Severity
-**CRITICAL** - OTG becomes stuck (hardware hang). The commit message
-from the related DCN35 fix mentions this can "lead to a hang in the
-DCHVM's ability to ACK invalidations" which can trigger IOMMU watchdog
-timeouts.
+### Step 8.3: Failure mode
+Based on the earlier revert message: "data mismatch and slowness issues
+with multiple HIP tests." Data mismatch is effectively **data
+corruption** in GPU compute workloads. Severity: **HIGH** (data
+corruption + performance degradation).
 
 ### Step 8.4: Risk-Benefit
-**Benefit:** HIGH - Prevents hardware hang for all DVI users on AMD GPUs
-**Risk:** VERY LOW - 6 one-line changes, each a simple function
-substitution to a well-tested superset function. Existing HDMI behavior
-is 100% unchanged.
+- **Benefit:** HIGH — fixes data corruption and performance issues for
+  all GFX 12.1 users on every GPU init
+- **Risk:** VERY LOW — pure deletion of 19 lines, reverts to known-good
+  previous behavior
+- **Ratio:** Strongly favors backporting
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+### Evidence FOR backporting:
+- Fixes real bug: data mismatch (corruption) and slowness in GPU compute
+  workloads
+- Pure code removal (19 lines deleted, 0 added) — zero regression risk
+- Reviewed by the original feature author (Mukul Joshi)
+- Signed off by AMD GPU maintainer (Alex Deucher)
+- The buggy code IS in v7.0 stable tree
+- Triggers on every GPU initialization (not a rare edge case)
+- History shows this feature was already reverted once before for the
+  same class of issues
 
-**FOR backporting:**
-- Fixes a hardware hang (OTG stuck) for DVI users - CRITICAL severity
-- Deterministic trigger during common operation (DPMS off)
-- Fix is minimal: 6 identical one-line substitutions
-- Obviously correct: `dc_is_tmds_signal` is a superset that covers both
-  DVI and HDMI
-- Pattern already used correctly in newer code (DCN401 enable path,
-  DCN35)
-- Two Reviewed-by from AMD engineers
-- Author is a core AMD display contributor
-- Buggy code exists in all stable trees >= v6.1
-- Self-contained, no dependencies
-- Very low regression risk
+### Evidence AGAINST backporting:
+- Terse commit message doesn't detail the specific bug
+- Only applies to v7.0.y (new hardware)
+- No Fixes: tag or explicit stable nomination
 
-**AGAINST backporting:**
-- Touches 4 files (but changes are minimal and identical in nature)
-- DCN401 file may not exist in older stable trees (minor backport
-  trimming needed)
-- No explicit Cc: stable or Fixes: tag (expected for autosel)
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **YES** - Reviewed by 2 AMD engineers,
-   obviously correct from code analysis
-2. Fixes a real bug? **YES** - Hardware hang for DVI users during DPMS
-   off
-3. Important issue? **YES** - System hang/stuck OTG, CRITICAL severity
-4. Small and contained? **YES** - 6 one-line changes, purely mechanical
-   substitution
-5. No new features or APIs? **YES** - No new features, just extends
-   existing check to cover DVI
-6. Can apply to stable trees? **YES** - may need DCN401 hunk dropped for
-   older trees
-
-### Step 9.3: Exception Categories
-Not an exception category - this is a straightforward bug fix.
-
-### Step 9.4: Decision
-This is a clear YES. It fixes a CRITICAL hardware hang for DVI users on
-AMD GPUs, the fix is minimal and obviously correct, it has been reviewed
-by AMD engineers, and it carries very low regression risk.
+### Stable Rules Checklist:
+1. Obviously correct and tested? **YES** — pure deletion, reviewed by
+   feature author
+2. Fixes a real bug? **YES** — data mismatch/corruption and slowness
+3. Important issue? **YES** — data corruption severity
+4. Small and contained? **YES** — 19 lines in one file
+5. No new features or APIs? **YES** — only removes code
+6. Can apply to stable? **YES** — applies cleanly to v7.0
 
 ## Verification
 
-- [Phase 1] Parsed tags: 2x Reviewed-by (AMD engineers), Signed-off-by
-  author is active AMD contributor
-- [Phase 2] Diff analysis: 6 one-line changes across 4 files, each
-  replacing `dc_is_hdmi_tmds_signal` with `dc_is_tmds_signal`
-- [Phase 2] Verified `dc_is_hdmi_tmds_signal` only matches HDMI_TYPE_A;
-  `dc_is_tmds_signal` matches DVI_SINGLE_LINK, DVI_DUAL_LINK, and
-  HDMI_TYPE_A (confirmed from signal_types.h)
-- [Phase 3] git blame: buggy code introduced in commit 9c75891feef0f9
-  (v6.1-rc1) by Wenjing Liu
-- [Phase 3] Verified `dc_is_tmds_signal` function exists in
-  signal_types.h since before v6.1
-- [Phase 3] Found related commit dff45f03f508 (v6.8-rc1) that added
-  hdmi-only condition to reset path for SubVP workaround
-- [Phase 3] Author Nicholas Kazlauskas has 20+ commits in hwss directory
-- [Phase 4] Web search confirmed related PHY/OTG fixes (DCN35 TMDS,
-  backend reset PLL_ON) were submitted for stable
-- [Phase 5] Verified `dcn20_enable_stream_timing` is shared by
-  DCN20/21/30/301/31/314/32/35/351 via init.c files
-- [Phase 5] Verified DCN401 already uses `dc_is_tmds_signal` at lines
-  711, 740, 747, 936, 1063 - confirming correct pattern
-- [Phase 6] Buggy code confirmed present since v6.1-rc1, exists in all
-  active stable trees
-- [Phase 6] Fix is self-contained - no new functions/structures
-  introduced
-- [Phase 8] Trigger: deterministic on DPMS off for DVI. Severity:
-  CRITICAL (OTG hang)
-- UNVERIFIED: Exact behavior of the OTG hang (whether it requires power
-  cycle recovery) - but the related DCN35 fix mentions IOMMU watchdog
-  timeouts, suggesting severe impact
+- [Phase 1] Parsed tags: Reviewed-by Mukul Joshi, Signed-off-by Alex
+  Deucher (maintainer)
+- [Phase 2] Diff analysis: 19 lines removed, 0 added. Function
+  `gfx_v12_1_xcc_setup_tcp_thrashing_ctrl` deleted, call removed from
+  `gfx_v12_1_init_golden_registers`
+- [Phase 3] git show a41d94a7bb962: confirmed original commit added
+  retry thrashing, is in v7.0
+- [Phase 3] git merge-base --is-ancestor a41d94a7bb962 v7.0: YES
+- [Phase 3] git merge-base --is-ancestor 29756a7535fac v7.0: NO (not in
+  v7.0 yet)
+- [Phase 3] git show 127770bcfccc2: earlier revert described "data
+  mismatch and slowness issues with multiple HIP tests"
+- [Phase 3] git tag --contains a41d94a7bb962: confirmed in v7.0,
+  v7.0-rc1 through rc7
+- [Phase 4] b4 dig -c 29756a7535fac: no match found on lore
+- [Phase 4] b4 dig -c a41d94a7bb962: no match found on lore
+- [Phase 5] grep TCP_UTCL0_THRASHING: only in gfx_v12_1.c and register
+  headers
+- [Phase 6] git show v6.12/v6.13/v6.19: file does not exist in any prior
+  stable tree
+- [Phase 6] Verified v7.0 tree state: function exists at line 2632,
+  called at line 2698, patch applies cleanly
+- [Phase 8] Failure mode: data corruption (data mismatch) + performance
+  degradation, severity HIGH
+- UNVERIFIED: Exact nature of the "bug found" in the revert message (but
+  corroborated by the earlier revert's more detailed description)
+
+The fix is a minimal, zero-risk pure deletion that fixes data corruption
+and performance issues on GFX 12.1 hardware. The buggy code exists in
+v7.0 stable, and the patch applies cleanly.
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 4 ++--
- drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 4 ++--
- drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 19 -------------------
+ 1 file changed, 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 699a756bbc405..9e7085057f8ba 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1534,7 +1534,7 @@ static enum dc_status dce110_enable_stream_timing(
- 			return DC_ERROR_UNEXPECTED;
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+index eb9725ae1607a..812de881027b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -2629,24 +2629,6 @@ static void gfx_v12_1_xcc_disable_gpa_mode(struct amdgpu_device *adev,
+ 	WREG32_SOC15(GC, GET_INST(GC, xcc_id), regCPG_PSP_DEBUG, data);
+ }
  
--		if (dc_is_hdmi_tmds_signal(stream->signal)) {
-+		if (dc_is_tmds_signal(stream->signal)) {
- 			stream->link->phy_state.symclk_ref_cnts.otg = 1;
- 			if (stream->link->phy_state.symclk_state == SYMCLK_OFF_TX_OFF)
- 				stream->link->phy_state.symclk_state = SYMCLK_ON_TX_OFF;
-@@ -2334,7 +2334,7 @@ static void dce110_reset_hw_ctx_wrap(
- 				BREAK_TO_DEBUGGER();
- 			}
- 			pipe_ctx_old->stream_res.tg->funcs->disable_crtc(pipe_ctx_old->stream_res.tg);
--			if (dc_is_hdmi_tmds_signal(pipe_ctx_old->stream->signal))
-+			if (dc_is_tmds_signal(pipe_ctx_old->stream->signal))
- 				pipe_ctx_old->stream->link->phy_state.symclk_ref_cnts.otg = 0;
- 			pipe_ctx_old->plane_res.mi->funcs->free_mem_input(
- 					pipe_ctx_old->plane_res.mi, dc->current_state->stream_count);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-index 307e8f8060e6d..a673ab0803a8f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c
-@@ -893,7 +893,7 @@ enum dc_status dcn20_enable_stream_timing(
- 		dccg->funcs->set_dtbclk_dto(dccg, &dto_params);
+-static void gfx_v12_1_xcc_setup_tcp_thrashing_ctrl(struct amdgpu_device *adev,
+-					 int xcc_id)
+-{
+-	uint32_t val;
+-
+-	/* Set the TCP UTCL0 register to enable atomics */
+-	val = RREG32_SOC15(GC, GET_INST(GC, xcc_id),
+-					regTCP_UTCL0_THRASHING_CTRL);
+-	val = REG_SET_FIELD(val, TCP_UTCL0_THRASHING_CTRL, THRASHING_EN, 0x2);
+-	val = REG_SET_FIELD(val, TCP_UTCL0_THRASHING_CTRL,
+-					RETRY_FRAGMENT_THRESHOLD_UP_EN, 0x1);
+-	val = REG_SET_FIELD(val, TCP_UTCL0_THRASHING_CTRL,
+-					RETRY_FRAGMENT_THRESHOLD_DOWN_EN, 0x1);
+-
+-	WREG32_SOC15(GC, GET_INST(GC, xcc_id),
+-					regTCP_UTCL0_THRASHING_CTRL, val);
+-}
+-
+ static void gfx_v12_1_xcc_enable_atomics(struct amdgpu_device *adev,
+ 					 int xcc_id)
+ {
+@@ -2695,7 +2677,6 @@ static void gfx_v12_1_init_golden_registers(struct amdgpu_device *adev)
+ 	for (i = 0; i < NUM_XCC(adev->gfx.xcc_mask); i++) {
+ 		gfx_v12_1_xcc_disable_burst(adev, i);
+ 		gfx_v12_1_xcc_enable_atomics(adev, i);
+-		gfx_v12_1_xcc_setup_tcp_thrashing_ctrl(adev, i);
+ 		gfx_v12_1_xcc_disable_early_write_ack(adev, i);
+ 		gfx_v12_1_xcc_disable_tcp_spill_cache(adev, i);
  	}
- 
--	if (dc_is_hdmi_tmds_signal(stream->signal)) {
-+	if (dc_is_tmds_signal(stream->signal)) {
- 		stream->link->phy_state.symclk_ref_cnts.otg = 1;
- 		if (stream->link->phy_state.symclk_state == SYMCLK_OFF_TX_OFF)
- 			stream->link->phy_state.symclk_state = SYMCLK_ON_TX_OFF;
-@@ -2856,7 +2856,7 @@ void dcn20_reset_back_end_for_pipe(
- 		 * the case where the same symclk is shared across multiple otg
- 		 * instances
- 		 */
--		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+		if (dc_is_tmds_signal(pipe_ctx->stream->signal))
- 			link->phy_state.symclk_ref_cnts.otg = 0;
- 		if (link->phy_state.symclk_state == SYMCLK_ON_TX_OFF) {
- 			link_hwss->disable_link_output(link,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index db2f7cbb12ff5..d6b027c06205e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -549,7 +549,7 @@ static void dcn31_reset_back_end_for_pipe(
- 	 * the case where the same symclk is shared across multiple otg
- 	 * instances
- 	 */
--	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+	if (dc_is_tmds_signal(pipe_ctx->stream->signal))
- 		link->phy_state.symclk_ref_cnts.otg = 0;
- 
- 	if (pipe_ctx->top_pipe == NULL) {
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index a3d33d10853b8..9d9dcd2dd5fae 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -2040,7 +2040,7 @@ void dcn401_reset_back_end_for_pipe(
- 		 * the case where the same symclk is shared across multiple otg
- 		 * instances
- 		 */
--		if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal))
-+		if (dc_is_tmds_signal(pipe_ctx->stream->signal))
- 			link->phy_state.symclk_ref_cnts.otg = 0;
- 		if (link->phy_state.symclk_state == SYMCLK_ON_TX_OFF) {
- 			link_hwss->disable_link_output(link,
 -- 
 2.53.0
 
