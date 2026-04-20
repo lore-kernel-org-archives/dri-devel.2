@@ -4,27 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1188F5A8CE
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 23:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5CC8F5A8D1
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 23:33:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A186310E203;
-	Mon, 20 Apr 2026 23:13:35 +0000 (UTC)
-X-Greylist: delayed 361 seconds by postgrey-1.36 at gabe;
- Mon, 20 Apr 2026 23:13:34 UTC
-Received: from vps.thesusis.net (vps.thesusis.net [34.202.238.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22C9B10E203
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:13:34 +0000 (UTC)
-Received: by vps.thesusis.net (Postfix, from userid 1000)
- id 61345DB4B3; Mon, 20 Apr 2026 19:07:32 -0400 (EDT)
-From: Phillip Susi <phill@thesusis.net>
-To: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Subject: Regression from: drm/amd/display: Move FPU Guards From DML To DC -
- Part 1
-Date: Mon, 20 Apr 2026 19:07:32 -0400
-Message-ID: <87cxztkz7v.fsf@vps.thesusis.net>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06B2A10E79D;
+	Mon, 20 Apr 2026 23:33:41 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="PFcxKqyg";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PXTPWIH1";
+	dkim-atps=neutral
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3D4910E79D
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:33:39 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63KMhC1D1127490
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:33:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=XQsfJtP1gB2TJ/00be02TM
+ 63V5nsoWhB0nnFNGctejU=; b=PFcxKqygGKhdobJN9o9FgmbwQc/TMPOi9rfgG+
+ Q/NVPVsNdgjToRzVfKt/X2S6m/R7a235lTLXdfCcnxHv9vcCial2Ogh7IWsOHxgW
+ ZzVwbLr831xV9YbwVAaxB4XHFz2IMY/WTQmr24UsVRfxjrfO9VxuHLfRPhJR4Qm/
+ 8bsQF5rCwsWIAyu6OPzwAdWNeQc1p4flIHWY3DZXKE+CPWFdgh7AWkA2fZskIfEr
+ z6AmkscJQSyQnUa/dJE/raTS+UrYWX0GTJA1WczDTswpvskyzSl9hZWFdawpR5iP
+ dpakKMTE8I0sFlbbiuIHQy315FxBNBDmi3u+sUZ812p8azBA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnw68r36c-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 23:33:38 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-8a1accb970fso9616636d6.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:33:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776728018; x=1777332818;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=XQsfJtP1gB2TJ/00be02TM63V5nsoWhB0nnFNGctejU=;
+ b=PXTPWIH1p5itKkYt6XWBhaa630RnO01LBXjC3OFi12msOuEagkzX8bNQ11J4+Zy61Q
+ rUHwI0xs5VEiw7kXLFcY2BNYF6QhtVMFLjvcC+kJTj1k0KV50E1WycGCb7Uv8R8ZvvPA
+ bhezlUPiqZFMpAv22Yoahg4ToHBvPzaoGntreosigN2iBWVqaxNkZwXZDCmaB4qhtKK1
+ IDYfagzVurQtr9sq+/OiMrvxj5t0lyXO2biUjT62RVRk/DKzrUO7oiqtgMTH6nDYXnqu
+ 5yV+tYH4JFYHkOw4SSIr0rdPeAZwEO/fB/ac+UphG5vhiRCX8kSgFbUfB0H+6CjEfuCU
+ c7mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776728018; x=1777332818;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XQsfJtP1gB2TJ/00be02TM63V5nsoWhB0nnFNGctejU=;
+ b=coWQbUG9ElFrat/f89BLnxUYw/2T55/H/DOr7O3rr/IbIP4gxkMCxHiEm/jdeRvgNP
+ BPBiMfWbiy2+lW0M8D2wYjBozFyLNXpK0d6iV2W9txfYzXwhYgOIC5DT+eSkT+tXNOVN
+ 02w9dy9xiPvCoK3mm8TDEVaTV1XgO2vihjoAzovpmq7UHdZx4jPOf8DgXKK+1l1vBw0a
+ 3nhMAxtcHiIE97NMYO/y7xeoAm9pNCjw604la4xPQwY070Wr67ZVW0guiqtA97xWR9F5
+ Fmg0+zzaSZdaP1uat0xC42wTxpPWVMGUkqILAAQw5VBwSR7THDFtnY+PqlfjojBIPor6
+ CGLw==
+X-Gm-Message-State: AOJu0Ywb7VrQ2yIpMO1F6Tfis+dROfTSptHb9RHsiVWeC8LbVoIrbFdJ
+ gk1UBMK2SmcQ9t/hVoKlUCteV8v8tFEAtTLH9Y6gtvrl72cABaAJAwWVvRaZn4BOCmxI1yzy9gV
+ ocv2j1gTC4Yv9V91HP5ZY+vHIpThot+KDZFQwMiLheRtoFfM3HjlX+8xrwqwwTYtk2gwo4nU=
+X-Gm-Gg: AeBDieuTtB8WW2jNaLBaeYD33joXhjcKJ48q4lHWvGRfuNb4iQblhkdJFOM4LdfbsTy
+ t45ou6CRfygJkFWSEYE9F5JwrT7loWrIAM4ChLO970yEOX8v5lYAW6hL9TYXNnvb0EdI8Sr5686
+ WD2FVVFXVUsFsUbkwoiNRSMHIZpDUU/C8RuA0dWMwM36YB6cVw/YiT5znKoldyl6OuNG3F2n0UH
+ lE8tkvAhz+npsm6EsHQXcpbZBs8/Uj2y1OQ1yeNr4StFxXUl8v5bFYb1+pN2w3Ew/kQJTwABZeb
+ smS5WcXpHAH54vCdbRzZu6B3+i2MC19whIJV9rLhFZxp5ITTkQtNUhS4/KvZeFm+IxgnvM4yknF
+ 7te3VCWShcq2vcYfHuB8jMQIaGNzedpwNOwEBJjIPwFgPtgz/hyyNAgfc0XByk3hAnz5TBXbM81
+ vQ6rE1j2yLD9YVOkrBYqu7EMk0pakMxjnnJs271MuZxle0jg==
+X-Received: by 2002:ac8:5895:0:b0:50d:ce35:6e67 with SMTP id
+ d75a77b69052e-50e36eba371mr227233981cf.42.1776728017696; 
+ Mon, 20 Apr 2026 16:33:37 -0700 (PDT)
+X-Received: by 2002:ac8:5895:0:b0:50d:ce35:6e67 with SMTP id
+ d75a77b69052e-50e36eba371mr227233141cf.42.1776728016992; 
+ Mon, 20 Apr 2026 16:33:36 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4185bc627sm3320714e87.29.2026.04.20.16.33.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2026 16:33:35 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH v3 0/6] drm: handle IRQ_HPD events correctly
+Date: Tue, 21 Apr 2026 02:33:30 +0300
+Message-Id: <20260421-hpd-irq-events-v3-0-44d2bf40dfc2@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMq35mkC/23N0QqCMBQG4FeRXTfZTqbYVe8RXWzzLBfldNNRi
+ O/eZgRR3Rz44T/fPxOPzqAn+2wmDoPxxnYxbDcZUa3ozkhNEzMBBiUreEHbvqHGDRQDdqOnWIF
+ UrCrFTnMSn3qH2txX8Hh6ZT/JC6oxKanRGj9a91gXA0+9N15+44FTRrmQXHOlJUg4WO/zYRJXZ
+ W+3PB6SNgJ8KMB+FIhKwUBrhAprrP8oy7I8AT+kHYcLAQAA
+X-Change-ID: 20260414-hpd-irq-events-e72bc076a5f1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Pengyu Luo <mitltlatltl@gmail.com>, Nikita Travkin <nikita@trvn.ru>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3125;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=YINjf9ePwOc1LBKz011yyCdv56U3Vxqxsj8hcJeg9A8=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBp5rfM+HhKIJwr7zvWAAoLigezFercScFRQkcYR
+ +GxFkPgEfiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaea3zAAKCRCLPIo+Aiko
+ 1Ud/CACAR7O1rCWEq1Pc6b+zxeRIfcw7Z3DbjXG9qUEQJnR3Rn066wXoAYd+w7DM0pHAGlXwFM+
+ uExom09rZXGybkuk8RMUF9BhFvGeoU+/wz7IQcuu+xNpMoRGwVhH1/Y9hFL8/HTg11Loub3hs8s
+ zN6hj/tAQ8eOiW87C8joLay9NhNFTWFRWzDW8vkYckf8QkrsIVzQ7NGKujxaHDwVim7lqB6GMpY
+ 261dlrExN9eHCDfui4VtxbRB1ghcBss4hsGTG6LNDCvIPYH9L2Z/+yxgVs/eLAKPcJUXhqTVTu4
+ 009eiMwIy2t28uElKLaLguILuo04eghoPAfPDh1EnKmz4ns/
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-ORIG-GUID: ZkkkuXibkknIjpJOX6-oACh5_UQvJeJU
+X-Authority-Analysis: v=2.4 cv=apyCzyZV c=1 sm=1 tr=0 ts=69e6b7d2 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=52TPwIQhNpV4Ze06EwUA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDIzMCBTYWx0ZWRfX+baM4dnQ8OHD
+ HXRZAwXPoblgFB4SYg4MxXz5ZrJXnUTNSEDypmQIEuFgQYugDbRQv71HzFrhQkhShK3mh8ajDzj
+ 5hz+OoOCPALiy9jGHYBzg/6NCFyTT2d8jx51MV0Vguu2SrXNJ30StW7fP5iSaTuhkVESPJlnyPV
+ 7OlkXMm5H+krAduvKaDv++dpWDbZnySKnzM1W8Kv03MJSUqnYPxdLPnYTlQBIuIhHdL3iB4udpg
+ 1IfDI+abUtkxWe4rFS0MRGxK6wSq+8JcgLcI4delXoIjlglsg1W1iJ0QN2HH9zQ59yADtigYtFI
+ OdvMnxTTrrXOWPqcFQtstaiWdLavN+RdYU4txMsZ/y2s4YQ9pLyHNA7J9MYI//ZnexBzfPjMbmZ
+ UllsKMRjBdm9vfaSSCGs+jJyu8ahkEe32bE1+Us3Zl8GWECOudDdYlm+zUT0WOvpYhsfnr7/yNo
+ AA+X3R5ZhODuzFHXhlA==
+X-Proofpoint-GUID: ZkkkuXibkknIjpJOX6-oACh5_UQvJeJU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_04,2026-04-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 spamscore=0 malwarescore=0
+ bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200230
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,100 +181,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This commit:
+Both DisplayPort and HDMI standards define a way for the Sink / display
+to notify the Source / host about some kinds of events. In case of HDMI
+it's as simple as singnalling changes to the EDID. In case of
+DisplayPort it's more complicated and requires actual checking of the
+DPCD registers.
 
-commit 3539437f354bd24c98928a80d4db3a23fa2a7b19 (HEAD)
-Author: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Date:   Tue Feb 24 15:36:09 2026 +0100
+Currently USB-C drivers don't have a way to deliver the IRQ_HPD
+notifications, leading to missing MST notifications. Provide necessary
+plumbing to let IRQ_HPD events be passed to the DisplayPort drivers.
 
-    drm/amd/display: Move FPU Guards From DML To DC - Part 1
-    
-    [Why]
-    FPU guards (DC_FP_START/DC_FP_END) are required to wrap around code that
-    can manipulates floats. To do this properly, the FPU guards must be used
-    in a file that is not compiled as a FPU unit. If the guards are used in
-    a file that is a FPU unit, other sections in the file that aren't guarded
-    may be end up being compiled to use FPU operations.
-    
-    [How]
-    Added DC_FP_START and DC_FP_END to DC functions that call DML functions
-    using FPU.
-    
-    Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-    Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
-    Signed-off-by: Alex Hung <alex.hung@amd.com>
-    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Note: the Yoga C630 UCSI driver and Acer Aspire1 EC driver are not yet
+enabled to send the IRQ_HPD events. Both of them would need some more
+reverse engineering to find out how the event is being reported by the
+EC.
 
-Started causing this warning for me on every boot:
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Changes in v3:
+- Fixed build error if aux bridges are disabled (Intel GFX CI)
+- Link to v2: https://patch.msgid.link/20260420-hpd-irq-events-v2-0-402ffe27e9e9@oss.qualcomm.com
 
-------------[ cut here ]------------
-WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:58 at dc_assert_fp_enabled+0x14/0x20 [amdgpu], CPU#13: (udev-worker)/267
-Modules linked in: hid_generic usbhid hid amdgpu(+) drm_buddy amdxcp drm_panel_backlight_quirks gpu_sched drm_ttm_helper sr_mod ttm drm_client_lib cdrom sd_mod drm_exec i2c_algo_bit drm_suballoc_helper drm_display_helper xhci_pci dm_mod sp5100_tco r8169 >
-CPU: 13 UID: 0 PID: 267 Comm: (udev-worker) Not tainted 7.0.0-rc4+ #142 PREEMPTLAZY 
-Hardware name: ASRock B650E Taichi Lite/B650E Taichi Lite, BIOS 3.06 07/26/2024
-RIP: 0010:dc_assert_fp_enabled+0x14/0x20 [amdgpu]
-Code: 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 65 8b 05 0d b9 88 ea 85 c0 7e 05 c3 cc cc cc cc <0f> 0b c3 cc cc cc cc 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffae440099b5f8 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffff922168000000 RCX: 0000000000000000
-RDX: ffff9221617c4c00 RSI: ffffffffc12acee0 RDI: ffff922168000000
-RBP: ffffae440099b618 R08: 000000001faa2800 R09: 000000000000000d
-R10: ffff92215d6b0108 R11: ffff9221429d7a40 R12: ffffffffc12acee0
-R13: ffff92214fcaa800 R14: ffff922161600010 R15: ffff922161600000
-FS:  00007f3485b309c0(0000) GS:ffff922ca2d3e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055b1d93d8000 CR3: 0000000117541000 CR4: 0000000000750ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- dcn315_update_bw_bounding_box+0x1f/0x210 [amdgpu]
- dc_create+0x286/0x620 [amdgpu]
- amdgpu_dm_init+0x2d8/0x4e0 [amdgpu]
- ? prb_read_valid+0x1b/0x30
- ? console_unlock+0xa3/0x140
- ? preempt_count_add+0x4b/0xa0
- ? __wake_up_klogd.part.0+0x56/0x80
- ? vprintk_emit+0x273/0x330
- dm_hw_init+0x1b/0x90 [amdgpu]
- amdgpu_device_init.cold+0xfe0/0x1d89 [amdgpu]
- ? _raw_spin_lock_irqsave+0x1b/0x50
- ? pci_conf1_read+0xb3/0x100
- ? pci_bus_read_config_word+0x4c/0x80
- amdgpu_driver_load_kms+0x19/0x80 [amdgpu]
- amdgpu_pci_probe+0x215/0x430 [amdgpu]
- local_pci_probe+0x41/0x90
- pci_device_probe+0xd7/0x2a0
- ? sysfs_do_create_link_sd+0x6e/0xe0
- really_probe+0xde/0x380
- ? _raw_spin_unlock_irq+0x17/0x40
- ? __pfx___driver_attach+0x10/0x10
- __driver_probe_device+0x78/0x120
- driver_probe_device+0x1f/0xa0
- __driver_attach+0xba/0x1f0
- bus_for_each_dev+0x7d/0xd0
- bus_add_driver+0x11f/0x200
- driver_register+0x72/0xd0
- ? __pfx_amdgpu_init+0x10/0x10 [amdgpu]
- do_one_initcall+0x47/0x310
- ? __kmalloc_cache_noprof+0x142/0x470
- do_init_module+0x60/0x240
- init_module_from_file+0xce/0xf0
- idempotent_init_module+0xff/0x2f0
- __x64_sys_finit_module+0x71/0xe0
- do_syscall_64+0x127/0x650
- ? __check_object_size+0x1b6/0x250
- ? kmem_cache_free+0x16c/0x3f0
- ? do_sys_openat2+0x83/0xd0
- ? fpregs_assert_state_consistent+0x34/0x60
- ? do_syscall_64+0x160/0x650
- ? irqentry_exit+0x97/0x560
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-RIP: 0033:0x7f348668d7b9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 27 66 0d 00 f7 d8 64 89 01 48
-RSP: 002b:00007ffd1436add8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
-RAX: ffffffffffffffda RBX: 000055b1d93acd90 RCX: 00007f348668d7b9
-RDX: 0000000000000000 RSI: 00007f3484e0c44d RDI: 0000000000000020
-RBP: 0000000000000000 R08: 0000000000000000 R09: 000055b1d9389cb0
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f3484e0c44d
-R13: 0000000000020000 R14: 000055b1d93ac6f0 R15: 0000000000000000
- </TASK>
----[ end trace 0000000000000000 ]---
+Changes in v2:
+- Change irq_hpd arg to be an enum, possibly desribing other uses (Toni)
+- Account for that, chaning the API accordingly (with_irq -> extra,
+  etc.)
+- Wire up AUX bridge notifications
+- Link to v1: https://patch.msgid.link/20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com
+
+---
+Dmitry Baryshkov (6):
+      drm/connector: report IRQ_HPD events to drm_connector_oob_hotplug_event()
+      drm/bridge: pass down IRQ_HPD to the drivers
+      drm/bridge: aux-hpd: let drivers pass IRQ_HPD events
+      drm/msm: dp: handle the IRQ_HPD events reported by USB-C
+      soc: qcom: pmic-glink-altmode: pass down HPD_IRQ events
+      usb: typec: ucsi: huawei-gaokun: pass down HPD_IRQ events
+
+ drivers/gpu/drm/bridge/aux-hpd-bridge.c        | 11 +++++----
+ drivers/gpu/drm/bridge/chrontel-ch7033.c       |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt8912b.c       |  3 ++-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c     |  3 ++-
+ drivers/gpu/drm/bridge/ti-tfp410.c             |  4 ++--
+ drivers/gpu/drm/display/drm_bridge_connector.c | 22 ++++++++++--------
+ drivers/gpu/drm/drm_bridge.c                   | 20 ++++++++++-------
+ drivers/gpu/drm/drm_connector.c                |  7 ++++--
+ drivers/gpu/drm/i915/display/intel_dp.c        |  3 ++-
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c     |  3 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c            |  6 ++++-
+ drivers/gpu/drm/msm/dp/dp_drm.h                |  3 ++-
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c            |  3 ++-
+ drivers/soc/qcom/pmic_glink_altmode.c          |  6 ++++-
+ drivers/usb/typec/altmodes/displayport.c       | 15 +++++++++----
+ drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c    | 11 +++++----
+ include/drm/bridge/aux-bridge.h                | 13 +++++++++--
+ include/drm/drm_bridge.h                       | 31 +++++++++++++++++++++-----
+ include/drm/drm_connector.h                    | 22 ++++++++++++++++--
+ 19 files changed, 138 insertions(+), 51 deletions(-)
+---
+base-commit: c7275b05bc428c7373d97aa2da02d3a7fa6b9f66
+change-id: 20260414-hpd-irq-events-e72bc076a5f1
+
+Best regards,
+--  
+With best wishes
+Dmitry
+
