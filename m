@@ -4,96 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21AAAF5A8A6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 18:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76543F5A8A6
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 18:23:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66CE210E72D;
-	Mon, 20 Apr 2026 18:21:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4ED910E72E;
+	Mon, 20 Apr 2026 18:23:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aZHQpFQU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aVklxapU";
 	dkim-atps=neutral
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06F2510E72D
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 18:21:16 +0000 (UTC)
-Received: by mail-dl1-f49.google.com with SMTP id
- a92af1059eb24-12c8ed67dccso94918c88.3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 11:21:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776709275; cv=none;
- d=google.com; s=arc-20240605;
- b=HlpUok2Sn37mLu7S5RjKYsgwB4DhEQtKHulghHjp4USPM011zGIflvVDAeWuq/T5xW
- o9Qy0NLXsE9mPKr7onYfPhau3pu74bLQsswRU0y5mMQIP6scYURVJBkcE90alRyzP7KD
- u+ZB6fS/tzFLDv81FNwZQpSh9Y4eM5RWOs+bDB2ubo3o7ZRLngal9QBYSv4iBq7rNiYr
- mPllqknN4arL9zI81kg6ayWkq3bmkOKWG3lAo92N08DBvRSFgG5fJqJXMKWEluLb+ovZ
- 2xuzUzXO7wXkhWIIldUXnFA0ytZTUvJKJZWIOlUbp/XrE67wlQY5dRvg+017L6SNHOUg
- EEiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=TWm5NOdSkDWXCTDQ39KtgRftkpjW9CFNT6pF4PMa11c=;
- fh=CmNCYjsDjYhnLp3OqkcwGn9JuieGWEsrjgRGrpxRNhg=;
- b=X2lCmWj37GzHSTKWG5yMri1f+TWv32ohX+3AgmSexLM9lRk3bxhfYI8tUcKFMehb/l
- ADCdmCYsBrqc7yFPjD1sxY2d62UffKVZ7/xLHGiV6R+3vr6eb8kBgywV7dONah0rP1JF
- HB1/VJAEXzc3zvxs8HBMfYuZKbi+2m3u+hETfk+zXWxKbOFG7jZgE5y7VKf2y5auFQeM
- PFgdXcoimCmS7h/5AzD7+9lcV2MO+yICwxyQo+YcjDXLfJxrJC+BgGC20E8bhAxzrTxL
- 71Fhkd/A41PBctwsQyL+bfzJ0Si3I3FTK9yA8Y+pRNKWFXJy4nBj4cDZHQTvBX3z5tJt
- oGoA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776709275; x=1777314075; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TWm5NOdSkDWXCTDQ39KtgRftkpjW9CFNT6pF4PMa11c=;
- b=aZHQpFQUYG5/5XVhI92OkjlM75ZtYqsBkIDh2nT4Y/aPYfuKMVZLxqbZl89WKxlRMY
- XJsukio0HXARWSKYjT5FWODmZXpEQ4HHTec71PMX6ypbHECvAT5mbtMEkgaKiR789WVG
- 7lb536G/XGZnoBf3iaosmZNA3GPrgx2Jy+HGNmemLXeKx0+drbSHbPBqTITXOOuqtTfk
- gshjWAtvUd5fbjjPYiSMaUKORAuzablzf8o0rxiS2D88u6Edv7lTEb9r7dexi56ll21w
- V9xNnZobRKyGagvabhUThHVeX0jiOB5L0epQA5RoFNnvCy5H/gXU2OpT8WuGmsl5/PHN
- k+aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776709275; x=1777314075;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=TWm5NOdSkDWXCTDQ39KtgRftkpjW9CFNT6pF4PMa11c=;
- b=csEgrrRdbLLVT5ODqczKgiuCJXAIh22m941aSPF+z57cenlA8Pb1WU/UQUMoo1d1ck
- fkPq7ah9iKE1YtzRVhziVMT/cgMJltcdE+E4xf5QFTW8SvP+YEuis0UYLnHi/ZCZIuoZ
- iwIi2F3BNkQcga9sr6R/c8bfTs1Og9taJodeJMCKCcAxBa5Ah730keueTiEH0jlJUYuG
- 7pjUPCQVkHcOoqxZtDrDbq+z3TiZix7pueNoR+hHfhO+YKv7F61aZtUj8xr3lS+cQ/K4
- BOuI4Pc9ZNLq2cptIQZKrq+uUFvAp4bhNEqJmpOEMOM5tea9d+fm6jHqmeTpoAeKjYnU
- qgXw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/dd//vGa+oBaqVIlxx+JC2U93MuEZOQT8lQJQ+Wgg1nA+91wNFMziZq6JyJWmYutDrXrbxwgD5J/U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0estSzlaiviKZKj8fDtGCa2+qZyiZEkhRePhJ9ASsJJKjwBBG
- OYTwtgqhIf6Pfgbb9NKFomAA5MDz4yz3bEc/Zki29xna2NwD/eMM1vY9Wt64JUbbT9lw9l9mdkc
- V8Wr5er4naeHbYM9RUgIrqTusZUWkAnI=
-X-Gm-Gg: AeBDietNDr8aWmW3p6M378+OCYLJ12+EdbVWaFKBywQczz6xDvyxiLJK/n57hhsWxTG
- nyptME7NhoF2TgJVI5WM6iNunkmT99BN9CwjPe1M7w6t3nb/2s1MGDgkdLL1AykL5XXRskTKAZk
- Jw8CtNaNxNI16k9mRbwWw/JbkUPogDGU4DhsWcJSCCbvDcqXe2Y25eFGch9+QJvqKWCVFXLHEtd
- YD0OfJYXfSq0k33bSl3HewWXoloVeTueIqR2lV1agJmpbWozU8ydQlisT7Ltc9eCxLnmGN0QS+A
- 0gNjk45reNZSGuOoYQeVvfyKpsnnljMk5z08Um+Pz/bE2TNOwzmpgpkm0VhUBdknMN/JgDZr1LF
- zmxUXO/sZKxlldYU=
-X-Received: by 2002:a05:7022:170a:b0:12c:8cd7:d463 with SMTP id
- a92af1059eb24-12c8cd7dbb7mr529196c88.2.1776709275276; Mon, 20 Apr 2026
- 11:21:15 -0700 (PDT)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011031.outbound.protection.outlook.com [52.101.52.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D879710E72E;
+ Mon, 20 Apr 2026 18:23:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ykTQ0xx/J6AlZJPhAypTTWZEyPLqH9GZXTYEQRQjboNTV0on+w+Y2go0uCOROcDQ3qbbdw7BdL53VNO2mB7IbM1W79zI03XWYs9MnSR9jdo/M0satBsdwM7xZLajA7U8DFQ7Alt4Qj3gYj9KUTbr4X95uszP7bVpd1hpZBzQlFlYno2Tx2wIg5vZKkzTXT0oK84WK5+SZMrtMvMMMzZACs19j/gdhVjY0Qr10IPsNA67UflFJYjRn7ijHMqUil8jZbOh6adElmPUWh5003JyT8X6xH6daCgJ99hTsvyQhOPDIi5pOO4T1xjiRnUJvC595abnRTwf3+JvkrvLIxX85g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qxOgpKjjt8TWNx/SV020ObmmN9i7c7qsAEBB6TW5ozs=;
+ b=GPUWu2hTW/qTjU2rBpCRanQjUgncDN5lDKtp+aGMQ16i+ZgIhT8PdCgzPWZeCHZu9WWJ/O/tlDfcRpsgMWNiY/Ej04Q7kZvAh3e9R2NqqtiONg4wAtQkww50QnFnlzWUB8v7HWA8e9YNSln0Bwy0Vke6C3OpY77TSwEI51dYu1I1Fr5vZVsVpnZY2p6YZrLnQP4XnboMTSZ8L4oAklh/CCY2jYMvJQm4Rgl160/D4405NYnFxGPpP2CIe/33aaEh5fxQHaYFrKB+5lfq6/oY5+0ac0+hgF6Zr/di4Kbm0tmIkgOghfF741MipzMDfMvOv+q8AlGJHGelolBa2O420g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qxOgpKjjt8TWNx/SV020ObmmN9i7c7qsAEBB6TW5ozs=;
+ b=aVklxapU45WVMd0hzK8BzjrVCW1nMbv6IxyevB1+o8NP6+tLNEWTOXW3EQ/YVGI3QUX2R1rzEVkeoZV4buFRMimkEnh7avxX2j2DCXlWyPX1nslr1GzBUk6EU/aXdNW1rsN8NkllabKJ4aTb9kpwkpAZE6caiURoMPailWNJpy4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by BL3PR12MB6569.namprd12.prod.outlook.com (2603:10b6:208:38c::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
+ 2026 18:23:26 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 18:23:26 +0000
+Message-ID: <7eb86bbd-d875-474c-a052-176f6d00ad79@amd.com>
+Date: Mon, 20 Apr 2026 20:23:21 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/amdgpu: consolidate SDMA trap IRQ handler
+To: Alex Deucher <alexdeucher@gmail.com>, Giovanna Uchoa <giovannauchoa@usp.br>
+Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260420032858.10286-1-giovannauchoa@usp.br>
+ <CADnq5_P2+OqDtmhwOAuM9QsOFi8D45QA+=XOCqJ1vbMbjVQJCg@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CADnq5_P2+OqDtmhwOAuM9QsOFi8D45QA+=XOCqJ1vbMbjVQJCg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0299.namprd13.prod.outlook.com
+ (2603:10b6:208:2bc::34) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
-References: <20260401044238.15201-1-den.demchenko@gmail.com>
- <ef9f7a9da9de1fbda178e6ee4c92bbb9d4faad92@intel.com>
- <3b1385aa-1588-4d72-b632-b47f95f24f78@gmail.com>
- <a3208885cfc0652807367cceae6845c111857d10@intel.com>
-In-Reply-To: <a3208885cfc0652807367cceae6845c111857d10@intel.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 20 Apr 2026 14:21:03 -0400
-X-Gm-Features: AQROBzAdYQpnQUe7LcB_3vEs37sK_0EZZYPWXoEUN_4ZIPRhmdnGlLtuA0Eyg5Q
-Message-ID: <CADnq5_MbzvTU5m5e_d7nR0tr1BXu-6B7LrbAwGZenWA+Uc2ZNw@mail.gmail.com>
-Subject: Re: [PATCH] drm/edid: Add quirk for YUK monitor 0xaa01
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Denis Demchenko <den.demchenko@gmail.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|BL3PR12MB6569:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcfc757c-8c12-4794-1a29-08de9f09e9c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: JW8upGkTPqiwGB57AUl8/KhLSVEmoTOAObq5i2L1CKlq5KuF4vjZTS2hnzUdIu4YKwYA9tRx3O9WpncN7vKu6bG60IAzxdsxz+B/OhB+35xDMi2JSwul6b/F4b9wQKN9ZuCUzkEJ4GKCDhhQJgaICOaIzs5Cx+gmhPmS+kSLpRoSy5D4rx1xolz3rdCBLJlxEwYPGZYo9YrTN3ZYYhimWKcR7ISJoKT70pKrqW+hsbINWFNCUqCF31usT/ptl3nMBrWwCnKDS7p6OvLwo+hKqdg+o+gbSq2kquvjc+TP21OUwKohIlhsitqieq6PWw1XxIKVKHL3RWuJ/ns4aSu5+CC/HU6BiWcXEBZTnoISe1ZYqh234n6OL/FW0v9fwI8GppiYCmkX8HoQcR1VdlNONPur6hwi1ooY2wdO/2z7ShFHru1j85dLqXuEmAeZG0T1MacyysS+fvrorC+a81rw/3yWjZtKRPqgQr43Ehq2LvaYl6+JOhEuhy5r1OXli76dk+1r+MEn+J+sEYh0d7DKsDiGJbBNZPgJ0j5Zvz/J4PhCLpQS5y4ptCc+u+LD7XTDIAG1oBCurg36unsqzxe94G/UjjGEZIuCGkuPRj6kGlnI3CGWTp5iD5qkfeItDDsyo1/A+MzblCfhFEiYGQMTXz0tiNWLg1Pw7NRhf7ej5dTnbubgaAcBa6gTeGFhBB157syaCorbI/W/cE0mGH56/q643BYVqIa7xVFhtCaU7FM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkpjaE9rVURMbUdBeXgxUzlsU1RHbkhjYnEwSHlOeTZMZmVmNzBra0s4M2pu?=
+ =?utf-8?B?bCtYS2RXM21ZQk1rY09ZTWNua1hoOFFyRjR4bU0zVVZlRTlXelQrS1M3UDZP?=
+ =?utf-8?B?WXRMZnhCSU1ON0xPbUtjL2NLNkVnWVN5QUcvUjZQZFFpcGxVczRlS2tsOEpK?=
+ =?utf-8?B?NWhSNlNsbGhhT0FwcmFMRVpTaElaeUxNQ0dtUWhvNi9DNzcwNWU0d1FCQWd3?=
+ =?utf-8?B?OGhob2c1Vm40aFdpU0FmV0ZVZFhZUkNPWFBpYjFndU9GZW5FUTVnVjBpVFRa?=
+ =?utf-8?B?cjZtZHhqR2EyVndkdnpqeEN6SjAzL25kMUZlQ0o0YXJsMkVQTU5CdDkyZGdo?=
+ =?utf-8?B?S3lJdmd4ZUVoQi9iUXhuN3J2eE1pZmtJVTc5UXhNcnNTeUxyTnVabndUZXlk?=
+ =?utf-8?B?ZGdJc0Vsd3BKaHNhRm5JZTV6dkNDUmdaeTIyWmdUQmRJZ1VZd29ER25Oei9S?=
+ =?utf-8?B?MXRPT1BXMkozeGtFY1lQYlhNVFU1QjVNdXpkelZ0a2d0R1hwdW1aQXVoSW1t?=
+ =?utf-8?B?VU9UZTRkUXhid084dUxydFNHSk52R2JaS2FnTzlBTUVhM01sZUlqMzhXc0JZ?=
+ =?utf-8?B?SGNVVnQxU04raG0wZ2ZSU2VESUhBN3hpb0MzRTV2TllGR1BJQ2VSYXBRSkhD?=
+ =?utf-8?B?WnpORE5RZW9EME5WNDhMTFBzOU56UElWdnRETjVkbHRvalZoc2hNUzJjZDJN?=
+ =?utf-8?B?UkVlWEtWUjdHcFpQb28wUnBYUkF5NXd0WUx3ZU0vZi9tdlc1VHNmS2JHUWg3?=
+ =?utf-8?B?K0hRZFpxR09DUGFWMkNUdFhMS1JrLy90ekhCYWVwdHNKeU9ySmlyMVRtRVJo?=
+ =?utf-8?B?aTlSRDFnM1E4a2NIaUcwaVQvZXNZTThYcmNxYlY4S3VwM3hiWFBUR0JiN1h6?=
+ =?utf-8?B?WXJ2dWh0aXNFeC9iNzRmVFRLTEFkNHMrQkIrZ0xweFR0MjdYb1Nlc25uZkM1?=
+ =?utf-8?B?VlgwU1FETHZYNmdXNFAxbE00dGRpby9CK0VibVpmTEgwNVpKa0JEWUx6WFlo?=
+ =?utf-8?B?bWhXNmVHbmpjRmtoMjltMWtIN2RTaDR1d05QTXg2SXJ1VW5rQ1FxUGpERXZn?=
+ =?utf-8?B?cWF2aHdnZXc5K3hHcWlOUW42RWN0SHB3cUJPdWpjSzU3aWxFbEFreWV2dE1s?=
+ =?utf-8?B?VmJJQmZhc1FnV3N2ZjJjcGVva0lMR1hocFd5am5iejBHQmtqa0tWTHVCQmFh?=
+ =?utf-8?B?elJ6YVlCWTdlWEJXMm83dHlISlhYeVR1c1BWQUE5OCtDV0FBZUVyZkhPQ0JZ?=
+ =?utf-8?B?bGN1NnRhTldQeVdIMVBqSXlUeG1aTWdjS1JWeWxmczlZcDhMNC9qamxGRzJn?=
+ =?utf-8?B?L3MrL3o3VG5YZklrelFsck1ScWR4ZFJpNWpiQ1N2ZytndVNqS0FHUWsyakly?=
+ =?utf-8?B?ZUxMVVNXNXlDMmtreUc1ZVhvSUdJUmI1aE1zeFZ6Q3JSdWhXZksvU29GUjdk?=
+ =?utf-8?B?WkREM0xYWWhNUkI3UnpScmxIdmdZTis2RHJoaVlGWTQyeWMxdjloME8yUE5D?=
+ =?utf-8?B?UThWeVhTSEx1bXpPRkFtaW5sQkM1TDdOVWs2QjR6VjJ0aUszbjVCYkVwVDFp?=
+ =?utf-8?B?WWZUSUQ1ZHp6eEM1UHMyeGRSNHdFTlJoaEFpM0NoRGdlZ1NEN1pzc0g3aWdw?=
+ =?utf-8?B?YnpMTUZ4VVpQRk05a01SbEYwczY5clQ1eFNJdGdsK2NRWndIa2Q1Z3hXcjUx?=
+ =?utf-8?B?Rkg5UXY3WHRXdXRKR2dFY3JLWGdlZ2g2TjJxUjBDdThUaEN6T0JGa2x0OU9t?=
+ =?utf-8?B?WWtUQ3NPR2hFR3VjNzVINDR1aFI4VExJVzBqQjNMbmg5d2JOYVZjZVRob2k2?=
+ =?utf-8?B?ZnNrRVl5c0JiTEtSN0JWNUJ4YWFKdFpMRVNJdGpCOHNNRWxENnpydS9yVkRS?=
+ =?utf-8?B?SXhCb0hnYUpYYi9HUjMyYm5kVlpZZG92aGxaUmdoTFc4OE5YQi9wYzg3MmE3?=
+ =?utf-8?B?Y1VJZDdRZUhscU9qbVdTZTR0VnFIdFU5cFowT05FVFNZeHRrWmFwa2JrV2R5?=
+ =?utf-8?B?bDJsMTNraENuNDdEK0l5MHJwL3BkcWF2V1VGaFlQTXFmWDVMQmVzRHNDQTdu?=
+ =?utf-8?B?NjkweWlTM1NoS0FUTTBKSGZ4VXhmVW5CdHJPdlFZL3hIVVRPdWZvZzR6VE1E?=
+ =?utf-8?B?VU4zYW5XZmNScW14d3hmRUFmTzJnUkJ4RkQydVFob0hsSE16NStKZGtsZExp?=
+ =?utf-8?B?VG5zYXZqdDJ4VzRVdFhMYmhZcTU3NEFBNHNRQzhEdVJybDlZQmpRcHlGeHdj?=
+ =?utf-8?B?RFE2SHo5dWcvS3JZWWV6N0tDUWZRRFhLbWp1NHVFZy9nR3AzOER2WXluOCt5?=
+ =?utf-8?Q?mXbPPnTEmjqca+220n?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcfc757c-8c12-4794-1a29-08de9f09e9c7
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 18:23:26.1338 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AJCBGoPjBtb4TlLO2AkCq5Hdtl7E3feVZN0ogjJUuXEgjSs/woyakChBxeUo9BCz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6569
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,38 +136,286 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 8, 2026 at 9:29=E2=80=AFAM Jani Nikula <jani.nikula@linux.intel=
-.com> wrote:
->
-> On Wed, 08 Apr 2026, Denis Demchenko <den.demchenko@gmail.com> wrote:
-> > Good day,
-> >
-> >
-> > Gitlab issue opened:
-> > https://gitlab.freedesktop.org/drm/amd/-/work_items/5134
-> >
-> > Here are the requested logs:
-> > EDID: edid.txt
-> >
-> > dmesg: dmesg.txt
-> >
-> > The issue is reproducible without the quirk and results in a black scre=
-en.
-> > With EDID_QUIRK_FORCE_8BPC applied, the monitor works correctly.
->
-> Thanks. I'm fine with the quirk if the AMD folks don't spot anything
-> else missing on their side.
+Wait a second Alex, this patch actually doesn't make sense at all.
 
-Works for me.
+The code is only common for a subset of SDMA engines and so shouldn't be moved into a common handler.
 
-Thanks,
+Regards,
+Christian.
 
-Alex
+On 4/20/26 20:18, Alex Deucher wrote:
+> Applied.  Thanks!
+> 
+> Alex
+> 
+> On Mon, Apr 20, 2026 at 9:09 AM Giovanna Uchoa <giovannauchoa@usp.br> wrote:
+>>
+>> Move the amdgpu_sdma_process_trap_irq handler from version-specific
+>> implementations (cik_sdma, sdma_v2_4, sdma_v3_0) to the common SDMA
+>> module (amdgpu_sdma). This eliminates code duplication and centralizes
+>> the trap interrupt handling logic, which is identical across all SDMA
+>> versions.
+>>
+>> Update the trap_irq_funcs in each version-specific module to reference
+>> the common handler implementation.
+>>
+>> Signed-off-by: Giovanna Uchoa <giovannauchoa@usp.br>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 41 ++++++++++++++++++++++
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  3 ++
+>>  drivers/gpu/drm/amd/amdgpu/cik_sdma.c    | 43 +-----------------------
+>>  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   | 42 +----------------------
+>>  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   | 42 +----------------------
+>>  5 files changed, 47 insertions(+), 124 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>> index 321310ba2..4f15334ce 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+>> @@ -147,6 +147,47 @@ int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
+>>         return 0;
+>>  }
+>>
+>> +int amdgpu_sdma_process_trap_irq(struct amdgpu_device *adev,
+>> +                                    struct amdgpu_irq_src *source,
+>> +                                    struct amdgpu_iv_entry *entry)
+>> +{
+>> +       u8 instance_id, queue_id;
+>> +
+>> +       instance_id = (entry->ring_id & 0x3) >> 0;
+>> +       queue_id = (entry->ring_id & 0xc) >> 2;
+>> +       DRM_DEBUG("IH: SDMA trap\n");
+>> +       switch (instance_id) {
+>> +       case 0:
+>> +               switch (queue_id) {
+>> +               case 0:
+>> +                       amdgpu_fence_process(&adev->sdma.instance[0].ring);
+>> +                       break;
+>> +               case 1:
+>> +                       /* XXX compute */
+>> +                       break;
+>> +               case 2:
+>> +                       /* XXX compute */
+>> +                       break;
+>> +               }
+>> +               break;
+>> +       case 1:
+>> +               switch (queue_id) {
+>> +               case 0:
+>> +                       amdgpu_fence_process(&adev->sdma.instance[1].ring);
+>> +                       break;
+>> +               case 1:
+>> +                       /* XXX compute */
+>> +                       break;
+>> +               case 2:
+>> +                       /* XXX compute */
+>> +                       break;
+>> +               }
+>> +               break;
+>> +       }
+>> +
+>> +       return 0;
+>> +}
+>> +
+>>  static int amdgpu_sdma_init_inst_ctx(struct amdgpu_sdma_instance *sdma_inst)
+>>  {
+>>         uint16_t version_major;
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+>> index 2bf365609..ca4fd94ac 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+>> @@ -203,6 +203,9 @@ int amdgpu_sdma_process_ras_data_cb(struct amdgpu_device *adev,
+>>  int amdgpu_sdma_process_ecc_irq(struct amdgpu_device *adev,
+>>                                       struct amdgpu_irq_src *source,
+>>                                       struct amdgpu_iv_entry *entry);
+>> +int amdgpu_sdma_process_trap_irq(struct amdgpu_device *adev,
+>> +                                    struct amdgpu_irq_src *source,
+>> +                                    struct amdgpu_iv_entry *entry);
+>>  int amdgpu_sdma_init_microcode(struct amdgpu_device *adev, u32 instance,
+>>                                bool duplicate);
+>>  void amdgpu_sdma_destroy_inst_ctx(struct amdgpu_device *adev,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+>> index 120da838a..1bf1af633 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+>> @@ -1141,47 +1141,6 @@ static int cik_sdma_set_trap_irq_state(struct amdgpu_device *adev,
+>>         return 0;
+>>  }
+>>
+>> -static int cik_sdma_process_trap_irq(struct amdgpu_device *adev,
+>> -                                    struct amdgpu_irq_src *source,
+>> -                                    struct amdgpu_iv_entry *entry)
+>> -{
+>> -       u8 instance_id, queue_id;
+>> -
+>> -       instance_id = (entry->ring_id & 0x3) >> 0;
+>> -       queue_id = (entry->ring_id & 0xc) >> 2;
+>> -       DRM_DEBUG("IH: SDMA trap\n");
+>> -       switch (instance_id) {
+>> -       case 0:
+>> -               switch (queue_id) {
+>> -               case 0:
+>> -                       amdgpu_fence_process(&adev->sdma.instance[0].ring);
+>> -                       break;
+>> -               case 1:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               case 2:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               }
+>> -               break;
+>> -       case 1:
+>> -               switch (queue_id) {
+>> -               case 0:
+>> -                       amdgpu_fence_process(&adev->sdma.instance[1].ring);
+>> -                       break;
+>> -               case 1:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               case 2:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               }
+>> -               break;
+>> -       }
+>> -
+>> -       return 0;
+>> -}
+>> -
+>>  static int cik_sdma_process_illegal_inst_irq(struct amdgpu_device *adev,
+>>                                              struct amdgpu_irq_src *source,
+>>                                              struct amdgpu_iv_entry *entry)
+>> @@ -1270,7 +1229,7 @@ static void cik_sdma_set_ring_funcs(struct amdgpu_device *adev)
+>>
+>>  static const struct amdgpu_irq_src_funcs cik_sdma_trap_irq_funcs = {
+>>         .set = cik_sdma_set_trap_irq_state,
+>> -       .process = cik_sdma_process_trap_irq,
+>> +       .process = amdgpu_sdma_process_trap_irq,
+>>  };
+>>
+>>  static const struct amdgpu_irq_src_funcs cik_sdma_illegal_inst_irq_funcs = {
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+>> index 93ec52c1f..545077897 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+>> @@ -1035,46 +1035,6 @@ static int sdma_v2_4_set_trap_irq_state(struct amdgpu_device *adev,
+>>         return 0;
+>>  }
+>>
+>> -static int sdma_v2_4_process_trap_irq(struct amdgpu_device *adev,
+>> -                                     struct amdgpu_irq_src *source,
+>> -                                     struct amdgpu_iv_entry *entry)
+>> -{
+>> -       u8 instance_id, queue_id;
+>> -
+>> -       instance_id = (entry->ring_id & 0x3) >> 0;
+>> -       queue_id = (entry->ring_id & 0xc) >> 2;
+>> -       DRM_DEBUG("IH: SDMA trap\n");
+>> -       switch (instance_id) {
+>> -       case 0:
+>> -               switch (queue_id) {
+>> -               case 0:
+>> -                       amdgpu_fence_process(&adev->sdma.instance[0].ring);
+>> -                       break;
+>> -               case 1:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               case 2:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               }
+>> -               break;
+>> -       case 1:
+>> -               switch (queue_id) {
+>> -               case 0:
+>> -                       amdgpu_fence_process(&adev->sdma.instance[1].ring);
+>> -                       break;
+>> -               case 1:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               case 2:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               }
+>> -               break;
+>> -       }
+>> -       return 0;
+>> -}
+>> -
+>>  static int sdma_v2_4_process_illegal_inst_irq(struct amdgpu_device *adev,
+>>                                               struct amdgpu_irq_src *source,
+>>                                               struct amdgpu_iv_entry *entry)
+>> @@ -1159,7 +1119,7 @@ static void sdma_v2_4_set_ring_funcs(struct amdgpu_device *adev)
+>>
+>>  static const struct amdgpu_irq_src_funcs sdma_v2_4_trap_irq_funcs = {
+>>         .set = sdma_v2_4_set_trap_irq_state,
+>> -       .process = sdma_v2_4_process_trap_irq,
+>> +       .process = amdgpu_sdma_process_trap_irq,
+>>  };
+>>
+>>  static const struct amdgpu_irq_src_funcs sdma_v2_4_illegal_inst_irq_funcs = {
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>> index 3fde9be74..b3eab4e11 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+>> @@ -1373,46 +1373,6 @@ static int sdma_v3_0_set_trap_irq_state(struct amdgpu_device *adev,
+>>         return 0;
+>>  }
+>>
+>> -static int sdma_v3_0_process_trap_irq(struct amdgpu_device *adev,
+>> -                                     struct amdgpu_irq_src *source,
+>> -                                     struct amdgpu_iv_entry *entry)
+>> -{
+>> -       u8 instance_id, queue_id;
+>> -
+>> -       instance_id = (entry->ring_id & 0x3) >> 0;
+>> -       queue_id = (entry->ring_id & 0xc) >> 2;
+>> -       DRM_DEBUG("IH: SDMA trap\n");
+>> -       switch (instance_id) {
+>> -       case 0:
+>> -               switch (queue_id) {
+>> -               case 0:
+>> -                       amdgpu_fence_process(&adev->sdma.instance[0].ring);
+>> -                       break;
+>> -               case 1:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               case 2:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               }
+>> -               break;
+>> -       case 1:
+>> -               switch (queue_id) {
+>> -               case 0:
+>> -                       amdgpu_fence_process(&adev->sdma.instance[1].ring);
+>> -                       break;
+>> -               case 1:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               case 2:
+>> -                       /* XXX compute */
+>> -                       break;
+>> -               }
+>> -               break;
+>> -       }
+>> -       return 0;
+>> -}
+>> -
+>>  static int sdma_v3_0_process_illegal_inst_irq(struct amdgpu_device *adev,
+>>                                               struct amdgpu_irq_src *source,
+>>                                               struct amdgpu_iv_entry *entry)
+>> @@ -1601,7 +1561,7 @@ static void sdma_v3_0_set_ring_funcs(struct amdgpu_device *adev)
+>>
+>>  static const struct amdgpu_irq_src_funcs sdma_v3_0_trap_irq_funcs = {
+>>         .set = sdma_v3_0_set_trap_irq_state,
+>> -       .process = sdma_v3_0_process_trap_irq,
+>> +       .process = amdgpu_sdma_process_trap_irq,
+>>  };
+>>
+>>  static const struct amdgpu_irq_src_funcs sdma_v3_0_illegal_inst_irq_funcs = {
+>> --
+>> 2.53.0
+>>
 
->
-> BR,
-> Jani.
->
->
-> --
-> Jani Nikula, Intel
