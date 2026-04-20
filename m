@@ -4,129 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECD2EF557EA
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 08:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B1A4F557ED
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 09:00:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 560DC10ED4D;
-	Mon, 20 Apr 2026 08:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE06E10E135;
+	Mon, 20 Apr 2026 09:00:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t4FdsTlW";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YMo7Yzcy";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WR9Ctque";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010050.outbound.protection.outlook.com [52.101.85.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A757510ED34
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 08:49:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jh46c+snIxoX4nH777OfacfINYs2xznCoEmG0piKlnrcFvUC/GIjEdAMvBiZ0I3IfqbA2rdmCozR+gDtG7nwtU7xoMN4tvC6UQViNa2l8HsuTh58S4RRXpZ6PgtL2s5+h322+9y967+9lfGyquJg7i/gHcJrHZbaZMSVkur6ipsWwOZ08ltPP6apEGXwHY2EYrZ6nwwZsJCuI5DLggjUTqskh+huBgjvjDD53sB9dOazGE4s3fyFWLGNbrlSBeeUUC38WXp0sHrZCSXLSe4l27OFeKklmiO9PJkpUPYoGPh28GShXP14UG20TEBKGaJvptfqbilbGprlP5lrYC5M9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zsDrcaNrUkCXNMufmLhSGq4a1iTV4V5vsYmPV2fsJR8=;
- b=oGLQD/7sBNo4UBN0tTrM1QHAcUetvekOTmbcKStsATy9XwmXA0sXCgD5ayE4Apom4xFOImwIXLeUR8bzDqFyMcjvLJnKVLBOvyaBCbMaDA1kHiHsCDgODFYzre16AOWbAqMD+sSVBlpZOZcts3UZn0+QQ53btO7VGhZ1OjXWvdfvIg7uYAMV+FLmQwyXbbJ9+OGnzZTDFULF8ofCs6WDickLVmvUth+8B31NOK0UKmyiVFJAP8Fm5Na6tqi8sgwc2YF85w6Nx1l/wN9PO2ki0t0wTnUhFS9Oqeh8AkeMG9YQuSYt4n4wyn0yfH1mIQ20g5RdJbW4Rv/8Voocxqbdpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zsDrcaNrUkCXNMufmLhSGq4a1iTV4V5vsYmPV2fsJR8=;
- b=t4FdsTlWK6acs+uLIEv84DvBMpmRRPGGYpIyb2q7tIm2VPWzcr/QbgLbbNEwjFfbi1DdI95N4vvc07OKXvEvZRxnOXBcxq4TekxDNjhZsm2cS0vvc81VULsvB9KKTD7KCaSbMQ+2Qa+YyINI4LGu+k2dMM0fCKOavvM9pr4o3/g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by CH1PPF6D0742E7B.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::613) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.8; Mon, 20 Apr
- 2026 08:49:34 +0000
-Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
- ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
- 08:49:34 +0000
-Message-ID: <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
-Date: Mon, 20 Apr 2026 10:49:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- dri-devel@lists.freedesktop.org,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- linux-media@vger.kernel.org
-Cc: Val Packett <val@invisiblethingslab.com>,
- Suwit Semal <sumit.semwal@linaro.org>
-References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
- <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
- <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
- <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
- <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR02CA0016.namprd02.prod.outlook.com
- (2603:10b6:208:530::14) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B7F510E135
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:00:27 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63K7WxuE311150
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:00:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=/lO0wUKTVYLddzZduPrPryU/
+ 1GxHKJTrxAiMfoqglG0=; b=YMo7Yzcyug+Kfs3+ERy00tBibDuu24kBh7Y1UR1/
+ zEp4+GzPUo5VfnVsywv86EEE6fG9G4KbnQSlsx8XCbP+FLpXznb2b0+Z1JmlMepI
+ hv5WmG9UgHV0EYHjpUr6bkLPetaihYn3L0r3Kka5Ppt1EXhy6by+XEwoTmgijnfZ
+ toLbXo042tXFXs1ZYNjfrBskT1RhjrRPmUPLXgTysvCFAH3izmfihUWmOj9KCtM0
+ 181JlYcQLqBCoTUlgm0Qo5FI+IiLkIH8qK9j68vLmZinPf8dGBBXnRCDkjR51e1B
+ j/XDDWtkuF7AHrM51oi5+7t6ncTAhe26vT2mU6DGbQ6Fqw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com
+ [209.85.217.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dkyannf0q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:00:25 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id
+ ada2fe7eead31-612ef4e6c54so4285832137.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 02:00:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776675624; x=1777280424;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=/lO0wUKTVYLddzZduPrPryU/1GxHKJTrxAiMfoqglG0=;
+ b=WR9CtqueT89aee4GFhGUe/dL+dRfgszM5Vy1cyzGchx93hg4tMhllZBfNFtVrur/n5
+ qLWN4oCwsXxboHEuNcxkqeBlfztFGzwn9hmnxY0JsKeNGvEoAY527kCqlpSkYx03q/1i
+ 95cwcNd/J5A/NVKwIVhF/Pe+GZKgQpLUwsvRxQQ4GbF+TzVNZXTqb5GliLvTWmnlhBE2
+ SQg1Vu5OE/Hswv9f3j56f4wmIVqhbQyvrfq94IafTYU7n9VRDw8D5pcNHWuShO1WU+5Q
+ qoUIzk9DrR/cSFcV5fCT8RNPs+SHE1v3ZSiFe6jNLRqjsRS4a8QhxQYMw8izRkUltsED
+ 26Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776675624; x=1777280424;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/lO0wUKTVYLddzZduPrPryU/1GxHKJTrxAiMfoqglG0=;
+ b=N3VIPHpxpCEr3eZDpQikesix/ERL2ffzWZqCxh7L61spDFdfA3ec8Be9SqkgPro0fC
+ 1ltkvoqbdlFXEoAjmliS1angEGdMdSwFkCVO1Yd5MetAsU8xxBtwun6Sb8AFIrrVes+b
+ 3udnJYx9R9uWYolS/UtCwS18OXnbjdsvmNw8UclXpG6p21W0ghUuUT0Ni5EqS9e5kTcf
+ QVZ1WmCJEiYaerCflCsff7ZLzN0zRRaK7cpgG8sGOOnWHfFXsYe9WpSA5iOeinHIcJht
+ o8pb+mYOXz1Qpk9GcHjwzZEVfd5ntMe12F3+cogu5igKfeT7pbWpYepICM+nQVUvuhST
+ fing==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8VlRDH85Ax1kr+IslTI00ZzaebED9Ch7IkgHa+IVnx+DS43H6sbyb9rD6rjEqdDiohK8z2LVhonCo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrYvSFLamypbn7h/WcGLpopfKDfiM7dUO5fvVbxv1uD9bFFEpU
+ 3ttXw2X/Ix2QLFm4OXGJkLdXwcJG2zHqkdB857573oIEA8gfANfpi1Ji+168luNZOv5gXrFbdp/
+ jB6/wBtdDVhVERDEcYB9DuM7xArsCaPuAdUa6N/ZQ+Mphor15FsV/oDN+DxxNKrg2SqfoY5s=
+X-Gm-Gg: AeBDiesfQTJPWtbw+wIx9n+MIvo1flOJ8frjAV+7autHZehz1v2uM9oyQI9Z14gYwyR
+ FyZAjUCr3w2HaZOq7ZckkmvlXRRq4ilt7FrmOb4tQSfprAeyprpXipayopNwyZK/DPLnttXqJ5U
+ 68W1q81JfoHdMH8utedpuSN8Lo8vfXr8MF6Suahi7PnapLGYHGm1J6aqjaE5QmEpY/+MjveREna
+ mXaSvOpXbjGOcwbfaKVBIJ9KEKzPzvedyExILE44qOpKFA5pjuQkildDO6xbycoyON7DVzw9vkl
+ Ui/lBHMCDrpPVQ+hvDdcAddSvgwwLTza64QNCUW72Up69NamvZq7BwxQc5Dc8TctK+vv51+3Qm/
+ tWfDvx63eDGJO+hU+9SeazXfVlllnJ3To60mbkbN6Ajbz8nggkTJKlUU2+zcuIkQEK7Ij+2bUqd
+ pw98qEUH4aP6yJUiykPAfBJZ+YEwv85/x/Tp6x2evilo1TAg==
+X-Received: by 2002:a05:6102:3581:b0:611:a5b6:f4d3 with SMTP id
+ ada2fe7eead31-616f73fa0e4mr5157056137.22.1776675624418; 
+ Mon, 20 Apr 2026 02:00:24 -0700 (PDT)
+X-Received: by 2002:a05:6102:3581:b0:611:a5b6:f4d3 with SMTP id
+ ada2fe7eead31-616f73fa0e4mr5157037137.22.1776675623997; 
+ Mon, 20 Apr 2026 02:00:23 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38ecb5f652asm22224871fa.12.2026.04.20.02.00.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2026 02:00:22 -0700 (PDT)
+Date: Mon, 20 Apr 2026 12:00:21 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Frank Zhang <rmxpzlb@gmail.com>
+Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ detlev.casanova@collabora.com, cristian.ciocaltea@collabora.com,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
+ when PHY is down
+Message-ID: <ggmfrel7xrhigcsvoegxwdxpljohiyspzcmhpmkxkqycu53zwm@ltkecyoshdax>
+References: <20260418101936.7731-1-rmxpzlb@gmail.com>
+ <hdl63shkqubkvczlg7ryjah5psiqzrhu5llelzaetw7skbpujv@nyxgriryjxd5>
+ <9c198d0e-a675-4d7e-a485-5a8ee4d97f88@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|CH1PPF6D0742E7B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98689cc9-59bd-445d-e193-08de9eb9be74
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: +XAwL9tin4y75mfpeY78I1nRzW8iBdYspBxw9Pxhl8JrFjDKFS13+gUHoMi8CVYheJxcu53js2XRK0sOlhRywmo7TGlEOs7J8QGlMz26a1djMb4yhD8IF0fe6fipq7edwi0E0aYHzdJF4JYuvB0Y13kY/WREKNXX9kckXNrskc1wAlEyLthOwVwVzkH6bIeyv+H3EbCesHyovZEGiWsz2WBn0rVEzZaiqneiVEpfVKHcfxRe5vkYg+JsDriwypqkshYJysMr/M82x0KDlORYc701byk/wNYESFsEr4jFybig4UH7NunZ+4Kkvs+0TUjhRlxDt/Ek05ad1eMY+aPtdNCQa9rVf6Truq8E0PrYA2aFim4XIAHO3YVdv2M6SQ8vz0bdvb3Ulq4lUSr2J914VzDdTbLc/6tR+8PHiRx/wAxmP9F0nlzNJcgeWBdv+mm/tL/OZ4CgSbhdB2+aTCjWy5xm6YUzeYkN4i7c9ySqE1uHZgENDN/rjhLc6QUeIi4r02u5oRDyZWxpMw1PPo3zaF19kau0oKDkvB5k+c73+4dClsb628YMU2EdQ65ZTOLUgR/Fe9ZHsYrcCSor2OwabGvmkP8uLgeFyWbeVCDEok+xGydMQr2SKgADo7Ef95iH26DArplVb5cUMa+qf1uJy8m8IFwQ7AdInyj/Npj912LiktYqKNmKpUXNGlvo8p+c31GADPkU0G9t7uZs/58D9eClrZswlBi3hlR7f9ydv3s=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWlvSFpLUmNpZGhWb0lZSWg2ZEN5VXBITDZUa3hTRTE4WllTdzJWTFM1NVRY?=
- =?utf-8?B?cmE3UXRRNDFpdFBUbUY1QkE3QUJUWmxaSnJDaU9HaEVMYmN5MTQ5YnFTK1VL?=
- =?utf-8?B?RnNITlFFdEU2SkNsbG5FUHA3Ukd1eDVHdDJDN2NNTU5Wa3B2RWp3NE9jcVND?=
- =?utf-8?B?RElCcnpGNkZ6U3ZnZkFXR3pKaVcweERTbEFQUzRNMjN3NElUNU16YVdPbWdP?=
- =?utf-8?B?and6K1FjbmdRdGFtemk4L2dCRkl6OGxaUWl2SGdTcVBySC9nSVJCTSt6c0JD?=
- =?utf-8?B?UEpOeTRGbVFoVU1WSmxpeDVET1RGQ2FpR2xjK2g3SlFDNWJZSjZadGJ1ZWZt?=
- =?utf-8?B?M3htM3NmQk9mQWlYemtJVW1zNVpiVWVqYzVVU0VpRXVlQjZpU1NkMEgzM2Zi?=
- =?utf-8?B?YUxJK2p4NWRzUzRFMVVMMDAxamlHSmtWdXF3NmZJV3dLZmhjMGYrU0F3Yytp?=
- =?utf-8?B?REFISmMrazBIbUFHSkJ3QkV0UVd2a3IxR28wNFFmUXJHODRRV2JTMWxWNjhS?=
- =?utf-8?B?c2dTbCtMZXNqcjV0VzhzbWNKMVNSbFB1WjI5Z3orbjROTVFLTTZVNVUxMUo5?=
- =?utf-8?B?OFAyUjUzdEI5ZjBRUllDTllYWkxZSC9ud3FCRXptT0FuR0o1aWtOa1ZlbFF0?=
- =?utf-8?B?WTV4VDRheE03QkNESWRRWHBOS2pQQTN0emlxYUdxL1VHTy9EVmh6bGpKcmFW?=
- =?utf-8?B?VTNYYTFMMWo0bG1LMngvMi9GdU53UW5WVWNHSjZVUWowR2M1MU5saVRwSlBF?=
- =?utf-8?B?ekxkQU0wOXBaekNNdm1EaytZNW1qWUx1UWl3V2NRcTFEUGpyQXk5dXA0dmdE?=
- =?utf-8?B?cE5lMldNV0VQUmJ2S2h4dmZDdnA1QmdtL2h1anRUSGxnZFBKZEdvdHE0OEt0?=
- =?utf-8?B?cHBPZUorVkUyamsvcFgzWUROZXRzMVJYNE8zYWM2a3d2NzhxR0I1RGo0WUN5?=
- =?utf-8?B?Q1RNSnl1emxLOUtCcktNTktnSWRwOWxwL3ZTZjBXMkZwNkovSjM4SDRKZGdn?=
- =?utf-8?B?bm05dm1ueTAvSklKSEd5QUE4WTArdis4M1JhcXpZNXhHSTF2TVdHcjBTQzYz?=
- =?utf-8?B?ZnJDd0xDZDJMVWdkcWpEaG81ekdEbk1La0xJTDhCYStEZmVwamtLVEZyZzR3?=
- =?utf-8?B?R00rUlZPTmJNZU1UeWlsQmxUUWl3S2lYL2gveGdaZGd6cVB2WkpRUUhQT0Vw?=
- =?utf-8?B?emNvUTFUZStDa0lrUExOeDJqSEg0Ylg5YlhZWTVEMGxkUlhpUCtsNHp0azV0?=
- =?utf-8?B?SjhTekVya1JxM2JGaTNyakliUFJiZFlDbERIWXJIRkJncWQzZTZSZktrQ2c2?=
- =?utf-8?B?RFlNdFRTejlwQS9hY1QwMGxjME1IbHRoZ2RURmtlendiMER0K2V5TUhwRGto?=
- =?utf-8?B?RjJqN080czlHV2FScVp2T0Nxb2cyVXZCSU4rVHR0bmF4TldqVzgzemQvcVUv?=
- =?utf-8?B?bXlNRU8wS202YnhQRE1jSFpjNklLdFlXZVJtbElUZVJUSW1yK1NDcklJMEcw?=
- =?utf-8?B?cjFoc3A4Y0I4bGdzNVVHVU11WmQzOTVXbmNkVEtWdWFvRzBpR1QwRmsrd0Va?=
- =?utf-8?B?bitlQVJXRFBrRGVUZ0hBQU1hSU12cU01dUtaWjVVaVQzem9GK1JTRFVsb1Ri?=
- =?utf-8?B?MVoxY0Z1enFtYjlPSFRwTWJKbHlGaHJWU0RKclk3b1Z3UENRQlVLWFdzUzVN?=
- =?utf-8?B?bDlvRlFtcGdhVEFBT0N0aWVGaDVheFAvbDgvWllYekVXcGU5WHFBMXg4Vm14?=
- =?utf-8?B?YUtvbXY0UzhpWE5RNTkxSWk5TmVvckZZR2dDdi9MSUUzQ2NPUkh3RmFMNlhh?=
- =?utf-8?B?RGQyeEVPR1NFNTV1ZXhvcWFOK3hWOXdkLzZDYlZuYXVCcEtaRHlhdlVETUVJ?=
- =?utf-8?B?Ty8rNXVYNWRyNFo4aSt4WGgveWxVVEc3TFczUjdLaWF4bDZ3RHUrekpRZFFK?=
- =?utf-8?B?SnBoWTZ1aVRSTXp4Umc5VHoyTjRtZGpQd282VXM1REFsVklZTS9uRnAzRHNa?=
- =?utf-8?B?UTVURUlpaDlMR3JobkYxUjZVRkNNZXVUTmJEYURTdmhIamJ4ajBYRmRoYUd3?=
- =?utf-8?B?YXFmNjR0QjJwSGhsUnRONktHRzFVbHd3SzAyTVQ2TFNsRFhqS01uRENGSm01?=
- =?utf-8?B?S3dxOEFSckh2YjJXRXhtUnptVlVKOUY5aE1HYXprWGt1TXYzVE90enBRcGU0?=
- =?utf-8?B?U3ovYmNVRlNGaDlTUDFpK1pvWG5QVDdqT1J0OWdDVGRwVTJ1dURnZ09mREJG?=
- =?utf-8?B?MGdQTkFRalpTZW9UTDZKYUpPb1hnQ0p5UG5hblFrZHkxRlBGTU90WEhTVzY3?=
- =?utf-8?Q?37HLKVtdCnOfqq24jU?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98689cc9-59bd-445d-e193-08de9eb9be74
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 08:49:33.8690 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L4AOF/wSRw0kWpgFsMG7PMglELLckluyinfWDWX3HxcHZmptE+iGzvQbn09MZPy9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF6D0742E7B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9c198d0e-a675-4d7e-a485-5a8ee4d97f88@gmail.com>
+X-Proofpoint-GUID: bUxmM4_yiDBVt1kCndr2Lv3O5W3hxTha
+X-Proofpoint-ORIG-GUID: bUxmM4_yiDBVt1kCndr2Lv3O5W3hxTha
+X-Authority-Analysis: v=2.4 cv=SNFykuvH c=1 sm=1 tr=0 ts=69e5eb29 cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=-aDFVIzMO8mTH3V4WnwA:9 a=CjuIK1q_8ugA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA4NiBTYWx0ZWRfX8k3Y7/NtkVGo
+ Rm1agpHQAt4CnvjxAD6NNPVLqGayPMI4Ks/OyWVM1S/SLF737r1QPZLgyUCHMi+Y9Xy2Rtfr8FC
+ u7NLllXRS+i5st6Ujra5qs5HVozQ7/hy4NayFslvJQhLtdjxuYKNyLrWMTfA2p8+AGWeAUG1SoM
+ /bBz0RHab4UVdRDDzHwl2VUhDWQYPktlAwUfME4vWHSjjkch6cNyOTbd9qafkFX0T6bPfutxVsx
+ xY/wPyZ9An2wa651OxDxefkwWL+Lo7TlYMD9EB9fez6hKJbEruJLl/3jm398haVz9ZmJyC8/YTc
+ Nt/NhM/2LedizI9ZOxP5fiu7laK5nt1aw5JlD0gtMC1vLoe0SFSbFOk5o++G/RsRSBkwLIFY8RY
+ wzwiR1Db0Ui3SZiiXNZj9v809MR/RgHnUFJE5NG/gEIZiTA2GPYC8AInVLyDtwfqfZhdiaH8b/U
+ jtr4Bs0v5jJHa/f7gEA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_01,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 adultscore=0 malwarescore=0
+ bulkscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200086
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,72 +146,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/17/26 21:35, Demi Marie Obenour wrote:
-> On 4/17/26 03:53, Christian König wrote:
->> On 4/16/26 18:13, Demi Marie Obenour wrote:
->>> On 4/16/26 05:57, Christian König wrote:
-...
->>> Unless I am
->>> mistaken, client workloads are highly non-uniform: a single game or
->>> compute job might well use more VRAM than every other program on the
->>> system combined.
->>
->> Yeah, perfectly correct.
->>
->>> Are these workloads impossible to make work well with pinning?
->>
->> No, as long as you don't know the workload beforehand, e.g. when you define the limit.
->>
->> I mean that's why basically everybody avoids pinning and assigning fixed amounts of resources.
->>
->> Even if you can make it work technically pinning usually results in a rather bad end user experience.
->>
->> Regards,
->> Christian.
+On Mon, Apr 20, 2026 at 02:11:28PM +0800, Frank Zhang wrote:
+> On 4/19/26 08:40, Dmitry Baryshkov wrote:
+> > On Sat, Apr 18, 2026 at 06:19:36PM +0800, Frank Zhang wrote:
+> > > The following panic was observed during system reboot:
+> > > 
+> > > Kernel panic - not syncing: Asynchronous SError Interrupt
+> > > CPU: 7 UID: 1000 PID: 2637 Comm: pipewire ... 6.19.10-300.fc44.aarch64
+> > > Call trace:
+> > >   ...
+> > >   regmap_update_bits_base+0x5c/0x90
+> > >   dw_hdmi_qp_bridge_clear_infoframe+0xb0/0x120 [dw_hdmi_qp]
+> > >   drm_bridge_connector_clear_infoframe+0x28/0x48 [drm_display_helper]
+> > >   ...
+> > >   dw_hdmi_qp_audio_disable+0x24/0xb8 [dw_hdmi_qp]
+> > >   drm_bridge_connector_audio_shutdown+0x30/0x60 [drm_display_helper]
+> > >   drm_connector_hdmi_audio_shutdown+0x24/0x38 [drm_display_helper]
+> > >   hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+> > >   ...
+> > >   snd_pcm_release_substream.part.0+0x44/0xd8 [snd_pcm]
+> > >   snd_pcm_release+0x60/0xe8 [snd_pcm]
+> > >   ...
+> > > 
+> > > The root cause is pipewire tries to close the HDMI audio device after
+> > > atomic_disable(), which sets tmds_char_rate to 0 and disable the PHY.
+> > > 
+> > > In this case, dw_hdmi_qp_audio_disable() will call
+> > > drm_atomic_helper_connector_hdmi_clear_audio_infoframe() directly,
+> > > accessing registers without checking tmds_char_rate.
+> > > 
+> > > Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside the
+> > > if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+> > > 
+> > > Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+> > > Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+> > > 
+> > > ---
+> > > Changes in v2:
+> > > - Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
+> > >    the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+> > > - Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
+> > > 
+> > > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> > > index d649a1cf07f5..7760527484c8 100644
+> > > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> > > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> > > @@ -526,10 +526,10 @@ static void dw_hdmi_qp_audio_disable(struct drm_bridge *bridge,
+> > >   {
+> > >   	struct dw_hdmi_qp *hdmi = dw_hdmi_qp_from_bridge(bridge);
+> > > -	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
+> > > -
+> > > -	if (hdmi->tmds_char_rate)
+> > > +	if (hdmi->tmds_char_rate) {
+> > > +		drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
+> > >   		dw_hdmi_qp_audio_disable_regs(hdmi);
+> > > +	}
+> > 
+> > Will audio and audio infoframe remain disabled after consequetive
+> > atomic_enable() call?
+> > 
+> > >   }
+> > >   static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
+> > > -- 
+> > > 2.53.0
+> > > 
+> > 
 > 
-> Do drivers and programs assume that they can access VRAM from the CPU?
-
-Yes, and that is actually really important for performance.
-
-That's why Alex and I came up with the idea of using the resize able BAR feature to access all of VRAM on modern GPUs.
-
-There are a couple of hacks which have been implemented over the years for exotic platforms were MMIO/VRAM access was problematic. For example on a page fault you use a GPU DMA engine to copy the VRAM buffer into system memory, make the CPU memory access and then copy it back again on demand at the next command submission.
-
-But all of those hacks are basically just prove of concepts and result in completely unusable performance.
-
-> Are any of the following reasonable options?
+> Sorry, I missed clearing the audio infoframe when the PHY is down. The next
+> atomic_enable() will write the stale audio infoframe. My mistake.
 > 
-> 1. Change the guest kernel to only map (and thus pin) a small subset
->    of VRAM at any given time.  If unmapped VRAM is accessed the guest
->    traps the page fault, evicts an old VRAM mapping, and creates a
->    new one.
+> To clear the stale audio infoframe, dw_hdmi_qp_audio_disable() can handle it
+> in the else branch directly, but this seems like a layering violation for a
+> bridge driver
+> 
+> I think the better approach is to add a 'reset_audio_infoframe' interface in
+> drm_hdmi_state_helper.c that does basically the same as
+> drm_atomic_helper_connector_hdmi_clear_audio_infoframe(), but only clearing
+> the software state without calling clear_infoframe(). It's also a bit odd
+> since it would only be used by dw-hdmi-qp.
 
-Yeah, that could potentially work.
+That sounds too fine-grained and it also will not work straight ahead...
 
-This is basically what we do on the host kernel driver when we can't resize the BAR for some reason. In that use case VRAM buffers are shuffled in and out of the CPU accessible window of VRAM on demand.
+Just for my understanding, let's consider the opposite situation: the
+user tries to start audio playback before setting the mode. How is it
+handled in the driver?
 
-> 2. Pretend that resizable BAR is not enabled, so the guest doesn't
->    think it can map much of VRAM at once.  If resizable BAR is enabled
->    on the host, it might be possible to split the large BAR mapping
->    in a lot of ways.
+> 
+> I'd like to get the maintainers' opinion about adding such an interface.
+> 
+> Thanks,
+> Frank Zhang
+> 
 
-That won't work. The userspace parts of the driver stack don't care how large the BAR to access VRAM with the CPU is.
-
-The expectation is that the kernel driver makes thing CPU accessible as needed in the page fault handler.
-
-It is still a good idea for your solution #1 to give the amount of "pin-able" VRAM to the userspace stack as CPU visible VRAM limit so that test cases and applications try to lower their usage of VRAM, e.g. use system memory bounce buffers when possible.
-
-> Or does Xen really need to allow the host to handle guest page faults?
-> That adds a huge amount of complexity to trusted and security-critical
-> parts of the system, so it really is a last resort.  Putting the
-> complexity in to the guest virtio-GPU driver is vastly preferable if
-> it can be made to work well.
-
-Well the nested page fault handling KVM offers has proven to be extremely useful. So when XEN can't do this it is clearly lacking an important feature.
-
-But I have one question: When XEN has a problem handling faults from the guest on the host then how does that work for system memory mappings?
-
-There is really no difference between VRAM and system memory in the handling for the GPU driver stack.
-
-Regards,
-Christian.
+-- 
+With best wishes
+Dmitry
