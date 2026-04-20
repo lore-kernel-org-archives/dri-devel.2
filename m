@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE7C5F588C2
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6B6F588C7
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:17:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CDEB10E5E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61B4A10E5EA;
 	Mon, 20 Apr 2026 13:17:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="llYjXabH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JoKRiekS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8255E10E5E7;
- Mon, 20 Apr 2026 13:17:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8D8610E5E9;
+ Mon, 20 Apr 2026 13:17:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 53789404C3;
- Mon, 20 Apr 2026 13:17:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3893C2BCB7;
- Mon, 20 Apr 2026 13:17:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C44AB434F4;
+ Mon, 20 Apr 2026 13:17:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0532EC2BCB6;
+ Mon, 20 Apr 2026 13:17:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691029;
- bh=DZpahuMZuqCNd1jPzatGrPOZ6xoX1xfgs8kTTvQ4FCY=;
+ s=k20201202; t=1776691032;
+ bh=Kmw1rpUeW2WlRAoPrreiJSopgyjbzwdEJvI1xGkoz6E=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=llYjXabHDskLhCbjyt9SsLoJD/RT91NY5yvJwD7Yo1Z5qRudNzlyZ5whtb2v2hmif
- q/662MZE6KP7Sfm/Hc9lLV6yGJPjpMbMJiDIfTkBK/gPq5ZASMM+SPIH6kxqVrXL3W
- rqOhUxxBRNpuY2RnAKGrcbVgNZB0mGM0tya+vdvgOV1hpNjidhCk6S0dWprwXj2u6X
- H7K6cTxObAP5emlbNN7X1051e+9HCdby1WwvoWZj/6K76dJuZL0m3zD/3a6lgJNhbY
- Y9SaPXyxdOirSIf4D0uECRa78XaJ4Gz+6dmQEbhYcTA1+9oPk9Os336gFWboaCWDIb
- cejOkaVGCqgrA==
+ b=JoKRiekSbJHJK415wold0Wy82XMAR6V/ICrjXzI2bzdYiGBJ1JhErR1cPuDwbsuEU
+ tcju6DgalzRS3rXr2VhHQ29qH2/+AXGMzBcOGdW0KIIEcElobHA5pqu52ARVlW/gIr
+ n6TyjQ8+VR7BSl+GCT+iMn8MlNHGuAxXK8L9pA3jzegHDCA3Ch8sM9f3xRFCtFcqZW
+ wmheMPdm6jFew+ls8j9F88WKrV3W6K6spqcFcHahpwWN/J+XHcrrDqcUYB/ygTH1Ss
+ 6oaGgBikALR7ZuNp37asUjSFhgLgi0zM29KPxHANRU+lFCECo5ykMLwmwhkKrafkTv
+ DTH/ztAVFfx2Q==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: remove queue from doorbell
- xarray
-Date: Mon, 20 Apr 2026 09:08:38 -0400
-Message-ID: <20260420131539.986432-52-sashal@kernel.org>
+Cc: Li Chen <me@linux.beauty>, Dave Airlie <airlied@redhat.com>,
+ Sasha Levin <sashal@kernel.org>, lyude@redhat.com, dakr@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.12] nouveau: pci: quiesce GPU on shutdown
+Date: Mon, 20 Apr 2026 09:08:40 -0400
+Message-ID: <20260420131539.986432-54-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420131539.986432-1-sashal@kernel.org>
 References: <20260420131539.986432-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,271 +65,682 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunil Khatri <sunil.khatri@amd.com>
+From: Li Chen <me@linux.beauty>
 
-[ Upstream commit f0e46fd06c3f7590b0f06aea3c877f441c2cbccc ]
+[ Upstream commit 310326bb7df4bba094a3fc60364c641c547fd923 ]
 
-In case of failure in xa_alloc, remove the queue during
-clean up from the userq_doorbell_xa.
+Kexec reboot does not reset PCI devices.
+Invoking the full DRM/TTM teardown from ->shutdown can trigger WARNs when
+userspace still holds DRM file descriptors.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Quiesce the GPU through the suspend path and then power down the PCI
+function so the next kernel can re-initialize the device from a consistent
+state.
+
+WARNING: drivers/gpu/drm/drm_mode_config.c:578 at drm_mode_config_cleanup+0x2e7/0x300, CPU#2: kexec/1300
+Call Trace:
+ <TASK>
+ ? srso_return_thunk+0x5/0x5f
+ ? enable_work+0x3a/0x100
+ nouveau_display_destroy+0x39/0x70 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ nouveau_drm_device_fini+0x7b/0x1f0 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ nouveau_drm_shutdown+0x52/0xc0 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ pci_device_shutdown+0x35/0x60
+ device_shutdown+0x11c/0x1b0
+ kernel_kexec+0x13a/0x160
+ __do_sys_reboot+0x209/0x240
+ do_syscall_64+0x81/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? __rtnl_unlock+0x37/0x70
+ ? srso_return_thunk+0x5/0x5f
+ ? netdev_run_todo+0x63/0x570
+ ? netif_change_flags+0x54/0x70
+ ? srso_return_thunk+0x5/0x5f
+ ? devinet_ioctl+0x1e5/0x790
+ ? srso_return_thunk+0x5/0x5f
+ ? inet_ioctl+0x1e9/0x200
+ ? srso_return_thunk+0x5/0x5f
+ ? srso_return_thunk+0x5/0x5f
+ ? sock_do_ioctl+0x7d/0x130
+ ? srso_return_thunk+0x5/0x5f
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? srso_return_thunk+0x5/0x5f
+ ? srso_return_thunk+0x5/0x5f
+ ? do_syscall_64+0x23b/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? put_user_ifreq+0x7a/0x90
+ ? srso_return_thunk+0x5/0x5f
+ ? sock_do_ioctl+0x107/0x130
+ ? srso_return_thunk+0x5/0x5f
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? srso_return_thunk+0x5/0x5f
+ ? do_syscall_64+0x81/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? exc_page_fault+0x7e/0x1a0
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+nouveau 0000:26:00.0: [drm] drm_WARN_ON(!list_empty(&fb->filp_head))
+WARNING: drivers/gpu/drm/drm_framebuffer.c:833 at drm_framebuffer_free+0x73/0xa0, CPU#2: kexec/1300
+Call Trace:
+ <TASK>
+ drm_mode_config_cleanup+0x248/0x300
+ ? __pfx___drm_printfn_dbg+0x10/0x10
+ ? drm_mode_config_cleanup+0x1dc/0x300
+ nouveau_display_destroy+0x39/0x70 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ nouveau_drm_device_fini+0x7b/0x1f0 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ nouveau_drm_shutdown+0x52/0xc0 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ pci_device_shutdown+0x35/0x60
+ device_shutdown+0x11c/0x1b0
+ kernel_kexec+0x13a/0x160
+ __do_sys_reboot+0x209/0x240
+ do_syscall_64+0x81/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? __rtnl_unlock+0x37/0x70
+ ? srso_return_thunk+0x5/0x5f
+ ? netdev_run_todo+0x63/0x570
+ ? netif_change_flags+0x54/0x70
+ ? srso_return_thunk+0x5/0x5f
+ ? devinet_ioctl+0x1e5/0x790
+ ? srso_return_thunk+0x5/0x5f
+ ? inet_ioctl+0x1e9/0x200
+ ? srso_return_thunk+0x5/0x5f
+ ? srso_return_thunk+0x5/0x5f
+ ? sock_do_ioctl+0x7d/0x130
+ ? srso_return_thunk+0x5/0x5f
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? srso_return_thunk+0x5/0x5f
+ ? srso_return_thunk+0x5/0x5f
+ ? do_syscall_64+0x23b/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? put_user_ifreq+0x7a/0x90
+ ? srso_return_thunk+0x5/0x5f
+ ? sock_do_ioctl+0x107/0x130
+ ? srso_return_thunk+0x5/0x5f
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? srso_return_thunk+0x5/0x5f
+ ? do_syscall_64+0x81/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? exc_page_fault+0x7e/0x1a0
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+WARNING: include/drm/ttm/ttm_resource.h:406 at nouveau_ttm_fini+0x257/0x270 [nouveau], CPU#2: kexec/1300
+Call Trace:
+ <TASK>
+ nouveau_drm_device_fini+0x93/0x1f0 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ nouveau_drm_shutdown+0x52/0xc0 [nouveau c19e0da7fd83583a023f855c510d9a3903808734]
+ pci_device_shutdown+0x35/0x60
+ device_shutdown+0x11c/0x1b0
+ kernel_kexec+0x13a/0x160
+ __do_sys_reboot+0x209/0x240
+ do_syscall_64+0x81/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? __rtnl_unlock+0x37/0x70
+ ? srso_return_thunk+0x5/0x5f
+ ? netdev_run_todo+0x63/0x570
+ ? netif_change_flags+0x54/0x70
+ ? srso_return_thunk+0x5/0x5f
+ ? devinet_ioctl+0x1e5/0x790
+ ? srso_return_thunk+0x5/0x5f
+ ? inet_ioctl+0x1e9/0x200
+ ? srso_return_thunk+0x5/0x5f
+ ? srso_return_thunk+0x5/0x5f
+ ? sock_do_ioctl+0x7d/0x130
+ ? srso_return_thunk+0x5/0x5f
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? srso_return_thunk+0x5/0x5f
+ ? srso_return_thunk+0x5/0x5f
+ ? do_syscall_64+0x23b/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? put_user_ifreq+0x7a/0x90
+ ? srso_return_thunk+0x5/0x5f
+ ? sock_do_ioctl+0x107/0x130
+ ? srso_return_thunk+0x5/0x5f
+ ? __x64_sys_ioctl+0x97/0xe0
+ ? srso_return_thunk+0x5/0x5f
+ ? do_syscall_64+0x81/0x610
+ ? srso_return_thunk+0x5/0x5f
+ ? exc_page_fault+0x7e/0x1a0
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+Signed-off-by: Li Chen <me@linux.beauty>
+Reviewed-by: Dave Airlie <airlied@redhat.com>
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+Link: https://patch.msgid.link/20260121113646.111561-1-me@linux.beauty
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Here is my complete analysis:
+Now I have all the information needed. Let me compile the full analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: Subject Line**
-- Subsystem: `drm/amdgpu/userq`
-- Action verb: "remove" (corrective: removing a stale entry from data
-  structure on error path)
-- Summary: Remove queue from doorbell xarray during cleanup when
-  xa_alloc fails
+### Step 1.1: PARSE THE SUBJECT LINE
+- **Subsystem**: `nouveau: pci:` (Nouveau GPU driver, PCI subsystem)
+- **Action verb**: "quiesce" - implies bringing hardware to a
+  quiet/consistent state, a hardware management fix
+- **Summary**: Quiesce the NVIDIA GPU on PCI shutdown to handle kexec
+  reboot properly
 
-**Step 1.2: Tags**
-- `Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>` - author, regular
-  AMD GPU contributor
-- `Reviewed-by: Christian König <christian.koenig@amd.com>` - AMD GPU
-  subsystem co-maintainer
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` - AMD GPU
-  subsystem maintainer
-- No Fixes: tag (expected for manual review candidates)
-- No Cc: stable tag
+Record: [nouveau: pci] [quiesce] [Add proper GPU shutdown handler for
+kexec reboot]
 
-**Step 1.3: Commit Body Analysis**
-The message says: "In case of failure in xa_alloc, remove the queue
-during clean up from the userq_doorbell_xa." This clearly describes a
-missing cleanup in an error path: the queue gets stored in
-`userq_doorbell_xa` but is not removed if the subsequent `xa_alloc`
-fails.
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+- **Signed-off-by: Li Chen <me@linux.beauty>** - the author
+- **Reviewed-by: Dave Airlie <airlied@redhat.com>** - DRM maintainer
+  reviewed it
+- **Signed-off-by: Dave Airlie <airlied@redhat.com>** - DRM maintainer
+  also signed off (committed it)
+- **Link:**
+  https://patch.msgid.link/20260121113646.111561-1-me@linux.beauty - the
+  v2 submission
 
-**Step 1.4: Hidden Bug Fix Detection**
-This is not hidden - it's straightforwardly described as an error path
-cleanup fix. However, the severity is greater than the commit message
-suggests. It's actually a **use-after-free**: the queue is freed
-(`kfree(queue)`) but its pointer remains in the doorbell xarray.
+No Fixes: tag, no Cc: stable tag, no Reported-by. The absence of these
+is expected.
 
-## PHASE 2: DIFF ANALYSIS
+Record: Reviewed-by and Signed-off-by from Dave Airlie (DRM maintainer)
+is a strong quality signal.
 
-**Step 2.1: Inventory**
-- Single file: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
-- 1 line added: `xa_erase_irq(&adev->userq_doorbell_xa, index);`
-- Function modified: `amdgpu_userq_create()`
-- Scope: Single-file surgical fix, error path only
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+The commit describes two problems:
+1. **Problem 1**: Kexec reboot does not reset PCI devices, so without a
+   shutdown handler, the GPU hardware remains in an unknown state after
+   kexec.
+2. **Problem 2**: Doing a full DRM/TTM teardown from `->shutdown`
+   triggers WARNs when userspace still holds DRM file descriptors.
 
-**Step 2.2: Code Flow Change**
-In `amdgpu_userq_create()`:
+Three stack traces are provided showing WARNING triggers at:
+- `drm_mode_config_cleanup+0x2e7/0x300` (drm_mode_config.c:578)
+- `drm_framebuffer_free+0x73/0xa0` (drm_framebuffer.c:833) -
+  `drm_WARN_ON(!list_empty(&fb->filp_head))`
+- `nouveau_ttm_fini+0x257/0x270` (ttm_resource.h:406)
 
-1. Line 863: `xa_store_irq(&adev->userq_doorbell_xa, index, queue,
-   GFP_KERNEL)` - stores queue in global doorbell xarray
-2. Line 870: `xa_alloc(&uq_mgr->userq_xa, &qid, queue, ...)` - attempts
-   to allocate a queue ID
-3. If xa_alloc fails (line 872): error path calls
-   `amdgpu_userq_fence_driver_free()`, `mqd_destroy()`, `kfree(queue)` -
-   but did NOT remove the entry from `userq_doorbell_xa`
-4. Fix adds `xa_erase_irq(&adev->userq_doorbell_xa, index)` before the
-   kfree
+All triggered through the path: `kernel_kexec -> device_shutdown ->
+pci_device_shutdown -> nouveau_drm_shutdown -> nouveau_drm_device_fini`
 
-**Step 2.3: Bug Mechanism**
-This is a **use-after-free** caused by a missing cleanup on error path.
-After `kfree(queue)`, the freed pointer remains in `userq_doorbell_xa`.
-Six functions in the same file iterate `userq_doorbell_xa` with
-`xa_for_each()` and dereference the queue pointer:
-- `amdgpu_userq_suspend()` (line 1445)
-- `amdgpu_userq_resume()` (line 1471)
-- `amdgpu_userq_stop_sched_for_enforce_isolation()` (line 1501)
-- `amdgpu_userq_start_sched_for_enforce_isolation()` (line 1535)
-- `amdgpu_userq_pre_reset()` (line 1589)
-- `amdgpu_userq_post_reset()` (line 1617)
+**Solution**: Use the suspend path (which properly handles open
+userspace FDs) instead of full teardown, then power down the PCI
+function to D3hot.
 
-All would crash or corrupt memory by accessing `queue->userq_mgr`,
-`queue->state`, etc.
+Record: [Bug: GPU not properly quiesced during kexec reboot, causing
+WARNs and potential GPU init failures in next kernel] [Symptom: multiple
+kernel WARNINGs during kexec shutdown] [Root cause: Missing .shutdown
+callback, and naive full-teardown approach triggers WARNs with open FDs]
 
-**Step 2.4: Fix Quality**
-The fix is obviously correct: it mirrors the cleanup in the normal
-destroy path (`amdgpu_userq_cleanup()` at line 463 already calls
-`xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index)`). The
-fix uses `xa_erase_irq()` matching the `xa_store_irq()` used during
-insertion. No regression risk.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+This is an overt bug fix. The commit directly addresses kernel WARNINGs
+and ensures proper GPU quiescing during kexec. It's a hardware
+workaround for the fact that kexec doesn't reset PCI devices.
 
-## PHASE 3: GIT HISTORY
+Record: Not a hidden bug fix - this is an explicit fix for kernel
+WARNINGs and kexec reliability.
 
-**Step 3.1: Blame**
-The buggy error path (xa_alloc failure without doorbell cleanup) was
-introduced by commit `f18719ef4bb7b` (Jesse.Zhang, October 2025) which
-converted IDR to XArray. When the XArray conversion added
-`xa_store_irq(&adev->userq_doorbell_xa, ...)` before `xa_alloc`, the
-error cleanup for `xa_alloc` failure was not updated to remove the
-doorbell entry.
+---
 
-**Step 3.2: Fixes Target**
-No Fixes: tag present. The bug was introduced by f18719ef4bb7b.
+## PHASE 2: DIFF ANALYSIS - LINE BY LINE
 
-**Step 3.3: Related Changes**
-The companion commit `65b5c326ce410` ("refcount userqueues to avoid race
-conditions") was cherry-picked with `Cc: stable@vger.kernel.org`,
-showing this area is actively being stabilized for stable trees.
+### Step 2.1: INVENTORY THE CHANGES
+- **Files changed**: `drivers/gpu/drm/nouveau/nouveau_drm.c` (1 file)
+- **Lines added**: ~32 lines (new function + 1 line to hook it up)
+- **Lines removed**: 0
+- **Functions modified**: None modified; one new function
+  `nouveau_drm_shutdown()` added
+- **Scope**: Single-file, purely additive change
 
-**Step 3.4: Author**
-Sunil Khatri is a regular AMD GPU contributor with 11 commits to this
-file alone. He also authored the refcount fix.
+Record: [1 file, +32/-0 lines] [New function nouveau_drm_shutdown(),
+struct pci_driver updated] [Scope: single-file surgical addition]
 
-**Step 3.5: Dependencies**
-This fix is standalone - it requires only that the doorbell xarray code
-(from f18719ef4bb7b) exists, which it does in 7.0.
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Before**: `nouveau_drm_pci_driver` has no `.shutdown` callback. During
+kexec, `pci_device_shutdown()` does nothing for nouveau, leaving the GPU
+in an unknown hardware state.
 
-## PHASE 4: MAILING LIST RESEARCH
+**After**: `nouveau_drm_shutdown()` is called during PCI device
+shutdown. It:
+1. Checks if drm is NULL (safety check)
+2. Checks if power is already off (switcheroo check, matching suspend
+   pattern)
+3. Calls `nouveau_do_suspend(drm, false)` to quiesce the GPU through the
+   proven suspend path
+4. Calls `pci_save_state`, `pci_disable_device`,
+   `pci_set_power_state(PCI_D3hot)` to power down PCI
+5. Calls `usleep_range(200, 400)` to allow PCI power transition to
+   settle (mirrors `udelay(200)` in `nouveau_pmops_suspend`)
 
-The exact commit "remove queue from doorbell xarray" was not found
-independently on lore.kernel.org. However, the v2 series of the refcount
-patchset (20260302180852) was a 2-patch series that included related
-doorbell cleanup work. The patch was reviewed by Christian König (AMD
-GPU co-maintainer) and committed through Alex Deucher (AMD GPU
-maintainer).
+Record: [Before: no shutdown handler -> GPU left in unknown state during
+kexec] [After: proper suspend-based quiescing + PCI power down]
+
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+This is a **hardware workaround** fix. Category: **Missing shutdown
+handler causing kernel WARNINGs and potential GPU initialization
+failures**.
+
+The fix closely mirrors `nouveau_pmops_suspend()`:
+
+```1034:1053:drivers/gpu/drm/nouveau/nouveau_drm.c
+nouveau_pmops_suspend(struct device *dev)
+{
+        struct pci_dev *pdev = to_pci_dev(dev);
+        struct nouveau_drm *drm = pci_get_drvdata(pdev);
+        // ... same pattern: do_suspend, pci_save_state,
+pci_disable_device, pci_set_power_state, udelay
+```
+
+Record: [Category: Missing shutdown handler / hardware quiescing]
+[Mechanism: PCI device not properly quiesced before kexec, leading to
+inconsistent GPU state and WARNs if full teardown attempted]
+
+### Step 2.4: ASSESS THE FIX QUALITY
+- **Obviously correct**: Yes - it mirrors the well-tested suspend path
+  exactly, using `nouveau_do_suspend()` which is the proven way to
+  quiesce the GPU
+- **Minimal/surgical**: Yes - purely additive, touches one file, doesn't
+  modify existing code
+- **Regression risk**: Very low - adds a new callback that reuses
+  existing proven infrastructure
+- **Red flags**: None. The function is self-contained and uses well-
+  established APIs
+
+Record: [Fix quality: Excellent. Reuses proven suspend path. Purely
+additive.] [Regression risk: Very low - new callback, no modification to
+existing paths]
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
+
+### Step 3.1: BLAME THE CHANGED LINES
+The PCI driver struct (`nouveau_drm_pci_driver`) was created in commit
+`9458029940ffc6` by Ben Skeggs (2012-07-06). It has never had a
+`.shutdown` handler. This means the bug has existed since the nouveau
+driver was first created - the GPU has never been properly quiesced on
+PCI shutdown.
+
+Record: [PCI driver struct created 2012 (v3.6 era), never had .shutdown]
+[Bug present since nouveau's inception]
+
+### Step 3.2: FOLLOW THE FIXES: TAG
+No Fixes: tag present (expected for autosel candidates).
+
+Record: [No Fixes: tag - expected]
+
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Recent commits to `nouveau_drm.c` include `8f8a4dce64013` ("nouveau: add
+a third state to the fini handler") which changed `nvif_client_suspend`
+to take a `bool runtime` parameter. However, this doesn't affect the new
+`nouveau_drm_shutdown` function, which calls `nouveau_do_suspend(drm,
+false)` - and `nouveau_do_suspend`'s external interface `(struct
+nouveau_drm *, bool)` has been stable since at least 2014.
+
+Record: [Related commit 8f8a4dce64013 changes internals of
+nouveau_do_suspend but not its interface] [No prerequisites needed for
+this patch]
+
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Li Chen has no other commits to the nouveau driver. However, the patch
+was reviewed and signed off by Dave Airlie, who is the DRM maintainer
+and a major contributor to nouveau.
+
+Record: [Author: Li Chen (new contributor to nouveau)] [Reviewer: Dave
+Airlie (DRM maintainer) - strong endorsement]
+
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+The patch is completely standalone:
+- It adds a new function using only existing stable APIs
+  (`nouveau_do_suspend`, PCI helpers, `usleep_range`)
+- It adds a single struct field assignment (`.shutdown =
+  nouveau_drm_shutdown`)
+- No modifications to existing functions
+
+Record: [No dependencies. Fully standalone. All APIs used are long-
+standing.]
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Found the full discussion on dri-devel mailing list:
+- **v1**: Jan 20, 2026 - Initial submission without comment on
+  usleep_range
+- **v2**: Jan 21, 2026 - Added comment explaining usleep_range, gained
+  Reviewed-by from Dave Airlie
+- **Applied**: Feb 9, 2026 - Dave Airlie applied to drm-misc-next
+  targeting 7.1
+
+Dave Airlie's v1 review asked "Why is this [usleep_range] needed? it at
+least needs a comment." After Li Chen explained, Dave gave `Reviewed-by:
+Dave Airlie <airlied@redhat.com>` on v1 with the comment addition, and
+the v2 with the comment was applied.
+
+Record: [v1 and v2 submitted] [Dave Airlie reviewed, requested comment
+on usleep_range] [Applied to drm-misc-next targeting 7.1] [No NAKs or
+concerns]
+
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+CC'd: Dave Airlie, Lyude Paul, Danilo Krummrich, Maarten Lankhorst,
+Maxime Ripard, Thomas Zimmermann, Simona Vetter, dri-devel, nouveau,
+linux-kernel. All appropriate maintainers were included.
+
+Record: [All DRM/nouveau maintainers were CC'd] [Dave Airlie (DRM
+maintainer) reviewed]
+
+### Step 4.3: SEARCH FOR THE BUG REPORT
+The commit itself contains the bug report in the form of stack traces.
+The author hit this during kexec reboot with nouveau hardware. No
+separate bug report found.
+
+Record: [Author-reported bug with full stack traces in commit message]
+
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+This is a standalone single-patch submission (not part of a series).
+
+Record: [Standalone single patch, no series]
+
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+No specific stable discussion found. Dave Airlie noted it targets 7.1,
+but no explicit discussion about stable backporting.
+
+Record: [No stable-specific discussion found]
+
+---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Modified Function**
-`amdgpu_userq_create()` - creates usermode queues for AMD GPU userspace
-queue submission.
+### Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+- `nouveau_drm_shutdown()` (new function)
+- References: `nouveau_do_suspend()`, PCI helpers
 
-**Step 5.2: Callers**
-`amdgpu_userq_create()` is called from `amdgpu_userq_ioctl()` via
-`AMDGPU_USERQ_OP_CREATE`, which is a DRM IOCTL callable from userspace.
-This is a user-triggerable code path.
+### Step 5.2: TRACE CALLERS
+`nouveau_drm_shutdown()` is called from `pci_device_shutdown()` (PCI
+core) via the `.shutdown` function pointer. This is triggered during:
+- `kernel_kexec()` -> `device_shutdown()` -> `pci_device_shutdown()`
+- `kernel_restart()` -> `device_shutdown()` -> `pci_device_shutdown()`
+- `kernel_power_off()` -> `device_shutdown()` -> `pci_device_shutdown()`
 
-**Step 5.3-5.4: Impact Surface**
-The stale entry in `userq_doorbell_xa` will be accessed by any
-subsequent suspend, resume, reset, or isolation enforcement operation on
-the GPU device. These are triggered by:
-- System suspend/resume (S3, S0ix) - common laptop operation
-- GPU reset (triggered by hang detection)
-- Enforce isolation mode changes
+Record: [Called from PCI core during system shutdown/kexec/restart]
+[Affects all nouveau users during kexec]
 
-## PHASE 6: STABLE TREE ANALYSIS
+### Step 5.3: TRACE CALLEES
+The function calls:
+1. `pci_get_drvdata()` - get driver data
+2. `nouveau_do_suspend(drm, false)` - the main GPU quiescing function,
+   proven by years of suspend/resume usage
+3. `pci_save_state()`, `pci_disable_device()`, `pci_set_power_state()` -
+   standard PCI power management
+4. `usleep_range()` - kernel delay function
 
-**Step 6.1: Code in Stable Trees**
-The file `amdgpu_userq.c` was first added in the v6.16/6.17 timeframe.
-The `userq_doorbell_xa` was introduced by f18719ef4bb7b in the kernel
-7.0 development cycle. This code exists in the 7.0 stable tree.
+Record: [All callees are well-established, well-tested functions]
 
-**Step 6.2: Backport Complexity**
-This is a clean 1-line addition with no context conflicts expected.
+### Step 5.4: FOLLOW THE CALL CHAIN
+`kernel_kexec()` -> `device_shutdown()` -> `pci_device_shutdown()` ->
+`nouveau_drm_shutdown()` -> `nouveau_do_suspend()` -> suspends display,
+evicts VRAM, idles channels, suspends fences, suspends object tree
 
-## PHASE 7: SUBSYSTEM CONTEXT
+This is a critical path for kexec reliability. Without proper GPU
+quiescing, the GPU may continue DMA operations after kexec, potentially
+corrupting the new kernel's memory.
 
-- Subsystem: `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver
-- Criticality: IMPORTANT - widely used GPU driver on desktop/laptop
-  systems
-- Actively developed subsystem with heavy recent churn
+Record: [Reachable via kexec syscall - a real user operation] [Critical
+for system reliability during kexec]
+
+### Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Both `amdgpu` and `xe` (Intel) drivers have `.shutdown` handlers. This
+is a well-established pattern for GPU PCI drivers. Nouveau was the
+notable omission.
+
+Record: [amdgpu, xe, and many other DRM drivers have .shutdown handlers
+- nouveau was missing one]
+
+---
+
+## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+
+### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
+The `nouveau_drm_pci_driver` struct without `.shutdown` has existed
+since kernel 3.6 (2012). This bug affects ALL stable trees. The nouveau
+driver exists in all active stable trees.
+
+Record: [Bug exists in ALL stable trees - nouveau has never had a
+.shutdown handler]
+
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+The patch adds code between `nouveau_pmops_resume` and
+`nouveau_pmops_freeze`, and adds `.shutdown` to the pci_driver struct.
+Both areas have been stable for years (blame shows 2012 era). The patch
+should apply cleanly to all stable trees.
+
+One minor consideration: in stable trees without commit `8f8a4dce64013`,
+`nouveau_do_suspend` internally calls
+`nvif_client_suspend(&drm->_client)` (without the `bool` parameter).
+However, this doesn't affect the new function at all - it only calls
+`nouveau_do_suspend(drm, false)`, and the `nouveau_do_suspend` interface
+has been stable since 2014.
+
+Record: [Expected: clean apply to all stable trees] [No conflicts
+anticipated]
+
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE
+No related fix exists in any stable tree. Nouveau has never had a
+`.shutdown` handler.
+
+Record: [No related fixes in stable]
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+- **Subsystem**: `drivers/gpu/drm/nouveau/` - NVIDIA GPU driver
+- **Criticality**: IMPORTANT - nouveau is the open-source driver for all
+  NVIDIA GPUs, widely used in Linux distributions
+
+Record: [Subsystem: nouveau/DRM GPU driver] [Criticality: IMPORTANT -
+widely used GPU driver]
+
+### Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+The nouveau driver is actively developed with recent commits for
+GB10x/GB20x/GH100 support, GSP-RM support, etc.
+
+Record: [Actively maintained subsystem]
+
+---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: Who is Affected**
-Users with AMD GPUs using the usermode queue feature (GFX/Compute/DMA
-queues).
+### Step 8.1: DETERMINE WHO IS AFFECTED
+All users with NVIDIA GPUs using the nouveau driver who perform kexec
+reboots. This includes:
+- Systems using kexec for fast reboots
+- Systems using kdump for crash dump collection
+- Systems using KHO/LUO (Kernel Handover)
+- Enterprise and data center environments that rely on kexec
 
-**Step 8.2: Trigger Conditions**
-The bug requires:
-1. A userqueue creation attempt where `xa_store_irq` succeeds but
-   `xa_alloc` fails (e.g., hitting `AMDGPU_MAX_USERQ_COUNT` limit or
-   memory pressure)
-2. Followed by any suspend, resume, reset, or isolation operation
+Record: [Affected: All nouveau users performing kexec/kdump] [Subsystem-
+specific but affects a large user base]
 
-The `xa_alloc` failure can be triggered by resource exhaustion or
-concurrent queue creation under memory pressure.
+### Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+- **Trigger**: Performing a kexec reboot on a system with a nouveau-
+  driven NVIDIA GPU
+- **How common**: Kexec is commonly used in server environments, kdump
+  configurations, and development workflows
+- **Unprivileged**: No - kexec requires root/CAP_SYS_BOOT
 
-**Step 8.3: Failure Mode Severity**
-- **CRITICAL**: Use-after-free on freed queue pointer leads to kernel
-  crash (oops/panic), potential memory corruption, or security
-  vulnerability. The freed pointer is dereferenced to access
-  `queue->userq_mgr`, `queue->state`, etc.
+Record: [Triggered by kexec reboot with nouveau GPU] [Moderately common
+trigger for server/dev environments]
 
-**Step 8.4: Risk-Benefit Ratio**
-- BENEFIT: Very high - prevents UAF crash on a common GPU driver
-- RISK: Very low - single line addition, mirrors existing cleanup
-  pattern, obviously correct
-- Ratio: Strongly favorable
+### Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+When the bug triggers:
+1. **Without any shutdown handler (current state)**: GPU hardware left
+   in unknown state after kexec. The next kernel may fail to initialize
+   the GPU, or the GPU may continue DMA into the new kernel's memory
+   (potential memory corruption/crash). Severity: **HIGH**
+2. **With naive full-teardown shutdown handler**: Multiple kernel
+   WARNINGs triggered (`drm_mode_config_cleanup`,
+   `drm_framebuffer_free`, `nouveau_ttm_fini`). Severity: **MEDIUM-
+   HIGH** (WARNs, potential instability)
+
+Record: [Failure mode: GPU init failure in kexec'd kernel + kernel
+WARNINGs] [Severity: HIGH]
+
+### Step 8.4: CALCULATE RISK-BENEFIT RATIO
+- **BENEFIT**: Prevents GPU initialization failures and kernel WARNINGs
+  during kexec. Ensures GPU is in a consistent state for the next
+  kernel. Enables proper kdump operation.
+- **RISK**: Very low. ~32 lines of purely additive code. Uses proven
+  suspend infrastructure. Reviewed by DRM maintainer. Cannot affect non-
+  shutdown paths.
+
+Record: [Benefit: HIGH - prevents kexec failures and WARNs] [Risk: VERY
+LOW - additive, reuses proven code, DRM maintainer review] [Ratio:
+Strongly favorable]
+
+---
 
 ## PHASE 9: FINAL SYNTHESIS
 
+### Step 9.1: COMPILE THE EVIDENCE
+
 **Evidence FOR backporting:**
-- Fixes a real use-after-free bug (stale pointer in xarray after kfree)
-- Single-line fix, surgically targeted to one error path
-- Reviewed by Christian König (AMD GPU co-maintainer)
-- Obviously correct (mirrors cleanup in normal destroy path)
-- Related refcount commit already tagged Cc: stable
-- User-triggerable code path (IOCTL)
-- Failure mode is kernel crash or memory corruption
+- Fixes real kernel WARNINGs with concrete stack traces
+- Prevents GPU initialization failures after kexec (potential for DMA
+  corruption)
+- Purely additive, small (~32 lines), single-file change
+- Reuses proven `nouveau_do_suspend()` suspend path
+- Follows the same pattern as `nouveau_pmops_suspend()` and other GPU
+  drivers (amdgpu, xe)
+- Reviewed and signed off by Dave Airlie (DRM maintainer)
+- No dependencies on other patches
+- Should apply cleanly to all stable trees
+- Bug has existed since nouveau's creation (2012)
+- Fills a gap - nouveau was one of the few major GPU drivers without
+  `.shutdown`
 
 **Evidence AGAINST backporting:**
-- Relatively new code (userq feature added in v6.16-7.0 timeframe)
-- Trigger requires specific failure condition (xa_alloc failure)
+- No explicit `Cc: stable@vger.kernel.org` tag
+- No `Fixes:` tag
+- Author applied it to drm-misc-next (targeting 7.1), not stable
 
-**Stable Rules Checklist:**
-1. Obviously correct and tested? YES - mirrors existing cleanup,
-   reviewed by maintainer
-2. Fixes a real bug? YES - use-after-free
-3. Important issue? YES - potential crash, memory corruption, security
-4. Small and contained? YES - 1 line added
-5. No new features? YES - pure bug fix
-6. Can apply to stable? YES - clean 1-line addition
+**UNRESOLVED QUESTIONS:**
+- None significant - all aspects verified
+
+### Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. **Obviously correct and tested?** YES - mirrors proven suspend path,
+   reviewed by DRM maintainer
+2. **Fixes a real bug?** YES - kernel WARNINGs + GPU initialization
+   failures during kexec
+3. **Important issue?** YES - system warnings, potential GPU DMA
+   corruption, kexec/kdump reliability
+4. **Small and contained?** YES - 32 lines, 1 file, purely additive
+5. **No new features or APIs?** CORRECT - no new features, just a
+   missing shutdown handler
+6. **Can apply to stable trees?** YES - standalone, uses stable APIs
+
+### Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+This could be classified as a **hardware workaround** (ensuring GPU is
+properly quiesced before kexec), which is an allowed exception category.
+
+### Step 9.4: MAKE YOUR DECISION
+The evidence strongly supports backporting. This is a small, well-
+contained fix that prevents real kernel WARNINGs and potential GPU
+initialization failures during kexec. It reuses proven suspend
+infrastructure, was reviewed by the DRM maintainer, and has no
+dependencies. The risk is very low and the benefit is significant for
+anyone using kexec/kdump with NVIDIA hardware.
+
+---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Christian König, Signed-off-by Alex
-  Deucher and Sunil Khatri
-- [Phase 2] Diff analysis: 1 line added in xa_alloc error path of
-  amdgpu_userq_create(), adds missing xa_erase_irq() for doorbell xarray
-- [Phase 3] git blame: buggy code introduced in f18719ef4bb7b (Oct
-  2025), XArray conversion commit
-- [Phase 3] git show f18719ef4bb7b: confirmed it added xa_store_irq to
-  doorbell_xa without corresponding xa_erase_irq in xa_alloc failure
-  path
-- [Phase 3] Related commit 65b5c326ce410 already has Cc: stable
-  (confirmed via git show)
-- [Phase 4] b4 dig -c 65b5c326ce410: found patch at
-  https://patch.msgid.link/20260303120849.2583663-1-sunil.khatri@amd.com
-- [Phase 4] Mailing list archive: found v2 series and review discussion,
-  Christian König reviewed
-- [Phase 5] Grep for userq_doorbell_xa: found 6 xa_for_each iteration
-  sites that would dereference the freed pointer
-- [Phase 5] amdgpu_userq_create called from amdgpu_userq_ioctl (user-
-  triggerable via DRM IOCTL)
-- [Phase 6] amdgpu_userq.c first added around v6.16, doorbell_xa added
-  in v7.0 cycle
-- [Phase 8] Failure mode: UAF -> kernel crash/memory corruption,
-  severity CRITICAL
-
-This is a small, surgical, obviously correct fix for a real use-after-
-free bug in the AMD GPU driver's error handling path. It was reviewed by
-the subsystem co-maintainer and carries essentially zero regression
-risk.
+- [Phase 1] Parsed tags: Reviewed-by Dave Airlie (DRM maintainer), Link
+  to patch.msgid.link
+- [Phase 2] Diff analysis: 32 lines added in one file. New
+  `nouveau_drm_shutdown()` function + `.shutdown` hook in pci_driver
+  struct. Purely additive.
+- [Phase 2] Code comparison: New function mirrors
+  `nouveau_pmops_suspend()` (lines 1034-1053 of current tree) with
+  matching pattern of do_suspend + PCI power management
+- [Phase 3] git blame: `nouveau_drm_pci_driver` struct created 2012
+  (commit 9458029940ffc6), never had `.shutdown` - bug present since
+  inception
+- [Phase 3] Related commit `8f8a4dce64013` changes `nouveau_do_suspend`
+  internals but not its interface - no conflict with this patch
+- [Phase 3] No prerequisites found - patch is standalone
+- [Phase 4] Mailing list: v1 submitted Jan 20, v2 with comment on
+  usleep_range submitted Jan 21, Dave Airlie reviewed and applied Feb 9
+  to drm-misc-next targeting 7.1
+- [Phase 4] Dave Airlie explicitly gave Reviewed-by after reviewing v1
+  and requesting a comment addition
+- [Phase 4] No NAKs or concerns raised by any reviewer
+- [Phase 5] `nouveau_drm_shutdown()` called from `pci_device_shutdown()`
+  during kexec/restart/poweroff - standard PCI driver shutdown path
+- [Phase 5] Both amdgpu and xe (Intel) GPU drivers have `.shutdown`
+  handlers - nouveau was the outlier
+- [Phase 6] Bug exists in all stable trees - nouveau has never had a
+  .shutdown handler
+- [Phase 6] Patch expected to apply cleanly - `nouveau_do_suspend(struct
+  nouveau_drm *, bool)` interface stable since 2014
+- [Phase 8] Failure mode: kernel WARNINGs + potential GPU init failure
+  after kexec. Severity: HIGH
+- [Phase 8] Risk: Very low - purely additive, uses proven code paths
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 32 +++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0a1b93259887a..819c4c26416c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -872,6 +872,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
- 		amdgpu_userq_fence_driver_free(queue);
-+		xa_erase_irq(&adev->userq_doorbell_xa, index);
- 		uq_funcs->mqd_destroy(queue);
- 		kfree(queue);
- 		r = -ENOMEM;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 915f73279302d..cb22237ac17d9 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1079,6 +1079,37 @@ nouveau_pmops_resume(struct device *dev)
+ 	return ret;
+ }
+ 
++static void
++nouveau_drm_shutdown(struct pci_dev *pdev)
++{
++	struct nouveau_drm *drm = pci_get_drvdata(pdev);
++	int ret;
++
++	if (!drm)
++		return;
++
++	if (drm->dev->switch_power_state == DRM_SWITCH_POWER_OFF ||
++	    drm->dev->switch_power_state == DRM_SWITCH_POWER_DYNAMIC_OFF)
++		return;
++
++	ret = nouveau_do_suspend(drm, false);
++	if (ret)
++		NV_ERROR(drm, "shutdown suspend failed with: %d\n", ret);
++
++	pci_save_state(pdev);
++	pci_disable_device(pdev);
++	pci_set_power_state(pdev, PCI_D3hot);
++	/*
++	 *  This is just to give the pci power transition time to settle
++	 *  before an immediate kexec jump. it’s mirroring the existing
++	 *  nouveau_pmops_suspend() behavior, which already does
++	 *  udelay(200) right after pci_set_power_state(..., pci_d3hot). In
++	 *  ->shutdown() we’re allowed to sleep, so I used usleep_range()
++	 *  instead of a busy-wait udelay().
++	 */
++	usleep_range(200, 400);
++}
++
+ static int
+ nouveau_pmops_freeze(struct device *dev)
+ {
+@@ -1408,6 +1439,7 @@ nouveau_drm_pci_driver = {
+ 	.id_table = nouveau_drm_pci_table,
+ 	.probe = nouveau_drm_probe,
+ 	.remove = nouveau_drm_remove,
++	.shutdown = nouveau_drm_shutdown,
+ 	.driver.pm = &nouveau_pm_ops,
+ };
+ 
 -- 
 2.53.0
 
