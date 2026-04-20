@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43299F588C2
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37DB9F588C6
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:27:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C7C310E629;
-	Mon, 20 Apr 2026 13:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A04B410E62A;
+	Mon, 20 Apr 2026 13:27:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gN542SxU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IdSp0oCd";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D782810E628;
- Mon, 20 Apr 2026 13:26:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3033310E627;
+ Mon, 20 Apr 2026 13:27:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E49760154;
- Mon, 20 Apr 2026 13:26:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB69CC2BCB6;
- Mon, 20 Apr 2026 13:26:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9B67561141;
+ Mon, 20 Apr 2026 13:27:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88FAFC2BCB7;
+ Mon, 20 Apr 2026 13:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691612;
- bh=dMLXMb9lsZEBL3IJdlXARDHwyhBPf2JT329tfRAuZfM=;
+ s=k20201202; t=1776691631;
+ bh=7ahyefgd9bplGIDi8XHBmZf3DUzsAV6KcxK3YyD1c+k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gN542SxUBgiUl/tGb0yEuLmylnpeZh7f6yoD7IMD85SbFtTtcXWqdbgcMSQFuVSLZ
- dPzU/ei6k6Cj107/Cgn0uyOO4n/c7Msq62vxZz+tvWhW5B6/JmW0ocWJRH4+ujTOKX
- rLCXMXzT7Wn4bVy6ZTdTdD/6C6hRfEJ7Nga4Z3OYs6e9xdLcKQ8cfDimaRxPvwxd0M
- g4vk3fp9dUvKvFMVBnpL40W+3duYtY2A0bbyLtTmW3Iap8lxgRiD9OEzgWh9C0Jnx1
- pvltodxW0rxEtgNagVlGuvxMPYjY3yk5DJTXdooi7jD85yRPc/RgLZ2V/x0Kh02tX7
- S5amFCQU1YQcA==
+ b=IdSp0oCd7US9ak1iLdh7PrptSttEC/IH9X4D68HZsCZWJ0f6puA/bmLIE7SrU4iiT
+ UHa86JY+KRfcZ1JF+huG2j+lABuNxt7yQCiUVTgNLgUdwfI/hxDBtDakxfTd5im85a
+ 8rZYSN0hj3ejps8BMDTGNNCreBXmScgjEled+aYL60wuvACWy5BBegd9AnDB2GvC6F
+ zfp4r6EV27fmOhCiVmhzK5MfUscYhGCHqSZGKByMtH9DOaUbV9EUUbFS7BuW539vIL
+ 2euN18dAjMtAOsmVWHCwhXrFbc4Esa/FsWsaDhqzKcFeblKuXW5OfNT7TItQ1raDIm
+ j6qsX4G89bRHg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Eric Huang <jinhuieric.huang@amd.com>, Kent Russell <kent.russell@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+Cc: Sk Anirban <sk.anirban@intel.com>, Badal Nilawar <badal.nilawar@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+ Sasha Levin <sashal@kernel.org>, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
+ airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdkfd: fix kernel crash on releasing NULL
- sysfs entry
-Date: Mon, 20 Apr 2026 09:18:45 -0400
-Message-ID: <20260420132314.1023554-131-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/xe/guc: Add Wa_14025883347 for GuC DMA
+ failure on reset
+Date: Mon, 20 Apr 2026 09:18:56 -0400
+Message-ID: <20260420132314.1023554-142-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -49,7 +51,6 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,337 +67,412 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Eric Huang <jinhuieric.huang@amd.com>
+From: Sk Anirban <sk.anirban@intel.com>
 
-[ Upstream commit 4ea64d482fc2cc85009fce5abdf4780ece00c31c ]
+[ Upstream commit c57db41b8d2cd410e7219729f446aa17965485ad ]
 
-there is an abnormal case that When a process re-opens kfd
-with different mm_struct(execve() called by user), the
-allocated p->kobj will be freed, but missed setting it to NULL,
-that will cause sysfs/kernel crash with NULL pointers in p->kobj
-on kfd_process_remove_sysfs() when releasing process, and the
-similar error on kfd_procfs_del_queue() as well.
+Prevent GuC firmware DMA failures during GuC-only reset by disabling
+idle flow and verifying SRAM handling completion. Without this, reset
+can be issued while SRAM handler is copying WOPCM to SRAM,
+causing GuC HW to get stuck.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-Reviewed-by: Kent Russell <kent.russell@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+v2: Modify error message (Badal)
+    Rename reg bit name (Daniele)
+    Update WA skip condition (Daniele)
+    Update SRAM handling logic (Daniele)
+v3: Reorder WA call (Badal)
+    Wait for GuC ready status (Daniele)
+v4: Update reg name (Badal)
+    Add comment (Daniele)
+    Add extended graphics version (Daniele)
+    Modify rules
+
+Signed-off-by: Sk Anirban <sk.anirban@intel.com>
+Reviewed-by: Badal Nilawar <badal.nilawar@intel.com>
+Acked-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Link: https://patch.msgid.link/20260202105313.3338094-4-sk.anirban@intel.com
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a complete analysis. Let me
-compile the full report.
+Now I have a comprehensive picture. Let me compile my full analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-- **Subsystem**: drm/amdkfd
-- **Action verb**: "fix" - explicitly a bug fix
-- **Summary**: Fixes a kernel crash when releasing a NULL (dangling)
-  sysfs entry
+**Step 1.1: Subject Line**
+Record: [drm/xe/guc] [Add] Hardware workaround Wa_14025883347 for GuC
+DMA failure during GuC-only reset
 
-### Step 1.2: Tags
-- **Signed-off-by**: Eric Huang <jinhuieric.huang@amd.com> (author)
-- **Reviewed-by**: Kent Russell <kent.russell@amd.com> (AMD KFD team
-  member)
-- **Signed-off-by**: Alex Deucher <alexander.deucher@amd.com> (AMD DRM
+**Step 1.2: Tags**
+- Signed-off-by: Sk Anirban <sk.anirban@intel.com> (author)
+- Reviewed-by: Badal Nilawar <badal.nilawar@intel.com>
+- Acked-by: Matt Roper <matthew.d.roper@intel.com> (subsystem
   maintainer)
-- No Fixes: tag, no Cc: stable, no Reported-by, no Link - absence
-  expected
+- Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+- Link:
+  https://patch.msgid.link/20260202105313.3338094-4-sk.anirban@intel.com
+- Signed-off-by: Matt Roper <matthew.d.roper@intel.com> (applied by
+  maintainer)
+- No Fixes: tag (expected), no Reported-by, no Cc: stable
 
-### Step 1.3: Commit Body
-The commit message describes: when a process re-opens KFD with a
-different `mm_struct` (after `execve()`), the allocated `p->kobj` is
-freed via `kobject_put()` but not set to NULL. Later,
-`kfd_process_remove_sysfs()` checks `if (!p->kobj)` - but since the
-pointer is dangling (not NULL), the check passes and causes a kernel
-crash. The same issue affects `kfd_procfs_del_queue()`.
+**Step 1.3: Commit Body**
+The bug: During GuC-only reset, if the SRAM handler is actively copying
+WOPCM to SRAM, issuing the reset causes GuC HW to get stuck. The
+workaround disables idle flow and waits for SRAM handling completion
+before proceeding with reset.
 
-**Failure mode**: kernel crash (NULL pointer dereference / use-after-
-free on stale kobj pointer)
-
-### Step 1.4: Hidden Bug Fix?
-No hiding here - the subject and body explicitly say "fix kernel crash."
-
----
+**Step 1.4: Hidden Bug Fix Detection**
+This is explicitly a hardware workaround for a known Intel hardware
+errata (Wa_14025883347). It prevents the GuC from getting stuck during
+reset - this is a real bug fix for a hardware deficiency.
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-- **Files**: 1 file changed: `drivers/gpu/drm/amd/amdkfd/kfd_process.c`
-- **Lines**: +2, -1 (net 1 line added)
-- **Functions modified**: `kfd_procfs_del_queue()`,
-  `kfd_create_process_sysfs()`
-- **Scope**: Single-file, surgical fix
+**Step 2.1: Inventory**
+- `drivers/gpu/drm/xe/regs/xe_guc_regs.h`: +8 lines (new register
+  definitions)
+- `drivers/gpu/drm/xe/xe_guc.c`: +38 lines (new function + call site)
+- `drivers/gpu/drm/xe/xe_wa_oob.rules`: +3 lines (WA matching rules)
+- Total: +49 lines, 0 removed. 3 files changed.
+- Scope: Single-subsystem, well-contained
 
-### Step 2.2: Code Flow Changes
+**Step 2.2: Code Flow Changes**
+- New register definitions: BOOT_HASH_CHK, GUC_BOOT_UKERNEL_VALID,
+  GUC_SRAM_STATUS, GUC_SRAM_HANDLING_MASK, GUC_IDLE_FLOW_DISABLE
+- New function `guc_prevent_fw_dma_failure_on_reset()`: reads GUC_STATUS
+  (skips if already in reset), reads BOOT_HASH_CHK (skips if ukernel not
+  valid), disables idle flow, waits for GuC ready status, waits for SRAM
+  handling completion
+- Call site: injected in `xe_guc_reset()` between SRIOV VF check and the
+  actual reset write, gated by `XE_GT_WA(gt, 14025883347)`
 
-**Hunk 1** (`kfd_procfs_del_queue`):
-- Before: only checks `if (!q)` then proceeds to `kobject_del(&q->kobj)`
-  and `kobject_put(&q->kobj)`
-- After: checks `if (!q || !q->process->kobj)` - if the process's kobj
-  was freed, skip queue cleanup since parent sysfs is gone
+**Step 2.3: Bug Mechanism**
+This is a hardware workaround (category h). Race condition between SRAM
+save/restore and reset issuance. Without the WA, reset can arrive while
+DMA is in progress, causing hardware hang.
 
-**Hunk 2** (`kfd_create_process_sysfs`):
-- Before: on `kobject_init_and_add()` failure, calls
-  `kobject_put(process->kobj)` and returns, leaving `process->kobj` as a
-  dangling pointer
-- After: adds `process->kobj = NULL` after `kobject_put()`, preventing
-  dangling pointer
+**Step 2.4: Fix Quality**
+- Gated behind hardware version checks (only runs on affected hardware)
+- Has early-return safety checks (already in reset, ukernel not valid)
+- Uses existing MMIO wait infrastructure with timeouts
+- Only emits warnings on timeout, doesn't abort the reset
+- Very low regression risk for unaffected hardware (gated by XE_GT_WA)
+- For affected hardware, the risk is also low: it adds delays before
+  reset which is inherently safe
 
-### Step 2.3: Bug Mechanism
-This is a **dangling pointer / use-after-free** bug. After
-`kobject_put()` frees the kobj, the pointer is not NULLed, so
-`kfd_process_remove_sysfs()` later passes the `!p->kobj` guard and
-dereferences the freed pointer.
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 2.4: Fix Quality
-- Obviously correct: setting pointer to NULL after free is a textbook
-  fix
-- Minimal: 2 lines changed
-- No regression risk: the NULL check prevents use of an already-freed
-  object
-- No locking changes, no API changes
+**Step 3.1: Blame**
+The `xe_guc_reset()` function was introduced with the xe driver in
+commit dd08ebf6c3525a (Matthew Brost, 2023-03-30, "Introduce a new DRM
+driver for Intel GPUs"). The function has been stable since, with minor
+API changes (MMIO parameter refactoring by Matt Roper in
+c18d4193b53be7).
 
----
+**Step 3.2: Fixes tag**
+No Fixes: tag present. The bug is inherent in the hardware itself, not
+introduced by any specific software commit.
 
-## PHASE 3: GIT HISTORY
+**Step 3.3: File History**
+`xe_guc.c` has had 20 recent commits mostly around GuC
+load/submit/communication. `xe_wa_oob.rules` has had 35 changes since
+v6.12.
 
-### Step 3.1: Blame
-- `kfd_procfs_del_queue()` was introduced by commit 6d220a7e7971ec
-  (Amber Lin, 2020-01-30) - old function
-- `kfd_create_process_sysfs()` was introduced by commit 4cd255b9694647
-  (Zhu Lingshan, 2025-04-22) - the commit that extracted sysfs creation
-  into a separate function
-- The error path that's missing `= NULL` was introduced in
-  4cd255b9694647
+**Step 3.4: Author**
+Sk Anirban has 4 xe-related commits including this one, with
+d72779c29d82c ("drm/xe/ptl: Apply Wa_16026007364") also being a WA
+patch. A regular Intel contributor focused on WA/frequency work.
 
-### Step 3.2: Fixes target
-No explicit Fixes: tag. The bug was introduced by 4cd255b9694647
-("amdkfd: Introduce kfd_create_process_sysfs as a separate function").
-This commit first appeared in v7.0-rc1 - confirmed NOT in v6.19,
-v6.16-rc1, v6.15-rc1, or v6.14.
+**Step 3.5: Dependencies**
+This is "PATCH v4 1/1" - a standalone single patch. No dependencies on
+other patches. It uses existing infrastructure: XE_GT_WA macro,
+xe_mmio_* functions, existing register headers.
 
-### Step 3.3: File History
-Many intermediate changes between the buggy commit and the fix (treewide
-refactoring, unrelated amdkfd changes). No other fix for this specific
-issue.
+## PHASE 4: MAILING LIST RESEARCH
 
-### Step 3.4: Author
-Eric Huang is an AMD developer with multiple amdkfd commits (pasid
-debugfs, smi events, TLB flush, etc.) - a regular contributor to the
-subsystem.
+**Step 4.1: Original Discussion**
+Found on freedesktop.org/archives/intel-xe/2026-February/. The patch
+went through 4 revisions (v1-v4) with extensive review from Daniele
+Ceraolo Spurio and Badal Nilawar. Each version addressed reviewer
+feedback.
 
-### Step 3.5: Dependencies
-The fix modifies `kfd_create_process_sysfs()` which only exists since
-4cd255b9694647 (v7.0-rc1). The fix is self-contained and needs no other
-patches.
+**Step 4.2: Reviewers**
+- Daniele Ceraolo Spurio: Intel GuC expert, provided detailed review
+  across all 4 versions, gave final Reviewed-by
+- Matt Roper: Subsystem maintainer, discussed the WA range policy, gave
+  Acked-by and applied the patch
+- Badal Nilawar: Intel engineer, reviewed and gave Reviewed-by
 
----
+Daniele's only concern was about using large version ranges in the WA
+table; Matt Roper acked this explicitly. No technical concerns about the
+fix itself.
 
-## PHASE 4: MAILING LIST
+**Step 4.3: No external bug report found** - this is an internal Intel
+hardware errata workaround.
 
-### Step 4.1: Patch Discussion
-b4 dig found the original submission at:
-`https://patch.msgid.link/20260327180036.131096-1-
-jinhuieric.huang@amd.com`
+**Step 4.4: Series Context**
+Standalone patch (1/1). No dependencies.
 
-The mbox shows:
-- v1 submission on 2026-03-27 by Eric Huang
-- Kent Russell replied with `Reviewed-by` on the same day
-- No NAKs, no concerns raised
-- No stable nomination by reviewers, but this is expected for commits in
-  the autosel pipeline
-
-### Step 4.2: Reviewers
-Patch was sent to `amd-gfx@lists.freedesktop.org`, reviewed by Kent
-Russell (AMD KFD team), committed by Alex Deucher (AMD DRM maintainer).
-Appropriate review chain.
-
-### Step 4.3: Bug Report
-No external bug report link. The author discovered this through internal
-testing of the execve() code path.
-
-### Step 4.4: Related Patches
-Single standalone patch (v1 only, no series).
-
-### Step 4.5: Stable Discussion
-No prior stable discussion found.
-
----
+**Step 4.5: No stable-specific discussion found.**
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Functions Modified
-- `kfd_procfs_del_queue()` - called to delete a queue's sysfs entry
-- `kfd_create_process_sysfs()` - creates sysfs entries for a KFD process
+**Step 5.1: Functions Modified**
+- New: `guc_prevent_fw_dma_failure_on_reset()` (static, only called from
+  xe_guc_reset)
+- Modified: `xe_guc_reset()` (3-line addition)
 
-### Step 5.2: Callers
-- `kfd_procfs_del_queue()` called from `kfd_process_queue_manager.c` in
-  two places: during queue destruction and queue resource cleanup
-- `kfd_create_process_sysfs()` called from `kfd_process.c` (initial
-  process creation) and `kfd_chardev.c` (secondary process context
-  creation via ioctl)
+**Step 5.2: Callers of xe_guc_reset**
+- `uc_reset()` in xe_uc.c -> called from `xe_uc_sanitize_reset()`
+- Called during GT reset paths and UC initialization
 
-### Step 5.3-5.4: Call Chain
-The bug path: user calls `execve()` → KFD detects mm change → re-opens
-KFD → `kfd_create_process_sysfs()` fails → dangling `kobj` → process
-cleanup → `kfd_process_remove_sysfs()` → crash via stale pointer
+**Step 5.3-5.4: Call Chain**
+xe_gt reset path -> xe_uc_sanitize_reset -> uc_reset -> xe_guc_reset.
+This is the standard GPU reset path, triggered when the GPU needs reset
+(hang recovery, device suspend/resume, driver load).
 
-### Step 5.5: Similar Patterns
-The existing `kfd_process_remove_sysfs()` already has a `if (!p->kobj)
-return;` guard (line 1158), which is the correct pattern. The bug is
-that the error path in `kfd_create_process_sysfs()` doesn't maintain the
-invariant that freed kobj should be NULL.
-
----
+**Step 5.5: Similar Patterns**
+The xe driver has many similar XE_GT_WA patterns throughout the codebase
+(8 existing uses in xe_guc.c alone).
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-### Step 6.1: Buggy Code in Stable Trees
-The buggy function `kfd_create_process_sysfs()` was introduced in commit
-4cd255b9694647, which is in v7.0-rc1 and v7.0 only. It is NOT in v6.19,
-v6.14, or any earlier stable tree. The fix is only relevant for the
-**7.0.y** stable tree.
+**Step 6.1: Buggy Code Existence**
+The xe driver was introduced in v6.8. `xe_guc_reset()` exists in v6.8+.
+The hardware affected (MEDIA_VERSION_RANGE 1301-3503,
+GRAPHICS_VERSION_RANGE 2004-3005) includes Panther Lake and newer
+platforms. Some of these platforms were only added in recent kernel
+versions.
 
-### Step 6.2: Backport Complications
-The fix should apply cleanly to 7.0.y since the code context matches
-directly.
+**Step 6.2: Backport Complications**
+- For 7.0.y: Should apply cleanly. The tree is at v7.0, and the MMIO API
+  and wa_oob.rules match.
+- For 6.12.y: The MMIO API changed (`xe_mmio_write32(gt, ...)` vs
+  `xe_mmio_write32(&gt->mmio, ...)`). Also, `xe_guc.c` has `struct
+  xe_mmio *mmio` variable in v7.0 but not in v6.12. Significant rework
+  needed.
+- For 6.6.y and earlier: xe driver doesn't exist.
 
-### Step 6.3: Related Fixes Already in Stable
-No related fixes found.
+**Step 6.3: No related fixes already in stable.**
 
----
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-## PHASE 7: SUBSYSTEM CONTEXT
+**Step 7.1: Subsystem Criticality**
+drm/xe is the Intel GPU driver. It's IMPORTANT - affects all users with
+Intel discrete and integrated GPUs running the xe driver.
 
-### Step 7.1: Subsystem
-- **Subsystem**: drivers/gpu/drm/amd/amdkfd - AMD GPU Kernel Fusion
-  Driver
-- **Criticality**: IMPORTANT - AMD GPU users running KFD compute
-  workloads (ROCm, OpenCL)
+**Step 7.2: Subsystem Activity**
+Very active (20+ commits recently). The xe driver is under rapid
+development.
 
-### Step 7.2: Activity
-Very active subsystem with frequent changes.
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
----
+**Step 8.1: Affected Users**
+Users with Intel GPUs matching MEDIA_VERSION_RANGE(1301, 3503) or
+GRAPHICS_VERSION_RANGE(2004, 3005). This includes Panther Lake and some
+newer Intel GPU generations.
 
-## PHASE 8: IMPACT AND RISK
+**Step 8.2: Trigger Conditions**
+The bug triggers during GuC-only reset when SRAM handler is actively
+copying WOPCM to SRAM. This is a timing-dependent race that can occur
+during any GPU reset operation (hang recovery, suspend/resume, etc.).
 
-### Step 8.1: Who Is Affected
-Users of AMD GPU KFD (ROCm compute users) who hit the error path in
-`kfd_create_process_sysfs()` during process creation, specifically when
-`execve()` causes a re-open with a different mm.
+**Step 8.3: Failure Mode**
+GuC HW gets stuck - this is effectively a GPU hang. Severity: HIGH.
+Without recovery, the GPU becomes unusable requiring a reboot.
 
-### Step 8.2: Trigger
-When `kobject_init_and_add()` fails during KFD process sysfs creation
-AND the process later gets cleaned up. This is an error path, but can be
-triggered by resource exhaustion or sysfs conflicts.
-
-### Step 8.3: Failure Mode
-**CRITICAL**: Kernel crash (use of dangling pointer / NULL dereference
-in sysfs teardown).
-
-### Step 8.4: Risk-Benefit
-- **Benefit**: HIGH - prevents kernel crash
-- **Risk**: VERY LOW - 2-line fix, setting pointer to NULL after free
-  and adding a NULL check
-- **Ratio**: Strongly favorable
-
----
+**Step 8.4: Risk-Benefit**
+- BENEFIT: Prevents GPU hangs on affected Intel hardware during reset.
+  HIGH benefit for affected hardware users.
+- RISK: Very low. The fix is gated behind XE_GT_WA (only active on
+  affected hardware), adds only MMIO reads and waits before existing
+  reset sequence, and emits warnings rather than aborting on timeout.
+  Risk: very low.
+- Ratio: HIGH benefit / very low risk = favorable
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence
-**FOR backporting:**
-- Fixes a kernel crash (dangling pointer causes crash in sysfs teardown)
-- Tiny fix: 2 lines changed in 1 file
-- Obviously correct (NULL pointer after free, NULL check before use)
-- Reviewed by subsystem developer (Kent Russell)
-- Committed by subsystem maintainer (Alex Deucher)
-- Standalone fix with no dependencies
-- Buggy code exists in 7.0.y stable tree
+**Evidence FOR backporting:**
+- Hardware workaround (WA) - a standard exception category for stable
+- Prevents GPU hangs (GuC stuck) during reset operations
+- Well-reviewed: 3 Intel engineers (including subsystem maintainer)
+  reviewed/acked
+- Went through 4 revision cycles addressing reviewer feedback
+- CI passed (Xe.CI.BAT: success)
+- Standalone patch (1/1), no dependencies
+- Well-contained: 49 lines across 3 files
+- Gated behind hardware version check (no impact on unaffected hardware)
+- Uses existing infrastructure (XE_GT_WA, xe_mmio_wait32)
+- Should apply cleanly to v7.0.y
 
-**AGAINST backporting:**
-- Error path only (not every user will hit this)
-- Only affects 7.0.y (the buggy code is new in v7.0-rc1)
-- No Fixes: tag (expected for autosel candidates)
+**Evidence AGAINST backporting:**
+- Adds new register definitions and a new function (albeit small and
+  contained)
+- The WA uses version ranges that span many hardware generations
+  (discussion concern from Daniele)
+- For stable trees older than 7.0.y (e.g., 6.12.y), the MMIO API changed
+  and significant rework would be needed
+- Affects only specific newer Intel GPU hardware (Panther Lake and
+  beyond)
+- No user bug reports - this is a proactive hardware errata fix
+- The xe driver is evolving rapidly, making older stable tree backports
+  risky
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **YES** - trivial NULL-after-free
-   pattern, reviewed
-2. Fixes a real bug? **YES** - kernel crash on sysfs teardown
-3. Important issue? **YES** - kernel crash (CRITICAL severity)
-4. Small and contained? **YES** - 2 lines, 1 file
-5. No new features or APIs? **YES** - pure bug fix
-6. Can apply to stable? **YES** - code exists in 7.0.y, should apply
-   cleanly
+**Stable Rules Checklist:**
+1. Obviously correct and tested? YES - extensive review, CI tested,
+   straightforward register reads/waits
+2. Fixes a real bug? YES - GPU hang during reset
+3. Important issue? YES - hardware hang requiring reboot
+4. Small and contained? YES - 49 lines, 3 files, single subsystem
+5. No new features or APIs? CORRECT - hardware workaround only
+6. Can apply to stable? For 7.0.y: YES (clean). For 6.12.y: needs
+   rework.
 
-### Step 9.3: Exception Categories
-Not an exception category - this is a standard bug fix.
-
----
+**Exception Category:** This is a hardware quirk/workaround - these are
+explicitly allowed in stable.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Kent Russell, Signed-off-by Alex
-  Deucher (maintainer), no Fixes/Cc-stable
-- [Phase 2] Diff analysis: +2/-1 lines; adds `process->kobj = NULL`
-  after `kobject_put()` and `!q->process->kobj` check in
-  `kfd_procfs_del_queue()`
-- [Phase 3] git blame: error path introduced by 4cd255b9694647 (Zhu
-  Lingshan, 2025-04-22)
-- [Phase 3] git merge-base: 4cd255b9694647 is in v7.0-rc1 and v7.0, NOT
-  in v6.19 or earlier
-- [Phase 3] git log between buggy and fix: no intermediate fix for same
-  issue found
-- [Phase 4] b4 dig: found original at `https://patch.msgid.link/20260327
-  180036.131096-1-jinhuieric.huang@amd.com`
-- [Phase 4] b4 dig -a: single v1 submission, no revisions
-- [Phase 4] mbox review: Kent Russell gave Reviewed-by, no NAKs or
-  concerns
-- [Phase 5] Grep callers: `kfd_procfs_del_queue()` called from
-  `kfd_process_queue_manager.c` (2 sites); `kfd_create_process_sysfs()`
-  called from both `kfd_process.c` and `kfd_chardev.c`
-- [Phase 5] `kfd_process_remove_sysfs()` at line 1158 already has `if
-  (!p->kobj) return;` guard, confirming the invariant the fix maintains
-- [Phase 6] Buggy code only in v7.0-rc1+, fix relevant for 7.0.y stable
-  only
-- [Phase 8] Failure mode: kernel crash on dangling pointer dereference
-  during sysfs teardown, severity CRITICAL
+- [Phase 1] Parsed all tags: Reviewed-by (2), Acked-by (1), Link
+  present, no Fixes, no Reported-by
+- [Phase 2] Diff analysis: +49 lines across 3 files - new register defs,
+  new WA function, WA rules entry
+- [Phase 3] git blame: xe_guc_reset() introduced in dd08ebf6c3525a
+  (March 2023, initial xe driver)
+- [Phase 3] git log: no prerequisite commits needed, standalone patch
+- [Phase 4] Freedesktop archive: Found [PATCH v4 0/1] and [PATCH v4 1/1]
+  confirming single standalone patch
+- [Phase 4] Freedesktop archive: Daniele's review comment on version
+  ranges, Matt Roper's ack and policy discussion
+- [Phase 4] Daniele gave final Reviewed-by after Matt acked the ranges
+  approach
+- [Phase 5] xe_guc_reset() called from uc_reset() in xe_uc.c, part of
+  standard GT reset path
+- [Phase 5] XE_GT_WA macro used 8 times in xe_guc.c already -
+  established pattern
+- [Phase 6] xe driver exists in v6.8+, not in v6.6. MMIO API changed
+  between v6.12 and v7.0
+- [Phase 6] For v7.0.y: patch should apply cleanly (tree matches patch
+  base)
+- [Phase 6] For v6.12.y: MMIO API mismatch would require rework
+- [Phase 8] Failure mode: GuC stuck = GPU hang = severity HIGH
+- UNVERIFIED: Cannot confirm which exact kernel versions first support
+  the specific GPU generations targeted by MEDIA_VERSION_RANGE(1301,
+  3503) and GRAPHICS_VERSION_RANGE(2004, 3005)
 
-The fix is small, surgical, obviously correct, and prevents a kernel
-crash. It meets all stable kernel criteria.
+This is a well-reviewed, well-contained hardware workaround that
+prevents GPU hangs during reset on affected Intel hardware. It falls
+squarely into the "hardware quirk/workaround" exception category for
+stable kernels. The fix is gated behind hardware detection, uses
+existing infrastructure, and was authored as a standalone patch with no
+dependencies. It should apply cleanly to the 7.0 stable tree.
 
 **YES**
 
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/regs/xe_guc_regs.h |  8 ++++++
+ drivers/gpu/drm/xe/xe_guc.c           | 38 +++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_wa_oob.rules    |  3 +++
+ 3 files changed, 49 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 12e24fbf8c463..c6782904d2f1c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -679,7 +679,7 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+diff --git a/drivers/gpu/drm/xe/regs/xe_guc_regs.h b/drivers/gpu/drm/xe/regs/xe_guc_regs.h
+index 87984713dd126..5faac8316b66c 100644
+--- a/drivers/gpu/drm/xe/regs/xe_guc_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_guc_regs.h
+@@ -40,6 +40,9 @@
+ #define   GS_BOOTROM_JUMP_PASSED		REG_FIELD_PREP(GS_BOOTROM_MASK, 0x76)
+ #define   GS_MIA_IN_RESET			REG_BIT(0)
  
- void kfd_procfs_del_queue(struct queue *q)
++#define BOOT_HASH_CHK				XE_REG(0xc010)
++#define   GUC_BOOT_UKERNEL_VALID		REG_BIT(31)
++
+ #define GUC_HEADER_INFO				XE_REG(0xc014)
+ 
+ #define GUC_WOPCM_SIZE				XE_REG(0xc050)
+@@ -83,7 +86,12 @@
+ #define   GUC_WOPCM_OFFSET_MASK			REG_GENMASK(31, GUC_WOPCM_OFFSET_SHIFT)
+ #define   HUC_LOADING_AGENT_GUC			REG_BIT(1)
+ #define   GUC_WOPCM_OFFSET_VALID		REG_BIT(0)
++
++#define GUC_SRAM_STATUS				XE_REG(0xc398)
++#define   GUC_SRAM_HANDLING_MASK		REG_GENMASK(8, 7)
++
+ #define GUC_MAX_IDLE_COUNT			XE_REG(0xc3e4)
++#define   GUC_IDLE_FLOW_DISABLE			REG_BIT(31)
+ #define GUC_PMTIMESTAMP_LO			XE_REG(0xc3e8)
+ #define GUC_PMTIMESTAMP_HI			XE_REG(0xc3ec)
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index 4ab65cae87433..96c28014f3887 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -900,6 +900,41 @@ int xe_guc_post_load_init(struct xe_guc *guc)
+ 	return xe_guc_submit_enable(guc);
+ }
+ 
++/*
++ * Wa_14025883347: Prevent GuC firmware DMA failures during GuC-only reset by ensuring
++ * SRAM save/restore operations are complete before reset.
++ */
++static void guc_prevent_fw_dma_failure_on_reset(struct xe_guc *guc)
++{
++	struct xe_gt *gt = guc_to_gt(guc);
++	u32 boot_hash_chk, guc_status, sram_status;
++	int ret;
++
++	guc_status = xe_mmio_read32(&gt->mmio, GUC_STATUS);
++	if (guc_status & GS_MIA_IN_RESET)
++		return;
++
++	boot_hash_chk = xe_mmio_read32(&gt->mmio, BOOT_HASH_CHK);
++	if (!(boot_hash_chk & GUC_BOOT_UKERNEL_VALID))
++		return;
++
++	/* Disable idle flow during reset (GuC reset re-enables it automatically) */
++	xe_mmio_rmw32(&gt->mmio, GUC_MAX_IDLE_COUNT, 0, GUC_IDLE_FLOW_DISABLE);
++
++	ret = xe_mmio_wait32(&gt->mmio, GUC_STATUS, GS_UKERNEL_MASK,
++			     FIELD_PREP(GS_UKERNEL_MASK, XE_GUC_LOAD_STATUS_READY),
++			     100000, &guc_status, false);
++	if (ret)
++		xe_gt_warn(gt, "GuC not ready after disabling idle flow (GUC_STATUS: 0x%x)\n",
++			   guc_status);
++
++	ret = xe_mmio_wait32(&gt->mmio, GUC_SRAM_STATUS, GUC_SRAM_HANDLING_MASK,
++			     0, 5000, &sram_status, false);
++	if (ret)
++		xe_gt_warn(gt, "SRAM handling not complete (GUC_SRAM_STATUS: 0x%x)\n",
++			   sram_status);
++}
++
+ int xe_guc_reset(struct xe_guc *guc)
  {
--	if (!q)
-+	if (!q || !q->process->kobj)
- 		return;
+ 	struct xe_gt *gt = guc_to_gt(guc);
+@@ -912,6 +947,9 @@ int xe_guc_reset(struct xe_guc *guc)
+ 	if (IS_SRIOV_VF(gt_to_xe(gt)))
+ 		return xe_gt_sriov_vf_bootstrap(gt);
  
- 	kobject_del(&q->kobj);
-@@ -858,6 +858,7 @@ int kfd_create_process_sysfs(struct kfd_process *process)
- 	if (ret) {
- 		pr_warn("Creating procfs pid directory failed");
- 		kobject_put(process->kobj);
-+		process->kobj = NULL;
- 		return ret;
- 	}
++	if (XE_GT_WA(gt, 14025883347))
++		guc_prevent_fw_dma_failure_on_reset(guc);
++
+ 	xe_mmio_write32(mmio, GDRST, GRDOM_GUC);
  
+ 	ret = xe_mmio_wait32(mmio, GDRST, GRDOM_GUC, 0, 5000, &gdrst, false);
+diff --git a/drivers/gpu/drm/xe/xe_wa_oob.rules b/drivers/gpu/drm/xe/xe_wa_oob.rules
+index 5cd7fa6d2a5c0..ac08f94f90a14 100644
+--- a/drivers/gpu/drm/xe/xe_wa_oob.rules
++++ b/drivers/gpu/drm/xe/xe_wa_oob.rules
+@@ -73,3 +73,6 @@
+ 15015404425_disable	PLATFORM(PANTHERLAKE), MEDIA_STEP(B0, FOREVER)
+ 16026007364    MEDIA_VERSION(3000)
+ 14020316580    MEDIA_VERSION(1301)
++
++14025883347	MEDIA_VERSION_RANGE(1301, 3503)
++		GRAPHICS_VERSION_RANGE(2004, 3005)
 -- 
 2.53.0
 
