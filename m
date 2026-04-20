@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62750F588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4F39F588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B957C10E64E;
-	Mon, 20 Apr 2026 13:31:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 122E510E650;
+	Mon, 20 Apr 2026 13:31:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cqDHNFRq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KETZ+edK";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2D3A10E64F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:31:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0179310E64F;
+ Mon, 20 Apr 2026 13:31:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 863F5435DE;
- Mon, 20 Apr 2026 13:31:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D13DC2BCB4;
- Mon, 20 Apr 2026 13:31:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D16D6014C;
+ Mon, 20 Apr 2026 13:31:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367CCC4AF09;
+ Mon, 20 Apr 2026 13:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691897;
- bh=lqXv5gxENQT44k4x7SJliy5KPGN8NVdQvbn5CUZy7Oo=;
+ s=k20201202; t=1776691914;
+ bh=y3ah3GKJjHFrdayhjIe3vmRKN4uPnejjCykot+9kPso=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cqDHNFRq+/WkdOWJkFKcXcvUSuY93uZLZWmA+7z2E3aXsugIUr6vDcVjHifRmrklI
- LJeDvSU62Bu9SLZWfPGSY2FaD3KSvVrhPhBYUHcy6birQdRW1rkTdfdAI7e9O1eaGl
- JBS9smMUdXBaPVFHVtbxMGBRcbH86jwA428r+4TXubDrn34qzHGwYMBYgyctLKRubv
- pyfZoTt1yZq6OQ34JTn7zhUXPX3ES6Venf/jztvGrMZVAq0AvL1j/YsnzM5Ek7KyTb
- 2FY215hAsg7b6OJxIcuELLEefxUWaMsh0lKPtXog6dVcmlURyZZdGuGdAqY/GdZNW4
- U8MI/vpMhSsoQ==
+ b=KETZ+edKDzQXglFePRK4CCszVx/YXFBjk/vm8iY9EDdeD6/m3SDrC4eAFlG7Hcy7v
+ s0pq0vvJNwUZywLIcv51yUW8ZTv3KAMItSz6nC4rUqMQqiokbVoohzjaUA9iqa+xhm
+ 2Nib3Ntjzq+UCVWq+IT4QO8ljISaWP1CRuaxOBrq77RHpQW59M9lJyrd3UguPS3Ed7
+ rfAcM8SHJmPFFnCof5cye1A4OViB+1EtMwdjd8RZF1mQI/EXAOrtf65KxG5O6gcbtU
+ gYpsspe0E9wLuthpvzCAeQX+8hA5ELLvDbr/uNlM6dabvk5Is3S4UIVn8byPy3dErW
+ 30hOxIwRfolrA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.19] drm/panel-edp: Change BOE NV140WUM-N64
- timings
-Date: Mon, 20 Apr 2026 09:20:51 -0400
-Message-ID: <20260420132314.1023554-257-sashal@kernel.org>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amd/display: Fix HWSS v3 fast path
+ determination
+Date: Mon, 20 Apr 2026 09:21:00 -0400
+Message-ID: <20260420132314.1023554-266-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -50,6 +51,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,337 +68,458 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit bbe814bcb961ed2f30706ffdc806f18150709d2d ]
+[ Upstream commit d3e79f333d90f6d3d268c3b073cf3afc0b019036 ]
 
-This screen timing requires a backlight off time of more than 100ms
-from the end of the data stream to avoid screen flickering and red
-light caused by screen material limitations.
+[WHY]
+We're checking surface and stream updates after they've been applied to
+their respective states within `update_planes_and_stream_state`.
 
-Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260226083235.2176689-1-zhouhaikun5@huaqin.corp-partner.google.com
+Medium updates under the HWSS V3 fast path that are not supported or
+tested are getting implicitly if they don't trigger a DML validation
+and getting updated in place on the dc->current_state context.
+
+[HOW]
+Fix this issue by moving up the fast path determination check prior
+to `update_planes_and_stream_state`. This is how the V2 path works
+and how the V3 path used to work prior to the refactors in this area.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a complete analysis.
+Now I have all the information needed for the complete analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: Subject Line**
-- Subsystem: `drm/panel-edp`
-- Action verb: "Change" (timing adjustment)
-- Summary: Changes timing parameters for BOE NV140WUM-N64 panel to fix
-  screen flickering
+### Step 1.1: PARSE THE SUBJECT LINE
+Record: **[drm/amd/display]** **[Fix]** Fix HWSS v3 fast path
+determination — corrects the ordering of fast path evaluation in the V3
+update flow.
 
-**Step 1.2: Tags**
-- Signed-off-by: Haikun Zhou (author from Huaqin, a Google hardware
-  partner)
-- Reviewed-by: Douglas Anderson (subsystem maintainer for panel-edp)
-- Signed-off-by: Douglas Anderson (committed by maintainer)
-- Link: patch.msgid.link URL
-- No Fixes: tag (expected for autoselect candidate)
-- No Cc: stable (expected)
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+- **Reviewed-by:** Dillon Varone <dillon.varone@amd.com> — an AMD
+  display engineer reviewed this
+- **Signed-off-by:** Nicholas Kazlauskas <nicholas.kazlauskas@amd.com> —
+  the author, an AMD display subsystem developer
+- **Signed-off-by:** Alex Hung <alex.hung@amd.com> — AMD display
+  committer
+- **Tested-by:** Dan Wheeler <daniel.wheeler@amd.com> — AMD QA testing
+- **Signed-off-by:** Alex Deucher <alexander.deucher@amd.com> — AMD GPU
+  maintainer
+- No Fixes: tag (expected for autosel)
+- No Cc: stable (expected for autosel)
+- No Reported-by (likely found internally during code review/testing)
 
-**Step 1.3: Commit Body**
-The commit message explicitly describes a hardware issue: "This screen
-timing requires a backlight off time of more than 100ms from the end of
-the data stream to avoid screen flickering and red light caused by
-screen material limitations."
-- Bug: Missing disable delay causes screen flickering and red light
-  artifacts
-- Symptom: Visible display artifacts when powering off panel
-- Root cause: Hardware limitation of this specific panel requires T9
-  timing (backlight off to end of video data) of >100ms
+Record: Multiple AMD engineers reviewed/tested/signed off. Standard AMD
+display commit flow through maintainer tree.
 
-**Step 1.4: Hidden Bug Fix Detection**
-This IS a bug fix disguised as a "change timings" commit. The original
-panel entry used timings copied from a similar panel (NV140WUM-N41),
-which lacked the disable delay needed by this specific panel. The fix
-addresses a real user-visible display defect.
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+The commit clearly describes:
+- **Bug**: Surface and stream updates are checked AFTER they've been
+  applied to state within `update_planes_and_stream_state`. This means
+  `fast_update_only` sees already-modified state, causing incorrect fast
+  path determination.
+- **Symptom**: Medium updates that should go through the full commit
+  path are incorrectly routed to the fast path. These "are not supported
+  or tested" updates get "implicitly" applied "in place on the
+  dc->current_state context."
+- **Fix**: Move the fast path determination check BEFORE
+  `update_planes_and_stream_state`, matching V2 behavior and original V3
+  behavior prior to refactoring.
 
-Record: [Hardware timing bug fix] [Screen flickering and red light on
-panel disable]
+Record: Bug = incorrect fast path determination due to wrong ordering.
+Failure mode = untested update types being applied via fast path,
+leading to potential display corruption.
+
+### Step 1.4: DETECT HIDDEN BUG FIXES
+This is explicitly marked as "Fix" and the commit message clearly
+explains the bug mechanism. Not a hidden bug fix.
+
+Record: Explicitly a bug fix.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## PHASE 2: DIFF ANALYSIS — LINE BY LINE
 
-**Step 2.1: Inventory**
-- Files changed: 1 (`drivers/gpu/drm/panel/panel-edp.c`)
-- Lines added: ~7 (new struct + entry change)
-- Lines removed: ~1 (old entry replaced)
-- Functions: No functions modified - only data structures changed
+### Step 2.1: INVENTORY THE CHANGES
+- **File:** `drivers/gpu/drm/amd/display/dc/core/dc.c`
+- **Functions modified:** `update_planes_and_stream_prepare_v3()`
+- **Net change:** ~15 lines of code moved from one location to another
+  within the same function; removed TODO comments; net line change is
+  approximately -2 lines.
+- **Scope:** Single-file surgical fix within a single function.
 
-**Step 2.2: Code Flow Change**
-Two hunks:
-1. Adds a new `delay_200_500_e200_d100` struct with `.disable = 100`
-   field
-2. Changes the NV140WUM-N64 panel entry from `&delay_200_500_e200` to
-   `&delay_200_500_e200_d100`
+Record: 1 file, 1 function, net ~-2 lines. Single-file surgical fix.
 
-Before: `panel_edp_disable()` is called with `.disable = 0` (not set),
-so `msleep()` is skipped.
-After: `panel_edp_disable()` is called with `.disable = 100`, so a 100ms
-delay is inserted.
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
 
-**Step 2.3: Bug Mechanism**
-Category: Hardware workaround / timing fix. The panel's physical
-material requires a minimum backlight-off-to-data-end delay (T9 in eDP
-timing diagrams) that was not being enforced.
+**Before:** After `dc_exit_ips_for_hw_access()`, immediately calls
+`update_planes_and_stream_state()` which modifies surface/stream state.
+THEN, inside the `new_context == current_state` branch, performs
+`populate_fast_updates()` and `fast_update_only()` check.
 
-**Step 2.4: Fix Quality**
-- Obviously correct: just adds a timing delay value, following the exact
-  pattern used by many other panels
-- Minimal/surgical: new struct + one table entry change
-- Regression risk: Essentially zero. Only adds a 100ms delay for this
-  specific panel model. Cannot affect other panels.
+**After:** After `dc_exit_ips_for_hw_access()`, FIRST calls
+`populate_fast_updates()` and `fast_update_only()` on the unmodified
+state. THEN calls `update_planes_and_stream_state()`. The pre-computed
+`is_hwss_fast_path_only` result is used later.
+
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+This is a **logic/correctness fix**. The `full_update_required()`
+function (called via `fast_update_only()`) compares update values
+against current surface/stream state (e.g.,
+`srf_updates[i].hdr_mult.value !=
+srf_updates->surface->hdr_mult.value`). After
+`update_planes_and_stream_state` copies the update into the surface
+state (`copy_surface_update_to_plane`), these comparisons see the
+already-updated values, causing the function to incorrectly return
+`false` (no full update needed) when it should return `true`.
+
+Record: Logic bug — wrong evaluation order causes
+`full_update_required()` to compare update values against already-
+modified state, leading to false negatives for full-update detection.
+
+### Step 2.4: ASSESS THE FIX QUALITY
+- **Obviously correct:** Yes — moving the check before state
+  modification is the logical correct order, and matches V2's behavior.
+- **Minimal/surgical:** Yes — only moves existing code within one
+  function.
+- **Regression risk:** Very low — the check now runs on pre-modification
+  state, which is how V2 works and how V3 used to work before the
+  refactoring.
+- **No red flags:** Single function, single file, no API changes.
+
+Record: Fix is obviously correct, minimal, and low regression risk.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1: Blame**
-The buggy code (the panel entry without disable delay) was introduced in
-commit `82928cc1c2b2b` ("drm/panel-edp: Add BOE NV140WUM-N64") on
-2025-07-31, first appearing in v6.18. That commit explicitly notes
-"Timings taken from NV140WUM-N41" - the timings were copied from a
-different panel, which explains why they were incomplete.
+### Step 3.1: BLAME THE CHANGED LINES
+`git blame` shows the buggy code was introduced by commit
+`d38ec099aa6fb7` ("drm/amd/display: Split update_planes_and_stream_v3
+into parts (V2)") by Dominik Kaszewski, dated 2025-10-31. This commit
+was a refactoring that split the V3 update flow into
+prepare/execute/cleanup stages but accidentally placed the fast path
+determination after state modification.
 
-**Step 3.2: Fixes Tag**
-No Fixes: tag present. The implicit fix target is 82928cc1c2b2b.
+Record: Buggy code introduced by d38ec099aa6fb7 (2025-10-31), first
+appeared in v7.0-rc1.
 
-**Step 3.3: Related Changes**
-Very similar commits exist:
-- `9b3700b15cb58`: "Add disable to 100ms for MNB601LS1-4" - identical
-  pattern, same author company (Huaqin)
-- `1511d3c4d2bb3`: "Add 50ms disable delay for four panels" - same
-  pattern, same company
+### Step 3.2: FOLLOW THE FIXES: TAG
+No Fixes: tag present (expected). But the blame clearly identifies
+d38ec099aa6fb7 as the introducing commit.
 
-Both of those had explicit `Fixes:` tags and were accepted.
+Record: Introducing commit d38ec099aa6fb7 is present in v7.0-rc1 and
+v7.0, not in any older stable tree.
 
-**Step 3.4: Author**
-Haikun Zhou is from Huaqin (a Google Chromebook hardware partner). The
-company has submitted multiple panel timing fixes. Douglas Anderson, the
-reviewer/committer, is the subsystem maintainer for panel-edp.
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Commit `5ad5b0b7845c9` ("Fix and reenable
+UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL") followed the introducing commit and
+fixed other issues in the V3 flow but did NOT fix this ordering issue.
+The fix under review is a standalone, independent fix.
 
-**Step 3.5: Dependencies**
-This commit is fully standalone. The new `delay_200_500_e200_d100`
-struct is self-contained. It only requires the original panel entry
-(82928cc1c2b2b) to exist, which is in v6.18+.
+Record: Related fix 5ad5b0b7845c9 exists but addresses a different V3
+issue. This fix is standalone.
+
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Nicholas Kazlauskas is a prolific AMD display developer and the reviewer
+of the original refactoring commit. He clearly understands the subsystem
+deeply and identified this ordering bug.
+
+Record: Author is a key AMD display developer and subsystem expert.
+
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+The fix has no external dependencies. It modifies code that exists in
+v7.0 and applies to the `update_planes_and_stream_prepare_v3` function
+as-is in the current tree.
+
+Record: No dependencies. Self-contained fix.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 4.1-4.5:**
-The lore.kernel.org website blocked automated access (Anubis anti-bot
-protection). However, I verified:
-- The b4 dig for the original panel addition found the submission at `lo
-  re.kernel.org/all/20250731215635.206702-4-alex.vinarskis@gmail.com/`
-- The fix was reviewed and committed by Douglas Anderson (subsystem
-  maintainer)
-- Analogous fixes from the same company (1511d3c4d2bb3, 9b3700b15cb58)
-  had Fixes: tags and were presumably accepted for stable
+### Step 4.1-4.5: MAILING LIST INVESTIGATION
+`b4 dig` could not find the original patch submissions (both the fix and
+the introducing commit) on lore.kernel.org. AMD display patches are
+often submitted through internal tooling (amd-gfx list) and may not be
+indexed by lore in the same way. Lore.kernel.org was also protected by
+Anubis anti-bot measures.
+
+Record: Could not find lore discussion. AMD display patches often flow
+through internal AMD tooling.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Key Functions**
-No functions are modified. Only data structures (const struct
-definitions and table entries) are changed.
+### Step 5.1: KEY FUNCTIONS
+- `update_planes_and_stream_prepare_v3()` — the function being fixed
+- `populate_fast_updates()` — populates fast update structure from
+  surface/stream updates
+- `fast_update_only()` → `full_update_required()` — determines if only
+  fast updates exist (no full update needed)
+- `update_planes_and_stream_state()` — applies updates to surface/stream
+  state and determines update type
 
-**Step 5.2-5.3: How the disable delay is used**
-The `.disable` field is consumed in `panel_edp_disable()` (line
-391-399):
+### Step 5.2: TRACE CALLERS
+`update_planes_and_stream_prepare_v3` is called from
+`dc_update_planes_and_stream_prepare` → called from
+`dc_update_planes_and_stream` → called from `amdgpu_dm.c` (the main AMD
+display manager path). This is the **primary display update path** for
+all AMD GPU operations including mode setting, cursor updates,
+pageflips, etc.
 
-```391:399:drivers/gpu/drm/panel/panel-edp.c
-static int panel_edp_disable(struct drm_panel *panel)
-{
-        struct panel_edp *p = to_panel_edp(panel);
+### Step 5.3-5.4: CALL CHAIN
+The path is: userspace (DRM ioctl) → `amdgpu_dm` →
+`dc_update_planes_and_stream` → `dc_update_planes_and_stream_prepare` →
+`update_planes_and_stream_prepare_v3`. This is directly reachable from
+userspace display operations.
 
-        if (p->desc->delay.disable)
-                msleep(p->desc->delay.disable);
+### Step 5.5: SIMILAR PATTERNS
+The V2 path (`update_planes_and_stream_v2`, line 5231-5233) correctly
+performs `populate_fast_updates` and `fast_update_only` BEFORE
+`update_planes_and_stream_state`. The fix aligns V3 with V2's correct
+ordering.
 
-        return 0;
-}
-```
-
-This is called from the DRM panel framework whenever the panel is being
-disabled (e.g., screen off, suspend).
-
-**Step 5.4: Call Chain**
-`panel_edp_disable()` is called via the `drm_panel_funcs.disable`
-callback, which is invoked by the DRM framework during display pipeline
-teardown. This is a common path triggered on every screen
-disable/suspend.
-
-**Step 5.5: Similar Patterns**
-Many panels already use disable delays: `d200`, `d50`, `d10`, `d100`
-variants exist. This follows an established, well-tested pattern.
+Record: Main display update path, reachable from userspace. V2 already
+has the correct ordering.
 
 ---
 
-## PHASE 6: STABLE TREE ANALYSIS
+## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
 
-**Step 6.1: Code Existence in Stable**
-The BOE NV140WUM-N64 panel entry was introduced in v6.18. It exists in:
-- 6.18.y: YES
-- 6.19.y: YES
-- 7.0.y: YES (confirmed at line 1990)
-- 6.12.y and older: NO (panel entry doesn't exist)
+### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
+The buggy code was introduced by d38ec099aa6fb7, first tagged in
+v7.0-rc1. It does NOT exist in any stable tree older than 7.0.y. Only
+the 7.0.y stable tree is affected.
 
-**Step 6.2: Backport Complications**
-The `delay_200_500_e200_d100` struct needs to be added. This should
-apply cleanly or with trivial context conflicts due to nearby panel
-entries that may differ between versions.
+Record: Bug only exists in 7.0.y.
 
-**Step 6.3: Related Fixes Already in Stable**
-No prior fix for this specific panel's timing issue exists.
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+The fix should apply cleanly to 7.0.y since the code was introduced in
+v7.0-rc1 and there have been no significant refactors to this specific
+code region since then (only the `5ad5b0b7845c9` commit touched a
+different part of the same function).
+
+Record: Expected clean apply to 7.0.y.
+
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE
+No related fixes for this specific issue found.
+
+Record: No existing fix for this issue in stable.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1:** DRM panel-edp is an IMPORTANT subsystem - it handles eDP
-panels used in laptops (Chromebooks especially). This specific panel is
-in the ASUS Zenbook A14 UX3407QA.
+### Step 7.1: SUBSYSTEM CRITICALITY
+**Subsystem:** `drivers/gpu/drm/amd/display` — AMD GPU display driver
+**Criticality:** IMPORTANT — affects all users with AMD RDNA 3 and RDNA
+4 GPUs (very popular consumer hardware: RX 7000 series and RX 9000
+series).
 
-**Step 7.2:** The panel-edp file is very actively maintained with
-frequent panel additions and timing fixes.
+### Step 7.2: SUBSYSTEM ACTIVITY
+The AMD display subsystem is extremely active with dozens of commits per
+release cycle.
+
+Record: Very active subsystem, widely-used hardware.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: Who Is Affected**
-Users with the BOE NV140WUM-N64 panel (EDID ID 0x0cf6), found in
-specific ARM64 laptops like the ASUS Zenbook A14 UX3407QA.
+### Step 8.1: WHO IS AFFECTED
+All users with AMD DCN 3.2 (RDNA 3), DCN 3.21 (RDNA 3 refresh), or DCN
+4.01+ (RDNA 4) GPUs running kernel 7.0.y. These are very popular
+consumer GPUs.
 
-**Step 8.2: Trigger Conditions**
-Every panel disable (screen off, suspend, power management transition).
-Very common operation.
+Record: Driver-specific but affects millions of AMD GPU users.
 
-**Step 8.3: Failure Mode Severity**
-Screen flickering and red light artifacts - visible display defect.
-Severity: MEDIUM (no crash or data corruption, but a user-visible
-hardware defect that degrades user experience).
+### Step 8.2: TRIGGER CONDITIONS
+The bug triggers whenever a medium update (e.g., HDR metadata, scaling,
+color space change) is submitted through the display update path AND the
+update values match after state application. This can happen during
+normal desktop operations, video playback, HDR content switching, etc.
 
-**Step 8.4: Risk-Benefit**
-- BENEFIT: Fixes visible screen flickering for users with this specific
-  panel. Real hardware users affected.
-- RISK: Very low. Adds 100ms delay only for this specific panel. Cannot
-  affect any other hardware. Follows an established pattern used by
-  dozens of other panels.
+Record: Triggered during normal display operations. Common trigger.
+
+### Step 8.3: FAILURE MODE SEVERITY
+When the bug triggers:
+- Display updates that require full hardware programming go through the
+  fast path instead
+- This can cause **display corruption** (visual artifacts, incorrect
+  rendering)
+- Updates applied "in place on dc->current_state" without proper
+  validation
+- The commit message says these code paths "are not supported or tested"
+
+Record: Display corruption. Severity: **HIGH** (visual artifacts,
+incorrect rendering, untested code paths).
+
+### Step 8.4: RISK-BENEFIT RATIO
+- **BENEFIT:** Prevents display corruption on popular AMD hardware
+  during common display operations. HIGH benefit.
+- **RISK:** Very low — the fix moves ~15 lines of code within a single
+  function, matching proven V2 behavior. The fix was reviewed and tested
+  by AMD engineers.
+
+Record: High benefit, very low risk. Clear positive ratio.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1: Evidence**
+### Step 9.1: COMPILE THE EVIDENCE
 
-FOR backporting:
-- Fixes real user-visible hardware defect (screen flickering, red light)
-- Tiny, surgical change (new const struct + one table entry change)
-- Follows established pattern (identical to dozens of existing delay
-  structs)
-- Reviewed and committed by subsystem maintainer (Douglas Anderson)
-- Hardware quirk/workaround - an explicit exception category for stable
-- Analogous fixes (9b3700b15cb58, 1511d3c4d2bb3) were accepted with
-  Fixes: tags
-- Zero regression risk - only affects one specific panel model
-- Panel entry exists in 7.0.y tree
+**FOR backporting:**
+- Fixes a real display corruption bug on widely-used AMD hardware (RDNA
+  3 & RDNA 4)
+- Small, surgical fix (single function, ~15 lines moved)
+- Obviously correct (matches V2 path behavior and pre-refactoring V3
+  behavior)
+- Reviewed by AMD display engineer (Dillon Varone)
+- Tested by AMD QA (Dan Wheeler)
+- Authored by AMD display subsystem expert (Nicholas Kazlauskas)
+- Signed off by AMD GPU maintainer (Alex Deucher)
+- No external dependencies
+- Should apply cleanly to 7.0.y
 
-AGAINST backporting:
-- No Fixes: tag (but this is expected for autoselect candidates)
-- Only affects one specific laptop panel (narrow user base)
-- Severity is MEDIUM (display artifacts, not crash/corruption)
+**AGAINST backporting:**
+- Only affects 7.0.y (bug introduced in v7.0-rc1)
+- No explicit user bug reports (likely caught internally)
 
-**Step 9.2: Stable Rules Checklist**
-1. Obviously correct and tested? YES - trivial data change, reviewed by
-   maintainer
-2. Fixes a real bug? YES - screen flickering on real hardware
-3. Important issue? MEDIUM - hardware defect, not crash, but user-
-   visible
-4. Small and contained? YES - ~8 lines total
-5. No new features/APIs? CORRECT - just timing data
-6. Can apply to stable? YES - may need minor context adjustment
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **YES** — reviewed and tested by AMD,
+   matches V2 behavior
+2. Fixes a real bug? **YES** — incorrect fast path determination leading
+   to display corruption
+3. Important issue? **YES** — display corruption on popular hardware
+4. Small and contained? **YES** — single function, single file, ~15
+   lines
+5. No new features or APIs? **YES** — pure fix
+6. Can apply to stable trees? **YES** — should apply cleanly to 7.0.y
 
-**Step 9.3: Exception Categories**
-YES - this is a hardware quirk/workaround for a specific panel with
-broken/insufficient default timing.
+### Step 9.3: EXCEPTION CATEGORIES
+Not applicable — this is a straightforward bug fix, not an exception
+category.
 
-**Step 9.4: Decision**
-This is a hardware timing quirk fix that falls squarely into the
-"hardware workarounds for broken devices" exception category. It's
-small, safe, obviously correct, and fixes a real user-visible defect on
-specific hardware.
+### Step 9.4: DECISION
+The evidence strongly supports backporting. This is a well-reviewed,
+tested, small fix for a display corruption bug affecting popular AMD GPU
+hardware on the main display update code path.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Douglas Anderson (maintainer),
-  author from Huaqin (Google partner)
-- [Phase 2] Diff analysis: +7 lines new delay struct, 1 line table entry
-  change. Data-only change.
-- [Phase 3] git show 82928cc1c2b2b: confirmed original panel added in
-  v6.18 with timings "taken from NV140WUM-N41"
-- [Phase 3] git merge-base: panel entry exists in v6.18+ but NOT in
-  v6.17 or earlier
-- [Phase 3] git log --grep="disable": found analogous commits
-  9b3700b15cb58 and 1511d3c4d2bb3 with same pattern and Fixes: tags
-- [Phase 3] grep NV140WUM-N64: confirmed entry at line 1990 using
-  `delay_200_500_e200` (no disable)
-- [Phase 3] grep delay_200_500_e200_d100: confirmed struct does NOT
-  exist yet in tree (needs to be added by this patch)
-- [Phase 5] Read panel_edp_disable(): confirmed `.disable` field
-  triggers msleep() in disable path
-- [Phase 6] Verified code exists in 7.0 tree but NOT in 6.12.y or older
-- [Phase 7] Douglas Anderson confirmed as active maintainer (10+ commits
-  to this file)
-- UNVERIFIED: Could not access lore.kernel.org to check for stable-
-  specific discussion (blocked by Anubis)
+- [Phase 1] Parsed tags: Reviewed-by (Dillon Varone), Tested-by (Dan
+  Wheeler), SOBs from AMD maintainers
+- [Phase 2] Diff analysis: ~15 lines of
+  `populate_fast_updates`/`fast_update_only` moved before
+  `update_planes_and_stream_state` in
+  `update_planes_and_stream_prepare_v3()`
+- [Phase 2] Confirmed `full_update_required()` compares
+  `srf_updates[i].hdr_mult.value !=
+  srf_updates->surface->hdr_mult.value` (line 5151-5152), which becomes
+  false after `copy_surface_update_to_plane` (line 3592)
+- [Phase 2] Confirmed `update_planes_and_stream_state` calls
+  `copy_surface_update_to_plane` at line 3592 and
+  `copy_stream_update_to_stream` at line 3556
+- [Phase 3] git blame: buggy code introduced by d38ec099aa6fb7 (Dominik
+  Kaszewski, 2025-10-31) — "Split update_planes_and_stream_v3 into parts
+  (V2)"
+- [Phase 3] git tag --contains: d38ec099aa6fb7 first in v7.0-rc1, so
+  only 7.0.y affected
+- [Phase 3] V2 path (line 5231-5233) does fast path check BEFORE
+  `update_planes_and_stream_state` (line 5246) — confirmed correct
+  ordering
+- [Phase 3] Author Nicholas Kazlauskas has 10+ commits in dc.c, is the
+  reviewer of the original refactoring commit
+- [Phase 4] b4 dig: could not find original submission on lore (AMD
+  patches often flow through internal tooling)
+- [Phase 5] Call chain: userspace → amdgpu_dm →
+  dc_update_planes_and_stream → dc_update_planes_and_stream_prepare →
+  update_planes_and_stream_prepare_v3 — main display update path
+- [Phase 5] V3 path enabled for DCN_VERSION_4_01+ || DCN_VERSION_3_2 ||
+  DCN_VERSION_3_21 (line 7524) — RDNA 3 and RDNA 4
+- [Phase 6] Bug only in 7.0.y (d38ec099aa6fb7 first in v7.0-rc1)
+- [Phase 8] Failure mode: display corruption from untested fast path
+  updates; severity HIGH
+- UNVERIFIED: Could not access lore.kernel.org discussion due to anti-
+  bot protection
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 38 +++++++++++-------------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index c9eacfffd5b29..260fa18b0f78a 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -1788,6 +1788,13 @@ static const struct panel_delay delay_200_500_e200 = {
- 	.enable = 200,
- };
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 4c5ecbb97d5b0..47064e9bc08ad 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -7285,6 +7285,23 @@ static bool update_planes_and_stream_prepare_v3(
+ 	ASSERT(scratch->flow == UPDATE_V3_FLOW_INVALID);
+ 	dc_exit_ips_for_hw_access(scratch->dc);
  
-+static const struct panel_delay delay_200_500_e200_d100 = {
-+	.hpd_absent = 200,
-+	.unprepare = 500,
-+	.enable = 200,
-+	.disable = 100,
-+};
++	/* HWSS path determination needs to be done prior to updating the surface and stream states. */
++	struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
 +
- static const struct panel_delay delay_200_500_e200_d200 = {
- 	.hpd_absent = 200,
- 	.unprepare = 500,
-@@ -1988,7 +1995,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c93, &delay_200_500_e200, "Unknown"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cb6, &delay_200_500_e200, "NT116WHM-N44"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf2, &delay_200_500_e200, "NV156FHM-N4S"),
--	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200, "NV140WUM-N64"),
-+	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200_d100, "NV140WUM-N64"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cfa, &delay_200_500_e50, "NV116WHM-A4D"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d45, &delay_200_500_e80, "NV116WHM-N4B"),
- 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d73, &delay_200_500_e80, "NE140WUM-N6S"),
++	populate_fast_updates(fast_update,
++			      scratch->surface_updates,
++			      scratch->surface_count,
++			      scratch->stream_update);
++
++	const bool is_hwss_fast_path_only =
++		fast_update_only(scratch->dc,
++				 fast_update,
++				 scratch->surface_updates,
++				 scratch->surface_count,
++				 scratch->stream_update,
++				 scratch->stream) &&
++		!scratch->dc->check_config.enable_legacy_fast_update;
++
+ 	if (!update_planes_and_stream_state(
+ 			scratch->dc,
+ 			scratch->surface_updates,
+@@ -7300,26 +7317,7 @@ static bool update_planes_and_stream_prepare_v3(
+ 	if (scratch->new_context == scratch->dc->current_state) {
+ 		ASSERT(scratch->update_type < UPDATE_TYPE_FULL);
+ 
+-		// TODO: Do we need this to be alive in execute?
+-		struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
+-
+-		populate_fast_updates(
+-				fast_update,
+-				scratch->surface_updates,
+-				scratch->surface_count,
+-				scratch->stream_update
+-		);
+-		const bool fast = fast_update_only(
+-				scratch->dc,
+-				fast_update,
+-				scratch->surface_updates,
+-				scratch->surface_count,
+-				scratch->stream_update,
+-				scratch->stream
+-		)
+-		// TODO: Can this be used to skip `populate_fast_updates`?
+-				&& !scratch->dc->check_config.enable_legacy_fast_update;
+-		scratch->flow = fast
++		scratch->flow = is_hwss_fast_path_only
+ 				? UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST
+ 				: UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL;
+ 		return true;
 -- 
 2.53.0
 
