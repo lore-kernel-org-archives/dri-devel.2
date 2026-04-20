@@ -4,68 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E15FF5A8A5
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 18:08:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFA41F5A8AA
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 18:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEB310EAFC;
-	Mon, 20 Apr 2026 18:08:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AFDF10EB0D;
+	Mon, 20 Apr 2026 18:13:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QKqabo8g";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f/rAJzCn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D97710EAFC;
- Mon, 20 Apr 2026 18:08:04 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94C0410EB0D;
+ Mon, 20 Apr 2026 18:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776708485; x=1808244485;
+ t=1776708838; x=1808244838;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=u3OSShy829Tu/YEOfiMWDUEk8l3IRtNsvQVxBLt69a8=;
- b=QKqabo8gBetb+JkxvabYxd3kjLERWRE+r0C8se+YaoKNO3MCMWUomKEZ
- 0NoXfWb8PlF8cn3K1PvM1Z77O569R9eR6+Il2AG5XEz8LhQ64ruRRXINY
- fUsx/WDpsQbtyiuEuoQuK/k4jh7AUGPVnaHGpKKqUGFifQKUvastnOf+Q
- V2acD8MtrCxzyPoyprvBV3kGfw4O73CzLLcAtUzI1/bUCohLbunkRzPBn
- r3xukQaxFq/u/qTjUexx04Q+pbWgeiMaAqBS/vWs319G+CpDP0TUxVdX5
- VT/d0ZTJladLrF7Hyi3buNGpnRotbeO+xMZN3Mfj6RLWsmJdB7lFDZlah w==;
-X-CSE-ConnectionGUID: jY62TvugQ9GIxGAyvn1+uw==
-X-CSE-MsgGUID: ciui8z1CTGysWzgQft50vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77644960"
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="77644960"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 11:08:05 -0700
-X-CSE-ConnectionGUID: fuJzcCWuQNS0iuIPJPxf4w==
-X-CSE-MsgGUID: v5zpB2dDT5+RKmvo7Wkw9w==
+ bh=lHXx/cVa1oB0/1hTrftuetaCS35BAJvr0nb0F+PYseQ=;
+ b=f/rAJzCnerQNQ53UkzjuM7egDj0M8gW5HzWhAPRnC4jISkNXlsTNn+Gs
+ pry/b009mzLD/aw22nOn5IBVdH2rCBQcjYbmSIiwuEYcwfq2YpeUDnv7j
+ 9wdGFibrbf7F3uBsKSHYmIwLxvcgZhjAzolfeNICWzjTKcMHtaAMQXoh8
+ I7HX5wTBcQ8QmpSVJNuNCnZfzCUpK8C39rRxffO38ByLjtNTlMizALM4e
+ RRWPwJqoEsQIrJYi5kWF0PVtcPD8fZIdwFlkkohZheATCuDmUUQni3tW+
+ pvKr85Rgy7cPdpqIjjhsDnJXDyyJtBIZkc2OoilQS/Dr6Dt6mNU3GBoGP g==;
+X-CSE-ConnectionGUID: 3QV0+tewS+aScsz9Bc/mug==
+X-CSE-MsgGUID: 3auJv9BvQwOGjpt9LX0jLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77612933"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="77612933"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 11:13:57 -0700
+X-CSE-ConnectionGUID: Xu1f+yujSNiSUjB4lzs/7w==
+X-CSE-MsgGUID: jg67bexARQuGuNT7pL8myw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="255261685"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="227452646"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.159])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 11:07:59 -0700
-Date: Mon, 20 Apr 2026 21:07:55 +0300
+ by fmviesa010-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2026 11:13:52 -0700
+Date: Mon, 20 Apr 2026 21:13:49 +0300
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Melissa Wen <mwen@igalia.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, mario.limonciello@amd.com,
- alexander.deucher@amd.com, alex.hung@amd.com,
- Ivan Sergeev <ivan8215145640@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Jani Nikula <jani.nikula@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Mario Limonciello <superm1@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: Re: [RFC PATCH] drm/drm_edid: ignore continuous frequency support
- for VRR
-Message-ID: <aeZre8L0zKFGA8ix@intel.com>
-References: <20260223203528.213275-1-mwen@igalia.com>
- <aZ1YE6dcEfTMwly1@intel.com>
- <b6f267f4-812f-441b-939d-1ff24fd3406e@igalia.com>
- <40c88946-bd13-4bca-a1b4-5fe361f9de30@igalia.com>
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>
+Cc: Julian Orth <ju.orth@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Daniel Stone <daniel.stone@collabora.com>,
+ Ian Forbes <ian.forbes@broadcom.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com, wayland-devel@lists.freedesktop.org,
+ Marius Vlad <marius.vlad@collabora.com>, Imre Deak <imre.deak@intel.com>
+Subject: Re: [PATCH RESEND v7 0/2] Pass down hot-plug CONNECTOR ID to
+ user-space
+Message-ID: <aeZs3TK17iXZ1b6k@intel.com>
+References: <20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com>
+ <CAHijbEXcrhB=ipaa4-DPD8atQYCkokGfueLafwkeQpxCBkc0bw@mail.gmail.com>
+ <7472926.DvuYhMxLoT@workhorse>
+ <CAHijbEViae+=Fcnh3v0ODxwTPUaRgU1H4OVGM3VFPSLMPzJzOA@mail.gmail.com>
+ <1297f150-b3b4-4a53-ad05-ecb05b8ec420@mailbox.org>
+ <aeISNnh6IWGA7P8C@intel.com>
+ <63a3d617-6603-438c-b22b-62acedb951e1@mailbox.org>
+ <aeJJ4lKAZDwBuW_U@intel.com>
+ <3196f1fc-f241-4295-b5b8-380ee93e95da@mailbox.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <40c88946-bd13-4bca-a1b4-5fe361f9de30@igalia.com>
+In-Reply-To: <3196f1fc-f241-4295-b5b8-380ee93e95da@mailbox.org>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -84,120 +94,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 20, 2026 at 12:15:07PM -0300, Melissa Wen wrote:
-> 
-> 
-> On 24/02/2026 09:49, Melissa Wen wrote:
-> >
-> >
-> > On 24/02/2026 04:49, Ville Syrj‰l‰ wrote:
-> >> On Mon, Feb 23, 2026 at 05:29:46PM -0300, Melissa Wen wrote:
-> >>> Display can be VRR capable even if its EDID doesn't contain the
-> >>> Continuous Frequency flag. On the other hand, continuous frequency
-> >>> support is expected for smooth VRR and ensures better compatibility 
-> >>> with
-> >>> VRR tehcnologies. As the lack of this flag can result in unexpected
-> >>> issues like tearing, get monitor range even without the guarantee of
-> >>> continuous frequency but add a debug message for unexpected results.
+On Fri, Apr 17, 2026 at 06:40:51PM +0200, Michel D√§nzer wrote:
+> On 4/17/26 16:55, Ville Syrj√§l√§ wrote:
+> > On Fri, Apr 17, 2026 at 04:17:45PM +0200, Michel D√§nzer wrote:
+> >> On 4/17/26 12:57, Ville Syrj√§l√§ wrote:
+> >>> On Fri, Apr 17, 2026 at 09:49:36AM +0200, Michel D√§nzer wrote:
+> >>>> On 4/16/26 15:16, Julian Orth wrote:
+> >>>>> On Thu, Apr 16, 2026 at 9:46‚ÄØAM Nicolas Frattaroli
+> >>>>> <nicolas.frattaroli@collabora.com> wrote:
+> >>>>>> On Wednesday, 15 April 2026 20:57:53 Central European Summer Time Julian Orth wrote:
+> >>>>>>> On Wed, Apr 15, 2026 at 8:19‚ÄØPM Nicolas Frattaroli
+> >>>>>>> <nicolas.frattaroli@collabora.com> wrote:
+> >>>>>>>>
+> >>>>>>>> This series addresses a shortcoming whereby a hot plug event is sent
+> >>>>>>>> without it being passed the actual connector that caused it. This takes
+> >>>>>>>> into consideration both the polling path and the HPD (Hot Plug Detect)
+> >>>>>>>> path. It also adds support for the vkms driver (using ConfigFS) for
+> >>>>>>>> propagating the connector ID when changing the connector's status.
+> >>>>>>>>
+> >>>>>>>> The motivation is that user-space applications such as Weston would
+> >>>>>>>> previously receive non-connector-specific hotplug events, and then have
+> >>>>>>>> to figure out themselves which connector needs to have a modeset
+> >>>>>>>> executed on. This notably did not work when the hotplug events came in
+> >>>>>>>> too fast, resulting in Weston missing an on-off-on transition of a
+> >>>>>>>> connector, seeing that its state was unchanged from "on" so can't be the
+> >>>>>>>> one that was hotplugged, and skipping reinitialising it as it looks
+> >>>>>>>> through the other connectors that could've caused it.
+> >>>>>>>
+> >>>>>>> Have you considered adding a u64 serial number as a DRM connector
+> >>>>>>> property that is incremented every time the connector changes in some
+> >>>>>>> way? Userspace could then check this serial number to see if the
+> >>>>>>> connector has changed since the last time it queried the serial
+> >>>>>>> number.
+> >>>>>>
+> >>>>>> The connector internally already has an epoch_counter member which
+> >>>>>> could be used for this. However, for the particular thing this
+> >>>>>> series fixes, I don't think exposing it through the uAPI is necessary
+> >>>>>> or desirable. Sending hotplug events specific to the connector does
+> >>>>>> not need any additional handling on the userspace side as long as it
+> >>>>>> already listens to the per-connector hotplug events in order to
+> >>>>>> avoid the pitfall described in the cover letter.
+> >>>>>
+> >>>>> I currently do not handle per-connector hotplug events. Instead,
+> >>>>> whenever I get a UDEV change event for a device, I re-fetch the entire
+> >>>>> kernel state for the device. That is
+> >>>>>
+> >>>>> - DRM_IOCTL_MODE_GETRESOURCES
+> >>>>> - DRM_IOCTL_MODE_OBJ_GETPROPERTIES for each connector, crtc, plane
+> >>>>> - DRM_IOCTL_MODE_GETCONNECTOR for each connector
+> >>>>> - DRM_IOCTL_MODE_GETPROPERTY for each connector property
+> >>>>> - DRM_IOCTL_MODE_GETPROPBLOB for the EDID
+> >>>>>
+> >>>>> Once I have the new state, I compare it against the desired compositor
+> >>>>> state and perform a modeset if necessary.
+> >>>>
+> >>>> mutter is doing something similar as well.
+> >>>>
+> >>>>
+> >>>> Note that some are arguing a modeset is always required after a hotplug event, even if the state hasn't changed.
+> >>>>
+> >>>> The most convincing argument I've seen is the scenario of a GPU reset, after which a modeset is required to light up the displays again.
 > >>>
-> >>> CC: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> >>> CC: Jani Nikula <jani.nikula@intel.com>
-> >>> CC: Harry Wentland <harry.wentland@amd.com>
-> >>> CC: Mario Limonciello <superm1@kernel.org>
-> >>> CC: Alex Hung <alex.hung@amd.com>
-> >>> Reported-by: Ivan Sergeev <ivan8215145640@gmail.com>
-> >>> Fixes: 0159f88a ("drm/amd/display: remove redundant freesync parser 
-> >>> for DP")
-> >>> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> >>> ---
+> >>> GPU reset should relight the display on its own really. That's what
+> >>> i915 does, albeit somewhat badly at the moment.
 > >>>
-> >>> Hello,
+> >>>> A hotplug event seems the only mechanism available for the kernel to request a modeset from the compositor. (The kernel may not be able to reliably do the modeset on its own, e.g. due to interactions with user-space atomic commits)
 > >>>
-> >>> After replacing the AMD driver-specific parser for VRR with the 
-> >>> drm_edid
-> >>> implementation, monitors without the continuous frequency flag in their
-> >>> EDID stopped obtaining the monitor range because the DRM common code
-> >>> considers them incompatible with VRR if they don't advertise support to
-> >>> continuous frequencies. This differs from the original driver-specific
-> >>> parser of AMD, that only checked EDID version, 
-> >>> EDID_DETAIL_MONITOR_RANGE
-> >>> and DRM_EDID_RANGE_LIMITS_ONLY_FLAG to determine the VRR range, so
-> >>> switching to DRM common code caused a regression (reported by Ivan).
-> >>>
-> >>> The commit ca2582c66b930 `drm/edid: Parse only the VRR range for
-> >>> continuous frequency displays` [1] introduced the Continuous Frequency
-> >>> flag condition. While it was created to avoid issues related to
-> >>> non-continuous refresh rates, it looks very restrictive to drivers that
-> >>> want to deal with VRR capable monitor even without the guarantee of
-> >>> continuous frequencies. I propose relaxing this restriction and 
-> >>> adding a
-> >>> debug message if anyone experiences problems related to the lack of
-> >>> continuous frequency support.
-> >> AFAIK without the continuous frequency bit the monitor isn't guaranteed
-> >> to support all the refresh rates between min/max. So is this monitor
-> >> trying to tell us that you are allowed to change the vtotal dynamically
-> >> between the various explicit timings declared in the EDID but not 
-> >> between
-> >> any other other timings?
+> >>> There's nothing preventing the kernel from doing extra atomic
+> >>> commits whenever it wants.
 > >>
-> >> Or is it just a buggy EDID that needs quirking?
-> >
-> > Looks like a buggy EDID. From decoded EDID I understand it supports all
-> > refresh rates between 48Hz/75Hz (very small range anyway), without the
-> > continuous freq flag in Features:
-> >
-> > ```
-> > † EDID Structure Version & Revision: 1.4
-> > † Vendor & Product Identification:
-> > † † Manufacturer: SKG
-> > † † Model: 10003
-> > † † Made in: week 25 of 2023
-> > † Basic Display Parameters & Features:
-> > † † Digital display
-> > † † Bits per primary color channel: 10
-> > † † DisplayPort interface
-> > † † Maximum image size: 60 cm x 33 cm
-> > † † Gamma: 2.20
-> > † † DPMS levels: Off
-> > † † Supported color formats: RGB 4:4:4, YCrCb 4:4:4, YCrCb 4:2:2
-> > † † First detailed timing includes the native pixel format and 
-> > preferred refresh rate
-> > † Color Characteristics:
-> >
-> > [...]
-> >
-> > Detailed Timing Descriptors:
-> > [...]
-> > † †Display Range Limits: Monitor ranges (Bare Limits): 48-75 Hz V, 
-> > 223-223 kHz H, max dotclock 400 MHz
-> > [...]
-> >
-> > Vendor-Specific Data Block (AMD), OUI 00-00-1A:
-> > Version: 2.1
-> > Minimum Refresh Rate: 48 Hz
-> > Maximum Refresh Rate: 75 Hz
-> > [...]
-> > ```
-> >
-> > The reporter shared the EDID here:
-> > - 
-> > https://lore.kernel.org/amd-gfx/CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com/ 
-> >
+> >> I made that same argument at first.
+> >>
+> >> Then it occurred to me the kernel-internal atomic modeset commit could cause spurious EBUSY failures for user-space atomic commits overlapping with it.
+> > 
+> > Not so. Everything just gets blocked on the kms mutexes and the -EBUSY 
+> > stuff never even comes into play.
 > 
-> Hi Ville,
+> Makes things easier in that case. I followed up accordingly in the other thread.
 > 
-> In the end, it wasn't clear to me if this approach is acceptable or 
-> should I create a quirk for this monitor.
-> WDYT?
+> 
+> >>> But if you want to punt the thing to userspace then the kernel must set the link-status
+> >>> property to bad, and then fire the hotplug uevent.
+> >>
+> >> I later suggested using the link-status property for this as well.
+> >>
+> >> Checking with others on IRC and reading documentation / code though, I realized my recollection of its semantics was wrong, it actually doesn't look suitable for this. In particular, the expected user space response to link-status bad is to set a *different* mode (since the mode may be relevant for the link failure), not the same one which was already set.
+> > 
+> > The expected response it to retry with the same mode, at least if
+> > that mode is still on the connector's mode list. If the mode got
+> > pruned then there's perhaps no point in trying it again.
+> 
+> On re-reading the link-status documentation in drivers/gpu/drm/drm_connector.c, I agree.
+> 
+> I'm afraid you're optimistic in terms of user space support for link-status though.
+> 
+> Neither mutter nor weston even look at it yet.
+> 
+> KWin reacts to link-status bad with a modeset, not sure it handles the current mode disappearing though. Seems good enough for the scenarios we're discussing here.
+> 
+> wlroots seems to handle it properly.
+> 
+> (Any compositors which don't handle it yet need to be fixed, just pointing out it might not make a difference with existing releases of some of them)
 
-That things seems to have some AMD vendor specific VRR block. I'm
-thinking that needs to added to the EDID parser and it should probably
-take precedence over the base EDID stuff.
-
-There are also some patch floating around for the DisplayID adaptive
-sync block. I have no idea what the priority should be between that
-and the AMD vendor specific block.
+I guess someone should start thinking about some kind of KMS conformance
+test for compositors. Presumably vkms could provide the kernel part of
+that.
 
 -- 
-Ville Syrj‰l‰
+Ville Syrj√§l√§
 Intel
