@@ -4,99 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EE5BF588DE
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:13:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC94FF588CA
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:14:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDCC110E1EA;
-	Mon, 20 Apr 2026 14:13:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11D6110E669;
+	Mon, 20 Apr 2026 14:14:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=tomeuvizoso-net.20251104.gappssmtp.com header.i=@tomeuvizoso-net.20251104.gappssmtp.com header.b="a7ZeRmoG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LnbDqKgi";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 090AA10E1EA
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 14:13:13 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-12c8ccc7755so1198639c88.0
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 07:13:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776694393; cv=none;
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E4E10E66B
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 14:13:59 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-2daaab98000so202403eec.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 07:13:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776694439; cv=none;
  d=google.com; s=arc-20240605;
- b=AqWfaTyB7l7cl15b334787uPNJz7KwqZc9YrWa3yzNVqc6U7C/Ri0gLBulo7xHnUZw
- usjl6KT/M1KobGV1sI71NdnCykXOGj2j6KTJk/wgjk79SKVvfIvYjfvRfXOEz7cgfrXP
- gx1mvIl+3xsIGW6REJ0JacVi5ka4r3I9SsjdCvHlfA60wLTqc064qeeHzphscDqI+qPd
- SeOvQSDNpz3aRVQrtBrt2D//TkPi0nai94lpsoHkgmIXXtb77ThSqSDyxgBlpG83iPSL
- BheSYPlcGovhlqOuBUMdSzL9V1Xu9HWrFR93AicnGXJaFRW4asG7AeSjvGjpyptKFPtX
- J+Og==
+ b=SWUBukdR62+t/Fz5nsrGX3k5Z5WnS6fYmG2Xgilk819hMyQqgCgfSOuicXIflgLagc
+ 7Ur4ewhXH0RgysSHeKlY1PSoXJtoMFD15DqQbUtD/Os93Ei3pR/yYuOddF+VxQRrBiNr
+ G5kMhWAlX9CMk+/x3d37vXgKnQ5d3Lg6htKDi7iFi04/8P6el5fpDTsz98/l5YBnYN/z
+ PC2HaSBbLwhpCcwHHepbAgRbVuhAw/pcW7AeozQjAiEc35Knu1Rk68C3g2hcjwcj6My4
+ DD1SGWKzzGCFaQVQDPdH99LNEyxOLYUGwAjJCLe3gygPGO3ptrSDUE4jMEw9W83R5F91
+ Xadg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=RY55dkbCNBUBL969VO5sT1O2XMpsnPH2PC4wwUHFnnE=;
- fh=DSTQUuMBfLBNALBwElP07GC/p+5NWXI1DwbWJiQJz1o=;
- b=JGE2x7Y0BGdm68UIWFqtHj1vKaTHVXkFFx8frWPhLKigNHM+JsNettgvzPuzgwSYx0
- QBHUJVLdGtJhEE6SufRLVapHM4NNMFZoCt9Ihvoft7XbTeQAiNN1TZOry+NdCiSp/hil
- Ih4fbXqT1mQ3MsuKwHxbR7kN8mE5LBRevEOlw+bFgrOmE6h8wl4zKcPjbJvzkEvYBhLU
- 6CGhRy1MR7e9/njJu76792FBSTNgUZ4WsVD7gE3xKAg5yt4I5WT107U4ILtNb1kTMCOB
- m1aYmW4vFXhtoEK/2Hx3lVOMTZA+MLZtiRwYloTc7gtMlC7rLFYY62z/E2CTQKt5n5d4
- FKvQ==; darn=lists.freedesktop.org
+ bh=SzgUBzAC2o0e5IwzPk2aEBcPIfZB4ZYpORnpK8lh66E=;
+ fh=dwZkwo/5TOEGnDDXJQqmFSnIs806OYqxYnzQjLqiZxY=;
+ b=LIu5TvANFXUT2cvUdSHTMCtOCAq08p1lE1XMdxw1xl1vStztgYSgL4rFYTBkTwGcFB
+ x+h1dsMVNCO1hD5WlPW577Clc57L9XSEHFK6YB6J3rdlwbWGQ4nD3+Ec3SVrdj7jl4Sj
+ kSsEEd3Y2moPUUQsrApoYwzEI8lqL6P5/0IscmpbvWopu4fsbUZoiVcmoRRcaRJ6veT4
+ u5LyuxIoxDA1P1SI4rDDArTXIfZcaXkXNpWbAonL12CCwmSnt1PRZ6SEHQTJHHQXQvjJ
+ l4k4TOlDkhK9ly77PZkRAkqhaahD5DtOloIWDFsOuSzCYOzkRFv1vCVDttB97aeJPs52
+ Gt3A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tomeuvizoso-net.20251104.gappssmtp.com; s=20251104; t=1776694393;
- x=1777299193; darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1776694439; x=1777299239; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RY55dkbCNBUBL969VO5sT1O2XMpsnPH2PC4wwUHFnnE=;
- b=a7ZeRmoGbGFEdD7KnCWoxNkcMIEY+qzJWkp+wn864+HuLVT+aofrNfUiJcPululYla
- 02bjxrDilblrjBv5YeITTViFhUI/+EA9niTxxHD4nhg+hXyR2nMd2dc5qkYKWZxGfNXf
- mfuvlCPY3NpJootBBIZyl9EUBQBBGgPZSk54w35VErM+qc+jBn3zrVmeo/2H9hgE0CYE
- s7mf1YmLl639VIPiEuNdtuUKBN85pxYI3YRPJDQ9rDSAORUNVCGNeTBwNJGGTWQ4R2Ad
- KOudI/L/gU/hhkDR3zVrEgmU3RtjocThuhudFaZZsuB4tLgpxLZBF7B5/imDy70nQc5a
- 2xNA==
+ bh=SzgUBzAC2o0e5IwzPk2aEBcPIfZB4ZYpORnpK8lh66E=;
+ b=LnbDqKgiGrndxNVJti7Ge16wGm+/hHexjcjdJjPgZn+fGDpOguH/YMG3P+eXeTP8FS
+ kxAGL11lye+zgQt5WnWVWpQGs7EaRGoiyyp7xD98rE10pBURw7OA+iu6nPJjf1S/QVZ6
+ 29QepGYY6ush0+1l/6pjmNIu3ncpqvQhIub9EKzEWBcvk/BX3fsNepGWOKR2CQ7cv/JD
+ 5GQ8tUk4XW3QfxpU0Oty/Ox9PHiRKqQ9Kh8XWHsCq+YR6po7GPxrdbkad2x2LHzIIgma
+ xFEtsw6ebF3/wpvmavvPI+RfotpBeNH2iInxdjySx6WMXsjFT3fULShUlcjij7dSu/KY
+ v77w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776694393; x=1777299193;
+ d=1e100.net; s=20251104; t=1776694439; x=1777299239;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=RY55dkbCNBUBL969VO5sT1O2XMpsnPH2PC4wwUHFnnE=;
- b=FQiY3B06pDbISK8FQfDEFZCJ6/oTobWEhpmyX3c1OOvuzoiljM4bhEDV0ziqnx/9PL
- eJck6Lwx/fHEPtSP2z11Ye01kLTaoT0xYjg7rEV82Mzbn+4sUa7F1jEaaE5LBAXZKH7E
- C4rwM5TTliy6/k5YAUhrzXQ1oG5Gi0zkN8fGjzDoUkWhFWLkH9KxlpfFMlCQaUeJkujB
- A4Yla9AT5v+7tn6PGM7odT5OnhZUPu4/1jfvhzsHqoV0UurIFE8wsxeZIoJWpxVxCFl6
- vLr8LjOCAGVROudrwMFjOci3QaKRAMr71tQDB549K1Osfv1MlCpz8V3LfgIO7Cd9Vw4+
- Myfw==
+ bh=SzgUBzAC2o0e5IwzPk2aEBcPIfZB4ZYpORnpK8lh66E=;
+ b=ThjUJn98wkKWN9L6CarQGIUlfFm/h7xf+1hr8bOlLHLB/gtKGeuvmIOwfLuVZ0ZKHv
+ 9+uva5ZQG/x5U0ma3CGiOqyf8J9zAedT7/M7TEDwszuk8+4gL/iWk++99ZIcLAWjZ+Sy
+ b71tQwX9WuovvwCpvOKtKYNXXGPP1uLXAiq7R10YiqI0rKld1ZyCtKVJ3H0IqO6zDuYG
+ SkABokXjFdb9ezpmAvFnAhwUO7BeB8Tj5wZC8zNC2AZKS3719yA/X9bxAQau1gCbRvPi
+ aUzKNp4AIMWxt9rIcvNWMet+NfuFz7GmGdKX0qGZHT+327VzGAl+GDAaLsLBlnscqQVs
+ dlew==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/vYtSqWFiYeBZbqoRHYBZuT90rmibORPK035S5BHvn88USE2H/o06vqG6mkC8dsRO6Zhg2RZui3C0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDh5Ryr+vd3EgWRTk+T3csdx2TJI49X1yXb//prBxUf0OxP5lU
- vr9oFLIn0g+kwlvvXJdO5+Ap4v0btkL+sHjC9ulyYmeS5HYTMkbviNP/vyIvEMc8WbGqT49hSNA
- 8ME/bJZt4EuxfCZfZO3A+y4cy9XrpOzS798AnO5c8XA==
-X-Gm-Gg: AeBDiesylm8nmwYeMuLE7Re7yN5AKZjB9K6SfNIvHLr/H++DGwqbLtsnOgZM+j1gQvj
- IoJY/FeCyGOqYKz2E6xnTMbuqwwMBIzY1RG1018Fouc7/nOtPLWpqOXbp99sqFu7FEdrC/UDfBk
- aGhVLvnHjSZmmifjuLF2hsnLgTAVmb9zj9NDN7sfc+GXHDHlGvj9LYSREvNYzOYwGz1fCGNxsNh
- FdybxyogFhCeS6hRybxJ+r1qadb95sabESa7od9WscXS3sw33pSIJWwRGun+0FOpurceUZGlFr1
- C2FJbKm+f6DAZ9v+
-X-Received: by 2002:a05:7022:2602:b0:128:d23d:81a2 with SMTP id
- a92af1059eb24-12c73f9ae5cmr6646930c88.29.1776694393074; Mon, 20 Apr 2026
- 07:13:13 -0700 (PDT)
+ AFNElJ/nellMQH4kW3okut3dquFT/vXNEfN0pFRmR2XxU+QY4X9CmyU82GfVWdyHAQ/PJFHalSv9uwU7ET4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyRGEADK01IDstEUTMolDu2v0kcJEdQ7sNQPj1wwIIvMRESkv65
+ FtaL/WvNEaJozRUPDZRYQpo/6uaRusENlJ6Oet+0bmbZnx6oFx9OrML6n/NiA0gZijQLlUk9T3e
+ d+3oSlAkWcBK2ztFn7/qJdIuSw7piXjI=
+X-Gm-Gg: AeBDies86x2prQdKtz+lU9TfL0BrZnjxKXwGdbOp6B29Ao/SFZkdKmquR/9SdGyBj/8
+ EBZl7iux83GoYg+oYf2mR3KMa66/Cj2lWP5dPLUV5MIuU8bfYcK1oDb5DUDe+3l42obQ8jyhBN1
+ jpqpddJOzRF6YzBNXseiZLsJLjiQsC3UawOq+YmC+RurE79OqsaJ21Q9i25EwSy3CeI83RgLKJZ
+ BNncETSwL8nDccDn62llu1FpE/bjtwhgirVRv1JsphakOghhYob1T/D31vlCywg2pY2SK0il5On
+ 0UASNCRYYENXvkOLrZzkg6uPH/OQNnzTYag1b0fxBDG46ih+Kqg3Mxaj8aSNsDiA9ruqZmlqXAj
+ lLhyb
+X-Received: by 2002:a05:7022:6889:b0:124:af80:9d0c with SMTP id
+ a92af1059eb24-12c73d26cc4mr2635816c88.0.1776694438767; Mon, 20 Apr 2026
+ 07:13:58 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1776581974.git.gye976@gmail.com>
- <c0ebf83b345721701b22d8f5bc41c52c0ecf5e16.1776581974.git.gye976@gmail.com>
-In-Reply-To: <c0ebf83b345721701b22d8f5bc41c52c0ecf5e16.1776581974.git.gye976@gmail.com>
-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Mon, 20 Apr 2026 16:12:59 +0200
-X-Gm-Features: AQROBzDs4_XjqT-9GndbRM_zOc4QlFRBoosVudK8gwq0qmMTzSwHuryuZaTsSJc
-Message-ID: <CAPsqS2Q_p+_+XDstWworSL=Bdg=ENtDxaVTcxpchF4qm4WwWEw@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] accel/rocket: Fix prep_bo ioctl leaking positive
- return from dma_resv_wait_timeout()
-To: Gyeyoung Baek <gye976@gmail.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Oded Gabbay <ogabbay@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260417213221.937722-1-mjgajda@gmail.com>
+ <43120d24-2b69-4038-9540-dc204c75a14d@amd.com>
+In-Reply-To: <43120d24-2b69-4038-9540-dc204c75a14d@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 20 Apr 2026 10:13:47 -0400
+X-Gm-Features: AQROBzDE_MPDw_jDdkeLrsu71yoHraxPuk43vC4IBtnWXH1xEiFdYBv6eUf2-co
+Message-ID: <CADnq5_OwGSGzSAZp=H1P2N+iePiVND9+1CD3Zf34oC5E8zzcwQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: allow unprivileged read of GC_THROTTLE_STATUS
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: mjgajda@gmail.com, amd-gfx@lists.freedesktop.org, 
+ Alexander.Deucher@amd.com, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,47 +107,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Apr 19, 2026 at 9:19=E2=80=AFAM Gyeyoung Baek <gye976@gmail.com> wr=
-ote:
+On Mon, Apr 20, 2026 at 5:13=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> dma_resv_wait_timeout() returns a positive 'remaining jiffies' value
-> on success, 0 on timeout, and -errno on failure.
+> On 4/17/26 23:32, mjgajda@gmail.com wrote:
+> > From: "M. Gajda" <mjgajda@gmail.com>
+> >
+> > GC_THROTTLE_STATUS is a read-only hardware status register present on a=
+ll
+> > RDNA GPU generations (GFX10/11/12).  It reports the state of the GFX
+> > thermal throttle finite state machine:
+> >
+> >   FSM_STATE    [3:0]  non-zero =3D GPU currently being throttled
+> >   PATTERN_INDEX [9:4]  active throttle duty-cycle pattern
 >
-> rocket_ioctl_prep_bo() returns this 'long' result from an int-typed
-> ioctl handler, so positive values reach userspace as bogus errors.
-> Explicitly set ret to 0 on the success path.
+> Mhm, according to AMDs internal register documentation that one is not av=
+ailable everywhere.
 >
-> Fixes: 525ad89dd904 ("accel/rocket: Add IOCTLs for synchronizing memory a=
-ccesses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+> My educated guess is that there is actually some SMU function you should =
+call to get this information.
 
-Reviewed-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+This is already available via the smu metrics table.  I suspect this
+register is probably just a scratch register anyway since it's FW
+which handles the clocks, not the HW and as such, I'm not sure it
+would even get updated.
 
-Thanks!
+Alex
 
-Tomeu
-
-> ---
->  drivers/accel/rocket/rocket_gem.c | 2 ++
->  1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/roc=
-ket_gem.c
-> index b6a385d2e..c80847192 100644
-> --- a/drivers/accel/rocket/rocket_gem.c
-> +++ b/drivers/accel/rocket/rocket_gem.c
-> @@ -145,6 +145,8 @@ int rocket_ioctl_prep_bo(struct drm_device *dev, void=
- *data, struct drm_file *fi
->         ret =3D dma_resv_wait_timeout(gem_obj->resv, DMA_RESV_USAGE_WRITE=
-, true, timeout);
->         if (!ret)
->                 ret =3D timeout ? -ETIMEDOUT : -EBUSY;
-> +       else if (ret > 0)
-> +               ret =3D 0;
 >
->         shmem_obj =3D &to_rocket_bo(gem_obj)->base;
+> > The register is never written by the driver.  No side-effects occur on
+> > read.
 >
-> --
-> 2.43.0
+> Oh that is not correct at all. Reads can have tons of side effects all th=
+e way to a spontaneous system reboot!
+>
+> > Add it to the per-ASIC allowed_read_registers[] tables so that
+> > unprivileged userspace can query it via the AMDGPU_INFO_READ_MMR_REG io=
+ctl
+> > (libdrm: amdgpu_read_mm_registers(3)).
+> >
+> > This enables monitoring tools such as radeontop to display GPU thermal
+> > throttle status without root privileges -- information of the same
+> > sensitivity class as GPU temperature, which is already exposed via the
+> > AMDGPU_INFO_SENSOR_GPU_TEMP sensor ioctl.
+>
+> Yeah, but that one asks the DPM functions to talk to the SMU to get the r=
+equested data.
+>
+> That is clearly something completely different.
+>
+> Regards,
+> Christian.
+>
+> >
+> > Register offsets per generation:
+> >   GFX10 (RDNA 1/2): mmGC_THROTTLE_STATUS  0x2032  BASE_IDX 0
+> >   GFX11 (RDNA 3):  regGC_THROTTLE_STATUS  0x1b0a  BASE_IDX 1
+> >   GFX12 (RDNA 4):  regGC_THROTTLE_STATUS  0x1b1c  BASE_IDX 1
+> >
+> > Source: drivers/gpu/drm/amd/include/asic_reg/gc/
+> >   gc_10_3_0_{offset,sh_mask}.h, gc_11_0_0_{offset,sh_mask}.h,
+> >   gc_12_0_0_{offset,sh_mask}.h
+> >
+> > Public ISA documentation:
+> >   RDNA 1: https://developer.amd.com/wp-content/resources/RDNA_Shader_IS=
+A.pdf
+> >   RDNA 2: https://www.amd.com/content/dam/amd/en/documents/radeon-tech-=
+docs/instruction-set-architectures/rdna2-shader-instruction-set-architectur=
+e.pdf
+> >   RDNA 3: https://docs.amd.com/v/u/en-US/rdna3-shader-instruction-set-a=
+rchitecture
+> >   RDNA 4: https://docs.amd.com/v/u/en-US/rdna4-instruction-set-architec=
+ture
+> >
+> > Signed-off-by: M. Gajda <mjgajda@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/nv.c    | 6 ++++++
+> >  drivers/gpu/drm/amd/amdgpu/soc21.c | 6 ++++++
+> >  drivers/gpu/drm/amd/amdgpu/soc24.c | 6 ++++++
+> >  3 files changed, 18 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdg=
+pu/nv.c
+> > index 7ce1a1b95..80594c793 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/nv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+> > @@ -352,6 +352,12 @@ static struct soc15_allowed_register_entry nv_allo=
+wed_read_registers[] =3D {
+> >         { SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STALLED_STAT1)},
+> >         { SOC15_REG_ENTRY(GC, 0, mmCP_CPC_STATUS)},
+> >         { SOC15_REG_ENTRY(GC, 0, mmGB_ADDR_CONFIG)},
+> > +       /*
+> > +        * GC_THROTTLE_STATUS (offset 0x2032): read-only thermal thrott=
+le FSM.
+> > +        * FSM_STATE [3:0] !=3D 0 indicates the GPU is currently being =
+throttled.
+> > +        * Defined in gc_10_3_0_offset.h / gc_10_3_0_sh_mask.h
+> > +        */
+> > +       { SOC15_REG_ENTRY(GC, 0, mmGC_THROTTLE_STATUS)},
+> >  };
+> >
+> >  static uint32_t nv_read_indexed_register(struct amdgpu_device *adev, u=
+32 se_num,
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/a=
+mdgpu/soc21.c
+> > index fbd1d97f3..8c2472bd0 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> > @@ -304,6 +304,12 @@ static struct soc15_allowed_register_entry soc21_a=
+llowed_read_registers[] =3D {
+> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
+> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
+> >         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
+> > +       /*
+> > +        * GC_THROTTLE_STATUS (offset 0x1b0a): read-only thermal thrott=
+le FSM.
+> > +        * FSM_STATE [3:0] !=3D 0 indicates the GPU is currently being =
+throttled.
+> > +        * Defined in gc_11_0_0_offset.h / gc_11_0_0_sh_mask.h
+> > +        */
+> > +       { SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
+> >  };
+> >
+> >  static uint32_t soc21_read_indexed_register(struct amdgpu_device *adev=
+, u32 se_num,
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/soc24.c b/drivers/gpu/drm/amd/a=
+mdgpu/soc24.c
+> > index d1adf19a5..617ee0a4d 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/soc24.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/soc24.c
+> > @@ -130,6 +130,12 @@ static struct soc15_allowed_register_entry soc24_a=
+llowed_read_registers[] =3D {
+> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STALLED_STAT1)},
+> >         { SOC15_REG_ENTRY(GC, 0, regCP_CPC_STATUS)},
+> >         { SOC15_REG_ENTRY(GC, 0, regGB_ADDR_CONFIG)},
+> > +       /*
+> > +        * GC_THROTTLE_STATUS (offset 0x1b1c): read-only thermal thrott=
+le FSM.
+> > +        * FSM_STATE [3:0] !=3D 0 indicates the GPU is currently being =
+throttled.
+> > +        * Defined in gc_12_0_0_offset.h / gc_12_0_0_sh_mask.h
+> > +        */
+> > +       { SOC15_REG_ENTRY(GC, 0, regGC_THROTTLE_STATUS)},
+> >  };
+> >
+> >  static uint32_t soc24_read_indexed_register(struct amdgpu_device *adev=
+,
+> > --
+> > 2.51.0
+> >
 >
