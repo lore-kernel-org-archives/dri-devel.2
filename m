@@ -4,108 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C367F588E3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:05:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1239FF588EE
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0467810E6D3;
-	Mon, 20 Apr 2026 16:05:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B4BB10E6DF;
+	Mon, 20 Apr 2026 16:06:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ot/hrhDr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SZERNu84";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010050.outbound.protection.outlook.com [52.101.85.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18B4C10E6D3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:05:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37C5E10E6D9;
+ Mon, 20 Apr 2026 16:06:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776701197; x=1808237197;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=KRflUdpyqPKXOuKLLoI+/Q/mhRVoOkLvKPy9RGEVrb8=;
+ b=SZERNu84YQpL/O3i7jfd96wVFVfQ/HetLq6BGp8zIUkMQpdkvouE3OiF
+ dzpc71sik0lALzEqQmzmNPF70qnxYB/BYqmedavBt5IEZABC+hvusoQyd
+ 1riT+RZQeYJCyec/54SAVBOKzhPyAxvLgp5qE0aKKqbb35DOBSxcQOgrO
+ jyzky/vApGqEjf6577zyDpy5SLW0F8DfuUUVQaWvaW55dwPI4FLx0jf4y
+ VCDdERfJGSKjZGlt7yie3NMtIEqVNHTnnrXf/CrNIfuQcus3l7BfzQ4EI
+ Xk/89Jjn+uQrrxd8WZqhb1LpoXKG6L4rXZdNA6aJv9Ysyw2p/grkR3Sic Q==;
+X-CSE-ConnectionGUID: qsbIfplnT2qUIxkYlFvFCw==
+X-CSE-MsgGUID: VIRshkqZSw6DOWtrmnpQDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="88239388"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="88239388"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 09:06:36 -0700
+X-CSE-ConnectionGUID: 3qpXK0inRqyE+sm7nlZgvA==
+X-CSE-MsgGUID: 9yEm4f8RT56S9QQiSm0USw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="227419017"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 09:06:36 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 09:06:36 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Mon, 20 Apr 2026 09:06:36 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.7) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 20 Apr 2026 09:06:35 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W1GfIVHxNTB8nUe/KRMbPrND+2onO+tm+ZzD3JGprqxWMnDtwT7pD5kFHl55WIk7NPTDDm3uIH73rxvqhcd26r7piOqAp7SwoxVCd3kBK4BQghoHHNawup4Vr2q3f3rYUzxWY9xHijgaDh5QR1h+mx4jMkSsUN9noYPexOPVYqzJRroVk+wwg8KOEoKp2mQ3RKoK8KMHlFO4dd6Z60erw0XvgxTgWJVKli1A5xN5eIuPzy4gVkpi+zD/nSgLQ3uURTGK8Zt/zQ8t1v0NLdGesAe/nCA82nLSM1SmZc6bfGfE3gxmpAtOYMqCA4lB1OnCXjJmRM74Zag2TB47I5+5KQ==
+ b=YXI/cYoGA57A3EidoHYQ4KVn0ZFaAW1lP0caz4X3Yb5PxiIEzLDm9ACNgLo+5vRL0QWQW/FM8MrftkrtnwG8qudT4Vl2YeRfRU/0SexvPCau/ujrz6DDt9tgdzvzYYr8DmossLsqF5lQ1c4mvE9FlbdEtAC+k+rTTrN60Eiu18g2u/zHd9cJitB+a5X6M6iEUbpphk1cmquRcvt8+FLFR8tulQDUJRVKe+KGzBvU1XJyoPH15WhR3yEag+Ne3byaUSPlwCsHCxJuHnR+muS+EQ/e3SEp6AMHGw8XtxyRwqwG8I1kMCKdCDXR5JWXuxngzeImbvItT6vPeMyFkNpaZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o51zM9jktn1FMWaQeMyLV73lDnXdXfaYzqo7z3cwpm8=;
- b=tLuVTYF+hz4m2om1kwW1KGI1QpIbZo/SnjDrziXmWkmqP1i78ca1BOgWq53RxKKXs4HPD8hpkAPC1vayJ3GhGs3JK7zeXAc6XeCraO5/pQ3iaffrhXaxXjjUO7qD8MHhsr1eVLq3VhbeXGNQkdwckuN08otHNOG7l2e2aIG1YQErxzkqQ0MRpx0X9GllwMxIHcHD3J7MPc9jE2pap8kfu7H9tvxY8QfYzYTErjcB6xJvkgiHy8Ssxg++KtaSVjE8WaK9G8eyOpKZusCB/rUNQOKF06xCQz7ed4FlX4a81L1tNgi+tknEM30SuGX4QUyWYew9zXBkS17uUlarX1vrtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o51zM9jktn1FMWaQeMyLV73lDnXdXfaYzqo7z3cwpm8=;
- b=ot/hrhDrQTanQMm/Zl27si07Ca7cy93YGy9HYSFA8AwFZ1g7T60Isu6KxSMFtdCEIEzAN/3iKxeot3exkA28NQmjuljp7O0x/4XahYxocFyvMB+D33kyNegxIrf7uJioesABT33krThCucFp7VB8VpagGID8neo+1wC/0m2cUgE=
-Received: from SN7PR04CA0182.namprd04.prod.outlook.com (2603:10b6:806:126::7)
- by MN0PR12MB5812.namprd12.prod.outlook.com (2603:10b6:208:378::11)
+ bh=ZKd2XLSuXH+NvGxWRfsUxXUqCeSDFFUOFEMWVtqQyrE=;
+ b=SkIkwDH5PHCPXjkzlYVp4YsZPuWzHkPW68LKiZ+C1MbqaPETUI+8NmTFy8aK2AdOhJoeiZR3IOxyjQxs5PfAx7Sh65kNF758MwWoeuEfr7TIgp6pWAmehx+9weXvLKbrLlufQpubPgTrfxnrF1sbVdoJTlHMIuor1YbO4iKRowwLVQvFrFfAkULQ4oHtrIkjbt9+hJmLWp7VYTFHX7bLNu/zwzYHsDymjYezaHgiZqOgqtNAx+fqhS7BagkxdkNvQgG1LUsjVp4sgEMhxw1VHpzbX+R9tagWzSpIRYAjws/yHv5DFNzSW5Drg9qTmb5hrCltqR4BN7FSlecROMnV4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by DS4PPF31CEE2CEC.namprd11.prod.outlook.com (2603:10b6:f:fc02::1c)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 16:05:51 +0000
-Received: from SN1PEPF00026368.namprd02.prod.outlook.com
- (2603:10b6:806:126:cafe::30) by SN7PR04CA0182.outlook.office365.com
- (2603:10b6:806:126::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
- 20 Apr 2026 16:05:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF00026368.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Mon, 20 Apr 2026 16:05:51 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 20 Apr
- 2026 11:05:51 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 20 Apr
- 2026 09:05:50 -0700
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 20 Apr 2026 11:05:50 -0500
-Message-ID: <c14e18e9-8647-2b45-b46e-8d099ec8c97e@amd.com>
-Date: Mon, 20 Apr 2026 09:05:50 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH V1] accel/amdxdna: Add carveout memory support for
- non-IOMMU systems
-Content-Language: en-US
-To: Mario Limonciello <mario.limonciello@amd.com>, <ogabbay@kernel.org>,
- <quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
- <maciej.falkowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
- <sonal.santan@amd.com>
-References: <20260417210621.1173841-1-lizhi.hou@amd.com>
- <c1f17602-76ba-4fb9-a08c-5bfb68edb031@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <c1f17602-76ba-4fb9-a08c-5bfb68edb031@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Mon, 20 Apr
+ 2026 16:06:34 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%7]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 16:06:33 +0000
+Date: Mon, 20 Apr 2026 09:06:30 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+CC: "Huang, Honglei1" <honghuan@amd.com>, <Alexander.Deucher@amd.com>,
+ <Felix.Kuehling@amd.com>, <Oak.Zeng@amd.com>, <Jenny-Jing.Liu@amd.com>,
+ <Philip.Yang@amd.com>, <Xiaogang.Chen@amd.com>, <Ray.Huang@amd.com>,
+ <Lingshan.Zhu@amd.com>, <Junhua.Shen@amd.com>, <rodrigo.vivi@intel.com>,
+ <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
+ <aliceryhl@google.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+Message-ID: <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+ <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+In-Reply-To: <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+X-ClientProxiedBy: MW4PR04CA0387.namprd04.prod.outlook.com
+ (2603:10b6:303:81::32) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026368:EE_|MN0PR12MB5812:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec7aac79-a4fd-4d51-012f-08de9ef6b1c6
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS4PPF31CEE2CEC:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba0b4573-d7f9-402f-1264-08de9ef6cae3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Ez0YW3etcqhyoK1HjGYOsAywkP6Bx7GtKYOkq9/cR9qJEeGwQ7R5cSqIbOukLiLmjO0Sy0bNmIOnbjbW0A+bSwuCY3mv0toLzUgK3Ouj2AOEo8Zicr6lB9GpsZ9bpw/KrA736XaxM6KLu1tFwR7CnJjlaFas2l4gYAAym7ftWdA4vD0pyn96HhII/LB0NxlgKE1MaE+Snb+A+/kKIUYWXXsZFmGRjBrakAyYuzLvY5G9xWE3GcVT+jXNjsUn+2lJE1Q8A9S9iG2hT6o7VEHM+EV1sxat7oTy91TgfC/XCOHnUUrQR/d+Uz8nUsZozSJSd7tRJo0SjcFYZPQh04z7NUHAUp0XRMnP3M6FTkIrFBE368aLkR1G3RDNkq+kq+RBbTc5GhuQgAp4/O/TYNW5uCL56vrVxHX7c1M8UCVFZpfGu9q4g5sLkP1oIKx5y3USaB5smxmol6enxIKC/I5KDcktU9QLTccYq1pdQBtbfs3YNhVO3BiNiy9sRcEF+aVotdkXocwqW8c0hJoFqzOGXGarNnX/zN2tOdNCDEZYxxrzVuZIdzFVbIO1ETqRTwIBr8tz22Bscxk7ULdUS1TblaLZUmC50Wxm4m4CkU+WBwxvuj8kIbHFhE/rWgJhMfzJdpKj8Jg3g/uw97oHhFcClQjmpMb5ki89Lt7jdYZj0bRT+as3UYQZ8lcjYR2Pato3ktToNGDFP/Cjfhbs6ddUMUcc1BDdSgCSZDO1OJGwOVl2qZTWQmOSp6bC8m4pOTrDSJTHWkjUn9RPUTurXh5vYA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|366016|376014|7416014|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: p0P7+OzlbCPTakLQsUWxzenLCrWpeSDaxD6yKA873XLJ5UqizOy4q9Kp6zmzq2xpDwMcPLioktuI9oiMlkCKnR2hg7DJMhKvfMJ/zEKVI3K7hxsPBievEJGICsrNbdkf7kNQUaygEEmKA0JOWgdoV6krzFNX4d1e6e76CsllIGR9kExmur48kw2LYfwoPLQxGnVwj05U5CSkBuC+0qf712Fv+0Vx/470YGk+Wi0m5U3KOBPL3kbEqgO5ElZ4rvCcQbrKrzb5QFNoLNg/yi3iNCbZCTuQOX7mecqFm6ZT1kMLJwC0RVCaQNOex43Cx4fmtMaYxldtH2mjtdAxoaL8PvToaUb3+vtt0G6xz7M671rGxLMdGbtPkvQ9/HQjdWBjfiG+z+R1uEC50+dcO6CdwbAR1iiodr6fzaRLmW2OzgXAGNMY5lUUFekzGst8rt22vK9IfRCj2/URXJv6zL0Jtli+WvoRSkXfVHVsuiIx3PPyQS6603arLO9HCqSeTrLXXeO4zOnxkrRPLaWgXsj/PdzCL6yCetm84kDHOGFjbr63l1RSUXqBn7xsx0bu5waNOrpYp/T+0l0lmK+n5pQgyUQbkPPj7uTjcz/IHCn25EaGG9CXL+GRwH7UghpiZd7G26p2RFvzOH6CqQwNbYszTIRwlDgnz61B2ZSIpyG7VJi6lVU7DbnrDxvY8U3k+cHzvljRsqlClcHTWsDsskqYy1hYwh/7CARL6aZFUAEicfY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: KFHcMNn9Ei1mi7b3TA5tOV5SBsoPQiX/SCQvtk4M1H+WxUeSbpSVgT9QdO8xC5Vg0svfkNaCcZnDHEg5IcR4dTqYW8v1Z8Ae1bIX3OrT4vMwqQEd0XTLDKyv22nOZbsQC4yiKuln+ep1TVApIv8xsHVM6Ezq/V7jzxVz/IQdYtqRwqySTCbwUMEaF6IzC2vZR1J20ySASRKJAluIBoUjbQY2DFHN0lfaUcHxqcVmMTho3peYc1YSclojYwl8UEj/YP9Pk1HGwpiTF90ZTvjpKv5QJwY8TpxFWegKJRKIsBus12IZ0RXchExrzF3HPiJRy04UeZpWesoArCKwxUOPDGs5A5GI5akq3xTwTYVUZZ25e760s4ddffqjjBhZ+8PMBFeWGleB8Y5vikfo3F9Yt2CtqVXrAAOIAcv1fL9PR247ioGAOaciFn9WYbzQueHR
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 16:05:51.4210 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec7aac79-a4fd-4d51-012f-08de9ef6b1c6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026368.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5812
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFBCZzRBS3dMUVFIMHhVNGtBZnl0S283THBJSEhibnloSS8zbHZhckl0azk5?=
+ =?utf-8?B?MDQwS3NieXQyS3ErUGZERVEzVW5VT3Q2M2V3bGRsZmlMbWJoaWw5YmZpY1Nz?=
+ =?utf-8?B?SGxySFV1VWhCNkZBU0xiZ1FTcWRreXQ4bTlLWkJxQm1YZEYxSnd2RDU4aEw0?=
+ =?utf-8?B?TmxzZ3NvSVFlZnc1UkRyNlBWdGtVR1pobXh1bXhJSWhaUkJiVlRJNFpOK3Zx?=
+ =?utf-8?B?c2tZV0llRjRkcVl5MDRyVUlNSFh3MFBpNC9wanhKL1FYWnMyaGNZck1nSnJS?=
+ =?utf-8?B?bk1rbzF4N0FiOWhiV2JsOTk5OGVzNTQ2L3kvbUlueXp3T2FVTmlwZk9aZ3BX?=
+ =?utf-8?B?dnlMc0JHNm93OVpmTjB6clozcmVpNmJDRnUvdW15b1N2OWFyWEFyeWV4U2Zi?=
+ =?utf-8?B?MVAwVDZha1ZIZFFzT0hUM0J5S1dlL0FTNHExVU1SNTlwaHREeVBUNnpFa2Z2?=
+ =?utf-8?B?cXU5V2s5RW1KTGxjM2lzcHpVRzFlNE5UVTU2VmFJRnArSGkzdHBLZVlCTk04?=
+ =?utf-8?B?TVpqQldxQVVwYldVWlRDOFJkU2diSUdINW40c0JUaVZDUEdJTTFNVVpLQ0tz?=
+ =?utf-8?B?bmM0Z2JGNXg0aWFXZ3VKbUVjYXZXVmxqUC9adWlIWFYydUJFWmpIMTAxZk1K?=
+ =?utf-8?B?S3d3MVM3RkJoWE1QRWVJY1BHTFFCdFdpekMwMWg2Nk9tU0JmYk10enRCUk01?=
+ =?utf-8?B?bWZYYmc5ck5zWm1sMjBaNjduMis2aS81dmpvVzZKRWUxTzRibG9WaVM1MFVa?=
+ =?utf-8?B?UXF3enpBR1NwZVVUQTJxaGZYTndxUCtQaUNsSE9kWlptVXEzSHBVRk1vT1Nz?=
+ =?utf-8?B?OTJGSjV3S05IVGpGN2NjUlRtbWI2VTRMK01xTGFjbWV0T3J5N2hJLzJSMHhv?=
+ =?utf-8?B?VDRMb213V2l4WHdVWkMxTHRvR0doUjdJTXRxTmUxeHBPM1dack9nOVNvdXJH?=
+ =?utf-8?B?QnBGb2pzYUlSV0hldHdDaFp1dmtGODNtL2Q3SkRPYVJSZndHWS9tOGV4NDV3?=
+ =?utf-8?B?OHJaY25tWXFqbm5LYzQzSUZBUmh5ZDFBdXJ6TWM2REFHYTBUSkNPWjU1Mk5l?=
+ =?utf-8?B?aFpzZ2J3czZyTWpwbnFQc1BSM1ZnQU1VMnRHRUJoMlFHY0srd2dETk9JbTN3?=
+ =?utf-8?B?RVBMME9mUTF1MXpwc2ZydXJLZDBRRk1mb3VlcnhnMHkzcXBtUUcvK1hXeG1R?=
+ =?utf-8?B?cm9XaFhaRjQ3ampxb1dJZzh5N3lPTXRaaHRtYUs5OHRXclFDK2p4bmdjYmZ2?=
+ =?utf-8?B?c3J4QlV2QzllZ1Z4NnFpV2JiU2xqYklpMXhZMGNwaGVBYnlKQjF0NU1IZ25Z?=
+ =?utf-8?B?WDNwVURoM1Z5dmJqSngvcWhqZ1dqczZ2cUFDUThxWmNUWVRpcWhEV282bHZ4?=
+ =?utf-8?B?d1A2RnFtUlhWbXF1OStVMENpQ2szZXdGUW9uUkFmamJDWTJFMHdRbEgwd05o?=
+ =?utf-8?B?VFpEQnhPcXhReWtPZVRRelNFVk9WZGJjOW5hLzJqaUlnQ2Q5dUFDSEU4UHpK?=
+ =?utf-8?B?dk5lYU9FaWJzWWVHZHp5OTE5OFVhckl0STdmSFB1OGZQUkltSGZkSXBLUGow?=
+ =?utf-8?B?a3FLdEM2b3ZoSG4xaWR5UWgzbXcrMldwdHcwM29ucTJiRHlsSjEraUEwb3dZ?=
+ =?utf-8?B?eStrdC95QysrWmI4NVgzV29pRWtYOUtHM0V6a0RBMTFENjVJUk5NMm01dGhC?=
+ =?utf-8?B?Q0xQWjRQL21MYnFXOU51NzI2VXVsdjFlWml3TU9UdmRieDFNbU96a1MxY2RQ?=
+ =?utf-8?B?Q1ZCWTdPU0xmaGNkSjZVdGJCckNvUE9OaWdYVnhDRVE3REYwaU1MSG93TlBa?=
+ =?utf-8?B?b0QrN25KbG1ZOTJZb3ZMNkpOT1gzREVJMXdPQlhZaThqblBxQ1Q1WE95b21K?=
+ =?utf-8?B?Y3pKeVF1TjF1akgwUGpIVDNvY2lvUzVyZU1UckcrNHBmcXoxRGcwdDFjWFl2?=
+ =?utf-8?B?VnpyMytuc0srcExZbFdkN2lNZWdyOVVsZ216SzJoeHRQM3NSSkRnSm5vM3lL?=
+ =?utf-8?B?RGYvYWp4VGIyM2VLYTFmUXRLK1RHa1VhMlJ0REdJdFBJblN4c3Jqem44bGdX?=
+ =?utf-8?B?L0NHU1VpbGROMU56bDUxNHJrRVRPalFmU1BJRmNSck15WDA2aVgxL0E5RDVM?=
+ =?utf-8?B?b1VHZmZEVmVsT2ltaW5oR1Qxci9Qb1VoNTlJNGZOVytFQ2RtZmQrcTlzaFVY?=
+ =?utf-8?B?L1dZU3MzY1J0ckZLWE1QOW1kWDVWUUp1N1AvZ2g2bEJhUnVVdmJBSUhBaGkz?=
+ =?utf-8?B?ZmpCY052TFk3RDFndEt2Z0ZtOStnNnhhS0tZajV1bXFrYkhjbjh1N1U1Nmt4?=
+ =?utf-8?B?Kzl4VFA3NkRLN0hKQktja0xIb3VmUVNYRnA3UFlyRmxaOEdKUVA2Zz09?=
+X-Exchange-RoutingPolicyChecked: XqFaX60JqrDe2pB5mvbM8Pfsw+of9Ue9rj3R+danS3Qze6c5cz1+vZz/UJllyF3MrhpcNnh7naRrJNVd/Vq+sz1/LbMDr5hePqqqZbLEtFX6pedeec0/EpU9TFf5ASmYhipg8DW6zRneR5hs6AN88uctxtnXLmOatLghouljWwfWXtgFZiJHkoDDi9/jUEouv2xyEjkY7rXpjMSkrwHlVIg+/rywerpL744RTy1FF/gwCON1mjIlxA1pTwdqtEE2meRRhNQ/soRh4aMefVSZvPo34Wl0c0nH5YycA6G3e9pN3ERHwNZ9+X05huLnBkLkH7WK0vU4wQsDSGz1axoWJg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba0b4573-d7f9-402f-1264-08de9ef6cae3
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 16:06:33.8104 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x1bzLQUViTice7ZzUSr6Tgq/0fM6OQQK5gWdt+Eb8pcQsN7ZTTXP2iAIEASxVboo3RxoRopjnvSuCZNmuCAzuQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF31CEE2CEC
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,836 +177,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Mon, Apr 20, 2026 at 05:37:43PM +0200, Christian König wrote:
+> On 4/20/26 15:30, Huang, Honglei1 wrote:
+> > On 4/20/2026 8:15 PM, Christian König wrote:
+> >>
+> >>
+> >> On 4/20/26 14:07, Honglei Huang wrote:
+> >>> From: Honglei Huang <honghuan@amd.com>
+> >>>
+> >>> Add amdgpu drm SVM API definitions built on the
+> >>> DRM GPUSVM framework.
+> >>>
+> >>> This includes:
+> >>> - DRM_AMDGPU_GEM_SVM ioctl
+> >>> - AMDGPU_SVM_FLAG_* flags
+> >>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+> >>> - AMDGPU_SVM_ATTR_* attribute types
+> >>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+> >>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+> >>>
+> >>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+> >>> ---
+> >>>   include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+> >>>   1 file changed, 39 insertions(+)
+> >>>
+> >>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> >>> index 406a42be4..bed71ed9b 100644
+> >>> --- a/include/uapi/drm/amdgpu_drm.h
+> >>> +++ b/include/uapi/drm/amdgpu_drm.h
+> >>> @@ -58,6 +58,7 @@ extern "C" {
+> >>>   #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+> >>>   #define DRM_AMDGPU_USERQ_WAIT        0x18
+> >>>   #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+> >>> +#define DRM_AMDGPU_GEM_SVM        0x1a
+> >>>     #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+> >>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> >>> @@ -79,6 +80,7 @@ extern "C" {
+> >>>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+> >>>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+> >>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+> >>> +#define DRM_IOCTL_AMDGPU_GEM_SVM    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+> >>>     /**
+> >>>    * DOC: memory domains
+> >>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+> >>>       __u64 matrix[12];
+> >>>   };
+> >>>   +#define AMDGPU_SVM_FLAG_HOST_ACCESS        0x00000001
+> >>> +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+> >>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL        0x00000004
+> >>> +#define AMDGPU_SVM_FLAG_GPU_RO            0x00000008
+> >>> +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+> >>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY        0x00000020
+> >>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED    0x00000040
+> >>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT        0x00000080
+> >>> +
+> >>> +#define AMDGPU_SVM_OP_SET_ATTR        0
+> >>> +#define AMDGPU_SVM_OP_GET_ATTR        1
+> >>> +
+> >>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+> >>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
+> >>
+> >> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
+> >>
+> >>> +#define AMDGPU_SVM_ATTR_ACCESS            2
+> >>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+> >>> +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+> >>
+> >> Why are those separate attributes? What is the difference between those?
+> > 
+> > Really thanks for the comments, I have some content mistaken in V2, so I updated the V3 to fix that. For the header they are same. for other content please review the V3, sorry about that. And will fix the concern you raised in next version.
+> > 
+> > So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, and the SVM can set the preferred location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+> > it can not migrate, GPU only can access it in the initial place.
+> 
+> Yeah but that doesn't then the interface doesn't seem to make sense since such states are mutual exclusive.
+> 
+> It would make sense when you have some attribute which is named (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values INACCESSIBLE, IN_PLACE, MIGRATE.
+> 
+> >>> +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+> >>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+> >>
+> >> Why is that separated into set and clear flags?
+> > 
+> > This method inherits from KFD and is also designed to be compatible with upper layer applications such as ROCR.
+> 
+> That is *not* sufficient as justification. We need to document why that is necessary and *not* just say ROCR works that way.
+> 
+> As far as I can see just a SET_FLAGS should be sufficient.
+> 
+> >>> +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+> >>> +
+> >>> +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+> >>> +#define AMDGPU_SVM_LOCATION_UNDEFINED        0xffffffff
+> >>
+> >> No location for device local memory?
+> > 
+> > Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd for device local memory.
 
-On 4/19/26 11:13, Mario Limonciello wrote:
->
->
-> On 4/17/26 16:06, Lizhi Hou wrote:
->> From: Max Zhen <max.zhen@amd.com>
->>
->> Add support for allocating buffers from reserved carveout memory when
->> IOMMU is not available. This is useful during debugging or bring-up.
->>
->> In this configuration, the device uses physical addresses and does
->> not support scatter-gather lists, requiring physically contiguous
->> buffers.
->>
->> Implement carveout-backed allocation and integrate it into buffer
->> management to support operation in physical address mode.
->
-> Running with IOMMU disabled is unlikely to be a common production 
-> scenario.  At first I was thinking this is OK, but considering Greg's 
-> strong comments about driver specific module parameters I /wonder/ if 
-> this should be gated behind a kconfig option to be used at bringup?
->
-> The Kconfig option could be something like XDNA_CARVEOUT and default 
-> to 0.  Then it can be set to any value necessary for debugging.
->
-> You could go a step further and only let XDNA_CARVEOUT do the 
-> reservation when IOMMU wasn't found.
+I have no stake in AMD’s uAPI, but I can at least explain how Xe’s uAPI
+works here—and admittedly, it’s somewhat goofy.
 
-Thanks for your comments. It would be more useful to change the carveout 
-setting without recompile the driver. Because this is a debug function, 
-so we will implement debugfs to config the carveout address and size.
+0 == device-local memory, with first-touch placement on whichever
+device/tile touches the memory first
 
+-1 == system memory
 
-Lizhi
+≥ 0 == a render-node FD (which could refer to a local or remote device),
+paired with a region instance to extract the pgmap for the desired
+placement
 
->
->>
->> Signed-off-by: Max Zhen <max.zhen@amd.com>
->> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
->> ---
->>   drivers/accel/amdxdna/Makefile          |   1 +
->>   drivers/accel/amdxdna/amdxdna_cbuf.c    | 249 ++++++++++++++++++++++++
->>   drivers/accel/amdxdna/amdxdna_cbuf.h    |  16 ++
->>   drivers/accel/amdxdna/amdxdna_gem.c     |  95 +++++++--
->>   drivers/accel/amdxdna/amdxdna_iommu.c   |  77 +++++---
->>   drivers/accel/amdxdna/amdxdna_pci_drv.c |  91 ++++++---
->>   drivers/accel/amdxdna/amdxdna_pci_drv.h |   4 +-
->>   7 files changed, 454 insertions(+), 79 deletions(-)
->>   create mode 100644 drivers/accel/amdxdna/amdxdna_cbuf.c
->>   create mode 100644 drivers/accel/amdxdna/amdxdna_cbuf.h
->>
->> diff --git a/drivers/accel/amdxdna/Makefile 
->> b/drivers/accel/amdxdna/Makefile
->> index 79369e497540..a055aea36971 100644
->> --- a/drivers/accel/amdxdna/Makefile
->> +++ b/drivers/accel/amdxdna/Makefile
->> @@ -12,6 +12,7 @@ amdxdna-y := \
->>       aie2_solver.o \
->>       aie4_message.o \
->>       aie4_pci.o \
->> +    amdxdna_cbuf.o \
->>       amdxdna_ctx.o \
->>       amdxdna_gem.o \
->>       amdxdna_iommu.o \
->> diff --git a/drivers/accel/amdxdna/amdxdna_cbuf.c 
->> b/drivers/accel/amdxdna/amdxdna_cbuf.c
->> new file mode 100644
->> index 000000000000..4a556199a461
->> --- /dev/null
->> +++ b/drivers/accel/amdxdna/amdxdna_cbuf.c
->> @@ -0,0 +1,249 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (C) 2026, Advanced Micro Devices, Inc.
->> + */
->> +
->> +#include <drm/drm_mm.h>
->> +#include <drm/drm_prime.h>
->> +
->> +#include "amdxdna_cbuf.h"
->> +#include "amdxdna_pci_drv.h"
->> +
->> +/*
->> + * This is a platform debug/bringup feature.
->> + *
->> + * Carveout memory is a chunk of memory which is physically 
->> contiguous and
->> + * is reserved during early boot time. There is only one chunk of 
->> such memory
->> + * per system. Once available, all BOs accessible from device should be
->> + * allocated from this memory.
->> + */
->> +u64 carveout_addr;
->> +module_param(carveout_addr, ullong, 0400);
->> +MODULE_PARM_DESC(carveout_addr, "Physical memory address for 
->> reserved memory chunk");
->> +
->> +u64 carveout_size;
->> +module_param(carveout_size, ullong, 0400);
->> +MODULE_PARM_DESC(carveout_size, "Physical memory size for reserved 
->> memory chunk");
->> +
->> +struct amdxdna_carveout {
->> +    struct drm_mm    mm;
->> +    struct mutex    lock; /* protect mm */
->> +} carveout;
->> +
->> +bool amdxdna_use_carveout(void)
->> +{
->> +    return !!carveout_size;
->> +}
->> +
->> +void amdxdna_carveout_init(void)
->> +{
->> +    if (!amdxdna_use_carveout())
->> +        return;
->> +    mutex_init(&carveout.lock);
->> +    drm_mm_init(&carveout.mm, carveout_addr, carveout_size);
->> +    pr_info("Use carveout mem, addr=0x%llx, size=0x%llx\n", 
->> carveout_addr, carveout_size);
->> +}
->> +
->> +void amdxdna_carveout_fini(void)
->> +{
->> +    if (!amdxdna_use_carveout())
->> +        return;
->> +    drm_mm_takedown(&carveout.mm);
->> +    mutex_destroy(&carveout.lock);
->> +}
->> +
->> +struct amdxdna_cbuf_priv {
->> +    struct drm_mm_node node;
->> +};
->> +
->> +static struct sg_table *amdxdna_cbuf_map(struct dma_buf_attachment 
->> *attach,
->> +                     enum dma_data_direction direction)
->> +{
->> +    struct amdxdna_cbuf_priv *cbuf = attach->dmabuf->priv;
->> +    struct device *dev = attach->dev;
->> +    struct scatterlist *sgl, *sg;
->> +    int ret, n_entries, i;
->> +    struct sg_table *sgt;
->> +    dma_addr_t dma_addr;
->> +    size_t dma_size;
->> +    size_t max_seg;
->> +
->> +    sgt = kzalloc_obj(*sgt);
->> +    if (!sgt)
->> +        return ERR_PTR(-ENOMEM);
->> +
->> +    max_seg = min_t(size_t, UINT_MAX, dma_max_mapping_size(dev));
->> +    n_entries = (cbuf->node.size + max_seg - 1) / max_seg;
->> +    sgl = kzalloc_objs(*sg, n_entries);
->> +    if (!sgl) {
->> +        ret = -ENOMEM;
->> +        goto free_sgt;
->> +    }
->> +    sg_init_table(sgl, n_entries);
->> +    sgt->orig_nents = n_entries;
->> +    sgt->nents = n_entries;
->> +    sgt->sgl = sgl;
->> +
->> +    dma_size = cbuf->node.size;
->> +    dma_addr = dma_map_resource(dev, cbuf->node.start, dma_size,
->> +                    direction, DMA_ATTR_SKIP_CPU_SYNC);
->> +    ret = dma_mapping_error(dev, dma_addr);
->> +    if (ret) {
->> +        pr_err("Failed to dma_map_resource carveout dma buf, ret 
->> %d\n", ret);
->> +        goto free_sgl;
->> +    }
->> +
->> +    for_each_sgtable_dma_sg(sgt, sg, i) {
->> +        size_t len = min_t(size_t, max_seg, dma_size);
->> +
->> +        sg_dma_address(sg) = dma_addr;
->> +        sg_dma_len(sg) = len;
->> +        dma_addr += len;
->> +        dma_size -= len;
->> +    }
->> +
->> +    return sgt;
->> +
->> +free_sgl:
->> +    kfree(sgl);
->> +free_sgt:
->> +    kfree(sgt);
->> +    return ERR_PTR(ret);
->> +}
->> +
->> +static void amdxdna_cbuf_unmap(struct dma_buf_attachment *attach,
->> +                   struct sg_table *sgt,
->> +                   enum dma_data_direction direction)
->> +{
->> +    dma_unmap_resource(attach->dev, sg_dma_address(sgt->sgl),
->> +               drm_prime_get_contiguous_size(sgt), direction,
->> +               DMA_ATTR_SKIP_CPU_SYNC);
->> +    sg_free_table(sgt);
->> +    kfree(sgt);
->> +}
->> +
->> +static void amdxdna_cbuf_release(struct dma_buf *dbuf)
->> +{
->> +    struct amdxdna_cbuf_priv *cbuf = dbuf->priv;
->> +
->> +    mutex_lock(&carveout.lock);
->> +    drm_mm_remove_node(&cbuf->node);
->> +    mutex_unlock(&carveout.lock);
->> +
->> +    kfree(cbuf);
->> +}
->> +
->> +static vm_fault_t amdxdna_cbuf_vm_fault(struct vm_fault *vmf)
->> +{
->> +    struct vm_area_struct *vma = vmf->vma;
->> +    struct amdxdna_cbuf_priv *cbuf;
->> +    unsigned long pfn;
->> +    pgoff_t pgoff;
->> +
->> +    cbuf = vma->vm_private_data;
->> +    pgoff = (vmf->address - vma->vm_start) >> PAGE_SHIFT;
->> +    pfn = (cbuf->node.start >> PAGE_SHIFT) + pgoff;
->> +
->> +    return vmf_insert_pfn(vma, vmf->address, pfn);
->> +}
->> +
->> +static const struct vm_operations_struct amdxdna_cbuf_vm_ops = {
->> +    .fault = amdxdna_cbuf_vm_fault,
->> +};
->> +
->> +static int amdxdna_cbuf_mmap(struct dma_buf *dbuf, struct 
->> vm_area_struct *vma)
->> +{
->> +    struct amdxdna_cbuf_priv *cbuf = dbuf->priv;
->> +
->> +    vma->vm_ops = &amdxdna_cbuf_vm_ops;
->> +    vma->vm_private_data = cbuf;
->> +    vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
->> +
->> +    return 0;
->> +}
->> +
->> +static int amdxdna_cbuf_vmap(struct dma_buf *dbuf, struct iosys_map 
->> *map)
->> +{
->> +    struct amdxdna_cbuf_priv *cbuf = dbuf->priv;
->> +    void *kva;
->> +
->> +    kva = memremap(cbuf->node.start, cbuf->node.size, MEMREMAP_WB);
->> +    if (!kva) {
->> +        pr_err("Failed to vmap carveout dma buf\n");
->> +        return -ENOMEM;
->> +    }
->> +
->> +    iosys_map_set_vaddr(map, kva);
->> +    return 0;
->> +}
->> +
->> +static void amdxdna_cbuf_vunmap(struct dma_buf *dbuf, struct 
->> iosys_map *map)
->> +{
->> +    memunmap(map->vaddr);
->> +}
->> +
->> +static const struct dma_buf_ops amdxdna_cbuf_dmabuf_ops = {
->> +    .map_dma_buf = amdxdna_cbuf_map,
->> +    .unmap_dma_buf = amdxdna_cbuf_unmap,
->> +    .release = amdxdna_cbuf_release,
->> +    .mmap = amdxdna_cbuf_mmap,
->> +    .vmap = amdxdna_cbuf_vmap,
->> +    .vunmap = amdxdna_cbuf_vunmap,
->> +};
->> +
->> +static int amdxdna_cbuf_clear(struct dma_buf *dbuf)
->> +{
->> +    struct iosys_map vmap = IOSYS_MAP_INIT_VADDR(NULL);
->> +
->> +    dma_buf_vmap(dbuf, &vmap);
->> +    if (!vmap.vaddr)
->> +        return -EFAULT;
->> +
->> +    memset(vmap.vaddr, 0, dbuf->size);
->> +    dma_buf_vunmap(dbuf, &vmap);
->> +
->> +    return 0;
->> +}
->> +
->> +struct dma_buf *amdxdna_get_cbuf(struct drm_device *dev, size_t 
->> size, u64 alignment)
->> +{
->> +    DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
->> +    struct amdxdna_cbuf_priv *cbuf;
->> +    struct dma_buf *dbuf;
->> +    int ret;
->> +
->> +    cbuf = kzalloc_obj(*cbuf);
->> +    if (!cbuf)
->> +        return ERR_PTR(-ENOMEM);
->> +
->> +    mutex_lock(&carveout.lock);
->> +    ret = drm_mm_insert_node_generic(&carveout.mm, &cbuf->node, size,
->> +                     alignment, 0, DRM_MM_INSERT_BEST);
->> +    mutex_unlock(&carveout.lock);
->> +    if (ret)
->> +        goto free_cbuf;
->> +
->> +    exp_info.size = size;
->> +    exp_info.ops = &amdxdna_cbuf_dmabuf_ops;
->> +    exp_info.priv = cbuf;
->> +    exp_info.flags = O_RDWR;
->> +    dbuf = dma_buf_export(&exp_info);
->> +    if (IS_ERR(dbuf)) {
->> +        ret = PTR_ERR(dbuf);
->> +        goto remove_node;
->> +    }
->> +
->> +    ret = amdxdna_cbuf_clear(dbuf);
->> +    if (ret) {
->> +        dma_buf_put(dbuf);
->> +        goto out;
->> +    }
->> +    return dbuf;
->> +
->> +remove_node:
->> +    drm_mm_remove_node(&cbuf->node);
->> +free_cbuf:
->> +    kfree(cbuf);
->> +out:
->> +    return ERR_PTR(ret);
->> +}
->> diff --git a/drivers/accel/amdxdna/amdxdna_cbuf.h 
->> b/drivers/accel/amdxdna/amdxdna_cbuf.h
->> new file mode 100644
->> index 000000000000..15e189ce779e
->> --- /dev/null
->> +++ b/drivers/accel/amdxdna/amdxdna_cbuf.h
->> @@ -0,0 +1,16 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * Copyright (C) 2026, Advanced Micro Devices, Inc.
->> + */
->> +#ifndef _AMDXDNA_CBUF_H_
->> +#define _AMDXDNA_CBUF_H_
->> +
->> +#include <drm/drm_device.h>
->> +#include <linux/dma-buf.h>
->> +
->> +bool amdxdna_use_carveout(void);
->> +void amdxdna_carveout_init(void);
->> +void amdxdna_carveout_fini(void);
->> +struct dma_buf *amdxdna_get_cbuf(struct drm_device *dev, size_t 
->> size, u64 alignment);
->> +
->> +#endif
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c 
->> b/drivers/accel/amdxdna/amdxdna_gem.c
->> index 238ee244d4a6..905514ec183c 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->> @@ -16,6 +16,7 @@
->>   #include <linux/pagemap.h>
->>   #include <linux/vmalloc.h>
->>   +#include "amdxdna_cbuf.h"
->>   #include "amdxdna_ctx.h"
->>   #include "amdxdna_gem.h"
->>   #include "amdxdna_pci_drv.h"
->> @@ -516,10 +517,6 @@ static void amdxdna_imported_obj_free(struct 
->> amdxdna_gem_obj *abo)
->>   static inline bool
->>   amdxdna_gem_skip_bo_usage(struct amdxdna_gem_obj *abo)
->>   {
->> -    /* Do not count imported BOs since the buffer is not allocated 
->> by us. */
->> -    if (is_import_bo(abo))
->> -        return true;
->> -
->>       /* Already counted as part of HEAP BO */
->>       if (abo->type == AMDXDNA_BO_DEV)
->>           return true;
->> @@ -571,9 +568,7 @@ static void amdxdna_gem_obj_free(struct 
->> drm_gem_object *gobj)
->>       if (abo->type == AMDXDNA_BO_DEV_HEAP)
->>           drm_mm_takedown(&abo->mm);
->>   -    if (amdxdna_iova_on(xdna))
->> -        amdxdna_iommu_unmap_bo(xdna, abo);
->> -
->> +    amdxdna_dma_unmap_bo(xdna, abo);
->>       amdxdna_gem_vunmap(abo);
->>       mutex_destroy(&abo->lock);
->>   @@ -591,18 +586,20 @@ static int amdxdna_gem_obj_open(struct 
->> drm_gem_object *gobj, struct drm_file *fi
->>         guard(mutex)(&abo->lock);
->>       abo->open_ref++;
->> +    if (abo->open_ref > 1)
->> +        return 0;
->>   -    if (abo->open_ref == 1) {
->> -        /* Attached to the client when first opened by it. */
->> -        abo->client = filp->driver_priv;
->> -        amdxdna_gem_add_bo_usage(abo);
->> -    }
->> -    if (amdxdna_iova_on(xdna)) {
->> -        ret = amdxdna_iommu_map_bo(xdna, abo);
->> +    /* Attached to the client when first opened by it. */
->> +    abo->client = filp->driver_priv;
->> +
->> +    /* No need to set up dma addr mapping in PASID mode. */
->> +    if (!amdxdna_pasid_on(abo->client)) {
->> +        ret = amdxdna_dma_map_bo(xdna, abo);
->>           if (ret)
->>               return ret;
->>       }
->>   +    amdxdna_gem_add_bo_usage(abo);
->>       return 0;
->>   }
->>   @@ -620,6 +617,39 @@ static void amdxdna_gem_obj_close(struct 
->> drm_gem_object *gobj, struct drm_file *
->>       }
->>   }
->>   +static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct 
->> iosys_map *map)
->> +{
->> +    struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
->> +    int ret;
->> +
->> +    iosys_map_clear(map);
->> +
->> +    dma_resv_assert_held(obj->resv);
->> +
->> +    if (is_import_bo(abo))
->> +        ret = dma_buf_vmap(abo->dma_buf, map);
->> +    else
->> +        ret = drm_gem_shmem_object_vmap(obj, map);
->> +    if (ret)
->> +        return ret;
->> +    if (!map->vaddr)
->> +        return -ENOMEM;
->> +
->> +    return 0;
->> +}
->> +
->> +static void amdxdna_gem_obj_vunmap(struct drm_gem_object *obj, 
->> struct iosys_map *map)
->> +{
->> +    struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
->> +
->> +    dma_resv_assert_held(obj->resv);
->> +
->> +    if (is_import_bo(abo))
->> +        dma_buf_vunmap(abo->dma_buf, map);
->> +    else
->> +        drm_gem_shmem_object_vunmap(obj, map);
->> +}
->> +
->>   static int amdxdna_gem_dev_obj_vmap(struct drm_gem_object *obj, 
->> struct iosys_map *map)
->>   {
->>       struct amdxdna_gem_obj *abo = to_xdna_obj(obj);
->> @@ -645,8 +675,8 @@ static const struct drm_gem_object_funcs 
->> amdxdna_gem_shmem_funcs = {
->>       .pin = drm_gem_shmem_object_pin,
->>       .unpin = drm_gem_shmem_object_unpin,
->>       .get_sg_table = drm_gem_shmem_object_get_sg_table,
->> -    .vmap = drm_gem_shmem_object_vmap,
->> -    .vunmap = drm_gem_shmem_object_vunmap,
->> +    .vmap = amdxdna_gem_obj_vmap,
->> +    .vunmap = amdxdna_gem_obj_vunmap,
->>       .mmap = amdxdna_gem_obj_mmap,
->>       .vm_ops = &drm_gem_shmem_vm_ops,
->>       .export = amdxdna_gem_prime_export,
->> @@ -714,6 +744,36 @@ amdxdna_gem_create_ubuf_object(struct drm_device 
->> *dev, struct amdxdna_drm_create
->>       return to_xdna_obj(gobj);
->>   }
->>   +static struct amdxdna_gem_obj *
->> +amdxdna_gem_create_cbuf_object(struct drm_device *dev, struct 
->> amdxdna_drm_create_bo *args)
->> +{
->> +    struct amdxdna_dev *xdna = to_xdna_dev(dev);
->> +    size_t size = PAGE_ALIGN(args->size);
->> +    struct drm_gem_object *gobj;
->> +    struct amdxdna_gem_obj *ret;
->> +    struct dma_buf *dma_buf;
->> +    u64 align;
->> +
->> +    if (!size) {
->> +        XDNA_ERR(xdna, "Invalid BO size 0x%llx", args->size);
->> +        return ERR_PTR(-EINVAL);
->> +    }
->> +
->> +    align = (args->type == AMDXDNA_BO_DEV_HEAP) ? 
->> xdna->dev_info->dev_mem_size : 0;
->> +    dma_buf = amdxdna_get_cbuf(dev, size, align);
->> +    if (IS_ERR(dma_buf))
->> +        return ERR_CAST(dma_buf);
->> +
->> +    gobj = amdxdna_gem_prime_import(dev, dma_buf);
->> +    if (IS_ERR(gobj))
->> +        ret = ERR_CAST(gobj);
->> +    else
->> +        ret = to_xdna_obj(gobj);
->> +
->> +    dma_buf_put(dma_buf);
->> +    return ret;
->> +}
->> +
->>   struct drm_gem_object *
->>   amdxdna_gem_prime_import(struct drm_device *dev, struct dma_buf 
->> *dma_buf)
->>   {
->> @@ -769,6 +829,8 @@ amdxdna_drm_create_share_bo(struct drm_device *dev,
->>         if (args->vaddr)
->>           abo = amdxdna_gem_create_ubuf_object(dev, args);
->> +    else if (amdxdna_use_carveout())
->> +        abo = amdxdna_gem_create_cbuf_object(dev, args);
->>       else
->>           abo = amdxdna_gem_create_shmem_object(dev, args);
->>       if (IS_ERR(abo))
->> @@ -884,7 +946,6 @@ int amdxdna_drm_create_bo_ioctl(struct drm_device 
->> *dev, void *data, struct drm_f
->>            args->type, args->vaddr, args->size, args->flags);
->>       switch (args->type) {
->>       case AMDXDNA_BO_CMD:
->> -        fallthrough;
->>       case AMDXDNA_BO_SHARE:
->>           abo = amdxdna_drm_create_share_bo(dev, args, filp);
->>           break;
->> diff --git a/drivers/accel/amdxdna/amdxdna_iommu.c 
->> b/drivers/accel/amdxdna/amdxdna_iommu.c
->> index 5a9f06183487..eff00131d0f8 100644
->> --- a/drivers/accel/amdxdna/amdxdna_iommu.c
->> +++ b/drivers/accel/amdxdna/amdxdna_iommu.c
->> @@ -35,14 +35,15 @@ static struct iova 
->> *amdxdna_iommu_alloc_iova(struct amdxdna_dev *xdna,
->>       return iova;
->>   }
->>   -int amdxdna_iommu_map_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo)
->> +int amdxdna_dma_map_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo)
->>   {
->> +    unsigned long contig_sz;
->>       struct sg_table *sgt;
->>       dma_addr_t dma_addr;
->>       struct iova *iova;
->>       ssize_t size;
->>   -    if (abo->type != AMDXDNA_BO_DEV_HEAP && abo->type != 
->> AMDXDNA_BO_SHMEM)
->> +    if (abo->type != AMDXDNA_BO_DEV_HEAP && abo->type != 
->> AMDXDNA_BO_SHARE)
->>           return 0;
->>         sgt = drm_gem_shmem_get_pages_sgt(&abo->base);
->> @@ -51,47 +52,63 @@ int amdxdna_iommu_map_bo(struct amdxdna_dev 
->> *xdna, struct amdxdna_gem_obj *abo)
->>           return PTR_ERR(sgt);
->>       }
->>   -    if (!sgt->orig_nents || !sg_page(sgt->sgl)) {
->> -        XDNA_ERR(xdna, "sgl is zero length or not page backed");
->> +    if (!sgt->orig_nents) {
->> +        XDNA_ERR(xdna, "sgl is zero length");
->>           return -EOPNOTSUPP;
->>       }
->>   -    iova = amdxdna_iommu_alloc_iova(xdna, abo->mem.size, &dma_addr,
->> -                    (abo->type == AMDXDNA_BO_DEV_HEAP));
->> -    if (IS_ERR(iova)) {
->> -        XDNA_ERR(xdna, "Alloc iova failed, ret %ld", PTR_ERR(iova));
->> -        return PTR_ERR(iova);
->> +    if (amdxdna_iova_on(xdna)) {
->> +        if (!sg_page(sgt->sgl)) {
->> +            XDNA_ERR(xdna, "sgl is not page backed");
->> +            return -EOPNOTSUPP;
->> +        }
->> +
->> +        iova = amdxdna_iommu_alloc_iova(xdna, abo->mem.size, &dma_addr,
->> +                        (abo->type == AMDXDNA_BO_DEV_HEAP));
->> +        if (IS_ERR(iova)) {
->> +            XDNA_ERR(xdna, "Alloc iova failed, ret %ld", 
->> PTR_ERR(iova));
->> +            return PTR_ERR(iova);
->> +        }
->> +
->> +        size = iommu_map_sgtable(xdna->domain, dma_addr, sgt,
->> +                     IOMMU_READ | IOMMU_WRITE);
->> +        if (size < 0) {
->> +            XDNA_ERR(xdna, "iommu_map_sgtable failed: %zd", size);
->> +            __free_iova(&xdna->iovad, iova);
->> +            return size;
->> +        }
->> +        if (size < abo->mem.size) {
->> +            iommu_unmap(xdna->domain, dma_addr, size);
->> +            __free_iova(&xdna->iovad, iova);
->> +            return -ENXIO;
->> +        }
->> +        abo->mem.dma_addr = dma_addr;
->> +    } else {
->> +        /* Device doesn't support scatter/gather list, fail 
->> non-contiguous mapping. */
->> +        contig_sz = drm_prime_get_contiguous_size(sgt);
->> +        if (contig_sz < abo->mem.size) {
->> +            XDNA_ERR(xdna,
->> +                 "noncontiguous dma addr, contig size:%ld, expected 
->> size:%ld",
->> +                 contig_sz, abo->mem.size);
->> +            return -EINVAL;
->> +        }
->> +        abo->mem.dma_addr = sg_dma_address(sgt->sgl);
->>       }
->> -
->> -    size = iommu_map_sgtable(xdna->domain, dma_addr, sgt,
->> -                 IOMMU_READ | IOMMU_WRITE);
->> -    if (size < 0) {
->> -        XDNA_ERR(xdna, "iommu_map_sgtable failed: %zd", size);
->> -        __free_iova(&xdna->iovad, iova);
->> -        return size;
->> -    }
->> -
->> -    if (size < abo->mem.size) {
->> -        iommu_unmap(xdna->domain, dma_addr, size);
->> -        __free_iova(&xdna->iovad, iova);
->> -        return -ENXIO;
->> -    }
->> -
->> -    abo->mem.dma_addr = dma_addr;
->> -
->>       return 0;
->>   }
->>   -void amdxdna_iommu_unmap_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo)
->> +void amdxdna_dma_unmap_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo)
->>   {
->>       size_t size;
->>         if (abo->mem.dma_addr == AMDXDNA_INVALID_ADDR)
->>           return;
->>   -    size = iova_align(&xdna->iovad, abo->mem.size);
->> -    iommu_unmap(xdna->domain, abo->mem.dma_addr, size);
->> -    free_iova(&xdna->iovad, iova_pfn(&xdna->iovad, abo->mem.dma_addr));
->> +    if (amdxdna_iova_on(xdna)) {
->> +        size = iova_align(&xdna->iovad, abo->mem.size);
->> +        iommu_unmap(xdna->domain, abo->mem.dma_addr, size);
->> +        free_iova(&xdna->iovad, iova_pfn(&xdna->iovad, 
->> abo->mem.dma_addr));
->> +    }
->>       abo->mem.dma_addr = AMDXDNA_INVALID_ADDR;
->>   }
->>   diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c 
->> b/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> index 21eddfc538d0..b8c5dbc12489 100644
->> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
->> @@ -14,6 +14,7 @@
->>   #include <linux/iommu.h>
->>   #include <linux/pci.h>
->>   +#include "amdxdna_cbuf.h"
->>   #include "amdxdna_ctx.h"
->>   #include "amdxdna_gem.h"
->>   #include "amdxdna_pci_drv.h"
->> @@ -67,11 +68,40 @@ static const struct amdxdna_device_id 
->> amdxdna_ids[] = {
->>       {0}
->>   };
->>   +static int amdxdna_sva_init(struct amdxdna_client *client)
->> +{
->> +    struct amdxdna_dev *xdna = client->xdna;
->> +
->> +    client->sva = iommu_sva_bind_device(xdna->ddev.dev, client->mm);
->> +    if (IS_ERR(client->sva)) {
->> +        XDNA_ERR(xdna, "SVA bind device failed, ret %ld", 
->> PTR_ERR(client->sva));
->> +        return PTR_ERR(client->sva);
->> +    }
->> +
->> +    client->pasid = iommu_sva_get_pasid(client->sva);
->> +    if (client->pasid == IOMMU_PASID_INVALID) {
->> +        iommu_sva_unbind_device(client->sva);
->> +        XDNA_ERR(xdna, "SVA get pasid failed");
->> +        return -ENODEV;
->> +    }
->> +
->> +    return 0;
->> +}
->> +
->> +static void amdxdna_sva_fini(struct amdxdna_client *client)
->> +{
->> +    if (IS_ERR_OR_NULL(client->sva))
->> +        return;
->> +
->> +    iommu_sva_unbind_device(client->sva);
->> +    client->sva = NULL;
->> +    client->pasid = IOMMU_PASID_INVALID;
->> +}
->> +
->>   static int amdxdna_drm_open(struct drm_device *ddev, struct 
->> drm_file *filp)
->>   {
->>       struct amdxdna_dev *xdna = to_xdna_dev(ddev);
->>       struct amdxdna_client *client;
->> -    int ret;
->>         client = kzalloc_obj(*client);
->>       if (!client)
->> @@ -80,22 +110,13 @@ static int amdxdna_drm_open(struct drm_device 
->> *ddev, struct drm_file *filp)
->>       client->pid = pid_nr(rcu_access_pointer(filp->pid));
->>       client->xdna = xdna;
->>       client->pasid = IOMMU_PASID_INVALID;
->> +    client->mm = current->mm;
->>         if (!amdxdna_iova_on(xdna)) {
->> -        client->sva = iommu_sva_bind_device(xdna->ddev.dev, 
->> current->mm);
->> -        if (IS_ERR(client->sva)) {
->> -            ret = PTR_ERR(client->sva);
->> -            XDNA_ERR(xdna, "SVA bind device failed, ret %d", ret);
->> -            goto failed;
->> -        }
->> -        client->pasid = iommu_sva_get_pasid(client->sva);
->> -        if (client->pasid == IOMMU_PASID_INVALID) {
->> -            XDNA_ERR(xdna, "SVA get pasid failed");
->> -            ret = -ENODEV;
->> -            goto unbind_sva;
->> -        }
->> +        /* No need to fail open since user may use pa + carveout 
->> later. */
->> +        if (amdxdna_sva_init(client))
->> +            XDNA_WARN(xdna, "PASID not available for pid %d", 
->> client->pid);
->>       }
->> -    client->mm = current->mm;
->>       mmgrab(client->mm);
->>       init_srcu_struct(&client->hwctx_srcu);
->>       xa_init_flags(&client->hwctx_xa, XA_FLAGS_ALLOC);
->> @@ -110,14 +131,6 @@ static int amdxdna_drm_open(struct drm_device 
->> *ddev, struct drm_file *filp)
->>         XDNA_DBG(xdna, "pid %d opened", client->pid);
->>       return 0;
->> -
->> -unbind_sva:
->> -    if (!IS_ERR_OR_NULL(client->sva))
->> -        iommu_sva_unbind_device(client->sva);
->> -failed:
->> -    kfree(client);
->> -
->> -    return ret;
->>   }
->>     static void amdxdna_client_cleanup(struct amdxdna_client *client)
->> @@ -131,11 +144,8 @@ static void amdxdna_client_cleanup(struct 
->> amdxdna_client *client)
->>           drm_gem_object_put(to_gobj(client->dev_heap));
->>         mutex_destroy(&client->mm_lock);
->> -
->> -    if (!IS_ERR_OR_NULL(client->sva))
->> -        iommu_sva_unbind_device(client->sva);
->>       mmdrop(client->mm);
->> -
->> +    amdxdna_sva_fini(client);
->>       kfree(client);
->>   }
->>   @@ -242,15 +252,17 @@ static void amdxdna_show_fdinfo(struct 
->> drm_printer *p, struct drm_file *filp)
->>         /*
->>        * Note for driver specific BO memory usage stat.
->> -     * Total memory alloc = amdxdna-internal-alloc + 
->> amdxdna-external-alloc
->> +     * Total memory in use = amdxdna-internal-alloc + 
->> amdxdna-external-alloc, which
->> +     * includes both imported and created BOs. To avoid double 
->> counts, it includes
->> +     * HEAP BO, but not DEV BO. DEV BO is counted by 
->> amdxdna-heap-alloc.
->>        */
->>       drm_fdinfo_print_size(p, drv_name, "heap", "alloc", heap_usage);
->>       drm_fdinfo_print_size(p, drv_name, "internal", "alloc", 
->> internal_usage);
->>       drm_fdinfo_print_size(p, drv_name, "external", "alloc", 
->> external_usage);
->>       /*
->>        * Note for DRM standard BO memory stat.
->> -     * drm-total-memory counts both DEV BO and HEAP BO
->> -     * drm-shared-memory counts BO imported
->> +     * drm-total-memory counts both DEV BO and HEAP BO. The DEV BO 
->> size is double counted.
->> +     * drm-shared-memory counts BO shared with other processes/devices.
->>        */
->>       drm_show_memory_stats(p, filp);
->>   }
->> @@ -420,7 +432,26 @@ static struct pci_driver amdxdna_pci_driver = {
->>       .sriov_configure = amdxdna_sriov_configure,
->>   };
->>   -module_pci_driver(amdxdna_pci_driver);
->> +static int __init amdxdna_mod_init(void)
->> +{
->> +    int ret;
->> +
->> +    amdxdna_carveout_init();
->> +    ret = pci_register_driver(&amdxdna_pci_driver);
->> +    if (ret)
->> +        amdxdna_carveout_fini();
->> +
->> +    return ret;
->> +}
->> +
->> +static void __exit amdxdna_mod_exit(void)
->> +{
->> +    pci_unregister_driver(&amdxdna_pci_driver);
->> +    amdxdna_carveout_fini();
->> +}
->> +
->> +module_init(amdxdna_mod_init);
->> +module_exit(amdxdna_mod_exit);
->>     MODULE_LICENSE("GPL");
->>   MODULE_IMPORT_NS("AMD_PMF");
->> diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.h 
->> b/drivers/accel/amdxdna/amdxdna_pci_drv.h
->> index bdd0dc83f92e..07bd38281452 100644
->> --- a/drivers/accel/amdxdna/amdxdna_pci_drv.h
->> +++ b/drivers/accel/amdxdna/amdxdna_pci_drv.h
->> @@ -172,11 +172,11 @@ void amdxdna_sysfs_fini(struct amdxdna_dev *xdna);
->>     int amdxdna_iommu_init(struct amdxdna_dev *xdna);
->>   void amdxdna_iommu_fini(struct amdxdna_dev *xdna);
->> -int amdxdna_iommu_map_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo);
->> -void amdxdna_iommu_unmap_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo);
->>   void *amdxdna_iommu_alloc(struct amdxdna_dev *xdna, size_t size, 
->> dma_addr_t *dma_addr);
->>   void amdxdna_iommu_free(struct amdxdna_dev *xdna, size_t size,
->>               void *cpu_addr, dma_addr_t dma_addr);
->> +int amdxdna_dma_map_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo);
->> +void amdxdna_dma_unmap_bo(struct amdxdna_dev *xdna, struct 
->> amdxdna_gem_obj *abo);
->>     static inline bool amdxdna_iova_on(struct amdxdna_dev *xdna)
->>   {
->
+I believe the reason this isn’t fully FD-based is that the compute UMD
+team wasn’t keen on exporting every pgmap as an FD, though that was
+something that had been considered.
+
+> 
+> Absolute clear NAK for that approach. This interface is per FD!
+> 
+> We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the memory should be migrated to the current device.
+> 
+> We also need to make sure that setting attributes for different devices doesn't affect each other.
+
+We landed on the conclusion that it is undefined behavior if different
+render FDs—or more specifically, VMs across devices within the same SVM
+address space—set different madvise attributes. I believe this was at
+Sima's suggestion.
+
+From the UMD point of view, every madvise call therefore becomes:
+
+for_each_fd_vm
+	set_madvise_attributes
+
+This choice was made to keep madvise attributes local to the per-device
+VM structure, rather than introducing some form of cross-device shared
+storage.
+
+A misbehaving user can absolutely shoot themselves in the foot, but at
+worst this only ends up corrupting behavior within their own process
+shared across devices.
+
+Matt
+
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> >>
+> >>> +
+> >>> +struct drm_amdgpu_svm_attribute {
+> >>> +    __u32 type;
+> >>> +    __u32 value;
+> >>> +};
+> >>> +
+> >>> +struct drm_amdgpu_gem_svm {
+> >>> +    __u64 start_addr;
+> >>> +    __u64 size;
+> >>> +    __u32 operation;
+> >>> +    __u32 nattr;
+> >>> +    __u64 attrs_ptr;
+> >>> +};
+> >>
+> >> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+> >>
+> >> And we usually use unions in this header to separate the input from the output parameters.
+> > 
+> > Got it will add documentation for it and will use unions in next version. Really thanks for the comments.
+> > 
+> > Regards,
+> > Honglei
+> > 
+> >>
+> >> Regards,
+> >> Christian.
+> >>
+> >>> +
+> >>>   #if defined(__cplusplus)
+> >>>   }
+> >>>   #endif
+> >>
+> > 
+> 
