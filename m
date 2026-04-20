@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7E8FF557F4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 09:29:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 132D5F557F2
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 09:29:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3231510E484;
-	Mon, 20 Apr 2026 09:29:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F32910E480;
+	Mon, 20 Apr 2026 09:29:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hXpQbZ40";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hfqlAkhR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2944A10E484
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:29:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776677343; x=1808213343;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=IOIIi6BpyEQxc8UGvmrUSxbmwGNgl1HgV0zF2Gewvfk=;
- b=hXpQbZ40sOK2E+OjW7BoCvV2wALgZ4SnjcMQbrtLcfqNd+sLl9tQ05xG
- yBprDWrl/cLdAKsSS/1VAyW8UA8/2HCV/mNHd1eAlYKWIIqYmuschQggw
- JLdJp9tiJoeGN5AnKzDj5TZX5KYjjxNFLQdBKvWtDwNLm/zw1AktTVqkg
- ngywDmi4TOkJsmiTnuAmGBS2+fO/2N8SWlqZdO3TFImx9vNyYR3VwjErx
- HNkq2IC+VADjx4lCatIIf17dcHaDTRi3vYotdjWDYMdwNwGZXQqZyVA0p
- zMDVY6xJ8VNWdHZQKdph6rpt35bGULXDej/Z/krTEdia0chP5bmyBzkFj w==;
-X-CSE-ConnectionGUID: EY/9Kn6RQLSvgO+OLD5qrA==
-X-CSE-MsgGUID: lgSMBD7HQ8Gf1Gj+/m6YhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="81460454"
-X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; d="scan'208";a="81460454"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 02:29:03 -0700
-X-CSE-ConnectionGUID: 7pHbgv0DRyKnv1FRobpATw==
-X-CSE-MsgGUID: 2XYOGYhESaeTRvXTn5ORDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; d="scan'208";a="227041892"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.133])
- ([10.245.244.133])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 02:29:00 -0700
-Message-ID: <215f305ff04ddf8a426871e895aaf520b02e89bf.camel@linux.intel.com>
-Subject: Re: [PATCH] drm/gpuvm: take refcount on DRM device
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>, Matthew Brost
- <matthew.brost@intel.com>,  Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann	 <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, 
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF95010E480
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:29:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3F341401B2;
+ Mon, 20 Apr 2026 09:29:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C817DC19425;
+ Mon, 20 Apr 2026 09:29:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1776677361;
+ bh=2BfDlA6VY39y9tYQjOaTN6uHaUdWSfjiCwLjUz39juk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hfqlAkhRfz+KuAPhk5XXEvXxALNIoU9QbEQ2Jlf5L89nehJ1rQTz6snbHojbQbOS1
+ m5zqrzViNaKqUIwreAEsPNFC76T/YSlS1jQLRjrwdSELsgFSwYuaIs2zq8vRf75Azu
+ nAd7ro5VOj/qgJeixv0q1lOmT7KQUXNrQu11jwes=
+Date: Mon, 20 Apr 2026 11:29:18 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Baker <mzndmzn@gmail.com>
+Cc: andy@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Date: Mon, 20 Apr 2026 11:28:48 +0200
-In-Reply-To: <DHVOJ6ILGSLK.3OWKA4RV2HB5C@kernel.org>
-References: <20260416-gpuvm-drm-dev-get-v1-1-f3bc06571e73@google.com>
- <544c97fe296f39da35e5349ba1fc0af05f2ff643.camel@linux.intel.com>
- <DHVOJ6ILGSLK.3OWKA4RV2HB5C@kernel.org>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Subject: Re: [PATCH v3] staging: fbtft: replace empty macro args with
+ identity converter
+Message-ID: <2026042004-unblock-giblet-cbbc@gregkh>
+References: <20260412173317.3329-1-mzndmzn@gmail.com>
+ <20260412173317.3329-2-mzndmzn@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260412173317.3329-2-mzndmzn@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,119 +57,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 2026-04-17 at 21:33 +0200, Danilo Krummrich wrote:
-> On Fri Apr 17, 2026 at 4:41 PM CEST, Thomas Hellstr=C3=B6m wrote:
-> > This is problematic since typically you also need a module
-> > reference
-> > when taking a drm device reference.
-> >=20
-> > The reason for this is that the devres reference on the drm device
-> > expects to be the last one, since it might be called from the
-> > module
-> > exit function of the driver.
->=20
-> No, this is not how it works; if this would be true then drmm_* would
-> be pretty
-> pointless in the first place, as one could just use devm_* for
-> everything.
->=20
-> Citing the commit introducing drmm_* APIs:
->=20
-> 	"The biggest wrong pattern is that developers use devm_,
-> which ties the
-> 	release action to the underlying struct device, whereas all
-> the
-> 	userspace visible stuff attached to a drm_device can long
-> outlive that
-> 	one (e.g. after a hotunplug while userspace has open files
-> and mmap'ed
-> 	buffers)."
+On Sun, Apr 12, 2026 at 12:33:17PM -0500, Baker wrote:
+> The define_fbtft_write_reg macro calls 'modifier' as a function.
+> Passing an empty token as modifier is undefined behavior in C for
+> fixed-arity macros. Introduce fbtft_no_conv() as an identity
+> function to replace the empty args in the no-conversion cases.
+> 
+> Signed-off-by: Baker <mzndmzn@gmail.com>
+> ---
+>  drivers/staging/fbtft/fbtft-bus.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/fbtft/fbtft-bus.c b/drivers/staging/fbtft/fbtft-bus.c
+> index 30e436ff19e4..7f3fd30576ab 100644
+> --- a/drivers/staging/fbtft/fbtft-bus.c
+> +++ b/drivers/staging/fbtft/fbtft-bus.c
+> @@ -11,6 +11,8 @@
+>   *
+>   *****************************************************************************/
+>  
+> +#define fbtft_no_conv(x) (x)
+> +
+>  #define define_fbtft_write_reg(func, buffer_type, data_type, modifier)        \
+>  void func(struct fbtft_par *par, int len, ...)                                \
+>  {                                                                             \
+> @@ -62,9 +64,9 @@ out:									      \
+>  }                                                                             \
+>  EXPORT_SYMBOL(func);
+>  
+> -define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, )
+> +define_fbtft_write_reg(fbtft_write_reg8_bus8, u8, u8, fbtft_no_conv)
+>  define_fbtft_write_reg(fbtft_write_reg16_bus8, __be16, u16, cpu_to_be16)
+> -define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, )
+> +define_fbtft_write_reg(fbtft_write_reg16_bus16, u16, u16, fbtft_no_conv)
+>  
+>  void fbtft_write_reg8_bus9(struct fbtft_par *par, int len, ...)
+>  {
+> -- 
+> 2.47.3
+> 
+> 
 
-Yeah, I was a bit unclear and partly incorrect. This only happens *if
-there are no other holders of the driver module reference. (But see
-below WRT potential other holders)-
+Hi,
 
-driver_module_unload()->...->pci_dev_remove -> devm_release->
-drm_dev_put-><module is unloaded>.
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-So if, at this point there are additional drm device references,
-they'd point to dangling devices.
+You are receiving this message because of the following common error(s)
+as indicated below:
 
->=20
-> > Now if there is an additional reference held at that point the
-> > driver module
-> > can be unloaded with a dangling reference to the drm device.
-> >=20
-> > On the other hand, if you in addition take a module reference then
-> > that
-> > blocks the driver module from being unloaded while held, just like
-> > a
-> > drm file reference. This leads to complicated module release
-> > schemes
-> > like the one in drm_pagemap where the module refcount is released
-> > from
-> > a work item that is waited on in the drm_pagemap exit function.
-> >=20
-> > I'm working to lift the module refcount requirement, but meanwhile
-> > I'd
-> > recommend that in the file close callback, we'd make sure all
-> > drm_gpuvms have called their drm_gpuvm_free() function, because
-> > then we
-> > are sure that the drm_device is still alive and the module still
-> > pinned.
->=20
-> If GPUVM has a pointer to the DRM device, it implies shared ownership
-> and hence
-> GPUVM should account for this shared ownership and take a reference
-> count.
->=20
-> The fact that GPUVM must not outlive module unload when it has driver
-> callbacks
-> attached is an orthogonal requirement.
->=20
-> The module lifetime / callback issue is a separate problem that
-> exists
-> regardless of whether you hold a device refcount. Not taking the
-> refcount
-> doesn't make the module problem go away, it just adds a second,
-> independent bug.
->=20
-> If struct drm_device itself, e.g. due to drm_dev_release() requires a
-> module
-> refcount, then this is on struct drm_device to ensure this constraint
-> (or remove
-> the requirement).
->=20
-> IOW, if I get to choose between a DRM component that has a pointer to
-> a DRM
-> device stalls module unload and a DRM component that has a pointer to
-> a DRM
-> device oopses the kernel when used wrongly, I prefer the former.
+- It looks like you did not use your "real" name for the patch on either
+  the Signed-off-by: line, or the From: line (both of which have to
+  match).  Please read the kernel file,
+  Documentation/process/submitting-patches.rst for how to do this
+  correctly.
 
-I agree with your reasoning here, but current fact is that most (if not
-all) holders of a drm device reference (files, pagemaps, dma-bufs)
-currently also hold a module reference to protect against this, and
-drm_gpuvm would be an outlier.
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
-To fix this properly (lifting that requirement) one could introduce a
-drm device count in the module and have the module exit function wait
-for it to become zero, *and* that the code that did the last decrement
-finished executing.
+thanks,
 
-https://patchwork.freedesktop.org/patch/712146/?series=3D163298&rev=3D1
-
-Or one could also have the drm device hold a reference count on the
-driver module, but that would block unloading without previous unbind
-which is not typical driver behaviour and would likely be seen as a
-regression.
-
-/Thomas
-
-
-
-
-
-
-
->=20
-> - Danilo
+greg k-h's patch email bot
