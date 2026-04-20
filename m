@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F8DF588C4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:32:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C5AEF588C4
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:33:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F01810E656;
-	Mon, 20 Apr 2026 13:32:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6D1210E655;
+	Mon, 20 Apr 2026 13:33:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lxWTs3q/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D5vPuwyS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C01010E656
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:32:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A9810E655;
+ Mon, 20 Apr 2026 13:33:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B2F7861119;
- Mon, 20 Apr 2026 13:32:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EAEC2BCB6;
- Mon, 20 Apr 2026 13:32:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1925A4196D;
+ Mon, 20 Apr 2026 13:33:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCA3C2BCB6;
+ Mon, 20 Apr 2026 13:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691964;
- bh=Bz0MYcCSoXg0+rbrkRMf3Fd9aHfOgXPlHPxrXeALiP0=;
+ s=k20201202; t=1776691982;
+ bh=F25UWTVoXxyJ+BPRUSSCjj0W9ZCJy+A1CCOh8EOuGJw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lxWTs3q/y96smcEUmTZoS24lgvc3zD5gRfFxvhYrR5F/30psMevFiOK3Qdww1Dd9/
- IUiXys20jzdgkT7IlrFAUKBypRisboH7zIaety/eiUCEGe12Yu2nY5tijGBLCvBHaO
- AUciCz20v1shGwY+DNf9i539cpcj9iNAYahaLtNDDNs/TanF8V8qwqnsMNfpB6Q0om
- od5OPMumJsx0IlNbg7vBsD/PhW4pI2TFMuUZKc5J7R5qvXsT90QlMIUZoT9flxFvBU
- Ds9U25oAJt+uDJ54cnBKB7AILPsV1Hu8O9UYd8fe3v7sh3gklNQzEytmee9pXzmLrt
- dU8gCYt962Qng==
+ b=D5vPuwySqztejAkOXd/W4LgePXbgSavxL5Oo8xCeDV8bme//TYDn9bXCJ+sYyUQNN
+ tHXYr5H9U8zEWa4CM5gJiNXHIkQRuayMxAf0xGxamPY0Qd7j3/DjpsjzoT+3oND2Du
+ 1FKnmtfAv7Ec8rYZ93ut5OA90xQLoaVf1b/kwLVH2X+vNYIZIJXbkCV3+Mwj6Hn7R3
+ m4vSUFMtPsXe+rCMqxS7d/QFErnNVuWtJa3S6Hn3d+TQp0rykzmGGkunzoiAELsUkb
+ IXr2oc49Zx6blkIASjrwfIwFDZZ0Zfc6MRyIDrrJ8p0oCofjluBWPABi5sj82zoBtG
+ JiEbMiYMfu2tw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
- Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
- neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+Cc: Asad Kamal <asad.kamal@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/panel-edp: Add CMN N116BCL-EAK (C2)
-Date: Mon, 20 Apr 2026 09:21:28 -0400
-Message-ID: <20260420132314.1023554-294-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: Add default reset method for soc_v1_0
+Date: Mon, 20 Apr 2026 09:21:38 -0400
+Message-ID: <20260420132314.1023554-304-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -66,374 +65,381 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Cong Yang <yangcong5@huaqin.corp-partner.google.com>
+From: Asad Kamal <asad.kamal@amd.com>
 
-[ Upstream commit 3d65e4c276b32c03450261d114e495fda03c8e97 ]
+[ Upstream commit eb737fb303dd73ceb0f646fc2e696595e576056f ]
 
-Add support for the CMN N116BCL-EAK (C2) panel, pleace the EDID here for
-subsequent reference.
+Add mode2 as default reset method for soc_v1_0
 
-edid-decode (hex):
+v2: Remove unnecessary overrides while selecting reset method (Lijo)
+v4: Add dev_warn_once (Lijo)
 
-00 ff ff ff ff ff ff 00 0d ae 7a 11 00 00 00 00
-08 22 01 04 95 1a 0e 78 03 46 a5 9c 5b 53 8b 24
-1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 e6 1e 56 e2 50 00 3c 30 30 20
-a6 00 00 90 10 00 00 1a 00 00 00 fd 00 28 3c 32
-32 08 01 0a 20 20 20 20 20 20 00 00 00 fe 00 43
-4d 4e 0a 20 20 20 20 20 20 20 20 20 00 00 00 fe
-00 4e 31 31 36 42 43 4c 2d 45 41 4b 0a 20 01 80
-
-70 20 79 02 00 25 01 09 fc 34 01 fc 34 01 28 3c
-80 81 00 10 72 1a 00 00 03 01 28 3c 00 00 00 00
-00 00 3c 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 2f 90
-
-Signed-off-by: Cong Yang <yangcong5@huaqin.corp-partner.google.com>
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-Signed-off-by: Douglas Anderson <dianders@chromium.org>
-Link: https://patch.msgid.link/20260130030456.2080748-1-yangcong5@huaqin.corp-partner.google.com
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I now have all the information needed. Let me compile the full analysis.
+Now I have all the evidence I need. Let me compile my analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-- **Subsystem**: drm/panel-edp
-- **Action verb**: "Add" — adding a new panel entry
-- **Summary**: Adding support for a new hardware revision (C2) of the
-  CMN N116BCL-EAK eDP panel
+**Step 1.1: Subject Line**
+- Subsystem: `drm/amdgpu`
+- Action verb: "Add" (default reset method)
+- Summary: Adds mode2 as the default reset method for soc_v1_0.
+- Record: [drm/amdgpu] [Add] [Default reset method for soc_v1_0 -
+  filling in a missing required callback]
 
-Record: [drm/panel-edp] [Add] [New device ID for CMN N116BCL-EAK C2
-panel revision]
+**Step 1.2: Tags**
+- Signed-off-by: Asad Kamal (author, AMD developer)
+- Reviewed-by: Lijo Lazar (AMD engineer, specifically requested changes
+  in v2 and v4)
+- Signed-off-by: Alex Deucher (AMD GPU subsystem maintainer)
+- No Fixes: tag (expected), no Cc: stable, no Reported-by, no Link.
+- Record: Reviewed by AMD engineer, signed off by subsystem maintainer.
+  No syzbot or bug reports.
 
-### Step 1.2: Tags
-- **Signed-off-by**: Cong Yang (author), Douglas Anderson
-  (maintainer/committer)
-- **Reviewed-by**: Douglas Anderson (drm/panel-edp maintainer at
-  Chromium)
-- **Link**: patch.msgid.link (standard commit link)
-- No Fixes: tag (expected)
-- No Cc: stable tag (expected)
-- No Reported-by (hardware enablement, not a bug report)
+**Step 1.3: Commit Body**
+- The commit message is minimal: "Add mode2 as default reset method for
+  soc_v1_0"
+- v2: Removed unnecessary overrides (Lijo's suggestion)
+- v4: Added dev_warn_once (Lijo's suggestion)
+- No bug description, no stack trace, no reproduction steps.
+- Record: The message describes feature completion but the underlying
+  issue is that `soc_v1_0_asic_funcs` has a NULL `.reset_method`
+  pointer.
 
-Record: Reviewed and signed by subsystem maintainer Douglas Anderson. No
-bug tags (expected for device ID addition).
-
-### Step 1.3: Commit Body
-The body includes the full EDID dump for the panel with ID 0x117a (CMN
-N116BCL-EAK C2). The EDID is included "for subsequent reference" —
-standard practice for panel-edp entries. No bug is described because
-this is hardware enablement, not a bug fix.
-
-Record: [No bug described - hardware ID addition] [Panel would not be
-recognized without this entry] [Chromebook panel hardware]
-
-### Step 1.4: Hidden Bug Fix Detection
-This is not a hidden bug fix. It's a straightforward device ID addition
-to enable hardware. Without this entry, systems with the C2 revision
-panel would not use the correct timing parameters, potentially causing
-display initialization issues.
-
-Record: [Not a hidden bug fix — device ID addition for hardware support]
+**Step 1.4: Hidden Bug Fix Detection**
+- This IS a hidden bug fix. The `amdgpu_asic_reset_method()` macro at
+  `amdgpu.h:1454` dereferences `.reset_method` directly with NO null
+  check. Without this patch, any call to
+  `amdgpu_asic_reset_method(adev)` on soc_v1_0 hardware dereferences a
+  NULL function pointer, causing a kernel oops.
+- Record: YES, this is a hidden bug fix - fixes NULL pointer dereference
+  of missing `.reset_method` callback.
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-- **Files changed**: 1 (`drivers/gpu/drm/panel/panel-edp.c`)
-- **Lines added**: 1
-- **Lines removed**: 0
-- **Functions modified**: None (data table only)
-- **Scope**: Single-line addition to a static const data table
+**Step 2.1: Inventory**
+- Single file: `drivers/gpu/drm/amd/amdgpu/soc_v1_0.c`
+- +24 lines added, 0 removed
+- Functions modified: `soc_v1_0_asic_reset` (filled in stub),
+  `soc_v1_0_asic_funcs` (added callback)
+- Functions added: `soc_v1_0_asic_reset_method` (new function)
+- Record: Single-file, +24 lines, surgical fix
 
-Record: [1 file, +1 line, data table entry only, minimal scope]
+**Step 2.2: Code Flow Change**
+- BEFORE: `soc_v1_0_asic_reset` was a stub returning 0 (no-op).
+  `.reset_method` was NULL in `soc_v1_0_asic_funcs`.
+- AFTER: `soc_v1_0_asic_reset_method` selects Mode2 reset for specific
+  hardware configs, or returns the module param default.
+  `soc_v1_0_asic_reset` dispatches based on the selected method.
+  `.reset_method` callback is populated.
 
-### Step 2.2: Code Flow Change
-The single line added:
-```c
-EDP_PANEL_ENTRY('C', 'M', 'N', 0x117a, &delay_200_500_e80_d50, "N116BCL-
-EAK"),
-```
-This adds a new entry to the `edp_panels[]` array, which is a lookup
-table mapping panel EDID manufacturer/product IDs to timing parameters.
-Before: panel ID 0x117a would not match any entry. After: it matches
-with the correct `delay_200_500_e80_d50` timing.
+**Step 2.3: Bug Mechanism**
+- Category: NULL pointer dereference + missing functionality
+- The `amdgpu_asic_reset_method` macro (amdgpu.h:1454) calls
+  `(adev)->asic_funcs->reset_method((adev))` without NULL check.
+  Multiple callers in `amdgpu_device.c` and `amdgpu_reset.c` invoke this
+  during GPU reset paths. Without `.reset_method` set, this is a NULL
+  deref crash.
+- Record: NULL pointer dereference in GPU reset path. All other SoC
+  variants (si, cik, vi, soc15, soc21, soc24, nv) set `.reset_method` —
+  soc_v1_0 was the only one missing it.
 
-Record: [Before: panel 0x117a unrecognized, After: panel recognized with
-correct timing]
+**Step 2.4: Fix Quality**
+- Obviously correct — follows exact same pattern as soc24, soc21, soc15,
+  etc.
+- Minimal and surgical
+- Low regression risk — only affects soc_v1_0 hardware
+- Minor dead code: `return 0;` after the switch in `soc_v1_0_asic_reset`
+  is unreachable (both cases return), but harmless.
+- Record: High quality fix, follows established patterns, low regression
+  risk.
 
-### Step 2.3: Bug Mechanism
-Category: **Hardware workaround / device ID addition**. The
-`EDP_PANEL_ENTRY` macro creates a table entry with vendor ID
-('C','M','N' = Chi Mei / Innolux), product ID (0x117a), delay timings,
-and name string. This is a device ID table entry, not a code logic
-change.
+## PHASE 3: GIT HISTORY
 
-Record: [Device ID addition — hardware enablement table entry]
+**Step 3.1: Blame**
+- The buggy code (stub `soc_v1_0_asic_reset` and missing
+  `.reset_method`) was introduced in commit `297b0cebbcc3a`
+  ("drm/amdgpu: Add soc v1_0 support") by Hawking Zhang on 2025-12-08.
+  The original commit even noted "reset placeholders" in its changelog
+  (v3).
+- Record: Bug introduced in 297b0cebbcc3a, v7.0-rc1. Explicitly noted as
+  "placeholder" in original commit.
 
-### Step 2.4: Fix Quality
-- Obviously correct: Yes — identical pattern to 200+ other entries in
-  the same table
-- Minimal/surgical: Yes — 1 line
-- Regression risk: Zero — only affects systems with this specific panel
-  ID
-- Red flags: None
+**Step 3.2: No Fixes: tag to follow.**
 
-Record: [Obviously correct, minimal, zero regression risk]
+**Step 3.3: File History**
+- 11 commits touch soc_v1_0.c, all building out the new soc_v1_0 driver.
+  No intermediate fix for the reset method issue.
+- Record: Standalone fix. No prerequisites needed beyond the initial
+  soc_v1_0 support.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+**Step 3.4: Author**
+- Asad Kamal is an AMD developer with multiple commits in the PM and GPU
+  subsystem.
+- Alex Deucher (AMD GPU maintainer) signed off and submitted the patch
+  series.
+- Record: Author is AMD developer, maintainer signed off.
 
-### Step 3.1: Blame
-The surrounding lines show entries added by multiple authors from
-2022-2025. The same panel name (N116BCL-EAK) already exists with product
-ID 0x115f (added by same author in commit 518867b093942, July 2025). The
-new entry is for a different hardware revision (C2) with product ID
-0x117a.
-
-Record: [Same panel model already has an entry for 0x115f. This is a new
-revision C2 with 0x117a. Table has been active since kernel 5.16.]
-
-### Step 3.2: Fixes Tag
-No Fixes: tag — expected for device ID additions.
-
-Record: [N/A — no Fixes: tag, expected for hardware enablement]
-
-### Step 3.3: File History
-The file has 140 commits, almost all of which are panel ID additions.
-This is one of the most frequently updated data tables in the kernel.
-
-Record: [Active file with 140+ commits, mostly panel ID additions.
-Standalone single commit.]
-
-### Step 3.4: Author
-Cong Yang is from Huaqin (a Google Chromebook manufacturing partner).
-They have contributed multiple panel entries for Chromebook hardware.
-
-Record: [Author is Chromebook hardware partner. Maintainer (dianders)
-reviewed and applied.]
-
-### Step 3.5: Dependencies
-Uses existing `delay_200_500_e80_d50` timing structure and
-`EDP_PANEL_ENTRY` macro. Both have existed since the file was created.
-No dependencies on other commits.
-
-Record: [No dependencies. Uses existing infrastructure. Fully
-standalone.]
+**Step 3.5: Dependencies**
+- The companion patch "Disable reset on init for soc_v1_0" starts from
+  this commit's output hash (bd7043729e6a3), so it depends on this
+  patch. This patch does NOT depend on any other uncommitted patches.
+- Record: This patch is standalone and applies independently. A
+  companion patch depends on it.
 
 ## PHASE 4: MAILING LIST RESEARCH
 
-### Step 4.1: Patch Discussion
-From the b4 mbox fetch: the thread has 2 messages. This is V2 of the
-patch. V1 used "N116BCL-EAK-c2" as the name string; review feedback
-requested changing it to "N116BCL-EAK" (matching the naming convention
-of other entries). Douglas Anderson replied with "Reviewed-by" and
-"Pushed to drm-misc-next", committing it as 3d65e4c276b3.
+**Step 4.1: Patch Discussion**
+- Found on spinics: `https://www.spinics.net/lists/amd-
+  gfx/msg138861.html`
+- Part of a series of soc_v1_0 fixes posted by Alex Deucher on
+  2026-03-06
+- The series includes ~12 related patches for soc_v1_0 and related
+  hardware
+- Patch went through v1 → v2 (removed unnecessary overrides) → v4 (added
+  dev_warn_once)
+- No explicit stable nomination in the discussion
+- Record: Found submission thread. Multi-revision patch, review-driven
+  improvements. No NAKs.
 
-Record: [V2 patch. V1 had minor naming issue fixed in V2. Maintainer
-reviewed and pushed. No objections.]
+**Step 4.2: Reviewers**
+- Reviewed-by: Lijo Lazar (AMD engineer who provided specific feedback
+  driving v2 and v4 changes)
+- Signed-off-by: Alex Deucher (subsystem maintainer)
+- Record: Properly reviewed by AMD engineers.
 
-### Step 4.2: Reviewers
-From the mbox headers: Sent to DRM maintainers (neil.armstrong,
-jesszhan, maarten.lankhorst, mripard, tzimmermann, airlied, simona) and
-the DRM panel maintainer (dianders, treapking). CC'd dri-devel and
-linux-kernel. Douglas Anderson reviewed and applied.
+**Step 4.3: Bug Report**
+- No formal bug report or syzbot report. This is a proactive fix for
+  missing functionality that would crash on GPU reset.
+- Record: No bug report; proactive fix for obviously broken code.
 
-Record: [All appropriate maintainers and mailing lists were CC'd.
-Subsystem maintainer reviewed.]
+**Step 4.4: Related Patches**
+- Companion patch "Disable reset on init for soc_v1_0" removes the
+  always-true `need_reset_on_init` logic. This is NOT in the 7.0 tree
+  yet.
+- Record: Companion patch exists but this commit is standalone.
 
-### Steps 4.3-4.5: Bug Report / Related Patches / Stable Discussion
-No bug report (hardware enablement). No related patches needed. No prior
-stable discussion found.
-
-Record: [N/A — hardware enablement, not bug fix]
+**Step 4.5: Stable Discussion**
+- No stable-specific discussion found.
+- Record: No stable discussion.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1-5.4: Function Analysis
-The `edp_panels[]` table is looked up during panel probe. When a panel's
-EDID is read, its manufacturer/product ID is matched against this table
-to find the correct timing parameters. Without a matching entry, the
-panel either uses generic/conservative timings or may fail to initialize
-properly.
+**Step 5.1: Functions**
+- New: `soc_v1_0_asic_reset_method`
+- Modified: `soc_v1_0_asic_reset`, `soc_v1_0_asic_funcs`
 
-Record: [Table is queried during panel probe on every eDP panel
-initialization. Affects Chromebooks using this specific panel.]
+**Step 5.2: Callers**
+- `amdgpu_asic_reset_method(adev)` is called from:
+  - `amdgpu_device.c:3216` — `amdgpu_device_check_vram_lost()` (during
+    reset)
+  - `amdgpu_device.c:4179` — `amdgpu_device_xgmi_reset_work()` (XGMI
+    reset)
+  - `amdgpu_device.c:6114` — `amdgpu_device_set_mp1_state()` (during
+    reset)
+  - `amdgpu_device.c:6158` — `amdgpu_device_suspend_display_audio()`
+    (during reset)
+  - `amdgpu_reset.c:113` — XGMI reset path
+  - `amdgpu_ras.c:4885` — RAS error handling
+- These are all common GPU reset/recovery code paths.
+- Record: The NULL `.reset_method` is dereferenced from multiple common
+  code paths during GPU hang recovery.
 
-### Step 5.5: Similar Patterns
-There are 200+ identical `EDP_PANEL_ENTRY` lines in the same table. This
-pattern is universally used for all eDP panel identification.
-
-Record: [Identical pattern used 200+ times in the same table]
+**Step 5.3-5.5: Call Chain / Similar Patterns**
+- Every other SoC variant (si, cik, vi, nv, soc15, soc21, soc24) has
+  `.reset_method` populated. soc_v1_0 was the only one missing it.
+- Record: Systematic omission — soc_v1_0 was incomplete compared to all
+  sibling drivers.
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-### Step 6.1: Buggy Code in Stable
-The `panel-edp.c` file and `edp_panels[]` table exist in all stable
-trees since 5.16. The `delay_200_500_e80_d50` structure and
-`EDP_PANEL_ENTRY` macro are present in all relevant stable trees.
+**Step 6.1: Buggy Code Existence**
+- soc_v1_0.c was introduced in v7.0-rc1 (commit 297b0cebbcc3a). It
+  exists in v7.0.
+- Only relevant for 7.0.y stable tree.
+- Record: Bug exists in 7.0.y only.
 
-Record: [File and infrastructure exist in all active stable trees
-(6.1.y, 6.6.y, 6.12.y, 7.0.y)]
+**Step 6.2: Backport Complications**
+- The diff applies against the base hash `26e7566a5479c`, which is the
+  current state in v7.0. Should apply cleanly.
+- Record: Clean apply expected for 7.0.y.
 
-### Step 6.2: Backport Complications
-The insertion point (between 0x1163 and 0x1247 entries) may differ in
-older stable trees that don't have all the intermediate panel entries.
-However, the line can be inserted anywhere in the CMN section in sorted
-order — minor fuzz is expected but the patch should apply or be
-trivially adaptable.
-
-Record: [May need minor context adjustment in older stable trees.
-Trivially adaptable.]
-
-### Step 6.3: Related Fixes
-No related fixes already in stable for this specific panel ID.
-
-Record: [No prior fixes for panel ID 0x117a in stable]
+**Step 6.3: Related Fixes in Stable**
+- No related fixes found in stable.
+- Record: None.
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem
-- **Subsystem**: DRM/Display (drivers/gpu/drm/panel/)
-- **Criticality**: IMPORTANT — display panels affect user experience on
-  Chromebooks and laptops
+**Step 7.1: Subsystem**
+- `drivers/gpu/drm/amd/amdgpu` — AMD GPU driver
+- Criticality: IMPORTANT — affects users of AMD GPUs with GC 12.1
+  hardware
+- Record: GPU driver, IMPORTANT criticality.
 
-Record: [DRM display panel driver, IMPORTANT criticality, affects
-Chromebook users]
+**Step 7.2: Activity**
+- Very active subsystem — 40 changes between v7.0-rc1 and v7.0 in amdgpu
+  alone.
+- Record: Highly active, new hardware being brought up.
 
-### Step 7.2: Activity
-Extremely active file — 140 commits, mostly panel additions. Panel-edp
-is one of the most actively maintained data tables in the kernel,
-specifically for Chromebook eDP panel support.
+## PHASE 8: IMPACT AND RISK
 
-Record: [Very active, continuously updated]
+**Step 8.1: Affected Users**
+- Users with soc_v1_0 (GC 12.1) AMD GPU hardware running kernel 7.0.y
+- Record: Driver-specific, but for current-gen AMD hardware.
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+**Step 8.2: Trigger Conditions**
+- Any GPU hang or error that triggers the GPU reset recovery path will
+  hit the NULL deref.
+- GPU hangs can happen during normal operation (driver bugs, power
+  management issues, etc.)
+- Record: Triggered by GPU reset, which can happen during normal GPU
+  usage.
 
-### Step 8.1: Affected Users
-Users with Chromebooks or laptops using the CMN N116BCL-EAK C2 panel
-revision. This is a specific Chromebook panel manufactured by
-Huaqin/Google partners.
+**Step 8.3: Failure Mode**
+- NULL pointer dereference → kernel oops/panic
+- Severity: CRITICAL
+- Record: Kernel crash during GPU reset recovery.
 
-Record: [Driver-specific: Chromebook users with this panel model]
-
-### Step 8.2: Trigger Conditions
-Every boot on affected hardware. Without this entry, the panel may use
-suboptimal timing, potentially causing display issues during
-initialization.
-
-Record: [Triggers on every boot of affected hardware]
-
-### Step 8.3: Failure Severity
-Without the entry: display may not initialize properly or may use
-conservative/wrong timings. With the entry: display works correctly with
-manufacturer-specified timings.
-
-Record: [Display initialization — MEDIUM to HIGH for affected users]
-
-### Step 8.4: Risk-Benefit
-- **Benefit**: HIGH for affected hardware users — enables correct panel
-  operation
-- **Risk**: VERY LOW — 1-line data table addition, cannot affect any
-  other hardware
-- **Ratio**: Very favorable
-
-Record: [HIGH benefit, VERY LOW risk, strongly favorable ratio]
+**Step 8.4: Risk-Benefit**
+- BENEFIT: HIGH — prevents kernel crash on GPU reset for soc_v1_0
+  hardware
+- RISK: LOW — 24 lines in a single file, follows exact pattern of all
+  sibling SoC variants, only affects soc_v1_0 hardware
+- Record: High benefit, low risk.
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
-**FOR backporting:**
-- Single-line device ID addition to existing driver (classic stable
-  exception)
-- Zero regression risk — only affects specific panel hardware ID
-- Reviewed by subsystem maintainer Douglas Anderson
-- Uses existing timing structure and macro — no new code
-- Enables correct panel operation for Chromebook hardware
-- Driver and infrastructure exist in all active stable trees
+**Step 9.1: Evidence Summary**
 
-**AGAINST backporting:**
-- Not a bug fix in the traditional sense (hardware enablement)
-- Affects only users with this specific panel revision
+FOR backporting:
+- Fixes NULL pointer dereference (kernel crash) — CRITICAL severity
+- Small, contained (24 lines, single file)
+- Follows exact pattern of all other SoC variants (si, cik, vi, nv,
+  soc15, soc21, soc24)
+- Reviewed by AMD engineer, signed off by AMD GPU subsystem maintainer
+- The bug is in code shipped in v7.0; users with this hardware will hit
+  it on any GPU hang
+- Standalone patch, no dependencies
 
-**UNRESOLVED:**
-- Exact Chromebook models using this panel (likely mt8189-based, given
-  the author's other commits)
+AGAINST backporting:
+- No explicit Cc: stable or Fixes: tag (expected — that's why it's being
+  reviewed)
+- Could be seen as "feature completion" rather than "bug fix"
+- Very new code (soc_v1_0 only in v7.0)
+- No reported user impact yet (hardware may be very new)
 
-### Step 9.2: Stable Rules Checklist
-1. **Obviously correct and tested?** YES — identical pattern to 200+
-   other entries, reviewed by maintainer
-2. **Fixes a real bug?** Enables hardware support (device ID addition
-   exception)
-3. **Important issue?** YES for affected hardware users
-4. **Small and contained?** YES — 1 line, 1 file
-5. **No new features or APIs?** Correct — data table entry only
-6. **Can apply to stable?** YES — may need trivial context adjustment
+**Step 9.2: Stable Rules Checklist**
+1. Obviously correct and tested? YES — follows identical pattern in 7
+   other SoC variants, reviewed by AMD
+2. Fixes a real bug? YES — NULL pointer dereference on GPU reset
+3. Important issue? YES — kernel crash (CRITICAL)
+4. Small and contained? YES — 24 lines, single file
+5. No new features? BORDERLINE — adds required callback, but the
+   functionality is not "new" (all other variants have it)
+6. Can apply to stable? YES — applies cleanly to 7.0.y
 
-### Step 9.3: Exception Category
-**YES — Device ID addition to existing driver.** This is explicitly
-called out as an allowed exception in stable kernel rules. The driver
-already exists; only the panel identifier is new.
+**Step 9.3: Exception Categories**
+- Not a standard exception category, but fixes a crash in new hardware
+  support that shipped in v7.0.
 
-### Step 9.4: Decision
-This is a textbook device ID addition — a single-line entry in an
-existing panel identification table, using existing timing structures,
-reviewed by the subsystem maintainer, with zero regression risk. It
-falls squarely into the "new device IDs to existing drivers" exception
-category for stable backports.
+**Step 9.4: Decision**
+The missing `.reset_method` callback in `soc_v1_0_asic_funcs` causes a
+NULL pointer dereference whenever GPU reset is triggered on this
+hardware. This is a CRITICAL crash bug. The fix is 24 lines, self-
+contained, follows established patterns from all other AMD GPU SoC
+variants, and was reviewed by AMD engineers including the subsystem
+maintainer. While it could be characterized as "completing" the driver,
+the practical effect is fixing a kernel crash.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Douglas Anderson (maintainer),
-  signed by maintainer, no Fixes/stable tags (expected)
-- [Phase 2] Diff analysis: +1 line in edp_panels[] table, adds
-  EDP_PANEL_ENTRY for CMN 0x117a
-- [Phase 3] git blame: surrounding entries from 2022-2025, same panel
-  name 0x115f added July 2025
-- [Phase 3] git show 3d65e4c276b3: confirmed mainline commit exists with
-  identical diff
-- [Phase 3] git log --author: author contributed multiple Chromebook
-  panel entries
-- [Phase 4] b4 mbox: found 2-message thread, V2 patch, maintainer
-  reviewed and pushed to drm-misc-next
-- [Phase 4] Mailing list: V1→V2 evolution (name string change), no
-  objections
-- [Phase 5] Table is queried during panel probe, affects every boot on
-  affected hardware
-- [Phase 6] panel-edp.c exists since 5.16 (commit 5f04e7ce392db, Sept
-  2021), present in all active stable trees
-- [Phase 6] delay_200_500_e80_d50 and EDP_PANEL_ENTRY macro exist in
-  current tree (verified via grep)
-- [Phase 8] 1-line data table addition, zero risk to other hardware
-- UNVERIFIED: Exact stable tree context differences (but trivially
-  adaptable for a sorted table entry)
+- [Phase 1] Parsed tags: Reviewed-by: Lijo Lazar, Signed-off-by: Alex
+  Deucher (maintainer). No syzbot/Fixes/Cc:stable.
+- [Phase 2] Diff analysis: +24 lines in soc_v1_0.c. Adds
+  `soc_v1_0_asic_reset_method` function, fills in `soc_v1_0_asic_reset`
+  stub, populates `.reset_method` in asic_funcs.
+- [Phase 2] Verified: `amdgpu_asic_reset_method` macro at amdgpu.h:1454
+  dereferences `.reset_method` with NO null check.
+- [Phase 2] Verified: All other SoC variants (si, cik, vi, nv, soc15,
+  soc21, soc24) have `.reset_method` set. soc_v1_0 is the only one
+  missing it.
+- [Phase 3] git blame: buggy stub introduced in commit 297b0cebbcc3a
+  (2025-12-08), present since v7.0-rc1. Original commit described it as
+  "reset placeholders."
+- [Phase 3] git tag: 297b0cebbcc3a is contained in v7.0-rc1, v7.0.
+- [Phase 3] git log: 11 commits touch soc_v1_0.c, none fix the reset
+  method issue.
+- [Phase 4] Found original submission: spinics.net/lists/amd-
+  gfx/msg138861.html — part of series by Alex Deucher on 2026-03-06
+- [Phase 4] Patch evolved v1→v2→v4, review-driven improvements, no NAKs
+- [Phase 4] Companion patch "Disable reset on init for soc_v1_0" exists
+  and depends on this commit
+- [Phase 5] Verified callers: `amdgpu_asic_reset_method()` called from
+  amdgpu_device.c:3216, 4179, 6114, 6158 and amdgpu_reset.c:113 — all
+  GPU reset code paths
+- [Phase 6] Code exists only in v7.0 (soc_v1_0 introduced in v7.0-rc1)
+- [Phase 8] Failure mode: NULL deref → kernel oops on GPU reset,
+  severity CRITICAL
+- UNVERIFIED: Whether any users have actually triggered this crash
+  (hardware is very new)
 
 **YES**
 
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/soc_v1_0.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 108569490ed59..c9eacfffd5b29 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2014,6 +2014,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1160, &delay_200_500_e80_d50, "N116BCJ-EAK"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1161, &delay_200_500_e80, "N116BCP-EA2"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1163, &delay_200_500_e80_d50, "N116BCJ-EAK"),
-+	EDP_PANEL_ENTRY('C', 'M', 'N', 0x117a, &delay_200_500_e80_d50, "N116BCL-EAK"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1247, &delay_200_500_e80_d50, "N120ACA-EA1"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x124c, &delay_200_500_e80_d50, "N122JCA-ENK"),
- 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x142b, &delay_200_500_e80_d50, "N140HCA-EAC"),
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+index 59ab952d5cce4..ca66a0169c781 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+@@ -229,8 +229,31 @@ static bool soc_v1_0_need_reset_on_init(struct amdgpu_device *adev)
+ 	return false;
+ }
+ 
++static enum amd_reset_method
++soc_v1_0_asic_reset_method(struct amdgpu_device *adev)
++{
++	if ((adev->gmc.xgmi.supported && adev->gmc.xgmi.connected_to_cpu) ||
++	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 8))) {
++		if (amdgpu_reset_method != -1)
++			dev_warn_once(adev->dev, "Reset override isn't supported, using Mode2 instead.\n");
++
++		return AMD_RESET_METHOD_MODE2;
++	}
++
++	return amdgpu_reset_method;
++}
++
+ static int soc_v1_0_asic_reset(struct amdgpu_device *adev)
+ {
++	switch (soc_v1_0_asic_reset_method(adev)) {
++	case AMD_RESET_METHOD_MODE2:
++		dev_info(adev->dev, "MODE2 reset\n");
++		return amdgpu_dpm_mode2_reset(adev);
++	default:
++		dev_info(adev->dev, "Invalid reset method Not supported\n");
++		return -EOPNOTSUPP;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -244,6 +267,7 @@ static const struct amdgpu_asic_funcs soc_v1_0_asic_funcs = {
+ 	.need_reset_on_init = &soc_v1_0_need_reset_on_init,
+ 	.encode_ext_smn_addressing = &soc_v1_0_encode_ext_smn_addressing,
+ 	.reset = soc_v1_0_asic_reset,
++	.reset_method = &soc_v1_0_asic_reset_method,
+ };
+ 
+ static int soc_v1_0_common_early_init(struct amdgpu_ip_block *ip_block)
 -- 
 2.53.0
 
