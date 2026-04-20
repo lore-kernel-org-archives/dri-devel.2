@@ -4,137 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D3DF327B2
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5A43F327AD
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:09:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E44DF10E18C;
-	Tue, 21 Apr 2026 07:09:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE82410E7FE;
+	Tue, 21 Apr 2026 07:09:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kfRZpILV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eqOx1HZI";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010049.outbound.protection.outlook.com [52.101.85.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2387D10E18C;
- Tue, 21 Apr 2026 07:09:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JoKs2YqtvcEXXdPDAmDbmCrwW8TbrIORw+Av3fa1qh5XSuqmZ7D3v7fJBSvBGsoq0DWEieR14xAYSzhyMvk/WUbWqtEwErslDURdohjbTGJgWvE03xQVmLM+UvSs7qV0IIoNMxyD0FoT2ALCMXr28DESKxHS5SNPS5PeiBQPj5nOkqUdnnS2reqTj8kVzvtT8foU0P6iFGbMOmWks+qk/B9TFwmC5LdzzkEppzrvzeJZZntAnfAnuGxuEvvaap4WZ4EvnUXyzRxLZS1nmW9sWf0RvRWLY5BwMAuf3SPrMFuWscfw/vKxr4DY7VgMGtNu6cv3r79alKvduEhZ20BiQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uIoJtRLrxX5tEDL2I0z7cJLH6JZn4XzWQ/42/UC6JaQ=;
- b=jshF5P4eLylDgRDq4gai7qlRc23oub3MSRu4s0Qcw4VZyyMOZgVChvJh7jUZZVc2CUtrhUEW3lql9tMBBtpnj6p4GYX0zkxBLELK0XVE7cGXL6AoRWVKGsRA5xoQ5jfG0taHvOcqbb0iCjGRvn+RhZqDU0Jvdao6bEk3uR2okvE0HGJjuwPu5eOUbfQqvpjF0TnVJmKpmo1Ok++FR+WivJQpz/ypg8oLn4hzWYQ3c3Qr9pkADBbO8zRzgsN316zIWmhHsf4Btwc4zZJuLbNEv4OSoj1/6xLjx8GCje9NOewACrYRkS6air+P8TVLIR2CRuAI9DvU+5jTP7O+bOaobA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uIoJtRLrxX5tEDL2I0z7cJLH6JZn4XzWQ/42/UC6JaQ=;
- b=kfRZpILV/9uvaAOexT/tF2knZOmuIabuzeqJTSuCmgrYd4mA9qLcSoMd0+DerSStql/6uW4eB2hpqTE8P1l6mfAOwPELJYFJ8Oo/ROt7D4P2Q3HREo6MFJjywLdIA+Fx488B8AHiU3ff19J0JDCwuhwCVdX265fIlAjWj0aGSm9EdEuvMoDYpqlXCh5HNp78bEU89TEW+XTsWcZL4JtzfmasAnrwmo96z6Y9dTQB8+H6I2XZe1Fh1gmgo3EV0K/c/cs0Ii4ZK7qLxzm0S+Ux52r5ZHRTA8x+uzzDV9dpzunTX/R9xY93/Rs0tv+UvGPY4ei2eQ+va5F1MEVzIr4DCw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by PH8PR12MB6772.namprd12.prod.outlook.com (2603:10b6:510:1c7::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
- 2026 07:09:20 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 07:09:20 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 21 Apr 2026 16:09:17 +0900
-Message-Id: <DHYN7ITVLK8S.ZIYFGZ2GVPPV@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 2/5] gpu: nova-core: use warn_on_err macro
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Boqun Feng" <boqun@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260421-nova-unload-v2-0-2fe54963af8b@nvidia.com>
- <20260421-nova-unload-v2-2-2fe54963af8b@nvidia.com>
-In-Reply-To: <20260421-nova-unload-v2-2-2fe54963af8b@nvidia.com>
-X-ClientProxiedBy: TY4P301CA0052.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36b::15) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2376C10E1F2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:45:05 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-43d70b3e159so1413803f8f.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 06:45:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776692703; x=1777297503; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RqCHN1cCEt3ASeaIcQIdHw02mQbDZZaQMdp0xTMA86A=;
+ b=eqOx1HZIwPpScvRY95bbYQD7/FbViljf1NqJZIwwoNnP1T3R3xRAsKoPpIK+Ni0Dbu
+ uiZJ3iFMKuvHTU7yLJhX/s7xqZDtuM4swUYAzVXHq7T3uo2D9hx5mp5Oih+d1G+lqw4U
+ zWZ3RInAshNqkuYUK/+NH+VGKEZb/hybivWvpJHPV5/GINy6JfoLtA/UeQp12CgwONau
+ Zh6+ZoTj1Xut10jZFaZwTwJP0b+W4uU8/KHiQCImddSY0u+gi80phlYwg7Qg/tUA6iNg
+ vVUo7U7d6lF5FUOWqiHSBIOAEv36JqkY8QQZPoK74yY+G8yB0aqYN8iVRE/7gY8bSFkP
+ Q+Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776692703; x=1777297503;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=RqCHN1cCEt3ASeaIcQIdHw02mQbDZZaQMdp0xTMA86A=;
+ b=G+Vn5qaagvyEaO+X2KqDe0SOLyf3HadVuL5VcupTqVREGNiTLjMzmjFjUWXTZUrYNd
+ 15fW+Djwb8ucBGljBo1pLZQxGvmGtnTTfcwRuN+ex6ltvX5F+hUNEpCf9+FBQQjzrQ0q
+ 7EwY2nZ96Uqqh8tNrFC+TUHdCJgLAqQgMFWUZ69Y6Y2C0vJGFVRsJEHmPnw6pY80YNLW
+ T1g8kG2+ogkHhqist1mZZyS2vSCnaqJhGeV5VNMhBtJNx5kGJ/axo2VGkp2+kIiOVGYe
+ +0X6p3PjZwe8eAFZTpacLQh0YSXYG1BSsswXR3vXNPEMkItGIcC5PCahJnBkgV7GvuJQ
+ CAyw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+OctYcFJ6Q678e9+UDXTU26wluAGySyvUFJY6cgtllYRJcLbelWFLXX1RWbxVeocQgb9saOl7EFHg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyu5IO2DJBV4VMPZsLaeI0NmI/F3VVwxc7X6+S4kgLo7J8aHGo1
+ EXXizOKEo8Ak9mjy8lk1olutGfk/3uV8zYmp8fTgEleLPzmJTo4GSC+AkdG9SmmI
+X-Gm-Gg: AeBDiesOq1INimgeMOcQdlNoS4LxYyBnW3IbWlflscb08ryeFloqIPBjzo4ZVfmYKHa
+ Jvkq5gxXlmiDxWCstgZjK93kcgkidOG2wAn8EF+T0/WfukBf4qUmTBwOiwE5GNAKC0Y3h9tlA1l
+ E4TmtUzEcEbjkhqQQ2tT/pOTbR9fi59B64tZ2qZ1K2mNvRDGyP9fpQ+Lkwd/pZzR6dSn414SRze
+ c3fMG9dkqLJEaoEvqaDkbDn4hWtcIfu4PJ7VlfIDmTDLkbTV79DOIojQbJayYfn16OAKchqK3Av
+ 1hox+Ju0vkd0+nhDXp1LO2qF6pUZXDU8/vlFkvPwCiLZg7oHHHgNAacDwA7LlkUrk87o1a8ipSg
+ FhoOC+98r29zAfcPwJSBzni9aTfEmVxd48MHyukydgpFgZdYh1lCyFZlblabspkKbTUx2cNqi7V
+ uIQTHjL/wsBnpgqD6ChBBmJI188iZ3nQh26mleGed4xZhNuITTX5Q=
+X-Received: by 2002:a05:6000:1889:b0:43d:6244:f8b with SMTP id
+ ffacd0b85a97d-43fe3dc3824mr21219986f8f.13.1776692703207; 
+ Mon, 20 Apr 2026 06:45:03 -0700 (PDT)
+Received: from anthony ([2a06:c701:499d:3e00:12ff:e0ff:fea5:3d2e])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4cc2cacsm29302178f8f.13.2026.04.20.06.45.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2026 06:45:02 -0700 (PDT)
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+To: deller@gmx.de
+Cc: thomas.zimmermann@suse.de, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Amit Barzilai <amit.barzilai22@gmail.com>
+Subject: [PATCH 3/3] fbdev: goldfishfb: Request memory region
+Date: Mon, 20 Apr 2026 16:44:24 +0300
+Message-ID: <20260420134424.77494-4-amit.barzilai22@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260420134424.77494-1-amit.barzilai22@gmail.com>
+References: <20260420134424.77494-1-amit.barzilai22@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|PH8PR12MB6772:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fdf71cd-0f2f-4fb7-684a-08de9f74e8e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|10070799003|7416014|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 6MHgLnYnDCh6CBBPJBQ3+aJiSM5oU7+uXqVPrH+BZKexgouZV4g+qGIjTWj3+gd0WKOjcfgNPLRdnD9gEbrMvsV32SHXBr4k6f7n4MWXbGdqccvdOoeJ2nClmVxqSfSDrDFOz9Ej/ky27IkCPJEUHnmLNYmiYwjMJv1/73ICC4IenZvZVp1f7l8a2u9SKZapatCJfLPC+kTliG0lCEWQijZt9wYI3HpMtK98DcQ20bKNbMOrFj5thp9HF1uGhOtW9qTWx2rgpJTr2Dd4/lEOl5nAtZcfQs00q8wcTmIsaAycc3BxinkTedOAQQSqEgq0dv+wKUYnS0kCLPxJShr9LpL3O3xEeRg5DZCh/TD1suTbX4eelmxJcgetVTQR9+cZevzzDO8j5+78wkJQCbGJ7KX4babCey5Xa1f7t12BG/V0twJf07LzJtgT9P+kK9mZJNZ7GR+hKOZZoQzglHNKaEYzHmv8asEVo6C6xY+CtbaFtaCuj6x8lVL43nqmQEzJUgj5xiZdG+4ocRG+zTz9/n3uE7M6GoITGGXEMhgKTI/O21EYbNCybLHo8I3VDKejdS/e/IQk4CLAbM4qKUPnsf3pw7e3S8imKJDgEl032OgyoLS3np4V6oE87bXdrjdCcaltEaIs3rHZSFBcleeDtGdhef0G6tztuySweA408DmePbGZFEZWXmdqM6xW6eg6Uw8V74sBXq6CgquDS2Vl/UO/VUdhM1W806P21EY4CR4KKs1BvXyVhLEyGTpoXJPrs7mJqA92QoQBf9twE607gg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(10070799003)(7416014)(921020)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MnF2d283K0JSeGlCSWlMenc3dmxOU2dmZ1ltb2NxM3dFNUZYL052SWFhbkFZ?=
- =?utf-8?B?WCs4R2VRSjlQV2hQUUhuOC9GalFyc0tQZTY5WTQ4YVUyYzN2NXhQRWppblA0?=
- =?utf-8?B?RGgwYWNlWE92VU9yNm9DUDJHV3RVV2IrdlMvcW9QNGx4bmt4U25JZDIrVUZr?=
- =?utf-8?B?ZlFTdktHOURjc0ZpQzJUdVM5eGplaFhrdzBBR3pzRDUvL1Y3cHQ0YjlBVXcz?=
- =?utf-8?B?RGpGbnh5bGtmTlFtOGR2MTBpcjFIT0FpTkw1bmFVeXNDeEJLTE4xdmkzdjY3?=
- =?utf-8?B?THgxSWw0dWRwLzhFOGFVb29pMklTTHluekJiSFBnQVJ3N21HSUhQNkJ3N3ha?=
- =?utf-8?B?R1ZZdEI2V1lFdTgzLzFySzEyZW8wbHFLaHBnR0dtKzZkN1MvemJtSnU4dE5i?=
- =?utf-8?B?MWVsUkxuS2JhanFkeFVSWWhZWWJrTkU2am1LcjZJSVpodXZTRnNBRlJxT24r?=
- =?utf-8?B?M3BlSXNQM3pBaGFjL1BLcWtLUlJUcmZ0K1dFYUEvbnFiWnRLckxZaFJxUDgx?=
- =?utf-8?B?QnIzZjhscUszaEdTN2FZcXNUaStCZUFJTDYyMDMvcUZnaUljUDB3cDBIY0JV?=
- =?utf-8?B?WUtXVCtLdkpyR3JOTDJ0ck1acnpFaW5HZ3JhWmpBekRnUmpOdFRLTE1Mb1F5?=
- =?utf-8?B?SUVXcmtXc0RTTnFTdzNwN2JBbjYyWGlxZkRqZFdUckVuaVY1OUlKMnhhbnFR?=
- =?utf-8?B?SUFvRjMzamdWVkxmeFRzS2xUQkpBcEpkNDNyQlg4RGxsVFkrVVdlZzJKS3d4?=
- =?utf-8?B?ODVPWnowcFVCS1ZwSklTVjMyUm54Q3A5dlFJUmRVWDU3VjZjYjZ4eHBrcENL?=
- =?utf-8?B?Y0k4OGNjZjkya1ZJR08wUXd6eS82eC9MTjlieGNycWw2YmNURnRsQ0NpeHQv?=
- =?utf-8?B?MUFUZGpFZkxJaHhBQzRmek1zSTMwZWg1VzRBWlUyT2MvcTNtbzBqYVFhV3kr?=
- =?utf-8?B?NFR2QXVya015NFo2REdwMUZVQ1BNaDVOZ1hvYTlUZWthT09oRXp6WkNsRWpE?=
- =?utf-8?B?UGMwcmJtTDJLN2c5SGgrTTVvanI4L3E3ZDVrOXRxcjZLNEc5V2dSR3Iyb3lp?=
- =?utf-8?B?cjJLbU5wa3ByVVpRM2xLKzhWbEc4OUVVRVM4NTdXLzBFbThCcXAzY3R5c1hY?=
- =?utf-8?B?RndRd0p5aWowc2h6SnpIU1ZWbFo5VEZYSFJYalhVbUNrOWV3MzVSNVpnYzBV?=
- =?utf-8?B?OXV1ZDRVN0h2WDN1S1dNYnhtZm9Vckg4WXZyaEVTOUl2WDhHdlNZNEdYVXlm?=
- =?utf-8?B?UThHdmdoQXR0N010L0hMbU5ZY25TbmhTT3MrRU1ldzZSSzcwckNTUWNYR1l1?=
- =?utf-8?B?dnlUUUpicVljb3R4dmFjeGFxZm1KbFNjemd4anhSSU0rQ0swcXNUQ3dzZjB6?=
- =?utf-8?B?b3YwUDBHaTNBdkY4SnhFV1cxYVZ5d2xIcFJ0bVpxZHc1d0NhdXV1VDhOeHRN?=
- =?utf-8?B?SW9OV2tMN1hvMkRjZzg2bUl1SExDRDRzUEU4SkJRQmdTSjB0QlYvMFdBUWQr?=
- =?utf-8?B?Mm92R3JOZldKV1kvMUZyRFIxSnZLOGt2cGpuaFZPbUtNYm1KTUQ1dW5ZR3NH?=
- =?utf-8?B?T2JzUDZwNUVQRXhKMlVqTTNkVFZ6V3VaRXdVRkRhSTk2RlZQQ2FEWFlOWVBF?=
- =?utf-8?B?d3hRQ0pVd1AzdnhSSytSc3hXRlY3bS9KU2c4aFRBT3pyYXViNTQ3NWViQUZl?=
- =?utf-8?B?ODZxRXlCT0thSzAzUCtWN3JBbGJFcWl3YjI3OWZWMHhvVzl1YjlLUzUxK0h6?=
- =?utf-8?B?MDBOamN2QmZGa0RwZ0svUmZwd1BPaFd2clc5cVZaeEZ3eVczN0x6dDVHSXNR?=
- =?utf-8?B?UE5VREZzVjNDd053YzRpRTlCcW4wUXZrYXBhdGZQbG92WElsWmxkbUZvZFJ1?=
- =?utf-8?B?V2JXUUdmdW9yT3pCSHB4S2U5U1hweVZVelpHS1hqcjZNY2RxY2UvRnJLWHZX?=
- =?utf-8?B?UU9sYXFZbjhhbTVETVJTNHBiWnpEM08rVkRXL2xLUnJPU0kyQVRiaVo0c0xK?=
- =?utf-8?B?Y2NwNEVDdjYyb0k0MDA5KzNJdmxxOS8rOWF0Nkg3NThHZllSTUJFb1Yzd1d3?=
- =?utf-8?B?WTV2Mi82bnk4LzVpQmJuODZJT3BvSWRPdzVvaGtZZlBZZWhLSG5ubkI3VjQw?=
- =?utf-8?B?WGtxekRONTc3L1RUQWd3N2d1TWo1L2Iza3pZZ1RXRUFtM2M2OWJTK3VaRlgv?=
- =?utf-8?B?THdKekZLZ1hUcm9wSTVsTk0yMnJaWlFJMTlSUzVGQ09nS1lraEtoVzVXdzZN?=
- =?utf-8?B?bGV1b3lJT2ZuOU5aQmhwM2pteG1VNjBjbFUxSTA4VVdXTTNaMXBtcjdaUUVx?=
- =?utf-8?B?NDBZUW9hQXpjRWI5N2NlSVU5Q3JkMXgvSFdMZ05EVEh4OGhONDd2RW43eTFZ?=
- =?utf-8?Q?YaURp+OEkUn/6FNeNmND0hqCLhFI6p6zeYYzTBPK9dpXQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: XMJgEjdKF4onpQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fdf71cd-0f2f-4fb7-684a-08de9f74e8e8
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 07:09:20.6982 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KRxUTgNo81n1ETdEYob1bNwv2RBTV8B9qZwfqgzViwVTprKqzJjo5H7kUmqefVYYTA4MBURcp08WY8rXxC0cCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6772
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,13 +90,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 21, 2026 at 3:16 PM JST, Alexandre Courbot wrote:
-> Use the warn_on_err macro in the unbind sequence, and refactor it to
-> early-exit on the failure path as we will need to use the bar for other
-> purposes.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+Use devm_ioremap_resource() instead of plain ioremap(). The helper
+requests the memory region before mapping it, which registers the range
+in /proc/iomem and prevents another driver from mapping the same
+registers. As it is device-managed, remove the corresponding iounmap()
+calls from the error unwind path and the remove function.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+Assisted-by: Claude:claude-sonnet-4-6
+---
+ drivers/video/fbdev/goldfishfb.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/video/fbdev/goldfishfb.c b/drivers/video/fbdev/goldfishfb.c
+index ffe33a36b944..14a7cb0a7a1c 100644
+--- a/drivers/video/fbdev/goldfishfb.c
++++ b/drivers/video/fbdev/goldfishfb.c
+@@ -194,9 +194,9 @@ static int goldfish_fb_probe(struct platform_device *pdev)
+ 		ret = -ENODEV;
+ 		goto err_no_io_base;
+ 	}
+-	fb->reg_base = ioremap(r->start, PAGE_SIZE);
+-	if (fb->reg_base == NULL) {
+-		ret = -ENOMEM;
++	fb->reg_base = devm_ioremap_resource(&pdev->dev, r);
++	if (IS_ERR(fb->reg_base)) {
++		ret = PTR_ERR(fb->reg_base);
+ 		goto err_no_io_base;
+ 	}
+ 
+@@ -273,7 +273,6 @@ static int goldfish_fb_probe(struct platform_device *pdev)
+ 				fb->fb.fix.smem_start);
+ err_alloc_screen_base_failed:
+ err_no_irq:
+-	iounmap(fb->reg_base);
+ err_no_io_base:
+ 	kfree(fb);
+ err_fb_alloc_failed:
+@@ -291,7 +290,6 @@ static void goldfish_fb_remove(struct platform_device *pdev)
+ 
+ 	dma_free_coherent(&pdev->dev, framesize, (void *)fb->fb.screen_base,
+ 						fb->fb.fix.smem_start);
+-	iounmap(fb->reg_base);
+ 	kfree(fb);
+ }
+ 
+-- 
+2.53.0
 
