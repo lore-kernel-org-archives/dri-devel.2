@@ -4,75 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FD73F3ED73
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 05:20:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CDC2F99C9C
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 05:51:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B2610E03F;
-	Mon, 20 Apr 2026 05:20:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5DC10E421;
+	Mon, 20 Apr 2026 05:51:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FkxwOLft";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="F7tQaBIF";
 	dkim-atps=neutral
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1107210E03F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 05:20:35 +0000 (UTC)
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-2ab077e3f32so10425975ad.3
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 22:20:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776662434; x=1777267234; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=GzRXCJv6s7nBaWaSPV26wDLtfWq6m8la+VtHkby4pFA=;
- b=FkxwOLftFwx7iP/8EcPE/Ce8YeRwo16YGwfodXA5rMzQQW378+99vmxX2bMU/pmnBF
- gsnSL6ZWBacuR7/+0R1WXGDKNTkDbUeRp0GKrkT92iTT5v0PAr1Qd97KWFgUyUGiz83d
- 2872wdRn61zzzAZYZ1zxmrGqlLaqiZhwpdQQfmv8oxAHXLkyW1+alDJBjXNofsVDU5LG
- x9FCaH2dEnMWoEQN10EsESdFQIlUTjQKflmFXHLWzy9Ac5rwgcHN+wlRG9HTB5zg2EXd
- cRiIHrHTfhiKMnnORb/l1pm68+BJlvS7ZydgNxXklOj2rpJ7lrsK6gtiEzt5W02fNjHy
- k5Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776662434; x=1777267234;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GzRXCJv6s7nBaWaSPV26wDLtfWq6m8la+VtHkby4pFA=;
- b=quwvGnHFcImAXggoAxFksSL4qwIJKK5aWaHobl7LhVwRG1BSHVuPSK+eHKTelgWZeh
- 90itqChLech79yyX0yExkhCcjD+vcSGfGfc4noDoLJuxkmZ0OVVeQIKCvwTU5e/+T8TD
- fC3nU5gZh27DS0wvoAi2weoOrCdVQcGlzCT/z2rNCt1ylimDxUV1OV4XyAv+SaDUNl9o
- vx5q/0zL6Vc295bBuvBYukXWH9bl/8VylEyWW6u5rZNoNWdsgsIcSfVlOovEGuBXYGR7
- ZqpKeLuDJsfddXOkKpYKlP/d2/aUMKTe4PVfB1qTFkjcOzjWX22zJ93/vqEaWobPS7JH
- T4wg==
-X-Gm-Message-State: AOJu0Yx8lQG0F/yA6DmPDzSQg1QIDlvLBWqjECtJH5qCI7Ww3MRZ6v8I
- szoSh77I3AJIHT6DwsGUfhPogNKjO0nLHBY4ZrC6wuTBd9Ohi76qd3gE
-X-Gm-Gg: AeBDievTQizcuXAcCGnsUeqHxdqYVJ39ceDU7QjzImDqNu126EAH6oXBI6lrt2VdSmc
- p67XUZD4BwahRM6UevwGa/Ij/vWu+dXqvDo4HuuS5v6NT+hXoqcBV/qHdvrvLyyCd2LI04PbGtd
- VcAqq2dCBXJFmDU46AgFqSYq+B0iiLqMuUfwGRXqny20Y/B2xJyp2qBT+Cx/am+VEueo+FS6YMe
- RhT8qTViUyqYLclpDV7pZU5TwJ3+gINTUgb/BjPgSI2vSROAy9Jvsfc7nnrh1IRtiDIgcnSI+pZ
- 5hwioy6rIX373ERaD165axYB2qWiK6/mcraOH7+EFVs9V2g/LZg0eoyKBrUhAdaYIBi4pafuHAc
- v1qnF2O021ElSBE1dC+0KXh1TLFoFC01V1nIeev1w944rRVHZzWJfbKUUD04N743z/gtXW95TJi
- IK+XkMiU2Bnhm/7Q94X1qdgbHQ/txL9PFh14FvYgmdYu01wJl46+Q=
-X-Received: by 2002:a17:903:124c:b0:2b2:57df:264d with SMTP id
- d9443c01a7336-2b5f9f61ad2mr132449745ad.33.1776662434501; 
- Sun, 19 Apr 2026 22:20:34 -0700 (PDT)
-Received: from rahul-mintos.ban-spse ([165.204.156.251])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b5fab30f29sm87965555ad.68.2026.04.19.22.20.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Apr 2026 22:20:34 -0700 (PDT)
-From: Abhishek Rajput <abhiraj21put@gmail.com>
-To: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com,
- simona@ffwll.ch, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- abhiraj21put@gmail.com
-Subject: [PATCH] drm/mediatek: Convert legacy DRM logging to drm_* helpers in
- mtk_dsi.c
-Date: Mon, 20 Apr 2026 10:50:08 +0530
-Message-ID: <20260420052008.5417-1-abhiraj21put@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75B6A10E421
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 05:51:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q432No9jC1qR/wf5+Rb5LX8PS6art09Vks6C3gAgNb+VhKyPdRZxVuyUshUpSy+BYXaE69IjH8iCdVAUu757LGnJKh1jqKg9zuzm9a8YTJTDhQXT1N7zMpVPv3szgUgXBtolHCJ1f5QCdW6ry4+6EGmBOPUAAbWq585NHaR6K0jjxbz2MFt0mnWbx4yX+7v55X96Nub353PqvnolOwGwmF+gSDA+egIMcZeP8qAS9PoGLm6AV/+t6ddS2UDwTyeZAZ7YiLDXDmF0xXF0H0+QtO7IBcNgjYyb6isHpcEL9fK3DbAPKoTLXt6xLQCJmCt6JTSvic5loZQhZTvO3+OBag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1Y/ADa8KsblnM7f3Ps5D/ZJiejn2227RCdtIvJlgYUI=;
+ b=MntYWhxFaSDMQJmWpY7v1f9cOMXEGVvAKi69txyv8iDdT+BiJ2nGcazHP6Jr+kT4qSjtJiBBknArqOHhN/waa4SL1DfY6pCvVnBv/EBllYVgo1cucCWLA1hTwvsBH5eJzdzWKwFrW5ovneIXp0gy7F59WsvGLhqsi6SPi41ix5JoPld6+CCFQnymVpMholxUhQB7WfSxjMB3HYTNqdMn0Tmd27bM8Qeg620W9oQQU2qPMuOxI5oh0yJrpEAP2WnRttsskmq6hQ0Dhsgpwcp0Dmx5Pj+Rez/1tu/YK44rJX+4OB7gVpui35LhQxJD1bplWlimoPi8AQeRgBR93wls0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1Y/ADa8KsblnM7f3Ps5D/ZJiejn2227RCdtIvJlgYUI=;
+ b=F7tQaBIFU0T1NtiJS3Bvd6IGYTptOTdNSrSBEWniqDCkHYNaJ3N6+ErFHy7PBuDvbIukobYmWUe+os3S0d/65h+0+hAE0mRLv8jUkMoKwosOVFhq4CBK0vKvERbPZDY6++XUDSmU72khOiiWM9vT5KNFBXUrmybchdG5x5sXIFshkxPW78LUUcDC7gZ7oajQNqh9TBt++uJ5en2LRUVe86ojaLgO4JBvQHNioRA82a5miXlfJ2dhzHoo4JkzcnzjF0pY6/rMQL4KrRuNISC68o+H0B2a2M6ir/XH0kBfqK/CjxdGqlsLci9yalEfWKjZlFnGX+lN9kiQTMRssYXYUw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by SA0PR12MB4400.namprd12.prod.outlook.com (2603:10b6:806:95::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.8; Mon, 20 Apr
+ 2026 05:51:48 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 05:51:48 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mark Zhang <markz@nvidia.com>, Sean Paul <seanpaul@chromium.org>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] gpu: host1x: Fix device reference leak in
+ host1x_device_parse_dt() error path
+Date: Mon, 20 Apr 2026 14:51:44 +0900
+Message-ID: <uZ6EdVtvS_esNOmqaTDDhg@nvidia.com>
+In-Reply-To: <20260413141526.2961841-1-lgs201920130244@gmail.com>
+References: <20260413141526.2961841-1-lgs201920130244@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP301CA0039.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:380::16) To LV3PR12MB9166.namprd12.prod.outlook.com
+ (2603:10b6:408:19c::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SA0PR12MB4400:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3643925-8fc9-4aef-5b40-08de9ea0e8fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|376014|1800799024|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: rWTFJMVKl7XSjocAOFb2KHhicLZot51TI3rjKANKLStx2oZTO+XG/ncpv1irFfzfpHefhemoYa8FRBwMB3Hve5AzQPN+2kEadxssf/+F2dYzjiH6O9YXt62PXNia+9kcZK7DtHPLrBbOxvWJ7+rdQFa8vRrtjTXv6X7N649+GabJpvhkTdZNh0BqrXuW66ErgHp5yRFFQ7y3dkLK57MWGK1dYZvki+4X8oaa40Vsi0XCHViRNrzgEfP+jfp2Y0g4hsL6vZRC6Oysiul6YfoxfUQtkAh1BqMTgQzQ9hnUVeHOGJxIJYTMNULW85WQSkoK1Wlw+HR3cU3eeZ9BY6ujNraMqQDARgO7O2pKNE8HJe7Mt8l8ksqEi6CwbQtJI4+rIlCDW9pBbVdAoNlAwylJv4yuUjHmbsuEXYqk6TxVXMIeCfJ+1TT20KpidFTaq8VNJWBwU4RyMkJtawYSMHMF1wmvQsU3xVhnS8eGtvOh6/o6as6eW498EiYAch3+o5qwqnGG6mJFeY8RCL4xLPanwkSW/py66ydysV1041cLLgme9eAefYBZtWDyVmZzo6Ki5fSqtNGcQ8FYXxZP7uRtQlaTi5fFzjxqACUui+LNI6NVwadt3Aw3SrzuL9xtNIQAmrNVKKlUHLvIuTBWmvXkIdaLUpYyaZKS6up4/fbZc5G8X2VbTv3c/gLDAm9d9X71WkQWb+/iXWZn+f9JgmLG+7TAMtSIK0FvGD32DhmvB0E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?REZOMzdodmNodEowTkpucWtZQk1GUGk4dzFIVHFLZW1CQjh2NWt5ZFlQZUp5?=
+ =?utf-8?B?SDdsTldRRStUVitqNEIrWjQyM3lkU0ljcENwZG5hYWd0VWg0M0d1RmtPZ1hr?=
+ =?utf-8?B?RGd0eTY2YW9qRWlubTFZREVWamUyaEZPcElHUGd0MDlReHE1SUFIek5hYmNs?=
+ =?utf-8?B?SGNuQ1RKejZKMTR4WmFHbDR0YVVjenNLTFBDdkVyMVhUeFRYS1JXL1ZUSHdF?=
+ =?utf-8?B?NytzazQvSFpzVjBhOTFPY2M0NnRYbTN0TnRoOXhXR0dpc0JrNjdQMWYxUFdY?=
+ =?utf-8?B?N2xuWjhOR1N6d1VZNXJJV1FJaFI3RVlTZG1Yb082dzVtUVFHelloMjJPbERC?=
+ =?utf-8?B?ekVMRDduOHhzVkRFUW82aTJtbUJYWCtRWmpaM25IbmtITlROa0xDNzlzLzVw?=
+ =?utf-8?B?Q0d3dlhMNEpJMmFKTXpsY2pqeGpEdTFseStJdnZ3R1BFUHlZZE05RTRlaXBM?=
+ =?utf-8?B?aHRtRWM1VVU1RUFpVW9DZ3cxK1BmdkkwdGtxSTZ1MHo2RWVwUWR0aXUyS0RN?=
+ =?utf-8?B?YWRydWZsNDNiblQ2QVpEWE1aWGtnV3p2TVdsTlErTllZbjVrbWI0RnRiWlhN?=
+ =?utf-8?B?U1VlNnc2VkdLelZuUDk0Zlc1aWtORU8rSUNvVDJKS2dxaXpwUEs4b0JMSnZ1?=
+ =?utf-8?B?aTVKWWNJVSt5bk5uU3BiNXNZNWViOUxZUGtIZDdGc3htbHBycW9VOHV0aTR2?=
+ =?utf-8?B?cEwwd3VOM2pFSlNRWUhhcURnYlk4ZStxN0RhVDVYU3ZBeHVDQUlWVmhvTTEv?=
+ =?utf-8?B?TERhT1N1VnZHOXJzcGsvYThYVXhhKzRaeFVaNXV0SXRxSmtoSUMzTFdvMXN4?=
+ =?utf-8?B?aHRZZUpWQ3B4ek5STW1adi9pWGtvbDhlVEFycml0NEF2RWJadTZHZGgvdi9l?=
+ =?utf-8?B?TmRkSXVNMEZDS1VOcXA4dXRScHZSOGhhNmdQNjUra0cvSVp4Z1BrbVU3N0cv?=
+ =?utf-8?B?b3ViYlk0ODJySkxsVDN1TytZZmdac201QlhIZGgyZm1OK09UUk9udkRCT1py?=
+ =?utf-8?B?SFZkcjg3MnB3SlBPRmw1SWhkKzVueFBVdEJ4N3ZpV0wwbEZBcmx1N0d4N2xw?=
+ =?utf-8?B?a1F5TEp0eTdOZWxtNGxTaTR6SjhDei9KK0d3dzZ3NTkwVWwvbGlwUkliZE1x?=
+ =?utf-8?B?a0NUVVh4bldNOThTd2xLMmt2U0VaODdCclkwM1lvckc2YW41eEZKa1B0VEhv?=
+ =?utf-8?B?eWxVRWthdzNISDlsNXUya3VXTFUxTTB1L2twSkQ0VHIxYmwyUEpLSytuN1VU?=
+ =?utf-8?B?U09YVG1uZU1Hc2tNemNEYStIemxIcnlhUjF2Z3VoMlA4M015S1BKUjVsTG1J?=
+ =?utf-8?B?Nmtza282eUdYb253NGR1WDcwUkt1eDJVL05XdzJVSStCMzQzQzNUY3JHaDdl?=
+ =?utf-8?B?ZUp1OGRweSs5SGlWamNnQVVEMS80WGZFWTAxaUJTOUlGRVpBZHBzWGtudU9l?=
+ =?utf-8?B?cGZuczhHSXdqY3B5bFBmTTh5R2xpVG1VczdFaVdoSE9uV3VwL1pHRjE0Z3dh?=
+ =?utf-8?B?cHRBMGRCalV6K1Y1ZzFoUFRVZUVkcHRLNm5hZnoxN3RJbXNxdjNPb0xXdVZr?=
+ =?utf-8?B?dzNMTjdQWU43c0xuWTVkSndlY3c5Q29mODRRM0x1MnFZRkk1NnpQU1JpTTB6?=
+ =?utf-8?B?U3NGRU5FWUVaUFBkUGFxdFN0cGZydThkMnlyNk9zeElwMEczZ0VDZVJTVnlJ?=
+ =?utf-8?B?U0hOaFdDR3ZGSXJiUVVoSXRudytjZjFxL1QzUExhUHpVcVlrSzZ4dkVkWHg5?=
+ =?utf-8?B?TzJBS2ZvRmljZkJ5Yk1GRGhpYjkvQTdGc3hrdEJGYm9MVVdZNXRkaHRNdU1U?=
+ =?utf-8?B?TG14OGN4Z0NmS3V3TlpZMEVoMlpNUUdXWDhKQVdaOWIzaUtEeXNFSm5rNU8w?=
+ =?utf-8?B?enhndkdpa2EzMTQ5Y0YrbTdQRnJ1S1E5cy9rTlpiMFhEbmhETE1TSFJYd0lB?=
+ =?utf-8?B?eUpHb0Vqa085M3hwZ3UzZXZLby9JUWYyN3ZUUGJTaThnV1hyOTZ6TnV3OURz?=
+ =?utf-8?B?ZjdBU0krRjVzRGwrMzVITHdWYWFVbWVRUWJNVVI2Q2hGMlpjeXNReU5WTEFG?=
+ =?utf-8?B?MUY1eFVEVTh5ck5QUGlDcHYrcTErdU03UWxDS0FuMGZkZ3pwUmswWlYxUTFn?=
+ =?utf-8?B?QVlvMTJ3V1I3aXlXMGlaUXZJRzBlWjlnZFI5d0l2cnMvL3g4c0JTclA1U0U5?=
+ =?utf-8?B?djdzZTBhUE1DcmkrRzdjOUdjTS9XRHpzTjNQSjFoTFVIZ09TMVU1MWJUWmRM?=
+ =?utf-8?B?U1V1RUN4SVk4aG9KTUIzUEJ3cG9uRTYrbjV6VytYem1kR3VqaEJNMVNScWcr?=
+ =?utf-8?B?Rnl4TXRiTmZZUEh0MzFEeE4zYzM5OTNhM2NRaEViMTdpMFYvMFdkTTVxRHZW?=
+ =?utf-8?Q?BHdsvklYLXOAGIfQpU3oVJoal2P9jRXvHIoYgZrBLocYk?=
+X-MS-Exchange-AntiSpam-MessageData-1: avCA5Ehi/MMwgw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3643925-8fc9-4aef-5b40-08de9ea0e8fd
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9166.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 05:51:48.3985 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4hH89JUVVi/fj1BHGyKUJj7eP/Q8OaUyyua0XEv57av9pDbEeHa6FHVa+pVCK0yV1FQz7Qz0c3M3YW+Q9D23XQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4400
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,157 +140,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace DRM_INFO(), DRM_WARN() and DRM_ERROR() calls in
-drivers/gpu/drm/mediatek/mtk_dsi.c with the corresponding
-drm_info(), drm_warn() and drm_err() helpers.
+On Monday, April 13, 2026 11:15=E2=80=AFPM Guangshuo Li wrote:
+> After device_initialize(), the embedded struct device in struct
+> host1x_device should be released through the device core with
+> put_device().
+>=20
+> In host1x_device_add(), if host1x_device_parse_dt() fails, the current
+> error path frees the object directly with kfree(device). That bypasses
+> the normal device lifetime handling and leaks the reference held on the
+> embedded struct device.
+>=20
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+>=20
+> Fix this by using put_device() in the host1x_device_parse_dt() failure
+> path.
+>=20
+> Fixes: f4c5cf88fbd50 ("gpu: host1x: Provide a proper struct bus_type")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v3:
+>   - note that the issue was identified by my static analysis tool
+>   - and confirmed by manual review
+>=20
+> v2:
+>   - add Cc: stable@vger.kernel.org
+>=20
+>  drivers/gpu/host1x/bus.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
+> index 63fe037c3b65..e3ac85848aec 100644
+> --- a/drivers/gpu/host1x/bus.c
+> +++ b/drivers/gpu/host1x/bus.c
+> @@ -452,7 +452,7 @@ static int host1x_device_add(struct host1x *host1x,
+> =20
+>  	err =3D host1x_device_parse_dt(device, driver);
+>  	if (err < 0) {
+> -		kfree(device);
+> +		put_device(&device->dev);
+>  		return err;
+>  	}
+> =20
+> --=20
+> 2.43.0
+>=20
+>=20
 
-The drm_*() logging helpers take a struct drm_device * argument,
-allowing the DRM core to prefix log messages with the correct device
-name and instance. This is required to correctly distinguish log
-messages on systems with multiple GPUs.
+Thanks!
 
-This change aligns the radeon driver with the DRM TODO item:
-"Convert logging to drm_* functions with drm_device parameter".
+Acked-by: Mikko Perttunen <mperttunen@nvidia.com>
 
-Signed-off-by: Abhishek Rajput <abhiraj21put@gmail.com>
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 0e2bcd5f67b7..a67ad575f5f0 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -510,6 +510,7 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(struct mtk_dsi *dsi)
- 	u32 delta;
- 	struct mtk_phy_timing *timing = &dsi->phy_timing;
- 	struct videomode *vm = &dsi->vm;
-+	struct drm_device *drm = dsi->bridge.dev;
- 
- 	if (dsi->format == MIPI_DSI_FMT_RGB565)
- 		dsi_tmp_buf_bpp = 2;
-@@ -543,7 +544,7 @@ static void mtk_dsi_config_vdo_timing_per_line_lp(struct mtk_dsi *dsi)
- 					     horizontal_backporch_byte /
- 					     horizontal_front_back_byte;
- 	} else {
--		DRM_WARN("HFP + HBP less than d-phy, FPS will under 60Hz\n");
-+		drm_warn(drm, "HFP + HBP less than d-phy, FPS will under 60Hz\n");
- 	}
- 
- 	if ((dsi->mode_flags & MIPI_DSI_HS_PKT_END_ALIGNED) &&
-@@ -623,12 +624,13 @@ static s32 mtk_dsi_wait_for_irq_done(struct mtk_dsi *dsi, u32 irq_flag,
- {
- 	s32 ret = 0;
- 	unsigned long jiffies = msecs_to_jiffies(timeout);
-+	struct drm_device *drm = dsi->bridge.dev;
- 
- 	ret = wait_event_interruptible_timeout(dsi->irq_wait_queue,
- 					       dsi->irq_data & irq_flag,
- 					       jiffies);
- 	if (ret == 0) {
--		DRM_WARN("Wait DSI IRQ(0x%08x) Timeout\n", irq_flag);
-+		drm_warn(drm, "Wait DSI IRQ(0x%08x) Timeout\n", irq_flag);
- 
- 		mtk_dsi_enable(dsi);
- 		mtk_dsi_reset_engine(dsi);
-@@ -663,9 +665,10 @@ static s32 mtk_dsi_switch_to_cmd_mode(struct mtk_dsi *dsi, u8 irq_flag, u32 t)
- {
- 	mtk_dsi_irq_data_clear(dsi, irq_flag);
- 	mtk_dsi_set_cmd_mode(dsi);
-+	struct drm_device *drm = dsi->bridge.dev;
- 
- 	if (!mtk_dsi_wait_for_irq_done(dsi, irq_flag, t)) {
--		DRM_ERROR("failed to switch cmd mode\n");
-+		drm_err(drm, "failed to switch cmd mode\n");
- 		return -ETIME;
- 	} else {
- 		return 0;
-@@ -849,11 +852,12 @@ static void mtk_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 					     struct drm_atomic_state *state)
- {
- 	struct mtk_dsi *dsi = bridge_to_dsi(bridge);
-+	struct drm_device *drm = bridge->dev;
- 	int ret;
- 
- 	ret = mtk_dsi_poweron(dsi);
- 	if (ret < 0)
--		DRM_ERROR("failed to power on dsi\n");
-+		drm_err(drm, "failed to power on dsi\n");
- }
- 
- static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
-@@ -916,7 +920,7 @@ static int mtk_dsi_encoder_init(struct drm_device *drm, struct mtk_dsi *dsi)
- 	ret = drm_simple_encoder_init(drm, &dsi->encoder,
- 				      DRM_MODE_ENCODER_DSI);
- 	if (ret) {
--		DRM_ERROR("Failed to encoder init to drm\n");
-+		drm_err(drm, "Failed to encoder init to drm\n");
- 		return ret;
- 	}
- 
-@@ -932,7 +936,7 @@ static int mtk_dsi_encoder_init(struct drm_device *drm, struct mtk_dsi *dsi)
- 
- 	dsi->connector = drm_bridge_connector_init(drm, &dsi->encoder);
- 	if (IS_ERR(dsi->connector)) {
--		DRM_ERROR("Unable to create bridge connector\n");
-+		drm_err(drm, "Unable to create bridge connector\n");
- 		ret = PTR_ERR(dsi->connector);
- 		goto err_cleanup_encoder;
- 	}
-@@ -985,6 +989,7 @@ static int mtk_dsi_host_attach(struct mipi_dsi_host *host,
- {
- 	struct mtk_dsi *dsi = host_to_dsi(host);
- 	struct device *dev = host->dev;
-+	struct drm_device *drm = dsi->bridge.dev;
- 	int ret;
- 
- 	dsi->lanes = device->lanes;
-@@ -1012,7 +1017,7 @@ static int mtk_dsi_host_attach(struct mipi_dsi_host *host,
- 
- 	ret = component_add(host->dev, &mtk_dsi_component_ops);
- 	if (ret) {
--		DRM_ERROR("failed to add dsi_host component: %d\n", ret);
-+		drm_err(drm, "failed to add dsi_host component: %d\n", ret);
- 		drm_bridge_remove(&dsi->bridge);
- 		return ret;
- 	}
-@@ -1034,11 +1039,12 @@ static void mtk_dsi_wait_for_idle(struct mtk_dsi *dsi)
- {
- 	int ret;
- 	u32 val;
-+	struct drm_device *drm = dsi->bridge.dev;
- 
- 	ret = readl_poll_timeout(dsi->regs + DSI_INTSTA, val, !(val & DSI_BUSY),
- 				 4, 2000000);
- 	if (ret) {
--		DRM_WARN("polling dsi wait not busy timeout!\n");
-+		drm_warn(drm, "polling dsi wait not busy timeout!\n");
- 
- 		mtk_dsi_enable(dsi);
- 		mtk_dsi_reset_engine(dsi);
-@@ -1123,6 +1129,7 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_dsi_host *host,
- 				     const struct mipi_dsi_msg *msg)
- {
- 	struct mtk_dsi *dsi = host_to_dsi(host);
-+	struct drm_device *drm = dsi->bridge.dev;
- 	ssize_t recv_cnt;
- 	u8 read_data[16];
- 	void *src_addr;
-@@ -1153,7 +1160,7 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_dsi_host *host,
- 	}
- 
- 	if (!msg->rx_buf) {
--		DRM_ERROR("dsi receive buffer size may be NULL\n");
-+		drm_err(drm, "dsi receive buffer size may be NULL\n");
- 		ret = -EINVAL;
- 		goto restore_dsi_mode;
- 	}
-@@ -1177,7 +1184,7 @@ static ssize_t mtk_dsi_host_transfer(struct mipi_dsi_host *host,
- 	if (recv_cnt)
- 		memcpy(msg->rx_buf, src_addr, recv_cnt);
- 
--	DRM_INFO("dsi get %zd byte data from the panel address(0x%x)\n",
-+	drm_info(drm, "dsi get %zd byte data from the panel address(0x%x)\n",
- 		 recv_cnt, *((u8 *)(msg->tx_buf)));
- 
- restore_dsi_mode:
--- 
-2.43.0
 
