@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF41DF588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562C9F588C6
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:29:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 531BC10E631;
-	Mon, 20 Apr 2026 13:29:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1BC410E226;
+	Mon, 20 Apr 2026 13:29:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hp39jLKw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c4z1v5v5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8CC010E630;
- Mon, 20 Apr 2026 13:29:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B442310E226;
+ Mon, 20 Apr 2026 13:29:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2DD926012B;
- Mon, 20 Apr 2026 13:29:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BABFC2BCB6;
- Mon, 20 Apr 2026 13:29:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 95571441D8;
+ Mon, 20 Apr 2026 13:29:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10C36C2BCC4;
+ Mon, 20 Apr 2026 13:29:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691753;
- bh=4JM0H3LNo+pnQCjClh7idHPPBZsJOECq3dKvGCyRtRk=;
+ s=k20201202; t=1776691765;
+ bh=oI99Me11juO6U/qs+YD75RChtL2ON3Jdrj6X3XBNw6M=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=hp39jLKwvkjMYfFPseBURpSkCnyFmOR2bGMmxJf9mD7jTKwWmwGKpMlV5q762dFmX
- MmLNVKYN8eMbrUzMgyRieotIkFz8jeyoZFB9Jel1y7taabv4IpV4weChp1ivpok9UN
- AKQkwZ8Ltzr94UjTjU6nYb/kvC312UIZAaGIn9Zn3S4LEptsGJjnsnKki7IStwCaEU
- S1mYxiLvPEh9yXXEXPErRSUARjC1s8+VREjCh8G0Ej0CH7IQoGJM5um6SwEa5YZYco
- EcNUuquV2vvqvDG4jaeVRrI0WrAFAEEPwfVUelfsinKplanqaPngZwGvplrolJCf7H
- seGYScMrdIUzg==
+ b=c4z1v5v51Gk+sAVs5coytH0CY/YQcNO4S8QsJD4GGFZTTmtkDcpE1+I1070t26pBb
+ nXRfiEISMPAVdENAf/lmEx56ljTNKvArd4o3RvTTYtS25M9qkeM5FIPZYKPCwgnlY8
+ iT5m9n5B3uzIXGU4Zhw1aDuz7t3ji2qtSfXE6q8ZIR4yCV5ohJgZ/DJZGbmfRwNuJe
+ 9heqhXWKsfudLP402bO0FzlaZBX7dLrpBbDIu5LNMGQHvaq7jXGiUN5TOHrMiUX3Gf
+ gocqWf8+pN/8PFAmfMFxh75IN8nwvOfqoGxhiEzYAG0ePBgIigRMD48xrYj+SG69hR
+ QvJk8pbqUzOkA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ovidiu Bunea <ovidiu.bunea@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+Cc: Prike Liang <Prike.Liang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: Exit IPS w/ DC helper for
- all dc_set_power_state cases
-Date: Mon, 20 Apr 2026 09:19:27 -0400
-Message-ID: <20260420132314.1023554-173-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: fix syncobj leak for
+ amdgpu_gem_va_ioctl()
+Date: Mon, 20 Apr 2026 09:19:34 -0400
+Message-ID: <20260420132314.1023554-180-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
@@ -67,317 +66,304 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Prike Liang <Prike.Liang@amd.com>
 
-[ Upstream commit f44c094449669c7d9ac403cc73ce23e255f0828b ]
+[ Upstream commit a0f0b6d31a53a7607ed44f7623faafc628333258 ]
 
-[why & how]
-On D3 path during dc_set_power_state, we may be in idle_allowed=true,
-at which point we will exit idle via dc_wake_and_execute_dmub_cmd_list
-which doesn't update dc->idle_optimizations_allowed to false. This
-would cause any future attempts to allow idle optimizations via the DC
-helper to get skipped because the value is stale and not reflective of
-the actual HW state.
+It requires freeing the syncobj and chain
+alloction resource.
 
-Move dc_exit_ips_for_hw_access() to the top of the function.
-Additionally ensure that dc_power_down_on_boot thread holds the DC
-lock and only runs if there are 0 streams.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Good - the code matches the "before" state of the diff perfectly. The
-patch would apply cleanly to this tree.
-
-Now let me complete the final analysis phases with a comprehensive
-synthesis.
+The 7.0 tree doesn't have `(!adev->debug_vm || timeline_syncobj)` — it
+has `!adev->debug_vm`. This confirms the diff was created against a
+newer mainline. The fix's core logic still applies.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Complete Analysis
+
+### PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-Record: [drm/amd/display] [Exit/Move] Fix stale IPS idle state tracking
-in dc_set_power_state and dc_power_down_on_boot.
+- Subsystem: `drm/amdgpu`
+- Action verb: "fix"
+- Summary: Fix syncobj and chain allocation resource leak in
+  amdgpu_gem_va_ioctl()
+- Record: [drm/amdgpu] [fix] [syncobj/chain resource leak in gem VA
+  ioctl]
 
 **Step 1.2: Tags**
-- Reviewed-by: Nicholas Kazlauskas (he's the original author of
-  `dc_exit_ips_for_hw_access`, a key AMD display engineer)
-- Signed-off-by: Ovidiu Bunea (patch author, AMD display developer)
-- Signed-off-by: Ivan Lipski (submitter, AMD display)
-- Tested-by: Dan Wheeler (AMD QA)
-- Signed-off-by: Alex Deucher (AMD GPU subsystem maintainer)
-- No Fixes: tag, no Cc: stable, no Reported-by: - expected for this
-  review pipeline.
+- `Reviewed-by: Christian König <christian.koenig@amd.com>` — subsystem
+  co-maintainer
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` — AMD GPU
+  maintainer committed it
+- `Signed-off-by: Prike Liang <Prike.Liang@amd.com>` — AMD engineer,
+  author
+- No Fixes: tag, no Reported-by:, no Cc: stable — expected for manual
+  review candidates
+- Record: Reviewed by Christian König (DRM/amdgpu co-maintainer).
+  Committed by Alex Deucher.
 
 **Step 1.3: Commit Body**
-The commit clearly describes a state inconsistency bug: On the D3 power-
-down path, if `idle_allowed=true`, the system exits idle via
-`dc_wake_and_execute_dmub_cmd_list` which does NOT update
-`dc->idle_optimizations_allowed` to false. This leaves a stale value.
-Any future attempt to call `dc_allow_idle_optimizations(dc, false)` gets
-skipped at line 5714 (`if (allow == dc->idle_optimizations_allowed)
-return;`) because the stale value says it's already false, when the HW
-actually re-entered idle.
+- Describes: "requires freeing the syncobj and chain allocation
+  resource"
+- Bug: syncobj refcount and chain memory are never released after use
+- Failure mode: resource/memory leak on every ioctl call with timeline
+  syncobj
+- Record: Clear resource leak. Every call to the ioctl with timeline
+  syncobj leaks memory.
 
-**Step 1.4: Hidden Bug Fix**
-This IS a bug fix. The commit message is explicit about the bug
-mechanism: stale state causes future IPS exits to be skipped. This can
-lead to register access while the hardware is in a power-gated/idle
-state, which can cause hangs, corruption, or crashes.
+**Step 1.4: Hidden Bug Fixes**
+- This is NOT hidden — it explicitly says "fix...leak"
+- Record: Explicit bug fix.
 
-## PHASE 2: DIFF ANALYSIS
+### PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- Single file: `drivers/gpu/drm/amd/display/dc/core/dc.c`
-- ~6 lines changed net (moved `dc_exit_ips_for_hw_access` before switch,
-  added stream_count guard)
-- Functions modified: `dc_power_down_on_boot`, `dc_set_power_state`
+- Files: `drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c` only
+- Changes: +5 lines added (3 in ioctl cleanup, 1 NULL assignment in
+  helper, 1 NULL assignment in ioctl)
+- Functions modified: `amdgpu_gem_update_timeline_node()` and
+  `amdgpu_gem_va_ioctl()`
+- Record: Single-file surgical fix, 5 meaningful lines added.
 
-**Step 2.2: Code Flow Change**
-1. In `dc_set_power_state`: `dc_exit_ips_for_hw_access(dc)` moved from
-   inside D0 case to before the switch statement. This ensures ALL power
-   state transitions (D0, D3, default) exit IPS cleanly via the DC
-   helper that properly updates `dc->idle_optimizations_allowed`.
-2. In `dc_power_down_on_boot`: Added `stream_count > 0` early return
-   guard to prevent power_down_on_boot from running when there are
-   active streams (safety check, holds DC lock).
+**Step 2.2: Code Flow Changes**
+
+Hunk 1 — `amdgpu_gem_update_timeline_node()`:
+- BEFORE: When `dma_fence_chain_alloc()` fails, calls
+  `drm_syncobj_put(*syncobj)` and returns -ENOMEM, leaving `*syncobj` as
+  a dangling pointer.
+- AFTER: Also sets `*syncobj = NULL` to prevent dangling pointer.
+
+Hunk 2 — `amdgpu_gem_va_ioctl()`:
+- BEFORE: After `drm_syncobj_add_point()` consumes `timeline_chain`,
+  `timeline_chain` still points to consumed memory. The `error:` label
+  never frees `timeline_chain` or puts `timeline_syncobj`.
+- AFTER: Sets `timeline_chain = NULL` after consumption. Adds
+  `dma_fence_chain_free(timeline_chain)` and
+  `drm_syncobj_put(timeline_syncobj)` to cleanup.
 
 **Step 2.3: Bug Mechanism**
-Category: **State inconsistency / stale flag bug**. The D3 path calls
-`dc_dmub_srv_notify_fw_dc_power_state` which internally calls
-`dc_wake_and_execute_dmub_cmd_list`. That function uses
-`dc_dmub_srv_apply_idle_power_optimizations(ctx->dc, false)` which sets
-`dc_dmub_srv->idle_allowed = false` but does NOT update
-`dc->idle_optimizations_allowed`. When `dc_exit_ips_for_hw_access`
-(which calls `dc_allow_idle_optimizations_internal`) is NOT called on D3
-path, `dc->idle_optimizations_allowed` stays `true` (stale). On
-subsequent resume, the guard `if (allow ==
-dc->idle_optimizations_allowed) return;` at line 5714 prevents the real
-IPS exit from happening.
+- Category: **Resource leak** (syncobj refcount leak + memory leak)
+- `drm_syncobj_find()` increments refcount — never decremented by caller
+- `dma_fence_chain_alloc()` allocates memory — never freed when not
+  consumed
+- Record: Missing cleanup for refcounted object and allocated memory on
+  both success and error paths.
 
 **Step 2.4: Fix Quality**
-- The fix is small, surgical, and obviously correct.
-- Moving IPS exit before the switch is safe: for D0, it was already
-  there (just earlier now); for D3, it's newly added; for default, it's
-  newly covered.
-- The `dc_exit_ips_for_hw_access` is a no-op when IPS is not supported
-  (checks `dc->caps.ips_support`).
-- The stream_count guard in `dc_power_down_on_boot` is a defensive check
-  that prevents powering down when displays are active.
-- Regression risk: LOW. The IPS exit is idempotent and already called on
-  D0. Adding it before the switch just expands coverage.
+- Obviously correct: adds standard cleanup patterns (NULL-after-consume,
+  free/put at error label)
+- Minimal and surgical: 5 meaningful lines
+- No regression risk: `dma_fence_chain_free(NULL)` = `kfree(NULL)` is
+  safe; `drm_syncobj_put` is guarded by NULL check
+- Record: High quality, zero regression risk.
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+### PHASE 3: GIT HISTORY
 
 **Step 3.1: Blame**
-- `dc_set_power_state` core structure dates back to commit
-  `4562236b3bc0a2` (Harry Wentland, 2017) - very old, stable code.
-- `dc_exit_ips_for_hw_access` was added to D0 path by `a9b1a4f684b32b`
-  (Nicholas Kazlauskas, 2024-01-16) - tagged "Cc: stable@vger.kernel.org
-  # 6.1+"
-- The D3 case was added by `2ee27baf5c7cba` (Duncan Ma, 2025-03-31) -
-  first in v6.17-rc1. This commit introduced the D3-specific path that
-  triggers the bug.
+- `amdgpu_gem_update_timeline_node` — introduced by `70773bef4e091f`
+  (Arvind Yadav, Sep 2024)
+- Timeline call moved before switch by `ad6c120f688803` (Feb 2025, "fix
+  the memleak caused by fence not released")
+- Inline timeline handling in ioctl by `bd8150a1b3370` (Dec 2025, v4
+  refactor)
+- Record: Buggy code introduced in 70773bef4e091f, worsened by
+  ad6c120f688803 which moved allocation before switch but didn't add
+  cleanup.
 
 **Step 3.2: Fixes tag**
-No Fixes: tag. However, the bug is clearly introduced by
-`2ee27baf5c7cba` (D3 path) combined with `a9b1a4f684b32b` (IPS exit only
-in D0).
+- No Fixes: tag present. Based on analysis, the bug was introduced in
+  `70773bef4e091f` and never had proper cleanup.
+- Record: Bug exists since original timeline code introduction.
 
-**Step 3.3: File history**
-The file is actively developed. The current tree state matches the diff
-context exactly.
+**Step 3.3: File History**
+- 31 commits since `ad6c120f688803`. Active file with many recent
+  changes.
+- The v4 refactor (`bd8150a1b3370`) and v7 refactor (`efdc66fe12b07`)
+  touched the same code but neither added cleanup.
+- Record: Standalone fix, no prerequisites beyond code already in 7.0
+  tree.
 
 **Step 3.4: Author**
-Ovidiu Bunea is a regular AMD display developer. Reviewed by Nicholas
-Kazlauskas who is a key AMD display engineer and the original author of
-IPS support.
+- Prike Liang: AMD engineer, regular contributor to amdgpu driver with
+  multiple recent fixes.
+- Record: Active AMD GPU developer, credible author.
 
 **Step 3.5: Dependencies**
-Requires `2ee27baf5c7cba` (D3 case in dc_set_power_state) to be present.
-This commit was first in v6.17-rc1. In the 7.0 tree, this is already
+- None. The fix only adds cleanup to existing code paths. All referenced
+  functions exist in 7.0.
+- Minor context conflict: mainline has `(!adev->debug_vm ||
+  timeline_syncobj)` vs 7.0's `!adev->debug_vm`, but the fix's added
+  lines don't depend on this condition.
+- Record: Standalone fix, minor context adjustment needed.
+
+### PHASE 4: MAILING LIST RESEARCH
+
+**Step 4.1-4.5:**
+- b4 dig could not find the original patch submission (lore.kernel.org
+  blocked by Anubis).
+- The related commit `ad6c120f688803` explicitly described the memleak
+  problem with a full stack trace showing BUG in drm_sched_fence slab
+  during module unload — evidence the leak has real impact.
+- Christian König (co-maintainer) reviewed the fix.
+- Record: Could not access lore. However, reviewer is the subsystem co-
+  maintainer, which is strong endorsement.
+
+### PHASE 5: CODE SEMANTIC ANALYSIS
+
+**Step 5.1-5.4:**
+- `amdgpu_gem_va_ioctl()` is a DRM ioctl handler directly callable from
+  userspace
+- Called every time userspace maps/unmaps GPU virtual address space
+- This is a HOT path for GPU applications (Mesa, AMDVLK, ROCm)
+- Every call with a timeline syncobj leaks the syncobj refcount and
+  potentially the chain allocation
+- Record: Ioctl path reachable from any GPU userspace application. Very
+  high call frequency.
+
+### PHASE 6: STABLE TREE ANALYSIS
+
+**Step 6.1:** The buggy code exists in 7.0 tree. Confirmed via blame:
+`70773bef4e091f` (Sep 2024) and `ad6c120f688803` (Feb 2025) are both
 present.
 
-## PHASE 4: MAILING LIST RESEARCH
+**Step 6.2:** Minor context conflict due to condition difference in line
+979. Would need a trivial backport adjustment, or `git apply --3way`
+could handle it.
 
-b4 dig failed to find matching threads for both the IPS exit commit and
-the D3 notification commit (AMD display patches often go through
-internal AMD submission channels). No lore discussion available.
+**Step 6.3:** No related fix already in stable for this specific leak.
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+### PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 5.1: Functions modified**: `dc_power_down_on_boot`,
-`dc_set_power_state`
+- Subsystem: `drivers/gpu/drm/amd/amdgpu` — GPU driver
+- Criticality: IMPORTANT — AMD GPUs are extremely common in desktops,
+  servers, and workstations
+- Active subsystem with frequent changes
+- Record: [IMPORTANT] AMD GPU driver, widely used hardware.
 
-**Step 5.2: Callers**
-- `dc_set_power_state` is called from `dm_suspend` (D3) and `dm_resume`
-  (D0) in `amdgpu_dm.c` - these are the primary suspend/resume paths for
-  ALL AMD GPUs.
-- `dc_power_down_on_boot` - called during initial boot for display power
-  management.
+### PHASE 8: IMPACT AND RISK
 
-**Step 5.3-5.4: Call chain**
-Suspend/resume is a hot user-facing path. Every AMD GPU user hits this
-on laptop suspend/resume, hibernate, and S0ix entry/exit.
+**Step 8.1:** Affected users: All users with AMD GPUs using
+userqueue/timeline syncobj features (Mesa Vulkan, ROCm).
 
-**Step 5.5: Similar patterns**
-The `dc_exit_ips_for_hw_access` call is a common pattern throughout AMD
-display code - it's used in `dc_stream.c`, `dc_surface.c`, and many
-places in `dc.c`.
+**Step 8.2:** Trigger: Any GPU application calling the VA ioctl with a
+timeline syncobj. Repeated calls (normal GPU operation) cause cumulative
+memory leak.
 
-## PHASE 6: STABLE TREE ANALYSIS
+**Step 8.3:** Failure mode: Memory leak in hot ioctl path → eventual OOM
+under sustained GPU workloads. Severity: **HIGH** (gradual resource
+exhaustion).
 
-**Step 6.1: Buggy code existence**
-- The D3 path (`2ee27baf5c7cba`) was first introduced in v6.17-rc1.
-- The IPS exit (`a9b1a4f684b32b`) has been marked Cc: stable 6.1+.
-- The bug requires BOTH commits to be present. For stable trees <= 6.12,
-  the D3 path doesn't exist, so the specific bug doesn't trigger there.
-- For stable 7.0 tree: both commits are present, bug can trigger.
+**Step 8.4:**
+- BENEFIT: High — prevents memory leak in frequently-called GPU ioctl
+- RISK: Very low — 5-line fix adding standard NULL-and-free patterns,
+  reviewed by subsystem maintainer
+- Record: High benefit, very low risk.
 
-**Step 6.2: Backport complications**
-The patch applies cleanly to the 7.0 tree (verified by comparing the
-current code state with the diff context).
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-- Subsystem: drm/amd/display - GPU display driver
-- Criticality: IMPORTANT - AMD GPUs are in millions of laptops and
-  desktops. Suspend/resume is critical for laptop users.
-- IPS (Idle Power State) affects DCN35+ hardware (recent AMD APUs in
-  laptops).
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-**Step 8.1: Who is affected**
-All users of AMD APUs with DCN35+ display hardware (IPS support) - this
-includes recent AMD Ryzen laptops.
-
-**Step 8.2: Trigger conditions**
-Any suspend/resume cycle to D3 state when IPS is enabled
-(idle_allowed=true). This is a common, everyday operation on laptops.
-
-**Step 8.3: Failure mode**
-The stale `idle_optimizations_allowed` flag means subsequent IPS exit
-calls get skipped. This means hardware register accesses can happen
-while the hardware is power-gated, leading to:
-- Display hangs
-- System hangs on resume
-- Potential display corruption
-Severity: **HIGH** (system hang/display hang on resume)
-
-**Step 8.4: Risk-Benefit Ratio**
-- BENEFIT: HIGH - prevents display/system hangs on suspend/resume for
-  AMD laptop users
-- RISK: LOW - ~6 lines changed, moving an existing call earlier and
-  adding a defensive guard
-- The fix is obviously correct, reviewed by the IPS subsystem expert,
-  and tested by AMD QA
-
-## PHASE 9: FINAL SYNTHESIS
+### PHASE 9: SYNTHESIS
 
 **Evidence FOR backporting:**
-- Fixes a real state inconsistency bug that causes stale IPS idle
-  tracking
-- Triggers on every D3 suspend path for AMD APUs with IPS support (very
-  common)
-- Failure mode is display/system hang on resume (HIGH severity)
-- Small, surgical fix (~6 lines), single file
-- Reviewed by Nicholas Kazlauskas (IPS expert), tested by AMD QA
-- Applies cleanly to the 7.0 tree
-- The parent commit `a9b1a4f684b32b` was already explicitly nominated
-  for stable (Cc: stable 6.1+)
+- Fixes a real resource leak (syncobj refcount + chain memory) in a
+  userspace-facing ioctl
+- Every call with timeline syncobj leaks resources — cumulative, leads
+  to OOM under sustained use
+- Small, surgical fix: 5 meaningful lines in a single file
+- Reviewed by Christian König (DRM/amdgpu co-maintainer)
+- Obviously correct: standard cleanup patterns (NULL-after-consume,
+  free/put at cleanup label)
+- Bug code exists in 7.0 tree (confirmed via blame)
+- Zero regression risk: `kfree(NULL)` is safe, NULL checks guard all
+  puts
 
 **Evidence AGAINST backporting:**
-- No Fixes: tag (expected)
-- No syzbot/user bug reports linked (AMD internal finding)
-- The D3 path dependency (`2ee27baf5c7cba`) is only in v6.17+, limiting
-  which stable trees need this
+- Minor context conflict (condition text differs between mainline and
+  7.0) — trivially resolvable
+- Timeline syncobj feature is relatively new (Sep 2024) — may not affect
+  all users yet
 
-**Stable Rules Checklist:**
-1. Obviously correct and tested? YES - reviewed by IPS expert, tested by
-   AMD QA
-2. Fixes a real bug? YES - stale state causes IPS exits to be skipped
-3. Important issue? YES - display/system hang on suspend/resume
-4. Small and contained? YES - ~6 lines, single file
-5. No new features? CORRECT - no new features
-6. Can apply to stable? YES - applies cleanly to 7.0
+**Stable rules checklist:**
+1. Obviously correct and tested? **YES** — standard cleanup pattern,
+   reviewed by co-maintainer
+2. Fixes a real bug? **YES** — resource leak in ioctl path
+3. Important issue? **YES** — memory leak in hot path → eventual OOM
+4. Small and contained? **YES** — 5 lines, single file
+5. No new features? **YES** — only adds missing cleanup
+6. Can apply to stable? **YES** — with minor context adjustment
 
-## Verification
+### Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Nicholas Kazlauskas (IPS author),
-  Tested-by Dan Wheeler (AMD QA), Signed-off-by Alex Deucher
-  (maintainer)
-- [Phase 2] Diff: ~6 lines changed in dc.c, moves
-  dc_exit_ips_for_hw_access before switch, adds stream_count guard
-- [Phase 2] Traced bug mechanism: dc_wake_and_execute_dmub_cmd_list sets
-  dc_dmub_srv->idle_allowed but NOT dc->idle_optimizations_allowed,
-  confirmed at lines 1728-1730 and 1694 of dc_dmub_srv.c, and guard at
-  line 5714 of dc.c
-- [Phase 3] git blame: D3 path introduced by 2ee27baf5c7cba (v6.17-rc1),
-  IPS exit by a9b1a4f684b32b (v6.9-rc1, Cc: stable 6.1+)
-- [Phase 3] Confirmed 2ee27baf5c7cba is in v7.0 tree (git merge-base
-  --is-ancestor)
-- [Phase 3] Confirmed a9b1a4f684b32b is in v7.0 tree (git merge-base
-  --is-ancestor)
-- [Phase 4] b4 dig failed for both parent commits (AMD internal
-  submission path)
-- [Phase 5] dc_set_power_state called from dm_suspend/dm_resume - common
-  laptop suspend/resume path
-- [Phase 6] Current tree code matches diff context exactly - clean apply
-  expected
-- [Phase 6] Bug requires D3 path (v6.17+) - applicable to 7.0 stable
-  tree
-- [Phase 8] Failure mode: stale idle flag -> skipped IPS exit ->
-  register access while power-gated -> hang. Severity HIGH.
-- UNVERIFIED: Could not find mailing list discussion (b4 dig returned no
-  results). Decision not affected since the code analysis is conclusive.
-
-The fix is small, surgical, addresses a clear state-tracking bug in AMD
-display's IPS handling that affects suspend/resume on common AMD laptop
-hardware, and meets all stable kernel criteria.
+- [Phase 1] Parsed tags: Reviewed-by Christian König (co-maintainer),
+  SOB Alex Deucher (maintainer)
+- [Phase 2] Diff analysis: 5 lines added — NULL assignment in helper
+  error path, NULL assignment after chain consumption, 3-line cleanup in
+  error label (chain free + syncobj put)
+- [Phase 3] git blame: timeline code introduced in 70773bef4e091f (Sep
+  2024), moved by ad6c120f688803 (Feb 2025), both in 7.0 tree
+- [Phase 3] git show ad6c120f688803: confirmed this commit moved
+  timeline allocation before switch without adding cleanup — the root
+  cause
+- [Phase 3] git show bd8150a1b3370: v4 refactor inlined timeline
+  handling, still no cleanup
+- [Phase 3] git show efdc66fe12b07: v7 refactor, still no cleanup
+- [Phase 5] amdgpu_gem_va_ioctl is DRM ioctl handler — directly callable
+  from userspace, hot path for GPU apps
+- [Phase 5] Confirmed drm_syncobj_add_point() consumes chain
+  (dma_fence_chain_init + rcu_assign_pointer), so NULL-after-use is
+  correct
+- [Phase 5] Confirmed dma_fence_chain_free(NULL) is safe (just
+  kfree(NULL))
+- [Phase 6] Verified no drm_syncobj_put(timeline_syncobj) in current 7.0
+  file — bug confirmed present
+- [Phase 6] Minor context conflict: 7.0 has `!adev->debug_vm`, mainline
+  has `(!adev->debug_vm || timeline_syncobj)` — needs trivial adjustment
+- [Phase 8] Failure mode: cumulative memory/refcount leak → eventual
+  OOM, severity HIGH
+- UNVERIFIED: Could not access lore.kernel.org for original patch
+  discussion (blocked by Anubis)
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/core/dc.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 3e87b6a553be9..4c5ecbb97d5b0 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -5540,6 +5540,9 @@ void dc_power_down_on_boot(struct dc *dc)
- {
- 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
- 	    dc->hwss.power_down_on_boot) {
-+		if (dc->current_state->stream_count > 0)
-+			return;
-+
- 		if (dc->caps.ips_support)
- 			dc_exit_ips_for_hw_access(dc);
- 		dc->hwss.power_down_on_boot(dc);
-@@ -5551,12 +5554,12 @@ void dc_set_power_state(struct dc *dc, enum dc_acpi_cm_power_state power_state)
- 	if (!dc->current_state)
- 		return;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index c4839cf2dce37..3f95aca700264 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -107,6 +107,7 @@ amdgpu_gem_update_timeline_node(struct drm_file *filp,
+ 	*chain = dma_fence_chain_alloc();
+ 	if (!*chain) {
+ 		drm_syncobj_put(*syncobj);
++		*syncobj = NULL;
+ 		return -ENOMEM;
+ 	}
  
-+	dc_exit_ips_for_hw_access(dc);
-+
- 	switch (power_state) {
- 	case DC_ACPI_CM_POWER_STATE_D0:
- 		dc_state_construct(dc, dc->current_state);
+@@ -983,6 +984,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 						      timeline_chain,
+ 						      fence,
+ 						      args->vm_timeline_point);
++				timeline_chain = NULL;
+ 			}
+ 		}
+ 		dma_fence_put(fence);
+@@ -990,6 +992,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	}
  
--		dc_exit_ips_for_hw_access(dc);
--
- 		dc_z10_restore(dc);
- 
- 		dc_dmub_srv_notify_fw_dc_power_state(dc->ctx->dmub_srv, power_state);
+ error:
++	dma_fence_chain_free(timeline_chain);
++	if (timeline_syncobj)
++		drm_syncobj_put(timeline_syncobj);
+ 	drm_exec_fini(&exec);
+ error_put_gobj:
+ 	drm_gem_object_put(gobj);
 -- 
 2.53.0
 
