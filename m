@@ -4,133 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA28F557F5
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 09:33:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC9DF55802
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 09:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 071B610E487;
-	Mon, 20 Apr 2026 09:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4822A10E48F;
+	Mon, 20 Apr 2026 09:50:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="rfpA7sBP";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="akHXfFCd";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FiA9CekF";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e4qW7709";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="W57WOtCe";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HKe+jwXq";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42E2E10E487
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:33:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DAC2D5BCCF;
- Mon, 20 Apr 2026 09:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776677579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vsEByiZj+JzsLCs3ONQnwD4NDNTerqZlz+YKsEHr+As=;
- b=rfpA7sBPfnrBSoBvzB4wFw04ZziTx6J2M9ZVh0NXY/b9MlIme0Xq70HmU6H+KvMFthVBIf
- QzWTmMdUSCxR6zZzH4CECrLA4bApf23Uh6lc/ylfUwzsfSd0VOrqFrNydA1Um2B9N06Ihj
- /KQ1ShKExo+hAnx4FyGjRiHXondRiQ8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776677579;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vsEByiZj+JzsLCs3ONQnwD4NDNTerqZlz+YKsEHr+As=;
- b=akHXfFCdcpzJRQgpD+0jxUsn9jEHl6sk4hNKUwD9tF8g+ORtj/8OEsfoLPe1RjQ+c4owDe
- x7VhXjUgJZCHlaCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776677578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vsEByiZj+JzsLCs3ONQnwD4NDNTerqZlz+YKsEHr+As=;
- b=FiA9CekFc10XMsc+DHe/OWMXB8a8mn5AdU65Bk/MJOTpESPB8MibX8H1TpymB2hNk+p8JE
- CxCmHNwRNXuQiOQhNELyPDL1W+Y1z4Kk5cN02kk/1znnILmzjBfgiXo5efdnF9NdMSqSQb
- ba8Ulk4x1NWWPI2gY6uw0UitIR2hnWc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776677578;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=vsEByiZj+JzsLCs3ONQnwD4NDNTerqZlz+YKsEHr+As=;
- b=e4qW7709k//ImjWHWl+gkkVg50u8KuHM1rjdf+K/YN/2nJJyBp0VHTXSKleRFACLGGXGFI
- 5u34ytmKY2IG3+Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 65CC7593AE;
- Mon, 20 Apr 2026 09:32:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id pSxxF8ry5WmPTAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Apr 2026 09:32:58 +0000
-Message-ID: <d5661982-8710-4a30-862b-dc1ba33860be@suse.de>
-Date: Mon, 20 Apr 2026 11:32:57 +0200
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79F0610E157
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:50:10 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63K8IhSn3301616
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:50:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=kWuPigQBRvg2mmG1YEkZ2x38
+ 8ocHV9caZV1E1+5l688=; b=W57WOtCeOcicX3eqOdiyb3EDavkLG5irwHoXW55M
+ wmRlpJepFltE0GBwDB/eEZBvMRLgtu+23T/xt1DZn4WHzXcrKRfoVPgQut1CClJX
+ VOYHOXibM3WI5SZiwdhnS4DizoNnKO4tGaZ4JSDZcp8Th2Dask97hw6Z7ZhAr1cP
+ aMwPD+EXq8OVfnwV4UiLLWKNWccIeCI0Dub5H2t9t3AcazG6saJukNtykdqRYJkj
+ D4s0lFeY98n8l5NcyXmUp7ALuyhcmg4wVEJt2Z//32LLZZj1qsrLH43JCZX/QjPe
+ A2yRQiUlXqP2y/JQ0XNndxovMBtB55L3BZJYG3/1Jqd95A==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm0wr5mrq-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 09:50:09 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-50eb8bad331so9897461cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 02:50:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776678609; x=1777283409;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=kWuPigQBRvg2mmG1YEkZ2x388ocHV9caZV1E1+5l688=;
+ b=HKe+jwXqAMTzTly5iC3qHJ7xfAzBlEF3qX5DLEKmIoOHyeOaiKdKWEWC8scqAc/27O
+ n9cewflgYxHPBZKjQVcUzSekNPSK/3UpUul+HkVu8pdw3c7W+OMG+FdLnHdiWazgZOVQ
+ RsBNFOXWuz1fgnKQwDUh9haKdfYvYuEjNkaUZxF+/OYEQDWV36k6r5HB4Vnv4MORIPdg
+ yJk7F2S9qY/8weiY4pXEiUuhXh+u7M3NvaQk3Aft0mkRjlWYFPaWTlXyIjc3U9LeDBga
+ 4Lfc0X1mD5iSfiokhdaa0IwMFZhcOEx3LoLL+MZH0iq1RbBlKVn2dKcHYTRHuOgl0996
+ lvAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776678609; x=1777283409;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=kWuPigQBRvg2mmG1YEkZ2x388ocHV9caZV1E1+5l688=;
+ b=XVxnLgSv78wx+9xZFswi6I9gmzgWp2RYZT+rFs2D0rL2YBlot/ERlqyBspTIzRmiqq
+ 2JComJZkv01EBaYZ+t7GEtv96FwYLw07pBgZvoZ5wZ6vYfaui+2nMbJubq1ZJgojXy3s
+ S4v8k0MqsmPElvZouN8bI0lKLkrjXmw6Qj3ZIt9pv0K9gbRgEsBGxX+6ppemZT/ne1dt
+ 6fqt4EOL8IBgzWeITqVEU424yFL7aQKRV+QAzOORlfCabdI4NS+NSltjJtJrPWm+qAck
+ nsvI1c8irAjTbE9ChkU0ETtEiGFP6qwQDHq/SDQZr3UeAqcDxDEe5U5J+tcxAooRNs6+
+ InlA==
+X-Gm-Message-State: AOJu0Yz8TaZNq1+Ku1gDL97S5pu8hxDExzSzxQrvfC4AcHGNij1lNgUa
+ p/IRla4CLnEJ4C8o8Y4TwDtibWA+JX6qh5hPgd/e9wiZvqE0+exitHwkZAt2A3TOgKH0MINSpFN
+ IH3uTcjBk2WGBUARNqVP6N3oGtVsJAY41H6rydF8SYrYUKoc/8DEJuCL5hGQR4Pq7BcVjZa0=
+X-Gm-Gg: AeBDiesM8pQp60fZqcM4veYVESA3gfWyPg5rHX39xA3QCY+veQExXMBa3jQtriQTXtF
+ JZSe96UkbDtCNHWf7gGLsu35PDN3UM5r7ZfkLaZ4FEGvBXPg8FOiSQU+OoKKgTaz5u0LjmsUNYd
+ fHB7py4P/40691vTWkpJeNrAE31NKwTfaMbqZXvjY2PSoAe0AtUkemgZl/oaO3oDHu6n7SI5Hd8
+ 2NUGwSatoLBz/xC9Xpz1GKCzOiqjlVMVhXyuE1uPjl3t9ckkAlPzsbHO0+pWwAiVggn/ryCrXvC
+ tla9LctWdfUTHaGz1E3c/XPfra8Ep/a6rV/6lY9feez4z0fBBxSLLG6SrESIS4vjTqkj831j+lr
+ n+1Ix8whdirEUw5Xd1YnAM/Nrhnb0AmGP9sZ7iPtU/iv2xA2bgN3GRT30qb/MobaIOM+YW0tJP8
+ dcHvG1gBnjsZWs1exMJxHpqiYQPlvgytS6JujvfBfVb4ulgw==
+X-Received: by 2002:ac8:7f15:0:b0:50e:5f37:a821 with SMTP id
+ d75a77b69052e-50e5f37af22mr37012941cf.36.1776678608850; 
+ Mon, 20 Apr 2026 02:50:08 -0700 (PDT)
+X-Received: by 2002:ac8:7f15:0:b0:50e:5f37:a821 with SMTP id
+ d75a77b69052e-50e5f37af22mr37012641cf.36.1776678608356; 
+ Mon, 20 Apr 2026 02:50:08 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4185ad138sm2859553e87.9.2026.04.20.02.50.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2026 02:50:07 -0700 (PDT)
+Date: Mon, 20 Apr 2026 12:50:05 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Pengyu Luo <mitltlatltl@gmail.com>, Nikita Travkin <nikita@trvn.ru>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Subject: Re: [PATCH 1/6] drm/connector: report IRQ_HPD events to
+ drm_connector_oob_hotplug_event()
+Message-ID: <3vrqk67oivkgo26xdc3r774rvj3jn3t6sfydhlytyrfiftubhg@cipain7xxcjz>
+References: <20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com>
+ <20260416-hpd-irq-events-v1-1-1ab1f1cfb2b2@oss.qualcomm.com>
+ <51b7c44e-36c9-461f-983a-eaa86eeb8cfd@ideasonboard.com>
+ <6z572fdjkvjqvedifwvotgdy4lcrifiqvkjpnutousjqc6764r@zepfzkqy2kbu>
+ <a2e60e74-a1be-469d-8f4d-ecce1f30b517@ideasonboard.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v4 2/4] drm/hisilicon/hibmc: fix no
- showing when no connectors connected
-To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
- tiantao6@hisilicon.com, xinliang.liu@linaro.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
-Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
- helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260416092455.1990632-1-shiyongbang@huawei.com>
- <20260416092455.1990632-3-shiyongbang@huawei.com>
- <cb1f80ec-20af-4e59-a32e-b1e61e66af0d@suse.de>
- <7407b6cf-70a0-42a0-b63f-5cdaae0eb4b8@huawei.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <7407b6cf-70a0-42a0-b63f-5cdaae0eb4b8@huawei.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a2e60e74-a1be-469d-8f4d-ecce1f30b517@ideasonboard.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDA5MyBTYWx0ZWRfXz9pqvjNxC1i6
+ rylkxoFPlGe5qypmKmNFHP/JcZgJTvvFpmugclZegkaRIkmhz23zdxE+O7rK5nGPbAxTZFWeMxW
+ fI4cbdlw4E36NEmFGbLMAYjNKQQJihqAmLZw4dOIkK2NvsguVRZtlMlxrmSUl13xFaHn1rxX+oH
+ 0GhGbjtwBcvobZyj7f6oi3qV8xHogGGl8ulDS8LhT1OCqLaHnQco+5R0PzI/obsxc26+vMhomhS
+ gg6q25jiEjsZBmXWxxWP6W+PGoSnqlgIQf4EruaF8q+9aH+KG62F6YcxKnZpSr8OGiIeMYkz8PV
+ 843CaWIg5Iz8n46ARDQy+yuI7VE14rm//Ps9ZM2WmX8hbDmk8+NPKuRHgL+jdOWaj7T5n+CQ5uv
+ Fg0ZILYafWvNuthTD3S6nS+FZxiZr/vJHltURJzVBTm3zlFsdWttMwKaLI1V2Sw1O56uRsqACWa
+ tZsr4Nz7vytLrQPXhAg==
+X-Authority-Analysis: v=2.4 cv=G9Ys1dk5 c=1 sm=1 tr=0 ts=69e5f6d1 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=VVbN_I7Xu8gywQYyaxkA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: 2VErkB397np_zzBSkv9fONqxkW7ho1er
+X-Proofpoint-GUID: 2VErkB397np_zzBSkv9fONqxkW7ho1er
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_02,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 lowpriorityscore=0
+ phishscore=0 spamscore=0 priorityscore=1501 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200093
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,264 +169,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
+On Mon, Apr 20, 2026 at 07:50:46AM +0300, Tomi Valkeinen wrote:
+> Hi,
+> 
+> On 18/04/2026 01:32, Dmitry Baryshkov wrote:
+> > On Thu, Apr 16, 2026 at 11:10:03AM +0300, Tomi Valkeinen wrote:
+> > > Hi,
+> > > 
+> > > On 16/04/2026 02:22, Dmitry Baryshkov wrote:
+> > > > The DisplayPort standard defines a special kind of events called IRQ.
+> > > > These events are used to notify DP Source about the events on the Sink
+> > > > side. It is extremely important for DP MST handling, where the MST
+> > > > events are reported through this IRQ.
+> > > > 
+> > > > In case of the USB-C DP AltMode there is no actual HPD pulse, but the
+> > > > events are ported through the bits in the AltMode VDOs.
+> > > > 
+> > > > Extend the drm_connector_oob_hotplug_event() interface and report IRQ
+> > > > events to the DisplayPort Sink drivers.
+> > > > 
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > > ---
+> > > >    drivers/gpu/drm/drm_connector.c          |  4 +++-
+> > > >    drivers/usb/typec/altmodes/displayport.c | 12 ++++++++----
+> > > >    include/drm/drm_connector.h              |  3 ++-
+> > > >    3 files changed, 13 insertions(+), 6 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> > > > index 47dc53c4a738..5fdacbd84bd7 100644
+> > > > --- a/drivers/gpu/drm/drm_connector.c
+> > > > +++ b/drivers/gpu/drm/drm_connector.c
+> > > > @@ -3510,6 +3510,7 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+> > > >     * drm_connector_oob_hotplug_event - Report out-of-band hotplug event to connector
+> > > >     * @connector_fwnode: fwnode_handle to report the event on
+> > > >     * @status: hot plug detect logical state
+> > > > + * @irq_hpd: HPD pulse detected
+> > > >     *
+> > > >     * On some hardware a hotplug event notification may come from outside the display
+> > > >     * driver / device. An example of this is some USB Type-C setups where the hardware
+> > > > @@ -3520,7 +3521,8 @@ struct drm_connector *drm_connector_find_by_fwnode(struct fwnode_handle *fwnode)
+> > > >     * a drm_connector reference through calling drm_connector_find_by_fwnode().
+> > > >     */
+> > > >    void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+> > > > -				     enum drm_connector_status status)
+> > > > +				     enum drm_connector_status status,
+> > > > +				     bool irq_hpd)
+> > > I find the "IRQ HPD" naming always confusing, even if I'm somewhat familiar
+> > > with DP, but if someone has mainly worked on HDMI, I'm sure it's even worse.
+> > > 
+> > > Can we define this a bit more precisely? Is 'irq_hpd' only for displayport?
+> > > If so, perhaps 'dp_irq_hpd' or 'displayport_irq_hpd'. I might even call it
+> > > 'dp_hpd_pulse', but maybe that's not good as the spec talks about HPD pulse
+> > > for both short and long ones (although in the kernel doc you just write "HPD
+> > > pulse")... The kernel doc could be expanded a bit to make it clear what this
+> > > flag indicates.
+> > 
+> > I attempted to stay away from defining a DP-specific flag, keeping it
+> > generic enough. HDMI is pretty close (IMO) to requiring separate flag in
+> 
+> If it's not specifically the DP IRQ HPD, then we need to define what it
+> means. I tried to think what it would mean with HDMI, but I didn't come up
+> with anything.
 
-Am 20.04.26 um 10:40 schrieb Yongbang Shi:
-[...]
->
->  From the patch you contributed,，I understand that you are using an
-> RH1288H V3 server. I have confirmed with our chief hardware engineer
-> that the board design for this series of servers does not connect the
-> BMC chip’s DDC I2C to the VGA port.
+I might be mistaken, but I had someting like HEAC HPD / EDID status
+changes in mind (or HDCP-triggered HPD status changes). But here I
+admit, I hadn't checked if it is actually applicable or not.
 
-Thanks a lot for double-checking. That's the info I was missing. I 
-suggest to build a workaround into the driver to filter out these boards 
-and always return 'connected' on them. IIUC even with these new 
-callbacks, the driver would not work as expected.
+Anyway, for e.g. DVI or VGA that means nothing. But, my point really is
+to abstain from defining someting as DP-only in the top-level API.
 
->
-> [1]https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c?h=v6.12.82#L60
-> [2]https://lore.kernel.org/all/20250320101455.2538835-10-shiyongbang@huawei.com/
->
->
->>> Signed-off-by: Lin He <helin52@huawei.com>
->>> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
->>> ---
->> [...]
->>> +static int hibmc_vdac_detect(struct drm_connector *connector,
->>> +                 struct drm_modeset_acquire_ctx *ctx,
->>> +                 bool force)
->>> +{
->>> +    struct hibmc_drm_private *priv = to_hibmc_drm_private(connector-
->>>> dev);
->>> +    struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
->>> +
->>> +    vdac->phys_state = drm_connector_helper_detect_from_ddc(connector,
->>> +                                ctx, force);
->>> +
->>> +    /* If the DP connectors are disconnected, the hibmc_vdac_detect
->>> function
->>> +     * must return a connected state to ensure KVM display
->>> functionality.
->>> +     * Additionally, for previous-generation products that may lack
->>> hardware
->>> +     * link support and thus cannot detect the monitor,
->>> hibmc_vdac_detect
->>> +     * should also return a connected state.
->>> +     */
->>> +    if (priv->dp.phys_state != connector_status_connected)
->>> +        return connector_status_connected;
->>> +
->>> +    return vdac->phys_state;
->> This will break user-space compositors if DP and VGA are connected at
->> the same time. I know, because we had such logic in ast and mgag200.
->>
->> Today's compositors expect a single encoder-connector pair on each CRTC.
->> That's what most contemporary hardware provides.  But the server
->> chipsets usually come with one a single CRTC and multiple connectors
->> attached to it.  Compositors fail to configure that. When we had this in
->> ast and mgag200, Gnome would display garbage to the screen and mode-
->> setting would fail. The bug report is at [1].
->>
->> In ast and mgag200, only one connector would be installed on a single
->> system. So we could avoid the problem. It looks like that this is not an
->> option with hibmc. VGA always seems to be present and DP seems optional.
->> I would advice to only report one of the connectors as 'connected' if
->> both are installed on a system.
->>
-> According to our BMC chip specifications, both VGA and DisplayPort
-> outputs are required, but only one connection is allowed at a time,
-> which seems impractical.
+> 
+> > Linux. Likewise I'd rather not use "pulse". The DP AltMode defines a bit
+> > in the VDO rather than a pulse.
+> > 
+> > Anyway, if irq_hpd doesn't sound precise enough, what about "bool
+> > extra_irq"? This would convey that this is the extra hpd-related IRQ,
+> > but it would also be obvious that it's not related to the HPD pin
+> > itself.
+> We'd still need to define what exactly it means. I think it might be better
+> to just define it as the DP IRQ HPD, as then the meaning is clear.
+> 
+> Also, would an enum flags parameter be better than a bool parameter?
 
-That's true.
+Maybe not enum, but u32 param. Then it can become:
 
-Yet it needs support form user space to make it work. It's not a kernel 
-problem.
+@extra_status: additional type-specific information provided by the sink
+without changing the HPD state
 
->
-> Do you have any additional details regarding this issue with the Mutter
-> synthesizer? For example, steps to reproduce the issue or more specific
-> alert logs. I looked at the issue you submitted to Mutter, which
-> describes the phenomenon as "a warning that the configuration is
-> incompatible", Could you clarify what this warning specifically refers
-> to—is it a message displayed on the screen, or is it a specific entry in
-> the logs?
+void drm_connector_oob_hotplug_event(..., u32 extra_status);
 
-In ast, we used to have at least one connector for the physical output 
-and another connector for the BMC/KVM. Running Gnome and opening the 
-Settings app did not work correctly. One issue is that display 
-configuration could not be changed in Gnome. That's the reported error 
-of changes not being applicable.
+/* DP short HPD pulse or corresponding AltMode flag */
+#define DRM_CONNECTOR_OOB_DP_IRQ_HPD BIT(0)
+/* DP long HPD pulse, debounced XXX: do we need this? */
+#define DRM_CONNECTOR_OOB_DP_REPLUG BIT(1)
 
-IIRC I've also seen distorted output if I really pushed it. But maybe 
-that has meanwhile been mitigated.
+For HDMI we might want to define:
 
-I've been told that other compositors also don't support this scenario well.
+/* HDMI 1.4b 8.5, HPD pulse */
+#define DRM_CONNECTOR_OOB_HDMI_REPLUG BIT(0)
 
-I think you'd run into this case once someone connects the DP and VGA at 
-the same time.
+Or might not, 100ms is long enough for all debouncers.
 
->
-> Over the next few days, we will focus on testing relevant scenarios
-> while setting both the VGA and DP ports to `connected` to see if we
-> encounter similar issues or warnings.
->
->> You also need to increment the connector's epoch_counter if the physical
->> status changed. Doing this will trigger DRM clients to re-read the
->> connector state and reconfigure display.
->>
->> Something like that
->>
->> dp_detect()
->> {
->>      dp.phys_state = detect_from_hw()
->>
->>      if (dp.phys_state changed)
->>          ++epoch_counter
->>      return connected
->> }
->>
->> vdac_detect()
->> {
->>      if (dp.phys_state == connected)
->>          return disconnected
->>
-> Only one option is displayed here, but it does not meet our specifications.
->
->>      vdac.phys_state = detect_from_hw()
->>
->>      if (vdac.phys_state changed)
->>          ++epoch_counter
->>      return connected
->> }
->>
->> This handles the KVM in each connector's helper. The ast driver is
->> probably the best reference for the current logic. See [2].
->>
-> I looked at the implementations of `detect_ctx` in ATS and MGAG200;
-> these implementations generally always return `connected`.
->
-> If my analysis is correct, the logic should be as follows:
->    - If the `detect_ctx` function implemented by each vendor returns the
->      actual hardware state, there is no need to modify `epoch_counter`;
->      the DRM framework will execute `epoch_counter++` based on the return
->      value of the `detect_ctx` function;
->
->    - If the `detect_ctx` function in a vendor’s code always returns
->      `connected`, then `epoch_counter++` must be performed within the
->      vendor’s `detect_ctx` function; the implementations in ATS and
->      MGAG200 appear to be like this;
-
-Exactly. In ast/mgag200, we had the case that the VGA got disconnected. 
-We'd still return connected, as the BMC/KVM was present. We now had to 
-reconfigure for the KVM. That requires modifying epoch_counter. You can 
-see at [1] that we only increment if the physical status changes. [1]  
-Same goes for re-connecting the VGA display.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/ast/ast_vga.c#L56
-
->
->
-> Here is the pseudocode for our current logic. This logic is indeed a bit
-> hard to grasp, so I've added some more comments; it might be a bit
-> clearer than the patch:
->
-> dp_detect()
-> {
-> 	dp.phys_state = detect_from_hw()
-> 	
-> 	/* epoch_counter update by drm framework */
-> 	return dp.phys_state;
-> }
->
-> vdac_detect()
-> {
-> 	/*
->           * Scene 1: The driver runs on an older version of the BMC chip,
->           *          and `dp.phys_state` is initialized to 0. To maintain
-> 	 *	    consistency with the previous hibmc-drm driver
-> 	 * 	    logic, always return `connected`.
-> 	 * Scene 2: The driver runs on an new version of the BMC chip,
->           *          and `dp.phys_state` is real status, witch is real
-> 	 *	    `disconnect`. In this scenario, we must ensure that
-> 	 *	    the VGA is `connected` to guarantee that the KVM
-> 	 *	    displays properly.
-> 	 */
-> 	if (dp.phys_state != connected)
-> 		return connected;
->
-> 	/*
-> 	 * DP is connected: This driver is definitely running on the
-> 	 *	    latest BMC chip, and the DDC I2C is definitely
-> 	 *	    connected to the VGA port, so we can confirm whether
-> 	 *	    the VGA is present by reading the EDID directly via
-> 	 *	    I2C.
-> 	 */
-> 	vdac.phys_state = detect_from_hw()
-> 	
-> 	/* epoch_counter update by drm framework */
-> 	return vdac.phys_state;
-
-Let's assume the DP is disconnected. If VGA's physical status goes from 
-connected to disconnected, user space will not know that it needs to 
-reconfigure for the BMC.   (or vice versa)
-
-To give you some context from earlier discussions around the other 
-drivers: We had the scenario that the user boots up without a connected 
-VGA display. This would enable the BMC, which sometimes picks a large 
-resolution; say >2k per dimension. That is problematic for KVM over 
-networks. And if the user now plugs in a physical VGA display, they 
-would be stuck with the large resolution on the framebuffer console. 
-Maybe the VGA display wouldn't even support such a high-res mode.  So we 
-set the default for the BMC to 1024x768. That is well manageable for all 
-of today's VGA displays and does not impose too much overhead for KVM 
-over networks.  As a drawback, it's a bit small on monitors and not nice 
-to look at. So we modify epoch_counter whenever the physical status 
-changes. This triggers compositors to reconfigure their screens for the 
-new display.
-
-Best regards
-Thomas
-
-> }
->
-> Sorry for the delay; it took me a little while to figure out how best to
-> explain this bug and our current implementation.
->
-> Thanks,
-> Yongbang.
->
->> [1] https://gitlab.gnome.org/GNOME/mutter/-/issues/3858
->> [2] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/ast/
->> ast_vga.c#L47
->>
->> Best regards
->> Thomas
->>
->>> +}
->>> +
->>>    static const struct drm_connector_helper_funcs
->>>        hibmc_connector_helper_funcs = {
->>>        .get_modes = hibmc_connector_get_modes,
->>> -    .detect_ctx = drm_connector_helper_detect_from_ddc,
->>> +    .detect_ctx = hibmc_vdac_detect,
->>>    };
->>>      static const struct drm_connector_funcs hibmc_connector_funcs = {
->>> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
->>>          connector->polled = DRM_CONNECTOR_POLL_CONNECT |
->>> DRM_CONNECTOR_POLL_DISCONNECT;
->>>    +    vdac->phys_state = connector_status_connected;
->>> +
->>>        return 0;
->>>      err:
+For HDMI we potentially have another source of OOB events, CDC-messages
+from CEC controller. I have not looked in the details of the HEAC 3.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+With best wishes
+Dmitry
