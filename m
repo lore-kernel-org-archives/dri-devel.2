@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 562C9F588C6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 666D1F588C6
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1BC410E226;
-	Mon, 20 Apr 2026 13:29:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 908A710E638;
+	Mon, 20 Apr 2026 13:30:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c4z1v5v5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WLrH7nsp";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B442310E226;
- Mon, 20 Apr 2026 13:29:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE22910E637;
+ Mon, 20 Apr 2026 13:30:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 95571441D8;
- Mon, 20 Apr 2026 13:29:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10C36C2BCC4;
- Mon, 20 Apr 2026 13:29:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CF09261119;
+ Mon, 20 Apr 2026 13:30:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDCBC2BCB7;
+ Mon, 20 Apr 2026 13:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691765;
- bh=oI99Me11juO6U/qs+YD75RChtL2ON3Jdrj6X3XBNw6M=;
+ s=k20201202; t=1776691802;
+ bh=mWRQILyU3nYc0zxb2eBK81xWcn9ZqTdyq0u0KDN1QiA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=c4z1v5v51Gk+sAVs5coytH0CY/YQcNO4S8QsJD4GGFZTTmtkDcpE1+I1070t26pBb
- nXRfiEISMPAVdENAf/lmEx56ljTNKvArd4o3RvTTYtS25M9qkeM5FIPZYKPCwgnlY8
- iT5m9n5B3uzIXGU4Zhw1aDuz7t3ji2qtSfXE6q8ZIR4yCV5ohJgZ/DJZGbmfRwNuJe
- 9heqhXWKsfudLP402bO0FzlaZBX7dLrpBbDIu5LNMGQHvaq7jXGiUN5TOHrMiUX3Gf
- gocqWf8+pN/8PFAmfMFxh75IN8nwvOfqoGxhiEzYAG0ePBgIigRMD48xrYj+SG69hR
- QvJk8pbqUzOkA==
+ b=WLrH7nsp/mQr37UQjB5QTf0pF4V9VaxQmxtRZ7+Q/rgRvUtPSuh8KLpOo43yRRiwm
+ MLFVLlLtCoC5wPP3NyKkJ6UuJyYtfeXL8BGk2b5fwyu5IuSu6e9kamyYIeRqqtSDlE
+ 8AbouXhsHzqzKsV/HjYVn8qGu0XjUANNhBrl1bZEiw2a1pgEIpg53rOzJyuZs8te3h
+ 15GjJTi8j5Ec+glWxSFY0t41MoVyzyTwAJmpfb3oc+oILf6XqThnozY09sBtw0hjfk
+ yPnhKvVs37nRH2SjL24kYCLnA/iLeAlYHN3hRQoc9WNgoqvG/G3+MondSuawL/aaP3
+ v0eGSpTjH6N5A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Prike Liang <Prike.Liang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: David Francis <David.Francis@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: fix syncobj leak for
- amdgpu_gem_va_ioctl()
-Date: Mon, 20 Apr 2026 09:19:34 -0400
-Message-ID: <20260420132314.1023554-180-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: Check for multiplication
+ overflow in checkpoint stack size
+Date: Mon, 20 Apr 2026 09:19:56 -0400
+Message-ID: <20260420132314.1023554-202-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
@@ -66,304 +65,396 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Prike Liang <Prike.Liang@amd.com>
+From: David Francis <David.Francis@amd.com>
 
-[ Upstream commit a0f0b6d31a53a7607ed44f7623faafc628333258 ]
+[ Upstream commit 421c0f19043337a553e802b2dfe4b56d538ef4d6 ]
 
-It requires freeing the syncobj and chain
-alloction resource.
+get_checkpoint_info() in kfd_mqd_manager_v9.c finds 32-bit value
+ctl_stack_size by multiplying two 32-bit values. This can overflow to a
+lower value, which could result in copying outside the bounds of
+a buffer in checkpoint_mqd() in the same file.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Put in a check for the overflow, and fail with -EINVAL if detected.
+
+v2: use check_mul_overflow()
+
+Signed-off-by: David Francis <David.Francis@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The 7.0 tree doesn't have `(!adev->debug_vm || timeline_syncobj)` — it
-has `!adev->debug_vm`. This confirms the diff was created against a
-newer mainline. The fix's core logic still applies.
+Now I have a complete picture. Let me compile the full analysis.
 
 ---
 
-## Complete Analysis
-
-### PHASE 1: COMMIT MESSAGE FORENSICS
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-- Subsystem: `drm/amdgpu`
-- Action verb: "fix"
-- Summary: Fix syncobj and chain allocation resource leak in
-  amdgpu_gem_va_ioctl()
-- Record: [drm/amdgpu] [fix] [syncobj/chain resource leak in gem VA
-  ioctl]
+- Subsystem: `drm/amdgpu` (AMD GPU driver, KFD subsystem)
+- Action verb: "Check" (adding a missing safety check)
+- Summary: Add overflow check to prevent out-of-bounds copy in
+  checkpoint stack size computation
 
 **Step 1.2: Tags**
-- `Reviewed-by: Christian König <christian.koenig@amd.com>` — subsystem
-  co-maintainer
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` — AMD GPU
-  maintainer committed it
-- `Signed-off-by: Prike Liang <Prike.Liang@amd.com>` — AMD engineer,
-  author
-- No Fixes: tag, no Reported-by:, no Cc: stable — expected for manual
-  review candidates
-- Record: Reviewed by Christian König (DRM/amdgpu co-maintainer).
-  Committed by Alex Deucher.
+- Signed-off-by: David Francis (author)
+- Reviewed-by: Alex Deucher (AMD DRM subsystem maintainer)
+- Signed-off-by: Alex Deucher (committer/maintainer)
+- No Fixes: tag (expected for autosel candidates)
+- No Cc: stable (expected)
+- No Reported-by (found by code inspection, not a crash report)
 
 **Step 1.3: Commit Body**
-- Describes: "requires freeing the syncobj and chain allocation
-  resource"
-- Bug: syncobj refcount and chain memory are never released after use
-- Failure mode: resource/memory leak on every ioctl call with timeline
-  syncobj
-- Record: Clear resource leak. Every call to the ioctl with timeline
-  syncobj leaks memory.
+- Bug: `get_checkpoint_info()` computes `ctl_stack_size` by multiplying
+  two 32-bit values (`m->cp_hqd_cntl_stack_size *
+  NUM_XCC(mm->dev->xcc_mask)`). This can overflow to a smaller value.
+- Consequence: The overflowed smaller value is used to size a buffer
+  allocation. Later, `checkpoint_mqd()` copies data using the actual
+  (non-overflowed) hardware values, writing beyond the buffer boundary.
+- Failure mode: Out-of-bounds memory write (buffer overflow)
+- Fix: Use `check_mul_overflow()` and return -EINVAL on overflow
 
-**Step 1.4: Hidden Bug Fixes**
-- This is NOT hidden — it explicitly says "fix...leak"
-- Record: Explicit bug fix.
+**Step 1.4: Hidden Bug Fix Detection**
+This is explicitly a bug fix for a buffer overflow vulnerability. The v2
+notation indicates the fix went through review iteration.
 
-### PHASE 2: DIFF ANALYSIS
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- Files: `drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c` only
-- Changes: +5 lines added (3 in ioctl cleanup, 1 NULL assignment in
-  helper, 1 NULL assignment in ioctl)
-- Functions modified: `amdgpu_gem_update_timeline_node()` and
-  `amdgpu_gem_va_ioctl()`
-- Record: Single-file surgical fix, 5 meaningful lines added.
+- 6 files changed: `kfd_device_queue_manager.c`,
+  `kfd_device_queue_manager.h`, `kfd_mqd_manager.h`,
+  `kfd_mqd_manager_v9.c`, `kfd_mqd_manager_vi.c`,
+  `kfd_process_queue_manager.c`
+- Net change: +22/-8 lines
+- Functions modified: `get_checkpoint_info` (v9 and vi),
+  `get_queue_checkpoint_info` (dqm), `pqm_get_queue_checkpoint_info`
+- Scope: Multi-file but contained - all changes serve a single purpose
+  (propagating error from overflow check)
 
-**Step 2.2: Code Flow Changes**
-
-Hunk 1 — `amdgpu_gem_update_timeline_node()`:
-- BEFORE: When `dma_fence_chain_alloc()` fails, calls
-  `drm_syncobj_put(*syncobj)` and returns -ENOMEM, leaving `*syncobj` as
-  a dangling pointer.
-- AFTER: Also sets `*syncobj = NULL` to prevent dangling pointer.
-
-Hunk 2 — `amdgpu_gem_va_ioctl()`:
-- BEFORE: After `drm_syncobj_add_point()` consumes `timeline_chain`,
-  `timeline_chain` still points to consumed memory. The `error:` label
-  never frees `timeline_chain` or puts `timeline_syncobj`.
-- AFTER: Sets `timeline_chain = NULL` after consumption. Adds
-  `dma_fence_chain_free(timeline_chain)` and
-  `drm_syncobj_put(timeline_syncobj)` to cleanup.
+**Step 2.2: Code Flow Change**
+- Core fix in `kfd_mqd_manager_v9.c`: replaces unchecked multiplication
+  with `check_mul_overflow()`, returning -EINVAL on overflow
+- Plumbing: `get_checkpoint_info` and `get_queue_checkpoint_info`
+  signatures changed from `void` to `int` to propagate the error
+- `kfd_mqd_manager_vi.c`: trivially updated to return 0 (no overflow
+  risk since `*ctl_stack_size = 0`)
+- `kfd_process_queue_manager.c`: now checks the return value and
+  propagates errors
 
 **Step 2.3: Bug Mechanism**
-- Category: **Resource leak** (syncobj refcount leak + memory leak)
-- `drm_syncobj_find()` increments refcount — never decremented by caller
-- `dma_fence_chain_alloc()` allocates memory — never freed when not
-  consumed
-- Record: Missing cleanup for refcounted object and allocated memory on
-  both success and error paths.
+Category: **Buffer overflow / out-of-bounds write**
+
+The flow is:
+1. `get_checkpoint_info()` computes `ctl_stack_size =
+   m->cp_hqd_cntl_stack_size * NUM_XCC(...)` - can overflow to a small
+   value
+2. `criu_checkpoint_queues_device()` uses this to allocate a buffer:
+   `kzalloc(sizeof(*q_data) + mqd_size + ctl_stack_size, ...)`
+3. `checkpoint_mqd_v9_4_3()` loops over each XCC and calls
+   `memcpy(ctl_stack_dst, ctl_stack, m->cp_hqd_cntl_stack_size)` for
+   each, writing the full actual size
+4. Total bytes written = `m->cp_hqd_cntl_stack_size * NUM_XCC(...)` (the
+   actual, non-overflowed product), exceeding the buffer
 
 **Step 2.4: Fix Quality**
-- Obviously correct: adds standard cleanup patterns (NULL-after-consume,
-  free/put at error label)
-- Minimal and surgical: 5 meaningful lines
-- No regression risk: `dma_fence_chain_free(NULL)` = `kfree(NULL)` is
-  safe; `drm_syncobj_put` is guarded by NULL check
-- Record: High quality, zero regression risk.
+- Obviously correct: uses standard `check_mul_overflow()` kernel macro
+- Minimal/surgical: core logic is 3 lines; rest is necessary type
+  signature propagation
+- No regression risk: overflow case now fails gracefully with -EINVAL
+  instead of silently corrupting memory
+- Reviewed by subsystem maintainer Alex Deucher
 
-### PHASE 3: GIT HISTORY
+## PHASE 3: GIT HISTORY
 
 **Step 3.1: Blame**
-- `amdgpu_gem_update_timeline_node` — introduced by `70773bef4e091f`
-  (Arvind Yadav, Sep 2024)
-- Timeline call moved before switch by `ad6c120f688803` (Feb 2025, "fix
-  the memleak caused by fence not released")
-- Inline timeline handling in ioctl by `bd8150a1b3370` (Dec 2025, v4
-  refactor)
-- Record: Buggy code introduced in 70773bef4e091f, worsened by
-  ad6c120f688803 which moved allocation before switch but didn't add
-  cleanup.
+- `get_checkpoint_info` was introduced by commit 3a9822d7bd623b (David
+  Yat Sin, 2021-01-25) for CRIU checkpoint support
+- The multiplication `* NUM_XCC(...)` was added by commit f6c0f3d24478a0
+  / a578f2a58c3ab (David Yat Sin, 2025-07-16) "Fix checkpoint-restore on
+  multi-xcc"
+- The multi-xcc fix was merged in v6.18 and was cherry-picked with `Cc:
+  stable@vger.kernel.org`
 
-**Step 3.2: Fixes tag**
-- No Fixes: tag present. Based on analysis, the bug was introduced in
-  `70773bef4e091f` and never had proper cleanup.
-- Record: Bug exists since original timeline code introduction.
+**Step 3.2: Fixes tag** - No Fixes: tag present, which is expected.
 
-**Step 3.3: File History**
-- 31 commits since `ad6c120f688803`. Active file with many recent
-  changes.
-- The v4 refactor (`bd8150a1b3370`) and v7 refactor (`efdc66fe12b07`)
-  touched the same code but neither added cleanup.
-- Record: Standalone fix, no prerequisites beyond code already in 7.0
-  tree.
+**Step 3.3: File History** - The file is actively developed with 30+
+changes since v6.6.
 
-**Step 3.4: Author**
-- Prike Liang: AMD engineer, regular contributor to amdgpu driver with
-  multiple recent fixes.
-- Record: Active AMD GPU developer, credible author.
+**Step 3.4: Author** - David Francis is an AMD employee working on
+KFD/CRIU support.
 
-**Step 3.5: Dependencies**
-- None. The fix only adds cleanup to existing code paths. All referenced
-  functions exist in 7.0.
-- Minor context conflict: mainline has `(!adev->debug_vm ||
-  timeline_syncobj)` vs 7.0's `!adev->debug_vm`, but the fix's added
-  lines don't depend on this condition.
-- Record: Standalone fix, minor context adjustment needed.
+**Step 3.5: Dependencies** - This commit is standalone. It only changes
+the existing code path without requiring other patches.
 
-### PHASE 4: MAILING LIST RESEARCH
+## PHASE 4: MAILING LIST
 
-**Step 4.1-4.5:**
-- b4 dig could not find the original patch submission (lore.kernel.org
-  blocked by Anubis).
-- The related commit `ad6c120f688803` explicitly described the memleak
-  problem with a full stack trace showing BUG in drm_sched_fence slab
-  during module unload — evidence the leak has real impact.
-- Christian König (co-maintainer) reviewed the fix.
-- Record: Could not access lore. However, reviewer is the subsystem co-
-  maintainer, which is strong endorsement.
+- Original submission found at spinics.net/lists/amd-gfx/msg138647.html
+  (posted 2026-03-04)
+- v2 iteration used `check_mul_overflow()` (v1 presumably used manual
+  overflow checks)
+- Alex Deucher provided Reviewed-by (msg138731)
+- No NAKs or concerns raised
+- No explicit stable nomination by reviewers, but the fix targets a bug
+  in code that was itself `Cc: stable`
 
-### PHASE 5: CODE SEMANTIC ANALYSIS
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1-5.4:**
-- `amdgpu_gem_va_ioctl()` is a DRM ioctl handler directly callable from
-  userspace
-- Called every time userspace maps/unmaps GPU virtual address space
-- This is a HOT path for GPU applications (Mesa, AMDVLK, ROCm)
-- Every call with a timeline syncobj leaks the syncobj refcount and
-  potentially the chain allocation
-- Record: Ioctl path reachable from any GPU userspace application. Very
-  high call frequency.
+**Step 5.1: Key Functions**
+- `get_checkpoint_info()` in v9 (core fix)
+- `get_queue_checkpoint_info()` in dqm (plumbing)
+- `pqm_get_queue_checkpoint_info()` (plumbing)
 
-### PHASE 6: STABLE TREE ANALYSIS
+**Step 5.2: Callers**
+- `pqm_get_queue_checkpoint_info()` -> `get_queue_data_sizes()` ->
+  `criu_checkpoint_queues_device()` -> `kfd_process_get_queue_info()`
+- Called during CRIU checkpoint operations (process migration/save)
 
-**Step 6.1:** The buggy code exists in 7.0 tree. Confirmed via blame:
-`70773bef4e091f` (Sep 2024) and `ad6c120f688803` (Feb 2025) are both
-present.
+**Step 5.4: Reachability**
+The path is reachable from userspace through the KFD ioctl interface
+during CRIU operations. On multi-XCC AMD GPUs, if
+`cp_hqd_cntl_stack_size` is large enough, the multiplication overflows.
 
-**Step 6.2:** Minor context conflict due to condition difference in line
-979. Would need a trivial backport adjustment, or `git apply --3way`
-could handle it.
+## PHASE 6: STABLE TREE ANALYSIS
 
-**Step 6.3:** No related fix already in stable for this specific leak.
+**Step 6.1: Buggy code in stable**
+- The multiplication was introduced in commit a578f2a58c3ab, merged in
+  v6.18
+- The cherry-pick f6c0f3d24478a0 has `Cc: stable@vger.kernel.org`, so it
+  was intended for backport to active stable trees
+- The 7.0 tree we're evaluating definitely has this code
+- Any stable tree that received the multi-xcc fix backport also has the
+  bug
 
-### PHASE 7: SUBSYSTEM CONTEXT
+**Step 6.2: Backport complexity** - The patch should apply cleanly since
+the code structure hasn't changed significantly.
 
-- Subsystem: `drivers/gpu/drm/amd/amdgpu` — GPU driver
-- Criticality: IMPORTANT — AMD GPUs are extremely common in desktops,
-  servers, and workstations
-- Active subsystem with frequent changes
-- Record: [IMPORTANT] AMD GPU driver, widely used hardware.
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### PHASE 8: IMPACT AND RISK
+**Step 7.1:** drm/amdgpu (KFD) - GPU compute driver. Used by ROCm.
+Criticality: IMPORTANT for AMD GPU users.
 
-**Step 8.1:** Affected users: All users with AMD GPUs using
-userqueue/timeline syncobj features (Mesa Vulkan, ROCm).
+**Step 7.2:** Very actively developed subsystem.
 
-**Step 8.2:** Trigger: Any GPU application calling the VA ioctl with a
-timeline syncobj. Repeated calls (normal GPU operation) cause cumulative
-memory leak.
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.3:** Failure mode: Memory leak in hot ioctl path → eventual OOM
-under sustained GPU workloads. Severity: **HIGH** (gradual resource
-exhaustion).
+**Step 8.1:** Affects users of AMD multi-XCC GPUs (MI200/MI300 series)
+who use CRIU checkpoint/restore.
 
-**Step 8.4:**
-- BENEFIT: High — prevents memory leak in frequently-called GPU ioctl
-- RISK: Very low — 5-line fix adding standard NULL-and-free patterns,
-  reviewed by subsystem maintainer
-- Record: High benefit, very low risk.
+**Step 8.2: Trigger conditions**
+- Requires multi-XCC AMD GPU hardware
+- Requires CRIU checkpoint operation
+- Requires `cp_hqd_cntl_stack_size` large enough to overflow when
+  multiplied by XCC count
+- Triggerable from userspace via KFD ioctl
 
-### PHASE 9: SYNTHESIS
+**Step 8.3: Failure mode** - Out-of-bounds kernel heap write. Severity:
+**HIGH** (memory corruption, potential crash, potential security
+vulnerability).
+
+**Step 8.4: Risk-Benefit**
+- Benefit: Prevents kernel heap buffer overflow -> HIGH
+- Risk: Very low - adds a standard overflow check, graceful error return
+- Ratio: Strongly favorable for backport
+
+## PHASE 9: SYNTHESIS
 
 **Evidence FOR backporting:**
-- Fixes a real resource leak (syncobj refcount + chain memory) in a
-  userspace-facing ioctl
-- Every call with timeline syncobj leaks resources — cumulative, leads
-  to OOM under sustained use
-- Small, surgical fix: 5 meaningful lines in a single file
-- Reviewed by Christian König (DRM/amdgpu co-maintainer)
-- Obviously correct: standard cleanup patterns (NULL-after-consume,
-  free/put at cleanup label)
-- Bug code exists in 7.0 tree (confirmed via blame)
-- Zero regression risk: `kfree(NULL)` is safe, NULL checks guard all
-  puts
+- Fixes a real buffer overflow (out-of-bounds heap write)
+- Small and contained (+22/-8 lines, mostly plumbing)
+- Uses standard kernel overflow checking macro (`check_mul_overflow`)
+- Obviously correct - reviewed by subsystem maintainer Alex Deucher
+- The buggy code was itself marked `Cc: stable` (the multi-xcc fix), so
+  the bug exists in stable trees
+- Graceful error handling (returns -EINVAL instead of corrupting memory)
 
 **Evidence AGAINST backporting:**
-- Minor context conflict (condition text differs between mainline and
-  7.0) — trivially resolvable
-- Timeline syncobj feature is relatively new (Sep 2024) — may not affect
-  all users yet
+- The bug requires specific hardware (multi-XCC AMD GPUs) and specific
+  operation (CRIU checkpoint)
+- The overflow may require unrealistic `cp_hqd_cntl_stack_size` values
+  in practice
+- The function signature change touches 6 files (though all changes are
+  mechanical)
 
 **Stable rules checklist:**
-1. Obviously correct and tested? **YES** — standard cleanup pattern,
-   reviewed by co-maintainer
-2. Fixes a real bug? **YES** — resource leak in ioctl path
-3. Important issue? **YES** — memory leak in hot path → eventual OOM
-4. Small and contained? **YES** — 5 lines, single file
-5. No new features? **YES** — only adds missing cleanup
-6. Can apply to stable? **YES** — with minor context adjustment
+1. Obviously correct and tested? **YES** - uses standard
+   `check_mul_overflow()`, reviewed by maintainer
+2. Fixes a real bug? **YES** - buffer overflow from integer overflow
+3. Important issue? **YES** - out-of-bounds heap write, potential memory
+   corruption
+4. Small and contained? **YES** - 30 lines total, core logic is 3 lines
+5. No new features? **YES** - purely defensive overflow check
+6. Applies to stable? **YES** - any tree with the multi-xcc checkpoint
+   fix (6.18+, plus stable backports)
 
-### Verification
+## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Christian König (co-maintainer),
-  SOB Alex Deucher (maintainer)
-- [Phase 2] Diff analysis: 5 lines added — NULL assignment in helper
-  error path, NULL assignment after chain consumption, 3-line cleanup in
-  error label (chain free + syncobj put)
-- [Phase 3] git blame: timeline code introduced in 70773bef4e091f (Sep
-  2024), moved by ad6c120f688803 (Feb 2025), both in 7.0 tree
-- [Phase 3] git show ad6c120f688803: confirmed this commit moved
-  timeline allocation before switch without adding cleanup — the root
-  cause
-- [Phase 3] git show bd8150a1b3370: v4 refactor inlined timeline
-  handling, still no cleanup
-- [Phase 3] git show efdc66fe12b07: v7 refactor, still no cleanup
-- [Phase 5] amdgpu_gem_va_ioctl is DRM ioctl handler — directly callable
-  from userspace, hot path for GPU apps
-- [Phase 5] Confirmed drm_syncobj_add_point() consumes chain
-  (dma_fence_chain_init + rcu_assign_pointer), so NULL-after-use is
-  correct
-- [Phase 5] Confirmed dma_fence_chain_free(NULL) is safe (just
-  kfree(NULL))
-- [Phase 6] Verified no drm_syncobj_put(timeline_syncobj) in current 7.0
-  file — bug confirmed present
-- [Phase 6] Minor context conflict: 7.0 has `!adev->debug_vm`, mainline
-  has `(!adev->debug_vm || timeline_syncobj)` — needs trivial adjustment
-- [Phase 8] Failure mode: cumulative memory/refcount leak → eventual
-  OOM, severity HIGH
-- UNVERIFIED: Could not access lore.kernel.org for original patch
-  discussion (blocked by Anubis)
+- [Phase 1] Parsed subject: drm/amdgpu, "Check" (adding safety check),
+  overflow in checkpoint stack size
+- [Phase 1] Tags: Reviewed-by Alex Deucher (subsystem maintainer),
+  Signed-off-by Alex Deucher
+- [Phase 2] Diff: 6 files, +22/-8 lines. Core fix is
+  `check_mul_overflow()` in `get_checkpoint_info()` v9
+- [Phase 2] Traced overflow to buffer allocation in
+  `criu_checkpoint_queues_device()` (line 895: kzalloc) and memcpy in
+  `checkpoint_mqd()` (line 412) / `checkpoint_mqd_v9_4_3()` (lines
+  424-430)
+- [Phase 3] git blame: multiplication introduced by f6c0f3d24478a0
+  (2025-07-16), cherry-pick of a578f2a58c3ab with `Cc: stable`
+- [Phase 3] Original `get_checkpoint_info` introduced by 3a9822d7bd623b
+  (2021-01-25)
+- [Phase 3] Multi-xcc fix entered mainline in v6.18
+- [Phase 4] Found original patch at spinics.net/lists/amd-
+  gfx/msg138647.html, Alex Deucher reviewed at msg138731
+- [Phase 4] No NAKs, no concerns raised
+- [Phase 5] Traced call chain: KFD ioctl -> kfd_process_get_queue_info
+  -> get_queue_data_sizes -> pqm_get_queue_checkpoint_info ->
+  get_queue_checkpoint_info -> get_checkpoint_info
+- [Phase 5] Confirmed overflowed value feeds into buffer allocation
+  (kzalloc) but actual memcpy uses non-overflowed per-XCC size
+- [Phase 6] Buggy code exists in mainline since v6.18 and in any stable
+  tree that backported the multi-xcc checkpoint fix
+- [Phase 8] Failure mode: heap buffer overflow (out-of-bounds write),
+  severity HIGH
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 7 +++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h           | 3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c        | 7 +++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c        | 3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 8 +++++++-
+ 6 files changed, 22 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index c4839cf2dce37..3f95aca700264 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -107,6 +107,7 @@ amdgpu_gem_update_timeline_node(struct drm_file *filp,
- 	*chain = dma_fence_chain_alloc();
- 	if (!*chain) {
- 		drm_syncobj_put(*syncobj);
-+		*syncobj = NULL;
- 		return -ENOMEM;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 3ddf06c755b52..ab3b2e7be9bd0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2720,7 +2720,7 @@ static int get_wave_state(struct device_queue_manager *dqm,
+ 			ctl_stack, ctl_stack_used_size, save_area_used_size);
+ }
+ 
+-static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
++static int get_queue_checkpoint_info(struct device_queue_manager *dqm,
+ 			const struct queue *q,
+ 			u32 *mqd_size,
+ 			u32 *ctl_stack_size)
+@@ -2728,6 +2728,7 @@ static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
+ 	struct mqd_manager *mqd_mgr;
+ 	enum KFD_MQD_TYPE mqd_type =
+ 			get_mqd_type_from_queue_type(q->properties.type);
++	int ret = 0;
+ 
+ 	dqm_lock(dqm);
+ 	mqd_mgr = dqm->mqd_mgrs[mqd_type];
+@@ -2735,9 +2736,11 @@ static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
+ 	*ctl_stack_size = 0;
+ 
+ 	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE && mqd_mgr->get_checkpoint_info)
+-		mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl_stack_size);
++		ret = mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl_stack_size);
+ 
+ 	dqm_unlock(dqm);
++
++	return ret;
+ }
+ 
+ static int checkpoint_mqd(struct device_queue_manager *dqm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+index ef07e44916f80..3272328da11f9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@ -192,7 +192,7 @@ struct device_queue_manager_ops {
+ 
+ 	int (*reset_queues)(struct device_queue_manager *dqm,
+ 					uint16_t pasid);
+-	void	(*get_queue_checkpoint_info)(struct device_queue_manager *dqm,
++	int	(*get_queue_checkpoint_info)(struct device_queue_manager *dqm,
+ 				  const struct queue *q, u32 *mqd_size,
+ 				  u32 *ctl_stack_size);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index 2429d278ef0eb..06ca6235ff1b7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -102,7 +102,8 @@ struct mqd_manager {
+ 				  u32 *ctl_stack_used_size,
+ 				  u32 *save_area_used_size);
+ 
+-	void	(*get_checkpoint_info)(struct mqd_manager *mm, void *mqd, uint32_t *ctl_stack_size);
++	int	(*get_checkpoint_info)(struct mqd_manager *mm, void *mqd,
++				       uint32_t *ctl_stack_size);
+ 
+ 	void	(*checkpoint_mqd)(struct mqd_manager *mm,
+ 				  void *mqd,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index a535f151cb5fd..fe471a8b98095 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -393,11 +393,14 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	return 0;
+ }
+ 
+-static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
++static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
+ {
+ 	struct v9_mqd *m = get_mqd(mqd);
+ 
+-	*ctl_stack_size = m->cp_hqd_cntl_stack_size * NUM_XCC(mm->dev->xcc_mask);
++	if (check_mul_overflow(m->cp_hqd_cntl_stack_size, NUM_XCC(mm->dev->xcc_mask), ctl_stack_size))
++		return -EINVAL;
++
++	return 0;
+ }
+ 
+ static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, void *ctl_stack_dst)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index 69c1b8a690b86..5a758ed14ea50 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -275,10 +275,11 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	return 0;
+ }
+ 
+-static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
++static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
+ {
+ 	/* Control stack is stored in user mode */
+ 	*ctl_stack_size = 0;
++	return 0;
+ }
+ 
+ static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, void *ctl_stack_dst)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index f5d2847e1cbb4..cc2621ae12f9c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -1070,6 +1070,7 @@ int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
+ 				  uint32_t *ctl_stack_size)
+ {
+ 	struct process_queue_node *pqn;
++	int ret;
+ 
+ 	pqn = get_queue_by_qid(pqm, qid);
+ 	if (!pqn) {
+@@ -1082,9 +1083,14 @@ int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
+ 		return -EOPNOTSUPP;
  	}
  
-@@ -983,6 +984,7 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 						      timeline_chain,
- 						      fence,
- 						      args->vm_timeline_point);
-+				timeline_chain = NULL;
- 			}
- 		}
- 		dma_fence_put(fence);
-@@ -990,6 +992,9 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	}
+-	pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q->device->dqm,
++	ret = pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q->device->dqm,
+ 						       pqn->q, mqd_size,
+ 						       ctl_stack_size);
++	if (ret) {
++		pr_debug("amdkfd: Overflow while computing stack size for queue %d\n", qid);
++		return ret;
++	}
++
+ 	return 0;
+ }
  
- error:
-+	dma_fence_chain_free(timeline_chain);
-+	if (timeline_syncobj)
-+		drm_syncobj_put(timeline_syncobj);
- 	drm_exec_fini(&exec);
- error_put_gobj:
- 	drm_gem_object_put(gobj);
 -- 
 2.53.0
 
