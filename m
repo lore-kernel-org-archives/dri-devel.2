@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FE66F588C6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62750F588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9198210E64D;
-	Mon, 20 Apr 2026 13:31:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B957C10E64E;
+	Mon, 20 Apr 2026 13:31:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PmSPj07E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cqDHNFRq";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FAAB10E64B;
- Mon, 20 Apr 2026 13:31:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D3A10E64F
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:31:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id ABB3760154;
- Mon, 20 Apr 2026 13:31:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26E0AC2BCF4;
- Mon, 20 Apr 2026 13:31:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 863F5435DE;
+ Mon, 20 Apr 2026 13:31:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D13DC2BCB4;
+ Mon, 20 Apr 2026 13:31:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691891;
- bh=zlcHTpa2ZsJ6GNWjqV8E7J6S2piuEFdQXj/3/loQ2Qw=;
+ s=k20201202; t=1776691897;
+ bh=lqXv5gxENQT44k4x7SJliy5KPGN8NVdQvbn5CUZy7Oo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PmSPj07ETBnlUQxi/nFRGNdG13hwT5+EEqf0OxDdYJ2tMd0+ZnN/heFUY9AxNpnmB
- 6wy0LrYOxFF2qwL6xqUpUJpADHlRU2EhSWnf6x5MlpMd5fZO47OAqsmcjcjR6ksdYc
- BprpeSDVEllIJDnzQL5w/rals6r1/I4gphemdJsKqY38N/D8bD3p5znEZqT3TXM1Gq
- 1L334BvRh2htJ3WIfnyRXzyTisjRf+a3uk80qaMhtfpiJ6v72+gVOIIkg3B/mFkENM
- Poi9Em4y8gd9xnwtdFRMT2Mx7ORj0gs/soU30WfPKNF934uy2HbGMtq95Doz2BycQ6
- cAsAV/OU8LQpg==
+ b=cqDHNFRq+/WkdOWJkFKcXcvUSuY93uZLZWmA+7z2E3aXsugIUr6vDcVjHifRmrklI
+ LJeDvSU62Bu9SLZWfPGSY2FaD3KSvVrhPhBYUHcy6birQdRW1rkTdfdAI7e9O1eaGl
+ JBS9smMUdXBaPVFHVtbxMGBRcbH86jwA428r+4TXubDrn34qzHGwYMBYgyctLKRubv
+ pyfZoTt1yZq6OQ34JTn7zhUXPX3ES6Venf/jztvGrMZVAq0AvL1j/YsnzM5Ek7KyTb
+ 2FY215hAsg7b6OJxIcuELLEefxUWaMsh0lKPtXog6dVcmlURyZZdGuGdAqY/GdZNW4
+ U8MI/vpMhSsoQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Austin Zheng <Austin.Zheng@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.19] drm/amd/display: Fix number of opp
-Date: Mon, 20 Apr 2026 09:20:48 -0400
-Message-ID: <20260420132314.1023554-254-sashal@kernel.org>
+Cc: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>,
+ Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.19] drm/panel-edp: Change BOE NV140WUM-N64
+ timings
+Date: Mon, 20 Apr 2026 09:20:51 -0400
+Message-ID: <20260420132314.1023554-257-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -67,301 +66,337 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
 
-[ Upstream commit 2c5f15ee2c760514c5be0f02cf9c9f1ff68b9ac8 ]
+[ Upstream commit bbe814bcb961ed2f30706ffdc806f18150709d2d ]
 
-[Why/How]
-Patch number of opp based on IP caps
+This screen timing requires a backlight off time of more than 100ms
+from the end of the data stream to avoid screen flickering and red
+light caused by screen material limitations.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
-Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/20260226083235.2176689-1-zhouhaikun5@huaqin.corp-partner.google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a comprehensive analysis. Let
-me compile the full report.
+Now I have all the information needed for a complete analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-- Subsystem: `drm/amd/display`
-- Action verb: "Fix"
-- Summary: Fix the number of OPP (Output Pixel Processors) patching from
-  IP caps.
-
-Record: [drm/amd/display] [fix] [Ensures max_num_opp is patched from IP
-capabilities]
+- Subsystem: `drm/panel-edp`
+- Action verb: "Change" (timing adjustment)
+- Summary: Changes timing parameters for BOE NV140WUM-N64 panel to fix
+  screen flickering
 
 **Step 1.2: Tags**
-- Reviewed-by: Dillon Varone (AMD display team member)
-- Signed-off-by: Austin Zheng (author), Chuanyu Tseng (series submitter)
-- Tested-by: Dan Wheeler (AMD's display QA)
-- Signed-off-by: Alex Deucher (AMD display maintainer)
-- No Fixes: tag (expected for autosel candidates)
+- Signed-off-by: Haikun Zhou (author from Huaqin, a Google hardware
+  partner)
+- Reviewed-by: Douglas Anderson (subsystem maintainer for panel-edp)
+- Signed-off-by: Douglas Anderson (committed by maintainer)
+- Link: patch.msgid.link URL
+- No Fixes: tag (expected for autoselect candidate)
 - No Cc: stable (expected)
 
-Record: Reviewed, tested, and signed off by the AMD display team. No
-syzbot or external reports.
-
-**Step 1.3: Body Text**
-- "[Why/How] Patch number of opp based on IP caps"
-- Terse message typical of AMD display DML patches. Indicates the OPP
-  count should come from IP capabilities (hardware-specific) rather than
-  remaining at the compile-time default.
-
-Record: Bug is that `max_num_opp` was not being patched from hardware IP
-caps, leaving it at a static default regardless of actual hardware.
+**Step 1.3: Commit Body**
+The commit message explicitly describes a hardware issue: "This screen
+timing requires a backlight off time of more than 100ms from the end of
+the data stream to avoid screen flickering and red light caused by
+screen material limitations."
+- Bug: Missing disable delay causes screen flickering and red light
+  artifacts
+- Symptom: Visible display artifacts when powering off panel
+- Root cause: Hardware limitation of this specific panel requires T9
+  timing (backlight off to end of video data) of >100ms
 
 **Step 1.4: Hidden Bug Fix Detection**
-This is explicitly labeled "Fix" and adds a missing field assignment
-that was omitted when OPP validation was introduced.
+This IS a bug fix disguised as a "change timings" commit. The original
+panel entry used timings copied from a similar panel (NV140WUM-N41),
+which lacked the disable delay needed by this specific panel. The fix
+addresses a real user-visible display defect.
 
-Record: This is a direct bug fix for a missing field patching, not a
-hidden fix.
+Record: [Hardware timing bug fix] [Screen flickering and red light on
+panel disable]
+
+---
 
 ## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- 1 file changed: `dml2_core_dcn4.c`
-- +1 line added
-- Function modified: `patch_ip_params_with_ip_caps()`
-- Scope: Single-file, surgical 1-line fix
+- Files changed: 1 (`drivers/gpu/drm/panel/panel-edp.c`)
+- Lines added: ~7 (new struct + entry change)
+- Lines removed: ~1 (old entry replaced)
+- Functions: No functions modified - only data structures changed
 
 **Step 2.2: Code Flow Change**
-The single line added:
+Two hunks:
+1. Adds a new `delay_200_500_e200_d100` struct with `.disable = 100`
+   field
+2. Changes the NV140WUM-N64 panel entry from `&delay_200_500_e200` to
+   `&delay_200_500_e200_d100`
 
-```c
-ip_params->max_num_opp = ip_caps->otg_count;
-```
-
-BEFORE: `patch_ip_params_with_ip_caps()` copies all IP capability fields
-to IP params EXCEPT `max_num_opp`. The `max_num_opp` remains at the
-compile-time default from `core_dcn4_ip_caps_base` (hardcoded to 4).
-
-AFTER: `max_num_opp` is correctly patched from `ip_caps->otg_count`,
-matching the actual hardware's OTG count.
+Before: `panel_edp_disable()` is called with `.disable = 0` (not set),
+so `msleep()` is skipped.
+After: `panel_edp_disable()` is called with `.disable = 100`, so a 100ms
+delay is inserted.
 
 **Step 2.3: Bug Mechanism**
-This is a **logic/correctness fix** - an omission bug. Commit
-`610cf76e9453b` ("Add opp count validation to dml2.1") added OPP count
-validation checks in `dml2_core_dcn4_calcs.c` that read
-`mode_lib->ip.max_num_opp`, but the function that patches IP params from
-IP caps (`patch_ip_params_with_ip_caps`) was not updated to copy
-`max_num_opp`. The validation uses a stale default value instead of the
-actual hardware capability.
-
-The validation code at lines 8588 checks:
-```c
-if (mode_lib->ms.TotalNumberOfActiveOPP > (unsigned
-int)mode_lib->ip.max_num_opp)
-    mode_lib->ms.support.TotalAvailablePipesSupport = false;
-```
-
-If `max_num_opp` is wrong, display modes may be incorrectly accepted or
-rejected.
+Category: Hardware workaround / timing fix. The panel's physical
+material requires a minimum backlight-off-to-data-end delay (T9 in eDP
+timing diagrams) that was not being enforced.
 
 **Step 2.4: Fix Quality**
-- Obviously correct: follows the exact same pattern as ALL other fields
-  in the function
-- Minimal/surgical: 1 line
-- Regression risk: effectively zero - it only adds missing
-  initialization
-- No red flags
+- Obviously correct: just adds a timing delay value, following the exact
+  pattern used by many other panels
+- Minimal/surgical: new struct + one table entry change
+- Regression risk: Essentially zero. Only adds a 100ms delay for this
+  specific panel model. Cannot affect other panels.
+
+---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: Blame**
-The `patch_ip_params_with_ip_caps` function was introduced by commit
-`70839da636050` (Aurabindo Pillai, 2024-04-19, "Add new DCN401
-sources"). The function was created without a `max_num_opp` line because
-at that time there was no `max_num_opp` field or OPP validation.
+The buggy code (the panel entry without disable delay) was introduced in
+commit `82928cc1c2b2b` ("drm/panel-edp: Add BOE NV140WUM-N64") on
+2025-07-31, first appearing in v6.18. That commit explicitly notes
+"Timings taken from NV140WUM-N41" - the timings were copied from a
+different panel, which explains why they were incomplete.
 
-**Step 3.2: Fixes Target**
-The commit that introduced the bug is `610cf76e9453b` ("Add opp count
-validation to dml2.1", by Dmytro Laktyushkin, v6.19). That commit:
-- Added `max_num_opp = 4` to `core_dcn4_ip_caps_base` static struct
-- Added `max_num_opp` field to `dml2_core_ip_params`
-- Added OPP validation in `dml2_core_dcn4_calcs.c`
-- BUT did NOT add `max_num_opp` patching to
-  `patch_ip_params_with_ip_caps()`
+**Step 3.2: Fixes Tag**
+No Fixes: tag present. The implicit fix target is 82928cc1c2b2b.
 
-Record: The bug was introduced in v6.19. It exists in v6.19 and v7.0.
+**Step 3.3: Related Changes**
+Very similar commits exist:
+- `9b3700b15cb58`: "Add disable to 100ms for MNB601LS1-4" - identical
+  pattern, same author company (Huaqin)
+- `1511d3c4d2bb3`: "Add 50ms disable delay for four panels" - same
+  pattern, same company
 
-**Step 3.3: File History**
-Only one commit in the 7.0 tree modified this specific file (the rename
-from dml2/ to dml2_0/). The original code has had many "reintegration"
-commits prior to v7.0.
+Both of those had explicit `Fixes:` tags and were accepted.
 
 **Step 3.4: Author**
-Austin Zheng is a regular AMD display team contributor. Other commits
-include DML-related fixes and data type corrections.
+Haikun Zhou is from Huaqin (a Google Chromebook hardware partner). The
+company has submitted multiple panel timing fixes. Douglas Anderson, the
+reviewer/committer, is the subsystem maintainer for panel-edp.
 
 **Step 3.5: Dependencies**
-The fix depends on commit `610cf76e9453b` ("Add opp count validation")
-being present. Verified:
-- v6.19: Has this prerequisite (confirmed via `git show`)
-- v6.18 and older: Do NOT have this prerequisite
-- v6.12 LTS: Does NOT have this prerequisite
+This commit is fully standalone. The new `delay_200_500_e200_d100`
+struct is self-contained. It only requires the original panel entry
+(82928cc1c2b2b) to exist, which is in v6.18+.
 
-## PHASE 4: MAILING LIST RESEARCH
+---
 
-Found the original submission: "[PATCH v2 0/9] DC Patches March 10,
-2026" on amd-gfx mailing list. The fix was patch 7 of 9 in a v2 series
-submitted by Chuanyu Tseng. The series was merged via the normal AMD
-display patch flow. It was NOT part of drm-fixes-7.0 (the -fixes pull
-only had different urgent fixes).
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-No NAKs or objections found. No explicit stable nomination.
+**Step 4.1-4.5:**
+The lore.kernel.org website blocked automated access (Anubis anti-bot
+protection). However, I verified:
+- The b4 dig for the original panel addition found the submission at `lo
+  re.kernel.org/all/20250731215635.206702-4-alex.vinarskis@gmail.com/`
+- The fix was reviewed and committed by Douglas Anderson (subsystem
+  maintainer)
+- Analogous fixes from the same company (1511d3c4d2bb3, 9b3700b15cb58)
+  had Fixes: tags and were presumably accepted for stable
+
+---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Key function:** `patch_ip_params_with_ip_caps()` - called from
-`core_dcn4_initialize()` during DML2 core initialization.
+**Step 5.1: Key Functions**
+No functions are modified. Only data structures (const struct
+definitions and table entries) are changed.
 
-**Impact path:** `dml21_populate_dml_init_params()` ->
-`core_dcn4_initialize()` -> `patch_ip_params_with_ip_caps()`. This runs
-during display mode validation for every display configuration change on
-DCN4+ hardware.
+**Step 5.2-5.3: How the disable delay is used**
+The `.disable` field is consumed in `panel_edp_disable()` (line
+391-399):
 
-**Consumer of `max_num_opp`:** Used in `CalculateODMMode()` and the main
-mode support validation loop in `dml2_core_dcn4_calcs.c` (lines 8421,
-8442, 8588) to validate that active OPP count doesn't exceed hardware
-capability.
+```391:399:drivers/gpu/drm/panel/panel-edp.c
+static int panel_edp_disable(struct drm_panel *panel)
+{
+        struct panel_edp *p = to_panel_edp(panel);
+
+        if (p->desc->delay.disable)
+                msleep(p->desc->delay.disable);
+
+        return 0;
+}
+```
+
+This is called from the DRM panel framework whenever the panel is being
+disabled (e.g., screen off, suspend).
+
+**Step 5.4: Call Chain**
+`panel_edp_disable()` is called via the `drm_panel_funcs.disable`
+callback, which is invoked by the DRM framework during display pipeline
+teardown. This is a common path triggered on every screen
+disable/suspend.
+
+**Step 5.5: Similar Patterns**
+Many panels already use disable delays: `d200`, `d50`, `d10`, `d100`
+variants exist. This follows an established, well-tested pattern.
+
+---
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-**Bug existence by tree:**
-- v7.0: BUG EXISTS (verified - `max_num_opp` in struct at line 31,
-  validation in calcs, but missing patching)
-- v6.19: BUG EXISTS (verified - same state as 7.0, file at dml2_0 path)
-- v6.18: Bug does NOT exist (no `max_num_opp` field or validation)
-- v6.12 LTS: Bug does NOT exist
-- v6.6 LTS, v6.1 LTS: Bug does NOT exist
+**Step 6.1: Code Existence in Stable**
+The BOE NV140WUM-N64 panel entry was introduced in v6.18. It exists in:
+- 6.18.y: YES
+- 6.19.y: YES
+- 7.0.y: YES (confirmed at line 1990)
+- 6.12.y and older: NO (panel entry doesn't exist)
 
-**Backport complexity:** For 7.0.y: should apply cleanly. For 6.19.y:
-path may need adjustment (file is at `dml2_0/` in v6.19 already, so it
-may apply cleanly).
+**Step 6.2: Backport Complications**
+The `delay_200_500_e200_d100` struct needs to be added. This should
+apply cleanly or with trivial context conflicts due to nearby panel
+entries that may differ between versions.
+
+**Step 6.3: Related Fixes Already in Stable**
+No prior fix for this specific panel's timing issue exists.
+
+---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-- Subsystem: drm/amd/display - DML2 (Display Mode Library) for DCN4+
-- Criticality: IMPORTANT - affects AMD GPU display output for newer
-  hardware
-- The DML2.1 code is actively developed with frequent "reintegration"
-  commits
+**Step 7.1:** DRM panel-edp is an IMPORTANT subsystem - it handles eDP
+panels used in laptops (Chromebooks especially). This specific panel is
+in the ASUS Zenbook A14 UX3407QA.
+
+**Step 7.2:** The panel-edp file is very actively maintained with
+frequent panel additions and timing fixes.
+
+---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Who is affected:** Users of AMD DCN4+ GPUs where the actual OPP/OTG
-count differs from the compile-time default of 4 (e.g., harvested
-silicon, different SKUs).
+**Step 8.1: Who Is Affected**
+Users with the BOE NV140WUM-N64 panel (EDID ID 0x0cf6), found in
+specific ARM64 laptops like the ASUS Zenbook A14 UX3407QA.
 
-**Trigger conditions:** Any display mode validation on affected
-hardware. This runs during every display configuration change (mode set,
-multi-monitor setup, etc.).
+**Step 8.2: Trigger Conditions**
+Every panel disable (screen off, suspend, power management transition).
+Very common operation.
 
-**Failure mode:** Incorrect DML mode validation:
-- If real OPP count < 4: modes could be accepted that the hardware can't
-  support (display corruption or failure)
-- If real OPP count > 4: modes could be incorrectly rejected (user can't
-  use supported display configurations)
-- Severity: MEDIUM-HIGH for affected hardware
+**Step 8.3: Failure Mode Severity**
+Screen flickering and red light artifacts - visible display defect.
+Severity: MEDIUM (no crash or data corruption, but a user-visible
+hardware defect that degrades user experience).
 
-**Risk-Benefit:**
-- Benefit: Correct mode validation on all DCN4 hardware variants
-- Risk: VERY LOW - 1 line, follows established pattern, no behavioral
-  change for hardware where count == 4
+**Step 8.4: Risk-Benefit**
+- BENEFIT: Fixes visible screen flickering for users with this specific
+  panel. Real hardware users affected.
+- RISK: Very low. Adds 100ms delay only for this specific panel. Cannot
+  affect any other hardware. Follows an established pattern used by
+  dozens of other panels.
+
+---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Evidence FOR backporting:**
-- Fixes a real bug (missing field initialization) with concrete
-  consequences
-- Trivially correct (1 line, follows exact pattern of all other fields)
-- Reviewed and tested by AMD display team
-- Affects display functionality on AMD DCN4 hardware
-- Zero regression risk for hardware where OPP count == 4 (most current
-  hardware)
+**Step 9.1: Evidence**
 
-**Evidence AGAINST backporting:**
-- Only affects hardware with non-default OPP counts (subset of DCN4
-  ASICs)
-- Commit message is terse with minimal detail
-- Not submitted via -fixes flow (went through normal DC patches)
-- Only applicable to trees containing v6.19+ (610cf76e9453b)
+FOR backporting:
+- Fixes real user-visible hardware defect (screen flickering, red light)
+- Tiny, surgical change (new const struct + one table entry change)
+- Follows established pattern (identical to dozens of existing delay
+  structs)
+- Reviewed and committed by subsystem maintainer (Douglas Anderson)
+- Hardware quirk/workaround - an explicit exception category for stable
+- Analogous fixes (9b3700b15cb58, 1511d3c4d2bb3) were accepted with
+  Fixes: tags
+- Zero regression risk - only affects one specific panel model
+- Panel entry exists in 7.0.y tree
 
-**Stable rules checklist:**
-1. Obviously correct? YES - exact pattern match with all other fields
-2. Fixes real bug? YES - incorrect DML mode validation
-3. Important issue? YES for affected hardware (display functionality)
-4. Small and contained? YES - 1 line
-5. No new features? YES
-6. Applies to stable? YES for 7.0.y and 6.19.y
+AGAINST backporting:
+- No Fixes: tag (but this is expected for autoselect candidates)
+- Only affects one specific laptop panel (narrow user base)
+- Severity is MEDIUM (display artifacts, not crash/corruption)
+
+**Step 9.2: Stable Rules Checklist**
+1. Obviously correct and tested? YES - trivial data change, reviewed by
+   maintainer
+2. Fixes a real bug? YES - screen flickering on real hardware
+3. Important issue? MEDIUM - hardware defect, not crash, but user-
+   visible
+4. Small and contained? YES - ~8 lines total
+5. No new features/APIs? CORRECT - just timing data
+6. Can apply to stable? YES - may need minor context adjustment
+
+**Step 9.3: Exception Categories**
+YES - this is a hardware quirk/workaround for a specific panel with
+broken/insufficient default timing.
+
+**Step 9.4: Decision**
+This is a hardware timing quirk fix that falls squarely into the
+"hardware workarounds for broken devices" exception category. It's
+small, safe, obviously correct, and fixes a real user-visible defect on
+specific hardware.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Dillon Varone, Tested-by Dan
-  Wheeler, author Austin Zheng, maintainer Alex Deucher
-- [Phase 2] Diff analysis: 1 line added to
-  `patch_ip_params_with_ip_caps()`, adds missing `max_num_opp` field
-  patching
-- [Phase 3] git blame: `patch_ip_params_with_ip_caps()` introduced in
-  70839da636050 (v6.12 era) without `max_num_opp`
-- [Phase 3] git show 610cf76e9453b: confirmed this commit added opp
-  validation but missed updating `patch_ip_params_with_ip_caps()` - this
-  is the root cause
-- [Phase 3] git show v6.19 file: confirmed `max_num_opp = 4` in struct
-  AND validation in calcs, BUT missing patching - bug exists in v6.19
-- [Phase 3] git show v6.18 file: confirmed no `max_num_opp` at all - bug
-  does NOT exist pre-6.19
-- [Phase 3] git show v6.12 file: confirmed no `max_num_opp` at all
-- [Phase 4] Found original submission: "[PATCH v2 0/9] DC Patches March
-  10, 2026" on amd-gfx mailing list
-- [Phase 4] No NAKs or concerns found in mailing list
-- [Phase 5] `max_num_opp` is consumed at lines 8421, 8442, 8588 of
-  dml2_core_dcn4_calcs.c for display mode validation
-- [Phase 5] `patch_ip_params_with_ip_caps()` called from
-  `core_dcn4_initialize()`, which runs during every DML initialization
-- [Phase 6] Bug exists in v6.19 and v7.0 only - confirmed by checking
-  file contents at each tagged version
-- [Phase 8] Failure mode: incorrect mode validation leading to display
-  issues, severity MEDIUM-HIGH for affected hardware
-- UNVERIFIED: Exact set of AMD ASICs where OPP count differs from
-  default 4 could not be determined (dcn42 bounding box header not found
-  in tree)
-
-The fix is a trivially correct 1-line addition that patches a missing
-field from the hardware IP capabilities, fixing incorrect DML mode
-validation on AMD DCN4 hardware where the OPP count may differ from the
-compile-time default.
+- [Phase 1] Parsed tags: Reviewed-by Douglas Anderson (maintainer),
+  author from Huaqin (Google partner)
+- [Phase 2] Diff analysis: +7 lines new delay struct, 1 line table entry
+  change. Data-only change.
+- [Phase 3] git show 82928cc1c2b2b: confirmed original panel added in
+  v6.18 with timings "taken from NV140WUM-N41"
+- [Phase 3] git merge-base: panel entry exists in v6.18+ but NOT in
+  v6.17 or earlier
+- [Phase 3] git log --grep="disable": found analogous commits
+  9b3700b15cb58 and 1511d3c4d2bb3 with same pattern and Fixes: tags
+- [Phase 3] grep NV140WUM-N64: confirmed entry at line 1990 using
+  `delay_200_500_e200` (no disable)
+- [Phase 3] grep delay_200_500_e200_d100: confirmed struct does NOT
+  exist yet in tree (needs to be added by this patch)
+- [Phase 5] Read panel_edp_disable(): confirmed `.disable` field
+  triggers msleep() in disable path
+- [Phase 6] Verified code exists in 7.0 tree but NOT in 6.12.y or older
+- [Phase 7] Douglas Anderson confirmed as active maintainer (10+ commits
+  to this file)
+- UNVERIFIED: Could not access lore.kernel.org to check for stable-
+  specific discussion (blocked by Anubis)
 
 **YES**
 
- .../amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c   | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/panel/panel-edp.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-index eba948e187c11..93d479083acde 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
-@@ -107,6 +107,7 @@ static void patch_ip_params_with_ip_caps(struct dml2_core_ip_params *ip_params,
- {
- 	ip_params->max_num_dpp = ip_caps->pipe_count;
- 	ip_params->max_num_otg = ip_caps->otg_count;
-+	ip_params->max_num_opp = ip_caps->otg_count;
- 	ip_params->num_dsc = ip_caps->num_dsc;
- 	ip_params->max_num_dp2p0_streams = ip_caps->max_num_dp2p0_streams;
- 	ip_params->max_num_dp2p0_outputs = ip_caps->max_num_dp2p0_outputs;
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index c9eacfffd5b29..260fa18b0f78a 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -1788,6 +1788,13 @@ static const struct panel_delay delay_200_500_e200 = {
+ 	.enable = 200,
+ };
+ 
++static const struct panel_delay delay_200_500_e200_d100 = {
++	.hpd_absent = 200,
++	.unprepare = 500,
++	.enable = 200,
++	.disable = 100,
++};
++
+ static const struct panel_delay delay_200_500_e200_d200 = {
+ 	.hpd_absent = 200,
+ 	.unprepare = 500,
+@@ -1988,7 +1995,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0c93, &delay_200_500_e200, "Unknown"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cb6, &delay_200_500_e200, "NT116WHM-N44"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf2, &delay_200_500_e200, "NV156FHM-N4S"),
+-	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200, "NV140WUM-N64"),
++	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cf6, &delay_200_500_e200_d100, "NV140WUM-N64"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0cfa, &delay_200_500_e50, "NV116WHM-A4D"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d45, &delay_200_500_e80, "NV116WHM-N4B"),
+ 	EDP_PANEL_ENTRY('B', 'O', 'E', 0x0d73, &delay_200_500_e80, "NE140WUM-N6S"),
 -- 
 2.53.0
 
