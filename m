@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C5AEF588C4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:33:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB0B4F588C9
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:33:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6D1210E655;
-	Mon, 20 Apr 2026 13:33:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 267A310E658;
+	Mon, 20 Apr 2026 13:33:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D5vPuwyS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e/8OepLM";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43A9810E655;
- Mon, 20 Apr 2026 13:33:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6591410E658;
+ Mon, 20 Apr 2026 13:33:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1925A4196D;
- Mon, 20 Apr 2026 13:33:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCA3C2BCB6;
- Mon, 20 Apr 2026 13:33:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4BF4D40B92;
+ Mon, 20 Apr 2026 13:33:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E464C19425;
+ Mon, 20 Apr 2026 13:33:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691982;
- bh=F25UWTVoXxyJ+BPRUSSCjj0W9ZCJy+A1CCOh8EOuGJw=;
+ s=k20201202; t=1776691985;
+ bh=TbIE/xB8l0TgVmkggzTpnZs8ZcNPTMy89Q1wCndFugQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=D5vPuwySqztejAkOXd/W4LgePXbgSavxL5Oo8xCeDV8bme//TYDn9bXCJ+sYyUQNN
- tHXYr5H9U8zEWa4CM5gJiNXHIkQRuayMxAf0xGxamPY0Qd7j3/DjpsjzoT+3oND2Du
- 1FKnmtfAv7Ec8rYZ93ut5OA90xQLoaVf1b/kwLVH2X+vNYIZIJXbkCV3+Mwj6Hn7R3
- m4vSUFMtPsXe+rCMqxS7d/QFErnNVuWtJa3S6Hn3d+TQp0rykzmGGkunzoiAELsUkb
- IXr2oc49Zx6blkIASjrwfIwFDZZ0Zfc6MRyIDrrJ8p0oCofjluBWPABi5sj82zoBtG
- JiEbMiYMfu2tw==
+ b=e/8OepLMu1nQ49KJG/mRU80N6zfbd8EwlDAADuhyzkcDBIalewfelDupxy3rWA+OB
+ NmBjtyp9MfgP6CfIB2vbEhBR7FcY0DlrYx7YcgfmZub4CIrCGGNw6cqrhusx5jTCsS
+ O0SHfpc3i/+8sSDViPsvHyRRuwYE/YZFvgFGfsIkByEJvyyzZyZXmBmSWLU61+qfvZ
+ CrTMgDCZdGXML24a3F6wZjbP+4yJgD06Mw+NomeJ6u6AokXx8A3W75XIQ2u/iU2dzN
+ Deciyj4OXSqZIKyeDUzz98hz6PFZcgXNFVr1vCLPkhdfOPkRgUAVWroZQTbI7LbLv8
+ EtwMQR38N0kpg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Asad Kamal <asad.kamal@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+Cc: Sunil Khatri <sunil.khatri@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: Add default reset method for soc_v1_0
-Date: Mon, 20 Apr 2026 09:21:38 -0400
-Message-ID: <20260420132314.1023554-304-sashal@kernel.org>
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: cleanup amdgpu_userq_get/put
+ where not needed
+Date: Mon, 20 Apr 2026 09:21:40 -0400
+Message-ID: <20260420132314.1023554-306-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,381 +66,359 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Asad Kamal <asad.kamal@amd.com>
+From: Sunil Khatri <sunil.khatri@amd.com>
 
-[ Upstream commit eb737fb303dd73ceb0f646fc2e696595e576056f ]
+[ Upstream commit 8f402ddd4f2321485fff7384c003124681a08146 ]
 
-Add mode2 as default reset method for soc_v1_0
+amdgpu_userq_put/get are not needed in case we already holding
+the userq_mutex and reference is valid already from queue create
+time or from signal ioctl. These additional get/put could be a
+potential reason for deadlock in case the ref count reaches zero
+and destroy is called which again try to take the userq_mutex.
 
-v2: Remove unnecessary overrides while selecting reset method (Lijo)
-v4: Add dev_warn_once (Lijo)
+Due to the above change we avoid deadlock between suspend/restore
+calling destroy queues trying to take userq_mutex again.
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the evidence I need. Let me compile my analysis.
+Now I have all the information needed for a thorough analysis. Let me
+compile the findings.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: Subject Line**
-- Subsystem: `drm/amdgpu`
-- Action verb: "Add" (default reset method)
-- Summary: Adds mode2 as the default reset method for soc_v1_0.
-- Record: [drm/amdgpu] [Add] [Default reset method for soc_v1_0 -
-  filling in a missing required callback]
+- Subsystem: `drm/amdgpu/userq`
+- Action verb: "cleanup" (but this is a hidden deadlock fix)
+- Summary: Remove unnecessary `amdgpu_userq_get/put` calls that cause
+  deadlock
 
 **Step 1.2: Tags**
-- Signed-off-by: Asad Kamal (author, AMD developer)
-- Reviewed-by: Lijo Lazar (AMD engineer, specifically requested changes
-  in v2 and v4)
-- Signed-off-by: Alex Deucher (AMD GPU subsystem maintainer)
-- No Fixes: tag (expected), no Cc: stable, no Reported-by, no Link.
-- Record: Reviewed by AMD engineer, signed off by subsystem maintainer.
-  No syzbot or bug reports.
+- `Cc: Prike Liang <Prike.Liang@amd.com>` - CC'd related developer
+- `Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>` - author
+- `Reviewed-by: Christian König <christian.koenig@amd.com>` - key
+  DRM/AMDGPU maintainer reviewed
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` - AMDGPU
+  maintainer committed
 
-**Step 1.3: Commit Body**
-- The commit message is minimal: "Add mode2 as default reset method for
-  soc_v1_0"
-- v2: Removed unnecessary overrides (Lijo's suggestion)
-- v4: Added dev_warn_once (Lijo's suggestion)
-- No bug description, no stack trace, no reproduction steps.
-- Record: The message describes feature completion but the underlying
-  issue is that `soc_v1_0_asic_funcs` has a NULL `.reset_method`
-  pointer.
+**Step 1.3: Commit Body Analysis**
+The commit explains:
+- The `get/put` calls are unnecessary when `userq_mutex` is already held
+  and references are valid from creation or signal ioctl
+- The extra `put` could trigger `amdgpu_userq_kref_destroy` ->
+  `amdgpu_userq_destroy` which tries to acquire `userq_mutex` again ->
+  **deadlock**
+- Specifically calls out suspend/restore as a deadlock-triggering path
 
 **Step 1.4: Hidden Bug Fix Detection**
-- This IS a hidden bug fix. The `amdgpu_asic_reset_method()` macro at
-  `amdgpu.h:1454` dereferences `.reset_method` directly with NO null
-  check. Without this patch, any call to
-  `amdgpu_asic_reset_method(adev)` on soc_v1_0 hardware dereferences a
-  NULL function pointer, causing a kernel oops.
-- Record: YES, this is a hidden bug fix - fixes NULL pointer dereference
-  of missing `.reset_method` callback.
+YES - this is a deadlock fix disguised as "cleanup". The commit message
+explicitly describes a deadlock scenario.
 
 ## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: Inventory**
-- Single file: `drivers/gpu/drm/amd/amdgpu/soc_v1_0.c`
-- +24 lines added, 0 removed
-- Functions modified: `soc_v1_0_asic_reset` (filled in stub),
-  `soc_v1_0_asic_funcs` (added callback)
-- Functions added: `soc_v1_0_asic_reset_method` (new function)
-- Record: Single-file, +24 lines, surgical fix
+- Single file: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
+- Approximately 20 lines removed, 0 lines added (pure removal)
+- Functions modified: `amdgpu_userq_restore_all`,
+  `amdgpu_userq_evict_all`, `amdgpu_userq_wait_for_signal`
 
 **Step 2.2: Code Flow Change**
-- BEFORE: `soc_v1_0_asic_reset` was a stub returning 0 (no-op).
-  `.reset_method` was NULL in `soc_v1_0_asic_funcs`.
-- AFTER: `soc_v1_0_asic_reset_method` selects Mode2 reset for specific
-  hardware configs, or returns the module param default.
-  `soc_v1_0_asic_reset` dispatches based on the selected method.
-  `.reset_method` callback is populated.
+Three functions all have the same pattern changed:
+
+BEFORE: Inside `xa_for_each` loop: `amdgpu_userq_get()` -> work ->
+`amdgpu_userq_put()`
+AFTER: Inside `xa_for_each` loop: work (no get/put)
 
 **Step 2.3: Bug Mechanism**
-- Category: NULL pointer dereference + missing functionality
-- The `amdgpu_asic_reset_method` macro (amdgpu.h:1454) calls
-  `(adev)->asic_funcs->reset_method((adev))` without NULL check.
-  Multiple callers in `amdgpu_device.c` and `amdgpu_reset.c` invoke this
-  during GPU reset paths. Without `.reset_method` set, this is a NULL
-  deref crash.
-- Record: NULL pointer dereference in GPU reset path. All other SoC
-  variants (si, cik, vi, soc15, soc21, soc24, nv) set `.reset_method` —
-  soc_v1_0 was the only one missing it.
+Category: **Deadlock** (lock ordering / recursive mutex acquisition)
+
+The full deadlock chain I verified:
+1. `amdgpu_userq_restore_worker` (line 1279) or
+   `amdgpu_eviction_fence_suspend_worker`
+   (`amdgpu_eviction_fence.c:110`) acquires `userq_mutex`
+2. Calls one of the three modified functions
+3. Function does `amdgpu_userq_put()` (line 698-702) ->
+   `kref_put(&queue->refcount, amdgpu_userq_kref_destroy)`
+4. If refcount hits zero -> `amdgpu_userq_kref_destroy` (line 673-682)
+   -> `amdgpu_userq_destroy` (line 626-671)
+5. `amdgpu_userq_destroy` calls `mutex_lock(&uq_mgr->userq_mutex)` at
+   line 633 -> **DEADLOCK**
 
 **Step 2.4: Fix Quality**
-- Obviously correct — follows exact same pattern as soc24, soc21, soc15,
-  etc.
-- Minimal and surgical
-- Low regression risk — only affects soc_v1_0 hardware
-- Minor dead code: `return 0;` after the switch in `soc_v1_0_asic_reset`
-  is unreachable (both cases return), but harmless.
-- Record: High quality fix, follows established patterns, low regression
-  risk.
+- Obviously correct: the mutex is already held, preventing concurrent
+  destroy; `xa_for_each` provides a valid entry pointer under RCU
+- Minimal/surgical: purely removes code, no new logic
+- Regression risk: very low. The only concern would be if a queue could
+  be destroyed between loop iterations without the extra get holding a
+  reference, but the `userq_mutex` prevents that
 
-## PHASE 3: GIT HISTORY
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: Blame**
-- The buggy code (stub `soc_v1_0_asic_reset` and missing
-  `.reset_method`) was introduced in commit `297b0cebbcc3a`
-  ("drm/amdgpu: Add soc v1_0 support") by Hawking Zhang on 2025-12-08.
-  The original commit even noted "reset placeholders" in its changelog
-  (v3).
-- Record: Bug introduced in 297b0cebbcc3a, v7.0-rc1. Explicitly noted as
-  "placeholder" in original commit.
+The `amdgpu_userq_get/put` calls in these three functions were all
+introduced by commit `65b5c326ce410` ("drm/amdgpu/userq: refcount
+userqueues to avoid any race conditions") dated 2026-03-02, the same
+author (Sunil Khatri). This refcount commit is present in v7.0.
 
-**Step 3.2: No Fixes: tag to follow.**
+**Step 3.2: Fixes Tag / Predecessor**
+The refcount commit `65b5c326ce410` is cherry-picked from mainline
+`4952189b284d4d847f92636bb42dd747747129c0` and is explicitly tagged `Cc:
+<stable@vger.kernel.org>`. It is already in the 7.0 stable tree and is
+intended for other stable trees too.
 
 **Step 3.3: File History**
-- 11 commits touch soc_v1_0.c, all building out the new soc_v1_0 driver.
-  No intermediate fix for the reset method issue.
-- Record: Standalone fix. No prerequisites needed beyond the initial
-  soc_v1_0 support.
+The commit `a018d1819f158` (doorbell_offset validation) is the only
+commit after the refcount commit in this tree. No conflicting changes.
 
 **Step 3.4: Author**
-- Asad Kamal is an AMD developer with multiple commits in the PM and GPU
-  subsystem.
-- Alex Deucher (AMD GPU maintainer) signed off and submitted the patch
-  series.
-- Record: Author is AMD developer, maintainer signed off.
+Sunil Khatri is a regular AMD GPU contributor who also authored the
+refcount commit that introduced the bug. This is the same author fixing
+their own mistake, which is common and provides high confidence in the
+fix.
 
 **Step 3.5: Dependencies**
-- The companion patch "Disable reset on init for soc_v1_0" starts from
-  this commit's output hash (bd7043729e6a3), so it depends on this
-  patch. This patch does NOT depend on any other uncommitted patches.
-- Record: This patch is standalone and applies independently. A
-  companion patch depends on it.
+This commit depends ONLY on `65b5c326ce410` (the refcount commit) being
+present. Since that commit is already in the 7.0 tree and tagged for
+stable, the dependency is satisfied.
 
 ## PHASE 4: MAILING LIST RESEARCH
 
-**Step 4.1: Patch Discussion**
-- Found on spinics: `https://www.spinics.net/lists/amd-
-  gfx/msg138861.html`
-- Part of a series of soc_v1_0 fixes posted by Alex Deucher on
-  2026-03-06
-- The series includes ~12 related patches for soc_v1_0 and related
-  hardware
-- Patch went through v1 → v2 (removed unnecessary overrides) → v4 (added
-  dev_warn_once)
-- No explicit stable nomination in the discussion
-- Record: Found submission thread. Multi-revision patch, review-driven
-  improvements. No NAKs.
+**Step 4.1-4.2:**
+Found via b4 dig that the refcount commit was submitted as "[PATCH v4]"
+at `https://patch.msgid.link/20260303120654.2582995-1-
+sunil.khatri@amd.com`. The patch went through v1-v4 with review by
+Christian König and Alex Deucher. Lore.kernel.org was behind anti-bot
+protection, so full discussion thread was not accessible.
 
-**Step 4.2: Reviewers**
-- Reviewed-by: Lijo Lazar (AMD engineer who provided specific feedback
-  driving v2 and v4 changes)
-- Signed-off-by: Alex Deucher (subsystem maintainer)
-- Record: Properly reviewed by AMD engineers.
-
-**Step 4.3: Bug Report**
-- No formal bug report or syzbot report. This is a proactive fix for
-  missing functionality that would crash on GPU reset.
-- Record: No bug report; proactive fix for obviously broken code.
-
-**Step 4.4: Related Patches**
-- Companion patch "Disable reset on init for soc_v1_0" removes the
-  always-true `need_reset_on_init` logic. This is NOT in the 7.0 tree
-  yet.
-- Record: Companion patch exists but this commit is standalone.
-
-**Step 4.5: Stable Discussion**
-- No stable-specific discussion found.
-- Record: No stable discussion.
+**Step 4.3-4.5:**
+The fix is by the same author who introduced the problem in the refcount
+commit. Christian König (key DRM maintainer) reviewed both the original
+refcount commit and this cleanup fix, confirming its correctness.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Functions**
-- New: `soc_v1_0_asic_reset_method`
-- Modified: `soc_v1_0_asic_reset`, `soc_v1_0_asic_funcs`
+**Step 5.1: Key Functions**
+- `amdgpu_userq_restore_all` - restores all queues after eviction
+- `amdgpu_userq_evict_all` - evicts all queues
+- `amdgpu_userq_wait_for_signal` - waits for last fences
 
 **Step 5.2: Callers**
-- `amdgpu_asic_reset_method(adev)` is called from:
-  - `amdgpu_device.c:3216` — `amdgpu_device_check_vram_lost()` (during
-    reset)
-  - `amdgpu_device.c:4179` — `amdgpu_device_xgmi_reset_work()` (XGMI
-    reset)
-  - `amdgpu_device.c:6114` — `amdgpu_device_set_mp1_state()` (during
-    reset)
-  - `amdgpu_device.c:6158` — `amdgpu_device_suspend_display_audio()`
-    (during reset)
-  - `amdgpu_reset.c:113` — XGMI reset path
-  - `amdgpu_ras.c:4885` — RAS error handling
-- These are all common GPU reset/recovery code paths.
-- Record: The NULL `.reset_method` is dereferenced from multiple common
-  code paths during GPU hang recovery.
+- `amdgpu_userq_restore_all`: called from `amdgpu_userq_restore_worker`
+  (workqueue, holds `userq_mutex` at line 1279)
+- `amdgpu_userq_evict_all`: called from `amdgpu_userq_evict`, which is
+  called from `amdgpu_eviction_fence_suspend_worker` (holds
+  `userq_mutex` at `amdgpu_eviction_fence.c:110`)
+- `amdgpu_userq_wait_for_signal`: called from `amdgpu_userq_evict`, same
+  path as above
 
-**Step 5.3-5.5: Call Chain / Similar Patterns**
-- Every other SoC variant (si, cik, vi, nv, soc15, soc21, soc24) has
-  `.reset_method` populated. soc_v1_0 was the only one missing it.
-- Record: Systematic omission — soc_v1_0 was incomplete compared to all
-  sibling drivers.
+**Step 5.4: Reachability**
+These are GPU suspend/resume/eviction paths - triggered during system
+suspend, GPU recovery, and memory pressure. These are common operations
+for any AMD GPU user.
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-**Step 6.1: Buggy Code Existence**
-- soc_v1_0.c was introduced in v7.0-rc1 (commit 297b0cebbcc3a). It
-  exists in v7.0.
-- Only relevant for 7.0.y stable tree.
-- Record: Bug exists in 7.0.y only.
+**Step 6.1: Buggy Code in Stable**
+The buggy code (`amdgpu_userq_get/put` in these three functions) was
+introduced by `65b5c326ce410` which is:
+- Present in v7.0 stable (confirmed)
+- Tagged `Cc: stable@vger.kernel.org` - intended for all stable trees
+  that have the userq infrastructure
 
 **Step 6.2: Backport Complications**
-- The diff applies against the base hash `26e7566a5479c`, which is the
-  current state in v7.0. Should apply cleanly.
-- Record: Clean apply expected for 7.0.y.
+The patch is a pure line removal from the same file modified by the
+refcount commit. It should apply cleanly to any tree that has the
+refcount commit.
 
-**Step 6.3: Related Fixes in Stable**
-- No related fixes found in stable.
-- Record: None.
+**Step 6.3: Related Fixes Already in Stable**
+No other fix for this deadlock was found in the tree.
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1: Subsystem**
-- `drivers/gpu/drm/amd/amdgpu` — AMD GPU driver
-- Criticality: IMPORTANT — affects users of AMD GPUs with GC 12.1
-  hardware
-- Record: GPU driver, IMPORTANT criticality.
+**Step 7.1:** GPU driver (drivers/gpu/drm/amd/amdgpu) - IMPORTANT
+criticality. AMD GPU is one of the most widely used GPU subsystems in
+Linux.
 
-**Step 7.2: Activity**
-- Very active subsystem — 40 changes between v7.0-rc1 and v7.0 in amdgpu
-  alone.
-- Record: Highly active, new hardware being brought up.
+**Step 7.2:** Actively developed - the userq (user queue) infrastructure
+is a recent feature with many ongoing changes.
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
 **Step 8.1: Affected Users**
-- Users with soc_v1_0 (GC 12.1) AMD GPU hardware running kernel 7.0.y
-- Record: Driver-specific, but for current-gen AMD hardware.
+All users with AMD GPUs using usermode queues.
 
 **Step 8.2: Trigger Conditions**
-- Any GPU hang or error that triggers the GPU reset recovery path will
-  hit the NULL deref.
-- GPU hangs can happen during normal operation (driver bugs, power
-  management issues, etc.)
-- Record: Triggered by GPU reset, which can happen during normal GPU
-  usage.
+- System suspend/resume triggers the restore path
+- Memory pressure triggers eviction path
+- GPU recovery triggers eviction path
+These are common operations - not exotic scenarios.
 
 **Step 8.3: Failure Mode**
-- NULL pointer dereference → kernel oops/panic
-- Severity: CRITICAL
-- Record: Kernel crash during GPU reset recovery.
+**CRITICAL** - Deadlock. The system hangs with the `userq_mutex` held,
+which blocks all subsequent GPU queue operations. This is a hard hang
+for the GPU subsystem.
 
 **Step 8.4: Risk-Benefit**
-- BENEFIT: HIGH — prevents kernel crash on GPU reset for soc_v1_0
-  hardware
-- RISK: LOW — 24 lines in a single file, follows exact pattern of all
-  sibling SoC variants, only affects soc_v1_0 hardware
-- Record: High benefit, low risk.
+- **Benefit**: HIGH - prevents deadlock during suspend/resume/eviction
+  on AMD GPUs
+- **Risk**: VERY LOW - purely removes code, no new logic, reviewed by
+  Christian König
+- The removal is correct because: (a) `userq_mutex` is held preventing
+  concurrent destruction, (b) `xa_for_each` provides valid entry
+  pointers, (c) the extra get/put is redundant
 
 ## PHASE 9: FINAL SYNTHESIS
 
 **Step 9.1: Evidence Summary**
 
 FOR backporting:
-- Fixes NULL pointer dereference (kernel crash) — CRITICAL severity
-- Small, contained (24 lines, single file)
-- Follows exact pattern of all other SoC variants (si, cik, vi, nv,
-  soc15, soc21, soc24)
-- Reviewed by AMD engineer, signed off by AMD GPU subsystem maintainer
-- The bug is in code shipped in v7.0; users with this hardware will hit
-  it on any GPU hang
-- Standalone patch, no dependencies
+- Fixes a real deadlock (recursive mutex acquisition) in GPU
+  suspend/resume/eviction
+- The refcount commit that introduced the bug is already tagged for
+  stable
+- Single file, ~20 lines removed, no new code
+- Reviewed by Christian König (key DRM maintainer)
+- Fix by the same author who introduced the bug
+- Trigger conditions are common (suspend/resume, GPU recovery)
+- Obviously correct - removing redundant reference counting under held
+  mutex
 
 AGAINST backporting:
-- No explicit Cc: stable or Fixes: tag (expected — that's why it's being
-  reviewed)
-- Could be seen as "feature completion" rather than "bug fix"
-- Very new code (soc_v1_0 only in v7.0)
-- No reported user impact yet (hardware may be very new)
+- No explicit `Cc: stable@vger.kernel.org` on this commit (expected -
+  that's why it's being reviewed)
+- No `Fixes:` tag (expected)
 
 **Step 9.2: Stable Rules Checklist**
-1. Obviously correct and tested? YES — follows identical pattern in 7
-   other SoC variants, reviewed by AMD
-2. Fixes a real bug? YES — NULL pointer dereference on GPU reset
-3. Important issue? YES — kernel crash (CRITICAL)
-4. Small and contained? YES — 24 lines, single file
-5. No new features? BORDERLINE — adds required callback, but the
-   functionality is not "new" (all other variants have it)
-6. Can apply to stable? YES — applies cleanly to 7.0.y
+1. Obviously correct and tested? **YES** - simple removal, reviewed by
+   maintainer
+2. Fixes a real bug? **YES** - deadlock during suspend/resume/eviction
+3. Important issue? **YES** - deadlock (system hang)
+4. Small and contained? **YES** - ~20 lines removed, single file
+5. No new features or APIs? **YES** - pure removal
+6. Can apply to stable? **YES** - applies to any tree with the refcount
+   commit
 
 **Step 9.3: Exception Categories**
-- Not a standard exception category, but fixes a crash in new hardware
-  support that shipped in v7.0.
-
-**Step 9.4: Decision**
-The missing `.reset_method` callback in `soc_v1_0_asic_funcs` causes a
-NULL pointer dereference whenever GPU reset is triggered on this
-hardware. This is a CRITICAL crash bug. The fix is 24 lines, self-
-contained, follows established patterns from all other AMD GPU SoC
-variants, and was reviewed by AMD engineers including the subsystem
-maintainer. While it could be characterized as "completing" the driver,
-the practical effect is fixing a kernel crash.
+Not needed - this qualifies as a standard important bug fix (deadlock).
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by: Lijo Lazar, Signed-off-by: Alex
-  Deucher (maintainer). No syzbot/Fixes/Cc:stable.
-- [Phase 2] Diff analysis: +24 lines in soc_v1_0.c. Adds
-  `soc_v1_0_asic_reset_method` function, fills in `soc_v1_0_asic_reset`
-  stub, populates `.reset_method` in asic_funcs.
-- [Phase 2] Verified: `amdgpu_asic_reset_method` macro at amdgpu.h:1454
-  dereferences `.reset_method` with NO null check.
-- [Phase 2] Verified: All other SoC variants (si, cik, vi, nv, soc15,
-  soc21, soc24) have `.reset_method` set. soc_v1_0 is the only one
-  missing it.
-- [Phase 3] git blame: buggy stub introduced in commit 297b0cebbcc3a
-  (2025-12-08), present since v7.0-rc1. Original commit described it as
-  "reset placeholders."
-- [Phase 3] git tag: 297b0cebbcc3a is contained in v7.0-rc1, v7.0.
-- [Phase 3] git log: 11 commits touch soc_v1_0.c, none fix the reset
-  method issue.
-- [Phase 4] Found original submission: spinics.net/lists/amd-
-  gfx/msg138861.html — part of series by Alex Deucher on 2026-03-06
-- [Phase 4] Patch evolved v1→v2→v4, review-driven improvements, no NAKs
-- [Phase 4] Companion patch "Disable reset on init for soc_v1_0" exists
-  and depends on this commit
-- [Phase 5] Verified callers: `amdgpu_asic_reset_method()` called from
-  amdgpu_device.c:3216, 4179, 6114, 6158 and amdgpu_reset.c:113 — all
-  GPU reset code paths
-- [Phase 6] Code exists only in v7.0 (soc_v1_0 introduced in v7.0-rc1)
-- [Phase 8] Failure mode: NULL deref → kernel oops on GPU reset,
-  severity CRITICAL
-- UNVERIFIED: Whether any users have actually triggered this crash
-  (hardware is very new)
+- [Phase 1] Parsed tags: Reviewed-by Christian König, Signed-off-by Alex
+  Deucher (both AMDGPU maintainers)
+- [Phase 2] Diff analysis: ~20 lines removed from 3 functions, removing
+  redundant `amdgpu_userq_get/put` pairs
+- [Phase 2] Deadlock chain verified: `restore_worker`(mutex) ->
+  `restore_all` -> `put` -> `kref_destroy` -> `destroy` -> `mutex_lock`
+  = DEADLOCK
+- [Phase 3] git blame: buggy get/put added by `65b5c326ce410` (Sunil
+  Khatri, 2026-03-02), present in v7.0
+- [Phase 3] Confirmed `65b5c326ce410` is cherry-picked from mainline
+  `4952189b284d4d847f92636bb42dd747747129c0` with `Cc:
+  stable@vger.kernel.org`
+- [Phase 3] Same author (Sunil Khatri) for both the bug-introducing and
+  fixing commits
+- [Phase 4] b4 dig found original refcount submission at `https://patch.
+  msgid.link/20260303120654.2582995-1-sunil.khatri@amd.com`, went
+  through v1-v4
+- [Phase 5] Verified callers: `amdgpu_userq_restore_worker` holds mutex
+  at line 1279; `amdgpu_eviction_fence_suspend_worker` holds mutex at
+  `amdgpu_eviction_fence.c:110`
+- [Phase 5] Verified `amdgpu_userq_destroy` takes mutex at line 633
+  (confirmed the deadlock)
+- [Phase 5] Verified `amdgpu_userq_kref_destroy` (line 673) calls
+  `amdgpu_userq_destroy` (line 680)
+- [Phase 6] Refcount commit exists in 7.0 stable and is tagged for all
+  stable trees
+- [Phase 8] Failure mode: DEADLOCK in GPU suspend/resume - severity
+  CRITICAL
+
+This is a clear, well-reviewed deadlock fix for a bug introduced by a
+commit already in stable. The fix is minimal (pure removal), correct,
+and addresses a critical stability issue during suspend/resume.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 21 +++------------------
+ 1 file changed, 3 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-index 59ab952d5cce4..ca66a0169c781 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
-@@ -229,8 +229,31 @@ static bool soc_v1_0_need_reset_on_init(struct amdgpu_device *adev)
- 	return false;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index ad39460b54dc5..2c98bce88b9dd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1057,15 +1057,11 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
  
-+static enum amd_reset_method
-+soc_v1_0_asic_reset_method(struct amdgpu_device *adev)
-+{
-+	if ((adev->gmc.xgmi.supported && adev->gmc.xgmi.connected_to_cpu) ||
-+	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 8))) {
-+		if (amdgpu_reset_method != -1)
-+			dev_warn_once(adev->dev, "Reset override isn't supported, using Mode2 instead.\n");
+ 	/* Resume all the queues for this process */
+ 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
+-		queue = amdgpu_userq_get(uq_mgr, queue_id);
+-		if (!queue)
+-			continue;
+ 
+ 		if (!amdgpu_userq_buffer_vas_mapped(queue)) {
+ 			drm_file_err(uq_mgr->file,
+ 				     "trying restore queue without va mapping\n");
+ 			queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
+-			amdgpu_userq_put(queue);
+ 			continue;
+ 		}
+ 
+@@ -1073,7 +1069,6 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+ 		if (r)
+ 			ret = r;
+ 
+-		amdgpu_userq_put(queue);
+ 	}
+ 
+ 	if (ret)
+@@ -1307,13 +1302,9 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
+ 	amdgpu_userq_detect_and_reset_queues(uq_mgr);
+ 	/* Try to unmap all the queues in this process ctx */
+ 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
+-		queue = amdgpu_userq_get(uq_mgr, queue_id);
+-		if (!queue)
+-			continue;
+ 		r = amdgpu_userq_preempt_helper(queue);
+ 		if (r)
+ 			ret = r;
+-		amdgpu_userq_put(queue);
+ 	}
+ 
+ 	if (ret)
+@@ -1346,24 +1337,18 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
+ 	int ret;
+ 
+ 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
+-		queue = amdgpu_userq_get(uq_mgr, queue_id);
+-		if (!queue)
+-			continue;
+-
+ 		struct dma_fence *f = queue->last_fence;
+ 
+-		if (!f || dma_fence_is_signaled(f)) {
+-			amdgpu_userq_put(queue);
++		if (!f || dma_fence_is_signaled(f))
+ 			continue;
+-		}
 +
-+		return AMD_RESET_METHOD_MODE2;
-+	}
+ 		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
+ 		if (ret <= 0) {
+ 			drm_file_err(uq_mgr->file, "Timed out waiting for fence=%llu:%llu\n",
+ 				     f->context, f->seqno);
+-			amdgpu_userq_put(queue);
 +
-+	return amdgpu_reset_method;
-+}
-+
- static int soc_v1_0_asic_reset(struct amdgpu_device *adev)
- {
-+	switch (soc_v1_0_asic_reset_method(adev)) {
-+	case AMD_RESET_METHOD_MODE2:
-+		dev_info(adev->dev, "MODE2 reset\n");
-+		return amdgpu_dpm_mode2_reset(adev);
-+	default:
-+		dev_info(adev->dev, "Invalid reset method Not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
+ 			return -ETIMEDOUT;
+ 		}
+-		amdgpu_userq_put(queue);
+ 	}
+ 
  	return 0;
- }
- 
-@@ -244,6 +267,7 @@ static const struct amdgpu_asic_funcs soc_v1_0_asic_funcs = {
- 	.need_reset_on_init = &soc_v1_0_need_reset_on_init,
- 	.encode_ext_smn_addressing = &soc_v1_0_encode_ext_smn_addressing,
- 	.reset = soc_v1_0_asic_reset,
-+	.reset_method = &soc_v1_0_asic_reset_method,
- };
- 
- static int soc_v1_0_common_early_init(struct amdgpu_ip_block *ip_block)
 -- 
 2.53.0
 
