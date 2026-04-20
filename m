@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AD73F588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E35F588C2
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7F4010E624;
-	Mon, 20 Apr 2026 13:26:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6687C10E625;
+	Mon, 20 Apr 2026 13:26:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dn9QGgbW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cwg2DygU";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A61C10E620;
- Mon, 20 Apr 2026 13:26:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8723510E620;
+ Mon, 20 Apr 2026 13:26:50 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DED6416E7;
- Mon, 20 Apr 2026 13:26:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0876C19425;
- Mon, 20 Apr 2026 13:26:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6BDDD44580;
+ Mon, 20 Apr 2026 13:26:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15B73C2BCB6;
+ Mon, 20 Apr 2026 13:26:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691594;
- bh=wLTZhSqR6+iIGqqUoKmdfZoxBhEtjG1NaYbhHbNN0a0=;
+ s=k20201202; t=1776691610;
+ bh=blz79eM+HzuInKiBdmMx4WcrvDUFD3imPLGMZOzoJY8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dn9QGgbWkI27tbZ0droPAldajP8QNGjCS1mVi8nJmAqveOIcLjQRTC8yInb2d1t8i
- FZK8LVvssVDD92HJEHk3nmTVhaTmwq338jerKaxfGokkqCUby45RVHZatW/shA8Q3R
- ySqxcr9pzBzkYChEQhJPey3Y5HZAz1w+QKzRULTZIvx7pZnQpQmA3FE+w4a2E1QQfe
- dov/YNnluz+ywMEtqSO+ARjUYcHyMzql07ujydFkk9U3SS86++EPyRcj5gSip+c+oo
- 5uEOQEbrDf5nNijI77kVLK5OSanKBoUhtIh4I8ruFaxZVViZv0UHAn5SMmvzPbq7z3
- B+Rdb4ku65kwA==
+ b=cwg2DygUh68/yPQrvZ9OcK9Ua2dK3ZxUOIzX6QW0f87eihtJMavfFwa3G+E0+LNZA
+ JDo9lnzcdKSbIUQomD4GCbXAq7ziGc0OxEJURyw5Uezqfp8eXQPlEpgnl2nPbw8Jwj
+ hCkthAW/RasbqiygYQEv+kMGKLMyuvAMiy7k6zOnbKqAX/Gdq9Ic0Rh3eMg2ItrQs7
+ YrZDpkP8eM3Vx/7FNX/4RNEw0xhBKXaLFy4LaAYsGnzpSZziMlx84InsDv20YHl34c
+ jCZKt4l5zyC23eo3AVSVwy/qyn7f3GrDx5iq72Ecz+nguKgLVxFvWUVZDnPm7Gs32B
+ z5mYibSqo3ycg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.6] drm/amdgpu: fix shift-out-of-bounds when
- updating umc active mask
-Date: Mon, 20 Apr 2026 09:18:35 -0400
-Message-ID: <20260420132314.1023554-121-sashal@kernel.org>
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: remove queue from doorbell xa
+ during clean up
+Date: Mon, 20 Apr 2026 09:18:44 -0400
+Message-ID: <20260420132314.1023554-130-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,325 +66,404 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Sunil Khatri <sunil.khatri@amd.com>
 
-[ Upstream commit 1394a4926f4bcff0dc6ac6deea5beeb2844297f0 ]
+[ Upstream commit a978ed3d6454e4aa1a2ac74051ffd77b7d263e44 ]
 
-UMC node_inst_num can exceed 32, causing
-(1 << node_inst_num) to shift a 32-bit int
-out of bounds
+If function amdgpu_userq_map_helper fails we do need to clean
+up and remove the queue from the userq_doorbell_xa.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a comprehensive analysis. Let
-me compile the findings.
+Now I have all the information needed. Here's my complete analysis:
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: Subject Line**
-- Subsystem: `drm/amdgpu`
-- Action verb: "fix"
-- Summary: Fixes shift-out-of-bounds when computing UMC active mask
-Record: [drm/amdgpu] [fix] [shift-out-of-bounds in UMC active mask
-calculation]
+### Step 1.1: PARSE THE SUBJECT LINE
+- **Subsystem**: `drm/amdgpu/userq` (AMD GPU userqueue subsystem)
+- **Action verb**: "remove" (cleanup action - removing stale entry)
+- **Summary**: Remove queue from doorbell XArray during error path
+  cleanup when `amdgpu_userq_map_helper` fails.
 
-**Step 1.2: Tags**
-- Signed-off-by: Hawking Zhang (author), Alex Deucher (maintainer)
-- Reviewed-by: Likun Gao
-- No Fixes: tag, no Reported-by:, no Cc: stable (expected for a
-  candidate commit)
-Record: Patch reviewed by AMD colleague, signed off by amdgpu maintainer
-Alex Deucher. No bug reporter or explicit stable nomination.
+Record: [drm/amdgpu/userq] [remove/clean up] [Fix missing doorbell
+XArray cleanup on map_helper failure path]
 
-**Step 1.3: Commit Body**
-The commit message is concise: `node_inst_num` can exceed 32, causing
-`(1 << node_inst_num)` to shift a 32-bit int out of bounds. This is
-undefined behavior in C.
-Record: Bug = shift of a 32-bit `1` by >= 32 positions. Symptom =
-undefined behavior, incorrect computation of `umc.active_mask`. Root
-cause = using `int` literal `1` instead of `1ULL` for a shift that can
-reach 32 or more.
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+- **Signed-off-by: Sunil Khatri** - Author of the fix
+- **Reviewed-by: Christian König** - Prominent AMD GPU kernel developer
+  and subsystem maintainer
+- **Signed-off-by: Alex Deucher** - AMD GPU subsystem maintainer (commit
+  path)
+- No Fixes: tag, no Cc: stable, no Reported-by, no Link: tags
 
-**Step 1.4: Hidden Bug Fix Detection**
-Not hidden at all - the subject says "fix" and the bug mechanism is
-clearly stated.
-Record: This is a straightforward bug fix for UB.
+Record: Reviewed by Christian König (key AMD GPU developer). Signed off
+by Alex Deucher (subsystem maintainer). No Fixes tag - expected for
+manual review.
 
----
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+The commit message is brief but clear: "If function
+amdgpu_userq_map_helper fails we do need to clean up and remove the
+queue from the userq_doorbell_xa."
 
-## PHASE 2: DIFF ANALYSIS
+This explicitly states a missing cleanup on an error path. The failure
+mode is a stale entry left in the doorbell XArray after the queue memory
+has been freed.
 
-**Step 2.1: Inventory**
-- 1 file changed: `drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c`
-- 2 lines changed: `uint32_t` -> `u64` (variable type) and `1` -> `1ULL`
-  (shift operand)
-- Function modified: `amdgpu_discovery_read_from_harvest_table()`
-Record: Single-file, 2-line surgical fix. Scope is minimal.
+Record: Bug = missing resource cleanup on error path. Symptom =
+stale/dangling pointer in `userq_doorbell_xa` after kfree.
 
-**Step 2.2: Code Flow Change**
+### Step 1.4: DETECT HIDDEN BUG FIXES
+This IS a bug fix, not hidden at all. The commit explicitly adds missing
+error path cleanup. Without this fix, a use-after-free occurs because
+the kfree'd queue remains in the doorbell XArray.
 
-Hunk 1 (line 777 equivalent):
-- Before: `uint32_t umc_harvest_config = 0;` (32-bit variable)
-- After: `u64 umc_harvest_config = 0;` (64-bit variable)
-- Purpose: Allow storing harvest config bits for node instances >= 32
-
-Hunk 2 (line 833):
-- Before: `((1 << adev->umc.node_inst_num) - 1)` — `1` is `int` (32
-  bits); shifting by >= 32 is UB
-- After: `((1ULL << adev->umc.node_inst_num) - 1ULL)` — `1ULL` is
-  `unsigned long long` (64 bits); safe for node_inst_num up to 63
-
-Record: The fix widens both the intermediate shift result and the
-accumulation variable to 64 bits, eliminating the UB.
-
-**Step 2.3: Bug Mechanism**
-This is category (f) **type/correctness fix** — specifically, a shift-
-out-of-bounds / undefined behavior fix. In C, shifting an `int` by >=
-its bit width (32) is undefined behavior per the standard. The result is
-unpredictable and could yield an incorrect `active_mask`, which is used
-to track which UMC (memory controller) instances are active.
-Record: [Type/UB bug] [32-bit shift by >= 32 causes UB; fix uses 64-bit
-types]
-
-**Step 2.4: Fix Quality**
-- Obviously correct: widening types to match the range of possible
-  values is textbook UB fix
-- Minimal/surgical: 2 lines
-- Regression risk: extremely low — only changes type widths;
-  `active_mask` is already `unsigned long` (64 bits on 64-bit systems)
-Record: Fix is obviously correct, minimal, with near-zero regression
-risk.
+Record: Yes - this is a genuine error path resource cleanup fix (UAF
+prevention).
 
 ---
 
-## PHASE 3: GIT HISTORY
+## PHASE 2: DIFF ANALYSIS - LINE BY LINE
 
-**Step 3.1: Blame**
-From git blame, the buggy code at lines 777 and 833 was introduced by
-commit `2b595659d5aec7` (Candice Li, Feb 2023) — "drm/amdgpu: Support
-umc node harvest config on umc v8_10". This commit was first included in
-v6.4.
-Record: Bug introduced in v6.4, present in all stable trees since
-(6.6.y, 6.12.y, etc.).
+### Step 2.1: INVENTORY THE CHANGES
+- **Files changed**: 1 (`drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`)
+- **Lines added**: 1 line
+- **Functions modified**: `amdgpu_userq_create`
+- **Scope**: Single-file, single-line surgical fix in an error path.
 
-**Step 3.2: Original Buggy Commit**
-Verified via `git merge-base --is-ancestor`: commit 2b595659d5aec7 is
-NOT in v6.1 or v6.3, but IS in v6.4 and v6.6.
-Record: Bug exists in stable trees 6.4+, 6.6+. NOT in 6.1.y.
+Record: +1 line in 1 file, modifying error handling in
+`amdgpu_userq_create`. Minimal surgical fix.
 
-**Step 3.3: File History**
-Recent changes to the file are mostly kmalloc refactoring (tree-wide
-changes) and an IP block addition. No conflicting fixes for this
-specific issue.
-Record: Standalone fix, no prerequisites needed.
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+In `amdgpu_userq_create`:
+1. Line 863: `xa_store_irq(&adev->userq_doorbell_xa, index, queue, ...)`
+   stores the queue in the doorbell XArray
+2. Line 870-871: `xa_alloc(&uq_mgr->userq_xa, &qid, queue, ...)`
+   allocates a queue ID
+3. Line 891: `amdgpu_userq_map_helper(queue)` tries to map the queue
 
-**Step 3.4: Author**
-Hawking Zhang is a prolific AMD GPU contributor with 10+ recent commits
-to the amdgpu subsystem, working on IP blocks, initialization, and RAS
-features. He is an AMD engineer and a core contributor to this
-subsystem.
-Record: Author is a core amdgpu developer at AMD.
+**Before fix**: When `amdgpu_userq_map_helper` fails (line 892-899), the
+error path does: `xa_erase(userq_xa)`, `fence_driver_free`,
+`mqd_destroy`, `kfree(queue)` — but does NOT erase from
+`userq_doorbell_xa`.
 
-**Step 3.5: Dependencies**
-The diff context shows `amdgpu_discovery_get_table_info()` and `struct
-table_info *info`, which are NOT present in the 7.0 tree (which uses
-`struct binary_header *bhdr` and direct access). The actual fix lines
-(`uint32_t` -> `u64` and `1` -> `1ULL`) are present in both versions.
-Record: Minor context differences for backport, but the fix itself is
-trivially adaptable.
+**After fix**: Adds `xa_erase_irq(&adev->userq_doorbell_xa, index)`
+before the other cleanup calls, properly removing the stale entry.
+
+Record: The fix adds the missing doorbell XArray cleanup so that after
+kfree(queue), no dangling pointer remains in userq_doorbell_xa.
+
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+**Category**: Memory safety / Use-after-free
+
+The queue is stored in `userq_doorbell_xa` at line 863. When
+`amdgpu_userq_map_helper` fails, the queue is kfree'd at line 897. But
+the doorbell XArray still holds the pointer to freed memory. This
+pointer is accessed in 6 different
+`xa_for_each(&adev->userq_doorbell_xa, ...)` loops:
+- `amdgpu_userq_suspend` (line 1445): accesses `queue->userq_mgr`
+- `amdgpu_userq_resume` (line 1471): accesses `queue->userq_mgr`
+- `amdgpu_userq_stop_sched_for_enforce_isolation` (line 1501): accesses
+  `queue->userq_mgr`, `queue->queue_type`
+- `amdgpu_userq_start_sched_for_enforce_isolation` (line 1535): same
+- `amdgpu_userq_pre_reset` (line 1589): accesses `queue->userq_mgr`,
+  `queue->state`
+- `amdgpu_userq_post_reset` (line 1617): accesses `queue->state`
+
+Record: UAF - freed queue memory accessed via stale doorbell XArray
+entry during suspend/resume/reset/enforce-isolation operations.
+
+### Step 2.4: ASSESS THE FIX QUALITY
+- The fix is obviously correct: `xa_erase_irq` is the right API (matches
+  the cleanup function at line 463)
+- It's minimal: single line
+- No regression risk: it only affects the error path
+- The cleanup function `amdgpu_userq_cleanup` at line 463 does the same
+  `xa_erase_irq` call
+
+Record: Obviously correct, minimal, no regression risk. Uses same
+pattern as the normal cleanup path.
 
 ---
 
-## PHASE 4: MAILING LIST RESEARCH
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 4.1-4.2:** b4 dig could not find the original buggy commit on
-lore (AMD GPU patches often go through freedesktop.org/amd-gfx list
-rather than lore). Web search found related shift-out-of-bounds fixes in
-the amdgpu subsystem but not the exact commit being analyzed — it may be
-very recent (2026).
-Record: Could not find the exact patch thread. This is common for AMD
-GPU patches which flow through the amd-gfx list.
+### Step 3.1: BLAME THE CHANGED LINES
+- Line 863 (xa_store_irq): introduced by `f18719ef4bb7b0` (Jesse Zhang,
+  Oct 2025) - "Convert amdgpu userqueue management from IDR to XArray"
+- Lines 891-899 (map_helper error path): originally from
+  `94976e7e5ede65` (Alex Deucher, Apr 2025), with refactoring by
+  `dc21e39fd20c77` (Lijo Lazar, Nov 2025)
 
-**Step 4.3-4.5:** No bug reports or stable-specific discussions found
-for this exact issue.
-Record: No external bug reports found.
+The bug was introduced by the IDR-to-XArray conversion
+(`f18719ef4bb7b0`). When replacing `idr_remove` with `xa_erase`, the
+author forgot to add `xa_erase_irq` for the new `userq_doorbell_xa` in
+the `amdgpu_userq_map_helper` error path.
+
+Record: Bug introduced by f18719ef4bb7b0 (Oct 2025 XArray conversion).
+Present in 7.0 tree.
+
+### Step 3.2: FOLLOW THE FIXES: TAG
+No Fixes: tag present. The logical Fixes: target would be
+`f18719ef4bb7b0` which IS in this 7.0 tree.
+
+Record: The buggy commit f18719ef4bb7b0 exists in the stable tree.
+
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Recent history shows heavy refactoring of this file, including the
+refcount commit (`65b5c326ce4103`, Mar 2026), XArray conversion, and
+multiple error handling fixes. The userqueue code is under active
+development.
+
+Record: Actively developed file. Standalone fix - no series dependency
+in subject.
+
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Sunil Khatri is a regular AMD GPU contributor with extensive commit
+history (30+ commits in `drivers/gpu/drm/amd/`). He is familiar with the
+codebase and has authored multiple cleanup/fix patches.
+
+Record: Regular AMD GPU contributor with subsystem knowledge.
+
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**CRITICAL FINDING**: The diff context shows that in mainline, the
+`xa_alloc` error path (line 872-879 in stable) already contains
+`xa_erase_irq(&adev->userq_doorbell_xa, index)`. However, in the current
+stable tree, this line is MISSING from the `xa_alloc` error path. This
+means there is a prerequisite commit that fixed the `xa_alloc` error
+path, and this commit only fixes the `amdgpu_userq_map_helper` error
+path.
+
+Record: Prerequisite exists - the xa_alloc error path fix must be
+applied first for this patch to apply cleanly. The patch context won't
+match the stable tree without it.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1-4.5: PATCH DISCUSSION
+I was unable to find the exact lore discussion for this commit via b4
+dig or web search. The commit is too new to have been indexed. However,
+the review chain is clear: Reviewed-by Christian König, Signed-off-by
+Alex Deucher — both are the primary AMD GPU kernel maintainers.
+
+Record: Could not find lore URL. Reviewed by top AMD GPU maintainers.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Key Functions**
-Modified function: `amdgpu_discovery_read_from_harvest_table()`
+### Step 5.1-5.2: FUNCTION AND CALLER ANALYSIS
+- `amdgpu_userq_create` is called from `amdgpu_userq_ioctl` (line 1024),
+  which is a DRM IOCTL handler — **reachable from userspace**.
+- The buggy path (map_helper failure) is exercised when GPU hardware
+  mapping fails, which can happen during resource contention, hardware
+  errors, or device issues.
+- The stale entry is then accessed by suspend/resume/reset paths which
+  iterate `userq_doorbell_xa`.
 
-**Step 5.2-5.3: Impact Surface**
-`adev->umc.active_mask` is used by:
-1. `LOOP_UMC_NODE_INST()` macro — iterates over active UMC nodes for RAS
-   error counting
-2. `amdgpu_umc_loop_all_aid()` — iterates over UMC instances for RAS
-   queries
-3. `amdgpu_psp.c` — passed to PSP firmware as `active_umc_mask`
+Record: Bug is reachable from userspace IOCTL. UAF is triggered during
+subsequent suspend/resume/reset operations.
 
-An incorrect `active_mask` could cause:
-- Missing or incorrect RAS error reporting
-- Wrong UMC instances being queried for errors
-- Incorrect firmware configuration
-Record: active_mask affects RAS error handling and firmware
-configuration.
+### Step 5.3-5.5: CALL CHAIN
+Userspace → `amdgpu_userq_ioctl` → `amdgpu_userq_create` →
+`amdgpu_userq_map_helper` fails → stale doorbell_xa entry → any
+`xa_for_each(&adev->userq_doorbell_xa)` → UAF
 
-**Step 5.4: Call Chain**
-`amdgpu_discovery_read_from_harvest_table()` is called during GPU
-initialization (probe path). This is a one-time setup function, but its
-result persists for the lifetime of the driver.
-Record: Called during init, result affects ongoing UMC/RAS operations.
+Record: Clear call chain from userspace to bug trigger to UAF
+exploitation.
 
 ---
 
-## PHASE 6: STABLE TREE ANALYSIS
+## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
 
-**Step 6.1:** The buggy code was introduced in v6.4 (commit
-2b595659d5aec7). It exists in stable trees 6.6.y and later.
-Record: Bug exists in 6.6.y, 6.12.y, and 7.0.y.
+### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE?
+Yes. The `userq_doorbell_xa` was introduced by `f18719ef4bb7b0` which is
+in the 7.0 tree. The `amdgpu_userq_map_helper` error path at line
+891-899 exists and is missing the cleanup.
 
-**Step 6.2:** The patch context differs slightly between the diff and
-the 7.0 tree (helper function refactoring). The actual fix lines apply
-conceptually with minor context adjustment.
-Record: May need minor context adaptation for clean apply.
+Record: Buggy code exists in 7.0 stable tree.
+
+### Step 6.2: BACKPORT COMPLICATIONS
+The diff context doesn't match the stable tree exactly. The `xa_alloc`
+error path in mainline already has `xa_erase_irq`, but the stable tree
+doesn't. This means the patch needs either a prerequisite commit or
+manual rework to apply cleanly.
+
+Record: Won't apply cleanly — needs prerequisite fix for xa_alloc error
+path or minor rework.
+
+### Step 6.3: RELATED FIXES ALREADY IN STABLE
+No related fix for this specific issue exists in the stable tree.
+
+Record: No prior fix exists.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1:** drm/amdgpu is an IMPORTANT subsystem (widely used GPU
-driver on AMD hardware).
-**Step 7.2:** Very actively developed.
-Record: [IMPORTANT] [Very active subsystem]
+### Step 7.1: SUBSYSTEM CRITICALITY
+- **Subsystem**: `drivers/gpu/drm/amd/amdgpu` — AMD GPU driver
+- **Criticality**: IMPORTANT — widely used GPU driver on desktop/laptop
+  systems
+- Userqueue is a newer feature but actively used
+
+Record: IMPORTANT subsystem - AMD GPU is widely deployed.
+
+### Step 7.2: SUBSYSTEM ACTIVITY
+Extremely active — 10+ changes per month to this specific file. The
+userqueue code is under heavy development.
+
+Record: Very active, rapidly evolving code.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1:** Affects users of AMD GPUs with >= 32 UMC node instances
-(large server/datacenter GPUs like MI300 series, where `node_inst_num`
-can reach 32+).
-Record: Driver-specific, primarily affects large AMD datacenter GPUs.
+### Step 8.1: AFFECTED USERS
+Users of AMD GPUs with userqueue support enabled. This includes modern
+AMD Radeon hardware.
 
-**Step 8.2:** Triggers during GPU initialization when the hardware has
->= 32 UMC instances. Deterministic, not a race condition.
-Record: Deterministic trigger on specific hardware configurations.
+Record: Driver-specific but for widely-used AMD GPUs.
 
-**Step 8.3:** The undefined behavior from the shift can produce an
-incorrect `active_mask`, leading to wrong RAS error reporting and
-potentially incorrect firmware configuration. While not a crash, UB can
-cause any result including crashes on some compilers/architectures.
-Record: Severity = MEDIUM-HIGH (UB, incorrect hardware config, potential
-RAS malfunction).
+### Step 8.2: TRIGGER CONDITIONS
+Triggered when `amdgpu_userq_map_helper` fails during queue creation
+(e.g., hardware map failure, resource exhaustion). The UAF manifests
+when subsequent suspend/resume/reset operations iterate the doorbell
+XArray.
 
-**Step 8.4:**
-- BENEFIT: Fixes real UB on production hardware (large AMD GPUs),
-  ensures correct memory controller tracking
-- RISK: 2-line type widening change, extremely low risk of regression
+Record: Triggered by queue creation failure followed by system operation
+(suspend/resume/reset). Not extremely rare.
+
+### Step 8.3: FAILURE MODE SEVERITY
+**Use-after-free** — the doorbell XArray holds a dangling pointer to
+freed memory. When the 6 `xa_for_each` loops iterate, they dereference
+`queue->userq_mgr`, `queue->state`, `queue->queue_type`. This can cause:
+- Kernel oops/panic (most likely)
+- Data corruption (if freed memory is reallocated)
+- Potential security vulnerability (UAF with userspace-controlled
+  trigger)
+
+Record: UAF → CRITICAL (kernel crash, potential security issue).
+
+### Step 8.4: RISK-BENEFIT RATIO
+- **Benefit**: HIGH — prevents UAF in a userspace-reachable GPU code
+  path
+- **Risk**: VERY LOW — single line addition to error path, using
+  established API pattern
+- **Ratio**: Very favorable
+
 Record: High benefit, very low risk.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Evidence FOR backporting:**
-- Fixes undefined behavior (shift-out-of-bounds) that is a clear
-  violation of the C standard
-- Affects real hardware (AMD GPUs with >= 32 UMC instances, e.g., MI300
-  series)
-- Minimal, 2-line fix that is obviously correct
-- Reviewed by AMD engineer, signed off by amdgpu maintainer
-- `active_mask` is used in RAS (reliability) error handling — getting
-  this wrong affects hardware reliability monitoring
-- Bug has existed since v6.4, present in all current stable trees except
-  6.1.y
-- Pattern matches other accepted stable fixes (shift-type fixes in
-  amdgpu, e.g., `BIT()` -> `BIT_ULL()`)
+### Step 9.1: COMPILE THE EVIDENCE
 
-**Evidence AGAINST backporting:**
-- No Fixes: tag (expected)
-- No explicit bug report or syzbot report
-- Impact is limited to specific large GPU configurations
-- Context differs slightly from stable trees (may need minor adaptation)
+**FOR backporting:**
+- Fixes a real UAF bug (stale pointer in doorbell XArray after kfree)
+- Single-line fix — minimal scope
+- Obviously correct — mirrors the cleanup function at line 463
+- Reviewed by Christian König (AMD GPU subsystem expert)
+- Signed off by Alex Deucher (AMD GPU maintainer)
+- Bug is reachable from userspace IOCTL
+- UAF can be triggered during common operations (suspend/resume/reset)
+- Buggy code exists in stable tree (introduced by f18719ef4bb7b0)
 
-**Stable Rules Checklist:**
-1. Obviously correct and tested? **YES** — type widening is trivially
-   correct
-2. Fixes a real bug? **YES** — undefined behavior per C standard
-3. Important issue? **YES** — UB can cause incorrect hardware
-   configuration
-4. Small and contained? **YES** — 2 lines in 1 file
-5. No new features/APIs? **YES** — pure fix
-6. Can apply to stable? **YES** — with minor context adaptation
+**AGAINST backporting:**
+- No Fixes: tag (expected for manual review candidates)
+- Prerequisite commit needed for clean application (xa_alloc error path
+  fix)
+- Userqueue is a newer, rapidly evolving feature
+- May need rework to apply to stable
+
+### Step 9.2: STABLE RULES CHECKLIST
+1. **Obviously correct and tested?** YES — single line, matches existing
+   cleanup pattern, reviewed by maintainer
+2. **Fixes a real bug?** YES — UAF in error path
+3. **Important issue?** YES — UAF → potential crash or security issue
+4. **Small and contained?** YES — 1 line in 1 file
+5. **No new features or APIs?** Correct — pure bugfix
+6. **Can apply to stable?** Needs prerequisite or minor rework
+
+### Step 9.3: EXCEPTION CATEGORIES
+Not an exception category — this is a standard bug fix.
+
+### Step 9.4: DECISION
+The fix addresses a genuine use-after-free vulnerability in the AMD GPU
+userqueue error handling path. The bug is reachable from userspace via
+DRM IOCTL, and the UAF can be triggered during suspend/resume/reset
+operations. The fix is a single-line, obviously correct addition that
+mirrors the existing cleanup function pattern. It was reviewed by the
+subsystem's top maintainers.
+
+The only concern is that the patch may need a prerequisite commit
+(xa_alloc error path fix) to apply cleanly. However, this is a practical
+application concern, not a question of whether the fix should be
+backported.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject: "drm/amdgpu: fix shift-out-of-bounds" —
-  clear fix commit
-- [Phase 2] Diff analysis: 2 lines changed — `uint32_t` -> `u64` and `1`
-  -> `1ULL` in `amdgpu_discovery_read_from_harvest_table()`
-- [Phase 3] git blame: buggy code introduced by commit 2b595659d5aec7
-  (Candice Li, Feb 2023, v6.4)
-- [Phase 3] git merge-base: confirmed commit 2b595659d5aec7 is in v6.4
-  and v6.6, NOT in v6.1
-- [Phase 3] git log --author: Hawking Zhang is a prolific AMD GPU
-  contributor
-- [Phase 4] b4 dig: could not find original submission on lore (AMD GPU
-  patches go through freedesktop.org)
-- [Phase 4] Web search: found related shift fixes in amdgpu but not
-  exact patch thread
-- [Phase 5] Grep: `active_mask` is `unsigned long` (64-bit), used by
-  LOOP_UMC_NODE_INST macro, PSP firmware init, and RAS error queries
-- [Phase 5] Grep: `node_inst_num` is `uint32_t`, incremented per
-  UMC_HWID found; on gmc_v9_0, divided by 4 (can be 32+ on large GPUs)
-- [Phase 6] Code exists in stable trees 6.6.y+; context differs slightly
-  (bhdr vs table_info helper)
-- [Phase 8] Failure mode: UB from shift, potentially incorrect
-  active_mask affecting RAS operations
-- UNVERIFIED: Exact patch discussion on amd-gfx mailing list (not found
-  via search)
-- UNVERIFIED: Whether UBSAN has actually fired on this in practice (no
-  syzbot report)
+- [Phase 1] Parsed tags: Reviewed-by Christian König, Signed-off-by Alex
+  Deucher (both AMD GPU maintainers)
+- [Phase 2] Diff analysis: 1 line added to amdgpu_userq_map_helper error
+  path in amdgpu_userq_create(); adds missing xa_erase_irq for
+  userq_doorbell_xa
+- [Phase 3] git blame: Buggy code introduced by f18719ef4bb7b0 (Jesse
+  Zhang, Oct 2025, XArray conversion), confirmed present in stable tree
+- [Phase 3] git show f18719ef4bb7b0: Confirmed the XArray conversion
+  failed to add xa_erase_irq in both xa_alloc and map_helper error paths
+- [Phase 3] Checked xa_alloc error path (line 872-879): CONFIRMED
+  missing xa_erase_irq in stable tree, indicating a prerequisite commit
+  exists
+- [Phase 4] b4 dig: Failed to find match (commit likely too recent); web
+  search also unsuccessful
+- [Phase 4] Web search: Found related refcount commit discussion on
+  lists.freedesktop.org
+- [Phase 5] Grep for amdgpu_userq_create callers: Called from
+  amdgpu_userq_ioctl (DRM IOCTL handler), reachable from userspace
+- [Phase 5] Grep for xa_for_each userq_doorbell_xa: Found 6 iteration
+  sites (suspend/resume/reset/enforce-isolation) — all access freed
+  queue members
+- [Phase 5] Read amdgpu_userq_cleanup (line 450-469): CONFIRMED correct
+  cleanup uses xa_erase_irq, validating the fix pattern
+- [Phase 6] Buggy code (f18719ef4bb7b0) confirmed in stable tree via git
+  log
+- [Phase 6] Context mismatch identified: mainline xa_alloc error path
+  has xa_erase_irq but stable doesn't — prerequisite needed
+- [Phase 8] Failure mode: UAF → kernel oops/potential security
+  vulnerability, severity CRITICAL
+- UNVERIFIED: Could not find the exact mainline commit hash or lore
+  discussion thread
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index af3d2fd61cf3f..32455b01bceb1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -774,7 +774,7 @@ static void amdgpu_discovery_read_from_harvest_table(struct amdgpu_device *adev,
- 	struct harvest_table *harvest_info;
- 	u16 offset;
- 	int i;
--	uint32_t umc_harvest_config = 0;
-+	u64 umc_harvest_config = 0;
- 
- 	bhdr = (struct binary_header *)discovery_bin;
- 	offset = le16_to_cpu(bhdr->table_list[HARVEST_INFO].offset);
-@@ -830,7 +830,7 @@ static void amdgpu_discovery_read_from_harvest_table(struct amdgpu_device *adev,
- 		}
- 	}
- 
--	adev->umc.active_mask = ((1 << adev->umc.node_inst_num) - 1) &
-+	adev->umc.active_mask = ((1ULL << adev->umc.node_inst_num) - 1ULL) &
- 				~umc_harvest_config;
- }
- 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 819c4c26416c3..1849894d2837b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -892,6 +892,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		r = amdgpu_userq_map_helper(queue);
+ 		if (r) {
+ 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
++			xa_erase_irq(&adev->userq_doorbell_xa, index);
+ 			xa_erase(&uq_mgr->userq_xa, qid);
+ 			amdgpu_userq_fence_driver_free(queue);
+ 			uq_funcs->mqd_destroy(queue);
 -- 
 2.53.0
 
