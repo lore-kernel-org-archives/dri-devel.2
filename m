@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FBFFF588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:24:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EEA7F588C2
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B7710E60F;
-	Mon, 20 Apr 2026 13:24:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 819F210E60D;
+	Mon, 20 Apr 2026 13:25:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WADj/ak2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ulq90t4p";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F31CE10E60F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:24:55 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3A4810E60E
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:25:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 39AFE60154;
- Mon, 20 Apr 2026 13:24:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95646C2BCB4;
- Mon, 20 Apr 2026 13:24:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B3E1943D37;
+ Mon, 20 Apr 2026 13:25:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF26C2BCB4;
+ Mon, 20 Apr 2026 13:25:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691494;
- bh=pOp+eJfoibS42wCPoPksJ4QyssD3Lgbx3oTsSJ2B/+I=;
+ s=k20201202; t=1776691515;
+ bh=aAa37wjp9jNLis7FJ8hKBQTsPEvjboH9hfzGfhPVlc4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=WADj/ak2I1KlbEYuguJ/0N1xpYw9xV4w7UueLoTHotvrrCzGyzVcAWp3anbxKqp5h
- PVyXQ7M1LH/bEHw1G51Z5LGgTkcMDc9vYzH8GvVppvUMLiveHedellP1N1fFGrb7dc
- hYexjcXkM/OPiIZR8tZ+sTqJ8z42zDOo5a35rOqtu/WXHgubJaoBSDdTj0It9taQ5J
- fHvraU1lx1l7AG+Qylvw0JqP8apT5kpF6Ehw53kaZtRwvsYYBe9exLGOl92hdu6+Io
- VnqGu6ug0pinLYSqjWw7HbgkVOJNF9OqAi5rS0l/+I+DDX6WeSanfFQ53qc1TiWvJ4
- wYmpdEHoKKJyA==
+ b=ulq90t4p8TP055U5GKAZcSdiFezZTxdarUke4u/glSMjPHt8Sg2pcxiUgVOzsxNhd
+ lPdrXttVwX2Srx8gJgqR/rxNAxUGPqyPq/azmT0c5HgCJ5v86118ZPqzagIvB5xuNn
+ IgFTvE46sIicscAoKcNqnhfz6XVA9ErzlpLLoQL+qrsMk3AFQhl1/Tuze8EwK8smNu
+ Bb6IK81B9KmQLnEypZfjoLB12wz7/4zK81gl9i6I6qFETMf5inOu0MP7faugU1mNN0
+ AzjF/qOC6wJifWuvtLQvKGxSrt+xL/MSzEHmPdvxFP1XCp3oucnEnPuZ5ovhSaM1zT
+ VYZuFWvUiHf5w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
@@ -37,12 +37,12 @@ Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
  Melissa Wen <mwen@igalia.com>, Sasha Levin <sashal@kernel.org>,
  mripard@kernel.org, dave.stevenson@raspberrypi.com,
  maarten.lankhorst@linux.intel.com, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, eric@anholt.net, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/vc4: Fix a memory leak in hang state error
- path
-Date: Mon, 20 Apr 2026 09:17:37 -0400
-Message-ID: <20260420132314.1023554-63-sashal@kernel.org>
+ simona@ffwll.ch, eric@anholt.net, bbrezillon@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/vc4: Protect madv read in
+ vc4_gem_object_mmap() with madv_lock
+Date: Mon, 20 Apr 2026 09:17:49 -0400
+Message-ID: <20260420132314.1023554-75-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -69,18 +69,15 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Maíra Canal <mcanal@igalia.com>
 
-[ Upstream commit 9525d169e5fd481538cf8c663cc5839e54f2e481 ]
+[ Upstream commit 338c56050d8e892604da97f67bfa8cc4015a955f ]
 
-When vc4_save_hang_state() encounters an early return condition, it
-returns without freeing the previously allocated `kernel_state`,
-leaking memory.
+The mmap callback reads bo->madv without holding madv_lock, racing with
+concurrent DRM_IOCTL_VC4_GEM_MADVISE calls that modify the field under
+the same lock. Add the missing locking to prevent the data race.
 
-Add the missing kfree() calls by consolidating the early return paths
-into a single place.
-
-Fixes: 214613656b51 ("drm/vc4: Add an interface for capturing the GPU state after a hang.")
+Fixes: b9f19259b84d ("drm/vc4: Add the DRM_IOCTL_VC4_GEM_MADVISE ioctl")
 Reviewed-by: Melissa Wen <mwen@igalia.com>
-Link: https://patch.msgid.link/20260330-vc4-misc-fixes-v1-3-92defc940a29@igalia.com
+Link: https://patch.msgid.link/20260330-vc4-misc-fixes-v1-4-92defc940a29@igalia.com
 Signed-off-by: Maíra Canal <mcanal@igalia.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -89,52 +86,29 @@ LLM Generated explanations, may be completely bogus:
 
 Error: Failed to generate final synthesis
 
- drivers/gpu/drm/vc4/vc4_gem.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/vc4/vc4_bo.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
-index 6238630e46793..6887631f2d8be 100644
---- a/drivers/gpu/drm/vc4/vc4_gem.c
-+++ b/drivers/gpu/drm/vc4/vc4_gem.c
-@@ -170,10 +170,8 @@ vc4_save_hang_state(struct drm_device *dev)
- 	spin_lock_irqsave(&vc4->job_lock, irqflags);
- 	exec[0] = vc4_first_bin_job(vc4);
- 	exec[1] = vc4_first_render_job(vc4);
--	if (!exec[0] && !exec[1]) {
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
--		return;
--	}
-+	if (!exec[0] && !exec[1])
-+		goto err_free_state;
- 
- 	/* Get the bos from both binner and renderer into hang state. */
- 	state->bo_count = 0;
-@@ -190,10 +188,8 @@ vc4_save_hang_state(struct drm_device *dev)
- 	kernel_state->bo = kcalloc(state->bo_count,
- 				   sizeof(*kernel_state->bo), GFP_ATOMIC);
- 
--	if (!kernel_state->bo) {
--		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
--		return;
--	}
-+	if (!kernel_state->bo)
-+		goto err_free_state;
- 
- 	k = 0;
- 	for (i = 0; i < 2; i++) {
-@@ -285,6 +281,12 @@ vc4_save_hang_state(struct drm_device *dev)
- 		vc4->hang_state = kernel_state;
- 		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+diff --git a/drivers/gpu/drm/vc4/vc4_bo.c b/drivers/gpu/drm/vc4/vc4_bo.c
+index 4aaa587be3a5e..a1efda9c39f92 100644
+--- a/drivers/gpu/drm/vc4/vc4_bo.c
++++ b/drivers/gpu/drm/vc4/vc4_bo.c
+@@ -738,12 +738,15 @@ static int vc4_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_struct
+ 		return -EINVAL;
  	}
-+
-+	return;
-+
-+err_free_state:
-+	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
-+	kfree(kernel_state);
- }
  
- static void
++	mutex_lock(&bo->madv_lock);
+ 	if (bo->madv != VC4_MADV_WILLNEED) {
+ 		DRM_DEBUG("mmapping of %s BO not allowed\n",
+ 			  bo->madv == VC4_MADV_DONTNEED ?
+ 			  "purgeable" : "purged");
++		mutex_unlock(&bo->madv_lock);
+ 		return -EINVAL;
+ 	}
++	mutex_unlock(&bo->madv_lock);
+ 
+ 	return drm_gem_dma_mmap(&bo->base, vma);
+ }
 -- 
 2.53.0
 
