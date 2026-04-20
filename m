@@ -4,132 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D6CF5A8BC
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 22:05:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76903F5A8C8
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 22:27:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2221110E76E;
-	Mon, 20 Apr 2026 22:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA7E310E066;
+	Mon, 20 Apr 2026 22:27:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=renesas.com header.i=@renesas.com header.b="mYkpHh9K";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="X8RgU5bH";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kDPn/oUu";
 	dkim-atps=neutral
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazon11010035.outbound.protection.outlook.com [52.101.228.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D02F10E76E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:05:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P9eLXo5OMVi+e6Bfwyu8H++D2dGdONrCf3q0oHl4p30cBJYSfNVGHYYjUj/8p9DLzisD0JrqCWdJ/X7JmBlq4xrrcyyum8QodUc14ERyux38PVpzloo/mFKDG1/Hp/IsEyCKYUseNPbB+1I/m7Zzh4xT2LisXB98wm78RQZ2fT15vuK5Y70324pw4q/fwqtmmXuN8pJo5xpI+R/5xEe1sSmhDiP3RCKJ/CfFb/5hMj0/UP/fhiZmfiiqscGH8Q6/CNuwIVbhxUfogk2BiONRUliiQeNbdQeFVQIT5DDrw1fr33pXhZlqJPJ4s+BS3mMKIZ/5+uY5M3xz3fwHageKVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2A9ul4UdPKW4UnRdJfhgbbCETztL/EcvL6B5sPWXwBU=;
- b=Uu4HTrLOZJfNqGRpZ6eWNmaZqyEui5Cbfz0i5Qxf5lNpK5GZm6mAVc6q++kiHAgQN7eneYtnn8cUuDnN61ZTbDF5cHyJnOY+lyWM6vu55gS4rIM7yKogM1hbJQ1LDW67oPCzZOCK1idzKRkGc/qJ0XbRXCtTgtaQQRsRmPFptKMqgtaE/IHsfFYwRj+0uLvH6lzSSQpvOKXhXhK8FaY2u7ep2E/pfA0vfTZS0M+DjlBSOoGR7+royrpgVCm2adpU7j00mCXpIBJNT3Oh6/cn75ACXTPN8mGGA79aPoIhc+IrobpH+EwWv8lBwD4v6d4bANHT1oR8RK0hs0MMrC14mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2A9ul4UdPKW4UnRdJfhgbbCETztL/EcvL6B5sPWXwBU=;
- b=mYkpHh9K+RKti4J86Dg2ADs64sejrMgYiHQXGYd8/7yS50UFGpBxuxBM77LrA0NpZOYrsZz0hA3esf1WpivD06T7L3Iu1qTBCe4Gv34jmji+eGoLoG0jr1HZGVEqr8vLxwFK7+FAC1hsIALsV0K3G5Rg06POCkgnuTAj+BOD9EY=
-Received: from OS3PR01MB8319.jpnprd01.prod.outlook.com (2603:1096:604:1a2::11)
- by OSCPR01MB12769.jpnprd01.prod.outlook.com (2603:1096:604:33c::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.33; Mon, 20 Apr
- 2026 22:05:46 +0000
-Received: from OS3PR01MB8319.jpnprd01.prod.outlook.com
- ([fe80::6473:1660:bdc2:c983]) by OS3PR01MB8319.jpnprd01.prod.outlook.com
- ([fe80::6473:1660:bdc2:c983%4]) with mapi id 15.20.9818.033; Mon, 20 Apr 2026
- 22:05:46 +0000
-From: Chris Brandt <Chris.Brandt@renesas.com>
-To: geert <geert@linux-m68k.org>
-CC: Biju Das <biju.das.jz@bp.renesas.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Pavel Machek <pavel@nabladev.com>, Hugo
- Villeneuve <hugo@hugovil.com>, "linux-renesas-soc@vger.kernel.org"
- <linux-renesas-soc@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH] drm: renesas: rz-du: mipi_dsi: Fix return path on error
-Thread-Topic: [PATCH] drm: renesas: rz-du: mipi_dsi: Fix return path on error
-Thread-Index: AQHcznLuB+8+YFONMkeG/G/+SBPB87XnlqUAgADe/aCAAAxIAA==
-Date: Mon, 20 Apr 2026 22:05:46 +0000
-Message-ID: <OS3PR01MB83193C199C2DF1F2153827458A2F2@OS3PR01MB8319.jpnprd01.prod.outlook.com>
-References: <20260417140231.3972749-1-chris.brandt@renesas.com>
- <CAMuHMdUVCtzxumM6yniuGTKfqG_z6BuySHNcZYE9UHP5AuDoLw@mail.gmail.com>
- <OS3PR01MB83197FBDFCDECBA1220BF52B8A2F2@OS3PR01MB8319.jpnprd01.prod.outlook.com>
-In-Reply-To: <OS3PR01MB83197FBDFCDECBA1220BF52B8A2F2@OS3PR01MB8319.jpnprd01.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS3PR01MB8319:EE_|OSCPR01MB12769:EE_
-x-ms-office365-filtering-correlation-id: 31c6af6a-ff7c-4110-cd87-08de9f28f944
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|7416014|376014|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: kXO1nQnUEbFFFIY6nl5liHuv1+/QDcMKJv7/JeJCw2vU63zm+YVHYw+46EH6nXFmfLnIP2K5ITdw/M7pP3irlN8lhJwjvs3b8lWng1x2B7LCggxd82PQ3M6ZExESqFfkP+ghJH2JzFC8y916SxLuFRY2r3Z8ht7kzdtNANSXUKnXEorBm1tY+vOSxQpEiy/y2fbD2VB8NKPn9sTadixFtPZwQ4UzJIUl9aBPh6qxj029BJO/ZHXutkArSgq+g1+YMkpSyoXMC/EJiMV/I/77dUB6nz85YguiaA6f7T7qI1l+eDab4jOjJVehL/JpqNCJpg4rDf2vincmexGmWCo070fNIhVkMmLxPbUNYpvo+6tiA+y35+sn7EWAUPBgBdsOjYY89w3DzJiDL5kQ0c5mHMzo0ZFwFwMxsQZ5FfhJFfxDhStIhbJOZfACaYR1XUXv+VxQAhdym9Db5HRf5S0s8rDZOXuC8EIBkuDliRYgIrmWXUThFsJExNV0iVN97JjTLi3w8cyKJ3RuDXBW5iigvnuwntpki1rIVgXmBpOdFhz0qHgBr/ubqLLPZBQwU98VRr2XgyEnHzmc7huRj7iToi1NdQlFLviOJouBQJ2B/4GG5KL6x5HblAidhCLe/L5Sk5kkbO+NcgXAbsNMEgldxOf9Zukg9TwVmZaqTE7JszM46m337o7k3SgQ9DQySf854e4VVq1aRPcxEaehYin/R887oLc62b7ma1Ljh4rs+nqyQ2mqwxqlkL/ZzSQmWLhfo7V/77Kyc+d1NGjeK1GRb2PEdRveEwpU3zYWs63bLEk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:OS3PR01MB8319.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?OURJUThNeTFkSVpsRjFJK0RWRVFUamliK3F3ajJnSTZtSE83eFZCbThPMito?=
- =?utf-8?B?OU52bWFDWlNPdWJYOHNjeERSempFYU5EU20waFlSbjZkZW1UOUgrMXZUVklD?=
- =?utf-8?B?SDlJUjF1UmNWMFUycjBmNytxVFJlckZJalRvdVV6SldYY1h2ajB6Yml0YVRH?=
- =?utf-8?B?Mm1ScVc5QTVLdVBmWHJiUXFaMHpEQmF3WmIvUk5RdW5mZ3J5ekQwOVdpQkFT?=
- =?utf-8?B?L3k2OUNYVW9oVzNVdTZZVjZqRzBWRXlGLzV0c1hNUVhCV3BFd0tvbjI3K1hl?=
- =?utf-8?B?RTN4ckFiUTk3TXRjdXl3b05HZjdMVEVmTmtYdWJ6Vi9sWTRkSFptTlZuOWdp?=
- =?utf-8?B?ZXQxdmgzTDN1ZzJvWnV5bTVQcXdaUW84RW45WjVDTk9XMXIzQW5KOEJlbDd1?=
- =?utf-8?B?cGRHbGlrY0hlRk43Q2xaNFhGcGJMZVVPRHNseGV4OUE5eVpSSmVqNHU4dnpl?=
- =?utf-8?B?TG9hT0hGRlFVMmIwMkhOUHBVM25xODJzeXA4bUhldHlIa2RtazNjWFBBeUdS?=
- =?utf-8?B?ZU9DT1VtcHp4SkwyaEhMY0hSSlZIWnYvZGVwTDZPZm1HcnY3M21lZDhObzVZ?=
- =?utf-8?B?RDRMcW9SdlRnRFpJUUNDYkc4UnM4UUowbWpYNWNXQzB3V2toWXNjS1NGa3FG?=
- =?utf-8?B?UkVEc3g0czYxY0dRYXRKTWs2UDQvYnpJcGVlZGs5NklNYkxKWFJlbzMyRDFm?=
- =?utf-8?B?S3lNcC8xTHRYRzUyek9ZZFdBdmFCZzJjakJmV2dCd2VGWjdPOGJxcDhBb2Rl?=
- =?utf-8?B?MXZ2VWdua0hOYWpCUlZoY1FOdlN2NWIzTnI3TDlCaHFjQ3F5L0RWMDJkZDIv?=
- =?utf-8?B?Y2VSdWNOL2UvUldJRjlKSGVMNjFiOWdqSExVa25LeFpNOCtuM3ozYWx5Q29o?=
- =?utf-8?B?SGpwTXBPUHJLR0pSZUVGaWJBYVRKcVhWaUpxb3E5bzAyRFRpQ3JPYmVRbTVT?=
- =?utf-8?B?eUFYQ0k1Y2d3YTRrRFFqLzRYQXhKRVhULzQ0V01rOWJUeTlDTVF1c1l4NGcv?=
- =?utf-8?B?ZXlPY3ZQT3NTdldoUDFwNzFRS1J3ZTE0Y05XRFhwTGpDQWNsNFdHeDI2aCtB?=
- =?utf-8?B?Zzgxd0pnZnBBS0dGUjg4NHhMaVBkMnBpT1lna1crM2M2VEcwSkgvSDhaR1hj?=
- =?utf-8?B?V2ptZy82UzRUMGtNM2xFMlRmUU02ZU1jZlM4NVRzb3B4WGFFNVVzdm9hQ1g2?=
- =?utf-8?B?UFJ2OTU2TC9UUm1CS2RLdXVIMG1QL29zL2duRFFsVzg1Yk9qd25hVDhzRXps?=
- =?utf-8?B?dUlNU014ZU9QV21jTG1ZZ2JEei9hMDdWbEx5Z05hOEVxTVZoOGt3SmRjRWVk?=
- =?utf-8?B?dW9GOUxZdHp2VzBHZ0lNOEc2N2hDQnpUdVVQaUlkK0xxZ092RGVTeFNTMkZX?=
- =?utf-8?B?RjlYYnp5SEUzWjgyc09GTGRUYVdNa3k3Y2NIL0wrVW5QYlZhbTMxUEpwcHZZ?=
- =?utf-8?B?T2JrMHJpV3VNeUZIWk9WYWxyeG9UVnZzWTBORnZjb2RmVXgwUWo4UFRKQVpL?=
- =?utf-8?B?OUxhUzAzSGloY2gvUjZZRXN4WFBPczhPNUNPbU5KSE9xa3B5YXFHTnRaWkl2?=
- =?utf-8?B?TkhjVjBJdURhYlluc2pEVjZldzh6YjNYTjJuQ0lmTTU1a0hPMi9tekxSanNq?=
- =?utf-8?B?SytLQTVMOTNYZHdBUmw0TXZwOEs1ZXZkbGVvdGsrN2lUV2ZlUUI1NFA0ek1T?=
- =?utf-8?B?Q1IzMHNuZ1FLK3U3bDErcVphS3B0eThSSUpWVGQ5MlNZeHBpQ3l0UUtBN3Vs?=
- =?utf-8?B?OHNUbi9BR3Q5aXFVRFluREpuOEpiMk12M1FDVVloMllzdUwycm5TUFh6aktL?=
- =?utf-8?B?ZG5VY0NRNHYrZG4wOEEyRXpvNEcyZ3JUSVZ3WGZWNHh2VHBCRnBJSkdCMjdH?=
- =?utf-8?B?UEZHZFROUXZOVkZobHQrQmp3ejNrUnNXR3NGc0ZlVnFkWEIxTitoYkFxTVJW?=
- =?utf-8?B?TUVVeER0cVhvc2Q3SXhVRGFadVZyejBuN0dLT1VHSTVObFN5NUlRK1QzSzVj?=
- =?utf-8?B?Qm1rRWJuT0pJRWttaVZsL3VXUzVOU2ZVbjRtekwrOWcyV3NxTnZXOUxSRUww?=
- =?utf-8?B?SzE3Tld1UGRPNlJJa2xvWFFUME5GRVc0OWlTOUdod1lHUVZza3I4T1E3d1RF?=
- =?utf-8?B?R3dJRGhCVHh5Zm9hcW96RWZRMGwxakVMcGs4RWNUblB2ZFR3RkFhVGU5T3FQ?=
- =?utf-8?B?alNYN2hia0E5YVF0OVV6aEVKWWw5QnJVSU53b0ZORGdyd29IQ0daTk5Mc0ZJ?=
- =?utf-8?B?YjUvQUdYbWs2cnN2UzlGZmdhU1RIV1pNWHFSY2RwbHpORVlnR1QxbytCLzdY?=
- =?utf-8?B?YUJGdGdUaGUvWUVRcXpjaEVTTTNJODNBSkQyL2VMVVl1dzdGcW12QT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D28410E066
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:27:01 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63KFJjIO084674
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:27:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=q2Dqpg4OdB+GYal1kt4hriA4lBdfXQhJrL4
+ /ifmzV4A=; b=X8RgU5bHAHBYX8xmpRu/AVpa3AGhOPNttldsL0KaxFs2yZxz6gC
+ 3GmCNXCaJ/KVb6R7hCHZrZ2r0O88FkRXs4G+c3C6Vz8AQfdUohXqvlEKRVzH/FJP
+ wuUzBllWTp0a30SoPfjxOrvKAub9ccUAvL/TfRLhz4xMve0w9zd5usg5AxhOlYGz
+ wuS8ZOYdEMPKttfbAhuGJ0mNyNuSG9Fspx/NQJti7u5IE97dt/FK3Gpr4dH2eiE0
+ JA6UN76AmtSg/ts42jLZnQS+F8taO3heyjXMz8rWYp+oxMf+IhSaK+RrMftpqBDg
+ MsL1J+CarGiDFCyiVlWWWJCISOYz6PuZAjw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dnh81jsdx-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:27:00 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-82fa6c3a77cso1447411b3a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 15:27:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776724019; x=1777328819;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=q2Dqpg4OdB+GYal1kt4hriA4lBdfXQhJrL4/ifmzV4A=;
+ b=kDPn/oUuDeoxxDgzmc2VkYcPGmjpJ1dpplZpANHrmwkt1kbjtvA4GyiH/o3nCI2nH7
+ 67zlKfEBWKyQiijBmT+0J/6N7cAdEp+zckmx1GGRkGk9F8rxgK/fiGMxJw7tgVMAe8x5
+ pXcYYf5DmXAzpBlZquu0UogBlnb1vsvoBmzsTZW10FobBYi0sZqnpZWJFn/Hli+dyowS
+ +FUxdKJNQCHmm+XLePbzEc/Du29lK5+1qMEoRYqPXvuv1ZdAS6sNA7VpM7HTBOKivcBp
+ QPMq56J5SZ9FovJdBkRx8mAktgAAKugSow+zMFtZ94gBvECtWadNjKNROJOOPVsLyMe3
+ e7wQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776724019; x=1777328819;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=q2Dqpg4OdB+GYal1kt4hriA4lBdfXQhJrL4/ifmzV4A=;
+ b=fImIgGX84zmGTT8VZ7qrMBFHJP17fDUi6BYTUSJmPzIn13Txhndzck2LkRFgqpF1QG
+ usYjBHiNsLVj6ChqYfWWkTeN9uTIZBAtjlpkoJP4vm6Tk6qxwMvI/RVsgUIjcxVKDOJz
+ GG8WJZmTUmbzdn0snjNir6UY3c37/ZlqMmBDr23aLv8AXnzbKvgnYTDzzBWXIMoc+thR
+ Qhlv9jNAMI09tuq4e74LLruqMn3gFmTTynDsw5YzD5AJjpmBlyoZzpHHKJK5BU6p80O/
+ SZt+ld6T4jVCeZ93HsZqOg+tnhHthARR08MuhgEF4/WW1ESLLb5xpr529DJ3J6itdve8
+ sNcQ==
+X-Gm-Message-State: AOJu0Yymd1DcJlqaxxQz6obgwiA4adowj+dvsKM4l2yNjUg2cUh2XOQt
+ xgkdpQD7LWEq04Mnikf5NwRGsU5ExaXx7MmJ2xO7G12rS6U5U6ObvKoeSa+Skn/qQE2Y69ipx5m
+ E8usmIQQwRmvtbNId8Wm7iHZ01REvAyt7SrFOwZMmEMGCyMZfQFnI4ylosb7rNnNYsUY8ehNxns
+ 2kldM=
+X-Gm-Gg: AeBDies3fgQAkPuuNgcKP5RqoqnfPmHv54BCwRTzN1D+bWi7AF7tD3nDBzpFld8g4o4
+ Jxequwdgmh/Da6J/0qYsd/qqeC5s/J3gNuhreq05Q53A+gcAkmzc4jQ9qJJZTQjdq1YF+z5x2J8
+ RQO7TNAjzMGnthSg2PPhvks4ILC+QA0m35uCtUd6MjsMlYr9jOACNl7njZ+LCot1nWQGROw0fcV
+ 4SeA8HCAJHCXgNcoXT8N0kjPCQKsG5ub1owgRaa0h0hOQEBuBVHjGxtXRlIw7SnVtlekV26SOEE
+ BRBGrsMbXho3vGZCDefR3k8BTdpE67NfjW4x25s+Vpd+NpZfQybGz52VH1jwD3Hubi4V7Cj5GJG
+ JnKm/lbHIX/RYiqwOpdWODcxkELnPEBkGQe3Ao7jSRV8=
+X-Received: by 2002:a05:6a00:4186:b0:82c:212a:8023 with SMTP id
+ d2e1a72fcca58-82f8c89e97fmr16027056b3a.11.1776724018965; 
+ Mon, 20 Apr 2026 15:26:58 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4186:b0:82c:212a:8023 with SMTP id
+ d2e1a72fcca58-82f8c89e97fmr16027034b3a.11.1776724018495; 
+ Mon, 20 Apr 2026 15:26:58 -0700 (PDT)
+Received: from localhost ([2601:1c0:5000:d5c:4ec8:83f5:8254:6891])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82f8ebbf0e5sm11610522b3a.28.2026.04.20.15.26.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Apr 2026 15:26:58 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Bill Wendling <morbo@google.com>, David Airlie <airlied@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Justin Stitt <justinstitt@google.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-kernel@vger.kernel.org (open list),
+ llvm@lists.linux.dev (open list:CLANG/LLVM BUILD
+ SUPPORT:Keyword:\b(?i:clang|llvm)\b), 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 00/13] drm/msm: Add PERFCNTR_CONFIG ioctl
+Date: Mon, 20 Apr 2026 15:25:22 -0700
+Message-ID: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3PR01MB8319.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31c6af6a-ff7c-4110-cd87-08de9f28f944
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2026 22:05:46.2573 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ySjzUJRcbM3h3dwIx2SD/E004GCtrtD3MtRZHgy01SBpxYpXE4pOcE479Ta+4+TkUajGQ58AhZa/CGIE8sBSHRfsYyihi8cn2Bw2MBOGwUM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCPR01MB12769
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDIyMCBTYWx0ZWRfXwnb+nnJXFujO
+ phMuPR+r0qrDg27uKoIPuNUpoU/0HsloGLv/pmCwmCgxU76MrD/VqYh6jBF3yqze3hwy4NhMSv5
+ 6paHcC0YFoTW+5hdBuswZU4qFzSJTnc8U4P5PqscJaQ9RJb/rQm20bvoZXoaLSBBtDsNU1DLo39
+ K76YBJfPMIoEKA6JWR+oBjcJECV0wdcmbivRSWHTWK9TN3uNlll6eFv81MSAxnXfM1Mtjpt+JfR
+ aO28pdH2qfm0654M1CSlVR0xLoK+XA99zMisFFJpZv4HYNUrHGudWvNGP5ZHoUCn6FkshRGQ+9z
+ kUafAYZMuuv0ACowxG/q1lCVY/lPZMlGxOugP4ch6rqg0kErAN85DDjXdjcf4Zwyflg0LOYl0hk
+ kxT/TMNQhNCWLk5WRwG03+mqdjGMF0icqLsUeY7nA2au6Ez1ggBkpz8Wo+NYYRRsXe5V2z6YuTV
+ jAkIIcD9GvM1Q6QY72Q==
+X-Proofpoint-GUID: 6lDNacuWlx1C-t3yI6h_WU-KqqeIaG92
+X-Proofpoint-ORIG-GUID: 6lDNacuWlx1C-t3yI6h_WU-KqqeIaG92
+X-Authority-Analysis: v=2.4 cv=PsKjqQM3 c=1 sm=1 tr=0 ts=69e6a834 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=xqWC_Br6kY4A:10 a=A5OVakUREuEA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=e5mUnYsNAAAA:8 a=hBlBM7czq62D-dRUyHYA:9
+ a=IoOABgeZipijB_acs4fv:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-20_04,2026-04-20_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0 adultscore=0
+ bulkscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200220
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,14 +147,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-SGkgR2VlcnQsDQoNCk9uIE1vbiwgQXByIDIwLCAyMDI2IDU6MTQgUE0sIENocmlzIEJyYW5kdCB3
-cm90ZToNCg0KPiBTaW5jZSBpdCBkb2Vzbid0IHJlYWxseSBtYXR0ZXIgLXdoZW4tIHRoYXQgbWVt
-b3J5IGlzIGFsbG9jYXRlZCBpbiBwcm9iZSwgbWF5YmUgSSdsbCBqdXN0IGtlZXAgdGhlIG9yaWdp
-bmFsIGxpbmVzLCBqdXN0DQo+IG1vdmUgdGhlbSBlYXJsaWVyIGluIHRoZSBmdW5jdGlvbiB3aGVu
-IGFsbCB0aGUgb3RoZXIgcmVzb3VyY2VzIGFyZSBiZWluZyBhbGxvY2F0ZWQgdXNpbmcgZGV2bV94
-eHguDQo+DQo+IFRoZW4gSSBkb24ndCBoYXZlIHRvIHdvcnJ5IGFib3V0IHRoZSBpdCBhbnltb3Jl
-Lg0KDQoNCk9oIHdhaXQsIEkgZ3Vlc3MgSSBhbHNvIG5lZWQgdG8gY2hhbmdlIGZyb20gY2FsbGlu
-ZyBkbWFfYWxsb2NfY29oZXJlbnQoKSB0byBkbWFtX2FsbG9jX2NvaGVyZW50KCkgc28gaXQgd2ls
-bCBhdXRvbWF0aWNhbGx5IHVud2luZC4NCg0KQW5kIHRoZW4sIEkgY2FuIHJlbW92ZSB0aGUgY2Fs
-bCB0byBkbWFfZnJlZV9jb2hlcmVudCgpIGluIHJ6ZzJsX21pcGlfZHNpX3JlbW92ZSgpIGFzIHdl
-bGwuDQoNCg0KRG9lcyB0aGlzIHNvdW5kIGxpa2UgYSBiZXR0ZXIgaWRlYT8NCg0KDQpDaHJpcw0K
+Add a new PERFCNTR_CONFIG ioctl, serving two functions:
+
+1. Global counter collection (restricted to perfmon_capable()) using the
+   MSM_PERFCNTR_STREAM flag.  Global counter sampling is, global, across
+   contexts.  Only a single global counter stream is allowed at a time.
+2. Reserve counters for local counter collection.  Local counter
+   collection is local to a cmdstream (GEM_SUBMIT), and as such is
+   allowed in all processes without additional privileges.
+
+The kernel enforces that counters assigned for global counter collection
+do not conflict with counters reserved for local counter collection, and
+visa versa.  Since local counter collection is scoped to a single cmd-
+stream, multiple UMD processes can overlap in their reserved counters.
+But cannot conflict with global counter usage.
+
+In the case of local counter collection, the UMD is still responsible
+for programming the corresponding SELect registers, and sampling the
+counter values, from it's cmdstream.  But by performing the reservation
+step, the UMD protects itself from the kernel trying to use the same
+SEL/counter regs for global counter collection.
+
+For global counter collection, the kernel programs SEL regs, and sets up
+a timer for counter sampling.  Userspace reads out the sampled values
+from the returned perfcntr stream fd.  Releasing the global perfcntr
+stream is simply a matter of close()ing the fd.
+
+Since the counter sampling is done in the kernel, this prepares us for
+not having to disable IFPC while global counter sampling is active.  But
+wiring this up will come in a later patch.
+
+The mesa side of this is at:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40522
+
+Rob Clark (13):
+  drm/msm: Remove obsolete perf infrastructure
+  drm/msm/adreno: Sync registers from mesa
+  drm/msm/registers: Sync gen_header.py from mesa
+  drm/msm/registers: Add perfcntr json
+  drm/msm: Allow CAP_PERFMON for setting SYSPROF
+  drm/msm: Add a6xx+ perfcntr tables
+  drm/msm: Add sysprof accessors
+  drm/msm/a6xx: Add yield & flush helper
+  drm/msm: Add per-context perfcntr state
+  drm/msm: Add basic perfcntr infrastructure
+  drm/msm/a6xx+: Add support to configure perfcntrs
+  drm/msm/a8xx: Add perfcntr flush sequence
+  drm/msm: Add PERFCNTR_CONFIG ioctl
+
+ drivers/gpu/drm/msm/Makefile                  |   19 +-
+ drivers/gpu/drm/msm/adreno/a2xx_gpu.c         |    7 -
+ drivers/gpu/drm/msm/adreno/a3xx_gpu.c         |   16 -
+ drivers/gpu/drm/msm/adreno/a4xx_gpu.c         |    3 -
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   16 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c         |    8 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c         |  142 +-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h         |    2 +
+ drivers/gpu/drm/msm/adreno/a6xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/a8xx_gpu.c         |   32 +-
+ drivers/gpu/drm/msm/adreno/a8xx_preempt.c     |    2 +-
+ drivers/gpu/drm/msm/adreno/adreno_device.c    |    8 +-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c       |    7 +-
+ drivers/gpu/drm/msm/msm_debugfs.c             |    6 -
+ drivers/gpu/drm/msm/msm_drv.c                 |    2 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   13 +-
+ drivers/gpu/drm/msm/msm_gpu.c                 |  119 +-
+ drivers/gpu/drm/msm/msm_gpu.h                 |  105 +-
+ drivers/gpu/drm/msm/msm_perf.c                |  235 --
+ drivers/gpu/drm/msm/msm_perfcntr.c            |  609 +++++
+ drivers/gpu/drm/msm/msm_perfcntr.h            |  152 ++
+ drivers/gpu/drm/msm/msm_submitqueue.c         |    1 +
+ drivers/gpu/drm/msm/registers/adreno/a3xx.xml |    8 +-
+ drivers/gpu/drm/msm/registers/adreno/a5xx.xml |  141 +-
+ drivers/gpu/drm/msm/registers/adreno/a6xx.xml | 1300 ++++++-----
+ .../msm/registers/adreno/a6xx_descriptors.xml |   71 +-
+ .../drm/msm/registers/adreno/a6xx_enums.xml   |    3 +
+ .../msm/registers/adreno/a6xx_perfcntrs.json  |  105 +
+ .../msm/registers/adreno/a7xx_perfcntrs.json  |  228 ++
+ .../msm/registers/adreno/a8xx_descriptors.xml |   96 +-
+ .../msm/registers/adreno/a8xx_perfcntrs.json  |  240 ++
+ .../msm/registers/adreno/a8xx_perfcntrs.xml   | 1929 +++++++++++++++
+ .../msm/registers/adreno/adreno_common.xml    |   42 +
+ .../drm/msm/registers/adreno/adreno_pm4.xml   |   50 +-
+ drivers/gpu/drm/msm/registers/gen_header.py   | 2079 +++++++++--------
+ include/uapi/drm/msm_drm.h                    |   41 +
+ 36 files changed, 5634 insertions(+), 2205 deletions(-)
+ delete mode 100644 drivers/gpu/drm/msm/msm_perf.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.c
+ create mode 100644 drivers/gpu/drm/msm/msm_perfcntr.h
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a6xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a7xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.json
+ create mode 100644 drivers/gpu/drm/msm/registers/adreno/a8xx_perfcntrs.xml
+
+-- 
+2.53.0
+
