@@ -4,98 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15FD7F588DE
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:18:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60418F588DF
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:28:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 701CB10E66F;
-	Mon, 20 Apr 2026 14:18:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB9EA10E67D;
+	Mon, 20 Apr 2026 14:28:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FldUNaq7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cLieqVOS";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A50710E66F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 14:18:10 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 222A440540;
- Mon, 20 Apr 2026 14:18:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AB00C2BCB7;
- Mon, 20 Apr 2026 14:18:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776694690;
- bh=37tsDrtCIf1rlMYKMHSMCUMtSQzmnPWSFwykkB1OeRo=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=FldUNaq7fCq74Vt4Lcz/PBrv1Uw9ricTlN1m+HUQl+ZMbTxG9fDxgy1t85/zKttmr
- kV5Gtp5yLyr01RbDo0xATWf0oVi8da18tmEXFUycU9gzUNFOAwJiR9Slm2GOk2LJLZ
- 7GDdTfazZj6Dnp3Wdl9a4a200p/1hLByll53TfgpprHHGACat3K+KStsbVp9vjhYR4
- X0xHtllnylADFhQrQMJ9EwDLvErlJrC4NBjojnPNMLqlFSS5FYiRKDg0TXhkS2d6px
- b+jWYyldOpJnu4X2VTxjtNe4wiWVwq1h4OKWQVQtAZKK6Esxsn4cYxfqcxqCtPwlJD
- q9xfW8xAZjD3A==
-Message-ID: <6f3a890f-3bc3-450e-b3a1-20fa7e84fb8a@kernel.org>
-Date: Mon, 20 Apr 2026 16:18:04 +0200
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9D3210E67C
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 14:28:56 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-2d9472c97dbso278246eec.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 07:28:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776695336; cv=none;
+ d=google.com; s=arc-20240605;
+ b=afOpPZLZQ7lDU2Q/hAJzRiCWyj75t/4dzGxz/229g61P8G6MRAg4hcv4pzHTAZJEFY
+ F2cRP7S0o3VIjigG//6ODryYwsR0JrtDMS9J/8dzOxTXzUM+IcAkXSH9sFEiqjGoa89H
+ Rl51qYhke2VRM62KDxyejsDoI0SH7TzEUCPQGK7Z80ML3OJpfYletZn55nW63mIObzSR
+ SV41qUt1SBPp51dbWzcKSEnnKOliGog+n/JioXHyAPpNFm4/oGpquejLd6BLTvq+W3hr
+ ML7xUpbmQbYZxLTfb57QE7NpT+gdYJtxt9cf6jMJ3Awy6Fe8yDW+rPaGClV4OwSoLiup
+ Y4CQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=eZmECXGevCVaK/wwY62Jb7j9GBCzbmIgxR8ypNglG2Q=;
+ fh=onYFocRfLAytT/77LqjO1P7xDzKmut1wDz0Z3hw5wrM=;
+ b=VG+maj6Rksd+Hw0sWCp/cmGaXxODavj1wTt6dXhx54U8XSxB/6WscL/w+Ej2BM4WJl
+ c0U1xTTzZciQK3BnZ880PZtQT3Grh8SQR4Ef5Pj0efr3jb2jcol7Ssbo1n386xNGfaaU
+ SuyRVJfL30K9Qjh1eU2ac9Maus3wdBWiJBRa71nlb+VJo2HsWWIQmdDemObnYbEteEn9
+ WxAlJ1u3sNo7hmt1utAaJe0clG7nyZ7lE9SG8tgYMSbCkaUfFEgFM9SKy0cZLuvw4BFy
+ rqMYZAdo+Lc7lTQhPvsM7YQ3mnVz985VpKh6TkM5RGu6cn6htOw/RBgW8ApKN9xKJ3Gl
+ Y4qQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776695336; x=1777300136; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eZmECXGevCVaK/wwY62Jb7j9GBCzbmIgxR8ypNglG2Q=;
+ b=cLieqVOSEN13CNCpXyNI+JIhDg+WpIUbrY9B0UHU4Rn4GEzBYLrA/o4ZW5GF7Vny9o
+ dA+UPNeL9c451IfQGA0zDXkTiBGdhkRIM4HZjkAE2D6Wb9mULUueiPPZcipwF5MEr+jg
+ sYPFWzxLz7xlBmJmkLH7tc+mDAs5QCOFiXhJLOMOVH9muhb9mocCY9Xg/ZmWamkehVgx
+ juB2n+Sbn64baz2MarXMR8yp1TGq14b9cWZLxNGuVOIfKFbI6QJ4VmycVltkejw47/lI
+ TQL91FGyHVORk868z/4xuhfSso+ZD1D3jve0eXX0D/MWGmATwirtWU9j62CfIvSkO+pO
+ 1JYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776695336; x=1777300136;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=eZmECXGevCVaK/wwY62Jb7j9GBCzbmIgxR8ypNglG2Q=;
+ b=hAJQGzWfnw1CEPtr/xROWbPhBPzzeAPIhKChD08dwv+y6xQ3/6Ha4FvXJYGAbjE7VP
+ OU5cca8iUAYa+Ixr+fOI//RUJLv6ArSnGJCCCZHMbbxXiIhU4z5AGOEsCDp26OuNo1oh
+ SX3OMQJM1omYCY57xK5JHviOffda36uLadYGugj83JGlI1MiuOZjvbe2G9ofMeA3ubcf
+ 9a1gtMJiOjCfRii8oGBFqUQrTbz4fu86skafmT8Qwz9bEtAAJct4GsW7hXk9K9QjbWb0
+ YBHSedOgqCvlEu8+HqEHauzl7UmPF4e0kfos2YHCYL3fmEF2+NLn8noNOiIH6kRMt0Ht
+ E7pw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+UoGBUhpECLZ/cbJQGKe28e7Z7WL9xtTuLVNE+Kf3Bg8oKXn6flieLd6xy1c6USggki3UmsUaKpyc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQwlr+W4p+cQxGVme8bt81xl5vDLrIzQ85YTB6Eo3kjkMAzsy6
+ u+uuHnrwpOvrfxzh5zZAanrU7ucfaD7gBQLA7e0ZohYnlWe/87bvn9tBCnyESGTYi9z2b+rfX5Y
+ Prc3Wco4PYkWU3n6/KH9xjA5VqST9Ge0=
+X-Gm-Gg: AeBDies27OaO84oTJ1dL3MTOJ2Uii2Jw2sr2xvsTyeW/B9HXUIcOBG1qfyj7MFuVIBm
+ Lt3gXJQkCaL3GRqaltfzQDGSvhMHzp4aG2c9TML8BsL8sdusvvfkC34EofSOwijRDmpV6BtDT8G
+ zSApmJGEQM3KY98ldRlwioP8nPV/tUnsmXGmhHFq9jkD7LOaOpAnt6QoBvbvLgAXLPTmalQTpXN
+ o2Dfrfn+KmdkDN8iYRhz/kZbhsRW3YOEIF5wV2bsKJiG6782KvnxmNYCqIHCSs6FXbc3wRgvXAp
+ NceacW8P318M6Sn7YWA4SGiQZZac5wdsPG9gZwu0AiGDsdXvkqxQ+dunlEynCxN/lO0UWh+T5xR
+ nj1ou
+X-Received: by 2002:a05:7022:618a:b0:12a:716c:d27c with SMTP id
+ a92af1059eb24-12c73f65e7bmr3336746c88.2.1776695335696; Mon, 20 Apr 2026
+ 07:28:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: bridge: This patch adds new content
- to the lontium,lt9611.yaml binding file
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com
-References: <20260420061644.1251070-1-syyang@lontium.com>
- <20260420061644.1251070-2-syyang@lontium.com>
- <192f1948-bb9a-4831-a1cd-5ef500cfb413@kernel.org>
- <20260420-sophisticated-scorpion-from-camelot-b9f326@quoll>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260420-sophisticated-scorpion-from-camelot-b9f326@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260420125223.234974-1-tzimmermann@suse.de>
+In-Reply-To: <20260420125223.234974-1-tzimmermann@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 20 Apr 2026 10:28:42 -0400
+X-Gm-Features: AQROBzAfpKXjX3L7Hkb49pntXhT2-oonx5BaqtdUEdryQOx7lU1Oxs2Y7j6KTKQ
+Message-ID: <CADnq5_Ms0U0Pmpt3cvz6zFLZGrG0f6-x=4Nqam2XU8+gXGZA1w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Replace VKMS vblank timer with common
+ implementation
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,54 +108,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 20/04/2026 16:15, Krzysztof Kozlowski wrote:
-> On Mon, Apr 20, 2026 at 01:33:46PM +0200, Krzysztof Kozlowski wrote:
->>> -audio
->>>  1.sample rates of 32~192 KHz and sample sizes
->>>    of 16~24 bits
->>>  2.SPDIF interface supports PCM, Dolbydigital, DTS digital audio
->>>    at up to 192KHz frame rate
->>>
->>> -Miscellaneous
->>>  1.CSC:RGB<->YUV444<->YUV422
->>
->> Commit msg is not a datasheet introduction chapter. What does this all
->> mean for compatibility? What is the benefit of listing all this?
->>
->> You did not even explain the differences between C, UX and EXD, so all
->> above is pointless. Explain the differences and why devices are not
->> compatible.
->>
-> 
-> Also, you have checkpatch errors.
-> 
+Applied.  Thanks!
 
-... and finally (apologies for making it in three emails, checkpatch
-warnings come from different toolset): your subject is pretty breaking
-every standard rule.
-
-It's redundant, not informative in various ways. It misses proper
-prefix, it misses even basic description WHAT. Everything can be a "new
-content".
-
-Please use subject prefixes matching the subsystem. You can get them for
-example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
-your patch is touching. For bindings, the preferred subjects are
-explained here:
-https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
-
-Please do not use "This commit/patch/change", but imperative mood. See
-longer explanation here:
-https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
-
-Drop second/last, redundant "bindings". The "dt-bindings" prefix is
-already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v6.17-rc3/source/Documentation/devicetree/bindings/submitting-patches.rst#L18
-
-And obviously "file" is pointless. Can you add content NOT to a file?
-Like add it to a directory?
-
-
-Best regards,
-Krzysztof
+On Mon, Apr 20, 2026 at 8:59=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
+>
+> Replace amdgpu's custom vblank timers with the shared implementation
+> in DRM's vblank code. Both are built upon hrtimers. The vblank logic
+> is identical.
+>
+> The shared helpers contain all initialization internally. They also
+> handle a number of deadlocks and race conditions that are present in
+> amdgpu.
+>
+> Also remove the set-but-unused field vsync_timer_enabled from struct
+> amdgpu_crtc.
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h |   4 -
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 123 +----------------------
+>  2 files changed, 3 insertions(+), 124 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_mode.h
+> index 51ab1a332615..8069fc41cc7f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -38,7 +38,6 @@
+>  #include <drm/drm_probe_helper.h>
+>  #include <linux/i2c.h>
+>  #include <linux/i2c-algo-bit.h>
+> -#include <linux/hrtimer.h>
+>  #include "amdgpu_irq.h"
+>
+>  #include <drm/display/drm_dp_mst_helper.h>
+> @@ -505,9 +504,6 @@ struct amdgpu_crtc {
+>         u32 line_time;
+>         u32 lb_vblank_lead_lines;
+>         struct drm_display_mode hw_mode;
+> -       /* for virtual dce */
+> -       struct hrtimer vblank_timer;
+> -       enum amdgpu_interrupt_state vsync_timer_enabled;
+>
+>         int otg_inst;
+>         struct drm_pending_vblank_event *event;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vkms.c
+> index e54295b56282..9f497e9c65b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+> @@ -5,6 +5,7 @@
+>  #include <drm/drm_simple_kms_helper.h>
+>  #include <drm/drm_gem_framebuffer_helper.h>
+>  #include <drm/drm_vblank.h>
+> +#include <drm/drm_vblank_helper.h>
+>
+>  #include "amdgpu.h"
+>  #ifdef CONFIG_DRM_AMDGPU_SI
+> @@ -42,81 +43,6 @@ static const u32 amdgpu_vkms_formats[] =3D {
+>         DRM_FORMAT_XRGB8888,
+>  };
+>
+> -static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *=
+timer)
+> -{
+> -       struct amdgpu_crtc *amdgpu_crtc =3D container_of(timer, struct am=
+dgpu_crtc, vblank_timer);
+> -       struct drm_crtc *crtc =3D &amdgpu_crtc->base;
+> -       struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_out=
+put(crtc);
+> -       u64 ret_overrun;
+> -       bool ret;
+> -
+> -       ret_overrun =3D hrtimer_forward_now(&amdgpu_crtc->vblank_timer,
+> -                                         output->period_ns);
+> -       if (ret_overrun !=3D 1)
+> -               drm_warn(amdgpu_crtc->base.dev,
+> -                        "%s: vblank timer overrun count: %llu\n",
+> -                        __func__, ret_overrun);
+> -
+> -       ret =3D drm_crtc_handle_vblank(crtc);
+> -       /* Don't queue timer again when vblank is disabled. */
+> -       if (!ret)
+> -               return HRTIMER_NORESTART;
+> -
+> -       return HRTIMER_RESTART;
+> -}
+> -
+> -static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
+> -{
+> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> -       struct amdgpu_vkms_output *out =3D drm_crtc_to_amdgpu_vkms_output=
+(crtc);
+> -       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+> -
+> -       drm_calc_timestamping_constants(crtc, &crtc->mode);
+> -
+> -       out->period_ns =3D ktime_set(0, vblank->framedur_ns);
+> -       hrtimer_start(&amdgpu_crtc->vblank_timer, out->period_ns, HRTIMER=
+_MODE_REL);
+> -
+> -       return 0;
+> -}
+> -
+> -static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)
+> -{
+> -       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+> -
+> -       hrtimer_try_to_cancel(&amdgpu_crtc->vblank_timer);
+> -}
+> -
+> -static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
+> -                                            int *max_error,
+> -                                            ktime_t *vblank_time,
+> -                                            bool in_vblank_irq)
+> -{
+> -       struct amdgpu_vkms_output *output =3D drm_crtc_to_amdgpu_vkms_out=
+put(crtc);
+> -       struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(crtc);
+> -       struct amdgpu_crtc *amdgpu_crtc =3D to_amdgpu_crtc(crtc);
+> -
+> -       if (!READ_ONCE(vblank->enabled)) {
+> -               *vblank_time =3D ktime_get();
+> -               return true;
+> -       }
+> -
+> -       *vblank_time =3D READ_ONCE(amdgpu_crtc->vblank_timer.node.expires=
+);
+> -
+> -       if (WARN_ON(*vblank_time =3D=3D vblank->time))
+> -               return true;
+> -
+> -       /*
+> -        * To prevent races we roll the hrtimer forward before we do any
+> -        * interrupt processing - this is how real hw works (the interrup=
+t is
+> -        * only generated after all the vblank registers are updated) and=
+ what
+> -        * the vblank core expects. Therefore we need to always correct t=
+he
+> -        * timestampe by one frame.
+> -        */
+> -       *vblank_time -=3D output->period_ns;
+> -
+> -       return true;
+> -}
+> -
+>  static const struct drm_crtc_funcs amdgpu_vkms_crtc_funcs =3D {
+>         .set_config             =3D drm_atomic_helper_set_config,
+>         .destroy                =3D drm_crtc_cleanup,
+> @@ -124,45 +50,11 @@ static const struct drm_crtc_funcs amdgpu_vkms_crtc_=
+funcs =3D {
+>         .reset                  =3D drm_atomic_helper_crtc_reset,
+>         .atomic_duplicate_state =3D drm_atomic_helper_crtc_duplicate_stat=
+e,
+>         .atomic_destroy_state   =3D drm_atomic_helper_crtc_destroy_state,
+> -       .enable_vblank          =3D amdgpu_vkms_enable_vblank,
+> -       .disable_vblank         =3D amdgpu_vkms_disable_vblank,
+> -       .get_vblank_timestamp   =3D amdgpu_vkms_get_vblank_timestamp,
+> +       DRM_CRTC_VBLANK_TIMER_FUNCS,
+>  };
+>
+> -static void amdgpu_vkms_crtc_atomic_enable(struct drm_crtc *crtc,
+> -                                          struct drm_atomic_state *state=
+)
+> -{
+> -       drm_crtc_vblank_on(crtc);
+> -}
+> -
+> -static void amdgpu_vkms_crtc_atomic_disable(struct drm_crtc *crtc,
+> -                                           struct drm_atomic_state *stat=
+e)
+> -{
+> -       drm_crtc_vblank_off(crtc);
+> -}
+> -
+> -static void amdgpu_vkms_crtc_atomic_flush(struct drm_crtc *crtc,
+> -                                         struct drm_atomic_state *state)
+> -{
+> -       unsigned long flags;
+> -       if (crtc->state->event) {
+> -               spin_lock_irqsave(&crtc->dev->event_lock, flags);
+> -
+> -               if (drm_crtc_vblank_get(crtc) !=3D 0)
+> -                       drm_crtc_send_vblank_event(crtc, crtc->state->eve=
+nt);
+> -               else
+> -                       drm_crtc_arm_vblank_event(crtc, crtc->state->even=
+t);
+> -
+> -               spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
+> -
+> -               crtc->state->event =3D NULL;
+> -       }
+> -}
+> -
+>  static const struct drm_crtc_helper_funcs amdgpu_vkms_crtc_helper_funcs =
+=3D {
+> -       .atomic_flush   =3D amdgpu_vkms_crtc_atomic_flush,
+> -       .atomic_enable  =3D amdgpu_vkms_crtc_atomic_enable,
+> -       .atomic_disable =3D amdgpu_vkms_crtc_atomic_disable,
+> +       DRM_CRTC_HELPER_VBLANK_FUNCS,
+>  };
+>
+>  static int amdgpu_vkms_crtc_init(struct drm_device *dev, struct drm_crtc=
+ *crtc,
+> @@ -187,10 +79,6 @@ static int amdgpu_vkms_crtc_init(struct drm_device *d=
+ev, struct drm_crtc *crtc,
+>         amdgpu_crtc->pll_id =3D ATOM_PPLL_INVALID;
+>         amdgpu_crtc->encoder =3D NULL;
+>         amdgpu_crtc->connector =3D NULL;
+> -       amdgpu_crtc->vsync_timer_enabled =3D AMDGPU_IRQ_STATE_DISABLE;
+> -
+> -       hrtimer_setup(&amdgpu_crtc->vblank_timer, &amdgpu_vkms_vblank_sim=
+ulate, CLOCK_MONOTONIC,
+> -                     HRTIMER_MODE_REL);
+>
+>         return ret;
+>  }
+> @@ -538,11 +426,6 @@ static int amdgpu_vkms_sw_init(struct amdgpu_ip_bloc=
+k *ip_block)
+>  static int amdgpu_vkms_sw_fini(struct amdgpu_ip_block *ip_block)
+>  {
+>         struct amdgpu_device *adev =3D ip_block->adev;
+> -       int i =3D 0;
+> -
+> -       for (i =3D 0; i < adev->mode_info.num_crtc; i++)
+> -               if (adev->mode_info.crtcs[i])
+> -                       hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_=
+timer);
+>
+>         drm_kms_helper_poll_fini(adev_to_drm(adev));
+>         drm_mode_config_cleanup(adev_to_drm(adev));
+> --
+> 2.53.0
+>
