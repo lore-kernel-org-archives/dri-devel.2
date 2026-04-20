@@ -4,104 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1984F588C2
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 12:52:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 723A1F588C2
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 12:54:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC7CF10E597;
-	Mon, 20 Apr 2026 12:52:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD60989DA5;
+	Mon, 20 Apr 2026 12:54:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="eAKpRKNB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UihuWR5v";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eAKpRKNB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="UihuWR5v";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CvcT5FSj";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 938D810E597
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 12:52:28 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3EF3F5BCD2;
- Mon, 20 Apr 2026 12:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776689547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DaVPvgyfDTCuL2vL0og8o+J1SC3wf6QM2Ry7EZHNGkY=;
- b=eAKpRKNBXi99BnJ1A2+3lNHmFiQe93MEv20pQAyvBZ/E54PrDGZCOx6SrKA3j4+b6Jen6q
- LCtfP+2GwnmGX4Vs650m6lZH4HP9Ylozzo8iI/E7Hyp1UK1WHa7/3s+NU2jNasvjUS7gPh
- FXhl1qfN48SVALhyF2/0wTOrS3Evbfg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776689547;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DaVPvgyfDTCuL2vL0og8o+J1SC3wf6QM2Ry7EZHNGkY=;
- b=UihuWR5vC8MTFSU9Fadm3SqsmuDkMr/DqrBArHJkui8I3Ox6uZlr8mn9UXfKbKYr68qK5s
- cNfJ/qS1XmXe1BDQ==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eAKpRKNB;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UihuWR5v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776689547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DaVPvgyfDTCuL2vL0og8o+J1SC3wf6QM2Ry7EZHNGkY=;
- b=eAKpRKNBXi99BnJ1A2+3lNHmFiQe93MEv20pQAyvBZ/E54PrDGZCOx6SrKA3j4+b6Jen6q
- LCtfP+2GwnmGX4Vs650m6lZH4HP9Ylozzo8iI/E7Hyp1UK1WHa7/3s+NU2jNasvjUS7gPh
- FXhl1qfN48SVALhyF2/0wTOrS3Evbfg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776689547;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=DaVPvgyfDTCuL2vL0og8o+J1SC3wf6QM2Ry7EZHNGkY=;
- b=UihuWR5vC8MTFSU9Fadm3SqsmuDkMr/DqrBArHJkui8I3Ox6uZlr8mn9UXfKbKYr68qK5s
- cNfJ/qS1XmXe1BDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09FD4593AE;
- Mon, 20 Apr 2026 12:52:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id +Y4EAYsh5mmZDQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 20 Apr 2026 12:52:27 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH] drm/amdgpu: Replace VKMS vblank timer with common
- implementation
-Date: Mon, 20 Apr 2026 14:51:53 +0200
-Message-ID: <20260420125223.234974-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A5D089DA5
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 12:54:35 +0000 (UTC)
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 39D2BE45;
+ Mon, 20 Apr 2026 14:52:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1776689577;
+ bh=SPfFH8+39ZVwGuUGhL1G9PO4gGk437bMONSIMMQSxzw=;
+ h=From:Subject:Date:To:Cc:From;
+ b=CvcT5FSjT+2k57n6mCitaZuoHk9fLpEqeqh3b2fKvHkLCiIC+3yqzMphMqJP/BszR
+ K1+J71YIBLr2GeTFv1GFQH2pjoCJFt+RLUCE9eHZGYYvdqc27c7n9F7t12IeyqwOjI
+ o6hWDIgnsWTWdlEUCgpKEfp6GCS1t3K44om9OB+k=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCH 00/15] drm/tidss: Add BeagleY-AI display support (and some
+ more)
+Date: Mon, 20 Apr 2026 15:54:07 +0300
+Message-Id: <20260420-beagley-ai-display-v1-0-f628543dfd14@ideasonboard.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCPT_COUNT_SEVEN(0.00)[7];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3EF3F5BCD2
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPAh5mkC/yWNWw6CMBQFt9L020vaUmgkxrgPw0ehF7xGHrZIJ
+ IS9W+FzTnJmVh7QEwZesJV7nCnQ0EeQJ8brh+1bBHKRuRIqF1oJqNC2L1zAEjgK48su4EyTp7p
+ 2mDWax+PosaHvLr2XB3t8f6J7OkZe2YBQD11HU8Fmk4j/rcMQ7B4s2OXoyUxKocU5UZkxeZqCh
+ ABPS728TZREwZWX2/YDU1sCLsUAAAA=
+X-Change-ID: 20260420-beagley-ai-display-d7f634cde5f4
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
+ Devarsh Thakkar <devarsht@ti.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Jayesh Choudhary <j-choudhary@ti.com>, Aradhya Bhatia <a-bhatia1@ti.com>, 
+ Andrew Davis <afd@ti.com>
+X-Mailer: b4 0.15-dev-c25d1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3854;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=SPfFH8+39ZVwGuUGhL1G9PO4gGk437bMONSIMMQSxzw=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBp5iH/P0rnvcHFC9KpXXljG3SIo4b19WVGZGxXl
+ XPgCJEgENuJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCaeYh/wAKCRD6PaqMvJYe
+ 9ZxYEACfuyUNYDDVUrN+zL+6N2HGMJBvUjbouKBmYqpVm8XdHnwlhXjVYGl8g1AhA0eFMmR0DMI
+ m4cL5k2j4y1d4p4KbQA/Jnp98CV8hdAGUXgz5GycDZv0esQ+uYxRnJmhW3z14RjwN6KtSr6IEld
+ M24iU4jUOUVQgB5S9yb/3tv5Htdw1yquCoSw8UfTI8vZ6D/8qgsyQPv0QoWH8D6sNu4Sjze3gpW
+ Asvoynn/upqqDtijnMupQpBdNnhBUQHe0dwIBhEP6XMTn2mDR5RklNAQG78It58ewW0KDB75MiE
+ FWyrcFkWwPiSuOW5hHIPIfC480cV9rlMZDZM2/geZtptZcs4ALZGD95Mli5eRt02MiNQumH12BN
+ 3/u++sbL55y/zC0rvjmr5Mi5ST21I9td9ZGq85EESEyRbZg9hT6IH1SUMbXccfIpYqdx3yRuoD6
+ mgI5DJ7UrTLX51xtv4qOKfVTMuflqWOVHQU47OUR3eM5kUQ1MDzk7ogk5AxvfUhAe2PrSwoDXVn
+ glFadbI4W6sQRCe/ZBLjye4MDAfKwVQD5Y3GEiYpo/wUmEmVTaBalVgGh4CTuHIht5/n2MimWtw
+ AKuEHnlkzfUcrfH/c4iIhA3J62uIcetVRkKZhcOdki4JALk6b2bZdu1csLH+XpmpJN0Uq32tin1
+ NbuWiU4Nh3MO26Q==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,210 +87,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace amdgpu's custom vblank timers with the shared implementation
-in DRM's vblank code. Both are built upon hrtimers. The vblank logic
-is identical.
+This series aims to add display support for all display interfaces on
+BeagleY-AI board. More generally, it adds display support for TI AM62P,
+J722S, and related SoCs, and, as a bit extra, improves AM62L's DPI
+handling.
 
-The shared helpers contain all initialization internally. They also
-handle a number of deadlocks and race conditions that are present in
-amdgpu.
+The main topics to highlight:
 
-Also remove the set-but-unused field vsync_timer_enabled from struct
-amdgpu_crtc.
+- The ti,am625-dss-dpi0-clk-ctrl feels a bit like a hack.
+  But it is a single quirk register, among other registers that belong
+  to either the firmware or other drivers. So what other options are
+  there? This has already been discussed e.g. in
+  https://lore.kernel.org/all/20250730-fix-edge-handling-v1-0-1bdfb3fe7922%40bootlin.com/
+  without proper conclusion. 
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+- The tidss OLDI support will now use auxiliary device/driver. This seems
+  to solve quite neatly the requirement to have a power-domain for each
+  OLDI. The main issue that remains is that on AM62P (and similar) we
+  will have three OLDI TX DT nodes, even if there are only two in the
+  hardware.
+
+With this series one can use the HDMI output on BeagleY-AI. I have also
+tested the DSI output with Raspberry Pi's 7" DSI display, and OLDI
+output with an oscilloscope (I don't have a suitable OLDI panel).
+
+ Tomi
+
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h |   4 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 123 +----------------------
- 2 files changed, 3 insertions(+), 124 deletions(-)
+Andrew Davis (1):
+      arm64: dts: ti: beagley-ai: Enable HDMI display and audio
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index 51ab1a332615..8069fc41cc7f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -38,7 +38,6 @@
- #include <drm/drm_probe_helper.h>
- #include <linux/i2c.h>
- #include <linux/i2c-algo-bit.h>
--#include <linux/hrtimer.h>
- #include "amdgpu_irq.h"
- 
- #include <drm/display/drm_dp_mst_helper.h>
-@@ -505,9 +504,6 @@ struct amdgpu_crtc {
- 	u32 line_time;
- 	u32 lb_vblank_lead_lines;
- 	struct drm_display_mode hw_mode;
--	/* for virtual dce */
--	struct hrtimer vblank_timer;
--	enum amdgpu_interrupt_state vsync_timer_enabled;
- 
- 	int otg_inst;
- 	struct drm_pending_vblank_event *event;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-index e54295b56282..9f497e9c65b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-@@ -5,6 +5,7 @@
- #include <drm/drm_simple_kms_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_vblank.h>
-+#include <drm/drm_vblank_helper.h>
- 
- #include "amdgpu.h"
- #ifdef CONFIG_DRM_AMDGPU_SI
-@@ -42,81 +43,6 @@ static const u32 amdgpu_vkms_formats[] = {
- 	DRM_FORMAT_XRGB8888,
- };
- 
--static enum hrtimer_restart amdgpu_vkms_vblank_simulate(struct hrtimer *timer)
--{
--	struct amdgpu_crtc *amdgpu_crtc = container_of(timer, struct amdgpu_crtc, vblank_timer);
--	struct drm_crtc *crtc = &amdgpu_crtc->base;
--	struct amdgpu_vkms_output *output = drm_crtc_to_amdgpu_vkms_output(crtc);
--	u64 ret_overrun;
--	bool ret;
--
--	ret_overrun = hrtimer_forward_now(&amdgpu_crtc->vblank_timer,
--					  output->period_ns);
--	if (ret_overrun != 1)
--		drm_warn(amdgpu_crtc->base.dev,
--			 "%s: vblank timer overrun count: %llu\n",
--			 __func__, ret_overrun);
--
--	ret = drm_crtc_handle_vblank(crtc);
--	/* Don't queue timer again when vblank is disabled. */
--	if (!ret)
--		return HRTIMER_NORESTART;
--
--	return HRTIMER_RESTART;
--}
--
--static int amdgpu_vkms_enable_vblank(struct drm_crtc *crtc)
--{
--	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
--	struct amdgpu_vkms_output *out = drm_crtc_to_amdgpu_vkms_output(crtc);
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--
--	drm_calc_timestamping_constants(crtc, &crtc->mode);
--
--	out->period_ns = ktime_set(0, vblank->framedur_ns);
--	hrtimer_start(&amdgpu_crtc->vblank_timer, out->period_ns, HRTIMER_MODE_REL);
--
--	return 0;
--}
--
--static void amdgpu_vkms_disable_vblank(struct drm_crtc *crtc)
--{
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--
--	hrtimer_try_to_cancel(&amdgpu_crtc->vblank_timer);
--}
--
--static bool amdgpu_vkms_get_vblank_timestamp(struct drm_crtc *crtc,
--					     int *max_error,
--					     ktime_t *vblank_time,
--					     bool in_vblank_irq)
--{
--	struct amdgpu_vkms_output *output = drm_crtc_to_amdgpu_vkms_output(crtc);
--	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
--	struct amdgpu_crtc *amdgpu_crtc = to_amdgpu_crtc(crtc);
--
--	if (!READ_ONCE(vblank->enabled)) {
--		*vblank_time = ktime_get();
--		return true;
--	}
--
--	*vblank_time = READ_ONCE(amdgpu_crtc->vblank_timer.node.expires);
--
--	if (WARN_ON(*vblank_time == vblank->time))
--		return true;
--
--	/*
--	 * To prevent races we roll the hrtimer forward before we do any
--	 * interrupt processing - this is how real hw works (the interrupt is
--	 * only generated after all the vblank registers are updated) and what
--	 * the vblank core expects. Therefore we need to always correct the
--	 * timestampe by one frame.
--	 */
--	*vblank_time -= output->period_ns;
--
--	return true;
--}
--
- static const struct drm_crtc_funcs amdgpu_vkms_crtc_funcs = {
- 	.set_config             = drm_atomic_helper_set_config,
- 	.destroy                = drm_crtc_cleanup,
-@@ -124,45 +50,11 @@ static const struct drm_crtc_funcs amdgpu_vkms_crtc_funcs = {
- 	.reset                  = drm_atomic_helper_crtc_reset,
- 	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
- 	.atomic_destroy_state   = drm_atomic_helper_crtc_destroy_state,
--	.enable_vblank		= amdgpu_vkms_enable_vblank,
--	.disable_vblank		= amdgpu_vkms_disable_vblank,
--	.get_vblank_timestamp	= amdgpu_vkms_get_vblank_timestamp,
-+	DRM_CRTC_VBLANK_TIMER_FUNCS,
- };
- 
--static void amdgpu_vkms_crtc_atomic_enable(struct drm_crtc *crtc,
--					   struct drm_atomic_state *state)
--{
--	drm_crtc_vblank_on(crtc);
--}
--
--static void amdgpu_vkms_crtc_atomic_disable(struct drm_crtc *crtc,
--					    struct drm_atomic_state *state)
--{
--	drm_crtc_vblank_off(crtc);
--}
--
--static void amdgpu_vkms_crtc_atomic_flush(struct drm_crtc *crtc,
--					  struct drm_atomic_state *state)
--{
--	unsigned long flags;
--	if (crtc->state->event) {
--		spin_lock_irqsave(&crtc->dev->event_lock, flags);
--
--		if (drm_crtc_vblank_get(crtc) != 0)
--			drm_crtc_send_vblank_event(crtc, crtc->state->event);
--		else
--			drm_crtc_arm_vblank_event(crtc, crtc->state->event);
--
--		spin_unlock_irqrestore(&crtc->dev->event_lock, flags);
--
--		crtc->state->event = NULL;
--	}
--}
--
- static const struct drm_crtc_helper_funcs amdgpu_vkms_crtc_helper_funcs = {
--	.atomic_flush	= amdgpu_vkms_crtc_atomic_flush,
--	.atomic_enable	= amdgpu_vkms_crtc_atomic_enable,
--	.atomic_disable	= amdgpu_vkms_crtc_atomic_disable,
-+	DRM_CRTC_HELPER_VBLANK_FUNCS,
- };
- 
- static int amdgpu_vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
-@@ -187,10 +79,6 @@ static int amdgpu_vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
- 	amdgpu_crtc->pll_id = ATOM_PPLL_INVALID;
- 	amdgpu_crtc->encoder = NULL;
- 	amdgpu_crtc->connector = NULL;
--	amdgpu_crtc->vsync_timer_enabled = AMDGPU_IRQ_STATE_DISABLE;
--
--	hrtimer_setup(&amdgpu_crtc->vblank_timer, &amdgpu_vkms_vblank_simulate, CLOCK_MONOTONIC,
--		      HRTIMER_MODE_REL);
- 
- 	return ret;
- }
-@@ -538,11 +426,6 @@ static int amdgpu_vkms_sw_init(struct amdgpu_ip_block *ip_block)
- static int amdgpu_vkms_sw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
--	int i = 0;
--
--	for (i = 0; i < adev->mode_info.num_crtc; i++)
--		if (adev->mode_info.crtcs[i])
--			hrtimer_cancel(&adev->mode_info.crtcs[i]->vblank_timer);
- 
- 	drm_kms_helper_poll_fini(adev_to_drm(adev));
- 	drm_mode_config_cleanup(adev_to_drm(adev));
+Jayesh Choudhary (1):
+      arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS
+
+Swamil Jain (1):
+      drm/tidss: Add support for AM62P display subsystem
+
+Tomi Valkeinen (12):
+      dt-bindings: display: ti: Move ti,am62l-dss binding to a new binding file
+      dt-bindings: display: ti,am65x-dss: Simplify binding
+      dt-bindings: mfd: syscon: Add ti,am625-dss-dpi0-clk-ctrl compatible
+      dt-bindings: display: ti,am625-oldi: Add optional power-domain for OLDI
+      dt-bindings: display: ti,am65x-dss: Add AM62P DSS
+      drm/tidss: Remove extra pm_runtime_mark_last_busy
+      drm/tidss: oldi: Remove define for unused register OLDI_LB_CTRL
+      drm/tidss: Add mechanism to detect DPI output
+      drm/tidss: Add external data and sync signal edge configuration
+      drm/tidss: Add support for DPIENABLE bit
+      drm/tidss: oldi: Fix OLDI signal polarities
+      drm/tidss: oldi: Convert OLDI to an aux driver
+
+ .../bindings/display/ti/ti,am625-oldi.yaml         |   4 +
+ .../bindings/display/ti/ti,am62l-dss.yaml          | 136 ++++++
+ .../bindings/display/ti/ti,am65x-dss.yaml          | 176 +++----
+ Documentation/devicetree/bindings/mfd/syscon.yaml  |   2 +
+ MAINTAINERS                                        |   1 +
+ .../boot/dts/ti/k3-am62p-j722s-common-main.dtsi    | 112 +++++
+ arch/arm64/boot/dts/ti/k3-am62p.dtsi               |  16 +
+ arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts     | 197 ++++++++
+ arch/arm64/boot/dts/ti/k3-j722s.dtsi               |  16 +
+ drivers/gpu/drm/tidss/tidss_crtc.c                 |  10 +-
+ drivers/gpu/drm/tidss/tidss_crtc.h                 |   4 +-
+ drivers/gpu/drm/tidss/tidss_dispc.c                |  46 +-
+ drivers/gpu/drm/tidss/tidss_dispc.h                |   5 +-
+ drivers/gpu/drm/tidss/tidss_dispc_regs.h           |   5 +
+ drivers/gpu/drm/tidss/tidss_drv.c                  |  54 ++-
+ drivers/gpu/drm/tidss/tidss_drv.h                  |   5 +-
+ drivers/gpu/drm/tidss/tidss_kms.c                  |  55 ++-
+ drivers/gpu/drm/tidss/tidss_oldi.c                 | 531 +++++++++++++++------
+ drivers/gpu/drm/tidss/tidss_oldi.h                 |   8 +-
+ 19 files changed, 1095 insertions(+), 288 deletions(-)
+---
+base-commit: 3131ff5a117498bb4b9db3a238bb311cbf8383ce
+change-id: 20260420-beagley-ai-display-d7f634cde5f4
+prerequisite-message-id: <20260415110409.2577633-1-s-jain1@ti.com>
+prerequisite-patch-id: 654d90f9cddec8b41e6fb1b3776a632606fef88c
+
+Best regards,
 -- 
-2.53.0
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
