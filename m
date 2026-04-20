@@ -4,54 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE13F588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8AB9F588C2
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96AEB10E619;
-	Mon, 20 Apr 2026 13:26:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCC310E61B;
+	Mon, 20 Apr 2026 13:26:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YqyCHUeE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kXw2ap40";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A31E10E619
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:26:20 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C051E10E61F;
+ Mon, 20 Apr 2026 13:26:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0DAC343421;
- Mon, 20 Apr 2026 13:26:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FED0C2BCC6;
- Mon, 20 Apr 2026 13:26:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 38C9360580;
+ Mon, 20 Apr 2026 13:26:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA3DC19425;
+ Mon, 20 Apr 2026 13:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691579;
- bh=y22peYpMlpSzuER+C2gLxScD6Jxm+fW4HrEpcE8vri8=;
+ s=k20201202; t=1776691582;
+ bh=4COp8xb5iO+Kg0G+zZIjHdRsnR2gbF62l8JK/WOAnOA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YqyCHUeEC/t0W4qRTRY+/yUqP4l4oQeahUL4R8HwMqiSJuS4xhMs7BhZVY12Ptu0T
- GktHsOFVxiU9wb0U3f8H75deCBAVli4idmM9l8faX+BmXbwvpkSaYPILASzNf2BlWk
- rz7fIpMW55de5ScZP6+7gk6AP8Ak+1ARztP6+t571HgZ5cv27Z2x6urdHlk/3edPSX
- vq2pb77p+A1NmwrwfWl+QMYugwVoNiUuO7/H38T78tqnNOihy7rVNiYm5WeytlDOkB
- BX9ykWWvXMy/Hh9miTqVv5JKOIQ4e7KmgAxch6qtE95f6nk+snkDQ/hwm/sREOiyHd
- raUjMhuO4/eXA==
+ b=kXw2ap40PnjZqEJahn5cJxSR/zIjKNgmwOOYohhpHgTZ86goJs30oDDyeMqWFZI8B
+ ECJXVmhf+hTdaAXPI2ks0TvZPn4VYuTZTbix+Z/kjpTCP4Wo3fwpPbTl+WPVbwm4MT
+ 8vhuQI35WSPQFRsq1m70S64Vv/1wkKuBP4G0RlPfPpvXNE0Qtos39ya6vqgPTpsEz4
+ PT2upwfwdVf9WbAgj/0ZGY+oMzXw7Ji27PSFB6Xa+i+wFS5PCYnWnv8gEHEZyNmGx8
+ HVnZEpFSPqZ4AXy0XCnQr4E0m8QKw752ccQ/S6HVC34vOn0UktJM9z1QMSAZzoxEqd
+ jINg/tOzucfOA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>,
- kernel test robot <lkp@intel.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/imx: parallel-display: add
- DRM_DISPLAY_HELPER for DRM_IMX_PARALLEL_DISPLAY
-Date: Mon, 20 Apr 2026 09:18:26 -0400
-Message-ID: <20260420132314.1023554-112-sashal@kernel.org>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Sasha Levin <sashal@kernel.org>,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu: fix amdgpu_userq_evict
+Date: Mon, 20 Apr 2026 09:18:28 -0400
+Message-ID: <20260420132314.1023554-114-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,317 +65,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>
+From: Christian König <christian.koenig@amd.com>
 
-[ Upstream commit 02df94d98ff837074788ce921edf67707dbad404 ]
+[ Upstream commit 98dc529a27c57e184ab47453993ba9cfcfcec0ca ]
 
-When I build for an old imx53 platform I see the same as the test robot
-saw before:
+Canceling the resume worker synchonized can deadlock because it can in
+turn wait for the eviction worker through the userq_mutex.
 
-arm-buildroot-linux-gnueabihf-ld: drivers/gpu/drm/imx/ipuv3/parallel-display.o: in function `imx_pd_bind':
-parallel-display.c:(.text+0xb8): undefined reference to `drm_bridge_connector_init'
-
-Selecting DRM_DISPLAY_HELPER for DRM_IMX_PARALLEL_DISPLAY fixes the build.
-
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202512241721.jZgcwRfr-lkp@intel.com/
-
-Signed-off-by: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
-Link: https://patch.msgid.link/20260121102607.4087362-1-martin.kepplinger-novakovic@ginzinger.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a thorough analysis. Let me
-compile the full assessment.
+Now I have all the information needed for a complete analysis. Let me
+compile the findings.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-- **Subsystem:** drm/imx: parallel-display
-- **Action verb:** "add" (Kconfig dependency)
-- **Summary:** Add missing `DRM_DISPLAY_HELPER` Kconfig select for
-  `DRM_IMX_PARALLEL_DISPLAY`
-- Record: [drm/imx subsystem] [add missing dependency] [fixes link error
-  for drm_bridge_connector_init]
+**Step 1.1: Subject Line**
+- Subsystem: `drm/amdgpu` (AMD GPU DRM driver)
+- Action verb: "fix"
+- Summary: Fix deadlock in `amdgpu_userq_evict` function
+- Record: [drm/amdgpu] [fix] [deadlock in userqueue eviction path]
 
-### Step 1.2: Tags
-- **Reported-by:** kernel test robot `<lkp@intel.com>` — automated build
-  testing found this
-- **Closes:** lore link to kbuild error report
-- **Signed-off-by:** Martin Kepplinger-Novakovic (author), Philipp Zabel
-  (maintainer)
-- **Reviewed-by:** Philipp Zabel (subsystem maintainer)
-- **Link:** patch.msgid.link to original submission
-- No Fixes: tag, no Cc: stable (expected for manual review candidates)
-- Record: Kernel test robot reported build failure. Subsystem maintainer
-  reviewed AND committed.
+**Step 1.2: Tags**
+- Signed-off-by: Christian König (author, AMD's senior DRM/GPU
+  maintainer)
+- Reviewed-by: Alex Deucher (AMD's kernel graphics lead maintainer)
+- Reviewed-by: Sunil Khatri
+- Signed-off-by: Alex Deucher (committer)
+- No Fixes: tag (expected - that's why manual review is needed)
+- No Cc: stable (expected)
+- Record: Author is subsystem maintainer. Two Reviewed-by tags from AMD
+  developers. Strong quality signal.
 
-### Step 1.3: Body Text
-The commit message includes the exact linker error:
-```
-arm-buildroot-linux-gnueabihf-ld: ... undefined reference to
-`drm_bridge_connector_init'
-```
-The author confirms reproducing this on a real imx53 platform build. The
-fix is explicitly stated: "Selecting DRM_DISPLAY_HELPER for
-DRM_IMX_PARALLEL_DISPLAY fixes the build."
+**Step 1.3: Commit Body**
+- Bug: Canceling the resume worker synchronously
+  (`cancel_delayed_work_sync`) can deadlock because the resume worker
+  waits for the eviction worker via `userq_mutex`.
+- Record: Classic AB-BA deadlock between suspend_worker and
+  resume_worker via `userq_mutex`.
 
-Record: [Build failure — linker error for undefined
-`drm_bridge_connector_init`] [Symptom: build fails for imx53 parallel
-display] [Confirmed by both author and test robot]
-
-### Step 1.4: Hidden Bug Fix Detection
-This is explicitly a build fix, not disguised. No hidden complexity.
+**Step 1.4: Hidden Bug Fix Detection**
+- This is explicitly labeled "fix" and describes a deadlock. Not hidden
+  at all.
+- Record: Obvious deadlock fix.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-- **Files changed:** 1 (`drivers/gpu/drm/imx/ipuv3/Kconfig`)
-- **Lines added:** 1 (`select DRM_DISPLAY_HELPER`)
-- **Lines removed:** 0
-- **Scope:** Single-file, single-line Kconfig change
-- Record: [1 file, +1 line, single Kconfig select statement]
+**Step 2.1: Inventory**
+- 1 file changed: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
+- Lines removed: ~6, lines added: ~2 (net -4 lines)
+- Function modified: `amdgpu_userq_evict()`
+- Scope: single-file surgical fix in one function
+- Record: Very small, contained change.
 
-### Step 2.2: Code Flow
-- **Before:** `DRM_IMX_PARALLEL_DISPLAY` selects `DRM_BRIDGE_CONNECTOR`
-  but not `DRM_DISPLAY_HELPER`
-- **After:** Also selects `DRM_DISPLAY_HELPER`
+**Step 2.2: Code Flow Change**
 
-The root cause: `DRM_BRIDGE_CONNECTOR` is defined inside `if
-DRM_DISPLAY_HELPER` in `drivers/gpu/drm/display/Kconfig` (line 15-17).
-The `drm_bridge_connector.o` object is compiled as part of the
-`drm_display_helper` module. Without `DRM_DISPLAY_HELPER` enabled,
-`drm_bridge_connector_init()` is never compiled, causing the linker
-error.
+BEFORE:
+```c
+if (evf_mgr->fd_closing) {
+    cancel_delayed_work_sync(&uq_mgr->resume_work);
+    return;
+}
+schedule_delayed_work(&uq_mgr->resume_work, 0);
+```
 
-### Step 2.3: Bug Mechanism
-Category: **Build fix** — missing Kconfig dependency causes link
-failure.
+AFTER:
+```c
+if (!evf_mgr->fd_closing)
+    schedule_delayed_work(&uq_mgr->resume_work, 0);
+```
 
-### Step 2.4: Fix Quality
-- Obviously correct: the function is in the `drm_display_helper` module,
-  so the module must be selected
-- Minimal: 1 line
-- Zero runtime regression risk: only affects build-time dependency
-  resolution
-- Record: [Perfect quality, zero regression risk]
+Before: When `fd_closing`, synchronously cancel any pending resume work
+and return. Otherwise, schedule resume work.
+After: Simply don't schedule resume work when `fd_closing`. No
+synchronous cancel.
 
----
+**Step 2.3: Bug Mechanism**
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+This is a **deadlock** fix. The verified call chain:
 
-### Step 3.1: Blame
-From `git blame`, `DRM_BRIDGE_CONNECTOR` was added to this Kconfig by
-commit f673055a46784 ("drm/imx: Add missing DRM_BRIDGE_CONNECTOR
-dependency") in the v6.13 cycle. That commit itself was a partial fix —
-it added the `DRM_BRIDGE_CONNECTOR` select but missed adding
-`DRM_DISPLAY_HELPER`.
+1. `amdgpu_eviction_fence_suspend_worker()` acquires
+   `uq_mgr->userq_mutex` (line 110 in `amdgpu_eviction_fence.c`), then
+   calls `amdgpu_userq_evict()` (line 119)
+2. `amdgpu_userq_evict()` calls
+   `cancel_delayed_work_sync(&uq_mgr->resume_work)` when `fd_closing` -
+   this waits for resume_work to finish
+3. `amdgpu_userq_restore_worker()` (the resume_work callback) first
+   calls `flush_delayed_work(&fpriv->evf_mgr.suspend_work)` (line 1277),
+   which waits for the suspend_worker, then tries to acquire
+   `userq_mutex` (line 1279)
 
-### Step 3.2: Root Cause Chain
-- Commit 9da7ec9b19d8 ("drm/bridge-connector: move to DRM_DISPLAY_HELPER
-  module") moved `drm_bridge_connector` under `DRM_DISPLAY_HELPER` —
-  root cause
-- Commit 5f6e56d3319d2 ("drm/imx: parallel-display: switch to
-  drm_panel_bridge") introduced bridge usage
-- Commit f673055a46784 added `select DRM_BRIDGE_CONNECTOR` but missed
-  `DRM_DISPLAY_HELPER`
-- The bug is that several commits were applied to bring bridge_connector
-  to imx but the Kconfig dependency chain was incomplete
+Result: suspend_worker holds `userq_mutex` and waits for resume_worker;
+resume_worker either flushes suspend_worker (direct circular wait) or
+waits for `userq_mutex` (held by suspend_worker). Classic deadlock.
 
-### Step 3.3: Prerequisite Check
-All prerequisite commits (5f6e56d3319d2, f673055a46784, ef214002e6b38)
-are already in v7.0. This fix applies standalone.
+Record: [Deadlock] [suspend_worker holds userq_mutex ->
+cancel_delayed_work_sync waits for resume_worker -> resume_worker
+flushes suspend_worker or waits for userq_mutex = DEADLOCK]
 
-### Step 3.4: Author Context
-Martin Kepplinger-Novakovic is a recognized contributor (has
-MAINTAINERS/CREDITS changes). The fix was reviewed by Philipp Zabel, the
-actual subsystem maintainer for drm/imx.
-
-### Step 3.5: Stable Tree Applicability
-- **v6.12:** Bug does NOT exist — `parallel-display.c` doesn't call
-  `drm_bridge_connector_init()` (verified: 0 occurrences)
-- **v6.13:** Bug EXISTS — Kconfig has `select DRM_BRIDGE_CONNECTOR` but
-  not `select DRM_DISPLAY_HELPER`
-- **v6.14:** Bug EXISTS — same Kconfig state as v6.13
-- **v7.0:** Bug EXISTS — confirmed identical Kconfig state, fix applies
-  cleanly
+**Step 2.4: Fix Quality**
+- Obviously correct: Removing the `cancel_delayed_work_sync` eliminates
+  the deadlock
+- Minimal/surgical: Only removes the dangerous synchronous cancel, keeps
+  the logic of not resuming when fd is closing
+- Regression risk: Very low. The only concern would be if a stale
+  resume_work runs after fd_closing, but other cleanup paths
+  (`amdgpu_userq_destroy` at line 632 does `cancel_delayed_work_sync`
+  safely before taking mutex) handle this properly.
+- Record: High quality fix. No regression risk.
 
 ---
 
-## PHASE 4: MAILING LIST RESEARCH
+## PHASE 3: GIT HISTORY
 
-### Step 4.1-4.2: Original Discussion
-- b4 dig for the prior commit (f673055a46784) found the thread at lore.
-  It was a single-patch fix
-- The current fix was submitted by the author after hitting the build
-  failure on real hardware
-- Reviewed-by from Philipp Zabel (the drm/imx maintainer who also
-  committed it)
+**Step 3.1: Blame**
+- The buggy `cancel_delayed_work_sync` in `amdgpu_userq_evict` was
+  introduced by commit `f10eb185ad0552` (Arvind Yadav, 2025-05-07, "Fix
+  NULL dereference in amdgpu_userq_restore_worker"), though the original
+  `fd_closing` branch was from `44cfdf368fb72c` (Shashank Sharma,
+  2024-11-20, "resume gfx userqueues").
+- Record: Buggy code introduced in the v6.16 development cycle.
 
-### Step 4.3: Bug Report
-The kernel test robot (kbuild) reported the linker error, referenced in
-the Closes: tag.
+**Step 3.2:** No Fixes: tag to follow.
 
-### Step 4.4-4.5: Series Context
-Standalone single-patch fix, no dependencies on other uncommitted
-patches.
+**Step 3.3: Related Changes**
+- Commit `648a0dc0d78c3` fixed a different deadlock in the same file
+  (mutex ordering between `adev->userq_mutex` and `uqm->userq_mutex`)
+- Record: There have been multiple deadlock fixes in this subsystem,
+  indicating active locking issues being resolved.
+
+**Step 3.4: Author**
+- Christian König is one of the most senior AMD DRM kernel developers
+  and a core maintainer of the AMDGPU driver.
+- Record: Author is THE subsystem expert. Very high trust signal.
+
+**Step 3.5: Dependencies**
+- The fix is self-contained and standalone. It modifies one conditional
+  block in one function.
+- Record: No dependencies. Clean standalone fix.
+
+---
+
+## PHASE 4: MAILING LIST
+
+- b4 dig could not find the fix commit directly (it appears to be very
+  recent, possibly not yet indexed)
+- lore.kernel.org search was blocked by anti-scraping protection
+- Record: Could not verify mailing list discussion, but the commit has
+  two Reviewed-by tags confirming peer review.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1-5.4: Function Analysis
-`drm_bridge_connector_init()` is called at line 206 of `parallel-
-display.c` in `imx_pd_bind()`. This is the driver probe/bind path —
-critical for anyone using the i.MX parallel display interface. Without
-this fix, the driver simply cannot be built (link error).
+**Step 5.1: Functions modified**
+- Only `amdgpu_userq_evict()` is modified.
 
-### Step 5.5: Similar Patterns
-Many other DRM drivers already `select DRM_DISPLAY_HELPER` alongside
-`DRM_BRIDGE_CONNECTOR` (verified via grep: bridge/Kconfig,
-panel/Kconfig, rockchip/Kconfig all have it). The IMX parallel display
-was simply missed.
+**Step 5.2: Callers**
+- `amdgpu_userq_evict()` is called from
+  `amdgpu_eviction_fence_suspend_worker()` in `amdgpu_eviction_fence.c`
+  (line 119). This is a workqueue callback triggered by
+  `amdgpu_eviction_fence_enable_signaling()` (line 141), which is a
+  dma_fence_ops callback. This means eviction happens automatically when
+  BO resources need to be moved, making this a common code path during
+  normal GPU operation.
+
+**Step 5.3-5.4: Call chains**
+- The eviction path is triggered when dma_fence signaling is enabled on
+  eviction fences attached to BOs. This happens during VM page table
+  operations, memory allocation, etc. - very common GPU operations.
+- Record: The buggy path is reachable during normal GPU usage by any
+  userspace GPU application.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING
+## PHASE 6: STABLE TREE ANALYSIS
 
-### Step 6.1: Bug Exists in Stable
-Confirmed the bug exists in v7.0. The Kconfig file in v7.0 exactly
-matches the "before" state of the diff.
+**Step 6.1: Does the buggy code exist in stable trees?**
+- Verified `amdgpu_userq.c` does NOT exist in v6.12, v6.13, v6.14, or
+  v6.15
+- File first appears in v6.16
+- The buggy `cancel_delayed_work_sync` in `amdgpu_userq_evict` exists in
+  v6.16, v6.17, v6.18, v6.19, and v7.0
+- This workspace is `linux-autosel-7.0`, evaluating for the 7.0.y stable
+  tree
+- Record: Bug exists in v7.0 (the target tree) and v6.19.y (current
+  active stable).
 
-### Step 6.2: Backport Complexity
-**Clean apply** — the diff applies directly to v7.0 without any
-modifications.
-
-### Step 6.3: No Existing Fix
-No alternative fix exists in v7.0 for this issue.
+**Step 6.2: Backport difficulty**
+- The v7.0 version of the function is identical to the current HEAD -
+  the patch should apply cleanly.
+- Record: Clean apply expected.
 
 ---
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem
-- **Path:** drivers/gpu/drm/imx/ipuv3
-- **Criticality:** PERIPHERAL (embedded i.MX ARM platform, but has real
-  users building kernels for imx53 boards)
+**Step 7.1: Subsystem**
+- `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver, one of the most widely
+  used GPU drivers
+- Criticality: IMPORTANT - affects all AMD GPU users
+- Record: [drm/amdgpu] [IMPORTANT]
 
-### Step 7.2: Activity
-The subsystem has moderate activity with several recent Kconfig fixes
-for the same dependency chain.
+**Step 7.2: Activity**
+- Very active subsystem with frequent commits
+- Multiple deadlock fixes in the userqueue code recently, indicating
+  this is a new subsystem under active development and bug fixing
+- Record: Very active, new code with multiple recent fixes.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Affected Users
-Anyone building a kernel with `CONFIG_DRM_IMX_PARALLEL_DISPLAY=y/m`
-where `DRM_DISPLAY_HELPER` is not otherwise selected. This affects
-embedded Linux developers targeting i.MX53 platforms.
+**Step 8.1: Who is affected**
+- All users of AMD GPUs with userqueue support (modern AMD hardware)
+- Record: Driver-specific but large user population (all AMD GPU users
+  with newer hardware)
 
-### Step 8.2: Trigger
-100% reproducible — any build with the right config fails. Not a timing
-issue.
+**Step 8.2: Trigger conditions**
+- The deadlock triggers when: (1) an eviction fence signals while (2)
+  `fd_closing` is true and (3) a resume_work is pending or running
+- This can happen during normal application shutdown/close while GPU
+  operations are in progress
+- Record: Triggered during fd close with concurrent GPU eviction -
+  realistic scenario during application exit.
 
-### Step 8.3: Severity
-**Build failure** — the kernel cannot be compiled with this driver
-enabled. Severity: HIGH for affected users.
+**Step 8.3: Failure mode severity**
+- DEADLOCK = system hang (at minimum the GPU tasks hang, potentially
+  wider if other kernel threads wait on the locked mutex)
+- Severity: CRITICAL
+- Record: [Deadlock -> system hang] [CRITICAL]
 
-### Step 8.4: Risk-Benefit
-- **Benefit:** HIGH — fixes a hard build failure, enables compilation of
-  i.MX parallel display driver
-- **Risk:** NEAR-ZERO — 1-line Kconfig `select` addition, no runtime
-  code change whatsoever
-- **Ratio:** Excellent
+**Step 8.4: Risk-Benefit Ratio**
+- BENEFIT: Very high - prevents deadlocks during normal GPU operation
+- RISK: Very low - 2 lines added, 6 removed, obviously correct, written
+  and reviewed by subsystem maintainers
+- Record: [Very high benefit] [Very low risk] [Strongly favorable]
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
-**FOR backporting:**
-- Fixes a real, reproducible build failure (linker error)
-- Single-line Kconfig change — minimal scope
-- Zero runtime regression risk
-- Reported by kernel test robot AND reproduced by author on real
-  hardware
-- Reviewed and committed by subsystem maintainer
-- Bug exists in v7.0 (verified)
-- Clean apply to v7.0
+**Step 9.1: Evidence Compilation**
 
-**AGAINST backporting:**
-- None identified
+FOR backporting:
+- Fixes a real deadlock (CRITICAL severity)
+- Very small, surgical fix (net -4 lines)
+- Written by Christian König (senior AMD DRM maintainer)
+- Reviewed by Alex Deucher (AMD's kernel graphics lead) and Sunil Khatri
+- Bug exists in v7.0 (the target stable tree)
+- Deadlock is triggered during normal operations (fd close with GPU
+  activity)
+- Obviously correct - removes the synchronous cancel that causes the
+  deadlock
+- Self-contained, no dependencies
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **YES** — Kconfig dependency is
-   unambiguously needed
-2. Fixes a real bug? **YES** — hard build failure
-3. Important issue? **YES** — prevents building the driver entirely
-4. Small and contained? **YES** — 1 line in 1 file
-5. No new features or APIs? **YES** — purely a build dependency fix
-6. Can apply to stable? **YES** — clean apply verified
+AGAINST backporting:
+- No items identified
 
-### Step 9.3: Exception Category
-This is a **BUILD FIX** — one of the explicitly allowed exception
-categories for stable.
+Unresolved:
+- Could not verify mailing list discussion (lore blocked)
+
+**Step 9.2: Stable Rules Checklist**
+1. Obviously correct and tested? **YES** - The deadlock mechanism is
+   clear and verifiable from code. Fix is minimal. Two Reviewed-by tags.
+2. Fixes a real bug? **YES** - Deadlock during GPU eviction with
+   fd_closing.
+3. Important issue? **YES** - Deadlock = system hang (CRITICAL).
+4. Small and contained? **YES** - Net -4 lines in a single function.
+5. No new features or APIs? **YES** - Pure bug fix.
+6. Can apply to stable trees? **YES** - Code in v7.0 is identical; clean
+   apply expected.
+
+**Step 9.3: Exception Categories**
+- Not applicable - this is a standard bug fix, not an exception
+  category.
+
+**Step 9.4: Decision**
+All evidence strongly supports backporting. This is a textbook deadlock
+fix: small, surgical, obviously correct, fixes a critical issue, written
+and reviewed by the subsystem maintainers.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reported-by kernel test robot, Reviewed-by
-  Philipp Zabel (maintainer), Closes link to kbuild report
-- [Phase 2] Diff analysis: +1 line `select DRM_DISPLAY_HELPER` in
-  Kconfig
-- [Phase 3] git blame: `DRM_BRIDGE_CONNECTOR` added by f673055a46784 in
-  v6.13 cycle without matching `DRM_DISPLAY_HELPER`
-- [Phase 3] git show v7.0:Kconfig: confirmed bug exists (missing select
-  DRM_DISPLAY_HELPER)
-- [Phase 3] git show v6.12:parallel-display.c: confirmed 0 calls to
-  `drm_bridge_connector_init`, bug doesn't exist pre-6.13
-- [Phase 3] git show v6.13/v6.14:Kconfig: confirmed bug present in both
-- [Phase 4] b4 dig -c f673055a46784: found original thread for the
-  incomplete fix
-- [Phase 5] Grep: `drm_bridge_connector_init` called at line 206 in
-  `imx_pd_bind()`
-- [Phase 5] Grep: `DRM_BRIDGE_CONNECTOR` inside `if DRM_DISPLAY_HELPER`
-  at display/Kconfig:15-17
-- [Phase 5] Grep: `drm_display_helper-$(CONFIG_DRM_BRIDGE_CONNECTOR)` in
-  display/Makefile confirms build dependency
-- [Phase 6] v7.0 Kconfig state matches diff's "before" — clean apply
-  guaranteed
-- [Phase 8] Failure mode: 100% reproducible link error, severity HIGH
-  for affected configs
-
-This is a textbook build fix: one-line Kconfig dependency addition, zero
-runtime risk, fixes a hard build failure for i.MX parallel display
-users. It meets every stable kernel criterion.
+- [Phase 1] Parsed tags: Signed-off-by Christian König (author),
+  Reviewed-by Alex Deucher, Reviewed-by Sunil Khatri, Signed-off-by Alex
+  Deucher (committer)
+- [Phase 2] Diff analysis: Removes `cancel_delayed_work_sync()` call in
+  `amdgpu_userq_evict()` (which is called under `userq_mutex`), replaces
+  6-line if/cancel/return/else/schedule block with 2-line if-not-
+  closing/schedule
+- [Phase 3] git blame: `cancel_delayed_work_sync` at line 1391 was
+  introduced by commit `f10eb185ad0552` (2025-05-07), fd_closing branch
+  by `44cfdf368fb72c` (2024-11-20)
+- [Phase 3] git log: Found related deadlock fix `648a0dc0d78c3` in same
+  file, confirming pattern of locking issues
+- [Phase 3] Author check: Christian König is a senior AMD DRM maintainer
+  with extensive commit history
+- [Phase 4] b4 dig: Could not find the specific fix commit (likely too
+  recent); found original buggy series at lore
+- [Phase 4] UNVERIFIED: Could not access lore.kernel.org due to anti-
+  scraping protection
+- [Phase 5] Caller analysis: `amdgpu_userq_evict()` called from
+  `amdgpu_eviction_fence_suspend_worker()` which holds `userq_mutex`
+  (verified in amdgpu_eviction_fence.c lines 110-119)
+- [Phase 5] Deadlock chain verified: suspend_worker(holds userq_mutex)
+  -> cancel_delayed_work_sync(resume_work) -> resume_worker calls
+  flush_delayed_work(suspend_work) at line 1277 AND
+  mutex_lock(userq_mutex) at line 1279 = DEADLOCK
+- [Phase 6] File existence check: `amdgpu_userq.c` does NOT exist in
+  v6.12, v6.13, v6.14, v6.15; EXISTS in v6.16, v6.17, v6.18, v6.19, v7.0
+- [Phase 6] Verified buggy `cancel_delayed_work_sync` in
+  `amdgpu_userq_evict` exists in v6.16 through v7.0 (all versions
+  checked)
+- [Phase 6] Verified v7.0 code is identical to current HEAD - clean
+  apply expected
+- [Phase 8] Failure mode: Deadlock -> system hang during GPU fd close,
+  severity CRITICAL
 
 **YES**
 
- drivers/gpu/drm/imx/ipuv3/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/ipuv3/Kconfig b/drivers/gpu/drm/imx/ipuv3/Kconfig
-index acaf250890019..b2240998df4f1 100644
---- a/drivers/gpu/drm/imx/ipuv3/Kconfig
-+++ b/drivers/gpu/drm/imx/ipuv3/Kconfig
-@@ -15,6 +15,7 @@ config DRM_IMX_PARALLEL_DISPLAY
- 	depends on DRM_IMX
- 	select DRM_BRIDGE
- 	select DRM_BRIDGE_CONNECTOR
-+	select DRM_DISPLAY_HELPER
- 	select DRM_IMX_LEGACY_BRIDGE
- 	select DRM_PANEL_BRIDGE
- 	select VIDEOMODE_HELPERS
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 09f1d05328897..e8d12556d690a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -1389,13 +1389,8 @@ amdgpu_userq_evict(struct amdgpu_userq_mgr *uq_mgr,
+ 	/* Signal current eviction fence */
+ 	amdgpu_eviction_fence_signal(evf_mgr, ev_fence);
+ 
+-	if (evf_mgr->fd_closing) {
+-		cancel_delayed_work_sync(&uq_mgr->resume_work);
+-		return;
+-	}
+-
+-	/* Schedule a resume work */
+-	schedule_delayed_work(&uq_mgr->resume_work, 0);
++	if (!evf_mgr->fd_closing)
++		schedule_delayed_work(&uq_mgr->resume_work, 0);
+ }
+ 
+ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
 -- 
 2.53.0
 
