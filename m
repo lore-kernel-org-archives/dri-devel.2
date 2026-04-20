@@ -4,46 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6FEFF327B2
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB011F327B3
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E60B710E805;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE8F810E800;
 	Tue, 21 Apr 2026 07:09:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lontium.com header.i=@lontium.com header.b="quLWxoWR";
+	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="b/5UebY7";
 	dkim-atps=neutral
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D444410E0DC
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 06:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lontium.com; s=default;
- t=1776665808; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=joljCzzpQ3BWVjBWEzq/YmymQ3S+YGNeTfY7syNIJMk=;
- b=quLWxoWRwvPmXytI8ylnUE9j2FRkcmBEyrNHWzTa3sOmMP9r+NkgSDQdWPqIflOa2xBQxgXcoURP8td2fT9zkEWAZlDqG5TxJCQ/SqlSxKEJg1iwYkoh6+evt+pvou84EZ4MnWmfZpS4VxO8tddXa573xlR/Fqa5qdYX/SfTJwPirpK/cz2x7QHSOPWl6Q3V3mypHN8SC7PUI8ZwrUk04EULFxN+FJJxOcvuTXXzeIF2mBQungCM6q0CO0cJsWAv3OBbm5HnGMa/JLh20JbtSRlN886c7BNMfL+Tq0giw2pxDqVoR6Cxn/iVNZQuW5Ym2+zd/PgqO42qhP3vvnsWOw==
-X-Alimail-AntiSpam: AC=CONTINUE; BC=0.08217578|-1; CH=green;
- DM=|CONTINUE|false|;
- DS=CONTINUE|ham_system_inform|0.00760056-0.000148186-0.992251;
- FP=3247150432297668347|0|0|0|0|-1|-1|-1; HT=maildocker-contentspam033032053168;
- MF=syyang@lontium.com; NM=1; PH=DS; RN=19; RT=19; SR=0;
- TI=SMTPD_---.hFz0LsH_1776665805; 
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com
- fp:SMTPD_---.hFz0LsH_1776665805 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 20 Apr 2026 14:16:46 +0800
-From: syyang@lontium.com
-To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com,
- rfoss@kernel.org, mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, tzimmermann@ideasonboard.com,
- jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- yangsunyun1993@gmail.com, xmzhu@lontium.corp-partner.google.com,
- Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v3 0/2] Add LT9611C(EX/UXD) DRM bridge driver and device tree
-Date: Mon, 20 Apr 2026 14:16:42 +0800
-Message-Id: <20260420061644.1251070-1-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 708CF10EB24
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 20:07:28 +0000 (UTC)
+Received: from submission (posteo.de [185.67.36.169]) 
+ by mout02.posteo.de (Postfix) with ESMTPS id E9271240103
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:07:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
+ t=1776715646; bh=bMRsLKAHSAXz14Z4fiLu1qobuMPCKTYfrmGi0WB25P8=;
+ h=From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
+ b=b/5UebY74pRZq2pCuvsuCnXh5WB5dzq7a2720ob0aNGibmukGXC7Ixl049a6gLGhf
+ NxTReJNSc7ZHJOwUReTuX9PfTLaSYhyJKOr/SWWmijH/Lo7+AnbZRTT8JnKo5yJMrT
+ y9ZPEwDglcynBRY413lQa57PODyiskLZHHvX8IjmH7fp0nB+mHfqiRQcZ6lB2ACTA2
+ AAX8u22MtoDtXlhh9ao6aMyrod8af+ikOscY1p7oayhOvjAa0MD+g3/IeD/hLhL6cn
+ qrWKgs6hXZjmkJbpz3ajl04yUwqnNGkvlHCPZMVrljoqAb8ujX0Q/TTfomT9Xu6tDs
+ u9rJggIVplwyg==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 4fzxNX59LGz9rxN;
+ Mon, 20 Apr 2026 22:07:24 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Date: Mon, 20 Apr 2026 20:07:26 +0000
+Subject: [PATCH v5 4/4] samples: rust: add Rust serial device bus sample
+ device driver
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260420-rust_serdev-v5-4-57e8ba0519f3@posteo.de>
+References: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
+In-Reply-To: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
+To: Rob Herring <robh@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Kari Argillander <kari.argillander@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Boqun Feng <boqun@kernel.org>
+Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4237;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=JoXwbjqfgHTSQtenfdS4rDb9JH2Wzuoqzg2D6y353ys=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp5od235RAvbch31ND5xm6KkCIL9eSTpGnt1qIX
+ bhK1T0wIv+JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaeaHdhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KSWBAAhcP3LBb6l9BsolX6qOEtRvt42F5eg9q
+ ixouVRq87msm/NPNYNIEyC9XLYlCxcKSg+FbWnQU7rmAbwl4fUvYyzjYNa7rKhGkxFLCL7MHCM8
+ 91gElbbiUk21i5IpR0MmvsjPPx2jgumJhoYEfXT66ZHuZKZEvoRUuCSzESRuNX5YdrnmtdEyI3P
+ gedZg2gsu9rguMDTTKoIyR3NnsoCXN9PaHYyyrwLoPDojuLYjArmWsoYWVJNgeTYqF9h+zBx9KN
+ /J5iydDlsm4j07ofOcNkU7r9mD2OC3FJ5YQaItQ/G/q5ius2In4ZhVYWeieEiyLDLb/iKdZkZ00
+ pazfjbWdr8pygzi2fw6hBftKPQzDPIH5fcsGp5Ey0XBxAoKCzYXiwquZDiID0rxgqAUIfNFEKH5
+ 5J86xKcJhDOqfEYThCrRBy7u9l9zl071335dpv0MOrIx/EWPO6Kx/fgtfdEgJJlRF06CnZijskI
+ hKETo0lLH7/HQgX01YFLTT4Nn2TlIMPJ22RPdXW2sJMDdEUmGtQ9CgV3fLYCWSej1suc+dR1gcR
+ qkmjiJ2DDQYbStUTpocK1aeqG3oMN95CET2AE+0FtleOMK1/9+niqlfuiOU/vCSbbReqlqGoW6k
+ xXJN2yuNnxyQPqf7lvPlY76pRukxy96/QkiyMy/22CGANFj39xPQ=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
+ preference=encrypt
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,58 +134,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Sunyun Yang <syyang@lontium.com>
+Add a sample Rust serial device bus device driver illustrating the usage
+of the serial device bus abstractions.
 
-This series adds support for the Lontium LT9611C(EX/UXD) MIPI DSI to HDMI 
-chip:
+This drivers probes through either a match of device / driver name or a
+match within the OF ID table.
 
--dt-bindings: bridge: This patch adds new content to the lontium,lt9611.yaml
- binding file.
--drm/bridge: This patch add new DRM bridge driver for LT9611C(EX/UXD) chip.
-
-Signed-off-by: Sunyun Yang<syyang@lontium.com>
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
-Changes in v3:
--dt-binding:
- 1. lt9611c(ex/uxd) content merged into lontium,lt9611.yaml
--drm/bridge:
- 1. Drop the licence text, only use SPDX header
- 2. Sort the headers
- 3. Use library functions for crc8
- 4. Drop i2c_read_byte and i2c_write_byte
- 5. Lowercase all hex values
- 6. Use paged writes as implemented for LT9611C(EX/UXD)
- 7. Drop dev_info, use dev_dbg
- 8. Modify lt9611c_get_edid_block, don't store EDID in the long-term structures
- 9. Use HDMI audio helpers.
- 10.Remove unnecessary flags,Implement proper cleanup path, unwinding resources 
-    one by one.
- 11.Replace devm_kzalloc with devm_drm_bridge_alloc.
- 12.Remove extra kthread.
--Link to v1: https://lore.kernel.org/lkml/20250903123825.1721443-1-syyang@lontium.com/
+ samples/rust/Kconfig               | 11 +++++
+ samples/rust/Makefile              |  1 +
+ samples/rust/rust_driver_serdev.rs | 86 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 98 insertions(+)
 
-Changes in v2:
- 1. Forget modify code, operation error, Please disregard this submit.
-
-Changes in v1:
--dt-binding:
- 1. Submit the first version of the code.
--drm/bridge:
- 1. Submit the first version of the code.
-
----
-Sunyun Yang (2):
-  dt-bindings: bridge: This patch adds new content to the
-    lontium,lt9611.yaml binding file
-  drm/bridge: This patch add new DRM bridge driver for LT9611C chip
-
- .../display/bridge/lontium,lt9611.yaml        |    8 +-
- drivers/gpu/drm/bridge/Kconfig                |   18 +
- drivers/gpu/drm/bridge/Makefile               |    1 +
- drivers/gpu/drm/bridge/lontium-lt9611c.c      | 1365 +++++++++++++++++
- 4 files changed, 1390 insertions(+), 2 deletions(-)
- create mode 100755 drivers/gpu/drm/bridge/lontium-lt9611c.c
+diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
+index c49ab9106345..31d62533ef25 100644
+--- a/samples/rust/Kconfig
++++ b/samples/rust/Kconfig
+@@ -161,6 +161,17 @@ config SAMPLE_RUST_DRIVER_AUXILIARY
+ 
+ 	  If unsure, say N.
+ 
++config SAMPLE_RUST_DRIVER_SERDEV
++	tristate "Serial Device Bus Device Driver"
++	select RUST_SERIAL_DEV_BUS_ABSTRACTIONS
++	help
++	  This option builds the Rust serial device bus driver sample.
++
++	  To compile this as a module, choose M here:
++	  the module will be called rust_driver_serdev.
++
++	  If unsure, say N.
++
+ config SAMPLE_RUST_SOC
+ 	tristate "SoC Driver"
+ 	select SOC_BUS
+diff --git a/samples/rust/Makefile b/samples/rust/Makefile
+index 6c0aaa58cccc..b986b681cde5 100644
+--- a/samples/rust/Makefile
++++ b/samples/rust/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
+ obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
++obj-$(CONFIG_SAMPLE_RUST_DRIVER_SERDEV)		+= rust_driver_serdev.o
+ obj-$(CONFIG_SAMPLE_RUST_CONFIGFS)		+= rust_configfs.o
+ obj-$(CONFIG_SAMPLE_RUST_SOC)			+= rust_soc.o
+ 
+diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_serdev.rs
+new file mode 100644
+index 000000000000..8cf3fb451b22
+--- /dev/null
++++ b/samples/rust/rust_driver_serdev.rs
+@@ -0,0 +1,86 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Rust Serial device bus device driver sample.
++
++use kernel::{
++    acpi,
++    device::{
++        Bound,
++        Core, //
++    },
++    of,
++    prelude::*,
++    serdev,
++    sync::aref::ARef, //
++};
++
++struct SampleDriver {
++    sdev: ARef<serdev::Device>,
++}
++
++kernel::of_device_table!(
++    OF_TABLE,
++    MODULE_OF_TABLE,
++    <SampleDriver as serdev::Driver>::IdInfo,
++    [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
++);
++
++kernel::acpi_device_table!(
++    ACPI_TABLE,
++    MODULE_ACPI_TABLE,
++    <SampleDriver as serdev::Driver>::IdInfo,
++    [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
++);
++
++#[vtable]
++impl serdev::Driver for SampleDriver {
++    type IdInfo = ();
++    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
++    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
++
++    fn probe(
++        sdev: &serdev::Device<Core>,
++        _info: Option<&Self::IdInfo>,
++    ) -> impl PinInit<Self, Error> {
++        let dev = sdev.as_ref();
++
++        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample.\n");
++
++        if sdev
++            .set_baudrate(
++                dev.fwnode()
++                    .and_then(|fwnode| fwnode.property_read(c"baudrate").optional())
++                    .unwrap_or(115200),
++            )
++            .is_err()
++        {
++            return Err(EINVAL);
++        }
++        sdev.set_flow_control(false);
++        sdev.set_parity(serdev::Parity::None)?;
++
++        Ok(Self { sdev: sdev.into() })
++    }
++
++    fn receive(sdev: &serdev::Device<Bound>, _this: Pin<&Self>, data: &[u8]) -> usize {
++        let _ = sdev.write_all(data, serdev::Timeout::Max);
++        data.len()
++    }
++}
++
++impl Drop for SampleDriver {
++    fn drop(&mut self) {
++        dev_dbg!(
++            self.sdev.as_ref(),
++            "Remove Rust Serial device bus device driver sample.\n"
++        );
++    }
++}
++
++kernel::module_serdev_device_driver! {
++    type: SampleDriver,
++    name: "rust_driver_serdev",
++    authors: ["Markus Probst"],
++    description: "Rust Serial device bus device driver",
++    license: "GPL v2",
++}
 
 -- 
-2.34.1
+2.52.0
 
