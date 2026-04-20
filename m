@@ -4,51 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 236B1F588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:33:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 733E5F588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:37:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8237910E65E;
-	Mon, 20 Apr 2026 13:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C058A10E661;
+	Mon, 20 Apr 2026 13:37:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CI5ABDiY";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="dvUiYrjR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9DCF10E65E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:33:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 44C8860583;
- Mon, 20 Apr 2026 13:33:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D89C19425;
- Mon, 20 Apr 2026 13:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776692037;
- bh=4kGwUz+O8GZTjFQa4JVTJTATnpLtw21Cyc2RvoQ9iUI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CI5ABDiYJfPHBQZnS9HilrbMf7OKCG66OmcHKxebC4Ul+xX5EMIz9xShvIjkgHXDb
- 0p5RzBkyQt0lNZD0znQCNbXz7D1fDmrzmVzY0svYZ1A5X4HmF35IhnZYWsjDHBkXDT
- Swa+Aw54tIC0lC/gHfFy3CtmTuLbjxM+ffPdHqrp0KOpW9Wf6p4wjdbWsxA6kSF/Ya
- 3pRdhbVfmzwJngC0OTshsgLwPiXjWzlXZY/nqtDyC8yjjbeIv1YB1A91Km6S689dLz
- jAhSFwPtcRlVlJfcvBEHXkwzQsbp9N3ifQUgxIFSjK12ZlrBmh1vHPWmuUvSCW18bm
- adMKb10lWWXtQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.6] drm/gem-dma: set VM_DONTDUMP for mmap
-Date: Mon, 20 Apr 2026 09:22:11 -0400
-Message-ID: <20260420132314.1023554-337-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
-References: <20260420132314.1023554-1-sashal@kernel.org>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B65910E661
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:37:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776692259; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=RWuopc1rG9JdUNG6zDMjGAUTTWtPYEnLcp0sLCFyYcgLbZytAeawma6xzGBtbz0t+vNXSW3xKDEg7IMOLhbwN8Tr5YpFWiEECp9HNH/t8Lu5U46acpPE+jjhTyLsJsKGvzWJ63391glBN/6sTND3PNbm9t71j5u599vDpngAHBk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776692259;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=stQoYOnLVldTdbwAlWB07GHkggCwMIPdlp60EQdUSsA=; 
+ b=dIKgjjm9U7TwgNmR8YtchVlR2M8Pkt//442RMx5CLE9a4VJYh1cXI40N56MZCB9gG24wLdxIOHgjEXomx20WVlX0/SjgGzCSIK+pHtCLh1xeM095up+iVw2k+CE0Z0i5Y3CKTlth7r7EltJRsbfZ5sfGfImED/XB2hJd6hSCRek=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+ dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776692259; 
+ s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=stQoYOnLVldTdbwAlWB07GHkggCwMIPdlp60EQdUSsA=;
+ b=dvUiYrjRdprJhe6eT+ADPlCPFZNNmuMpwRySExvbC21bOBlad/ZqZDRYSleubnAZ
+ roFr+J6NpILaE5/VEGR5z5A0XDAt4YeFN9cebsGuhKn6QjG9txQMuvk4e5Iq3xEaHkP
+ sUvkOHKaaRFs7OnVpORIn2UnwlAmmM+1Hkz1qOCA=
+Received: by mx.zohomail.com with SMTPS id 1776692257243717.4700776279008;
+ Mon, 20 Apr 2026 06:37:37 -0700 (PDT)
+Message-ID: <6317220f-4912-4a53-a987-08fd61b2d70d@collabora.com>
+Date: Mon, 20 Apr 2026 09:37:34 -0400
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
+ when PHY is down
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Frank Zhang <rmxpzlb@gmail.com>
+Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, cristian.ciocaltea@collabora.com,
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260418101936.7731-1-rmxpzlb@gmail.com>
+ <hdl63shkqubkvczlg7ryjah5psiqzrhu5llelzaetw7skbpujv@nyxgriryjxd5>
+ <9c198d0e-a675-4d7e-a485-5a8ee4d97f88@gmail.com>
+ <ggmfrel7xrhigcsvoegxwdxpljohiyspzcmhpmkxkqycu53zwm@ltkecyoshdax>
+Content-Language: en-US
+From: Detlev Casanova <detlev.casanova@collabora.com>
+In-Reply-To: <ggmfrel7xrhigcsvoegxwdxpljohiyspzcmhpmkxkqycu53zwm@ltkecyoshdax>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,348 +76,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chen-Yu Tsai <wenst@chromium.org>
-
-[ Upstream commit e3eb0e70815cc02ea15298818e37d8b0a0930ab1 ]
-
-When the mmap function was converted from a file op to a GEM object
-function in commit f5ca8eb6f9bd ("drm/cma-helper: Implement mmap as GEM
-CMA object functions") some VM flags were not lifted from drm_gem_mmap():
-
-  - VM_IO
-  - VM_DONTEXPAND
-  - VM_DONTDUMP
-
-VM_DONTEXPAND was added back in commit 59f39bfa6553 ("drm/cma-helper:
-Set VM_DONTEXPAND for mmap"). VM_IO doesn't make sense since these are
-memory buffers, while "IO tells people not to look at these pages
-(accesses can have side effects)".
-
-Add back VM_DONTDUMP. This matches the behavior of most other GEM
-implementations.
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Link: https://patch.msgid.link/20260317040034.617585-1-wenst@chromium.org
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-Now I have all the information needed for a thorough analysis. Let me
-compile the full assessment.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: PARSE THE SUBJECT LINE
-- **Subsystem:** `drm/gem-dma`
-- **Action verb:** "set" (restoring a flag that was accidentally
-  dropped)
-- **Summary:** Restores missing `VM_DONTDUMP` flag on mmap, which was
-  lost during a code conversion
-
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-- **Reviewed-by:** Thomas Zimmermann `<tzimmermann@suse.de>` — the
-  original author of the conversion commit f5ca8eb6f9bd that introduced
-  the regression
-- **Link:**
-  `https://patch.msgid.link/20260317040034.617585-1-wenst@chromium.org`
-- **Signed-off-by:** Chen-Yu Tsai `<wenst@chromium.org>` — a known
-  Chromium/MediaTek kernel contributor
-- **No Fixes: tag, no Cc: stable** — expected for auto-selection
-  candidates
-- **Notable:** The reviewer (Thomas Zimmermann) is the person whose
-  commit introduced the regression, so he is the ideal reviewer
-
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-The commit explains that when the mmap function was converted from a
-file op to a GEM object function in commit `f5ca8eb6f9bd` ("drm/cma-
-helper: Implement mmap as GEM CMA object functions"), three VM flags
-were not lifted from `drm_gem_mmap()`: `VM_IO`, `VM_DONTEXPAND`,
-`VM_DONTDUMP`. `VM_DONTEXPAND` was already fixed separately (commit
-`59f39bfa6553`). `VM_IO` is deliberately not needed for memory buffers.
-But `VM_DONTDUMP` was still missing.
-
-**Root cause:** Accidental omission of VM_DONTDUMP during a code
-refactoring.
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-This IS a bug fix. It restores a VM flag that was accidentally dropped.
-The same pattern caused actual crashes in the MSM driver (commit
-3466d9e217b33).
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: INVENTORY THE CHANGES
-- **Files changed:** 1 (`drivers/gpu/drm/drm_gem_dma_helper.c`)
-- **Lines changed:** 1 line modified (`VM_DONTEXPAND` → `VM_DONTDUMP |
-  VM_DONTEXPAND`)
-- **Functions modified:** `drm_gem_dma_mmap()`
-- **Scope:** Single-file, single-line, surgical fix
-
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-**Before:** `vm_flags_mod(vma, VM_DONTEXPAND, VM_PFNMAP);`
-**After:** `vm_flags_mod(vma, VM_DONTDUMP | VM_DONTEXPAND, VM_PFNMAP);`
-
-Only change: the `VM_DONTDUMP` flag is now set on VMAs created by
-`drm_gem_dma_mmap()`.
-
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-This is a **logic/correctness fix** — a missing VM flag. Without
-`VM_DONTDUMP`:
-1. Core dumps will attempt to read DMA buffer pages, which could be
-   problematic
-2. Display buffer memory (potentially containing sensitive data) gets
-   included in core dumps
-3. The behavior is inconsistent with virtually every other GEM mmap
-   implementation
-
-### Step 2.4: ASSESS THE FIX QUALITY
-- **Obviously correct?** YES — it's adding one flag to an existing call,
-  matching the behavior of all other GEM implementations. Verified by
-  looking at `drm_gem.c` line 1219 which sets `VM_IO | VM_PFNMAP |
-  VM_DONTEXPAND | VM_DONTDUMP` in the default path.
-- **Minimal?** YES — one token added to one line
-- **Regression risk?** Near zero — `VM_DONTDUMP` only affects core dumps
-  and is universally set by other GEM implementations
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: BLAME THE CHANGED LINES
-The line was introduced by commit `1c71222e5f2393` (Suren Baghdasaryan,
-2023-01-26) which converted `vma->vm_flags` direct modifications to
-`vm_flags_mod()`. The underlying bug, however, was introduced by
-`f5ca8eb6f9bd5e` (Thomas Zimmermann, 2020-11-23) which created the GEM
-object function version of mmap without carrying over all VM flags.
-
-**The bug has been present since v5.10 (kernel 5.10 era), affecting ALL
-stable trees that contain f5ca8eb6f9bd.**
-
-### Step 3.2: FOLLOW THE REFERENCED COMMITS
-- **f5ca8eb6f9bd** ("drm/cma-helper: Implement mmap as GEM CMA object
-  functions"): This conversion created a new `drm_gem_cma_mmap()` that
-  only cleared `VM_PFNMAP` but didn't set the flags (`VM_IO`,
-  `VM_DONTEXPAND`, `VM_DONTDUMP`) that the old `drm_gem_mmap()` path
-  set. This commit exists in stable trees v5.10+.
-- **59f39bfa6553** ("drm/cma-helper: Set VM_DONTEXPAND for mmap"):
-  Already fixed VM_DONTEXPAND.
-
-### Step 3.3: RELATED CHANGES
-- **3466d9e217b33** ("drm/msm: Fix mmap to include VM_IO and
-  VM_DONTDUMP"): The EXACT same bug pattern in the MSM driver, which
-  **caused real crashes on Chromebooks** during core dumps (kernel oops
-  with stack trace `__arch_copy_to_user` during `process_vm_readv`).
-- **c6fc836488c2c** ("drm/gem-shmem: Don't store mmap'ed buffers in core
-  dumps"): VM_DONTDUMP was also re-added to the shmem GEM helper with
-  the rationale: "it's display-buffer memory; who knows what secrets
-  these buffers contain."
-
-### Step 3.4: AUTHOR CONTEXT
-Chen-Yu Tsai (`wenst@chromium.org`) is a well-known Chromium kernel
-contributor working on MediaTek/ARM platforms that use the DRM DMA GEM
-helper.
-
-### Step 3.5: DEPENDENCIES
-No dependencies. This is a standalone one-line fix.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1–4.2: PATCH DISCUSSION
-The lore.kernel.org search was blocked by anti-bot protection. However,
-`b4 dig` found the original conversion commit's thread. The commit has a
-**Reviewed-by from Thomas Zimmermann** (the person who introduced the
-original bug), which is strong validation.
-
-### Step 4.3: BUG REPORT
-The MSM driver commit `3466d9e217b33` provides a concrete crash report
-with full stack trace showing kernel oops during `process_vm_readv`
-(used by crash dump tools). This demonstrates the real-world impact of
-missing `VM_DONTDUMP` on GEM mmap regions.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1–5.2: IMPACT SURFACE
-`drm_gem_dma_mmap()` is called via `drm_gem_dma_object_mmap()` which is
-set as the `.mmap` handler in `drm_gem_dma_default_funcs`. This is used
-by **40+ DRM drivers** including: vc4 (Raspberry Pi), sun4i (Allwinner),
-meson (Amlogic), stm, imx (i.MX), renesas, rockchip (indirectly),
-tilcdc, tidss, ingenic, hdlcd, malidp, and many tiny display drivers.
-These are primarily ARM/embedded platforms running in production.
-
-### Step 5.3–5.4: CALL CHAIN
-User process mmap() → drm_gem_mmap_obj() → obj->funcs->mmap() →
-drm_gem_dma_object_mmap() → drm_gem_dma_mmap(). This is a standard user-
-reachable path for any process mapping GPU buffers.
-
-### Step 5.5: SIMILAR PATTERNS
-Nearly every other GEM mmap implementation sets `VM_DONTDUMP`:
-drm_gem.c, msm, shmem, exynos, rockchip, mediatek, i915, xe, ttm,
-etnaviv, omapdrm. The DMA GEM helper is the sole outlier.
-
----
-
-## PHASE 6: STABLE TREE ANALYSIS
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE?
-YES. The `vm_flags_mod(vma, VM_DONTEXPAND, VM_PFNMAP)` line exists in
-the v7.0 tree (confirmed by reading the file directly). The original
-conversion commit `f5ca8eb6f9bd` has been present since v5.10-era, so
-the bug affects all active stable trees.
-
-### Step 6.2: BACKPORT COMPLICATIONS
-The patch applies cleanly to v7.0. The function signature and
-surrounding code are identical.
-
----
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: SUBSYSTEM CRITICALITY
-- **Subsystem:** DRM/GEM DMA helpers — used by 40+ embedded/ARM GPU
-  drivers
-- **Criticality:** IMPORTANT — affects many ARM/embedded systems
-  (Raspberry Pi, Chromebooks, Android devices)
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: WHO IS AFFECTED
-All users of DRM DMA GEM-based drivers (40+ drivers, primarily
-ARM/embedded platforms including Chromebooks).
-
-### Step 8.2: TRIGGER CONDITIONS
-Any process that mmap's a DRM DMA GEM buffer and then crashes
-(triggering a core dump) or is subject to `process_vm_readv()`. This is
-a common path — every graphical application on these platforms maps GPU
-buffers.
-
-### Step 8.3: FAILURE MODE SEVERITY
-- **Without VM_DONTDUMP:** Core dumps include GPU buffer contents. This
-  could:
-  1. Cause kernel oops during core dump generation if DMA pages are in
-     inconsistent state (as demonstrated by the MSM crash — severity
-     MEDIUM-HIGH)
-  2. Leak potentially sensitive display buffer data in core dumps
-     (privacy/security concern — severity MEDIUM)
-  3. Create unnecessarily large core dumps (usability issue — severity
-     LOW)
-- **Overall severity: MEDIUM-HIGH**
-
-### Step 8.4: RISK-BENEFIT RATIO
-- **Benefit:** Prevents potential crashes during core dump, prevents
-  information leaks in core dumps, aligns with all other GEM
-  implementations, fixes a regression from v5.10
-- **Risk:** Near zero — adding one VM flag to core dump exclusion. This
-  matches the standard behavior of all other GEM implementations.
-- **Ratio: STRONGLY favorable for backporting**
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: EVIDENCE COMPILATION
-
-**FOR backporting:**
-- Fixes a real regression (VM flag lost during code conversion since
-  v5.10)
-- The exact same bug pattern in MSM driver caused real crashes on
-  Chromebooks
-- One-line change, obviously correct, zero regression risk
-- Reviewed by the original author of the buggy conversion
-- Matches behavior of all other GEM implementations (40+ drivers set
-  VM_DONTDUMP)
-- Affects 40+ embedded/ARM drivers in production
-- The shmem helper had the same fix explicitly targeting security: "who
-  knows what secrets these buffers contain"
-
-**AGAINST backporting:**
-- No concrete crash report for the DMA helper specifically (but MSM
-  crash proves the pattern)
-- VM_DONTDUMP alone may not cause crashes as severe as missing VM_IO
-  (the MSM crash was primarily VM_IO-related)
-
-### Step 9.2: STABLE RULES CHECKLIST
-1. **Obviously correct and tested?** YES — reviewed by the bug's
-   original author, trivially verifiable
-2. **Fixes a real bug?** YES — restores VM flag lost during refactoring
-3. **Important issue?** YES — potential crash during core dump,
-   information leak, and consistency
-4. **Small and contained?** YES — one token added to one line in one
-   file
-5. **No new features or APIs?** Correct — no new features
-6. **Can apply to stable?** YES — applies cleanly
-
-### Step 9.3: EXCEPTION CATEGORIES
-Not applicable — this is a standard bug fix.
-
----
-
-## Verification
-
-- [Phase 1] Parsed tags: Reviewed-by Thomas Zimmermann (original
-  conversion author), Link to patch.msgid.link
-- [Phase 2] Diff analysis: 1 line changed in `drm_gem_dma_mmap()`, adds
-  `VM_DONTDUMP |` to existing `vm_flags_mod()` call
-- [Phase 3] git blame: buggy code traces to `f5ca8eb6f9bd5e` (v5.10 era,
-  present in all stable trees)
-- [Phase 3] git show f5ca8eb6f9bd5e: confirmed it removed old mmap path
-  without preserving VM_DONTDUMP
-- [Phase 3] git show 59f39bfa6553: confirmed VM_DONTEXPAND was already
-  fixed separately
-- [Phase 3] git show 3466d9e217b33: confirmed identical bug in MSM
-  driver caused real crash (kernel oops on Chromebooks)
-- [Phase 3] git show c6fc836488c2c: confirmed shmem helper also re-added
-  VM_DONTDUMP for security reasons
-- [Phase 4] b4 dig found original conversion patch thread at
-  lore.kernel.org
-- [Phase 4] Lore/patchwork blocked by anti-bot, but Reviewed-by from
-  conversion author is strong signal
-- [Phase 5] Grep for VM_DONTDUMP across drivers/gpu/drm: 20+ files set
-  it — DMA helper was the sole outlier
-- [Phase 5] Grep for DRM_GEM_DMA_DRIVER_OPS: 40+ driver files use this
-  helper
-- [Phase 6] Read file confirmed buggy line exists in v7.0 tree at line
-  537
-- [Phase 6] No changes since v7.0 branch point to this file (clean apply
-  expected)
-- [Phase 8] Failure mode: potential kernel oops during core dump +
-  information leak in dumps
-
-The fix is a single-token addition restoring a VM flag that was
-accidentally dropped during a code refactoring in v5.10, matching the
-behavior of every other GEM implementation. It is minimal, obviously
-correct, reviewed by the original offender's author, and addresses a
-class of bug that has caused real crashes in a sibling driver.
-
-**YES**
-
- drivers/gpu/drm/drm_gem_dma_helper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
-index ecb9746f4da86..1911bf6a6a3ed 100644
---- a/drivers/gpu/drm/drm_gem_dma_helper.c
-+++ b/drivers/gpu/drm/drm_gem_dma_helper.c
-@@ -534,7 +534,7 @@ int drm_gem_dma_mmap(struct drm_gem_dma_object *dma_obj, struct vm_area_struct *
- 	 * the whole buffer.
- 	 */
- 	vma->vm_pgoff -= drm_vma_node_start(&obj->vma_node);
--	vm_flags_mod(vma, VM_DONTEXPAND, VM_PFNMAP);
-+	vm_flags_mod(vma, VM_DONTDUMP | VM_DONTEXPAND, VM_PFNMAP);
- 
- 	if (dma_obj->map_noncoherent) {
- 		vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
--- 
-2.53.0
+Hi Dmitry,
+
+On 4/20/26 05:00, Dmitry Baryshkov wrote:
+> On Mon, Apr 20, 2026 at 02:11:28PM +0800, Frank Zhang wrote:
+>> On 4/19/26 08:40, Dmitry Baryshkov wrote:
+>>> On Sat, Apr 18, 2026 at 06:19:36PM +0800, Frank Zhang wrote:
+>>>> The following panic was observed during system reboot:
+>>>>
+>>>> Kernel panic - not syncing: Asynchronous SError Interrupt
+>>>> CPU: 7 UID: 1000 PID: 2637 Comm: pipewire ... 6.19.10-300.fc44.aarch64
+>>>> Call trace:
+>>>>    ...
+>>>>    regmap_update_bits_base+0x5c/0x90
+>>>>    dw_hdmi_qp_bridge_clear_infoframe+0xb0/0x120 [dw_hdmi_qp]
+>>>>    drm_bridge_connector_clear_infoframe+0x28/0x48 [drm_display_helper]
+>>>>    ...
+>>>>    dw_hdmi_qp_audio_disable+0x24/0xb8 [dw_hdmi_qp]
+>>>>    drm_bridge_connector_audio_shutdown+0x30/0x60 [drm_display_helper]
+>>>>    drm_connector_hdmi_audio_shutdown+0x24/0x38 [drm_display_helper]
+>>>>    hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+>>>>    ...
+>>>>    snd_pcm_release_substream.part.0+0x44/0xd8 [snd_pcm]
+>>>>    snd_pcm_release+0x60/0xe8 [snd_pcm]
+>>>>    ...
+>>>>
+>>>> The root cause is pipewire tries to close the HDMI audio device after
+>>>> atomic_disable(), which sets tmds_char_rate to 0 and disable the PHY.
+>>>>
+>>>> In this case, dw_hdmi_qp_audio_disable() will call
+>>>> drm_atomic_helper_connector_hdmi_clear_audio_infoframe() directly,
+>>>> accessing registers without checking tmds_char_rate.
+>>>>
+>>>> Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside the
+>>>> if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+>>>>
+>>>> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+>>>> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+>>>>
+>>>> ---
+>>>> Changes in v2:
+>>>> - Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
+>>>>     the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+>>>> - Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
+>>>>
+>>>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+>>>> index d649a1cf07f5..7760527484c8 100644
+>>>> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+>>>> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+>>>> @@ -526,10 +526,10 @@ static void dw_hdmi_qp_audio_disable(struct drm_bridge *bridge,
+>>>>    {
+>>>>    	struct dw_hdmi_qp *hdmi = dw_hdmi_qp_from_bridge(bridge);
+>>>> -	drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
+>>>> -
+>>>> -	if (hdmi->tmds_char_rate)
+>>>> +	if (hdmi->tmds_char_rate) {
+>>>> +		drm_atomic_helper_connector_hdmi_clear_audio_infoframe(connector);
+>>>>    		dw_hdmi_qp_audio_disable_regs(hdmi);
+>>>> +	}
+>>> Will audio and audio infoframe remain disabled after consequetive
+>>> atomic_enable() call?
+>>>
+>>>>    }
+>>>>    static int dw_hdmi_qp_i2c_read(struct dw_hdmi_qp *hdmi,
+>>>> -- 
+>>>> 2.53.0
+>>>>
+>> Sorry, I missed clearing the audio infoframe when the PHY is down. The next
+>> atomic_enable() will write the stale audio infoframe. My mistake.
+>>
+>> To clear the stale audio infoframe, dw_hdmi_qp_audio_disable() can handle it
+>> in the else branch directly, but this seems like a layering violation for a
+>> bridge driver
+>>
+>> I think the better approach is to add a 'reset_audio_infoframe' interface in
+>> drm_hdmi_state_helper.c that does basically the same as
+>> drm_atomic_helper_connector_hdmi_clear_audio_infoframe(), but only clearing
+>> the software state without calling clear_infoframe(). It's also a bit odd
+>> since it would only be used by dw-hdmi-qp.
+> That sounds too fine-grained and it also will not work straight ahead...
+>
+> Just for my understanding, let's consider the opposite situation: the
+> user tries to start audio playback before setting the mode. How is it
+> handled in the driver?
+Currently, when setting audio params, the value of tmds_char_rate is 
+needed to
+compute some clocks value.
+
+So if the user starts audio before any mode is set, we just return -ENODEV.
+
+I sent a tentative fix to just return 0 some time ago:
+https://lore.kernel.org/all/20250722195437.1347865-2-detlev.casanova@collabora.com/
+
+Detlev.
+>> I'd like to get the maintainers' opinion about adding such an interface.
+>>
+>> Thanks,
+>> Frank Zhang
+>>
 
