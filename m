@@ -4,129 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC38DF36C31
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 07:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036BAF36C2E
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 07:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2814310EBCA;
-	Mon, 20 Apr 2026 07:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA9A110E105;
+	Mon, 20 Apr 2026 07:32:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="sBbtt0Ag";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="CuIGDn3X";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012024.outbound.protection.outlook.com
- [40.107.200.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16BD10EBC4
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 07:19:42 +0000 (UTC)
+Received: from TYVP286CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11011011.outbound.protection.outlook.com [52.101.125.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F9810E105
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 07:32:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t2Vc0yiVYUBxG0og+GlK4xsDa3wQlzRU2PZeffDjCNyrs7DvAFXN5naf5hVNBwsb0m+O1N+OkefH1k4bCJdfbfLyAxHF+Wf2Ki0ifLniK0116Z+TgEHmNKAi8jMc5fC/YLCIdprv7tBYWNMw8spg0enSfrnYha+yZMFTJ+fn9eZf16AwJSHbbDo9CrH4M8KNfpc/n9FCJM+FhaNOT2iNWdNDQ4abMHvkZhgLAHsVZuvJtIkweIMdLpEMLuYRC1YmOsUUaTgWBZep6gsCKbhpPI0gqvpgxrgzu3EL0VkAJzSCT79tK2mzlKzKz61tNaUyMLix5FVD//mkxLgbLZjyfw==
+ b=sUItT4VYnI5kCxPIA/fXxm/u119k0f54g9fK3D+/POpfJcHKWgGmn2a69D86x4t7XsNXLczertmbgp6eo50ikl1Gsi67l0SGD8xss5vvUIFD9umUTXcdaADfvPAvHA3JLnPBlE94L1kWSHlRMD7NRq9kh+2roHTql2dPeYk8ZNcoOp5RLPB4owkiuMQyPs+4NqlaFotlJ9lvMbuwJdjJEn6jnpYtXIPb5Od/PZatquUBd1j0C3Xe0ZvcARLX31HzdusQg+Gt7DoSua31s0kE5Z8p1lfhlTzF1+k4LQ6UtlUI5I/Vuy9FEfvqHRmPt39ELG5a7Tnp67msimEj4+uYaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8WKRZP7nvYULjLwFUh2QVim7srXU6nN1gfG6SuxNTM0=;
- b=xGBgEF2GNRzVMLhAgLNAS4+gurtx9BzltFhhUx2uthWdHHXGjvRcKffQgN7LwTKGAYMc+X2vomaA3bN7reGoALUqNWo0dYzeGZOFPvpnz4be499YABXQ5Wi8iEh/pyx4UG8D1XR6Z6h58V5xTSmXJbBPx5dNB2rit5vyhdV7a6ZNbVL2voffomhapK/nSgM83FSwULw6O3muQOIv4NI6/fpiDmmQeiCXV6yw/ChHORsykqN3LK8gxk24h454Lhzxcw3HaUUwxktIvSMSJuvRPzD/xoS8H09ImLx2ROIY/HcpoC4nnnnMJvlVIMEEq9yKpBnR008pyUO1QRlFxGT6ww==
+ bh=JoHia+Bf4+6pQuv9CZ9OvLMTPLLCsza6JckJ5Jf3L4E=;
+ b=W38Av3MCKqq/g5snjuBvszKU5+ovKXT+lioUbyaZIA63GnaocIQkLHSgvBURa/zK7OvVUUZNhlfwPTTHCQHDO+uW17ujCr84lNZ9YMAqY2o/Sv9SXRZVvZ5Ld5+U2YtB3fhf6HBoXNqE6zGzx0rE1dVgZGdBWcXerfv2427+OTAqGsjcbs6an2msG+hkR5hgXCk/JaBMtwU6bb+EkJ3cJkLOFdrB+XpiAHPsmFJSUnIUKWpmt5YjKNmV+bHZ4Rza1VxLNl7dhT+kSE5mYb0a95p5dmJlVgzAuF+oJ42VgYiomwtmtk5vT03BkE6L8PhW8TI3PmNyhLe3UjnKAPYPMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8WKRZP7nvYULjLwFUh2QVim7srXU6nN1gfG6SuxNTM0=;
- b=sBbtt0Agkk8Ap2F/TcRsHd0vYXIPm9oris4/PAodiG43PJ2ilGitrUvC99Gl0o6i6dXrc6sAOwUlpjn3SuiekakQB6lsI1OpYwCXSslnOpNhUV2jatY/kAlCT+c1E1U57Q4zD99WJb0jCv95QVEorbV3I5VMS/YCH8oOCTMxtX7ITI9b2nWa0wYH/7FnEGH3oHMLJ4DmUqte9gJXL10rtytZa1hfLgGXpvCyTmjCdQn0Ff8pueLXNv0CP2u/jowmuICqinVLZ8OoH/K+xepWy52Nd6oBDL4kZjUHZp6iyK7K+GY8kn4jvYKdRKrtrClNkKce/Me06cEgWMNDrpZEmg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by PH7PR12MB7820.namprd12.prod.outlook.com (2603:10b6:510:268::8)
+ bh=JoHia+Bf4+6pQuv9CZ9OvLMTPLLCsza6JckJ5Jf3L4E=;
+ b=CuIGDn3XdpSGDpYV5KvRa0jaig05jbOgEDZDMkh9jADMHC/AJjD06AZq/AQKkFNjOVE5cH/r+LW+Jg1U6aybZ/RdXDlDwtCj+/99Er3jlhETniryHhOJEdZf5TQdVZDW5n2LO4LvEAsapiZO/hFM7O6fCOxttQmK+XXFXvwCozc=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYCPR01MB9703.jpnprd01.prod.outlook.com (2603:1096:400:209::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.12; Mon, 20 Apr
- 2026 07:19:37 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%4]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
- 07:19:37 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guangshuo Li <lgs201920130244@gmail.com>,
- Vamsee Vardhan Thummala <vthummala@nvidia.com>, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- Guangshuo Li <lgs201920130244@gmail.com>
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH v2] gpu: host1x: Fix device reference leak in device_add()
- error path
-Date: Mon, 20 Apr 2026 16:19:33 +0900
-Message-ID: <q6Ni253ETr-zY8OZRWnm4g@nvidia.com>
-In-Reply-To: <20260413141328.2954939-1-lgs201920130244@gmail.com>
-References: <20260413141328.2954939-1-lgs201920130244@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCPR01CA0171.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::17) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH7PR12MB7820:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6024c0ff-dcca-4258-94e9-08de9ead2e3f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|10070799003|366016|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: U6lVEAnIEovHEPlyRtguvHr8ZAfPq4PpRZdMS/UULK6qetRWmSd8dGX9ryg4MmFTGHzTjRT+8S0nHlgaxEWbbGNOIxP7UzP5Mp1E2m+1Qsbo+Bqihx9tsvrht0pNFo3mJZk5b5z3XaY044wYQ7cDjmnnbpiYl1nDjLDt8GX9WgdK80On77wDCpbGzI0sNDAKOwM8ZAtYQZGNR76uR5Elf1vOw/j1p7ehZik7Qcqhn7l//ifao+N7pqSnTeH7Lo6rcpUYsv3TpC2WtJ1QlboTnUD6DbPl23sGZpdtWBpGQptW/kG7LluBt714BtUu6GBLQgQ4ffy/R/eJtgSSV4gexaYNRcqcwfb0lRfSYK08g3DECEIdoGcT/TuN/xzdT4X1tiSFAPrqBF5TRIyclymIglrPd/SkmNXqqU+Hf4oHuqOSacBF4h2f5ZFjLXckoDS1pyVMoBvcpDcDcfZ6XyByt7xzz93tL1vO5VxlKKj25eB2GR+vZE7XWcvjHvjYWWtCnR1A39oy/uUwBVenau/Tgb/2v+9KgXfVUUq2XtlWKl10et35T7JWWgh4yVfCSnXNN0aTRiukk1Rvo9LwmNYz36R2mEI3XRCmQFP4bFQh+GqjrslxozU+o3O5cowJB9WOOtQ16ipZD6X0freinohRxdj4FpVPcoYSwo7M2c3dYaFXvXgZXraKqhWaOQAno0T4ia7dMZsGMLt7k1hG3W2gu3ylS9yilbWDntxRGnKraOY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(10070799003)(366016)(18002099003)(22082099003)(56012099003);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.32; Mon, 20 Apr
+ 2026 07:31:58 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9818.032; Mon, 20 Apr 2026
+ 07:31:58 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: biju.das.au <biju.das.au@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, magnus.damm
+ <magnus.damm@gmail.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
+ <biju.das.au@gmail.com>, Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Subject: RE: [PATCH 3/3] drm: renesas: rz-du: Add support for RZ/G3L LVDS
+ encoder
+Thread-Topic: [PATCH 3/3] drm: renesas: rz-du: Add support for RZ/G3L LVDS
+ encoder
+Thread-Index: AQHczpL/Ukn6EchJEUKwiqN+6dKGQLXnkeuw
+Date: Mon, 20 Apr 2026 07:31:58 +0000
+Message-ID: <TY3PR01MB11346A2CCFB936D6AFAA323E8862F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260417175235.224809-1-biju.das.jz@bp.renesas.com>
+ <20260417175235.224809-4-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260417175235.224809-4-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB9703:EE_
+x-ms-office365-filtering-correlation-id: a752f782-06a2-484b-8898-08de9eaee7e7
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|38070700021|56012099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: j4dpg/PB1CuJ4cD+pNwj3Uxb0kGvVX9kzGwNujbrh1yEBISB2uu43mAa2i6pbHN0VrCXjrGa7g75zXuvUrls+KcEqfAiLC7bgxVETdluegmszjMgtGFOrgcLrbrzmzKZWMWf81uOrkASHtVCq9pO+my7uwVqoAb87digis6decorCGgKKdbiL3MmCo/riNiGgVicAOkyYyo4QNiwclZVSlLnm3kHRnehLtL1ED3PdjKLU6ZsNe2/IIM30gfer3HGmCO9HSJ2uYmlyCdfEdISyOKF1lsbP3IeClUik9/hTovxlY1Rk0MCJDKCtxBV+s2fWZzyBpxqoJODtucap+j/V78TpYf7N5ecN8w/lt0iNPEddvMoqe3gUdQuOyVCUcBFJEwTUwXld9QKufoMS2FrDdUWVKjyLhRwSzAljc0RialikiaaHLto2rufqHMUwmgyzT3O0kbqgERFPw6qpJ0PtHKyRV3/oDzK67OP2gL7FVb8R16B32/QOJkshWTfD4MJBdLD0ycQZhp6Kpt3LXneYFBKKgZOhBASoQKhudrF4685+dcZyl0D+t1Rl7M2G2FLeB4zBQuJfsPNaXZMq9yfsKRzIwfzzcKZvNKDvNvEUcDITB6/yr68WpfuLCdTh+HDSqD1qjsNhmv1igxf+bTN06fZk6L18nSowTwJj0YPtRdKfM8KN839TeKY/KOAZtuv7NdQrx/JlWjmF4Fk69Ct8L1ndIgb0xP1/sQ3vLo5/xw3Hwj6iHH4LeHDMt7/yU0SrIU0WbeZxG9kfsrsGM6POikRZATfTdxDUd6YiII+/v0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(38070700021)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eU1PNExDZHlwOGt6RzJkZFJNZGdFc0FLRVR0aEZPeXhydFRuTTVlZm5odmNF?=
- =?utf-8?B?bTBYeGRUUWtEYnZCSnE0eW5uZHlkMU1zQ2FKNzlvaE1CWlpiRE1oN2Y3bUdh?=
- =?utf-8?B?aTg0UzN1QmdLWkhQcDhwZmplaW9zWlVEWThlZDM1SlVvRGVnUmtDVVVqOGxG?=
- =?utf-8?B?SFNVVng1d0N1UWNZaU4weVJKeVdIWkpDOVRqZWNFMVRUSVdoSC9sd2dUbDBZ?=
- =?utf-8?B?bEhyZTZKa00yQ3RFNnlSeHNpME9UN21SRWNHOG1sWDd2d2dRRXVyMWZXWkFr?=
- =?utf-8?B?RlpMYXNwdHAvMk9VT1o2NkNPYkx5N2VadU8rQmEzaGJEaG8yVFcwcTVUNjR6?=
- =?utf-8?B?d2RvZWxjUXRDdWNzOElYV0d6VmhHTUF2Q0E0b2dhRWxSWmxGR29wRU8zVWRX?=
- =?utf-8?B?d0Vsay96WHlQL1hnTDR4YzVPdXpRQ0pGMjZBTUFRbktxWEwySGxWYXJhZFkx?=
- =?utf-8?B?V0JPRWMrWit3TkFvbG1QNXFhTHdYZEZaN1hVYTRJVFgvYzV0U0JzNUpIWGV6?=
- =?utf-8?B?T0FVL2ozRUd4SzkzY3BSbEtwM1pPb1c5clhDSkJNbDZHUEMrQVlCVDhtbjZ5?=
- =?utf-8?B?ZmNwV2ZvYmxKSzRTejZCY2dVSkpVKzQwSlRSRDRnc2lFTStBVUZYTDMvUTR4?=
- =?utf-8?B?UE5kWHpLVzB1d29IUUprV05EVEJuL01TclFCZno1UW93ZFlaaUpVMEoxQVRQ?=
- =?utf-8?B?SE0xazNUYWpjQjBncGlDd2xZby9QeS9RSFVUcm9CNUZHbGo0R0pjMi85dDF0?=
- =?utf-8?B?Rkk1cG5uK0paNkFxUmlOMHFvU2MvNDQ2VzN4V215b0FHalIyWEV1cCtyK3lG?=
- =?utf-8?B?MkoyVTZiK3dmeldWSGwvUllOWEwreHNBNEZQNFlPeGhRZ2kwcmhZS1VTQXNE?=
- =?utf-8?B?QitvRmlIU01rTXhTTjVReGJ5RE1vc1Q4ZjA4NjBNU0I0WDBQNFlqbk1IaVZN?=
- =?utf-8?B?RUpxNTRvTXVBb0FXS2NCWUFFWFM4MURMZ0Q1dzJkcGEzZWhCdy8yNHkrcnVm?=
- =?utf-8?B?NFd0ZHJSREx3bG9vbGZVMjNDd2lvVkVta0Zld0FYVXJBYVBPV0tFTE1nbjdv?=
- =?utf-8?B?VHJUcjN1b2NqWGRsRGExSTdzSXVKMDEzRkdHa08vdHdYME9KTDRYdmdidlZt?=
- =?utf-8?B?TGFLVGNWY3UwZ1U4M3FkS1hCTWdxd3pMV1NkMFB6d2xjbGppTTR0ZExOUW8z?=
- =?utf-8?B?dldHZmRYb1NqZ1Q4dVNENENCMlo5LzB6NUFIRjNoVWJFUzVhdWJKWmloemJI?=
- =?utf-8?B?YS9VWE9xbDNyZkZhdnNXL25oTHNtcldTVUN6cEtPQTZLeGN2QVUxOFpPTFpk?=
- =?utf-8?B?OXE3OTVlQThibE45TytQMFZnZDNVS0xHcHl2TmpnTGNBd2M5UUtqUENGR3ZK?=
- =?utf-8?B?SmxSYllFZXFmYWVuZk9KMmRaaWxPdmJqMWNqdWNmVGpvWWJuUHNuUVgwNzBn?=
- =?utf-8?B?VU9VamluM0QyK3crWkxiWGtLSzBqVDdXRXN3bnJ3R2NEU1h2L1RGVHF2aW9X?=
- =?utf-8?B?ck1XZFB2bUZ5MUJVT0xRWUdIUTJFeDIyMGRCbmh0cDVJVmxiSEtJUjlUMjRo?=
- =?utf-8?B?ZjRIc1cyK0RLMExFNGhoRFBkdFpxQjJ1ZSs4WWhpelFydlpZWjlUa2w4T2dT?=
- =?utf-8?B?aC9ZdlI4UEtFeXlXOVQ2Wi9TNVpmRG1rOTVvMVN1dXhpV1Q2Rk41S1lSN0dG?=
- =?utf-8?B?bE1CZ255UkQvYlZnQkJnbTVaUkRqZXNqOGxvelRmSTRBc1lGeVZrK2V2RjZO?=
- =?utf-8?B?NFpBZ2Fsa0o0bll4dFd5ekVrM1FtMGRxWVZXdDQvaGdTK2NESnR5RUFtUmZq?=
- =?utf-8?B?emdPWlE5cFh2TWduUm51dHJ5TmhPOFk5TG1MaGZNVjJUc1dSUkpwazdLVHIy?=
- =?utf-8?B?dll4M1FPRUgzTEVGOWRidGE4eC8rdVBvQnhkMlNQV1F3a0tKS0Z0QkN1a3Nr?=
- =?utf-8?B?WDI1cTVLa0gwUU9Md2ZQeGxzL3k5ODlPR1B5ekNJWHN6TVJLVXBVMHExclN3?=
- =?utf-8?B?Yk5iZHpCWCsrc2g3UEdrUVgraUxML056ZWZGUllQQngyZ0VvK1VoSGFDR1hM?=
- =?utf-8?B?bWZReVlJY25Uc2dKbHhib243SmwxT2JOWTBFdnI1YWduVlRhSmhkU3R4MFdk?=
- =?utf-8?B?SkJlUGNsYTF6OUtHYm90RVRxeTF0MjlheHdEQ2lmVHVZLy9xRG12QklnVFo2?=
- =?utf-8?B?MndTaXJUMEt2Ui9jOXZWU1JwZmRrZGVvSlhzQ2FpWkpHMzhheWdidnV3d2ZT?=
- =?utf-8?B?bVBKNW9vMm9NaStGeXlGRmx1akJhUmdUNENwc2dHM0x3NWdzZHlUWk50RTI2?=
- =?utf-8?B?T2t3dHN5UE9wMCttdDVXZkFKVVl0VldLYnNjcGRHandqNnl2VlJvWU1oVXRB?=
- =?utf-8?Q?rki1+ScCQp8Erx9E+Kh0a7wDoF3KVy0iLnlVSFYLNTMjQ?=
-X-MS-Exchange-AntiSpam-MessageData-1: +Sk7xqqcngaIWA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6024c0ff-dcca-4258-94e9-08de9ead2e3f
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8FfJu1E2PxTS3RNqjdRUPLKIMpM6GrJBs2YSN1TaTp7RtMVnA/AHrR6oYWO1?=
+ =?us-ascii?Q?fnm8Qn4PiLtsPQ8pMUX11H3zdQ/lpyzexo7UYVHAy8iJX3UbFLPznIGKg/y8?=
+ =?us-ascii?Q?6slkSwU1kSWJ1U4jK3XwnsdktroDVKjrJv2pNlWYbBi6+DCxDihckwYuN7bv?=
+ =?us-ascii?Q?OS+/QGjxNTVJtGKrMtq20NChcqz/XoCkJcIUQgAhVolR6bS1GeKYe8HOHO/W?=
+ =?us-ascii?Q?SoISqgMBSUyo/4juarjLdGtKRxKbjNDgwaxSFhOmqPIqzacT/9Q/Zi8jTkZQ?=
+ =?us-ascii?Q?HIUhxWlodHN//bnZbCg0SKiySIc4nzEflRUWnVzrhDMeq3p+1STeHzQHZgNe?=
+ =?us-ascii?Q?Es7YSt5Q7eR/d6MdbEHpMbwogJVCDVa9BwlTAhB2bM1UUOQ8y/CiLc7JBerX?=
+ =?us-ascii?Q?IIo6PD5nUJLE4MRnvyQnm05k9l80/xBuQIux9bmWpVe2UIppcZDTDug1/ANg?=
+ =?us-ascii?Q?83pJoMQaestHmn382WyoFLYpd7CoAvyaL6WDd8NpcGUazd8e/Rh+QhnImfcm?=
+ =?us-ascii?Q?lBThtBHljpsV1yRWHU+Olj/3xjvD03JKU+PZfSPlsvoFGP3nHBrcSSQ5MRjS?=
+ =?us-ascii?Q?lL4dR09B2X9+rq5mNn0QY25Fw/OTYcqbKIGO7g/dGhkNsMu6UK76Kul9XcIg?=
+ =?us-ascii?Q?NGcxuen+YJ7c2dAiV+syWP2RpkXAxTno7+HXIlPPoHfTkA+QU2nFoZG9d2t4?=
+ =?us-ascii?Q?GPvPOucJsXPzO3FUHi+MviXHgkE+W5gO0sTDBWvM1Fszjp7xLWsUSapGy8hT?=
+ =?us-ascii?Q?7Vnj3DkSZLFwKjxz6A+p9WA8FZGLaFLwrBXCiDk00HtKyzifvBrRYSEiCqEJ?=
+ =?us-ascii?Q?K6od8I/wBvROEhwJO44ch3Gd+OwUa0DhAidhB5QX7OJvuQ0VUfs1E9t0Ls78?=
+ =?us-ascii?Q?cJ3WV2+iHILm+YhnsESsWmpEc7VfcFN0Bt9P92ig7fT8ovftiZINTXXM2Iie?=
+ =?us-ascii?Q?9XnL9RIJxboB+fzGlNdFsrmDna79Lhw9nVp+PbXTQhBQOEFU1kYY5gOM7P6+?=
+ =?us-ascii?Q?DerQRk9UWf41GI8sIk8ErzNMSLJKxxuqM391BtQNxUKZLYmeeRRde1m5KtNA?=
+ =?us-ascii?Q?1bZhDbA8SES5C6MAOGSjABmsyDYbw9OcOxuSi0RmHmlqc4/nGErDKFme1C9l?=
+ =?us-ascii?Q?jWLWU8ga7jt+8RYJT2ovzLNXCIscVzYhqLm2ZrC6yw/auCQ5KhH3vZJMGQ0H?=
+ =?us-ascii?Q?CsBaabNerfV8J4/Lexw5PvYl/dhsVbPw0Zh1qH064MOl7CSoRq1ZVHnAKYs5?=
+ =?us-ascii?Q?1rY+/EpWiw9wgZhuJEyQ2/rWLrsn7cA+sCFecTADm/+Srb5zWL4R6Te2aP0j?=
+ =?us-ascii?Q?l3GXpt9oytkOKvgcARPTPkpDb5TBQDgpwvDvJTfHPmw0CwhLBDmSKMvjgr2Y?=
+ =?us-ascii?Q?CduVSXQuYCLqogkp2eImpaxoyB6H12Heu1CIrgB8SRYYo1ch7WwIqRmAZmq6?=
+ =?us-ascii?Q?ewXhsa6pXop3EanLTeaojtEgU/1WMwlMAktLhDMpVJrxxIbfC3w0zWMY14o9?=
+ =?us-ascii?Q?I7IWI8iVVVt0cZvXoUlEQ/r3qZdZ9X8hbfIGYMxyZqMPjbrDXkekiBobTj3K?=
+ =?us-ascii?Q?FKMR+LmOWkrCpOBM2BcI2V/QcHg+tnUdbxpDwfgiWGiKjpScwEVaBaDqLG0e?=
+ =?us-ascii?Q?ds13t70gUAZyOsJPCDhBb7qB9MAY0QkIiMeXGSWrmaqs8DfW6B7Z0meMDwIB?=
+ =?us-ascii?Q?6PBN4AvPTSjol5soTztiDa1YBvvu6cL7NpdNkCSX2htpCmMZ1CDM3k8pVK5Z?=
+ =?us-ascii?Q?BcYnG2gniA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 07:19:37.6912 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Zmu3KDWumW8Zo1ngpap0RlKVJrTFXKOHiwrhLljqOga6+XW3yTmU++YRu21qCpZPHIu6qY1yO51iflZknBkYQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7820
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a752f782-06a2-484b-8898-08de9eaee7e7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2026 07:31:58.4862 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: z/jJAYhHrpzKHPjtKEkok3Ic0DbvCmiCXAYaRqCg/kBU8b1nxinRkCJb8TfMmUGuW8qZImHLBLbQ7u7hNwZt6E3tG8lVz3Gao0EkE92ueFA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9703
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,82 +140,284 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, April 13, 2026 11:13=E2=80=AFPM Guangshuo Li wrote:
-> After device_initialize(), the embedded struct device in struct
-> host1x_device should be released through the device core with
-> put_device().
+Hi all,
+
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 17 April 2026 18:53
+> Subject: [PATCH 3/3] drm: renesas: rz-du: Add support for RZ/G3L LVDS enc=
+oder
 >=20
-> In host1x_device_add(), the empty-subdevice path calls
-> device_add(&device->dev), but if that fails it only logs the error and
-> continues without dropping the device reference. That leaks the
-> reference held on the embedded struct device.
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >=20
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
+> Add support for the RZ/G3L LVDS encoder driver. It operates in single-lin=
+k mode with 4 lanes (Data) + 1
+> lane (Clock) and supports pixel clock rates from 25 to 87 MHz. The LVDS m=
+odule cannot be used at the
+> same time as MIPI-DSI. However, LVDS and the DSI interface share a periph=
+eral clock and the
+> MIPI_DSI_PRESET_N reset signal. Also, the MIPI_DSI_CMN_RSTB and MIPI_DSI_=
+ARESET_N reset signals must be
+> asserted before using the LVDS module.
 >=20
-> Fix this by removing the device from host1x->devices and calling
-> put_device() when device_add() fails.
->=20
-> Fixes: fab823d82ee50 ("gpu: host1x: Allow loading tegra-drm without enabl=
-ed engines")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 > ---
-> v2:
->   - note that the issue was identified by my static analysis tool
->   - and confirmed by manual review
+>  drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
+>  drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
+>  drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 333 ++++++++++++++++++
+>  drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.h    |  22 ++
+>  .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  26 ++
+>  5 files changed, 395 insertions(+)
+>  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+>  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.h
+>  create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
 >=20
->  drivers/firmware/edd.c   | 2 +-
->  drivers/gpu/host1x/bus.c | 6 +++++-
->  2 files changed, 6 insertions(+), 2 deletions(-)
+> diff --git a/drivers/gpu/drm/renesas/rz-du/Kconfig b/drivers/gpu/drm/rene=
+sas/rz-du/Kconfig
+> index 7f2ef7137ae5..cbfc7b6bccb8 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/Kconfig
+> +++ b/drivers/gpu/drm/renesas/rz-du/Kconfig
+> @@ -26,3 +26,16 @@ config DRM_RZG2L_MIPI_DSI
+>  	def_tristate DRM_RZG2L_DU
+>  	depends on DRM_RZG2L_USE_MIPI_DSI
+>  	select DRM_MIPI_DSI
+> +
+> +config DRM_RZG3L_USE_LVDS
+> +	bool "RZ/G3L DU LVDS Encoder Support"
+> +	depends on DRM_BRIDGE && OF
+> +	default DRM_RZG2L_DU
+> +	help
+> +	  Enable support for the RZ/G3L Display Unit embedded LVDS encoders.
+> +
+> +config DRM_RZG3L_LVDS
+> +	def_tristate DRM_RZG2L_DU
+> +	depends on DRM_RZG3L_USE_LVDS
+> +	select DRM_KMS_HELPER
+> +	select DRM_PANEL
+> diff --git a/drivers/gpu/drm/renesas/rz-du/Makefile b/drivers/gpu/drm/ren=
+esas/rz-du/Makefile
+> index 2987900ea6b6..46decb7ac4f1 100644
+> --- a/drivers/gpu/drm/renesas/rz-du/Makefile
+> +++ b/drivers/gpu/drm/renesas/rz-du/Makefile
+> @@ -8,3 +8,4 @@ rzg2l-du-drm-$(CONFIG_VIDEO_RENESAS_VSP1)	+=3D rzg2l_du_v=
+sp.o
+>  obj-$(CONFIG_DRM_RZG2L_DU)		+=3D rzg2l-du-drm.o
 >=20
-> diff --git a/drivers/firmware/edd.c b/drivers/firmware/edd.c
-> index 55dec4eb2c00..82b326ce83ce 100644
-> --- a/drivers/firmware/edd.c
-> +++ b/drivers/firmware/edd.c
-> @@ -748,7 +748,7 @@ edd_init(void)
-> =20
->  		rc =3D edd_device_register(edev, i);
->  		if (rc) {
-> -			kfree(edev);
-> +			kobject_put(&edev->kobj);
->  			goto out;
->  		}
->  		edd_devices[i] =3D edev;
+>  obj-$(CONFIG_DRM_RZG2L_MIPI_DSI)	+=3D rzg2l_mipi_dsi.o
+> +obj-$(CONFIG_DRM_RZG3L_LVDS)		+=3D rzg3l_lvds.o
+> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c b/drivers/gpu/drm=
+/renesas/rz-du/rzg3l_lvds.c
+> new file mode 100644
+> index 000000000000..bedeedbdfada
+> --- /dev/null
+> +++ b/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+> @@ -0,0 +1,333 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * RZ/G3L LVDS Encoder Driver
+> + *
+> + * Copyright (C) 2026 Renesas Electronics Corporation  */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/io.h>
+> +#include <linux/media-bus-format.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of_graph.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+> +
+> +#include <drm/drm_atomic.h>
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_bridge.h>
+> +#include <drm/drm_of.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
+> +
+> +#include "rzg3l_lvds.h"
+> +#include "rzg3l_lvds_regs.h"
+> +
+> +enum rzg3l_lvds_mode {
+> +	RZG3L_LVDS_MODE_JEIDA =3D 0,
+> +	RZG3L_LVDS_MODE_JEIDA_MIRROR =3D 1,
+> +	RZG3L_LVDS_MODE_MODE2 =3D 2,
+> +	RZG3L_LVDS_MODE_MODE2_MIRROR =3D 3,
+> +	RZG3L_LVDS_MODE_VESA =3D 4,
+> +	RZG3L_LVDS_MODE_VESA_MIRROR =3D 5,
+> +	RZG3L_LVDS_MODE_MODE6 =3D 6,
+> +	RZG3L_LVDS_MODE_MODE6_MIRROR =3D 7,
+> +};
+> +
+> +struct rzg3l_lvds {
+> +	struct device *dev;
+> +	struct reset_control *prstc;
+> +	struct reset_control *lvd_rstc;
+> +	struct regmap *regmap;
+> +
+> +	struct drm_bridge bridge;
+> +	struct drm_bridge *next_bridge;
+> +};
+> +
+> +#define bridge_to_rzg3l_lvds(b) \
+> +	container_of(b, struct rzg3l_lvds, bridge)
+> +
+> +/*
+> +-----------------------------------------------------------------------
+> +------
+> + * Bridge
+> + */
+> +static void rzg3l_lvds_atomic_enable(struct drm_bridge *bridge,
+> +				     struct drm_atomic_state *state) {
+> +	struct rzg3l_lvds *lvds =3D bridge_to_rzg3l_lvds(bridge);
+> +	const struct drm_bridge_state *bridge_state;
+> +	int ret;
+> +	u32 fmt;
+> +
+> +	/* Get the LVDS format from the bridge state. */
+> +	bridge_state =3D drm_atomic_get_new_bridge_state(state, bridge);
+> +	if (!bridge_state) {
+> +		dev_err(lvds->dev, "failed to get bridge state\n");
+> +		return;
+> +	}
+> +
+> +	switch (bridge_state->output_bus_cfg.format) {
+> +	case MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA:
+> +		fmt =3D RZG3L_LVDS_MODE_JEIDA;
+> +		break;
+> +	case MEDIA_BUS_FMT_RGB888_1X7X4_SPWG:
+> +		fmt =3D RZG3L_LVDS_MODE_VESA;
+> +		break;
+> +	default:
+> +		fmt =3D RZG3L_LVDS_MODE_VESA;
+> +		dev_warn(lvds->dev, "Unsupported bus fmt 0x%04x\n",
+> +			 bridge_state->output_bus_cfg.format);
+> +		break;
+> +	}
+> +
+> +	ret =3D pm_runtime_resume_and_get(lvds->dev);
+> +	if (ret < 0) {
+> +		dev_err(lvds->dev, "pm_runtime_resume_and_get error\n");
+> +		return;
+> +	}
+> +
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_EN_BGR, LVDS_0_PHY_CH_EN_BGR);
+> +	usleep_range(20, 25);
+> +
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_EN_LDO, LVDS_0_PHY_CH_EN_LDO);
+> +	usleep_range(10, 15);
+> +
+> +	regmap_write(lvds->regmap, LVDS_CMN, LVDS_CMN_RST_PHY0_SEL);
+> +	regmap_update_bits(lvds->regmap, LVDS_0_CTL_OFFSET,
+> +			   LVDS_0_CTL_FMT_SEL_MSK,
+> +			   FIELD_PREP(LVDS_0_CTL_FMT_SEL_MSK, fmt));
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_IO_EN_MSK, LVDS_0_PHY_CH_IO_EN);
+> +	regmap_write(lvds->regmap, LVDS_CMN,
+> +		     LVDS_CMN_RST_PHY0_SEL | LVDS_CMN_PHY_RESET);
+> +	usleep_range(100, 150);
+> +}
+> +
+> +static void rzg3l_lvds_atomic_disable(struct drm_bridge *bridge,
+> +				      struct drm_atomic_state *state) {
+> +	struct rzg3l_lvds *lvds =3D bridge_to_rzg3l_lvds(bridge);
+> +
+> +	regmap_update_bits(lvds->regmap, LVDS_CMN, LVDS_CMN_PHY_RESET, 0);
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_IO_EN_MSK, 0);
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_EN_LDO, 0);
+> +	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
+> +			   LVDS_0_PHY_CH_EN_BGR, 0);
+> +
+> +	pm_runtime_put(lvds->dev);
+> +}
+> +
+> +static int rzg3l_lvds_attach(struct drm_bridge *bridge,
+> +			     struct drm_encoder *encoder,
+> +			     enum drm_bridge_attach_flags flags) {
+> +	struct rzg3l_lvds *lvds =3D bridge_to_rzg3l_lvds(bridge);
+> +
+> +	if (!lvds->next_bridge)
+> +		return 0;
+> +
+> +	return drm_bridge_attach(encoder, lvds->next_bridge, bridge, flags); }
+> +
+> +static enum drm_mode_status
+> +rzg3l_lvds_bridge_mode_valid(struct drm_bridge *bridge,
+> +			     const struct drm_display_info *info,
+> +			     const struct drm_display_mode *mode) {
+> +	if (mode->clock > 87000)
+> +		return MODE_CLOCK_HIGH;
+> +
+> +	if (mode->clock < 25000)
+> +		return MODE_CLOCK_LOW;
+> +
+> +	return MODE_OK;
+> +}
+> +
+> +bool rzg3l_lvds_is_connected(struct drm_bridge *bridge) {
+> +	struct rzg3l_lvds *lvds =3D bridge_to_rzg3l_lvds(bridge);
+> +
+> +	return !!lvds->next_bridge;
+> +}
+> +EXPORT_SYMBOL_GPL(rzg3l_lvds_is_connected);
+> +
+> +static const struct drm_bridge_funcs rzg3l_lvds_bridge_ops =3D {
+> +	.attach =3D rzg3l_lvds_attach,
+> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
+> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> +	.atomic_reset =3D drm_atomic_helper_bridge_reset,
+> +	.atomic_enable =3D rzg3l_lvds_atomic_enable,
+> +	.atomic_disable =3D rzg3l_lvds_atomic_disable,
+> +	.mode_valid =3D rzg3l_lvds_bridge_mode_valid, };
+> +
+> +/*
+> +-----------------------------------------------------------------------
+> +------
+> + * Power Management
+> + */
+> +
+> +static int rzg3l_lvds_pm_runtime_suspend(struct device *dev) {
+> +	struct rzg3l_lvds *lvds =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D reset_control_assert(lvds->lvd_rstc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D reset_control_assert(lvds->prstc);
+> +	if (ret)
+> +		goto err_deassert_lvd_rstc;
+> +
+> +	return 0;
+> +
+> +err_deassert_lvd_rstc:
+> +	reset_control_deassert(lvds->lvd_rstc);
+> +	return ret;
+> +}
+> +
+> +static int rzg3l_lvds_pm_runtime_resume(struct device *dev) {
+> +	struct rzg3l_lvds *lvds =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D reset_control_deassert(lvds->prstc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return reset_control_deassert(lvds->lvd_rstc);
 
-Unrelated ..
+This should be,
 
-> diff --git a/drivers/gpu/host1x/bus.c b/drivers/gpu/host1x/bus.c
-> index 723a80895cd4..63fe037c3b65 100644
-> --- a/drivers/gpu/host1x/bus.c
-> +++ b/drivers/gpu/host1x/bus.c
-> @@ -477,8 +477,12 @@ static int host1x_device_add(struct host1x *host1x,
->  	 */
->  	if (list_empty(&device->subdevs)) {
->  		err =3D device_add(&device->dev);
-> -		if (err < 0)
-> +		if (err < 0) {
->  			dev_err(&device->dev, "failed to add device: %d\n", err);
-> +			list_del(&device->list);
-> +			put_device(&device->dev);
-> +			return err;
-> +		}
->  		else
->  			device->registered =3D true;
+ret =3D reset_control_deassert(lvds->lvd_rstc);
 
-This isn't a leak -- if device_add fails, the device is still on the
-device list, though in a "stuck" state, and will get cleaned up through
-host1x_device_del.
-
-Thanks
-Mikko
-
->  	}
-> --=20
-> 2.43.0
->=20
->=20
-
-
-
-
+Cheers,
+Biju
