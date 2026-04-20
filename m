@@ -4,52 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2433F588C4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 375B8F588C4
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11EAA10E636;
-	Mon, 20 Apr 2026 13:30:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 874C810E63F;
+	Mon, 20 Apr 2026 13:30:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CtBWn/PI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UV7G+Fca";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B22F10E636;
- Mon, 20 Apr 2026 13:30:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A552710E63E;
+ Mon, 20 Apr 2026 13:30:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2E00C40483;
- Mon, 20 Apr 2026 13:30:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED492C19425;
- Mon, 20 Apr 2026 13:30:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1221961331;
+ Mon, 20 Apr 2026 13:30:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7173EC2BCB8;
+ Mon, 20 Apr 2026 13:30:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691819;
- bh=m8CFpmikgbDVJIP7xd+FqUatg2Sl6tijDEeLmdzOWXY=;
+ s=k20201202; t=1776691827;
+ bh=z/z1ABLtKbMTeOi76lytgpPZA98q1EEHs1/gS1076sw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CtBWn/PIZSO4o+pQv5vW/ovLoxrxgi0xqa/Qi3FtOlEP0Tbk5xU2mT6+ndpsOgv+B
- 2XCkqMUG6Eqxr92p/LdxcytAhjKQVuY+QV42ivJMgVdWlxQZd8I9eWDfeHC9J2GXc/
- LDBJFey0WMISCOwIOXM1+HLM+dSrjxy/D1ESMJkVu/QF6bfA6auIouYsgKl0wOsA0q
- bhBwMMRHey6u0RRU6rdNLAINxbOg29HHQReTdi3m8hFYzKx1JNlve/H3ESZoH6K5wC
- LikWQWBpqAPyBM+Zr5/g+ZxOo/NBmGiNMnL+1A2HM+yxV/MNdZuDwtm1K3ZdYEKuZb
- IlTHeTMnwElUA==
+ b=UV7G+FcaCtYJ0hyNQSjKRwoKcAn5U+rXNEWCd4loWsG/oDOWQ+mhcI1g1k24VzzQf
+ vF95ZtmxvQx0TUuwLy09J23PWOIfn76uShTJv3cNxngP4JFKwdGwdT+4iV8/iCZXyy
+ 2CCRmmV0cW1nrSAkwBXhc8xMycxAFCy0fhMJXa/REG0puYb8ov/FE1PSQiBGEm4+IB
+ i8Wr2v+rQk4Sj7hBpNhFpaIrk2hGc9rtYqImDcKkUKrATJKIGRHZIzS0M22LBkpLBi
+ MRSou6H6H1Bs341D2DaOuBeSAPIufzBZGhBcD5hm6MjSqsgBPAesyG+V0t7FI2b6yk
+ ZwMMR9qKlvPlg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Benjamin Nwankwo <Benjamin.Nwankwo@amd.com>,
- Charlene Liu <charlene.liu@amd.com>,
- Nevenko Stupar <nevenko.stupar@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.19] drm/amd/display: Clamp dc_cursor_position
- x_hotspot to prevent integer overflow
-Date: Mon, 20 Apr 2026 09:20:07 -0400
-Message-ID: <20260420132314.1023554-213-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: defer queue publication until
+ create completes
+Date: Mon, 20 Apr 2026 09:20:12 -0400
+Message-ID: <20260420132314.1023554-218-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
@@ -69,298 +66,481 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Benjamin Nwankwo <Benjamin.Nwankwo@amd.com>
+From: Sunil Khatri <sunil.khatri@amd.com>
 
-[ Upstream commit a2aa7987de1169548c465f6cc1019d2112e0e8b5 ]
+[ Upstream commit 28cacaace5cde8318b7da967b3955a73cc6de91a ]
 
-why:
-Workaround for duplicate cursor. Cursor offsetting via x_hotspot attempts
-to write a 32 bit unsigned integer to the 8 bit field CURSOR_HOT_SPOT_X.
-This wraps cursor position back into focus if x_hotspot exceeds 8 bits,
-making duplicate cursors visible
+The userq create path publishes queues to global xarrays such as
+userq_doorbell_xa and userq_xa before creation was fully complete.
+Later on if create queue fails, teardown could free an already
+visible queue, opening a UAF race with concurrent queue walkers.
+Also calling amdgpu_userq_put in such cases complicates the cleanup.
 
-how:
-Clamp x_hotspot before writing to hardware
+Solution is to defer queue publication until create succeeds and no
+partially initialized queue is exposed.
 
-Reviewed-by: Charlene Liu <charlene.liu@amd.com>
-Reviewed-by: Nevenko Stupar <nevenko.stupar@amd.com>
-Signed-off-by: Benjamin Nwankwo <Benjamin.Nwankwo@amd.com>
-Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have a comprehensive understanding of the bug. Let me compile the
-full analysis.
+Now I have all the information needed. Let me compile the full analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: Subject Line**
-- Subsystem: `drm/amd/display` (AMD display driver, DCN401 specifically)
-- Action verb: "Clamp" (prevent overflow, clearly a bug fix)
-- Summary: Clamp x_hotspot value before writing to 8-bit hardware
-  register to prevent integer overflow causing duplicate cursors
+### Step 1.1: PARSE THE SUBJECT LINE
+Record: [drm/amdgpu/userq] [defer] — Defers queue publication to global
+xarrays until `amdgpu_userq_create()` completes, preventing UAF races
+with concurrent queue walkers.
 
-**Step 1.2: Tags**
-- `Reviewed-by: Charlene Liu` and `Reviewed-by: Nevenko Stupar` - two
-  AMD engineers reviewed
-- `Signed-off-by: Benjamin Nwankwo` (author), `Signed-off-by: Chuanyu
-  Tseng` (submitter)
-- `Tested-by: Dan Wheeler` - standard AMD display QA tester
-- `Signed-off-by: Alex Deucher` - AMD GPU subsystem maintainer accepted
-  the patch
-- No Fixes: tag (expected for candidate review)
-- No Cc: stable tag (expected)
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+- **Signed-off-by**: Sunil Khatri (author, regular AMD GPU contributor)
+- **Reviewed-by**: Christian König (AMD GPU subsystem maintainer —
+  strong quality signal)
+- **Signed-off-by**: Alex Deucher (AMD GPU maintainer, committer)
+- No Fixes: tag, no Cc: stable, no Reported-by. Absence of
+  Fixes/Cc:stable is expected for candidates under review.
 
-**Step 1.3: Commit Body**
-- Bug: 32-bit `x_hotspot` value written to 8-bit `CURSOR_HOT_SPOT_X`
-  hardware register
-- Symptom: Value wraps, causing cursor position to jump back, creating
-  visible duplicate cursors
-- Fix: Clamp `x_hotspot` to 0xFF before hardware register write
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+The body clearly describes:
+- **Bug**: The userq create path publishes queues to `userq_doorbell_xa`
+  and `userq_xa` before creation is fully complete.
+- **Failure mode**: If create fails later, teardown frees a queue that's
+  already visible, opening a UAF race with concurrent queue walkers
+  (suspend/resume, reset, enforce isolation).
+- **Root cause**: Premature publication of partially initialized objects
+  to global data structures.
 
-**Step 1.4: Hidden Bug Fix Detection**
-This is explicitly a bug fix (visual display glitch with duplicate
-cursors). Not hidden.
+### Step 1.4: DETECT HIDDEN BUG FIXES
+This is explicitly a UAF race fix, not disguised. The commit also
+implicitly fixes resource leaks on error paths (the old `kasprintf`
+failure leaked xarray entries).
 
-## PHASE 2: DIFF ANALYSIS
+---
 
-**Step 2.1: Inventory**
-- 1 file changed:
-  `drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c`
-- +4 lines, -3 lines (net +1)
-- Function modified: `hubp401_cursor_set_position()`
-- Scope: Single-file surgical fix
+## PHASE 2: DIFF ANALYSIS — LINE BY LINE
 
-**Step 2.2: Code Flow Change**
-1. New variable `x_hotspot_clamped = pos->x_hotspot` declared
-2. Before writing to HW register, clamp: `if (x_hotspot_clamped > 0xFF)
-   x_hotspot_clamped = 0xFF;`
-3. Use `x_hotspot_clamped` instead of `pos->x_hotspot` in
-   `REG_SET_2(CURSOR_HOT_SPOT, ...)` call
+### Step 2.1: INVENTORY THE CHANGES
+- **File**: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c` (+33/−33 lines)
+- **Function**: `amdgpu_userq_create()`
+- **Scope**: Single function in a single file — surgical.
 
-**Step 2.3: Bug Mechanism**
-Category: Integer overflow / type mismatch bug. A 32-bit value is
-truncated to 8 bits by hardware, causing wraparound. The fix clamps the
-value to 8-bit range before writing.
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**BEFORE** (current stable tree code):
+1. `mqd_create()` → `kref_init()` → `xa_store_irq(doorbell_xa)` →
+   `xa_alloc(userq_xa)` → `map_helper()` → `kasprintf()` → debugfs
 
-**Step 2.4: Fix Quality**
-Obviously correct - the hardware register is 8 bits, so values > 255 are
-meaningless. Clamping to 0xFF is the right approach. Zero regression
-risk - the clamped path already results in incorrect cursor positioning,
-so saturating at max is strictly better than wrapping.
+**AFTER** (with this patch):
+1. `mqd_create()` → `map_helper()` → `kref_init()` →
+   `xa_alloc(userq_xa)` → `xa_store_irq(doorbell_xa)` → debugfs
+
+The key reordering: queue creation and mapping are fully completed
+BEFORE the queue is published to global xarrays. Only on success are the
+xarray entries created.
+
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+**Category**: UAF race condition + resource leaks on error paths.
+
+Specific bugs in the current stable tree code:
+
+1. **UAF race**: Between `xa_store_irq(doorbell_xa)` (line 863) and
+   `map_helper()` (line 891), the queue is visible to concurrent walkers
+   via `xa_for_each(&adev->userq_doorbell_xa)`. I verified 7 call sites
+   iterate this xarray (suspend, resume, enforce isolation stop/start,
+   pre/post reset, mes detection). If create fails at `map_helper()`,
+   the error path frees the queue while walkers may hold a pointer to
+   it.
+
+2. **Missing doorbell xa cleanup**: The `xa_alloc` failure path (line
+   872-880) does NOT call `xa_erase_irq(&adev->userq_doorbell_xa,
+   index)`, leaking the doorbell xarray entry pointing to freed memory.
+
+3. **kasprintf leak**: The `kasprintf` failure (line 902-906) does `goto
+   unlock` without cleaning up xarray entries, the mapped queue, or any
+   other resources — the queue is abandoned in global xarrays.
+
+### Step 2.4: ASSESS THE FIX QUALITY
+- The fix is obviously correct: it simply reorders operations so
+  publication happens last.
+- Error paths in the new code properly clean up everything (including
+  calling `amdgpu_userq_unmap_helper` if needed).
+- The `kasprintf` allocation is replaced with a stack buffer (`char
+  queue_name[32]` + `scnprintf`), eliminating that failure path
+  entirely.
+- Regression risk is low — the fix only changes ordering within the
+  create path.
+- Reviewed by Christian König (subsystem maintainer).
+
+---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1: Blame**
-The buggy line (`CURSOR_HOT_SPOT_X, pos->x_hotspot`) was last touched by
-commit `518a368c57a0e6` ("Update cursor offload assignments", by Alvin
-Lee, 2025-10-02). The underlying bug pattern has existed since the
-function was first introduced in commit `ee8287e068a3` ("Fix cursor
-issues with ODMs and HW rotations"), first appearing in v6.11.
+### Step 3.1: BLAME THE CHANGED LINES
+- The xarray-based queue management was introduced by `f18719ef4bb7b`
+  (Jesse.Zhang, 2025-10-21) — "Convert amdgpu userqueue management from
+  IDR to XArray"
+- The refcount mechanism was added by `65b5c326ce410` (Sunil Khatri,
+  2026-03-02) — already cherry-picked to this stable tree with `Cc:
+  <stable@vger.kernel.org>`
 
-**Step 3.2: No Fixes: tag** (expected)
+### Step 3.2: FOLLOW THE FIXES: TAG
+No Fixes: tag present (expected for review candidates).
 
-**Step 3.3: File History**
-17 commits between v6.11 and v7.0 modified this file. The function has
-been actively developed. The v7.0 version includes cursor offload
-support that doesn't exist in v6.11/v6.12.
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Between the mainline refcount commit (`4952189b284d4`) and this commit
+(`28cacaace5cde`), there are 3 intermediate commits:
+- `2d60e9898a1d4` — change queue id type to u32 (NOT in stable tree)
+- `f0e46fd06c3f7` — add missing `xa_erase_irq` in xa_alloc failure (NOT
+  in stable tree)
+- `a978ed3d6454e` — add missing `xa_erase_irq` in map_helper failure
+  (NOT in stable tree)
 
-**Step 3.4: Author**
-Benjamin Nwankwo is an AMD display engineer. The patch was submitted
-through Chuanyu Tseng as part of a DC patch series.
+**This commit supersedes both `f0e46fd06c3f7` and `a978ed3d6454e`** by
+restructuring the code to eliminate these error paths entirely.
 
-**Step 3.5: Dependencies**
-The fix is self-contained. No dependencies on other patches. The core
-logic (clamp before REG_SET_2) applies regardless of the cursor offload
-changes.
+### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Sunil Khatri is an active AMD GPU contributor with multiple commits in
+the subsystem. He authored the refcount commit which was already
+selected for stable.
 
-## PHASE 4: MAILING LIST RESEARCH
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+**Critical finding**: The diff expects context lines that include
+`xa_erase_irq(&adev->userq_doorbell_xa, index)` in the xa_alloc and
+map_helper failure paths. These lines were added by intermediate commits
+`f0e46fd06c3f7` and `a978ed3d6454e`, which are **NOT in the stable
+tree**. The patch will **not apply cleanly** without either including
+those intermediate commits or manually adjusting the diff.
 
-The patch was submitted as [PATCH v2 8/9] in "DC Patches March 10, 2026"
-series. It's v2 (revised from v1 - v1 reference:
-https://patchwork.freedesktop.org/patch/710768/). The series also
-includes other unrelated DC patches. No objections or NAKs found on the
-mailing list. No explicit stable nomination by reviewers.
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+- `b4 dig -c 28cacaace5cde` found nothing (patch may have gone through a
+  different path).
+- Web search found the patch series on the amd-gfx mailing list as
+  `[PATCH v4 1/3]`.
+- Fetched the review thread at
+  `https://lists.freedesktop.org/archives/amd-
+  gfx/2026-March/140034.html`.
+- Christian König reviewed and gave `Reviewed-by` on patch 1/3 (this
+  commit).
+
+### Step 4.2: CHECK WHO REVIEWED THE PATCH
+- Christian König (subsystem maintainer) reviewed and approved.
+- Alex Deucher (AMD GPU maintainer) committed it.
+
+### Step 4.3: SEARCH FOR THE BUG REPORT
+No external bug report. The author identified the race condition through
+code inspection while working on the refcount series.
+
+### Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+The patch is part of a v4 3-patch series:
+- 1/3: This commit (defer queue publication) — **bug fix**
+- 2/3: "declutter the code with goto" — cleanup, not needed for stable
+- 3/3: "push userq debugfs function in amdgpu_debugfs files" —
+  refactoring, not needed for stable
+
+Only patch 1/3 is a bug fix.
+
+### Step 4.5: CHECK STABLE MAILING LIST HISTORY
+The predecessor commit (refcount userqueues, `65b5c326ce410`) was
+explicitly marked `Cc: <stable@vger.kernel.org>`, confirming the stable
+maintainers already identified the userq race conditions as stable-
+worthy. This commit is a direct follow-up fix to the same issue.
+
+---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Key Function**: `hubp401_cursor_set_position()`
+### Step 5.1-5.4: TRACE CALLERS AND IMPACT SURFACE
+- `amdgpu_userq_create()` is called from `amdgpu_userq_ioctl()` →
+  reachable from userspace via DRM IOCTL.
+- The concurrent walkers iterating `userq_doorbell_xa` include:
+  - `amdgpu_userq_suspend()` / `amdgpu_userq_resume()` — power
+    management
+  - `amdgpu_userq_stop_sched_for_enforce_isolation()` /
+    `amdgpu_userq_start_sched_for_enforce_isolation()` — workload
+    isolation
+  - `amdgpu_userq_pre_reset()` / `amdgpu_userq_post_reset()` — GPU reset
+  - `mes_userqueue.c:` detect-and-reset path
 
-**Step 5.2: Callers**
-Called via `hubp->funcs->set_cursor_position()` from
-`dcn401_set_cursor_position()` in the hwseq layer. This is the main
-cursor position programming path for DCN401 hardware.
+These are all real, frequently exercised code paths (suspend/resume, GPU
+reset).
 
-**Step 5.4: Critical Call Chain - THE ACTUAL TRIGGER PATH**
-In `dcn401_set_cursor_position()` (lines 1177-1182 and 1196-1202):
+### Step 5.5: SIMILAR PATTERNS
+The doorbell xa walkers do NOT use `amdgpu_userq_get()` (the kref-
+protected accessor). They iterate with `xa_for_each` and use the queue
+pointer directly, meaning the kref doesn't protect against the UAF in
+these paths.
 
-```1177:1202:drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-        if (x_pos < 0) {
-                pos_cpy.x_hotspot -= x_pos;
-                // ...
-                x_pos = 0;
-        }
-        // ...
-        if (bottom_pipe_x_pos < 0) {
-                // ...
-                pos_cpy.x_hotspot -= bottom_pipe_x_pos;
-```
+---
 
-When ODM combining or MPC combining is active and the cursor crosses
-slice boundaries, `x_pos` becomes negative. The line `pos_cpy.x_hotspot
--= x_pos` (where `x_pos` is negative) **adds** a potentially large value
-to `x_hotspot`. For example, if the cursor is 500 pixels to the left of
-an ODM slice boundary, `x_hotspot` grows by 500 -- far exceeding the
-8-bit register maximum of 255.
+## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
 
-This confirms the bug is **real and triggerable** in ODM/MPC combining
-scenarios (multi-monitor, high-resolution displays).
+### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
+Yes. The userq code exists in this 7.0 stable tree. The buggy ordering
+was introduced with the xarray conversion (`f18719ef4bb7b`, 2025-10-21),
+which is in this tree.
 
-## PHASE 6: STABLE TREE ANALYSIS
+### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+**The patch will NOT apply cleanly.** The intermediate commits
+`f0e46fd06c3f7` and `a978ed3d6454e` added `xa_erase_irq` lines that the
+diff expects to see in the context. These are missing from the current
+stable tree. The diff would need manual adjustment or the intermediate
+commits need to be included first.
 
-**Step 6.1: Buggy Code in Stable**
-The file exists from v6.11 onwards. The ODM hotspot inflation code
-(`x_hotspot -= x_pos`) exists in both v6.11 and v6.12. The bug is
-present in all versions containing DCN401.
+### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE
+The refcount commit (`65b5c326ce410`) is in this tree, but the
+intermediate xa_erase fixes and this commit are not.
 
-**Step 6.2: Backport Complications**
-The v6.11/v6.12 versions of `hubp401_cursor_set_position()` differ from
-v7.0 (no cursor offload path, different variable naming). The patch
-would need minor rework for older trees but the clamping concept applies
-cleanly.
+---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-- Subsystem: `drivers/gpu/drm/amd/display` - AMD display driver
-- Criticality: IMPORTANT (AMD GPUs are widely used; display bugs affect
-  all users of that hardware)
-- DCN401 = AMD RDNA4 display controller
+### Step 7.1: SUBSYSTEM CRITICALITY
+- **Subsystem**: drivers/gpu/drm/amd/amdgpu — IMPORTANT (widely used AMD
+  GPU driver)
+- User queues are a newer feature but actively used on modern AMD
+  hardware.
+
+### Step 7.2: SUBSYSTEM ACTIVITY
+Very active — many commits per week in amdgpu. The userq subsystem is
+under active development.
+
+---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: Affected Users**: Users with AMD DCN401 (RDNA4) GPUs using
-ODM combining or MPC combining (multi-monitor, high-resolution displays)
+### Step 8.1: WHO IS AFFECTED
+Users of AMD GPUs with userqueue support (GFX11+, GFX12+, SDMA v6/v7).
+This includes modern Radeon RX 7000/8000 series and data center GPUs.
 
-**Step 8.2: Trigger Conditions**: Cursor moves across ODM or MPC slice
-boundaries with enough offset to push x_hotspot > 255. Common in multi-
-monitor or ultra-wide setups.
+### Step 8.2: TRIGGER CONDITIONS
+- **Trigger**: Create a userqueue via IOCTL while a concurrent operation
+  (suspend/resume, GPU reset, enforce isolation) is walking the doorbell
+  xarray.
+- **Likelihood**: Medium — requires timing overlap between queue
+  creation failure and concurrent walker.
+- **Unprivileged trigger**: Yes — the IOCTL is accessible to
+  unprivileged users (no CAP check for normal priority).
 
-**Step 8.3: Failure Mode**: Visible duplicate cursor artifact. Severity:
-MEDIUM (user-visible display glitch, not a crash/security/corruption
-issue, but very annoying)
+### Step 8.3: FAILURE MODE SEVERITY
+- **UAF**: When triggered, can cause kernel crash (oops), memory
+  corruption, or potentially privilege escalation.
+- **Severity**: HIGH — UAF reachable from unprivileged userspace.
 
-**Step 8.4: Risk-Benefit**:
-- BENEFIT: High - fixes a visible display bug for AMD GPU users
-- RISK: Very Low - 3 lines, obviously correct clamping, zero regression
-  potential
+### Step 8.4: RISK-BENEFIT RATIO
+- **Benefit**: HIGH — prevents UAF, fixes resource leaks, hardens
+  security.
+- **Risk**: LOW-MEDIUM — 66 lines changed, single function, but needs
+  backport adjustment.
+- **Ratio**: Strongly favors backporting.
+
+---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Evidence FOR backporting:**
-- Fixes a real, user-visible display bug (duplicate cursors)
-- Trigger path confirmed: ODM/MPC combining inflates x_hotspot beyond
-  8-bit register width
-- Fix is minimal (3 effective lines), obviously correct, zero regression
-  risk
-- Reviewed by 2 AMD engineers, tested, accepted by subsystem maintainer
-- Hardware workaround pattern - exactly the type of fix allowed in
-  stable
-- Bug exists in all stable trees containing DCN401 (v6.11+)
+### Step 9.1: COMPILE THE EVIDENCE
 
-**Evidence AGAINST backporting:**
-- Not a crash, security issue, or data corruption
-- DCN401 is relatively new hardware (v6.11+)
-- Would need minor rework for v6.11/v6.12 due to different function
-  structure
-- No explicit stable nomination or Fixes: tag
+**FOR backporting:**
+- Fixes a real UAF race condition reachable from unprivileged userspace
+- Fixes resource leaks on error paths (kasprintf failure, missing
+  xa_erase)
+- Reviewed and approved by Christian König (subsystem maintainer) and
+  Alex Deucher (committer)
+- Single file, single function change — well-contained
+- The prerequisite refcount commit is already in stable (with Cc: stable
+  tag)
+- Supersedes two intermediate fixes that are also needed for stable
 
-**Stable Rules Checklist:**
-1. Obviously correct and tested? YES (trivial clamp, Tested-by)
-2. Fixes a real bug? YES (duplicate cursor visible to users)
-3. Important issue? MEDIUM (visible display glitch, not crash/security)
-4. Small and contained? YES (3 lines, single function)
-5. No new features/APIs? YES (pure bug fix)
-6. Can apply to stable? YES for 7.0.y; needs minor rework for
-   6.11.y/6.12.y
+**AGAINST backporting:**
+- The diff does NOT apply cleanly (context mismatch due to missing
+  intermediate commits)
+- Part of a 3-patch series (but only 1/3 is needed)
+- Moderate size (66 lines)
+
+### Step 9.2: STABLE RULES CHECKLIST
+1. Obviously correct and tested? **YES** — reviewed by subsystem
+   maintainer, reordering is straightforward
+2. Fixes a real bug? **YES** — UAF race with concurrent queue walkers
+3. Important issue? **YES** — UAF reachable from userspace = security
+   concern
+4. Small and contained? **YES** — single function in single file
+5. No new features or APIs? **YES** — pure bug fix
+6. Can apply to stable? **NEEDS ADJUSTMENT** — intermediate commits
+   missing from tree
+
+### Step 9.3: EXCEPTION CATEGORIES
+Not an exception category — standard bug fix.
+
+### Step 9.4: DECISION
+The commit fixes a real UAF race condition in the AMD GPU userqueue
+create path. The race is between queue creation (IOCTL) and concurrent
+doorbell xarray walkers (suspend/resume, GPU reset, enforce isolation).
+The fix is well-contained, well-reviewed, and the prerequisite refcount
+infrastructure is already in this stable tree. The backport will need
+manual adjustment due to missing intermediate context, but the
+underlying bugs are real and security-relevant.
+
+---
 
 ## Verification
 
-- [Phase 1] Parsed tags: 2x Reviewed-by (AMD engineers), Tested-by (Dan
-  Wheeler), Signed-off by Alex Deucher (subsystem maintainer)
-- [Phase 2] Diff analysis: 3 effective lines in
-  `hubp401_cursor_set_position()`, clamps x_hotspot to 0xFF before
-  register write
-- [Phase 3] git blame: buggy line from commit 518a368c57a0e6 (cursor
-  offload update); original function from ee8287e068a3 (v6.11)
-- [Phase 3] git ls-tree: confirmed dcn401_hubp.c exists in v6.11, v6.12,
-  v6.13, v7.0
-- [Phase 4] Found patch at https://lists.freedesktop.org/archives/amd-
-  gfx/2026-March/140330.html - part of v2 DC patch series
-- [Phase 4] Cover letter at https://lists.freedesktop.org/archives/amd-
-  gfx/2026-March/140322.html - no NAKs or concerns
-- [Phase 5] Traced caller chain: `dcn401_set_cursor_position()` ->
-  `hubp401_cursor_set_position()`. Confirmed at lines 1177-1182 and
-  1196-1202 that `pos_cpy.x_hotspot -= x_pos` (with negative x_pos)
-  inflates x_hotspot beyond 255 in ODM/MPC combining scenarios
-- [Phase 5] Verified x_hotspot inflation code exists in v6.11 and v6.12
-  versions of dcn401_hwseq.c
-- [Phase 6] DCN401 max_cursor_size=64, but x_hotspot is inflated *after*
-  initial position setup in hwseq layer, so 64-pixel limit doesn't
-  prevent the overflow
-- [Phase 6] Function structure differs between v6.12 and v7.0 (cursor
-  offload); backport needs minor adaptation for older trees
-- [Phase 8] Failure mode: duplicate cursor visible on screen (MEDIUM
-  severity, user-visible display bug)
-
-The fix is a small, safe hardware workaround that fixes a real visual
-bug triggered by ODM/MPC combining on AMD DCN401 hardware. It meets
-stable criteria as a hardware workaround with minimal risk and clear
-benefit.
+- [Phase 1] Parsed tags: Reviewed-by Christian König, Signed-off-by Alex
+  Deucher (both AMD GPU maintainers)
+- [Phase 2] Diff analysis: 33 lines added, 33 removed in
+  `amdgpu_userq_create()`, reorders xa_store/xa_alloc after map_helper
+- [Phase 2] Verified current tree at lines 858-906: queue published to
+  doorbell_xa at line 863, BEFORE map_helper at line 891
+- [Phase 2] Verified kasprintf failure at line 902-906 leaks xarray
+  entries (goto unlock without cleanup)
+- [Phase 2] Verified xa_alloc failure at line 872-880 does NOT call
+  xa_erase_irq for doorbell_xa
+- [Phase 3] git blame: xarray code from f18719ef4bb7b (2025-10-21),
+  refcount from 65b5c326ce410 (in stable, Cc: stable)
+- [Phase 3] Intermediate commits f0e46fd06c3f7 and a978ed3d6454e NOT in
+  stable tree (verified with git log --grep)
+- [Phase 3] git show 28cacaace5cde: confirmed mainline commit exists,
+  authored 2026-03-04
+- [Phase 4] Mailing list review at freedesktop.org: Christian König gave
+  Reviewed-by on patch 1/3
+- [Phase 4] Series is v4 1/3; patches 2/3 and 3/3 are
+  cleanup/refactoring (not needed for stable)
+- [Phase 5] Verified 7 call sites using
+  xa_for_each(&adev->userq_doorbell_xa) — all are real paths (suspend,
+  resume, reset, enforce isolation)
+- [Phase 5] Verified doorbell xa walkers do NOT use amdgpu_userq_get()
+  (no kref protection)
+- [Phase 6] Verified patch does NOT apply cleanly: diff expects
+  xa_erase_irq lines not in stable tree
+- [Phase 6] Refcount prerequisite (65b5c326ce410) confirmed in stable
+  tree
+- [Phase 7] amdgpu is an actively maintained, widely used driver
+  subsystem
+- [Phase 8] IOCTL is accessible to unprivileged users (no CAP check for
+  normal priority)
+- UNVERIFIED: Cannot determine exact AMD GPU models that exercise this
+  code path in practice (depends on firmware/hardware support for
+  userqueues)
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 66 +++++++++++------------
+ 1 file changed, 33 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-index c205500290ecd..806b9bd9a3fcf 100644
---- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
-@@ -739,9 +739,8 @@ void hubp401_cursor_set_position(
- 	int x_pos_viewport = 0;
- 	int x_hot_viewport = 0;
- 	uint32_t cur_en = pos->enable ? 1 : 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 1849894d2837b..09f1d05328897 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -765,7 +765,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	const struct amdgpu_userq_funcs *uq_funcs;
+ 	struct amdgpu_usermode_queue *queue;
+ 	struct amdgpu_db_info db_info;
+-	char *queue_name;
+ 	bool skip_map_queue;
+ 	u32 qid;
+ 	uint64_t index;
+@@ -855,32 +854,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		goto unlock;
+ 	}
+ 
+-	/* drop this refcount during queue destroy */
+-	kref_init(&queue->refcount);
 -
-+	uint32_t x_hotspot_clamped = pos->x_hotspot;
- 	hubp->curs_pos = *pos;
+-	/* Wait for mode-1 reset to complete */
+-	down_read(&adev->reset_domain->sem);
+-	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
+-	if (r) {
+-		kfree(queue);
+-		up_read(&adev->reset_domain->sem);
+-		goto unlock;
+-	}
 -
- 	/* Recout is zero for pipes if the entire dst_rect is contained
- 	 * within preceeding ODM slices.
- 	 */
-@@ -772,6 +771,8 @@ void hubp401_cursor_set_position(
+-	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
+-		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
+-	if (r) {
+-		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
+-		amdgpu_userq_fence_driver_free(queue);
+-		xa_erase_irq(&adev->userq_doorbell_xa, index);
+-		uq_funcs->mqd_destroy(queue);
+-		kfree(queue);
+-		r = -ENOMEM;
+-		up_read(&adev->reset_domain->sem);
+-		goto unlock;
+-	}
+-	up_read(&adev->reset_domain->sem);
+-
+ 	/* don't map the queue if scheduling is halted */
+ 	if (adev->userq_halt_for_enforce_isolation &&
+ 	    ((queue->queue_type == AMDGPU_HW_IP_GFX) ||
+@@ -892,28 +865,55 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		r = amdgpu_userq_map_helper(queue);
+ 		if (r) {
+ 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
+-			xa_erase_irq(&adev->userq_doorbell_xa, index);
+-			xa_erase(&uq_mgr->userq_xa, qid);
+-			amdgpu_userq_fence_driver_free(queue);
+ 			uq_funcs->mqd_destroy(queue);
++			amdgpu_userq_fence_driver_free(queue);
+ 			kfree(queue);
+ 			goto unlock;
+ 		}
+ 	}
  
- 	ASSERT(param->h_scale_ratio.value);
+-	queue_name = kasprintf(GFP_KERNEL, "queue-%d", qid);
+-	if (!queue_name) {
++	/* drop this refcount during queue destroy */
++	kref_init(&queue->refcount);
++
++	/* Wait for mode-1 reset to complete */
++	down_read(&adev->reset_domain->sem);
++	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
++		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
++	if (r) {
++		if (!skip_map_queue)
++			amdgpu_userq_unmap_helper(queue);
++
++		uq_funcs->mqd_destroy(queue);
++		amdgpu_userq_fence_driver_free(queue);
++		kfree(queue);
+ 		r = -ENOMEM;
++		up_read(&adev->reset_domain->sem);
+ 		goto unlock;
+ 	}
  
-+	if (x_hotspot_clamped > 0xFF)
-+		x_hotspot_clamped = 0xFF;
- 	if (param->h_scale_ratio.value)
- 		dst_x_offset = dc_fixpt_floor(dc_fixpt_div(
- 			dc_fixpt_from_int(dst_x_offset),
-@@ -792,7 +793,7 @@ void hubp401_cursor_set_position(
- 			CURSOR_Y_POSITION, pos->y);
++	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
++	if (r) {
++		xa_erase(&uq_mgr->userq_xa, qid);
++		if (!skip_map_queue)
++			amdgpu_userq_unmap_helper(queue);
++
++		uq_funcs->mqd_destroy(queue);
++		amdgpu_userq_fence_driver_free(queue);
++		kfree(queue);
++		up_read(&adev->reset_domain->sem);
++		goto unlock;
++	}
++	up_read(&adev->reset_domain->sem);
++
+ #if defined(CONFIG_DEBUG_FS)
++	char queue_name[32];
++
++	scnprintf(queue_name, sizeof(queue_name), "queue_%d", qid);
+ 	/* Queue dentry per client to hold MQD information   */
+ 	queue->debugfs_queue = debugfs_create_dir(queue_name, filp->debugfs_client);
+ 	debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue, &amdgpu_mqd_info_fops);
+ #endif
+ 	amdgpu_userq_init_hang_detect_work(queue);
+-	kfree(queue_name);
  
- 		REG_SET_2(CURSOR_HOT_SPOT, 0,
--			CURSOR_HOT_SPOT_X, pos->x_hotspot,
-+			CURSOR_HOT_SPOT_X, x_hotspot_clamped,
- 			CURSOR_HOT_SPOT_Y, pos->y_hotspot);
- 
- 		REG_SET(CURSOR_DST_OFFSET, 0,
+ 	args->out.queue_id = qid;
+ 	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
 -- 
 2.53.0
 
