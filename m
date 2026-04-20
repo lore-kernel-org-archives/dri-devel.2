@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5225F588E7
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 15:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C37F588E7
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 15:47:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49FE510E6B3;
-	Mon, 20 Apr 2026 15:47:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A18710E6C3;
+	Mon, 20 Apr 2026 15:47:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="aKqAO/yE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Lzj7sJyt";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E535E10E6B3
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 15:47:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776700043; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0432F10E6CF
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 15:47:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776700047; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=nj/jSH35QPgcNZ8Z4mHWoTD5eHlj1SbrvPdfEXJR6CYZSohdR1KXZJoqgxPPwMr6oBuEMYWlCSC0QZ9+TvbrQmj0UsryRkWChpFwZtHRvG6o3tJjq6VQqm3FuCU2ONMabVFhoPBjBa8C5OWKacWra0LDSt4TCWmEhYX2cxqEKEI=
+ b=SSOsJ1d6ae8xIQTXoUr+POzORLusMW4b6+EAGL1nQEXdjKkk+OdERv6/Ta5RHx0J2KqKU10TwpyBF/qbbvacmSG7FfzZLfCyD8zUIucm3Z3DEY7uMAWhnrzYSskWM4FVBuhftIYEx3QflnZ1VUG7Sgnw/AJCDkOF+U/3sGpA9PE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776700043;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=tq+45xuZOrGUm2FZZCTQ7EAbkpHyxDQ8MsYlQTLecK4=; 
- b=a1lCCrnfe0FkZ+U1ipsCOgyPtI9bRXD1fCExEN6ODGROo0zTGOQw5zrni0zHavhFwicz+qkgqiK7qWjaoIL7kIT/w+8YJ6o/6iIDrizGJH7i3rH8wfdBNx8jdzFzoBBKTJtPGMMYZ3DPajyS0kQwOVWHUh9KEKVObgZlTKEqpxI=
+ s=zohoarc; t=1776700047;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=MqNz68fIchot62Kb5x/KPq5UFBE2Y0IMEav67Kx8nVI=; 
+ b=DEitEI8HoGLp0QfrquJqWIHJKmDi9hqpz6BJ2diDlglu/vtdcS2QnuGixc50VJP55S0bYOQ6P2oIVigGWshsMf1zDfmTiNiKfyCuRjZ4foM+c5I0dBM3QU75SWohhu5Bkrg2h+ouMLt+Q7GFXs5jytLOCTR2/anQMbMP+8p3L+M=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776700043; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776700047; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=tq+45xuZOrGUm2FZZCTQ7EAbkpHyxDQ8MsYlQTLecK4=;
- b=aKqAO/yEq7mNV+vsSUjx2sdgaiu2iPJZc2TfsRSDiKf9znyc2+7d02OqqZZCYjSd
- 33pVFpjkwLg69NQQOuZF2/I84FyKEPB6WYr7J3UNmFjYbNFnyHcWBYB3prMuP5Wkdde
- ZuYZmrWiyNPb10E72bsH8YfoS1Jn7EFq9sFKwfeo=
-Received: by mx.zohomail.com with SMTPS id 1776700042207398.0105287533718;
- Mon, 20 Apr 2026 08:47:22 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=MqNz68fIchot62Kb5x/KPq5UFBE2Y0IMEav67Kx8nVI=;
+ b=Lzj7sJytUV74DHCvhEAY1J3xPo6apspYbViqNftpQ5asHgCrTcg+zYBHRxKhq6hb
+ DMwf2ilf+C4DC4QAm1TL0wYxNAxfO4JXE0dZuKQZqBnempqzzV8YwcQ5SooS04r5Uv9
+ fSM/f8GSuLZ95TcnWb63Ln+B1Zrv3Wtlg67O3j3E=
+Received: by mx.zohomail.com with SMTPS id 1776700044898157.4547424113332;
+ Mon, 20 Apr 2026 08:47:24 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH 0/2] Let userspace know about swapped out panthor GEM objects
-Date: Mon, 20 Apr 2026 17:46:58 +0200
-Message-Id: <20260420-panthor-bo-reclaim-observability-v1-0-a4d1a36ee84f@collabora.com>
+Date: Mon, 20 Apr 2026 17:46:59 +0200
+Subject: [PATCH 1/2] drm/fdinfo: Add "evicted" memory accounting
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNQQ6CMBBFr0Jm7cQKCoGrGBZtGWUMbbEtBEO4u
- 1V091/y894KgTxTgCZbwdPMgZ1NcDpkoHtp74TcJYZc5KU45wJHaWPvPCqHnvQg2aBTSTJLxQP
- HF9aVKKta15ei0JA0o6cbL9/Etd05TOpBOn68v4en55Tacb+BkoFQO2M4NlnnDRoO+vgfaGmJ0
- G7bG8rdYWy+AAAA
-X-Change-ID: 20260420-panthor-bo-reclaim-observability-970679c9533c
+Message-Id: <20260420-panthor-bo-reclaim-observability-v1-1-a4d1a36ee84f@collabora.com>
+References: <20260420-panthor-bo-reclaim-observability-v1-0-a4d1a36ee84f@collabora.com>
+In-Reply-To: <20260420-panthor-bo-reclaim-observability-v1-0-a4d1a36ee84f@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -72,30 +69,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Panthor has recently gained a GEM shrinker. It allows evicting memory
-that backs unused GEM objects to swap.
+Currently, there's no way to know for certain how much GPU memory was
+swapped out. The difference between total and resident memory would
+include newly allocated pages, which are not resident, but also aren't
+swapped out.
 
-In this series, both fdinfo and Panthor's gems debugfs are extended so
-that information on evicted pages can be gathered by users through these
-two methods.
+Add a new drm_gem_object_status so drivers can signal when an object has
+been evicted to swap, and add a new "evicted" counter to
+drm_memory_stats.
+
+Due to how the supported_flags bitmask is determined, the "evicted"
+count won't be printed to fdinfo if there's no swapped out pages.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
-Nicolas Frattaroli (2):
-      drm/fdinfo: Add "evicted" memory accounting
-      drm/panthor: Implement evicted status for GEM objects
+ drivers/gpu/drm/drm_file.c | 8 ++++++++
+ include/drm/drm_file.h     | 2 ++
+ include/drm/drm_gem.h      | 2 ++
+ 3 files changed, 12 insertions(+)
 
- drivers/gpu/drm/drm_file.c            |  8 ++++++++
- drivers/gpu/drm/panthor/panthor_gem.c | 10 ++++++++++
- drivers/gpu/drm/panthor/panthor_gem.h | 11 +++++++++++
- include/drm/drm_file.h                |  2 ++
- include/drm/drm_gem.h                 |  2 ++
- 5 files changed, 33 insertions(+)
----
-base-commit: 3f9357c30a44734d45e3093c521d52b2aefb09f5
-change-id: 20260420-panthor-bo-reclaim-observability-970679c9533c
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index ec820686b302..5078172976c0 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -868,6 +868,7 @@ int drm_memory_stats_is_zero(const struct drm_memory_stats *stats)
+ 		stats->private == 0 &&
+ 		stats->resident == 0 &&
+ 		stats->purgeable == 0 &&
++		stats->evicted == 0 &&
+ 		stats->active == 0);
+ }
+ EXPORT_SYMBOL(drm_memory_stats_is_zero);
+@@ -901,6 +902,10 @@ void drm_print_memory_stats(struct drm_printer *p,
+ 	if (supported_status & DRM_GEM_OBJECT_PURGEABLE)
+ 		drm_fdinfo_print_size(p, prefix, "purgeable", region,
+ 				      stats->purgeable);
++
++	if (supported_status & DRM_GEM_OBJECT_EVICTED)
++		drm_fdinfo_print_size(p, prefix, "evicted", region,
++				      stats->evicted);
+ }
+ EXPORT_SYMBOL(drm_print_memory_stats);
+ 
+@@ -954,6 +959,9 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
+ 
+ 		if (s & DRM_GEM_OBJECT_PURGEABLE)
+ 			status.purgeable += add_size;
++
++		if (s & DRM_GEM_OBJECT_EVICTED)
++			status.evicted += add_size;
+ 	}
+ 	spin_unlock(&file->table_lock);
+ 
+diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+index 6ee70ad65e1f..213dfecac342 100644
+--- a/include/drm/drm_file.h
++++ b/include/drm/drm_file.h
+@@ -500,6 +500,7 @@ void drm_send_event_timestamp_locked(struct drm_device *dev,
+  * @resident: Total size of GEM objects backing pages
+  * @purgeable: Total size of GEM objects that can be purged (resident and not active)
+  * @active: Total size of GEM objects active on one or more engines
++ * @evicted: Total size of GEM objects that have been evicted to swap
+  *
+  * Used by drm_print_memory_stats()
+  */
+@@ -509,6 +510,7 @@ struct drm_memory_stats {
+ 	u64 resident;
+ 	u64 purgeable;
+ 	u64 active;
++	u64 evicted;
+ };
+ 
+ enum drm_gem_object_status;
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 86f5846154f7..b42ea2e582cf 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -53,6 +53,7 @@ struct drm_gem_object;
+  * @DRM_GEM_OBJECT_RESIDENT: object is resident in memory (ie. not unpinned)
+  * @DRM_GEM_OBJECT_PURGEABLE: object marked as purgeable by userspace
+  * @DRM_GEM_OBJECT_ACTIVE: object is currently used by an active submission
++ * @DRM_GEM_OBJECT_EVICTED: object is evicted to swap
+  *
+  * Bitmask of status used for fdinfo memory stats, see &drm_gem_object_funcs.status
+  * and drm_show_fdinfo().  Note that an object can report DRM_GEM_OBJECT_PURGEABLE
+@@ -67,6 +68,7 @@ enum drm_gem_object_status {
+ 	DRM_GEM_OBJECT_RESIDENT  = BIT(0),
+ 	DRM_GEM_OBJECT_PURGEABLE = BIT(1),
+ 	DRM_GEM_OBJECT_ACTIVE    = BIT(2),
++	DRM_GEM_OBJECT_EVICTED   = BIT(3),
+ };
+ 
+ /**
 
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+-- 
+2.53.0
 
