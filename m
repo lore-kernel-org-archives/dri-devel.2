@@ -4,44 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3D2EF588C2
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF41DF588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4254010E62F;
-	Mon, 20 Apr 2026 13:29:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 531BC10E631;
+	Mon, 20 Apr 2026 13:29:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GRbqZn9T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hp39jLKw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78AC610E62E;
- Mon, 20 Apr 2026 13:29:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8CC010E630;
+ Mon, 20 Apr 2026 13:29:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2C10F443DE;
- Mon, 20 Apr 2026 13:29:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC0CC2BCB6;
- Mon, 20 Apr 2026 13:29:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2DD926012B;
+ Mon, 20 Apr 2026 13:29:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BABFC2BCB6;
+ Mon, 20 Apr 2026 13:29:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691750;
- bh=V0VFj8aZzqmCnTuc3+SedQ4MvFev3ZEavBb0Ggnm2WI=;
+ s=k20201202; t=1776691753;
+ bh=4JM0H3LNo+pnQCjClh7idHPPBZsJOECq3dKvGCyRtRk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GRbqZn9TH0Y8eVwo2bjF/K40fO5H2IJrsx+HET535VhhZmtRBIzkeTsRwaeh+XDRl
- xeSTcAjFVVKghwFrztGyAI/I1ouchs4D5YDnqRTWyzYGvVj5eZqbtIhcbCWnXj+fOx
- VPwd+jPBwrhKjf/HroKhlA8sEc1X/QhnuglQ+ynN7Dqep0BnaHTnRFx4NcPth9hh//
- GSeWjYeJ6IS98rqrdkR3MSI5kFNudzNoyIHbBxq0Sv2Ll+VlmSW4FTIXdI6t+uvqme
- Ci5OCJBR8LgYa6mPtBLK46QljOUCRBr6+S0aTZ0hRZMPSMpbIgc/by7+L97VgOgTsn
- 3anHUavsg7clw==
+ b=hp39jLKwvkjMYfFPseBURpSkCnyFmOR2bGMmxJf9mD7jTKwWmwGKpMlV5q762dFmX
+ MmLNVKYN8eMbrUzMgyRieotIkFz8jeyoZFB9Jel1y7taabv4IpV4weChp1ivpok9UN
+ AKQkwZ8Ltzr94UjTjU6nYb/kvC312UIZAaGIn9Zn3S4LEptsGJjnsnKki7IStwCaEU
+ S1mYxiLvPEh9yXXEXPErRSUARjC1s8+VREjCh8G0Ej0CH7IQoGJM5um6SwEa5YZYco
+ EcNUuquV2vvqvDG4jaeVRrI0WrAFAEEPwfVUelfsinKplanqaPngZwGvplrolJCf7H
+ seGYScMrdIUzg==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Le Ma <le.ma@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+Cc: Ovidiu Bunea <ovidiu.bunea@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: fix array out of bounds accesses for
- mes sw_fini
-Date: Mon, 20 Apr 2026 09:19:25 -0400
-Message-ID: <20260420132314.1023554-171-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: Exit IPS w/ DC helper for
+ all dc_set_power_state cases
+Date: Mon, 20 Apr 2026 09:19:27 -0400
+Message-ID: <20260420132314.1023554-173-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -49,7 +51,6 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,372 +67,317 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Le Ma <le.ma@amd.com>
+From: Ovidiu Bunea <ovidiu.bunea@amd.com>
 
-[ Upstream commit 418b4e397570f1b0ffb6d5c8aa0872bc33071d49 ]
+[ Upstream commit f44c094449669c7d9ac403cc73ce23e255f0828b ]
 
-The mes.fw[] is per-pipe resource shared accross xcc inst.
-And enlarge hung_queue array to max inst_pipes.
+[why & how]
+On D3 path during dc_set_power_state, we may be in idle_allowed=true,
+at which point we will exit idle via dc_wake_and_execute_dmub_cmd_list
+which doesn't update dc->idle_optimizations_allowed to false. This
+would cause any future attempts to allow idle optimizations via the DC
+helper to get skipped because the value is stale and not reflective of
+the actual HW state.
 
-Signed-off-by: Le Ma <le.ma@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Move dc_exit_ips_for_hw_access() to the top of the function.
+Additionally ensure that dc_power_down_on_boot thread holds the DC
+lock and only runs if there are 0 streams.
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a complete analysis. Let me
-compile the findings.
+Good - the code matches the "before" state of the diff perfectly. The
+patch would apply cleanly to this tree.
+
+Now let me complete the final analysis phases with a comprehensive
+synthesis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-- **Subsystem**: `drm/amdgpu` (AMD GPU DRM driver)
-- **Action verb**: "fix" — explicitly a bug fix
-- **Summary**: Fixes array out-of-bounds accesses in MES sw_fini path
+**Step 1.1: Subject Line**
+Record: [drm/amd/display] [Exit/Move] Fix stale IPS idle state tracking
+in dc_set_power_state and dc_power_down_on_boot.
 
-Record: [drm/amdgpu] [fix] [Out-of-bounds array accesses in MES sw_fini
-due to incorrect array sizing and indexing]
+**Step 1.2: Tags**
+- Reviewed-by: Nicholas Kazlauskas (he's the original author of
+  `dc_exit_ips_for_hw_access`, a key AMD display engineer)
+- Signed-off-by: Ovidiu Bunea (patch author, AMD display developer)
+- Signed-off-by: Ivan Lipski (submitter, AMD display)
+- Tested-by: Dan Wheeler (AMD QA)
+- Signed-off-by: Alex Deucher (AMD GPU subsystem maintainer)
+- No Fixes: tag, no Cc: stable, no Reported-by: - expected for this
+  review pipeline.
 
-### Step 1.2: Tags
-- **Signed-off-by**: Le Ma (author), Alex Deucher (AMD DRM maintainer)
-- **Reviewed-by**: Hawking Zhang (AMD engineer/reviewer)
-- No Fixes: tag, no Cc: stable, no Reported-by, no Link
-- Absence of tags is expected for autoselection candidates
+**Step 1.3: Commit Body**
+The commit clearly describes a state inconsistency bug: On the D3 power-
+down path, if `idle_allowed=true`, the system exits idle via
+`dc_wake_and_execute_dmub_cmd_list` which does NOT update
+`dc->idle_optimizations_allowed` to false. This leaves a stale value.
+Any future attempt to call `dc_allow_idle_optimizations(dc, false)` gets
+skipped at line 5714 (`if (allow == dc->idle_optimizations_allowed)
+return;`) because the stale value says it's already false, when the HW
+actually re-entered idle.
 
-Record: Author is Le Ma (AMD engineer). Reviewed by Hawking Zhang.
-Merged by Alex Deucher (AMD DRM maintainer). No syzbot or external
-reporter.
-
-### Step 1.3: Commit Body
-The message states: "The mes.fw[] is per-pipe resource shared accross
-xcc inst. And enlarge hung_queue array to max inst_pipes."
-
-Two distinct bugs are described:
-1. `mes.fw[]` is per-pipe (size 2) but was accessed with per-instance
-   index (`inst = xcc_id * 2 + pipe`) → OOB when xcc_id > 0
-2. `hung_queue_db_array_*` arrays were sized at `AMDGPU_MAX_MES_PIPES`
-   (2) but accessed up to `AMDGPU_MAX_MES_INST_PIPES` (16) → OOB when
-   num_xcc > 1
-
-Record: Bug is OOB array access. Affects multi-xcc (multi-die) AMD GPU
-configurations (e.g., MI300 series). The sw_fini path runs during driver
-unload/cleanup.
-
-### Step 1.4: Hidden Bug Fix Detection
-This is explicitly labeled as a "fix" — no hiding here. Both are clear
-out-of-bounds memory accesses.
-
-Record: This is an explicit, clearly-described bug fix.
-
----
+**Step 1.4: Hidden Bug Fix**
+This IS a bug fix. The commit message is explicit about the bug
+mechanism: stale state causes future IPS exits to be skipped. This can
+lead to register access while the hardware is in a power-gated/idle
+state, which can cause hangs, corruption, or crashes.
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
-- `amdgpu_mes.h`: 3 lines changed (array size `AMDGPU_MAX_MES_PIPES` →
-  `AMDGPU_MAX_MES_INST_PIPES`)
-- `mes_v12_1.c`: 1 line removed, 3 lines added (move
-  `amdgpu_ucode_release` call out of xcc loop)
-- Total: +6/-4 lines — very small, surgical fix
-- Functions modified: `mes_v12_1_sw_fini()`
-- Scope: Single-subsystem, single-driver fix
+**Step 2.1: Inventory**
+- Single file: `drivers/gpu/drm/amd/display/dc/core/dc.c`
+- ~6 lines changed net (moved `dc_exit_ips_for_hw_access` before switch,
+  added stream_count guard)
+- Functions modified: `dc_power_down_on_boot`, `dc_set_power_state`
 
-### Step 2.2: Code Flow Change
-**Hunk 1 (amdgpu_mes.h)**:
-- Before: `hung_queue_db_array_*[AMDGPU_MAX_MES_PIPES]` — arrays of size
-  2
-- After: `hung_queue_db_array_*[AMDGPU_MAX_MES_INST_PIPES]` — arrays of
-  size 16
-- `amdgpu_mes_init()` and `amdgpu_mes_fini()` iterate `for (i = 0; i <
-  AMDGPU_MAX_MES_PIPES * num_xcc; i++)` and access these arrays with
-  index `i`. When num_xcc > 1, `i` exceeds 2.
+**Step 2.2: Code Flow Change**
+1. In `dc_set_power_state`: `dc_exit_ips_for_hw_access(dc)` moved from
+   inside D0 case to before the switch statement. This ensures ALL power
+   state transitions (D0, D3, default) exit IPS cleanly via the DC
+   helper that properly updates `dc->idle_optimizations_allowed`.
+2. In `dc_power_down_on_boot`: Added `stream_count > 0` early return
+   guard to prevent power_down_on_boot from running when there are
+   active streams (safety check, holds DC lock).
 
-**Hunk 2 (mes_v12_1.c)**:
-- Before: `amdgpu_ucode_release(&adev->mes.fw[inst])` inside the
-  xcc×pipe double loop, where `inst = xcc_id * AMDGPU_MAX_MES_PIPES +
-  pipe` can be up to 15
-- After: Separate loop `for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES;
-  pipe++)` outside the xcc loop, using `pipe` (0 or 1) as index
+**Step 2.3: Bug Mechanism**
+Category: **State inconsistency / stale flag bug**. The D3 path calls
+`dc_dmub_srv_notify_fw_dc_power_state` which internally calls
+`dc_wake_and_execute_dmub_cmd_list`. That function uses
+`dc_dmub_srv_apply_idle_power_optimizations(ctx->dc, false)` which sets
+`dc_dmub_srv->idle_allowed = false` but does NOT update
+`dc->idle_optimizations_allowed`. When `dc_exit_ips_for_hw_access`
+(which calls `dc_allow_idle_optimizations_internal`) is NOT called on D3
+path, `dc->idle_optimizations_allowed` stays `true` (stale). On
+subsequent resume, the guard `if (allow ==
+dc->idle_optimizations_allowed) return;` at line 5714 prevents the real
+IPS exit from happening.
 
-### Step 2.3: Bug Mechanism
-**Category**: Buffer overflow / out-of-bounds array access
-
-Bug 1: `mes.fw[AMDGPU_MAX_MES_PIPES]` (size 2) accessed at index `inst`
-(up to 15). This is OOB write/read during sw_fini.
-
-Bug 2: `hung_queue_db_array_*[AMDGPU_MAX_MES_PIPES]` (size 2) accessed
-at indices up to `AMDGPU_MAX_MES_PIPES * num_xcc - 1` (up to 15). OOB
-access during init, fini, and hung queue detection.
-
-### Step 2.4: Fix Quality
-- Obviously correct: array sizing matches access patterns
-- Minimal and surgical: no unrelated changes
-- Regression risk: extremely low — just correcting array bounds and
-  indexing
-- The `fw[]` fix is semantically correct: firmware IS per-pipe, loaded
-  via `amdgpu_mes_init_microcode()` which uses pipe index (verified in
-  `amdgpu_mes.c` line 694)
-
-Record: Fix quality is HIGH. Minimal risk of regression. Obviously
-correct.
-
----
+**Step 2.4: Fix Quality**
+- The fix is small, surgical, and obviously correct.
+- Moving IPS exit before the switch is safe: for D0, it was already
+  there (just earlier now); for D3, it's newly added; for default, it's
+  newly covered.
+- The `dc_exit_ips_for_hw_access` is a no-op when IPS is not supported
+  (checks `dc->caps.ips_support`).
+- The stream_count guard in `dc_power_down_on_boot` is a defensive check
+  that prevents powering down when displays are active.
+- Regression risk: LOW. The IPS exit is idempotent and already called on
+  D0. Adding it before the switch just expands coverage.
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-- The buggy `sw_fini` function was introduced by `e220edf2d6fd6d`
-  ("drm/amdgpu/mes_v12_1: initial support for mes_v12_1" by Jack Xiao,
-  2025-05-14), which appeared in v7.0-rc1.
-- The buggy `hung_queue_db_array_*` array declarations were introduced
-  by `d09c7e266c8cd` ("drm/amdgpu/mes: add multi-xcc support" by Jack
-  Xiao, 2024-11-21), also in v7.0-rc1.
+**Step 3.1: Blame**
+- `dc_set_power_state` core structure dates back to commit
+  `4562236b3bc0a2` (Harry Wentland, 2017) - very old, stable code.
+- `dc_exit_ips_for_hw_access` was added to D0 path by `a9b1a4f684b32b`
+  (Nicholas Kazlauskas, 2024-01-16) - tagged "Cc: stable@vger.kernel.org
+  # 6.1+"
+- The D3 case was added by `2ee27baf5c7cba` (Duncan Ma, 2025-03-31) -
+  first in v6.17-rc1. This commit introduced the D3-specific path that
+  triggers the bug.
 
-### Step 3.2: No Fixes: tag present, but root cause commits identified
-above.
+**Step 3.2: Fixes tag**
+No Fixes: tag. However, the bug is clearly introduced by
+`2ee27baf5c7cba` (D3 path) combined with `a9b1a4f684b32b` (IPS exit only
+in D0).
 
-### Step 3.3: File History
-Related commits to `mes_v12_1.c` after initial creation:
-- `a5192fbb2ee42`: "fix mes code error for muti-xcc" — different fix for
-  different multi-xcc issues
-- `75053887d6d8f`: "add cooperative dispatch support" — added
-  `shared_cmd_buf_obj` arrays
-- Multiple other features added during v7.0 development
+**Step 3.3: File history**
+The file is actively developed. The current tree state matches the diff
+context exactly.
 
-### Step 3.4: Author
-Le Ma is an AMD engineer who has contributed multiple amdgpu patches.
-The fix was reviewed by Hawking Zhang and merged by Alex Deucher, the
-AMD DRM maintainer.
+**Step 3.4: Author**
+Ovidiu Bunea is a regular AMD display developer. Reviewed by Nicholas
+Kazlauskas who is a key AMD display engineer and the original author of
+IPS support.
 
-### Step 3.5: Dependencies
-No prerequisites beyond what's already in v7.0. The fix modifies only
-existing code in a self-contained way.
-
----
+**Step 3.5: Dependencies**
+Requires `2ee27baf5c7cba` (D3 case in dc_set_power_state) to be present.
+This commit was first in v6.17-rc1. In the 7.0 tree, this is already
+present.
 
 ## PHASE 4: MAILING LIST RESEARCH
 
-The patch was found at `https://www.spinics.net/lists/amd-
-gfx/msg138868.html`, submitted by Alex Deucher on March 6, 2026. It was
-a single standalone patch (not part of a series). No objections or NAKs
-found in the thread.
-
-Record: No stable nomination in the mailing list discussion. No NAKs or
-concerns raised.
-
----
+b4 dig failed to find matching threads for both the IPS exit commit and
+the D3 notification commit (AMD display patches often go through
+internal AMD submission channels). No lore discussion available.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Functions Modified
-- `mes_v12_1_sw_fini()` — called during driver teardown/module unload
+**Step 5.1: Functions modified**: `dc_power_down_on_boot`,
+`dc_set_power_state`
 
-### Step 5.2: Callers of sw_fini
-This is registered as the `sw_fini` callback in the amdgpu IP block
-framework. It's called during:
-- Module unload
-- Driver teardown
-- Error recovery paths
+**Step 5.2: Callers**
+- `dc_set_power_state` is called from `dm_suspend` (D3) and `dm_resume`
+  (D0) in `amdgpu_dm.c` - these are the primary suspend/resume paths for
+  ALL AMD GPUs.
+- `dc_power_down_on_boot` - called during initial boot for display power
+  management.
 
-### Step 5.3: The OOB access in `amdgpu_mes_init()` /
-`amdgpu_mes_fini()` (hung_queue arrays)
-These are called during driver initialization and teardown — common
-paths for any AMD GPU.
+**Step 5.3-5.4: Call chain**
+Suspend/resume is a hot user-facing path. Every AMD GPU user hits this
+on laptop suspend/resume, hibernate, and S0ix entry/exit.
 
-### Step 5.4: Reachability
-The `hung_queue_db_array_*` OOB accesses are triggered on ANY multi-xcc
-GPU (MI300 series) during normal driver init/fini. The `fw[]` OOB is
-triggered during driver teardown on multi-xcc.
-
----
+**Step 5.5: Similar patterns**
+The `dc_exit_ips_for_hw_access` call is a common pattern throughout AMD
+display code - it's used in `dc_stream.c`, `dc_surface.c`, and many
+places in `dc.c`.
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-### Step 6.1: Which stable trees contain the buggy code?
+**Step 6.1: Buggy code existence**
+- The D3 path (`2ee27baf5c7cba`) was first introduced in v6.17-rc1.
+- The IPS exit (`a9b1a4f684b32b`) has been marked Cc: stable 6.1+.
+- The bug requires BOTH commits to be present. For stable trees <= 6.12,
+  the D3 path doesn't exist, so the specific bug doesn't trigger there.
+- For stable 7.0 tree: both commits are present, bug can trigger.
 
-| Stable Tree | mes_v12_1.c exists? | hung_queue arrays? | multi-xcc
-MES? |
-|-------------|--------------------|--------------------|---------------
--|
-| v6.6        | NO                 | NO (not arrays)    | NO
-|
-| v6.12       | NO                 | NO                 | NO
-|
-| v6.19       | NO                 | Scalar, not arrays | NO
-|
-| **v7.0**    | **YES**            | **YES (buggy)**    | **YES**
-|
-
-**The buggy code exists ONLY in v7.0.** The `mes_v12_1.c` file was
-created during the 7.0 development cycle. The `hung_queue_db_array_*`
-arrays (with multi-xcc indexing) were introduced by `d09c7e266c8cd`
-which is also 7.0-only.
-
-### Step 6.2: Backport Complications
-The fix should apply cleanly to 7.0.y since the code is identical.
-
----
+**Step 6.2: Backport complications**
+The patch applies cleanly to the 7.0 tree (verified by comparing the
+current code state with the diff context).
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem
-- **drm/amdgpu** — AMD GPU driver. IMPORTANT subsystem: used by data
-  center GPUs (MI300 series uses multi-xcc), desktop/workstation GPUs.
-- Criticality: IMPORTANT (driver-specific but affects high-value
-  enterprise hardware)
-
-### Step 7.2: Activity
-Extremely active subsystem with many recent commits.
-
----
+- Subsystem: drm/amd/display - GPU display driver
+- Criticality: IMPORTANT - AMD GPUs are in millions of laptops and
+  desktops. Suspend/resume is critical for laptop users.
+- IPS (Idle Power State) affects DCN35+ hardware (recent AMD APUs in
+  laptops).
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected?
-Users with multi-xcc AMD GPUs (MI300 series, data center/AI
-accelerators). The single-xcc path (num_xcc = 1) would not trigger the
-OOB because `inst` maxes at 1.
+**Step 8.1: Who is affected**
+All users of AMD APUs with DCN35+ display hardware (IPS support) - this
+includes recent AMD Ryzen laptops.
 
-### Step 8.2: Trigger conditions
-- **hung_queue OOB**: Triggered during driver initialization
-  (`amdgpu_mes_init`) — EVERY BOOT on multi-xcc hardware
-- **fw[] OOB**: Triggered during driver teardown (`sw_fini`) — every
-  module unload or error recovery
+**Step 8.2: Trigger conditions**
+Any suspend/resume cycle to D3 state when IPS is enabled
+(idle_allowed=true). This is a common, everyday operation on laptops.
 
-### Step 8.3: Failure mode severity
-Out-of-bounds array access in kernel structures:
-- Can corrupt adjacent struct members in `amdgpu_mes`
-- Can cause kernel oops/panic from corrupted pointers
-- Severity: **CRITICAL** (memory corruption, potential crash, affects
-  every boot on affected hardware)
+**Step 8.3: Failure mode**
+The stale `idle_optimizations_allowed` flag means subsequent IPS exit
+calls get skipped. This means hardware register accesses can happen
+while the hardware is power-gated, leading to:
+- Display hangs
+- System hangs on resume
+- Potential display corruption
+Severity: **HIGH** (system hang/display hang on resume)
 
-### Step 8.4: Risk-Benefit Ratio
-- **Benefit**: HIGH — prevents memory corruption and potential crashes
-  on multi-xcc AMD GPUs
-- **Risk**: VERY LOW — 10 lines, obviously correct array sizing and
-  indexing fix
-- **Ratio**: Very favorable
-
----
+**Step 8.4: Risk-Benefit Ratio**
+- BENEFIT: HIGH - prevents display/system hangs on suspend/resume for
+  AMD laptop users
+- RISK: LOW - ~6 lines changed, moving an existing call earlier and
+  adding a defensive guard
+- The fix is obviously correct, reviewed by the IPS subsystem expert,
+  and tested by AMD QA
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+**Evidence FOR backporting:**
+- Fixes a real state inconsistency bug that causes stale IPS idle
+  tracking
+- Triggers on every D3 suspend path for AMD APUs with IPS support (very
+  common)
+- Failure mode is display/system hang on resume (HIGH severity)
+- Small, surgical fix (~6 lines), single file
+- Reviewed by Nicholas Kazlauskas (IPS expert), tested by AMD QA
+- Applies cleanly to the 7.0 tree
+- The parent commit `a9b1a4f684b32b` was already explicitly nominated
+  for stable (Cc: stable 6.1+)
 
-**FOR backporting:**
-- Fixes real OOB array accesses (memory corruption)
-- Triggered on every boot/shutdown of multi-xcc AMD GPUs
-- Small, surgical fix (+6/-4 lines)
-- Obviously correct: array sizing matches access patterns
-- Reviewed by AMD maintainer (Hawking Zhang)
-- Merged by subsystem maintainer (Alex Deucher)
-- Self-contained, no dependencies
+**Evidence AGAINST backporting:**
+- No Fixes: tag (expected)
+- No syzbot/user bug reports linked (AMD internal finding)
+- The D3 path dependency (`2ee27baf5c7cba`) is only in v6.17+, limiting
+  which stable trees need this
 
-**AGAINST backporting:**
-- Only applicable to 7.0.y (no older stable trees have this code)
-- Only affects multi-xcc configurations (MI300 series)
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **YES** — array sizing fix is trivially
-   verifiable
-2. Fixes a real bug? **YES** — OOB array access causing memory
-   corruption
-3. Important issue? **YES** — memory corruption, potential kernel crash
-4. Small and contained? **YES** — 10 lines across 2 files in same driver
-5. No new features? **YES** — pure bug fix
-6. Can apply to stable? **YES** — 7.0.y only, should apply cleanly
-
-### Step 9.3: Exception categories
-Not an exception category — this is a standard bug fix.
-
-### Step 9.4: Decision
-This is a clear bug fix for out-of-bounds array accesses that cause
-memory corruption on multi-xcc AMD GPUs. The fix is small, obvious, and
-well-reviewed. It should be backported to the 7.0.y stable tree.
-
----
+**Stable Rules Checklist:**
+1. Obviously correct and tested? YES - reviewed by IPS expert, tested by
+   AMD QA
+2. Fixes a real bug? YES - stale state causes IPS exits to be skipped
+3. Important issue? YES - display/system hang on suspend/resume
+4. Small and contained? YES - ~6 lines, single file
+5. No new features? CORRECT - no new features
+6. Can apply to stable? YES - applies cleanly to 7.0
 
 ## Verification
 
-- [Phase 1] Parsed tags: Signed-off-by Le Ma (author), Reviewed-by
-  Hawking Zhang, Signed-off-by Alex Deucher (maintainer)
-- [Phase 2] Diff analysis: 3 lines in header change array sizes, 4 lines
-  in .c restructure fw release loop. Total +6/-4.
-- [Phase 2] Confirmed `fw[]` declared as `AMDGPU_MAX_MES_PIPES` (size 2)
-  at amdgpu_mes.h:98
-- [Phase 2] Confirmed `fw[]` loaded per-pipe in `amdgpu_mes.c:694` using
-  pipe index (0 or 1)
-- [Phase 2] Confirmed `hung_queue_db_array_*` accessed at index up to
-  `AMDGPU_MAX_MES_PIPES * num_xcc` in `amdgpu_mes.c:220,266`
-- [Phase 2] Confirmed `AMDGPU_MAX_MES_PIPES = 2`,
-  `AMDGPU_MAX_GC_INSTANCES = 8`, `AMDGPU_MAX_MES_INST_PIPES = 16`
-- [Phase 3] git blame: `sw_fini` introduced by `e220edf2d6fd6d`
-  (v7.0-rc1), hung_queue arrays by `d09c7e266c8cd` (v7.0-rc1)
-- [Phase 3] git tag --contains: both commits only in v7.0-rc1, v7.0
-- [Phase 3] git show v6.19: `mes_v12_1.c` does not exist;
-  `hung_queue_db_array_*` are scalar not arrays; no
-  `AMDGPU_MAX_MES_INST_PIPES` macro
-- [Phase 3] git show v6.12, v6.6: none of this code exists
-- [Phase 4] Found patch on spinics.net amd-gfx list (March 6, 2026),
-  standalone patch, no objections
-- [Phase 5] `sw_fini` is IP block teardown callback, called during
-  driver unload
-- [Phase 5] `amdgpu_mes_init()`/`amdgpu_mes_fini()` access hung_queue
-  arrays with multi-xcc indices
-- [Phase 6] Buggy code exists ONLY in v7.0 tree — not in v6.19, v6.12,
-  or v6.6
-- [Phase 8] Failure mode: OOB memory access → memory corruption →
-  potential kernel crash. Severity CRITICAL on multi-xcc hardware.
+- [Phase 1] Parsed tags: Reviewed-by Nicholas Kazlauskas (IPS author),
+  Tested-by Dan Wheeler (AMD QA), Signed-off-by Alex Deucher
+  (maintainer)
+- [Phase 2] Diff: ~6 lines changed in dc.c, moves
+  dc_exit_ips_for_hw_access before switch, adds stream_count guard
+- [Phase 2] Traced bug mechanism: dc_wake_and_execute_dmub_cmd_list sets
+  dc_dmub_srv->idle_allowed but NOT dc->idle_optimizations_allowed,
+  confirmed at lines 1728-1730 and 1694 of dc_dmub_srv.c, and guard at
+  line 5714 of dc.c
+- [Phase 3] git blame: D3 path introduced by 2ee27baf5c7cba (v6.17-rc1),
+  IPS exit by a9b1a4f684b32b (v6.9-rc1, Cc: stable 6.1+)
+- [Phase 3] Confirmed 2ee27baf5c7cba is in v7.0 tree (git merge-base
+  --is-ancestor)
+- [Phase 3] Confirmed a9b1a4f684b32b is in v7.0 tree (git merge-base
+  --is-ancestor)
+- [Phase 4] b4 dig failed for both parent commits (AMD internal
+  submission path)
+- [Phase 5] dc_set_power_state called from dm_suspend/dm_resume - common
+  laptop suspend/resume path
+- [Phase 6] Current tree code matches diff context exactly - clean apply
+  expected
+- [Phase 6] Bug requires D3 path (v6.17+) - applicable to 7.0 stable
+  tree
+- [Phase 8] Failure mode: stale idle flag -> skipped IPS exit ->
+  register access while power-gated -> hang. Severity HIGH.
+- UNVERIFIED: Could not find mailing list discussion (b4 dig returned no
+  results). Decision not affected since the code analysis is conclusive.
+
+The fix is small, surgical, addresses a clear state-tracking bug in AMD
+display's IPS handling that affects suspend/resume on common AMD laptop
+hardware, and meets all stable kernel criteria.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 6 +++---
- drivers/gpu/drm/amd/amdgpu/mes_v12_1.c  | 4 +++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index bcf2a067dc410..f80e3aca9c78e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -159,9 +159,9 @@ struct amdgpu_mes {
- 
- 	int				hung_queue_db_array_size;
- 	int				hung_queue_hqd_info_offset;
--	struct amdgpu_bo		*hung_queue_db_array_gpu_obj[AMDGPU_MAX_MES_PIPES];
--	uint64_t			hung_queue_db_array_gpu_addr[AMDGPU_MAX_MES_PIPES];
--	void				*hung_queue_db_array_cpu_addr[AMDGPU_MAX_MES_PIPES];
-+	struct amdgpu_bo		*hung_queue_db_array_gpu_obj[AMDGPU_MAX_MES_INST_PIPES];
-+	uint64_t			hung_queue_db_array_gpu_addr[AMDGPU_MAX_MES_INST_PIPES];
-+	void				*hung_queue_db_array_cpu_addr[AMDGPU_MAX_MES_INST_PIPES];
- 
- 	/* cooperative dispatch */
- 	bool                enable_coop_mode;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-index 7b8c670d0a9ed..d8e4b52bdfd50 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
-@@ -1611,7 +1611,6 @@ static int mes_v12_1_sw_fini(struct amdgpu_ip_block *ip_block)
- 			amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj[inst],
- 					      &adev->mes.eop_gpu_addr[inst],
- 					      NULL);
--			amdgpu_ucode_release(&adev->mes.fw[inst]);
- 
- 			if (adev->enable_uni_mes || pipe == AMDGPU_MES_SCHED_PIPE) {
- 				amdgpu_bo_free_kernel(&adev->mes.ring[inst].mqd_obj,
-@@ -1622,6 +1621,9 @@ static int mes_v12_1_sw_fini(struct amdgpu_ip_block *ip_block)
- 		}
- 	}
- 
-+	for (pipe = 0; pipe < AMDGPU_MAX_MES_PIPES; pipe++)
-+		amdgpu_ucode_release(&adev->mes.fw[pipe]);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 3e87b6a553be9..4c5ecbb97d5b0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -5540,6 +5540,9 @@ void dc_power_down_on_boot(struct dc *dc)
+ {
+ 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
+ 	    dc->hwss.power_down_on_boot) {
++		if (dc->current_state->stream_count > 0)
++			return;
 +
- 	for (xcc_id = 0; xcc_id < num_xcc; xcc_id++) {
- 		if (!adev->enable_uni_mes) {
- 			amdgpu_bo_free_kernel(&adev->gfx.kiq[xcc_id].ring.mqd_obj,
+ 		if (dc->caps.ips_support)
+ 			dc_exit_ips_for_hw_access(dc);
+ 		dc->hwss.power_down_on_boot(dc);
+@@ -5551,12 +5554,12 @@ void dc_set_power_state(struct dc *dc, enum dc_acpi_cm_power_state power_state)
+ 	if (!dc->current_state)
+ 		return;
+ 
++	dc_exit_ips_for_hw_access(dc);
++
+ 	switch (power_state) {
+ 	case DC_ACPI_CM_POWER_STATE_D0:
+ 		dc_state_construct(dc, dc->current_state);
+ 
+-		dc_exit_ips_for_hw_access(dc);
+-
+ 		dc_z10_restore(dc);
+ 
+ 		dc_dmub_srv_notify_fw_dc_power_state(dc->ctx->dmub_srv, power_state);
 -- 
 2.53.0
 
