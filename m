@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BD47F588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:32:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F8DF588C4
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:32:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 757FB10E654;
-	Mon, 20 Apr 2026 13:32:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F01810E656;
+	Mon, 20 Apr 2026 13:32:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aCf+GsAC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lxWTs3q/";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35D1910E652;
- Mon, 20 Apr 2026 13:32:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C01010E656
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:32:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 71B0760154;
- Mon, 20 Apr 2026 13:32:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FA08C2BCB7;
- Mon, 20 Apr 2026 13:32:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B2F7861119;
+ Mon, 20 Apr 2026 13:32:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EAEC2BCB6;
+ Mon, 20 Apr 2026 13:32:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691961;
- bh=yX3puy7JnbPtAPqAMV8g+f4cfGNV598Y0yDwkR4xBdg=;
+ s=k20201202; t=1776691964;
+ bh=Bz0MYcCSoXg0+rbrkRMf3Fd9aHfOgXPlHPxrXeALiP0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aCf+GsAC8msRQnIRpoVy0/pkspqblMe16m+f/E6wyr28bmTtSx94CywgECRLbHIgU
- Aip3Dh2/sVq7KEyw8vUg44kVj+lGYFjpXAd4ujF76ztIIRaCADdZvaMvAWxUW55+FY
- JWihpV10U8b50R6hDxmvBiIKjCkn98BU1f+bm0Pa7+o0wRULtVr/a9N18iN5zd98u4
- LkfNlf8AlqQzIjuP9UO7L9OZUKg5ru9NdgA3Ijoqd3bQYvs40v+RjqYm6Y1BnDe/c1
- NUHYsQ1uw4A9e2kWW3ePLJH8Gfw+alvMa4g1QiwbaqTzNWvot7sT0kFmcb9IrYfFwc
- ECMF7p923LhEg==
+ b=lxWTs3q/y96smcEUmTZoS24lgvc3zD5gRfFxvhYrR5F/30psMevFiOK3Qdww1Dd9/
+ IUiXys20jzdgkT7IlrFAUKBypRisboH7zIaety/eiUCEGe12Yu2nY5tijGBLCvBHaO
+ AUciCz20v1shGwY+DNf9i539cpcj9iNAYahaLtNDDNs/TanF8V8qwqnsMNfpB6Q0om
+ od5OPMumJsx0IlNbg7vBsD/PhW4pI2TFMuUZKc5J7R5qvXsT90QlMIUZoT9flxFvBU
+ Ds9U25oAJt+uDJ54cnBKB7AILPsV1Hu8O9UYd8fe3v7sh3gklNQzEytmee9pXzmLrt
+ dU8gCYt962Qng==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Roman Li <Roman.Li@amd.com>, Dillon Varone <dillon.varone@amd.com>,
- Chuanyu Tseng <chuanyu.tseng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: Remove invalid DPSTREAMCLK
- mask usage
-Date: Mon, 20 Apr 2026 09:21:26 -0400
-Message-ID: <20260420132314.1023554-292-sashal@kernel.org>
+Cc: Cong Yang <yangcong5@huaqin.corp-partner.google.com>,
+ Douglas Anderson <dianders@chromium.org>, Sasha Levin <sashal@kernel.org>,
+ neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/panel-edp: Add CMN N116BCL-EAK (C2)
+Date: Mon, 20 Apr 2026 09:21:28 -0400
+Message-ID: <20260420132314.1023554-294-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -50,6 +49,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,304 +66,374 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Roman Li <Roman.Li@amd.com>
+From: Cong Yang <yangcong5@huaqin.corp-partner.google.com>
 
-[ Upstream commit 8de2559ec172b04301d6e53c4f30388e40fad08c ]
+[ Upstream commit 3d65e4c276b32c03450261d114e495fda03c8e97 ]
 
-[Why]
-The invalid register field access causes ASSERT(mask != 0) to fire
-in set_reg_field_values() during display enable.
+Add support for the CMN N116BCL-EAK (C2) panel, pleace the EDID here for
+subsequent reference.
 
-WARNING: at drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:100
-set_reg_field_values.isra.0+0xcf/0xf0 [amdgpu]
-Call Trace:
- <TASK>
-generic_reg_update_ex+0x66/0x1d0 [amdgpu]
-dccg401_set_dpstreamclk+0xed/0x350 [amdgpu]
-dcn401_enable_stream+0x165/0x370 [amdgpu]
-link_set_dpms_on+0x6e9/0xe90 [amdgpu]
-dce110_apply_single_controller_ctx_to_hw+0x343/0x530 [amdgpu]
-dce110_apply_ctx_to_hw+0x1f6/0x2d0 [amdgpu]
-dc_commit_state_no_check+0x49a/0xe20 [amdgpu]
-dc_commit_streams+0x354/0x570 [amdgpu]
-amdgpu_dm_atomic_commit_tail+0x6f8/0x3fc0 [amdgpu]
+edid-decode (hex):
 
-DCN4.x hardware does not have DPSTREAMCLK_GATE_DISABLE and
-DPSTREAMCLK_ROOT_GATE_DISABLE fields in DCCG_GATE_DISABLE_CNTL3.
-These global fields only exist in DCN3.1.x hardware.
+00 ff ff ff ff ff ff 00 0d ae 7a 11 00 00 00 00
+08 22 01 04 95 1a 0e 78 03 46 a5 9c 5b 53 8b 24
+1d 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 e6 1e 56 e2 50 00 3c 30 30 20
+a6 00 00 90 10 00 00 1a 00 00 00 fd 00 28 3c 32
+32 08 01 0a 20 20 20 20 20 20 00 00 00 fe 00 43
+4d 4e 0a 20 20 20 20 20 20 20 20 20 00 00 00 fe
+00 4e 31 31 36 42 43 4c 2d 45 41 4b 0a 20 01 80
 
-[How]
-Remove the call that tries to update non-existent fields in CNTL3.
-DCN4.x uses per-instance fields in CNTL5 instead,
-which are already correctly programmed in the switch cases above.
+70 20 79 02 00 25 01 09 fc 34 01 fc 34 01 28 3c
+80 81 00 10 72 1a 00 00 03 01 28 3c 00 00 00 00
+00 00 3c 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 2f 90
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
-Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Cong Yang <yangcong5@huaqin.corp-partner.google.com>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+Link: https://patch.msgid.link/20260130030456.2080748-1-yangcong5@huaqin.corp-partner.google.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I now have all the evidence needed. Let me compile the complete
-analysis.
+I now have all the information needed. Let me compile the full analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: Subject Line**
-- Subsystem: `drm/amd/display` (AMD Display Core for DCN401 / RDNA 4)
-- Action verb: "Remove" (removing invalid code that causes an assertion
-  failure)
-- Summary: Removes register field access to non-existent mask fields on
-  DCN4.x hardware
+### Step 1.1: Subject Line
+- **Subsystem**: drm/panel-edp
+- **Action verb**: "Add" — adding a new panel entry
+- **Summary**: Adding support for a new hardware revision (C2) of the
+  CMN N116BCL-EAK eDP panel
 
-**Step 1.2: Tags**
-- `Reviewed-by: Dillon Varone <dillon.varone@amd.com>` - AMD display
-  engineer reviewed
-- `Signed-off-by: Roman Li` (author), `Chuanyu Tseng`, `Alex Deucher`
-  (AMD drm subsystem maintainer)
-- No Fixes: tag (expected for manual review candidates)
-- No Cc: stable (expected)
+Record: [drm/panel-edp] [Add] [New device ID for CMN N116BCL-EAK C2
+panel revision]
 
-**Step 1.3: Commit Body**
-The commit includes a full stack trace showing a WARNING triggered from
-`ASSERT(mask != 0)` in `set_reg_field_values()` during display enable.
-The path is: `amdgpu_dm_atomic_commit_tail -> dc_commit_streams -> ...
--> dccg401_set_dpstreamclk -> generic_reg_update_ex ->
-set_reg_field_values`. The bug is that DCN4.x code tries to write
-`DPSTREAMCLK_GATE_DISABLE` and `DPSTREAMCLK_ROOT_GATE_DISABLE` fields in
-`DCCG_GATE_DISABLE_CNTL3`, but those global fields only exist in
-DCN3.1.x hardware.
+### Step 1.2: Tags
+- **Signed-off-by**: Cong Yang (author), Douglas Anderson
+  (maintainer/committer)
+- **Reviewed-by**: Douglas Anderson (drm/panel-edp maintainer at
+  Chromium)
+- **Link**: patch.msgid.link (standard commit link)
+- No Fixes: tag (expected)
+- No Cc: stable tag (expected)
+- No Reported-by (hardware enablement, not a bug report)
 
-**Step 1.4: Hidden Bug Fix?**
-This is explicitly a bug fix, not disguised. The WARNING/ASSERT fires on
-every display enable path.
+Record: Reviewed and signed by subsystem maintainer Douglas Anderson. No
+bug tags (expected for device ID addition).
 
-Record: Clear bug fix. WARNING/ASSERT fires on the normal display enable
-path for all DCN4.x hardware.
+### Step 1.3: Commit Body
+The body includes the full EDID dump for the panel with ID 0x117a (CMN
+N116BCL-EAK C2). The EDID is included "for subsequent reference" —
+standard practice for panel-edp entries. No bug is described because
+this is hardware enablement, not a bug fix.
+
+Record: [No bug described - hardware ID addition] [Panel would not be
+recognized without this entry] [Chromebook panel hardware]
+
+### Step 1.4: Hidden Bug Fix Detection
+This is not a hidden bug fix. It's a straightforward device ID addition
+to enable hardware. Without this entry, systems with the C2 revision
+panel would not use the correct timing parameters, potentially causing
+display initialization issues.
+
+Record: [Not a hidden bug fix — device ID addition for hardware support]
 
 ## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1: Inventory**
-- Single file:
-  `drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c`
-- 4 lines removed, 0 lines added
-- Single function modified: `dccg401_enable_dpstreamclk`
-- Classification: Single-file surgical fix
+### Step 2.1: Inventory
+- **Files changed**: 1 (`drivers/gpu/drm/panel/panel-edp.c`)
+- **Lines added**: 1
+- **Lines removed**: 0
+- **Functions modified**: None (data table only)
+- **Scope**: Single-line addition to a static const data table
 
-**Step 2.2: Code Flow Change**
-Before: After the per-instance switch statement (which correctly
-programs CNTL5), the function unconditionally tries to update
-`DCCG_GATE_DISABLE_CNTL3` with `DPSTREAMCLK_GATE_DISABLE` and
-`DPSTREAMCLK_ROOT_GATE_DISABLE`. Since these masks are 0, ASSERT fires.
+Record: [1 file, +1 line, data table entry only, minimal scope]
 
-After: The function ends after the per-instance switch cases, which
-already correctly program the per-instance fields in CNTL5.
+### Step 2.2: Code Flow Change
+The single line added:
+```c
+EDP_PANEL_ENTRY('C', 'M', 'N', 0x117a, &delay_200_500_e80_d50, "N116BCL-
+EAK"),
+```
+This adds a new entry to the `edp_panels[]` array, which is a lookup
+table mapping panel EDID manufacturer/product IDs to timing parameters.
+Before: panel ID 0x117a would not match any entry. After: it matches
+with the correct `delay_200_500_e80_d50` timing.
 
-**Step 2.3: Bug Mechanism**
-Category: Logic/correctness - writing to register fields that don't
-exist on this hardware. The `FN()` macro expands to `(shift=0, mask=0)`
-because `DCCG_MASK_SH_LIST_DCN401` in the header never initializes these
-fields.
+Record: [Before: panel 0x117a unrecognized, After: panel recognized with
+correct timing]
 
-**Step 2.4: Fix Quality**
-Absolutely minimal and obviously correct. The header file
-`dcn401_dccg.h` lists all mask/shift entries for DCN401 and does NOT
-include `DPSTREAMCLK_GATE_DISABLE` or `DPSTREAMCLK_ROOT_GATE_DISABLE`.
-The per-instance equivalents in CNTL5 (e.g. `DPSTREAMCLK0_GATE_DISABLE`
-through `DPSTREAMCLK3_GATE_DISABLE`) are already programmed in each
-switch case. Zero regression risk.
+### Step 2.3: Bug Mechanism
+Category: **Hardware workaround / device ID addition**. The
+`EDP_PANEL_ENTRY` macro creates a table entry with vendor ID
+('C','M','N' = Chi Mei / Innolux), product ID (0x117a), delay timings,
+and name string. This is a device ID table entry, not a code logic
+change.
+
+Record: [Device ID addition — hardware enablement table entry]
+
+### Step 2.4: Fix Quality
+- Obviously correct: Yes — identical pattern to 200+ other entries in
+  the same table
+- Minimal/surgical: Yes — 1 line
+- Regression risk: Zero — only affects systems with this specific panel
+  ID
+- Red flags: None
+
+Record: [Obviously correct, minimal, zero regression risk]
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1: Blame**
-All buggy lines trace to commit `70839da636050` "drm/amd/display: Add
-new DCN401 sources" by Aurabindo Pillai (2024-04-19). The DCN401 code
-was copied from DCN31 where these global CNTL3 fields are valid. The bug
-has been present since DCN401's introduction.
+### Step 3.1: Blame
+The surrounding lines show entries added by multiple authors from
+2022-2025. The same panel name (N116BCL-EAK) already exists with product
+ID 0x115f (added by same author in commit 518867b093942, July 2025). The
+new entry is for a different hardware revision (C2) with product ID
+0x117a.
 
-**Step 3.2: Fixes Tag**
-No Fixes: tag present. However, the implicit target is `70839da636050`
-which first appeared in v6.11-rc1.
+Record: [Same panel model already has an entry for 0x115f. This is a new
+revision C2 with 0x117a. Table has been active since kernel 5.16.]
 
-**Step 3.3: File History**
-Recent changes to the file are mostly refactoring/restructuring. No
-related DPSTREAMCLK fixes were found.
+### Step 3.2: Fixes Tag
+No Fixes: tag — expected for device ID additions.
 
-**Step 3.4: Author**
-Roman Li is an AMD display team member with multiple commits to
-drm/amd/display. Alex Deucher is the AMD drm subsystem maintainer who
-signed off.
+Record: [N/A — no Fixes: tag, expected for hardware enablement]
 
-**Step 3.5: Dependencies**
-None. This is a standalone 4-line removal. No prerequisites needed.
+### Step 3.3: File History
+The file has 140 commits, almost all of which are panel ID additions.
+This is one of the most frequently updated data tables in the kernel.
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+Record: [Active file with 140+ commits, mostly panel ID additions.
+Standalone single commit.]
 
-**Step 4.1-4.5:**
-b4 dig did not find a lore thread (AMD often submits through internal
-processes to drm-next). Web search also did not surface a specific lore
-discussion. This is typical for AMD display driver commits which go
-through Alex Deucher's drm-next tree.
+### Step 3.4: Author
+Cong Yang is from Huaqin (a Google Chromebook manufacturing partner).
+They have contributed multiple panel entries for Chromebook hardware.
+
+Record: [Author is Chromebook hardware partner. Maintainer (dianders)
+reviewed and applied.]
+
+### Step 3.5: Dependencies
+Uses existing `delay_200_500_e80_d50` timing structure and
+`EDP_PANEL_ENTRY` macro. Both have existed since the file was created.
+No dependencies on other commits.
+
+Record: [No dependencies. Uses existing infrastructure. Fully
+standalone.]
+
+## PHASE 4: MAILING LIST RESEARCH
+
+### Step 4.1: Patch Discussion
+From the b4 mbox fetch: the thread has 2 messages. This is V2 of the
+patch. V1 used "N116BCL-EAK-c2" as the name string; review feedback
+requested changing it to "N116BCL-EAK" (matching the naming convention
+of other entries). Douglas Anderson replied with "Reviewed-by" and
+"Pushed to drm-misc-next", committing it as 3d65e4c276b3.
+
+Record: [V2 patch. V1 had minor naming issue fixed in V2. Maintainer
+reviewed and pushed. No objections.]
+
+### Step 4.2: Reviewers
+From the mbox headers: Sent to DRM maintainers (neil.armstrong,
+jesszhan, maarten.lankhorst, mripard, tzimmermann, airlied, simona) and
+the DRM panel maintainer (dianders, treapking). CC'd dri-devel and
+linux-kernel. Douglas Anderson reviewed and applied.
+
+Record: [All appropriate maintainers and mailing lists were CC'd.
+Subsystem maintainer reviewed.]
+
+### Steps 4.3-4.5: Bug Report / Related Patches / Stable Discussion
+No bug report (hardware enablement). No related patches needed. No prior
+stable discussion found.
+
+Record: [N/A — hardware enablement, not bug fix]
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: Functions Modified**
-`dccg401_enable_dpstreamclk` - called from `dccg401_set_dpstreamclk`
+### Step 5.1-5.4: Function Analysis
+The `edp_panels[]` table is looked up during panel probe. When a panel's
+EDID is read, its manufacturer/product ID is matched against this table
+to find the correct timing parameters. Without a matching entry, the
+panel either uses generic/conservative timings or may fail to initialize
+properly.
 
-**Step 5.2: Callers**
-The call chain from the stack trace:
-- `amdgpu_dm_atomic_commit_tail` -> `dc_commit_streams` -> ... ->
-  `dcn401_enable_stream` -> `dccg401_set_dpstreamclk` ->
-  `dccg401_enable_dpstreamclk`
+Record: [Table is queried during panel probe on every eDP panel
+initialization. Affects Chromebooks using this specific panel.]
 
-This is the **main display enable path** - triggered every time a
-display mode is committed on RDNA 4 hardware (mode set, resume from
-suspend, hotplug, etc.).
+### Step 5.5: Similar Patterns
+There are 200+ identical `EDP_PANEL_ENTRY` lines in the same table. This
+pattern is universally used for all eDP panel identification.
 
-**Step 5.3-5.4: Call Chain**
-The buggy path is reachable from userspace via any DRM atomic commit
-that enables a display stream (e.g., `xrandr`, Wayland compositor, KMS
-modesetting). This is the most common display operation.
-
-**Step 5.5: Similar Patterns**
-DCN31 (`dcn31_dccg.c`) correctly uses these fields because
-`DCCG_MASK_SH_LIST_DCN31` includes them. The bug is specific to DCN401
-which copied the DCN31 code but doesn't have these hardware fields.
+Record: [Identical pattern used 200+ times in the same table]
 
 ## PHASE 6: STABLE TREE ANALYSIS
 
-**Step 6.1: Buggy Code in Stable Trees**
-DCN401 was introduced in v6.11. Active stable trees 6.11.y, 6.12.y, and
-7.0.y all contain this buggy code. (6.6.y and earlier do not have
-DCN401.)
+### Step 6.1: Buggy Code in Stable
+The `panel-edp.c` file and `edp_panels[]` table exist in all stable
+trees since 5.16. The `delay_200_500_e80_d50` structure and
+`EDP_PANEL_ENTRY` macro are present in all relevant stable trees.
 
-**Step 6.2: Backport Complications**
-The fix is a simple 4-line removal. The surrounding code is identical in
-all stable trees that have DCN401. Expected clean apply.
+Record: [File and infrastructure exist in all active stable trees
+(6.1.y, 6.6.y, 6.12.y, 7.0.y)]
 
-**Step 6.3: No Related Fix in Stable**
-No previous DPSTREAMCLK fix for DCN401 exists in any stable tree.
+### Step 6.2: Backport Complications
+The insertion point (between 0x1163 and 0x1247 entries) may differ in
+older stable trees that don't have all the intermediate panel entries.
+However, the line can be inserted anywhere in the CMN section in sorted
+order — minor fuzz is expected but the patch should apply or be
+trivially adaptable.
+
+Record: [May need minor context adjustment in older stable trees.
+Trivially adaptable.]
+
+### Step 6.3: Related Fixes
+No related fixes already in stable for this specific panel ID.
+
+Record: [No prior fixes for panel ID 0x117a in stable]
 
 ## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1:** drm/amd/display - AMD GPU display driver. DCN401
-corresponds to RDNA 4 (Radeon RX 9000 series), a current-generation
-consumer/professional GPU.
-Criticality: IMPORTANT - affects all RDNA 4 GPU owners using
-DisplayPort.
+### Step 7.1: Subsystem
+- **Subsystem**: DRM/Display (drivers/gpu/drm/panel/)
+- **Criticality**: IMPORTANT — display panels affect user experience on
+  Chromebooks and laptops
 
-**Step 7.2:** Active subsystem with frequent updates.
+Record: [DRM display panel driver, IMPORTANT criticality, affects
+Chromebook users]
+
+### Step 7.2: Activity
+Extremely active file — 140 commits, mostly panel additions. Panel-edp
+is one of the most actively maintained data tables in the kernel,
+specifically for Chromebook eDP panel support.
+
+Record: [Very active, continuously updated]
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1:** Affected users: All AMD RDNA 4 GPU users with DisplayPort
-displays.
+### Step 8.1: Affected Users
+Users with Chromebooks or laptops using the CMN N116BCL-EAK C2 panel
+revision. This is a specific Chromebook panel manufactured by
+Huaqin/Google partners.
 
-**Step 8.2:** Trigger: Every display enable (mode set, resume, hotplug).
-Very common. Occurs on the normal code path, not an error path.
+Record: [Driver-specific: Chromebook users with this panel model]
 
-**Step 8.3:** Failure mode: `WARNING` fires on every display enable.
-Severity: HIGH
-- Produces kernel log warnings on every mode set
-- Systems with `panic_on_warn=1` will CRASH
-- Even without panic_on_warn, the WARNING indicates potentially
-  undefined register writes
+### Step 8.2: Trigger Conditions
+Every boot on affected hardware. Without this entry, the panel may use
+suboptimal timing, potentially causing display issues during
+initialization.
 
-**Step 8.4:** Risk-Benefit:
-- BENEFIT: Very high - eliminates WARNING on every display operation for
-  all RDNA 4 DP users
-- RISK: Extremely low - 4 lines removed, removing code that accesses
-  non-existent register fields; per-instance fields in CNTL5 are already
-  correctly programmed
+Record: [Triggers on every boot of affected hardware]
+
+### Step 8.3: Failure Severity
+Without the entry: display may not initialize properly or may use
+conservative/wrong timings. With the entry: display works correctly with
+manufacturer-specified timings.
+
+Record: [Display initialization — MEDIUM to HIGH for affected users]
+
+### Step 8.4: Risk-Benefit
+- **Benefit**: HIGH for affected hardware users — enables correct panel
+  operation
+- **Risk**: VERY LOW — 1-line data table addition, cannot affect any
+  other hardware
+- **Ratio**: Very favorable
+
+Record: [HIGH benefit, VERY LOW risk, strongly favorable ratio]
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1: Evidence Compilation**
+### Step 9.1: Evidence Summary
+**FOR backporting:**
+- Single-line device ID addition to existing driver (classic stable
+  exception)
+- Zero regression risk — only affects specific panel hardware ID
+- Reviewed by subsystem maintainer Douglas Anderson
+- Uses existing timing structure and macro — no new code
+- Enables correct panel operation for Chromebook hardware
+- Driver and infrastructure exist in all active stable trees
 
-FOR backporting:
-- Fixes a real bug with a full stack trace in the commit message
-- WARNING fires on the normal display enable path for ALL RDNA 4 DP
-  users
-- Systems with panic_on_warn will crash
-- Fix is 4 lines of pure removal - minimally invasive
-- Obviously correct: header confirms fields don't exist in DCN401 mask
-  list
-- Per-instance CNTL5 fields already handle the functionality correctly
-- Reviewed by AMD display engineer (Dillon Varone)
-- Signed off by AMD drm maintainer (Alex Deucher)
-- Bug has existed since DCN401 introduction (v6.11)
+**AGAINST backporting:**
+- Not a bug fix in the traditional sense (hardware enablement)
+- Affects only users with this specific panel revision
 
-AGAINST backporting:
-- None identified
+**UNRESOLVED:**
+- Exact Chromebook models using this panel (likely mt8189-based, given
+  the author's other commits)
 
-**Step 9.2: Stable Rules Checklist**
-1. Obviously correct? YES - verified by mask/shift header analysis
-2. Fixes a real bug? YES - WARNING on every display enable
-3. Important? YES - affects all RDNA 4 DP users, crash with
-   panic_on_warn
-4. Small and contained? YES - 4 lines removed in 1 file
-5. No new features? YES - pure removal of invalid code
-6. Applies to stable? YES - DCN401 exists in 6.11+, code is identical
+### Step 9.2: Stable Rules Checklist
+1. **Obviously correct and tested?** YES — identical pattern to 200+
+   other entries, reviewed by maintainer
+2. **Fixes a real bug?** Enables hardware support (device ID addition
+   exception)
+3. **Important issue?** YES for affected hardware users
+4. **Small and contained?** YES — 1 line, 1 file
+5. **No new features or APIs?** Correct — data table entry only
+6. **Can apply to stable?** YES — may need trivial context adjustment
 
-**Step 9.3: Exception Categories**
-Not an exception category - this is a straightforward bug fix.
+### Step 9.3: Exception Category
+**YES — Device ID addition to existing driver.** This is explicitly
+called out as an allowed exception in stable kernel rules. The driver
+already exists; only the panel identifier is new.
 
-**Step 9.4: Decision**
-Clear YES. This is a textbook stable candidate.
+### Step 9.4: Decision
+This is a textbook device ID addition — a single-line entry in an
+existing panel identification table, using existing timing structures,
+reviewed by the subsystem maintainer, with zero regression risk. It
+falls squarely into the "new device IDs to existing drivers" exception
+category for stable backports.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by from AMD display engineer, SOBs
-  from author + AMD maintainer
-- [Phase 2] Diff analysis: 4 lines removed from
-  `dccg401_enable_dpstreamclk()`, removing invalid CNTL3 register field
-  access
-- [Phase 3] git blame: All buggy lines from commit 70839da636050 "Add
-  new DCN401 sources" (2024-04-19), first in v6.11-rc1
-- [Phase 3] git tag --contains: Confirmed DCN401 introduced in v6.11-rc1
-- [Phase 5] Traced callers: `dccg401_set_dpstreamclk` ->
-  `dccg401_enable_dpstreamclk` called from `dcn401_enable_stream` during
-  every display enable
-- [Phase 5] Verified mask list: `DCCG_MASK_SH_LIST_DCN401` in
-  dcn401_dccg.h has per-instance DPSTREAMCLK[0-3] fields in CNTL5, but
-  NO global DPSTREAMCLK_GATE_DISABLE/DPSTREAMCLK_ROOT_GATE_DISABLE in
-  CNTL3
-- [Phase 5] Verified assert: `dc_helper.c:100` has `ASSERT(mask != 0)`
-  confirming the WARNING trigger
-- [Phase 5] Verified DCN31 has the fields: `dcn31_dccg.h` lines 153-154
-  include the global CNTL3 fields
-- [Phase 6] dcn401_resource.c: Static const `dccg_mask` initialized with
-  `DCCG_MASK_SH_LIST_DCN401(_MASK)` - confirmed fields are zero
-- [Phase 6] DCN401 exists in stable trees v6.11+
-- [Phase 4] b4 dig: No lore match found (typical for AMD drm-next
-  submissions)
-- UNVERIFIED: Exact lore discussion thread (b4 dig and web search
-  failed; does not affect decision as the code analysis is conclusive)
+- [Phase 1] Parsed tags: Reviewed-by Douglas Anderson (maintainer),
+  signed by maintainer, no Fixes/stable tags (expected)
+- [Phase 2] Diff analysis: +1 line in edp_panels[] table, adds
+  EDP_PANEL_ENTRY for CMN 0x117a
+- [Phase 3] git blame: surrounding entries from 2022-2025, same panel
+  name 0x115f added July 2025
+- [Phase 3] git show 3d65e4c276b3: confirmed mainline commit exists with
+  identical diff
+- [Phase 3] git log --author: author contributed multiple Chromebook
+  panel entries
+- [Phase 4] b4 mbox: found 2-message thread, V2 patch, maintainer
+  reviewed and pushed to drm-misc-next
+- [Phase 4] Mailing list: V1→V2 evolution (name string change), no
+  objections
+- [Phase 5] Table is queried during panel probe, affects every boot on
+  affected hardware
+- [Phase 6] panel-edp.c exists since 5.16 (commit 5f04e7ce392db, Sept
+  2021), present in all active stable trees
+- [Phase 6] delay_200_500_e80_d50 and EDP_PANEL_ENTRY macro exist in
+  current tree (verified via grep)
+- [Phase 8] 1-line data table addition, zero risk to other hardware
+- UNVERIFIED: Exact stable tree context differences (but trivially
+  adaptable for a sorted table entry)
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-index a37f94dec6f2f..44c4a53f14ad8 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn401/dcn401_dccg.c
-@@ -526,10 +526,6 @@ static void dccg401_enable_dpstreamclk(struct dccg *dccg, int otg_inst, int dp_h
- 		BREAK_TO_DEBUGGER();
- 		return;
- 	}
--	if (dccg->ctx->dc->debug.root_clock_optimization.bits.dpstream)
--		REG_UPDATE_2(DCCG_GATE_DISABLE_CNTL3,
--			DPSTREAMCLK_GATE_DISABLE, 1,
--			DPSTREAMCLK_ROOT_GATE_DISABLE, 1);
- }
- 
- void dccg401_disable_dpstreamclk(struct dccg *dccg, int dp_hpo_inst)
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 108569490ed59..c9eacfffd5b29 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2014,6 +2014,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1160, &delay_200_500_e80_d50, "N116BCJ-EAK"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1161, &delay_200_500_e80, "N116BCP-EA2"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1163, &delay_200_500_e80_d50, "N116BCJ-EAK"),
++	EDP_PANEL_ENTRY('C', 'M', 'N', 0x117a, &delay_200_500_e80_d50, "N116BCL-EAK"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1247, &delay_200_500_e80_d50, "N120ACA-EA1"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x124c, &delay_200_500_e80_d50, "N122JCA-ENK"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x142b, &delay_200_500_e80_d50, "N140HCA-EAC"),
 -- 
 2.53.0
 
