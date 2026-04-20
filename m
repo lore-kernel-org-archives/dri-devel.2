@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91DB5F588C6
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE13F588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D604E10E61A;
-	Mon, 20 Apr 2026 13:26:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96AEB10E619;
+	Mon, 20 Apr 2026 13:26:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PDAmuY1f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YqyCHUeE";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0543C10E618;
- Mon, 20 Apr 2026 13:26:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A31E10E619
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:26:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D9F714385A;
- Mon, 20 Apr 2026 13:26:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7274CC2BCB8;
- Mon, 20 Apr 2026 13:26:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0DAC343421;
+ Mon, 20 Apr 2026 13:26:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FED0C2BCC6;
+ Mon, 20 Apr 2026 13:26:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691574;
- bh=1FfShN0lxD5kueaKBwoKCRafm8VIHXcVBgIjBXL4Jjs=;
+ s=k20201202; t=1776691579;
+ bh=y22peYpMlpSzuER+C2gLxScD6Jxm+fW4HrEpcE8vri8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PDAmuY1f+I7bqbKRmiRleAthjT9Vc7avLT+kIuH+WEs7zq6HdQiP2v3pu3ITsou7C
- wbtYZRZjuCjF/NFxF7YxpnRxl/ATM/JCiiIewR0y6X/Ub8OyCk4dOcY4XyaV5ebC8K
- Z1wkvmj0oJJ3gg+1Wmca2txtns5PrdycR9prnBVvGO8RmTCe2SKSVww1zsYucvB5UR
- imJv7Lf1DOaUVXTRh037LFx9eIVg2f96RNmJY+RyNmUP+UiebnHuCuBruMpJyhGLoT
- BxS1dd9LkWLs+pK1L9BA9OAFvFjSQ/ngzZqBEKw8RXC4VbL4CjAdBsGghrl56pxRTc
- be8VY1T/okg7A==
+ b=YqyCHUeEC/t0W4qRTRY+/yUqP4l4oQeahUL4R8HwMqiSJuS4xhMs7BhZVY12Ptu0T
+ GktHsOFVxiU9wb0U3f8H75deCBAVli4idmM9l8faX+BmXbwvpkSaYPILASzNf2BlWk
+ rz7fIpMW55de5ScZP6+7gk6AP8Ak+1ARztP6+t571HgZ5cv27Z2x6urdHlk/3edPSX
+ vq2pb77p+A1NmwrwfWl+QMYugwVoNiUuO7/H38T78tqnNOihy7rVNiYm5WeytlDOkB
+ BX9ykWWvXMy/Hh9miTqVv5JKOIQ4e7KmgAxch6qtE95f6nk+snkDQ/hwm/sREOiyHd
+ raUjMhuO4/eXA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Jesse Zhang <Jesse.zhang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>,
+ kernel test robot <lkp@intel.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Sasha Levin <sashal@kernel.org>, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, Frank.Li@nxp.com, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu/vcn4.0.3: gate per-queue reset by
- PSP SOS program version
-Date: Mon, 20 Apr 2026 09:18:23 -0400
-Message-ID: <20260420132314.1023554-109-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/imx: parallel-display: add
+ DRM_DISPLAY_HELPER for DRM_IMX_PARALLEL_DISPLAY
+Date: Mon, 20 Apr 2026 09:18:26 -0400
+Message-ID: <20260420132314.1023554-112-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -67,446 +68,317 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>
 
-[ Upstream commit 16df395a55c635649dd3cf41d61bd685d3fd7a98 ]
+[ Upstream commit 02df94d98ff837074788ce921edf67707dbad404 ]
 
-Add a PSP SOS firmware compatibility check before enabling VCN per-queue
-reset on vcn_v4_0_3.
+When I build for an old imx53 platform I see the same as the test robot
+saw before:
 
-Per review, program check is sufficient: when PSP SOS program is 0x01,
-require fw version >= 0x0036015f; otherwise allow per-queue reset.
+arm-buildroot-linux-gnueabihf-ld: drivers/gpu/drm/imx/ipuv3/parallel-display.o: in function `imx_pd_bind':
+parallel-display.c:(.text+0xb8): undefined reference to `drm_bridge_connector_init'
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Selecting DRM_DISPLAY_HELPER for DRM_IMX_PARALLEL_DISPLAY fixes the build.
+
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202512241721.jZgcwRfr-lkp@intel.com/
+
+Signed-off-by: Martin Kepplinger-Novakovic <martin.kepplinger-novakovic@ginzinger.com>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+Link: https://patch.msgid.link/20260121102607.4087362-1-martin.kepplinger-novakovic@ginzinger.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a complete analysis.
+Now I have all the information needed for a thorough analysis. Let me
+compile the full assessment.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-- Subsystem prefix: `drm/amdgpu/vcn4.0.3`
-- Action verb: "gate" (restrict/conditionally enable)
-- Summary: Gate VCN per-queue reset feature behind a PSP SOS firmware
-  version check.
+### Step 1.1: Subject Line
+- **Subsystem:** drm/imx: parallel-display
+- **Action verb:** "add" (Kconfig dependency)
+- **Summary:** Add missing `DRM_DISPLAY_HELPER` Kconfig select for
+  `DRM_IMX_PARALLEL_DISPLAY`
+- Record: [drm/imx subsystem] [add missing dependency] [fixes link error
+  for drm_bridge_connector_init]
 
-Record: [drm/amdgpu/vcn4.0.3] [gate] [Add firmware compatibility check
-before enabling per-queue reset]
+### Step 1.2: Tags
+- **Reported-by:** kernel test robot `<lkp@intel.com>` — automated build
+  testing found this
+- **Closes:** lore link to kbuild error report
+- **Signed-off-by:** Martin Kepplinger-Novakovic (author), Philipp Zabel
+  (maintainer)
+- **Reviewed-by:** Philipp Zabel (subsystem maintainer)
+- **Link:** patch.msgid.link to original submission
+- No Fixes: tag, no Cc: stable (expected for manual review candidates)
+- Record: Kernel test robot reported build failure. Subsystem maintainer
+  reviewed AND committed.
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-- `Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>` - AMD GPU firmware/IP
-  maintainer
-- `Suggested-by: Lijo Lazar <lijo.lazar@amd.com>` - The approach was
-  suggested by the reviewer
-- `Signed-off-by: Jesse Zhang <Jesse.zhang@amd.com>` - Author
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` - AMD DRM
-  subsystem maintainer
-- No Fixes: tag (expected for autosel candidates)
-- No Cc: stable tag (expected)
-- No Reported-by tag
+### Step 1.3: Body Text
+The commit message includes the exact linker error:
+```
+arm-buildroot-linux-gnueabihf-ld: ... undefined reference to
+`drm_bridge_connector_init'
+```
+The author confirms reproducing this on a real imx53 platform build. The
+fix is explicitly stated: "Selecting DRM_DISPLAY_HELPER for
+DRM_IMX_PARALLEL_DISPLAY fixes the build."
 
-Record: Reviewed and suggested by Lijo Lazar (AMD), committed by Alex
-Deucher (subsystem maintainer). No explicit bug reporter or syzbot
-involvement.
+Record: [Build failure — linker error for undefined
+`drm_bridge_connector_init`] [Symptom: build fails for imx53 parallel
+display] [Confirmed by both author and test robot]
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-The commit explains that PSP SOS firmware compatibility must be checked
-before enabling VCN per-queue reset. Specifically: when PSP SOS program
-is 0x01, firmware version must be >= 0x0036015f. Otherwise (other
-programs), per-queue reset is allowed. This prevents enabling a reset
-path that the firmware doesn't support.
-
-Record: Bug: per-queue reset enabled without firmware version gating,
-leading to attempted resets on firmware that doesn't support it.
-Symptom: failed per-queue resets that fall back to full GPU reset. Root
-cause: missing firmware capability check.
-
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-This is a firmware compatibility fix. "Gate" means "restrict to
-compatible configurations." Without it, per-queue reset is attempted on
-incompatible firmware, which fails. This is a real bug fix - enabling a
-feature on hardware/firmware that doesn't support it.
-
-Record: Yes, this is a real bug fix - it prevents incorrect feature
-enablement on incompatible firmware.
+### Step 1.4: Hidden Bug Fix Detection
+This is explicitly a build fix, not disguised. No hidden complexity.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS - LINE BY LINE
+## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1: INVENTORY THE CHANGES**
-- File: `drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c` (+18, -1)
-- New function: `vcn_v4_0_3_is_psp_fw_reset_supported()` (15 lines)
-- Modified function: `vcn_v4_0_3_late_init()` (1 line condition change)
-- Scope: Single-file surgical fix
+### Step 2.1: Inventory
+- **Files changed:** 1 (`drivers/gpu/drm/imx/ipuv3/Kconfig`)
+- **Lines added:** 1 (`select DRM_DISPLAY_HELPER`)
+- **Lines removed:** 0
+- **Scope:** Single-file, single-line Kconfig change
+- Record: [1 file, +1 line, single Kconfig select statement]
 
-Record: 1 file changed, 18 insertions, 1 deletion. Functions: new
-`vcn_v4_0_3_is_psp_fw_reset_supported()`, modified
-`vcn_v4_0_3_late_init()`. Single-file surgical fix.
+### Step 2.2: Code Flow
+- **Before:** `DRM_IMX_PARALLEL_DISPLAY` selects `DRM_BRIDGE_CONNECTOR`
+  but not `DRM_DISPLAY_HELPER`
+- **After:** Also selects `DRM_DISPLAY_HELPER`
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-- **Before**: `vcn_v4_0_3_late_init()` checks
-  `amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev)` to
-  enable per-queue reset. No firmware version check.
-- **After**: Same check, but now also calls
-  `vcn_v4_0_3_is_psp_fw_reset_supported(adev)` which extracts the PSP
-  program version from firmware version field and requires version >=
-  0x0036015f for program 0x01.
-- This is an initialization-time check; it only runs once during
-  `late_init`.
+The root cause: `DRM_BRIDGE_CONNECTOR` is defined inside `if
+DRM_DISPLAY_HELPER` in `drivers/gpu/drm/display/Kconfig` (line 15-17).
+The `drm_bridge_connector.o` object is compiled as part of the
+`drm_display_helper` module. Without `DRM_DISPLAY_HELPER` enabled,
+`drm_bridge_connector_init()` is never compiled, causing the linker
+error.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Category: (h) Hardware workaround / firmware compatibility fix.
-The new function extracts `pgm = (fw_ver >> 8) & 0xFF` and for program
-1, requires `fw_ver >= 0x0036015f`. This follows the exact same pattern
-as `vcn_v5_0_1` which checks `adev->psp.sos.fw_version >= 0x00450025`.
+### Step 2.3: Bug Mechanism
+Category: **Build fix** — missing Kconfig dependency causes link
+failure.
 
-Without this check, `AMDGPU_RESET_TYPE_PER_QUEUE` is set on systems
-where PSP firmware can't handle it. When a VCN timeout occurs,
-`amdgpu_job_timedout()` -> `amdgpu_ring_reset()` ->
-`vcn_v4_0_3_ring_reset()` -> `amdgpu_dpm_reset_vcn()` is called. If PSP
-can't handle it, the reset fails, the driver logs "VCN reset fail" and
-falls through to a full GPU reset.
-
-Record: Firmware compatibility fix. Missing version check causes per-
-queue reset to be attempted on incompatible firmware, leading to reset
-failures and unnecessary full GPU resets.
-
-**Step 2.4: ASSESS THE FIX QUALITY**
-- Obviously correct: simple version comparison
-- Minimal and surgical: 18 lines, single file, follows established
-  pattern from vcn_v5_0_1
-- Regression risk: extremely low. Worst case: per-queue reset disabled
-  when it should be enabled (fallback to full GPU reset, which was the
-  old behavior anyway)
-- No API changes, no lock changes, no data structure changes
-
-Record: Fix quality: excellent. Follows established pattern. Regression
-risk: very low.
+### Step 2.4: Fix Quality
+- Obviously correct: the function is in the `drm_display_helper` module,
+  so the module must be selected
+- Minimal: 1 line
+- Zero runtime regression risk: only affects build-time dependency
+  resolution
+- Record: [Perfect quality, zero regression risk]
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1: BLAME THE CHANGED LINES**
-- `vcn_v4_0_3_late_init()` was introduced by commit 655d6403ad143 (Jesse
-  Zhang, 2025-08-13), first in v6.18-rc1
-- The `!amdgpu_sriov_vf(adev)` condition was added by c156c7f27ecdb
-  (Shikang Fan, 2025-11-19), also in v6.18
+### Step 3.1: Blame
+From `git blame`, `DRM_BRIDGE_CONNECTOR` was added to this Kconfig by
+commit f673055a46784 ("drm/imx: Add missing DRM_BRIDGE_CONNECTOR
+dependency") in the v6.13 cycle. That commit itself was a partial fix —
+it added the `DRM_BRIDGE_CONNECTOR` select but missed adding
+`DRM_DISPLAY_HELPER`.
 
-Record: Buggy code (missing firmware check) was introduced in v6.18-rc1
-with commit 655d6403ad143.
+### Step 3.2: Root Cause Chain
+- Commit 9da7ec9b19d8 ("drm/bridge-connector: move to DRM_DISPLAY_HELPER
+  module") moved `drm_bridge_connector` under `DRM_DISPLAY_HELPER` —
+  root cause
+- Commit 5f6e56d3319d2 ("drm/imx: parallel-display: switch to
+  drm_panel_bridge") introduced bridge usage
+- Commit f673055a46784 added `select DRM_BRIDGE_CONNECTOR` but missed
+  `DRM_DISPLAY_HELPER`
+- The bug is that several commits were applied to bring bridge_connector
+  to imx but the Kconfig dependency chain was incomplete
 
-**Step 3.2: FOLLOW THE FIXES TAG**
-No Fixes: tag present. This is expected for autosel candidates.
+### Step 3.3: Prerequisite Check
+All prerequisite commits (5f6e56d3319d2, f673055a46784, ef214002e6b38)
+are already in v7.0. This fix applies standalone.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-Between the late_init introduction (655d6403ad143) and this fix, the
-file has had several changes including rework of reset handling
-(d25c67fd9d6fe), DPG pause mode handling (de93bc353361f), and JPEG ring
-test ordering fix (91544c45fa6a1). The fix applies cleanly on top of the
-current state with the sriov check.
+### Step 3.4: Author Context
+Martin Kepplinger-Novakovic is a recognized contributor (has
+MAINTAINERS/CREDITS changes). The fix was reviewed by Philipp Zabel, the
+actual subsystem maintainer for drm/imx.
 
-Record: The fix is standalone, no prerequisites beyond the existing
-late_init function (which is already in the tree).
-
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Jesse Zhang is a regular AMD GPU driver contributor with many commits in
-the amdgpu subsystem, including the original late_init callback, SDMA
-fixes, and queue reset work.
-
-Record: Author is a regular AMD driver contributor, familiar with the
-subsystem.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-The fix depends only on `vcn_v4_0_3_late_init()` existing (commit
-655d6403ad143) and access to `adev->psp.sos.fw_version`. Both exist in
-the current tree. The fix is self-contained.
-
-Record: No additional dependencies. Applies standalone.
+### Step 3.5: Stable Tree Applicability
+- **v6.12:** Bug does NOT exist — `parallel-display.c` doesn't call
+  `drm_bridge_connector_init()` (verified: 0 occurrences)
+- **v6.13:** Bug EXISTS — Kconfig has `select DRM_BRIDGE_CONNECTOR` but
+  not `select DRM_DISPLAY_HELPER`
+- **v6.14:** Bug EXISTS — same Kconfig state as v6.13
+- **v7.0:** Bug EXISTS — confirmed identical Kconfig state, fix applies
+  cleanly
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## PHASE 4: MAILING LIST RESEARCH
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-b4 dig could not find the patch (possibly due to the AMD internal
-submission process), but the mail-archive.com search found both V1 and
-V2.
+### Step 4.1-4.2: Original Discussion
+- b4 dig for the prior commit (f673055a46784) found the thread at lore.
+  It was a single-patch fix
+- The current fix was submitted by the author after hitting the build
+  failure on real hardware
+- Reviewed-by from Philipp Zabel (the drm/imx maintainer who also
+  committed it)
 
-- V1: `[PATCH] drm/amdgpu/vcn4.0.3: gate VCN reset on PSP FW for MP0
-  13.0.6` - included an IP version switch (13.0.6 specific)
-- V2: `[PATCH V2] drm/amdgpu/vcn4.0.3: gate per-queue reset by PSP SOS
-  program version` - simplified per Lijo's review feedback
+### Step 4.3: Bug Report
+The kernel test robot (kbuild) reported the linker error, referenced in
+the Closes: tag.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Lijo Lazar (AMD IP/firmware expert) reviewed both versions and gave
-Reviewed-by on V2. He suggested the simplification (program check alone
-is sufficient). Alex Deucher (AMD DRM subsystem maintainer) committed
-it.
-
-Record: Thoroughly reviewed by AMD maintainers. V1 was revised per
-feedback.
-
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-No explicit bug report link. The ticket reference FWDEV-159155 is an
-AMD-internal tracker. Lijo noted in review that internal ticket
-references shouldn't be in comments.
-
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-This is a standalone single patch, not part of a series. VCN v5.0.1
-already had the same pattern (firmware version gating) from commit
-5886090032ec8.
-
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Could not access lore.kernel.org directly due to bot protection. No
-evidence of explicit stable nomination found in the mail-archive
-discussion.
+### Step 4.4-4.5: Series Context
+Standalone single-patch fix, no dependencies on other uncommitted
+patches.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-- New: `vcn_v4_0_3_is_psp_fw_reset_supported()` - called only from
-  `vcn_v4_0_3_late_init()`
-- Modified: `vcn_v4_0_3_late_init()` - called during driver
-  initialization
+### Step 5.1-5.4: Function Analysis
+`drm_bridge_connector_init()` is called at line 206 of `parallel-
+display.c` in `imx_pd_bind()`. This is the driver probe/bind path —
+critical for anyone using the i.MX parallel display interface. Without
+this fix, the driver simply cannot be built (link error).
 
-**Step 5.2: TRACE CALLERS**
-`vcn_v4_0_3_late_init` is registered as the `.late_init` callback in the
-IP function table. It's called once during device initialization by the
-amdgpu IP block management code.
-
-**Step 5.3-5.4: DOWNSTREAM IMPACT**
-If `AMDGPU_RESET_TYPE_PER_QUEUE` is incorrectly set,
-`amdgpu_job_timedout()` (amdgpu_job.c:134-155) will attempt per-queue
-reset via `vcn_v4_0_3_ring_reset()` which calls
-`amdgpu_dpm_reset_vcn()`. If firmware doesn't support it, this fails,
-and the driver falls through to a full GPU reset - a much more
-disruptive event that resets all GPU engines.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-VCN v5.0.1 already has the same firmware version gating pattern
-(`vcn_v5_0_1_late_init`, line 125). GFX v11, v12, and SDMA v4.4.2 also
-gate per-queue reset behind firmware version checks. This is a well-
-established pattern.
+### Step 5.5: Similar Patterns
+Many other DRM drivers already `select DRM_DISPLAY_HELPER` alongside
+`DRM_BRIDGE_CONNECTOR` (verified via grep: bridge/Kconfig,
+panel/Kconfig, rockchip/Kconfig all have it). The IMX parallel display
+was simply missed.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+## PHASE 6: CROSS-REFERENCING
 
-**Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?**
-The `vcn_v4_0_3_late_init()` function (with per-queue reset enablement
-but without firmware version check) was introduced in v6.18-rc1 (commit
-655d6403ad143). It exists in stable trees 6.18.y and newer. The VCN per-
-queue reset implementation itself was in v6.16+, but the late_init
-enablement path is the specific code this fixes.
+### Step 6.1: Bug Exists in Stable
+Confirmed the bug exists in v7.0. The Kconfig file in v7.0 exactly
+matches the "before" state of the diff.
 
-Record: Buggy code exists in 6.18.y and newer stable trees.
+### Step 6.2: Backport Complexity
+**Clean apply** — the diff applies directly to v7.0 without any
+modifications.
 
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-The patch applies directly against the current state of `vcn_v4_0_3.c`.
-For 6.18.y, the patch should apply cleanly as the `vcn_v4_0_3_late_init`
-function with the same context lines exists there.
-
-Record: Expected clean apply to 6.18.y+.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE**
-No related firmware version check fix for vcn_v4_0_3 has been applied to
-stable. The sriov check (c156c7f27ecdb) was cherry-picked to stable with
-Cc: stable tag, but that's a different fix.
+### Step 6.3: No Existing Fix
+No alternative fix exists in v7.0 for this issue.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-- Subsystem: `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver
-- Criticality: IMPORTANT - AMD GPUs are widely used in servers (MI-
-  series) and workstations
+### Step 7.1: Subsystem
+- **Path:** drivers/gpu/drm/imx/ipuv3
+- **Criticality:** PERIPHERAL (embedded i.MX ARM platform, but has real
+  users building kernels for imx53 boards)
 
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Very actively developed. VCN v4.0.3 specifically is for data center GPUs
-(Instinct series with multiple VCN instances).
+### Step 7.2: Activity
+The subsystem has moderate activity with several recent Kconfig fixes
+for the same dependency chain.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 8: IMPACT AND RISK
 
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Users with AMD GPUs that use VCN v4.0.3 (data center/MI-series GPUs)
-running PSP SOS firmware program 0x01 with version < 0x0036015f.
+### Step 8.1: Affected Users
+Anyone building a kernel with `CONFIG_DRM_IMX_PARALLEL_DISPLAY=y/m`
+where `DRM_DISPLAY_HELPER` is not otherwise selected. This affects
+embedded Linux developers targeting i.MX53 platforms.
 
-Record: Driver-specific, but for important data center hardware.
+### Step 8.2: Trigger
+100% reproducible — any build with the right config fails. Not a timing
+issue.
 
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Trigger: A VCN (video encode/decode) job times out, causing the
-scheduler to attempt a per-queue reset. With incompatible firmware, the
-per-queue reset fails, forcing a full GPU reset.
+### Step 8.3: Severity
+**Build failure** — the kernel cannot be compiled with this driver
+enabled. Severity: HIGH for affected users.
 
-Record: Triggered by VCN job timeout (can happen during normal video
-workloads). The per-queue reset attempt itself is the trigger for the
-bug.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-- Without fix: Failed per-queue reset → full GPU reset (disrupts ALL GPU
-  workloads, not just VCN)
-- A full GPU reset on a data center GPU is highly disruptive
-- Severity: HIGH (unnecessary disruptive full GPU reset instead of
-  contained per-queue reset)
-
-Record: Failure mode: unnecessary full GPU reset instead of graceful
-fallback to non-per-queue behavior. Severity: HIGH for data center use.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-- BENEFIT: Prevents failed per-queue resets and unnecessary full GPU
-  resets on systems with older firmware
-- RISK: Very low. 18 lines, single file, initialization-only code,
-  follows established pattern. Worst case: per-queue reset incorrectly
-  disabled → falls back to full GPU reset (same as not having per-queue
-  reset at all, the previous behavior)
-
-Record: High benefit, very low risk.
+### Step 8.4: Risk-Benefit
+- **Benefit:** HIGH — fixes a hard build failure, enables compilation of
+  i.MX parallel display driver
+- **Risk:** NEAR-ZERO — 1-line Kconfig `select` addition, no runtime
+  code change whatsoever
+- **Ratio:** Excellent
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1: COMPILE THE EVIDENCE**
+### Step 9.1: Evidence Summary
+**FOR backporting:**
+- Fixes a real, reproducible build failure (linker error)
+- Single-line Kconfig change — minimal scope
+- Zero runtime regression risk
+- Reported by kernel test robot AND reproduced by author on real
+  hardware
+- Reviewed and committed by subsystem maintainer
+- Bug exists in v7.0 (verified)
+- Clean apply to v7.0
 
-FOR backporting:
-- Fixes a real firmware compatibility bug (per-queue reset attempted on
-  unsupported firmware)
-- Small (18 lines), surgical, single-file change
-- Follows established pattern from vcn_v5_0_1
-- Reviewed by AMD maintainer Lijo Lazar, committed by subsystem
-  maintainer Alex Deucher
-- Went through V1→V2 revision with reviewer feedback
-- Prevents unnecessary full GPU resets on data center hardware
-- Very low regression risk
-- Self-contained, no dependencies
+**AGAINST backporting:**
+- None identified
 
-AGAINST backporting:
-- No explicit Cc: stable (expected for autosel)
-- No Fixes: tag pointing to specific broken commit
-- No user-reported bug (AMD internal tracking reference FWDEV-159155)
-- Could be viewed as "hardening" rather than fixing a crash
-- Relatively new code (v6.18+), limited stable tree exposure
+### Step 9.2: Stable Rules Checklist
+1. Obviously correct and tested? **YES** — Kconfig dependency is
+   unambiguously needed
+2. Fixes a real bug? **YES** — hard build failure
+3. Important issue? **YES** — prevents building the driver entirely
+4. Small and contained? **YES** — 1 line in 1 file
+5. No new features or APIs? **YES** — purely a build dependency fix
+6. Can apply to stable? **YES** — clean apply verified
 
-UNRESOLVED:
-- Could not access lore.kernel.org directly to check for stable-specific
-  discussions
-- Don't know how many users have the specific old firmware configuration
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **Yes** - simple version comparison,
-   reviewed by AMD maintainer
-2. Fixes a real bug? **Yes** - prevents failed per-queue resets with
-   incompatible firmware
-3. Important issue? **Yes** - prevents unnecessary full GPU resets (HIGH
-   severity for data center)
-4. Small and contained? **Yes** - 18 lines, 1 file
-5. No new features or APIs? **Correct** - gates an existing feature
-6. Can apply to stable trees? **Yes** - should apply cleanly to 6.18.y+
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-This could be classified as a hardware/firmware quirk/workaround -
-gating feature enablement based on firmware version. These are typically
-YES for stable.
-
-**Step 9.4: MAKE YOUR DECISION**
-This is a firmware compatibility fix that prevents the driver from
-enabling a reset path on firmware that doesn't support it. Without it,
-VCN job timeouts on affected systems lead to failed per-queue resets and
-unnecessary full GPU resets. The fix is small, surgical, well-reviewed,
-follows an established pattern, and has very low regression risk.
+### Step 9.3: Exception Category
+This is a **BUILD FIX** — one of the explicitly allowed exception
+categories for stable.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by Lijo Lazar, Suggested-by Lijo
-  Lazar, Signed-off-by Jesse Zhang and Alex Deucher. No Fixes: or Cc:
-  stable (expected).
-- [Phase 2] Diff analysis: 18 lines added (new helper + condition
-  change), single file `vcn_v4_0_3.c`.
-- [Phase 3] git blame: `vcn_v4_0_3_late_init()` introduced by commit
-  655d6403ad143 in v6.18-rc1. Sriov check added by c156c7f27ecdb in
-  v6.18.
-- [Phase 3] git tag --contains: late_init commit first in v6.18, queue
-  reset impl in v6.16, this PSP check in v7.0.
-- [Phase 3] git log author: Jesse Zhang is a regular AMD GPU driver
-  contributor.
-- [Phase 4] mail-archive.com: Found V1 and V2 submissions. V1 had IP
-  version switch, V2 simplified per Lijo's review ("The program check
-  itself should be good enough").
-- [Phase 4] Lijo Lazar gave Reviewed-by on V2, noted internal ticket
-  reference should be removed.
-- [Phase 5] `vcn_v4_0_3_late_init()` is called once during
-  initialization; affects `AMDGPU_RESET_TYPE_PER_QUEUE` flag which gates
-  reset behavior in `amdgpu_job_timedout()`.
-- [Phase 5] vcn_v5_0_1 already has same firmware version gating pattern
-  at line 125.
-- [Phase 6] Buggy code present in 6.18.y+ stable trees. Patch expected
-  to apply cleanly.
-- [Phase 8] Failure mode: failed per-queue reset → full GPU reset.
-  Severity: HIGH for data center.
-- UNVERIFIED: Could not access lore.kernel.org directly (bot
-  protection). Used mail-archive.com as alternate source for discussion.
-- UNVERIFIED: Exact population of affected users with old firmware is
-  unknown, but AMD filed internal tracking ticket FWDEV-159155.
+- [Phase 1] Parsed tags: Reported-by kernel test robot, Reviewed-by
+  Philipp Zabel (maintainer), Closes link to kbuild report
+- [Phase 2] Diff analysis: +1 line `select DRM_DISPLAY_HELPER` in
+  Kconfig
+- [Phase 3] git blame: `DRM_BRIDGE_CONNECTOR` added by f673055a46784 in
+  v6.13 cycle without matching `DRM_DISPLAY_HELPER`
+- [Phase 3] git show v7.0:Kconfig: confirmed bug exists (missing select
+  DRM_DISPLAY_HELPER)
+- [Phase 3] git show v6.12:parallel-display.c: confirmed 0 calls to
+  `drm_bridge_connector_init`, bug doesn't exist pre-6.13
+- [Phase 3] git show v6.13/v6.14:Kconfig: confirmed bug present in both
+- [Phase 4] b4 dig -c f673055a46784: found original thread for the
+  incomplete fix
+- [Phase 5] Grep: `drm_bridge_connector_init` called at line 206 in
+  `imx_pd_bind()`
+- [Phase 5] Grep: `DRM_BRIDGE_CONNECTOR` inside `if DRM_DISPLAY_HELPER`
+  at display/Kconfig:15-17
+- [Phase 5] Grep: `drm_display_helper-$(CONFIG_DRM_BRIDGE_CONNECTOR)` in
+  display/Makefile confirms build dependency
+- [Phase 6] v7.0 Kconfig state matches diff's "before" — clean apply
+  guaranteed
+- [Phase 8] Failure mode: 100% reproducible link error, severity HIGH
+  for affected configs
+
+This is a textbook build fix: one-line Kconfig dependency addition, zero
+runtime risk, fixes a hard build failure for i.MX parallel display
+users. It meets every stable kernel criterion.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/imx/ipuv3/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-index e78526a4e521e..ff3013b97abd1 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-@@ -134,6 +134,21 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
- 	return 0;
- }
- 
-+static bool vcn_v4_0_3_is_psp_fw_reset_supported(struct amdgpu_device *adev)
-+{
-+	uint32_t fw_ver = adev->psp.sos.fw_version;
-+	uint32_t pgm = (fw_ver >> 8) & 0xFF;
-+
-+	/*
-+	 * FWDEV-159155: PSP SOS FW must be >= 0x0036015f for program 0x01
-+	 * before enabling VCN per-queue reset.
-+	 */
-+	if (pgm == 1)
-+		return fw_ver >= 0x0036015f;
-+
-+	return true;
-+}
-+
- static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-@@ -141,7 +156,9 @@ static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
- 	adev->vcn.supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
- 
--	if (amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev))
-+	if (amdgpu_dpm_reset_vcn_is_supported(adev) &&
-+	    vcn_v4_0_3_is_psp_fw_reset_supported(adev) &&
-+	    !amdgpu_sriov_vf(adev))
- 		adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
- 
- 	return 0;
+diff --git a/drivers/gpu/drm/imx/ipuv3/Kconfig b/drivers/gpu/drm/imx/ipuv3/Kconfig
+index acaf250890019..b2240998df4f1 100644
+--- a/drivers/gpu/drm/imx/ipuv3/Kconfig
++++ b/drivers/gpu/drm/imx/ipuv3/Kconfig
+@@ -15,6 +15,7 @@ config DRM_IMX_PARALLEL_DISPLAY
+ 	depends on DRM_IMX
+ 	select DRM_BRIDGE
+ 	select DRM_BRIDGE_CONNECTOR
++	select DRM_DISPLAY_HELPER
+ 	select DRM_IMX_LEGACY_BRIDGE
+ 	select DRM_PANEL_BRIDGE
+ 	select VIDEOMODE_HELPERS
 -- 
 2.53.0
 
