@@ -4,135 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB34DEA71A4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 02:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 019DFEA71B9
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 03:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10AB910E021;
-	Mon, 20 Apr 2026 02:25:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2662D10E147;
+	Mon, 20 Apr 2026 03:06:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="XV84nPym";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="EeAm3O+x";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kB9OFjWD";
 	dkim-atps=neutral
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011055.outbound.protection.outlook.com [52.101.70.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA38310E021
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 02:25:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W0LOVKVA3lisbLik/ZCutuM2ioCkwcVNyMff4m4mFWYeX/3OfgjYzUVmBlilZAkufs0FcR+KF8E8bFgw5KzGZwXaCWWWUxnL33ZFz+fX0j4MFb8e97OaIIIXiQlMa6AokuwgrxlCPuaQjEBNr0DWBDNlcwJA0852UVavJZ3OIhO5fD510A1g2BRPKLKVj2Dmn2RVTqgGeNeqTQvaJq3lsNreOEjqPRnngwz0nkPGapoDNm1x7ZxIAtlKa+YLYfjtEhZsRI2rERQcaUiAtDMzTSfEYmMJggkePTog6elkJLZxYxjsifIHS1Tzb2ikwPkAjLMmcleRi1E8/ZaOpKCarA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EuQNH+q0Novvj+IwSSfJWGCBTPA0wR2nQdECqge5hWQ=;
- b=lkOzYrTxF1T5iU8lUgwBkvOHP+mjjeKCKzuEQap5okiIqi8zD3vNRZO76JvCvmcdk44aEnGWPPerV/oCyEycU1QB7ouhLXgCxTZkbZwJXp3T+CKg89txinIj6qFaulgDAxcjNb1u1My0SOmqotn7/fyleu77+9QHhfCSFuDjKXVfm90F960TjZtEfR4LXD2SXh9DuZORkrJID3dBjfRTZfX9YSB/SF2HrHXfo6BPnmtBESTnmgaNwo/njLeoQ4aOZ1BZuJHVF2b23JvvFKF0xeh6LkbZuoOLBvK+/aVLqMK5W2eMb0HgrMnVSBstlNZGZfKCDuTNgsB0iD2zuritHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EuQNH+q0Novvj+IwSSfJWGCBTPA0wR2nQdECqge5hWQ=;
- b=XV84nPymjRPoWz+PW6TA4iFWaTqwiIyxZfxAJfaCyQxQXQnQCj6QIxe6JucPxoLNVP12dtsW1e8YsExeRn6IasjFWGwSHjaXJOVSqA1e2ahGhnidvW4EUWhKM2gKrRSs1FCE09GTAU35uv3KRaQEGGf1TgfGgRqogeJWPVsTAI1gUkiKNfpBmytsb4fwmBry+ms04kdYvmt1+wwhB0hA538sKL0jORQhNcHurBh8fDr7B95tlZgQPave4eZGaYb2p3IwTkXc0HOr/87SqVya48RK95v1XckJWA7MXw+8iAeEPvNMBQxMafVlq0/YiyvAY9fnyexrjq4W+J51Rp/yxQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM8PR04MB7940.eurprd04.prod.outlook.com (2603:10a6:20b:240::19)
- by DU4PR04MB10622.eurprd04.prod.outlook.com (2603:10a6:10:593::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.30; Mon, 20 Apr
- 2026 02:25:00 +0000
-Received: from AM8PR04MB7940.eurprd04.prod.outlook.com
- ([fe80::1fa8:cc0b:b501:6bc4]) by AM8PR04MB7940.eurprd04.prod.outlook.com
- ([fe80::1fa8:cc0b:b501:6bc4%3]) with mapi id 15.20.9818.032; Mon, 20 Apr 2026
- 02:25:00 +0000
-Message-ID: <d6dcdce0-6ff9-433a-963c-5f0ea9f2a9fa@nxp.com>
-Date: Mon, 20 Apr 2026 10:26:22 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/bridge: ite-it6263: Add suspend/resume support
-To: Biju Das <biju.das.jz@bp.renesas.com>, "biju.das.au"
- <biju.das.au@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9565910E147
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 03:06:41 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63JKx3ei2080827
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 03:06:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=rtl+6BW8W96h2knkFuBlb08o
+ nlTQOueBJrF/qpTFCGo=; b=EeAm3O+xDAnsqjBWSwWHXLk5w3dFL5VST11xec3M
+ cJUYoLpE/IFBcdaW2/WljOzUUeBxyoKuGjdMM6G8j1dRsN4CFMGXyZvBdwnTr/rE
+ 7GOwa4sBPnBAmAFG29EyLqaSwdYlzw8WZAaAc5VeW8H6UVf5kvs4Cc81H8JvE0Xv
+ oRiUSzF9UPLUhbGVZ52mWGcXfFBY7c6krllIcr5bJr1J+R5Z0W6N2n6RvMeydSN3
+ A50LJttDcwowVNGL+wS95T2fADXR0GOyCkaOWhNvGXzFXx+iwI+2XE/56qmLNa3y
+ LxivIIS/zArdFaR5TDf/ANpnmhHnSHoBzFhVFsZ+8rR8yg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dm21ukrkp-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 03:06:40 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-50ea1a7a5d0so1251831cf.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 20:06:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776654400; x=1777259200;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=rtl+6BW8W96h2knkFuBlb08onlTQOueBJrF/qpTFCGo=;
+ b=kB9OFjWD1ait6TA+eDHzWsvit3eA1/wJpOT6cuT/qrUczG1WP/nWA3fJg8dRlgcQQM
+ nNVux66wxIBuXXXzmE+C+o7D3VNssj/NGllw2U+OVPDF2PEmgDb6POXq/dQKKTWNcrM4
+ cdkMiPM7r60sjBzCSCU+jNIIQBDpt82KBEbIZ0Sd4pEi8t3arM7NLOQO+IB2IeoTF5Wp
+ fbBUlYM1zkAcXbAkP4mToHsMIw2nIPp1nuy6XNXlxNm0zssaq70LN2WDxX4k5PlWarXZ
+ 0ysuE9YopnedVwzbr+IOWwpbQNdFWF4QmeiWhmSFOjNdphHBdwMZJ+kaOt110NuGywHH
+ fS4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776654400; x=1777259200;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rtl+6BW8W96h2knkFuBlb08onlTQOueBJrF/qpTFCGo=;
+ b=XI3GoZQ7OcfzEcm55+UE1cDRJm1CbVXx9T8mLIh2y7VTmC1SOfh0YekfoXhSmgn7O6
+ 5QTxDuJG4t1tAqs91hgB2dnaDMT5nNydWPMQh5/YCHImj5ngv/u7Km215yGH8BQ0ObSl
+ fbYvGkTilZ4MiknrWk9lKt0UWH6KQ3cwF95hmudJ4lV1tPbQ+ZbQa3IePFuAfcimupCm
+ 7kGv0hR1zJ5N9tHxTx2wa4uMhPCxCZF2er8K7umoXr7Al0utGdEbFh7YmvB8UBnHDSSz
+ Jhp2RPWoV02FZwBrLW2S1wxe2PpAQ8jqjRWOwO2Bso2Ryqr9MOMVVP/7+vNJS3q/4c0H
+ P5OA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+OMSOxEh7HBt4FsIRlEz2Yk9R91dBKF2hsziHa+diNoDr3mDxqRCo7sLi61cEbuxAIe/xN6Qsj60M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzN8187PNhMJDw8tgJvr0LxS4c3pspn3eN7COShTtWvgiKMz+PG
+ ZPAgpyYvXM5PqL1UAvfn/KBaGjThSrfdCevG6eTkXL795tsl6tDf33DSQdSVy7VkWaakmOuHU4U
+ UJ6LzjOC+2RUStVMKTQdDMBZl/B/qMVr2i9CZ+Dmg6hu7gYenZMb3J+YfYYn6ONPflZ1z3E0=
+X-Gm-Gg: AeBDieuUmHbcUHON9tMGMtqOkCocpjr1JKSCW9Scx4qSBrW0PBiCMYrOasbv/XKTvTg
+ 4l4A1yAgx7nMT5RNheM6WDw5xEJnEHJJeGQ1w5He//21Nr8fx6cA+SfZKn0mvlzMg8Lc0mfK2u2
+ UPyd0fbGbtvK+Qr3U3eKtxxbRZkG36Bl340MB1GOIs7TUnAigqapio1EuKuSYRWVxc7ju4bJYUb
+ lU9jS0UE5mEupjqrsYnipC3DFC3KdCDdRNPzU4og9ebOy3JKP2tAVTVhrnl+arTnRaj5U+6ajDC
+ Jik4wkY8qv8luMgAQGsg3Lx06+i6AO0B2X7pKrOW4qLY8LdPWxGiSaAuNu7HdwUH9eehGycrZOm
+ 9Lty2+Y22JqNRee6rx++xgQziW5n6GQwlPVg0oTGKPJDIxr2Xklrrb8hhgnu96X/xaokNV1vDoF
+ 1MmRPVt+8Ztgv/IV6NWYpohAnl55+QlBPqPUwNa6ajM8mhDg==
+X-Received: by 2002:a05:622a:4189:b0:509:35d1:ca37 with SMTP id
+ d75a77b69052e-50e3693d07amr181294511cf.16.1776654400026; 
+ Sun, 19 Apr 2026 20:06:40 -0700 (PDT)
+X-Received: by 2002:a05:622a:4189:b0:509:35d1:ca37 with SMTP id
+ d75a77b69052e-50e3693d07amr181294201cf.16.1776654399547; 
+ Sun, 19 Apr 2026 20:06:39 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4187e1116sm2667146e87.54.2026.04.19.20.06.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 19 Apr 2026 20:06:38 -0700 (PDT)
+Date: Mon, 20 Apr 2026 06:06:35 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Dennis Gilmore <dennis@ausil.us>
+Cc: Alexey Charkov <alchark@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ FUKAUMI Naoki <naoki@radxa.com>, Heiko Stuebner <heiko@sntech.de>,
+ Hsun Lai <i@chainsx.cn>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jimmy Hon <honyuenkwun@gmail.com>, John Clark <inindev@gmail.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-References: <20260416082928.169347-1-biju.das.jz@bp.renesas.com>
- <00e2f34a-c488-4a61-bb87-0f0431990c3f@nxp.com>
- <TY3PR01MB11346B5C92803F6A3D174ACCF86202@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: Liu Ying <victor.liu@nxp.com>
-Content-Language: en-US
-In-Reply-To: <TY3PR01MB11346B5C92803F6A3D174ACCF86202@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR01CA0041.apcprd01.prod.exchangelabs.com
- (2603:1096:4:193::15) To AM8PR04MB7940.eurprd04.prod.outlook.com
- (2603:10a6:20b:240::19)
+ Maxime Ripard <mripard@kernel.org>,
+ Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+ Michael Riesch <michael.riesch@collabora.com>,
+ Mykola Kvach <xakep.amatop@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Peter Robinson <pbrobinson@gmail.com>,
+ Quentin Schulz <quentin.schulz@cherry.de>,
+ Robert Foss <rfoss@kernel.org>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v7 3/6] drm/bridge: simple: Add the Lontium LT8711UXD
+ DP-to-HDMI bridge
+Message-ID: <ilprfltw6ju2jpo4hrrypscljrlw3xqi7h2mf5sv2k2iy3xeu5@4d76innmpoav>
+References: <20260414214104.1363987-1-dennis@ausil.us>
+ <20260414214104.1363987-4-dennis@ausil.us>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7940:EE_|DU4PR04MB10622:EE_
-X-MS-Office365-Filtering-Correlation-Id: a32608ae-b668-462f-9b25-08de9e840568
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|19092799006|7416014|376014|22082099003|921020|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: tj5I9tsvyTvs0rTFXLrRVpcsV+Pc4vzQ3lsKqlabSJ3XHCgPRdHGyzeNFtF67zdzxuE7j6OG9ToLxdqiX30QfTJNlRzXPZC0U2+4yvhYnflKmD+km7Y6D9Xl/y26yK/nRUu2wooy/cp61Et1TiBrj4c5nvGTtszvQma95C3YCrjVR570eH9zzQjpikUVtbgx02syR0o3cycX0AUFmNIFBx5tK3AV2vccItdoNXSb44SKBB4ZztHAK77tywty0elUny2oJHSCGm4tPZ+btBjekzIN7tWE72IboOcC70xG0iG6QixVAVkblFlYTGDs8dgU+0pVffX8SiZJfQ6/8byBHIyeYx0Reqmv14iCGG89m1xXgX/2BNozF4rjRn8H+2RksyFtF3/K48m4RopbbNTdM3qdCk4W35ZX3+tb0GN6XxS5/ixKuW9NxwWrKHAiZKqm+WGATOFokpvP9FxRXODcBnwIcI+r+mqJXT1xvtv7l38EWuMU3GWgg0gehdE0uzlswUaPWyXIt9/dLquHaRQdzjk+5aAiR0VK0MPJDRFr2QMPAHLWe9ndeSLqMzjGvHVS1kC0PwTIPHhV4x69MOevoOat1NNW5pJ2ZoSWUkTCBULJ3tYuvclb5Ytoo0wtJV1oNf8sqxhBP/CkSIobFnBAp9NHTFTr3S+nGG4WmN5pYE5zLRqo05SEZ+An1o8DkCEIiDAAG3INH5SbYRu1G+o6EV4Mx+PtHB6/8YaQ/xq+qgKQfFWbvOVMjOg8xr6cpDNSCfVXY3XUjmrPlBEIvT7Zcg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM8PR04MB7940.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(22082099003)(921020)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzJmcWgvYmdYT0pEUk5tR1JGSWpBUTlwQ002dEkzcXVSNC9jUzVkVXY1VE5t?=
- =?utf-8?B?RVRIWDJ0Q3RTN2licjltNzhFeFRHeFJ4eFc2YUlkMFdhc2p6RjlWald4c1d1?=
- =?utf-8?B?OTdGMkQ5eTJBRjJCNStwVHFNQkt4ck5HeEJDcHZIRE10cDZlT1k2Y0hMVlkr?=
- =?utf-8?B?dVdsZ2orRGE2T2x4MmxsVG5aS0Z0T0VUaHBjWGE3bHRNeFJ5Qmc0SUpEUVVE?=
- =?utf-8?B?Q1dKalNCZURVUk8zNCsyZ0FUTWQrcS91RWlibmxwVjd3NnFGdnk1Um5sTjYy?=
- =?utf-8?B?anBEU3N3RUpZUDE4cnFLM09XOVpObVV4TzhRQXBnM0dFdmU0MzE5YWFhUXZF?=
- =?utf-8?B?amg1YndPZ1N5NlJ5bU5IY256bktPNEdoTUtTTXFLeE9QbkcxNzdiT0l2TXMr?=
- =?utf-8?B?dTZMMUk0NWhsVkRZU0xVWFBkVlY2Sy9IRHRzZGFObSt5cXBMWWk0anVQeVFZ?=
- =?utf-8?B?OFNQczRuS1NhUXlXRGtiY0VBSllRenVhZmlZeHhHbHZvQmdFbWFaUEorOVlH?=
- =?utf-8?B?Y3BWdTBCYWMrUWVvbFJ3OXpmKzZaRkl3ejJjUVlLbGRCWUthNkJWcVFsU1FT?=
- =?utf-8?B?cENqenQ5S2UyZXo0SFA4QzhGY0UvTzRoWWJqbTVZTWlpSzFPa1l3V3FEZkMx?=
- =?utf-8?B?aGNvVzlQc2RGZ1IzcUZDYUtjdlQ5TXpiV2NCMitqMklIRFlrZEJvRFRDNFM1?=
- =?utf-8?B?bm5rb0dCTkJ4TFR6MWdVanZLQUhzTEsxTlFudXlYTFRjR3NzUnFtYXljcGVy?=
- =?utf-8?B?Z1lxdXVvTDRHZ1I3RUZYbkJpTHM4b0c1TWppbktRTWdrZ3Fab3NGTDRvTkxB?=
- =?utf-8?B?czRnOHR3U2dqWVlRTkFtSEdRaEhKNmVmSXhaRVJRM2tXUVBwUGpoZk9xUUNU?=
- =?utf-8?B?TmRiMDBCT2Z4dkhNajZ2WnU0WUMyczlEcmtrVW9IQmlDWlR0YmdJa2NpTEFz?=
- =?utf-8?B?NlRXMTRqRjhiaWEvR1ZWYW5vOHdyMzljMjNLYmFwVHBUbTl0eWJTZ1BobWZ6?=
- =?utf-8?B?eXpQQ3d3OVpza1FRc25Ia3JWM1JBRjBxcXVVSCtONS9wR3JxSENQNHRxR0NC?=
- =?utf-8?B?R2RORkNSa1RHNTdYR3k0clEydkd2am1mbWhFUmRvZ084TTA5SjQvR0drQzlM?=
- =?utf-8?B?OHJJYnpCUEI5cHZ5cWczMFN2anNoaVJlQ3ZQeDFvNllIYk41RUY2ZDNsYUZj?=
- =?utf-8?B?dnYyQnNyOTEwT0gyTWZlek1OSitwc0RHNi9VZkFXQzVBTkR4SzM1VUcwMHBU?=
- =?utf-8?B?M08zdmFJc3l2dXpqU3ZFTU9JekRFYXAxQ2xrcFVKbm9xRzBuQkhQZTQ0alFP?=
- =?utf-8?B?V1FSUW5uUUNuOUtyK1ZOSEFSa0FOZHJhRjRQTkFWaWt6MDFnTXAxeVBJb0sr?=
- =?utf-8?B?LzB5NDdneTRneCtOSTdpNWVMY2pnSW5pdXJhT2k1ckhiL0dQNXZLUWJBYUpr?=
- =?utf-8?B?d2lQUUhFdURDL2hZSFdSbzNyRFVaT2NudFFobjdaVVNLckNtOXZPU0QyQjVr?=
- =?utf-8?B?NnhUZjlQcU1YemZoK2luQ1dZN1FxWXQ2c1FXaHZqdG1PVUhLK1liQjFQT3F6?=
- =?utf-8?B?MnQwRHlMUGI2MkFDMHpmNTNzdTdBNEZrdE9BUEdRNUcwVVc5d1FrZTkxM1hD?=
- =?utf-8?B?aDh1QktXWEEwSzZja21OT2tpSmk2OVJhZ25ZakdScTBMK1BhVm1sQ3lxbnpv?=
- =?utf-8?B?ZFhVbXFDUTczWjlXNTUrWUdic0R4ZDVlUzgraVFoeEdoR1R5MVBXd2dRNVpS?=
- =?utf-8?B?dWlIR3BZM0VDVjlhMEFCQ2xsbnl0TlFJdnVxWnd1b214WGlSSi81SmdhcEhP?=
- =?utf-8?B?d2V0dDBISkhLYkNIcWJ2TDRQY2g5RjBldnJhTTZJREZEM1dtUlNMZVFSUFp1?=
- =?utf-8?B?SXdERHVnMS84VzJqRXk4dmFHVnhHNHNUb1dVQ0VFaHcvcERKNVpIWlBXdCtl?=
- =?utf-8?B?SXlFYW8wNWVUZmwwYUZYRmN5a0JpZy93cDZqZWFWc0tTcnlsWlF5RUNFb1BT?=
- =?utf-8?B?MWl6TmxGa2ZTR0ZadlZHNnE3WGE4bm43Yk04Y1pHTm8yRnh1M3FrajFOZTJB?=
- =?utf-8?B?U0RZN3U2SDVaeE81ZENucCtlQjFFUGcrZWI5MW5iR1NxRVRJazI2TWc0VWRB?=
- =?utf-8?B?eHF0K3laNXhLbGh3RXR0aERaRCtKd3RtMTAxd1AyNElKZ05PU0s5U2ZNMDdn?=
- =?utf-8?B?MG93a25RemtUTzJzTS9PczBZaFJFQjRlaFRiTXRGR2lHQ0xUS1R0ZWUxR2c4?=
- =?utf-8?B?QkQ2QlVFemNBNkc0WlhHZzFSdFQxQ2wyOWFVZXcxazR4bzA3UWdGT24vbkIv?=
- =?utf-8?B?amw4SnVtUnBmR3MzYWZFbWgrdHppd3Jlbnl3S0RkaCtrWncyb0tHdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a32608ae-b668-462f-9b25-08de9e840568
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7940.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 02:25:00.0200 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5/C/QUXynXjgTM6mbnbWFv+Yof7dHSm55W+gwT/H986oLuX7dx3bKjnFnTzxTyosgnEOwP4CUgfPidMX0trdNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10622
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260414214104.1363987-4-dennis@ausil.us>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIwMDAyNyBTYWx0ZWRfX9+VCfc94DMpH
+ bhN0KVl3P1keCEtmmS0DeVAFzCQ83/hCidb2ZiuGYeY+rN2znyXzztfiW+PMFAFG52ApzhMZkqy
+ +/JEs/Qk9gNQv1NC3oq0yoRAhPJRhfzfi6MzLmkhYtOElU20Az9/VPkFJl1H9iA2Gy/7ECxL8Oz
+ w4MFkA2JKJpypE0X9CXXPpDc/olFIdk3cx4XGEE5TdChAC13pn82pu19tRYVNGkwPCMTVuaPaCx
+ 3sRaYR4nkVFwWAK32gc03TIwDG1jMrffq4GV/bcD2cFjVk1Rzdf4ymldfxAwoKvnqojkIAXl2f9
+ nrlDmBEtGbHQDmYn+OgAtgU4KWMjAIKhwq7JDJvGcYW9DzyZ/5vPXuIIF4hZ9R8HmBEcKuKBUhT
+ TmuOnzzOzVI4iDdExVNdAi9MTws5WaQuNHh3xolc4iE7KuNio6p4Nbut2XvfAFR7wQ+znIei7S0
+ uBsdil3IcwIQaMQmxFg==
+X-Proofpoint-GUID: VLrKfXpEm8yIVVtUJkedTXbPpe-NGuUb
+X-Proofpoint-ORIG-GUID: VLrKfXpEm8yIVVtUJkedTXbPpe-NGuUb
+X-Authority-Analysis: v=2.4 cv=WK1PmHsR c=1 sm=1 tr=0 ts=69e59840 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=R0GiLmRpmYWNx10LZcEA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-19_07,2026-04-17_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 phishscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604200027
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,190 +159,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Apr 17, 2026 at 10:49:35AM +0000, Biju Das wrote:
-> Hi Liu Ying,
+On Tue, Apr 14, 2026 at 04:40:54PM -0500, Dennis Gilmore wrote:
+> The Lontium LT8711UXD is a high performance two lane Type-C/DP1.4
+> to HDMI2.0 converter, designed to connect a USB Type-C source or
+> a DP1.4 source to an HDMI2.0 sink.
 > 
-> Thanks for the feedback.
+> Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+> ---
+>  drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 > 
-> 
->> -----Original Message-----
->> From: Liu Ying <victor.liu@nxp.com>
->> Sent: 17 April 2026 07:05
->> Subject: Re: [PATCH v2] drm/bridge: ite-it6263: Add suspend/resume support
->>
->> Hi Biju,
->>
->> On Thu, Apr 16, 2026 at 09:29:25AM +0100, Biju wrote:
->>> [You don't often get email from biju.das.au@gmail.com. Learn why this
->>> is important at https://aka.ms/LearnAboutSenderIdentification ]
->>>
->>> From: Biju Das <biju.das.jz@bp.renesas.com>
->>>
->>> On the RZ/G3L SMARC EVK using PSCI, suspend to RAM powers down the ITE
->>> IT6263 chip. The display controller driver's system PM callbacks
->>> invoke drm_mode_config_helper_{suspend,resume}, which in turn call the
->>> bridge's atomic_{disable,enable} callbacks can handle suspend/resume
->>> for the bridge without dedicated PM ops.
->>>
->>> Introduce it6263_bridge_init() and it6263_bridge_uninit() helpers to
->>> consolidate power sequencing, hardware reset, I2C address setup, and
->>> LVDS/HDMI configuration. These replace the open-coded init sequence in
->>> probe() and are hooked into atomic_enable/atomic_disable respectively,
->>> guarded by a powered flag to avoid redundant re-initialisation.
->>>
->>> Switch from devm_regulator_bulk_get_enable() to
->>> devm_regulator_bulk_get() so that regulators can be explicitly enabled
->>> and disabled across power cycles. Move reset_gpio and regulator state
->>> into the it6263 struct so they are accessible beyond probe time.
->>>
->>> Add a remove() callback to cleanly power down the bridge on driver
->>> unbind via it6263_bridge_uninit().
->>>
->>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->>> ---
->>> v1->v2:
->>>  * Dropped system PM callbacks instead using bridge's
->>>    atomic_{disable,enable} callbacks to handle suspend/resume.
->>> ---
->>>  drivers/gpu/drm/bridge/ite-it6263.c | 88
->>> ++++++++++++++++++++++++-----
->>>  1 file changed, 73 insertions(+), 15 deletions(-)
 
-[...]
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
->>> +static int it6263_bridge_init(struct it6263 *it) {
->>> +       int ret;
->>> +
->>> +       ret = regulator_bulk_enable(it->num_supplies, it->supplies);
->>> +       if (ret) {
->>> +               dev_err(it->dev, "failed to enable power supplies\n");
->>> +               return ret;
->>> +       }
->>> +
->>> +       it6263_hw_reset(it->reset_gpio);
->>> +
->>> +       ret = it6263_lvds_set_i2c_addr(it);
->>> +       if (ret) {
->>> +               dev_err(it->dev, "failed to set I2C addr\n");
->>> +               regulator_bulk_disable(it->num_supplies,
->>> + it->supplies);
->>
->> I know that you call it6263_bridge_init() in probe, probably because you want to enable the regulators
->> for hotplug detect after probe(it6263_detect() reads register HDMI_REG_SYS_STATUS to do the detection).
->> However, an idea[1] is to wrap the register read operation with regulator_bulk_enable() and
->> regulator_bulk_disable() in it6263_detect() so that you may drop
->> it6263_bridge_init() from probe.  With that,  it6263_bridge_init() is now only called from
->> atomic_enable, which means that the initialization code can be open-coded and the initialization is
->> supposed to be successful(due to the "atomic" nature) hence no need to do the regulator disablement
->> bailout(error message in dmesg is sufficient).
-> 
-> it6263_detect() still works with regulator_disable(), see the logs below.
-
-I guess that it works for you on RZ/G3L SMARC EVK because regulators are
-already enabled by PSCI before this driver's probe.  But there could be
-platforms which use dedicated regulators(like discrete PMICs) for IT6263,
-which means the regulators are not yet enabled before probe.
-
-> 
-> 
->>
->>> +               return ret;
->>> +       }
->>> +
->>> +       it6263_lvds_config(it);
->>> +       it6263_hdmi_config(it);
->>> +
->>> +       it->powered = true;
->>
->> If you drop it6263_bridge_init() from probe, I think 'powered' flag can be dropped too.
->>
->>> +
->>> +       return 0;
->>> +}
->>> +
->>> +static int it6263_bridge_uninit(struct it6263 *it) {
->>> +       regulator_bulk_disable(it->num_supplies, it->supplies);
->>> +       it->powered = false;
->>> +
->>> +       return 0;
->>> +}
->>> +
->>>  static void it6263_bridge_atomic_disable(struct drm_bridge *bridge,
->>>                                          struct drm_atomic_state
->>> *state)  { @@ -587,6 +626,8 @@ static void
->>> it6263_bridge_atomic_disable(struct drm_bridge *bridge,
->>>         regmap_write(it->hdmi_regmap, HDMI_REG_PKT_GENERAL_CTRL, 0);
->>>         regmap_write(it->hdmi_regmap, HDMI_REG_AFE_DRV_CTRL,
->>>                      AFE_DRV_RST | AFE_DRV_PWD);
->>> +
->>> +       it6263_bridge_uninit(it);
->>
->> Well, this could effectively disable the regulators and hotplug detection
->> won't work then.   So, again, the above idea[1] helps.
-> 
-> Is it not working on your setup? It works for me.
-
-My setup uses always-on regulators, so detect works for me as well even if
-regulators are not explicitly enabled/disabled in detect callback.  But,
-as I mentioned above, we need to enable/disable regulators in detect callback
-(also in edid_read callback) after atomic_disable is done for those platforms
-which use dedicated regulators.
-
-> 
-> 
-> root@smarc-rzg3l:~# [   33.512618] ####it6263_detect####
-> [   44.008621] ####it6263_detect####
-> [   54.504623] ####it6263_detect####
-> [   65.000602] ####it6263_detect####
-> [   65.227743] ####it6263_detect####
-> [   65.233322] ####it6263_bridge_atomic_disable####
-> [   75.240637] ####it6263_detect####
-> [   85.480628] ####it6263_detect####
-> [   95.720662] ####it6263_detect####
-> [  105.960640] ####it6263_detect####
-> [  116.200647] ####it6263_detect####
-> [  126.440635] ####it6263_detect####
-> [  127.048981] ####it6263_detect####
-> [  127.517962] ####it6263_bridge_atomic_enable####
-
-[...]
-
->>> @@ -858,13 +901,21 @@ static int it6263_probe(struct i2c_client *client)
->>>                 return dev_err_probe(dev, PTR_ERR(it->hdmi_regmap),
->>>                                      "failed to init I2C regmap for
->>> HDMI\n");
->>>
->>> -       reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
->>> -       if (IS_ERR(reset_gpio))
->>> -               return dev_err_probe(dev, PTR_ERR(reset_gpio),
->>> +       it->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
->>> +       if (IS_ERR(it->reset_gpio))
->>> +               return dev_err_probe(dev, PTR_ERR(it->reset_gpio),
->>>                                      "failed to get reset gpio\n");
->>>
->>> -       ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(it6263_supplies),
->>> -                                            it6263_supplies);
->>> +       it->num_supplies = ARRAY_SIZE(it6263_supplies);
->>> +       it->supplies = devm_kcalloc(dev, it->num_supplies,
->>> +                                   sizeof(*it->supplies), GFP_KERNEL);
->>> +       if (!it->supplies)
->>> +               return -ENOMEM;
->>> +
->>> +       for (unsigned int i = 0; i < it->num_supplies; i++)
->>
->> Nit: I would define i together with the other local variables at the beginning of this function.
-> 
-> "i" is used here only. For me it is better than putting at the top.
-> 
-> I got feedback from other subsystem maintainer to use unsigned here
-> as the scope is within for loop.
-
-Ack.
-
-> 
-> Cheers,
-> Biju
 
 -- 
-Regards,
-Liu Ying
+With best wishes
+Dmitry
