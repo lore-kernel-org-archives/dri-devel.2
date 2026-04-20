@@ -4,77 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A09F36C49
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 07:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F87F36C41
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 08:07:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C01C910E695;
-	Mon, 20 Apr 2026 07:46:34 +0000 (UTC)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
- [209.85.217.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D607510EC5F
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 07:46:33 +0000 (UTC)
-Received: by mail-vs1-f42.google.com with SMTP id
- ada2fe7eead31-6058a955e04so1859902137.0
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 00:46:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776671193; x=1777275993;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vr9++th+piD84iSgm0F19Q87mZM1OH80P77AJIEKCDU=;
- b=BhsxoiqFy6BmjwhQGyqtLUkADW0Njy+buoAcAu9/6EX/KyLOZLydiSa/Vcya7c2Iwn
- Pk/e+fMcrfYc95Pj7JV8p/IhrcHMD4z4jjcI4uJ4SEOxyhnnCfN/jnrcDyRycFPOvkeO
- y0PQsxl6p6S5cXvkYkUElnB+8i3sPkGV3kKKHVPw2KA9CFeHHd338Lb856iMkqwfptyq
- OBQ1c1JBMN0dVgCiln+03+EEHa2jvSdV5C0SUkkA2BlUvHmKEeGYF2yb8JKivn+VEDOw
- wsMT1A0z0CUW9a9+kKUPY77FPS0l+Zx9Ik6h9RoMX7OijHElesYOaSH0KCnlAs3xo2N9
- fslQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/qry7uohR+rV5mdIbvjyBQpJeFliKRmBXbgWEkUkGSuqrwa+hY6g32AiqIisjaWbdoCg5X4diTy2s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy1EjXER2UESlMKKNbi9Txyowm8W0itcaSmvVCPotA10nCqPqbo
- OCYanGQ0jFuXbMmUYvdelB9z9A2m61nceX2rLYB3EpnQ1pvcngalbRAJL5viVQmm
-X-Gm-Gg: AeBDievm6dMGt+cpcESOiQOp6aL4a1yhA7qS3UN99lUZYXOXsmmz7MkQ6c+TUjTbzHC
- cIXN7dXlllMFYvIgn/Bx8KHumiyLeT0tIbbj+tEoHNbQ9IVWwXqFvLdz3xiLC2OTJzctA0/s0XH
- MI+FL113SF6Z90d45Y+Zx1j2A46EmcOy68LoZgWbAC8oAMs8IHVX/D6G/Fnz+furyWHwghCjR1y
- DLvPyiqxfMwgr6wRNoETlZNf/HQh1KEK4jJwjgGYnb/71EKo1JyBdGc5B5sifnMESYyN2nhI4ee
- +OsMBkhjPcwUqY/Q1QQnxV0ZgLekueIwK1BjPD/+1ooQvC8HBqym59xTkfkcs4wSmM5r+DXzi55
- N5A8AS2xCE0TWivL9eyQlGdc82uy5dm82Grh9yXq992Tg62yG0bfs4WDNeRsBHxMNkrbW5bkgBr
- xzv6CzjaivVnLzevCURVio89EWi0WD2NbPN2IpTFOQZjqiSNI0tcV6maA0P6AKUq3jpNxoJaeCV
- to=
-X-Received: by 2002:a05:6102:801e:b0:5ff:ea89:449a with SMTP id
- ada2fe7eead31-616fd91d990mr3706603137.13.1776671192629; 
- Mon, 20 Apr 2026 00:46:32 -0700 (PDT)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com.
- [209.85.221.172]) by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-95890c0a526sm4262470241.11.2026.04.20.00.46.30
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 00:46:31 -0700 (PDT)
-Received: by mail-vk1-f172.google.com with SMTP id
- 71dfb90a1353d-56d8a5f0e44so3487681e0c.1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 00:46:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AFNElJ/p+rpxoozdCC7olrBgk2s+vztV1SaoIGKqRzp4YoqxKZy7aY7JoYlX13kSreCi8MYX4C63jN2Yn0s=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:289a:b0:56b:9534:c06f with SMTP id
- 71dfb90a1353d-56fa6542098mr3883427e0c.3.1776671190654; Mon, 20 Apr 2026
- 00:46:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C3610EBD2;
+	Mon, 20 Apr 2026 08:07:35 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="HIkEWBvm";
+	dkim-atps=neutral
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010005.outbound.protection.outlook.com [52.101.201.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D96810EBD3
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 08:07:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QlabP1cIPqX5FgYrc0VNfdMbdDghld07aaAYmsbIN2SYPQC5bVjiWGs4RkPSDJtCdJLARTjGM9GUbdEMOi/fX0t31f/5YB8oQrCKF4gFHZhYZpTjxnhMXkP7bL1OjSLIRtb6Is5DsQjS8oKSA8IGrN0tqh5lojBKN3HheDOQtkowGbZqACJnhFPbaXEDagXCr2XkBj+G82hhULL1O1T7Aae5Al32HB3BpvolGuOkHY8V5hCOAJiZH6rSwNT16QfEE12kae/sc/2D/hJPUPe/GmDfD4+mW0U2E17ARbqv9jBkXoUzcNZRi07+mZFoSja8a3MeQfuWCRDCnuvEdXcv+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3q7X3zq9DKKG9D11fHRzGqW7uVsFPh7BMM3d/E+vLtY=;
+ b=EvXljM7mEVTdYWjBmZ0vsVJpxKqktkZBrc105gGMXOXmVdc3pfMtldYFVzbNlRu2aoQl6sqmkJVoBG0TVEd9pUV+3V8eISsFBQXtx27M5LUWmtIlHHbjVVrv8JgE2bx1r/NdE2Lo2xyDLkMMKiDi6LWrXcLujzMARmB49Is0orVeOckDtIo+7Z+wGh4JGBZHAUmbgE0PTf3p8P01vv6WiLxm+bSOih0IFtYEL6yrKohIPpiAMJxO+93CFnfB7XMvJFEbMbAfgdRhppxj207B6Qy/l2j8WOp8UZAqsBUqlvKoB72x2Q4EBtOVujdf7jLGykzI1lRPldRXWxdi05mgXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3q7X3zq9DKKG9D11fHRzGqW7uVsFPh7BMM3d/E+vLtY=;
+ b=HIkEWBvmFE5SUcqoHKna0qr0KnBsvf8MNdfSk5jU5PAF/609dnbJ14U/2vDEosOY2+iN8zbFwKbq8knBfBnezeqBEEu9HyG2LXlB+F8ULXkJklDSFwemXzPVLEWDLAd/u20uJYf+D1K/d8klWMMSsp5BO2d24+5OZi9dF2t2gx3tZpejo6Mi9qM/JCNONFmhri0tbgeC3WYwzCNZ7chKm9vb1pTqUzv+hjhmIcc9Hsk7+NtGiIBgzWiquCdhKprlRX3DHB8dXvGFq+OpAGd/7g3/ai7Yhd1ykw75NpjdAXyW9BISq8JAgAO9ahH1gLHtdSIwok+MLmBVbKKwbWMAMQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by MW4PR12MB6976.namprd12.prod.outlook.com (2603:10b6:303:20a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
+ 2026 08:07:29 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 08:07:23 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 20 Apr 2026 17:07:19 +0900
+Message-Id: <DHXTTF1ZSHLJ.2SPZ5QXPWJRPT@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "John Hubbard" <jhubbard@nvidia.com>, "Gary Guo"
+ <gary@garyguo.net>, "Alistair Popple" <apopple@nvidia.com>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] gpu: nova-core: add non-sec2 unload path
+References: <20260409-b4-blackwell-unload-v1-0-0f5a2ff838dd@nvidia.com>
+ <20260409-b4-blackwell-unload-v1-3-0f5a2ff838dd@nvidia.com>
+In-Reply-To: <20260409-b4-blackwell-unload-v1-3-0f5a2ff838dd@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0261.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::12) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-References: <20260417140231.3972749-1-chris.brandt@renesas.com>
-In-Reply-To: <20260417140231.3972749-1-chris.brandt@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 20 Apr 2026 09:46:18 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUVCtzxumM6yniuGTKfqG_z6BuySHNcZYE9UHP5AuDoLw@mail.gmail.com>
-X-Gm-Features: AQROBzBuq_XRHepFNQh1JPCL5m8jICz5bAQa5xeGTgiQQMKwx8PdJeiPrEwUY60
-Message-ID: <CAMuHMdUVCtzxumM6yniuGTKfqG_z6BuySHNcZYE9UHP5AuDoLw@mail.gmail.com>
-Subject: Re: [PATCH] drm: renesas: rz-du: mipi_dsi: Fix return path on error
-To: Chris Brandt <chris.brandt@renesas.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Pavel Machek <pavel@nabladev.com>, Hugo Villeneuve <hugo@hugovil.com>,
- linux-renesas-soc@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MW4PR12MB6976:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76cb24f1-77e4-4192-0843-08de9eb3da07
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|10070799003|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: xSHLMRmv/6XIoEmaOUKRwZF9APJm3VsuJCFnvvXZrTQCtURPyLHhctXRggDP8PION93zhxPIrJltMd0G/LQ0zCccOvCOIR+k8VPHD03panq6R83BnI7X78v5XTA/ibjWiFUQ7cH6FOK1tbAObPvW0XYlVhiMHh1YcSsiik4KBlH9/N9PAo9miXzr/1VkOWe7zA5vcq4sCumiN/ss5ev3PBXcJgI6K+OnhnWrkhq9lcgrUWs+Caj+Sr5i0RLC/YK0L4yP3G/0PZmhMTCbFzLPsmovaWmSNZFcejVlfSIdS5EI7megEUHbICM317B5pTRdMkrpMZeULomuL+RJlF5PKR8mIErLuv6H9IALxGSc+amT76nasUXqYuc4szlCiNiW4GTvsANLFmvW7RB2WQxGRNTKk6ZJUoGIaVh7GXojONTeXM1YKavaDlm4stGLszbOz8tg++fHyYv/8kVO6v+hj9PJu/mhx7yoYDu95ddYPjczaTIqh8r4pMR77TW0YN3IY3CYob0ga3Vlrt7fNqdm/t/zC0ZLdqnnXHQ1VEG75zu4gRUIhDNWfzkjWbxX+InRbASrfuUVu0Op0SX2mVrYDV12qwiAvnlKqQazySirggUUTOeSq/RA+MP/RpxddtgxZ3e++gslPLdM/2m8GRv2KFV/MBlqamgBc1umV3hu8d7Jti5xD+5KlchrarrvOX69yCTN217ILiXjYxpggb6bakQsyw8fVt60z630ujDlhKk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(10070799003)(376014)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eU5rTEM0aGlZK1JQRWtlbCszY2oyRVpGQzd3WU1IZlI0YjdRbmN5RXBJVjBX?=
+ =?utf-8?B?NDNRUFBaUm9yanU0eW5hcEVaQ2I5b3Zwb3c0WWdKZUlyaVNvZzV4QkdkbWJI?=
+ =?utf-8?B?bTlKY0FoN2h2Y1EwVEQ1a3RVdHVCbk52SW41eDgvczVpUmk5TWdmMUp5Y0hI?=
+ =?utf-8?B?ZERwVHdlQnlja0FHa21Pa3dUUHhLTkU1dmNhS1M2SHRuQTB1WFY2ZklJTFFk?=
+ =?utf-8?B?NndpQjJFcHRxUzNwcGhrS1RDYm1JQ1hoK2NJT2l1b0JEcEtENDRrSEVrVFI0?=
+ =?utf-8?B?RUxZcnFKdlNFS2twYUdxZUhXUFFqWDV5eXV2aVVWYStvaEVMT2RBYjlObkM5?=
+ =?utf-8?B?b3l6cUI4QnlUOUg3aVFlZFJtbjhxMGhnQ1BxcGFZWVNZUlpZQWtITDNVN1Yx?=
+ =?utf-8?B?clNGT2V5UXlWS3FBdGpGSDlJb0lVbGpoWk9TQVhyOStyNlV1RVhFQmh6WE1K?=
+ =?utf-8?B?cElrcGxmSXowVHp5a2pIN2xJQWFLV3U3TFN3ZWg4dktRNStsaVltcDJtWHFt?=
+ =?utf-8?B?ZVpRaVNub25QcnRpRXJZQkp4SS9wNi96N1BrcHZvUXNNTlJUdlVxSnJUWkx0?=
+ =?utf-8?B?SDdBOVVSRHg5MWVzeEZRanJibzZ6UjBFQUlBeS9zRnFFejgrbUwxSFdiS1hO?=
+ =?utf-8?B?ZEUzc25DMzFlekZ1N1g4dUxWeEdSV3pUaDdiTGJXUlJIdHJZQmNHdWcrZnZ4?=
+ =?utf-8?B?TWtRaG5oTjV5R2NBZjExVFJ3c3hMR2VNZ3hEWUw3d1FQUlBWSVVnSXcxeHM4?=
+ =?utf-8?B?UjRqeXhqRnBTTTNuaXJLWnZlSnZmcHlwRzJXSzJrTWxxbk45aFV6dHEzWFBo?=
+ =?utf-8?B?cm9xcmN5bC9lNlhuVmVwaFlIOE1CK0Z6dzc0SU5FNEVXdmk5alJpcXZLbUpH?=
+ =?utf-8?B?dVpteWdyNjNqekhLWEpPN0xiWDN6NHYyc2pEOVNRUkhDeldhQllHc2hDNlND?=
+ =?utf-8?B?VnQrNXp6TDBxYW5KVlgybGE4WFRTZUwxZTNnL2dVU3RBanNtS1d4anh5ZXVQ?=
+ =?utf-8?B?elZiNXV2TUgvT3ZWc2YxMTVHRXB0dGdkMlhxdnhjNFlPTGRDRkllVnc2WnVy?=
+ =?utf-8?B?SmFtMFc4R2lENy9sR1VTdUpQOUJQTm9UT1p3dmNkUjBaaGZwRlRtbDRhRmVF?=
+ =?utf-8?B?RzE5MjZJMkdaVi9sTjlscll5REVtbWhyZVJ1bnBiK2JYSDJLazF5MlBoVTJ0?=
+ =?utf-8?B?ZitNeFRqcHZqd2RwbmdXczZYMWg1VWx2dXVVamZxWFlrYnFZTjltT1hrdTY4?=
+ =?utf-8?B?T09rZnJqTEhQODRWdThIWUE5L3JJb3BreVFmVkJaYTZUMzF0c2ZWNm9ZYlg1?=
+ =?utf-8?B?Q2FQcVNNNjh5WjNtbG5OZ3JNSG93VDd5em0xS1huVTlsdUo2SXJmVUhvTlFN?=
+ =?utf-8?B?TnhFenFlUVhsYnZDV0xWUkpPTUYxOTZaRDVDT0lmTFc2MHNKTExYSk1OYWRD?=
+ =?utf-8?B?a2lsTkhYUHQrbFBYZjVzclJEakRka1ZBc1BDd0wyT0JIU0NEbk0wZDBBSWVM?=
+ =?utf-8?B?SDJaS2RHWmZqZHhKTjV2WmtnclZ6QTB3NkEzYjgzNVJOcWpEZktMVSs5YWQr?=
+ =?utf-8?B?eDZVOGJrVURXMG1mNmZWVGtDYnJMOVRIMVR0VjlnRG1tZG9WRFJiNFJZMWRy?=
+ =?utf-8?B?Ri94dDFkUGJQbWxJYXBIRExGTHF5UHhoTWdjVXBYa2pFdm1mRTJUN0tNS2V2?=
+ =?utf-8?B?SXBjU0NreFB4QmlMeFgrbXV2cVBreDR0aXdIeG1xZkJhNE5lWjk1OGtLY2h4?=
+ =?utf-8?B?WGQvRTgreEo4RklBUW5FYWx4RWw1Nm5VMmtMVlZKa0ZQVHhDK214V0IzaWda?=
+ =?utf-8?B?NFpOVWdtYWRVZk1NTGplQUhBVzI3Tk96Q045alJIL1RCbWJVRzJkTm1rRWRI?=
+ =?utf-8?B?dVR5RnJuekFmTk1hUXBUaHNYS0pPTFp0VlkrRXN3Zk42VDJadHlrejNVQnNH?=
+ =?utf-8?B?OUJ4anprV3daSldEdzRlUnI5N0NhYXF5clU1aTZWNlN2WVZoaGdnMjUzdzJI?=
+ =?utf-8?B?ajZPL1Ezam5nOFRVcHZLYndsUE9mQlRKUEdJM0NzcS9OOGpBTWlmTkp6a0dr?=
+ =?utf-8?B?Y3NhYWxrVWg5dG5rSGdZd1ZYOGNKU2M5STV5VFhhM05tSFcvZDk4SjQ5Zit4?=
+ =?utf-8?B?akR4RnRva1R0QWNlV0lvUi9FWkUrRUkyR1RpQ1FWcDB5WXJiaEczdVJPbzhw?=
+ =?utf-8?B?R21Ha2F0ckoxWTRCZmU0YWNwOGdkVlQ5Qk95ZUVaaXdNN1NoeWZOQVNQeGlH?=
+ =?utf-8?B?Qm9USHcrMVRNN0FhUEkwU3ZZUjNvQW5RSHVWVkErM1FKeGVjbXpLZTIvRDBs?=
+ =?utf-8?B?R1pGY3dNdFZzWC8xNUU2TE5zZFN5c3dyUXJnejNMeDc2VGM0alZ4V0dBa2w2?=
+ =?utf-8?Q?rJxO5PDV7XC8BV/P+CLMRabfhP+9Ge4qT4Q1VIWk1JExx?=
+X-MS-Exchange-AntiSpam-MessageData-1: tw1sUAx4AmwXiw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76cb24f1-77e4-4192-0843-08de9eb3da07
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 08:07:22.9673 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: M6DMMzdfJ7Tw225shg1Fokb2NWRniRR7Whe3nGoF13mWml425Nlqj1pIust9+g0kIPv+szKEFp3u9PI1DGQghQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6976
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,43 +142,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chris,
-
-On Sat, 18 Apr 2026 at 14:49, Chris Brandt <chris.brandt@renesas.com> wrote:
-> In case of error, we should unwind correctly.
+On Thu Apr 9, 2026 at 11:19 PM JST, Eliot Courtney wrote:
+> For non-sec2 it is only required to wait for GSP falcon to halt. This is
+> because GSP does the main work of unloading on GPUs not using sec2.
 >
-> Fixes: 6f392f371650 ("drm: renesas: rz-du: Implement MIPI DSI host transfers")
-> Suggested-by: Pavel Machek <pavel@nabladev.com>
-> Signed-off-by: Chris Brandt <chris.brandt@renesas.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-Thanks for your patch!
+Thanks a lot for this, I am hitting the FLR reset bug and this has made
+testing the Blackwell series so much easier! :)
 
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> @@ -1476,8 +1476,10 @@ static int rzg2l_mipi_dsi_probe(struct platform_device *pdev)
->
->         dsi->dcs_buf_virt = dma_alloc_coherent(dsi->host.dev, RZG2L_DCS_BUF_SIZE,
->                                                &dsi->dcs_buf_phys, GFP_KERNEL);
-> -       if (!dsi->dcs_buf_virt)
-> -               return -ENOMEM;
-> +       if (!dsi->dcs_buf_virt) {
-> +               ret = -ENOMEM;
-> +               goto err_pm_disable;
+I think we should take this into John's series after rebasing it on my
+unload code, as without it running Blackwell through VFIO is
+impractical.
 
-Shouldn't you call mipi_dsi_host_unregister(&dsi->host) first?
-
-> +       }
->
->         return 0;
->
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+I think patches 2 and 3 can be picked up as-is. For patch 1, I want to
+give feedback to make the FSP command queue sounder from the get-go, so
+I'm not sure whether it will still apply after that, but let me come
+back to it a bit later.
