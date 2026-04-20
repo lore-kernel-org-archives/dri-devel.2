@@ -4,120 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB011F327B3
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:09:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C720EF327AD
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE8F810E800;
-	Tue, 21 Apr 2026 07:09:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01FDA10E807;
+	Tue, 21 Apr 2026 07:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=posteo.de header.i=@posteo.de header.b="b/5UebY7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NxC5ofpt";
 	dkim-atps=neutral
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 708CF10EB24
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 20:07:28 +0000 (UTC)
-Received: from submission (posteo.de [185.67.36.169]) 
- by mout02.posteo.de (Postfix) with ESMTPS id E9271240103
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:07:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de; s=2017;
- t=1776715646; bh=bMRsLKAHSAXz14Z4fiLu1qobuMPCKTYfrmGi0WB25P8=;
- h=From:Date:Subject:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
- b=b/5UebY74pRZq2pCuvsuCnXh5WB5dzq7a2720ob0aNGibmukGXC7Ixl049a6gLGhf
- NxTReJNSc7ZHJOwUReTuX9PfTLaSYhyJKOr/SWWmijH/Lo7+AnbZRTT8JnKo5yJMrT
- y9ZPEwDglcynBRY413lQa57PODyiskLZHHvX8IjmH7fp0nB+mHfqiRQcZ6lB2ACTA2
- AAX8u22MtoDtXlhh9ao6aMyrod8af+ikOscY1p7oayhOvjAa0MD+g3/IeD/hLhL6cn
- qrWKgs6hXZjmkJbpz3ajl04yUwqnNGkvlHCPZMVrljoqAb8ujX0Q/TTfomT9Xu6tDs
- u9rJggIVplwyg==
-Received: from customer (localhost [127.0.0.1])
- by submission (posteo.de) with ESMTPSA id 4fzxNX59LGz9rxN;
- Mon, 20 Apr 2026 22:07:24 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Mon, 20 Apr 2026 20:07:26 +0000
-Subject: [PATCH v5 4/4] samples: rust: add Rust serial device bus sample
- device driver
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7623810E422
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 06:53:16 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2ad617d5b80so14292375ad.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 23:53:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776667996; x=1777272796; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=BV4/TIc6lvQCLx3YXJXaDGGdHXv2imnxTR630cNtZps=;
+ b=NxC5ofptdAAFhftGHw7+AKuH6t2wNpn5UivVp9/+2Lbbr0ri+uU4Hy7I7geFVpAttG
+ Mb1MrmwUUd7jHOQUgufvBTCOxf+qE9PuuVjuWMS4NuluiWLu8V0m2KduKekWh0xWyGx0
+ l4X2bfpvhxnQLxm2AkYOcaiSmXz1CKZktesu8gIJc5G7Rep/v/3mizYVaY13l76mTQ2+
+ S75LDQ4AWVQ1cQJ/EuQs86R8m8wn+JIJCR7QaxDpjvPqECgx/4tiPuK/nTDjE7C+BgVJ
+ QEhpPKHJ6izs5PgMtRYm9p/8TfV/Ur8Q3Ql81r0VMunW+qulnDS/AJalga1It5jW3LG2
+ m2fA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776667996; x=1777272796;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BV4/TIc6lvQCLx3YXJXaDGGdHXv2imnxTR630cNtZps=;
+ b=aBxVkZc8vGA7Rw8yAWHANi0jGhdl+1tbL08oAx4Z8LNueez9R+o2hN/ABtUYlVWyMa
+ 9bApKG3C0s4RM3yZHeG34InX04bB/as0UYnikxoNqwl7/oRwYZh3+YkTKe3t1tIsIyx5
+ lx52Ce2S1ajQ1GMr4fD5gOr7DXAouy9vK2J9RMvBq5/WroykI4T739gwdmzKkaoyWqa3
+ P4OsQpnLsD9RSpbiJfb7OM2Ady/hFf12gCBTOhmU3cHVZPrpXsLxYeeIesdK/GaHQ48u
+ VYW1ktpDAMU0qY44BCFLFP9whb4sNfwLTaqFQDWsIZqhO4kKgo815ov0ssw7bSRtkhXB
+ Ufug==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/MzYu5o16SODH7D1CfoU55cBO41ClccIdB6UEhBepmEkiyiVsG4RDWucvncZqzNYieBG6XW/+ahK0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyA5idEvAxHEkoRN1XwwcjkHrZcPGYzfE0V6Q+8TDAjHfqguR9G
+ uHbhnQ1GbgAnRZBMu8OsW44u2UlXbI3Vq7IGtHvIqNeiXs62NdX/0sE=
+X-Gm-Gg: AeBDievDx52EhlYOGMTKQPuYpWszSu9o3QDpvQ0lKczzzPiwA37wHq2ivJI/ouwhUaY
+ JhutVRag5iEgoRaoYR6HlSf+uk20tedTdmpdiXhSqdTJihlLsGeGsbvV4nz6eg4sX+wLR8XDqPc
+ 8MDgrcaYiNkk+tagph6nHWfXh04l+ubMIcJTTshtb8YsvQIDwvhFXwXcXjmROCNON6qUYj7ODVu
+ 6foo1EtO6V139sWN5wQm9d7FQJHJDHgJ436EzRrtkGOlHtv3BRmn2HNsgpmjNFDViJGb/aQMRz7
+ 4U8S6bGDc07JyIJggmHOEr/EbFLEqT5EQNu6w0mY8M3vwFHqdno1zQBKXp/Pb/lgIbRFNktRMx0
+ Xyb8yrrNyJEzPCAc94y3ruUAm6wgYG8gmE2HzAq0YHlN0ms0oNz8jWIT38JsMMnVJF2Dntaiphe
+ px45zQe/mRl3lzcH22xk/K+KGh9vx5XRvOzs3E4Vn49o/clvJoIDK9EJ6Td/4PS4imPCPpcHwk5
+ nIwZVaEOQ==
+X-Received: by 2002:a17:903:46c8:b0:2b4:5f83:a9d6 with SMTP id
+ d9443c01a7336-2b5f9fbba9cmr138627665ad.34.1776667995926; 
+ Sun, 19 Apr 2026 23:53:15 -0700 (PDT)
+Received: from localhost.localdomain ([1.226.165.54])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b5fa9ff390sm91821395ad.9.2026.04.19.23.53.12
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 19 Apr 2026 23:53:15 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Myeonghun Pak <mhun512@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>,
+ Taegyu Kim <tmk5904@psu.edu>, Yuho Choi <dbgh9129@gmail.com>
+Subject: [PATCH] drm/panel: jdi-fhd-r63452: remove panel on DSI attach failure
+Date: Mon, 20 Apr 2026 15:52:15 +0900
+Message-ID: <20260420065305.8781-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260420-rust_serdev-v5-4-57e8ba0519f3@posteo.de>
-References: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
-In-Reply-To: <20260420-rust_serdev-v5-0-57e8ba0519f3@posteo.de>
-To: Rob Herring <robh@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Kari Argillander <kari.argillander@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, Boqun Feng <boqun@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Boqun Feng <boqun@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-pm@vger.kernel.org, 
- driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4237;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=JoXwbjqfgHTSQtenfdS4rDb9JH2Wzuoqzg2D6y353ys=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBp5od235RAvbch31ND5xm6KkCIL9eSTpGnt1qIX
- bhK1T0wIv+JAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaeaHdhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KSWBAAhcP3LBb6l9BsolX6qOEtRvt42F5eg9q
- ixouVRq87msm/NPNYNIEyC9XLYlCxcKSg+FbWnQU7rmAbwl4fUvYyzjYNa7rKhGkxFLCL7MHCM8
- 91gElbbiUk21i5IpR0MmvsjPPx2jgumJhoYEfXT66ZHuZKZEvoRUuCSzESRuNX5YdrnmtdEyI3P
- gedZg2gsu9rguMDTTKoIyR3NnsoCXN9PaHYyyrwLoPDojuLYjArmWsoYWVJNgeTYqF9h+zBx9KN
- /J5iydDlsm4j07ofOcNkU7r9mD2OC3FJ5YQaItQ/G/q5ius2In4ZhVYWeieEiyLDLb/iKdZkZ00
- pazfjbWdr8pygzi2fw6hBftKPQzDPIH5fcsGp5Ey0XBxAoKCzYXiwquZDiID0rxgqAUIfNFEKH5
- 5J86xKcJhDOqfEYThCrRBy7u9l9zl071335dpv0MOrIx/EWPO6Kx/fgtfdEgJJlRF06CnZijskI
- hKETo0lLH7/HQgX01YFLTT4Nn2TlIMPJ22RPdXW2sJMDdEUmGtQ9CgV3fLYCWSej1suc+dR1gcR
- qkmjiJ2DDQYbStUTpocK1aeqG3oMN95CET2AE+0FtleOMK1/9+niqlfuiOU/vCSbbReqlqGoW6k
- xXJN2yuNnxyQPqf7lvPlY76pRukxy96/QkiyMy/22CGANFj39xPQ=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc;
- preference=encrypt
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,146 +93,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a sample Rust serial device bus device driver illustrating the usage
-of the serial device bus abstractions.
+The probe path calls drm_panel_add() before mipi_dsi_attach().
 
-This drivers probes through either a match of device / driver name or a
-match within the OF ID table.
+If mipi_dsi_attach() fails, the driver returns without calling
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
+drm_panel_remove(), leaving the panel registered in the global DRM
+panel list. The driver's .remove() callback does not handle this case
+because failed probe does not transition through the normal bound-device
+removal path.
+
+Fix this by unwinding drm_panel_add() when mipi_dsi_attach() fails.
+
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
+Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
+Co-developed-by: Yuho Choi <dbgh9129@gmail.com>
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- samples/rust/Kconfig               | 11 +++++
- samples/rust/Makefile              |  1 +
- samples/rust/rust_driver_serdev.rs | 86 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 98 insertions(+)
+ drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index c49ab9106345..31d62533ef25 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -161,6 +161,17 @@ config SAMPLE_RUST_DRIVER_AUXILIARY
+diff --git a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c b/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
+index cbe354b51..4356c07c4 100644
+--- a/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
++++ b/drivers/gpu/drm/panel/panel-jdi-fhd-r63452.c
+@@ -205,6 +205,7 @@ static int jdi_fhd_r63452_probe(struct mipi_dsi_device *dsi)
+ 	ret = mipi_dsi_attach(dsi);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to attach to DSI host: %d\n", ret);
++		drm_panel_remove(&ctx->panel);
+ 		return ret;
+ 	}
  
- 	  If unsure, say N.
- 
-+config SAMPLE_RUST_DRIVER_SERDEV
-+	tristate "Serial Device Bus Device Driver"
-+	select RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-+	help
-+	  This option builds the Rust serial device bus driver sample.
-+
-+	  To compile this as a module, choose M here:
-+	  the module will be called rust_driver_serdev.
-+
-+	  If unsure, say N.
-+
- config SAMPLE_RUST_SOC
- 	tristate "SoC Driver"
- 	select SOC_BUS
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index 6c0aaa58cccc..b986b681cde5 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -14,6 +14,7 @@ obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_USB)		+= rust_driver_usb.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_FAUX)		+= rust_driver_faux.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_AUXILIARY)	+= rust_driver_auxiliary.o
-+obj-$(CONFIG_SAMPLE_RUST_DRIVER_SERDEV)		+= rust_driver_serdev.o
- obj-$(CONFIG_SAMPLE_RUST_CONFIGFS)		+= rust_configfs.o
- obj-$(CONFIG_SAMPLE_RUST_SOC)			+= rust_soc.o
- 
-diff --git a/samples/rust/rust_driver_serdev.rs b/samples/rust/rust_driver_serdev.rs
-new file mode 100644
-index 000000000000..8cf3fb451b22
---- /dev/null
-+++ b/samples/rust/rust_driver_serdev.rs
-@@ -0,0 +1,86 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Rust Serial device bus device driver sample.
-+
-+use kernel::{
-+    acpi,
-+    device::{
-+        Bound,
-+        Core, //
-+    },
-+    of,
-+    prelude::*,
-+    serdev,
-+    sync::aref::ARef, //
-+};
-+
-+struct SampleDriver {
-+    sdev: ARef<serdev::Device>,
-+}
-+
-+kernel::of_device_table!(
-+    OF_TABLE,
-+    MODULE_OF_TABLE,
-+    <SampleDriver as serdev::Driver>::IdInfo,
-+    [(of::DeviceId::new(c"test,rust_driver_serdev"), ())]
-+);
-+
-+kernel::acpi_device_table!(
-+    ACPI_TABLE,
-+    MODULE_ACPI_TABLE,
-+    <SampleDriver as serdev::Driver>::IdInfo,
-+    [(acpi::DeviceId::new(c"LNUXBEEF"), ())]
-+);
-+
-+#[vtable]
-+impl serdev::Driver for SampleDriver {
-+    type IdInfo = ();
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+    const ACPI_ID_TABLE: Option<acpi::IdTable<Self::IdInfo>> = Some(&ACPI_TABLE);
-+
-+    fn probe(
-+        sdev: &serdev::Device<Core>,
-+        _info: Option<&Self::IdInfo>,
-+    ) -> impl PinInit<Self, Error> {
-+        let dev = sdev.as_ref();
-+
-+        dev_dbg!(dev, "Probe Rust Serial device bus device driver sample.\n");
-+
-+        if sdev
-+            .set_baudrate(
-+                dev.fwnode()
-+                    .and_then(|fwnode| fwnode.property_read(c"baudrate").optional())
-+                    .unwrap_or(115200),
-+            )
-+            .is_err()
-+        {
-+            return Err(EINVAL);
-+        }
-+        sdev.set_flow_control(false);
-+        sdev.set_parity(serdev::Parity::None)?;
-+
-+        Ok(Self { sdev: sdev.into() })
-+    }
-+
-+    fn receive(sdev: &serdev::Device<Bound>, _this: Pin<&Self>, data: &[u8]) -> usize {
-+        let _ = sdev.write_all(data, serdev::Timeout::Max);
-+        data.len()
-+    }
-+}
-+
-+impl Drop for SampleDriver {
-+    fn drop(&mut self) {
-+        dev_dbg!(
-+            self.sdev.as_ref(),
-+            "Remove Rust Serial device bus device driver sample.\n"
-+        );
-+    }
-+}
-+
-+kernel::module_serdev_device_driver! {
-+    type: SampleDriver,
-+    name: "rust_driver_serdev",
-+    authors: ["Markus Probst"],
-+    description: "Rust Serial device bus device driver",
-+    license: "GPL v2",
-+}
-
 -- 
-2.52.0
+2.47.1
 
