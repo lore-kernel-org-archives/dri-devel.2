@@ -4,63 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 453A0F557E5
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 08:40:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECD2EF557EA
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 08:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DB7210E44F;
-	Mon, 20 Apr 2026 08:40:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 560DC10ED4D;
+	Mon, 20 Apr 2026 08:49:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="pE4IBYNF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t4FdsTlW";
 	dkim-atps=neutral
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com
- [113.46.200.220])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83BEC10E46E
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 08:40:53 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=KkNSAAu4NiPoiXkjTHA/BRAu/Ve+KKj1eJyn0OtbZT8=;
- b=pE4IBYNFaq3XPFa8q7p6v/QbCio7bojNpxF1dr/bLBGuu5pMxJdbjgs8CLjoPQmd1klC9uNzx
- raUyoKffI/wz2+nByiq9WeIXFk/Otx51ATj8w//68vUOVKCme77HQovoxRZ6XSYYHnvC8Cf4mf2
- bC/puUTyS2JLFh5mTwaFRYo=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
- by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4fzf175XvPz12LDS;
- Mon, 20 Apr 2026 16:34:35 +0800 (CST)
-Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
- by mail.maildlp.com (Postfix) with ESMTPS id D80BD4056A;
- Mon, 20 Apr 2026 16:40:50 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 20 Apr 2026 16:40:50 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Mon, 20 Apr 2026 16:40:50 +0800
-Message-ID: <7407b6cf-70a0-42a0-b63f-5cdaae0eb4b8@huawei.com>
-Date: Mon, 20 Apr 2026 16:40:49 +0800
-MIME-Version: 1.0
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010050.outbound.protection.outlook.com [52.101.85.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A757510ED34
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 08:49:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Jh46c+snIxoX4nH777OfacfINYs2xznCoEmG0piKlnrcFvUC/GIjEdAMvBiZ0I3IfqbA2rdmCozR+gDtG7nwtU7xoMN4tvC6UQViNa2l8HsuTh58S4RRXpZ6PgtL2s5+h322+9y967+9lfGyquJg7i/gHcJrHZbaZMSVkur6ipsWwOZ08ltPP6apEGXwHY2EYrZ6nwwZsJCuI5DLggjUTqskh+huBgjvjDD53sB9dOazGE4s3fyFWLGNbrlSBeeUUC38WXp0sHrZCSXLSe4l27OFeKklmiO9PJkpUPYoGPh28GShXP14UG20TEBKGaJvptfqbilbGprlP5lrYC5M9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zsDrcaNrUkCXNMufmLhSGq4a1iTV4V5vsYmPV2fsJR8=;
+ b=oGLQD/7sBNo4UBN0tTrM1QHAcUetvekOTmbcKStsATy9XwmXA0sXCgD5ayE4Apom4xFOImwIXLeUR8bzDqFyMcjvLJnKVLBOvyaBCbMaDA1kHiHsCDgODFYzre16AOWbAqMD+sSVBlpZOZcts3UZn0+QQ53btO7VGhZ1OjXWvdfvIg7uYAMV+FLmQwyXbbJ9+OGnzZTDFULF8ofCs6WDickLVmvUth+8B31NOK0UKmyiVFJAP8Fm5Na6tqi8sgwc2YF85w6Nx1l/wN9PO2ki0t0wTnUhFS9Oqeh8AkeMG9YQuSYt4n4wyn0yfH1mIQ20g5RdJbW4Rv/8Voocxqbdpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zsDrcaNrUkCXNMufmLhSGq4a1iTV4V5vsYmPV2fsJR8=;
+ b=t4FdsTlWK6acs+uLIEv84DvBMpmRRPGGYpIyb2q7tIm2VPWzcr/QbgLbbNEwjFfbi1DdI95N4vvc07OKXvEvZRxnOXBcxq4TekxDNjhZsm2cS0vvc81VULsvB9KKTD7KCaSbMQ+2Qa+YyINI4LGu+k2dMM0fCKOavvM9pr4o3/g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by CH1PPF6D0742E7B.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::613) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.8; Mon, 20 Apr
+ 2026 08:49:34 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 08:49:34 +0000
+Message-ID: <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+Date: Mon, 20 Apr 2026 10:49:19 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for drm-misc-fixes v4 2/4] drm/hisilicon/hibmc: fix no
- showing when no connectors connected
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- <dmitry.baryshkov@oss.qualcomm.com>, <tiantao6@hisilicon.com>,
- <xinliang.liu@linaro.org>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <kong.kongxinwei@hisilicon.com>
-CC: <liangjian010@huawei.com>, <chenjianmin@huawei.com>,
- <fengsheng5@huawei.com>, <helin52@h-partners.com>, <shenjian15@huawei.com>,
- <shaojijie@huawei.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <shiyongbang@huawei.com>
-References: <20260416092455.1990632-1-shiyongbang@huawei.com>
- <20260416092455.1990632-3-shiyongbang@huawei.com>
- <cb1f80ec-20af-4e59-a32e-b1e61e66af0d@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <cb1f80ec-20af-4e59-a32e-b1e61e66af0d@suse.de>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Val Packett <val@invisiblethingslab.com>,
+ Suwit Semal <sumit.semwal@linaro.org>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+X-ClientProxiedBy: MN0PR02CA0016.namprd02.prod.outlook.com
+ (2603:10b6:208:530::14) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|CH1PPF6D0742E7B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98689cc9-59bd-445d-e193-08de9eb9be74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: +XAwL9tin4y75mfpeY78I1nRzW8iBdYspBxw9Pxhl8JrFjDKFS13+gUHoMi8CVYheJxcu53js2XRK0sOlhRywmo7TGlEOs7J8QGlMz26a1djMb4yhD8IF0fe6fipq7edwi0E0aYHzdJF4JYuvB0Y13kY/WREKNXX9kckXNrskc1wAlEyLthOwVwVzkH6bIeyv+H3EbCesHyovZEGiWsz2WBn0rVEzZaiqneiVEpfVKHcfxRe5vkYg+JsDriwypqkshYJysMr/M82x0KDlORYc701byk/wNYESFsEr4jFybig4UH7NunZ+4Kkvs+0TUjhRlxDt/Ek05ad1eMY+aPtdNCQa9rVf6Truq8E0PrYA2aFim4XIAHO3YVdv2M6SQ8vz0bdvb3Ulq4lUSr2J914VzDdTbLc/6tR+8PHiRx/wAxmP9F0nlzNJcgeWBdv+mm/tL/OZ4CgSbhdB2+aTCjWy5xm6YUzeYkN4i7c9ySqE1uHZgENDN/rjhLc6QUeIi4r02u5oRDyZWxpMw1PPo3zaF19kau0oKDkvB5k+c73+4dClsb628YMU2EdQ65ZTOLUgR/Fe9ZHsYrcCSor2OwabGvmkP8uLgeFyWbeVCDEok+xGydMQr2SKgADo7Ef95iH26DArplVb5cUMa+qf1uJy8m8IFwQ7AdInyj/Npj912LiktYqKNmKpUXNGlvo8p+c31GADPkU0G9t7uZs/58D9eClrZswlBi3hlR7f9ydv3s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bWlvSFpLUmNpZGhWb0lZSWg2ZEN5VXBITDZUa3hTRTE4WllTdzJWTFM1NVRY?=
+ =?utf-8?B?cmE3UXRRNDFpdFBUbUY1QkE3QUJUWmxaSnJDaU9HaEVMYmN5MTQ5YnFTK1VL?=
+ =?utf-8?B?RnNITlFFdEU2SkNsbG5FUHA3Ukd1eDVHdDJDN2NNTU5Wa3B2RWp3NE9jcVND?=
+ =?utf-8?B?RElCcnpGNkZ6U3ZnZkFXR3pKaVcweERTbEFQUzRNMjN3NElUNU16YVdPbWdP?=
+ =?utf-8?B?and6K1FjbmdRdGFtemk4L2dCRkl6OGxaUWl2SGdTcVBySC9nSVJCTSt6c0JD?=
+ =?utf-8?B?UEpOeTRGbVFoVU1WSmxpeDVET1RGQ2FpR2xjK2g3SlFDNWJZSjZadGJ1ZWZt?=
+ =?utf-8?B?M3htM3NmQk9mQWlYemtJVW1zNVpiVWVqYzVVU0VpRXVlQjZpU1NkMEgzM2Zi?=
+ =?utf-8?B?YUxJK2p4NWRzUzRFMVVMMDAxamlHSmtWdXF3NmZJV3dLZmhjMGYrU0F3Yytp?=
+ =?utf-8?B?REFISmMrazBIbUFHSkJ3QkV0UVd2a3IxR28wNFFmUXJHODRRV2JTMWxWNjhS?=
+ =?utf-8?B?c2dTbCtMZXNqcjV0VzhzbWNKMVNSbFB1WjI5Z3orbjROTVFLTTZVNVUxMUo5?=
+ =?utf-8?B?OFAyUjUzdEI5ZjBRUllDTllYWkxZSC9ud3FCRXptT0FuR0o1aWtOa1ZlbFF0?=
+ =?utf-8?B?WTV4VDRheE03QkNESWRRWHBOS2pQQTN0emlxYUdxL1VHTy9EVmh6bGpKcmFW?=
+ =?utf-8?B?VTNYYTFMMWo0bG1LMngvMi9GdU53UW5WVWNHSjZVUWowR2M1MU5saVRwSlBF?=
+ =?utf-8?B?ekxkQU0wOXBaekNNdm1EaytZNW1qWUx1UWl3V2NRcTFEUGpyQXk5dXA0dmdE?=
+ =?utf-8?B?cE5lMldNV0VQUmJ2S2h4dmZDdnA1QmdtL2h1anRUSGxnZFBKZEdvdHE0OEt0?=
+ =?utf-8?B?cHBPZUorVkUyamsvcFgzWUROZXRzMVJYNE8zYWM2a3d2NzhxR0I1RGo0WUN5?=
+ =?utf-8?B?Q1RNSnl1emxLOUtCcktNTktnSWRwOWxwL3ZTZjBXMkZwNkovSjM4SDRKZGdn?=
+ =?utf-8?B?bm05dm1ueTAvSklKSEd5QUE4WTArdis4M1JhcXpZNXhHSTF2TVdHcjBTQzYz?=
+ =?utf-8?B?ZnJDd0xDZDJMVWdkcWpEaG81ekdEbk1La0xJTDhCYStEZmVwamtLVEZyZzR3?=
+ =?utf-8?B?R00rUlZPTmJNZU1UeWlsQmxUUWl3S2lYL2gveGdaZGd6cVB2WkpRUUhQT0Vw?=
+ =?utf-8?B?emNvUTFUZStDa0lrUExOeDJqSEg0Ylg5YlhZWTVEMGxkUlhpUCtsNHp0azV0?=
+ =?utf-8?B?SjhTekVya1JxM2JGaTNyakliUFJiZFlDbERIWXJIRkJncWQzZTZSZktrQ2c2?=
+ =?utf-8?B?RFlNdFRTejlwQS9hY1QwMGxjME1IbHRoZ2RURmtlendiMER0K2V5TUhwRGto?=
+ =?utf-8?B?RjJqN080czlHV2FScVp2T0Nxb2cyVXZCSU4rVHR0bmF4TldqVzgzemQvcVUv?=
+ =?utf-8?B?bXlNRU8wS202YnhQRE1jSFpjNklLdFlXZVJtbElUZVJUSW1yK1NDcklJMEcw?=
+ =?utf-8?B?cjFoc3A4Y0I4bGdzNVVHVU11WmQzOTVXbmNkVEtWdWFvRzBpR1QwRmsrd0Va?=
+ =?utf-8?B?bitlQVJXRFBrRGVUZ0hBQU1hSU12cU01dUtaWjVVaVQzem9GK1JTRFVsb1Ri?=
+ =?utf-8?B?MVoxY0Z1enFtYjlPSFRwTWJKbHlGaHJWU0RKclk3b1Z3UENRQlVLWFdzUzVN?=
+ =?utf-8?B?bDlvRlFtcGdhVEFBT0N0aWVGaDVheFAvbDgvWllYekVXcGU5WHFBMXg4Vm14?=
+ =?utf-8?B?YUtvbXY0UzhpWE5RNTkxSWk5TmVvckZZR2dDdi9MSUUzQ2NPUkh3RmFMNlhh?=
+ =?utf-8?B?RGQyeEVPR1NFNTV1ZXhvcWFOK3hWOXdkLzZDYlZuYXVCcEtaRHlhdlVETUVJ?=
+ =?utf-8?B?Ty8rNXVYNWRyNFo4aSt4WGgveWxVVEc3TFczUjdLaWF4bDZ3RHUrekpRZFFK?=
+ =?utf-8?B?SnBoWTZ1aVRSTXp4Umc5VHoyTjRtZGpQd282VXM1REFsVklZTS9uRnAzRHNa?=
+ =?utf-8?B?UTVURUlpaDlMR3JobkYxUjZVRkNNZXVUTmJEYURTdmhIamJ4ajBYRmRoYUd3?=
+ =?utf-8?B?YXFmNjR0QjJwSGhsUnRONktHRzFVbHd3SzAyTVQ2TFNsRFhqS01uRENGSm01?=
+ =?utf-8?B?S3dxOEFSckh2YjJXRXhtUnptVlVKOUY5aE1HYXprWGt1TXYzVE90enBRcGU0?=
+ =?utf-8?B?U3ovYmNVRlNGaDlTUDFpK1pvWG5QVDdqT1J0OWdDVGRwVTJ1dURnZ09mREJG?=
+ =?utf-8?B?MGdQTkFRalpTZW9UTDZKYUpPb1hnQ0p5UG5hblFrZHkxRlBGTU90WEhTVzY3?=
+ =?utf-8?Q?37HLKVtdCnOfqq24jU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98689cc9-59bd-445d-e193-08de9eb9be74
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 08:49:33.8690 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L4AOF/wSRw0kWpgFsMG7PMglELLckluyinfWDWX3HxcHZmptE+iGzvQbn09MZPy9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF6D0742E7B
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,247 +142,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-> Hi
-> 
-> Am 16.04.26 um 11:24 schrieb Yongbang Shi:
->> From: Lin He <helin52@huawei.com>
+On 4/17/26 21:35, Demi Marie Obenour wrote:
+> On 4/17/26 03:53, Christian König wrote:
+>> On 4/16/26 18:13, Demi Marie Obenour wrote:
+>>> On 4/16/26 05:57, Christian König wrote:
+...
+>>> Unless I am
+>>> mistaken, client workloads are highly non-uniform: a single game or
+>>> compute job might well use more VRAM than every other program on the
+>>> system combined.
 >>
->> Our chip support KVM over IP feature, so hibmc driver need to support
->> displaying without any connectors plugged in. If no connectors are
->> connected, the vdac connector status should be set to 'connected' to
->> ensure proper KVM display functionality. Additionally, for
->> previous-generation products that may lack hardware link support and
->> thus cannot detect the monitor, the same approach should be applied
->> to ensure VGA display functionality. Add phys_state in the struct of
->> dp and vdac to check all physical outputs.
+>> Yeah, perfectly correct.
 >>
->> For get_modes: using BMC modes for connector if no display is attached to
->> phys VGA cable, otherwise use EDID modes by
->> drm_connector_helper_get_modes,
->> because KVM doesn't provide EDID reads.
+>>> Are these workloads impossible to make work well with pinning?
 >>
->> Fixes: 4c962bc929f1 ("drm/hisilicon/hibmc: Add vga connector detect
->> functions")
->> Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Closes: https://lore.kernel.org/
->> all/0eb5c509-2724-4c57-87ad-74e4270d5a5a@suse.de/
+>> No, as long as you don't know the workload beforehand, e.g. when you define the limit.
+>>
+>> I mean that's why basically everybody avoids pinning and assigning fixed amounts of resources.
+>>
+>> Even if you can make it work technically pinning usually results in a rather bad end user experience.
+>>
+>> Regards,
+>> Christian.
 > 
-> The bug I reported is that the DDC does not return an EDID at all.
-> Therefore hibmc fails to detect the connected VGA monitor. AFAIU that's
-> not what is being fixed in this patch.
+> Do drivers and programs assume that they can access VRAM from the CPU?
+
+Yes, and that is actually really important for performance.
+
+That's why Alex and I came up with the idea of using the resize able BAR feature to access all of VRAM on modern GPUs.
+
+There are a couple of hacks which have been implemented over the years for exotic platforms were MMIO/VRAM access was problematic. For example on a page fault you use a GPU DMA engine to copy the VRAM buffer into system memory, make the CPU memory access and then copy it back again on demand at the next command submission.
+
+But all of those hacks are basically just prove of concepts and result in completely unusable performance.
+
+> Are any of the following reasonable options?
 > 
+> 1. Change the guest kernel to only map (and thus pin) a small subset
+>    of VRAM at any given time.  If unmapped VRAM is accessed the guest
+>    traps the page fault, evicts an old VRAM mapping, and creates a
+>    new one.
 
+Yeah, that could potentially work.
 
-The actual root cause of this bug lies in the board design of older
-Huawei servers, where the chip's DDC I2C link was not connected to the
-VGA port. There is no way to resolve this issue of being unable to
-retrieve the EDID unless the hardware of the existing board is modified.
+This is basically what we do on the host kernel driver when we can't resize the BAR for some reason. In that use case VRAM buffers are shuffled in and out of the CPU accessible window of VRAM on demand.
 
-In the previous hibmc-drm driver, the
-`drm_connector_helper_funcs.detect_ctx` callback function was not
-registered, see kernel version 6.12.82 at[1], As a result, the DRM
-framework returned “connected” by default. Even if no EDID was read, the
-display would use the default resolution set in the hibmc-drm driver.
-This is why the kernel version prior to the one you reported this bug in
-was able to display properly.
+> 2. Pretend that resizable BAR is not enabled, so the guest doesn't
+>    think it can map much of VRAM at once.  If resizable BAR is enabled
+>    on the host, it might be possible to split the large BAR mapping
+>    in a lot of ways.
 
-However, in this patch[2], we modified this logic by hooking the
-`drm_connector_helper_detect_from_ddc` function to the VDAC’s
-`detect_ctx` callback. This function determines connectivity based on
-whether an EDID is read, which resulted in older servers being unable to
-display anything.
+That won't work. The userspace parts of the driver stack don't care how large the BAR to access VRAM with the CPU is.
 
-From the patch you contributed,，I understand that you are using an
-RH1288H V3 server. I have confirmed with our chief hardware engineer
-that the board design for this series of servers does not connect the
-BMC chip’s DDC I2C to the VGA port.
+The expectation is that the kernel driver makes thing CPU accessible as needed in the page fault handler.
 
-[1]https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c?h=v6.12.82#L60
-[2]https://lore.kernel.org/all/20250320101455.2538835-10-shiyongbang@huawei.com/
+It is still a good idea for your solution #1 to give the amount of "pin-able" VRAM to the userspace stack as CPU visible VRAM limit so that test cases and applications try to lower their usage of VRAM, e.g. use system memory bounce buffers when possible.
 
+> Or does Xen really need to allow the host to handle guest page faults?
+> That adds a huge amount of complexity to trusted and security-critical
+> parts of the system, so it really is a last resort.  Putting the
+> complexity in to the guest virtio-GPU driver is vastly preferable if
+> it can be made to work well.
 
->> Signed-off-by: Lin He <helin52@huawei.com>
->> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
->> ---
-> [...]
->> +static int hibmc_vdac_detect(struct drm_connector *connector,
->> +                 struct drm_modeset_acquire_ctx *ctx,
->> +                 bool force)
->> +{
->> +    struct hibmc_drm_private *priv = to_hibmc_drm_private(connector-
->> >dev);
->> +    struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
->> +
->> +    vdac->phys_state = drm_connector_helper_detect_from_ddc(connector,
->> +                                ctx, force);
->> +
->> +    /* If the DP connectors are disconnected, the hibmc_vdac_detect
->> function
->> +     * must return a connected state to ensure KVM display
->> functionality.
->> +     * Additionally, for previous-generation products that may lack
->> hardware
->> +     * link support and thus cannot detect the monitor,
->> hibmc_vdac_detect
->> +     * should also return a connected state.
->> +     */
->> +    if (priv->dp.phys_state != connector_status_connected)
->> +        return connector_status_connected;
->> +
->> +    return vdac->phys_state;
-> 
-> This will break user-space compositors if DP and VGA are connected at
-> the same time. I know, because we had such logic in ast and mgag200.
-> 
-> Today's compositors expect a single encoder-connector pair on each CRTC.
-> That's what most contemporary hardware provides.  But the server
-> chipsets usually come with one a single CRTC and multiple connectors
-> attached to it.  Compositors fail to configure that. When we had this in
-> ast and mgag200, Gnome would display garbage to the screen and mode-
-> setting would fail. The bug report is at [1].
-> 
-> In ast and mgag200, only one connector would be installed on a single
-> system. So we could avoid the problem. It looks like that this is not an
-> option with hibmc. VGA always seems to be present and DP seems optional.
-> I would advice to only report one of the connectors as 'connected' if
-> both are installed on a system.
-> 
+Well the nested page fault handling KVM offers has proven to be extremely useful. So when XEN can't do this it is clearly lacking an important feature.
 
-According to our BMC chip specifications, both VGA and DisplayPort
-outputs are required, but only one connection is allowed at a time,
-which seems impractical.
+But I have one question: When XEN has a problem handling faults from the guest on the host then how does that work for system memory mappings?
 
-Do you have any additional details regarding this issue with the Mutter
-synthesizer? For example, steps to reproduce the issue or more specific
-alert logs. I looked at the issue you submitted to Mutter, which
-describes the phenomenon as "a warning that the configuration is
-incompatible", Could you clarify what this warning specifically refers
-to—is it a message displayed on the screen, or is it a specific entry in
-the logs?
+There is really no difference between VRAM and system memory in the handling for the GPU driver stack.
 
-Over the next few days, we will focus on testing relevant scenarios
-while setting both the VGA and DP ports to `connected` to see if we
-encounter similar issues or warnings.
-
-> You also need to increment the connector's epoch_counter if the physical
-> status changed. Doing this will trigger DRM clients to re-read the
-> connector state and reconfigure display.
-> 
-> Something like that
-> 
-> dp_detect()
-> {
->     dp.phys_state = detect_from_hw()
-> 
->     if (dp.phys_state changed)
->         ++epoch_counter
->     return connected
-> }
-> 
-> vdac_detect()
-> {
->     if (dp.phys_state == connected)
->         return disconnected
-> 
-
-Only one option is displayed here, but it does not meet our specifications.
-
->     vdac.phys_state = detect_from_hw()
-> 
->     if (vdac.phys_state changed)
->         ++epoch_counter
->     return connected
-> }
-> 
-> This handles the KVM in each connector's helper. The ast driver is
-> probably the best reference for the current logic. See [2].
-> 
-
-I looked at the implementations of `detect_ctx` in ATS and MGAG200;
-these implementations generally always return `connected`.
-
-If my analysis is correct, the logic should be as follows:
-  - If the `detect_ctx` function implemented by each vendor returns the
-    actual hardware state, there is no need to modify `epoch_counter`;
-    the DRM framework will execute `epoch_counter++` based on the return
-    value of the `detect_ctx` function;
-
-  - If the `detect_ctx` function in a vendor’s code always returns
-    `connected`, then `epoch_counter++` must be performed within the
-    vendor’s `detect_ctx` function; the implementations in ATS and
-    MGAG200 appear to be like this;
-
-
-Here is the pseudocode for our current logic. This logic is indeed a bit
-hard to grasp, so I've added some more comments; it might be a bit
-clearer than the patch:
-
-dp_detect()
-{
-	dp.phys_state = detect_from_hw()
-	
-	/* epoch_counter update by drm framework */
-	return dp.phys_state;
-}
-
-vdac_detect()
-{
-	/*
-         * Scene 1: The driver runs on an older version of the BMC chip,
-         *          and `dp.phys_state` is initialized to 0. To maintain
-	 *	    consistency with the previous hibmc-drm driver
-	 * 	    logic, always return `connected`.
-	 * Scene 2: The driver runs on an new version of the BMC chip,
-         *          and `dp.phys_state` is real status, witch is real
-	 *	    `disconnect`. In this scenario, we must ensure that
-	 *	    the VGA is `connected` to guarantee that the KVM
-	 *	    displays properly.
-	 */
-	if (dp.phys_state != connected)
-		return connected;
-
-	/*
-	 * DP is connected: This driver is definitely running on the
-	 *	    latest BMC chip, and the DDC I2C is definitely
-	 *	    connected to the VGA port, so we can confirm whether
-	 *	    the VGA is present by reading the EDID directly via
-	 *	    I2C.
-	 */
-	vdac.phys_state = detect_from_hw()
-	
-	/* epoch_counter update by drm framework */
-	return vdac.phys_state;
-}
-
-Sorry for the delay; it took me a little while to figure out how best to
-explain this bug and our current implementation.
-
-Thanks,
-Yongbang.
-
-> [1] https://gitlab.gnome.org/GNOME/mutter/-/issues/3858
-> [2] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/ast/
-> ast_vga.c#L47
-> 
-> Best regards
-> Thomas
-> 
->> +}
->> +
->>   static const struct drm_connector_helper_funcs
->>       hibmc_connector_helper_funcs = {
->>       .get_modes = hibmc_connector_get_modes,
->> -    .detect_ctx = drm_connector_helper_detect_from_ddc,
->> +    .detect_ctx = hibmc_vdac_detect,
->>   };
->>     static const struct drm_connector_funcs hibmc_connector_funcs = {
->> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
->>         connector->polled = DRM_CONNECTOR_POLL_CONNECT |
->> DRM_CONNECTOR_POLL_DISCONNECT;
->>   +    vdac->phys_state = connector_status_connected;
->> +
->>       return 0;
->>     err:
-> 
-
+Regards,
+Christian.
