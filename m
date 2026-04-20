@@ -4,75 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ABF7EA71B1
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 00:25:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC45EA71B3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 01:01:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62E0710E051;
-	Mon, 20 Apr 2026 00:25:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F6DE10E07F;
+	Mon, 20 Apr 2026 01:01:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GiMbMkI/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S984cYUi";
 	dkim-atps=neutral
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBDE610E051
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 00:25:32 +0000 (UTC)
-Received: by mail-qt1-f172.google.com with SMTP id
- d75a77b69052e-50e63771d91so253401cf.0
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 17:25:32 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
+ [209.85.217.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2676910E07F
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 01:01:32 +0000 (UTC)
+Received: by mail-vs1-f53.google.com with SMTP id
+ ada2fe7eead31-60fa5eb3ee1so786336137.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 18:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776644732; x=1777249532; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1776646891; x=1777251691; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pD01rqioldlYsrskZpVddZZVgvRR2M6kER/Afl9Dngk=;
- b=GiMbMkI/llRXrOUt0SfwhHIfGZ5ENsd2DH6J3IaG6wrlZGpUEHYSHVFU8vd8kZzS+a
- 0qdx6cfJ7voQpS030raQSaGRnOuHc6OHulIw2b1eddKXU4FdwHbumbsxuTJzVPY1ICk8
- inCVAYpzSlj0TkzZG40HWzynm6BoBGtuKOVAzvzNw+5ynU+YfUsZA3wgwM72F8VUCETZ
- Br+tQeeka02VyHlMdNFeRNt7ih7VrMOO3aLBsDBuCXIJemml8FZDNxgqE0heR5HOy9Hh
- nw1MldZWtY8diuLuJGYz4RQqDWMy1YsV24wL+c+hn64nRKYjkuqg6IaXH37XLjdRK3Wd
- Aofw==
+ bh=cExEE0g/VkjWFezfORG8uwyZglaid4Bs+rAW28gYyow=;
+ b=S984cYUiviV74cN3zwTkYnFL82e4FFgHD+vbM8q5jo0wdQgmlfvCSMVSrjlnXpN+D3
+ 4g1MJwN3/IaqgB/h+PR6HrskNAbPy6Zgsx1n7Cq3+Uyypj7xbpkyn4U31ptMN1Y1Cho/
+ lt5GzXqa8DJW3obPpPegKcylljUH71C2LUKu8ccV//AnN2fE3gwi2ZyL22r5piwx7tdP
+ 8MvU8E+QRtGQMZPt8Qzn3mSjE2V6fbc2ko8wz7qudjqdwW3a94Kg7rHdaaOZw5RZz3WZ
+ grIaQc3cJOnxNkBVDj+QXzAX+DVCaSGQSuIOQ1B2ZsO0VOyvi5AsgN/Cg8O6oKt/+37O
+ S+OA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776644732; x=1777249532;
+ d=1e100.net; s=20251104; t=1776646891; x=1777251691;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=pD01rqioldlYsrskZpVddZZVgvRR2M6kER/Afl9Dngk=;
- b=GQ/2jXflWlVzvM0xbZu27JHbAcTzw2UNKb428HuAPLjM2/AIXYTRv6fGyOGWAAJmCc
- Dn312+579Jy9YnWnToGb6A8bvpvbrQHeOmj3smI5gUyo/Yd8QBzNigHWna0+6PRJHWpE
- 1wdhZnj5+pq38D7y2Nr8eWuodz8AF9LXY2h3sS6JEjpqczoh2tf6aFEHcULqm8rxKVZF
- US6vvjsjIIYNV3FObih7PhlDmwAC+NYrcVuiyy1971KCOa8Q6AFhtTYTgENjFrtsmZOC
- 9W319KVCsNLDn5faBqbG4FFwVOyBUxcJALs85B/rNOugE9UBec9GFt/2lEBPwfdvWDd6
- PQsg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/vMSWFir4F6hvcPU/msVHpPnWrY13wQbiYgh3EP0Yrg7iwAD5lFFlPZIfDH5bojXD00YdqT7lkT10=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtRS8N3RitoItNdypeneJBahORTQl4d0N6uYds6jSSwYXJfy5e
- vi0lYpxeoc1LsFXrcgJE3VTsU5/p/uzIefgtxahBF2SzlM1y5hnR+r3L
-X-Gm-Gg: AeBDieuWrCC9DGZ7jl4Igi5+N900l4DQc9McxySEkj9e9ll65uuD4e1i675M9zM+T3f
- DKxmcn10GBshM32l4pkXB2j6OtoMjXNlLwwG1ZwnRwBS9+A9nZsFCFxwOFAUCIvx+Lc26HIXPTF
- VWGvts1fHC/ArQ0kLiz2lybUpicF9zFk32ODqQiHt24hxJNb7VZy9U1aQwL036oIPwhogH4alPZ
- 9kGif6iRc1qdYsiuzTXUMIPL69Y97E0K7sdPz3rqeubfllWlmazPyjbqxtgTsrzamerAgRuwRkp
- KXcMH6reZWOPqyXCSdt/hrGn51V8qy3akGvjwOnoYAi3hr6RegbSA0sbkNFta9iy35wujAX2Mz5
- datARoHFWP7qduzfxvkRVUgmC/uV4Dl82PHitkCxNCFpurhY7DSFfTHHz9KUubVyRt9RwacgRCs
- DdW/j7/gfyYYK+91lWqJ+NCiHCFhYHDNHK932zjZE2XaGKVR8gbwktXAF/5xaNZ1AMxXwOBQ==
-X-Received: by 2002:ac8:7c56:0:b0:50d:9b07:9c2b with SMTP id
- d75a77b69052e-50e36c8da62mr179916521cf.56.1776644731742; 
- Sun, 19 Apr 2026 17:25:31 -0700 (PDT)
+ bh=cExEE0g/VkjWFezfORG8uwyZglaid4Bs+rAW28gYyow=;
+ b=GnMdnQw/NCLtsUZHsGC4qgn218C4nkBTScxaGaidfReuTu6ftSqV00K3Tq2XiHAf2Y
+ dIAYafvyCt1T/uvuveKatDnDWfxi3BlPCNCMBnNK8cyqLd63NypiLN2nCn6qxR8xeAn5
+ qDNVuWrs92QDezg8BhIv9had8hFawQ9JgcRieT9ZXNy1PDNWhrELSuoDWPfxiqVP7Yb3
+ fF2uWx2nYwFfiMkNKZjJ2CeHsR07xJTyMyk+orufLAL5ukGyxO5CBzI0uRGyyd2slAsD
+ wfgruCjZ+6qwSx30tBURrplGzmMct9ySfIxsvmAC4xHzqKOG35XjDsHGgZ49oh1dLG5o
+ bBhQ==
+X-Gm-Message-State: AOJu0YxThBE5BScllrz68Xurjfbdwc8RZEJsQ3jYwnmU4sl+1QtrtMLL
+ gLzi33W2PWK6E0y4LEPq0ZU4hsq1Jd7Y/+3Hv4+SGAVfNKfjmsA+p6IS
+X-Gm-Gg: AeBDietcCL2dYFvuxhYxSyZyQZbitaMB/RtugV2VSzLKEgdgZhYhrCjAY1IGTuSJZTN
+ yXkW7Zo/KIQjxnxMIXekkCTGSiUwSGpTRupV/S04V4ku9Iz3dmrc6h0knDSGdSnxuJjM+ic4G8E
+ tc4KwcOBuJMEUeBq1GlzZK+eRXBfARMI090PRXqFWOYqYxvhmaBh8cG1S82uxubUfQlP36Rov8Y
+ 6P5mi2E6Jgb3fzhESbT7I5WibEInCFjukrlZ13rmM4fql9cBTgvsVxug8UIUIp5BslkRvf1eD1Q
+ MP44xTBiM/PniaJ0Mqr8cDV8SfzaxvHIbEuG6k++DG+/GVlDZpd78KJrZCVCpaYgwf3h61rBXH+
+ xeY03WCQvbCBAe6lkC5DO3G3dTIWTfT8GE/3IuGGBiVGBU/BLGvzeS5NLKE5T5yvMcKSIrmk4Vf
+ 8FFG5/AgZHy0W7/Y9dBl4yvTWgeIf4Acj34lm3gJmIInonQNhQs0Xb2bbREdw=
+X-Received: by 2002:a05:6102:6c9:b0:607:f24a:1bef with SMTP id
+ ada2fe7eead31-616f60b3913mr4269910137.13.1776646890798; 
+ Sun, 19 Apr 2026 18:01:30 -0700 (PDT)
 Received: from localhost.localdomain ([165.85.38.136])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50e392c7994sm71923961cf.4.2026.04.19.17.25.29
+ af79cd13be357-8eb9becc6c3sm44376885a.39.2026.04.19.18.01.29
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 19 Apr 2026 17:25:30 -0700 (PDT)
+ Sun, 19 Apr 2026 18:01:30 -0700 (PDT)
 From: Yuho Choi <dbgh9129@gmail.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+To: Helge Deller <deller@gmx.de>, Jason Donenfeld <Jason@zx2c4.com>,
+ linux-fbdev@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Myeonghun Pak <mhun512@gmail.com>, Ijae Kim <ae878000@gmail.com>,
  Taegyu Kim <tmk5904@psu.edu>, Yuho Choi <dbgh9129@gmail.com>
-Subject: [PATCH v1] drm/sysfb: ofdrm: fix PCI device reference leaks
-Date: Sun, 19 Apr 2026 20:25:13 -0400
-Message-ID: <20260420002513.216-1-dbgh9129@gmail.com>
+Subject: [PATCH v1] fbdev/offb: fix PCI device reference leak on probe failure
+Date: Sun, 19 Apr 2026 21:01:18 -0400
+Message-ID: <20260420010118.17960-1-dbgh9129@gmail.com>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -91,14 +86,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-display_get_pci_dev_of() gets a referenced PCI device via
-pci_get_device(). Drop that reference when pci_enable_device() fails and
-release it during the managed teardown path after pci_disable_device().
+offb_init_nodriver() gets a referenced PCI device with
+pci_get_device(). If pci_enable_device() fails, the function returns
+without dropping that reference.
 
-Without that, ofdrm leaks the pci_dev reference on both the error path
-and the normal cleanup path.
+Release the PCI device reference before returning from the
+pci_enable_device() failure path.
 
-Fixes: c8a17756c425 ("drm/ofdrm: Add ofdrm for Open Firmware framebuffers")
+Fixes: 5bda8f7b5468 ("video: fbdev: offb: Call pci_enable_device() before using the PCI VGA device")
 Co-developed-by: Myeonghun Pak <mhun512@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
@@ -107,29 +102,28 @@ Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
 Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
 Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
 ---
- drivers/gpu/drm/sysfb/ofdrm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/video/fbdev/offb.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
-index d38ba70f4e0d3..247cf13c80a05 100644
---- a/drivers/gpu/drm/sysfb/ofdrm.c
-+++ b/drivers/gpu/drm/sysfb/ofdrm.c
-@@ -350,6 +350,7 @@ static void ofdrm_pci_release(void *data)
- 	struct pci_dev *pcidev = data;
- 
- 	pci_disable_device(pcidev);
-+	pci_dev_put(pcidev);
- }
- 
- static int ofdrm_device_init_pci(struct ofdrm_device *odev)
-@@ -375,6 +376,7 @@ static int ofdrm_device_init_pci(struct ofdrm_device *odev)
- 	if (ret) {
- 		drm_err(dev, "pci_enable_device(%s) failed: %d\n",
- 			dev_name(&pcidev->dev), ret);
-+		pci_dev_put(pcidev);
- 		return ret;
- 	}
- 	ret = devm_add_action_or_reset(&pdev->dev, ofdrm_pci_release, pcidev);
+diff --git a/drivers/video/fbdev/offb.c b/drivers/video/fbdev/offb.c
+index f85428e13996b..166b2dff36f59 100644
+--- a/drivers/video/fbdev/offb.c
++++ b/drivers/video/fbdev/offb.c
+@@ -640,8 +640,13 @@ static void offb_init_nodriver(struct platform_device *parent, struct device_nod
+ 			vid = be32_to_cpup(vidp);
+ 			did = be32_to_cpup(didp);
+ 			pdev = pci_get_device(vid, did, NULL);
+-			if (!pdev || pci_enable_device(pdev))
++			if (!pdev)
+ 				return;
++
++			if (pci_enable_device(pdev)) {
++				pci_dev_put(pdev);
++				return;
++			}
+ 		}
+ #endif
+ 		/* kludge for valkyrie */
 -- 
 2.50.1 (Apple Git-155)
 
