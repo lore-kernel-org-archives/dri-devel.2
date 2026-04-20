@@ -4,78 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0099EA71B3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 01:37:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 972E7EA71B3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 01:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3D0310E094;
-	Mon, 20 Apr 2026 01:37:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 942E510E03E;
+	Mon, 20 Apr 2026 01:51:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bnAP9YwF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VN+aMKUP";
 	dkim-atps=neutral
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
- [209.85.128.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9454510E094
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 01:37:18 +0000 (UTC)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-79a46ebe2beso23094147b3.2
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 18:37:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776649037; x=1777253837; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PKU11ok0UdmISqg+TyGzbe+U8sWE0AZJ6IK5DjOXMLY=;
- b=bnAP9YwFA3r47yMKn/+jyDHqT2d+eJJhPeOmsB9SE3Cw1/RfG1fUhFL74SovkiALBO
- gfw5owAiDRmmTR2J40pDxRUJF1ZRb74/anP6kQYyWJfgWwLKmhJKEG8X6f08r41ldABC
- CPswABGCOQRAD/ep2oK2xLA3rkIitw69Xgw4wTET7Y2SPhuP/e4Qk/pbyNsc0mwEcu1B
- JN7ADa88VsHCqEkufymMmJI1TvgsILc/TIo9lRRertUFRBT3EuGOtXgdCYKM36DAJB+U
- 1RzVMhe+jKhrmwQQbnLjOYkS3lo0husCVeDvvslHBafw3wT6Y5KRIY0m1yFnsplvOzmk
- IcwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776649037; x=1777253837;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=PKU11ok0UdmISqg+TyGzbe+U8sWE0AZJ6IK5DjOXMLY=;
- b=flm1z/vGv52k+HW9+gAgJcSlcloV1IfbM/M4/K5pOS5tJHlAj4e8KRBP7sGV8Gp3nc
- ZU0yNj8T9Djd+fDNXHWojA+6SNFmhlJEpSUxCeAEleMqfS3DXZaB8LWCexGFlK1Tck2r
- 2Q8gsyjj9d8cTtLgx17Sh6gwiEP2+bAjOLghonhP2WORLkNS3GU8CqawIP5AXHOxflX4
- RMWRr2JuruyzNeLD84eN+xEU7ku0Fx2HKjieogzCLMy7u7siHERILZmYqtiKranOrjaw
- 45J3HFbngKyqGpdp2DNC1mJ+Ty+esIquYa/79RshRzRJtdAIRwHXIr6b2n++k3YiR5T/
- DoaA==
-X-Gm-Message-State: AOJu0YwfLgnpeIyXPcEEBeNKD0Vger4P85+os0T4CvIZtIEKR94SZB65
- 8ZretX7xG0WlyjQnfwLDQw7H0DdmrCQStPmAT6Ao3Ng2+rlMOhrjFhDa
-X-Gm-Gg: AeBDievFbpL8C/d9RNLGxHk6/BTuNFCyoHl8g8kDMqeRIoNRyMhqDz/dsUo7TGfV/dK
- 8iHnQGbUIQcD5zR6R6grF/U8U3FGeYCagsb4Q4TfAV4sGDoGMygXAj/GsuDlLmpXrlzDXiESscu
- T6M1FeDVJFAVfk+kY5kIPQvwD2KZXKs//uuXyXcSlIrvscMrmj61V/eLL3GbbpZW+LcW4KJSCh7
- Y/W8LqpX2F3J85+m+V75AoFp7wC5ERTgzE3ohlhJSvL7maPktfZ1zYbURzFZdDmo88n+OkGH7B2
- eDCgdenhlPpoi5E6xeEkd8Ld/9dcHnz+/SIl4A+Co52h3xRt4KbkXVMvwjHBCk+FkXRWQf9249o
- FsxwavAtetPm5Cwg/pTLeINsUQgzth/GvMbn19KS/cXjsPNCdsuq7aaEiM8s0Ui0iH56kDYKSie
- LHdEnHuoSA2fOeQYl7+306stodT2kCNeekfELrYVM6sQeExNvV1Zm12bgvGReUTyLWoJghPBhH8
- zrvRNQY5IIRaRvePH941vSZDEcpVr+GS6Zj8co=
-X-Received: by 2002:a05:690c:9:b0:7a2:7b00:67e6 with SMTP id
- 00721157ae682-7b9ecee8228mr133713637b3.21.1776649037367; 
- Sun, 19 Apr 2026 18:37:17 -0700 (PDT)
-Received: from
- TDC4045031631.e0cglfehwr0e5gttmepj3hi3hf.ux.internal.cloudapp.net
- ([20.63.37.123]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-7b9ee9b1c4dsm37350767b3.33.2026.04.19.18.37.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Apr 2026 18:37:16 -0700 (PDT)
-From: Ashutosh Desai <ashutoshdesai993@gmail.com>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Ashutosh Desai <ashutoshdesai993@gmail.com>
-Subject: [PATCH v2] drm/gem: Fix inconsistent plane dimension calculation in
- drm_gem_fb_init_with_funcs()
-Date: Mon, 20 Apr 2026 01:36:37 +0000
-Message-Id: <20260420013637.457751-1-ashutoshdesai993@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2f9cd84b-0642-418b-a4ed-7863716a8531@suse.de>
-References: <2f9cd84b-0642-418b-a4ed-7863716a8531@suse.de>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAA1910E03E
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 01:51:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776649884; x=1808185884;
+ h=date:from:to:cc:subject:message-id;
+ bh=vELjZH9JOJNjQpKH1U0W+AA+/wcqokC1UnVU0JRwe8c=;
+ b=VN+aMKUPZtZdhhRqLnEhYaAHnqF5XdBGC52N40w2geASUUZA551rcrjU
+ tgin4Cjm14tXnBjOjzPvFRj0ToK+1o/E7Zteg0dyc3ZHdnZwEQSswJ38m
+ RYAaO2tSkfeKGkwgdjdqkltv2lSJ0Jq4lE8X5BhNfa+h5NxKLwST8aofa
+ lAWOfbY1FR0+DGUbaM9clRzv3XkFZWSGyt6Ec8ys6U5szwWlQ9NL1+ATC
+ o/JyVlvQRRJtGwLqHjKRDZLWjwTA15GK69MTiSzmjLXWnMgAsedVisjLR
+ gJXirZVUJ1zRsdt6fTDS6aimZFx+6AZvsyycANTQxzAeZWc87lutQoNFt w==;
+X-CSE-ConnectionGUID: aIteZZtFR0mIiPUrV+QbyQ==
+X-CSE-MsgGUID: 20TUo4mNTeezlN1m6L/Xeg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77438376"
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; d="scan'208";a="77438376"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2026 18:51:23 -0700
+X-CSE-ConnectionGUID: 6kzO8F6LSOKZOfAKMYwpvg==
+X-CSE-MsgGUID: UHU/ecmTQ3WcJfLb5/cr5g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,189,1770624000"; d="scan'208";a="231461908"
+Received: from lkp-server01.sh.intel.com (HELO 7e48d0ff8e22) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 19 Apr 2026 18:51:21 -0700
+Received: from kbuild by 7e48d0ff8e22 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wEdnD-0000000021C-0Fg2;
+ Mon, 20 Apr 2026 01:51:19 +0000
+Date: Mon, 20 Apr 2026 09:51:18 +0800
+From: kernel test robot <lkp@intel.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Linus Walleij <linusw@kernel.org>
+Subject: [drm-misc:drm-misc-next 11/19]
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:1627 jadard_dsi_probe()
+ warn: unsigned 'dsi->lanes' is never less than zero.
+Message-ID: <202604200838.WvVe32WB-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,57 +67,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gem_fb_init_with_funcs() computes sub-sampled plane dimensions
-using plain integer division:
+tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+head:   17394e05b295e4936e0ed50d2f02ed7f08fd4f7d
+commit: eb019688f2a97bb95384853072de3a88b981f1f3 [11/19] drm/panel: jadard-jd9365da-h3: support variable DSI configuration
+config: openrisc-randconfig-r071-20260420 (https://download.01.org/0day-ci/archive/20260420/202604200838.WvVe32WB-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 15.2.0
+smatch: v0.5.0-9007-gcf3ea02b
 
-  unsigned int width  = mode_cmd->width  / (i ? info->hsub : 1);
-  unsigned int height = mode_cmd->height / (i ? info->vsub : 1);
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202604200838.WvVe32WB-lkp@intel.com/
 
-However, the ioctl-level framebuffer_check() in drm_framebuffer.c uses
-drm_format_info_plane_width/height() which round up dimensions via
-DIV_ROUND_UP(). This inconsistency corrupts the subsequent GEM object
-size check for certain pixel format and dimension combinations.
+smatch warnings:
+drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c:1627 jadard_dsi_probe() warn: unsigned 'dsi->lanes' is never less than zero.
 
-For example, with NV12 (vsub=2) and a 1-pixel-tall framebuffer the
-GEM size validation path sees height=0 instead of height=1. The
-expression (height - 1) then wraps to UINT_MAX as an unsigned int,
-causing min_size to overflow and wrap back to a small value. A tiny
-GEM object therefore passes the size guard, yet when the GPU accesses
-the chroma plane it will read or write memory beyond the object's
-bounds.
+vim +1627 drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c
 
-Fix by replacing the open-coded divisions with drm_format_info_plane_width()
-and drm_format_info_plane_height(), which use DIV_ROUND_UP() and match
-the calculation already used in framebuffer_check().
+  1601	
+  1602	static int jadard_dsi_probe(struct mipi_dsi_device *dsi)
+  1603	{
+  1604		struct device *dev = &dsi->dev;
+  1605		const struct jadard_panel_desc *desc;
+  1606		struct jadard *jadard;
+  1607		int ret;
+  1608	
+  1609		jadard = devm_drm_panel_alloc(dev, struct jadard, panel, &jadard_funcs,
+  1610					      DRM_MODE_CONNECTOR_DSI);
+  1611		if (IS_ERR(jadard))
+  1612			return PTR_ERR(jadard);
+  1613	
+  1614		desc = of_device_get_match_data(dev);
+  1615	
+  1616		if (desc->mode_flags)
+  1617			dsi->mode_flags = desc->mode_flags;
+  1618		else
+  1619			dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
+  1620					  MIPI_DSI_MODE_VIDEO_BURST |
+  1621					  MIPI_DSI_MODE_NO_EOT_PACKET;
+  1622	
+  1623		dsi->format = desc->format;
+  1624		dsi->lanes = desc->lanes;
+  1625		if (!dsi->lanes) {
+  1626			dsi->lanes = drm_of_get_data_lanes_count_remote(dsi->dev.of_node, 0, -1, 2, 4);
+> 1627			if (dsi->lanes < 0)
+  1628				return dsi->lanes;
+  1629			if (dsi->lanes == 4) {
+  1630				if (!desc->mode_4ln) {
+  1631					dev_err(&dsi->dev, "4-lane config is not supported\n");
+  1632					return -EINVAL;
+  1633				}
+  1634			} else if (dsi->lanes == 2) {
+  1635				if (!desc->mode_2ln) {
+  1636					dev_err(&dsi->dev, "2-lane config is not supported\n");
+  1637					return -EINVAL;
+  1638				}
+  1639			} else {
+  1640				dev_err(&dsi->dev, "Unsupported number of lanes, %d\n", dsi->lanes);
+  1641				return -ENODEV;
+  1642			}
+  1643		}
+  1644		dev_dbg(&dsi->dev, "lanes: %d\n", dsi->lanes);
+  1645	
+  1646		jadard->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+  1647		if (IS_ERR(jadard->reset))
+  1648			return dev_err_probe(&dsi->dev, PTR_ERR(jadard->reset),
+  1649					"failed to get our reset GPIO\n");
+  1650	
+  1651		jadard->vdd = devm_regulator_get(dev, "vdd");
+  1652		if (IS_ERR(jadard->vdd))
+  1653			return dev_err_probe(&dsi->dev, PTR_ERR(jadard->vdd),
+  1654					"failed to get vdd regulator\n");
+  1655	
+  1656		jadard->vccio = devm_regulator_get(dev, "vccio");
+  1657		if (IS_ERR(jadard->vccio))
+  1658			return dev_err_probe(&dsi->dev, PTR_ERR(jadard->vccio),
+  1659					"failed to get vccio regulator\n");
+  1660	
+  1661		ret = of_drm_get_panel_orientation(dev->of_node, &jadard->orientation);
+  1662		if (ret < 0)
+  1663			return dev_err_probe(dev, ret, "failed to get orientation\n");
+  1664	
+  1665		ret = drm_panel_of_backlight(&jadard->panel);
+  1666		if (ret)
+  1667			return ret;
+  1668	
+  1669		drm_panel_add(&jadard->panel);
+  1670	
+  1671		mipi_dsi_set_drvdata(dsi, jadard);
+  1672		jadard->dsi = dsi;
+  1673		jadard->desc = desc;
+  1674	
+  1675		ret = mipi_dsi_attach(dsi);
+  1676		if (ret < 0)
+  1677			drm_panel_remove(&jadard->panel);
+  1678	
+  1679		return ret;
+  1680	}
+  1681	
 
-Fixes: 4c3dbb2c312c ("drm: Add GEM backed framebuffer library")
-Cc: stable@vger.kernel.org # v4.14+
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
----
-V1 -> V2: add Fixes: tag, Cc: stable@vger.kernel.org, incorporate
-  Reviewed-by from Thomas Zimmermann.
-
-Link: https://lore.kernel.org/dri-devel/20260409164156.2235189-1-ashutoshdesai993@gmail.com/
-
- drivers/gpu/drm/drm_gem_framebuffer_helper.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-index 9166c353f131..88808e972cc1 100644
---- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-+++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-@@ -172,8 +172,8 @@ int drm_gem_fb_init_with_funcs(struct drm_device *dev,
- 	}
- 
- 	for (i = 0; i < info->num_planes; i++) {
--		unsigned int width = mode_cmd->width / (i ? info->hsub : 1);
--		unsigned int height = mode_cmd->height / (i ? info->vsub : 1);
-+		unsigned int width = drm_format_info_plane_width(info, mode_cmd->width, i);
-+		unsigned int height = drm_format_info_plane_height(info, mode_cmd->height, i);
- 		unsigned int min_size;
- 
- 		objs[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
 -- 
-2.34.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
