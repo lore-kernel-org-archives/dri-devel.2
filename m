@@ -4,120 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 290DFF588DF
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:49:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E2C8F588DF
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 14:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5085010E68F;
-	Mon, 20 Apr 2026 14:49:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBC1510E693;
+	Mon, 20 Apr 2026 14:54:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Y89ufJes";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="I8uB349p";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3QcFHjV3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="I8uB349p";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3QcFHjV3";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBEED10E68F;
- Mon, 20 Apr 2026 14:49:05 +0000 (UTC)
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
- by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fzpKC32hpz45s8;
- Mon, 20 Apr 2026 16:49:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1776696543;
- bh=XM471VK+ELxYjQ5qPCbjOc1X0nlC4QIEoRJ23kucUKo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Y89ufJes+/vdz6ZovmVwjDHWdPOtUFJcOOtv+cInG6BYXvHQdT2vik8pTPtja9aIG
- 3kb3xa1p8TavXtUDt7FxOAFIdyYjs+XIv2x3vKVSTR7xOkeNPkSSZ27JoK7WPX4gKm
- 7MfMEVlIvmd+Aekv+TDDQtS7BmFR8D/y8a8JQO7x5/Ss83AszhdnCiMR2+HNqPwDxL
- c9BYlsl/uIaR2/XI75nGWQxcv1HRvMZKkwB3rszKqpQv4c/6sLMfd5jg5HXQpPSqkM
- gWaPmcSHv11O//YxRFtpvkX0JluZgtV8b9381H/BaQSe5W2j794/JaXQAYK3etBhyn
- zlR0HfBYVmrsQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fzpKC2Gszz45r9;
- Mon, 20 Apr 2026 16:49:03 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A58FA10E696
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 14:54:06 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4fzpK92dnVz8svZ;
- Mon, 20 Apr 2026 16:49:01 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 85E27635C4;
- Mon, 20 Apr 2026 16:49:00 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <f0b79dd8-00e8-4352-b9ac-20ee6c114086@leemhuis.info>
-Date: Mon, 20 Apr 2026 16:48:58 +0200
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 42BA96A7D9;
+ Mon, 20 Apr 2026 14:54:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776696845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SXnJ871ClWnOZw/EnBo7bWUBTCmzCSI+lLyEe8RYdnU=;
+ b=I8uB349pVAXqc6lCZEa6UibKsVzTAk9W7YakJqScVAmuE6joth+F83pu7N8ZyaJsISR+Uy
+ DpFerHsf1pNaJ+tHrMqWgPMmsDP2XiiPpnf7caxvI4lw+Y9IiJl3oQg7En++C9DQUxekWD
+ COMzeeo2yVV6rsKqe5wdVDqawlxDcL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776696845;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SXnJ871ClWnOZw/EnBo7bWUBTCmzCSI+lLyEe8RYdnU=;
+ b=3QcFHjV3khQpDhYBBTIeYiRDELHIXGeu27dPVbSHsu0+5t+yZdcXLg0fb6sntvXso866RB
+ 7Ts2WrVxtZeKixDQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776696845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SXnJ871ClWnOZw/EnBo7bWUBTCmzCSI+lLyEe8RYdnU=;
+ b=I8uB349pVAXqc6lCZEa6UibKsVzTAk9W7YakJqScVAmuE6joth+F83pu7N8ZyaJsISR+Uy
+ DpFerHsf1pNaJ+tHrMqWgPMmsDP2XiiPpnf7caxvI4lw+Y9IiJl3oQg7En++C9DQUxekWD
+ COMzeeo2yVV6rsKqe5wdVDqawlxDcL8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776696845;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=SXnJ871ClWnOZw/EnBo7bWUBTCmzCSI+lLyEe8RYdnU=;
+ b=3QcFHjV3khQpDhYBBTIeYiRDELHIXGeu27dPVbSHsu0+5t+yZdcXLg0fb6sntvXso866RB
+ 7Ts2WrVxtZeKixDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C6D40593AE;
+ Mon, 20 Apr 2026 14:54:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HXUeLww+5mkOBAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 20 Apr 2026 14:54:04 +0000
+Message-ID: <42b8989e-fde7-4274-b0a3-ee82a9488092@suse.de>
+Date: Mon, 20 Apr 2026 16:54:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] VRR not detected on a DisplayPort monitor using an
- AMD GPU
-To: Ivan Sergeev <ivan8215145640@gmail.com>, Melissa Wen <mwen@igalia.com>,
- Mario Limonciello <superm1@kernel.org>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, regressions@lists.linux.dev,
- mario.limonciello@amd.com, alex.hung@amd.com, daniel.wheeler@amd.com,
- rodrigo.siqueira@amd.com, alexander.deucher@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, christian.koenig@amd.com, huangalex409@gmail.com,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
- <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
- <DGJFVPAQJA15.378GMU7XZXLU@gmail.com> <DGJGDIRQWDG7.XHHKF6UQP0HG@gmail.com>
- <c70fe261-7fb0-4af5-b755-f02b193c8c5f@kernel.org>
- <DGJH30US2XMK.S2HOHR14LIW0@gmail.com>
- <bed447c7-07a3-46a8-9bcf-da352810883b@igalia.com>
- <DGK98QFUDRR2.1RCLDXI8XRBFR@gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-X-Enigmail-Draft-Status: N11222
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <DGK98QFUDRR2.1RCLDXI8XRBFR@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <177669654117.1695370.346976246835868325@mxe9fb.netcup.net>
-X-NC-CID: t+PJXoV5THhxAY/EbF03iQSZ8CoExLSOGkJa2jIGBA4msTBXPQk=
+Subject: Re: [PATCH for drm-misc-fixes v4 2/4] drm/hisilicon/hibmc: fix no
+ showing when no connectors connected
+To: Yongbang Shi <shiyongbang@huawei.com>, dmitry.baryshkov@oss.qualcomm.com, 
+ tiantao6@hisilicon.com, xinliang.liu@linaro.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ daniel@ffwll.ch, kong.kongxinwei@hisilicon.com
+Cc: liangjian010@huawei.com, chenjianmin@huawei.com, fengsheng5@huawei.com,
+ helin52@h-partners.com, shenjian15@huawei.com, shaojijie@huawei.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260416092455.1990632-1-shiyongbang@huawei.com>
+ <20260416092455.1990632-3-shiyongbang@huawei.com>
+ <cb1f80ec-20af-4e59-a32e-b1e61e66af0d@suse.de>
+ <7407b6cf-70a0-42a0-b63f-5cdaae0eb4b8@huawei.com>
+ <d5661982-8710-4a30-862b-dc1ba33860be@suse.de>
+ <e3541b7f-9f39-4324-ad4d-eaf6eec3a6f7@huawei.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <e3541b7f-9f39-4324-ad4d-eaf6eec3a6f7@huawei.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.998]; MIME_GOOD(-0.10)[text/plain];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[17];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[huawei.com,oss.qualcomm.com,hisilicon.com,linaro.org,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,huawei.com:email,gnome.org:url,suse.com:url,suse.de:mid,bootlin.com:url];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:email, suse.de:mid,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,16 +149,356 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 2/21/26 02:39, Ivan Sergeev wrote:
-> On Sat Feb 21, 2026 at 1:47 AM MSK, Melissa Wen wrote:
->> Can you check if the attached patch resolves the issue?
-> The patch does resolve the issue!
+Hi
 
-Melissa, was this ever resolved? I saw that you posted the patch Ivan
-tested as RFC here:
-https://lore.kernel.org/dri-devel/20260223203528.213275-1-mwen@igalia.com/
+Am 20.04.26 um 16:00 schrieb Yongbang Shi:
+>> Hi
+>>
+>> Am 20.04.26 um 10:40 schrieb Yongbang Shi:
+>> [...]
+>>>   From the patch you contributed,，I understand that you are using an
+>>> RH1288H V3 server. I have confirmed with our chief hardware engineer
+>>> that the board design for this series of servers does not connect the
+>>> BMC chip’s DDC I2C to the VGA port.
+>> Thanks a lot for double-checking. That's the info I was missing. I suggest to build a workaround into the driver to
+>> filter out these boards and always return 'connected' on them. IIUC even with these new callbacks, the driver would not
+>> work as expected.
+>>
+> Our BMC chips can distinguish between generations, but since BMC chips of the same generation are used on many different
 
-But from the outside it looks like nothing happened since then, which
-made me wonder if this regression was ever resolved.
+That's not really much of a problem. Just filter the older boards by 
+some board identifier and handle it separately. We use that all over the 
+kernel; including graphics drives. See for example DMI_MATCH. [1]
 
-Ciao, Thorsten
+[1] https://elixir.bootlin.com/linux/v7.0/A/ident/DMI_MATCH
+
+> boards, filtering by board type or board id is not feasible. We can only determine whether DDC I2C is present by
+> comparing BMC chips of different generations. We have mandated that the board implementation must connect to DDC I2C on
+> the latest BMC chip.
+>
+>>> [1]https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/drivers/gpu/drm/hisilicon/hibmc/
+>>> hibmc_drm_vdac.c?h=v6.12.82#L60
+>>> [2]https://lore.kernel.org/all/20250320101455.2538835-10-shiyongbang@huawei.com/
+>>>
+>>>
+>>>>> Signed-off-by: Lin He <helin52@huawei.com>
+>>>>> Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
+>>>>> ---
+>>>> [...]
+>>>>> +static int hibmc_vdac_detect(struct drm_connector *connector,
+>>>>> +                 struct drm_modeset_acquire_ctx *ctx,
+>>>>> +                 bool force)
+>>>>> +{
+>>>>> +    struct hibmc_drm_private *priv = to_hibmc_drm_private(connector-
+>>>>>> dev);
+>>>>> +    struct hibmc_vdac *vdac = to_hibmc_vdac(connector);
+>>>>> +
+>>>>> +    vdac->phys_state = drm_connector_helper_detect_from_ddc(connector,
+>>>>> +                                ctx, force);
+>>>>> +
+>>>>> +    /* If the DP connectors are disconnected, the hibmc_vdac_detect
+>>>>> function
+>>>>> +     * must return a connected state to ensure KVM display
+>>>>> functionality.
+>>>>> +     * Additionally, for previous-generation products that may lack
+>>>>> hardware
+>>>>> +     * link support and thus cannot detect the monitor,
+>>>>> hibmc_vdac_detect
+>>>>> +     * should also return a connected state.
+>>>>> +     */
+>>>>> +    if (priv->dp.phys_state != connector_status_connected)
+>>>>> +        return connector_status_connected;
+>>>>> +
+>>>>> +    return vdac->phys_state;
+>>>> This will break user-space compositors if DP and VGA are connected at
+>>>> the same time. I know, because we had such logic in ast and mgag200.
+>>>>
+>>>> Today's compositors expect a single encoder-connector pair on each CRTC.
+>>>> That's what most contemporary hardware provides.  But the server
+>>>> chipsets usually come with one a single CRTC and multiple connectors
+>>>> attached to it.  Compositors fail to configure that. When we had this in
+>>>> ast and mgag200, Gnome would display garbage to the screen and mode-
+>>>> setting would fail. The bug report is at [1].
+>>>>
+>>>> In ast and mgag200, only one connector would be installed on a single
+>>>> system. So we could avoid the problem. It looks like that this is not an
+>>>> option with hibmc. VGA always seems to be present and DP seems optional.
+>>>> I would advice to only report one of the connectors as 'connected' if
+>>>> both are installed on a system.
+>>>>
+>>> According to our BMC chip specifications, both VGA and DisplayPort
+>>> outputs are required, but only one connection is allowed at a time,
+>>> which seems impractical.
+>> That's true.
+>>
+>> Yet it needs support form user space to make it work. It's not a kernel problem.
+>>
+>>> Do you have any additional details regarding this issue with the Mutter
+>>> synthesizer? For example, steps to reproduce the issue or more specific
+>>> alert logs. I looked at the issue you submitted to Mutter, which
+>>> describes the phenomenon as "a warning that the configuration is
+>>> incompatible", Could you clarify what this warning specifically refers
+>>> to—is it a message displayed on the screen, or is it a specific entry in
+>>> the logs?
+>> In ast, we used to have at least one connector for the physical output and another connector for the BMC/KVM. Running
+>> Gnome and opening the Settings app did not work correctly. One issue is that display configuration could not be changed
+>> in Gnome. That's the reported error of changes not being applicable.
+>>
+> Great, regarding hibmc-drm's support for DP, my initial idea was also to create separate connectors for DP, VGA, and
+> KVM. However, due to some non-technical reasons, that approach wasn't implemented. Since ast has implemented it this
+> way, we can also consider this solution.
+
+I added a connector for the KVM to ast, but it turned out to be a 
+mistake, as it triggered these user-space bugs. Hence the current design 
+in ast. The KVM isn't really a connector. It's more of a bridge, but 
+next to the CRTC instead of next to the connector; like this:
+
+   Plane -> CRTC -> KVM-bridge -> encoders -> connectors
+
+We have no good way of modelling this pipeline in DRM.
+
+In the case of ast and mgag200, the BMC also cannot be disabled. For a 
+real connector, one would expect that it can be disabled. This might 
+also confuse compositors.
+
+
+>
+>> IIRC I've also seen distorted output if I really pushed it. But maybe that has meanwhile been mitigated.
+>>
+>> I've been told that other compositors also don't support this scenario well.
+>>
+>> I think you'd run into this case once someone connects the DP and VGA at the same time.
+>>
+> Okay, I understand. However, so far, we have thoroughly tested the scenario where both connector0 (VGA shared with KVM)
+> and connector1 (DP) are displaying at the same time, and we haven’t encountered any similar issues.
+
+If this works for you, then let's keep it.  I'm just trying to help you 
+avoid the pitfalls we have seen with other drivers.
+
+
+>
+> I will create a dedicated connector for the KVM and conduct the necessary tests to test for this scenario.
+
+I think the design in the current patch is sound. It just needs to 
+increment epoch_count if the physical status changes; and it would 
+trigger these user-space bugs.  But we can only work around the latter.
+
+Best regards
+Thomas
+
+
+>
+>>> Over the next few days, we will focus on testing relevant scenarios
+>>> while setting both the VGA and DP ports to `connected` to see if we
+>>> encounter similar issues or warnings.
+>>>
+>>>> You also need to increment the connector's epoch_counter if the physical
+>>>> status changed. Doing this will trigger DRM clients to re-read the
+>>>> connector state and reconfigure display.
+>>>>
+>>>> Something like that
+>>>>
+>>>> dp_detect()
+>>>> {
+>>>>       dp.phys_state = detect_from_hw()
+>>>>
+>>>>       if (dp.phys_state changed)
+>>>>           ++epoch_counter
+>>>>       return connected
+>>>> }
+>>>>
+>>>> vdac_detect()
+>>>> {
+>>>>       if (dp.phys_state == connected)
+>>>>           return disconnected
+>>>>
+>>> Only one option is displayed here, but it does not meet our specifications.
+>>>
+>>>>       vdac.phys_state = detect_from_hw()
+>>>>
+>>>>       if (vdac.phys_state changed)
+>>>>           ++epoch_counter
+>>>>       return connected
+>>>> }
+>>>>
+>>>> This handles the KVM in each connector's helper. The ast driver is
+>>>> probably the best reference for the current logic. See [2].
+>>>>
+>>> I looked at the implementations of `detect_ctx` in ATS and MGAG200;
+>>> these implementations generally always return `connected`.
+>>>
+>>> If my analysis is correct, the logic should be as follows:
+>>>     - If the `detect_ctx` function implemented by each vendor returns the
+>>>       actual hardware state, there is no need to modify `epoch_counter`;
+>>>       the DRM framework will execute `epoch_counter++` based on the return
+>>>       value of the `detect_ctx` function;
+>>>
+>>>     - If the `detect_ctx` function in a vendor’s code always returns
+>>>       `connected`, then `epoch_counter++` must be performed within the
+>>>       vendor’s `detect_ctx` function; the implementations in ATS and
+>>>       MGAG200 appear to be like this;
+>> Exactly. In ast/mgag200, we had the case that the VGA got disconnected. We'd still return connected, as the BMC/KVM was
+>> present. We now had to reconfigure for the KVM. That requires modifying epoch_counter. You can see at [1] that we only
+>> increment if the physical status changes. [1]  Same goes for re-connecting the VGA display.
+>>
+>> [1] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/ast/ast_vga.c#L56
+>>
+>>>
+>>> Here is the pseudocode for our current logic. This logic is indeed a bit
+>>> hard to grasp, so I've added some more comments; it might be a bit
+>>> clearer than the patch:
+>>>
+>>> dp_detect()
+>>> {
+>>>      dp.phys_state = detect_from_hw()
+>>>      
+>>>      /* epoch_counter update by drm framework */
+>>>      return dp.phys_state;
+>>> }
+>>>
+>>> vdac_detect()
+>>> {
+>>>      /*
+>>>            * Scene 1: The driver runs on an older version of the BMC chip,
+>>>            *          and `dp.phys_state` is initialized to 0. To maintain
+>>>       *        consistency with the previous hibmc-drm driver
+>>>       *         logic, always return `connected`.
+>>>       * Scene 2: The driver runs on an new version of the BMC chip,
+>>>            *          and `dp.phys_state` is real status, witch is real
+>>>       *        `disconnect`. In this scenario, we must ensure that
+>>>       *        the VGA is `connected` to guarantee that the KVM
+>>>       *        displays properly.
+>>>       */
+>>>      if (dp.phys_state != connected)
+>>>          return connected;
+>>>
+>>>      /*
+>>>       * DP is connected: This driver is definitely running on the
+>>>       *        latest BMC chip, and the DDC I2C is definitely
+>>>       *        connected to the VGA port, so we can confirm whether
+>>>       *        the VGA is present by reading the EDID directly via
+>>>       *        I2C.
+>>>       */
+>>>      vdac.phys_state = detect_from_hw()
+>>>      
+>>>      /* epoch_counter update by drm framework */
+>>>      return vdac.phys_state;
+>> Let's assume the DP is disconnected. If VGA's physical status goes from connected to disconnected, user space will not
+>> know that it needs to reconfigure for the BMC.   (or vice versa)
+>>
+>> To give you some context from earlier discussions around the other drivers: We had the scenario that the user boots up
+>> without a connected VGA display. This would enable the BMC, which sometimes picks a large resolution; say >2k per
+>> dimension. That is problematic for KVM over networks. And if the user now plugs in a physical VGA display, they would be
+>> stuck with the large resolution on the framebuffer console. Maybe the VGA display wouldn't even support such a high-res
+>> mode.  So we set the default for the BMC to 1024x768. That is well manageable for all of today's VGA displays and does
+>> not impose too much overhead for KVM over networks.  As a drawback, it's a bit small on monitors and not nice to look
+>> at. So we modify epoch_counter whenever the physical status changes. This triggers compositors to reconfigure their
+>> screens for the new display.
+>>
+> Yes, this issue does exist. If we uses the `connector.polled` mechanism to monitor the VGA's presence in real time and
+> update the `epoch_counter`, which might resolve the issue. However, upon further consideration, I don't think this is
+> the optimal solution. If we create a separate connector for KVM and distinguish between older-generation BMC chips and
+> newer-generation BMC chips, the problem will be easily solved. In addition, DP and VGA, as well as VGA and KVM, will be
+> decoupled.
+>
+> A temporary solution:
+> /* called by poll work */
+> vdac_detect()
+> {
+> 	/* Let’s examine this logic on its own to gain a better understanding. */
+> 	if (older-generation)
+> 		return connected;
+>
+> 	vdac.phys_state = detect_from_hw();
+> 	if (vdac.phys_state changed)
+> 		++epoch_counter;
+>
+> 	if (dp.phys_state != connected) {
+> 		return connected;
+> 	}
+>
+> 	return vdac.phys_state;
+> }
+>
+>
+> A more elegant solution:
+>        |--connector0(KVM): always connected, do not update epoch_counter.
+>        |
+> crtc--|--connector1(VGA): detect real time by `connector.polled`, update epoch_counter.
+>        |
+>        |--connector1(DP):  detect real time by hpd interrupt, update epoch_counter.
+>
+> kvm_detect()
+> {
+> 	return connected;
+> }
+>
+> /* called by poll work */
+> vdac_detect()
+> {
+> 	/* for older-generation */
+> 	if (older-generation)
+> 		return connected;
+>
+> 	/* for newer-generation */
+> 	vdac.phys_state = detect_from_hw();
+>
+> 	/* epoch_counter update by drm framework */
+> 	return vdac.phys_state;
+> }
+>
+> dp_detect()
+> {
+> 	dp.phys_state = detect_from_hw();
+>
+> 	/* epoch_counter update by drm framework */
+> 	return dp.phys_state;
+> }
+>
+> Thanks,
+> Yongbang.
+>
+>> Best regards
+>> Thomas
+>>
+>>> }
+>>>
+>>> Sorry for the delay; it took me a little while to figure out how best to
+>>> explain this bug and our current implementation.
+>>>
+>>> Thanks,
+>>> Yongbang.
+>>>
+>>>> [1] https://gitlab.gnome.org/GNOME/mutter/-/issues/3858
+>>>> [2] https://elixir.bootlin.com/linux/v7.0/source/drivers/gpu/drm/ast/
+>>>> ast_vga.c#L47
+>>>>
+>>>> Best regards
+>>>> Thomas
+>>>>
+>>>>> +}
+>>>>> +
+>>>>>     static const struct drm_connector_helper_funcs
+>>>>>         hibmc_connector_helper_funcs = {
+>>>>>         .get_modes = hibmc_connector_get_modes,
+>>>>> -    .detect_ctx = drm_connector_helper_detect_from_ddc,
+>>>>> +    .detect_ctx = hibmc_vdac_detect,
+>>>>>     };
+>>>>>       static const struct drm_connector_funcs hibmc_connector_funcs = {
+>>>>> @@ -130,6 +145,8 @@ int hibmc_vdac_init(struct hibmc_drm_private *priv)
+>>>>>           connector->polled = DRM_CONNECTOR_POLL_CONNECT |
+>>>>> DRM_CONNECTOR_POLL_DISCONNECT;
+>>>>>     +    vdac->phys_state = connector_status_connected;
+>>>>> +
+>>>>>         return 0;
+>>>>>       err:
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
+
