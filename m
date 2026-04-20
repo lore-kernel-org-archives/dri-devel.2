@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4F39F588C3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:31:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F25EF588C4
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:32:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 122E510E650;
-	Mon, 20 Apr 2026 13:31:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C325B10E651;
+	Mon, 20 Apr 2026 13:32:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KETZ+edK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U4JmStDp";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0179310E64F;
- Mon, 20 Apr 2026 13:31:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0899A10E651
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:31:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6D16D6014C;
- Mon, 20 Apr 2026 13:31:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367CCC4AF09;
- Mon, 20 Apr 2026 13:31:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7489B6014C;
+ Mon, 20 Apr 2026 13:31:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FB9C2BCB9;
+ Mon, 20 Apr 2026 13:31:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691914;
- bh=y3ah3GKJjHFrdayhjIe3vmRKN4uPnejjCykot+9kPso=;
+ s=k20201202; t=1776691918;
+ bh=ySf/LE2O06y+dCF/bB7jvsvf0tUNgkD8x1b2qFu+YiA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KETZ+edKDzQXglFePRK4CCszVx/YXFBjk/vm8iY9EDdeD6/m3SDrC4eAFlG7Hcy7v
- s0pq0vvJNwUZywLIcv51yUW8ZTv3KAMItSz6nC4rUqMQqiokbVoohzjaUA9iqa+xhm
- 2Nib3Ntjzq+UCVWq+IT4QO8ljISaWP1CRuaxOBrq77RHpQW59M9lJyrd3UguPS3Ed7
- rfAcM8SHJmPFFnCof5cye1A4OViB+1EtMwdjd8RZF1mQI/EXAOrtf65KxG5O6gcbtU
- gYpsspe0E9wLuthpvzCAeQX+8hA5ELLvDbr/uNlM6dabvk5Is3S4UIVn8byPy3dErW
- 30hOxIwRfolrA==
+ b=U4JmStDpodyleQ2ZevNgGLFlAdoYfFRV+GVamMFnHM4UfCJi2yUJSuuJXrOiste1D
+ uYuMFBikhAW/g2PQABkR44509iM8vTVbUplXWQjTB+OTJj5lyz4z5Ou+Uz1bT0n2L2
+ bCXz7IzgsmVkgzGw/D3B1Wn7AdU0UX6/NPAOdQ4c2QZ5H7oGwFXlga6UbbzO2yl9n0
+ G8ov+SmVOtOBbd9I0qSqGT+fGO9+hRy7wavR6P4//na+dvAP8WG0CA118cmAQjPH8i
+ wufY7zVZScIS7uJ6QkQl5UL5Uq9Gys6+o1WxJZ+vCeZnRfUdBUqBjg/U7ySxX93asX
+ aA8MhjFp8CIfA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Dillon Varone <dillon.varone@amd.com>, Alex Hung <alex.hung@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amd/display: Fix HWSS v3 fast path
- determination
-Date: Mon, 20 Apr 2026 09:21:00 -0400
-Message-ID: <20260420132314.1023554-266-sashal@kernel.org>
+Cc: Gary Bisson <bisson.gary@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Chen-Yu Tsai <wenst@chromium.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, Sasha Levin <sashal@kernel.org>,
+ p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch,
+ matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [PATCH AUTOSEL 7.0-5.10] drm/mediatek: mtk_dsi: enable hs clock
+ during pre-enable
+Date: Mon, 20 Apr 2026 09:21:02 -0400
+Message-ID: <20260420132314.1023554-268-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -51,7 +52,6 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,458 +68,352 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Gary Bisson <bisson.gary@gmail.com>
 
-[ Upstream commit d3e79f333d90f6d3d268c3b073cf3afc0b019036 ]
+[ Upstream commit 76255024cadbe8c40462953f8193d2d78cd3b0ac ]
 
-[WHY]
-We're checking surface and stream updates after they've been applied to
-their respective states within `update_planes_and_stream_state`.
+Some bridges, such as the TI SN65DSI83, require the HS clock to be
+running in order to lock its PLL during its own pre-enable function.
 
-Medium updates under the HWSS V3 fast path that are not supported or
-tested are getting implicitly if they don't trigger a DML validation
-and getting updated in place on the dc->current_state context.
+Without this change, the bridge gives the following error:
+sn65dsi83 14-002c: failed to lock PLL, ret=-110
+sn65dsi83 14-002c: Unexpected link status 0x01
+sn65dsi83 14-002c: reset the pipe
 
-[HOW]
-Fix this issue by moving up the fast path determination check prior
-to `update_planes_and_stream_state`. This is how the V2 path works
-and how the V3 path used to work prior to the refactors in this area.
+Move the necessary functions from enable to pre-enable.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Gary Bisson <bisson.gary@gmail.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
+Tested-by: Chen-Yu Tsai <wenst@chromium.org> # Chromebooks
+Tested-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Link: https://patchwork.kernel.org/project/dri-devel/patch/20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com/
+Signed-off-by: Chun-Kuang Hu <chunkuang.hu@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for the complete analysis.
+Good. Now I have all the information needed for a comprehensive
+analysis.
 
 ---
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+## Complete Analysis
 
-### Step 1.1: PARSE THE SUBJECT LINE
-Record: **[drm/amd/display]** **[Fix]** Fix HWSS v3 fast path
-determination — corrects the ordering of fast path evaluation in the V3
-update flow.
+### PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-- **Reviewed-by:** Dillon Varone <dillon.varone@amd.com> — an AMD
-  display engineer reviewed this
-- **Signed-off-by:** Nicholas Kazlauskas <nicholas.kazlauskas@amd.com> —
-  the author, an AMD display subsystem developer
-- **Signed-off-by:** Alex Hung <alex.hung@amd.com> — AMD display
-  committer
-- **Tested-by:** Dan Wheeler <daniel.wheeler@amd.com> — AMD QA testing
-- **Signed-off-by:** Alex Deucher <alexander.deucher@amd.com> — AMD GPU
-  maintainer
-- No Fixes: tag (expected for autosel)
-- No Cc: stable (expected for autosel)
-- No Reported-by (likely found internally during code review/testing)
+**Step 1.1: Subject Line**
+- Subsystem: `drm/mediatek: mtk_dsi`
+- Action: "enable" (HS clock during pre-enable)
+- Summary: Move HS clock activation from the bridge enable phase to pre-
+  enable so downstream bridges can use it.
+Record: [drm/mediatek] [enable] [Move HS clock setup earlier to fix
+bridge PLL locking]
 
-Record: Multiple AMD engineers reviewed/tested/signed off. Standard AMD
-display commit flow through maintainer tree.
+**Step 1.2: Tags**
+- Signed-off-by: Gary Bisson (author)
+- Reviewed-by: CK Hu (MediaTek DSI maintainer)
+- Tested-by: Chen-Yu Tsai (Chromium developer) on 5 Chromebook variants
+- Tested-by: AngeloGioacchino Del Regno (Collabora, regular MTK
+  contributor)
+- Reviewed-by: AngeloGioacchino Del Regno
+- Link: to patchwork entry
+- Signed-off-by: Chun-Kuang Hu (subsystem maintainer, merged it)
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-The commit clearly describes:
-- **Bug**: Surface and stream updates are checked AFTER they've been
-  applied to state within `update_planes_and_stream_state`. This means
-  `fast_update_only` sees already-modified state, causing incorrect fast
-  path determination.
-- **Symptom**: Medium updates that should go through the full commit
-  path are incorrectly routed to the fast path. These "are not supported
-  or tested" updates get "implicitly" applied "in place on the
-  dc->current_state context."
-- **Fix**: Move the fast path determination check BEFORE
-  `update_planes_and_stream_state`, matching V2 behavior and original V3
-  behavior prior to refactoring.
+Record: Strong review and testing from 3 independent testers across 7+
+hardware platforms. Maintainer reviewed and approved.
 
-Record: Bug = incorrect fast path determination due to wrong ordering.
-Failure mode = untested update types being applied via fast path,
-leading to potential display corruption.
+**Step 1.3: Commit Body**
+- Bug: SN65DSI83 bridge chip fails to lock its PLL during pre-enable,
+  resulting in errors: "failed to lock PLL, ret=-110" / "Unexpected link
+  status 0x01" / "reset the pipe"
+- Root cause: HS clock not running during the pre-enable phase
+- Fix: Move `mtk_dsi_lane_ready()` and `mtk_dsi_clk_hs_mode(dsi, 1)`
+  from enable to pre-enable (poweron)
+Record: Clear bug description with error messages. Display completely
+fails without fix.
 
-### Step 1.4: DETECT HIDDEN BUG FIXES
-This is explicitly marked as "Fix" and the commit message clearly
-explains the bug mechanism. Not a hidden bug fix.
+**Step 1.4: Hidden Bug Fix?**
+This is NOT hidden - it's explicitly a fix for display not working with
+certain DSI bridges.
 
-Record: Explicitly a bug fix.
+### PHASE 2: DIFF ANALYSIS
 
----
+**Step 2.1: Inventory**
+- 1 file: `drivers/gpu/drm/mediatek/mtk_dsi.c`
+- +17 / -18 lines (net -1 line)
+- Functions modified: `mtk_dsi_lane_ready()` (moved earlier),
+  `mtk_dsi_poweron()` (added 2 calls), `mtk_output_dsi_enable()`
+  (removed 3 lines)
+Record: Single-file surgical fix, minimal scope.
 
-## PHASE 2: DIFF ANALYSIS — LINE BY LINE
+**Step 2.2: Code Flow Change**
+- `mtk_dsi_lane_ready()` function definition moved earlier (before
+  `mtk_dsi_poweron`) - this is purely for forward declaration ordering
+- In `mtk_dsi_poweron()` (called during bridge pre_enable): added
+  `mtk_dsi_lane_ready(dsi)` and `mtk_dsi_clk_hs_mode(dsi, 1)` at end
+- In `mtk_output_dsi_enable()` (called during bridge enable): removed
+  `mtk_dsi_lane_ready(dsi)` and `mtk_dsi_clk_hs_mode(dsi, 1)`, kept
+  `mtk_dsi_set_mode(dsi)` and `mtk_dsi_start(dsi)`
 
-### Step 2.1: INVENTORY THE CHANGES
-- **File:** `drivers/gpu/drm/amd/display/dc/core/dc.c`
-- **Functions modified:** `update_planes_and_stream_prepare_v3()`
-- **Net change:** ~15 lines of code moved from one location to another
-  within the same function; removed TODO comments; net line change is
-  approximately -2 lines.
-- **Scope:** Single-file surgical fix within a single function.
+Before: Lane ready + HS clock in enable phase
+After: Lane ready + HS clock in pre-enable phase
 
-Record: 1 file, 1 function, net ~-2 lines. Single-file surgical fix.
+**Step 2.3: Bug Mechanism**
+Category: Hardware interoperability / timing issue. The SN65DSI83 bridge
+requires HS clock from the DSI host during its pre_enable to lock its
+PLL. Without HS clock, the bridge fails completely.
 
-### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Step 2.4: Fix Quality**
+- Obviously correct: just moves existing function calls earlier in the
+  init sequence
+- Minimal: no new logic, no new code paths
+- Regression risk is LOW: extensively tested on 7+ platforms with
+  different bridges/panels, all confirmed no regressions
 
-**Before:** After `dc_exit_ips_for_hw_access()`, immediately calls
-`update_planes_and_stream_state()` which modifies surface/stream state.
-THEN, inside the `new_context == current_state` branch, performs
-`populate_fast_updates()` and `fast_update_only()` check.
+### PHASE 3: GIT HISTORY
 
-**After:** After `dc_exit_ips_for_hw_access()`, FIRST calls
-`populate_fast_updates()` and `fast_update_only()` on the unmodified
-state. THEN calls `update_planes_and_stream_state()`. The pre-computed
-`is_hwss_fast_path_only` result is used later.
+**Step 3.1: Blame**
+- `mtk_dsi_lane_ready()` introduced by commit `39e8d062b03c3d` (Jitao
+  Shi, 2022-05-20) - present since ~v5.19
+- `mtk_dsi_clk_hs_mode(dsi, 1)` in enable path introduced by
+  `80a5cfd60d2a94` (yt.shen@mediatek.com, 2017-03-31) - present since
+  v4.x
+- The buggy ordering has existed since 2022 when lane_ready was moved to
+  enable
+Record: Bug present in all active stable trees (v5.19+)
 
-### Step 2.3: IDENTIFY THE BUG MECHANISM
-This is a **logic/correctness fix**. The `full_update_required()`
-function (called via `fast_update_only()`) compares update values
-against current surface/stream state (e.g.,
-`srf_updates[i].hdr_mult.value !=
-srf_updates->surface->hdr_mult.value`). After
-`update_planes_and_stream_state` copies the update into the surface
-state (`copy_surface_update_to_plane`), these comparisons see the
-already-updated values, causing the function to incorrectly return
-`false` (no full update needed) when it should return `true`.
+**Step 3.2: No Fixes: tag** (expected for autosel candidate)
 
-Record: Logic bug — wrong evaluation order causes
-`full_update_required()` to compare update values against already-
-modified state, leading to false negatives for full-update detection.
+**Step 3.3: File History**
+- Recent changes to mtk_dsi.c include bridge API updates
+  (devm_drm_bridge_alloc, encoder parameter), HS mode support, pre-
+  enable order fix/revert
+- The pre-enable order fix/revert (f5b1819193667 / 33e8150bd32d7) is
+  related but independent - it was about `pre_enable_prev_first` flag
+  management
 
-### Step 2.4: ASSESS THE FIX QUALITY
-- **Obviously correct:** Yes — moving the check before state
-  modification is the logical correct order, and matches V2's behavior.
-- **Minimal/surgical:** Yes — only moves existing code within one
-  function.
-- **Regression risk:** Very low — the check now runs on pre-modification
-  state, which is how V2 works and how V3 used to work before the
-  refactoring.
-- **No red flags:** Single function, single file, no API changes.
+**Step 3.4: Author**
+- Gary Bisson is a regular contributor to MediaTek platforms (Tungsten
+  boards), actively maintains DT and driver support
 
-Record: Fix is obviously correct, minimal, and low regression risk.
+**Step 3.5: Dependencies**
+- No dependencies. The commit 8b00951402f74 (HS mode in cmdq) is
+  completely independent
+- The SN65DSI83 driver already sets `pre_enable_prev_first = true`,
+  ensuring correct bridge ordering
 
----
+### PHASE 4: MAILING LIST DISCUSSION
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+**Step 4.1: Original Discussion**
+- b4 mbox retrieved 5 messages in the thread
+- CK Hu (MediaTek DSI maintainer) noted "this changes the flow for all
+  SoC and panel, so I would wait for more SoC and more panel test" -
+  then gave Reviewed-by after testing completed
+- AngeloGioacchino Del Regno tested on MT6795 + MT8395, gave both
+  Tested-by and Reviewed-by
+- Chen-Yu Tsai tested on 5 Chromebook models (MT8173, MT8183x2,
+  MT8186x2) - "No regressions observed"
+- Chun-Kuang Hu applied it with message "Applied to mediatek-drm-next"
 
-### Step 3.1: BLAME THE CHANGED LINES
-`git blame` shows the buggy code was introduced by commit
-`d38ec099aa6fb7` ("drm/amd/display: Split update_planes_and_stream_v3
-into parts (V2)") by Dominik Kaszewski, dated 2025-10-31. This commit
-was a refactoring that split the V3 update flow into
-prepare/execute/cleanup stages but accidentally placed the fast path
-determination after state modification.
+**Step 4.2: Reviewers**
+All appropriate MediaTek subsystem maintainers were CC'd and reviewed.
+CK Hu explicitly asked for extensive testing, which was provided.
 
-Record: Buggy code introduced by d38ec099aa6fb7 (2025-10-31), first
-appeared in v7.0-rc1.
+### PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 3.2: FOLLOW THE FIXES: TAG
-No Fixes: tag present (expected). But the blame clearly identifies
-d38ec099aa6fb7 as the introducing commit.
+**Step 5.1: Functions Modified**
+- `mtk_dsi_poweron()`: called from `mtk_dsi_bridge_atomic_pre_enable()`
+  and `mtk_dsi_ddp_start()`
+- `mtk_output_dsi_enable()`: called from
+  `mtk_dsi_bridge_atomic_enable()`
+- `mtk_dsi_lane_ready()`: also called from `mtk_dsi_host_transfer()`
+  (for DSI command transfers)
 
-Record: Introducing commit d38ec099aa6fb7 is present in v7.0-rc1 and
-v7.0, not in any older stable tree.
+**Step 5.2: Impact on mtk_dsi_host_transfer**
+After the patch, `mtk_dsi_lane_ready()` call in
+`mtk_dsi_host_transfer()` becomes a no-op during normal operation (lanes
+already ready from poweron). This is safe because DSI must be powered on
+before any host transfers.
 
-### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Commit `5ad5b0b7845c9` ("Fix and reenable
-UPDATE_V3_FLOW_NEW_CONTEXT_MINIMAL") followed the introducing commit and
-fixed other issues in the V3 flow but did NOT fix this ordering issue.
-The fix under review is a standalone, independent fix.
+**Step 5.3: Bridge ordering confirmed**
+The SN65DSI83 bridge driver sets `ctx->bridge.pre_enable_prev_first =
+true` (line 1041 of `ti-sn65dsi83.c`), which causes
+`drm_atomic_bridge_chain_pre_enable()` to call the MTK DSI pre_enable
+BEFORE the SN65DSI83's pre_enable. This confirms the fix works
+correctly.
 
-Record: Related fix 5ad5b0b7845c9 exists but addresses a different V3
-issue. This fix is standalone.
+### PHASE 6: STABLE TREE ANALYSIS
 
-### Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Nicholas Kazlauskas is a prolific AMD display developer and the reviewer
-of the original refactoring commit. He clearly understands the subsystem
-deeply and identified this ordering bug.
+**Step 6.1: Code exists in stable trees**
+The buggy code (`mtk_dsi_lane_ready()` being called from enable instead
+of pre_enable) has been present since v5.19, so it affects all active
+stable trees from 6.1 onwards.
 
-Record: Author is a key AMD display developer and subsystem expert.
+**Step 6.2: Backport difficulty**
+The patch should apply cleanly - the context in `mtk_dsi_poweron()` and
+`mtk_output_dsi_enable()` is unchanged in the 7.0 tree.
 
-### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-The fix has no external dependencies. It modifies code that exists in
-v7.0 and applies to the `update_planes_and_stream_prepare_v3` function
-as-is in the current tree.
+### PHASE 7: SUBSYSTEM CONTEXT
 
-Record: No dependencies. Self-contained fix.
+**Step 7.1: Subsystem**
+- drm/mediatek (DRM display driver) - IMPORTANT category
+- MediaTek SoCs are used extensively in Chromebooks, Android devices,
+  and embedded systems
 
----
+### PHASE 8: IMPACT AND RISK
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+**Step 8.1: Affected users**
+Users of MediaTek SoCs with DSI bridges that need HS clock during
+initialization (specifically SN65DSI83, potentially others).
 
-### Step 4.1-4.5: MAILING LIST INVESTIGATION
-`b4 dig` could not find the original patch submissions (both the fix and
-the introducing commit) on lore.kernel.org. AMD display patches are
-often submitted through internal tooling (amd-gfx list) and may not be
-indexed by lore in the same way. Lore.kernel.org was also protected by
-Anubis anti-bot measures.
+**Step 8.2: Trigger conditions**
+Every display initialization when using SN65DSI83 with MediaTek DSI. The
+display simply doesn't work.
 
-Record: Could not find lore discussion. AMD display patches often flow
-through internal AMD tooling.
+**Step 8.3: Failure mode**
+Without fix: Display completely fails to initialize (PLL lock fails,
+bridge errors, no display output). Severity: HIGH - affects usability.
 
----
+**Step 8.4: Risk-Benefit**
+- Benefit: HIGH - enables display to work for specific bridge
+  combinations, no regressions observed on 7+ platforms
+- Risk: LOW - moves existing function calls earlier, extensively tested,
+  well-reviewed, single file
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+### PHASE 9: SYNTHESIS
 
-### Step 5.1: KEY FUNCTIONS
-- `update_planes_and_stream_prepare_v3()` — the function being fixed
-- `populate_fast_updates()` — populates fast update structure from
-  surface/stream updates
-- `fast_update_only()` → `full_update_required()` — determines if only
-  fast updates exist (no full update needed)
-- `update_planes_and_stream_state()` — applies updates to surface/stream
-  state and determines update type
+**Evidence FOR backporting:**
+1. Fixes a real hardware bug: display doesn't work with SN65DSI83 bridge
+2. Small, surgical change (17 insertions, 18 deletions, net -1 line,
+   single file)
+3. Extensive testing: 7+ platforms (Chromebooks, MediaTek boards) - zero
+   regressions
+4. Strong review: MediaTek DSI maintainer, Collabora engineer, Chromium
+   developer
+5. Code is well-understood: simply moves existing calls from enable to
+   pre-enable
+6. Affects popular hardware (Chromebooks use MediaTek SoCs extensively)
 
-### Step 5.2: TRACE CALLERS
-`update_planes_and_stream_prepare_v3` is called from
-`dc_update_planes_and_stream_prepare` → called from
-`dc_update_planes_and_stream` → called from `amdgpu_dm.c` (the main AMD
-display manager path). This is the **primary display update path** for
-all AMD GPU operations including mode setting, cursor updates,
-pageflips, etc.
+**Evidence AGAINST backporting:**
+1. CK Hu noted it "changes the flow for all SoC and panel" - but this
+   concern was addressed by extensive testing
+2. No explicit Cc: stable tag - but this is expected for autosel
+   candidates
 
-### Step 5.3-5.4: CALL CHAIN
-The path is: userspace (DRM ioctl) → `amdgpu_dm` →
-`dc_update_planes_and_stream` → `dc_update_planes_and_stream_prepare` →
-`update_planes_and_stream_prepare_v3`. This is directly reachable from
-userspace display operations.
-
-### Step 5.5: SIMILAR PATTERNS
-The V2 path (`update_planes_and_stream_v2`, line 5231-5233) correctly
-performs `populate_fast_updates` and `fast_update_only` BEFORE
-`update_planes_and_stream_state`. The fix aligns V3 with V2's correct
-ordering.
-
-Record: Main display update path, reachable from userspace. V2 already
-has the correct ordering.
-
----
-
-## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
-
-### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
-The buggy code was introduced by d38ec099aa6fb7, first tagged in
-v7.0-rc1. It does NOT exist in any stable tree older than 7.0.y. Only
-the 7.0.y stable tree is affected.
-
-Record: Bug only exists in 7.0.y.
-
-### Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-The fix should apply cleanly to 7.0.y since the code was introduced in
-v7.0-rc1 and there have been no significant refactors to this specific
-code region since then (only the `5ad5b0b7845c9` commit touched a
-different part of the same function).
-
-Record: Expected clean apply to 7.0.y.
-
-### Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE
-No related fixes for this specific issue found.
-
-Record: No existing fix for this issue in stable.
+**Stable rules checklist:**
+1. Obviously correct and tested? YES - extensively tested on 7+
+   platforms
+2. Fixes a real bug? YES - display completely fails with SN65DSI83
+   bridge
+3. Important issue? YES - hardware doesn't work (no display output)
+4. Small and contained? YES - single file, 35 lines total changed
+5. No new features? YES - just moves existing code to different phase
+6. Can apply to stable? YES - context appears unchanged
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+### Verification
 
-### Step 7.1: SUBSYSTEM CRITICALITY
-**Subsystem:** `drivers/gpu/drm/amd/display` — AMD GPU display driver
-**Criticality:** IMPORTANT — affects all users with AMD RDNA 3 and RDNA
-4 GPUs (very popular consumer hardware: RX 7000 series and RX 9000
-series).
+- [Phase 1] Parsed tags: Reviewed-by (CK Hu, AngeloGioacchino), Tested-
+  by (Chen-Yu Tsai on 5 Chromebooks, AngeloGioacchino on 2 platforms)
+- [Phase 2] Diff analysis: mtk_dsi_lane_ready + clk_hs_mode moved from
+  enable to poweron (pre_enable), 17 add / 18 del
+- [Phase 3] git blame: lane_ready introduced in commit 39e8d062b03c3d
+  (2022, v5.19), clk_hs_mode in enable since 80a5cfd60d2a94 (2017)
+- [Phase 3] git show 33e8150bd32d7: revert of pre_enable_prev_first in
+  MediaTek DSI is independent
+- [Phase 3] git show 8b00951402f74: HS mode support in cmdq is
+  independent, no dependency
+- [Phase 4] b4 mbox retrieved thread: CK Hu reviewed, requested more
+  testing, got it; patch applied to mediatek-drm-next
+- [Phase 4] Chen-Yu Tsai tested on MT8173, MT8183, MT8186 Chromebooks -
+  no regressions
+- [Phase 4] AngeloGioacchino tested on MT6795, MT8395 - no regressions
+- [Phase 5] Confirmed SN65DSI83 sets pre_enable_prev_first=true (line
+  1041), so MTK DSI pre_enable runs before SN65DSI83 pre_enable
+- [Phase 5] mtk_dsi_host_transfer's call to lane_ready() becomes no-op
+  (safe)
+- [Phase 6] Buggy code exists in all stable trees since v5.19
+- [Phase 8] Failure mode: display doesn't work at all (PLL lock fails),
+  severity HIGH
 
-### Step 7.2: SUBSYSTEM ACTIVITY
-The AMD display subsystem is extremely active with dozens of commits per
-release cycle.
-
-Record: Very active subsystem, widely-used hardware.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: WHO IS AFFECTED
-All users with AMD DCN 3.2 (RDNA 3), DCN 3.21 (RDNA 3 refresh), or DCN
-4.01+ (RDNA 4) GPUs running kernel 7.0.y. These are very popular
-consumer GPUs.
-
-Record: Driver-specific but affects millions of AMD GPU users.
-
-### Step 8.2: TRIGGER CONDITIONS
-The bug triggers whenever a medium update (e.g., HDR metadata, scaling,
-color space change) is submitted through the display update path AND the
-update values match after state application. This can happen during
-normal desktop operations, video playback, HDR content switching, etc.
-
-Record: Triggered during normal display operations. Common trigger.
-
-### Step 8.3: FAILURE MODE SEVERITY
-When the bug triggers:
-- Display updates that require full hardware programming go through the
-  fast path instead
-- This can cause **display corruption** (visual artifacts, incorrect
-  rendering)
-- Updates applied "in place on dc->current_state" without proper
-  validation
-- The commit message says these code paths "are not supported or tested"
-
-Record: Display corruption. Severity: **HIGH** (visual artifacts,
-incorrect rendering, untested code paths).
-
-### Step 8.4: RISK-BENEFIT RATIO
-- **BENEFIT:** Prevents display corruption on popular AMD hardware
-  during common display operations. HIGH benefit.
-- **RISK:** Very low — the fix moves ~15 lines of code within a single
-  function, matching proven V2 behavior. The fix was reviewed and tested
-  by AMD engineers.
-
-Record: High benefit, very low risk. Clear positive ratio.
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: COMPILE THE EVIDENCE
-
-**FOR backporting:**
-- Fixes a real display corruption bug on widely-used AMD hardware (RDNA
-  3 & RDNA 4)
-- Small, surgical fix (single function, ~15 lines moved)
-- Obviously correct (matches V2 path behavior and pre-refactoring V3
-  behavior)
-- Reviewed by AMD display engineer (Dillon Varone)
-- Tested by AMD QA (Dan Wheeler)
-- Authored by AMD display subsystem expert (Nicholas Kazlauskas)
-- Signed off by AMD GPU maintainer (Alex Deucher)
-- No external dependencies
-- Should apply cleanly to 7.0.y
-
-**AGAINST backporting:**
-- Only affects 7.0.y (bug introduced in v7.0-rc1)
-- No explicit user bug reports (likely caught internally)
-
-### Step 9.2: STABLE RULES CHECKLIST
-1. Obviously correct and tested? **YES** — reviewed and tested by AMD,
-   matches V2 behavior
-2. Fixes a real bug? **YES** — incorrect fast path determination leading
-   to display corruption
-3. Important issue? **YES** — display corruption on popular hardware
-4. Small and contained? **YES** — single function, single file, ~15
-   lines
-5. No new features or APIs? **YES** — pure fix
-6. Can apply to stable trees? **YES** — should apply cleanly to 7.0.y
-
-### Step 9.3: EXCEPTION CATEGORIES
-Not applicable — this is a straightforward bug fix, not an exception
-category.
-
-### Step 9.4: DECISION
-The evidence strongly supports backporting. This is a well-reviewed,
-tested, small fix for a display corruption bug affecting popular AMD GPU
-hardware on the main display update code path.
-
----
-
-## Verification
-
-- [Phase 1] Parsed tags: Reviewed-by (Dillon Varone), Tested-by (Dan
-  Wheeler), SOBs from AMD maintainers
-- [Phase 2] Diff analysis: ~15 lines of
-  `populate_fast_updates`/`fast_update_only` moved before
-  `update_planes_and_stream_state` in
-  `update_planes_and_stream_prepare_v3()`
-- [Phase 2] Confirmed `full_update_required()` compares
-  `srf_updates[i].hdr_mult.value !=
-  srf_updates->surface->hdr_mult.value` (line 5151-5152), which becomes
-  false after `copy_surface_update_to_plane` (line 3592)
-- [Phase 2] Confirmed `update_planes_and_stream_state` calls
-  `copy_surface_update_to_plane` at line 3592 and
-  `copy_stream_update_to_stream` at line 3556
-- [Phase 3] git blame: buggy code introduced by d38ec099aa6fb7 (Dominik
-  Kaszewski, 2025-10-31) — "Split update_planes_and_stream_v3 into parts
-  (V2)"
-- [Phase 3] git tag --contains: d38ec099aa6fb7 first in v7.0-rc1, so
-  only 7.0.y affected
-- [Phase 3] V2 path (line 5231-5233) does fast path check BEFORE
-  `update_planes_and_stream_state` (line 5246) — confirmed correct
-  ordering
-- [Phase 3] Author Nicholas Kazlauskas has 10+ commits in dc.c, is the
-  reviewer of the original refactoring commit
-- [Phase 4] b4 dig: could not find original submission on lore (AMD
-  patches often flow through internal tooling)
-- [Phase 5] Call chain: userspace → amdgpu_dm →
-  dc_update_planes_and_stream → dc_update_planes_and_stream_prepare →
-  update_planes_and_stream_prepare_v3 — main display update path
-- [Phase 5] V3 path enabled for DCN_VERSION_4_01+ || DCN_VERSION_3_2 ||
-  DCN_VERSION_3_21 (line 7524) — RDNA 3 and RDNA 4
-- [Phase 6] Bug only in 7.0.y (d38ec099aa6fb7 first in v7.0-rc1)
-- [Phase 8] Failure mode: display corruption from untested fast path
-  updates; severity HIGH
-- UNVERIFIED: Could not access lore.kernel.org discussion due to anti-
-  bot protection
+The fix is small, surgical, well-tested across multiple platforms, and
+fixes a real hardware bug where display completely fails with SN65DSI83
+bridges on MediaTek DSI.
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/core/dc.c | 38 +++++++++++-------------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 35 +++++++++++++++---------------
+ 1 file changed, 17 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 4c5ecbb97d5b0..47064e9bc08ad 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -7285,6 +7285,23 @@ static bool update_planes_and_stream_prepare_v3(
- 	ASSERT(scratch->flow == UPDATE_V3_FLOW_INVALID);
- 	dc_exit_ips_for_hw_access(scratch->dc);
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index aaf6c9ebd319f..5aa71fcdcfab7 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -673,6 +673,21 @@ static s32 mtk_dsi_switch_to_cmd_mode(struct mtk_dsi *dsi, u8 irq_flag, u32 t)
+ 	}
+ }
  
-+	/* HWSS path determination needs to be done prior to updating the surface and stream states. */
-+	struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
++static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
++{
++	if (!dsi->lanes_ready) {
++		dsi->lanes_ready = true;
++		mtk_dsi_rxtx_control(dsi);
++		usleep_range(30, 100);
++		mtk_dsi_reset_dphy(dsi);
++		mtk_dsi_clk_ulp_mode_leave(dsi);
++		mtk_dsi_lane0_ulp_mode_leave(dsi);
++		mtk_dsi_clk_hs_mode(dsi, 0);
++		usleep_range(1000, 3000);
++		/* The reaction time after pulling up the mipi signal for dsi_rx */
++	}
++}
 +
-+	populate_fast_updates(fast_update,
-+			      scratch->surface_updates,
-+			      scratch->surface_count,
-+			      scratch->stream_update);
-+
-+	const bool is_hwss_fast_path_only =
-+		fast_update_only(scratch->dc,
-+				 fast_update,
-+				 scratch->surface_updates,
-+				 scratch->surface_count,
-+				 scratch->stream_update,
-+				 scratch->stream) &&
-+		!scratch->dc->check_config.enable_legacy_fast_update;
-+
- 	if (!update_planes_and_stream_state(
- 			scratch->dc,
- 			scratch->surface_updates,
-@@ -7300,26 +7317,7 @@ static bool update_planes_and_stream_prepare_v3(
- 	if (scratch->new_context == scratch->dc->current_state) {
- 		ASSERT(scratch->update_type < UPDATE_TYPE_FULL);
+ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+ {
+ 	struct device *dev = dsi->host.dev;
+@@ -725,6 +740,8 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+ 	mtk_dsi_set_vm_cmd(dsi);
+ 	mtk_dsi_config_vdo_timing(dsi);
+ 	mtk_dsi_set_interrupt_enable(dsi);
++	mtk_dsi_lane_ready(dsi);
++	mtk_dsi_clk_hs_mode(dsi, 1);
  
--		// TODO: Do we need this to be alive in execute?
--		struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
+ 	return 0;
+ err_disable_engine_clk:
+@@ -770,30 +787,12 @@ static void mtk_dsi_poweroff(struct mtk_dsi *dsi)
+ 	dsi->lanes_ready = false;
+ }
+ 
+-static void mtk_dsi_lane_ready(struct mtk_dsi *dsi)
+-{
+-	if (!dsi->lanes_ready) {
+-		dsi->lanes_ready = true;
+-		mtk_dsi_rxtx_control(dsi);
+-		usleep_range(30, 100);
+-		mtk_dsi_reset_dphy(dsi);
+-		mtk_dsi_clk_ulp_mode_leave(dsi);
+-		mtk_dsi_lane0_ulp_mode_leave(dsi);
+-		mtk_dsi_clk_hs_mode(dsi, 0);
+-		usleep_range(1000, 3000);
+-		/* The reaction time after pulling up the mipi signal for dsi_rx */
+-	}
+-}
 -
--		populate_fast_updates(
--				fast_update,
--				scratch->surface_updates,
--				scratch->surface_count,
--				scratch->stream_update
--		);
--		const bool fast = fast_update_only(
--				scratch->dc,
--				fast_update,
--				scratch->surface_updates,
--				scratch->surface_count,
--				scratch->stream_update,
--				scratch->stream
--		)
--		// TODO: Can this be used to skip `populate_fast_updates`?
--				&& !scratch->dc->check_config.enable_legacy_fast_update;
--		scratch->flow = fast
-+		scratch->flow = is_hwss_fast_path_only
- 				? UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST
- 				: UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL;
- 		return true;
+ static void mtk_output_dsi_enable(struct mtk_dsi *dsi)
+ {
+ 	if (dsi->enabled)
+ 		return;
+ 
+-	mtk_dsi_lane_ready(dsi);
+ 	mtk_dsi_set_mode(dsi);
+-	mtk_dsi_clk_hs_mode(dsi, 1);
+-
+ 	mtk_dsi_start(dsi);
+ 
+ 	dsi->enabled = true;
 -- 
 2.53.0
 
