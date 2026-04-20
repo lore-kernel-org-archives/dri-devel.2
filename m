@@ -4,54 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46CA6F588C5
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:18:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6BC8F588C6
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEEC10E5F6;
-	Mon, 20 Apr 2026 13:18:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 051E510E5EB;
+	Mon, 20 Apr 2026 13:18:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E0GjRfR5";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="iUFqg2k5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="13F8sboR";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="iUFqg2k5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="13F8sboR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7517010E5F5
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:18:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5A3C7437D7;
- Mon, 20 Apr 2026 13:18:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47C5C2BCB7;
- Mon, 20 Apr 2026 13:17:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691081;
- bh=gHSdlz2rtebhoe2uY5NJV8MntLpDaDpVvBaXmU/yos8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E0GjRfR5uZQwouzm7B7prBJMSJqveUvge8SqhcQj5czHztFi0SVKY0lqI8eTu90Sl
- v8b73T3SvOUHYDRoTkxIYxb21ZMcgy4qz316h3r2obNa4gOaycRDNS6ubkiVfG9w3+
- RNcyRwEAsCzD0W7uXYAymPhgAIqAz/WVfjnyGE8SQI0yEfVNGwp90g/7nveFCR7nZP
- bulct0fu8aeZ5Ek3sOfOTCOicKVU+CTVJbmoX9I5u3IhxFYzZAxTvLhECUIQHZWqNk
- 9EfL2gksyQeF4qh4CfiCZwLZIKeZNnaCo07ocjL0qDSPEkUVEz+DbG5tUg941Fn6l7
- HI0s+nUNmHkIQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <dev@lankhorst.se>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koening@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- ray.huang@amd.com, airlied@linux.ie, daniel@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.18] drm/ttm: Avoid invoking the OOM killer when
- reading back swapped content
-Date: Mon, 20 Apr 2026 09:09:08 -0400
-Message-ID: <20260420131539.986432-82-sashal@kernel.org>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5AA10E5EB
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 13:18:36 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 908CA6AD9D;
+ Mon, 20 Apr 2026 13:18:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776691115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
+ b=iUFqg2k5l4US5d2suXIUtIsMHp4MTF3TMZh17ksF9AVlq41PUQsQL5mRhgh8RLtRdeU1MC
+ WH3Qy5MMxGGOa1tArqsJdIL1sIeet2dkYJz6+qUmmk6OXm05g22ZqgWWf9xZZIeNzjGAPH
+ mkDJtppZvaILZVaNL749xJY6IV2HdjM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776691115;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
+ b=13F8sboRDeIkvoksanrOoKTN4gmJzekhtlahfx692kF3JsSUpbCNzXuIirnh0grL3TUvSj
+ aVUFdlPQyv511NCQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=iUFqg2k5;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=13F8sboR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1776691115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
+ b=iUFqg2k5l4US5d2suXIUtIsMHp4MTF3TMZh17ksF9AVlq41PUQsQL5mRhgh8RLtRdeU1MC
+ WH3Qy5MMxGGOa1tArqsJdIL1sIeet2dkYJz6+qUmmk6OXm05g22ZqgWWf9xZZIeNzjGAPH
+ mkDJtppZvaILZVaNL749xJY6IV2HdjM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1776691115;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=+Wnr69w8Txx9ZWYJgRgvfRUazE1jjfo2onqmgvwftg8=;
+ b=13F8sboRDeIkvoksanrOoKTN4gmJzekhtlahfx692kF3JsSUpbCNzXuIirnh0grL3TUvSj
+ aVUFdlPQyv511NCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5227E593AE;
+ Mon, 20 Apr 2026 13:18:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 98qyEqsn5mklJgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Mon, 20 Apr 2026 13:18:35 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: louis.chauvet@bootlin.com, hamohammed.sa@gmail.com, simona@ffwll.ch,
+ melissa.srw@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH] drm/vkms: Clean up artifacts from old vblank timer
+Date: Mon, 20 Apr 2026 15:18:08 +0200
+Message-ID: <20260420131831.242882-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260420131539.986432-1-sashal@kernel.org>
-References: <20260420131539.986432-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 7.0
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-1.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ FREEMAIL_TO(0.00)[bootlin.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org]; 
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,bootlin.com:email,lists.freedesktop.org:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCPT_COUNT_SEVEN(0.00)[9];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_COUNT_TWO(0.00)[2]; TAGGED_RCPT(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_TLS_ALL(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Queue-Id: 908CA6AD9D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,427 +117,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Vkms uses DRM's shared vblank timer. Do not include hrtimer.h and
+fix comments referring to the original implementation. This should
+have been done as part of commit 02e2681ffe1a ("drm/vkms: Convert
+to DRM's vblank timer").
 
-[ Upstream commit c6135f67aa37a4a744869f726d706bda091e6dfa ]
-
-In situations where the system is very short on RAM, the shmem
-readback from swap-space may invoke the OOM killer.
-
-However, since this might be a recoverable situation where the caller
-is indicating this by setting
-struct ttm_operation_ctx::gfp_retry_mayfail to true, adjust the gfp
-value used by the allocation accordingly.
-
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
-Acked-by: Christian König <christian.koening@amd.com>
-Link: https://patch.msgid.link/20260317141856.237876-3-thomas.hellstrom@linux.intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 02e2681ffe1a ("drm/vkms: Convert to DRM's vblank timer")
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Melissa Wen <melissa.srw@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
 ---
-
-LLM Generated explanations, may be completely bogus:
-
-Now I have all the information needed for a thorough analysis. Let me
-compile everything.
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject Line
-- **Subsystem**: `drm/ttm` (DRM Translation Table Manager - GPU memory
-  management)
-- **Action verb**: "Avoid" (implies fixing an undesirable behavior)
-- **Summary**: Prevent OOM killer invocation when reading back swapped
-  GPU buffer content
-
-Record: [drm/ttm] [Avoid] [Prevents unnecessary OOM killer invocation
-during shmem readback]
-
-### Step 1.2: Tags
-- **Signed-off-by**: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-  (author, TTM/Xe maintainer)
-- **Reviewed-by**: Maarten Lankhorst <dev@lankhorst.se> (DRM subsystem
-  reviewer)
-- **Acked-by**: Christian König <christian.koening@amd.com> (TTM co-
-  maintainer at AMD)
-- **Link**: https://patch.msgid.link/20260317141856.237876-3-
-  thomas.hellstrom@linux.intel.com
-
-Record: Reviewed by Maarten Lankhorst, Acked by Christian König (TTM
-maintainer). No Fixes: tag, no Reported-by tag. No syzbot link.
-
-### Step 1.3: Commit Body
-The commit explains that when the system is very short on RAM, the shmem
-readback from swap-space may invoke the OOM killer. Since the caller may
-be indicating a recoverable situation via `gfp_retry_mayfail = true`,
-the GFP value used by the shmem allocation should be adjusted to include
-`__GFP_RETRY_MAYFAIL` (try hard but don't OOM-kill) and `__GFP_NOWARN`
-(don't log warnings).
-
-Record: Bug: OOM killer can be triggered during TTM swap readback even
-when the operation context indicates the situation is recoverable.
-Symptom: Random processes killed by OOM killer unnecessarily. Root
-cause: `ttm_backup_copy_page()` used `shmem_read_folio()` with default
-GFP flags that don't include `__GFP_RETRY_MAYFAIL`.
-
-### Step 1.4: Hidden Bug Fix Detection
-This is explicitly described as avoiding OOM killer invocation, which is
-a real behavioral bug. The `gfp_retry_mayfail` flag was already
-respected in the page allocation path (`__ttm_pool_alloc`) and in the
-restore structure allocation (`ttm_pool_restore_and_alloc`), but NOT in
-the swap readback path - an inconsistency that results in incorrect
-behavior.
-
-Record: Yes, this is a genuine bug fix - the swap readback path was not
-honoring the `gfp_retry_mayfail` flag that other paths already
-respected.
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-- **`drivers/gpu/drm/ttm/ttm_backup.c`**: +4/-2 (function signature +
-  shmem_read_folio_gfp call)
-- **`drivers/gpu/drm/ttm/ttm_pool.c`**: +5/-2 (building additional_gfp
-  and passing it)
-- **`include/drm/ttm/ttm_backup.h`**: +1/-1 (header declaration update)
-- **Total**: ~10 lines changed
-- **Functions modified**: `ttm_backup_copy_page()`,
-  `ttm_pool_restore_commit()`
-
-Record: 3 files, ~10 net lines. Single-purpose surgical fix. Scope: very
-small.
-
-### Step 2.2: Code Flow Change
-**Hunk 1** (`ttm_backup.c`): `ttm_backup_copy_page()` gains an
-`additional_gfp` parameter. The call changes from
-`shmem_read_folio(mapping, idx)` to `shmem_read_folio_gfp(mapping, idx,
-mapping_gfp_mask(mapping) | additional_gfp)`. When `additional_gfp` is
-0, behavior is identical to before (since `shmem_read_folio()` is a
-wrapper that calls `shmem_read_folio_gfp()` with
-`mapping_gfp_mask(mapping)`).
-
-**Hunk 2** (`ttm_pool.c`): In `ttm_pool_restore_commit()`, when
-`ctx->gfp_retry_mayfail` is true, `additional_gfp` is set to
-`__GFP_RETRY_MAYFAIL | __GFP_NOWARN`; otherwise 0.
-
-**Hunk 3** (`ttm_backup.h`): Declaration updated.
-
-Record: Before: swap readback always used default GFP (may invoke OOM).
-After: when caller opts into retry_mayfail, swap readback also respects
-it. Unchanged when flag is false.
-
-### Step 2.3: Bug Mechanism
-This is a **logic/correctness fix**: an existing flag
-(`gfp_retry_mayfail`) was inconsistently applied. The page allocation
-path already honored it, but the swap readback path did not. The
-consequence is unnecessary OOM killer invocation, which kills user
-processes.
-
-Record: [Logic/correctness fix] The `gfp_retry_mayfail` flag was not
-propagated to the shmem readback path in `ttm_backup_copy_page()`. When
-the system was low on RAM and GPU content needed to be restored from
-swap, the OOM killer could fire instead of returning an error to the
-caller.
-
-### Step 2.4: Fix Quality
-- Obviously correct: uses the same pattern already present in other TTM
-  paths
-- Minimal and surgical: only 10 lines changed
-- No regression risk: when `gfp_retry_mayfail` is false, `additional_gfp
-  = 0`, making the behavior identical to before
-- The `shmem_read_folio_gfp()` function already exists and is used by
-  `ttm_backup_backup_page()` in the same file (line 105)
-
-Record: Fix quality: excellent. Minimal, obviously correct, follows
-existing pattern, reviewed by maintainer. Regression risk: very low.
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-The buggy code in `ttm_backup_copy_page()` was introduced in
-`e7b5d23e5d470` ("drm/ttm: Provide a shmem backup implementation") by
-Thomas Hellström on 2025-03-05. This first appeared in v6.15-rc1.
-
-Record: Buggy code introduced in e7b5d23e5d470, first in v6.15-rc1.
-
-### Step 3.2: Fixes Tag
-No Fixes: tag present (expected for candidates needing manual review).
-
-Record: No Fixes: tag. The implicit fix target is e7b5d23e5d470
-(introduced the backup code).
-
-### Step 3.3: File History
-The ttm_backup.c file has had 8 changes since its introduction (mostly
-restructuring, export fixes, mm API changes). The core
-`ttm_backup_copy_page()` function has remained stable since
-introduction.
-
-Record: File is relatively new (v6.15), stable code. No conflicting
-changes found.
-
-### Step 3.4: Author Context
-Thomas Hellström is the Intel TTM/Xe maintainer and the original author
-of the backup implementation. He wrote both the buggy code and the fix.
-This is the highest possible trust level for a patch author.
-
-Record: Author is the subsystem maintainer and original code author.
-
-### Step 3.5: Dependencies
-This is patch 2/3 of a 3-patch series:
-- Patch 1/3: Adds `__GFP_NOWARN` in `__ttm_pool_alloc` (different code
-  path, independent)
-- Patch 2/3: This commit (swap readback path)
-- Patch 3/3: Kerneldoc update (independent)
-
-Patch 2/3 is fully self-contained and applies independently.
-
-Record: No dependencies on other patches in the series. Can apply
-standalone.
-
-## PHASE 4: MAILING LIST RESEARCH
-
-### Step 4.1: Original Discussion
-Found via b4 mbox. The series was submitted as v2 on 2026-03-17. The
-cover letter describes it as "two small patches around the
-gfp_retry_mayfail behaviour." The author described the changes as
-"completely non-controversial."
-
-### Step 4.2: Reviewers
-- **Reviewed-by**: Maarten Lankhorst (DRM developer)
-- **Acked-by**: Christian König (TTM maintainer at AMD)
-- CI passed: Xe.CI.BAT success, Xe.CI.FULL success, CI.KUnit success
-
-### Step 4.3: Bug Report
-No specific bug report linked. This appears to be a code-review-
-identified issue where the author noticed the inconsistency between the
-page allocation path and the swap readback path.
-
-### Step 4.4: Related Patches
-Patch 1/3 is a related but independent fix. Patch 3/3 is documentation
-only.
-
-Record: [Lore thread found] [v2 is the applied version] [Reviewed by
-Maarten Lankhorst, Acked by Christian König] [No specific stable
-nomination in discussion] [No concerns raised]
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key Functions
-- `ttm_backup_copy_page()` - modified to accept additional GFP flags
-- `ttm_pool_restore_commit()` - modified to compute and pass additional
-  GFP flags
-
-### Step 5.2: Callers
-`ttm_backup_copy_page()` is called only from
-`ttm_pool_restore_commit()`. `ttm_pool_restore_commit()` is called from
-`ttm_pool_restore_and_alloc()` and `__ttm_pool_alloc()`.
-`ttm_pool_restore_and_alloc()` is called from `ttm_tt_restore()`, which
-is called from `xe_tt_populate()` (Intel Xe driver).
-
-The call chain: GPU buffer access -> page fault -> xe_tt_populate ->
-ttm_tt_restore -> ttm_pool_restore_and_alloc -> ttm_pool_restore_commit
--> ttm_backup_copy_page -> shmem_read_folio
-
-### Step 5.3-5.4: Call Chain Reachability
-This path is triggered when GPU buffer objects that were previously
-swapped out need to be restored - a normal operation when the system is
-under memory pressure. It's reachable during any GPU workload after swap
-has occurred.
-
-Record: The buggy path is reachable during normal GPU operations (page
-fault handling for restored buffer objects). Users of Intel Xe and
-potentially AMD/Nouveau drivers are affected.
-
-## PHASE 6: STABLE TREE ANALYSIS
-
-### Step 6.1: Code Existence in Stable
-The `ttm_backup.c` file was introduced in v6.15-rc1. The buggy code
-exists in stable trees v6.15.y and later. For this 7.0 tree, the
-relevant stable trees are 6.15.y, 6.16.y, 6.17.y, 6.18.y, 6.19.y.
-
-Record: Buggy code exists in 6.15.y+ stable trees.
-
-### Step 6.2: Backport Complications
-The patch should apply cleanly to 6.15.y+ trees since the code has been
-relatively stable. The `d4ad53adfe21d` ("Remove the struct ttm_backup
-abstraction") commit changed the function signatures in 6.15, so stable
-trees should have the same code structure.
-
-Record: Expected clean apply for 6.15.y+.
-
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem Criticality
-DRM/TTM is the memory manager for GPU drivers (AMD, Intel, Nouveau).
-It's used by virtually all desktop/laptop Linux users with discrete or
-integrated GPUs.
-
-Record: [DRM/TTM] [IMPORTANT - affects all GPU users]
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Affected Users
-All users with DRM/TTM GPU drivers (Intel Xe, AMD, Nouveau) who
-experience memory pressure during GPU workloads.
-
-### Step 8.2: Trigger Conditions
-- System must be under significant memory pressure
-- GPU buffer objects must have been swapped out to shmem
-- Application then needs those buffer objects restored
-- This is a realistic scenario: heavy GPU workload + many applications =
-  memory pressure
-
-### Step 8.3: Failure Mode Severity
-**OOM killer invocation** - kills user processes. This is a **HIGH**
-severity issue. The OOM killer is one of the most disruptive events in
-Linux - it selects and kills a process to free memory. Here, it fires
-unnecessarily because the caller indicated the situation is recoverable.
-
-Record: Severity: HIGH (unnecessary OOM killer invocation killing user
-processes)
-
-### Step 8.4: Risk-Benefit
-- **Benefit**: HIGH - prevents unnecessary OOM kills during GPU memory
-  restoration
-- **Risk**: VERY LOW - 10 lines, follows existing pattern, zero behavior
-  change when flag is false
-- **Ratio**: Strongly favorable for backport
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence Summary
-**FOR backporting:**
-- Fixes unnecessary OOM killer invocation (HIGH severity)
-- Small, surgical fix (10 lines across 3 files)
-- Follows existing pattern in the same codebase
-- Written by subsystem maintainer
-- Reviewed by DRM developer, Acked by TTM co-maintainer
-- CI passed fully
-- No dependencies on other patches
-- Affects real users with GPU hardware under memory pressure
-
-**AGAINST backporting:**
-- No explicit Fixes: tag or Cc: stable (expected for manual review
-  candidates)
-- No specific user bug report (code-review identified)
-- Only affects relatively new code (v6.15+)
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct? **YES** - follows existing pattern, reviewed by
-   maintainers
-2. Fixes a real bug? **YES** - OOM killer invoked unnecessarily
-3. Important issue? **YES** - OOM killer kills user processes
-4. Small and contained? **YES** - 10 lines, single purpose
-5. No new features? **YES** - extends existing flag handling to a
-   missing code path
-6. Applies to stable? **YES** - code exists in 6.15.y+
-
-### Step 9.3: Exception Categories
-Not an exception category - this is a straightforward bug fix.
-
-## Verification
-
-- [Phase 1] Parsed tags: Reviewed-by Maarten Lankhorst, Acked-by
-  Christian König, Link to lore
-- [Phase 2] Diff analysis: ~10 lines across 3 files; changes
-  `shmem_read_folio()` to `shmem_read_folio_gfp()` with optional GFP
-  flags
-- [Phase 2] Verified `shmem_read_folio()` is wrapper for
-  `shmem_read_folio_gfp(mapping, idx, mapping_gfp_mask(mapping))` at
-  include/linux/shmem_fs.h:179-182
-- [Phase 3] git blame: buggy code in `ttm_backup_copy_page()` introduced
-  in e7b5d23e5d470 (v6.15-rc1)
-- [Phase 3] Verified existing `gfp_retry_mayfail` handling in
-  `__ttm_pool_alloc()` at line 728-729 and
-  `ttm_pool_restore_and_alloc()` at line 858-859 - confirms
-  inconsistency
-- [Phase 3] git describe: TTM backup code first appeared in v6.15-rc1
-- [Phase 4] b4 mbox retrieved 12-message thread; cover letter describes
-  "two small patches around gfp_retry_mayfail behaviour"
-- [Phase 4] Christian König acked the series; Thomas Hellström called
-  changes "completely non-controversial"
-- [Phase 4] Patch 1/3 modifies different code path (independent); patch
-  3/3 is kerneldoc only
-- [Phase 5] `ttm_backup_copy_page()` called from
-  `ttm_pool_restore_commit()` -> `ttm_pool_restore_and_alloc()` ->
-  `ttm_tt_restore()` -> `xe_tt_populate()`
-- [Phase 5] Verified `gfp_retry_mayfail = true` is set by Intel Xe (6
-  call sites), AMD amdgpu (2 call sites), Nouveau (1 call site)
-- [Phase 6] Code exists in 6.15.y+ stable trees
-- [Phase 8] Failure mode: OOM killer invocation, severity HIGH
-
-**YES**
-
- drivers/gpu/drm/ttm/ttm_backup.c | 6 ++++--
- drivers/gpu/drm/ttm/ttm_pool.c   | 5 ++++-
- include/drm/ttm/ttm_backup.h     | 2 +-
- 3 files changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
-index 6bd4c123d94cd..81df4cb5606b4 100644
---- a/drivers/gpu/drm/ttm/ttm_backup.c
-+++ b/drivers/gpu/drm/ttm/ttm_backup.c
-@@ -44,18 +44,20 @@ void ttm_backup_drop(struct file *backup, pgoff_t handle)
-  * @dst: The struct page to copy into.
-  * @handle: The handle returned when the page was backed up.
-  * @intr: Try to perform waits interruptible or at least killable.
-+ * @additional_gfp: GFP mask to add to the default GFP mask if any.
+ drivers/gpu/drm/vkms/vkms_composer.c | 4 ++--
+ drivers/gpu/drm/vkms/vkms_drv.h      | 5 -----
+ 2 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index 83d217085ad0..db940eff43d7 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -595,7 +595,7 @@ static int compose_active_planes(struct vkms_writeback_job *active_wb,
   *
-  * Return: 0 on success, Negative error code on failure, notably
-  * -EINTR if @intr was set to true and a signal is pending.
+  * Work handler for composing and computing CRCs. work_struct scheduled in
+  * an ordered workqueue that's periodically scheduled to run by
+- * vkms_vblank_simulate() and flushed at vkms_atomic_commit_tail().
++ * vkms_crtc_handle_vblank_timeout() and flushed at vkms_atomic_commit_tail().
   */
- int ttm_backup_copy_page(struct file *backup, struct page *dst,
--			 pgoff_t handle, bool intr)
-+			 pgoff_t handle, bool intr, gfp_t additional_gfp)
+ void vkms_composer_worker(struct work_struct *work)
  {
- 	struct address_space *mapping = backup->f_mapping;
- 	struct folio *from_folio;
- 	pgoff_t idx = ttm_backup_handle_to_shmem_idx(handle);
+@@ -637,7 +637,7 @@ void vkms_composer_worker(struct work_struct *work)
+ 	spin_unlock_irq(&out->composer_lock);
  
--	from_folio = shmem_read_folio(mapping, idx);
-+	from_folio = shmem_read_folio_gfp(mapping, idx, mapping_gfp_mask(mapping)
-+					  | additional_gfp);
- 	if (IS_ERR(from_folio))
- 		return PTR_ERR(from_folio);
+ 	/*
+-	 * We raced with the vblank hrtimer and previous work already computed
++	 * We raced with the vblank timer and previous work already computed
+ 	 * the crc, nothing to do.
+ 	 */
+ 	if (!crc_pending)
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index 0933e4ce0ff0..3b5bdf39c031 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -3,8 +3,6 @@
+ #ifndef _VKMS_DRV_H_
+ #define _VKMS_DRV_H_
  
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index c0d95559197c6..4912ab53f6f92 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -530,6 +530,8 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 		p = first_page[i];
- 		if (ttm_backup_page_ptr_is_handle(p)) {
- 			unsigned long handle = ttm_backup_page_ptr_to_handle(p);
-+			gfp_t additional_gfp = ctx->gfp_retry_mayfail ?
-+				__GFP_RETRY_MAYFAIL | __GFP_NOWARN : 0;
- 
- 			if (IS_ENABLED(CONFIG_FAULT_INJECTION) && ctx->interruptible &&
- 			    should_fail(&backup_fault_inject, 1)) {
-@@ -543,7 +545,8 @@ static int ttm_pool_restore_commit(struct ttm_pool_tt_restore *restore,
- 			}
- 
- 			ret = ttm_backup_copy_page(backup, restore->alloced_page + i,
--						   handle, ctx->interruptible);
-+						   handle, ctx->interruptible,
-+						   additional_gfp);
- 			if (ret)
- 				break;
- 
-diff --git a/include/drm/ttm/ttm_backup.h b/include/drm/ttm/ttm_backup.h
-index c33cba111171f..29b9c855af779 100644
---- a/include/drm/ttm/ttm_backup.h
-+++ b/include/drm/ttm/ttm_backup.h
-@@ -56,7 +56,7 @@ ttm_backup_page_ptr_to_handle(const struct page *page)
- void ttm_backup_drop(struct file *backup, pgoff_t handle);
- 
- int ttm_backup_copy_page(struct file *backup, struct page *dst,
--			 pgoff_t handle, bool intr);
-+			 pgoff_t handle, bool intr, gfp_t additional_gfp);
- 
- s64
- ttm_backup_backup_page(struct file *backup, struct page *page,
+-#include <linux/hrtimer.h>
+-
+ #include <drm/drm.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem.h>
+@@ -205,9 +203,6 @@ struct vkms_crtc_state {
+  * @encoder: DRM encoder used for this output
+  * @connector: DRM connector used for this output
+  * @wb_connecter: DRM writeback connector used for this output
+- * @vblank_hrtimer: Timer used to trigger the vblank
+- * @period_ns: vblank period, in nanoseconds, used to configure @vblank_hrtimer and to compute
+- *	       vblank timestamps
+  * @composer_workq: Ordered workqueue for @composer_state.composer_work.
+  * @lock: Lock used to protect concurrent access to the composer
+  * @composer_enabled: Protected by @lock, true when the VKMS composer is active (crc needed or
 -- 
 2.53.0
 
