@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42E11F588C5
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91DB5F588C6
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:26:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98CD010E61D;
-	Mon, 20 Apr 2026 13:26:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D604E10E61A;
+	Mon, 20 Apr 2026 13:26:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="icqTMtZn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PDAmuY1f";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B124710E619;
- Mon, 20 Apr 2026 13:26:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0543C10E618;
+ Mon, 20 Apr 2026 13:26:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9355B42DCB;
- Mon, 20 Apr 2026 13:26:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E743C2BCC4;
- Mon, 20 Apr 2026 13:26:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D9F714385A;
+ Mon, 20 Apr 2026 13:26:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7274CC2BCB8;
+ Mon, 20 Apr 2026 13:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691570;
- bh=aePsErvzFJloIxrrjSbTedTghx+HOM3zzVUhqil3lD0=;
+ s=k20201202; t=1776691574;
+ bh=1FfShN0lxD5kueaKBwoKCRafm8VIHXcVBgIjBXL4Jjs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=icqTMtZn6xf2oHTfaBb5BaWJZUyBlO551NidNUQWHtDfrTTzS1roNwU80vGf3DhVK
- BjMUxyEXlto0ugs3cF5YdTMUhWe6i0SxrauxsRTBxpJQqvPdry6Z5Nu2NZsqwSNin4
- 8QOMLemH/14BzzIEsc0nQbZRYSRZuB4nrHFbC74MJ763hKSXBkjxmXes7GnN6RPlBK
- q9zq7y1MbwbNDWjfrMCrb7sbn+aZqTe+viJVX0xML5RdugpMxFVDP2do48Wbegta/P
- mUgpsMfkW8e45vS5mUM31TlGgjZeDxMqQv7OAozxfq2iHnqqauXXgg8vSrOwwGd+3W
- Qc/QBRGtFDtKg==
+ b=PDAmuY1f+I7bqbKRmiRleAthjT9Vc7avLT+kIuH+WEs7zq6HdQiP2v3pu3ITsou7C
+ wbtYZRZjuCjF/NFxF7YxpnRxl/ATM/JCiiIewR0y6X/Ub8OyCk4dOcY4XyaV5ebC8K
+ Z1wkvmj0oJJ3gg+1Wmca2txtns5PrdycR9prnBVvGO8RmTCe2SKSVww1zsYucvB5UR
+ imJv7Lf1DOaUVXTRh037LFx9eIVg2f96RNmJY+RyNmUP+UiebnHuCuBruMpJyhGLoT
+ BxS1dd9LkWLs+pK1L9BA9OAFvFjSQ/ngzZqBEKw8RXC4VbL4CjAdBsGghrl56pxRTc
+ be8VY1T/okg7A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+Cc: Jesse Zhang <Jesse.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ Jesse Zhang <Jesse.zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0] drm/amdgpu: Handle IH v7_1 reg offset differences
-Date: Mon, 20 Apr 2026 09:18:20 -0400
-Message-ID: <20260420132314.1023554-106-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0-6.18] drm/amdgpu/vcn4.0.3: gate per-queue reset by
+ PSP SOS program version
+Date: Mon, 20 Apr 2026 09:18:23 -0400
+Message-ID: <20260420132314.1023554-109-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
@@ -48,6 +50,7 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,372 +67,446 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit 41c61e60f82d55e9a3a3f3f04d192d732230a91c ]
+[ Upstream commit 16df395a55c635649dd3cf41d61bd685d3fd7a98 ]
 
-IH v7_1 changes the offsets of some registers relative to
-IH v7_0. Introduce IH v7_1-specific register access
+Add a PSP SOS firmware compatibility check before enabling VCN per-queue
+reset on vcn_v4_0_3.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Per review, program check is sufficient: when PSP SOS program is 0x01,
+require fw version >= 0x0036015f; otherwise allow per-queue reset.
+
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting (attempt 1)...
-Retry attempt 1...
-Now let me compile the final analysis.
+Now I have all the information needed for a complete analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject Line
-- **Subsystem**: `drm/amdgpu` (AMD GPU driver, IH = Interrupt Handler)
-- **Action verb**: "Handle" - implies addressing a functional issue
-- **Summary**: Addresses register offset differences between IH v7.0 and
-  IH v7.1 hardware IP versions
+**Step 1.1: PARSE THE SUBJECT LINE**
+- Subsystem prefix: `drm/amdgpu/vcn4.0.3`
+- Action verb: "gate" (restrict/conditionally enable)
+- Summary: Gate VCN per-queue reset feature behind a PSP SOS firmware
+  version check.
 
-Record: [drm/amdgpu] [Handle] [Fix wrong register offsets for IH v7.1
-hardware]
+Record: [drm/amdgpu/vcn4.0.3] [gate] [Add firmware compatibility check
+before enabling per-queue reset]
 
-### Step 1.2: Tags
-- Signed-off-by: Hawking Zhang (AMD GPU architect/contributor)
-- Reviewed-by: Lijo Lazar (AMD GPU developer)
-- Signed-off-by: Alex Deucher (AMD GPU subsystem maintainer)
-- No Fixes: tag, no Reported-by, no Cc: stable - all expected for
-  candidate evaluation.
+**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+- `Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>` - AMD GPU firmware/IP
+  maintainer
+- `Suggested-by: Lijo Lazar <lijo.lazar@amd.com>` - The approach was
+  suggested by the reviewer
+- `Signed-off-by: Jesse Zhang <Jesse.zhang@amd.com>` - Author
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` - AMD DRM
+  subsystem maintainer
+- No Fixes: tag (expected for autosel candidates)
+- No Cc: stable tag (expected)
+- No Reported-by tag
 
-Record: Standard AMD GPU driver patch flow. Reviewed by subsystem
-contributor, signed off by maintainer.
+Record: Reviewed and suggested by Lijo Lazar (AMD), committed by Alex
+Deucher (subsystem maintainer). No explicit bug reporter or syzbot
+involvement.
 
-### Step 1.3: Commit Body
-The body explains: "IH v7_1 changes the offsets of some registers
-relative to IH v7_0." This states factually that register offsets differ
-between hardware versions. "Introduce IH v7_1-specific register access"
-means the fix adds conditional paths.
+**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+The commit explains that PSP SOS firmware compatibility must be checked
+before enabling VCN per-queue reset. Specifically: when PSP SOS program
+is 0x01, firmware version must be >= 0x0036015f. Otherwise (other
+programs), per-queue reset is allowed. This prevents enabling a reset
+path that the firmware doesn't support.
 
-Record: The bug is that IH v7.1 hardware has different register offsets
-for certain registers, but the driver uses v7.0 offsets for all
-versions, leading to wrong register accesses.
+Record: Bug: per-queue reset enabled without firmware version gating,
+leading to attempted resets on firmware that doesn't support it.
+Symptom: failed per-queue resets that fall back to full GPU reset. Root
+cause: missing firmware capability check.
 
-### Step 1.4: Hidden Bug Fix Detection
-This IS a hidden bug fix. The phrase "Handle... differences" understates
-the issue: without this change, the driver reads/writes WRONG register
-offsets on IH v7.1 hardware. This is a functional correctness bug.
+**Step 1.4: DETECT HIDDEN BUG FIXES**
+This is a firmware compatibility fix. "Gate" means "restrict to
+compatible configurations." Without it, per-queue reset is attempted on
+incompatible firmware, which fails. This is a real bug fix - enabling a
+feature on hardware/firmware that doesn't support it.
 
-Record: Yes, this is a hidden bug fix disguised as enablement.
+Record: Yes, this is a real bug fix - it prevents incorrect feature
+enablement on incompatible firmware.
 
-## PHASE 2: DIFF ANALYSIS
+---
 
-### Step 2.1: Inventory
-- **Files**: `drivers/gpu/drm/amd/amdgpu/ih_v7_0.c` (+22 lines net)
-- **Functions modified**: `ih_v7_0_irq_init()`
-- **Scope**: Single-file, single-function, surgical fix
+## PHASE 2: DIFF ANALYSIS - LINE BY LINE
 
-### Step 2.2: Code Flow Change
-The diff modifies `ih_v7_0_irq_init()` in three places:
+**Step 2.1: INVENTORY THE CHANGES**
+- File: `drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c` (+18, -1)
+- New function: `vcn_v4_0_3_is_psp_fw_reset_supported()` (15 lines)
+- Modified function: `vcn_v4_0_3_late_init()` (1 line condition change)
+- Scope: Single-file surgical fix
 
-1. **IH_CHICKEN register** (lines 321-324): Before: always uses
-   `regIH_CHICKEN` (0x018a from v7.0 header). After: checks IP version;
-   uses 0x0129 for v7.1, 0x018a for v7.0.
+Record: 1 file changed, 18 insertions, 1 deletion. Functions: new
+`vcn_v4_0_3_is_psp_fw_reset_supported()`, modified
+`vcn_v4_0_3_late_init()`. Single-file surgical fix.
 
-2. **IH_RING1_CLIENT_CFG_INDEX** (lines 361-363): Before: always uses
-   `regIH_RING1_CLIENT_CFG_INDEX` (0x0183). After: uses 0x0122 for v7.1.
+**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+- **Before**: `vcn_v4_0_3_late_init()` checks
+  `amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev)` to
+  enable per-queue reset. No firmware version check.
+- **After**: Same check, but now also calls
+  `vcn_v4_0_3_is_psp_fw_reset_supported(adev)` which extracts the PSP
+  program version from firmware version field and requires version >=
+  0x0036015f for program 0x01.
+- This is an initialization-time check; it only runs once during
+  `late_init`.
 
-3. **IH_RING1_CLIENT_CFG_DATA** (lines 365-371): Before: always uses
-   `regIH_RING1_CLIENT_CFG_DATA` (0x0184). After: uses 0x0123 for v7.1.
+**Step 2.3: IDENTIFY THE BUG MECHANISM**
+Category: (h) Hardware workaround / firmware compatibility fix.
+The new function extracts `pgm = (fw_ver >> 8) & 0xFF` and for program
+1, requires `fw_ver >= 0x0036015f`. This follows the exact same pattern
+as `vcn_v5_0_1` which checks `adev->psp.sos.fw_version >= 0x00450025`.
 
-Six local `#define` constants are added for the v7.1 offsets.
+Without this check, `AMDGPU_RESET_TYPE_PER_QUEUE` is set on systems
+where PSP firmware can't handle it. When a VCN timeout occurs,
+`amdgpu_job_timedout()` -> `amdgpu_ring_reset()` ->
+`vcn_v4_0_3_ring_reset()` -> `amdgpu_dpm_reset_vcn()` is called. If PSP
+can't handle it, the reset fails, the driver logs "VCN reset fail" and
+falls through to a full GPU reset.
 
-### Step 2.3: Bug Mechanism
-**Category**: Hardware register access correctness bug
+Record: Firmware compatibility fix. Missing version check causes per-
+queue reset to be attempted on incompatible firmware, leading to reset
+failures and unnecessary full GPU resets.
 
-I verified the register offsets from the actual header files:
+**Step 2.4: ASSESS THE FIX QUALITY**
+- Obviously correct: simple version comparison
+- Minimal and surgical: 18 lines, single file, follows established
+  pattern from vcn_v5_0_1
+- Regression risk: extremely low. Worst case: per-queue reset disabled
+  when it should be enabled (fallback to full GPU reset, which was the
+  old behavior anyway)
+- No API changes, no lock changes, no data structure changes
 
-**osssys_7_0_0_offset.h**:
-- `regIH_CHICKEN` = 0x018a
-- `regIH_RING1_CLIENT_CFG_INDEX` = 0x0183
-- `regIH_RING1_CLIENT_CFG_DATA` = 0x0184
+Record: Fix quality: excellent. Follows established pattern. Regression
+risk: very low.
 
-**osssys_7_1_0_offset.h**:
-- `regIH_CHICKEN` = 0x0129
-- `regIH_RING1_CLIENT_CFG_INDEX` = 0x0122
-- `regIH_RING1_CLIENT_CFG_DATA` = 0x0123
-
-The offsets differ significantly (e.g., IH_CHICKEN is 0x61 dwords
-apart). Since `ih_v7_0.c` only includes the v7.0 header, on v7.1
-hardware it reads/writes completely wrong registers.
-
-### Step 2.4: Fix Quality
-- **Obviously correct**: Yes - version check + correct v7.1 offsets
-  verified against official header
-- **Minimal/surgical**: Yes - only the three affected registers are
-  touched
-- **Regression risk**: Very low - only changes behavior for
-  IP_VERSION(7,1,0); v7.0 paths unchanged
-- **Red flags**: None
+---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame
-The buggy `RREG32_SOC15(OSSSYS, 0, regIH_CHICKEN)` at line 321 was
-introduced by `12443fc53e7d7` (Likun Gao, 2023 - initial ih_v7_0
-support). The IH_RING1 client config lines (359-371) were added by
-`f0c6b79bfc921` (Sunil Khatri, July 2024).
+**Step 3.1: BLAME THE CHANGED LINES**
+- `vcn_v4_0_3_late_init()` was introduced by commit 655d6403ad143 (Jesse
+  Zhang, 2025-08-13), first in v6.18-rc1
+- The `!amdgpu_sriov_vf(adev)` condition was added by c156c7f27ecdb
+  (Shikang Fan, 2025-11-19), also in v6.18
 
-### Step 3.2: Fixes Tag
-No Fixes: tag present. The underlying issue is that `692c70f4d8024`
-("drm/amdgpu: Use ih v7_0 ip block for ih v7_1") claimed v7.1 could
-share the v7.0 implementation, but didn't account for register offset
-differences. This commit IS in the stable tree.
+Record: Buggy code (missing firmware check) was introduced in v6.18-rc1
+with commit 655d6403ad143.
 
-### Step 3.3: File History
-20+ commits to ih_v7_0.c, mostly API refactoring. The v7.1-specific code
-(retry CAM) was added by `e06d194201189` which IS in this tree.
+**Step 3.2: FOLLOW THE FIXES TAG**
+No Fixes: tag present. This is expected for autosel candidates.
 
-### Step 3.4: Author
-Hawking Zhang is a principal AMD GPU architect and frequent contributor,
-also added the osssys v7.1 headers.
+**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+Between the late_init introduction (655d6403ad143) and this fix, the
+file has had several changes including rework of reset handling
+(d25c67fd9d6fe), DPG pause mode handling (de93bc353361f), and JPEG ring
+test ordering fix (91544c45fa6a1). The fix applies cleanly on top of the
+current state with the sriov check.
 
-### Step 3.5: Dependencies
-No dependencies. The commit is self-contained - it adds local #defines
-rather than including the v7.1 header (avoiding symbol clashes).
+Record: The fix is standalone, no prerequisites beyond the existing
+late_init function (which is already in the tree).
 
-## PHASE 4: MAILING LIST RESEARCH
+**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
+Jesse Zhang is a regular AMD GPU driver contributor with many commits in
+the amdgpu subsystem, including the original late_init callback, SDMA
+fixes, and queue reset work.
 
-Could not find the specific patch thread on lore.kernel.org (Anubis
-anti-scraping protection blocked search). Web search also did not find
-the exact patch. The "Consolidate register access methods" series by
-Lijo Lazar (Jan 2026) appears to be a follow-up refactoring.
+Record: Author is a regular AMD driver contributor, familiar with the
+subsystem.
+
+**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
+The fix depends only on `vcn_v4_0_3_late_init()` existing (commit
+655d6403ad143) and access to `adev->psp.sos.fw_version`. Both exist in
+the current tree. The fix is self-contained.
+
+Record: No additional dependencies. Applies standalone.
+
+---
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+b4 dig could not find the patch (possibly due to the AMD internal
+submission process), but the mail-archive.com search found both V1 and
+V2.
+
+- V1: `[PATCH] drm/amdgpu/vcn4.0.3: gate VCN reset on PSP FW for MP0
+  13.0.6` - included an IP version switch (13.0.6 specific)
+- V2: `[PATCH V2] drm/amdgpu/vcn4.0.3: gate per-queue reset by PSP SOS
+  program version` - simplified per Lijo's review feedback
+
+**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+Lijo Lazar (AMD IP/firmware expert) reviewed both versions and gave
+Reviewed-by on V2. He suggested the simplification (program check alone
+is sufficient). Alex Deucher (AMD DRM subsystem maintainer) committed
+it.
+
+Record: Thoroughly reviewed by AMD maintainers. V1 was revised per
+feedback.
+
+**Step 4.3: SEARCH FOR THE BUG REPORT**
+No explicit bug report link. The ticket reference FWDEV-159155 is an
+AMD-internal tracker. Lijo noted in review that internal ticket
+references shouldn't be in comments.
+
+**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+This is a standalone single patch, not part of a series. VCN v5.0.1
+already had the same pattern (firmware version gating) from commit
+5886090032ec8.
+
+**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+Could not access lore.kernel.org directly due to bot protection. No
+evidence of explicit stable nomination found in the mail-archive
+discussion.
+
+---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key Functions
-`ih_v7_0_irq_init()` is the only function modified.
+**Step 5.1: IDENTIFY KEY FUNCTIONS**
+- New: `vcn_v4_0_3_is_psp_fw_reset_supported()` - called only from
+  `vcn_v4_0_3_late_init()`
+- Modified: `vcn_v4_0_3_late_init()` - called during driver
+  initialization
 
-### Step 5.2: Callers
-`ih_v7_0_irq_init()` is called from:
-- `ih_v7_0_hw_init()` -> called during device load
-- `ih_v7_0_resume()` -> called during system resume
+**Step 5.2: TRACE CALLERS**
+`vcn_v4_0_3_late_init` is registered as the `.late_init` callback in the
+IP function table. It's called once during device initialization by the
+amdgpu IP block management code.
 
-These are critical initialization paths that run every time the GPU is
-initialized or resumed.
+**Step 5.3-5.4: DOWNSTREAM IMPACT**
+If `AMDGPU_RESET_TYPE_PER_QUEUE` is incorrectly set,
+`amdgpu_job_timedout()` (amdgpu_job.c:134-155) will attempt per-queue
+reset via `vcn_v4_0_3_ring_reset()` which calls
+`amdgpu_dpm_reset_vcn()`. If firmware doesn't support it, this fails,
+and the driver falls through to a full GPU reset - a much more
+disruptive event that resets all GPU engines.
 
-### Step 5.4: Reachability
-Absolutely reachable - runs on every device init and resume for any GPU
-using IH v7.x.
+**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
+VCN v5.0.1 already has the same firmware version gating pattern
+(`vcn_v5_0_1_late_init`, line 125). GFX v11, v12, and SDMA v4.4.2 also
+gate per-queue reset behind firmware version checks. This is a well-
+established pattern.
+
+---
 
 ## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
 
-### Step 6.1: Buggy Code in Stable
-YES - both the code and the IH v7.1 hardware recognition
-(`amdgpu_discovery.c` line 2110: `case IP_VERSION(7, 1, 0)`) exist in
-this 7.0 tree. The v7.1-specific retry CAM code (commit `e06d194201189`)
-is also present.
+**Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?**
+The `vcn_v4_0_3_late_init()` function (with per-queue reset enablement
+but without firmware version check) was introduced in v6.18-rc1 (commit
+655d6403ad143). It exists in stable trees 6.18.y and newer. The VCN per-
+queue reset implementation itself was in v6.16+, but the late_init
+enablement path is the specific code this fixes.
 
-### Step 6.2: Backport Complications
-The patch should apply cleanly - the file in the stable tree matches the
-pre-image of the diff exactly. The current code at lines 303-402 matches
-what the diff expects.
+Record: Buggy code exists in 6.18.y and newer stable trees.
 
-### Step 6.3: Related Fixes
-No related fix for the same issue already in stable.
+**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
+The patch applies directly against the current state of `vcn_v4_0_3.c`.
+For 6.18.y, the patch should apply cleanly as the `vcn_v4_0_3_late_init`
+function with the same context lines exists there.
+
+Record: Expected clean apply to 6.18.y+.
+
+**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY IN STABLE**
+No related firmware version check fix for vcn_v4_0_3 has been applied to
+stable. The sriov check (c156c7f27ecdb) was cherry-picked to stable with
+Cc: stable tag, but that's a different fix.
+
+---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem Criticality
-`drm/amdgpu` - IMPORTANT. AMD GPUs are very widely used. IH (Interrupt
-Handler) is critical for GPU interrupt delivery.
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+- Subsystem: `drivers/gpu/drm/amd/amdgpu` - AMD GPU driver
+- Criticality: IMPORTANT - AMD GPUs are widely used in servers (MI-
+  series) and workstations
 
-### Step 7.2: Activity
-Very active subsystem with frequent changes.
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Very actively developed. VCN v4.0.3 specifically is for data center GPUs
+(Instinct series with multiple VCN instances).
+
+---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Affected Users
-Users with IH v7.1 GPUs (specific AMD GPU generation). These GPUs are
-detected and loaded by the driver in the 7.0 stable tree.
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Users with AMD GPUs that use VCN v4.0.3 (data center/MI-series GPUs)
+running PSP SOS firmware program 0x01 with version < 0x0036015f.
 
-### Step 8.2: Trigger Conditions
-Every GPU initialization and every system resume. 100% reproducible on
-affected hardware.
+Record: Driver-specific, but for important data center hardware.
 
-### Step 8.3: Failure Mode Severity
-Without this fix on IH v7.1 hardware:
-- **IH_CHICKEN wrong**: Bus address mode for IH not configured ->
-  potential firmware load path issues
-- **IH_RING1_CLIENT_CFG wrong**: Interrupt redirection to ring 1 broken
-  for dGPUs -> interrupt handling incomplete
-- **Wrong register writes**: Writing to offset 0x018a instead of 0x0129
-  corrupts whatever register is actually at 0x018a
-- Severity: **HIGH** - broken interrupt initialization on affected GPUs
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Trigger: A VCN (video encode/decode) job times out, causing the
+scheduler to attempt a per-queue reset. With incompatible firmware, the
+per-queue reset fails, forcing a full GPU reset.
 
-### Step 8.4: Risk-Benefit Ratio
-- **Benefit**: HIGH - makes IH v7.1 GPUs work correctly with proper
-  interrupt handling
-- **Risk**: VERY LOW - only changes behavior for IP_VERSION(7,1,0), all
-  v7.0 paths unchanged
-- **Ratio**: Strongly favorable
+Record: Triggered by VCN job timeout (can happen during normal video
+workloads). The per-queue reset attempt itself is the trigger for the
+bug.
+
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+- Without fix: Failed per-queue reset → full GPU reset (disrupts ALL GPU
+  workloads, not just VCN)
+- A full GPU reset on a data center GPU is highly disruptive
+- Severity: HIGH (unnecessary disruptive full GPU reset instead of
+  contained per-queue reset)
+
+Record: Failure mode: unnecessary full GPU reset instead of graceful
+fallback to non-per-queue behavior. Severity: HIGH for data center use.
+
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+- BENEFIT: Prevents failed per-queue resets and unnecessary full GPU
+  resets on systems with older firmware
+- RISK: Very low. 18 lines, single file, initialization-only code,
+  follows established pattern. Worst case: per-queue reset incorrectly
+  disabled → falls back to full GPU reset (same as not having per-queue
+  reset at all, the previous behavior)
+
+Record: High benefit, very low risk.
+
+---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Summary
+**Step 9.1: COMPILE THE EVIDENCE**
 
-**FOR backporting**:
-- Fixes wrong register access on hardware already supported in stable
-  (v7.1 IP recognized, block loaded)
-- Three registers accessed at completely wrong offsets (0x018a vs
-  0x0129, etc.)
-- Wrong register writes can corrupt hardware state and break interrupt
-  handling
-- Every GPU init/resume triggers the bug on affected hardware
-- Self-contained single-file fix
-- Reviewed by AMD developer, signed off by AMD maintainer
-- Low regression risk (v7.0 hardware unaffected)
-- Fix quality is high: correct offsets verified against official header
-  file
+FOR backporting:
+- Fixes a real firmware compatibility bug (per-queue reset attempted on
+  unsupported firmware)
+- Small (18 lines), surgical, single-file change
+- Follows established pattern from vcn_v5_0_1
+- Reviewed by AMD maintainer Lijo Lazar, committed by subsystem
+  maintainer Alex Deucher
+- Went through V1→V2 revision with reviewer feedback
+- Prevents unnecessary full GPU resets on data center hardware
+- Very low regression risk
+- Self-contained, no dependencies
 
-**AGAINST backporting**:
-- Moderate size (~22 lines, 6 #defines + conditional logic)
-- Commit message reads more like enablement than a bug fix
-- No Reported-by or syzbot (hardware may not yet be widely deployed)
-- Could be considered part of ongoing hardware bring-up
+AGAINST backporting:
+- No explicit Cc: stable (expected for autosel)
+- No Fixes: tag pointing to specific broken commit
+- No user-reported bug (AMD internal tracking reference FWDEV-159155)
+- Could be viewed as "hardening" rather than fixing a crash
+- Relatively new code (v6.18+), limited stable tree exposure
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **YES** - offsets verified against v7.1
-   header
-2. Fixes a real bug? **YES** - wrong register addresses on v7.1 hardware
-3. Important issue? **YES** - broken interrupt initialization, potential
-   register corruption
-4. Small and contained? **YES** - single file, single function, ~22
-   lines
-5. No new features? **YES** - fixes existing hardware support
-6. Can apply to stable? **YES** - file matches pre-image exactly
+UNRESOLVED:
+- Could not access lore.kernel.org directly to check for stable-specific
+  discussions
+- Don't know how many users have the specific old firmware configuration
 
-### Step 9.3: Exception Categories
-This is a **hardware workaround/quirk** for register offset differences
-- this exception category applies.
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **Yes** - simple version comparison,
+   reviewed by AMD maintainer
+2. Fixes a real bug? **Yes** - prevents failed per-queue resets with
+   incompatible firmware
+3. Important issue? **Yes** - prevents unnecessary full GPU resets (HIGH
+   severity for data center)
+4. Small and contained? **Yes** - 18 lines, 1 file
+5. No new features or APIs? **Correct** - gates an existing feature
+6. Can apply to stable trees? **Yes** - should apply cleanly to 6.18.y+
+
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+This could be classified as a hardware/firmware quirk/workaround -
+gating feature enablement based on firmware version. These are typically
+YES for stable.
+
+**Step 9.4: MAKE YOUR DECISION**
+This is a firmware compatibility fix that prevents the driver from
+enabling a reset path on firmware that doesn't support it. Without it,
+VCN job timeouts on affected systems lead to failed per-queue resets and
+unnecessary full GPU resets. The fix is small, surgical, well-reviewed,
+follows an established pattern, and has very low regression risk.
+
+---
 
 ## Verification
 
-- [Phase 1] Parsed tags: Reviewed-by: Lijo Lazar, Signed-off-by: Hawking
-  Zhang + Alex Deucher
-- [Phase 2] Diff analysis: adds #defines for 3 v7.1 register offsets +
-  conditional selection in ih_v7_0_irq_init()
-- [Phase 2] Verified v7.0 offsets: IH_CHICKEN=0x018a, CFG_INDEX=0x0183,
-  CFG_DATA=0x0184 (from osssys_7_0_0_offset.h)
-- [Phase 2] Verified v7.1 offsets: IH_CHICKEN=0x0129, CFG_INDEX=0x0122,
-  CFG_DATA=0x0123 (from osssys_7_1_0_offset.h)
-- [Phase 2] Confirmed #defines in patch match v7.1 header values exactly
-- [Phase 2] Confirmed all other IH registers (RB_BASE, RB_CNTL, etc.)
-  have SAME offsets in v7.0 and v7.1 - only these three differ
-- [Phase 3] git blame: regIH_CHICKEN usage introduced by 12443fc53e7d7
-  (initial ih_v7_0, 2023); client CFG added by f0c6b79bfc921 (2024)
-- [Phase 3] git show 692c70f4d8024: confirmed this commit added
-  IP_VERSION(7,1,0) mapping to ih_v7_0_ip_block in discovery
-- [Phase 3] git show e06d194201189: confirmed v7.1-specific CAM code
-  exists in stable tree
-- [Phase 5] ih_v7_0_irq_init() called from hw_init (device load) and
-  resume - critical paths
-- [Phase 6] Confirmed IP_VERSION(7,1,0) recognized in amdgpu_discovery.c
-  line 2110 of this tree
-- [Phase 6] Confirmed osssys_7_1_0_offset.h exists in this tree (commit
-  755b5591739cc)
-- [Phase 6] File matches pre-image of diff exactly - clean apply
-  expected
-- [Phase 6] RREG32_SOC15 macro verified: uses
-  `adev->reg_offset[ip_HWIP][inst][reg_BASE_IDX] + reg` - the `reg`
-  value comes from the included header (7_0_0)
-- UNVERIFIED: Could not access lore.kernel.org to read patch discussion
-  (Anubis protection)
-- UNVERIFIED: Which specific GPU models use IH v7.1 (but confirmed it IS
-  recognized in this tree)
+- [Phase 1] Parsed tags: Reviewed-by Lijo Lazar, Suggested-by Lijo
+  Lazar, Signed-off-by Jesse Zhang and Alex Deucher. No Fixes: or Cc:
+  stable (expected).
+- [Phase 2] Diff analysis: 18 lines added (new helper + condition
+  change), single file `vcn_v4_0_3.c`.
+- [Phase 3] git blame: `vcn_v4_0_3_late_init()` introduced by commit
+  655d6403ad143 in v6.18-rc1. Sriov check added by c156c7f27ecdb in
+  v6.18.
+- [Phase 3] git tag --contains: late_init commit first in v6.18, queue
+  reset impl in v6.16, this PSP check in v7.0.
+- [Phase 3] git log author: Jesse Zhang is a regular AMD GPU driver
+  contributor.
+- [Phase 4] mail-archive.com: Found V1 and V2 submissions. V1 had IP
+  version switch, V2 simplified per Lijo's review ("The program check
+  itself should be good enough").
+- [Phase 4] Lijo Lazar gave Reviewed-by on V2, noted internal ticket
+  reference should be removed.
+- [Phase 5] `vcn_v4_0_3_late_init()` is called once during
+  initialization; affects `AMDGPU_RESET_TYPE_PER_QUEUE` flag which gates
+  reset behavior in `amdgpu_job_timedout()`.
+- [Phase 5] vcn_v5_0_1 already has same firmware version gating pattern
+  at line 125.
+- [Phase 6] Buggy code present in 6.18.y+ stable trees. Patch expected
+  to apply cleanly.
+- [Phase 8] Failure mode: failed per-queue reset → full GPU reset.
+  Severity: HIGH for data center.
+- UNVERIFIED: Could not access lore.kernel.org directly (bot
+  protection). Used mail-archive.com as alternate source for discussion.
+- UNVERIFIED: Exact population of affected users with old firmware is
+  unknown, but AMD filed internal tracking ticket FWDEV-159155.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c | 36 ++++++++++++++++++++++------
- 1 file changed, 29 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-index 451828bf583e4..1fbe904f4223b 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
-@@ -289,6 +289,13 @@ static uint32_t ih_v7_0_setup_retry_doorbell(u32 doorbell_index)
- 	return val;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+index e78526a4e521e..ff3013b97abd1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
+@@ -134,6 +134,21 @@ static int vcn_v4_0_3_early_init(struct amdgpu_ip_block *ip_block)
+ 	return 0;
  }
  
-+#define regIH_RING1_CLIENT_CFG_INDEX_V7_1             0x122
-+#define regIH_RING1_CLIENT_CFG_INDEX_V7_1_BASE_IDX    0
-+#define regIH_RING1_CLIENT_CFG_DATA_V7_1              0x123
-+#define regIH_RING1_CLIENT_CFG_DATA_V7_1_BASE_IDX     0
-+#define regIH_CHICKEN_V7_1                            0x129
-+#define regIH_CHICKEN_V7_1_BASE_IDX                   0
++static bool vcn_v4_0_3_is_psp_fw_reset_supported(struct amdgpu_device *adev)
++{
++	uint32_t fw_ver = adev->psp.sos.fw_version;
++	uint32_t pgm = (fw_ver >> 8) & 0xFF;
 +
- /**
-  * ih_v7_0_irq_init - init and enable the interrupt ring
-  *
-@@ -307,6 +314,7 @@ static int ih_v7_0_irq_init(struct amdgpu_device *adev)
- 	u32 tmp;
- 	int ret;
- 	int i;
-+	u32 reg_addr;
++	/*
++	 * FWDEV-159155: PSP SOS FW must be >= 0x0036015f for program 0x01
++	 * before enabling VCN per-queue reset.
++	 */
++	if (pgm == 1)
++		return fw_ver >= 0x0036015f;
++
++	return true;
++}
++
+ static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -141,7 +156,9 @@ static int vcn_v4_0_3_late_init(struct amdgpu_ip_block *ip_block)
+ 	adev->vcn.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->vcn.inst[0].ring_enc[0]);
  
- 	/* disable irqs */
- 	ret = ih_v7_0_toggle_interrupts(adev, false);
-@@ -318,10 +326,15 @@ static int ih_v7_0_irq_init(struct amdgpu_device *adev)
- 	if (unlikely((adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) ||
- 		     (adev->firmware.load_type == AMDGPU_FW_LOAD_RLC_BACKDOOR_AUTO))) {
- 		if (ih[0]->use_bus_addr) {
--			ih_chicken = RREG32_SOC15(OSSSYS, 0, regIH_CHICKEN);
-+			if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0))
-+				reg_addr = SOC15_REG_OFFSET(OSSSYS, 0, regIH_CHICKEN_V7_1);
-+			else
-+				reg_addr = SOC15_REG_OFFSET(OSSSYS, 0, regIH_CHICKEN);
-+			ih_chicken = RREG32(reg_addr);
-+			/* The reg fields definitions are identical in ih v7_0 and ih v7_1 */
- 			ih_chicken = REG_SET_FIELD(ih_chicken,
- 					IH_CHICKEN, MC_SPACE_GPA_ENABLE, 1);
--			WREG32_SOC15(OSSSYS, 0, regIH_CHICKEN, ih_chicken);
-+			WREG32(reg_addr, ih_chicken);
- 		}
- 	}
+-	if (amdgpu_dpm_reset_vcn_is_supported(adev) && !amdgpu_sriov_vf(adev))
++	if (amdgpu_dpm_reset_vcn_is_supported(adev) &&
++	    vcn_v4_0_3_is_psp_fw_reset_supported(adev) &&
++	    !amdgpu_sriov_vf(adev))
+ 		adev->vcn.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
  
-@@ -358,17 +371,26 @@ static int ih_v7_0_irq_init(struct amdgpu_device *adev)
- 
- 	/* Redirect the interrupts to IH RB1 for dGPU */
- 	if (adev->irq.ih1.ring_size) {
--		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_INDEX);
-+		if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0))
-+			reg_addr = SOC15_REG_OFFSET(OSSSYS, 0, regIH_RING1_CLIENT_CFG_INDEX_V7_1);
-+		else
-+			reg_addr = SOC15_REG_OFFSET(OSSSYS, 0, regIH_RING1_CLIENT_CFG_INDEX);
-+		tmp = RREG32(reg_addr);
-+		/* The reg fields definitions are identical in ih v7_0 and ih v7_1 */
- 		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_INDEX, INDEX, 0);
--		WREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_INDEX, tmp);
-+		WREG32(reg_addr, tmp);
- 
--		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_DATA);
-+		if (amdgpu_ip_version(adev, OSSSYS_HWIP, 0) == IP_VERSION(7, 1, 0))
-+			reg_addr = SOC15_REG_OFFSET(OSSSYS, 0, regIH_RING1_CLIENT_CFG_DATA_V7_1);
-+		else
-+			reg_addr = SOC15_REG_OFFSET(OSSSYS, 0, regIH_RING1_CLIENT_CFG_DATA);
-+		tmp = RREG32(reg_addr);
-+		/* The reg fields definitions are identical in ih v7_0 and ih v7_1 */
- 		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_DATA, CLIENT_ID, 0xa);
- 		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_DATA, SOURCE_ID, 0x0);
- 		tmp = REG_SET_FIELD(tmp, IH_RING1_CLIENT_CFG_DATA,
- 				    SOURCE_ID_MATCH_ENABLE, 0x1);
--
--		WREG32_SOC15(OSSSYS, 0, regIH_RING1_CLIENT_CFG_DATA, tmp);
-+		WREG32(reg_addr, tmp);
- 	}
- 
- 	pci_set_master(adev->pdev);
+ 	return 0;
 -- 
 2.53.0
 
