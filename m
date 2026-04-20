@@ -4,68 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B824F588F5
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:29:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 373D2F5A8A0
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 17:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 924D210E24B;
-	Mon, 20 Apr 2026 16:29:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 906D210E702;
+	Mon, 20 Apr 2026 17:03:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k1VGY+20";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JODjf3eo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 251EE10E24B;
- Mon, 20 Apr 2026 16:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776702541; x=1808238541;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=+gVX3UOSPwoyymXhgo+gjJ+g4VoiOsc5z7Zps3kfqUg=;
- b=k1VGY+20KXhqjTwR4wLxBzmfKF3/PXxBHoPFour+zJ1ETvxPpPzohCbz
- 8DByfvay2BYdUKeA6yYAGp6JAcSq3/ZDh0+1UGUP2apl9nIXpdn+rPF3g
- FZU99fA7QUwa0hRs9k9eJGRukJ24fFBY9RBW1JBvDnAMBdUG5BgkmDEwR
- aHj3rZOTusynNvJHOSnxxtPM3uywaTKeW0uUXS7PE+LskCisHhK6vsgR+
- 7nJu81ccv5GMUh3NC7wFxf93cEAhQPJJVL9z5eZMCW1cphOskzfQETYIj
- rGYk66eHI3+Q3qpGKBvgkkOvayRA4YBUc3EdP2yHWygs3NzcjzOMeKIyX w==;
-X-CSE-ConnectionGUID: prGzIehvSniAKo3U5u/UKw==
-X-CSE-MsgGUID: kCnr5OIoRV6n+abcAecQbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="77498200"
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="77498200"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 09:28:59 -0700
-X-CSE-ConnectionGUID: 8283j0diQhuhlbRCi5UrTQ==
-X-CSE-MsgGUID: +05YG3k6QAq70gzjMJJMAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="227130085"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO [10.245.244.133])
- ([10.245.244.133])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2026 09:28:53 -0700
-Message-ID: <c8c05759c23d8befd3034b35d63c1de22c1c0d3e.camel@linux.intel.com>
-Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Brost <matthew.brost@intel.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>
-Cc: "Huang, Honglei1" <honghuan@amd.com>, Alexander.Deucher@amd.com, 
- Felix.Kuehling@amd.com, Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com, 
- Philip.Yang@amd.com, Xiaogang.Chen@amd.com, Ray.Huang@amd.com, 
- Lingshan.Zhu@amd.com, Junhua.Shen@amd.com, rodrigo.vivi@intel.com,
- dakr@kernel.org, 	aliceryhl@google.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Date: Mon, 20 Apr 2026 18:28:50 +0200
-In-Reply-To: <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
-References: <20260420120739.1811731-1-honglei1.huang@amd.com>
- <20260420120739.1811731-2-honglei1.huang@amd.com>
- <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
- <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
- <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
- <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67AC410E71B
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 17:03:55 +0000 (UTC)
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-79a2ee65171so43497977b3.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 10:03:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776704633; x=1777309433; darn=lists.freedesktop.org;
+ h=in-reply-to:autocrypt:from:content-language:references:cc:to
+ :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=IaJDt99qGaEHweujK0P2fSLtGhl4JK9+LtY2W+b0zqk=;
+ b=JODjf3eoSpJL6kAxhdhJ2mv8UlCskJIKdOBfK51o73fX6RuH2XOb4CK+lfJw6lVCIH
+ bY2/x0mzfv1JtTnOSKkbQ4n94/m40OknGt7oIUvTjBYNK6geiD5TBTg5NSX2Q1PoelmZ
+ DEzBENOgn+FjKQvmyjq/EK8O0iCak/TtU3VOCnUYPKVIpGfiS4Q6g7KGLsTeaaXmFY3j
+ 0JFgIHncQ1sw9wLp8xtIdGdbwtAMNlKemifjVPWm9jqAln+gDh+ygBVWA+hpMtaUr746
+ gr+ZYaOXTreP+IAVctVh+AUJWXsziRwav9r5nWPT/Ivkm3W8e9ZUkEoa304RVJYUL6nR
+ jXGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776704633; x=1777309433;
+ h=in-reply-to:autocrypt:from:content-language:references:cc:to
+ :subject:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=IaJDt99qGaEHweujK0P2fSLtGhl4JK9+LtY2W+b0zqk=;
+ b=FBVief3xYouKXIZjEskExlfltAWftVjfd7whwMcYzFGoeEvJevY16BVZnKOKlEsnfn
+ SPkxAnx0y6CjKcLrKG4dpsV6dPu0zC5b+O68hXAvcCH9uqfql3j3R6XSaw/1I1A3gSfi
+ nZd4cUTV2/fLdTjG1An92Mhu/FdcHNmNezB8u2/CXtwRhUOQ22sr8h9t6bQZamjoXSXi
+ YkjEKqwHUTdL1pLDP6xDuDu1UPDUqH7mrWiTlQ0kGqlqRctlrQ0gBmuJsCYzCZ+fQ2Vx
+ ZPwYnCDO3bIMbgoUZvFEFrQSN6NLnGgrYEsdwBUEVkXH3h5Ja2wpSWdGFRWtQ7+LMehv
+ VK/w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+L8cXBqG1KVKqp1GGEN7ThRHQgGRb4zXwQVD27rP+aH8YxDo5SWBx1zvbhxPIgwFzl66PqL61bgKM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyhcK06pQ4oIMp6Z3LXNRtAGVcJfHLRftMc6ZTYG05Td8yCsYNN
+ hyaK7s7EshPHtqvJeZTbmOIzclXR+OjeKfJTutSj12QGiQyyknOlrMj4
+X-Gm-Gg: AeBDietMKWiCRcFaEspvL6PlTlQLvG43jX+qgsOEjyWehgmq2rishulU1GyPM6AJ6zZ
+ FMI0BtqI00xj7IzSqa8ob9w6qNQemzh92tsTRQVI4pt+MnhIgxrJ4th2h/kf6wtNMVplSgyz/Js
+ j/o0TMlWYtvJWeHK3KqVcx8aRCjoO8cEWkzmp36iVPqC+asIa3fXWeR5YFxu+ytSEdkA5YKSlYs
+ 1Oe0GkCPymDZ77m9Rrl2hJVtwrAcwr1wv4uvXjAad0ZtHRlhIDg60BVMfmmRKmHR4pO8HbGYPnq
+ 4LR6RX5de/qjayRjN6+Cvy4/Wmxq1BI/7C2iq7mGfMoHzdVbaUbgRY0n05XHxwBZwGIIO6l0Odp
+ 7/IC//GGxhKtnFX6XHCGzMXpKaYRrb1yqFTX2XYk/A95c3ugB6Ts/WC1L2/OVsB2dmTX+OB7zUj
+ vqkNW2YMux/a7WOKsDdFgb6PZ9VbSw24UG/CrVZKEsROBq6qcDkOHEiEHQlHFSjDnF81CvwxE02
+ nrP2DGRlSMhVE60VoO2Atv8t7/iRdDRGlSNYDGfpbxQ4J4lyoIz
+X-Received: by 2002:a05:690c:ed5:b0:7b8:7855:4d37 with SMTP id
+ 00721157ae682-7b9ecebda98mr144671307b3.13.1776704633317; 
+ Mon, 20 Apr 2026 10:03:53 -0700 (PDT)
+Received: from [10.138.34.110]
+ (h69-131-150-190.cncrtn.broadband.dynamic.tds.net. [69.131.150.190])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-7b9ee9ccdc4sm45545407b3.43.2026.04.20.10.03.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Apr 2026 10:03:51 -0700 (PDT)
+Message-ID: <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+Date: Mon, 20 Apr 2026 13:03:45 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Val Packett <val@invisiblethingslab.com>,
+ Suwit Semal <sumit.semwal@linaro.org>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+ <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------k6tjV2iCtnYnEvXZeEhxMv7R"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,193 +145,356 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 2026-04-20 at 09:06 -0700, Matthew Brost wrote:
-> On Mon, Apr 20, 2026 at 05:37:43PM +0200, Christian K=C3=B6nig wrote:
-> > On 4/20/26 15:30, Huang, Honglei1 wrote:
-> > > On 4/20/2026 8:15 PM, Christian K=C3=B6nig wrote:
-> > > >=20
-> > > >=20
-> > > > On 4/20/26 14:07, Honglei Huang wrote:
-> > > > > From: Honglei Huang <honghuan@amd.com>
-> > > > >=20
-> > > > > Add amdgpu drm SVM API definitions built on the
-> > > > > DRM GPUSVM framework.
-> > > > >=20
-> > > > > This includes:
-> > > > > - DRM_AMDGPU_GEM_SVM ioctl
-> > > > > - AMDGPU_SVM_FLAG_* flags
-> > > > > - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
-> > > > > - AMDGPU_SVM_ATTR_* attribute types
-> > > > > - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
-> > > > > - struct drm_amdgpu_svm_attribute and struct
-> > > > > drm_amdgpu_gem_svm
-> > > > >=20
-> > > > > Signed-off-by: Honglei Huang <honghuan@amd.com>
-> > > > > ---
-> > > > > =C2=A0 include/uapi/drm/amdgpu_drm.h | 39
-> > > > > +++++++++++++++++++++++++++++++++++
-> > > > > =C2=A0 1 file changed, 39 insertions(+)
-> > > > >=20
-> > > > > diff --git a/include/uapi/drm/amdgpu_drm.h
-> > > > > b/include/uapi/drm/amdgpu_drm.h
-> > > > > index 406a42be4..bed71ed9b 100644
-> > > > > --- a/include/uapi/drm/amdgpu_drm.h
-> > > > > +++ b/include/uapi/drm/amdgpu_drm.h
-> > > > > @@ -58,6 +58,7 @@ extern "C" {
-> > > > > =C2=A0 #define DRM_AMDGPU_USERQ_SIGNAL=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0x17
-> > > > > =C2=A0 #define DRM_AMDGPU_USERQ_WAIT=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0x18
-> > > > > =C2=A0 #define DRM_AMDGPU_GEM_LIST_HANDLES=C2=A0=C2=A0=C2=A0 0x19
-> > > > > +#define DRM_AMDGPU_GEM_SVM=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 0x1a
-> > > > > =C2=A0 =C2=A0 #define DRM_IOCTL_AMDGPU_GEM_CREATE=C2=A0=C2=A0=C2=
-=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union
-> > > > > drm_amdgpu_gem_create)
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_GEM_MMAP=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union
-> > > > > drm_amdgpu_gem_mmap)
-> > > > > @@ -79,6 +80,7 @@ extern "C" {
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct
-> > > > > drm_amdgpu_userq_signal)
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_USERQ_WAIT=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct
-> > > > > drm_amdgpu_userq_wait)
-> > > > > =C2=A0 #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES,
-> > > > > struct drm_amdgpu_gem_list_handles)
-> > > > > +#define DRM_IOCTL_AMDGPU_GEM_SVM=C2=A0=C2=A0=C2=A0
-> > > > > DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct
-> > > > > drm_amdgpu_gem_svm)
-> > > > > =C2=A0 =C2=A0 /**
-> > > > > =C2=A0=C2=A0 * DOC: memory domains
-> > > > > @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __u64 matrix[12];
-> > > > > =C2=A0 };
-> > > > > =C2=A0 +#define AMDGPU_SVM_FLAG_HOST_ACCESS=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 0x00000001
-> > > > > +#define AMDGPU_SVM_FLAG_COHERENT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0x00000002
-> > > > > +#define AMDGPU_SVM_FLAG_HIVE_LOCAL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0x00000004
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_RO=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x00000008
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_EXEC=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0x00000010
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 0x00000020
-> > > > > +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED=C2=A0=C2=A0=C2=A0 0x00=
-000040
-> > > > > +#define AMDGPU_SVM_FLAG_EXT_COHERENT=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0x00000080
-> > > > > +
-> > > > > +#define AMDGPU_SVM_OP_SET_ATTR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 0
-> > > > > +#define AMDGPU_SVM_OP_GET_ATTR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 1
-> > > > > +
-> > > > > +#define AMDGPU_SVM_ATTR_PREFERRED_LOC=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0
-> > > > > +#define AMDGPU_SVM_ATTR_PREFETCH_LOC=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 1
-> > > >=20
-> > > > Up till here the interface makes perfect sense, but then it
-> > > > becomes a bit fuzzy.
-> > > >=20
-> > > > > +#define AMDGPU_SVM_ATTR_ACCESS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
-> > > > > +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 3
-> > > > > +#define AMDGPU_SVM_ATTR_NO_ACCESS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 4
-> > > >=20
-> > > > Why are those separate attributes? What is the difference
-> > > > between those?
-> > >=20
-> > > Really thanks for the comments, I have some content mistaken in
-> > > V2, so I updated the V3 to fix that. For the header they are
-> > > same. for other content please review the V3, sorry about that.
-> > > And will fix the concern you raised in next version.
-> > >=20
-> > > So the meaning of AMDGPU_SVM_ATTR_ACCESS and
-> > > AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not,
-> > > and the SVM can set the preferred location, it can be in VRAM or
-> > > system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM
-> > > and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
-> > > it can not migrate, GPU only can access it in the initial place.
-> >=20
-> > Yeah but that doesn't then the interface doesn't seem to make sense
-> > since such states are mutual exclusive.
-> >=20
-> > It would make sense when you have some attribute which is named
-> > (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values
-> > INACCESSIBLE, IN_PLACE, MIGRATE.
-> >=20
-> > > > > +#define AMDGPU_SVM_ATTR_SET_FLAGS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 5
-> > > > > +#define AMDGPU_SVM_ATTR_CLR_FLAGS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 6
-> > > >=20
-> > > > Why is that separated into set and clear flags?
-> > >=20
-> > > This method inherits from KFD and is also designed to be
-> > > compatible with upper layer applications such as ROCR.
-> >=20
-> > That is *not* sufficient as justification. We need to document why
-> > that is necessary and *not* just say ROCR works that way.
-> >=20
-> > As far as I can see just a SET_FLAGS should be sufficient.
-> >=20
-> > > > > +#define AMDGPU_SVM_ATTR_GRANULARITY=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 7
-> > > > > +
-> > > > > +#define AMDGPU_SVM_LOCATION_SYSMEM=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 0
-> > > > > +#define AMDGPU_SVM_LOCATION_UNDEFINED=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 0xffffffff
-> > > >=20
-> > > > No location for device local memory?
-> > >=20
-> > > Vaule > 0 means for device memory, in xe_svm, it seems like it
-> > > uses fd for device local memory.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------k6tjV2iCtnYnEvXZeEhxMv7R
+Content-Type: multipart/mixed; boundary="------------XzUtzQuDURgw8Shm50KGUc7R";
+ protected-headers="v1"
+Message-ID: <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+Date: Mon, 20 Apr 2026 13:03:45 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Val Packett <val@invisiblethingslab.com>,
+ Suwit Semal <sumit.semwal@linaro.org>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+ <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49yB+l2nipd
+ aq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYfbWpr/si88QKgyGSV
+ Z7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/UorR+FaSuVwT7rqzGrTlscnT
+ DlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7MMPCJwI8JpPlBedRpe9tfVyfu3euTPLPx
+ wcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9Hzx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR
+ 6h3nBc3eyuZ+q62HS1pJ5EvUT1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl
+ 5FMWo8TCniHynNXsBtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2
+ Bkg1b//r6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+ 9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nSm9BBff0N
+ m0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQABzTxEZW1pIE1hcmll
+ IE9iZW5vdXIgKGxvdmVyIG9mIGNvZGluZykgPGRlbWlvYmVub3VyQGdtYWlsLmNvbT7CwXgE
+ EwECACIFAlp+A0oCGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJELKItV//nCLBhr8Q
+ AK/xrb4wyi71xII2hkFBpT59ObLN+32FQT7R3lbZRjVFjc6yMUjOb1H/hJVxx+yo5gsSj5LS
+ 9AwggioUSrcUKldfA/PKKai2mzTlUDxTcF3vKx6iMXKA6AqwAw4B57ZEJoMM6egm57TV19kz
+ PMc879NV2nc6+elaKl+/kbVeD3qvBuEwsTe2Do3HAAdrfUG/j9erwIk6gha/Hp9yZlCnPTX+
+ VK+xifQqt8RtMqS5R/S8z0msJMI/ajNU03kFjOpqrYziv6OZLJ5cuKb3bZU5aoaRQRDzkFIR
+ 6aqtFLTohTo20QywXwRa39uFaOT/0YMpNyel0kdOszFOykTEGI2u+kja35g9TkH90kkBTG+a
+ EWttIht0Hy6YFmwjcAxisSakBuHnHuMSOiyRQLu43ej2+mDWgItLZ48Mu0C3IG1seeQDjEYP
+ tqvyZ6bGkf2Vj+L6wLoLLIhRZxQOedqArIk/Sb2SzQYuxN44IDRt+3ZcDqsPppoKcxSyd1Ny
+ 2tpvjYJXlfKmOYLhTWs8nwlAlSHX/c/jz/ywwf7eSvGknToo1Y0VpRtoxMaKW1nvH0OeCSVJ
+ itfRP7YbiRVc2aNqWPCSgtqHAuVraBRbAFLKh9d2rKFB3BmynTUpc1BQLJP8+D5oNyb8Ts4x
+ Xd3iV/uD8JLGJfYZIR7oGWFLP4uZ3tkneDfYzsFNBFp+A0oBEAC9ynZI9LU+uJkMeEJeJyQ/
+ 8VFkCJQPQZEsIGzOTlPnwvVna0AS86n2Z+rK7R/usYs5iJCZ55/JISWd8xD57ue0eB47bcJv
+ VqGlObI2DEG8TwaW0O0duRhDgzMEL4t1KdRAepIESBEA/iPpI4gfUbVEIEQuqdqQyO4GAe+M
+ kD0Hy5JH/0qgFmbaSegNTdQg5iqYjRZ3ttiswalql1/iSyv1WYeC1OAs+2BLOAT2NEggSiVO
+ txEfgewsQtCWi8H1SoirakIfo45Hz0tk/Ad9ZWh2PvOGt97Ka85o4TLJxgJJqGEnqcFUZnJJ
+ riwoaRIS8N2C8/nEM53jb1sH0gYddMU3QxY7dYNLIUrRKQeNkF30dK7V6JRH7pleRlf+wQcN
+ fRAIUrNlatj9TxwivQrKnC9aIFFHEy/0mAgtrQShcMRmMgVlRoOA5B8RTulRLCmkafvwuhs6
+ dCxN0GNAORIVVFxjx9Vn7OqYPgwiofZ6SbEl0hgPyWBQvE85klFLZLoj7p+joDY1XNQztmfA
+ rnJ9x+YV4igjWImINAZSlmEcYtd+xy3Li/8oeYDAqrsnrOjb+WvGhCykJk4urBog2LNtcyCj
+ kTs7F+WeXGUo0NDhbd3Z6AyFfqeF7uJ3D5hlpX2nI9no/ugPrrTVoVZAgrrnNz0iZG2DVx46
+ x913pVKHl5mlYQARAQABwsFfBBgBAgAJBQJafgNKAhsMAAoJELKItV//nCLBwNIP/AiIHE8b
+ oIqReFQyaMzxq6lE4YZCZNj65B/nkDOvodSiwfwjjVVE2V3iEzxMHbgyTCGA67+Bo/d5aQGj
+ gn0TPtsGzelyQHipaUzEyrsceUGWYoKXYyVWKEfyh0cDfnd9diAm3VeNqchtcMpoehETH8fr
+ RHnJdBcjf112PzQSdKC6kqU0Q196c4Vp5HDOQfNiDnTf7gZSj0BraHOByy9LEDCLhQiCmr+2
+ E0rW4tBtDAn2HkT9uf32ZGqJCn1O+2uVfFhGu6vPE5qkqrbSE8TG+03H8ecU2q50zgHWPdHM
+ OBvy3EhzfAh2VmOSTcRK+tSUe/u3wdLRDPwv/DTzGI36Kgky9MsDC5gpIwNbOJP2G/q1wT1o
+ Gkw4IXfWv2ufWiXqJ+k7HEi2N1sree7Dy9KBCqb+ca1vFhYPDJfhP75I/VnzHVssZ/rYZ9+5
+ 1yDoUABoNdJNSGUYl+Yh9Pw9pE3Kt4EFzUlFZWbE4xKL/NPno+z4J9aWemLLszcYz/u3XnbO
+ vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
+ HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+
+--------------XzUtzQuDURgw8Shm50KGUc7R
+Content-Type: multipart/mixed; boundary="------------10JM7oBQQbSgbPWSKCMrkIaC"
+
+--------------10JM7oBQQbSgbPWSKCMrkIaC
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On 4/20/26 04:49, Christian K=C3=B6nig wrote:
+> On 4/17/26 21:35, Demi Marie Obenour wrote:
+>> On 4/17/26 03:53, Christian K=C3=B6nig wrote:
+>>> On 4/16/26 18:13, Demi Marie Obenour wrote:
+>>>> On 4/16/26 05:57, Christian K=C3=B6nig wrote:
+> ...
+>>>> Unless I am
+>>>> mistaken, client workloads are highly non-uniform: a single game or
+>>>> compute job might well use more VRAM than every other program on the=
+
+>>>> system combined.
+>>>
+>>> Yeah, perfectly correct.
+>>>
+>>>> Are these workloads impossible to make work well with pinning?
+>>>
+>>> No, as long as you don't know the workload beforehand, e.g. when you =
+define the limit.
+>>>
+>>> I mean that's why basically everybody avoids pinning and assigning fi=
+xed amounts of resources.
+>>>
+>>> Even if you can make it work technically pinning usually results in a=
+ rather bad end user experience.
+>>>
+>>> Regards,
+>>> Christian.
+>>
+>> Do drivers and programs assume that they can access VRAM from the CPU?=
+
 >=20
-> I have no stake in AMD=E2=80=99s uAPI, but I can at least explain how Xe=
-=E2=80=99s
-> uAPI
-> works here=E2=80=94and admittedly, it=E2=80=99s somewhat goofy.
+> Yes, and that is actually really important for performance.
 >=20
-> 0 =3D=3D device-local memory, with first-touch placement on whichever
-> device/tile touches the memory first
+> That's why Alex and I came up with the idea of using the resize able BA=
+R feature to access all of VRAM on modern GPUs.
 >=20
-> -1 =3D=3D system memory
+> There are a couple of hacks which have been implemented over the years =
+for exotic platforms were MMIO/VRAM access was problematic. For example o=
+n a page fault you use a GPU DMA engine to copy the VRAM buffer into syst=
+em memory, make the CPU memory access and then copy it back again on dema=
+nd at the next command submission.
 >=20
-> =E2=89=A5 0 =3D=3D a render-node FD (which could refer to a local or remo=
-te
-> device),
-> paired with a region instance to extract the pgmap for the desired
-> placement
+> But all of those hacks are basically just prove of concepts and result =
+in completely unusable performance.
+
+I'm reminded of Asahi considering emulating unaligned accesses to
+PCI BARs in a fault handler.
+
+>> Are any of the following reasonable options?
+>>
+>> 1. Change the guest kernel to only map (and thus pin) a small subset
+>>    of VRAM at any given time.  If unmapped VRAM is accessed the guest
+>>    traps the page fault, evicts an old VRAM mapping, and creates a
+>>    new one.
 >=20
+> Yeah, that could potentially work.
+>=20
+> This is basically what we do on the host kernel driver when we can't re=
+size the BAR for some reason. In that use case VRAM buffers are shuffled =
+in and out of the CPU accessible window of VRAM on demand.
 
-The first UAPI implementation here actually took a "pagemap fd"
-somewhat analogous to a dma-buf fd and that were created using a
-separate ioctl on the pagemap device.
+How much is this going to hurt performance?
+=20
+>> 2. Pretend that resizable BAR is not enabled, so the guest doesn't
+>>    think it can map much of VRAM at once.  If resizable BAR is enabled=
 
-IIRC when the RFC was posted, Christian had some concerns with that.
-And also when presented to the UMD team they, as Matt writes, preferred
-the current approach for simplicity.
+>>    on the host, it might be possible to split the large BAR mapping
+>>    in a lot of ways.
+>=20
+> That won't work. The userspace parts of the driver stack don't care how=
+ large the BAR to access VRAM with the CPU is.
+>=20
+> The expectation is that the kernel driver makes thing CPU accessible as=
+ needed in the page fault handler.
+>=20
+> It is still a good idea for your solution #1 to give the amount of "pin=
+-able" VRAM to the userspace stack as CPU visible VRAM limit so that test=
+ cases and applications try to lower their usage of VRAM, e.g. use system=
+ memory bounce buffers when possible.
 
-The benefit of a pagemap fd is that it would be easily possible to
-share other driver's pagemaps, and that the UMD would have explicit
-control over the pagemap lifetime. With the current approach a pagemap
-may be created during a gpu_madvise() call resulting in an unexpected
-(to the app) rather long delay.
+That makes sense.
 
-That said, it would be easy to support "pagemap fds" as well by just
-checking the file type in the gpu_madvise() ioctl.
+>> Or does Xen really need to allow the host to handle guest page faults?=
 
-/Thomas
+>> That adds a huge amount of complexity to trusted and security-critical=
 
+>> parts of the system, so it really is a last resort.  Putting the
+>> complexity in to the guest virtio-GPU driver is vastly preferable if
+>> it can be made to work well.
+>=20
+> Well the nested page fault handling KVM offers has proven to be extreme=
+ly useful. So when XEN can't do this it is clearly lacking an important f=
+eature.
 
+I agree. However, it is a lot of work to implement, which is why I'm
+looking for alternatives if possible.
 
+KVM is part of the Linux kernel, so it can just call the Linux kernel
+functions used to handle userspace page faults.  Xen is separate from
+Linux, so it can't do that.  Instead, it will need to:
+
+1. Determine that the fault needs to be handled by another VM, and
+   the ID of the VM that needs to handle the fault.
+2. Send a message to the VM asking it to handle the fault.
+3. Block the vCPU until it gets a response.
+
+Then the VM owning the memory will need to call the page fault handler
+and provide the memory to Xen.  Xen then needs to:
+
+4. Map the memory into the nested page tables of the VM that faulted.
+5. Resume the vCPU.
+
+> But I have one question: When XEN has a problem handling faults from th=
+e guest on the host then how does that work for system memory mappings?
+>=20
+> There is really no difference between VRAM and system memory in the han=
+dling for the GPU driver stack.
+>=20
+> Regards,
+> Christian.
+
+Generally, Xen makes the frontend (usually an unprivileged VM)
+responsible for providing mappings to the backend (usually the host).
+That is possible with system RAM but not with VRAM, because Xen has
+no awareness of VRAM.  To Xen, VRAM is just a PCI BAR.
+
+KVM runs in the same kernel as the GPU driver.  Xen doesn't, and that
+is the source of the extra complexity.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+--------------10JM7oBQQbSgbPWSKCMrkIaC
+Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
+B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
+bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
+UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
+MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
+zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
+T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
+BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
+6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
+m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
+zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
+dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
+X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
+R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
+oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
+zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
+rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
+Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
+/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
+ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
+Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
+xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
+fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
+AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
+b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
+BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
+/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
+/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
+sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
+xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
+VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
+hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
+I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
+xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
+ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
+7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
+UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
+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
+EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
+=3Dx94R
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------10JM7oBQQbSgbPWSKCMrkIaC--
+
+--------------XzUtzQuDURgw8Shm50KGUc7R--
+
+--------------k6tjV2iCtnYnEvXZeEhxMv7R
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmnmXHIACgkQszaHOrMp
+8lMP3w//SsouQ8thLGc1ReZwoowZ1fk+M3//KApSho08BStSJqKiteNY9YjJS3rQ
+F3B7a/BZSkTL+KpbsYbDRiTAE2utqIhc1+6f7CN2teQU7BkwwRQMJU699UAGv6QR
+xPQCXJAmUKnh6V1alqGMNuXw5sRCmhlmQUsMIS53nExLLHAQe6sC7qc7EOENepV5
+6rq7NO6yfrycgacveaGg1VHUVtY/4PU0UPz4QLbdD3oyLr1HFSh7BWzD884+j/cX
+mo6Ts5cc8luBIt9IgZgCD+WkmZ1mRJx83x/Fcaef6AUsWoyWOaKw9cLCFXCIzZMw
+FMQjq1/Pe9/U3WnVOiHkCqDJ+E1QbnygSoU0fEHYUPElhAbxEPz8kk2T2tOSyOCP
+AB9FK/T4jkcye/U0VTLCeC0mAqZyNoHj+weFcU/hx5TxRYAwJcFKJhUcgKtQ4X4B
+4uORbJfSUBIvgfwJBlT8G0akpWiroxGKAVDVFc+tb6jgCK+3D2Ln2bZ53Oli7X68
+2xoyvZXeIjqvrIVZCWZE0jjtaO0JcCzaYNeGxV9WCgcUgXPP5PqamNyveumSeFLF
+7D5zF9oT9YnXmO9nfsc4Y1hwfsGYantaM58Q9l5SsM2chrxnewznOj8rRcmkRXGE
+MxXExMqMg3VuCwBeyHn27wJi/Wbd30JDDia/NnZA6MckHACT8FY=
+=yWZM
+-----END PGP SIGNATURE-----
+
+--------------k6tjV2iCtnYnEvXZeEhxMv7R--
