@@ -4,104 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5434AEA71A4
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 02:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB34DEA71A4
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 02:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94CD110E02D;
-	Mon, 20 Apr 2026 02:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10AB910E021;
+	Mon, 20 Apr 2026 02:25:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RLgR8U8n";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="XV84nPym";
 	dkim-atps=neutral
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com
- [74.125.224.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB89A10E02D
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 02:19:47 +0000 (UTC)
-Received: by mail-yx1-f49.google.com with SMTP id
- 956f58d0204a3-652fcd5a6d7so2900364d50.2
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 19:19:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776651587; cv=none;
- d=google.com; s=arc-20240605;
- b=GEBOgK6rtbRJXAZd1RQ7sEF/z5AGHjYHjkmIGCa+PN6dSDw6cxym5TXVKZYhtf3UYR
- snOvSUirEUMZfYkzsM+SaG9js4T/dxWcRdEp9E76fnD7Sb1HYRh3mMcWLsWN2Rcmcfam
- UTFyNe9gzLwQebDAdBUC+VRCjGR+wL/VCbJ9DDwdb/s+BJkWQBl8Iw5m9TdVrsTWr89G
- J4HhPKumwKlrTmkm/fNkZxdqOW0p8SJfdR7kfZEcLMcGUCGLBmNErZcN52D1Berlspkd
- 8peAGOeZ2uzJILBxR6O0TJQx8/tRXyU2NPonpygHWnwiIpjUEQVJtx5YZPWcfugQ37Hi
- YBew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Mn2XEI38VK14s4TDNjxRsEErkOLyfZwZt+XdGzTxUC8=;
- fh=0P8os1TCXDsC33DqTmclo63NAYLG2GYCKBcvaDmvnX4=;
- b=HKODiuHZGbderw8qXkXcCajdkuc6wSW/aBo8zZIXLTsqJTBic4T/9Z+iu+tYA9914/
- nwOCN4Emp7d96G5QtMQZHm16goA4kxbqMEtkHIazHPkDsRCFNWnxT4okNQgsMwgHQ/CL
- NYy0Zx84rdnxxKxBlQYHxWqnzknkGwrioOKPb7BVL7TqmiydadK/gdIuxOh1Efe6LKAI
- WFKN7DK7VQoBeOXFOr1iehUbshhbCdpoPLia0X8J4yEmGzJkOJHgFR5JD+UbFvSmuBDq
- HShzCFHTzxKRDhZWFws/hdZaAezMLTKHeDZ3Ah+PEEBDKSB0MT5RLCJ9KiOjOPu73v8g
- ECqg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776651587; x=1777256387; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Mn2XEI38VK14s4TDNjxRsEErkOLyfZwZt+XdGzTxUC8=;
- b=RLgR8U8nKj2NGdDTD5U10AhiajvcaN00zZsansMkkk+SldhFGZ5ZsVIWNHqj887X54
- JofAbbbnMLMu0AzYTKSVugtUy67w2nEy4DcOjczWD/r3/h1hEYNzAzIscYUX2C+Ycg/1
- 769aXr57vI3C8V8bpx8xzlgew7GPiX2SIzpZxrRklDITXgKUaOzTGUjnsxFZHmNWPxti
- upABBc90MgBc2VVIh9RISZdy+k7Rg3ZVDn/8aDeD0Nr2X6FWSK3zwUeNt0dFM5Hxmt79
- pq2brRpltNJORAd7B3BYPtNubGXzn1o2pP4n1cJVNy+4pY9OY/byPwvZ3t6UXsjz/BUv
- /Gig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776651587; x=1777256387;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Mn2XEI38VK14s4TDNjxRsEErkOLyfZwZt+XdGzTxUC8=;
- b=qEE+Sx46/QBks5FXNoerbeCBzzL9z7+pEn+NcKqhy6eWAR/K22Zpz+1/rArNXZlFii
- 8khw+ZJ7SNcYob0aDnSZty42V9YfZeO7NWYgMy2mlid5UbGo3J1rvPbTmvZO6sP1LmzP
- ocNCastkr4ljLzyVjy/2d6NL0lcAFwVBgbEj3BbiI4FU4VMKLCLze0OTL2U/GNQumLy/
- 4q9ahLGFaUR2UQB8pnYS+QuXu9dEQkCTPJgVenZDJ31GQK3ZnhRMTa+Wj1gsOi/3WTPM
- KWzcP7vqCvzLxK/P3zKByB27G2sJnzSUQ62sseqvxlt5kIpEppqQlXQuBUV6AW6uJ89H
- 9HYg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/0xjT+5aa9EXCmvmn3VSDK96cxgNl1T4yMwg1VrQaelcMyh//cpeCVOUZaDtqrrkYI3WZgCmxcEVU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwqzjmLae4W63XGnf31B9WyUMwFShFQbVEAKnJl6TJTri2XSe7G
- xauWXuRcsAFzFK+U/L/dpLcw+9qNo8Dfo0uHeMiZIDmfYZVwe6rKUKgA8PjfNYs4WSJf7HvyCMc
- J17JggbeQdx+ZUtRwD7SYI5H5a7kgoCg=
-X-Gm-Gg: AeBDievRckvNxj+xToCAra6VTaxe3axOG37F2yS9CtrHlsc6Iy1Bjn4i5qcXuKeMoL7
- JoxTVGUt7g/UgWSVXxCx1skb/bZGdJSA5rST+uItvXO15A8exHy3i4P94tWt0sKHOTybuguVuvz
- Ujaz0dCWUtj7n4d3N91vCMn8G7X8f7ZrffE6flHI+1VQcnnsqp8QfvDLsR5Nv5EHTTMyqDHDPUu
- Xd8Qs0n9uBJS7bjATmj6aM1Uq7+sTCX6Ge1AGiSuRQqlFsu7XzQ6zaC4HjsmzK4FnNXjkX1V0mS
- Ulb2MhrcXvsmL6DAjyIW
-X-Received: by 2002:a05:690e:484d:b0:649:ef06:161d with SMTP id
- 956f58d0204a3-653107f8e3bmr7151345d50.12.1776651586801; Sun, 19 Apr 2026
- 19:19:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260419122134.97529-1-lgs201920130244@gmail.com>
- <aeWHyhp43ZbgXwFe@lizhi-Precision-Tower-5810>
-In-Reply-To: <aeWHyhp43ZbgXwFe@lizhi-Precision-Tower-5810>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Mon, 20 Apr 2026 10:19:35 +0800
-X-Gm-Features: AQROBzCNElVyi3SqTu0MlhOiyhEx1DKejewgDVxgHgM7RX0rIbL7rJ3aJmlWlyE
-Message-ID: <CANUHTR8FaXLX+Nbeb7+sWRF9jQ5SoBgWc2y_LVD38KE7TqsxeQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/bridge: imx8qxp-pxl2dpi: avoid of_node_put() on
- ERR_PTR()
-To: Frank Li <Frank.li@nxp.com>
-Cc: Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011055.outbound.protection.outlook.com [52.101.70.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA38310E021
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 02:25:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W0LOVKVA3lisbLik/ZCutuM2ioCkwcVNyMff4m4mFWYeX/3OfgjYzUVmBlilZAkufs0FcR+KF8E8bFgw5KzGZwXaCWWWUxnL33ZFz+fX0j4MFb8e97OaIIIXiQlMa6AokuwgrxlCPuaQjEBNr0DWBDNlcwJA0852UVavJZ3OIhO5fD510A1g2BRPKLKVj2Dmn2RVTqgGeNeqTQvaJq3lsNreOEjqPRnngwz0nkPGapoDNm1x7ZxIAtlKa+YLYfjtEhZsRI2rERQcaUiAtDMzTSfEYmMJggkePTog6elkJLZxYxjsifIHS1Tzb2ikwPkAjLMmcleRi1E8/ZaOpKCarA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EuQNH+q0Novvj+IwSSfJWGCBTPA0wR2nQdECqge5hWQ=;
+ b=lkOzYrTxF1T5iU8lUgwBkvOHP+mjjeKCKzuEQap5okiIqi8zD3vNRZO76JvCvmcdk44aEnGWPPerV/oCyEycU1QB7ouhLXgCxTZkbZwJXp3T+CKg89txinIj6qFaulgDAxcjNb1u1My0SOmqotn7/fyleu77+9QHhfCSFuDjKXVfm90F960TjZtEfR4LXD2SXh9DuZORkrJID3dBjfRTZfX9YSB/SF2HrHXfo6BPnmtBESTnmgaNwo/njLeoQ4aOZ1BZuJHVF2b23JvvFKF0xeh6LkbZuoOLBvK+/aVLqMK5W2eMb0HgrMnVSBstlNZGZfKCDuTNgsB0iD2zuritHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EuQNH+q0Novvj+IwSSfJWGCBTPA0wR2nQdECqge5hWQ=;
+ b=XV84nPymjRPoWz+PW6TA4iFWaTqwiIyxZfxAJfaCyQxQXQnQCj6QIxe6JucPxoLNVP12dtsW1e8YsExeRn6IasjFWGwSHjaXJOVSqA1e2ahGhnidvW4EUWhKM2gKrRSs1FCE09GTAU35uv3KRaQEGGf1TgfGgRqogeJWPVsTAI1gUkiKNfpBmytsb4fwmBry+ms04kdYvmt1+wwhB0hA538sKL0jORQhNcHurBh8fDr7B95tlZgQPave4eZGaYb2p3IwTkXc0HOr/87SqVya48RK95v1XckJWA7MXw+8iAeEPvNMBQxMafVlq0/YiyvAY9fnyexrjq4W+J51Rp/yxQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM8PR04MB7940.eurprd04.prod.outlook.com (2603:10a6:20b:240::19)
+ by DU4PR04MB10622.eurprd04.prod.outlook.com (2603:10a6:10:593::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.30; Mon, 20 Apr
+ 2026 02:25:00 +0000
+Received: from AM8PR04MB7940.eurprd04.prod.outlook.com
+ ([fe80::1fa8:cc0b:b501:6bc4]) by AM8PR04MB7940.eurprd04.prod.outlook.com
+ ([fe80::1fa8:cc0b:b501:6bc4%3]) with mapi id 15.20.9818.032; Mon, 20 Apr 2026
+ 02:25:00 +0000
+Message-ID: <d6dcdce0-6ff9-433a-963c-5f0ea9f2a9fa@nxp.com>
+Date: Mon, 20 Apr 2026 10:26:22 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/bridge: ite-it6263: Add suspend/resume support
+To: Biju Das <biju.das.jz@bp.renesas.com>, "biju.das.au"
+ <biju.das.au@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+References: <20260416082928.169347-1-biju.das.jz@bp.renesas.com>
+ <00e2f34a-c488-4a61-bb87-0f0431990c3f@nxp.com>
+ <TY3PR01MB11346B5C92803F6A3D174ACCF86202@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+From: Liu Ying <victor.liu@nxp.com>
+Content-Language: en-US
+In-Reply-To: <TY3PR01MB11346B5C92803F6A3D174ACCF86202@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR01CA0041.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:193::15) To AM8PR04MB7940.eurprd04.prod.outlook.com
+ (2603:10a6:20b:240::19)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7940:EE_|DU4PR04MB10622:EE_
+X-MS-Office365-Filtering-Correlation-Id: a32608ae-b668-462f-9b25-08de9e840568
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|19092799006|7416014|376014|22082099003|921020|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: tj5I9tsvyTvs0rTFXLrRVpcsV+Pc4vzQ3lsKqlabSJ3XHCgPRdHGyzeNFtF67zdzxuE7j6OG9ToLxdqiX30QfTJNlRzXPZC0U2+4yvhYnflKmD+km7Y6D9Xl/y26yK/nRUu2wooy/cp61Et1TiBrj4c5nvGTtszvQma95C3YCrjVR570eH9zzQjpikUVtbgx02syR0o3cycX0AUFmNIFBx5tK3AV2vccItdoNXSb44SKBB4ZztHAK77tywty0elUny2oJHSCGm4tPZ+btBjekzIN7tWE72IboOcC70xG0iG6QixVAVkblFlYTGDs8dgU+0pVffX8SiZJfQ6/8byBHIyeYx0Reqmv14iCGG89m1xXgX/2BNozF4rjRn8H+2RksyFtF3/K48m4RopbbNTdM3qdCk4W35ZX3+tb0GN6XxS5/ixKuW9NxwWrKHAiZKqm+WGATOFokpvP9FxRXODcBnwIcI+r+mqJXT1xvtv7l38EWuMU3GWgg0gehdE0uzlswUaPWyXIt9/dLquHaRQdzjk+5aAiR0VK0MPJDRFr2QMPAHLWe9ndeSLqMzjGvHVS1kC0PwTIPHhV4x69MOevoOat1NNW5pJ2ZoSWUkTCBULJ3tYuvclb5Ytoo0wtJV1oNf8sqxhBP/CkSIobFnBAp9NHTFTr3S+nGG4WmN5pYE5zLRqo05SEZ+An1o8DkCEIiDAAG3INH5SbYRu1G+o6EV4Mx+PtHB6/8YaQ/xq+qgKQfFWbvOVMjOg8xr6cpDNSCfVXY3XUjmrPlBEIvT7Zcg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM8PR04MB7940.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(19092799006)(7416014)(376014)(22082099003)(921020)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzJmcWgvYmdYT0pEUk5tR1JGSWpBUTlwQ002dEkzcXVSNC9jUzVkVXY1VE5t?=
+ =?utf-8?B?RVRIWDJ0Q3RTN2licjltNzhFeFRHeFJ4eFc2YUlkMFdhc2p6RjlWald4c1d1?=
+ =?utf-8?B?OTdGMkQ5eTJBRjJCNStwVHFNQkt4ck5HeEJDcHZIRE10cDZlT1k2Y0hMVlkr?=
+ =?utf-8?B?dVdsZ2orRGE2T2x4MmxsVG5aS0Z0T0VUaHBjWGE3bHRNeFJ5Qmc0SUpEUVVE?=
+ =?utf-8?B?Q1dKalNCZURVUk8zNCsyZ0FUTWQrcS91RWlibmxwVjd3NnFGdnk1Um5sTjYy?=
+ =?utf-8?B?anBEU3N3RUpZUDE4cnFLM09XOVpObVV4TzhRQXBnM0dFdmU0MzE5YWFhUXZF?=
+ =?utf-8?B?amg1YndPZ1N5NlJ5bU5IY256bktPNEdoTUtTTXFLeE9QbkcxNzdiT0l2TXMr?=
+ =?utf-8?B?dTZMMUk0NWhsVkRZU0xVWFBkVlY2Sy9IRHRzZGFObSt5cXBMWWk0anVQeVFZ?=
+ =?utf-8?B?OFNQczRuS1NhUXlXRGtiY0VBSllRenVhZmlZeHhHbHZvQmdFbWFaUEorOVlH?=
+ =?utf-8?B?Y3BWdTBCYWMrUWVvbFJ3OXpmKzZaRkl3ejJjUVlLbGRCWUthNkJWcVFsU1FT?=
+ =?utf-8?B?cENqenQ5S2UyZXo0SFA4QzhGY0UvTzRoWWJqbTVZTWlpSzFPa1l3V3FEZkMx?=
+ =?utf-8?B?aGNvVzlQc2RGZ1IzcUZDYUtjdlQ5TXpiV2NCMitqMklIRFlrZEJvRFRDNFM1?=
+ =?utf-8?B?bm5rb0dCTkJ4TFR6MWdVanZLQUhzTEsxTlFudXlYTFRjR3NzUnFtYXljcGVy?=
+ =?utf-8?B?Z1lxdXVvTDRHZ1I3RUZYbkJpTHM4b0c1TWppbktRTWdrZ3Fab3NGTDRvTkxB?=
+ =?utf-8?B?czRnOHR3U2dqWVlRTkFtSEdRaEhKNmVmSXhaRVJRM2tXUVBwUGpoZk9xUUNU?=
+ =?utf-8?B?TmRiMDBCT2Z4dkhNajZ2WnU0WUMyczlEcmtrVW9IQmlDWlR0YmdJa2NpTEFz?=
+ =?utf-8?B?NlRXMTRqRjhiaWEvR1ZWYW5vOHdyMzljMjNLYmFwVHBUbTl0eWJTZ1BobWZ6?=
+ =?utf-8?B?eXpQQ3d3OVpza1FRc25Ia3JWM1JBRjBxcXVVSCtONS9wR3JxSENQNHRxR0NC?=
+ =?utf-8?B?R2RORkNSa1RHNTdYR3k0clEydkd2am1mbWhFUmRvZ084TTA5SjQvR0drQzlM?=
+ =?utf-8?B?OHJJYnpCUEI5cHZ5cWczMFN2anNoaVJlQ3ZQeDFvNllIYk41RUY2ZDNsYUZj?=
+ =?utf-8?B?dnYyQnNyOTEwT0gyTWZlek1OSitwc0RHNi9VZkFXQzVBTkR4SzM1VUcwMHBU?=
+ =?utf-8?B?M08zdmFJc3l2dXpqU3ZFTU9JekRFYXAxQ2xrcFVKbm9xRzBuQkhQZTQ0alFP?=
+ =?utf-8?B?V1FSUW5uUUNuOUtyK1ZOSEFSa0FOZHJhRjRQTkFWaWt6MDFnTXAxeVBJb0sr?=
+ =?utf-8?B?LzB5NDdneTRneCtOSTdpNWVMY2pnSW5pdXJhT2k1ckhiL0dQNXZLUWJBYUpr?=
+ =?utf-8?B?d2lQUUhFdURDL2hZSFdSbzNyRFVaT2NudFFobjdaVVNLckNtOXZPU0QyQjVr?=
+ =?utf-8?B?NnhUZjlQcU1YemZoK2luQ1dZN1FxWXQ2c1FXaHZqdG1PVUhLK1liQjFQT3F6?=
+ =?utf-8?B?MnQwRHlMUGI2MkFDMHpmNTNzdTdBNEZrdE9BUEdRNUcwVVc5d1FrZTkxM1hD?=
+ =?utf-8?B?aDh1QktXWEEwSzZja21OT2tpSmk2OVJhZ25ZakdScTBMK1BhVm1sQ3lxbnpv?=
+ =?utf-8?B?ZFhVbXFDUTczWjlXNTUrWUdic0R4ZDVlUzgraVFoeEdoR1R5MVBXd2dRNVpS?=
+ =?utf-8?B?dWlIR3BZM0VDVjlhMEFCQ2xsbnl0TlFJdnVxWnd1b214WGlSSi81SmdhcEhP?=
+ =?utf-8?B?d2V0dDBISkhLYkNIcWJ2TDRQY2g5RjBldnJhTTZJREZEM1dtUlNMZVFSUFp1?=
+ =?utf-8?B?SXdERHVnMS84VzJqRXk4dmFHVnhHNHNUb1dVQ0VFaHcvcERKNVpIWlBXdCtl?=
+ =?utf-8?B?SXlFYW8wNWVUZmwwYUZYRmN5a0JpZy93cDZqZWFWc0tTcnlsWlF5RUNFb1BT?=
+ =?utf-8?B?MWl6TmxGa2ZTR0ZadlZHNnE3WGE4bm43Yk04Y1pHTm8yRnh1M3FrajFOZTJB?=
+ =?utf-8?B?U0RZN3U2SDVaeE81ZENucCtlQjFFUGcrZWI5MW5iR1NxRVRJazI2TWc0VWRB?=
+ =?utf-8?B?eHF0K3laNXhLbGh3RXR0aERaRCtKd3RtMTAxd1AyNElKZ05PU0s5U2ZNMDdn?=
+ =?utf-8?B?MG93a25RemtUTzJzTS9PczBZaFJFQjRlaFRiTXRGR2lHQ0xUS1R0ZWUxR2c4?=
+ =?utf-8?B?QkQ2QlVFemNBNkc0WlhHZzFSdFQxQ2wyOWFVZXcxazR4bzA3UWdGT24vbkIv?=
+ =?utf-8?B?amw4SnVtUnBmR3MzYWZFbWgrdHppd3Jlbnl3S0RkaCtrWncyb0tHdz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a32608ae-b668-462f-9b25-08de9e840568
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7940.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 02:25:00.0200 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5/C/QUXynXjgTM6mbnbWFv+Yof7dHSm55W+gwT/H986oLuX7dx3bKjnFnTzxTyosgnEOwP4CUgfPidMX0trdNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10622
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,26 +148,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Frank,
+On Fri, Apr 17, 2026 at 10:49:35AM +0000, Biju Das wrote:
+> Hi Liu Ying,
+> 
+> Thanks for the feedback.
+> 
+> 
+>> -----Original Message-----
+>> From: Liu Ying <victor.liu@nxp.com>
+>> Sent: 17 April 2026 07:05
+>> Subject: Re: [PATCH v2] drm/bridge: ite-it6263: Add suspend/resume support
+>>
+>> Hi Biju,
+>>
+>> On Thu, Apr 16, 2026 at 09:29:25AM +0100, Biju wrote:
+>>> [You don't often get email from biju.das.au@gmail.com. Learn why this
+>>> is important at https://aka.ms/LearnAboutSenderIdentification ]
+>>>
+>>> From: Biju Das <biju.das.jz@bp.renesas.com>
+>>>
+>>> On the RZ/G3L SMARC EVK using PSCI, suspend to RAM powers down the ITE
+>>> IT6263 chip. The display controller driver's system PM callbacks
+>>> invoke drm_mode_config_helper_{suspend,resume}, which in turn call the
+>>> bridge's atomic_{disable,enable} callbacks can handle suspend/resume
+>>> for the bridge without dedicated PM ops.
+>>>
+>>> Introduce it6263_bridge_init() and it6263_bridge_uninit() helpers to
+>>> consolidate power sequencing, hardware reset, I2C address setup, and
+>>> LVDS/HDMI configuration. These replace the open-coded init sequence in
+>>> probe() and are hooked into atomic_enable/atomic_disable respectively,
+>>> guarded by a powered flag to avoid redundant re-initialisation.
+>>>
+>>> Switch from devm_regulator_bulk_get_enable() to
+>>> devm_regulator_bulk_get() so that regulators can be explicitly enabled
+>>> and disabled across power cycles. Move reset_gpio and regulator state
+>>> into the it6263 struct so they are accessible beyond probe time.
+>>>
+>>> Add a remove() callback to cleanly power down the bridge on driver
+>>> unbind via it6263_bridge_uninit().
+>>>
+>>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+>>> ---
+>>> v1->v2:
+>>>  * Dropped system PM callbacks instead using bridge's
+>>>    atomic_{disable,enable} callbacks to handle suspend/resume.
+>>> ---
+>>>  drivers/gpu/drm/bridge/ite-it6263.c | 88
+>>> ++++++++++++++++++++++++-----
+>>>  1 file changed, 73 insertions(+), 15 deletions(-)
 
-Thanks for the review.
+[...]
 
-On Mon, 20 Apr 2026 at 09:56, Frank Li <Frank.li@nxp.com> wrote:
->
->
-> Please fix
-> DEFINE_FREE(device_node, struct device_node *, if (_T) of_node_put(_T))
->
-> If (!IS_ERR(_T))
->
+>>> +static int it6263_bridge_init(struct it6263 *it) {
+>>> +       int ret;
+>>> +
+>>> +       ret = regulator_bulk_enable(it->num_supplies, it->supplies);
+>>> +       if (ret) {
+>>> +               dev_err(it->dev, "failed to enable power supplies\n");
+>>> +               return ret;
+>>> +       }
+>>> +
+>>> +       it6263_hw_reset(it->reset_gpio);
+>>> +
+>>> +       ret = it6263_lvds_set_i2c_addr(it);
+>>> +       if (ret) {
+>>> +               dev_err(it->dev, "failed to set I2C addr\n");
+>>> +               regulator_bulk_disable(it->num_supplies,
+>>> + it->supplies);
+>>
+>> I know that you call it6263_bridge_init() in probe, probably because you want to enable the regulators
+>> for hotplug detect after probe(it6263_detect() reads register HDMI_REG_SYS_STATUS to do the detection).
+>> However, an idea[1] is to wrap the register read operation with regulator_bulk_enable() and
+>> regulator_bulk_disable() in it6263_detect() so that you may drop
+>> it6263_bridge_init() from probe.  With that,  it6263_bridge_init() is now only called from
+>> atomic_enable, which means that the initialization code can be open-coded and the initialization is
+>> supposed to be successful(due to the "atomic" nature) hence no need to do the regulator disablement
+>> bailout(error message in dmesg is sufficient).
+> 
+> it6263_detect() still works with regulator_disable(), see the logs below.
 
-You're right, fixing DEFINE_FREE(device_node, ...) is the proper way
-to handle this:
-if (_T && !IS_ERR(_T)) of_node_put(_T)
+I guess that it works for you on RZ/G3L SMARC EVK because regulators are
+already enabled by PSCI before this driver's probe.  But there could be
+platforms which use dedicated regulators(like discrete PMICs) for IT6263,
+which means the regulators are not yet enabled before probe.
 
-This is a better fix than handling it only in this driver.
+> 
+> 
+>>
+>>> +               return ret;
+>>> +       }
+>>> +
+>>> +       it6263_lvds_config(it);
+>>> +       it6263_hdmi_config(it);
+>>> +
+>>> +       it->powered = true;
+>>
+>> If you drop it6263_bridge_init() from probe, I think 'powered' flag can be dropped too.
+>>
+>>> +
+>>> +       return 0;
+>>> +}
+>>> +
+>>> +static int it6263_bridge_uninit(struct it6263 *it) {
+>>> +       regulator_bulk_disable(it->num_supplies, it->supplies);
+>>> +       it->powered = false;
+>>> +
+>>> +       return 0;
+>>> +}
+>>> +
+>>>  static void it6263_bridge_atomic_disable(struct drm_bridge *bridge,
+>>>                                          struct drm_atomic_state
+>>> *state)  { @@ -587,6 +626,8 @@ static void
+>>> it6263_bridge_atomic_disable(struct drm_bridge *bridge,
+>>>         regmap_write(it->hdmi_regmap, HDMI_REG_PKT_GENERAL_CTRL, 0);
+>>>         regmap_write(it->hdmi_regmap, HDMI_REG_AFE_DRV_CTRL,
+>>>                      AFE_DRV_RST | AFE_DRV_PWD);
+>>> +
+>>> +       it6263_bridge_uninit(it);
+>>
+>> Well, this could effectively disable the regulators and hotplug detection
+>> won't work then.   So, again, the above idea[1] helps.
+> 
+> Is it not working on your setup? It works for me.
 
-I'll rework the patch based on your suggestion and send v2 later.
+My setup uses always-on regulators, so detect works for me as well even if
+regulators are not explicitly enabled/disabled in detect callback.  But,
+as I mentioned above, we need to enable/disable regulators in detect callback
+(also in edid_read callback) after atomic_disable is done for those platforms
+which use dedicated regulators.
 
-Thanks,
-Guangshuo
+> 
+> 
+> root@smarc-rzg3l:~# [   33.512618] ####it6263_detect####
+> [   44.008621] ####it6263_detect####
+> [   54.504623] ####it6263_detect####
+> [   65.000602] ####it6263_detect####
+> [   65.227743] ####it6263_detect####
+> [   65.233322] ####it6263_bridge_atomic_disable####
+> [   75.240637] ####it6263_detect####
+> [   85.480628] ####it6263_detect####
+> [   95.720662] ####it6263_detect####
+> [  105.960640] ####it6263_detect####
+> [  116.200647] ####it6263_detect####
+> [  126.440635] ####it6263_detect####
+> [  127.048981] ####it6263_detect####
+> [  127.517962] ####it6263_bridge_atomic_enable####
+
+[...]
+
+>>> @@ -858,13 +901,21 @@ static int it6263_probe(struct i2c_client *client)
+>>>                 return dev_err_probe(dev, PTR_ERR(it->hdmi_regmap),
+>>>                                      "failed to init I2C regmap for
+>>> HDMI\n");
+>>>
+>>> -       reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+>>> -       if (IS_ERR(reset_gpio))
+>>> -               return dev_err_probe(dev, PTR_ERR(reset_gpio),
+>>> +       it->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+>>> +       if (IS_ERR(it->reset_gpio))
+>>> +               return dev_err_probe(dev, PTR_ERR(it->reset_gpio),
+>>>                                      "failed to get reset gpio\n");
+>>>
+>>> -       ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(it6263_supplies),
+>>> -                                            it6263_supplies);
+>>> +       it->num_supplies = ARRAY_SIZE(it6263_supplies);
+>>> +       it->supplies = devm_kcalloc(dev, it->num_supplies,
+>>> +                                   sizeof(*it->supplies), GFP_KERNEL);
+>>> +       if (!it->supplies)
+>>> +               return -ENOMEM;
+>>> +
+>>> +       for (unsigned int i = 0; i < it->num_supplies; i++)
+>>
+>> Nit: I would define i together with the other local variables at the beginning of this function.
+> 
+> "i" is used here only. For me it is better than putting at the top.
+> 
+> I got feedback from other subsystem maintainer to use unsigned here
+> as the scope is within for loop.
+
+Ack.
+
+> 
+> Cheers,
+> Biju
+
+-- 
+Regards,
+Liu Ying
