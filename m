@@ -4,131 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B34F5A8A9
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 17:58:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2D3AF5A8A5
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 18:07:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB9BF10EB1C;
-	Mon, 20 Apr 2026 17:58:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 168B210EA89;
+	Mon, 20 Apr 2026 18:07:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u3Ks1zM1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pH2vIn3J";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012042.outbound.protection.outlook.com [52.101.48.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB0D10EB13
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 17:58:52 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010007.outbound.protection.outlook.com
+ [40.93.198.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAE2210EA89;
+ Mon, 20 Apr 2026 18:07:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=edQAgWRZbROMMROzRfF3x/nT/ta4xrLcZJ1D2CeJZ/1LP8Fmtiv6ROEiPH1BpSzdeyZXe1lKvrx8Pp6ScFAdNRNQcceLn/8+drV5zbkAGmZ3+Ho251/fEaA0XDX+DaGpgu1LlYwl79EUyZz8/84cwiVUvuQRzIybvlnwcwSNaQAprllu4AZnEQ4g8GoeD2XNV1yAwOTOaGthlKQIydKIdyhhlUDPJAMBkU8xOpGndTf1/pCec609w+sKwNk4auGZMw21sUs58duRT808e62vdBQrRCtEzv8c8TsRqiHBvRX1LaG/VXZhShxmTh8wfpwVyiA8dbB+zO5/cG14o6Ptrw==
+ b=DBriwsnjdqJKbuwFD+VY0LO/1FgR2VOhESKWxcbTuEQaPt1IYWSV4PbG+hwxt2U/esTsxPlpQPZJDQJJCKCWXUWf0X/vrTEoRf5BqRHTX0LHJ57LumH+wRn7W2mp1utRNdVInbFis1pSB6jxX53HrbXGCBN8gL7gYbtOSn4qfvzzzeFzTAh+7zfWyZPX+apT58OEeTkB34m0Gi154ro0Jcpvk6Zyz9Nd2wxjZbi/m96wJ6lcQAmJhyzgCYVcXcV3o+PI3BsRgna3/o4KmhDgYoJBo5GdnAY6hUS2QzCvOFiZ8W6IJNu7sx+424WoPU3gikBGlYz/rOIDNTNNY6eoXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ABIJ7tmj+LPKbyCca4GcZ4wgsHCa5XzmVwLgBnt1wHM=;
- b=jdd81WtBI9t8UzCfBcznmLGX015dSPCE/I4cvY2tcIHVJ+7X1je2P/+KTpd8zeqT8jHGvE1dopCnNT02Bo27LnB46lfVzld2fzYvmgxNbXNLhrekegTtcfsfzkri2x5v6fV930GGu78j54Pd7EvpYqXBF4Cnab5hshopm2bmYlaGigUX4gJ6MKFHT371GYJzW1FU6/sO/Xrd+qJVo+PabCBbjjfKQ6nHVTMZUyKQGfepqLh1U7LYvh6hRjlAqBes/P2hO+HOvEy8IKkD+7GWnN3zh0PuclkGeQsEVyXkMxz52B2tcTb2h4be5KdY9Im/Ut7rgcvG37Gx4oDopViQAA==
+ bh=cPAlIvq4Lhn1NEzJJgC+J0QJjCuEU3/rbsm2h1p7jes=;
+ b=aNG+F+Lv95IQieMVZgwQPMN0Kba4gJ9AINpfd78QVPd+XBcZ9iKOGr6h8Vz08VoxuZEzX3W8sPQ4ABElYTj2C0njqNsnXZ15L51aqYlRddtUnJ93BdI9DaZBxymM1KYgq1qC0zL+hd74xGhxiZANvMrPJj5Go9A4awsdklkVKeaZKh77gicJViuNraO+f3mnQ4/cN5YuNLvdsvGWTwbJ0EiS2uJNGMfQGVAWhkCC9T6AvlL9CDDocB//DD+K+XFCtJpLSdDJU7ligD/wDltVxyXoABJZYDpnWplJk6cwmwMrjnoA2otylf08DVNNRl8qbeWqHHcQwlgaa75yMV4+/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ABIJ7tmj+LPKbyCca4GcZ4wgsHCa5XzmVwLgBnt1wHM=;
- b=u3Ks1zM1Qp5vskOjspqZ8pfHInkNDNCMqMbi9OqgZ+E+tpE4xaWIIQx6u5pswNtCfScEzsGpADlJN+LoE0TnFYVXoj3yoQwdg1B5G65A8vCryfgiWySYdiYOaLDSKD5n0R8sy0F0AawjU4+9tvPwnk0wPHopNQzXBMWPeeP2ONk=
+ bh=cPAlIvq4Lhn1NEzJJgC+J0QJjCuEU3/rbsm2h1p7jes=;
+ b=pH2vIn3J5uVDokrMNdZ1mkBKR/vQqWB79H+ogkjV0RER88uc6NHyiDDWeic/e8buKEGU2wCvVuw0DUIO7Z9ULQzPuT9hR6zzz1lMMWbdAMuA6AdaXvEj2lwxAN2ib1w6TEbAEtgH4XLPqTEZ3VV+BfgAS0D92A3W6TjCPFdUbVg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
- by SJ1PR12MB6314.namprd12.prod.outlook.com (2603:10b6:a03:457::9)
+ by SJ2PR12MB7963.namprd12.prod.outlook.com (2603:10b6:a03:4c1::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 17:58:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.14; Mon, 20 Apr
+ 2026 18:07:44 +0000
 Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
  ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
  ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
- 17:58:46 +0000
-Message-ID: <964c3670-fad3-44ce-bd93-2057bca2dcb8@amd.com>
-Date: Mon, 20 Apr 2026 19:58:40 +0200
+ 18:07:44 +0000
+Message-ID: <e494689d-f126-4be8-8337-f04be1abd12a@amd.com>
+Date: Mon, 20 Apr 2026 20:07:38 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- dri-devel@lists.freedesktop.org,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- linux-media@vger.kernel.org
-Cc: Val Packett <val@invisiblethingslab.com>,
- Suwit Semal <sumit.semwal@linaro.org>
-References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
- <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
- <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
- <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
- <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
- <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
- <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: "Huang, Honglei1" <honghuan@amd.com>, Alexander.Deucher@amd.com,
+ Felix.Kuehling@amd.com, Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com,
+ Philip.Yang@amd.com, Xiaogang.Chen@amd.com, Ray.Huang@amd.com,
+ Lingshan.Zhu@amd.com, Junhua.Shen@amd.com, rodrigo.vivi@intel.com,
+ thomas.hellstrom@linux.intel.com, dakr@kernel.org, aliceryhl@google.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+ <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+ <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+In-Reply-To: <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0088.namprd03.prod.outlook.com
- (2603:10b6:208:329::33) To SJ0PR12MB5673.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN8PR04CA0053.namprd04.prod.outlook.com
+ (2603:10b6:408:d4::27) To SJ0PR12MB5673.namprd12.prod.outlook.com
  (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|SJ1PR12MB6314:EE_
-X-MS-Office365-Filtering-Correlation-Id: 576e2a51-f05b-4551-1f50-08de9f067803
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|SJ2PR12MB7963:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cbe3a2e-8af4-4212-60b2-08de9f07b8a2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: 97tp2xvaYUXGl4+h6PUxugV3ssQM/LnbnFywL6LWGTxm8mdZYrrcBos+Kvu99LvQgDHfmZThXe5YLkVGE3kmeqSkH4vFnCrEbd6OU6z+PXJo+o24sD0Hdyelh5de8kcxQCmRmfmgsofmnUDcjQwBgCjskvDsebZRswCj3v2lPhiNYwQKct4FIYTdD4YeNH34Tom9td4AI/6SGD0DIIgM6ABnATvuL1U14PXYUrpC7IR6ghK/zSnzXS6nTk0I07GRkXRjgD4Z2+zs1VPJdl5sqL8zlnHFSELBnNZxkQ+dPYi3/HCET5we9Z3M0fTuCRIEZA0iHtEfPOlCxKmvLiz46VUN8dUJ0ImGQCFj9GdpbxjKeTnwBzxaWOoSitp/nI+89CCDn6TqcUfksVUhc5dFpGNjC8MJuGU0InStrPKJeXV92ePLpNtgxbzbR5jcdiWvZZ8vmFkFwLtPDHp/uJZBptwRCiARaXOVlvg2qP9rT3AUsnIn6YJA/jmFI1RoEYSfyQ4t4hgf6YA6YetPSJYexjSh8FGbEXuiG76RYMkvO2Wogcaubow8yR7j26eVe70PybR9inkmQhLT9Sslxv+N1+mXgLtEGe3+DcvOMaPT8XDFpYrK02t1LAWlyOoV4KykIqs3WXo7+1Iv4jSRribQNW3gLXPC+EPnrcHEqsJpmiOJzsr5UeMSAN6kmGP1sojnV97HthyZuVFrQRwOLXpXJixOq/aW/Y44lU21hsWGXrs=
+ ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: WNQzhPqLyi/DIBZU6PJsDLieF54QVnPTfF+7O+x6M0A0sbFhXCC1b14N2Q0sufPnJeOO2dZWEf6gxHzHx9nmSA+Byk9GwTdmM+dbmwuGc6/QvnD9sqR2HjxHVIWhww2NIrxmIegYXBfDeX4pTAsQ+4TdiKEW13T3tS4HuS8NGycuFsLei40mE6zXuTGo6ez0bluKGiZmKOHbehWOs2zwiDSaBAw2M6LaQX/u5aq5UAAQpFtNmRy8j5KJsR5XquaY43vuGL8a0c9vsO7AJHC8wpACFrDjF3JR/FbMH5yjBhmkmAwQ9bAk8r6/s6uQs21bb0snSUNl41BI8Y+m5wg545pzSZ0ONoaLzwFaq3uy4UtKIMaPZRf28+ryRpAk2+dKPXaXAwVko7dKFGlXQVYKXXEcmMX/aMpaWfqrwHP1EnfjdMquScOVIu1eh1qZrrKSrzoEAU9PmkwLd4b0qoJ9CXGVmn1uDe90/dTcF1LLgGZwJVsVVNCWFPbNTEvghyqMROVeXO9RZxJ9uKZ+Kx7S3kZNCoLJ0BLjoQtF28S0INRyfv/4kYxDg3qPdFMJo2lTJKebSMHnhMVBM0U8G+2LQJ15KIvLCPIUcA4mdxOvyMa5yrB36C858FvtIIlIAml7G6HpLfwvJXqHb+uUH1+CznQOOvgtbHt1VsxB72pWDcZsR6bfCquLEL976aX7s51zAJmmZV04viDn1pJp0liN40DBdrCYuuH5d0pHnwYZX00=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ajUyQ1lmQWdZdDdwbWxGVTByWk9FT0RacFUvOHFzRGhFZzdhUnpwMCs0MjY1?=
- =?utf-8?B?MGwxMndIckxleDl5NmxYRWZWSllZclBlTktVdHpKMXFEK2dEVFRMR3RlVHYz?=
- =?utf-8?B?cDc0WjZycWZuVnBEQkFScFNGajROVGNlTFYra3J6eXJpN3RPN3hIVkZnYWxr?=
- =?utf-8?B?VWFUMlcxcm1zeHlJVk90TlJTUDV0Y3ovZExxK28zV2hjV2xXcTNVWG04K3pD?=
- =?utf-8?B?M2RueWk5dm0vbmFIQkZ1c1ZiOUpGcmVNUVBicnR5dWhubHBZbDQrTmpzaFB2?=
- =?utf-8?B?ZnhTRHVXazJoYnBQd0prMDdyMTFIUmdyc0xQa3JaZTg0Tit1Y043SmNRQUFS?=
- =?utf-8?B?aEFrSy9tZ1c5WlNQZDFVVHZodjNTVnhZcHJUOWdjOUF3NWxsMDNpaklHKzR4?=
- =?utf-8?B?aWJqejdWTlgwaUZWaFdzMlp5bVRLM1ZhVi9rQUhjUmlBTGJpQ3poZm5PcWtI?=
- =?utf-8?B?LzdOc3B4bExwa1ZtSm5NSTQ2NHh5VHBVbm5uSm5IdjRBOTgvb09EdmpNOWdU?=
- =?utf-8?B?RHQvWkR2MVNBTStqVUJrQytHTkluTUxoVVlVZW5sRm9TZm84SG5MOU9jdDFJ?=
- =?utf-8?B?bElTUVpkTUF5dFovekZZaTZkc25raDhja0s5dTk1dmNNTlU3QWxLUUpxV1BF?=
- =?utf-8?B?eUgveTBGVGluZWNLWHlNRk1LYkpvN1owQ2s0Y0Q5YTkyZGZLd0xPNGlqbXJN?=
- =?utf-8?B?U05wcVhDOUIxOG5ycXY4Z1l1bnRCSmdySXhxKzh5YmNheEcyUmZTNUs0MW1K?=
- =?utf-8?B?akE2VU1RQWdKZG9QeDhyd0Z2RUYvL2orbTVLbVhNNWJuaGZrMU50RDRIMTBi?=
- =?utf-8?B?d0FWdFpOM3orNnZKOEQwb0t2WFpBUlRZUC9nK1lTODBjNGlVd3VVdXpjRXZL?=
- =?utf-8?B?aHl3Y3g1SklEdk1WRVpUbXEzekxLV1h4d054aEhKVzRVZG1QZDRPbGFZeHA2?=
- =?utf-8?B?cmdNVm81bXJER2cwN3pkczdPSjJ1L21DSnBuVWJNNkxuNTQyMDBvS1owTkJY?=
- =?utf-8?B?c0RGODhEWWpVbk9HcXdQaU1LMDRyVVVlN1hVbWRtNzZESHFVNWJnSXdRZity?=
- =?utf-8?B?YkswSlg5SnpqdWNqVG1NRm5YV1ZnYnNJM1E3UnFhZURsTHRid3psQmJuM1hV?=
- =?utf-8?B?aHhMWTdoSitYVTVYSksyTG95SGcxVTZaYis5bmxLcHJPNFliK3M2aW1MZmw4?=
- =?utf-8?B?TGIyY2gwY2dXQXVuSTZLMUFBY2IvM1JaMnl6eVFDRlRoVlhIdHQvTU9BQ1JL?=
- =?utf-8?B?a0VpY1QrcXlMaVpmdVlaOGlNRGppeXBYVXFjQkFCU3FEQkNOaW1PVzFKQkMv?=
- =?utf-8?B?QXdmUTlpSEJSblYwNHJhbEZQWlVVVlBvK3hzWXFNelByMVY2T2kyblJHQjRx?=
- =?utf-8?B?N0VwRW5HT0NIdFZQdllySUwyZkIvRGd6M05jdUlSMGE2ZXJFYjZadWs3L2pZ?=
- =?utf-8?B?Z1ZUNWs4d3FRN1hGZFFNQTVYSkJhQkMweGhncHphMDJxbzZBam5yRDN6OW9Q?=
- =?utf-8?B?MUxVM2lzeXFDRTRzS2JwYm9PZkhLVmFWMlJuaG43STZSY0R3ejVtb1dQTnZB?=
- =?utf-8?B?cWM2dmkyM1FEU3p6NlJxL0xVckdJMWFweHR0RHhzOFRKMFdFSStITkRDZVQ0?=
- =?utf-8?B?WFhUYzhONHkyMU5vVytUb2RRd0h0cXRjOGR3ak1aSU5jTnkwaWhIYllKalZN?=
- =?utf-8?B?VzRNckhRVUZCZlN1RjUrYlQ4dUlnZnFmQ2kwSXRSQVY1Z0lJUm5PRUI3WUEr?=
- =?utf-8?B?VFRyaGkxMGRCWkhGK0pLbWFoUWtuNVJtb2ZDZXZwNEVsWGdlNjZ6eUJmZEts?=
- =?utf-8?B?UWw3Y0YzSFZrWmViZytaRENQVmxVZXkvYzNETS9ZZVFWTXlMNW1wTDVXTytM?=
- =?utf-8?B?S2o5UkM4S0N4Q2plL090aHVuTDdubFN6REY5TWdyby9oY052UUdNMmdVN1B2?=
- =?utf-8?B?enpJWmxOcHRDdzdCWnlVdzlmTTkwZHR2Q1dVWmdtM3hEYTNFeVBPR1hFS1p4?=
- =?utf-8?B?UmwvODNjUDExYW5vMVpzcXRsQVRLSnRmZllLUEJleDlJTjYyTmFhbVpvTFk5?=
- =?utf-8?B?dFZGQ3NuN3c1N3FkUHhMcWR6ek8vQjJMQkRKMDViYWVySk94WW1sSlIvZjYz?=
- =?utf-8?B?b0hWRVpHeFlwc2hlUm12ZEk3MG1sNGlhUUdvZGdnenBFck4zZlphd3kwSWdw?=
- =?utf-8?B?aEVEU1ZTbmV0bTB1RXZSZ2VEWEhQSFd1VVdJN0RSUFhOUFRhcDdSN2RPSEI3?=
- =?utf-8?B?VC9SYkV4cnRFYklnSlVzdjFVRDJyK2FSMGptSkViNzdoQUFDbG9mUTg4LzE5?=
- =?utf-8?Q?yLs+QZgbvLbNY4MVyc?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c2xtQVRsYW1DbzhCSlBjbHBtZXp2NmY1MUlFNnNnR21xM1ZSZ05xbG4yWTdF?=
+ =?utf-8?B?TUhDZzZ6UE81T3dXYnZyTHkzZHViT3h2VDV4bUFUSGRleWZzcEx4YkRYYWpK?=
+ =?utf-8?B?aW9rRVIwK21YdVJRbElhWGFXVGtjRjlNdlVBQTZ3b3ZDVlkxOThLUDhCQ1ZY?=
+ =?utf-8?B?S2RCQlhmNGQrSzI1anhmdGUvcXFyQ3NGRXc4ZXZCSlVkNDlqa1FnN2Z2L0pQ?=
+ =?utf-8?B?VVhUcW5MWnNLTjJLYkxxNy9SSDl3VTZyNWRlU1RiTUp4a1BnUnhZaGIvaHI3?=
+ =?utf-8?B?MnRhU1pIblpabGhLbEtGbUg0SWVkeWxidlhJa3hNTkt3QjhEVzQzWU92cmxj?=
+ =?utf-8?B?N0NUUkQwOVJqV2hhakJMSHRCYVVCbnc2cDBIdWg5Uy9sbTZhNXZiTXo2OVB3?=
+ =?utf-8?B?cXpZd2RHSytIaTB2NXZVRHRFYm5lbkM4c0RFS0E5OUtLSk9hSm9hcmUwb3B2?=
+ =?utf-8?B?Wkx5MytheThBSmN1eDQ2RXcrQXh4SlF6N1hSdVlkSHljYWU5VEh5amRaNnlz?=
+ =?utf-8?B?TXBZTGttWVQrWUcvcnJaTFMrcEFCYUJPcy94UC9hNVhyVThhSEswNTNWdWZa?=
+ =?utf-8?B?dFVxc1JocnNZTmlmM2tSYVRTYksxUWFZQlp3T1NCU0dHWCtDY0kxSEhrVmg3?=
+ =?utf-8?B?clBPWmhGNDhGd2paRFZTMHZrekx5K2hwVjJXeERIamFBczVFcDBKenhCeGw0?=
+ =?utf-8?B?RjMyRDlyNy94eXQzRW5nbEhwTlI2Q2h1MUFrQ21zSCtmS28xSWE2czdEbWJV?=
+ =?utf-8?B?MGVOT3VCdDdyWmhybkIxRW16dkx2UjlDSHhZTDkyQUo4d3NJM2FLNmtGUS9O?=
+ =?utf-8?B?ems0eEJNQ0VlN1hRRWJxR2R5RzZIR1Vpd3lPbC8yWXJOYndyU1ZReEdNZFNa?=
+ =?utf-8?B?dzlOeDVSNUtwczZ6YmZ6Y083WnU3RUt6Q2dpTUFaY2pKMkZhbXVTRmZnMk0r?=
+ =?utf-8?B?aDlvdzlyV1dnWGNVY1QvWjNwbTF4V1dxRlpaZmNTaUpNeXNNVUppUTJGVVcw?=
+ =?utf-8?B?S2Fid1ArVExFVGFueWJYQW13TkRyTTNxNFRHeldvSzg5RHJTWEJVbk5QcGsw?=
+ =?utf-8?B?cGFXMjFIb1VPSXFBWjZoQXZVenFRNU5uOGJxc09lcXhNSmdGTU5LZW9oK0tm?=
+ =?utf-8?B?WHdJTW9YM2ZxUkRkd3NUOU4zM25ESVBINjU0UkducjlSdVBxNVhwNDUyVE1u?=
+ =?utf-8?B?ZFRnUEZoVUZMWDVTcXBKWDY5QlpvbytlbmpsajcyMy81eEFxQ0ZuYUljVTZa?=
+ =?utf-8?B?RElobUpnWUFlS2VKZzVDOFN4Mk5NNXBLcG1vN3JmWGxxd0F4SC9zQzBNQTRv?=
+ =?utf-8?B?WEo0R2FPdWRFN3dDLzd0aU5MeDNJZWpQcnlEVUFvQzRRTkl1cldmWWlYM3lX?=
+ =?utf-8?B?MUh3aDljWlhaYnV2QTMydWx2S1J2Q1lKS2E3TC8rRE5SdndkL09Hd2tQVHVa?=
+ =?utf-8?B?eWVxeTNvR2luNy9xU1NRR25LQmNDVXRGUUVBeS9YUUp5YkNPSWhqUjZIS1hv?=
+ =?utf-8?B?RVF4cXFkMXdUdVdwanJWTWJpaEx0UjQ0VGhlMHloZU1aUVI5eUE0RjEwcnJX?=
+ =?utf-8?B?YTFVRDUzVGo2eG1qOUsyYzR4QmdiM0F5d3lYYjRqQnV1eWZmWGNqL25JVVVQ?=
+ =?utf-8?B?KzVIaVlob0pDS2daV25TenF2dGdKcmRiKzMwWmREYUVybFdwVmpvM3Y1Y1J5?=
+ =?utf-8?B?NndiZnpNVkdUSUFkTjkvVmpTOTRkU0EzZ1FUbmRKbGFIeE4vdGRUSGVRMXFi?=
+ =?utf-8?B?WitvcjN4ZVJhd1RDbFAxRGhWTGQrV3kvVlh3Z0MzOStYbnVjS2dkWURHT1FG?=
+ =?utf-8?B?YWp3N0dJOW5Wa0d2a21sK25sUnNtaFZJZmNhZ3RkSlMzR3NiSVJiK090RHlk?=
+ =?utf-8?B?Z0krT0xBUEI3Z2c3ZU9HTnVXcXl0M08zVkVQb3ViZFRsQm5TdHV0eERySHdy?=
+ =?utf-8?B?QXFZVnNRSEdUaXlrZHRuMUg2YngxcjRIVXdqZHFHRG1uTU1JaEJabDdXZzR6?=
+ =?utf-8?B?WjFPZnE1OGR5UGVBNW9pR3ZJNTc5NmgvQ3RlOXFyQUtMd1ZVL09ldU1TRlRt?=
+ =?utf-8?B?ME1xUDRmdjhvRy9UM2ZaR0RndE5EZ3lHelpiaEtqUHhmeWVSOTRreGRNOWJU?=
+ =?utf-8?B?eWF3RktsZzBpYkNnOXkwMTdqM0xFbmNEdm5iWk9XeDE2NE54NE90WXlsTnhi?=
+ =?utf-8?B?Q3Vrd0poa3ZNY2hsb09iV21rSzMrZGlHa1ZXb2xsSlY4UjV6YWRTa0daZG5Q?=
+ =?utf-8?B?NUxyUW9KaG9kcWRobjkvSG56dkNpNGg4eGk4QnViWmRZZEdiNHY3ZDIwbDJy?=
+ =?utf-8?Q?59QkYaywjand1jjWig?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 576e2a51-f05b-4551-1f50-08de9f067803
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cbe3a2e-8af4-4212-60b2-08de9f07b8a2
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 17:58:46.6981 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 18:07:44.6110 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qg576XjRLwFScbq0nT3V1CzFQKOLkLJSdyKw7nNBOfjivsqkUJwbMhvAnXUHZHsR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6314
+X-MS-Exchange-CrossTenant-UserPrincipalName: ib2jvrw5Zey65AEs5pRIqoFjBOmSnoQ2hV0SZc4LhfOW/0fld5YyNWR4ekMQdM43
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7963
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,92 +145,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/20/26 19:03, Demi Marie Obenour wrote:
-> On 4/20/26 04:49, Christian König wrote:
->> On 4/17/26 21:35, Demi Marie Obenour wrote:
-...
->>> Are any of the following reasonable options?
+On 4/20/26 18:06, Matthew Brost wrote:
+> On Mon, Apr 20, 2026 at 05:37:43PM +0200, Christian König wrote:
+>> On 4/20/26 15:30, Huang, Honglei1 wrote:
+>>> On 4/20/2026 8:15 PM, Christian König wrote:
+>>>>
+>>>>
+>>>> On 4/20/26 14:07, Honglei Huang wrote:
+>>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>>
+>>>>> Add amdgpu drm SVM API definitions built on the
+>>>>> DRM GPUSVM framework.
+>>>>>
+>>>>> This includes:
+>>>>> - DRM_AMDGPU_GEM_SVM ioctl
+>>>>> - AMDGPU_SVM_FLAG_* flags
+>>>>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+>>>>> - AMDGPU_SVM_ATTR_* attribute types
+>>>>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+>>>>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+>>>>>
+>>>>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>>>>> ---
+>>>>>   include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+>>>>>   1 file changed, 39 insertions(+)
+>>>>>
+>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>>>>> index 406a42be4..bed71ed9b 100644
+>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>>> @@ -58,6 +58,7 @@ extern "C" {
+>>>>>   #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+>>>>>   #define DRM_AMDGPU_USERQ_WAIT        0x18
+>>>>>   #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+>>>>> +#define DRM_AMDGPU_GEM_SVM        0x1a
+>>>>>     #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>>>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>>>>> @@ -79,6 +80,7 @@ extern "C" {
+>>>>>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+>>>>>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+>>>>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+>>>>> +#define DRM_IOCTL_AMDGPU_GEM_SVM    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+>>>>>     /**
+>>>>>    * DOC: memory domains
+>>>>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+>>>>>       __u64 matrix[12];
+>>>>>   };
+>>>>>   +#define AMDGPU_SVM_FLAG_HOST_ACCESS        0x00000001
+>>>>> +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+>>>>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL        0x00000004
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_RO            0x00000008
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY        0x00000020
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED    0x00000040
+>>>>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT        0x00000080
+>>>>> +
+>>>>> +#define AMDGPU_SVM_OP_SET_ATTR        0
+>>>>> +#define AMDGPU_SVM_OP_GET_ATTR        1
+>>>>> +
+>>>>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+>>>>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
+>>>>
+>>>> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
+>>>>
+>>>>> +#define AMDGPU_SVM_ATTR_ACCESS            2
+>>>>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+>>>>> +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+>>>>
+>>>> Why are those separate attributes? What is the difference between those?
 >>>
->>> 1. Change the guest kernel to only map (and thus pin) a small subset
->>>    of VRAM at any given time.  If unmapped VRAM is accessed the guest
->>>    traps the page fault, evicts an old VRAM mapping, and creates a
->>>    new one.
+>>> Really thanks for the comments, I have some content mistaken in V2, so I updated the V3 to fix that. For the header they are same. for other content please review the V3, sorry about that. And will fix the concern you raised in next version.
+>>>
+>>> So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, and the SVM can set the preferred location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+>>> it can not migrate, GPU only can access it in the initial place.
 >>
->> Yeah, that could potentially work.
+>> Yeah but that doesn't then the interface doesn't seem to make sense since such states are mutual exclusive.
 >>
->> This is basically what we do on the host kernel driver when we can't resize the BAR for some reason. In that use case VRAM buffers are shuffled in and out of the CPU accessible window of VRAM on demand.
+>> It would make sense when you have some attribute which is named (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values INACCESSIBLE, IN_PLACE, MIGRATE.
+>>
+>>>>> +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+>>>>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+>>>>
+>>>> Why is that separated into set and clear flags?
+>>>
+>>> This method inherits from KFD and is also designed to be compatible with upper layer applications such as ROCR.
+>>
+>> That is *not* sufficient as justification. We need to document why that is necessary and *not* just say ROCR works that way.
+>>
+>> As far as I can see just a SET_FLAGS should be sufficient.
+>>
+>>>>> +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+>>>>> +
+>>>>> +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+>>>>> +#define AMDGPU_SVM_LOCATION_UNDEFINED        0xffffffff
+>>>>
+>>>> No location for device local memory?
+>>>
+>>> Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd for device local memory.
 > 
-> How much is this going to hurt performance?
+> I have no stake in AMD’s uAPI, but I can at least explain how Xe’s uAPI
+> works here—and admittedly, it’s somewhat goofy.
+> 
+> 0 == device-local memory, with first-touch placement on whichever
+> device/tile touches the memory first
+> 
+> -1 == system memory
+> 
+> ≥ 0 == a render-node FD (which could refer to a local or remote device),
+> paired with a region instance to extract the pgmap for the desired
+> placement
+> 
+> I believe the reason this isn’t fully FD-based is that the compute UMD
+> team wasn’t keen on exporting every pgmap as an FD, though that was
+> something that had been considered.
 
-Hard to say, resizing the BAR can easily give you 10-15% more performance on some use cases.
+That absolutely doesn't make sense to me at all.
 
-But that involves physically transferring the data using a DMA. For this solution we basically only have to we basically only have to transfer a few messages between host and guest.
+> 
+>>
+>> Absolute clear NAK for that approach. This interface is per FD!
+>>
+>> We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the memory should be migrated to the current device.
+>>
+>> We also need to make sure that setting attributes for different devices doesn't affect each other.
+> 
+> We landed on the conclusion that it is undefined behavior if different
+> render FDs—or more specifically, VMs across devices within the same SVM
+> address space—set different madvise attributes. I believe this was at
+> Sima's suggestion.
+> 
+> From the UMD point of view, every madvise call therefore becomes:
+> 
+> for_each_fd_vm
+> 	set_madvise_attributes
+> 
+> This choice was made to keep madvise attributes local to the per-device
+> VM structure, rather than introducing some form of cross-device shared
+> storage.
+> 
+> A misbehaving user can absolutely shoot themselves in the foot, but at
+> worst this only ends up corrupting behavior within their own process
+> shared across devices.
 
-No idea how performant that is.
+Yeah that makes totally sense.
 
->>> 2. Pretend that resizable BAR is not enabled, so the guest doesn't
->>>    think it can map much of VRAM at once.  If resizable BAR is enabled
->>>    on the host, it might be possible to split the large BAR mapping
->>>    in a lot of ways.
->>
->> That won't work. The userspace parts of the driver stack don't care how large the BAR to access VRAM with the CPU is.
->>
->> The expectation is that the kernel driver makes thing CPU accessible as needed in the page fault handler.
->>
->> It is still a good idea for your solution #1 to give the amount of "pin-able" VRAM to the userspace stack as CPU visible VRAM limit so that test cases and applications try to lower their usage of VRAM, e.g. use system memory bounce buffers when possible.
+As far as I can see the two interfaces contradict each other.
+
+Either you set the information per-device and then each device only gets the information if it needs to migrate the page to it's own local memory or you have global information.
+
+So why does a device fd needs to know about remote pgmap?
+
+Thanks,
+Christian.
+
 > 
-> That makes sense.
+> Matt
 > 
->>> Or does Xen really need to allow the host to handle guest page faults?
->>> That adds a huge amount of complexity to trusted and security-critical
->>> parts of the system, so it really is a last resort.  Putting the
->>> complexity in to the guest virtio-GPU driver is vastly preferable if
->>> it can be made to work well.
->>
->> Well the nested page fault handling KVM offers has proven to be extremely useful. So when XEN can't do this it is clearly lacking an important feature.
-> 
-> I agree. However, it is a lot of work to implement, which is why I'm
-> looking for alternatives if possible.
-> 
-> KVM is part of the Linux kernel, so it can just call the Linux kernel
-> functions used to handle userspace page faults.  Xen is separate from
-> Linux, so it can't do that.  Instead, it will need to:
-> 
-> 1. Determine that the fault needs to be handled by another VM, and
->    the ID of the VM that needs to handle the fault.
-> 2. Send a message to the VM asking it to handle the fault.
-> 3. Block the vCPU until it gets a response.
-> 
-> Then the VM owning the memory will need to call the page fault handler
-> and provide the memory to Xen.  Xen then needs to:
-> 
-> 4. Map the memory into the nested page tables of the VM that faulted.
-> 5. Resume the vCPU.
-> 
->> But I have one question: When XEN has a problem handling faults from the guest on the host then how does that work for system memory mappings?
->>
->> There is really no difference between VRAM and system memory in the handling for the GPU driver stack.
 >>
 >> Regards,
 >> Christian.
-> 
-> Generally, Xen makes the frontend (usually an unprivileged VM)
-> responsible for providing mappings to the backend (usually the host).
-> That is possible with system RAM but not with VRAM, because Xen has
-> no awareness of VRAM.  To Xen, VRAM is just a PCI BAR.
-
-No, that doesn't work with system memory allocations of GPU drivers either.
-
-We already had it multiple times that people tried to be clever and incremented the page reference counter on driver allocated system memory and were totally surprised that this can result in security issues and data corruption.
-
-I seriously hope that this isn't the case here again. As far as I know XEN already has support for accessing VMAs with VM_PFN or otherwise I don't know how driver allocated system memory access could potentially work.
-
-Accessing VRAM is pretty much the same use case as far as I can see.
-
-Regards,
-Christian.
-
-
-> KVM runs in the same kernel as the GPU driver.  Xen doesn't, and that
-> is the source of the extra complexity.
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +struct drm_amdgpu_svm_attribute {
+>>>>> +    __u32 type;
+>>>>> +    __u32 value;
+>>>>> +};
+>>>>> +
+>>>>> +struct drm_amdgpu_gem_svm {
+>>>>> +    __u64 start_addr;
+>>>>> +    __u64 size;
+>>>>> +    __u32 operation;
+>>>>> +    __u32 nattr;
+>>>>> +    __u64 attrs_ptr;
+>>>>> +};
+>>>>
+>>>> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+>>>>
+>>>> And we usually use unions in this header to separate the input from the output parameters.
+>>>
+>>> Got it will add documentation for it and will use unions in next version. Really thanks for the comments.
+>>>
+>>> Regards,
+>>> Honglei
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> +
+>>>>>   #if defined(__cplusplus)
+>>>>>   }
+>>>>>   #endif
+>>>>
+>>>
+>>
 
