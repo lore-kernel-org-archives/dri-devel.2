@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B82F588E3
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:13:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFDD0F588EE
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 16:14:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307F410E6DD;
-	Mon, 20 Apr 2026 16:13:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD5210E6DE;
+	Mon, 20 Apr 2026 16:14:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GCyZafo9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="swOkxva2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 745A010E6DD
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:13:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F60B10E6DE
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 16:14:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2C76E402DB;
- Mon, 20 Apr 2026 16:13:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D94BC19425;
- Mon, 20 Apr 2026 16:13:36 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 61FB860018;
+ Mon, 20 Apr 2026 16:14:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D788C19425;
+ Mon, 20 Apr 2026 16:14:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776701621;
- bh=qpZ7ncDNJr9ziiS+LAieulgSFEo8xxAIbpPMQA4F9mU=;
+ s=k20201202; t=1776701653;
+ bh=5wfl9+P9EJ6L0BbEH5DhT3kSeK2UsySO5+x/zJBvc+o=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GCyZafo9Fh/dEQP8jQ4T8sWyAUyJHulyQiSm09OXDMB/R4IbmiYf6xsJvHLRdqwo1
- 0jfy6MwgMWpQVX01lpDvwflFlluEV1a2RTdTLbUaCefLKt7HNClZyW8M/vx5y8TQdn
- +UMQu6xbNY4JPECRT/P/iqcSdZNYYlObDQ5wYl9MTcBlQqQ4HRZn9NUYdjQzZuMRXh
- TbGzQLN6MiE+5kTHeCPWNMnq7cOK4qR4tGUTV6wkuP6VU6smyd5dmJjO1N5Kw3qIww
- mlJjrsBan6puI5myoUQ05311quXsvxO9AQTXdMSbKqVVmqbjpM1pptOBNtJTVNMh7c
- kwUjFcKP5wk+w==
-Date: Mon, 20 Apr 2026 17:13:34 +0100
+ b=swOkxva2RIo1eoZaDhBcbzpgkwLo3Y6w3y+3BEAuNP/G/4cYN3sjthlv7M0JiSDPq
+ 3f51l9c9/2HNi0g+tHzmD7M50v9ac36kLpPMMTPQ3eG9O3+sjDuI/ZGnSPEehso8Pi
+ bWSzUgzd5XZHfRL6A3LMfoU8qpyDke7K/buk6ddVJ2jAU5iyP9fntLEofv9sCLFYsp
+ BFz6hln7W9811aSPPtN/cHMG12Ud9pMxeCJ5Zc0/f1Tjxki8ODw43nqyql0Hu/pr+D
+ iXYebW52hocm1enFmsN7eIYciYBxudO4kZQm8DaFObB4crqxWVdO5pW1XiCLNiYQyh
+ 8UUxsn560/9Fw==
+Date: Mon, 20 Apr 2026 17:14:06 +0100
 From: Conor Dooley <conor@kernel.org>
 To: Marek Vasut <marek.vasut+renesas@mailbox.org>
 Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
@@ -48,15 +48,16 @@ Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
  devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 3/7] dt-bindings: clock: cs2000-cp: document CS2500
-Message-ID: <20260420-silk-reshuffle-5cebd4e9b3eb@spud>
+Subject: Re: [PATCH 4/7] dt-bindings: soc: renesas: Document Renesas R-Car
+ R8A779MD Geist
+Message-ID: <20260420-bronze-umpire-e09056798343@spud>
 References: <20260419193718.133174-1-marek.vasut+renesas@mailbox.org>
- <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
+ <20260419193718.133174-5-marek.vasut+renesas@mailbox.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pUBdod/Tj2QGPXtO"
+ protocol="application/pgp-signature"; boundary="buxOxV0Fkdmogddv"
 Content-Disposition: inline
-In-Reply-To: <20260419193718.133174-4-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260419193718.133174-5-marek.vasut+renesas@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,29 +74,32 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---pUBdod/Tj2QGPXtO
+--buxOxV0Fkdmogddv
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Apr 19, 2026 at 09:35:34PM +0200, Marek Vasut wrote:
-> Document backward compatibility support for CS2500 chip, which
-> is a drop-in replacement for CS2000 chip.
+On Sun, Apr 19, 2026 at 09:35:35PM +0200, Marek Vasut wrote:
+> Document the compatible value for the Renesas R-Car M3Le (R8A779MD)
+> SoC and the Renesas Geist development board. The Renesas M3Le SoC is
+> a register-compatible variant of the R8A77965 (M3-N) with reduced set
+> of peripherals. The Geist board is derived from Renesas Salvator-X/XS
+> boards, with adjustment for the R8A779MD SoC.
 >=20
 > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---pUBdod/Tj2QGPXtO
+--buxOxV0Fkdmogddv
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZQrgAKCRB4tDGHoIJi
-0pjsAQCA49Pk0dsLboQWtCSvqUAqlzI1AA+W9v49L7Jrjx+s9wD+PH5THnhWjMV3
-tKapKVmvGgUb9hPLap9b+GLi4MSdzQs=
-=SY59
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaeZQzgAKCRB4tDGHoIJi
+0rHoAPwLbvnyrdiC+rmymK7fgljBrq9sHh6mZ0MGsGQxDoTIBgEAy9mnn4y7PJQJ
+qPi87tC0puxDtHTscafpE95WrhTf6gM=
+=6Nad
 -----END PGP SIGNATURE-----
 
---pUBdod/Tj2QGPXtO--
+--buxOxV0Fkdmogddv--
