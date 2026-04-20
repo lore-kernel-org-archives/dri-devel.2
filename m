@@ -4,74 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68067EA71AA
-	for <dri-devel@archiver.kernel.org>; Sun, 19 Apr 2026 23:10:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ABF7EA71B1
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 00:25:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D96F10E01F;
-	Sun, 19 Apr 2026 23:10:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62E0710E051;
+	Mon, 20 Apr 2026 00:25:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="My++E4bh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GiMbMkI/";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8899D10E01F
- for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 23:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5j1hxsxDcHYnCCY75WYYD4pCz2FrUQeTAsF2SbfQqNE=; b=My++E4bhMyVs+rFIhJUam4usS7
- vqY3/38Mt6AX36h9VCCWV1dE8Bbx7f1izP+7fx9H3AnX0YG6m7X6x3tTwM2UxXmaoZQcxN1rHucvK
- zITd6iYGxvfJXavw4cvH1wcvLjwKFR4ylbmy911VC824+gMId8pdpXk0ecU9onDN+csUiFIFh/m4V
- 9Kv/1OyXQzxaOtl6xAPKLZsy6fWuTpa/tfWOLqzmSigafO4cwu/B98S+YtdtFedIH60dOFVB0r1qI
- CblKRGgNZA4wwDQ3xkjCRv+XXs0hPsOp/eqSta7GAtiH3E9nBpAn1BUFahGKAJhD0moGO9kHIQyAe
- DpCECMCw==;
-Received: from [187.36.208.231] (helo=[192.168.1.103])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wEbHi-000ibz-SO; Mon, 20 Apr 2026 01:10:39 +0200
-Message-ID: <58293dd4-b82b-42e7-b863-6d91d58e6a20@igalia.com>
-Date: Sun, 19 Apr 2026 20:10:32 -0300
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBDE610E051
+ for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 00:25:32 +0000 (UTC)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-50e63771d91so253401cf.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 19 Apr 2026 17:25:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776644732; x=1777249532; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=pD01rqioldlYsrskZpVddZZVgvRR2M6kER/Afl9Dngk=;
+ b=GiMbMkI/llRXrOUt0SfwhHIfGZ5ENsd2DH6J3IaG6wrlZGpUEHYSHVFU8vd8kZzS+a
+ 0qdx6cfJ7voQpS030raQSaGRnOuHc6OHulIw2b1eddKXU4FdwHbumbsxuTJzVPY1ICk8
+ inCVAYpzSlj0TkzZG40HWzynm6BoBGtuKOVAzvzNw+5ynU+YfUsZA3wgwM72F8VUCETZ
+ Br+tQeeka02VyHlMdNFeRNt7ih7VrMOO3aLBsDBuCXIJemml8FZDNxgqE0heR5HOy9Hh
+ nw1MldZWtY8diuLuJGYz4RQqDWMy1YsV24wL+c+hn64nRKYjkuqg6IaXH37XLjdRK3Wd
+ Aofw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776644732; x=1777249532;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pD01rqioldlYsrskZpVddZZVgvRR2M6kER/Afl9Dngk=;
+ b=GQ/2jXflWlVzvM0xbZu27JHbAcTzw2UNKb428HuAPLjM2/AIXYTRv6fGyOGWAAJmCc
+ Dn312+579Jy9YnWnToGb6A8bvpvbrQHeOmj3smI5gUyo/Yd8QBzNigHWna0+6PRJHWpE
+ 1wdhZnj5+pq38D7y2Nr8eWuodz8AF9LXY2h3sS6JEjpqczoh2tf6aFEHcULqm8rxKVZF
+ US6vvjsjIIYNV3FObih7PhlDmwAC+NYrcVuiyy1971KCOa8Q6AFhtTYTgENjFrtsmZOC
+ 9W319KVCsNLDn5faBqbG4FFwVOyBUxcJALs85B/rNOugE9UBec9GFt/2lEBPwfdvWDd6
+ PQsg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/vMSWFir4F6hvcPU/msVHpPnWrY13wQbiYgh3EP0Yrg7iwAD5lFFlPZIfDH5bojXD00YdqT7lkT10=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtRS8N3RitoItNdypeneJBahORTQl4d0N6uYds6jSSwYXJfy5e
+ vi0lYpxeoc1LsFXrcgJE3VTsU5/p/uzIefgtxahBF2SzlM1y5hnR+r3L
+X-Gm-Gg: AeBDieuWrCC9DGZ7jl4Igi5+N900l4DQc9McxySEkj9e9ll65uuD4e1i675M9zM+T3f
+ DKxmcn10GBshM32l4pkXB2j6OtoMjXNlLwwG1ZwnRwBS9+A9nZsFCFxwOFAUCIvx+Lc26HIXPTF
+ VWGvts1fHC/ArQ0kLiz2lybUpicF9zFk32ODqQiHt24hxJNb7VZy9U1aQwL036oIPwhogH4alPZ
+ 9kGif6iRc1qdYsiuzTXUMIPL69Y97E0K7sdPz3rqeubfllWlmazPyjbqxtgTsrzamerAgRuwRkp
+ KXcMH6reZWOPqyXCSdt/hrGn51V8qy3akGvjwOnoYAi3hr6RegbSA0sbkNFta9iy35wujAX2Mz5
+ datARoHFWP7qduzfxvkRVUgmC/uV4Dl82PHitkCxNCFpurhY7DSFfTHHz9KUubVyRt9RwacgRCs
+ DdW/j7/gfyYYK+91lWqJ+NCiHCFhYHDNHK932zjZE2XaGKVR8gbwktXAF/5xaNZ1AMxXwOBQ==
+X-Received: by 2002:ac8:7c56:0:b0:50d:9b07:9c2b with SMTP id
+ d75a77b69052e-50e36c8da62mr179916521cf.56.1776644731742; 
+ Sun, 19 Apr 2026 17:25:31 -0700 (PDT)
+Received: from localhost.localdomain ([165.85.38.136])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-50e392c7994sm71923961cf.4.2026.04.19.17.25.29
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sun, 19 Apr 2026 17:25:30 -0700 (PDT)
+From: Yuho Choi <dbgh9129@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ Myeonghun Pak <mhun512@gmail.com>, Ijae Kim <ae878000@gmail.com>,
+ Taegyu Kim <tmk5904@psu.edu>, Yuho Choi <dbgh9129@gmail.com>
+Subject: [PATCH v1] drm/sysfb: ofdrm: fix PCI device reference leaks
+Date: Sun, 19 Apr 2026 20:25:13 -0400
+Message-ID: <20260420002513.216-1-dbgh9129@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/v3d: Reject empty multisync extension to prevent
- infinite loop
-To: Ashutosh Desai <ashutoshdesai993@gmail.com>, mwen@igalia.com
-Cc: itoral@igalia.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260415050000.3816128-1-ashutoshdesai993@gmail.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260415050000.3816128-1-ashutoshdesai993@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,71 +91,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ashutosh,
+display_get_pci_dev_of() gets a referenced PCI device via
+pci_get_device(). Drop that reference when pci_enable_device() fails and
+release it during the managed teardown path after pci_disable_device().
 
-On 15/04/26 02:00, Ashutosh Desai wrote:
-> v3d_get_extensions() walks a userspace-provided singly-linked list of
-> ioctl extensions without any bound on the chain length. A local user
-> can craft a self-referential extension (ext->next == &ext) with zero
-> in_sync_count and out_sync_count, which bypasses the existing duplicate-
-> extension guard:
-> 
->      if (se->in_sync_count || se->out_sync_count)
->              return -EINVAL;
-> 
-> The guard never fires because v3d_get_multisync_post_deps() returns
-> immediately when count is zero, leaving both fields at zero on every
-> iteration. The result is an infinite loop in kernel context, blocking
-> the calling thread and pegging a CPU core indefinitely.
-> 
-> Fix this by rejecting a multisync extension where both in_sync_count
-> and out_sync_count are zero in v3d_get_multisync_submit_deps(). An
-> empty multisync carries no synchronization information and serves no
-> useful purpose, so returning -EINVAL for such an extension is the
-> correct defense against this attack vector.
-> 
-> Fixes: 9032d5f633ed ("drm/v3d: Detach job submissions IOCTLs to a new specific file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ashutosh Desai <ashutoshdesai993@gmail.com>
+Without that, ofdrm leaks the pci_dev reference on both the error path
+and the normal cleanup path.
 
-Applied to misc/kernel.git (drm-misc-fixes) with a fix: I changed the
-"Fixes" tag to reflect the commit in which the issue was indeed
-introduced, that is: commit e4165ae8 ("drm/v3d: add multiple syncobjs
-support").
+Fixes: c8a17756c425 ("drm/ofdrm: Add ofdrm for Open Firmware framebuffers")
+Co-developed-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Co-developed-by: Taegyu Kim <tmk5904@psu.edu>
+Signed-off-by: Taegyu Kim <tmk5904@psu.edu>
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+---
+ drivers/gpu/drm/sysfb/ofdrm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks for the contribution!
-
-Best Regards,
-- Maíra
-
-> ---
-> V3 -> V4: fix indentation
-> V2 -> V3: drop depth counter; instead reject empty multisync
->            (in_sync_count == 0 && out_sync_count == 0) in
->            v3d_get_multisync_submit_deps()
-> V1 -> V2: change cap from 16 to V3D_MAX_EXTENSIONS (7), add #define
-> 
-> v3: https://lore.kernel.org/dri-devel/177614548527.3603641.5360701002746181082@gmail.com/
-> v2: https://lore.kernel.org/dri-devel/20260413055230.3349114-1-ashutoshdesai993@gmail.com/
-> v1: https://lore.kernel.org/dri-devel/20260410013907.2404175-1-ashutoshdesai993@gmail.com/
-> 
->   drivers/gpu/drm/v3d/v3d_submit.c | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
-> index 18f2bf1fe89f..fc74351efad5 100644
-> --- a/drivers/gpu/drm/v3d/v3d_submit.c
-> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
-> @@ -393,6 +393,11 @@ v3d_get_multisync_submit_deps(struct drm_file *file_priv,
->   	if (multisync.pad)
->   		return -EINVAL;
->   
-> +	if (!multisync.in_sync_count && !multisync.out_sync_count) {
-> +		drm_dbg(&v3d->drm, "Empty multisync extension\n");
-> +		return -EINVAL;
-> +	}
-> +
->   	ret = v3d_get_multisync_post_deps(file_priv, se, multisync.out_sync_count,
->   					  multisync.out_syncs);
->   	if (ret)
+diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
+index d38ba70f4e0d3..247cf13c80a05 100644
+--- a/drivers/gpu/drm/sysfb/ofdrm.c
++++ b/drivers/gpu/drm/sysfb/ofdrm.c
+@@ -350,6 +350,7 @@ static void ofdrm_pci_release(void *data)
+ 	struct pci_dev *pcidev = data;
+ 
+ 	pci_disable_device(pcidev);
++	pci_dev_put(pcidev);
+ }
+ 
+ static int ofdrm_device_init_pci(struct ofdrm_device *odev)
+@@ -375,6 +376,7 @@ static int ofdrm_device_init_pci(struct ofdrm_device *odev)
+ 	if (ret) {
+ 		drm_err(dev, "pci_enable_device(%s) failed: %d\n",
+ 			dev_name(&pcidev->dev), ret);
++		pci_dev_put(pcidev);
+ 		return ret;
+ 	}
+ 	ret = devm_add_action_or_reset(&pdev->dev, ofdrm_pci_release, pcidev);
+-- 
+2.50.1 (Apple Git-155)
 
