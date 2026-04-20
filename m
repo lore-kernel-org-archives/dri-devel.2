@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C88AF588C2
-	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:23:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EC9CF588C3
+	for <dri-devel@archiver.kernel.org>; Mon, 20 Apr 2026 13:24:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D6A10E607;
-	Mon, 20 Apr 2026 13:23:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65C1010E60B;
+	Mon, 20 Apr 2026 13:24:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HIQmwqvE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o0k7Eqpm";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DE5310E604;
- Mon, 20 Apr 2026 13:23:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4F110E5FC;
+ Mon, 20 Apr 2026 13:24:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 813F34409A;
- Mon, 20 Apr 2026 13:23:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6F9C2BCB4;
- Mon, 20 Apr 2026 13:23:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 950524097A;
+ Mon, 20 Apr 2026 13:24:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B2AC2BCB6;
+ Mon, 20 Apr 2026 13:24:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776691435;
- bh=A+lz1RTkj2e9lOQtV5fCe9QkLphGB6D5KjK3efFNNvo=;
+ s=k20201202; t=1776691442;
+ bh=GJALDK3NgxUrEXYG6meOs/y9B/fAwbD5dYUuAZTMqDw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HIQmwqvEtlCadL/Et0zBZe15EzcZ7z9V72sBJ2USWVjVPwJ+4eLhQXT1jK2n5jMPS
- 2F1hh7oiCO6mPdRcreE0oXcrZaXtn+frOCNOc0tH7PmaboCR8ZcRJ+jojtuMQ4QdI+
- O6xvhmBQ8qomoWVNKlRsXgrdUK6cGBM0mliy8tz9EmKtal+Qd3+KXm/sbAzop/o2K8
- R4X0edLPgwsbenVNRqsi7vOjTPyHumO3fzSVvjCY43ZqzqOq+Yfyu9D5Oaiyb6m7r2
- rQi5zGiUcfKyQbRNYGrYrDom10F3M0gRucHqYyFaVX7GJKRwS3lXscNii9quRO3J4t
- BOLyd3n6A0FrQ==
+ b=o0k7Eqpm/HEH59Q9CSgRHe2ogRw5VUTsKJWgmUWXqKKBYVAI0H2Q0fwfztCnc9qJj
+ vLQKf1Ib1HXsIYnpM1gX8+yfKnPUNXKJPX6/f/GAYmBQXxeECE2pEctPUEcduWModZ
+ 8g82ztfClfoxhQH+gbrDjSPLwf1m6z2oqXv8XPxO9cy00ly2qRSWneacKupZG3Nibq
+ Td7qj/ICse+qIxOzzBr979yrrY2+8ZUevsqxMelatG0Z6Re6LyM2TozVhyG1B52hLM
+ 6yoNGQs1rS/RvpKY53fbsaoO9LH0PHLPYzpftaZ84IaB4MaR9fj2okedGkW5QCbT6V
+ Jh0FUvEEL2U5g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Erik Kurzinger <ekurzinger@gmail.com>,
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
  airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 7.0-6.12] drm/amd/display: remove duplicate format
- modifier
-Date: Mon, 20 Apr 2026 09:16:59 -0400
-Message-ID: <20260420132314.1023554-25-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 7.0] drm/amdgpu/userq: unlock cancel_delayed_work_sync
+ for hang_detect_work
+Date: Mon, 20 Apr 2026 09:17:04 -0400
+Message-ID: <20260420132314.1023554-30-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260420132314.1023554-1-sashal@kernel.org>
 References: <20260420132314.1023554-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 7.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,309 +66,437 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Erik Kurzinger <ekurzinger@gmail.com>
+From: Sunil Khatri <sunil.khatri@amd.com>
 
-[ Upstream commit 6736c8ff9d63e847a3b694aeaeb78d4e8ad42464 ]
+[ Upstream commit f802f7b0bc0917023f4b5938246fd7abf23fa5e3 ]
 
-amdgpu_dm_plane_get_plane_modifiers always adds DRM_FORMAT_MOD_LINEAR to
-the list of modifiers. However, with gfx12,
-amdgpu_dm_plane_add_gfx12_modifiers also adds that modifier to the list.
-So we end up with two copies. Most apps just ignore this but some
-(Weston) don't like it.
+cancel_delayed_work_sync for work hand_detect_work should not be
+locked since the amdgpu_userq_hang_detect_work also need the same
+mutex and when they run together it could be a deadlock.
 
-As a fix, we change amdgpu_dm_plane_add_gfx12_modifiers to not add
-DRM_FORMAT_MOD_LINEAR to the list, matching the behavior of analogous
-functions for other chips.
+we do not need to hold the mutex for
+cancel_delayed_work_sync(&queue->hang_detect_work). With this in place
+if cancel and worker thread run at same time they will not deadlock.
 
-Signed-off-by: Erik Kurzinger <ekurzinger@gmail.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Due to any failures if there is a hand detect and reset that there a
+deadlock scenarios between cancel and running the main thread.
+
+[ 243.118276] task:kworker/9:0 state:D stack:0 pid:73 tgid:73 ppid:2 task_flags:0x4208060 flags:0x00080000
+[ 243.118283] Workqueue: events amdgpu_userq_hang_detect_work [amdgpu]
+[ 243.118636] Call Trace:
+[ 243.118639] <TASK>
+[ 243.118644] __schedule+0x581/0x1810
+[ 243.118649] ? srso_return_thunk+0x5/0x5f
+[ 243.118656] ? srso_return_thunk+0x5/0x5f
+[ 243.118659] ? wake_up_process+0x15/0x20
+[ 243.118665] schedule+0x64/0xe0
+[ 243.118668] schedule_preempt_disabled+0x15/0x30
+[ 243.118671] __mutex_lock+0x346/0x950
+[ 243.118677] __mutex_lock_slowpath+0x13/0x20
+[ 243.118681] mutex_lock+0x2c/0x40
+[ 243.118684] amdgpu_userq_hang_detect_work+0x63/0x90 [amdgpu]
+[ 243.118888] process_scheduled_works+0x1f0/0x450
+[ 243.118894] worker_thread+0x27f/0x370
+[ 243.118899] kthread+0x1ed/0x210
+[ 243.118903] ? __pfx_worker_thread+0x10/0x10
+[ 243.118906] ? srso_return_thunk+0x5/0x5f
+[ 243.118909] ? __pfx_kthread+0x10/0x10
+[ 243.118913] ret_from_fork+0x10f/0x1b0
+[ 243.118916] ? __pfx_kthread+0x10/0x10
+[ 243.118920] ret_from_fork_asm+0x1a/0x30
+
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for the analysis. Let me compile
-the findings.
+Now I have the full picture. Here is my complete analysis.
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1: Subject Line**
-Record: [drm/amd/display] [remove] Remove duplicate
-DRM_FORMAT_MOD_LINEAR format modifier in gfx12 modifiers list.
+### Step 1.1: PARSE THE SUBJECT LINE
+Record: [drm/amdgpu/userq] [unlock/fix] Move `cancel_delayed_work_sync`
+for `hang_detect_work` outside the mutex to prevent a deadlock.
 
-**Step 1.2: Tags**
-- Signed-off-by: Erik Kurzinger <ekurzinger@gmail.com> (author)
-- Acked-by: Alex Deucher <alexander.deucher@amd.com> (AMD subsystem
-  maintainer)
-- Signed-off-by: Alex Deucher <alexander.deucher@amd.com> (merged by
-  maintainer)
-- No Fixes: tag, no Cc: stable, no Reported-by — all expected for
-  AUTOSEL candidates.
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+- **Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>** - author,
+  regular AMD GPU contributor
+- **Reviewed-by: Christian Konig <christian.koenig@amd.com>** - key
+  DRM/AMDGPU maintainer/reviewer
+- **Signed-off-by: Alex Deucher <alexander.deucher@amd.com>** - AMDGPU
+  subsystem maintainer who committed it
+- No Fixes: tag (expected for candidates under review)
+- No Cc: stable (expected)
+- No Reported-by tag, but includes a stack trace showing the actual
+  deadlock
 
-**Step 1.3: Commit Body**
-The commit message clearly describes:
-`amdgpu_dm_plane_get_plane_modifiers` always adds
-`DRM_FORMAT_MOD_LINEAR` at the end of the modifier list for all chips
-(line 769). But `amdgpu_dm_plane_add_gfx12_modifiers` also includes
-`DRM_FORMAT_MOD_LINEAR` in its own `gfx12_modifiers[]` array, causing it
-to appear twice. Most compositors ignore duplicates, but Weston
-compositor breaks when it encounters them.
+Record: Reviewed by Christian Konig (senior AMDGPU developer), committed
+by Alex Deucher (subsystem maintainer). Stack trace provided.
 
-Record: Bug = duplicate format modifier in the kernel-to-userspace
-modifier list for gfx12 GPUs. Symptom = Weston compositor malfunctions
-on gfx12 hardware.
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+The commit describes a classic AB-BA deadlock:
+- `amdgpu_userq_destroy()` holds `userq_mutex` and calls
+  `cancel_delayed_work_sync(&queue->hang_detect_work)`
+- `amdgpu_userq_hang_detect_work()` tries to acquire `userq_mutex`
+- When both run concurrently, deadlock occurs: destroy waits for work to
+  finish, work waits for mutex
 
-**Step 1.4: Hidden Bug Fix**
-This is unambiguously a bug fix — it fixes incorrect behavior that
-breaks a real compositor (Weston). The word "remove" understates the fix
-— this corrects a real user-visible bug.
+The commit includes a full kernel stack trace showing the deadlock in
+action (task stuck in `D` state waiting on `__mutex_lock` inside the
+workqueue worker for `amdgpu_userq_hang_detect_work`).
 
----
+Record: Classic deadlock. Symptom is system hang (task in D state).
+Triggered when queue destruction races with pending hang detection work.
 
-## PHASE 2: DIFF ANALYSIS
+### Step 1.4: DETECT HIDDEN BUG FIXES
+This is explicitly a deadlock fix, not disguised at all. The title says
+"unlock" and the body describes the deadlock mechanism clearly.
 
-**Step 2.1: Inventory**
-- 1 file changed:
-  `drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c`
-- ~4 lines of functional change within
-  `amdgpu_dm_plane_add_gfx12_modifiers()`
-- Scope: single-file, single-function surgical fix
+Record: Not hidden. Explicit deadlock fix.
 
-**Step 2.2: Code Flow Changes**
-1. `gfx12_modifiers[]` array: `DRM_FORMAT_MOD_LINEAR` removed from the
-   array (5 elements → 4)
-2. DCC loop: `ARRAY_SIZE(gfx12_modifiers) - 1` →
-   `ARRAY_SIZE(gfx12_modifiers)` (now iterates over ALL tiled modifiers
-   for DCC, since there's no LINEAR to skip)
-3. Comments updated to explain the caller adds LINEAR for all chips
+## PHASE 2: DIFF ANALYSIS - LINE BY LINE
 
-**Step 2.3: Bug Mechanism**
-Category: Logic/correctness fix. The gfx12 function inconsistently added
-LINEAR while all other gfx functions (gfx9, gfx10_1, gfx10_3, gfx11)
-rely on the caller to add it. Verified by grepping — only gfx12 had
-LINEAR in its internal list.
+### Step 2.1: INVENTORY THE CHANGES
+- **File**: `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c`
+- **Function modified**: `amdgpu_userq_destroy()`
+- **Lines added**: ~4 (cancel + NULL assignment moved)
+- **Lines removed**: ~4 (old placement removed)
+- **Scope**: Single-file, single-function surgical fix
 
-**Step 2.4: Fix Quality**
-Obviously correct — makes gfx12 match the pattern of all other chip
-functions. Minimal, surgical. Zero regression risk to other chips. The
-loop bound fix is critical: without it, removing LINEAR from the array
-would cause the DCC loop to skip the last real modifier (mod_256b).
+Record: 1 file, 1 function, net change ~0 lines (code reorganization).
+Surgical fix.
 
----
+### Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+**Before**: `cancel_delayed_work_sync(&queue->hang_detect_work)` was
+called INSIDE `mutex_lock(&uq_mgr->userq_mutex)`, conditionally (only if
+`hang_detect_fence` is set).
+
+**After**: `cancel_delayed_work_sync(&queue->hang_detect_work)` is
+called BEFORE `mutex_lock(&uq_mgr->userq_mutex)`, unconditionally. Then
+`queue->hang_detect_fence = NULL` is set after acquiring the mutex.
+
+Record: cancel_delayed_work_sync moved outside mutex scope; conditional
+removed (cancel is safe to call unconditionally).
+
+### Step 2.3: IDENTIFY THE BUG MECHANISM
+**Category**: Deadlock (ABBA lock ordering)
+
+The deadlock path:
+1. Thread A (destroy path): `mutex_lock(&uq_mgr->userq_mutex)` ->
+   `cancel_delayed_work_sync(&queue->hang_detect_work)` [waits for work
+   to finish]
+2. Thread B (worker): `amdgpu_userq_hang_detect_work()` ->
+   `mutex_lock(&uq_mgr->userq_mutex)` [waits for mutex]
+
+Thread A holds the mutex and waits for the work to complete. The work
+holds the CPU and waits for the mutex. Classic deadlock.
+
+Record: ABBA deadlock between userq_mutex and cancel_delayed_work_sync.
+
+### Step 2.4: ASSESS THE FIX QUALITY
+- **Obviously correct**: Yes. Moving `cancel_delayed_work_sync` outside
+  the mutex breaks the deadlock cycle. `cancel_delayed_work_sync` is
+  documented as safe to call on uninitialized or never-scheduled work
+  items.
+- **Minimal/surgical**: Yes. Only reorders existing operations in one
+  function.
+- **Regression risk**: Very low. Removing the conditional `if
+  (queue->hang_detect_fence)` check is safe because
+  `cancel_delayed_work_sync` on a work that hasn't been scheduled is a
+  no-op. Setting `hang_detect_fence = NULL` after the mutex is acquired
+  is still correct as it's protecting the shared state.
+
+Record: Obviously correct, minimal, very low regression risk.
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1: Blame**
-The buggy `DRM_FORMAT_MOD_LINEAR` in the `gfx12_modifiers[]` array was
-introduced by commit `21e6f6085bbc97` ("drm/amd/display: Allow display
-DCC for DCN401", Aurabindo Pillai, 2024-07-03), which restructured the
-gfx12 function to add DCC support. The original gfx12 function
-(`a64a521231a46`, 2024-02-02) also had LINEAR inline, but pre-DCC. Both
-are in v6.11+.
+### Step 3.1: BLAME THE CHANGED LINES
+The buggy code was introduced by commit `fc3336be9c629` (Jesse.Zhang,
+2026-01-13) which first appeared in v7.0-rc1. This commit added the
+`hang_detect_work` mechanism and placed the `cancel_delayed_work_sync`
+call inside the mutex lock in `amdgpu_userq_destroy`.
 
-**Step 3.2: Fixes target**
-No Fixes: tag. The bug was introduced by `21e6f6085bbc97` (v6.11). This
-commit exists in stable trees 6.11.y, 6.12.y, 6.13.y, 6.14.y.
+Record: Buggy code introduced in fc3336be9c629, first present in
+v7.0-rc1.
 
-**Step 3.3: File History**
-Recent changes to the file are unrelated (color pipeline, kmalloc
-conversions). No prerequisites or dependencies found.
+### Step 3.2: FOLLOW THE FIXES TAG
+No Fixes: tag present. However, the implicit Fixes target is
+`fc3336be9c629` which added the hang_detect_work feature with the
+deadlock bug.
 
-**Step 3.4: Author**
-Erik Kurzinger is a DRM contributor (drm/syncobj patches). Alex Deucher,
-who Acked and merged, is the AMD subsystem maintainer.
+Record: Implicitly fixes fc3336be9c629 (v7.0-rc1).
 
-**Step 3.5: Dependencies**
-The fix is completely standalone. The only context dependency is that
-`max_comp_block[] = {2, 1, 0}` in v6.15+ vs `{1, 0}` in 6.11-6.14 (from
-commit `3855f1d925d4f`), but this is in context lines, not in the
-changed lines. Minor context fuzz at most.
+### Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+The file has been heavily modified. Notable: commit `65b5c326ce410`
+(refcount userqueues, 2026-03-02) also touches `amdgpu_userq_destroy()`
+but did NOT fix this deadlock. That refcount commit has `Cc:
+stable@vger.kernel.org`.
 
----
+Record: The refcount commit (already marked for stable) still has this
+deadlock. The fix is standalone.
 
-## PHASE 4: MAILING LIST RESEARCH
+### Step 3.4: CHECK THE AUTHOR
+Sunil Khatri is a regular AMD GPU driver contributor with 10+ commits in
+this subsystem. The fix was reviewed by Christian Konig, a key AMDGPU
+maintainer.
 
-- Patch v1 was posted on Feb 10, 2026. Alex Deucher immediately Acked
-  it.
-- v2 was submitted the same day with improved comments and the loop
-  bound fix. Alex Deucher Acked v2 as well.
-- No NAKs or concerns raised. No explicit stable nomination, but also no
-  objection.
-- b4 dig could not find the AMD patches on lore (AMD patches go through
-  freedesktop gitlab, not always indexed by b4).
+Record: Experienced contributor; reviewed by subsystem expert.
 
----
+### Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+The fix applies to the code as it exists in v7.0 (post-fc3336be9c629).
+The refcount rework (`65b5c326ce410`) changed the function signature but
+did not change the deadlock pattern. The fix needs to be checked for
+whether it applies to the pre- or post-refcount version of the code. In
+v7.0, the code has the old (non-refcount) signature. The fix targets the
+post-refcount version (based on the diff showing
+`amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct
+amdgpu_usermode_queue *queue)` instead of `amdgpu_userq_destroy(struct
+drm_file *filp, int queue_id)`).
+
+Record: The fix targets the post-refcount version. For v7.0.y, the
+refcount commit (`65b5c326ce410`) would need to be applied first (it's
+already marked Cc: stable).
+
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+
+### Step 4.1-4.5
+b4 dig could not find the specific commit because it hasn't been
+committed to mainline yet (it's a candidate). The refcount commit series
+was found on lore. Web search for the deadlock fix patch was blocked by
+Anubis bot protection on lore.kernel.org.
+
+Record: Lore investigation limited by anti-scraping measures. Based on
+code analysis alone, the deadlock is verified.
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1-5.4: Function and Call Chain**
-- `amdgpu_dm_plane_add_gfx12_modifiers()` is called from
-  `amdgpu_dm_plane_get_plane_modifiers()` for AMDGPU_FAMILY_GC_12_0_0
-  devices.
-- `amdgpu_dm_plane_get_plane_modifiers()` is called during plane
-  initialization (`amdgpu_dm_plane_init()`), which runs for every
-  display plane on every gfx12 GPU.
-- The modifier list is exported to userspace via the DRM plane
-  properties and queried by compositors like Weston when selecting
-  buffer formats.
+### Step 5.1: KEY FUNCTIONS
+- `amdgpu_userq_destroy()` - the function being fixed
+- `amdgpu_userq_hang_detect_work()` - the work handler that creates the
+  deadlock
 
-**Step 5.5: Similar Patterns**
-Confirmed: gfx9, gfx10_1, gfx10_3, and gfx11 functions do NOT add
-`DRM_FORMAT_MOD_LINEAR`. Only gfx12 was inconsistent.
+### Step 5.2: TRACE CALLERS
+`amdgpu_userq_destroy()` is called from `amdgpu_userq_kref_destroy()`
+(line 680), which is the kref release callback. This is triggered via
+`amdgpu_userq_put()` (line 701), called when the last reference to a
+userqueue is dropped. This happens during:
+- Queue destruction IOCTL (user-initiated)
+- fini path (cleanup on file descriptor close)
 
----
+Record: Called during normal queue teardown - common user-triggered
+operation.
 
-## PHASE 6: STABLE TREE ANALYSIS
+### Step 5.3-5.4: CALL CHAIN
+User -> IOCTL -> `amdgpu_userq_put()` -> `kref_put()` ->
+`amdgpu_userq_kref_destroy()` -> `amdgpu_userq_destroy()` [holds mutex]
+-> `cancel_delayed_work_sync()` [deadlocks if work is running].
 
-**Step 6.1: Buggy Code Presence**
-- gfx12 modifiers introduced in v6.11 (a64a521231a46)
-- DCC restructuring (introducing the duplicate) also in v6.11
-  (21e6f6085bbc97)
-- Bug exists in: **6.11.y, 6.12.y, 6.13.y, 6.14.y** stable trees
-- Not in v6.10 or earlier (no gfx12 support)
+The hang detect work is scheduled during normal fence operations via
+`amdgpu_userq_start_hang_detect_work()`, called from
+`amdgpu_userq_fence.c`.
 
-**Step 6.2: Backport Complications**
-For 6.11-6.14: `max_comp_block[] = {1, 0}` (context-only difference from
-`{2, 1, 0}` in 6.15+). The actual changed lines are identical. Should
-apply with minor fuzz or a trivial context adjustment.
+Record: Both paths are reachable from normal userspace operations. The
+race window is between submitting GPU work (which schedules hang
+detection) and destroying a queue.
 
----
+### Step 5.5: SIMILAR PATTERNS
+The `cancel_delayed_work_sync(&uq_mgr->resume_work)` calls throughout
+the file are already placed OUTSIDE the mutex (e.g., lines 632, 1391,
+1447, etc.), demonstrating the correct pattern. The `hang_detect_work`
+cancellation was the only instance that violated this pattern.
+
+Record: All other cancel_delayed_work_sync calls in this file follow the
+correct pattern (outside mutex).
+
+## PHASE 6: CROSS-REFERENCING AND STABLE TREE ANALYSIS
+
+### Step 6.1: DOES THE BUGGY CODE EXIST IN STABLE TREES?
+- **v6.19.y**: `hang_detect_work` does NOT exist. The file exists but
+  the feature was not added until v7.0-rc1.
+- **v7.0.y**: The bug EXISTS. The `hang_detect_work` was introduced in
+  v7.0-rc1 by `fc3336be9c629`.
+- No earlier stable trees (6.12.y, 6.6.y, etc.) are affected.
+
+Record: Bug exists ONLY in 7.0.y.
+
+### Step 6.2: BACKPORT COMPLICATIONS
+The fix's diff shows the post-refcount function signature
+(`amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct
+amdgpu_usermode_queue *queue)`). The v7.0 release has the OLD signature.
+The refcount commit (`65b5c326ce410`) is already marked `Cc: stable` and
+must be applied first for this fix to apply cleanly.
+
+Record: Needs refcount commit as prerequisite. Minor conflicts possible
+if refcount is not applied.
+
+### Step 6.3: RELATED FIXES ALREADY IN STABLE
+No related fix for this specific deadlock has been found.
+
+Record: No alternative fix exists.
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1:** drm/amd/display — IMPORTANT subsystem. AMD GPUs
-(especially gfx12 = RDNA4) are widely used in desktops and embedded
-systems. Display bugs affect all users of the GPU.
+### Step 7.1: SUBSYSTEM AND CRITICALITY
+- **Subsystem**: DRM/AMDGPU (GPU drivers)
+- **Criticality**: IMPORTANT - AMD GPUs are widely used in desktops,
+  laptops, and workstations. Userqueues are a new feature in 7.0 for
+  user-mode GPU scheduling.
 
-**Step 7.2:** The file is actively maintained with frequent changes.
+Record: IMPORTANT subsystem. Affects AMD GPU users with userqueue-
+enabled hardware.
 
----
+### Step 7.2: SUBSYSTEM ACTIVITY
+The file has 59 commits between v6.19 and v7.0 - extremely active
+development. Userqueue support is new infrastructure being actively
+developed.
+
+Record: Very active subsystem. New feature code.
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-**Step 8.1: Affected Users**
-All users of gfx12 (AMDGPU RDNA4) GPUs running Weston compositor. Also
-potentially affects other compositors that validate modifier lists
-strictly.
+### Step 8.1: WHO IS AFFECTED
+Users with AMD GPUs that use the new userqueue feature
+(AMDGPU_CAP_USERQ). This is new GPU scheduling infrastructure.
 
-**Step 8.2: Trigger Conditions**
-100% triggered on every gfx12 GPU initialization — the duplicate
-modifier is always present in the exported list.
+Record: AMD GPU users with userqueue support enabled.
 
-**Step 8.3: Failure Mode Severity**
-Weston compositor fails to work properly with gfx12 GPUs. Severity:
-MEDIUM-HIGH. This prevents a major compositor from functioning on new
-AMD hardware.
+### Step 8.2: TRIGGER CONDITIONS
+The deadlock is triggered when:
+1. A delayed `hang_detect_work` is pending (scheduled after a fence
+   submission)
+2. The user destroys the queue (via IOCTL or process exit)
+3. The work fires and tries to acquire the mutex at the same time
 
-**Step 8.4: Risk-Benefit**
-- Benefit: HIGH — fixes Weston on gfx12, corrects API contract (DRM
-  modifiers should not have duplicates)
-- Risk: VERY LOW — 4-line change in a single function, matching
-  established pattern of all other chip functions, Acked by maintainer
-- Ratio: Very favorable
+This is a realistic race window, especially during error scenarios (the
+hang detection work has a timeout-based delay).
 
----
+Record: Triggered during queue destruction with pending hang detection.
+Realistic race window.
+
+### Step 8.3: FAILURE MODE SEVERITY
+**CRITICAL**: System deadlock. Tasks enter D state (uninterruptible
+sleep) and cannot be killed. The stack trace in the commit message
+confirms this - the system hangs.
+
+Record: System deadlock/hang. Severity: CRITICAL.
+
+### Step 8.4: RISK-BENEFIT RATIO
+- **Benefit**: Prevents a deadlock that hangs the system. HIGH benefit.
+- **Risk**: Minimal. Reordering a cancel_delayed_work_sync before a
+  mutex_lock is obviously correct. The pattern matches all other similar
+  calls in the same file. VERY LOW risk.
+
+Record: Benefit HIGH, Risk VERY LOW. Strongly favorable ratio.
 
 ## PHASE 9: FINAL SYNTHESIS
 
+### Step 9.1: COMPILE THE EVIDENCE
+
 **Evidence FOR backporting:**
-- Fixes a real bug that breaks Weston compositor on gfx12 hardware
-- Small, surgical, obviously correct (4 functional line changes)
-- Matches the established pattern of all other chip generations
-- Acked by subsystem maintainer (Alex Deucher)
-- Bug present in all stable trees with gfx12 support (6.11+)
-- Zero regression risk to other chips
-- No new features or APIs
+- Fixes a real, reproducible deadlock (stack trace provided)
+- Deadlock leads to system hang (CRITICAL severity)
+- Small, surgical fix (reordering ~4 lines in one function)
+- Obviously correct (matches the pattern used everywhere else in the
+  file)
+- Reviewed by Christian Konig (key AMDGPU maintainer)
+- Committed by Alex Deucher (subsystem maintainer)
+- The bug exists in v7.0 release
 
 **Evidence AGAINST backporting:**
-- Impact is limited to Weston users on gfx12 (most compositors tolerate
-  duplicates)
-- No CVE, no crash, no data corruption
+- No Fixes: tag (expected, not a negative signal)
+- The feature (`hang_detect_work`) is new in v7.0, so only affects 7.0.y
+  stable
+- May require the refcount prerequisite commit (`65b5c326ce410`, already
+  Cc: stable) to apply cleanly
 
-**Stable Rules Checklist:**
-1. Obviously correct and tested? **YES** — matches all other chip
-   functions, Acked by maintainer
-2. Fixes a real bug? **YES** — duplicate modifier breaks Weston
-3. Important issue? **MEDIUM-HIGH** — prevents compositor from working
-   on new hardware
-4. Small and contained? **YES** — 4 lines, 1 function, 1 file
-5. No new features or APIs? **YES**
-6. Can apply to stable? **YES** — may need minor context adjustment for
-   6.11-6.14
+**UNRESOLVED:**
+- Could not verify if the exact commit SHA exists in mainline (the fix
+  may be pending in a subsystem tree)
+- Mailing list discussion not accessible due to lore anti-scraping
 
----
+### Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. **Obviously correct and tested?** YES - stack trace demonstrates the
+   bug, fix is logically obvious
+2. **Fixes a real bug?** YES - deadlock
+3. **Important issue?** YES - system deadlock/hang (CRITICAL)
+4. **Small and contained?** YES - ~8 line change in one function
+5. **No new features or APIs?** YES - just reorders existing code
+6. **Can apply to stable trees?** YES (7.0.y), with refcount commit
+   prerequisite
+
+### Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Not an exception category - this is a standard bug fix (deadlock).
+
+### Step 9.4: MAKE YOUR DECISION
+This is a clear deadlock fix for code in v7.0. The fix is small,
+obviously correct, reviewed by the right people, and prevents a system
+hang. It meets all stable kernel criteria.
 
 ## Verification
 
-- [Phase 1] Parsed tags: Acked-by Alex Deucher (AMD maintainer), no
-  Fixes/Cc-stable (expected)
-- [Phase 2] Diff analysis: 4 functional lines changed in
-  `amdgpu_dm_plane_add_gfx12_modifiers()`, removes LINEAR from array and
-  fixes loop bound
-- [Phase 2] Confirmed all other gfx add functions (gfx9, gfx10_1,
-  gfx10_3, gfx11) do NOT add LINEAR — verified via grep
-- [Phase 2] Confirmed caller `amdgpu_dm_plane_get_plane_modifiers()`
-  adds LINEAR at line 769 for ALL chips — verified via Read
-- [Phase 3] git blame: buggy line 707 introduced by commit
-  21e6f6085bbc97 (v6.11, 2024-07-03)
-- [Phase 3] git show a64a521231a46: original gfx12 function also had
-  LINEAR (duplicate from day one)
-- [Phase 3] Verified gfx12 NOT in v6.10, IS in v6.11+ via `git merge-
-  base --is-ancestor`
-- [Phase 3] 3855f1d925d4f (max_comp_block context change) in v6.15 only
-  — minor context fuzz for older stables
-- [Phase 4] Found patch v1 and v2 on freedesktop.org mailing list
-  archives
-- [Phase 4] v1 (1-line change) and v2 (4-line change with improved
-  comments/loop) both Acked by Alex Deucher
-- [Phase 4] No NAKs, no concerns raised in discussion
-- [Phase 5] Verified call chain: `amdgpu_dm_plane_init()` →
-  `amdgpu_dm_plane_get_plane_modifiers()` →
-  `amdgpu_dm_plane_add_gfx12_modifiers()` — runs on every gfx12 display
-  plane init
-- [Phase 6] Bug present in 6.11.y, 6.12.y, 6.13.y, 6.14.y stable trees
-  (verified)
-- [Phase 8] Failure mode: Weston compositor broken on gfx12, severity
-  MEDIUM-HIGH
+- [Phase 1] Parsed tags: Reviewed-by Christian Konig, Signed-off-by Alex
+  Deucher (subsystem maintainer). Stack trace in commit message.
+- [Phase 2] Diff analysis: ~8 lines changed in `amdgpu_userq_destroy()`,
+  moves `cancel_delayed_work_sync` before `mutex_lock`
+- [Phase 2] Verified `amdgpu_userq_hang_detect_work()` acquires
+  `uq_mgr->userq_mutex` at line 168
+- [Phase 2] Verified `amdgpu_userq_destroy()` acquires same mutex at
+  line 633, then calls `cancel_delayed_work_sync` at line 637 while
+  holding it
+- [Phase 3] git blame: buggy code introduced by `fc3336be9c629`
+  (Jesse.Zhang, 2026-01-13), first in v7.0-rc1
+- [Phase 3] `git tag --contains fc3336be9c629`: confirmed present in
+  v7.0-rc1 and v7.0
+- [Phase 3] Author Sunil Khatri has 10+ commits in amdgpu subsystem
+- [Phase 5] Verified all other `cancel_delayed_work_sync` calls in the
+  file are placed OUTSIDE the mutex (correct pattern)
+- [Phase 5] Traced call chain: IOCTL -> `amdgpu_userq_put()` ->
+  `kref_put()` -> `amdgpu_userq_kref_destroy()` ->
+  `amdgpu_userq_destroy()`
+- [Phase 6] Verified `hang_detect_work` does NOT exist in v6.19.12 (grep
+  returned 0 matches)
+- [Phase 6] Bug exists ONLY in v7.0.y
+- [Phase 6] Prerequisite: refcount commit `65b5c326ce410` (already Cc:
+  stable) may be needed for clean apply
+- UNVERIFIED: Could not access lore.kernel.org discussion due to anti-
+  scraping protection
+- UNVERIFIED: Could not confirm the mainline commit SHA (the fix is not
+  yet in this tree's git log)
 
 **YES**
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 127207e18dcb0..bc19438211dd3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -704,21 +704,21 @@ static void amdgpu_dm_plane_add_gfx12_modifiers(struct amdgpu_device *adev,
- 	uint8_t max_comp_block[] = {2, 1, 0};
- 	uint64_t max_comp_block_mod[ARRAY_SIZE(max_comp_block)] = {0};
- 	uint8_t i = 0, j = 0;
--	uint64_t gfx12_modifiers[] = {mod_256k, mod_64k, mod_4k, mod_256b, DRM_FORMAT_MOD_LINEAR};
-+	/* Note, linear (no DCC) gets added to the modifier list for all chips by the caller. */
-+	uint64_t gfx12_modifiers[] = {mod_256k, mod_64k, mod_4k, mod_256b};
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index e8d12556d690a..ad39460b54dc5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -630,13 +630,14 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	int r = 0;
  
- 	for (i = 0; i < ARRAY_SIZE(max_comp_block); i++)
- 		max_comp_block_mod[i] = AMD_FMT_MOD_SET(DCC_MAX_COMPRESSED_BLOCK, max_comp_block[i]);
- 
- 	/* With DCC: Best choice should be kept first. Hence, add all 256k modifiers of different
- 	 * max compressed blocks first and then move on to the next smaller sized layouts.
--	 * Do not add the linear modifier here, and hence the condition of size-1 for the loop
- 	 */
--	for (j = 0; j < ARRAY_SIZE(gfx12_modifiers) - 1; j++)
-+	for (j = 0; j < ARRAY_SIZE(gfx12_modifiers); j++)
- 		for (i = 0; i < ARRAY_SIZE(max_comp_block); i++)
- 			amdgpu_dm_plane_add_modifier(mods, size, capacity,
- 						     ver | dcc | max_comp_block_mod[i] | gfx12_modifiers[j]);
- 
--	/* Without DCC. Add all modifiers including linear at the end */
-+	/* Without DCC. */
- 	for (i = 0; i < ARRAY_SIZE(gfx12_modifiers); i++)
- 		amdgpu_dm_plane_add_modifier(mods, size, capacity, gfx12_modifiers[i]);
- 
+ 	cancel_delayed_work_sync(&uq_mgr->resume_work);
++
++	/* Cancel any pending hang detection work and cleanup */
++	cancel_delayed_work_sync(&queue->hang_detect_work);
++
+ 	mutex_lock(&uq_mgr->userq_mutex);
++	queue->hang_detect_fence = NULL;
+ 	amdgpu_userq_wait_for_last_fence(queue);
+-	/* Cancel any pending hang detection work and cleanup */
+-	if (queue->hang_detect_fence) {
+-		cancel_delayed_work_sync(&queue->hang_detect_work);
+-		queue->hang_detect_fence = NULL;
+-	}
++
+ 	r = amdgpu_bo_reserve(queue->db_obj.obj, true);
+ 	if (!r) {
+ 		amdgpu_bo_unpin(queue->db_obj.obj);
 -- 
 2.53.0
 
