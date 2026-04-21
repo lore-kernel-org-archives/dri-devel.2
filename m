@@ -4,101 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A651CF327B2
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:10:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 407E1F327B3
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:12:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 989C810EB93;
-	Tue, 21 Apr 2026 07:10:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ECoZH4lu";
-	dkim-atps=neutral
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9944510E17D
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 05:49:16 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-4232323a7daso1758165fac.1
- for <dri-devel@lists.freedesktop.org>; Mon, 20 Apr 2026 22:49:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776750555; cv=none;
- d=google.com; s=arc-20240605;
- b=Ob/NgMLPqKzc3JU+cjPrHFDJjBPcw7Mm5Fw2hmXAXWGtdwwsXalr+QDHoCq84e3IrG
- jn5g6SlH3I+JXz4WeZPC+TdvFP2NdCaWDPV05qwR7EPK4Go7VSOFGZFGFaDsqU2FXyTj
- ZcqY55gf9qTjfNZnKupHYSgXdg44DdRbR0q1bW/bdMBmEs6LQR9tdMyFqN6fkH1/ZDNl
- QrwbiCopOD5Zo88umUIvL7a5HDcyIruar8IjW26V/+ixtz5h2lfPh+Uq2NbBgBmiRyY5
- nxteltlQu4UuwPnmZSmD0FApZzyGjiEifIdhGjQZh6xA66s15Rvaek5ippTggyPMlsoQ
- xdKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=SRWv1DAnKxjPg4EeC1yHSfGfzIInINqcAO0DlQUlQZc=;
- fh=LCeRIjTs+FdrlJExMh9FkHC5pVzRmV0lbkoS9r5Gw0g=;
- b=ZCmp9jweS2ar1aGoqqCP7tCcLCXdO9GEHfCfGuR5JghsiwVQ4i56EbzJ+n4wASSCNE
- RnpwOiSCWb5xfcyOx51kZYGv3gHNmVvARZkQdTg1BYTmG6ZME5SlkJd65KqAAuVWUtcP
- 7Gyj8Q+MUBHg9nurw0FcbtDNDoSmPEMhiEt7gQcsV4OxVlNmjiS8sWnfs3GwBZEr2OJQ
- y9Fc2vEjMRzzegF3mtupY7uAbCCTpdgv3IOfSn8M3WaFdnCy9p4hV3H6Fhi6meDICyQF
- piUXiyrJy4yDbBYOMB5eRT0LfCiCOj0LDBA5Ij8JLdsRgYOkm7KhGtbaICcI87qkFgQn
- cBQA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776750555; x=1777355355; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SRWv1DAnKxjPg4EeC1yHSfGfzIInINqcAO0DlQUlQZc=;
- b=ECoZH4luH2wUlcILwsgchWjtV3nMHaPc2j6V2sJlGGKNbVqwEwfhGx8kb4YooB1j0a
- YDKa/ypvVJew9n/YGVOLuktA8p1ZDB7GgFgC/Nu0eIwCFZqfQbu7YC3KLynHEzwqbPTN
- 4CHPlo25u2h4gQ+OhCzRUQzYCFanZ6gWbi0gBv75IfcnSt9aUa+aWnQ07hweUeGVL8a9
- EbLxTvW/vNF6NaK8vYuObA1tkvQVmxR1ts0GzTxEfdRsWRRWM4kbpxJBOnrroWu1AGeM
- /ZgJWtAmCBgdY0JvnIV6ziVfEYLR66JcCuPBvfKmYPAet1149W0LMrozpx89T6KK0m7q
- x6FA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91A7C10EB80;
+	Tue, 21 Apr 2026 07:12:03 +0000 (UTC)
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com
+ [209.85.221.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 300B610EB80
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 07:12:02 +0000 (UTC)
+Received: by mail-vk1-f169.google.com with SMTP id
+ 71dfb90a1353d-56d93355337so2540037e0c.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 00:12:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776750555; x=1777355355;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=SRWv1DAnKxjPg4EeC1yHSfGfzIInINqcAO0DlQUlQZc=;
- b=ghEcNAlB1jOaj87DHAcxXb/F/GlcSaMdRUC/BhZybPmXSXeLppts9BygDUCIBBwrRQ
- KOpz5fcxvHKdYe5omFXVWlxUujmpxfy/+6sHuCUfRwZurkptSyduQJXToSo9r6jtJlvQ
- gp1pQ/hgIKnOWriKe0mP/N7bBOsmZB5Uos+iqWQs2RVjWJvQMtEuXDEIp0WVNPT3tpj4
- IQNc9S1jfGjpMFwA54P8TJvonu6CCYbtBiTo6rt1pI6vxpmwxMhIn5K08UpFlOUS0siB
- taphbT41ElodexGjoB9aFfIVOWpwslXhCt9xt7vlASCELxSnInpO6bpPXz68DaT3zJcl
- xZhQ==
+ d=1e100.net; s=20251104; t=1776755521; x=1777360321;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JwInXibjWzl/vO4JD/MNvyHm7guro1FSh41fR8veI6E=;
+ b=WIn2eVG3jOabH3KEBpPw7+tGcJRbf19DydTL47fziVZq90UPuNjZaDijybJiMe2kiH
+ I0hbDmtr5f3f/Scda1h3gPDJFP4Tb0Hz3qjdFkppKygGiDdvwjg5lEljPPSaRP4jW2Bj
+ T5khxgqhEMB/XuUScz1corHx+BLR8gn39d6kGl4rBCYgTX3DrxZF8zjK+Z0iQF0Sc3kD
+ zTpVaoW/u+1c4h60aOFek0ep0OaIaAQpqZMK2RLmMDB2YZBVP+zEBKYSeEidOybsVaqF
+ Okd84bEpiY3B0HZiapoqtYIeVGMB27ReFG8M3/f3Stmhqn4bvMZcFlEDNj7INBdlM4T2
+ exFQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ99j0oyB0+K2ASTvnvSgKtA1ts4U6ehY0/86dHf4EntT1ocNH/IbjanAmakY8e7lHWvuf8zGtv+A/I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyskkAkAfjWaBdQfOAcaIXNQquxpdJiCPEt7MuASUPe87oxNdM4
- d4eV6li7hgF5l7UtHLLDHiebZ84p1nwYXXQxyXSB2uRqrLBny60qmS27CR3rR+DN49XjTg98oWp
- 2pkUcqmkQCQBvqvxv3hR+U1s3SdkomMA=
-X-Gm-Gg: AeBDiesHwuas5/hdV/5h5jVD2MfuGTkx1j/CvlPpB+2LweV3fCthojMPotdwJZstwlf
- Mn6g5vuDdBNPCekS0YMFp9lMqOhneSufhuW/ZWxaWZVfm82aBEy0SGOKw6OxqX75lC9jmn223k2
- qPoQ4KQrNlGIiSMosC6mYlljK34BjAsX8sgoe8W5F08blUTTxBukGw7zVaK/sNDny7OYTSONfwu
- NuMMH61INOIqaF8XoPNnMWLHrXxueZzT1qiDa2clB3ageV6P0ATLIBWl0RAXwHW//9eSMjUPDNT
- U4pyObdsq7ybX5eA
-X-Received: by 2002:a05:6820:8118:b0:688:e3b:3b8d with SMTP id
- 006d021491bc7-69462e1648bmr9079448eaf.7.1776750555537; Mon, 20 Apr 2026
- 22:49:15 -0700 (PDT)
+ AFNElJ9wEtiNo7e1koV2r86ot8Xqy208WYq9esOHTIksrm0ovTpCCV495j9U52WD2jOVojV81cttBZUx6Xs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxH5pvfC6y1eBfWJJtA0aYOdCWqA49mNEdsiE+gRt8aZPIJFHOK
+ dOY54ItEn9c2tveVaXW6uiFI96ooU4AXIG1cMoM8R4IeTfAS4y1XoMU+EU92l8l8dKc=
+X-Gm-Gg: AeBDiesqOKYjRGx9OfHs7LQpjCGnLzYctJySu4JzHT9DihbHRKyTgz9g43wz+Edih/F
+ qmfmkCkva60mZczozP1vRMSeu54jZeBrn1NIDmF+7xDdrBVUYKHZkPN0WbGdQEEaskSIf5Y+Mjm
+ LrQzi2W8FIJhSLir3GzW2Qix2qRaedlSXDNw3zPQo1nfVXnrLwffpvszi6N0TwrFiVpGAXYjLHK
+ 5zkKX0CJFDWjzoI4OteInPMa/n7P4LAxMbVjOWJbKl2I/ZvRz90BITZlhUCAzKCXr/rr0a61aqs
+ 1NxEWpieitcKSW8gG1ZpERyb16v7h5l9plIykNkiZ9ei5W0cFkzrkeUT5M5AHsf7ghX5vB6+esG
+ jOGbSQyg0ciaWydl2HpVCtrNLeDI47Tuv1Yp3ZYhzUMsqiTd2ybQCWeqXtaAwaxxV8Y+RA7p6Js
+ p4pOyJD+dd2sdvTcCLXB/IUxP/PoXPWgDDWwPgU6FgNyAQ1UQXt2uP+fykeE13DQTE9XVDM8Y=
+X-Received: by 2002:a05:6122:82a9:b0:56f:b0bd:2276 with SMTP id
+ 71dfb90a1353d-56fb0bd24ddmr7141448e0c.0.1776755520378; 
+ Tue, 21 Apr 2026 00:12:00 -0700 (PDT)
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com.
+ [209.85.222.54]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-56fa93513c6sm7663639e0c.17.2026.04.21.00.11.59
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Apr 2026 00:11:59 -0700 (PDT)
+Received: by mail-ua1-f54.google.com with SMTP id
+ a1e0cc1a2514c-9539d9f1675so2621301241.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 00:11:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/nTVXf55qTT/OsJmR0ZoDfQx0dJ5TAiysjwJlSGQ9SP52WbPAEPUrMGR5g2TUYWuRdpS5p9HeazVc=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:20c8:b0:61a:c2e2:932e with SMTP id
+ ada2fe7eead31-61ac2e297e9mr2628301137.22.1776755519482; Tue, 21 Apr 2026
+ 00:11:59 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260420061644.1251070-1-syyang@lontium.com>
- <b2a5ef92-f312-4e0a-9772-4d430b80a46e@oss.qualcomm.com>
-In-Reply-To: <b2a5ef92-f312-4e0a-9772-4d430b80a46e@oss.qualcomm.com>
-From: =?UTF-8?B?5p2o5a2Z6L+Q?= <yangsunyun1993@gmail.com>
-Date: Tue, 21 Apr 2026 13:49:02 +0800
-X-Gm-Features: AQROBzB9rYJlnnqh9os9JxgZAo3i8KtXGQWjM6H5x1xWxow6F4ShLEOhK5X1Slg
-Message-ID: <CAFQXuNYFwRLbm8yLFNzAcwO24NuBWEKnaAQP=O5BhCuCb+eWuQ@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] Add LT9611C(EX/UXD) DRM bridge driver and device
- tree
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: syyang@lontium.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org, 
- dmitry.baryshkov@oss.qualcomm.com, maarten.lankhorst@linux.intel.com, 
- rfoss@kernel.org, mripard@kernel.org, Laurent.pinchart@ideasonboard.com, 
- jonas@kwiboo.se, jernej.skrabec@gmail.com, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- xmzhu@lontium.corp-partner.google.com, tzimmermann@suse.de, xmzhu@lontium.com, 
- rlyu@lontium.com, xbpeng@lontium.com
+References: <20260417140231.3972749-1-chris.brandt@renesas.com>
+ <CAMuHMdUVCtzxumM6yniuGTKfqG_z6BuySHNcZYE9UHP5AuDoLw@mail.gmail.com>
+ <OS3PR01MB83197FBDFCDECBA1220BF52B8A2F2@OS3PR01MB8319.jpnprd01.prod.outlook.com>
+ <OS3PR01MB83193C199C2DF1F2153827458A2F2@OS3PR01MB8319.jpnprd01.prod.outlook.com>
+In-Reply-To: <OS3PR01MB83193C199C2DF1F2153827458A2F2@OS3PR01MB8319.jpnprd01.prod.outlook.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 21 Apr 2026 09:11:48 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUvUp00y2i-jB=1ZzTo9vQ-1+T_BRhanOWL+oX5CGinog@mail.gmail.com>
+X-Gm-Features: AQROBzCgWJdDzE2USTixi86Dz844wFu7yea9_t_E6eSnIWvNdWuUZpLqybVPrSg
+Message-ID: <CAMuHMdUvUp00y2i-jB=1ZzTo9vQ-1+T_BRhanOWL+oX5CGinog@mail.gmail.com>
+Subject: Re: [PATCH] drm: renesas: rz-du: mipi_dsi: Fix return path on error
+To: Chris Brandt <Chris.Brandt@renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Pavel Machek <pavel@nabladev.com>, Hugo Villeneuve <hugo@hugovil.com>, 
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 21 Apr 2026 07:09:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,77 +93,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Jingyi Wang <jingyi.wang@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B44=E6=9C=88=
-21=E6=97=A5=E5=91=A8=E4=BA=8C 13:09=E5=86=99=E9=81=93=EF=BC=9A
+Hi Chris,
+
+On Tue, 21 Apr 2026 at 00:05, Chris Brandt <Chris.Brandt@renesas.com> wrote:
+> On Mon, Apr 20, 2026 5:14 PM, Chris Brandt wrote:
+> > Since it doesn't really matter -when- that memory is allocated in probe, maybe I'll just keep the original lines, just
+> > move them earlier in the function when all the other resources are being allocated using devm_xxx.
+> >
+> > Then I don't have to worry about the it anymore.
 >
+> Oh wait, I guess I also need to change from calling dma_alloc_coherent() to dmam_alloc_coherent() so it will automatically unwind.
 >
+> And then, I can remove the call to dma_free_coherent() in rzg2l_mipi_dsi_remove() as well.
 >
-> On 4/20/2026 2:16 PM, syyang@lontium.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
-> >
-> > This series adds support for the Lontium LT9611C(EX/UXD) MIPI DSI to HD=
-MI
-> > chip:
-> >
-> > -dt-bindings: bridge: This patch adds new content to the lontium,lt9611=
-.yaml
-> >   binding file.
-> > -drm/bridge: This patch add new DRM bridge driver for LT9611C(EX/UXD) c=
-hip.
-> >
-> > Signed-off-by: Sunyun Yang<syyang@lontium.com>
->
-> "This patch" should be avoided in the commit msg, begin with "add" will b=
-e enough.
->
-it will be fixed  in the next version.
-> Thanks,
-> Jingyi
->
-> > ---
-> > Changes in v3:
-> > -dt-binding:
-> >   1. lt9611c(ex/uxd) content merged into lontium,lt9611.yaml
-> > -drm/bridge:
-> >   1. Drop the licence text, only use SPDX header
-> >   2. Sort the headers
-> >   3. Use library functions for crc8
-> >   4. Drop i2c_read_byte and i2c_write_byte
-> >   5. Lowercase all hex values
-> >   6. Use paged writes as implemented for LT9611C(EX/UXD)
-> >   7. Drop dev_info, use dev_dbg
-> >   8. Modify lt9611c_get_edid_block, don't store EDID in the long-term s=
-tructures
-> >   9. Use HDMI audio helpers.
-> >   10.Remove unnecessary flags,Implement proper cleanup path, unwinding =
-resources
-> >      one by one.
-> >   11.Replace devm_kzalloc with devm_drm_bridge_alloc.
-> >   12.Remove extra kthread.
-> > -Link to v1: https://lore.kernel.org/lkml/20250903123825.1721443-1-syya=
-ng@lontium.com/
-> >
-> > Changes in v2:
-> >   1. Forget modify code, operation error, Please disregard this submit.
-> >
-> > Changes in v1:
-> > -dt-binding:
-> >   1. Submit the first version of the code.
-> > -drm/bridge:
-> >   1. Submit the first version of the code.
-> >
-> > ---
-> > Sunyun Yang (2):
-> >    dt-bindings: bridge: This patch adds new content to the
-> >      lontium,lt9611.yaml binding file
-> >    drm/bridge: This patch add new DRM bridge driver for LT9611C chip
-> >
-> >   .../display/bridge/lontium,lt9611.yaml        |    8 +-
-> >   drivers/gpu/drm/bridge/Kconfig                |   18 +
-> >   drivers/gpu/drm/bridge/Makefile               |    1 +
-> >   drivers/gpu/drm/bridge/lontium-lt9611c.c      | 1365 ++++++++++++++++=
-+
-> >   4 files changed, 1390 insertions(+), 2 deletions(-)
-> >   create mode 100755 drivers/gpu/drm/bridge/lontium-lt9611c.c
-> >
->
+> Does this sound like a better idea?
+
+Sounds fine to me!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
