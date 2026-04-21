@@ -4,144 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19CE6F8FA90
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 14:56:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 056C0F8FA8F
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 14:57:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B3D310ECFC;
-	Tue, 21 Apr 2026 14:56:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4398E10ED0D;
+	Tue, 21 Apr 2026 14:57:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="cm+4JCk3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vig6Hvbg";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022073.outbound.protection.outlook.com [52.101.101.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A8FC10ECC2;
- Tue, 21 Apr 2026 14:56:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B785C10ECC2;
+ Tue, 21 Apr 2026 14:57:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776783471; x=1808319471;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=lG7t0Dc/8A1NelybHc7f9CtArEFFD9HCpVmgA+QGBYA=;
+ b=Vig6HvbgmpaRHwaL9UrZ80IW//aIw3tv8LekeT5/GRdB+yz68P5t6DLf
+ DybkLofuV3K/kDsxs5AN5I9Yh33/STWDIa8IESev/N91vlBsI89XG6wwn
+ j97X9uhrJVW4vZDZRYmaTuSO8okmAPiBJQ/DBf7rWAfluWzS3atkT+6rS
+ OMUtPZqaB+I3Q565bKBGXyKk76BD1vE9FFX9q8idAKBLk0mAdz/pYVCW4
+ PWfjYhykJl1hUY6COzS6vETosuyiPK3Zv1mOmRpkfB/n1rQOp1XHeJofv
+ WZj19i5DruQQi14dLASBL36ryVn2+Hcez4LlDX5EehxKCRQFzACTotaDA w==;
+X-CSE-ConnectionGUID: dY2zXX08TgqD09a6S2CJkw==
+X-CSE-MsgGUID: L9moEIrWTk+tFnFyPUSGFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="89187680"
+X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="89187680"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2026 07:57:51 -0700
+X-CSE-ConnectionGUID: UWhpCUIWSxWukkhXvORugQ==
+X-CSE-MsgGUID: 1GEj+uG6QPOyBuv6CpMd0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="262447057"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2026 07:57:50 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 21 Apr 2026 07:57:49 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Tue, 21 Apr 2026 07:57:49 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.33) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Tue, 21 Apr 2026 07:57:48 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S1JnXNn4Zb26InXVpjl6gmdj4bUlVRvWJieswDgDL03Bp3gc61Qi/MGW/fgKc6wGd5tBwZP6tmnWCMJu+vFbL+ddc2bHrCvLG6fUCpp5VLZBbHz6qgX4VIB3PbwfiUrmw166gTRp2HoGMMzRHXTr7zXxgTpjI0HdzVNE0aNNBYfGJ0eXefJHO5jz+nBTpOEfhxdw/c2J/Pv8UQGD1FqaOAHvV90DyysydBLFmJTBJ+3MRllDu3M4D9iXaGHr0ecbJzExN3PY0MEqZdlYPALLtggKSwahLuXd0wMNlf6V+V9zNEzupvLySQ0DYNaum0tFFytfQ+TkaDyNLkbsr0F3/A==
+ b=QMvqz1U/MympdnKtKB6s78BJ02b1PN1TTbceDEdhkvAKuFb0m8XFrprC/FzlHCX96l1rmGypWS/dRRI/Af3/sKbG2eyMjHjR8t+gn+KzXoCcFwz+6M9R6Grf7kXZdaokDfmnV2v11D4lcuTqgEaFp3pjsAyFK7m6Bx1sNpNPTx8XrFCu0cxKFlPIKA9DOx9Wk2AUTFFQE9fhtIgmNMk2rBTFsIZHn1gt1Y/hwvP3MFfarvHvrBz8JyjV7GYwd5TW5D28scdSMgTAAMrv+DxsfNG47M3adyo+N2z8qh7tgPrJZVwuHG9DR8qHxujQ065iG9dPP0oIuMAeTKoQaqvo1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gz3InflAKtslVQJSJgHeMm1kKTjdd/kLAIC9qXKn59Q=;
- b=h8BP9FqLKnS33bacO6FUK3uryFXX/cTLkv3g1myeFfRCscTURDnbH+ERuzKZc8bRxf9ngMKwLIPWWg/EyNKegN/E+AP83YQrywVJVUHijUYZiqRRLhDZiwsqkkhogJkooqyHEs9ng7f2DlDwQ9GrS4R7ldKHlpUh0F18VcTRvEoLyP7McufxP2016QEXXieNxj6lA0z1Ks499lcrzobH0FJwfEpMv5EOLn03G+PggWcj7LDmoG8PB/bJudK/hXzDc1ltAKofNyvFhohqzGNXfMCHmG2u6/B/A2nSlwkAodJ7yS0b0XlOyKe7mUTw1JkJAEZz4ENW+7hsERsrag9kwA==
+ bh=5UWpQDpvNatzoxrfsfEQxpu3brMzKoERMqZvEcAQGs8=;
+ b=Mc0wgzfdhBn9G05cSOxRoZ5w6RciJFMMnIK8vOkZPHBghJp/4fFkxHuEAg46OlLMWovwgOpMlIucuUogcpg1I3z2ZHUnIfeB7/EhmHcisQLZWj22CCFs3g9wwnbgVhTgQnlTCZNgN9aGyOlN8obhpScLB7SvIvJeeOaUIoTtFslez5TGiN3sLYe5WF4dF8vlsIRs/A+mk+Ry7r1eWtPhayV2BzFCY9tRPdqU8SWg/0r2SVR+NtWBntk8HV7PmhNti7E7atHeVISAC3g66uYQJ5zucvj4yzIRqglqXV5BESENSmAfj0lC3wTZfff8rbOsXBBhEy9jiWGHiBGCf3hRig==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gz3InflAKtslVQJSJgHeMm1kKTjdd/kLAIC9qXKn59Q=;
- b=cm+4JCk3ICMruZutIeOuFVyPP3lgT6qN4jJGEwjpooGYqVBbloLK0IwK1YBygtpTsJWIejCvd5/HXksoz8IL5iXDl9hoqGQFrgNh5a214o/qRNr2mdwYW3hWgKZ8bczytII6y1cbtkW0P+0dc3QmZogYxSHZUtXeAoe5JKE1AO0=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by CWLP265MB5674.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1b0::13)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by SA2PR11MB5131.namprd11.prod.outlook.com (2603:10b6:806:116::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
- 2026 14:56:29 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 14:56:29 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Tue, 21 Apr 2026 15:56:16 +0100
-Subject: [PATCH v2 05/11] rust: io: restrict untyped IO access and
- `register!` to `Region`
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260421-io_projection-v2-5-4c251c692ef4@garyguo.net>
-References: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
-In-Reply-To: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776783386; l=13259;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=5GVZfqmlRD7YS7IuSASRsDrAHqXip3Elc7FIgJl4J90=;
- b=c1qQ5DpiFXu6Q0zRPZm7320fqpB78rfHQksb0sudcivMAAKQYhzpxwNBIUibr1/TiYsVppY+p
- 7AbPH/XqylgBDkvynB8TgT9tMoNc/xeftqQZz0KLpoay1KVl9dinsf4
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: LO4P123CA0142.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:193::21) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+ 2026 14:57:45 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
+ 14:57:45 +0000
+Message-ID: <e4eced80-8b22-473d-8add-7e4a517937f8@intel.com>
+Date: Tue, 21 Apr 2026 20:27:37 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/13] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+Content-Language: en-GB
+To: Melissa Wen <mwen@igalia.com>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+CC: <harry.wentland@amd.com>, <louis.chauvet@bootlin.com>,
+ <contact@emersion.fr>, <alex.hung@amd.com>, <daniels@collabora.com>,
+ <uma.shankar@intel.com>, <maarten.lankhorst@intel.com>,
+ <pekka.paalanen@collabora.com>, <pranay.samala@intel.com>,
+ <swati2.sharma@intel.com>
+References: <20260408051514.608781-1-chaitanya.kumar.borah@intel.com>
+ <20260408051514.608781-2-chaitanya.kumar.borah@intel.com>
+ <c15ff4ca-79c3-4e65-bcc3-24e74adc2636@igalia.com>
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <c15ff4ca-79c3-4e65-bcc3-24e74adc2636@igalia.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0161.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1ba::12) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB5674:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a6122e1-0478-49c1-b797-08de9fb62b1e
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|SA2PR11MB5131:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed5b0443-791d-457f-4484-08de9fb658ac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|10070799003|366016|921020|22082099003|18002099003|56012099003|18096099003;
-X-Microsoft-Antispam-Message-Info: w9F7UZYmeXl2Nk4FbIOOuMmyidCSMmgu6s8FekySQxwyaQ6ELAipScnds2x+DwaHZqXtMr/1dcOh+wujm9wZu49HsOAipnwTavvgFJoNLxpExu9FQwJeaOBOBYQsHeOR2a9Br5ig7WzBgblqAYBfkmSwxpqwEocJ6JlN2C1Jmpoh56fKWse/gaaqy1e/GU06bzY5ii4+MVTTZvi9wYNfLXY3LrVjR/T0SjfdDpoj89ee1PqxQyLUT2MON/QczapouZ1agggk0ANcFscc3A24OORaw/nC6OAzSe3w6+vbzlBtmzORo5q9a6Nar+Ffv12vMbEfUNbRFb5iGNm/eIoEtcs3R+8vdtdwbpe0f7utuz2ya7taPX3G5QdPB9W/K0kUOnMUwpCHEcQ2WjtE8W6+f9O07BvPZXEuKNLG4JKHqjZYL/+FwDedWUVai1+tFgQPqo9vk9sy5zo/tQ3M4+iPmL2MnQuNTyWPhAkx2/1vD/T8sI41AVfNtwM93csiRCEAkix43j2bk7jJJatEvgBMez+ln2CCUZSjSX8V8kabICdA5PuLHOA8LQJFrqq22suOvjOgMw6cLisllYpmoynEiJilXwgMR/+f6PXR0rjuq2R7GqNMm4Zje018TdnymwPmvEchooVfA68Z/2wjIYvrJcJlNN4AiUltn1RTsnv7DlUdaMhWAohyTnRsDAknLag52saWmzY+PkDSNyQKzd4wFROksSKIQDznzQyhQ64j90GKiH3hIjkmfDcIldEZFNRcvSQZ6iH8LND9r2clqzUueQ==
+ ARA:13230040|376014|7416014|366016|1800799024|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: 4f0FsgeJjIwms6/EuUP+FvD8SS3sXyScf0bAqMIVo8OxNGi/ND2rRLeVJYPi9E5zqZznh1Q+WzmhjlVbqs2FFSRqfnunta9x4Bry2Pfyp9EDGFOT5/MZlyszV3LAgBDvMtcnqbIpHb/X47KV5Gbl0IySF3h7pELexUxz2qLQMwZZ+gAF1a9qqWmRI5C4UJI55NBONsep78Yvs2M1dqFL3tKrr2nAD1+2BoZsupW3wLnnEZ5F8cG+HOkFf8bFLWZPrmxzXlWmQQLM7i2T/inclOZTxpATfYrb+CRMa3IL9eXIDHw5G3eCa79GLqAr0Jr7GBsoq81NLBBW3p9ChlaEXrtlpm+MFHwY5mODAEk3TvE83w/OJVgrtS+frwgigIMvaqTERZAY0FnAoz95RvUysZjS11XCWwrJC0SiJ9ymtQpMjEkjgtEe73sjohlBn1W6NDi3bQqICcOg1PMFpwIP2YWPfPsa9K3dD02uFsQBIkjd8sqlxWQGnMFG+Pi57zSUbU0EidqrbOz24nordaQVQxwY5Rx11OqGTUptmvpkSnRDKLW4zPfN+pBpmEk+btNEopBjSMwDpkeHyXQNiANqAnKvtmFKn4m/ICY3TqR2e9Nc4EZs+5VIbUvK++BlH8npp8VE/xz5TfDIkTQLYb9Pu/6W/k5ADk7aba28pPM5coNv/b1reKcPLWSY1N32S/Ojrg1ze7DcuvPl6Y0vRXxO6vgI9SlWi0+CU6zFewNVn5KN6Xiafkcj0ke+dEKIi4uX
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(921020)(22082099003)(18002099003)(56012099003)(18096099003);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmI1ZURDdU5UUjU4ZW5ZU2h1M1ZuOEpHOUtoL1lBTUk4NlhrbFU1d0ZRTFFa?=
- =?utf-8?B?M2FodE00TWJqR3BzSUQ4ZDlPSWRZUDlhTWU5ZzhrUy9nV1ZWMHhtREl3M256?=
- =?utf-8?B?M2VHNllITjBZMjR5RDkzcEk1MnpKRElySFoycWEwV0JUVkZDNlpCRlhzYjJu?=
- =?utf-8?B?THhRM0NsNVAyMXlSRzNaWkwzL0w1eUMxNGdmVUI2aFBhUkRGcXJSQUJqekRD?=
- =?utf-8?B?dWNVNHlOMzkxbUFKZVBoREFGeVRLcGI1SHJRR2hWZlI5NGJQQU1wRnJzYUM4?=
- =?utf-8?B?UWl0NzVOZE95RWh3OHoyYXRDZW9OOWlTQ0g5eStVNWoxM1J3ekw2Zmo5NjJ3?=
- =?utf-8?B?UDh0dE9TNDF6cUVBMVpWS29temxaN1RyRFNhd1djTTFOVkd3TzlzTTVacEp2?=
- =?utf-8?B?RU5BdE1kSFFYMk1UNS80RThsODlPNnZ4SldPNVZZQUd4QUpqMDNKQi9NYmVC?=
- =?utf-8?B?NDRwZCtJd1BZbnhld25tK2RWNC9mdTNCRnlDMnB1bHF1Yll4cDZobHBDMXB0?=
- =?utf-8?B?TkJVSFlScUE3SjFra3haR2FvN291M1IyRFZJQ0luclU4UmZxWkRCRTRIREhW?=
- =?utf-8?B?N05NZTZIbWdUU0R4c0VQa2RRQjIyd2x6STBQQitFVEZtNGt0a3VaUDJ4UXNX?=
- =?utf-8?B?dEY5Q0FIQmY4WmFyTHJOM0tSSFVpWFFJMGNHNWtUckloQjF5N05YazhRWlNO?=
- =?utf-8?B?Z1NSVVJPL3JIbmdaY2NpblNNa0FjSHR1M3dXaU56YWpiZEdhTmNYY205eGpa?=
- =?utf-8?B?QlFidzNFU3JBODlBc0ZIK2Frd1ZBVEk1VEZqTzBLT1U0dWtNQ2VuQVI5dHlE?=
- =?utf-8?B?cm15NEEyc0FnL3ZSWXMyeFdoekgrUzJBMkwxQ01JWHk1U0JwNWpFMFZxNTVN?=
- =?utf-8?B?RUVrQ0FzS3hFSkY3SmxQS2RNOWhuclIvWDVrQlpQTmI2cTBNNFdlSTNYVnAr?=
- =?utf-8?B?ODgwN2hqdkdqbXV6K1A1YzhBQXlVK0tNUjR3YTdld1RZdDVTeVFsUkRMWjVR?=
- =?utf-8?B?VDd6a3VxUFBCVXFibWoxcDRvOTJLdVdyTGR6K2l4aGRaQTZBMkd4M1hkM0Ev?=
- =?utf-8?B?OWw3NEd3Z2lXV004RWxLYlhGR2RWV3VHZDRXNmZOMFNpQytjK1c1cUcyRXVr?=
- =?utf-8?B?N2tubFBMTDBoWmJDTFdZMzFuMlZNYzRyRXpFQ3JOVG4vLzBFVVZNTk5SQnJG?=
- =?utf-8?B?YUcvbGZkRGJvc2FtczZNSjNoejRnSDhBNGlWc1Q2UFpTUFBvYlIwYk54WlZl?=
- =?utf-8?B?SW1NUTVMeUNER1IyNzB1SUoyZjU1VHBBMXNLcjZiUStwTWdHTFFhUFJJam5J?=
- =?utf-8?B?QWJaT0ZHOUlhV29hU2x6bUxBbjNHYlM5QytSMFlVMVY0QSsxWVV2d3RYTVl6?=
- =?utf-8?B?bzVuUXQyV25naVVNclYwZVNQRmRNTGtjazIrRGplVldwSXRkMHR0MGNvYkho?=
- =?utf-8?B?QkNGd0V0MTk4Q3NrVUJHYTRiSDlmTHhxK2RzdzBveEdkenBjblo5bHpNWTNW?=
- =?utf-8?B?TTF3YnFRN2FXcHlnUWpJTGtlQnMrc3NhbnRjWVlsRXFNTTVEUWR0MmxvNHZB?=
- =?utf-8?B?dUJZWWUrRjhtcyt2QmFjbm91cHlCMWh0T3Z3d0hDQjN1MVpjQVRBSC96RVdy?=
- =?utf-8?B?WGI0M3VENFJldW4wZVB2RkdjdURWSndmd1h5cE0vZmVHZHlmTGoxM0lIdG1N?=
- =?utf-8?B?QWlQOXhmcVowMmNpUUorcmwwUnFmSUZidW1iVzREU3BnV05tSzVRZmJMWHVE?=
- =?utf-8?B?T2FwcDRKZDAzb2x0N2ttUHdFeCtnOVNDMDIwZ1hNMjZpUFJaN1VDRlk3TEVa?=
- =?utf-8?B?OVdYMGJ0SWNtcXVZNDNpc2VxOTRiVVhyVlI4N2pmVDZVd3dkOFh4bVlsQXZI?=
- =?utf-8?B?TjlIUE52aDZUTWo3RTBwS2hqYlhSNlVrdWdoNzBoZEtiUENBdVVndGFsYm4v?=
- =?utf-8?B?Qk4wTk4zazFKeS9Ka3dSa2x5bUQyMVptV1A4b1ZPZ25qdlhVWmQzV29FZVYy?=
- =?utf-8?B?cFQ1WUtMaXZnVHpKdW5uVFNCK0F1OStadEFvQUwxeVVQdUNTTFcxcjc2YmV6?=
- =?utf-8?B?cTVrMmNlMFJxcjA1cXN1RktSZ1Q0c2dsU3NIUmxxNG8rcXowOTRwa25uZ1Na?=
- =?utf-8?B?K2Y4MkdUcjRwRVoycFdjWkpLemRoeFcwV2ptcDB4Vzd2NmVmUlhKQUhreHph?=
- =?utf-8?B?N05NODYxOUtIWFMvTEZ3ZFZPK01MNnErN2RZYXdmbTZGL29tZHVZS0NBR2Va?=
- =?utf-8?B?SGVOWkh1a2JVQnE0K1VnbGVyZHhWcGt5d2NzMVFwZ0ZyT3NVVHhVQXIwRWF5?=
- =?utf-8?B?TVQzYmNDWGdlcGxQQ04zclFEMTBMaEJMTnpHekxtTWJNNVl1ODE4UT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a6122e1-0478-49c1-b797-08de9fb62b1e
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZFc0V3pZZFhCK1VJZEIzRE1TZG9oOXRnK3UrWDF0OEwyRzVNS0NFTklXWGtz?=
+ =?utf-8?B?VVFOV0Z3Y1pIbWtIeEJNYnBTLzl4VXpldzh3SERtK0JtTkFNMUJJTG43VzFM?=
+ =?utf-8?B?TzgxRTh4eVRMQ2pTN3JxcGJXZE45RmFpb29VUmtVa2Y4NitLUDdQbGVOaU15?=
+ =?utf-8?B?RWF6bWZrdFZjSmcyUUFHc3JmYzJsTWZwRUpTcG5kMTZDWlJTSjBhdCtqUGVW?=
+ =?utf-8?B?dGVZdGhtOGJDQldIUk5PZ2NRYStyQnpsaTd3cVVkVVZUY3NnZXBYSGJsWmU2?=
+ =?utf-8?B?SitjNFRZbUtmd2RBeHFvdjdaT0toZGtFWU5BZ0pDOHRVNDVEdWgwR2dOUWIz?=
+ =?utf-8?B?bHEyaGFsQi9DbkRDaFJ6RVpqM2RYNDR1a1dvSEl3b3U5akRjN0s5dGt5djBG?=
+ =?utf-8?B?b0lYVHE4U0E1YWxXR2UxMzZ5VlhCMGpCQm1jaVhjME1XUTVrODAzWWhnbnF1?=
+ =?utf-8?B?MFkyWDhhVWJ4OURwNWtMaXcxSmJEeDhSdktuVVMyS0M1NVBLZ2NrVkNRRkN6?=
+ =?utf-8?B?K2lLTnVWNk9hL2trazRDajJVbnQvYXV3NEFYb1BEOVJ5bkFNWG40SzNybWpm?=
+ =?utf-8?B?UlpYYnJGMW5zWm9wL2YvZmZMdDc3NUIweGZCN0t2TE1XbTFHMDdmR09VMi92?=
+ =?utf-8?B?STg5VTFsb2JhNU1ROElzWXZDZjlSMVBvNHV0ais2QWxBM1NwTWlhZjByMVVv?=
+ =?utf-8?B?WnFhSnY2NUl6aFVFeER5czRhVnFPenZFWDVrQ2RnYVJ4Q2dMSGRDUmI1NDRs?=
+ =?utf-8?B?VHhmZGYzaVN2ZTV0c1RDR2lOVEprYnMydGxyajNDQ09CclQyK01uOXFoOUtD?=
+ =?utf-8?B?UGRkSXcrLzZ0Q2k2Q3VTSTdjOXRuR2ZmQ3JhWm1KM3kzSllpMld0cEdoeDdJ?=
+ =?utf-8?B?OVJoYUwwdVhQZlRMa2s2TnZOQ1VQM0ZidVE1T0svdldLdW9STzZRRjMwMHly?=
+ =?utf-8?B?Znd6dys1TGw0cWVUckFpSXI4VHJvSzQ0bEhyZEljcGRXZ3RPWktKQTJhYXhx?=
+ =?utf-8?B?TkNuSkRodm5leVFta2V4R1VNOGlGNUlqSTRuek15aUZCOElwOHZlZnh1b0FC?=
+ =?utf-8?B?WmdNcjh2bWF1aXNUMGVNdFZOZmwyeS9CZ05NVzhWbFRVSTFQRnpNYytHZTI5?=
+ =?utf-8?B?VytSTUtoZUZYQzdZM1V6OTZNVXFrcTFSemZ2cCtsMnlYR1IzZFF6NXQzb095?=
+ =?utf-8?B?dGVaYzlFY3RPeVhiN3FFMTZrVEcxS0dEeUR2Mkd2ZkpXRXlkTklWdi9Wb1NG?=
+ =?utf-8?B?dlZNV0RxUkhLS0ZHWG52U2RzRituUmJCMUxDa1VZRHloeG1SakxTZE5kWmhw?=
+ =?utf-8?B?UnNYbWRtVnZQcFo2dCtoenpVc0VPQldMdHo4VUhRcllnL1JwdzJhOWU4bEd0?=
+ =?utf-8?B?T3hreHBDVjFiWDdrVkl3cVF6UklLcm53YStyd1VUV28wWVFyQzlXalI4U1Jo?=
+ =?utf-8?B?SlFLcWx6OENmRDNpaG5iU21zanBSN3ZlZmdYYjdEYms1SDZsWmJnVUhzSFQ1?=
+ =?utf-8?B?VkM0aFZuSEcxVUxRanUwOVJlVWNKV29TRmJNb2laaEZUVWN2dGFqcFJleTla?=
+ =?utf-8?B?aFdvZStBRGlhQm9Ec1E5TkFHbnRvTlhaZ0xRUzl1R0tMVUlCdEhjMVk3Y1Ji?=
+ =?utf-8?B?cWM3dkllZUkvMm90K2hHeTFQSDlGZ3BNOFZJM2FQem5qYUZjR3VHazgwYWxH?=
+ =?utf-8?B?aWs3eUN0L3JhYVNmYWx4cWVyQnVmUHVLZGZlMmN5ZkwzSkNjK3hmb2JwUUFh?=
+ =?utf-8?B?UVM2UjU5MGdXdTIxWDhNdVpTd2Rud2J2SEYyZUt4SHBuSFUxQTY5M3NqOHdo?=
+ =?utf-8?B?NGlpazNSbUhuTEFFQktuOGo4MENGSCt3Z09QT3NLYkdqZXZ0dXpKT0w4SUhs?=
+ =?utf-8?B?T2kzKyt0UnpDeWw0TGlWQlpOV3FEOFUyVlE2WTBsOUV5ejZoSEFLU2NwNm9O?=
+ =?utf-8?B?d3ZnTVp2YnZ1WlU2Zm9LSTVEMVVIcG1rWStLQkVXMVRFeTdCWkYyQXg5TmNY?=
+ =?utf-8?B?bVZGbFF1TlpvZ3l2c0x4N005K3BQQXA4THY3S1JBSnVsRXhyekd6UzNyWDVP?=
+ =?utf-8?B?alFaaTBPSmtnUnc4MmpHZnBNKzZ4bHUvL25uKzZlN3M3anJaaUNBMnhwS25V?=
+ =?utf-8?B?Zk5wcGsvVzdpR1N6YW9QQnhmaEZFNTlNaXUyN3RVRGV1REowTXJGcmtpdk9x?=
+ =?utf-8?B?amJCNkl3VE05NVcvRGVUdW1idE9YOVZ3TUZpdmNTVzJVNzU0dzN6STZLd3Za?=
+ =?utf-8?B?eHFkR0VzVzRldm9pYTByZ1RUYmxlSDdvMHpNMnpiY2RoRldtc2ZadlQ5UFlF?=
+ =?utf-8?B?WDI5Qkd4aWtOWlo4S0VOS0gwcnZueGxXQWh6YnJPQUk3ZWY4bmxXWlBPblBl?=
+ =?utf-8?Q?XPaQqQlPLUIf/Fmj4X5xzZEtdUefcnaRce+CE?=
+X-Exchange-RoutingPolicyChecked: n5nBwEX+Kr3Bfi7e9cupg0FVj/+auQhGv/HkzkmDRBpLyXBtLHd+e7SxfIF7/LybOLD/pS0zYYwLiqQeEIkCaIzx4NffZq6Jzj2g148WcecR3Bxk0SJl3TZ49O37selandBFYgw2WQuREy3hh9cbyaGErc1TEmGPitfX0UcrOON3E8AdUGzTFBnFaLIhh0nbkXbQEQUuTK25SnisU8Imsxn7c6aH2qOi05vKb3saPx2jZiRpsX+xOoc1ecM6tvHZt9BjOQuVxOEFGlUCuAYbfwH9h8LsCQSudIk26lS75qycUFSsrInzb5v6iWgWK529JXQVdoUkh46BiOQLc+2EJg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed5b0443-791d-457f-4484-08de9fb658ac
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 14:56:29.0683 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 14:57:45.5364 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6vlJU61SMvVn1TYtMLIxUaMkpVCJ4xodcqxXU3/UsitaErlu79WNV+uwfUMdnb8hZTwGpTeq5urd7eoD2N4Xwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5674
+X-MS-Exchange-CrossTenant-UserPrincipalName: MsWbv8ZMKEYjhr0Pt90JMx3Oe8pWA+xtIodSzSBG/v5uCQF9lPts7/mvm01bJZUz1iPnObOuOmdlrhpMrhjgHKMzU9ekRIL5L8C2dLwIKW8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5131
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,364 +176,426 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently the `Io` trait exposes a bunch of untyped IO accesses, but if the
-`Io` region itself is typed, then it might be weird to have
 
-    let io: Mmio<u32> = /* ... */;
-    io.read8(1);
 
-while not unsound, it is surely strange. Thus, restrict the untyped methods
-and also the register macro to `Region` type only.
+On 4/21/2026 6:40 PM, Melissa Wen wrote:
+> 
+> 
+> On 08/04/2026 02:15, Chaitanya Kumar Borah wrote:
+>> Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
+>> hardware that performs a fixed matrix operation.
+>>
+>> Unlike CTM-based colorops, this block does not expose programmable
+>> coefficients. Instead, userspace selects one of the predefined
+>> hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported modes
+>> include common YCbCr->RGB and RGB709->RGB2020 conversions.
+>>
+>> v2:
+>>   - Naming changes (Pekka)
+>>
+>> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>> ---
+>>   drivers/gpu/drm/drm_atomic.c      |   4 ++
+>>   drivers/gpu/drm/drm_atomic_uapi.c |   4 ++
+>>   drivers/gpu/drm/drm_colorop.c     | 107 ++++++++++++++++++++++++++++++
+>>   include/drm/drm_colorop.h         |  84 +++++++++++++++++++++++
+>>   include/uapi/drm/drm_mode.h       |  12 ++++
+>>   5 files changed, 211 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>> index 41c57063f3b4..16a2183b11bf 100644
+>> --- a/drivers/gpu/drm/drm_atomic.c
+>> +++ b/drivers/gpu/drm/drm_atomic.c
+>> @@ -845,6 +845,10 @@ static void drm_atomic_colorop_print_state(struct 
+>> drm_printer *p,
+>>                  drm_get_colorop_lut3d_interpolation_name(colorop- 
+>> >lut3d_interpolation));
+>>           drm_printf(p, "\tdata blob id=%d\n", state->data ? state- 
+>> >data->base.id : 0);
+>>           break;
+>> +    case DRM_COLOROP_FIXED_MATRIX:
+>> +        drm_printf(p, "\tfixed_matrix_type=%s\n",
+>> +               drm_get_colorop_fixed_matrix_type_name(state- 
+>> >fixed_matrix_type));
+>> +        break;
+>>       default:
+>>           break;
+>>       }
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/ 
+>> drm_atomic_uapi.c
+>> index 5bd5bf6661df..d69406b08a0f 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -761,6 +761,8 @@ static int drm_atomic_colorop_set_property(struct 
+>> drm_colorop *colorop,
+>>       } else if (property == colorop->data_property) {
+>>           return drm_atomic_color_set_data_property(colorop, state,
+>>                                 property, val);
+>> +    } else if (property == colorop->fixed_matrix_type_property) {
+>> +        state->fixed_matrix_type = val;
+>>       } else {
+>>           drm_dbg_atomic(colorop->dev,
+>>                      "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
+>> @@ -793,6 +795,8 @@ drm_atomic_colorop_get_property(struct drm_colorop 
+>> *colorop,
+>>           *val = colorop->lut3d_interpolation;
+>>       else if (property == colorop->data_property)
+>>           *val = (state->data) ? state->data->base.id : 0;
+>> +    else if (property == colorop->fixed_matrix_type_property)
+>> +        *val = state->fixed_matrix_type;
+>>       else
+>>           return -EINVAL;
+>> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/ 
+>> drm_colorop.c
+>> index 566816e3c6f0..dd385e8dacbe 100644
+>> --- a/drivers/gpu/drm/drm_colorop.c
+>> +++ b/drivers/gpu/drm/drm_colorop.c
+>> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list 
+>> drm_colorop_type_enum_list[] = {
+>>       { DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
+>>       { DRM_COLOROP_MULTIPLIER, "Multiplier"},
+>>       { DRM_COLOROP_3D_LUT, "3D LUT"},
+>> +    { DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
+>>   };
+>>   static const char * const colorop_curve_1d_type_names[] = {
+>> @@ -90,6 +91,14 @@ static const struct drm_prop_enum_list 
+>> drm_colorop_lut3d_interpolation_list[] =
+>>       { DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
+>>   };
+>> +static const char * const colorop_fixed_matrix_type_names[] = {
+>> +    [DRM_COLOROP_FM_YCBCR601_FULL_RGB]  = "YCbCr 601 Full to RGB",
+>> +    [DRM_COLOROP_FM_YCBCR709_FULL_RGB]    = "YCbCr 709 Full to RGB",
+>> +    [DRM_COLOROP_FM_YCBCR2020_FULL_RGB_NC]  = "YCbCr 2020 Full to RGB 
+>> NC",
+>> +    [DRM_COLOROP_FM_YCBCR_LIMITED_FULL]  = "YCbCr limited to full",
+>> +    [DRM_COLOROP_FM_RGB709_RGB2020]     = "RGB709 to RGB2020",
+>> +};
+>> +
+>>   /* Init Helpers */
+>>   static int drm_plane_colorop_init(struct drm_device *dev, struct 
+>> drm_colorop *colorop,
+>> @@ -455,6 +464,81 @@ int drm_plane_colorop_3dlut_init(struct 
+>> drm_device *dev, struct drm_colorop *col
+>>   }
+>>   EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
+>> +/**
+>> + * drm_plane_colorop_fixed_matrix_init - Initialize a 
+>> DRM_COLOROP_FIXED_MATRIX
+>> + *
+>> + * @dev: DRM device
+>> + * @colorop: The drm_colorop object to initialize
+>> + * @plane: The associated drm_plane
+>> + * @funcs: control functions for the new colorop
+>> + * @supported_fm: A bitfield of supported 
+>> drm_colorop_fixed_matrix_type enum values,
+>> + *               created using BIT(fixed_matrix_type) and combined 
+>> with the OR '|'
+>> + *               operator.
+>> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
+>> + * @return zero on success, -E value on failure
+>> + */
+>> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, 
+>> struct drm_colorop *colorop,
+>> +                    struct drm_plane *plane,
+>> +                    const struct drm_colorop_funcs *funcs,
+>> +                    u64 supported_fm, uint32_t flags)
+>> +{
+>> +    struct drm_prop_enum_list enum_list[DRM_COLOROP_FM_COUNT];
+>> +    int i, len;
+>> +
+>> +    struct drm_property *prop;
+>> +    int ret;
+>> +
+>> +    if (!supported_fm) {
+>> +        drm_err(dev,
+>> +            "No supported FM type op for new Fixed Matrix colorop on 
+>> [PLANE:%d:%s]\n",
+>> +            plane->base.id, plane->name);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) != 0) {
+>> +        drm_err(dev, "Unknown Fixed Matrix provided on [PLANE:%d:%s]\n",
+>> +            plane->base.id, plane->name);
+>> +        return -EINVAL;
+>> +    }
+>> +
+>> +    ret = drm_plane_colorop_init(dev, colorop, plane, funcs, 
+>> DRM_COLOROP_FIXED_MATRIX, flags);
+>> +    if (ret)
+>> +        return ret;
+>> +
+>> +    len = 0;
+>> +    for (i = 0; i < DRM_COLOROP_FM_COUNT; i++) {
+>> +        if ((supported_fm & BIT(i)) == 0)
+>> +            continue;
+>> +
+>> +        enum_list[len].type = i;
+>> +        enum_list[len].name = colorop_fixed_matrix_type_names[i];
+>> +        len++;
+>> +    }
+>> +
+>> +    if (WARN_ON(len <= 0))
+>> +        return -EINVAL;
+>> +
+>> +    prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, 
+>> "FIXED_MATRIX_TYPE",
+>> +                    enum_list, len);
+>> +
+>> +    if (!prop)
+>> +        return -ENOMEM;
+>> +
+>> +    colorop->fixed_matrix_type_property = prop;
+>> +    /*
+>> +     * Default to the first supported CSC mode as provided by the 
+>> driver.
+>> +     * Intuitively this should be something that keeps the colorop in 
+>> pixel bypass
+>> +     * mode but that is already handled via the standard colorop bypass
+>> +     * property.
+>> +     */
+>> +    drm_object_attach_property(&colorop->base, colorop- 
+>> >fixed_matrix_type_property,
+>> +                   enum_list[0].type);
+>> +    drm_colorop_reset(colorop);
+>> +
+>> +    return 0;
+>> +}
+>> +EXPORT_SYMBOL(drm_plane_colorop_fixed_matrix_init);
+>> +
+>>   static void __drm_atomic_helper_colorop_duplicate_state(struct 
+>> drm_colorop *colorop,
+>>                               struct drm_colorop_state *state)
+>>   {
+>> @@ -521,6 +605,13 @@ static void __drm_colorop_state_reset(struct 
+>> drm_colorop_state *colorop_state,
+>>                                 &val);
+>>           colorop_state->curve_1d_type = val;
+>>       }
+>> +
+>> +    if (colorop->fixed_matrix_type_property) {
+>> +        drm_object_property_get_default_value(&colorop->base,
+>> +                              colorop->fixed_matrix_type_property,
+>> +                              &val);
+>> +        colorop_state->fixed_matrix_type = val;
+>> +    }
+>>   }
+>>   /**
+>> @@ -561,6 +652,7 @@ static const char * const colorop_type_name[] = {
+>>       [DRM_COLOROP_CTM_3X4] = "3x4 Matrix",
+>>       [DRM_COLOROP_MULTIPLIER] = "Multiplier",
+>>       [DRM_COLOROP_3D_LUT] = "3D LUT",
+>> +    [DRM_COLOROP_FIXED_MATRIX] = "Fixed Matrix",
+>>   };
+>>   static const char * const colorop_lu3d_interpolation_name[] = {
+>> @@ -617,6 +709,21 @@ const char 
+>> *drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_inte
+>>       return colorop_lu3d_interpolation_name[type];
+>>   }
+>> +/**
+>> + * drm_get_colorop_fixed_matrix_type_name: return a string for fixed 
+>> matrix type
+>> + * @type: fixed matrix type to compute name of
+>> + *
+>> + * In contrast to the other drm_get_*_name functions this one here 
+>> returns a
+>> + * const pointer and hence is threadsafe.
+>> + */
+>> +const char *drm_get_colorop_fixed_matrix_type_name(enum 
+>> drm_colorop_fixed_matrix_type type)
+>> +{
+>> +    if (WARN_ON(type >= ARRAY_SIZE(colorop_fixed_matrix_type_names)))
+>> +        return "unknown";
+>> +
+>> +    return colorop_fixed_matrix_type_names[type];
+>> +}
+>> +
+>>   /**
+>>    * drm_colorop_set_next_property - sets the next pointer
+>>    * @colorop: drm colorop
+>> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+>> index bd082854ca74..c13b4b045fff 100644
+>> --- a/include/drm/drm_colorop.h
+>> +++ b/include/drm/drm_colorop.h
+>> @@ -134,6 +134,71 @@ enum drm_colorop_curve_1d_type {
+>>       DRM_COLOROP_1D_CURVE_COUNT
+>>   };
+>> +/**
+>> + * enum drm_colorop_fixed_matrix_type - type of Fixed Matrix
+>> + *
+>> + * Describes a Fixed Matrix operation to be applied by the 
+>> DRM_COLOROP_FIXED_MATRIX
+>> + */
+>> +enum drm_colorop_fixed_matrix_type {
+>> +    /**
+>> +     * @DRM_COLOROP_FM_YCBCR601_FULL_RGB:
+>> +     *
+>> +     * enum string "YCbCr 601 Full to RGB"
+>> +     *
+>> +     * This selects the matrix that converts full range YCbCr into RGB
+>> +     * according to the BT.601 coefficients.
+>> +     */
+>> +    DRM_COLOROP_FM_YCBCR601_FULL_RGB,
+>> +
+>> +    /**
+>> +     * @DRM_COLOROP_FM_YCBCR709_FULL_RGB:
+>> +     *
+>> +     * enum string "YCbCr 709 Full to RGB"
+>> +     *
+>> +     * This selects the matrix that converts full range YCbCr into RGB
+>> +     * according to the BT.709 coefficients.
+>> +     */
+>> +    DRM_COLOROP_FM_YCBCR709_FULL_RGB,
+>> +
+>> +    /**
+>> +     * @DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
+>> +     *
+>> +     * enum string "YCbCr 2020 Full to RGB NC"
+> Nit: I think you mean "YCbCr 2020 NC Full to RGB"?
+>> +     *
+>> +     * This selects the matrix that converts full range YCbCr into RGB
+>> +     * according to the BT.2020 non-constant luminance coefficients.
+>> +     */
+>> +    DRM_COLOROP_FM_YCBCR2020_FULL_RGB_NC,
+> ... and here ^ DRM_COLOROP_FM_YCBCR_NC_FULL_RGB
 
-The way it is implemented is by adding a generic type to `IoLoc`. This also
-paves the way to add typed register blocks in the future; for example, we
-could use this mechanism to block driver A's `register!()` generated macro
-from being used on driver B's MMIO. The same mechanism could be used for
-relative IO registers. These are future opoortunities, and for this patch I
-just restricted everything to require `IoLoc<Region<SIZE>, _>`.
+Ack.
 
-Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
-Link: https://lore.kernel.org/rust-for-linux/DHLB3RO3OSF5.2R7F27U99BKLN@nvidia.com/
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- rust/kernel/io.rs          | 47 +++++++++++++++++++++++++++++++---------------
- rust/kernel/io/register.rs | 21 ++++++++++++---------
- 2 files changed, 44 insertions(+), 24 deletions(-)
+>> +
+>> +    /**
+>> +     * @DRM_COLOROP_FM_YCBCR_LIMITED_FULL:
+>> +     *
+>> +     * enum string "YCbCr limited to full"
+>> +     *
+>> +     * This selects the matrix that converts limited range YCbCr into
+>> +     * full range YCbCr. Though not strictly a matrix operation but
+>> +     * can be represented as one.
+>> +     */
+>> +    DRM_COLOROP_FM_YCBCR_LIMITED_FULL,
+> I didn't full understand how this is going to work.
+> Looks like it's merging two properties (COLOR_ENCODING and COLOR_RANGE) 
+> in a single colorop.
+> But we can only select one enum value. So how to communicate, for 
+> example, a "YCbCr 709 Limited to RGB" conversion?
+> The driver will have to define a coloro pipeline with two fixed matrix 
+> colorop in a row, one with only "Limited to Full" and another with 
+> "YCbCr Full to RGB" ?
+> 
 
-diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
-index c6d30c5b4e10..a13be8c5fd2d 100644
---- a/rust/kernel/io.rs
-+++ b/rust/kernel/io.rs
-@@ -238,15 +238,16 @@ pub trait IoCapable<T> {
- /// (for primitive types like [`u32`]) and typed ones (like those generated by the [`register!`]
- /// macro).
- ///
--/// An `IoLoc<T>` carries three pieces of information:
-+/// An `IoLoc<Base, T>` carries the following pieces of information:
- ///
-+/// - The valid `Base` to operate on. For most registers, this should be [`Region`].
- /// - The offset to access (returned by [`IoLoc::offset`]),
- /// - The width of the access (determined by [`IoLoc::IoType`]),
- /// - The type `T` in which the raw data is returned or provided.
- ///
- /// `T` and `IoLoc::IoType` may differ: for instance, a typed register has `T` = the register type
- /// with its bitfields, and `IoType` = its backing primitive (e.g. `u32`).
--pub trait IoLoc<T> {
-+pub trait IoLoc<Base: ?Sized, T> {
-     /// Size ([`u8`], [`u16`], etc) of the I/O performed on the returned [`offset`](IoLoc::offset).
-     type IoType: Into<T> + From<T>;
- 
-@@ -254,12 +255,12 @@ pub trait IoLoc<T> {
-     fn offset(self) -> usize;
- }
- 
--/// Implements [`IoLoc<$ty>`] for [`usize`], allowing [`usize`] to be used as a parameter of
--/// [`Io::read`] and [`Io::write`].
-+/// Implements [`IoLoc<Region<SIZE>, $ty>`] for [`usize`], allowing [`usize`] to be used as a
-+/// parameter of [`Io::read`] and [`Io::write`].
- macro_rules! impl_usize_ioloc {
-     ($($ty:ty),*) => {
-         $(
--            impl IoLoc<$ty> for usize {
-+            impl<const SIZE: usize> IoLoc<Region<SIZE>, $ty> for usize {
-                 type IoType = $ty;
- 
-                 #[inline(always)]
-@@ -328,6 +329,7 @@ fn io_addr<U>(&self, offset: usize) -> Result<*mut U> {
-     #[inline(always)]
-     fn try_read8(&self, offset: usize) -> Result<u8>
-     where
-+        usize: IoLoc<Self::Type, u8, IoType = u8>,
-         Self: IoCapable<u8>,
-     {
-         self.try_read(offset)
-@@ -337,6 +339,7 @@ fn try_read8(&self, offset: usize) -> Result<u8>
-     #[inline(always)]
-     fn try_read16(&self, offset: usize) -> Result<u16>
-     where
-+        usize: IoLoc<Self::Type, u16, IoType = u16>,
-         Self: IoCapable<u16>,
-     {
-         self.try_read(offset)
-@@ -346,6 +349,7 @@ fn try_read16(&self, offset: usize) -> Result<u16>
-     #[inline(always)]
-     fn try_read32(&self, offset: usize) -> Result<u32>
-     where
-+        usize: IoLoc<Self::Type, u32, IoType = u32>,
-         Self: IoCapable<u32>,
-     {
-         self.try_read(offset)
-@@ -355,6 +359,7 @@ fn try_read32(&self, offset: usize) -> Result<u32>
-     #[inline(always)]
-     fn try_read64(&self, offset: usize) -> Result<u64>
-     where
-+        usize: IoLoc<Self::Type, u64, IoType = u64>,
-         Self: IoCapable<u64>,
-     {
-         self.try_read(offset)
-@@ -364,6 +369,7 @@ fn try_read64(&self, offset: usize) -> Result<u64>
-     #[inline(always)]
-     fn try_write8(&self, value: u8, offset: usize) -> Result
-     where
-+        usize: IoLoc<Self::Type, u8, IoType = u8>,
-         Self: IoCapable<u8>,
-     {
-         self.try_write(offset, value)
-@@ -373,6 +379,7 @@ fn try_write8(&self, value: u8, offset: usize) -> Result
-     #[inline(always)]
-     fn try_write16(&self, value: u16, offset: usize) -> Result
-     where
-+        usize: IoLoc<Self::Type, u16, IoType = u16>,
-         Self: IoCapable<u16>,
-     {
-         self.try_write(offset, value)
-@@ -382,6 +389,7 @@ fn try_write16(&self, value: u16, offset: usize) -> Result
-     #[inline(always)]
-     fn try_write32(&self, value: u32, offset: usize) -> Result
-     where
-+        usize: IoLoc<Self::Type, u32, IoType = u32>,
-         Self: IoCapable<u32>,
-     {
-         self.try_write(offset, value)
-@@ -391,6 +399,7 @@ fn try_write32(&self, value: u32, offset: usize) -> Result
-     #[inline(always)]
-     fn try_write64(&self, value: u64, offset: usize) -> Result
-     where
-+        usize: IoLoc<Self::Type, u64, IoType = u64>,
-         Self: IoCapable<u64>,
-     {
-         self.try_write(offset, value)
-@@ -400,6 +409,7 @@ fn try_write64(&self, value: u64, offset: usize) -> Result
-     #[inline(always)]
-     fn read8(&self, offset: usize) -> u8
-     where
-+        usize: IoLoc<Self::Type, u8, IoType = u8>,
-         Self: IoCapable<u8>,
-     {
-         self.read(offset)
-@@ -409,6 +419,7 @@ fn read8(&self, offset: usize) -> u8
-     #[inline(always)]
-     fn read16(&self, offset: usize) -> u16
-     where
-+        usize: IoLoc<Self::Type, u16, IoType = u16>,
-         Self: IoCapable<u16>,
-     {
-         self.read(offset)
-@@ -418,6 +429,7 @@ fn read16(&self, offset: usize) -> u16
-     #[inline(always)]
-     fn read32(&self, offset: usize) -> u32
-     where
-+        usize: IoLoc<Self::Type, u32, IoType = u32>,
-         Self: IoCapable<u32>,
-     {
-         self.read(offset)
-@@ -427,6 +439,7 @@ fn read32(&self, offset: usize) -> u32
-     #[inline(always)]
-     fn read64(&self, offset: usize) -> u64
-     where
-+        usize: IoLoc<Self::Type, u64, IoType = u64>,
-         Self: IoCapable<u64>,
-     {
-         self.read(offset)
-@@ -436,6 +449,7 @@ fn read64(&self, offset: usize) -> u64
-     #[inline(always)]
-     fn write8(&self, value: u8, offset: usize)
-     where
-+        usize: IoLoc<Self::Type, u8, IoType = u8>,
-         Self: IoCapable<u8>,
-     {
-         self.write(offset, value)
-@@ -445,6 +459,7 @@ fn write8(&self, value: u8, offset: usize)
-     #[inline(always)]
-     fn write16(&self, value: u16, offset: usize)
-     where
-+        usize: IoLoc<Self::Type, u16, IoType = u16>,
-         Self: IoCapable<u16>,
-     {
-         self.write(offset, value)
-@@ -454,6 +469,7 @@ fn write16(&self, value: u16, offset: usize)
-     #[inline(always)]
-     fn write32(&self, value: u32, offset: usize)
-     where
-+        usize: IoLoc<Self::Type, u32, IoType = u32>,
-         Self: IoCapable<u32>,
-     {
-         self.write(offset, value)
-@@ -463,6 +479,7 @@ fn write32(&self, value: u32, offset: usize)
-     #[inline(always)]
-     fn write64(&self, value: u64, offset: usize)
-     where
-+        usize: IoLoc<Self::Type, u64, IoType = u64>,
-         Self: IoCapable<u64>,
-     {
-         self.write(offset, value)
-@@ -494,7 +511,7 @@ fn write64(&self, value: u64, offset: usize)
-     #[inline(always)]
-     fn try_read<T, L>(&self, location: L) -> Result<T>
-     where
--        L: IoLoc<T>,
-+        L: IoLoc<Self::Type, T>,
-         Self: IoCapable<L::IoType>,
-     {
-         let address = self.io_addr::<L::IoType>(location.offset())?;
-@@ -529,7 +546,7 @@ fn try_read<T, L>(&self, location: L) -> Result<T>
-     #[inline(always)]
-     fn try_write<T, L>(&self, location: L, value: T) -> Result
-     where
--        L: IoLoc<T>,
-+        L: IoLoc<Self::Type, T>,
-         Self: IoCapable<L::IoType>,
-     {
-         let address = self.io_addr::<L::IoType>(location.offset())?;
-@@ -576,8 +593,8 @@ fn try_write<T, L>(&self, location: L, value: T) -> Result
-     #[inline(always)]
-     fn try_write_reg<T, L, V>(&self, value: V) -> Result
-     where
--        L: IoLoc<T>,
--        V: LocatedRegister<Location = L, Value = T>,
-+        L: IoLoc<Self::Type, T>,
-+        V: LocatedRegister<Self::Type, Location = L, Value = T>,
-         Self: IoCapable<L::IoType>,
-     {
-         let (location, value) = value.into_io_op();
-@@ -610,7 +627,7 @@ fn try_write_reg<T, L, V>(&self, value: V) -> Result
-     #[inline(always)]
-     fn try_update<T, L, F>(&self, location: L, f: F) -> Result
-     where
--        L: IoLoc<T>,
-+        L: IoLoc<Self::Type, T>,
-         Self: IoCapable<L::IoType>,
-         F: FnOnce(T) -> T,
-     {
-@@ -650,7 +667,7 @@ fn try_update<T, L, F>(&self, location: L, f: F) -> Result
-     #[inline(always)]
-     fn read<T, L>(&self, location: L) -> T
-     where
--        L: IoLoc<T>,
-+        L: IoLoc<Self::Type, T>,
-         Self: IoCapable<L::IoType>,
-     {
-         let address = self.io_addr_assert::<L::IoType>(location.offset());
-@@ -683,7 +700,7 @@ fn read<T, L>(&self, location: L) -> T
-     #[inline(always)]
-     fn write<T, L>(&self, location: L, value: T)
-     where
--        L: IoLoc<T>,
-+        L: IoLoc<Self::Type, T>,
-         Self: IoCapable<L::IoType>,
-     {
-         let address = self.io_addr_assert::<L::IoType>(location.offset());
-@@ -727,8 +744,8 @@ fn write<T, L>(&self, location: L, value: T)
-     #[inline(always)]
-     fn write_reg<T, L, V>(&self, value: V)
-     where
--        L: IoLoc<T>,
--        V: LocatedRegister<Location = L, Value = T>,
-+        L: IoLoc<Self::Type, T>,
-+        V: LocatedRegister<Self::Type, Location = L, Value = T>,
-         Self: IoCapable<L::IoType>,
-     {
-         let (location, value) = value.into_io_op();
-@@ -761,7 +778,7 @@ fn write_reg<T, L, V>(&self, value: V)
-     #[inline(always)]
-     fn update<T, L, F>(&self, location: L, f: F)
-     where
--        L: IoLoc<T>,
-+        L: IoLoc<Self::Type, T>,
-         Self: IoCapable<L::IoType>,
-         F: FnOnce(T) -> T,
-     {
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 1a407fc35edc..5a7d44c51477 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -113,6 +113,8 @@
- 
- use kernel::build_assert;
- 
-+use super::Region;
-+
- /// Trait implemented by all registers.
- pub trait Register: Sized {
-     /// Backing primitive type of the register.
-@@ -129,7 +131,7 @@ pub trait FixedRegister: Register {}
- 
- /// Allows `()` to be used as the `location` parameter of [`Io::write`](super::Io::write) when
- /// passing a [`FixedRegister`] value.
--impl<T> IoLoc<T> for ()
-+impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for ()
- where
-     T: FixedRegister,
- {
-@@ -143,7 +145,7 @@ fn offset(self) -> usize {
- 
- /// A [`FixedRegister`] carries its location in its type. Thus `FixedRegister` values can be used
- /// as an [`IoLoc`].
--impl<T> IoLoc<T> for T
-+impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for T
- where
-     T: FixedRegister,
- {
-@@ -168,7 +170,7 @@ pub const fn new() -> Self {
-     }
- }
- 
--impl<T> IoLoc<T> for FixedRegisterLoc<T>
-+impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for FixedRegisterLoc<T>
- where
-     T: FixedRegister,
- {
-@@ -239,7 +241,8 @@ const fn offset(self) -> usize {
-     }
- }
- 
--impl<T, B> IoLoc<T> for RelativeRegisterLoc<T, B>
-+// FIXME: Make use of `Base` type parameter of `Region` directly.
-+impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterLoc<T, B>
- where
-     T: RelativeRegister,
-     B: RegisterBase<T::BaseFamily> + ?Sized,
-@@ -283,7 +286,7 @@ pub fn try_new(idx: usize) -> Option<Self> {
-     }
- }
- 
--impl<T> IoLoc<T> for RegisterArrayLoc<T>
-+impl<const SIZE: usize, T> IoLoc<Region<SIZE>, T> for RegisterArrayLoc<T>
- where
-     T: RegisterArray,
- {
-@@ -370,7 +373,7 @@ pub fn try_at(self, idx: usize) -> Option<RelativeRegisterArrayLoc<T, B>> {
-     }
- }
- 
--impl<T, B> IoLoc<T> for RelativeRegisterArrayLoc<T, B>
-+impl<const SIZE: usize, T, B> IoLoc<Region<SIZE>, T> for RelativeRegisterArrayLoc<T, B>
- where
-     T: RelativeRegisterArray,
-     B: RegisterBase<T::BaseFamily> + ?Sized,
-@@ -387,18 +390,18 @@ fn offset(self) -> usize {
- /// which to write it.
- ///
- /// Implementors can be used with [`Io::write_reg`](super::Io::write_reg).
--pub trait LocatedRegister {
-+pub trait LocatedRegister<Base: ?Sized> {
-     /// Register value to write.
-     type Value: Register;
-     /// Full location information at which to write the value.
--    type Location: IoLoc<Self::Value>;
-+    type Location: IoLoc<Base, Self::Value>;
- 
-     /// Consumes `self` and returns a `(location, value)` tuple describing a valid I/O write
-     /// operation.
-     fn into_io_op(self) -> (Self::Location, Self::Value);
- }
- 
--impl<T> LocatedRegister for T
-+impl<const SIZE: usize, T> LocatedRegister<Region<SIZE>> for T
- where
-     T: FixedRegister,
- {
+It depends on what the HW supports. Let's say a fixed function HW block 
+can itself support "YCbCr Limited to RGB" then we just need a single 
+colorop that exposes this enum. These are being added in the series that 
+Harry published.[1]
 
--- 
-2.51.2
+In Intel's case, we have two separate blocks to do this. One that does 
+the range correction (Limited to Full) and then a fixed function CSC 
+block that does only "YCbCr Full to RGB" conversion. If they are 
+adjacent in the pipeline, they can very well be represent by a single 
+colorop described in the previous paragraph but we have a unique 
+situation where there is a 1D LUT in between the two blocks.
+
+[YUV Limited to Full] -> [1D LUT] -> [YCbCr XXX Full to RGB] -> [1D LUT].
+
+==
+Chaitanya
+
+[1] 
+https://lore.kernel.org/dri-devel/20260330153451.99472-3-harry.wentland@amd.com/
+
+> Melissa
+>> +
+>> +    /**
+>> +     * @DRM_COLOROP_FM_RGB709_RGB2020:
+>> +     *
+>> +     * enum string "RGB709 to RGB2020"
+>> +     *
+>> +     * Selects the fixed-function CSC preset that converts RGB
+>> +     * (BT.709) colorimetry to RGB (BT.2020).
+>> +     */
+>> +    DRM_COLOROP_FM_RGB709_RGB2020,
+>> +
+>> +    /**
+>> +     * @DRM_COLOROP_FM_COUNT:
+>> +     *
+>> +     * enum value denoting the size of the enum
+>> +     */
+>> +    DRM_COLOROP_FM_COUNT
+>> +};
+>> +
+>>   /**
+>>    * struct drm_colorop_state - mutable colorop state
+>>    */
+>> @@ -183,6 +248,13 @@ struct drm_colorop_state {
+>>        */
+>>       struct drm_property_blob *data;
+>> +    /**
+>> +     * @fixed_matrix_type:
+>> +     *
+>> +     * Type of Fixed Matrix operation.
+>> +     */
+>> +    enum drm_colorop_fixed_matrix_type fixed_matrix_type;
+>> +
+>>       /** @state: backpointer to global drm_atomic_state */
+>>       struct drm_atomic_state *state;
+>>   };
+>> @@ -368,6 +440,13 @@ struct drm_colorop {
+>>        */
+>>       struct drm_property *data_property;
+>> +    /**
+>> +     * @fixed_matrix_type_property:
+>> +     *
+>> +     * Sub-type for DRM_COLOROP_FIXED_MATRIX type.
+>> +     */
+>> +    struct drm_property *fixed_matrix_type_property;
+>> +
+>>       /**
+>>        * @next_property:
+>>        *
+>> @@ -424,6 +503,10 @@ int drm_plane_colorop_3dlut_init(struct 
+>> drm_device *dev, struct drm_colorop *col
+>>                    uint32_t lut_size,
+>>                    enum drm_colorop_lut3d_interpolation_type 
+>> interpolation,
+>>                    uint32_t flags);
+>> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, 
+>> struct drm_colorop *colorop,
+>> +                    struct drm_plane *plane,
+>> +                    const struct drm_colorop_funcs *funcs,
+>> +                    u64 supported_fm, uint32_t flags);
+>>   struct drm_colorop_state *
+>>   drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
+>> @@ -480,6 +563,7 @@ drm_get_colorop_lut1d_interpolation_name(enum 
+>> drm_colorop_lut1d_interpolation_ty
+>>   const char *
+>>   drm_get_colorop_lut3d_interpolation_name(enum 
+>> drm_colorop_lut3d_interpolation_type type);
+>> +const char *drm_get_colorop_fixed_matrix_type_name(enum 
+>> drm_colorop_fixed_matrix_type type);
+>>   void drm_colorop_set_next_property(struct drm_colorop *colorop, 
+>> struct drm_colorop *next);
+>> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+>> index a4bdc4bd11bc..dc4b8566fec8 100644
+>> --- a/include/uapi/drm/drm_mode.h
+>> +++ b/include/uapi/drm/drm_mode.h
+>> @@ -971,6 +971,18 @@ enum drm_colorop_type {
+>>        *         color = lut3d[index]
+>>        */
+>>       DRM_COLOROP_3D_LUT,
+>> +
+>> +    /**
+>> +     * @DRM_COLOROP_FIXED_MATRIX:
+>> +     *
+>> +     * enum string "Fixed Matrix"
+>> +     *
+>> +     * A Colorop block that performs a pre-defined matrix operation 
+>> selected
+>> +     * via the FIXED_MATRIX_TYPE enum property. The driver advertises 
+>> the supported
+>> +     * operations through this property.
+>> +     */
+>> +    DRM_COLOROP_FIXED_MATRIX,
+>> +
+>>   };
+>>   /**
+> 
 
