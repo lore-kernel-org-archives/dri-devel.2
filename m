@@ -4,157 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13DC2F89256
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 10:51:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7621F89251
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 10:53:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DECD10EC14;
-	Tue, 21 Apr 2026 10:51:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC49010EC19;
+	Tue, 21 Apr 2026 10:53:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OXZrJOki";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qumoYve3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE58710EC00;
- Tue, 21 Apr 2026 10:50:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776768658; x=1808304658;
- h=message-id:date:subject:to:references:from:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=Mv2ySe8XGg613gp8ioq2hSNn2YowsBJbA3uuITcbsz8=;
- b=OXZrJOkiPF4/fH+MSCjf+1T4U37+4pJ2GFCPAK6DiVML23I244o3r8ia
- WTuOr57a2+TMmIRS6UqBdb8CvQVgJjf6CAU8Sowtzn6cct1oPiU8lvz5t
- wPaPrOxERZ5uKb3rFvAuu3506lTV1Tq27Hrk2JexMkywc6WkOtY5EeZql
- VGJK/tdBbmcF5Z/p8h5q2m23tYSk73U7cEzAmqg2ne5zZpnEPxqJA/eJE
- I3fB2FK8cNYQkosgRp1AwGLFDGM8iXH6GM455u/uKk04rZB5vglEK6eQV
- zfKnaraNSb4+kvMDGoSdjKQg65YvKw+2R+yz2TuKqWO3dBA/6xmVGJIy6 A==;
-X-CSE-ConnectionGUID: aAw7a1kPRP6TtNh9pmZdQg==
-X-CSE-MsgGUID: nJPOQGK+TNGtBPtotjOJRA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="89079164"
-X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="89079164"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2026 03:50:58 -0700
-X-CSE-ConnectionGUID: XiuqYYeXQfqMiAXppNVPpw==
-X-CSE-MsgGUID: kW3ChoRcSdmAb1nz25qknw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="231112441"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2026 03:50:58 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 21 Apr 2026 03:50:57 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 21 Apr 2026 03:50:57 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.24) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 21 Apr 2026 03:50:57 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gthy+tCUyywX5kicZox9Y76QbMnKY9eBhgPjG4Ri5OajIrjs4MJLxsWRKAa+dh4p5bQwnANJxGXnm5+vzz4YhTJ/1f09oXw5mSG6AOhhxqCeZVUHzMe8jDVR8uvy6r2y43TlQ2MmXup3ehUr1ZKtlC/bJKLNyrSW7tSPQCN5h64GEj6usOlyUic6Ku2lkAo3EKI5hoWWjBs8axmVz8CN2DUVCKPh8P4Lp25eK8Oke49Ypq7hUVXm5LkqaTITfhmoozlm7wliv83wSjHOEjwv/hOkNgFu9tYszXYbGuXkJD4ZCceYFclWhPfWRvOm4rUw/oDgzhpRdeCTKIPqtSjjPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AwXVQb1PgwM6Bd1lkB5zMoBuyw+ht6DJHux+RDJKz80=;
- b=XsnxRxF3stEsX5bs/xMsXAhRf2SaEslOJwjGZIH+LZe8k/M6pr2cFEa9kjCLT6zluCvaIzWiXH/+5iVsSvmaVXed8W227/28yZpRfppBE3TXh/tIbmKFILY1pFOkSQW7sMyxAOp+6+vfLxd57ThTN6+YEoh/VCjrsF/fd528OOtP1wEmKLmJBDYHy3HkRztIQDWWeMjawto5rBeCaN7D23Tlk0Q4Q++GhpmNJq9wl4jQnn27gZ5t6d85RQw3EjJR5PsVeytIkUkVx3slA2uHfbSM/lYEfBKR7zCy489toR23NYq0DxVt2HSyrvcSTdjcGUYzQ6otBp0uxPIZ0yWeDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by SA1PR11MB9827.namprd11.prod.outlook.com (2603:10b6:806:4d8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
- 2026 10:50:55 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 10:50:55 +0000
-Message-ID: <badcf396-5d48-41f1-b949-36aebcd840fc@intel.com>
-Date: Tue, 21 Apr 2026 16:20:46 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/i915/dp: Decode DSC max delta bpp from sink DPCD
-To: Nemesa Garg <nemesa.garg@intel.com>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-References: <20260420112611.1481530-1-nemesa.garg@intel.com>
- <20260420112611.1481530-3-nemesa.garg@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260420112611.1481530-3-nemesa.garg@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0189.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b6::11) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3813310EC19
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 10:53:39 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4896c22fcbaso15618355e9.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 03:53:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776768818; x=1777373618; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=YaPuNs+tJR3dOut9FEswGyzi6MZaKkaW/JljGXmpchI=;
+ b=qumoYve3JZbbBkJPx8NDJEfhU4UUWJH8psu88Vg+F8jpnXjVmtsBYtcj7DYOrR4jGI
+ +0AWzRdN2bfMObz+6tqzX8d7w6KX6PgkQJSOLu4f59royiwvOprATkj0bc+atQMtz6ne
+ eYYB00jpcILzau4U8TFyCmeyBHrGjqf4PHr/lMzYodPsVUDrq217X8bRxpBLmYMiqcGN
+ JVwejAw+dLulzkSl1GMF0UB+Kadsh7MHTmm37pptoEROC/LuaLDyyotO6AlTD9Y4OLAD
+ XSRQEB1FIF9Wogd+17xk/G2vDIfcTInvk82uGWBtNRSoF/JsOGrrYT7oRvliiWElHBIf
+ C/TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776768818; x=1777373618;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YaPuNs+tJR3dOut9FEswGyzi6MZaKkaW/JljGXmpchI=;
+ b=pc3DC+dlJOjoS9Aic+LPrm56vlf7qEcf2a5M9m2xHrgsgqXpcN+xZ7I1ZeSw+KLq4e
+ im5p6/RUsiR/fxjTXsJdoMRaPfM9kphicch4pyZFqyH0x2VkVyUz1eGCqP2nELVXD5Md
+ qwaeDMEAUcVjvLBvWZtvcsDnNcWyuKwsmefsRzi6EHRLvVVjwZWE9VuIp+osUAADatE1
+ /YwXXt0KiZQ4fI7R8RlJ+GxIze0fqEdaJyUlvZvqdW3g3uwwr22Jp7CgfAw9q2cO1i/C
+ jIEGPT8omDwyDjH6rGJMAjz/4KcPL8R2sAXYaht8bsPZIAZbCDvgqICkM2sfiDPUCiYO
+ s8kQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/0yxepJxqJZR8bZy+a/JTVT7rTqDROKz4xAcGxlngY7yrZAfyxzzOYaRUdbWtI0Atj97P631WmiKk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw/QEriuRkgwuj9GlbElXCw0riuZV1TRo6VgxmQCH8D+PKnfUiY
+ +SqqXB4URYiP16d/AwuVMahm8xurfs+3h6JSMDiSYiYI3N2Z3Wre8npQ
+X-Gm-Gg: AeBDiev23tkVh2r9ClOH87BLy3SLyxQc4de/58DerNVGgPViuZmp0q/xYqNgql2YGTd
+ NMqqszEt8FHNZo153NM594OiXLaTMeLB6fjO3QIe0+Kirtbes3o9l57a9LJ+24Wfq7L+PSjB+aP
+ 0WcJ4lduJBudjl8EamCVEx8AvT7AonYsJ1R2QoraNQ8n6SNxq80XPBpCHuz3ZsH5iYLJk94DZpR
+ v9wTsQAchOdk4WiN4P8fXQDvGd6DZ1wQGIYeFw3x8moLkcLr4n1VNmO3UZrL1tLRqjVcZPRXQmk
+ aLpR0063V+W/n9kh5ym8xvFBIw8bYsr5s7uIDgSUeVQgfVIpzlCOD2de/cFVtP0VA2NE6zWrLJg
+ lkXulFqoZ5HFGMKo8GVDuPx7Fw3JcuLb+9kOukQ3V2GqkYDok0/yFUdV7Y0eLDjL4yqJRXwZD9y
+ vcD9aPnPgSRe1kMV+FDXGRAncOUYhmQFSMsrryye+yONqU4jcZXCULrKZasEM=
+X-Received: by 2002:a05:600c:b90:b0:488:b99b:4177 with SMTP id
+ 5b1f17b1804b1-488fb78ee4emr240117025e9.25.1776768817358; 
+ Tue, 21 Apr 2026 03:53:37 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a00:23c4:a758:8a01:de57:c37d:677b:c772])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fc1c773fsm403219355e9.12.2026.04.21.03.53.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Apr 2026 03:53:36 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Biju Das <biju.das.au@gmail.com>, linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v3] drm/bridge: ite-it6263: Support power cycle in runtime
+Date: Tue, 21 Apr 2026 11:53:32 +0100
+Message-ID: <20260421105334.43411-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|SA1PR11MB9827:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff4a0a7f-93db-430a-db3b-08de9f93dc91
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|56012099003|18002099003|22082099003; 
-X-Microsoft-Antispam-Message-Info: eobzbZKbw2+KuGk4+a+lDF7AVALJ86/c1wA0kFog378rmaoMWQw3O7tFL2AjhrBw5h6qzoegHQvkyohXmIkSYM+hY0KRimJ1LU5ANHabmhyJ+O+TMGO4Oo0cG3wxQFF3WqTXeMH4/wEtPItf1j/XnZFdqEY/dIAPQuNBTJ+TvZhc4kgmmUNkV5AuuDET6XOYCwbkF7UgyCR8GhIYnn3m7mpfw3au1kHeNayLlZlOQgXDmAXZ5Tr3L8cmZxPIbGLA4PX0NCRVoY8SWNxGEecdOXofwXH/TC1Ykr1HCjeYwBEX59B5xHgDk6yJSlxlbVFPxSZFnCl3fRBFqT+pejCWrsYvgc8ZHJjDrSlOMz/tTQo0goLuKvJDXufh6KO235Q67R7JJ5ss/iHpvAJBejQkSfE97xSUhlIP1qlBf2F52WkcPjSFfPgycHrv/MJnzZTIYjCemRQj2RYU5JBhaO4OCuJzQA6yAI4tn9Qx69O9TzawnlpTHHbZiDvkHVIa9EWREzIdvBbSvBDr4vUDarCyg4iPfWpu/a4uLabQEpM4PcaxAYYlKSN0Xl2pLqc/Gy+DuX9GY55Xt9mT0+w2AqwNnde1r0aTNqwl9xg9lq39/baspWESDVcuKNrAzeeNH5xw5XJyTAUuGO5/Cokl4GT7i/9Sj+/YreE+BXs9ZLxG+rfqwKumFr1kY1TpvOhIzeuTKqRoGC1Ws6amLciEMjzjTsK0PmBiBbXQC1aJVnVHtF4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFdHdWlacXdEdm9xbzhmNkYvUlRKbnNYZWNjbEZOdDRWQjI4MDhYT1ZLV215?=
- =?utf-8?B?dGdJN3VCZWo0L2wvNTBEbis4dFQzbVVRY2w5L2tGS0VaNFpuY0djQjEvUE5n?=
- =?utf-8?B?YWJnVmg2MlJMTGdRVVdzak5yOTljYzR1NnBhTVNCN1lNZWllcWp5TEVCdkxo?=
- =?utf-8?B?MVg1MzJ6VXdSaFI4cEh3Ui8wWVEwOGZvUldBZDRFdE5RcUNxUFd2ZzdqS0FI?=
- =?utf-8?B?NWNpM1lMempXZkdtb3B0ZWFIVERhOHcwS1RHYU5xbkIyL1ErMVdoZ1BvSVM0?=
- =?utf-8?B?b2o0MTlpS0prTGtqMk9SRXQ0NTB1cTZUOEZPTlhmWmgzcEZSUGE5ejBGTFlP?=
- =?utf-8?B?T3N6QVZBdm9SVGNXTlh1M1QxcDh1QkcrNUw0QUZoTStYRTE1eER6TU5lM3pY?=
- =?utf-8?B?c1dGSVFVdnQraGJpZ1NrR2NWdDAyQ2dnMXpXU0xNbkh3dnJ1K1NDS2h6TlR2?=
- =?utf-8?B?RWEwaklGVHYyNVMrZ2haVGU5TjRSUFdreWlPZVZDT2pQb3RCL2hpcTBKMEd2?=
- =?utf-8?B?ZFlXcyt1SU1GN2hrL1l3ZWRxdXJhTmJvcVB1eG1FZTIxQlI4bHhPMEtXQnl2?=
- =?utf-8?B?SXpkbEt3MWhOVUNoVkNiZjVMTmNnakFTSGJNSTMydEJCTTVPS3R6QXZVNGNz?=
- =?utf-8?B?QmZDVmYxaXF5QkYzaVNuY1lRZlN0YTkybTRYT3M2REw5RDdZWHJXTXFNaHNn?=
- =?utf-8?B?UmNkRDA1Q2ZpRll3OE5xeXk0UW1WQWhnUGlKOEpRSHFIM3VqZ2J3N3FUWlBy?=
- =?utf-8?B?NE9VQ0xsMm5YaXdwaDY3S1p6WWlYRkxJY1d1QnROSklzM1NuZkU2SVF1bW55?=
- =?utf-8?B?NU5PMTgrckFZVnRPbXRvVlhyQVFwVDJSRDNVbmVsMW9oSXNDTThEU1hKOHBH?=
- =?utf-8?B?alBDQjMwZzgyZmZrM0dQUDRicWtJUDM1N2MxL2FXaTFLblFUZ0JOT1BOYXN0?=
- =?utf-8?B?TFVEUGQyRytSaHhwcVl1VDcrWEg4WVZVUk54Nnp3SnlWMENReEVFSjZ3bjR2?=
- =?utf-8?B?QU43VXJ1djNCUDBtbytzb3dwek5wVTBqUmpkZnpaVHF0aFVieVBrbXJySHJo?=
- =?utf-8?B?RHY4dmMxby9XWC9CcFBGZmlsVDZxYkZLR0MycFBxQ1JjMndzNW4xdS9yd2Jr?=
- =?utf-8?B?MEZxclp0akMrcEpZVS9yRVQ4RTVCVzZaV0hjdkJhK1AxSm5raHZmU3pJeFN3?=
- =?utf-8?B?ZW1KNVNWVTVwMldYS1R2d0VXQVZ4SXNYV3hKVGNHMWhSZTZSKzZJbDd0OHky?=
- =?utf-8?B?NWVXOXJTSUdpR0dvaXkrbW1PV2IvSjA0M3VJcC9JRlRCTmNPTmRUTkJnYndC?=
- =?utf-8?B?enZzU1VUMUVRVHM5N01YY3FWVDM3WWRXVmxpY1A3Q0ZZSjArODl1TE9CTFhr?=
- =?utf-8?B?bzBHbVRSaEU2eGVuNkRrMS92NVNZWml5YjRnMm1sMWQ3TXVtc1BNNjBjT2pm?=
- =?utf-8?B?UXc3SFNrRFBRR0d2NkUwbUF2cS9FRnQrNHJGcDBycGNzTXJUMkRPMTk3MllE?=
- =?utf-8?B?cndLNXlWZkg4WkE2T1htbzRMbHA0amsrS1gwRGlpSVhrU2Q0WWtVM1hhcFc4?=
- =?utf-8?B?alo2TGFHc1l1cTdsYTZFaS9qa1h0RFJFWWVYd2pJblFnK2FYSU9jTEhlRnps?=
- =?utf-8?B?UTk5VnUxcitUdjZlQ2Fva3d3ZWpDUnhiQVJDL2ZGTkVESnZPeG1RNnE1NGlB?=
- =?utf-8?B?WUF5b3BxZ0JscTIwUk1mZDMza2pReHNaeEQxZUZYaXVGanozdzNpZzc5QjZy?=
- =?utf-8?B?L0lsM2FOSWtCZWpyWGZlamluTjVlaW5BRk1VSGZMY3RhMUlNMVNON2dic2s2?=
- =?utf-8?B?eE00MFVnUW5ha3IzSll4OFMvMFhqamc3WTM0MWhDSmxlNUtXU29oZmJMVVBo?=
- =?utf-8?B?SnBEbkNnWEo5ZndiR3hVY3NYM0pZajVjaXg5Ny90U0JRRE5rbm0wVXB1QXJR?=
- =?utf-8?B?c0dheDNwcU5GZTBnYXFaaDVINHZHTldkNUFlRmZybnM2YTVoMEpBbk9GNTJ2?=
- =?utf-8?B?UEpsUnd1M3FCUTRlMXE1Q3hzQWxGQ0dZRnVOY3BrbDVwZURvN1NjMVpQVW91?=
- =?utf-8?B?ZXM4UzBGY3g0TzJFd3BXOGxCM0RDM0EyMk1LMDVIMVZCRFNEVEVVMjFjazlS?=
- =?utf-8?B?Ti9IaktYKy9SbUkzWmR0K044SWcyL1AwOTRtTHZDbWs0a2VyNVVaNHJFb252?=
- =?utf-8?B?U0lOUkM1akg3ZEhIRG8wTEx2eDBxQlF1UHpwcERPSk5IQ3VOVjNQa1NuaFJF?=
- =?utf-8?B?MnJNZ05vOWNINVJvcnY2dEoxYVJaNUcza3pYTVhBUXVkSVFTeGVjNG9EQTV6?=
- =?utf-8?B?UERWcFd1MEp0cHNJL3NZdUR2bkZCUGFzUTNSOWJzdlRhYTFVZnFneHg1eTNT?=
- =?utf-8?Q?B5LtOrQ9+1M5Mxn8=3D?=
-X-Exchange-RoutingPolicyChecked: vVU8cpML3GcZWy92FAnaWwm7hURTsrcpx4bnUWdJNMSu4axqpFyfUXz3Lf2iJjszFnynJVB1CGiMVS5z03ZvZPBEjKmWgfI0h4dMltKMb/MtJbyKc0APSkHSra0oJv0u26L+Gf8vLkAZmSdnbWlO9sg5eYwYWcS48nOX8OfE5URDAUIc3B5hEEZ6U+fBN6bCaZAHabPd8D6iXR93nO2+G7vm7WGErTSe3LroJHop/Va5KXJaKS2/uvSD3vZFam25kKfZ3ow6O0iFDVfc4PIf2/HHLz4B5qtJxe92eR31oot7slIFrZboBirI6ftGnLn9+70DJMX9SIlYqp1mfQUSaQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff4a0a7f-93db-430a-db3b-08de9f93dc91
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 10:50:55.7523 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NcuNArbEK3hV27HaxardDFwaN68RbWcACrei6xLVgMWc/TKpan66UcmWLYaBcogfTqrnAKcNaNJCMBPXGcM4+w154XVisoW5JEu0qUCgOMQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB9827
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,115 +98,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-On 4/20/2026 4:56 PM, Nemesa Garg wrote:
-> Add intel_dp_dsc_max_delta_bppx16() to parse sink DSC max
-> delta bpp from DPCD when DP_DSC_MAX_BPP_DELTA_AVAILABILITY
-> is set. The helper decodes RGB/YCbCr444 delta range and
-> YCbCr420 delta range from DP_DSC_MAX_BPP_DELTA.
+On the RZ/G3L SMARC EVK, suspend to RAM powers down the ITE IT6263 chip.
+The display controller driver's system PM callbacks invoke
+drm_mode_config_helper_{suspend,resume}, which in turn call the bridge's
+atomic_{disable,enable} callbacks to handle suspend/resume for the bridge
+without dedicated PM ops.
 
+To support proper reinitialization after power loss, move reset_gpio into
+the it6263 struct so it is accessible beyond probe time. Relocate
+it6263_hw_reset(), it6263_lvds_set_i2c_addr(), it6263_lvds_config() and
+it6263_hdmi_config() from probe to atomic_enable, ensuring the chip is
+fully reset and reconfigured on every enable, including after a
+suspend/resume cycle.
 
-Looking from the spec, i think we need to check this support first, so 
-overall to get the maximum compressed bpp supported for an output format:
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+Tested s2idle, s2ram and hotplug on Renesas RZ/G3L SMARC EVK platform.
+v2->v3:
+ * Updated commit header and description.
+ * Dropped it6263_bridge_{init,uninit}().
+ * Restored regulator_bulk_enable in probe().
+ * Dropped the variable powered, supplies and num_supplies from
+   struct it6263.
+ * Added reset, I2C address configuration, and LVDS/HDMI initialisation to
+   the atomic_enable callback so that the hardware is fully reinitialised
+   after each power cycle. Correspondingly, remove these steps from probe,
+   since they are no longer needed there.
+ * Dropped the remove callback as it is not needed.
+v1->v2:
+ * Dropped system PM callbacks instead using bridge's
+   atomic_{disable,enable} callbacks to handle suspend/resume.
+---
+ drivers/gpu/drm/bridge/ite-it6263.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-Step 1: check if format specific range is given, if given use that for 
-getting the max compressed bpp based on the output format. (DPCD 0x6E-6F)
+diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
+index 4f3ebb7af4d4..efb8aacef8ff 100644
+--- a/drivers/gpu/drm/bridge/ite-it6263.c
++++ b/drivers/gpu/drm/bridge/ite-it6263.c
+@@ -200,6 +200,7 @@ struct it6263 {
+ 	struct regmap *lvds_regmap;
+ 	struct drm_bridge bridge;
+ 	struct drm_bridge *next_bridge;
++	struct gpio_desc *reset_gpio;
+ 	int lvds_data_mapping;
+ 	bool lvds_dual_link;
+ 	bool lvds_link12_swap;
+@@ -603,6 +604,15 @@ static void it6263_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	bool pclk_high;
+ 	int i, ret;
+ 
++	it6263_hw_reset(it->reset_gpio);
++
++	ret = it6263_lvds_set_i2c_addr(it);
++	if (ret)
++		dev_err(it->dev, "failed to set I2C addr\n");
++
++	it6263_lvds_config(it);
++	it6263_hdmi_config(it);
++
+ 	connector = drm_atomic_get_new_connector_for_encoder(state,
+ 							     bridge->encoder);
+ 	crtc = drm_atomic_get_new_connector_state(state, connector)->crtc;
+@@ -840,7 +850,6 @@ static const struct drm_bridge_funcs it6263_bridge_funcs = {
+ static int it6263_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+-	struct gpio_desc *reset_gpio;
+ 	struct it6263 *it;
+ 	int ret;
+ 
+@@ -858,9 +867,9 @@ static int it6263_probe(struct i2c_client *client)
+ 		return dev_err_probe(dev, PTR_ERR(it->hdmi_regmap),
+ 				     "failed to init I2C regmap for HDMI\n");
+ 
+-	reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+-	if (IS_ERR(reset_gpio))
+-		return dev_err_probe(dev, PTR_ERR(reset_gpio),
++	it->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(it->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(it->reset_gpio),
+ 				     "failed to get reset gpio\n");
+ 
+ 	ret = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(it6263_supplies),
+@@ -872,12 +881,6 @@ static int it6263_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
+-	it6263_hw_reset(reset_gpio);
+-
+-	ret = it6263_lvds_set_i2c_addr(it);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "failed to set I2C addr\n");
+-
+ 	it->lvds_i2c = devm_i2c_new_dummy_device(dev, client->adapter,
+ 						 LVDS_INPUT_CTRL_I2C_ADDR);
+ 	if (IS_ERR(it->lvds_i2c))
+@@ -890,9 +893,6 @@ static int it6263_probe(struct i2c_client *client)
+ 		return dev_err_probe(dev, PTR_ERR(it->lvds_regmap),
+ 				     "failed to init I2C regmap for LVDS\n");
+ 
+-	it6263_lvds_config(it);
+-	it6263_hdmi_config(it);
+-
+ 	i2c_set_clientdata(client, it);
+ 
+ 	it->bridge.of_node = dev->of_node;
+-- 
+2.43.0
 
-Step 2: if above is not present, check for the maximum compressed bpp 
-supported by sink and use that. (DPCD 0x67-68)
-
-Step 3: if both of the above are not there, then go with the mandatory 
-supported range given in the Table 2-157.
-
-
->
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_dp.c | 40 +++++++++++++++++++++++++
->   1 file changed, 40 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 35b8fb5740aa..7cc760aedd59 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -2169,6 +2169,41 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
->   	return -EINVAL;
->   }
->   
-> +static u16 intel_dp_dsc_max_delta_bppx16(const struct intel_connector *connector,
-> +					 enum intel_output_format output_format)
-> +{
-> +	const u8 *dsc_dpcd = connector->dp.dsc_dpcd;
-> +
-> +	if (dsc_dpcd[DP_DSC_MAX_BITS_PER_PIXEL_HI - DP_DSC_SUPPORT] &
-> +	    DP_DSC_MAX_BPP_DELTA_AVAILABILITY) {
-
-
-I think we can return early from here.
-
-
-> +		int max_bpp_delta = 0;
-
-Perhaps just use max_bpp.
-
-
-> +
-> +		switch (output_format) {
-> +		case INTEL_OUTPUT_FORMAT_RGB:
-> +		case INTEL_OUTPUT_FORMAT_YCBCR444:
-> +			max_bpp_delta = dsc_dpcd[DP_DSC_MAX_BPP_DELTA - DP_DSC_SUPPORT] &
-
-This can be kept in a variable to avoid computing samething again:
-
-u8 max_bpp_delta_v1 = dsc_dpcd[DP_DSC_MAX_BPP_DELTA  - DP_DSC_SUPPORT];
-
-
-> +				DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK;
-> +			if (max_bpp_delta >= 1 && max_bpp_delta <= 21)
-> +				max_bpp_delta =  max_bpp_delta + MIN_DSC_BPP_DELTA_444 - 1;
-> +			break;
-> +		case INTEL_OUTPUT_FORMAT_YCBCR420:
-> +			max_bpp_delta = (dsc_dpcd[DP_DSC_MAX_BPP_DELTA - DP_DSC_SUPPORT] &
-> +					DP_DSC_RGB_YCbCr420_MAX_BPP_DELTA_MASK) >>
-> +					BPP_DELTA_SHIFT_420;
-> +			if (max_bpp_delta >= 1 && max_bpp_delta <= 7)
-> +				max_bpp_delta = max_bpp_delta + MIN_DSC_BPP_DELTA_420 - 1;
-> +			break;
-> +		default:
-> +			MISSING_CASE(output_format);
-> +			return 0;
-> +		}
-> +
-> +		return max_bpp_delta << 4;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static
->   u16 intel_dp_dsc_max_sink_compressed_bppx16(const struct intel_connector *connector,
->   					    enum intel_output_format output_format,
-> @@ -2176,6 +2211,11 @@ u16 intel_dp_dsc_max_sink_compressed_bppx16(const struct intel_connector *connec
->   {
->   	u16 max_bppx16 = drm_edp_dsc_sink_output_bpp(connector->dp.dsc_dpcd);
->   
-> +	if (max_bppx16)
-> +		return max_bppx16;
-> +
-> +	max_bppx16 = intel_dp_dsc_max_delta_bppx16(connector, output_format);
-
-
-As mentioned, read this first, then fallback to the 
-drm_edp_dsc_sink_output_bpp() and at last fall back to the table.
-
-Also need to update the comment below.
-
-
-Regards,
-
-Ankit
-
-> +
->   	if (max_bppx16)
->   		return max_bppx16;
->   	/*
