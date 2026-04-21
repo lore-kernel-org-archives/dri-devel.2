@@ -4,51 +4,119 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0B0CF94CA9
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 19:45:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCDAF94CA9
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 20:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2BE10E168;
-	Tue, 21 Apr 2026 19:45:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FA2110E1E3;
+	Tue, 21 Apr 2026 20:05:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NDrrAmJE";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bK70RxBA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C15510E168
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 19:45:57 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 57D7D60172;
- Tue, 21 Apr 2026 19:45:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676B8C2BCB0;
- Tue, 21 Apr 2026 19:45:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776800756;
- bh=hm/z7m642SSms8DuycPWedMgrZhlsol5e0DI+vAf0q8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=NDrrAmJEW55Vezbk5OaPKZayer8LC/OnvDp1acSQPsYNIRAzoJxeNDMFe0J7mXsuA
- 1aiBZNm+8BerqYAhdb+K82nkLXDg7qwztts9+pU2E+jsalH56odYv2jraYLxiSr/Nv
- G8cR3sljB1FEAPX6d42pNdJInG1Bq9a8d9sTfbb/Tjj8f1dgcQ3LKn9C8sh6/UmiZA
- gfBnMDgzpOQHXS7OwgdVE+la45fUpVFeG8gPY82wu8QV6eGaZPj8Ysan46DYojKjbE
- xRX06iKsyuDLiJFUkvoqwfuoc499Rjk+vnDhugctDLwT44X8mCccoYVX2Y4DDqf7Sq
- wv/iqX1TfnFGg==
-Message-ID: <f3d1b859-e5f2-468c-b957-fc3686457213@kernel.org>
-Date: Tue, 21 Apr 2026 14:45:52 -0500
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B3610E16B
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 20:05:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1776801956;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XeHr6DVVipYM8wZRZ3joTJjeppE08pl393d8VJrbaO8=;
+ b=bK70RxBAjBkXkA/jCCxLxAxUcUlK/cU1o8zYiiDVRJwdYgSHOdBB96Ocpuz6fIFNNZBarG
+ 8Wd1MX+3Ecpqhp1HIOo/bosx8gq1yxxpoAGZ1jaXxQtxZ3GmbjMIAt3H25TgrmE3cn+kZg
+ H8p/1DlVS00p20rrF/LCdIkww9ZeQbE=
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com
+ [74.125.82.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-372-MzJWzwz4MKO_fgPTMU8uAA-1; Tue, 21 Apr 2026 16:05:54 -0400
+X-MC-Unique: MzJWzwz4MKO_fgPTMU8uAA-1
+X-Mimecast-MFC-AGG-ID: MzJWzwz4MKO_fgPTMU8uAA_1776801953
+Received: by mail-dl1-f69.google.com with SMTP id
+ a92af1059eb24-127876be621so3989526c88.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:05:53 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776801953; x=1777406753;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=XeHr6DVVipYM8wZRZ3joTJjeppE08pl393d8VJrbaO8=;
+ b=jW6yEiomj4I5cLGSXli8jzbfD0mIBOxTUGwCYTXFJxHur9wDy3PBBVw1YDPI+N3K3y
+ RaFXJ10Ry3l3mMJowldsubJ4LPPw2BytZMfx+nDO61vdaJCbgN7D2NvRFl9oBzgs1Gl5
+ 67+CpP3nl49Kefl4CHKBDYrg6pt1RcJ/iXQxEKVybkQu4ER8hX0C44oltftxguunL8wT
+ QuGbet64FXbcAx92b5bBhlMcHu1HQdYaPj6lhQKMl105XVYFdNYiK1XSoEbMG8kWe9yg
+ iLeOupeqYobK0dFCatiBLwXSLfAzPPgZLH7I9So0gI9youTRKRRtdJgooRPzcpKFyzI4
+ 9hzQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8dqocaUdpFJAsCqRDt9eT/yW4RN9w68Z3ggpBwJPGT5QlthwD692A1RbGVruRTtP9ouYPKV6138wU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0nmlrJLBPsCWCIyfuSCOvO3AGaUqev1cLRvkGs3WrVTofgXjC
+ 5dqPZ5K9p/FIR0qiwEhrLZL4wzOszVX2dnspEGkg0EfPm8zWkv7D93rEDec6IB37yufjkMG/m1H
+ pzYVOuadffCEtHnu4Bn4pSxgw2CC1M7gVFeVUzvG7vEkQxYd6UfNWzDOZ6d7yjPrPE/KoAxvu68
+ Qh/BKNHGD9KbdDKqfbJqQLhe5uQj6uq5d7vEn6WRmEWGnK
+X-Gm-Gg: AeBDiesKC8oZlkwecqC+fXwgFFigcQLjY48q2axqj3EkMNmfhSQgHFjuVO/Go7PVItS
+ mdg+MUUnNcSipyWPC5E8SRlLnQJw1BFxyPnbDqyl32LlkpqsZhOiooV4H5yTLKVFAkqNZxgmmzo
+ of/Mafvo9kp1RWgSiYZ70utX4A+2YeWyWPp81q5r0g5Y/aFLCzlGXVG2gz6x0VTmE8uJSym17v8
+ 72ZsMv6GUCoRgtZ/VcJi0E+VQEhyvnhNdiT/Z/Mg3mBILc=
+X-Received: by 2002:a05:7022:e985:b0:12d:b2ca:a9e9 with SMTP id
+ a92af1059eb24-12db2caab80mr2009975c88.8.1776801952717; 
+ Tue, 21 Apr 2026 13:05:52 -0700 (PDT)
+X-Received: by 2002:a05:7022:e985:b0:12d:b2ca:a9e9 with SMTP id
+ a92af1059eb24-12db2caab80mr2009922c88.8.1776801952185; Tue, 21 Apr 2026
+ 13:05:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Improve tracing for job lifecycle and
- mailbox RX worker
-Content-Language: en-US
-To: Lizhi Hou <lizhi.hou@amd.com>, ogabbay@kernel.org,
- quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org,
- maciej.falkowski@linux.intel.com
-Cc: Max Zhen <max.zhen@amd.com>, linux-kernel@vger.kernel.org,
- sonal.santan@amd.com
-References: <20260421181502.1970263-1-lizhi.hou@amd.com>
- <83846da8-0c8f-4eca-bac9-08efe1c0eb2f@amd.com>
- <9bca1ecd-ce16-2703-3a0d-6db208c83b06@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <9bca1ecd-ce16-2703-3a0d-6db208c83b06@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
+ <20260415210548.3776595-2-joelagnelf@nvidia.com>
+ <b0c5267d-ea77-41c5-94d4-39c651761b3c@nvidia.com>
+ <20260421145521.GA51176@joelbox2>
+In-Reply-To: <20260421145521.GA51176@joelbox2>
+From: David Airlie <airlied@redhat.com>
+Date: Wed, 22 Apr 2026 06:05:41 +1000
+X-Gm-Features: AQROBzAsZiSzIuFbaTfYEhScUqQNnqcYEoqTT_Ur4O9PkcMB0Af7pJH5n1PBSF4
+Message-ID: <CAMwc25o2qmaYnfsh-cW4M4PEbmpYb_1x4qg1_2155P0orzCnOQ@mail.gmail.com>
+Subject: Re: [PATCH v11 02/20] gpu: nova-core: gsp: Extract usable FB region
+ from GSP
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, 
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>, 
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, 
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>,
+ alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Pk1sRIi7YksZAHmiZissHlsEi4TtyM5fTZixCAbSkPU_1776801953
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,229 +132,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Wed, Apr 22, 2026 at 12:55=E2=80=AFAM Joel Fernandes <joelagnelf@nvidia.=
+com> wrote:
+>
+> On Thu, Apr 16, 2026 at 04:26:48PM -0700, John Hubbard wrote:
+> > On 4/15/26 2:05 PM, Joel Fernandes wrote:
+> > ...
+> >
+> > Apologies, I found one more minor thing, while looking at a
+> > subsequent patch in this series:
+> >
+> > >  impl MessageFromGsp for GetGspStaticInfoReply {
+> > >      const FUNCTION: MsgFunction =3D MsgFunction::GetGspStaticInfo;
+> > >      type Message =3D GspStaticConfigInfo;
+> > > -    type InitError =3D Infallible;
+> > > +    type InitError =3D Error;
+> > >
+> > >      fn read(
+> > >          msg: &Self::Message,
+> > > @@ -205,6 +209,7 @@ fn read(
+> > >      ) -> Result<Self, Self::InitError> {
+> > >          Ok(GetGspStaticInfoReply {
+> > >              gpu_name: msg.gpu_name_str(),
+> > > +            usable_fb_region: msg.first_usable_fb_region().ok_or(ENO=
+DEV)?,
+> >
+> > OK, failing out is correct here. But in addition, we should also
+> > log this at dev_err!() level. This is rare, surprising, and actionable,
+> > so perfect for that level of logging.
+>
+> Sure, that works for me. Will add it in for v12.
 
+Just fyi when we get to spark later this will not matter, we will have
+no usable_fb_region, though maybe it could just return 0s in that
+case.
 
-On 4/21/26 14:39, Lizhi Hou wrote:
-> 
-> On 4/21/26 12:18, Mario Limonciello wrote:
->>
->>
->> On 4/21/26 13:15, Lizhi Hou wrote:
->>> From: Max Zhen <max.zhen@amd.com>
->>>
->>> Add more trace coverage to amdxdna job handling and mailbox receive
->>> processing to make driver execution easier to debug.
->>>
->>> Extend the xdna_job trace event to record the command opcode in
->>> addition to the job sequence number. Use the enhanced tracepoint in
->>> the job run, sent-to-device, signaled-fence, and job-free paths so
->>> that trace output can be correlated with the command being executed.
->>>
->>> Also add debug-point tracing when a command is received through the
->>> submit ioctl path, and add a trace event when the mailbox RX worker
->>> runs.
->>>
->>> These changes improve visibility into job lifetime transitions and
->>> mailbox activity, which helps debug command flow and scheduler issues.
->>>
->>> Signed-off-by: Max Zhen <max.zhen@amd.com>
->>> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
->>> ---
->>>   drivers/accel/amdxdna/aie2_ctx.c        | 14 ++++++---
->>>   drivers/accel/amdxdna/amdxdna_ctx.c     |  3 +-
->>>   drivers/accel/amdxdna/amdxdna_ctx.h     |  1 +
->>>   drivers/accel/amdxdna/amdxdna_mailbox.c |  1 +
->>>   include/trace/events/amdxdna.h          | 42 ++++++++++++++++---------
->>>   5 files changed, 42 insertions(+), 19 deletions(-)
->>>
->>> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/ 
->>> amdxdna/aie2_ctx.c
->>> index d37123d925b6..3b0feba448c4 100644
->>> --- a/drivers/accel/amdxdna/aie2_ctx.c
->>> +++ b/drivers/accel/amdxdna/aie2_ctx.c
->>> @@ -64,6 +64,7 @@ static void aie2_job_release(struct kref *ref)
->>>       struct amdxdna_sched_job *job;
->>>         job = container_of(ref, struct amdxdna_sched_job, refcnt);
->>> +
->>>       amdxdna_sched_job_cleanup(job);
->>>       atomic64_inc(&job->hwctx->job_free_cnt);
->>>       wake_up(&job->hwctx->priv->job_free_wq);
->>> @@ -195,7 +196,8 @@ aie2_sched_notify(struct amdxdna_sched_job *job)
->>>   {
->>>       struct dma_fence *fence = job->fence;
->>>   -    trace_xdna_job(&job->base, job->hwctx->name, "signaled fence", 
->>> job->seq);
->>> +    trace_xdna_job(&job->base, job->hwctx->name, "signaling fence",
->>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>> DEFAULT_IO);
->>>         aie2_tdr_signal(job->hwctx->client->xdna);
->>>       job->hwctx->priv->completed++;
->>> @@ -366,6 +368,9 @@ aie2_sched_job_run(struct drm_sched_job *sched_job)
->>>       struct dma_fence *fence;
->>>       int ret;
->>>   +    trace_xdna_job(sched_job, hwctx->name, "job run",
->>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>> DEFAULT_IO);
->>> +
->>>       if (!hwctx->priv->mbox_chann)
->>>           return NULL;
->>>   @@ -409,7 +414,8 @@ aie2_sched_job_run(struct drm_sched_job 
->>> *sched_job)
->>>       } else {
->>>           aie2_tdr_signal(hwctx->client->xdna);
->>>       }
->>> -    trace_xdna_job(sched_job, hwctx->name, "sent to device", job->seq);
->>> +    trace_xdna_job(sched_job, hwctx->name, "sent to device",
->>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>> DEFAULT_IO);
->>>         return fence;
->>>   }
->>> @@ -419,7 +425,8 @@ static void aie2_sched_job_free(struct 
->>> drm_sched_job *sched_job)
->>>       struct amdxdna_sched_job *job = drm_job_to_xdna_job(sched_job);
->>>       struct amdxdna_hwctx *hwctx = job->hwctx;
->>>   -    trace_xdna_job(sched_job, hwctx->name, "job free", job->seq);
->>> +    trace_xdna_job(sched_job, hwctx->name, "job free",
->>> +               job->seq, job->drv_cmd ? job->drv_cmd->opcode : 
->>> DEFAULT_IO);
->>>       if (!job->job_done)
->>>           up(&hwctx->priv->job_sem);
->>>   @@ -437,7 +444,6 @@ aie2_sched_job_timedout(struct drm_sched_job 
->>> *sched_job)
->>>       int ret;
->>>         xdna = hwctx->client->xdna;
->>> -    trace_xdna_job(sched_job, hwctx->name, "job timedout", job->seq);
->>>         guard(mutex)(&xdna->dev_lock);
->>>   diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/ 
->>> amdxdna/amdxdna_ctx.c
->>> index ff6c3e8e5a15..2c2c21992c87 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_ctx.c
->>> +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
->>> @@ -514,7 +514,6 @@ int amdxdna_cmd_submit(struct amdxdna_client 
->>> *client,
->>>           goto unlock_srcu;
->>>       }
->>>   -
->>>       job->hwctx = hwctx;
->>>       job->mm = current->mm;
->>>   @@ -612,6 +611,8 @@ int amdxdna_drm_submit_cmd_ioctl(struct 
->>> drm_device *dev, void *data, struct drm_
->>>       if (args->ext || args->ext_flags)
->>>           return -EINVAL;
->>>   +    trace_amdxdna_debug_point(current->comm, args->type, "job 
->>> received");
->>> +
->>>       switch (args->type) {
->>>       case AMDXDNA_CMD_SUBMIT_EXEC_BUF:
->>>           return amdxdna_drm_submit_execbuf(client, args);
->>> diff --git a/drivers/accel/amdxdna/amdxdna_ctx.h b/drivers/accel/ 
->>> amdxdna/amdxdna_ctx.h
->>> index a8557d7e8923..355798687376 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_ctx.h
->>> +++ b/drivers/accel/amdxdna/amdxdna_ctx.h
->>> @@ -119,6 +119,7 @@ struct amdxdna_hwctx {
->>>       container_of(j, struct amdxdna_sched_job, base)
->>>     enum amdxdna_job_opcode {
->>> +    DEFAULT_IO,
->>
->> Do you really want this at the beginning of the list?  Doesn't that 
->> break uses of amdxdna_drv_cmd that has the previous indexing?
-> 
-> *_DEBUG_BO is driver internal use only. Using 0 here to align with our 
-> current trace scripts.
-> 
-> Lizhi
-> 
->>
->>>       SYNC_DEBUG_BO,
->>>       ATTACH_DEBUG_BO,
->>>       DETACH_DEBUG_BO,
->>> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/ 
->>> amdxdna/amdxdna_mailbox.c
->>> index 37771bdb24a1..cc8865f4e79c 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
->>> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
->>> @@ -361,6 +361,7 @@ static void mailbox_rx_worker(struct work_struct 
->>> *rx_work)
->>>       int ret;
->>>         mb_chann = container_of(rx_work, struct mailbox_channel, 
->>> rx_work);
->>> +    trace_mbox_rx_worker(MAILBOX_NAME, mb_chann->msix_irq);
->>>         if (READ_ONCE(mb_chann->bad_state)) {
->>>           MB_ERR(mb_chann, "Channel in bad state, work aborted");
->>> diff --git a/include/trace/events/amdxdna.h b/include/trace/events/ 
->>> amdxdna.h
->>> index c6cb2da7b706..71da24267e52 100644
->>> --- a/include/trace/events/amdxdna.h
->>> +++ b/include/trace/events/amdxdna.h
->>> @@ -30,26 +30,30 @@ TRACE_EVENT(amdxdna_debug_point,
->>>   );
->>>     TRACE_EVENT(xdna_job,
->>> -        TP_PROTO(struct drm_sched_job *sched_job, const char *name, 
->>> const char *str, u64 seq),
->>> +        TP_PROTO(struct drm_sched_job *sched_job, const char *name,
->>> +             const char *str, u64 seq, u32 op),
->>>   -        TP_ARGS(sched_job, name, str, seq),
->>> +        TP_ARGS(sched_job, name, str, seq, op),
->>>             TP_STRUCT__entry(__string(name, name)
->>>                    __string(str, str)
->>>                    __field(u64, fence_context)
->>>                    __field(u64, fence_seqno)
->>> -                 __field(u64, seq)),
->>> +                 __field(u64, seq)
->>> +                 __field(u32, op)),
->>>             TP_fast_assign(__assign_str(name);
->>>                  __assign_str(str);
->>>                  __entry->fence_context = sched_job->s_fence- 
->>> >finished.context;
->>>                  __entry->fence_seqno = sched_job->s_fence- 
->>> >finished.seqno;
->>> -               __entry->seq = seq;),
->>> +               __entry->seq = seq;
->>> +               __entry->op = op;),
->>>   -        TP_printk("fence=(context:%llu, seqno:%lld), %s seq#:%lld 
->>> %s",
->>> +        TP_printk("fence=(context:%llu, seqno:%llu), %s seq#:%llu 
->>> %s, op=%u",
->>>                 __entry->fence_context, __entry->fence_seqno,
->>>                 __get_str(name), __entry->seq,
->>> -              __get_str(str))
->>> +              __get_str(str),
->>> +              __entry->op)
->>>   );
->>>     DECLARE_EVENT_CLASS(xdna_mbox_msg,
->>> @@ -81,18 +85,28 @@ DEFINE_EVENT(xdna_mbox_msg, mbox_set_head,
->>>            TP_ARGS(name, chann_id, opcode, id)
->>>   );
->>>   -TRACE_EVENT(mbox_irq_handle,
->>> -        TP_PROTO(char *name, int irq),
->>> +DECLARE_EVENT_CLASS(xdna_mbox_name_id,
->>> +            TP_PROTO(char *name, int irq),
->>>   -        TP_ARGS(name, irq),
->>> +            TP_ARGS(name, irq),
->>>   -        TP_STRUCT__entry(__string(name, name)
->>> -                 __field(int, irq)),
->>> +            TP_STRUCT__entry(__string(name, name)
->>> +                     __field(int, irq)),
->>>   -        TP_fast_assign(__assign_str(name);
->>> -               __entry->irq = irq;),
->>> +            TP_fast_assign(__assign_str(name);
->>> +                   __entry->irq = irq;),
->>> +
->>> +            TP_printk("%s.%d", __get_str(name), __entry->irq)
->>> +);
->>> +
->>> +DEFINE_EVENT(xdna_mbox_name_id, mbox_irq_handle,
->>> +         TP_PROTO(char *name, int irq),
->>> +         TP_ARGS(name, irq)
->>> +);
->>>   -        TP_printk("%s.%d", __get_str(name), __entry->irq)
->>> +DEFINE_EVENT(xdna_mbox_name_id, mbox_rx_worker,
->>> +         TP_PROTO(char *name, int irq),
->>> +         TP_ARGS(name, irq)
->>>   );
->>>     #endif /* !defined(_TRACE_AMDXDNA_H) || 
->>> defined(TRACE_HEADER_MULTI_READ) */
->>
+Dave.
 
