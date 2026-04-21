@@ -4,157 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A74A6F327D0
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 09:51:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBFD5F327D0
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 09:53:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 061A810E85C;
-	Tue, 21 Apr 2026 09:51:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 126C410E858;
+	Tue, 21 Apr 2026 09:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="df7tAtBN";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G9Pi5IR9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VlEZwojm";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 548D310E864
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 09:51:14 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63L74FeF1538490
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 09:51:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- tNz2hyaIKunso93P6B5FzOeK7zMcpTMCwZPp1Ux4pv8=; b=df7tAtBNSOEWW4QV
- PYh+L9tHKd2hG80sD0WCzKbTf+PwkzNyMtQM+WUZnIb0bFLacmUhKm6B2Feg/owB
- zYAsr9IYG/aIzInS5zplrETdOCy4LmVtvnF8d9eho42WfPY0yoWjdY/S5eT9FZ9d
- PgwH4os3tew/ZaDiDZPe0hnMPXAXfKpNrG21DbT/lqS49asRON35kJKr1yLcVKqt
- BUcdXmgVeqNsc3g6lQn0vzl1boWOn3kG1CawRExKwexBL3XO8DniH0pMLIbYJNk4
- NQlY1Kg4KGs6NlJmdrH1KE28Tom4U/l3EZWmME3jkIkiaYw9kDeELJMnwiFpwRSA
- aBWquQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp4hagmvb-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 09:51:13 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8eab57f0e8bso33517785a.0
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 02:51:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776765073; x=1777369873;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tNz2hyaIKunso93P6B5FzOeK7zMcpTMCwZPp1Ux4pv8=;
- b=G9Pi5IR9h49/9cYJGcWFykXGGg4fdAElWfS+8M97RMZU51GQZ7VIR+M4r7SW5Ay+hh
- AnjzRscsXUR3W3wknm/cjmhE5LmBn0+QOVjaSI79lrtWe7QemgAdj0Xuj3pMJ6XAizPv
- kbT0QyE/SG3CqjGfr/6TudcfCxOkBlRvKN8A2xWQNGviSJQj7DFuEDlg3iGC+vvZjAI9
- bXojLB6Tf6cvbXhPEt1dkMGGdSB/VGphl4Dy1nrOvVZ1O6SeH9G9YAJId8Lr2wYMV3Fh
- a7dEoEE4fQiRBAEfS9A8IekcMIidMen7H54bcxZfo1pu96zDs8u9BTXUri8s6CaZM23l
- j5YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776765073; x=1777369873;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=tNz2hyaIKunso93P6B5FzOeK7zMcpTMCwZPp1Ux4pv8=;
- b=DdgBFZ3C7UlwqCaBNgJDufNPBA3D7ov4mss8EFK3iTLw7FglSecJKpvu1xX4oLS+Cy
- XhUJmXu6nCmn+21L6T2qha/pM8aez8Gw8CVu7IU6VuJe0MbCafwOTfRh1KXooiCQLKYK
- 9tfMboeklSzX0BDgGMT7Ij31rC/TPsbp0a5bLFWuetReJP8p5/qtXu04aHnTZNdPRUxX
- wTFosYfiu3EZhy9Ee3s4aJNJ/YO0czut5apszZd6yUeF/AYRigsTp41f7R+6UmXrHDmP
- sqyjgO0a30fB2NE6+FWQNIsd4i0yGncECgtDRvZ+7TQ9B3vjYkE1v8+SevpyCiNKd3ux
- yiIg==
-X-Gm-Message-State: AOJu0YzUOq9Psu3Kjp8BsJ+uLVKH5I0gyYEDZSQRAsNcwVnu4hewKuzp
- b0pxHLRGb+XZQmOP10YtNZQV5Yo2aHDkXzy/bzhQ9wi8CvC1ORYKB/luwmOfg75WwplI/4rw47u
- nBNbjoecKDyKlAUtK0ne/g1vkeGnQV2QfHWev83vAxwjVhA64H3A10kQzRpZMMzrPZUdNmZU=
-X-Gm-Gg: AeBDietWbfgU56gfEobi4XoDTrwfQ+D5uB00CAa3dgpZ8PAMJ8dNaUPWPrgEoHP8fPb
- 4+mJzESZxrFLDocPLcuk95G2/vn0QiaQc6eCA231qkFMvAcLdVkt8v906Mqqnf37r3avrh70DJj
- 6sQNFmxx1U/QGCTk070Uk+JEehlJ4IdJHKx51eTrM1rK1leAm4pJVAqdWOwBErYgEWTYlwJW9hJ
- YbL5WK+hv5w1zfDicN1e9dhDJQ1P68kGsyF4Tyn4fpbbjxLGWPkHSnt5RD5QuF8Z/4t2RFQ64h+
- juqGls6mkfFXlOI6q04vcH2P/+B6+1caaVZ6Uka3RHwjTMIbDq3A4x3J47oefXdRw1kNSvCtO40
- F6YK2qJy3cSH5wzgK7nfo+Q7CHsSqp+5pGFqG+vw03jtNGbEHndDkm0ySdohBMyb4Qees+Gc+ZB
- aGWKwG1hmbNzgIaQ==
-X-Received: by 2002:a05:620a:2ae8:b0:8ea:c7a8:5065 with SMTP id
- af79cd13be357-8eac7a856ecmr572411185a.2.1776765072676; 
- Tue, 21 Apr 2026 02:51:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:2ae8:b0:8ea:c7a8:5065 with SMTP id
- af79cd13be357-8eac7a856ecmr572407185a.2.1776765072156; 
- Tue, 21 Apr 2026 02:51:12 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-672c480e22asm2692461a12.9.2026.04.21.02.51.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Apr 2026 02:51:10 -0700 (PDT)
-Message-ID: <b340dec3-8c4b-49f6-89bd-61a8233bda2c@oss.qualcomm.com>
-Date: Tue, 21 Apr 2026 11:51:04 +0200
-MIME-Version: 1.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012033.outbound.protection.outlook.com [52.101.43.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13F9E10E844;
+ Tue, 21 Apr 2026 09:53:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pMssY/KzyK3E6joX3Xcq7aEXpKmzo0G7c2kGVzSoq6K4/IcJ0wgNPcdM+E21BGuoNVBcJBM/mniZmpuPcYbqm90usDhuHcBT+aYnO1/nmyVyHMXkrm6pQrQOL5O16Pz3ae6P93hxf/S7dzV8nEO1ZYGmveLz/WAijCdH+CQieQA6yqtkEKk/DaIDRr3XBml7CSNEILbzByZX6tRDtLE1vNIp7L/ugSNaAum2Mf5SDEDKIj25tcW7+YzHGWPyJ2S3Sk5ygnKle3QDF2QXBKvBmxosnD859HugZ2Wm1LATszF/mPlyVxzCXgGue1r6y5yV2N/fJ/t92JQZmq0AKtvgnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gMLVy/TwcoG3IjsnKt/K7EKNVHMEGV+HFbZIUD1LQBI=;
+ b=BlsMJpEmY0/wrromaD20r2ovGU0MrxjvJEKIVD1kE7lbbyF9OqZyEJk4MQfDGTYVyqrdHrumSQN+6W1XuWGMruu5fW7Few1e0qkxnGUTQlD1FVKZ4G5VOCNFUeaPc3Qnf/NYt24j2jxYGSBcL6U4NWmcm/3EEVm+EXdF/EFdkYuzkHoJJ7bhtAkQ6ALsk60JcmO2bgoj0nvNNF84Scm9mfhFUkdBRIZjYPyVOVFbDSdLbShKsniEmlAXYzLSWxF8F79zznQAAWM7ajVSeST4KSIY3jg8iiak5shZpOfgC8PAF9z28gsMsFA+W1X5HwWvDztFwpMf8AvIFB6ArWiLDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gMLVy/TwcoG3IjsnKt/K7EKNVHMEGV+HFbZIUD1LQBI=;
+ b=VlEZwojmXfZZOzv9HXd9QUnmzq81KalB7CmmIMNFsgKCDroTNCNWihZJTpEuVklK1g15aRvXzX0vVnErHvnb7H8opEGB6vkwNHf510P+wL4ob1t/WkqmbKRmytBNDe2KupYBH89VYEHIEfyAdobjrlYlI43YZ0FtCkAhl4jAdNw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
+ by DS7PR12MB9527.namprd12.prod.outlook.com (2603:10b6:8:251::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
+ 2026 09:53:06 +0000
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2]) by IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2%5]) with mapi id 15.20.9846.017; Tue, 21 Apr 2026
+ 09:53:06 +0000
+Message-ID: <ba4a1d11-b774-4429-bf3b-690e826bc72b@amd.com>
+Date: Tue, 21 Apr 2026 17:52:56 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] soc: qcom: pmic-glink-altmode: pass down HPD_IRQ
- events
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Adrien Grassein <adrien.grassein@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Pengyu Luo <mitltlatltl@gmail.com>, Nikita Travkin <nikita@trvn.ru>,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org
-References: <20260421-hpd-irq-events-v3-0-44d2bf40dfc2@oss.qualcomm.com>
- <20260421-hpd-irq-events-v3-5-44d2bf40dfc2@oss.qualcomm.com>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alexander.Deucher@amd.com, Felix.Kuehling@amd.com, Oak.Zeng@amd.com,
+ Jenny-Jing.Liu@amd.com, Philip.Yang@amd.com, Xiaogang.Chen@amd.com,
+ Ray.Huang@amd.com, Lingshan.Zhu@amd.com, Junhua.Shen@amd.com,
+ rodrigo.vivi@intel.com, thomas.hellstrom@linux.intel.com, dakr@kernel.org,
+ aliceryhl@google.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+ <50d13ae3-be27-4b79-91ef-e1b386054943@amd.com>
+ <54bb7286-2ffb-47f0-b37d-83b5c39ad9a0@amd.com>
+ <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260421-hpd-irq-events-v3-5-44d2bf40dfc2@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=bOQm5v+Z c=1 sm=1 tr=0 ts=69e74891 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=KAErmEmBofBSjU3YeWYA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: -ntuk6rpyR4XkQLp2m_L92v2LxHy4gpW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDA5NSBTYWx0ZWRfXzHoVfAanNe8k
- ugN9CFgYYFgKOP4CBEOPzR/omy2NZePBposP/GNV5MA4gEp3n77dUb7JRtURh6XPlJn2mz3G/MC
- vU1OajeUmF4QlXFnuiv4hSdZRSGE+K8r7E6lT0O0SPJMIYiuAXYEQcd9X8RC8LEUm/hlXHBPhzp
- LyMJut/jXbvo+bX1ITdtzdHrHjdJQOovTD8JViXk36x6v65UslG427O3nvnXDzo+RN4yuIKYbY+
- I8YN28q4C4zk9fypRCM2hxLR1gLs/vjfW7+g/ZWz/MrkpDffTZwagHdH+T5U6rl5UTmZfZpUOsT
- 4VTAiYxAjn4hJVZl3L81aRPVk+J+IodZWwAx5TBas+wkakUh03uBcbMKAh67Tpy4Nx/I/oVuHGY
- WPx66Yjs+d9ewjp3sseE1zd1D+amG+r6NAhCj892Nxc5oeoZUB8Zmzd+/Q4PTHOcNZlPahpWaG3
- ko8PI5lHco+blcSkQgg==
-X-Proofpoint-ORIG-GUID: -ntuk6rpyR4XkQLp2m_L92v2LxHy4gpW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_02,2026-04-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210095
+From: "Huang, Honglei1" <honghuan@amd.com>
+In-Reply-To: <aeZPBoJVTqOKd4bq@gsse-cloud1.jf.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TP0P295CA0049.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::20) To CY5PR12MB6430.namprd12.prod.outlook.com
+ (2603:10b6:930:3a::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|DS7PR12MB9527:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48ac5522-ae5e-434e-faa4-08de9f8bc862
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: g9D1Ll6fguaUGb0jNmml7ZVyvP587cJCE7M0LR7JzqA5lDWrA/j6nz2RZyXTDCg1R09nLuEhuYq1gDIvr8KJdhf3SjIsQWxhBuhSaXOZFCR9aHv9NfDNtm1C2SRayjU5htrv1UldO/S5bby6JgCcWI3HwBweV8whcr0W3bOCPetuAMtIsgLOiMLRmSLLTuQn4DfIzizCnkTYgH35s0h0gx/yus+ZsEMxIt+sP44EXKzeMPwPSQj9FDRa9EgY8H0Vw+BX6yHuBNJY8LddiWBD5ib+3i1/VnIuiPrGZzDnKHUIfiCEVijuLpnGM0tscqXGHlWEhfDCUCjB+avGg/uMttkSFTe4WS3LFmRCt0FO0AH7pzOALMzIa4e0ME3NhRlXdwfCjKplKIpAfULVjyDvusqTa4HGnUxcnCYqr+oLe5Sj4rSdWyeREdbyLdB+Uk000Mvg3ZcEx/BJFNHks/zA90tauBDwvLbxWzYo0sdrLng7zQSvyLXDYl/0FygjFLc12AAtTV6VAzH2H2yxKxQVeIcvg1IvE7SB1hs2nKyuBGR7x/O44ZlTiLi3Vm8xNiP3LjDASH/1PNvnccGf7er2u8sNw+jZE0rJjRlmqUp5BhBWWaWmmrSQTUoDTwN5gR8mAVwcq2cHoqbI9LNwCKvTDoULeRuiHZmt8hXF0cInbZKwkmiP2oVQoN8y5s9L4qpqrdEGuOZkSam1xNEYtRNNvi+cow+Y4QjR3GusvEpK9xo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Sm9oNUNuMHVLdWlQbFh4VmxrMnpseko5MU01TGM5YkpjdjhpbmwvTVVhQlFG?=
+ =?utf-8?B?QkhoY1R6R0p4aWQyTldWWkw2QjJzQ0lQaTExeXZWR1VsVTRFam1hazNPZnVL?=
+ =?utf-8?B?MW1ZSUFvaHhYcFN0aFZKY2JsQloxbUxpS3MrbE05Tm9OWUhVdGFTUlliUjZp?=
+ =?utf-8?B?YW0rL0xLQ1poNFdWWGRzWm5teno0RFp4ZkF3V3FEZGIxVFEvSVUvMVRtZWt3?=
+ =?utf-8?B?TElyT1BYTC9STUNWYjFtT05PWGVJMlFPaSthNzhERElkYlVieURDdEZIWkVy?=
+ =?utf-8?B?NjE3bGgyVVlPb2pZRzcwd2toS1A3YXpHZUZGTWcvMncxQldhc3JENWpmVmJZ?=
+ =?utf-8?B?SGRFZzF4emxFUnZLM0Z1UW55WER0dFNYUXR1V1NFeGNCMzhiZGtLWThCcDVl?=
+ =?utf-8?B?NnVWbnlFL3N4bzB6SXR3cTFDRFpHUVBNYzZpZWpLRFVHMGdXNjluYnkwQzhS?=
+ =?utf-8?B?QXQrSC96NUowSnJ6bU9TR3lQM2JTVkZaK3BxUnNaRHVwRllwQ2swanVNL2k4?=
+ =?utf-8?B?bkgrSTZWRWkzMUdUTWxJK2hyc2lFWHdHYWdaczhNUGxFNTZtQzV2UFpZdUF6?=
+ =?utf-8?B?a2R5Mk1lK3JmU1RZL2xNU1F6ZmJhRDVxQVNBcFRSWmZ3N00rcjZLR2NlVXZM?=
+ =?utf-8?B?UzVxRGU2eXZLUUg1c2dVczROYW82dkJtcVIyYVdud3RWTm5ITTVaVDNCSE5X?=
+ =?utf-8?B?YlUvcGtMZXdjUVorSlZiNldrVGhTbUJhWjdMRnFGZkEwRldlbGZjSmluQzhh?=
+ =?utf-8?B?VVNGMzVUZkpaN05WV2M5VElvYTVSMVVlcCthNzNDRGU0amxRY2I1b3NOVHIv?=
+ =?utf-8?B?VkhPYzNuZkZQejBjNGdJWHNhb1IwWXluQ0liWHFKdFQxWm1rZFV5WWRycG94?=
+ =?utf-8?B?MGtnM3FjVitpR1Yxd2hmbUZiODcxL1R2c2RzRS9XUEFiTW9OQ3BnaFZQNHVZ?=
+ =?utf-8?B?VlA4M1ZiYVdnZW1YdURERHpBRmVLUzJoWW1aUUplWlVET2E1eWp3V0M0UU1j?=
+ =?utf-8?B?dmxBdEh6Nm9TVm9pb0g4bU1pRXQyUnhsWjFuMXpmOWxKSXgxTk5BYzVlbS96?=
+ =?utf-8?B?UVRMV0FlUTdyQUVyOUI4VGl0RDJIVk1rK3hGSXp2YlNYUlZMOXAyR3hpWk83?=
+ =?utf-8?B?N3RIVnRhSk03M3RLbFY3dEk2Sitkd2kweEFlVEdVdjNMV0ZnK00rQUc1OTRY?=
+ =?utf-8?B?RnlhK1JGTVdkVlpQOU1yQnR5UElhbWlIazRrRThIdGJTVDlOWDZKOUVjRG40?=
+ =?utf-8?B?YTFsRExjc0Jhb3RacERPTVpPUjJCVTdWU1FiV2RKRFZmTG5MVHpxNFhzK2sy?=
+ =?utf-8?B?dW1uZXhoLy8xTVRRbkcvcFBPZkxwakRUYWZBVjJZclhjWk5rMHBEWWYzd1VU?=
+ =?utf-8?B?QVBiVW4ybmVuSzI1Vk50dnc1NXZiZDducE5WamU4blBsWk4yUkhOOWM0Nm9p?=
+ =?utf-8?B?RERqcFRLQ29VVzFxOWtWUEJiYWpuUHM2dHpSZHpWUmxmZFBMZHdFRWlNWkd0?=
+ =?utf-8?B?amJoN1JiKy9uTXZEY0R6eEVoNElBc0IvNFNUeDNqUEF5dW9TUkFjdm1LdkdW?=
+ =?utf-8?B?YmhoMkM2U1JCcnhzMUNCVVlrdkdrRHlqZGtXcXhzRWVtTkRMcHloK1lHdmxY?=
+ =?utf-8?B?YXVHTldMcW9wcXJKOU5tWG9qMEtvLzdWSTlNbnlQbmEzQlhnT1Q3QVNITTZ5?=
+ =?utf-8?B?MkZvbnFkTWRxbFkxWk9wTzNhRFBtb1Y5QUhYcWxQbC80b3NlNEtWZ1p6V0hj?=
+ =?utf-8?B?dnk3NGszc0hydHNnUS80QzIxSmhXQ01CN0ROL0V5a215aTBvWWp0RVlKSlJT?=
+ =?utf-8?B?akRYNVVDa0xDWU5yYWY3Nll5LzAwcUJlN2U1VFVhUWlJQThhQjdYWnEzV25U?=
+ =?utf-8?B?VnN6UmxPVk4rdy9nUkpQQXZRQnUyTWsrOFk0bU9SQlRyYWVmekVJalFSeThy?=
+ =?utf-8?B?UERscW1qT1pXRXhnSCtnMkxwaStEU2wyd2RFcVJVTmdHZzNOK2x3OHpvblVw?=
+ =?utf-8?B?RlF2SG1jU3NvLzdLY2N4V1QxN3F5bG1CeU9qVVY2d1hzVDJjc0o5eU00dzlt?=
+ =?utf-8?B?STU0Y2xJVW9zOHZFaFdac1dBTU54V2lUaXRpRlRUTHZwU0Vjd3BOb20yRm8r?=
+ =?utf-8?B?aE16WUVNdVRqdHh1UE5iRVhqLzRTV1RQVHR1S25BS08zcnJWVHVBUGdzMnQ5?=
+ =?utf-8?B?eHNDd1ZPZHZhWWwzZWR3QkpDSzY0MU1tV1lQTk13M3Y4UTZWM0xZc2ZzV3Vt?=
+ =?utf-8?B?Q2dhMGphQ0k2VlYvd0R5REFUVHIrbU9Ub1FKUVB5d1NrdmV1NXpkeVkzRnk3?=
+ =?utf-8?Q?a2nmNPm9VItoYrXc25?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48ac5522-ae5e-434e-faa4-08de9f8bc862
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6430.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 09:53:05.8523 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xv3PUk4PHOPipD3s0Bg9lnIyNrer4434uygMrmhHMDv79glD+cVFvP3D4is9LT64EYKFfqjlqcq3iQlKlF+Jwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9527
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,13 +145,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/21/26 1:33 AM, Dmitry Baryshkov wrote:
-> Pass IRQ_HPD events to the HPD bridge, letting those to be delivered to
-> the DisplayPort driver.
+
+
+On 4/21/2026 12:06 AM, Matthew Brost wrote:
+> On Mon, Apr 20, 2026 at 05:37:43PM +0200, Christian König wrote:
+>> On 4/20/26 15:30, Huang, Honglei1 wrote:
+>>> On 4/20/2026 8:15 PM, Christian König wrote:
+>>>>
+>>>>
+>>>> On 4/20/26 14:07, Honglei Huang wrote:
+>>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>>
+>>>>> Add amdgpu drm SVM API definitions built on the
+>>>>> DRM GPUSVM framework.
+>>>>>
+>>>>> This includes:
+>>>>> - DRM_AMDGPU_GEM_SVM ioctl
+>>>>> - AMDGPU_SVM_FLAG_* flags
+>>>>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+>>>>> - AMDGPU_SVM_ATTR_* attribute types
+>>>>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+>>>>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
+>>>>>
+>>>>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>>>>> ---
+>>>>>    include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+>>>>>    1 file changed, 39 insertions(+)
+>>>>>
+>>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>>>>> index 406a42be4..bed71ed9b 100644
+>>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>>> @@ -58,6 +58,7 @@ extern "C" {
+>>>>>    #define DRM_AMDGPU_USERQ_SIGNAL        0x17
+>>>>>    #define DRM_AMDGPU_USERQ_WAIT        0x18
+>>>>>    #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
+>>>>> +#define DRM_AMDGPU_GEM_SVM        0x1a
+>>>>>      #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>>>>    #define DRM_IOCTL_AMDGPU_GEM_MMAP    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>>>>> @@ -79,6 +80,7 @@ extern "C" {
+>>>>>    #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+>>>>>    #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+>>>>>    #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+>>>>> +#define DRM_IOCTL_AMDGPU_GEM_SVM    DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+>>>>>      /**
+>>>>>     * DOC: memory domains
+>>>>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+>>>>>        __u64 matrix[12];
+>>>>>    };
+>>>>>    +#define AMDGPU_SVM_FLAG_HOST_ACCESS        0x00000001
+>>>>> +#define AMDGPU_SVM_FLAG_COHERENT        0x00000002
+>>>>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL        0x00000004
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_RO            0x00000008
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_EXEC        0x00000010
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY        0x00000020
+>>>>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED    0x00000040
+>>>>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT        0x00000080
+>>>>> +
+>>>>> +#define AMDGPU_SVM_OP_SET_ATTR        0
+>>>>> +#define AMDGPU_SVM_OP_GET_ATTR        1
+>>>>> +
+>>>>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC        0
+>>>>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC        1
+>>>>
+>>>> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
+>>>>
+>>>>> +#define AMDGPU_SVM_ATTR_ACCESS            2
+>>>>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE        3
+>>>>> +#define AMDGPU_SVM_ATTR_NO_ACCESS        4
+>>>>
+>>>> Why are those separate attributes? What is the difference between those?
+>>>
+>>> Really thanks for the comments, I have some content mistaken in V2, so I updated the V3 to fix that. For the header they are same. for other content please review the V3, sorry about that. And will fix the concern you raised in next version.
+>>>
+>>> So the meaning of AMDGPU_SVM_ATTR_ACCESS and AMDGPU_SVM_ATTR_NO_ACCESS are clear, GPU can access it or not, and the SVM can set the preferred location, it can be in VRAM or system, for AMDGPU_SVM_ATTR_ACCESS it can be migrated between RAM and VRAM. For AMDGPU_SVM_ATTR_ACCESS_IN_PLACE,
+>>> it can not migrate, GPU only can access it in the initial place.
+>>
+>> Yeah but that doesn't then the interface doesn't seem to make sense since such states are mutual exclusive.
+>>
+>> It would make sense when you have some attribute which is named (for example) AMDGPU_SVM_ATTR_ACCESS which can have the values INACCESSIBLE, IN_PLACE, MIGRATE.
+>>
+>>>>> +#define AMDGPU_SVM_ATTR_SET_FLAGS        5
+>>>>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS        6
+>>>>
+>>>> Why is that separated into set and clear flags?
+>>>
+>>> This method inherits from KFD and is also designed to be compatible with upper layer applications such as ROCR.
+>>
+>> That is *not* sufficient as justification. We need to document why that is necessary and *not* just say ROCR works that way.
+>>
+>> As far as I can see just a SET_FLAGS should be sufficient.
+>>
+>>>>> +#define AMDGPU_SVM_ATTR_GRANULARITY        7
+>>>>> +
+>>>>> +#define AMDGPU_SVM_LOCATION_SYSMEM        0
+>>>>> +#define AMDGPU_SVM_LOCATION_UNDEFINED        0xffffffff
+>>>>
+>>>> No location for device local memory?
+>>>
+>>> Vaule > 0 means for device memory, in xe_svm, it seems like it uses fd for device local memory.
 > 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
+> I have no stake in AMD’s uAPI, but I can at least explain how Xe’s uAPI
+> works here—and admittedly, it’s somewhat goofy.
+> 
+> 0 == device-local memory, with first-touch placement on whichever
+> device/tile touches the memory first
+> 
+> -1 == system memory
+> 
+> ≥ 0 == a render-node FD (which could refer to a local or remote device),
+> paired with a region instance to extract the pgmap for the desired
+> placement
+> 
+> I believe the reason this isn’t fully FD-based is that the compute UMD
+> team wasn’t keen on exporting every pgmap as an FD, though that was
+> something that had been considered.
+> 
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thanks for explaining Xe's SVM interface. I have a quick question :
 
-Konrad
+0 means device-local memory with first-touch placement, and a 
+render-node FD means explicit placement on a specific device.
+
+What is the difference between 0 and fd points to renderer node it self?
+
+The reason I ask is that for amdgpu, the current design for drm gpu svm 
+is per FD per SVM per GPU, so device local means the current GPU. And 
+the behavior for 0, sounds like a global semantics/multi GPU semantics.
+
+This can easily cause conflicts. Is there a plan to add a global 
+coordination feature in the drm gpu SVM instead of pushing this 
+responsibility to UMD?
+
+Regards,
+Honglei
+
+>>
+>> Absolute clear NAK for that approach. This interface is per FD!
+>>
+>> We need some value AMDGPU_SVM_LOCATION_DEVICE which means that the memory should be migrated to the current device.
+>>
+>> We also need to make sure that setting attributes for different devices doesn't affect each other.
+> 
+> We landed on the conclusion that it is undefined behavior if different
+> render FDs—or more specifically, VMs across devices within the same SVM
+> address space—set different madvise attributes. I believe this was at
+> Sima's suggestion.
+> 
+>  From the UMD point of view, every madvise call therefore becomes:
+> 
+> for_each_fd_vm
+> 	set_madvise_attributes
+> 
+> This choice was made to keep madvise attributes local to the per-device
+> VM structure, rather than introducing some form of cross-device shared
+> storage.
+> 
+> A misbehaving user can absolutely shoot themselves in the foot, but at
+> worst this only ends up corrupting behavior within their own process
+> shared across devices.
+> 
+> Matt
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>>>
+>>>>> +
+>>>>> +struct drm_amdgpu_svm_attribute {
+>>>>> +    __u32 type;
+>>>>> +    __u32 value;
+>>>>> +};
+>>>>> +
+>>>>> +struct drm_amdgpu_gem_svm {
+>>>>> +    __u64 start_addr;
+>>>>> +    __u64 size;
+>>>>> +    __u32 operation;
+>>>>> +    __u32 nattr;
+>>>>> +    __u64 attrs_ptr;
+>>>>> +};
+>>>>
+>>>> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+>>>>
+>>>> And we usually use unions in this header to separate the input from the output parameters.
+>>>
+>>> Got it will add documentation for it and will use unions in next version. Really thanks for the comments.
+>>>
+>>> Regards,
+>>> Honglei
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> +
+>>>>>    #if defined(__cplusplus)
+>>>>>    }
+>>>>>    #endif
+>>>>
+>>>
+>>
+
