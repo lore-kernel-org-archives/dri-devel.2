@@ -4,151 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10C04F8FA79
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 13:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB91EF8FA79
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 13:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4752C10E1E4;
-	Tue, 21 Apr 2026 13:38:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38EBC10E1E1;
+	Tue, 21 Apr 2026 13:39:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="FxvCX7U/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="92c6bEBq";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="q9B0hYnM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="npEj7H4f";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="OtQqbwni";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42C8210E8A7
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:38:19 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E61856A8EA;
- Tue, 21 Apr 2026 13:38:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776778698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WPogffiDn1teV3hh10DddpwUm0DmWjANhCo9KAOX65k=;
- b=FxvCX7U/MZKwDB3PdfUmU9wyMfOExhZTDI2WN/XtB0pH4FV/Q12d5zuwZUzp2r2EfpJ+Ks
- Jq5zdn+shJ80j8LbtlLmSK2ei6YndztvxB+dhHnyApSrHQvMahWUTaC7rTm/0imiLfANVA
- w5rXjrSFps7w5Wa41CMprhhbmB2ROPU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776778698;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WPogffiDn1teV3hh10DddpwUm0DmWjANhCo9KAOX65k=;
- b=92c6bEBqbLh5J4tzCIxmex2MlZlgLi7xPUvWQmUCtgwnnZYDj9+Vc/ihRsBY+DypzJwEjQ
- aqcnT7XzhXmgIXDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776778697; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WPogffiDn1teV3hh10DddpwUm0DmWjANhCo9KAOX65k=;
- b=q9B0hYnMg952CmqTVG+W85OUvzBnIwQUNK75wok9VohnMCwlczsXjMhLU85U5dgvnBjs3Q
- LadI3KgE9QVY0rlwtfqHd2JoqgDY9AVpTC1S/UdUUdEOObikyRWut9ct6imq8B+6Wwzd6Z
- VNbs/Z+L+TsGuwdgPlCF18+Fnl9rB1E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776778697;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=WPogffiDn1teV3hh10DddpwUm0DmWjANhCo9KAOX65k=;
- b=npEj7H4fNrNfQXLJqD2n66Mwwq7pI8ZSk/SJMnpmZp6UIv1gy2ViswSdWUs+uaBpKFVUZk
- CnmNw66byClsmOAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1A339593AF;
- Tue, 21 Apr 2026 13:38:17 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kZsuBcl952kkGQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 21 Apr 2026 13:38:17 +0000
-Message-ID: <79cc30d5-80b5-4d87-a3ad-36d6fad98853@suse.de>
-Date: Tue, 21 Apr 2026 15:38:16 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB63210E1DB;
+ Tue, 21 Apr 2026 13:39:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=d4coqLmDeSBTj2Mfkit/DcKkXNF6qndD5pA24CRWzdA=; b=OtQqbwniAUx0H2nsFwhOYx7UKE
+ hHyaWLufTmGBd26WkpiX8TPVRZR4z9JxO0G8EvrXZJl+kn7FeNxsBoKGoy66FQmhLkXCN/zEM5Yyv
+ VFMuq2xuB+FmmFDPpEoTXbEkr5g4n4X8FXTB234BraeBXpEJu9Zu7jnRJfhdTombc7+ut/wQZo53p
+ pPnaOVbamjamQEUSkO7vA0bE2dK9OMssyLN3RqddKjTau4i4jiI/+WK8u3vnVppbrd6nJqSbkkbje
+ o/+Ltxrz+xZxCkXZu0z9G5m1LBO43nRYF8BprFVbUp3EwUjjyBcJDkdCp0ImLD8m+TB3th7ZbmBH/
+ 3Fx5Y5QQ==;
+Received: from [186.208.73.228] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wFBKH-001rGv-4M; Tue, 21 Apr 2026 15:39:41 +0200
+Message-ID: <38d36d94-d4f9-4b61-8c06-197f31f1f4cc@igalia.com>
+Date: Tue, 21 Apr 2026 10:39:33 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/20] drm/drv: Call drm_mode_config_create_state() by
- default
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
- <20260320-drm-mode-config-init-v2-15-c63f1134e76c@kernel.org>
+Subject: Re: [PATCH 2/4] drm/amd/display: use a separate helper to translate
+ degamma curves
+To: "Kovac, Krunoslav" <kkovac@amd.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, harry.wentland@amd.com,
+ simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ "Dr . David Alan Gilbert" <linux@treblig.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>, pekka.paalanen@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20260414220237.184289-1-mwen@igalia.com>
+ <20260414220237.184289-3-mwen@igalia.com>
+ <c030e9fc-d88e-47f9-afd7-9a4a0a53f4d3@amd.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260320-drm-mode-config-init-v2-15-c63f1134e76c@kernel.org>
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <c030e9fc-d88e-47f9-afd7-9a4a0a53f4d3@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[37]; TAGGED_RCPT(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLyhjdboxbrjk5hnijtjs4kbm6)];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, imap1.dmz-prg2.suse.org:helo,
- suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,58 +71,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 20.03.26 um 17:27 schrieb Maxime Ripard:
-> Almost all drivers, and our documented skeleton, call
-> drm_mode_config_reset() prior to calling drm_dev_register() to
-> initialize its DRM object states.
+
+On 16/04/2026 16:22, Kovac, Krunoslav wrote:
+> Thanks Melissa for following up.
+> I like the changes themselves, just some clarifications.
+> We do have a LUT with predefined HW curve, but it has some 
+> limitations: it cannot be used with subsampled 4:2:0/4:2:2 formats and 
+> it affects the linearity of color space in which HW scaler operates. 
+> In your case, we use the LUT after tone mapping in 3D LUT; that LUT 
+> doesn't have predefined curve. So it's not uncommon that we need to 
+> program our own degamma.
+
+Hi Kruno,
+
+Right, I reviewed this part in the cover letter after checking my notes 
+that there is a hw curve for degamma, but not for shaper, blend and 
+post-blend re-gamma, right? I forgot to correct this info here.
+I wasn't aware about the subsampled limitation.
+
 >
-> Now that we have drm_mode_config_create_state() to create that initial
-> state if it doesn't exist, we can call it directly in
-> drm_dev_register(). That way, we know that the initial atomic state will
-> always be allocated without any boilerplate.
+> The motivation for the new segment distribution is best explained with 
+> an 8-bit sRGB case. Input has 256 possible values and HW LUTs have 256 
+> points. Ideally in this case we'd use the LUT as basically plain 
+> indexing with no interpolation. The new distribution accomplishes 
+> this, it aligns 256 HW points with 256 possible inputs. Due to float 
+> representations of input, it's not aligned perfectly, but LERP-ing 
+> between two HW entries where input is always within small epsilon from 
+> one of entries doesn't materially change things.
+I'll rewrite commit messages to include this explanation too.
+Thanks for sharing these details.
+
+Melissa
 >
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->   drivers/gpu/drm/drm_drv.c | 4 ++++
->   1 file changed, 4 insertions(+)
+> On 4/14/2026 17:55, Melissa Wen wrote:
+>> In newer DCN families, there is no hw predefined curves. So, when
+>> setting predefined TFs to gamm_corr, shaper, blend and regamma, the
+>> driver resorts to the color modules and program those predefined curves
+>> using LUTs. The driver is using the same LUT segmentation when
+>> translating EOTF and inverse EOTF to hw points by using the same color
+>> management helper to translate curve to hw points, however, LUT
+>> representing EOTF may not follow the same region/segment distributions
+>> of inverse EOTF. This is causing banding on blend when PQ predefined
+>> curve is set. Use different helpers when linearizing and delinearizing.
+>> This is the first step to fix banding but already mitigates the issue by
+>> increase the number of points per segment from 8 to 16.
+>>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>   .../gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c    | 10 ++++------
+>>   1 file changed, 4 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c 
+>> b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+>> index b45ceb570a5c..17d54aadb5e1 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+>> @@ -493,9 +493,8 @@ bool dcn32_set_mcm_luts(
+>>       if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
+>>           lut_params = &plane_state->blend_tf.pwl;
+>>       else if (plane_state->blend_tf.type == 
+>> TF_TYPE_DISTRIBUTED_POINTS) {
+>> -        result = 
+>> cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+>> -                                 &plane_state->blend_tf,
+>> - &dpp_base->regamma_params, false);
+>> +        result = 
+>> cm3_helper_translate_curve_to_degamma_hw_format(&plane_state->blend_tf,
+>> + &dpp_base->regamma_params);
+>>           if (!result)
+>>               return result;
+>>   @@ -551,9 +550,8 @@ bool dcn32_set_input_transfer_func(struct dc *dc,
+>>       if (plane_state->in_transfer_func.type == TF_TYPE_HWPWL)
+>>           params = &plane_state->in_transfer_func.pwl;
+>>       else if (plane_state->in_transfer_func.type == 
+>> TF_TYPE_DISTRIBUTED_POINTS &&
+>> - cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+>> - &plane_state->in_transfer_func,
+>> -                            &dpp_base->degamma_params, false))
+>> + 
+>> cm3_helper_translate_curve_to_degamma_hw_format(&plane_state->in_transfer_func,
+>> + &dpp_base->degamma_params))
+>>           params = &dpp_base->degamma_params;
+>>         dpp_base->funcs->dpp_program_gamcor_lut(dpp_base, params);
 >
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 2915118436ce8a6640cfb0c59936031990727ed1..820106d56ab399a39cac56d98662b5ddbcae8ded 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -1097,10 +1097,14 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
->   
->   	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
->   		ret = drm_modeset_register_all(dev);
->   		if (ret)
->   			goto err_unload;
-> +
-> +		ret = drm_mode_config_create_state(dev);
-> +		if (ret)
-> +			goto err_unload;
-
-Way too late. Lets rather go through drivers and call this where they 
-currently call drm_mode_config_reset() for initialization. This can be a 
-single-patch mass conversion IMHO.
-
-Best regards
-Thomas
-
->   	}
->   	drm_panic_register(dev);
->   	drm_client_sysrq_register(dev);
->   
->   	DRM_INFO("Initialized %s %d.%d.%d for %s on minor %d\n",
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
 
