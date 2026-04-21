@@ -4,129 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E025F327B0
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 08:21:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B309F327C0
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 08:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03FF410EBCB;
-	Tue, 21 Apr 2026 08:21:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C183110EBC9;
+	Tue, 21 Apr 2026 08:23:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Sc30gHLS";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Jw64UppB";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011068.outbound.protection.outlook.com [52.101.57.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED7710EBCB
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 08:21:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NDjFxpkKZ0tZeJQ4f+hSGY+W+fiVHygyxNGYBS+msttRF2TlAzIedYTQUjb1JaCGYICVlVNol95pvSsatxbpvxn1RlJFZiyLEtjDmnLkQMsxdz/r+XZFw4ii6Tuk3Sf2SIen9mwhhyvcd13lRa6RpJ46DYAKGV//tHkQYnWTLE+YlKIXs0jngBbE6yaHed69o4J5ApfRfd0i0GprYC/Drkhg9vJMKUol8G//KqLHax2w02KYskQjVV6knTFwG+dDCprZzSHHPRwcHoXBBAnqiH+eFhk32FQLQz0N9cX56tnkZRJL5N9kEQrMrdFTAOWpBnEQHoA7u54Nre+varblaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9OqP0qxy57FjPo4VAWIuDL8aqIlXJMvbZTTubTz5W0c=;
- b=s5RN8GTQ4kHtMattVLLTxLpEpQh+o767MiMKJRWTo1oEdyffPqnGobX+PINaNb8x0/qzBFZDvhJJQvb2vk+UBRUBcrSbnsThGQkKK6/sKdwC/GCNS9PgdHpqlaLJswAir5uY7c6U9fLLVJ9mmQqqn01UVe6d9IkuThLBe2NVNJt+Kc9VTTzf+Ximmsp8c6TbmgC9rAOLeGkWl/AbvaaeYeVutWQywuzJCpX703vMGjLtjn8rj4Lnhwd4F8F7q5rnUCn2/VHUlr33KBpJRwWg35BdTvQzHaxTuQ1midyeQLdB/eGX342AyVo2a/dRWRgKOb8J1Pz7OpBMdRE9jngigg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9OqP0qxy57FjPo4VAWIuDL8aqIlXJMvbZTTubTz5W0c=;
- b=Sc30gHLSv/k9juUXcKAdrl2UWiEgy3tqx2LPInwxzInE8fOQ/ZPEugDbUghRYduThBz+lPEvHyQtV6BickMZub0f9ea9BD769DR0MCY6rmlLghumkU1XT1j8q+ba8Q8Seee6S6TIb+SM2QxaQRXULPQIfQJqS8uKUGvAYwv1MehceljNsXe3Yujhv3kGdjDtyVssY++2q1Ng6Z5SiHwBCbkta424R65eU03sYYDAlPaICPFLETZrsE/R3HKsp/4uytGg0e+JVPWh9skzUhLvkFVGZPcDGbK6JoEsqdjRIvzxW3NYiZzwUD73xf/5b7403EipFgwZV+0eAhWMfal9Kg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by IA0PR12MB8376.namprd12.prod.outlook.com (2603:10b6:208:40b::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
- 2026 08:21:26 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 08:21:26 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Tue, 21 Apr 2026 17:20:30 +0900
-Subject: [PATCH v3 11/11] gpu: nova-core: vbios: use the first PCI-AT and
- FWSEC images
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260421-fix-vbios-v3-11-8f648aef7a85@nvidia.com>
-References: <20260421-fix-vbios-v3-0-8f648aef7a85@nvidia.com>
-In-Reply-To: <20260421-fix-vbios-v3-0-8f648aef7a85@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Joel Fernandes <joelagnelf@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWPR01CA0011.jpnprd01.prod.outlook.com
- (2603:1096:400:a9::16) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5249C10EBC9
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 08:23:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1776759783;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1Ml3LPEO/Dye9BzRMaAljrqCo7J3LgoTe33jIVDxQlg=;
+ b=Jw64UppBFL0ngHyIMmVGctMZX6C/25mQsSBHt9D3/u+75VXdkD6Nwf5M9A/qhbsKFNq/IS
+ Dcj8MtW4SK+Mu9GAPDucgYDouUy+LnZ24YXx3B3AZosS5ZqTPJ/toWZgbtjT5g81jSeYxU
+ RSdx9AYlU4m911xBLHX+5fdQTYp61tg=
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-336-4X8AoK00NqCxPCtMy1llbw-1; Tue, 21 Apr 2026 04:23:02 -0400
+X-MC-Unique: 4X8AoK00NqCxPCtMy1llbw-1
+X-Mimecast-MFC-AGG-ID: 4X8AoK00NqCxPCtMy1llbw_1776759781
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-7a45cf7ff24so64496507b3.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 01:23:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776759781; x=1777364581;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=1Ml3LPEO/Dye9BzRMaAljrqCo7J3LgoTe33jIVDxQlg=;
+ b=WCXEkGfv4nyNKzT6CbVikDch2N576z1bDLkfidL7Vk1dKwXpnsf5kJ1qejoePyBzm7
+ 269BFy0LY5CnskXwOuUEGHDBgkTbn4vvQ5XvgcmpW7IrBdQjJbFh0RjkdQlCyT8kc2s0
+ cUdybYfN6FbUO7CyfU1+24LrOO03+7A6sXbcxQe3OfsEas0DDiaAFtKHyr+Tl4JXv2Np
+ SYaW0QnD37m3L4AjM0X8zTGSNUnMnBqxmPxVBa0lPfAXgfbaqi9F4AMyimAbyP9Bbxr2
+ k+1gMOWN4+vFdf/5CBR4u+XDcfnudkfss+Cfr3OAJDm2pZADKBjSaKG2GokBIWNmQ0e2
+ 4Z6w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+2XRjwjRv1WV8kFzAKlB7rbO5HnMmjde7f8g7m3i82bDOyclbIwXW86sHE/G5ZyZu6X2McBBpRNCc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw+Oft8noxQs7ebT+5rr6sDFqoFG0fSe5hlt7sBSpMNje4gLNbk
+ ksokeMX8yfcjl1XxLxSlu0aza1/d9uyS3Y3NGOQ9NiVovxfi91bX6uQZYtJtrSvXVejnioqb8kO
+ b9U1m9/PAV1MqEuCmrIvT63+OQAEp2fBJjFLu/HJzB/ZJ3pWc/zQCFe6AGX5K6rVjxb3ZazA03i
+ XE+wa2ETkx2EnYi4usu3cxvWqYKtSlA7BuBpix+k9tYTcv
+X-Gm-Gg: AeBDieulKbpggk3gCKRR2BGyaxdGjzbru9jyqSI2FLzEqe/VZRVwPXBXbhK1rjcVeXo
+ ggkcD2C9KIQQhEiR2WQJVzDFL2rSR0a34762xgZykkxm8+G4aivWqvAdssDV4Rb4i+Xq3/UMinE
+ oyqrtRA4padE2SovqD6CuuuT3VpMkQyjKY2Z3bhJbQaXkNde71/s5/ZYY3jiTEeJO4jp3jE5n0a
+ MxWTH3nuSO/jbnt
+X-Received: by 2002:a05:690c:8d05:b0:7b6:f4f:f057 with SMTP id
+ 00721157ae682-7b9ecfb3418mr143346747b3.24.1776759781349; 
+ Tue, 21 Apr 2026 01:23:01 -0700 (PDT)
+X-Received: by 2002:a05:690c:8d05:b0:7b6:f4f:f057 with SMTP id
+ 00721157ae682-7b9ecfb3418mr143346527b3.24.1776759780849; Tue, 21 Apr 2026
+ 01:23:00 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA0PR12MB8376:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5751aaba-55db-446b-865f-08de9f7efb36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|10070799003|366016|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: K6CzpdUEfGwf2e/kTYpofuZ8k5uAV2LctTeFn/zfNP1A+kpSEfTYkwuSndZE/u6L8XsK7/Gn3HgqiomBxNPMig6FMACN95QSMq7raCPXyhuzBt9oCWJkRBxCzdlHpJXuBT5MCkPc4KdcF+SVLdavQe2xD+yiPd/f2W6D7eNa3HYhBvJn9/OzvluZ4UzOSVOM+ci3f1BEKza6mvrIlqW9jszef6Gp+eaPy5tayf69q3ZW2raNsGe54R8bpaqxlg8Z4QrFsZoPTCKYkkT5weO/d3w+BpiO/XNe3dm/7YXi1SuakXOI+a5lmoQ2uIEK53AzjnJCDHH2q5rzQfRkLsPN1RPSK3xsn9t8KNpuwsKKx0W/GyyxEXNZILvt/iC1slwSwAoU+OSPtRX4UKXKEpcCrIsw3jEC54seJvr4w3rWvHs3wldSXQU0BJk59Idv0itPUvgZTurPAqXHQywVhlR6Zb99LdWkuGbl61uqApzaLlrmQLrp5CflWNTEiX6RLu0/V7mPSmhtLOv8KQLVHTcUtVzfU/zPkNFJZrSUT+rYS6K0LDAXrGmzuB8642mT7AdENY0Dk+3IiqldOewbnzkyPAXmdEHk5GB3KJMzxcplATf4JCBLi6e1Qe7FocTiNAfPFugSvQAvz2/m3MTEmbQNvZ40sDk/kxzqFW13qkKbTxAMtLdOnr8GaxxgOG/dH8c/nXTYOA5YC/unNMNGujTFYLd9jnEFa86clpInVrYoBWQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVd5ZkI4OWNpYmY4ckFtT042N3NncWJSZU5ldUhkNjQ3WExzOEQrSkxxZHNy?=
- =?utf-8?B?K0VDdUVFVE9ST1RGY0pOc1RCMFQ4YVdWUHYwMmZvcVJnNldHLzMrbmZvWlY4?=
- =?utf-8?B?V0I0K283N3d0SDRnNGFxOERpL0RtcGJNY0Y2eUR2ODRvczZXNGYvVEJpTWJW?=
- =?utf-8?B?L243SlJHQStkaGFDRDFsQjkveWY3NGdYYi9SemQ5WERqNzkvQ05iQUFPd3ZQ?=
- =?utf-8?B?Q0U4dmVZUnRQYmRTT2JFdHYwcG1jNUlGYkZCRld1ZVlLOVJTYjdBMjFzRG95?=
- =?utf-8?B?bVBES1hldnl0VDhhSmpVbnM5NmhRSXBiVDlTTnBYMmhDTkZ3YWJxdVR6MHlr?=
- =?utf-8?B?STBIa1FKQWVuS3duNjFXdVNxdVZXTkNKWlozNENyVWY0V0ozTkFJUGdqMU5T?=
- =?utf-8?B?UVhhM1YvZTBweWhjMndZRzNOeS84MTQ0b0gwZXFsTitGVUhleEhMYnRFWFk4?=
- =?utf-8?B?RHhmdSsxR1RrUlp3MlA5cjVFSjg2UWZRcStqK1M4K0xKM3hPeWJkSGVsTDVL?=
- =?utf-8?B?c1I4bGhoenorYWxROXQ3ZFNJOFlNbCtlMnBKWFM2T09obWZsWlErRnFaQko5?=
- =?utf-8?B?a0RaVHNqY0s3SE9HNEFkRFp2MEt2Z2EvZzhxb3QrSURDWC9WK3BsR2NQRFJM?=
- =?utf-8?B?VEtrSTRwMDVHZXM3aE40ZXJ1dmJ2aEE4UURlM1hMZDZITk0vQ3k2NGY2YTgx?=
- =?utf-8?B?QWlrbXZFWW1pZ3FGVTZtZER3QXhHdGh1V04vcmpNTkhjMisrMFA2cWRjczhR?=
- =?utf-8?B?VnhCWWV0SGtPYXBVeHo1ck5HWXpIeGxpS1lJa3kxd1FRVnVsVmU3UEtnWVpZ?=
- =?utf-8?B?WFNyQWVCWkNwMHhjRWVjMTZ4TjlLdEhYY2wxblRRM1NkUWovMVRJTElXMGZ1?=
- =?utf-8?B?NFV5dk1OeXU4Vk5SYkpHQlo1aStjMkFUU21YbTNWNFVWV29WejZEZTBWQTFR?=
- =?utf-8?B?ZUNOWU9LS1RRWkRRVG9XdXJoa1FncWFUVzBLYyt2OFErTDR0eWJnT3RoNFpB?=
- =?utf-8?B?MW1TallzcW1XV3Y4ZkZjemJuL3R2VSs1eHdVRy96clBIQ1AxV3RCWUVlU2RV?=
- =?utf-8?B?M3dkamhQM2tpUWlKSGRkaStKMHFiNXM5MTdDdUg3NjAyc05GM2ZsUCtTN29S?=
- =?utf-8?B?cjF6aGU0WmVEalJkRjNHYWxNWHVxOEJqOVlkbHV2ckFrUy9KQ0k4RFdHRkJL?=
- =?utf-8?B?UkRSOUw2NlFuRUxFOWk0dXU5UHlYRnpSNGdrc2lDV1dGd21VNTRFV1JsZHJS?=
- =?utf-8?B?c3R4TFkydzM3OHBwR2tLU3BpMjlMWFN5Q2MrcVVNancvUGhDZ05aeEFtQzZn?=
- =?utf-8?B?NnRTcUxsdWgvMU1EV2JaczFKVTRHcmw4Qm1IRVlMb3k0Y0JYb3MzNDN3WGRD?=
- =?utf-8?B?N3g5UTZvNnRlb0lESU9rM3BWMGxQUVlROVZhdzJNZExXWVhja0RjUVYvU1dx?=
- =?utf-8?B?UUxhV2pjZ3h2SElmdXI1c3Baa1pWK0lXUC9pSkJXcUlWcEIvSzNUUnJsbTBM?=
- =?utf-8?B?VmRpZGRTRWNOdm50YmN3LzVFbUtFcklzZEVNSm9QZ2ZLMnp1aTNGRUo5cXZC?=
- =?utf-8?B?amhDVmp2NitOZURNQXIzWmlub1k1L2xtTEFFam1MZWZ3RG9zT3hrcUF2Wmp6?=
- =?utf-8?B?eUlXbnc2V1ZpNEkzcElPaWh4dDRqZkNpbUxDTHRtT1VwbmhtL2NsUU5EQkxr?=
- =?utf-8?B?SktjTEtQMXMwUTFvckNTaldJSkRnTUxBSE5tT0t5Zy84bUprZnpCR011SVdw?=
- =?utf-8?B?TmZTZ0VaVHphY1dRYlFxUlN3VTE4S1NZS2pnaXMyc0NwbEFhK2FTSTdMVWJT?=
- =?utf-8?B?Z1JDM1dVZnowcWJDVUEvbkJmMDZYQThxMnAzSmRHYndvVlNUNlBhUUIwcFEz?=
- =?utf-8?B?SEI2YXJZQXV5QlQ3cUdtK2VHdTRhWjAweVRienVJVVFBSHEyMmkyZHVsS2Zy?=
- =?utf-8?B?RGVEM2NyVTRuRVNCK0FveEFYOEN4UW9CazR0aEM5VEhIMHlhWmNraTlNZERq?=
- =?utf-8?B?Y1JzaUc2TlJsRDRGZ21LMzVqallxcFNnbFYxdE9RZi96dHNuQjNTUk5janVx?=
- =?utf-8?B?L05FMlNHbjllZ252TERRNUx1NkZiMVRyY0RVK3Uxd2FST09SUVJhZnM5cDJJ?=
- =?utf-8?B?elg4cmVtM09sVVVBekxEZWxGOVlnR1NzM1B6eGIxckVLMmtHTDc3RkIzOGJY?=
- =?utf-8?B?MEJkV1NUajM2QmgwV3lsRDZlOG94eS9uLzgxTTBkc3NTZENkYWhDL2U4czZS?=
- =?utf-8?B?WllpbHZtcndjaTdWWXFSN0tUR3MyUkF4T1g4SFkwaFA2NXJSdkUyTVlWMUJO?=
- =?utf-8?B?cnhvN1FqL1FOY3pwOUJKRUttM2NaMHdiYU1HUFRsOHU4Ny9ZbDdURk41TXFi?=
- =?utf-8?Q?qNNSP++2GVhifoO7teYbtT85X7gQjqj4TlfxKdLGINPKI?=
-X-MS-Exchange-AntiSpam-MessageData-1: jpTgOyEKYrvTvg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5751aaba-55db-446b-865f-08de9f7efb36
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 08:21:26.4904 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D6IXCXw23aZSRjPT4HoSIEM5JZPbH7qlAKkkMGUEC3n2ly+dGX9GLSYxiVPV1IzfpB/tAlNLWpstn6Ip9r5B+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8376
+References: <20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com>
+ <20260420-kunit_add_support-v7-1-e8bc6e0f70de@redhat.com>
+ <20260420143951.GJ3102624@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260420143951.GJ3102624@noisy.programming.kicks-ass.net>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Tue, 21 Apr 2026 10:22:49 +0200
+X-Gm-Features: AQROBzBvB1NnJ5S-NBz1guESzMJAomEJ6rR9uRkVOxbuOYlvr_y2_fXZX03ERWQ
+Message-ID: <CADSE00+RJ--ku_TBC5GkTtF1N_LEB5Poj=KvvvSK=P3uz8dbPA@mail.gmail.com>
+Subject: Re: [PATCH v7 1/5] bug/kunit: Core support for suppressing warning
+ backtraces
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ kunit-dev@googlegroups.com, dri-devel@lists.freedesktop.org, 
+ workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Alessandro Carminati <acarmina@redhat.com>, Guenter Roeck <linux@roeck-us.net>,
+ Kees Cook <kees@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: p4q3FHq3AKrZRElGUnXPABF2Izu_SqqmLoGo2iXMFGE_1776759781
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,39 +108,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Currently, PCI-AT takes the final image if multiple exist. For FWSEC, it
-takes the first one and the last one. Align both of these to nouveau
-behavior by taking the first ones.
+On Mon, Apr 20, 2026 at 4:40=E2=80=AFPM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Mon, Apr 20, 2026 at 02:28:03PM +0200, Albert Esteve wrote:
+> > From: Alessandro Carminati <acarmina@redhat.com>
+> >
+> > Some unit tests intentionally trigger warning backtraces by passing bad
+> > parameters to kernel API functions. Such unit tests typically check the
+> > return value from such calls, not the existence of the warning backtrac=
+e.
+> >
+> > Such intentionally generated warning backtraces are neither desirable
+> > nor useful for a number of reasons:
+> > - They can result in overlooked real problems.
+> > - A warning that suddenly starts to show up in unit tests needs to be
+> >   investigated and has to be marked to be ignored, for example by
+> >   adjusting filter scripts. Such filters are ad hoc because there is
+> >   no real standard format for warnings. On top of that, such filter
+> >   scripts would require constant maintenance.
+> >
+> > Solve the problem by providing a means to identify and suppress specifi=
+c
+> > warning backtraces while executing test code. Support suppressing multi=
+ple
+> > backtraces while at the same time limiting changes to generic code to t=
+he
+> > absolute minimum.
+> >
+> > Implementation details:
+> > Suppression is checked at two points in the warning path:
+> > - In warn_slowpath_fmt(), the check runs before any output, fully
+> >   suppressing both message and backtrace.
+> > - In __report_bug(), the check runs before __warn() is called,
+> >   suppressing the backtrace and stack dump. Note that on this path,
+> >   the WARN() format message may still appear in the kernel log since
+> >   __warn_printk() runs before the trap that enters __report_bug().
+>
+> This is for architectures that implement __WARN_FLAGS but not
+> __WARN_printf right? (which is arm64, loongarch, parisc, powerpc, riscv,
+> sh, afaict). ARM64 should eventually get __WARN_printf, but other than
+> that this should be fixable by moving __WARN_FLAGS() into
+> __warn_printk() or so. This is the only __warn_printk() user anyway.
 
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- drivers/gpu/nova-core/vbios.rs | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Right. On that path, __warn_printk() prints the message before
+__WARN_FLAGS() triggers the trap into __report_bug(), so the
+suppression check in __report_bug() only catches the backtrace.
 
-diff --git a/drivers/gpu/nova-core/vbios.rs b/drivers/gpu/nova-core/vbios.rs
-index 5cc251c73800..8cfc75b1184f 100644
---- a/drivers/gpu/nova-core/vbios.rs
-+++ b/drivers/gpu/nova-core/vbios.rs
-@@ -251,12 +251,16 @@ pub(crate) fn new(dev: &device::Device, bar0: &Bar0) -> Result<Vbios> {
-             // Convert to a specific image type
-             match BiosImageType::try_from(image.pcir.code_type) {
-                 Ok(BiosImageType::PciAt) => {
--                    pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-+                    // Silently ignore any extra PCI-AT images.
-+                    if pci_at_image.is_none() {
-+                        pci_at_image = Some(PciAtBiosImage::try_from(image)?);
-+                    }
-                 }
-                 Ok(BiosImageType::FwSec) => {
-+                    // Silently ignore any extra FwSec images beyond the first two.
-                     if first_fwsec_image.is_none() {
-                         first_fwsec_image = Some(image);
--                    } else {
-+                    } else if second_fwsec_image.is_none() {
-                         second_fwsec_image = Some(image);
-                     }
-                 }
+Adding the suppression check to __warn_printk() as well should close
+this gap, since it's the only caller in the generic __WARN_printf
+path. Something like:
 
--- 
-2.53.0
+```
+diff --git a/kernel/panic.c b/kernel/panic.c
+index d7a7a679f56c4..cd73038b7c0bd 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -1108,9 +1108,14 @@ EXPORT_SYMBOL(warn_slowpath_fmt);
+#else
+void __warn_printk(const char *fmt, ...)
+{
+- bool rcu =3D warn_rcu_enter();
++ bool rcu;
+va_list args;
++ if (__kunit_is_suppressed_warning())
++ return;
++
++ rcu =3D warn_rcu_enter();
++
+pr_warn(CUT_HERE);
+va_start(args, fmt);
+```
+Note that the suppression counter tracking may need a small adjustment
+to avoid double-counting, since __report_bug() will still see the same
+warning through the trap path, but the approach itself should be
+straightforward.
+
+>
+>
+> > diff --git a/include/kunit/bug.h b/include/kunit/bug.h
+> > new file mode 100644
+> > index 0000000000000..e52c9d21d9fe6
+> > --- /dev/null
+> > +++ b/include/kunit/bug.h
+> > @@ -0,0 +1,56 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +/*
+> > + * KUnit helpers for backtrace suppression
+> > + *
+> > + * Copyright (C) 2025 Alessandro Carminati <acarmina@redhat.com>
+> > + * Copyright (C) 2024 Guenter Roeck <linux@roeck-us.net>
+> > + */
+> > +
+> > +#ifndef _KUNIT_BUG_H
+> > +#define _KUNIT_BUG_H
+> > +
+> > +#ifndef __ASSEMBLY__
+> > +
+> > +#include <linux/kconfig.h>
+> > +
+> > +struct kunit;
+> > +
+> > +#ifdef CONFIG_KUNIT_SUPPRESS_BACKTRACE
+> > +
+> > +#include <linux/types.h>
+> > +
+> > +struct task_struct;
+> > +
+> > +struct __suppressed_warning {
+> > +     struct list_head node;
+> > +     struct task_struct *task;
+> > +     int counter;
+> > +};
+> > +
+> > +struct __suppressed_warning *
+> > +__kunit_start_suppress_warning(struct kunit *test);
+> > +void __kunit_end_suppress_warning(struct kunit *test,
+> > +                               struct __suppressed_warning *warning);
+> > +int __kunit_suppressed_warning_count(struct __suppressed_warning *warn=
+ing);
+> > +bool __kunit_is_suppressed_warning(void);
+> > +
+> > +#define KUNIT_START_SUPPRESSED_WARNING(test) \
+> > +     struct __suppressed_warning *__kunit_suppress =3D \
+> > +             __kunit_start_suppress_warning(test)
+> > +
+> > +#define KUNIT_END_SUPPRESSED_WARNING(test) \
+> > +     __kunit_end_suppress_warning(test, __kunit_suppress)
+>
+> We have __cleanup for this?
+
+I was unfamiliar with this attribute. I have looked into it a bit, and
+it could be a good fit. I saw a good example in seqlock. I could try
+to use it for the next version.
+
+>
+> > +
+> > +#define KUNIT_SUPPRESSED_WARNING_COUNT() \
+> > +     __kunit_suppressed_warning_count(__kunit_suppress)
+> > +
+> > +#else /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> > +
+> > +#define KUNIT_START_SUPPRESSED_WARNING(test)
+> > +#define KUNIT_END_SUPPRESSED_WARNING(test)
+> > +#define KUNIT_SUPPRESSED_WARNING_COUNT() 0
+> > +static inline bool __kunit_is_suppressed_warning(void) { return false;=
+ }
+> > +
+> > +#endif /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> > +#endif /* __ASSEMBLY__ */
+> > +#endif /* _KUNIT_BUG_H */
+>
+> > diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
+> > index 656f1fa35abcc..fe177ff3ebdef 100644
+> > --- a/lib/kunit/Makefile
+> > +++ b/lib/kunit/Makefile
+> > @@ -16,8 +16,10 @@ ifeq ($(CONFIG_KUNIT_DEBUGFS),y)
+> >  kunit-objs +=3D                                debugfs.o
+> >  endif
+> >
+> > -# KUnit 'hooks' are built-in even when KUnit is built as a module.
+> > -obj-$(if $(CONFIG_KUNIT),y) +=3D               hooks.o
+> > +# KUnit 'hooks' and bug handling are built-in even when KUnit is built
+> > +# as a module.
+> > +obj-$(if $(CONFIG_KUNIT),y) +=3D               hooks.o \
+> > +                                     bug.o
+> >
+> >  obj-$(CONFIG_KUNIT_TEST) +=3D          kunit-test.o
+> >  obj-$(CONFIG_KUNIT_TEST) +=3D          platform-test.o
+> > diff --git a/lib/kunit/bug.c b/lib/kunit/bug.c
+> > new file mode 100644
+> > index 0000000000000..356c8a5928828
+> > --- /dev/null
+> > +++ b/lib/kunit/bug.c
+> > @@ -0,0 +1,84 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * KUnit helpers for backtrace suppression
+> > + *
+> > + * Copyright (C) 2025 Alessandro Carminati <acarmina@redhat.com>
+> > + * Copyright (C) 2024 Guenter Roeck <linux@roeck-us.net>
+> > + */
+> > +
+> > +#include <kunit/bug.h>
+> > +#include <kunit/resource.h>
+> > +#include <linux/export.h>
+> > +#include <linux/rculist.h>
+> > +#include <linux/sched.h>
+> > +
+> > +#ifdef CONFIG_KUNIT_SUPPRESS_BACKTRACE
+> > +
+> > +static LIST_HEAD(suppressed_warnings);
+> > +
+> > +static void __kunit_suppress_warning_remove(struct __suppressed_warnin=
+g *warning)
+> > +{
+> > +     list_del_rcu(&warning->node);
+> > +     synchronize_rcu(); /* Wait for readers to finish */
+> > +}
+> > +
+> > +KUNIT_DEFINE_ACTION_WRAPPER(__kunit_suppress_warning_cleanup,
+> > +                         __kunit_suppress_warning_remove,
+> > +                         struct __suppressed_warning *);
+> > +
+> > +struct __suppressed_warning *
+> > +__kunit_start_suppress_warning(struct kunit *test)
+> > +{
+> > +     struct __suppressed_warning *warning;
+> > +     int ret;
+> > +
+> > +     warning =3D kunit_kzalloc(test, sizeof(*warning), GFP_KERNEL);
+> > +     if (!warning)
+> > +             return NULL;
+> > +
+> > +     warning->task =3D current;
+> > +     list_add_rcu(&warning->node, &suppressed_warnings);
+>
+> What if anything serializes this global list?
+
+I considered adding a spinlock, but since the KUnit executor runs
+tests sequentially and it had not been a concern in previous versions,
+I left it out to keep the changeset minimal unless someone complains.
+If we want a hard guarantee, I'm happy to add the spinlock for the
+next version.
+
+>
+> > +
+> > +     ret =3D kunit_add_action_or_reset(test,
+> > +                                     __kunit_suppress_warning_cleanup,
+> > +                                     warning);
+> > +     if (ret)
+> > +             return NULL;
+> > +
+> > +     return warning;
+> > +}
+> > +EXPORT_SYMBOL_GPL(__kunit_start_suppress_warning);
+> > +
+> > +void __kunit_end_suppress_warning(struct kunit *test,
+> > +                               struct __suppressed_warning *warning)
+> > +{
+> > +     if (!warning)
+> > +             return;
+> > +     kunit_release_action(test, __kunit_suppress_warning_cleanup, warn=
+ing);
+> > +}
+> > +EXPORT_SYMBOL_GPL(__kunit_end_suppress_warning);
+> > +
+> > +int __kunit_suppressed_warning_count(struct __suppressed_warning *warn=
+ing)
+> > +{
+> > +     return warning ? warning->counter : 0;
+> > +}
+> > +EXPORT_SYMBOL_GPL(__kunit_suppressed_warning_count);
+> > +
+> > +bool __kunit_is_suppressed_warning(void)
+> > +{
+> > +     struct __suppressed_warning *warning;
+> > +
+> > +     rcu_read_lock();
+> > +     list_for_each_entry_rcu(warning, &suppressed_warnings, node) {
+> > +             if (warning->task =3D=3D current) {
+> > +                     warning->counter++;
+> > +                     rcu_read_unlock();
+> > +                     return true;
+> > +             }
+> > +     }
+> > +     rcu_read_unlock();
+> > +
+> > +     return false;
+> > +}
+> > +
+> > +#endif /* CONFIG_KUNIT_SUPPRESS_BACKTRACE */
+> >
+> > --
+> > 2.52.0
+> >
+>
 
