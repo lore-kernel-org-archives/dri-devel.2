@@ -4,163 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42AABF8FA7B
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 13:41:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C4C1F8FA7A
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 13:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E30510E1F4;
-	Tue, 21 Apr 2026 13:41:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C8A10E1E7;
+	Tue, 21 Apr 2026 13:42:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="NbGnFQx7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CIrCOiZh";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="NbGnFQx7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CIrCOiZh";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l+dB0H8R";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1E1A10E1F4
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:41:06 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 836186A8E7;
- Tue, 21 Apr 2026 13:41:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776778865; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9ITFroz+aSKCNLiWxZ0t6vq+9V9TeDmNiPNzzUbtT84=;
- b=NbGnFQx7sVIVfVQZ6gpy/zs4PvEYT2zdzRGTndhDNQTaJqwfH6DHTKW/5p70Pu+lxppls7
- H0s4kFcJh565Quv5TCYrStFCiMdQ2/mSvydVBVyh3iXCIrx358qHZ7BD+hnumTp2ZqjHxC
- xsUAmvhHPsQ4fRFfnsyGXFJzW9Sivac=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776778865;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9ITFroz+aSKCNLiWxZ0t6vq+9V9TeDmNiPNzzUbtT84=;
- b=CIrCOiZhf+e38T8JFDa5nqTtkPxE8R/ZylHelKHa5D4ejjvDAe7HZ4i3ey7ru95Ssa0bYt
- ogaZrnL/MqL7UXDw==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=NbGnFQx7;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=CIrCOiZh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776778865; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9ITFroz+aSKCNLiWxZ0t6vq+9V9TeDmNiPNzzUbtT84=;
- b=NbGnFQx7sVIVfVQZ6gpy/zs4PvEYT2zdzRGTndhDNQTaJqwfH6DHTKW/5p70Pu+lxppls7
- H0s4kFcJh565Quv5TCYrStFCiMdQ2/mSvydVBVyh3iXCIrx358qHZ7BD+hnumTp2ZqjHxC
- xsUAmvhHPsQ4fRFfnsyGXFJzW9Sivac=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776778865;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=9ITFroz+aSKCNLiWxZ0t6vq+9V9TeDmNiPNzzUbtT84=;
- b=CIrCOiZhf+e38T8JFDa5nqTtkPxE8R/ZylHelKHa5D4ejjvDAe7HZ4i3ey7ru95Ssa0bYt
- ogaZrnL/MqL7UXDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9BFCC593AF;
- Tue, 21 Apr 2026 13:41:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id kGLiJHB+52kmHAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 21 Apr 2026 13:41:04 +0000
-Message-ID: <73f82fb6-7449-4a48-a5df-96cdbc48e240@suse.de>
-Date: Tue, 21 Apr 2026 15:41:04 +0200
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01AE110E1E7
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:42:34 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-2e92c54bab4so260995eec.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 06:42:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776778954; cv=none;
+ d=google.com; s=arc-20240605;
+ b=HgMq0PG07xbq/ceVza9dRzHhvyuGhae176EU07vndMvROcR93vHV7fhCwy342jsBmd
+ ZjoYI6B7o5Du53bntJQqv+eKW4eMIPzwXMq7dwOvi0vblFU7L7KGKPti/NZGc/Ei+5PL
+ xy26HrYfKqp05En+7TL7n9vZAyGWMFYLKUEdCvj2tIVTD9YbHM1WUt9oqdDyGCYnfKde
+ cNZQSwBcd1xWuSWTmtXTAn1tI0RQ8RWL247kDB/5JQ7vUSGVq5uDlRBvULJAPXPK9Ibv
+ OrzlNXUz/PSX8qk0edcYLiOFj7Rt0j0EhELNtypq26Aqip+oxtsr+lbzJpOPbnAwOQCi
+ ehgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=AontFqJ29O9B4XddB2vlqOXKOaoCcdqy5Wv6UVFlFKM=;
+ fh=jZCZX0x+DmsYwXrju07fsy3m3oRHiw+Z0sYeI3tC/1E=;
+ b=iAywXgJ55Wz9/wgFok1tWtWRmQxuwqjDLKjFf5DpilvYYDJRIk60NMQOs61UJNMg/H
+ XfzhVaHZG+38mvIJQdRFpgoIPaVKKaDncZ5CHQgz/QBm6h6EwSechDILOMLhZTGBtLT6
+ zztvgXpQdhDsNygCmbl8tx3dQb3onrTksJaU72Dc64MsvAWkntenKVrHKqPiCTkfuwlq
+ zv1DQOuY2TSUhAKu4t6NBfDGQxYtAgW4WS5HqSPgSSHzCF0bubxFlbmPX0obV09FOsMw
+ B4JGTxsVbyBlvTPfSA2c0yCcX82OTM9bd41JrlZYpEnpWL2/mXg0Ch7t/fKlPako1nnB
+ WRkg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776778954; x=1777383754; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AontFqJ29O9B4XddB2vlqOXKOaoCcdqy5Wv6UVFlFKM=;
+ b=l+dB0H8RP+FHPEf/nZlUoB4zQtfErGqGtKlYOjMFwFDYdoU/FsJscYobNXNnb4C/Qh
+ BoQlkSc9Oa344EyPN985zJYXiq/WrnNIUmwgWZk0Npjwc5C5Vgfmy7eS+MaXLil3+oPX
+ gKtKY01FqaR/jga5pINv9h+jsvXMIEQL3wEmozKPCMjxdTZbhUd89rCa1JliFbG3FJdJ
+ eDlv+7aYIiu7EteZxX5BTZEQbjGMW3dbKCAnKqbJnQZATh+d5z/y3F8//h8UO0v5eyN5
+ l41Gpzh/x4HO6dMyYtOKlEyJQXGVMtuPnijTdCVwPn82/NbJAruap/XCGQgfSmeA8rfl
+ 7UaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776778954; x=1777383754;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=AontFqJ29O9B4XddB2vlqOXKOaoCcdqy5Wv6UVFlFKM=;
+ b=KGREGZibuaPeGw/EoH7XmdgeKhnP2VELfAIq7peMB0oRZj6aox1cXwk3AQ7Z63+NoO
+ ftp8Fg+aTMEEwWgHMgE3adTeh1lDP/Cm+3P3jZ7lg2KiEcklyjpAAXBFqcA5gUSMmFwB
+ 9wHIDSkFgvL3Z3cMBfuY3PukEZ5dVk/I1jrnMW/hrVgB1ttX81fUmQ2ZVjFIdao9o8Ot
+ RExS38TKJyQyCy4D5qSffTqp8BMgSVvAvmoKcJ1VgQFR/qhNcGGU/QpxiwzO9F+9SLcw
+ L29xzxsmwYL2e2iuSp0nOgYPRmdSMR68tIkMEiIVEKIMQ+lgIO2Fk5eos3zG2iaNDFY7
+ 4Juw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/9Ypu172PLH4kSlEf8SQvIlhs+xDY+6mf+Co8fXbJxqWgI0FNksy/v1Ct9LdFeGNEOUA1uAl14xg4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkZ3LApdm1ZjrnT3fhC3VhYYBdttcVLoZlXh5P5C+8y4vYGSpU
+ g1duJTK4ubZAMrKZPbBRH6gkIWhS0VEYFjZ52f5IZN4emcxyRuCmWjmC7q11KEeKT42nfL4qpOr
+ yuqZ09/oIeYYwNEiKoM/DeK3YAEUzQGQ=
+X-Gm-Gg: AeBDievATB+a807nFjTjfAVkeWZii3SNf449aJ+3PIfvBTu3BGMjuAGIHesSMVDhwt7
+ v2yfxVS80sibGpgzLEaEc9bHSVKONrvMPQ+mZcjss0E2FDuyg20iVtWp5XxBB3xUZX0aHYdNQTl
+ K0hKFd8b6r1pFcZAb11v9OyHkKhQgMZuPl4iieuam6LJ3n/vHhL+FIKCCzzhY+aXjvk6JkDSI/c
+ PGPcj7yxTG7UYeKp4uLpCwPoEMNslNM5z8AjGInBxVfdwa7fcbabhZIwzPKS9739s4u22Yhzvsy
+ VGlUB64Rcz0YjKKYPu9jUNoRtqwiARBMTs+dhTvBXzJqWP0za54fQtwMO+ISHFC4y/xsRZ7vwPB
+ x8vqN
+X-Received: by 2002:a05:7022:6889:b0:124:af80:9d0c with SMTP id
+ a92af1059eb24-12c73d26cc4mr3678862c88.0.1776778953884; Tue, 21 Apr 2026
+ 06:42:33 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/20] drm/mode-config: Mention drm_mode_config_reset()
- culprits
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
- <20260320-drm-mode-config-init-v2-3-c63f1134e76c@kernel.org>
- <8f111841-bb88-4cbb-a3ae-b26ac2f252cb@suse.de>
- <20260421-satisfied-teal-serval-640ded@houat>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260421-satisfied-teal-serval-640ded@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[38];
- MIME_TRACE(0.00)[0:+];
- FREEMAIL_CC(0.00)[linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kernel.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com,lists.freedesktop.org,vger.kernel.org,collabora.com,lists.infradead.org,lists.linux.dev];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; TAGGED_RCPT(0.00)[renesas];
- MID_RHS_MATCH_FROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RL7gneoo7ydcsn9o76mxr5d8pb)];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, suse.de:mid, suse.com:url,
- imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 836186A8E7
+References: <bug-221376-2300@https.bugzilla.kernel.org/>
+ <20260420215717.223372-1-arjan@linux.intel.com>
+ <34718f21-712a-4161-98e0-079dd9390ae6@amd.com>
+In-Reply-To: <34718f21-712a-4161-98e0-079dd9390ae6@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Apr 2026 09:42:22 -0400
+X-Gm-Features: AQROBzDeqv9bDX2RaJLbOqX6UXVA0203SVdcLBSCszkeeI82FwKP2sCJ2EAHOV4
+Message-ID: <CADnq5_McEDYBcU8B+T4MeRKoST10EhA=LWXju1y2BL48kJPBNA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix zero-size GDS range init on RDNA4
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: arjan@linux.intel.com, amd-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,42 +109,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi
-
-Am 21.04.26 um 15:18 schrieb Maxime Ripard:
-> Hi Thomas,
+On Tue, Apr 21, 2026 at 2:59=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
 >
-> On Tue, Apr 21, 2026 at 03:08:03PM +0200, Thomas Zimmermann wrote:
->> Hi
->>
->> Am 20.03.26 um 17:27 schrieb Maxime Ripard:
->>> drm_mode_config_reset() does not reset drm_private_states by design.
->>>
->>> This is especially significant for the DP MST and tunneling code that
->>> expect to be preserved across a suspend/resume cycle, where
->>> drm_mode_config_reset() is also used.
->> Do we really? There's drm_mode_config_helper_suspend/resume(). Why would
->> drivers do a drm_mode_config_reset().
-> drm_mode_config_helper_resume() will call drm_atomic_helper_resume()
-> that call drm_mode_config_reset(). So (most) drivers will not directly
-> call it, but it is going to be called still.
+> On 4/20/26 23:57, arjan@linux.intel.com wrote:
+> >
+> > RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
+> > resources. The gfx_v12_0 initialisation code correctly leaves
+> > adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
+> > zero to reflect this.
+> >
+> > amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
+> > each of these resources regardless of size. When the size is zero,
+> > amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
+> > which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
+> > DRM_MM_BUG_ON(start + size <=3D start) -- trivially true when size is
+> > zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
+>
+> Mhm in general not a bad idea, but we are having tons of GFX 12 systems i=
+n our test machines and nothing is crashing there.
+>
+> We are clearly missing something here. Is that on an upstream kernel or s=
+omething backported?
 
-I see, thanks. I guess you're right when you say that 
-drm_mode_config_reset() is overloaded. LOL.
+Looks like that check only asserts if CONFIG_DRM_DEBUG_MM is set in
+the user's kernel config.  I guess no one uses that option.  These
+chips have been in the market for over a year and no one has reported
+that until now.  Applied with a note about this in the commit message.
 
-Best regards
-Thomas
+Thanks!
 
+Alex
 
 >
-> Maxime
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+> Regards,
+> Christian.
+>
+> >
+> > Guard against this by returning 0 early from
+> > amdgpu_ttm_init_on_chip() when size_in_page is zero. This skips TTM
+> > resource manager registration for hardware resources that are absent,
+> > without affecting any other GPU type.
+> >
+> > Link: https://lore.kernel.org/all/bug-221376-2300@https.bugzilla.kernel=
+.org%2F/
+> > Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D221376
+> > Oops-Analysis: http://oops.fenrus.org/reports/bugzilla.korg/221376/repo=
+rt.html
+> > Assisted-by: GitHub Copilot:Claude Sonnet 4.6 linux-kernel-oops-x86.
+> > Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linux-kernel@vger.kernel.org
+> >
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |    3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ttm.c
+> > index afaaab6496def..8075ac735321e 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> > @@ -75,6 +75,9 @@ static int amdgpu_ttm_init_on_chip(struct amdgpu_devi=
+ce *adev,
+> >                                     unsigned int type,
+> >                                     uint64_t size_in_page)
+> >  {
+> > +       if (!size_in_page)
+> > +               return 0;
+> > +
+> >         return ttm_range_man_init(&adev->mman.bdev, type,
+> >                                   false, size_in_page);
+> >  }
+>
