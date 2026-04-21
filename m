@@ -4,140 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98DBEF8FA99
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 16:01:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3002AF8FA94
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 16:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0113810E8EB;
-	Tue, 21 Apr 2026 16:01:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83D1710ED2A;
+	Tue, 21 Apr 2026 16:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gOss+5/H";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="DoC4TJD1";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JaJTznkz";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013045.outbound.protection.outlook.com
- [40.93.201.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83C7610E8EB
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:01:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nnnpv9oww07kxq+QUWD+DXrM9SqvL4146j0W6LyPlxCzC4C7HrFfL2iil/s4rBsMl6THiAl/FWMG5cZjRHa94ICHBwaac5Dd7gOYpLcPqGTxubjl0LOCNTXrk9XlSv4rTT8D49lrt5U/dHNlpRXoRAgUzEt+rI7OOEEL3CPVsSRa8b3qZ7S3+lbNrFmK0dnYtq+/U5OK6/bOJ9hFwPtv6Vf2yqi2vax7wDD25rVm2+Ol80tRhs+7cNFLjHN8h+S8sXPLONf8QYn/WrHJjIyqvHbdcX7p5iEjvXbFSCnui565fxHvctxVnwZGhU2BNhSXiZkBQOF6eA1ZR3WISKVdaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fMFlO2M9A9AbJFBLiTz+mkFWsu0Ld1dz1BPGalj9ZwQ=;
- b=qIXDJlA1KjFuDB3qvA37vSio2RF7wUkuR2pCwJiCuqF7OcggK+YrzwFyqFxz8M4mn+WZia7SttqYNoB3k9ZMtnV5QqFGtiqAikTpHBdoQGUVTnua9uopwvCwEhlN0EaTUsJM6gfBiMfIgYzM/ZuImQqRzOe2CmetsgPLTiQ6uGTdzP10oU704um64ufllaZAfL89LCtpElF4Xk58VB9I0Hdu0jzkgUVddxU+mtdzlYq9rCxAFX1RAECjLDF+kkSDxq+TI223YijhnLlCk22Mm3ZVsg+MoRoyScxyI8jvHTZXQKJIJRaEGEQTorw1hlJZ3WVt53VnlsJWWjzFjgj7Jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMFlO2M9A9AbJFBLiTz+mkFWsu0Ld1dz1BPGalj9ZwQ=;
- b=gOss+5/HJhcb6GdTCdNFwH3E0AVOiqZTxSp6EzOgImbqDTW4a457724X/HRTH9ry4+7Q5HaMHJ0rcf1+DT4Wq8+hEtzyOroplRyHWFAZWwU5QnKmf6wVSE3z2ikz/c3GAbkFLoymxUXoq5OMNOASeora8QOXx4UVws0jUJiPYjg3TTISCLbGVAQC+/+uNHKkNeli08AXg09ufkrj2ztfr48h+U25y7GhOl5nRtOtTurg8MctBILr84MGGfvglxwYAaJ7uVOEzqQUfOrwdnjIyDx1ozrrOzW82HPFYIas2Q0idQ7SQK4z6Ct5uCYCjtMHhuczgoBqI9l8W7KSjxTXYw==
-Received: from CY8PR12MB8412.namprd12.prod.outlook.com (2603:10b6:930:6f::11)
- by DS7PR12MB5933.namprd12.prod.outlook.com (2603:10b6:8:7c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.8; Tue, 21 Apr
- 2026 16:01:46 +0000
-Received: from CY8PR12MB8412.namprd12.prod.outlook.com
- ([fe80::76e6:4d65:7ed1:6970]) by CY8PR12MB8412.namprd12.prod.outlook.com
- ([fe80::76e6:4d65:7ed1:6970%5]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 16:01:46 +0000
-From: Timur Tabi <ttabi@nvidia.com>
-To: Joel Fernandes <joelagnelf@nvidia.com>, Eliot Courtney
- <ecourtney@nvidia.com>
-CC: Alistair Popple <apopple@nvidia.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
- John Hubbard <jhubbard@nvidia.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "rust-for-linux@vger.kernel.org"
- <rust-for-linux@vger.kernel.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "airlied@gmail.com" <airlied@gmail.com>,
- "dakr@kernel.org" <dakr@kernel.org>, "aliceryhl@google.com"
- <aliceryhl@google.com>, Alexandre Courbot <acourbot@nvidia.com>
-Subject: Re: [PATCH v2 11/11] gpu: nova-core: vbios: reject extra PCI-AT and
- FWSEC images
-Thread-Topic: [PATCH v2 11/11] gpu: nova-core: vbios: reject extra PCI-AT and
- FWSEC images
-Thread-Index: AQHczAWI9K0ATWAIWkGj6vQxMH6BvbXfN/YAgAAGQYCAA081gIAHFXAAgAAVZoA=
-Date: Tue, 21 Apr 2026 16:01:46 +0000
-Message-ID: <b3c76bebd0080c05102747a5ead5f3333f1023d5.camel@nvidia.com>
-References: <20260414-fix-vbios-v2-0-705d30d16bba@nvidia.com>
- <20260414-fix-vbios-v2-11-705d30d16bba@nvidia.com>
- <acf292dad3656790a37f8b2f7b3a21f0cded50ca.camel@nvidia.com>
- <D7532B99-704D-4021-957D-1B50E33D29B3@nvidia.com>
- <DHV2V1WWP7EB.2ZCK3X9RBH9I5@nvidia.com>
- <a536b70d-6d55-480e-8f2e-76b4b70b8916@nvidia.com>
-In-Reply-To: <a536b70d-6d55-480e-8f2e-76b4b70b8916@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.56.2-4 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB8412:EE_|DS7PR12MB5933:EE_
-x-ms-office365-filtering-correlation-id: c16fded9-23c3-4c1c-0428-08de9fbf4a58
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|38070700021|22082099003|18002099003|56012099003|18096099003;
-x-microsoft-antispam-message-info: LDIrAgF6B9hLDLq9tmLek8ketFuftSSNFcI7/UyY4eYbduLjHptxO1Nde+UyaitT8fdIv65ciU/o4vvFjqSz6O4zOmliBYiTZgNOnMLeZpRIXZxNJnRDds2i6aCxkMD27BaiSFGFZlQuom9U2k/16RhbWq96v+8XGF3yomo5yDBm2238q/uHxz546ERzS5b0HrLOffOcNvSSALUm+yjzIXJjqKTm0UhQgukEBb2W75Pf19nhmANXloW7nEmr3IZpNOCZGdXQMpdWFr7wVohJyUOCaAhh/GNuoRuUR91s0NFNS8HlQRHa/5cTpwVHiqc4AOl8iMMf8V00Dgy8c9xjyBkgisTjOSD2CWv0amtOsfTSWNlwUIFaAqTDSln99IczvvYQN6dln0eMJwxWhlq1a6ALoudJSUL2tZmul39Yj2Zt+CbXY3MKUCnz2fhr6TZhsWZ3Mv6Xs7FjB5wBGcqLBCstIwM2CZFWTofYESyM5GTDfJ4FbmoP+vB1HoP7WethTtuE8bl4372vdxAXk8GEMkZfTHw6Vb2M6ZG2qlI5qAt3eplCUaPBoWFULWl2nrDgpTPvMKgEnB7auyWzXoB95wcM2+Aq8kgy7NJzX/uP2a4gp7HzAcMMRB3RXifJOlPKL3UmdknXY4n7Do8mOt7j56++KEH8C+Q7KAgHx6cWS139ittsfpNlT9XZQ/uMilmnLWPiZZyuPyAyFu3IeEvbf+MB7cKzz471hlt1ttlWFKks2tbmVSD58ieXXZQDrwLZZD/g3iOtS08T/8lcCJGvD6coyPPRv9KtXUtJOoT20Ac=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(22082099003)(18002099003)(56012099003)(18096099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YzhFVkQzVG5pU3ppWTNnZXkrQTdLWndRdk5MdzgzaFBYOGxQVnBFN1FQOEVQ?=
- =?utf-8?B?VVRESEJhTXFwNUdMaDR2bEFNSmFWdDFhNE1LRlAzc0FRRE4rRzBieW9uUis3?=
- =?utf-8?B?YzRycE9SS0xYS1VxaDh2dU5zdVVaeWpQSXk1Tkd3ZHdrRjJWT3kzdVlobE9I?=
- =?utf-8?B?ZXk5RUVXK25tc2ltdDlpNmhCWkRkeDVPSUZyNVR2N1RUSWZ1OXdFTjRTQ2lp?=
- =?utf-8?B?MzFLcTc1ekM5NDI4S2pad0V2SG9jS0dlengwdjV0bzlVakdPOEh6NnVLNWhq?=
- =?utf-8?B?MzFWcDNoYk5kcDVMTU5LQW10aGtBRnJwWUxOcCtnTHU2TFoxUkdyL3FGMVFT?=
- =?utf-8?B?aWFxRThhYUFEbmZaZmJ0UUhmTEF0VVN2cDBJYmk4eUcxdllKRGlTcVp2M3Br?=
- =?utf-8?B?YVBCTVh0NFQyN25IUHp5SkVZb2JyaXBzRFBuZE8rdDZOVXZCWmF1MXEwOU9S?=
- =?utf-8?B?NmYzRUx4aWVKR05sTFIvK2ZCNUdxWlVJVE80UTlGWHNwNTZGMFl2bEp6bjYz?=
- =?utf-8?B?RTR2b0VjRk9BNkxkRngwRjhlNld6YnphMi9adU5oVHN2SEdlOHp4bVlUNVRY?=
- =?utf-8?B?cER2VGMxRVlYQjh1K0NZMktyNVM1encyRXJWNVJWK2hvbjRFUE9IYUltbWNt?=
- =?utf-8?B?cnJHYkVRdWdQWFZyOG03ZEhoYS92dlR6a1V5aXN1M1V6VVRzOWhVOXhEUUNO?=
- =?utf-8?B?WFdkQkttcEt4UzdpZUZNdGl5TWM5RHQ5QTJIZFd1ODh4bm1YelU1N2kwTTFk?=
- =?utf-8?B?b1hQTTdZdGxBeHBscnFLbnJYWEMxS25tdk11cHZTbVJPQW02MDNGNURvVlF0?=
- =?utf-8?B?bDFORzNJajdVVmZBcHJhR2NDS3ExVXhjekp4TkwzRjY4Z1Byb0tObHYzSElz?=
- =?utf-8?B?ZHBQN2ZiMjBKOGhLYVgvZ1FpMjU3M1Z1VkZTc3huaUtnVk5qTFBtNGEvR2dn?=
- =?utf-8?B?OVBqNWtTQ1dXNVRmOHkvQjZ3Nyt1MmZXalBYTm9EOHNrNktZTG02SmhCZm1C?=
- =?utf-8?B?a0xkc0ljQjdjNCtvUnVJRnZjUEc1ZXYrK2hQTU50eTZkWGpjcGtucytjMGow?=
- =?utf-8?B?NGZqZlE4d3R2TWpuSitBWDRZNWJxaXJCU2JCSFNNMGpRc2RJcU8yajdNUEpC?=
- =?utf-8?B?RVlGSHVUQkVvaGRDMS9NMCs3Z3dlYytleHJwc2F0OE4vaTZvM0FhT3dicGxj?=
- =?utf-8?B?TXZjKzE3MWtZcDVuU0J0OGZhVlMvK2RHSjVPR3RtT1ZIdlEwVXlHQWxLWXNh?=
- =?utf-8?B?aG1YSkw4RTVTVW5INHBDa2paYWVmdEtqWjh4NGpoVkZCOXY0M1VzeGMzbGho?=
- =?utf-8?B?Qld0bUpjc3NiaGdBLy90bU4yZDB2dnRvRllTaTR4RnlSaHlKbnc3TXA4QUFY?=
- =?utf-8?B?SzU4Q2EwS01ZK3dJcXJtYWpreldEZDV1d1dJOC9BdEtuWW1HNWl2L1d6UlIz?=
- =?utf-8?B?SXVNbWhiMnpRUmZlYVo1MThXbWdMeVlPckwwdzNvVDBmTUVPSThsYTdiTjZ0?=
- =?utf-8?B?Q000TFE4UCtBaytwYnErZ3JJUjRZMmFEbGwvQlZGaFZrZDdueVdpdW9sUDRN?=
- =?utf-8?B?d0RPek9xUUsrYzBoL2hMVjFURDYyMlI0cWVhazRxb045bzhsYVVscVQ5NlU4?=
- =?utf-8?B?Z0kzTWVtVERET0JIbndEaitUd3Qyakg2WHVwSWJUYkxlQzhMeFNheEp6S3RD?=
- =?utf-8?B?WW54NjEyK2ZqSUNqQ24rcWIxbDlpQm5ISFBmMnJBK0NjZjNnYjlibjhWNi9l?=
- =?utf-8?B?bnhYaDVpV213dzFudmpaWG9tZ1kzNENjakVZenQ4bS9TVUxxRHNMS0ZYbHhj?=
- =?utf-8?B?ZEwxaDg2THkzZHF5TjBJNlpvdUhlL0lrYVVKeURrOFU4OFd0R2liUXBDNlJE?=
- =?utf-8?B?aFM2Ui9oc2FhcTJCVUF6R3ZVMDZYcTV1YkphS1VtZnFqZkVwOHFuZ1pSR2V4?=
- =?utf-8?B?TTQ3SUxsc0NJM3JyYkdDSTRiWW94UmRDT3lZeUR5NDdLV2E3dmxUTnF4Y0pN?=
- =?utf-8?B?VUpud3h0U3cyZ2dZN0dIZ0ltRWRTNHRzYkdoR0J0eGN6akhWMDJkNk45RTJY?=
- =?utf-8?B?dDhOeWVtcnZOUlRPdGdHcVFMdHJqNXgyVUFtNldxc2R4OE01Sms1Rm5JTjZK?=
- =?utf-8?B?OVVBeUlNYTNINEpIS3RrWFhSVFFMM0tGaXZtK0poOEN1ODZMSU5Xb1hLcEQ3?=
- =?utf-8?B?SEZxbGhlZE0zSG90RTQ2aUpYMzRSczZ3ejZhdEpPS1UzVnVsOE9uRFlSdHo2?=
- =?utf-8?B?V1BRRjZxZGg1OFBQV0s4R1UrUVM5c1hGVHJDcW1vcWJJMXVqTFBXZDhvcVFM?=
- =?utf-8?B?Z3JGc0hLaHhqU2VId0FrN0lqVWR0djJwMHpVQkdpMFZZN3JrUi9rQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <1ABD93C5B8F8024CB2FA86260AA89F86@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C10B310ED16
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:02:10 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63LFbB923336977
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:02:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=laMpQ/PEThA++8VKoCP5uoEG
+ KvqMhipe1NJOiXj6OFA=; b=DoC4TJD1tox6cQCMrbUYn1E6UWT7nQKw64cl8O7+
+ NPINHQmS86XXE01DFnSK+4Iq8z/cJ9md0LTLnXSvwDY99fNJEnGBBEtU2hXt8Tns
+ X/oZu1q8unPKTYt/aULiBdGGz4oxZot83flyQIozJYQI7cHemjuH9wj7Nid6f/Ul
+ 8YZSwK+xIBYxPGW368kAHIHy3ICmMhIMt4BK9nnyTlys1W/VZdyVlJkg4HrkGdVW
+ z/CGvbjYIFmHKcpRDrDGBTGKC+OKGu+5hx+6iAc8n9bZY8VbLIYiyeQRd+HhqlTi
+ y+Afw1j0QBfYxjVU8jsbrX3BtzHQ4NhIhObbJwTXckxD3w==
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com
+ [209.85.167.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpc1jg35r-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:02:09 +0000 (GMT)
+Received: by mail-oi1-f198.google.com with SMTP id
+ 5614622812f47-47545742e67so5892249b6e.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 09:02:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776787329; x=1777392129;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=laMpQ/PEThA++8VKoCP5uoEGKvqMhipe1NJOiXj6OFA=;
+ b=JaJTznkzrHcRh8e/Lx/FCNww4E8vXlI+VQXQ/dPAjZSQWzyKuMUMA/ypqKhuOhRsth
+ nKucao8rZ1OzeSarNElsSs1L+/s/X9Hb4DDnCMvJVS4qPY4P5ju++BsmYWUI0k6OnMVl
+ YvmVYXP5dv10OPZwwvVMMZ+tEH3W+LAXdeSNPf/SFB3kmwlHSqwCjpHw0f+hcvLAbAcB
+ RJvo/Rj1QVF6fyrBpr7i+57guopVj109HfiVGbfXkGWcH4+05+F4fvon3uTvOeM4uzN9
+ ukbW1eBpr1o3ELooiyaP8COufJJyvvznN9BcBbFmwqEN6MxnPg04doYopS8wFZYt0qQc
+ DApA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776787329; x=1777392129;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=laMpQ/PEThA++8VKoCP5uoEGKvqMhipe1NJOiXj6OFA=;
+ b=gfWPnShyILWl6yvKMdB7UhmymRmnLkkLPIwFALnqWqI8XvvlKVKfkwMHdgXkykzrkY
+ lv1h/2xmuG1Fc6LHLQnq+SpxK9Uc4geElNXDG4+BQRJaEoDu4g1jX/LH1K2FauMgLCFB
+ SK/9secCdDyXJazdV9MsvC3I9x91jrQd8K3Jj6WQ57MIUWfiy28XLhLEJAoRUwfmn7LX
+ rVSvjKrADe5UjMMjG4wIfoGKS0y57hiSWN+D4YgJ8fDbYf9JXtZ1mqgWwYtETiUG0qNj
+ 0TQsAKIzDVPn/kme31//GTnknKDOkdta4M7/GNUyRgvQHSZLZTRTGn283/vPUPQjP7HH
+ HgLQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/7iCLWE0lpCfiY763m7YjdD/6cJO2VS6gLLx1+PI65IOJQlS1x5jsiK+UBCb06BEnL4pgXWNji9bQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAMvHJG8LnJNZtCqiJXLPTIwJ5s2k1+zshHMaJoEi5M5aeAIBD
+ awLFrIIoRJ01JhQrjtBqWRantW6BGh0kbXFeEr47rsIEnkiiD8/b7c/PNL72cdAmJZZEWVfcY0n
+ wZcqI40vwx/351Cb3w2v7v2mrB2ScgHC4wdaE1wLzSqhzwfBfVjwVUONSfkrTf1WsbFTUHpY=
+X-Gm-Gg: AeBDiesa7m192/HV2hOQJU+JkoBwMuiCGn5sDEBf3pDOMW/w00KPWPtbsDFHl3mjdEK
+ Fl1gJH6JS8C0fmb//p0XDyVqd/zxVYhfA1eqkFSmmmsUCLgWkUkAoUnB3WW5Nc5ZT17XA6IDqPH
+ oQA2waub3yGksY+EKGDwsuFnmRNl4ks9Q7U0k7GmlFvqVIGCLGj/16xIFADw6/iyCwrIeuL+sCB
+ Y/63QTLYZGDBYrt3JWh0RirG41eL2QGOhNa/QhfftARAWbz9K82rwCL+aJXWFWh44Q9BzmOldk3
+ e9SpH7QYigSaTJEw0c/SGiQcfX5Z7a1JpAgyi9yL9AvrsAMitiEMlKhIHkkhAZQzVlRFQzmDCNb
+ /GHPIut5rlWCZciNNqVETCIsqz38qumKBj2g1yfWxt86Z3m3tNnJObvAqeBekrAx39HkDPwuH7c
+ sPV/maJ2YowsuMtf37p40tA6P57UMUW/uYQxIdbSxSppQ8qQ==
+X-Received: by 2002:a05:6808:4f1e:b0:467:1941:1f18 with SMTP id
+ 5614622812f47-4799c951609mr10816724b6e.14.1776787329109; 
+ Tue, 21 Apr 2026 09:02:09 -0700 (PDT)
+X-Received: by 2002:a05:6808:4f1e:b0:467:1941:1f18 with SMTP id
+ 5614622812f47-4799c951609mr10816664b6e.14.1776787328396; 
+ Tue, 21 Apr 2026 09:02:08 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38ecb7613a9sm31882641fa.41.2026.04.21.09.02.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Apr 2026 09:02:07 -0700 (PDT)
+Date: Tue, 21 Apr 2026 19:02:05 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Simon Ser <contact@emersion.fr>,
+ Harry Wentland <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, Alex Hung <alex.hung@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 14/20] drm/mode-config: Create
+ drm_mode_config_create_state()
+Message-ID: <uzfggjuv3yfegfnzjd4jm5losp6zxtxzrhtbncappzekyrcdzs@7awi7qw4kchv>
+References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
+ <20260320-drm-mode-config-init-v2-14-c63f1134e76c@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8412.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c16fded9-23c3-4c1c-0428-08de9fbf4a58
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2026 16:01:46.7534 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: uGGyGykAiD5lcIIGveeAoXDNgx2sanrB19ZfivQQxeSRGZLvCKVmPdNrpdbvMNZAVwTJZA2MGTzUpDDUljnqSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5933
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260320-drm-mode-config-init-v2-14-c63f1134e76c@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE1OSBTYWx0ZWRfX3SSfqwepaFBE
+ z9z0bD2a/lT4zHZOOqk38NLOXLDXqk55UaiTnTV4Wet87LDkLhV46TuZ6vTCSfDUQfPH/nFiU+b
+ 4vpsl/9y+vwg33UZRbWSdcNJt3azi3Yqa8eNlGNdjDxYSNTHcZrhxu84JjvCLNFASNhX0NUpy1Z
+ ELTPyQ6OaEpwPv6MLF/rliYsuUrH0+78+P4afZx3ojj02nYvUwHFxpU1xnbCDy7I7rdJ3gq2+ub
+ pZadmGgQiDfTODi95reLUYjBvK8w2uUN0JBXSSumVL9enFsXTI8oSJdYuaIL9IXseNdMWLsIfPF
+ MjbuuhyMYtmMN7Y2WRW9+gBrfcLcLwKGKJ5pqOqvnkem1M35poFolnO1SUCbH2g6ETItkTKCFkO
+ hF6drcF7vJcUoBaWw9zg2lXUGnYzV1Aamrmi54xYqcIyZ1u9MctTQ0J67iyRjgAuUUwMf8iopug
+ Qo1xwiENOUcWs3T4miA==
+X-Proofpoint-GUID: Ofh4JEF5JuXYd5WA6miFFP4pL77mFFAc
+X-Authority-Analysis: v=2.4 cv=IcG3n2qa c=1 sm=1 tr=0 ts=69e79f81 cx=c_pps
+ a=4ztaESFFfuz8Af0l9swBwA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=-GMv20tOWX2ILgXXLssA:9 a=CjuIK1q_8ugA:10
+ a=TPnrazJqx2CeVZ-ItzZ-:22
+X-Proofpoint-ORIG-GUID: Ofh4JEF5JuXYd5WA6miFFP4pL77mFFAc
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0 adultscore=0
+ spamscore=0 malwarescore=0 impostorscore=0 bulkscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210159
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,10 +163,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMDI2LTA0LTIxIGF0IDEwOjQ1IC0wNDAwLCBKb2VsIEZlcm5hbmRlcyB3cm90ZToN
-Cj4gTXkgb3BpbmlvbiBpcyBJIGRvbid0IHNlZSBhIGJlbmVmaXQgb2YgY2hhbmdpbmcgaXQgdG8g
-dGhhdCBiZWNhdXNlDQo+IGV2ZXJ5dGhpbmcgaW5jbHVkaW5nIFR1cmluZyBpcyB3b3JraW5nIHdp
-dGggY3VycmVudCBjb2RlLg0KDQpXZWxsLCB3ZSBjYW4ndCByZWFsbHkgc2F5IHRoYXQsIGJlY2F1
-c2Ugd2UndmUgb25seSB0ZXN0ZWQgTm92YSBvbiBhIGhhbmRmdWwgb2Ygc3lzdGVtcy4gIEFkZGlu
-Zw0KY29kZSB0aGF0IGRldGVjdHMgYW5kIHJlcG9ydHMgdW5leHBlY3RlZCB2YXJpYXRpb25zIGlz
-IHByb2JhYmx5IGEgcmVhbGx5IGdvb2QgaWRlYSBhdCB0aGlzDQpzdGFnZS4NCg==
+On Fri, Mar 20, 2026 at 05:27:21PM +0100, Maxime Ripard wrote:
+> drm_mode_config_reset() can be used to create the initial state, but
+> also to return to the initial state, when doing a suspend/resume cycle
+> for example.
+> 
+> It also affects both the software and the hardware, and drivers can
+> choose to reset the hardware as well. Most will just create an empty
+> state and the synchronisation between hardware and software states will
+> effectively be done when the first commit is done.
+> 
+> That dual role can be harmful, since some objects do need to be
+> initialized but also need to be preserved across a suspend/resume cycle.
+> drm_private_obj are such objects for example.
+> 
+> Thus, let's create another helper for drivers to call to initialize
+> their state when the driver is loaded, so we can make
+> drm_mode_config_reset() only about handling suspend/resume and similar.
+> 
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>  drivers/gpu/drm/drm_atomic.c      | 12 +++++-
+>  drivers/gpu/drm/drm_mode_config.c | 87 +++++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_mode_config.h     |  1 +
+>  3 files changed, 98 insertions(+), 2 deletions(-)
+> 
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
+-- 
+With best wishes
+Dmitry
