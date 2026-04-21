@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53CDDF8FA98
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 15:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E529F8FA98
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 15:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A21B710E8DA;
-	Tue, 21 Apr 2026 15:50:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0093310E8DF;
+	Tue, 21 Apr 2026 15:52:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="oK9RP7f8";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R5l1U1xn";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="FzMpBM44";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y4nbOOh5";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CE2810E8C5
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:50:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F17E110E8DF
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:52:28 +0000 (UTC)
 Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63L9bOdl046067
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:50:28 GMT
+ 63L9bOe2046067
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:52:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=Hto5MsLIcmZUVCfT6iG1LCNf
- XNnKxNxx4T+khh9MBY0=; b=oK9RP7f8lu1aYiEjyHk0aEqVOStaTYP8ae8V/J7A
- fzg+ethVOI9SKF2wkvXHoNExyOeQHiKBw03ubwQ0ZkxOuxchLGZaDFZD/6eke1ER
- lWh045Gz8CLO1BgAQernTvNiezf//bRho1r23hw7uvbfJWka/ZD7lTQ/l3Nk+3K5
- fsBJ9vLY6luVvAD3o3j6arPyJnsZmRPdwdM1yA4Bxa88vQleeuL8u+64rbv8TAog
- uyjMUw9MZx7XXEO7S+8paqmukDnwv6a9YWK9iQ13GwdEeWKUjB9WG2TjV/FvCe1T
- jdultxl8/v+ktl/VbRYH0wCB+VxraY7Tog1iwrufH9q4DA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp0y1tpp9-1
+ :references:subject:to; s=qcppdkim1; bh=b+TpPDtb4A8gF0EfZG351FvS
+ a4dKKMV4oqQnvGwrL7A=; b=FzMpBM445RAAHk5vR+lJe3EuQLfi6pcaUmmL6Xb9
+ pkqyCdRuKRhZYAeqdBBJ2p1rB2QhDqfjc4uESrNlx8tLhu9mFxQavV7cIkg86e5E
+ jl1qY50x6SO9v9RStaYY3lHz5+nW7bmI7NcFSslRK+7b+S/0C9IUrmJqcZATLUJf
+ 2A89t2dcihv7AiNmjqqmr/qGXD8xwxUGwSpTeLRoWZi2riO6PFahpYkrbwsFUpRl
+ XBQZJyIiY/EUvf9DgVklf9v/P3PRDwS/API4JnlMpTcAHWX8nB71fgG+GogTQYds
+ S5CZ8df8UR1qDGBLUvIErjMWyL3xS3pbyYK5gM4Kf7TSbQ==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
+ [209.85.217.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp0y1tpxg-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:50:28 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-50fb007bc36so37150221cf.3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 08:50:27 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:52:28 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id
+ ada2fe7eead31-5fa75a19f21so7682816137.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 08:52:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776786627; x=1777391427;
+ d=oss.qualcomm.com; s=google; t=1776786747; x=1777391547;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Hto5MsLIcmZUVCfT6iG1LCNfXNnKxNxx4T+khh9MBY0=;
- b=R5l1U1xnd6w2NlPLC5rj+1KR396hpHO8wn2fnrPLhYjX1OmnE/NC/nxdKK+8uObIwP
- 4bfULGkblmtu0pJYxNlTShU0euwglYGy0oPU267unfhGeYHuZl0aS89sfgDgJBhiT0y3
- cHZErXIDCuMQUrJVC6hdFBZ/9gZfclEOipVadb1LfvT0ZmYmhsC7hZiJI2dCr8cPj4Xg
- vTAS+3m1KAieb6v/od4xim+G8eYps5juLDgndKenCnlHCKtgooFo/o2PRFlktX70+II4
- ThXEYc3BqNWSoo4rU9D+kghWx9SLbXltuDpg0sbZytfvk3Pyz6oeIYpgYkyIvyWV+tm5
- F2rA==
+ bh=b+TpPDtb4A8gF0EfZG351FvSa4dKKMV4oqQnvGwrL7A=;
+ b=Y4nbOOh59qVTOiG8XjepbppA3+WkU2TFZqbzCw4LQW2ZNrWloic0d4d0fimN2Wpq2h
+ umfJ3x5oEQ3pxduLMGkf5ijlQb7UEYoYFFbzQVwzHjBmboznzpCLWUBl7lDEjvS8MqsC
+ vOo920G08bTA5Sae/EHVkgh3rtvFD2YnKjiD+MFymMa2JM09OAFQsIkACOF8UPHGLYrC
+ tPxT/I4EgF1fi5N3w7Oq2A/DCd9dPJRhE8QnYz3BNzQnZvR2gCpnGEuZRAZ4rgiVY5C+
+ gVgGRmF3xvxkTl9oaMJMDT3ufGqXiqCngBs1zTFX1gEEPaVJaaT2PuwTU0W4elk9vvHw
+ bb2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776786627; x=1777391427;
+ d=1e100.net; s=20251104; t=1776786747; x=1777391547;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Hto5MsLIcmZUVCfT6iG1LCNfXNnKxNxx4T+khh9MBY0=;
- b=NWnqS84sKBkrB9h7k+R3QLECM8a9eGr4Y7J+2PkcK0IwyHgoZi3degqXfo63XUnZnu
- bwyDK4BfSm3JPut3laVsisvb4es8jAERfZy4r3R0jeLl8V2AwThaqvv99J8zErj3nrw0
- B3L9ADVVNUHe49KTpcp9AzHJSnHdeXUas0ESkO4gvjJdKxOkr0yRlDl5xGQlm9ZsMmxq
- lvjPKr4SPuioatXRsgoHVnsiUis2phunnCPgC/J6T7PMbkRk+b6zaBZE3ggiyNRvl0M6
- aaT3zt9cniFDUTgr/HMuVJlZNb9dN870nnrhhFXinC3gEbOz3RgJ6t45qYxiI+JnPRmp
- /WCQ==
+ bh=b+TpPDtb4A8gF0EfZG351FvSa4dKKMV4oqQnvGwrL7A=;
+ b=dOiOnepKFG0T9YFhMBjzild2mbRPhI0X3P5NqhHM5hv4sGcMswMoo7VeIEGen2nsU9
+ 2HgABHfgdxxlcXoz2YnEqyYeC4b4zCcQdxMLa72IAVmW4221DYfdEYuSzTXoj98C5FHn
+ vyyFnXJ/RE+FVX1cswf6kNRZvLzar0tWcJDCaZ0rjB6a0enenQBiOnxBavnGzv8pwyY8
+ HtQmCQro4xwEHNpYV60LEkeCgbf8/EKMuNIKt2jQi6CFJJR8T/5dc4v/+h9efwa0n9Ef
+ +mEBp/AjS5Cxc5AbHDYOw6Z8sgbAARPhWgz4yO0/b923sB+I69plZZeEyJyJNenRu2+t
+ rbDg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+SSIndryALcZ87qNJh8IHz0uK6YS3s1bXxjysFiOfy0EfIGEJxgxaTT944XLHCrHMpxta0qohJumc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzB+GAJn55wAdKsKxANkFM3T8rvMkre6mQHfQWJ4O0hphPYyNl5
- 0oWUznw7MWTdrDXo8t2jBvpCQOLBFWtGvMUwpB14vA9nSL82hTNdf5FG8p8n8A1NxYgVg1TzHrs
- 7DQu3AF2VjInzepdiepCuQp45tdUdzea+c2/wObU1j4zeGs95mjIKMQtX0cvR/jPMAgKmFw4=
-X-Gm-Gg: AeBDievP2CVBZqWj1coWDjUogdGQTmc8W6Tun4RufUFu4N+YXAnwlFnzP2y8o2qvtz2
- cGlbV1o0Vk8nQeFDq4t/6BzTT3zvxwelBKSJb2IO4HcAh+2uR9ylwpVlSE1atB0pEoyi2dCxd4e
- JdouuVYo8SJBsoR6A3vbiJcxQqhZwAzgCR61Ks16lmSOuLlseW1cit3KsrZ5HRwn91Akd1icDeZ
- LgQAHMYG5gqzkn+At6nZMvljzZfPgvne24oLo9uMwsIvcDWQjqpQD3EFFpR+nukWNrV1wVZnhNM
- bQp8ZGb0MVnWKYn3A4/VLyjsRmuSQ+Z8bQes7n7OSHoD8dplDUn7ggPAhVCTkZGnOQqUaRJgtzl
- 19d50Nv2BEIjJ6qQbFS9wkSGVxnHbZ/zLq9KGdJ8z87xghhDrHZO3ntK3JM7w5FUxF14n1ikPtS
- 2jm1Rc3wx9ep6urGs9LutoxHYX48Cx76uuDUyo23L+Z08Dog==
-X-Received: by 2002:a05:622a:5c1b:b0:50d:a71d:810d with SMTP id
- d75a77b69052e-50e36e9c5bdmr268930081cf.28.1776786627072; 
- Tue, 21 Apr 2026 08:50:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:5c1b:b0:50d:a71d:810d with SMTP id
- d75a77b69052e-50e36e9c5bdmr268929381cf.28.1776786626578; 
- Tue, 21 Apr 2026 08:50:26 -0700 (PDT)
+ AFNElJ/FWTLvPyeNjpGNgoz0XVqOXoWjgty86s5VsQ6CtrIJtb/47drhP4AzedAQvZuiwnhR4xxoy2YefGQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy59IOANj8TCpGJT6dWcJUj3TH0JL8ugTncsbk1g4lJw3oChtex
+ 6/vMOrG4NB8+7oL/g2rkInPZZHfjHCuLJSouoARd/eeRmFAoUNPWtnkNo5iLLOWlI7OCK/oTEMX
+ ov3ExeMOpkqwy+mwKKXa2iqV5Il742oXpnjHQBKDS+0YWhrjcjKqHWZb2ajxYa235PBuAYHY=
+X-Gm-Gg: AeBDieu0E0Zrnl2Y1uojXKEsNcupCcFR0OcfrYMDPlxpyp709iE9kdEEqyluzXD/Ru6
+ xChqXHy2cvQ21ZPkOG27ZfnhTNC32/THiUfUfRATQcKfdqKw/1HEPIfX1cXi+6lQATO1vbwsbSN
+ J6+KHqE1TSfvWpoK2ppfNdLcDQcLEHKmYAUkvbtfSRvpjK7KIUtxAJleawdZcSkANyJv0ZCN4j7
+ bSER3s66V6H0j12j+sKOdHx6sBDomTS/x9Z8m8qds4Kh8dV7AT1uIPRHO8eIdjawRVTcLSj6Awa
+ vfgBSJ+BvQ5CxOtVsUSdZTn/XHMaIFQ8OE/cU7obfbjZdw4ovqNHENidrnJXKJvmMKPvHpliHws
+ Uuz4bo8NnMYtt7kSRsPK4KH8TtERJaVkEWTqksdnNwuQi7wvEvw+AT8otI0LR/qv/9ELGs4J7V3
+ Ay6RMj0xPSeOes058vCafDVi8ffuftZGTfqHpDBmSZ9GmZOg==
+X-Received: by 2002:a05:6102:5492:b0:611:959c:86b with SMTP id
+ ada2fe7eead31-616fe259128mr6807921137.16.1776786747190; 
+ Tue, 21 Apr 2026 08:52:27 -0700 (PDT)
+X-Received: by 2002:a05:6102:5492:b0:611:959c:86b with SMTP id
+ ada2fe7eead31-616fe259128mr6807884137.16.1776786746729; 
+ Tue, 21 Apr 2026 08:52:26 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185ad11fsm3739915e87.14.2026.04.21.08.50.25
+ 38308e7fff4ca-38ecb5f66besm31845671fa.13.2026.04.21.08.52.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Apr 2026 08:50:25 -0700 (PDT)
-Date: Tue, 21 Apr 2026 18:50:23 +0300
+ Tue, 21 Apr 2026 08:52:25 -0700 (PDT)
+Date: Tue, 21 Apr 2026 18:52:23 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -115,31 +115,31 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v2 11/20] drm/atomic-state-helper: Rename
- __drm_atomic_helper_connector_state_reset()
-Message-ID: <ogjitbayzgefsouxgwhjia4vzmmpfagupddmmoxokvdscjouqo@dyaz5v7c4lyh>
+Subject: Re: [PATCH v2 13/20] drm/connector: Add new atomic_create_state
+ callback
+Message-ID: <kxp5j2tsermgycxq2wtxsvfml7etawwc7mew523rtkynp2x6oi@trsnzjwlnjto>
 References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
- <20260320-drm-mode-config-init-v2-11-c63f1134e76c@kernel.org>
+ <20260320-drm-mode-config-init-v2-13-c63f1134e76c@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260320-drm-mode-config-init-v2-11-c63f1134e76c@kernel.org>
-X-Authority-Analysis: v=2.4 cv=VNLtWdPX c=1 sm=1 tr=0 ts=69e79cc4 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260320-drm-mode-config-init-v2-13-c63f1134e76c@kernel.org>
+X-Authority-Analysis: v=2.4 cv=VNLtWdPX c=1 sm=1 tr=0 ts=69e79d3c cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=P1BnusSwAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=fOc9-Nj7kuNS0fQUIscA:9 a=CjuIK1q_8ugA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE1NyBTYWx0ZWRfX6iK6qpFVdYZL
- 2g0IEqTv956liXrIYum/7ElNr7S73bD1vepnctLXVWhk6QNy/QyMbdITIJYDZnhhzTgyjzjzIhS
- 4UHfTW35Wj6uzo7xuztId2i4+ppQ9AMKQPx5hn18gKfZmwXzQOExqpX16MHQF9CtVHrdE82d1tC
- CRh9x532OA5HFw9Id7h7pwspFhznuc0oi/yx1BhpDhiujopjMo/x2LF3k3hvK3sVbzS66Q6vfji
- 7XKD4e5JU+DrTQZJ2B6sCoBSBtY2aBHKqbA578SESARFMsp7CkIr8mkyIBjlYcPmQPMrYS+oq23
- wh+079J+0C0DK3otbWERHl06ZeMjGlY2t+paA1iaIMAoKZB1GMb9Jno33KHOjhC0vN9G0CVI0ks
- O8nYG7kl/pKzNppPT0KirgQ/mUL0VN7bBOjZjmAk5p86a0kaN1TBmS7k3rBX39U8I696T4tMLLZ
- ppj3N1twmpAW+GFYpKA==
-X-Proofpoint-ORIG-GUID: cfX_Whj_-BTzbWhMk_edsDHkQnG1wu9M
-X-Proofpoint-GUID: cfX_Whj_-BTzbWhMk_edsDHkQnG1wu9M
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=sh7rbVFwc6wKdXg0ZAwA:9 a=CjuIK1q_8ugA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE1NyBTYWx0ZWRfXy9gCTAPYBXpX
+ Z8xlg+g3pEWFWFJc3HgaihjXI9I+a+eAS9zzt+gjQM3/fLRg8riXQXGOFUiY4hVyJ8i8qJkSbPK
+ 0zASH0Y2EuMsZGk6YKxR8UPwXTu5ktQ0yJVVt9nBHGPqKXl4rZUX2Wn0N8t/xYAGSBtlJOq5mMe
+ d2rwFlVIcmo9MBVSkCUcjYRILu9pmmIbw02zucAlGYDL29oC8yoE8eCF/HlAX90mR6tovX5gwf1
+ qMWG1u4avb4mu2tgqSOw+2n0obYSFmQ+JLpklwqU/CwSDEQ7VXaJHs1behKe0cr9pzC5+xpV4mQ
+ BboAgUHO7UoA71GFsq5CrZTb62URxM60IrFYq+HZTTH0MaAovhOhtmK99M7aBT6d8NLR6yR/tvl
+ o1hpxV6IxsPuiGDFWGmZ488IrkroUgMGYMgWOB/W/qPLbHYV0z91edJPYSyy3vx6rR8flVJ/otO
+ lNlgtzu3XVq98T5mepw==
+X-Proofpoint-ORIG-GUID: GNRskpmj3BUFzOxDIJL5SL6OtuhThVEA
+X-Proofpoint-GUID: GNRskpmj3BUFzOxDIJL5SL6OtuhThVEA
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
@@ -164,27 +164,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 05:27:18PM +0100, Maxime Ripard wrote:
-> __drm_atomic_helper_connector_state_reset() is used to initialize a
-> newly allocated drm_connector_state, and is being typically called by
-> the drm_connector_funcs.reset implementation.
+On Fri, Mar 20, 2026 at 05:27:20PM +0100, Maxime Ripard wrote:
+> Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
+> to drm_private_obj") introduced a new pattern for allocating drm object
+> states.
 > 
-> Since we want to consolidate DRM objects state allocation around the
-> atomic_create_state callback that will only allocate and initialize a
-> new drm_connector_state instance, we will need to call
-> __drm_atomic_helper_connector_state_reset() from both the reset and
-> atomic_create hooks.
+> Instead of relying on the reset() callback, it created a new
+> atomic_create_state hook. This is helpful because reset is a bit
+> overloaded: it's used to create the initial software tate, reset it, but
+> also reset the hardware.
 > 
-> To avoid any confusion, we can thus rename
-> __drm_atomic_helper_connector_state_reset() to
-> __drm_atomic_helper_connector_state_init().
+> It can also be used either at probe time, to create the initial state
+> and possibly reset the hardware to an expected default, but also during
+> suspend/resume.
 > 
-> Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Both these cases come with different expectations too: during the
+> initialization, we want to initialize all states, but during
+> suspend/resume, drm_private_states for example are expected to be kept
+> around.
+> 
+> And reset() isn't fallible, which makes it harder to handle
+> initialization errors properly.
+> 
+> And this is only really relevant for some drivers, since all the helpers
+> for reset only create a new state, and don't touch the hardware at all.
+> 
+> It was thus decided to create a new hook that would allocate and
+> initialize a pristine state without any side effect:
+> atomic_create_state to untangle a bit some of it, and to separate the
+> initialization with the actual reset one might need during a
+> suspend/resume.
+> 
+> Let's continue the transition to the new pattern with connectors.
+> 
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/drm_atomic_state_helper.c | 10 +++++-----
->  include/drm/drm_atomic_state_helper.h     |  2 +-
->  2 files changed, 6 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/drm_atomic_state_helper.c | 45 +++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_mode_config.c         | 21 ++++++++++++++-
+>  include/drm/drm_atomic_state_helper.h     |  4 +++
+>  include/drm/drm_connector.h               | 13 +++++++++
+>  4 files changed, 82 insertions(+), 1 deletion(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
