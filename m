@@ -4,64 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DE88F327BD
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 07:56:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F927F327B9
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 08:00:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3CD010E824;
-	Tue, 21 Apr 2026 07:56:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F11E410E81B;
+	Tue, 21 Apr 2026 08:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="Sxucc7Vg";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YkZf9Ouc";
 	dkim-atps=neutral
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com
- [113.46.200.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51F6210E824
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 07:56:46 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=UQ/O7Ksa/m+RxlB6FRtoMDjiJJ3w54XrXWQLzeVLLUU=;
- b=Sxucc7VgYw180gKWeOpTWacw38DRhIcpymrLlhre7Kf11Q7zajHZ7shAqpz3oHJ9lmPHlcQ+R
- erFu/CDp26VwOca/FGzmR+NH5VzT4ZW9UfB5fl3fXbfemiOadfDcHprywJ7G2jCW/g/hsF1dQHh
- gF9sH0gZbrhfwHr8LgjsQ+U=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
- by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4g0Dzd4jcYzRhRV;
- Tue, 21 Apr 2026 15:50:21 +0800 (CST)
-Received: from dggemv712-chm.china.huawei.com (unknown [10.1.198.32])
- by mail.maildlp.com (Postfix) with ESMTPS id 9AD0940538;
- Tue, 21 Apr 2026 15:56:43 +0800 (CST)
-Received: from kwepemq100007.china.huawei.com (7.202.195.175) by
- dggemv712-chm.china.huawei.com (10.1.198.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 21 Apr 2026 15:56:43 +0800
-Received: from [10.159.167.44] (10.159.167.44) by
- kwepemq100007.china.huawei.com (7.202.195.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 21 Apr 2026 15:56:42 +0800
-Message-ID: <ea18dc58-3607-4e84-b5a2-eb582c10e307@huawei.com>
-Date: Tue, 21 Apr 2026 15:56:42 +0800
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B175D10E81B
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 08:00:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1776758419;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=5ped+TAQ2k6iTSo5cGWOslKeDSxxrCsmzTHKZa82e/M=;
+ b=YkZf9Ouc7LOb/ZKpLK9pDPmQuQS2ajLYR1XZE/3quMGGYYbQFlzO9NZkiSGiWFW/Hutwh9
+ WILtHOiVFJsK9C8upChDbZ/nFdVgBz/fcyLE/VUmE7ScoWgGPF7Wfa5LJE69aOK72ReQvg
+ HKytY2qmcswKe7ivU/WheXZRTEpBFg8=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-570-0-gfP4WKOL-jrbM6bEwmoQ-1; Tue, 21 Apr 2026 04:00:17 -0400
+X-MC-Unique: 0-gfP4WKOL-jrbM6bEwmoQ-1
+X-Mimecast-MFC-AGG-ID: 0-gfP4WKOL-jrbM6bEwmoQ_1776758416
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-48378df3469so24841135e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 01:00:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776758416; x=1777363216;
+ h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5ped+TAQ2k6iTSo5cGWOslKeDSxxrCsmzTHKZa82e/M=;
+ b=KHdP5Y79qIOGi7j9PuoukbC3HH2uGfG4Ba6YSbDXRGPidIN0uVq928ewCRd1/vQn0i
+ 56iEUf3IjfE8KvFXsUyL+AViqFoTmeSgyk5G9L01/4+Eh51vhFr6EXER5nFOipFLKQwc
+ oEUVKP0czKRnwgZjo4eVbmMmLUA/q+Up5M6ofglClddziXJXC+IpgS2BuYcKKacuKrYj
+ 6CeWwNkQkYDeD7/p0d2oFB3yrEbGMjBTL+yMZKjxnxSqwfL5hecMLv8Xdzhjsjh+qjKK
+ UwyDbbJw/FXQuDgx0/fP8l4j3QjUxqXZiIUVdesAO7hpegvQorq00hyMe8G0S7YQ7uaV
+ SX3A==
+X-Gm-Message-State: AOJu0Yy70e63dLgoTwTV1A74MyGckpP4pJ+usHPGL3riAkK7iiryO65e
+ 6wV0gJtF0M+H1KTjWmnOVOfpUP7lJG5mcI6rzXNqC1nwtrHa3ijkvOnHGJKdkJYaOj+16Re09UW
+ wRLwxB9VEvU2nr9Qad9rku4M6SCH0q6lyn0LD83fngq9II5P+ZsVBBVSqLgN+obyxrK4BIQ==
+X-Gm-Gg: AeBDievmh58YvgaS1UUkNYuf4D5S+kM7edzWQXpCstprPNkRMdPYODFpvA7oO6nHzlK
+ 3C9pUhANfPRaEDFDl4o9r4cA3Y203QSCs88tMC4fB4Zl1f//W3QnG6NyCR80Hyh8R9i+Pv/P9SD
+ 3GY2K3dcWt5aYqZLADDotR2P4wJDj8uFRwRqDf86XKTmMCmDvp+Yi11NzByiOnw6Y8HYOPJBVx1
+ n5iA//WdsffvUfjg4+sFZt6nO340XNHwFG9r3yZk2ggPLRiJLAtmgTHmXsrmi609sSWzVKg5Dew
+ r5XqUKWR9sPXEXpMnsLzt5tiBMDdkMwqF6wD7OQIPfS9BorLQZSnFAf98EjKPN4fnHPzkzJT+w2
+ i0glcKBIXT7dDDjzWywnWtf2DiFTYH1NN/44vnBgFUl1Hvm3Uurui5s54DhtmqcMymEQyOLXf/y
+ SFR2vvS4dA/z49RLw=
+X-Received: by 2002:a05:600c:2ed3:b0:487:1ed:6bf4 with SMTP id
+ 5b1f17b1804b1-488fb881ef2mr153900715e9.3.1776758415077; 
+ Tue, 21 Apr 2026 01:00:15 -0700 (PDT)
+X-Received: by 2002:a05:600c:2ed3:b0:487:1ed:6bf4 with SMTP id
+ 5b1f17b1804b1-488fb881ef2mr153899795e9.3.1776758413958; 
+ Tue, 21 Apr 2026 01:00:13 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4cb1365sm36996963f8f.7.2026.04.21.01.00.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Apr 2026 01:00:13 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Geert
+ Uytterhoeven <geert+renesas@glider.be>
+Subject: Re: [PATCH] drm/color-mgmt: Typo s/R332/RGB332/
+In-Reply-To: <c413e45c8f752a532a4ff377f7a8b9eaab4a082a.1776757681.git.geert+renesas@glider.be>
+References: <c413e45c8f752a532a4ff377f7a8b9eaab4a082a.1776757681.git.geert+renesas@glider.be>
+Date: Tue, 21 Apr 2026 10:00:12 +0200
+Message-ID: <87pl3sivzn.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/hibmc: Use
- drm_atomic_helper_check_plane_state()
-To: Thomas Zimmermann <tzimmermann@suse.de>, <xinliang.liu@linaro.org>,
- <tiantao6@hisilicon.com>, <kong.kongxinwei@hisilicon.com>,
- <sumit.semwal@linaro.org>, <yongqin.liu@linaro.org>, <jstultz@google.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <airlied@gmail.com>, <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, Rongrong Zou <zourongrong@gmail.com>,
- Sean Paul <seanpaul@chromium.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Baihan Li <libaihan@huawei.com>, <stable@vger.kernel.org>,
- <shiyongbang@huawei.com>, "Liangjian(Jim,Kunpeng Solution Development Dept)"
- <liangjian010@huawei.com>, Chenjianmin <chenjianmin@huawei.com>, "fengsheng
- (A)" <fengsheng5@huawei.com>
-References: <20260420121130.200133-1-tzimmermann@suse.de>
- <20260420121130.200133-2-tzimmermann@suse.de>
-From: Yongbang Shi <shiyongbang@huawei.com>
-In-Reply-To: <20260420121130.200133-2-tzimmermann@suse.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.159.167.44]
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemq100007.china.huawei.com (7.202.195.175)
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: L-LCx-IWUAhhH01QYYi62qPE-WW_rnmN_pOR6dlg2z8_1776758416
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,112 +99,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Geert Uytterhoeven <geert+renesas@glider.be> writes:
 
-> Call drm_atomic_helper_check_plane_state() from the primary plane's
-> atomic-check helper and replace the custom implementation.
-> 
-> All plane's implementations of atomic_check should call the shared
-> _check_plane_state() helper first. It adjusts the plane state for
-> correct positioning, rotation and scaling of the plane. Do this
-> even if the plane's CRTC has been disabled by setting the parameter
-> can_update_disabled. The original code returned early in this case,
-> but it's safe to so and cleaner to have all plane state initialized.
-> 
-> As we don't set can_position, drm_atomic_helper_check_plane_state()'s
-> visibility check tests if the plane covers all of the CRTC. This is
-> a small change from the original code, which tested if the plane is
-> exactly the size of the CRTC. With the new test, the plane still has
-> to cover all of the CRTC, but can be larger than the CRTC's size. A
-> later patch can fully implement this feature in hibmc.
-> 
-> If the plane is disabled, the helper clears the visibility flag in the
-> plane state. On errors or if the plane is not visible, the atomic-check
-> helper can return early. Implement all this in hibmc and drop the custom
-> code that does some of it.
-> > v2:
-> - extend the commit description (Yongbang)
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: da52605eea8f ("drm/hisilicon/hibmc: Add support for display engine")
-> Cc: Rongrong Zou <zourongrong@gmail.com>
-> Cc: Sean Paul <seanpaul@chromium.org>
-> Cc: Xinliang Liu <xinliang.liu@linaro.org>
-> Cc: Dmitry Baryshkov <lumag@kernel.org>
-> Cc: Baihan Li <libaihan@huawei.com>
-> Cc: Yongbang Shi <shiyongbang@huawei.com>
-> Cc: <stable@vger.kernel.org> # v4.10+
-> ---
->  .../gpu/drm/hisilicon/hibmc/hibmc_drm_de.c    | 46 ++++++-------------
->  1 file changed, 14 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> index 89bed78f1466..8fa2a95bcdd1 100644
-> --- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> +++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c
-> @@ -55,46 +55,28 @@ static const struct hibmc_dislay_pll_config hibmc_pll_table[] = {
->  static int hibmc_plane_atomic_check(struct drm_plane *plane,
->  				    struct drm_atomic_state *state)
->  {
-> -	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state,
-> -										 plane);
-> -	struct drm_framebuffer *fb = new_plane_state->fb;
-> -	struct drm_crtc *crtc = new_plane_state->crtc;
-> -	struct drm_crtc_state *crtc_state;
-> -	u32 src_w = new_plane_state->src_w >> 16;
-> -	u32 src_h = new_plane_state->src_h >> 16;
-> -
-> -	if (!crtc || !fb)
-> -		return 0;
-> +	struct drm_plane_state *new_plane_state =
-> +		drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc_state *new_crtc_state = NULL;
-> +	int ret;
->  
-> -	crtc_state = drm_atomic_get_crtc_state(state, crtc);
-> -	if (IS_ERR(crtc_state))
-> -		return PTR_ERR(crtc_state);
-> +	if (new_plane_state->crtc)
-> +		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
->  
-> -	if (src_w != new_plane_state->crtc_w || src_h != new_plane_state->crtc_h) {
-> -		drm_dbg_atomic(plane->dev, "scale not support\n");
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (new_plane_state->crtc_x < 0 || new_plane_state->crtc_y < 0) {
-> -		drm_dbg_atomic(plane->dev, "crtc_x/y of drm_plane state is invalid\n");
-> -		return -EINVAL;
-> -	}
-> -
-> -	if (!crtc_state->enable)
-> +	ret = drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  false, true);
-> +	if (ret)
-> +		return ret;
-> +	else if (!new_plane_state->visible)
->  		return 0;
->  
-> -	if (new_plane_state->crtc_x + new_plane_state->crtc_w >
-> -	    crtc_state->adjusted_mode.hdisplay ||
-> -	    new_plane_state->crtc_y + new_plane_state->crtc_h >
-> -	    crtc_state->adjusted_mode.vdisplay) {
-> -		drm_dbg_atomic(plane->dev, "visible portion of plane is invalid\n");
-> -		return -EINVAL;
-> -	}
-> -
->  	if (new_plane_state->fb->pitches[0] % 128 != 0) {
->  		drm_dbg_atomic(plane->dev, "wrong stride with 128-byte aligned\n");
->  		return -EINVAL;
->  	}
-> +
->  	return 0;
->  }
+Hello Geert,
+
+> Fix a typo of "RGB332" in kerneldoc for the drm_crtc_fill_palette_332()
+> helper.
 >
+> Fixes: 7ff61177b7116825 ("drm/color-mgmt: Prepare for RGB332 palettes")
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+>  drivers/gpu/drm/drm_color_mgmt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+> index c598b99673fc1515..e7db4e4ea700fe11 100644
+> --- a/drivers/gpu/drm/drm_color_mgmt.c
+> +++ b/drivers/gpu/drm/drm_color_mgmt.c
+> @@ -831,7 +831,7 @@ static void fill_palette_332(struct drm_crtc *crtc, u16 r, u16 g, u16 b,
+>  }
+>  
+>  /**
+> - * drm_crtc_fill_palette_332 - Programs a default palette for R332-like formats
+> + * drm_crtc_fill_palette_332 - Programs a default palette for RGB332-like formats
+>   * @crtc: The displaying CRTC
+>   * @set_palette: Callback for programming the hardware gamma LUT
+>   *
 
-Reviewed-by: Yongbang Shi <shiyongbang@huawei.com>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
+-- 
+Best regards,
 
-
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
