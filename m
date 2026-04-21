@@ -4,146 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCCA0F8FA9A
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 16:34:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F0FF8FA9C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 16:55:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E46B10ED33;
-	Tue, 21 Apr 2026 16:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B370210ED46;
+	Tue, 21 Apr 2026 16:55:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="pEJvqlW7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c0xZuM53";
+	dkim=pass (2048-bit key; unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="lVy4WTu7";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="uiTLpeQV";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63A5610ED10
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:34:21 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63LALX6L1511252
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:34:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=OG03RLbkVQGi1m7r2kUY2OMQR5crtiM3OubK9GwayjU=; b=pE
- JvqlW7R7Tmh6LF7j7YPy7aZuZtlgPRLI8/PUXp1dsthLWQt3shP3g2zxSSjmdBhW
- 9q4knPSH4yjHuNI8AYqC/PAUexjXKhy9P5EfguG3yf1edcc1m1nUF+Vf85RhTuUK
- E6InWvod0PUyDNpXWdkPVWqbKdLUoXOPvxKmK4ZmbUxwFmAvBSqxXPzt7wrrqb4K
- H0FHFNhOEpret6YZ75DuhPJuEqa1WqfTbYeD/rN0pf/9P+ZlwVBeCS2nBlIQu7zW
- EZEaRxeJiFWvSKFRJxmrFO7xi2PgDC1xuMF2oviFcS/7gHCMufT3b+X0KP1A9r8Y
- ZJtGj8o543CnaGH7rpZw==
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
- [209.85.160.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp2ak2k0e-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:34:20 +0000 (GMT)
-Received: by mail-oa1-f72.google.com with SMTP id
- 586e51a60fabf-423133d22a0so7341072fac.3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 09:34:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776789260; cv=none;
- d=google.com; s=arc-20240605;
- b=N3g+xjbNnDwIe0hM48DslmPZhg4oWhGoNxRwEgKZXx9HJN02UhGAaDcTWTAuV86rDX
- el2CW32o9mYQ11UlwqDjE0Kex6OLklQzH63VplDKtnlLItwlikLWbMtejwrX7xMlLmdX
- hQ97qd+GPvol4bYeh5JzyNqYS5wbZQoM8RyMynPMetGdkKft2rJqnm1Npdq/0S/gDu0Y
- OXS2PW+D4KfrYXA2+rXO5o/aQ3y1bVs1kGbfk/09Ds+uI4UuhjTAlt1teNaSiuq3GsxA
- eafT2BQEJcqWPf6sxun5Y+HERw5Yl4Qa3HK3T1Fw0rnJzwVrvlaKfcER+ptKCMEUZnqn
- j6qQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=OG03RLbkVQGi1m7r2kUY2OMQR5crtiM3OubK9GwayjU=;
- fh=3F2mAyxixVOnjxUFAAZabvosxbzVw7ooiP7G7vygsWU=;
- b=RSUK6CTUloSwkxjWEhZnCneqXYn5kbUEXjq8GzW1Kw+JkCg215llE/emWwn78JVGvP
- hD43lOht5aye01nk/+A0YIaAjR/kM5E6Xae7xnaV+buV2xfG6LoxdGGFLPtKfgTOCcWB
- 4U7bl01lDORFVdX+4HFClQpHbC2v7AGW+3oMs8zdDWgMHmPbB2cIwU8naBqfWby2ipIC
- CKZ7U5ttoh7coH/yKpXCMsQ8u3XYPOSJWeKCRx5Ad+j7WMRrS1209Svx2csT4c+7SOLA
- Dskq8qPXPp4tANRZfhktGTtQLYR5VRRvTyM01YpIL47XVVWcH36y/xnBMud8p6FnPNWV
- FUOw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776789260; x=1777394060;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=OG03RLbkVQGi1m7r2kUY2OMQR5crtiM3OubK9GwayjU=;
- b=c0xZuM53edV6bkDrAKXHQrZv1DVqFEFodcY2kzojY0sM9nHwcclo37qqBqUdEzRkae
- krmddGlTOugjKGvE6SsrMi7ELeKbRrfefMsG9ogDV35HdA8yroL7MrizII8aTUgTeQ+X
- XQJXZadW+GgjtfPoUuta2bJV5Q+QneMoYY+rwIuqh+UVZ8vc/wAbA5Tb/YhnAg0P60l8
- /0YOLhwNgzCdcejkifvqqvBMBb5uW0s3C4BPEAmX+uqKMAoIR0Lz7tN0ZGcdd6EIcn3v
- QjVCtiTNANyyBXBZW6fsux5jfbJvU2go9fdBJo8u42Wrs/WTG+XSXep0yEsrcBlz65OZ
- jzag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776789260; x=1777394060;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=OG03RLbkVQGi1m7r2kUY2OMQR5crtiM3OubK9GwayjU=;
- b=Tz7/kEF1WaxAclEnZYUyAP5u6v4OqRXEt8oNndPkuQbdoV/NKcgRHYRXdyQc4osUp+
- 5d1lzk0jGkzlq2qw/oPgwwUwO8jvmMQ4rqwgj3236neDw716Vk621ooqSqAL712ly31F
- 0Tpynykn3Wf2kPsKWKAoo5nasLJCLm1ql6mxhi1PyLBKpEtyPHlJOtB7CCxG5AqkXXCs
- jRlhlYKbVMTQbqtmZEm8bKgFgamE3b6raK8wUyz/WWd8vrR8XGo24BBZywws2aPbH6ce
- B2uBYOSJWJUAmV7fpgtlxE082xX/9PKD+z/VtesYFrLvzKhcdLsiTVegbGeVtO3qH3Fr
- kNgw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9iovXDyp/tNWDBM7voQrBBwYIeNzE/dgT6VxT4TNIgVzp0zDKllNRuiwcP1GWqQ0TihXhjOzCCvnA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj07r6Fwxm//AXsQQ1ylS/sLLRcvBJmRYu9HcfZSNPovo37mHH
- EeBwvhYuAh0/9iPYKvTBliffDy1WRv/RF0kT5Q1ECXmo8QNexf3xF7rWxIE9w5bB99cN5ow75Sf
- 35NvjSAvvl0LFUKOjwaoDVDsIhs/Y6u5pWdQSvJiJ4kd9MEKtcLUHIcA3wTyPAwleIKSXFfzx0P
- HcLxeIip2jM2d6KqSsWm77LaYT2nAZRFgRBnnpuN3ODWQoDQ==
-X-Gm-Gg: AeBDieskswwm9O4+jWRsxbrXuYGgonFDBzN/SjeDKeUqyT5798FrdzTiGat0rG2HS1M
- HOvnVb5Zg8FI9sN2JJ1ehyaC6OxR5U1wKpq42mXwYBFneMJBCP2cOI7H3qOuknphq44axGTkbcB
- xdQJOlukfnFHpqpdKVK2mFx+FkWLVeZMlzVyjHlWhGh4166okSyyj3Il6ptVQ1/QS95GheyykYs
- D/JfO/ksWhGN+vXY1AA/XPH1KFH4EHki468/zBAVadilBZO
-X-Received: by 2002:a05:6870:6390:b0:417:23f2:6d77 with SMTP id
- 586e51a60fabf-42abf2ecb41mr10830936fac.16.1776789259803; 
- Tue, 21 Apr 2026 09:34:19 -0700 (PDT)
-X-Received: by 2002:a05:6870:6390:b0:417:23f2:6d77 with SMTP id
- 586e51a60fabf-42abf2ecb41mr10830914fac.16.1776789259378; Tue, 21 Apr 2026
- 09:34:19 -0700 (PDT)
+Received: from fhigh-a4-smtp.messagingengine.com
+ (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D469C89496
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:55:19 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 376C814000A9;
+ Tue, 21 Apr 2026 12:55:19 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Tue, 21 Apr 2026 12:55:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm2; t=1776790519; x=1776876919; bh=2zn4a4qW9U
+ F0PfDVNgzFec7Aa/HkeyvZuozs7DNUuLM=; b=lVy4WTu772b39w3Jf/ZEzgXq1T
+ WawhPX4Qeosv+NJoTEn1ZBBainBg+/s98I4FRoA+hzUqWuZZsPivu3I1c/f56l2Z
+ HHFxZU49WXmAmPUPOU8VLDStywmhl7RyRN3tiLPg9w+o9JiVEzw3oojJD6/eqmfq
+ zdS9J8nLfr4tqT/zTp/H+pFCIVYFw8Z8E+3i6zjLxW0IyKzX6rHcqKnmi4zwwkDD
+ 70Co+RGwXEA3kGv1AIkVdZQGMF0F53/JIbZJEVv5hG2iiI0cGgL5aRUL8Hfahx3x
+ hPSLok3fFcMpfeCZch3/vxEfWpclbWbY1AKXUxKQ6yRmpRTdtd2k6hKDlSAw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1776790519; x=
+ 1776876919; bh=2zn4a4qW9UF0PfDVNgzFec7Aa/HkeyvZuozs7DNUuLM=; b=u
+ iTLpeQVGWudbY5PhHOM8kiMrZMBYQLyD7FlDvGqN+4xFotyMxPwaTSXpkyBe0EYI
+ uNe0o9YFQvxAG3KzGR7jqk1s/LofN6yfem3+BXn/8F4YiHjoCHOfa4KcPPTI/B29
+ mnOh35i5/lDuEEtQ/SGuhO1M3Ic8fQgbF1ytDfiap51UW5ig3DETz3QOKryIoa6K
+ tMLWogdJbqiel15GgVYI80av39eBhEqy9Qo1iVmN0rtSkdlHHBNoCw2FQn4t7fQ2
+ p75u4yOj1VTb2f9th9Uz1o9HSw6YKtl9WiwxSgyYthXg/N7VQyLC7fbRzc02axo3
+ zmpJZOVTqeXjw+Y4vaBVw==
+X-ME-Sender: <xms:9qvnaYjznKArJo5qJExq7I_TN-X40gMjw6mvZ3vvvKNblVJtmOyolg>
+ <xme:9qvnabFATSmSrPd7AYlfIbbcUvLeiNbKXiNl7cE9Fwdno1YFpibRa_bDTXrK_Izoh
+ UIa-DxpVb_YCZZ70vzlw2nWCfHTusZ_2gEmL7YTSXoFRvq0ZW0F>
+X-ME-Received: <xmr:9qvnaf_sCZPzdWc8St9FuPfcExt4H8pHK4UaOFISHKWWbZoc5D0dn3aNS7NmwpOYby-jffg0a5VTvY5JMVHzku5IvL2PO7MJww>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdeiudelvdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+ ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+ hrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepgggrlhcurfgr
+ tghkvghtthcuoehvrghlsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
+ cuggftrfgrthhtvghrnhepheekgfefveetkeethffhgeeivdffkeegueevkeefveeltefg
+ leehffegudegkedvnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvg
+ hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehvrghlsehinhhvihhsihgs
+ lhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepjedpmhhouggvpehsmh
+ htphhouhhtpdhrtghpthhtohepuggvmhhiohgsvghnohhurhesghhmrghilhdrtghomhdp
+ rhgtphhtthhopegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomhdprhgtph
+ htthhopegurhhiqdguvghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
+ pdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrd
+ horhhgpdhrtghpthhtoheplhhinhhugidqmhgvughirgesvhhgvghrrdhkvghrnhgvlhdr
+ ohhrghdprhgtphhtthhopehsuhhmihhtrdhsvghmfigrlheslhhinhgrrhhordhorhhgpd
+ hrtghpthhtohepphhivghrrhgvqdgvrhhitgdrphgvlhhlohhugidqphhrrgihvghrsegr
+ mhgurdgtohhm
+X-ME-Proxy: <xmx:9qvnaaz9o7Hhwkq9a4l-PDlhylhfTROJthGoElg-_zoQs8iVwNiqfw>
+ <xmx:9qvnaTNI2I604FqF2c3PDY9CyH5bIxDaVObcYaq_ig56r2IzpYwQFA>
+ <xmx:9qvnaX-t4WDK-HI82ohdvRWuV0p8MbUKoTT8EQUcDbn7HRx5UKLrtQ>
+ <xmx:9qvnaY6HST0z1SO8cDSMNe8ssP_1YKmoAzoB3dpiCUMwhjT0UE6d9A>
+ <xmx:96vnae-UbyH_244q_LhhTyJHJQO3NdqoDTPCrQ0h1nsigFMViaq0ow6_>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 21 Apr 2026 12:55:17 -0400 (EDT)
+Message-ID: <de6777c1-1165-4ace-a5a7-3004aa9ea8c5@invisiblethingslab.com>
+Date: Tue, 21 Apr 2026 13:55:14 -0300
 MIME-Version: 1.0
-References: <20260421084701.24227-1-laura.nao@collabora.com>
-In-Reply-To: <20260421084701.24227-1-laura.nao@collabora.com>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 21 Apr 2026 09:34:08 -0700
-X-Gm-Features: AQROBzArUGDXn57yy7hiM7ct4lrQxadoBQMLBR3Cb8jVRGpfyvO4Z6UZBx6yzNM
-Message-ID: <CACSVV01Kh5w1t26FEzKAVRxnKz=GCKjRvXe4KOKSLs-FkwkuBg@mail.gmail.com>
-Subject: Re: [PATCH] drm: Remove DRIVER_GEM_GPUVA feature flag
-To: Laura Nao <laura.nao@collabora.com>
-Cc: dakr@kernel.org, boris.brezillon@collabora.com, steven.price@arm.com,
- liviu.dudau@arm.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=KItqylFo c=1 sm=1 tr=0 ts=69e7a70c cx=c_pps
- a=Z3eh007fzM5o9awBa1HkYQ==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yx91gb_oNiZeI1HMLzn7:22 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8
- a=3M9eerblpL4TRhbo7qwA:9 a=QEXdDO2ut3YA:10 a=eBU8X_Hb5SQ8N-bgNfv4:22
- a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-GUID: Yeq2KEQbXZQQyVKcxmkJbezZ0hWfeV7x
-X-Proofpoint-ORIG-GUID: Yeq2KEQbXZQQyVKcxmkJbezZ0hWfeV7x
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE2NCBTYWx0ZWRfX3En+Fu0IXmDe
- DJM2qFaniJSWM0r6j5nPYpF2195mLJExN2NRBFo5JHmo6BZtHJv7SpAujYVbaEHupPGvD4GsF9M
- iy5h+yShqYeZmwilzOClt+3RIJEqUpUXMhYIOxe0hSMSlUaGODJT+pj5kl4GzPFqAPU5jzrI4JI
- Xbf43QbCoBEq723OonR2nzcJcoLEuy+3s+4CnFO6OERBpsFAEk33PlO21GFeLBVqeZcanefkO55
- rZRu5+kLhyzalijw0mPe7eOgMty+gyERP1mmT8B43D1YjUGL4cU9PdpVbQ1M/A4P6BctMUbt9Ju
- voB8KjKBMs7PLbaHlRBUYvUjHDImCFtrVgpy3K6/iWgq+c0LU48Sh7BR6jFpRnabMnfXs4+0C9h
- GMzllbJAIKrcUgq067JL2jMm/rgIB0HYPiZ+fmdUCk8UlHbbr8pLijqeAUKAOTJJwMK63R4Sv86
- Ns5Pph+/7SpLgyHfwUA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 phishscore=0 malwarescore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 suspectscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604210164
+User-Agent: Mozilla Thunderbird
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Suwit Semal <sumit.semwal@linaro.org>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+ <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+ <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+ <964c3670-fad3-44ce-bd93-2057bca2dcb8@amd.com>
+ <08ad2301-3163-4497-8869-fa4cea30b384@gmail.com>
+ <e5c00f2c-0819-48b4-b66e-71b9a40a7235@amd.com>
+ <686713fc-c762-4b1b-88b2-d486d4f38ac6@gmail.com>
+Content-Language: en-US
+From: Val Packett <val@invisiblethingslab.com>
+Autocrypt: addr=val@invisiblethingslab.com; keydata=
+ xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
+ jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
+ NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
+ OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
+ Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
+ pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
+ nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
+ dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
+ d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
+ aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
+ /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
+ UDOwAqdfvuF3w8QMPw==
+In-Reply-To: <686713fc-c762-4b1b-88b2-d486d4f38ac6@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,190 +128,131 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 21, 2026 at 1:47=E2=80=AFAM Laura Nao <laura.nao@collabora.com>=
- wrote:
->
-> The DRIVER_GEM_GPUVA feature flag is currently only used to control two
-> behaviors within the DRM core:
-> - calling  drm_gem_gpuva_init() during
->   GEM object initialization
-> - creating the "gpuvas" debugfs entry
->
-> drm_gem_gpuva_init() is a plain INIT_LIST_HEAD() and therefore is cheap
-> to run for every GEM object. The DRM_DEBUGFS_GPUVA_INFO macro is only
-> referenced by GPU-VA capable drivers, so clearing the feature bit does
-> not cause any unrelated drivers to get the "gpuvas" debugfs node. The
-> flag doesn't have any relevant purpose (e.g. gating ioctl handlers or MM
-> logic) and doesn't provide any practical benefit.
->
-> Remove the flag definition and drop it from all drivers that use it,
-> call drm_gem_gpuva_init() unconditionally and clear the driver features
-> bit in DRM_DEBUGFS_GPUVA_INFO.
->
-> Signed-off-by: Laura Nao <laura.nao@collabora.com>
 
-Acked-by: Rob Clark <rob.clark@oss.qualcomm.com>
+On 4/20/26 4:12 PM, Demi Marie Obenour wrote:
+> On 4/20/26 14:53, Christian König wrote:
+>> On 4/20/26 20:46, Demi Marie Obenour wrote:
+>>> On 4/20/26 13:58, Christian König wrote:
+>>>> On 4/20/26 19:03, Demi Marie Obenour wrote:
+>>>>> On 4/20/26 04:49, Christian König wrote:
+>>>>>> On 4/17/26 21:35, Demi Marie Obenour wrote:
+>>>> ...
+>>>>>>> Are any of the following reasonable options?
+>>>>>>>
+>>>>>>> 1. Change the guest kernel to only map (and thus pin) a small subset
+>>>>>>>     of VRAM at any given time.  If unmapped VRAM is accessed the guest
+>>>>>>>     traps the page fault, evicts an old VRAM mapping, and creates a
+>>>>>>>     new one.
+>>>>>> Yeah, that could potentially work.
+>>>>>>
+>>>>>> This is basically what we do on the host kernel driver when we can't resize the BAR for some reason. In that use case VRAM buffers are shuffled in and out of the CPU accessible window of VRAM on demand.
+>>>>> How much is this going to hurt performance?
+>>>> Hard to say, resizing the BAR can easily give you 10-15% more performance on some use cases.
+>>>>
+>>>> But that involves physically transferring the data using a DMA. For this solution we basically only have to we basically only have to transfer a few messages between host and guest.
+>>>>
+>>>> No idea how performant that is.
+>>> In this use-case, 20-30% performance penalties are likely to be
+>>> "business as usual".
+>> Well that is quite a bit.
+>>
+>>> Close to native performance would be ideal, but
+>>> to be useful it just needs to beat software rendering by a wide margin,
+>>> and not cause data corruption or vulnerabilities.
+>> That should still easily be the case, even trivial use cases are multiple magnitudes faster on GPUs compared to software rendering.
+> Makes sense.  If only GPUs supported easy and flexible virtualization the way CPUs do :(.
+>
+>>>>>> But I have one question: When XEN has a problem handling faults from the guest on the host then how does that work for system memory mappings?
+>>>>>>
+>>>>>> There is really no difference between VRAM and system memory in the handling for the GPU driver stack.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>> Generally, Xen makes the frontend (usually an unprivileged VM)
+>>>>> responsible for providing mappings to the backend (usually the host).
+>>>>> That is possible with system RAM but not with VRAM, because Xen has
+>>>>> no awareness of VRAM.  To Xen, VRAM is just a PCI BAR.
+>>>> No, that doesn't work with system memory allocations of GPU drivers either.
+>>>>
+>>>> We already had it multiple times that people tried to be clever and incremented the page reference counter on driver allocated system memory and were totally surprised that this can result in security issues and data corruption.
+>>>>
+>>>> I seriously hope that this isn't the case here again. As far as I know XEN already has support for accessing VMAs with VM_PFN or otherwise I don't know how driver allocated system memory access could potentially work.
+>>>>
+>>>> Accessing VRAM is pretty much the same use case as far as I can see.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>> The Xen-native approach would be for system memory allocations to
+>>> be made using the Xen driver and then imported into the virtio-GPU
+>>> driver via dmabuf.  Is there any chance this could be made to happen?
+>> That could be. Adding Pierre-Eric to comment since he knows that use much better than I do.
+>>
+>>> If it's a lost cause, then how much is the memory overhead of pinning
+>>> everything ever used in a dmabuf?  It should be possible to account
+>>> pinned host memory against a guest's quota, but if that leads to an
+>>> unusable system it isn't going to be good.
+>> That won't work at all.
+>>
+>> We have use cases where you *must* migrate a DMA-buf to VRAM or otherwise the GPU can't use it.
+>>
+>> A simple scanout to a monitor is such an use case for example, that is usually not possible from system memory.
+> Direct scanout isn't a concern here.
+>
+>>> Is supporting page faults in Xen the only solution that will be viable
+>>> long-term, considering the tolerance for very substantial performance
+>>> overheads compared to native?  AAA gaming isn't the initial goal here.
+>>> Qubes OS already supports PCI passthrough for that.
+>> We have AAA gaming working on XEN through native context working for quite a while.
+>>
+>> Pierre-Eric can tell you more about that.
+>>
+>> Regards,
+>> Christian.
+> I've heard of that, but last I checked it required downstream patches
+> to Xen, Linux, and QEMU.  I don't know if any of those have been
+> upstreamed since, but I believe that upstreaming the Xen and Linux
+> patches (or rewriting them and upstreaming the rewritten version) would
+> be necessary.  Qubes OS (which I don't work for anymore but still want
+> to help with this) almost certainly won't be using QEMU for GPU stuff.
 
-> ---
->  drivers/gpu/drm/drm_gem.c             | 3 +--
->  drivers/gpu/drm/imagination/pvr_drv.c | 2 +-
->  drivers/gpu/drm/msm/msm_drv.c         | 2 --
->  drivers/gpu/drm/nouveau/nouveau_drm.c | 1 -
->  drivers/gpu/drm/panthor/panthor_drv.c | 2 +-
->  drivers/gpu/drm/xe/xe_device.c        | 2 +-
->  include/drm/drm_debugfs.h             | 2 +-
->  include/drm/drm_drv.h                 | 6 ------
->  include/drm/drm_gem.h                 | 3 ---
->  9 files changed, 5 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 0377a5fd402d..cb703d0072aa 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -232,8 +232,7 @@ void drm_gem_private_object_init(struct drm_device *d=
-ev,
->         if (!obj->resv)
->                 obj->resv =3D &obj->_resv;
->
-> -       if (drm_core_check_feature(dev, DRIVER_GEM_GPUVA))
-> -               drm_gem_gpuva_init(obj);
-> +       drm_gem_gpuva_init(obj);
->
->         drm_vma_node_reset(&obj->vma_node);
->         INIT_LIST_HEAD(&obj->lru_node);
-> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imag=
-ination/pvr_drv.c
-> index 268900464ab6..80033d4cb66a 100644
-> --- a/drivers/gpu/drm/imagination/pvr_drv.c
-> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
-> @@ -1375,7 +1375,7 @@ pvr_drm_driver_postclose(__always_unused struct drm=
-_device *drm_dev,
->  DEFINE_DRM_GEM_FOPS(pvr_drm_driver_fops);
->
->  static struct drm_driver pvr_drm_driver =3D {
-> -       .driver_features =3D DRIVER_GEM | DRIVER_GEM_GPUVA | DRIVER_RENDE=
-R |
-> +       .driver_features =3D DRIVER_GEM | DRIVER_RENDER |
->                            DRIVER_SYNCOBJ | DRIVER_SYNCOBJ_TIMELINE,
->         .open =3D pvr_drm_driver_open,
->         .postclose =3D pvr_drm_driver_postclose,
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.=
-c
-> index 195f40e331e5..ee38c18715f0 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -825,7 +825,6 @@ static const struct file_operations fops =3D {
->
->  #define DRIVER_FEATURES_GPU ( \
->                 DRIVER_GEM | \
-> -               DRIVER_GEM_GPUVA | \
->                 DRIVER_RENDER | \
->                 DRIVER_SYNCOBJ | \
->                 DRIVER_SYNCOBJ_TIMELINE | \
-> @@ -833,7 +832,6 @@ static const struct file_operations fops =3D {
->
->  #define DRIVER_FEATURES_KMS ( \
->                 DRIVER_GEM | \
-> -               DRIVER_GEM_GPUVA | \
->                 DRIVER_ATOMIC | \
->                 DRIVER_MODESET | \
->                 0 )
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_drm.c
-> index 5d8475e4895e..0f5f662e5429 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -1364,7 +1364,6 @@ static struct drm_driver
->  driver_stub =3D {
->         .driver_features =3D DRIVER_GEM |
->                            DRIVER_SYNCOBJ | DRIVER_SYNCOBJ_TIMELINE |
-> -                          DRIVER_GEM_GPUVA |
->                            DRIVER_MODESET |
->                            DRIVER_RENDER,
->         .open =3D nouveau_drm_open,
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/pant=
-hor/panthor_drv.c
-> index 87d27c3c1456..1a1d40a744db 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1805,7 +1805,7 @@ static void panthor_debugfs_init(struct drm_minor *=
-minor)
->   */
->  static const struct drm_driver panthor_drm_driver =3D {
->         .driver_features =3D DRIVER_RENDER | DRIVER_GEM | DRIVER_SYNCOBJ =
-|
-> -                          DRIVER_SYNCOBJ_TIMELINE | DRIVER_GEM_GPUVA,
-> +                          DRIVER_SYNCOBJ_TIMELINE,
->         .open =3D panthor_open,
->         .postclose =3D panthor_postclose,
->         .show_fdinfo =3D panthor_show_fdinfo,
-> diff --git a/drivers/gpu/drm/xe/xe_device.c b/drivers/gpu/drm/xe/xe_devic=
-e.c
-> index ffea4a453c01..b3acc202df76 100644
-> --- a/drivers/gpu/drm/xe/xe_device.c
-> +++ b/drivers/gpu/drm/xe/xe_device.c
-> @@ -393,7 +393,7 @@ static struct drm_driver driver =3D {
->         .driver_features =3D
->             DRIVER_GEM |
->             DRIVER_RENDER | DRIVER_SYNCOBJ |
-> -           DRIVER_SYNCOBJ_TIMELINE | DRIVER_GEM_GPUVA,
-> +           DRIVER_SYNCOBJ_TIMELINE,
->         .open =3D xe_file_open,
->         .postclose =3D xe_file_close,
->
-> diff --git a/include/drm/drm_debugfs.h b/include/drm/drm_debugfs.h
-> index ea8cba94208a..eb93512b0f23 100644
-> --- a/include/drm/drm_debugfs.h
-> +++ b/include/drm/drm_debugfs.h
-> @@ -48,7 +48,7 @@
->   * For each DRM GPU VA space drivers should call drm_debugfs_gpuva_info(=
-) from
->   * their @show callback.
->   */
-> -#define DRM_DEBUGFS_GPUVA_INFO(show, data) {"gpuvas", show, DRIVER_GEM_G=
-PUVA, data}
-> +#define DRM_DEBUGFS_GPUVA_INFO(show, data) {"gpuvas", show, 0, data}
->
->  /**
->   * struct drm_info_list - debugfs info list entry
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index 42fc085f986d..e09559495c5b 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -107,12 +107,6 @@ enum drm_driver_feature {
->          * acceleration should be handled by two drivers that are connect=
-ed using auxiliary bus.
->          */
->         DRIVER_COMPUTE_ACCEL            =3D BIT(7),
-> -       /**
-> -        * @DRIVER_GEM_GPUVA:
-> -        *
-> -        * Driver supports user defined GPU VA bindings for GEM objects.
-> -        */
-> -       DRIVER_GEM_GPUVA                =3D BIT(8),
->         /**
->          * @DRIVER_CURSOR_HOTSPOT:
->          *
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 86f5846154f7..996aa418dce9 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -663,9 +663,6 @@ static inline bool drm_gem_is_imported(const struct d=
-rm_gem_object *obj)
->   *
->   * This initializes the &drm_gem_object's &drm_gpuvm_bo list.
->   *
-> - * Calling this function is only necessary for drivers intending to supp=
-ort the
-> - * &drm_driver_feature DRIVER_GEM_GPUVA.
-> - *
->   * See also drm_gem_gpuva_set_lock().
->   */
->  static inline void drm_gem_gpuva_init(struct drm_gem_object *obj)
-> --
-> 2.39.5
->
+Yeah, our plan is to use xen-vhost-frontend[1] + vhost-device-gpu, 
+ported/extended/modified as necessary. (I already have 
+xen-vhost-frontend itself working on amd64 PVH with purely xenbus-based 
+hotplug/configuration, currently working on cleaning up and submitting 
+the necessary patches.)
+
+I'm curious to hear more details about how AMD has it working but last 
+time I checked, there weren't any missing pieces in Xen or Linux that 
+we'd need.. The AMD downstream changes were mostly related to QEMU.
+
+As for the memory management concerns, I would like to remind everyone 
+once again that the pinning of GPU dmabufs in regular graphics workloads 
+would be *very* short-term. In GPU paravirtualization (native contexts 
+or venus or whatever else) the guest mostly operates on *opaque handles* 
+that refer to buffers owned by the host GPU process. The typical 
+rendering process (roughly) only involves submitting commands to the GPU 
+that refer to memory using these handles. Only upon mmap() would a 
+buffer be pinned/granted to the guest, and those are typically only used 
+for *uploads* where the guest immediately does its memcpy() and unmaps 
+the buffer.
+
+So I'm not worried about (unintentionally) pinning too much GPU driver 
+memory.
+
+In terms of deliberate denial-of-service attacks from the guest to the 
+host, the only reasonable response is:
+
+¯\_(ツ)_/¯
+
+CPU-mapping lots of GPU memory is far from the only DoS vector, the GPU 
+commands themselves can easily wedge the GPU core in a million ways (and 
+last time I checked amdgpu was noooot so good at recovering from hangs).
+
+
+[1]: https://github.com/vireshk/xen-vhost-frontend
+
+~val
+
