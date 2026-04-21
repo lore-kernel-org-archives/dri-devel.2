@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32DAEF8FA8C
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 14:56:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3411DF8FA8C
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 14:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A0F310ED31;
-	Tue, 21 Apr 2026 14:56:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 833AB10ECD1;
+	Tue, 21 Apr 2026 14:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="gzRkEzbu";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="hhhCA9/e";
 	dkim-atps=neutral
 Received: from CWXP265CU010.outbound.protection.outlook.com
  (mail-ukwestazon11022073.outbound.protection.outlook.com [52.101.101.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DD1D10ECF5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1847610ED00;
  Tue, 21 Apr 2026 14:56:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w0fPmim77OhMy/AArBYuqxQN+roqyR9l9RZuxFmzceM4woWHVcpwnUweobxWBpZ27xC/LM0U2LEQ3wYkXgsJqor+OZU5MDtjtsr0VZUylyer/u72k4NZcxxjx6BBhhkRrJUsMfVSxPpawEM7i/v4IKZ/AFkEIZBNYxzIVIozEoJbrZG0XJGvuri3qNoRNCLe+JUOWj6Lf041AMvOnch6ETlBsUxJ54Cs7rGf/nOT749db1JFJ3I4bT48kjxD8/zsvDBtTItg9Sx+trB0oEPSK9DI4DMz+Kz0pYE09KUsnWOAVWGs5WbWBWJaz+EkwJteCb2t/0bBQ4Oa5AnDuo9rLA==
+ b=CA40ceVExwfC2a5hzRTrRuIv7zlYRc3s+bT29eoKQE4/JkNSTZEroMN+aZQZXY/8KVFYuaWdCbdPMuCw1kY1Xv0umJmoal4TVzdCZf68AMuwNoAVEktHd1QNKbzO35YUaZymwZ76CegTnUuuGgfe+YyhaQRjbUAbG0wRmyPOyPY5YuwOnV1lm3+v7z64i1vg+Wu6PPvfm79Eb+WRixJwoAbFd1e000OBWVNJ7C7i6GXz1n6T2OBVbxP50Ktl6OVAYYELlOxUI74fShu4l1jedQGL6pLcpG3EJawlnPwE0psKep25YQpiFFoYT8YzFJ5/FsdzPTYFxGLQeXA/Ann+2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ih550/9B0Kfc6sJ+DPgQPhZ40972fjfe4eGDtLBMZLU=;
- b=QZX9Bk6RFon8KQFFhURnPSRlWLyeMuBeVCRmY3XaU7CIziPmen5+HuW+OQYhz++VBFfjgeUKJTf8Zp0Vki/ZUehgitHdmuaNWuANL2XuG0W3NqLdS7ARt/a+ux4cQFrQGUeaKlvxpeoulmkoAC3IAXnO1XWO62A18Nymd6YUnYgg1atRq9guzN+jM93ufcf/+ZNr3LhjrqHU/q039xJNOljygOqsAHG0urapmNFKDmZY0eyU5eZj16tVAKj5j2y+6vCToJ87N/nVNbrvkQ/AVaNxubkFSaHqipUDuyRHv4TpqV2evS8JpHTfrYbMXVTCc0oamvsbtb73umNwlhDjiQ==
+ bh=1b5DdLMRYimSWgJfRYYszp83aLSNpWhflPrz3Msjbw0=;
+ b=hpCp5b8vX7ahgq/LOBhGNQhead/98Lo6zxB4CgPEj3+E3sHbL3v7ZwVB3301PmKz/Q5vvYT1fugUqlORmmLvuOaeYmaajDyTrQWEbJp3aj6KuFSHpEjDJkuBVNsqNSVOHB7MtygGHpy3APC+m9VBFFQe45nnw2iq+lBJKGiONgjLta7CSYRI9cbr1yhNd6Olkn6C2r6IU8wk/kcgIktkxQmU2nysnkVbSdO7GeZKSPCnH0rUji7uAMrMNkFce+4CC3tEQRlHcZLW3zv4MD0qsHFyrDhtCE2sFnJcb+HVWzWizRvWa0huLzbonyXeTujRn/ur5GOka0g47d9nZiiRRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ih550/9B0Kfc6sJ+DPgQPhZ40972fjfe4eGDtLBMZLU=;
- b=gzRkEzbut50jJjaAtXlaQT52b+cu4acFYGMZT0fQ9Cof3hSOVXO9+HuqvCTgD9PV8t+NJZxeloPPVIS4UBRiFpfM6vJq5VT8wxIR+cIW8lTOPugP6ACz2I5X3VtjaxGgtfLq/TOfisp9ZjdlkKbWhM+C1ZOCuvaQD7XTP0oDsQc=
+ bh=1b5DdLMRYimSWgJfRYYszp83aLSNpWhflPrz3Msjbw0=;
+ b=hhhCA9/eaU+Y2JxIMiWifeyArKcf8914Y5HeeyehURYll+lka+wj/96SUr1/oaQjKdx+7d/hscyc95Vl88XYk5Y0IFxuAqf0y+ykY8Y5qsmpnpLkgn8/GIPzmtcGX2YglQRf0rM6qTHxVCSs7j9ocE/+LE3vEz0KXeO4nTTT01w=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
@@ -43,12 +43,12 @@ Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
  ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
  14:56:30 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 21 Apr 2026 15:56:20 +0100
-Subject: [PATCH v2 09/11] gpu: nova-core: use I/O projection for cleaner
- encapsulation
+Date: Tue, 21 Apr 2026 15:56:19 +0100
+Subject: [PATCH v2 08/11] rust: io: add `read_val` and `write_val` function
+ on I/O view
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260421-io_projection-v2-9-4c251c692ef4@garyguo.net>
+Message-Id: <20260421-io_projection-v2-8-4c251c692ef4@garyguo.net>
 References: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
 In-Reply-To: <20260421-io_projection-v2-0-4c251c692ef4@garyguo.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -69,11 +69,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
  nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776783386; l=12845;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776783386; l=7273;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=PRmb1wvZ+Pmwck3wqC2xoPHaVRyQSptHTYjFPqcyZSo=;
- b=FV6fQMw8SBB/uXwMUfB7l1WdZJo0rqbdRde/svIF1wTqDb8Z85lNZJp73GsxFDTvZl3IGtCHr
- wLXxVRg4vQGDJ5jxA7jGTbfAA6dYLmUsS+8+XnTsMdWcI2Vp7r6Q0Lp
+ bh=d7D59E81y7GC3frEJZ83WlP+T/kdXpX9ZQKPVZqa7+k=;
+ b=qF0wrVzmyz8fm5OQ/DwWboUlelLDg5mLGSN9s8IcpY5U5Exs6P6m21qpLlivvfZa17vP94do/
+ kKKGzRhLwasA1tPQWtMdNqJP/9gWsCBFWZm5puOfvZYSBsBFUf0lnX3
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0142.GBRP123.PROD.OUTLOOK.COM
@@ -82,65 +82,65 @@ X-ClientProxiedBy: LO4P123CA0142.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|CWLP265MB5674:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c296a16-dfaa-4fd9-dd00-08de9fb62c0d
+X-MS-Office365-Filtering-Correlation-Id: 7dacd265-791f-4be1-e56b-08de9fb62bd3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|7416014|10070799003|366016|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: pPPf7xu8o1wlcW90ZLLmV7T2nyzZOFxz9kQ0sX6ZolZTDltS0shpan5e83CdWh/rF1Ue7iDW2VnRrefe2wzTgbbzjhG7Y5dtcQLZ0F0GN5CfrKJX/PhibZuJibJ4BcLLIZDJDbiZi/cFLO2WcBY6t043E6UneIRdgaEw2T44afk3eN3ngXpcptUDdZQjEJxsXVYYzHNRu+RjPP161V1yIQh3YCYRxAChcN4HzdJhEWtTDmzJV98VIuD1uLjEBCEf3C0na9Y2eT/C/NMeu1BSG8CQYpxB7UwZ8I/hGpz/mRgtzTtD6wa2KZEEodoBXA7OAN/UbKeFlKl0w3YbByST8LvUCQj1M1JDIE7ibvuMN2HRAk/agq7jYjWvjKb0HXn7myTZWK7WjP9BZFY0Bc50MOY4p+IAF8Nr2Cf4AZkMD6P9SmWkMzdqKwT2kx+IOD5X3USJASxRvzvdyeJprMJpOI1RjCSjdeDq7oKgXID4moWQtujROl3/+QrOlCQb9sFstZM93v4uMcOk6AkPD1xCIFGiRLLeHngGDMfoGDe063PIKSLjfoVtjrmp2L+Essz7rj0cf5LhWOpSjNiZdkpZfNH7u/6DW7JiRtlaCO/ypw8IvtGvwBlBeHL5wLXZJT4GeIAQmp7oYUsSbYqmFWk9HO8eLWkY2XXuvY6R0JHw7Gw1IvFM4kEU6uIqm8ZHDQrWCdDEbs/aIRddxhHx3ckMrQizihEtfWq5R8ZmOJbNiNTt2Ab/A2I2NGK33CouX+FZSvt+7t82u6jEEBp7YGaVHg==
+X-Microsoft-Antispam-Message-Info: mEroFlZL5aM9woDSdEslRumUUAayC5Bu9Vo1ZdLU++sa1r1zmKX40nBagHzx1YHvrkUKB0Pcv504JAyUIe9pWnXIA8kQECG2WeWO9dK9gv2HDCd1t0KdHb4Ys2klOoIHUFcmmp034PefU1+HwWowxxOqUs5/eH5DBaHd8ZpGieRpa6xc/Go6Ro3/+HK3X/i0LogvXzKZSwpIbQ5hImsHW0N2UGbMZb5sTD4VgrQEDUZ7+fcBTM/jdzAQcd6HewAYy8aSjkERcfKAKAmmBVFOM6F0Ibz31PCfN+aDjRXrV9LyVoeo1e0j2zi38rXQWqVkM494KSuSk6MZfevhqmxFJw5vQ5W4Wlnlgj6APhdxHv2RoRYE/dE9Ap6RhmY2zpoWsiwvzorRodt7uak25bcJ12jrYcKv3jmRyJ20SDrYhq1KuVKOh9FjFr3Y+u7Wqs6U2B+0l/GDViZcbq8lpaEJY2SCl0IzURkHgk8Dn/HnJkSWrzl5qYoQtJzhf8MZmE0Nxr0heaYlgYYPtIGmaD3yyzKmdybhZETbHgOk9BIR1gnAzIxMxrJbVjZ7KGAA87qrbOAotxPC14wUoDhoZ9iOO4v62XJ6QWEYdsm0Y+UjCcuxdV0RaxopFXuxFOhzjQUnXdcm0lEvvOY+os3AEKD00Cp4DOUc+adHEaXGVSpv6fQ1JnoEfx6KwjmhvxCyVZeL9H1h66onjEPyP8Toc5L2Q1Pgk45yu1cSN+RO0CqgkO8CcWWc3PTe+zCer3BPI+D1hf1IyHUHtx/sklf9iFcaZg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(366016)(921020)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1hySG1MUlNDcXlNQVUwdmkzUE5YSGQzajJwdWdvOWs5L3AzQXhkUSs2eTA3?=
- =?utf-8?B?dVdRSVZwLzNPOU1xZzFkMktqS0ozVnRuZzJYUUVKTldsVXlaUFdMOUtGU1Vn?=
- =?utf-8?B?MCtUemtYZ2pZc2hUZldMTTVMTU5jdWpPMUpqV1M1aU9ITnE3U2RjcW11WFNE?=
- =?utf-8?B?V3FGQUtldWRaeFZPaDgydzQ1dHdVVnRMcFhmOHYxKzE5Q2h1a3o3emFOVWw3?=
- =?utf-8?B?Y3NBbUpQdC9mMWFweWY5RllVTjl6YXN4U01vak0rdm9xRy9RaGNrMDlpbU4v?=
- =?utf-8?B?MC9TczVHTWFBSHlveTJSOUZ3WERlQnlpaEVaUTJSY3MxVjdlM1llbDNyVDRh?=
- =?utf-8?B?OUFpb25CNGxFZ0ljeVMxVDVsYjMxZmZuWDJScktGU3pmWU52Ylo2c1J0YjdR?=
- =?utf-8?B?U2ZMZjd1akRjNE5NcFczM0N1cXk4ckhvSm5OcjhFcmxqN2JzdFlQQmJEOEhv?=
- =?utf-8?B?cGdReElXWnF6Q1llM25GbjdkczducjhvNlgwMXRSVWVITUErMFhVcnVWNFl6?=
- =?utf-8?B?RVJ2allKd09XSkk1bjlZMkZPT3hldkZPMUpMQ0pDZEhsaE9ER0lQc3FGa2Y1?=
- =?utf-8?B?QzVYZVJSTFJuRVhlSkR1YWFQMm44Z2lNcEZHdEw4TXFka3ZOOVF0L1RZcWtV?=
- =?utf-8?B?OWlLZVh2dWhIcEFVNXh6NGJVdGdqT21wcVlkQ1drYy83eFBGZmd2anhnQ1pJ?=
- =?utf-8?B?aFlnaFN2VEM0Ti9ieXBhMnZYZnAxQ21nM3diZWNlS2VReHQ0dTJQekRyYU9s?=
- =?utf-8?B?UVpodjliUytEd0U1NStYWW9yN1hSSzVZeTJlalRhN2JCWDVUWXFudWxBMnlz?=
- =?utf-8?B?MFArb3lGa1Z2MTdKYkNUQnUrSDI4Q2VndEpRMVJrZDgxcFFMaHh4ajRrbHpF?=
- =?utf-8?B?ZE16STFBcW1jcWlvbGxwV1NKV3BJcXNpUUg5WHRJODBNa05HSEg4bXRhd0hI?=
- =?utf-8?B?V2k3MUw2K01JZHppRXk2aHVsNGd4QTFrb3ZuTkFxWkdDeVljTUdHZkx5Yzg0?=
- =?utf-8?B?RXNZSWRxaWd4YjZFajZ4VGhGdzJEaW83NTdycndGQnBEdVFXUW5wNnRPaW1J?=
- =?utf-8?B?c1dvd2VMZ0Z1OEYzSWw4UW4rdXo2bDhIVUpXMkpkdXY0UXo3SGMzZlZ3RWk0?=
- =?utf-8?B?Y3NNazdCZ2FqSkRqZWc1T3Y0RTlUdU1jL1JaVnpwSEhiVTJXeU9LTnBpOExN?=
- =?utf-8?B?cWg5cTM1V2NzRlo5bTAzUEM3NStwc2NSTjc2V3FldC9VV05hT2NDekkyNGl4?=
- =?utf-8?B?aFRuUFV6M0p4bE03QkxpaExpQk96cGFrYjJUSENNdkY1WjdoUkVYUmEvNlRp?=
- =?utf-8?B?WDErNFlUK3JoK2lSTzdoMDNSbFFYb3MzcWUyT3hLT1JHVUJuOW16Wk1DVXRh?=
- =?utf-8?B?Z2xCOVVhc25hTEdMemdwR0tlSVFuenU0SmJpSUNRZ1BSTXNKeWxhWGdnOGRQ?=
- =?utf-8?B?ZTE3T09Xb1VXd3kyeG42cUI2a1JkMXp0Y0pxWlY3d1JNNmNDakFKVXIvdnNz?=
- =?utf-8?B?Qmc2MS9zaVZ6cGtRa0VoYW1YdXVrSU0xd0xjZjJwRXJiaDRCYmRKVWRRU3J1?=
- =?utf-8?B?cUtrQ0FMUzVKa3ErckRSelVwSHE2aWM0OVBFaTJSSGFXOVZFTjNrT0NlOWxB?=
- =?utf-8?B?QkM0ZmM1cjk2dG5mazhMWGtyOVcrOTYweCtUQjIzd0pkZkNZMlZIeW15UmFN?=
- =?utf-8?B?Nk9HaE1MVURrZ0k2V01vUlpTZkFDT1k2dlRNbXM1WDdFRHVDM01hOVRYVC9k?=
- =?utf-8?B?bStvTDR1d1lhYmp6TUJUb1NVdDlSaFhHOHNRM3hZN25YTEQxUmtjUzVDNzB0?=
- =?utf-8?B?cmFpWU9ZZWhQRDdzZlM0VlZhSllPZENUZVZMY25sbDN6ME1aV0hyeGN3WWtR?=
- =?utf-8?B?U05yR0FOVUpWWWc5UmRBMTlHemozM01waVpHQTJYdWoyNWVJdHk4MTkvSDhm?=
- =?utf-8?B?ZlpTMUdkdTgwb3dxc21VNW83TWNqZTg3Mm9CTnY4NitBUGZMMks5T0pPbVVE?=
- =?utf-8?B?L2tIRGZoQ2JRV1dKNG9JSU1VOHZGVzdhc2VDKzdEbmdpd09QS2tJSGJTY3Ix?=
- =?utf-8?B?d2JLdSs2M0VvMDY4VFJ4bXd1dlFOcXd2MTQwUmp4cHB6VUVjN1RjVVlkaEhC?=
- =?utf-8?B?K2ZqaWhiZ2luYXFza0ptRVNsSldUZS9RMG1wZWpJQ1orcFVJMHhDSDhvSXZt?=
- =?utf-8?B?R1o4VVpoNTRjRDAreEd3MDJRVHhNRzFhYStrYkc4bzhSMnFLdHYxUVNSOFJU?=
- =?utf-8?B?eUVHOGczS2MzL2E4akozNndQS0FFY1o0OVdick9aQ0VlK0tSM1pyK01Pdnd6?=
- =?utf-8?B?YWFFL2NVVW1BQmRnZUhjQUg3Q3lLa0p6YldqcHhIRlVsSXg1NG1lQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S1N4WitMbFVKWVpLUkhVVGwwak1nK2pQalhHQlJubncvZXZDVTlrNHgwUFpB?=
+ =?utf-8?B?MGltUmdWeDNaVnF4UklCbytlOVg4dDY5VFNYUlNQUUZudVlUOTV3MExObFoz?=
+ =?utf-8?B?UUhFS2ZNSlR3WlN1SkVmSlJ4UTlMTUZ5QUVWSTNKZGNuRFRGcC84VnZCWU1h?=
+ =?utf-8?B?dHNWTHZWRDduUWxIR3RiNG9UK3RaTkhhd1FDZWxETXFmd1BqV2FJMjF0WGd4?=
+ =?utf-8?B?aHZaMzRiOGxEbWRHN3crZmh0eXRvTlVDdDM4RkpUTGZVMjVEM3J4VVN2N1Rn?=
+ =?utf-8?B?dk5ETGV6STdmU0hSRHFlQzhxTEhiaUIvdlFIMXdpZ1ZWTUdLTkFzWThRTGZa?=
+ =?utf-8?B?ZGVVNmplTlJGNjB5WGllbFJINHJseTZOYitsOVhUYStMQm9NZ1l5d2tWdWpF?=
+ =?utf-8?B?Wm8rWXpzUi9BcHBSSXpQNzhiNnFzdHlGeGFZdDZMRFNBNkdvQldzdGgwYVpm?=
+ =?utf-8?B?TGR0ejV1SEpXdDFvcTVJNkNoRmwvaGdtY3pLNllLaFlES3JPYkhWYXFockJ2?=
+ =?utf-8?B?RjNmVXU0YnlQeDRxdkFVNVE2aWlBSytSWW56T0NZc25jTFBLNUtMMUJRZzBL?=
+ =?utf-8?B?d2xEUjE2NE1qeEMrYnd0Ym54L25EU2p1em1LSytSZjB0OHM4eURuUjg5akZK?=
+ =?utf-8?B?NlJQZ2lkMUJCT2ZhbVh0Z2N5UkR1WHZndWlFck9pNVJ3c242dnVieFU5dmFY?=
+ =?utf-8?B?NXQ2WUFIbng5UXNib2o5WWFQQzlFMU1tY0RvTWVXNkxzemlLd3lQQ21nMENo?=
+ =?utf-8?B?U3dPanNsVnNvT1Rza0JaWnl3aExrMzZNc3VXQlduMURkT2ljWmtkYjFrSnJ2?=
+ =?utf-8?B?QTFITzNrcjY2K1VUWGVrRCt2cWZUdWFyL1FiZ1g5OFVNQkprTHZuVHhTRWd3?=
+ =?utf-8?B?a0s2Z1V1Znp0MFI4bG9wdmdDWm9WL1AvNUF6ejE1US80MnJQSHNvcFU1OFFX?=
+ =?utf-8?B?R3p2M3pPdEkwZU5QSWtwelREcG1JWisxdUdrcHB0UGNBNEpTVHNsdmpqUEIy?=
+ =?utf-8?B?QTNldWwvM0JEMkg0UzNQa2FveDZXWXZXYlBJdytieTNLRkgvbFZ3alQrenYy?=
+ =?utf-8?B?eFQ0SEttSTJucVMwdTVReHk0K0RnQk9oclJRUVkzd0VpbjR6NURpblFuOWl5?=
+ =?utf-8?B?SFlqUW5xNUpTQkVMRzB6eGhPMFEzajI1QStXbDdIUFRhV204S3J1WDE2Wkt1?=
+ =?utf-8?B?dkJoUjhzVjVjMW0ycDJSeUhFbHdFbVdkWFB0OC9vdSt4Smt6UnZYQXZoaVFk?=
+ =?utf-8?B?NFkxemRkaFNFT05JbXdqbWJBY2dpZDFlbWQrbG8rMlAyYm5SNU4wa0l1VXl0?=
+ =?utf-8?B?VG9HWFEyV1Bnekl2ZVpOQmV5akxqS1NoTmw2TXlabU0rb3gybmhkdWoyeVpu?=
+ =?utf-8?B?V0ZUSnAra0Q5L0dqUUJtdUwzQWoyWmp6M1dEbjhIbFFNa1oyVGFPNEtORCti?=
+ =?utf-8?B?RUhYcnNWVGU2a0tucCs4L1BiOStVeVZqTTFBOGRvWDcvRGlNRXNwL0xZYlUr?=
+ =?utf-8?B?OFBzbDQ4SFgwN1doRUNMTFlMSTByaVhIZmdoVXdpekt2dE5RdFN1OVlmMGQ3?=
+ =?utf-8?B?NGM1MXJDYkRNOHAwU2U5azhJNzcrUmlsS1hJbCtJeFcvMjlCcGR0QlNhV3M3?=
+ =?utf-8?B?RzJPc282Z0pPaW4vaXRnSDdOTldMejlGcGpRQXFHYTJzZnBKdCtucmk1M2hW?=
+ =?utf-8?B?eDl5Ym9xZ0tnZ0ZRNUlmcGJIUXdPTXBETGxpWnhYVWU1emtJMjIyMk5VQjdo?=
+ =?utf-8?B?dUdQZ3ZGaXJoTHRuN3lHYkdwcXQ3ZDRueHRPdTVFWjZyUFU0MjBrUXF0R2VI?=
+ =?utf-8?B?VGpvV2x4WWQ5VkVhendka09YY29nVVFQb0hYS2IyNjljdFRZUWZkOHdSUnBs?=
+ =?utf-8?B?bXBjblNwK3RTUW1hcXpQTmozRGNiWkxpcFlFRFVtRVhNRGJoUWRXRzkwbzFp?=
+ =?utf-8?B?ZG1MVW5YTkpReEJMdUJzdFBGNzUrUXM1Q3NCeWNZRGdOK0R2R0pLMjhJdkRv?=
+ =?utf-8?B?YVNUTlVsMG5yWThPU1NtaE1wSDRsRnpHMXZLOExtMEVtd1pKWWd2NzN4WFZn?=
+ =?utf-8?B?L2hqNWhQU2YxYTcvaEFTL3hOVkkrbWtQN0FwSHFuVmpRS3d3NXVXRDZUYmk0?=
+ =?utf-8?B?T20vbUNXVHlKVmJqRFhGZHRKL09ZRVR6dlFHVUUvQ3dYaWdwdm5qWFRxSmM1?=
+ =?utf-8?B?ejVNeVFtSDA4M3lIR2hqOWpRSjZZamNRTGx1V0pzbmxZcE43NUxYenV4ZlJS?=
+ =?utf-8?B?d2lGRmRZR0JBVkFFRFNaUmxiZklRVGIwcnI5ZzUybnQ3eXdLUm53S3Q3OFQr?=
+ =?utf-8?B?RVlGSjZOOTNrNDJudUxsL1RDcXBPeGQ1eWxxclFnTjd3b08xaHlxQT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c296a16-dfaa-4fd9-dd00-08de9fb62c0d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dacd265-791f-4be1-e56b-08de9fb62bd3
 X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 14:56:30.5875 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 14:56:30.2277 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Gg69nrHXe4QMRqc7yH4sTiMLuBCps5XOEV1dwENujYmYhwC78E5xtjZVSJMtQ2GPyj1qkMRusR2Ckh3s/6G2Aw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ISszC/OuJXGoejoTIkDqA75bB+4zlB5iF2c/EtxVc0MCBWv6JnbBpS/kqiLo0XBdl+hH1exf32UQzDD8aGH2Gg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5674
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -157,362 +157,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use `io_project!` for PTE array and message queues to remove the
-break off encapsulation.
+When a view is narrowed to just a primitive, these functions provide a way
+to access them using the `IoCapable` trait. This is used to provide
+`io_read!` and `io_write!` macros, which are generalized version of current
+`dma_read!` and `dma_write!` macro (that works on `Coherent` only, but not
+subview of them, or other I/O backends).
 
-The remaining `dma_read!` and `dma_write!` is now only acting on
-primitives; thus replace by `io_read!` and `io_write!`.
+For DMA coherent objects, `IoCapable` is only implemented for atomically
+accessible primitives; this is because `read_volatile`/`write_volatile` can
+behave undesirably for aggregates; LLVM may turn them to multiple
+instructions to access parts and assemble, or could combine them to a
+single instruction.
+
+The ability to read/write aggregates (when atomicity is of no concern),
+could be implemented with copying primitives (e.g. memcpy_{from,to}io) in
+the future.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- drivers/gpu/nova-core/gsp.rs      | 44 +++++++++++---------
- drivers/gpu/nova-core/gsp/cmdq.rs | 65 +++++++++++++++++-------------
- drivers/gpu/nova-core/gsp/fw.rs   | 84 +++++++++++++++------------------------
- 3 files changed, 94 insertions(+), 99 deletions(-)
+ rust/kernel/dma.rs | 46 ++++++++++++++++++++++++++-
+ rust/kernel/io.rs  | 92 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 137 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
-index ba5b7f990031..225a77a2f464 100644
---- a/drivers/gpu/nova-core/gsp.rs
-+++ b/drivers/gpu/nova-core/gsp.rs
-@@ -10,8 +10,14 @@
-         CoherentBox,
-         DmaAddress, //
+diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
+index 92db0e58f364..d0b86aeebfe2 100644
+--- a/rust/kernel/dma.rs
++++ b/rust/kernel/dma.rs
+@@ -14,7 +14,10 @@
      },
+     error::to_result,
+     fs::file,
+-    io::Io,
 +    io::{
-+        self,
-+        io_project,
-+        io_write, //
++        Io,
++        IoCapable, //
 +    },
-     pci,
      prelude::*,
-+    ptr::KnownSize,
-     transmute::{
-         AsBytes,
-         FromBytes, //
-@@ -55,12 +61,20 @@ unsafe impl<const NUM_ENTRIES: usize> FromBytes for PteArray<NUM_ENTRIES> {}
- unsafe impl<const NUM_ENTRIES: usize> AsBytes for PteArray<NUM_ENTRIES> {}
+     ptr::KnownSize,
+     sync::aref::ARef,
+@@ -999,6 +1002,47 @@ fn as_ptr(&self) -> *mut Self::Type {
+     }
+ }
  
- impl<const NUM_PAGES: usize> PteArray<NUM_PAGES> {
--    /// Returns the page table entry for `index`, for a mapping starting at `start`.
--    // TODO: Replace with `IoView` projection once available.
--    fn entry(start: DmaAddress, index: usize) -> Result<u64> {
--        start
--            .checked_add(num::usize_as_u64(index) << GSP_PAGE_SHIFT)
--            .ok_or(EOVERFLOW)
-+    /// Initialize a new page table array mapping `NUM_PAGES` GSP pages starting at address `start`.
-+    fn init<T: KnownSize + ?Sized>(
-+        view: io::View<'_, Coherent<T>, Self>,
-+        start: DmaAddress,
-+    ) -> Result<()> {
-+        for i in 0..NUM_PAGES {
-+            io_write!(view, .0[build: i],
-+                start
-+                    .checked_add(num::usize_as_u64(i) << GSP_PAGE_SHIFT)
-+                    .ok_or(EOVERFLOW)?
-+            );
++/// Implements [`IoCapable`] on `Coherent` for `$ty` using `read_volatile` and `write_volatile`.
++macro_rules! impl_coherent_io_capable {
++    ($(#[$attr:meta])* $ty:ty) => {
++        $(#[$attr])*
++        impl<T: ?Sized + KnownSize> IoCapable<$ty> for Coherent<T> {
++            #[inline]
++            unsafe fn io_read(&self, address: *mut $ty) -> $ty {
++                // SAFETY:
++                // - By the safety precondition, the address is within bounds of the allocation and
++                //   aligned.
++                // - Using read_volatile() here so that race with hardware is well-defined.
++                // - Using read_volatile() here is not sound if it races with other CPU per Rust
++                //   rules, but this is allowed per LKMM.
++                // - The macro is only used on primitives so all bit patterns are valid.
++                unsafe { address.read_volatile() }
++            }
++
++            #[inline]
++            unsafe fn io_write(&self, value: $ty, address: *mut $ty) {
++                // SAFETY:
++                // - By the safety precondition, the address is within bounds of the allocation and
++                //   aligned.
++                // - Using write_volatile() here so that race with hardware is well-defined.
++                // - Using write_volatile() here is not sound if it races with other CPU per Rust
++                //   rules, but this is allowed per LKMM.
++                unsafe { address.write_volatile(value) }
++            }
 +        }
++    };
++}
 +
-+        Ok(())
++// DMA regions support atomic 8, 16, and 32-bit accesses.
++impl_coherent_io_capable!(u8);
++impl_coherent_io_capable!(u16);
++impl_coherent_io_capable!(u32);
++// DMA regions on 64-bit systems also support atomic 64-bit accesses.
++impl_coherent_io_capable!(
++    #[cfg(CONFIG_64BIT)]
++    u64
++);
++
+ impl<'a, B: ?Sized + KnownSize, T: ?Sized> crate::io::View<'a, Coherent<B>, T> {
+     /// Returns a DMA handle which may be given to the device as the DMA address base of
+     /// the region.
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index 869071d47a13..efcd7e6741d7 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -1009,6 +1009,26 @@ pub fn try_cast<U>(self) -> Result<View<'a, IO, U>>
      }
  }
  
-@@ -86,18 +100,12 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
-         let obj = Self(Coherent::zeroed(dev, GFP_KERNEL)?);
- 
-         let start_addr = obj.0.dma_handle();
--
--        // SAFETY: `obj` has just been created and we are its sole user.
--        let pte_region = unsafe {
--            &mut obj.0.as_mut()[size_of::<u64>()..][..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
--        };
--
--        // Write values one by one to avoid an on-stack instance of `PteArray`.
--        for (i, chunk) in pte_region.chunks_exact_mut(size_of::<u64>()).enumerate() {
--            let pte_value = PteArray::<0>::entry(start_addr, i)?;
--
--            chunk.copy_from_slice(&pte_value.to_ne_bytes());
--        }
-+        let pte_view = io_project!(
-+            obj.0,
-+            [build: size_of::<u64>()..][build: ..RM_LOG_BUFFER_NUM_PAGES * size_of::<u64>()]
-+        )
-+        .try_cast::<PteArray<RM_LOG_BUFFER_NUM_PAGES>>()?;
-+        PteArray::init(pte_view, start_addr)?;
- 
-         Ok(obj)
-     }
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 0b51e10e2cfc..d424d047c970 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -2,16 +2,23 @@
- 
- mod continuation;
- 
--use core::mem;
-+use core::{
-+    mem,
-+    sync::atomic::{
-+        fence,
-+        Ordering, //
-+    },
-+};
- 
- use kernel::{
-     device,
-     dma::{
-         Coherent,
-+        CoherentBox,
-         DmaAddress, //
-     },
--    dma_write,
-     io::{
-+        io_project,
-         poll::read_poll_timeout,
-         Io, //
-     },
-@@ -171,20 +178,18 @@ struct MsgqData {
- #[repr(C)]
- // There is no struct defined for this in the open-gpu-kernel-source headers.
- // Instead it is defined by code in `GspMsgQueuesInit()`.
--// TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
--pub(super) struct Msgq {
-+struct Msgq {
-     /// Header for sending messages, including the write pointer.
--    pub(super) tx: MsgqTxHeader,
-+    tx: MsgqTxHeader,
-     /// Header for receiving messages, including the read pointer.
--    pub(super) rx: MsgqRxHeader,
-+    rx: MsgqRxHeader,
-     /// The message queue proper.
-     msgq: MsgqData,
- }
- 
- /// Structure shared between the driver and the GSP and containing the command and message queues.
- #[repr(C)]
--// TODO: Revert to private once `IoView` projections replace the `gsp_mem` module.
--pub(super) struct GspMem {
-+struct GspMem {
-     /// Self-mapping page table entries.
-     ptes: PteArray<{ Self::PTE_ARRAY_SIZE }>,
-     /// CPU queue: the driver writes commands here, and the GSP reads them. It also contains the
-@@ -192,13 +197,13 @@ pub(super) struct GspMem {
-     /// index into the GSP queue.
-     ///
-     /// This member is read-only for the GSP.
--    pub(super) cpuq: Msgq,
-+    cpuq: Msgq,
-     /// GSP queue: the GSP writes messages here, and the driver reads them. It also contains the
-     /// write and read pointers that the GSP updates. This means that the read pointer here is an
-     /// index into the CPU queue.
-     ///
-     /// This member is read-only for the driver.
--    pub(super) gspq: Msgq,
-+    gspq: Msgq,
- }
- 
- impl GspMem {
-@@ -232,20 +237,13 @@ fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
-         const MSGQ_SIZE: u32 = num::usize_into_u32::<{ size_of::<Msgq>() }>();
-         const RX_HDR_OFF: u32 = num::usize_into_u32::<{ mem::offset_of!(Msgq, rx) }>();
- 
--        let gsp_mem = Coherent::<GspMem>::zeroed(dev, GFP_KERNEL)?;
-+        let mut gsp_mem = CoherentBox::<GspMem>::zeroed(dev, GFP_KERNEL)?;
-+        gsp_mem.cpuq.tx = MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES);
-+        gsp_mem.cpuq.rx = MsgqRxHeader::new();
- 
-+        let gsp_mem: Coherent<_> = gsp_mem.into();
-         let start = gsp_mem.dma_handle();
--        // Write values one by one to avoid an on-stack instance of `PteArray`.
--        for i in 0..GspMem::PTE_ARRAY_SIZE {
--            dma_write!(gsp_mem, .ptes.0[build: i], PteArray::<0>::entry(start, i)?);
--        }
--
--        dma_write!(
--            gsp_mem,
--            .cpuq.tx,
--            MsgqTxHeader::new(MSGQ_SIZE, RX_HDR_OFF, MSGQ_NUM_PAGES)
--        );
--        dma_write!(gsp_mem, .cpuq.rx, MsgqRxHeader::new());
-+        PteArray::init(io_project!(gsp_mem, .ptes), start)?;
- 
-         Ok(Self(gsp_mem))
-     }
-@@ -420,7 +418,7 @@ fn allocate_command(&mut self, size: usize, timeout: Delta) -> Result<GspCommand
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn gsp_write_ptr(&self) -> u32 {
--        super::fw::gsp_mem::gsp_write_ptr(&self.0)
-+        MsgqTxHeader::write_ptr(io_project!(self.0, .gspq.tx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Returns the index of the memory page the GSP will read the next command from.
-@@ -429,7 +427,7 @@ fn gsp_write_ptr(&self) -> u32 {
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn gsp_read_ptr(&self) -> u32 {
--        super::fw::gsp_mem::gsp_read_ptr(&self.0)
-+        MsgqRxHeader::read_ptr(io_project!(self.0, .gspq.rx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Returns the index of the memory page the CPU can read the next message from.
-@@ -438,12 +436,18 @@ fn gsp_read_ptr(&self) -> u32 {
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn cpu_read_ptr(&self) -> u32 {
--        super::fw::gsp_mem::cpu_read_ptr(&self.0)
-+        MsgqRxHeader::read_ptr(io_project!(self.0, .cpuq.rx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Informs the GSP that it can send `elem_count` new pages into the message queue.
-     fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
--        super::fw::gsp_mem::advance_cpu_read_ptr(&self.0, elem_count)
-+        let rx = io_project!(self.0, .cpuq.rx);
-+        let rptr = MsgqRxHeader::read_ptr(rx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
-+
-+        // Ensure read pointer is properly ordered.
-+        fence(Ordering::SeqCst);
-+
-+        MsgqRxHeader::set_read_ptr(rx, rptr)
-     }
- 
-     // Returns the index of the memory page the CPU can write the next command to.
-@@ -452,12 +456,17 @@ fn advance_cpu_read_ptr(&mut self, elem_count: u32) {
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn cpu_write_ptr(&self) -> u32 {
--        super::fw::gsp_mem::cpu_write_ptr(&self.0)
-+        MsgqTxHeader::write_ptr(io_project!(self.0, .cpuq.tx)) % MSGQ_NUM_PAGES
-     }
- 
-     // Informs the GSP that it can process `elem_count` new pages from the command queue.
-     fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
--        super::fw::gsp_mem::advance_cpu_write_ptr(&self.0, elem_count)
-+        let tx = io_project!(self.0, .cpuq.tx);
-+        let wptr = MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
-+        MsgqTxHeader::set_write_ptr(tx, wptr);
-+
-+        // Ensure all command data is visible before triggering the GSP read.
-+        fence(Ordering::SeqCst);
-     }
- }
- 
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 0c8a74f0e8ac..f2ba2f13e415 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -10,6 +10,11 @@
- 
- use kernel::{
-     dma::Coherent,
-+    io::{
-+        self,
-+        io_read,
-+        io_write, //
-+    },
-     prelude::*,
-     ptr::{
-         Alignable,
-@@ -40,59 +45,6 @@
-     },
- };
- 
--// TODO: Replace with `IoView` projections once available.
--pub(super) mod gsp_mem {
--    use core::sync::atomic::{
--        fence,
--        Ordering, //
--    };
--
--    use kernel::{
--        dma::Coherent,
--        dma_read,
--        dma_write, //
--    };
--
--    use crate::gsp::cmdq::{
--        GspMem,
--        MSGQ_NUM_PAGES, //
--    };
--
--    pub(in crate::gsp) fn gsp_write_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .gspq.tx.0.writePtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn gsp_read_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .gspq.rx.0.readPtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn cpu_read_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .cpuq.rx.0.readPtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn advance_cpu_read_ptr(qs: &Coherent<GspMem>, count: u32) {
--        let rptr = cpu_read_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
--
--        // Ensure read pointer is properly ordered.
--        fence(Ordering::SeqCst);
--
--        dma_write!(qs, .cpuq.rx.0.readPtr, rptr);
--    }
--
--    pub(in crate::gsp) fn cpu_write_ptr(qs: &Coherent<GspMem>) -> u32 {
--        dma_read!(qs, .cpuq.tx.0.writePtr) % MSGQ_NUM_PAGES
--    }
--
--    pub(in crate::gsp) fn advance_cpu_write_ptr(qs: &Coherent<GspMem>, count: u32) {
--        let wptr = cpu_write_ptr(qs).wrapping_add(count) % MSGQ_NUM_PAGES;
--
--        dma_write!(qs, .cpuq.tx.0.writePtr, wptr);
--
--        // Ensure all command data is visible before triggering the GSP read.
--        fence(Ordering::SeqCst);
--    }
--}
--
- /// Maximum size of a single GSP message queue element in bytes.
- pub(crate) const GSP_MSG_QUEUE_ELEMENT_SIZE_MAX: usize =
-     num::u32_as_usize(bindings::GSP_MSG_QUEUE_ELEMENT_SIZE_MAX);
-@@ -706,6 +658,19 @@ pub(crate) fn new(msgq_size: u32, rx_hdr_offset: u32, msg_count: u32) -> Self {
-             entryOff: num::usize_into_u32::<GSP_PAGE_SIZE>(),
-         })
-     }
-+
-+    /// Returns the value of the write pointer for this queue.
-+    pub(crate) fn write_ptr<T: KnownSize + ?Sized>(this: io::View<'_, Coherent<T>, Self>) -> u32 {
-+        io_read!(this, .0.writePtr)
++impl<T, IO: ?Sized + Io + IoCapable<T>> View<'_, IO, T> {
++    /// Read from I/O memory.
++    ///
++    /// This is only supported on types that is directly supported by `IO` with [`IoCapable`].
++    #[inline]
++    pub fn read_val(&self) -> T {
++        // SAFETY: Per type invariant.
++        unsafe { self.io.io_read(self.ptr) }
 +    }
 +
-+    /// Sets the value of the write pointer for this queue.
-+    pub(crate) fn set_write_ptr<T: KnownSize + ?Sized>(
-+        this: io::View<'_, Coherent<T>, Self>,
-+        val: u32,
-+    ) {
-+        io_write!(this, .0.writePtr, val)
++    /// Write to I/O memory.
++    ///
++    /// This is only supported on types that is directly supported by `IO` with [`IoCapable`].
++    #[inline]
++    pub fn write_val(&self, value: T) {
++        // SAFETY: Per type invariant.
++        unsafe { self.io.io_write(value, self.ptr) }
 +    }
- }
- 
- // SAFETY: Padding is explicit and does not contain uninitialized data.
-@@ -721,6 +686,19 @@ impl MsgqRxHeader {
-     pub(crate) fn new() -> Self {
-         Self(Default::default())
-     }
++}
 +
-+    /// Returns the value of the read pointer for this queue.
-+    pub(crate) fn read_ptr<T: KnownSize + ?Sized>(this: io::View<'_, Coherent<T>, Self>) -> u32 {
-+        io_read!(this, .0.readPtr)
-+    }
-+
-+    /// Sets the value of the read pointer for this queue.
-+    pub(crate) fn set_read_ptr<T: KnownSize + ?Sized>(
-+        this: io::View<'_, Coherent<T>, Self>,
-+        val: u32,
-+    ) {
-+        io_write!(this, .0.readPtr, val)
-+    }
- }
+ /// Project an I/O type to a subview of it.
+ ///
+ /// The syntax is of form `io_project!(io, proj)` where `io` is an expression to a type that
+@@ -1057,3 +1077,75 @@ macro_rules! io_project {
  
- // SAFETY: Padding is explicit and does not contain uninitialized data.
+ #[doc(inline)]
+ pub use crate::io_project;
++
++/// Read from I/O memory.
++///
++/// The syntax is of form `io_read!(io, proj)` where `io` is an expression to a type that
++/// implements [`Io`] and `proj` is a [projection specification](kernel::ptr::project!).
++///
++/// # Examples
++///
++/// ```
++/// # use kernel::io::View;
++/// struct MyStruct { field: u32, }
++///
++/// // SAFETY: All bit patterns are acceptable values for `MyStruct`.
++/// unsafe impl kernel::transmute::FromBytes for MyStruct{};
++/// // SAFETY: Instances of `MyStruct` have no uninitialized portions.
++/// unsafe impl kernel::transmute::AsBytes for MyStruct{};
++///
++/// # fn test(mmio: &kernel::io::Mmio<[MyStruct]>) -> Result {
++/// // let mmio: Mmio<[MyStruct]>;
++/// let field: u32 = kernel::io::io_read!(mmio, [try: 2].field);
++/// # Ok::<(), Error>(()) }
++#[macro_export]
++#[doc(hidden)]
++macro_rules! io_read {
++    ($io:expr, $($proj:tt)*) => {
++        $crate::io_project!($io, $($proj)*).read_val()
++    };
++}
++
++#[doc(inline)]
++pub use crate::io_read;
++
++/// Writes to I/O memory.
++///
++/// The syntax is of form `io_write!(io, proj, val)` where `io` is an expression to a type that
++/// implements [`Io`] and `proj` is a [projection specification](kernel::ptr::project!),
++/// and `val` is the value to be written to the projected location.
++///
++/// # Examples
++///
++/// ```
++/// # use kernel::io::View;
++/// struct MyStruct { field: u32, }
++///
++/// // SAFETY: All bit patterns are acceptable values for `MyStruct`.
++/// unsafe impl kernel::transmute::FromBytes for MyStruct{};
++/// // SAFETY: Instances of `MyStruct` have no uninitialized portions.
++/// unsafe impl kernel::transmute::AsBytes for MyStruct{};
++///
++/// # fn test(mmio: &kernel::io::Mmio<[MyStruct]>) -> Result {
++/// // let mmio: Mmio<[MyStruct]>;
++/// kernel::io::io_write!(mmio, [try: 2].field, 10);
++/// # Ok::<(), Error>(()) }
++#[macro_export]
++#[doc(hidden)]
++macro_rules! io_write {
++    (@parse [$io:expr] [$($proj:tt)*] [, $val:expr]) => {
++        $crate::io_project!($io, $($proj)*).write_val($val)
++    };
++    (@parse [$io:expr] [$($proj:tt)*] [.$field:tt $($rest:tt)*]) => {
++        $crate::io_write!(@parse [$io] [$($proj)* .$field] [$($rest)*])
++    };
++    (@parse [$io:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] $($rest:tt)*]) => {
++        $crate::io_write!(@parse [$io] [$($proj)* [$flavor: $index]] [$($rest)*])
++    };
++    ($io:expr, $($rest:tt)*) => {
++        $crate::io_write!(@parse [$io] [] [$($rest)*])
++    };
++}
++
++#[doc(inline)]
++pub use crate::io_write;
 
 -- 
 2.51.2
