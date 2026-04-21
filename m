@@ -4,168 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88645F8FA80
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 14:26:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DDDDF8FA80
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 14:27:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D226910E8B3;
-	Tue, 21 Apr 2026 14:26:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D78BA899C7;
+	Tue, 21 Apr 2026 14:27:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dDFShsz1";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="mWuJe4K+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC29D10E962;
- Tue, 21 Apr 2026 14:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776781564; x=1808317564;
- h=message-id:date:subject:from:to:cc:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=hPi1j21C5IIb8ey77H5ww86RILZtm3pjAAXuMI1SN/s=;
- b=dDFShsz1MHcTwyQssYSAtU3VPyYGRgwLPyckXZjj/aNEN5kQWOaVhcm5
- ZfER3aM3JW0rzw8hdPfN4BsFR6KsAewBnp60sl+qHOeMRh7HCU4gqSAr+
- tdfPs06P7f+5TSohGPgSN9xbfy4whab4w5kqkLL25aA1JQWDhglyjzgPd
- CkbiI0b/loi/C9VoNNE+1cx98yI6Py9pzJ5bxZaDhq8urkmNGuVeTRYOH
- c7i/h3KgNeYbGsB5rjQkQCdUgjExOA4gu/lzaZqxp4wjxf/7IgUZW9aaN
- t/qMIEVmaBykM2u29Fplb2qNKGen5SGPLadsS38kbqdWR5Vioy0+c9FLY w==;
-X-CSE-ConnectionGUID: ytRbpA/qTdidYBM0yG2x6Q==
-X-CSE-MsgGUID: uCsD4U21Q+iDViHNA/4mLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11763"; a="88412331"
-X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="88412331"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2026 07:26:03 -0700
-X-CSE-ConnectionGUID: 75IPo9qkQgmIffoZrnjGrA==
-X-CSE-MsgGUID: uZJZ97FXTZ2PqyrMF/vOrA==
-X-ExtLoop1: 1
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2026 07:26:03 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 21 Apr 2026 07:26:02 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 21 Apr 2026 07:26:02 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.9) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 21 Apr 2026 07:26:02 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012026.outbound.protection.outlook.com
+ [40.93.195.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C16810E8BF;
+ Tue, 21 Apr 2026 14:27:49 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UpUKGH1GQDlsaqb3Pch2An+6YFI/wrdRHHSj8c9K+eayv39XDG3FCU7Eq9nyYbrk3Uyz8WmtF6re1dGzGH95picAjLw72Z5h4tapcT1M2/2A+kfg/bghyp7I8Wp84Yjj0GU2zRLWN29INZNCK+jD7aCd0MRRDqf5GZZDpQ2vdMI7C+0ismgQIKOVQqYRwZ3tTC2MrZm+VAGXDxVsbO9al2pq0xxpLn0Bm/w9WjcRUyXLpre3fEL/iK2t/PxoqsdRhKSkfFGAQY1JIA2tfVJsN/l5unx0e8oZIEWWZOO0dj4KyhXRUY+el6t8Trq/ce2QAiCD0lH8caOIVFggziNZSw==
+ b=M9uVHvhQ2uwSnrWQlYWc7QKzE6mbe0NHYb7l1Hmg8n2TVmqQVgaBfKSL/RwzAtFJsr6oBWw5AiwMWa/wnbE5OKivJcWq/3l8sT3swU2rMYp/fOPx2p0y9aLDVhNbom1dEsR/YHhe0SapUauPc+MR/HikvaLt8Eeoh6d+8x47U8gB2ZWmm5dxIsQjMwXsntSoUnqvp4uYgfJRt3Ogg/xrR00cvZTZjxGCAvVwmf2TRlvibLKlb8KtG3hFJw564lGnvQgpgrT9hxN3vA1Y+ASw/dXs+8jgRxaQn72G7syWc9fVGclhh4VWXxWYW9dDLN9U265Pgd/dlRhCeFM0hvj3Gw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PMmb+c8FupxlA3RnA+UfGX6YEU2pkJoJflGZoRa15t0=;
- b=D9WNWY3FsgUYJ+H+uYW31aGVlXHBqejnlFl4nS++VvrROgBdH7pHBTECMKKryyh9SwAySjpd9qTL50KdPTlg7EnOWcdH3g/YvItiQkFhoEl2rPfyJIVEaKvWsRJ+sMd6Og0rNiVchFQ8tmJBLo+Hxs1ssKf6IYkt++5YHiLZreSBgZz+1KZpLyrUZpjGjvPTDixSMd5QXtKqX2RQSuXzF9Fcl/BWMVhpOFdsWH5bkM21VzU3k4/PMzKuHhHi/oByTI+O6Y8XdHb3mltec3nkle+vGCYdtvRcEoqEl4zMMmaHtSa9tn2wpyAqTo18dZvbfUn6QWzlIv0SDt1NtZILvw==
+ bh=qB0Jj/T0Kujz8AGG03SQNUTOv8Vu+AQGlUXDm1kJuF8=;
+ b=l0t5vLoX4+lDDQKMFPpbBkmIvTXrKajMpscPPoj++R5F4X5eQEbLZqwsLWs1FVO763cWMf4avIW7rpTZCBDgybO5hShftQ1LHmpXIQcCwWyjgDpCZLXThgj4YDTJ7G029fs4ENa3SEQqnQgbmyTwwFhz/3PKARnDtxR0luF9E8NtQuY48Yo8txemkVQDye8Zvl3UukxPS5kD+LhLbGS5LBhyLjH4BQpy1UuBc9hmAyinGjiiLALOFoxj3cSOSbp0mVp6lOD6x8CenrXC5HMfqEQOTe4D//PPUtpqReFFzV3gp0bN4ZsH9grKULAZIfDk2Lp6nJMDuOqQwcf8oZ0Kng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qB0Jj/T0Kujz8AGG03SQNUTOv8Vu+AQGlUXDm1kJuF8=;
+ b=mWuJe4K+xIkSV3BkyMxvRMpN7wEC9K+QXMCyoe1tNjy82GGHGx8K3at2PIA5TQjsN5DRgiXq9qqvV+1R7+tNnFHhU4fkr2IL7b595sJhsuFTSn/aG4kiRMu1vFH4FSpizWJTbqUyJGB6gLCHHb2Hg6LWkWSzHclFVMSBQDquqMGO/hlBmnyV0QMBSalQQhTzgCvpMeKiRsGmTX7OlNmRb6zAjtkn8W9TY/PRtOKbqFb2wqxllFqMNq3/oQX8t4ZZP+PFA5ByPhQPgJESVKZqsn0n2tjjvIEFw5ZxOeuMfhwieXStxhJggeTQforkTYdebaFANxaqstyxodnTZ6NYEw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
- IA1PR11MB8098.namprd11.prod.outlook.com (2603:10b6:208:44b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
- 2026 14:25:55 +0000
-Received: from DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
- ([fe80::8cb2:cffc:b684:9a99%6]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
- 14:25:55 +0000
-Message-ID: <2c7f8250-35e5-4bc6-9f44-fde21d6264fa@intel.com>
-Date: Tue, 21 Apr 2026 19:55:41 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/drm_ras: Add clear-error-counter netlink
- command to drm_ras
-From: "Tauro, Riana" <riana.tauro@intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>, <maarten.lankhorst@linux.intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <netdev@vger.kernel.org>, Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>,
- <joonas.lahtinen@linux.intel.com>, <aravind.iddamsetty@linux.intel.com>,
- <anshuman.gupta@intel.com>, <simona.vetter@ffwll.ch>, <airlied@gmail.com>,
- <pratik.bari@intel.com>, <joshua.santosh.ranjan@intel.com>,
- <ashwin.kumar.kulkarni@intel.com>, <shubham.kumar@intel.com>,
- <ravi.kishore.koppuravuri@intel.com>, <raag.jadav@intel.com>,
- <anvesh.bakwad@intel.com>, Jakub Kicinski <kuba@kernel.org>, Lijo Lazar
- <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, "David S.
- Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Eric Dumazet
- <edumazet@google.com>
-References: <20260409073318.2909379-4-riana.tauro@intel.com>
- <20260409073318.2909379-5-riana.tauro@intel.com>
- <e7978696-eff6-4c1f-ab0f-047dccb18b59@intel.com> <aderpXuhLoiUoxcT@intel.com>
- <ee2681bd-5223-4957-b10e-5dbde0c0e974@intel.com>
-Content-Language: en-US
-In-Reply-To: <ee2681bd-5223-4957-b10e-5dbde0c0e974@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0153.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d7::8) To DS0PR11MB7958.namprd11.prod.outlook.com
- (2603:10b6:8:f9::19)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by CH1PPFDA34A4201.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::625) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.21; Tue, 21 Apr
+ 2026 14:27:37 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
+ 14:27:37 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 21 Apr 2026 23:27:33 +0900
+Message-Id: <DHYWJ32M02N4.2954OSJXFGD1G@nvidia.com>
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, "Miguel
+ Ojeda" <ojeda@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Boqun Feng" <boqun@kernel.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 4/5] gpu: nova-core: send UNLOADING_GUEST_DRIVER GSP
+ command upon unloading
+References: <20260421-nova-unload-v2-0-2fe54963af8b@nvidia.com>
+ <20260421-nova-unload-v2-4-2fe54963af8b@nvidia.com>
+ <DHYQGLYYXEN6.11Q3FQGZMWCJ6@nvidia.com>
+In-Reply-To: <DHYQGLYYXEN6.11Q3FQGZMWCJ6@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0076.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::13) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|IA1PR11MB8098:EE_
-X-MS-Office365-Filtering-Correlation-Id: 589bee1e-bd72-4bd1-d762-08de9fb1e5ac
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH1PPFDA34A4201:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0479f95b-a382-4047-6a1a-08de9fb222a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|1800799024|376014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: yOXm7vmuy3zsbgY+8mvLP6JWijpYGx4A7WxPnr5GmabJG5a7C4TklpjnVUlkRvFi3B5n+iYYc5fyjyHjya5qiGAUkTnlgOd77IkridpxWUdTajN94ixRSwWY1IHqhf8LOB30LoWPSIVZj+RvtEoZr8ow41SfaTEcYPpJK2fp4rMsX7hAnKFcgQB4YsFelN9zt9WaPZEDu21E0lUzUDkjPTtxW6ucovJEi6/RtyeyenaeEj/Jat53gQ26BW6Z7BXPbjTUYuoTtuJ3dnvVlhN2hP3dzACTKZRSwViy45pnhxnZ5gucToBDXsCuwAVrXKZruaVnofQpMEgqENmMUgHkQWvabyujLoqE1Yc1rNOqzFvHP7PYvBAhZRZmbnDdIt7VDI4ZX3b9muJR4tqtnr9uCr5cncUwe4zQZ73gdnEUqlQIv4nmUk0IEpniw7WKeQlrTRavZK5lLbb/ZZ41x15Dm7i0cECIyXLG9Gbe3eBAQY1Z2GcMMKxZbSI6zG4vnBdrcbJnrpGUZ/PQ/iObzt/ECHC7m/wq+IgKWw45tk/wwG3rJvS8DM77qWQi7BICrNnhJvCJ2krQJpNLRUhPK9EnhTMoWrTCcpFOhehc3I2bkqkLoXlKBo77KdBaiDgaVtLdoqIGnLleqK16iLtBbu0Mq/EDK96yR/HujC3/OcFfkVpIYCZIisoVDTiIZS/hzopsdCiXQlCT6FGyjjlz1+tjs4hijStJhVfXBAZxs57vwJk=
+ ARA:13230040|1800799024|10070799003|366016|7416014|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: ch2lIj7zyTD7Q/IL3RTPRt5kIp43U5AQyU1YfOFiy1UZJtFrXHemk1lsiq5hc8ojFkZbhxaIEY/PNOvv20m8drRyH0uK3mFsW0YC8IugRVpA1C/CKzF4PHKlznqDVJ1mKfWeaCDNk1JpRwAw5tH2LGtnVQjmptfzxfxVVBb3qh6huNl5MTU67NyRLLnCzYHMm9pG2rPBQBbhwFALZUJNNGFNDxsGUVYRlTmUEFuI+UfcqgbP0ig9B7y3BhekL5jszcRTe6FX+JOJdrwrwOXJBc9su3MD7e2pf0rXowEYXcgMST5z0RTjNMK13/JGe6vnJCOOrHezZ57Z2k44CjiwGope7DpY+LBakStOqIoBdPGhVHWGujt0Po3/fQpH6RqsFmuDle3426eTw28uHjHmdC8y++rhSKBwRN4M4e/uE2iwBONC6+IytJW4SWcSQfAlz2yb8fv4bPx0l2w+tfbXF0FOL9tYF7XEuQdcrO9EwvGym5ZvI+1hPaPKK2zfChFSfPFYnwhMkeO1700H8cD/TOyY9PfTcWp0MiaKRx5yO7KB5RlJGieFZ6S4/PXUvlxxr3pHumffZzHT+ipQyfWPejlvTPfvyfpGtIKixpZi7VDUWoJWi0LT9CI4ruX+goyBO6jbB4k3rsKkBITK/x5CAQqu9mmu9EdZjCjyvQUSKWTw6zOz8dypFqkuIUFfubc7bSl5TlSThWuxbzZXph4nW3z9ijV0GXk26ukL8StSS/c=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(1800799024)(376014)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(10070799003)(366016)(7416014)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWM4SnN1TGNFcTlYdXlIajFteUh4OTJhRVhZc3RONFBGSUdrNEVGUVVyVC9N?=
- =?utf-8?B?dXp5NkRyaHNmbVlzQ0tlVVJnSlRhSFJYOWErM1dBK0g5ZEplbG12YU91a3V2?=
- =?utf-8?B?TFdNd1BYTlhORVEzajNGTm5pU1c5MGVKanl2NFR0YXd2Q1dVbW4rT0pZdi90?=
- =?utf-8?B?M21VRlZYZHcvZHpTSmt0MWhmWk1YWnNuV0Q0MFNmbTMwaUlVVTZSZnliMjA2?=
- =?utf-8?B?elhSaW04dmRncm81dFQvOVMyMmt0L09pRmVkcThpYU5lMExCM0hUd2lURXlC?=
- =?utf-8?B?MlZGdWhRQ2RGbWV0WCtiV2x4NUcza256SXFkZXhCaHJqc3VHd0N3VTEvQmtM?=
- =?utf-8?B?bVZ0RXRuM3ozRW9FbWkrazR0ak1jM0RncSsxOU5ET1pXaDZuNktHc2ZHSVpH?=
- =?utf-8?B?dmlMbE9EeWkxVDM4NGNMTm05N0tEeExBVCt1L2lQNHMxV0Z6a0ZScDhxZEd2?=
- =?utf-8?B?OXBvYW9jUHZDZ3hHNzR4ZitSQ1lPSHJzZkl4WWRISGZ0VTdPMHM0Y1NFUDhS?=
- =?utf-8?B?YkRidkhoVE12UnhiblRGRElBckVoQ0M3ajdLM01ZTkxrbjE1K1kyWnZ3Rmd3?=
- =?utf-8?B?OGZhZm1OVDhGV3BBbEI2UVJHcERYVUVVWHV0UFZZckVEUnJjelR2NFhZcVds?=
- =?utf-8?B?dFpEU042WVJQOGxVclpwRmo4WEhzVGxuVkNxcWNkbGZXNmlmMWp4QW41amw4?=
- =?utf-8?B?NlRxS3BWWVRjK1lPbFcrZ0hWcUZoZ3ZiaVBRK0VaYzhpejhRMGMvc0pnQ29O?=
- =?utf-8?B?UDk4N3BVZlhaZzdsQzlZV1d6S1Q5djJ2TU5aTnp2Q25USDlVOGErVk1DVHE5?=
- =?utf-8?B?UEV6dysxUjM1WXRmRkFseFVBM2hqeVZBMDNEUDJGcEFBemZnK1ZOMXczWUp5?=
- =?utf-8?B?emZUbVNPdUo5VU1UYVFsbXFwRldsbXhobitTV0tBYXhYMFhmSWlHS2RVNWFN?=
- =?utf-8?B?WUtwZVdlZ3E0bGNFZEhGRlBOWVk5WFNIZVRaeStYZUIwQmptUmt5MkJyNW5K?=
- =?utf-8?B?TW9WM3JsK1lwdSs3alJTbXFjLzgydHRGVXU3aFUxOUZFN1ZoSHM0NUc3MkdZ?=
- =?utf-8?B?TFRWWTUwVDhVZHorcUV0cldQeTVPU004QXJzcElMZitGRUk4ZUdRYWFwRGwx?=
- =?utf-8?B?cW1SWmFyQTRDT0laQ1FpSVpDb0RvcmRFZlFpeldoYTlSUUNVQzIyRk9mNTZh?=
- =?utf-8?B?ZVp4emxDRmpnZkpaTEJsNURIdFlBYXFFbUp0dlZwVWFXbzV4ekhwbVVxMU1Z?=
- =?utf-8?B?MVc1QUdxTE1xWjJ2OFJkVktTSVdZYnQxTXArRm9wTS80UXViemNOT1VmeW1G?=
- =?utf-8?B?TmcrcTFRZE9rRFpqbTNkcVdGTWhjNUlWZmJTRkk1WFVkRjJjYldGUGYxSlVF?=
- =?utf-8?B?elcyTWgzTGc1TDJhdGIrckUyalEvTTZ4VDZQR0lGSlMySjZrQ1puL1NRSG1X?=
- =?utf-8?B?Q1IzZjdLNzNJckNvTis0eFZiVGt1ZmdJdmlEZ0RWc1RnUjJDQStVS2Jua0U4?=
- =?utf-8?B?R3lwc0lHM28vdkhHc0ZwaFJOMmRNcUFzbHNrb0NhcGFtRytmUUp6TUp1T2du?=
- =?utf-8?B?UEVpMnBicFRMeTh6VlRuRHBNaTU3VUFlR3cybHY1ald3bENuek9ud2hQRi9H?=
- =?utf-8?B?bGN1ZTZiVk81THM0ZXA5cGR2eUFabW9lbVcrMDgySWE3Rm1nUzQwUGZ3cS9G?=
- =?utf-8?B?OGljRkxleEtKdG0wVzBFZS9DeW9uWFNjWnFxY1BUMlFTRFNtdTBtbUMxVjNG?=
- =?utf-8?B?QXh6ZWd6em54M3NSZ2pzMHB6MGE3bEFMc2tzNzFkeS9JdVJtT0pQaUhGMmVZ?=
- =?utf-8?B?OGFnOFBPQ0xnUEtZS09YaUtjMElzeUtnVXJEb3RzMk5yeEJHdEYzMGY5U0Rr?=
- =?utf-8?B?dVR3QjYwclZaQWtSQi9oMVh3S29BYU5yY2ZsYkRNdzRORkdLY0VvMncycXQv?=
- =?utf-8?B?S04xY2V5dTF4TzZyeFQzQkFQYVNhZlF2eThJcTJwL1lSVG5TakJ3T3ZvNlc4?=
- =?utf-8?B?emdBMUpBRmcwZkxXU2cxb1R6YmNxZVZEUWZsTUJTOUxhV2J0TFREQ2JCeFdy?=
- =?utf-8?B?T3JiQ0ZQWXNlVStwcVUrV1RreHlxSmpIZ29maGJvSDliZXJYbHFwbGZ5dmZq?=
- =?utf-8?B?bWhXVGVmd0dQSXdlRmxWdGhpMjB3WFlxOTMySjNmVlh0SUxVb1NDbk1IV2dH?=
- =?utf-8?B?b2F0dGRDQU56NjcwVUxmcUtwWDFlUXRSVXoxWTFlOGd0YjRjU0NRTVoxT2NM?=
- =?utf-8?B?ZWZaUisyN3lYNDF4TjJGUEVycTRLNUNvVk9xUnZ1b0JvK1BiNnV3Ti9vb0hh?=
- =?utf-8?B?WUhPdEhxY3BneUZQTUFSNXRiM0NvRGxSQ0o4dzkzY0RKc0NQVkhTZz09?=
-X-Exchange-RoutingPolicyChecked: LOEZ1yseLAWjcm6MIK0Enm72ePGlVOl1JTly0v5FU5jM+kuPoV8mPj2v8W0zO0iESTF1uH+jOsxGa1IuCQ64cYSzqHZs2pbtHY4yPimeIn8KG5rzxV9TUosmF9GgRswgSyii2DPRD5TYaF8p0VDRubSb/lx/f31cA2mEtUWNi2zg083Id2794FhIyOMlpvinJn9bMfUTtni1fAxREQo683WyhqxtFcRoqphw5pDvLsk0nwMSe5yCWCaAmIGcEQjo4iQfqT2acFag/qGaS17R6sFskldexTtmLIaYXQTOYX0T5XwjZDNOVcjvZ2fr8xvUZkRBzUaYJafvSmoeh0Q+dw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 589bee1e-bd72-4bd1-d762-08de9fb1e5ac
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVo2eTFQaERPOHMxWU1NbUhSY1czS2Y2RlcrVEI4Y21rWERQSHFxY3EvaEZ1?=
+ =?utf-8?B?aGtMM0dYcHhkSUJzSnNEWUxGMGJZTkdsUlVyQmNpYjBCdVlPYzRCQml2ZWpx?=
+ =?utf-8?B?dzJzRHBZVGNnSnF0UDRyMEpEWWJLMW04RksvS0ZROURwcktJT3N3VUZMNXRZ?=
+ =?utf-8?B?VXk4L3prNmpPeEMwdUYyMXlQQVR2SmxEcmtWa0RNNENTOVd4dXBNVHdzYXZG?=
+ =?utf-8?B?Ky9rL2J3ZHErL2JYWHBjTHJlcjRKbmVITUdycXdQT2dSY1UxREtrd2dETWEx?=
+ =?utf-8?B?bVhxZXRsUlhjVmVhZkIrRTRJVEN5MnNxc0NXZk9rbmpIVUVKMUh0dUt6b2ZN?=
+ =?utf-8?B?aENsYURuMXZ5SHJKMVM2cURxd1hoc0M1MHRjckU3Snhxa2JpeUhBMUxkL0VL?=
+ =?utf-8?B?bjA0eUo3cEZyVjl0aWtWTFVvRWtrSWxZSjhvaHNkcTE3MFlybjhyWUpGMytu?=
+ =?utf-8?B?aVNIaVQ4eXNrV2pVTzViSyt1VlVabUptQTlEa1NOM1doeU1HZjc3d0l2V1l1?=
+ =?utf-8?B?SUlyQXRBTU1sUDFkVUozeXJxOHZBNTFXcXRLaTF2N1NZR3dhaGFCRDEyTitM?=
+ =?utf-8?B?RCtROXBERzZOcC9FNm40RzRQVXc5MC81M011QWRtaWtscThYaU44UXF1NUlP?=
+ =?utf-8?B?alY4bzFMalBHUHlJa0ZYZ0hGSCthQlVtTU1pN2lNQVhHRFduWGNNWXdkOEM0?=
+ =?utf-8?B?SGFDWGFBODV4WWhCOTVjTlVQYmR2dWF0OFl1akROWk8yVnE5bm9MWE5RZXJL?=
+ =?utf-8?B?eG1VdnQvYXBjSHpNRUh1bnprY21BK2hPQkNCWlBlWEpEc0NycmJ2UHo5L01l?=
+ =?utf-8?B?amkvQWI0SmpCN1doQ2pZcTVzOTBBNVRDNlJycjd4MmFZclQwZ2ZSWGZkVnJC?=
+ =?utf-8?B?dkJQWVVJbG42MWVVSk9TL1VHRGkvbWpTSXlBMmdUdTM4enVtZVM4aFdoam52?=
+ =?utf-8?B?ZjNzWmUxc1BWSXByMFU1clpiZGxuSmoycUpibHdRV2lwSFZUcHJaNnd4ODdV?=
+ =?utf-8?B?T3BGOUFGcy9CMXVOQnFsNk11ek0rNkUrQmhrT3g4bFMzUThQbG8rdUJpTHBj?=
+ =?utf-8?B?bldnVkhpRkV5ZkdJUDhSTzFlemt5UVFJZ0RxdTYyWGxyNHMvRGdJYlRFaUxn?=
+ =?utf-8?B?c3BPZnhJN1QxRnFDdk5SSzB0UWkvamlpYVV3bkYrL3N4ei9XYlV1TFljN1Fi?=
+ =?utf-8?B?bjdWS3VvSEdGbXNDb2Irdy94TmRGNzZqUUhNbEREem55M01QL3pBdEIrUVli?=
+ =?utf-8?B?TXpDS0dwWmZPM1hJWjVQUzNZdGRmUDVHQjNsaEhhUGJZcjBJSGFsNjJ4M3VS?=
+ =?utf-8?B?MU1aVXFtQ1dVWGZUVGlEZ3ZWZHF6ZHlDVVlVUTBHb3Q0TEQ1VzYxTS96aXlw?=
+ =?utf-8?B?ZEFNSTZoS1J3SFVsZ08xV0pVKzVzeDIySDl2TWdWWnlucmFsbi9HSGhSZlJu?=
+ =?utf-8?B?dk9rSi81QkwrZ0dTb1pBY0piSytoeTk4RVh1ZWVUdmVVQ2NaNUFKUnQ1dzU3?=
+ =?utf-8?B?cWQwR2V5ZGtWNllDSER3VzZFaGNpOWV6TEcwZFJTcTRLSXlqRnJFWHVUUGcw?=
+ =?utf-8?B?VFhyTXNIa05uNlRrdE90YURBYlQ4VStKdVQ3akNxVGRicW04K240dzloT2o5?=
+ =?utf-8?B?SlBRbjUyMFpEVnErS2VUdFBUSlpaUXlsMk9QT2pYMnI3Z0owamVJRUVQTmpI?=
+ =?utf-8?B?empMYk5URkJnM2ZTOEQ0SWFsdFZMZkRONzhmcDRyR0E5M2hndXFDWk1GK1V3?=
+ =?utf-8?B?M2JvRGJPcHQ5L0tFRG5yMDE1NGV4MWppNnRNV1M5MkZzL0hHQmJDNVVscWxp?=
+ =?utf-8?B?djdVcExkMUJIM21GUER5MFludUZwLzlGbTQ2TFpBVjFlVDFQT3BNZFN2dVVM?=
+ =?utf-8?B?K0NqOVR2WFdyMjJ6Rll2M3hpOC9ybFFxR251RDdMeDRiZG9xb01VQnZXUE1V?=
+ =?utf-8?B?TVE3V2FhaFA1UDRCREFidWxnNG1NWHpFZ1grdUlRbVlGTk9zK2JFTXFvUldn?=
+ =?utf-8?B?b2RwR0RKUVJVVTJJWmJtNkVJZFRib3U3WmkrRkNFU3ViUGRNOWJ0ZGRCTmN0?=
+ =?utf-8?B?cFdMcUZ3d0cvbFdPUUh5TkZIV0c1NVc5eWtTUEFmWS9iNjVxYmgzdTBVWHVI?=
+ =?utf-8?B?S2lHWW4vRHYxc2JWekoxTU5aaVBaUWtvdElsL3JDUXQ1UGt2QVVSZkxlQXRv?=
+ =?utf-8?B?M2ZpUitRVHoxWnQ4Smpha3ZLaVR5TVNKMWh1UkJvRURXUHU1N3BJR3U0YjFT?=
+ =?utf-8?B?MU5TL01aOFgvZUg0L0JaRXBNTkRzQ0s1SGJoQnBQVDlsNmNVTmV4VjJEUlJU?=
+ =?utf-8?B?YlB3aTFUaEx1YW82ZGpqNU1ubjFLbjVteVpKRjB1M2Mxd1JUU0xtZWpwOXd3?=
+ =?utf-8?Q?H04LofcSLe+eibwAlClquIQ0RrCHzmoUAvpuZHii5CAwC?=
+X-MS-Exchange-AntiSpam-MessageData-1: ZQvvHxCaftyr2A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0479f95b-a382-4047-6a1a-08de9fb222a6
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 14:25:54.9474 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 14:27:37.2524 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2JvB6RYnEX+dSBaafw2Jv/08XfQu3EcbsBu/xAmRhc2fJ2TKDL2sSQvVLmXttS6xJ2+TRV0uYxmKV6xcOOm7Yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB8098
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: IvAcGAbO6AUihVRIOEbGBbXrUUsIMkGXIj2KzrpZGfHUNIj8FfChpmcAct1aygCXlcVTv/TW0++eIK625gDcOQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFDA34A4201
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,304 +151,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maarten
+On Tue Apr 21, 2026 at 6:42 PM JST, Eliot Courtney wrote:
+> On Tue Apr 21, 2026 at 3:16 PM JST, Alexandre Courbot wrote:
+>> Currently, the GSP is left running after the driver is unbound. This is
+>> not great for several reasons, notably that it can still access shared
+>> memory areas that the kernel will now reclaim (especially problematic on
+>> setups without an IOMMU).
+>>
+>> Fix this by sending the `UNLOADING_GUEST_DRIVER` GSP command when
+>> unbinding. This stops the GSP and lets us proceed with the rest of the
+>> unbind sequence in the next patch.
+>>
+>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+>> ---
+>>  drivers/gpu/nova-core/gpu.rs                      |  5 +++
+>>  drivers/gpu/nova-core/gsp/boot.rs                 | 40 ++++++++++++++++=
++++++++
+>>  drivers/gpu/nova-core/gsp/commands.rs             | 36 ++++++++++++++++=
+++++
+>>  drivers/gpu/nova-core/gsp/fw.rs                   |  4 +++
+>>  drivers/gpu/nova-core/gsp/fw/commands.rs          | 23 +++++++++++++
+>>  drivers/gpu/nova-core/gsp/fw/r570_144/bindings.rs |  8 +++++
+>>  6 files changed, 116 insertions(+)
+>>
+>> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+>> index 1701c2600538..8f2ae9e8a519 100644
+>> --- a/drivers/gpu/nova-core/gpu.rs
+>> +++ b/drivers/gpu/nova-core/gpu.rs
+>> @@ -277,12 +277,17 @@ pub(crate) fn new<'a>(
+>> =20
+>>      /// Called when the corresponding [`Device`](device::Device) is unb=
+ound.
+>>      ///
+>> +    /// Prepares the GPU for unbinding by shutting down the GSP and unr=
+egistering the sysmem flush
+>> +    /// memory page.
+>> +    ///
+>>      /// Note: This method must only be called from `Driver::unbind`.
+>>      pub(crate) fn unbind(&self, dev: &device::Device<device::Core>) {
+>>          let Ok(bar) =3D kernel::warn_on_err!(self.bar.access(dev)) else=
+ {
+>>              return;
+>>          };
+>> =20
+>> +        let _ =3D kernel::warn_on_err!(self.gsp.unload(dev, bar, &self.=
+gsp_falcon));
+>> +
+>
+> If I remember correctly, at least on blackwell, doing the full unloading
+> procedure here actually resets the sysmem flush register, so you get a
+> spurious warning. In my local branch I actually swapped the order of
+> this and unregister to get rid of it (not sure if this is correct though)=
+.
+> My sysmem flush patch that skips printing the warning if the value is 0
+> would also fix this, if we care. Have you noticed this happening too?
 
-Could you please help with an ack for this patch so we can merge this 
-through drm-xe-next?
+I haven't - this patch works fine and without any warning on my
+Blackwell card. But that deserves further investigation, so let's
+revisit once we add the Blackwell series and your own patch, as this
+series only supports Turing/Ampere for now.
 
-Thanks
-Riana
+>
+>>          self.sysmem_flush.unregister(bar);
+>>      }
+>>  }
+>> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/g=
+sp/boot.rs
+>> index 18f356c9178e..3f4e99b2497b 100644
+>> --- a/drivers/gpu/nova-core/gsp/boot.rs
+>> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+>> @@ -33,6 +33,7 @@
+>>      },
+>>      gpu::Chipset,
+>>      gsp::{
+>> +        cmdq::Cmdq,
+>>          commands,
+>>          sequencer::{
+>>              GspSequencer,
+>> @@ -237,4 +238,43 @@ pub(crate) fn boot(
+>> =20
+>>          Ok(())
+>>      }
+>> +
+>> +    /// Shut down the GSP and wait until it is offline.
+>> +    fn shutdown_gsp(
+>> +        cmdq: &Cmdq,
+>> +        bar: &Bar0,
+>> +        gsp_falcon: &Falcon<Gsp>,
+>> +        suspend: bool,
+>> +    ) -> Result<()> {
+>> +        // Send command to shutdown GSP and wait for response.
+>> +        cmdq.send_command(bar, commands::UnloadingGuestDriver::new(susp=
+end))?;
+>> +
+>> +        // Wait until GSP signals it is suspended.
+>> +        const LIBOS_INTERRUPT_PROCESSOR_SUSPENDED: u32 =3D 0x8000_0000;
+>
+> If this can change based on firmware, should it be taken in via
+> bindings? I also noticed in openrm 595, this is waited on by checking the
+> bit rather than by strict equality (see _kgspIsProcessorSuspended). So
+> it may be more defensive to check the bit rather than strict equality
+> (even though that is correct for 570 according to openrm code).
 
-On 4/10/2026 10:51 AM, Tauro, Riana wrote:
-> Hi Rodrigo
+Indeed, in 570.144 the code is actually
+
+    return (mailbox =3D=3D 0x80000000);
+
+... but I checked against `main` and it has been changed to what you
+said, so testing the bit is probably better indeed.
+
+The value is also a file-local constant, so not something we can get
+through bindings unfortunately. :/ But I suspect we can rely on it being
+stable.
+
 >
-> On 4/9/2026 7:07 PM, Rodrigo Vivi wrote:
->> On Thu, Apr 09, 2026 at 12:51:44PM +0530, Tauro, Riana wrote:
->>> Hi Zack
->>>
->>> Could you please take a look at this patch if applicable to your 
->>> usecase.
->>> Please let me know if any
->>> changes are required
->>>
->>> @Rodrigo This is already reviewed by Jakub and Raag.
->>> If there are no opens, can this be merged via drm_misc
->> if we push this to drm-misc-next, it might take a few weeks to propagate
->> back to drm-xe-next. With other work from you and Raag going fast pace
->> on drm-xe-next around this area, I'm afraid it could cause some 
->> conflicts.
->>
->> It is definitely fine by me, but another option is to get ack from
->> drm-misc maintainers to get this through drm-xe-next.
->>
+>> +        read_poll_timeout(
+>> +            || Ok(gsp_falcon.read_mailbox0(bar)),
+>> +            |&mb0| mb0 =3D=3D LIBOS_INTERRUPT_PROCESSOR_SUSPENDED,
+>> +            Delta::from_millis(10),
+>> +            Delta::from_secs(5),
+>> +        )
+>> +        .map(|_| ())
+>> +    }
+>> +
+>> +    /// Attempts to unload the GSP firmware.
+>> +    ///
+>> +    /// This stops all activity on the GSP.
+>> +    pub(crate) fn unload(
+>> +        &self,
+>> +        dev: &device::Device<device::Bound>,
+>> +        bar: &Bar0,
+>> +        gsp_falcon: &Falcon<Gsp>,
+>> +    ) -> Result {
+>> +        // Shut down the GSP.
+>> +
+>> +        Self::shutdown_gsp(&self.cmdq, bar, gsp_falcon, false)
+>> +            .inspect_err(|e| dev_err!(dev, "unload guest driver failed:=
+ {:?}", e))?;
 >
-> Yeah this would be better with the other RAS patches close to merge.
+> It looks like "suspend" is only ever false here? Will this be used
+> later? If we want to keep this, it may be nice to use a 2 discriminant
+> enum so we don't have misc boolean parameters hanging around.
+
+It is in prevision of suspend/resume support yes. Agreed about the enum.
+
 >
-> @Maarten Can you please help with an ack if this patch looks good to you?
-> This has been reviewed by Jakub from netdev and Raag from intel-xe
-> There are no other opens.
+> nit: dev_err! should have \n?
+
+It should!
+
 >
-> Thanks
-> Riana
+>> +        dev_dbg!(dev, "GSP shut down\n");
+>> +
+>> +        Ok(())
+>> +    }
+>>  }
+>> diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-co=
+re/gsp/commands.rs
+>> index c80df421702c..fb94460c451e 100644
+>> --- a/drivers/gpu/nova-core/gsp/commands.rs
+>> +++ b/drivers/gpu/nova-core/gsp/commands.rs
+>> @@ -237,3 +237,39 @@ pub(crate) fn gpu_name(&self) -> core::result::Resu=
+lt<&str, GpuNameError> {
+>>  pub(crate) fn get_gsp_info(cmdq: &Cmdq, bar: &Bar0) -> Result<GetGspSta=
+ticInfoReply> {
+>>      cmdq.send_command(bar, GetGspStaticInfo)
+>>  }
+>> +
+>> +pub(crate) struct UnloadingGuestDriver {
+>> +    suspend: bool,
+>> +}
 >
->>
->> so, really okay with drm-misc-next?
->>
->>> Thanks
->>> Riana
->>>
->>> On 4/9/2026 1:03 PM, Riana Tauro wrote:
->>>> Introduce a new 'clear-error-counter' drm_ras command to reset the 
->>>> counter
->>>> value for a specific error counter of a given node.
->>>>
->>>> The command is a 'do' netlink request with 'node-id' and 'error-id'
->>>> as parameters with no response payload.
->>>>
->>>> Usage:
->>>>
->>>> $ sudo ynl --family drm_ras  --do clear-error-counter --json \
->>>> '{"node-id":1, "error-id":1}'
->>>> None
->>>>
->>>> Cc: Jakub Kicinski <kuba@kernel.org>
->>>> Cc: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
->>>> Cc: Lijo Lazar <lijo.lazar@amd.com>
->>>> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
->>>> Cc: David S. Miller <davem@davemloft.net>
->>>> Cc: Paolo Abeni <pabeni@redhat.com>
->>>> Cc: Eric Dumazet <edumazet@google.com>
->>>> Signed-off-by: Riana Tauro <riana.tauro@intel.com>
->>>> Reviewed-by: Jakub Kicinski <kuba@kernel.org>
->>>> Reviewed-by: Raag Jadav <raag.jadav@intel.com>
->>>> ---
->>>>    Documentation/gpu/drm-ras.rst            |  8 +++++
->>>>    Documentation/netlink/specs/drm_ras.yaml | 13 ++++++-
->>>>    drivers/gpu/drm/drm_ras.c                | 43 
->>>> +++++++++++++++++++++++-
->>>>    drivers/gpu/drm/drm_ras_nl.c             | 13 +++++++
->>>>    drivers/gpu/drm/drm_ras_nl.h             |  2 ++
->>>>    include/drm/drm_ras.h                    | 11 ++++++
->>>>    include/uapi/drm/drm_ras.h               |  1 +
->>>>    7 files changed, 89 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/Documentation/gpu/drm-ras.rst 
->>>> b/Documentation/gpu/drm-ras.rst
->>>> index 70b246a78fc8..4636e68f5678 100644
->>>> --- a/Documentation/gpu/drm-ras.rst
->>>> +++ b/Documentation/gpu/drm-ras.rst
->>>> @@ -52,6 +52,8 @@ User space tools can:
->>>>      as a parameter.
->>>>    * Query specific error counter values with the 
->>>> ``get-error-counter`` command, using both
->>>>      ``node-id`` and ``error-id`` as parameters.
->>>> +* Clear specific error counters with the ``clear-error-counter`` 
->>>> command, using both
->>>> +  ``node-id`` and ``error-id`` as parameters.
->>>>    YAML-based Interface
->>>>    --------------------
->>>> @@ -101,3 +103,9 @@ Example: Query an error counter for a given node
->>>>        sudo ynl --family drm_ras --do get-error-counter --json 
->>>> '{"node-id":0, "error-id":1}'
->>>>        {'error-id': 1, 'error-name': 'error_name1', 'error-value': 0}
->>>> +Example: Clear an error counter for a given node
->>>> +
->>>> +.. code-block:: bash
->>>> +
->>>> +    sudo ynl --family drm_ras --do clear-error-counter --json 
->>>> '{"node-id":0, "error-id":1}'
->>>> +    None
->>>> diff --git a/Documentation/netlink/specs/drm_ras.yaml 
->>>> b/Documentation/netlink/specs/drm_ras.yaml
->>>> index 79af25dac3c5..e113056f8c01 100644
->>>> --- a/Documentation/netlink/specs/drm_ras.yaml
->>>> +++ b/Documentation/netlink/specs/drm_ras.yaml
->>>> @@ -99,7 +99,7 @@ operations:
->>>>          flags: [admin-perm]
->>>>          do:
->>>>            request:
->>>> -          attributes:
->>>> +          attributes: &id-attrs
->>>>                - node-id
->>>>                - error-id
->>>>            reply:
->>>> @@ -113,3 +113,14 @@ operations:
->>>>                - node-id
->>>>            reply:
->>>>              attributes: *errorinfo
->>>> +    -
->>>> +      name: clear-error-counter
->>>> +      doc: >-
->>>> +           Clear error counter for a given node.
->>>> +           The request includes the error-id and node-id of the
->>>> +           counter to be cleared.
->>>> +      attribute-set: error-counter-attrs
->>>> +      flags: [admin-perm]
->>>> +      do:
->>>> +        request:
->>>> +          attributes: *id-attrs
->>>> diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
->>>> index b2fa5ab86d87..d6eab29a1394 100644
->>>> --- a/drivers/gpu/drm/drm_ras.c
->>>> +++ b/drivers/gpu/drm/drm_ras.c
->>>> @@ -26,7 +26,7 @@
->>>>     * efficient lookup by ID. Nodes can be registered or unregistered
->>>>     * dynamically at runtime.
->>>>     *
->>>> - * A Generic Netlink family `drm_ras` exposes two main operations to
->>>> + * A Generic Netlink family `drm_ras` exposes the below operations to
->>>>     * userspace:
->>>>     *
->>>>     * 1. LIST_NODES: Dump all currently registered RAS nodes.
->>>> @@ -37,6 +37,10 @@
->>>>     *    Returns all counters of a node if only Node ID is provided 
->>>> or specific
->>>>     *    error counters.
->>>>     *
->>>> + * 3. CLEAR_ERROR_COUNTER: Clear error counter of a given node.
->>>> + *    Userspace must provide Node ID, Error ID.
->>>> + *    Clears specific error counter of a node if supported.
->>>> + *
->>>>     * Node registration:
->>>>     *
->>>>     * - drm_ras_node_register(): Registers a new node and assigns
->>>> @@ -66,6 +70,8 @@
->>>>     *   operation, fetching all counters from a specific node.
->>>>     * - drm_ras_nl_get_error_counter_doit(): Implements the 
->>>> GET_ERROR_COUNTER doit
->>>>     *   operation, fetching a counter value from a specific node.
->>>> + * - drm_ras_nl_clear_error_counter_doit(): Implements the 
->>>> CLEAR_ERROR_COUNTER doit
->>>> + *   operation, clearing a counter value from a specific node.
->>>>     */
->>>>    static DEFINE_XARRAY_ALLOC(drm_ras_xa);
->>>> @@ -314,6 +320,41 @@ int drm_ras_nl_get_error_counter_doit(struct 
->>>> sk_buff *skb,
->>>>        return doit_reply_value(info, node_id, error_id);
->>>>    }
->>>> +/**
->>>> + * drm_ras_nl_clear_error_counter_doit() - Clear an error counter 
->>>> of a node
->>>> + * @skb: Netlink message buffer
->>>> + * @info: Generic Netlink info containing attributes of the request
->>>> + *
->>>> + * Extracts the node ID and error ID from the netlink attributes and
->>>> + * clears the current value.
->>>> + *
->>>> + * Return: 0 on success, or negative errno on failure.
->>>> + */
->>>> +int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
->>>> +                    struct genl_info *info)
->>>> +{
->>>> +    struct drm_ras_node *node;
->>>> +    u32 node_id, error_id;
->>>> +
->>>> +    if (!info->attrs ||
->>>> +        GENL_REQ_ATTR_CHECK(info, 
->>>> DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
->>>> +        GENL_REQ_ATTR_CHECK(info, 
->>>> DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID))
->>>> +        return -EINVAL;
->>>> +
->>>> +    node_id = 
->>>> nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
->>>> +    error_id = 
->>>> nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
->>>> +
->>>> +    node = xa_load(&drm_ras_xa, node_id);
->>>> +    if (!node || !node->clear_error_counter)
->>>> +        return -ENOENT;
->>>> +
->>>> +    if (error_id < node->error_counter_range.first ||
->>>> +        error_id > node->error_counter_range.last)
->>>> +        return -EINVAL;
->>>> +
->>>> +    return node->clear_error_counter(node, error_id);
->>>> +}
->>>> +
->>>>    /**
->>>>     * drm_ras_node_register() - Register a new RAS node
->>>>     * @node: Node structure to register
->>>> diff --git a/drivers/gpu/drm/drm_ras_nl.c 
->>>> b/drivers/gpu/drm/drm_ras_nl.c
->>>> index 16803d0c4a44..dea1c1b2494e 100644
->>>> --- a/drivers/gpu/drm/drm_ras_nl.c
->>>> +++ b/drivers/gpu/drm/drm_ras_nl.c
->>>> @@ -22,6 +22,12 @@ static const struct nla_policy 
->>>> drm_ras_get_error_counter_dump_nl_policy[DRM_RAS_
->>>>        [DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
->>>>    };
->>>> +/* DRM_RAS_CMD_CLEAR_ERROR_COUNTER - do */
->>>> +static const struct nla_policy 
->>>> drm_ras_clear_error_counter_nl_policy[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID 
->>>> + 1] = {
->>>> +    [DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID] = { .type = NLA_U32, },
->>>> +    [DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID] = { .type = NLA_U32, },
->>>> +};
->>>> +
->>>>    /* Ops table for drm_ras */
->>>>    static const struct genl_split_ops drm_ras_nl_ops[] = {
->>>>        {
->>>> @@ -43,6 +49,13 @@ static const struct genl_split_ops 
->>>> drm_ras_nl_ops[] = {
->>>>            .maxattr    = DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID,
->>>>            .flags        = GENL_ADMIN_PERM | GENL_CMD_CAP_DUMP,
->>>>        },
->>>> +    {
->>>> +        .cmd        = DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
->>>> +        .doit        = drm_ras_nl_clear_error_counter_doit,
->>>> +        .policy        = drm_ras_clear_error_counter_nl_policy,
->>>> +        .maxattr    = DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID,
->>>> +        .flags        = GENL_ADMIN_PERM | GENL_CMD_CAP_DO,
->>>> +    },
->>>>    };
->>>>    struct genl_family drm_ras_nl_family __ro_after_init = {
->>>> diff --git a/drivers/gpu/drm/drm_ras_nl.h 
->>>> b/drivers/gpu/drm/drm_ras_nl.h
->>>> index 06ccd9342773..a398643572a5 100644
->>>> --- a/drivers/gpu/drm/drm_ras_nl.h
->>>> +++ b/drivers/gpu/drm/drm_ras_nl.h
->>>> @@ -18,6 +18,8 @@ int drm_ras_nl_get_error_counter_doit(struct 
->>>> sk_buff *skb,
->>>>                          struct genl_info *info);
->>>>    int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
->>>>                        struct netlink_callback *cb);
->>>> +int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
->>>> +                    struct genl_info *info);
->>>>    extern struct genl_family drm_ras_nl_family;
->>>> diff --git a/include/drm/drm_ras.h b/include/drm/drm_ras.h
->>>> index 5d50209e51db..f2a787bc4f64 100644
->>>> --- a/include/drm/drm_ras.h
->>>> +++ b/include/drm/drm_ras.h
->>>> @@ -58,6 +58,17 @@ struct drm_ras_node {
->>>>        int (*query_error_counter)(struct drm_ras_node *node, u32 
->>>> error_id,
->>>>                       const char **name, u32 *val);
->>>> +    /**
->>>> +     * @clear_error_counter:
->>>> +     *
->>>> +     * This callback is used by drm_ras to clear a specific error 
->>>> counter.
->>>> +     * Driver should implement this callback to support clearing 
->>>> error counters
->>>> +     * of a node.
->>>> +     *
->>>> +     * Returns: 0 on success, negative error code on failure.
->>>> +     */
->>>> +    int (*clear_error_counter)(struct drm_ras_node *node, u32 
->>>> error_id);
->>>> +
->>>>        /** @priv: Driver private data */
->>>>        void *priv;
->>>>    };
->>>> diff --git a/include/uapi/drm/drm_ras.h b/include/uapi/drm/drm_ras.h
->>>> index 5f40fa5b869d..218a3ee86805 100644
->>>> --- a/include/uapi/drm/drm_ras.h
->>>> +++ b/include/uapi/drm/drm_ras.h
->>>> @@ -41,6 +41,7 @@ enum {
->>>>    enum {
->>>>        DRM_RAS_CMD_LIST_NODES = 1,
->>>>        DRM_RAS_CMD_GET_ERROR_COUNTER,
->>>> +    DRM_RAS_CMD_CLEAR_ERROR_COUNTER,
->>>>        __DRM_RAS_CMD_MAX,
->>>>        DRM_RAS_CMD_MAX = (__DRM_RAS_CMD_MAX - 1)
+> This feels like it only makes sense to call from within the gsp module,
+> so I wonder if it can be pub(super) (prolly a few others in this file
+> could be too, ofc not relevant for this series).
+
+I'll review that, we do want to limit visibility as much as possible.
+
+>
+> nit: Should this have doc comment?
+
+Yep, I'll add that.
+
+>
+>> +
+>> +impl UnloadingGuestDriver {
+>> +    pub(crate) fn new(suspend: bool) -> Self {
+>> +        Self { suspend }
+>> +    }
+>> +}
+>> +
+>> +impl CommandToGsp for UnloadingGuestDriver {
+>> +    const FUNCTION: MsgFunction =3D MsgFunction::UnloadingGuestDriver;
+>> +    type Command =3D fw::commands::UnloadingGuestDriver;
+>> +    type Reply =3D UnloadingGuestDriverReply;
+>> +    type InitError =3D Infallible;
+>> +
+>> +    fn init(&self) -> impl Init<Self::Command, Self::InitError> {
+>> +        fw::commands::UnloadingGuestDriver::new(self.suspend)
+>> +    }
+>> +}
+>> +
+>> +pub(crate) struct UnloadingGuestDriverReply;
+>> +
+>> +impl MessageFromGsp for UnloadingGuestDriverReply {
+>> +    const FUNCTION: MsgFunction =3D MsgFunction::UnloadingGuestDriver;
+>> +    type InitError =3D Infallible;
+>> +    type Message =3D ();
+>> +
+>> +    fn read(
+>> +        _msg: &Self::Message,
+>> +        _sbuffer: &mut SBufferIter<array::IntoIter<&[u8], 2>>,
+>> +    ) -> Result<Self, Self::InitError> {
+>> +        Ok(UnloadingGuestDriverReply)
+>> +    }
+>> +}
+>> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp=
+/fw.rs
+>> index 0c8a74f0e8ac..59b4c4883185 100644
+>> --- a/drivers/gpu/nova-core/gsp/fw.rs
+>> +++ b/drivers/gpu/nova-core/gsp/fw.rs
+>> @@ -278,6 +278,7 @@ pub(crate) enum MsgFunction {
+>>      Nop =3D bindings::NV_VGPU_MSG_FUNCTION_NOP,
+>>      SetGuestSystemInfo =3D bindings::NV_VGPU_MSG_FUNCTION_SET_GUEST_SYS=
+TEM_INFO,
+>>      SetRegistry =3D bindings::NV_VGPU_MSG_FUNCTION_SET_REGISTRY,
+>> +    UnloadingGuestDriver =3D bindings::NV_VGPU_MSG_FUNCTION_UNLOADING_G=
+UEST_DRIVER,
+>> =20
+>>      // Event codes
+>>      GspInitDone =3D bindings::NV_VGPU_MSG_EVENT_GSP_INIT_DONE,
+>> @@ -322,6 +323,9 @@ fn try_from(value: u32) -> Result<MsgFunction> {
+>>                  Ok(MsgFunction::SetGuestSystemInfo)
+>>              }
+>>              bindings::NV_VGPU_MSG_FUNCTION_SET_REGISTRY =3D> Ok(MsgFunc=
+tion::SetRegistry),
+>> +            bindings::NV_VGPU_MSG_FUNCTION_UNLOADING_GUEST_DRIVER =3D> =
+{
+>> +                Ok(MsgFunction::UnloadingGuestDriver)
+>> +            }
+>> =20
+>>              // Event codes
+>>              bindings::NV_VGPU_MSG_EVENT_GSP_INIT_DONE =3D> Ok(MsgFuncti=
+on::GspInitDone),
+>> diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova=
+-core/gsp/fw/commands.rs
+>> index db46276430be..71c8690c9322 100644
+>> --- a/drivers/gpu/nova-core/gsp/fw/commands.rs
+>> +++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
+>> @@ -129,3 +129,26 @@ unsafe impl AsBytes for GspStaticConfigInfo {}
+>>  // SAFETY: This struct only contains integer types for which all bit pa=
+tterns
+>>  // are valid.
+>>  unsafe impl FromBytes for GspStaticConfigInfo {}
+>> +
+>> +/// Payload of the `UnloadingGuestDriver` command and message.
+>> +#[repr(transparent)]
+>> +#[derive(Clone, Copy, Debug, Zeroable)]
+>> +pub(crate) struct UnloadingGuestDriver(bindings::rpc_unloading_guest_dr=
+iver_v1F_07);
+>> +
+>> +impl UnloadingGuestDriver {
+>> +    pub(crate) fn new(suspend: bool) -> Self {
+>> +        Self(bindings::rpc_unloading_guest_driver_v1F_07 {
+>> +            bInPMTransition: u8::from(suspend),
+>> +            bGc6Entering: 0,
+>> +            newLevel: if suspend { 3 } else { 0 },
+>
+> Why '3'? Is there a binding that it makes sense to use for this?
+
+It's for suspend level 3 (suspend to RAM) if `suspend` is true, or
+normal destructive unloading otherwise. OpenRM has a set of possible
+values (`NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_*`) that directly
+translate to the corresponding number, but at least they limit the
+possible values to the valid set. I'll add an enum and the corresponding
+bindings.
+
+Thanks for the review!
