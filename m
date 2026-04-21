@@ -4,129 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12CB7F8FA9A
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 16:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A2D1F8FA94
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 16:15:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 542B310ED0F;
-	Tue, 21 Apr 2026 16:09:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0E6110E8EE;
+	Tue, 21 Apr 2026 16:15:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="hIW8pWv7";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X3amF7zX";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="uRtVvv3A";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E589610ED01
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:09:26 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63LA68QK1834859
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:09:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=3qqoLhtCKIU98lhE+Indaovk
- ghDvJPWPB17ZsVSHxg4=; b=hIW8pWv7vu/YWk5OKS+ssqLrw1Jmsv1pQzxuK32u
- lbbQPlAMxpp7+vC902CItexX599xdd9mDkej4QhTFvHVruSec1d7YFle/8uVl7qm
- PP3YHyBWQJRaDEak5UUpsOZcSh2Z6SdQYj/f0qzdj1DsaR+kwLKONlQLP6Hhxe3A
- uwUgDDtNGGlsfYGW7Vw3ZwdbKwMThJ3OYqEwO+T00lv87YpiK3TYIrwaybfKGWJh
- 6WiN4dxNnP7C4mZOENfMKBMxk3k31gtTMzNJS23Qd/IXWWFVzRmjwwe5SLG/AiH4
- HfkTcmbb0ij92UYnfo8lJpy4KPDfw0ng09lUkO/wLBuYsQ==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp76gsagy-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:09:26 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id
- a1e0cc1a2514c-94ad0ada31bso9155147241.0
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 09:09:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776787765; x=1777392565;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=3qqoLhtCKIU98lhE+IndaovkghDvJPWPB17ZsVSHxg4=;
- b=X3amF7zXgEqYLRygRs9Jn6HmDSEYdPLyQ9Ulj6Caj6R9SJKzCzfnEE7JUMutOmPkF8
- eDT5CEjKIpUiRzQIkFVJQCK6BmknHVzqCCF6FfbB/+OUh0q4JaecNNyV8kMLuC63Zz/2
- WQzkfVZOfBHQkbP28dcMKYe7mF7/VDE6bUAbO7Td8OPPfcCt5+cIvP0GAQOgvi8rawIL
- xWQbzscTYfoKcfAUsh8vSF1DgQL+kIDz04iIu5Oc3/B5SSu1SPIzW8/b4/WsyNZY0Utp
- x31WnvUCrNWB+vGJrAqez3j7M1u59xG+Ol0lOglXka36upPZ4ooakkrkvjexw6HaHGBO
- SREw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776787765; x=1777392565;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=3qqoLhtCKIU98lhE+IndaovkghDvJPWPB17ZsVSHxg4=;
- b=U/9GCmYy7dGrc0Idgf1hKSvUjjetmwlyB5z/G6AqUaXQnhtOD4J3W1QAODlcEtZ5JO
- sD/WT4KjBBng+mtPKMxqzQpPmneVexPt53bM3ewtUiQaS0nOkJNRV1DQvS6UYMGl7wHK
- e0yi+bM0HJK18jwTK67ZAXT60ThNYBRitUluKpUUNcuduiCm5V46Sgc2QgmUmPbbCzEo
- rF4zK51iZnLJPQCP3F48q+lQJUgCdVZS1CEeeHy7/isE2WLNQJdhjY9kraLUd4W3NItk
- gcqDA0UBma8ZFoRM96WOnSrdcaTSAX9oe2zxLQNxdcljOPp+KlzLFbNyv8t4rGQcWOfO
- Rg1A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8XwjL0lhwDDTdHsZKfGGpf7jn16oFEZuaUoiHj6dl0AC9jePjQE96DRq+zBTHO7f0LSNlQSUuVpkU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUfqgwUvqvwlgdVTPIOSRCcs82XpDZHZGkA7MEwJlZS5W/1UnE
- GHOP9ZJPbtsnzw1o0FCu3PajybxcbyWP1/8oL7KsNj3arfxwAdfb2qcsB+inamDW0J72mX9mYb+
- vjIWxkft51VoVWP84CTOsy69e2sMxiMf6cc/plblcRCTOzA1CWuFiV1FywwAKCah3PbkD3RM=
-X-Gm-Gg: AeBDiesJMVc4Cdb3q76HE5sGAuiH8LQBPYPr9vzBTP1OUPIZkcwQRC3c7GzBmI/wuV/
- 3deqdhF3a3hHZThs93SAxpnmq9jykapz3mJK5mCyMGAmp6ZwuSrmijwRDkABzQsvvjh1nh6z63Z
- 8PRIPIu71/xeSNCTqMJZrklO+9zARqy+I1fGUZhRq3v2Y2cCfGESZUkq1RTMIN9vK5nroo3Y3Jz
- Ka9sv/J51tnmrh1XcFsN1ZTY8dUGurU7gfPh7GBkwNIGeq4gAR7TQ7rPnjCaaK1O6ACkJyrfRCy
- Z+cGndZyJw3h83n5frMAU4douU2J6hWzB9GqyMt2WGiZdnnBap4uXLOWACXs9IJNAhk0JZW6hQU
- RIE0iU8NfxDOkJbySj/JjHEmw+ZgxytpGZ/enbaIM4ex3KmID1J03sJXUTtpyxhYzRl5ugI3+vu
- d3OzQ8WvnYQZ+WUYDEgPIqtdJjEKXV6bPAsXhTmHpWfnKEHA==
-X-Received: by 2002:a05:6102:94f:b0:608:d8be:da4c with SMTP id
- ada2fe7eead31-616fb8a27e7mr6289680137.1.1776787765389; 
- Tue, 21 Apr 2026 09:09:25 -0700 (PDT)
-X-Received: by 2002:a05:6102:94f:b0:608:d8be:da4c with SMTP id
- ada2fe7eead31-616fb8a27e7mr6289662137.1.1776787764949; 
- Tue, 21 Apr 2026 09:09:24 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38ecb73de2esm29636821fa.36.2026.04.21.09.09.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Apr 2026 09:09:23 -0700 (PDT)
-Date: Tue, 21 Apr 2026 19:09:22 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-Subject: Re: [PATCH 1/6] drm/msm: Do not declare msm_framebuffer_init() as
- static
-Message-ID: <i3scoal5ilinifiiigmutnzi4zflkp7hh7ao7xuwngsa5c6ktm@t3moisfrwmob>
-References: <20260421125733.209568-1-tzimmermann@suse.de>
- <20260421125733.209568-2-tzimmermann@suse.de>
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021118.outbound.protection.outlook.com [52.101.100.118])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58A0D10ED10
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:14:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XPjJz0OdJslV1c509DB/o9zZ8w7WBuvbLMntgCiTJ2IxOHshvC7+2jlf4XR0oxKvynBWLjDxp8ULwYPuneMvZhNvvHPVGswdDe2hLGvPVgXuit6kS1ov+G+HCxuXCG2JH/f/GRts04mNOH4VqQ/v2ioYUdCwns4W3rVo8JPkajsPkdmTFPSfC7foWMDfTd8mx507weiXAN3VDmwBNSNiRsME//Zaq2Mk72mEnJfJ6MInk6V750SpRQi/RZKv7Oy24HMCeT1X63TtiZuAM1pfvha6gve0c/406VuR6JHXFufq5giBZES9ybs17cWyzUJYeD3L18nGQ4BDeL4Wt5P4Bw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+3AWCDZU1zP0Yj3WUGpRguwgNQAb2hbW1ivoAvPhiDA=;
+ b=dpLYdUVNbTOUoxMQF6PfDG/FXEEt7ux3LI/C/0gsihotza2qobDj1041kczIsOhshqY66CrdE3Os0ZmCFooHTV8WkTfml9JvZsIc36ra2ckFCyCSZAPa4M0XoMF0U3esZuNiutEF205UHy7hETO04F3s2IffUc5sc8nvfHuhIgaigKsrywN/c184JVlfor0G70vCEugHtTdI9CKUwqwLACPUcJLssfRlkET83lIUYANN4f5URKdONB2tXYFhQLqh2NnlTjuS6UW1iLTdpBCIZvNSbC9CkU1JADb7ylyxbl64SIgwEkpmJE2f3ZTXg5H4Xns2YVZZexTk/EinxkNMMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+3AWCDZU1zP0Yj3WUGpRguwgNQAb2hbW1ivoAvPhiDA=;
+ b=uRtVvv3A/13+KIqTBbMyf+bzG0MlZHLdlNaJL/xBOQ4mu88XHAQ7BJ7WKxAu8nLmPRLJL/MHVTX6kqajMEnNVaAQsr7AXqWJUym11z397dDQjGNjBAFeAZLsrJyFwNDi6OKh4xoVAv+TnFlKtV2EGCTp51WwlmDDrK4k4izrpl0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO4P265MB5979.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:29c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
+ 2026 16:14:55 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%4]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
+ 16:14:55 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 21 Apr 2026 17:14:54 +0100
+Message-Id: <DHYYTAECTETZ.2RRY4SNC1YLEX@garyguo.net>
+Subject: Re: [PATCH v2 RESEND 1/4] rust: add SRCU abstraction
+From: "Gary Guo" <gary@garyguo.net>
+To: =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, <dakr@kernel.org>,
+ <aliceryhl@google.com>, <daniel.almeida@collabora.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <jiangshanlai@gmail.com>, <paulmck@kernel.org>, <josh@joshtriplett.org>,
+ <rostedt@goodmis.org>
+X-Mailer: aerc 0.21.0
+References: <20260416171728.205141-1-work@onurozkan.dev>
+ <20260416174308.221235-1-work@onurozkan.dev>
+In-Reply-To: <20260416174308.221235-1-work@onurozkan.dev>
+X-ClientProxiedBy: LO4P123CA0581.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:276::11) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260421125733.209568-2-tzimmermann@suse.de>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE2MCBTYWx0ZWRfX1XOchxcLdgLT
- BcLC0nWicrtZgn+J/v8Z5ukkCGAbCmLom6fzv9Mek9sxMPc2aeV+QxvbV7WJS7HqAwN/RKClLVI
- j5wJ5beZywgfOsEpW8cQtK9c4xim3XoureJWB8pQ5FaUu+E68zKuwfdVb6QsBQKznDVr0pNEnkD
- +DD0oLAUwBh56uDVIanbcBJqW1z5K3xdI/UsSOs5p69QOdnJLkRjyNQwrc9ExUbWX0ZPtpKw9Ol
- 1LP+0Nd2Fqm+PfNbVDTS99FowRm5DfWKfLC5kxM8TdiDcBWrT4FY76qlA0WQ/uPgmZJK+F4oBYT
- QsGI4b2Gx8RPRW6nIEOMRAYl6NBo5aruJCcX+QSpIlo6u8uasolL4eKzKupKAaStlLjbesBfVs6
- 0hnhMiWEnp9IT9m8oO+4HQgZgqQXyrKGdXGIe4umta+MdS0gF0LN/YFcEDah5ETrSBentzAlnnC
- 2zZPjlcktvYYibEWfJw==
-X-Proofpoint-GUID: 7DOt8X9Z_QyYYKkvL2DxGG4xocr5R5WH
-X-Authority-Analysis: v=2.4 cv=crWrVV4i c=1 sm=1 tr=0 ts=69e7a136 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=I2v9zooOMI0D0AckUToA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-ORIG-GUID: 7DOt8X9Z_QyYYKkvL2DxGG4xocr5R5WH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
- priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604070000
- definitions=main-2604210160
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO4P265MB5979:EE_
+X-MS-Office365-Filtering-Correlation-Id: 129651bf-0ed5-4805-7f0d-08de9fc12049
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|7416014|376014|10070799003|18002099003|56012099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info: BVVEIj42PSIQvxD28gq94iiAQIzbLf52SIOnzH1CyldX4Q7b5VE0np7lG3ZvHhQyyXiQ5hv+Vw3uNvIgZkZFH9EACybO/2k+Fu+4+NOwEEOr+8J9CXR7kslez2HrLKQNfHbUouGIFBI7lA+uzFeJ3YXKTX80BgL1TV6Fqueq/YBKSS7IZ5S7xrfDpbjrmRCZGKR8dDYEGGbXo7HSrIsedRPY3JcelIsngSEgMSrgLjTYbXttfC4HvmvSKG0N1L327N5GjWU5rknpB2m9om2bX3oo2wN+7JGFpKbQYc6Z+s+C56Ot28nsp6J29UPM9F/IMMxtsTI4efgG0n6+8FF7UeI/myfn8SS3u3AWh1ov6/le9mBvaeId4ZO/jfJPLx8AiE88EoN8MlOXmH6e3ClCAJKEM+LcVCd13y9I4s9NCPS0hE63KibnalAvVxp8ys+8QoPc5ODVmO2FdhpG4Gm9am6kZAesM7ItAe3WQxS+qcvvtko2iWM8juaJ043lnhTHYPSEOYvhW/OvwdyEnbrErQOvuNY4t6dMxrxfguY637VXFQZ2BxTDkhF0PlCH0EZU54HN6tOVD5g/AskW+RoLtRPHErkndwIjL/Aw5SP1cUiJIU/4Lfy0VexUlnE9+QfwEF+V6ReJZIMz6rNDai+SlZDpuaniYytWbZOGQHPYpx8XcwNirSbN4J4oF/usrOAKLH02DJeVeOpTibCMy23VGQF0hczcVh04sSYLRPU2b6KiuD1Iaf95/cQxDvqLMc8jisfzmBNrX1Tf4K5cH2C2Jw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(18002099003)(56012099003)(22082099003)(921020);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHNETU94RUVGS3hKT3hVNEJDTytjakRISHhUaGtOZktEWnBnTjdwY2MveHk5?=
+ =?utf-8?B?azdtSTEyYWlSUTVuQnY1b0ZyemRyVXVXMVVwOHhqay9uK3FDWEZRUXNGUG9i?=
+ =?utf-8?B?ZEUxaEYyTUpZZ3Z1UWQ2aDVVbVgvb2FiY0JEZ2RhbTVMZzRuZ0RhTVRlNWRs?=
+ =?utf-8?B?YVRyb0FuQWRwUHJ3Qyt3YmVFWXRhQjlGMHBjZk9rMmRzdzZyMUMySHBnYjhR?=
+ =?utf-8?B?anBpWDE5c2Qwb2pVWFdwYWNGVC95SEZEZlZ6OFFxZTFlVFpNN2NsNXFCYUI3?=
+ =?utf-8?B?STVGVWFycmlzWUNjcmRRdDY4RTVkWS9XamVpNnNBUkloUmJ1L29PaEdYM3pa?=
+ =?utf-8?B?dE1kclU2OXpHZk5Fajhxb3NaU0h2VHZCYnozVDJBaVpFN1ZROFFtMEU3U3VI?=
+ =?utf-8?B?dUM5UkRtckxFTk53VUl1VWNHYzMzWkdNN1RQUHlGT0VIWmI3VWNRUXY3ZEJ2?=
+ =?utf-8?B?cVFGVGUwMTM3c0RNTXFhVmhEbEcyV2ExMFZkSnlqQVIzblhObitMNHZQK2g1?=
+ =?utf-8?B?RzRNVFMwWlVQa3lyRndBamI2U1VWUk5qWElXUHdKOThveFJGRUhZcjRhU0NG?=
+ =?utf-8?B?OFFyZWUyNXhSdkpINy9HUElYK1JycVdsYnFoVm96QS9zWjR3WC9HSHd4YWUw?=
+ =?utf-8?B?R2R1ZmRaUW9xakljWEdJTmVhVGc3QkUwaVMvWXlpbWJ6dzBkcUNYNTRkSXBN?=
+ =?utf-8?B?cVJWM051bkNsS3JSSTRxUkVSaVpnRFljek1aRmttN052S2ZJVTNkSnh3anNE?=
+ =?utf-8?B?WVBZZHdRc1A3QjBJTlVEc2l5cDlUN20zMnFzUnhnQmlUODFtMzNxVDM5ZERG?=
+ =?utf-8?B?aXNBNVM1SnB2NVBWNFpaQVNUTkJnS09weHZyMzNubzFVYmxKNzVQMlpTK2NG?=
+ =?utf-8?B?TTlUa2RDVUkxbERHRTJrYkVSQlhzRXBVSURudWlwVWlNcERSUXd5M2NpS0hN?=
+ =?utf-8?B?WUhueStKVXJ0L2l3aFB4ZjAzd3UzWjYrdWZXenNoTkN0RE1XS2ZraFgwcFY1?=
+ =?utf-8?B?d2FncEhGWDhaWklibi9DcmtPVEY0YTY3Q1VCWkhnVVFsMmpzaEdNN3BRdGNB?=
+ =?utf-8?B?QkVQdEtOc0dqTUx2aTRhaVM3RC9QS2ZLU05mM21pWWdVTVZIZm56QWhjVlp2?=
+ =?utf-8?B?b2lNN3lQdVdzUXZRWnFmSlVYaU1weDBPYjBERW40ODM3b1o0bGdzWjRrOFhw?=
+ =?utf-8?B?NGpvSTFTUGhYR0pDTkloVThCWE1XSWlJTVY3SGFBdkFkbXBqWHlNR2hGL0NG?=
+ =?utf-8?B?TDJyeVBuMGdHRnk0QlhmSnI3czk4aE5CLzMzWlZ2b25vV2g4TEtjTDU2ZWwy?=
+ =?utf-8?B?R1VmUDFxcVp4dnJ4WHhkakVxVGxNb2t4TDVicjJJa0FSYmVpNEN1eDNUdkVY?=
+ =?utf-8?B?YzBBWEduaW0vYmhzbG5BTWxqUkZRVHkzbFM2RmNlSnJKUFd5bTVXVkVvcUZT?=
+ =?utf-8?B?UlNaRXVmVUFGTU05WGI0NGRqQW9jMktrZUxCVTFSWXQ2YUhBUnlXRWtvQTBI?=
+ =?utf-8?B?NlBYMG1VUkR2WEltL3hLUXh1Vy92Rjg1enhsaWsvWS9NK0Jpc1RyakRVVDJU?=
+ =?utf-8?B?NUltc1JKRnNJWG1vSGpNdVdOSTFWdjZmWW9mQ3JxY09DNmRzUzZET1ltZkcv?=
+ =?utf-8?B?RGxUeEtsWXppeFV6b2xWbDEvNk9naVZUY2xZNE5ZczZWVXN3eXpQK3ZEN2li?=
+ =?utf-8?B?cGhaYTY4cVBrMWlkRXdYWURYMXpKUGlZWUVQWTNoVHJxSVJ4ZnNBSW5HK1lS?=
+ =?utf-8?B?STNQZkU3WXhYdVoxWGhZNkpKNVpDb05oVGJLWHFBbXo5OXFzbFhKQ3FiVVdK?=
+ =?utf-8?B?VEZnU29Da2RMbjRzZVdrRS9XSG1tZFd2d3owNzhXczFmR3ZmOXg5Tktyc3dm?=
+ =?utf-8?B?Vlp3a0N3Q2lLUENtVXdLWWIxelFmd1Y4b016T2huNnRBeXEwakVXR09NZWoz?=
+ =?utf-8?B?T09WYUIzMk02WklKSVplQTA4ZnpNNEFaakhyYWVMdmttcVNTZTNyRGU3WmNv?=
+ =?utf-8?B?czBWVTVTdTJNY3d3Ly9Bd0tFc2hMaTJobUptZ1ZLL3kwQVJGdUVxUG5PR3BZ?=
+ =?utf-8?B?SC9tQzFvUXU0TjMrWWdqYWxPK29mVGowM3cybDlwQmR3b0dTcTdPNy9sTjRq?=
+ =?utf-8?B?Y2ZiUWNsdXpsSjFyZWN5L0hUR1lPbHRrTHpuSUJQa3czdXdCdXBhVzZwQlNJ?=
+ =?utf-8?B?aG1kTk9hcE0vWGVXMm1LWmhFNTFLOFNnamdDUE4rTWJQaWcxbC9SODM3YnE0?=
+ =?utf-8?B?aEZ6eU5walNzcmZCaTR4ZjB6bU9nK0FEbXRwUzJNNndQWFhFR1RvY1poUUNy?=
+ =?utf-8?B?RUdrY1VWU1hnQWtuNzNqZjU2YjdwU05EeVZ2Ty8rc1RxdUZPdjNEZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 129651bf-0ed5-4805-7f0d-08de9fc12049
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 16:14:55.3247 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +XExPYqRAQWBJGLllxcf6Mu5HUElTbVBE7e4LkS858TI4M+PcSJNVl/waQQKZ5Lr84Nnxrfx8bsOM6ADGW4Mig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO4P265MB5979
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,25 +139,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 21, 2026 at 02:51:14PM +0200, Thomas Zimmermann wrote:
-> Declare msm_framebuffer_init() in msm_drv.h and remove the static
-> qualifier. The function will be required in msm_fbdev.c after inlining
-> msm_alloc_stolen_fb().
-> 
-> Also move msm_framebuffer_init() before msm_framebuffer_create(), so
-> that it can later be made static again. Prepares msm's fbdev emulation
-> for using client buffers.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On Thu Apr 16, 2026 at 6:43 PM BST, Onur =C3=96zkan wrote:
+> Add a Rust abstraction for sleepable RCU (SRCU), backed by
+> srcu_struct. Provide FFI helpers and a safe wrapper with a
+> guard-based API for read-side critical sections.
+>
+> Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>
 > ---
->  drivers/gpu/drm/msm/msm_drv.h |  4 ++
->  drivers/gpu/drm/msm/msm_fb.c  | 72 +++++++++++++++++------------------
->  2 files changed, 39 insertions(+), 37 deletions(-)
-> 
+>  rust/helpers/helpers.c   |   1 +
+>  rust/helpers/srcu.c      |  18 +++++++
+>  rust/kernel/sync.rs      |   2 +
+>  rust/kernel/sync/srcu.rs | 109 +++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 130 insertions(+)
+>  create mode 100644 rust/helpers/srcu.c
+>  create mode 100644 rust/kernel/sync/srcu.rs
+>
+> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+> index 875a9788ad40..052fef89d5f0 100644
+> --- a/rust/helpers/helpers.c
+> +++ b/rust/helpers/helpers.c
+> @@ -60,6 +60,7 @@
+>  #include "signal.c"
+>  #include "slab.c"
+>  #include "spinlock.c"
+> +#include "srcu.c"
+>  #include "sync.c"
+>  #include "task.c"
+>  #include "time.c"
+> diff --git a/rust/helpers/srcu.c b/rust/helpers/srcu.c
+> new file mode 100644
+> index 000000000000..b372b733eb89
+> --- /dev/null
+> +++ b/rust/helpers/srcu.c
+> @@ -0,0 +1,18 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <linux/srcu.h>
+> +
+> +__rust_helper int rust_helper_init_srcu_struct(struct srcu_struct *ssp)
+> +{
+> +	return init_srcu_struct(ssp);
+> +}
+> +
+> +__rust_helper int rust_helper_srcu_read_lock(struct srcu_struct *ssp)
+> +{
+> +	return srcu_read_lock(ssp);
+> +}
+> +
+> +__rust_helper void rust_helper_srcu_read_unlock(struct srcu_struct *ssp,=
+ int idx)
+> +{
+> +	srcu_read_unlock(ssp, idx);
+> +}
+> \ No newline at end of file
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+^
 
+> diff --git a/rust/kernel/sync.rs b/rust/kernel/sync.rs
+> index 993dbf2caa0e..0d6a5f1300c3 100644
+> --- a/rust/kernel/sync.rs
+> +++ b/rust/kernel/sync.rs
+> @@ -21,6 +21,7 @@
+>  pub mod rcu;
+>  mod refcount;
+>  mod set_once;
+> +pub mod srcu;
+> =20
+>  pub use arc::{Arc, ArcBorrow, UniqueArc};
+>  pub use completion::Completion;
+> @@ -31,6 +32,7 @@
+>  pub use locked_by::LockedBy;
+>  pub use refcount::Refcount;
+>  pub use set_once::SetOnce;
+> +pub use srcu::Srcu;
+> =20
+>  /// Represents a lockdep class.
+>  ///
+> diff --git a/rust/kernel/sync/srcu.rs b/rust/kernel/sync/srcu.rs
+> new file mode 100644
+> index 000000000000..cf0c16248ea3
+> --- /dev/null
+> +++ b/rust/kernel/sync/srcu.rs
+> @@ -0,0 +1,109 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Sleepable read-copy update (SRCU) abstraction.
+> +//!
+> +//! C header: [`include/linux/srcu.h`](srctree/include/linux/srcu.h)
+> +
+> +use crate::{
+> +    bindings,
+> +    error::to_result,
+> +    prelude::*,
+> +    types::{
+> +        NotThreadSafe,
+> +        Opaque, //
+> +    },
+> +};
+> +
+> +use pin_init::pin_data;
+> +
+> +/// Creates an [`Srcu`] initialiser.
+> +#[macro_export]
+> +macro_rules! new_srcu {
+> +    () =3D> {
+> +        $crate::sync::Srcu::new()
+> +    };
 
--- 
-With best wishes
-Dmitry
+There's no need to create macro just for the sake of creating a macro. Alth=
+ough,
+as Boqun already pointed out, macro will be needed for lockdep.
+
+> +}
+> +
+> +/// Sleepable read-copy update primitive.
+> +///
+> +/// SRCU readers may sleep while holding the read-side guard.
+> +#[repr(transparent)]
+> +#[pin_data(PinnedDrop)]
+> +pub struct Srcu {
+> +    #[pin]
+> +    inner: Opaque<bindings::srcu_struct>,
+> +}
+> +
+> +impl Srcu {
+> +    /// Creates a new SRCU instance.
+> +    pub fn new() -> impl PinInit<Self, Error> {
+
+Most of the methods here can be `#[inline]`
+
+> +        try_pin_init!(Self {
+> +            inner <- Opaque::try_ffi_init(|ptr: *mut bindings::srcu_stru=
+ct| {
+> +                // SAFETY: `ptr` points to valid uninitialised memory fo=
+r a `srcu_struct`.
+> +                to_result(unsafe { bindings::init_srcu_struct(ptr) })
+> +            }),
+> +        })
+> +    }
+> +
+> +    /// Enters an SRCU read-side critical section.
+> +    pub fn read_lock(&self) -> Guard<'_> {
+> +        // SAFETY: By the type invariants, `self.inner.get()` is a valid=
+ initialized `srcu_struct`.
+> +        let idx =3D unsafe { bindings::srcu_read_lock(self.inner.get()) =
+};
+> +
+> +        Guard {
+> +            srcu: self,
+> +            idx,
+> +            _nts: NotThreadSafe,
+> +        }
+> +    }
+> +
+> +    /// Waits until all pre-existing SRCU readers have completed.
+> +    pub fn synchronize(&self) {
+> +        // SAFETY: By the type invariants, `self.inner.get()` is a valid=
+ initialized `srcu_struct`.
+> +        unsafe { bindings::synchronize_srcu(self.inner.get()) };
+> +    }
+> +
+> +    /// Waits until all pre-existing SRCU readers have completed, expedi=
+ted.
+> +    ///
+> +    /// This requests a lower-latency grace period than [`Srcu::synchron=
+ize`] typically
+> +    /// at the cost of higher system-wide overhead. Prefer [`Srcu::synch=
+ronize`] by default
+> +    /// and use this variant only when reducing reset or teardown latenc=
+y is more important
+> +    /// than the extra cost.
+> +    pub fn synchronize_expedited(&self) {
+> +        // SAFETY: By the type invariants, `self.inner.get()` is a valid=
+ initialized `srcu_struct`.
+> +        unsafe { bindings::synchronize_srcu_expedited(self.inner.get()) =
+};
+> +    }
+> +}
+> +
+> +#[pinned_drop]
+> +impl PinnedDrop for Srcu {
+> +    fn drop(self: Pin<&mut Self>) {
+> +        // SAFETY: `self` is pinned and `inner` contains a valid initial=
+ized `srcu_struct`.
+> +        unsafe { bindings::cleanup_srcu_struct(self.as_ref().get_ref().i=
+nner.get()) };
+> +    }
+> +}
+> +
+> +// SAFETY: `srcu_struct` may be shared and used across threads.
+> +unsafe impl Send for Srcu {}
+> +// SAFETY: `srcu_struct` may be shared and used concurrently.
+> +unsafe impl Sync for Srcu {}
+> +
+> +/// Guard for an active SRCU read-side critical section on a particular =
+[`Srcu`].
+> +pub struct Guard<'a> {
+> +    srcu: &'a Srcu,
+> +    idx: core::ffi::c_int,
+> +    _nts: NotThreadSafe,
+
+I'd prefer this to be _not_send so it's self-documenting on why you need th=
+is.
+
+Best,
+Gary
+
+> +}
+> +
+> +impl Guard<'_> {
+> +    /// Explicitly exits the SRCU read-side critical section.
+> +    pub fn unlock(self) {}
+> +}
+> +
+> +impl Drop for Guard<'_> {
+> +    fn drop(&mut self) {
+> +        // SAFETY: `Guard` is only constructible through `Srcu::read_loc=
+k()`,
+> +        // which returns a valid index for the SRCU instance.
+> +        unsafe { bindings::srcu_read_unlock(self.srcu.inner.get(), self.=
+idx) };
+> +    }
+> +}
+
