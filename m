@@ -4,150 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E116F94CB0
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 20:48:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACED7F94CA7
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 21:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56F7710E235;
-	Tue, 21 Apr 2026 20:48:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90FE010E281;
+	Tue, 21 Apr 2026 21:09:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="bH7BWvrD";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AvWyHHBx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g5sGDDLz";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA0E10E21C
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 20:48:54 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63LIa8QF3083048
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 20:48:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=
- qcppdkim1; bh=K84Km0y0mD2F2Fi/couOcnPy6rSeHjToADl1xZZVRyM=; b=bH
- 7BWvrD2cxuNolAxRl4Ho+HcBbsxavc/eFUS6Wn2z7ahj5lzWaVsqihNXlGdXz7PA
- NV+IWpRcyFfUOZ2nY2HsliDQPYE7YHI+4UcalkNioXrI0BanYHAJgaCFbBopxcF1
- 3WGgG0DD2OMQCwQM7MSrykLDfSRZpVqtcbge+zcSyMTmyKK3hdJnWPhCbsZm+fOx
- RQoFzSBu8UbkIg/5q1seZaTfqAc9WfvK4SJwYAIihnP4GDNxT+TzKqNS961C4A4K
- K5Hfc2KpC+/H0A4aJF4GSMplIDy96sV4vnAC/MSUrbWOxCjLnl/1j5l1FjQT/X3p
- Il1sur5BvBT8811BDENg==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenmgcda-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 20:48:53 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id
- 006d021491bc7-67a1e063795so10380828eaf.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:48:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776804533; cv=none;
- d=google.com; s=arc-20240605;
- b=UwCfzkRsx2vw60f/lYI9nJH7SbeeYtsq7bwHdlPfje/UDeJ+ZD5VfqPvTk5R4fdbJD
- r7ZGC2pd+Mu7CvaSAKh4ztxIL0UTQCBfvb4oeuPEpWYkY17uN1WdO4TiM35pG4TdHoSR
- nlTIumRcO8BfB8OT6rvNMypd6ScvxxdsdmQfkJ04IW2Jk8o++mnqZHii2aK9O0Fkaldj
- V394ENQyyHGuL0y3pdU7OgjqXo7TdhUXhJdE54+9BM0zbSo8CruhS8QqIhYOIIKFBawv
- TnZoAOvsFWbVLn1cj/s03D4oSwwDsIrvwS5Q1Ac1hR3gfUYhehYTT1SAMC7RIoUMv5fl
- c4kA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:dkim-signature;
- bh=K84Km0y0mD2F2Fi/couOcnPy6rSeHjToADl1xZZVRyM=;
- fh=bu8whMtzU8LG2Z8xjIBuxSHfSX6N4PaRz0HerU4UGGE=;
- b=jSudzB/XM+dQAjqGYo9wl1Zcd4M73HLSvtCdGhN3DxHT9Q5/rHibMfykuQ78RlTj+R
- yNJ830o+aiicvhg1v/+I/ETq+GKubsW3jaHgFP8KjuW9+fS6+n1wxgmao/XnB0KMq+cf
- BIGLZBgA9zHLe0PNbucFQ8hW5BG2aQGqjMIPWsgdLNG2KKRzWoYpanYB8ho3WROXOZ6b
- br+j6KagoxYBad5uA5Ior7nNipobsT3yk/soBY5q3IH4aVbN5tyg1K5DEZlnvOJY0RJ8
- gnmGN3GKT6xvHdnsR86t+5+aFktp3A38FPzVLSoKace8Z0NzBuylE2hCZPwWlclytKan
- 6j8Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776804533; x=1777409333;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=K84Km0y0mD2F2Fi/couOcnPy6rSeHjToADl1xZZVRyM=;
- b=AvWyHHBx+CVRd2yL+M00EK7LHUVr4V6xN63t4gYZy78De4DLesXeC6Ih91uBsZVlht
- apJZxHESuK3FE7XP4sirZGoy87V2zf9DQAe0BTG9gdyufp1rIVT5l7yaEZjEqc74Mxiu
- okjA92aKjRMCRZvowpjWb75dzXYnKBy41Bm8YNtJplFkhliCcFMbR90/TTcQiryuPXZH
- Vo3suoTz0Yx99m/af4ndkgfD7BH2AySusFDNxyMvGLhgzVZLQ+rBBPrgqT5KiiHukwsy
- q/p2mUDMzhleLdlZ4RUneFJQ1+t+tYBMGypQBEKQ0BNlC8SxgWq5w23dVOdpi0OgIcZq
- yRFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776804533; x=1777409333;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :reply-to:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=K84Km0y0mD2F2Fi/couOcnPy6rSeHjToADl1xZZVRyM=;
- b=gHw+5iMLvZUsyO/qIo5+DMiXbiXlBO/BLZf6AHh3WiXXxWNGccjAwSqN+c6/olikVX
- r3f8vo5vDbmMLbqOFJh0cMXx08TCEmQ4mY1xSKVtdhqeyRkJRfNfjvzmNks34gRzSY50
- VAcvFkyhIaGRvul3Wkm7/W4hss/HBT+75lv2Lc6A/NSLM672zCeSdN1GUqvbg+4DDOs7
- IbCW4xTcOh+gf+IEP898+CiN0uvfJEqaMXYTH0jFZJoHJkYHdBpKFEm+2rdRxePt0gry
- AhlbYSLy/IUQOcXUEJtGB+fFx/3QtVhS7daMSKkzdHiPzxUWv/inmFGDgoZgXydtWjJg
- zufw==
-X-Gm-Message-State: AOJu0YzcnWyuQpAV2gSeuGIGJK5APGyGVnST/Rh0EevY3X2NYBoITfsw
- crZpLdaxC6jPUUFelvroV7MufLh8EkUePnKTkWOyqhJvZ/DNSuvXxeSQj8bM2K9oOxn9rj0W4Iu
- N5zmsiz1s4vRDfmGXzu6CVcJEqTHyW25POAOhNBOQT48lstNAdRjqkICi4XZhK5knzr+RGgwLjl
- aUDMkYufXSnWTT3sDl77+paWt7k3VnoDOZeelHwVLn1H26Hg==
-X-Gm-Gg: AeBDietGJTKGh+Fy/eTgMSagRXCUIGbT8Dr9GXqzj+44H2yUYBvKp0oGFLaitweJd5w
- DBp5vGKgID3cjJRdNOLpvtgb4/0hr2Ndon/2ugsKKiQl1mJ+5J5D978RfMsW1RVV7IHRSgPYXvj
- 2aEY6rNWDC2N3a63198fAoIUVrwn2vKAS49dUACHCM/DgQpaAMsaCkkVGrMJ83J6Ce3j83crh1C
- Auk5182gF4juGZHQx67Sq6O9Rb/TDpGDEUfFgKI4bBKEx3J
-X-Received: by 2002:a05:6820:1c90:b0:694:99de:9989 with SMTP id
- 006d021491bc7-69499de9bc9mr2087142eaf.32.1776804532537; 
- Tue, 21 Apr 2026 13:48:52 -0700 (PDT)
-X-Received: by 2002:a05:6820:1c90:b0:694:99de:9989 with SMTP id
- 006d021491bc7-69499de9bc9mr2087112eaf.32.1776804532128; Tue, 21 Apr 2026
- 13:48:52 -0700 (PDT)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010066.outbound.protection.outlook.com
+ [40.93.198.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9321C10E22A;
+ Tue, 21 Apr 2026 21:09:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nJi6WD2Y6XW6WBZxEgI9DOreVIdEo6V5/sAtXvX1xvpgJBZkmiRTEvkjVEJ1Tqlz8jgosahDcZmGVwIk6/9W5YwDXDRI8pUG8AL5Q49svLXXmIc6E3WmQZWAp5S6xXOiWzBokExyeo+tze1tYGTnITtzk+3/UQfAZd1l0va3Z8bvHrukXSVVbnzCfEIifqr2YYrmQBESRGwcudOYL2IgldO6K3MtqRDMUUygMmGYuQrtFfcuBCOACT0+ZuLKn0QF9VBVBstt2lLG7WCmLmtLAHCHj8CDoBQ4cU1SVDfWql4ckDK6zCtthJdd7U+OYKsyUHeo4l48y2+HYaes7kB8GQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A8DnqXcwEOM02uFNUXnqETImKOfarT3dsS422ipSIGw=;
+ b=yr2oOhVTeodkxxeekOWCzRFWCCcMywY+G4y4I/eVbzKraEx+pcdcyPNQOjx2lQyWNAQwcm3JWcq5JfueNoZwDul0sCfJM0MZr+xSQLUClCGwP9iWdtj00NmwIgsPopS53fdfAs2vVAAtsPFXct4OXFYZnTpfS2s0hy6N+b3i9KsmSp4uE4BvAGe6BkTB2r0NnYro1E/0ROJplRMvYUtVeJ37NlgIQtht3DkwpaLQmoc9r7EjnTtj7lagJRF3spWQn2hUGGbreNHrDdgX0wXA7Y73fuidEV35QXKBFVtfulL2Xx2ejDoBY/gH1QlToPKBcKWijqfKit43c4M3qLYbzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A8DnqXcwEOM02uFNUXnqETImKOfarT3dsS422ipSIGw=;
+ b=g5sGDDLzGjO2TsDkw94pWBfAdCG2PGGZzst/xzGnsj47R7E320zs/yfedhJwrOZrE8XEvnqmEEqqM4ahuDgGV3ViRcINFYZHvjOLKjEXN2idzS+1yfFwYaOETJ88rMuYDXhZr6eIjzcshAO2q1AwiuDO//VkPihOE0OPP+gCLUg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DS0PR12MB7804.namprd12.prod.outlook.com (2603:10b6:8:142::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Tue, 21 Apr
+ 2026 21:08:59 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%7]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
+ 21:08:59 +0000
+Message-ID: <92964f38-2691-4795-a064-de67301ffc6d@amd.com>
+Date: Tue, 21 Apr 2026 15:08:57 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 7/9] drm/amd/display: Use GAMCOR for first TF if
+ CSC is used
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+References: <20260330153451.99472-1-harry.wentland@amd.com>
+ <20260330153451.99472-8-harry.wentland@amd.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260330153451.99472-8-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0245.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::10) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-References: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
- <20260420222621.417276-2-robin.clark@oss.qualcomm.com>
- <sidcsgvqxddatwwflohsd6gjzm5ehbs4alwaejh3pnjnlhj7vm@nqxhdtxxxizs>
- <CACSVV01TK+iLiaCofFfPU2eeMGT5HX5iW0rf=m+gjojXsjrk8Q@mail.gmail.com>
- <puvvx2h2jnoxej42blcdx357uzx37ogwnqldcynklmm4acameg@4zvnrueodcon>
-In-Reply-To: <puvvx2h2jnoxej42blcdx357uzx37ogwnqldcynklmm4acameg@4zvnrueodcon>
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Tue, 21 Apr 2026 13:48:40 -0700
-X-Gm-Features: AQROBzDFDQHwJaqNGHFr5d-xcCmq3Cpb_DY1TGCm5x6Ra0ytgXqTL1173n8uPzU
-Message-ID: <CACSVV01D388voqDxmfOm_qhV3=H+F3YW2oUjzZT7MfKYwjapDQ@mail.gmail.com>
-Subject: Re: [PATCH 01/13] drm/msm: Remove obsolete perf infrastructure
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: EgfEbRPzRNYT0_oTOjgvSZ05r1RDOKp5
-X-Proofpoint-ORIG-GUID: EgfEbRPzRNYT0_oTOjgvSZ05r1RDOKp5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDIwNiBTYWx0ZWRfX/HqnQ8Mcc55x
- UzP5Bjk/ydLm6+uhm2OmSwXz25zZAMezo0eOKRMvunG5qSSkT9+IRvanEjDemZqXvm3UXoB7XDg
- UcC27eHGxipAXhqyxgezR4oqypiiH20mboU0PIxYbwtc8aAjJYEuyEHcaIDd9ovcRw8gzT3NH05
- E42t04J3fvRGkJR2I+okY3BvGxyn7bgaeaJP8WcNSaJKk8n4WLffNnHPHwdIv1BJIs0gBYNo9v+
- n3o+DRCpOFTPreCYjgxPFkFqIHVkBseOF12W4pATtgr58nza4hoj3BEmgzHEjHz6p4sl+fb+bVL
- 33/4mWwMgxCY/AQpDt0ouVlpOHo3pTZZY6xosKqCIfEyWiO4WVyPcbbGFpjbx2/xXV2y1L7fmzJ
- qV+bhe4pC/HLsIWy+m12BtsH9/q2saYqRJoE7AJMUzyAdOODMgoC0bML8/EXOZ8hSkn8Rgd1p/W
- aZYaIKx65M9OiaxGFeg==
-X-Authority-Analysis: v=2.4 cv=Xd65Co55 c=1 sm=1 tr=0 ts=69e7e2b5 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8
- a=VhXg9fDGKa6XFcNS5h4A:9 a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- priorityscore=1501 phishscore=0 bulkscore=0 malwarescore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604200000
- definitions=main-2604210206
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS0PR12MB7804:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29c42f9a-55bb-49b4-8b90-08de9fea34bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|56012099003|18002099003|22082099003; 
+X-Microsoft-Antispam-Message-Info: /Geax/9SwWdaQcPEzBobquUtz+9z7HZOhMk97rjm3vS5NhAFgvWjjKMbvjbWIUv5NkGKdb2HeW7Te9JKUx97hjl/j3FVbhKxhtRn2zyQsybMDJnsaLv4TH8Yt/VbVJqdxmacXAuSPKEx20aosYuEW5pAGFgRe2gENPb0+O1F/UVkOCphdN3J7uooWM9XMykXQQDx3zX7dGqXOS7JRxYwqpnvmaFO5Y3YZQmJy3mkq1iWUjrpvgQCVsrZu3Yy7P722V2iYsEP3/k5SZyeGZiH0sPovQkoonp+yg+np6ERQ1r3cm5rXUQPR5T/GoRonHczs5wYpOv9ThjfiaxPJgtuD8GdZsGhb3H4gOX/tmARxVpOZvtSPPdYum9x8Aqd0AICjGACWO3JSTFsdAWwHhymFrg1ewtSKUXwKS9WBTI70Z1oRKwLu9Qdq7ss5Q29qDXPrmfNBMR8VH8B5qE0yvcJthapB5z3wZ0FpP8yPcwOOhR19NDGI8V9VGQnVZiAoeio1Vd8cP0cQHWw4aDLDUQ+7eCD47r+qcVfu79Jyh8T9zHHq9x2ZhtgE3BzGHrBOFE7ueuwRJ4HF4sj0l4KoA+MuGFDV56V3EP0qoBqYVMMSTWtzUcLE0yVuKC4QTLsQ6+ArqtSN1mwzU6o1BLKhlQ80AlGnrO0JwcbouEcXGNDMcUI/asGCrgPEsihNfqdP3BkAaHgDyacANRx+fJrtsIGbez0CvBmMeL9Zy4nxi5e6PM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHJ5bFliWkNFUjdVeWRMWGFncWFxMW9rODhjNVBnNTZhb1dZMVcvdE13Qkh5?=
+ =?utf-8?B?bDkxazVsQ1VWZG9xYVFxTkhIZ01EMm5KYi9KUlBIL1lJV3IxZk9sQ0lCZURJ?=
+ =?utf-8?B?SnVTQW9rWk1lTm9weDlwT2l5V0VyT01WR1UxS2xrZHpUWGJEVldMcDZtZUcw?=
+ =?utf-8?B?bUhvZHNkS0dwdnI0Vjl6NmhUMDdaWGJndG9QN05jTmRBMWxQY3RFY3EzeTBM?=
+ =?utf-8?B?bFhUTUJRelpPdlNuOWc5ME92WEFxMDYxdGxuVEgzWjJDaHpSa2xkczh0OUJF?=
+ =?utf-8?B?QXdlbVk0eURpR3g4cWxIRFJZdTEybC9zMTdvN2lUSEc4M20zWFo5UUZLc295?=
+ =?utf-8?B?UFVRbUdiODhpMkxHRVRnTXFvWUJPN1NZeVE1ZXBuVno1aEdZelRmN0RlcldQ?=
+ =?utf-8?B?Q0MvQkI2NW9aay9SUHdhb3lBcUxGWEVwcEhYRDlocnBhMkg0SjA2d0FmMkNB?=
+ =?utf-8?B?amxZQ1BXR1RhdnZHNVQrQXQ5WU80Z2Fzai9TWlZUbFdTMG5USVVjd1BCTGw3?=
+ =?utf-8?B?aTljc1ByKzV1VzljSzJ6NmxUak4rRDkrOVBHY1NSMzl5dmV5bmhKU1FoV21o?=
+ =?utf-8?B?WHA0azdtUVRUY0hLZHdpeEFhMG16OEpMWkp2YW1LNDNPWDcvL093WEdSVExY?=
+ =?utf-8?B?K3Q3YkhMbWFRWitNTjFMWUNkU1c2NVk1aUZGQWI3TWFQbFZ1WG9HUEs4dnlG?=
+ =?utf-8?B?M0N3R1E1WnRqWHdtWE9xRW9ESTYyY1dTWG9sWXc3SUZ6Yms0dHZac3lrS1V0?=
+ =?utf-8?B?RzlscjZqYjM3M0lUMjRRREVsaFZzQXoyYmV5L0kzbEJXYkxmMFpSWmYzb3ZK?=
+ =?utf-8?B?dThXRDJGNnZ0V1FaVU9UTEFqZmtNaDF3aDJhNVMwOGN4NTU1Z3h3bVg4Nkxu?=
+ =?utf-8?B?UnlhK2JwNzJNRHBRQm1SZ3FsMmpYNUxNK2xDWm5VYjhEMHpwdTNsamVCcWEr?=
+ =?utf-8?B?MFltbDJxN2EyV3I5L3dmdE9JMWkrbFNwUEhpbnh6bzR3MVozUGpMSWY1eWtC?=
+ =?utf-8?B?V2NObDZsVnVNVWNvem9sNmxsaDdNMFFHcVlMWXlqZ3hIaHN6Z1dWZ0MyQTFo?=
+ =?utf-8?B?OFZZUTg0SlorZXFGOVRTMUNLWC8wU3IvcTE2cU8yUCtEbGZ5aEhnZGZBZXVR?=
+ =?utf-8?B?MmkvS1BkenZWbGlzOU94NXNkK296YllzTzJXQ3g1NmxFbVkyQ1VjNDZyVG0z?=
+ =?utf-8?B?SXJNTTdna1VyVFl4N2UwZFdlZndMbTRMNGQ4QmVGSW02L0lqd3FCV2xaY0RC?=
+ =?utf-8?B?QlFwNmpicVIxYThBdGFEdE5Lc2xWVDdTNFRvQzJMbzgrUzV2UEhSeEZUWnVX?=
+ =?utf-8?B?S2lWMFVwejRHNEJnS3M4aXhIZFlXSW5OaVdKTjlHTVRYcmhzckViUExSV2JE?=
+ =?utf-8?B?SmkxNERmWmRRMzFXbU5aRE54YWJ2V2wzZ2cvZWFTd0JYSzNiQTllL2kyQVZx?=
+ =?utf-8?B?R3JmbGlRYXR0Q3czdk5mY2ltZDl2Z0ZPaWo3MDJtZWdQdVVrQmFzaXVHSmVC?=
+ =?utf-8?B?ZERlUjBWdXdCTzk4MlR0U3BhRTRsN3EwcjJQRzJmSDJEa2hSUUNReG9xWDk2?=
+ =?utf-8?B?VlU2MDM0cEpXYUd4cktwYUJuTVYvQ0REMXNkUnduSk0wUGp1bjF4NkNPZ3NL?=
+ =?utf-8?B?ZzVIbk5sRkpNWXFQbHZSbzVHZUViM3doUEJnMTlBUGR6T1RQb1RUWVpsNVdH?=
+ =?utf-8?B?NEwvMFRONXh5Y2MyNWtPV0pyRDMwUTJabHZDc2R3YmJlZFVLSTRJejhVTmVr?=
+ =?utf-8?B?eFgwN3ZrVFBZc005WTBCa3I1aTlRU1Bxdms5SXJxcnhnVERVd2Q3MnR0RHky?=
+ =?utf-8?B?dW5vamZFdDRqM2RZcVN3WFJQN3d2a2RxcXBSWVZBU2o4d0s3MUdQTVFSQmpz?=
+ =?utf-8?B?cSttSnJnSTFLM0llU3k3SmZWa3dtcHErV3A5WUdaTFQ3eDJkUXBqUzkzckNV?=
+ =?utf-8?B?K0w1QUVaTS9Hd0dFUUkzSWhUMTgvYmxpQktNRkRJeWpDbFc5b2RaOGVCazJH?=
+ =?utf-8?B?S3h6MklIN1ZjTHNjWGF5dkl1REdPd0o1dUp1WDNPZTRPMDVHWGk0YUpPalBv?=
+ =?utf-8?B?R21iS1VGNFV5T2YvWS81MGdVK1dQaTBxTVUxdE1VVnlXYnVwYjVFQzk3cVpN?=
+ =?utf-8?B?alVEcFVFTkRKeWVvZGltMk1mNCtMejcweEN6dFpobnZiTXl2d2lVNFhrd3Ba?=
+ =?utf-8?B?YjlWZjZtQkxjemhKN2xCSVN1ZVJYMWlUTXhpY3RyU1lKRDd4eGNjYmZTSTcx?=
+ =?utf-8?B?SE9TbWh6VU9FN1l5NWRjUytJa3lCL1VkdzVpckd4MmxhVElFbmNjQmV5OVl4?=
+ =?utf-8?B?WXdZRG5oS1ZjeUEweXRyMzdBdTA4cmdoaTg5TXhUcGtuaXBZNHVSZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29c42f9a-55bb-49b4-8b90-08de9fea34bd
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 21:08:59.0519 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: azjOMMB0QkR2jY/S2QqYsGRzLxtLKxOTIzm2HKHhjk32QXJOI5PhVrS846qQT5z1s1b1eE5UzXzvLM1GfP/YNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7804
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,74 +134,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: rob.clark@oss.qualcomm.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Apr 21, 2026 at 8:39=E2=80=AFAM Dmitry Baryshkov
-<dmitry.baryshkov@oss.qualcomm.com> wrote:
->
-> On Tue, Apr 21, 2026 at 06:07:20AM -0700, Rob Clark wrote:
-> > On Mon, Apr 20, 2026 at 4:49=E2=80=AFPM Dmitry Baryshkov
-> > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > >
-> > > On Mon, Apr 20, 2026 at 03:25:23PM -0700, Rob Clark wrote:
-> > > > Outside of a3xx, this was never really used.  And it low-key gets i=
-n the
-> > > > way of the new perfcntr support (or at least it is confusing to hav=
-e two
-> > > > things called "perf").  So lets remove it.
-> > > >
-> > > > This drops the "perf" debugfs file.  But these days, nvtop is a bet=
-ter
-> > > > option.  (Plus perfetto for newer gens.)
-> > >
-> > > Would it be possible to resurrect "perf" later? It was really useful.
-> >
-> > Nothing is impossible.. but I was having trouble naming things with
-> > both old and new perf stuff in parallel.
->
-> That why I wrote about resurrecting it later, once the new stuff is in.
->
-> BTW: do you plan to get perf counters for a3xx-a5xx back? I remember
-> that there was some issue with a2xx ABI.
 
-So current state on userspace side is that only a3xx/a4xx are missing
-perfcntr support..  although it looks like we know the countable
-enums, so probably not hard[*]
 
-In all cases, the existing userspace-only support will continue to
-work.  The main reasons I omitted a2xx/a5xx on the kernel side are:
+On 3/30/26 09:34, Harry Wentland wrote:
+> For subsampled formats we need to use GAMCOR instead of
+> the DEGAM block. The color module can create a LUT for
+> that if we set map_user_ramp to true. So do that when
+> we have subsampled formats.
+> 
+> Co-developed by Claude Sonnet 4.5.
 
-a) Not really sure how to do the Makefile bits.. since they wouldn't
-be using a6xx.xml.  In meson I can use a table (2d-array):
-    https://gitlab.freedesktop.org/robclark/mesa/-/blob/fd/generate-perfcnt=
-rs/src/freedreno/registers/adreno/meson.build?ref_type=3Dheads#L20
-b) No good setup to test
-c) They don't have IFPC
+This should be updated to "Assisted-by Claude:claude-Sonnet-4.5"
 
-They could ofc be added later.  The main urgency is a8xx, since I
-don't want to add mesa perfcntr support without PERFCNTR_CONFIG (so
-that we don't have an older-userspace, new-kernel permutation on
-a8xx+).
+> 
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 34 ++++++++++++++++++-
+>   1 file changed, 33 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index d5b4190e635c..6403dfe4ee10 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -1471,6 +1471,8 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+>   	struct dc_transfer_func *tf = &dc_plane_state->in_transfer_func;
+>   	struct drm_colorop *colorop = colorop_state->colorop;
+>   	struct drm_device *drm = colorop->dev;
+> +	struct dc_color_caps *color_caps = NULL;
+> +	bool is_subsampled_format;
+>   
+>   	if (colorop->type != DRM_COLOROP_1D_CURVE)
+>   		return -EINVAL;
+> @@ -1486,9 +1488,39 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+>   
+>   	drm_dbg(drm, "Degamma colorop with ID: %d\n", colorop->base.id);
+>   
+> -	tf->type = TF_TYPE_PREDEFINED;
 
-I don't remember about a2xx ABI issue.. but a2xx perfcntr stuff was
-added after I was already busy with later gens.
 
-BR,
--R
+Setting tf-type is moved to the below if-else branch, but both set 
+tf->type = TF_TYPE_PREDEFINED. Is this done intentionally to improve 
+readability or for other purposes?
 
-[*] there are some counter groups that had some slightly different
-config programming, like separate clear/enable regs.. which I haven't
-dealt with yet.  For a6xx+ this only matters for some counter groups
-(VBIF/GBIF, maybe GMU?) that userspace doesn't care as much about.
-Idk if that was true for the earlier gens.  Eventually I'll add a6xx+
-support for these counters, but there are a few other things to deal
-with first.
+> +	/* Check if format requires post-scale color processing (subsampled formats) */
+> +	is_subsampled_format = (dc_plane_state->format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN &&
+> +				dc_plane_state->format < SURFACE_PIXEL_FORMAT_SUBSAMPLE_END);
+> +
+>   	tf->tf = amdgpu_colorop_tf_to_dc_tf(colorop_state->curve_1d_type);
+>   
+> +	if (is_subsampled_format) {
+> +		/*
+> +		 * For subsampled formats (P010, NV12), we need color processing
+> +		 * to happen AFTER scaling (to expand UV channels first).
+> +		 * Convert predefined TF to PWL so DC will use GAMCOR (post-scale)
+> +		 * instead of PRE_DEGAM (pre-scale).
+> +		 *
+> +		 * IMPORTANT: We must pass map_user_ramp=true to force PWL conversion.
+> +		 * Without it, mod_color_calculate_degamma_params() returns early for
+> +		 * SRGB/Linear TFs without converting to TF_TYPE_DISTRIBUTED_POINTS.
+> +		 */
+> +		tf->type = TF_TYPE_PREDEFINED;
+> +
+> +		if (dc_plane_state->ctx && dc_plane_state->ctx->dc)
+> +			color_caps = &dc_plane_state->ctx->dc->caps.color;
+> +
+> +		if (!mod_color_calculate_degamma_params(color_caps, tf, NULL, true)) {
+> +			drm_err(drm, "Failed to calculate degamma params for subsampled format\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		/* mod_color_calculate_degamma_params sets tf->type to TF_TYPE_DISTRIBUTED_POINTS */
+> +	} else {
+> +		/* For non-subsampled formats (RGB, XR30), use predefined ROM LUT (PRE_DEGAM) */
+> +		tf->type = TF_TYPE_PREDEFINED;
+> +	}
+> +
+>   	return 0;
+>   }
+>   
 
-> > Is it really adding value
-> > over nvtop?
->
-> --
-> With best wishes
-> Dmitry
