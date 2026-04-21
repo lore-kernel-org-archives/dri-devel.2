@@ -4,150 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FABFF8FA72
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 13:01:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA4D0F8FA71
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 13:01:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1397B10EC86;
-	Tue, 21 Apr 2026 13:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30BAE10EC9F;
+	Tue, 21 Apr 2026 13:01:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="M83n5v8Q";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lJkuMN2J";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="M83n5v8Q";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lJkuMN2J";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lV3Yid/B";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17DCD10E1D4
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:01:16 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3C34E5BCD2;
- Tue, 21 Apr 2026 13:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776776474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=usQwQnUbr6DnJGJQLf8+8IyJBAEANxPtYftG2o2GTzM=;
- b=M83n5v8Qvg0sYctP5L8fYl9x8GZEGgHaV4GPRLmyuElBjL5qMrNRn6mDrrvKMqwq8stmsw
- zrmEvikt/xhiFbvBMBgB6YAZArGtg27GRulbNSQo19Dg6SYBHyDyTfvWm3N5ezSKq9J28V
- BF7G/hvwwTHL7Qc00QdLsE1fp5fjsNM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776776474;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=usQwQnUbr6DnJGJQLf8+8IyJBAEANxPtYftG2o2GTzM=;
- b=lJkuMN2JAbZQmYgYpvfnFJoFE4tV8Jh1KE3tV6U2Se31HHhVDQbcbHDtMe0zqvQjmCZsi2
- ewK8aBG0x03mLwDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776776474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=usQwQnUbr6DnJGJQLf8+8IyJBAEANxPtYftG2o2GTzM=;
- b=M83n5v8Qvg0sYctP5L8fYl9x8GZEGgHaV4GPRLmyuElBjL5qMrNRn6mDrrvKMqwq8stmsw
- zrmEvikt/xhiFbvBMBgB6YAZArGtg27GRulbNSQo19Dg6SYBHyDyTfvWm3N5ezSKq9J28V
- BF7G/hvwwTHL7Qc00QdLsE1fp5fjsNM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776776474;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=usQwQnUbr6DnJGJQLf8+8IyJBAEANxPtYftG2o2GTzM=;
- b=lJkuMN2JAbZQmYgYpvfnFJoFE4tV8Jh1KE3tV6U2Se31HHhVDQbcbHDtMe0zqvQjmCZsi2
- ewK8aBG0x03mLwDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 42C5C593B0;
- Tue, 21 Apr 2026 13:01:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gWn+Dhl152kccwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 21 Apr 2026 13:01:13 +0000
-Message-ID: <b27ddf9b-1ceb-4d76-bc54-55eeb284dc30@suse.de>
-Date: Tue, 21 Apr 2026 15:01:12 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAE4710EC9E;
+ Tue, 21 Apr 2026 13:01:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776776487; x=1808312487;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=ExQH+zV+8U/927CEGo05bwJx79KV6l1JOmKPtBkTdK0=;
+ b=lV3Yid/B9WFR01vZnE3wm6CIgjb6enY3AflKIOUxTuU8adj+AhF0FQNO
+ 2rCoElr3bTjUjaph3CTXwy37FnDc8Z52lry/IdV+G8o2Z6ylh+fP71NAR
+ 64AkFKWgOnzzs2LrVYDOISKEAq657e2N203ast5XRM3BpwY48jSP+J3Tv
+ AW++4w6VZD1YWG5H4AzqElTVSxnVY+rYvJ9HiylJ9b8Y0dwHyvrPFuSgd
+ ZFQxn2rYc7iFyYoou4Xy5QgQq/2DuTKZF7hLcm7vOqQSdWp1/Y+2xprAs
+ Mc9Ot3jE638e9hduGNdTLU9iABMEMgiVqia7I2NKg+MXNQmQ9OgGgeZI+ g==;
+X-CSE-ConnectionGUID: hhhcTdM+R7WyTYfKsFrPhA==
+X-CSE-MsgGUID: qZVOJBX4SRSZinCMu6oPmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="76869298"
+X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="76869298"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2026 06:01:27 -0700
+X-CSE-ConnectionGUID: 0W+zIImbQ2mnXN6mz3nlYQ==
+X-CSE-MsgGUID: kVhuQxrbR5WsgiO3/e8znA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="232312278"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.245.31])
+ ([10.245.245.31])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2026 06:01:23 -0700
+Message-ID: <b205e3410cfe0086b02013ffb1a46f1f37d6f2a3.camel@linux.intel.com>
+Subject: Re: [PATCH] drm: Remove DRIVER_GEM_GPUVA feature flag
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Laura Nao <laura.nao@collabora.com>, dakr@kernel.org, 
+ boris.brezillon@collabora.com, steven.price@arm.com, liviu.dudau@arm.com, 
+ matthew.brost@intel.com, rodrigo.vivi@intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ kernel@collabora.com
+Date: Tue, 21 Apr 2026 15:01:21 +0200
+In-Reply-To: <20260421084701.24227-1-laura.nao@collabora.com>
+References: <20260421084701.24227-1-laura.nao@collabora.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/20] drm/colorop: Fix typos in the doc
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
- <20260320-drm-mode-config-init-v2-1-c63f1134e76c@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260320-drm-mode-config-init-v2-1-c63f1134e76c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[37]; TAGGED_RCPT(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLyhjdboxbrjk5hnijtjs4kbm6)];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email,
- imap1.dmz-prg2.suse.org:helo, suse.com:url]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,68 +75,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, 2026-04-21 at 10:47 +0200, Laura Nao wrote:
+> The DRIVER_GEM_GPUVA feature flag is currently only used to control
+> two
+> behaviors within the DRM core:
+> - calling=C2=A0 drm_gem_gpuva_init() during
+> =C2=A0 GEM object initialization
+> - creating the "gpuvas" debugfs entry
+>=20
+> drm_gem_gpuva_init() is a plain INIT_LIST_HEAD() and therefore is
+> cheap
+> to run for every GEM object. The DRM_DEBUGFS_GPUVA_INFO macro is only
+> referenced by GPU-VA capable drivers, so clearing the feature bit
+> does
+> not cause any unrelated drivers to get the "gpuvas" debugfs node. The
+> flag doesn't have any relevant purpose (e.g. gating ioctl handlers or
+> MM
+> logic) and doesn't provide any practical benefit.
+>=20
+> Remove the flag definition and drop it from all drivers that use it,
+> call drm_gem_gpuva_init() unconditionally and clear the driver
+> features
+> bit in DRM_DEBUGFS_GPUVA_INFO.
+>=20
+> Signed-off-by: Laura Nao <laura.nao@collabora.com>
 
+For the xe changes:
+Acked-by: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
 
-Am 20.03.26 um 17:27 schrieb Maxime Ripard:
-> In the documentation of drm_colorop introduced by commit cfc27680ee20
-> ("drm/colorop: Introduce new drm_colorop mode object"), the
-> documentation of __drm_colorop_state_reset() and __drm_colorop_reset()
-> were mentioning CRTC when they really meant colorop, probably due to
-> copy and paste.
->
-> Fixes: cfc27680ee20 ("drm/colorop: Introduce new drm_colorop mode object")
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
 > ---
->   drivers/gpu/drm/drm_colorop.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 566816e3c6f0c7d172534966fcfe56982e6505f3..373cd0ddb8fd4478874509ed12c95451c1f66203 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -503,11 +503,11 @@ void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
->    * __drm_colorop_state_reset - resets colorop state to default values
->    * @colorop_state: atomic colorop state, must not be NULL
->    * @colorop: colorop object, must not be NULL
->    *
->    * Initializes the newly allocated @colorop_state with default
-> - * values. This is useful for drivers that subclass the CRTC state.
-> + * values. This is useful for drivers that subclass the colorop state.
->    */
->   static void __drm_colorop_state_reset(struct drm_colorop_state *colorop_state,
->   				      struct drm_colorop *colorop)
->   {
->   	u64 val;
-> @@ -526,14 +526,14 @@ static void __drm_colorop_state_reset(struct drm_colorop_state *colorop_state,
->   /**
->    * __drm_colorop_reset - reset state on colorop
->    * @colorop: drm colorop
->    * @colorop_state: colorop state to assign
->    *
-> - * Initializes the newly allocated @colorop_state and assigns it to
-> - * the &drm_crtc->state pointer of @colorop, usually required when
-> - * initializing the drivers or when called from the &drm_colorop_funcs.reset
-> - * hook.
-> + * Initializes the newly allocated @colorop_state and assigns it to the
-> + * &drm_colorop->state pointer of @colorop, usually required when
-> + * initializing the drivers or when called from the
-> + * &drm_colorop_funcs.reset hook.
->    *
->    * This is useful for drivers that subclass the colorop state.
->    */
->   static void __drm_colorop_reset(struct drm_colorop *colorop,
->   				struct drm_colorop_state *colorop_state)
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+> =C2=A0drivers/gpu/drm/drm_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 3 +--
+> =C2=A0drivers/gpu/drm/imagination/pvr_drv.c | 2 +-
+> =C2=A0drivers/gpu/drm/msm/msm_drv.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 | 2 --
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_drm.c | 1 -
+> =C2=A0drivers/gpu/drm/panthor/panthor_drv.c | 2 +-
+> =C2=A0drivers/gpu/drm/xe/xe_device.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 2 +-
+> =C2=A0include/drm/drm_debugfs.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 2 +-
+> =C2=A0include/drm/drm_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 6 ------
+> =C2=A0include/drm/drm_gem.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 3 ---
+> =C2=A09 files changed, 5 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 0377a5fd402d..cb703d0072aa 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -232,8 +232,7 @@ void drm_gem_private_object_init(struct
+> drm_device *dev,
+> =C2=A0	if (!obj->resv)
+> =C2=A0		obj->resv =3D &obj->_resv;
+> =C2=A0
+> -	if (drm_core_check_feature(dev, DRIVER_GEM_GPUVA))
+> -		drm_gem_gpuva_init(obj);
+> +	drm_gem_gpuva_init(obj);
+> =C2=A0
+> =C2=A0	drm_vma_node_reset(&obj->vma_node);
+> =C2=A0	INIT_LIST_HEAD(&obj->lru_node);
+> diff --git a/drivers/gpu/drm/imagination/pvr_drv.c
+> b/drivers/gpu/drm/imagination/pvr_drv.c
+> index 268900464ab6..80033d4cb66a 100644
+> --- a/drivers/gpu/drm/imagination/pvr_drv.c
+> +++ b/drivers/gpu/drm/imagination/pvr_drv.c
+> @@ -1375,7 +1375,7 @@ pvr_drm_driver_postclose(__always_unused struct
+> drm_device *drm_dev,
+> =C2=A0DEFINE_DRM_GEM_FOPS(pvr_drm_driver_fops);
+> =C2=A0
+> =C2=A0static struct drm_driver pvr_drm_driver =3D {
+> -	.driver_features =3D DRIVER_GEM | DRIVER_GEM_GPUVA |
+> DRIVER_RENDER |
+> +	.driver_features =3D DRIVER_GEM | DRIVER_RENDER |
+> =C2=A0			=C2=A0=C2=A0 DRIVER_SYNCOBJ | DRIVER_SYNCOBJ_TIMELINE,
+> =C2=A0	.open =3D pvr_drm_driver_open,
+> =C2=A0	.postclose =3D pvr_drm_driver_postclose,
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c
+> b/drivers/gpu/drm/msm/msm_drv.c
+> index 195f40e331e5..ee38c18715f0 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -825,7 +825,6 @@ static const struct file_operations fops =3D {
+> =C2=A0
+> =C2=A0#define DRIVER_FEATURES_GPU ( \
+> =C2=A0		DRIVER_GEM | \
+> -		DRIVER_GEM_GPUVA | \
+> =C2=A0		DRIVER_RENDER | \
+> =C2=A0		DRIVER_SYNCOBJ | \
+> =C2=A0		DRIVER_SYNCOBJ_TIMELINE | \
+> @@ -833,7 +832,6 @@ static const struct file_operations fops =3D {
+> =C2=A0
+> =C2=A0#define DRIVER_FEATURES_KMS ( \
+> =C2=A0		DRIVER_GEM | \
+> -		DRIVER_GEM_GPUVA | \
+> =C2=A0		DRIVER_ATOMIC | \
+> =C2=A0		DRIVER_MODESET | \
+> =C2=A0		0 )
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index 5d8475e4895e..0f5f662e5429 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -1364,7 +1364,6 @@ static struct drm_driver
+> =C2=A0driver_stub =3D {
+> =C2=A0	.driver_features =3D DRIVER_GEM |
+> =C2=A0			=C2=A0=C2=A0 DRIVER_SYNCOBJ | DRIVER_SYNCOBJ_TIMELINE
+> |
+> -			=C2=A0=C2=A0 DRIVER_GEM_GPUVA |
+> =C2=A0			=C2=A0=C2=A0 DRIVER_MODESET |
+> =C2=A0			=C2=A0=C2=A0 DRIVER_RENDER,
+> =C2=A0	.open =3D nouveau_drm_open,
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c
+> b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 87d27c3c1456..1a1d40a744db 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1805,7 +1805,7 @@ static void panthor_debugfs_init(struct
+> drm_minor *minor)
+> =C2=A0 */
+> =C2=A0static const struct drm_driver panthor_drm_driver =3D {
+> =C2=A0	.driver_features =3D DRIVER_RENDER | DRIVER_GEM |
+> DRIVER_SYNCOBJ |
+> -			=C2=A0=C2=A0 DRIVER_SYNCOBJ_TIMELINE |
+> DRIVER_GEM_GPUVA,
+> +			=C2=A0=C2=A0 DRIVER_SYNCOBJ_TIMELINE,
+> =C2=A0	.open =3D panthor_open,
+> =C2=A0	.postclose =3D panthor_postclose,
+> =C2=A0	.show_fdinfo =3D panthor_show_fdinfo,
+> diff --git a/drivers/gpu/drm/xe/xe_device.c
+> b/drivers/gpu/drm/xe/xe_device.c
+> index ffea4a453c01..b3acc202df76 100644
+> --- a/drivers/gpu/drm/xe/xe_device.c
+> +++ b/drivers/gpu/drm/xe/xe_device.c
+> @@ -393,7 +393,7 @@ static struct drm_driver driver =3D {
+> =C2=A0	.driver_features =3D
+> =C2=A0	=C2=A0=C2=A0=C2=A0 DRIVER_GEM |
+> =C2=A0	=C2=A0=C2=A0=C2=A0 DRIVER_RENDER | DRIVER_SYNCOBJ |
+> -	=C2=A0=C2=A0=C2=A0 DRIVER_SYNCOBJ_TIMELINE | DRIVER_GEM_GPUVA,
+> +	=C2=A0=C2=A0=C2=A0 DRIVER_SYNCOBJ_TIMELINE,
+> =C2=A0	.open =3D xe_file_open,
+> =C2=A0	.postclose =3D xe_file_close,
+> =C2=A0
+> diff --git a/include/drm/drm_debugfs.h b/include/drm/drm_debugfs.h
+> index ea8cba94208a..eb93512b0f23 100644
+> --- a/include/drm/drm_debugfs.h
+> +++ b/include/drm/drm_debugfs.h
+> @@ -48,7 +48,7 @@
+> =C2=A0 * For each DRM GPU VA space drivers should call
+> drm_debugfs_gpuva_info() from
+> =C2=A0 * their @show callback.
+> =C2=A0 */
+> -#define DRM_DEBUGFS_GPUVA_INFO(show, data) {"gpuvas", show,
+> DRIVER_GEM_GPUVA, data}
+> +#define DRM_DEBUGFS_GPUVA_INFO(show, data) {"gpuvas", show, 0, data}
+> =C2=A0
+> =C2=A0/**
+> =C2=A0 * struct drm_info_list - debugfs info list entry
+> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+> index 42fc085f986d..e09559495c5b 100644
+> --- a/include/drm/drm_drv.h
+> +++ b/include/drm/drm_drv.h
+> @@ -107,12 +107,6 @@ enum drm_driver_feature {
+> =C2=A0	 * acceleration should be handled by two drivers that are
+> connected using auxiliary bus.
+> =C2=A0	 */
+> =C2=A0	DRIVER_COMPUTE_ACCEL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 =3D BIT(7),
+> -	/**
+> -	 * @DRIVER_GEM_GPUVA:
+> -	 *
+> -	 * Driver supports user defined GPU VA bindings for GEM
+> objects.
+> -	 */
+> -	DRIVER_GEM_GPUVA		=3D BIT(8),
+> =C2=A0	/**
+> =C2=A0	 * @DRIVER_CURSOR_HOTSPOT:
+> =C2=A0	 *
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index 86f5846154f7..996aa418dce9 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -663,9 +663,6 @@ static inline bool drm_gem_is_imported(const
+> struct drm_gem_object *obj)
+> =C2=A0 *
+> =C2=A0 * This initializes the &drm_gem_object's &drm_gpuvm_bo list.
+> =C2=A0 *
+> - * Calling this function is only necessary for drivers intending to
+> support the
+> - * &drm_driver_feature DRIVER_GEM_GPUVA.
+> - *
+> =C2=A0 * See also drm_gem_gpuva_set_lock().
+> =C2=A0 */
+> =C2=A0static inline void drm_gem_gpuva_init(struct drm_gem_object *obj)
