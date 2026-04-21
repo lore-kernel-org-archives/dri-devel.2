@@ -4,61 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D9D9F8FA61
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 11:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16D12F8FA6A
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 12:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B12310E887;
-	Tue, 21 Apr 2026 11:54:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7657410E88B;
+	Tue, 21 Apr 2026 12:10:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lm/DFZOJ";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Tx0nzBlk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC23510E887;
- Tue, 21 Apr 2026 11:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776772467; x=1808308467;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=iCgphbDcBdNyS1sSqpE8VpK1xeMLyIcHxuNcGysEPt0=;
- b=lm/DFZOJ9/YqyFnSwfCyAoXGchv8AonNfk9YHqjHlwxY8mpqD2DbKtZF
- PX0umWqtgQx0BWmBzxRzP2CI8ef803VRtg7Oor3KebJ3bzN1pyAM2N6mq
- 3DiGeRJ3+Sxe3GbeKqf2VWoTfrPTsmZKVs0WT06YtcaqmkSNXTxerH1Hj
- NxIED4ay0LByLvacXZp89Ng86BMfbICDZKS/fYPT8ryyf1OMJlmja6nPL
- qLaLogsIxYHypxVIM8t4jy7cByDf/7d/+NQJKeXZ5yvlgdXQHQXhu8ddj
- 6JncI0ezUygWS2/6cd6WfyrbHD3Q4qYVbfiqg9kMVFNTExhLXmZm5zNDa Q==;
-X-CSE-ConnectionGUID: h/7h1XyiT5yhD84CCnIZ3w==
-X-CSE-MsgGUID: vez0jMHIShOqfUSvgyDBeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="76733435"
-X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="76733435"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2026 04:54:26 -0700
-X-CSE-ConnectionGUID: VubRT5JtSDiNCWy/slIh2A==
-X-CSE-MsgGUID: SpkNe7dCSlS+hlep7bO+tw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,191,1770624000"; d="scan'208";a="231127258"
-Received: from cliu5-mobl.gar.corp.intel.com (HELO [10.125.160.168])
- ([10.125.160.168])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2026 04:54:26 -0700
-Message-ID: <d551bc50-e14d-4664-8df3-8fdd377e09c8@linux.intel.com>
-Date: Tue, 21 Apr 2026 04:54:24 -0700
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FF3810E88B
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 12:10:06 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-12c565476d7so9227524c88.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 05:10:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1776773406; x=1777378206; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HpS1oVTR3rIZCafWVa+4FbkfcJKXjhWy8xb1rynP1OU=;
+ b=Tx0nzBlksZtSVZ/pL5OBfCfNygFqy2bRnTuE/K1oiKBFhBxlvTKD+mBYgq5Tj7p8OV
+ C93qZv5WYKrUZZBKMk/8P150EIM2EtVQRtLXEHtKTxE30IbDC5Y/9IfSm9zDRgdOH2+F
+ H5tR20gc3rRFFTW7gsfnk7gaaXUP2NXzJYqy5kbvTktmE1uOMBcKvf1KiAWss9fIB4+h
+ s6CwMHOK7g8aaxRvfjzWx+lrM7z/cImSwQ816ux+pnO5c9A/jT6DXLs6b8/tgnlqHJMc
+ kmWeNVcU2ZEH8gUzoEMMdVpwa2hYAkd0mv/ywu1PNdV2WYBc/rFWXVgR7PoynOHsC/bC
+ 37YQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776773406; x=1777378206;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HpS1oVTR3rIZCafWVa+4FbkfcJKXjhWy8xb1rynP1OU=;
+ b=RZqojNEcpgAO/Y2HBPIw0RJE48+ey4iPSMO7APN6OvJiXmn/mndGux0mkoSGknMWTl
+ iltpKTkRlQBUv+kMd4GLFlR5icZUP2Ni8z9PohmvV0+WYOAKpK//1nxXOURFb74fWIAw
+ TrgZQ3aXah3OeJDnuYSniyVTv8W6/nxnE+7kLu3l161fJN1Dg/pLze2UoxQe3aZmqJwE
+ 1FGUb0s0cTEVmvYGouGXuJkI3qzCnUXNIMweXZb4v+pXsYtFWnAb0DDFAfkQs1wCRFQZ
+ l+zOCr9ikTVgvhns9e/Gpi5T3VGNN0j5S/bxSVrtI7DVILuCvDbUq47UCutYDSVc5q3n
+ wlCA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+CW/Q4EKksRmW4vS1FFoiGYpl0TzspinBXFPkHo0QGFILuuyL/MX1Y2qawAFT5pm3RwNJ4M/vPy7g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1QcUhxnG/ng7UEM8NB9i98svzpHSngjfineWsr1s19oPc93Sc
+ hA9GpF6z00y5jtx/Ut4d9NxYMz6kUsyxcaMSFxFHOwATzpJY8GKUr1tS16qlSP2cGKk=
+X-Gm-Gg: AeBDieutdoRkH+F4G+j0VqYajEOP5di2Bz2fB6iZ9oV3lt2ftmTgbHbD7DlkfgCd1hd
+ MWam7js0vASDM9FVKNAT57jNAyfOIkF860vCcZq5ylrLWz97oqQEXxsfEI/6M4NdvyslszZd48d
+ fvGsBx32XmCeWgrvGstocvVm0VrNd57PT5vXExPJ1o0z4W6Anj57BXgL+qc8lXIXdFlT9ggMtr+
+ IXasL5ohi50lo4YnQOGI+I3D7smQbiR9O+XMi77DMC2KucobBwM8QgHDbspW1+CrYLd1vRUuRDa
+ iH97njlE7OO9Gj2Q8IuV/5dHgY8hlzPo3r/UB9sQeiPMTnCn+yRKCtvwObB9o9b6TsKIVuMdUwh
+ PTKHCQZfB1wQ5KPuhoETkjO+3mkgtENG800A+b6DIaVlE5XA2kV+MW5rnTXT6mTJOejDeK4k4K6
+ qPqIPcHuw5JPoZGOXuLkU=
+X-Received: by 2002:a05:7022:ff45:b0:128:ca6f:adf2 with SMTP id
+ a92af1059eb24-12c73fae276mr12134183c88.32.1776773406031; 
+ Tue, 21 Apr 2026 05:10:06 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-12c74a2ac32sm19260013c88.15.2026.04.21.05.10.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Apr 2026 05:10:05 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wF9vY-00000001ErI-0ePf;
+ Tue, 21 Apr 2026 09:10:04 -0300
+Date: Tue, 21 Apr 2026 09:10:04 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ sumit.semwal@linaro.org, benjamin.gaignard@collabora.com,
+ Brian.Starkey@arm.com, jstultz@google.com, tjmercier@google.com,
+ christian.koenig@amd.com, m.szyprowski@samsung.com,
+ robin.murphy@arm.com, leon@kernel.org, sean.anderson@linux.dev,
+ ptesarik@suse.com, catalin.marinas@arm.com, suzuki.poulose@arm.com,
+ steven.price@arm.com, thomas.lendacky@amd.com, john.allen@amd.com,
+ ashish.kalra@amd.com, suravee.suthikulpanit@amd.com,
+ linux-coco@lists.linux.dev
+Subject: Re: [PATCH v5 1/2] dma-mapping: introduce DMA_ATTR_CC_SHARED for
+ shared memory
+Message-ID: <20260421121004.GA3611611@ziepe.ca>
+References: <20260325192352.437608-1-jiri@resnulli.us>
+ <20260325192352.437608-2-jiri@resnulli.us>
+ <yq5atst6ywbl.fsf@kernel.org>
+ <4qdizkkoeke3cvkcf35upa7p7ick6s654eqlrizmi7ozkw5eze@tnpk2e34xgwl>
+ <yq5awly0d504.fsf@kernel.org>
+ <tteiecxfqy4k24wnzvp6ocxnuopyhmqtne2xwh5htwldlbzjnp@o6cbzdlurxld>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: fix zero-size GDS range init on RDNA4
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <bug-221376-2300@https.bugzilla.kernel.org/>
- <20260420215717.223372-1-arjan@linux.intel.com>
- <34718f21-712a-4161-98e0-079dd9390ae6@amd.com>
-Content-Language: en-US
-From: Arjan van de Ven <arjan@linux.intel.com>
-In-Reply-To: <34718f21-712a-4161-98e0-079dd9390ae6@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tteiecxfqy4k24wnzvp6ocxnuopyhmqtne2xwh5htwldlbzjnp@o6cbzdlurxld>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,28 +104,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 4/20/2026 11:42 PM, Christian König wrote:
-> On 4/20/26 23:57, arjan@linux.intel.com wrote:
->>
->> RDNA4 (GFX 12) hardware removes the GDS, GWS, and OA on-chip memory
->> resources. The gfx_v12_0 initialisation code correctly leaves
->> adev->gds.gds_size, adev->gds.gws_size, and adev->gds.oa_size at
->> zero to reflect this.
->>
->> amdgpu_ttm_init() unconditionally calls amdgpu_ttm_init_on_chip() for
->> each of these resources regardless of size. When the size is zero,
->> amdgpu_ttm_init_on_chip() forwards the call to ttm_range_man_init(),
->> which calls drm_mm_init(mm, 0, 0). drm_mm_init() immediately fires
->> DRM_MM_BUG_ON(start + size <= start) -- trivially true when size is
->> zero -- crashing the kernel during modprobe of amdgpu on an RX 9070 XT.
+On Tue, Apr 21, 2026 at 01:53:31PM +0200, Jiri Pirko wrote:
+> >> You reach there when is_swiotlb_force_bounce(dev) is true and
+> >> DMA_ATTR_CC_SHARED is set. What am I missing?
+> >>
+> >
+> >So a swiotlb_force_bounce will not use swiotlb bouncing if
+> >DMA_ATTR_CC_SHARED is set ? 
 > 
-> Mhm in general not a bad idea, but we are having tons of GFX 12 systems in our test machines and nothing is crashing there.
-> 
-> We are clearly missing something here. Is that on an upstream kernel or something backported?
-> 
+> Correct. Bouncing does not make sense in this case, as shared memory is
+> already being mapped.
 
-the reported oops/etc say 6.18.22 so that does not sound like something crazy backported
+It is a little bit mangled, there are many reasons force_swiotlb can
+be set, but we loose them as it flows through - swiotlb_init()
+just has a simple SWIOTLB_FORCE
 
-(https://bugzilla.kernel.org/show_bug.cgi?id=221376)
+Ideally DMA_ATTR_CC_SHARED would skip swiotlb only if it is being
+selected for CC reasons. For instance if you have the swiotlb force
+command line parameter I would still expect it bounce shared memory.
 
+Arguably I think this arch flow is misdesigned, the
+is_swiotlb_force_bounce() should not be used for CC. dma_capable() is
+the correct API to check if the device can DMA to the presented
+address, and it will trigger swiotlb_map() just the same without
+creating this gap.
 
+Jason
