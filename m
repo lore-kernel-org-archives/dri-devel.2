@@ -4,152 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABB42F8FA94
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 15:33:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD8CF8FA94
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 15:39:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13E9810ED08;
-	Tue, 21 Apr 2026 15:33:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8276410E8E1;
+	Tue, 21 Apr 2026 15:39:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="myUPr+Qp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s+BkHr6u";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="myUPr+Qp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s+BkHr6u";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LJaIGwvn";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ARs9NiWF";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC52310ED08
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:33:14 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B0F5E6A802;
- Tue, 21 Apr 2026 15:33:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776785593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KGBRDYkLHlArRH5KcbZ2sx3yZc8GF62CbNbF3CSJ5J0=;
- b=myUPr+QpRF4WtLcNjixUKa0ud64dMsnpoDCcqvCwNNrhAgITLF8N65ERogFyvD5APfuRST
- x6KWdHiPuCyp9WIBfM3vdigV9So2sh5bK/6F57vORI78crkPVyJjJ7Cc8tviPhal3W6j4C
- fLmyiOkjNpoDZHXhBne/VI4EzmhuTOQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776785593;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KGBRDYkLHlArRH5KcbZ2sx3yZc8GF62CbNbF3CSJ5J0=;
- b=s+BkHr6uvgvgVh8gq49iW9+Wul2pWSUGKY14MfoNmYcX18wz8lyosBn3TYqjOCnv+rfL3D
- UJMFT12T+Smh4MDw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1776785593; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KGBRDYkLHlArRH5KcbZ2sx3yZc8GF62CbNbF3CSJ5J0=;
- b=myUPr+QpRF4WtLcNjixUKa0ud64dMsnpoDCcqvCwNNrhAgITLF8N65ERogFyvD5APfuRST
- x6KWdHiPuCyp9WIBfM3vdigV9So2sh5bK/6F57vORI78crkPVyJjJ7Cc8tviPhal3W6j4C
- fLmyiOkjNpoDZHXhBne/VI4EzmhuTOQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1776785593;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=KGBRDYkLHlArRH5KcbZ2sx3yZc8GF62CbNbF3CSJ5J0=;
- b=s+BkHr6uvgvgVh8gq49iW9+Wul2pWSUGKY14MfoNmYcX18wz8lyosBn3TYqjOCnv+rfL3D
- UJMFT12T+Smh4MDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF8DE593AF;
- Tue, 21 Apr 2026 15:33:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id w6UhKbiY52k1CwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 21 Apr 2026 15:33:12 +0000
-Message-ID: <dd39f423-1598-4749-8c95-98b8daf69680@suse.de>
-Date: Tue, 21 Apr 2026 17:33:12 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/20] drm/drv: Call drm_mode_config_create_state() by
- default
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EEA410E8EB
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:39:10 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63LD6x9P3574144
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:39:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 3XNvd2Yokfo42OCMof3NU+m9TSn1ECI2U+G+NHt/7YM=; b=LJaIGwvnx6TH7WtW
+ LJxnBBKdz7mLdF6J4l6xPSN+IHubfGyXiSJVHcksk7q2w+FQBP3xQnjgPDK8Enzu
+ RI6c3j+qKPkOd34Yrjs7VUh2jIgSdKyWQoRdwP98ZHrNtsOz4rOweEr5e/VRDJfY
+ Ow5qNxvIqu4hZe8sdinTENHv8j/VdLvya/P7wLlvAbHDfkHYoyuEHsKElNaVRZkW
+ LV6KVteIxS1T6D89IgHPWNs2AdMz/OCRBktaeJHs9aP01c5+UxR6vKXG6DONZn8e
+ 28jUL0B4qP2CT1KFkdls4zLJFaZK6Rhr7mLwZ6kdQ1mHY8RpAdrasIDFsvK1lWb3
+ ZQLfXA==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
+ [209.85.222.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp465j0b5-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:39:10 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id
+ a1e0cc1a2514c-9539bc7e2d0so7404487241.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 08:39:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1776785949; x=1777390749;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=3XNvd2Yokfo42OCMof3NU+m9TSn1ECI2U+G+NHt/7YM=;
+ b=ARs9NiWF3ahuvHSrZmdwgWx33aO/9rqo1plkCdHYVreX8D7eN2wULRWj1MMDms0g7N
+ LlpaAAEpjUO0ulVo5WxFVxq8o5HV/iHa0lA9DDN/3doJPOvaXgKHH8AiAZurOdDH3YJU
+ IO4GRbqBq1IwjCweR6Z6XIDjqhUhmqojUrU0tS0kvv+FYbUfPyzT0XW2vVGEUNx9wguR
+ cEAgg/NT8d7R6i60EIGLVSInPBf0RDqOx+RoXUfT04sy9OQr1ekzePG9HpzmEc9qZD4v
+ 41ZF6gYT1xJoeE0pN9vzDdUSJWZHUshoLnAj1BLyGZm2k9Wh9ZBEo6eCW+/DroQaVE1n
+ qVXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776785949; x=1777390749;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3XNvd2Yokfo42OCMof3NU+m9TSn1ECI2U+G+NHt/7YM=;
+ b=l+YS1Oa1ZcIF39fAM/MfX81Y3cSSz0o2zBQm9adQ+tyyJRtFUqHKvJ5OkdPEzfgW0z
+ npDTgvS5XFzkfY9S7CkVaShMqo8cELqaRg/Z6oFXFA4zq9t45hm9hQe08WXtyT0GWbZI
+ RVKcr+rEXzZJQ5dxmUom983tCLBeM+gIAdRl2qcw4TifCUd1b6uIy3kEXBvgtSRaLwie
+ YnOqrwXdS3wTVdfnF6MzLJQMe4GEfbxQ59ARZhS9m/X4ZnIQeVpUiJFLZLRDV/1WLx5G
+ qSEx4bb8EZg/oJQGJFqdLbDHbD+7I9s+JBGmtGC2lHVQ30b94j37dQ/Ym2sZKNnl5Hcw
+ PCyg==
+X-Gm-Message-State: AOJu0Yycdl6u/TTawhXyXyMAUyMcPGC1WDy44hz3OMc9Mg1PGepIU1Jv
+ ZYQvM+OB9cDwKa3JFCNSv0XI2egJSr+a9fhXC1fWi6yLdsYRiZBPZqSzp26/XkQMF8Q6CY09PFo
+ VTdqk/E6kYLR2R0QTiT1jUFtwvE4vfbVxL50Gqx/WgscSbeGdr2lX1aF1hFipnEXEEe1y1I0=
+X-Gm-Gg: AeBDieslHdZ6anMlkSWqvOc9Hdw2PtH/NdHQ9K2QRGK9eWjsITIgL9ZWPd86kwxXmOY
+ l3CZ21B2T5ac4SCWp3JJhgqxVPz7Kb+n7YrReaAAIKgS2zBbsYAriYDEzeQNITWICV/mH9BqXQY
+ orjFCXXrVtFllyL2C4lu3wJpp/oRdQegnbHU8nHQWDlEvAqmJI3niNkpQFtLYabUSzMJvor9Rae
+ +DU3WLIoe0l+6kwnJgXtFWbHqlKNwZX+t0aszTLmOrFXjLq7sJAMDI2dw2czPoNmhbEufgigfuH
+ e4q3/9biBaDLCFjp699vUr/y8WtNA1NqRYcuqskcbpIpm+bGDXr0bDkZYzhPYN2lK0u5hLulNLv
+ fwJwZjTINVwQ2KyXRoLI9sAze8edLB5rdigUmppXDsZLfQg7OZU2oJSx4Y9RB0sdMHthVMx8KAj
+ rTMBREe13TVXuLwHf5zj+i64n0heU6sZ2k3MzYIXNjJJwNlQ==
+X-Received: by 2002:a05:6102:5a93:b0:602:8742:1fa with SMTP id
+ ada2fe7eead31-616fc3bb2f8mr6819573137.9.1776785949025; 
+ Tue, 21 Apr 2026 08:39:09 -0700 (PDT)
+X-Received: by 2002:a05:6102:5a93:b0:602:8742:1fa with SMTP id
+ ada2fe7eead31-616fc3bb2f8mr6819566137.9.1776785948590; 
+ Tue, 21 Apr 2026 08:39:08 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38ecb4f5035sm31023871fa.4.2026.04.21.08.39.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Apr 2026 08:39:07 -0700 (PDT)
+Date: Tue, 21 Apr 2026 18:39:05 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Rob Clark <rob.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Jyri Sarha <jyri.sarha@iki.fi>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Simon Ser <contact@emersion.fr>, Harry Wentland <harry.wentland@amd.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Alex Hung <alex.hung@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
- <20260320-drm-mode-config-init-v2-15-c63f1134e76c@kernel.org>
- <79cc30d5-80b5-4d87-a3ad-36d6fad98853@suse.de>
-Content-Language: en-US
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <79cc30d5-80b5-4d87-a3ad-36d6fad98853@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Konrad Dybcio <konradybcio@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 01/13] drm/msm: Remove obsolete perf infrastructure
+Message-ID: <puvvx2h2jnoxej42blcdx357uzx37ogwnqldcynklmm4acameg@4zvnrueodcon>
+References: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
+ <20260420222621.417276-2-robin.clark@oss.qualcomm.com>
+ <sidcsgvqxddatwwflohsd6gjzm5ehbs4alwaejh3pnjnlhj7vm@nqxhdtxxxizs>
+ <CACSVV01TK+iLiaCofFfPU2eeMGT5HX5iW0rf=m+gjojXsjrk8Q@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[37]; TAGGED_RCPT(0.00)[];
- MID_RHS_MATCH_FROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLyhjdboxbrjk5hnijtjs4kbm6)];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch,lwn.net,linuxfoundation.org,oss.qualcomm.com,iki.fi,ideasonboard.com,intel.com,linaro.org,kwiboo.se,emersion.fr,amd.com,igalia.com,redhat.com,ursulin.net,sholland.org,raspberrypi.com];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:mid]
+In-Reply-To: <CACSVV01TK+iLiaCofFfPU2eeMGT5HX5iW0rf=m+gjojXsjrk8Q@mail.gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE1NSBTYWx0ZWRfX4PKsLt/IurUs
+ +YQFJCRWNTJQtWJFbpTScBs7Y2lwndRmhhRo0mpE8dJcYPXSrN3wt5pmplUuWPFXteKxBDZYRUc
+ A0Ba2rlcAabvwFfuEAHTmDnl3oVsxWRD3anoWr1LpMDTefjZh5uiT2LoS17CPhuJuI+emGD46yL
+ SoKIsRGwldT4iL8Dnq8kj7gY0BgkyFG7WrlRbuU1lE2qDcm0hJtdtKY++BvQ9ESrfChcDFTSYxn
+ hNuVCzizXoIieDVxvKtI4TDRyzhuVjikfpIdRV7SmrP3vC6O7jYG53yqrhoaiOOWHbhkxwkVyJl
+ ck4bjodq6Bpfn7517QZ6YZeF+d37HNmD5k+e+nfafCSbH4gxDj0FjMSCJUnaThlnsQS+9stSZKH
+ 4248+bnk09slB1NXyEAf8OQd10iDlnx1vhdsIcmVWP3/GbSCHJrKHtdzgSiYEW1TfN5ZAqXBC88
+ 1R77zdBgRJGdxEvEHLw==
+X-Proofpoint-ORIG-GUID: o26IKEebH-M2oKQsmX7dW0n4MJDnDplx
+X-Authority-Analysis: v=2.4 cv=YOSvDxGx c=1 sm=1 tr=0 ts=69e79a1e cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=cnqLc2S548nY-WTIRJIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-GUID: o26IKEebH-M2oKQsmX7dW0n4MJDnDplx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 clxscore=1015
+ spamscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210155
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,74 +149,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue, Apr 21, 2026 at 06:07:20AM -0700, Rob Clark wrote:
+> On Mon, Apr 20, 2026 at 4:49 PM Dmitry Baryshkov
+> <dmitry.baryshkov@oss.qualcomm.com> wrote:
+> >
+> > On Mon, Apr 20, 2026 at 03:25:23PM -0700, Rob Clark wrote:
+> > > Outside of a3xx, this was never really used.  And it low-key gets in the
+> > > way of the new perfcntr support (or at least it is confusing to have two
+> > > things called "perf").  So lets remove it.
+> > >
+> > > This drops the "perf" debugfs file.  But these days, nvtop is a better
+> > > option.  (Plus perfetto for newer gens.)
+> >
+> > Would it be possible to resurrect "perf" later? It was really useful.
+> 
+> Nothing is impossible.. but I was having trouble naming things with
+> both old and new perf stuff in parallel.
 
+That why I wrote about resurrecting it later, once the new stuff is in.
 
-Am 21.04.26 um 15:38 schrieb Thomas Zimmermann:
-> Hi
->
-> Am 20.03.26 um 17:27 schrieb Maxime Ripard:
->> Almost all drivers, and our documented skeleton, call
->> drm_mode_config_reset() prior to calling drm_dev_register() to
->> initialize its DRM object states.
->>
->> Now that we have drm_mode_config_create_state() to create that initial
->> state if it doesn't exist, we can call it directly in
->> drm_dev_register(). That way, we know that the initial atomic state will
->> always be allocated without any boilerplate.
->>
->> Signed-off-by: Maxime Ripard <mripard@kernel.org>
->> ---
->>   drivers/gpu/drm/drm_drv.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
->> index 
->> 2915118436ce8a6640cfb0c59936031990727ed1..820106d56ab399a39cac56d98662b5ddbcae8ded 
->> 100644
->> --- a/drivers/gpu/drm/drm_drv.c
->> +++ b/drivers/gpu/drm/drm_drv.c
->> @@ -1097,10 +1097,14 @@ int drm_dev_register(struct drm_device *dev, 
->> unsigned long flags)
->>         if (drm_core_check_feature(dev, DRIVER_MODESET)) {
->>           ret = drm_modeset_register_all(dev);
->>           if (ret)
->>               goto err_unload;
->> +
->> +        ret = drm_mode_config_create_state(dev);
->> +        if (ret)
->> +            goto err_unload;
->
-> Way too late. Lets rather go through drivers and call this where they 
-> currently call drm_mode_config_reset() for initialization. This can be 
-> a single-patch mass conversion IMHO.
+BTW: do you plan to get perf counters for a3xx-a5xx back? I remember
+that there was some issue with a2xx ABI.
 
-On a second thought, can't we modify the suspend code and leave the 
-reset as-is for now?  I'd still be interested to use reset as a means of 
-initializing the hardware or loading state on probe. So keeping the 
-_reset() calls in place might be helpful for that.
-
-What's the long-term plan here?
-
-Best regards
-Thomas
-
->
-> Best regards
-> Thomas
->
->>       }
->>       drm_panic_register(dev);
->>       drm_client_sysrq_register(dev);
->>         DRM_INFO("Initialized %s %d.%d.%d for %s on minor %d\n",
->>
->
+> Is it really adding value
+> over nvtop?
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+With best wishes
+Dmitry
