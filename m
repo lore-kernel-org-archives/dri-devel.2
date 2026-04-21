@@ -4,119 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BCDAF94CA9
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 20:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5437F94CA7
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 20:18:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FA2110E1E3;
-	Tue, 21 Apr 2026 20:05:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A4C210E082;
+	Tue, 21 Apr 2026 20:18:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bK70RxBA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y/hzIhTG";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88B3610E16B
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 20:05:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1776801956;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XeHr6DVVipYM8wZRZ3joTJjeppE08pl393d8VJrbaO8=;
- b=bK70RxBAjBkXkA/jCCxLxAxUcUlK/cU1o8zYiiDVRJwdYgSHOdBB96Ocpuz6fIFNNZBarG
- 8Wd1MX+3Ecpqhp1HIOo/bosx8gq1yxxpoAGZ1jaXxQtxZ3GmbjMIAt3H25TgrmE3cn+kZg
- H8p/1DlVS00p20rrF/LCdIkww9ZeQbE=
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com
- [74.125.82.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-372-MzJWzwz4MKO_fgPTMU8uAA-1; Tue, 21 Apr 2026 16:05:54 -0400
-X-MC-Unique: MzJWzwz4MKO_fgPTMU8uAA-1
-X-Mimecast-MFC-AGG-ID: MzJWzwz4MKO_fgPTMU8uAA_1776801953
-Received: by mail-dl1-f69.google.com with SMTP id
- a92af1059eb24-127876be621so3989526c88.1
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:05:53 -0700 (PDT)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D8510E082
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 20:18:16 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-50d87610513so53112091cf.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:18:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776802695; cv=none;
+ d=google.com; s=arc-20240605;
+ b=FbKQe2DXly4AlwEnV3xtxq/sWWeLX7RZQN6hNladkw3D2qgm7zZC4S2VpWAe9z3uJB
+ +pA5Fjlgb2FCu2BdtbydOlA/xnfjnxaCna9KarEsLp51p8SXosD5dSnvYJ++t98BvvAm
+ 82D5QalruEZtqhCTy6GM2x2VBTuMXWN2WHcMgx0G+BbE82hsnp3JDqloS2QUHWZiYQYv
+ fo3ehotZeA0KCYGHVDb6DE10WatKt84m+NoRAT42ZycCcd3d0YnqdlCrXisbIn8IJOH5
+ DCGdbQ1d9Mixse4qMjZQV/m4LkFOpvzH+5DOFfvhh3/DjAx4FZgtv3GYMBg92fhMLcV4
+ WxAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=L+8DDP3LcP2wMOz+05VmQfbHXZfy+2SE4V/Z5ATTvws=;
+ fh=fvp7a33kZyL2/T9hpUycuNGTpT0B/cCO6EPLVfI2ujw=;
+ b=cdmRwrq3V8OYi2kRhbH2FLgRRgwtB27PMOeRVH197L0sZfgsh/w59AWzcLPCckvf3Q
+ LevNigi7NcszFNMUtQt2qyApC2OOZn5U+0ULQmY91f8F5gKwIhY910X9Nfv7Vo1J8BVj
+ Nxb5rIXfxMmk2wL1pqLOw3pyrbBUV6MZHPcA8FBf6wz8tw1yN/hGeEHwACI3k4UrCMiW
+ a1hTK+QPAC9b9G5RsgmZMUAPqLBwZHXNmW5kt4ejYFtcKD0Njf3J1+/dV7uGuHB5PoyL
+ sUStWxz5rkShYjasSQG+jwcQA1P9iQjW4u9mNFKCLquOj7n966BzdzJ+RBzESoFuA/pL
+ OHdQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776802695; x=1777407495; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=L+8DDP3LcP2wMOz+05VmQfbHXZfy+2SE4V/Z5ATTvws=;
+ b=Y/hzIhTGACULU4AYL4L553V6v8DTMqX07FOJyO2UmRFYlwOkNe/jI1DCtlgl+TiitP
+ Qoyxcy4eV0EZpStQHW1o2F6atUGQnAkgH9ScIdg1HMotSi1AmR31ILN4UFBABxkYemJH
+ lcFA2BixB8+uEgrVjhVGhDR1WVBsCdsjuh66x1fwcNTy0VgUEPPIAbRm4+L5bnqTYbGV
+ BjHqAmbktd1VhWcv+49hxeH9ESWrXLAxqZCyihWFCBkrhECQF+kfhcTrMFhi6R6gVEZJ
+ /I+MQrCZhV9ed6NK13yeAzk9HmYmD/ExJBENsgSHbyE3Jv6BHgifJrVA3ouqrToB52eH
+ f9Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776801953; x=1777406753;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=XeHr6DVVipYM8wZRZ3joTJjeppE08pl393d8VJrbaO8=;
- b=jW6yEiomj4I5cLGSXli8jzbfD0mIBOxTUGwCYTXFJxHur9wDy3PBBVw1YDPI+N3K3y
- RaFXJ10Ry3l3mMJowldsubJ4LPPw2BytZMfx+nDO61vdaJCbgN7D2NvRFl9oBzgs1Gl5
- 67+CpP3nl49Kefl4CHKBDYrg6pt1RcJ/iXQxEKVybkQu4ER8hX0C44oltftxguunL8wT
- QuGbet64FXbcAx92b5bBhlMcHu1HQdYaPj6lhQKMl105XVYFdNYiK1XSoEbMG8kWe9yg
- iLeOupeqYobK0dFCatiBLwXSLfAzPPgZLH7I9So0gI9youTRKRRtdJgooRPzcpKFyzI4
- 9hzQ==
+ d=1e100.net; s=20251104; t=1776802695; x=1777407495;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L+8DDP3LcP2wMOz+05VmQfbHXZfy+2SE4V/Z5ATTvws=;
+ b=tQefkzzzdr8tsSLlEyUSuUAwCIAqofOLeuzN6+Nk8YOqjnLVqIIr2jp50Tbwf7NDyh
+ TI8x7XBh0zcEXXjcI2awepvXBOkEg/AvIfJrb42IuNLxxOqWdd3PlVYu1owYs1nE3PVR
+ MrV8UCGeEkICwGB9GSb5TfPAX8NKXMufKQeryCE8uJg+LuCYk+6PT9yYZJRm/Il3oJCT
+ ZwSzMpCZU1xixO0FARuMnJ/scm0p471dErANIT/N2StUYmf6cVXRkCYDdkLOGlLF0o2y
+ 85EVKz02XxI1lUgLa70m0Ac4SS5MbseGBwE7SmqCJV3eOoA5tNPArMuT10/hBULFgLtl
+ Flow==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8dqocaUdpFJAsCqRDt9eT/yW4RN9w68Z3ggpBwJPGT5QlthwD692A1RbGVruRTtP9ouYPKV6138wU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0nmlrJLBPsCWCIyfuSCOvO3AGaUqev1cLRvkGs3WrVTofgXjC
- 5dqPZ5K9p/FIR0qiwEhrLZL4wzOszVX2dnspEGkg0EfPm8zWkv7D93rEDec6IB37yufjkMG/m1H
- pzYVOuadffCEtHnu4Bn4pSxgw2CC1M7gVFeVUzvG7vEkQxYd6UfNWzDOZ6d7yjPrPE/KoAxvu68
- Qh/BKNHGD9KbdDKqfbJqQLhe5uQj6uq5d7vEn6WRmEWGnK
-X-Gm-Gg: AeBDiesKC8oZlkwecqC+fXwgFFigcQLjY48q2axqj3EkMNmfhSQgHFjuVO/Go7PVItS
- mdg+MUUnNcSipyWPC5E8SRlLnQJw1BFxyPnbDqyl32LlkpqsZhOiooV4H5yTLKVFAkqNZxgmmzo
- of/Mafvo9kp1RWgSiYZ70utX4A+2YeWyWPp81q5r0g5Y/aFLCzlGXVG2gz6x0VTmE8uJSym17v8
- 72ZsMv6GUCoRgtZ/VcJi0E+VQEhyvnhNdiT/Z/Mg3mBILc=
-X-Received: by 2002:a05:7022:e985:b0:12d:b2ca:a9e9 with SMTP id
- a92af1059eb24-12db2caab80mr2009975c88.8.1776801952717; 
- Tue, 21 Apr 2026 13:05:52 -0700 (PDT)
-X-Received: by 2002:a05:7022:e985:b0:12d:b2ca:a9e9 with SMTP id
- a92af1059eb24-12db2caab80mr2009922c88.8.1776801952185; Tue, 21 Apr 2026
- 13:05:52 -0700 (PDT)
+ AFNElJ/UTrCkUAFPXqLWAGQah508kDcPzUs6PVC9ZdpKqLVMnAn+alRkJxibRDhln5Kk1pZZq7tb/vqS2JU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw0jvxghZ4FZlM4Zcu11wnMlJP/VIYDFIvHiWYuyznu+KephabI
+ PvQVeIPJ3QpJAViIuTYGCkzCESlruLMJUDndYF0Z5N1CbkLwK6VLNPLhNcG8M4gZkmGwLmWPU8b
+ y2zBspLsdocH5EH+O0Ko4WmaA3wYncpQ=
+X-Gm-Gg: AeBDieu+hwJ/T9uFzPrlw3D85S+3joPCpfITQCWDxRtt90UZRRF2QJZHzR0SHhGv4ON
+ be0UD9MFV1lRJsmNUkZ15gsjgmX5FLF8108ZAvQlFOa98UAGdf/KGrz9rPO+ZJQd9JTMpj+kbPi
+ ULdz3Jyxz+VoUNKX/vbFiwpAugQjIPiIA2cGxY8ijrxdlnoB7Ob1avsg+saFPgXeFfM/rIyDMP4
+ X+PE6Db2R6Uh1Yydh+BggkwsfCGobs30qD5Nd8lLCT8vYK+OvI66cvQfCY4p6UsDXE5Oj3jekgd
+ Z+TsFcalfyq/e0tJ4ArI2kpxbcLqcdjD+EAn5z1HNpvdwieAoQ60UnKPvnn9PTS+JUgkOm1BHi5
+ +Rj8oiZBDRJds
+X-Received: by 2002:a05:622a:429b:b0:50d:8049:2f22 with SMTP id
+ d75a77b69052e-50e36b865f5mr272215931cf.3.1776802695503; Tue, 21 Apr 2026
+ 13:18:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
- <20260415210548.3776595-2-joelagnelf@nvidia.com>
- <b0c5267d-ea77-41c5-94d4-39c651761b3c@nvidia.com>
- <20260421145521.GA51176@joelbox2>
-In-Reply-To: <20260421145521.GA51176@joelbox2>
-From: David Airlie <airlied@redhat.com>
-Date: Wed, 22 Apr 2026 06:05:41 +1000
-X-Gm-Features: AQROBzAsZiSzIuFbaTfYEhScUqQNnqcYEoqTT_Ur4O9PkcMB0Af7pJH5n1PBSF4
-Message-ID: <CAMwc25o2qmaYnfsh-cW4M4PEbmpYb_1x4qg1_2155P0orzCnOQ@mail.gmail.com>
-Subject: Re: [PATCH v11 02/20] gpu: nova-core: gsp: Extract usable FB region
- from GSP
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, 
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, 
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>, 
- Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, 
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>,
- alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Pk1sRIi7YksZAHmiZissHlsEi4TtyM5fTZixCAbSkPU_1776801953
-X-Mimecast-Originator: redhat.com
+References: <CAPM=9ty+EifnaAF6xXLFChpc+5hZWUZJdR8zy=arPjrwjirf6Q@mail.gmail.com>
+ <CAHk-=whT=pCZGWxgT6+5vj37quG7QkMUBaCc=p0G+G5pzxemUA@mail.gmail.com>
+ <CAHk-=wi4EgR1CGU9Bw+4iTChK6c35Q6w7vdDE7_3zVGUQ3HOOw@mail.gmail.com>
+In-Reply-To: <CAHk-=wi4EgR1CGU9Bw+4iTChK6c35Q6w7vdDE7_3zVGUQ3HOOw@mail.gmail.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Wed, 22 Apr 2026 06:18:03 +1000
+X-Gm-Features: AQROBzDov401PU8a47pZ9_IzJg3iYY_tPhxkZneWfmv3GqzXYYs5do7P5ZnYQpc
+Message-ID: <CAPM=9tyFXS8qwM7RAPW2G9aoCTcaEy5RcEan0yqoNUZj79pVog@mail.gmail.com>
+Subject: Re: Ping ... drm part two
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Simona Vetter <simona@ffwll.ch>,
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,40 +107,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 22, 2026 at 12:55=E2=80=AFAM Joel Fernandes <joelagnelf@nvidia.=
-com> wrote:
->
-> On Thu, Apr 16, 2026 at 04:26:48PM -0700, John Hubbard wrote:
-> > On 4/15/26 2:05 PM, Joel Fernandes wrote:
-> > ...
-> >
-> > Apologies, I found one more minor thing, while looking at a
-> > subsequent patch in this series:
-> >
-> > >  impl MessageFromGsp for GetGspStaticInfoReply {
-> > >      const FUNCTION: MsgFunction =3D MsgFunction::GetGspStaticInfo;
-> > >      type Message =3D GspStaticConfigInfo;
-> > > -    type InitError =3D Infallible;
-> > > +    type InitError =3D Error;
-> > >
-> > >      fn read(
-> > >          msg: &Self::Message,
-> > > @@ -205,6 +209,7 @@ fn read(
-> > >      ) -> Result<Self, Self::InitError> {
-> > >          Ok(GetGspStaticInfoReply {
-> > >              gpu_name: msg.gpu_name_str(),
-> > > +            usable_fb_region: msg.first_usable_fb_region().ok_or(ENO=
-DEV)?,
-> >
-> > OK, failing out is correct here. But in addition, we should also
-> > log this at dev_err!() level. This is rare, surprising, and actionable,
-> > so perfect for that level of logging.
->
-> Sure, that works for me. Will add it in for v12.
+Okay I appear to be asleep at the wheel, correctly guess, I'll resend
+it properly in an hour.
 
-Just fyi when we get to spark later this will not matter, we will have
-no usable_fb_region, though maybe it could just return 0s in that
-case.
+My muscle memory did a pull request generate from drm-fixes not drm-next.
 
 Dave.
 
+On Wed, 22 Apr 2026 at 01:49, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Fri, 17 Apr 2026 at 18:06, Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> >
+> > The reason pr-tracker-bot immediately told you it was merged is that
+> > this tag seems to just point to the v7.0 release, not the actual drm
+> > branch contents you presumably intended it to point to.
+>
+> Pinging on this, because I suspect you saw the pr-tracker-bot reply
+> and thought this branch was all merged and ignored the mail due to the
+> subject line.
+>
+> Not so. The branch didn't have valid contents at all, and
+> pr-tracker-bot said it was merged because there was nothing new in
+> there to merge.
+>
+>            Linus
