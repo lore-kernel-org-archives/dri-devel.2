@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ACE9F8FA99
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 15:59:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18B84F8FA9B
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 16:01:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72DE010E250;
-	Tue, 21 Apr 2026 15:59:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D10A10ED0E;
+	Tue, 21 Apr 2026 16:01:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="blC0KCuS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GjENaVO3";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="BzbnoL2g";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SvVJMa5H";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D08BE10E250
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:59:43 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2942410E8FA
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:01:09 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63LDT8YL1538490
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:59:43 GMT
+ 63LCsQZI3574133
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:01:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=qTGT9dVHn9ZD4VlzKf8b4LWl
- wJ6q97WIUZp+d0WZsqE=; b=blC0KCuSqm9wlc6YuJb5fJBNdXfodybBI8mwiIpG
- cu6otodaBirp60rUNTgROxukDQUGZiL6De3HJPM03wiuePdz0xSeBsYSBoirf4PT
- qoLPdE+pPdkw5yTbWy+PGdRwzUBM1+HV++fY4+Q+ZbgP0RdOMBRXxnbSIjPoBKgc
- hF5Uyg91dwehoFyGu0H2aXCfOynF8KmbWq8KKtVGWSE5p7KJpLFXx+76GAYxak9D
- p94Xm6IMiIlV3m9FMlfL1EKhpkJ0NfmkV80pk1th44BQ7+TPFCpqlNJMiPj9eL6T
- se3Lg0BuYQoLayAbgATtnlnbdQjBs4NA+YoK2kDwBPuY7g==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com
- [209.85.222.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp4hahy1n-1
+ :references:subject:to; s=qcppdkim1; bh=xLFoe4oGDCwTz6b0lGYMIAWT
+ Rfszp9f/hXCp89ws9Mk=; b=BzbnoL2g7OaAxndjxnbTnrQXShsD7Wz96KcjUSvZ
+ 6Tsi/MRp0ynlWCK3xvISh++rq4+7VR3d4KxiUGp5YwU1KKObEivtapREcPNEd0ML
+ 9LsVPbRM6PWULYn7gISno1YYB4nIyRkS5zUU6y7Qse/xBRmki1c+KmEc6x/PpNHu
+ WpwMDahQ8BWa4r2R1VEQW7r9L5xiz5hClS3Lh8YJZ8Di1Rmn/uUoACo5ot7CLtQ9
+ R4G/ylpBTDdx4hMXttsZkARlomwjggP3jXUOzeY0jyJoRb0sK7hxYrVVO9ptY/vN
+ TbwIOOBIlm7oYSFE04tdIxEIYSrRnpR5Fs74YVyVMxMbpg==
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com
+ [209.85.167.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dp465j2rx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 15:59:43 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id
- a1e0cc1a2514c-948476b92e8so1970487241.3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 08:59:43 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 16:01:08 +0000 (GMT)
+Received: by mail-oi1-f199.google.com with SMTP id
+ 5614622812f47-463a018f61bso3669732b6e.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 09:01:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776787182; x=1777391982;
+ d=oss.qualcomm.com; s=google; t=1776787267; x=1777392067;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=qTGT9dVHn9ZD4VlzKf8b4LWlwJ6q97WIUZp+d0WZsqE=;
- b=GjENaVO38+pTvn8abYzp0OFvnP3ViWXmCzeTiCcMFkkLtuDfumeB7a9KnyaExg1baG
- x6DIBek30rqQH/tVeuBiNpqQU+2AdBMolmLYtnH+vx6laJlOG6pN6VouoK4P+6j7KMus
- 0/VKC0NmDMWvY5lQKnfzJhxtPby91c6/kQZls/5XddHtHkMLc5TrWN9iuFeRIxxvrEYk
- S80W34yEtbn5ZEaD/a+HqyumhbIRwyDgFaj8yBVraP8FG4pHjtPFTlqmZVRYMM3xm6zv
- XMQWysYX0wKVw4USCBY4CJC5NjZsTRCN+4IKlcm8XLGzfyR0ORStgASR6t/9svQEHJXF
- 5yDg==
+ bh=xLFoe4oGDCwTz6b0lGYMIAWTRfszp9f/hXCp89ws9Mk=;
+ b=SvVJMa5H53RA4eRtETeqT7rNpnyrYWjVnPWvACHcz7gMdGawkFMVg9meIu1tIaePTb
+ 4yaGYHUqT/IaAkk8KCIGvmBDweXMD9JgYFU+8g5OqEdKOZK+sCw4pfXOKu/B15CwKwGo
+ ghh4yCUxIJlgrEkCrUVEksGyO74qINBhLADDtcQ8DL9cJVV4CcJVlWaLdCeQbjHIJ+er
+ GXlP/ctNXb3DN/IETgNbsI3M9UT3/gbS5XPWgvaecp6yjWZxU6KuitHO0dhpk1bNbt9x
+ HEiWeZ10+BRejpDdrlp0d8peRGa/skSujiHk36NE2LW9Kl2J1dtqDOOmseMrP5qSVYv5
+ LqbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776787182; x=1777391982;
+ d=1e100.net; s=20251104; t=1776787267; x=1777392067;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qTGT9dVHn9ZD4VlzKf8b4LWlwJ6q97WIUZp+d0WZsqE=;
- b=CmdgzKp0/kdptrwpWNNYXY9KV9+VD3Xx1sWRvlgOlwFLyUiPlTX/yBafrUArJf1sgr
- kfUPkRYTb3iKryLYLAfBR6WUJ7ddgTHeQApIhA6qOReEKZrEFQUIbsbDp9JRc++7ryGE
- jxukVrZfceGpXyfn8C7yRQtOzbAPaTuWuvIs1fYap730WQAh59quJSTqiHxbpjnWb7QA
- +OHvwJUSa5od3SaOtG/ulVQ0gkhUlOic5SXHDv70PKcP/hLdDZy5rPJCJfXyBy/I3RUR
- boq9fQQFUlXs6T1QZT12NKsjEW06BTIKo/+vOwzi5z5rIL8ISH5IyR72AUAW8gFsJojm
- M0iA==
+ bh=xLFoe4oGDCwTz6b0lGYMIAWTRfszp9f/hXCp89ws9Mk=;
+ b=eElpmzT4oM4MVvBCPVCyVvvDMI2/JiS/+3kz8EgI6vZfo6NiRenm36JBjoi3NYoxuF
+ V8tWwA5xD4zAWs7QqDMaVZ/Qz3188SikPyhHIdRJZdI9+7n+Tbmp8Hv+AbZz5vtrZcnu
+ QFkmM8dEtex5JsAZMreX/ZW6Tlbwz6KstrQ+LijNDn13vOlodNwiosrn5Cjz0D1LjoAX
+ B24hS8Y8/dfya6u6n5uEnKv4G/zY+G+JYVYrqRbbzyo2WKURgLC1HlkN3OZBFN5kcatT
+ 4W++HZTFdQUaVrhttHRiU/1YYJgI9fJhjuOnDTq3uo+HsIXZWhUtzF9hc9rx6CGOmMKN
+ EmZQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Ma4f0cG6zXwwyEuyJQDrIGjAoigvCgBfXiilWtG9Q6a8LJ6vGtywMhPjkoPM0TqL+ag7L9yRqu0k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVt8p/j0RKpfEKrCwNENFTCtobm9uzjBXYN4K4C6RVTCyiU08L
- 7jSZ5EzIczvQVUfpvOrqofqJI2/PzFrmK6dq0tqeT0bpuakXTTs/2eMI7BxNLzp7NOW/ww6WpC+
- 24ofN8X9gx1nAvVryIANOeaINc/7p3lm3lu8F1y8FQGKpLBGEhJjnuh2j/VsqpSCY2O4GURg=
-X-Gm-Gg: AeBDievXtxNkImRcT4cMBDbcLlbwTGg8bn0+bWw6yRp4j8v8v7HXEJTR3N3Qzkyj711
- inHaQ4zeD9tb1c18ci03DsuNBWfz7Ucw3D1up0rWmu93i2iZ+Z5F5aeHwgn8oQz7TyD/v3nNe2q
- +QQAtHTz6urB9cGhNbdkm4d1yomc1OI8FEW20iZY1dDQAOEn1SwE+gc9tW9hxHCjeeuT9C8K2dm
- gN9sv59MfucVxdD3Z57vAsdQw4hhw4bVYIi83RP+JuE0cxRAe5jUBrr698rnqVADvo5nJTutas4
- Qxiw1QpKtu+4fl3z6CpHCF/MFjCK3l28MkqNw0kYJhL9fuMyJ2KmFTxYwqlwXVSJhIFSjHoNGP5
- oXcCW8zbClL/vOHspSzQcgRnaVM9eLRSCRXDIc0NmW+gas9ApNOYnAtLRteV9ZtAfMRrXEI25+o
- pcFygj/6HEPdmVpCqgnYEHyLwopDQCsqANyoGbWfig4qDneQ==
-X-Received: by 2002:a05:6102:6052:b0:602:8c16:b24c with SMTP id
- ada2fe7eead31-616f806992emr7568532137.19.1776787182073; 
- Tue, 21 Apr 2026 08:59:42 -0700 (PDT)
-X-Received: by 2002:a05:6102:6052:b0:602:8c16:b24c with SMTP id
- ada2fe7eead31-616f806992emr7568495137.19.1776787181651; 
- Tue, 21 Apr 2026 08:59:41 -0700 (PDT)
+ AFNElJ8LrYvg+s/bTHc+L8vPNTLNvwiLFfdr+dUx3dAbxD13qhv+QAhG6CAgnslFRh/6rMfiXSVD2RKZoBw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw8Kr5VgRnS3Y4SvMXCKCus+7dDTzfUdoIQiKFqXcsq41Bm2jMv
+ qCeqZERC1JQ5DvswdJzlWMrgXKo2gVgxtd6ERvgN9Ven7+IlSVx8ffe7GRBJzVoTdducRJHCkT4
+ KB9pEmCwdDX4qD1HDiNO19jBbiTKmAVxdyBusH6XV7o77ZLzMOOXjSFDHfxj0yqhVRfNKG3s=
+X-Gm-Gg: AeBDievVhLpZMY9ydKImsVhcOAh0jV1FuyJdfP3s3mrkgoKra+g1Ly71d4O76UCyhrB
+ spp8jY60pcUwT7BHLvtFW/6BTIZ/nIFKztalVORYa32za/dj3+Ysn3lyHoa9jfxdvMhLKVZAM1j
+ PA8M6eG3SWYeszxuyHHUVr53FaYMCIGbLLakaGsuJXp5xgPD+gLCmzEWA0wuT8NDd8xS6EykXDu
+ y56U3I7rVjJ3xbW5JOh59/HtIIc32GpB4g1g4ejK+a7/4uqThFzAiFPWuzZdhqLiaSGXAmFXl8G
+ aK6fF7a6OTqCfTRjd8gM19c6Qqt6ytq7b/PSg9l3OLblgG51HEEX7Mfm6LewRwM8KAFnZfKjjpr
+ zcskkkN51/oyt5e2bOV1jtQBjQDf2Y1q3b9VpdVr9QjhvxsxdNPXCisZ8c22NHQyBLTJ8Q93cvK
+ o4gMvElGnfyQq4ZW/HI9OMU+tnN9wbyT0/5W6ACiIYLL1wjA==
+X-Received: by 2002:a05:6808:1394:b0:468:2a6:e32c with SMTP id
+ 5614622812f47-4799c914da6mr10924375b6e.10.1776787267340; 
+ Tue, 21 Apr 2026 09:01:07 -0700 (PDT)
+X-Received: by 2002:a05:6808:1394:b0:468:2a6:e32c with SMTP id
+ 5614622812f47-4799c914da6mr10924279b6e.10.1776787266651; 
+ Tue, 21 Apr 2026 09:01:06 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-38ecb6f0bfdsm31472081fa.26.2026.04.21.08.59.40
+ 2adb3069b0e04-5a4185ad143sm3806113e87.7.2026.04.21.09.01.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Apr 2026 08:59:40 -0700 (PDT)
-Date: Tue, 21 Apr 2026 18:59:38 +0300
+ Tue, 21 Apr 2026 09:01:05 -0700 (PDT)
+Date: Tue, 21 Apr 2026 19:01:03 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -114,40 +114,39 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-Subject: Re: [PATCH v2 16/20] drm/atomic: Drop private obj state allocation
-Message-ID: <6fp5keyrgfic7x6rsopxpqdqfrbotkofv3vzni4bstphxwbc4l@5nlu63kpuwas>
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v2 10/20] drm/crtc: Add new atomic_create_state callback
+Message-ID: <bmw2xqyaam6rr4c25ccxonvd5nglrw4iihiy5naznozcevs67h@ub5ycjvfrxjd>
 References: <20260320-drm-mode-config-init-v2-0-c63f1134e76c@kernel.org>
- <20260320-drm-mode-config-init-v2-16-c63f1134e76c@kernel.org>
+ <20260320-drm-mode-config-init-v2-10-c63f1134e76c@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260320-drm-mode-config-init-v2-16-c63f1134e76c@kernel.org>
-X-Authority-Analysis: v=2.4 cv=bOQm5v+Z c=1 sm=1 tr=0 ts=69e79eef cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260320-drm-mode-config-init-v2-10-c63f1134e76c@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE1OSBTYWx0ZWRfX4DN1o3eklHEq
+ jo8lBcAX36ZNYZlRQm8lM6QGZk+Wn7hMZLWb65H/8SfTge2fawARIVSwpzVq9/b1CR6zL9teHph
+ K1YuD9RP3Q7r5l7EY8tyMsfAU5QWkf2GKAsXzLAZqAZobM6ZkX+kpoPNfxLkpvv/hrpcFCIQXtq
+ i2rokpClZgMJwc2k2MIyIKKz2ERpw74xfeiseMVoiN8PuaPUKNkZ1nP3IJ+AvkU/reucjsF+nVF
+ MpjkSsG+3mrM4OWB7Q3g5lkCX8DVJnFLQqzmcM9NF2ICa2lhdsvG2Vp6BZYxFco8r2xRXHB4ylm
+ 7WkUIcnt2UdESyqYoAR5SGJsL1zrT49OXu/HdFVA3ajM9hlhEvtSSRiK88efta1jcn8b08ATsZL
+ IEJ3E1hy0Sr2CUsIzs325mzRwYm8axy7wLCty0URT1HYOpGdsD1qIpT1JXjd2w+aoAZbc6MkReE
+ LAt3y3lm1zF2+ux0wQA==
+X-Proofpoint-ORIG-GUID: qNPl3vQoC7ORfBJdordG0YwATsoCeH4t
+X-Authority-Analysis: v=2.4 cv=YOSvDxGx c=1 sm=1 tr=0 ts=69e79f44 cx=c_pps
+ a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=P1BnusSwAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CGuZyk7pIeUWItkfYpsA:9 a=CjuIK1q_8ugA:10
- a=1WsBpfsz9X-RYQiigVTh:22 a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-GUID: cuDwRqh8qvz2zD0OPGkIvl3u0MIPndMQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIxMDE1NyBTYWx0ZWRfX62F/Yj7rP3OP
- /YnMGsDmSpAgjydugjJcZ30ZckjGjwybV7GRvTMviR6fSL3faDqkQdsY//47ChBwJZjVXKDTozN
- 5ITQ/OOYyxuUzloRDyRzJtfkOWgcBPxY0oPamEkj9q0WnMiL0U7jI5RsPX2nDMfB1/ptnROdBbl
- pPklDFlfsP5gDv2+mJVF5zbTv55qXwNx8vi7O6856CzPKRFVl3As0oCSb1TatWjj7SB4LnCi/+y
- pUL8a7cWNyDoty/FC/GDXmocxcxFiTBi2Yf9dQqvuQizozJUQiiuyqODmI6M8z+uXUYS5aw3UNY
- CYv0C9FVX5VWG/E1f9ge6cvazdg60ttTDPMERHf29EWzb7aVTsqAf2S4D53QJt2xjtk1u5s92aJ
- W5dgQBELpsV3t17I8BAhMc9pLDCBv/kWxMbVGQVVLxxbSSp5oTMWUkpfkbjRZnBBIBm+MobmGGQ
- oZSyFrvgY61jF3UPEiA==
-X-Proofpoint-ORIG-GUID: cuDwRqh8qvz2zD0OPGkIvl3u0MIPndMQ
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=sh7rbVFwc6wKdXg0ZAwA:9 a=CjuIK1q_8ugA:10
+ a=efpaJB4zofY2dbm2aIRb:22
+X-Proofpoint-GUID: qNPl3vQoC7ORfBJdordG0YwATsoCeH4t
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 malwarescore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 clxscore=1015
+ spamscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210157
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604210159
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,19 +162,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 05:27:23PM +0100, Maxime Ripard wrote:
-> Now that drm_dev_register() calls drm_mode_config_create_state() for
-> every modeset driver, the private obj states will be initialized at
-> driver registration automatically if they haven't already.
+On Fri, Mar 20, 2026 at 05:27:17PM +0100, Maxime Ripard wrote:
+> Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
+> to drm_private_obj") introduced a new pattern for allocating drm object
+> states.
 > 
-> Thus, the explicit initial allocation we have in
-> drm_atomic_private_obj_init() is now redundant, and we can remove it.
+> Instead of relying on the reset() callback, it created a new
+> atomic_create_state hook. This is helpful because reset is a bit
+> overloaded: it's used to create the initial software tate, reset it, but
+> also reset the hardware.
 > 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> It can also be used either at probe time, to create the initial state
+> and possibly reset the hardware to an expected default, but also during
+> suspend/resume.
+> 
+> Both these cases come with different expectations too: during the
+> initialization, we want to initialize all states, but during
+> suspend/resume, drm_private_states for example are expected to be kept
+> around.
+> 
+> And reset() isn't fallible, which makes it harder to handle
+> initialization errors properly.
+> 
+> And this is only really relevant for some drivers, since all the helpers
+> for reset only create a new state, and don't touch the hardware at all.
+> 
+> It was thus decided to create a new hook that would allocate and
+> initialize a pristine state without any side effect:
+> atomic_create_state to untangle a bit some of it, and to separate the
+> initialization with the actual reset one might need during a
+> suspend/resume.
+> 
+> Let's continue the transition to the new pattern with crtcs.
+> 
 > Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/drm_atomic.c | 7 -------
->  1 file changed, 7 deletions(-)
+>  drivers/gpu/drm/drm_atomic_state_helper.c | 47 +++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_mode_config.c         | 21 +++++++++++++-
+>  include/drm/drm_atomic_state_helper.h     |  4 +++
+>  include/drm/drm_crtc.h                    | 13 +++++++++
+>  4 files changed, 84 insertions(+), 1 deletion(-)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
