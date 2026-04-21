@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59615F8FA6D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BB9AF8FA71
 	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 12:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA6D10EC8D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D384C10EC91;
 	Tue, 21 Apr 2026 12:57:48 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23F2010EC86
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 12:57:45 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E7A410EC81
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 12:57:46 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 42E645BCEE;
- Tue, 21 Apr 2026 12:57:40 +0000 (UTC)
-Authentication-Results: smtp-out2.suse.de;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6B82B6A8EF;
+ Tue, 21 Apr 2026 12:57:41 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
 	none
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E54B4593B0;
- Tue, 21 Apr 2026 12:57:39 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1358C593AF;
+ Tue, 21 Apr 2026 12:57:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8K3LNkN052labwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Tue, 21 Apr 2026 12:57:39 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id iMdNA0V052labwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 21 Apr 2026 12:57:41 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
  jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
  airlied@gmail.com, simona@ffwll.ch
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 1/6] drm/msm: Do not declare msm_framebuffer_init() as static
-Date: Tue, 21 Apr 2026 14:51:14 +0200
-Message-ID: <20260421125733.209568-2-tzimmermann@suse.de>
+Subject: [PATCH 4/6] drm/msm: fbdev: Calculate buffer geometry with format
+ helpers
+Date: Tue, 21 Apr 2026 14:51:17 +0200
+Message-ID: <20260421125733.209568-5-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260421125733.209568-1-tzimmermann@suse.de>
 References: <20260421125733.209568-1-tzimmermann@suse.de>
@@ -46,7 +47,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
-X-Rspamd-Queue-Id: 42E645BCEE
+X-Rspamd-Queue-Id: 6B82B6A8EF
 X-Rspamd-Pre-Result: action=no action; module=replies;
  Message is reply to one we originated
 X-Rspamd-Action: no action
@@ -68,132 +69,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Declare msm_framebuffer_init() in msm_drv.h and remove the static
-qualifier. The function will be required in msm_fbdev.c after inlining
-msm_alloc_stolen_fb().
-
-Also move msm_framebuffer_init() before msm_framebuffer_create(), so
-that it can later be made static again. Prepares msm's fbdev emulation
-for using client buffers.
+Replace the geometry and size calculation in msm's fbdev emulation
+with DRM format helpers. This consists of a 4CC lookup from the fbdev
+parameters, format lookup, pitch calculation and size calculation.
+Then allocate the GEM buffer object for the framebuffer memory from
+the calculated size.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/msm/msm_drv.h |  4 ++
- drivers/gpu/drm/msm/msm_fb.c  | 72 +++++++++++++++++------------------
- 2 files changed, 39 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.h   |  7 -------
+ drivers/gpu/drm/msm/msm_fbdev.c | 26 ++++++++++++--------------
+ 2 files changed, 12 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index 6d847d593f1a..efc901c9d8c2 100644
+index b3173fa4d222..00c50d7437d6 100644
 --- a/drivers/gpu/drm/msm/msm_drv.h
 +++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -259,6 +259,10 @@ void msm_framebuffer_cleanup(struct drm_framebuffer *fb, bool needed_dirtyfb);
- uint32_t msm_framebuffer_iova(struct drm_framebuffer *fb, int plane);
- struct drm_gem_object *msm_framebuffer_bo(struct drm_framebuffer *fb, int plane);
- const struct msm_format *msm_framebuffer_format(struct drm_framebuffer *fb);
-+struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
-+					     const struct drm_format_info *info,
-+					     const struct drm_mode_fb_cmd2 *mode_cmd,
-+					     struct drm_gem_object **bos);
- struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
- 		struct drm_file *file, const struct drm_format_info *info,
- 		const struct drm_mode_fb_cmd2 *mode_cmd);
-diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
-index 9b681e144c07..d7523a0a866a 100644
---- a/drivers/gpu/drm/msm/msm_fb.c
-+++ b/drivers/gpu/drm/msm/msm_fb.c
-@@ -29,10 +29,6 @@ struct msm_framebuffer {
- };
- #define to_msm_framebuffer(x) container_of(x, struct msm_framebuffer, base)
+@@ -509,13 +509,6 @@ void msm_hrtimer_work_init(struct msm_hrtimer_work *work,
+ #define DBG(fmt, ...) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
+ #define VERB(fmt, ...) if (0) DRM_DEBUG_DRIVER(fmt"\n", ##__VA_ARGS__)
  
--static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
--		const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos);
--
- static int msm_framebuffer_dirtyfb(struct drm_framebuffer *fb,
- 				   struct drm_file *file_priv, unsigned int flags,
- 				   unsigned int color, struct drm_clip_rect *clips,
-@@ -139,39 +135,10 @@ const struct msm_format *msm_framebuffer_format(struct drm_framebuffer *fb)
- 	return msm_fb->format;
- }
- 
--struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
--		struct drm_file *file, const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd)
+-static inline int align_pitch(int width, int bpp)
 -{
--	struct drm_gem_object *bos[4] = {0};
--	struct drm_framebuffer *fb;
--	int ret, i, n = info->num_planes;
--
--	for (i = 0; i < n; i++) {
--		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
--		if (!bos[i]) {
--			ret = -ENXIO;
--			goto out_unref;
--		}
--	}
--
--	fb = msm_framebuffer_init(dev, info, mode_cmd, bos);
--	if (IS_ERR(fb)) {
--		ret = PTR_ERR(fb);
--		goto out_unref;
--	}
--
--	return fb;
--
--out_unref:
--	for (i = 0; i < n; i++)
--		drm_gem_object_put(bos[i]);
--	return ERR_PTR(ret);
+-	int bytespp = (bpp + 7) / 8;
+-	/* adreno needs pitch aligned to 32 pixels: */
+-	return bytespp * ALIGN(width, 32);
 -}
 -
--static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
--		const struct drm_format_info *info,
--		const struct drm_mode_fb_cmd2 *mode_cmd, struct drm_gem_object **bos)
-+struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
-+					     const struct drm_format_info *info,
-+					     const struct drm_mode_fb_cmd2 *mode_cmd,
-+					     struct drm_gem_object **bos)
- {
- 	struct msm_drm_private *priv = dev->dev_private;
- 	struct msm_kms *kms = priv->kms;
-@@ -251,6 +218,37 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
- 	return ERR_PTR(ret);
- }
+ /* for the generated headers: */
+ #define INVALID_IDX(idx) ({BUG(); 0;})
+ #define fui(x)                ({BUG(); 0;})
+diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fbdev.c
+index 1eb0368a6d07..5532c5779f17 100644
+--- a/drivers/gpu/drm/msm/msm_fbdev.c
++++ b/drivers/gpu/drm/msm/msm_fbdev.c
+@@ -95,23 +95,25 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct fb_info *fbi = helper->info;
+ 	struct drm_mode_fb_cmd2 mode_cmd = { };
+ 	struct drm_framebuffer *fb = NULL;
++	const struct drm_format_info *format;
++	u32 fourcc, pitch;
++	u64 size;
+ 	struct drm_gem_object *bo;
+ 	uint64_t paddr;
+-	uint32_t format;
+-	int ret, pitch;
+-	int size;
+-
+-	format = drm_mode_legacy_fb_format(sizes->surface_bpp, sizes->surface_depth);
++	int ret;
  
-+struct drm_framebuffer *msm_framebuffer_create(struct drm_device *dev,
-+					       struct drm_file *file,
-+					       const struct drm_format_info *info,
-+					       const struct drm_mode_fb_cmd2 *mode_cmd)
-+{
-+	struct drm_gem_object *bos[4] = {0};
-+	struct drm_framebuffer *fb;
-+	int ret, i, n = info->num_planes;
-+
-+	for (i = 0; i < n; i++) {
-+		bos[i] = drm_gem_object_lookup(file, mode_cmd->handles[i]);
-+		if (!bos[i]) {
-+			ret = -ENXIO;
-+			goto out_unref;
-+		}
-+	}
-+
-+	fb = msm_framebuffer_init(dev, info, mode_cmd, bos);
-+	if (IS_ERR(fb)) {
-+		ret = PTR_ERR(fb);
-+		goto out_unref;
-+	}
-+
-+	return fb;
-+
-+out_unref:
-+	for (i = 0; i < n; i++)
-+		drm_gem_object_put(bos[i]);
-+	return ERR_PTR(ret);
-+}
-+
- struct drm_framebuffer *
- msm_alloc_stolen_fb(struct drm_device *dev, int w, int h, int p, uint32_t format)
- {
+ 	DBG("create fbdev: %dx%d@%d (%dx%d)", sizes->surface_width,
+ 			sizes->surface_height, sizes->surface_bpp,
+ 			sizes->fb_width, sizes->fb_height);
+ 
+-	pitch = align_pitch(sizes->surface_width, sizes->surface_bpp);
++	fourcc = drm_mode_legacy_fb_format(sizes->surface_bpp, sizes->surface_depth);
++	format = drm_get_format_info(dev, fourcc, DRM_FORMAT_MOD_LINEAR);
++	/* adreno needs pitch aligned to 32 pixels: */
++	pitch = drm_format_info_min_pitch(format, 0, ALIGN(sizes->surface_width, 32));
++	size = ALIGN(pitch * sizes->surface_height, PAGE_SIZE);
+ 
+ 	/* allocate backing bo */
+-	size = pitch * sizes->surface_height;
+-	DBG("allocating %d bytes for fb %d", size, dev->primary->index);
++	DBG("allocating %llu bytes for fb %d", size, dev->primary->index);
+ 	bo = msm_gem_new(dev, size, MSM_BO_SCANOUT | MSM_BO_WC | MSM_BO_STOLEN);
+ 	if (IS_ERR(bo)) {
+ 		drm_warn(dev, "could not allocate stolen bo\n");
+@@ -125,16 +127,12 @@ int msm_fbdev_driver_fbdev_probe(struct drm_fb_helper *helper,
+ 
+ 	msm_gem_object_set_name(bo, "stolenfb");
+ 
+-	mode_cmd.pixel_format = format;
++	mode_cmd.pixel_format = fourcc;
+ 	mode_cmd.width = sizes->surface_width;
+ 	mode_cmd.height = sizes->surface_height;
+ 	mode_cmd.pitches[0] = pitch;
+-	mode_cmd.modifier[0] = DRM_FORMAT_MOD_LINEAR;
+ 
+-	fb = msm_framebuffer_init(dev,
+-				  drm_get_format_info(dev, mode_cmd.pixel_format,
+-						      mode_cmd.modifier[0]),
+-				  &mode_cmd, &bo);
++	fb = msm_framebuffer_init(dev, format, &mode_cmd, &bo);
+ 	if (IS_ERR(fb)) {
+ 		drm_err(dev, "failed to allocate fb\n");
+ 		ret = PTR_ERR(fb);
 -- 
 2.53.0
 
