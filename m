@@ -4,137 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA58F5A8DA
-	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 03:18:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2591EA7184
+	for <dri-devel@archiver.kernel.org>; Tue, 21 Apr 2026 03:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261AF10E116;
-	Tue, 21 Apr 2026 03:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF29F10E79B;
+	Tue, 21 Apr 2026 03:37:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="FK3S3l6l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t9YJ6TGQ";
 	dkim-atps=neutral
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010008.outbound.protection.outlook.com [52.101.69.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06EC210E116
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 03:18:43 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013001.outbound.protection.outlook.com
+ [40.93.196.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5007810E763;
+ Tue, 21 Apr 2026 03:37:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aOa1dKJAxhBqrin66yqbhU+f1oiNLJ8feCE21/bB+Jn2dk2TJz5Jt4OyyWRinSQ9MFp5yEdupA8rTpqYveTuNAlncEKBya1v1m04viKKyWZkD/XK7DGEZSPQv9Zo+R1+fb9/JZA8N94okrehUdAB9mptifOm65BXh+Wq2b2OASHpFv0BSel0sq8lY4ubWXHQ2J1d/6Fy4cSKHftmEGj5O1PEENHOXaBLZ69YrUN/X3xvZ5zJrml0hqY5Ds+V0u0cmP989c7+3ZROyzLhw9iXmsl9Eeox43ri/SjzOIXwXTUbxmzOKCU4/B0+KdadHFV1jo4PY6IFQVSJK8s7XkfF5w==
+ b=xlzNI9QA72CN1hYtmhsJ5F5FArP81XNzI+Yah6F98JRB9n2hRRXrcM3WbqPflZb7K7jrJrTQFZ1VY6ZMlfvnpyIoHKRk2aD8X+jCb4RFFblbL4GScpGm2m4YvtxoOuPe2wy6pZqiMY66re5ykFFgynDApGnBcC5LVmFS3T36NSLh943hg0KiE3Y9uEUup3aApZWpL1sKW59u6w//U9ij2nYJHNeePCXHlMKa7x0D2bTPat9wN2OejfXHLSw+WAudh7kBp+Pqbw7P0PiCmyW/EgTJsLedrMZHKM1sSmVw1AjcYOu2OvRagpof7TFHHfTdyt0cWPTejw6zPrHKDUrn7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y1PySWuW4jkSZ05/VFS+J7qhmTe4Frg01BQDc4Ldhjk=;
- b=YAjy/BEQsp0eVNIDAI0qEgjgSnxDSt2DzZYJfBf0+MG9iq510Bbo6ghHGapsK/nkXSYEWIJE/SRkX+52bGg37qxtzIcDKkFsbeSJCV8RrLVH/EM7PuVSnsg4DUutWArvGsICuzuS6C9AvyPEg7ceXWtYixmS7QQZn/WnR9YY3kgZgwmLPcAsN4VF5VzR4YkqS8SlPXjH02i7DcHwa5oOW22anmA/oRE7YZevRL61gPtQpVZOkxEQDMRL3md/fP+A9JMqZXEUmI11DIsMiPoiZ6qJIoqG4xyuJfH5MjNcKxY7kksDZ5kDxqbOqTByrtqnbBAl3gOYlZYKgQdHke0pBw==
+ bh=DVcSBfuqfSbaZCJB+ZOh5hFVFmIyUvNflWZUxc+rz1w=;
+ b=jji+qUjz3GkZrJ6c6ARZHEX4XVRyvv/++22CatERyqKtrMP0jG80B4+XR9UNE/W3ZRz7OON/E3xSGtQcIvYwDjIGCgwvXVkKjQEt2cmHnOcjsML+z/1Zf8VCzzqH4LUVt7viw3mteM1AenPtCpZwMQpvxGJ5Yu9UuECIosR3lhr/DqEQX4MEvYl5FcjwYbx+td7hZySLT9Yeg9aZ2K9oW7vxypuIJqFFNPXqugjYHATweb7tXETR3BrtGOKj/SbOt4HFufPK2fbejT2ddN4+i9XusvhOo9KCSkUTeCSdJRC7ltN9QqILVboVT2yL1fgqMjVqPWexRuchzoymqpv55A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y1PySWuW4jkSZ05/VFS+J7qhmTe4Frg01BQDc4Ldhjk=;
- b=FK3S3l6llKLcKpW8QOqmXMHOc0mZ0FN0+kFwEX5Gqy/VyGWmDUY7OS3/x8HQS/EbPLr5tDBMI0Vo+d9OxqZtkLlt4C/y5QPmGd9yuitiGmW8/DICNL7MbK4yofgODmRyusrSy85D0mKCVMT0upX4F1RgT+q0cte4xuutYglAkP5OKFJgU5+/CMEqic+PWkuYOgTVu+iz90aQvdaA7/KLhOJZWZMDRgfCWEGY9JaM2I215uxya/Nbo7GaQpZAybb68Bv20CWLeh9Y46XISPdvnHplBzYVRls58KiattjNFmf/TypcOMHxE+k6xnYWHxt0O+nOEhNQrn+zDC7dRmIQSA==
+ bh=DVcSBfuqfSbaZCJB+ZOh5hFVFmIyUvNflWZUxc+rz1w=;
+ b=t9YJ6TGQMNxETBOvHzKupWxX96x/KZK5CcyCJDlzNj9yJZjGF9f2t+fmiGPDaoIWzoc2wV8JYhhQX25upBAXWfuj5g2+2P8jQqD+wAfvPETJRN651QFUR8/xtBmcu8IvrOStJxi7/UrEOqyEIUvxbD/beeg1kZ7vGASJi3Qz7I0=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM8PR04MB7940.eurprd04.prod.outlook.com (2603:10a6:20b:240::19)
- by PAXPR04MB8800.eurprd04.prod.outlook.com (2603:10a6:102:20f::13)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by SN7PR12MB7323.namprd12.prod.outlook.com (2603:10b6:806:29a::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.33; Tue, 21 Apr
- 2026 03:18:39 +0000
-Received: from AM8PR04MB7940.eurprd04.prod.outlook.com
- ([fe80::1fa8:cc0b:b501:6bc4]) by AM8PR04MB7940.eurprd04.prod.outlook.com
- ([fe80::1fa8:cc0b:b501:6bc4%3]) with mapi id 15.20.9818.032; Tue, 21 Apr 2026
- 03:18:38 +0000
-Message-ID: <4c6e3f5c-a568-46c8-b9ea-69a2fff4b744@nxp.com>
-Date: Tue, 21 Apr 2026 11:20:00 +0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Tue, 21 Apr
+ 2026 03:37:26 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::230d:c588:d858:9977]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::230d:c588:d858:9977%6]) with mapi id 15.20.9846.016; Tue, 21 Apr 2026
+ 03:37:26 +0000
+Message-ID: <50d4c92f-cffb-4486-86a9-9e457b879632@amd.com>
+Date: Mon, 20 Apr 2026 23:37:23 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/bridge: ite-it6263: Add suspend/resume support
-To: Biju Das <biju.das.jz@bp.renesas.com>, "biju.das.au"
- <biju.das.au@gmail.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-References: <20260416082928.169347-1-biju.das.jz@bp.renesas.com>
- <00e2f34a-c488-4a61-bb87-0f0431990c3f@nxp.com>
- <TY3PR01MB11346B5C92803F6A3D174ACCF86202@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <d6dcdce0-6ff9-433a-963c-5f0ea9f2a9fa@nxp.com>
- <TY3PR01MB11346D957ED7C6A2BFD1EF79B862F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: Liu Ying <victor.liu@nxp.com>
+Subject: Re: [RFC/POC PATCH 01/12] drm/amdgpu: add SVM UAPI definitions
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Alexander.Deucher@amd.com,
+ Oak.Zeng@amd.com, Jenny-Jing.Liu@amd.com, Philip.Yang@amd.com,
+ Xiaogang.Chen@amd.com, Ray.Huang@amd.com, Lingshan.Zhu@amd.com,
+ Junhua.Shen@amd.com, matthew.brost@intel.com, rodrigo.vivi@intel.com,
+ thomas.hellstrom@linux.intel.com, dakr@kernel.org, aliceryhl@google.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ honghuan@amd.com
+References: <20260420120739.1811731-1-honglei1.huang@amd.com>
+ <20260420120739.1811731-2-honglei1.huang@amd.com>
+ <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
 Content-Language: en-US
-In-Reply-To: <TY3PR01MB11346D957ED7C6A2BFD1EF79B862F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0095.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d4::16) To AM8PR04MB7940.eurprd04.prod.outlook.com
- (2603:10a6:20b:240::19)
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <cda09d5d-4cca-46a1-8625-fe9fa687e5a2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0385.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:108::24) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7940:EE_|PAXPR04MB8800:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ba20ff4-a96b-454d-ea3c-08de9f54ae21
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|SN7PR12MB7323:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60312529-cd0c-4ec9-baaf-08de9f574e43
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|19092799006|366016|376014|7416014|921020|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: xuMHYmFBIkcoyJQneVF2pxFJu4bq8dRMahcRv2EvVnbU8V6agtBWMW0pmHEdZwB63K0x42/SkAgh5rm4jYV9snHXxudki9RTLenViP4uTJH+KlxFecoqgbddUkyh+UohAPcyYCSJ1RwknoMf8R6dy7Qr/VcWm8uE5cHAfQMEamz191TB7HJIKGoIk/qR+iFHl6U3dcnu64FlSrsYAsES+1VB82PFVCtdY7YzhmnzL7CufKfl8xqbDWN5drItwVjOnhmhU0GeRJ9uQtM//GarO9Qn5Uzxlzp8S+x4KS0SxCuUojwD6YoKvy3cx+XO/fvp9jskr6Yqrb61vLaYLPy++Sttwhrt4ztTtycSxuTWtbgvRHUAB06iPmLcxggnj/mvhNmU51u6z+Vj+9DI6x0nDF3wOWr0R096ElxwRBPE1WkKmuPh3sYkJn1Tp6QtuEVukH8m0K+wlgidhzrSQflb2HF5h8puIIhMEB9sgH6kYvYa4iHN3w2oEdLLOOSSCv3ZgYKy/jk9nRB/6oI7mQ6MNF08uREM0ym3UlOfvZBZPG4k8hdL+ewhduFzt+uwmHWXkMC9mMMtDlbgViEvu6r5FS8m4Orips+92+cD2atDL6PWs9IhRuLJ7BNnf3xQ1TZ/0PeN6MCGLUNmiF0HXRwi7oP7Apni/5afuBr43hBBV2JEFrDovwbKFZhGLdoc49SyAWeebdVnz/djb5Js9JjOPpCvkL9Kuzkbv+reVs1ZWm7zLZaEyt/w0PxImwE/PyYznsaCsFeb0P/Se+M8kD6f4w==
+ ARA:13230040|366016|376014|1800799024|921020|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Ff0wU+DXMJt1z+62BZzGxM00mW5daNjqnPIsAqSpa93QTDHXDsNQQBKzcSJyAUiZtdK2690pcx74ldQnKDF8Zp68owPyP1My80SRJ8hUJjdeu4T8aDqdNaXOw1Vr+BWFQNZEKS63sdMYLkRePXP3Mn9eckgNWjnQx556L/SuzeRSMf6PbXGFgKpmo6QTYUPOFxz7T6DT044v7X8IfG1s4jUq9qYSoDbyXFAGtT67YKl7E2LwvI6VEzY1m5gyEej5a9xFQebf/PlHJfM9CSMiLBCeHtbSxwbA4YzpMP4yAJngeGw2Op0UHTZh6mu1WT1uaDUMHs7x8TPEJq1kvKJq8qJbX5/K2S4azsxNZxwxXid2xm60OQHDcNIfGpvec62angV4DuoLJur0EWuFOq9UwovaERkf4UklDxzkq3B2rdzp1TioF+Te6tshFj6A7RmGy+kqxPHpdgFiGAf2+zpf5bQyCT387fwcLMglEivq40vaeCGV8DbhtnuKE6eXRgXeIWaTYmCp4Zrem/D3knur2GanNcakb8YBBu8Di2PDnt9GfvgSS9pp1TsOVdNRG1AIuobuP6T6ItfOmcO92UEN5gHyYKAfu+Xb8yEAww8Phv1hQb6NPMnrmh2a3ajnyXaKYfkU08oFvx9oFnCP7MDtVu3Qh8mfdqUXkBsio92aLze7H6HTklt5FT17pPzsyCgrq+j9qSmKloxsGgWrZBXgenmx3NOUw/xbpym0zzok6F/tTPlOjjzzhAKwUsRM6RJu5nHld0zFKBy4VHOup0csMw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AM8PR04MB7940.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(19092799006)(366016)(376014)(7416014)(921020)(18002099003)(22082099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(921020)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QU5jbmc1ZG1CMFJoaHkxQXhxSlNiMno1MVk1YnJDWGNKamxlN29rSWk3MTRl?=
- =?utf-8?B?bXo1dEtxN3NyUzhXR0haby9XL2JyZkZRVzd0ajFjOUZSbGh2NEg2M05SNGhj?=
- =?utf-8?B?TXFoRDh0VVAxVzZ2OE1EVjk4UWJrOEI0bUYzSTNQY001K0Rpa3RFbGl2cUtH?=
- =?utf-8?B?akd1UGJkQmkzNlZzTEhlUEhxWWNGcG01cEZwSloxMzJiZnNFWVl3NHc0LzZa?=
- =?utf-8?B?OXpTelZjOGViU0cwdnhoSzNlRWFtL040QVhWcjJKSVU0SGt0dDlMSStwTzNY?=
- =?utf-8?B?eVdCcDdiOEZTL24yb3NGbXdSSUtSbWNJYW45djdqUm1sbHZGMTVjSURxL0tZ?=
- =?utf-8?B?eEJtcHNOcStBS3BuVGRXZ2diS0tkNzROejBEclhCYU4zNzg1RU5VUmFjRGhy?=
- =?utf-8?B?TVRKZ05IOE4rWkZnMlBJZExtcFlzZHowVEZaMmg4ZFNiNExPd2dXOFJ0NTht?=
- =?utf-8?B?MkpMNHdKQS9Wb2RUSTF2Q2dnbSt3YmRKeUppQjVFNjMxM3JGNkJqS2UrRklY?=
- =?utf-8?B?VHRWY2NmTUlMRC9ZRERFYUJVZXNFNzJFLyswdXdmaXZrYURJbFU0OVVZdWwy?=
- =?utf-8?B?Y2loRHdSaWMxVUJYcS93dlB0Tnk0TlhnZnJBWVgvMlBiQkNGWGdVeVA5b3BG?=
- =?utf-8?B?MDFYZS93WmZrVVJYWDA1eEZBd01Fanhsb3pWMTRWTjBZVTlGcy9icFdXeUdE?=
- =?utf-8?B?Y055MVNGUldKc3g0b1o2eWVOUXZCMldkU1pzcEQwcVpVK2RScTJtOUFpUllC?=
- =?utf-8?B?UFJVM2tHckpQTmh4WmlGdEMxeTNuT2tZSUwvcFhtbk13d0Y5TkxaaVd3ZnFL?=
- =?utf-8?B?UHlCTXdZVVM1eXZtN05PMEJ3dS8reTJ1WUNwSVBGZ2Z4a1V5WC8zNzNrbGsy?=
- =?utf-8?B?YVVnaGxCdXlPNDBabys4dWtidnlnYytvUlF2WW1DZTlSUUpxM3RuNlBqL2sr?=
- =?utf-8?B?MWpSb0sxbkh1MFU1b0dYVGNpMDFmRHluSmlGZFh3Q2d5SzU3NW9lRnpKbnpK?=
- =?utf-8?B?T0NKc3M0dndvSUNhVitmZVV2QWREQlgwVnNQSWdnTWVrN0krUEkwZ3FCRWRQ?=
- =?utf-8?B?MmtGazZMZFF4RG1xeEliRWR4ZldNdnFIbGljVktBYjlRS3R2dmhoUVhnUDBF?=
- =?utf-8?B?MGREZmhiSzY3a1U0MkZXdEdWbU8xa1YyRTJqQnhMT1RFR0N0TkQ0eFBISDZa?=
- =?utf-8?B?VGZtTzk3TUxjQ3hYQ0Y1dGk2RjNBWGNyb2JaMWlVL2RPc3pwTzlqUHJpWXJG?=
- =?utf-8?B?MHJkVEh6VmVERkRkblBHejhRb20ra0o1NFZ5S1ZneGlPOWYwL0ZCNm5rQTYy?=
- =?utf-8?B?K0ZQRmNnYi9rTzdDWHVYTCtHcUprU09EVlNUU0NjcFlEbC9SUUs5bkE4NHUx?=
- =?utf-8?B?VEFSZm43MTl0YXRVQ2lKN01QNDVYRWRVUUE1U002Tll6c09vNG5qYnZITmRS?=
- =?utf-8?B?UWs2YUx6c096ZnZwSHQ0Vmc2OUJqdldBUmN6YjZxQUUvZFhnZThUYkpDcTVQ?=
- =?utf-8?B?V2JwQTgvUEt2YXMyWXFRQ1VPZnEyeE8zWGFmVzNVS2hZUSszZForS0xPdjA4?=
- =?utf-8?B?Z3Flb1h3a3RBOFkvM25CQzc4aTJqSEo0blRkWVZRWmxQaGUxcmhoSmFmN2U4?=
- =?utf-8?B?eG5oVUorcHJNSURNRDRjdDVuL1BGbW56UmtOMFozZHJiVXVvQlhPUm1oYUFH?=
- =?utf-8?B?aURVRDFzRS84YnpGUkgvWlVJeU51a0E3OEFvb2R0eTVCaUNZOUZuRFRTWFM1?=
- =?utf-8?B?bjcrZ3llazcwSXNJQ2NwRzhNRi9YdTVXY3lTdTlNVUI4SVdJci9vTmRlZjcr?=
- =?utf-8?B?UzNBNTdidStkaGhpdGNJd0U3STI2ZWFDaGhUVWdGYjY2SFFVZEJtcWMxSGVs?=
- =?utf-8?B?bDRkYWJzM0wyNUtRbFRPSXd5ZDJOaFBYNnJnZzd6c1BFOUJmTlRCaTQ4OEVG?=
- =?utf-8?B?bjZKQ0FnTEFLQmIwM3E4bEU3dEcyR2xFbm15WUFpNkN0Q3htSGs4RmpiQ3ZN?=
- =?utf-8?B?cUI0SkJaQ2l5WEdwREc4cHF2dWZHN2pKOUl6VVBoYi9tK1Bab2E3NEtLZk5O?=
- =?utf-8?B?aUs2WDFBK1hzdnlxN2R5ZjBvVGlPOVd2dnZWaFZiMDRrYURUc2lYTXZSa3Yr?=
- =?utf-8?B?NUNzNTVMd0ZLRWVOV0xjT3I5QmVsb0J4dWgyS3RBMWFlaUFiNTVtRzY3ZS9t?=
- =?utf-8?B?bUhrMUt2Y0xSZHpwVWJpcENFaVA1TndadFkvekFPaXZHUUorSWR3bGxoUjU0?=
- =?utf-8?B?NG55eXg1ZjdUYWlZZzlqUHFjblRQOUVYQjdRQitwWG9Da2NuRldPaUJQN3dN?=
- =?utf-8?B?bXYreWMvSzg1b1BHdkJBK1ZERU50K2xydWJDajdqdDNQMlhxY3ZTdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ba20ff4-a96b-454d-ea3c-08de9f54ae21
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7940.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UDBQdHZKTDhlMm5hOE1BRmJMTGJ6dlYwVk9aRm9yc3BUd0wxQUd6bG1LOXJZ?=
+ =?utf-8?B?Nk1lbWVnd1YrZXUzaEZpY2o2OTRrdlJZeitlVHY2M2h5eGpXNU9McHpveGFi?=
+ =?utf-8?B?REJRVmQrLzNDYk9VQ2FoNzFvZXRzd0NKVGtjMlhqZFN2cXFxMzdBV3BrT21X?=
+ =?utf-8?B?c3UxbjBocWJCYkFpc051eVJ2WGNnMzZxK09yZ2NjVVdTQWhSUUpHREcyYnhi?=
+ =?utf-8?B?eGdQN2xVM3RIYkFBMXVYYjFMU0RTL2kwVlJhdCtnVEZ1SVBYb1FRYjBQSS9T?=
+ =?utf-8?B?Ui9TZjhKM1ZnZTBkTHdneXZFRUFLR3lCQWFvU0U3UnFuTGVxWHVrTXBGS1VZ?=
+ =?utf-8?B?WEdsWU1ITjVYd1pVMWFTTUhFWjVyUzRXbFRaYm02NHZlWCtnQUM3NUlnQVBF?=
+ =?utf-8?B?N01hWXF2Sk9lL2prNHZNWjNrenpwbEhDQnBTc0h0MW1xL1dSdVBGQnJ1TzBr?=
+ =?utf-8?B?UjAreUlKNllKckV6ek42V0d6QlY4ZDdrNFhVUW1JOUNTRTdnaldhOXpBQnFq?=
+ =?utf-8?B?dHhxeXVSZzg5S0IyTy8ra0M0dUxsTWNxaEptUmMvVW80dWNLZCtMdStVNDU1?=
+ =?utf-8?B?c0k2TUo2czIzVUx1OThUNUVvS0ExdktKQzVlQnZOWTBnd0xRRnArSGZZbkZv?=
+ =?utf-8?B?ZG00RjNYMFNObURJY2JIV2FwRVNPbnNyeGRWU3NibVM1YWdUOU9JNWRXTVh5?=
+ =?utf-8?B?WGJJWHdiZk9MSzZHZENlU2JsekRmRUFOeTl4UEUrRjgrdVZLTGo3TzE5dlJP?=
+ =?utf-8?B?ajZGYVZKYUdmbEx3R0ZybHpZSTAwTE1ST0luWXp2SFVlUHNzQzg2KzBnQVd5?=
+ =?utf-8?B?SGJTYllaZm10cTB1bU44blZpNHJnNGVUOTREaUZKUUZxcDZUTEhrWUtUNU1L?=
+ =?utf-8?B?eHl3UHpHQnJta1hBNVoxekgyMGZFYm5ERlE4K2kwM2xsSjVBVGFmSGR1eFlN?=
+ =?utf-8?B?WG1iL1RPd3FiNHh0bmFPaGlEWUNkVmlrak5JTitjWmt2TDF2TS9XdGZhUm1M?=
+ =?utf-8?B?MTFPYVpWYjJPaU9QVlZndzlFU0tHYUFkWGhwUDBaemtGdC9FSGx6b1JDS1RW?=
+ =?utf-8?B?dTNOMnlQNEZ4OUVEcGV3RURsOFo5UU85UHhMRWxYWkMzRlFWL2lWUlFvd1E2?=
+ =?utf-8?B?d1hKdmZCeThEYUJEYVFUUnFuSWhIOFEybVBPSlVXRDExYzBQZjllZkZoMVlw?=
+ =?utf-8?B?NUlmMmYvWWcxMU5vN1BHK01mUHpBQmpmbFFuYzdURXh3SWpJNjhCTHl5RXJL?=
+ =?utf-8?B?WHRORnFLY212d3JRZUhoQVRDS2swb0VTUXR0dkhGVGJLMm14ZDBRVUt6anl5?=
+ =?utf-8?B?eURUY3BscXovTmdJdDVOclR1UEtNVlRNVkgrSW9YcEJXTGFVQktMZW1yUmNX?=
+ =?utf-8?B?Y1Jydnd5a0FqczNjaFpkdkNhZDRSL0lIUVR4UDN4MCtrdExQRitubVlFUkNL?=
+ =?utf-8?B?dTNnSGREYXI2VXJQRTFJWFUzTmNMak1sTUJNREE2cmMyRzFrQURkUDdTN1A1?=
+ =?utf-8?B?djV3MFRDMy8yeGJZQW9pRWtGcFRkNnRXa2Z0bXdkMGpDL05reVVDQVhGRDdq?=
+ =?utf-8?B?RGFMeEdLRVpxbmQwRkhEK2xZbXBMU3duRUI5NU83SU9lMVM1TlZSU1dtUUUy?=
+ =?utf-8?B?eEMvQVNTUkZuR0I2UnZsREUzUUpoaWxEVWhvR0ZrcllRejNsTENiTFAyWHBk?=
+ =?utf-8?B?K1QzRWk1ZXFVd2NYbHdiSVkwMFN4WFFOYjlWT1lsTDZyWk9vZ2I2eWp5azFJ?=
+ =?utf-8?B?L2h6SlVBU3o2bDVFVlowTktVc2FIUEovUU4yZ3BCeG5RVWlGZnlGZ3g4V2Jn?=
+ =?utf-8?B?S081YXdtQng3bWpIbHlCVEk4N2d0cmlTMnM1UVozUThGYUN6UWV0M1RjdWZt?=
+ =?utf-8?B?N3JoL2JPY3V2YnVaRFFDdTdZWlRlL3F5S0ZyVDdZaFB2Ri9wRGR2YmpPSlhW?=
+ =?utf-8?B?aG81SWNTZlgrUmRsakloVkp0YkYvRG50NDgrZExIOGtDWm1nRzQ5UWEyVXVR?=
+ =?utf-8?B?dnMvbXkvbzJmdHIwN2VZd043RmJvaVQxZVdEWVRZeXh2THYyMlpNUzlpT0hh?=
+ =?utf-8?B?aE0yd255SUZFaFZqMkhaR2RlejZOWEVJWW55QlFpVFFDVWNFa0IrNlFscG1F?=
+ =?utf-8?B?d2kwVHllTVJ0Tkx2cnNMVE1vTnJQL0lrVXRDWFNJdGVVUXU0NGhXZlNQVzhi?=
+ =?utf-8?B?YmZQLzZoQ2tCM25aMFRGcGNIUFVERjBGenJxSFd2cTNPL0duck1yTUFPYTBO?=
+ =?utf-8?B?VzdDM1B6MkhrYWlreGMxSi9KR3VWcWJodkpXQ2hydWI0cG1ZVGdaYm5jUDln?=
+ =?utf-8?B?UTJTMjU1a0pDdFhTeGJqbDJrU1BTcnU2YVJUVnRQZlNCdlV5MVowUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60312529-cd0c-4ec9-baaf-08de9f574e43
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 03:18:38.7419 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2026 03:37:26.0959 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eNppyfAFQexhqszJk2CQJWMlFyge4EVblrjc4QHWUbxH61UhUYgvU6ToXx8K8nJ4u+2ob32jNuj++zlIAEQNhw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8800
+X-MS-Exchange-CrossTenant-UserPrincipalName: 00u8qXrtfe2KwGi9oBzx7oBx52CcBQVxY3RvDI/qdWjmsmA9ty3eB7rIigXS9WtxmA/H0SOaL4n3TuHtxbUCVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7323
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,174 +143,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 20, 2026 at 06:15:46AM +0000, Biju Das wrote:
-> Hi Liu Ying,
 
-Hi Biju,
-
-> 
->> -----Original Message-----
->> From: Liu Ying <victor.liu@nxp.com>
->> Sent: 20 April 2026 03:26
->> Subject: Re: [PATCH v2] drm/bridge: ite-it6263: Add suspend/resume support
+On 2026-04-20 08:15, Christian König wrote:
+>
+> On 4/20/26 14:07, Honglei Huang wrote:
+>> From: Honglei Huang <honghuan@amd.com>
 >>
->> On Fri, Apr 17, 2026 at 10:49:35AM +0000, Biju Das wrote:
->>> Hi Liu Ying,
->>>
->>> Thanks for the feedback.
->>>
->>>
->>>> -----Original Message-----
->>>> From: Liu Ying <victor.liu@nxp.com>
->>>> Sent: 17 April 2026 07:05
->>>> Subject: Re: [PATCH v2] drm/bridge: ite-it6263: Add suspend/resume
->>>> support
->>>>
->>>> Hi Biju,
->>>>
->>>> On Thu, Apr 16, 2026 at 09:29:25AM +0100, Biju wrote:
->>>>> [You don't often get email from biju.das.au@gmail.com. Learn why
->>>>> this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>>>>
->>>>> From: Biju Das <biju.das.jz@bp.renesas.com>
->>>>>
->>>>> On the RZ/G3L SMARC EVK using PSCI, suspend to RAM powers down the
->>>>> ITE
->>>>> IT6263 chip. The display controller driver's system PM callbacks
->>>>> invoke drm_mode_config_helper_{suspend,resume}, which in turn call
->>>>> the bridge's atomic_{disable,enable} callbacks can handle
->>>>> suspend/resume for the bridge without dedicated PM ops.
->>>>>
->>>>> Introduce it6263_bridge_init() and it6263_bridge_uninit() helpers to
->>>>> consolidate power sequencing, hardware reset, I2C address setup, and
->>>>> LVDS/HDMI configuration. These replace the open-coded init sequence
->>>>> in
->>>>> probe() and are hooked into atomic_enable/atomic_disable
->>>>> respectively, guarded by a powered flag to avoid redundant re-initialisation.
->>>>>
->>>>> Switch from devm_regulator_bulk_get_enable() to
->>>>> devm_regulator_bulk_get() so that regulators can be explicitly
->>>>> enabled and disabled across power cycles. Move reset_gpio and
->>>>> regulator state into the it6263 struct so they are accessible beyond probe time.
->>>>>
->>>>> Add a remove() callback to cleanly power down the bridge on driver
->>>>> unbind via it6263_bridge_uninit().
->>>>>
->>>>> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->>>>> ---
->>>>> v1->v2:
->>>>>  * Dropped system PM callbacks instead using bridge's
->>>>>    atomic_{disable,enable} callbacks to handle suspend/resume.
->>>>> ---
->>>>>  drivers/gpu/drm/bridge/ite-it6263.c | 88
->>>>> ++++++++++++++++++++++++-----
->>>>>  1 file changed, 73 insertions(+), 15 deletions(-)
+>> Add amdgpu drm SVM API definitions built on the
+>> DRM GPUSVM framework.
 >>
->> [...]
+>> This includes:
+>> - DRM_AMDGPU_GEM_SVM ioctl
+>> - AMDGPU_SVM_FLAG_* flags
+>> - AMDGPU_SVM_OP_SET_ATTR / AMDGPU_SVM_OP_GET_ATTR operations
+>> - AMDGPU_SVM_ATTR_* attribute types
+>> - AMDGPU_SVM_LOCATION_SYSMEM / AMDGPU_SVM_LOCATION_UNDEFINED
+>> - struct drm_amdgpu_svm_attribute and struct drm_amdgpu_gem_svm
 >>
->>>>> +static int it6263_bridge_init(struct it6263 *it) {
->>>>> +       int ret;
->>>>> +
->>>>> +       ret = regulator_bulk_enable(it->num_supplies, it->supplies);
->>>>> +       if (ret) {
->>>>> +               dev_err(it->dev, "failed to enable power supplies\n");
->>>>> +               return ret;
->>>>> +       }
->>>>> +
->>>>> +       it6263_hw_reset(it->reset_gpio);
->>>>> +
->>>>> +       ret = it6263_lvds_set_i2c_addr(it);
->>>>> +       if (ret) {
->>>>> +               dev_err(it->dev, "failed to set I2C addr\n");
->>>>> +               regulator_bulk_disable(it->num_supplies,
->>>>> + it->supplies);
->>>>
->>>> I know that you call it6263_bridge_init() in probe, probably because
->>>> you want to enable the regulators for hotplug detect after probe(it6263_detect() reads register
->> HDMI_REG_SYS_STATUS to do the detection).
->>>> However, an idea[1] is to wrap the register read operation with
->>>> regulator_bulk_enable() and
->>>> regulator_bulk_disable() in it6263_detect() so that you may drop
->>>> it6263_bridge_init() from probe.  With that,  it6263_bridge_init() is
->>>> now only called from atomic_enable, which means that the
->>>> initialization code can be open-coded and the initialization is
->>>> supposed to be successful(due to the "atomic" nature) hence no need to do the regulator disablement
->> bailout(error message in dmesg is sufficient).
->>>
->>> it6263_detect() still works with regulator_disable(), see the logs below.
+>> Signed-off-by: Honglei Huang <honghuan@amd.com>
+>> ---
+>>   include/uapi/drm/amdgpu_drm.h | 39 +++++++++++++++++++++++++++++++++++
+>>   1 file changed, 39 insertions(+)
 >>
->> I guess that it works for you on RZ/G3L SMARC EVK because regulators are already enabled by PSCI before
->> this driver's probe. 
-> 
-> PSCI does not enable it. The supply to the rails provided by PMIC regulator during system resume
-> and it is always on.
+>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>> index 406a42be4..bed71ed9b 100644
+>> --- a/include/uapi/drm/amdgpu_drm.h
+>> +++ b/include/uapi/drm/amdgpu_drm.h
+>> @@ -58,6 +58,7 @@ extern "C" {
+>>   #define DRM_AMDGPU_USERQ_SIGNAL		0x17
+>>   #define DRM_AMDGPU_USERQ_WAIT		0x18
+>>   #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
+>> +#define DRM_AMDGPU_GEM_SVM		0x1a
+>>   
+>>   #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+>>   #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+>> @@ -79,6 +80,7 @@ extern "C" {
+>>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+>>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+>>   #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+>> +#define DRM_IOCTL_AMDGPU_GEM_SVM	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_SVM, struct drm_amdgpu_gem_svm)
+>>   
+>>   /**
+>>    * DOC: memory domains
+>> @@ -1665,6 +1667,43 @@ struct drm_color_ctm_3x4 {
+>>   	__u64 matrix[12];
+>>   };
+>>   
+>> +#define AMDGPU_SVM_FLAG_HOST_ACCESS		0x00000001
+>> +#define AMDGPU_SVM_FLAG_COHERENT		0x00000002
+>> +#define AMDGPU_SVM_FLAG_HIVE_LOCAL		0x00000004
+>> +#define AMDGPU_SVM_FLAG_GPU_RO			0x00000008
+>> +#define AMDGPU_SVM_FLAG_GPU_EXEC		0x00000010
+>> +#define AMDGPU_SVM_FLAG_GPU_READ_MOSTLY		0x00000020
+>> +#define AMDGPU_SVM_FLAG_GPU_ALWAYS_MAPPED	0x00000040
+>> +#define AMDGPU_SVM_FLAG_EXT_COHERENT		0x00000080
+>> +
+>> +#define AMDGPU_SVM_OP_SET_ATTR		0
+>> +#define AMDGPU_SVM_OP_GET_ATTR		1
+>> +
+>> +#define AMDGPU_SVM_ATTR_PREFERRED_LOC		0
+>> +#define AMDGPU_SVM_ATTR_PREFETCH_LOC		1
+> Up till here the interface makes perfect sense, but then it becomes a bit fuzzy.
+>
+>> +#define AMDGPU_SVM_ATTR_ACCESS			2
+>> +#define AMDGPU_SVM_ATTR_ACCESS_IN_PLACE		3
+>> +#define AMDGPU_SVM_ATTR_NO_ACCESS		4
+> Why are those separate attributes? What is the difference between those?
+>
+>> +#define AMDGPU_SVM_ATTR_SET_FLAGS		5
+>> +#define AMDGPU_SVM_ATTR_CLR_FLAGS		6
+> Why is that separated into set and clear flags?
 
-Then the PSCI term in commit message doesn't provide any useful information,
-so could be dropped.
+This looks like it's based on the KFD SVM API. We created this so we 
+could set or clear specific flags for address ranges without know what 
+other flags were set or not set on different parts of those address 
+ranges already.
 
-Since it's always on, can you keep using devm_regulator_bulk_get_enable()
-in probe and just move it6263_hw_reset(), it6263_lvds_set_i2c_addr(),
-it6263_lvds_config() and it6263_hdmi_config() from probe to atomic_enable?
+E.g. you may have set an RO flag for pages 1-5, and set a COHERENT flag 
+for pages 3-7. Now you want to clear EXEC for pages 0-8. If you specify 
+an exact flags parameter, you wipe out all those other settings that 
+have different values for different pages in the range. Instead this API 
+lets you say "clear the EXEC flag on pages 0-8 without touching any of 
+the other flags".
 
-> 
->> But there could be platforms which use dedicated regulators(like discrete PMICs)
->> for IT6263, which means the regulators are not yet enabled before probe.
-> 
-> Do you know any platform that does not work the detection after regulator disable()?
+Alternatively we could have made all those flags completely separate 
+boolean attributes. Making them flags that can be set/cleared in this 
+way is more economical for how they are stored and manipulated.
 
-No.  But if regulators are not enabled, detection doesn't work for sure.
-
-> 
-> Currently we don't have any platforms to test this. If any platforms that has controlled
-> regulator we can update the code based on testing.
-
-If we end up with calling regulator_bulk_enable() in atomic_enable and
-calling regulator_bulk_disable in atomic_disable, I'd prefer to enable/disable
-regulators in detect and edid_read instead of doing nothing, because
-detect and edid_read would not work for sure without power on those platforms
-with controlled regulators.  If there is any bug, we can fix that.
-
-[...]
-
->>>>>  static void it6263_bridge_atomic_disable(struct drm_bridge *bridge,
->>>>>                                          struct drm_atomic_state
->>>>> *state)  { @@ -587,6 +626,8 @@ static void
->>>>> it6263_bridge_atomic_disable(struct drm_bridge *bridge,
->>>>>         regmap_write(it->hdmi_regmap, HDMI_REG_PKT_GENERAL_CTRL, 0);
->>>>>         regmap_write(it->hdmi_regmap, HDMI_REG_AFE_DRV_CTRL,
->>>>>                      AFE_DRV_RST | AFE_DRV_PWD);
->>>>> +
->>>>> +       it6263_bridge_uninit(it);
->>>>
->>>> Well, this could effectively disable the regulators and hotplug detection
->>>> won't work then.   So, again, the above idea[1] helps.
->>>
->>> Is it not working on your setup? It works for me.
->>
->> My setup uses always-on regulators, so detect works for me as well even if regulators are not
->> explicitly enabled/disabled in detect callback.  But, as I mentioned above, we need to enable/disable
->> regulators in detect callback (also in edid_read callback) after atomic_disable is done for those
->> platforms which use dedicated regulators.
-> 
-> On atomic_disable(), we are disabling the regulator. So on, regulator-gpio
-> platforms, the detection() won't work after that. In that case, we need to move
-> suspend/resume calls from atomic_{enable,disable} to PM callbacks.
-> 
-> Do you agree?
-
-If you mean system PM callbacks, are you sure that this driver's resume
-callback is executed prior to a display controller driver's resume callback
-(essentially drm_mode_config_helper_resume() would be called to enable IT6263's
-video output if it's the status when suspended) to enable regulators first?
-I don't think the order is fixed across all platforms, because the display
-controller device can sit before or after the IT6263 device on the dpm_list.
-So, I don't want to implement system PM for this driver, at least for now.
-
-> 
-> Cheers,
-> Biju
-> 
-
--- 
 Regards,
-Liu Ying
+   Felix
+
+
+>
+>> +#define AMDGPU_SVM_ATTR_GRANULARITY		7
+>> +
+>> +#define AMDGPU_SVM_LOCATION_SYSMEM		0
+>> +#define AMDGPU_SVM_LOCATION_UNDEFINED		0xffffffff
+> No location for device local memory?
+>
+>> +
+>> +struct drm_amdgpu_svm_attribute {
+>> +	__u32 type;
+>> +	__u32 value;
+>> +};
+>> +
+>> +struct drm_amdgpu_gem_svm {
+>> +	__u64 start_addr;
+>> +	__u64 size;
+>> +	__u32 operation;
+>> +	__u32 nattr;
+>> +	__u64 attrs_ptr;
+>> +};
+> Those struct make perfect sense but clearly need documentation. Preferable as kerneldoc.
+>
+> And we usually use unions in this header to separate the input from the output parameters.
+>
+> Regards,
+> Christian.
+>
+>> +
+>>   #if defined(__cplusplus)
+>>   }
+>>   #endif
