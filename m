@@ -4,79 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C481F9B617
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 10:50:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 922F1F9B61A
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 11:02:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0BE410E0A3;
-	Wed, 22 Apr 2026 10:50:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8483710E9B7;
+	Wed, 22 Apr 2026 11:02:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="k4ZHEJ0x";
+	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="OCbrc9YP";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5902810E0A3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 10:49:59 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-ba6838e76f2so448072166b.2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 03:49:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1776854998; x=1777459798; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=V8jo+eXQKHxt4pR8E+RE1xea7eDUNRLe+aHpb5aFbRA=;
- b=k4ZHEJ0xbe+fTUZrB9HGrnIaz30qzMIeTHCo/gjMF0pw7Bzrtf1r8AFG4C5/LcXY/I
- erHzHGXST+jaY8kjvrOLMLGl/i4U8JfQ9GE4XMpz3IrC1uhSyeIL4srPzKo8/Pd1+IrX
- y/SWCqMOD9sWSsct+6Sw257sP1FpMHooEdhKGSIPhqkLsgrq/wkv4j3XL378O+Li/CEg
- mjo6xSSyU2mm0ZTDJ03n2EjLwQtr+eR/GB5y+TWfSII5igL6FS9LbOBtUZ1/+gR1nj5r
- j4WA8hLMddZHwvrex1ikTj2uCyzyQy01nDismCImpUtZVx2APCIYXJr0mtCYJz9wfVkc
- us+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776854998; x=1777459798;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=V8jo+eXQKHxt4pR8E+RE1xea7eDUNRLe+aHpb5aFbRA=;
- b=fU/bJgA2H345Cgx1AUwTUsr76oKBqBU/Ak4gyRzPEmlZIGW4in4pljqNAVjnmcx5gf
- MPfEp+kWeJpSMFgPhwPJ8SbrbFPXSjT6OApidHmXZiNa6UU23XKvdL4NeLUJtJgxafOI
- You7FiDBzZYjXeo5k1K84Fmz25oRfDF3mbIXBjZWtZGd06Av1/g0Iv21Fyjf4tvkhXE2
- Ose5tS3yEamOpTonHnbQf+4AKX0RDpMsxFoAdDnsGaUDPl8R4rdxqXfuFpFbrrisSmUm
- u9m2YThyBL/V5GMIaRf0PqneaECe+edBuOhWCOQ039KkHR0viiCMFqeHRB+K1s+C5th1
- pOiA==
-X-Gm-Message-State: AOJu0YzK+XgKUU9GVAQr6duAqTNHQzEDChS16KDk/iZrRdq0IsiOQb/f
- y1nZX0jlUFpRMw28x4n9KswHL/FrZ3hsB53cEG6qWmCVY3wGsN+/62Y8PAZ0MQtVkA4=
-X-Gm-Gg: AeBDieshwgujMvqSxeU2xs7lqZlur2NVoQvMGduqH3WPeHGcLIRGb14fqsn3Qsg9Eqa
- /c1gmvNFYchhH6JSDryRHOM+U3NqU9XWLUF1sLmTkcwcK5gApYMX0VH1koWOW2esWubzo3YtsaV
- jr7UrnUI4qiGD0Crb6owjDerho8fKY4QDDxGrrNYsxhrCrMA1gsumJTJI6HSdn3pskpV0sXvA18
- FtpmJIMLCC/OnBn7Y1/WSr3WXXqmj3hArjycjQBDkDQ77DyoTU5C5VJN1y/+i74HzvT9tmr7oux
- hIlbms1KdxWYsaPs/qMr+sfZ6UPgv0cjs3BIpvN3zfZZ9xXe7Xm3p6HIv28w5eqlZBPT3YGPQrw
- ZXy1b/+4FcotRMK4gxdVP34PQ5+0C4RJ/0fe5MAmssO9OL+Nk12boj8w61fVqBTbJdP6y08tsLM
- p3/TUMGaj14qOwhasTuj30KGelPlUBN+DaFyjPmVqxLo6spCEPfjtqOgOcd4g5Ps4z0w==
-X-Received: by 2002:a17:907:934c:b0:ba5:4f56:69a2 with SMTP id
- a640c23a62f3a-ba54f566b33mr858200866b.13.1776854997330; 
- Wed, 22 Apr 2026 03:49:57 -0700 (PDT)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ba454d1b694sm532372966b.29.2026.04.22.03.49.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 03:49:56 -0700 (PDT)
-Message-ID: <096a34ce-fb73-4d56-81b4-aa6a0342c322@ursulin.net>
-Date: Wed, 22 Apr 2026 11:49:56 +0100
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010033.outbound.protection.outlook.com [52.101.228.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85C7310E9CF
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 11:02:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hR6zLb3kNKO6SM5WcQAV5jbPx+a52EQOufXa3DpBeIoK+CTK/kN1Htc06HicAmODhfuVGVjw0MhZc+/OKgSRlr9HxvPwN4kEoHi4hqI8WpGdmqGjcJpO5+lDddVxnjd4W7uBmAFn046DX751qM1ChHBcpABZT1EBn2CrJUfTt7Prnfl/44d4jQyDAIf+dhtGVR3ksEniVC4WxkXwsiyOMzoW9W9WFfOlaNsvih9Jt8NbYsf942xSGblCff+8tLZT0Q4GRDjv1FZCoFYHXxo7nb58bDwst/WE+jk64iCMURTMuZ9TtmK5MOWto4AKrQgQEHJtf1HONjmCIzlOAIBerA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SDIYMrgarLHOXqZ7V0JiJI6VLbXVhPLaXFemNllWZao=;
+ b=H8E/sFEE2CRdGB4Vq8afTR8x+ppvXe1amz94YCn05ZMkX6yDEO8NkLn98+qeh0u2AoZviJ4EdoTd4jjzym8DyUe4FbhckpHYTokRjg+7+a1/TdfX3IDttkpBH/bdQNFd5wqIHffRGvbFeM/z4T4NITHlC01+WWMlZaSntoDaQbq6AN+yYeOJOziby6X/r6iMtsddDyfBkRWYY58+0T5usIiLjDFNwiqdhgy0ema5bNeSJ3tZqgt9wOJEubFKRD3yimFDmeV+ImxJYCSRRmRug1WM0AlKVFDRjO7ku+m3Gy12MNpe5C8DyNeyPs9krTNHzm3KCnHO21uIo+/qSBW+tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SDIYMrgarLHOXqZ7V0JiJI6VLbXVhPLaXFemNllWZao=;
+ b=OCbrc9YPczjlJkewfr0EZ3qpe8vBKuj2GfF1OP3stecYTQfO5hcSI8SZ7+Gqhz87jKPvpOi1O6DDB+Z0QmKA3UBD0Tx4eUiPW6/1wXr7petyUZDA7V5CtsDX8qkm7BaNYs7CcpuPiPTgKIOdlZlZwPn8SDIvvRjBj4kHh1TV1D0=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYYPR01MB16244.jpnprd01.prod.outlook.com (2603:1096:405:2da::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
+ 2026 11:02:45 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
+ 11:02:45 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: laurent.pinchart <laurent.pinchart@ideasonboard.com>
+CC: biju.das.au <biju.das.au@gmail.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, Robert
+ Foss <rfoss@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonas Karlman <jonas@kwiboo.se>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Tommaso Merciai
+ <tommaso.merciai.xr@bp.renesas.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Douglas Anderson <dianders@chromium.org>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Jesse Van Gavere <jesseevg@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Prabhakar Mahadev Lad
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
+Subject: RE: [PATCH] drm/bridge: adv7511: Clear HPD IRQ before powering on
+ device during resume()
+Thread-Topic: [PATCH] drm/bridge: adv7511: Clear HPD IRQ before powering on
+ device during resume()
+Thread-Index: AQHccNTTduZlWQWrnEiAvemqifSjf7WxuWcAgAA85YCAAfPyAIAAe5TAgDdGnOA=
+Date: Wed, 22 Apr 2026 11:02:45 +0000
+Message-ID: <TY3PR01MB113468A6C8FA8E547FCF21EF0862D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20251219104659.114032-1-biju.das.jz@bp.renesas.com>
+ <20260316140232.GB31616@killaraus.ideasonboard.com>
+ <TYCPR01MB113325ADBA0ACD1872BD4959B8640A@TYCPR01MB11332.jpnprd01.prod.outlook.com>
+ <20260317232952.GD408929@killaraus.ideasonboard.com>
+ <TY3PR01MB11346985D2509C34639B4560B864EA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To: <TY3PR01MB11346985D2509C34639B4560B864EA@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB16244:EE_
+x-ms-office365-filtering-correlation-id: bba1fdc5-481b-42c2-2d28-08dea05eaee7
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: bRIcsQl5wbPWFWd/+SRjl8AT/yvbzKsELTLPl9+jDFlpAayEC01rBO/lzeWFSph8NB0JQoZQ2bGVsAZDGjHq5uACJL77SEunqFkkTkkA2mMvezSfBA3qdeYKUXL+okSU4nqxFl4fmlzvq6+MRH+blZjJQ0XOBmWPVbfJLkQYnlCZTxXhczBxjYAxgMzmG/xEwEP3g5pKPsTXFYmkCUD7x4VuSVERWJN3zKIPYBn/TspU7PfWOopzwvKwarfUc+8TLrCxbFbCMfZHHzh1XOAGCQJ3SC9hwQ/uAGi9vkGnF03Bb8XB6VA8JZBYGZacK7/zdI/j7TAdUKRRvutKzcXnbGm9uQK2/3obdcbMrimkuh9x6wq8GCTYC/UZse5ZyHGqsZjVhFQqK+SnBvIj/SfHyHg7Ts4uov+PfXZQZHW2ho/Ro+33+hk+3uLKrJL4QvKDsmdOTAlmokszhQReXJhxb5oYeKCm7KGUy9nHt5gxmFsRCYtwnMMQl0UbVYu5xHPK87CiK+qkqzAVgn3j3LkwSOlHNMaAG6E+Supx2ARln3oebmJkdt4ic0BZHIuE9NwjKPCEPrRxI/0Hip69TS0BMiKhCJ5cQPecYbvXxiFC326JlfvqU/ujB1eK5ldQSq0sEssMiQAz3VeGJ3D/2uDVqQ83GP9IEI6matMlF+fLHMnrtnE79EieVTDMOWLzUS3oJX67Jx0991LrrHB/Xs7tSEaSS0BDDxQAcMPMzwavdSjZwrlvVHaIRc+JZ3HdPOy49a7ujlqWNoRMC7Ip7FjiDitAc6QvgUjt3G/hORKtTP4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY3PR01MB11346.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(18002099003)(22082099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WkU2TXFscVoxRk14a01wejBTRHp3MmRSZW56Y3JrSmV6NFBrZEhWdGZkZTM4?=
+ =?utf-8?B?RmFVMFVvUkJoeExoUGhrWllUUjVpSjVRS2doQmdRbnMyYmpyU1pIamh0Ymwv?=
+ =?utf-8?B?TnMxQWJ2S0VPcVJGTFd1MWViK1JXVDlNWHRlVlRMUU1LZEJvOTBaMGlKMm12?=
+ =?utf-8?B?M3kxekZOckNTUVNIVG5DcEtHbDRpWHRPOFJzdzFVSWx4OGhIV3hrTElkL3VQ?=
+ =?utf-8?B?TjB5bVhiamdqVDBaS0dKbVJzZmd4ZVlFUnF0UVV4S0dSWG1ORVh0bmhaVkY5?=
+ =?utf-8?B?Nm0ycHNqbFBncEk4cER1bGE0M1k0RmpMNlpFL25tWU84bzZnZzcyT3JGYUVQ?=
+ =?utf-8?B?eGg5c3RjWEdmb3JRMGwwdW44ZUdBWUg3dkszTC9jUGdUajFzS2lHKzhPUFJt?=
+ =?utf-8?B?NUpqUkY2Zjd0U1VPMWNBNTUzY1RpTDNsK3Zod1FqNSt6azJBbWkzajRlYTVS?=
+ =?utf-8?B?RWpwQ1BHcVFkNkdyN2xmWldTTTNnZTg5TFFGWGRaWUpOTjdVWDFOR0F0ejFU?=
+ =?utf-8?B?R2pKaFZReUg0UkEyS2JPZDJsL3I0VnlHbTREcTd1NWlmNEthR01NOEZVZFlk?=
+ =?utf-8?B?bndDcGh6akhIRG92RHFjWkZ2bEIyNk9JcS9CQlBmVlJFemlHTmpKWGwrTy9S?=
+ =?utf-8?B?SElIQlJ6anpEeFRkQlZUN0tNdE5XVThYMXJhWE4yQkxIUDRIdVFWWUdSeEJu?=
+ =?utf-8?B?cVNCaSs5SHZTNFFDZG12M1RXV3A3R0d3MSttS2trMHVJQXhTNkpOUmtyV25P?=
+ =?utf-8?B?UWRXcVJlaTRTM3NDRjZhVWpNR243dEZYR0UwRm9ZTk5Fb0ZnRWdlWm9hUG4r?=
+ =?utf-8?B?bDZaOXhqRkpnTnJqSkNTa09ORVVGTXZLVnpUOVE1aE9NTWxadm1mQUxja3Rn?=
+ =?utf-8?B?MUdpVDFTVGYwWnFQOGt2RHlrT0QrU2tGNmJrZXphZDcrVTRwbVIwQ05DOCtU?=
+ =?utf-8?B?SlA2bGVxV1B6RmowZ0lmL2FwUTloY0dDL3lUQjdiTkg3S0VlSXpRS3FvU2Q4?=
+ =?utf-8?B?N0V3ZWwvTFRkakR0VTRraHlhU1FLNUVzYndwWmxOcVRQS1ZQTlp3bkNtSVlV?=
+ =?utf-8?B?ZnBFd0ZJK0h4OURwOStRTlI3bTlNTzJkcHNWZWg0aFdUM2FuMXNXSlVrczFu?=
+ =?utf-8?B?MUczWlU0WUdYWFVDZnB6cG44RW0rV2NEbmg2RFNuVnlyK0pzdUswS3JyUUV0?=
+ =?utf-8?B?dnRWSmNralJPVHJoam1pcGZNVG1JRllBOVpQRzNjbHNRTHJxdFM2azR5Q3Ft?=
+ =?utf-8?B?ajdNZ3N5T1d3bU5WU2NtOEQ4cVl3eHNQbmR4K25OeW1vbmFOeXBBWkxwMkZB?=
+ =?utf-8?B?bFA0UFF0eUR5YkNhRE15aWxSSlhMQWFxUXY4V2U0YkIxKzg4TlR4OGdzR1ND?=
+ =?utf-8?B?Nm80ZXhlRzFsakplMXFlWUpVemV2WjM3U0FueG1oaCt1MEVvMVlZTGlqTmVW?=
+ =?utf-8?B?RlJFcEh2d2swdzdUT0dLTVdRZFk1Z3FPbXU1MkZMQUsvQTBoOWxlRmVXb3Iz?=
+ =?utf-8?B?R2pVRGxXVm5TWmRqRlpmUmVqUll3aWhwRE1yYUk2b1lQVTRUNWFLbXpSZHRp?=
+ =?utf-8?B?emY2QTlnckRxTk1qazhoQ3ZtMno0TzNMdTIyM2ZUZjc3eEJYelMyU2xZMklB?=
+ =?utf-8?B?NEpxRUNkU3BPbzRGdW1QZWNVdnkwV3ZtZURxRWxyaVIzQkJEL3VwcXFobloz?=
+ =?utf-8?B?ZXRmb1pxaEROSWpQZFl1UHExVUpBMHgxLzhsbjhMZzhHd0RuWTU5QjlFbDlP?=
+ =?utf-8?B?dUcyQm9qc2JkSGpTU0NLYVljQzkrcWo5QktrM2EzVGhydWlKSDNQVzgrV1Yw?=
+ =?utf-8?B?WkFPMXlGbG9SWWxzVFo1UENtNXV1Kzh6cStNc29HRzFSeEtWWEpwaXVZQkhs?=
+ =?utf-8?B?bFBBM05UMFlYeWJEU3JaSjBhcWRlekZHOUlwMFZ3RnZlaEl2NlZXd0VxZWRr?=
+ =?utf-8?B?U3JhSjE5UWJXWkdZNXVkekR0SzFOTmlpOTFDa0c1cnJyVExDM2p4MElGWlVa?=
+ =?utf-8?B?ZWtNcWFlSi9DN1JtdG5Sa2pqU0hrM0xxWUdOSnRKSGRhV3E0OGI0WFVkRjVx?=
+ =?utf-8?B?NERETWtCREprTitNdlZ5cVJwVTlPZkQzOVZKRnNEVyt5Z3E0V2RzdTNLQUdZ?=
+ =?utf-8?B?USs1Mm0zdC9sZ0piV2hvejJ2OXBLS1VxdUVsUkZyOHVXTUpZRnNvYnRVMitj?=
+ =?utf-8?B?cHhMa1BuUG16d044OXpkTU51NTZzOUhFU2wwdml6bUsrVjE2ODZ6WlFoTlFq?=
+ =?utf-8?B?K1RBc3NLWXdCemkyLzlKV1JrNytRRG82Q0l1WmZZTEc3Qks1QjlTQjFuOG9U?=
+ =?utf-8?B?OFpKWGd6UXlkSjJ1SUNoYlJyQXExaDVJNk4wby9Ja1YrR001bkNZQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dma-buf/dma_fence_array: remove unused functionality
- v3
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260422103012.1647-1-christian.koenig@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260422103012.1647-1-christian.koenig@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bba1fdc5-481b-42c2-2d28-08dea05eaee7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2026 11:02:45.4704 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: URw7vcze5bfaeliSXW87z2p1OnmrbpzWHu8U72ZmnZ4om5YqslD1fQGBf8zv+fZLITmuWhTaViOctdcShwlp1w2EcbXsxsFWqkk1j+3jwfs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB16244
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,203 +158,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-On 22/04/2026 11:30, Christian König wrote:
-> Amdgpu was the only user of the signal on any feature and we dropped
-> that use case recently, so we can remove that functionality.
-> 
-> v2: update num_pending only after the fence is signaled
-> v3: separate out simplifying dma_fence_array implementation
-> 
-> Signed-off-by: Christian König <christian.koenig@amd.com>
-> ---
->   drivers/dma-buf/dma-fence-array.c              | 13 ++++---------
->   drivers/dma-buf/dma-fence-unwrap.c             |  3 +--
->   drivers/dma-buf/dma-resv.c                     |  3 +--
->   drivers/dma-buf/st-dma-fence-unwrap.c          |  2 +-
->   drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  3 +--
->   drivers/gpu/drm/xe/xe_sync.c                   |  2 +-
->   drivers/gpu/drm/xe/xe_vm.c                     |  4 ++--
->   include/linux/dma-fence-array.h                |  6 ++----
->   8 files changed, 13 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
-> index 089f69469524..5e10e8df372f 100644
-> --- a/drivers/dma-buf/dma-fence-array.c
-> +++ b/drivers/dma-buf/dma-fence-array.c
-> @@ -190,15 +190,13 @@ EXPORT_SYMBOL(dma_fence_array_alloc);
->    * @fences:		[in]	array containing the fences
->    * @context:		[in]	fence context to use
->    * @seqno:		[in]	sequence number to use
-> - * @signal_on_any:	[in]	signal on any fence in the array
->    *
->    * Implementation of @dma_fence_array_create without allocation. Useful to init
->    * a preallocated dma fence array in the path of reclaim or dma fence signaling.
->    */
->   void dma_fence_array_init(struct dma_fence_array *array,
->   			  int num_fences, struct dma_fence **fences,
-> -			  u64 context, unsigned seqno,
-> -			  bool signal_on_any)
-> +			  u64 context, unsigned seqno)
->   {
->   	static struct lock_class_key dma_fence_array_lock_key;
->   
-> @@ -222,7 +220,7 @@ void dma_fence_array_init(struct dma_fence_array *array,
->   	 */
->   	lockdep_set_class(&array->base.inline_lock, &dma_fence_array_lock_key);
->   
-> -	atomic_set(&array->num_pending, signal_on_any ? 1 : num_fences);
-> +	atomic_set(&array->num_pending, num_fences);
->   	array->fences = fences;
->   
->   	array->base.error = PENDING_ERROR;
-> @@ -249,7 +247,6 @@ EXPORT_SYMBOL(dma_fence_array_init);
->    * @fences:		[in]	array containing the fences
->    * @context:		[in]	fence context to use
->    * @seqno:		[in]	sequence number to use
-> - * @signal_on_any:	[in]	signal on any fence in the array
->    *
->    * Allocate a dma_fence_array object and initialize the base fence with
->    * dma_fence_init().
-> @@ -264,8 +261,7 @@ EXPORT_SYMBOL(dma_fence_array_init);
->    */
->   struct dma_fence_array *dma_fence_array_create(int num_fences,
->   					       struct dma_fence **fences,
-> -					       u64 context, unsigned seqno,
-> -					       bool signal_on_any)
-> +					       u64 context, unsigned seqno)
->   {
->   	struct dma_fence_array *array;
->   
-> @@ -273,8 +269,7 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
->   	if (!array)
->   		return NULL;
->   
-> -	dma_fence_array_init(array, num_fences, fences,
-> -			     context, seqno, signal_on_any);
-> +	dma_fence_array_init(array, num_fences, fences, context, seqno);
->   
->   	return array;
->   }
-> diff --git a/drivers/dma-buf/dma-fence-unwrap.c b/drivers/dma-buf/dma-fence-unwrap.c
-> index 07fe9bf45aea..53bb40e70b27 100644
-> --- a/drivers/dma-buf/dma-fence-unwrap.c
-> +++ b/drivers/dma-buf/dma-fence-unwrap.c
-> @@ -180,8 +180,7 @@ struct dma_fence *__dma_fence_unwrap_merge(unsigned int num_fences,
->   
->   	if (count > 1) {
->   		result = dma_fence_array_create(count, array,
-> -						dma_fence_context_alloc(1),
-> -						1, false);
-> +						dma_fence_context_alloc(1), 1);
->   		if (!result) {
->   			for (i = 0; i < count; i++)
->   				dma_fence_put(array[i]);
-> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-> index ce9e6c04897f..39a92d9f2413 100644
-> --- a/drivers/dma-buf/dma-resv.c
-> +++ b/drivers/dma-buf/dma-resv.c
-> @@ -648,8 +648,7 @@ int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
->   	}
->   
->   	array = dma_fence_array_create(count, fences,
-> -				       dma_fence_context_alloc(1),
-> -				       1, false);
-> +				       dma_fence_context_alloc(1), 1);
->   	if (!array) {
->   		while (count--)
->   			dma_fence_put(fences[count]);
-> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
-> index 51c87869b7b8..4e7ee25372ba 100644
-> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
-> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
-> @@ -64,7 +64,7 @@ static struct dma_fence *mock_array(unsigned int num_fences, ...)
->   
->   	array = dma_fence_array_create(num_fences, fences,
->   				       dma_fence_context_alloc(1),
-> -				       1, false);
-> +				       1);
->   	if (!array)
->   		goto error_free;
->   	return &array->base;
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> index 942f4eed817f..4a1a9031f9db 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -3205,8 +3205,7 @@ eb_composite_fence_create(struct i915_execbuffer *eb, int out_fence_fd)
->   	fence_array = dma_fence_array_create(eb->num_batches,
->   					     fences,
->   					     eb->context->parallel.fence_context,
-> -					     eb->context->parallel.seqno++,
-> -					     false);
-> +					     eb->context->parallel.seqno++);
->   	if (!fence_array) {
->   		kfree(fences);
->   		return ERR_PTR(-ENOMEM);
-> diff --git a/drivers/gpu/drm/xe/xe_sync.c b/drivers/gpu/drm/xe/xe_sync.c
-> index 24d6d9af20d6..37866768d64c 100644
-> --- a/drivers/gpu/drm/xe/xe_sync.c
-> +++ b/drivers/gpu/drm/xe/xe_sync.c
-> @@ -376,7 +376,7 @@ xe_sync_in_fence_get(struct xe_sync_entry *sync, int num_sync,
->   		xe_assert(vm->xe, current_fence == num_fence);
->   		cf = dma_fence_array_create(num_fence, fences,
->   					    dma_fence_context_alloc(1),
-> -					    1, false);
-> +					    1);
->   		if (!cf)
->   			goto err_out;
->   
-> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
-> index 56e2db50bb36..8f472911469d 100644
-> --- a/drivers/gpu/drm/xe/xe_vm.c
-> +++ b/drivers/gpu/drm/xe/xe_vm.c
-> @@ -3370,7 +3370,7 @@ static struct dma_fence *ops_execute(struct xe_vm *vm,
->   		goto err_trace;
->   	}
->   
-> -	cf = dma_fence_array_alloc(n_fence);
-> +	cf = dma_fence_array_alloc();
-
-Patch splitting mistake here.
-
-The rest LGTM. So with this hunk dropped:
-
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-
-Regards,
-
-Tvrtko
-
->   	if (!cf) {
->   		fence = ERR_PTR(-ENOMEM);
->   		goto err_out;
-> @@ -3414,7 +3414,7 @@ static struct dma_fence *ops_execute(struct xe_vm *vm,
->   
->   	xe_assert(vm->xe, current_fence == n_fence);
->   	dma_fence_array_init(cf, n_fence, fences, dma_fence_context_alloc(1),
-> -			     1, false);
-> +			     1);
->   	fence = &cf->base;
->   
->   	for_each_tile(tile, vm->xe, id) {
-> diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-> index 370b3d2bba37..1b1d87579c38 100644
-> --- a/include/linux/dma-fence-array.h
-> +++ b/include/linux/dma-fence-array.h
-> @@ -81,13 +81,11 @@ to_dma_fence_array(struct dma_fence *fence)
->   struct dma_fence_array *dma_fence_array_alloc(int num_fences);
->   void dma_fence_array_init(struct dma_fence_array *array,
->   			  int num_fences, struct dma_fence **fences,
-> -			  u64 context, unsigned seqno,
-> -			  bool signal_on_any);
-> +			  u64 context, unsigned seqno);
->   
->   struct dma_fence_array *dma_fence_array_create(int num_fences,
->   					       struct dma_fence **fences,
-> -					       u64 context, unsigned seqno,
-> -					       bool signal_on_any);
-> +					       u64 context, unsigned seqno);
->   
->   bool dma_fence_match_context(struct dma_fence *fence, u64 context);
->   
-
+SGkgTGF1cmVudCwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBCaWp1
+IERhcyA8YmlqdS5kYXMuanpAYnAucmVuZXNhcy5jb20+DQo+IFNlbnQ6IDE4IE1hcmNoIDIwMjYg
+MDY6NTgNCj4gU3ViamVjdDogUkU6IFtQQVRDSF0gZHJtL2JyaWRnZTogYWR2NzUxMTogQ2xlYXIg
+SFBEIElSUSBiZWZvcmUgcG93ZXJpbmcgb24gZGV2aWNlIGR1cmluZyByZXN1bWUoKQ0KPiANCj4g
+SGkgTGF1cmVudCwNCj4gDQo+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiBGcm9t
+OiBMYXVyZW50IFBpbmNoYXJ0IDxsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2FyZC5jb20+DQo+
+ID4gU2VudDogMTcgTWFyY2ggMjAyNiAyMzozMA0KPiA+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRy
+bS9icmlkZ2U6IGFkdjc1MTE6IENsZWFyIEhQRCBJUlEgYmVmb3JlDQo+ID4gcG93ZXJpbmcgb24g
+ZGV2aWNlIGR1cmluZyByZXN1bWUoKQ0KPiA+DQo+ID4gT24gTW9uLCBNYXIgMTYsIDIwMjYgYXQg
+MDU6NTk6NTdQTSArMDAwMCwgQmlqdSBEYXMgd3JvdGU6DQo+ID4gPiBPbiAxNiBNYXJjaCAyMDI2
+IDE0OjAzLCBMYXVyZW50IFBpbmNoYXJ0IHdyb3RlOg0KPiA+ID4gPiBPbiBGcmksIERlYyAxOSwg
+MjAyNSBhdCAxMDo0Njo1M0FNICswMDAwLCBCaWp1IHdyb3RlOg0KPiA+ID4gPiA+IEZyb206IEJp
+anUgRGFzIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNvbT4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+
+IE9uIFJaL0czRSBTTUFSQyBFVksgdXNpbmcgUFNDSSwgczJyYW0gcG93ZXJzIGRvd24gdGhlIFNv
+Qy4NCj4gPiA+ID4gPiBUZXN0aW5nDQo+ID4gPiA+ID4gQURWNzUzNSBJUlEgY29uZmlndXJlZCBh
+cyBlZGdlLXRyaWdnZXJlZCBpbnRlcnJ1cHQgb24gUlovRzNFDQo+ID4gPiA+ID4gU01BUkMgRVZL
+IHNob3dzIHRoYXQgaXQgaXMgbWlzc2luZyBIUEQgSVJRIGR1cmluZyBzeXN0ZW0gcmVzdW1lLA0K
+PiA+ID4gPiA+IGFzIHRoZSBzdGF0dXMgY2hhbmdlIG9jY3VycyBiZWZvcmUgdGhlIElSUS9waW5j
+b250cm9sIHJlc3VtZS4NCj4gPiA+ID4gPiBPbmNlIHRoZSBzdGF0dXMgYml0IGlzIHNldCwgdGhl
+cmUgd29uJ3QgYmUgYW55IGZ1cnRoZXIgSVJRIHVubGVzcyB0aGUgc3RhdHVzIGJpdCBpcyBjbGVh
+cmVkLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gQ2xlYXIgYW55IHBlbmRpbmcgSFBEIElSUXMgYmVm
+b3JlIHBvd2VyaW5nIG9uIHRoZSBBRFY3NTM1IGRldmljZQ0KPiA+ID4gPiA+IHRvIGRlbGl2ZXIg
+SFBEIGludGVycnVwdHMgYWZ0ZXIgcmVzdW1lKCkuDQo+ID4gPiA+DQo+ID4gPiA+IFRoaXMgaXNz
+dWUgZG9lc24ndCBzZWVtIHRvIGJlIHNwZWNpZmljIHRvIHRoZSBBRFY3NTExLiBBbnkgZGV2aWNl
+DQo+ID4gPiA+IHRoYXQgdXNlcyBhbiBlZGdlLXRyaWdnZXJlZCBpbnRlcnJ1cHQgY291bGQgc3Vm
+ZmVyIGZyb20gdGhlIHNhbWUgcHJvYmxlbS4NCj4gPiA+ID4gSW1wbGVtZW50aW5nIGEgd29yayBh
+cm91bmQgaW4gdGhlIGRyaXZlciBkb2Vzbid0IHNlZW0gdG8gYmUgYSBzb2x1dGlvbiB0aGF0IHdv
+dWxkIHNjYWxlLg0KPiA+ID4NCj4gPiA+IEkgZG9uJ3Qgc2VlIGFueSBicmlkZ2UgZGV2aWNlIGlz
+IGNvbXBsYWluaW5nIGFib3V0IHNpbWlsYXIgaXNzdWVzIGluIExpbnV4IGtlcm5lbC4NCj4gPg0K
+PiA+IFRoaXMgaXMgZXhhY3RseSB3aHkgdGhpcyBwYXRjaCBjb25jZXJucyBtZS4gVGhlIGlzc3Vl
+IGRvZXNuJ3Qgc2VlbSB0bw0KPiA+IGJlIHNwZWNpZmljIHRvIHRoZSBBRFY3NTExLCB5ZXQgbm8g
+b3RoZXIgYnJpZGdlIGRyaXZlciBpbXBsZW1lbnRzIGFueXRoaW5nIHNpbWlsYXIuIEl0IHNlZW1z
+IHRvDQo+IGluZGljYXRlIHNvbWV0aGluZyBlbHNlIGlzIHdyb25nLg0KPiA+DQo+ID4gSSB1bmRl
+cnN0YW5kIGFuZCBhZ3JlZSB3aXRoIHRoZSBhbmFseXNpcyBvZiB0aGUgaXNzdWUgKGFsdGhvdWdo
+IEkgZmluZA0KPiA+IGl0IHdlaXJkIHRoYXQgdGhlIGludGVycnVwdCBjb250cm9sbGVyIG9yIHBp
+biBjb250cm9sbGVyIHdvdWxkIGJlDQo+ID4gcmVzdW1lZCBhZnRlciB0aGUgQURWNzUxMSksIGJ1
+dCBhbnkgZGV2aWNlIHdpdGggYW4gZWRnZS0gdHJpZ2dlcmVkDQo+ID4gaW50ZXJydXB0IHNob3Vs
+ZCB0aGVuIHN1ZmZlciBmcm9tIHRoZSBzYW1lIHByb2JsZW0uIFRoaXMgbWVhbnMgaXQNCj4gPiBz
+aG91bGRuJ3QgYmUgaGFuZGxlZCBhdCBpbmRpdmlkdWFsIGRyaXZlcnMgbGV2ZWwsIHVubGVzcyB0
+aGVyZSdzIHNvbWV0aGluZyBJJ20gbWlzc2luZyB0aGF0IG1ha2VzIHRoZQ0KPiBwcm9ibGVtIHZl
+cnkgc3BlY2lmaWMgdG8gdGhlIEFEVjc1MTEuIE90aGVyd2lzZSwgYSBtb3JlIGdlbmVyaWMgc29s
+dXRpb24gaXMgbmVlZGVkLg0KPiANCj4gQURWNzUzNSBpcyBzcGVjaWFsIGRldmljZSwgaGFyZHdh
+cmUgcmVzZXQgYXV0b21hdGljYWxseSBzZXQgdGhlIHN0YXR1cyBiaXQsIGlmIGEgY29ubmVjdG9y
+IGlzIGNvbm5lY3RlZA0KPiB3aXRob3V0IHNvZnR3YXJlIGlzIHR1cm5pbmcgcG93ZXIgb24gdW5s
+aWtlIG90aGVyIGRldmljZXMuDQo+IA0KPiBEbyB5b3Uga25vdyBhbnkgb3RoZXIgYnJpZGdlIGRl
+dmljZSBzaG93cyB0aGlzIGlzc3VlPyBpLmUuLCB3aXRob3V0IHNvZnR3YXJlIHR1cm5pbmcgdGhl
+IHBvd2VyIG9uLA0KPiBicmlkZ2UgZGV2aWNlIHNldHMgdGhlIHN0YXR1cyBiaXQgZHVyaW5nIHBv
+d2VyIG9uIHJlc2V0Pz8NCg0KSSBjYW1lIHVwIHdpdGggYSBzaW1wbGUgcGF0Y2ggZHJvcHBpbmcg
+UE0gc3VwcG9ydC4gSSB3aWxsIHNlbmQgdGhpcyBhcyB2Mi4NCg0KKwkvKg0KKwkgKiBDbGVhciB0
+aGUgSFBEIHN0YXR1cyBiaXQgKEFEVjc1MTFfSU5UMF9IUEQpLCBzbyB0aGF0IGFueSBIUEQNCisJ
+ICogaW50ZXJydXB0IGxhdGNoZWQgYmVmb3JlIG9yIGR1cmluZyBwb3dlciBsb3NzIGlzIGRpc21p
+c3NlZCBiZWZvcmUNCisJICogbm9ybWFsIG9wZXJhdGlvbiByZXN1bWVzLg0KKyAJICovDQorCXJl
+Z21hcF93cml0ZShhZHYtPnJlZ21hcCwgQURWNzUxMV9SRUdfSU5UKDApLCBBRFY3NTExX0lOVDBf
+SFBEKTsNCisNCg0KQ2hlZXJzLA0KQmlqdQ0KDQo=
