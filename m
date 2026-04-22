@@ -4,81 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73F01F9EDC0
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:30:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D656FF9EDC0
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:36:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32D410E9DE;
-	Wed, 22 Apr 2026 12:30:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D60310E9E6;
+	Wed, 22 Apr 2026 12:36:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="DccY/31d";
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="jNVyt8Ok";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="LstP4jn0";
 	dkim-atps=neutral
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C694310E9D7
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1776860548;
- bh=hML0sRIU1AntIFM+ox4LLB4AF8Mi3yfxqyKl/z6vcDM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DccY/31dgKbtTkDP35VUadpUwAVv8D2PwznFX8Y8n7CzsLhNIhqGUwHltCw4ZqYoi
- ix9e8doDnnboWWH+jEUlfR33rD4tWUMIlLHV1Vu32GoDlKOOnW9kgmrvdq0ABNUKkm
- /Ve3CVVjrKmKS+/mmeQgi5+wT+ulQaPbTxwP4kwuzpmgSs+4Mv0tX+qbqNNm/B8uxq
- 9qEbdxOjxepgeC0hiT/eSypZa/bNiWQ2iWEz3rUJ86HdjLN1/VAKcc8N4Fs9lw6bjM
- xVaNfpPITOQOFupnM+BWhiizMZhj2Y2XuNm3C1UcBptxvUR5uYyRMjQPBoj0hEzhPF
- mM7LcUk96UIS4Ts70xMrUWnso0Vr7ttrGHeWAjaP6Pprommf9Kz5LBdmxsCgRuQ4Px
- ZmHjAtMvNOECoYmPKbRyZObi0J0m04SS34E+oxdulvBpyAZkKhDTiGNxQh/71Cz4wb
- N/Lf244q+eZOzholt0VWiMFtqGARV1kw2IpW38DoKJMivHbonUPzMwLngA8xwFQteo
- ia9j2uhFBH0nW6d+JtSBw+mYojhwnCSRTLL4lky31+zwVXroWZo3vP+og5yrEGl0GL
- jNqWw7ZzSvfTDgp1W03z13Q4uS4TJA7USwx4EAsIKV/MsxqRBix77wgcRhB0X9E7qa
- 0CqdL+4bMynIx1wx5Bzv13XE=
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id 4AFE71E8D9B; Wed, 22 Apr 2026 20:22:28 +0800 (AWST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1776860407;
- bh=hML0sRIU1AntIFM+ox4LLB4AF8Mi3yfxqyKl/z6vcDM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jNVyt8OkdIBSpjXWabbTvUHKJ8p72aH5MAJK+/mU5sb3vXN0juUur374rRTNXZ7av
- xQM9NpPjNZrukN6k8exxIJGc6FFvD4VOkOkXZLENKo0TiKHw6xZ5T9j/PtpxsC7t9b
- FVIxvVSvzT4TobiKh6ds4SPYnjqofmZF1hmsu+C3IsrOJjjiQpUkHX4iHv3HWiJGP2
- m4wcMoneg2Dl3fdpYXJurB0K/zQlUXVt9fPIy34sdNbhU9MbIgwKYIka+sGg5VkhHn
- ZvubupvqFKunOpZAOuzNxiS+/fMuoMB9u+r+Klk4cuI3qk3iTH0CponNRofm6JI6ly
- mAVJXhfm9hBzq+qbW2yT8PIPe6INR5KFlD/j5d9rRq+1T2xGgYJV/ZlsysGs22tySs
- R++ctEYJhia4snlXgpv/AzbKQZiG5JTaQ04mWTYSLrUELMPb3jU5HCyH9rrkXqCaNo
- yQsXud4TnJACWuPYyPg0XAjwIvpBJr4n6x4PHHWbgqHgSDBkkFkJEC8oSrnwp5YtjO
- 3Nplf7JhC0+uVvUJLHpVCa246BtB3YFWTiJ8H1lT6268A/dAbhHBY3rQdzTVuSI1qd
- 9iIKr3PoHEqFJJ4XztoWbMGW4CcYMg+p9KHVvKL4qMp567pfWh0uPSl33fG6WVUz2D
- iiwY2AK0pUHn3OcTpbPZO/7U=
-Received: from [IPV6:2001:8003:8810:ea00:ed87:ca88:5326:e11d] (unknown
- [IPv6:2001:8003:8810:ea00:ed87:ca88:5326:e11d])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id 3BD631E8D8A;
- Wed, 22 Apr 2026 20:20:07 +0800 (AWST)
-Message-ID: <6209f24e-750d-4a7d-ad63-1695f5fd1caa@davidgow.net>
-Date: Wed, 22 Apr 2026 20:20:04 +0800
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1413C10E9DF;
+ Wed, 22 Apr 2026 12:36:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776861355; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GDpkLO4g9IUhrBZwpOWm9lmGa7yGKEpkQZ+Wo67zcutbG0sLDzJ/pQOlWlTa8PuK96pECVyoSMQkO9mIXp9PbUoY3eScX6NBZiu6Mt68Xrkx+gnBEMSNT+GqcCLIu2eByD6HF0N1Kqd9OVgnB6ysQuyzs9pWwjBE2RKUQoxP5wE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776861355;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=0yppDv8uj8NhI71oODZIULkekbZbIvhQVdiBcZpfPls=; 
+ b=aWbbOvbDyHjYXkYwSYRYxnljwn7hooje5CqfwyCxdWjyO6w9TYarLQax/b7QK8hHdL47tbaVwrSEbw9Sh1nyuKjAGmO/Umx4mLR7qiQhGoHyIyWtpamgWA9rv0Ughx4fCcFUxhTAKoKn3GwJEge/uMkSasTabZZMluNNPFZxV1E=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776861355; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=0yppDv8uj8NhI71oODZIULkekbZbIvhQVdiBcZpfPls=;
+ b=LstP4jn07LQQv8rp5o6kAgm/HRl8pfVzrjAw6qiqlMHt1GScLdXT/a63LMVKRiry
+ 8VxDbxNKmo9EDkY75yLoytLdv24q6hfyWBihEJp1OXMWfT6Dlk+oKThBVa42c6BJecU
+ 0WuR7M+90znKGBq93HNmqtMlFAnGWNVvwAVEaHf4=
+Received: by mx.zohomail.com with SMTPS id 17768613548462.9324715456828017;
+ Wed, 22 Apr 2026 05:35:54 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v8 0/2] Pass down hot-plug CONNECTOR ID to user-space
+Date: Wed, 22 Apr 2026 14:35:30 +0200
+Message-Id: <20260422-hot-plug-passup-v8-0-5cfae6ba4119@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/5] kunit: Add backtrace suppression self-tests
-To: Albert Esteve <aesteve@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, peterz@infradead.org,
- Guenter Roeck <linux@roeck-us.net>,
- Linux Kernel Functional Testing <lkft@linaro.org>,
- Dan Carpenter <dan.carpenter@linaro.org>,
- Alessandro Carminati <acarmina@redhat.com>, Kees Cook <kees@kernel.org>
-References: <20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com>
- <20260420-kunit_add_support-v7-3-e8bc6e0f70de@redhat.com>
-Content-Language: fr
-From: David Gow <david@davidgow.net>
-In-Reply-To: <20260420-kunit_add_support-v7-3-e8bc6e0f70de@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22PwW6DMBBEfwX53KWsAUNy6n9UPaxhHSxBTGxAr
+ SL+vYZSVUq6l9XInjc7dxHYWw7inNyF58UG665R1C+JaDq6XhhsG7WQmVQZSoTOTTD28wVGCmE
+ ewdTcZrmpmvhDRNfo2djPnfj+EbXxboCp80y/nBK3UTLP6xRLLBAQBvJ2DunSU/vWuL4n7Tylj
+ RsOpOfbHG+bfrhCU2CIr4OdzknrY4AdX48tttTOhsn5r73WonbP0SB/arAoyICIjML2pDKtHy7
+ YeEv1x5BYPTOqyDC1lKglkS7xucXuLbD833siWbEpWRayfsxf1/Ubuo1FVagBAAA=
+X-Change-ID: 20260121-hot-plug-passup-f8ed03f7c202
+To: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, 
+ Daniel Stone <daniel.stone@collabora.com>, 
+ Ian Forbes <ian.forbes@broadcom.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,165 +82,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Le 20/04/2026 à 8:28 PM, Albert Esteve a écrit :
-> From: Guenter Roeck <linux@roeck-us.net>
-> 
-> Add unit tests to verify that warning backtrace suppression works,
-> covering WARN() and WARN_ON() with direct calls, indirect calls
-> through helper functions, and multiple warnings in a single window.
-> 
-> If backtrace suppression does _not_ work, the unit tests will likely
-> trigger unsuppressed backtraces, which should actually help to get
-> the affected architectures / platforms fixed.
-> 
-> Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
-> Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Reviewed-by: Kees Cook <keescook@chromium.org>
-> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-> Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
+This series addresses a shortcoming whereby a hot plug event is sent
+without it being passed the actual connector that caused it. This takes
+into consideration both the polling path and the HPD (Hot Plug Detect)
+path.
 
-Thanks very much for including tests!
+The motivation is that user-space applications such as Weston would
+previously receive non-connector-specific hotplug events, and then have
+to figure out themselves which connector needs to have a modeset
+executed on. This notably did not work when the hotplug events came in
+too fast, resulting in Weston missing an on-off-on transition of a
+connector, seeing that its state was unchanged from "on" so can't be the
+one that was hotplugged, and skipping reinitialising it as it looks
+through the other connectors that could've caused it.
 
-Maybe it'd be nice to test that the suppression is disabled after 
-KUNIT_END_SUPPRESSED_WARNING(). Of course, then triggering an actual 
-stacktrace would be a pain, but maybe we could check that 
-__kunit_is_suppressed_warning() returns false? If you wanted to be 
-really fancy, you could test that it returns false on another kthread 
-even while the suppression is active, too, but I won't hold you to it. 
-Equally, you could try setting up a fake test context and ensuring the 
-cleanup is called correctly, but I think that's mostly covered by the 
-existing KUnit resource tests.
+The real world implication is that on setups with slightly sketchy HDMI
+connections, a brief flicker in the HPD signal could result in video
+output bidding farewell entirely until a manual proper re-plug was
+performed.
 
-Otherwise, looking good. A couple of other minor suggestions below, 
-which may require some reworking of the __kunit_suppress scope, but all 
-optional suggestions.
+By sending connector specific hotplug events, this ambiguity is resolved
+without any change to the user-space API. Future work should however
+make the kernel explicitly request a modeset from userspace through a
+more robust path, either by using link-status (nb. the userspace side
+may not handle it properly at present) or by exposing the epoch counter
+through the uAPI such that fragile state comparison code is no longer
+needed.
 
-Reviewed-by: David Gow <david@davidgow.net>
+This change results in potentially more hotplug events being sent than
+previously, as n changed connectors at a time result in n hotplug
+events, rather than just a single one.
 
->   lib/kunit/Makefile                     |  3 ++
->   lib/kunit/backtrace-suppression-test.c | 90 ++++++++++++++++++++++++++++++++++
->   2 files changed, 93 insertions(+)
-> 
-> diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
-> index fe177ff3ebdef..b2f2b8ada7b71 100644
-> --- a/lib/kunit/Makefile
-> +++ b/lib/kunit/Makefile
-> @@ -23,6 +23,9 @@ obj-$(if $(CONFIG_KUNIT),y) +=		hooks.o \
->   
->   obj-$(CONFIG_KUNIT_TEST) +=		kunit-test.o
->   obj-$(CONFIG_KUNIT_TEST) +=		platform-test.o
-> +ifeq ($(CONFIG_KUNIT_SUPPRESS_BACKTRACE),y)
-> +obj-$(CONFIG_KUNIT_TEST) +=		backtrace-suppression-test.o
-> +endif
->   
->   # string-stream-test compiles built-in only.
->   ifeq ($(CONFIG_KUNIT_TEST),y)
-> diff --git a/lib/kunit/backtrace-suppression-test.c b/lib/kunit/backtrace-suppression-test.c
-> new file mode 100644
-> index 0000000000000..2ba5dcb5fef35
-> --- /dev/null
-> +++ b/lib/kunit/backtrace-suppression-test.c
-> @@ -0,0 +1,90 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * KUnit test for suppressing warning tracebacks.
-> + *
-> + * Copyright (C) 2024, Guenter Roeck
-> + * Author: Guenter Roeck <linux@roeck-us.net>
-> + */
-> +
-> +#include <kunit/test.h>
-> +#include <linux/bug.h>
-> +
-> +static void backtrace_suppression_test_warn_direct(struct kunit *test)
-> +{
-> +	KUNIT_START_SUPPRESSED_WARNING(test);
-> +	WARN(1, "This backtrace should be suppressed");
-> +	KUNIT_END_SUPPRESSED_WARNING(test);
-> +
-> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
-> +}
-> +
-> +static void trigger_backtrace_warn(void)
-> +{
-> +	WARN(1, "This backtrace should be suppressed");
-> +}
-> +
-> +static void backtrace_suppression_test_warn_indirect(struct kunit *test)
-> +{
-> +	KUNIT_START_SUPPRESSED_WARNING(test);
-> +	trigger_backtrace_warn();
-> +	KUNIT_END_SUPPRESSED_WARNING(test);
-> +
-> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
-> +}
-> +
-> +static void backtrace_suppression_test_warn_multi(struct kunit *test)
-> +{
-> +	KUNIT_START_SUPPRESSED_WARNING(test);
-> +	WARN(1, "This backtrace should be suppressed");
-> +	trigger_backtrace_warn();
-> +	KUNIT_END_SUPPRESSED_WARNING(test);
-> +
-> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 2);
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Changes in v8:
+- Drop pending_hp patch
+- Add patch correcting epoch_counter documentation
+- Rework implementation such that hotplug events are still sent outside
+  the mode_config mutex, but don't iterate through the connector list
+  without the lock.
+- Link to v7: https://patch.msgid.link/20260415-hot-plug-passup-v7-0-9a27ef5e2428@collabora.com
 
-Would it make sense to test KUNIT_SUPPRESSED_WARNING_COUNT() more 
-thoroughly here by checking that it's 0 before any warnings, and 
-checking that it's 1 in-between the two warnings?
+Changes in v7 RESEND:
+- None, other than removing the leftover diffstat from the cover letter
+- Link to v7: https://lore.kernel.org/r/20260217-hot-plug-passup-v7-0-f8221b2aab51@collabora.com
 
-Of course, the first case doesn't work due to __kunit_suppress not being 
-defined, but if the implementation changes to support this, let's add it 
-to the test, too.
+Changes in v7:
+- Drop the two vkms patches, as I don't want them to be blocked on
+  review. I still think they're correct, but they're not essential and
+  don't need to block this series.
+- Link to v6: https://lore.kernel.org/r/20260123-hot-plug-passup-v6-0-aaaf61d960bb@collabora.com
 
-> +}
-> +
-> +static void backtrace_suppression_test_warn_on_direct(struct kunit *test)
-> +{
-> +	if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE) && !IS_ENABLED(CONFIG_KALLSYMS))
-> +		kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE or CONFIG_KALLSYMS");
-> +
-> +	KUNIT_START_SUPPRESSED_WARNING(test);
-> +	WARN_ON(1);
-> +	KUNIT_END_SUPPRESSED_WARNING(test);
-> +
-> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
-> +}
-> +
-> +static void trigger_backtrace_warn_on(void)
-> +{
-> +	WARN_ON(1);
-> +}
-> +
-> +static void backtrace_suppression_test_warn_on_indirect(struct kunit *test)
-> +{
-> +	if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE))
-> +		kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE");
-> +
-> +	KUNIT_START_SUPPRESSED_WARNING(test);
-> +	trigger_backtrace_warn_on();
-> +	KUNIT_END_SUPPRESSED_WARNING(test);
-> +
-> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
-> +}
-> +
-> +static struct kunit_case backtrace_suppression_test_cases[] = {
-> +	KUNIT_CASE(backtrace_suppression_test_warn_direct),
-> +	KUNIT_CASE(backtrace_suppression_test_warn_indirect),
-> +	KUNIT_CASE(backtrace_suppression_test_warn_multi),
-> +	KUNIT_CASE(backtrace_suppression_test_warn_on_direct),
-> +	KUNIT_CASE(backtrace_suppression_test_warn_on_indirect),
-> +	{}
-> +};
-> +
-> +static struct kunit_suite backtrace_suppression_test_suite = {
-> +	.name = "backtrace-suppression-test",
-> +	.test_cases = backtrace_suppression_test_cases,
-> +};
-> +kunit_test_suites(&backtrace_suppression_test_suite);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("KUnit test to verify warning backtrace suppression");
-> 
+Changes in v6:
+- Rewrote cover letter to explain the motivation for this series more
+  plainly
+- Rename "status_changed" to "pending_hp"
+- Set "pending_hp" in the existing path that would also affect
+  epoch_counter
+- No longer set the boolean in drm_helper_probe_single_connector_modes,
+  as it does not appear to be necessary
+- Reword commits to better justify the changes
+- Link to v5: https://lore.kernel.org/r/20251111162338.15141-1-marius.vlad@collabora.com/
+
+Changes in v5:
+- vkms: add support for sending the CONNECTOR ID when hot-plugging through
+  ConfigFS - as reported by Louis, vkms can now make use of ConfigFS to
+  simulate connector status.
+- vkms: add a small change to ignore previous/old drm connector status
+  when sending out hot-plug uevent.
+- Link to v4: https://lore.kernel.org/r/20251103174558.7709-1-marius.vlad@collabora.com/
+
+Changes in v4:
+- removed the "This patch" bit - Dmitry
+- added a short note when the flag is set and cleared - Dmitry
+- address double dead-locking detected - kbot: https://lore.kernel.org/dri-devel/202509251410.fdfbcac3-lkp@intel.com/
+- virtual connectors do not seem have any kind of hotplug - added
+  polling in vkms - as noted by Ian
+- Link to v3: https://lore.kernel.org/r/20250923083636.4749-1-marius.vlad@collabora.com/
+
+Changes in v3:
+- Address comments from Dmitry:
+  - guard connector status write with mode_config.mutex
+  - avoid setting up the connector status and immediately unset it. Do the
+    unset in drm_kms_helper_hotplug_event/drm_kms_helper_connector_hotplug_event
+- Link to v2: https://lore.kernel.org/r/20250729165708.9947-1-marius.vlad@collabora.com/
+
+Changes in v2:
+- Address comments from Daniel:
+  - split patch into 2, one that introduces a bool to track connector
+    connection status change and a patch that uses that to be able to send
+    hot plug events with the proper CONNECTOR ID to udev and further pass
+    that down to user-space
+  - nuke out mutex when iterating connector list
+  - fix typo
+- Link to v1: https://lore.kernel.org/r/20250627131751.2004-1-marius.vlad@collabora.com/
+
+---
+Nicolas Frattaroli (2):
+      drm/connector: Fix epoch_counter docs to reflect reality
+      drm: Send per-connector hotplug events
+
+ drivers/gpu/drm/drm_probe_helper.c | 68 ++++++++++++++++++++++++--------------
+ include/drm/drm_connector.h        |  5 ++-
+ 2 files changed, 47 insertions(+), 26 deletions(-)
+---
+base-commit: 28247e192ca66016a4b374ff06acdf9dbb6cfe7c
+change-id: 20260121-hot-plug-passup-f8ed03f7c202
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
