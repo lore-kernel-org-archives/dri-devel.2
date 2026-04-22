@@ -4,87 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD54F9EDC0
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:15:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F10F9EDC0
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A4EE10E29D;
-	Wed, 22 Apr 2026 12:15:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C61310E0B5;
+	Wed, 22 Apr 2026 12:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pA5XJcTu";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="IUZ3/zXT";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96E6F10E29D
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:15:01 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4891cd41959so34794625e9.3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 05:15:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776860100; x=1777464900; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=nLinte2bTrSfydnPw4RU23zBy6zkLJ7eny7r/S0aKYo=;
- b=pA5XJcTu8xs+2oYaoJ2YQaEiVmyGkesyOFnhqKp8X+tMsxvZJBgk8rWSFxY9NuHWOA
- +7Q6BiIZyl7MDkW1UqQ390qqWh2JdXONmkMAhFZZrhoY7v/o+uoslNzRM8geRLXlAMnN
- MlOOmdvRKuB6nByTjCiAAtvhGLu6k4bD7Vui3QFz9rrBhMxgoBORqf3hrgt1ZvzYL7Yf
- C2cdaQ5Q1WeTe3qz0geO8UAOS1aRF6Gwf/VGKvrn6lKmii37VosEUcloeL9Y9bXyHlHR
- jOpYMLrWNEyM4zwPPVlq+8ARuQUsgLjhJt/8nTTA6CTxjcCNcDIKzs99rfWQbutCNL6H
- 22Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776860100; x=1777464900;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nLinte2bTrSfydnPw4RU23zBy6zkLJ7eny7r/S0aKYo=;
- b=TD1iXY3K1Uc88zcQYC7hnYF4AHJmOirbdxCgFTCpDKCWV2xTtXg042V+z8wq4NKD/6
- C2oNm/Am6rflAACOnnmrK58yQiLcJ2y1PenhMX9FhEMhQcySMBjajXyNde4cw4bqIe/e
- lFzp9wyQBWFa0Z5YCiGj/O8piGpbiVpHUIwjZYRCX1A7Qw5mfuvO9A6Rek8VM+GFPJ5/
- hVZNZH4bU+Cm1xOX0db+OggGCdeqamS+fDcTfN7gjsyXxBz+5uDZ42yV3GvYRzobBqKp
- GAsAN2CCYFavh8t82gNQreF8BERebnDmJ/Mk5CA/lhsIrKvKFjjI5TiFfbzy8GFzVcXf
- zz6A==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+GlDMpY0V1enOf/FKP3/PPlebtRK3FRKud72s1XAQYBC2Fgu1aWgexGJ+CpxS4Wq+AdfRZghFSkXs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEmn1Qe6XYr7ZxKDGGCOy8kVckg9T4+muGRszgo5OzEBX4yAkU
- Ysw7vS10X7NOSM1bjWEkKVq56TkzIiQR3rp+euEL0X6TTmeVfnFbdL7J
-X-Gm-Gg: AeBDiet9CBqFuul/+7VGD5/sy2JoaIAAjT00ns/1muTvDSnZYO3NENCQRHw2T5ZiZHp
- a0co96theJnReX5rF46o8uQldkuwxymSeD9r8G7Ws+D1ys/V9BJWVcg8uZzp924ybbMrlc3Y7Eq
- Ze831gFgW7IRJV4QZ0LfgD1mmKN1k53Dhh4bp3mpltBz3KNm7i7A1dWgX5GQS4DOBlaY5DmIfVW
- v1PqF5h4QxYuAwPjOoY/aMnfxedzEfKpbsWUdT4CEavheU3t51rqWoQh6hYvBwOlqKY3SBiccx0
- WfC7Qi+mrHEVTqgPBL0/pwMw2KYOmWgYa6IunuA7N4otwibEf4WJ9YgK4eUjhzJwIyWVQiR3MyQ
- AyjZ68BBeWU8PvvUvey0EapyLCEXdPnPN4QRu8DWUYq93Zv2Ei2AqnYvAYjGADlwMepN4b9la2I
- diL7BLA9bpon4iKsiK5tdXBjjXs38QGH0nw7DmGZmO/w==
-X-Received: by 2002:a05:600c:4895:b0:488:ffad:6728 with SMTP id
- 5b1f17b1804b1-488ffad67f4mr158637015e9.19.1776860099737; 
- Wed, 22 Apr 2026 05:14:59 -0700 (PDT)
-Received: from biju.lan ([2a00:23c4:a758:8a01:a996:3b08:6e96:ca85])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4891df9e50asm192056665e9.0.2026.04.22.05.14.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 05:14:59 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>, linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2] drm/bridge: adv7511: Clear HPD IRQ during atomic_enable()
-Date: Wed, 22 Apr 2026 13:14:54 +0100
-Message-ID: <20260422121457.166780-1-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB61610E0B5
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:25:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776860750; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=jQb9C8ryoubmL7rYdbeMsFRxFXEkxBkhFRbat057b0Z0vskgZRrKL0+6JqddkVxLK77G1/Wi4KawQsrNydo2QcHXGcYu7gJsYLPIeycwaORLQydNv/Ryl0dbRta3cZzG5FO6jW4NCs1Q3KONXlRcZhpH55wMeCQwzAFs+sMQBMw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1776860750;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=FFwRfqUmMQ4olBc8U86vd5P1XIU2Bj4ryewfaPW/Pb0=; 
+ b=jGzw16hlurc04fdZJfCawZfGQvE2/zAhPAiq0pErTm/NlGNaCRkTjqR350InP8TCxcsJrYI21zsGSntNM6BJrX5QthbrbfMAlHustUDebASfBVh6tRcwajwdyHoOiwtk6P//RB4Y331cSQ8R+1CrilAXZgfSiTmuwYn3a2hgJOg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776860750; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=FFwRfqUmMQ4olBc8U86vd5P1XIU2Bj4ryewfaPW/Pb0=;
+ b=IUZ3/zXTdl6E8fRClS6MqbrQOmWSXM9uDYyfKZFMs0RJ+su+qMVCOBXu72fYBhlp
+ C2MURMAqpHrPn1GIsQDaF39tXsVQjc7EJHdfRIlY8EAWMVTJ3/yYz8lW4Zq/a62/I6R
+ cnCH9UZcMOpJwPwt1HTCLvZ0dds4dCVoD0J+uJGg=
+Received: by mx.zohomail.com with SMTPS id 1776860749854313.55554822083184;
+ Wed, 22 Apr 2026 05:25:49 -0700 (PDT)
+From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Subject: [PATCH v9 0/6] Support sparse mappings in Panthor
+Date: Wed, 22 Apr 2026 13:25:27 +0100
+Message-ID: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,53 +64,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+This patch series implements sparse mappings in Panthor. Owing to the lack of HW MMU
+features for sparse page table entries, this had to be implemented using a dummy object
+over which sparse mappings requested over VM_BIND are mapped cyclically.
 
-On RZ/G3E SMARC EVK, suspend-to-RAM via PSCI powers down the ADV7535
-chip entirely, causing the HPD status bit to be in a stale state on
-resume. When the display controller driver's system PM resume callback
-invokes drm_mode_config_helper_resume(), it calls the bridge's
-atomic_enable(), but the stale HPD IRQ is never cleared, leading to
-incorrect behaviour.
+To that end, a new VM_BIND flag was added in the driver's uAPI.
 
-Clear the HPD status bit in adv7511_bridge_atomic_enable() after
-powering on, so that any HPD interrupt latched before or during
-power-loss is dismissed before normal operation resumes.
+The end goal of this patch series is to improve support of Vulkan sparse
+resources. At the moment, to implement this feature on Mali hardware, Vulkan
+sparse map is implemented by mapping the specified region to a "dummy bo" so
+that the accesses do not fault. A newly created sparse resource starts off
+unmapped, and therefore also has to be mapped to the "dummy bo".  This "dummy
+bo" is small (a page size) in comparison to the sizes of va ranges that we might
+want to map to it, and a large number of vm_bind ops can be necessary. For
+example, if the user were to create a 100e6-byte sparse resident resource, we'd
+have to poke VM_BIND with ceil(100e6/0x1000)=24415 map operations.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-Tested HPD, s2idle and s2ram on RZ/G3L SMARC EVK connected to ADV7535
-on both polling and IRQ mode.
-v1->v2:
- * Dropped PM support instead clearing latched HPD status bit in
-   adv7511_bridge_atomic_enable()
- * Dropped suspended variable from struct adv7511.
- * Updated comment in adv7511_bridge_atomic_enable().
- * Clearing the HPD status bit unconditionally as there is no harm.
- * Updated commit header and description.
- * Dropped the tags.
----
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+The new VM_BIND sparse mapping feature addresses this particular inefficiency by
+letting us implement a single Vulkan sparse map operation and sparse resident
+resource initialization with just one map operation.
 
-diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-index 6bd76c1fb007..7663814b4032 100644
---- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-+++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-@@ -792,6 +792,13 @@ static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
- 
- 	adv7511_power_on(adv);
- 
-+	/*
-+	 * Clear the HPD status bit (ADV7511_INT0_HPD), so that any HPD
-+	 * interrupt latched before or during power loss is dismissed before
-+	 * normal operation resumes.
-+	 */
-+	regmap_write(adv->regmap, ADV7511_REG_INT(0), ADV7511_INT0_HPD);
-+
- 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
- 	if (WARN_ON(!connector))
- 		return;
--- 
-2.43.0
+Link to the conversation for the previous patch series revision at:
+https://lore.kernel.org/dri-devel/20260416214453.112332-1-adrian.larumbe@collabora.com/
 
+Changes in v9:
+ - Addressed some nits.
+ - Rearranged argument checks for vm_bind to profit from compiler optimisations.
+ - Added some further comments.
+
+Changes in v8:
+ - Allocate a single 2MiB BO as a dummy buffer for sparse mappings. Let its pages
+ be retrieved just like for any other BO during a map operation.
+ - Removed locking around allocation of the dummy BO by doing it right at the
+  time of a VMA pool creation.
+ - Some minor style fixes.
+ - Refactor low level page mapping code in sm_remap and sm_map.
+ - Made NO_EXEC a mandatory flag for sparse mappings.
+ - Actually bumped the driver's minor revision number.
+
+Changes in v7:
+ - Switched back to Panthor BO-backed dummy object instead of raw pages so as to profit from
+ the existing shrinker reclaim paths.
+ - Created Dummy BO's per file context to avoid information leaking between them.
+ - Reorganised some of the low-level page mapping code.
+ - Added commits deleting spurious white space and unused op contex field.
+
+Changes in v6:
+ - Moved all the GPUVM core code into the driver backend.
+ - Discarded commits that touch on the gpuvm core too.
+ - Redesigned the uAPI so that no repeat range or user BO is supplied for sparse mappings.
+ - Replaced user-supplied BO with a kernel-allocated array of raw pages.
+
+Changes in v5:
+ - Minor fixes to drm_gpuvm.c.
+ - Add panthor MMU page sizes device queriable param.
+ - Add helper to make sure unmaps of repeated regions are correct.
+ - Some fixes to Panthor's repeat mappings implementation.
+ - Lump arguments to panthor_vm_prepare_map_op_ctx into a single struct.
+
+Changes in v4:
+ - Fixed the warnings reported by the kernel test robot.
+  https://lore.kernel.org/oe-kbuild-all/202507041635.WyDu3TQ1-lkp@intel.com/
+ - Fixed the warnings reported by the CI.
+  https://patchwork.freedesktop.org/series/151264/
+
+No changes in v3.
+
+Changes in v2:
+ - Make panthor use this stuff.
+ - Make it possible to express a repeated mappina of any suitably sized
+  and aligned range of a BO, rather than strictly the page size -sized
+  prefix, generalizing the API. Rename DRM_GPUVA_SINGLE_PAGE to
+  DRM_GPUVA_REPEAT.
+ - Clean up parts of drm/gpuvm affected by these changes.
+
+Adrián Larumbe (6):
+  drm/panthor: Expose GPU page sizes to UM
+  drm/panthor: Pass vm_bind_op to vm_prepare_map_op_ctx
+  drm/panthor: Delete spurious whitespace from uAPI header
+  drm/panthor: Remove unused operation context field
+  drm/panthor: Support sparse mappings
+  drm/panthor: Bump the driver version to 1.9
+
+ drivers/gpu/drm/panthor/panthor_device.h |   3 +
+ drivers/gpu/drm/panthor/panthor_drv.c    |  12 +-
+ drivers/gpu/drm/panthor/panthor_gem.c    |  18 ++
+ drivers/gpu/drm/panthor/panthor_gem.h    |   2 +
+ drivers/gpu/drm/panthor/panthor_mmu.c    | 214 ++++++++++++++++++-----
+ include/uapi/drm/panthor_drm.h           |  26 ++-
+ 6 files changed, 231 insertions(+), 44 deletions(-)
+
+
+base-commit: 62a36c2da774800bef893bc4bf8922fb9c07c1d0
+prerequisite-patch-id: 0000000000000000000000000000000000000000
+--
+2.53.0
