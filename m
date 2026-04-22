@@ -4,48 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F10F9EDC0
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:26:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBCB1F9EDC4
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:26:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C61310E0B5;
-	Wed, 22 Apr 2026 12:26:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D79310E2A4;
+	Wed, 22 Apr 2026 12:26:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="IUZ3/zXT";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="DArBnfcq";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB61610E0B5
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:25:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1776860750; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D29B10E2A4
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:26:06 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1776860756; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=jQb9C8ryoubmL7rYdbeMsFRxFXEkxBkhFRbat057b0Z0vskgZRrKL0+6JqddkVxLK77G1/Wi4KawQsrNydo2QcHXGcYu7gJsYLPIeycwaORLQydNv/Ryl0dbRta3cZzG5FO6jW4NCs1Q3KONXlRcZhpH55wMeCQwzAFs+sMQBMw=
+ b=U1iPIm5sNEmi20E0mbYtl9SrXD1u5H6ikvPuhUb5aPVqhkYX1kwjpb9JVqlUI1TX/MqBHM3pY2kf3tnH6CIaDTCAeiJL1P02vqIKazpD4oTBItDytqrrZmAAjCbfR5BBKYa/Eq/XeNZ0RUzOdbEDu7VNJe7z6lsobByNnbhtKNM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1776860750;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=FFwRfqUmMQ4olBc8U86vd5P1XIU2Bj4ryewfaPW/Pb0=; 
- b=jGzw16hlurc04fdZJfCawZfGQvE2/zAhPAiq0pErTm/NlGNaCRkTjqR350InP8TCxcsJrYI21zsGSntNM6BJrX5QthbrbfMAlHustUDebASfBVh6tRcwajwdyHoOiwtk6P//RB4Y331cSQ8R+1CrilAXZgfSiTmuwYn3a2hgJOg=
+ s=zohoarc; t=1776860756;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=+B/+9eBkwygGHzkwQiX0Pz0TfycjJYhHlNFkDxPPltg=; 
+ b=cmON9O/Xa0HVBOzB4bGIc+/oFDb3T0tNidsm4/K+63nX9ZSfymG50ksizKDhmDETvZN092Rw6ocVruVQtOspmfQ2npLSUGRPLLr8IuWW4yc6QfsX7GSR5KcicZ6VQIsgLsi0bEfO9awv91/ajINaivXKvCNV23tPnHWLWcsm/ug=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776860750; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1776860756; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=FFwRfqUmMQ4olBc8U86vd5P1XIU2Bj4ryewfaPW/Pb0=;
- b=IUZ3/zXTdl6E8fRClS6MqbrQOmWSXM9uDYyfKZFMs0RJ+su+qMVCOBXu72fYBhlp
- C2MURMAqpHrPn1GIsQDaF39tXsVQjc7EJHdfRIlY8EAWMVTJ3/yYz8lW4Zq/a62/I6R
- cnCH9UZcMOpJwPwt1HTCLvZ0dds4dCVoD0J+uJGg=
-Received: by mx.zohomail.com with SMTPS id 1776860749854313.55554822083184;
- Wed, 22 Apr 2026 05:25:49 -0700 (PDT)
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=+B/+9eBkwygGHzkwQiX0Pz0TfycjJYhHlNFkDxPPltg=;
+ b=DArBnfcqYs+913s77RzR0AcPhCJMWS91GtoCdIIqj8LP+pdDSedFL5RBm2EXgo2K
+ WrseGpySsGexfnHGDc2RUtK/xHFuQ2WBtQy7G0b4xdNZTo+79lb+chdX7stT0jNKpN8
+ GE5Awbi36Fez2Iu9Xga7Kt4z0SMolmfZoWk8XrjM=
+Received: by mx.zohomail.com with SMTPS id 1776860754163226.7465683025158;
+ Wed, 22 Apr 2026 05:25:54 -0700 (PDT)
 From: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
 To: linux-kernel@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
  Boris Brezillon <boris.brezillon@collabora.com>, kernel@collabora.com,
- =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
-Subject: [PATCH v9 0/6] Support sparse mappings in Panthor
-Date: Wed, 22 Apr 2026 13:25:27 +0100
-Message-ID: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
+ =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>
+Subject: [PATCH v9 1/6] drm/panthor: Expose GPU page sizes to UM
+Date: Wed, 22 Apr 2026 13:25:28 +0100
+Message-ID: <20260422122538.3117380-2-adrian.larumbe@collabora.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
+References: <20260422122538.3117380-1-adrian.larumbe@collabora.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -64,98 +73,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series implements sparse mappings in Panthor. Owing to the lack of HW MMU
-features for sparse page table entries, this had to be implemented using a dummy object
-over which sparse mappings requested over VM_BIND are mapped cyclically.
+In future commits that will implement repeated mappings, only repeat
+values multiple of GPU page sizes will be tolerated. That means these
+values must be made known to UM. Do it through a queriable GPU info
+value.
 
-To that end, a new VM_BIND flag was added in the driver's uAPI.
+Reviewed-by: Steven Price <steven.price@arm.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panthor/panthor_device.h |  3 +++
+ drivers/gpu/drm/panthor/panthor_drv.c    |  8 ++++++++
+ drivers/gpu/drm/panthor/panthor_mmu.c    |  9 ++++++++-
+ include/uapi/drm/panthor_drm.h           | 13 +++++++++++++
+ 4 files changed, 32 insertions(+), 1 deletion(-)
 
-The end goal of this patch series is to improve support of Vulkan sparse
-resources. At the moment, to implement this feature on Mali hardware, Vulkan
-sparse map is implemented by mapping the specified region to a "dummy bo" so
-that the accesses do not fault. A newly created sparse resource starts off
-unmapped, and therefore also has to be mapped to the "dummy bo".  This "dummy
-bo" is small (a page size) in comparison to the sizes of va ranges that we might
-want to map to it, and a large number of vm_bind ops can be necessary. For
-example, if the user were to create a 100e6-byte sparse resident resource, we'd
-have to poke VM_BIND with ceil(100e6/0x1000)=24415 map operations.
-
-The new VM_BIND sparse mapping feature addresses this particular inefficiency by
-letting us implement a single Vulkan sparse map operation and sparse resident
-resource initialization with just one map operation.
-
-Link to the conversation for the previous patch series revision at:
-https://lore.kernel.org/dri-devel/20260416214453.112332-1-adrian.larumbe@collabora.com/
-
-Changes in v9:
- - Addressed some nits.
- - Rearranged argument checks for vm_bind to profit from compiler optimisations.
- - Added some further comments.
-
-Changes in v8:
- - Allocate a single 2MiB BO as a dummy buffer for sparse mappings. Let its pages
- be retrieved just like for any other BO during a map operation.
- - Removed locking around allocation of the dummy BO by doing it right at the
-  time of a VMA pool creation.
- - Some minor style fixes.
- - Refactor low level page mapping code in sm_remap and sm_map.
- - Made NO_EXEC a mandatory flag for sparse mappings.
- - Actually bumped the driver's minor revision number.
-
-Changes in v7:
- - Switched back to Panthor BO-backed dummy object instead of raw pages so as to profit from
- the existing shrinker reclaim paths.
- - Created Dummy BO's per file context to avoid information leaking between them.
- - Reorganised some of the low-level page mapping code.
- - Added commits deleting spurious white space and unused op contex field.
-
-Changes in v6:
- - Moved all the GPUVM core code into the driver backend.
- - Discarded commits that touch on the gpuvm core too.
- - Redesigned the uAPI so that no repeat range or user BO is supplied for sparse mappings.
- - Replaced user-supplied BO with a kernel-allocated array of raw pages.
-
-Changes in v5:
- - Minor fixes to drm_gpuvm.c.
- - Add panthor MMU page sizes device queriable param.
- - Add helper to make sure unmaps of repeated regions are correct.
- - Some fixes to Panthor's repeat mappings implementation.
- - Lump arguments to panthor_vm_prepare_map_op_ctx into a single struct.
-
-Changes in v4:
- - Fixed the warnings reported by the kernel test robot.
-  https://lore.kernel.org/oe-kbuild-all/202507041635.WyDu3TQ1-lkp@intel.com/
- - Fixed the warnings reported by the CI.
-  https://patchwork.freedesktop.org/series/151264/
-
-No changes in v3.
-
-Changes in v2:
- - Make panthor use this stuff.
- - Make it possible to express a repeated mappina of any suitably sized
-  and aligned range of a BO, rather than strictly the page size -sized
-  prefix, generalizing the API. Rename DRM_GPUVA_SINGLE_PAGE to
-  DRM_GPUVA_REPEAT.
- - Clean up parts of drm/gpuvm affected by these changes.
-
-Adrián Larumbe (6):
-  drm/panthor: Expose GPU page sizes to UM
-  drm/panthor: Pass vm_bind_op to vm_prepare_map_op_ctx
-  drm/panthor: Delete spurious whitespace from uAPI header
-  drm/panthor: Remove unused operation context field
-  drm/panthor: Support sparse mappings
-  drm/panthor: Bump the driver version to 1.9
-
- drivers/gpu/drm/panthor/panthor_device.h |   3 +
- drivers/gpu/drm/panthor/panthor_drv.c    |  12 +-
- drivers/gpu/drm/panthor/panthor_gem.c    |  18 ++
- drivers/gpu/drm/panthor/panthor_gem.h    |   2 +
- drivers/gpu/drm/panthor/panthor_mmu.c    | 214 ++++++++++++++++++-----
- include/uapi/drm/panthor_drm.h           |  26 ++-
- 6 files changed, 231 insertions(+), 44 deletions(-)
-
-
-base-commit: 62a36c2da774800bef893bc4bf8922fb9c07c1d0
-prerequisite-patch-id: 0000000000000000000000000000000000000000
---
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index 5cba272f9b4d..d856a4fe1d61 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -158,6 +158,9 @@ struct panthor_device {
+ 	/** @csif_info: Command stream interface information. */
+ 	struct drm_panthor_csif_info csif_info;
+ 
++	/** @mmu_info: MMU info */
++	struct drm_panthor_mmu_info mmu_info;
++
+ 	/** @hw: GPU-specific data. */
+ 	struct panthor_hw *hw;
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index 73fc983dc9b4..a8090bc4e33c 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -175,6 +175,7 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+ 	_Generic(_obj_name, \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_gpu_info, tiler_present), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_csif_info, pad), \
++		 PANTHOR_UOBJ_DECL(struct drm_panthor_mmu_info, page_size_bitmap), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_timestamp_info, current_timestamp), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_group_priorities_info, pad), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_sync_op, timeline_value), \
+@@ -946,6 +947,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+ 			args->size = sizeof(ptdev->csif_info);
+ 			return 0;
+ 
++		case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
++			args->size = sizeof(ptdev->mmu_info);
++			return 0;
++
+ 		case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+ 			args->size = sizeof(timestamp_info);
+ 			return 0;
+@@ -966,6 +971,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+ 	case DRM_PANTHOR_DEV_QUERY_CSIF_INFO:
+ 		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->csif_info);
+ 
++	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
++		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
++
+ 	case DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO:
+ 		ret = copy_struct_from_user(&timestamp_info,
+ 					    sizeof(timestamp_info),
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index fa8b31df85c9..dad56a01c597 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -2750,7 +2750,7 @@ panthor_vm_create(struct panthor_device *ptdev, bool for_mcu,
+ 	refcount_set(&vm->as.active_cnt, 0);
+ 
+ 	pgtbl_cfg = (struct io_pgtable_cfg) {
+-		.pgsize_bitmap	= SZ_4K | SZ_2M,
++		.pgsize_bitmap	= ptdev->mmu_info.page_size_bitmap,
+ 		.ias		= va_bits,
+ 		.oas		= pa_bits,
+ 		.coherent_walk	= ptdev->coherent,
+@@ -3195,6 +3195,11 @@ static void panthor_mmu_release_wq(struct drm_device *ddev, void *res)
+ 	destroy_workqueue(res);
+ }
+ 
++static void panthor_mmu_info_init(struct panthor_device *ptdev)
++{
++	ptdev->mmu_info.page_size_bitmap = SZ_4K | SZ_2M;
++}
++
+ /**
+  * panthor_mmu_init() - Initialize the MMU logic.
+  * @ptdev: Device.
+@@ -3207,6 +3212,8 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+ 	struct panthor_mmu *mmu;
+ 	int ret, irq;
+ 
++	panthor_mmu_info_init(ptdev);
++
+ 	mmu = drmm_kzalloc(&ptdev->base, sizeof(*mmu), GFP_KERNEL);
+ 	if (!mmu)
+ 		return -ENOMEM;
+diff --git a/include/uapi/drm/panthor_drm.h b/include/uapi/drm/panthor_drm.h
+index 0e455d91e77d..dc2704fc2829 100644
+--- a/include/uapi/drm/panthor_drm.h
++++ b/include/uapi/drm/panthor_drm.h
+@@ -246,6 +246,9 @@ enum drm_panthor_dev_query_type {
+ 	/** @DRM_PANTHOR_DEV_QUERY_CSIF_INFO: Query command-stream interface information. */
+ 	DRM_PANTHOR_DEV_QUERY_CSIF_INFO,
+ 
++	/** @DRM_PANTHOR_DEV_QUERY_MMU_INFO: Query MMU information. */
++	DRM_PANTHOR_DEV_QUERY_MMU_INFO,
++
+ 	/** @DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO: Query timestamp information. */
+ 	DRM_PANTHOR_DEV_QUERY_TIMESTAMP_INFO,
+ 
+@@ -487,6 +490,16 @@ struct drm_panthor_timestamp_info {
+ 	__u64 cpu_timestamp_nsec;
+ };
+ 
++/**
++ * struct drm_panthor_mmu_info - MMU information
++ *
++ * Structure grouping all queryable information relating to the MMU.
++ */
++struct drm_panthor_mmu_info {
++	/** @page_size_bitmap: Allowed page sizes */
++	__u64 page_size_bitmap;
++};
++
+ /**
+  * struct drm_panthor_group_priorities_info - Group priorities information
+  *
+-- 
 2.53.0
+
