@@ -4,78 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1586F9B605
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 10:30:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 017DEF9B60D
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 10:32:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCB8310E9AA;
-	Wed, 22 Apr 2026 10:30:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54C8810E9A9;
+	Wed, 22 Apr 2026 10:32:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sClig9lR";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="UGJ9ffXv";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Iepx5AV1";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E6B810E9AA
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 10:30:16 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-43d73422431so4502193f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 03:30:16 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71BF810E9A9
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 10:32:50 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63M98wUL1081113
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 10:32:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ b1+18xNRgn9+Ez7xGrXINoqw7Xt1WZlAbcZjb5rCtck=; b=UGJ9ffXvVT/DFqeV
+ 4aDNynOAHN6FYTD++h3e5vgtbJL1wHnSX9U6rYlTeH4Pn234jUWGj7eefDCNfXQD
+ rFTLUa5JFnXduvm+B4Jcr0SjcT3NwWIQurbj8zsWVNRIlvWTbvqbswwgQ9wSBm3T
+ njScmfMte5VDiNrP7IsdFpOM4NZI/kX8qY1a79djZXBR1Vq2jXMu9nbW0dLxoTqr
+ 9Xjm7VqgloIIIruKa3vZR7u/mR+O/X1OmhU0mOmYyfGKEwyJdZH22E18Jn3uRDEU
+ REUzg9VsPM8kW+Vqa9lvRhh+2FK7yYe69jPvrVUfF9r2LARvr84r5K06gJR1RDcX
+ TLttYA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpeng30tk-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 10:32:48 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2b45cd0bb96so54097695ad.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 03:32:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776853814; x=1777458614; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=63KYhScVtjppyoQjYNb86QEpZuNNlTEDQMEwY5JRcz0=;
- b=sClig9lR6ch4aKS+AGJykwM+h27ng9XM1JHR4lvVbmUXgEMmG2QNdOWi/gWxaB0lPm
- 1evPCP0oK5a7w9UZxnga8vV01hF1NfXMgNxspls9CLllhzZreKwYhCV7RwvxyUe1p91W
- T89S5vrpWUCtSPGFhXoIpl7CTaRLIjdL+DYG5gJ8nVcp3cj6i5eGYxDhn+NZamB1fwhc
- mbuLcs3p9oyq0wRxE8smR6swekBcZehzjgAzH0fcU+/RNhlI/1Mj+cFIXMI8ReWuvzKZ
- JmaGPYhavPTtVHH0pwvxd8aaw3yNVIbn6uYftJZVfGw7glBvzaAQ99eEnzGfnO0X0meS
- isXw==
+ d=oss.qualcomm.com; s=google; t=1776853967; x=1777458767;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=b1+18xNRgn9+Ez7xGrXINoqw7Xt1WZlAbcZjb5rCtck=;
+ b=Iepx5AV1tDicroTkzJ52Bc/WhTb6EOEsfNtOS5VHLEtU+jmZSdSV8guRl/g3zdBnUg
+ gk1sLscOnFASMRx/jBmvK5ypcZLMFMWL/2Bcmpe5Wr96jVlHoC2Si+k847ZEA/NI/chp
+ RPwVBHP8V8NRk83eFS3Y1kmN26+cq8GSo4znTJ4aL1RmKTS6STfyxCgNiD1oyB0A6ZwJ
+ hxizgPmdQzTzWI64nqiZok3/LkJw0b+2Vs22+bKlrXUcvx+I8d2014cMFJfF1/4H6DfF
+ eUxo55ncJppwcd7eTSCSFNPuIrNv++ST4q8WRJFCkDBGv1eWRmeaH/kiG9kmjE/sjfws
+ rzcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776853814; x=1777458614;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=63KYhScVtjppyoQjYNb86QEpZuNNlTEDQMEwY5JRcz0=;
- b=R2LPlpHrTpIxk6PeJaeAZ1z+9QTax41zjopVBmA+JO98d9dQTefVGfXW9Mw6CBvNPm
- hSnaojOs9qG+awLuCgqAIOaBm+2GOSNYcbScnLwnqcsSYdoAYUj7VvUbtWfvY+oZYO/6
- xfXcoGucwPVmghK2sT/p+hU5WRQ6NEXDw8aiKUuViFHlnUMKwc5NH0v2rSDcffjAg64z
- SB8afrLGcpNli/CHXDkWNj1/demU2sglSYDrxprRQGNh6+4E3eNGISOMiOuL9dT7m1Yx
- dzZmcMeNBhsHeTqMklpKKCiXo+S1bHYvzBzz/kp6L76Ass4Yq9v9gntSie1mZHrioW3L
- yPpw==
-X-Gm-Message-State: AOJu0Yy7ZRejUOyjq6Sh/Rss9ZkZcA7m4R397ad9WLfKTC5KY+kBr9ZX
- XKeIPYPKKujbV27UaJadzSU3f9FIuXH9JlA5+jivWwUIS7TpbeghVqem
-X-Gm-Gg: AeBDiet3VUoD0XLTE657fLUEtdFImT6DW1UVfDdXdW8vOBYJmmJSEpzM75asH1x69ns
- MLwUYFF6dTiAyvznsc08a1GSfbo9PHzqUVR56KNtrdEFqdEaMiBgVdxdHnsXPpd6p5lfJjROaax
- gxCVCIUbCL58Xg2z9pdUSEpZjt7ZjtBNpuP2tFi3PiQUcIaywxmFQ7zEy0Qc5I/It00sLSjIv4r
- lAn1qkbFr4L6oZT+D0rkIYPN3Ky14BbJi/m5epDcRPADr3lh/W2nJH/IkZ7hAXtaVIVhck3WkdT
- UUfXZROG9G0tVkRMLEFaYn0NebP9xBLraTcrzTPK9zLY2cH3/77j/yj2ZVjignZnhHoCMQy/un5
- jsqwelgxBIoyyX/6UnQjcy94gm+/jfXSZ0hEBKiGYyRbGp8O0PVfWdCq31mHQWasZRHhyoyu8nH
- Mu2bxy1jWdAXFC01m8PIL4nkiG+PwH5SqsZorM7ikeJjsKpw==
-X-Received: by 2002:a05:6000:2502:b0:43d:3113:6eed with SMTP id
- ffacd0b85a97d-43fe3dc84f4mr33871124f8f.4.1776853814292; 
- Wed, 22 Apr 2026 03:30:14 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:15c7:5100:eecf:fda8:2b8:432b])
+ d=1e100.net; s=20251104; t=1776853967; x=1777458767;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=b1+18xNRgn9+Ez7xGrXINoqw7Xt1WZlAbcZjb5rCtck=;
+ b=CEOu7C6s4uq81pRIR+S0q3I6bVPx5Uo+19R7nHi/yhEwCxPLoa/Dq15zgyiqw+EFWl
+ 3t/0LRHHVSMYLd4wYZ7C5dE4THZ7hpz4neJIslvw/pg6vp0agjuqUXzwpXuFs7qD6WwG
+ J3R+2iyVdcGIMDkyAiUvC9SuXo6zwt8UNaUplmjLLorEWp4H0uBz/EstYkLVMJsCdmsf
+ S4acspyKyvI9M4iwfIJtw70R+HucSo1d5a5zCl6eN5jSMo4tlj1Vq4bXLftd92gTCG9S
+ XZ3bNwO3MIjW1Ce7RK90XqxskGB03eX47m1ssWCpU30VVZlxbdWQsRAI3ZjIOWFBkWIf
+ QEJA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ94Y/Pyg09j3ObMxpIrZoUfER2QKEk7V7TLZvQ59qiJ4EU0IjK/o/HBUAHviR9nM9xbAoB4oKWZj2E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxO0K8mO+oZaz+yTThTmlWKO4KqpBrcemoS1G/hBiCYoC1SorDL
+ 3Rx0xZ0r34RI96Qd7dbsO0NdeTEs/WZKFVHhOQmcNxH4hzSUvGF76hGn9R3ZszHmVB/+taanPKq
+ 5xdJmo/o50TJpKyeC06TaOpYkNDrkaLp8J+DYOGjtdm1OICYMrehY79nIB1CIudr6BrjZ08s=
+X-Gm-Gg: AeBDiev+kGCknDXD0Ut11bINJ+wovTH8ZcGECrkzyMQ89HkS1bnLO0HzoQmZ8V8gMzR
+ 1qBYPL1DanhMoRmg9S/3wqOZqHHUQoVUSkd6O5DqDMaFigAI+iNoYNi4/LJCq8My9su5Piel7dm
+ cUvO8UdiTiyIn8P7Cm6lGITvKXTyFPBMXBBFnkgUi1jXMbNSqXkP/FAt9P/uWzOwZVMDctzfo1g
+ 9fyMZkwtdl1twEkO9t2x7VwoH1Mol06Cb3z1Pk7+Wa8W5jQ+64p/82waOrfOozgRqhCQrYsukRF
+ JxRXPcen94TSvL00g9iH5Rogeb0VXqqy98XeIb/aQDJTjNz2Oy3l3qcUympxwKEYJIWh40cEfTv
+ H3x0FyVdpDeofUX7Jr1UJxVx7aL5GaCYoVA5jWZyyx/Wqh5SbS6dhW2Un
+X-Received: by 2002:a17:902:f550:b0:2b2:4611:5dca with SMTP id
+ d9443c01a7336-2b5f9f1c1edmr226337465ad.24.1776853966976; 
+ Wed, 22 Apr 2026 03:32:46 -0700 (PDT)
+X-Received: by 2002:a17:902:f550:b0:2b2:4611:5dca with SMTP id
+ d9443c01a7336-2b5f9f1c1edmr226337085ad.24.1776853966401; 
+ Wed, 22 Apr 2026 03:32:46 -0700 (PDT)
+Received: from [10.206.98.126] ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43fe4e4daf2sm43439037f8f.33.2026.04.22.03.30.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 03:30:13 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: tursulin@ursulin.net,
-	sumit.semwal@linaro.org
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 2/2] dma-buf/dma_fence_array: optimize handling
-Date: Wed, 22 Apr 2026 12:30:11 +0200
-Message-ID: <20260422103012.1647-2-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260422103012.1647-1-christian.koenig@amd.com>
-References: <20260422103012.1647-1-christian.koenig@amd.com>
+ d9443c01a7336-2b5faa16e72sm161353545ad.19.2026.04.22.03.32.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Apr 2026 03:32:46 -0700 (PDT)
+Message-ID: <6e60a636-2693-4456-a63d-dd4165ec38ee@oss.qualcomm.com>
+Date: Wed, 22 Apr 2026 16:02:40 +0530
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] misc: fastrpc: Add reference counting for fastrpc_user
+ structure
+To: Srinivas Kandagatla <srini@kernel.org>, linux-arm-msm@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+ linux-kernel@vger.kernel.org, quic_chennak@quicinc.com,
+ dri-devel@lists.freedesktop.org, arnd@arndb.de,
+ ekansh.gupta@oss.qualcomm.com, stable@kernel.org
+References: <20260226151121.818852-1-anandu.e@oss.qualcomm.com>
+ <c0506a61-c5fb-4962-8bf1-6715178860b2@kernel.org>
+Content-Language: en-US
+From: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+In-Reply-To: <c0506a61-c5fb-4962-8bf1-6715178860b2@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=CNUamxrD c=1 sm=1 tr=0 ts=69e8a3d0 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=e1tWFlzL7xBfjK-YGPgA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: hVZa4fqVO55CDs28XegiGE4KOIPo7nvW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDEwMCBTYWx0ZWRfX6YBj/5atssAZ
+ Lioq5cTHc4mPcJ0K8HHfqWSXzeCaJnPj8zz1V0VTz8k5/FtHsBG/5coLCozNUGUd+pJOhGpKbXu
+ shr2ik+wVZfIDuOwHoDHIbiUwqBmQ19OEQRwimtAdN23B/bRCdwa15RemzBc6WaQ2uIfEBdyQoI
+ tQHxSpCxi53Ga8mHX2JPHvhtUlVvRBaDWgxI+pLCoezDXQ3lxuEWjmGpgWdRkhW40a0gy8r2jKP
+ LYQ+1rDQrgLrtKI70YhzmsBxZ60cQUB2O7DC2ihenMK/887jYSwqp0CfH8yEnKZuyJ1SXIMoHRK
+ Y1bODtRaKZodhfj/BNtSTtuVUrD1gCK2rW1f1vuzkFgZLx8JzDtpX38zWBFxgLYcsu7wgTGwZST
+ L9V0DrqJ1nW7WgO2K3OuFNbBoHCN/RbiJHhflzYPcWEH6fsXNtsR2mqqog5370gT8/Vz+FfHF6h
+ wD+QNrq5FBfdpp3Qiew==
+X-Proofpoint-ORIG-GUID: hVZa4fqVO55CDs28XegiGE4KOIPo7nvW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 spamscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220100
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,278 +144,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Removing the signal on any feature allows to simplfy the dma_fence_array
-code a lot and saves us from the need to install a callback on all fences
-at the same time.
 
-This results in less memory and CPU overhead.
+On 13-04-2026 06:39 pm, Srinivas Kandagatla wrote:
+>
+> On 2/26/26 3:11 PM, Anandu Krishnan E wrote:
+>> Add reference counting using kref to the fastrpc_user structure to
+>> prevent use-after-free issues when contexts are freed from workqueue
+>> after device release.
+>>
+>> The issue occurs when fastrpc_device_release() frees the user structure
+>> while invoke contexts are still pending in the workqueue. When the
+>> workqueue later calls fastrpc_context_free(), it attempts to access
+>> buf->fl->cctx in fastrpc_buf_free(), leading to a use-after-free:
+> I guess these are some of the pending invoke requests that are still
+> processing and receive callback after user closes the device.
+>
+>>    pc : fastrpc_buf_free+0x38/0x80 [fastrpc]
+>>    lr : fastrpc_context_free+0xa8/0x1b0 [fastrpc]
+>>    ...
+>>    fastrpc_context_free+0xa8/0x1b0 [fastrpc]
+>>    fastrpc_context_put_wq+0x78/0xa0 [fastrpc]
+>>    process_one_work+0x180/0x450
+>>    worker_thread+0x26c/0x388
+>>
+>> Implement proper reference counting to fix this:
+>> - Initialize kref in fastrpc_device_open()
+>> - Take a reference in fastrpc_context_alloc() for each context
+>> - Release the reference in fastrpc_context_free() when context is freed
+>> - Release the initial reference in fastrpc_device_release()
+>>
+>> This ensures the user structure remains valid as long as there are
+>> contexts holding references to it, preventing the race condition.
+>>
+>> Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
+>> Cc: stable@kernel.org
+>> Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+>> ---
+>>   drivers/misc/fastrpc.c | 35 +++++++++++++++++++++++++++++++----
+>>   1 file changed, 31 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+>> index 47356a5d5804..3ababcf327d7 100644
+>> --- a/drivers/misc/fastrpc.c
+>> +++ b/drivers/misc/fastrpc.c
+>> @@ -310,6 +310,8 @@ struct fastrpc_user {
+>>   	spinlock_t lock;
+>>   	/* lock for allocations */
+>>   	struct mutex mutex;
+>> +	/* Reference count */
+>> +	struct kref refcount;
+>>   };
+>>   
+>>   /* Extract SMMU PA from consolidated IOVA */
+>> @@ -497,15 +499,36 @@ static void fastrpc_channel_ctx_put(struct fastrpc_channel_ctx *cctx)
+>>   	kref_put(&cctx->refcount, fastrpc_channel_ctx_free);
+>>   }
+>>   
+>> +static void fastrpc_user_free(struct kref *ref)
+>> +{
+>> +	struct fastrpc_user *fl = container_of(ref, struct fastrpc_user, refcount);
+>> +
+>> +	fastrpc_channel_ctx_put(fl->cctx);
+>> +	mutex_destroy(&fl->mutex);
+>> +	kfree(fl);
+>> +}
+>> +
+>> +static void fastrpc_user_get(struct fastrpc_user *fl)
+>> +{
+>> +	kref_get(&fl->refcount);
+>> +}
+>> +
+>> +static void fastrpc_user_put(struct fastrpc_user *fl)
+>> +{
+>> +	kref_put(&fl->refcount, fastrpc_user_free);
+>> +}
+>> +
+>>   static void fastrpc_context_free(struct kref *ref)
+>>   {
+>>   	struct fastrpc_invoke_ctx *ctx;
+>>   	struct fastrpc_channel_ctx *cctx;
+>> +	struct fastrpc_user *fl;
+>>   	unsigned long flags;
+>>   	int i;
+>>   
+>>   	ctx = container_of(ref, struct fastrpc_invoke_ctx, refcount);
+>>   	cctx = ctx->cctx;
+>> +	fl = ctx->fl;
+>>   
+>>   	for (i = 0; i < ctx->nbufs; i++)
+>>   		fastrpc_map_put(ctx->maps[i]);
+>> @@ -521,6 +544,8 @@ static void fastrpc_context_free(struct kref *ref)
+>>   	kfree(ctx->olaps);
+>>   	kfree(ctx);
+>>   
+>> +	/* Release the reference taken in fastrpc_context_alloc() */
+>> +	fastrpc_user_put(fl);
+>>   	fastrpc_channel_ctx_put(cctx);
+>>   }
+>>   
+>> @@ -628,6 +653,8 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+>>   
+>>   	/* Released in fastrpc_context_put() */
+>>   	fastrpc_channel_ctx_get(cctx);
+>> +	/* Take a reference to user, released in fastrpc_context_free() */
+>> +	fastrpc_user_get(user);
+>>   
+>>   	ctx->sc = sc;
+>>   	ctx->retval = -1;
+>> @@ -658,6 +685,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
+>>   	spin_lock(&user->lock);
+>>   	list_del(&ctx->node);
+>>   	spin_unlock(&user->lock);
+>> +	fastrpc_user_put(user);
+>>   	fastrpc_channel_ctx_put(cctx);
+>>   	kfree(ctx->maps);
+>>   	kfree(ctx->olaps);
+>> @@ -1606,11 +1634,9 @@ static int fastrpc_device_release(struct inode *inode, struct file *file)
+>>   	}
+>>   
+>>   	fastrpc_session_free(cctx, fl->sctx);
+>> -	fastrpc_channel_ctx_put(cctx);
+>> -
+>> -	mutex_destroy(&fl->mutex);
+>> -	kfree(fl);
+>>   	file->private_data = NULL;
+>> +	/* Release the reference taken in fastrpc_device_open */
+>> +	fastrpc_user_put(fl);
+> Now that we are trying to handle(wait) for the cases where wq will get
+> callbacks after the fd is closed, how are we making sure that memory
+> associated with these invoke, init memory and mmaps are not released?
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/dma-buf/dma-fence-array.c | 130 +++++++++++++-----------------
- include/linux/dma-fence-array.h   |  22 ++---
- 2 files changed, 59 insertions(+), 93 deletions(-)
+I will move the cleanups to fastrpc_user_free so that cleanup wont happen until
 
-diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
-index 5e10e8df372f..f1b4b3296c87 100644
---- a/drivers/dma-buf/dma-fence-array.c
-+++ b/drivers/dma-buf/dma-fence-array.c
-@@ -42,97 +42,80 @@ static void dma_fence_array_clear_pending_error(struct dma_fence_array *array)
- 	cmpxchg(&array->base.error, PENDING_ERROR, 0);
- }
- 
--static void irq_dma_fence_array_work(struct irq_work *wrk)
-+static void dma_fence_array_cb_func(struct dma_fence *f,
-+				    struct dma_fence_cb *cb)
- {
--	struct dma_fence_array *array = container_of(wrk, typeof(*array), work);
-+	struct dma_fence_array *array =
-+		container_of(cb, struct dma_fence_array, callback);
- 
--	dma_fence_array_clear_pending_error(array);
-+	irq_work_queue(&array->work);
-+}
-+
-+static void dma_fence_array_arm_cb(struct dma_fence_array *array)
-+{
-+	while (array->num_pending) {
-+		struct dma_fence *f = array->fences[array->num_pending - 1];
-+
-+		if (!dma_fence_add_callback(f, &array->callback,
-+					    dma_fence_array_cb_func))
-+			return;
-+
-+		dma_fence_array_set_pending_error(array, f->error);
-+		WRITE_ONCE(array->num_pending, array->num_pending - 1);
-+	}
- 
- 	dma_fence_signal(&array->base);
- 	dma_fence_put(&array->base);
- }
- 
--static void dma_fence_array_cb_func(struct dma_fence *f,
--				    struct dma_fence_cb *cb)
-+static void dma_fence_array_irq_work(struct irq_work *wrk)
- {
--	struct dma_fence_array_cb *array_cb =
--		container_of(cb, struct dma_fence_array_cb, cb);
--	struct dma_fence_array *array = array_cb->array;
--
--	dma_fence_array_set_pending_error(array, f->error);
-+	struct dma_fence_array *array = container_of(wrk, typeof(*array), work);
- 
--	if (atomic_dec_and_test(&array->num_pending))
--		irq_work_queue(&array->work);
--	else
--		dma_fence_put(&array->base);
-+	WRITE_ONCE(array->num_pending, array->num_pending - 1);
-+	dma_fence_array_arm_cb(array);
- }
- 
- static bool dma_fence_array_enable_signaling(struct dma_fence *fence)
- {
- 	struct dma_fence_array *array = to_dma_fence_array(fence);
--	struct dma_fence_array_cb *cb = array->callbacks;
--	unsigned i;
--
--	for (i = 0; i < array->num_fences; ++i) {
--		cb[i].array = array;
--		/*
--		 * As we may report that the fence is signaled before all
--		 * callbacks are complete, we need to take an additional
--		 * reference count on the array so that we do not free it too
--		 * early. The core fence handling will only hold the reference
--		 * until we signal the array as complete (but that is now
--		 * insufficient).
--		 */
--		dma_fence_get(&array->base);
--		if (dma_fence_add_callback(array->fences[i], &cb[i].cb,
--					   dma_fence_array_cb_func)) {
--			int error = array->fences[i]->error;
--
--			dma_fence_array_set_pending_error(array, error);
--			dma_fence_put(&array->base);
--			if (atomic_dec_and_test(&array->num_pending)) {
--				dma_fence_array_clear_pending_error(array);
--				return false;
--			}
--		}
--	}
- 
-+	/*
-+	 * As we may report that the fence is signaled before all
-+	 * callbacks are complete, we need to take an additional
-+	 * reference count on the array so that we do not free it too
-+	 * early. The core fence handling will only hold the reference
-+	 * until we signal the array as complete (but that is now
-+	 * insufficient).
-+	 */
-+	dma_fence_get(&array->base);
-+	dma_fence_array_arm_cb(array);
- 	return true;
- }
- 
- static bool dma_fence_array_signaled(struct dma_fence *fence)
- {
- 	struct dma_fence_array *array = to_dma_fence_array(fence);
--	int num_pending;
-+	int num_pending, error = 0;
- 	unsigned int i;
- 
- 	/*
--	 * We need to read num_pending before checking the enable_signal bit
--	 * to avoid racing with the enable_signaling() implementation, which
--	 * might decrement the counter, and cause a partial check.
--	 * atomic_read_acquire() pairs with atomic_dec_and_test() in
--	 * dma_fence_array_enable_signaling()
--	 *
--	 * The !--num_pending check is here to account for the any_signaled case
--	 * if we race with enable_signaling(), that means the !num_pending check
--	 * in the is_signalling_enabled branch might be outdated (num_pending
--	 * might have been decremented), but that's fine. The user will get the
--	 * right value when testing again later.
-+	 * Reading num_pending without a memory barrier here is correct since
-+	 * that is only for optimization, it is perfectly acceptable to have a
-+	 * stale value for it. In all other cases num_pending is accessed by a
-+	 * single call chain.
- 	 */
--	num_pending = atomic_read_acquire(&array->num_pending);
--	if (test_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT, &array->base.flags)) {
--		if (num_pending <= 0)
--			goto signal;
--		return false;
--	}
-+	num_pending = READ_ONCE(array->num_pending);
-+	for (i = 0; i < num_pending; ++i) {
-+		struct dma_fence *f = array->fences[i];
- 
--	for (i = 0; i < array->num_fences; ++i) {
--		if (dma_fence_is_signaled(array->fences[i]) && !--num_pending)
--			goto signal;
--	}
--	return false;
-+		if (!dma_fence_is_signaled(f))
-+			return false;
- 
--signal:
-+		if (!error)
-+			error = f->error;
-+	}
-+	dma_fence_array_set_pending_error(array, error);
- 	dma_fence_array_clear_pending_error(array);
- 	return true;
- }
-@@ -171,15 +154,12 @@ EXPORT_SYMBOL(dma_fence_array_ops);
- 
- /**
-  * dma_fence_array_alloc - Allocate a custom fence array
-- * @num_fences:		[in]	number of fences to add in the array
-  *
-  * Return dma fence array on success, NULL on failure
-  */
--struct dma_fence_array *dma_fence_array_alloc(int num_fences)
-+struct dma_fence_array *dma_fence_array_alloc(void)
- {
--	struct dma_fence_array *array;
--
--	return kzalloc_flex(*array, callbacks, num_fences);
-+	return kzalloc_obj(struct dma_fence_array);
- }
- EXPORT_SYMBOL(dma_fence_array_alloc);
- 
-@@ -203,10 +183,13 @@ void dma_fence_array_init(struct dma_fence_array *array,
- 	WARN_ON(!num_fences || !fences);
- 
- 	array->num_fences = num_fences;
-+	array->num_pending = num_fences;
-+	array->fences = fences;
-+	array->base.error = PENDING_ERROR;
- 
- 	dma_fence_init(&array->base, &dma_fence_array_ops, NULL, context,
- 		       seqno);
--	init_irq_work(&array->work, irq_dma_fence_array_work);
-+	init_irq_work(&array->work, dma_fence_array_irq_work);
- 
- 	/*
- 	 * dma_fence_array_enable_signaling() is invoked while holding
-@@ -220,11 +203,6 @@ void dma_fence_array_init(struct dma_fence_array *array,
- 	 */
- 	lockdep_set_class(&array->base.inline_lock, &dma_fence_array_lock_key);
- 
--	atomic_set(&array->num_pending, num_fences);
--	array->fences = fences;
--
--	array->base.error = PENDING_ERROR;
--
- 	/*
- 	 * dma_fence_array objects should never contain any other fence
- 	 * containers or otherwise we run into recursion and potential kernel
-@@ -265,7 +243,7 @@ struct dma_fence_array *dma_fence_array_create(int num_fences,
- {
- 	struct dma_fence_array *array;
- 
--	array = dma_fence_array_alloc(num_fences);
-+	array = dma_fence_array_alloc();
- 	if (!array)
- 		return NULL;
- 
-diff --git a/include/linux/dma-fence-array.h b/include/linux/dma-fence-array.h
-index 1b1d87579c38..3ee55c0e2fa4 100644
---- a/include/linux/dma-fence-array.h
-+++ b/include/linux/dma-fence-array.h
-@@ -15,16 +15,6 @@
- #include <linux/dma-fence.h>
- #include <linux/irq_work.h>
- 
--/**
-- * struct dma_fence_array_cb - callback helper for fence array
-- * @cb: fence callback structure for signaling
-- * @array: reference to the parent fence array object
-- */
--struct dma_fence_array_cb {
--	struct dma_fence_cb cb;
--	struct dma_fence_array *array;
--};
--
- /**
-  * struct dma_fence_array - fence to represent an array of fences
-  * @base: fence base class
-@@ -33,18 +23,17 @@ struct dma_fence_array_cb {
-  * @num_pending: fences in the array still pending
-  * @fences: array of the fences
-  * @work: internal irq_work function
-- * @callbacks: array of callback helpers
-+ * @callback: callback structure for signaling
-  */
- struct dma_fence_array {
- 	struct dma_fence base;
- 
--	unsigned num_fences;
--	atomic_t num_pending;
-+	unsigned int num_fences;
-+	unsigned int num_pending;
- 	struct dma_fence **fences;
- 
- 	struct irq_work work;
--
--	struct dma_fence_array_cb callbacks[] __counted_by(num_fences);
-+	struct dma_fence_cb callback;
- };
- 
- /**
-@@ -78,11 +67,10 @@ to_dma_fence_array(struct dma_fence *fence)
- 	for (index = 0, fence = dma_fence_array_first(head); fence;	\
- 	     ++(index), fence = dma_fence_array_next(head, index))
- 
--struct dma_fence_array *dma_fence_array_alloc(int num_fences);
-+struct dma_fence_array *dma_fence_array_alloc(void);
- void dma_fence_array_init(struct dma_fence_array *array,
- 			  int num_fences, struct dma_fence **fences,
- 			  u64 context, unsigned seqno);
--
- struct dma_fence_array *dma_fence_array_create(int num_fences,
- 					       struct dma_fence **fences,
- 					       u64 context, unsigned seqno);
--- 
-2.43.0
+all user references are released
 
+>
+>
+> Also now that we have a refcount for the fastrpc_user, is it possible to
+>   remove the refcount on the context, as this seems redundant now, we
+> could just use the user refcount instead. May be other patch..
+
+I will check on this and if possible to remove, i will share a separate patch
+
+-Anandu
+
+>
+>
+> --srini
+>>   
+>>   	return 0;
+>>   }
+>> @@ -1654,6 +1680,7 @@ static int fastrpc_device_open(struct inode *inode, struct file *filp)
+>>   	spin_lock_irqsave(&cctx->lock, flags);
+>>   	list_add_tail(&fl->user, &cctx->users);
+>>   	spin_unlock_irqrestore(&cctx->lock, flags);
+>> +	kref_init(&fl->refcount);
+>>   
+>>   	return 0;
+>>   }
