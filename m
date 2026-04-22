@@ -4,60 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45CD1F9EDC5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73F01F9EDC0
 	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 12:30:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1EB10E9DD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B32D410E9DE;
 	Wed, 22 Apr 2026 12:30:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="gJ4E0plX";
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="DdR24gg0";
+	dkim=fail reason="signature verification failed" (4096-bit key; unprotected) header.d=davidgow.net header.i=@davidgow.net header.b="DccY/31d";
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=davidgow.net header.i=@davidgow.net header.b="jNVyt8Ok";
 	dkim-atps=neutral
 Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF91010E9DD
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C694310E9D7
  for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 12:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1776860502;
- bh=e5yQOm1rGEYi4XdegDATFL+BQNYVwttW0giv42dfL3c=;
+ s=201606; t=1776860548;
+ bh=hML0sRIU1AntIFM+ox4LLB4AF8Mi3yfxqyKl/z6vcDM=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=gJ4E0plXxD4HUkxFfqmum7RHNJDb5ztZChSXUXFkegLzLxi/OVo6dtwfQeiCjCmor
- cuCbb+0jz5GZJ4m6CdlNja69AWRT8Zdz6c83hvVLrG5HiQ/y36dVS9zyyKRm1jXSRl
- 4TW2bDHTxLeC8uS8lGVXF1/F4krhQySHuKhpf++Unci4fLdCaVQh1OlaYtZrmizvRL
- uCAWfVX+QAleudjsb6llPUB9ECQta/5sthxXY1xZcNcx2hQQ7tMRNx52wKLq751lHo
- aJN4Ql7n6J+KqtiQYR29EpnA4/fT4b7xOId2U6lbJ9zz+9r2mtYRgEeVYejc0K5VPX
- Lk1lc/rC6NuzZtJkcYd35XGBBTJqD026m/W7oU430oAIujap3glcRAWwEAITU9KHfU
- rNfCFpmtUPMOZmTyJJwxzmN9HHmGNKEXiSpMXD4xTdb4NH7XhhVL4Np9qHOuB0awJ1
- ftVNVjFmOkH6dbnKQYwXgOg8506wyLIobnJfZJ2FDsL9Zzxynp9kOl2MOMsWTdFCda
- 2tcs+/354DY8bsJlyAlvqMY6jRwR0GPP+uk5l6Jnnfi8uBEYPf6W7xgBft8BDlkdPG
- IHJS+22K5KHeTIDiFhZPMFHQ0y6NfXJ7tm1cnu35xheSvP5Mz/u74aC3pJdV1XgpoR
- hEWWsASBJq8sJD8rpgUD/HGU=
+ b=DccY/31dgKbtTkDP35VUadpUwAVv8D2PwznFX8Y8n7CzsLhNIhqGUwHltCw4ZqYoi
+ ix9e8doDnnboWWH+jEUlfR33rD4tWUMIlLHV1Vu32GoDlKOOnW9kgmrvdq0ABNUKkm
+ /Ve3CVVjrKmKS+/mmeQgi5+wT+ulQaPbTxwP4kwuzpmgSs+4Mv0tX+qbqNNm/B8uxq
+ 9qEbdxOjxepgeC0hiT/eSypZa/bNiWQ2iWEz3rUJ86HdjLN1/VAKcc8N4Fs9lw6bjM
+ xVaNfpPITOQOFupnM+BWhiizMZhj2Y2XuNm3C1UcBptxvUR5uYyRMjQPBoj0hEzhPF
+ mM7LcUk96UIS4Ts70xMrUWnso0Vr7ttrGHeWAjaP6Pprommf9Kz5LBdmxsCgRuQ4Px
+ ZmHjAtMvNOECoYmPKbRyZObi0J0m04SS34E+oxdulvBpyAZkKhDTiGNxQh/71Cz4wb
+ N/Lf244q+eZOzholt0VWiMFtqGARV1kw2IpW38DoKJMivHbonUPzMwLngA8xwFQteo
+ ia9j2uhFBH0nW6d+JtSBw+mYojhwnCSRTLL4lky31+zwVXroWZo3vP+og5yrEGl0GL
+ jNqWw7ZzSvfTDgp1W03z13Q4uS4TJA7USwx4EAsIKV/MsxqRBix77wgcRhB0X9E7qa
+ 0CqdL+4bMynIx1wx5Bzv13XE=
 Received: by sphereful.davidgow.net (Postfix, from userid 119)
- id 5BFB51E8D94; Wed, 22 Apr 2026 20:21:42 +0800 (AWST)
+ id 4AFE71E8D9B; Wed, 22 Apr 2026 20:22:28 +0800 (AWST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=davidgow.net;
- s=201606; t=1776860398;
- bh=e5yQOm1rGEYi4XdegDATFL+BQNYVwttW0giv42dfL3c=;
+ s=201606; t=1776860407;
+ bh=hML0sRIU1AntIFM+ox4LLB4AF8Mi3yfxqyKl/z6vcDM=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=DdR24gg0Cxg6wLTgSbV8VJ67X0GgJX8STV7xvpvA6sUHhdcFHgHw0PsstbvxGkZk8
- Uz5fULFsng8DNvmCD9dJoPZ4vxIzHwZdERDtzrV+duLdnJCY55/UGMzBu34DDhOHla
- KAbZ86wfU8LcO92dWf22UhlcTrLvF1YeexNfVptdzo+mfT6sA9WBG1VlDjT1IdOizU
- eeCfNkKx//D5PNbsZS6VUc56MxW+xL4EuykNmacyQQ1aLVODugVubYQwYhkJlu3Mqt
- BnCE1j3mw8ucAKHs/N25IZGckCKbHUqQ6RDlqHfOqYqp5GYODRFONx2cOo33cNDowj
- 66qhZSAxmkhw1tJUKgmF1Jb0gxHdfGSsByQ5ruLkqFnWFgeDMuAkH9vekkxDed0sSc
- ju2KnWa/StRUfnjnMvybSl/5ELmx/SI6Kq5JKNBmtrdB9EeJmSnddwg/VncVR/v0LY
- qMN8gXcxLBfpgxFP8u5YpcwcqSY/9nt8odTrpEKqfLObS4MmypGNBv/0XKu19wGzjy
- Roh03XuymR5wkiO4RFLvnrWnsg3GV12bscSy2sZ60oD5wKsII09krqO993aBaQYGIb
- mkUZKuzNUny6UkRnzsmJwAtF8iTmqGIAC74Yd/I8ouqllvj3mpfIcsU+20Nlig9Rvi
- iKcDyb8ClgUUFyILSB6zHLkY=
+ b=jNVyt8OkdIBSpjXWabbTvUHKJ8p72aH5MAJK+/mU5sb3vXN0juUur374rRTNXZ7av
+ xQM9NpPjNZrukN6k8exxIJGc6FFvD4VOkOkXZLENKo0TiKHw6xZ5T9j/PtpxsC7t9b
+ FVIxvVSvzT4TobiKh6ds4SPYnjqofmZF1hmsu+C3IsrOJjjiQpUkHX4iHv3HWiJGP2
+ m4wcMoneg2Dl3fdpYXJurB0K/zQlUXVt9fPIy34sdNbhU9MbIgwKYIka+sGg5VkhHn
+ ZvubupvqFKunOpZAOuzNxiS+/fMuoMB9u+r+Klk4cuI3qk3iTH0CponNRofm6JI6ly
+ mAVJXhfm9hBzq+qbW2yT8PIPe6INR5KFlD/j5d9rRq+1T2xGgYJV/ZlsysGs22tySs
+ R++ctEYJhia4snlXgpv/AzbKQZiG5JTaQ04mWTYSLrUELMPb3jU5HCyH9rrkXqCaNo
+ yQsXud4TnJACWuPYyPg0XAjwIvpBJr4n6x4PHHWbgqHgSDBkkFkJEC8oSrnwp5YtjO
+ 3Nplf7JhC0+uVvUJLHpVCa246BtB3YFWTiJ8H1lT6268A/dAbhHBY3rQdzTVuSI1qd
+ 9iIKr3PoHEqFJJ4XztoWbMGW4CcYMg+p9KHVvKL4qMp567pfWh0uPSl33fG6WVUz2D
+ iiwY2AK0pUHn3OcTpbPZO/7U=
 Received: from [IPV6:2001:8003:8810:ea00:ed87:ca88:5326:e11d] (unknown
  [IPv6:2001:8003:8810:ea00:ed87:ca88:5326:e11d])
- by sphereful.davidgow.net (Postfix) with ESMTPSA id 796C81E8CAF;
- Wed, 22 Apr 2026 20:19:58 +0800 (AWST)
-Message-ID: <a1ddabac-8e50-4730-b936-4ddef949487e@davidgow.net>
-Date: Wed, 22 Apr 2026 20:19:58 +0800
+ by sphereful.davidgow.net (Postfix) with ESMTPSA id 3BD631E8D8A;
+ Wed, 22 Apr 2026 20:20:07 +0800 (AWST)
+Message-ID: <6209f24e-750d-4a7d-ad63-1695f5fd1caa@davidgow.net>
+Date: Wed, 22 Apr 2026 20:20:04 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/5] bug/kunit: Reduce runtime impact of warning
- backtrace suppression
+Subject: Re: [PATCH v7 3/5] kunit: Add backtrace suppression self-tests
 To: Albert Esteve <aesteve@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
  Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -69,12 +68,15 @@ Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
  linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
  dri-devel@lists.freedesktop.org, workflows@vger.kernel.org,
  linux-doc@vger.kernel.org, peterz@infradead.org,
- Alessandro Carminati <acarmina@redhat.com>
+ Guenter Roeck <linux@roeck-us.net>,
+ Linux Kernel Functional Testing <lkft@linaro.org>,
+ Dan Carpenter <dan.carpenter@linaro.org>,
+ Alessandro Carminati <acarmina@redhat.com>, Kees Cook <kees@kernel.org>
 References: <20260420-kunit_add_support-v7-0-e8bc6e0f70de@redhat.com>
- <20260420-kunit_add_support-v7-2-e8bc6e0f70de@redhat.com>
+ <20260420-kunit_add_support-v7-3-e8bc6e0f70de@redhat.com>
 Content-Language: fr
 From: David Gow <david@davidgow.net>
-In-Reply-To: <20260420-kunit_add_support-v7-2-e8bc6e0f70de@redhat.com>
+In-Reply-To: <20260420-kunit_add_support-v7-3-e8bc6e0f70de@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -93,39 +95,164 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Le 20/04/2026 à 8:28 PM, Albert Esteve a écrit :
-> From: Alessandro Carminati <acarmina@redhat.com>
+> From: Guenter Roeck <linux@roeck-us.net>
 > 
-> KUnit support is not consistently present across distributions, some
-> include it in their stock kernels, while others do not.
-> While both KUNIT and KUNIT_SUPPRESS_BACKTRACE can be considered debug
-> features, the fact that some distros ship with KUnit enabled means it's
-> important to minimize the runtime impact of this patch.
+> Add unit tests to verify that warning backtrace suppression works,
+> covering WARN() and WARN_ON() with direct calls, indirect calls
+> through helper functions, and multiple warnings in a single window.
 > 
-> To that end, this patch adds an atomic counter that tracks the number
-> of active suppressions. __kunit_is_suppressed_warning() checks this
-> counter first and returns immediately when no suppressions are active,
-> avoiding RCU-protected list traversal in the common case.
+> If backtrace suppression does _not_ work, the unit tests will likely
+> trigger unsuppressed backtraces, which should actually help to get
+> the affected architectures / platforms fixed.
 > 
+> Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> Acked-by: Dan Carpenter <dan.carpenter@linaro.org>
+> Reviewed-by: Kees Cook <keescook@chromium.org>
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 > Signed-off-by: Alessandro Carminati <acarmina@redhat.com>
 > Signed-off-by: Albert Esteve <aesteve@redhat.com>
 > ---
 
-I'm not sure how much of an improvement this is.
+Thanks very much for including tests!
 
-It might be worth putting things behind the kunit_running static branch.
+Maybe it'd be nice to test that the suppression is disabled after 
+KUNIT_END_SUPPRESSED_WARNING(). Of course, then triggering an actual 
+stacktrace would be a pain, but maybe we could check that 
+__kunit_is_suppressed_warning() returns false? If you wanted to be 
+really fancy, you could test that it returns false on another kthread 
+even while the suppression is active, too, but I won't hold you to it. 
+Equally, you could try setting up a fake test context and ensuring the 
+cleanup is called correctly, but I think that's mostly covered by the 
+existing KUnit resource tests.
 
-You could even add a new kunit_has_suppressed_warnings static branch, 
-though I doubt anyone's too worried about the runtime performance of 
-WARN() during testing, but with no suppressions, so it's likely not 
-worth it.
+Otherwise, looking good. A couple of other minor suggestions below, 
+which may require some reworking of the __kunit_suppress scope, but all 
+optional suggestions.
 
-Have a look at, e.g., kunit_fail_current_test() in 
-include/kunit/test-bug.h, which uses the existing hooks implementation 
-and static branch to reduce the overhead as much as I'd expect we need. 
-That'd also potentially let you move the backtrace suppression code into 
-the kunit.ko module, so you're not even paying more than ~a pointer's 
-worth of memory if no tests are even loaded.
+Reviewed-by: David Gow <david@davidgow.net>
 
-Cheers,
--- David
+>   lib/kunit/Makefile                     |  3 ++
+>   lib/kunit/backtrace-suppression-test.c | 90 ++++++++++++++++++++++++++++++++++
+>   2 files changed, 93 insertions(+)
+> 
+> diff --git a/lib/kunit/Makefile b/lib/kunit/Makefile
+> index fe177ff3ebdef..b2f2b8ada7b71 100644
+> --- a/lib/kunit/Makefile
+> +++ b/lib/kunit/Makefile
+> @@ -23,6 +23,9 @@ obj-$(if $(CONFIG_KUNIT),y) +=		hooks.o \
+>   
+>   obj-$(CONFIG_KUNIT_TEST) +=		kunit-test.o
+>   obj-$(CONFIG_KUNIT_TEST) +=		platform-test.o
+> +ifeq ($(CONFIG_KUNIT_SUPPRESS_BACKTRACE),y)
+> +obj-$(CONFIG_KUNIT_TEST) +=		backtrace-suppression-test.o
+> +endif
+>   
+>   # string-stream-test compiles built-in only.
+>   ifeq ($(CONFIG_KUNIT_TEST),y)
+> diff --git a/lib/kunit/backtrace-suppression-test.c b/lib/kunit/backtrace-suppression-test.c
+> new file mode 100644
+> index 0000000000000..2ba5dcb5fef35
+> --- /dev/null
+> +++ b/lib/kunit/backtrace-suppression-test.c
+> @@ -0,0 +1,90 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * KUnit test for suppressing warning tracebacks.
+> + *
+> + * Copyright (C) 2024, Guenter Roeck
+> + * Author: Guenter Roeck <linux@roeck-us.net>
+> + */
+> +
+> +#include <kunit/test.h>
+> +#include <linux/bug.h>
+> +
+> +static void backtrace_suppression_test_warn_direct(struct kunit *test)
+> +{
+> +	KUNIT_START_SUPPRESSED_WARNING(test);
+> +	WARN(1, "This backtrace should be suppressed");
+> +	KUNIT_END_SUPPRESSED_WARNING(test);
+> +
+> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
+> +}
+> +
+> +static void trigger_backtrace_warn(void)
+> +{
+> +	WARN(1, "This backtrace should be suppressed");
+> +}
+> +
+> +static void backtrace_suppression_test_warn_indirect(struct kunit *test)
+> +{
+> +	KUNIT_START_SUPPRESSED_WARNING(test);
+> +	trigger_backtrace_warn();
+> +	KUNIT_END_SUPPRESSED_WARNING(test);
+> +
+> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
+> +}
+> +
+> +static void backtrace_suppression_test_warn_multi(struct kunit *test)
+> +{
+> +	KUNIT_START_SUPPRESSED_WARNING(test);
+> +	WARN(1, "This backtrace should be suppressed");
+> +	trigger_backtrace_warn();
+> +	KUNIT_END_SUPPRESSED_WARNING(test);
+> +
+> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 2);
+
+Would it make sense to test KUNIT_SUPPRESSED_WARNING_COUNT() more 
+thoroughly here by checking that it's 0 before any warnings, and 
+checking that it's 1 in-between the two warnings?
+
+Of course, the first case doesn't work due to __kunit_suppress not being 
+defined, but if the implementation changes to support this, let's add it 
+to the test, too.
+
+> +}
+> +
+> +static void backtrace_suppression_test_warn_on_direct(struct kunit *test)
+> +{
+> +	if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE) && !IS_ENABLED(CONFIG_KALLSYMS))
+> +		kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE or CONFIG_KALLSYMS");
+> +
+> +	KUNIT_START_SUPPRESSED_WARNING(test);
+> +	WARN_ON(1);
+> +	KUNIT_END_SUPPRESSED_WARNING(test);
+> +
+> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
+> +}
+> +
+> +static void trigger_backtrace_warn_on(void)
+> +{
+> +	WARN_ON(1);
+> +}
+> +
+> +static void backtrace_suppression_test_warn_on_indirect(struct kunit *test)
+> +{
+> +	if (!IS_ENABLED(CONFIG_DEBUG_BUGVERBOSE))
+> +		kunit_skip(test, "requires CONFIG_DEBUG_BUGVERBOSE");
+> +
+> +	KUNIT_START_SUPPRESSED_WARNING(test);
+> +	trigger_backtrace_warn_on();
+> +	KUNIT_END_SUPPRESSED_WARNING(test);
+> +
+> +	KUNIT_EXPECT_EQ(test, KUNIT_SUPPRESSED_WARNING_COUNT(), 1);
+> +}
+> +
+> +static struct kunit_case backtrace_suppression_test_cases[] = {
+> +	KUNIT_CASE(backtrace_suppression_test_warn_direct),
+> +	KUNIT_CASE(backtrace_suppression_test_warn_indirect),
+> +	KUNIT_CASE(backtrace_suppression_test_warn_multi),
+> +	KUNIT_CASE(backtrace_suppression_test_warn_on_direct),
+> +	KUNIT_CASE(backtrace_suppression_test_warn_on_indirect),
+> +	{}
+> +};
+> +
+> +static struct kunit_suite backtrace_suppression_test_suite = {
+> +	.name = "backtrace-suppression-test",
+> +	.test_cases = backtrace_suppression_test_cases,
+> +};
+> +kunit_test_suites(&backtrace_suppression_test_suite);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("KUnit test to verify warning backtrace suppression");
+> 
 
