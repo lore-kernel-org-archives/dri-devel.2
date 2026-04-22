@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D87FFA1FD7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21B48FA1FD5
 	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:49:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B9A010EEB4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 751DB10EEB3;
 	Wed, 22 Apr 2026 16:49:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="vnD5aShm";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="HcDVAzTH";
 	dkim-atps=neutral
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0634610EEB3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:49:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 758EB10EEB3
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:49:11 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id ED8011A33A5;
- Wed, 22 Apr 2026 16:49:12 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 6AA6B1A33A7;
+ Wed, 22 Apr 2026 16:49:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C37685FA8F;
- Wed, 22 Apr 2026 16:49:12 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3EBFE5FA8F;
+ Wed, 22 Apr 2026 16:49:10 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 7EA1A10460C15; 
- Wed, 22 Apr 2026 18:49:09 +0200 (CEST)
+ with ESMTPSA id CE2F310460BF3; 
+ Wed, 22 Apr 2026 18:49:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776876551; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776876549; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=GjZ3Li0hgSFG+5Kg7ETwAe+lLOQj73cG0WZcoLSfcXY=;
- b=vnD5aShmjCsLo7AieSsev83EoptEuEB5B2FG0aYYWcnJkpll1g/WwCgpPaWW34WWiuOj+s
- ltE/awsfBR5UloiYFQmuhNNh/gcjLxdFT3oDBn/jJF9PCVAqehymgVZEB4WRu6259oowF+
- sxGbRWWwtJLo/+Q+oEPRE+v1meNr2c8QGDMUCNCOrXUKejTVAtqhU4rF207ub4F8pZfZj0
- 5PP0lt5rsfLxh55jAKGRNeZtKsCZQZ0r+xtdPcMWHLvlrz2s+BMMJ1xkvJNtP9do0plD29
- UhwUkO73v0kgHabBD/CH+OwL9+8pzxpR+6lr/hWSRfG+Eio6zx8aHm+QJwXFKw==
+ bh=OZ8EM81DGMlJ9qEgvUE9Mt5KnFr4O4RtbirwspUTjRM=;
+ b=HcDVAzTHVCirt6CQPqvVisMsLuiOiNG9IUbiBRETLuOVj8WUqocJRx1lyWQbRSi9wAQF8d
+ bszoxzq8RBSAGFtIwmj/f7dBd5XGTeoK01YRpA5XQKjna2jsThDFyAfHF3w7zSjkgfZzOm
+ pag0n5lYdrG2tgfjncUEkL5XUIe8rZsq5Ey+FDxYlO905hZyTgeZqDq4piwnVfK4w7SEnt
+ O5UxtifKtDf2i8/Oux94IqTEl21Wkfr5yqRB0/47ZTVE17eFd2lVLLWYvXVYwOgv0tK/8O
+ EEHzSqAjWmWwMCQ2IpDAk6nfg5BO7hiAkRdor7docN5tA32iDQcn8pqcqAc77Q==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Wed, 22 Apr 2026 18:48:05 +0200
-Subject: [PATCH v4 08/37] drm/vkms: Add error handling in plane config creation
+Date: Wed, 22 Apr 2026 18:48:04 +0200
+Subject: [PATCH v4 07/37] Documentation: ABI: vkms: Add current VKMS ABI
+ documentation
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260422-vkms-all-config-v4-8-dbb52e9aadc3@bootlin.com>
+Message-Id: <20260422-vkms-all-config-v4-7-dbb52e9aadc3@bootlin.com>
 References: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 In-Reply-To: <20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -73,48 +74,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For future patches, it is useful to properly handle errors in
-vkms_config_create_plane.
+VKMS recently introduced a ConfigFS API to configure new devices.
+Add proper ABI documentation.
 
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/vkms/vkms_config.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ Documentation/ABI/testing/configfs-vkms | 118 ++++++++++++++++++++++++++++++++
+ 1 file changed, 118 insertions(+)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
-index 5a654d6dead8..1fd2ed1167c5 100644
---- a/drivers/gpu/drm/vkms/vkms_config.c
-+++ b/drivers/gpu/drm/vkms/vkms_config.c
-@@ -384,13 +384,16 @@ void vkms_config_register_debugfs(struct vkms_device *vkms_device)
- 			      ARRAY_SIZE(vkms_config_debugfs_list));
- }
- 
--struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
-+struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_config *config)
- {
- 	struct vkms_config_plane *plane_cfg;
-+	int ret;
- 
- 	plane_cfg = kzalloc_obj(*plane_cfg);
--	if (!plane_cfg)
--		return ERR_PTR(-ENOMEM);
-+	if (!plane_cfg) {
-+		ret = -ENOMEM;
-+		goto fail;
-+	}
- 
- 	plane_cfg->config = config;
- 	plane_cfg->default_pipeline = false;
-@@ -400,6 +403,9 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
- 	list_add_tail(&plane_cfg->link, &config->planes);
- 
- 	return plane_cfg;
+diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
+new file mode 100644
+index 000000000000..a1a3e186e50a
+--- /dev/null
++++ b/Documentation/ABI/testing/configfs-vkms
+@@ -0,0 +1,118 @@
++What:		/sys/kernel/config/vkms/
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++        This group contains sub-groups corresponding to created
++	VKMS devices.
 +
-+fail:
-+	return ERR_PTR(ret);
- }
- EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_plane);
- 
++What:		/sys/kernel/config/vkms/<device>
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains sub-groups corresponding to the VKMS
++	device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/connectors
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains sub-groups corresponding to the
++	connectors of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/connectors/<connector>
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains attributes corresponding to the
++	connector <connector> of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/status
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	Connection status of the connector. Possible values:
++	1 - connected, 2 - disconnected, 3 - unknown.
++
++What:		/sys/kernel/config/vkms/<device>/connectors/<connector>/possible_encoders
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains symbolic links to possible encoders
++	for this connector.
++
++What:		/sys/kernel/config/vkms/<device>/crtcs
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains sub-groups corresponding to the
++	CRTCs of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/crtcs/<crtc>
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains attributes corresponding to the
++	CRTC <crtc> of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/crtcs/<crtc>/writeback
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	Enable or disable writeback connector support for this
++	CRTC. Value: 1 - enabled, 0 - disabled.
++
++What:		/sys/kernel/config/vkms/<device>/encoders
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains sub-groups corresponding to the
++	encoders of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/encoders/<encoder>
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains attributes corresponding to the
++	encoder <encoder> of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/encoders/<encoder>/possible_crtcs
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains symbolic links to possible CRTCs
++	for this encoder.
++
++What:		/sys/kernel/config/vkms/<device>/planes
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains sub-groups corresponding to the
++	planes of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/planes/<plane>
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains attributes corresponding to the
++	plane <plane> of the VKMS device <device>.
++
++What:		/sys/kernel/config/vkms/<device>/planes/<plane>/type
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	Plane type. Possible values: 0 - overlay, 1 - primary,
++	2 - cursor.
++
++What:		/sys/kernel/config/vkms/<device>/planes/<plane>/possible_crtcs
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	This group contains symbolic links to possible CRTCs
++	for this plane.
++
++What:		/sys/kernel/config/vkms/<device>/enabled
++Date:		Nov 2025
++Contact:	dri-devel@lists.freedesktop.org
++Description:
++	Enable or disable the VKMS device. Value: 1 - enabled,
++	0 - disabled.
 
 -- 
 2.54.0
