@@ -4,138 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90216F94CCA
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 06:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 468A0F94CCB
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 06:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01B9F10EEE2;
-	Wed, 22 Apr 2026 06:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 654D010F03E;
+	Wed, 22 Apr 2026 06:03:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="X9mm7mqv";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="XAi8kn7w";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010003.outbound.protection.outlook.com [52.101.201.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E8FD10EEE2;
- Wed, 22 Apr 2026 06:01:35 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013038.outbound.protection.outlook.com
+ [40.107.162.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C64ED10F03E
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 06:03:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bV0FvVIARNT9zkvm0X2Zfv6pGjH9Hic70oBNl6a98G9Sx5UmzC8QPdUXUStuuv91t6QYuPJex/q0HyWzfDFAUenHPLiXAOlDayfFrkZu6x8LHsnPgf0yHeZnjcmn8KPCjdNAJnNkR1/b7brNPFwpIne33q5pPK4uAbG79OIRfKEn60oItkJADNdt9DUddE5KanFQUfB6ojU5mQpO6NvV06ZBjYL2k5GEGISOgHesyZ/J4yOrSp/XfC2rWyRg9cH2zO8J7TUOdSXqfGXu4wkX8gvakN9rUTIMeV+w2syhp0t657YRIJfxr/gwnh8vlXgzE+UDP0/ajwKebGfyHM1Lvw==
+ b=lAuKF+AAgvIIQ4l5k5L1lDxgNifTXBTGPvfi/FNqOjLypKG16WkIE0ow69DJ0GRVtGPLxs7Mgqq6vUPwLBm0JOHY6HMER5qX1RqkdsuFGLwSuXRtHN57XcdSVh4JlC3Tn9Iupf1Y7gs2LHgXp3q8Az6tUS62IvSOe08RUHSlMOjEHoz/mw9ZQ/m4oQ3NKDpXtLipBKpC/hd8RmQpNHwuEJNJxxxBdJyhANwadano0VgIUEjH58zwIfZMX6txj7zfB57cI8pXYDG92KqPVXSYTlw804mcZnxGoncbkTMP3Hyj5gE7FuvQB+JZb8QtitkNKiAgf7f5O1Rxjo2RJvsurg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R8PJZBvzIQB5fmT8SJT1BSG/TgjTM6uErsrY+GygjEE=;
- b=bTHBOjt25g7XVF9g4n1Th2KeusrKtgp2byWNYCLgTnIKDKOsgOXq0cc4w/QG0zSuZWun/8nTaeoAeIZYJv4H2yPWmFIQLg3qYaoWne8guTWq8Wcvb/62rOabSDathRDphADv8s51Es/BuSTxXQEDdQhcQaUsBMW/H+DHP+lqpXtrBYsiVSsQFOSCRWbIaMFAXT+NwN6bYSzFvTEzKHptVqRGM8RrNeoRhfZnHWnNlC+W9pePxuJI02AJ/W7D1SH6CLAkdQr6vEKRXJXHJIT+iJ9RzYRWrj+uaNMPrmWyROHnXo21pc/5yEUBvl462v937pO2vGlibDyNXgR1PHPtqA==
+ bh=z1CSYw5Md3jb0iEwfXQKdVY2Gmx/aDXLJ5inpQ3rX4k=;
+ b=rP9hWZuO2hJtz9xOFGR0vus7QMsdMppNm8LkKYCbTIOSFmseTrEJ/08di4Q5MeDVhiZdOtoZIFy+0nUvF+FtAOgk3RyscADiJZF3fzJ6aeAJWX+bTDZI0bbjWmwORVVmtfEIE8stjIWK5cqinzaP33I988DG6Qr1vb8JhBynGI3rFUv7RZWrBJi+bCCqW2fxg09SGb7TcWWOA1B+4n5l1R9KKDq/mDReEgrCxqajwDy50+h5qlvZV82ymUUdo+h8GFzuiGefmXP7hfwXaaib7s1ZhJI0wRavvflWnQ0Qmz4G5Iz272vs7cojqbvLE9IJpPgnm6Yia3E/1elFVBGA/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R8PJZBvzIQB5fmT8SJT1BSG/TgjTM6uErsrY+GygjEE=;
- b=X9mm7mqv1Io2QUJX3Secj221ytq8rDDuq0aR0+6TIiQxw28QNt+NpiBfMJo959c2UfFKlMG6MSTwW2TF2SD0vUYMc0jSBYI8n4U+PUjE6HpzkWGu6iWvaqRT7Eg0a98L/Leg8Qt3MuTrFmtPNCjeGMxqSxIYzFvtW4Aq83io7sCW6zJS8z53tQJvXEhVHXiGzvmVlbpC71T9XcDkAWTHKkoZ20o9uCv9/qsLrajTduLfw+h9VA/pFxKuDZSOGxc+LXw+PCWKp/A5yYF6glRhum80fE5C9rlrzGOj1aUMPU39fR0I4J3sWByzVezBnYXWUEO8kMJHikiNyYqJnaRwqA==
+ bh=z1CSYw5Md3jb0iEwfXQKdVY2Gmx/aDXLJ5inpQ3rX4k=;
+ b=XAi8kn7wS+fxrpspVb+Nd9HNCGWoiFotuLs2FVrS55EZ9FC3dXjPuq46f7ZGEG9PMPIYTIOmCzRl92c9ZyaFuYeGWrkTA+M1YirpbsU3INuZ7xeYHJny+CfP/G8N64ZOMsGuA1V2cCfnPBRo0fYGTssRZcOsNbDuJlyT70uU8g8WZQ3Fj9F8lhblHzV9oYZ4I0Nga1TI/vqHeEcsMw/dC8cuLpbIswhSuX39/A3HVdFguZ/3/y77sJUs3vU5tQEuKt6d5ofEkpK6L98N0nkecJlWL8yLuy+B7DRttR+dBtQCuBR3YzH9flRkwGR57tDTMJ4382G8QfsZPifavwOx2w==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by DM4PR12MB7720.namprd12.prod.outlook.com (2603:10b6:8:100::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.17; Wed, 22 Apr
- 2026 06:01:26 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
- 06:01:26 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 22 Apr 2026 15:01:22 +0900
-Message-Id: <DHZGE2KGUBJB.3LDRIKUMDMSRN@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 5/5] gpu: nova-core: run Booter Unloader and FWSEC-SB
- upon unbinding
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Boqun Feng" <boqun@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260421-nova-unload-v2-0-2fe54963af8b@nvidia.com>
- <20260421-nova-unload-v2-5-2fe54963af8b@nvidia.com>
-In-Reply-To: <20260421-nova-unload-v2-5-2fe54963af8b@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0136.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37f::13) To BL0PR12MB2353.namprd12.prod.outlook.com
- (2603:10b6:207:4c::31)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM8PR04MB7940.eurprd04.prod.outlook.com (2603:10a6:20b:240::19)
+ by OSMPR04MB11293.eurprd04.prod.outlook.com (2603:10a6:e10:93::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
+ 2026 06:03:32 +0000
+Received: from AM8PR04MB7940.eurprd04.prod.outlook.com
+ ([fe80::1fa8:cc0b:b501:6bc4]) by AM8PR04MB7940.eurprd04.prod.outlook.com
+ ([fe80::1fa8:cc0b:b501:6bc4%3]) with mapi id 15.20.9846.017; Wed, 22 Apr 2026
+ 06:03:31 +0000
+Date: Wed, 22 Apr 2026 14:04:49 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v3] drm/bridge: ite-it6263: Support power cycle in runtime
+Message-ID: <aehlASc3oWS47aCM@raspi>
+References: <20260421105334.43411-1-biju.das.jz@bp.renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260421105334.43411-1-biju.das.jz@bp.renesas.com>
+X-ClientProxiedBy: MA5PR01CA0165.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1cf::15) To AM8PR04MB7940.eurprd04.prod.outlook.com
+ (2603:10a6:20b:240::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|DM4PR12MB7720:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83e2027c-e740-409a-b96d-08dea03496c3
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7940:EE_|OSMPR04MB11293:EE_
+X-MS-Office365-Filtering-Correlation-Id: db546573-9c71-4456-c5d0-08dea034e0ae
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|10070799003|56012099003|18002099003|921020|22082099003;
-X-Microsoft-Antispam-Message-Info: NeJQ419T566Zk9+Gdae+N54j2fgsuSzFhSSBoRrTfrxjN2J4w4BTYVWSuU8ZHho4aExuXkZcn4JY/Jg161dB+gtxLEMSHmdtpTHosUMsZEQpDmKTpjMrLidukzWQ/t1e2dL8XAp/kWp7/1GLtVIuBjlisFAn6vptTsAp5eAznw/fJiTt0pT2RGTmy3WgFBD7Uk2/txuXR/qxVqj8W/E64cXwq/UqgJxMaa7TnTDPrcHtn+QHCKjXOhTWQQb6d2kiMmiN2BsBAMGXr8Tdw21kp8A+k11+m3F+hkd2jXZRkNlJGMaSSshEc35wBojORdXeKZ7p8cRRWpq/29cORfUX5Tr9Ew2TrSq76Vq/mTw5+5J6p10RqCGPTYXUs9P4LKFHbRQy6os1IM/d6biAgJJQKGn2Pftg+0n1YbvYORuBnGjdy9SUs/QWuRm4Y8qUVz59oZKY5rQkc9jpWBjT8FLeEawMi7U9mIG8zog5qm2ZG0Pz/+Pxhy6uEVd1EiYTJrnkPRr55pOmU0a2mO2Cf8AsJedNPrhjimSXRDxm/Aug4WyCK6PNH3onQ8W9efm6c+PH5tCnDNnZYTWAyueFynzcBj/l4dfYkip1UaGNMJg4wq5cZNCZ64tHFaOy13PpUGE/o14lz+OcyZuRoHbIZ8LbUIXItdW6bZc2/EI/iCYTJNO65qjNX2Ub73glbGQWGjzzIxsY7FVE2KpVUZLWPl00cxPUfa47RqOnnn9v3vvyB8wHfZh6YL71rVWvM4dvZQDtEbItL5djiYPFXIvQ0MdQ4A==
+ ARA:13230040|7416014|19092799006|1800799024|376014|366016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: Ydv06YuGMXhMs94mIS05tdgFpeBHDm4Vf+d/OclsPiNxam1yezb+YaV1C5HOrOIIzmjqiR57y98P2kP09xlh2rdr+ITYcE3DrCJFf/FxXXfo1Z93Y3742VjveqiOlhyVg68szOqlfEfUBTJgUlQFt0Gq7z2hayCyK0V7lR7xKroVJvRyc/bfiAnJIMOzYZlNlUthSkPIVAG+8n/vJUV5q3opQEsO++O9/ERe1h6v3MPWFMvE62eYXScHhDdgHNc/tTRKQLnVhG1HI08REwGS/3PMe2m4XKLBbB3SOKsA/9+e+W9LkMVfmySGpdeV8BF8HTPVdvJAy8GG5+piSikaB40oIPPYTL01rfraLnFuCSKYQBNxuivJJibWI08RKzZ6X+mHVLhKQtEzOm4SXn4JIXb3Kpo6ExL/1aYPwfoYlfgMmBhjEiwCbCm7Z8e3tNcm7pWD0MN5ZWdFbGhymikFQ9MWFViH7JTv3zg5yi0ZKPkG3mnSys9u9Z8xM3lJjaMxH+lo1bITZY6MC+rFtbQPptBB2O1sLZC3NUaWGvmqUYsP+9IXS380tsUnu2VHZ6yb9U4bCuaqjSfRUVI7/XtgFrZgEZAQ8S73zdSFqdsMgW5JK3Wp9vcMm2fj4hTPgLzkSvYZohu26C7AiDRoxkas3+oAFvUcBnGmWtsvKyxpvL3Y+E+ukPK4f/hKH8eIgOiS8dKCVjHVMqFVwMJu+TEFY/HNaGarcImAURodFdWIIs8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(10070799003)(56012099003)(18002099003)(921020)(22082099003);
+ IPV:NLI; SFV:NSPM; H:AM8PR04MB7940.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(19092799006)(1800799024)(376014)(366016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2VGekIzYU9MVUhUdmI2WGtSQkdDQ0RNWlRHSFZJOWU1QmJhcitXYUhZTmNE?=
- =?utf-8?B?NU0ySjBINTBwU25KNXJBNUdwN2RRZ1pQZGVta0ZsNHJKd1M3N1Fmc1M2VmVW?=
- =?utf-8?B?VktTcWh5bkZoc1pEYnoxR2Q5d0FXcnZOR0JETkNOeGRvcldDM3o4S2hZUnVn?=
- =?utf-8?B?dFdnRnErSmc1cnF2VHArenNYQjhMZ2VLNS9KNGs0REF6YXJKbEc0KysrYi9J?=
- =?utf-8?B?VkNJdUxjVFBrS2toR29KTlNrQzVrb3hzOHM0WHJQSWQzRTI0WFR4SjdoTHg1?=
- =?utf-8?B?UTRtMjlibmJXNmxuYTZrKzNOdVdSRkw2K3AxbXhsZTRCbzZ3bGFLYllHWkdC?=
- =?utf-8?B?VEhMcXp1dGVSa3JDalNObWtnbU53bnNvOXV1YWRDcEdEcjV4TnVNR0RqTUFK?=
- =?utf-8?B?bmZaaU9tNkJqV0hWbHRtdVhBRFRDcnJVZE9uYzB5bDhlU1U4TWxXc25OMWEv?=
- =?utf-8?B?ay9CL2FrK1BjdkthZGNxVUVyR2VjR3RDZmhyNGF6bzZsbjdtamQydFFCblIr?=
- =?utf-8?B?a1Nqck9hMHVpckgrWVE4SnJURjBsQ3pLRzlyakxNaHZ5anVBampYQVRoZlpm?=
- =?utf-8?B?azEwc0N6OUkxVHJQakZSbjc1SGRIcmZOOUt2cW1MMnduZHhGSUpDK2VaZFFh?=
- =?utf-8?B?MG1kbjcwVVNuMDNEQVcwc0JFNnhxZ2lDUUtBdUkyZkZkZURWc0wrRitqM2tL?=
- =?utf-8?B?RHllRlY3SW8xbXFaUkFRZmVEbnlydUFGeDFxWWx1VTNqbDFWSFhROXl4UmlK?=
- =?utf-8?B?MUZsMEpWTXYzTTVJYXdIcCsrUi84ZXdBRkljUGVMeG1tNU83MmhMdEZZTis1?=
- =?utf-8?B?UEE3R1NUYzJGTHZLS3Y2TUNoaEIrNkVOdGFuNWlvWXZhNEtUdEhOSnFxc0dP?=
- =?utf-8?B?bURsZ3d0QW82d0x5YkNyV3BPQW8rVDhFRC9MalBDRGNTeXF1aUtTTndXdEJW?=
- =?utf-8?B?UXRkN1FVMzU5UzhvWnVxK3NEZnAwbTRTb2tzcVJ0V1ZGYTZYVVR2bHBiWDh6?=
- =?utf-8?B?QlI4RkZvcmtuSy9KLzhJVlhFeHg5eFFWOGZqQUM1c0NvOFpaTjlMSG9NSjVm?=
- =?utf-8?B?MC9FWWJDZG9JMnpvckJJbEszaEV4VjFncW8zQTJEWW5wUGJIMzU1TWRwaGhM?=
- =?utf-8?B?dGhGV2R6YWV6bHIvNkF1QklQdG1nMmh6MjZzTW4wbTdYODBob3BTNzROTVd1?=
- =?utf-8?B?UlZMWjJ5VmZJYkZMMkpLK1duZEN3ZHpBRlBrdlV3b25wdnFDdWZJcEJSTmk5?=
- =?utf-8?B?bGkvdkRLdVVWWWJtVlNsN0V5S0cwYWt1K1pXUlBwUzF4Y2JPRzVNVjUvQldu?=
- =?utf-8?B?ZEpiQmdRdldQRE0zTHpCcmJDaE83TTdLS05mUlZRdnBGVGt2cWRqZFJRV05O?=
- =?utf-8?B?TitrUkZHVHYyUXNhbUg0WThqNklJZ1FuQm84Zjk2TWJqUUFJeEtXWUVYb1l4?=
- =?utf-8?B?RHZnNmEydjB1V3k3bC8vSG1qaS9HZ0J3QjZob0UvRVduRkRuMHVmSlJxUGR6?=
- =?utf-8?B?UGgzc0xreHVGVDdSbFdzS21kcHBnOEcrNks2SnpHNjlHd20xajUrbnpSMmFh?=
- =?utf-8?B?WElPNHpTbXVxNlYrWmxuNXhkdkdFZ1JITGRibnlUbmxCaVkxb0toWEJjbEx5?=
- =?utf-8?B?ZHl6SHJVWm4rdmdCNEJJTU93U1Q2K3I5VDlaWTdCOTdPU091d1JzZFdINVJR?=
- =?utf-8?B?Y05KS1plU2R5Zk5CVE9iSVZNQmdlRHk5V1dwQWR2V2VLWmFNamlFbERFNVFE?=
- =?utf-8?B?SWcwdVNTUjQ5cERIa0JHNFRPSjBvU1dvZjlpL1ZLTi9FNzBaT1BCNmtDaENq?=
- =?utf-8?B?enpEL051UTJKUjFqaUNlcE9jZ21XTUFoSkFFOTB1bXpNZk1HWmE1Rm1aWU9V?=
- =?utf-8?B?YnJ1eUNTRGgyM1kyTXpxcU5ncFVkV0dBVU8xR1B6OWZ0Y3hJQSszUFdidVh3?=
- =?utf-8?B?eXRHeVpCUy96SDYzYkt6b2VTcXBNbjRJa094c29uek9HUjV0eEpNbHNWYTJQ?=
- =?utf-8?B?Z3JQRlZ3eFRvbTlObnhoU1VtRHdMNU9KLzZTUGVXb2RnSGJXdVhKaEc1b2Y2?=
- =?utf-8?B?Nm5tb1BPNkp5OFRNR3BUSGZESFBVNnJTTzhTd1EyOW9ERm15ZTU5TFMrRXJ2?=
- =?utf-8?B?L2Y2SDN2TU0yYmwrRHlSR1Z4ajcyZCtmTWtFSlRBUGJ0SVBxdTZMeEM0aXNH?=
- =?utf-8?B?Y3htYllRV3lwdFJWV0h5akVqOWd5VmJPRGtBdVBZZnpaZ0lYb21ucHJnYmNr?=
- =?utf-8?B?dDJyRmtrZ0Zjclh6bC9pQXFGS2R0OWlMMmQwYVNLcXh0aVhqQlRzUlVpU2JS?=
- =?utf-8?B?V1V6TEQydkx5MWxOWUxwejVocUpId3hDc0pFaW1MWGs0cU1TRU5RelFOZUpx?=
- =?utf-8?Q?Fkos+rw80aiE5S9T5RCOq8m3LQ/VybSHfNC5ulKH/LKKz?=
-X-MS-Exchange-AntiSpam-MessageData-1: NIBT9HO49Hm7Vg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83e2027c-e740-409a-b96d-08dea03496c3
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uFxsmn7Dyv/CLClJLs4UY0U+Vg0+ceG5dIJ1wbd5wxbaRL+I8S8o0myHz0QR?=
+ =?us-ascii?Q?upefG42VgWJWDbb/gJLrarg3hcdKk2vvZqzgGpQdM1Szhf6sZQ0mLzZb3aAp?=
+ =?us-ascii?Q?6DRbfUYUe12yDs4heY7vIHYVjtEY/sEs28zRR/qd+Pd+nflh10S9lggWtuvB?=
+ =?us-ascii?Q?tTMfEBxcFGqnsOvfIdRZl/CJzs5ME9kwyumIbpPYWhd9UgOFr1Pfe48hvl1Y?=
+ =?us-ascii?Q?Gl/DHixqhp0k8tEbjJ9I+h1YZ5I5L6+24rDlfqExQ9L+hAeSo0Eq2xIPnCqh?=
+ =?us-ascii?Q?hTOlKWGfeYFU1NLyNpyp6jwoAJOrCJuSN20qB7u29acLv3CJrixp3Rh2M0WG?=
+ =?us-ascii?Q?DT7kr6Eqqfsz5EYPibe/Fcm59rhJW6CNbhzxwqTllAqVBXogXDZzpgmVxsR6?=
+ =?us-ascii?Q?hJeFlS0D1vlJSYIaCgIImuxS29+PsJ8vBy02TRaSsQhCEIzpXgU5CMiRvZ9h?=
+ =?us-ascii?Q?Y/YfB9H4fhPnWhThQA36mTrKkIOto43v9kph1yelVSnGg62w3bTPlKHwBqtS?=
+ =?us-ascii?Q?eKi9tBOFduu2yNp/IyyhPL1Xs+TJxonTsKnIQI1xRXqxgnbAJ3r75Y1YnLWg?=
+ =?us-ascii?Q?v8elIz49beFXmvwjTcqN82l5NaMxgnyezcZ13kcx69ZQ5fXop0lqy5ll0peK?=
+ =?us-ascii?Q?P61CjCAJ6csuQVd80GqjqWXmtvYQlEEIEUXM2J4himM0CJO+5WbogNHbP/8+?=
+ =?us-ascii?Q?HJ0R5G8KvfUa4Rv3eHEYl5q7jvrCTaWHEvcTenompl8nrF+CKmj/S8N7EdOS?=
+ =?us-ascii?Q?t/1OD7CiGjl03lYdFs0mmXIZrIyq+mgGSEuX97MkTHJ4aPgi3lEHfpx5Nz0Y?=
+ =?us-ascii?Q?DzLlFfhSEIiys94slRDixM/lKmX7xNm9CANIovthUimsxKviwvn56V/ZqyPC?=
+ =?us-ascii?Q?mxDqULVUqzH7KWQJmlzPl3zrsvoc+tC091cmyzq3noHV/ZhicC5SW3qgQgjf?=
+ =?us-ascii?Q?oq5kqlwkB4BvCar9xmQK/rGkTCgIDsOYZc1MzrpgMxRH2ePc+tcvR8gfXSOV?=
+ =?us-ascii?Q?q4hrkfecb6YQsFNCwDiMSw98hiMqfLP/c05cAKTRPNYZAsnoM7vt2iwcjx03?=
+ =?us-ascii?Q?ek2H3OUo9ICIcI1CZTSTHSNU3VPwD04cmbqAfpIxKUygIuUmVk0lruImdXyU?=
+ =?us-ascii?Q?bYN3WI4NR05M2sdDUc6RGESReL8WF+g0DGVT6EXKeVwY3dr13u0QiiwflC8p?=
+ =?us-ascii?Q?SEA68EHPfJIvsiGgNkm941rpTHnhNIMOMZzlFR1BtYJPQRUc955QpGDGltaF?=
+ =?us-ascii?Q?vffKmwpaxoA0QQRFk1qFfaxURbOxxeLpfOFhtk6kUZaYnVYJfbXiChComC1H?=
+ =?us-ascii?Q?YRzUTnoB5kMIm8T/c/wrlMOJqgymg0Dn+48w0n3W3g3WJE2MKyrmVrG9O48m?=
+ =?us-ascii?Q?gWRAh6Ycc+8gXED2AyXMtdopGIXHejt10e2TwNU2O4+3wuyr+zqTqkN9nJqY?=
+ =?us-ascii?Q?sHllAfmhXeTbbhsL5/WFwB2oEFkbXTWaVzJRQIEfOtDjnmuqvWCKUCd9BUnK?=
+ =?us-ascii?Q?hLF7w1wXTqcn6+60gq1O3FxvLcvf/oC4bPus6pfdwrcOe3jQ/wMzXyoHnl+X?=
+ =?us-ascii?Q?U/2DFMTXyYwAPdGWFgitPz+ygu0B99EeY3f0HXu5+2VM1by5AABCYe3xCds/?=
+ =?us-ascii?Q?/unbZw4Q32sRD7oZjzGn87KcqX1aAwoFMh+pzf1OD9bBJU1iovtMcwz8Kpi3?=
+ =?us-ascii?Q?AbpfXf6wZLRHBi3MQl8US98pPpOQZfYOMZKD8NaIbnxdZnhAEi3LBXQz+i4T?=
+ =?us-ascii?Q?flqQGRjy8Q=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db546573-9c71-4456-c5d0-08dea034e0ae
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7940.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 06:01:26.5339 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 06:03:31.3513 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xMb0v1W/TyOln7U80Jq9ZYXLhfKgCQFWc9/wo0/RQrJcgc6GZ1d5mBype+EI0qouSCKgU+A6srJhWjaD8w/Ijg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7720
+X-MS-Exchange-CrossTenant-UserPrincipalName: AZ6wwH9WiAVDP/9PWwCHEj9+uneA3XMW+PzLnYbvOvr2nwtlCBB6W9K/mvt4KMj9Zgq0mkb9rS86ZYzycNiUtQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSMPR04MB11293
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,169 +137,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Apr 21, 2026 at 3:16 PM JST, Alexandre Courbot wrote:
-> When probing the driver, the FWSEC-FRTS firmware creates a WPR2 secure
-> memory region to store the GSP firmware, and the Booter Loader loads and
-> starts that firmware into the GSP, making it run in RISC-V mode.
->
-> These operations need to be reverted upon unloading, particularly the
-> WPR2 secure region creation, as its presence prevents the driver from
-> subsequently probing.
->
-> Thus, load and run the Booter Unloader and FWSEC-SB firmwares at unbind
-> time to put the GPU into a state where it can be probed again.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Hi Biju,
+
+On Tue, Apr 21, 2026 at 11:53:32AM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> 
+> On the RZ/G3L SMARC EVK, suspend to RAM powers down the ITE IT6263 chip.
+> The display controller driver's system PM callbacks invoke
+> drm_mode_config_helper_{suspend,resume}, which in turn call the bridge's
+> atomic_{disable,enable} callbacks to handle suspend/resume for the bridge
+> without dedicated PM ops.
+> 
+> To support proper reinitialization after power loss, move reset_gpio into
+> the it6263 struct so it is accessible beyond probe time. Relocate
+> it6263_hw_reset(), it6263_lvds_set_i2c_addr(), it6263_lvds_config() and
+> it6263_hdmi_config() from probe to atomic_enable, ensuring the chip is
+> fully reset and reconfigured on every enable, including after a
+> suspend/resume cycle.
+> 
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 > ---
->  drivers/gpu/nova-core/firmware/booter.rs |  1 -
->  drivers/gpu/nova-core/firmware/fwsec.rs  |  1 -
->  drivers/gpu/nova-core/gpu.rs             |  8 +++++-
->  drivers/gpu/nova-core/gsp/boot.rs        | 43 ++++++++++++++++++++++++++=
-++++++
->  drivers/gpu/nova-core/regs.rs            |  5 ++++
->  5 files changed, 55 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/firmware/booter.rs b/drivers/gpu/nova-=
-core/firmware/booter.rs
-> index de2a4536b532..771b018ba580 100644
-> --- a/drivers/gpu/nova-core/firmware/booter.rs
-> +++ b/drivers/gpu/nova-core/firmware/booter.rs
-> @@ -280,7 +280,6 @@ fn new_booter(data: &[u8]) -> Result<Self> {
->  #[derive(Copy, Clone, Debug, PartialEq)]
->  pub(crate) enum BooterKind {
->      Loader,
-> -    #[expect(unused)]
->      Unloader,
->  }
-> =20
-> diff --git a/drivers/gpu/nova-core/firmware/fwsec.rs b/drivers/gpu/nova-c=
-ore/firmware/fwsec.rs
-> index 8810cb49db67..4108f28cd338 100644
-> --- a/drivers/gpu/nova-core/firmware/fwsec.rs
-> +++ b/drivers/gpu/nova-core/firmware/fwsec.rs
-> @@ -144,7 +144,6 @@ pub(crate) enum FwsecCommand {
->      /// image into it.
->      Frts { frts_addr: u64, frts_size: u64 },
->      /// Asks [`FwsecFirmware`] to load pre-OS apps on the PMU.
-> -    #[expect(dead_code)]
->      Sb,
->  }
-> =20
-> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-> index 8f2ae9e8a519..37d0e4587ed3 100644
-> --- a/drivers/gpu/nova-core/gpu.rs
-> +++ b/drivers/gpu/nova-core/gpu.rs
-> @@ -286,7 +286,13 @@ pub(crate) fn unbind(&self, dev: &device::Device<dev=
-ice::Core>) {
->              return;
->          };
-> =20
-> -        let _ =3D kernel::warn_on_err!(self.gsp.unload(dev, bar, &self.g=
-sp_falcon));
-> +        let _ =3D kernel::warn_on_err!(self.gsp.unload(
-> +            dev,
-> +            bar,
-> +            self.spec.chipset,
-> +            &self.gsp_falcon,
-> +            &self.sec2_falcon,
-> +        ));
-> =20
->          self.sysmem_flush.unregister(bar);
->      }
-> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
-p/boot.rs
-> index 3f4e99b2497b..e00cfebe5d11 100644
-> --- a/drivers/gpu/nova-core/gsp/boot.rs
-> +++ b/drivers/gpu/nova-core/gsp/boot.rs
-> @@ -267,7 +267,9 @@ pub(crate) fn unload(
->          &self,
->          dev: &device::Device<device::Bound>,
->          bar: &Bar0,
-> +        chipset: Chipset,
->          gsp_falcon: &Falcon<Gsp>,
-> +        sec2_falcon: &Falcon<Sec2>,
->      ) -> Result {
->          // Shut down the GSP.
-> =20
-> @@ -275,6 +277,47 @@ pub(crate) fn unload(
->              .inspect_err(|e| dev_err!(dev, "unload guest driver failed: =
-{:?}", e))?;
->          dev_dbg!(dev, "GSP shut down\n");
-> =20
-> +        // Run FWSEC-SB to reset the GSP falcon to its pre-libos state.
-> +
-> +        let bios =3D Vbios::new(dev, bar)?;
-> +        let fwsec_sb =3D FwsecFirmware::new(dev, gsp_falcon, bar, &bios,=
- FwsecCommand::Sb)?;
-> +
-> +        if chipset.needs_fwsec_bootloader() {
-> +            let fwsec_sb_bl =3D FwsecFirmwareWithBl::new(fwsec_sb, dev, =
-chipset)?;
-> +            // Load and run the bootloader, which will load FWSEC-SB and=
- run it.
-> +            fwsec_sb_bl.run(dev, gsp_falcon, bar)?;
-> +        } else {
-> +            // Load and run FWSEC-SB directly.
-> +            fwsec_sb.run(dev, gsp_falcon, bar)?;
-> +        }
-> +        dev_dbg!(dev, "FWSEC SB completed\n");
-> +
-> +        // Remove WPR2 region if set.
-> +
-> +        let wpr2_hi =3D bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
-> +        if wpr2_hi.is_wpr2_set() {
-> +            let booter_unloader =3D BooterFirmware::new(
-> +                dev,
-> +                BooterKind::Unloader,
-> +                chipset,
-> +                FIRMWARE_VERSION,
-> +                sec2_falcon,
-> +                bar,
-> +            )?;
-> +
-> +            sec2_falcon.reset(bar)?;
-> +            sec2_falcon.load(dev, bar, &booter_unloader)?;
-> +            let _ =3D sec2_falcon.boot(bar, Some(0xff), Some(0xff))?;
+> Tested s2idle, s2ram and hotplug on Renesas RZ/G3L SMARC EVK platform.
+> v2->v3:
+>  * Updated commit header and description.
+>  * Dropped it6263_bridge_{init,uninit}().
+>  * Restored regulator_bulk_enable in probe().
+>  * Dropped the variable powered, supplies and num_supplies from
+>    struct it6263.
+>  * Added reset, I2C address configuration, and LVDS/HDMI initialisation to
+>    the atomic_enable callback so that the hardware is fully reinitialised
+>    after each power cycle. Correspondingly, remove these steps from probe,
+>    since they are no longer needed there.
+>  * Dropped the remove callback as it is not needed.
+> v1->v2:
+>  * Dropped system PM callbacks instead using bridge's
+>    atomic_{disable,enable} callbacks to handle suspend/resume.
+> ---
+>  drivers/gpu/drm/bridge/ite-it6263.c | 26 +++++++++++++-------------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
 
-What about a named constant if you can think of a good name for 0xff or
-a comment explaining why we need to write 0xff into the two mailboxes?
-Presumably we don't care about the return value here since we check
-success using the register read below.
+The subject no longer summaries what this patch does.
+Can you change it to be something like:
+drm/bridge: ite-it6263: Move chip initialization code from probe to atomic_enable
+?
 
-Thanks for working on this, this will be a great help for avoiding
-reboots during development (since pcie reset sometimes has issues).
+Otherwise, I'll provide my R-b tag.
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
-
-> +
-> +            let wpr2_hi =3D bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
-> +            if wpr2_hi.is_wpr2_set() {
-> +                dev_err!(dev, "WPR2 region still set after Booter Unload=
-er ran\n");
-> +                return Err(EBUSY);
-> +            }
-> +        }
-> +
-> +        dev_info!(dev, "successfully unloaded\n");
-> +
->          Ok(())
->      }
->  }
-> diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.r=
-s
-> index 2f171a4ff9ba..21ff5d15f648 100644
-> --- a/drivers/gpu/nova-core/regs.rs
-> +++ b/drivers/gpu/nova-core/regs.rs
-> @@ -176,6 +176,11 @@ impl NV_PFB_PRI_MMU_WPR2_ADDR_HI {
->      pub(crate) fn higher_bound(self) -> u64 {
->          u64::from(self.hi_val()) << 12
->      }
-> +
-> +    /// Returns whether the WPR2 region is currently set.
-> +    pub(crate) fn is_wpr2_set(self) -> bool {
-> +        self.hi_val() !=3D 0
-> +    }
->  }
-> =20
->  // PGSP
-
+--
+Regards,
+Liu Ying
