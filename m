@@ -4,73 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C3C9F55811
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 08:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCDEFF5A8DE
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 08:27:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A49110E967;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1D8410E96D;
 	Wed, 22 Apr 2026 08:27:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="UoD+yE3n";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="i5R3Dq2B";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C751610E1E3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 20:03:24 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-12714f01940so292952c88.0
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 13:03:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=usp.br; s=usp-google; t=1776801804; x=1777406604; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=ctfYCUwnq+ND/BK2YrW6WN95Q5+5Z1z7I8KH/f9G8o4=;
- b=UoD+yE3nq0R9oZkiN9Ly2w+Kr/YhyUyIAy15h4ItRKImnW8JU7P+NqdxoQPAQiq2oS
- wPnBtWYtv4O0txogxnVZRj7pQy5wcmQTzSR3AMtTaNsdZV0Qm1IGQGnBEM6XVCjrb5qX
- 856OD9rhIUblU40aRGaMbIZrfIU8+7VcmjOr6yBivGrHDXDNSmBL+nUDkKd5P0BJ0M1w
- 6HksAmiOiOlbPRnQqpKlv1iNcR6AHb+RgGHxLu/6+wuAi9eZLXVfWI0QHqIhLZBlxuxY
- uHfNVp+1xIgewJnipFzWB/T2Q/2Ye8wVh6wRisOrvCdWu6+NorhMIJtfxVO312AUjCm2
- eZsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776801804; x=1777406604;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ctfYCUwnq+ND/BK2YrW6WN95Q5+5Z1z7I8KH/f9G8o4=;
- b=kU+N/kuWyM09UoVnbj+E+sxrEzuolsY+g/B9cB7LeKVEPY5QuP2hW5hnWu9K6VfJPo
- xGkMkbeSCVbSLVxqj2PVkRCkD38x55INhS02JLWPMzWFdYK9X04+bTCY3NDrgrZx6WJL
- L9V46Nr8Jzc0kunpMAxPXwCSLQPgl01JqUinhs8l9dJgWzuSXPlU5JaJXpK5rxUswoVB
- aHah+eCK1umGxNDS+ngOETgZy4nReczSDo3A2Xr1Y06D6Fc0WEh1R2Uga2TVRY/Ly8gV
- Tf1Tuagm20XGoK1Dn8mZtHuZ20W6WxfYhFp2HOVOTlqTetP4PEE0nUhCuKZnvF+LszO1
- iaDQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+36azAA9sDW4WMciMvEKXnE93LEtbNR3f5VztzHIRzt3vp6XlAiE+Kcef72ea+wSEgW66wwGymty8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFeO3Z96qQwoTqq2ukfCtvZD5H8MDEAOmK4zp4np9rC3+T9h78
- 8T677aevHko+XjoOdahK9QdTcXgz5FOhgM7G25zJWofyOzuseh+hZJzdYaYGMWB8hkY=
-X-Gm-Gg: AeBDietEM0HSY26S5ewbnLa236tA0pDI2r1mmH8mSr5gKDtZooawMy1nCfV11Ix0Y2/
- jtMKcDvYerCy9D2naDy1nghZ3qPQd0Kg1EUF2IohiWYqBS0dPgzpJaHw4Z2drmaUExjRNYw+0eL
- VN2MrAaWZon0Y//cHfOuJFMTlhQhug1fe7FYK9hWfbXAx1wCMcKIlVz45N8HcHJyQnB3kgEowYE
- DcyWFByycgW/7EM5C/Km35GXv/jRrEPDD/hIzwx8hJmHsRWtXbzmEMJDiiWIG+aAVX5f0W6KwHH
- 2srZ5SxZEv2gpuJp89qAvQhGTNhsHdQZCYo44/jYj843JIvcjB1MLr7VrSd/BLma4lHnAM87pTJ
- VBdGPxeipPPvng/ofNAkykwUhsKa4fSDeoYbMkZgSVoHlcrB9qPwR2tmz2p3EKvCrJS06fO9Npt
- iCiofTowIuJcRUNotdrmcR7ERhHfiFhhpPOqNj+7lu86g+s6p08i6FwrqaHHA=
-X-Received: by 2002:a05:7022:90d:b0:12c:900b:9dee with SMTP id
- a92af1059eb24-12c900ba4bamr2072612c88.1.1776801803528; 
- Tue, 21 Apr 2026 13:03:23 -0700 (PDT)
-Received: from Haru.. ([2804:1b1:f983:1702:ed2:736c:4e1d:a8a8])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-12c74a185a8sm20830097c88.9.2026.04.21.13.03.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Apr 2026 13:03:23 -0700 (PDT)
-From: Leonardo Cesar <leonardocesar@usp.br>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: Leonardo Cesar <leonardocesar@usp.br>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: deduplicate ring preempt ib function
-Date: Tue, 21 Apr 2026 17:03:00 -0300
-Message-ID: <20260421200311.15624-1-leonardocesar@usp.br>
+X-Greylist: delayed 153504 seconds by postgrey-1.36 at gabe;
+ Wed, 22 Apr 2026 03:18:55 UTC
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC8110E02C;
+ Wed, 22 Apr 2026 03:18:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Oi
+ QDuPeM0CiywsGMxhX8g6+bnyymbiQy6vMzxt56jTs=; b=i5R3Dq2BpCHY1WVcJH
+ m9+1+ktQWRozJbaUTdP8byvvXqlqpMaDeHAHRpHYbfiSu0ubYC/XI/BgefEbMVtb
+ g9Xp2Om98VdlRXuUaxUmrg0bJ2O5H4GXYRKwcSsIajB/WrDDBEwHXcH99Vsr4Fa3
+ c8N5uoOVfZQ/04cduwtxRQSQU=
+Received: from neo-TianYi510Pro-15ICK.. (unknown [])
+ by gzsmtp3 (Coremail) with SMTP id PigvCgD3T+rgPehpC96LAw--.54994S2;
+ Wed, 22 Apr 2026 11:18:05 +0800 (CST)
+From: liuqiangneo@163.com
+To: airlied@redhat.com,
+	kraxel@redhat.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Qiang Liu <liuqiang@kylinos.cn>
+Subject: [PATCH v3] drm/qxl: Convert qxl release idr to xarray
+Date: Wed, 22 Apr 2026 11:17:39 +0800
+Message-ID: <20260422031740.45371-1-liuqiangneo@163.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: PigvCgD3T+rgPehpC96LAw--.54994S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gr1Dtw1fJFy5Cw18XrWfuFg_yoWxXFWDpF
+ W8JFW5ArWUJr4qgFnrAanrXF1Sv3WYgay3GFW7ta43Zw15Jry5Xr15JF4qqrZYyFZ5Aa17
+ Xa1UKryUCF1UWaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnb18UUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: 5olx1xxdqj0vrr6rljoofrz/xtbC+w4fgGnoPe6TOQAA3S
 X-Mailman-Approved-At: Wed, 22 Apr 2026 08:26:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,237 +62,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The ring preemption function is identical for both gfx_v11_0 and
-gfx_v12_0. This patch refactors the code by moving the core logic
-into a generic function inside amdgpu_gfx.c to reduce code
-duplication and simplify future maintenance.
+From: Qiang Liu <liuqiang@kylinos.cn>
 
-Signed-off-by: Leonardo Cesar <leonardocesar@usp.br>
+Replace the release_idr + release_idr_lock to an XArray.
+IDR internally uses xarray so we can use it directly which simplifies our
+code by removing the IDR wrapper.
 
+Signed-off-by: Qiang Liu <liuqiang@kylinos.cn>
 ---
-v1 -> v2:
-- Removed wrapper functions for gfx_v11 and gfx_v12 and updated call sites directly.
+v3:
+- Change the type of 'handle' to u32.
+  'xa_limit_31b' restricts the range of 'handle',
+  so an implicit cast to 'int' is safe.
+- Keep xa_lock in xa_lock due to concurrent access.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | ...
+v2:
+- Use xa_limit_31b instead of xa_limit_32b to keep IDs within INT_MAX.
+- Use GFP_KERNEL instead of GFP_NOWAIT because the context is sleepable.
+- Cast to u32 to avoid sign extension when atomic counter wraps above INT_MAX.
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 51 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 52 +------------------------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 52 +------------------------
- 4 files changed, 55 insertions(+), 102 deletions(-)
+ drivers/gpu/drm/qxl/qxl_drv.h     |  6 ++--
+ drivers/gpu/drm/qxl/qxl_kms.c     |  4 +--
+ drivers/gpu/drm/qxl/qxl_release.c | 49 ++++++++++++++-----------------
+ 3 files changed, 27 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index 2956e45c9..a157cbd8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -2684,3 +2684,54 @@ void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev)
- #endif
- }
+diff --git a/drivers/gpu/drm/qxl/qxl_drv.h b/drivers/gpu/drm/qxl/qxl_drv.h
+index cc02b5f10ad9..cf9decf39022 100644
+--- a/drivers/gpu/drm/qxl/qxl_drv.h
++++ b/drivers/gpu/drm/qxl/qxl_drv.h
+@@ -35,6 +35,7 @@
+ #include <linux/firmware.h>
+ #include <linux/platform_device.h>
+ #include <linux/workqueue.h>
++#include <linux/xarray.h>
  
-+int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring)
-+{
-+	int i, r = 0;
-+	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
-+	struct amdgpu_ring *kiq_ring = &kiq->ring;
-+	unsigned long flags;
-+
-+	if (adev->enable_mes)
-+		return -EINVAL;
-+
-+	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
-+		return -EINVAL;
-+
-+	spin_lock_irqsave(&kiq->ring_lock, flags);
-+
-+	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
-+		spin_unlock_irqrestore(&kiq->ring_lock, flags);
-+		return -ENOMEM;
-+	}
-+
-+	/* assert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, false);
-+
-+	/* assert IB preemption, emit the trailing fence */
-+	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
-+					ring->trail_fence_gpu_addr,
-+					++ring->trail_seq);
-+	amdgpu_ring_commit(kiq_ring);
-+
-+	spin_unlock_irqrestore(&kiq->ring_lock, flags);
-+
-+	/* poll the trailing fence */
-+	for (i = 0; i < adev->usec_timeout; i++) {
-+		if (ring->trail_seq ==
-+			le32_to_cpu(*(ring->trail_fence_cpu_addr)))
-+			break;
-+		udelay(1);
-+	}
-+
-+	if (i >= adev->usec_timeout) {
-+		r = -EINVAL;
-+		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
-+	}
-+
-+	/* deassert preemption condition */
-+	amdgpu_ring_set_preempt_cond_exec(ring, true);
-+	return r;
-+}
-+
-+
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index a0cf0a3b4..77050f988 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -664,6 +664,8 @@ void amdgpu_gfx_csb_preamble_end(u32 *buffer, u32 count);
- void amdgpu_debugfs_gfx_sched_mask_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_compute_sched_mask_init(struct amdgpu_device *adev);
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
+@@ -208,11 +209,10 @@ struct qxl_device {
+ 	struct qxl_memslot surfaces_slot;
  
-+int amdgpu_gfx_ring_preempt_ib(struct amdgpu_ring *ring);
-+
- static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
+ 	spinlock_t	release_lock;
+-	struct idr	release_idr;
+-	uint32_t	release_seqno;
++	struct xarray	release_xa;
++	atomic_t	release_seqno;
+ 	atomic_t	release_count;
+ 	wait_queue_head_t release_event;
+-	spinlock_t release_idr_lock;
+ 	struct mutex	async_io_mutex;
+ 	unsigned int last_sent_io_cmd;
+ 
+diff --git a/drivers/gpu/drm/qxl/qxl_kms.c b/drivers/gpu/drm/qxl/qxl_kms.c
+index 461b7ab9ad5c..0cebaf88f407 100644
+--- a/drivers/gpu/drm/qxl/qxl_kms.c
++++ b/drivers/gpu/drm/qxl/qxl_kms.c
+@@ -227,8 +227,8 @@ int qxl_device_init(struct qxl_device *qdev,
+ 		goto cursor_ring_free;
+ 	}
+ 
+-	idr_init_base(&qdev->release_idr, 1);
+-	spin_lock_init(&qdev->release_idr_lock);
++	xa_init_flags(&qdev->release_xa, XA_FLAGS_ALLOC1);
++	atomic_set(&qdev->release_seqno, 0);
+ 	spin_lock_init(&qdev->release_lock);
+ 
+ 	idr_init_base(&qdev->surf_id_idr, 1);
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..afed1096cf7b 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -88,8 +88,9 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+ 		  struct qxl_release **ret)
  {
- 	switch (mode) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-index 5097de940..1ba848bfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-@@ -6206,56 +6206,6 @@ static void gfx_v11_0_ring_emit_gfx_shadow(struct amdgpu_ring *ring,
- 	ring->set_q_mode_offs = offs;
- }
+ 	struct qxl_release *release;
+-	int handle;
++	u32 handle;
+ 	size_t size = sizeof(*release);
++	int r;
  
--static int gfx_v11_0_ring_preempt_ib(struct amdgpu_ring *ring)
--{
--	int i, r = 0;
--	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
--	struct amdgpu_ring *kiq_ring = &kiq->ring;
--	unsigned long flags;
--
--	if (adev->enable_mes)
--		return -EINVAL;
--
--	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
--		return -EINVAL;
--
--	spin_lock_irqsave(&kiq->ring_lock, flags);
--
--	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
--		spin_unlock_irqrestore(&kiq->ring_lock, flags);
--		return -ENOMEM;
--	}
--
--	/* assert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, false);
--
--	/* assert IB preemption, emit the trailing fence */
--	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
--				   ring->trail_fence_gpu_addr,
--				   ++ring->trail_seq);
--	amdgpu_ring_commit(kiq_ring);
--
--	spin_unlock_irqrestore(&kiq->ring_lock, flags);
--
--	/* poll the trailing fence */
--	for (i = 0; i < adev->usec_timeout; i++) {
--		if (ring->trail_seq ==
--		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
--			break;
--		udelay(1);
--	}
--
--	if (i >= adev->usec_timeout) {
--		r = -EINVAL;
--		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
--	}
--
--	/* deassert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, true);
--	return r;
--}
--
- static void gfx_v11_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
+ 	release = kmalloc(size, GFP_KERNEL);
+ 	if (!release) {
+@@ -102,19 +103,15 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+ 	release->surface_release_id = 0;
+ 	INIT_LIST_HEAD(&release->bos);
+ 
+-	idr_preload(GFP_KERNEL);
+-	spin_lock(&qdev->release_idr_lock);
+-	handle = idr_alloc(&qdev->release_idr, release, 1, 0, GFP_NOWAIT);
+-	release->base.seqno = ++qdev->release_seqno;
+-	spin_unlock(&qdev->release_idr_lock);
+-	idr_preload_end();
+-	if (handle < 0) {
++	r = xa_alloc(&qdev->release_xa, &handle, release, xa_limit_31b, GFP_KERNEL);
++	release->base.seqno = (u32)atomic_inc_return(&qdev->release_seqno);
++	if (r < 0) {
+ 		kfree(release);
+ 		*ret = NULL;
+-		return handle;
++		return r;
+ 	}
+ 	*ret = release;
+-	DRM_DEBUG_DRIVER("allocated release %d\n", handle);
++	DRM_DEBUG_DRIVER("allocated release %u\n", handle);
+ 	release->id = handle;
+ 	return handle;
+ }
+@@ -143,9 +140,7 @@ qxl_release_free(struct qxl_device *qdev,
+ 	if (release->surface_release_id)
+ 		qxl_surface_id_dealloc(qdev, release->surface_release_id);
+ 
+-	spin_lock(&qdev->release_idr_lock);
+-	idr_remove(&qdev->release_idr, release->id);
+-	spin_unlock(&qdev->release_idr_lock);
++	xa_erase(&qdev->release_xa, release->id);
+ 
+ 	if (dma_fence_was_initialized(&release->base)) {
+ 		WARN_ON(list_empty(&release->bos));
+@@ -261,14 +256,14 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
+ 				       struct qxl_release **release)
  {
- 	struct amdgpu_device *adev = ring->adev;
-@@ -7295,7 +7245,7 @@ static const struct amdgpu_ring_funcs gfx_v11_0_ring_funcs_gfx = {
- 	.emit_cntxcntl = gfx_v11_0_ring_emit_cntxcntl,
- 	.emit_gfx_shadow = gfx_v11_0_ring_emit_gfx_shadow,
- 	.init_cond_exec = gfx_v11_0_ring_emit_init_cond_exec,
--	.preempt_ib = gfx_v11_0_ring_preempt_ib,
-+	.preempt_ib = amdgpu_gfx_ring_preempt_ib,
- 	.emit_frame_cntl = gfx_v11_0_ring_emit_frame_cntl,
- 	.emit_wreg = gfx_v11_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v11_0_ring_emit_reg_wait,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index 65c33823a..6cf244349 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -4611,56 +4611,6 @@ static unsigned gfx_v12_0_ring_emit_init_cond_exec(struct amdgpu_ring *ring,
+ 	if (surface_cmd_type == QXL_SURFACE_CMD_DESTROY && create_rel) {
+-		int idr_ret;
++		int xa_ret;
+ 		struct qxl_bo *bo;
+ 		union qxl_release_info *info;
+ 
+ 		/* stash the release after the create command */
+-		idr_ret = qxl_release_alloc(qdev, QXL_RELEASE_SURFACE_CMD, release);
+-		if (idr_ret < 0)
+-			return idr_ret;
++		xa_ret = qxl_release_alloc(qdev, QXL_RELEASE_SURFACE_CMD, release);
++		if (xa_ret < 0)
++			return xa_ret;
+ 		bo = create_rel->release_bo;
+ 
+ 		(*release)->release_bo = bo;
+@@ -277,7 +272,7 @@ int qxl_alloc_surface_release_reserved(struct qxl_device *qdev,
+ 		qxl_release_list_add(*release, bo);
+ 
+ 		info = qxl_release_map(qdev, *release);
+-		info->id = idr_ret;
++		info->id = xa_ret;
+ 		qxl_release_unmap(qdev, *release, info);
+ 		return 0;
+ 	}
+@@ -291,7 +286,7 @@ int qxl_alloc_release_reserved(struct qxl_device *qdev, unsigned long size,
+ 				       struct qxl_bo **rbo)
+ {
+ 	struct qxl_bo *bo, *free_bo = NULL;
+-	int idr_ret;
++	int xa_ret;
+ 	int ret = 0;
+ 	union qxl_release_info *info;
+ 	int cur_idx;
+@@ -312,11 +307,11 @@ int qxl_alloc_release_reserved(struct qxl_device *qdev, unsigned long size,
+ 		return -EINVAL;
+ 	}
+ 
+-	idr_ret = qxl_release_alloc(qdev, type, release);
+-	if (idr_ret < 0) {
++	xa_ret = qxl_release_alloc(qdev, type, release);
++	if (xa_ret < 0) {
+ 		if (rbo)
+ 			*rbo = NULL;
+-		return idr_ret;
++		return xa_ret;
+ 	}
+ 	atomic_inc(&qdev->release_count);
+ 
+@@ -362,7 +357,7 @@ int qxl_alloc_release_reserved(struct qxl_device *qdev, unsigned long size,
+ 	}
+ 
+ 	info = qxl_release_map(qdev, *release);
+-	info->id = idr_ret;
++	info->id = xa_ret;
+ 	qxl_release_unmap(qdev, *release, info);
+ 
  	return ret;
- }
- 
--static int gfx_v12_0_ring_preempt_ib(struct amdgpu_ring *ring)
--{
--	int i, r = 0;
--	struct amdgpu_device *adev = ring->adev;
--	struct amdgpu_kiq *kiq = &adev->gfx.kiq[0];
--	struct amdgpu_ring *kiq_ring = &kiq->ring;
--	unsigned long flags;
--
--	if (adev->enable_mes)
--		return -EINVAL;
--
--	if (!kiq->pmf || !kiq->pmf->kiq_unmap_queues)
--		return -EINVAL;
--
--	spin_lock_irqsave(&kiq->ring_lock, flags);
--
--	if (amdgpu_ring_alloc(kiq_ring, kiq->pmf->unmap_queues_size)) {
--		spin_unlock_irqrestore(&kiq->ring_lock, flags);
--		return -ENOMEM;
--	}
--
--	/* assert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, false);
--
--	/* assert IB preemption, emit the trailing fence */
--	kiq->pmf->kiq_unmap_queues(kiq_ring, ring, PREEMPT_QUEUES_NO_UNMAP,
--				   ring->trail_fence_gpu_addr,
--				   ++ring->trail_seq);
--	amdgpu_ring_commit(kiq_ring);
--
--	spin_unlock_irqrestore(&kiq->ring_lock, flags);
--
--	/* poll the trailing fence */
--	for (i = 0; i < adev->usec_timeout; i++) {
--		if (ring->trail_seq ==
--		    le32_to_cpu(*(ring->trail_fence_cpu_addr)))
--			break;
--		udelay(1);
--	}
--
--	if (i >= adev->usec_timeout) {
--		r = -EINVAL;
--		DRM_ERROR("ring %d failed to preempt ib\n", ring->idx);
--	}
--
--	/* deassert preemption condition */
--	amdgpu_ring_set_preempt_cond_exec(ring, true);
--	return r;
--}
--
- static void gfx_v12_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
- 				     uint32_t reg_val_offs)
+@@ -373,11 +368,11 @@ struct qxl_release *qxl_release_from_id_locked(struct qxl_device *qdev,
  {
-@@ -5539,7 +5489,7 @@ static const struct amdgpu_ring_funcs gfx_v12_0_ring_funcs_gfx = {
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.emit_cntxcntl = gfx_v12_0_ring_emit_cntxcntl,
- 	.init_cond_exec = gfx_v12_0_ring_emit_init_cond_exec,
--	.preempt_ib = gfx_v12_0_ring_preempt_ib,
-+	.preempt_ib = amdgpu_gfx_ring_preempt_ib,
- 	.emit_wreg = gfx_v12_0_ring_emit_wreg,
- 	.emit_reg_wait = gfx_v12_0_ring_emit_reg_wait,
- 	.emit_reg_write_reg_wait = gfx_v12_0_ring_emit_reg_write_reg_wait,
+ 	struct qxl_release *release;
+ 
+-	spin_lock(&qdev->release_idr_lock);
+-	release = idr_find(&qdev->release_idr, id);
+-	spin_unlock(&qdev->release_idr_lock);
++	xa_lock(&qdev->release_xa);
++	release = xa_load(&qdev->release_xa, id);
++	xa_unlock(&qdev->release_xa);
+ 	if (!release) {
+-		DRM_ERROR("failed to find id in release_idr\n");
++		DRM_ERROR("failed to find id in release_xa\n");
+ 		return NULL;
+ 	}
+ 
 -- 
 2.43.0
 
