@@ -4,86 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCC9EFA1FD6
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EC10FA1FD6
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 16:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E267898A4;
-	Wed, 22 Apr 2026 16:29:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEB6F10EA84;
+	Wed, 22 Apr 2026 16:40:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="BUdKMY4U";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vbi3je/l";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qp73nyyg";
 	dkim-atps=neutral
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3770610EA73
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:29:31 +0000 (UTC)
-Received: by mail-qt1-f171.google.com with SMTP id
- d75a77b69052e-50fae4d1f85so36694191cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 09:29:31 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99AE410EA84
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:40:11 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63MG4kv61587773
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:40:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ BocpQQQnoL1JLtuDV8x1jEBZoyxugL2chYUL6mfG0KE=; b=Vbi3je/lMJ+yD720
+ YHy4+8hsMyaaHbR3DEC3rhpVYuW4l57SI0Sj1d2xOi6peH6WnVjBVjOaIq7nXW0K
+ YEAjEOSozg5TvG1i0SvnjrhZtlKHvR0SiU71MNeEEp5Gcw9HbUkhARV4v0abUxMn
+ w0KXXGq1x6bWVwMktLRbhccOh1DamTnsx9upAuqHPi+yTnlro2OghSLhywaJrIZC
+ G9tALMguuBNQbXBi4JzpYHWPdIOH18PLhvFUDhv6/mWy5QFeDMdjSL4ZC0moQi3e
+ 5KDqrsJQBJK8L/JKtxko+jruhr3yLSkF8XC49ITcXAZXirItRZQ/eOiqb61OPY0N
+ lAhSzw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dq1hq044v-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 16:40:10 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8eb6880430dso102692085a.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 09:40:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1776875370; x=1777480170; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=h9IY/0ZHCf/patsFxziV9u+pjgUJWDhTV7Q7rdgygPM=;
- b=BUdKMY4UsJZk0si0qL/LC4IXVM1wCEexcXdLeRikQsyy/lqVIkPAUoHs/zMboNzGNq
- Sk768Ct1duSBSsFPZKKq96PshaGHLoGFsyO+jo1Ohw/6m5iAENDFyPneL+o4NKdFWN2I
- jyS0elB86Ra/3VSR4WDLxQAMx6zfbrg+S1E3ERGa/4HMAwzyVbLzwNi1rK1UI+j+LaOf
- LPCx9uDXHUo5ocLsRQ7jSKObKiQWpe/TnafC6pBUR4uDdplzMYDjXg0+BgROOqLLRYIq
- 5qJDMNIHjqvOVYj9nAESKmt0cl6wUVEXXGDdXbjzoSwj0Yto1o26Wao4PtU7DJ4V4Ik4
- H9uw==
+ d=oss.qualcomm.com; s=google; t=1776876010; x=1777480810;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=BocpQQQnoL1JLtuDV8x1jEBZoyxugL2chYUL6mfG0KE=;
+ b=Qp73nyygVgsbIkalTPL9/nqKrWETMj1NRESaqR1aid0QDLYSQ/hPdz/S6ySK+pR4ck
+ uICmrF5S1wuTFwxJiTMB4Hd6T5ZTVNjPHVcsTMkym1d2AxM5MhRkfTOTmtly4PTn2f0h
+ Y0l/UEvFCBz75RsNd+U2A7ATgJj+gnFYfThdgYlrvxzTu2PcleJ4lDlp0HGHFcJh4s5T
+ KGkoilorF5upjU0obTlgKPe2Ro/k9AHLDz3vdgJOUcPpbsBNZ92bT0rqTOt9E5lTKsMO
+ flQ8WWquqX6jnucWixyNS+kVU2FhpqrJWdrPoBFQMqlLtn/255LA3v3BHajnywCz7jZ9
+ g/Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776875370; x=1777480170;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=h9IY/0ZHCf/patsFxziV9u+pjgUJWDhTV7Q7rdgygPM=;
- b=rz/x2mrFQg48p0FANzV4HVoY7khg8k2Bqrhvx+ihdFrVrZ1xg2ykUO3nxW+2ebyTM5
- v/5wVvcFHIz3uB1ey0HAVYl9I5VxVojxC+jE0KzyEegqIbnUwkFvdRcMA9MYv/b7Cob3
- WGNazVOei2awnxscRs6n7T0wLqc0WmQFQrE8sUvR5Vxh9jtIS3dGbgG+2CCE1aPQBAQH
- 5UbyWFc+NfiLrlXu2ydvgQRPEOA6Ax4nlBXaJjN3lFlhq269ukb9XGxgF9IXo2mSlxN2
- bPxO76qQqKHnSkm+IT4gqwPRfImtqfqQp5dU3GvskZn6o+5UU9D1aVinojCrCHog1Ghf
- k5Cw==
+ d=1e100.net; s=20251104; t=1776876010; x=1777480810;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BocpQQQnoL1JLtuDV8x1jEBZoyxugL2chYUL6mfG0KE=;
+ b=YPEFiWtCaKXzREK+NL+l1JLQbR6owKVUKi0FuSVFGC1+B9Mo1NBx+OIFaivYErXsla
+ jH5HfStTuXawOihRIBPmXXVfp84hlrw71ohu7Zh+xoWaK/WCozNS2ssXAGjMokpUx5lH
+ xJ/begml8H7RkX+R84U03ANn8OLhicHV36RtaPo9S41/3HJOKUUh88RRpi9WoRvtLm3M
+ wmq0gIwc6X+zb2WfcgmRydJ3RocV74Vg6rrbqSJ3XUt+I7RcrsirQacsnieQ3iSCAJ2d
+ Bt+3Zz0U3Xsxz7iZxEs5zxawgOJHv0YHHoXiiDSq//VkXlSVaQfo+u3HF/k02yCpTM2s
+ WOfA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9RyUkDqHAkRB5fck/ca6D1pxwmk6E84UqzvoDevVF73mmMhvxXn0VQ+gmr75nd6Pb07C/lb5Fhnzo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxAA3bRoaasxy4A85Tyil01Sje4j5ywjFiLVdeTnzN2itn5/3RY
- fkR9Ch8eszCfCkv3ONPnaMD8+5SXNaApNmHtmlrTF9LbDEw2onAtpoQxHSxrY15GXWA=
-X-Gm-Gg: AeBDieuCQ7qbDtfOEwrlmTXGT65CnWOPb8rBosuQNOsTLAO0bj+cBwQzAOS6AGGwP4b
- Z4KhNyUrpVfq7GC4rl0ms0IG/+t4KU0J+j1i+2YwgUtREiIC6AZpmjTQCjTgBPgvflrG0telhFr
- juSK0yXWiAapxB1fog/y1YlW3EWH5qwfkTWt/27H+MomqS4QcRPOcvQFK4HtlwBPzzbX0tmYAUR
- FwlFeOuF2PAXfYrcDBinQKMOfAP2JwXVh9Xx+bGl0mOOIhTrYI8/F2cmqY/Pp+QL6SoYY6rjfG2
- EMPHYeWG0IBl58bhx2Hbemo9/2jZVGV4EEb9GCWj62ZckmwY24rCKOqZYY82M+po/STxVVOOYEp
- z7H6Fdu04KVN5ONz+5UCQ0dV/LfSoc9g0WyBc4pE8G9mLuFVGmW5H9/Yn179ZQxZ7N2BqrmKzNn
- seQ8qTP5tJ8RbEOMVu3X4MWRy6SbfFVCRrUbLSTKJEoJfev0ewX6PhXevvgvfOi6WUVo0V7sVTJ
- wA0VGSWM6PLurNa
-X-Received: by 2002:ac8:58c6:0:b0:50e:635b:5579 with SMTP id
- d75a77b69052e-50e635b57e4mr184629681cf.19.1776875369960; 
- Wed, 22 Apr 2026 09:29:29 -0700 (PDT)
-Received: from ziepe.ca
- (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
- [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50e5d5ecffdsm83483301cf.29.2026.04.22.09.29.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 09:29:29 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1wFaS8-00000008cG7-3pDK;
- Wed, 22 Apr 2026 13:29:28 -0300
-Date: Wed, 22 Apr 2026 13:29:28 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Alex Williamson <alex@shazbot.org>
-Cc: Zhiping Zhang <zhipingz@meta.com>, Stanislav Fomichev <sdf@meta.com>,
- Keith Busch <kbusch@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- Bjorn Helgaas <helgaas@kernel.org>, linux-rdma@vger.kernel.org,
- linux-pci@vger.kernel.org, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Yochai Cohen <yochai@nvidia.com>,
- Yishai Hadas <yishaih@nvidia.com>
-Subject: Re: [PATCH v1 1/2] vfio: add callback to get tph info for dma-buf
-Message-ID: <20260422162928.GL3611611@ziepe.ca>
-References: <20260420183920.3626389-1-zhipingz@meta.com>
- <20260420183920.3626389-2-zhipingz@meta.com>
- <20260422092327.3f629ad6@shazbot.org>
+ AFNElJ8e73F/p0fhff0w7jHw3AlguIF4tc8rr6KU7ei+xgViCS/lGwnGYLqttt2eS3qh1fj040b7SukOsck=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywp73DnppLYUDBMioS9ZG6YIz0Mo51Y+89cN8gWbYbbzijEuayn
+ qxwGw1jmEaF4VaYfrVqxuWFebKnn96/iT3s5lgDQMcUKor0qCMMR/fzkfTsqrZjLb+PseVGf5t7
+ 76ZEbPtnX4cRg6IVFcwBovhtEXxkfLPUG5rm496IUQQa6V+GfHS9EUu4hJ0r5uKINpx0P2ss=
+X-Gm-Gg: AeBDietNcJd9OtrpGS38PPwQRfgvk1KDQewYzssp4CDD2doqwz3VfRT+69xZerhn/HT
+ RzXV4A/NbWGVTc/8i4kpmDED66mZwJMlaJVNmuyXW/zUqdVB8W2XyAV3ZiD+oQmxqmiHQ3dedM4
+ dvpdrJJI1tC+AqFuvjVNc6eaZF+n5h6Uvfgo71GFeDZd77TMd8JfrhypbioWm2FW3CekUUnSCWD
+ wXSD+xPGlEF10ho2Fpo1YqXQLp/p7udC0p2q6VPUJT/KeR1HmKT3RoUl29/leCz9eiSuxlxJJ45
+ m4MTJRx6NHJjdxgRZQe1dtYxVIIZTu64iOkhCjgEyMBvbdKjPoZUb7JJ8UaBqcKLFxBFWgJy1Ey
+ tQU9GcRozEXpF2OUAa432/RGePJR0CPpZAIU62Bex/HUf6ESMmUVVo2hlGPljVFvg7romUOGDGQ
+ zx9ll6sUwpLnQoBA==
+X-Received: by 2002:a05:622a:38e:b0:50d:714d:e966 with SMTP id
+ d75a77b69052e-50e3669e233mr234484141cf.0.1776876009793; 
+ Wed, 22 Apr 2026 09:40:09 -0700 (PDT)
+X-Received: by 2002:a05:622a:38e:b0:50d:714d:e966 with SMTP id
+ d75a77b69052e-50e3669e233mr234483721cf.0.1776876009338; 
+ Wed, 22 Apr 2026 09:40:09 -0700 (PDT)
+Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ba454d1bd19sm557433666b.37.2026.04.22.09.40.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Apr 2026 09:40:08 -0700 (PDT)
+Message-ID: <d31f9669-c2b8-4943-ba5a-d38b5230da8d@oss.qualcomm.com>
+Date: Wed, 22 Apr 2026 18:40:05 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260422092327.3f629ad6@shazbot.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm/mipi-dsi: add flag for sending all DSC slices
+ in one packet
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260318-dsi-dsc-slice-per-pkt-v2-0-0a1b316f8250@pm.me>
+ <20260318-dsi-dsc-slice-per-pkt-v2-1-0a1b316f8250@pm.me>
+ <9vOWCBGQu4kqkzUaF1cAimiRnCHzd7NAjB98ZcmVygN9kNr7G2H-UzhkQfyiDlaj7G6wxWqKlGvAprsMtVE-P2erdkutRN7LuO1GQBOSzH8=@pm.me>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <9vOWCBGQu4kqkzUaF1cAimiRnCHzd7NAjB98ZcmVygN9kNr7G2H-UzhkQfyiDlaj7G6wxWqKlGvAprsMtVE-P2erdkutRN7LuO1GQBOSzH8=@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDE2MSBTYWx0ZWRfX7DGGGgx6KfoI
+ hWsBvVkoGB7mpI5tvyKcJXDIS3SWSbmblq/QaP9TTffDi/PiBz2B9bTSahIlYTesFPmw7SIt3hT
+ /V6dbHd2HSNzqGGIrfTY5Ut0LaMzeYyM4T/+EYHWrSZALIAoR0qGCEb8NOQPul/0Roa/z9TuTZo
+ vZyuwmSvT0C5G2+j1LUOO4CeThLqKo1v8M5LeynNoGhh485eJgRgPHxSPi6m2TcaclAKdwYp4PH
+ 9qJWS3PABdHCBR5JKRe2iqwNOMPvakJBEGmW8hapG+amWvKxHXhkO74JBDKTguwQyHOwEIHv6I6
+ VZcMjlx/yMHjhIQNHww605yUHSUXKZlt6503jX4ye0DA4CQhWALOv3oj5xnCk7V3099fSHoMMNM
+ JJ/TJ+sX39Uj+w07w2hVlbKgZs3+1xPO95fLEcWQsmIeXEzg5pLiiC5HSWoSN4BYWYsiBPn4fhe
+ 9rAglaQnevn/dSPpUHg==
+X-Proofpoint-ORIG-GUID: 4skJndaiGzxa_Fk6x-Seru70DxZhPiEd
+X-Proofpoint-GUID: 4skJndaiGzxa_Fk6x-Seru70DxZhPiEd
+X-Authority-Analysis: v=2.4 cv=TJt1jVla c=1 sm=1 tr=0 ts=69e8f9ea cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=nFR1E6h3X-GUGZrjxzwA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-22_01,2026-04-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220161
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,33 +153,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Apr 22, 2026 at 09:23:27AM -0600, Alex Williamson wrote:
-> In general though, I'm really hoping that someone interested in
-> enabling TPH as an interface through vfio actually decides to take
-> resource targeting and revocation seriously.  There's no validation of
-> the steering tag here relative to what the user has access to and no
-> mechanism to revoke those tags if access changes.  In fact, there's not
-> even a proposed mechanism allowing the user to derive valid steering
-> tags.  Does the user implicitly know the value and the kernel just
-> allows it because... yolo? 
+On 4/22/26 5:15 PM, Alexander Koskovich wrote:
+> On Wednesday, March 18th, 2026 at 5:58 AM, Alexander Koskovich <akoskovich@pm.me> wrote:
+> 
+>> The MIPI DSI v1.3 spec defines two modes for transporting compressed
+>> pixel data: one slice per packet or multiple slice widths in a single
+>> packet (Section 8.8.24 Figure 40).
+>>
+>> Add a MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT flag that panel drivers can
+>> set to indicate that all DSC slices for a line should be packed into a
+>> single packet. When unset should default to 1 slice per packet.
+>>
+>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+>> ---
+>>  include/drm/drm_mipi_dsi.h | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+>> index 3aba7b380c8d..d3ad8c5d3ebe 100644
+>> --- a/include/drm/drm_mipi_dsi.h
+>> +++ b/include/drm/drm_mipi_dsi.h
+>> @@ -138,6 +138,8 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(struct device_node *node);
+>>  #define MIPI_DSI_MODE_LPM		BIT(11)
+>>  /* transmit data ending at the same time for all lanes within one hsync */
+>>  #define MIPI_DSI_HS_PKT_END_ALIGNED	BIT(12)
+>> +/* pack all DSC slices for a line into a single packet */
+>> +#define MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT	BIT(13)
+>>
+>>  enum mipi_dsi_pixel_format {
+>>  	MIPI_DSI_FMT_RGB888,
+>>
+>> --
+>> 2.53.0
+>>
+> 
+> If there are no objections, could this be merged?
 
-This is the steering tag that remote devices will send *INTO* the VFIO
-device.
+Certainly not in the merge window - patches will usually be picked up after
+-rc1 drops.
 
-IMHO it is entirely appropriate that the driver controlling the device
-decide what tags are sent into it and when, so that's the VFIO
-userspace.
-
-There is no concept of access here since the entire device is captured
-by VFIO.
-
-If the VFIO device catastrophically malfunctions when receiving
-certain steering tags then it is incompatible with VFIO and we should
-at least block this new API..
-
-The only requirement is that the device limit the TPH to only the
-function that is perceiving them. If a device is really broken and
-doesn't meet that then it should be blocked off and it is probably not
-safe to be used with VMs at all.
-
-Jason
+Konrad
