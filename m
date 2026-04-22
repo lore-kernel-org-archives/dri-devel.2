@@ -4,138 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 087C0F94CBC
-	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 01:54:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7930F94CBB
+	for <dri-devel@archiver.kernel.org>; Wed, 22 Apr 2026 02:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5316110EE21;
-	Wed, 22 Apr 2026 01:54:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 143F710E1CE;
+	Wed, 22 Apr 2026 02:04:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OtdRSAQS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SBMniFQo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MMX40lpw";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73A4710E26B
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 01:54:18 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63LIZuHc3730894
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 01:54:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=1EVhPscDl7ppUgS3ObH0c8/S
- ANPa07oJZissK0SnRo4=; b=OtdRSAQSnn5ks9g5mzd+1LRTi0D/e7c7gHpNFos6
- iHiydNQJC1IdzI1DWb3ceT2D88FsjGX8R8QRumthXqsCQIWW+QorpL410rNzgYVn
- wSKFqkS1h/gL+SiDF2Fj0ml1GGqpemyUdhjpqACuIvTk6+cfHbv+yj7L5lk24bHa
- lqS0N27YWy366V4seWteWZmH8vknJsUjX8tDq+3kAm9WztPkl9RVNf2H47+7zSCO
- uNce92GGsq+WwyqTqRbCgg6Qb/V3s7uNdXHvzgHYvUbCF1LN3Buo2vsmIQJNVdaM
- 3EndaELKYRfpJ0PuCmR8YKJI3pzYsRsyHscFux0UdgMaGQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dpenfs4hb-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 01:54:17 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8a1accb970fso25596316d6.3
- for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 18:54:17 -0700 (PDT)
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
+ [74.125.82.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28DD910E1CE
+ for <dri-devel@lists.freedesktop.org>; Wed, 22 Apr 2026 02:04:02 +0000 (UTC)
+Received: by mail-dy1-f182.google.com with SMTP id
+ 5a478bee46e88-2d9472c97dbso455096eec.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 21 Apr 2026 19:04:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776823441; cv=none;
+ d=google.com; s=arc-20240605;
+ b=CnKqZOqTZ9PbZ03XslG4XGPAF8j/Artx0xw50V37tFlJUDfr5OdpCfnCY1+STpRtdc
+ X1l5HJIPa0yevEb0v6Oe4qBU00ZEA1e/5fQ3z4OfpE3FWStGozq433SbVYlI6wWBeHX1
+ n39m+5HR7qwtSDsnh+bEXYePNU/XO4MEX6gLjTooHo7mznKP8WANjrbGrO/Arxw4tH0a
+ OA/souxoADKWdmoowrNf2lZidqoGjjL7Ad8pQs4TAK3cdXNTjsT9VVhZ3zRyighYzOES
+ 595BY8miS9QP5KRrPbY4YO0PQ7L4JVJ3RvnQpwGHNsZCbkpx82fv+47UQL8ZKbVvCYLN
+ BAoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=KXwfE/915Iuu5tjJxurXwHhruslbzJKEkqu1zMBps88=;
+ fh=emlPOgakJl44lhYnIb3LAxZPhcpOY1rWT1BLrrdLbtY=;
+ b=T1VMFMMCfCBUKQZO6jhXIIvIkja27eIAz36PgtjUQMVuv2i7b/dv+qYMGFtfPTewES
+ dIx2q9Ll5k1//t9sg2Lh3pEHc3BPj8Tr9plDE5grb3qc4vRC8R7PNIWSCLGgkRSDEGT4
+ 8VnpGqanRtaWVoqhC3/UWzcVe09PGxRw35t9YTgENH/ym5xqoPQiu3KqTej7caOcM3IE
+ 3PFjzbbkTTDoBJPhi7O/F98oVGCiGx4JVNCDmCkyC/zI9Y1I8FSKgYw3H0dKCS/n7qaF
+ gA99nYeYK/j3ETsy5Zmreg4XkOEt8NiXe2N5xv4VeIwFrQ44zCDB3RN9z2TpYoPk06H6
+ NvAw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1776822856; x=1777427656;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=1EVhPscDl7ppUgS3ObH0c8/SANPa07oJZissK0SnRo4=;
- b=SBMniFQoqRU8mPgLm19wzE0pg6wnKViU+y5F9XvP3vxzQVYQfI1QIBiMNWDN/4DM9j
- biFtC18Qm79vk9XyJ9XlIrZkZjryEYZ91XMeL7ger4t6StJtuIzBDeOE0xzrkdk5v5xO
- KBC1hongFEBK3pkm1mhpM5m85I6HaSA82kpbDnscUNnnp+PMKdREfLeRkInqNVFf2Dm6
- lHSj12KQTaM28vrj7B6/uAp0O8WoHWfZzfk+X27T+IwwHDfIZt48uO8VME4BpereafQu
- keM1EsExWjecU1TtD5Vm9Ta/BCYBcuy94EoN8zt3hUPx8t7ZZMNOES5IZHLlayYV1SyI
- kVNw==
+ d=gmail.com; s=20251104; t=1776823441; x=1777428241; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KXwfE/915Iuu5tjJxurXwHhruslbzJKEkqu1zMBps88=;
+ b=MMX40lpwSkLkXa5xuNL7NFoydsliqBjKZLUEi3dTbo3QzEF9QfCG3yFLo6g2gKhgCX
+ 0bk+L6YM28yBWs0kl9CM88AgBKikxak/Wt+kwtfzaoE4eox7uAPW6MLwYRndjxdFU5bg
+ cSxcFAuGVRwx8J/rA0W4lD1P0HCfJlFseyxmjLWO247j2E5J9tof/bE3iSti6oorGHZw
+ ttE2CfZT2g87niu+cWPl3jeOaf52iurRWWcwJeKpEApP6neyTTn155h3qq2B3WXFOGPi
+ bi6Xo+bClHQ0GGpCytE7VdI8CgyntQFuwDSHewyMVfy3EfZxHnOikKFOLRHVr0oRPPID
+ IhhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776822856; x=1777427656;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1EVhPscDl7ppUgS3ObH0c8/SANPa07oJZissK0SnRo4=;
- b=HTOcChjYt5bK+ss7DsWK28g5F8BZLisrl+3Rbi07v7H7E3Xy/w4wrlkaW8oEMK7VIA
- VEFgX2lOfNg/lCXcKp3yjFwfnRj1F2o+IEfTfLJ7CLuONiZphGRpuiqUcsNJptcqylsU
- R+WxFt0QP42NQSnFweNmEBZvw/hw8HO9Oym8eSgPAv4AD12OomuowKD/SwA6vblLBq8h
- QlR9XpRE3aQP3lgx/DS9vbJRWi2aq3+kpms2Zd7htwPpZjyut5iVdzHbQ78PSAZRZgWt
- RiuG8BBEnCsVreGQKOgQ/Uqu3x1RXaurDGCm66jySHp2n5kyeal0f7DdDPL8RtEyYrPP
- VhHQ==
-X-Gm-Message-State: AOJu0YxFTk8WW3Apt2ek0O6NOtrmKfzFm09AKhhaKylVEzx9t40pV7fT
- oLtTvtiEf2lGXMyxv7Cza+QiEBKWRK+ilE8cYDlqOIJGvEKXY5n6opwGjgWCieLN28OmIG+ikAf
- wLveR7vr3XOEDaOhi0bb7Z8nMsS+MdJNahZ0GgVSiPSbXgr+9mXsG2HrOMRg25wA40qhlcsw=
-X-Gm-Gg: AeBDietiUximj3eruehYlQJiAbGtSsDmJ4glj7YFBoW3fvgpIc1vZZQzwg9Lj14304x
- h1kLSJn1Bj1KxGCov0+/logdOKf/0MTslEBjTuepIp9ImOBvc6lg7iPMl9KTwz2QCAD+G9JTAgb
- tv3ONeJ5CrX9gglQqsMEu6mOe9a8bPAaYJAd2DLA9KAsGqNJHJrEAZdijg+pLHl+jJyICiw03gh
- RZ6w7+rPAKI8wJzVlisEuaDc/920EsdtwnmbED5HfZ+7q4vxgEBwaxO90QXCmq3cMk/XPvJ/VXd
- BuHAyvggwWfm6QKyCVAfvO88sk2pfIwj8P5QVkoL6r2zQky6d87IzWL77JPeThk5wBJeoNtQSs8
- GF5qQ2FNQFTmoPV1HtSQxiSbvWa2bZRMEV+qeITpQfFxkmPdJMf12/fsSzGDW2v8SHo4jVHJlvD
- q5N3M3SomAfg4EIB0g/RGP2BqysOUyk4kIgetv1Ej3q4hpRA==
-X-Received: by 2002:a05:6214:5691:b0:89c:a2b2:8d3a with SMTP id
- 6a1803df08f44-8b027fd9b67mr378068706d6.4.1776822856533; 
- Tue, 21 Apr 2026 18:54:16 -0700 (PDT)
-X-Received: by 2002:a05:6214:5691:b0:89c:a2b2:8d3a with SMTP id
- 6a1803df08f44-8b027fd9b67mr378068396d6.4.1776822856107; 
- Tue, 21 Apr 2026 18:54:16 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4187e12c8sm4049951e87.49.2026.04.21.18.54.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Apr 2026 18:54:13 -0700 (PDT)
-Date: Wed, 22 Apr 2026 04:54:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bill Wendling <morbo@google.com>, David Airlie <airlied@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Justin Stitt <justinstitt@google.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b(?i:clang|llvm)b"
- <llvm@lists.linux.dev>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maxime Ripard <mripard@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 00/13] drm/msm: Add PERFCNTR_CONFIG ioctl
-Message-ID: <b4hkax45ohmz3dk4b2wgfmq73px7er66wqxixquxhwd64ngboa@zu4frfofekef>
-References: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
+ d=1e100.net; s=20251104; t=1776823441; x=1777428241;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=KXwfE/915Iuu5tjJxurXwHhruslbzJKEkqu1zMBps88=;
+ b=O/kM+xw5MBzi9CrEUD3UBgKE25LQ3g2T10HpoDWb9CMYA7YEt4GStGRmRWotevnzux
+ jD6Px+0zLE1Lf5uBdHfhH7cp4W1MZR7BnfWEokY4Vh4NjyUO6GfplxU0kB6ow9Lj0wN3
+ IpXm5CISO1gynJw2GzcKPfvLcpOTZZ+YXA1KKEAUtl86+21iSg/ICETVrU8gN9pTyxvR
+ bFiDlj1yE8e/MveOp4LJ+Q1EJGNDSfC/fv7oTHxShqrLfL8EEbgLVHg3zOQx6t7PBEja
+ KPYn057wgVSDRXU/JbfAHjvD6x0LGNa/EgwddV+o3IsGscfpmb8KsPX2LN6A/Z/OUqVW
+ ATZw==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9vCoyUA36NM4a5VPvoNk+Pih3AtbhrB3uRVJAos9U4v0HQCQrmCxcVASawbO2chXB9Ef9E4CNyzFY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzH1ZLnu5fEi1UGwvVrAZpdIsHz0+Bk9yWyKNXc2+DfQ+YB+c0a
+ jRUeE7xe6eDIqpJdj/Rsmcpu18jQpGNlfM6hosI1o6aCuKByNDm7mUQKSWsYXHk5GkY/t2+CRiv
+ XH25hx/vbQoqRCApnRrEi62F/Pf3HJwU=
+X-Gm-Gg: AeBDiessWMsCLFCibIf/pDEG0hOqe6tmCEM+WBY27K6X+iuT7DvmL6sSuo+CnvL0+VC
+ YOIs7EavjIkuP27Emk+er8/8IBg3GmttjfmJhrckrekZu4/rs+j7RW9cgjBJ7k8jRbqO5f3Km8U
+ 5pXFizxsJQiSpfRyhjGicwihZ3kNYimhHZyLFjWygD7XLcqYAnNLT+3wcQQMqmzMeevB/9nkLix
+ YNGFQjhwernd+MMu+jVBzMn1a7cZF4287gG8kr4lJg2SqZldCqfJlq3kWlxyABexvr2DiPobQD0
+ n4ao5nwWOGg+2BP/0iqmJaZLRqzh6GJbOfBHkMQ6C4JqpmTd0JymDgRQtvl9cMZp7Vj9qoXkr+/
+ ah9BS
+X-Received: by 2002:a05:7022:5f01:b0:12d:b654:8180 with SMTP id
+ a92af1059eb24-12db65484bfmr455959c88.2.1776823441162; Tue, 21 Apr 2026
+ 19:04:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260420222621.417276-1-robin.clark@oss.qualcomm.com>
-X-Proofpoint-GUID: 4kx5zkq_Yl9AHJ3XKtlMAoWeH0axyJvg
-X-Authority-Analysis: v=2.4 cv=YJuvDxGx c=1 sm=1 tr=0 ts=69e82a49 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=e5mUnYsNAAAA:8
- a=vNHeVWmE5UuQZPkiQX4A:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDIyMDAxNiBTYWx0ZWRfX6592CYgtt5+S
- 6fIM20nL2XiOmg5OgOLhMEGSmh7s3p8VHpdEC2eBEIeQX3D46eRpa8uTm3vFOOoZ4zzQU0TD0mt
- 2luIfZojGaZI2p2a/ItigXtjU3Wh89wVQPNzA4JvjMELW3s1Za76fQM8f6y4vVk9g6gpV+JquCh
- NtKP3tQRmSfs5ILbytze4y5qT0QJluwsVYmxuo5bkcwrMrpsLQOFp/VHbRe0wb1Bw2ePAXxbmKV
- Rp3/NCcrM8ZRJPIeyKQY3MwZ0Rj/nrbzo4eKuIg9zN4JmP876B/7VXr9AaYjDQCGOiEZIiXKsf+
- fYwBZQw1bjPjZAbkTDU8mePZt59+QO6ys01suTWAMrjWl7a75rNhiiIxwr+ko3BuNqTkeS017vP
- DXNrrcGYuB4P55B+vKs72qoTJBOIKKQYypwxPu8ezR5HUppK5YYioVOa4wW4+0DlMjiqojOlZ8B
- 1pUecMQMvNYALQjh+3w==
-X-Proofpoint-ORIG-GUID: 4kx5zkq_Yl9AHJ3XKtlMAoWeH0axyJvg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-21_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
- malwarescore=0 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604220016
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+ <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+ <8846bac5-77ff-4439-ac5c-c33cdb4a94e3@gmail.com>
+ <964c3670-fad3-44ce-bd93-2057bca2dcb8@amd.com>
+ <08ad2301-3163-4497-8869-fa4cea30b384@gmail.com>
+ <e5c00f2c-0819-48b4-b66e-71b9a40a7235@amd.com>
+ <686713fc-c762-4b1b-88b2-d486d4f38ac6@gmail.com>
+ <de6777c1-1165-4ace-a5a7-3004aa9ea8c5@invisiblethingslab.com>
+ <d045e25d-0bc5-4056-b4a2-9eda73fb5be7@gmail.com>
+In-Reply-To: <d045e25d-0bc5-4056-b4a2-9eda73fb5be7@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 21 Apr 2026 22:03:49 -0400
+X-Gm-Features: AQROBzCq3JY-5ArkKnDyVVr-Wl_czV3R7nte4oTZblqOBZ3Fd9cc3qiKy3Gryh4
+Message-ID: <CADnq5_Og_eAA2QkN_TM=AqY2rz_B6cwbm5tePzwrAXzK3BypGg@mail.gmail.com>
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: Val Packett <val@invisiblethingslab.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel@lists.freedesktop.org, 
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org, Suwit Semal <sumit.semwal@linaro.org>, 
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,58 +122,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Apr 20, 2026 at 03:25:22PM -0700, Rob Clark wrote:
-> Add a new PERFCNTR_CONFIG ioctl, serving two functions:
-> 
-> 1. Global counter collection (restricted to perfmon_capable()) using the
->    MSM_PERFCNTR_STREAM flag.  Global counter sampling is, global, across
->    contexts.  Only a single global counter stream is allowed at a time.
-> 2. Reserve counters for local counter collection.  Local counter
->    collection is local to a cmdstream (GEM_SUBMIT), and as such is
->    allowed in all processes without additional privileges.
-> 
-> The kernel enforces that counters assigned for global counter collection
-> do not conflict with counters reserved for local counter collection, and
-> visa versa.  Since local counter collection is scoped to a single cmd-
-> stream, multiple UMD processes can overlap in their reserved counters.
-> But cannot conflict with global counter usage.
-> 
-> In the case of local counter collection, the UMD is still responsible
-> for programming the corresponding SELect registers, and sampling the
-> counter values, from it's cmdstream.  But by performing the reservation
-> step, the UMD protects itself from the kernel trying to use the same
-> SEL/counter regs for global counter collection.
-> 
-> For global counter collection, the kernel programs SEL regs, and sets up
-> a timer for counter sampling.  Userspace reads out the sampled values
-> from the returned perfcntr stream fd.  Releasing the global perfcntr
-> stream is simply a matter of close()ing the fd.
-> 
-> Since the counter sampling is done in the kernel, this prepares us for
-> not having to disable IFPC while global counter sampling is active.  But
-> wiring this up will come in a later patch.
-> 
-> The mesa side of this is at:
-> https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/40522
-> 
-> Rob Clark (13):
->   drm/msm: Remove obsolete perf infrastructure
->   drm/msm/adreno: Sync registers from mesa
->   drm/msm/registers: Sync gen_header.py from mesa
->   drm/msm/registers: Add perfcntr json
->   drm/msm: Allow CAP_PERFMON for setting SYSPROF
->   drm/msm: Add a6xx+ perfcntr tables
->   drm/msm: Add sysprof accessors
->   drm/msm/a6xx: Add yield & flush helper
->   drm/msm: Add per-context perfcntr state
->   drm/msm: Add basic perfcntr infrastructure
->   drm/msm/a6xx+: Add support to configure perfcntrs
->   drm/msm/a8xx: Add perfcntr flush sequence
->   drm/msm: Add PERFCNTR_CONFIG ioctl
-> 
-The series doesn't apply to linux-next. Please switch to b4 and use b4
---edit-deps to specify dependencies.
+On Tue, Apr 21, 2026 at 9:34=E2=80=AFPM Demi Marie Obenour
+<demiobenour@gmail.com> wrote:
+>
+> On 4/21/26 12:55, Val Packett wrote:
+> >
+> > On 4/20/26 4:12 PM, Demi Marie Obenour wrote:
+> >> On 4/20/26 14:53, Christian K=C3=B6nig wrote:
+> >>> On 4/20/26 20:46, Demi Marie Obenour wrote:
+> >>>> On 4/20/26 13:58, Christian K=C3=B6nig wrote:
+> >>>>> On 4/20/26 19:03, Demi Marie Obenour wrote:
+> >>>>>> On 4/20/26 04:49, Christian K=C3=B6nig wrote:
+> >>>>>>> On 4/17/26 21:35, Demi Marie Obenour wrote:
+> >>>>> ...
+> >>>>>>>> Are any of the following reasonable options?
+> >>>>>>>>
+> >>>>>>>> 1. Change the guest kernel to only map (and thus pin) a small su=
+bset
+> >>>>>>>>     of VRAM at any given time.  If unmapped VRAM is accessed the=
+ guest
+> >>>>>>>>     traps the page fault, evicts an old VRAM mapping, and create=
+s a
+> >>>>>>>>     new one.
+> >>>>>>> Yeah, that could potentially work.
+> >>>>>>>
+> >>>>>>> This is basically what we do on the host kernel driver when we ca=
+n't resize the BAR for some reason. In that use case VRAM buffers are shuff=
+led in and out of the CPU accessible window of VRAM on demand.
+> >>>>>> How much is this going to hurt performance?
+> >>>>> Hard to say, resizing the BAR can easily give you 10-15% more perfo=
+rmance on some use cases.
+> >>>>>
+> >>>>> But that involves physically transferring the data using a DMA. For=
+ this solution we basically only have to we basically only have to transfer=
+ a few messages between host and guest.
+> >>>>>
+> >>>>> No idea how performant that is.
+> >>>> In this use-case, 20-30% performance penalties are likely to be
+> >>>> "business as usual".
+> >>> Well that is quite a bit.
+> >>>
+> >>>> Close to native performance would be ideal, but
+> >>>> to be useful it just needs to beat software rendering by a wide marg=
+in,
+> >>>> and not cause data corruption or vulnerabilities.
+> >>> That should still easily be the case, even trivial use cases are mult=
+iple magnitudes faster on GPUs compared to software rendering.
+> >> Makes sense.  If only GPUs supported easy and flexible virtualization =
+the way CPUs do :(.
+> >>
+> >>>>>>> But I have one question: When XEN has a problem handling faults f=
+rom the guest on the host then how does that work for system memory mapping=
+s?
+> >>>>>>>
+> >>>>>>> There is really no difference between VRAM and system memory in t=
+he handling for the GPU driver stack.
+> >>>>>>>
+> >>>>>>> Regards,
+> >>>>>>> Christian.
+> >>>>>> Generally, Xen makes the frontend (usually an unprivileged VM)
+> >>>>>> responsible for providing mappings to the backend (usually the hos=
+t).
+> >>>>>> That is possible with system RAM but not with VRAM, because Xen ha=
+s
+> >>>>>> no awareness of VRAM.  To Xen, VRAM is just a PCI BAR.
+> >>>>> No, that doesn't work with system memory allocations of GPU drivers=
+ either.
+> >>>>>
+> >>>>> We already had it multiple times that people tried to be clever and=
+ incremented the page reference counter on driver allocated system memory a=
+nd were totally surprised that this can result in security issues and data =
+corruption.
+> >>>>>
+> >>>>> I seriously hope that this isn't the case here again. As far as I k=
+now XEN already has support for accessing VMAs with VM_PFN or otherwise I d=
+on't know how driver allocated system memory access could potentially work.
+> >>>>>
+> >>>>> Accessing VRAM is pretty much the same use case as far as I can see=
+.
+> >>>>>
+> >>>>> Regards,
+> >>>>> Christian.
+> >>>> The Xen-native approach would be for system memory allocations to
+> >>>> be made using the Xen driver and then imported into the virtio-GPU
+> >>>> driver via dmabuf.  Is there any chance this could be made to happen=
+?
+> >>> That could be. Adding Pierre-Eric to comment since he knows that use =
+much better than I do.
+> >>>
+> >>>> If it's a lost cause, then how much is the memory overhead of pinnin=
+g
+> >>>> everything ever used in a dmabuf?  It should be possible to account
+> >>>> pinned host memory against a guest's quota, but if that leads to an
+> >>>> unusable system it isn't going to be good.
+> >>> That won't work at all.
+> >>>
+> >>> We have use cases where you *must* migrate a DMA-buf to VRAM or other=
+wise the GPU can't use it.
+> >>>
+> >>> A simple scanout to a monitor is such an use case for example, that i=
+s usually not possible from system memory.
+> >> Direct scanout isn't a concern here.
+> >>
+> >>>> Is supporting page faults in Xen the only solution that will be viab=
+le
+> >>>> long-term, considering the tolerance for very substantial performanc=
+e
+> >>>> overheads compared to native?  AAA gaming isn't the initial goal her=
+e.
+> >>>> Qubes OS already supports PCI passthrough for that.
+> >>> We have AAA gaming working on XEN through native context working for =
+quite a while.
+> >>>
+> >>> Pierre-Eric can tell you more about that.
+> >>>
+> >>> Regards,
+> >>> Christian.
+> >> I've heard of that, but last I checked it required downstream patches
+> >> to Xen, Linux, and QEMU.  I don't know if any of those have been
+> >> upstreamed since, but I believe that upstreaming the Xen and Linux
+> >> patches (or rewriting them and upstreaming the rewritten version) woul=
+d
+> >> be necessary.  Qubes OS (which I don't work for anymore but still want
+> >> to help with this) almost certainly won't be using QEMU for GPU stuff.
+> >
+> > Yeah, our plan is to use xen-vhost-frontend[1] + vhost-device-gpu,
+> > ported/extended/modified as necessary. (I already have
+> > xen-vhost-frontend itself working on amd64 PVH with purely xenbus-based
+> > hotplug/configuration, currently working on cleaning up and submitting
+> > the necessary patches.)
+> >
+> > I'm curious to hear more details about how AMD has it working but last
+> > time I checked, there weren't any missing pieces in Xen or Linux that
+> > we'd need.. The AMD downstream changes were mostly related to QEMU.
+> >
+> > As for the memory management concerns, I would like to remind everyone
+> > once again that the pinning of GPU dmabufs in regular graphics workload=
+s
+> > would be *very* short-term. In GPU paravirtualization (native contexts
+> > or venus or whatever else) the guest mostly operates on *opaque handles=
+*
+> > that refer to buffers owned by the host GPU process. The typical
+> > rendering process (roughly) only involves submitting commands to the GP=
+U
+> > that refer to memory using these handles. Only upon mmap() would a
+> > buffer be pinned/granted to the guest, and those are typically only use=
+d
+> > for *uploads* where the guest immediately does its memcpy() and unmaps
+> > the buffer.
+> >
+> > So I'm not worried about (unintentionally) pinning too much GPU driver
+> > memory.
+> >
+> > In terms of deliberate denial-of-service attacks from the guest to the
+> > host, the only reasonable response is:
+> >
+> > =C2=AF\_(=E3=83=84)_/=C2=AF
+> >
+> > CPU-mapping lots of GPU memory is far from the only DoS vector, the GPU
+> > commands themselves can easily wedge the GPU core in a million ways (an=
+d
+> > last time I checked amdgpu was noooot so good at recovering from hangs)=
+.
+> >
+> >
+> > [1]: https://github.com/vireshk/xen-vhost-frontend
+> >
+> > ~val
+>
+> I think it is best to handle things like GPU crashes by giving the guest
+> some time to unmap its grants, and if that fails, crashing it.  This shou=
+ld
+> be done from a revoke callback, as afterwards the VRAM might get reused.
+>
+> Does amdgpu call revoke callbacks when the device is reset and VRAM
+> is lost?  It seems like it at least ought to.
+>
+> As an aside, Qubes needs to use the process isolation mode of the
+> amdgpu driver.  This means that only one process will be on the GPU
+> at a time, so it _should_ be possible to blow away all GPU-resident
+> state except VRAM without affecting other processes.  Unfortunately,
+> I think AMD GPUs might have HW or FW limitations that prevent that,
+> at least on dGPUs.
 
--- 
-With best wishes
-Dmitry
+The driver has supported per queue resets for a few kernel releases
+now so only the bad app would be affected in that case.
+
+Alex
+
+>
+> It might make sense to recommend KDE with GPU acceleration.  KWin can
+> recover from losing VRAM.
+> --
+> Sincerely,
+> Demi Marie Obenour (she/her/hers)
